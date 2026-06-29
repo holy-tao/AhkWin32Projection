@@ -1,8889 +1,3635 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Handle.ahk
+#Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
+
+#Import ".\JET_INDEX_COLUMN.ahk" { JET_INDEX_COLUMN }
+#Import ".\JET_SETSYSPARAM_A.ahk" { JET_SETSYSPARAM_A }
+#Import ".\JET_TABLECREATE_W.ahk" { JET_TABLECREATE_W }
+#Import ".\JET_INSTANCE_INFO_A.ahk" { JET_INSTANCE_INFO_A }
+#Import ".\JET_SESID.ahk" { JET_SESID }
+#Import ".\JET_CONVERT_W.ahk" { JET_CONVERT_W }
+#Import ".\JET_ENUMCOLUMNID.ahk" { JET_ENUMCOLUMNID }
+#Import ".\JET_COMMIT_ID.ahk" { JET_COMMIT_ID }
+#Import "..\StructuredStorage\JET_TABLEID.ahk" { JET_TABLEID }
+#Import ".\JET_LS.ahk" { JET_LS }
+#Import ".\JET_INDEXRANGE.ahk" { JET_INDEXRANGE }
+#Import ".\JET_INDEX_RANGE.ahk" { JET_INDEX_RANGE }
+#Import ".\JET_RETINFO.ahk" { JET_RETINFO }
+#Import ".\JET_RECPOS.ahk" { JET_RECPOS }
+#Import ".\JET_INDEXCREATE_W.ahk" { JET_INDEXCREATE_W }
+#Import ".\JET_OPENTEMPORARYTABLE.ahk" { JET_OPENTEMPORARYTABLE }
+#Import ".\JET_INDEXCREATE2_W.ahk" { JET_INDEXCREATE2_W }
+#Import ".\JET_TABLECREATE3_A.ahk" { JET_TABLECREATE3_A }
+#Import ".\JET_TABLECREATE2_A.ahk" { JET_TABLECREATE2_A }
+#Import ".\JET_UNICODEINDEX.ahk" { JET_UNICODEINDEX }
+#Import ".\JET_INDEXCREATE3_A.ahk" { JET_INDEXCREATE3_A }
+#Import ".\JET_TABLECREATE2_W.ahk" { JET_TABLECREATE2_W }
+#Import ".\JET_RECORDLIST.ahk" { JET_RECORDLIST }
+#Import ".\JET_RSTINFO_A.ahk" { JET_RSTINFO_A }
+#Import ".\JET_INSTANCE.ahk" { JET_INSTANCE }
+#Import ".\JET_INDEXCREATE_A.ahk" { JET_INDEXCREATE_A }
+#Import ".\JET_RECSIZE.ahk" { JET_RECSIZE }
+#Import ".\JET_TABLECREATE3_W.ahk" { JET_TABLECREATE3_W }
+#Import ".\JET_OSSNAPID.ahk" { JET_OSSNAPID }
+#Import "..\StructuredStorage\JET_HANDLE.ahk" { JET_HANDLE }
+#Import ".\JET_RETRIEVECOLUMN.ahk" { JET_RETRIEVECOLUMN }
+#Import ".\JET_OPENTEMPORARYTABLE2.ahk" { JET_OPENTEMPORARYTABLE2 }
+#Import ".\JET_SETINFO.ahk" { JET_SETINFO }
+#Import ".\JET_TABLECREATE4_A.ahk" { JET_TABLECREATE4_A }
+#Import ".\JET_COLUMNDEF.ahk" { JET_COLUMNDEF }
+#Import ".\JET_RSTINFO_W.ahk" { JET_RSTINFO_W }
+#Import ".\JET_INDEXCREATE2_A.ahk" { JET_INDEXCREATE2_A }
+#Import ".\JET_LOGINFO_A.ahk" { JET_LOGINFO_A }
+#Import ".\JET_INDEXCREATE3_W.ahk" { JET_INDEXCREATE3_W }
+#Import ".\JET_CONVERT_A.ahk" { JET_CONVERT_A }
+#Import ".\JET_SETCOLUMN.ahk" { JET_SETCOLUMN }
+#Import ".\JET_INDEXID.ahk" { JET_INDEXID }
+#Import ".\JET_SETSYSPARAM_W.ahk" { JET_SETSYSPARAM_W }
+#Import ".\JET_LOGINFO_W.ahk" { JET_LOGINFO_W }
+#Import "..\StructuredStorage\JET_API_PTR.ahk" { JET_API_PTR }
+#Import ".\JET_RSTMAP_A.ahk" { JET_RSTMAP_A }
+#Import ".\JET_TABLECREATE_A.ahk" { JET_TABLECREATE_A }
+#Import ".\JET_RSTMAP_W.ahk" { JET_RSTMAP_W }
+#Import ".\JET_ENUMCOLUMN.ahk" { JET_ENUMCOLUMN }
+#Import ".\JET_INSTANCE_INFO_W.ahk" { JET_INSTANCE_INFO_W }
+#Import ".\JET_RECSIZE2.ahk" { JET_RECSIZE2 }
+#Import ".\JET_TABLECREATE4_W.ahk" { JET_TABLECREATE4_W }
 
 /**
  * @namespace Windows.Win32.Storage.Jet
  */
-class Jet {
 
-;@region Constants
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_VERSION => 1280
-
-    /**
-     * @type {String}
-     */
-    static JET_wszConfigStoreReadControl => "CsReadControl"
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitConfigStoreReadControlInhibitRead => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitConfigStoreReadControlDisableAll => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitConfigStoreReadControlDefault => 0
-
-    /**
-     * @type {String}
-     */
-    static JET_wszConfigStoreRelPathSysParamDefault => "SysParamDefault"
-
-    /**
-     * @type {String}
-     */
-    static JET_wszConfigStoreRelPathSysParamOverride => "SysParamOverride"
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_efvUseEngineDefault => 1073741825
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_efvUsePersistedFormat => 1073741826
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_efvAllowHigherPersistedFormat => 1090519040
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_efvWindows19H1Rtm => 8920
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_efvWindows10v2004 => 9180
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_efvWindowsServer2022 => 9360
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_efvWindows11v21H2 => 9400
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_efvWindows11v22H2 => 9480
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_efvWindows11v23H2 => 9600
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitDefragmentBatchStart => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitDefragmentBatchStop => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitDefragmentAvailSpaceTreesOnly => 64
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitDefragmentNoPartialMerges => 128
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitDefragmentBTree => 256
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_cbtypNull => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_cbtypFinalize => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_cbtypBeforeInsert => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_cbtypAfterInsert => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_cbtypBeforeReplace => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_cbtypAfterReplace => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_cbtypBeforeDelete => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_cbtypAfterDelete => 64
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_cbtypUserDefinedDefaultValue => 128
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_cbtypOnlineDefragCompleted => 256
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_cbtypFreeCursorLS => 512
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_cbtypFreeTableLS => 1024
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableInfoUpdatable => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableInfoBookmark => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableInfoRollback => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitObjectSystem => 2147483648
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitObjectTableFixedDDL => 1073741824
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitObjectTableTemplate => 536870912
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitObjectTableDerived => 268435456
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitObjectTableNoFixedVarColumnsInDerivedTables => 67108864
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static cObjectInfoCols => 9
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static cColumnInfoCols => 14
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static cIndexInfoCols => 15
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_MAX_COMPUTERNAME_LENGTH => 15
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitDurableCommitCallbackLogUnavailable => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_cbBookmarkMost => 256
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_cbNameMost => 64
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_cbFullNameMost => 255
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_cbColumnLVPageOverhead => 82
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_cbLVDefaultValueMost => 255
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_cbColumnMost => 255
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_cbLVColumnMost => 2147483647
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_cbKeyMost8KBytePage => 2000
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_cbKeyMost4KBytePage => 1000
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_cbKeyMost2KBytePage => 500
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_cbKeyMostMin => 255
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_cbKeyMost => 255
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_cbLimitKeyMost => 256
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_cbPrimaryKeyMost => 255
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_cbSecondaryKeyMost => 255
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_ccolKeyMost => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_ccolMost => 65248
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_ccolFixedMost => 127
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_ccolVarMost => 128
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_ccolTaggedMost => 64993
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_EventLoggingDisable => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_EventLoggingLevelMin => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_EventLoggingLevelLow => 25
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_EventLoggingLevelMedium => 50
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_EventLoggingLevelHigh => 75
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_EventLoggingLevelMax => 100
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_IOPriorityNormal => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_IOPriorityLow => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_configDefault => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_configRemoveQuotas => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_configLowDiskFootprint => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_configMediumDiskFootprint => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_configLowMemory => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_configDynamicMediumMemory => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_configLowPower => 64
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_configSSDProfileIO => 128
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_configRunSilent => 256
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_configUnthrottledMemory => 512
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_configHighConcurrencyScaling => 1024
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramSystemPath => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramTempPath => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramLogFilePath => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramBaseName => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramEventSource => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramMaxSessions => 5
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramMaxOpenTables => 6
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramPreferredMaxOpenTables => 7
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramCachedClosedTables => 125
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramMaxCursors => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramMaxVerPages => 9
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramPreferredVerPages => 63
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramGlobalMinVerPages => 81
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramVersionStoreTaskQueueMax => 105
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramMaxTemporaryTables => 10
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramLogFileSize => 11
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramLogBuffers => 12
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramWaitLogFlush => 13
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramLogCheckpointPeriod => 14
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramLogWaitingUserMax => 15
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramCommitDefault => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramCircularLog => 17
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramDbExtensionSize => 18
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramPageTempDBMin => 19
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramPageFragment => 20
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramEnableFileCache => 126
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramVerPageSize => 128
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramConfiguration => 129
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramEnableAdvanced => 130
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramMaxColtyp => 131
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramBatchIOBufferMax => 22
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramCacheSize => 41
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramCacheSizeMin => 60
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramCacheSizeMax => 23
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramCheckpointDepthMax => 24
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramLRUKCorrInterval => 25
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramLRUKHistoryMax => 26
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramLRUKPolicy => 27
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramLRUKTimeout => 28
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramLRUKTrxCorrInterval => 29
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramOutstandingIOMax => 30
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramStartFlushThreshold => 31
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramStopFlushThreshold => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramEnableViewCache => 127
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramCheckpointIOMax => 135
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramTableClass1Name => 137
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramTableClass2Name => 138
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramTableClass3Name => 139
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramTableClass4Name => 140
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramTableClass5Name => 141
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramTableClass6Name => 142
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramTableClass7Name => 143
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramTableClass8Name => 144
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramTableClass9Name => 145
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramTableClass10Name => 146
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramTableClass11Name => 147
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramTableClass12Name => 148
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramTableClass13Name => 149
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramTableClass14Name => 150
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramTableClass15Name => 151
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramIOPriority => 152
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramRecovery => 34
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramEnableOnlineDefrag => 35
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramCheckFormatWhenOpenFail => 44
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramEnableTempTableVersioning => 46
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramIgnoreLogVersion => 47
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramDeleteOldLogs => 48
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramEventSourceKey => 49
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramNoInformationEvent => 50
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramEventLoggingLevel => 51
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramDeleteOutOfRangeLogs => 52
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramAccessDeniedRetryPeriod => 53
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramEnableIndexChecking => 45
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramEnableIndexCleanup => 54
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramDatabasePageSize => 64
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramDisableCallbacks => 65
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramLogFileCreateAsynch => 69
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramErrorToString => 70
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramZeroDatabaseDuringBackup => 71
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramUnicodeIndexDefault => 72
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramRuntimeCallback => 73
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramCleanupMismatchedLogFiles => 77
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramRecordUpgradeDirtyLevel => 78
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramOSSnapshotTimeout => 82
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramExceptionAction => 98
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramEventLogCache => 99
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramCreatePathIfNotExist => 100
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramPageHintCacheSize => 101
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramOneDatabasePerSession => 102
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramMaxInstances => 104
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramDisablePerfmon => 107
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramIndexTuplesLengthMin => 110
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramIndexTuplesLengthMax => 111
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramIndexTuplesToIndexMax => 112
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramAlternateDatabaseRecoveryPath => 113
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramIndexTupleIncrement => 132
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramIndexTupleStart => 133
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramKeyMost => 134
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramLegacyFileNames => 136
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramEnablePersistedCallbacks => 156
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramWaypointLatency => 153
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramDefragmentSequentialBTrees => 160
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramDefragmentSequentialBTreesDensityCheckFrequency => 161
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramIOThrottlingTimeQuanta => 162
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramLVChunkSizeMost => 163
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramMaxCoalesceReadSize => 164
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramMaxCoalesceWriteSize => 165
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramMaxCoalesceReadGapSize => 166
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramMaxCoalesceWriteGapSize => 167
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramEnableDBScanInRecovery => 169
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramDbScanThrottle => 170
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramDbScanIntervalMinSec => 171
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramDbScanIntervalMaxSec => 172
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramCachePriority => 177
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramMaxTransactionSize => 178
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramPrereadIOMax => 179
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramEnableDBScanSerialization => 180
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramHungIOThreshold => 181
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramHungIOActions => 182
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramMinDataForXpress => 183
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramEnableShrinkDatabase => 184
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramProcessFriendlyName => 186
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramDurableCommitCallback => 187
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramEnableSqm => 188
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramConfigStoreSpec => 189
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramEngineFormatVersion => 194
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramUseFlushForWriteDurability => 214
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramEnableRBS => 215
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramRBSFilePath => 216
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramPerfmonRefreshInterval => 217
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramEnableBlockCache => 218
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramTraceFlags => 223
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_paramMaxValueInvalid => 232
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_sesparamCommitDefault => 4097
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_sesparamTransactionLevel => 4099
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_sesparamOperationContext => 4100
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_sesparamCorrelationID => 4101
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_sesparamMaxValueInvalid => 4111
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitESE98FileNames => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitEightDotThreeSoftCompat => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitHungIOEvent => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitShrinkDatabaseOff => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitShrinkDatabaseOn => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitShrinkDatabaseRealtime => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitShrinkDatabaseTrim => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitReplayIgnoreMissingDB => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitRecoveryWithoutUndo => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTruncateLogsAfterRecovery => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitReplayMissingMapEntryDB => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitLogStreamMustExist => 64
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitReplayIgnoreLostLogs => 128
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitKeepDbAttachedAtEndOfRecovery => 4096
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTermComplete => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTermAbrupt => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTermStopBackup => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTermDirty => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitIdleFlushBuffers => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitIdleCompact => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitIdleStatus => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitDbReadOnly => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitDbExclusive => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitDbDeleteCorruptIndexes => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitDbDeleteUnicodeIndexes => 1024
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitDbUpgrade => 512
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitDbEnableBackgroundMaintenance => 2048
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitDbPurgeCacheOnAttach => 4096
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitForceDetach => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitDbRecoveryOff => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitDbShadowingOff => 128
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitDbOverwriteExisting => 512
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitBackupIncremental => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitBackupAtomic => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitBackupSnapshot => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitBackupEndNormal => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitBackupEndAbort => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitBackupTruncateDone => 256
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableCreateFixedDDL => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableCreateTemplateTable => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableCreateNoFixedVarColumnsInDerivedTables => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableCreateImmutableStructure => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitColumnFixed => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitColumnTagged => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitColumnNotNULL => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitColumnVersion => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitColumnAutoincrement => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitColumnUpdatable => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitColumnTTKey => 64
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitColumnTTDescending => 128
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitColumnMultiValued => 1024
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitColumnEscrowUpdate => 2048
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitColumnUnversioned => 4096
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitColumnMaybeNull => 8192
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitColumnFinalize => 16384
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitColumnUserDefinedDefault => 32768
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitColumnDeleteOnZero => 131072
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitColumnCompressed => 524288
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitDeleteColumnIgnoreTemplateColumns => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitMoveFirst => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitNoMove => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitNewKey => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitStrLimit => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitSubStrLimit => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitNormalizedKey => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitKeyDataZeroLength => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitFullColumnStartLimit => 256
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitFullColumnEndLimit => 512
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitPartialColumnStartLimit => 1024
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitPartialColumnEndLimit => 2048
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitRangeInclusive => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitRangeUpperLimit => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitRangeInstantDuration => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitRangeRemove => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitReadLock => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitWriteLock => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_MoveFirst => 2147483648
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_MovePrevious => -1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_MoveLast => 2147483647
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitMoveKeyNE => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitSeekEQ => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitSeekLT => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitSeekLE => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitSeekGE => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitSeekGT => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitSetIndexRange => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitCheckUniqueness => 64
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitBookmarkPermitVirtualCurrency => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitIndexColumnMustBeNull => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitIndexColumnMustBeNonNull => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitRecordInIndex => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitRecordNotInIndex => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitIndexUnique => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitIndexPrimary => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitIndexDisallowNull => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitIndexIgnoreNull => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitIndexIgnoreAnyNull => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitIndexIgnoreFirstNull => 64
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitIndexLazyFlush => 128
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitIndexEmpty => 256
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitIndexUnversioned => 512
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitIndexSortNullsHigh => 1024
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitIndexUnicode => 2048
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitIndexTuples => 4096
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitIndexTupleLimits => 8192
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitIndexCrossProduct => 16384
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitIndexKeyMost => 32768
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitIndexDisallowTruncation => 65536
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitIndexNestedTable => 131072
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitIndexDotNetGuid => 262144
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitIndexImmutableStructure => 524288
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitKeyAscending => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitKeyDescending => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableDenyWrite => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableDenyRead => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableReadOnly => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableUpdatable => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTablePermitDDL => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableNoCache => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTablePreread => 64
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableOpportuneRead => 128
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableSequential => 32768
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableClassMask => 2031616
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableClassNone => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableClass1 => 65536
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableClass2 => 131072
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableClass3 => 196608
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableClass4 => 262144
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableClass5 => 327680
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableClass6 => 393216
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableClass7 => 458752
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableClass8 => 524288
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableClass9 => 589824
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableClass10 => 655360
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableClass11 => 720896
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableClass12 => 786432
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableClass13 => 851968
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableClass14 => 917504
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTableClass15 => 983040
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitLSReset => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitLSCursor => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitLSTable => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitPrereadForward => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitPrereadBackward => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitPrereadFirstPage => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitPrereadNormalizedKey => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTTIndexed => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTTUnique => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTTUpdatable => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTTScrollable => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTTSortNullsHigh => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTTForceMaterialization => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTTErrorOnDuplicateInsertion => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTTForwardOnly => 64
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTTIntrinsicLVsOnly => 128
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTTDotNetGuid => 256
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTTMaterializeBBT => 512
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitSetAppendLV => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitSetOverwriteLV => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitSetSizeLV => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitSetZeroLength => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitSetSeparateLV => 64
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitSetUniqueMultiValues => 128
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitSetUniqueNormalizedMultiValues => 256
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitSetRevertToDefaultValue => 512
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitSetIntrinsicLV => 1024
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitSetUncompressed => 65536
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitSetCompressed => 131072
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitSetContiguousLV => 262144
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitSpaceHintsUtilizeParentSpace => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitCreateHintAppendSequential => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitCreateHintHotpointSequential => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitRetrieveHintReserve1 => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitRetrieveHintTableScanForward => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitRetrieveHintTableScanBackward => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitRetrieveHintReserve2 => 64
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitRetrieveHintReserve3 => 128
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitDeleteHintTableSequential => 256
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_prepInsert => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_prepReplace => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_prepCancel => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_prepReplaceNoLock => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_prepInsertCopy => 5
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_prepInsertCopyDeleteOriginal => 7
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_prepInsertCopyReplaceOriginal => 9
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_sqmDisable => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_sqmEnable => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_sqmFromCEIP => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitUpdateCheckESE97Compatibility => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitEscrowNoRollback => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitRetrieveCopy => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitRetrieveFromIndex => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitRetrieveFromPrimaryBookmark => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitRetrieveTag => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitRetrieveNull => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitRetrieveIgnoreDefault => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitRetrieveTuple => 2048
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitZeroLength => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitEnumerateCopy => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitEnumerateIgnoreDefault => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitEnumeratePresenceOnly => 131072
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitEnumerateTaggedOnly => 262144
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitEnumerateCompressOutput => 524288
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitEnumerateIgnoreUserDefinedDefault => 1048576
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitEnumerateInRecordOnly => 2097152
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitRecordSizeInCopyBuffer => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitRecordSizeRunningTotal => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitRecordSizeLocal => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitTransactionReadOnly => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitCommitLazyFlush => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitWaitLastLevel0Commit => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitWaitAllLevel0Commit => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitForceNewLog => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitRollbackAll => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitIncrementalSnapshot => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitCopySnapshot => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitContinueAfterThaw => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitExplicitPrepare => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitAllDatabasesSnapshot => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitAbortSnapshot => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_DbInfoFilename => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_DbInfoConnect => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_DbInfoCountry => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_DbInfoLCID => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_DbInfoLangid => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_DbInfoCp => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_DbInfoCollate => 5
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_DbInfoOptions => 6
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_DbInfoTransactions => 7
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_DbInfoVersion => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_DbInfoIsam => 9
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_DbInfoFilesize => 10
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_DbInfoSpaceOwned => 11
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_DbInfoSpaceAvailable => 12
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_DbInfoUpgrade => 13
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_DbInfoMisc => 14
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_DbInfoDBInUse => 15
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_DbInfoPageSize => 17
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_DbInfoFileType => 19
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_DbInfoFilesizeOnDisk => 21
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_dbstateJustCreated => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_dbstateDirtyShutdown => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_dbstateCleanShutdown => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_dbstateBeingConverted => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_dbstateForceDetach => 5
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_filetypeUnknown => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_filetypeDatabase => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_filetypeLog => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_filetypeCheckpoint => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_filetypeTempDatabase => 5
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_filetypeFlushMap => 7
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_coltypNil => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_coltypBit => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_coltypUnsignedByte => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_coltypShort => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_coltypLong => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_coltypCurrency => 5
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_coltypIEEESingle => 6
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_coltypIEEEDouble => 7
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_coltypDateTime => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_coltypBinary => 9
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_coltypText => 10
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_coltypLongBinary => 11
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_coltypLongText => 12
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_coltypMax => 13
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_coltypSLV => 13
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_coltypUnsignedLong => 14
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_coltypLongLong => 15
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_coltypGUID => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_coltypUnsignedShort => 17
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_coltypUnsignedLongLong => 18
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_ColInfoGrbitNonDerivedColumnsOnly => 2147483648
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_ColInfoGrbitMinimalInfo => 1073741824
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_ColInfoGrbitSortByColumnid => 536870912
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_objtypNil => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_objtypTable => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitCompactStats => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitCompactRepair => 64
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_snpRepair => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_snpCompact => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_snpRestore => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_snpBackup => 9
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_snpUpgrade => 10
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_snpScrub => 11
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_snpUpgradeRecordFormat => 12
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_sntBegin => 5
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_sntRequirements => 7
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_sntProgress => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_sntComplete => 6
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_sntFail => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_ExceptionMsgBox => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_ExceptionNone => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_ExceptionFailFast => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_OnlineDefragDisable => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_OnlineDefragAllOBSOLETE => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_OnlineDefragDatabases => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_OnlineDefragSpaceTrees => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_OnlineDefragAll => 65535
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitResizeDatabaseOnlyGrow => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitResizeDatabaseOnlyShrink => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitStopServiceAll => 0
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitStopServiceBackgroundUserTasks => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitStopServiceQuiesceCaches => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitStopServiceResume => 2147483648
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errSuccess => 0
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_wrnNyi => -1
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errRfsFailure => -100
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errRfsNotArmed => -101
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errFileClose => -102
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errOutOfThreads => -103
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errTooManyIO => -105
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errTaskDropped => -106
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInternalError => -107
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDisabledFunctionality => -112
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errUnloadableOSFunctionality => -113
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDatabaseBufferDependenciesCorrupted => -255
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnRemainingVersions => 321
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errPreviousVersion => -322
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errPageBoundary => -323
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errKeyBoundary => -324
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errBadPageLink => -327
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errBadBookmark => -328
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errNTSystemCallFailed => -334
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errBadParentPageLink => -338
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errSPAvailExtCacheOutOfSync => -340
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errSPAvailExtCorrupted => -341
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errSPAvailExtCacheOutOfMemory => -342
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errSPOwnExtCorrupted => -343
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDbTimeCorrupted => -344
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnUniqueKey => 345
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errKeyTruncated => -346
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDatabaseLeakInSpace => -348
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errBadEmptyPage => -351
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static wrnBTNotVisibleRejected => 352
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static wrnBTNotVisibleAccumulated => 353
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errBadLineCount => -354
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errPageTagCorrupted => -357
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errNodeCorrupted => -358
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errBBTNodeCorrupted => -364
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errBBTBuffCorrupted => -365
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnSeparateLongValue => 406
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errKeyTooBig => -408
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errCannotSeparateIntrinsicLV => -416
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errSeparatedLongValue => -421
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errMustBeSeparateLongValue => -423
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidPreread => -424
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidLoggedOperation => -500
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errLogFileCorrupt => -501
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errNoBackupDirectory => -503
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errBackupDirectoryNotEmpty => -504
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errBackupInProgress => -505
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errRestoreInProgress => -506
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errMissingPreviousLogFile => -509
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errLogWriteFail => -510
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errLogDisabledDueToRecoveryFailure => -511
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errCannotLogDuringRecoveryRedo => -512
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errLogGenerationMismatch => -513
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errBadLogVersion => -514
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidLogSequence => -515
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errLoggingDisabled => -516
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errLogBufferTooSmall => -517
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errLogSequenceEnd => -519
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errNoBackup => -520
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidBackupSequence => -521
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errBackupNotAllowedYet => -523
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDeleteBackupFileFail => -524
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errMakeBackupDirectoryFail => -525
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidBackup => -526
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errRecoveredWithErrors => -527
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errMissingLogFile => -528
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errLogDiskFull => -529
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errBadLogSignature => -530
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errBadDbSignature => -531
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errBadCheckpointSignature => -532
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errCheckpointCorrupt => -533
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errMissingPatchPage => -534
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errBadPatchPage => -535
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errRedoAbruptEnded => -536
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errPatchFileMissing => -538
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDatabaseLogSetMismatch => -539
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDatabaseStreamingFileMismatch => -540
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errLogFileSizeMismatch => -541
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errCheckpointFileNotFound => -542
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errRequiredLogFilesMissing => -543
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errSoftRecoveryOnBackupDatabase => -544
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errLogFileSizeMismatchDatabasesConsistent => -545
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errLogSectorSizeMismatch => -546
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errLogSectorSizeMismatchDatabasesConsistent => -547
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errLogSequenceEndDatabasesConsistent => -548
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errStreamingDataNotLogged => -549
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDatabaseDirtyShutdown => -550
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDatabaseInconsistent => -550
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errConsistentTimeMismatch => -551
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDatabasePatchFileMismatch => -552
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errEndingRestoreLogTooLow => -553
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errStartingRestoreLogTooHigh => -554
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errGivenLogFileHasBadSignature => -555
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errGivenLogFileIsNotContiguous => -556
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errMissingRestoreLogFiles => -557
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnExistingLogFileHasBadSignature => 558
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnExistingLogFileIsNotContiguous => 559
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errMissingFullBackup => -560
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errBadBackupDatabaseSize => -561
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDatabaseAlreadyUpgraded => -562
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDatabaseIncompleteUpgrade => -563
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnSkipThisRecord => 564
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errMissingCurrentLogFiles => -565
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDbTimeTooOld => -566
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDbTimeTooNew => -567
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errMissingFileToBackup => -569
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errLogTornWriteDuringHardRestore => -570
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errLogTornWriteDuringHardRecovery => -571
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errLogCorruptDuringHardRestore => -573
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errLogCorruptDuringHardRecovery => -574
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errMustDisableLoggingForDbUpgrade => -575
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errBadRestoreTargetInstance => -577
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnTargetInstanceRunning => 578
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errRecoveredWithoutUndo => -579
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDatabasesNotFromSameSnapshot => -580
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errSoftRecoveryOnSnapshot => -581
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errCommittedLogFilesMissing => -582
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errSectorSizeNotSupported => -583
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errRecoveredWithoutUndoDatabasesConsistent => -584
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnCommittedLogFilesLost => 585
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errCommittedLogFileCorrupt => -586
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnCommittedLogFilesRemoved => 587
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnFinishWithUndo => 588
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errLogSequenceChecksumMismatch => -590
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnDatabaseRepaired => 595
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errPageInitializedMismatch => -596
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errUnicodeTranslationBufferTooSmall => -601
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errUnicodeTranslationFail => -602
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errUnicodeNormalizationNotSupported => -603
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errUnicodeLanguageValidationFailure => -604
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errExistingLogFileHasBadSignature => -610
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errExistingLogFileIsNotContiguous => -611
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errLogReadVerifyFailure => -612
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errCheckpointDepthTooDeep => -614
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errRestoreOfNonBackupDatabase => -615
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errLogFileNotCopied => -616
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errTransactionTooLong => -618
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errEngineFormatVersionNoLongerSupportedTooLow => -619
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errEngineFormatVersionNotYetImplementedTooHigh => -620
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errEngineFormatVersionParamTooLowForRequestedFeature => -621
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errEngineFormatVersionSpecifiedTooLowForLogVersion => -622
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errEngineFormatVersionSpecifiedTooLowForDatabaseVersion => -623
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDbTimeBeyondMaxRequired => -625
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errLogOperationInconsistentWithDatabase => -626
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInsertKeyOutOfOrder => -627
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errBackupAbortByServer => -801
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidGrbit => -900
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errTermInProgress => -1000
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errFeatureNotAvailable => -1001
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidName => -1002
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidParameter => -1003
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnColumnNull => 1004
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnBufferTruncated => 1006
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnDatabaseAttached => 1007
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDatabaseFileReadOnly => -1008
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnSortOverflow => 1009
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidDatabaseId => -1010
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errOutOfMemory => -1011
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errOutOfDatabaseSpace => -1012
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errOutOfCursors => -1013
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errOutOfBuffers => -1014
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errTooManyIndexes => -1015
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errTooManyKeys => -1016
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errRecordDeleted => -1017
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errReadVerifyFailure => -1018
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errPageNotInitialized => -1019
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errOutOfFileHandles => -1020
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDiskReadVerificationFailure => -1021
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDiskIO => -1022
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidPath => -1023
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidSystemPath => -1024
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidLogDirectory => -1025
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errRecordTooBig => -1026
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errTooManyOpenDatabases => -1027
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidDatabase => -1028
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errNotInitialized => -1029
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errAlreadyInitialized => -1030
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInitInProgress => -1031
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errFileAccessDenied => -1032
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errBufferTooSmall => -1038
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnSeekNotEqual => 1039
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errTooManyColumns => -1040
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errContainerNotEmpty => -1043
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidFilename => -1044
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidBookmark => -1045
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errColumnInUse => -1046
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidBufferSize => -1047
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errColumnNotUpdatable => -1048
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errIndexInUse => -1051
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errLinkNotSupported => -1052
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errNullKeyDisallowed => -1053
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errNotInTransaction => -1054
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnNoErrorInfo => 1055
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errMustRollback => -1057
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnNoIdleActivity => 1058
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errTooManyActiveUsers => -1059
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidCountry => -1061
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidLanguageId => -1062
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidCodePage => -1063
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidLCMapStringFlags => -1064
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errVersionStoreEntryTooBig => -1065
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errVersionStoreOutOfMemoryAndCleanupTimedOut => -1066
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnNoWriteLock => 1067
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnColumnSetNull => 1068
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errVersionStoreOutOfMemory => -1069
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errCannotIndex => -1071
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errRecordNotDeleted => -1072
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errTooManyMempoolEntries => -1073
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errOutOfObjectIDs => -1074
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errOutOfLongValueIDs => -1075
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errOutOfAutoincrementValues => -1076
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errOutOfDbtimeValues => -1077
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errOutOfSequentialIndexValues => -1078
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errRunningInOneInstanceMode => -1080
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errRunningInMultiInstanceMode => -1081
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errSystemParamsAlreadySet => -1082
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errSystemPathInUse => -1083
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errLogFilePathInUse => -1084
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errTempPathInUse => -1085
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInstanceNameInUse => -1086
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errSystemParameterConflict => -1087
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInstanceUnavailable => -1090
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDatabaseUnavailable => -1091
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInstanceUnavailableDueToFatalLogDiskFull => -1092
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidSesparamId => -1093
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errTooManyRecords => -1094
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidDbparamId => -1095
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errOutOfSessions => -1101
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errWriteConflict => -1102
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errTransTooDeep => -1103
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidSesid => -1104
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errWriteConflictPrimaryIndex => -1105
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInTransaction => -1108
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errRollbackRequired => -1109
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errTransReadOnly => -1110
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errSessionWriteConflict => -1111
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errRecordTooBigForBackwardCompatibility => -1112
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errCannotMaterializeForwardOnlySort => -1113
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errSesidTableIdMismatch => -1114
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidInstance => -1115
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDirtyShutdown => -1116
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errReadPgnoVerifyFailure => -1118
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errReadLostFlushVerifyFailure => -1119
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errFileSystemCorruption => -1121
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnShrinkNotPossible => 1122
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errRecoveryVerifyFailure => -1123
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errFilteredMoveNotSupported => -1124
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDatabaseDuplicate => -1201
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDatabaseInUse => -1202
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDatabaseNotFound => -1203
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDatabaseInvalidName => -1204
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDatabaseInvalidPages => -1205
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDatabaseCorrupted => -1206
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDatabaseLocked => -1207
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errCannotDisableVersioning => -1208
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidDatabaseVersion => -1209
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDatabase200Format => -1210
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDatabase400Format => -1211
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDatabase500Format => -1212
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errPageSizeMismatch => -1213
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errTooManyInstances => -1214
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDatabaseSharingViolation => -1215
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errAttachedDatabaseMismatch => -1216
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDatabaseInvalidPath => -1217
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDatabaseIdInUse => -1218
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errForceDetachNotAllowed => -1219
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errCatalogCorrupted => -1220
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errPartiallyAttachedDB => -1221
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDatabaseSignInUse => -1222
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDatabaseCorruptedNoRepair => -1224
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidCreateDbVersion => -1225
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDatabaseNotReady => -1230
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDatabaseAttachedForRecovery => -1231
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errTransactionsNotReadyDuringRecovery => -1232
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnTableEmpty => 1301
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errTableLocked => -1302
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errTableDuplicate => -1303
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errTableInUse => -1304
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errObjectNotFound => -1305
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDensityInvalid => -1307
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errTableNotEmpty => -1308
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidTableId => -1310
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errTooManyOpenTables => -1311
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errIllegalOperation => -1312
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errTooManyOpenTablesAndCleanupTimedOut => -1313
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errObjectDuplicate => -1314
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidObject => -1316
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errCannotDeleteTempTable => -1317
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errCannotDeleteSystemTable => -1318
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errCannotDeleteTemplateTable => -1319
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errExclusiveTableLockRequired => -1322
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errFixedDDL => -1323
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errFixedInheritedDDL => -1324
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errCannotNestDDL => -1325
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDDLNotInheritable => -1326
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnTableInUseBySystem => 1327
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidSettings => -1328
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errClientRequestToStopJetService => -1329
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errCannotAddFixedVarColumnToDerivedTable => -1330
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errIndexCantBuild => -1401
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errIndexHasPrimary => -1402
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errIndexDuplicate => -1403
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errIndexNotFound => -1404
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errIndexMustStay => -1405
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errIndexInvalidDef => -1406
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidCreateIndex => -1409
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errTooManyOpenIndexes => -1410
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errMultiValuedIndexViolation => -1411
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errIndexBuildCorrupted => -1412
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errPrimaryIndexCorrupted => -1413
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errSecondaryIndexCorrupted => -1414
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnCorruptIndexDeleted => 1415
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidIndexId => -1416
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnPrimaryIndexOutOfDate => 1417
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnSecondaryIndexOutOfDate => 1418
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errIndexTuplesSecondaryIndexOnly => -1430
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errIndexTuplesTooManyColumns => -1431
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errIndexTuplesOneColumnOnly => -1431
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errIndexTuplesNonUniqueOnly => -1432
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errIndexTuplesTextBinaryColumnsOnly => -1433
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errIndexTuplesTextColumnsOnly => -1433
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errIndexTuplesVarSegMacNotAllowed => -1434
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errIndexTuplesInvalidLimits => -1435
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errIndexTuplesCannotRetrieveFromIndex => -1436
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errIndexTuplesKeyTooSmall => -1437
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidLVChunkSize => -1438
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errColumnCannotBeEncrypted => -1439
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errCannotIndexOnEncryptedColumn => -1440
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errColumnLong => -1501
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errColumnNoChunk => -1502
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errColumnDoesNotFit => -1503
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errNullInvalid => -1504
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errColumnIndexed => -1505
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errColumnTooBig => -1506
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errColumnNotFound => -1507
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errColumnDuplicate => -1508
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errMultiValuedColumnMustBeTagged => -1509
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errColumnRedundant => -1510
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidColumnType => -1511
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnColumnMaxTruncated => 1512
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errTaggedNotNULL => -1514
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errNoCurrentIndex => -1515
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errKeyIsMade => -1516
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errBadColumnId => -1517
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errBadItagSequence => -1518
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errColumnInRelationship => -1519
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnCopyLongValue => 1520
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errCannotBeTagged => -1521
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDefaultValueTooBig => -1524
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errMultiValuedDuplicate => -1525
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errLVCorrupted => -1526
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errMultiValuedDuplicateAfterTruncation => -1528
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDerivedColumnCorruption => -1529
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidPlaceholderColumn => -1530
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnColumnSkipped => 1531
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnColumnNotLocal => 1532
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnColumnMoreTags => 1533
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnColumnTruncated => 1534
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnColumnPresent => 1535
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnColumnSingleValue => 1536
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnColumnDefault => 1537
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errColumnCannotBeCompressed => -1538
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnColumnNotInRecord => 1539
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errColumnNoEncryptionKey => -1540
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnColumnReference => 1541
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errRecordNotFound => -1601
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errRecordNoCopy => -1602
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errNoCurrentRecord => -1603
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errRecordPrimaryChanged => -1604
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errKeyDuplicate => -1605
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errAlreadyPrepared => -1607
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errKeyNotMade => -1608
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errUpdateNotPrepared => -1609
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnDataHasChanged => 1610
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDataHasChanged => -1611
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnKeyChanged => 1618
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errLanguageNotSupported => -1619
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDecompressionFailed => -1620
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errUpdateMustVersion => -1621
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDecryptionFailed => -1622
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errEncryptionBadItag => -1623
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errSetAutoIncrementTooHigh => -1624
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errAutoIncrementNotSet => -1625
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errTooManySorts => -1701
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidOnSort => -1702
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errTempFileOpenError => -1803
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errTooManyAttachedDatabases => -1805
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDiskFull => -1808
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errPermissionDenied => -1809
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errFileNotFound => -1811
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errFileInvalidType => -1812
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnFileOpenReadOnly => 1813
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errFileAlreadyExists => -1814
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errAfterInitialization => -1850
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errLogCorrupted => -1852
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errInvalidOperation => -1906
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errAccessDenied => -1907
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnIdleFull => 1908
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errTooManySplits => -1909
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errSessionSharingViolation => -1910
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errEntryPointNotFound => -1911
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errSessionContextAlreadySet => -1912
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errSessionContextNotSetByThisThread => -1913
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errSessionInUse => -1914
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errRecordFormatConversionFailed => -1915
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errOneDatabasePerSession => -1916
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errRollbackError => -1917
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errFlushMapVersionUnsupported => -1918
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errFlushMapDatabaseMismatch => -1919
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errFlushMapUnrecoverable => -1920
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnDefragAlreadyRunning => 2000
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnDefragNotRunning => 2001
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errDatabaseAlreadyRunningMaintenance => -2004
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_wrnCallbackNotRegistered => 2100
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errCallbackFailed => -2101
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errCallbackNotResolved => -2102
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errSpaceHintsInvalid => -2103
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errOSSnapshotInvalidSequence => -2401
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errOSSnapshotTimeOut => -2402
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errOSSnapshotNotAllowed => -2403
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errOSSnapshotInvalidSnapId => -2404
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errLSCallbackNotSpecified => -3000
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errLSAlreadySet => -3001
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errLSNotSet => -3002
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errFileIOSparse => -4000
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errFileIOBeyondEOF => -4001
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errFileIOAbort => -4002
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errFileIORetry => -4003
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errFileIOFail => -4004
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errFileCompressed => -4005
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errClientSpaceBegin => -10000
-
-    /**
-     * @type {Integer (Int32)}
-     */
-    static JET_errClientSpaceEnd => -11999
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_BASE_NAME_LENGTH => 3
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitDumpMinimum => 1
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitDumpMaximum => 2
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitDumpCacheMinimum => 4
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitDumpCacheMaximum => 8
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitDumpCacheIncludeDirtyPages => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitDumpCacheIncludeCachedPages => 32
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitDumpCacheIncludeCorruptedPages => 64
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static JET_bitDumpCacheNoDecommit => 128
-;@endregion Constants
-
-;@region Methods
-    /**
-     * Learn more about: JetInit Function
-     * @param {Pointer<JET_INSTANCE>} pinstance 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetinit-function
-     */
-    static JetInit(pinstance) {
-        result := DllCall("ESENT.dll\JetInit", "ptr", pinstance, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetInit2 Function
-     * @param {Pointer<JET_INSTANCE>} pinstance 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetinit2-function
-     */
-    static JetInit2(pinstance, grbit) {
-        result := DllCall("ESENT.dll\JetInit2", "ptr", pinstance, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetInit3 Function
-     * @param {Pointer<JET_INSTANCE>} pinstance 
-     * @param {Pointer<JET_RSTINFO_A>} prstInfo 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetinit3-function
-     */
-    static JetInit3A(pinstance, prstInfo, grbit) {
-        result := DllCall("ESENT.dll\JetInit3A", "ptr", pinstance, "ptr", prstInfo, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetInit3 Function
-     * @param {Pointer<JET_INSTANCE>} pinstance 
-     * @param {Pointer<JET_RSTINFO_W>} prstInfo 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetinit3-function
-     */
-    static JetInit3W(pinstance, prstInfo, grbit) {
-        result := DllCall("ESENT.dll\JetInit3W", "ptr", pinstance, "ptr", prstInfo, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCreateInstance Function
-     * @param {Pointer<JET_INSTANCE>} pinstance 
-     * @param {Pointer<Integer>} szInstanceName 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreateinstance-function
-     */
-    static JetCreateInstanceA(pinstance, szInstanceName) {
-        szInstanceNameMarshal := szInstanceName is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetCreateInstanceA", "ptr", pinstance, szInstanceNameMarshal, szInstanceName, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCreateInstance Function
-     * @param {Pointer<JET_INSTANCE>} pinstance 
-     * @param {Pointer<Integer>} szInstanceName 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreateinstance-function
-     */
-    static JetCreateInstanceW(pinstance, szInstanceName) {
-        szInstanceNameMarshal := szInstanceName is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetCreateInstanceW", "ptr", pinstance, szInstanceNameMarshal, szInstanceName, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCreateInstance2 Function
-     * @param {Pointer<JET_INSTANCE>} pinstance 
-     * @param {Pointer<Integer>} szInstanceName 
-     * @param {Pointer<Integer>} szDisplayName 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreateinstance2-function
-     */
-    static JetCreateInstance2A(pinstance, szInstanceName, szDisplayName, grbit) {
-        szInstanceNameMarshal := szInstanceName is VarRef ? "char*" : "ptr"
-        szDisplayNameMarshal := szDisplayName is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetCreateInstance2A", "ptr", pinstance, szInstanceNameMarshal, szInstanceName, szDisplayNameMarshal, szDisplayName, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCreateInstance2 Function
-     * @param {Pointer<JET_INSTANCE>} pinstance 
-     * @param {Pointer<Integer>} szInstanceName 
-     * @param {Pointer<Integer>} szDisplayName 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreateinstance2-function
-     */
-    static JetCreateInstance2W(pinstance, szInstanceName, szDisplayName, grbit) {
-        szInstanceNameMarshal := szInstanceName is VarRef ? "ushort*" : "ptr"
-        szDisplayNameMarshal := szDisplayName is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetCreateInstance2W", "ptr", pinstance, szInstanceNameMarshal, szInstanceName, szDisplayNameMarshal, szDisplayName, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetInstanceMiscInfo Function
-     * @param {JET_INSTANCE} instance 
-     * @param {Integer} pvResult 
-     * @param {Integer} cbMax 
-     * @param {Integer} InfoLevel 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetinstancemiscinfo-function
-     */
-    static JetGetInstanceMiscInfo(instance, pvResult, cbMax, InfoLevel) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-
-        result := DllCall("ESENT.dll\JetGetInstanceMiscInfo", "ptr", instance, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetTerm Function
-     * @param {JET_INSTANCE} instance 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetterm-function
-     */
-    static JetTerm(instance) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-
-        result := DllCall("ESENT.dll\JetTerm", "ptr", instance, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetTerm2 Function
-     * @param {JET_INSTANCE} instance 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetterm2-function
-     */
-    static JetTerm2(instance, grbit) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-
-        result := DllCall("ESENT.dll\JetTerm2", "ptr", instance, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetStopService Function
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetstopservice-function
-     */
-    static JetStopService() {
-        result := DllCall("ESENT.dll\JetStopService", "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetStopServiceInstance Function
-     * @param {JET_INSTANCE} instance 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetstopserviceinstance-function
-     */
-    static JetStopServiceInstance(instance) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-
-        result := DllCall("ESENT.dll\JetStopServiceInstance", "ptr", instance, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetStopServiceInstance2 Function
-     * @param {JET_INSTANCE} instance 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetstopserviceinstance2-function
-     */
-    static JetStopServiceInstance2(instance, grbit) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-
-        result := DllCall("ESENT.dll\JetStopServiceInstance2", "ptr", instance, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetStopBackup Function
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetstopbackup-function
-     */
-    static JetStopBackup() {
-        result := DllCall("ESENT.dll\JetStopBackup", "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetStopBackupInstance Function
-     * @param {JET_INSTANCE} instance 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetstopbackupinstance-function
-     */
-    static JetStopBackupInstance(instance) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-
-        result := DllCall("ESENT.dll\JetStopBackupInstance", "ptr", instance, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetSetSystemParameter Function
-     * @param {Pointer<JET_INSTANCE>} pinstance 
-     * @param {JET_SESID} sesid 
-     * @param {Integer} paramid 
-     * @param {JET_API_PTR} _lParam 
-     * @param {Pointer<Integer>} szParam 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetsystemparameter-function
-     */
-    static JetSetSystemParameterA(pinstance, sesid, paramid, _lParam, szParam) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        _lParam := _lParam is Win32Handle ? NumGet(_lParam, "ptr") : _lParam
-
-        szParamMarshal := szParam is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetSetSystemParameterA", "ptr", pinstance, "ptr", sesid, "uint", paramid, "ptr", _lParam, szParamMarshal, szParam, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetSetSystemParameter Function
-     * @param {Pointer<JET_INSTANCE>} pinstance 
-     * @param {JET_SESID} sesid 
-     * @param {Integer} paramid 
-     * @param {JET_API_PTR} _lParam 
-     * @param {Pointer<Integer>} szParam 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetsystemparameter-function
-     */
-    static JetSetSystemParameterW(pinstance, sesid, paramid, _lParam, szParam) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        _lParam := _lParam is Win32Handle ? NumGet(_lParam, "ptr") : _lParam
-
-        szParamMarshal := szParam is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetSetSystemParameterW", "ptr", pinstance, "ptr", sesid, "uint", paramid, "ptr", _lParam, szParamMarshal, szParam, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetSystemParameter Function
-     * @param {JET_INSTANCE} instance 
-     * @param {JET_SESID} sesid 
-     * @param {Integer} paramid 
-     * @param {Pointer<JET_API_PTR>} plParam 
-     * @param {Integer} szParam 
-     * @param {Integer} cbMax 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetsystemparameter-function
-     */
-    static JetGetSystemParameterA(instance, sesid, paramid, plParam, szParam, cbMax) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        result := DllCall("ESENT.dll\JetGetSystemParameterA", "ptr", instance, "ptr", sesid, "uint", paramid, "ptr", plParam, "ptr", szParam, "uint", cbMax, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetSystemParameter Function
-     * @param {JET_INSTANCE} instance 
-     * @param {JET_SESID} sesid 
-     * @param {Integer} paramid 
-     * @param {Pointer<JET_API_PTR>} plParam 
-     * @param {Integer} szParam 
-     * @param {Integer} cbMax 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetsystemparameter-function
-     */
-    static JetGetSystemParameterW(instance, sesid, paramid, plParam, szParam, cbMax) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        result := DllCall("ESENT.dll\JetGetSystemParameterW", "ptr", instance, "ptr", sesid, "uint", paramid, "ptr", plParam, "ptr", szParam, "uint", cbMax, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetEnableMultiInstance Function
-     * @param {Pointer<JET_SETSYSPARAM_A>} psetsysparam 
-     * @param {Integer} csetsysparam 
-     * @param {Pointer<Integer>} pcsetsucceed 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetenablemultiinstance-function
-     */
-    static JetEnableMultiInstanceA(psetsysparam, csetsysparam, pcsetsucceed) {
-        pcsetsucceedMarshal := pcsetsucceed is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetEnableMultiInstanceA", "ptr", psetsysparam, "uint", csetsysparam, pcsetsucceedMarshal, pcsetsucceed, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetEnableMultiInstance Function
-     * @param {Pointer<JET_SETSYSPARAM_W>} psetsysparam 
-     * @param {Integer} csetsysparam 
-     * @param {Pointer<Integer>} pcsetsucceed 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetenablemultiinstance-function
-     */
-    static JetEnableMultiInstanceW(psetsysparam, csetsysparam, pcsetsucceed) {
-        pcsetsucceedMarshal := pcsetsucceed is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetEnableMultiInstanceW", "ptr", psetsysparam, "uint", csetsysparam, pcsetsucceedMarshal, pcsetsucceed, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetThreadStats Function
-     * @param {Integer} pvResult 
-     * @param {Integer} cbMax 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetthreadstats-function
-     */
-    static JetGetThreadStats(pvResult, cbMax) {
-        result := DllCall("ESENT.dll\JetGetThreadStats", "ptr", pvResult, "uint", cbMax, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetBeginSession Function
-     * @param {JET_INSTANCE} instance 
-     * @param {Pointer<JET_SESID>} psesid 
-     * @param {Pointer<Integer>} szUserName 
-     * @param {Pointer<Integer>} szPassword 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetbeginsession-function
-     */
-    static JetBeginSessionA(instance, psesid, szUserName, szPassword) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-
-        szUserNameMarshal := szUserName is VarRef ? "char*" : "ptr"
-        szPasswordMarshal := szPassword is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetBeginSessionA", "ptr", instance, "ptr", psesid, szUserNameMarshal, szUserName, szPasswordMarshal, szPassword, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetBeginSession Function
-     * @param {JET_INSTANCE} instance 
-     * @param {Pointer<JET_SESID>} psesid 
-     * @param {Pointer<Integer>} szUserName 
-     * @param {Pointer<Integer>} szPassword 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetbeginsession-function
-     */
-    static JetBeginSessionW(instance, psesid, szUserName, szPassword) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-
-        szUserNameMarshal := szUserName is VarRef ? "ushort*" : "ptr"
-        szPasswordMarshal := szPassword is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetBeginSessionW", "ptr", instance, "ptr", psesid, szUserNameMarshal, szUserName, szPasswordMarshal, szPassword, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetDupSession Function
-     * @param {JET_SESID} sesid 
-     * @param {Pointer<JET_SESID>} psesid 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdupsession-function
-     */
-    static JetDupSession(sesid, psesid) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        result := DllCall("ESENT.dll\JetDupSession", "ptr", sesid, "ptr", psesid, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetEndSession Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetendsession-function
-     */
-    static JetEndSession(sesid, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        result := DllCall("ESENT.dll\JetEndSession", "ptr", sesid, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetVersion Function
-     * @param {JET_SESID} sesid 
-     * @param {Pointer<Integer>} pwVersion 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetversion-function
-     */
-    static JetGetVersion(sesid, pwVersion) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        pwVersionMarshal := pwVersion is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetVersion", "ptr", sesid, pwVersionMarshal, pwVersion, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetIdle Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetidle-function
-     */
-    static JetIdle(sesid, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        result := DllCall("ESENT.dll\JetIdle", "ptr", sesid, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCreateDatabase Function
-     * @param {JET_SESID} sesid 
-     * @param {Pointer<Integer>} szFilename 
-     * @param {Pointer<Integer>} szConnect 
-     * @param {Pointer<Integer>} pdbid 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatedatabase-function
-     */
-    static JetCreateDatabaseA(sesid, szFilename, szConnect, pdbid, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szFilenameMarshal := szFilename is VarRef ? "char*" : "ptr"
-        szConnectMarshal := szConnect is VarRef ? "char*" : "ptr"
-        pdbidMarshal := pdbid is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetCreateDatabaseA", "ptr", sesid, szFilenameMarshal, szFilename, szConnectMarshal, szConnect, pdbidMarshal, pdbid, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCreateDatabase Function
-     * @param {JET_SESID} sesid 
-     * @param {Pointer<Integer>} szFilename 
-     * @param {Pointer<Integer>} szConnect 
-     * @param {Pointer<Integer>} pdbid 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatedatabase-function
-     */
-    static JetCreateDatabaseW(sesid, szFilename, szConnect, pdbid, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szFilenameMarshal := szFilename is VarRef ? "ushort*" : "ptr"
-        szConnectMarshal := szConnect is VarRef ? "ushort*" : "ptr"
-        pdbidMarshal := pdbid is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetCreateDatabaseW", "ptr", sesid, szFilenameMarshal, szFilename, szConnectMarshal, szConnect, pdbidMarshal, pdbid, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCreateDatabase2 Function
-     * @param {JET_SESID} sesid 
-     * @param {Pointer<Integer>} szFilename 
-     * @param {Integer} cpgDatabaseSizeMax 
-     * @param {Pointer<Integer>} pdbid 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatedatabase2-function
-     */
-    static JetCreateDatabase2A(sesid, szFilename, cpgDatabaseSizeMax, pdbid, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szFilenameMarshal := szFilename is VarRef ? "char*" : "ptr"
-        pdbidMarshal := pdbid is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetCreateDatabase2A", "ptr", sesid, szFilenameMarshal, szFilename, "uint", cpgDatabaseSizeMax, pdbidMarshal, pdbid, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCreateDatabase2 Function
-     * @param {JET_SESID} sesid 
-     * @param {Pointer<Integer>} szFilename 
-     * @param {Integer} cpgDatabaseSizeMax 
-     * @param {Pointer<Integer>} pdbid 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatedatabase2-function
-     */
-    static JetCreateDatabase2W(sesid, szFilename, cpgDatabaseSizeMax, pdbid, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szFilenameMarshal := szFilename is VarRef ? "ushort*" : "ptr"
-        pdbidMarshal := pdbid is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetCreateDatabase2W", "ptr", sesid, szFilenameMarshal, szFilename, "uint", cpgDatabaseSizeMax, pdbidMarshal, pdbid, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetAttachDatabase Function
-     * @param {JET_SESID} sesid 
-     * @param {Pointer<Integer>} szFilename 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetattachdatabase-function
-     */
-    static JetAttachDatabaseA(sesid, szFilename, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szFilenameMarshal := szFilename is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetAttachDatabaseA", "ptr", sesid, szFilenameMarshal, szFilename, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetAttachDatabase Function
-     * @param {JET_SESID} sesid 
-     * @param {Pointer<Integer>} szFilename 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetattachdatabase-function
-     */
-    static JetAttachDatabaseW(sesid, szFilename, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szFilenameMarshal := szFilename is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetAttachDatabaseW", "ptr", sesid, szFilenameMarshal, szFilename, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetAttachDatabase2 Function
-     * @param {JET_SESID} sesid 
-     * @param {Pointer<Integer>} szFilename 
-     * @param {Integer} cpgDatabaseSizeMax 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetattachdatabase2-function
-     */
-    static JetAttachDatabase2A(sesid, szFilename, cpgDatabaseSizeMax, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szFilenameMarshal := szFilename is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetAttachDatabase2A", "ptr", sesid, szFilenameMarshal, szFilename, "uint", cpgDatabaseSizeMax, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetAttachDatabase2 Function
-     * @param {JET_SESID} sesid 
-     * @param {Pointer<Integer>} szFilename 
-     * @param {Integer} cpgDatabaseSizeMax 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetattachdatabase2-function
-     */
-    static JetAttachDatabase2W(sesid, szFilename, cpgDatabaseSizeMax, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szFilenameMarshal := szFilename is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetAttachDatabase2W", "ptr", sesid, szFilenameMarshal, szFilename, "uint", cpgDatabaseSizeMax, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetDetachDatabase Function
-     * @param {JET_SESID} sesid 
-     * @param {Pointer<Integer>} szFilename 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdetachdatabase-function
-     */
-    static JetDetachDatabaseA(sesid, szFilename) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szFilenameMarshal := szFilename is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetDetachDatabaseA", "ptr", sesid, szFilenameMarshal, szFilename, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetDetachDatabase Function
-     * @param {JET_SESID} sesid 
-     * @param {Pointer<Integer>} szFilename 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdetachdatabase-function
-     */
-    static JetDetachDatabaseW(sesid, szFilename) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szFilenameMarshal := szFilename is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetDetachDatabaseW", "ptr", sesid, szFilenameMarshal, szFilename, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetDetachDatabase2 Function
-     * @param {JET_SESID} sesid 
-     * @param {Pointer<Integer>} szFilename 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdetachdatabase2-function
-     */
-    static JetDetachDatabase2A(sesid, szFilename, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szFilenameMarshal := szFilename is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetDetachDatabase2A", "ptr", sesid, szFilenameMarshal, szFilename, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetDetachDatabase2 Function
-     * @param {JET_SESID} sesid 
-     * @param {Pointer<Integer>} szFilename 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdetachdatabase2-function
-     */
-    static JetDetachDatabase2W(sesid, szFilename, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szFilenameMarshal := szFilename is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetDetachDatabase2W", "ptr", sesid, szFilenameMarshal, szFilename, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetObjectInfo Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Integer} objtyp 
-     * @param {Pointer<Integer>} szContainerName 
-     * @param {Pointer<Integer>} szObjectName 
-     * @param {Integer} pvResult 
-     * @param {Integer} cbMax 
-     * @param {Integer} InfoLevel 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetobjectinfo-function
-     */
-    static JetGetObjectInfoA(sesid, _dbid, objtyp, szContainerName, szObjectName, pvResult, cbMax, InfoLevel) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szContainerNameMarshal := szContainerName is VarRef ? "char*" : "ptr"
-        szObjectNameMarshal := szObjectName is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetObjectInfoA", "ptr", sesid, "uint", _dbid, "uint", objtyp, szContainerNameMarshal, szContainerName, szObjectNameMarshal, szObjectName, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetObjectInfo Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Integer} objtyp 
-     * @param {Pointer<Integer>} szContainerName 
-     * @param {Pointer<Integer>} szObjectName 
-     * @param {Integer} pvResult 
-     * @param {Integer} cbMax 
-     * @param {Integer} InfoLevel 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetobjectinfo-function
-     */
-    static JetGetObjectInfoW(sesid, _dbid, objtyp, szContainerName, szObjectName, pvResult, cbMax, InfoLevel) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szContainerNameMarshal := szContainerName is VarRef ? "ushort*" : "ptr"
-        szObjectNameMarshal := szObjectName is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetObjectInfoW", "ptr", sesid, "uint", _dbid, "uint", objtyp, szContainerNameMarshal, szContainerName, szObjectNameMarshal, szObjectName, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetTableInfo Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Integer} pvResult 
-     * @param {Integer} cbMax 
-     * @param {Integer} InfoLevel 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgettableinfo-function
-     */
-    static JetGetTableInfoA(sesid, tableid, pvResult, cbMax, InfoLevel) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetGetTableInfoA", "ptr", sesid, "ptr", tableid, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetTableInfo Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Integer} pvResult 
-     * @param {Integer} cbMax 
-     * @param {Integer} InfoLevel 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgettableinfo-function
-     */
-    static JetGetTableInfoW(sesid, tableid, pvResult, cbMax, InfoLevel) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetGetTableInfoW", "ptr", sesid, "ptr", tableid, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCreateTable Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Pointer<Integer>} szTableName 
-     * @param {Integer} lPages 
-     * @param {Integer} lDensity 
-     * @param {Pointer<JET_TABLEID>} ptableid 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatetable-function
-     */
-    static JetCreateTableA(sesid, _dbid, szTableName, lPages, lDensity, ptableid) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szTableNameMarshal := szTableName is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetCreateTableA", "ptr", sesid, "uint", _dbid, szTableNameMarshal, szTableName, "uint", lPages, "uint", lDensity, "ptr", ptableid, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCreateTable Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Pointer<Integer>} szTableName 
-     * @param {Integer} lPages 
-     * @param {Integer} lDensity 
-     * @param {Pointer<JET_TABLEID>} ptableid 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatetable-function
-     */
-    static JetCreateTableW(sesid, _dbid, szTableName, lPages, lDensity, ptableid) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szTableNameMarshal := szTableName is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetCreateTableW", "ptr", sesid, "uint", _dbid, szTableNameMarshal, szTableName, "uint", lPages, "uint", lDensity, "ptr", ptableid, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCreateTableColumnIndex Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Pointer<JET_TABLECREATE_A>} ptablecreate 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatetablecolumnindex-function
-     */
-    static JetCreateTableColumnIndexA(sesid, _dbid, ptablecreate) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        result := DllCall("ESENT.dll\JetCreateTableColumnIndexA", "ptr", sesid, "uint", _dbid, "ptr", ptablecreate, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCreateTableColumnIndex Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Pointer<JET_TABLECREATE_W>} ptablecreate 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatetablecolumnindex-function
-     */
-    static JetCreateTableColumnIndexW(sesid, _dbid, ptablecreate) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        result := DllCall("ESENT.dll\JetCreateTableColumnIndexW", "ptr", sesid, "uint", _dbid, "ptr", ptablecreate, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCreateTableColumnIndex2 Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Pointer<JET_TABLECREATE2_A>} ptablecreate 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatetablecolumnindex2-function
-     */
-    static JetCreateTableColumnIndex2A(sesid, _dbid, ptablecreate) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        result := DllCall("ESENT.dll\JetCreateTableColumnIndex2A", "ptr", sesid, "uint", _dbid, "ptr", ptablecreate, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCreateTableColumnIndex2 Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Pointer<JET_TABLECREATE2_W>} ptablecreate 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatetablecolumnindex2-function
-     */
-    static JetCreateTableColumnIndex2W(sesid, _dbid, ptablecreate) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        result := DllCall("ESENT.dll\JetCreateTableColumnIndex2W", "ptr", sesid, "uint", _dbid, "ptr", ptablecreate, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCreateTableColumnIndex3 Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Pointer<JET_TABLECREATE3_A>} ptablecreate 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatetablecolumnindex3-function
-     */
-    static JetCreateTableColumnIndex3A(sesid, _dbid, ptablecreate) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        result := DllCall("ESENT.dll\JetCreateTableColumnIndex3A", "ptr", sesid, "uint", _dbid, "ptr", ptablecreate, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCreateTableColumnIndex3 Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Pointer<JET_TABLECREATE3_W>} ptablecreate 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatetablecolumnindex3-function
-     */
-    static JetCreateTableColumnIndex3W(sesid, _dbid, ptablecreate) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        result := DllCall("ESENT.dll\JetCreateTableColumnIndex3W", "ptr", sesid, "uint", _dbid, "ptr", ptablecreate, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Pointer<JET_TABLECREATE4_A>} ptablecreate 
-     * @returns {Integer} 
-     */
-    static JetCreateTableColumnIndex4A(sesid, _dbid, ptablecreate) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        result := DllCall("ESENT.dll\JetCreateTableColumnIndex4A", "ptr", sesid, "uint", _dbid, "ptr", ptablecreate, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCreateTableColumnIndex4W Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Pointer<JET_TABLECREATE4_W>} ptablecreate 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatetablecolumnindex4w-function
-     */
-    static JetCreateTableColumnIndex4W(sesid, _dbid, ptablecreate) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        result := DllCall("ESENT.dll\JetCreateTableColumnIndex4W", "ptr", sesid, "uint", _dbid, "ptr", ptablecreate, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetDeleteTable Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Pointer<Integer>} szTableName 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdeletetable-function
-     */
-    static JetDeleteTableA(sesid, _dbid, szTableName) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szTableNameMarshal := szTableName is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetDeleteTableA", "ptr", sesid, "uint", _dbid, szTableNameMarshal, szTableName, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetDeleteTable Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Pointer<Integer>} szTableName 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdeletetable-function
-     */
-    static JetDeleteTableW(sesid, _dbid, szTableName) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szTableNameMarshal := szTableName is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetDeleteTableW", "ptr", sesid, "uint", _dbid, szTableNameMarshal, szTableName, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetRenameTable Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Pointer<Integer>} szName 
-     * @param {Pointer<Integer>} szNameNew 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetrenametable-function
-     */
-    static JetRenameTableA(sesid, _dbid, szName, szNameNew) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szNameMarshal := szName is VarRef ? "char*" : "ptr"
-        szNameNewMarshal := szNameNew is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetRenameTableA", "ptr", sesid, "uint", _dbid, szNameMarshal, szName, szNameNewMarshal, szNameNew, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetRenameTable Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Pointer<Integer>} szName 
-     * @param {Pointer<Integer>} szNameNew 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetrenametable-function
-     */
-    static JetRenameTableW(sesid, _dbid, szName, szNameNew) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szNameMarshal := szName is VarRef ? "ushort*" : "ptr"
-        szNameNewMarshal := szNameNew is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetRenameTableW", "ptr", sesid, "uint", _dbid, szNameMarshal, szName, szNameNewMarshal, szNameNew, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetTableColumnInfo Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<Integer>} szColumnName 
-     * @param {Integer} pvResult 
-     * @param {Integer} cbMax 
-     * @param {Integer} InfoLevel 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgettablecolumninfo-function
-     */
-    static JetGetTableColumnInfoA(sesid, tableid, szColumnName, pvResult, cbMax, InfoLevel) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        szColumnNameMarshal := szColumnName is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetTableColumnInfoA", "ptr", sesid, "ptr", tableid, szColumnNameMarshal, szColumnName, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetTableColumnInfo Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<Integer>} szColumnName 
-     * @param {Integer} pvResult 
-     * @param {Integer} cbMax 
-     * @param {Integer} InfoLevel 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgettablecolumninfo-function
-     */
-    static JetGetTableColumnInfoW(sesid, tableid, szColumnName, pvResult, cbMax, InfoLevel) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        szColumnNameMarshal := szColumnName is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetTableColumnInfoW", "ptr", sesid, "ptr", tableid, szColumnNameMarshal, szColumnName, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetColumnInfo Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Pointer<Integer>} szTableName 
-     * @param {Pointer<Integer>} pColumnNameOrId 
-     * @param {Integer} pvResult 
-     * @param {Integer} cbMax 
-     * @param {Integer} InfoLevel 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetcolumninfo-function
-     */
-    static JetGetColumnInfoA(sesid, _dbid, szTableName, pColumnNameOrId, pvResult, cbMax, InfoLevel) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szTableNameMarshal := szTableName is VarRef ? "char*" : "ptr"
-        pColumnNameOrIdMarshal := pColumnNameOrId is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetColumnInfoA", "ptr", sesid, "uint", _dbid, szTableNameMarshal, szTableName, pColumnNameOrIdMarshal, pColumnNameOrId, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetColumnInfo Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Pointer<Integer>} szTableName 
-     * @param {Pointer<Integer>} pwColumnNameOrId 
-     * @param {Integer} pvResult 
-     * @param {Integer} cbMax 
-     * @param {Integer} InfoLevel 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetcolumninfo-function
-     */
-    static JetGetColumnInfoW(sesid, _dbid, szTableName, pwColumnNameOrId, pvResult, cbMax, InfoLevel) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szTableNameMarshal := szTableName is VarRef ? "ushort*" : "ptr"
-        pwColumnNameOrIdMarshal := pwColumnNameOrId is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetColumnInfoW", "ptr", sesid, "uint", _dbid, szTableNameMarshal, szTableName, pwColumnNameOrIdMarshal, pwColumnNameOrId, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetAddColumn Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<Integer>} szColumnName 
-     * @param {Pointer<JET_COLUMNDEF>} pcolumndef 
-     * @param {Integer} pvDefault 
-     * @param {Integer} cbDefault 
-     * @param {Pointer<Integer>} pcolumnid 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetaddcolumn-function
-     */
-    static JetAddColumnA(sesid, tableid, szColumnName, pcolumndef, pvDefault, cbDefault, pcolumnid) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        szColumnNameMarshal := szColumnName is VarRef ? "char*" : "ptr"
-        pcolumnidMarshal := pcolumnid is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetAddColumnA", "ptr", sesid, "ptr", tableid, szColumnNameMarshal, szColumnName, "ptr", pcolumndef, "ptr", pvDefault, "uint", cbDefault, pcolumnidMarshal, pcolumnid, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetAddColumn Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<Integer>} szColumnName 
-     * @param {Pointer<JET_COLUMNDEF>} pcolumndef 
-     * @param {Integer} pvDefault 
-     * @param {Integer} cbDefault 
-     * @param {Pointer<Integer>} pcolumnid 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetaddcolumn-function
-     */
-    static JetAddColumnW(sesid, tableid, szColumnName, pcolumndef, pvDefault, cbDefault, pcolumnid) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        szColumnNameMarshal := szColumnName is VarRef ? "ushort*" : "ptr"
-        pcolumnidMarshal := pcolumnid is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetAddColumnW", "ptr", sesid, "ptr", tableid, szColumnNameMarshal, szColumnName, "ptr", pcolumndef, "ptr", pvDefault, "uint", cbDefault, pcolumnidMarshal, pcolumnid, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetDeleteColumn Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<Integer>} szColumnName 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdeletecolumn-function
-     */
-    static JetDeleteColumnA(sesid, tableid, szColumnName) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        szColumnNameMarshal := szColumnName is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetDeleteColumnA", "ptr", sesid, "ptr", tableid, szColumnNameMarshal, szColumnName, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetDeleteColumn Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<Integer>} szColumnName 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdeletecolumn-function
-     */
-    static JetDeleteColumnW(sesid, tableid, szColumnName) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        szColumnNameMarshal := szColumnName is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetDeleteColumnW", "ptr", sesid, "ptr", tableid, szColumnNameMarshal, szColumnName, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetDeleteColumn2 Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<Integer>} szColumnName 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdeletecolumn2-function
-     */
-    static JetDeleteColumn2A(sesid, tableid, szColumnName, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        szColumnNameMarshal := szColumnName is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetDeleteColumn2A", "ptr", sesid, "ptr", tableid, szColumnNameMarshal, szColumnName, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetDeleteColumn2 Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<Integer>} szColumnName 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdeletecolumn2-function
-     */
-    static JetDeleteColumn2W(sesid, tableid, szColumnName, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        szColumnNameMarshal := szColumnName is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetDeleteColumn2W", "ptr", sesid, "ptr", tableid, szColumnNameMarshal, szColumnName, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<Integer>} szName 
-     * @param {Pointer<Integer>} szNameNew 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     */
-    static JetRenameColumnA(sesid, tableid, szName, szNameNew, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        szNameMarshal := szName is VarRef ? "char*" : "ptr"
-        szNameNewMarshal := szNameNew is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetRenameColumnA", "ptr", sesid, "ptr", tableid, szNameMarshal, szName, szNameNewMarshal, szNameNew, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<Integer>} szName 
-     * @param {Pointer<Integer>} szNameNew 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     */
-    static JetRenameColumnW(sesid, tableid, szName, szNameNew, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        szNameMarshal := szName is VarRef ? "ushort*" : "ptr"
-        szNameNewMarshal := szNameNew is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetRenameColumnW", "ptr", sesid, "ptr", tableid, szNameMarshal, szName, szNameNewMarshal, szNameNew, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Pointer<Integer>} szTableName 
-     * @param {Pointer<Integer>} szColumnName 
-     * @param {Integer} pvData 
-     * @param {Integer} cbData 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     */
-    static JetSetColumnDefaultValueA(sesid, _dbid, szTableName, szColumnName, pvData, cbData, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szTableNameMarshal := szTableName is VarRef ? "char*" : "ptr"
-        szColumnNameMarshal := szColumnName is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetSetColumnDefaultValueA", "ptr", sesid, "uint", _dbid, szTableNameMarshal, szTableName, szColumnNameMarshal, szColumnName, "ptr", pvData, "uint", cbData, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Pointer<Integer>} szTableName 
-     * @param {Pointer<Integer>} szColumnName 
-     * @param {Integer} pvData 
-     * @param {Integer} cbData 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     */
-    static JetSetColumnDefaultValueW(sesid, _dbid, szTableName, szColumnName, pvData, cbData, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szTableNameMarshal := szTableName is VarRef ? "ushort*" : "ptr"
-        szColumnNameMarshal := szColumnName is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetSetColumnDefaultValueW", "ptr", sesid, "uint", _dbid, szTableNameMarshal, szTableName, szColumnNameMarshal, szColumnName, "ptr", pvData, "uint", cbData, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetTableIndexInfo Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<Integer>} szIndexName 
-     * @param {Integer} pvResult 
-     * @param {Integer} cbResult 
-     * @param {Integer} InfoLevel 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgettableindexinfo-function
-     */
-    static JetGetTableIndexInfoA(sesid, tableid, szIndexName, pvResult, cbResult, InfoLevel) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        szIndexNameMarshal := szIndexName is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetTableIndexInfoA", "ptr", sesid, "ptr", tableid, szIndexNameMarshal, szIndexName, "ptr", pvResult, "uint", cbResult, "uint", InfoLevel, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetTableIndexInfo Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<Integer>} szIndexName 
-     * @param {Integer} pvResult 
-     * @param {Integer} cbResult 
-     * @param {Integer} InfoLevel 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgettableindexinfo-function
-     */
-    static JetGetTableIndexInfoW(sesid, tableid, szIndexName, pvResult, cbResult, InfoLevel) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        szIndexNameMarshal := szIndexName is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetTableIndexInfoW", "ptr", sesid, "ptr", tableid, szIndexNameMarshal, szIndexName, "ptr", pvResult, "uint", cbResult, "uint", InfoLevel, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetIndexInfo Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Pointer<Integer>} szTableName 
-     * @param {Pointer<Integer>} szIndexName 
-     * @param {Integer} pvResult 
-     * @param {Integer} cbResult 
-     * @param {Integer} InfoLevel 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetindexinfo-function
-     */
-    static JetGetIndexInfoA(sesid, _dbid, szTableName, szIndexName, pvResult, cbResult, InfoLevel) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szTableNameMarshal := szTableName is VarRef ? "char*" : "ptr"
-        szIndexNameMarshal := szIndexName is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetIndexInfoA", "ptr", sesid, "uint", _dbid, szTableNameMarshal, szTableName, szIndexNameMarshal, szIndexName, "ptr", pvResult, "uint", cbResult, "uint", InfoLevel, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetIndexInfo Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Pointer<Integer>} szTableName 
-     * @param {Pointer<Integer>} szIndexName 
-     * @param {Integer} pvResult 
-     * @param {Integer} cbResult 
-     * @param {Integer} InfoLevel 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetindexinfo-function
-     */
-    static JetGetIndexInfoW(sesid, _dbid, szTableName, szIndexName, pvResult, cbResult, InfoLevel) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szTableNameMarshal := szTableName is VarRef ? "ushort*" : "ptr"
-        szIndexNameMarshal := szIndexName is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetIndexInfoW", "ptr", sesid, "uint", _dbid, szTableNameMarshal, szTableName, szIndexNameMarshal, szIndexName, "ptr", pvResult, "uint", cbResult, "uint", InfoLevel, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCreateIndex Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<Integer>} szIndexName 
-     * @param {Integer} grbit 
-     * @param {Integer} szKey 
-     * @param {Integer} cbKey 
-     * @param {Integer} lDensity 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreateindex-function
-     */
-    static JetCreateIndexA(sesid, tableid, szIndexName, grbit, szKey, cbKey, lDensity) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        szIndexNameMarshal := szIndexName is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetCreateIndexA", "ptr", sesid, "ptr", tableid, szIndexNameMarshal, szIndexName, "uint", grbit, "ptr", szKey, "uint", cbKey, "uint", lDensity, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCreateIndex Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<Integer>} szIndexName 
-     * @param {Integer} grbit 
-     * @param {Integer} szKey 
-     * @param {Integer} cbKey 
-     * @param {Integer} lDensity 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreateindex-function
-     */
-    static JetCreateIndexW(sesid, tableid, szIndexName, grbit, szKey, cbKey, lDensity) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        szIndexNameMarshal := szIndexName is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetCreateIndexW", "ptr", sesid, "ptr", tableid, szIndexNameMarshal, szIndexName, "uint", grbit, "ptr", szKey, "uint", cbKey, "uint", lDensity, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCreateIndex2 Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<JET_INDEXCREATE_A>} pindexcreate 
-     * @param {Integer} cIndexCreate 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreateindex2-function
-     */
-    static JetCreateIndex2A(sesid, tableid, pindexcreate, cIndexCreate) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetCreateIndex2A", "ptr", sesid, "ptr", tableid, "ptr", pindexcreate, "uint", cIndexCreate, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCreateIndex2 Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<JET_INDEXCREATE_W>} pindexcreate 
-     * @param {Integer} cIndexCreate 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreateindex2-function
-     */
-    static JetCreateIndex2W(sesid, tableid, pindexcreate, cIndexCreate) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetCreateIndex2W", "ptr", sesid, "ptr", tableid, "ptr", pindexcreate, "uint", cIndexCreate, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCreateIndex3 Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<JET_INDEXCREATE2_A>} pindexcreate 
-     * @param {Integer} cIndexCreate 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreateindex3-function
-     */
-    static JetCreateIndex3A(sesid, tableid, pindexcreate, cIndexCreate) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetCreateIndex3A", "ptr", sesid, "ptr", tableid, "ptr", pindexcreate, "uint", cIndexCreate, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCreateIndex3 Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<JET_INDEXCREATE2_W>} pindexcreate 
-     * @param {Integer} cIndexCreate 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreateindex3-function
-     */
-    static JetCreateIndex3W(sesid, tableid, pindexcreate, cIndexCreate) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetCreateIndex3W", "ptr", sesid, "ptr", tableid, "ptr", pindexcreate, "uint", cIndexCreate, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<JET_INDEXCREATE3_A>} pindexcreate 
-     * @param {Integer} cIndexCreate 
-     * @returns {Integer} 
-     */
-    static JetCreateIndex4A(sesid, tableid, pindexcreate, cIndexCreate) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetCreateIndex4A", "ptr", sesid, "ptr", tableid, "ptr", pindexcreate, "uint", cIndexCreate, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCreateIndex4W Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<JET_INDEXCREATE3_W>} pindexcreate 
-     * @param {Integer} cIndexCreate 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreateindex4w-function
-     */
-    static JetCreateIndex4W(sesid, tableid, pindexcreate, cIndexCreate) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetCreateIndex4W", "ptr", sesid, "ptr", tableid, "ptr", pindexcreate, "uint", cIndexCreate, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetDeleteIndex Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<Integer>} szIndexName 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdeleteindex-function
-     */
-    static JetDeleteIndexA(sesid, tableid, szIndexName) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        szIndexNameMarshal := szIndexName is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetDeleteIndexA", "ptr", sesid, "ptr", tableid, szIndexNameMarshal, szIndexName, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetDeleteIndex Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<Integer>} szIndexName 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdeleteindex-function
-     */
-    static JetDeleteIndexW(sesid, tableid, szIndexName) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        szIndexNameMarshal := szIndexName is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetDeleteIndexW", "ptr", sesid, "ptr", tableid, szIndexNameMarshal, szIndexName, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetBeginTransaction Function
-     * @param {JET_SESID} sesid 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetbegintransaction-function
-     */
-    static JetBeginTransaction(sesid) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        result := DllCall("ESENT.dll\JetBeginTransaction", "ptr", sesid, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetBeginTransaction2 Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetbegintransaction2-function
-     */
-    static JetBeginTransaction2(sesid, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        result := DllCall("ESENT.dll\JetBeginTransaction2", "ptr", sesid, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetBeginTransaction3 Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} trxid 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetbegintransaction3-function
-     */
-    static JetBeginTransaction3(sesid, trxid, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        result := DllCall("ESENT.dll\JetBeginTransaction3", "ptr", sesid, "int64", trxid, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCommitTransaction Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcommittransaction-function
-     */
-    static JetCommitTransaction(sesid, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        result := DllCall("ESENT.dll\JetCommitTransaction", "ptr", sesid, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCommitTransaction2 Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} grbit 
-     * @param {Integer} cmsecDurableCommit 
-     * @param {Pointer<JET_COMMIT_ID>} pCommitId 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcommittransaction2-function
-     */
-    static JetCommitTransaction2(sesid, grbit, cmsecDurableCommit, pCommitId) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        result := DllCall("ESENT.dll\JetCommitTransaction2", "ptr", sesid, "uint", grbit, "uint", cmsecDurableCommit, "ptr", pCommitId, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetRollback Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetrollback-function
-     */
-    static JetRollback(sesid, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        result := DllCall("ESENT.dll\JetRollback", "ptr", sesid, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Integer} pvResult 
-     * @param {Integer} cbMax 
-     * @param {Integer} InfoLevel 
-     * @returns {Integer} 
-     */
-    static JetGetDatabaseInfoA(sesid, _dbid, pvResult, cbMax, InfoLevel) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        result := DllCall("ESENT.dll\JetGetDatabaseInfoA", "ptr", sesid, "uint", _dbid, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Integer} pvResult 
-     * @param {Integer} cbMax 
-     * @param {Integer} InfoLevel 
-     * @returns {Integer} 
-     */
-    static JetGetDatabaseInfoW(sesid, _dbid, pvResult, cbMax, InfoLevel) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        result := DllCall("ESENT.dll\JetGetDatabaseInfoW", "ptr", sesid, "uint", _dbid, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetDatabaseFileInfo Function
-     * @param {Pointer<Integer>} szDatabaseName 
-     * @param {Integer} pvResult 
-     * @param {Integer} cbMax 
-     * @param {Integer} InfoLevel 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetdatabasefileinfo-function
-     */
-    static JetGetDatabaseFileInfoA(szDatabaseName, pvResult, cbMax, InfoLevel) {
-        szDatabaseNameMarshal := szDatabaseName is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetDatabaseFileInfoA", szDatabaseNameMarshal, szDatabaseName, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetDatabaseFileInfo Function
-     * @param {Pointer<Integer>} szDatabaseName 
-     * @param {Integer} pvResult 
-     * @param {Integer} cbMax 
-     * @param {Integer} InfoLevel 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetdatabasefileinfo-function
-     */
-    static JetGetDatabaseFileInfoW(szDatabaseName, pvResult, cbMax, InfoLevel) {
-        szDatabaseNameMarshal := szDatabaseName is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetDatabaseFileInfoW", szDatabaseNameMarshal, szDatabaseName, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetOpenDatabase Function
-     * @param {JET_SESID} sesid 
-     * @param {Pointer<Integer>} szFilename 
-     * @param {Pointer<Integer>} szConnect 
-     * @param {Pointer<Integer>} pdbid 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopendatabase-function
-     */
-    static JetOpenDatabaseA(sesid, szFilename, szConnect, pdbid, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szFilenameMarshal := szFilename is VarRef ? "char*" : "ptr"
-        szConnectMarshal := szConnect is VarRef ? "char*" : "ptr"
-        pdbidMarshal := pdbid is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetOpenDatabaseA", "ptr", sesid, szFilenameMarshal, szFilename, szConnectMarshal, szConnect, pdbidMarshal, pdbid, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetOpenDatabase Function
-     * @param {JET_SESID} sesid 
-     * @param {Pointer<Integer>} szFilename 
-     * @param {Pointer<Integer>} szConnect 
-     * @param {Pointer<Integer>} pdbid 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopendatabase-function
-     */
-    static JetOpenDatabaseW(sesid, szFilename, szConnect, pdbid, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szFilenameMarshal := szFilename is VarRef ? "ushort*" : "ptr"
-        szConnectMarshal := szConnect is VarRef ? "ushort*" : "ptr"
-        pdbidMarshal := pdbid is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetOpenDatabaseW", "ptr", sesid, szFilenameMarshal, szFilename, szConnectMarshal, szConnect, pdbidMarshal, pdbid, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCloseDatabase Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetclosedatabase-function
-     */
-    static JetCloseDatabase(sesid, _dbid, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        result := DllCall("ESENT.dll\JetCloseDatabase", "ptr", sesid, "uint", _dbid, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetOpenTable Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Pointer<Integer>} szTableName 
-     * @param {Integer} pvParameters 
-     * @param {Integer} cbParameters 
-     * @param {Integer} grbit 
-     * @param {Pointer<JET_TABLEID>} ptableid 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopentable-function
-     */
-    static JetOpenTableA(sesid, _dbid, szTableName, pvParameters, cbParameters, grbit, ptableid) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szTableNameMarshal := szTableName is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetOpenTableA", "ptr", sesid, "uint", _dbid, szTableNameMarshal, szTableName, "ptr", pvParameters, "uint", cbParameters, "uint", grbit, "ptr", ptableid, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetOpenTable Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Pointer<Integer>} szTableName 
-     * @param {Integer} pvParameters 
-     * @param {Integer} cbParameters 
-     * @param {Integer} grbit 
-     * @param {Pointer<JET_TABLEID>} ptableid 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopentable-function
-     */
-    static JetOpenTableW(sesid, _dbid, szTableName, pvParameters, cbParameters, grbit, ptableid) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szTableNameMarshal := szTableName is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetOpenTableW", "ptr", sesid, "uint", _dbid, szTableNameMarshal, szTableName, "ptr", pvParameters, "uint", cbParameters, "uint", grbit, "ptr", ptableid, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetSetTableSequential Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsettablesequential-function
-     */
-    static JetSetTableSequential(sesid, tableid, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetSetTableSequential", "ptr", sesid, "ptr", tableid, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetResetTableSequential Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetresettablesequential-function
-     */
-    static JetResetTableSequential(sesid, tableid, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetResetTableSequential", "ptr", sesid, "ptr", tableid, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCloseTable Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetclosetable-function
-     */
-    static JetCloseTable(sesid, tableid) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetCloseTable", "ptr", sesid, "ptr", tableid, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetDelete Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdelete-function
-     */
-    static JetDelete(sesid, tableid) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetDelete", "ptr", sesid, "ptr", tableid, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetUpdate Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Integer} pvBookmark 
-     * @param {Integer} cbBookmark 
-     * @param {Pointer<Integer>} pcbActual 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetupdate-function
-     */
-    static JetUpdate(sesid, tableid, pvBookmark, cbBookmark, pcbActual) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetUpdate", "ptr", sesid, "ptr", tableid, "ptr", pvBookmark, "uint", cbBookmark, pcbActualMarshal, pcbActual, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetUpdate2 Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Integer} pvBookmark 
-     * @param {Integer} cbBookmark 
-     * @param {Pointer<Integer>} pcbActual 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetupdate2-function
-     */
-    static JetUpdate2(sesid, tableid, pvBookmark, cbBookmark, pcbActual, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetUpdate2", "ptr", sesid, "ptr", tableid, "ptr", pvBookmark, "uint", cbBookmark, pcbActualMarshal, pcbActual, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetEscrowUpdate Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Integer} columnid 
-     * @param {Integer} pv 
-     * @param {Integer} cbMax 
-     * @param {Integer} pvOld 
-     * @param {Integer} cbOldMax 
-     * @param {Pointer<Integer>} pcbOldActual 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetescrowupdate-function
-     */
-    static JetEscrowUpdate(sesid, tableid, columnid, pv, cbMax, pvOld, cbOldMax, pcbOldActual, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        pcbOldActualMarshal := pcbOldActual is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetEscrowUpdate", "ptr", sesid, "ptr", tableid, "uint", columnid, "ptr", pv, "uint", cbMax, "ptr", pvOld, "uint", cbOldMax, pcbOldActualMarshal, pcbOldActual, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetRetrieveColumn Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Integer} columnid 
-     * @param {Integer} pvData 
-     * @param {Integer} cbData 
-     * @param {Pointer<Integer>} pcbActual 
-     * @param {Integer} grbit 
-     * @param {Pointer<JET_RETINFO>} pretinfo 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetretrievecolumn-function
-     */
-    static JetRetrieveColumn(sesid, tableid, columnid, pvData, cbData, pcbActual, grbit, pretinfo) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetRetrieveColumn", "ptr", sesid, "ptr", tableid, "uint", columnid, "ptr", pvData, "uint", cbData, pcbActualMarshal, pcbActual, "uint", grbit, "ptr", pretinfo, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetRetrieveColumns Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<JET_RETRIEVECOLUMN>} pretrievecolumn 
-     * @param {Integer} cretrievecolumn 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetretrievecolumns-function
-     */
-    static JetRetrieveColumns(sesid, tableid, pretrievecolumn, cretrievecolumn) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetRetrieveColumns", "ptr", sesid, "ptr", tableid, "ptr", pretrievecolumn, "uint", cretrievecolumn, "int")
-        return result
-    }
-
-    /**
-     * Describes the JetEnumerateColumns function and provides the function's parameters, return value, remarks, and requirements.
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Integer} cEnumColumnId 
-     * @param {Pointer<JET_ENUMCOLUMNID>} rgEnumColumnId 
-     * @param {Pointer<Integer>} pcEnumColumn 
-     * @param {Pointer<Pointer<JET_ENUMCOLUMN>>} prgEnumColumn 
-     * @param {Pointer<JET_PFNREALLOC>} pfnRealloc 
-     * @param {Pointer<Void>} pvReallocContext 
-     * @param {Integer} cbDataMost 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetenumeratecolumns-function
-     */
-    static JetEnumerateColumns(sesid, tableid, cEnumColumnId, rgEnumColumnId, pcEnumColumn, prgEnumColumn, pfnRealloc, pvReallocContext, cbDataMost, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        pcEnumColumnMarshal := pcEnumColumn is VarRef ? "uint*" : "ptr"
-        prgEnumColumnMarshal := prgEnumColumn is VarRef ? "ptr*" : "ptr"
-        pvReallocContextMarshal := pvReallocContext is VarRef ? "ptr" : "ptr"
-
-        result := DllCall("ESENT.dll\JetEnumerateColumns", "ptr", sesid, "ptr", tableid, "uint", cEnumColumnId, "ptr", rgEnumColumnId, pcEnumColumnMarshal, pcEnumColumn, prgEnumColumnMarshal, prgEnumColumn, "ptr", pfnRealloc, pvReallocContextMarshal, pvReallocContext, "uint", cbDataMost, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetRecordSize Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<JET_RECSIZE>} precsize 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetrecordsize-function
-     */
-    static JetGetRecordSize(sesid, tableid, precsize, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetGetRecordSize", "ptr", sesid, "ptr", tableid, "ptr", precsize, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetRecordSize2 Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<JET_RECSIZE2>} precsize 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetrecordsize2-function
-     */
-    static JetGetRecordSize2(sesid, tableid, precsize, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetGetRecordSize2", "ptr", sesid, "ptr", tableid, "ptr", precsize, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetSetColumn Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Integer} columnid 
-     * @param {Integer} pvData 
-     * @param {Integer} cbData 
-     * @param {Integer} grbit 
-     * @param {Pointer<JET_SETINFO>} psetinfo 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetcolumn-function
-     */
-    static JetSetColumn(sesid, tableid, columnid, pvData, cbData, grbit, psetinfo) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetSetColumn", "ptr", sesid, "ptr", tableid, "uint", columnid, "ptr", pvData, "uint", cbData, "uint", grbit, "ptr", psetinfo, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetSetColumns Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<JET_SETCOLUMN>} psetcolumn 
-     * @param {Integer} csetcolumn 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetcolumns-function
-     */
-    static JetSetColumns(sesid, tableid, psetcolumn, csetcolumn) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetSetColumns", "ptr", sesid, "ptr", tableid, "ptr", psetcolumn, "uint", csetcolumn, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetPrepareUpdate Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Integer} prep 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetprepareupdate-function
-     */
-    static JetPrepareUpdate(sesid, tableid, prep) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetPrepareUpdate", "ptr", sesid, "ptr", tableid, "uint", prep, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetRecordPosition Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Integer} precpos 
-     * @param {Integer} cbRecpos 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetrecordposition-function
-     */
-    static JetGetRecordPosition(sesid, tableid, precpos, cbRecpos) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetGetRecordPosition", "ptr", sesid, "ptr", tableid, "ptr", precpos, "uint", cbRecpos, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGotoPosition Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<JET_RECPOS>} precpos 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgotoposition-function
-     */
-    static JetGotoPosition(sesid, tableid, precpos) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetGotoPosition", "ptr", sesid, "ptr", tableid, "ptr", precpos, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetCursorInfo Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Integer} pvResult 
-     * @param {Integer} cbMax 
-     * @param {Integer} InfoLevel 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetcursorinfo-function
-     */
-    static JetGetCursorInfo(sesid, tableid, pvResult, cbMax, InfoLevel) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetGetCursorInfo", "ptr", sesid, "ptr", tableid, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetDupCursor Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<JET_TABLEID>} ptableid 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdupcursor-function
-     */
-    static JetDupCursor(sesid, tableid, ptableid, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetDupCursor", "ptr", sesid, "ptr", tableid, "ptr", ptableid, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetCurrentIndex Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Integer} szIndexName 
-     * @param {Integer} cbIndexName 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetcurrentindex-function
-     */
-    static JetGetCurrentIndexA(sesid, tableid, szIndexName, cbIndexName) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetGetCurrentIndexA", "ptr", sesid, "ptr", tableid, "ptr", szIndexName, "uint", cbIndexName, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetCurrentIndex Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Integer} szIndexName 
-     * @param {Integer} cbIndexName 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetcurrentindex-function
-     */
-    static JetGetCurrentIndexW(sesid, tableid, szIndexName, cbIndexName) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetGetCurrentIndexW", "ptr", sesid, "ptr", tableid, "ptr", szIndexName, "uint", cbIndexName, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetSetCurrentIndex Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<Integer>} szIndexName 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetcurrentindex-function
-     */
-    static JetSetCurrentIndexA(sesid, tableid, szIndexName) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        szIndexNameMarshal := szIndexName is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetSetCurrentIndexA", "ptr", sesid, "ptr", tableid, szIndexNameMarshal, szIndexName, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetSetCurrentIndex Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<Integer>} szIndexName 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetcurrentindex-function
-     */
-    static JetSetCurrentIndexW(sesid, tableid, szIndexName) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        szIndexNameMarshal := szIndexName is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetSetCurrentIndexW", "ptr", sesid, "ptr", tableid, szIndexNameMarshal, szIndexName, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetSetCurrentIndex2 Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<Integer>} szIndexName 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetcurrentindex2-function
-     */
-    static JetSetCurrentIndex2A(sesid, tableid, szIndexName, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        szIndexNameMarshal := szIndexName is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetSetCurrentIndex2A", "ptr", sesid, "ptr", tableid, szIndexNameMarshal, szIndexName, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetSetCurrentIndex2 Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<Integer>} szIndexName 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetcurrentindex2-function
-     */
-    static JetSetCurrentIndex2W(sesid, tableid, szIndexName, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        szIndexNameMarshal := szIndexName is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetSetCurrentIndex2W", "ptr", sesid, "ptr", tableid, szIndexNameMarshal, szIndexName, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetSetCurrentIndex3 Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<Integer>} szIndexName 
-     * @param {Integer} grbit 
-     * @param {Integer} itagSequence 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetcurrentindex3-function
-     */
-    static JetSetCurrentIndex3A(sesid, tableid, szIndexName, grbit, itagSequence) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        szIndexNameMarshal := szIndexName is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetSetCurrentIndex3A", "ptr", sesid, "ptr", tableid, szIndexNameMarshal, szIndexName, "uint", grbit, "uint", itagSequence, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetSetCurrentIndex3 Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<Integer>} szIndexName 
-     * @param {Integer} grbit 
-     * @param {Integer} itagSequence 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetcurrentindex3-function
-     */
-    static JetSetCurrentIndex3W(sesid, tableid, szIndexName, grbit, itagSequence) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        szIndexNameMarshal := szIndexName is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetSetCurrentIndex3W", "ptr", sesid, "ptr", tableid, szIndexNameMarshal, szIndexName, "uint", grbit, "uint", itagSequence, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetSetCurrentIndex4 Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<Integer>} szIndexName 
-     * @param {Pointer<JET_INDEXID>} pindexid 
-     * @param {Integer} grbit 
-     * @param {Integer} itagSequence 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetcurrentindex4-function
-     */
-    static JetSetCurrentIndex4A(sesid, tableid, szIndexName, pindexid, grbit, itagSequence) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        szIndexNameMarshal := szIndexName is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetSetCurrentIndex4A", "ptr", sesid, "ptr", tableid, szIndexNameMarshal, szIndexName, "ptr", pindexid, "uint", grbit, "uint", itagSequence, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetSetCurrentIndex4 Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<Integer>} szIndexName 
-     * @param {Pointer<JET_INDEXID>} pindexid 
-     * @param {Integer} grbit 
-     * @param {Integer} itagSequence 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetcurrentindex4-function
-     */
-    static JetSetCurrentIndex4W(sesid, tableid, szIndexName, pindexid, grbit, itagSequence) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        szIndexNameMarshal := szIndexName is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetSetCurrentIndex4W", "ptr", sesid, "ptr", tableid, szIndexNameMarshal, szIndexName, "ptr", pindexid, "uint", grbit, "uint", itagSequence, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetMove Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Integer} cRow 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetmove-function
-     */
-    static JetMove(sesid, tableid, cRow, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetMove", "ptr", sesid, "ptr", tableid, "int", cRow, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetSetCursorFilter Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<JET_INDEX_COLUMN>} rgColumnFilters 
-     * @param {Integer} cColumnFilters 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetcursorfilter-function
-     */
-    static JetSetCursorFilter(sesid, tableid, rgColumnFilters, cColumnFilters, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetSetCursorFilter", "ptr", sesid, "ptr", tableid, "ptr", rgColumnFilters, "uint", cColumnFilters, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetLock Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetlock-function
-     */
-    static JetGetLock(sesid, tableid, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetGetLock", "ptr", sesid, "ptr", tableid, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetMakeKey Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Integer} pvData 
-     * @param {Integer} cbData 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetmakekey-function
-     */
-    static JetMakeKey(sesid, tableid, pvData, cbData, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetMakeKey", "ptr", sesid, "ptr", tableid, "ptr", pvData, "uint", cbData, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetSeek Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetseek-function
-     */
-    static JetSeek(sesid, tableid, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetSeek", "ptr", sesid, "ptr", tableid, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetPrereadKeys Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<Pointer<Void>>} rgpvKeys 
-     * @param {Pointer<Integer>} rgcbKeys 
-     * @param {Integer} ckeys 
-     * @param {Pointer<Integer>} pckeysPreread 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetprereadkeys-function
-     */
-    static JetPrereadKeys(sesid, tableid, rgpvKeys, rgcbKeys, ckeys, pckeysPreread, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        rgpvKeysMarshal := rgpvKeys is VarRef ? "ptr*" : "ptr"
-        rgcbKeysMarshal := rgcbKeys is VarRef ? "uint*" : "ptr"
-        pckeysPrereadMarshal := pckeysPreread is VarRef ? "int*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetPrereadKeys", "ptr", sesid, "ptr", tableid, rgpvKeysMarshal, rgpvKeys, rgcbKeysMarshal, rgcbKeys, "int", ckeys, pckeysPrereadMarshal, pckeysPreread, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetPrereadIndexRanges Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<JET_INDEX_RANGE>} rgIndexRanges 
-     * @param {Integer} cIndexRanges 
-     * @param {Pointer<Integer>} pcRangesPreread 
-     * @param {Pointer<Integer>} rgcolumnidPreread 
-     * @param {Integer} ccolumnidPreread 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetprereadindexranges-function
-     */
-    static JetPrereadIndexRanges(sesid, tableid, rgIndexRanges, cIndexRanges, pcRangesPreread, rgcolumnidPreread, ccolumnidPreread, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        pcRangesPrereadMarshal := pcRangesPreread is VarRef ? "uint*" : "ptr"
-        rgcolumnidPrereadMarshal := rgcolumnidPreread is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetPrereadIndexRanges", "ptr", sesid, "ptr", tableid, "ptr", rgIndexRanges, "uint", cIndexRanges, pcRangesPrereadMarshal, pcRangesPreread, rgcolumnidPrereadMarshal, rgcolumnidPreread, "uint", ccolumnidPreread, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetBookmark Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Integer} pvBookmark 
-     * @param {Integer} cbMax 
-     * @param {Pointer<Integer>} pcbActual 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetbookmark-function
-     */
-    static JetGetBookmark(sesid, tableid, pvBookmark, cbMax, pcbActual) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetBookmark", "ptr", sesid, "ptr", tableid, "ptr", pvBookmark, "uint", cbMax, pcbActualMarshal, pcbActual, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetSecondaryIndexBookmark Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Integer} pvSecondaryKey 
-     * @param {Integer} cbSecondaryKeyMax 
-     * @param {Pointer<Integer>} pcbSecondaryKeyActual 
-     * @param {Integer} pvPrimaryBookmark 
-     * @param {Integer} cbPrimaryBookmarkMax 
-     * @param {Pointer<Integer>} pcbPrimaryBookmarkActual 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetsecondaryindexbookmark-function
-     */
-    static JetGetSecondaryIndexBookmark(sesid, tableid, pvSecondaryKey, cbSecondaryKeyMax, pcbSecondaryKeyActual, pvPrimaryBookmark, cbPrimaryBookmarkMax, pcbPrimaryBookmarkActual, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        pcbSecondaryKeyActualMarshal := pcbSecondaryKeyActual is VarRef ? "uint*" : "ptr"
-        pcbPrimaryBookmarkActualMarshal := pcbPrimaryBookmarkActual is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetSecondaryIndexBookmark", "ptr", sesid, "ptr", tableid, "ptr", pvSecondaryKey, "uint", cbSecondaryKeyMax, pcbSecondaryKeyActualMarshal, pcbSecondaryKeyActual, "ptr", pvPrimaryBookmark, "uint", cbPrimaryBookmarkMax, pcbPrimaryBookmarkActualMarshal, pcbPrimaryBookmarkActual, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCompact Function
-     * @param {JET_SESID} sesid 
-     * @param {Pointer<Integer>} szDatabaseSrc 
-     * @param {Pointer<Integer>} szDatabaseDest 
-     * @param {Pointer<JET_PFNSTATUS>} pfnStatus 
-     * @param {Pointer<JET_CONVERT_A>} pconvert 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcompact-function
-     */
-    static JetCompactA(sesid, szDatabaseSrc, szDatabaseDest, pfnStatus, pconvert, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szDatabaseSrcMarshal := szDatabaseSrc is VarRef ? "char*" : "ptr"
-        szDatabaseDestMarshal := szDatabaseDest is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetCompactA", "ptr", sesid, szDatabaseSrcMarshal, szDatabaseSrc, szDatabaseDestMarshal, szDatabaseDest, "ptr", pfnStatus, "ptr", pconvert, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCompact Function
-     * @param {JET_SESID} sesid 
-     * @param {Pointer<Integer>} szDatabaseSrc 
-     * @param {Pointer<Integer>} szDatabaseDest 
-     * @param {Pointer<JET_PFNSTATUS>} pfnStatus 
-     * @param {Pointer<JET_CONVERT_W>} pconvert 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcompact-function
-     */
-    static JetCompactW(sesid, szDatabaseSrc, szDatabaseDest, pfnStatus, pconvert, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szDatabaseSrcMarshal := szDatabaseSrc is VarRef ? "ushort*" : "ptr"
-        szDatabaseDestMarshal := szDatabaseDest is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetCompactW", "ptr", sesid, szDatabaseSrcMarshal, szDatabaseSrc, szDatabaseDestMarshal, szDatabaseDest, "ptr", pfnStatus, "ptr", pconvert, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetDefragment Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Pointer<Integer>} szTableName 
-     * @param {Pointer<Integer>} pcPasses 
-     * @param {Pointer<Integer>} pcSeconds 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdefragment-function
-     */
-    static JetDefragmentA(sesid, _dbid, szTableName, pcPasses, pcSeconds, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szTableNameMarshal := szTableName is VarRef ? "char*" : "ptr"
-        pcPassesMarshal := pcPasses is VarRef ? "uint*" : "ptr"
-        pcSecondsMarshal := pcSeconds is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetDefragmentA", "ptr", sesid, "uint", _dbid, szTableNameMarshal, szTableName, pcPassesMarshal, pcPasses, pcSecondsMarshal, pcSeconds, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetDefragment Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Pointer<Integer>} szTableName 
-     * @param {Pointer<Integer>} pcPasses 
-     * @param {Pointer<Integer>} pcSeconds 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdefragment-function
-     */
-    static JetDefragmentW(sesid, _dbid, szTableName, pcPasses, pcSeconds, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szTableNameMarshal := szTableName is VarRef ? "ushort*" : "ptr"
-        pcPassesMarshal := pcPasses is VarRef ? "uint*" : "ptr"
-        pcSecondsMarshal := pcSeconds is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetDefragmentW", "ptr", sesid, "uint", _dbid, szTableNameMarshal, szTableName, pcPassesMarshal, pcPasses, pcSecondsMarshal, pcSeconds, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetDefragment2 Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Pointer<Integer>} szTableName 
-     * @param {Pointer<Integer>} pcPasses 
-     * @param {Pointer<Integer>} pcSeconds 
-     * @param {Pointer<JET_CALLBACK>} callback 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdefragment2-function
-     */
-    static JetDefragment2A(sesid, _dbid, szTableName, pcPasses, pcSeconds, callback, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szTableNameMarshal := szTableName is VarRef ? "char*" : "ptr"
-        pcPassesMarshal := pcPasses is VarRef ? "uint*" : "ptr"
-        pcSecondsMarshal := pcSeconds is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetDefragment2A", "ptr", sesid, "uint", _dbid, szTableNameMarshal, szTableName, pcPassesMarshal, pcPasses, pcSecondsMarshal, pcSeconds, "ptr", callback, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetDefragment2 Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Pointer<Integer>} szTableName 
-     * @param {Pointer<Integer>} pcPasses 
-     * @param {Pointer<Integer>} pcSeconds 
-     * @param {Pointer<JET_CALLBACK>} callback 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdefragment2-function
-     */
-    static JetDefragment2W(sesid, _dbid, szTableName, pcPasses, pcSeconds, callback, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szTableNameMarshal := szTableName is VarRef ? "ushort*" : "ptr"
-        pcPassesMarshal := pcPasses is VarRef ? "uint*" : "ptr"
-        pcSecondsMarshal := pcSeconds is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetDefragment2W", "ptr", sesid, "uint", _dbid, szTableNameMarshal, szTableName, pcPassesMarshal, pcPasses, pcSecondsMarshal, pcSeconds, "ptr", callback, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {JET_SESID} sesid 
-     * @param {Pointer<Integer>} szDatabaseName 
-     * @param {Pointer<Integer>} szTableName 
-     * @param {Pointer<Integer>} pcPasses 
-     * @param {Pointer<Integer>} pcSeconds 
-     * @param {Pointer<JET_CALLBACK>} callback 
-     * @param {Pointer<Void>} pvContext 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     */
-    static JetDefragment3A(sesid, szDatabaseName, szTableName, pcPasses, pcSeconds, callback, pvContext, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szDatabaseNameMarshal := szDatabaseName is VarRef ? "char*" : "ptr"
-        szTableNameMarshal := szTableName is VarRef ? "char*" : "ptr"
-        pcPassesMarshal := pcPasses is VarRef ? "uint*" : "ptr"
-        pcSecondsMarshal := pcSeconds is VarRef ? "uint*" : "ptr"
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
-
-        result := DllCall("ESENT.dll\JetDefragment3A", "ptr", sesid, szDatabaseNameMarshal, szDatabaseName, szTableNameMarshal, szTableName, pcPassesMarshal, pcPasses, pcSecondsMarshal, pcSeconds, "ptr", callback, pvContextMarshal, pvContext, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {JET_SESID} sesid 
-     * @param {Pointer<Integer>} szDatabaseName 
-     * @param {Pointer<Integer>} szTableName 
-     * @param {Pointer<Integer>} pcPasses 
-     * @param {Pointer<Integer>} pcSeconds 
-     * @param {Pointer<JET_CALLBACK>} callback 
-     * @param {Pointer<Void>} pvContext 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     */
-    static JetDefragment3W(sesid, szDatabaseName, szTableName, pcPasses, pcSeconds, callback, pvContext, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szDatabaseNameMarshal := szDatabaseName is VarRef ? "ushort*" : "ptr"
-        szTableNameMarshal := szTableName is VarRef ? "ushort*" : "ptr"
-        pcPassesMarshal := pcPasses is VarRef ? "uint*" : "ptr"
-        pcSecondsMarshal := pcSeconds is VarRef ? "uint*" : "ptr"
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
-
-        result := DllCall("ESENT.dll\JetDefragment3W", "ptr", sesid, szDatabaseNameMarshal, szDatabaseName, szTableNameMarshal, szTableName, pcPassesMarshal, pcPasses, pcSecondsMarshal, pcSeconds, "ptr", callback, pvContextMarshal, pvContext, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetSetDatabaseSize Function
-     * @param {JET_SESID} sesid 
-     * @param {Pointer<Integer>} szDatabaseName 
-     * @param {Integer} cpg 
-     * @param {Pointer<Integer>} pcpgReal 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetdatabasesize-function
-     */
-    static JetSetDatabaseSizeA(sesid, szDatabaseName, cpg, pcpgReal) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szDatabaseNameMarshal := szDatabaseName is VarRef ? "char*" : "ptr"
-        pcpgRealMarshal := pcpgReal is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetSetDatabaseSizeA", "ptr", sesid, szDatabaseNameMarshal, szDatabaseName, "uint", cpg, pcpgRealMarshal, pcpgReal, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetSetDatabaseSize Function
-     * @param {JET_SESID} sesid 
-     * @param {Pointer<Integer>} szDatabaseName 
-     * @param {Integer} cpg 
-     * @param {Pointer<Integer>} pcpgReal 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetdatabasesize-function
-     */
-    static JetSetDatabaseSizeW(sesid, szDatabaseName, cpg, pcpgReal) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        szDatabaseNameMarshal := szDatabaseName is VarRef ? "ushort*" : "ptr"
-        pcpgRealMarshal := pcpgReal is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetSetDatabaseSizeW", "ptr", sesid, szDatabaseNameMarshal, szDatabaseName, "uint", cpg, pcpgRealMarshal, pcpgReal, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGrowDatabase Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Integer} cpg 
-     * @param {Pointer<Integer>} pcpgReal 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgrowdatabase-function
-     */
-    static JetGrowDatabase(sesid, _dbid, cpg, pcpgReal) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        pcpgRealMarshal := pcpgReal is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGrowDatabase", "ptr", sesid, "uint", _dbid, "uint", cpg, pcpgRealMarshal, pcpgReal, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetResizeDatabase Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} _dbid 
-     * @param {Integer} cpgTarget 
-     * @param {Pointer<Integer>} pcpgActual 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetresizedatabase-function
-     */
-    static JetResizeDatabase(sesid, _dbid, cpgTarget, pcpgActual, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        pcpgActualMarshal := pcpgActual is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetResizeDatabase", "ptr", sesid, "uint", _dbid, "uint", cpgTarget, pcpgActualMarshal, pcpgActual, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetSetSessionContext Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_API_PTR} ulContext 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetsessioncontext-function
-     */
-    static JetSetSessionContext(sesid, ulContext) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        ulContext := ulContext is Win32Handle ? NumGet(ulContext, "ptr") : ulContext
-
-        result := DllCall("ESENT.dll\JetSetSessionContext", "ptr", sesid, "ptr", ulContext, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetResetSessionContext Function
-     * @param {JET_SESID} sesid 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetresetsessioncontext-function
-     */
-    static JetResetSessionContext(sesid) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        result := DllCall("ESENT.dll\JetResetSessionContext", "ptr", sesid, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGotoBookmark Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Integer} pvBookmark 
-     * @param {Integer} cbBookmark 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgotobookmark-function
-     */
-    static JetGotoBookmark(sesid, tableid, pvBookmark, cbBookmark) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetGotoBookmark", "ptr", sesid, "ptr", tableid, "ptr", pvBookmark, "uint", cbBookmark, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGotoSecondaryIndexBookmark Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Integer} pvSecondaryKey 
-     * @param {Integer} cbSecondaryKey 
-     * @param {Integer} pvPrimaryBookmark 
-     * @param {Integer} cbPrimaryBookmark 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgotosecondaryindexbookmark-function
-     */
-    static JetGotoSecondaryIndexBookmark(sesid, tableid, pvSecondaryKey, cbSecondaryKey, pvPrimaryBookmark, cbPrimaryBookmark, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetGotoSecondaryIndexBookmark", "ptr", sesid, "ptr", tableid, "ptr", pvSecondaryKey, "uint", cbSecondaryKey, "ptr", pvPrimaryBookmark, "uint", cbPrimaryBookmark, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetIntersectIndexes Function
-     * @param {JET_SESID} sesid 
-     * @param {Pointer<JET_INDEXRANGE>} rgindexrange 
-     * @param {Integer} cindexrange 
-     * @param {Pointer<JET_RECORDLIST>} precordlist 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetintersectindexes-function
-     */
-    static JetIntersectIndexes(sesid, rgindexrange, cindexrange, precordlist, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        result := DllCall("ESENT.dll\JetIntersectIndexes", "ptr", sesid, "ptr", rgindexrange, "uint", cindexrange, "ptr", precordlist, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetComputeStats Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcomputestats-function
-     */
-    static JetComputeStats(sesid, tableid) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetComputeStats", "ptr", sesid, "ptr", tableid, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetOpenTempTable Function
-     * @param {JET_SESID} sesid 
-     * @param {Pointer<JET_COLUMNDEF>} prgcolumndef 
-     * @param {Integer} ccolumn 
-     * @param {Integer} grbit 
-     * @param {Pointer<JET_TABLEID>} ptableid 
-     * @param {Pointer<Integer>} prgcolumnid 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopentemptable-function
-     */
-    static JetOpenTempTable(sesid, prgcolumndef, ccolumn, grbit, ptableid, prgcolumnid) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        prgcolumnidMarshal := prgcolumnid is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetOpenTempTable", "ptr", sesid, "ptr", prgcolumndef, "uint", ccolumn, "uint", grbit, "ptr", ptableid, prgcolumnidMarshal, prgcolumnid, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetOpenTempTable2 Function
-     * @param {JET_SESID} sesid 
-     * @param {Pointer<JET_COLUMNDEF>} prgcolumndef 
-     * @param {Integer} ccolumn 
-     * @param {Integer} lcid 
-     * @param {Integer} grbit 
-     * @param {Pointer<JET_TABLEID>} ptableid 
-     * @param {Pointer<Integer>} prgcolumnid 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopentemptable2-function
-     */
-    static JetOpenTempTable2(sesid, prgcolumndef, ccolumn, lcid, grbit, ptableid, prgcolumnid) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        prgcolumnidMarshal := prgcolumnid is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetOpenTempTable2", "ptr", sesid, "ptr", prgcolumndef, "uint", ccolumn, "uint", lcid, "uint", grbit, "ptr", ptableid, prgcolumnidMarshal, prgcolumnid, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetOpenTempTable3 Function
-     * @param {JET_SESID} sesid 
-     * @param {Pointer<JET_COLUMNDEF>} prgcolumndef 
-     * @param {Integer} ccolumn 
-     * @param {Pointer<JET_UNICODEINDEX>} pidxunicode 
-     * @param {Integer} grbit 
-     * @param {Pointer<JET_TABLEID>} ptableid 
-     * @param {Pointer<Integer>} prgcolumnid 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopentemptable3-function
-     */
-    static JetOpenTempTable3(sesid, prgcolumndef, ccolumn, pidxunicode, grbit, ptableid, prgcolumnid) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        prgcolumnidMarshal := prgcolumnid is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetOpenTempTable3", "ptr", sesid, "ptr", prgcolumndef, "uint", ccolumn, "ptr", pidxunicode, "uint", grbit, "ptr", ptableid, prgcolumnidMarshal, prgcolumnid, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetOpenTemporaryTable Function
-     * @param {JET_SESID} sesid 
-     * @param {Pointer<JET_OPENTEMPORARYTABLE>} popentemporarytable 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopentemporarytable-function
-     */
-    static JetOpenTemporaryTable(sesid, popentemporarytable) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        result := DllCall("ESENT.dll\JetOpenTemporaryTable", "ptr", sesid, "ptr", popentemporarytable, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetOpenTemporaryTable2 Function
-     * @param {JET_SESID} sesid 
-     * @param {Pointer<JET_OPENTEMPORARYTABLE2>} popentemporarytable 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopentemporarytable2-function
-     */
-    static JetOpenTemporaryTable2(sesid, popentemporarytable) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        result := DllCall("ESENT.dll\JetOpenTemporaryTable2", "ptr", sesid, "ptr", popentemporarytable, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetBackup Function
-     * @param {Pointer<Integer>} szBackupPath 
-     * @param {Integer} grbit 
-     * @param {Pointer<JET_PFNSTATUS>} pfnStatus 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetbackup-function
-     */
-    static JetBackupA(szBackupPath, grbit, pfnStatus) {
-        szBackupPathMarshal := szBackupPath is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetBackupA", szBackupPathMarshal, szBackupPath, "uint", grbit, "ptr", pfnStatus, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetBackup Function
-     * @param {Pointer<Integer>} szBackupPath 
-     * @param {Integer} grbit 
-     * @param {Pointer<JET_PFNSTATUS>} pfnStatus 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetbackup-function
-     */
-    static JetBackupW(szBackupPath, grbit, pfnStatus) {
-        szBackupPathMarshal := szBackupPath is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetBackupW", szBackupPathMarshal, szBackupPath, "uint", grbit, "ptr", pfnStatus, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetBackupInstance Function
-     * @param {JET_INSTANCE} instance 
-     * @param {Pointer<Integer>} szBackupPath 
-     * @param {Integer} grbit 
-     * @param {Pointer<JET_PFNSTATUS>} pfnStatus 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetbackupinstance-function
-     */
-    static JetBackupInstanceA(instance, szBackupPath, grbit, pfnStatus) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-
-        szBackupPathMarshal := szBackupPath is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetBackupInstanceA", "ptr", instance, szBackupPathMarshal, szBackupPath, "uint", grbit, "ptr", pfnStatus, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetBackupInstance Function
-     * @param {JET_INSTANCE} instance 
-     * @param {Pointer<Integer>} szBackupPath 
-     * @param {Integer} grbit 
-     * @param {Pointer<JET_PFNSTATUS>} pfnStatus 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetbackupinstance-function
-     */
-    static JetBackupInstanceW(instance, szBackupPath, grbit, pfnStatus) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-
-        szBackupPathMarshal := szBackupPath is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetBackupInstanceW", "ptr", instance, szBackupPathMarshal, szBackupPath, "uint", grbit, "ptr", pfnStatus, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetRestore Function
-     * @param {Pointer<Integer>} szSource 
-     * @param {Pointer<JET_PFNSTATUS>} _pfn 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetrestore-function
-     */
-    static JetRestoreA(szSource, _pfn) {
-        szSourceMarshal := szSource is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetRestoreA", szSourceMarshal, szSource, "ptr", _pfn, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetRestore Function
-     * @param {Pointer<Integer>} szSource 
-     * @param {Pointer<JET_PFNSTATUS>} _pfn 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetrestore-function
-     */
-    static JetRestoreW(szSource, _pfn) {
-        szSourceMarshal := szSource is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetRestoreW", szSourceMarshal, szSource, "ptr", _pfn, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetRestore2 Function
-     * @param {Pointer<Integer>} sz 
-     * @param {Pointer<Integer>} szDest 
-     * @param {Pointer<JET_PFNSTATUS>} _pfn 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetrestore2-function
-     */
-    static JetRestore2A(sz, szDest, _pfn) {
-        szMarshal := sz is VarRef ? "char*" : "ptr"
-        szDestMarshal := szDest is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetRestore2A", szMarshal, sz, szDestMarshal, szDest, "ptr", _pfn, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetRestore2 Function
-     * @param {Pointer<Integer>} sz 
-     * @param {Pointer<Integer>} szDest 
-     * @param {Pointer<JET_PFNSTATUS>} _pfn 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetrestore2-function
-     */
-    static JetRestore2W(sz, szDest, _pfn) {
-        szMarshal := sz is VarRef ? "ushort*" : "ptr"
-        szDestMarshal := szDest is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetRestore2W", szMarshal, sz, szDestMarshal, szDest, "ptr", _pfn, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetRestoreInstance Function
-     * @param {JET_INSTANCE} instance 
-     * @param {Pointer<Integer>} sz 
-     * @param {Pointer<Integer>} szDest 
-     * @param {Pointer<JET_PFNSTATUS>} _pfn 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetrestoreinstance-function
-     */
-    static JetRestoreInstanceA(instance, sz, szDest, _pfn) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-
-        szMarshal := sz is VarRef ? "char*" : "ptr"
-        szDestMarshal := szDest is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetRestoreInstanceA", "ptr", instance, szMarshal, sz, szDestMarshal, szDest, "ptr", _pfn, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetRestoreInstance Function
-     * @param {JET_INSTANCE} instance 
-     * @param {Pointer<Integer>} sz 
-     * @param {Pointer<Integer>} szDest 
-     * @param {Pointer<JET_PFNSTATUS>} _pfn 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetrestoreinstance-function
-     */
-    static JetRestoreInstanceW(instance, sz, szDest, _pfn) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-
-        szMarshal := sz is VarRef ? "ushort*" : "ptr"
-        szDestMarshal := szDest is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetRestoreInstanceW", "ptr", instance, szMarshal, sz, szDestMarshal, szDest, "ptr", _pfn, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetSetIndexRange Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableidSrc 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetindexrange-function
-     */
-    static JetSetIndexRange(sesid, tableidSrc, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableidSrc := tableidSrc is Win32Handle ? NumGet(tableidSrc, "ptr") : tableidSrc
-
-        result := DllCall("ESENT.dll\JetSetIndexRange", "ptr", sesid, "ptr", tableidSrc, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetIndexRecordCount Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<Integer>} pcrec 
-     * @param {Integer} crecMax 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetindexrecordcount-function
-     */
-    static JetIndexRecordCount(sesid, tableid, pcrec, crecMax) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        pcrecMarshal := pcrec is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetIndexRecordCount", "ptr", sesid, "ptr", tableid, pcrecMarshal, pcrec, "uint", crecMax, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetRetrieveKey Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Integer} pvKey 
-     * @param {Integer} cbMax 
-     * @param {Pointer<Integer>} pcbActual 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetretrievekey-function
-     */
-    static JetRetrieveKey(sesid, tableid, pvKey, cbMax, pcbActual, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetRetrieveKey", "ptr", sesid, "ptr", tableid, "ptr", pvKey, "uint", cbMax, pcbActualMarshal, pcbActual, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetBeginExternalBackup Function
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetbeginexternalbackup-function
-     */
-    static JetBeginExternalBackup(grbit) {
-        result := DllCall("ESENT.dll\JetBeginExternalBackup", "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetBeginExternalBackupInstance Function
-     * @param {JET_INSTANCE} instance 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetbeginexternalbackupinstance-function
-     */
-    static JetBeginExternalBackupInstance(instance, grbit) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-
-        result := DllCall("ESENT.dll\JetBeginExternalBackupInstance", "ptr", instance, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetAttachInfo Function
-     * @param {Integer} szzDatabases 
-     * @param {Integer} cbMax 
-     * @param {Pointer<Integer>} pcbActual 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetattachinfo-function
-     */
-    static JetGetAttachInfoA(szzDatabases, cbMax, pcbActual) {
-        pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetAttachInfoA", "ptr", szzDatabases, "uint", cbMax, pcbActualMarshal, pcbActual, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetAttachInfo Function
-     * @param {Integer} wszzDatabases 
-     * @param {Integer} cbMax 
-     * @param {Pointer<Integer>} pcbActual 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetattachinfo-function
-     */
-    static JetGetAttachInfoW(wszzDatabases, cbMax, pcbActual) {
-        pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetAttachInfoW", "ptr", wszzDatabases, "uint", cbMax, pcbActualMarshal, pcbActual, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetAttachInfoInstance Function
-     * @param {JET_INSTANCE} instance 
-     * @param {Integer} szzDatabases 
-     * @param {Integer} cbMax 
-     * @param {Pointer<Integer>} pcbActual 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetattachinfoinstance-function
-     */
-    static JetGetAttachInfoInstanceA(instance, szzDatabases, cbMax, pcbActual) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-
-        pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetAttachInfoInstanceA", "ptr", instance, "ptr", szzDatabases, "uint", cbMax, pcbActualMarshal, pcbActual, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetAttachInfoInstance Function
-     * @param {JET_INSTANCE} instance 
-     * @param {Integer} szzDatabases 
-     * @param {Integer} cbMax 
-     * @param {Pointer<Integer>} pcbActual 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetattachinfoinstance-function
-     */
-    static JetGetAttachInfoInstanceW(instance, szzDatabases, cbMax, pcbActual) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-
-        pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetAttachInfoInstanceW", "ptr", instance, "ptr", szzDatabases, "uint", cbMax, pcbActualMarshal, pcbActual, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetOpenFile Function
-     * @param {Pointer<Integer>} szFileName 
-     * @param {Pointer<JET_HANDLE>} phfFile 
-     * @param {Pointer<Integer>} pulFileSizeLow 
-     * @param {Pointer<Integer>} pulFileSizeHigh 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopenfile-function
-     */
-    static JetOpenFileA(szFileName, phfFile, pulFileSizeLow, pulFileSizeHigh) {
-        szFileNameMarshal := szFileName is VarRef ? "char*" : "ptr"
-        pulFileSizeLowMarshal := pulFileSizeLow is VarRef ? "uint*" : "ptr"
-        pulFileSizeHighMarshal := pulFileSizeHigh is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetOpenFileA", szFileNameMarshal, szFileName, "ptr", phfFile, pulFileSizeLowMarshal, pulFileSizeLow, pulFileSizeHighMarshal, pulFileSizeHigh, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetOpenFile Function
-     * @param {Pointer<Integer>} szFileName 
-     * @param {Pointer<JET_HANDLE>} phfFile 
-     * @param {Pointer<Integer>} pulFileSizeLow 
-     * @param {Pointer<Integer>} pulFileSizeHigh 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopenfile-function
-     */
-    static JetOpenFileW(szFileName, phfFile, pulFileSizeLow, pulFileSizeHigh) {
-        szFileNameMarshal := szFileName is VarRef ? "ushort*" : "ptr"
-        pulFileSizeLowMarshal := pulFileSizeLow is VarRef ? "uint*" : "ptr"
-        pulFileSizeHighMarshal := pulFileSizeHigh is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetOpenFileW", szFileNameMarshal, szFileName, "ptr", phfFile, pulFileSizeLowMarshal, pulFileSizeLow, pulFileSizeHighMarshal, pulFileSizeHigh, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetOpenFileInstance Function
-     * @param {JET_INSTANCE} instance 
-     * @param {Pointer<Integer>} szFileName 
-     * @param {Pointer<JET_HANDLE>} phfFile 
-     * @param {Pointer<Integer>} pulFileSizeLow 
-     * @param {Pointer<Integer>} pulFileSizeHigh 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopenfileinstance-function
-     */
-    static JetOpenFileInstanceA(instance, szFileName, phfFile, pulFileSizeLow, pulFileSizeHigh) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-
-        szFileNameMarshal := szFileName is VarRef ? "char*" : "ptr"
-        pulFileSizeLowMarshal := pulFileSizeLow is VarRef ? "uint*" : "ptr"
-        pulFileSizeHighMarshal := pulFileSizeHigh is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetOpenFileInstanceA", "ptr", instance, szFileNameMarshal, szFileName, "ptr", phfFile, pulFileSizeLowMarshal, pulFileSizeLow, pulFileSizeHighMarshal, pulFileSizeHigh, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetOpenFileInstance Function
-     * @param {JET_INSTANCE} instance 
-     * @param {Pointer<Integer>} szFileName 
-     * @param {Pointer<JET_HANDLE>} phfFile 
-     * @param {Pointer<Integer>} pulFileSizeLow 
-     * @param {Pointer<Integer>} pulFileSizeHigh 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopenfileinstance-function
-     */
-    static JetOpenFileInstanceW(instance, szFileName, phfFile, pulFileSizeLow, pulFileSizeHigh) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-
-        szFileNameMarshal := szFileName is VarRef ? "ushort*" : "ptr"
-        pulFileSizeLowMarshal := pulFileSizeLow is VarRef ? "uint*" : "ptr"
-        pulFileSizeHighMarshal := pulFileSizeHigh is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetOpenFileInstanceW", "ptr", instance, szFileNameMarshal, szFileName, "ptr", phfFile, pulFileSizeLowMarshal, pulFileSizeLow, pulFileSizeHighMarshal, pulFileSizeHigh, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetReadFile Function
-     * @param {JET_HANDLE} hfFile 
-     * @param {Integer} pv 
-     * @param {Integer} cb 
-     * @param {Pointer<Integer>} pcbActual 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetreadfile-function
-     */
-    static JetReadFile(hfFile, pv, cb, pcbActual) {
-        hfFile := hfFile is Win32Handle ? NumGet(hfFile, "ptr") : hfFile
-
-        pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetReadFile", "ptr", hfFile, "ptr", pv, "uint", cb, pcbActualMarshal, pcbActual, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetReadFileInstance Function
-     * @param {JET_INSTANCE} instance 
-     * @param {JET_HANDLE} hfFile 
-     * @param {Integer} pv 
-     * @param {Integer} cb 
-     * @param {Pointer<Integer>} pcbActual 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetreadfileinstance-function
-     */
-    static JetReadFileInstance(instance, hfFile, pv, cb, pcbActual) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-        hfFile := hfFile is Win32Handle ? NumGet(hfFile, "ptr") : hfFile
-
-        pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetReadFileInstance", "ptr", instance, "ptr", hfFile, "ptr", pv, "uint", cb, pcbActualMarshal, pcbActual, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCloseFile Function
-     * @param {JET_HANDLE} hfFile 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetclosefile-function
-     */
-    static JetCloseFile(hfFile) {
-        hfFile := hfFile is Win32Handle ? NumGet(hfFile, "ptr") : hfFile
-
-        result := DllCall("ESENT.dll\JetCloseFile", "ptr", hfFile, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetCloseFileInstance Function
-     * @param {JET_INSTANCE} instance 
-     * @param {JET_HANDLE} hfFile 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetclosefileinstance-function
-     */
-    static JetCloseFileInstance(instance, hfFile) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-        hfFile := hfFile is Win32Handle ? NumGet(hfFile, "ptr") : hfFile
-
-        result := DllCall("ESENT.dll\JetCloseFileInstance", "ptr", instance, "ptr", hfFile, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetLogInfo Function
-     * @param {Integer} szzLogs 
-     * @param {Integer} cbMax 
-     * @param {Pointer<Integer>} pcbActual 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetloginfo-function
-     */
-    static JetGetLogInfoA(szzLogs, cbMax, pcbActual) {
-        pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetLogInfoA", "ptr", szzLogs, "uint", cbMax, pcbActualMarshal, pcbActual, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetLogInfo Function
-     * @param {Integer} szzLogs 
-     * @param {Integer} cbMax 
-     * @param {Pointer<Integer>} pcbActual 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetloginfo-function
-     */
-    static JetGetLogInfoW(szzLogs, cbMax, pcbActual) {
-        pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetLogInfoW", "ptr", szzLogs, "uint", cbMax, pcbActualMarshal, pcbActual, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetLogInfoInstance Function
-     * @param {JET_INSTANCE} instance 
-     * @param {Integer} szzLogs 
-     * @param {Integer} cbMax 
-     * @param {Pointer<Integer>} pcbActual 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetloginfoinstance-function
-     */
-    static JetGetLogInfoInstanceA(instance, szzLogs, cbMax, pcbActual) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-
-        pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetLogInfoInstanceA", "ptr", instance, "ptr", szzLogs, "uint", cbMax, pcbActualMarshal, pcbActual, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetLogInfoInstance Function
-     * @param {JET_INSTANCE} instance 
-     * @param {Integer} wszzLogs 
-     * @param {Integer} cbMax 
-     * @param {Pointer<Integer>} pcbActual 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetloginfoinstance-function
-     */
-    static JetGetLogInfoInstanceW(instance, wszzLogs, cbMax, pcbActual) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-
-        pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetLogInfoInstanceW", "ptr", instance, "ptr", wszzLogs, "uint", cbMax, pcbActualMarshal, pcbActual, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetLogInfoInstance2 Function
-     * @param {JET_INSTANCE} instance 
-     * @param {Integer} szzLogs 
-     * @param {Integer} cbMax 
-     * @param {Pointer<Integer>} pcbActual 
-     * @param {Pointer<JET_LOGINFO_A>} pLogInfo 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetloginfoinstance2-function
-     */
-    static JetGetLogInfoInstance2A(instance, szzLogs, cbMax, pcbActual, pLogInfo) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-
-        pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetLogInfoInstance2A", "ptr", instance, "ptr", szzLogs, "uint", cbMax, pcbActualMarshal, pcbActual, "ptr", pLogInfo, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetLogInfoInstance2 Function
-     * @param {JET_INSTANCE} instance 
-     * @param {Integer} wszzLogs 
-     * @param {Integer} cbMax 
-     * @param {Pointer<Integer>} pcbActual 
-     * @param {Pointer<JET_LOGINFO_W>} pLogInfo 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetloginfoinstance2-function
-     */
-    static JetGetLogInfoInstance2W(instance, wszzLogs, cbMax, pcbActual, pLogInfo) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-
-        pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetLogInfoInstance2W", "ptr", instance, "ptr", wszzLogs, "uint", cbMax, pcbActualMarshal, pcbActual, "ptr", pLogInfo, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetTruncateLogInfoInstance Function
-     * @param {JET_INSTANCE} instance 
-     * @param {Integer} szzLogs 
-     * @param {Integer} cbMax 
-     * @param {Pointer<Integer>} pcbActual 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgettruncateloginfoinstance-function
-     */
-    static JetGetTruncateLogInfoInstanceA(instance, szzLogs, cbMax, pcbActual) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-
-        pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetTruncateLogInfoInstanceA", "ptr", instance, "ptr", szzLogs, "uint", cbMax, pcbActualMarshal, pcbActual, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetTruncateLogInfoInstance Function
-     * @param {JET_INSTANCE} instance 
-     * @param {Integer} wszzLogs 
-     * @param {Integer} cbMax 
-     * @param {Pointer<Integer>} pcbActual 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgettruncateloginfoinstance-function
-     */
-    static JetGetTruncateLogInfoInstanceW(instance, wszzLogs, cbMax, pcbActual) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-
-        pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetTruncateLogInfoInstanceW", "ptr", instance, "ptr", wszzLogs, "uint", cbMax, pcbActualMarshal, pcbActual, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetTruncateLog Function
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jettruncatelog-function
-     */
-    static JetTruncateLog() {
-        result := DllCall("ESENT.dll\JetTruncateLog", "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetTruncateLogInstance Function
-     * @param {JET_INSTANCE} instance 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jettruncateloginstance-function
-     */
-    static JetTruncateLogInstance(instance) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-
-        result := DllCall("ESENT.dll\JetTruncateLogInstance", "ptr", instance, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetEndExternalBackup Function
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetendexternalbackup-function
-     */
-    static JetEndExternalBackup() {
-        result := DllCall("ESENT.dll\JetEndExternalBackup", "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetEndExternalBackupInstance Function
-     * @param {JET_INSTANCE} instance 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetendexternalbackupinstance-function
-     */
-    static JetEndExternalBackupInstance(instance) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-
-        result := DllCall("ESENT.dll\JetEndExternalBackupInstance", "ptr", instance, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetEndExternalBackupInstance2 Function
-     * @param {JET_INSTANCE} instance 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetendexternalbackupinstance2-function
-     */
-    static JetEndExternalBackupInstance2(instance, grbit) {
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-
-        result := DllCall("ESENT.dll\JetEndExternalBackupInstance2", "ptr", instance, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetExternalRestore Function
-     * @param {Pointer<Integer>} szCheckpointFilePath 
-     * @param {Pointer<Integer>} szLogPath 
-     * @param {Pointer<JET_RSTMAP_A>} rgrstmap 
-     * @param {Integer} crstfilemap 
-     * @param {Pointer<Integer>} szBackupLogPath 
-     * @param {Integer} genLow 
-     * @param {Integer} genHigh 
-     * @param {Pointer<JET_PFNSTATUS>} _pfn 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetexternalrestore-function
-     */
-    static JetExternalRestoreA(szCheckpointFilePath, szLogPath, rgrstmap, crstfilemap, szBackupLogPath, genLow, genHigh, _pfn) {
-        szCheckpointFilePathMarshal := szCheckpointFilePath is VarRef ? "char*" : "ptr"
-        szLogPathMarshal := szLogPath is VarRef ? "char*" : "ptr"
-        szBackupLogPathMarshal := szBackupLogPath is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetExternalRestoreA", szCheckpointFilePathMarshal, szCheckpointFilePath, szLogPathMarshal, szLogPath, "ptr", rgrstmap, "int", crstfilemap, szBackupLogPathMarshal, szBackupLogPath, "int", genLow, "int", genHigh, "ptr", _pfn, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetExternalRestore Function
-     * @param {Pointer<Integer>} szCheckpointFilePath 
-     * @param {Pointer<Integer>} szLogPath 
-     * @param {Pointer<JET_RSTMAP_W>} rgrstmap 
-     * @param {Integer} crstfilemap 
-     * @param {Pointer<Integer>} szBackupLogPath 
-     * @param {Integer} genLow 
-     * @param {Integer} genHigh 
-     * @param {Pointer<JET_PFNSTATUS>} _pfn 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetexternalrestore-function
-     */
-    static JetExternalRestoreW(szCheckpointFilePath, szLogPath, rgrstmap, crstfilemap, szBackupLogPath, genLow, genHigh, _pfn) {
-        szCheckpointFilePathMarshal := szCheckpointFilePath is VarRef ? "ushort*" : "ptr"
-        szLogPathMarshal := szLogPath is VarRef ? "ushort*" : "ptr"
-        szBackupLogPathMarshal := szBackupLogPath is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetExternalRestoreW", szCheckpointFilePathMarshal, szCheckpointFilePath, szLogPathMarshal, szLogPath, "ptr", rgrstmap, "int", crstfilemap, szBackupLogPathMarshal, szBackupLogPath, "int", genLow, "int", genHigh, "ptr", _pfn, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetExternalRestore2 Function
-     * @param {Pointer<Integer>} szCheckpointFilePath 
-     * @param {Pointer<Integer>} szLogPath 
-     * @param {Pointer<JET_RSTMAP_A>} rgrstmap 
-     * @param {Integer} crstfilemap 
-     * @param {Pointer<Integer>} szBackupLogPath 
-     * @param {Pointer<JET_LOGINFO_A>} pLogInfo 
-     * @param {Pointer<Integer>} szTargetInstanceName 
-     * @param {Pointer<Integer>} szTargetInstanceLogPath 
-     * @param {Pointer<Integer>} szTargetInstanceCheckpointPath 
-     * @param {Pointer<JET_PFNSTATUS>} _pfn 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetexternalrestore2-function
-     */
-    static JetExternalRestore2A(szCheckpointFilePath, szLogPath, rgrstmap, crstfilemap, szBackupLogPath, pLogInfo, szTargetInstanceName, szTargetInstanceLogPath, szTargetInstanceCheckpointPath, _pfn) {
-        szCheckpointFilePathMarshal := szCheckpointFilePath is VarRef ? "char*" : "ptr"
-        szLogPathMarshal := szLogPath is VarRef ? "char*" : "ptr"
-        szBackupLogPathMarshal := szBackupLogPath is VarRef ? "char*" : "ptr"
-        szTargetInstanceNameMarshal := szTargetInstanceName is VarRef ? "char*" : "ptr"
-        szTargetInstanceLogPathMarshal := szTargetInstanceLogPath is VarRef ? "char*" : "ptr"
-        szTargetInstanceCheckpointPathMarshal := szTargetInstanceCheckpointPath is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetExternalRestore2A", szCheckpointFilePathMarshal, szCheckpointFilePath, szLogPathMarshal, szLogPath, "ptr", rgrstmap, "int", crstfilemap, szBackupLogPathMarshal, szBackupLogPath, "ptr", pLogInfo, szTargetInstanceNameMarshal, szTargetInstanceName, szTargetInstanceLogPathMarshal, szTargetInstanceLogPath, szTargetInstanceCheckpointPathMarshal, szTargetInstanceCheckpointPath, "ptr", _pfn, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetExternalRestore2 Function
-     * @param {Pointer<Integer>} szCheckpointFilePath 
-     * @param {Pointer<Integer>} szLogPath 
-     * @param {Pointer<JET_RSTMAP_W>} rgrstmap 
-     * @param {Integer} crstfilemap 
-     * @param {Pointer<Integer>} szBackupLogPath 
-     * @param {Pointer<JET_LOGINFO_W>} pLogInfo 
-     * @param {Pointer<Integer>} szTargetInstanceName 
-     * @param {Pointer<Integer>} szTargetInstanceLogPath 
-     * @param {Pointer<Integer>} szTargetInstanceCheckpointPath 
-     * @param {Pointer<JET_PFNSTATUS>} _pfn 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetexternalrestore2-function
-     */
-    static JetExternalRestore2W(szCheckpointFilePath, szLogPath, rgrstmap, crstfilemap, szBackupLogPath, pLogInfo, szTargetInstanceName, szTargetInstanceLogPath, szTargetInstanceCheckpointPath, _pfn) {
-        szCheckpointFilePathMarshal := szCheckpointFilePath is VarRef ? "ushort*" : "ptr"
-        szLogPathMarshal := szLogPath is VarRef ? "ushort*" : "ptr"
-        szBackupLogPathMarshal := szBackupLogPath is VarRef ? "ushort*" : "ptr"
-        szTargetInstanceNameMarshal := szTargetInstanceName is VarRef ? "ushort*" : "ptr"
-        szTargetInstanceLogPathMarshal := szTargetInstanceLogPath is VarRef ? "ushort*" : "ptr"
-        szTargetInstanceCheckpointPathMarshal := szTargetInstanceCheckpointPath is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetExternalRestore2W", szCheckpointFilePathMarshal, szCheckpointFilePath, szLogPathMarshal, szLogPath, "ptr", rgrstmap, "int", crstfilemap, szBackupLogPathMarshal, szBackupLogPath, "ptr", pLogInfo, szTargetInstanceNameMarshal, szTargetInstanceName, szTargetInstanceLogPathMarshal, szTargetInstanceLogPath, szTargetInstanceCheckpointPathMarshal, szTargetInstanceCheckpointPath, "ptr", _pfn, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetRegisterCallback Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Integer} cbtyp 
-     * @param {Pointer<JET_CALLBACK>} pCallback 
-     * @param {Pointer<Void>} pvContext 
-     * @param {Pointer<JET_HANDLE>} phCallbackId 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetregistercallback-function
-     */
-    static JetRegisterCallback(sesid, tableid, cbtyp, pCallback, pvContext, phCallbackId) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
-
-        result := DllCall("ESENT.dll\JetRegisterCallback", "ptr", sesid, "ptr", tableid, "uint", cbtyp, "ptr", pCallback, pvContextMarshal, pvContext, "ptr", phCallbackId, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetUnregisterCallback Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Integer} cbtyp 
-     * @param {JET_HANDLE} hCallbackId 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetunregistercallback-function
-     */
-    static JetUnregisterCallback(sesid, tableid, cbtyp, hCallbackId) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-        hCallbackId := hCallbackId is Win32Handle ? NumGet(hCallbackId, "ptr") : hCallbackId
-
-        result := DllCall("ESENT.dll\JetUnregisterCallback", "ptr", sesid, "ptr", tableid, "uint", cbtyp, "ptr", hCallbackId, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetInstanceInfo Function
-     * @param {Pointer<Integer>} pcInstanceInfo 
-     * @param {Pointer<Pointer<JET_INSTANCE_INFO_A>>} paInstanceInfo 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetinstanceinfo-function
-     */
-    static JetGetInstanceInfoA(pcInstanceInfo, paInstanceInfo) {
-        pcInstanceInfoMarshal := pcInstanceInfo is VarRef ? "uint*" : "ptr"
-        paInstanceInfoMarshal := paInstanceInfo is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetInstanceInfoA", pcInstanceInfoMarshal, pcInstanceInfo, paInstanceInfoMarshal, paInstanceInfo, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetInstanceInfo Function
-     * @param {Pointer<Integer>} pcInstanceInfo 
-     * @param {Pointer<Pointer<JET_INSTANCE_INFO_W>>} paInstanceInfo 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetinstanceinfo-function
-     */
-    static JetGetInstanceInfoW(pcInstanceInfo, paInstanceInfo) {
-        pcInstanceInfoMarshal := pcInstanceInfo is VarRef ? "uint*" : "ptr"
-        paInstanceInfoMarshal := paInstanceInfo is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetInstanceInfoW", pcInstanceInfoMarshal, pcInstanceInfo, paInstanceInfoMarshal, paInstanceInfo, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetFreeBuffer Function
-     * @param {Pointer<Integer>} pbBuf 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetfreebuffer-function
-     */
-    static JetFreeBuffer(pbBuf) {
-        pbBufMarshal := pbBuf is VarRef ? "char*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetFreeBuffer", pbBufMarshal, pbBuf, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetSetLS Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {JET_LS} ls 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetls-function
-     */
-    static JetSetLS(sesid, tableid, ls, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-        ls := ls is Win32Handle ? NumGet(ls, "ptr") : ls
-
-        result := DllCall("ESENT.dll\JetSetLS", "ptr", sesid, "ptr", tableid, "ptr", ls, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetLS Function
-     * @param {JET_SESID} sesid 
-     * @param {JET_TABLEID} tableid 
-     * @param {Pointer<JET_LS>} pls 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetls-function
-     */
-    static JetGetLS(sesid, tableid, pls, grbit) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
-
-        result := DllCall("ESENT.dll\JetGetLS", "ptr", sesid, "ptr", tableid, "ptr", pls, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetOSSnapshotPrepare Function
-     * @param {Pointer<JET_OSSNAPID>} psnapId 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetossnapshotprepare-function
-     */
-    static JetOSSnapshotPrepare(psnapId, grbit) {
-        result := DllCall("ESENT.dll\JetOSSnapshotPrepare", "ptr", psnapId, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetOSSnapshotPrepareInstance Function
-     * @param {JET_OSSNAPID} snapId 
-     * @param {JET_INSTANCE} instance 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetossnapshotprepareinstance-function
-     */
-    static JetOSSnapshotPrepareInstance(snapId, instance, grbit) {
-        snapId := snapId is Win32Handle ? NumGet(snapId, "ptr") : snapId
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-
-        result := DllCall("ESENT.dll\JetOSSnapshotPrepareInstance", "ptr", snapId, "ptr", instance, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetOSSnapshotFreeze Function
-     * @param {JET_OSSNAPID} snapId 
-     * @param {Pointer<Integer>} pcInstanceInfo 
-     * @param {Pointer<Pointer<JET_INSTANCE_INFO_A>>} paInstanceInfo 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetossnapshotfreeze-function
-     */
-    static JetOSSnapshotFreezeA(snapId, pcInstanceInfo, paInstanceInfo, grbit) {
-        snapId := snapId is Win32Handle ? NumGet(snapId, "ptr") : snapId
-
-        pcInstanceInfoMarshal := pcInstanceInfo is VarRef ? "uint*" : "ptr"
-        paInstanceInfoMarshal := paInstanceInfo is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetOSSnapshotFreezeA", "ptr", snapId, pcInstanceInfoMarshal, pcInstanceInfo, paInstanceInfoMarshal, paInstanceInfo, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetOSSnapshotFreeze Function
-     * @param {JET_OSSNAPID} snapId 
-     * @param {Pointer<Integer>} pcInstanceInfo 
-     * @param {Pointer<Pointer<JET_INSTANCE_INFO_W>>} paInstanceInfo 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetossnapshotfreeze-function
-     */
-    static JetOSSnapshotFreezeW(snapId, pcInstanceInfo, paInstanceInfo, grbit) {
-        snapId := snapId is Win32Handle ? NumGet(snapId, "ptr") : snapId
-
-        pcInstanceInfoMarshal := pcInstanceInfo is VarRef ? "uint*" : "ptr"
-        paInstanceInfoMarshal := paInstanceInfo is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetOSSnapshotFreezeW", "ptr", snapId, pcInstanceInfoMarshal, pcInstanceInfo, paInstanceInfoMarshal, paInstanceInfo, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetOSSnapshotThaw Function
-     * @param {JET_OSSNAPID} snapId 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetossnapshotthaw-function
-     */
-    static JetOSSnapshotThaw(snapId, grbit) {
-        snapId := snapId is Win32Handle ? NumGet(snapId, "ptr") : snapId
-
-        result := DllCall("ESENT.dll\JetOSSnapshotThaw", "ptr", snapId, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetOSSnapshotAbort Function
-     * @param {JET_OSSNAPID} snapId 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetossnapshotabort-function
-     */
-    static JetOSSnapshotAbort(snapId, grbit) {
-        snapId := snapId is Win32Handle ? NumGet(snapId, "ptr") : snapId
-
-        result := DllCall("ESENT.dll\JetOSSnapshotAbort", "ptr", snapId, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetOSSnapshotTruncateLog Function
-     * @param {JET_OSSNAPID} snapId 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetossnapshottruncatelog-function
-     */
-    static JetOSSnapshotTruncateLog(snapId, grbit) {
-        snapId := snapId is Win32Handle ? NumGet(snapId, "ptr") : snapId
-
-        result := DllCall("ESENT.dll\JetOSSnapshotTruncateLog", "ptr", snapId, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetOSSnapshotTruncateLogInstance Function
-     * @param {JET_OSSNAPID} snapId 
-     * @param {JET_INSTANCE} instance 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetossnapshottruncateloginstance-function
-     */
-    static JetOSSnapshotTruncateLogInstance(snapId, instance, grbit) {
-        snapId := snapId is Win32Handle ? NumGet(snapId, "ptr") : snapId
-        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
-
-        result := DllCall("ESENT.dll\JetOSSnapshotTruncateLogInstance", "ptr", snapId, "ptr", instance, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetOSSnapshotGetFreezeInfo Function
-     * @param {JET_OSSNAPID} snapId 
-     * @param {Pointer<Integer>} pcInstanceInfo 
-     * @param {Pointer<Pointer<JET_INSTANCE_INFO_A>>} paInstanceInfo 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetossnapshotgetfreezeinfo-function
-     */
-    static JetOSSnapshotGetFreezeInfoA(snapId, pcInstanceInfo, paInstanceInfo, grbit) {
-        snapId := snapId is Win32Handle ? NumGet(snapId, "ptr") : snapId
-
-        pcInstanceInfoMarshal := pcInstanceInfo is VarRef ? "uint*" : "ptr"
-        paInstanceInfoMarshal := paInstanceInfo is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetOSSnapshotGetFreezeInfoA", "ptr", snapId, pcInstanceInfoMarshal, pcInstanceInfo, paInstanceInfoMarshal, paInstanceInfo, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetOSSnapshotGetFreezeInfo Function
-     * @param {JET_OSSNAPID} snapId 
-     * @param {Pointer<Integer>} pcInstanceInfo 
-     * @param {Pointer<Pointer<JET_INSTANCE_INFO_W>>} paInstanceInfo 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetossnapshotgetfreezeinfo-function
-     */
-    static JetOSSnapshotGetFreezeInfoW(snapId, pcInstanceInfo, paInstanceInfo, grbit) {
-        snapId := snapId is Win32Handle ? NumGet(snapId, "ptr") : snapId
-
-        pcInstanceInfoMarshal := pcInstanceInfo is VarRef ? "uint*" : "ptr"
-        paInstanceInfoMarshal := paInstanceInfo is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetOSSnapshotGetFreezeInfoW", "ptr", snapId, pcInstanceInfoMarshal, pcInstanceInfo, paInstanceInfoMarshal, paInstanceInfo, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetOSSnapshotEnd Function
-     * @param {JET_OSSNAPID} snapId 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetossnapshotend-function
-     */
-    static JetOSSnapshotEnd(snapId, grbit) {
-        snapId := snapId is Win32Handle ? NumGet(snapId, "ptr") : snapId
-
-        result := DllCall("ESENT.dll\JetOSSnapshotEnd", "ptr", snapId, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     */
-    static JetConfigureProcessForCrashDump(grbit) {
-        result := DllCall("ESENT.dll\JetConfigureProcessForCrashDump", "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetErrorInfoW Function
-     * @param {Pointer<Void>} pvContext 
-     * @param {Integer} pvResult 
-     * @param {Integer} cbMax 
-     * @param {Integer} InfoLevel 
-     * @param {Integer} grbit 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgeterrorinfow-function
-     */
-    static JetGetErrorInfoW(pvContext, pvResult, cbMax, InfoLevel, grbit) {
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetErrorInfoW", pvContextMarshal, pvContext, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "uint", grbit, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetSetSessionParameter Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} sesparamid 
-     * @param {Integer} pvParam 
-     * @param {Integer} cbParam 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetsessionparameter-function
-     */
-    static JetSetSessionParameter(sesid, sesparamid, pvParam, cbParam) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        result := DllCall("ESENT.dll\JetSetSessionParameter", "ptr", sesid, "uint", sesparamid, "ptr", pvParam, "uint", cbParam, "int")
-        return result
-    }
-
-    /**
-     * Learn more about: JetGetSessionParameter Function
-     * @param {JET_SESID} sesid 
-     * @param {Integer} sesparamid 
-     * @param {Pointer<Void>} pvParam 
-     * @param {Integer} cbParamMax 
-     * @param {Pointer<Integer>} pcbParamActual 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetsessionparameter-function
-     */
-    static JetGetSessionParameter(sesid, sesparamid, pvParam, cbParamMax, pcbParamActual) {
-        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
-
-        pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
-        pcbParamActualMarshal := pcbParamActual is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ESENT.dll\JetGetSessionParameter", "ptr", sesid, "uint", sesparamid, pvParamMarshal, pvParam, "uint", cbParamMax, pcbParamActualMarshal, pcbParamActual, "int")
-        return result
-    }
-
-;@endregion Methods
+;@region Functions
+/**
+ * Learn more about: JetInit Function
+ * @param {Pointer<JET_INSTANCE>} pinstance 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetinit-function
+ */
+export JetInit(pinstance) {
+    result := DllCall("ESENT.dll\JetInit", JET_INSTANCE.Ptr, pinstance, Int32)
+    return result
 }
+
+/**
+ * Learn more about: JetInit2 Function
+ * @param {Pointer<JET_INSTANCE>} pinstance 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetinit2-function
+ */
+export JetInit2(pinstance, grbit) {
+    result := DllCall("ESENT.dll\JetInit2", JET_INSTANCE.Ptr, pinstance, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetInit3 Function
+ * @param {Pointer<JET_INSTANCE>} pinstance 
+ * @param {Pointer<JET_RSTINFO_A>} prstInfo 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetinit3-function
+ */
+export JetInit3A(pinstance, prstInfo, grbit) {
+    result := DllCall("ESENT.dll\JetInit3A", JET_INSTANCE.Ptr, pinstance, JET_RSTINFO_A.Ptr, prstInfo, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetInit3 Function
+ * @param {Pointer<JET_INSTANCE>} pinstance 
+ * @param {Pointer<JET_RSTINFO_W>} prstInfo 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetinit3-function
+ */
+export JetInit3W(pinstance, prstInfo, grbit) {
+    result := DllCall("ESENT.dll\JetInit3W", JET_INSTANCE.Ptr, pinstance, JET_RSTINFO_W.Ptr, prstInfo, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCreateInstance Function
+ * @param {Pointer<JET_INSTANCE>} pinstance 
+ * @param {Pointer<Integer>} szInstanceName 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreateinstance-function
+ */
+export JetCreateInstanceA(pinstance, szInstanceName) {
+    szInstanceNameMarshal := szInstanceName is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetCreateInstanceA", JET_INSTANCE.Ptr, pinstance, szInstanceNameMarshal, szInstanceName, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCreateInstance Function
+ * @param {Pointer<JET_INSTANCE>} pinstance 
+ * @param {Pointer<Integer>} szInstanceName 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreateinstance-function
+ */
+export JetCreateInstanceW(pinstance, szInstanceName) {
+    szInstanceNameMarshal := szInstanceName is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetCreateInstanceW", JET_INSTANCE.Ptr, pinstance, szInstanceNameMarshal, szInstanceName, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCreateInstance2 Function
+ * @param {Pointer<JET_INSTANCE>} pinstance 
+ * @param {Pointer<Integer>} szInstanceName 
+ * @param {Pointer<Integer>} szDisplayName 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreateinstance2-function
+ */
+export JetCreateInstance2A(pinstance, szInstanceName, szDisplayName, grbit) {
+    szInstanceNameMarshal := szInstanceName is VarRef ? "char*" : "ptr"
+    szDisplayNameMarshal := szDisplayName is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetCreateInstance2A", JET_INSTANCE.Ptr, pinstance, szInstanceNameMarshal, szInstanceName, szDisplayNameMarshal, szDisplayName, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCreateInstance2 Function
+ * @param {Pointer<JET_INSTANCE>} pinstance 
+ * @param {Pointer<Integer>} szInstanceName 
+ * @param {Pointer<Integer>} szDisplayName 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreateinstance2-function
+ */
+export JetCreateInstance2W(pinstance, szInstanceName, szDisplayName, grbit) {
+    szInstanceNameMarshal := szInstanceName is VarRef ? "ushort*" : "ptr"
+    szDisplayNameMarshal := szDisplayName is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetCreateInstance2W", JET_INSTANCE.Ptr, pinstance, szInstanceNameMarshal, szInstanceName, szDisplayNameMarshal, szDisplayName, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetInstanceMiscInfo Function
+ * @param {JET_INSTANCE} instance 
+ * @param {Integer} pvResult 
+ * @param {Integer} cbMax 
+ * @param {Integer} InfoLevel 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetinstancemiscinfo-function
+ */
+export JetGetInstanceMiscInfo(instance, pvResult, cbMax, InfoLevel) {
+    result := DllCall("ESENT.dll\JetGetInstanceMiscInfo", JET_INSTANCE, instance, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetTerm Function
+ * @param {JET_INSTANCE} instance 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetterm-function
+ */
+export JetTerm(instance) {
+    result := DllCall("ESENT.dll\JetTerm", JET_INSTANCE, instance, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetTerm2 Function
+ * @param {JET_INSTANCE} instance 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetterm2-function
+ */
+export JetTerm2(instance, grbit) {
+    result := DllCall("ESENT.dll\JetTerm2", JET_INSTANCE, instance, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetStopService Function
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetstopservice-function
+ */
+export JetStopService() {
+    result := DllCall("ESENT.dll\JetStopService", Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetStopServiceInstance Function
+ * @param {JET_INSTANCE} instance 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetstopserviceinstance-function
+ */
+export JetStopServiceInstance(instance) {
+    result := DllCall("ESENT.dll\JetStopServiceInstance", JET_INSTANCE, instance, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetStopServiceInstance2 Function
+ * @param {JET_INSTANCE} instance 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetstopserviceinstance2-function
+ */
+export JetStopServiceInstance2(instance, grbit) {
+    result := DllCall("ESENT.dll\JetStopServiceInstance2", JET_INSTANCE, instance, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetStopBackup Function
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetstopbackup-function
+ */
+export JetStopBackup() {
+    result := DllCall("ESENT.dll\JetStopBackup", Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetStopBackupInstance Function
+ * @param {JET_INSTANCE} instance 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetstopbackupinstance-function
+ */
+export JetStopBackupInstance(instance) {
+    result := DllCall("ESENT.dll\JetStopBackupInstance", JET_INSTANCE, instance, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetSetSystemParameter Function
+ * @param {Pointer<JET_INSTANCE>} pinstance 
+ * @param {JET_SESID} sesid 
+ * @param {Integer} paramid 
+ * @param {JET_API_PTR} _lParam 
+ * @param {Pointer<Integer>} szParam 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetsystemparameter-function
+ */
+export JetSetSystemParameterA(pinstance, sesid, paramid, _lParam, szParam) {
+    szParamMarshal := szParam is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetSetSystemParameterA", JET_INSTANCE.Ptr, pinstance, JET_SESID, sesid, "uint", paramid, JET_API_PTR, _lParam, szParamMarshal, szParam, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetSetSystemParameter Function
+ * @param {Pointer<JET_INSTANCE>} pinstance 
+ * @param {JET_SESID} sesid 
+ * @param {Integer} paramid 
+ * @param {JET_API_PTR} _lParam 
+ * @param {Pointer<Integer>} szParam 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetsystemparameter-function
+ */
+export JetSetSystemParameterW(pinstance, sesid, paramid, _lParam, szParam) {
+    szParamMarshal := szParam is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetSetSystemParameterW", JET_INSTANCE.Ptr, pinstance, JET_SESID, sesid, "uint", paramid, JET_API_PTR, _lParam, szParamMarshal, szParam, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetSystemParameter Function
+ * @param {JET_INSTANCE} instance 
+ * @param {JET_SESID} sesid 
+ * @param {Integer} paramid 
+ * @param {Pointer<JET_API_PTR>} plParam 
+ * @param {Integer} szParam 
+ * @param {Integer} cbMax 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetsystemparameter-function
+ */
+export JetGetSystemParameterA(instance, sesid, paramid, plParam, szParam, cbMax) {
+    result := DllCall("ESENT.dll\JetGetSystemParameterA", JET_INSTANCE, instance, JET_SESID, sesid, "uint", paramid, JET_API_PTR.Ptr, plParam, "ptr", szParam, "uint", cbMax, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetSystemParameter Function
+ * @param {JET_INSTANCE} instance 
+ * @param {JET_SESID} sesid 
+ * @param {Integer} paramid 
+ * @param {Pointer<JET_API_PTR>} plParam 
+ * @param {Integer} szParam 
+ * @param {Integer} cbMax 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetsystemparameter-function
+ */
+export JetGetSystemParameterW(instance, sesid, paramid, plParam, szParam, cbMax) {
+    result := DllCall("ESENT.dll\JetGetSystemParameterW", JET_INSTANCE, instance, JET_SESID, sesid, "uint", paramid, JET_API_PTR.Ptr, plParam, "ptr", szParam, "uint", cbMax, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetEnableMultiInstance Function
+ * @param {Pointer<JET_SETSYSPARAM_A>} psetsysparam 
+ * @param {Integer} csetsysparam 
+ * @param {Pointer<Integer>} pcsetsucceed 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetenablemultiinstance-function
+ */
+export JetEnableMultiInstanceA(psetsysparam, csetsysparam, pcsetsucceed) {
+    pcsetsucceedMarshal := pcsetsucceed is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetEnableMultiInstanceA", JET_SETSYSPARAM_A.Ptr, psetsysparam, "uint", csetsysparam, pcsetsucceedMarshal, pcsetsucceed, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetEnableMultiInstance Function
+ * @param {Pointer<JET_SETSYSPARAM_W>} psetsysparam 
+ * @param {Integer} csetsysparam 
+ * @param {Pointer<Integer>} pcsetsucceed 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetenablemultiinstance-function
+ */
+export JetEnableMultiInstanceW(psetsysparam, csetsysparam, pcsetsucceed) {
+    pcsetsucceedMarshal := pcsetsucceed is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetEnableMultiInstanceW", JET_SETSYSPARAM_W.Ptr, psetsysparam, "uint", csetsysparam, pcsetsucceedMarshal, pcsetsucceed, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetThreadStats Function
+ * @param {Integer} pvResult 
+ * @param {Integer} cbMax 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetthreadstats-function
+ */
+export JetGetThreadStats(pvResult, cbMax) {
+    result := DllCall("ESENT.dll\JetGetThreadStats", "ptr", pvResult, "uint", cbMax, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetBeginSession Function
+ * @param {JET_INSTANCE} instance 
+ * @param {Pointer<JET_SESID>} psesid 
+ * @param {Pointer<Integer>} szUserName 
+ * @param {Pointer<Integer>} szPassword 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetbeginsession-function
+ */
+export JetBeginSessionA(instance, psesid, szUserName, szPassword) {
+    szUserNameMarshal := szUserName is VarRef ? "char*" : "ptr"
+    szPasswordMarshal := szPassword is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetBeginSessionA", JET_INSTANCE, instance, JET_SESID.Ptr, psesid, szUserNameMarshal, szUserName, szPasswordMarshal, szPassword, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetBeginSession Function
+ * @param {JET_INSTANCE} instance 
+ * @param {Pointer<JET_SESID>} psesid 
+ * @param {Pointer<Integer>} szUserName 
+ * @param {Pointer<Integer>} szPassword 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetbeginsession-function
+ */
+export JetBeginSessionW(instance, psesid, szUserName, szPassword) {
+    szUserNameMarshal := szUserName is VarRef ? "ushort*" : "ptr"
+    szPasswordMarshal := szPassword is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetBeginSessionW", JET_INSTANCE, instance, JET_SESID.Ptr, psesid, szUserNameMarshal, szUserName, szPasswordMarshal, szPassword, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetDupSession Function
+ * @param {JET_SESID} sesid 
+ * @param {Pointer<JET_SESID>} psesid 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdupsession-function
+ */
+export JetDupSession(sesid, psesid) {
+    result := DllCall("ESENT.dll\JetDupSession", JET_SESID, sesid, JET_SESID.Ptr, psesid, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetEndSession Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetendsession-function
+ */
+export JetEndSession(sesid, grbit) {
+    result := DllCall("ESENT.dll\JetEndSession", JET_SESID, sesid, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetVersion Function
+ * @param {JET_SESID} sesid 
+ * @param {Pointer<Integer>} pwVersion 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetversion-function
+ */
+export JetGetVersion(sesid, pwVersion) {
+    pwVersionMarshal := pwVersion is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetVersion", JET_SESID, sesid, pwVersionMarshal, pwVersion, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetIdle Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetidle-function
+ */
+export JetIdle(sesid, grbit) {
+    result := DllCall("ESENT.dll\JetIdle", JET_SESID, sesid, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCreateDatabase Function
+ * @param {JET_SESID} sesid 
+ * @param {Pointer<Integer>} szFilename 
+ * @param {Pointer<Integer>} szConnect 
+ * @param {Pointer<Integer>} pdbid 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatedatabase-function
+ */
+export JetCreateDatabaseA(sesid, szFilename, szConnect, pdbid, grbit) {
+    szFilenameMarshal := szFilename is VarRef ? "char*" : "ptr"
+    szConnectMarshal := szConnect is VarRef ? "char*" : "ptr"
+    pdbidMarshal := pdbid is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetCreateDatabaseA", JET_SESID, sesid, szFilenameMarshal, szFilename, szConnectMarshal, szConnect, pdbidMarshal, pdbid, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCreateDatabase Function
+ * @param {JET_SESID} sesid 
+ * @param {Pointer<Integer>} szFilename 
+ * @param {Pointer<Integer>} szConnect 
+ * @param {Pointer<Integer>} pdbid 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatedatabase-function
+ */
+export JetCreateDatabaseW(sesid, szFilename, szConnect, pdbid, grbit) {
+    szFilenameMarshal := szFilename is VarRef ? "ushort*" : "ptr"
+    szConnectMarshal := szConnect is VarRef ? "ushort*" : "ptr"
+    pdbidMarshal := pdbid is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetCreateDatabaseW", JET_SESID, sesid, szFilenameMarshal, szFilename, szConnectMarshal, szConnect, pdbidMarshal, pdbid, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCreateDatabase2 Function
+ * @param {JET_SESID} sesid 
+ * @param {Pointer<Integer>} szFilename 
+ * @param {Integer} cpgDatabaseSizeMax 
+ * @param {Pointer<Integer>} pdbid 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatedatabase2-function
+ */
+export JetCreateDatabase2A(sesid, szFilename, cpgDatabaseSizeMax, pdbid, grbit) {
+    szFilenameMarshal := szFilename is VarRef ? "char*" : "ptr"
+    pdbidMarshal := pdbid is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetCreateDatabase2A", JET_SESID, sesid, szFilenameMarshal, szFilename, "uint", cpgDatabaseSizeMax, pdbidMarshal, pdbid, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCreateDatabase2 Function
+ * @param {JET_SESID} sesid 
+ * @param {Pointer<Integer>} szFilename 
+ * @param {Integer} cpgDatabaseSizeMax 
+ * @param {Pointer<Integer>} pdbid 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatedatabase2-function
+ */
+export JetCreateDatabase2W(sesid, szFilename, cpgDatabaseSizeMax, pdbid, grbit) {
+    szFilenameMarshal := szFilename is VarRef ? "ushort*" : "ptr"
+    pdbidMarshal := pdbid is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetCreateDatabase2W", JET_SESID, sesid, szFilenameMarshal, szFilename, "uint", cpgDatabaseSizeMax, pdbidMarshal, pdbid, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetAttachDatabase Function
+ * @param {JET_SESID} sesid 
+ * @param {Pointer<Integer>} szFilename 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetattachdatabase-function
+ */
+export JetAttachDatabaseA(sesid, szFilename, grbit) {
+    szFilenameMarshal := szFilename is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetAttachDatabaseA", JET_SESID, sesid, szFilenameMarshal, szFilename, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetAttachDatabase Function
+ * @param {JET_SESID} sesid 
+ * @param {Pointer<Integer>} szFilename 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetattachdatabase-function
+ */
+export JetAttachDatabaseW(sesid, szFilename, grbit) {
+    szFilenameMarshal := szFilename is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetAttachDatabaseW", JET_SESID, sesid, szFilenameMarshal, szFilename, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetAttachDatabase2 Function
+ * @param {JET_SESID} sesid 
+ * @param {Pointer<Integer>} szFilename 
+ * @param {Integer} cpgDatabaseSizeMax 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetattachdatabase2-function
+ */
+export JetAttachDatabase2A(sesid, szFilename, cpgDatabaseSizeMax, grbit) {
+    szFilenameMarshal := szFilename is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetAttachDatabase2A", JET_SESID, sesid, szFilenameMarshal, szFilename, "uint", cpgDatabaseSizeMax, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetAttachDatabase2 Function
+ * @param {JET_SESID} sesid 
+ * @param {Pointer<Integer>} szFilename 
+ * @param {Integer} cpgDatabaseSizeMax 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetattachdatabase2-function
+ */
+export JetAttachDatabase2W(sesid, szFilename, cpgDatabaseSizeMax, grbit) {
+    szFilenameMarshal := szFilename is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetAttachDatabase2W", JET_SESID, sesid, szFilenameMarshal, szFilename, "uint", cpgDatabaseSizeMax, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetDetachDatabase Function
+ * @param {JET_SESID} sesid 
+ * @param {Pointer<Integer>} szFilename 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdetachdatabase-function
+ */
+export JetDetachDatabaseA(sesid, szFilename) {
+    szFilenameMarshal := szFilename is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetDetachDatabaseA", JET_SESID, sesid, szFilenameMarshal, szFilename, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetDetachDatabase Function
+ * @param {JET_SESID} sesid 
+ * @param {Pointer<Integer>} szFilename 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdetachdatabase-function
+ */
+export JetDetachDatabaseW(sesid, szFilename) {
+    szFilenameMarshal := szFilename is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetDetachDatabaseW", JET_SESID, sesid, szFilenameMarshal, szFilename, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetDetachDatabase2 Function
+ * @param {JET_SESID} sesid 
+ * @param {Pointer<Integer>} szFilename 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdetachdatabase2-function
+ */
+export JetDetachDatabase2A(sesid, szFilename, grbit) {
+    szFilenameMarshal := szFilename is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetDetachDatabase2A", JET_SESID, sesid, szFilenameMarshal, szFilename, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetDetachDatabase2 Function
+ * @param {JET_SESID} sesid 
+ * @param {Pointer<Integer>} szFilename 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdetachdatabase2-function
+ */
+export JetDetachDatabase2W(sesid, szFilename, grbit) {
+    szFilenameMarshal := szFilename is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetDetachDatabase2W", JET_SESID, sesid, szFilenameMarshal, szFilename, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetObjectInfo Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Integer} objtyp 
+ * @param {Pointer<Integer>} szContainerName 
+ * @param {Pointer<Integer>} szObjectName 
+ * @param {Integer} pvResult 
+ * @param {Integer} cbMax 
+ * @param {Integer} InfoLevel 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetobjectinfo-function
+ */
+export JetGetObjectInfoA(sesid, _dbid, objtyp, szContainerName, szObjectName, pvResult, cbMax, InfoLevel) {
+    szContainerNameMarshal := szContainerName is VarRef ? "char*" : "ptr"
+    szObjectNameMarshal := szObjectName is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetObjectInfoA", JET_SESID, sesid, "uint", _dbid, "uint", objtyp, szContainerNameMarshal, szContainerName, szObjectNameMarshal, szObjectName, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetObjectInfo Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Integer} objtyp 
+ * @param {Pointer<Integer>} szContainerName 
+ * @param {Pointer<Integer>} szObjectName 
+ * @param {Integer} pvResult 
+ * @param {Integer} cbMax 
+ * @param {Integer} InfoLevel 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetobjectinfo-function
+ */
+export JetGetObjectInfoW(sesid, _dbid, objtyp, szContainerName, szObjectName, pvResult, cbMax, InfoLevel) {
+    szContainerNameMarshal := szContainerName is VarRef ? "ushort*" : "ptr"
+    szObjectNameMarshal := szObjectName is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetObjectInfoW", JET_SESID, sesid, "uint", _dbid, "uint", objtyp, szContainerNameMarshal, szContainerName, szObjectNameMarshal, szObjectName, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetTableInfo Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Integer} pvResult 
+ * @param {Integer} cbMax 
+ * @param {Integer} InfoLevel 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgettableinfo-function
+ */
+export JetGetTableInfoA(sesid, tableid, pvResult, cbMax, InfoLevel) {
+    result := DllCall("ESENT.dll\JetGetTableInfoA", JET_SESID, sesid, JET_TABLEID, tableid, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetTableInfo Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Integer} pvResult 
+ * @param {Integer} cbMax 
+ * @param {Integer} InfoLevel 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgettableinfo-function
+ */
+export JetGetTableInfoW(sesid, tableid, pvResult, cbMax, InfoLevel) {
+    result := DllCall("ESENT.dll\JetGetTableInfoW", JET_SESID, sesid, JET_TABLEID, tableid, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCreateTable Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Pointer<Integer>} szTableName 
+ * @param {Integer} lPages 
+ * @param {Integer} lDensity 
+ * @param {Pointer<JET_TABLEID>} ptableid 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatetable-function
+ */
+export JetCreateTableA(sesid, _dbid, szTableName, lPages, lDensity, ptableid) {
+    szTableNameMarshal := szTableName is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetCreateTableA", JET_SESID, sesid, "uint", _dbid, szTableNameMarshal, szTableName, "uint", lPages, "uint", lDensity, JET_TABLEID.Ptr, ptableid, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCreateTable Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Pointer<Integer>} szTableName 
+ * @param {Integer} lPages 
+ * @param {Integer} lDensity 
+ * @param {Pointer<JET_TABLEID>} ptableid 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatetable-function
+ */
+export JetCreateTableW(sesid, _dbid, szTableName, lPages, lDensity, ptableid) {
+    szTableNameMarshal := szTableName is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetCreateTableW", JET_SESID, sesid, "uint", _dbid, szTableNameMarshal, szTableName, "uint", lPages, "uint", lDensity, JET_TABLEID.Ptr, ptableid, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCreateTableColumnIndex Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Pointer<JET_TABLECREATE_A>} ptablecreate 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatetablecolumnindex-function
+ */
+export JetCreateTableColumnIndexA(sesid, _dbid, ptablecreate) {
+    result := DllCall("ESENT.dll\JetCreateTableColumnIndexA", JET_SESID, sesid, "uint", _dbid, JET_TABLECREATE_A.Ptr, ptablecreate, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCreateTableColumnIndex Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Pointer<JET_TABLECREATE_W>} ptablecreate 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatetablecolumnindex-function
+ */
+export JetCreateTableColumnIndexW(sesid, _dbid, ptablecreate) {
+    result := DllCall("ESENT.dll\JetCreateTableColumnIndexW", JET_SESID, sesid, "uint", _dbid, JET_TABLECREATE_W.Ptr, ptablecreate, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCreateTableColumnIndex2 Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Pointer<JET_TABLECREATE2_A>} ptablecreate 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatetablecolumnindex2-function
+ */
+export JetCreateTableColumnIndex2A(sesid, _dbid, ptablecreate) {
+    result := DllCall("ESENT.dll\JetCreateTableColumnIndex2A", JET_SESID, sesid, "uint", _dbid, JET_TABLECREATE2_A.Ptr, ptablecreate, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCreateTableColumnIndex2 Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Pointer<JET_TABLECREATE2_W>} ptablecreate 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatetablecolumnindex2-function
+ */
+export JetCreateTableColumnIndex2W(sesid, _dbid, ptablecreate) {
+    result := DllCall("ESENT.dll\JetCreateTableColumnIndex2W", JET_SESID, sesid, "uint", _dbid, JET_TABLECREATE2_W.Ptr, ptablecreate, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCreateTableColumnIndex3 Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Pointer<JET_TABLECREATE3_A>} ptablecreate 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatetablecolumnindex3-function
+ */
+export JetCreateTableColumnIndex3A(sesid, _dbid, ptablecreate) {
+    result := DllCall("ESENT.dll\JetCreateTableColumnIndex3A", JET_SESID, sesid, "uint", _dbid, JET_TABLECREATE3_A.Ptr, ptablecreate, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCreateTableColumnIndex3 Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Pointer<JET_TABLECREATE3_W>} ptablecreate 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatetablecolumnindex3-function
+ */
+export JetCreateTableColumnIndex3W(sesid, _dbid, ptablecreate) {
+    result := DllCall("ESENT.dll\JetCreateTableColumnIndex3W", JET_SESID, sesid, "uint", _dbid, JET_TABLECREATE3_W.Ptr, ptablecreate, Int32)
+    return result
+}
+
+/**
+ * 
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Pointer<JET_TABLECREATE4_A>} ptablecreate 
+ * @returns {Integer} 
+ */
+export JetCreateTableColumnIndex4A(sesid, _dbid, ptablecreate) {
+    result := DllCall("ESENT.dll\JetCreateTableColumnIndex4A", JET_SESID, sesid, "uint", _dbid, JET_TABLECREATE4_A.Ptr, ptablecreate, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCreateTableColumnIndex4W Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Pointer<JET_TABLECREATE4_W>} ptablecreate 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreatetablecolumnindex4w-function
+ */
+export JetCreateTableColumnIndex4W(sesid, _dbid, ptablecreate) {
+    result := DllCall("ESENT.dll\JetCreateTableColumnIndex4W", JET_SESID, sesid, "uint", _dbid, JET_TABLECREATE4_W.Ptr, ptablecreate, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetDeleteTable Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Pointer<Integer>} szTableName 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdeletetable-function
+ */
+export JetDeleteTableA(sesid, _dbid, szTableName) {
+    szTableNameMarshal := szTableName is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetDeleteTableA", JET_SESID, sesid, "uint", _dbid, szTableNameMarshal, szTableName, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetDeleteTable Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Pointer<Integer>} szTableName 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdeletetable-function
+ */
+export JetDeleteTableW(sesid, _dbid, szTableName) {
+    szTableNameMarshal := szTableName is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetDeleteTableW", JET_SESID, sesid, "uint", _dbid, szTableNameMarshal, szTableName, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetRenameTable Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Pointer<Integer>} szName 
+ * @param {Pointer<Integer>} szNameNew 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetrenametable-function
+ */
+export JetRenameTableA(sesid, _dbid, szName, szNameNew) {
+    szNameMarshal := szName is VarRef ? "char*" : "ptr"
+    szNameNewMarshal := szNameNew is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetRenameTableA", JET_SESID, sesid, "uint", _dbid, szNameMarshal, szName, szNameNewMarshal, szNameNew, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetRenameTable Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Pointer<Integer>} szName 
+ * @param {Pointer<Integer>} szNameNew 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetrenametable-function
+ */
+export JetRenameTableW(sesid, _dbid, szName, szNameNew) {
+    szNameMarshal := szName is VarRef ? "ushort*" : "ptr"
+    szNameNewMarshal := szNameNew is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetRenameTableW", JET_SESID, sesid, "uint", _dbid, szNameMarshal, szName, szNameNewMarshal, szNameNew, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetTableColumnInfo Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<Integer>} szColumnName 
+ * @param {Integer} pvResult 
+ * @param {Integer} cbMax 
+ * @param {Integer} InfoLevel 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgettablecolumninfo-function
+ */
+export JetGetTableColumnInfoA(sesid, tableid, szColumnName, pvResult, cbMax, InfoLevel) {
+    szColumnNameMarshal := szColumnName is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetTableColumnInfoA", JET_SESID, sesid, JET_TABLEID, tableid, szColumnNameMarshal, szColumnName, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetTableColumnInfo Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<Integer>} szColumnName 
+ * @param {Integer} pvResult 
+ * @param {Integer} cbMax 
+ * @param {Integer} InfoLevel 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgettablecolumninfo-function
+ */
+export JetGetTableColumnInfoW(sesid, tableid, szColumnName, pvResult, cbMax, InfoLevel) {
+    szColumnNameMarshal := szColumnName is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetTableColumnInfoW", JET_SESID, sesid, JET_TABLEID, tableid, szColumnNameMarshal, szColumnName, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetColumnInfo Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Pointer<Integer>} szTableName 
+ * @param {Pointer<Integer>} pColumnNameOrId 
+ * @param {Integer} pvResult 
+ * @param {Integer} cbMax 
+ * @param {Integer} InfoLevel 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetcolumninfo-function
+ */
+export JetGetColumnInfoA(sesid, _dbid, szTableName, pColumnNameOrId, pvResult, cbMax, InfoLevel) {
+    szTableNameMarshal := szTableName is VarRef ? "char*" : "ptr"
+    pColumnNameOrIdMarshal := pColumnNameOrId is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetColumnInfoA", JET_SESID, sesid, "uint", _dbid, szTableNameMarshal, szTableName, pColumnNameOrIdMarshal, pColumnNameOrId, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetColumnInfo Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Pointer<Integer>} szTableName 
+ * @param {Pointer<Integer>} pwColumnNameOrId 
+ * @param {Integer} pvResult 
+ * @param {Integer} cbMax 
+ * @param {Integer} InfoLevel 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetcolumninfo-function
+ */
+export JetGetColumnInfoW(sesid, _dbid, szTableName, pwColumnNameOrId, pvResult, cbMax, InfoLevel) {
+    szTableNameMarshal := szTableName is VarRef ? "ushort*" : "ptr"
+    pwColumnNameOrIdMarshal := pwColumnNameOrId is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetColumnInfoW", JET_SESID, sesid, "uint", _dbid, szTableNameMarshal, szTableName, pwColumnNameOrIdMarshal, pwColumnNameOrId, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetAddColumn Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<Integer>} szColumnName 
+ * @param {Pointer<JET_COLUMNDEF>} pcolumndef 
+ * @param {Integer} pvDefault 
+ * @param {Integer} cbDefault 
+ * @param {Pointer<Integer>} pcolumnid 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetaddcolumn-function
+ */
+export JetAddColumnA(sesid, tableid, szColumnName, pcolumndef, pvDefault, cbDefault, pcolumnid) {
+    szColumnNameMarshal := szColumnName is VarRef ? "char*" : "ptr"
+    pcolumnidMarshal := pcolumnid is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetAddColumnA", JET_SESID, sesid, JET_TABLEID, tableid, szColumnNameMarshal, szColumnName, JET_COLUMNDEF.Ptr, pcolumndef, "ptr", pvDefault, "uint", cbDefault, pcolumnidMarshal, pcolumnid, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetAddColumn Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<Integer>} szColumnName 
+ * @param {Pointer<JET_COLUMNDEF>} pcolumndef 
+ * @param {Integer} pvDefault 
+ * @param {Integer} cbDefault 
+ * @param {Pointer<Integer>} pcolumnid 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetaddcolumn-function
+ */
+export JetAddColumnW(sesid, tableid, szColumnName, pcolumndef, pvDefault, cbDefault, pcolumnid) {
+    szColumnNameMarshal := szColumnName is VarRef ? "ushort*" : "ptr"
+    pcolumnidMarshal := pcolumnid is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetAddColumnW", JET_SESID, sesid, JET_TABLEID, tableid, szColumnNameMarshal, szColumnName, JET_COLUMNDEF.Ptr, pcolumndef, "ptr", pvDefault, "uint", cbDefault, pcolumnidMarshal, pcolumnid, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetDeleteColumn Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<Integer>} szColumnName 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdeletecolumn-function
+ */
+export JetDeleteColumnA(sesid, tableid, szColumnName) {
+    szColumnNameMarshal := szColumnName is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetDeleteColumnA", JET_SESID, sesid, JET_TABLEID, tableid, szColumnNameMarshal, szColumnName, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetDeleteColumn Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<Integer>} szColumnName 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdeletecolumn-function
+ */
+export JetDeleteColumnW(sesid, tableid, szColumnName) {
+    szColumnNameMarshal := szColumnName is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetDeleteColumnW", JET_SESID, sesid, JET_TABLEID, tableid, szColumnNameMarshal, szColumnName, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetDeleteColumn2 Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<Integer>} szColumnName 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdeletecolumn2-function
+ */
+export JetDeleteColumn2A(sesid, tableid, szColumnName, grbit) {
+    szColumnNameMarshal := szColumnName is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetDeleteColumn2A", JET_SESID, sesid, JET_TABLEID, tableid, szColumnNameMarshal, szColumnName, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetDeleteColumn2 Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<Integer>} szColumnName 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdeletecolumn2-function
+ */
+export JetDeleteColumn2W(sesid, tableid, szColumnName, grbit) {
+    szColumnNameMarshal := szColumnName is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetDeleteColumn2W", JET_SESID, sesid, JET_TABLEID, tableid, szColumnNameMarshal, szColumnName, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * 
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<Integer>} szName 
+ * @param {Pointer<Integer>} szNameNew 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ */
+export JetRenameColumnA(sesid, tableid, szName, szNameNew, grbit) {
+    szNameMarshal := szName is VarRef ? "char*" : "ptr"
+    szNameNewMarshal := szNameNew is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetRenameColumnA", JET_SESID, sesid, JET_TABLEID, tableid, szNameMarshal, szName, szNameNewMarshal, szNameNew, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * 
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<Integer>} szName 
+ * @param {Pointer<Integer>} szNameNew 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ */
+export JetRenameColumnW(sesid, tableid, szName, szNameNew, grbit) {
+    szNameMarshal := szName is VarRef ? "ushort*" : "ptr"
+    szNameNewMarshal := szNameNew is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetRenameColumnW", JET_SESID, sesid, JET_TABLEID, tableid, szNameMarshal, szName, szNameNewMarshal, szNameNew, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * 
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Pointer<Integer>} szTableName 
+ * @param {Pointer<Integer>} szColumnName 
+ * @param {Integer} pvData 
+ * @param {Integer} cbData 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ */
+export JetSetColumnDefaultValueA(sesid, _dbid, szTableName, szColumnName, pvData, cbData, grbit) {
+    szTableNameMarshal := szTableName is VarRef ? "char*" : "ptr"
+    szColumnNameMarshal := szColumnName is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetSetColumnDefaultValueA", JET_SESID, sesid, "uint", _dbid, szTableNameMarshal, szTableName, szColumnNameMarshal, szColumnName, "ptr", pvData, "uint", cbData, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * 
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Pointer<Integer>} szTableName 
+ * @param {Pointer<Integer>} szColumnName 
+ * @param {Integer} pvData 
+ * @param {Integer} cbData 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ */
+export JetSetColumnDefaultValueW(sesid, _dbid, szTableName, szColumnName, pvData, cbData, grbit) {
+    szTableNameMarshal := szTableName is VarRef ? "ushort*" : "ptr"
+    szColumnNameMarshal := szColumnName is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetSetColumnDefaultValueW", JET_SESID, sesid, "uint", _dbid, szTableNameMarshal, szTableName, szColumnNameMarshal, szColumnName, "ptr", pvData, "uint", cbData, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetTableIndexInfo Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<Integer>} szIndexName 
+ * @param {Integer} pvResult 
+ * @param {Integer} cbResult 
+ * @param {Integer} InfoLevel 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgettableindexinfo-function
+ */
+export JetGetTableIndexInfoA(sesid, tableid, szIndexName, pvResult, cbResult, InfoLevel) {
+    szIndexNameMarshal := szIndexName is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetTableIndexInfoA", JET_SESID, sesid, JET_TABLEID, tableid, szIndexNameMarshal, szIndexName, "ptr", pvResult, "uint", cbResult, "uint", InfoLevel, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetTableIndexInfo Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<Integer>} szIndexName 
+ * @param {Integer} pvResult 
+ * @param {Integer} cbResult 
+ * @param {Integer} InfoLevel 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgettableindexinfo-function
+ */
+export JetGetTableIndexInfoW(sesid, tableid, szIndexName, pvResult, cbResult, InfoLevel) {
+    szIndexNameMarshal := szIndexName is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetTableIndexInfoW", JET_SESID, sesid, JET_TABLEID, tableid, szIndexNameMarshal, szIndexName, "ptr", pvResult, "uint", cbResult, "uint", InfoLevel, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetIndexInfo Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Pointer<Integer>} szTableName 
+ * @param {Pointer<Integer>} szIndexName 
+ * @param {Integer} pvResult 
+ * @param {Integer} cbResult 
+ * @param {Integer} InfoLevel 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetindexinfo-function
+ */
+export JetGetIndexInfoA(sesid, _dbid, szTableName, szIndexName, pvResult, cbResult, InfoLevel) {
+    szTableNameMarshal := szTableName is VarRef ? "char*" : "ptr"
+    szIndexNameMarshal := szIndexName is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetIndexInfoA", JET_SESID, sesid, "uint", _dbid, szTableNameMarshal, szTableName, szIndexNameMarshal, szIndexName, "ptr", pvResult, "uint", cbResult, "uint", InfoLevel, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetIndexInfo Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Pointer<Integer>} szTableName 
+ * @param {Pointer<Integer>} szIndexName 
+ * @param {Integer} pvResult 
+ * @param {Integer} cbResult 
+ * @param {Integer} InfoLevel 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetindexinfo-function
+ */
+export JetGetIndexInfoW(sesid, _dbid, szTableName, szIndexName, pvResult, cbResult, InfoLevel) {
+    szTableNameMarshal := szTableName is VarRef ? "ushort*" : "ptr"
+    szIndexNameMarshal := szIndexName is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetIndexInfoW", JET_SESID, sesid, "uint", _dbid, szTableNameMarshal, szTableName, szIndexNameMarshal, szIndexName, "ptr", pvResult, "uint", cbResult, "uint", InfoLevel, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCreateIndex Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<Integer>} szIndexName 
+ * @param {Integer} grbit 
+ * @param {Integer} szKey 
+ * @param {Integer} cbKey 
+ * @param {Integer} lDensity 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreateindex-function
+ */
+export JetCreateIndexA(sesid, tableid, szIndexName, grbit, szKey, cbKey, lDensity) {
+    szIndexNameMarshal := szIndexName is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetCreateIndexA", JET_SESID, sesid, JET_TABLEID, tableid, szIndexNameMarshal, szIndexName, "uint", grbit, "ptr", szKey, "uint", cbKey, "uint", lDensity, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCreateIndex Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<Integer>} szIndexName 
+ * @param {Integer} grbit 
+ * @param {Integer} szKey 
+ * @param {Integer} cbKey 
+ * @param {Integer} lDensity 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreateindex-function
+ */
+export JetCreateIndexW(sesid, tableid, szIndexName, grbit, szKey, cbKey, lDensity) {
+    szIndexNameMarshal := szIndexName is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetCreateIndexW", JET_SESID, sesid, JET_TABLEID, tableid, szIndexNameMarshal, szIndexName, "uint", grbit, "ptr", szKey, "uint", cbKey, "uint", lDensity, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCreateIndex2 Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<JET_INDEXCREATE_A>} pindexcreate 
+ * @param {Integer} cIndexCreate 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreateindex2-function
+ */
+export JetCreateIndex2A(sesid, tableid, pindexcreate, cIndexCreate) {
+    result := DllCall("ESENT.dll\JetCreateIndex2A", JET_SESID, sesid, JET_TABLEID, tableid, JET_INDEXCREATE_A.Ptr, pindexcreate, "uint", cIndexCreate, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCreateIndex2 Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<JET_INDEXCREATE_W>} pindexcreate 
+ * @param {Integer} cIndexCreate 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreateindex2-function
+ */
+export JetCreateIndex2W(sesid, tableid, pindexcreate, cIndexCreate) {
+    result := DllCall("ESENT.dll\JetCreateIndex2W", JET_SESID, sesid, JET_TABLEID, tableid, JET_INDEXCREATE_W.Ptr, pindexcreate, "uint", cIndexCreate, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCreateIndex3 Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<JET_INDEXCREATE2_A>} pindexcreate 
+ * @param {Integer} cIndexCreate 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreateindex3-function
+ */
+export JetCreateIndex3A(sesid, tableid, pindexcreate, cIndexCreate) {
+    result := DllCall("ESENT.dll\JetCreateIndex3A", JET_SESID, sesid, JET_TABLEID, tableid, JET_INDEXCREATE2_A.Ptr, pindexcreate, "uint", cIndexCreate, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCreateIndex3 Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<JET_INDEXCREATE2_W>} pindexcreate 
+ * @param {Integer} cIndexCreate 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreateindex3-function
+ */
+export JetCreateIndex3W(sesid, tableid, pindexcreate, cIndexCreate) {
+    result := DllCall("ESENT.dll\JetCreateIndex3W", JET_SESID, sesid, JET_TABLEID, tableid, JET_INDEXCREATE2_W.Ptr, pindexcreate, "uint", cIndexCreate, Int32)
+    return result
+}
+
+/**
+ * 
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<JET_INDEXCREATE3_A>} pindexcreate 
+ * @param {Integer} cIndexCreate 
+ * @returns {Integer} 
+ */
+export JetCreateIndex4A(sesid, tableid, pindexcreate, cIndexCreate) {
+    result := DllCall("ESENT.dll\JetCreateIndex4A", JET_SESID, sesid, JET_TABLEID, tableid, JET_INDEXCREATE3_A.Ptr, pindexcreate, "uint", cIndexCreate, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCreateIndex4W Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<JET_INDEXCREATE3_W>} pindexcreate 
+ * @param {Integer} cIndexCreate 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcreateindex4w-function
+ */
+export JetCreateIndex4W(sesid, tableid, pindexcreate, cIndexCreate) {
+    result := DllCall("ESENT.dll\JetCreateIndex4W", JET_SESID, sesid, JET_TABLEID, tableid, JET_INDEXCREATE3_W.Ptr, pindexcreate, "uint", cIndexCreate, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetDeleteIndex Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<Integer>} szIndexName 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdeleteindex-function
+ */
+export JetDeleteIndexA(sesid, tableid, szIndexName) {
+    szIndexNameMarshal := szIndexName is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetDeleteIndexA", JET_SESID, sesid, JET_TABLEID, tableid, szIndexNameMarshal, szIndexName, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetDeleteIndex Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<Integer>} szIndexName 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdeleteindex-function
+ */
+export JetDeleteIndexW(sesid, tableid, szIndexName) {
+    szIndexNameMarshal := szIndexName is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetDeleteIndexW", JET_SESID, sesid, JET_TABLEID, tableid, szIndexNameMarshal, szIndexName, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetBeginTransaction Function
+ * @param {JET_SESID} sesid 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetbegintransaction-function
+ */
+export JetBeginTransaction(sesid) {
+    result := DllCall("ESENT.dll\JetBeginTransaction", JET_SESID, sesid, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetBeginTransaction2 Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetbegintransaction2-function
+ */
+export JetBeginTransaction2(sesid, grbit) {
+    result := DllCall("ESENT.dll\JetBeginTransaction2", JET_SESID, sesid, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetBeginTransaction3 Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} trxid 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetbegintransaction3-function
+ */
+export JetBeginTransaction3(sesid, trxid, grbit) {
+    result := DllCall("ESENT.dll\JetBeginTransaction3", JET_SESID, sesid, "int64", trxid, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCommitTransaction Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcommittransaction-function
+ */
+export JetCommitTransaction(sesid, grbit) {
+    result := DllCall("ESENT.dll\JetCommitTransaction", JET_SESID, sesid, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCommitTransaction2 Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} grbit 
+ * @param {Integer} cmsecDurableCommit 
+ * @param {Pointer<JET_COMMIT_ID>} pCommitId 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcommittransaction2-function
+ */
+export JetCommitTransaction2(sesid, grbit, cmsecDurableCommit, pCommitId) {
+    result := DllCall("ESENT.dll\JetCommitTransaction2", JET_SESID, sesid, "uint", grbit, "uint", cmsecDurableCommit, JET_COMMIT_ID.Ptr, pCommitId, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetRollback Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetrollback-function
+ */
+export JetRollback(sesid, grbit) {
+    result := DllCall("ESENT.dll\JetRollback", JET_SESID, sesid, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * 
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Integer} pvResult 
+ * @param {Integer} cbMax 
+ * @param {Integer} InfoLevel 
+ * @returns {Integer} 
+ */
+export JetGetDatabaseInfoA(sesid, _dbid, pvResult, cbMax, InfoLevel) {
+    result := DllCall("ESENT.dll\JetGetDatabaseInfoA", JET_SESID, sesid, "uint", _dbid, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, Int32)
+    return result
+}
+
+/**
+ * 
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Integer} pvResult 
+ * @param {Integer} cbMax 
+ * @param {Integer} InfoLevel 
+ * @returns {Integer} 
+ */
+export JetGetDatabaseInfoW(sesid, _dbid, pvResult, cbMax, InfoLevel) {
+    result := DllCall("ESENT.dll\JetGetDatabaseInfoW", JET_SESID, sesid, "uint", _dbid, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetDatabaseFileInfo Function
+ * @param {Pointer<Integer>} szDatabaseName 
+ * @param {Integer} pvResult 
+ * @param {Integer} cbMax 
+ * @param {Integer} InfoLevel 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetdatabasefileinfo-function
+ */
+export JetGetDatabaseFileInfoA(szDatabaseName, pvResult, cbMax, InfoLevel) {
+    szDatabaseNameMarshal := szDatabaseName is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetDatabaseFileInfoA", szDatabaseNameMarshal, szDatabaseName, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetDatabaseFileInfo Function
+ * @param {Pointer<Integer>} szDatabaseName 
+ * @param {Integer} pvResult 
+ * @param {Integer} cbMax 
+ * @param {Integer} InfoLevel 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetdatabasefileinfo-function
+ */
+export JetGetDatabaseFileInfoW(szDatabaseName, pvResult, cbMax, InfoLevel) {
+    szDatabaseNameMarshal := szDatabaseName is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetDatabaseFileInfoW", szDatabaseNameMarshal, szDatabaseName, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetOpenDatabase Function
+ * @param {JET_SESID} sesid 
+ * @param {Pointer<Integer>} szFilename 
+ * @param {Pointer<Integer>} szConnect 
+ * @param {Pointer<Integer>} pdbid 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopendatabase-function
+ */
+export JetOpenDatabaseA(sesid, szFilename, szConnect, pdbid, grbit) {
+    szFilenameMarshal := szFilename is VarRef ? "char*" : "ptr"
+    szConnectMarshal := szConnect is VarRef ? "char*" : "ptr"
+    pdbidMarshal := pdbid is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetOpenDatabaseA", JET_SESID, sesid, szFilenameMarshal, szFilename, szConnectMarshal, szConnect, pdbidMarshal, pdbid, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetOpenDatabase Function
+ * @param {JET_SESID} sesid 
+ * @param {Pointer<Integer>} szFilename 
+ * @param {Pointer<Integer>} szConnect 
+ * @param {Pointer<Integer>} pdbid 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopendatabase-function
+ */
+export JetOpenDatabaseW(sesid, szFilename, szConnect, pdbid, grbit) {
+    szFilenameMarshal := szFilename is VarRef ? "ushort*" : "ptr"
+    szConnectMarshal := szConnect is VarRef ? "ushort*" : "ptr"
+    pdbidMarshal := pdbid is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetOpenDatabaseW", JET_SESID, sesid, szFilenameMarshal, szFilename, szConnectMarshal, szConnect, pdbidMarshal, pdbid, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCloseDatabase Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetclosedatabase-function
+ */
+export JetCloseDatabase(sesid, _dbid, grbit) {
+    result := DllCall("ESENT.dll\JetCloseDatabase", JET_SESID, sesid, "uint", _dbid, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetOpenTable Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Pointer<Integer>} szTableName 
+ * @param {Integer} pvParameters 
+ * @param {Integer} cbParameters 
+ * @param {Integer} grbit 
+ * @param {Pointer<JET_TABLEID>} ptableid 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopentable-function
+ */
+export JetOpenTableA(sesid, _dbid, szTableName, pvParameters, cbParameters, grbit, ptableid) {
+    szTableNameMarshal := szTableName is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetOpenTableA", JET_SESID, sesid, "uint", _dbid, szTableNameMarshal, szTableName, "ptr", pvParameters, "uint", cbParameters, "uint", grbit, JET_TABLEID.Ptr, ptableid, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetOpenTable Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Pointer<Integer>} szTableName 
+ * @param {Integer} pvParameters 
+ * @param {Integer} cbParameters 
+ * @param {Integer} grbit 
+ * @param {Pointer<JET_TABLEID>} ptableid 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopentable-function
+ */
+export JetOpenTableW(sesid, _dbid, szTableName, pvParameters, cbParameters, grbit, ptableid) {
+    szTableNameMarshal := szTableName is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetOpenTableW", JET_SESID, sesid, "uint", _dbid, szTableNameMarshal, szTableName, "ptr", pvParameters, "uint", cbParameters, "uint", grbit, JET_TABLEID.Ptr, ptableid, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetSetTableSequential Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsettablesequential-function
+ */
+export JetSetTableSequential(sesid, tableid, grbit) {
+    result := DllCall("ESENT.dll\JetSetTableSequential", JET_SESID, sesid, JET_TABLEID, tableid, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetResetTableSequential Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetresettablesequential-function
+ */
+export JetResetTableSequential(sesid, tableid, grbit) {
+    result := DllCall("ESENT.dll\JetResetTableSequential", JET_SESID, sesid, JET_TABLEID, tableid, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCloseTable Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetclosetable-function
+ */
+export JetCloseTable(sesid, tableid) {
+    result := DllCall("ESENT.dll\JetCloseTable", JET_SESID, sesid, JET_TABLEID, tableid, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetDelete Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdelete-function
+ */
+export JetDelete(sesid, tableid) {
+    result := DllCall("ESENT.dll\JetDelete", JET_SESID, sesid, JET_TABLEID, tableid, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetUpdate Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Integer} pvBookmark 
+ * @param {Integer} cbBookmark 
+ * @param {Pointer<Integer>} pcbActual 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetupdate-function
+ */
+export JetUpdate(sesid, tableid, pvBookmark, cbBookmark, pcbActual) {
+    pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetUpdate", JET_SESID, sesid, JET_TABLEID, tableid, "ptr", pvBookmark, "uint", cbBookmark, pcbActualMarshal, pcbActual, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetUpdate2 Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Integer} pvBookmark 
+ * @param {Integer} cbBookmark 
+ * @param {Pointer<Integer>} pcbActual 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetupdate2-function
+ */
+export JetUpdate2(sesid, tableid, pvBookmark, cbBookmark, pcbActual, grbit) {
+    pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetUpdate2", JET_SESID, sesid, JET_TABLEID, tableid, "ptr", pvBookmark, "uint", cbBookmark, pcbActualMarshal, pcbActual, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetEscrowUpdate Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Integer} columnid 
+ * @param {Integer} pv 
+ * @param {Integer} cbMax 
+ * @param {Integer} pvOld 
+ * @param {Integer} cbOldMax 
+ * @param {Pointer<Integer>} pcbOldActual 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetescrowupdate-function
+ */
+export JetEscrowUpdate(sesid, tableid, columnid, pv, cbMax, pvOld, cbOldMax, pcbOldActual, grbit) {
+    pcbOldActualMarshal := pcbOldActual is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetEscrowUpdate", JET_SESID, sesid, JET_TABLEID, tableid, "uint", columnid, "ptr", pv, "uint", cbMax, "ptr", pvOld, "uint", cbOldMax, pcbOldActualMarshal, pcbOldActual, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetRetrieveColumn Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Integer} columnid 
+ * @param {Integer} pvData 
+ * @param {Integer} cbData 
+ * @param {Pointer<Integer>} pcbActual 
+ * @param {Integer} grbit 
+ * @param {Pointer<JET_RETINFO>} pretinfo 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetretrievecolumn-function
+ */
+export JetRetrieveColumn(sesid, tableid, columnid, pvData, cbData, pcbActual, grbit, pretinfo) {
+    pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetRetrieveColumn", JET_SESID, sesid, JET_TABLEID, tableid, "uint", columnid, "ptr", pvData, "uint", cbData, pcbActualMarshal, pcbActual, "uint", grbit, JET_RETINFO.Ptr, pretinfo, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetRetrieveColumns Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<JET_RETRIEVECOLUMN>} pretrievecolumn 
+ * @param {Integer} cretrievecolumn 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetretrievecolumns-function
+ */
+export JetRetrieveColumns(sesid, tableid, pretrievecolumn, cretrievecolumn) {
+    result := DllCall("ESENT.dll\JetRetrieveColumns", JET_SESID, sesid, JET_TABLEID, tableid, JET_RETRIEVECOLUMN.Ptr, pretrievecolumn, "uint", cretrievecolumn, Int32)
+    return result
+}
+
+/**
+ * Describes the JetEnumerateColumns function and provides the function's parameters, return value, remarks, and requirements.
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Integer} cEnumColumnId 
+ * @param {Pointer<JET_ENUMCOLUMNID>} rgEnumColumnId 
+ * @param {Pointer<Integer>} pcEnumColumn 
+ * @param {Pointer<Pointer<JET_ENUMCOLUMN>>} prgEnumColumn 
+ * @param {Pointer<JET_PFNREALLOC>} pfnRealloc 
+ * @param {Pointer<Void>} pvReallocContext 
+ * @param {Integer} cbDataMost 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetenumeratecolumns-function
+ */
+export JetEnumerateColumns(sesid, tableid, cEnumColumnId, rgEnumColumnId, pcEnumColumn, prgEnumColumn, pfnRealloc, pvReallocContext, cbDataMost, grbit) {
+    pcEnumColumnMarshal := pcEnumColumn is VarRef ? "uint*" : "ptr"
+    prgEnumColumnMarshal := prgEnumColumn is VarRef ? "ptr*" : "ptr"
+    pvReallocContextMarshal := pvReallocContext is VarRef ? "ptr" : "ptr"
+
+    result := DllCall("ESENT.dll\JetEnumerateColumns", JET_SESID, sesid, JET_TABLEID, tableid, "uint", cEnumColumnId, JET_ENUMCOLUMNID.Ptr, rgEnumColumnId, pcEnumColumnMarshal, pcEnumColumn, prgEnumColumnMarshal, prgEnumColumn, "ptr", pfnRealloc, pvReallocContextMarshal, pvReallocContext, "uint", cbDataMost, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetRecordSize Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<JET_RECSIZE>} precsize 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetrecordsize-function
+ */
+export JetGetRecordSize(sesid, tableid, precsize, grbit) {
+    result := DllCall("ESENT.dll\JetGetRecordSize", JET_SESID, sesid, JET_TABLEID, tableid, JET_RECSIZE.Ptr, precsize, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetRecordSize2 Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<JET_RECSIZE2>} precsize 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetrecordsize2-function
+ */
+export JetGetRecordSize2(sesid, tableid, precsize, grbit) {
+    result := DllCall("ESENT.dll\JetGetRecordSize2", JET_SESID, sesid, JET_TABLEID, tableid, JET_RECSIZE2.Ptr, precsize, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetSetColumn Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Integer} columnid 
+ * @param {Integer} pvData 
+ * @param {Integer} cbData 
+ * @param {Integer} grbit 
+ * @param {Pointer<JET_SETINFO>} psetinfo 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetcolumn-function
+ */
+export JetSetColumn(sesid, tableid, columnid, pvData, cbData, grbit, psetinfo) {
+    result := DllCall("ESENT.dll\JetSetColumn", JET_SESID, sesid, JET_TABLEID, tableid, "uint", columnid, "ptr", pvData, "uint", cbData, "uint", grbit, JET_SETINFO.Ptr, psetinfo, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetSetColumns Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<JET_SETCOLUMN>} psetcolumn 
+ * @param {Integer} csetcolumn 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetcolumns-function
+ */
+export JetSetColumns(sesid, tableid, psetcolumn, csetcolumn) {
+    result := DllCall("ESENT.dll\JetSetColumns", JET_SESID, sesid, JET_TABLEID, tableid, JET_SETCOLUMN.Ptr, psetcolumn, "uint", csetcolumn, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetPrepareUpdate Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Integer} prep 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetprepareupdate-function
+ */
+export JetPrepareUpdate(sesid, tableid, prep) {
+    result := DllCall("ESENT.dll\JetPrepareUpdate", JET_SESID, sesid, JET_TABLEID, tableid, "uint", prep, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetRecordPosition Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Integer} precpos 
+ * @param {Integer} cbRecpos 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetrecordposition-function
+ */
+export JetGetRecordPosition(sesid, tableid, precpos, cbRecpos) {
+    result := DllCall("ESENT.dll\JetGetRecordPosition", JET_SESID, sesid, JET_TABLEID, tableid, "ptr", precpos, "uint", cbRecpos, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGotoPosition Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<JET_RECPOS>} precpos 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgotoposition-function
+ */
+export JetGotoPosition(sesid, tableid, precpos) {
+    result := DllCall("ESENT.dll\JetGotoPosition", JET_SESID, sesid, JET_TABLEID, tableid, JET_RECPOS.Ptr, precpos, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetCursorInfo Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Integer} pvResult 
+ * @param {Integer} cbMax 
+ * @param {Integer} InfoLevel 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetcursorinfo-function
+ */
+export JetGetCursorInfo(sesid, tableid, pvResult, cbMax, InfoLevel) {
+    result := DllCall("ESENT.dll\JetGetCursorInfo", JET_SESID, sesid, JET_TABLEID, tableid, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetDupCursor Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<JET_TABLEID>} ptableid 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdupcursor-function
+ */
+export JetDupCursor(sesid, tableid, ptableid, grbit) {
+    result := DllCall("ESENT.dll\JetDupCursor", JET_SESID, sesid, JET_TABLEID, tableid, JET_TABLEID.Ptr, ptableid, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetCurrentIndex Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Integer} szIndexName 
+ * @param {Integer} cbIndexName 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetcurrentindex-function
+ */
+export JetGetCurrentIndexA(sesid, tableid, szIndexName, cbIndexName) {
+    result := DllCall("ESENT.dll\JetGetCurrentIndexA", JET_SESID, sesid, JET_TABLEID, tableid, "ptr", szIndexName, "uint", cbIndexName, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetCurrentIndex Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Integer} szIndexName 
+ * @param {Integer} cbIndexName 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetcurrentindex-function
+ */
+export JetGetCurrentIndexW(sesid, tableid, szIndexName, cbIndexName) {
+    result := DllCall("ESENT.dll\JetGetCurrentIndexW", JET_SESID, sesid, JET_TABLEID, tableid, "ptr", szIndexName, "uint", cbIndexName, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetSetCurrentIndex Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<Integer>} szIndexName 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetcurrentindex-function
+ */
+export JetSetCurrentIndexA(sesid, tableid, szIndexName) {
+    szIndexNameMarshal := szIndexName is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetSetCurrentIndexA", JET_SESID, sesid, JET_TABLEID, tableid, szIndexNameMarshal, szIndexName, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetSetCurrentIndex Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<Integer>} szIndexName 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetcurrentindex-function
+ */
+export JetSetCurrentIndexW(sesid, tableid, szIndexName) {
+    szIndexNameMarshal := szIndexName is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetSetCurrentIndexW", JET_SESID, sesid, JET_TABLEID, tableid, szIndexNameMarshal, szIndexName, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetSetCurrentIndex2 Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<Integer>} szIndexName 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetcurrentindex2-function
+ */
+export JetSetCurrentIndex2A(sesid, tableid, szIndexName, grbit) {
+    szIndexNameMarshal := szIndexName is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetSetCurrentIndex2A", JET_SESID, sesid, JET_TABLEID, tableid, szIndexNameMarshal, szIndexName, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetSetCurrentIndex2 Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<Integer>} szIndexName 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetcurrentindex2-function
+ */
+export JetSetCurrentIndex2W(sesid, tableid, szIndexName, grbit) {
+    szIndexNameMarshal := szIndexName is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetSetCurrentIndex2W", JET_SESID, sesid, JET_TABLEID, tableid, szIndexNameMarshal, szIndexName, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetSetCurrentIndex3 Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<Integer>} szIndexName 
+ * @param {Integer} grbit 
+ * @param {Integer} itagSequence 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetcurrentindex3-function
+ */
+export JetSetCurrentIndex3A(sesid, tableid, szIndexName, grbit, itagSequence) {
+    szIndexNameMarshal := szIndexName is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetSetCurrentIndex3A", JET_SESID, sesid, JET_TABLEID, tableid, szIndexNameMarshal, szIndexName, "uint", grbit, "uint", itagSequence, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetSetCurrentIndex3 Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<Integer>} szIndexName 
+ * @param {Integer} grbit 
+ * @param {Integer} itagSequence 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetcurrentindex3-function
+ */
+export JetSetCurrentIndex3W(sesid, tableid, szIndexName, grbit, itagSequence) {
+    szIndexNameMarshal := szIndexName is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetSetCurrentIndex3W", JET_SESID, sesid, JET_TABLEID, tableid, szIndexNameMarshal, szIndexName, "uint", grbit, "uint", itagSequence, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetSetCurrentIndex4 Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<Integer>} szIndexName 
+ * @param {Pointer<JET_INDEXID>} pindexid 
+ * @param {Integer} grbit 
+ * @param {Integer} itagSequence 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetcurrentindex4-function
+ */
+export JetSetCurrentIndex4A(sesid, tableid, szIndexName, pindexid, grbit, itagSequence) {
+    szIndexNameMarshal := szIndexName is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetSetCurrentIndex4A", JET_SESID, sesid, JET_TABLEID, tableid, szIndexNameMarshal, szIndexName, JET_INDEXID.Ptr, pindexid, "uint", grbit, "uint", itagSequence, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetSetCurrentIndex4 Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<Integer>} szIndexName 
+ * @param {Pointer<JET_INDEXID>} pindexid 
+ * @param {Integer} grbit 
+ * @param {Integer} itagSequence 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetcurrentindex4-function
+ */
+export JetSetCurrentIndex4W(sesid, tableid, szIndexName, pindexid, grbit, itagSequence) {
+    szIndexNameMarshal := szIndexName is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetSetCurrentIndex4W", JET_SESID, sesid, JET_TABLEID, tableid, szIndexNameMarshal, szIndexName, JET_INDEXID.Ptr, pindexid, "uint", grbit, "uint", itagSequence, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetMove Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Integer} cRow 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetmove-function
+ */
+export JetMove(sesid, tableid, cRow, grbit) {
+    result := DllCall("ESENT.dll\JetMove", JET_SESID, sesid, JET_TABLEID, tableid, "int", cRow, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetSetCursorFilter Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<JET_INDEX_COLUMN>} rgColumnFilters 
+ * @param {Integer} cColumnFilters 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetcursorfilter-function
+ */
+export JetSetCursorFilter(sesid, tableid, rgColumnFilters, cColumnFilters, grbit) {
+    result := DllCall("ESENT.dll\JetSetCursorFilter", JET_SESID, sesid, JET_TABLEID, tableid, JET_INDEX_COLUMN.Ptr, rgColumnFilters, "uint", cColumnFilters, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetLock Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetlock-function
+ */
+export JetGetLock(sesid, tableid, grbit) {
+    result := DllCall("ESENT.dll\JetGetLock", JET_SESID, sesid, JET_TABLEID, tableid, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetMakeKey Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Integer} pvData 
+ * @param {Integer} cbData 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetmakekey-function
+ */
+export JetMakeKey(sesid, tableid, pvData, cbData, grbit) {
+    result := DllCall("ESENT.dll\JetMakeKey", JET_SESID, sesid, JET_TABLEID, tableid, "ptr", pvData, "uint", cbData, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetSeek Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetseek-function
+ */
+export JetSeek(sesid, tableid, grbit) {
+    result := DllCall("ESENT.dll\JetSeek", JET_SESID, sesid, JET_TABLEID, tableid, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetPrereadKeys Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<Pointer<Void>>} rgpvKeys 
+ * @param {Pointer<Integer>} rgcbKeys 
+ * @param {Integer} ckeys 
+ * @param {Pointer<Integer>} pckeysPreread 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetprereadkeys-function
+ */
+export JetPrereadKeys(sesid, tableid, rgpvKeys, rgcbKeys, ckeys, pckeysPreread, grbit) {
+    rgpvKeysMarshal := rgpvKeys is VarRef ? "ptr*" : "ptr"
+    rgcbKeysMarshal := rgcbKeys is VarRef ? "uint*" : "ptr"
+    pckeysPrereadMarshal := pckeysPreread is VarRef ? "int*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetPrereadKeys", JET_SESID, sesid, JET_TABLEID, tableid, rgpvKeysMarshal, rgpvKeys, rgcbKeysMarshal, rgcbKeys, "int", ckeys, pckeysPrereadMarshal, pckeysPreread, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetPrereadIndexRanges Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<JET_INDEX_RANGE>} rgIndexRanges 
+ * @param {Integer} cIndexRanges 
+ * @param {Pointer<Integer>} pcRangesPreread 
+ * @param {Pointer<Integer>} rgcolumnidPreread 
+ * @param {Integer} ccolumnidPreread 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetprereadindexranges-function
+ */
+export JetPrereadIndexRanges(sesid, tableid, rgIndexRanges, cIndexRanges, pcRangesPreread, rgcolumnidPreread, ccolumnidPreread, grbit) {
+    pcRangesPrereadMarshal := pcRangesPreread is VarRef ? "uint*" : "ptr"
+    rgcolumnidPrereadMarshal := rgcolumnidPreread is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetPrereadIndexRanges", JET_SESID, sesid, JET_TABLEID, tableid, JET_INDEX_RANGE.Ptr, rgIndexRanges, "uint", cIndexRanges, pcRangesPrereadMarshal, pcRangesPreread, rgcolumnidPrereadMarshal, rgcolumnidPreread, "uint", ccolumnidPreread, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetBookmark Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Integer} pvBookmark 
+ * @param {Integer} cbMax 
+ * @param {Pointer<Integer>} pcbActual 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetbookmark-function
+ */
+export JetGetBookmark(sesid, tableid, pvBookmark, cbMax, pcbActual) {
+    pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetBookmark", JET_SESID, sesid, JET_TABLEID, tableid, "ptr", pvBookmark, "uint", cbMax, pcbActualMarshal, pcbActual, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetSecondaryIndexBookmark Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Integer} pvSecondaryKey 
+ * @param {Integer} cbSecondaryKeyMax 
+ * @param {Pointer<Integer>} pcbSecondaryKeyActual 
+ * @param {Integer} pvPrimaryBookmark 
+ * @param {Integer} cbPrimaryBookmarkMax 
+ * @param {Pointer<Integer>} pcbPrimaryBookmarkActual 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetsecondaryindexbookmark-function
+ */
+export JetGetSecondaryIndexBookmark(sesid, tableid, pvSecondaryKey, cbSecondaryKeyMax, pcbSecondaryKeyActual, pvPrimaryBookmark, cbPrimaryBookmarkMax, pcbPrimaryBookmarkActual, grbit) {
+    pcbSecondaryKeyActualMarshal := pcbSecondaryKeyActual is VarRef ? "uint*" : "ptr"
+    pcbPrimaryBookmarkActualMarshal := pcbPrimaryBookmarkActual is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetSecondaryIndexBookmark", JET_SESID, sesid, JET_TABLEID, tableid, "ptr", pvSecondaryKey, "uint", cbSecondaryKeyMax, pcbSecondaryKeyActualMarshal, pcbSecondaryKeyActual, "ptr", pvPrimaryBookmark, "uint", cbPrimaryBookmarkMax, pcbPrimaryBookmarkActualMarshal, pcbPrimaryBookmarkActual, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCompact Function
+ * @param {JET_SESID} sesid 
+ * @param {Pointer<Integer>} szDatabaseSrc 
+ * @param {Pointer<Integer>} szDatabaseDest 
+ * @param {Pointer<JET_PFNSTATUS>} pfnStatus 
+ * @param {Pointer<JET_CONVERT_A>} pconvert 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcompact-function
+ */
+export JetCompactA(sesid, szDatabaseSrc, szDatabaseDest, pfnStatus, pconvert, grbit) {
+    szDatabaseSrcMarshal := szDatabaseSrc is VarRef ? "char*" : "ptr"
+    szDatabaseDestMarshal := szDatabaseDest is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetCompactA", JET_SESID, sesid, szDatabaseSrcMarshal, szDatabaseSrc, szDatabaseDestMarshal, szDatabaseDest, "ptr", pfnStatus, JET_CONVERT_A.Ptr, pconvert, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCompact Function
+ * @param {JET_SESID} sesid 
+ * @param {Pointer<Integer>} szDatabaseSrc 
+ * @param {Pointer<Integer>} szDatabaseDest 
+ * @param {Pointer<JET_PFNSTATUS>} pfnStatus 
+ * @param {Pointer<JET_CONVERT_W>} pconvert 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcompact-function
+ */
+export JetCompactW(sesid, szDatabaseSrc, szDatabaseDest, pfnStatus, pconvert, grbit) {
+    szDatabaseSrcMarshal := szDatabaseSrc is VarRef ? "ushort*" : "ptr"
+    szDatabaseDestMarshal := szDatabaseDest is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetCompactW", JET_SESID, sesid, szDatabaseSrcMarshal, szDatabaseSrc, szDatabaseDestMarshal, szDatabaseDest, "ptr", pfnStatus, JET_CONVERT_W.Ptr, pconvert, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetDefragment Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Pointer<Integer>} szTableName 
+ * @param {Pointer<Integer>} pcPasses 
+ * @param {Pointer<Integer>} pcSeconds 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdefragment-function
+ */
+export JetDefragmentA(sesid, _dbid, szTableName, pcPasses, pcSeconds, grbit) {
+    szTableNameMarshal := szTableName is VarRef ? "char*" : "ptr"
+    pcPassesMarshal := pcPasses is VarRef ? "uint*" : "ptr"
+    pcSecondsMarshal := pcSeconds is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetDefragmentA", JET_SESID, sesid, "uint", _dbid, szTableNameMarshal, szTableName, pcPassesMarshal, pcPasses, pcSecondsMarshal, pcSeconds, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetDefragment Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Pointer<Integer>} szTableName 
+ * @param {Pointer<Integer>} pcPasses 
+ * @param {Pointer<Integer>} pcSeconds 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdefragment-function
+ */
+export JetDefragmentW(sesid, _dbid, szTableName, pcPasses, pcSeconds, grbit) {
+    szTableNameMarshal := szTableName is VarRef ? "ushort*" : "ptr"
+    pcPassesMarshal := pcPasses is VarRef ? "uint*" : "ptr"
+    pcSecondsMarshal := pcSeconds is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetDefragmentW", JET_SESID, sesid, "uint", _dbid, szTableNameMarshal, szTableName, pcPassesMarshal, pcPasses, pcSecondsMarshal, pcSeconds, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetDefragment2 Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Pointer<Integer>} szTableName 
+ * @param {Pointer<Integer>} pcPasses 
+ * @param {Pointer<Integer>} pcSeconds 
+ * @param {Pointer<JET_CALLBACK>} callback 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdefragment2-function
+ */
+export JetDefragment2A(sesid, _dbid, szTableName, pcPasses, pcSeconds, callback, grbit) {
+    szTableNameMarshal := szTableName is VarRef ? "char*" : "ptr"
+    pcPassesMarshal := pcPasses is VarRef ? "uint*" : "ptr"
+    pcSecondsMarshal := pcSeconds is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetDefragment2A", JET_SESID, sesid, "uint", _dbid, szTableNameMarshal, szTableName, pcPassesMarshal, pcPasses, pcSecondsMarshal, pcSeconds, "ptr", callback, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetDefragment2 Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Pointer<Integer>} szTableName 
+ * @param {Pointer<Integer>} pcPasses 
+ * @param {Pointer<Integer>} pcSeconds 
+ * @param {Pointer<JET_CALLBACK>} callback 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetdefragment2-function
+ */
+export JetDefragment2W(sesid, _dbid, szTableName, pcPasses, pcSeconds, callback, grbit) {
+    szTableNameMarshal := szTableName is VarRef ? "ushort*" : "ptr"
+    pcPassesMarshal := pcPasses is VarRef ? "uint*" : "ptr"
+    pcSecondsMarshal := pcSeconds is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetDefragment2W", JET_SESID, sesid, "uint", _dbid, szTableNameMarshal, szTableName, pcPassesMarshal, pcPasses, pcSecondsMarshal, pcSeconds, "ptr", callback, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * 
+ * @param {JET_SESID} sesid 
+ * @param {Pointer<Integer>} szDatabaseName 
+ * @param {Pointer<Integer>} szTableName 
+ * @param {Pointer<Integer>} pcPasses 
+ * @param {Pointer<Integer>} pcSeconds 
+ * @param {Pointer<JET_CALLBACK>} callback 
+ * @param {Pointer<Void>} pvContext 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ */
+export JetDefragment3A(sesid, szDatabaseName, szTableName, pcPasses, pcSeconds, callback, pvContext, grbit) {
+    szDatabaseNameMarshal := szDatabaseName is VarRef ? "char*" : "ptr"
+    szTableNameMarshal := szTableName is VarRef ? "char*" : "ptr"
+    pcPassesMarshal := pcPasses is VarRef ? "uint*" : "ptr"
+    pcSecondsMarshal := pcSeconds is VarRef ? "uint*" : "ptr"
+    pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+    result := DllCall("ESENT.dll\JetDefragment3A", JET_SESID, sesid, szDatabaseNameMarshal, szDatabaseName, szTableNameMarshal, szTableName, pcPassesMarshal, pcPasses, pcSecondsMarshal, pcSeconds, "ptr", callback, pvContextMarshal, pvContext, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * 
+ * @param {JET_SESID} sesid 
+ * @param {Pointer<Integer>} szDatabaseName 
+ * @param {Pointer<Integer>} szTableName 
+ * @param {Pointer<Integer>} pcPasses 
+ * @param {Pointer<Integer>} pcSeconds 
+ * @param {Pointer<JET_CALLBACK>} callback 
+ * @param {Pointer<Void>} pvContext 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ */
+export JetDefragment3W(sesid, szDatabaseName, szTableName, pcPasses, pcSeconds, callback, pvContext, grbit) {
+    szDatabaseNameMarshal := szDatabaseName is VarRef ? "ushort*" : "ptr"
+    szTableNameMarshal := szTableName is VarRef ? "ushort*" : "ptr"
+    pcPassesMarshal := pcPasses is VarRef ? "uint*" : "ptr"
+    pcSecondsMarshal := pcSeconds is VarRef ? "uint*" : "ptr"
+    pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+    result := DllCall("ESENT.dll\JetDefragment3W", JET_SESID, sesid, szDatabaseNameMarshal, szDatabaseName, szTableNameMarshal, szTableName, pcPassesMarshal, pcPasses, pcSecondsMarshal, pcSeconds, "ptr", callback, pvContextMarshal, pvContext, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetSetDatabaseSize Function
+ * @param {JET_SESID} sesid 
+ * @param {Pointer<Integer>} szDatabaseName 
+ * @param {Integer} cpg 
+ * @param {Pointer<Integer>} pcpgReal 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetdatabasesize-function
+ */
+export JetSetDatabaseSizeA(sesid, szDatabaseName, cpg, pcpgReal) {
+    szDatabaseNameMarshal := szDatabaseName is VarRef ? "char*" : "ptr"
+    pcpgRealMarshal := pcpgReal is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetSetDatabaseSizeA", JET_SESID, sesid, szDatabaseNameMarshal, szDatabaseName, "uint", cpg, pcpgRealMarshal, pcpgReal, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetSetDatabaseSize Function
+ * @param {JET_SESID} sesid 
+ * @param {Pointer<Integer>} szDatabaseName 
+ * @param {Integer} cpg 
+ * @param {Pointer<Integer>} pcpgReal 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetdatabasesize-function
+ */
+export JetSetDatabaseSizeW(sesid, szDatabaseName, cpg, pcpgReal) {
+    szDatabaseNameMarshal := szDatabaseName is VarRef ? "ushort*" : "ptr"
+    pcpgRealMarshal := pcpgReal is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetSetDatabaseSizeW", JET_SESID, sesid, szDatabaseNameMarshal, szDatabaseName, "uint", cpg, pcpgRealMarshal, pcpgReal, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGrowDatabase Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Integer} cpg 
+ * @param {Pointer<Integer>} pcpgReal 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgrowdatabase-function
+ */
+export JetGrowDatabase(sesid, _dbid, cpg, pcpgReal) {
+    pcpgRealMarshal := pcpgReal is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGrowDatabase", JET_SESID, sesid, "uint", _dbid, "uint", cpg, pcpgRealMarshal, pcpgReal, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetResizeDatabase Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} _dbid 
+ * @param {Integer} cpgTarget 
+ * @param {Pointer<Integer>} pcpgActual 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetresizedatabase-function
+ */
+export JetResizeDatabase(sesid, _dbid, cpgTarget, pcpgActual, grbit) {
+    pcpgActualMarshal := pcpgActual is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetResizeDatabase", JET_SESID, sesid, "uint", _dbid, "uint", cpgTarget, pcpgActualMarshal, pcpgActual, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetSetSessionContext Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_API_PTR} ulContext 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetsessioncontext-function
+ */
+export JetSetSessionContext(sesid, ulContext) {
+    result := DllCall("ESENT.dll\JetSetSessionContext", JET_SESID, sesid, JET_API_PTR, ulContext, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetResetSessionContext Function
+ * @param {JET_SESID} sesid 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetresetsessioncontext-function
+ */
+export JetResetSessionContext(sesid) {
+    result := DllCall("ESENT.dll\JetResetSessionContext", JET_SESID, sesid, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGotoBookmark Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Integer} pvBookmark 
+ * @param {Integer} cbBookmark 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgotobookmark-function
+ */
+export JetGotoBookmark(sesid, tableid, pvBookmark, cbBookmark) {
+    result := DllCall("ESENT.dll\JetGotoBookmark", JET_SESID, sesid, JET_TABLEID, tableid, "ptr", pvBookmark, "uint", cbBookmark, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGotoSecondaryIndexBookmark Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Integer} pvSecondaryKey 
+ * @param {Integer} cbSecondaryKey 
+ * @param {Integer} pvPrimaryBookmark 
+ * @param {Integer} cbPrimaryBookmark 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgotosecondaryindexbookmark-function
+ */
+export JetGotoSecondaryIndexBookmark(sesid, tableid, pvSecondaryKey, cbSecondaryKey, pvPrimaryBookmark, cbPrimaryBookmark, grbit) {
+    result := DllCall("ESENT.dll\JetGotoSecondaryIndexBookmark", JET_SESID, sesid, JET_TABLEID, tableid, "ptr", pvSecondaryKey, "uint", cbSecondaryKey, "ptr", pvPrimaryBookmark, "uint", cbPrimaryBookmark, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetIntersectIndexes Function
+ * @param {JET_SESID} sesid 
+ * @param {Pointer<JET_INDEXRANGE>} rgindexrange 
+ * @param {Integer} cindexrange 
+ * @param {Pointer<JET_RECORDLIST>} precordlist 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetintersectindexes-function
+ */
+export JetIntersectIndexes(sesid, rgindexrange, cindexrange, precordlist, grbit) {
+    result := DllCall("ESENT.dll\JetIntersectIndexes", JET_SESID, sesid, JET_INDEXRANGE.Ptr, rgindexrange, "uint", cindexrange, JET_RECORDLIST.Ptr, precordlist, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetComputeStats Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetcomputestats-function
+ */
+export JetComputeStats(sesid, tableid) {
+    result := DllCall("ESENT.dll\JetComputeStats", JET_SESID, sesid, JET_TABLEID, tableid, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetOpenTempTable Function
+ * @param {JET_SESID} sesid 
+ * @param {Pointer<JET_COLUMNDEF>} prgcolumndef 
+ * @param {Integer} ccolumn 
+ * @param {Integer} grbit 
+ * @param {Pointer<JET_TABLEID>} ptableid 
+ * @param {Pointer<Integer>} prgcolumnid 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopentemptable-function
+ */
+export JetOpenTempTable(sesid, prgcolumndef, ccolumn, grbit, ptableid, prgcolumnid) {
+    prgcolumnidMarshal := prgcolumnid is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetOpenTempTable", JET_SESID, sesid, JET_COLUMNDEF.Ptr, prgcolumndef, "uint", ccolumn, "uint", grbit, JET_TABLEID.Ptr, ptableid, prgcolumnidMarshal, prgcolumnid, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetOpenTempTable2 Function
+ * @param {JET_SESID} sesid 
+ * @param {Pointer<JET_COLUMNDEF>} prgcolumndef 
+ * @param {Integer} ccolumn 
+ * @param {Integer} lcid 
+ * @param {Integer} grbit 
+ * @param {Pointer<JET_TABLEID>} ptableid 
+ * @param {Pointer<Integer>} prgcolumnid 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopentemptable2-function
+ */
+export JetOpenTempTable2(sesid, prgcolumndef, ccolumn, lcid, grbit, ptableid, prgcolumnid) {
+    prgcolumnidMarshal := prgcolumnid is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetOpenTempTable2", JET_SESID, sesid, JET_COLUMNDEF.Ptr, prgcolumndef, "uint", ccolumn, "uint", lcid, "uint", grbit, JET_TABLEID.Ptr, ptableid, prgcolumnidMarshal, prgcolumnid, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetOpenTempTable3 Function
+ * @param {JET_SESID} sesid 
+ * @param {Pointer<JET_COLUMNDEF>} prgcolumndef 
+ * @param {Integer} ccolumn 
+ * @param {Pointer<JET_UNICODEINDEX>} pidxunicode 
+ * @param {Integer} grbit 
+ * @param {Pointer<JET_TABLEID>} ptableid 
+ * @param {Pointer<Integer>} prgcolumnid 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopentemptable3-function
+ */
+export JetOpenTempTable3(sesid, prgcolumndef, ccolumn, pidxunicode, grbit, ptableid, prgcolumnid) {
+    prgcolumnidMarshal := prgcolumnid is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetOpenTempTable3", JET_SESID, sesid, JET_COLUMNDEF.Ptr, prgcolumndef, "uint", ccolumn, JET_UNICODEINDEX.Ptr, pidxunicode, "uint", grbit, JET_TABLEID.Ptr, ptableid, prgcolumnidMarshal, prgcolumnid, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetOpenTemporaryTable Function
+ * @param {JET_SESID} sesid 
+ * @param {Pointer<JET_OPENTEMPORARYTABLE>} popentemporarytable 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopentemporarytable-function
+ */
+export JetOpenTemporaryTable(sesid, popentemporarytable) {
+    result := DllCall("ESENT.dll\JetOpenTemporaryTable", JET_SESID, sesid, JET_OPENTEMPORARYTABLE.Ptr, popentemporarytable, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetOpenTemporaryTable2 Function
+ * @param {JET_SESID} sesid 
+ * @param {Pointer<JET_OPENTEMPORARYTABLE2>} popentemporarytable 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopentemporarytable2-function
+ */
+export JetOpenTemporaryTable2(sesid, popentemporarytable) {
+    result := DllCall("ESENT.dll\JetOpenTemporaryTable2", JET_SESID, sesid, JET_OPENTEMPORARYTABLE2.Ptr, popentemporarytable, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetBackup Function
+ * @param {Pointer<Integer>} szBackupPath 
+ * @param {Integer} grbit 
+ * @param {Pointer<JET_PFNSTATUS>} pfnStatus 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetbackup-function
+ */
+export JetBackupA(szBackupPath, grbit, pfnStatus) {
+    szBackupPathMarshal := szBackupPath is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetBackupA", szBackupPathMarshal, szBackupPath, "uint", grbit, "ptr", pfnStatus, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetBackup Function
+ * @param {Pointer<Integer>} szBackupPath 
+ * @param {Integer} grbit 
+ * @param {Pointer<JET_PFNSTATUS>} pfnStatus 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetbackup-function
+ */
+export JetBackupW(szBackupPath, grbit, pfnStatus) {
+    szBackupPathMarshal := szBackupPath is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetBackupW", szBackupPathMarshal, szBackupPath, "uint", grbit, "ptr", pfnStatus, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetBackupInstance Function
+ * @param {JET_INSTANCE} instance 
+ * @param {Pointer<Integer>} szBackupPath 
+ * @param {Integer} grbit 
+ * @param {Pointer<JET_PFNSTATUS>} pfnStatus 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetbackupinstance-function
+ */
+export JetBackupInstanceA(instance, szBackupPath, grbit, pfnStatus) {
+    szBackupPathMarshal := szBackupPath is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetBackupInstanceA", JET_INSTANCE, instance, szBackupPathMarshal, szBackupPath, "uint", grbit, "ptr", pfnStatus, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetBackupInstance Function
+ * @param {JET_INSTANCE} instance 
+ * @param {Pointer<Integer>} szBackupPath 
+ * @param {Integer} grbit 
+ * @param {Pointer<JET_PFNSTATUS>} pfnStatus 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetbackupinstance-function
+ */
+export JetBackupInstanceW(instance, szBackupPath, grbit, pfnStatus) {
+    szBackupPathMarshal := szBackupPath is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetBackupInstanceW", JET_INSTANCE, instance, szBackupPathMarshal, szBackupPath, "uint", grbit, "ptr", pfnStatus, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetRestore Function
+ * @param {Pointer<Integer>} szSource 
+ * @param {Pointer<JET_PFNSTATUS>} _pfn 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetrestore-function
+ */
+export JetRestoreA(szSource, _pfn) {
+    szSourceMarshal := szSource is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetRestoreA", szSourceMarshal, szSource, "ptr", _pfn, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetRestore Function
+ * @param {Pointer<Integer>} szSource 
+ * @param {Pointer<JET_PFNSTATUS>} _pfn 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetrestore-function
+ */
+export JetRestoreW(szSource, _pfn) {
+    szSourceMarshal := szSource is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetRestoreW", szSourceMarshal, szSource, "ptr", _pfn, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetRestore2 Function
+ * @param {Pointer<Integer>} sz 
+ * @param {Pointer<Integer>} szDest 
+ * @param {Pointer<JET_PFNSTATUS>} _pfn 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetrestore2-function
+ */
+export JetRestore2A(sz, szDest, _pfn) {
+    szMarshal := sz is VarRef ? "char*" : "ptr"
+    szDestMarshal := szDest is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetRestore2A", szMarshal, sz, szDestMarshal, szDest, "ptr", _pfn, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetRestore2 Function
+ * @param {Pointer<Integer>} sz 
+ * @param {Pointer<Integer>} szDest 
+ * @param {Pointer<JET_PFNSTATUS>} _pfn 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetrestore2-function
+ */
+export JetRestore2W(sz, szDest, _pfn) {
+    szMarshal := sz is VarRef ? "ushort*" : "ptr"
+    szDestMarshal := szDest is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetRestore2W", szMarshal, sz, szDestMarshal, szDest, "ptr", _pfn, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetRestoreInstance Function
+ * @param {JET_INSTANCE} instance 
+ * @param {Pointer<Integer>} sz 
+ * @param {Pointer<Integer>} szDest 
+ * @param {Pointer<JET_PFNSTATUS>} _pfn 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetrestoreinstance-function
+ */
+export JetRestoreInstanceA(instance, sz, szDest, _pfn) {
+    szMarshal := sz is VarRef ? "char*" : "ptr"
+    szDestMarshal := szDest is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetRestoreInstanceA", JET_INSTANCE, instance, szMarshal, sz, szDestMarshal, szDest, "ptr", _pfn, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetRestoreInstance Function
+ * @param {JET_INSTANCE} instance 
+ * @param {Pointer<Integer>} sz 
+ * @param {Pointer<Integer>} szDest 
+ * @param {Pointer<JET_PFNSTATUS>} _pfn 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetrestoreinstance-function
+ */
+export JetRestoreInstanceW(instance, sz, szDest, _pfn) {
+    szMarshal := sz is VarRef ? "ushort*" : "ptr"
+    szDestMarshal := szDest is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetRestoreInstanceW", JET_INSTANCE, instance, szMarshal, sz, szDestMarshal, szDest, "ptr", _pfn, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetSetIndexRange Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableidSrc 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetindexrange-function
+ */
+export JetSetIndexRange(sesid, tableidSrc, grbit) {
+    result := DllCall("ESENT.dll\JetSetIndexRange", JET_SESID, sesid, JET_TABLEID, tableidSrc, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetIndexRecordCount Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<Integer>} pcrec 
+ * @param {Integer} crecMax 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetindexrecordcount-function
+ */
+export JetIndexRecordCount(sesid, tableid, pcrec, crecMax) {
+    pcrecMarshal := pcrec is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetIndexRecordCount", JET_SESID, sesid, JET_TABLEID, tableid, pcrecMarshal, pcrec, "uint", crecMax, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetRetrieveKey Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Integer} pvKey 
+ * @param {Integer} cbMax 
+ * @param {Pointer<Integer>} pcbActual 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetretrievekey-function
+ */
+export JetRetrieveKey(sesid, tableid, pvKey, cbMax, pcbActual, grbit) {
+    pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetRetrieveKey", JET_SESID, sesid, JET_TABLEID, tableid, "ptr", pvKey, "uint", cbMax, pcbActualMarshal, pcbActual, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetBeginExternalBackup Function
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetbeginexternalbackup-function
+ */
+export JetBeginExternalBackup(grbit) {
+    result := DllCall("ESENT.dll\JetBeginExternalBackup", "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetBeginExternalBackupInstance Function
+ * @param {JET_INSTANCE} instance 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetbeginexternalbackupinstance-function
+ */
+export JetBeginExternalBackupInstance(instance, grbit) {
+    result := DllCall("ESENT.dll\JetBeginExternalBackupInstance", JET_INSTANCE, instance, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetAttachInfo Function
+ * @param {Integer} szzDatabases 
+ * @param {Integer} cbMax 
+ * @param {Pointer<Integer>} pcbActual 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetattachinfo-function
+ */
+export JetGetAttachInfoA(szzDatabases, cbMax, pcbActual) {
+    pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetAttachInfoA", "ptr", szzDatabases, "uint", cbMax, pcbActualMarshal, pcbActual, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetAttachInfo Function
+ * @param {Integer} wszzDatabases 
+ * @param {Integer} cbMax 
+ * @param {Pointer<Integer>} pcbActual 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetattachinfo-function
+ */
+export JetGetAttachInfoW(wszzDatabases, cbMax, pcbActual) {
+    pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetAttachInfoW", "ptr", wszzDatabases, "uint", cbMax, pcbActualMarshal, pcbActual, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetAttachInfoInstance Function
+ * @param {JET_INSTANCE} instance 
+ * @param {Integer} szzDatabases 
+ * @param {Integer} cbMax 
+ * @param {Pointer<Integer>} pcbActual 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetattachinfoinstance-function
+ */
+export JetGetAttachInfoInstanceA(instance, szzDatabases, cbMax, pcbActual) {
+    pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetAttachInfoInstanceA", JET_INSTANCE, instance, "ptr", szzDatabases, "uint", cbMax, pcbActualMarshal, pcbActual, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetAttachInfoInstance Function
+ * @param {JET_INSTANCE} instance 
+ * @param {Integer} szzDatabases 
+ * @param {Integer} cbMax 
+ * @param {Pointer<Integer>} pcbActual 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetattachinfoinstance-function
+ */
+export JetGetAttachInfoInstanceW(instance, szzDatabases, cbMax, pcbActual) {
+    pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetAttachInfoInstanceW", JET_INSTANCE, instance, "ptr", szzDatabases, "uint", cbMax, pcbActualMarshal, pcbActual, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetOpenFile Function
+ * @param {Pointer<Integer>} szFileName 
+ * @param {Pointer<JET_HANDLE>} phfFile 
+ * @param {Pointer<Integer>} pulFileSizeLow 
+ * @param {Pointer<Integer>} pulFileSizeHigh 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopenfile-function
+ */
+export JetOpenFileA(szFileName, phfFile, pulFileSizeLow, pulFileSizeHigh) {
+    szFileNameMarshal := szFileName is VarRef ? "char*" : "ptr"
+    pulFileSizeLowMarshal := pulFileSizeLow is VarRef ? "uint*" : "ptr"
+    pulFileSizeHighMarshal := pulFileSizeHigh is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetOpenFileA", szFileNameMarshal, szFileName, JET_HANDLE.Ptr, phfFile, pulFileSizeLowMarshal, pulFileSizeLow, pulFileSizeHighMarshal, pulFileSizeHigh, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetOpenFile Function
+ * @param {Pointer<Integer>} szFileName 
+ * @param {Pointer<JET_HANDLE>} phfFile 
+ * @param {Pointer<Integer>} pulFileSizeLow 
+ * @param {Pointer<Integer>} pulFileSizeHigh 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopenfile-function
+ */
+export JetOpenFileW(szFileName, phfFile, pulFileSizeLow, pulFileSizeHigh) {
+    szFileNameMarshal := szFileName is VarRef ? "ushort*" : "ptr"
+    pulFileSizeLowMarshal := pulFileSizeLow is VarRef ? "uint*" : "ptr"
+    pulFileSizeHighMarshal := pulFileSizeHigh is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetOpenFileW", szFileNameMarshal, szFileName, JET_HANDLE.Ptr, phfFile, pulFileSizeLowMarshal, pulFileSizeLow, pulFileSizeHighMarshal, pulFileSizeHigh, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetOpenFileInstance Function
+ * @param {JET_INSTANCE} instance 
+ * @param {Pointer<Integer>} szFileName 
+ * @param {Pointer<JET_HANDLE>} phfFile 
+ * @param {Pointer<Integer>} pulFileSizeLow 
+ * @param {Pointer<Integer>} pulFileSizeHigh 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopenfileinstance-function
+ */
+export JetOpenFileInstanceA(instance, szFileName, phfFile, pulFileSizeLow, pulFileSizeHigh) {
+    szFileNameMarshal := szFileName is VarRef ? "char*" : "ptr"
+    pulFileSizeLowMarshal := pulFileSizeLow is VarRef ? "uint*" : "ptr"
+    pulFileSizeHighMarshal := pulFileSizeHigh is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetOpenFileInstanceA", JET_INSTANCE, instance, szFileNameMarshal, szFileName, JET_HANDLE.Ptr, phfFile, pulFileSizeLowMarshal, pulFileSizeLow, pulFileSizeHighMarshal, pulFileSizeHigh, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetOpenFileInstance Function
+ * @param {JET_INSTANCE} instance 
+ * @param {Pointer<Integer>} szFileName 
+ * @param {Pointer<JET_HANDLE>} phfFile 
+ * @param {Pointer<Integer>} pulFileSizeLow 
+ * @param {Pointer<Integer>} pulFileSizeHigh 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetopenfileinstance-function
+ */
+export JetOpenFileInstanceW(instance, szFileName, phfFile, pulFileSizeLow, pulFileSizeHigh) {
+    szFileNameMarshal := szFileName is VarRef ? "ushort*" : "ptr"
+    pulFileSizeLowMarshal := pulFileSizeLow is VarRef ? "uint*" : "ptr"
+    pulFileSizeHighMarshal := pulFileSizeHigh is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetOpenFileInstanceW", JET_INSTANCE, instance, szFileNameMarshal, szFileName, JET_HANDLE.Ptr, phfFile, pulFileSizeLowMarshal, pulFileSizeLow, pulFileSizeHighMarshal, pulFileSizeHigh, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetReadFile Function
+ * @param {JET_HANDLE} hfFile 
+ * @param {Integer} pv 
+ * @param {Integer} cb 
+ * @param {Pointer<Integer>} pcbActual 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetreadfile-function
+ */
+export JetReadFile(hfFile, pv, cb, pcbActual) {
+    pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetReadFile", JET_HANDLE, hfFile, "ptr", pv, "uint", cb, pcbActualMarshal, pcbActual, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetReadFileInstance Function
+ * @param {JET_INSTANCE} instance 
+ * @param {JET_HANDLE} hfFile 
+ * @param {Integer} pv 
+ * @param {Integer} cb 
+ * @param {Pointer<Integer>} pcbActual 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetreadfileinstance-function
+ */
+export JetReadFileInstance(instance, hfFile, pv, cb, pcbActual) {
+    pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetReadFileInstance", JET_INSTANCE, instance, JET_HANDLE, hfFile, "ptr", pv, "uint", cb, pcbActualMarshal, pcbActual, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCloseFile Function
+ * @param {JET_HANDLE} hfFile 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetclosefile-function
+ */
+export JetCloseFile(hfFile) {
+    result := DllCall("ESENT.dll\JetCloseFile", JET_HANDLE, hfFile, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetCloseFileInstance Function
+ * @param {JET_INSTANCE} instance 
+ * @param {JET_HANDLE} hfFile 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetclosefileinstance-function
+ */
+export JetCloseFileInstance(instance, hfFile) {
+    result := DllCall("ESENT.dll\JetCloseFileInstance", JET_INSTANCE, instance, JET_HANDLE, hfFile, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetLogInfo Function
+ * @param {Integer} szzLogs 
+ * @param {Integer} cbMax 
+ * @param {Pointer<Integer>} pcbActual 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetloginfo-function
+ */
+export JetGetLogInfoA(szzLogs, cbMax, pcbActual) {
+    pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetLogInfoA", "ptr", szzLogs, "uint", cbMax, pcbActualMarshal, pcbActual, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetLogInfo Function
+ * @param {Integer} szzLogs 
+ * @param {Integer} cbMax 
+ * @param {Pointer<Integer>} pcbActual 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetloginfo-function
+ */
+export JetGetLogInfoW(szzLogs, cbMax, pcbActual) {
+    pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetLogInfoW", "ptr", szzLogs, "uint", cbMax, pcbActualMarshal, pcbActual, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetLogInfoInstance Function
+ * @param {JET_INSTANCE} instance 
+ * @param {Integer} szzLogs 
+ * @param {Integer} cbMax 
+ * @param {Pointer<Integer>} pcbActual 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetloginfoinstance-function
+ */
+export JetGetLogInfoInstanceA(instance, szzLogs, cbMax, pcbActual) {
+    pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetLogInfoInstanceA", JET_INSTANCE, instance, "ptr", szzLogs, "uint", cbMax, pcbActualMarshal, pcbActual, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetLogInfoInstance Function
+ * @param {JET_INSTANCE} instance 
+ * @param {Integer} wszzLogs 
+ * @param {Integer} cbMax 
+ * @param {Pointer<Integer>} pcbActual 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetloginfoinstance-function
+ */
+export JetGetLogInfoInstanceW(instance, wszzLogs, cbMax, pcbActual) {
+    pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetLogInfoInstanceW", JET_INSTANCE, instance, "ptr", wszzLogs, "uint", cbMax, pcbActualMarshal, pcbActual, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetLogInfoInstance2 Function
+ * @param {JET_INSTANCE} instance 
+ * @param {Integer} szzLogs 
+ * @param {Integer} cbMax 
+ * @param {Pointer<Integer>} pcbActual 
+ * @param {Pointer<JET_LOGINFO_A>} pLogInfo 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetloginfoinstance2-function
+ */
+export JetGetLogInfoInstance2A(instance, szzLogs, cbMax, pcbActual, pLogInfo) {
+    pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetLogInfoInstance2A", JET_INSTANCE, instance, "ptr", szzLogs, "uint", cbMax, pcbActualMarshal, pcbActual, JET_LOGINFO_A.Ptr, pLogInfo, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetLogInfoInstance2 Function
+ * @param {JET_INSTANCE} instance 
+ * @param {Integer} wszzLogs 
+ * @param {Integer} cbMax 
+ * @param {Pointer<Integer>} pcbActual 
+ * @param {Pointer<JET_LOGINFO_W>} pLogInfo 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetloginfoinstance2-function
+ */
+export JetGetLogInfoInstance2W(instance, wszzLogs, cbMax, pcbActual, pLogInfo) {
+    pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetLogInfoInstance2W", JET_INSTANCE, instance, "ptr", wszzLogs, "uint", cbMax, pcbActualMarshal, pcbActual, JET_LOGINFO_W.Ptr, pLogInfo, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetTruncateLogInfoInstance Function
+ * @param {JET_INSTANCE} instance 
+ * @param {Integer} szzLogs 
+ * @param {Integer} cbMax 
+ * @param {Pointer<Integer>} pcbActual 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgettruncateloginfoinstance-function
+ */
+export JetGetTruncateLogInfoInstanceA(instance, szzLogs, cbMax, pcbActual) {
+    pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetTruncateLogInfoInstanceA", JET_INSTANCE, instance, "ptr", szzLogs, "uint", cbMax, pcbActualMarshal, pcbActual, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetTruncateLogInfoInstance Function
+ * @param {JET_INSTANCE} instance 
+ * @param {Integer} wszzLogs 
+ * @param {Integer} cbMax 
+ * @param {Pointer<Integer>} pcbActual 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgettruncateloginfoinstance-function
+ */
+export JetGetTruncateLogInfoInstanceW(instance, wszzLogs, cbMax, pcbActual) {
+    pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetTruncateLogInfoInstanceW", JET_INSTANCE, instance, "ptr", wszzLogs, "uint", cbMax, pcbActualMarshal, pcbActual, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetTruncateLog Function
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jettruncatelog-function
+ */
+export JetTruncateLog() {
+    result := DllCall("ESENT.dll\JetTruncateLog", Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetTruncateLogInstance Function
+ * @param {JET_INSTANCE} instance 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jettruncateloginstance-function
+ */
+export JetTruncateLogInstance(instance) {
+    result := DllCall("ESENT.dll\JetTruncateLogInstance", JET_INSTANCE, instance, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetEndExternalBackup Function
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetendexternalbackup-function
+ */
+export JetEndExternalBackup() {
+    result := DllCall("ESENT.dll\JetEndExternalBackup", Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetEndExternalBackupInstance Function
+ * @param {JET_INSTANCE} instance 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetendexternalbackupinstance-function
+ */
+export JetEndExternalBackupInstance(instance) {
+    result := DllCall("ESENT.dll\JetEndExternalBackupInstance", JET_INSTANCE, instance, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetEndExternalBackupInstance2 Function
+ * @param {JET_INSTANCE} instance 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetendexternalbackupinstance2-function
+ */
+export JetEndExternalBackupInstance2(instance, grbit) {
+    result := DllCall("ESENT.dll\JetEndExternalBackupInstance2", JET_INSTANCE, instance, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetExternalRestore Function
+ * @param {Pointer<Integer>} szCheckpointFilePath 
+ * @param {Pointer<Integer>} szLogPath 
+ * @param {Pointer<JET_RSTMAP_A>} rgrstmap 
+ * @param {Integer} crstfilemap 
+ * @param {Pointer<Integer>} szBackupLogPath 
+ * @param {Integer} genLow 
+ * @param {Integer} genHigh 
+ * @param {Pointer<JET_PFNSTATUS>} _pfn 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetexternalrestore-function
+ */
+export JetExternalRestoreA(szCheckpointFilePath, szLogPath, rgrstmap, crstfilemap, szBackupLogPath, genLow, genHigh, _pfn) {
+    szCheckpointFilePathMarshal := szCheckpointFilePath is VarRef ? "char*" : "ptr"
+    szLogPathMarshal := szLogPath is VarRef ? "char*" : "ptr"
+    szBackupLogPathMarshal := szBackupLogPath is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetExternalRestoreA", szCheckpointFilePathMarshal, szCheckpointFilePath, szLogPathMarshal, szLogPath, JET_RSTMAP_A.Ptr, rgrstmap, "int", crstfilemap, szBackupLogPathMarshal, szBackupLogPath, "int", genLow, "int", genHigh, "ptr", _pfn, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetExternalRestore Function
+ * @param {Pointer<Integer>} szCheckpointFilePath 
+ * @param {Pointer<Integer>} szLogPath 
+ * @param {Pointer<JET_RSTMAP_W>} rgrstmap 
+ * @param {Integer} crstfilemap 
+ * @param {Pointer<Integer>} szBackupLogPath 
+ * @param {Integer} genLow 
+ * @param {Integer} genHigh 
+ * @param {Pointer<JET_PFNSTATUS>} _pfn 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetexternalrestore-function
+ */
+export JetExternalRestoreW(szCheckpointFilePath, szLogPath, rgrstmap, crstfilemap, szBackupLogPath, genLow, genHigh, _pfn) {
+    szCheckpointFilePathMarshal := szCheckpointFilePath is VarRef ? "ushort*" : "ptr"
+    szLogPathMarshal := szLogPath is VarRef ? "ushort*" : "ptr"
+    szBackupLogPathMarshal := szBackupLogPath is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetExternalRestoreW", szCheckpointFilePathMarshal, szCheckpointFilePath, szLogPathMarshal, szLogPath, JET_RSTMAP_W.Ptr, rgrstmap, "int", crstfilemap, szBackupLogPathMarshal, szBackupLogPath, "int", genLow, "int", genHigh, "ptr", _pfn, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetExternalRestore2 Function
+ * @param {Pointer<Integer>} szCheckpointFilePath 
+ * @param {Pointer<Integer>} szLogPath 
+ * @param {Pointer<JET_RSTMAP_A>} rgrstmap 
+ * @param {Integer} crstfilemap 
+ * @param {Pointer<Integer>} szBackupLogPath 
+ * @param {Pointer<JET_LOGINFO_A>} pLogInfo 
+ * @param {Pointer<Integer>} szTargetInstanceName 
+ * @param {Pointer<Integer>} szTargetInstanceLogPath 
+ * @param {Pointer<Integer>} szTargetInstanceCheckpointPath 
+ * @param {Pointer<JET_PFNSTATUS>} _pfn 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetexternalrestore2-function
+ */
+export JetExternalRestore2A(szCheckpointFilePath, szLogPath, rgrstmap, crstfilemap, szBackupLogPath, pLogInfo, szTargetInstanceName, szTargetInstanceLogPath, szTargetInstanceCheckpointPath, _pfn) {
+    szCheckpointFilePathMarshal := szCheckpointFilePath is VarRef ? "char*" : "ptr"
+    szLogPathMarshal := szLogPath is VarRef ? "char*" : "ptr"
+    szBackupLogPathMarshal := szBackupLogPath is VarRef ? "char*" : "ptr"
+    szTargetInstanceNameMarshal := szTargetInstanceName is VarRef ? "char*" : "ptr"
+    szTargetInstanceLogPathMarshal := szTargetInstanceLogPath is VarRef ? "char*" : "ptr"
+    szTargetInstanceCheckpointPathMarshal := szTargetInstanceCheckpointPath is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetExternalRestore2A", szCheckpointFilePathMarshal, szCheckpointFilePath, szLogPathMarshal, szLogPath, JET_RSTMAP_A.Ptr, rgrstmap, "int", crstfilemap, szBackupLogPathMarshal, szBackupLogPath, JET_LOGINFO_A.Ptr, pLogInfo, szTargetInstanceNameMarshal, szTargetInstanceName, szTargetInstanceLogPathMarshal, szTargetInstanceLogPath, szTargetInstanceCheckpointPathMarshal, szTargetInstanceCheckpointPath, "ptr", _pfn, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetExternalRestore2 Function
+ * @param {Pointer<Integer>} szCheckpointFilePath 
+ * @param {Pointer<Integer>} szLogPath 
+ * @param {Pointer<JET_RSTMAP_W>} rgrstmap 
+ * @param {Integer} crstfilemap 
+ * @param {Pointer<Integer>} szBackupLogPath 
+ * @param {Pointer<JET_LOGINFO_W>} pLogInfo 
+ * @param {Pointer<Integer>} szTargetInstanceName 
+ * @param {Pointer<Integer>} szTargetInstanceLogPath 
+ * @param {Pointer<Integer>} szTargetInstanceCheckpointPath 
+ * @param {Pointer<JET_PFNSTATUS>} _pfn 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetexternalrestore2-function
+ */
+export JetExternalRestore2W(szCheckpointFilePath, szLogPath, rgrstmap, crstfilemap, szBackupLogPath, pLogInfo, szTargetInstanceName, szTargetInstanceLogPath, szTargetInstanceCheckpointPath, _pfn) {
+    szCheckpointFilePathMarshal := szCheckpointFilePath is VarRef ? "ushort*" : "ptr"
+    szLogPathMarshal := szLogPath is VarRef ? "ushort*" : "ptr"
+    szBackupLogPathMarshal := szBackupLogPath is VarRef ? "ushort*" : "ptr"
+    szTargetInstanceNameMarshal := szTargetInstanceName is VarRef ? "ushort*" : "ptr"
+    szTargetInstanceLogPathMarshal := szTargetInstanceLogPath is VarRef ? "ushort*" : "ptr"
+    szTargetInstanceCheckpointPathMarshal := szTargetInstanceCheckpointPath is VarRef ? "ushort*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetExternalRestore2W", szCheckpointFilePathMarshal, szCheckpointFilePath, szLogPathMarshal, szLogPath, JET_RSTMAP_W.Ptr, rgrstmap, "int", crstfilemap, szBackupLogPathMarshal, szBackupLogPath, JET_LOGINFO_W.Ptr, pLogInfo, szTargetInstanceNameMarshal, szTargetInstanceName, szTargetInstanceLogPathMarshal, szTargetInstanceLogPath, szTargetInstanceCheckpointPathMarshal, szTargetInstanceCheckpointPath, "ptr", _pfn, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetRegisterCallback Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Integer} cbtyp 
+ * @param {Pointer<JET_CALLBACK>} pCallback 
+ * @param {Pointer<Void>} pvContext 
+ * @param {Pointer<JET_HANDLE>} phCallbackId 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetregistercallback-function
+ */
+export JetRegisterCallback(sesid, tableid, cbtyp, pCallback, pvContext, phCallbackId) {
+    pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+    result := DllCall("ESENT.dll\JetRegisterCallback", JET_SESID, sesid, JET_TABLEID, tableid, "uint", cbtyp, "ptr", pCallback, pvContextMarshal, pvContext, JET_HANDLE.Ptr, phCallbackId, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetUnregisterCallback Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Integer} cbtyp 
+ * @param {JET_HANDLE} hCallbackId 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetunregistercallback-function
+ */
+export JetUnregisterCallback(sesid, tableid, cbtyp, hCallbackId) {
+    result := DllCall("ESENT.dll\JetUnregisterCallback", JET_SESID, sesid, JET_TABLEID, tableid, "uint", cbtyp, JET_HANDLE, hCallbackId, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetInstanceInfo Function
+ * @param {Pointer<Integer>} pcInstanceInfo 
+ * @param {Pointer<Pointer<JET_INSTANCE_INFO_A>>} paInstanceInfo 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetinstanceinfo-function
+ */
+export JetGetInstanceInfoA(pcInstanceInfo, paInstanceInfo) {
+    pcInstanceInfoMarshal := pcInstanceInfo is VarRef ? "uint*" : "ptr"
+    paInstanceInfoMarshal := paInstanceInfo is VarRef ? "ptr*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetInstanceInfoA", pcInstanceInfoMarshal, pcInstanceInfo, paInstanceInfoMarshal, paInstanceInfo, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetInstanceInfo Function
+ * @param {Pointer<Integer>} pcInstanceInfo 
+ * @param {Pointer<Pointer<JET_INSTANCE_INFO_W>>} paInstanceInfo 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetinstanceinfo-function
+ */
+export JetGetInstanceInfoW(pcInstanceInfo, paInstanceInfo) {
+    pcInstanceInfoMarshal := pcInstanceInfo is VarRef ? "uint*" : "ptr"
+    paInstanceInfoMarshal := paInstanceInfo is VarRef ? "ptr*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetInstanceInfoW", pcInstanceInfoMarshal, pcInstanceInfo, paInstanceInfoMarshal, paInstanceInfo, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetFreeBuffer Function
+ * @param {Pointer<Integer>} pbBuf 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetfreebuffer-function
+ */
+export JetFreeBuffer(pbBuf) {
+    pbBufMarshal := pbBuf is VarRef ? "char*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetFreeBuffer", pbBufMarshal, pbBuf, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetSetLS Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {JET_LS} ls 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetls-function
+ */
+export JetSetLS(sesid, tableid, ls, grbit) {
+    result := DllCall("ESENT.dll\JetSetLS", JET_SESID, sesid, JET_TABLEID, tableid, JET_LS, ls, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetLS Function
+ * @param {JET_SESID} sesid 
+ * @param {JET_TABLEID} tableid 
+ * @param {Pointer<JET_LS>} pls 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetls-function
+ */
+export JetGetLS(sesid, tableid, pls, grbit) {
+    result := DllCall("ESENT.dll\JetGetLS", JET_SESID, sesid, JET_TABLEID, tableid, JET_LS.Ptr, pls, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetOSSnapshotPrepare Function
+ * @param {Pointer<JET_OSSNAPID>} psnapId 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetossnapshotprepare-function
+ */
+export JetOSSnapshotPrepare(psnapId, grbit) {
+    result := DllCall("ESENT.dll\JetOSSnapshotPrepare", JET_OSSNAPID.Ptr, psnapId, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetOSSnapshotPrepareInstance Function
+ * @param {JET_OSSNAPID} snapId 
+ * @param {JET_INSTANCE} instance 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetossnapshotprepareinstance-function
+ */
+export JetOSSnapshotPrepareInstance(snapId, instance, grbit) {
+    result := DllCall("ESENT.dll\JetOSSnapshotPrepareInstance", JET_OSSNAPID, snapId, JET_INSTANCE, instance, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetOSSnapshotFreeze Function
+ * @param {JET_OSSNAPID} snapId 
+ * @param {Pointer<Integer>} pcInstanceInfo 
+ * @param {Pointer<Pointer<JET_INSTANCE_INFO_A>>} paInstanceInfo 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetossnapshotfreeze-function
+ */
+export JetOSSnapshotFreezeA(snapId, pcInstanceInfo, paInstanceInfo, grbit) {
+    pcInstanceInfoMarshal := pcInstanceInfo is VarRef ? "uint*" : "ptr"
+    paInstanceInfoMarshal := paInstanceInfo is VarRef ? "ptr*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetOSSnapshotFreezeA", JET_OSSNAPID, snapId, pcInstanceInfoMarshal, pcInstanceInfo, paInstanceInfoMarshal, paInstanceInfo, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetOSSnapshotFreeze Function
+ * @param {JET_OSSNAPID} snapId 
+ * @param {Pointer<Integer>} pcInstanceInfo 
+ * @param {Pointer<Pointer<JET_INSTANCE_INFO_W>>} paInstanceInfo 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetossnapshotfreeze-function
+ */
+export JetOSSnapshotFreezeW(snapId, pcInstanceInfo, paInstanceInfo, grbit) {
+    pcInstanceInfoMarshal := pcInstanceInfo is VarRef ? "uint*" : "ptr"
+    paInstanceInfoMarshal := paInstanceInfo is VarRef ? "ptr*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetOSSnapshotFreezeW", JET_OSSNAPID, snapId, pcInstanceInfoMarshal, pcInstanceInfo, paInstanceInfoMarshal, paInstanceInfo, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetOSSnapshotThaw Function
+ * @param {JET_OSSNAPID} snapId 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetossnapshotthaw-function
+ */
+export JetOSSnapshotThaw(snapId, grbit) {
+    result := DllCall("ESENT.dll\JetOSSnapshotThaw", JET_OSSNAPID, snapId, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetOSSnapshotAbort Function
+ * @param {JET_OSSNAPID} snapId 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetossnapshotabort-function
+ */
+export JetOSSnapshotAbort(snapId, grbit) {
+    result := DllCall("ESENT.dll\JetOSSnapshotAbort", JET_OSSNAPID, snapId, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetOSSnapshotTruncateLog Function
+ * @param {JET_OSSNAPID} snapId 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetossnapshottruncatelog-function
+ */
+export JetOSSnapshotTruncateLog(snapId, grbit) {
+    result := DllCall("ESENT.dll\JetOSSnapshotTruncateLog", JET_OSSNAPID, snapId, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetOSSnapshotTruncateLogInstance Function
+ * @param {JET_OSSNAPID} snapId 
+ * @param {JET_INSTANCE} instance 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetossnapshottruncateloginstance-function
+ */
+export JetOSSnapshotTruncateLogInstance(snapId, instance, grbit) {
+    result := DllCall("ESENT.dll\JetOSSnapshotTruncateLogInstance", JET_OSSNAPID, snapId, JET_INSTANCE, instance, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetOSSnapshotGetFreezeInfo Function
+ * @param {JET_OSSNAPID} snapId 
+ * @param {Pointer<Integer>} pcInstanceInfo 
+ * @param {Pointer<Pointer<JET_INSTANCE_INFO_A>>} paInstanceInfo 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetossnapshotgetfreezeinfo-function
+ */
+export JetOSSnapshotGetFreezeInfoA(snapId, pcInstanceInfo, paInstanceInfo, grbit) {
+    pcInstanceInfoMarshal := pcInstanceInfo is VarRef ? "uint*" : "ptr"
+    paInstanceInfoMarshal := paInstanceInfo is VarRef ? "ptr*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetOSSnapshotGetFreezeInfoA", JET_OSSNAPID, snapId, pcInstanceInfoMarshal, pcInstanceInfo, paInstanceInfoMarshal, paInstanceInfo, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetOSSnapshotGetFreezeInfo Function
+ * @param {JET_OSSNAPID} snapId 
+ * @param {Pointer<Integer>} pcInstanceInfo 
+ * @param {Pointer<Pointer<JET_INSTANCE_INFO_W>>} paInstanceInfo 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetossnapshotgetfreezeinfo-function
+ */
+export JetOSSnapshotGetFreezeInfoW(snapId, pcInstanceInfo, paInstanceInfo, grbit) {
+    pcInstanceInfoMarshal := pcInstanceInfo is VarRef ? "uint*" : "ptr"
+    paInstanceInfoMarshal := paInstanceInfo is VarRef ? "ptr*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetOSSnapshotGetFreezeInfoW", JET_OSSNAPID, snapId, pcInstanceInfoMarshal, pcInstanceInfo, paInstanceInfoMarshal, paInstanceInfo, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetOSSnapshotEnd Function
+ * @param {JET_OSSNAPID} snapId 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetossnapshotend-function
+ */
+export JetOSSnapshotEnd(snapId, grbit) {
+    result := DllCall("ESENT.dll\JetOSSnapshotEnd", JET_OSSNAPID, snapId, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ */
+export JetConfigureProcessForCrashDump(grbit) {
+    result := DllCall("ESENT.dll\JetConfigureProcessForCrashDump", "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetErrorInfoW Function
+ * @param {Pointer<Void>} pvContext 
+ * @param {Integer} pvResult 
+ * @param {Integer} cbMax 
+ * @param {Integer} InfoLevel 
+ * @param {Integer} grbit 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgeterrorinfow-function
+ */
+export JetGetErrorInfoW(pvContext, pvResult, cbMax, InfoLevel, grbit) {
+    pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetErrorInfoW", pvContextMarshal, pvContext, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "uint", grbit, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetSetSessionParameter Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} sesparamid 
+ * @param {Integer} pvParam 
+ * @param {Integer} cbParam 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetsetsessionparameter-function
+ */
+export JetSetSessionParameter(sesid, sesparamid, pvParam, cbParam) {
+    result := DllCall("ESENT.dll\JetSetSessionParameter", JET_SESID, sesid, "uint", sesparamid, "ptr", pvParam, "uint", cbParam, Int32)
+    return result
+}
+
+/**
+ * Learn more about: JetGetSessionParameter Function
+ * @param {JET_SESID} sesid 
+ * @param {Integer} sesparamid 
+ * @param {Pointer<Void>} pvParam 
+ * @param {Integer} cbParamMax 
+ * @param {Pointer<Integer>} pcbParamActual 
+ * @returns {Integer} 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jetgetsessionparameter-function
+ */
+export JetGetSessionParameter(sesid, sesparamid, pvParam, cbParamMax, pcbParamActual) {
+    pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
+    pcbParamActualMarshal := pcbParamActual is VarRef ? "uint*" : "ptr"
+
+    result := DllCall("ESENT.dll\JetGetSessionParameter", JET_SESID, sesid, "uint", sesparamid, pvParamMarshal, pvParam, "uint", cbParamMax, pcbParamActualMarshal, pcbParamActual, Int32)
+    return result
+}
+
+;@endregion Functions

@@ -1,9 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IShellItem.ahk
-#Include .\IEnumShellItems.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SIATTRIBFLAGS.ahk" { SIATTRIBFLAGS }
+#Import ".\IEnumShellItems.ahk" { IEnumShellItems }
+#Import "..\..\System\SystemServices\SFGAO_FLAGS.ahk" { SFGAO_FLAGS }
+#Import "PropertiesSystem\GETPROPERTYSTOREFLAGS.ahk" { GETPROPERTYSTOREFLAGS }
+#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IShellItem.ahk" { IShellItem }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that create and manipulate Shell item arrays.
@@ -28,26 +34,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishellitemarray
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellItemArray extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IShellItemArray extends IUnknown {
     /**
      * The interface identifier for IShellItemArray
      * @type {Guid}
      */
-    static IID => Guid("{b63ea76d-1f85-456f-a19c-48159efa858b}")
+    static IID := Guid("{b63ea76d-1f85-456f-a19c-48159efa858b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellItemArray interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        BindToHandler              : IntPtr
+        GetPropertyStore           : IntPtr
+        GetPropertyDescriptionList : IntPtr
+        GetAttributes              : IntPtr
+        GetCount                   : IntPtr
+        GetItemAt                  : IntPtr
+        EnumItems                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["BindToHandler", "GetPropertyStore", "GetPropertyDescriptionList", "GetAttributes", "GetCount", "GetItemAt", "EnumItems"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellItemArray.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Binds to an object by means of the specified handler.
@@ -64,7 +83,7 @@ class IShellItemArray extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemarray-bindtohandler
      */
     BindToHandler(pbc, bhid, riid) {
-        result := ComCall(3, this, "ptr", pbc, "ptr", bhid, "ptr", riid, "ptr*", &ppvOut := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pbc, Guid.Ptr, bhid, Guid.Ptr, riid, "ptr*", &ppvOut := 0, "HRESULT")
         return ppvOut
     }
 
@@ -107,7 +126,7 @@ class IShellItemArray extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemarray-getpropertystore
      */
     GetPropertyStore(flags, riid) {
-        result := ComCall(4, this, "int", flags, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(4, this, GETPROPERTYSTOREFLAGS, flags, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -145,7 +164,7 @@ class IShellItemArray extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemarray-getpropertydescriptionlist
      */
     GetPropertyDescriptionList(keyType, riid) {
-        result := ComCall(5, this, "ptr", keyType, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(5, this, PROPERTYKEY.Ptr, keyType, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -165,7 +184,7 @@ class IShellItemArray extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemarray-getattributes
      */
     GetAttributes(AttribFlags, sfgaoMask) {
-        result := ComCall(6, this, "int", AttribFlags, "uint", sfgaoMask, "uint*", &psfgaoAttribs := 0, "HRESULT")
+        result := ComCall(6, this, SIATTRIBFLAGS, AttribFlags, SFGAO_FLAGS, sfgaoMask, "uint*", &psfgaoAttribs := 0, "HRESULT")
         return psfgaoAttribs
     }
 
@@ -208,5 +227,37 @@ class IShellItemArray extends IUnknown {
     EnumItems() {
         result := ComCall(9, this, "ptr*", &ppenumShellItems := 0, "HRESULT")
         return IEnumShellItems(ppenumShellItems)
+    }
+
+    Query(iid) {
+        if (IShellItemArray.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.BindToHandler := CallbackCreate(GetMethod(implObj, "BindToHandler"), flags, 5)
+        this.vtbl.GetPropertyStore := CallbackCreate(GetMethod(implObj, "GetPropertyStore"), flags, 4)
+        this.vtbl.GetPropertyDescriptionList := CallbackCreate(GetMethod(implObj, "GetPropertyDescriptionList"), flags, 4)
+        this.vtbl.GetAttributes := CallbackCreate(GetMethod(implObj, "GetAttributes"), flags, 4)
+        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetItemAt := CallbackCreate(GetMethod(implObj, "GetItemAt"), flags, 3)
+        this.vtbl.EnumItems := CallbackCreate(GetMethod(implObj, "EnumItems"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.BindToHandler)
+        CallbackFree(this.vtbl.GetPropertyStore)
+        CallbackFree(this.vtbl.GetPropertyDescriptionList)
+        CallbackFree(this.vtbl.GetAttributes)
+        CallbackFree(this.vtbl.GetCount)
+        CallbackFree(this.vtbl.GetItemAt)
+        CallbackFree(this.vtbl.EnumItems)
     }
 }

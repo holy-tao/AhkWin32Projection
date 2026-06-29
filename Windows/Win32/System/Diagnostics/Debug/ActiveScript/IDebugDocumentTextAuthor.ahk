@@ -1,31 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IDebugDocumentText.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDebugDocumentText.ahk" { IDebugDocumentText }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
  */
-class IDebugDocumentTextAuthor extends IDebugDocumentText {
-
-    static sizeof => A_PtrSize
+export default struct IDebugDocumentTextAuthor extends IDebugDocumentText {
     /**
      * The interface identifier for IDebugDocumentTextAuthor
      * @type {Guid}
      */
-    static IID => Guid("{51973c24-cb0c-11d0-b5c9-00a0244a0e7a}")
+    static IID := Guid("{51973c24-cb0c-11d0-b5c9-00a0244a0e7a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 12
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDebugDocumentTextAuthor interfaces
+    */
+    struct Vtbl extends IDebugDocumentText.Vtbl {
+        InsertText  : IntPtr
+        RemoveText  : IntPtr
+        ReplaceText : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InsertText", "RemoveText", "ReplaceText"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDebugDocumentTextAuthor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -84,5 +95,29 @@ class IDebugDocumentTextAuthor extends IDebugDocumentText {
 
         result := ComCall(14, this, "uint", cCharacterPosition, "uint", cNumToReplace, "ptr", pcharText, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDebugDocumentTextAuthor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InsertText := CallbackCreate(GetMethod(implObj, "InsertText"), flags, 4)
+        this.vtbl.RemoveText := CallbackCreate(GetMethod(implObj, "RemoveText"), flags, 3)
+        this.vtbl.ReplaceText := CallbackCreate(GetMethod(implObj, "ReplaceText"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InsertText)
+        CallbackFree(this.vtbl.RemoveText)
+        CallbackFree(this.vtbl.ReplaceText)
     }
 }

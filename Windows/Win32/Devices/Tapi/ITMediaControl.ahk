@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\TERMINAL_MEDIA_STATE.ahk" { TERMINAL_MEDIA_STATE }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITMediaControl interface is a generic interface for media file terminals. The interface exposes methods that allow the application to start, stop, or pause current actions, such as a playback.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itmediacontrol
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITMediaControl extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITMediaControl extends IDispatch {
     /**
      * The interface identifier for ITMediaControl
      * @type {Guid}
      */
-    static IID => Guid("{c445dde8-5199-4bc7-9807-5ffb92e42e09}")
+    static IID := Guid("{c445dde8-5199-4bc7-9807-5ffb92e42e09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITMediaControl interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Start          : IntPtr
+        Stop           : IntPtr
+        Pause          : IntPtr
+        get_MediaState : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Start", "Stop", "Pause", "get_MediaState"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITMediaControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {TERMINAL_MEDIA_STATE} 
@@ -75,5 +87,31 @@ class ITMediaControl extends IDispatch {
     get_MediaState() {
         result := ComCall(10, this, "int*", &pTerminalMediaState := 0, "HRESULT")
         return pTerminalMediaState
+    }
+
+    Query(iid) {
+        if (ITMediaControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 1)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.get_MediaState := CallbackCreate(GetMethod(implObj, "get_MediaState"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Start)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.Pause)
+        CallbackFree(this.vtbl.get_MediaState)
     }
 }

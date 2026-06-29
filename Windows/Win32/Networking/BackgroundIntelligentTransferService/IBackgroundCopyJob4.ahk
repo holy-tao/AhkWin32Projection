@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IBackgroundCopyJob3.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IBackgroundCopyJob3.ahk" { IBackgroundCopyJob3 }
 
 /**
  * Use this interface to enable peer caching, restrict download time, and inspect user token characteristics.
  * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nn-bits3_0-ibackgroundcopyjob4
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class IBackgroundCopyJob4 extends IBackgroundCopyJob3 {
-
-    static sizeof => A_PtrSize
+export default struct IBackgroundCopyJob4 extends IBackgroundCopyJob3 {
     /**
      * The interface identifier for IBackgroundCopyJob4
      * @type {Guid}
      */
-    static IID => Guid("{659cdeae-489e-11d9-a9cd-000d56965251}")
+    static IID := Guid("{659cdeae-489e-11d9-a9cd-000d56965251}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 47
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBackgroundCopyJob4 interfaces
+    */
+    struct Vtbl extends IBackgroundCopyJob3.Vtbl {
+        SetPeerCachingFlags    : IntPtr
+        GetPeerCachingFlags    : IntPtr
+        GetOwnerIntegrityLevel : IntPtr
+        GetOwnerElevationState : IntPtr
+        SetMaximumDownloadTime : IntPtr
+        GetMaximumDownloadTime : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetPeerCachingFlags", "GetPeerCachingFlags", "GetOwnerIntegrityLevel", "GetOwnerElevationState", "SetMaximumDownloadTime", "GetMaximumDownloadTime"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBackgroundCopyJob4.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets flags that determine if the files of the job can be cached and served to peers and if the job can download content from peers.
@@ -178,7 +192,7 @@ class IBackgroundCopyJob4 extends IBackgroundCopyJob3 {
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibackgroundcopyjob4-getownerelevationstate
      */
     GetOwnerElevationState() {
-        result := ComCall(50, this, "int*", &pElevated := 0, "HRESULT")
+        result := ComCall(50, this, BOOL.Ptr, &pElevated := 0, "HRESULT")
         return pElevated
     }
 
@@ -229,5 +243,35 @@ class IBackgroundCopyJob4 extends IBackgroundCopyJob3 {
     GetMaximumDownloadTime() {
         result := ComCall(52, this, "uint*", &pTimeout := 0, "HRESULT")
         return pTimeout
+    }
+
+    Query(iid) {
+        if (IBackgroundCopyJob4.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetPeerCachingFlags := CallbackCreate(GetMethod(implObj, "SetPeerCachingFlags"), flags, 2)
+        this.vtbl.GetPeerCachingFlags := CallbackCreate(GetMethod(implObj, "GetPeerCachingFlags"), flags, 2)
+        this.vtbl.GetOwnerIntegrityLevel := CallbackCreate(GetMethod(implObj, "GetOwnerIntegrityLevel"), flags, 2)
+        this.vtbl.GetOwnerElevationState := CallbackCreate(GetMethod(implObj, "GetOwnerElevationState"), flags, 2)
+        this.vtbl.SetMaximumDownloadTime := CallbackCreate(GetMethod(implObj, "SetMaximumDownloadTime"), flags, 2)
+        this.vtbl.GetMaximumDownloadTime := CallbackCreate(GetMethod(implObj, "GetMaximumDownloadTime"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetPeerCachingFlags)
+        CallbackFree(this.vtbl.GetPeerCachingFlags)
+        CallbackFree(this.vtbl.GetOwnerIntegrityLevel)
+        CallbackFree(this.vtbl.GetOwnerElevationState)
+        CallbackFree(this.vtbl.SetMaximumDownloadTime)
+        CallbackFree(this.vtbl.GetMaximumDownloadTime)
     }
 }

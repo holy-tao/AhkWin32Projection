@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISpeechRecoResult.ahk
-#Include .\ISpeechPhraseInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISpeechPhraseInfo.ahk" { ISpeechPhraseInfo }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISpeechRecoResult.ahk" { ISpeechRecoResult }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpeechPhraseAlternate extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISpeechPhraseAlternate extends IDispatch {
     /**
      * The interface identifier for ISpeechPhraseAlternate
      * @type {Guid}
      */
-    static IID => Guid("{27864a2a-2b9f-4cb8-92d3-0d2722fd1e73}")
+    static IID := Guid("{27864a2a-2b9f-4cb8-92d3-0d2722fd1e73}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpeechPhraseAlternate interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_RecoResult               : IntPtr
+        get_StartElementInResult     : IntPtr
+        get_NumberOfElementsInResult : IntPtr
+        get_PhraseInfo               : IntPtr
+        Commit                       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_RecoResult", "get_StartElementInResult", "get_NumberOfElementsInResult", "get_PhraseInfo", "Commit"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpeechPhraseAlternate.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ISpeechRecoResult} 
@@ -94,19 +106,39 @@ class ISpeechPhraseAlternate extends IDispatch {
     }
 
     /**
-     * Indicates that a resource manager (RM) has finished committing a transaction that was requested by the transaction manager (TM).
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero. 
      * 
-     * 
-     *   
-     * 
-     * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * 
-     *  The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-commitcomplete
+     * @returns {HRESULT} 
      */
     Commit() {
         result := ComCall(11, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISpeechPhraseAlternate.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_RecoResult := CallbackCreate(GetMethod(implObj, "get_RecoResult"), flags, 2)
+        this.vtbl.get_StartElementInResult := CallbackCreate(GetMethod(implObj, "get_StartElementInResult"), flags, 2)
+        this.vtbl.get_NumberOfElementsInResult := CallbackCreate(GetMethod(implObj, "get_NumberOfElementsInResult"), flags, 2)
+        this.vtbl.get_PhraseInfo := CallbackCreate(GetMethod(implObj, "get_PhraseInfo"), flags, 2)
+        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_RecoResult)
+        CallbackFree(this.vtbl.get_StartElementInResult)
+        CallbackFree(this.vtbl.get_NumberOfElementsInResult)
+        CallbackFree(this.vtbl.get_PhraseInfo)
+        CallbackFree(this.vtbl.Commit)
     }
 }

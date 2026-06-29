@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IBackgroundCopyFile.ahk
-#Include ..\..\System\Com\Apis.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IBackgroundCopyFile.ahk" { IBackgroundCopyFile }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\BG_FILE_RANGE.ahk" { BG_FILE_RANGE }
+#Import "..\..\System\Com\Apis.ahk" { CoTaskMemFree }
 
 /**
  * Use the IBackgroundCopyFile2 interface to specify a new remote name for the file and retrieve the list of ranges to download.
  * @see https://learn.microsoft.com/windows/win32/api/bits2_0/nn-bits2_0-ibackgroundcopyfile2
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class IBackgroundCopyFile2 extends IBackgroundCopyFile {
-
-    static sizeof => A_PtrSize
+export default struct IBackgroundCopyFile2 extends IBackgroundCopyFile {
     /**
      * The interface identifier for IBackgroundCopyFile2
      * @type {Guid}
      */
-    static IID => Guid("{83e81b93-0873-474d-8a8c-f2018b1a939c}")
+    static IID := Guid("{83e81b93-0873-474d-8a8c-f2018b1a939c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBackgroundCopyFile2 interfaces
+    */
+    struct Vtbl extends IBackgroundCopyFile.Vtbl {
+        GetFileRanges : IntPtr
+        SetRemoteName : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFileRanges", "SetRemoteName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBackgroundCopyFile2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the ranges that you want to download from the remote file.
@@ -39,9 +50,9 @@ class IBackgroundCopyFile2 extends IBackgroundCopyFile {
     GetFileRanges(RangeCount) {
         RangeCountMarshal := RangeCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, RangeCountMarshal, RangeCount, "ptr*", &Ranges := 0, "int")
+        result := ComCall(6, this, RangeCountMarshal, RangeCount, "ptr*", &Ranges := 0, Int32)
         if(result != 0) {
-            Com.CoTaskMemFree(Ranges)
+            CoTaskMemFree(Ranges)
             throw OSError()
         }
 
@@ -137,5 +148,27 @@ class IBackgroundCopyFile2 extends IBackgroundCopyFile {
 
         result := ComCall(7, this, "ptr", _Val, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBackgroundCopyFile2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFileRanges := CallbackCreate(GetMethod(implObj, "GetFileRanges"), flags, 3)
+        this.vtbl.SetRemoteName := CallbackCreate(GetMethod(implObj, "SetRemoteName"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFileRanges)
+        CallbackFree(this.vtbl.SetRemoteName)
     }
 }

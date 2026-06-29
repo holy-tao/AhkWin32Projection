@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MF_FLOAT3.ahk
-#Include .\MF_QUATERNION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MF_QUATERNION.ahk" { MF_QUATERNION }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MF_FLOAT3.ahk" { MF_FLOAT3 }
 
 /**
  * A transform describing the location of a camera relative to other cameras or an established external reference.
@@ -15,41 +15,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-mfcameraextrinsic_calibratedtransform
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFCameraExtrinsic_CalibratedTransform extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct MFCameraExtrinsic_CalibratedTransform {
+    #StructPack 4
 
     /**
      * A reference GUID identifying the calibration process for the data, allowing different consumers to identify calibration data from the same process.
-     * @type {Pointer}
      */
-    CalibrationId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    CalibrationId : Guid
 
     /**
      * The transform position.
-     * @type {MF_FLOAT3}
      */
-    Position {
-        get {
-            if(!this.HasProp("__Position"))
-                this.__Position := MF_FLOAT3(8, this)
-            return this.__Position
-        }
-    }
+    Position : MF_FLOAT3
 
     /**
      * The transform rotation.
-     * @type {MF_QUATERNION}
      */
-    Orientation {
-        get {
-            if(!this.HasProp("__Orientation"))
-                this.__Orientation := MF_QUATERNION(20, this)
-            return this.__Orientation
-        }
-    }
+    Orientation : MF_QUATERNION
+
 }

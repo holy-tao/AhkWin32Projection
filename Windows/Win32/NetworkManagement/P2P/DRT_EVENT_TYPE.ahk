@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DRT_EVENT_TYPE enumeration defines the set of events that can be raised by the Distributed Routing Table.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/drt/ne-drt-drt_event_type
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
-class DRT_EVENT_TYPE extends Win32Enum {
+export default struct DRT_EVENT_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The status of the local DRT instance has changed.

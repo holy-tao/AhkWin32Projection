@@ -1,44 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSCAMERA_PROFILE_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSCAMERA_PROFILE_INFO.ahk" { KSCAMERA_PROFILE_INFO }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSCAMERA_PROFILE_CONCURRENCYINFO extends Win32Struct {
-    static sizeof => 24
+export default struct KSCAMERA_PROFILE_CONCURRENCYINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    ReferenceGuid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    ReferenceGuid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ProfileCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProfileCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Profiles : KSCAMERA_PROFILE_INFO.Ptr
 
-    /**
-     * @type {Pointer<KSCAMERA_PROFILE_INFO>}
-     */
-    Profiles {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

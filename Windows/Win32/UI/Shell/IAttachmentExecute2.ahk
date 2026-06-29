@@ -1,31 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IAttachmentExecute.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IAttachmentExecute.ahk" { IAttachmentExecute }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.UI.Shell
  */
-class IAttachmentExecute2 extends IAttachmentExecute {
-
-    static sizeof => A_PtrSize
+export default struct IAttachmentExecute2 extends IAttachmentExecute {
     /**
      * The interface identifier for IAttachmentExecute2
      * @type {Guid}
      */
-    static IID => Guid("{4f2b781f-a608-4543-abf0-49c246ebbba9}")
+    static IID := Guid("{4f2b781f-a608-4543-abf0-49c246ebbba9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 15
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAttachmentExecute2 interfaces
+    */
+    struct Vtbl extends IAttachmentExecute.Vtbl {
+        SaveNoVirusCheck       : IntPtr
+        SaveWithUINoVirusCheck : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SaveNoVirusCheck", "SaveWithUINoVirusCheck"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAttachmentExecute2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -42,9 +52,29 @@ class IAttachmentExecute2 extends IAttachmentExecute {
      * @returns {HRESULT} 
      */
     SaveWithUINoVirusCheck(_hwnd) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(16, this, "ptr", _hwnd, "HRESULT")
+        result := ComCall(16, this, HWND, _hwnd, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAttachmentExecute2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SaveNoVirusCheck := CallbackCreate(GetMethod(implObj, "SaveNoVirusCheck"), flags, 1)
+        this.vtbl.SaveWithUINoVirusCheck := CallbackCreate(GetMethod(implObj, "SaveWithUINoVirusCheck"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SaveNoVirusCheck)
+        CallbackFree(this.vtbl.SaveWithUINoVirusCheck)
     }
 }

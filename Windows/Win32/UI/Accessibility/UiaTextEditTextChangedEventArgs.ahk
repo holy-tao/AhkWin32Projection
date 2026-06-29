@@ -1,46 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EventArgsType.ahk
-#Include .\TextEditChangeType.ahk
-#Include ..\..\System\Com\SAFEARRAY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EventArgsType.ahk" { EventArgsType }
+#Import ".\TextEditChangeType.ahk" { TextEditChangeType }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * @namespace Windows.Win32.UI.Accessibility
  */
-class UiaTextEditTextChangedEventArgs extends Win32Struct {
-    static sizeof => 24
+export default struct UiaTextEditTextChangedEventArgs {
+    #StructPack 8
 
-    static packingSize => 8
+    Type : EventArgsType
 
-    /**
-     * @type {EventArgsType}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    EventId : Int32
 
-    /**
-     * @type {Integer}
-     */
-    EventId {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    TextEditChangeType : TextEditChangeType
 
-    /**
-     * @type {TextEditChangeType}
-     */
-    TextEditChangeType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    pTextChange : SAFEARRAY.Ptr
 
-    /**
-     * @type {Pointer<SAFEARRAY>}
-     */
-    pTextChange {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

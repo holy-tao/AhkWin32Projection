@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ADRENTRY.ahk
-#Include .\SPropValue.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ADRENTRY.ahk" { ADRENTRY }
+#Import ".\SPropValue.ahk" { SPropValue }
 
 /**
  * Describes zero or more properties that belong to one or more recipients
@@ -24,29 +23,17 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/adrlist
  * @namespace Windows.Win32.System.AddressBook
  */
-class ADRLIST extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct ADRLIST {
+    #StructPack 8
 
     /**
      * > Count of entries in the array specified by the **aEntries** member.
-     * @type {Integer}
      */
-    cEntries {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cEntries : UInt32
 
     /**
      * > Array of [ADRENTRY](adrentry.md) structures, one structure for each recipient.
-     * @type {ADRENTRY}
      */
-    aEntries {
-        get {
-            if(!this.HasProp("__aEntriesProxyArray"))
-                this.__aEntriesProxyArray := Win32FixedArray(this.ptr + 8, 1, ADRENTRY, "")
-            return this.__aEntriesProxyArray
-        }
-    }
+    aEntries : ADRENTRY[1]
+
 }

@@ -1,53 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_BIOMETRIC_DATA_TYPE.ahk
-#Include .\CERT_HASHED_URL.ahk
-#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
+#Import ".\CERT_HASHED_URL.ahk" { CERT_HASHED_URL }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\CERT_BIOMETRIC_DATA_TYPE.ahk" { CERT_BIOMETRIC_DATA_TYPE }
 
 /**
  * Contains information about biometric data.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_biometric_data
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_BIOMETRIC_DATA extends Win32Struct {
-    static sizeof => 64
+export default struct CERT_BIOMETRIC_DATA {
+    #StructPack 8
 
-    static packingSize => 8
+    dwTypeOfBiometricDataChoice : CERT_BIOMETRIC_DATA_TYPE
 
-    /**
-     * @type {CERT_BIOMETRIC_DATA_TYPE}
-     */
-    dwTypeOfBiometricDataChoice {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwPredefined {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {PSTR}
-     */
-    pszObjId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    dwPredefined : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_hashed_url">CERT_HASHED_URL</a> structure that contains the hashed URL of the biometric data.
-     * @type {CERT_HASHED_URL}
      */
-    HashedUrl {
-        get {
-            if(!this.HasProp("__HashedUrl"))
-                this.__HashedUrl := CERT_HASHED_URL(16, this)
-            return this.__HashedUrl
-        }
+    HashedUrl : CERT_HASHED_URL
+
+    static __New() {
+        DefineProp(this.Prototype, 'pszObjId', { type: PSTR, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

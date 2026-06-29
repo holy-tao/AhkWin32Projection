@@ -1,38 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IWbemServices.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWbemServices.ahk" { IWbemServices }
+#Import ".\IWbemContext.ahk" { IWbemContext }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Wmi
  */
-class IWbemLevel1Login extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWbemLevel1Login extends IUnknown {
     /**
      * The interface identifier for IWbemLevel1Login
      * @type {Guid}
      */
-    static IID => Guid("{f309ad18-d86a-11d0-a075-00c04fb68820}")
+    static IID := Guid("{f309ad18-d86a-11d0-a075-00c04fb68820}")
 
     /**
      * The class identifier for WbemLevel1Login
      * @type {Guid}
      */
-    static CLSID => Guid("{8bc3f05e-d86b-11d0-a075-00c04fb68820}")
+    static CLSID := Guid("{8bc3f05e-d86b-11d0-a075-00c04fb68820}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWbemLevel1Login interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        EstablishPosition : IntPtr
+        RequestChallenge  : IntPtr
+        WBEMLogin         : IntPtr
+        NTLMLogin         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EstablishPosition", "RequestChallenge", "WBEMLogin", "NTLMLogin"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWbemLevel1Login.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -92,5 +105,31 @@ class IWbemLevel1Login extends IUnknown {
 
         result := ComCall(6, this, "ptr", wszNetworkResource, "ptr", wszPreferredLocale, "int", lFlags, "ptr", pCtx, "ptr*", &ppNamespace := 0, "HRESULT")
         return IWbemServices(ppNamespace)
+    }
+
+    Query(iid) {
+        if (IWbemLevel1Login.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EstablishPosition := CallbackCreate(GetMethod(implObj, "EstablishPosition"), flags, 4)
+        this.vtbl.RequestChallenge := CallbackCreate(GetMethod(implObj, "RequestChallenge"), flags, 4)
+        this.vtbl.WBEMLogin := CallbackCreate(GetMethod(implObj, "WBEMLogin"), flags, 6)
+        this.vtbl.NTLMLogin := CallbackCreate(GetMethod(implObj, "NTLMLogin"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EstablishPosition)
+        CallbackFree(this.vtbl.RequestChallenge)
+        CallbackFree(this.vtbl.WBEMLogin)
+        CallbackFree(this.vtbl.NTLMLogin)
     }
 }

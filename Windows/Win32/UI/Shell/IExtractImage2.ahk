@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IExtractImage.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IExtractImage.ahk" { IExtractImage }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * Extends the capabilities of IExtractImage.
@@ -16,26 +17,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iextractimage2
  * @namespace Windows.Win32.UI.Shell
  */
-class IExtractImage2 extends IExtractImage {
-
-    static sizeof => A_PtrSize
+export default struct IExtractImage2 extends IExtractImage {
     /**
      * The interface identifier for IExtractImage2
      * @type {Guid}
      */
-    static IID => Guid("{953bb1ee-93b4-11d1-98a3-00c04fb687da}")
+    static IID := Guid("{953bb1ee-93b4-11d1-98a3-00c04fb687da}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IExtractImage2 interfaces
+    */
+    struct Vtbl extends IExtractImage.Vtbl {
+        GetDateStamp : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDateStamp"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IExtractImage2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Requests the date the image was last modified. This method allows the Shell to determine whether cached images are out-of-date.
@@ -46,7 +54,27 @@ class IExtractImage2 extends IExtractImage {
      */
     GetDateStamp() {
         pDateStamp := FILETIME()
-        result := ComCall(5, this, "ptr", pDateStamp, "HRESULT")
+        result := ComCall(5, this, FILETIME.Ptr, pDateStamp, "HRESULT")
         return pDateStamp
+    }
+
+    Query(iid) {
+        if (IExtractImage2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDateStamp := CallbackCreate(GetMethod(implObj, "GetDateStamp"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDateStamp)
     }
 }

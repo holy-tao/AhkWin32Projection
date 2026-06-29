@@ -1,31 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IPersist.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IErrorLog.ahk" { IErrorLog }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IPersist.ahk" { IPersist }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\StructuredStorage\IPropertyBag2.ahk" { IPropertyBag2 }
 
 /**
  * @namespace Windows.Win32.System.Ole
  */
-class IPersistPropertyBag2 extends IPersist {
-
-    static sizeof => A_PtrSize
+export default struct IPersistPropertyBag2 extends IPersist {
     /**
      * The interface identifier for IPersistPropertyBag2
      * @type {Guid}
      */
-    static IID => Guid("{22f55881-280b-11d0-a8a9-00a0c90c2004}")
+    static IID := Guid("{22f55881-280b-11d0-a8a9-00a0c90c2004}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPersistPropertyBag2 interfaces
+    */
+    struct Vtbl extends IPersist.Vtbl {
+        InitNew : IntPtr
+        Load    : IntPtr
+        Save    : IntPtr
+        IsDirty : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitNew", "Load", "Save", "IsDirty"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPersistPropertyBag2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -114,17 +128,14 @@ class IPersistPropertyBag2 extends IPersist {
     }
 
     /**
-     * The SaveBookmark method saves the current disc position and state of the MSWebDVD object so the user can return to the same place later.
-     * @remarks
-     * A bookmark is a snapshot of the DVD Navigator's current state. This includes information such as where it is playing on the disc, and which audio and subpictures streams are selected. By saving a bookmark, the user can close the application, shut down the computer, and come back later to continue viewing the disc right where he or she left off, with all settings just as they were before. Only one bookmark can be saved at any given time. When you call `SaveBookmark`, the old bookmark is overwritten.
+     * 
      * @param {IPropertyBag2} pPropBag 
      * @param {BOOL} fClearDirty 
      * @param {BOOL} fSaveAllProperties 
-     * @returns {HRESULT} No return value.
-     * @see https://learn.microsoft.com/windows/win32/DirectShow/savebookmark-method
+     * @returns {HRESULT} 
      */
     Save(pPropBag, fClearDirty, fSaveAllProperties) {
-        result := ComCall(6, this, "ptr", pPropBag, "int", fClearDirty, "int", fSaveAllProperties, "HRESULT")
+        result := ComCall(6, this, "ptr", pPropBag, BOOL, fClearDirty, BOOL, fSaveAllProperties, "HRESULT")
         return result
     }
 
@@ -133,7 +144,33 @@ class IPersistPropertyBag2 extends IPersist {
      * @returns {HRESULT} 
      */
     IsDirty() {
-        result := ComCall(7, this, "int")
+        result := ComCall(7, this, Int32)
         return result
+    }
+
+    Query(iid) {
+        if (IPersistPropertyBag2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitNew := CallbackCreate(GetMethod(implObj, "InitNew"), flags, 1)
+        this.vtbl.Load := CallbackCreate(GetMethod(implObj, "Load"), flags, 3)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 4)
+        this.vtbl.IsDirty := CallbackCreate(GetMethod(implObj, "IsDirty"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitNew)
+        CallbackFree(this.vtbl.Load)
+        CallbackFree(this.vtbl.Save)
+        CallbackFree(this.vtbl.IsDirty)
     }
 }

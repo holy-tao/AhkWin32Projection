@@ -1,34 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VMRALPHABITMAP.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VMRALPHABITMAP.ahk" { VMRALPHABITMAP }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVMRMixerBitmap interface enables an application to blend a static image from a bitmap or DirectDraw surface onto the video stream, when using the Video Mixing Renderer Filter 7 (VMR-7).
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ivmrmixerbitmap
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IVMRMixerBitmap extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVMRMixerBitmap extends IUnknown {
     /**
      * The interface identifier for IVMRMixerBitmap
      * @type {Guid}
      */
-    static IID => Guid("{1e673275-0257-40aa-af20-7c608d4a0428}")
+    static IID := Guid("{1e673275-0257-40aa-af20-7c608d4a0428}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVMRMixerBitmap interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetAlphaBitmap              : IntPtr
+        UpdateAlphaBitmapParameters : IntPtr
+        GetAlphaBitmapParameters    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetAlphaBitmap", "UpdateAlphaBitmapParameters", "GetAlphaBitmapParameters"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVMRMixerBitmap.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetAlphaBitmap method specifies a new bitmap image and the source location of the bitmap and how and where it should be rendered on the destination rectangle.
@@ -98,7 +108,7 @@ class IVMRMixerBitmap extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrmixerbitmap-setalphabitmap
      */
     SetAlphaBitmap(pBmpParms) {
-        result := ComCall(3, this, "ptr", pBmpParms, "HRESULT")
+        result := ComCall(3, this, VMRALPHABITMAP.Ptr, pBmpParms, "HRESULT")
         return result
     }
 
@@ -111,7 +121,7 @@ class IVMRMixerBitmap extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrmixerbitmap-updatealphabitmapparameters
      */
     UpdateAlphaBitmapParameters(pBmpParms) {
-        result := ComCall(4, this, "ptr", pBmpParms, "HRESULT")
+        result := ComCall(4, this, VMRALPHABITMAP.Ptr, pBmpParms, "HRESULT")
         return result
     }
 
@@ -122,7 +132,31 @@ class IVMRMixerBitmap extends IUnknown {
      */
     GetAlphaBitmapParameters() {
         pBmpParms := VMRALPHABITMAP()
-        result := ComCall(5, this, "ptr", pBmpParms, "HRESULT")
+        result := ComCall(5, this, VMRALPHABITMAP.Ptr, pBmpParms, "HRESULT")
         return pBmpParms
+    }
+
+    Query(iid) {
+        if (IVMRMixerBitmap.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetAlphaBitmap := CallbackCreate(GetMethod(implObj, "SetAlphaBitmap"), flags, 2)
+        this.vtbl.UpdateAlphaBitmapParameters := CallbackCreate(GetMethod(implObj, "UpdateAlphaBitmapParameters"), flags, 2)
+        this.vtbl.GetAlphaBitmapParameters := CallbackCreate(GetMethod(implObj, "GetAlphaBitmapParameters"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetAlphaBitmap)
+        CallbackFree(this.vtbl.UpdateAlphaBitmapParameters)
+        CallbackFree(this.vtbl.GetAlphaBitmapParameters)
     }
 }

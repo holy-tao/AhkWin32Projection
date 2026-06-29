@@ -1,36 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IEnumVdsObject.ahk
-#Include .\IVdsDisk.ahk
-#Include .\IVdsVDisk.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IVdsVDisk.ahk" { IVdsVDisk }
+#Import ".\VDS_CREATE_VDISK_PARAMETERS.ahk" { VDS_CREATE_VDISK_PARAMETERS }
+#Import ".\IVdsDisk.ahk" { IVdsDisk }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
+#Import "..\Vhd\CREATE_VIRTUAL_DISK_FLAG.ahk" { CREATE_VIRTUAL_DISK_FLAG }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Vhd\VIRTUAL_STORAGE_TYPE.ahk" { VIRTUAL_STORAGE_TYPE }
+#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
 
 /**
  * Defines methods for creating and managing virtual disks.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsvdprovider
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsVdProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsVdProvider extends IUnknown {
     /**
      * The interface identifier for IVdsVdProvider
      * @type {Guid}
      */
-    static IID => Guid("{b481498c-8354-45f9-84a0-0bdd2832a91f}")
+    static IID := Guid("{b481498c-8354-45f9-84a0-0bdd2832a91f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsVdProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        QueryVDisks      : IntPtr
+        CreateVDisk      : IntPtr
+        AddVDisk         : IntPtr
+        GetDiskFromVDisk : IntPtr
+        GetVDiskFromDisk : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["QueryVDisks", "CreateVDisk", "AddVDisk", "GetDiskFromVDisk", "GetVDiskFromDisk"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsVdProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns a list of all virtual disks that are managed by the provider.
@@ -116,7 +133,7 @@ class IVdsVdProvider extends IUnknown {
         pPath := pPath is String ? StrPtr(pPath) : pPath
         pStringSecurityDescriptor := pStringSecurityDescriptor is String ? StrPtr(pStringSecurityDescriptor) : pStringSecurityDescriptor
 
-        result := ComCall(4, this, "ptr", VirtualDeviceType, "ptr", pPath, "ptr", pStringSecurityDescriptor, "int", Flags, "uint", ProviderSpecificFlags, "uint", Reserved, "ptr", pCreateDiskParameters, "ptr*", ppAsync, "HRESULT")
+        result := ComCall(4, this, VIRTUAL_STORAGE_TYPE.Ptr, VirtualDeviceType, "ptr", pPath, "ptr", pStringSecurityDescriptor, CREATE_VIRTUAL_DISK_FLAG, Flags, "uint", ProviderSpecificFlags, "uint", Reserved, VDS_CREATE_VDISK_PARAMETERS.Ptr, pCreateDiskParameters, IVdsAsync.Ptr, ppAsync, "HRESULT")
         return result
     }
 
@@ -149,7 +166,7 @@ class IVdsVdProvider extends IUnknown {
     AddVDisk(VirtualDeviceType, pPath, ppVDisk) {
         pPath := pPath is String ? StrPtr(pPath) : pPath
 
-        result := ComCall(5, this, "ptr", VirtualDeviceType, "ptr", pPath, "ptr*", ppVDisk, "HRESULT")
+        result := ComCall(5, this, VIRTUAL_STORAGE_TYPE.Ptr, VirtualDeviceType, "ptr", pPath, IVdsVDisk.Ptr, ppVDisk, "HRESULT")
         return result
     }
 
@@ -173,5 +190,33 @@ class IVdsVdProvider extends IUnknown {
     GetVDiskFromDisk(pDisk) {
         result := ComCall(7, this, "ptr", pDisk, "ptr*", &ppVDisk := 0, "HRESULT")
         return IVdsVDisk(ppVDisk)
+    }
+
+    Query(iid) {
+        if (IVdsVdProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.QueryVDisks := CallbackCreate(GetMethod(implObj, "QueryVDisks"), flags, 2)
+        this.vtbl.CreateVDisk := CallbackCreate(GetMethod(implObj, "CreateVDisk"), flags, 9)
+        this.vtbl.AddVDisk := CallbackCreate(GetMethod(implObj, "AddVDisk"), flags, 4)
+        this.vtbl.GetDiskFromVDisk := CallbackCreate(GetMethod(implObj, "GetDiskFromVDisk"), flags, 3)
+        this.vtbl.GetVDiskFromDisk := CallbackCreate(GetMethod(implObj, "GetVDiskFromDisk"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.QueryVDisks)
+        CallbackFree(this.vtbl.CreateVDisk)
+        CallbackFree(this.vtbl.AddVDisk)
+        CallbackFree(this.vtbl.GetDiskFromVDisk)
+        CallbackFree(this.vtbl.GetVDiskFromDisk)
     }
 }

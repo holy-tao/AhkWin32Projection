@@ -1,9 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Retrieves out-of-band guide data from a media transform device (MTD). This interface provides access to a device's Guide Data Delivery Service.
@@ -12,26 +12,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_guidedatadeliveryservice
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IBDA_GuideDataDeliveryService extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBDA_GuideDataDeliveryService extends IUnknown {
     /**
      * The interface identifier for IBDA_GuideDataDeliveryService
      * @type {Guid}
      */
-    static IID => Guid("{c0afcb73-23e7-4bc6-bafa-fdc167b4719f}")
+    static IID := Guid("{c0afcb73-23e7-4bc6-bafa-fdc167b4719f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBDA_GuideDataDeliveryService interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetGuideDataType          : IntPtr
+        GetGuideData              : IntPtr
+        RequestGuideDataUpdate    : IntPtr
+        GetTuneXmlFromServiceIdx  : IntPtr
+        GetServices               : IntPtr
+        GetServiceInfoFromTuneXml : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetGuideDataType", "GetGuideData", "RequestGuideDataUpdate", "GetTuneXmlFromServiceIdx", "GetServices", "GetServiceInfoFromTuneXml"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBDA_GuideDataDeliveryService.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the format UUID for the data that is retrieved on this service.
@@ -57,7 +69,7 @@ class IBDA_GuideDataDeliveryService extends IUnknown {
      */
     GetGuideDataType() {
         pguidDataType := Guid()
-        result := ComCall(3, this, "ptr", pguidDataType, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pguidDataType, "HRESULT")
         return pguidDataType
     }
 
@@ -124,8 +136,8 @@ class IBDA_GuideDataDeliveryService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_guidedatadeliveryservice-gettunexmlfromserviceidx
      */
     GetTuneXmlFromServiceIdx(ul64ServiceIdx) {
-        pbstrTuneXml := BSTR()
-        result := ComCall(6, this, "uint", ul64ServiceIdx, "ptr", pbstrTuneXml, "HRESULT")
+        pbstrTuneXml := BSTR.Owned()
+        result := ComCall(6, this, "uint", ul64ServiceIdx, BSTR.Ptr, pbstrTuneXml, "HRESULT")
         return pbstrTuneXml
     }
 
@@ -151,8 +163,38 @@ class IBDA_GuideDataDeliveryService extends IUnknown {
     GetServiceInfoFromTuneXml(bstrTuneXml) {
         bstrTuneXml := bstrTuneXml is String ? BSTR.Alloc(bstrTuneXml).Value : bstrTuneXml
 
-        pbstrServiceDescription := BSTR()
-        result := ComCall(8, this, "ptr", bstrTuneXml, "ptr", pbstrServiceDescription, "HRESULT")
+        pbstrServiceDescription := BSTR.Owned()
+        result := ComCall(8, this, BSTR, bstrTuneXml, BSTR.Ptr, pbstrServiceDescription, "HRESULT")
         return pbstrServiceDescription
+    }
+
+    Query(iid) {
+        if (IBDA_GuideDataDeliveryService.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetGuideDataType := CallbackCreate(GetMethod(implObj, "GetGuideDataType"), flags, 2)
+        this.vtbl.GetGuideData := CallbackCreate(GetMethod(implObj, "GetGuideData"), flags, 4)
+        this.vtbl.RequestGuideDataUpdate := CallbackCreate(GetMethod(implObj, "RequestGuideDataUpdate"), flags, 1)
+        this.vtbl.GetTuneXmlFromServiceIdx := CallbackCreate(GetMethod(implObj, "GetTuneXmlFromServiceIdx"), flags, 3)
+        this.vtbl.GetServices := CallbackCreate(GetMethod(implObj, "GetServices"), flags, 3)
+        this.vtbl.GetServiceInfoFromTuneXml := CallbackCreate(GetMethod(implObj, "GetServiceInfoFromTuneXml"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetGuideDataType)
+        CallbackFree(this.vtbl.GetGuideData)
+        CallbackFree(this.vtbl.RequestGuideDataUpdate)
+        CallbackFree(this.vtbl.GetTuneXmlFromServiceIdx)
+        CallbackFree(this.vtbl.GetServices)
+        CallbackFree(this.vtbl.GetServiceInfoFromTuneXml)
     }
 }

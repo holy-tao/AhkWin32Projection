@@ -1,35 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SYNCMGR_EVENT_FLAGS.ahk" { SYNCMGR_EVENT_FLAGS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\SYNCMGR_EVENT_LEVEL.ahk" { SYNCMGR_EVENT_LEVEL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that retrieve data from an event store. An event store allows Sync Center to get an enumerator of all events in the store, as well as to retrieve individual events.
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nn-syncmgr-isyncmgrevent
  * @namespace Windows.Win32.UI.Shell
  */
-class ISyncMgrEvent extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISyncMgrEvent extends IUnknown {
     /**
      * The interface identifier for ISyncMgrEvent
      * @type {Guid}
      */
-    static IID => Guid("{fee0ef8b-46bd-4db4-b7e6-ff2c687313bc}")
+    static IID := Guid("{fee0ef8b-46bd-4db4-b7e6-ff2c687313bc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISyncMgrEvent interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetEventID       : IntPtr
+        GetHandlerID     : IntPtr
+        GetItemID        : IntPtr
+        GetLevel         : IntPtr
+        GetFlags         : IntPtr
+        GetTime          : IntPtr
+        GetName          : IntPtr
+        GetDescription   : IntPtr
+        GetLinkText      : IntPtr
+        GetLinkReference : IntPtr
+        GetContext       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetEventID", "GetHandlerID", "GetItemID", "GetLevel", "GetFlags", "GetTime", "GetName", "GetDescription", "GetLinkText", "GetLinkReference", "GetContext"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISyncMgrEvent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the event ID.
@@ -40,7 +60,7 @@ class ISyncMgrEvent extends IUnknown {
      */
     GetEventID() {
         pguidEventID := Guid()
-        result := ComCall(3, this, "ptr", pguidEventID, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pguidEventID, "HRESULT")
         return pguidEventID
     }
 
@@ -54,7 +74,7 @@ class ISyncMgrEvent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrevent-gethandlerid
      */
     GetHandlerID() {
-        result := ComCall(4, this, "ptr*", &ppszHandlerID := 0, "HRESULT")
+        result := ComCall(4, this, PWSTR.Ptr, &ppszHandlerID := 0, "HRESULT")
         return ppszHandlerID
     }
 
@@ -68,7 +88,7 @@ class ISyncMgrEvent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrevent-getitemid
      */
     GetItemID() {
-        result := ComCall(5, this, "ptr*", &ppszItemID := 0, "HRESULT")
+        result := ComCall(5, this, PWSTR.Ptr, &ppszItemID := 0, "HRESULT")
         return ppszItemID
     }
 
@@ -105,7 +125,7 @@ class ISyncMgrEvent extends IUnknown {
      */
     GetTime() {
         pfCreationTime := FILETIME()
-        result := ComCall(8, this, "ptr", pfCreationTime, "HRESULT")
+        result := ComCall(8, this, FILETIME.Ptr, pfCreationTime, "HRESULT")
         return pfCreationTime
     }
 
@@ -119,7 +139,7 @@ class ISyncMgrEvent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrevent-getname
      */
     GetName() {
-        result := ComCall(9, this, "ptr*", &ppszName := 0, "HRESULT")
+        result := ComCall(9, this, PWSTR.Ptr, &ppszName := 0, "HRESULT")
         return ppszName
     }
 
@@ -131,7 +151,7 @@ class ISyncMgrEvent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrevent-getdescription
      */
     GetDescription() {
-        result := ComCall(10, this, "ptr*", &ppszDescription := 0, "HRESULT")
+        result := ComCall(10, this, PWSTR.Ptr, &ppszDescription := 0, "HRESULT")
         return ppszDescription
     }
 
@@ -145,7 +165,7 @@ class ISyncMgrEvent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrevent-getlinktext
      */
     GetLinkText() {
-        result := ComCall(11, this, "ptr*", &ppszLinkText := 0, "HRESULT")
+        result := ComCall(11, this, PWSTR.Ptr, &ppszLinkText := 0, "HRESULT")
         return ppszLinkText
     }
 
@@ -162,7 +182,7 @@ class ISyncMgrEvent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrevent-getlinkreference
      */
     GetLinkReference() {
-        result := ComCall(12, this, "ptr*", &ppszLinkReference := 0, "HRESULT")
+        result := ComCall(12, this, PWSTR.Ptr, &ppszLinkReference := 0, "HRESULT")
         return ppszLinkReference
     }
 
@@ -176,7 +196,47 @@ class ISyncMgrEvent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrevent-getcontext
      */
     GetContext() {
-        result := ComCall(13, this, "ptr*", &ppszContext := 0, "HRESULT")
+        result := ComCall(13, this, PWSTR.Ptr, &ppszContext := 0, "HRESULT")
         return ppszContext
+    }
+
+    Query(iid) {
+        if (ISyncMgrEvent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetEventID := CallbackCreate(GetMethod(implObj, "GetEventID"), flags, 2)
+        this.vtbl.GetHandlerID := CallbackCreate(GetMethod(implObj, "GetHandlerID"), flags, 2)
+        this.vtbl.GetItemID := CallbackCreate(GetMethod(implObj, "GetItemID"), flags, 2)
+        this.vtbl.GetLevel := CallbackCreate(GetMethod(implObj, "GetLevel"), flags, 2)
+        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.GetTime := CallbackCreate(GetMethod(implObj, "GetTime"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 2)
+        this.vtbl.GetLinkText := CallbackCreate(GetMethod(implObj, "GetLinkText"), flags, 2)
+        this.vtbl.GetLinkReference := CallbackCreate(GetMethod(implObj, "GetLinkReference"), flags, 2)
+        this.vtbl.GetContext := CallbackCreate(GetMethod(implObj, "GetContext"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetEventID)
+        CallbackFree(this.vtbl.GetHandlerID)
+        CallbackFree(this.vtbl.GetItemID)
+        CallbackFree(this.vtbl.GetLevel)
+        CallbackFree(this.vtbl.GetFlags)
+        CallbackFree(this.vtbl.GetTime)
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.GetDescription)
+        CallbackFree(this.vtbl.GetLinkText)
+        CallbackFree(this.vtbl.GetLinkReference)
+        CallbackFree(this.vtbl.GetContext)
     }
 }

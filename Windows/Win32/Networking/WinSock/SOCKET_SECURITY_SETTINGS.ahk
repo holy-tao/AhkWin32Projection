@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOCKET_SECURITY_PROTOCOL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SOCKET_SECURITY_PROTOCOL.ahk" { SOCKET_SECURITY_PROTOCOL }
 
 /**
  * Specifies generic security requirements for a socket.
@@ -15,19 +14,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-socket_security_settings
  * @namespace Windows.Win32.Networking.WinSock
  */
-class SOCKET_SECURITY_SETTINGS extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct SOCKET_SECURITY_SETTINGS {
+    #StructPack 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ne-mstcpip-socket_security_protocol">SOCKET_SECURITY_PROTOCOL</a> value that identifies the type of security protocol to be used on the socket.
-     * @type {SOCKET_SECURITY_PROTOCOL}
      */
-    SecurityProtocol {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    SecurityProtocol : SOCKET_SECURITY_PROTOCOL
 
     /**
      * A set of flags that allow applications to set specific security requirements on a socket. The possible values are defined in the <i>Mstcpip.h</i> header file.
@@ -62,10 +55,7 @@ class SOCKET_SECURITY_SETTINGS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    SecurityFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SecurityFlags : UInt32
+
 }

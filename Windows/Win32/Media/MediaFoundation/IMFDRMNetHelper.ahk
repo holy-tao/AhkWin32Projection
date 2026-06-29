@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Configures Windows Media Digital Rights Management (DRM) for Network Devices on a network sink.
@@ -28,26 +30,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nn-wmcontainer-imfdrmnethelper
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFDRMNetHelper extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFDRMNetHelper extends IUnknown {
     /**
      * The interface identifier for IMFDRMNetHelper
      * @type {Guid}
      */
-    static IID => Guid("{3d1ff0ea-679a-4190-8d46-7fa69e8c7e15}")
+    static IID := Guid("{3d1ff0ea-679a-4190-8d46-7fa69e8c7e15}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFDRMNetHelper interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ProcessLicenseRequest     : IntPtr
+        GetChainedLicenseResponse : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ProcessLicenseRequest", "GetChainedLicenseResponse"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFDRMNetHelper.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the license response for the specified request.
@@ -96,7 +106,7 @@ class IMFDRMNetHelper extends IUnknown {
         ppLicenseResponseMarshal := ppLicenseResponse is VarRef ? "ptr*" : "ptr"
         pcbLicenseResponseMarshal := pcbLicenseResponse is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pLicenseRequestMarshal, pLicenseRequest, "uint", cbLicenseRequest, ppLicenseResponseMarshal, ppLicenseResponse, pcbLicenseResponseMarshal, pcbLicenseResponse, "ptr", pbstrKID, "HRESULT")
+        result := ComCall(3, this, pLicenseRequestMarshal, pLicenseRequest, "uint", cbLicenseRequest, ppLicenseResponseMarshal, ppLicenseResponse, pcbLicenseResponseMarshal, pcbLicenseResponse, BSTR.Ptr, pbstrKID, "HRESULT")
         return result
     }
 
@@ -113,5 +123,27 @@ class IMFDRMNetHelper extends IUnknown {
 
         result := ComCall(4, this, ppLicenseResponseMarshal, ppLicenseResponse, pcbLicenseResponseMarshal, pcbLicenseResponse, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFDRMNetHelper.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ProcessLicenseRequest := CallbackCreate(GetMethod(implObj, "ProcessLicenseRequest"), flags, 6)
+        this.vtbl.GetChainedLicenseResponse := CallbackCreate(GetMethod(implObj, "GetChainedLicenseResponse"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ProcessLicenseRequest)
+        CallbackFree(this.vtbl.GetChainedLicenseResponse)
     }
 }

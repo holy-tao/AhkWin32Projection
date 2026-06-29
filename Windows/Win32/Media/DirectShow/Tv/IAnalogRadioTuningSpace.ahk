@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ITuningSpace.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITuningSpace.ahk" { ITuningSpace }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAnalogRadioTuningSpace interface provides methods for getting and setting parameters associated with tuning spaces for analog radio transmissions.
@@ -10,32 +11,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-ianalogradiotuningspace
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IAnalogRadioTuningSpace extends ITuningSpace {
-
-    static sizeof => A_PtrSize
+export default struct IAnalogRadioTuningSpace extends ITuningSpace {
     /**
      * The interface identifier for IAnalogRadioTuningSpace
      * @type {Guid}
      */
-    static IID => Guid("{2a6e293b-2595-11d3-b64c-00c04f79498e}")
+    static IID := Guid("{2a6e293b-2595-11d3-b64c-00c04f79498e}")
 
     /**
      * The class identifier for AnalogRadioTuningSpace
      * @type {Guid}
      */
-    static CLSID => Guid("{8a674b4c-1f63-11d3-b64c-00c04f79498e}")
+    static CLSID := Guid("{8a674b4c-1f63-11d3-b64c-00c04f79498e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 26
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAnalogRadioTuningSpace interfaces
+    */
+    struct Vtbl extends ITuningSpace.Vtbl {
+        get_MinFrequency : IntPtr
+        put_MinFrequency : IntPtr
+        get_MaxFrequency : IntPtr
+        put_MaxFrequency : IntPtr
+        get_Step         : IntPtr
+        put_Step         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_MinFrequency", "put_MinFrequency", "get_MaxFrequency", "put_MaxFrequency", "get_Step", "put_Step"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAnalogRadioTuningSpace.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -122,5 +135,35 @@ class IAnalogRadioTuningSpace extends ITuningSpace {
     put_Step(NewStepVal) {
         result := ComCall(31, this, "int", NewStepVal, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAnalogRadioTuningSpace.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_MinFrequency := CallbackCreate(GetMethod(implObj, "get_MinFrequency"), flags, 2)
+        this.vtbl.put_MinFrequency := CallbackCreate(GetMethod(implObj, "put_MinFrequency"), flags, 2)
+        this.vtbl.get_MaxFrequency := CallbackCreate(GetMethod(implObj, "get_MaxFrequency"), flags, 2)
+        this.vtbl.put_MaxFrequency := CallbackCreate(GetMethod(implObj, "put_MaxFrequency"), flags, 2)
+        this.vtbl.get_Step := CallbackCreate(GetMethod(implObj, "get_Step"), flags, 2)
+        this.vtbl.put_Step := CallbackCreate(GetMethod(implObj, "put_Step"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_MinFrequency)
+        CallbackFree(this.vtbl.put_MinFrequency)
+        CallbackFree(this.vtbl.get_MaxFrequency)
+        CallbackFree(this.vtbl.put_MaxFrequency)
+        CallbackFree(this.vtbl.get_Step)
+        CallbackFree(this.vtbl.put_Step)
     }
 }

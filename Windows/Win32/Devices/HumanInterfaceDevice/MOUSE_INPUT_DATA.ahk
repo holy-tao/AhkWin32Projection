@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * MOUSE_INPUT_DATA contains one packet of mouse input data.
@@ -8,19 +7,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/ntddmou/ns-ntddmou-mouse_input_data
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class MOUSE_INPUT_DATA extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct MOUSE_INPUT_DATA {
+    #StructPack 4
 
     /**
      * Specifies the unit number of the mouse device. A mouse <a href="https://docs.microsoft.com/windows-hardware/drivers/kernel/nt-device-names">device name</a> has the format \Device\PointerPort<i>N</i>, where the suffix <i>N </i> is the unit number of the device. For example, a device, whose name is \Device\PointerPort0, has a unit number of zero, and a device, whose name is \Device\PointerPort1, has a unit number of one.
-     * @type {Integer}
      */
-    UnitId {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    UnitId : UInt16
 
     /**
      * Specifies a bitwise OR of one or more of the following mouse indicator flags.
@@ -83,70 +76,34 @@ class MOUSE_INPUT_DATA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Flags : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Buttons {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ButtonFlags {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ButtonData {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    Buttons : UInt32
 
     /**
      * Specifies the raw state of the mouse buttons. The Win32 subsystem does not use this member.
-     * @type {Integer}
      */
-    RawButtons {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    RawButtons : UInt32
 
     /**
      * Specifies the signed relative or absolute motion in the x direction.
-     * @type {Integer}
      */
-    LastX {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    LastX : Int32
 
     /**
      * Specifies the signed relative or absolute motion in the y direction.
-     * @type {Integer}
      */
-    LastY {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    LastY : Int32
 
     /**
      * Specifies device-specific information.
-     * @type {Integer}
      */
-    ExtraInformation {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+    ExtraInformation : UInt32
+
+    static __New() {
+        DefineProp(this.Prototype, 'ButtonFlags', { type: UInt16, offset: 4 })
+        DefineProp(this.Prototype, 'ButtonData', { type: UInt16, offset: 6 })
+        this.DeleteProp("__New")
     }
 }

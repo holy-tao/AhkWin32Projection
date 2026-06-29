@@ -1,50 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_802_11_AUTHENTICATION_EVENT.ahk
-#Include .\NDIS_802_11_STATUS_INDICATION.ahk
-#Include .\NDIS_802_11_STATUS_TYPE.ahk
-#Include .\NDIS_802_11_AUTHENTICATION_REQUEST.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NDIS_802_11_AUTHENTICATION_REQUEST.ahk" { NDIS_802_11_AUTHENTICATION_REQUEST }
+#Import ".\NDIS_802_11_STATUS_TYPE.ahk" { NDIS_802_11_STATUS_TYPE }
+#Import ".\NDIS_802_11_STATUS_INDICATION.ahk" { NDIS_802_11_STATUS_INDICATION }
+#Import ".\NDIS_802_11_AUTHENTICATION_EVENT.ahk" { NDIS_802_11_AUTHENTICATION_EVENT }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NDIS_802_11_TEST extends Win32Struct {
-    static sizeof => 28
+export default struct NDIS_802_11_TEST {
+    #StructPack 4
 
-    static packingSize => 4
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Type : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    AuthenticationEvent : NDIS_802_11_AUTHENTICATION_EVENT
 
-    /**
-     * @type {NDIS_802_11_AUTHENTICATION_EVENT}
-     */
-    AuthenticationEvent {
-        get {
-            if(!this.HasProp("__AuthenticationEvent"))
-                this.__AuthenticationEvent := NDIS_802_11_AUTHENTICATION_EVENT(8, this)
-            return this.__AuthenticationEvent
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    RssiTrigger {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'RssiTrigger', { type: Int32, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

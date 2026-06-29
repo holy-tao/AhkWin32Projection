@@ -1,31 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PARSEACTION.ahk" { PARSEACTION }
+#Import ".\QUERYOPTION.ahk" { QUERYOPTION }
+#Import "..\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
  */
-class IInternetProtocolInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IInternetProtocolInfo extends IUnknown {
     /**
      * The interface identifier for IInternetProtocolInfo
      * @type {Guid}
      */
-    static IID => Guid("{79eac9ec-baf9-11ce-8c82-00aa004ba90b}")
+    static IID := Guid("{79eac9ec-baf9-11ce-8c82-00aa004ba90b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IInternetProtocolInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ParseUrl   : IntPtr
+        CombineUrl : IntPtr
+        CompareUrl : IntPtr
+        QueryInfo  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ParseUrl", "CombineUrl", "CompareUrl", "QueryInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IInternetProtocolInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -41,7 +55,7 @@ class IInternetProtocolInfo extends IUnknown {
         pwzUrl := pwzUrl is String ? StrPtr(pwzUrl) : pwzUrl
         pwzResult := pwzResult is String ? StrPtr(pwzResult) : pwzResult
 
-        result := ComCall(3, this, "ptr", pwzUrl, "int", _ParseAction, "uint", dwParseFlags, "ptr", pwzResult, "uint", cchResult, "uint*", &pcchResult := 0, "uint", dwReserved, "HRESULT")
+        result := ComCall(3, this, "ptr", pwzUrl, PARSEACTION, _ParseAction, "uint", dwParseFlags, "ptr", pwzResult, "uint", cchResult, "uint*", &pcchResult := 0, "uint", dwReserved, "HRESULT")
         return pcchResult
     }
 
@@ -80,14 +94,7 @@ class IInternetProtocolInfo extends IUnknown {
     }
 
     /**
-     * Retrieves limit and job state information from the job object.
-     * @remarks
-     * Use 
-     * <b>QueryInformationJobObject</b> to obtain the current limits and modify them. Use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/nf-jobapi2-setinformationjobobject">SetInformationJobObject</a> function to set new limits.
      * 
-     * To compile an application that uses this function, define <b>_WIN32_WINNT</b> as 0x0500 or later. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {PWSTR} pwzUrl 
      * @param {QUERYOPTION} OueryOption 
      * @param {Integer} dwQueryFlags 
@@ -95,11 +102,7 @@ class IInternetProtocolInfo extends IUnknown {
      * @param {Integer} cbBuffer 
      * @param {Pointer<Integer>} pcbBuf 
      * @param {Integer} dwReserved 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/jobapi2/nf-jobapi2-queryinformationjobobject
+     * @returns {HRESULT} 
      */
     QueryInfo(pwzUrl, OueryOption, dwQueryFlags, pBuffer, cbBuffer, pcbBuf, dwReserved) {
         pwzUrl := pwzUrl is String ? StrPtr(pwzUrl) : pwzUrl
@@ -107,7 +110,33 @@ class IInternetProtocolInfo extends IUnknown {
         pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
         pcbBufMarshal := pcbBuf is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pwzUrl, "int", OueryOption, "uint", dwQueryFlags, pBufferMarshal, pBuffer, "uint", cbBuffer, pcbBufMarshal, pcbBuf, "uint", dwReserved, "HRESULT")
+        result := ComCall(6, this, "ptr", pwzUrl, QUERYOPTION, OueryOption, "uint", dwQueryFlags, pBufferMarshal, pBuffer, "uint", cbBuffer, pcbBufMarshal, pcbBuf, "uint", dwReserved, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IInternetProtocolInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ParseUrl := CallbackCreate(GetMethod(implObj, "ParseUrl"), flags, 8)
+        this.vtbl.CombineUrl := CallbackCreate(GetMethod(implObj, "CombineUrl"), flags, 8)
+        this.vtbl.CompareUrl := CallbackCreate(GetMethod(implObj, "CompareUrl"), flags, 4)
+        this.vtbl.QueryInfo := CallbackCreate(GetMethod(implObj, "QueryInfo"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ParseUrl)
+        CallbackFree(this.vtbl.CombineUrl)
+        CallbackFree(this.vtbl.CompareUrl)
+        CallbackFree(this.vtbl.QueryInfo)
     }
 }

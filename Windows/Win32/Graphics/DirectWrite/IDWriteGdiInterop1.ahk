@@ -1,36 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteGdiInterop.ahk
-#Include .\IDWriteFont.ahk
-#Include ..\..\Globalization\FONTSIGNATURE.ahk
-#Include .\IDWriteFontSet.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Globalization\FONTSIGNATURE.ahk" { FONTSIGNATURE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteFontSet.ahk" { IDWriteFontSet }
+#Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
+#Import ".\IDWriteFont.ahk" { IDWriteFont }
+#Import "..\Gdi\LOGFONTW.ahk" { LOGFONTW }
+#Import ".\IDWriteGdiInterop.ahk" { IDWriteGdiInterop }
+#Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
+#Import "..\Gdi\LOGFONTA.ahk" { LOGFONTA }
 
 /**
  * Provides interoperability with GDI, such as methods to convert a font face to a LOGFONT structure, or to convert a GDI font description into a font face. It is also used to create bitmap render target objects. (IDWriteGdiInterop1)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritegdiinterop1
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteGdiInterop1 extends IDWriteGdiInterop {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteGdiInterop1 extends IDWriteGdiInterop {
     /**
      * The interface identifier for IDWriteGdiInterop1
      * @type {Guid}
      */
-    static IID => Guid("{4556be70-3abd-4f70-90be-421780a6f515}")
+    static IID := Guid("{4556be70-3abd-4f70-90be-421780a6f515}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteGdiInterop1 interfaces
+    */
+    struct Vtbl extends IDWriteGdiInterop.Vtbl {
+        CreateFontFromLOGFONT     : IntPtr
+        GetFontSignature          : IntPtr
+        GetFontSignature1         : IntPtr
+        GetMatchingFontsByLOGFONT : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateFontFromLOGFONT", "GetFontSignature", "GetFontSignature1", "GetMatchingFontsByLOGFONT"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteGdiInterop1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a font object that matches the properties specified by the LOGFONT structure. (IDWriteGdiInterop1.CreateFontFromLOGFONT)
@@ -46,7 +61,7 @@ class IDWriteGdiInterop1 extends IDWriteGdiInterop {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritegdiinterop1-createfontfromlogfont
      */
     CreateFontFromLOGFONT(logFont, _fontCollection) {
-        result := ComCall(8, this, "ptr", logFont, "ptr", _fontCollection, "ptr*", &_font := 0, "HRESULT")
+        result := ComCall(8, this, LOGFONTW.Ptr, logFont, "ptr", _fontCollection, "ptr*", &_font := 0, "HRESULT")
         return IDWriteFont(_font)
     }
 
@@ -62,7 +77,7 @@ class IDWriteGdiInterop1 extends IDWriteGdiInterop {
      */
     GetFontSignature(fontFace) {
         _fontSignature := FONTSIGNATURE()
-        result := ComCall(9, this, "ptr", fontFace, "ptr", _fontSignature, "HRESULT")
+        result := ComCall(9, this, "ptr", fontFace, FONTSIGNATURE.Ptr, _fontSignature, "HRESULT")
         return _fontSignature
     }
 
@@ -76,7 +91,7 @@ class IDWriteGdiInterop1 extends IDWriteGdiInterop {
      */
     GetFontSignature1(_font) {
         _fontSignature := FONTSIGNATURE()
-        result := ComCall(10, this, "ptr", _font, "ptr", _fontSignature, "HRESULT")
+        result := ComCall(10, this, "ptr", _font, FONTSIGNATURE.Ptr, _fontSignature, "HRESULT")
         return _fontSignature
     }
 
@@ -94,7 +109,33 @@ class IDWriteGdiInterop1 extends IDWriteGdiInterop {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritegdiinterop1-getmatchingfontsbylogfont
      */
     GetMatchingFontsByLOGFONT(logFont, fontSet) {
-        result := ComCall(11, this, "ptr", logFont, "ptr", fontSet, "ptr*", &filteredSet := 0, "HRESULT")
+        result := ComCall(11, this, LOGFONTA.Ptr, logFont, "ptr", fontSet, "ptr*", &filteredSet := 0, "HRESULT")
         return IDWriteFontSet(filteredSet)
+    }
+
+    Query(iid) {
+        if (IDWriteGdiInterop1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateFontFromLOGFONT := CallbackCreate(GetMethod(implObj, "CreateFontFromLOGFONT"), flags, 4)
+        this.vtbl.GetFontSignature := CallbackCreate(GetMethod(implObj, "GetFontSignature"), flags, 3)
+        this.vtbl.GetFontSignature1 := CallbackCreate(GetMethod(implObj, "GetFontSignature1"), flags, 3)
+        this.vtbl.GetMatchingFontsByLOGFONT := CallbackCreate(GetMethod(implObj, "GetMatchingFontsByLOGFONT"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateFontFromLOGFONT)
+        CallbackFree(this.vtbl.GetFontSignature)
+        CallbackFree(this.vtbl.GetFontSignature1)
+        CallbackFree(this.vtbl.GetMatchingFontsByLOGFONT)
     }
 }

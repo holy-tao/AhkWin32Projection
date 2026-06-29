@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "Common\D2D_SIZE_F.ahk" { D2D_SIZE_F }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\ID2D1CommandList.ahk" { ID2D1CommandList }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Converts Direct2D primitives stored in an ID2D1CommandList into a fixed page representation. The print sub-system then consumes the primitives.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nn-d2d1_1-id2d1printcontrol
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1PrintControl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1PrintControl extends IUnknown {
     /**
      * The interface identifier for ID2D1PrintControl
      * @type {Guid}
      */
-    static IID => Guid("{2c1d867d-c290-41c8-ae7e-34a98702e9a5}")
+    static IID := Guid("{2c1d867d-c290-41c8-ae7e-34a98702e9a5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1PrintControl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddPage : IntPtr
+        Close   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddPage", "Close"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1PrintControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Converts Direct2D primitives in the passed-in command list into a fixed page representation for use by the print subsystem.
@@ -78,7 +90,7 @@ class ID2D1PrintControl extends IUnknown {
         tag1Marshal := tag1 is VarRef ? "uint*" : "ptr"
         tag2Marshal := tag2 is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", commandList, "ptr", pageSize, "ptr", pagePrintTicketStream, tag1Marshal, tag1, tag2Marshal, tag2, "HRESULT")
+        result := ComCall(3, this, "ptr", commandList, D2D_SIZE_F, pageSize, "ptr", pagePrintTicketStream, tag1Marshal, tag1, tag2Marshal, tag2, "HRESULT")
         return result
     }
 
@@ -115,5 +127,27 @@ class ID2D1PrintControl extends IUnknown {
     Close() {
         result := ComCall(4, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID2D1PrintControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddPage := CallbackCreate(GetMethod(implObj, "AddPage"), flags, 6)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddPage)
+        CallbackFree(this.vtbl.Close)
     }
 }

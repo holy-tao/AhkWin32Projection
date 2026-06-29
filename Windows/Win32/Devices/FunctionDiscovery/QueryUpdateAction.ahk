@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents the type of action Function Discovery is performing on the specified function instance. This information is used by the client program's change notification handler.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/ne-functiondiscoveryapi-queryupdateaction
  * @namespace Windows.Win32.Devices.FunctionDiscovery
  */
-class QueryUpdateAction extends Win32Enum {
+export default struct QueryUpdateAction {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Function Discovery is adding the specified function instance.

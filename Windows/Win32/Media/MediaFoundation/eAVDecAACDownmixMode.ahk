@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies whether an AAC decoder uses standard MPEG-2/MPEG-4 stereo downmix equations.
  * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavdecaacdownmixmode
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class eAVDecAACDownmixMode extends Win32Enum {
+export default struct eAVDecAACDownmixMode {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Use the standard ISO MPEG-2/MPEG-4 downmix equations.

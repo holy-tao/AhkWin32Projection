@@ -1,68 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WNODE_HEADER.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
-#Include .\OFFSETINSTANCEDATAANDLENGTH.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WNODE_HEADER.ahk" { WNODE_HEADER }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\OFFSETINSTANCEDATAANDLENGTH.ahk" { OFFSETINSTANCEDATAANDLENGTH }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class WNODE_ALL_DATA extends Win32Struct {
-    static sizeof => 64
+export default struct WNODE_ALL_DATA {
+    #StructPack 8
 
-    static packingSize => 8
+    WnodeHeader : WNODE_HEADER
 
-    /**
-     * @type {WNODE_HEADER}
-     */
-    WnodeHeader {
-        get {
-            if(!this.HasProp("__WnodeHeader"))
-                this.__WnodeHeader := WNODE_HEADER(0, this)
-            return this.__WnodeHeader
-        }
-    }
+    DataBlockOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataBlockOffset {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    InstanceCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InstanceCount {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    OffsetInstanceNameOffsets : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OffsetInstanceNameOffsets {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    FixedInstanceSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FixedInstanceSize {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
-
-    /**
-     * @type {OFFSETINSTANCEDATAANDLENGTH}
-     */
-    OffsetInstanceDataAndLength {
-        get {
-            if(!this.HasProp("__OffsetInstanceDataAndLengthProxyArray"))
-                this.__OffsetInstanceDataAndLengthProxyArray := Win32FixedArray(this.ptr + 52, 1, OFFSETINSTANCEDATAANDLENGTH, "")
-            return this.__OffsetInstanceDataAndLengthProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'OffsetInstanceDataAndLength', { type: OFFSETINSTANCEDATAANDLENGTH[1], offset: 60 })
+        this.DeleteProp("__New")
     }
 }

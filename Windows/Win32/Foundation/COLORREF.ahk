@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The COLORREF value is used to specify an RGB color.
@@ -14,23 +13,29 @@
  * @see https://learn.microsoft.com/windows/win32/gdi/colorref
  * @namespace Windows.Win32.Foundation
  */
-class COLORREF extends Win32Struct {
-    static sizeof => 4
+export default struct COLORREF {
+    value : UInt32
 
-    static packingSize => 4
-
-    /**
-     * @type {Integer}
-     */
-    Value {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    __value {
+        set {
+            if (value is COLORREF) {
+                this.value := value.value
+            }
+            else {
+                this.value := value
+            }
+        }
     }
+
+    __New(value := 0) {
+        this.value := value
+    }
+
     static GetRed(color) => color & 0xFF
     static GetGreen(color) => (color >> 8) & 0xFF
     static GetBlue(color) => (color >> 16) & 0xFF
     
-    static SetRed(color, value) => (color & 0xFFFFFF00) | value 
+    static SetRed(color, value) => (color & 0xFFFFFF00) | value
     static SetGreen(color, value) => (color & 0xFFFF00FF) | (value << 8)
     static SetBlue(color, value) => (color & 0xFF00FFFF) | (value << 16)
     
@@ -41,9 +46,9 @@ class COLORREF extends Win32Struct {
      * @returns {String} the RGB string
      */
     static ToRGBString(color){
-        return Format("0x{1:02X}{2:02X}{3:02X}", 
-            COLORREF.GetRed(color), 
-            COLORREF.GetGreen(color), 
+        return Format("0x{1:02X}{2:02X}{3:02X}",
+            COLORREF.GetRed(color),
+            COLORREF.GetGreen(color),
             COLORREF.GetBlue(color))
     }
     
@@ -67,4 +72,5 @@ class COLORREF extends Win32Struct {
      * @returns {String} the RGB string
      */
     ToRGBString() => COLORREF.ToRGBString(this.value)
+    
 }

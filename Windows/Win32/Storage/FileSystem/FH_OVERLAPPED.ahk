@@ -1,95 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class FH_OVERLAPPED extends Win32Struct {
-    static sizeof => 72
+export default struct FH_OVERLAPPED {
+    #StructPack 8
 
-    static packingSize => 8
+    Internal : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Internal {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    InternalHigh : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    InternalHigh {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Offset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Offset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    OffsetHigh : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OffsetHigh {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    hEvent : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hEvent {
-        get {
-            if(!this.HasProp("__hEvent"))
-                this.__hEvent := HANDLE(24, this)
-            return this.__hEvent
-        }
-    }
+    pfnCompletion : IntPtr
 
-    /**
-     * @type {Pointer<PFN_IO_COMPLETION>}
-     */
-    pfnCompletion {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Reserved1 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Reserved1 {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    Reserved2 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Reserved2 {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    Reserved3 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Reserved3 {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    Reserved4 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Reserved4 {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
 }

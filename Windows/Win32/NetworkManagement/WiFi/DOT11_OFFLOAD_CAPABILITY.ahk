@@ -1,67 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_OFFLOAD_CAPABILITY extends Win32Struct {
-    static sizeof => 28
+export default struct DOT11_OFFLOAD_CAPABILITY {
+    #StructPack 4
 
-    static packingSize => 4
+    uReserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uReserved {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    uFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    uSupportedWEPAlgorithms : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uSupportedWEPAlgorithms {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    uNumOfReplayWindows : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uNumOfReplayWindows {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    uMaxWEPKeyMappingLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uMaxWEPKeyMappingLength {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    uSupportedAuthAlgorithms : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uSupportedAuthAlgorithms {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    uMaxAuthKeyMappingLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uMaxAuthKeyMappingLength {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

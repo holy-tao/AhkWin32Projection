@@ -1,63 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHEA_ERROR_SEVERITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WHEA_ERROR_SEVERITY.ahk" { WHEA_ERROR_SEVERITY }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_GENERIC_ERROR extends Win32Struct {
-    static sizeof => 32
+export default struct WHEA_GENERIC_ERROR {
+    #StructPack 8
 
-    static packingSize => 8
+    BlockStatus : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    BlockStatus {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    RawDataOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RawDataOffset {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    RawDataLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RawDataLength {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    DataLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataLength {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ErrorSeverity : WHEA_ERROR_SEVERITY
 
-    /**
-     * @type {WHEA_ERROR_SEVERITY}
-     */
-    ErrorSeverity {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    Data : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Data {
-        get {
-            if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
-            return this.__DataProxyArray
-        }
-    }
 }

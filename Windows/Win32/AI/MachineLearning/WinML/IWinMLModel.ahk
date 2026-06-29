@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WINML_MODEL_DESC.ahk" { WINML_MODEL_DESC }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WINML_VARIABLE_DESC.ahk" { WINML_VARIABLE_DESC }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a Windows Machine Learning model with corresponding metadata; includes model descriptions (name, author, versioning, etc.), as well as expected inputs and outputs.
  * @see https://learn.microsoft.com/windows/win32/api/winml/nn-winml-iwinmlmodel
  * @namespace Windows.Win32.AI.MachineLearning.WinML
  */
-class IWinMLModel extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWinMLModel extends IUnknown {
     /**
      * The interface identifier for IWinMLModel
      * @type {Guid}
      */
-    static IID => Guid("{e2eeb6a9-f31f-4055-a521-e30b5b33664a}")
+    static IID := Guid("{e2eeb6a9-f31f-4055-a521-e30b5b33664a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWinMLModel interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDescription        : IntPtr
+        EnumerateMetadata     : IntPtr
+        EnumerateModelInputs  : IntPtr
+        EnumerateModelOutputs : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDescription", "EnumerateMetadata", "EnumerateModelInputs", "EnumerateModelOutputs"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWinMLModel.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the WinML model description.
@@ -75,5 +89,31 @@ class IWinMLModel extends IUnknown {
     EnumerateModelOutputs(Index) {
         result := ComCall(6, this, "uint", Index, "ptr*", &ppOutputDescriptor := 0, "HRESULT")
         return ppOutputDescriptor
+    }
+
+    Query(iid) {
+        if (IWinMLModel.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 2)
+        this.vtbl.EnumerateMetadata := CallbackCreate(GetMethod(implObj, "EnumerateMetadata"), flags, 4)
+        this.vtbl.EnumerateModelInputs := CallbackCreate(GetMethod(implObj, "EnumerateModelInputs"), flags, 3)
+        this.vtbl.EnumerateModelOutputs := CallbackCreate(GetMethod(implObj, "EnumerateModelOutputs"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDescription)
+        CallbackFree(this.vtbl.EnumerateMetadata)
+        CallbackFree(this.vtbl.EnumerateModelInputs)
+        CallbackFree(this.vtbl.EnumerateModelOutputs)
     }
 }

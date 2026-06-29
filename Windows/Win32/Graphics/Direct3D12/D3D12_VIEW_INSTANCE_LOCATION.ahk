@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the viewport/stencil and render target associated with a view instance.
@@ -10,26 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_view_instance_location
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_VIEW_INSTANCE_LOCATION extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct D3D12_VIEW_INSTANCE_LOCATION {
+    #StructPack 4
 
     /**
      * The index of the viewport in the viewports array to be used by the view instance associated with this location.
-     * @type {Integer}
      */
-    ViewportArrayIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ViewportArrayIndex : UInt32
 
     /**
      * The index of the render target in the render targets array to be used by the view instance associated with this location.
-     * @type {Integer}
      */
-    RenderTargetArrayIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    RenderTargetArrayIndex : UInt32
+
 }

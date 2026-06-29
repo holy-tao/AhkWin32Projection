@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DEVICEDIALOGDATA2.ahk" { DEVICEDIALOGDATA2 }
 
 /**
  * The IWiaUIExtension2 interface provides methods that replace the default, system-supplied user interface with a custom user interface, and that provide a custom device icon.
@@ -22,26 +25,34 @@
  * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiauiextension2
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
-class IWiaUIExtension2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWiaUIExtension2 extends IUnknown {
     /**
      * The interface identifier for IWiaUIExtension2
      * @type {Guid}
      */
-    static IID => Guid("{305600d7-5088-46d7-9a15-b77b09cdba7a}")
+    static IID := Guid("{305600d7-5088-46d7-9a15-b77b09cdba7a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWiaUIExtension2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        DeviceDialog  : IntPtr
+        GetDeviceIcon : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["DeviceDialog", "GetDeviceIcon"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWiaUIExtension2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * IWiaUIExtension2::DeviceDialog method - Provides a custom user interface that replaces the default system user interface.
@@ -63,7 +74,7 @@ class IWiaUIExtension2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiauiextension2-devicedialog
      */
     DeviceDialog(pDeviceDialogData) {
-        result := ComCall(3, this, "ptr", pDeviceDialogData, "HRESULT")
+        result := ComCall(3, this, DEVICEDIALOGDATA2.Ptr, pDeviceDialogData, "HRESULT")
         return result
     }
 
@@ -83,8 +94,30 @@ class IWiaUIExtension2 extends IUnknown {
     GetDeviceIcon(bstrDeviceId, nSize) {
         bstrDeviceId := bstrDeviceId is String ? BSTR.Alloc(bstrDeviceId).Value : bstrDeviceId
 
-        phIcon := HICON()
-        result := ComCall(4, this, "ptr", bstrDeviceId, "ptr", phIcon, "uint", nSize, "HRESULT")
+        phIcon := HICON.Owned()
+        result := ComCall(4, this, BSTR, bstrDeviceId, HICON.Ptr, phIcon, "uint", nSize, "HRESULT")
         return phIcon
+    }
+
+    Query(iid) {
+        if (IWiaUIExtension2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.DeviceDialog := CallbackCreate(GetMethod(implObj, "DeviceDialog"), flags, 2)
+        this.vtbl.GetDeviceIcon := CallbackCreate(GetMethod(implObj, "GetDeviceIcon"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.DeviceDialog)
+        CallbackFree(this.vtbl.GetDeviceIcon)
     }
 }

@@ -1,185 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
-#Include .\DOT11_PHY_TYPE.ahk
-#Include .\DOT11_TEMP_TYPE.ahk
-#Include .\DOT11_DIVERSITY_SUPPORT.ahk
-#Include .\DOT11_HRDSSS_PHY_ATTRIBUTES.ahk
-#Include .\DOT11_OFDM_PHY_ATTRIBUTES.ahk
-#Include .\DOT11_ERP_PHY_ATTRIBUTES.ahk
-#Include .\DOT11_DATA_RATE_MAPPING_ENTRY.ahk
-#Include .\DOT11_SUPPORTED_DATA_RATES_VALUE_V2.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_PHY_TYPE.ahk" { DOT11_PHY_TYPE }
+#Import ".\DOT11_ERP_PHY_ATTRIBUTES.ahk" { DOT11_ERP_PHY_ATTRIBUTES }
+#Import ".\DOT11_SUPPORTED_DATA_RATES_VALUE_V2.ahk" { DOT11_SUPPORTED_DATA_RATES_VALUE_V2 }
+#Import "..\Ndis\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
+#Import ".\DOT11_TEMP_TYPE.ahk" { DOT11_TEMP_TYPE }
+#Import ".\DOT11_OFDM_PHY_ATTRIBUTES.ahk" { DOT11_OFDM_PHY_ATTRIBUTES }
+#Import ".\DOT11_DIVERSITY_SUPPORT.ahk" { DOT11_DIVERSITY_SUPPORT }
+#Import ".\DOT11_DATA_RATE_MAPPING_ENTRY.ahk" { DOT11_DATA_RATE_MAPPING_ENTRY }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\DOT11_HRDSSS_PHY_ATTRIBUTES.ahk" { DOT11_HRDSSS_PHY_ATTRIBUTES }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_PHY_ATTRIBUTES extends Win32Struct {
-    static sizeof => 1092
+export default struct DOT11_PHY_ATTRIBUTES {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _PhySpecificAttributes_e__Union extends Win32Struct {
-        static sizeof => 12
-        static packingSize => 4
+    struct _PhySpecificAttributes {
+        HRDSSSAttributes : DOT11_HRDSSS_PHY_ATTRIBUTES
 
-        /**
-         * @type {DOT11_HRDSSS_PHY_ATTRIBUTES}
-         */
-        HRDSSSAttributes {
-            get {
-                if(!this.HasProp("__HRDSSSAttributes"))
-                    this.__HRDSSSAttributes := DOT11_HRDSSS_PHY_ATTRIBUTES(0, this)
-                return this.__HRDSSSAttributes
-            }
-        }
-
-        /**
-         * @type {DOT11_OFDM_PHY_ATTRIBUTES}
-         */
-        OFDMAttributes {
-            get {
-                if(!this.HasProp("__OFDMAttributes"))
-                    this.__OFDMAttributes := DOT11_OFDM_PHY_ATTRIBUTES(0, this)
-                return this.__OFDMAttributes
-            }
-        }
-
-        /**
-         * @type {DOT11_ERP_PHY_ATTRIBUTES}
-         */
-        ERPAttributes {
-            get {
-                if(!this.HasProp("__ERPAttributes"))
-                    this.__ERPAttributes := DOT11_ERP_PHY_ATTRIBUTES(0, this)
-                return this.__ERPAttributes
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'OFDMAttributes', { type: DOT11_OFDM_PHY_ATTRIBUTES, offset: 0 })
+            DefineProp(this.Prototype, 'ERPAttributes', { type: DOT11_ERP_PHY_ATTRIBUTES, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {NDIS_OBJECT_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    Header : NDIS_OBJECT_HEADER
 
-    /**
-     * @type {DOT11_PHY_TYPE}
-     */
-    PhyType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    PhyType : DOT11_PHY_TYPE
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bHardwarePhyState {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    bHardwarePhyState : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bSoftwarePhyState {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    bSoftwarePhyState : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bCFPollable {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    bCFPollable : BOOLEAN
 
-    /**
-     * @type {Integer}
-     */
-    uMPDUMaxLength {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    uMPDUMaxLength : UInt32
 
-    /**
-     * @type {DOT11_TEMP_TYPE}
-     */
-    TempType {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    TempType : DOT11_TEMP_TYPE
 
-    /**
-     * @type {DOT11_DIVERSITY_SUPPORT}
-     */
-    DiversitySupport {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    DiversitySupport : DOT11_DIVERSITY_SUPPORT
 
-    /**
-     * @type {_PhySpecificAttributes_e__Union}
-     */
-    PhySpecificAttributes {
-        get {
-            if(!this.HasProp("__PhySpecificAttributes"))
-                this.__PhySpecificAttributes := DOT11_PHY_ATTRIBUTES._PhySpecificAttributes_e__Union(24, this)
-            return this.__PhySpecificAttributes
-        }
-    }
+    PhySpecificAttributes : DOT11_PHY_ATTRIBUTES._PhySpecificAttributes
 
-    /**
-     * @type {Integer}
-     */
-    uNumberSupportedPowerLevels {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    uNumberSupportedPowerLevels : UInt32
 
-    /**
-     * @type {Array<Integer>}
-     */
-    TxPowerLevels {
-        get {
-            if(!this.HasProp("__TxPowerLevelsProxyArray"))
-                this.__TxPowerLevelsProxyArray := Win32FixedArray(this.ptr + 40, 8, Primitive, "uint")
-            return this.__TxPowerLevelsProxyArray
-        }
-    }
+    TxPowerLevels : UInt32[8]
 
-    /**
-     * @type {Integer}
-     */
-    uNumDataRateMappingEntries {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    uNumDataRateMappingEntries : UInt32
 
-    /**
-     * @type {DOT11_DATA_RATE_MAPPING_ENTRY}
-     */
-    DataRateMappingEntries {
-        get {
-            if(!this.HasProp("__DataRateMappingEntriesProxyArray"))
-                this.__DataRateMappingEntriesProxyArray := Win32FixedArray(this.ptr + 76, 126, DOT11_DATA_RATE_MAPPING_ENTRY, "")
-            return this.__DataRateMappingEntriesProxyArray
-        }
-    }
+    DataRateMappingEntries : DOT11_DATA_RATE_MAPPING_ENTRY[126]
 
-    /**
-     * @type {DOT11_SUPPORTED_DATA_RATES_VALUE_V2}
-     */
-    SupportedDataRatesValue {
-        get {
-            if(!this.HasProp("__SupportedDataRatesValue"))
-                this.__SupportedDataRatesValue := DOT11_SUPPORTED_DATA_RATES_VALUE_V2(580, this)
-            return this.__SupportedDataRatesValue
-        }
-    }
+    SupportedDataRatesValue : DOT11_SUPPORTED_DATA_RATES_VALUE_V2
+
 }

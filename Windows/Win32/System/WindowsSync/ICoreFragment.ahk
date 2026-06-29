@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IClockVector.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IClockVector.ahk" { IClockVector }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents knowledge of all items in the scope for a specific set of change units.
@@ -11,26 +12,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-icorefragment
  * @namespace Windows.Win32.System.WindowsSync
  */
-class ICoreFragment extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICoreFragment extends IUnknown {
     /**
      * The interface identifier for ICoreFragment
      * @type {Guid}
      */
-    static IID => Guid("{613b2ab5-b304-47d9-9c31-ce6c54401a15}")
+    static IID := Guid("{613b2ab5-b304-47d9-9c31-ce6c54401a15}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICoreFragment interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        NextColumn     : IntPtr
+        NextRange      : IntPtr
+        Reset          : IntPtr
+        GetColumnCount : IntPtr
+        GetRangeCount  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["NextColumn", "NextRange", "Reset", "GetColumnCount", "GetRangeCount"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICoreFragment.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns the next change unit ID in the set of change unit IDs that this knowledge fragment applies to.
@@ -253,5 +265,33 @@ class ICoreFragment extends IUnknown {
 
         result := ComCall(7, this, pRangeCountMarshal, pRangeCount, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICoreFragment.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.NextColumn := CallbackCreate(GetMethod(implObj, "NextColumn"), flags, 3)
+        this.vtbl.NextRange := CallbackCreate(GetMethod(implObj, "NextRange"), flags, 4)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.GetColumnCount := CallbackCreate(GetMethod(implObj, "GetColumnCount"), flags, 2)
+        this.vtbl.GetRangeCount := CallbackCreate(GetMethod(implObj, "GetRangeCount"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.NextColumn)
+        CallbackFree(this.vtbl.NextRange)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.GetColumnCount)
+        CallbackFree(this.vtbl.GetRangeCount)
     }
 }

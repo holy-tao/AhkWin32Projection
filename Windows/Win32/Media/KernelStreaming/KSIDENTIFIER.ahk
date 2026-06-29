@@ -1,43 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSIDENTIFIER extends Win32Struct {
-    static sizeof => 16
+export default struct KSIDENTIFIER {
+    #StructPack 8
 
-    static packingSize => 8
+    Set : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    Set {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Id : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Id {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Alignment {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'Alignment', { type: Int64, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

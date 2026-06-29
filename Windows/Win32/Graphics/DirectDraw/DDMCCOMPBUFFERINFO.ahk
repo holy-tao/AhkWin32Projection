@@ -1,75 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDSCAPS2.ahk
-#Include .\DDPIXELFORMAT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDSCAPS2.ahk" { DDSCAPS2 }
+#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDMCCOMPBUFFERINFO extends Win32Struct {
-    static sizeof => 68
+export default struct DDMCCOMPBUFFERINFO {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwNumCompBuffers : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNumCompBuffers {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwWidthToCreate : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwWidthToCreate {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwHeightToCreate : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwHeightToCreate {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwBytesToAllocate : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwBytesToAllocate {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ddCompCaps : DDSCAPS2
 
-    /**
-     * @type {DDSCAPS2}
-     */
-    ddCompCaps {
-        get {
-            if(!this.HasProp("__ddCompCaps"))
-                this.__ddCompCaps := DDSCAPS2(20, this)
-            return this.__ddCompCaps
-        }
-    }
+    ddPixelFormat : DDPIXELFORMAT
 
-    /**
-     * @type {DDPIXELFORMAT}
-     */
-    ddPixelFormat {
-        get {
-            if(!this.HasProp("__ddPixelFormat"))
-                this.__ddPixelFormat := DDPIXELFORMAT(36, this)
-            return this.__ddPixelFormat
-        }
-    }
 }

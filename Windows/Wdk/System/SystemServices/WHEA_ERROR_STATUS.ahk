@@ -1,40 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_ERROR_STATUS extends Win32Struct {
-    static sizeof => 16
+export default struct WHEA_ERROR_STATUS {
+    #StructPack 1
 
-    static packingSize => 1
+    ErrorStatus : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ErrorStatus {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - Reserved1
-     * - ErrorType
-     * - Address
-     * - Control
-     * - Data
-     * - Responder
-     * - Requester
-     * - FirstError
-     * - Overflow
-     * - Reserved2
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
 
     /**
      * @type {Integer}
@@ -114,5 +87,9 @@ class WHEA_ERROR_STATUS extends Win32Struct {
     Reserved2 {
         get => (this._bitfield >> 23) & 0x1FFFFFFFFFF
         set => this._bitfield := ((value & 0x1FFFFFFFFFF) << 23) | (this._bitfield & ~(0x1FFFFFFFFFF << 23))
+    }
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int64, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

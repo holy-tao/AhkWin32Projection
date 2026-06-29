@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class FILE_FS_CONTROL_INFORMATION extends Win32Struct {
-    static sizeof => 48
+export default struct FILE_FS_CONTROL_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    FreeSpaceStartFiltering : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FreeSpaceStartFiltering {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    FreeSpaceThreshold : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FreeSpaceThreshold {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    FreeSpaceStopFiltering : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FreeSpaceStopFiltering {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    DefaultQuotaThreshold : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DefaultQuotaThreshold {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    DefaultQuotaLimit : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DefaultQuotaLimit {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
+    FileSystemControlFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FileSystemControlFlags {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
 }

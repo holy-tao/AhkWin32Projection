@@ -1,53 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_DIAGNOSTIC_TARGET_TYPE.ahk
-#Include .\STORAGE_DIAGNOSTIC_LEVEL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\STORAGE_DIAGNOSTIC_LEVEL.ahk" { STORAGE_DIAGNOSTIC_LEVEL }
+#Import ".\STORAGE_DIAGNOSTIC_TARGET_TYPE.ahk" { STORAGE_DIAGNOSTIC_TARGET_TYPE }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_DIAGNOSTIC_REQUEST extends Win32Struct {
-    static sizeof => 20
+export default struct STORAGE_DIAGNOSTIC_REQUEST {
+    #StructPack 4
 
-    static packingSize => 4
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    TargetType : STORAGE_DIAGNOSTIC_TARGET_TYPE
 
-    /**
-     * @type {STORAGE_DIAGNOSTIC_TARGET_TYPE}
-     */
-    TargetType {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    Level : STORAGE_DIAGNOSTIC_LEVEL
 
-    /**
-     * @type {STORAGE_DIAGNOSTIC_LEVEL}
-     */
-    Level {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
 }

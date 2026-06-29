@@ -1,88 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRITICAL_SECTION.ahk
-#Include ..\Kernel\LIST_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRITICAL_SECTION.ahk" { CRITICAL_SECTION }
+#Import "..\Kernel\LIST_ENTRY.ahk" { LIST_ENTRY }
 
 /**
  * @namespace Windows.Win32.System.Threading
  */
-class CRITICAL_SECTION_DEBUG extends Win32Struct {
-    static sizeof => 48
+export default struct CRITICAL_SECTION_DEBUG {
+    #StructPack 8
 
-    static packingSize => 8
+    Type : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    CreatorBackTraceIndex : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    CreatorBackTraceIndex {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
-
-    /**
-     * @type {Pointer<CRITICAL_SECTION>}
-     */
+    __CriticalSection_ptr : IntPtr
     CriticalSection {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => (addr := this.__CriticalSection_ptr) ? CRITICAL_SECTION.At(addr) : unset
+        set => this.__CriticalSection_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {LIST_ENTRY}
-     */
-    ProcessLocksList {
-        get {
-            if(!this.HasProp("__ProcessLocksList"))
-                this.__ProcessLocksList := LIST_ENTRY(16, this)
-            return this.__ProcessLocksList
-        }
-    }
+    ProcessLocksList : LIST_ENTRY
 
-    /**
-     * @type {Integer}
-     */
-    EntryCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    EntryCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ContentionCount {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    ContentionCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CreatorBackTraceIndexHigh {
-        get => NumGet(this, 44, "ushort")
-        set => NumPut("ushort", value, this, 44)
-    }
+    CreatorBackTraceIndexHigh : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Identifier {
-        get => NumGet(this, 46, "ushort")
-        set => NumPut("ushort", value, this, 46)
-    }
+    Identifier : UInt16
+
 }

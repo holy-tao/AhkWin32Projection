@@ -1,41 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IWdsTransportServicePolicy.ahk
-#Include .\IWdsTransportDiagnosticsPolicy.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWdsTransportDiagnosticsPolicy.ahk" { IWdsTransportDiagnosticsPolicy }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\WDSTRANSPORT_SERVICE_NOTIFICATION.ahk" { WDSTRANSPORT_SERVICE_NOTIFICATION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IWdsTransportServicePolicy.ahk" { IWdsTransportServicePolicy }
 
 /**
  * Manages the configuration of a WDS transport server.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportconfigurationmanager
  * @namespace Windows.Win32.System.DeploymentServices
  */
-class IWdsTransportConfigurationManager extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWdsTransportConfigurationManager extends IDispatch {
     /**
      * The interface identifier for IWdsTransportConfigurationManager
      * @type {Guid}
      */
-    static IID => Guid("{84cc4779-42dd-4792-891e-1321d6d74b44}")
+    static IID := Guid("{84cc4779-42dd-4792-891e-1321d6d74b44}")
 
     /**
      * The class identifier for WdsTransportConfigurationManager
      * @type {Guid}
      */
-    static CLSID => Guid("{8743f674-904c-47ca-8512-35fe98f6b0ac}")
+    static CLSID := Guid("{8743f674-904c-47ca-8512-35fe98f6b0ac}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWdsTransportConfigurationManager interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_ServicePolicy               : IntPtr
+        get_DiagnosticsPolicy           : IntPtr
+        get_WdsTransportServicesRunning : IntPtr
+        EnableWdsTransportServices      : IntPtr
+        DisableWdsTransportServices     : IntPtr
+        StartWdsTransportServices       : IntPtr
+        StopWdsTransportServices        : IntPtr
+        RestartWdsTransportServices     : IntPtr
+        NotifyWdsTransportServices      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ServicePolicy", "get_DiagnosticsPolicy", "get_WdsTransportServicesRunning", "EnableWdsTransportServices", "DisableWdsTransportServices", "StartWdsTransportServices", "StopWdsTransportServices", "RestartWdsTransportServices", "NotifyWdsTransportServices"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWdsTransportConfigurationManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IWdsTransportServicePolicy} 
@@ -78,7 +96,7 @@ class IWdsTransportConfigurationManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager-get_wdstransportservicesrunning
      */
     get_WdsTransportServicesRunning(bRealtimeStatus) {
-        result := ComCall(9, this, "short", bRealtimeStatus, "short*", &pbServicesRunning := 0, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL, bRealtimeStatus, VARIANT_BOOL.Ptr, &pbServicesRunning := 0, "HRESULT")
         return pbServicesRunning
     }
 
@@ -139,7 +157,43 @@ class IWdsTransportConfigurationManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager-notifywdstransportservices
      */
     NotifyWdsTransportServices(ServiceNotification) {
-        result := ComCall(15, this, "int", ServiceNotification, "HRESULT")
+        result := ComCall(15, this, WDSTRANSPORT_SERVICE_NOTIFICATION, ServiceNotification, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWdsTransportConfigurationManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ServicePolicy := CallbackCreate(GetMethod(implObj, "get_ServicePolicy"), flags, 2)
+        this.vtbl.get_DiagnosticsPolicy := CallbackCreate(GetMethod(implObj, "get_DiagnosticsPolicy"), flags, 2)
+        this.vtbl.get_WdsTransportServicesRunning := CallbackCreate(GetMethod(implObj, "get_WdsTransportServicesRunning"), flags, 3)
+        this.vtbl.EnableWdsTransportServices := CallbackCreate(GetMethod(implObj, "EnableWdsTransportServices"), flags, 1)
+        this.vtbl.DisableWdsTransportServices := CallbackCreate(GetMethod(implObj, "DisableWdsTransportServices"), flags, 1)
+        this.vtbl.StartWdsTransportServices := CallbackCreate(GetMethod(implObj, "StartWdsTransportServices"), flags, 1)
+        this.vtbl.StopWdsTransportServices := CallbackCreate(GetMethod(implObj, "StopWdsTransportServices"), flags, 1)
+        this.vtbl.RestartWdsTransportServices := CallbackCreate(GetMethod(implObj, "RestartWdsTransportServices"), flags, 1)
+        this.vtbl.NotifyWdsTransportServices := CallbackCreate(GetMethod(implObj, "NotifyWdsTransportServices"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ServicePolicy)
+        CallbackFree(this.vtbl.get_DiagnosticsPolicy)
+        CallbackFree(this.vtbl.get_WdsTransportServicesRunning)
+        CallbackFree(this.vtbl.EnableWdsTransportServices)
+        CallbackFree(this.vtbl.DisableWdsTransportServices)
+        CallbackFree(this.vtbl.StartWdsTransportServices)
+        CallbackFree(this.vtbl.StopWdsTransportServices)
+        CallbackFree(this.vtbl.RestartWdsTransportServices)
+        CallbackFree(this.vtbl.NotifyWdsTransportServices)
     }
 }

@@ -1,103 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.Iis
  */
-class HSE_TF_INFO extends Win32Struct {
-    static sizeof => 72
+export default struct HSE_TF_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    pfnHseIO : IntPtr
 
-    /**
-     * @type {Pointer<PFN_HSE_IO_COMPLETION>}
-     */
-    pfnHseIO {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pContext {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    hFile : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hFile {
-        get {
-            if(!this.HasProp("__hFile"))
-                this.__hFile := HANDLE(16, this)
-            return this.__hFile
-        }
-    }
+    pszStatusCode : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    pszStatusCode {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    BytesToWrite : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BytesToWrite {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Offset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Offset {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    pHead : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pHead {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    HeadLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HeadLength {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    pTail : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pTail {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    TailLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TailLength {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
 }

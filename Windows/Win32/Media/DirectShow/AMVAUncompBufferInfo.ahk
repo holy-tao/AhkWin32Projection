@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\DirectDraw\DDPIXELFORMAT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\DirectDraw\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
 
 /**
  * The AMVAUncompBufferInfo structure describes the uncompressed surfaces to be allocated by the video renderer.
@@ -15,38 +14,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/amva/ns-amva-amvauncompbufferinfo
  * @namespace Windows.Win32.Media.DirectShow
  */
-class AMVAUncompBufferInfo extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 4
+export default struct AMVAUncompBufferInfo {
+    #StructPack 4
 
     /**
      * Minimum number of surfaces to allocate.
-     * @type {Integer}
      */
-    dwMinNumSurfaces {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwMinNumSurfaces : UInt32
 
     /**
      * Maximum number of surfaces to allocate.
-     * @type {Integer}
      */
-    dwMaxNumSurfaces {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwMaxNumSurfaces : UInt32
 
     /**
      * <b>DDPIXELFORMAT</b> structure, describing the pixel format of the allocated surfaces.
-     * @type {DDPIXELFORMAT}
      */
-    ddUncompPixelFormat {
-        get {
-            if(!this.HasProp("__ddUncompPixelFormat"))
-                this.__ddUncompPixelFormat := DDPIXELFORMAT(8, this)
-            return this.__ddUncompPixelFormat
-        }
-    }
+    ddUncompPixelFormat : DDPIXELFORMAT
+
 }

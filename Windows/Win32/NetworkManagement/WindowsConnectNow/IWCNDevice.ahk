@@ -1,33 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWCNConnectNotify.ahk" { IWCNConnectNotify }
+#Import ".\WCN_ATTRIBUTE_TYPE.ahk" { WCN_ATTRIBUTE_TYPE }
+#Import ".\WCN_PASSWORD_TYPE.ahk" { WCN_PASSWORD_TYPE }
+#Import ".\WCN_VENDOR_EXTENSION_SPEC.ahk" { WCN_VENDOR_EXTENSION_SPEC }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Use this interface to configure the device and initiate the session.
  * @see https://learn.microsoft.com/windows/win32/api/wcndevice/nn-wcndevice-iwcndevice
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectNow
  */
-class IWCNDevice extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWCNDevice extends IUnknown {
     /**
      * The interface identifier for IWCNDevice
      * @type {Guid}
      */
-    static IID => Guid("{c100be9c-d33a-4a4b-bf23-bbef4663d017}")
+    static IID := Guid("{c100be9c-d33a-4a4b-bf23-bbef4663d017}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWCNDevice interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetPassword          : IntPtr
+        Connect              : IntPtr
+        GetAttribute         : IntPtr
+        GetIntegerAttribute  : IntPtr
+        GetStringAttribute   : IntPtr
+        GetNetworkProfile    : IntPtr
+        SetNetworkProfile    : IntPtr
+        GetVendorExtension   : IntPtr
+        SetVendorExtension   : IntPtr
+        Unadvise             : IntPtr
+        SetNFCPasswordParams : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetPassword", "Connect", "GetAttribute", "GetIntegerAttribute", "GetStringAttribute", "GetNetworkProfile", "SetNetworkProfile", "GetVendorExtension", "SetVendorExtension", "Unadvise", "SetNFCPasswordParams"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWCNDevice.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IWCNDevice::SetPassword method configures the authentication method value, and if required, a password used for the pending session. This method may only be called prior to IWCNDevice::Connect.
@@ -100,7 +123,7 @@ class IWCNDevice extends IUnknown {
     SetPassword(Type, dwPasswordLength, pbPassword) {
         pbPasswordMarshal := pbPassword is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "int", Type, "uint", dwPasswordLength, pbPasswordMarshal, pbPassword, "HRESULT")
+        result := ComCall(3, this, WCN_PASSWORD_TYPE, Type, "uint", dwPasswordLength, pbPasswordMarshal, pbPassword, "HRESULT")
         return result
     }
 
@@ -214,7 +237,7 @@ class IWCNDevice extends IUnknown {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
         pdwBufferUsedMarshal := pdwBufferUsed is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "int", AttributeType, "uint", dwMaxBufferSize, pbBufferMarshal, pbBuffer, pdwBufferUsedMarshal, pdwBufferUsed, "HRESULT")
+        result := ComCall(5, this, WCN_ATTRIBUTE_TYPE, AttributeType, "uint", dwMaxBufferSize, pbBufferMarshal, pbBuffer, pdwBufferUsedMarshal, pdwBufferUsed, "HRESULT")
         return result
     }
 
@@ -225,7 +248,7 @@ class IWCNDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcndevice/nf-wcndevice-iwcndevice-getintegerattribute
      */
     GetIntegerAttribute(AttributeType) {
-        result := ComCall(6, this, "int", AttributeType, "uint*", &puInteger := 0, "HRESULT")
+        result := ComCall(6, this, WCN_ATTRIBUTE_TYPE, AttributeType, "uint*", &puInteger := 0, "HRESULT")
         return puInteger
     }
 
@@ -291,7 +314,7 @@ class IWCNDevice extends IUnknown {
     GetStringAttribute(AttributeType, cchMaxString, wszString) {
         wszString := wszString is String ? StrPtr(wszString) : wszString
 
-        result := ComCall(7, this, "int", AttributeType, "uint", cchMaxString, "ptr", wszString, "HRESULT")
+        result := ComCall(7, this, WCN_ATTRIBUTE_TYPE, AttributeType, "uint", cchMaxString, "ptr", wszString, "HRESULT")
         return result
     }
 
@@ -444,7 +467,7 @@ class IWCNDevice extends IUnknown {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
         pdwBufferUsedMarshal := pdwBufferUsed is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "ptr", pVendorExtSpec, "uint", dwMaxBufferSize, pbBufferMarshal, pbBuffer, pdwBufferUsedMarshal, pdwBufferUsed, "HRESULT")
+        result := ComCall(10, this, WCN_VENDOR_EXTENSION_SPEC.Ptr, pVendorExtSpec, "uint", dwMaxBufferSize, pbBufferMarshal, pbBuffer, pdwBufferUsedMarshal, pdwBufferUsed, "HRESULT")
         return result
     }
 
@@ -499,7 +522,7 @@ class IWCNDevice extends IUnknown {
     SetVendorExtension(pVendorExtSpec, cbBuffer, pbBuffer) {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(11, this, "ptr", pVendorExtSpec, "uint", cbBuffer, pbBufferMarshal, pbBuffer, "HRESULT")
+        result := ComCall(11, this, WCN_VENDOR_EXTENSION_SPEC.Ptr, pVendorExtSpec, "uint", cbBuffer, pbBufferMarshal, pbBuffer, "HRESULT")
         return result
     }
 
@@ -534,7 +557,47 @@ class IWCNDevice extends IUnknown {
         pbRemotePublicKeyHashMarshal := pbRemotePublicKeyHash is VarRef ? "char*" : "ptr"
         pbDHKeyBlobMarshal := pbDHKeyBlob is VarRef ? "char*" : "ptr"
 
-        result := ComCall(13, this, "int", Type, "uint", dwOOBPasswordID, "uint", dwPasswordLength, pbPasswordMarshal, pbPassword, "uint", dwRemotePublicKeyHashLength, pbRemotePublicKeyHashMarshal, pbRemotePublicKeyHash, "uint", dwDHKeyBlobLength, pbDHKeyBlobMarshal, pbDHKeyBlob, "HRESULT")
+        result := ComCall(13, this, WCN_PASSWORD_TYPE, Type, "uint", dwOOBPasswordID, "uint", dwPasswordLength, pbPasswordMarshal, pbPassword, "uint", dwRemotePublicKeyHashLength, pbRemotePublicKeyHashMarshal, pbRemotePublicKeyHash, "uint", dwDHKeyBlobLength, pbDHKeyBlobMarshal, pbDHKeyBlob, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWCNDevice.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetPassword := CallbackCreate(GetMethod(implObj, "SetPassword"), flags, 4)
+        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 2)
+        this.vtbl.GetAttribute := CallbackCreate(GetMethod(implObj, "GetAttribute"), flags, 5)
+        this.vtbl.GetIntegerAttribute := CallbackCreate(GetMethod(implObj, "GetIntegerAttribute"), flags, 3)
+        this.vtbl.GetStringAttribute := CallbackCreate(GetMethod(implObj, "GetStringAttribute"), flags, 4)
+        this.vtbl.GetNetworkProfile := CallbackCreate(GetMethod(implObj, "GetNetworkProfile"), flags, 3)
+        this.vtbl.SetNetworkProfile := CallbackCreate(GetMethod(implObj, "SetNetworkProfile"), flags, 2)
+        this.vtbl.GetVendorExtension := CallbackCreate(GetMethod(implObj, "GetVendorExtension"), flags, 5)
+        this.vtbl.SetVendorExtension := CallbackCreate(GetMethod(implObj, "SetVendorExtension"), flags, 4)
+        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 1)
+        this.vtbl.SetNFCPasswordParams := CallbackCreate(GetMethod(implObj, "SetNFCPasswordParams"), flags, 9)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetPassword)
+        CallbackFree(this.vtbl.Connect)
+        CallbackFree(this.vtbl.GetAttribute)
+        CallbackFree(this.vtbl.GetIntegerAttribute)
+        CallbackFree(this.vtbl.GetStringAttribute)
+        CallbackFree(this.vtbl.GetNetworkProfile)
+        CallbackFree(this.vtbl.SetNetworkProfile)
+        CallbackFree(this.vtbl.GetVendorExtension)
+        CallbackFree(this.vtbl.SetVendorExtension)
+        CallbackFree(this.vtbl.Unadvise)
+        CallbackFree(this.vtbl.SetNFCPasswordParams)
     }
 }

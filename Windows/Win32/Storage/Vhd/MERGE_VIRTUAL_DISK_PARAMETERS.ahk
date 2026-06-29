@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MERGE_VIRTUAL_DISK_VERSION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MERGE_VIRTUAL_DISK_VERSION.ahk" { MERGE_VIRTUAL_DISK_VERSION }
 
 /**
  * Contains virtual hard disk (VHD) merge request parameters.
@@ -11,76 +10,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-merge_virtual_disk_parameters
  * @namespace Windows.Win32.Storage.Vhd
  */
-class MERGE_VIRTUAL_DISK_PARAMETERS extends Win32Struct {
-    static sizeof => 12
+export default struct MERGE_VIRTUAL_DISK_PARAMETERS {
+    #StructPack 4
 
-    static packingSize => 4
+
+    struct _Version1 {
+        MergeDepth : UInt32
+
+    }
+
+    struct _Version2 {
+        MergeSourceDepth : UInt32
+
+        MergeTargetDepth : UInt32
+
+    }
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-merge_virtual_disk_version">MERGE_VIRTUAL_DISK_VERSION</a> enumeration 
      *       that specifies the version of the 
      *       <b>MERGE_VIRTUAL_DISK_PARAMETERS</b> structure 
      *       being passed to or from the VHD functions.
-     * @type {MERGE_VIRTUAL_DISK_VERSION}
      */
-    Version {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Version : MERGE_VIRTUAL_DISK_VERSION
 
-    class _Version1 extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
+    Version1 : MERGE_VIRTUAL_DISK_PARAMETERS._Version1
 
-        /**
-         * @type {Integer}
-         */
-        MergeDepth {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-    }
-
-    class _Version2 extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 4
-
-        /**
-         * @type {Integer}
-         */
-        MergeSourceDepth {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        MergeTargetDepth {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
-    }
-
-    /**
-     * @type {_Version1}
-     */
-    Version1 {
-        get {
-            if(!this.HasProp("__Version1"))
-                this.__Version1 := MERGE_VIRTUAL_DISK_PARAMETERS._Version1(4, this)
-            return this.__Version1
-        }
-    }
-
-    /**
-     * @type {_Version2}
-     */
-    Version2 {
-        get {
-            if(!this.HasProp("__Version2"))
-                this.__Version2 := MERGE_VIRTUAL_DISK_PARAMETERS._Version2(4, this)
-            return this.__Version2
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Version2', { type: MERGE_VIRTUAL_DISK_PARAMETERS._Version2, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

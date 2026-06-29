@@ -1,105 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\KS_BITMAPINFOHEADER.ahk
-#Include .\KS_RGBQUAD.ahk
-#Include .\KS_TRUECOLORINFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\KS_BITMAPINFOHEADER.ahk" { KS_BITMAPINFOHEADER }
+#Import ".\KS_TRUECOLORINFO.ahk" { KS_TRUECOLORINFO }
+#Import ".\KS_RGBQUAD.ahk" { KS_RGBQUAD }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KS_VIDEOINFO extends Win32Struct {
-    static sizeof => 1128
+export default struct KS_VIDEOINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    rcSource : RECT
 
-    /**
-     * @type {RECT}
-     */
-    rcSource {
-        get {
-            if(!this.HasProp("__rcSource"))
-                this.__rcSource := RECT(0, this)
-            return this.__rcSource
-        }
-    }
+    rcTarget : RECT
 
-    /**
-     * @type {RECT}
-     */
-    rcTarget {
-        get {
-            if(!this.HasProp("__rcTarget"))
-                this.__rcTarget := RECT(16, this)
-            return this.__rcTarget
-        }
-    }
+    dwBitRate : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwBitRate {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwBitErrorRate : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwBitErrorRate {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    AvgTimePerFrame : Int64
 
-    /**
-     * @type {Integer}
-     */
-    AvgTimePerFrame {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
-    }
+    bmiHeader : KS_BITMAPINFOHEADER
 
-    /**
-     * @type {KS_BITMAPINFOHEADER}
-     */
-    bmiHeader {
-        get {
-            if(!this.HasProp("__bmiHeader"))
-                this.__bmiHeader := KS_BITMAPINFOHEADER(48, this)
-            return this.__bmiHeader
-        }
-    }
+    bmiColors : KS_RGBQUAD[256]
 
-    /**
-     * @type {KS_RGBQUAD}
-     */
-    bmiColors {
-        get {
-            if(!this.HasProp("__bmiColorsProxyArray"))
-                this.__bmiColorsProxyArray := Win32FixedArray(this.ptr + 88, 256, KS_RGBQUAD, "")
-            return this.__bmiColorsProxyArray
-        }
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    dwBitMasks {
-        get {
-            if(!this.HasProp("__dwBitMasksProxyArray"))
-                this.__dwBitMasksProxyArray := Win32FixedArray(this.ptr + 88, 3, Primitive, "uint")
-            return this.__dwBitMasksProxyArray
-        }
-    }
-
-    /**
-     * @type {KS_TRUECOLORINFO}
-     */
-    TrueColorInfo {
-        get {
-            if(!this.HasProp("__TrueColorInfo"))
-                this.__TrueColorInfo := KS_TRUECOLORINFO(88, this)
-            return this.__TrueColorInfo
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'dwBitMasks', { type: UInt32[3], offset: 88 })
+        DefineProp(this.Prototype, 'TrueColorInfo', { type: KS_TRUECOLORINFO, offset: 88 })
+        this.DeleteProp("__New")
     }
 }

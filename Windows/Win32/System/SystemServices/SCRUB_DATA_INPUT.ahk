@@ -1,84 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class SCRUB_DATA_INPUT extends Win32Struct {
-    static sizeof => 1232
+export default struct SCRUB_DATA_INPUT {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    MaximumIos : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaximumIos {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ObjectId : UInt32[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ObjectId {
-        get {
-            if(!this.HasProp("__ObjectIdProxyArray"))
-                this.__ObjectIdProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "uint")
-            return this.__ObjectIdProxyArray
-        }
-    }
+    StartingByteOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    StartingByteOffset {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ByteCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ByteCount {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    Reserved : UInt32[36]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 48, 36, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
-    }
+    ResumeContext : Int8[1040]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ResumeContext {
-        get {
-            if(!this.HasProp("__ResumeContextProxyArray"))
-                this.__ResumeContextProxyArray := Win32FixedArray(this.ptr + 192, 1040, Primitive, "char")
-            return this.__ResumeContextProxyArray
-        }
-    }
 }

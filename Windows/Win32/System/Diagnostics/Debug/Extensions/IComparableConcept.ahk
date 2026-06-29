@@ -1,31 +1,40 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IModelObject.ahk" { IModelObject }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IComparableConcept extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IComparableConcept extends IUnknown {
     /**
      * The interface identifier for IComparableConcept
      * @type {Guid}
      */
-    static IID => Guid("{a7830646-9f0c-4a31-ba19-503f33e6c8a3}")
+    static IID := Guid("{a7830646-9f0c-4a31-ba19-503f33e6c8a3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IComparableConcept interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CompareObjects : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CompareObjects"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IComparableConcept.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -36,5 +45,25 @@ class IComparableConcept extends IUnknown {
     CompareObjects(contextObject, otherObject) {
         result := ComCall(3, this, "ptr", contextObject, "ptr", otherObject, "int*", &comparisonResult := 0, "HRESULT")
         return comparisonResult
+    }
+
+    Query(iid) {
+        if (IComparableConcept.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CompareObjects := CallbackCreate(GetMethod(implObj, "CompareObjects"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CompareObjects)
     }
 }

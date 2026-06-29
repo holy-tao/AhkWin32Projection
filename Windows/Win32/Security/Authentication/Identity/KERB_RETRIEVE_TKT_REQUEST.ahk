@@ -1,53 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\KERB_PROTOCOL_MESSAGE_TYPE.ahk
-#Include ..\..\..\Foundation\LUID.ahk
-#Include .\LSA_UNICODE_STRING.ahk
-#Include .\KERB_CRYPTO_KEY_TYPE.ahk
-#Include ..\..\Credentials\SecHandle.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import ".\KERB_CRYPTO_KEY_TYPE.ahk" { KERB_CRYPTO_KEY_TYPE }
+#Import "..\..\Credentials\SecHandle.ahk" { SecHandle }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\KERB_PROTOCOL_MESSAGE_TYPE.ahk" { KERB_PROTOCOL_MESSAGE_TYPE }
+#Import "..\..\..\Foundation\LUID.ahk" { LUID }
 
 /**
  * Contains information used to retrieve a ticket.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_retrieve_tkt_request
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class KERB_RETRIEVE_TKT_REQUEST extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct KERB_RETRIEVE_TKT_REQUEST {
+    #StructPack 8
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-kerb_protocol_message_type">KERB_PROTOCOL_MESSAGE_TYPE</a> value indicating the type of request being made. This member must be set to <b>KerbRetrieveEncodedTicketMessage</b>.
-     * @type {KERB_PROTOCOL_MESSAGE_TYPE}
      */
-    MessageType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    MessageType : KERB_PROTOCOL_MESSAGE_TYPE
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-luid">LUID</a> structure containing the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon session</a> identifier. This can be zero for the current user's logon session. If not zero, the caller must have the SeTcbPrivilege privilege set. If this fails, the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">Kerberos</a> authentication package sets the <i>ProtocolStatus</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsacallauthenticationpackage">LsaCallAuthenticationPackage</a> to STATUS_ACCESS_DENIED.
-     * @type {LUID}
      */
-    LogonId {
-        get {
-            if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(4, this)
-            return this.__LogonId
-        }
-    }
+    LogonId : LUID
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the name of the target service.
-     * @type {LSA_UNICODE_STRING}
      */
-    TargetName {
-        get {
-            if(!this.HasProp("__TargetName"))
-                this.__TargetName := LSA_UNICODE_STRING(16, this)
-            return this.__TargetName
-        }
-    }
+    TargetName : LSA_UNICODE_STRING
 
     /**
      * Contains flags specifying uses for the retrieved ticket. If <b>TicketFlags</b> is set to zero and if there is a matching ticket found in the cache, then that ticket will be returned, regardless of its flag values. If there is no match in the cache, a new ticket with the default flag values will be requested. 
@@ -56,12 +36,8 @@ class KERB_RETRIEVE_TKT_REQUEST extends Win32Struct {
      * 
      * 
      * If this member is not set to zero, the returned ticket will not be cached.
-     * @type {Integer}
      */
-    TicketFlags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    TicketFlags : UInt32
 
     /**
      * Indicates options for searching the cache. Set this member to zero to indicate that the cache should be searched and if no ticket if found, a new ticket should be requested. 
@@ -182,31 +158,17 @@ class KERB_RETRIEVE_TKT_REQUEST extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    CacheOptions {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    CacheOptions : UInt32
 
     /**
      * Specifies the type of encryption to use for the requested ticket. If this member is not set to zero, the returned ticket will not be cached.
-     * @type {KERB_CRYPTO_KEY_TYPE}
      */
-    EncryptionType {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    EncryptionType : KERB_CRYPTO_KEY_TYPE
 
     /**
      * An SSPI credentials handle used in place of a logon session identifier.
-     * @type {SecHandle}
      */
-    CredentialsHandle {
-        get {
-            if(!this.HasProp("__CredentialsHandle"))
-                this.__CredentialsHandle := SecHandle(48, this)
-            return this.__CredentialsHandle
-        }
-    }
+    CredentialsHandle : SecHandle
+
 }

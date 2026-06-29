@@ -1,64 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The **NAMED_PROFILE_INFO** structure is used to store information about a named color profile.
  * @see https://learn.microsoft.com/windows/win32/api/icm/ns-icm-named_profile_info
  * @namespace Windows.Win32.UI.ColorSystem
  */
-class NAMED_PROFILE_INFO extends Win32Struct {
-    static sizeof => 76
-
-    static packingSize => 4
+export default struct NAMED_PROFILE_INFO {
+    #StructPack 4
 
     /**
      * Not currently used by the default CMM.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
     /**
      * Total number of named colors in the profile.
-     * @type {Integer}
      */
-    dwCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwCount : UInt32
 
     /**
      * Total number of device coordinates for each named color.
-     * @type {Integer}
      */
-    dwCountDevCoordinates {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwCountDevCoordinates : UInt32
 
     /**
      * Pointer to a string containing the prefix for each color name.
-     * @type {Array<Integer>}
      */
-    szPrefix {
-        get {
-            if(!this.HasProp("__szPrefixProxyArray"))
-                this.__szPrefixProxyArray := Win32FixedArray(this.ptr + 12, 32, Primitive, "char")
-            return this.__szPrefixProxyArray
-        }
-    }
+    szPrefix : Int8[32]
 
     /**
      * Pointer to a string containing the suffix for each color name.
-     * @type {Array<Integer>}
      */
-    szSuffix {
-        get {
-            if(!this.HasProp("__szSuffixProxyArray"))
-                this.__szSuffixProxyArray := Win32FixedArray(this.ptr + 44, 32, Primitive, "char")
-            return this.__szSuffixProxyArray
-        }
-    }
+    szSuffix : Int8[32]
+
 }

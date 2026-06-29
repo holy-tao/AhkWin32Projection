@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\GPT_ATTRIBUTES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\GPT_ATTRIBUTES.ahk" { GPT_ATTRIBUTES }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains GUID partition table (GPT) partition information.
@@ -15,47 +16,30 @@
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-partition_information_gpt
  * @namespace Windows.Win32.System.Ioctl
  */
-class PARTITION_INFORMATION_GPT extends Win32Struct {
-    static sizeof => 96
-
-    static packingSize => 8
+export default struct PARTITION_INFORMATION_GPT {
+    #StructPack 8
 
     /**
      * A <b>GUID</b> that identifies the partition type.
      * 
      * Each partition type that the EFI specification supports is identified by its own 
      *        <b>GUID</b>, which is published by the developer of the partition.
-     * @type {Pointer}
      */
-    PartitionType {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    PartitionType : Guid
 
     /**
      * The GUID of the partition.
-     * @type {Pointer}
      */
-    PartitionId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    PartitionId : Guid
 
     /**
      * The Extensible Firmware Interface (EFI) attributes of the partition.
-     * @type {GPT_ATTRIBUTES}
      */
-    Attributes {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Attributes : GPT_ATTRIBUTES
 
     /**
      * A wide-character string that describes the partition.
-     * @type {String}
      */
-    Name {
-        get => StrGet(this.ptr + 24, 35, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 35, "UTF-16")
-    }
+    Name : WCHAR[36]
+
 }

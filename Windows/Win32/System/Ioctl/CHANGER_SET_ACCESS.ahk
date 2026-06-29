@@ -1,29 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CHANGER_ELEMENT.ahk
-#Include .\ELEMENT_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ELEMENT_TYPE.ahk" { ELEMENT_TYPE }
+#Import ".\CHANGER_ELEMENT.ahk" { CHANGER_ELEMENT }
 
 /**
  * Contains information that the IOCTL_CHANGER_SET_ACCESS control code needs to set the state of the device's insert/eject port, door, or keypad.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-changer_set_access
  * @namespace Windows.Win32.System.Ioctl
  */
-class CHANGER_SET_ACCESS extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct CHANGER_SET_ACCESS {
+    #StructPack 4
 
     /**
      * A
-     * @type {CHANGER_ELEMENT}
      */
-    Element {
-        get {
-            if(!this.HasProp("__Element"))
-                this.__Element := CHANGER_ELEMENT(0, this)
-            return this.__Element
-        }
-    }
+    Element : CHANGER_ELEMENT
 
     /**
      * The operation to be performed.
@@ -98,10 +88,7 @@ class CHANGER_SET_ACCESS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Control {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Control : UInt32
+
 }

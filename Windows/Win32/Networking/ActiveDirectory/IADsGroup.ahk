@@ -1,35 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IADs.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IADsMembers.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IADsMembers.ahk" { IADsMembers }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IADs.ahk" { IADs }
 
 /**
  * Manages group membership data in a directory service.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsgroup
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IADsGroup extends IADs {
-
-    static sizeof => A_PtrSize
+export default struct IADsGroup extends IADs {
     /**
      * The interface identifier for IADsGroup
      * @type {Guid}
      */
-    static IID => Guid("{27636b00-410f-11cf-b1ff-02608c9e7553}")
+    static IID := Guid("{27636b00-410f-11cf-b1ff-02608c9e7553}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 20
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IADsGroup interfaces
+    */
+    struct Vtbl extends IADs.Vtbl {
+        get_Description : IntPtr
+        put_Description : IntPtr
+        Members         : IntPtr
+        IsMember        : IntPtr
+        Add             : IntPtr
+        Remove          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Description", "put_Description", "Members", "IsMember", "Add", "Remove"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IADsGroup.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -44,8 +58,8 @@ class IADsGroup extends IADs {
      * @returns {BSTR} 
      */
     get_Description() {
-        retval := BSTR()
-        result := ComCall(20, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(20, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -57,7 +71,7 @@ class IADsGroup extends IADs {
     put_Description(bstrDescription) {
         bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
 
-        result := ComCall(21, this, "ptr", bstrDescription, "HRESULT")
+        result := ComCall(21, this, BSTR, bstrDescription, "HRESULT")
         return result
     }
 
@@ -86,7 +100,7 @@ class IADsGroup extends IADs {
     IsMember(bstrMember) {
         bstrMember := bstrMember is String ? BSTR.Alloc(bstrMember).Value : bstrMember
 
-        result := ComCall(23, this, "ptr", bstrMember, "short*", &bMember := 0, "HRESULT")
+        result := ComCall(23, this, BSTR, bstrMember, VARIANT_BOOL.Ptr, &bMember := 0, "HRESULT")
         return bMember
     }
 
@@ -118,7 +132,7 @@ class IADsGroup extends IADs {
     Add(bstrNewItem) {
         bstrNewItem := bstrNewItem is String ? BSTR.Alloc(bstrNewItem).Value : bstrNewItem
 
-        result := ComCall(24, this, "ptr", bstrNewItem, "HRESULT")
+        result := ComCall(24, this, BSTR, bstrNewItem, "HRESULT")
         return result
     }
 
@@ -153,7 +167,37 @@ class IADsGroup extends IADs {
     Remove(bstrItemToBeRemoved) {
         bstrItemToBeRemoved := bstrItemToBeRemoved is String ? BSTR.Alloc(bstrItemToBeRemoved).Value : bstrItemToBeRemoved
 
-        result := ComCall(25, this, "ptr", bstrItemToBeRemoved, "HRESULT")
+        result := ComCall(25, this, BSTR, bstrItemToBeRemoved, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IADsGroup.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.Members := CallbackCreate(GetMethod(implObj, "Members"), flags, 2)
+        this.vtbl.IsMember := CallbackCreate(GetMethod(implObj, "IsMember"), flags, 3)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Description)
+        CallbackFree(this.vtbl.put_Description)
+        CallbackFree(this.vtbl.Members)
+        CallbackFree(this.vtbl.IsMember)
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.Remove)
     }
 }

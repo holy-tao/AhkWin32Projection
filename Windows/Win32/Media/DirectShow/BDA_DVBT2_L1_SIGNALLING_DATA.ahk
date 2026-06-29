@@ -1,147 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class BDA_DVBT2_L1_SIGNALLING_DATA extends Win32Struct {
-    static sizeof => 26
+export default struct BDA_DVBT2_L1_SIGNALLING_DATA {
+    #StructPack 1
 
-    static packingSize => 1
+    L1Pre_TYPE : Int8
 
-    /**
-     * @type {Integer}
-     */
-    L1Pre_TYPE {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    L1Pre_BWT_S1_S2 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    L1Pre_BWT_S1_S2 {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    L1Pre_REPETITION_GUARD_PAPR : Int8
 
-    /**
-     * @type {Integer}
-     */
-    L1Pre_REPETITION_GUARD_PAPR {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    L1Pre_MOD_COD_FEC : Int8
 
-    /**
-     * @type {Integer}
-     */
-    L1Pre_MOD_COD_FEC {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    L1Pre_POSTSIZE_INFO_PILOT : Int8[5]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    L1Pre_POSTSIZE_INFO_PILOT {
-        get {
-            if(!this.HasProp("__L1Pre_POSTSIZE_INFO_PILOTProxyArray"))
-                this.__L1Pre_POSTSIZE_INFO_PILOTProxyArray := Win32FixedArray(this.ptr + 4, 5, Primitive, "char")
-            return this.__L1Pre_POSTSIZE_INFO_PILOTProxyArray
-        }
-    }
+    L1Pre_TX_ID_AVAIL : Int8
 
-    /**
-     * @type {Integer}
-     */
-    L1Pre_TX_ID_AVAIL {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    L1Pre_CELL_ID : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    L1Pre_CELL_ID {
-        get {
-            if(!this.HasProp("__L1Pre_CELL_IDProxyArray"))
-                this.__L1Pre_CELL_IDProxyArray := Win32FixedArray(this.ptr + 10, 2, Primitive, "char")
-            return this.__L1Pre_CELL_IDProxyArray
-        }
-    }
+    L1Pre_NETWORK_ID : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    L1Pre_NETWORK_ID {
-        get {
-            if(!this.HasProp("__L1Pre_NETWORK_IDProxyArray"))
-                this.__L1Pre_NETWORK_IDProxyArray := Win32FixedArray(this.ptr + 12, 2, Primitive, "char")
-            return this.__L1Pre_NETWORK_IDProxyArray
-        }
-    }
+    L1Pre_T2SYSTEM_ID : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    L1Pre_T2SYSTEM_ID {
-        get {
-            if(!this.HasProp("__L1Pre_T2SYSTEM_IDProxyArray"))
-                this.__L1Pre_T2SYSTEM_IDProxyArray := Win32FixedArray(this.ptr + 14, 2, Primitive, "char")
-            return this.__L1Pre_T2SYSTEM_IDProxyArray
-        }
-    }
+    L1Pre_NUM_T2_FRAMES : Int8
 
-    /**
-     * @type {Integer}
-     */
-    L1Pre_NUM_T2_FRAMES {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    L1Pre_NUM_DATA_REGENFLAG_L1POSTEXT : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    L1Pre_NUM_DATA_REGENFLAG_L1POSTEXT {
-        get {
-            if(!this.HasProp("__L1Pre_NUM_DATA_REGENFLAG_L1POSTEXTProxyArray"))
-                this.__L1Pre_NUM_DATA_REGENFLAG_L1POSTEXTProxyArray := Win32FixedArray(this.ptr + 17, 2, Primitive, "char")
-            return this.__L1Pre_NUM_DATA_REGENFLAG_L1POSTEXTProxyArray
-        }
-    }
+    L1Pre_NUMRF_CURRENTRF_RESERVED : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    L1Pre_NUMRF_CURRENTRF_RESERVED {
-        get {
-            if(!this.HasProp("__L1Pre_NUMRF_CURRENTRF_RESERVEDProxyArray"))
-                this.__L1Pre_NUMRF_CURRENTRF_RESERVEDProxyArray := Win32FixedArray(this.ptr + 19, 2, Primitive, "char")
-            return this.__L1Pre_NUMRF_CURRENTRF_RESERVEDProxyArray
-        }
-    }
+    L1Pre_CRC32 : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    L1Pre_CRC32 {
-        get {
-            if(!this.HasProp("__L1Pre_CRC32ProxyArray"))
-                this.__L1Pre_CRC32ProxyArray := Win32FixedArray(this.ptr + 21, 4, Primitive, "char")
-            return this.__L1Pre_CRC32ProxyArray
-        }
-    }
+    L1PostData : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    L1PostData {
-        get {
-            if(!this.HasProp("__L1PostDataProxyArray"))
-                this.__L1PostDataProxyArray := Win32FixedArray(this.ptr + 25, 1, Primitive, "char")
-            return this.__L1PostDataProxyArray
-        }
-    }
 }

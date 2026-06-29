@@ -1,67 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SEC_WINNT_AUTH_IDENTITY32 extends Win32Struct {
-    static sizeof => 28
+export default struct SEC_WINNT_AUTH_IDENTITY32 {
+    #StructPack 4
 
-    static packingSize => 4
+    User : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    User {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    UserLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    UserLength {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Domain : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Domain {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    DomainLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DomainLength {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Password : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Password {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    PasswordLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PasswordLength {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

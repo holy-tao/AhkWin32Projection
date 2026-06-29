@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Determines which, if any, modifier keys were pressed when the flick gesture occurred.
  * @see https://learn.microsoft.com/windows/win32/api/tabflicks/ne-tabflicks-keymodifier
  * @namespace Windows.Win32.UI.TabletPC
  */
-class KEYMODIFIER extends Win32Enum {
+export default struct KEYMODIFIER {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The Control key was pressed when the Flicks gesture occurred.

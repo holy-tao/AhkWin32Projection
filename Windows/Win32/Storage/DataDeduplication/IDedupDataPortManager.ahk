@@ -1,32 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDedupDataPort.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDedupDataPort.ahk" { IDedupDataPort }
+#Import ".\DedupCompressionAlgorithm.ahk" { DedupCompressionAlgorithm }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\DedupChunkingAlgorithm.ahk" { DedupChunkingAlgorithm }
+#Import ".\DedupHashingAlgorithm.ahk" { DedupHashingAlgorithm }
+#Import ".\DedupDataPortVolumeStatus.ahk" { DedupDataPortVolumeStatus }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Storage.DataDeduplication
  */
-class IDedupDataPortManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDedupDataPortManager extends IUnknown {
     /**
      * The interface identifier for IDedupDataPortManager
      * @type {Guid}
      */
-    static IID => Guid("{44677452-b90a-445e-8192-cdcfe81511fb}")
+    static IID := Guid("{44677452-b90a-445e-8192-cdcfe81511fb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDedupDataPortManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetConfiguration  : IntPtr
+        GetVolumeStatus   : IntPtr
+        GetVolumeDataPort : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetConfiguration", "GetVolumeStatus", "GetVolumeDataPort"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDedupDataPortManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Read the active configuration of the collector.
@@ -76,7 +91,7 @@ class IDedupDataPortManager extends IUnknown {
     GetVolumeStatus(Options, _Path) {
         _Path := _Path is String ? BSTR.Alloc(_Path).Value : _Path
 
-        result := ComCall(4, this, "uint", Options, "ptr", _Path, "int*", &pStatus := 0, "HRESULT")
+        result := ComCall(4, this, "uint", Options, BSTR, _Path, "int*", &pStatus := 0, "HRESULT")
         return pStatus
     }
 
@@ -89,7 +104,31 @@ class IDedupDataPortManager extends IUnknown {
     GetVolumeDataPort(Options, _Path) {
         _Path := _Path is String ? BSTR.Alloc(_Path).Value : _Path
 
-        result := ComCall(5, this, "uint", Options, "ptr", _Path, "ptr*", &ppDataPort := 0, "HRESULT")
+        result := ComCall(5, this, "uint", Options, BSTR, _Path, "ptr*", &ppDataPort := 0, "HRESULT")
         return IDedupDataPort(ppDataPort)
+    }
+
+    Query(iid) {
+        if (IDedupDataPortManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetConfiguration := CallbackCreate(GetMethod(implObj, "GetConfiguration"), flags, 6)
+        this.vtbl.GetVolumeStatus := CallbackCreate(GetMethod(implObj, "GetVolumeStatus"), flags, 4)
+        this.vtbl.GetVolumeDataPort := CallbackCreate(GetMethod(implObj, "GetVolumeDataPort"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetConfiguration)
+        CallbackFree(this.vtbl.GetVolumeStatus)
+        CallbackFree(this.vtbl.GetVolumeDataPort)
     }
 }

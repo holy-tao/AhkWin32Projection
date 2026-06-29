@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IStream.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Use this interface to generate a read-only data stream whose data is initialized with pseudo-random data (not cryptographically safe). You must call the SetSize method to set the requested size of the stream.
@@ -10,26 +11,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-istreampseudorandombased
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IStreamPseudoRandomBased extends IStream {
-
-    static sizeof => A_PtrSize
+export default struct IStreamPseudoRandomBased extends IStream {
     /**
      * The interface identifier for IStreamPseudoRandomBased
      * @type {Guid}
      */
-    static IID => Guid("{27354145-7f64-5b0f-8f00-5d77afbe261e}")
+    static IID := Guid("{27354145-7f64-5b0f-8f00-5d77afbe261e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IStreamPseudoRandomBased interfaces
+    */
+    struct Vtbl extends IStream.Vtbl {
+        put_Seed         : IntPtr
+        get_Seed         : IntPtr
+        put_ExtendedSeed : IntPtr
+        get_ExtendedSeed : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_Seed", "get_Seed", "put_ExtendedSeed", "get_ExtendedSeed"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IStreamPseudoRandomBased.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -129,5 +140,31 @@ class IStreamPseudoRandomBased extends IStream {
 
         result := ComCall(17, this, valuesMarshal, values, eCountMarshal, eCount, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IStreamPseudoRandomBased.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_Seed := CallbackCreate(GetMethod(implObj, "put_Seed"), flags, 2)
+        this.vtbl.get_Seed := CallbackCreate(GetMethod(implObj, "get_Seed"), flags, 2)
+        this.vtbl.put_ExtendedSeed := CallbackCreate(GetMethod(implObj, "put_ExtendedSeed"), flags, 3)
+        this.vtbl.get_ExtendedSeed := CallbackCreate(GetMethod(implObj, "get_ExtendedSeed"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_Seed)
+        CallbackFree(this.vtbl.get_Seed)
+        CallbackFree(this.vtbl.put_ExtendedSeed)
+        CallbackFree(this.vtbl.get_ExtendedSeed)
     }
 }

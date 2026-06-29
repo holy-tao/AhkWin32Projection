@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITfFunction.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ITfRange.ahk" { ITfRange }
+#Import ".\ITfLMLattice.ahk" { ITfLMLattice }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfFunction.ahk" { ITfFunction }
 
 /**
  * The ITfFnAdviseText interface is implemented by a text service and used by the TSF manager to supply notifications when the text or lattice element in a context changes.
  * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nn-ctffunc-itffnadvisetext
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfFnAdviseText extends ITfFunction {
-
-    static sizeof => A_PtrSize
+export default struct ITfFnAdviseText extends ITfFunction {
     /**
      * The interface identifier for ITfFnAdviseText
      * @type {Guid}
      */
-    static IID => Guid("{3527268b-7d53-4dd9-92b7-7296ae461249}")
+    static IID := Guid("{3527268b-7d53-4dd9-92b7-7296ae461249}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfFnAdviseText interfaces
+    */
+    struct Vtbl extends ITfFunction.Vtbl {
+        OnTextUpdate    : IntPtr
+        OnLatticeUpdate : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnTextUpdate", "OnLatticeUpdate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfFnAdviseText.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfFnAdviseText::OnTextUpdate method
@@ -112,5 +124,27 @@ class ITfFnAdviseText extends ITfFunction {
     OnLatticeUpdate(pRange, pLattice) {
         result := ComCall(5, this, "ptr", pRange, "ptr", pLattice, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITfFnAdviseText.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnTextUpdate := CallbackCreate(GetMethod(implObj, "OnTextUpdate"), flags, 4)
+        this.vtbl.OnLatticeUpdate := CallbackCreate(GetMethod(implObj, "OnLatticeUpdate"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnTextUpdate)
+        CallbackFree(this.vtbl.OnLatticeUpdate)
     }
 }

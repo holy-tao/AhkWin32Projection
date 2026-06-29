@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains the time-out parameters for a communications device.
@@ -22,10 +21,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-commtimeouts
  * @namespace Windows.Win32.Devices.Communication
  */
-class COMMTIMEOUTS extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct COMMTIMEOUTS {
+    #StructPack 4
 
     /**
      * The maximum time allowed to elapse before the arrival of the next byte on the communications line, in 
@@ -37,22 +34,14 @@ class COMMTIMEOUTS extends Win32Struct {
      *        <b>ReadTotalTimeoutConstant</b> and <b>ReadTotalTimeoutMultiplier</b> 
      *        members, specifies that the read operation is to return immediately with the bytes that have already been 
      *        received, even if no bytes have been received.
-     * @type {Integer}
      */
-    ReadIntervalTimeout {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ReadIntervalTimeout : UInt32
 
     /**
      * The multiplier used to calculate the total time-out period for read operations, in milliseconds. For each 
      *       read operation, this value is multiplied by the requested number of bytes to be read.
-     * @type {Integer}
      */
-    ReadTotalTimeoutMultiplier {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ReadTotalTimeoutMultiplier : UInt32
 
     /**
      * A constant used to calculate the total time-out period for read operations, in milliseconds. For each read 
@@ -62,22 +51,14 @@ class COMMTIMEOUTS extends Win32Struct {
      * A value of zero for both the <b>ReadTotalTimeoutMultiplier</b> and 
      *        <b>ReadTotalTimeoutConstant</b> members indicates that total time-outs are not used for 
      *        read operations.
-     * @type {Integer}
      */
-    ReadTotalTimeoutConstant {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ReadTotalTimeoutConstant : UInt32
 
     /**
      * The multiplier used to calculate the total time-out period for write operations, in milliseconds. For each 
      *       write operation, this value is multiplied by the number of bytes to be written.
-     * @type {Integer}
      */
-    WriteTotalTimeoutMultiplier {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    WriteTotalTimeoutMultiplier : UInt32
 
     /**
      * A constant used to calculate the total time-out period for write operations, in milliseconds. For each write 
@@ -87,10 +68,7 @@ class COMMTIMEOUTS extends Win32Struct {
      * A value of zero for both the <b>WriteTotalTimeoutMultiplier</b> and 
      *        <b>WriteTotalTimeoutConstant</b> members indicates that total time-outs are not used for 
      *        write operations.
-     * @type {Integer}
      */
-    WriteTotalTimeoutConstant {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    WriteTotalTimeoutConstant : UInt32
+
 }

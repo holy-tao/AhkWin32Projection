@@ -1,80 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The DS_REPL_ATTR_META_DATA_BLOB structure is used to contain replication state data for an object attribute.
  * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_attr_meta_data_blob
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class DS_REPL_ATTR_META_DATA_BLOB extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct DS_REPL_ATTR_META_DATA_BLOB {
+    #StructPack 8
 
     /**
      * Contains the offset, in bytes, from the address of this structure  to  a null-terminated Unicode string that contains the LDAP display name of the attribute corresponding to this metadata. A value of zero indicates an empty or <b>NULL</b> string.
-     * @type {Integer}
      */
-    oszAttributeName {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    oszAttributeName : UInt32
 
     /**
      * Contains the version of this attribute. Each originating modification of the attribute increases this value by one. Replication of a modification does not affect the version.
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwVersion : UInt32
 
     /**
      * Contains the time at which the last originating change was made to this attribute. Replication of the change does not affect this value.
-     * @type {FILETIME}
      */
-    ftimeLastOriginatingChange {
-        get {
-            if(!this.HasProp("__ftimeLastOriginatingChange"))
-                this.__ftimeLastOriginatingChange := FILETIME(8, this)
-            return this.__ftimeLastOriginatingChange
-        }
-    }
+    ftimeLastOriginatingChange : FILETIME
 
     /**
      * Contains the invocation identification of the server on which the last change was made to this attribute. Replication of the change does not affect this value.
-     * @type {Pointer}
      */
-    uuidLastOriginatingDsaInvocationID {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    uuidLastOriginatingDsaInvocationID : Guid
 
     /**
      * Contains the update sequence number (USN) on the originating server at which the last change to this attribute was made. Replication of the change does not affect this value.
-     * @type {Integer}
      */
-    usnOriginatingChange {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    usnOriginatingChange : Int64
 
     /**
      * Contains the USN on the destination server (the server from which the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsreplicagetinfow">DsReplicaGetInfo</a> function retrieved the metadata) at which the last change to this attribute was applied. This value typically is different on all servers.
-     * @type {Integer}
      */
-    usnLocalChange {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
+    usnLocalChange : Int64
 
     /**
      * Contains the offset, in bytes, from the address of this structure  to  a null-terminated Unicode string that contains the distinguished name of the directory system agent server that originated the last replication. A value of zero indicates an empty or <b>NULL</b> string.
-     * @type {Integer}
      */
-    oszLastOriginatingDsaDN {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    oszLastOriginatingDsaDN : UInt32
+
 }

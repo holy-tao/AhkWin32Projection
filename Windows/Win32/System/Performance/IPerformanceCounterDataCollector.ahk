@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDataCollector.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FileFormat.ahk" { FileFormat }
+#Import ".\IDataCollector.ahk" { IDataCollector }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Specifies the performance counters to query and the log file to which the counter data is written.To create this data collector, call the IDataCollectorCollection::CreateDataCollector or IDataCollectorCollection::CreateDataCollectorFromXml method.
@@ -29,26 +32,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-iperformancecounterdatacollector
  * @namespace Windows.Win32.System.Performance
  */
-class IPerformanceCounterDataCollector extends IDataCollector {
-
-    static sizeof => A_PtrSize
+export default struct IPerformanceCounterDataCollector extends IDataCollector {
     /**
      * The interface identifier for IPerformanceCounterDataCollector
      * @type {Guid}
      */
-    static IID => Guid("{03837506-098b-11d8-9414-505054503030}")
+    static IID := Guid("{03837506-098b-11d8-9414-505054503030}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 32
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPerformanceCounterDataCollector interfaces
+    */
+    struct Vtbl extends IDataCollector.Vtbl {
+        get_DataSourceName      : IntPtr
+        put_DataSourceName      : IntPtr
+        get_PerformanceCounters : IntPtr
+        put_PerformanceCounters : IntPtr
+        get_LogFileFormat       : IntPtr
+        put_LogFileFormat       : IntPtr
+        get_SampleInterval      : IntPtr
+        put_SampleInterval      : IntPtr
+        get_SegmentMaxRecords   : IntPtr
+        put_SegmentMaxRecords   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_DataSourceName", "put_DataSourceName", "get_PerformanceCounters", "put_PerformanceCounters", "get_LogFileFormat", "put_LogFileFormat", "get_SampleInterval", "put_SampleInterval", "get_SegmentMaxRecords", "put_SegmentMaxRecords"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPerformanceCounterDataCollector.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -98,8 +117,8 @@ class IPerformanceCounterDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iperformancecounterdatacollector-get_datasourcename
      */
     get_DataSourceName() {
-        dsn := BSTR()
-        result := ComCall(32, this, "ptr", dsn, "HRESULT")
+        dsn := BSTR.Owned()
+        result := ComCall(32, this, BSTR.Ptr, dsn, "HRESULT")
         return dsn
     }
 
@@ -114,7 +133,7 @@ class IPerformanceCounterDataCollector extends IDataCollector {
     put_DataSourceName(dsn) {
         dsn := dsn is String ? BSTR.Alloc(dsn).Value : dsn
 
-        result := ComCall(33, this, "ptr", dsn, "HRESULT")
+        result := ComCall(33, this, BSTR, dsn, "HRESULT")
         return result
     }
 
@@ -135,7 +154,7 @@ class IPerformanceCounterDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iperformancecounterdatacollector-put_performancecounters
      */
     put_PerformanceCounters(_counters) {
-        result := ComCall(35, this, "ptr", _counters, "HRESULT")
+        result := ComCall(35, this, SAFEARRAY.Ptr, _counters, "HRESULT")
         return result
     }
 
@@ -156,7 +175,7 @@ class IPerformanceCounterDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iperformancecounterdatacollector-put_logfileformat
      */
     put_LogFileFormat(format) {
-        result := ComCall(37, this, "int", format, "HRESULT")
+        result := ComCall(37, this, FileFormat, format, "HRESULT")
         return result
     }
 
@@ -204,5 +223,43 @@ class IPerformanceCounterDataCollector extends IDataCollector {
     put_SegmentMaxRecords(records) {
         result := ComCall(41, this, "uint", records, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPerformanceCounterDataCollector.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_DataSourceName := CallbackCreate(GetMethod(implObj, "get_DataSourceName"), flags, 2)
+        this.vtbl.put_DataSourceName := CallbackCreate(GetMethod(implObj, "put_DataSourceName"), flags, 2)
+        this.vtbl.get_PerformanceCounters := CallbackCreate(GetMethod(implObj, "get_PerformanceCounters"), flags, 2)
+        this.vtbl.put_PerformanceCounters := CallbackCreate(GetMethod(implObj, "put_PerformanceCounters"), flags, 2)
+        this.vtbl.get_LogFileFormat := CallbackCreate(GetMethod(implObj, "get_LogFileFormat"), flags, 2)
+        this.vtbl.put_LogFileFormat := CallbackCreate(GetMethod(implObj, "put_LogFileFormat"), flags, 2)
+        this.vtbl.get_SampleInterval := CallbackCreate(GetMethod(implObj, "get_SampleInterval"), flags, 2)
+        this.vtbl.put_SampleInterval := CallbackCreate(GetMethod(implObj, "put_SampleInterval"), flags, 2)
+        this.vtbl.get_SegmentMaxRecords := CallbackCreate(GetMethod(implObj, "get_SegmentMaxRecords"), flags, 2)
+        this.vtbl.put_SegmentMaxRecords := CallbackCreate(GetMethod(implObj, "put_SegmentMaxRecords"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_DataSourceName)
+        CallbackFree(this.vtbl.put_DataSourceName)
+        CallbackFree(this.vtbl.get_PerformanceCounters)
+        CallbackFree(this.vtbl.put_PerformanceCounters)
+        CallbackFree(this.vtbl.get_LogFileFormat)
+        CallbackFree(this.vtbl.put_LogFileFormat)
+        CallbackFree(this.vtbl.get_SampleInterval)
+        CallbackFree(this.vtbl.put_SampleInterval)
+        CallbackFree(this.vtbl.get_SegmentMaxRecords)
+        CallbackFree(this.vtbl.put_SegmentMaxRecords)
     }
 }

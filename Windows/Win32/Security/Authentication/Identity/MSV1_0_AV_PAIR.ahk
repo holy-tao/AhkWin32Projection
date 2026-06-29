@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class MSV1_0_AV_PAIR extends Win32Struct {
-    static sizeof => 4
+export default struct MSV1_0_AV_PAIR {
+    #StructPack 2
 
-    static packingSize => 2
+    AvId : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    AvId {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    AvLen : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    AvLen {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
 }

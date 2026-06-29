@@ -1,12 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * The accounts operator privilege is enabled.
- * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_1010
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class AF_OP extends Win32BitflagEnum {
+export default struct AF_OP {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

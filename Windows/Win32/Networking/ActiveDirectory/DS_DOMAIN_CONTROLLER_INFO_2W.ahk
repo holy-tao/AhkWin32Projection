@@ -1,5 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The DS_DOMAIN_CONTROLLER_INFO_2 structure contains data about a domain controller. This structure is returned by the DsGetDomainControllerInfo function. (Unicode)
@@ -16,134 +18,77 @@
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @charset Unicode
  */
-class DS_DOMAIN_CONTROLLER_INFO_2W extends Win32Struct {
-    static sizeof => 104
-
-    static packingSize => 8
+export default struct DS_DOMAIN_CONTROLLER_INFO_2W {
+    #StructPack 8
 
     /**
      * Pointer to a null-terminated string that specifies the NetBIOS name of the domain controller.
-     * @type {PWSTR}
      */
-    NetbiosName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    NetbiosName : PWSTR
 
     /**
      * Pointer to a null-terminated  string that specifies the DNS host name of the domain controller.
-     * @type {PWSTR}
      */
-    DnsHostName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    DnsHostName : PWSTR
 
     /**
      * Pointer to a null-terminated  string that specifies the site to which the domain controller belongs.
-     * @type {PWSTR}
      */
-    SiteName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    SiteName : PWSTR
 
     /**
      * Pointer to a null-terminated  string that specifies the name of the site object on the domain controller.
-     * @type {PWSTR}
      */
-    SiteObjectName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    SiteObjectName : PWSTR
 
     /**
      * Pointer to a null-terminated  string that specifies the name of the computer object on the domain controller.
-     * @type {PWSTR}
      */
-    ComputerObjectName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    ComputerObjectName : PWSTR
 
     /**
      * Pointer to a null-terminated  string that specifies the name of the server object on the domain controller.
-     * @type {PWSTR}
      */
-    ServerObjectName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    ServerObjectName : PWSTR
 
     /**
      * Pointer to a null-terminated  string that specifies the name of the NTDS DSA object on the domain controller.
-     * @type {PWSTR}
      */
-    NtdsDsaObjectName {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    NtdsDsaObjectName : PWSTR
 
     /**
      * A Boolean value that indicates whether or not this domain controller is the primary domain controller. If this value is <b>TRUE</b>, the domain controller is the primary domain controller; otherwise, the domain controller is not the primary domain controller.
-     * @type {BOOL}
      */
-    fIsPdc {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    fIsPdc : BOOL
 
     /**
      * A Boolean value that indicates whether or not the domain controller is enabled. If this value is <b>TRUE</b>, the domain controller is enabled; otherwise, it is not enabled.
-     * @type {BOOL}
      */
-    fDsEnabled {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
-    }
+    fDsEnabled : BOOL
 
     /**
      * A Boolean value that indicates whether or not the domain controller is global catalog server. If this value is <b>TRUE</b>, the domain controller is a global catalog server; otherwise, it is not a global catalog server.
-     * @type {BOOL}
      */
-    fIsGc {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
-    }
+    fIsGc : BOOL
 
     /**
      * Contains the <b>GUID</b> for the site object on the domain controller.
-     * @type {Pointer}
      */
-    SiteObjectGuid {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    SiteObjectGuid : Guid
 
     /**
      * Contains the <b>GUID</b> for the computer object on the domain controller.
-     * @type {Pointer}
      */
-    ComputerObjectGuid {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    ComputerObjectGuid : Guid
 
     /**
      * Contains the <b>GUID</b> for the server object on the domain controller.
-     * @type {Pointer}
      */
-    ServerObjectGuid {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    ServerObjectGuid : Guid
 
     /**
      * Contains the <b>GUID</b> for the NTDS DSA object on the domain controller.
-     * @type {Pointer}
      */
-    NtdsDsaObjectGuid {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    NtdsDsaObjectGuid : Guid
+
 }

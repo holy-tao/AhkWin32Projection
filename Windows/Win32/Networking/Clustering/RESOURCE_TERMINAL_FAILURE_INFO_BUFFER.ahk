@@ -1,27 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
  */
-class RESOURCE_TERMINAL_FAILURE_INFO_BUFFER extends Win32Struct {
-    static sizeof => 8
+export default struct RESOURCE_TERMINAL_FAILURE_INFO_BUFFER {
+    #StructPack 4
 
-    static packingSize => 4
+    isTerminalFailure : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    isTerminalFailure {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    restartPeriodRemaining : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    restartPeriodRemaining {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
 }

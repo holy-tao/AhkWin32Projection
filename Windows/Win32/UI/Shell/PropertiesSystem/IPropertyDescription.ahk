@@ -1,8 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\Foundation\PROPERTYKEY.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PROPDESC_AGGREGATION_TYPE.ahk" { PROPDESC_AGGREGATION_TYPE }
+#Import "..\..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import ".\PROPDESC_DISPLAYTYPE.ahk" { PROPDESC_DISPLAYTYPE }
+#Import ".\PROPDESC_TYPE_FLAGS.ahk" { PROPDESC_TYPE_FLAGS }
+#Import ".\PROPDESC_CONDITION_TYPE.ahk" { PROPDESC_CONDITION_TYPE }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\System\Search\Common\CONDITION_OPERATION.ahk" { CONDITION_OPERATION }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PROPDESC_RELATIVEDESCRIPTION_TYPE.ahk" { PROPDESC_RELATIVEDESCRIPTION_TYPE }
+#Import ".\PROPDESC_FORMAT_FLAGS.ahk" { PROPDESC_FORMAT_FLAGS }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\PROPDESC_VIEW_FLAGS.ahk" { PROPDESC_VIEW_FLAGS }
+#Import "..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\PROPDESC_SORTDESCRIPTION.ahk" { PROPDESC_SORTDESCRIPTION }
+#Import ".\PROPDESC_GROUPING_RANGE.ahk" { PROPDESC_GROUPING_RANGE }
 
 /**
  * Exposes methods that enumerate and retrieve individual property description details. (IPropertyDescription)
@@ -16,26 +30,53 @@
  * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-ipropertydescription
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  */
-class IPropertyDescription extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPropertyDescription extends IUnknown {
     /**
      * The interface identifier for IPropertyDescription
      * @type {Guid}
      */
-    static IID => Guid("{6f79d558-3e96-4549-a1d1-7d75d2288814}")
+    static IID := Guid("{6f79d558-3e96-4549-a1d1-7d75d2288814}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPropertyDescription interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetPropertyKey             : IntPtr
+        GetCanonicalName           : IntPtr
+        GetPropertyType            : IntPtr
+        GetDisplayName             : IntPtr
+        GetEditInvitation          : IntPtr
+        GetTypeFlags               : IntPtr
+        GetViewFlags               : IntPtr
+        GetDefaultColumnWidth      : IntPtr
+        GetDisplayType             : IntPtr
+        GetColumnState             : IntPtr
+        GetGroupingRange           : IntPtr
+        GetRelativeDescriptionType : IntPtr
+        GetRelativeDescription     : IntPtr
+        GetSortDescription         : IntPtr
+        GetSortDescriptionLabel    : IntPtr
+        GetAggregationType         : IntPtr
+        GetConditionType           : IntPtr
+        GetEnumTypeList            : IntPtr
+        CoerceToCanonicalValue     : IntPtr
+        FormatForDisplay           : IntPtr
+        IsValueCanonical           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPropertyKey", "GetCanonicalName", "GetPropertyType", "GetDisplayName", "GetEditInvitation", "GetTypeFlags", "GetViewFlags", "GetDefaultColumnWidth", "GetDisplayType", "GetColumnState", "GetGroupingRange", "GetRelativeDescriptionType", "GetRelativeDescription", "GetSortDescription", "GetSortDescriptionLabel", "GetAggregationType", "GetConditionType", "GetEnumTypeList", "CoerceToCanonicalValue", "FormatForDisplay", "IsValueCanonical"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPropertyDescription.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a structure that acts as a property's unique identifier.
@@ -48,7 +89,7 @@ class IPropertyDescription extends IUnknown {
      */
     GetPropertyKey() {
         pkey := PROPERTYKEY()
-        result := ComCall(3, this, "ptr", pkey, "HRESULT")
+        result := ComCall(3, this, PROPERTYKEY.Ptr, pkey, "HRESULT")
         return pkey
     }
 
@@ -64,7 +105,7 @@ class IPropertyDescription extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getcanonicalname
      */
     GetCanonicalName() {
-        result := ComCall(4, this, "ptr*", &ppszName := 0, "HRESULT")
+        result := ComCall(4, this, PWSTR.Ptr, &ppszName := 0, "HRESULT")
         return ppszName
     }
 
@@ -94,7 +135,7 @@ class IPropertyDescription extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getdisplayname
      */
     GetDisplayName() {
-        result := ComCall(6, this, "ptr*", &ppszName := 0, "HRESULT")
+        result := ComCall(6, this, PWSTR.Ptr, &ppszName := 0, "HRESULT")
         return ppszName
     }
 
@@ -110,7 +151,7 @@ class IPropertyDescription extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-geteditinvitation
      */
     GetEditInvitation() {
-        result := ComCall(7, this, "ptr*", &ppszInvite := 0, "HRESULT")
+        result := ComCall(7, this, PWSTR.Ptr, &ppszInvite := 0, "HRESULT")
         return ppszInvite
     }
 
@@ -131,7 +172,7 @@ class IPropertyDescription extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-gettypeflags
      */
     GetTypeFlags(mask) {
-        result := ComCall(8, this, "uint", mask, "uint*", &ppdtFlags := 0, "HRESULT")
+        result := ComCall(8, this, PROPDESC_TYPE_FLAGS, mask, "uint*", &ppdtFlags := 0, "HRESULT")
         return ppdtFlags
     }
 
@@ -244,7 +285,7 @@ class IPropertyDescription extends IUnknown {
         ppszDesc1Marshal := ppszDesc1 is VarRef ? "ptr*" : "ptr"
         ppszDesc2Marshal := ppszDesc2 is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(15, this, "ptr", propvar1, "ptr", propvar2, ppszDesc1Marshal, ppszDesc1, ppszDesc2Marshal, ppszDesc2, "HRESULT")
+        result := ComCall(15, this, PROPVARIANT.Ptr, propvar1, PROPVARIANT.Ptr, propvar2, ppszDesc1Marshal, ppszDesc1, ppszDesc2Marshal, ppszDesc2, "HRESULT")
         return result
     }
 
@@ -277,7 +318,7 @@ class IPropertyDescription extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getsortdescriptionlabel
      */
     GetSortDescriptionLabel(fDescending) {
-        result := ComCall(17, this, "int", fDescending, "ptr*", &ppszDescription := 0, "HRESULT")
+        result := ComCall(17, this, BOOL, fDescending, PWSTR.Ptr, &ppszDescription := 0, "HRESULT")
         return ppszDescription
     }
 
@@ -329,7 +370,7 @@ class IPropertyDescription extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getenumtypelist
      */
     GetEnumTypeList(riid) {
-        result := ComCall(20, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(20, this, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -509,7 +550,7 @@ class IPropertyDescription extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-coercetocanonicalvalue
      */
     CoerceToCanonicalValue(ppropvar) {
-        result := ComCall(21, this, "ptr", ppropvar, "HRESULT")
+        result := ComCall(21, this, PROPVARIANT.Ptr, ppropvar, "HRESULT")
         return result
     }
 
@@ -647,7 +688,7 @@ class IPropertyDescription extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-formatfordisplay
      */
     FormatForDisplay(propvar, pdfFlags) {
-        result := ComCall(22, this, "ptr", propvar, "int", pdfFlags, "ptr*", &ppszDisplay := 0, "HRESULT")
+        result := ComCall(22, this, PROPVARIANT.Ptr, propvar, PROPDESC_FORMAT_FLAGS, pdfFlags, PWSTR.Ptr, &ppszDisplay := 0, "HRESULT")
         return ppszDisplay
     }
 
@@ -691,7 +732,67 @@ class IPropertyDescription extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-isvaluecanonical
      */
     IsValueCanonical(propvar) {
-        result := ComCall(23, this, "ptr", propvar, "HRESULT")
+        result := ComCall(23, this, PROPVARIANT.Ptr, propvar, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPropertyDescription.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPropertyKey := CallbackCreate(GetMethod(implObj, "GetPropertyKey"), flags, 2)
+        this.vtbl.GetCanonicalName := CallbackCreate(GetMethod(implObj, "GetCanonicalName"), flags, 2)
+        this.vtbl.GetPropertyType := CallbackCreate(GetMethod(implObj, "GetPropertyType"), flags, 2)
+        this.vtbl.GetDisplayName := CallbackCreate(GetMethod(implObj, "GetDisplayName"), flags, 2)
+        this.vtbl.GetEditInvitation := CallbackCreate(GetMethod(implObj, "GetEditInvitation"), flags, 2)
+        this.vtbl.GetTypeFlags := CallbackCreate(GetMethod(implObj, "GetTypeFlags"), flags, 3)
+        this.vtbl.GetViewFlags := CallbackCreate(GetMethod(implObj, "GetViewFlags"), flags, 2)
+        this.vtbl.GetDefaultColumnWidth := CallbackCreate(GetMethod(implObj, "GetDefaultColumnWidth"), flags, 2)
+        this.vtbl.GetDisplayType := CallbackCreate(GetMethod(implObj, "GetDisplayType"), flags, 2)
+        this.vtbl.GetColumnState := CallbackCreate(GetMethod(implObj, "GetColumnState"), flags, 2)
+        this.vtbl.GetGroupingRange := CallbackCreate(GetMethod(implObj, "GetGroupingRange"), flags, 2)
+        this.vtbl.GetRelativeDescriptionType := CallbackCreate(GetMethod(implObj, "GetRelativeDescriptionType"), flags, 2)
+        this.vtbl.GetRelativeDescription := CallbackCreate(GetMethod(implObj, "GetRelativeDescription"), flags, 5)
+        this.vtbl.GetSortDescription := CallbackCreate(GetMethod(implObj, "GetSortDescription"), flags, 2)
+        this.vtbl.GetSortDescriptionLabel := CallbackCreate(GetMethod(implObj, "GetSortDescriptionLabel"), flags, 3)
+        this.vtbl.GetAggregationType := CallbackCreate(GetMethod(implObj, "GetAggregationType"), flags, 2)
+        this.vtbl.GetConditionType := CallbackCreate(GetMethod(implObj, "GetConditionType"), flags, 3)
+        this.vtbl.GetEnumTypeList := CallbackCreate(GetMethod(implObj, "GetEnumTypeList"), flags, 3)
+        this.vtbl.CoerceToCanonicalValue := CallbackCreate(GetMethod(implObj, "CoerceToCanonicalValue"), flags, 2)
+        this.vtbl.FormatForDisplay := CallbackCreate(GetMethod(implObj, "FormatForDisplay"), flags, 4)
+        this.vtbl.IsValueCanonical := CallbackCreate(GetMethod(implObj, "IsValueCanonical"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPropertyKey)
+        CallbackFree(this.vtbl.GetCanonicalName)
+        CallbackFree(this.vtbl.GetPropertyType)
+        CallbackFree(this.vtbl.GetDisplayName)
+        CallbackFree(this.vtbl.GetEditInvitation)
+        CallbackFree(this.vtbl.GetTypeFlags)
+        CallbackFree(this.vtbl.GetViewFlags)
+        CallbackFree(this.vtbl.GetDefaultColumnWidth)
+        CallbackFree(this.vtbl.GetDisplayType)
+        CallbackFree(this.vtbl.GetColumnState)
+        CallbackFree(this.vtbl.GetGroupingRange)
+        CallbackFree(this.vtbl.GetRelativeDescriptionType)
+        CallbackFree(this.vtbl.GetRelativeDescription)
+        CallbackFree(this.vtbl.GetSortDescription)
+        CallbackFree(this.vtbl.GetSortDescriptionLabel)
+        CallbackFree(this.vtbl.GetAggregationType)
+        CallbackFree(this.vtbl.GetConditionType)
+        CallbackFree(this.vtbl.GetEnumTypeList)
+        CallbackFree(this.vtbl.CoerceToCanonicalValue)
+        CallbackFree(this.vtbl.FormatForDisplay)
+        CallbackFree(this.vtbl.IsValueCanonical)
     }
 }

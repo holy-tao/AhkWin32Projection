@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates whether a location is within the image of an object.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/ne-ocidl-hitresult
  * @namespace Windows.Win32.System.Ole
  */
-class HITRESULT extends Win32Enum {
+export default struct HITRESULT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The specified location is outside the object and not close to the object.

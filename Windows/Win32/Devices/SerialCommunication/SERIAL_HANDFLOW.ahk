@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.SerialCommunication
  */
-class SERIAL_HANDFLOW extends Win32Struct {
-    static sizeof => 16
+export default struct SERIAL_HANDFLOW {
+    #StructPack 4
 
-    static packingSize => 4
+    ControlHandShake : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ControlHandShake {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    FlowReplace : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FlowReplace {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    XonLimit : Int32
 
-    /**
-     * @type {Integer}
-     */
-    XonLimit {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    XoffLimit : Int32
 
-    /**
-     * @type {Integer}
-     */
-    XoffLimit {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
 }

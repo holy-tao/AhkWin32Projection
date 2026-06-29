@@ -1,35 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDCompositionSurface.ahk
-#Include .\IDCompositionVirtualSurface.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDCompositionVirtualSurface.ahk" { IDCompositionVirtualSurface }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Dxgi\Common\DXGI_ALPHA_MODE.ahk" { DXGI_ALPHA_MODE }
+#Import ".\IDCompositionSurface.ahk" { IDCompositionSurface }
 
 /**
  * Creates surface and virtual surface objects associated with an application-provided rendering device.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionsurfacefactory
  * @namespace Windows.Win32.Graphics.DirectComposition
  */
-class IDCompositionSurfaceFactory extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDCompositionSurfaceFactory extends IUnknown {
     /**
      * The interface identifier for IDCompositionSurfaceFactory
      * @type {Guid}
      */
-    static IID => Guid("{e334bc12-3937-4e02-85eb-fcf4eb30d2c8}")
+    static IID := Guid("{e334bc12-3937-4e02-85eb-fcf4eb30d2c8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDCompositionSurfaceFactory interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateSurface        : IntPtr
+        CreateVirtualSurface : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateSurface", "CreateVirtualSurface"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDCompositionSurfaceFactory.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a surface object that can be associated with one or more visuals for composition.
@@ -64,7 +75,7 @@ class IDCompositionSurfaceFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionsurfacefactory-createsurface
      */
     CreateSurface(width, height, pixelFormat, alphaMode) {
-        result := ComCall(3, this, "uint", width, "uint", height, "int", pixelFormat, "int", alphaMode, "ptr*", &surface := 0, "HRESULT")
+        result := ComCall(3, this, "uint", width, "uint", height, DXGI_FORMAT, pixelFormat, DXGI_ALPHA_MODE, alphaMode, "ptr*", &surface := 0, "HRESULT")
         return IDCompositionSurface(surface)
     }
 
@@ -96,7 +107,29 @@ class IDCompositionSurfaceFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionsurfacefactory-createvirtualsurface
      */
     CreateVirtualSurface(initialWidth, initialHeight, pixelFormat, alphaMode) {
-        result := ComCall(4, this, "uint", initialWidth, "uint", initialHeight, "int", pixelFormat, "int", alphaMode, "ptr*", &virtualSurface := 0, "HRESULT")
+        result := ComCall(4, this, "uint", initialWidth, "uint", initialHeight, DXGI_FORMAT, pixelFormat, DXGI_ALPHA_MODE, alphaMode, "ptr*", &virtualSurface := 0, "HRESULT")
         return IDCompositionVirtualSurface(virtualSurface)
+    }
+
+    Query(iid) {
+        if (IDCompositionSurfaceFactory.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateSurface := CallbackCreate(GetMethod(implObj, "CreateSurface"), flags, 6)
+        this.vtbl.CreateVirtualSurface := CallbackCreate(GetMethod(implObj, "CreateVirtualSurface"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateSurface)
+        CallbackFree(this.vtbl.CreateVirtualSurface)
     }
 }

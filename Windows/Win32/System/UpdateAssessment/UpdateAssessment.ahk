@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\UpdateAssessmentStatus.ahk
-#Include .\UpdateImpactLevel.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\UpdateAssessmentStatus.ahk" { UpdateAssessmentStatus }
+#Import ".\UpdateImpactLevel.ahk" { UpdateImpactLevel }
 
 /**
  * UpdateAssessment contains information that assesses how up-to-date an installed OS is.
@@ -12,35 +11,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/waasapitypes/ns-waasapitypes-updateassessment
  * @namespace Windows.Win32.System.UpdateAssessment
  */
-class UpdateAssessment extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct UpdateAssessment {
+    #StructPack 4
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/SysInfo/updateassessmentstatus">UpdateAssessmentStatus</a> enumeration detailing how up-to-date the device is, and for what reason.
-     * @type {UpdateAssessmentStatus}
      */
-    status {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    status : UpdateAssessmentStatus
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/SysInfo/updateimpactlevel">    UpdateImpactLevel</a> enumeration detailing whether there is any impact on the device if it has an out-of-date OS.
-     * @type {UpdateImpactLevel}
      */
-    impact {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    impact : UpdateImpactLevel
 
     /**
      * Describes how much time has elapsed since the device has not installed an applicable update. <b>daysOutOfDate</b> is calculated by the current time minus the time since the next applicable update has been released, minus any deferral period. Thus, if an applicable update exists but hasn’t been applied due to deferral, this is accounted for in the calculation. <b>daysOutOfDate</b> is used to calculate the update impact level.
-     * @type {Integer}
      */
-    daysOutOfDate {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    daysOutOfDate : UInt32
+
 }

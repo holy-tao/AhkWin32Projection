@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.SerialCommunication
  */
-class SERIAL_LINE_CONTROL extends Win32Struct {
-    static sizeof => 3
+export default struct SERIAL_LINE_CONTROL {
+    #StructPack 1
 
-    static packingSize => 1
+    StopBits : Int8
 
-    /**
-     * @type {Integer}
-     */
-    StopBits {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Parity : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Parity {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    WordLength : Int8
 
-    /**
-     * @type {Integer}
-     */
-    WordLength {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
 }

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains pointers to callback functions that can be used by cryptographic service provider (CSP) functions.
@@ -9,21 +9,15 @@
  * @namespace Windows.Win32.Security.Cryptography
  * @charset Unicode
  */
-class VTableProvStrucW extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct VTableProvStrucW {
+    #StructPack 8
 
     /**
      * A **DWORD** value that indicates the version of the structure. Three versions of this structure are used. The versions are number 1, 2, and 3, and determine which members of the structure are valid. Version 1 members are valid on all systems that support this structure.
      * 
      * This is a version 1 member.
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
     /**
      * The address of a [**FuncVerifyImage**](funcverifyimage.md) callback function that the CSP uses to verify the signature of any DLLs that the CSP will load. All auxiliary DLLs into which a CSP makes function calls must be signed in the same manner (and with the same key) as the primary CSP DLL. To ensure this signature, the auxiliary DLLs must be loaded dynamically by using the [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) function. But before the DLL is loaded, the signature of the DLL must be verified. The CSP performs this verification by calling the **FuncVerifyImage** function, as shown in the example below.
@@ -31,12 +25,8 @@ class VTableProvStrucW extends Win32Struct {
      * This function pointer can be stored and used until the CSP context is released.
      * 
      * This is a version 1 member.
-     * @type {Pointer<CRYPT_VERIFY_IMAGE_W>}
      */
-    FuncVerifyImage {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    FuncVerifyImage : IntPtr
 
     /**
      * The address of a [**FuncReturnhWnd**](funcreturnhwnd.md) callback function that returns the window handle that the CSP should use as the parent or owner of any user interface that is displayed. CSPs that do not communicate directly with the user and CSPs that use dedicated hardware for this purpose can ignore this entry. This window handle is zero by default, but an application can set this to a different value by using the [**CryptSetProvParam**](/windows/desktop/api/Wincrypt/nf-wincrypt-cryptsetprovparam) function to set the **PP\_CLIENT\_HWND** property.
@@ -44,12 +34,8 @@ class VTableProvStrucW extends Win32Struct {
      * This function pointer can be stored and used until the CSP context is released.
      * 
      * This is a version 1 member.
-     * @type {Pointer<CRYPT_RETURN_HWND>}
      */
-    FuncReturnhWnd {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    FuncReturnhWnd : IntPtr
 
     /**
      * A **DWORD** value that specifies the type of provider to acquire. The following [*provider types*](../secgloss/p-gly.md) are predefined and are discussed in detail in [CSP Interoperability](https://www.bing.com/search?q=CSP+Interoperability):
@@ -61,43 +47,28 @@ class VTableProvStrucW extends Win32Struct {
      * -   PROV\_MS\_EXCHANGE
      * 
      * This is a version 2 member.
-     * @type {Integer}
      */
-    dwProvType {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwProvType : UInt32
 
     /**
      * A pointer to an array of context information. The **pbContextInfo** and **cbContextInfo** members together determine the information set used when a [**CPSetProvParam**](https://www.bing.com/search?q=**CPSetProvParam**) function is called with PP\_CONTEXT\_INFO set.
      * 
      * This is a version 2 member.
-     * @type {Pointer<Integer>}
      */
-    pbContextInfo {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pbContextInfo : IntPtr
 
     /**
      * A **DWORD** value that indicates the number of elements in the **pbContextInfo** array.
      * 
      * This is a version 2 member.
-     * @type {Integer}
      */
-    cbContextInfo {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    cbContextInfo : UInt32
 
     /**
      * A string that contains the name of the provider.
      * 
      * This is a version 3 member.
-     * @type {PWSTR}
      */
-    pszProvName {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pszProvName : PWSTR
+
 }

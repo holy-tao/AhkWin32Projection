@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_STORAGE_POOL_STATUS.ahk
-#Include .\VDS_HEALTH.ahk
-#Include .\VDS_STORAGE_POOL_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\VDS_HEALTH.ahk" { VDS_HEALTH }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VDS_STORAGE_POOL_TYPE.ahk" { VDS_STORAGE_POOL_TYPE }
+#Import ".\VDS_STORAGE_POOL_STATUS.ahk" { VDS_STORAGE_POOL_STATUS }
 
 /**
  * The VDS_STORAGE_POOL_PROP structure (vdshwprv.h) defines the properties of a storage pool object.
@@ -46,91 +47,54 @@
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_storage_pool_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_STORAGE_POOL_PROP extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct VDS_STORAGE_POOL_PROP {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/VDS/vds-data-types">VDS_OBJECT_ID</a> value that identifies the storage pool object.
-     * @type {Pointer}
      */
-    id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    id : Guid
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_storage_pool_status">VDS_STORAGE_POOL_STATUS</a> enumeration value that specifies the status of the storage pool.
-     * @type {VDS_STORAGE_POOL_STATUS}
      */
-    status {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    status : VDS_STORAGE_POOL_STATUS
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_health">VDS_HEALTH</a> enumeration value that specifies the health of the storage pool. The following are the valid values for this member.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b><b>VDS_H_DEGRADED</b> is not supported.
-     * @type {VDS_HEALTH}
      */
-    health {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    health : VDS_HEALTH
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_storage_pool_type">VDS_STORAGE_POOL_TYPE</a> enumeration value that specifies the type of the storage pool.
-     * @type {VDS_STORAGE_POOL_TYPE}
      */
-    type {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    type : VDS_STORAGE_POOL_TYPE
 
     /**
      * A string that specifies the name of the storage pool.
-     * @type {PWSTR}
      */
-    pwszName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pwszName : PWSTR
 
     /**
      * A string that contains a description of the storage pool.
-     * @type {PWSTR}
      */
-    pwszDescription {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pwszDescription : PWSTR
 
     /**
      * The amount of physical storage backing  the storage pool, in bytes. The value of this member must be less than or equal to the value of the <b>ullProvisionedSpace</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_pool_attributes">VDS_POOL_ATTRIBUTES</a> structure.
-     * @type {Integer}
      */
-    ullTotalConsumedSpace {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ullTotalConsumedSpace : Int64
 
     /**
      * The space, in bytes, in this storage pool that can be allocated to create child storage elements (LUNs or pools), including space that has already been allocated. Depending on the way the storage pool is configured, the value of this member can be much less than the value of the <b>ullTotalConsumedSpace</b> member. For example, if the storage pool is configured as a mirrored pool, the value of <b>ullTotalManagedSpace</b> is only half as large as the value of the <b>ullTotalConsumedSpace</b> member.
-     * @type {Integer}
      */
-    ullTotalManagedSpace {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    ullTotalManagedSpace : Int64
 
     /**
      * The maximum size that may be used to create new LUNs or child storage pools from this pool, or to expand existing LUNs or child storage pools. To calculate the amount of managed space that has already been allocated to existing LUNs or child storage pools, subtract the value of this member from the value of the <b>ullTotalManagedSpace</b> member.
-     * @type {Integer}
      */
-    ullRemainingFreeSpace {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    ullRemainingFreeSpace : Int64
+
 }

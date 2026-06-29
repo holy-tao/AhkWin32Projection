@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEAP_OSC_IMPLEMENTED extends Win32Struct {
-    static sizeof => 16
+export default struct WHEAP_OSC_IMPLEMENTED {
+    #StructPack 8
 
-    static packingSize => 8
+    WheaEventLogEntry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    WheaEventLogEntry {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    OscImplemented : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    OscImplemented {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    DebugChecked : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    DebugChecked {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
 }

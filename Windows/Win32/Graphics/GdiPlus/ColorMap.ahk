@@ -1,34 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\Color.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\Color.ahk" { Color }
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus
  */
-class ColorMap extends Win32Struct {
-    static sizeof => 1200
+export default struct ColorMap {
+    #StructPack 4
 
-    static packingSize => 4
+    oldColor : Color
 
-    /**
-     * @type {Color}
-     */
-    oldColor {
-        get {
-            if(!this.HasProp("__oldColor"))
-                this.__oldColor := Color(0, this)
-            return this.__oldColor
-        }
-    }
+    newColor : Color
 
-    /**
-     * @type {Color}
-     */
-    newColor {
-        get {
-            if(!this.HasProp("__newColor"))
-                this.__newColor := Color(600, this)
-            return this.__newColor
-        }
-    }
 }

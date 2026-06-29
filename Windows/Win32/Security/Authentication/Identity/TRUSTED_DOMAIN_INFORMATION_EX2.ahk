@@ -1,82 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\LSA_UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\PSID.ahk" { PSID }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class TRUSTED_DOMAIN_INFORMATION_EX2 extends Win32Struct {
-    static sizeof => 64
+export default struct TRUSTED_DOMAIN_INFORMATION_EX2 {
+    #StructPack 8
 
-    static packingSize => 8
+    Name : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    Name {
-        get {
-            if(!this.HasProp("__Name"))
-                this.__Name := LSA_UNICODE_STRING(0, this)
-            return this.__Name
-        }
-    }
+    FlatName : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    FlatName {
-        get {
-            if(!this.HasProp("__FlatName"))
-                this.__FlatName := LSA_UNICODE_STRING(16, this)
-            return this.__FlatName
-        }
-    }
+    Sid : PSID
 
-    /**
-     * @type {PSID}
-     */
-    Sid {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    TrustDirection : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TrustDirection {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    TrustType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TrustType {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    TrustAttributes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TrustAttributes {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    ForestTrustLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ForestTrustLength {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    ForestTrustInfo : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    ForestTrustInfo {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
 }

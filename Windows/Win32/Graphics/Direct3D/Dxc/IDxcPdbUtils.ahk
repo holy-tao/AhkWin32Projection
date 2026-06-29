@@ -1,36 +1,71 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IDxcBlobEncoding.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IDxcBlob.ahk
-#Include .\IDxcVersionInfo.ahk
-#Include .\IDxcResult.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDxcCompiler3.ahk" { IDxcCompiler3 }
+#Import ".\IDxcVersionInfo.ahk" { IDxcVersionInfo }
+#Import ".\IDxcBlobEncoding.ahk" { IDxcBlobEncoding }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDxcBlob.ahk" { IDxcBlob }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DxcArgPair.ahk" { DxcArgPair }
+#Import ".\IDxcResult.ahk" { IDxcResult }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
  */
-class IDxcPdbUtils extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDxcPdbUtils extends IUnknown {
     /**
      * The interface identifier for IDxcPdbUtils
      * @type {Guid}
      */
-    static IID => Guid("{e6c9647e-9d6a-4c3b-b94c-524b5a6c343d}")
+    static IID := Guid("{e6c9647e-9d6a-4c3b-b94c-524b5a6c343d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDxcPdbUtils interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Load                  : IntPtr
+        GetSourceCount        : IntPtr
+        GetSource             : IntPtr
+        GetSourceName         : IntPtr
+        GetFlagCount          : IntPtr
+        GetFlag               : IntPtr
+        GetArgCount           : IntPtr
+        GetArg                : IntPtr
+        GetArgPairCount       : IntPtr
+        GetArgPair            : IntPtr
+        GetDefineCount        : IntPtr
+        GetDefine             : IntPtr
+        GetTargetProfile      : IntPtr
+        GetEntryPoint         : IntPtr
+        GetMainFileName       : IntPtr
+        GetHash               : IntPtr
+        GetName               : IntPtr
+        IsFullPDB             : IntPtr
+        GetFullPDB            : IntPtr
+        GetVersionInfo        : IntPtr
+        SetCompiler           : IntPtr
+        CompileForFullPDB     : IntPtr
+        OverrideArgs          : IntPtr
+        OverrideRootSignature : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Load", "GetSourceCount", "GetSource", "GetSourceName", "GetFlagCount", "GetFlag", "GetArgCount", "GetArg", "GetArgPairCount", "GetArgPair", "GetDefineCount", "GetDefine", "GetTargetProfile", "GetEntryPoint", "GetMainFileName", "GetHash", "GetName", "IsFullPDB", "GetFullPDB", "GetVersionInfo", "SetCompiler", "CompileForFullPDB", "OverrideArgs", "OverrideRootSignature"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDxcPdbUtils.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Reads texel data without any filtering or sampling.
@@ -133,8 +168,8 @@ class IDxcPdbUtils extends IUnknown {
      * @returns {BSTR} 
      */
     GetSourceName(uIndex) {
-        pResult := BSTR()
-        result := ComCall(6, this, "uint", uIndex, "ptr", pResult, "HRESULT")
+        pResult := BSTR.Owned()
+        result := ComCall(6, this, "uint", uIndex, BSTR.Ptr, pResult, "HRESULT")
         return pResult
     }
 
@@ -153,8 +188,8 @@ class IDxcPdbUtils extends IUnknown {
      * @returns {BSTR} 
      */
     GetFlag(uIndex) {
-        pResult := BSTR()
-        result := ComCall(8, this, "uint", uIndex, "ptr", pResult, "HRESULT")
+        pResult := BSTR.Owned()
+        result := ComCall(8, this, "uint", uIndex, BSTR.Ptr, pResult, "HRESULT")
         return pResult
     }
 
@@ -173,8 +208,8 @@ class IDxcPdbUtils extends IUnknown {
      * @returns {BSTR} 
      */
     GetArg(uIndex) {
-        pResult := BSTR()
-        result := ComCall(10, this, "uint", uIndex, "ptr", pResult, "HRESULT")
+        pResult := BSTR.Owned()
+        result := ComCall(10, this, "uint", uIndex, BSTR.Ptr, pResult, "HRESULT")
         return pResult
     }
 
@@ -195,7 +230,7 @@ class IDxcPdbUtils extends IUnknown {
      * @returns {HRESULT} 
      */
     GetArgPair(uIndex, pName, pValue) {
-        result := ComCall(12, this, "uint", uIndex, "ptr", pName, "ptr", pValue, "HRESULT")
+        result := ComCall(12, this, "uint", uIndex, BSTR.Ptr, pName, BSTR.Ptr, pValue, "HRESULT")
         return result
     }
 
@@ -214,8 +249,8 @@ class IDxcPdbUtils extends IUnknown {
      * @returns {BSTR} 
      */
     GetDefine(uIndex) {
-        pResult := BSTR()
-        result := ComCall(14, this, "uint", uIndex, "ptr", pResult, "HRESULT")
+        pResult := BSTR.Owned()
+        result := ComCall(14, this, "uint", uIndex, BSTR.Ptr, pResult, "HRESULT")
         return pResult
     }
 
@@ -224,8 +259,8 @@ class IDxcPdbUtils extends IUnknown {
      * @returns {BSTR} 
      */
     GetTargetProfile() {
-        pResult := BSTR()
-        result := ComCall(15, this, "ptr", pResult, "HRESULT")
+        pResult := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, pResult, "HRESULT")
         return pResult
     }
 
@@ -234,8 +269,8 @@ class IDxcPdbUtils extends IUnknown {
      * @returns {BSTR} 
      */
     GetEntryPoint() {
-        pResult := BSTR()
-        result := ComCall(16, this, "ptr", pResult, "HRESULT")
+        pResult := BSTR.Owned()
+        result := ComCall(16, this, BSTR.Ptr, pResult, "HRESULT")
         return pResult
     }
 
@@ -244,8 +279,8 @@ class IDxcPdbUtils extends IUnknown {
      * @returns {BSTR} 
      */
     GetMainFileName() {
-        pResult := BSTR()
-        result := ComCall(17, this, "ptr", pResult, "HRESULT")
+        pResult := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, pResult, "HRESULT")
         return pResult
     }
 
@@ -264,8 +299,8 @@ class IDxcPdbUtils extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getname
      */
     GetName() {
-        pResult := BSTR()
-        result := ComCall(19, this, "ptr", pResult, "HRESULT")
+        pResult := BSTR.Owned()
+        result := ComCall(19, this, BSTR.Ptr, pResult, "HRESULT")
         return pResult
     }
 
@@ -274,7 +309,7 @@ class IDxcPdbUtils extends IUnknown {
      * @returns {BOOL} 
      */
     IsFullPDB() {
-        result := ComCall(20, this, "int")
+        result := ComCall(20, this, BOOL)
         return result
     }
 
@@ -322,7 +357,7 @@ class IDxcPdbUtils extends IUnknown {
      * @returns {HRESULT} 
      */
     OverrideArgs(pArgPairs, uNumArgPairs) {
-        result := ComCall(25, this, "ptr", pArgPairs, "uint", uNumArgPairs, "HRESULT")
+        result := ComCall(25, this, DxcArgPair.Ptr, pArgPairs, "uint", uNumArgPairs, "HRESULT")
         return result
     }
 
@@ -336,5 +371,71 @@ class IDxcPdbUtils extends IUnknown {
 
         result := ComCall(26, this, "ptr", pRootSignature, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDxcPdbUtils.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Load := CallbackCreate(GetMethod(implObj, "Load"), flags, 2)
+        this.vtbl.GetSourceCount := CallbackCreate(GetMethod(implObj, "GetSourceCount"), flags, 2)
+        this.vtbl.GetSource := CallbackCreate(GetMethod(implObj, "GetSource"), flags, 3)
+        this.vtbl.GetSourceName := CallbackCreate(GetMethod(implObj, "GetSourceName"), flags, 3)
+        this.vtbl.GetFlagCount := CallbackCreate(GetMethod(implObj, "GetFlagCount"), flags, 2)
+        this.vtbl.GetFlag := CallbackCreate(GetMethod(implObj, "GetFlag"), flags, 3)
+        this.vtbl.GetArgCount := CallbackCreate(GetMethod(implObj, "GetArgCount"), flags, 2)
+        this.vtbl.GetArg := CallbackCreate(GetMethod(implObj, "GetArg"), flags, 3)
+        this.vtbl.GetArgPairCount := CallbackCreate(GetMethod(implObj, "GetArgPairCount"), flags, 2)
+        this.vtbl.GetArgPair := CallbackCreate(GetMethod(implObj, "GetArgPair"), flags, 4)
+        this.vtbl.GetDefineCount := CallbackCreate(GetMethod(implObj, "GetDefineCount"), flags, 2)
+        this.vtbl.GetDefine := CallbackCreate(GetMethod(implObj, "GetDefine"), flags, 3)
+        this.vtbl.GetTargetProfile := CallbackCreate(GetMethod(implObj, "GetTargetProfile"), flags, 2)
+        this.vtbl.GetEntryPoint := CallbackCreate(GetMethod(implObj, "GetEntryPoint"), flags, 2)
+        this.vtbl.GetMainFileName := CallbackCreate(GetMethod(implObj, "GetMainFileName"), flags, 2)
+        this.vtbl.GetHash := CallbackCreate(GetMethod(implObj, "GetHash"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.IsFullPDB := CallbackCreate(GetMethod(implObj, "IsFullPDB"), flags, 1)
+        this.vtbl.GetFullPDB := CallbackCreate(GetMethod(implObj, "GetFullPDB"), flags, 2)
+        this.vtbl.GetVersionInfo := CallbackCreate(GetMethod(implObj, "GetVersionInfo"), flags, 2)
+        this.vtbl.SetCompiler := CallbackCreate(GetMethod(implObj, "SetCompiler"), flags, 2)
+        this.vtbl.CompileForFullPDB := CallbackCreate(GetMethod(implObj, "CompileForFullPDB"), flags, 2)
+        this.vtbl.OverrideArgs := CallbackCreate(GetMethod(implObj, "OverrideArgs"), flags, 3)
+        this.vtbl.OverrideRootSignature := CallbackCreate(GetMethod(implObj, "OverrideRootSignature"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Load)
+        CallbackFree(this.vtbl.GetSourceCount)
+        CallbackFree(this.vtbl.GetSource)
+        CallbackFree(this.vtbl.GetSourceName)
+        CallbackFree(this.vtbl.GetFlagCount)
+        CallbackFree(this.vtbl.GetFlag)
+        CallbackFree(this.vtbl.GetArgCount)
+        CallbackFree(this.vtbl.GetArg)
+        CallbackFree(this.vtbl.GetArgPairCount)
+        CallbackFree(this.vtbl.GetArgPair)
+        CallbackFree(this.vtbl.GetDefineCount)
+        CallbackFree(this.vtbl.GetDefine)
+        CallbackFree(this.vtbl.GetTargetProfile)
+        CallbackFree(this.vtbl.GetEntryPoint)
+        CallbackFree(this.vtbl.GetMainFileName)
+        CallbackFree(this.vtbl.GetHash)
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.IsFullPDB)
+        CallbackFree(this.vtbl.GetFullPDB)
+        CallbackFree(this.vtbl.GetVersionInfo)
+        CallbackFree(this.vtbl.SetCompiler)
+        CallbackFree(this.vtbl.CompileForFullPDB)
+        CallbackFree(this.vtbl.OverrideArgs)
+        CallbackFree(this.vtbl.OverrideRootSignature)
     }
 }

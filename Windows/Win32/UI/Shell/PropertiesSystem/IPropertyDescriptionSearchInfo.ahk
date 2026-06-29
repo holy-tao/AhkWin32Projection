@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IPropertyDescription.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PROPDESC_SEARCHINFO_FLAGS.ahk" { PROPDESC_SEARCHINFO_FLAGS }
+#Import ".\IPropertyDescription.ahk" { IPropertyDescription }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PROPDESC_COLUMNINDEX_TYPE.ahk" { PROPDESC_COLUMNINDEX_TYPE }
 
 /**
  * Exposes search-related information for a property.
  * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-ipropertydescriptionsearchinfo
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  */
-class IPropertyDescriptionSearchInfo extends IPropertyDescription {
-
-    static sizeof => A_PtrSize
+export default struct IPropertyDescriptionSearchInfo extends IPropertyDescription {
     /**
      * The interface identifier for IPropertyDescriptionSearchInfo
      * @type {Guid}
      */
-    static IID => Guid("{078f91bd-29a2-440f-924e-46a291524520}")
+    static IID := Guid("{078f91bd-29a2-440f-924e-46a291524520}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 24
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPropertyDescriptionSearchInfo interfaces
+    */
+    struct Vtbl extends IPropertyDescription.Vtbl {
+        GetSearchInfoFlags  : IntPtr
+        GetColumnIndexType  : IntPtr
+        GetProjectionString : IntPtr
+        GetMaxSize          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSearchInfoFlags", "GetColumnIndexType", "GetProjectionString", "GetMaxSize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPropertyDescriptionSearchInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the PROPDESC_SEARCHINFO_FLAGS associated with the property.
@@ -61,7 +75,7 @@ class IPropertyDescriptionSearchInfo extends IPropertyDescription {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescriptionsearchinfo-getprojectionstring
      */
     GetProjectionString() {
-        result := ComCall(26, this, "ptr*", &ppszProjection := 0, "HRESULT")
+        result := ComCall(26, this, PWSTR.Ptr, &ppszProjection := 0, "HRESULT")
         return ppszProjection
     }
 
@@ -82,5 +96,31 @@ class IPropertyDescriptionSearchInfo extends IPropertyDescription {
     GetMaxSize() {
         result := ComCall(27, this, "uint*", &pcbMaxSize := 0, "HRESULT")
         return pcbMaxSize
+    }
+
+    Query(iid) {
+        if (IPropertyDescriptionSearchInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSearchInfoFlags := CallbackCreate(GetMethod(implObj, "GetSearchInfoFlags"), flags, 2)
+        this.vtbl.GetColumnIndexType := CallbackCreate(GetMethod(implObj, "GetColumnIndexType"), flags, 2)
+        this.vtbl.GetProjectionString := CallbackCreate(GetMethod(implObj, "GetProjectionString"), flags, 2)
+        this.vtbl.GetMaxSize := CallbackCreate(GetMethod(implObj, "GetMaxSize"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSearchInfoFlags)
+        CallbackFree(this.vtbl.GetColumnIndexType)
+        CallbackFree(this.vtbl.GetProjectionString)
+        CallbackFree(this.vtbl.GetMaxSize)
     }
 }

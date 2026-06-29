@@ -1,21 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDirect3D9.ahk
-#Include .\IDirect3DSwapChain9.ahk
-#Include .\IDirect3DSurface9.ahk
-#Include .\IDirect3DTexture9.ahk
-#Include .\IDirect3DVolumeTexture9.ahk
-#Include .\IDirect3DCubeTexture9.ahk
-#Include .\IDirect3DVertexBuffer9.ahk
-#Include .\IDirect3DIndexBuffer9.ahk
-#Include .\IDirect3DStateBlock9.ahk
-#Include .\IDirect3DBaseTexture9.ahk
-#Include .\IDirect3DVertexDeclaration9.ahk
-#Include .\IDirect3DVertexShader9.ahk
-#Include .\IDirect3DPixelShader9.ahk
-#Include .\IDirect3DQuery9.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3DTRIPATCH_INFO.ahk" { D3DTRIPATCH_INFO }
+#Import ".\D3DCLIPSTATUS9.ahk" { D3DCLIPSTATUS9 }
+#Import ".\IDirect3DCubeTexture9.ahk" { IDirect3DCubeTexture9 }
+#Import ".\IDirect3DVertexDeclaration9.ahk" { IDirect3DVertexDeclaration9 }
+#Import ".\D3DRENDERSTATETYPE.ahk" { D3DRENDERSTATETYPE }
+#Import ".\IDirect3DPixelShader9.ahk" { IDirect3DPixelShader9 }
+#Import ".\IDirect3DBaseTexture9.ahk" { IDirect3DBaseTexture9 }
+#Import ".\IDirect3DVolumeTexture9.ahk" { IDirect3DVolumeTexture9 }
+#Import ".\IDirect3DStateBlock9.ahk" { IDirect3DStateBlock9 }
+#Import ".\IDirect3DVertexShader9.ahk" { IDirect3DVertexShader9 }
+#Import ".\D3DCAPS9.ahk" { D3DCAPS9 }
+#Import ".\D3DMULTISAMPLE_TYPE.ahk" { D3DMULTISAMPLE_TYPE }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
+#Import ".\D3DFORMAT.ahk" { D3DFORMAT }
+#Import ".\D3DPRESENT_PARAMETERS.ahk" { D3DPRESENT_PARAMETERS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDirect3DTexture9.ahk" { IDirect3DTexture9 }
+#Import "..\Gdi\PALETTEENTRY.ahk" { PALETTEENTRY }
+#Import ".\IDirect3DIndexBuffer9.ahk" { IDirect3DIndexBuffer9 }
+#Import ".\D3DPRIMITIVETYPE.ahk" { D3DPRIMITIVETYPE }
+#Import ".\IDirect3DQuery9.ahk" { IDirect3DQuery9 }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3DLIGHT9.ahk" { D3DLIGHT9 }
+#Import ".\D3DTEXTURESTAGESTATETYPE.ahk" { D3DTEXTURESTAGESTATETYPE }
+#Import ".\D3DMATERIAL9.ahk" { D3DMATERIAL9 }
+#Import ".\D3DQUERYTYPE.ahk" { D3DQUERYTYPE }
+#Import ".\D3DSTATEBLOCKTYPE.ahk" { D3DSTATEBLOCKTYPE }
+#Import "..\Gdi\RGNDATA.ahk" { RGNDATA }
+#Import ".\D3DDISPLAYMODE.ahk" { D3DDISPLAYMODE }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\D3DRECTPATCH_INFO.ahk" { D3DRECTPATCH_INFO }
+#Import ".\IDirect3D9.ahk" { IDirect3D9 }
+#Import ".\D3DRECT.ahk" { D3DRECT }
+#Import ".\D3DGAMMARAMP.ahk" { D3DGAMMARAMP }
+#Import ".\D3DPOOL.ahk" { D3DPOOL }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\IDirect3DSwapChain9.ahk" { IDirect3DSwapChain9 }
+#Import ".\D3DTRANSFORMSTATETYPE.ahk" { D3DTRANSFORMSTATETYPE }
+#Import ".\D3DSAMPLERSTATETYPE.ahk" { D3DSAMPLERSTATETYPE }
+#Import "..\Direct3D\D3DMATRIX.ahk" { D3DMATRIX }
+#Import ".\D3DDEVICE_CREATION_PARAMETERS.ahk" { D3DDEVICE_CREATION_PARAMETERS }
+#Import ".\D3DVERTEXELEMENT9.ahk" { D3DVERTEXELEMENT9 }
+#Import ".\D3DRASTER_STATUS.ahk" { D3DRASTER_STATUS }
+#Import ".\D3DVIEWPORT9.ahk" { D3DVIEWPORT9 }
+#Import ".\D3DBACKBUFFER_TYPE.ahk" { D3DBACKBUFFER_TYPE }
+#Import ".\D3DTEXTUREFILTERTYPE.ahk" { D3DTEXTUREFILTERTYPE }
+#Import ".\IDirect3DVertexBuffer9.ahk" { IDirect3DVertexBuffer9 }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * The IDirect3DDevice9 (d3d9.h) applications use the methods of the IDirect3DDevice9 interface to perform DrawPrimitive-based rendering and create resources.
@@ -35,26 +70,148 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3ddevice9
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class IDirect3DDevice9 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirect3DDevice9 extends IUnknown {
     /**
      * The interface identifier for IDirect3DDevice9
      * @type {Guid}
      */
-    static IID => Guid("{d0223b96-bf7a-43fd-92bd-a43b0d82b9eb}")
+    static IID := Guid("{d0223b96-bf7a-43fd-92bd-a43b0d82b9eb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirect3DDevice9 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        TestCooperativeLevel        : IntPtr
+        GetAvailableTextureMem      : IntPtr
+        EvictManagedResources       : IntPtr
+        GetDirect3D                 : IntPtr
+        GetDeviceCaps               : IntPtr
+        GetDisplayMode              : IntPtr
+        GetCreationParameters       : IntPtr
+        SetCursorProperties         : IntPtr
+        SetCursorPosition           : IntPtr
+        ShowCursor                  : IntPtr
+        CreateAdditionalSwapChain   : IntPtr
+        GetSwapChain                : IntPtr
+        GetNumberOfSwapChains       : IntPtr
+        Reset                       : IntPtr
+        Present                     : IntPtr
+        GetBackBuffer               : IntPtr
+        GetRasterStatus             : IntPtr
+        SetDialogBoxMode            : IntPtr
+        SetGammaRamp                : IntPtr
+        GetGammaRamp                : IntPtr
+        CreateTexture               : IntPtr
+        CreateVolumeTexture         : IntPtr
+        CreateCubeTexture           : IntPtr
+        CreateVertexBuffer          : IntPtr
+        CreateIndexBuffer           : IntPtr
+        CreateRenderTarget          : IntPtr
+        CreateDepthStencilSurface   : IntPtr
+        UpdateSurface               : IntPtr
+        UpdateTexture               : IntPtr
+        GetRenderTargetData         : IntPtr
+        GetFrontBufferData          : IntPtr
+        StretchRect                 : IntPtr
+        ColorFill                   : IntPtr
+        CreateOffscreenPlainSurface : IntPtr
+        SetRenderTarget             : IntPtr
+        GetRenderTarget             : IntPtr
+        SetDepthStencilSurface      : IntPtr
+        GetDepthStencilSurface      : IntPtr
+        BeginScene                  : IntPtr
+        EndScene                    : IntPtr
+        Clear                       : IntPtr
+        SetTransform                : IntPtr
+        GetTransform                : IntPtr
+        MultiplyTransform           : IntPtr
+        SetViewport                 : IntPtr
+        GetViewport                 : IntPtr
+        SetMaterial                 : IntPtr
+        GetMaterial                 : IntPtr
+        SetLight                    : IntPtr
+        GetLight                    : IntPtr
+        LightEnable                 : IntPtr
+        GetLightEnable              : IntPtr
+        SetClipPlane                : IntPtr
+        GetClipPlane                : IntPtr
+        SetRenderState              : IntPtr
+        GetRenderState              : IntPtr
+        CreateStateBlock            : IntPtr
+        BeginStateBlock             : IntPtr
+        EndStateBlock               : IntPtr
+        SetClipStatus               : IntPtr
+        GetClipStatus               : IntPtr
+        GetTexture                  : IntPtr
+        SetTexture                  : IntPtr
+        GetTextureStageState        : IntPtr
+        SetTextureStageState        : IntPtr
+        GetSamplerState             : IntPtr
+        SetSamplerState             : IntPtr
+        ValidateDevice              : IntPtr
+        SetPaletteEntries           : IntPtr
+        GetPaletteEntries           : IntPtr
+        SetCurrentTexturePalette    : IntPtr
+        GetCurrentTexturePalette    : IntPtr
+        SetScissorRect              : IntPtr
+        GetScissorRect              : IntPtr
+        SetSoftwareVertexProcessing : IntPtr
+        GetSoftwareVertexProcessing : IntPtr
+        SetNPatchMode               : IntPtr
+        GetNPatchMode               : IntPtr
+        DrawPrimitive               : IntPtr
+        DrawIndexedPrimitive        : IntPtr
+        DrawPrimitiveUP             : IntPtr
+        DrawIndexedPrimitiveUP      : IntPtr
+        ProcessVertices             : IntPtr
+        CreateVertexDeclaration     : IntPtr
+        SetVertexDeclaration        : IntPtr
+        GetVertexDeclaration        : IntPtr
+        SetFVF                      : IntPtr
+        GetFVF                      : IntPtr
+        CreateVertexShader          : IntPtr
+        SetVertexShader             : IntPtr
+        GetVertexShader             : IntPtr
+        SetVertexShaderConstantF    : IntPtr
+        GetVertexShaderConstantF    : IntPtr
+        SetVertexShaderConstantI    : IntPtr
+        GetVertexShaderConstantI    : IntPtr
+        SetVertexShaderConstantB    : IntPtr
+        GetVertexShaderConstantB    : IntPtr
+        SetStreamSource             : IntPtr
+        GetStreamSource             : IntPtr
+        SetStreamSourceFreq         : IntPtr
+        GetStreamSourceFreq         : IntPtr
+        SetIndices                  : IntPtr
+        GetIndices                  : IntPtr
+        CreatePixelShader           : IntPtr
+        SetPixelShader              : IntPtr
+        GetPixelShader              : IntPtr
+        SetPixelShaderConstantF     : IntPtr
+        GetPixelShaderConstantF     : IntPtr
+        SetPixelShaderConstantI     : IntPtr
+        GetPixelShaderConstantI     : IntPtr
+        SetPixelShaderConstantB     : IntPtr
+        GetPixelShaderConstantB     : IntPtr
+        DrawRectPatch               : IntPtr
+        DrawTriPatch                : IntPtr
+        DeletePatch                 : IntPtr
+        CreateQuery                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["TestCooperativeLevel", "GetAvailableTextureMem", "EvictManagedResources", "GetDirect3D", "GetDeviceCaps", "GetDisplayMode", "GetCreationParameters", "SetCursorProperties", "SetCursorPosition", "ShowCursor", "CreateAdditionalSwapChain", "GetSwapChain", "GetNumberOfSwapChains", "Reset", "Present", "GetBackBuffer", "GetRasterStatus", "SetDialogBoxMode", "SetGammaRamp", "GetGammaRamp", "CreateTexture", "CreateVolumeTexture", "CreateCubeTexture", "CreateVertexBuffer", "CreateIndexBuffer", "CreateRenderTarget", "CreateDepthStencilSurface", "UpdateSurface", "UpdateTexture", "GetRenderTargetData", "GetFrontBufferData", "StretchRect", "ColorFill", "CreateOffscreenPlainSurface", "SetRenderTarget", "GetRenderTarget", "SetDepthStencilSurface", "GetDepthStencilSurface", "BeginScene", "EndScene", "Clear", "SetTransform", "GetTransform", "MultiplyTransform", "SetViewport", "GetViewport", "SetMaterial", "GetMaterial", "SetLight", "GetLight", "LightEnable", "GetLightEnable", "SetClipPlane", "GetClipPlane", "SetRenderState", "GetRenderState", "CreateStateBlock", "BeginStateBlock", "EndStateBlock", "SetClipStatus", "GetClipStatus", "GetTexture", "SetTexture", "GetTextureStageState", "SetTextureStageState", "GetSamplerState", "SetSamplerState", "ValidateDevice", "SetPaletteEntries", "GetPaletteEntries", "SetCurrentTexturePalette", "GetCurrentTexturePalette", "SetScissorRect", "GetScissorRect", "SetSoftwareVertexProcessing", "GetSoftwareVertexProcessing", "SetNPatchMode", "GetNPatchMode", "DrawPrimitive", "DrawIndexedPrimitive", "DrawPrimitiveUP", "DrawIndexedPrimitiveUP", "ProcessVertices", "CreateVertexDeclaration", "SetVertexDeclaration", "GetVertexDeclaration", "SetFVF", "GetFVF", "CreateVertexShader", "SetVertexShader", "GetVertexShader", "SetVertexShaderConstantF", "GetVertexShaderConstantF", "SetVertexShaderConstantI", "GetVertexShaderConstantI", "SetVertexShaderConstantB", "GetVertexShaderConstantB", "SetStreamSource", "GetStreamSource", "SetStreamSourceFreq", "GetStreamSourceFreq", "SetIndices", "GetIndices", "CreatePixelShader", "SetPixelShader", "GetPixelShader", "SetPixelShaderConstantF", "GetPixelShaderConstantF", "SetPixelShaderConstantI", "GetPixelShaderConstantI", "SetPixelShaderConstantB", "GetPixelShaderConstantB", "DrawRectPatch", "DrawTriPatch", "DeletePatch", "CreateQuery"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirect3DDevice9.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IDirect3DDevice9::TestCooperativeLevel method (d3d9.h) reports the current cooperative-level status of the Direct3D device for a windowed or full-screen application.
@@ -83,7 +240,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getavailabletexturemem
      */
     GetAvailableTextureMem() {
-        result := ComCall(4, this, "uint")
+        result := ComCall(4, this, UInt32)
         return result
     }
 
@@ -128,7 +285,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getdevicecaps
      */
     GetDeviceCaps(pCaps) {
-        result := ComCall(7, this, "ptr", pCaps, "HRESULT")
+        result := ComCall(7, this, D3DCAPS9.Ptr, pCaps, "HRESULT")
         return result
     }
 
@@ -146,7 +303,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getdisplaymode
      */
     GetDisplayMode(iSwapChain, pMode) {
-        result := ComCall(8, this, "uint", iSwapChain, "ptr", pMode, "HRESULT")
+        result := ComCall(8, this, "uint", iSwapChain, D3DDISPLAYMODE.Ptr, pMode, "HRESULT")
         return result
     }
 
@@ -166,7 +323,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getcreationparameters
      */
     GetCreationParameters(pParameters) {
-        result := ComCall(9, this, "ptr", pParameters, "HRESULT")
+        result := ComCall(9, this, D3DDEVICE_CREATION_PARAMETERS.Ptr, pParameters, "HRESULT")
         return result
     }
 
@@ -300,7 +457,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-showcursor
      */
     ShowCursor(bShow) {
-        result := ComCall(12, this, "int", bShow, "int")
+        result := ComCall(12, this, BOOL, bShow, BOOL)
         return result
     }
 
@@ -328,7 +485,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createadditionalswapchain
      */
     CreateAdditionalSwapChain(pPresentationParameters) {
-        result := ComCall(13, this, "ptr", pPresentationParameters, "ptr*", &pSwapChain := 0, "HRESULT")
+        result := ComCall(13, this, D3DPRESENT_PARAMETERS.Ptr, pPresentationParameters, "ptr*", &pSwapChain := 0, "HRESULT")
         return IDirect3DSwapChain9(pSwapChain)
     }
 
@@ -361,7 +518,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getnumberofswapchains
      */
     GetNumberOfSwapChains() {
-        result := ComCall(15, this, "uint")
+        result := ComCall(15, this, UInt32)
         return result
     }
 
@@ -406,7 +563,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-reset
      */
     Reset(pPresentationParameters) {
-        result := ComCall(16, this, "ptr", pPresentationParameters, "HRESULT")
+        result := ComCall(16, this, D3DPRESENT_PARAMETERS.Ptr, pPresentationParameters, "HRESULT")
         return result
     }
 
@@ -434,9 +591,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-present
      */
     Present(pSourceRect, pDestRect, hDestWindowOverride, pDirtyRegion) {
-        hDestWindowOverride := hDestWindowOverride is Win32Handle ? NumGet(hDestWindowOverride, "ptr") : hDestWindowOverride
-
-        result := ComCall(17, this, "ptr", pSourceRect, "ptr", pDestRect, "ptr", hDestWindowOverride, "ptr", pDirtyRegion, "HRESULT")
+        result := ComCall(17, this, RECT.Ptr, pSourceRect, RECT.Ptr, pDestRect, HWND, hDestWindowOverride, RGNDATA.Ptr, pDirtyRegion, "HRESULT")
         return result
     }
 
@@ -459,7 +614,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getbackbuffer
      */
     GetBackBuffer(iSwapChain, iBackBuffer, Type) {
-        result := ComCall(18, this, "uint", iSwapChain, "uint", iBackBuffer, "int", Type, "ptr*", &ppBackBuffer := 0, "HRESULT")
+        result := ComCall(18, this, "uint", iSwapChain, "uint", iBackBuffer, D3DBACKBUFFER_TYPE, Type, "ptr*", &ppBackBuffer := 0, "HRESULT")
         return IDirect3DSurface9(ppBackBuffer)
     }
 
@@ -477,7 +632,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getrasterstatus
      */
     GetRasterStatus(iSwapChain, pRasterStatus) {
-        result := ComCall(19, this, "uint", iSwapChain, "ptr", pRasterStatus, "HRESULT")
+        result := ComCall(19, this, "uint", iSwapChain, D3DRASTER_STATUS.Ptr, pRasterStatus, "HRESULT")
         return result
     }
 
@@ -507,7 +662,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setdialogboxmode
      */
     SetDialogBoxMode(bEnableDialogs) {
-        result := ComCall(20, this, "int", bEnableDialogs, "HRESULT")
+        result := ComCall(20, this, BOOL, bEnableDialogs, "HRESULT")
         return result
     }
 
@@ -530,7 +685,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setgammaramp
      */
     SetGammaRamp(iSwapChain, Flags, pRamp) {
-        ComCall(21, this, "uint", iSwapChain, "uint", Flags, "ptr", pRamp)
+        ComCall(21, this, "uint", iSwapChain, "uint", Flags, D3DGAMMARAMP.Ptr, pRamp)
     }
 
     /**
@@ -545,7 +700,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getgammaramp
      */
     GetGammaRamp(iSwapChain, pRamp) {
-        ComCall(22, this, "uint", iSwapChain, "ptr", pRamp)
+        ComCall(22, this, "uint", iSwapChain, D3DGAMMARAMP.Ptr, pRamp)
     }
 
     /**
@@ -598,7 +753,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createtexture
      */
     CreateTexture(Width, Height, _Levels, Usage, Format, Pool, pSharedHandle) {
-        result := ComCall(23, this, "uint", Width, "uint", Height, "uint", _Levels, "uint", Usage, "uint", Format, "int", Pool, "ptr*", &ppTexture := 0, "ptr", pSharedHandle, "HRESULT")
+        result := ComCall(23, this, "uint", Width, "uint", Height, "uint", _Levels, "uint", Usage, D3DFORMAT, Format, D3DPOOL, Pool, "ptr*", &ppTexture := 0, HANDLE.Ptr, pSharedHandle, "HRESULT")
         return IDirect3DTexture9(ppTexture)
     }
 
@@ -634,7 +789,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createvolumetexture
      */
     CreateVolumeTexture(Width, Height, Depth, _Levels, Usage, Format, Pool, pSharedHandle) {
-        result := ComCall(24, this, "uint", Width, "uint", Height, "uint", Depth, "uint", _Levels, "uint", Usage, "uint", Format, "int", Pool, "ptr*", &ppVolumeTexture := 0, "ptr", pSharedHandle, "HRESULT")
+        result := ComCall(24, this, "uint", Width, "uint", Height, "uint", Depth, "uint", _Levels, "uint", Usage, D3DFORMAT, Format, D3DPOOL, Pool, "ptr*", &ppVolumeTexture := 0, HANDLE.Ptr, pSharedHandle, "HRESULT")
         return IDirect3DVolumeTexture9(ppVolumeTexture)
     }
 
@@ -668,7 +823,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createcubetexture
      */
     CreateCubeTexture(EdgeLength, _Levels, Usage, Format, Pool, pSharedHandle) {
-        result := ComCall(25, this, "uint", EdgeLength, "uint", _Levels, "uint", Usage, "uint", Format, "int", Pool, "ptr*", &ppCubeTexture := 0, "ptr", pSharedHandle, "HRESULT")
+        result := ComCall(25, this, "uint", EdgeLength, "uint", _Levels, "uint", Usage, D3DFORMAT, Format, D3DPOOL, Pool, "ptr*", &ppCubeTexture := 0, HANDLE.Ptr, pSharedHandle, "HRESULT")
         return IDirect3DCubeTexture9(ppCubeTexture)
     }
 
@@ -724,7 +879,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createvertexbuffer
      */
     CreateVertexBuffer(Length, Usage, FVF, Pool, pSharedHandle) {
-        result := ComCall(26, this, "uint", Length, "uint", Usage, "uint", FVF, "int", Pool, "ptr*", &ppVertexBuffer := 0, "ptr", pSharedHandle, "HRESULT")
+        result := ComCall(26, this, "uint", Length, "uint", Usage, "uint", FVF, D3DPOOL, Pool, "ptr*", &ppVertexBuffer := 0, HANDLE.Ptr, pSharedHandle, "HRESULT")
         return IDirect3DVertexBuffer9(ppVertexBuffer)
     }
 
@@ -786,7 +941,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createindexbuffer
      */
     CreateIndexBuffer(Length, Usage, Format, Pool, pSharedHandle) {
-        result := ComCall(27, this, "uint", Length, "uint", Usage, "uint", Format, "int", Pool, "ptr*", &ppIndexBuffer := 0, "ptr", pSharedHandle, "HRESULT")
+        result := ComCall(27, this, "uint", Length, "uint", Usage, D3DFORMAT, Format, D3DPOOL, Pool, "ptr*", &ppIndexBuffer := 0, HANDLE.Ptr, pSharedHandle, "HRESULT")
         return IDirect3DIndexBuffer9(ppIndexBuffer)
     }
 
@@ -825,7 +980,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createrendertarget
      */
     CreateRenderTarget(Width, Height, Format, MultiSample, MultisampleQuality, Lockable, pSharedHandle) {
-        result := ComCall(28, this, "uint", Width, "uint", Height, "uint", Format, "int", MultiSample, "uint", MultisampleQuality, "int", Lockable, "ptr*", &ppSurface := 0, "ptr", pSharedHandle, "HRESULT")
+        result := ComCall(28, this, "uint", Width, "uint", Height, D3DFORMAT, Format, D3DMULTISAMPLE_TYPE, MultiSample, "uint", MultisampleQuality, BOOL, Lockable, "ptr*", &ppSurface := 0, HANDLE.Ptr, pSharedHandle, "HRESULT")
         return IDirect3DSurface9(ppSurface)
     }
 
@@ -863,7 +1018,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createdepthstencilsurface
      */
     CreateDepthStencilSurface(Width, Height, Format, MultiSample, MultisampleQuality, Discard, pSharedHandle) {
-        result := ComCall(29, this, "uint", Width, "uint", Height, "uint", Format, "int", MultiSample, "uint", MultisampleQuality, "int", Discard, "ptr*", &ppSurface := 0, "ptr", pSharedHandle, "HRESULT")
+        result := ComCall(29, this, "uint", Width, "uint", Height, D3DFORMAT, Format, D3DMULTISAMPLE_TYPE, MultiSample, "uint", MultisampleQuality, BOOL, Discard, "ptr*", &ppSurface := 0, HANDLE.Ptr, pSharedHandle, "HRESULT")
         return IDirect3DSurface9(ppSurface)
     }
 
@@ -959,7 +1114,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-updatesurface
      */
     UpdateSurface(pSourceSurface, pSourceRect, pDestinationSurface, pDestPoint) {
-        result := ComCall(30, this, "ptr", pSourceSurface, "ptr", pSourceRect, "ptr", pDestinationSurface, "ptr", pDestPoint, "HRESULT")
+        result := ComCall(30, this, "ptr", pSourceSurface, RECT.Ptr, pSourceRect, "ptr", pDestinationSurface, POINT.Ptr, pDestPoint, "HRESULT")
         return result
     }
 
@@ -1423,7 +1578,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-stretchrect
      */
     StretchRect(pSourceSurface, pSourceRect, pDestSurface, pDestRect, Filter) {
-        result := ComCall(34, this, "ptr", pSourceSurface, "ptr", pSourceRect, "ptr", pDestSurface, "ptr", pDestRect, "int", Filter, "HRESULT")
+        result := ComCall(34, this, "ptr", pSourceSurface, RECT.Ptr, pSourceRect, "ptr", pDestSurface, RECT.Ptr, pDestRect, D3DTEXTUREFILTERTYPE, Filter, "HRESULT")
         return result
     }
 
@@ -1451,7 +1606,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-colorfill
      */
     ColorFill(pSurface, pRect, _color) {
-        result := ComCall(35, this, "ptr", pSurface, "ptr", pRect, "uint", _color, "HRESULT")
+        result := ComCall(35, this, "ptr", pSurface, RECT.Ptr, pRect, "uint", _color, "HRESULT")
         return result
     }
 
@@ -1486,7 +1641,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createoffscreenplainsurface
      */
     CreateOffscreenPlainSurface(Width, Height, Format, Pool, pSharedHandle) {
-        result := ComCall(36, this, "uint", Width, "uint", Height, "uint", Format, "int", Pool, "ptr*", &ppSurface := 0, "ptr", pSharedHandle, "HRESULT")
+        result := ComCall(36, this, "uint", Width, "uint", Height, D3DFORMAT, Format, D3DPOOL, Pool, "ptr*", &ppSurface := 0, HANDLE.Ptr, pSharedHandle, "HRESULT")
         return IDirect3DSurface9(ppSurface)
     }
 
@@ -1681,7 +1836,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-clear
      */
     Clear(Count, pRects, Flags, _Color, Z, Stencil) {
-        result := ComCall(43, this, "uint", Count, "ptr", pRects, "uint", Flags, "uint", _Color, "float", Z, "uint", Stencil, "HRESULT")
+        result := ComCall(43, this, "uint", Count, D3DRECT.Ptr, pRects, "uint", Flags, "uint", _Color, "float", Z, "uint", Stencil, "HRESULT")
         return result
     }
 
@@ -1699,7 +1854,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-settransform
      */
     SetTransform(State, pMatrix) {
-        result := ComCall(44, this, "int", State, "ptr", pMatrix, "HRESULT")
+        result := ComCall(44, this, D3DTRANSFORMSTATETYPE, State, D3DMATRIX.Ptr, pMatrix, "HRESULT")
         return result
     }
 
@@ -1720,7 +1875,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-gettransform
      */
     GetTransform(State, pMatrix) {
-        result := ComCall(45, this, "int", State, "ptr", pMatrix, "HRESULT")
+        result := ComCall(45, this, D3DTRANSFORMSTATETYPE, State, D3DMATRIX.Ptr, pMatrix, "HRESULT")
         return result
     }
 
@@ -1775,7 +1930,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-multiplytransform
      */
     MultiplyTransform(param0, param1) {
-        result := ComCall(46, this, "int", param0, "ptr", param1, "HRESULT")
+        result := ComCall(46, this, D3DTRANSFORMSTATETYPE, param0, D3DMATRIX.Ptr, param1, "HRESULT")
         return result
     }
 
@@ -1812,7 +1967,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setviewport
      */
     SetViewport(pViewport) {
-        result := ComCall(47, this, "ptr", pViewport, "HRESULT")
+        result := ComCall(47, this, D3DVIEWPORT9.Ptr, pViewport, "HRESULT")
         return result
     }
 
@@ -1829,7 +1984,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getviewport
      */
     GetViewport(pViewport) {
-        result := ComCall(48, this, "ptr", pViewport, "HRESULT")
+        result := ComCall(48, this, D3DVIEWPORT9.Ptr, pViewport, "HRESULT")
         return result
     }
 
@@ -1844,7 +1999,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setmaterial
      */
     SetMaterial(pMaterial) {
-        result := ComCall(49, this, "ptr", pMaterial, "HRESULT")
+        result := ComCall(49, this, D3DMATERIAL9.Ptr, pMaterial, "HRESULT")
         return result
     }
 
@@ -1861,7 +2016,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getmaterial
      */
     GetMaterial(pMaterial) {
-        result := ComCall(50, this, "ptr", pMaterial, "HRESULT")
+        result := ComCall(50, this, D3DMATERIAL9.Ptr, pMaterial, "HRESULT")
         return result
     }
 
@@ -1932,7 +2087,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setlight
      */
     SetLight(Index, param1) {
-        result := ComCall(51, this, "uint", Index, "ptr", param1, "HRESULT")
+        result := ComCall(51, this, "uint", Index, D3DLIGHT9.Ptr, param1, "HRESULT")
         return result
     }
 
@@ -1992,7 +2147,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getlight
      */
     GetLight(Index, param1) {
-        result := ComCall(52, this, "uint", Index, "ptr", param1, "HRESULT")
+        result := ComCall(52, this, "uint", Index, D3DLIGHT9.Ptr, param1, "HRESULT")
         return result
     }
 
@@ -2097,7 +2252,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-lightenable
      */
     LightEnable(Index, Enable) {
-        result := ComCall(53, this, "uint", Index, "int", Enable, "HRESULT")
+        result := ComCall(53, this, "uint", Index, BOOL, Enable, "HRESULT")
         return result
     }
 
@@ -2191,7 +2346,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setrenderstate
      */
     SetRenderState(State, Value) {
-        result := ComCall(57, this, "int", State, "uint", Value, "HRESULT")
+        result := ComCall(57, this, D3DRENDERSTATETYPE, State, "uint", Value, "HRESULT")
         return result
     }
 
@@ -2213,7 +2368,7 @@ class IDirect3DDevice9 extends IUnknown {
     GetRenderState(State, pValue) {
         pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(58, this, "int", State, pValueMarshal, pValue, "HRESULT")
+        result := ComCall(58, this, D3DRENDERSTATETYPE, State, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -2241,7 +2396,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createstateblock
      */
     CreateStateBlock(Type) {
-        result := ComCall(59, this, "int", Type, "ptr*", &ppSB := 0, "HRESULT")
+        result := ComCall(59, this, D3DSTATEBLOCKTYPE, Type, "ptr*", &ppSB := 0, "HRESULT")
         return IDirect3DStateBlock9(ppSB)
     }
 
@@ -2373,7 +2528,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setclipstatus
      */
     SetClipStatus(pClipStatus) {
-        result := ComCall(62, this, "ptr", pClipStatus, "HRESULT")
+        result := ComCall(62, this, D3DCLIPSTATUS9.Ptr, pClipStatus, "HRESULT")
         return result
     }
 
@@ -2397,7 +2552,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getclipstatus
      */
     GetClipStatus(pClipStatus) {
-        result := ComCall(63, this, "ptr", pClipStatus, "HRESULT")
+        result := ComCall(63, this, D3DCLIPSTATUS9.Ptr, pClipStatus, "HRESULT")
         return result
     }
 
@@ -2474,7 +2629,7 @@ class IDirect3DDevice9 extends IUnknown {
     GetTextureStageState(Stage, Type, pValue) {
         pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(66, this, "uint", Stage, "int", Type, pValueMarshal, pValue, "HRESULT")
+        result := ComCall(66, this, "uint", Stage, D3DTEXTURESTAGESTATETYPE, Type, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -2495,7 +2650,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-settexturestagestate
      */
     SetTextureStageState(Stage, Type, Value) {
-        result := ComCall(67, this, "uint", Stage, "int", Type, "uint", Value, "HRESULT")
+        result := ComCall(67, this, "uint", Stage, D3DTEXTURESTAGESTATETYPE, Type, "uint", Value, "HRESULT")
         return result
     }
 
@@ -2520,7 +2675,7 @@ class IDirect3DDevice9 extends IUnknown {
     GetSamplerState(Sampler, Type, pValue) {
         pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(68, this, "uint", Sampler, "int", Type, pValueMarshal, pValue, "HRESULT")
+        result := ComCall(68, this, "uint", Sampler, D3DSAMPLERSTATETYPE, Type, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -2541,7 +2696,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setsamplerstate
      */
     SetSamplerState(Sampler, Type, Value) {
-        result := ComCall(69, this, "uint", Sampler, "int", Type, "uint", Value, "HRESULT")
+        result := ComCall(69, this, "uint", Sampler, D3DSAMPLERSTATETYPE, Type, "uint", Value, "HRESULT")
         return result
     }
 
@@ -2602,7 +2757,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setpaletteentries
      */
     SetPaletteEntries(PaletteNumber, pEntries) {
-        result := ComCall(71, this, "uint", PaletteNumber, "ptr", pEntries, "HRESULT")
+        result := ComCall(71, this, "uint", PaletteNumber, PALETTEENTRY.Ptr, pEntries, "HRESULT")
         return result
     }
 
@@ -2625,7 +2780,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getpaletteentries
      */
     GetPaletteEntries(PaletteNumber, pEntries) {
-        result := ComCall(72, this, "uint", PaletteNumber, "ptr", pEntries, "HRESULT")
+        result := ComCall(72, this, "uint", PaletteNumber, PALETTEENTRY.Ptr, pEntries, "HRESULT")
         return result
     }
 
@@ -2679,7 +2834,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setscissorrect
      */
     SetScissorRect(pRect) {
-        result := ComCall(75, this, "ptr", pRect, "HRESULT")
+        result := ComCall(75, this, RECT.Ptr, pRect, "HRESULT")
         return result
     }
 
@@ -2699,7 +2854,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getscissorrect
      */
     GetScissorRect(pRect) {
-        result := ComCall(76, this, "ptr", pRect, "HRESULT")
+        result := ComCall(76, this, RECT.Ptr, pRect, "HRESULT")
         return result
     }
 
@@ -2725,7 +2880,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setsoftwarevertexprocessing
      */
     SetSoftwareVertexProcessing(bSoftware) {
-        result := ComCall(77, this, "int", bSoftware, "HRESULT")
+        result := ComCall(77, this, BOOL, bSoftware, "HRESULT")
         return result
     }
 
@@ -2743,7 +2898,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getsoftwarevertexprocessing
      */
     GetSoftwareVertexProcessing() {
-        result := ComCall(78, this, "int")
+        result := ComCall(78, this, BOOL)
         return result
     }
 
@@ -2770,7 +2925,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getnpatchmode
      */
     GetNPatchMode() {
-        result := ComCall(80, this, "float")
+        result := ComCall(80, this, Float32)
         return result
     }
 
@@ -2794,7 +2949,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-drawprimitive
      */
     DrawPrimitive(PrimitiveType, StartVertex, PrimitiveCount) {
-        result := ComCall(81, this, "int", PrimitiveType, "uint", StartVertex, "uint", PrimitiveCount, "HRESULT")
+        result := ComCall(81, this, D3DPRIMITIVETYPE, PrimitiveType, "uint", StartVertex, "uint", PrimitiveCount, "HRESULT")
         return result
     }
 
@@ -2833,7 +2988,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-drawindexedprimitive
      */
     DrawIndexedPrimitive(param0, BaseVertexIndex, MinVertexIndex, NumVertices, startIndex, primCount) {
-        result := ComCall(82, this, "int", param0, "int", BaseVertexIndex, "uint", MinVertexIndex, "uint", NumVertices, "uint", startIndex, "uint", primCount, "HRESULT")
+        result := ComCall(82, this, D3DPRIMITIVETYPE, param0, "int", BaseVertexIndex, "uint", MinVertexIndex, "uint", NumVertices, "uint", startIndex, "uint", primCount, "HRESULT")
         return result
     }
 
@@ -2867,7 +3022,7 @@ class IDirect3DDevice9 extends IUnknown {
     DrawPrimitiveUP(PrimitiveType, PrimitiveCount, pVertexStreamZeroData, VertexStreamZeroStride) {
         pVertexStreamZeroDataMarshal := pVertexStreamZeroData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(83, this, "int", PrimitiveType, "uint", PrimitiveCount, pVertexStreamZeroDataMarshal, pVertexStreamZeroData, "uint", VertexStreamZeroStride, "HRESULT")
+        result := ComCall(83, this, D3DPRIMITIVETYPE, PrimitiveType, "uint", PrimitiveCount, pVertexStreamZeroDataMarshal, pVertexStreamZeroData, "uint", VertexStreamZeroStride, "HRESULT")
         return result
     }
 
@@ -2925,7 +3080,7 @@ class IDirect3DDevice9 extends IUnknown {
         pIndexDataMarshal := pIndexData is VarRef ? "ptr" : "ptr"
         pVertexStreamZeroDataMarshal := pVertexStreamZeroData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(84, this, "int", PrimitiveType, "uint", MinVertexIndex, "uint", NumVertices, "uint", PrimitiveCount, pIndexDataMarshal, pIndexData, "uint", IndexDataFormat, pVertexStreamZeroDataMarshal, pVertexStreamZeroData, "uint", VertexStreamZeroStride, "HRESULT")
+        result := ComCall(84, this, D3DPRIMITIVETYPE, PrimitiveType, "uint", MinVertexIndex, "uint", NumVertices, "uint", PrimitiveCount, pIndexDataMarshal, pIndexData, D3DFORMAT, IndexDataFormat, pVertexStreamZeroDataMarshal, pVertexStreamZeroData, "uint", VertexStreamZeroStride, "HRESULT")
         return result
     }
 
@@ -2984,7 +3139,7 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createvertexdeclaration
      */
     CreateVertexDeclaration(pVertexElements) {
-        result := ComCall(86, this, "ptr", pVertexElements, "ptr*", &ppDecl := 0, "HRESULT")
+        result := ComCall(86, this, D3DVERTEXELEMENT9.Ptr, pVertexElements, "ptr*", &ppDecl := 0, "HRESULT")
         return IDirect3DVertexDeclaration9(ppDecl)
     }
 
@@ -3768,7 +3923,7 @@ class IDirect3DDevice9 extends IUnknown {
     DrawRectPatch(_Handle, pNumSegs, pRectPatchInfo) {
         pNumSegsMarshal := pNumSegs is VarRef ? "float*" : "ptr"
 
-        result := ComCall(115, this, "uint", _Handle, pNumSegsMarshal, pNumSegs, "ptr", pRectPatchInfo, "HRESULT")
+        result := ComCall(115, this, "uint", _Handle, pNumSegsMarshal, pNumSegs, D3DRECTPATCH_INFO.Ptr, pRectPatchInfo, "HRESULT")
         return result
     }
 
@@ -3798,7 +3953,7 @@ class IDirect3DDevice9 extends IUnknown {
     DrawTriPatch(_Handle, pNumSegs, pTriPatchInfo) {
         pNumSegsMarshal := pNumSegs is VarRef ? "float*" : "ptr"
 
-        result := ComCall(116, this, "uint", _Handle, pNumSegsMarshal, pNumSegs, "ptr", pTriPatchInfo, "HRESULT")
+        result := ComCall(116, this, "uint", _Handle, pNumSegsMarshal, pNumSegs, D3DTRIPATCH_INFO.Ptr, pTriPatchInfo, "HRESULT")
         return result
     }
 
@@ -3835,7 +3990,257 @@ class IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createquery
      */
     CreateQuery(Type) {
-        result := ComCall(118, this, "int", Type, "ptr*", &ppQuery := 0, "HRESULT")
+        result := ComCall(118, this, D3DQUERYTYPE, Type, "ptr*", &ppQuery := 0, "HRESULT")
         return IDirect3DQuery9(ppQuery)
+    }
+
+    Query(iid) {
+        if (IDirect3DDevice9.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.TestCooperativeLevel := CallbackCreate(GetMethod(implObj, "TestCooperativeLevel"), flags, 1)
+        this.vtbl.GetAvailableTextureMem := CallbackCreate(GetMethod(implObj, "GetAvailableTextureMem"), flags, 1)
+        this.vtbl.EvictManagedResources := CallbackCreate(GetMethod(implObj, "EvictManagedResources"), flags, 1)
+        this.vtbl.GetDirect3D := CallbackCreate(GetMethod(implObj, "GetDirect3D"), flags, 2)
+        this.vtbl.GetDeviceCaps := CallbackCreate(GetMethod(implObj, "GetDeviceCaps"), flags, 2)
+        this.vtbl.GetDisplayMode := CallbackCreate(GetMethod(implObj, "GetDisplayMode"), flags, 3)
+        this.vtbl.GetCreationParameters := CallbackCreate(GetMethod(implObj, "GetCreationParameters"), flags, 2)
+        this.vtbl.SetCursorProperties := CallbackCreate(GetMethod(implObj, "SetCursorProperties"), flags, 4)
+        this.vtbl.SetCursorPosition := CallbackCreate(GetMethod(implObj, "SetCursorPosition"), flags, 4)
+        this.vtbl.ShowCursor := CallbackCreate(GetMethod(implObj, "ShowCursor"), flags, 2)
+        this.vtbl.CreateAdditionalSwapChain := CallbackCreate(GetMethod(implObj, "CreateAdditionalSwapChain"), flags, 3)
+        this.vtbl.GetSwapChain := CallbackCreate(GetMethod(implObj, "GetSwapChain"), flags, 3)
+        this.vtbl.GetNumberOfSwapChains := CallbackCreate(GetMethod(implObj, "GetNumberOfSwapChains"), flags, 1)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 2)
+        this.vtbl.Present := CallbackCreate(GetMethod(implObj, "Present"), flags, 5)
+        this.vtbl.GetBackBuffer := CallbackCreate(GetMethod(implObj, "GetBackBuffer"), flags, 5)
+        this.vtbl.GetRasterStatus := CallbackCreate(GetMethod(implObj, "GetRasterStatus"), flags, 3)
+        this.vtbl.SetDialogBoxMode := CallbackCreate(GetMethod(implObj, "SetDialogBoxMode"), flags, 2)
+        this.vtbl.SetGammaRamp := CallbackCreate(GetMethod(implObj, "SetGammaRamp"), flags, 4)
+        this.vtbl.GetGammaRamp := CallbackCreate(GetMethod(implObj, "GetGammaRamp"), flags, 3)
+        this.vtbl.CreateTexture := CallbackCreate(GetMethod(implObj, "CreateTexture"), flags, 9)
+        this.vtbl.CreateVolumeTexture := CallbackCreate(GetMethod(implObj, "CreateVolumeTexture"), flags, 10)
+        this.vtbl.CreateCubeTexture := CallbackCreate(GetMethod(implObj, "CreateCubeTexture"), flags, 8)
+        this.vtbl.CreateVertexBuffer := CallbackCreate(GetMethod(implObj, "CreateVertexBuffer"), flags, 7)
+        this.vtbl.CreateIndexBuffer := CallbackCreate(GetMethod(implObj, "CreateIndexBuffer"), flags, 7)
+        this.vtbl.CreateRenderTarget := CallbackCreate(GetMethod(implObj, "CreateRenderTarget"), flags, 9)
+        this.vtbl.CreateDepthStencilSurface := CallbackCreate(GetMethod(implObj, "CreateDepthStencilSurface"), flags, 9)
+        this.vtbl.UpdateSurface := CallbackCreate(GetMethod(implObj, "UpdateSurface"), flags, 5)
+        this.vtbl.UpdateTexture := CallbackCreate(GetMethod(implObj, "UpdateTexture"), flags, 3)
+        this.vtbl.GetRenderTargetData := CallbackCreate(GetMethod(implObj, "GetRenderTargetData"), flags, 3)
+        this.vtbl.GetFrontBufferData := CallbackCreate(GetMethod(implObj, "GetFrontBufferData"), flags, 3)
+        this.vtbl.StretchRect := CallbackCreate(GetMethod(implObj, "StretchRect"), flags, 6)
+        this.vtbl.ColorFill := CallbackCreate(GetMethod(implObj, "ColorFill"), flags, 4)
+        this.vtbl.CreateOffscreenPlainSurface := CallbackCreate(GetMethod(implObj, "CreateOffscreenPlainSurface"), flags, 7)
+        this.vtbl.SetRenderTarget := CallbackCreate(GetMethod(implObj, "SetRenderTarget"), flags, 3)
+        this.vtbl.GetRenderTarget := CallbackCreate(GetMethod(implObj, "GetRenderTarget"), flags, 3)
+        this.vtbl.SetDepthStencilSurface := CallbackCreate(GetMethod(implObj, "SetDepthStencilSurface"), flags, 2)
+        this.vtbl.GetDepthStencilSurface := CallbackCreate(GetMethod(implObj, "GetDepthStencilSurface"), flags, 2)
+        this.vtbl.BeginScene := CallbackCreate(GetMethod(implObj, "BeginScene"), flags, 1)
+        this.vtbl.EndScene := CallbackCreate(GetMethod(implObj, "EndScene"), flags, 1)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 7)
+        this.vtbl.SetTransform := CallbackCreate(GetMethod(implObj, "SetTransform"), flags, 3)
+        this.vtbl.GetTransform := CallbackCreate(GetMethod(implObj, "GetTransform"), flags, 3)
+        this.vtbl.MultiplyTransform := CallbackCreate(GetMethod(implObj, "MultiplyTransform"), flags, 3)
+        this.vtbl.SetViewport := CallbackCreate(GetMethod(implObj, "SetViewport"), flags, 2)
+        this.vtbl.GetViewport := CallbackCreate(GetMethod(implObj, "GetViewport"), flags, 2)
+        this.vtbl.SetMaterial := CallbackCreate(GetMethod(implObj, "SetMaterial"), flags, 2)
+        this.vtbl.GetMaterial := CallbackCreate(GetMethod(implObj, "GetMaterial"), flags, 2)
+        this.vtbl.SetLight := CallbackCreate(GetMethod(implObj, "SetLight"), flags, 3)
+        this.vtbl.GetLight := CallbackCreate(GetMethod(implObj, "GetLight"), flags, 3)
+        this.vtbl.LightEnable := CallbackCreate(GetMethod(implObj, "LightEnable"), flags, 3)
+        this.vtbl.GetLightEnable := CallbackCreate(GetMethod(implObj, "GetLightEnable"), flags, 3)
+        this.vtbl.SetClipPlane := CallbackCreate(GetMethod(implObj, "SetClipPlane"), flags, 3)
+        this.vtbl.GetClipPlane := CallbackCreate(GetMethod(implObj, "GetClipPlane"), flags, 3)
+        this.vtbl.SetRenderState := CallbackCreate(GetMethod(implObj, "SetRenderState"), flags, 3)
+        this.vtbl.GetRenderState := CallbackCreate(GetMethod(implObj, "GetRenderState"), flags, 3)
+        this.vtbl.CreateStateBlock := CallbackCreate(GetMethod(implObj, "CreateStateBlock"), flags, 3)
+        this.vtbl.BeginStateBlock := CallbackCreate(GetMethod(implObj, "BeginStateBlock"), flags, 1)
+        this.vtbl.EndStateBlock := CallbackCreate(GetMethod(implObj, "EndStateBlock"), flags, 2)
+        this.vtbl.SetClipStatus := CallbackCreate(GetMethod(implObj, "SetClipStatus"), flags, 2)
+        this.vtbl.GetClipStatus := CallbackCreate(GetMethod(implObj, "GetClipStatus"), flags, 2)
+        this.vtbl.GetTexture := CallbackCreate(GetMethod(implObj, "GetTexture"), flags, 3)
+        this.vtbl.SetTexture := CallbackCreate(GetMethod(implObj, "SetTexture"), flags, 3)
+        this.vtbl.GetTextureStageState := CallbackCreate(GetMethod(implObj, "GetTextureStageState"), flags, 4)
+        this.vtbl.SetTextureStageState := CallbackCreate(GetMethod(implObj, "SetTextureStageState"), flags, 4)
+        this.vtbl.GetSamplerState := CallbackCreate(GetMethod(implObj, "GetSamplerState"), flags, 4)
+        this.vtbl.SetSamplerState := CallbackCreate(GetMethod(implObj, "SetSamplerState"), flags, 4)
+        this.vtbl.ValidateDevice := CallbackCreate(GetMethod(implObj, "ValidateDevice"), flags, 2)
+        this.vtbl.SetPaletteEntries := CallbackCreate(GetMethod(implObj, "SetPaletteEntries"), flags, 3)
+        this.vtbl.GetPaletteEntries := CallbackCreate(GetMethod(implObj, "GetPaletteEntries"), flags, 3)
+        this.vtbl.SetCurrentTexturePalette := CallbackCreate(GetMethod(implObj, "SetCurrentTexturePalette"), flags, 2)
+        this.vtbl.GetCurrentTexturePalette := CallbackCreate(GetMethod(implObj, "GetCurrentTexturePalette"), flags, 2)
+        this.vtbl.SetScissorRect := CallbackCreate(GetMethod(implObj, "SetScissorRect"), flags, 2)
+        this.vtbl.GetScissorRect := CallbackCreate(GetMethod(implObj, "GetScissorRect"), flags, 2)
+        this.vtbl.SetSoftwareVertexProcessing := CallbackCreate(GetMethod(implObj, "SetSoftwareVertexProcessing"), flags, 2)
+        this.vtbl.GetSoftwareVertexProcessing := CallbackCreate(GetMethod(implObj, "GetSoftwareVertexProcessing"), flags, 1)
+        this.vtbl.SetNPatchMode := CallbackCreate(GetMethod(implObj, "SetNPatchMode"), flags, 2)
+        this.vtbl.GetNPatchMode := CallbackCreate(GetMethod(implObj, "GetNPatchMode"), flags, 1)
+        this.vtbl.DrawPrimitive := CallbackCreate(GetMethod(implObj, "DrawPrimitive"), flags, 4)
+        this.vtbl.DrawIndexedPrimitive := CallbackCreate(GetMethod(implObj, "DrawIndexedPrimitive"), flags, 7)
+        this.vtbl.DrawPrimitiveUP := CallbackCreate(GetMethod(implObj, "DrawPrimitiveUP"), flags, 5)
+        this.vtbl.DrawIndexedPrimitiveUP := CallbackCreate(GetMethod(implObj, "DrawIndexedPrimitiveUP"), flags, 9)
+        this.vtbl.ProcessVertices := CallbackCreate(GetMethod(implObj, "ProcessVertices"), flags, 7)
+        this.vtbl.CreateVertexDeclaration := CallbackCreate(GetMethod(implObj, "CreateVertexDeclaration"), flags, 3)
+        this.vtbl.SetVertexDeclaration := CallbackCreate(GetMethod(implObj, "SetVertexDeclaration"), flags, 2)
+        this.vtbl.GetVertexDeclaration := CallbackCreate(GetMethod(implObj, "GetVertexDeclaration"), flags, 2)
+        this.vtbl.SetFVF := CallbackCreate(GetMethod(implObj, "SetFVF"), flags, 2)
+        this.vtbl.GetFVF := CallbackCreate(GetMethod(implObj, "GetFVF"), flags, 2)
+        this.vtbl.CreateVertexShader := CallbackCreate(GetMethod(implObj, "CreateVertexShader"), flags, 3)
+        this.vtbl.SetVertexShader := CallbackCreate(GetMethod(implObj, "SetVertexShader"), flags, 2)
+        this.vtbl.GetVertexShader := CallbackCreate(GetMethod(implObj, "GetVertexShader"), flags, 2)
+        this.vtbl.SetVertexShaderConstantF := CallbackCreate(GetMethod(implObj, "SetVertexShaderConstantF"), flags, 4)
+        this.vtbl.GetVertexShaderConstantF := CallbackCreate(GetMethod(implObj, "GetVertexShaderConstantF"), flags, 4)
+        this.vtbl.SetVertexShaderConstantI := CallbackCreate(GetMethod(implObj, "SetVertexShaderConstantI"), flags, 4)
+        this.vtbl.GetVertexShaderConstantI := CallbackCreate(GetMethod(implObj, "GetVertexShaderConstantI"), flags, 4)
+        this.vtbl.SetVertexShaderConstantB := CallbackCreate(GetMethod(implObj, "SetVertexShaderConstantB"), flags, 4)
+        this.vtbl.GetVertexShaderConstantB := CallbackCreate(GetMethod(implObj, "GetVertexShaderConstantB"), flags, 4)
+        this.vtbl.SetStreamSource := CallbackCreate(GetMethod(implObj, "SetStreamSource"), flags, 5)
+        this.vtbl.GetStreamSource := CallbackCreate(GetMethod(implObj, "GetStreamSource"), flags, 5)
+        this.vtbl.SetStreamSourceFreq := CallbackCreate(GetMethod(implObj, "SetStreamSourceFreq"), flags, 3)
+        this.vtbl.GetStreamSourceFreq := CallbackCreate(GetMethod(implObj, "GetStreamSourceFreq"), flags, 3)
+        this.vtbl.SetIndices := CallbackCreate(GetMethod(implObj, "SetIndices"), flags, 2)
+        this.vtbl.GetIndices := CallbackCreate(GetMethod(implObj, "GetIndices"), flags, 2)
+        this.vtbl.CreatePixelShader := CallbackCreate(GetMethod(implObj, "CreatePixelShader"), flags, 3)
+        this.vtbl.SetPixelShader := CallbackCreate(GetMethod(implObj, "SetPixelShader"), flags, 2)
+        this.vtbl.GetPixelShader := CallbackCreate(GetMethod(implObj, "GetPixelShader"), flags, 2)
+        this.vtbl.SetPixelShaderConstantF := CallbackCreate(GetMethod(implObj, "SetPixelShaderConstantF"), flags, 4)
+        this.vtbl.GetPixelShaderConstantF := CallbackCreate(GetMethod(implObj, "GetPixelShaderConstantF"), flags, 4)
+        this.vtbl.SetPixelShaderConstantI := CallbackCreate(GetMethod(implObj, "SetPixelShaderConstantI"), flags, 4)
+        this.vtbl.GetPixelShaderConstantI := CallbackCreate(GetMethod(implObj, "GetPixelShaderConstantI"), flags, 4)
+        this.vtbl.SetPixelShaderConstantB := CallbackCreate(GetMethod(implObj, "SetPixelShaderConstantB"), flags, 4)
+        this.vtbl.GetPixelShaderConstantB := CallbackCreate(GetMethod(implObj, "GetPixelShaderConstantB"), flags, 4)
+        this.vtbl.DrawRectPatch := CallbackCreate(GetMethod(implObj, "DrawRectPatch"), flags, 4)
+        this.vtbl.DrawTriPatch := CallbackCreate(GetMethod(implObj, "DrawTriPatch"), flags, 4)
+        this.vtbl.DeletePatch := CallbackCreate(GetMethod(implObj, "DeletePatch"), flags, 2)
+        this.vtbl.CreateQuery := CallbackCreate(GetMethod(implObj, "CreateQuery"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.TestCooperativeLevel)
+        CallbackFree(this.vtbl.GetAvailableTextureMem)
+        CallbackFree(this.vtbl.EvictManagedResources)
+        CallbackFree(this.vtbl.GetDirect3D)
+        CallbackFree(this.vtbl.GetDeviceCaps)
+        CallbackFree(this.vtbl.GetDisplayMode)
+        CallbackFree(this.vtbl.GetCreationParameters)
+        CallbackFree(this.vtbl.SetCursorProperties)
+        CallbackFree(this.vtbl.SetCursorPosition)
+        CallbackFree(this.vtbl.ShowCursor)
+        CallbackFree(this.vtbl.CreateAdditionalSwapChain)
+        CallbackFree(this.vtbl.GetSwapChain)
+        CallbackFree(this.vtbl.GetNumberOfSwapChains)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.Present)
+        CallbackFree(this.vtbl.GetBackBuffer)
+        CallbackFree(this.vtbl.GetRasterStatus)
+        CallbackFree(this.vtbl.SetDialogBoxMode)
+        CallbackFree(this.vtbl.SetGammaRamp)
+        CallbackFree(this.vtbl.GetGammaRamp)
+        CallbackFree(this.vtbl.CreateTexture)
+        CallbackFree(this.vtbl.CreateVolumeTexture)
+        CallbackFree(this.vtbl.CreateCubeTexture)
+        CallbackFree(this.vtbl.CreateVertexBuffer)
+        CallbackFree(this.vtbl.CreateIndexBuffer)
+        CallbackFree(this.vtbl.CreateRenderTarget)
+        CallbackFree(this.vtbl.CreateDepthStencilSurface)
+        CallbackFree(this.vtbl.UpdateSurface)
+        CallbackFree(this.vtbl.UpdateTexture)
+        CallbackFree(this.vtbl.GetRenderTargetData)
+        CallbackFree(this.vtbl.GetFrontBufferData)
+        CallbackFree(this.vtbl.StretchRect)
+        CallbackFree(this.vtbl.ColorFill)
+        CallbackFree(this.vtbl.CreateOffscreenPlainSurface)
+        CallbackFree(this.vtbl.SetRenderTarget)
+        CallbackFree(this.vtbl.GetRenderTarget)
+        CallbackFree(this.vtbl.SetDepthStencilSurface)
+        CallbackFree(this.vtbl.GetDepthStencilSurface)
+        CallbackFree(this.vtbl.BeginScene)
+        CallbackFree(this.vtbl.EndScene)
+        CallbackFree(this.vtbl.Clear)
+        CallbackFree(this.vtbl.SetTransform)
+        CallbackFree(this.vtbl.GetTransform)
+        CallbackFree(this.vtbl.MultiplyTransform)
+        CallbackFree(this.vtbl.SetViewport)
+        CallbackFree(this.vtbl.GetViewport)
+        CallbackFree(this.vtbl.SetMaterial)
+        CallbackFree(this.vtbl.GetMaterial)
+        CallbackFree(this.vtbl.SetLight)
+        CallbackFree(this.vtbl.GetLight)
+        CallbackFree(this.vtbl.LightEnable)
+        CallbackFree(this.vtbl.GetLightEnable)
+        CallbackFree(this.vtbl.SetClipPlane)
+        CallbackFree(this.vtbl.GetClipPlane)
+        CallbackFree(this.vtbl.SetRenderState)
+        CallbackFree(this.vtbl.GetRenderState)
+        CallbackFree(this.vtbl.CreateStateBlock)
+        CallbackFree(this.vtbl.BeginStateBlock)
+        CallbackFree(this.vtbl.EndStateBlock)
+        CallbackFree(this.vtbl.SetClipStatus)
+        CallbackFree(this.vtbl.GetClipStatus)
+        CallbackFree(this.vtbl.GetTexture)
+        CallbackFree(this.vtbl.SetTexture)
+        CallbackFree(this.vtbl.GetTextureStageState)
+        CallbackFree(this.vtbl.SetTextureStageState)
+        CallbackFree(this.vtbl.GetSamplerState)
+        CallbackFree(this.vtbl.SetSamplerState)
+        CallbackFree(this.vtbl.ValidateDevice)
+        CallbackFree(this.vtbl.SetPaletteEntries)
+        CallbackFree(this.vtbl.GetPaletteEntries)
+        CallbackFree(this.vtbl.SetCurrentTexturePalette)
+        CallbackFree(this.vtbl.GetCurrentTexturePalette)
+        CallbackFree(this.vtbl.SetScissorRect)
+        CallbackFree(this.vtbl.GetScissorRect)
+        CallbackFree(this.vtbl.SetSoftwareVertexProcessing)
+        CallbackFree(this.vtbl.GetSoftwareVertexProcessing)
+        CallbackFree(this.vtbl.SetNPatchMode)
+        CallbackFree(this.vtbl.GetNPatchMode)
+        CallbackFree(this.vtbl.DrawPrimitive)
+        CallbackFree(this.vtbl.DrawIndexedPrimitive)
+        CallbackFree(this.vtbl.DrawPrimitiveUP)
+        CallbackFree(this.vtbl.DrawIndexedPrimitiveUP)
+        CallbackFree(this.vtbl.ProcessVertices)
+        CallbackFree(this.vtbl.CreateVertexDeclaration)
+        CallbackFree(this.vtbl.SetVertexDeclaration)
+        CallbackFree(this.vtbl.GetVertexDeclaration)
+        CallbackFree(this.vtbl.SetFVF)
+        CallbackFree(this.vtbl.GetFVF)
+        CallbackFree(this.vtbl.CreateVertexShader)
+        CallbackFree(this.vtbl.SetVertexShader)
+        CallbackFree(this.vtbl.GetVertexShader)
+        CallbackFree(this.vtbl.SetVertexShaderConstantF)
+        CallbackFree(this.vtbl.GetVertexShaderConstantF)
+        CallbackFree(this.vtbl.SetVertexShaderConstantI)
+        CallbackFree(this.vtbl.GetVertexShaderConstantI)
+        CallbackFree(this.vtbl.SetVertexShaderConstantB)
+        CallbackFree(this.vtbl.GetVertexShaderConstantB)
+        CallbackFree(this.vtbl.SetStreamSource)
+        CallbackFree(this.vtbl.GetStreamSource)
+        CallbackFree(this.vtbl.SetStreamSourceFreq)
+        CallbackFree(this.vtbl.GetStreamSourceFreq)
+        CallbackFree(this.vtbl.SetIndices)
+        CallbackFree(this.vtbl.GetIndices)
+        CallbackFree(this.vtbl.CreatePixelShader)
+        CallbackFree(this.vtbl.SetPixelShader)
+        CallbackFree(this.vtbl.GetPixelShader)
+        CallbackFree(this.vtbl.SetPixelShaderConstantF)
+        CallbackFree(this.vtbl.GetPixelShaderConstantF)
+        CallbackFree(this.vtbl.SetPixelShaderConstantI)
+        CallbackFree(this.vtbl.GetPixelShaderConstantI)
+        CallbackFree(this.vtbl.SetPixelShaderConstantB)
+        CallbackFree(this.vtbl.GetPixelShaderConstantB)
+        CallbackFree(this.vtbl.DrawRectPatch)
+        CallbackFree(this.vtbl.DrawTriPatch)
+        CallbackFree(this.vtbl.DeletePatch)
+        CallbackFree(this.vtbl.CreateQuery)
     }
 }

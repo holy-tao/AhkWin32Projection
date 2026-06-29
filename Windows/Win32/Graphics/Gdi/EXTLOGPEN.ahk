@@ -1,15 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 
 /**
  * The EXTLOGPEN structure defines the pen style, width, and brush attributes for an extended pen.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-extlogpen
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class EXTLOGPEN extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct EXTLOGPEN {
+    #StructPack 8
 
     /**
      * A combination of pen type, style, end cap style, and join style. The values from each category can be retrieved by using a bitwise AND operator with the appropriate mask.
@@ -116,21 +114,13 @@ class EXTLOGPEN extends Win32Struct {
      * <td>Line joins are round.</td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    elpPenStyle {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    elpPenStyle : UInt32
 
     /**
      * The width of the pen. If the <b>elpPenStyle</b> member is PS_GEOMETRIC, this value is the width of the line in logical units. Otherwise, the lines are cosmetic and this value is 1, which indicates a line with a width of one pixel.
-     * @type {Integer}
      */
-    elpWidth {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    elpWidth : UInt32
 
     /**
      * The brush style of the pen. The <b>elpBrushStyle</b> member value can be one of the following.
@@ -165,12 +155,8 @@ class EXTLOGPEN extends Win32Struct {
      * <td>Specifies a solid brush.</td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    elpBrushStyle {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    elpBrushStyle : UInt32
 
     /**
      * If <b>elpBrushStyle</b> is BS_SOLID or BS_HATCHED, <b>elpColor</b> specifies the color in which the pen is to be drawn. For BS_HATCHED, the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setbkmode">SetBkMode</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setbkcolor">SetBkColor</a> functions determine the background color.
@@ -196,12 +182,8 @@ class EXTLOGPEN extends Win32Struct {
      *  
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro is used to generate a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> structure.
-     * @type {COLORREF}
      */
-    elpColor {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    elpColor : COLORREF
 
     /**
      * If <b>elpBrushStyle</b> is BS_PATTERN, <b>elpHatch</b> is a handle to the bitmap that defines the pattern.
@@ -211,33 +193,19 @@ class EXTLOGPEN extends Win32Struct {
      * If <b>elpBrushStyle</b> is BS_DIBPATTERN, the <b>elpHatch</b> member is a handle to a packed DIB. To obtain this handle, an application calls the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> function with GMEM_MOVEABLE (or <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> with LMEM_MOVEABLE) to allocate a block of memory and then fills the memory with the packed DIB. A packed DIB consists of a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure immediately followed by the array of bytes that define the pixels of the bitmap.
      * 
      * If <b>elpBrushStyle</b> is BS_DIBPATTERNPT, the <b>elpHatch</b> member is a pointer to a packed DIB. The pointer derives from the memory block created by <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> with LMEM_FIXED set or by <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> with GMEM_FIXED set, or it is the pointer returned by a call like <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-locallock">LocalLock</a> (handle_to_the_dib). A packed DIB consists of a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure immediately followed by the array of bytes that define the pixels of the bitmap.
-     * @type {Pointer}
      */
-    elpHatch {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    elpHatch : IntPtr
 
     /**
      * The number of entries in the style array in the <b>elpStyleEntry</b> member. This value is zero if <b>elpPenStyle</b> does not specify PS_USERSTYLE.
-     * @type {Integer}
      */
-    elpNumEntries {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    elpNumEntries : UInt32
 
     /**
      * A user-supplied style array. The array is specified with a finite length, but it is used as if it repeated indefinitely. The first entry in the array specifies the length of the first dash. The second entry specifies the length of the first gap. Thereafter, lengths of dashes and gaps alternate.
      * 
      * If <b>elpWidth</b> specifies geometric lines, the lengths are in logical units. Otherwise, the lines are cosmetic and lengths are in device units.
-     * @type {Array<Integer>}
      */
-    elpStyleEntry {
-        get {
-            if(!this.HasProp("__elpStyleEntryProxyArray"))
-                this.__elpStyleEntryProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "uint")
-            return this.__elpStyleEntryProxyArray
-        }
-    }
+    elpStyleEntry : UInt32[1]
+
 }

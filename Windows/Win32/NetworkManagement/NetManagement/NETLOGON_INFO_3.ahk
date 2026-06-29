@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines a level-3 control query response from a domain controller.
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-netlogon_info_3
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class NETLOGON_INFO_3 extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct NETLOGON_INFO_3 {
+    #StructPack 4
 
     /**
      * An integer value that contains one or more of the following control query responses from the DC.
@@ -97,64 +94,37 @@ class NETLOGON_INFO_3 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    netlog3_flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    netlog3_flags : UInt32
 
     /**
      * The number of logon attempts made for the domain.
-     * @type {Integer}
      */
-    netlog3_logon_attempts {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    netlog3_logon_attempts : UInt32
 
     /**
      * Reserved value.
-     * @type {Integer}
      */
-    netlog3_reserved1 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    netlog3_reserved1 : UInt32
 
     /**
      * Reserved value.
-     * @type {Integer}
      */
-    netlog3_reserved2 {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    netlog3_reserved2 : UInt32
 
     /**
      * Reserved value.
-     * @type {Integer}
      */
-    netlog3_reserved3 {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    netlog3_reserved3 : UInt32
 
     /**
      * Reserved value.
-     * @type {Integer}
      */
-    netlog3_reserved4 {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    netlog3_reserved4 : UInt32
 
     /**
      * Reserved value.
-     * @type {Integer}
      */
-    netlog3_reserved5 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    netlog3_reserved5 : UInt32
+
 }

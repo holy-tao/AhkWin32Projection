@@ -1,33 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\WMPCallbackNotification.ahk" { WMPCallbackNotification }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Note  This section describes functionality designed for use by online stores.
  * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nn-contentpartner-iwmpcontentpartnercallback
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPContentPartnerCallback extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMPContentPartnerCallback extends IUnknown {
     /**
      * The interface identifier for IWMPContentPartnerCallback
      * @type {Guid}
      */
-    static IID => Guid("{9e8f7da2-0695-403c-b697-da10fafaa676}")
+    static IID := Guid("{9e8f7da2-0695-403c-b697-da10fafaa676}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPContentPartnerCallback interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Notify                   : IntPtr
+        BuyComplete              : IntPtr
+        DownloadTrack            : IntPtr
+        GetCatalogVersion        : IntPtr
+        UpdateDeviceComplete     : IntPtr
+        ChangeView               : IntPtr
+        AddListContents          : IntPtr
+        ListContentsComplete     : IntPtr
+        SendMessageComplete      : IntPtr
+        GetContentIDsInLibrary   : IntPtr
+        RefreshLicenseComplete   : IntPtr
+        ShowPopup                : IntPtr
+        VerifyPermissionComplete : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Notify", "BuyComplete", "DownloadTrack", "GetCatalogVersion", "UpdateDeviceComplete", "ChangeView", "AddListContents", "ListContentsComplete", "SendMessageComplete", "GetContentIDsInLibrary", "RefreshLicenseComplete", "ShowPopup", "VerifyPermissionComplete"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPContentPartnerCallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Note  This section describes functionality designed for use by online stores.
@@ -89,7 +112,7 @@ class IWMPContentPartnerCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartnercallback-notify
      */
     Notify(type, pContext) {
-        result := ComCall(3, this, "int", type, "ptr", pContext, "HRESULT")
+        result := ComCall(3, this, WMPCallbackNotification, type, VARIANT.Ptr, pContext, "HRESULT")
         return result
     }
 
@@ -163,7 +186,7 @@ class IWMPContentPartnerCallback extends IUnknown {
         bstrTrackURL := bstrTrackURL is String ? BSTR.Alloc(bstrTrackURL).Value : bstrTrackURL
         bstrDownloadParams := bstrDownloadParams is String ? BSTR.Alloc(bstrDownloadParams).Value : bstrDownloadParams
 
-        result := ComCall(5, this, "uint", cookie, "ptr", bstrTrackURL, "uint", dwServiceTrackID, "ptr", bstrDownloadParams, "int", hrDownload, "HRESULT")
+        result := ComCall(5, this, "uint", cookie, BSTR, bstrTrackURL, "uint", dwServiceTrackID, BSTR, bstrDownloadParams, "int", hrDownload, "HRESULT")
         return result
     }
 
@@ -231,7 +254,7 @@ class IWMPContentPartnerCallback extends IUnknown {
     UpdateDeviceComplete(bstrDeviceName) {
         bstrDeviceName := bstrDeviceName is String ? BSTR.Alloc(bstrDeviceName).Value : bstrDeviceName
 
-        result := ComCall(7, this, "ptr", bstrDeviceName, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrDeviceName, "HRESULT")
         return result
     }
 
@@ -268,7 +291,7 @@ class IWMPContentPartnerCallback extends IUnknown {
         bstrID := bstrID is String ? BSTR.Alloc(bstrID).Value : bstrID
         bstrFilter := bstrFilter is String ? BSTR.Alloc(bstrFilter).Value : bstrFilter
 
-        result := ComCall(8, this, "ptr", bstrType, "ptr", bstrID, "ptr", bstrFilter, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrType, BSTR, bstrID, BSTR, bstrFilter, "HRESULT")
         return result
     }
 
@@ -377,7 +400,7 @@ class IWMPContentPartnerCallback extends IUnknown {
         bstrParam := bstrParam is String ? BSTR.Alloc(bstrParam).Value : bstrParam
         bstrResult := bstrResult is String ? BSTR.Alloc(bstrResult).Value : bstrResult
 
-        result := ComCall(11, this, "ptr", bstrMsg, "ptr", bstrParam, "ptr", bstrResult, "HRESULT")
+        result := ComCall(11, this, BSTR, bstrMsg, BSTR, bstrParam, BSTR, bstrResult, "HRESULT")
         return result
     }
 
@@ -481,7 +504,7 @@ class IWMPContentPartnerCallback extends IUnknown {
     ShowPopup(lIndex, bstrParameters) {
         bstrParameters := bstrParameters is String ? BSTR.Alloc(bstrParameters).Value : bstrParameters
 
-        result := ComCall(14, this, "int", lIndex, "ptr", bstrParameters, "HRESULT")
+        result := ComCall(14, this, "int", lIndex, BSTR, bstrParameters, "HRESULT")
         return result
     }
 
@@ -520,7 +543,51 @@ class IWMPContentPartnerCallback extends IUnknown {
     VerifyPermissionComplete(bstrPermission, pContext, hrPermission) {
         bstrPermission := bstrPermission is String ? BSTR.Alloc(bstrPermission).Value : bstrPermission
 
-        result := ComCall(15, this, "ptr", bstrPermission, "ptr", pContext, "int", hrPermission, "HRESULT")
+        result := ComCall(15, this, BSTR, bstrPermission, VARIANT.Ptr, pContext, "int", hrPermission, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPContentPartnerCallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Notify := CallbackCreate(GetMethod(implObj, "Notify"), flags, 3)
+        this.vtbl.BuyComplete := CallbackCreate(GetMethod(implObj, "BuyComplete"), flags, 3)
+        this.vtbl.DownloadTrack := CallbackCreate(GetMethod(implObj, "DownloadTrack"), flags, 6)
+        this.vtbl.GetCatalogVersion := CallbackCreate(GetMethod(implObj, "GetCatalogVersion"), flags, 4)
+        this.vtbl.UpdateDeviceComplete := CallbackCreate(GetMethod(implObj, "UpdateDeviceComplete"), flags, 2)
+        this.vtbl.ChangeView := CallbackCreate(GetMethod(implObj, "ChangeView"), flags, 4)
+        this.vtbl.AddListContents := CallbackCreate(GetMethod(implObj, "AddListContents"), flags, 4)
+        this.vtbl.ListContentsComplete := CallbackCreate(GetMethod(implObj, "ListContentsComplete"), flags, 3)
+        this.vtbl.SendMessageComplete := CallbackCreate(GetMethod(implObj, "SendMessageComplete"), flags, 4)
+        this.vtbl.GetContentIDsInLibrary := CallbackCreate(GetMethod(implObj, "GetContentIDsInLibrary"), flags, 3)
+        this.vtbl.RefreshLicenseComplete := CallbackCreate(GetMethod(implObj, "RefreshLicenseComplete"), flags, 4)
+        this.vtbl.ShowPopup := CallbackCreate(GetMethod(implObj, "ShowPopup"), flags, 3)
+        this.vtbl.VerifyPermissionComplete := CallbackCreate(GetMethod(implObj, "VerifyPermissionComplete"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Notify)
+        CallbackFree(this.vtbl.BuyComplete)
+        CallbackFree(this.vtbl.DownloadTrack)
+        CallbackFree(this.vtbl.GetCatalogVersion)
+        CallbackFree(this.vtbl.UpdateDeviceComplete)
+        CallbackFree(this.vtbl.ChangeView)
+        CallbackFree(this.vtbl.AddListContents)
+        CallbackFree(this.vtbl.ListContentsComplete)
+        CallbackFree(this.vtbl.SendMessageComplete)
+        CallbackFree(this.vtbl.GetContentIDsInLibrary)
+        CallbackFree(this.vtbl.RefreshLicenseComplete)
+        CallbackFree(this.vtbl.ShowPopup)
+        CallbackFree(this.vtbl.VerifyPermissionComplete)
     }
 }

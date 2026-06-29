@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Receives file stream information for the specified file.
@@ -16,53 +16,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_stream_info
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class FILE_STREAM_INFO extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct FILE_STREAM_INFO {
+    #StructPack 8
 
     /**
      * The offset for the next <b>FILE_STREAM_INFO</b> entry that is returned. This member is zero if no other entries follow this one.
-     * @type {Integer}
      */
-    NextEntryOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NextEntryOffset : UInt32
 
     /**
      * The length, in bytes, of <b>StreamName</b>.
-     * @type {Integer}
      */
-    StreamNameLength {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    StreamNameLength : UInt32
 
     /**
      * The size, in bytes,  of the data stream.
-     * @type {Integer}
      */
-    StreamSize {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    StreamSize : Int64
 
     /**
      * The amount of space that  is allocated for the stream, in bytes.  This value is usually a multiple of the sector or cluster size of the underlying physical device.
-     * @type {Integer}
      */
-    StreamAllocationSize {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    StreamAllocationSize : Int64
 
     /**
      * The stream name.
-     * @type {String}
      */
-    StreamName {
-        get => StrGet(this.ptr + 24, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 0, "UTF-16")
-    }
+    StreamName : WCHAR[1]
+
 }

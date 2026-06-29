@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The RPC_ENDPOINT_TEMPLATEW (Unicode) structure (rpcdce.h) specifies the properties of an RPC interface group server endpoint, including protocol sequence and name.
@@ -20,53 +20,32 @@
  * @namespace Windows.Win32.System.Rpc
  * @charset Unicode
  */
-class RPC_ENDPOINT_TEMPLATEW extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct RPC_ENDPOINT_TEMPLATEW {
+    #StructPack 8
 
     /**
      * This field is reserved and must be set to 0.
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
     /**
      * Pointer to a string identifier of the protocol sequence to register with the RPC run-time library.  Only <a href="https://docs.microsoft.com/windows/desktop/Rpc/protocol-sequence-constants">ncalrpc</a>, ncacn_ip_tcp, and ncacn_np are supported.  This value must not be <b>NULL</b>.
-     * @type {PWSTR}
      */
-    ProtSeq {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ProtSeq : PWSTR
 
     /**
      * Optional pointer to the endpoint-address information to use in creating a binding for the protocol sequence specified in the <i>Protseq</i> parameter.  Specify <b>NULL</b> to use dynamic endpoints.
-     * @type {PWSTR}
      */
-    Endpoint {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Endpoint : PWSTR
 
     /**
      * Pointer to an optional parameter provided for the security subsystem. Used only for <a href="https://docs.microsoft.com/windows/desktop/Rpc/protocol-sequence-constants">ncacn_np</a> and ncalrpc protocol sequences. All other protocol sequences ignore this parameter. Using a security descriptor on the endpoint in order to make a server secure is not recommended.
-     * @type {Pointer<Void>}
      */
-    SecurityDescriptor {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    SecurityDescriptor : IntPtr
 
     /**
      * Backlog queue length for the <a href="https://docs.microsoft.com/windows/desktop/Rpc/protocol-sequence-constants">ncacn_ip_tcp</a> protocol sequence. All other protocol sequences ignore this parameter. Use <b>RPC_C_PROTSEQ_MAX_REQS_DEFAULT</b> to specify the default value.  See Remarks for more information.
-     * @type {Integer}
      */
-    Backlog {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Backlog : UInt32
+
 }

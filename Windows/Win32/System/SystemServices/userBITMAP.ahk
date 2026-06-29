@@ -1,83 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class userBITMAP extends Win32Struct {
-    static sizeof => 28
+export default struct userBITMAP {
+    #StructPack 4
 
-    static packingSize => 4
+    bmType : Int32
 
-    /**
-     * @type {Integer}
-     */
-    bmType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    bmWidth : Int32
 
-    /**
-     * @type {Integer}
-     */
-    bmWidth {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    bmHeight : Int32
 
-    /**
-     * @type {Integer}
-     */
-    bmHeight {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    bmWidthBytes : Int32
 
-    /**
-     * @type {Integer}
-     */
-    bmWidthBytes {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    bmPlanes : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    bmPlanes {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    bmBitsPixel : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    bmBitsPixel {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    pBuffer : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    pBuffer {
-        get {
-            if(!this.HasProp("__pBufferProxyArray"))
-                this.__pBufferProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
-            return this.__pBufferProxyArray
-        }
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 28
-    }
 }

@@ -1,11 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ne-winuser-tooltip_dismiss_flags
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class TOOLTIP_DISMISS_FLAGS extends Win32Enum {
+export default struct TOOLTIP_DISMISS_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The window is registered to receive tooltip dismiss notifications.

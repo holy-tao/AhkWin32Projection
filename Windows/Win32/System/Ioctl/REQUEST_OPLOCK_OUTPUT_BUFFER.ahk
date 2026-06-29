@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains the opportunistic lock (oplock) information returned by the FSCTL_REQUEST_OPLOCK control code.
@@ -17,30 +16,20 @@
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-request_oplock_output_buffer
  * @namespace Windows.Win32.System.Ioctl
  */
-class REQUEST_OPLOCK_OUTPUT_BUFFER extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct REQUEST_OPLOCK_OUTPUT_BUFFER {
+    #StructPack 4
 
     /**
      * The version of the 
      *       <b>REQUEST_OPLOCK_OUTPUT_BUFFER</b> structure that 
      *       is being used.
-     * @type {Integer}
      */
-    StructureVersion {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    StructureVersion : UInt16
 
     /**
      * The length of this structure, in bytes.
-     * @type {Integer}
      */
-    StructureLength {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    StructureLength : UInt16
 
     /**
      * One or more <b>OPLOCK_LEVEL_CACHE_</b><i>XXX</i> values that indicate 
@@ -48,12 +37,8 @@ class REQUEST_OPLOCK_OUTPUT_BUFFER extends Win32Struct {
      * 
      * For possible values, see the <b>RequestedOplockLevel</b> member of the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-request_oplock_input_buffer">REQUEST_OPLOCK_INPUT_BUFFER</a> structure.
-     * @type {Integer}
      */
-    OriginalOplockLevel {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    OriginalOplockLevel : UInt32
 
     /**
      * One or more <b>OPLOCK_LEVEL_CACHE_</b><i>XXX</i> values that indicate 
@@ -62,12 +47,8 @@ class REQUEST_OPLOCK_OUTPUT_BUFFER extends Win32Struct {
      * 
      * For possible values, see the <b>RequestedOplockLevel</b> member of the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-request_oplock_input_buffer">REQUEST_OPLOCK_INPUT_BUFFER</a> structure.
-     * @type {Integer}
      */
-    NewOplockLevel {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NewOplockLevel : UInt32
 
     /**
      * One or more <b>REQUEST_OPLOCK_OUTPUT_FLAG_</b><i>XXX</i> values.
@@ -102,32 +83,21 @@ class REQUEST_OPLOCK_OUTPUT_BUFFER extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Flags : UInt32
 
     /**
      * If the <b>REQUEST_OPLOCK_OUTPUT_FLAG_MODES_PROVIDED</b> flag is set and the 
      *       <b>OPLOCK_LEVEL_CACHE_HANDLE</b> level is being lost in an oplock break, contains the access 
      *       mode mode of the request that is causing the break.
-     * @type {Integer}
      */
-    AccessMode {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    AccessMode : UInt32
 
     /**
      * If the <b>REQUEST_OPLOCK_OUTPUT_FLAG_MODES_PROVIDED</b> flag is set and the 
      *       <b>OPLOCK_LEVEL_CACHE_HANDLE</b> level is being lost in an oplock break, contains the share 
      *       mode of the request that is causing the break.
-     * @type {Integer}
      */
-    ShareMode {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
+    ShareMode : UInt16
+
 }

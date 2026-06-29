@@ -1,112 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_SIGNALSYNCHRONIZATIONOBJECT2 extends Win32Struct {
-    static sizeof => 472
+export default struct D3DKMT_SIGNALSYNCHRONIZATIONOBJECT2 {
+    #StructPack 8
 
-    static packingSize => 8
 
-    /**
-     * @type {Integer}
-     */
-    hContext {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    struct _Fence {
+        FenceValue : Int64
+
     }
 
-    /**
-     * @type {Integer}
-     */
-    ObjectCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    hContext : UInt32
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ObjectHandleArray {
-        get {
-            if(!this.HasProp("__ObjectHandleArrayProxyArray"))
-                this.__ObjectHandleArrayProxyArray := Win32FixedArray(this.ptr + 8, 32, Primitive, "uint")
-            return this.__ObjectHandleArrayProxyArray
-        }
-    }
+    ObjectCount : UInt32
 
-    /**
-     * @type {Pointer}
-     */
-    Flags {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
-    }
+    ObjectHandleArray : UInt32[32]
 
-    /**
-     * @type {Integer}
-     */
-    BroadcastContextCount {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
-    }
+    Flags : IntPtr
 
-    /**
-     * @type {Array<Integer>}
-     */
-    BroadcastContext {
-        get {
-            if(!this.HasProp("__BroadcastContextProxyArray"))
-                this.__BroadcastContextProxyArray := Win32FixedArray(this.ptr + 148, 64, Primitive, "uint")
-            return this.__BroadcastContextProxyArray
-        }
-    }
+    BroadcastContextCount : UInt32
 
-    class _Fence extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    BroadcastContext : UInt32[64]
 
-        /**
-         * @type {Integer}
-         */
-        FenceValue {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-    }
+    Fence : D3DKMT_SIGNALSYNCHRONIZATIONOBJECT2._Fence
 
-    /**
-     * @type {_Fence}
-     */
-    Fence {
-        get {
-            if(!this.HasProp("__Fence"))
-                this.__Fence := D3DKMT_SIGNALSYNCHRONIZATIONOBJECT2._Fence(408, this)
-            return this.__Fence
-        }
-    }
-
-    /**
-     * @type {HANDLE}
-     */
-    CpuEventHandle {
-        get {
-            if(!this.HasProp("__CpuEventHandle"))
-                this.__CpuEventHandle := HANDLE(408, this)
-            return this.__CpuEventHandle
-        }
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 408, 8, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'CpuEventHandle', { type: HANDLE, offset: 408 })
+        DefineProp(this.Prototype, 'Reserved', { type: Int64[8], offset: 408 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the format of a variable data block contained in a report that the EnclaveGetAttestationReport function generates.
@@ -13,10 +12,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/ntenclv/ns-ntenclv-vbs_enclave_report_vardata_header
  * @namespace Windows.Win32.System.Environment
  */
-class VBS_ENCLAVE_REPORT_VARDATA_HEADER extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct VBS_ENCLAVE_REPORT_VARDATA_HEADER {
+    #StructPack 4
 
     /**
      * The type of the variable data block.
@@ -49,19 +46,12 @@ class VBS_ENCLAVE_REPORT_VARDATA_HEADER extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    DataType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DataType : UInt32
 
     /**
      * The size of this variable data block, including the header, in bytes.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Size : UInt32
+
 }

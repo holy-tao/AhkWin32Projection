@@ -1,10 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
-#Include ..\Ndis\NET_LUID_LH.ahk
-#Include ..\..\Networking\WinSock\NL_ROUTER_DISCOVERY_BEHAVIOR.ahk
-#Include ..\..\Networking\WinSock\NL_LINK_LOCAL_ADDRESS_BEHAVIOR.ahk
-#Include ..\..\Networking\WinSock\NL_INTERFACE_OFFLOAD_ROD.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Networking\WinSock\NL_ROUTER_DISCOVERY_BEHAVIOR.ahk" { NL_ROUTER_DISCOVERY_BEHAVIOR }
+#Import "..\..\Networking\WinSock\NL_LINK_LOCAL_ADDRESS_BEHAVIOR.ahk" { NL_LINK_LOCAL_ADDRESS_BEHAVIOR }
+#Import "..\..\Networking\WinSock\NL_INTERFACE_OFFLOAD_ROD.ahk" { NL_INTERFACE_OFFLOAD_ROD }
+#Import "..\Ndis\NET_LUID_LH.ahk" { NET_LUID_LH }
+#Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
 
 /**
  * Stores interface management information for a particular IP address family on a network interface.
@@ -39,10 +39,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_ipinterface_row
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_IPINTERFACE_ROW extends Win32Struct {
-    static sizeof => 176
-
-    static packingSize => 8
+export default struct MIB_IPINTERFACE_ROW {
+    #StructPack 8
 
     /**
      * Type: <b>ADDRESS_FAMILY</b>
@@ -93,180 +91,113 @@ class MIB_IPINTERFACE_ROW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {ADDRESS_FAMILY}
      */
-    Family {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Family : ADDRESS_FAMILY
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/ifdef/ns-ifdef-net_luid_lh">NET_LUID</a></b>
      * 
      * The locally unique identifier (LUID) for the network interface.
-     * @type {NET_LUID_LH}
      */
-    InterfaceLuid {
-        get {
-            if(!this.HasProp("__InterfaceLuid"))
-                this.__InterfaceLuid := NET_LUID_LH(8, this)
-            return this.__InterfaceLuid
-        }
-    }
+    InterfaceLuid : NET_LUID_LH
 
     /**
      * Type: <b>NET_IFINDEX</b>
      * 
      * The local index value for the network interface. This index value may change when a network adapter is disabled and then enabled, or under other circumstances, and should not be considered persistent.
-     * @type {Integer}
      */
-    InterfaceIndex {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    InterfaceIndex : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The maximum reassembly size, in bytes, of a fragmented IP packet. This member is currently set to zero and reserved for future use.
-     * @type {Integer}
      */
-    MaxReassemblySize {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    MaxReassemblySize : UInt32
 
     /**
      * Type: <b>ULONG64</b>
      * 
      * Reserved for future use. This member is currently set to zero.
-     * @type {Integer}
      */
-    InterfaceIdentifier {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    InterfaceIdentifier : Int64
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The minimum router advertisement interval, in milliseconds, on this IP interface. This member defaults to 200 for IPv6. This member is only applicable if the <b>AdvertisingEnabled</b> member is set to <b>TRUE</b>.
-     * @type {Integer}
      */
-    MinRouterAdvertisementInterval {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    MinRouterAdvertisementInterval : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The maximum router advertisement interval, in milliseconds, on this IP interface. This member defaults  to 600 for IPv6. This member is only applicable if the <b>AdvertisingEnabled</b> member is set to <b>TRUE</b>.
-     * @type {Integer}
      */
-    MaxRouterAdvertisementInterval {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    MaxRouterAdvertisementInterval : UInt32
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that indicates if router advertising is enabled on this IP interface. The default for IPv6 is that  router advertisement is enabled only if the interface is configured to act as a router.  The default for IPv4 is that router advertisement is disabled.
-     * @type {BOOLEAN}
      */
-    AdvertisingEnabled {
-        get => NumGet(this, 48, "char")
-        set => NumPut("char", value, this, 48)
-    }
+    AdvertisingEnabled : BOOLEAN
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that indicates if IP forwarding is enabled on this IP interface.
-     * @type {BOOLEAN}
      */
-    ForwardingEnabled {
-        get => NumGet(this, 49, "char")
-        set => NumPut("char", value, this, 49)
-    }
+    ForwardingEnabled : BOOLEAN
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that indicates if weak host send mode is enabled  on this IP interface.
-     * @type {BOOLEAN}
      */
-    WeakHostSend {
-        get => NumGet(this, 50, "char")
-        set => NumPut("char", value, this, 50)
-    }
+    WeakHostSend : BOOLEAN
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that indicates if weak host receive mode is enabled  on this IP interface.
-     * @type {BOOLEAN}
      */
-    WeakHostReceive {
-        get => NumGet(this, 51, "char")
-        set => NumPut("char", value, this, 51)
-    }
+    WeakHostReceive : BOOLEAN
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that indicates if the IP interface uses automatic metric.
-     * @type {BOOLEAN}
      */
-    UseAutomaticMetric {
-        get => NumGet(this, 52, "char")
-        set => NumPut("char", value, this, 52)
-    }
+    UseAutomaticMetric : BOOLEAN
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that indicates if neighbor unreachability detection is enabled on this IP interface.
-     * @type {BOOLEAN}
      */
-    UseNeighborUnreachabilityDetection {
-        get => NumGet(this, 53, "char")
-        set => NumPut("char", value, this, 53)
-    }
+    UseNeighborUnreachabilityDetection : BOOLEAN
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that indicates if the IP interface supports managed address configuration using DHCP.
-     * @type {BOOLEAN}
      */
-    ManagedAddressConfigurationSupported {
-        get => NumGet(this, 54, "char")
-        set => NumPut("char", value, this, 54)
-    }
+    ManagedAddressConfigurationSupported : BOOLEAN
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that indicates if the IP interface supports other stateful configuration (route configuration, for example).
-     * @type {BOOLEAN}
      */
-    OtherStatefulConfigurationSupported {
-        get => NumGet(this, 55, "char")
-        set => NumPut("char", value, this, 55)
-    }
+    OtherStatefulConfigurationSupported : BOOLEAN
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that indicates if the IP interface advertises the default route. This member is only applicable if the <b>AdvertisingEnabled</b> member is set to <b>TRUE</b>.
-     * @type {BOOLEAN}
      */
-    AdvertiseDefaultRoute {
-        get => NumGet(this, 56, "char")
-        set => NumPut("char", value, this, 56)
-    }
+    AdvertiseDefaultRoute : BOOLEAN
 
     /**
      * Type: <b>NL_ROUTER_DISCOVERY_BEHAVIOR</b>
@@ -323,12 +254,8 @@ class MIB_IPINTERFACE_ROW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {NL_ROUTER_DISCOVERY_BEHAVIOR}
      */
-    RouterDiscoveryBehavior {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
-    }
+    RouterDiscoveryBehavior : NL_ROUTER_DISCOVERY_BEHAVIOR
 
     /**
      * Type: <b>ULONG</b>
@@ -340,45 +267,29 @@ class MIB_IPINTERFACE_ROW extends Win32Struct {
      *                      indicates a single transmission with no follow up
      *                      retransmissions. For IPv4, the default for this member is 3. For IPv6, the default for this member is 1. For IPv6, these messages will sent as neighbor solicitation requests.
      *                      This member is defined as DupAddrDetectTransmits in RFC 2462. For more information, see <a href="https://www.ietf.org/rfc/rfc2462.txt">http://www.ietf.org/rfc/rfc2462.txt</a>.
-     * @type {Integer}
      */
-    DadTransmits {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    DadTransmits : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The base for random reachable time,  in milliseconds. The member is described in RFC 2461. For more information, see <a href="https://www.ietf.org/rfc/rfc2461.txt">http://www.ietf.org/rfc/rfc2461.txt</a>.
-     * @type {Integer}
      */
-    BaseReachableTime {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    BaseReachableTime : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The neighbor solicitation timeout,  in milliseconds. The member is described in RFC 2461. For more information, see <a href="https://www.ietf.org/rfc/rfc2461.txt">http://www.ietf.org/rfc/rfc2461.txt</a>.
-     * @type {Integer}
      */
-    RetransmitTime {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    RetransmitTime : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The path MTU discovery timeout,  in milliseconds.
-     * @type {Integer}
      */
-    PathMtuDiscoveryTimeout {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    PathMtuDiscoveryTimeout : UInt32
 
     /**
      * Type: <b>NL_LINK_LOCAL_ADDRESS_BEHAVIOR</b>
@@ -436,163 +347,99 @@ class MIB_IPINTERFACE_ROW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {NL_LINK_LOCAL_ADDRESS_BEHAVIOR}
      */
-    LinkLocalAddressBehavior {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
-    }
+    LinkLocalAddressBehavior : NL_LINK_LOCAL_ADDRESS_BEHAVIOR
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The link local IP address timeout, in milliseconds.
-     * @type {Integer}
      */
-    LinkLocalAddressTimeout {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    LinkLocalAddressTimeout : UInt32
 
     /**
      * Type: <b>ULONG[ScopeLevelCount]</b>
      * 
      * An array that specifies the zone part of scope IDs.
-     * @type {Array<Integer>}
      */
-    ZoneIndices {
-        get {
-            if(!this.HasProp("__ZoneIndicesProxyArray"))
-                this.__ZoneIndicesProxyArray := Win32FixedArray(this.ptr + 88, 16, Primitive, "uint")
-            return this.__ZoneIndicesProxyArray
-        }
-    }
+    ZoneIndices : UInt32[16]
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The site prefix length, in bits, of the IP interface address. The length, in bits, of the site prefix or network part of the IP interface address. For an IPv4 address, any value greater than 32 is an illegal value. For an IPv6 address, any value greater than 128 is an illegal value. 
      * A value of 255 is commonly used to represent an illegal value.
-     * @type {Integer}
      */
-    SitePrefixLength {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
-    }
+    SitePrefixLength : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The interface metric. Note the actual route metric used to compute the route preference is the summation of the route metric offset specified in the <b>Metric</b> member of the  <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipforward_row2">MIB_IPFORWARD_ROW2</a> structure and the interface metric specified in this member.
-     * @type {Integer}
      */
-    Metric {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
-    }
+    Metric : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The network layer MTU size, in bytes.
-     * @type {Integer}
      */
-    NlMtu {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
-    }
+    NlMtu : UInt32
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that indicates if the interface is connected to a network access point.
-     * @type {BOOLEAN}
      */
-    Connected {
-        get => NumGet(this, 164, "char")
-        set => NumPut("char", value, this, 164)
-    }
+    Connected : BOOLEAN
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that specifies if the network interface supports Wake on LAN.
-     * @type {BOOLEAN}
      */
-    SupportsWakeUpPatterns {
-        get => NumGet(this, 165, "char")
-        set => NumPut("char", value, this, 165)
-    }
+    SupportsWakeUpPatterns : BOOLEAN
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that specifies if the IP interface support neighbor discovery.
-     * @type {BOOLEAN}
      */
-    SupportsNeighborDiscovery {
-        get => NumGet(this, 166, "char")
-        set => NumPut("char", value, this, 166)
-    }
+    SupportsNeighborDiscovery : BOOLEAN
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that specifies if the IP interface support router discovery.
-     * @type {BOOLEAN}
      */
-    SupportsRouterDiscovery {
-        get => NumGet(this, 167, "char")
-        set => NumPut("char", value, this, 167)
-    }
+    SupportsRouterDiscovery : BOOLEAN
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The reachable timeout, in milliseconds.
-     * @type {Integer}
      */
-    ReachableTime {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
-    }
+    ReachableTime : UInt32
 
     /**
      * Type: <b>NL_INTERFACE_OFFLOAD_ROD</b>
      * 
      * A set of flags that indicate the transmit offload capabilities for the IP interface. The <a href="https://docs.microsoft.com/windows/desktop/api/nldef/ns-nldef-nl_interface_offload_rod">NL_INTERFACE_OFFLOAD_ROD</a> structure is defined in the <i>Nldef.h</i> header file.
-     * @type {NL_INTERFACE_OFFLOAD_ROD}
      */
-    TransmitOffload {
-        get {
-            if(!this.HasProp("__TransmitOffload"))
-                this.__TransmitOffload := NL_INTERFACE_OFFLOAD_ROD(172, this)
-            return this.__TransmitOffload
-        }
-    }
+    TransmitOffload : NL_INTERFACE_OFFLOAD_ROD
 
     /**
      * Type: <b>NL_INTERFACE_OFFLOAD_ROD</b>
      * 
      * A set of flags that indicate the receive offload capabilities for the IP interface. The <a href="https://docs.microsoft.com/windows/desktop/api/nldef/ns-nldef-nl_interface_offload_rod">NL_INTERFACE_OFFLOAD_ROD</a> structure is defined in the <i>Nldef.h</i> header file.
-     * @type {NL_INTERFACE_OFFLOAD_ROD}
      */
-    ReceiveOffload {
-        get {
-            if(!this.HasProp("__ReceiveOffload"))
-                this.__ReceiveOffload := NL_INTERFACE_OFFLOAD_ROD(173, this)
-            return this.__ReceiveOffload
-        }
-    }
+    ReceiveOffload : NL_INTERFACE_OFFLOAD_ROD
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that indicates if using default route on the interface should be disabled. This member can be used by VPN clients to restrict split tunneling.
-     * @type {BOOLEAN}
      */
-    DisableDefaultRoutes {
-        get => NumGet(this, 174, "char")
-        set => NumPut("char", value, this, 174)
-    }
+    DisableDefaultRoutes : BOOLEAN
+
 }

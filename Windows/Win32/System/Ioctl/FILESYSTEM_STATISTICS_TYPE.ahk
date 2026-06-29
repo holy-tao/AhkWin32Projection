@@ -1,17 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * The file system is an exFAT file system.
-  * 
-  * If this value is set, this structure is followed by an 
-  *          <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-exfat_statistics">EXFAT_STATISTICS</a> structure.
-  * 
-  * <b>Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Vista with SP1.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-filesystem_statistics
  * @namespace Windows.Win32.System.Ioctl
  */
-class FILESYSTEM_STATISTICS_TYPE extends Win32Enum {
+export default struct FILESYSTEM_STATISTICS_TYPE {
+    value : UInt16
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt16)}

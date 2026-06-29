@@ -1,39 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\DEVICE_SELECTION_DEVICE_TYPE.ahk" { DEVICE_SELECTION_DEVICE_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides a dialog box for selecting the device to acquire images from.
  * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nn-photoacquire-iphotoacquiredeviceselectiondialog
  * @namespace Windows.Win32.Media.PictureAcquisition
  */
-class IPhotoAcquireDeviceSelectionDialog extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPhotoAcquireDeviceSelectionDialog extends IUnknown {
     /**
      * The interface identifier for IPhotoAcquireDeviceSelectionDialog
      * @type {Guid}
      */
-    static IID => Guid("{00f28837-55dd-4f37-aaf5-6855a9640467}")
+    static IID := Guid("{00f28837-55dd-4f37-aaf5-6855a9640467}")
 
     /**
      * The class identifier for PhotoAcquireDeviceSelectionDialog
      * @type {Guid}
      */
-    static CLSID => Guid("{00f29a34-b8a1-482c-bcf8-3ac7b0fe8f62}")
+    static CLSID := Guid("{00f29a34-b8a1-482c-bcf8-3ac7b0fe8f62}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPhotoAcquireDeviceSelectionDialog interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetTitle            : IntPtr
+        SetSubmitButtonText : IntPtr
+        DoModal             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetTitle", "SetSubmitButtonText", "DoModal"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPhotoAcquireDeviceSelectionDialog.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetTitle method sets the title of the device selection dialog box.
@@ -166,11 +180,33 @@ class IPhotoAcquireDeviceSelectionDialog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiredeviceselectiondialog-domodal
      */
     DoModal(hWndParent, dwDeviceFlags, pbstrDeviceId, pnDeviceType) {
-        hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
-
         pnDeviceTypeMarshal := pnDeviceType is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "ptr", hWndParent, "uint", dwDeviceFlags, "ptr", pbstrDeviceId, pnDeviceTypeMarshal, pnDeviceType, "HRESULT")
+        result := ComCall(5, this, HWND, hWndParent, "uint", dwDeviceFlags, BSTR.Ptr, pbstrDeviceId, pnDeviceTypeMarshal, pnDeviceType, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPhotoAcquireDeviceSelectionDialog.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetTitle := CallbackCreate(GetMethod(implObj, "SetTitle"), flags, 2)
+        this.vtbl.SetSubmitButtonText := CallbackCreate(GetMethod(implObj, "SetSubmitButtonText"), flags, 2)
+        this.vtbl.DoModal := CallbackCreate(GetMethod(implObj, "DoModal"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetTitle)
+        CallbackFree(this.vtbl.SetSubmitButtonText)
+        CallbackFree(this.vtbl.DoModal)
     }
 }

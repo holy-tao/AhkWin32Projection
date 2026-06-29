@@ -1,216 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_PHY_TYPE.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\DOT11_IV48_COUNTER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\DOT11_PHY_TYPE.ahk" { DOT11_PHY_TYPE }
+#Import ".\DOT11_IV48_COUNTER.ahk" { DOT11_IV48_COUNTER }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_RECV_EXTENSION_INFO extends Win32Struct {
-    static sizeof => 112
+export default struct DOT11_RECV_EXTENSION_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    uVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pvReserved : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pvReserved {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    dot11PhyType : DOT11_PHY_TYPE
 
-    /**
-     * @type {DOT11_PHY_TYPE}
-     */
-    dot11PhyType {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    uChCenterFrequency : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uChCenterFrequency {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    lRSSI : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lRSSI {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    lRSSIMin : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lRSSIMin {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    lRSSIMax : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lRSSIMax {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    uRSSI : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uRSSI {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    ucPriority : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ucPriority {
-        get => NumGet(this, 40, "char")
-        set => NumPut("char", value, this, 40)
-    }
+    ucDataRate : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ucDataRate {
-        get => NumGet(this, 41, "char")
-        set => NumPut("char", value, this, 41)
-    }
+    ucPeerMacAddress : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ucPeerMacAddress {
-        get {
-            if(!this.HasProp("__ucPeerMacAddressProxyArray"))
-                this.__ucPeerMacAddressProxyArray := Win32FixedArray(this.ptr + 42, 6, Primitive, "char")
-            return this.__ucPeerMacAddressProxyArray
-        }
-    }
+    dwExtendedStatus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwExtendedStatus {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    hWEPOffloadContext : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hWEPOffloadContext {
-        get {
-            if(!this.HasProp("__hWEPOffloadContext"))
-                this.__hWEPOffloadContext := HANDLE(56, this)
-            return this.__hWEPOffloadContext
-        }
-    }
+    hAuthOffloadContext : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hAuthOffloadContext {
-        get {
-            if(!this.HasProp("__hAuthOffloadContext"))
-                this.__hAuthOffloadContext := HANDLE(64, this)
-            return this.__hAuthOffloadContext
-        }
-    }
+    usWEPAppliedMask : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usWEPAppliedMask {
-        get => NumGet(this, 72, "ushort")
-        set => NumPut("ushort", value, this, 72)
-    }
+    usWPAMSDUPriority : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usWPAMSDUPriority {
-        get => NumGet(this, 74, "ushort")
-        set => NumPut("ushort", value, this, 74)
-    }
+    dot11LowestIV48Counter : DOT11_IV48_COUNTER
 
-    /**
-     * @type {DOT11_IV48_COUNTER}
-     */
-    dot11LowestIV48Counter {
-        get {
-            if(!this.HasProp("__dot11LowestIV48Counter"))
-                this.__dot11LowestIV48Counter := DOT11_IV48_COUNTER(76, this)
-            return this.__dot11LowestIV48Counter
-        }
-    }
+    usDot11LeftRWBitMap : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usDot11LeftRWBitMap {
-        get => NumGet(this, 84, "ushort")
-        set => NumPut("ushort", value, this, 84)
-    }
+    dot11HighestIV48Counter : DOT11_IV48_COUNTER
 
-    /**
-     * @type {DOT11_IV48_COUNTER}
-     */
-    dot11HighestIV48Counter {
-        get {
-            if(!this.HasProp("__dot11HighestIV48Counter"))
-                this.__dot11HighestIV48Counter := DOT11_IV48_COUNTER(88, this)
-            return this.__dot11HighestIV48Counter
-        }
-    }
+    usDot11RightRWBitMap : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usDot11RightRWBitMap {
-        get => NumGet(this, 96, "ushort")
-        set => NumPut("ushort", value, this, 96)
-    }
+    usNumberOfMPDUsReceived : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usNumberOfMPDUsReceived {
-        get => NumGet(this, 98, "ushort")
-        set => NumPut("ushort", value, this, 98)
-    }
+    usNumberOfFragments : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usNumberOfFragments {
-        get => NumGet(this, 100, "ushort")
-        set => NumPut("ushort", value, this, 100)
-    }
+    pNdisPackets : IntPtr[1]
 
-    /**
-     * @type {Array<Pointer<Void>>}
-     */
-    pNdisPackets {
-        get {
-            if(!this.HasProp("__pNdisPacketsProxyArray"))
-                this.__pNdisPacketsProxyArray := Win32FixedArray(this.ptr + 104, 1, Primitive, "ptr")
-            return this.__pNdisPacketsProxyArray
-        }
-    }
 }

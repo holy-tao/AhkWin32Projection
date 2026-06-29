@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IShellImageData.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IShellImageData.ahk" { IShellImageData }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that create IShellImageData instances based on various image sources.
@@ -14,32 +16,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nn-shimgdata-ishellimagedatafactory
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellImageDataFactory extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IShellImageDataFactory extends IUnknown {
     /**
      * The interface identifier for IShellImageDataFactory
      * @type {Guid}
      */
-    static IID => Guid("{9be8ed5c-edab-4d75-90f3-bd5bdbb21c82}")
+    static IID := Guid("{9be8ed5c-edab-4d75-90f3-bd5bdbb21c82}")
 
     /**
      * The class identifier for ShellImageDataFactory
      * @type {Guid}
      */
-    static CLSID => Guid("{66e4e4fb-f385-4dd0-8d74-a2efd1bc6178}")
+    static CLSID := Guid("{66e4e4fb-f385-4dd0-8d74-a2efd1bc6178}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellImageDataFactory interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateIShellImageData : IntPtr
+        CreateImageFromFile   : IntPtr
+        CreateImageFromStream : IntPtr
+        GetDataFormatFromPath : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateIShellImageData", "CreateImageFromFile", "CreateImageFromStream", "GetDataFormatFromPath"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellImageDataFactory.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates an instance of the IShellImageData interface.
@@ -105,7 +117,33 @@ class IShellImageDataFactory extends IUnknown {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         pDataFormat := Guid()
-        result := ComCall(6, this, "ptr", pszPath, "ptr", pDataFormat, "HRESULT")
+        result := ComCall(6, this, "ptr", pszPath, Guid.Ptr, pDataFormat, "HRESULT")
         return pDataFormat
+    }
+
+    Query(iid) {
+        if (IShellImageDataFactory.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateIShellImageData := CallbackCreate(GetMethod(implObj, "CreateIShellImageData"), flags, 2)
+        this.vtbl.CreateImageFromFile := CallbackCreate(GetMethod(implObj, "CreateImageFromFile"), flags, 3)
+        this.vtbl.CreateImageFromStream := CallbackCreate(GetMethod(implObj, "CreateImageFromStream"), flags, 3)
+        this.vtbl.GetDataFormatFromPath := CallbackCreate(GetMethod(implObj, "GetDataFormatFromPath"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateIShellImageData)
+        CallbackFree(this.vtbl.CreateImageFromFile)
+        CallbackFree(this.vtbl.CreateImageFromStream)
+        CallbackFree(this.vtbl.GetDataFormatFromPath)
     }
 }

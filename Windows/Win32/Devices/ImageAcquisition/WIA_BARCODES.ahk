@@ -1,55 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WIA_BARCODE_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WIA_BARCODE_INFO.ahk" { WIA_BARCODE_INFO }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
-class WIA_BARCODES extends Win32Struct {
-    static sizeof => 52
+export default struct WIA_BARCODES {
+    #StructPack 4
 
-    static packingSize => 4
+    Tag : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Tag {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Count : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Count {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Barcodes : WIA_BARCODE_INFO[1]
 
-    /**
-     * @type {WIA_BARCODE_INFO}
-     */
-    Barcodes {
-        get {
-            if(!this.HasProp("__BarcodesProxyArray"))
-                this.__BarcodesProxyArray := Win32FixedArray(this.ptr + 16, 1, WIA_BARCODE_INFO, "")
-            return this.__BarcodesProxyArray
-        }
-    }
 }

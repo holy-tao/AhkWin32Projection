@@ -1,36 +1,148 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include .\DEBUG_VALUE.ahk
-#Include .\IDebugBreakpoint.ahk
-#Include .\DEBUG_BREAKPOINT_PARAMETERS.ahk
-#Include .\DEBUG_SPECIFIC_FILTER_PARAMETERS.ahk
-#Include .\DEBUG_EXCEPTION_FILTER_PARAMETERS.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDebugBreakpoint.ahk" { IDebugBreakpoint }
+#Import ".\DEBUG_VALUE.ahk" { DEBUG_VALUE }
+#Import ".\DEBUG_EXCEPTION_FILTER_PARAMETERS.ahk" { DEBUG_EXCEPTION_FILTER_PARAMETERS }
+#Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\WINDBG_EXTENSION_APIS64.ahk" { WINDBG_EXTENSION_APIS64 }
+#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\DEBUG_STACK_FRAME.ahk" { DEBUG_STACK_FRAME }
+#Import ".\WINDBG_EXTENSION_APIS32.ahk" { WINDBG_EXTENSION_APIS32 }
+#Import ".\DEBUG_SPECIFIC_FILTER_PARAMETERS.ahk" { DEBUG_SPECIFIC_FILTER_PARAMETERS }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DEBUG_BREAKPOINT_PARAMETERS.ahk" { DEBUG_BREAKPOINT_PARAMETERS }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IDebugControl2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDebugControl2 extends IUnknown {
     /**
      * The interface identifier for IDebugControl2
      * @type {Guid}
      */
-    static IID => Guid("{d4366723-44df-4bed-8c7e-4c05424f4588}")
+    static IID := Guid("{d4366723-44df-4bed-8c7e-4c05424f4588}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDebugControl2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetInterrupt                             : IntPtr
+        SetInterrupt                             : IntPtr
+        GetInterruptTimeout                      : IntPtr
+        SetInterruptTimeout                      : IntPtr
+        GetLogFile                               : IntPtr
+        OpenLogFile                              : IntPtr
+        CloseLogFile                             : IntPtr
+        GetLogMask                               : IntPtr
+        SetLogMask                               : IntPtr
+        Input                                    : IntPtr
+        ReturnInput                              : IntPtr
+        Output                                   : IntPtr
+        OutputVaList                             : IntPtr
+        ControlledOutput                         : IntPtr
+        ControlledOutputVaList                   : IntPtr
+        OutputPrompt                             : IntPtr
+        OutputPromptVaList                       : IntPtr
+        GetPromptText                            : IntPtr
+        OutputCurrentState                       : IntPtr
+        OutputVersionInformation                 : IntPtr
+        GetNotifyEventHandle                     : IntPtr
+        SetNotifyEventHandle                     : IntPtr
+        Assemble                                 : IntPtr
+        Disassemble                              : IntPtr
+        GetDisassembleEffectiveOffset            : IntPtr
+        OutputDisassembly                        : IntPtr
+        OutputDisassemblyLines                   : IntPtr
+        GetNearInstruction                       : IntPtr
+        GetStackTrace                            : IntPtr
+        GetReturnOffset                          : IntPtr
+        OutputStackTrace                         : IntPtr
+        GetDebuggeeType                          : IntPtr
+        GetActualProcessorType                   : IntPtr
+        GetExecutingProcessorType                : IntPtr
+        GetNumberPossibleExecutingProcessorTypes : IntPtr
+        GetPossibleExecutingProcessorTypes       : IntPtr
+        GetNumberProcessors                      : IntPtr
+        GetSystemVersion                         : IntPtr
+        GetPageSize                              : IntPtr
+        IsPointer64Bit                           : IntPtr
+        ReadBugCheckData                         : IntPtr
+        GetNumberSupportedProcessorTypes         : IntPtr
+        GetSupportedProcessorTypes               : IntPtr
+        GetProcessorTypeNames                    : IntPtr
+        GetEffectiveProcessorType                : IntPtr
+        SetEffectiveProcessorType                : IntPtr
+        GetExecutionStatus                       : IntPtr
+        SetExecutionStatus                       : IntPtr
+        GetCodeLevel                             : IntPtr
+        SetCodeLevel                             : IntPtr
+        GetEngineOptions                         : IntPtr
+        AddEngineOptions                         : IntPtr
+        RemoveEngineOptions                      : IntPtr
+        SetEngineOptions                         : IntPtr
+        GetSystemErrorControl                    : IntPtr
+        SetSystemErrorControl                    : IntPtr
+        GetTextMacro                             : IntPtr
+        SetTextMacro                             : IntPtr
+        GetRadix                                 : IntPtr
+        SetRadix                                 : IntPtr
+        Evaluate                                 : IntPtr
+        CoerceValue                              : IntPtr
+        CoerceValues                             : IntPtr
+        Execute                                  : IntPtr
+        ExecuteCommandFile                       : IntPtr
+        GetNumberBreakpoints                     : IntPtr
+        GetBreakpointByIndex                     : IntPtr
+        GetBreakpointById                        : IntPtr
+        GetBreakpointParameters                  : IntPtr
+        AddBreakpoint                            : IntPtr
+        RemoveBreakpoint                         : IntPtr
+        AddExtension                             : IntPtr
+        RemoveExtension                          : IntPtr
+        GetExtensionByPath                       : IntPtr
+        CallExtension                            : IntPtr
+        GetExtensionFunction                     : IntPtr
+        GetWindbgExtensionApis32                 : IntPtr
+        GetWindbgExtensionApis64                 : IntPtr
+        GetNumberEventFilters                    : IntPtr
+        GetEventFilterText                       : IntPtr
+        GetEventFilterCommand                    : IntPtr
+        SetEventFilterCommand                    : IntPtr
+        GetSpecificFilterParameters              : IntPtr
+        SetSpecificFilterParameters              : IntPtr
+        GetSpecificFilterArgument                : IntPtr
+        SetSpecificFilterArgument                : IntPtr
+        GetExceptionFilterParameters             : IntPtr
+        SetExceptionFilterParameters             : IntPtr
+        GetExceptionFilterSecondCommand          : IntPtr
+        SetExceptionFilterSecondCommand          : IntPtr
+        WaitForEvent                             : IntPtr
+        GetLastEventInformation                  : IntPtr
+        GetCurrentTimeDate                       : IntPtr
+        GetCurrentSystemUpTime                   : IntPtr
+        GetDumpFormatFlags                       : IntPtr
+        GetNumberTextReplacements                : IntPtr
+        GetTextReplacement                       : IntPtr
+        SetTextReplacement                       : IntPtr
+        RemoveTextReplacements                   : IntPtr
+        OutputTextReplacements                   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetInterrupt", "SetInterrupt", "GetInterruptTimeout", "SetInterruptTimeout", "GetLogFile", "OpenLogFile", "CloseLogFile", "GetLogMask", "SetLogMask", "Input", "ReturnInput", "Output", "OutputVaList", "ControlledOutput", "ControlledOutputVaList", "OutputPrompt", "OutputPromptVaList", "GetPromptText", "OutputCurrentState", "OutputVersionInformation", "GetNotifyEventHandle", "SetNotifyEventHandle", "Assemble", "Disassemble", "GetDisassembleEffectiveOffset", "OutputDisassembly", "OutputDisassemblyLines", "GetNearInstruction", "GetStackTrace", "GetReturnOffset", "OutputStackTrace", "GetDebuggeeType", "GetActualProcessorType", "GetExecutingProcessorType", "GetNumberPossibleExecutingProcessorTypes", "GetPossibleExecutingProcessorTypes", "GetNumberProcessors", "GetSystemVersion", "GetPageSize", "IsPointer64Bit", "ReadBugCheckData", "GetNumberSupportedProcessorTypes", "GetSupportedProcessorTypes", "GetProcessorTypeNames", "GetEffectiveProcessorType", "SetEffectiveProcessorType", "GetExecutionStatus", "SetExecutionStatus", "GetCodeLevel", "SetCodeLevel", "GetEngineOptions", "AddEngineOptions", "RemoveEngineOptions", "SetEngineOptions", "GetSystemErrorControl", "SetSystemErrorControl", "GetTextMacro", "SetTextMacro", "GetRadix", "SetRadix", "Evaluate", "CoerceValue", "CoerceValues", "Execute", "ExecuteCommandFile", "GetNumberBreakpoints", "GetBreakpointByIndex", "GetBreakpointById", "GetBreakpointParameters", "AddBreakpoint", "RemoveBreakpoint", "AddExtension", "RemoveExtension", "GetExtensionByPath", "CallExtension", "GetExtensionFunction", "GetWindbgExtensionApis32", "GetWindbgExtensionApis64", "GetNumberEventFilters", "GetEventFilterText", "GetEventFilterCommand", "SetEventFilterCommand", "GetSpecificFilterParameters", "SetSpecificFilterParameters", "GetSpecificFilterArgument", "SetSpecificFilterArgument", "GetExceptionFilterParameters", "SetExceptionFilterParameters", "GetExceptionFilterSecondCommand", "SetExceptionFilterSecondCommand", "WaitForEvent", "GetLastEventInformation", "GetCurrentTimeDate", "GetCurrentSystemUpTime", "GetDumpFormatFlags", "GetNumberTextReplacements", "GetTextReplacement", "SetTextReplacement", "RemoveTextReplacements", "OutputTextReplacements"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDebugControl2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -71,19 +183,12 @@ class IDebugControl2 extends IUnknown {
     }
 
     /**
-     * Returns a buffer that contains metadata about a specified log and its current state, which is defined by the CLFS_INFORMATION structure.
+     * 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @param {Pointer<Integer>} FileSize 
      * @param {Pointer<BOOL>} Append 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 						
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * 
-     *  The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-getlogfileinformation
+     * @returns {HRESULT} 
      */
     GetLogFile(_Buffer, BufferSize, FileSize, Append) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
@@ -104,7 +209,7 @@ class IDebugControl2 extends IUnknown {
     OpenLogFile(_File, Append) {
         _File := _File is String ? StrPtr(_File) : _File
 
-        result := ComCall(8, this, "ptr", _File, "int", Append, "HRESULT")
+        result := ComCall(8, this, "ptr", _File, BOOL, Append, "HRESULT")
         return result
     }
 
@@ -163,28 +268,10 @@ class IDebugControl2 extends IUnknown {
     }
 
     /**
-     * Sends a string to the debugger for display. (Unicode)
-     * @remarks
-     * > [!IMPORTANT]
-     * > To use this function, you must include the Windows.h header in your application (not debugapi.h).
      * 
-     * In the past, the operating system did not return Unicode strings through **OutputDebugStringW** (ASCII strings were returned instead). To force **OutputDebugStringW** to return Unicode strings, debuggers are required to call the [**WaitForDebugEventEx**](nf-debugapi-waitfordebugeventex.md) function to opt into the new behavior. In this way, the operating system knows that the debugger supports Unicode and is specifically opting into receiving Unicode strings.
-     * 
-     * If the application does not have a debugger, and the filter mask allows it, the system debugger displays the string. To display the string, this function calls the [**DbgPrint**](/windows-hardware/drivers/ddi/wdm/nf-wdm-dbgprint) function. Prior to Windows Vista, content was not filtered by the system debugger.
-     * 
-     * If the application does not have a debugger and the system debugger is not active, **OutputDebugString** does nothing.
-     * 
-     * [**OutputDebugStringW**](nf-debugapi-outputdebugstringw.md) converts the specified string based on the current system locale information and passes it to **OutputDebugStringA** to be displayed.  As a result, some Unicode characters may not be displayed correctly.
-     * 
-     * Applications should send very minimal debug output and provide a way for the user to enable or disable its use. See [Event Tracing](/windows/win32/etw/event-tracing-portal) to learn more about tracing details.
-     * 
-     * Visual Studio has changed how it handles the display of these strings throughout its revision history. Refer to the Visual Studio documentation for details of how your version deals with this.
-     * 
-     * The debugapi.h header defines OutputDebugString as an alias that automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that is not encoding-neutral can lead to mismatches and compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} Mask 
      * @param {PSTR} Format 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/debugapi/nf-debugapi-outputdebugstringw
      */
     Output(Mask, Format) {
         Format := Format is String ? StrPtr(Format) : Format
@@ -424,7 +511,7 @@ class IDebugControl2 extends IUnknown {
     GetStackTrace(FrameOffset, StackOffset, InstructionOffset, Frames, FramesSize, FramesFilled) {
         FramesFilledMarshal := FramesFilled is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(31, this, "uint", FrameOffset, "uint", StackOffset, "uint", InstructionOffset, "ptr", Frames, "uint", FramesSize, FramesFilledMarshal, FramesFilled, "HRESULT")
+        result := ComCall(31, this, "uint", FrameOffset, "uint", StackOffset, "uint", InstructionOffset, DEBUG_STACK_FRAME.Ptr, Frames, "uint", FramesSize, FramesFilledMarshal, FramesFilled, "HRESULT")
         return result
     }
 
@@ -446,7 +533,7 @@ class IDebugControl2 extends IUnknown {
      * @returns {HRESULT} 
      */
     OutputStackTrace(OutputControl, Frames, FramesSize, Flags) {
-        result := ComCall(33, this, "uint", OutputControl, "ptr", Frames, "uint", FramesSize, "uint", Flags, "HRESULT")
+        result := ComCall(33, this, "uint", OutputControl, DEBUG_STACK_FRAME.Ptr, Frames, "uint", FramesSize, "uint", Flags, "HRESULT")
         return result
     }
 
@@ -788,22 +875,19 @@ class IDebugControl2 extends IUnknown {
     }
 
     /**
-     * Evaluates at the indexed sample location.
-     * @remarks
-     * Interpolation mode can be **linear** or **linear\_no\_perspective** on the variable. Use of **centroid** or **sample** is ignored. Attributes with constant interpolation are also allowed, in which case the sample index is ignored.
+     * 
      * @param {PSTR} Expression 
      * @param {Integer} DesiredType 
      * @param {Pointer<DEBUG_VALUE>} Value 
      * @param {Pointer<Integer>} RemainderIndex 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/direct3dhlsl/evaluateattributeatsample
      */
     Evaluate(Expression, DesiredType, Value, RemainderIndex) {
         Expression := Expression is String ? StrPtr(Expression) : Expression
 
         RemainderIndexMarshal := RemainderIndex is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(63, this, "ptr", Expression, "uint", DesiredType, "ptr", Value, RemainderIndexMarshal, RemainderIndex, "HRESULT")
+        result := ComCall(63, this, "ptr", Expression, "uint", DesiredType, DEBUG_VALUE.Ptr, Value, RemainderIndexMarshal, RemainderIndex, "HRESULT")
         return result
     }
 
@@ -815,7 +899,7 @@ class IDebugControl2 extends IUnknown {
      */
     CoerceValue(_In, OutType) {
         Out := DEBUG_VALUE()
-        result := ComCall(64, this, "ptr", _In, "uint", OutType, "ptr", Out, "HRESULT")
+        result := ComCall(64, this, DEBUG_VALUE.Ptr, _In, "uint", OutType, DEBUG_VALUE.Ptr, Out, "HRESULT")
         return Out
     }
 
@@ -830,17 +914,16 @@ class IDebugControl2 extends IUnknown {
         OutTypesMarshal := OutTypes is VarRef ? "uint*" : "ptr"
 
         Out := DEBUG_VALUE()
-        result := ComCall(65, this, "uint", Count, "ptr", _In, OutTypesMarshal, OutTypes, "ptr", Out, "HRESULT")
+        result := ComCall(65, this, "uint", Count, DEBUG_VALUE.Ptr, _In, OutTypesMarshal, OutTypes, DEBUG_VALUE.Ptr, Out, "HRESULT")
         return Out
     }
 
     /**
-     * Calls the DsReplicaConsistencyCheck function, which invokes the Knowledge Consistency Checker (KCC) to verify the replication topology.
+     * 
      * @param {Integer} OutputControl 
      * @param {PSTR} Command 
      * @param {Integer} Flags 
-     * @returns {HRESULT} This method does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/AD/executekcc-msad-domaincontroller
+     * @returns {HRESULT} 
      */
     Execute(OutputControl, Command, Flags) {
         Command := Command is String ? StrPtr(Command) : Command
@@ -903,7 +986,7 @@ class IDebugControl2 extends IUnknown {
         IdsMarshal := Ids is VarRef ? "uint*" : "ptr"
 
         Params := DEBUG_BREAKPOINT_PARAMETERS()
-        result := ComCall(71, this, "uint", Count, IdsMarshal, Ids, "uint", Start, "ptr", Params, "HRESULT")
+        result := ComCall(71, this, "uint", Count, IdsMarshal, Ids, "uint", Start, DEBUG_BREAKPOINT_PARAMETERS.Ptr, Params, "HRESULT")
         return Params
     }
 
@@ -997,7 +1080,7 @@ class IDebugControl2 extends IUnknown {
      * @returns {HRESULT} 
      */
     GetWindbgExtensionApis32(Api) {
-        result := ComCall(79, this, "ptr", Api, "HRESULT")
+        result := ComCall(79, this, WINDBG_EXTENSION_APIS32.Ptr, Api, "HRESULT")
         return result
     }
 
@@ -1007,7 +1090,7 @@ class IDebugControl2 extends IUnknown {
      * @returns {HRESULT} 
      */
     GetWindbgExtensionApis64(Api) {
-        result := ComCall(80, this, "ptr", Api, "HRESULT")
+        result := ComCall(80, this, WINDBG_EXTENSION_APIS64.Ptr, Api, "HRESULT")
         return result
     }
 
@@ -1076,7 +1159,7 @@ class IDebugControl2 extends IUnknown {
      */
     GetSpecificFilterParameters(Start, Count) {
         Params := DEBUG_SPECIFIC_FILTER_PARAMETERS()
-        result := ComCall(85, this, "uint", Start, "uint", Count, "ptr", Params, "HRESULT")
+        result := ComCall(85, this, "uint", Start, "uint", Count, DEBUG_SPECIFIC_FILTER_PARAMETERS.Ptr, Params, "HRESULT")
         return Params
     }
 
@@ -1088,7 +1171,7 @@ class IDebugControl2 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetSpecificFilterParameters(Start, Count, Params) {
-        result := ComCall(86, this, "uint", Start, "uint", Count, "ptr", Params, "HRESULT")
+        result := ComCall(86, this, "uint", Start, "uint", Count, DEBUG_SPECIFIC_FILTER_PARAMETERS.Ptr, Params, "HRESULT")
         return result
     }
 
@@ -1130,7 +1213,7 @@ class IDebugControl2 extends IUnknown {
         CodesMarshal := Codes is VarRef ? "uint*" : "ptr"
 
         Params := DEBUG_EXCEPTION_FILTER_PARAMETERS()
-        result := ComCall(89, this, "uint", Count, CodesMarshal, Codes, "uint", Start, "ptr", Params, "HRESULT")
+        result := ComCall(89, this, "uint", Count, CodesMarshal, Codes, "uint", Start, DEBUG_EXCEPTION_FILTER_PARAMETERS.Ptr, Params, "HRESULT")
         return Params
     }
 
@@ -1141,7 +1224,7 @@ class IDebugControl2 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetExceptionFilterParameters(Count, Params) {
-        result := ComCall(90, this, "uint", Count, "ptr", Params, "HRESULT")
+        result := ComCall(90, this, "uint", Count, DEBUG_EXCEPTION_FILTER_PARAMETERS.Ptr, Params, "HRESULT")
         return result
     }
 
@@ -1301,5 +1384,223 @@ class IDebugControl2 extends IUnknown {
     OutputTextReplacements(OutputControl, Flags) {
         result := ComCall(102, this, "uint", OutputControl, "uint", Flags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDebugControl2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetInterrupt := CallbackCreate(GetMethod(implObj, "GetInterrupt"), flags, 1)
+        this.vtbl.SetInterrupt := CallbackCreate(GetMethod(implObj, "SetInterrupt"), flags, 2)
+        this.vtbl.GetInterruptTimeout := CallbackCreate(GetMethod(implObj, "GetInterruptTimeout"), flags, 2)
+        this.vtbl.SetInterruptTimeout := CallbackCreate(GetMethod(implObj, "SetInterruptTimeout"), flags, 2)
+        this.vtbl.GetLogFile := CallbackCreate(GetMethod(implObj, "GetLogFile"), flags, 5)
+        this.vtbl.OpenLogFile := CallbackCreate(GetMethod(implObj, "OpenLogFile"), flags, 3)
+        this.vtbl.CloseLogFile := CallbackCreate(GetMethod(implObj, "CloseLogFile"), flags, 1)
+        this.vtbl.GetLogMask := CallbackCreate(GetMethod(implObj, "GetLogMask"), flags, 2)
+        this.vtbl.SetLogMask := CallbackCreate(GetMethod(implObj, "SetLogMask"), flags, 2)
+        this.vtbl.Input := CallbackCreate(GetMethod(implObj, "Input"), flags, 4)
+        this.vtbl.ReturnInput := CallbackCreate(GetMethod(implObj, "ReturnInput"), flags, 2)
+        this.vtbl.Output := CallbackCreate(GetMethod(implObj, "Output"), flags, 3)
+        this.vtbl.OutputVaList := CallbackCreate(GetMethod(implObj, "OutputVaList"), flags, 4)
+        this.vtbl.ControlledOutput := CallbackCreate(GetMethod(implObj, "ControlledOutput"), flags, 4)
+        this.vtbl.ControlledOutputVaList := CallbackCreate(GetMethod(implObj, "ControlledOutputVaList"), flags, 5)
+        this.vtbl.OutputPrompt := CallbackCreate(GetMethod(implObj, "OutputPrompt"), flags, 3)
+        this.vtbl.OutputPromptVaList := CallbackCreate(GetMethod(implObj, "OutputPromptVaList"), flags, 4)
+        this.vtbl.GetPromptText := CallbackCreate(GetMethod(implObj, "GetPromptText"), flags, 4)
+        this.vtbl.OutputCurrentState := CallbackCreate(GetMethod(implObj, "OutputCurrentState"), flags, 3)
+        this.vtbl.OutputVersionInformation := CallbackCreate(GetMethod(implObj, "OutputVersionInformation"), flags, 2)
+        this.vtbl.GetNotifyEventHandle := CallbackCreate(GetMethod(implObj, "GetNotifyEventHandle"), flags, 2)
+        this.vtbl.SetNotifyEventHandle := CallbackCreate(GetMethod(implObj, "SetNotifyEventHandle"), flags, 2)
+        this.vtbl.Assemble := CallbackCreate(GetMethod(implObj, "Assemble"), flags, 4)
+        this.vtbl.Disassemble := CallbackCreate(GetMethod(implObj, "Disassemble"), flags, 7)
+        this.vtbl.GetDisassembleEffectiveOffset := CallbackCreate(GetMethod(implObj, "GetDisassembleEffectiveOffset"), flags, 2)
+        this.vtbl.OutputDisassembly := CallbackCreate(GetMethod(implObj, "OutputDisassembly"), flags, 5)
+        this.vtbl.OutputDisassemblyLines := CallbackCreate(GetMethod(implObj, "OutputDisassemblyLines"), flags, 10)
+        this.vtbl.GetNearInstruction := CallbackCreate(GetMethod(implObj, "GetNearInstruction"), flags, 4)
+        this.vtbl.GetStackTrace := CallbackCreate(GetMethod(implObj, "GetStackTrace"), flags, 7)
+        this.vtbl.GetReturnOffset := CallbackCreate(GetMethod(implObj, "GetReturnOffset"), flags, 2)
+        this.vtbl.OutputStackTrace := CallbackCreate(GetMethod(implObj, "OutputStackTrace"), flags, 5)
+        this.vtbl.GetDebuggeeType := CallbackCreate(GetMethod(implObj, "GetDebuggeeType"), flags, 3)
+        this.vtbl.GetActualProcessorType := CallbackCreate(GetMethod(implObj, "GetActualProcessorType"), flags, 2)
+        this.vtbl.GetExecutingProcessorType := CallbackCreate(GetMethod(implObj, "GetExecutingProcessorType"), flags, 2)
+        this.vtbl.GetNumberPossibleExecutingProcessorTypes := CallbackCreate(GetMethod(implObj, "GetNumberPossibleExecutingProcessorTypes"), flags, 2)
+        this.vtbl.GetPossibleExecutingProcessorTypes := CallbackCreate(GetMethod(implObj, "GetPossibleExecutingProcessorTypes"), flags, 4)
+        this.vtbl.GetNumberProcessors := CallbackCreate(GetMethod(implObj, "GetNumberProcessors"), flags, 2)
+        this.vtbl.GetSystemVersion := CallbackCreate(GetMethod(implObj, "GetSystemVersion"), flags, 11)
+        this.vtbl.GetPageSize := CallbackCreate(GetMethod(implObj, "GetPageSize"), flags, 2)
+        this.vtbl.IsPointer64Bit := CallbackCreate(GetMethod(implObj, "IsPointer64Bit"), flags, 1)
+        this.vtbl.ReadBugCheckData := CallbackCreate(GetMethod(implObj, "ReadBugCheckData"), flags, 6)
+        this.vtbl.GetNumberSupportedProcessorTypes := CallbackCreate(GetMethod(implObj, "GetNumberSupportedProcessorTypes"), flags, 2)
+        this.vtbl.GetSupportedProcessorTypes := CallbackCreate(GetMethod(implObj, "GetSupportedProcessorTypes"), flags, 4)
+        this.vtbl.GetProcessorTypeNames := CallbackCreate(GetMethod(implObj, "GetProcessorTypeNames"), flags, 8)
+        this.vtbl.GetEffectiveProcessorType := CallbackCreate(GetMethod(implObj, "GetEffectiveProcessorType"), flags, 2)
+        this.vtbl.SetEffectiveProcessorType := CallbackCreate(GetMethod(implObj, "SetEffectiveProcessorType"), flags, 2)
+        this.vtbl.GetExecutionStatus := CallbackCreate(GetMethod(implObj, "GetExecutionStatus"), flags, 2)
+        this.vtbl.SetExecutionStatus := CallbackCreate(GetMethod(implObj, "SetExecutionStatus"), flags, 2)
+        this.vtbl.GetCodeLevel := CallbackCreate(GetMethod(implObj, "GetCodeLevel"), flags, 2)
+        this.vtbl.SetCodeLevel := CallbackCreate(GetMethod(implObj, "SetCodeLevel"), flags, 2)
+        this.vtbl.GetEngineOptions := CallbackCreate(GetMethod(implObj, "GetEngineOptions"), flags, 2)
+        this.vtbl.AddEngineOptions := CallbackCreate(GetMethod(implObj, "AddEngineOptions"), flags, 2)
+        this.vtbl.RemoveEngineOptions := CallbackCreate(GetMethod(implObj, "RemoveEngineOptions"), flags, 2)
+        this.vtbl.SetEngineOptions := CallbackCreate(GetMethod(implObj, "SetEngineOptions"), flags, 2)
+        this.vtbl.GetSystemErrorControl := CallbackCreate(GetMethod(implObj, "GetSystemErrorControl"), flags, 3)
+        this.vtbl.SetSystemErrorControl := CallbackCreate(GetMethod(implObj, "SetSystemErrorControl"), flags, 3)
+        this.vtbl.GetTextMacro := CallbackCreate(GetMethod(implObj, "GetTextMacro"), flags, 5)
+        this.vtbl.SetTextMacro := CallbackCreate(GetMethod(implObj, "SetTextMacro"), flags, 3)
+        this.vtbl.GetRadix := CallbackCreate(GetMethod(implObj, "GetRadix"), flags, 2)
+        this.vtbl.SetRadix := CallbackCreate(GetMethod(implObj, "SetRadix"), flags, 2)
+        this.vtbl.Evaluate := CallbackCreate(GetMethod(implObj, "Evaluate"), flags, 5)
+        this.vtbl.CoerceValue := CallbackCreate(GetMethod(implObj, "CoerceValue"), flags, 4)
+        this.vtbl.CoerceValues := CallbackCreate(GetMethod(implObj, "CoerceValues"), flags, 5)
+        this.vtbl.Execute := CallbackCreate(GetMethod(implObj, "Execute"), flags, 4)
+        this.vtbl.ExecuteCommandFile := CallbackCreate(GetMethod(implObj, "ExecuteCommandFile"), flags, 4)
+        this.vtbl.GetNumberBreakpoints := CallbackCreate(GetMethod(implObj, "GetNumberBreakpoints"), flags, 2)
+        this.vtbl.GetBreakpointByIndex := CallbackCreate(GetMethod(implObj, "GetBreakpointByIndex"), flags, 3)
+        this.vtbl.GetBreakpointById := CallbackCreate(GetMethod(implObj, "GetBreakpointById"), flags, 3)
+        this.vtbl.GetBreakpointParameters := CallbackCreate(GetMethod(implObj, "GetBreakpointParameters"), flags, 5)
+        this.vtbl.AddBreakpoint := CallbackCreate(GetMethod(implObj, "AddBreakpoint"), flags, 4)
+        this.vtbl.RemoveBreakpoint := CallbackCreate(GetMethod(implObj, "RemoveBreakpoint"), flags, 2)
+        this.vtbl.AddExtension := CallbackCreate(GetMethod(implObj, "AddExtension"), flags, 4)
+        this.vtbl.RemoveExtension := CallbackCreate(GetMethod(implObj, "RemoveExtension"), flags, 2)
+        this.vtbl.GetExtensionByPath := CallbackCreate(GetMethod(implObj, "GetExtensionByPath"), flags, 3)
+        this.vtbl.CallExtension := CallbackCreate(GetMethod(implObj, "CallExtension"), flags, 4)
+        this.vtbl.GetExtensionFunction := CallbackCreate(GetMethod(implObj, "GetExtensionFunction"), flags, 4)
+        this.vtbl.GetWindbgExtensionApis32 := CallbackCreate(GetMethod(implObj, "GetWindbgExtensionApis32"), flags, 2)
+        this.vtbl.GetWindbgExtensionApis64 := CallbackCreate(GetMethod(implObj, "GetWindbgExtensionApis64"), flags, 2)
+        this.vtbl.GetNumberEventFilters := CallbackCreate(GetMethod(implObj, "GetNumberEventFilters"), flags, 4)
+        this.vtbl.GetEventFilterText := CallbackCreate(GetMethod(implObj, "GetEventFilterText"), flags, 5)
+        this.vtbl.GetEventFilterCommand := CallbackCreate(GetMethod(implObj, "GetEventFilterCommand"), flags, 5)
+        this.vtbl.SetEventFilterCommand := CallbackCreate(GetMethod(implObj, "SetEventFilterCommand"), flags, 3)
+        this.vtbl.GetSpecificFilterParameters := CallbackCreate(GetMethod(implObj, "GetSpecificFilterParameters"), flags, 4)
+        this.vtbl.SetSpecificFilterParameters := CallbackCreate(GetMethod(implObj, "SetSpecificFilterParameters"), flags, 4)
+        this.vtbl.GetSpecificFilterArgument := CallbackCreate(GetMethod(implObj, "GetSpecificFilterArgument"), flags, 5)
+        this.vtbl.SetSpecificFilterArgument := CallbackCreate(GetMethod(implObj, "SetSpecificFilterArgument"), flags, 3)
+        this.vtbl.GetExceptionFilterParameters := CallbackCreate(GetMethod(implObj, "GetExceptionFilterParameters"), flags, 5)
+        this.vtbl.SetExceptionFilterParameters := CallbackCreate(GetMethod(implObj, "SetExceptionFilterParameters"), flags, 3)
+        this.vtbl.GetExceptionFilterSecondCommand := CallbackCreate(GetMethod(implObj, "GetExceptionFilterSecondCommand"), flags, 5)
+        this.vtbl.SetExceptionFilterSecondCommand := CallbackCreate(GetMethod(implObj, "SetExceptionFilterSecondCommand"), flags, 3)
+        this.vtbl.WaitForEvent := CallbackCreate(GetMethod(implObj, "WaitForEvent"), flags, 3)
+        this.vtbl.GetLastEventInformation := CallbackCreate(GetMethod(implObj, "GetLastEventInformation"), flags, 10)
+        this.vtbl.GetCurrentTimeDate := CallbackCreate(GetMethod(implObj, "GetCurrentTimeDate"), flags, 2)
+        this.vtbl.GetCurrentSystemUpTime := CallbackCreate(GetMethod(implObj, "GetCurrentSystemUpTime"), flags, 2)
+        this.vtbl.GetDumpFormatFlags := CallbackCreate(GetMethod(implObj, "GetDumpFormatFlags"), flags, 2)
+        this.vtbl.GetNumberTextReplacements := CallbackCreate(GetMethod(implObj, "GetNumberTextReplacements"), flags, 2)
+        this.vtbl.GetTextReplacement := CallbackCreate(GetMethod(implObj, "GetTextReplacement"), flags, 9)
+        this.vtbl.SetTextReplacement := CallbackCreate(GetMethod(implObj, "SetTextReplacement"), flags, 3)
+        this.vtbl.RemoveTextReplacements := CallbackCreate(GetMethod(implObj, "RemoveTextReplacements"), flags, 1)
+        this.vtbl.OutputTextReplacements := CallbackCreate(GetMethod(implObj, "OutputTextReplacements"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetInterrupt)
+        CallbackFree(this.vtbl.SetInterrupt)
+        CallbackFree(this.vtbl.GetInterruptTimeout)
+        CallbackFree(this.vtbl.SetInterruptTimeout)
+        CallbackFree(this.vtbl.GetLogFile)
+        CallbackFree(this.vtbl.OpenLogFile)
+        CallbackFree(this.vtbl.CloseLogFile)
+        CallbackFree(this.vtbl.GetLogMask)
+        CallbackFree(this.vtbl.SetLogMask)
+        CallbackFree(this.vtbl.Input)
+        CallbackFree(this.vtbl.ReturnInput)
+        CallbackFree(this.vtbl.Output)
+        CallbackFree(this.vtbl.OutputVaList)
+        CallbackFree(this.vtbl.ControlledOutput)
+        CallbackFree(this.vtbl.ControlledOutputVaList)
+        CallbackFree(this.vtbl.OutputPrompt)
+        CallbackFree(this.vtbl.OutputPromptVaList)
+        CallbackFree(this.vtbl.GetPromptText)
+        CallbackFree(this.vtbl.OutputCurrentState)
+        CallbackFree(this.vtbl.OutputVersionInformation)
+        CallbackFree(this.vtbl.GetNotifyEventHandle)
+        CallbackFree(this.vtbl.SetNotifyEventHandle)
+        CallbackFree(this.vtbl.Assemble)
+        CallbackFree(this.vtbl.Disassemble)
+        CallbackFree(this.vtbl.GetDisassembleEffectiveOffset)
+        CallbackFree(this.vtbl.OutputDisassembly)
+        CallbackFree(this.vtbl.OutputDisassemblyLines)
+        CallbackFree(this.vtbl.GetNearInstruction)
+        CallbackFree(this.vtbl.GetStackTrace)
+        CallbackFree(this.vtbl.GetReturnOffset)
+        CallbackFree(this.vtbl.OutputStackTrace)
+        CallbackFree(this.vtbl.GetDebuggeeType)
+        CallbackFree(this.vtbl.GetActualProcessorType)
+        CallbackFree(this.vtbl.GetExecutingProcessorType)
+        CallbackFree(this.vtbl.GetNumberPossibleExecutingProcessorTypes)
+        CallbackFree(this.vtbl.GetPossibleExecutingProcessorTypes)
+        CallbackFree(this.vtbl.GetNumberProcessors)
+        CallbackFree(this.vtbl.GetSystemVersion)
+        CallbackFree(this.vtbl.GetPageSize)
+        CallbackFree(this.vtbl.IsPointer64Bit)
+        CallbackFree(this.vtbl.ReadBugCheckData)
+        CallbackFree(this.vtbl.GetNumberSupportedProcessorTypes)
+        CallbackFree(this.vtbl.GetSupportedProcessorTypes)
+        CallbackFree(this.vtbl.GetProcessorTypeNames)
+        CallbackFree(this.vtbl.GetEffectiveProcessorType)
+        CallbackFree(this.vtbl.SetEffectiveProcessorType)
+        CallbackFree(this.vtbl.GetExecutionStatus)
+        CallbackFree(this.vtbl.SetExecutionStatus)
+        CallbackFree(this.vtbl.GetCodeLevel)
+        CallbackFree(this.vtbl.SetCodeLevel)
+        CallbackFree(this.vtbl.GetEngineOptions)
+        CallbackFree(this.vtbl.AddEngineOptions)
+        CallbackFree(this.vtbl.RemoveEngineOptions)
+        CallbackFree(this.vtbl.SetEngineOptions)
+        CallbackFree(this.vtbl.GetSystemErrorControl)
+        CallbackFree(this.vtbl.SetSystemErrorControl)
+        CallbackFree(this.vtbl.GetTextMacro)
+        CallbackFree(this.vtbl.SetTextMacro)
+        CallbackFree(this.vtbl.GetRadix)
+        CallbackFree(this.vtbl.SetRadix)
+        CallbackFree(this.vtbl.Evaluate)
+        CallbackFree(this.vtbl.CoerceValue)
+        CallbackFree(this.vtbl.CoerceValues)
+        CallbackFree(this.vtbl.Execute)
+        CallbackFree(this.vtbl.ExecuteCommandFile)
+        CallbackFree(this.vtbl.GetNumberBreakpoints)
+        CallbackFree(this.vtbl.GetBreakpointByIndex)
+        CallbackFree(this.vtbl.GetBreakpointById)
+        CallbackFree(this.vtbl.GetBreakpointParameters)
+        CallbackFree(this.vtbl.AddBreakpoint)
+        CallbackFree(this.vtbl.RemoveBreakpoint)
+        CallbackFree(this.vtbl.AddExtension)
+        CallbackFree(this.vtbl.RemoveExtension)
+        CallbackFree(this.vtbl.GetExtensionByPath)
+        CallbackFree(this.vtbl.CallExtension)
+        CallbackFree(this.vtbl.GetExtensionFunction)
+        CallbackFree(this.vtbl.GetWindbgExtensionApis32)
+        CallbackFree(this.vtbl.GetWindbgExtensionApis64)
+        CallbackFree(this.vtbl.GetNumberEventFilters)
+        CallbackFree(this.vtbl.GetEventFilterText)
+        CallbackFree(this.vtbl.GetEventFilterCommand)
+        CallbackFree(this.vtbl.SetEventFilterCommand)
+        CallbackFree(this.vtbl.GetSpecificFilterParameters)
+        CallbackFree(this.vtbl.SetSpecificFilterParameters)
+        CallbackFree(this.vtbl.GetSpecificFilterArgument)
+        CallbackFree(this.vtbl.SetSpecificFilterArgument)
+        CallbackFree(this.vtbl.GetExceptionFilterParameters)
+        CallbackFree(this.vtbl.SetExceptionFilterParameters)
+        CallbackFree(this.vtbl.GetExceptionFilterSecondCommand)
+        CallbackFree(this.vtbl.SetExceptionFilterSecondCommand)
+        CallbackFree(this.vtbl.WaitForEvent)
+        CallbackFree(this.vtbl.GetLastEventInformation)
+        CallbackFree(this.vtbl.GetCurrentTimeDate)
+        CallbackFree(this.vtbl.GetCurrentSystemUpTime)
+        CallbackFree(this.vtbl.GetDumpFormatFlags)
+        CallbackFree(this.vtbl.GetNumberTextReplacements)
+        CallbackFree(this.vtbl.GetTextReplacement)
+        CallbackFree(this.vtbl.SetTextReplacement)
+        CallbackFree(this.vtbl.RemoveTextReplacements)
+        CallbackFree(this.vtbl.OutputTextReplacements)
     }
 }

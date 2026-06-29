@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the network address for a packet.
  * @see https://learn.microsoft.com/windows/win32/api/wdspxe/ns-wdspxe-pxe_address
  * @namespace Windows.Win32.System.DeploymentServices
  */
-class PXE_ADDRESS extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct PXE_ADDRESS {
+    #StructPack 4
 
     /**
      * Indicates how the structure should be interpreted and which of the members of the structure are 
@@ -86,49 +83,25 @@ class PXE_ADDRESS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    uFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    uFlags : UInt32
 
-    /**
-     * @type {Array<Integer>}
-     */
-    bAddress {
-        get {
-            if(!this.HasProp("__bAddressProxyArray"))
-                this.__bAddressProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
-            return this.__bAddressProxyArray
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    uIpAddress {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    bAddress : Int8[16]
 
     /**
      * Length of the address (<b>bAddress</b> or <b>uIpAddress</b>). For 
      *       more information, see the description for the <b>uFlags</b> member.
-     * @type {Integer}
      */
-    uAddrLen {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    uAddrLen : UInt32
 
     /**
      * Port number for the packet. For more information, see the description for the 
      *       <b>uFlags</b> member.
-     * @type {Integer}
      */
-    uPort {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
+    uPort : UInt16
+
+    static __New() {
+        DefineProp(this.Prototype, 'uIpAddress', { type: UInt32, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

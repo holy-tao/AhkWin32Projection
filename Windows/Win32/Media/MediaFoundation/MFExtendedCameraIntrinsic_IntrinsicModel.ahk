@@ -1,47 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MFCameraIntrinsic_CameraModel.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MFCameraIntrinsic_CameraModel.ahk" { MFCameraIntrinsic_CameraModel }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFExtendedCameraIntrinsic_IntrinsicModel extends Win32Struct {
-    static sizeof => 28
+export default struct MFExtendedCameraIntrinsic_IntrinsicModel {
+    #StructPack 4
 
-    static packingSize => 4
+    Width : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Width {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Height : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Height {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SplitFrameId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SplitFrameId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    CameraModel : MFCameraIntrinsic_CameraModel
 
-    /**
-     * @type {MFCameraIntrinsic_CameraModel}
-     */
-    CameraModel {
-        get {
-            if(!this.HasProp("__CameraModel"))
-                this.__CameraModel := MFCameraIntrinsic_CameraModel(12, this)
-            return this.__CameraModel
-        }
-    }
 }

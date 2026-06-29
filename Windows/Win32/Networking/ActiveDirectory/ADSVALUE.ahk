@@ -1,24 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ADSTYPE.ahk
-#Include .\ADS_OCTET_STRING.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
-#Include .\ADS_PROV_SPECIFIC.ahk
-#Include .\ADS_CASEIGNORE_LIST.ahk
-#Include .\ADS_OCTET_LIST.ahk
-#Include .\ADS_PATH.ahk
-#Include .\ADS_POSTALADDRESS.ahk
-#Include .\ADS_TIMESTAMP.ahk
-#Include .\ADS_BACKLINK.ahk
-#Include .\ADS_TYPEDNAME.ahk
-#Include .\ADS_HOLD.ahk
-#Include .\ADS_NETADDRESS.ahk
-#Include .\ADS_REPLICAPOINTER.ahk
-#Include .\ADS_FAXNUMBER.ahk
-#Include .\ADS_EMAIL.ahk
-#Include .\ADS_NT_SECURITY_DESCRIPTOR.ahk
-#Include .\ADS_DN_WITH_BINARY.ahk
-#Include .\ADS_DN_WITH_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ADS_OCTET_STRING.ahk" { ADS_OCTET_STRING }
+#Import ".\ADS_DN_WITH_BINARY.ahk" { ADS_DN_WITH_BINARY }
+#Import ".\ADS_DN_WITH_STRING.ahk" { ADS_DN_WITH_STRING }
+#Import ".\ADS_TYPEDNAME.ahk" { ADS_TYPEDNAME }
+#Import ".\ADS_FAXNUMBER.ahk" { ADS_FAXNUMBER }
+#Import ".\ADS_OCTET_LIST.ahk" { ADS_OCTET_LIST }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import ".\ADS_PROV_SPECIFIC.ahk" { ADS_PROV_SPECIFIC }
+#Import ".\ADS_CASEIGNORE_LIST.ahk" { ADS_CASEIGNORE_LIST }
+#Import ".\ADS_HOLD.ahk" { ADS_HOLD }
+#Import ".\ADS_PATH.ahk" { ADS_PATH }
+#Import ".\ADS_NT_SECURITY_DESCRIPTOR.ahk" { ADS_NT_SECURITY_DESCRIPTOR }
+#Import ".\ADSTYPE.ahk" { ADSTYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ADS_NETADDRESS.ahk" { ADS_NETADDRESS }
+#Import ".\ADS_TIMESTAMP.ahk" { ADS_TIMESTAMP }
+#Import ".\ADS_POSTALADDRESS.ahk" { ADS_POSTALADDRESS }
+#Import ".\ADS_BACKLINK.ahk" { ADS_BACKLINK }
+#Import ".\ADS_EMAIL.ahk" { ADS_EMAIL }
+#Import ".\ADS_REPLICAPOINTER.ahk" { ADS_REPLICAPOINTER }
 
 /**
  * Contains a value specified as an ADSI data type.
@@ -27,257 +27,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-adsvalue
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class ADSVALUE extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct ADSVALUE {
+    #StructPack 8
 
     /**
      * Data type used to interpret the union member of the structure. Values of this member are taken from the  <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-adstypeenum">ADSTYPEENUM</a> enumeration.
-     * @type {ADSTYPE}
      */
-    dwType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    dwType : ADSTYPE
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    DNString {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    DNString : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    CaseExactString {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    CaseIgnoreString {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    PrintableString {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    NumericString {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Boolean {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Integer {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {ADS_OCTET_STRING}
-     */
-    OctetString {
-        get {
-            if(!this.HasProp("__OctetString"))
-                this.__OctetString := ADS_OCTET_STRING(8, this)
-            return this.__OctetString
-        }
-    }
-
-    /**
-     * @type {SYSTEMTIME}
-     */
-    UTCTime {
-        get {
-            if(!this.HasProp("__UTCTime"))
-                this.__UTCTime := SYSTEMTIME(8, this)
-            return this.__UTCTime
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    LargeInteger {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    ClassName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {ADS_PROV_SPECIFIC}
-     */
-    ProviderSpecific {
-        get {
-            if(!this.HasProp("__ProviderSpecific"))
-                this.__ProviderSpecific := ADS_PROV_SPECIFIC(8, this)
-            return this.__ProviderSpecific
-        }
-    }
-
-    /**
-     * @type {Pointer<ADS_CASEIGNORE_LIST>}
-     */
-    pCaseIgnoreList {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<ADS_OCTET_LIST>}
-     */
-    pOctetList {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<ADS_PATH>}
-     */
-    pPath {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<ADS_POSTALADDRESS>}
-     */
-    pPostalAddress {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {ADS_TIMESTAMP}
-     */
-    Timestamp {
-        get {
-            if(!this.HasProp("__Timestamp"))
-                this.__Timestamp := ADS_TIMESTAMP(8, this)
-            return this.__Timestamp
-        }
-    }
-
-    /**
-     * @type {ADS_BACKLINK}
-     */
-    BackLink {
-        get {
-            if(!this.HasProp("__BackLink"))
-                this.__BackLink := ADS_BACKLINK(8, this)
-            return this.__BackLink
-        }
-    }
-
-    /**
-     * @type {Pointer<ADS_TYPEDNAME>}
-     */
-    pTypedName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {ADS_HOLD}
-     */
-    Hold {
-        get {
-            if(!this.HasProp("__Hold"))
-                this.__Hold := ADS_HOLD(8, this)
-            return this.__Hold
-        }
-    }
-
-    /**
-     * @type {Pointer<ADS_NETADDRESS>}
-     */
-    pNetAddress {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<ADS_REPLICAPOINTER>}
-     */
-    pReplicaPointer {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<ADS_FAXNUMBER>}
-     */
-    pFaxNumber {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {ADS_EMAIL}
-     */
-    Email {
-        get {
-            if(!this.HasProp("__Email"))
-                this.__Email := ADS_EMAIL(8, this)
-            return this.__Email
-        }
-    }
-
-    /**
-     * @type {ADS_NT_SECURITY_DESCRIPTOR}
-     */
-    SecurityDescriptor {
-        get {
-            if(!this.HasProp("__SecurityDescriptor"))
-                this.__SecurityDescriptor := ADS_NT_SECURITY_DESCRIPTOR(8, this)
-            return this.__SecurityDescriptor
-        }
-    }
-
-    /**
-     * @type {Pointer<ADS_DN_WITH_BINARY>}
-     */
-    pDNWithBinary {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<ADS_DN_WITH_STRING>}
-     */
-    pDNWithString {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'CaseExactString', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'CaseIgnoreString', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'PrintableString', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'NumericString', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'Boolean', { type: UInt32, offset: 8 })
+        DefineProp(this.Prototype, 'Integer', { type: UInt32, offset: 8 })
+        DefineProp(this.Prototype, 'OctetString', { type: ADS_OCTET_STRING, offset: 8 })
+        DefineProp(this.Prototype, 'UTCTime', { type: SYSTEMTIME, offset: 8 })
+        DefineProp(this.Prototype, 'LargeInteger', { type: Int64, offset: 8 })
+        DefineProp(this.Prototype, 'ClassName', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'ProviderSpecific', { type: ADS_PROV_SPECIFIC, offset: 8 })
+        DefineProp(this.Prototype, 'pCaseIgnoreList', { type: ADS_CASEIGNORE_LIST.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'pOctetList', { type: ADS_OCTET_LIST.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'pPath', { type: ADS_PATH.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'pPostalAddress', { type: ADS_POSTALADDRESS.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'Timestamp', { type: ADS_TIMESTAMP, offset: 8 })
+        DefineProp(this.Prototype, 'BackLink', { type: ADS_BACKLINK, offset: 8 })
+        DefineProp(this.Prototype, 'pTypedName', { type: ADS_TYPEDNAME.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'Hold', { type: ADS_HOLD, offset: 8 })
+        DefineProp(this.Prototype, 'pNetAddress', { type: ADS_NETADDRESS.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'pReplicaPointer', { type: ADS_REPLICAPOINTER.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'pFaxNumber', { type: ADS_FAXNUMBER.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'Email', { type: ADS_EMAIL, offset: 8 })
+        DefineProp(this.Prototype, 'SecurityDescriptor', { type: ADS_NT_SECURITY_DESCRIPTOR, offset: 8 })
+        DefineProp(this.Prototype, 'pDNWithBinary', { type: ADS_DN_WITH_BINARY.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'pDNWithString', { type: ADS_DN_WITH_STRING.Ptr, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

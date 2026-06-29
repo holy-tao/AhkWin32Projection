@@ -1,7 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\PROPDESC_FORMAT_FLAGS.ahk" { PROPDESC_FORMAT_FLAGS }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PROPDESC_ENUMFILTER.ahk" { PROPDESC_ENUMFILTER }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that get property descriptions, register and unregister property schemas, enumerate property descriptions, and format property values in a type-strict way.
@@ -10,32 +16,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-ipropertysystem
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  */
-class IPropertySystem extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPropertySystem extends IUnknown {
     /**
      * The interface identifier for IPropertySystem
      * @type {Guid}
      */
-    static IID => Guid("{ca724e8a-c3e6-442b-88a4-6fb0db8035a3}")
+    static IID := Guid("{ca724e8a-c3e6-442b-88a4-6fb0db8035a3}")
 
     /**
      * The class identifier for PropertySystem
      * @type {Guid}
      */
-    static CLSID => Guid("{b8967f85-58ae-4f46-9fb2-5d7904798f4b}")
+    static CLSID := Guid("{b8967f85-58ae-4f46-9fb2-5d7904798f4b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPropertySystem interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetPropertyDescription               : IntPtr
+        GetPropertyDescriptionByName         : IntPtr
+        GetPropertyDescriptionListFromString : IntPtr
+        EnumeratePropertyDescriptions        : IntPtr
+        FormatForDisplay                     : IntPtr
+        FormatForDisplayAlloc                : IntPtr
+        RegisterPropertySchema               : IntPtr
+        UnregisterPropertySchema             : IntPtr
+        RefreshPropertySchema                : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPropertyDescription", "GetPropertyDescriptionByName", "GetPropertyDescriptionListFromString", "EnumeratePropertyDescriptions", "FormatForDisplay", "FormatForDisplayAlloc", "RegisterPropertySchema", "UnregisterPropertySchema", "RefreshPropertySchema"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPropertySystem.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets an instance of the subsystem object that implements IPropertyDescription, to obtain the property description for a given PROPERTYKEY.
@@ -53,7 +74,7 @@ class IPropertySystem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertysystem-getpropertydescription
      */
     GetPropertyDescription(propkey, riid) {
-        result := ComCall(3, this, "ptr", propkey, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(3, this, PROPERTYKEY.Ptr, propkey, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -75,7 +96,7 @@ class IPropertySystem extends IUnknown {
     GetPropertyDescriptionByName(pszCanonicalName, riid) {
         pszCanonicalName := pszCanonicalName is String ? StrPtr(pszCanonicalName) : pszCanonicalName
 
-        result := ComCall(4, this, "ptr", pszCanonicalName, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pszCanonicalName, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -200,7 +221,7 @@ class IPropertySystem extends IUnknown {
     GetPropertyDescriptionListFromString(pszPropList, riid) {
         pszPropList := pszPropList is String ? StrPtr(pszPropList) : pszPropList
 
-        result := ComCall(5, this, "ptr", pszPropList, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pszPropList, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -222,7 +243,7 @@ class IPropertySystem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertysystem-enumeratepropertydescriptions
      */
     EnumeratePropertyDescriptions(filterOn, riid) {
-        result := ComCall(6, this, "int", filterOn, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(6, this, PROPDESC_ENUMFILTER, filterOn, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -419,7 +440,7 @@ class IPropertySystem extends IUnknown {
     FormatForDisplay(key, propvar, pdff, pszText, cchText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
-        result := ComCall(7, this, "ptr", key, "ptr", propvar, "int", pdff, "ptr", pszText, "uint", cchText, "HRESULT")
+        result := ComCall(7, this, PROPERTYKEY.Ptr, key, PROPVARIANT.Ptr, propvar, PROPDESC_FORMAT_FLAGS, pdff, "ptr", pszText, "uint", cchText, "HRESULT")
         return result
     }
 
@@ -570,7 +591,7 @@ class IPropertySystem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertysystem-formatfordisplayalloc
      */
     FormatForDisplayAlloc(key, propvar, pdff) {
-        result := ComCall(8, this, "ptr", key, "ptr", propvar, "int", pdff, "ptr*", &ppszDisplay := 0, "HRESULT")
+        result := ComCall(8, this, PROPERTYKEY.Ptr, key, PROPVARIANT.Ptr, propvar, PROPDESC_FORMAT_FLAGS, pdff, PWSTR.Ptr, &ppszDisplay := 0, "HRESULT")
         return ppszDisplay
     }
 
@@ -726,5 +747,41 @@ class IPropertySystem extends IUnknown {
     RefreshPropertySchema() {
         result := ComCall(11, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPropertySystem.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPropertyDescription := CallbackCreate(GetMethod(implObj, "GetPropertyDescription"), flags, 4)
+        this.vtbl.GetPropertyDescriptionByName := CallbackCreate(GetMethod(implObj, "GetPropertyDescriptionByName"), flags, 4)
+        this.vtbl.GetPropertyDescriptionListFromString := CallbackCreate(GetMethod(implObj, "GetPropertyDescriptionListFromString"), flags, 4)
+        this.vtbl.EnumeratePropertyDescriptions := CallbackCreate(GetMethod(implObj, "EnumeratePropertyDescriptions"), flags, 4)
+        this.vtbl.FormatForDisplay := CallbackCreate(GetMethod(implObj, "FormatForDisplay"), flags, 6)
+        this.vtbl.FormatForDisplayAlloc := CallbackCreate(GetMethod(implObj, "FormatForDisplayAlloc"), flags, 5)
+        this.vtbl.RegisterPropertySchema := CallbackCreate(GetMethod(implObj, "RegisterPropertySchema"), flags, 2)
+        this.vtbl.UnregisterPropertySchema := CallbackCreate(GetMethod(implObj, "UnregisterPropertySchema"), flags, 2)
+        this.vtbl.RefreshPropertySchema := CallbackCreate(GetMethod(implObj, "RefreshPropertySchema"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPropertyDescription)
+        CallbackFree(this.vtbl.GetPropertyDescriptionByName)
+        CallbackFree(this.vtbl.GetPropertyDescriptionListFromString)
+        CallbackFree(this.vtbl.EnumeratePropertyDescriptions)
+        CallbackFree(this.vtbl.FormatForDisplay)
+        CallbackFree(this.vtbl.FormatForDisplayAlloc)
+        CallbackFree(this.vtbl.RegisterPropertySchema)
+        CallbackFree(this.vtbl.UnregisterPropertySchema)
+        CallbackFree(this.vtbl.RefreshPropertySchema)
     }
 }

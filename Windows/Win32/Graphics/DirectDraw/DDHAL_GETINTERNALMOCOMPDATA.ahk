@@ -1,80 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DIRECTDRAW_LCL.ahk
-#Include .\DDPIXELFORMAT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
+#Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDHAL_GETINTERNALMOCOMPDATA extends Win32Struct {
-    static sizeof => 72
+export default struct DDHAL_GETINTERNALMOCOMPDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    lpDD : DDRAWI_DIRECTDRAW_LCL.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DIRECTDRAW_LCL>}
-     */
-    lpDD {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpGuid : Guid.Ptr
 
-    /**
-     * @type {Pointer<Guid>}
-     */
-    lpGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    dwWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwWidth {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwHeight {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ddPixelFormat : DDPIXELFORMAT
 
-    /**
-     * @type {DDPIXELFORMAT}
-     */
-    ddPixelFormat {
-        get {
-            if(!this.HasProp("__ddPixelFormat"))
-                this.__ddPixelFormat := DDPIXELFORMAT(24, this)
-            return this.__ddPixelFormat
-        }
-    }
+    dwScratchMemAlloc : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwScratchMemAlloc {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    ddRVal : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    ddRVal {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
-    }
+    GetInternalMoCompInfo : IntPtr
 
-    /**
-     * @type {Pointer<LPDDHALMOCOMPCB_GETINTERNALINFO>}
-     */
-    GetInternalMoCompInfo {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
 }

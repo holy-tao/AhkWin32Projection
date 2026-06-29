@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D10EffectVariable.ahk
-#Include .\ID3D10BlendState.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D10BlendState.ahk" { ID3D10BlendState }
+#Import ".\ID3D10EffectVariable.ahk" { ID3D10EffectVariable }
+#Import ".\D3D10_BLEND_DESC.ahk" { D3D10_BLEND_DESC }
 
 /**
  * The blend-variable interface accesses blend state.
@@ -14,26 +16,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nn-d3d10effect-id3d10effectblendvariable
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class ID3D10EffectBlendVariable extends ID3D10EffectVariable {
-
-    static sizeof => A_PtrSize
+export default struct ID3D10EffectBlendVariable extends ID3D10EffectVariable {
     /**
      * The interface identifier for ID3D10EffectBlendVariable
      * @type {Guid}
      */
-    static IID => Guid("{1fcd2294-df6d-4eae-86b3-0e9160cfb07b}")
+    static IID := Guid("{1fcd2294-df6d-4eae-86b3-0e9160cfb07b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 25
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D10EffectBlendVariable interfaces
+    */
+    struct Vtbl extends ID3D10EffectVariable.Vtbl {
+        GetBlendState   : IntPtr
+        GetBackingStore : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetBlendState", "GetBackingStore"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D10EffectBlendVariable.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Get a pointer to a blend-state interface.
@@ -66,7 +76,29 @@ class ID3D10EffectBlendVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectblendvariable-getbackingstore
      */
     GetBackingStore(Index, pBlendDesc) {
-        result := ComCall(26, this, "uint", Index, "ptr", pBlendDesc, "HRESULT")
+        result := ComCall(26, this, "uint", Index, D3D10_BLEND_DESC.Ptr, pBlendDesc, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID3D10EffectBlendVariable.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetBlendState := CallbackCreate(GetMethod(implObj, "GetBlendState"), flags, 3)
+        this.vtbl.GetBackingStore := CallbackCreate(GetMethod(implObj, "GetBackingStore"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetBlendState)
+        CallbackFree(this.vtbl.GetBackingStore)
     }
 }

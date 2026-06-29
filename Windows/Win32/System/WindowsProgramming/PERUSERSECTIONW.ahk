@@ -1,76 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
  * @charset Unicode
  */
-class PERUSERSECTIONW extends Win32Struct {
-    static sizeof => 2804
+export default struct PERUSERSECTIONW {
+    #StructPack 4
 
-    static packingSize => 4
+    szGUID : WCHAR[59]
 
-    /**
-     * @type {String}
-     */
-    szGUID {
-        get => StrGet(this.ptr + 0, 58, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 58, "UTF-16")
-    }
+    szDispName : WCHAR[128]
 
-    /**
-     * @type {String}
-     */
-    szDispName {
-        get => StrGet(this.ptr + 118, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 118, 127, "UTF-16")
-    }
+    szLocale : WCHAR[10]
 
-    /**
-     * @type {String}
-     */
-    szLocale {
-        get => StrGet(this.ptr + 374, 9, "UTF-16")
-        set => StrPut(value, this.ptr + 374, 9, "UTF-16")
-    }
+    szStub : WCHAR[1040]
 
-    /**
-     * @type {String}
-     */
-    szStub {
-        get => StrGet(this.ptr + 394, 1039, "UTF-16")
-        set => StrPut(value, this.ptr + 394, 1039, "UTF-16")
-    }
+    szVersion : WCHAR[32]
 
-    /**
-     * @type {String}
-     */
-    szVersion {
-        get => StrGet(this.ptr + 2474, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 2474, 31, "UTF-16")
-    }
+    szCompID : WCHAR[128]
 
-    /**
-     * @type {String}
-     */
-    szCompID {
-        get => StrGet(this.ptr + 2538, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 2538, 127, "UTF-16")
-    }
+    dwIsInstalled : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwIsInstalled {
-        get => NumGet(this, 2796, "uint")
-        set => NumPut("uint", value, this, 2796)
-    }
+    bRollback : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    bRollback {
-        get => NumGet(this, 2800, "int")
-        set => NumPut("int", value, this, 2800)
-    }
 }

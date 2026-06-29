@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\STATPROPSTG.ahk" { STATPROPSTG }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\IUnknown.ahk" { IUnknown }
 
 /**
  * The IEnumSTATPROPSTG interface iterates through an array of STATPROPSTG structures containing statistical data about properties in a property set.
  * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nn-propidlbase-ienumstatpropstg
  * @namespace Windows.Win32.System.Com.StructuredStorage
  */
-class IEnumSTATPROPSTG extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IEnumSTATPROPSTG extends IUnknown {
     /**
      * The interface identifier for IEnumSTATPROPSTG
      * @type {Guid}
      */
-    static IID => Guid("{00000139-0000-0000-c000-000000000046}")
+    static IID := Guid("{00000139-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IEnumSTATPROPSTG interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Next  : IntPtr
+        Skip  : IntPtr
+        Reset : IntPtr
+        Clone : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Next", "Skip", "Reset", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IEnumSTATPROPSTG.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IEnumSTATPROPSTG::Next method retrieves a specified number of STATPROPSTG structures, that follow subsequently in the enumeration sequence.
@@ -69,7 +81,7 @@ class IEnumSTATPROPSTG extends IUnknown {
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, "ptr", rgelt, pceltFetchedMarshal, pceltFetched, "int")
+        result := ComCall(3, this, "uint", celt, STATPROPSTG.Ptr, rgelt, pceltFetchedMarshal, pceltFetched, Int32)
         return result
     }
 
@@ -82,7 +94,7 @@ class IEnumSTATPROPSTG extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nf-propidlbase-ienumstatpropstg-skip
      */
     Skip(celt) {
-        result := ComCall(4, this, "uint", celt, "int")
+        result := ComCall(4, this, "uint", celt, Int32)
         return result
     }
 
@@ -124,5 +136,31 @@ class IEnumSTATPROPSTG extends IUnknown {
     Clone() {
         result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")
         return IEnumSTATPROPSTG(ppenum)
+    }
+
+    Query(iid) {
+        if (IEnumSTATPROPSTG.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 4)
+        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Next)
+        CallbackFree(this.vtbl.Skip)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.Clone)
     }
 }

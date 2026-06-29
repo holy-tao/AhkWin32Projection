@@ -1,38 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_TIMESPAN.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_TIMESPAN.ahk" { WS_TIMESPAN }
 
 /**
  * This type description is used with WS_TIMESPAN_TYPE and is optional. It is used to specify constraints on the set of values which can be deserialized.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_timespan_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_TIMESPAN_DESCRIPTION extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct WS_TIMESPAN_DESCRIPTION {
+    #StructPack 8
 
     /**
      * The minimum value.
-     * @type {WS_TIMESPAN}
      */
-    minValue {
-        get {
-            if(!this.HasProp("__minValue"))
-                this.__minValue := WS_TIMESPAN(0, this)
-            return this.__minValue
-        }
-    }
+    minValue : WS_TIMESPAN
 
     /**
      * The maximum value.
-     * @type {WS_TIMESPAN}
      */
-    maxValue {
-        get {
-            if(!this.HasProp("__maxValue"))
-                this.__maxValue := WS_TIMESPAN(8, this)
-            return this.__maxValue
-        }
-    }
+    maxValue : WS_TIMESPAN
+
 }

@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\QOS_OBJECT_HDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\QOS_OBJECT_HDR.ahk" { QOS_OBJECT_HDR }
 
 /**
  * The traffic control object QOS_TRAFFIC_CLASS is used to override the default UserPriority value ascribed to packets that classify the traffic of a given flow.
@@ -16,24 +15,15 @@
  * @see https://learn.microsoft.com/windows/win32/api/qosobjs/ns-qosobjs-qos_traffic_class
  * @namespace Windows.Win32.NetworkManagement.QoS
  */
-class QOS_TRAFFIC_CLASS extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct QOS_TRAFFIC_CLASS {
+    #StructPack 4
 
     /**
      * The QOS object 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos/ns-qos-qos_object_hdr">QOS_OBJECT_HDR</a>. The object type for this traffic control object should be 
      * <b>QOS_OBJECT_TRAFFIC_CLASS</b>.
-     * @type {QOS_OBJECT_HDR}
      */
-    ObjectHdr {
-        get {
-            if(!this.HasProp("__ObjectHdr"))
-                this.__ObjectHdr := QOS_OBJECT_HDR(0, this)
-            return this.__ObjectHdr
-        }
-    }
+    ObjectHdr : QOS_OBJECT_HDR
 
     /**
      * User priority value of the flow. The valid range is zero through seven. The following settings are chosen (by default) when the 
@@ -46,10 +36,7 @@ class QOS_TRAFFIC_CLASS extends Win32Struct {
      * can select a value based on the standard Intserv mapping of 
      * ServiceType to 802.1 TrafficClass.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    TrafficClass {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    TrafficClass : UInt32
+
 }

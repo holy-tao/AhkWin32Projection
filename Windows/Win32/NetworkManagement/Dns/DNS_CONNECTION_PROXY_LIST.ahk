@@ -1,28 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DNS_CONNECTION_PROXY_ELEMENT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DNS_CONNECTION_PROXY_ELEMENT.ahk" { DNS_CONNECTION_PROXY_ELEMENT }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
  */
-class DNS_CONNECTION_PROXY_LIST extends Win32Struct {
-    static sizeof => 16
+export default struct DNS_CONNECTION_PROXY_LIST {
+    #StructPack 8
 
-    static packingSize => 8
+    cProxies : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cProxies {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pProxies : DNS_CONNECTION_PROXY_ELEMENT.Ptr
 
-    /**
-     * @type {Pointer<DNS_CONNECTION_PROXY_ELEMENT>}
-     */
-    pProxies {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

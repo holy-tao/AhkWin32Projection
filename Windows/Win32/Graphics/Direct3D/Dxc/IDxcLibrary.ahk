@@ -1,35 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IDxcBlob.ahk
-#Include .\IDxcBlobEncoding.ahk
-#Include .\IDxcIncludeHandler.ahk
-#Include ..\..\..\System\Com\IStream.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IMalloc.ahk" { IMalloc }
+#Import ".\DXC_CP.ahk" { DXC_CP }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDxcIncludeHandler.ahk" { IDxcIncludeHandler }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDxcBlobEncoding.ahk" { IDxcBlobEncoding }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDxcBlob.ahk" { IDxcBlob }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
  */
-class IDxcLibrary extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDxcLibrary extends IUnknown {
     /**
      * The interface identifier for IDxcLibrary
      * @type {Guid}
      */
-    static IID => Guid("{e5204dc7-d18c-4c3c-bdfb-851673980fe7}")
+    static IID := Guid("{e5204dc7-d18c-4c3c-bdfb-851673980fe7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDxcLibrary interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetMalloc                        : IntPtr
+        CreateBlobFromBlob               : IntPtr
+        CreateBlobFromFile               : IntPtr
+        CreateBlobWithEncodingFromPinned : IntPtr
+        CreateBlobWithEncodingOnHeapCopy : IntPtr
+        CreateBlobWithEncodingOnMalloc   : IntPtr
+        CreateIncludeHandler             : IntPtr
+        CreateStreamFromBlobReadOnly     : IntPtr
+        GetBlobAsUtf8                    : IntPtr
+        GetBlobAsWide                    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetMalloc", "CreateBlobFromBlob", "CreateBlobFromFile", "CreateBlobWithEncodingFromPinned", "CreateBlobWithEncodingOnHeapCopy", "CreateBlobWithEncodingOnMalloc", "CreateIncludeHandler", "CreateStreamFromBlobReadOnly", "GetBlobAsUtf8", "GetBlobAsWide"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDxcLibrary.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -76,7 +96,7 @@ class IDxcLibrary extends IUnknown {
      * @returns {IDxcBlobEncoding} 
      */
     CreateBlobWithEncodingFromPinned(pText, _size, codePage) {
-        result := ComCall(6, this, "ptr", pText, "uint", _size, "uint", codePage, "ptr*", &pBlobEncoding := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pText, "uint", _size, DXC_CP, codePage, "ptr*", &pBlobEncoding := 0, "HRESULT")
         return IDxcBlobEncoding(pBlobEncoding)
     }
 
@@ -88,7 +108,7 @@ class IDxcLibrary extends IUnknown {
      * @returns {IDxcBlobEncoding} 
      */
     CreateBlobWithEncodingOnHeapCopy(pText, _size, codePage) {
-        result := ComCall(7, this, "ptr", pText, "uint", _size, "uint", codePage, "ptr*", &pBlobEncoding := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pText, "uint", _size, DXC_CP, codePage, "ptr*", &pBlobEncoding := 0, "HRESULT")
         return IDxcBlobEncoding(pBlobEncoding)
     }
 
@@ -101,7 +121,7 @@ class IDxcLibrary extends IUnknown {
      * @returns {IDxcBlobEncoding} 
      */
     CreateBlobWithEncodingOnMalloc(pText, pIMalloc, _size, codePage) {
-        result := ComCall(8, this, "ptr", pText, "ptr", pIMalloc, "uint", _size, "uint", codePage, "ptr*", &pBlobEncoding := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", pText, "ptr", pIMalloc, "uint", _size, DXC_CP, codePage, "ptr*", &pBlobEncoding := 0, "HRESULT")
         return IDxcBlobEncoding(pBlobEncoding)
     }
 
@@ -142,5 +162,43 @@ class IDxcLibrary extends IUnknown {
     GetBlobAsWide(pBlob) {
         result := ComCall(12, this, "ptr", pBlob, "ptr*", &pBlobEncoding := 0, "HRESULT")
         return IDxcBlobEncoding(pBlobEncoding)
+    }
+
+    Query(iid) {
+        if (IDxcLibrary.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetMalloc := CallbackCreate(GetMethod(implObj, "SetMalloc"), flags, 2)
+        this.vtbl.CreateBlobFromBlob := CallbackCreate(GetMethod(implObj, "CreateBlobFromBlob"), flags, 5)
+        this.vtbl.CreateBlobFromFile := CallbackCreate(GetMethod(implObj, "CreateBlobFromFile"), flags, 4)
+        this.vtbl.CreateBlobWithEncodingFromPinned := CallbackCreate(GetMethod(implObj, "CreateBlobWithEncodingFromPinned"), flags, 5)
+        this.vtbl.CreateBlobWithEncodingOnHeapCopy := CallbackCreate(GetMethod(implObj, "CreateBlobWithEncodingOnHeapCopy"), flags, 5)
+        this.vtbl.CreateBlobWithEncodingOnMalloc := CallbackCreate(GetMethod(implObj, "CreateBlobWithEncodingOnMalloc"), flags, 6)
+        this.vtbl.CreateIncludeHandler := CallbackCreate(GetMethod(implObj, "CreateIncludeHandler"), flags, 2)
+        this.vtbl.CreateStreamFromBlobReadOnly := CallbackCreate(GetMethod(implObj, "CreateStreamFromBlobReadOnly"), flags, 3)
+        this.vtbl.GetBlobAsUtf8 := CallbackCreate(GetMethod(implObj, "GetBlobAsUtf8"), flags, 3)
+        this.vtbl.GetBlobAsWide := CallbackCreate(GetMethod(implObj, "GetBlobAsWide"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetMalloc)
+        CallbackFree(this.vtbl.CreateBlobFromBlob)
+        CallbackFree(this.vtbl.CreateBlobFromFile)
+        CallbackFree(this.vtbl.CreateBlobWithEncodingFromPinned)
+        CallbackFree(this.vtbl.CreateBlobWithEncodingOnHeapCopy)
+        CallbackFree(this.vtbl.CreateBlobWithEncodingOnMalloc)
+        CallbackFree(this.vtbl.CreateIncludeHandler)
+        CallbackFree(this.vtbl.CreateStreamFromBlobReadOnly)
+        CallbackFree(this.vtbl.GetBlobAsUtf8)
+        CallbackFree(this.vtbl.GetBlobAsWide)
     }
 }

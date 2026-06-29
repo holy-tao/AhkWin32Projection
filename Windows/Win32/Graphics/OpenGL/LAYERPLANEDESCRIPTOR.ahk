@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 
 /**
  * The LAYERPLANEDESCRIPTOR structure describes the pixel format of a drawing surface.
@@ -8,28 +8,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-layerplanedescriptor
  * @namespace Windows.Win32.Graphics.OpenGL
  */
-class LAYERPLANEDESCRIPTOR extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 4
+export default struct LAYERPLANEDESCRIPTOR {
+    #StructPack 4
 
     /**
      * Specifies the size of this data structure. Set this value to <b>sizeof</b>(<b>LAYERPLANEDESCRIPTOR</b>).
-     * @type {Integer}
      */
-    nSize {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    nSize : UInt16
 
     /**
      * Specifies the version of this data structure. Set this value to 1.
-     * @type {Integer}
      */
-    nVersion {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    nVersion : UInt16
 
     /**
      * A set of bit flags that specify properties of the layer plane. The properties are generally not mutually exclusive; any combination of bit flags can be set, with the exceptions noted. The following bit flag constants are defined.
@@ -80,12 +70,8 @@ class LAYERPLANEDESCRIPTOR extends Win32Struct {
      * <td>The layer plane shares the accumulation buffer with the main plane.</td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : UInt32
 
     /**
      * Specifies the type of pixel data. The following types are defined.
@@ -104,189 +90,104 @@ class LAYERPLANEDESCRIPTOR extends Win32Struct {
      * <td>Color-index pixels. Each pixel uses a color-index value.</td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    iPixelType {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    iPixelType : Int8
 
     /**
      * Specifies the number of color bitplanes in each color buffer. For RGBA pixel types, it is the size of the color buffer, excluding the alpha bitplanes. For color-index pixels, it is the size of the color-index buffer.
-     * @type {Integer}
      */
-    cColorBits {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    cColorBits : Int8
 
     /**
      * Specifies the number of red bitplanes in each RGBA color buffer.
-     * @type {Integer}
      */
-    cRedBits {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    cRedBits : Int8
 
     /**
      * Specifies the shift count for red bitplanes in each RGBA color buffer.
-     * @type {Integer}
      */
-    cRedShift {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
-    }
+    cRedShift : Int8
 
     /**
      * Specifies the number of green bitplanes in each RGBA color buffer.
-     * @type {Integer}
      */
-    cGreenBits {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    cGreenBits : Int8
 
     /**
      * Specifies the shift count for green bitplanes in each RGBA color buffer.
-     * @type {Integer}
      */
-    cGreenShift {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
-    }
+    cGreenShift : Int8
 
     /**
      * Specifies the number of blue bitplanes in each RGBA color buffer.
-     * @type {Integer}
      */
-    cBlueBits {
-        get => NumGet(this, 14, "char")
-        set => NumPut("char", value, this, 14)
-    }
+    cBlueBits : Int8
 
     /**
      * Specifies the shift count for blue bitplanes in each RGBA color buffer.
-     * @type {Integer}
      */
-    cBlueShift {
-        get => NumGet(this, 15, "char")
-        set => NumPut("char", value, this, 15)
-    }
+    cBlueShift : Int8
 
     /**
      * Specifies the number of alpha bitplanes in each RGBA color buffer. Alpha bitplanes are not supported.
-     * @type {Integer}
      */
-    cAlphaBits {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    cAlphaBits : Int8
 
     /**
      * Specifies the shift count for alpha bitplanes in each RGBA color buffer. Alpha bitplanes are not supported.
-     * @type {Integer}
      */
-    cAlphaShift {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
+    cAlphaShift : Int8
 
     /**
      * Specifies the total number of bitplanes in the accumulation buffer.
-     * @type {Integer}
      */
-    cAccumBits {
-        get => NumGet(this, 18, "char")
-        set => NumPut("char", value, this, 18)
-    }
+    cAccumBits : Int8
 
     /**
      * Specifies the number of red bitplanes in the accumulation buffer.
-     * @type {Integer}
      */
-    cAccumRedBits {
-        get => NumGet(this, 19, "char")
-        set => NumPut("char", value, this, 19)
-    }
+    cAccumRedBits : Int8
 
     /**
      * Specifies the number of green bitplanes in the accumulation buffer.
-     * @type {Integer}
      */
-    cAccumGreenBits {
-        get => NumGet(this, 20, "char")
-        set => NumPut("char", value, this, 20)
-    }
+    cAccumGreenBits : Int8
 
     /**
      * Specifies the number of blue bitplanes in the accumulation buffer.
-     * @type {Integer}
      */
-    cAccumBlueBits {
-        get => NumGet(this, 21, "char")
-        set => NumPut("char", value, this, 21)
-    }
+    cAccumBlueBits : Int8
 
     /**
      * Specifies the number of alpha bitplanes in the accumulation buffer.
-     * @type {Integer}
      */
-    cAccumAlphaBits {
-        get => NumGet(this, 22, "char")
-        set => NumPut("char", value, this, 22)
-    }
+    cAccumAlphaBits : Int8
 
     /**
      * Specifies the depth of the depth (z-axis) buffer.
-     * @type {Integer}
      */
-    cDepthBits {
-        get => NumGet(this, 23, "char")
-        set => NumPut("char", value, this, 23)
-    }
+    cDepthBits : Int8
 
     /**
      * Specifies the depth of the stencil buffer.
-     * @type {Integer}
      */
-    cStencilBits {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
-    }
+    cStencilBits : Int8
 
     /**
      * Specifies the number of auxiliary buffers. Auxiliary buffers are not supported.
-     * @type {Integer}
      */
-    cAuxBuffers {
-        get => NumGet(this, 25, "char")
-        set => NumPut("char", value, this, 25)
-    }
+    cAuxBuffers : Int8
 
-    /**
-     * @type {Integer}
-     */
-    iLayerPlane {
-        get => NumGet(this, 26, "char")
-        set => NumPut("char", value, this, 26)
-    }
+    iLayerPlane : Int8
 
     /**
      * Not used. Must be zero.
-     * @type {Integer}
      */
-    bReserved {
-        get => NumGet(this, 27, "char")
-        set => NumPut("char", value, this, 27)
-    }
+    bReserved : Int8
 
     /**
      * When the LPD_TRANSPARENT flag is set, specifies the transparent color or index value. Typically the value is zero.
-     * @type {COLORREF}
      */
-    crTransparent {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    crTransparent : COLORREF
+
 }

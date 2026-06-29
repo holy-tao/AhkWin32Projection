@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security.Authorization
  */
-class AUTHZ_AUDIT_EVENT_TYPE_LEGACY extends Win32Struct {
-    static sizeof => 6
+export default struct AUTHZ_AUDIT_EVENT_TYPE_LEGACY {
+    #StructPack 2
 
-    static packingSize => 2
+    CategoryId : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    CategoryId {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    AuditId : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    AuditId {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    ParameterCount : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ParameterCount {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
 }

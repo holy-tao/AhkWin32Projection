@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The BG_BASIC_CREDENTIALS structure identifies the user name and password to authenticate.
@@ -27,30 +27,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/bits1_5/ns-bits1_5-bg_basic_credentials
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class BG_BASIC_CREDENTIALS extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct BG_BASIC_CREDENTIALS {
+    #StructPack 8
 
     /**
      * A null-terminated string that contains the user name to authenticate. The user name is limited to 300 characters, not including the null terminator. The format of the user name depends on the authentication scheme requested. For example, for Basic, NTLM, and Negotiate authentication, the user name is of the form <em>DomainName</em><strong>\\</strong><em>UserName</em>. For Passport authentication, the user name is an email address. For more information, see Remarks.
      * 
      * If <strong>NULL</strong>, default credentials for this session context are used.
-     * @type {PWSTR}
      */
-    UserName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    UserName : PWSTR
 
     /**
      * A null-terminated string that contains the password in plaintext. The password is limited to 65536 characters, not including the null terminator. The password can be blank. Set it to <strong>NULL</strong> if <strong>UserName</strong> is <strong>NULL</strong>. BITS encrypts the password before persisting the job if a network disconnect occurs or the user logs off.
      * 
      * Live ID encoded passwords are supported through Negotiate 2. For more information about Live IDs, see the <a href="https://docs.microsoft.com/office/">Windows Live ID SDK</a>.
-     * @type {PWSTR}
      */
-    Password {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Password : PWSTR
+
 }

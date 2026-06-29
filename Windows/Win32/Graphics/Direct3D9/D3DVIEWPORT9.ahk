@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the window dimensions of a render-target surface onto which a 3D volume projects.
@@ -10,80 +9,55 @@
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dviewport9
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DVIEWPORT9 extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct D3DVIEWPORT9 {
+    #StructPack 4
 
     /**
      * Type: **[**DWORD**](../winprog/windows-data-types.md)**
      * 
      * 
      * Pixel coordinate of the upper-left corner of the viewport on the render-target surface. Unless you want to render to a subset of the surface, this member can be set to 0.
-     * @type {Integer}
      */
-    X {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    X : UInt32
 
     /**
      * Type: **[**DWORD**](../winprog/windows-data-types.md)**
      * 
      * 
      * Pixel coordinate of the upper-left corner of the viewport on the render-target surface. Unless you want to render to a subset of the surface, this member can be set to 0.
-     * @type {Integer}
      */
-    Y {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Y : UInt32
 
     /**
      * Type: **[**DWORD**](../winprog/windows-data-types.md)**
      * 
      * 
      * Width dimension of the clip volume, in pixels. Unless you are rendering only to a subset of the surface, this member should be set to the width dimension of the render-target surface.
-     * @type {Integer}
      */
-    Width {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Width : UInt32
 
     /**
      * Type: **[**DWORD**](../winprog/windows-data-types.md)**
      * 
      * 
      * Height dimension of the clip volume, in pixels. Unless you are rendering only to a subset of the surface, this member should be set to the height dimension of the render-target surface.
-     * @type {Integer}
      */
-    Height {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Height : UInt32
 
     /**
      * Type: **float**
      * 
      * 
      * Together with MaxZ, value describing the range of depth values into which a scene is to be rendered, the minimum and maximum values of the clip volume. Most applications set this value to 0.0. Clipping is performed after applying the projection matrix.
-     * @type {Float}
      */
-    MinZ {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
+    MinZ : Float32
 
     /**
      * Type: **float**
      * 
      * 
      * Together with MinZ, value describing the range of depth values into which a scene is to be rendered, the minimum and maximum values of the clip volume. Most applications set this value to 1.0. Clipping is performed after applying the projection matrix.
-     * @type {Float}
      */
-    MaxZ {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
-    }
+    MaxZ : Float32
+
 }

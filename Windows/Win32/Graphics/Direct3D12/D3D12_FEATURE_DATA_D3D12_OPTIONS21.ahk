@@ -1,45 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_WORK_GRAPHS_TIER.ahk
-#Include .\D3D12_EXECUTE_INDIRECT_TIER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_WORK_GRAPHS_TIER.ahk" { D3D12_WORK_GRAPHS_TIER }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D12_EXECUTE_INDIRECT_TIER.ahk" { D3D12_EXECUTE_INDIRECT_TIER }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_FEATURE_DATA_D3D12_OPTIONS21 extends Win32Struct {
-    static sizeof => 16
+export default struct D3D12_FEATURE_DATA_D3D12_OPTIONS21 {
+    #StructPack 4
 
-    static packingSize => 4
+    WorkGraphsTier : D3D12_WORK_GRAPHS_TIER
 
-    /**
-     * @type {D3D12_WORK_GRAPHS_TIER}
-     */
-    WorkGraphsTier {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ExecuteIndirectTier : D3D12_EXECUTE_INDIRECT_TIER
 
-    /**
-     * @type {D3D12_EXECUTE_INDIRECT_TIER}
-     */
-    ExecuteIndirectTier {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    SampleCmpGradientAndBiasSupported : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    SampleCmpGradientAndBiasSupported {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    ExtendedCommandInfoSupported : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    ExtendedCommandInfoSupported {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
 }

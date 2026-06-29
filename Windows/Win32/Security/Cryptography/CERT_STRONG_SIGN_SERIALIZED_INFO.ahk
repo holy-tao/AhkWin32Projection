@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_STRONG_SIGN_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CERT_STRONG_SIGN_FLAGS.ahk" { CERT_STRONG_SIGN_FLAGS }
 
 /**
  * Contains the signature algorithm/hash algorithm and public key algorithm/bit length pairs that can be used for strong signing.
@@ -43,18 +43,10 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_strong_sign_serialized_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_STRONG_SIGN_SERIALIZED_INFO extends Win32Struct {
-    static sizeof => 24
+export default struct CERT_STRONG_SIGN_SERIALIZED_INFO {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {CERT_STRONG_SIGN_FLAGS}
-     */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : CERT_STRONG_SIGN_FLAGS
 
     /**
      * Pointer to a null-terminated Unicode string that contains a set of <i>signature algorithm</i>/<i>hash algorithm</i> pairs. A Unicode semicolon (L";") separates the pairs. This is shown by the following example.
@@ -82,12 +74,8 @@ class CERT_STRONG_SIGN_SERIALIZED_INFO extends Win32Struct {
      * <li>L"SHA256" (BCRYPT_SHA256_ALGORITHM)</li>
      * <li>L"SHA512" (BCRYPT_SHA512_ALGORITHM)</li>
      * </ul>
-     * @type {PWSTR}
      */
-    pwszCNGSignHashAlgids {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwszCNGSignHashAlgids : PWSTR
 
     /**
      * Pointer to a null-terminated Unicode string that contains a set of <i>public key algorithm</i>/<i>bit length</i> pairs. A Unicode semicolon (L";") separates the pairs. This is shown by the following example.
@@ -99,10 +87,7 @@ class CERT_STRONG_SIGN_SERIALIZED_INFO extends Win32Struct {
      * <li>L"DSA" (BCRYPT_DSA_ALGORITHM)</li>
      * <li>L"ECDSA" (SSL_ECDSA_ALGORITHM)</li>
      * </ul>
-     * @type {PWSTR}
      */
-    pwszCNGPubKeyMinBitLengths {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pwszCNGPubKeyMinBitLengths : PWSTR
+
 }

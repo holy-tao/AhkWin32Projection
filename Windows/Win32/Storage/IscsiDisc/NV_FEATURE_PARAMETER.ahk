@@ -1,91 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
  */
-class NV_FEATURE_PARAMETER extends Win32Struct {
-    static sizeof => 24
+export default struct NV_FEATURE_PARAMETER {
+    #StructPack 4
 
-    static packingSize => 4
+    NVPowerModeEnabled : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NVPowerModeEnabled {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    NVParameterReserv1 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NVParameterReserv1 {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    NVCmdEnabled : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NVCmdEnabled {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    NVParameterReserv2 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NVParameterReserv2 {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    NVPowerModeVer : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NVPowerModeVer {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    NVCmdVer : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NVCmdVer {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    NVSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NVSize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    NVReadSpeed : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NVReadSpeed {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    NVWrtSpeed : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NVWrtSpeed {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    DeviceSpinUpTime : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DeviceSpinUpTime {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class PUBLIC_BCB extends Win32Struct {
-    static sizeof => 16
+export default struct PUBLIC_BCB {
+    #StructPack 8
 
-    static packingSize => 8
+    NodeTypeCode : Int16
 
-    /**
-     * @type {Integer}
-     */
-    NodeTypeCode {
-        get => NumGet(this, 0, "short")
-        set => NumPut("short", value, this, 0)
-    }
+    NodeByteSize : Int16
 
-    /**
-     * @type {Integer}
-     */
-    NodeByteSize {
-        get => NumGet(this, 2, "short")
-        set => NumPut("short", value, this, 2)
-    }
+    MappedLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MappedLength {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    MappedFileOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MappedFileOffset {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
 }

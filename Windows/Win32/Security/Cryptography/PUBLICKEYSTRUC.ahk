@@ -1,16 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ALG_ID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ALG_ID.ahk" { ALG_ID }
 
 /**
  * Indicates a key's BLOB type and the algorithm that the key uses.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-publickeystruc
  * @namespace Windows.Win32.Security.Cryptography
  */
-class PUBLICKEYSTRUC extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct PUBLICKEYSTRUC {
+    #StructPack 4
 
     /**
      * Contains the key BLOB type.
@@ -114,30 +111,18 @@ class PUBLICKEYSTRUC extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    bType {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    bType : Int8
 
     /**
      * Contains the version number of the key BLOB format. For example, if the BLOB is a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">Digital Signature Standard</a> (DSS) version 3 key, this member will contain 3. The minimum value for this member is defined by the <b>CUR_BLOB_VERSION</b> (2) identifier.
-     * @type {Integer}
      */
-    bVersion {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    bVersion : Int8
 
     /**
      * This member is reserved for future use and must be set to zero.
-     * @type {Integer}
      */
-    reserved {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    reserved : UInt16
 
     /**
      * Contains one of the <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/alg-id">ALG_ID</a> values that identifies the algorithm of the key contained by the key BLOB.
@@ -145,10 +130,7 @@ class PUBLICKEYSTRUC extends Win32Struct {
      * Not all algorithm identifiers are valid with all BLOB types. For example, since an RC4 key is a session key, it cannot be exported into a PUBLICKEYBLOB.
      * 
      * PLAINTEXTBLOBs can be used with any algorithm or type of key combination supported by the CSP in use. Note that a 3DES key cannot be imported when the Microsoft Base Provider is in use.
-     * @type {ALG_ID}
      */
-    aiKeyAlg {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    aiKeyAlg : ALG_ID
+
 }

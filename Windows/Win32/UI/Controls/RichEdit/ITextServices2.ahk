@@ -1,28 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ITextServices.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\RECTL.ahk" { RECTL }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
+#Import "..\..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\ITextServices.ahk" { ITextServices }
+#Import "..\..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\..\Graphics\Direct2D\ID2D1RenderTarget.ahk" { ID2D1RenderTarget }
 
 /**
  * The ITextServices2 interface extends the ITextServices interface.
  * @see https://learn.microsoft.com/windows/win32/api/textserv/nl-textserv-itextservices2
  * @namespace Windows.Win32.UI.Controls.RichEdit
  */
-class ITextServices2 extends ITextServices {
+export default struct ITextServices2 extends ITextServices {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 21
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["TxGetNaturalSize2", "TxDrawD2D"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITextServices2 interfaces
+    */
+    struct Vtbl extends ITextServices.Vtbl {
+        TxGetNaturalSize2 : IntPtr
+        TxDrawD2D         : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITextServices2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Resizes a control so it fits its content appropriately. This method is similar to TxGetNaturalSize, but also retrieves the ascent of the top line of text.
@@ -189,14 +204,11 @@ class ITextServices2 extends ITextServices {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices2-txgetnaturalsize2
      */
     TxGetNaturalSize2(dwAspect, hdcDraw, hicTargetDev, ptd, dwMode, psizelExtent, pwidth, pheight, pascent) {
-        hdcDraw := hdcDraw is Win32Handle ? NumGet(hdcDraw, "ptr") : hdcDraw
-        hicTargetDev := hicTargetDev is Win32Handle ? NumGet(hicTargetDev, "ptr") : hicTargetDev
-
         pwidthMarshal := pwidth is VarRef ? "int*" : "ptr"
         pheightMarshal := pheight is VarRef ? "int*" : "ptr"
         pascentMarshal := pascent is VarRef ? "int*" : "ptr"
 
-        result := ComCall(21, this, "uint", dwAspect, "ptr", hdcDraw, "ptr", hicTargetDev, "ptr", ptd, "uint", dwMode, "ptr", psizelExtent, pwidthMarshal, pwidth, pheightMarshal, pheight, pascentMarshal, pascent, "HRESULT")
+        result := ComCall(21, this, "uint", dwAspect, HDC, hdcDraw, HDC, hicTargetDev, DVTARGETDEVICE.Ptr, ptd, "uint", dwMode, SIZE.Ptr, psizelExtent, pwidthMarshal, pwidth, pheightMarshal, pheight, pascentMarshal, pascent, "HRESULT")
         return result
     }
 
@@ -247,7 +259,29 @@ class ITextServices2 extends ITextServices {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices2-txdrawd2d
      */
     TxDrawD2D(pRenderTarget, lprcBounds, lprcUpdate, lViewId) {
-        result := ComCall(22, this, "ptr", pRenderTarget, "ptr", lprcBounds, "ptr", lprcUpdate, "int", lViewId, "HRESULT")
+        result := ComCall(22, this, "ptr", pRenderTarget, RECTL.Ptr, lprcBounds, RECT.Ptr, lprcUpdate, "int", lViewId, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITextServices2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.TxGetNaturalSize2 := CallbackCreate(GetMethod(implObj, "TxGetNaturalSize2"), flags, 10)
+        this.vtbl.TxDrawD2D := CallbackCreate(GetMethod(implObj, "TxDrawD2D"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.TxGetNaturalSize2)
+        CallbackFree(this.vtbl.TxDrawD2D)
     }
 }

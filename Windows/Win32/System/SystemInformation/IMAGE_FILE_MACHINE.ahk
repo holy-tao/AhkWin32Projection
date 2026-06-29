@@ -1,11 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Documentation varies per use. Refer to each: <see href="https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-image_debug_information">IMAGE_DEBUG_INFORMATION</see>, <see href="https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_file_header">IMAGE_FILE_HEADER</see>.
  * @namespace Windows.Win32.System.SystemInformation
  */
-class IMAGE_FILE_MACHINE extends Win32Enum {
+export default struct IMAGE_FILE_MACHINE {
+    value : UInt16
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt16)}

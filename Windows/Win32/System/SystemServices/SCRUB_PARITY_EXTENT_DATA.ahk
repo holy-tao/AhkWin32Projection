@@ -1,55 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SCRUB_PARITY_EXTENT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SCRUB_PARITY_EXTENT.ahk" { SCRUB_PARITY_EXTENT }
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class SCRUB_PARITY_EXTENT_DATA extends Win32Struct {
-    static sizeof => 24
+export default struct SCRUB_PARITY_EXTENT_DATA {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Flags : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    NumberOfParityExtents : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfParityExtents {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    MaximumNumberOfParityExtents : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    MaximumNumberOfParityExtents {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    ParityExtents : SCRUB_PARITY_EXTENT[1]
 
-    /**
-     * @type {SCRUB_PARITY_EXTENT}
-     */
-    ParityExtents {
-        get {
-            if(!this.HasProp("__ParityExtentsProxyArray"))
-                this.__ParityExtentsProxyArray := Win32FixedArray(this.ptr + 8, 1, SCRUB_PARITY_EXTENT, "")
-            return this.__ParityExtentsProxyArray
-        }
-    }
 }

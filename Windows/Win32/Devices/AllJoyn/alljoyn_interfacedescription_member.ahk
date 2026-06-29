@@ -1,68 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\alljoyn_messagetype.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\alljoyn_interfacedescription.ahk" { alljoyn_interfacedescription }
+#Import ".\alljoyn_messagetype.ahk" { alljoyn_messagetype }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.Devices.AllJoyn
  */
-class alljoyn_interfacedescription_member extends Win32Struct {
-    static sizeof => 56
+export default struct alljoyn_interfacedescription_member {
+    #StructPack 8
 
-    static packingSize => 8
+    iface : alljoyn_interfacedescription
 
-    /**
-     * @type {alljoyn_interfacedescription}
-     */
-    iface {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    memberType : alljoyn_messagetype
 
-    /**
-     * @type {alljoyn_messagetype}
-     */
-    memberType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    name : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    name {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    signature : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    signature {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    returnSignature : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    returnSignature {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    argNames : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    argNames {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    internal_member : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    internal_member {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
 }

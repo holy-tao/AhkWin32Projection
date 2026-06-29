@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class BDA_SCAN_STATE extends Win32Struct {
-    static sizeof => 16
+export default struct BDA_SCAN_STATE {
+    #StructPack 4
 
-    static packingSize => 4
+    lResult : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lResult {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ulSignalLock : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulSignalLock {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulSecondsLeft : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulSecondsLeft {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulCurrentFrequency : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulCurrentFrequency {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

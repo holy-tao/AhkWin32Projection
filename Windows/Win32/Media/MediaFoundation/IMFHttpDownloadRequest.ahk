@@ -1,33 +1,60 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Applications implement this interface to override the default implementation of the HTTP and HTTPS protocols used by Microsoft Media Foundation. (IMFHttpDownloadRequest)
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfhttpdownloadrequest
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFHttpDownloadRequest extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFHttpDownloadRequest extends IUnknown {
     /**
      * The interface identifier for IMFHttpDownloadRequest
      * @type {Guid}
      */
-    static IID => Guid("{f779fddf-26e7-4270-8a8b-b983d1859de0}")
+    static IID := Guid("{f779fddf-26e7-4270-8a8b-b983d1859de0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFHttpDownloadRequest interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddHeader            : IntPtr
+        BeginSendRequest     : IntPtr
+        EndSendRequest       : IntPtr
+        BeginReceiveResponse : IntPtr
+        EndReceiveResponse   : IntPtr
+        BeginReadPayload     : IntPtr
+        EndReadPayload       : IntPtr
+        QueryHeader          : IntPtr
+        GetURL               : IntPtr
+        HasNullSourceOrigin  : IntPtr
+        GetTimeSeekResult    : IntPtr
+        GetHttpStatus        : IntPtr
+        GetAtEndOfPayload    : IntPtr
+        GetTotalLength       : IntPtr
+        GetRangeEndOffset    : IntPtr
+        Close                : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddHeader", "BeginSendRequest", "EndSendRequest", "BeginReceiveResponse", "EndReceiveResponse", "BeginReadPayload", "EndReadPayload", "QueryHeader", "GetURL", "HasNullSourceOrigin", "GetTimeSeekResult", "GetHttpStatus", "GetAtEndOfPayload", "GetTotalLength", "GetRangeEndOffset", "Close"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFHttpDownloadRequest.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Invoked by Microsoft Media Foundation to add a single HTTP header to a HTTP request. Microsoft Media Foundation will invoke this method once for each header that shall be included in the HTTP request, before it invokes the BeginSendRequest method.
@@ -273,7 +300,7 @@ class IMFHttpDownloadRequest extends IUnknown {
     QueryHeader(szHeaderName, dwIndex) {
         szHeaderName := szHeaderName is String ? StrPtr(szHeaderName) : szHeaderName
 
-        result := ComCall(10, this, "ptr", szHeaderName, "uint", dwIndex, "ptr*", &ppszHeaderValue := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", szHeaderName, "uint", dwIndex, PWSTR.Ptr, &ppszHeaderValue := 0, "HRESULT")
         return ppszHeaderValue
     }
 
@@ -285,7 +312,7 @@ class IMFHttpDownloadRequest extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-geturl
      */
     GetURL() {
-        result := ComCall(11, this, "ptr*", &ppszURL := 0, "HRESULT")
+        result := ComCall(11, this, PWSTR.Ptr, &ppszURL := 0, "HRESULT")
         return ppszURL
     }
 
@@ -297,7 +324,7 @@ class IMFHttpDownloadRequest extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-hasnullsourceorigin
      */
     HasNullSourceOrigin() {
-        result := ComCall(12, this, "int*", &pfNullSourceOrigin := 0, "HRESULT")
+        result := ComCall(12, this, BOOL.Ptr, &pfNullSourceOrigin := 0, "HRESULT")
         return pfNullSourceOrigin
     }
 
@@ -379,7 +406,7 @@ class IMFHttpDownloadRequest extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-getatendofpayload
      */
     GetAtEndOfPayload() {
-        result := ComCall(15, this, "int*", &pfAtEndOfPayload := 0, "HRESULT")
+        result := ComCall(15, this, BOOL.Ptr, &pfAtEndOfPayload := 0, "HRESULT")
         return pfAtEndOfPayload
     }
 
@@ -436,5 +463,55 @@ class IMFHttpDownloadRequest extends IUnknown {
     Close() {
         result := ComCall(18, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFHttpDownloadRequest.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddHeader := CallbackCreate(GetMethod(implObj, "AddHeader"), flags, 2)
+        this.vtbl.BeginSendRequest := CallbackCreate(GetMethod(implObj, "BeginSendRequest"), flags, 5)
+        this.vtbl.EndSendRequest := CallbackCreate(GetMethod(implObj, "EndSendRequest"), flags, 2)
+        this.vtbl.BeginReceiveResponse := CallbackCreate(GetMethod(implObj, "BeginReceiveResponse"), flags, 3)
+        this.vtbl.EndReceiveResponse := CallbackCreate(GetMethod(implObj, "EndReceiveResponse"), flags, 2)
+        this.vtbl.BeginReadPayload := CallbackCreate(GetMethod(implObj, "BeginReadPayload"), flags, 5)
+        this.vtbl.EndReadPayload := CallbackCreate(GetMethod(implObj, "EndReadPayload"), flags, 4)
+        this.vtbl.QueryHeader := CallbackCreate(GetMethod(implObj, "QueryHeader"), flags, 4)
+        this.vtbl.GetURL := CallbackCreate(GetMethod(implObj, "GetURL"), flags, 2)
+        this.vtbl.HasNullSourceOrigin := CallbackCreate(GetMethod(implObj, "HasNullSourceOrigin"), flags, 2)
+        this.vtbl.GetTimeSeekResult := CallbackCreate(GetMethod(implObj, "GetTimeSeekResult"), flags, 4)
+        this.vtbl.GetHttpStatus := CallbackCreate(GetMethod(implObj, "GetHttpStatus"), flags, 2)
+        this.vtbl.GetAtEndOfPayload := CallbackCreate(GetMethod(implObj, "GetAtEndOfPayload"), flags, 2)
+        this.vtbl.GetTotalLength := CallbackCreate(GetMethod(implObj, "GetTotalLength"), flags, 2)
+        this.vtbl.GetRangeEndOffset := CallbackCreate(GetMethod(implObj, "GetRangeEndOffset"), flags, 2)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddHeader)
+        CallbackFree(this.vtbl.BeginSendRequest)
+        CallbackFree(this.vtbl.EndSendRequest)
+        CallbackFree(this.vtbl.BeginReceiveResponse)
+        CallbackFree(this.vtbl.EndReceiveResponse)
+        CallbackFree(this.vtbl.BeginReadPayload)
+        CallbackFree(this.vtbl.EndReadPayload)
+        CallbackFree(this.vtbl.QueryHeader)
+        CallbackFree(this.vtbl.GetURL)
+        CallbackFree(this.vtbl.HasNullSourceOrigin)
+        CallbackFree(this.vtbl.GetTimeSeekResult)
+        CallbackFree(this.vtbl.GetHttpStatus)
+        CallbackFree(this.vtbl.GetAtEndOfPayload)
+        CallbackFree(this.vtbl.GetTotalLength)
+        CallbackFree(this.vtbl.GetRangeEndOffset)
+        CallbackFree(this.vtbl.Close)
     }
 }

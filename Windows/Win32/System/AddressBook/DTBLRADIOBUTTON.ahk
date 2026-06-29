@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * DTBLRADIOBUTTON describes one radio button that will be part of a radio button group, which will be used in a dialog box that is built from a display table.
@@ -12,19 +11,13 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/dtblradiobutton
  * @namespace Windows.Win32.System.AddressBook
  */
-class DTBLRADIOBUTTON extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct DTBLRADIOBUTTON {
+    #StructPack 4
 
     /**
      * > Position in memory of the character string label for the radio button.
-     * @type {Integer}
      */
-    ulbLpszLabel {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulbLpszLabel : UInt32
 
     /**
      * > Bitmask of flags used to designate the format of the label pointed to by the **ulbLpszLabel** member. The following flag can be set: 
@@ -32,37 +25,22 @@ class DTBLRADIOBUTTON extends Win32Struct {
      * MAPI_UNICODE 
      *   
      * > The label is in Unicode format. If the MAPI_UNICODE flag is not set, the label is in ANSI format.
-     * @type {Integer}
      */
-    ulFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulFlags : UInt32
 
     /**
      * > Count of buttons in the radio button group. The **DTBLRADIOBUTTON** structures for the other buttons in the group must be contained in successive rows of the display table. Each of these rows should contain the same value for the **ulcButtons** member.
-     * @type {Integer}
      */
-    ulcButtons {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulcButtons : UInt32
 
     /**
      * > Property tag for a property of type PT_LONG. The initial selection in the radio button group is based on the initial value of this property. Each button in the group must have **ulPropTag** set to the same property.
-     * @type {Integer}
      */
-    ulPropTag {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ulPropTag : UInt32
 
     /**
      * > Unique number that identifies the selected button.
-     * @type {Integer}
      */
-    lReturnValue {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    lReturnValue : Int32
+
 }

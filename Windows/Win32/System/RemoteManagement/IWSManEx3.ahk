@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWSManEx2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWSManEx2.ahk" { IWSManEx2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Extends the methods and properties of the IWSManEx interface to include a method that returns a session flag value related to authentication using the Credential Security Support Provider (CredSSP).
  * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nn-wsmandisp-iwsmanex3
  * @namespace Windows.Win32.System.RemoteManagement
  */
-class IWSManEx3 extends IWSManEx2 {
-
-    static sizeof => A_PtrSize
+export default struct IWSManEx3 extends IWSManEx2 {
     /**
      * The interface identifier for IWSManEx3
      * @type {Guid}
      */
-    static IID => Guid("{6400e966-011d-4eac-8474-049e0848afad}")
+    static IID := Guid("{6400e966-011d-4eac-8474-049e0848afad}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 32
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWSManEx3 interfaces
+    */
+    struct Vtbl extends IWSManEx2.Vtbl {
+        SessionFlagUTF16                             : IntPtr
+        SessionFlagUseCredSsp                        : IntPtr
+        EnumerationFlagAssociationInstance           : IntPtr
+        EnumerationFlagAssociatedInstance            : IntPtr
+        SessionFlagSkipRevocationCheck               : IntPtr
+        SessionFlagAllowNegotiateImplicitCredentials : IntPtr
+        SessionFlagUseSsl                            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SessionFlagUTF16", "SessionFlagUseCredSsp", "EnumerationFlagAssociationInstance", "EnumerationFlagAssociatedInstance", "SessionFlagSkipRevocationCheck", "SessionFlagAllowNegotiateImplicitCredentials", "SessionFlagUseSsl"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWSManEx3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -91,5 +105,37 @@ class IWSManEx3 extends IWSManEx2 {
     SessionFlagUseSsl() {
         result := ComCall(38, this, "int*", &flags := 0, "HRESULT")
         return flags
+    }
+
+    Query(iid) {
+        if (IWSManEx3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SessionFlagUTF16 := CallbackCreate(GetMethod(implObj, "SessionFlagUTF16"), flags, 2)
+        this.vtbl.SessionFlagUseCredSsp := CallbackCreate(GetMethod(implObj, "SessionFlagUseCredSsp"), flags, 2)
+        this.vtbl.EnumerationFlagAssociationInstance := CallbackCreate(GetMethod(implObj, "EnumerationFlagAssociationInstance"), flags, 2)
+        this.vtbl.EnumerationFlagAssociatedInstance := CallbackCreate(GetMethod(implObj, "EnumerationFlagAssociatedInstance"), flags, 2)
+        this.vtbl.SessionFlagSkipRevocationCheck := CallbackCreate(GetMethod(implObj, "SessionFlagSkipRevocationCheck"), flags, 2)
+        this.vtbl.SessionFlagAllowNegotiateImplicitCredentials := CallbackCreate(GetMethod(implObj, "SessionFlagAllowNegotiateImplicitCredentials"), flags, 2)
+        this.vtbl.SessionFlagUseSsl := CallbackCreate(GetMethod(implObj, "SessionFlagUseSsl"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SessionFlagUTF16)
+        CallbackFree(this.vtbl.SessionFlagUseCredSsp)
+        CallbackFree(this.vtbl.EnumerationFlagAssociationInstance)
+        CallbackFree(this.vtbl.EnumerationFlagAssociatedInstance)
+        CallbackFree(this.vtbl.SessionFlagSkipRevocationCheck)
+        CallbackFree(this.vtbl.SessionFlagAllowNegotiateImplicitCredentials)
+        CallbackFree(this.vtbl.SessionFlagUseSsl)
     }
 }

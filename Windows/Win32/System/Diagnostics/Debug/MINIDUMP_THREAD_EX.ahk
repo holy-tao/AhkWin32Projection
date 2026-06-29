@@ -1,99 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MINIDUMP_MEMORY_DESCRIPTOR.ahk
-#Include .\MINIDUMP_LOCATION_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MINIDUMP_MEMORY_DESCRIPTOR.ahk" { MINIDUMP_MEMORY_DESCRIPTOR }
+#Import ".\MINIDUMP_LOCATION_DESCRIPTOR.ahk" { MINIDUMP_LOCATION_DESCRIPTOR }
 
 /**
  * Contains extended information for a specific thread.
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_thread_ex
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class MINIDUMP_THREAD_EX extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct MINIDUMP_THREAD_EX {
+    #StructPack 8
 
     /**
      * The identifier of the thread.
-     * @type {Integer}
      */
-    ThreadId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ThreadId : UInt32
 
     /**
      * The suspend count for the thread. If the suspend count is greater than zero, the thread is suspended; otherwise, the thread is not suspended. The maximum value is MAXIMUM_SUSPEND_COUNT.
-     * @type {Integer}
      */
-    SuspendCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SuspendCount : UInt32
 
     /**
      * The priority class of the thread. See 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/scheduling-priorities">Scheduling Priorities</a>.
-     * @type {Integer}
      */
-    PriorityClass {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    PriorityClass : UInt32
 
     /**
      * The priority level of the thread.
-     * @type {Integer}
      */
-    Priority {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Priority : UInt32
 
     /**
      * The thread environment block.
-     * @type {Integer}
      */
-    Teb {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Teb : Int64
 
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_memory_descriptor">MINIDUMP_MEMORY_DESCRIPTOR</a> structure.
-     * @type {MINIDUMP_MEMORY_DESCRIPTOR}
      */
-    Stack {
-        get {
-            if(!this.HasProp("__Stack"))
-                this.__Stack := MINIDUMP_MEMORY_DESCRIPTOR(24, this)
-            return this.__Stack
-        }
-    }
+    Stack : MINIDUMP_MEMORY_DESCRIPTOR
 
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_location_descriptor">MINIDUMP_LOCATION_DESCRIPTOR</a> structure.
-     * @type {MINIDUMP_LOCATION_DESCRIPTOR}
      */
-    ThreadContext {
-        get {
-            if(!this.HasProp("__ThreadContext"))
-                this.__ThreadContext := MINIDUMP_LOCATION_DESCRIPTOR(40, this)
-            return this.__ThreadContext
-        }
-    }
+    ThreadContext : MINIDUMP_LOCATION_DESCRIPTOR
 
     /**
      * <b>Intel Itanium:  </b>The backing store for the thread.
-     * @type {MINIDUMP_MEMORY_DESCRIPTOR}
      */
-    BackingStore {
-        get {
-            if(!this.HasProp("__BackingStore"))
-                this.__BackingStore := MINIDUMP_MEMORY_DESCRIPTOR(48, this)
-            return this.__BackingStore
-        }
-    }
+    BackingStore : MINIDUMP_MEMORY_DESCRIPTOR
+
 }

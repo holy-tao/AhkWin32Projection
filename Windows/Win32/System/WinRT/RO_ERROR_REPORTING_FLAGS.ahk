@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the behavior of the RoOriginateError and RoTransformError functions.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/ne-roerrorapi-ro_error_reporting_flags
  * @namespace Windows.Win32.System.WinRT
  */
-class RO_ERROR_REPORTING_FLAGS extends Win32BitflagEnum {
+export default struct RO_ERROR_REPORTING_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Error functions raise structured exceptions when a debugger is attached.

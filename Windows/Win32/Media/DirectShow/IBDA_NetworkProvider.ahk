@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IBDA_NetworkProvider interface is implemented on a Network Provider filter. It provides methods that BDA device filters call to register themselves after they are added to the graph.
@@ -10,26 +11,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_networkprovider
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IBDA_NetworkProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBDA_NetworkProvider extends IUnknown {
     /**
      * The interface identifier for IBDA_NetworkProvider
      * @type {Guid}
      */
-    static IID => Guid("{fd501041-8ebe-11ce-8183-00aa00577da2}")
+    static IID := Guid("{fd501041-8ebe-11ce-8183-00aa00577da2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBDA_NetworkProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        PutSignalSource        : IntPtr
+        GetSignalSource        : IntPtr
+        GetNetworkType         : IntPtr
+        PutTuningSpace         : IntPtr
+        GetTuningSpace         : IntPtr
+        RegisterDeviceFilter   : IntPtr
+        UnRegisterDeviceFilter : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["PutSignalSource", "GetSignalSource", "GetNetworkType", "PutTuningSpace", "GetTuningSpace", "RegisterDeviceFilter", "UnRegisterDeviceFilter"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBDA_NetworkProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The PutSignalSource method specifies the signal source.
@@ -62,7 +76,7 @@ class IBDA_NetworkProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_networkprovider-getnetworktype
      */
     GetNetworkType(pguidNetworkType) {
-        result := ComCall(5, this, "ptr", pguidNetworkType, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, pguidNetworkType, "HRESULT")
         return result
     }
 
@@ -73,7 +87,7 @@ class IBDA_NetworkProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_networkprovider-puttuningspace
      */
     PutTuningSpace(guidTuningSpace) {
-        result := ComCall(6, this, "ptr", guidTuningSpace, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, guidTuningSpace, "HRESULT")
         return result
     }
 
@@ -84,7 +98,7 @@ class IBDA_NetworkProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_networkprovider-gettuningspace
      */
     GetTuningSpace(pguidTuingSpace) {
-        result := ComCall(7, this, "ptr", pguidTuingSpace, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, pguidTuingSpace, "HRESULT")
         return result
     }
 
@@ -111,5 +125,37 @@ class IBDA_NetworkProvider extends IUnknown {
     UnRegisterDeviceFilter(pvRegistrationContext) {
         result := ComCall(9, this, "uint", pvRegistrationContext, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBDA_NetworkProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.PutSignalSource := CallbackCreate(GetMethod(implObj, "PutSignalSource"), flags, 2)
+        this.vtbl.GetSignalSource := CallbackCreate(GetMethod(implObj, "GetSignalSource"), flags, 2)
+        this.vtbl.GetNetworkType := CallbackCreate(GetMethod(implObj, "GetNetworkType"), flags, 2)
+        this.vtbl.PutTuningSpace := CallbackCreate(GetMethod(implObj, "PutTuningSpace"), flags, 2)
+        this.vtbl.GetTuningSpace := CallbackCreate(GetMethod(implObj, "GetTuningSpace"), flags, 2)
+        this.vtbl.RegisterDeviceFilter := CallbackCreate(GetMethod(implObj, "RegisterDeviceFilter"), flags, 3)
+        this.vtbl.UnRegisterDeviceFilter := CallbackCreate(GetMethod(implObj, "UnRegisterDeviceFilter"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.PutSignalSource)
+        CallbackFree(this.vtbl.GetSignalSource)
+        CallbackFree(this.vtbl.GetNetworkType)
+        CallbackFree(this.vtbl.PutTuningSpace)
+        CallbackFree(this.vtbl.GetTuningSpace)
+        CallbackFree(this.vtbl.RegisterDeviceFilter)
+        CallbackFree(this.vtbl.UnRegisterDeviceFilter)
     }
 }

@@ -1,50 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\SID_AND_ATTRIBUTES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Security\SID_AND_ATTRIBUTES.ahk" { SID_AND_ATTRIBUTES }
 
 /**
  * The FWP_TOKEN_INFORMATION structure defines a set of security identifiers that are used for user-mode classification.
  * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ns-fwptypes-fwp_token_information
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class FWP_TOKEN_INFORMATION extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct FWP_TOKEN_INFORMATION {
+    #StructPack 8
 
     /**
      * The number of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid_and_attributes">SID_AND_ATTRIBUTES</a> structures stored in the <b>sids</b> array.
-     * @type {Integer}
      */
-    sidCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    sidCount : UInt32
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid_and_attributes">SID_AND_ATTRIBUTES</a> structures containing user and group security information.
-     * @type {Pointer<SID_AND_ATTRIBUTES>}
      */
-    sids {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    sids : SID_AND_ATTRIBUTES.Ptr
 
     /**
      * The number of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid_and_attributes">SID_AND_ATTRIBUTES</a> structures stored in the <b>restrictedSids</b> array.
-     * @type {Integer}
      */
-    restrictedSidCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    restrictedSidCount : UInt32
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid_and_attributes">SID_AND_ATTRIBUTES</a> structures containing restricted SIDs security information.
-     * @type {Pointer<SID_AND_ATTRIBUTES>}
      */
-    restrictedSids {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    restrictedSids : SID_AND_ATTRIBUTES.Ptr
+
 }

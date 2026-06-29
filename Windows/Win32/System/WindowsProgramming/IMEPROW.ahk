@@ -1,68 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\DATETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DATETIME.ahk" { DATETIME }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
  * @charset Unicode
  */
-class IMEPROW extends Win32Struct {
-    static sizeof => 344
+export default struct IMEPROW {
+    #StructPack 8
 
-    static packingSize => 8
+    hWnd : HWND
 
-    /**
-     * @type {HWND}
-     */
-    hWnd {
-        get {
-            if(!this.HasProp("__hWnd"))
-                this.__hWnd := HWND(0, this)
-            return this.__hWnd
-        }
-    }
+    InstDate : DATETIME
 
-    /**
-     * @type {DATETIME}
-     */
-    InstDate {
-        get {
-            if(!this.HasProp("__InstDate"))
-                this.__InstDate := DATETIME(8, this)
-            return this.__InstDate
-        }
-    }
+    wVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wVersion {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    szDescription : WCHAR[50]
 
-    /**
-     * @type {String}
-     */
-    szDescription {
-        get => StrGet(this.ptr + 24, 49, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 49, "UTF-16")
-    }
+    szName : WCHAR[80]
 
-    /**
-     * @type {String}
-     */
-    szName {
-        get => StrGet(this.ptr + 124, 79, "UTF-16")
-        set => StrPut(value, this.ptr + 124, 79, "UTF-16")
-    }
+    szOptions : WCHAR[30]
 
-    /**
-     * @type {String}
-     */
-    szOptions {
-        get => StrGet(this.ptr + 284, 29, "UTF-16")
-        set => StrPut(value, this.ptr + 284, 29, "UTF-16")
-    }
 }

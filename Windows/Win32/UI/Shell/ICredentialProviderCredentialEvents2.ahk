@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ICredentialProviderCredentialEvents.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ICredentialProviderCredentialEvents.ahk" { ICredentialProviderCredentialEvents }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CREDENTIAL_PROVIDER_CREDENTIAL_FIELD_OPTIONS.ahk" { CREDENTIAL_PROVIDER_CREDENTIAL_FIELD_OPTIONS }
+#Import ".\ICredentialProviderCredential.ahk" { ICredentialProviderCredential }
 
 /**
  * Extends the ICredentialProviderCredentialEvents interface by adding methods that enable batch updating of fields in theLogon UI or Credential UI.
@@ -23,26 +26,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nn-credentialprovider-icredentialprovidercredentialevents2
  * @namespace Windows.Win32.UI.Shell
  */
-class ICredentialProviderCredentialEvents2 extends ICredentialProviderCredentialEvents {
-
-    static sizeof => A_PtrSize
+export default struct ICredentialProviderCredentialEvents2 extends ICredentialProviderCredentialEvents {
     /**
      * The interface identifier for ICredentialProviderCredentialEvents2
      * @type {Guid}
      */
-    static IID => Guid("{b53c00b6-9922-4b78-b1f4-ddfe774dc39b}")
+    static IID := Guid("{b53c00b6-9922-4b78-b1f4-ddfe774dc39b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 13
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICredentialProviderCredentialEvents2 interfaces
+    */
+    struct Vtbl extends ICredentialProviderCredentialEvents.Vtbl {
+        BeginFieldUpdates : IntPtr
+        EndFieldUpdates   : IntPtr
+        SetFieldOptions   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["BeginFieldUpdates", "EndFieldUpdates", "SetFieldOptions"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICredentialProviderCredentialEvents2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Starts a batch update to fields in the logon or credential UI.
@@ -77,7 +89,31 @@ class ICredentialProviderCredentialEvents2 extends ICredentialProviderCredential
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents2-setfieldoptions
      */
     SetFieldOptions(credential, fieldID, options) {
-        result := ComCall(15, this, "ptr", credential, "uint", fieldID, "int", options, "HRESULT")
+        result := ComCall(15, this, "ptr", credential, "uint", fieldID, CREDENTIAL_PROVIDER_CREDENTIAL_FIELD_OPTIONS, options, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICredentialProviderCredentialEvents2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.BeginFieldUpdates := CallbackCreate(GetMethod(implObj, "BeginFieldUpdates"), flags, 1)
+        this.vtbl.EndFieldUpdates := CallbackCreate(GetMethod(implObj, "EndFieldUpdates"), flags, 1)
+        this.vtbl.SetFieldOptions := CallbackCreate(GetMethod(implObj, "SetFieldOptions"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.BeginFieldUpdates)
+        CallbackFree(this.vtbl.EndFieldUpdates)
+        CallbackFree(this.vtbl.SetFieldOptions)
     }
 }

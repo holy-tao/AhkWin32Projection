@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the sampling or filtering mode to use when scaling an image.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicbitmapinterpolationmode
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class WICBitmapInterpolationMode extends Win32Enum {
+export default struct WICBitmapInterpolationMode {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * A nearest neighbor interpolation algorithm. Also known as nearest pixel or point interpolation.

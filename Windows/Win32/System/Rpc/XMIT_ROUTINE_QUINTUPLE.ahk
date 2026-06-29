@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Rpc
  */
-class XMIT_ROUTINE_QUINTUPLE extends Win32Struct {
-    static sizeof => 32
+export default struct XMIT_ROUTINE_QUINTUPLE {
+    #StructPack 8
 
-    static packingSize => 8
+    pfnTranslateToXmit : IntPtr
 
-    /**
-     * @type {Pointer<XMIT_HELPER_ROUTINE>}
-     */
-    pfnTranslateToXmit {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pfnTranslateFromXmit : IntPtr
 
-    /**
-     * @type {Pointer<XMIT_HELPER_ROUTINE>}
-     */
-    pfnTranslateFromXmit {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pfnFreeXmit : IntPtr
 
-    /**
-     * @type {Pointer<XMIT_HELPER_ROUTINE>}
-     */
-    pfnFreeXmit {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pfnFreeInst : IntPtr
 
-    /**
-     * @type {Pointer<XMIT_HELPER_ROUTINE>}
-     */
-    pfnFreeInst {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

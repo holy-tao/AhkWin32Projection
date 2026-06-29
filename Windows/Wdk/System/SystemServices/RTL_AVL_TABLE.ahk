@@ -1,100 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RTL_BALANCED_LINKS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RTL_BALANCED_LINKS.ahk" { RTL_BALANCED_LINKS }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class RTL_AVL_TABLE extends Win32Struct {
-    static sizeof => 80
+export default struct RTL_AVL_TABLE {
+    #StructPack 8
 
-    static packingSize => 8
+    BalancedRoot : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    BalancedRoot {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    OrderedPointer : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    OrderedPointer {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    WhichOrderedElement : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    WhichOrderedElement {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    NumberGenericTableElements : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberGenericTableElements {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    DepthOfTree : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DepthOfTree {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    RestartKey : RTL_BALANCED_LINKS.Ptr
 
-    /**
-     * @type {Pointer<RTL_BALANCED_LINKS>}
-     */
-    RestartKey {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    DeleteCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DeleteCount {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    CompareRoutine : IntPtr
 
-    /**
-     * @type {Pointer<PRTL_AVL_COMPARE_ROUTINE>}
-     */
-    CompareRoutine {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    AllocateRoutine : IntPtr
 
-    /**
-     * @type {Pointer<PRTL_AVL_ALLOCATE_ROUTINE>}
-     */
-    AllocateRoutine {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    FreeRoutine : IntPtr
 
-    /**
-     * @type {Pointer<PRTL_AVL_FREE_ROUTINE>}
-     */
-    FreeRoutine {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    TableContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    TableContext {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
 }

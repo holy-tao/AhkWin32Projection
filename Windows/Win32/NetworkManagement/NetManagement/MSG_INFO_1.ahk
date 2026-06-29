@@ -1,40 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The MSG_INFO_1 structure specifies a message alias. This structure exists only for compatibility. Message forwarding is not supported.
  * @see https://learn.microsoft.com/windows/win32/api/lmmsg/ns-lmmsg-msg_info_1
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class MSG_INFO_1 extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct MSG_INFO_1 {
+    #StructPack 8
 
     /**
      * Pointer to a Unicode string that specifies the alias to which the message is to be sent. The constant LEN specifies the maximum number of characters in the string.
-     * @type {PWSTR}
      */
-    msgi1_name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    msgi1_name : PWSTR
 
     /**
      * This member must be zero.
-     * @type {Integer}
      */
-    msgi1_forward_flag {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    msgi1_forward_flag : UInt32
 
     /**
      * This member must be <b>NULL</b>.
-     * @type {PWSTR}
      */
-    msgi1_forward {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    msgi1_forward : PWSTR
+
 }

@@ -1,125 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\INVOC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\INVOC.ahk" { INVOC }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class UNIDRVINFO extends Win32Struct {
-    static sizeof => 48
+export default struct UNIDRVINFO {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    flGenFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    flGenFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    wType : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wType {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    fCaps : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    fCaps {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    wXRes : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wXRes {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    wYRes : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wYRes {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    sYAdjust : Int16
 
-    /**
-     * @type {Integer}
-     */
-    sYAdjust {
-        get => NumGet(this, 16, "short")
-        set => NumPut("short", value, this, 16)
-    }
+    sYMoved : Int16
 
-    /**
-     * @type {Integer}
-     */
-    sYMoved {
-        get => NumGet(this, 18, "short")
-        set => NumPut("short", value, this, 18)
-    }
+    wPrivateData : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wPrivateData {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
+    sShift : Int16
 
-    /**
-     * @type {Integer}
-     */
-    sShift {
-        get => NumGet(this, 22, "short")
-        set => NumPut("short", value, this, 22)
-    }
+    SelectFont : INVOC
 
-    /**
-     * @type {INVOC}
-     */
-    SelectFont {
-        get {
-            if(!this.HasProp("__SelectFont"))
-                this.__SelectFont := INVOC(24, this)
-            return this.__SelectFont
-        }
-    }
+    UnSelectFont : INVOC
 
-    /**
-     * @type {INVOC}
-     */
-    UnSelectFont {
-        get {
-            if(!this.HasProp("__UnSelectFont"))
-                this.__UnSelectFont := INVOC(32, this)
-            return this.__UnSelectFont
-        }
-    }
+    wReserved : UInt16[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    wReserved {
-        get {
-            if(!this.HasProp("__wReservedProxyArray"))
-                this.__wReservedProxyArray := Win32FixedArray(this.ptr + 40, 4, Primitive, "ushort")
-            return this.__wReservedProxyArray
-        }
-    }
 }

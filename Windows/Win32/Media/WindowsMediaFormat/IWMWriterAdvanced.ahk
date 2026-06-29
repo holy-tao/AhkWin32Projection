@@ -1,35 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IWMWriterSink.ahk
-#Include .\WM_WRITER_STATISTICS.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WM_WRITER_STATISTICS.ahk" { WM_WRITER_STATISTICS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\INSSBuffer.ahk" { INSSBuffer }
+#Import ".\IWMWriterSink.ahk" { IWMWriterSink }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMWriterAdvanced interface provides advanced writing functionality.This interface exists for every instance of the writer object. To obtain a pointer to this interface, call QueryInterface on the writer object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmwriteradvanced
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMWriterAdvanced extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMWriterAdvanced extends IUnknown {
     /**
      * The interface identifier for IWMWriterAdvanced
      * @type {Guid}
      */
-    static IID => Guid("{96406be3-2b2b-11d3-b36b-00c04f6108ff}")
+    static IID := Guid("{96406be3-2b2b-11d3-b36b-00c04f6108ff}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMWriterAdvanced interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetSinkCount      : IntPtr
+        GetSink           : IntPtr
+        AddSink           : IntPtr
+        RemoveSink        : IntPtr
+        WriteStreamSample : IntPtr
+        SetLiveSource     : IntPtr
+        IsRealTime        : IntPtr
+        GetWriterTime     : IntPtr
+        GetStatistics     : IntPtr
+        SetSyncTolerance  : IntPtr
+        GetSyncTolerance  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSinkCount", "GetSink", "AddSink", "RemoveSink", "WriteStreamSample", "SetLiveSource", "IsRealTime", "GetWriterTime", "GetStatistics", "SetSyncTolerance", "GetSyncTolerance"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMWriterAdvanced.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetSinkCount method retrieves the number of writer sinks associated with the writer object.
@@ -260,7 +280,7 @@ class IWMWriterAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriteradvanced-setlivesource
      */
     SetLiveSource(fIsLiveSource) {
-        result := ComCall(8, this, "int", fIsLiveSource, "HRESULT")
+        result := ComCall(8, this, BOOL, fIsLiveSource, "HRESULT")
         return result
     }
 
@@ -274,7 +294,7 @@ class IWMWriterAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriteradvanced-isrealtime
      */
     IsRealTime() {
-        result := ComCall(9, this, "int*", &pfRealTime := 0, "HRESULT")
+        result := ComCall(9, this, BOOL.Ptr, &pfRealTime := 0, "HRESULT")
         return pfRealTime
     }
 
@@ -302,7 +322,7 @@ class IWMWriterAdvanced extends IUnknown {
      */
     GetStatistics(wStreamNum) {
         pStats := WM_WRITER_STATISTICS()
-        result := ComCall(11, this, "ushort", wStreamNum, "ptr", pStats, "HRESULT")
+        result := ComCall(11, this, "ushort", wStreamNum, WM_WRITER_STATISTICS.Ptr, pStats, "HRESULT")
         return pStats
     }
 
@@ -331,5 +351,45 @@ class IWMWriterAdvanced extends IUnknown {
     GetSyncTolerance() {
         result := ComCall(13, this, "uint*", &pmsWindow := 0, "HRESULT")
         return pmsWindow
+    }
+
+    Query(iid) {
+        if (IWMWriterAdvanced.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSinkCount := CallbackCreate(GetMethod(implObj, "GetSinkCount"), flags, 2)
+        this.vtbl.GetSink := CallbackCreate(GetMethod(implObj, "GetSink"), flags, 3)
+        this.vtbl.AddSink := CallbackCreate(GetMethod(implObj, "AddSink"), flags, 2)
+        this.vtbl.RemoveSink := CallbackCreate(GetMethod(implObj, "RemoveSink"), flags, 2)
+        this.vtbl.WriteStreamSample := CallbackCreate(GetMethod(implObj, "WriteStreamSample"), flags, 7)
+        this.vtbl.SetLiveSource := CallbackCreate(GetMethod(implObj, "SetLiveSource"), flags, 2)
+        this.vtbl.IsRealTime := CallbackCreate(GetMethod(implObj, "IsRealTime"), flags, 2)
+        this.vtbl.GetWriterTime := CallbackCreate(GetMethod(implObj, "GetWriterTime"), flags, 2)
+        this.vtbl.GetStatistics := CallbackCreate(GetMethod(implObj, "GetStatistics"), flags, 3)
+        this.vtbl.SetSyncTolerance := CallbackCreate(GetMethod(implObj, "SetSyncTolerance"), flags, 2)
+        this.vtbl.GetSyncTolerance := CallbackCreate(GetMethod(implObj, "GetSyncTolerance"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSinkCount)
+        CallbackFree(this.vtbl.GetSink)
+        CallbackFree(this.vtbl.AddSink)
+        CallbackFree(this.vtbl.RemoveSink)
+        CallbackFree(this.vtbl.WriteStreamSample)
+        CallbackFree(this.vtbl.SetLiveSource)
+        CallbackFree(this.vtbl.IsRealTime)
+        CallbackFree(this.vtbl.GetWriterTime)
+        CallbackFree(this.vtbl.GetStatistics)
+        CallbackFree(this.vtbl.SetSyncTolerance)
+        CallbackFree(this.vtbl.GetSyncTolerance)
     }
 }

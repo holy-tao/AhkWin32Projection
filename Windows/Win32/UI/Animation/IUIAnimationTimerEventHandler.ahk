@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines methods for handling timing events.
@@ -12,26 +13,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationtimereventhandler
  * @namespace Windows.Win32.UI.Animation
  */
-class IUIAnimationTimerEventHandler extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIAnimationTimerEventHandler extends IUnknown {
     /**
      * The interface identifier for IUIAnimationTimerEventHandler
      * @type {Guid}
      */
-    static IID => Guid("{274a7dea-d771-4095-abbd-8df7abd23ce3}")
+    static IID := Guid("{274a7dea-d771-4095-abbd-8df7abd23ce3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAnimationTimerEventHandler interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnPreUpdate        : IntPtr
+        OnPostUpdate       : IntPtr
+        OnRenderingTooSlow : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnPreUpdate", "OnPostUpdate", "OnRenderingTooSlow"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAnimationTimerEventHandler.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Handles events that occur before an animation update begins.
@@ -93,5 +103,29 @@ class IUIAnimationTimerEventHandler extends IUnknown {
     OnRenderingTooSlow(framesPerSecond) {
         result := ComCall(5, this, "uint", framesPerSecond, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUIAnimationTimerEventHandler.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnPreUpdate := CallbackCreate(GetMethod(implObj, "OnPreUpdate"), flags, 1)
+        this.vtbl.OnPostUpdate := CallbackCreate(GetMethod(implObj, "OnPostUpdate"), flags, 1)
+        this.vtbl.OnRenderingTooSlow := CallbackCreate(GetMethod(implObj, "OnRenderingTooSlow"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnPreUpdate)
+        CallbackFree(this.vtbl.OnPostUpdate)
+        CallbackFree(this.vtbl.OnRenderingTooSlow)
     }
 }

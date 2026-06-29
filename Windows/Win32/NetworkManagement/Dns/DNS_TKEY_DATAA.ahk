@@ -1,5 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The DNS_TKEY_DATA structure represents a DNS TKEY resource record, used to establish and delete an algorithm's shared-secret keys between a DNS resolver and server as specified in RFC 2930. (ANSI)
@@ -18,64 +19,38 @@
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @charset ANSI
  */
-class DNS_TKEY_DATAA extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct DNS_TKEY_DATAA {
+    #StructPack 8
 
     /**
      * A pointer to a string that represents the name of the key as defined in section 2.1 of <a href="https://www.ietf.org/rfc/rfc2930.txt">RFC 2930</a>.
-     * @type {PSTR}
      */
-    pNameAlgorithm {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pNameAlgorithm : PSTR
 
     /**
      * A pointer to a string representing the name of the   algorithm as defined in section 2.3 of <a href="https://www.ietf.org/rfc/rfc2930.txt">RFC 2930</a>. <b>pKey</b> is used to derive the algorithm specific keys.
-     * @type {Pointer<Integer>}
      */
-    pAlgorithmPacket {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pAlgorithmPacket : IntPtr
 
     /**
      * A pointer to the variable-length shared-secret key.
-     * @type {Pointer<Integer>}
      */
-    pKey {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pKey : IntPtr
 
     /**
      * Reserved. Do not use.
-     * @type {Pointer<Integer>}
      */
-    pOtherData {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pOtherData : IntPtr
 
     /**
      * The date and time at which the key was created, expressed in seconds since the beginning of January 1, 1970, Greenwich Mean Time (GMT), excluding leap seconds.
-     * @type {Integer}
      */
-    dwCreateTime {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwCreateTime : UInt32
 
     /**
      * The expiration date of the key, expressed in seconds since the beginning of January 1, 1970, Greenwich Mean Time (GMT), excluding leap seconds.
-     * @type {Integer}
      */
-    dwExpireTime {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwExpireTime : UInt32
 
     /**
      * A scheme used for key agreement or the purpose of the TKEY DNS Message. Possible values for <b>wMode</b> are listed below:
@@ -126,12 +101,8 @@ class DNS_TKEY_DATAA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    wMode {
-        get => NumGet(this, 40, "ushort")
-        set => NumPut("ushort", value, this, 40)
-    }
+    wMode : UInt16
 
     /**
      * An error, expressed in expanded RCODE format that covers TSIG and TKEY RR processing.
@@ -172,46 +143,27 @@ class DNS_TKEY_DATAA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    wError {
-        get => NumGet(this, 42, "ushort")
-        set => NumPut("ushort", value, this, 42)
-    }
+    wError : UInt16
 
     /**
      * Length, in bytes, of the <b>pKey</b> member.
-     * @type {Integer}
      */
-    wKeyLength {
-        get => NumGet(this, 44, "ushort")
-        set => NumPut("ushort", value, this, 44)
-    }
+    wKeyLength : UInt16
 
     /**
      * The length, in bytes, of the <b>pOtherData</b> member.
-     * @type {Integer}
      */
-    wOtherLength {
-        get => NumGet(this, 46, "ushort")
-        set => NumPut("ushort", value, this, 46)
-    }
+    wOtherLength : UInt16
 
     /**
      * The length, in bytes, of the <b>pNameAlgorithm</b> member.
-     * @type {Integer}
      */
-    cAlgNameLength {
-        get => NumGet(this, 48, "char")
-        set => NumPut("char", value, this, 48)
-    }
+    cAlgNameLength : Int8
 
     /**
      * Reserved. Do not use.
-     * @type {BOOL}
      */
-    bPacketPointers {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    bPacketPointers : BOOL
+
 }

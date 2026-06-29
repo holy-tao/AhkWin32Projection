@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The RPC_STATS_VECTOR structure contains statistics from the RPC run-time library on a per-server basis.
@@ -10,19 +9,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-rpc_stats_vector
  * @namespace Windows.Win32.System.Rpc
  */
-class RPC_STATS_VECTOR extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct RPC_STATS_VECTOR {
+    #StructPack 4
 
     /**
      * Number of statistics values present in the array <b>Stats</b>.
-     * @type {Integer}
      */
-    Count {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Count : UInt32
 
     /**
      * Array of unsigned long integers representing server statistics that contains <b>Count</b> elements. Each array element contains an unsigned long value from the following list. 
@@ -75,13 +68,7 @@ class RPC_STATS_VECTOR extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Array<Integer>}
      */
-    Stats {
-        get {
-            if(!this.HasProp("__StatsProxyArray"))
-                this.__StatsProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")
-            return this.__StatsProxyArray
-        }
-    }
+    Stats : UInt32[1]
+
 }

@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\DML_TENSOR_DESC.ahk
-#Include .\DML_AXIS_DIRECTION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DML_TENSOR_DESC.ahk" { DML_TENSOR_DESC }
+#Import ".\DML_AXIS_DIRECTION.ahk" { DML_AXIS_DIRECTION }
 
 /**
  * Outputs the indices of the maximum-valued elements within one or more dimensions of the input tensor.
@@ -14,21 +13,15 @@
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_argmax_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  */
-class DML_ARGMAX_OPERATOR_DESC extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct DML_ARGMAX_OPERATOR_DESC {
+    #StructPack 8
 
     /**
      * Type: **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
      * 
      * The tensor to read from.
-     * @type {Pointer<DML_TENSOR_DESC>}
      */
-    InputTensor {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    InputTensor : DML_TENSOR_DESC.Ptr
 
     /**
      * Type: **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
@@ -37,34 +30,22 @@ class DML_ARGMAX_OPERATOR_DESC extends Win32Struct {
      * 
      * - *DimensionCount* must match *InputTensor.DimensionCount* (the rank of the input tensor is preserved).
      * - *Sizes* must match *InputTensor.Sizes*, except for dimensions included in the reduced *Axes*, which must be size 1.
-     * @type {Pointer<DML_TENSOR_DESC>}
      */
-    OutputTensor {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    OutputTensor : DML_TENSOR_DESC.Ptr
 
     /**
      * Type: **[UINT](/windows/desktop/WinProg/windows-data-types)**
      * 
      * The number of axes to reduce. This field determines the size of the *Axes* array.
-     * @type {Integer}
      */
-    AxisCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    AxisCount : UInt32
 
     /**
      * Type: \_Field_size\_(AxisCount) **const [UINT](/windows/desktop/WinProg/windows-data-types)\***
      * 
      * The axes along which to reduce. Values must be in the range `[0, InputTensor.DimensionCount - 1]`.
-     * @type {Pointer<Integer>}
      */
-    Axes {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Axes : IntPtr
 
     /**
      * Type: **[DML_AXIS_DIRECTION](/windows/win32/api/directml/ne-directml-dml_axis_direction)**
@@ -72,10 +53,7 @@ class DML_ARGMAX_OPERATOR_DESC extends Win32Struct {
      * Determines which index to select when multiple input elements have the same value.
      * - **DML_AXIS_DIRECTION_INCREASING** returns the index of the first maximum-valued element (for example, `argmax({3,2,1,2,3}) = 0`)
      * - **DML_AXIS_DIRECTION_DECREASING** returns the index of the last maximum-valued element (for example, `argmax({3,2,1,2,3}) = 4`)
-     * @type {DML_AXIS_DIRECTION}
      */
-    AxisDirection {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    AxisDirection : DML_AXIS_DIRECTION
+
 }

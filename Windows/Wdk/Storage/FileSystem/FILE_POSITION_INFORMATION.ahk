@@ -1,19 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class FILE_POSITION_INFORMATION extends Win32Struct {
-    static sizeof => 8
+export default struct FILE_POSITION_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    CurrentByteOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CurrentByteOffset {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
 }

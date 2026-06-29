@@ -1,31 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RPC_VERSION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RPC_VERSION.ahk" { RPC_VERSION }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.System.Rpc
  */
-class RPC_SYNTAX_IDENTIFIER extends Win32Struct {
-    static sizeof => 16
+export default struct RPC_SYNTAX_IDENTIFIER {
+    #StructPack 4
 
-    static packingSize => 8
+    SyntaxGUID : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    SyntaxGUID {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    SyntaxVersion : RPC_VERSION
 
-    /**
-     * @type {RPC_VERSION}
-     */
-    SyntaxVersion {
-        get {
-            if(!this.HasProp("__SyntaxVersion"))
-                this.__SyntaxVersion := RPC_VERSION(8, this)
-            return this.__SyntaxVersion
-        }
-    }
 }

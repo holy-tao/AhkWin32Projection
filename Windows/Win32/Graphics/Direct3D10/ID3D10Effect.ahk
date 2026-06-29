@@ -1,9 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ID3D10Device.ahk
-#Include .\D3D10_EFFECT_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID3D10EffectConstantBuffer.ahk" { ID3D10EffectConstantBuffer }
+#Import ".\D3D10_EFFECT_DESC.ahk" { D3D10_EFFECT_DESC }
+#Import ".\ID3D10EffectTechnique.ahk" { ID3D10EffectTechnique }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D10Device.ahk" { ID3D10Device }
+#Import ".\ID3D10EffectVariable.ahk" { ID3D10EffectVariable }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * An ID3D10Effect interface manages a set of state objects, resources, and shaders for implementing a rendering effect.
@@ -27,26 +33,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nn-d3d10effect-id3d10effect
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class ID3D10Effect extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID3D10Effect extends IUnknown {
     /**
      * The interface identifier for ID3D10Effect
      * @type {Guid}
      */
-    static IID => Guid("{51b0ca8b-ec0b-4519-870d-8ee1cb5017c7}")
+    static IID := Guid("{51b0ca8b-ec0b-4519-870d-8ee1cb5017c7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D10Effect interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        IsValid                  : IntPtr
+        IsPool                   : IntPtr
+        GetDevice                : IntPtr
+        GetDesc                  : IntPtr
+        GetConstantBufferByIndex : IntPtr
+        GetConstantBufferByName  : IntPtr
+        GetVariableByIndex       : IntPtr
+        GetVariableByName        : IntPtr
+        GetVariableBySemantic    : IntPtr
+        GetTechniqueByIndex      : IntPtr
+        GetTechniqueByName       : IntPtr
+        Optimize                 : IntPtr
+        IsOptimized              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsValid", "IsPool", "GetDevice", "GetDesc", "GetConstantBufferByIndex", "GetConstantBufferByName", "GetVariableByIndex", "GetVariableByName", "GetVariableBySemantic", "GetTechniqueByIndex", "GetTechniqueByName", "Optimize", "IsOptimized"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D10Effect.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Test an effect to see if it contains valid syntax.
@@ -56,7 +81,7 @@ class ID3D10Effect extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effect-isvalid
      */
     IsValid() {
-        result := ComCall(3, this, "int")
+        result := ComCall(3, this, BOOL)
         return result
     }
 
@@ -68,7 +93,7 @@ class ID3D10Effect extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effect-ispool
      */
     IsPool() {
-        result := ComCall(4, this, "int")
+        result := ComCall(4, this, BOOL)
         return result
     }
 
@@ -97,7 +122,7 @@ class ID3D10Effect extends IUnknown {
      */
     GetDesc() {
         pDesc := D3D10_EFFECT_DESC()
-        result := ComCall(6, this, "ptr", pDesc, "HRESULT")
+        result := ComCall(6, this, D3D10_EFFECT_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -114,7 +139,7 @@ class ID3D10Effect extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effect-getconstantbufferbyindex
      */
     GetConstantBufferByIndex(Index) {
-        result := ComCall(7, this, "uint", Index, "ptr")
+        result := ComCall(7, this, "uint", Index, ID3D10EffectConstantBuffer)
         return result
     }
 
@@ -133,7 +158,7 @@ class ID3D10Effect extends IUnknown {
     GetConstantBufferByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        result := ComCall(8, this, "ptr", Name, "ptr")
+        result := ComCall(8, this, "ptr", Name, ID3D10EffectConstantBuffer)
         return result
     }
 
@@ -152,7 +177,7 @@ class ID3D10Effect extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effect-getvariablebyindex
      */
     GetVariableByIndex(Index) {
-        result := ComCall(9, this, "uint", Index, "ptr")
+        result := ComCall(9, this, "uint", Index, ID3D10EffectVariable)
         return result
     }
 
@@ -173,7 +198,7 @@ class ID3D10Effect extends IUnknown {
     GetVariableByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        result := ComCall(10, this, "ptr", Name, "ptr")
+        result := ComCall(10, this, "ptr", Name, ID3D10EffectVariable)
         return result
     }
 
@@ -194,7 +219,7 @@ class ID3D10Effect extends IUnknown {
     GetVariableBySemantic(Semantic) {
         Semantic := Semantic is String ? StrPtr(Semantic) : Semantic
 
-        result := ComCall(11, this, "ptr", Semantic, "ptr")
+        result := ComCall(11, this, "ptr", Semantic, ID3D10EffectVariable)
         return result
     }
 
@@ -212,7 +237,7 @@ class ID3D10Effect extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effect-gettechniquebyindex
      */
     GetTechniqueByIndex(Index) {
-        result := ComCall(12, this, "uint", Index, "ptr")
+        result := ComCall(12, this, "uint", Index, ID3D10EffectTechnique)
         return result
     }
 
@@ -231,7 +256,7 @@ class ID3D10Effect extends IUnknown {
     GetTechniqueByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        result := ComCall(13, this, "ptr", Name, "ptr")
+        result := ComCall(13, this, "ptr", Name, ID3D10EffectTechnique)
         return result
     }
 
@@ -297,7 +322,51 @@ class ID3D10Effect extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effect-isoptimized
      */
     IsOptimized() {
-        result := ComCall(15, this, "int")
+        result := ComCall(15, this, BOOL)
         return result
+    }
+
+    Query(iid) {
+        if (ID3D10Effect.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsValid := CallbackCreate(GetMethod(implObj, "IsValid"), flags, 1)
+        this.vtbl.IsPool := CallbackCreate(GetMethod(implObj, "IsPool"), flags, 1)
+        this.vtbl.GetDevice := CallbackCreate(GetMethod(implObj, "GetDevice"), flags, 2)
+        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 2)
+        this.vtbl.GetConstantBufferByIndex := CallbackCreate(GetMethod(implObj, "GetConstantBufferByIndex"), flags, 2)
+        this.vtbl.GetConstantBufferByName := CallbackCreate(GetMethod(implObj, "GetConstantBufferByName"), flags, 2)
+        this.vtbl.GetVariableByIndex := CallbackCreate(GetMethod(implObj, "GetVariableByIndex"), flags, 2)
+        this.vtbl.GetVariableByName := CallbackCreate(GetMethod(implObj, "GetVariableByName"), flags, 2)
+        this.vtbl.GetVariableBySemantic := CallbackCreate(GetMethod(implObj, "GetVariableBySemantic"), flags, 2)
+        this.vtbl.GetTechniqueByIndex := CallbackCreate(GetMethod(implObj, "GetTechniqueByIndex"), flags, 2)
+        this.vtbl.GetTechniqueByName := CallbackCreate(GetMethod(implObj, "GetTechniqueByName"), flags, 2)
+        this.vtbl.Optimize := CallbackCreate(GetMethod(implObj, "Optimize"), flags, 1)
+        this.vtbl.IsOptimized := CallbackCreate(GetMethod(implObj, "IsOptimized"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsValid)
+        CallbackFree(this.vtbl.IsPool)
+        CallbackFree(this.vtbl.GetDevice)
+        CallbackFree(this.vtbl.GetDesc)
+        CallbackFree(this.vtbl.GetConstantBufferByIndex)
+        CallbackFree(this.vtbl.GetConstantBufferByName)
+        CallbackFree(this.vtbl.GetVariableByIndex)
+        CallbackFree(this.vtbl.GetVariableByName)
+        CallbackFree(this.vtbl.GetVariableBySemantic)
+        CallbackFree(this.vtbl.GetTechniqueByIndex)
+        CallbackFree(this.vtbl.GetTechniqueByName)
+        CallbackFree(this.vtbl.Optimize)
+        CallbackFree(this.vtbl.IsOptimized)
     }
 }

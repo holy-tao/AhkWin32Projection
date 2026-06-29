@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Enumeration type is used to specify the information class of a layered service protocol (LSP) in Windows Sockets 2.
@@ -9,7 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/ws2spi/ne-ws2spi-wsc_provider_info_type
  * @namespace Windows.Win32.Networking.WinSock
  */
-class WSC_PROVIDER_INFO_TYPE extends Win32Enum {
+export default struct WSC_PROVIDER_INFO_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The LSP category information for a protocol entry in a layered protocol. The information class should point to a DWORD value containing the appropriate LSP category flags implemented by LSP.

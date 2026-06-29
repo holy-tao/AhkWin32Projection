@@ -1,38 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWICImagingFactory.ahk
-#Include .\IWICMetadataReader.ahk
-#Include .\IWICMetadataWriter.ahk
-#Include .\IWICMetadataQueryReader.ahk
-#Include .\IWICMetadataQueryWriter.ahk
-#Include ..\..\System\Com\StructuredStorage\IPropertyBag2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWICImagingFactory.ahk" { IWICImagingFactory }
+#Import ".\IWICMetadataWriter.ahk" { IWICMetadataWriter }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\IWICMetadataQueryWriter.ahk" { IWICMetadataQueryWriter }
+#Import ".\IWICMetadataQueryReader.ahk" { IWICMetadataQueryReader }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\StructuredStorage\PROPBAG2.ahk" { PROPBAG2 }
+#Import ".\IWICMetadataReader.ahk" { IWICMetadataReader }
+#Import ".\IWICMetadataBlockReader.ahk" { IWICMetadataBlockReader }
+#Import "..\..\System\Com\StructuredStorage\IPropertyBag2.ahk" { IPropertyBag2 }
+#Import ".\IWICMetadataBlockWriter.ahk" { IWICMetadataBlockWriter }
 
 /**
  * Exposes methods that create components used by component developers. This includes metadata readers, writers and other services for use by codec and metadata handler developers.
  * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nn-wincodecsdk-iwiccomponentfactory
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class IWICComponentFactory extends IWICImagingFactory {
-
-    static sizeof => A_PtrSize
+export default struct IWICComponentFactory extends IWICImagingFactory {
     /**
      * The interface identifier for IWICComponentFactory
      * @type {Guid}
      */
-    static IID => Guid("{412d0c3a-9650-44fa-af5b-dd2a06c8e8fb}")
+    static IID := Guid("{412d0c3a-9650-44fa-af5b-dd2a06c8e8fb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 28
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWICComponentFactory interfaces
+    */
+    struct Vtbl extends IWICImagingFactory.Vtbl {
+        CreateMetadataReader              : IntPtr
+        CreateMetadataReaderFromContainer : IntPtr
+        CreateMetadataWriter              : IntPtr
+        CreateMetadataWriterFromReader    : IntPtr
+        CreateQueryReaderFromBlockReader  : IntPtr
+        CreateQueryWriterFromBlockWriter  : IntPtr
+        CreateEncoderPropertyBag          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateMetadataReader", "CreateMetadataReaderFromContainer", "CreateMetadataWriter", "CreateMetadataWriterFromReader", "CreateQueryReaderFromBlockReader", "CreateQueryWriterFromBlockWriter", "CreateEncoderPropertyBag"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWICComponentFactory.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates an IWICMetadataReader based on the given parameters. (IWICComponentFactory.CreateMetadataReader)
@@ -54,7 +72,7 @@ class IWICComponentFactory extends IWICImagingFactory {
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwiccomponentfactory-createmetadatareader
      */
     CreateMetadataReader(guidMetadataFormat, pguidVendor, dwOptions, pIStream) {
-        result := ComCall(28, this, "ptr", guidMetadataFormat, "ptr", pguidVendor, "uint", dwOptions, "ptr", pIStream, "ptr*", &ppIReader := 0, "HRESULT")
+        result := ComCall(28, this, Guid.Ptr, guidMetadataFormat, Guid.Ptr, pguidVendor, "uint", dwOptions, "ptr", pIStream, "ptr*", &ppIReader := 0, "HRESULT")
         return IWICMetadataReader(ppIReader)
     }
 
@@ -78,7 +96,7 @@ class IWICComponentFactory extends IWICImagingFactory {
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwiccomponentfactory-createmetadatareaderfromcontainer
      */
     CreateMetadataReaderFromContainer(guidContainerFormat, pguidVendor, dwOptions, pIStream) {
-        result := ComCall(29, this, "ptr", guidContainerFormat, "ptr", pguidVendor, "uint", dwOptions, "ptr", pIStream, "ptr*", &ppIReader := 0, "HRESULT")
+        result := ComCall(29, this, Guid.Ptr, guidContainerFormat, Guid.Ptr, pguidVendor, "uint", dwOptions, "ptr", pIStream, "ptr*", &ppIReader := 0, "HRESULT")
         return IWICMetadataReader(ppIReader)
     }
 
@@ -99,7 +117,7 @@ class IWICComponentFactory extends IWICImagingFactory {
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwiccomponentfactory-createmetadatawriter
      */
     CreateMetadataWriter(guidMetadataFormat, pguidVendor, dwMetadataOptions) {
-        result := ComCall(30, this, "ptr", guidMetadataFormat, "ptr", pguidVendor, "uint", dwMetadataOptions, "ptr*", &ppIWriter := 0, "HRESULT")
+        result := ComCall(30, this, Guid.Ptr, guidMetadataFormat, Guid.Ptr, pguidVendor, "uint", dwMetadataOptions, "ptr*", &ppIWriter := 0, "HRESULT")
         return IWICMetadataWriter(ppIWriter)
     }
 
@@ -117,7 +135,7 @@ class IWICComponentFactory extends IWICImagingFactory {
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwiccomponentfactory-createmetadatawriterfromreader
      */
     CreateMetadataWriterFromReader(pIReader, pguidVendor) {
-        result := ComCall(31, this, "ptr", pIReader, "ptr", pguidVendor, "ptr*", &ppIWriter := 0, "HRESULT")
+        result := ComCall(31, this, "ptr", pIReader, Guid.Ptr, pguidVendor, "ptr*", &ppIWriter := 0, "HRESULT")
         return IWICMetadataWriter(ppIWriter)
     }
 
@@ -165,7 +183,39 @@ class IWICComponentFactory extends IWICImagingFactory {
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwiccomponentfactory-createencoderpropertybag
      */
     CreateEncoderPropertyBag(ppropOptions, cCount) {
-        result := ComCall(34, this, "ptr", ppropOptions, "uint", cCount, "ptr*", &ppIPropertyBag := 0, "HRESULT")
+        result := ComCall(34, this, PROPBAG2.Ptr, ppropOptions, "uint", cCount, "ptr*", &ppIPropertyBag := 0, "HRESULT")
         return IPropertyBag2(ppIPropertyBag)
+    }
+
+    Query(iid) {
+        if (IWICComponentFactory.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateMetadataReader := CallbackCreate(GetMethod(implObj, "CreateMetadataReader"), flags, 6)
+        this.vtbl.CreateMetadataReaderFromContainer := CallbackCreate(GetMethod(implObj, "CreateMetadataReaderFromContainer"), flags, 6)
+        this.vtbl.CreateMetadataWriter := CallbackCreate(GetMethod(implObj, "CreateMetadataWriter"), flags, 5)
+        this.vtbl.CreateMetadataWriterFromReader := CallbackCreate(GetMethod(implObj, "CreateMetadataWriterFromReader"), flags, 4)
+        this.vtbl.CreateQueryReaderFromBlockReader := CallbackCreate(GetMethod(implObj, "CreateQueryReaderFromBlockReader"), flags, 3)
+        this.vtbl.CreateQueryWriterFromBlockWriter := CallbackCreate(GetMethod(implObj, "CreateQueryWriterFromBlockWriter"), flags, 3)
+        this.vtbl.CreateEncoderPropertyBag := CallbackCreate(GetMethod(implObj, "CreateEncoderPropertyBag"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateMetadataReader)
+        CallbackFree(this.vtbl.CreateMetadataReaderFromContainer)
+        CallbackFree(this.vtbl.CreateMetadataWriter)
+        CallbackFree(this.vtbl.CreateMetadataWriterFromReader)
+        CallbackFree(this.vtbl.CreateQueryReaderFromBlockReader)
+        CallbackFree(this.vtbl.CreateQueryWriterFromBlockWriter)
+        CallbackFree(this.vtbl.CreateEncoderPropertyBag)
     }
 }

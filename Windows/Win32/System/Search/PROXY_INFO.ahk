@@ -1,91 +1,63 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PROXY_ACCESS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\PROXY_ACCESS.ahk" { PROXY_ACCESS }
 
 /**
  * Stores information about a proxy. Used by ISearchProtocol.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/ns-searchapi-proxy_info
  * @namespace Windows.Win32.System.Search
  */
-class PROXY_INFO extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct PROXY_INFO {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The size of the structure in bytes.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * A pointer to a Unicode string buffer containing the user agent string.
-     * @type {PWSTR}
      */
-    pcwszUserAgent {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pcwszUserAgent : PWSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-proxy_access">PROXY_ACCESS</a></b>
      * 
      * The proxy type to use.
-     * @type {PROXY_ACCESS}
      */
-    paUseProxy {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    paUseProxy : PROXY_ACCESS
 
     /**
      * Type: <b>BOOL</b>
      * 
      * The bypass proxy for local addresses.
-     * @type {BOOL}
      */
-    fLocalBypass {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    fLocalBypass : BOOL
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The port number to use.
-     * @type {Integer}
      */
-    dwPortNumber {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwPortNumber : UInt32
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * A pointer to a Unicode string buffer that contains the name of the proxy server.
-     * @type {PWSTR}
      */
-    pcwszProxyName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pcwszProxyName : PWSTR
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * The list of sites that will bypass the proxy.
-     * @type {PWSTR}
      */
-    pcwszBypassList {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pcwszBypassList : PWSTR
+
 }

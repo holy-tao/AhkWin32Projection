@@ -1,34 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IMediaSeeking interface contains methods for seeking to a position within a stream, and for setting the playback rate.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-imediaseeking
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IMediaSeeking extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMediaSeeking extends IUnknown {
     /**
      * The interface identifier for IMediaSeeking
      * @type {Guid}
      */
-    static IID => Guid("{36b73880-c2c8-11cf-8b46-00805f6cef60}")
+    static IID := Guid("{36b73880-c2c8-11cf-8b46-00805f6cef60}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMediaSeeking interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCapabilities      : IntPtr
+        CheckCapabilities    : IntPtr
+        IsFormatSupported    : IntPtr
+        QueryPreferredFormat : IntPtr
+        GetTimeFormat        : IntPtr
+        IsUsingTimeFormat    : IntPtr
+        SetTimeFormat        : IntPtr
+        GetDuration          : IntPtr
+        GetStopPosition      : IntPtr
+        GetCurrentPosition   : IntPtr
+        ConvertTimeFormat    : IntPtr
+        SetPositions         : IntPtr
+        GetPositions         : IntPtr
+        GetAvailable         : IntPtr
+        SetRate              : IntPtr
+        GetRate              : IntPtr
+        GetPreroll           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCapabilities", "CheckCapabilities", "IsFormatSupported", "QueryPreferredFormat", "GetTimeFormat", "IsUsingTimeFormat", "SetTimeFormat", "GetDuration", "GetStopPosition", "GetCurrentPosition", "ConvertTimeFormat", "SetPositions", "GetPositions", "GetAvailable", "SetRate", "GetRate", "GetPreroll"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMediaSeeking.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetCapabilities method retrieves all the seeking capabilities of the stream.
@@ -236,7 +259,7 @@ class IMediaSeeking extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediaseeking-isformatsupported
      */
     IsFormatSupported(pFormat) {
-        result := ComCall(5, this, "ptr", pFormat, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, pFormat, "HRESULT")
         return result
     }
 
@@ -247,7 +270,7 @@ class IMediaSeeking extends IUnknown {
      */
     QueryPreferredFormat() {
         pFormat := Guid()
-        result := ComCall(6, this, "ptr", pFormat, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, pFormat, "HRESULT")
         return pFormat
     }
 
@@ -258,7 +281,7 @@ class IMediaSeeking extends IUnknown {
      */
     GetTimeFormat() {
         pFormat := Guid()
-        result := ComCall(7, this, "ptr", pFormat, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, pFormat, "HRESULT")
         return pFormat
     }
 
@@ -322,7 +345,7 @@ class IMediaSeeking extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediaseeking-isusingtimeformat
      */
     IsUsingTimeFormat(pFormat) {
-        result := ComCall(8, this, "ptr", pFormat, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, pFormat, "HRESULT")
         return result
     }
 
@@ -399,7 +422,7 @@ class IMediaSeeking extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediaseeking-settimeformat
      */
     SetTimeFormat(pFormat) {
-        result := ComCall(9, this, "ptr", pFormat, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, pFormat, "HRESULT")
         return result
     }
 
@@ -464,7 +487,7 @@ class IMediaSeeking extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediaseeking-converttimeformat
      */
     ConvertTimeFormat(pTargetFormat, Source, pSourceFormat) {
-        result := ComCall(13, this, "int64*", &pTarget := 0, "ptr", pTargetFormat, "int64", Source, "ptr", pSourceFormat, "HRESULT")
+        result := ComCall(13, this, "int64*", &pTarget := 0, Guid.Ptr, pTargetFormat, "int64", Source, Guid.Ptr, pSourceFormat, "HRESULT")
         return pTarget
     }
 
@@ -879,5 +902,57 @@ class IMediaSeeking extends IUnknown {
     GetPreroll() {
         result := ComCall(19, this, "int64*", &pllPreroll := 0, "HRESULT")
         return pllPreroll
+    }
+
+    Query(iid) {
+        if (IMediaSeeking.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCapabilities := CallbackCreate(GetMethod(implObj, "GetCapabilities"), flags, 2)
+        this.vtbl.CheckCapabilities := CallbackCreate(GetMethod(implObj, "CheckCapabilities"), flags, 2)
+        this.vtbl.IsFormatSupported := CallbackCreate(GetMethod(implObj, "IsFormatSupported"), flags, 2)
+        this.vtbl.QueryPreferredFormat := CallbackCreate(GetMethod(implObj, "QueryPreferredFormat"), flags, 2)
+        this.vtbl.GetTimeFormat := CallbackCreate(GetMethod(implObj, "GetTimeFormat"), flags, 2)
+        this.vtbl.IsUsingTimeFormat := CallbackCreate(GetMethod(implObj, "IsUsingTimeFormat"), flags, 2)
+        this.vtbl.SetTimeFormat := CallbackCreate(GetMethod(implObj, "SetTimeFormat"), flags, 2)
+        this.vtbl.GetDuration := CallbackCreate(GetMethod(implObj, "GetDuration"), flags, 2)
+        this.vtbl.GetStopPosition := CallbackCreate(GetMethod(implObj, "GetStopPosition"), flags, 2)
+        this.vtbl.GetCurrentPosition := CallbackCreate(GetMethod(implObj, "GetCurrentPosition"), flags, 2)
+        this.vtbl.ConvertTimeFormat := CallbackCreate(GetMethod(implObj, "ConvertTimeFormat"), flags, 5)
+        this.vtbl.SetPositions := CallbackCreate(GetMethod(implObj, "SetPositions"), flags, 5)
+        this.vtbl.GetPositions := CallbackCreate(GetMethod(implObj, "GetPositions"), flags, 3)
+        this.vtbl.GetAvailable := CallbackCreate(GetMethod(implObj, "GetAvailable"), flags, 3)
+        this.vtbl.SetRate := CallbackCreate(GetMethod(implObj, "SetRate"), flags, 2)
+        this.vtbl.GetRate := CallbackCreate(GetMethod(implObj, "GetRate"), flags, 2)
+        this.vtbl.GetPreroll := CallbackCreate(GetMethod(implObj, "GetPreroll"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCapabilities)
+        CallbackFree(this.vtbl.CheckCapabilities)
+        CallbackFree(this.vtbl.IsFormatSupported)
+        CallbackFree(this.vtbl.QueryPreferredFormat)
+        CallbackFree(this.vtbl.GetTimeFormat)
+        CallbackFree(this.vtbl.IsUsingTimeFormat)
+        CallbackFree(this.vtbl.SetTimeFormat)
+        CallbackFree(this.vtbl.GetDuration)
+        CallbackFree(this.vtbl.GetStopPosition)
+        CallbackFree(this.vtbl.GetCurrentPosition)
+        CallbackFree(this.vtbl.ConvertTimeFormat)
+        CallbackFree(this.vtbl.SetPositions)
+        CallbackFree(this.vtbl.GetPositions)
+        CallbackFree(this.vtbl.GetAvailable)
+        CallbackFree(this.vtbl.SetRate)
+        CallbackFree(this.vtbl.GetRate)
+        CallbackFree(this.vtbl.GetPreroll)
     }
 }

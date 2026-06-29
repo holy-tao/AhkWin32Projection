@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IN_ADDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IN_ADDR.ahk" { IN_ADDR }
 
 /**
  * The in_pktinfo structure is used to store received packet address information, and is used by Windows to return information about received packets and also allows specifying the local IPv4 address to use for sending packets.
@@ -15,29 +14,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-in_pktinfo
  * @namespace Windows.Win32.Networking.WinSock
  */
-class IN_PKTINFO extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct IN_PKTINFO {
+    #StructPack 4
 
     /**
      * The destination IPv4 address from the IP header of the received packet when used with the <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_wsarecvmsg">LPFN_WSARECVMSG (WSARecvMsg)</a> function. The local source IPv4 address to set in the IP header when used with the <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsasendmsg">WSASendMsg</a> function.
-     * @type {IN_ADDR}
      */
-    ipi_addr {
-        get {
-            if(!this.HasProp("__ipi_addr"))
-                this.__ipi_addr := IN_ADDR(0, this)
-            return this.__ipi_addr
-        }
-    }
+    ipi_addr : IN_ADDR
 
     /**
      * The interface on which the packet was received when used with the <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_wsarecvmsg">LPFN_WSARECVMSG (WSARecvMsg)</a> function. The interface on which the packet should be sent  when used with the <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsasendmsg">WSASendMsg</a> function.
-     * @type {Integer}
      */
-    ipi_ifindex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ipi_ifindex : UInt32
+
 }

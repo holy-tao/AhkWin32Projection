@@ -1,33 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DIEFFECT.ahk" { DIEFFECT }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DIEFFESCAPE.ahk" { DIEFFESCAPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
- * These three methods allow additional interfaces to be added to the DirectInputEffectDriver object without affecting the functionality of the original interface.
- * @see https://learn.microsoft.com/windows/win32/api/dinputd/nn-dinputd-idirectinputeffectdriver
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class IDirectInputEffect extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectInputEffect extends IUnknown {
     /**
      * The interface identifier for IDirectInputEffect
      * @type {Guid}
      */
-    static IID => Guid("{e7e1f7c0-88d2-11d0-9ad0-00a0c9a06e35}")
+    static IID := Guid("{e7e1f7c0-88d2-11d0-9ad0-00a0c9a06e35}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectInputEffect interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize      : IntPtr
+        GetEffectGuid   : IntPtr
+        GetParameters   : IntPtr
+        SetParameters   : IntPtr
+        Start           : IntPtr
+        Stop            : IntPtr
+        GetEffectStatus : IntPtr
+        Download        : IntPtr
+        Unload          : IntPtr
+        Escape          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetEffectGuid", "GetParameters", "SetParameters", "Start", "Stop", "GetEffectStatus", "Download", "Unload", "Escape"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectInputEffect.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes a thread to use Windows Runtime APIs.
@@ -61,9 +79,7 @@ class IDirectInputEffect extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(param0, param1, param2) {
-        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
-
-        result := ComCall(3, this, "ptr", param0, "uint", param1, "ptr", param2, "HRESULT")
+        result := ComCall(3, this, HINSTANCE, param0, "uint", param1, Guid.Ptr, param2, "HRESULT")
         return result
     }
 
@@ -73,7 +89,7 @@ class IDirectInputEffect extends IUnknown {
      * @returns {HRESULT} 
      */
     GetEffectGuid(param0) {
-        result := ComCall(4, this, "ptr", param0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, param0, "HRESULT")
         return result
     }
 
@@ -84,7 +100,7 @@ class IDirectInputEffect extends IUnknown {
      * @returns {HRESULT} 
      */
     GetParameters(param0, param1) {
-        result := ComCall(5, this, "ptr", param0, "uint", param1, "HRESULT")
+        result := ComCall(5, this, DIEFFECT.Ptr, param0, "uint", param1, "HRESULT")
         return result
     }
 
@@ -95,22 +111,15 @@ class IDirectInputEffect extends IUnknown {
      * @returns {HRESULT} 
      */
     SetParameters(param0, param1) {
-        result := ComCall(6, this, "ptr", param0, "uint", param1, "HRESULT")
+        result := ComCall(6, this, DIEFFECT.Ptr, param0, "uint", param1, "HRESULT")
         return result
     }
 
     /**
-     * Specifies the date and time when the trigger is activated.
-     * @remarks
-     * The **&lt;StartBoundary&gt;** element is a required element for time and calendar triggers ([**&lt;TimeTrigger&gt;**](taskschedulerschema-timetrigger-triggergroup-element.md) and [**&lt;CalendarTrigger&gt;**](taskschedulerschema-calendartrigger-triggergroup-element.md)).
      * 
-     * For scripting development, the end boundary is specified using the [**Trigger.StartBoundary**](trigger-startboundary.md) property that is inherited by the all trigger objects.
-     * 
-     * For C++ development, the end boundary is specified using the [**ITrigger::StartBoundary**](/windows/desktop/api/taskschd/nf-taskschd-itrigger-get_startboundary) property that is inherited by the all trigger interfaces.
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-startboundary-triggerbasetype-element
      */
     Start(param0, param1) {
         result := ComCall(7, this, "uint", param0, "uint", param1, "HRESULT")
@@ -118,13 +127,8 @@ class IDirectInputEffect extends IUnknown {
     }
 
     /**
-     * Specifies that a running instances of the task is stopped at the end of the repetition pattern duration.
-     * @remarks
-     * For scripting development, this setting is specified using the [**RepetitionPattern.StopAtDurationEnd**](repetitionpattern-stopatdurationend.md) property.
      * 
-     * For C++ development, this setting is specified using the [**IRepetitionPattern::StopAtDurationEnd**](/windows/win32/api/taskschd/nf-taskschd-irepetitionpattern-get_stopatdurationend) property.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-stopatdurationend-repetitiontype-element
      */
     Stop() {
         result := ComCall(8, this, "HRESULT")
@@ -144,12 +148,8 @@ class IDirectInputEffect extends IUnknown {
     }
 
     /**
-     * Note This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The Clear method removes all items from a download collection.
-     * @returns {HRESULT} This method has no parameters.
      * 
-     * 
-     * This method does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/WMP/downloadcollection-clear
+     * @returns {HRESULT} 
      */
     Download() {
         result := ComCall(10, this, "HRESULT")
@@ -157,24 +157,8 @@ class IDirectInputEffect extends IUnknown {
     }
 
     /**
-     * Unloads an input locale identifier (formerly called a keyboard layout).
-     * @remarks
-     * The input locale identifier is a broader concept than a keyboard layout, since it can also encompass a speech-to-text converter, an Input Method Editor (IME), or any other form of input. 
      * 
-     * <b>UnloadKeyboardLayout</b> cannot unload the system default input locale identifier if it is the only keyboard layout loaded. You must first load another input locale identifier before unloading the default input locale identifier.
-     * @returns {HRESULT} Type: <b>BOOL</b>
-     * 
-     * If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. The function can fail for the following reasons: 
-     * 
-     * <ul>
-     * <li>An invalid input locale identifier was passed.</li>
-     * <li>The input locale identifier was preloaded.</li>
-     * <li>The input locale identifier is in use.</li>
-     * </ul>
-     * To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-unloadkeyboardlayout
+     * @returns {HRESULT} 
      */
     Unload() {
         result := ComCall(11, this, "HRESULT")
@@ -228,7 +212,45 @@ class IDirectInputEffect extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-escape
      */
     Escape(param0) {
-        result := ComCall(12, this, "ptr", param0, "HRESULT")
+        result := ComCall(12, this, DIEFFESCAPE.Ptr, param0, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectInputEffect.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.GetEffectGuid := CallbackCreate(GetMethod(implObj, "GetEffectGuid"), flags, 2)
+        this.vtbl.GetParameters := CallbackCreate(GetMethod(implObj, "GetParameters"), flags, 3)
+        this.vtbl.SetParameters := CallbackCreate(GetMethod(implObj, "SetParameters"), flags, 3)
+        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 3)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.GetEffectStatus := CallbackCreate(GetMethod(implObj, "GetEffectStatus"), flags, 2)
+        this.vtbl.Download := CallbackCreate(GetMethod(implObj, "Download"), flags, 1)
+        this.vtbl.Unload := CallbackCreate(GetMethod(implObj, "Unload"), flags, 1)
+        this.vtbl.Escape := CallbackCreate(GetMethod(implObj, "Escape"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetEffectGuid)
+        CallbackFree(this.vtbl.GetParameters)
+        CallbackFree(this.vtbl.SetParameters)
+        CallbackFree(this.vtbl.Start)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.GetEffectStatus)
+        CallbackFree(this.vtbl.Download)
+        CallbackFree(this.vtbl.Unload)
+        CallbackFree(this.vtbl.Escape)
     }
 }

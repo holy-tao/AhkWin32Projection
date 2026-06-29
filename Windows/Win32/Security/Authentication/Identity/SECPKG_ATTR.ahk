@@ -1,14 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * The <i>pBuffer</i> parameter contains a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secpkgcontext_accesstoken">SecPkgContext_AccessToken</a> structure.
-  * 
-  * Returns a handle to the access token.
- * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-querycontextattributesexa
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SECPKG_ATTR extends Win32Enum {
+export default struct SECPKG_ATTR {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

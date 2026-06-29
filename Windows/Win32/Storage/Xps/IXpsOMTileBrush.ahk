@@ -1,9 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMBrush.ahk
-#Include .\IXpsOMMatrixTransform.ahk
-#Include .\XPS_RECT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\XPS_TILE_MODE.ahk" { XPS_TILE_MODE }
+#Import ".\IXpsOMMatrixTransform.ahk" { IXpsOMMatrixTransform }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IXpsOMBrush.ahk" { IXpsOMBrush }
+#Import ".\XPS_RECT.ahk" { XPS_RECT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * A tile brush uses a visual image to paint a region by repeating the image.
@@ -24,26 +27,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomtilebrush
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMTileBrush extends IXpsOMBrush {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMTileBrush extends IXpsOMBrush {
     /**
      * The interface identifier for IXpsOMTileBrush
      * @type {Guid}
      */
-    static IID => Guid("{0fc2328d-d722-4a54-b2ec-be90218a789e}")
+    static IID := Guid("{0fc2328d-d722-4a54-b2ec-be90218a789e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMTileBrush interfaces
+    */
+    struct Vtbl extends IXpsOMBrush.Vtbl {
+        GetTransform       : IntPtr
+        GetTransformLocal  : IntPtr
+        SetTransformLocal  : IntPtr
+        GetTransformLookup : IntPtr
+        SetTransformLookup : IntPtr
+        GetViewbox         : IntPtr
+        SetViewbox         : IntPtr
+        GetViewport        : IntPtr
+        SetViewport        : IntPtr
+        GetTileMode        : IntPtr
+        SetTileMode        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetTransform", "GetTransformLocal", "SetTransformLocal", "GetTransformLookup", "SetTransformLookup", "GetViewbox", "SetViewbox", "GetViewport", "SetViewport", "GetTileMode", "SetTileMode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMTileBrush.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a pointer to the IXpsOMMatrixTransform interface that contains the resolved matrix transform for the brush. (IXpsOMTileBrush.GetTransform)
@@ -316,7 +336,7 @@ class IXpsOMTileBrush extends IXpsOMBrush {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-gettransformlookup
      */
     GetTransformLookup() {
-        result := ComCall(10, this, "ptr*", &key := 0, "HRESULT")
+        result := ComCall(10, this, PWSTR.Ptr, &key := 0, "HRESULT")
         return key
     }
 
@@ -482,7 +502,7 @@ class IXpsOMTileBrush extends IXpsOMBrush {
      */
     GetViewbox() {
         viewbox := XPS_RECT()
-        result := ComCall(12, this, "ptr", viewbox, "HRESULT")
+        result := ComCall(12, this, XPS_RECT.Ptr, viewbox, "HRESULT")
         return viewbox
     }
 
@@ -549,7 +569,7 @@ class IXpsOMTileBrush extends IXpsOMBrush {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-setviewbox
      */
     SetViewbox(viewbox) {
-        result := ComCall(13, this, "ptr", viewbox, "HRESULT")
+        result := ComCall(13, this, XPS_RECT.Ptr, viewbox, "HRESULT")
         return result
     }
 
@@ -564,7 +584,7 @@ class IXpsOMTileBrush extends IXpsOMBrush {
      */
     GetViewport() {
         viewport := XPS_RECT()
-        result := ComCall(14, this, "ptr", viewport, "HRESULT")
+        result := ComCall(14, this, XPS_RECT.Ptr, viewport, "HRESULT")
         return viewport
     }
 
@@ -619,7 +639,7 @@ class IXpsOMTileBrush extends IXpsOMBrush {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-setviewport
      */
     SetViewport(viewport) {
-        result := ComCall(15, this, "ptr", viewport, "HRESULT")
+        result := ComCall(15, this, XPS_RECT.Ptr, viewport, "HRESULT")
         return result
     }
 
@@ -677,7 +697,47 @@ class IXpsOMTileBrush extends IXpsOMBrush {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-settilemode
      */
     SetTileMode(tileMode) {
-        result := ComCall(17, this, "int", tileMode, "HRESULT")
+        result := ComCall(17, this, XPS_TILE_MODE, tileMode, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IXpsOMTileBrush.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetTransform := CallbackCreate(GetMethod(implObj, "GetTransform"), flags, 2)
+        this.vtbl.GetTransformLocal := CallbackCreate(GetMethod(implObj, "GetTransformLocal"), flags, 2)
+        this.vtbl.SetTransformLocal := CallbackCreate(GetMethod(implObj, "SetTransformLocal"), flags, 2)
+        this.vtbl.GetTransformLookup := CallbackCreate(GetMethod(implObj, "GetTransformLookup"), flags, 2)
+        this.vtbl.SetTransformLookup := CallbackCreate(GetMethod(implObj, "SetTransformLookup"), flags, 2)
+        this.vtbl.GetViewbox := CallbackCreate(GetMethod(implObj, "GetViewbox"), flags, 2)
+        this.vtbl.SetViewbox := CallbackCreate(GetMethod(implObj, "SetViewbox"), flags, 2)
+        this.vtbl.GetViewport := CallbackCreate(GetMethod(implObj, "GetViewport"), flags, 2)
+        this.vtbl.SetViewport := CallbackCreate(GetMethod(implObj, "SetViewport"), flags, 2)
+        this.vtbl.GetTileMode := CallbackCreate(GetMethod(implObj, "GetTileMode"), flags, 2)
+        this.vtbl.SetTileMode := CallbackCreate(GetMethod(implObj, "SetTileMode"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetTransform)
+        CallbackFree(this.vtbl.GetTransformLocal)
+        CallbackFree(this.vtbl.SetTransformLocal)
+        CallbackFree(this.vtbl.GetTransformLookup)
+        CallbackFree(this.vtbl.SetTransformLookup)
+        CallbackFree(this.vtbl.GetViewbox)
+        CallbackFree(this.vtbl.SetViewbox)
+        CallbackFree(this.vtbl.GetViewport)
+        CallbackFree(this.vtbl.SetViewport)
+        CallbackFree(this.vtbl.GetTileMode)
+        CallbackFree(this.vtbl.SetTileMode)
     }
 }

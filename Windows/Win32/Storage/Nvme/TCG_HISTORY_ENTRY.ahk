@@ -1,110 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class TCG_HISTORY_ENTRY extends Win32Struct {
-    static sizeof => 48
+export default struct TCG_HISTORY_ENTRY {
+    #StructPack 8
 
-    static packingSize => 8
+    VersionNumber : Int8
 
-    /**
-     * @type {Integer}
-     */
-    VersionNumber {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    EntryLength : Int8
 
-    /**
-     * @type {Integer}
-     */
-    EntryLength {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    PowerCycleCount : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    PowerCycleCount {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    TcgCommandCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TcgCommandCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    TcgCommandCompletionTS : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TcgCommandCompletionTS {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    InvokingId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    InvokingId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    MethodId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MethodId {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ComId : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ComId {
-        get => NumGet(this, 32, "ushort")
-        set => NumPut("ushort", value, this, 32)
-    }
+    ProtocolId : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ProtocolId {
-        get => NumGet(this, 34, "char")
-        set => NumPut("char", value, this, 34)
-    }
+    TcgStatus : Int8
 
-    /**
-     * @type {Integer}
-     */
-    TcgStatus {
-        get => NumGet(this, 35, "char")
-        set => NumPut("char", value, this, 35)
-    }
+    ProcessTime : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ProcessTime {
-        get => NumGet(this, 36, "ushort")
-        set => NumPut("ushort", value, this, 36)
-    }
+    CommandSpecific : Int8[10]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    CommandSpecific {
-        get {
-            if(!this.HasProp("__CommandSpecificProxyArray"))
-                this.__CommandSpecificProxyArray := Win32FixedArray(this.ptr + 38, 10, Primitive, "char")
-            return this.__CommandSpecificProxyArray
-        }
-    }
 }

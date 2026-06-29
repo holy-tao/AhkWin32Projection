@@ -1,94 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class DXGK_ESCAPE_GPUMMUCAPS extends Win32Struct {
-    static sizeof => 64
+export default struct DXGK_ESCAPE_GPUMMUCAPS {
+    #StructPack 8
 
-    static packingSize => 8
+    ReadOnlyMemorySupported : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    ReadOnlyMemorySupported {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    NoExecuteMemorySupported : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    NoExecuteMemorySupported {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    ZeroInPteSupported : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    ZeroInPteSupported {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    CacheCoherentMemorySupported : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    CacheCoherentMemorySupported {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    LargePageSupported : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    LargePageSupported {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    DualPteSupported : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    DualPteSupported {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    AllowNonAlignedLargePageAddress : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    AllowNonAlignedLargePageAddress {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    VirtualAddressBitCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VirtualAddressBitCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    PageTableLevelCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PageTableLevelCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    PageTableLevelDesk : IntPtr[6]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    PageTableLevelDesk {
-        get {
-            if(!this.HasProp("__PageTableLevelDeskProxyArray"))
-                this.__PageTableLevelDeskProxyArray := Win32FixedArray(this.ptr + 16, 6, Primitive, "ptr")
-            return this.__PageTableLevelDeskProxyArray
-        }
-    }
 }

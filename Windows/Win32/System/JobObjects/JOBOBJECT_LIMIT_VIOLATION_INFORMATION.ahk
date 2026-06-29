@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\JOB_OBJECT_LIMIT.ahk
-#Include .\JOBOBJECT_RATE_CONTROL_TOLERANCE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\JOB_OBJECT_LIMIT.ahk" { JOB_OBJECT_LIMIT }
+#Import ".\JOBOBJECT_RATE_CONTROL_TOLERANCE.ahk" { JOBOBJECT_RATE_CONTROL_TOLERANCE }
 
 /**
  * Contains information about resource notification limits that have been exceeded for a job object. This structure is used with the QueryInformationJobObject function with the JobObjectLimitViolationInformation information class.
@@ -12,106 +11,54 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_limit_violation_information
  * @namespace Windows.Win32.System.JobObjects
  */
-class JOBOBJECT_LIMIT_VIOLATION_INFORMATION extends Win32Struct {
-    static sizeof => 80
+export default struct JOBOBJECT_LIMIT_VIOLATION_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    LimitFlags : JOB_OBJECT_LIMIT
 
-    /**
-     * @type {JOB_OBJECT_LIMIT}
-     */
-    LimitFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {JOB_OBJECT_LIMIT}
-     */
-    ViolationLimitFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ViolationLimitFlags : JOB_OBJECT_LIMIT
 
     /**
      * If the ViolationLimitFlags member specifies JOB_OBJECT_LIMIT_READ_BYTES, this member contains the total I/O read bytes for all processes in the job at the time the notification was sent.
-     * @type {Integer}
      */
-    IoReadBytes {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    IoReadBytes : Int64
 
     /**
      * If the LimitFlags member specifies JOB_OBJECT_LIMIT_READ_BYTES, this member contains the I/O read bytes notification limit in effect for the job.
-     * @type {Integer}
      */
-    IoReadBytesLimit {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    IoReadBytesLimit : Int64
 
     /**
      * If the ViolationLimitFlags member specifies JOB_OBJECT_LIMIT_WRITE_BYTES, this member contains the total I/O write bytes for all processes in the job at the time the notification was sent.
-     * @type {Integer}
      */
-    IoWriteBytes {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    IoWriteBytes : Int64
 
     /**
      * If the LimitFlags member specifies JOB_OBJECT_LIMIT_WRITE_BYTES, this member contains the I/O write bytes notification limit in effect for the job.
-     * @type {Integer}
      */
-    IoWriteBytesLimit {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    IoWriteBytesLimit : Int64
 
     /**
      * If the ViolationLimitFlags member specifies JOB_OBJECT_LIMIT_JOB_TIME, this member contains the total user-mode execution time for all processes in the job at the time the notification was sent.
-     * @type {Integer}
      */
-    PerJobUserTime {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
-    }
+    PerJobUserTime : Int64
 
     /**
      * If the LimitFlags member specifies JOB_OBJECT_LIMIT_JOB_TIME, this member contains the user-mode execution notification limit in effect for the job.
-     * @type {Integer}
      */
-    PerJobUserTimeLimit {
-        get => NumGet(this, 48, "int64")
-        set => NumPut("int64", value, this, 48)
-    }
+    PerJobUserTimeLimit : Int64
 
     /**
      * If the ViolationLimitFlags member specifies JOB_OBJECT_LIMIT_JOB_MEMORY, this member contains the committed memory for all processes in the job at the time the notification was sent.
-     * @type {Integer}
      */
-    JobMemory {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    JobMemory : Int64
 
     /**
      * If the LimitFlags member specifies JOB_OBJECT_LIMIT_JOB_MEMORY, this member contains the committed memory limit in effect for the job.
-     * @type {Integer}
      */
-    JobMemoryLimit {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    JobMemoryLimit : Int64
 
-    /**
-     * @type {JOBOBJECT_RATE_CONTROL_TOLERANCE}
-     */
-    RateControlTolerance {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
-    }
+    RateControlTolerance : JOBOBJECT_RATE_CONTROL_TOLERANCE
 
     /**
      * If the <i>LimitFlags</i> parameter specifies JOB_OBJECT_LIMIT_RATE_CONTROL, this member contains the CPU rate control notification limits specified for the job.  
@@ -155,10 +102,7 @@ class JOBOBJECT_LIMIT_VIOLATION_INFORMATION extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {JOBOBJECT_RATE_CONTROL_TOLERANCE}
      */
-    RateControlToleranceLimit {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
-    }
+    RateControlToleranceLimit : JOBOBJECT_RATE_CONTROL_TOLERANCE
+
 }

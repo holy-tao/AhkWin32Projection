@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines what versions of Task Scheduler or the AT command that the task is compatible with.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/ne-taskschd-task_compatibility
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class TASK_COMPATIBILITY extends Win32Enum {
+export default struct TASK_COMPATIBILITY {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The task is compatible with the AT command.

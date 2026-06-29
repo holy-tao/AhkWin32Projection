@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The WLAN_NOTIFICATION_ACM enumeration specifies the possible values of the NotificationCode member of the WLAN_NOTIFICATION_DATA structure.
@@ -20,7 +19,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_notification_acm~r1
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WLAN_NOTIFICATION_ACM extends Win32Enum {
+export default struct WLAN_NOTIFICATION_ACM {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates the beginning of the range that specifies the possible values for ACM notifications.

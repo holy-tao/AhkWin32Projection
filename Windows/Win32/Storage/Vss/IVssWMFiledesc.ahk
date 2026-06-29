@@ -1,29 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVssWMFiledesc interface is a C++ (not COM) interface returned to a calling application by a number of query methods. It provides detailed information about a file or set of files (a file set).
  * @see https://learn.microsoft.com/windows/win32/api/vswriter/nl-vswriter-ivsswmfiledesc
  * @namespace Windows.Win32.Storage.Vss
  */
-class IVssWMFiledesc extends IUnknown {
+export default struct IVssWMFiledesc extends IUnknown {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPath", "GetFilespec", "GetRecursive", "GetAlternateLocation", "GetBackupTypeMask"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVssWMFiledesc interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetPath              : IntPtr
+        GetFilespec          : IntPtr
+        GetRecursive         : IntPtr
+        GetAlternateLocation : IntPtr
+        GetBackupTypeMask    : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVssWMFiledesc.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetPath method obtains the fully qualified directory path or the UNC path of the remote file share to obtain the list of files described in the current IVssWMFiledesc object.
@@ -43,8 +55,8 @@ class IVssWMFiledesc extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsswmfiledesc-getpath
      */
     GetPath() {
-        pbstrPath := BSTR()
-        result := ComCall(3, this, "ptr", pbstrPath, "HRESULT")
+        pbstrPath := BSTR.Owned()
+        result := ComCall(3, this, BSTR.Ptr, pbstrPath, "HRESULT")
         return pbstrPath
     }
 
@@ -61,8 +73,8 @@ class IVssWMFiledesc extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsswmfiledesc-getfilespec
      */
     GetFilespec() {
-        pbstrFilespec := BSTR()
-        result := ComCall(4, this, "ptr", pbstrFilespec, "HRESULT")
+        pbstrFilespec := BSTR.Owned()
+        result := ComCall(4, this, BSTR.Ptr, pbstrFilespec, "HRESULT")
         return pbstrFilespec
     }
 
@@ -122,8 +134,8 @@ class IVssWMFiledesc extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsswmfiledesc-getalternatelocation
      */
     GetAlternateLocation() {
-        pbstrAlternateLocation := BSTR()
-        result := ComCall(6, this, "ptr", pbstrAlternateLocation, "HRESULT")
+        pbstrAlternateLocation := BSTR.Owned()
+        result := ComCall(6, this, BSTR.Ptr, pbstrAlternateLocation, "HRESULT")
         return pbstrAlternateLocation
     }
 
@@ -143,5 +155,33 @@ class IVssWMFiledesc extends IUnknown {
     GetBackupTypeMask() {
         result := ComCall(7, this, "uint*", &pdwTypeMask := 0, "HRESULT")
         return pdwTypeMask
+    }
+
+    Query(iid) {
+        if (IVssWMFiledesc.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPath := CallbackCreate(GetMethod(implObj, "GetPath"), flags, 2)
+        this.vtbl.GetFilespec := CallbackCreate(GetMethod(implObj, "GetFilespec"), flags, 2)
+        this.vtbl.GetRecursive := CallbackCreate(GetMethod(implObj, "GetRecursive"), flags, 2)
+        this.vtbl.GetAlternateLocation := CallbackCreate(GetMethod(implObj, "GetAlternateLocation"), flags, 2)
+        this.vtbl.GetBackupTypeMask := CallbackCreate(GetMethod(implObj, "GetBackupTypeMask"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPath)
+        CallbackFree(this.vtbl.GetFilespec)
+        CallbackFree(this.vtbl.GetRecursive)
+        CallbackFree(this.vtbl.GetAlternateLocation)
+        CallbackFree(this.vtbl.GetBackupTypeMask)
     }
 }

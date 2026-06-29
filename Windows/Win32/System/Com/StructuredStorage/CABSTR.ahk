@@ -1,28 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 
 /**
  * @namespace Windows.Win32.System.Com.StructuredStorage
  */
-class CABSTR extends Win32Struct {
-    static sizeof => 16
+export default struct CABSTR {
+    #StructPack 8
 
-    static packingSize => 8
+    cElems : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cElems {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pElems : BSTR.Ptr
 
-    /**
-     * @type {Pointer<BSTR>}
-     */
-    pElems {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

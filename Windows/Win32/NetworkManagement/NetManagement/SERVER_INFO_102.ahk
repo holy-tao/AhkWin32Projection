@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NET_SERVER_TYPE.ahk
-#Include .\SERVER_INFO_HIDDEN.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\NET_SERVER_TYPE.ahk" { NET_SERVER_TYPE }
+#Import ".\SERVER_INFO_HIDDEN.ahk" { SERVER_INFO_HIDDEN }
 
 /**
  * Contains information about the specified server, including name, platform, type of server, attributes, and associated software.
@@ -11,10 +11,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_info_102
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class SERVER_INFO_102 extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct SERVER_INFO_102 {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
@@ -85,23 +83,15 @@ class SERVER_INFO_102 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    sv102_platform_id {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    sv102_platform_id : UInt32
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string specifying the name of a server.
-     * @type {PWSTR}
      */
-    sv102_name {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    sv102_name : PWSTR
 
     /**
      * Type: <b>DWORD</b>
@@ -109,23 +99,15 @@ class SERVER_INFO_102 extends Win32Struct {
      * The major version number and the server type. 
      * 
      * The major release version number of the operating system is specified in the least significant 4 bits. The server type is specified in the most significant 4 bits. The <b>MAJOR_VERSION_MASK</b> bitmask defined in the <i>Lmserver.h</i> header should be used by an  application to obtain the major version number from this member.
-     * @type {Integer}
      */
-    sv102_version_major {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    sv102_version_major : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The minor release version number of the operating system.
-     * @type {Integer}
      */
-    sv102_version_minor {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    sv102_version_minor : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -133,66 +115,42 @@ class SERVER_INFO_102 extends Win32Struct {
      * The type of software the computer is running. 
      * 
      * Possible values for this member are listed in the <i>Lmserver.h</i> header file.
-     * @type {NET_SERVER_TYPE}
      */
-    sv102_type {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    sv102_type : NET_SERVER_TYPE
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string specifying a comment describing the server. The comment can be null.
-     * @type {PWSTR}
      */
-    sv102_comment {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    sv102_comment : PWSTR
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of users who can attempt to log on to the system server. Note that it is the license server that determines how many of these users can actually log on.
-     * @type {Integer}
      */
-    sv102_users {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    sv102_users : UInt32
 
     /**
      * Type: <b>LONG</b>
      * 
      * The auto-disconnect time, in minutes. A session is disconnected if it is idle longer than the period of time specified by the <b>sv102_disc</b> member. If the value of <b>sv102_disc</b> is SV_NODISC, auto-disconnect is not enabled.
-     * @type {Integer}
      */
-    sv102_disc {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    sv102_disc : Int32
 
     /**
      * Type: <b>BOOL</b>
-     * @type {SERVER_INFO_HIDDEN}
      */
-    sv102_hidden {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    sv102_hidden : SERVER_INFO_HIDDEN
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The network announce rate, in seconds. This rate determines how often the server is announced to other computers on the network. For more information about how much the announce rate can vary from the period of time specified by this member, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/ns-lmserver-server_info_1018">SERVER_INFO_1018</a>.
-     * @type {Integer}
      */
-    sv102_announce {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    sv102_announce : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -200,32 +158,21 @@ class SERVER_INFO_102 extends Win32Struct {
      * The delta value for the announce rate, in milliseconds. This value specifies how much the announce rate can vary from the period of time specified in the <b>sv102_announce</b> member.
      * 
      * The delta value allows randomly varied announce rates. For example, if the <b>sv102_announce</b> member has the value 10 and the <b>sv102_anndelta</b>  member has the value 1, the announce rate can vary from 9.999 seconds to 10.001 seconds.
-     * @type {Integer}
      */
-    sv102_anndelta {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    sv102_anndelta : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of users per license. By default, this number is SV_USERS_PER_LICENSE.
-     * @type {Integer}
      */
-    sv102_licenses {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    sv102_licenses : UInt32
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string specifying the path to user directories.
-     * @type {PWSTR}
      */
-    sv102_userpath {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    sv102_userpath : PWSTR
+
 }

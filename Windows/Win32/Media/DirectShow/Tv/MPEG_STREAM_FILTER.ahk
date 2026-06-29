@@ -1,57 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class MPEG_STREAM_FILTER extends Win32Struct {
-    static sizeof => 44
+export default struct MPEG_STREAM_FILTER {
+    #StructPack 4
 
-    static packingSize => 4
+    wPidValue : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wPidValue {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    dwFilterSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFilterSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    fCrcEnabled : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    fCrcEnabled {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    rgchFilter : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    rgchFilter {
-        get {
-            if(!this.HasProp("__rgchFilterProxyArray"))
-                this.__rgchFilterProxyArray := Win32FixedArray(this.ptr + 12, 16, Primitive, "char")
-            return this.__rgchFilterProxyArray
-        }
-    }
+    rgchMask : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    rgchMask {
-        get {
-            if(!this.HasProp("__rgchMaskProxyArray"))
-                this.__rgchMaskProxyArray := Win32FixedArray(this.ptr + 28, 16, Primitive, "char")
-            return this.__rgchMaskProxyArray
-        }
-    }
 }

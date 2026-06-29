@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWiaItem2.ahk" { IWiaItem2 }
 
 /**
  * The IWiaAppErrorHandler interface enables applications to display error windows (during data transfers) from which the user can choose whether to continue, cancel, or abort the transfer.
@@ -24,26 +26,34 @@
  * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaapperrorhandler
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
-class IWiaAppErrorHandler extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWiaAppErrorHandler extends IUnknown {
     /**
      * The interface identifier for IWiaAppErrorHandler
      * @type {Guid}
      */
-    static IID => Guid("{6c16186c-d0a6-400c-80f4-d26986a0e734}")
+    static IID := Guid("{6c16186c-d0a6-400c-80f4-d26986a0e734}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWiaAppErrorHandler interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetWindow    : IntPtr
+        ReportStatus : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetWindow", "ReportStatus"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWiaAppErrorHandler.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a handle to the dialog box that displays error messages and provides one or more buttons to continue, cancel, or abort the application.
@@ -56,7 +66,7 @@ class IWiaAppErrorHandler extends IUnknown {
      */
     GetWindow() {
         phwnd := HWND()
-        result := ComCall(3, this, "ptr", phwnd, "HRESULT")
+        result := ComCall(3, this, HWND.Ptr, phwnd, "HRESULT")
         return phwnd
     }
 
@@ -98,5 +108,27 @@ class IWiaAppErrorHandler extends IUnknown {
     ReportStatus(lFlags, pWiaItem2, hrStatus, lPercentComplete) {
         result := ComCall(4, this, "int", lFlags, "ptr", pWiaItem2, "int", hrStatus, "int", lPercentComplete, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWiaAppErrorHandler.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetWindow := CallbackCreate(GetMethod(implObj, "GetWindow"), flags, 2)
+        this.vtbl.ReportStatus := CallbackCreate(GetMethod(implObj, "ReportStatus"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetWindow)
+        CallbackFree(this.vtbl.ReportStatus)
     }
 }

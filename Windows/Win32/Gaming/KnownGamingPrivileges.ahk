@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Do not use. This API is only supported for Xbox developers. (KnownGamingPrivileges)
  * @see https://learn.microsoft.com/windows/win32/api/gamingtcui/ne-gamingtcui-knowngamingprivileges
  * @namespace Windows.Win32.Gaming
  */
-class KnownGamingPrivileges extends Win32Enum {
+export default struct KnownGamingPrivileges {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Do not use. This API is only supported for Xbox developers.

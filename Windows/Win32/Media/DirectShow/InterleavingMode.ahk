@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies how video frames and audio samples will be written to disk.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-interleavingmode
  * @namespace Windows.Win32.Media.DirectShow
  */
-class InterleavingMode extends Win32Enum {
+export default struct InterleavingMode {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Noninterleaved. Frames are written in the order they arrive. Files must be interleaved for playback at a later time. In this mode, the AVI Mux filter attempts to use unbuffered, overlapped write operations, to increase throughput.

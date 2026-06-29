@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Gets information from the Service Location Descriptor in an Advanced Television Systems Committee (ATSC) Virtual Channel Table (VCT).
  * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nn-atscpsipparser-iservicelocationdescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IServiceLocationDescriptor extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IServiceLocationDescriptor extends IUnknown {
     /**
      * The interface identifier for IServiceLocationDescriptor
      * @type {Guid}
      */
-    static IID => Guid("{58c3c827-9d91-4215-bff3-820a49f0904c}")
+    static IID := Guid("{58c3c827-9d91-4215-bff3-820a49f0904c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IServiceLocationDescriptor interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetPCR_PID             : IntPtr
+        GetNumberOfElements    : IntPtr
+        GetElementStreamType   : IntPtr
+        GetElementPID          : IntPtr
+        GetElementLanguageCode : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPCR_PID", "GetNumberOfElements", "GetElementStreamType", "GetElementPID", "GetElementLanguageCode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IServiceLocationDescriptor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the program ID (PID) for the packets that contain the Program Clock Reference (PCR) in the transport stream from an Advanced Television Systems Committee (ATSC) Service Location Descriptor.
@@ -83,5 +95,33 @@ class IServiceLocationDescriptor extends IUnknown {
     GetElementLanguageCode(bIndex) {
         result := ComCall(7, this, "char", bIndex, "char*", &LangCode := 0, "HRESULT")
         return LangCode
+    }
+
+    Query(iid) {
+        if (IServiceLocationDescriptor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPCR_PID := CallbackCreate(GetMethod(implObj, "GetPCR_PID"), flags, 2)
+        this.vtbl.GetNumberOfElements := CallbackCreate(GetMethod(implObj, "GetNumberOfElements"), flags, 2)
+        this.vtbl.GetElementStreamType := CallbackCreate(GetMethod(implObj, "GetElementStreamType"), flags, 3)
+        this.vtbl.GetElementPID := CallbackCreate(GetMethod(implObj, "GetElementPID"), flags, 3)
+        this.vtbl.GetElementLanguageCode := CallbackCreate(GetMethod(implObj, "GetElementLanguageCode"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPCR_PID)
+        CallbackFree(this.vtbl.GetNumberOfElements)
+        CallbackFree(this.vtbl.GetElementStreamType)
+        CallbackFree(this.vtbl.GetElementPID)
+        CallbackFree(this.vtbl.GetElementLanguageCode)
     }
 }

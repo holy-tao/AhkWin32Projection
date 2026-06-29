@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the status of a call to IMFTransform::ProcessOutput.
@@ -24,7 +23,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mftransform/ne-mftransform-_mft_process_output_status
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class _MFT_PROCESS_OUTPUT_STATUS extends Win32Enum {
+export default struct _MFT_PROCESS_OUTPUT_STATUS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The Media Foundation transform (MFT) has created one or more new output streams.

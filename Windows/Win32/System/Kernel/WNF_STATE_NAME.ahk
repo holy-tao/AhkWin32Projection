@@ -1,22 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Kernel
  */
-class WNF_STATE_NAME extends Win32Struct {
-    static sizeof => 8
+export default struct WNF_STATE_NAME {
+    #StructPack 4
 
-    static packingSize => 4
+    Data : UInt32[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Data {
-        get {
-            if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "uint")
-            return this.__DataProxyArray
-        }
-    }
 }

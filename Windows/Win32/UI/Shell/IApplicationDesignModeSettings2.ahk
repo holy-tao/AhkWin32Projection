@@ -1,7 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IApplicationDesignModeSettings.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\APPLICATION_VIEW_MIN_WIDTH.ahk" { APPLICATION_VIEW_MIN_WIDTH }
+#Import ".\APPLICATION_VIEW_ORIENTATION.ahk" { APPLICATION_VIEW_ORIENTATION }
+#Import ".\NATIVE_DISPLAY_ORIENTATION.ahk" { NATIVE_DISPLAY_ORIENTATION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IApplicationDesignModeSettings.ahk" { IApplicationDesignModeSettings }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import ".\ADJACENT_DISPLAY_EDGES.ahk" { ADJACENT_DISPLAY_EDGES }
 
 /**
  * Enables development tool applications to dynamically control system and user states, such as native display resolution, device scale factor, and application view layout, reported to Windows Store apps for the purpose of testing Windows Store apps running in design mode for a wide range of form factors without the need for the actual hardware. Also enables testing of changes in normally user-controlled state to test Windows Store apps under a variety of scenarios.
@@ -10,26 +17,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iapplicationdesignmodesettings2
  * @namespace Windows.Win32.UI.Shell
  */
-class IApplicationDesignModeSettings2 extends IApplicationDesignModeSettings {
-
-    static sizeof => A_PtrSize
+export default struct IApplicationDesignModeSettings2 extends IApplicationDesignModeSettings {
     /**
      * The interface identifier for IApplicationDesignModeSettings2
      * @type {Guid}
      */
-    static IID => Guid("{490514e1-675a-4d6e-a58d-e54901b4ca2f}")
+    static IID := Guid("{490514e1-675a-4d6e-a58d-e54901b4ca2f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IApplicationDesignModeSettings2 interfaces
+    */
+    struct Vtbl extends IApplicationDesignModeSettings.Vtbl {
+        SetNativeDisplayOrientation   : IntPtr
+        SetApplicationViewOrientation : IntPtr
+        SetAdjacentDisplayEdges       : IntPtr
+        SetIsOnLockScreen             : IntPtr
+        SetApplicationViewMinWidth    : IntPtr
+        GetApplicationSizeBounds      : IntPtr
+        GetApplicationViewOrientation : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetNativeDisplayOrientation", "SetApplicationViewOrientation", "SetAdjacentDisplayEdges", "SetIsOnLockScreen", "SetApplicationViewMinWidth", "GetApplicationSizeBounds", "GetApplicationViewOrientation"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IApplicationDesignModeSettings2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the orientation of the emulated display for the design mode window.
@@ -42,7 +62,7 @@ class IApplicationDesignModeSettings2 extends IApplicationDesignModeSettings {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings2-setnativedisplayorientation
      */
     SetNativeDisplayOrientation(nativeDisplayOrientation) {
-        result := ComCall(9, this, "int", nativeDisplayOrientation, "HRESULT")
+        result := ComCall(9, this, NATIVE_DISPLAY_ORIENTATION, nativeDisplayOrientation, "HRESULT")
         return result
     }
 
@@ -57,7 +77,7 @@ class IApplicationDesignModeSettings2 extends IApplicationDesignModeSettings {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings2-setapplicationvieworientation
      */
     SetApplicationViewOrientation(viewOrientation) {
-        result := ComCall(10, this, "int", viewOrientation, "HRESULT")
+        result := ComCall(10, this, APPLICATION_VIEW_ORIENTATION, viewOrientation, "HRESULT")
         return result
     }
 
@@ -72,7 +92,7 @@ class IApplicationDesignModeSettings2 extends IApplicationDesignModeSettings {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings2-setadjacentdisplayedges
      */
     SetAdjacentDisplayEdges(adjacentDisplayEdges) {
-        result := ComCall(11, this, "int", adjacentDisplayEdges, "HRESULT")
+        result := ComCall(11, this, ADJACENT_DISPLAY_EDGES, adjacentDisplayEdges, "HRESULT")
         return result
     }
 
@@ -87,7 +107,7 @@ class IApplicationDesignModeSettings2 extends IApplicationDesignModeSettings {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings2-setisonlockscreen
      */
     SetIsOnLockScreen(isOnLockScreen) {
-        result := ComCall(12, this, "int", isOnLockScreen, "HRESULT")
+        result := ComCall(12, this, BOOL, isOnLockScreen, "HRESULT")
         return result
     }
 
@@ -102,7 +122,7 @@ class IApplicationDesignModeSettings2 extends IApplicationDesignModeSettings {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings2-setapplicationviewminwidth
      */
     SetApplicationViewMinWidth(viewMinWidth) {
-        result := ComCall(13, this, "int", viewMinWidth, "HRESULT")
+        result := ComCall(13, this, APPLICATION_VIEW_MIN_WIDTH, viewMinWidth, "HRESULT")
         return result
     }
 
@@ -120,7 +140,7 @@ class IApplicationDesignModeSettings2 extends IApplicationDesignModeSettings {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings2-getapplicationsizebounds
      */
     GetApplicationSizeBounds(minApplicationSizePixels, maxApplicationSizePixels) {
-        result := ComCall(14, this, "ptr", minApplicationSizePixels, "ptr", maxApplicationSizePixels, "HRESULT")
+        result := ComCall(14, this, SIZE.Ptr, minApplicationSizePixels, SIZE.Ptr, maxApplicationSizePixels, "HRESULT")
         return result
     }
 
@@ -135,7 +155,39 @@ class IApplicationDesignModeSettings2 extends IApplicationDesignModeSettings {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings2-getapplicationvieworientation
      */
     GetApplicationViewOrientation(applicationSizePixels) {
-        result := ComCall(15, this, "ptr", applicationSizePixels, "int*", &viewOrientation := 0, "HRESULT")
+        result := ComCall(15, this, SIZE, applicationSizePixels, "int*", &viewOrientation := 0, "HRESULT")
         return viewOrientation
+    }
+
+    Query(iid) {
+        if (IApplicationDesignModeSettings2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetNativeDisplayOrientation := CallbackCreate(GetMethod(implObj, "SetNativeDisplayOrientation"), flags, 2)
+        this.vtbl.SetApplicationViewOrientation := CallbackCreate(GetMethod(implObj, "SetApplicationViewOrientation"), flags, 2)
+        this.vtbl.SetAdjacentDisplayEdges := CallbackCreate(GetMethod(implObj, "SetAdjacentDisplayEdges"), flags, 2)
+        this.vtbl.SetIsOnLockScreen := CallbackCreate(GetMethod(implObj, "SetIsOnLockScreen"), flags, 2)
+        this.vtbl.SetApplicationViewMinWidth := CallbackCreate(GetMethod(implObj, "SetApplicationViewMinWidth"), flags, 2)
+        this.vtbl.GetApplicationSizeBounds := CallbackCreate(GetMethod(implObj, "GetApplicationSizeBounds"), flags, 3)
+        this.vtbl.GetApplicationViewOrientation := CallbackCreate(GetMethod(implObj, "GetApplicationViewOrientation"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetNativeDisplayOrientation)
+        CallbackFree(this.vtbl.SetApplicationViewOrientation)
+        CallbackFree(this.vtbl.SetAdjacentDisplayEdges)
+        CallbackFree(this.vtbl.SetIsOnLockScreen)
+        CallbackFree(this.vtbl.SetApplicationViewMinWidth)
+        CallbackFree(this.vtbl.GetApplicationSizeBounds)
+        CallbackFree(this.vtbl.GetApplicationViewOrientation)
     }
 }

@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DHAL_DP2SETPALETTE extends Win32Struct {
-    static sizeof => 12
+export default struct D3DHAL_DP2SETPALETTE {
+    #StructPack 4
 
-    static packingSize => 4
+    dwPaletteHandle : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwPaletteHandle {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwPaletteFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwPaletteFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwSurfaceHandle : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSurfaceHandle {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

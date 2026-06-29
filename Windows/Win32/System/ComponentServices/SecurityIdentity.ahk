@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Provides access to a collection of security information representing a caller's identity. Using this class, you can find out about a particular caller in a chain of callers that is part of the security call context.
@@ -10,8 +9,7 @@
  * @see https://learn.microsoft.com/windows/win32/cossdk/securityidentity
  * @namespace Windows.Win32.System.ComponentServices
  */
-class SecurityIdentity extends Win32Struct {
-    static sizeof => 0
+export default struct SecurityIdentity {
+    #StructPack 1
 
-    static packingSize => 1
 }

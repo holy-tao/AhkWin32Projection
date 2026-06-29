@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WLAN_HOSTED_NETWORK_PEER_AUTH_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WLAN_HOSTED_NETWORK_PEER_AUTH_STATE.ahk" { WLAN_HOSTED_NETWORK_PEER_AUTH_STATE }
 
 /**
  * Contains information about the peer state for a peer on the wireless Hosted Network.
@@ -9,29 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_hosted_network_peer_state
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WLAN_HOSTED_NETWORK_PEER_STATE extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct WLAN_HOSTED_NETWORK_PEER_STATE {
+    #StructPack 4
 
     /**
      * The MAC address of the peer being described.
-     * @type {Array<Integer>}
      */
-    PeerMacAddress {
-        get {
-            if(!this.HasProp("__PeerMacAddressProxyArray"))
-                this.__PeerMacAddressProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
-            return this.__PeerMacAddressProxyArray
-        }
-    }
+    PeerMacAddress : Int8[6]
 
     /**
      * The current authentication state of this peer.
-     * @type {WLAN_HOSTED_NETWORK_PEER_AUTH_STATE}
      */
-    PeerAuthState {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    PeerAuthState : WLAN_HOSTED_NETWORK_PEER_AUTH_STATE
+
 }

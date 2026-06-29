@@ -1,15 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains information about a revoked component.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-mfrr_component_hash_info
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFRR_COMPONENT_HASH_INFO extends Win32Struct {
-    static sizeof => 696
-
-    static packingSize => 4
+export default struct MFRR_COMPONENT_HASH_INFO {
+    #StructPack 4
 
     /**
      * Specifies the reason for the revocation. The following values are defined.
@@ -174,37 +172,22 @@ class MFRR_COMPONENT_HASH_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ulReason {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulReason : UInt32
 
     /**
      * Contains a hash of the file header.
-     * @type {String}
      */
-    rgHeaderHash {
-        get => StrGet(this.ptr + 4, 42, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 42, "UTF-16")
-    }
+    rgHeaderHash : WCHAR[43]
 
     /**
      * Contains a hash of the public key in the component's certificate.
-     * @type {String}
      */
-    rgPublicKeyHash {
-        get => StrGet(this.ptr + 90, 42, "UTF-16")
-        set => StrPut(value, this.ptr + 90, 42, "UTF-16")
-    }
+    rgPublicKeyHash : WCHAR[43]
 
     /**
      * File name of the revoked component.
-     * @type {String}
      */
-    wszName {
-        get => StrGet(this.ptr + 176, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 176, 259, "UTF-16")
-    }
+    wszName : WCHAR[260]
+
 }

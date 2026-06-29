@@ -1,24 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
  */
-class DNS_HEADER_EXT extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 2
+export default struct DNS_HEADER_EXT {
+    #StructPack 2
 
     /**
      * This bitfield backs the following members:
      * - Reserved
      * - DnssecOk
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    _bitfield : Int16
+
 
     /**
      * @type {Integer}
@@ -27,20 +21,8 @@ class DNS_HEADER_EXT extends Win32Struct {
         get => (this._bitfield >> 15) & 0x1
         set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
     }
+    chRcode : Int8
 
-    /**
-     * @type {Integer}
-     */
-    chRcode {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    chVersion : Int8
 
-    /**
-     * @type {Integer}
-     */
-    chVersion {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
 }

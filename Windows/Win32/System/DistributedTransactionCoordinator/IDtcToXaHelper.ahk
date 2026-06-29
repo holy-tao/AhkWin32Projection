@@ -1,47 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\XID.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\XID.ahk" { XID }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITransaction.ahk" { ITransaction }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
  */
-class IDtcToXaHelper extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDtcToXaHelper extends IUnknown {
     /**
      * The interface identifier for IDtcToXaHelper
      * @type {Guid}
      */
-    static IID => Guid("{a9861611-304a-11d1-9813-00a0c905416e}")
+    static IID := Guid("{a9861611-304a-11d1-9813-00a0c905416e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDtcToXaHelper interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Close              : IntPtr
+        TranslateTridToXid : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDtcToXaHelper.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Close", "TranslateTridToXid"]
-
-    /**
-     * Use the Close-Session packet to tell the BITS server that file upload is complete and to end the session.
-     * @remarks
-     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
      * 
-     * For upload-reply jobs, you must download the reply before sending **Close-Session**. Otherwise, the reply is lost.
-     * 
-     * If you send this packet before uploading all fragments, the upload file is deleted; you cannot upload a partial file.
      * @param {BOOL} i_fDoRecovery 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Bits/close-session
      */
     Close(i_fDoRecovery) {
-        result := ComCall(3, this, "int", i_fDoRecovery, "HRESULT")
+        result := ComCall(3, this, BOOL, i_fDoRecovery, "HRESULT")
         return result
     }
 
@@ -53,7 +57,29 @@ class IDtcToXaHelper extends IUnknown {
      */
     TranslateTridToXid(pITransaction, pguidBqual) {
         pXid := XID()
-        result := ComCall(4, this, "ptr", pITransaction, "ptr", pguidBqual, "ptr", pXid, "HRESULT")
+        result := ComCall(4, this, "ptr", pITransaction, Guid.Ptr, pguidBqual, XID.Ptr, pXid, "HRESULT")
         return pXid
+    }
+
+    Query(iid) {
+        if (IDtcToXaHelper.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 2)
+        this.vtbl.TranslateTridToXid := CallbackCreate(GetMethod(implObj, "TranslateTridToXid"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.TranslateTridToXid)
     }
 }

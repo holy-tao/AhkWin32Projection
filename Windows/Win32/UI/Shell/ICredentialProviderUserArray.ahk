@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ICredentialProviderUser.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ICredentialProviderUser.ahk" { ICredentialProviderUser }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CREDENTIAL_PROVIDER_ACCOUNT_OPTIONS.ahk" { CREDENTIAL_PROVIDER_ACCOUNT_OPTIONS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents the set of users that will appear in the logon or credential UI. This information enables the credential provider to enumerate the set to retrieve property information about each user to populate fields or filter the set.
@@ -14,26 +16,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nn-credentialprovider-icredentialprovideruserarray
  * @namespace Windows.Win32.UI.Shell
  */
-class ICredentialProviderUserArray extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICredentialProviderUserArray extends IUnknown {
     /**
      * The interface identifier for ICredentialProviderUserArray
      * @type {Guid}
      */
-    static IID => Guid("{90c119ae-0f18-4520-a1f1-114366a40fe8}")
+    static IID := Guid("{90c119ae-0f18-4520-a1f1-114366a40fe8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICredentialProviderUserArray interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetProviderFilter : IntPtr
+        GetAccountOptions : IntPtr
+        GetCount          : IntPtr
+        GetAt             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetProviderFilter", "GetAccountOptions", "GetCount", "GetAt"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICredentialProviderUserArray.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Limits the set of users in the array to either local accounts or Microsoft accounts.
@@ -46,7 +58,7 @@ class ICredentialProviderUserArray extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovideruserarray-setproviderfilter
      */
     SetProviderFilter(guidProviderToFilterTo) {
-        result := ComCall(3, this, "ptr", guidProviderToFilterTo, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, guidProviderToFilterTo, "HRESULT")
         return result
     }
 
@@ -79,5 +91,31 @@ class ICredentialProviderUserArray extends IUnknown {
     GetAt(userIndex) {
         result := ComCall(6, this, "uint", userIndex, "ptr*", &user := 0, "HRESULT")
         return ICredentialProviderUser(user)
+    }
+
+    Query(iid) {
+        if (ICredentialProviderUserArray.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetProviderFilter := CallbackCreate(GetMethod(implObj, "SetProviderFilter"), flags, 2)
+        this.vtbl.GetAccountOptions := CallbackCreate(GetMethod(implObj, "GetAccountOptions"), flags, 2)
+        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetAt := CallbackCreate(GetMethod(implObj, "GetAt"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetProviderFilter)
+        CallbackFree(this.vtbl.GetAccountOptions)
+        CallbackFree(this.vtbl.GetCount)
+        CallbackFree(this.vtbl.GetAt)
     }
 }

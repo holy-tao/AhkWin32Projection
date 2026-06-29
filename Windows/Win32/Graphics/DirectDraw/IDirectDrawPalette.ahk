@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDirectDraw.ahk" { IDirectDraw }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Gdi\PALETTEENTRY.ahk" { PALETTEENTRY }
 
 /**
  * Applications use the methods of the IDirectDrawPalette interface to create DirectDrawPalette objects and work with system-level variables. This section is a reference to the methods of this interface.
@@ -47,26 +50,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/ddraw/nn-ddraw-idirectdrawpalette
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class IDirectDrawPalette extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectDrawPalette extends IUnknown {
     /**
      * The interface identifier for IDirectDrawPalette
      * @type {Guid}
      */
-    static IID => Guid("{6c14db84-a733-11ce-a521-0020af0be560}")
+    static IID := Guid("{6c14db84-a733-11ce-a521-0020af0be560}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectDrawPalette interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCaps    : IntPtr
+        GetEntries : IntPtr
+        Initialize : IntPtr
+        SetEntries : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCaps", "GetEntries", "Initialize", "SetEntries"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectDrawPalette.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the capabilities of the palette object.
@@ -108,7 +121,7 @@ class IDirectDrawPalette extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawpalette-getentries
      */
     GetEntries(param0, param1, param2, param3) {
-        result := ComCall(4, this, "uint", param0, "uint", param1, "uint", param2, "ptr", param3, "HRESULT")
+        result := ComCall(4, this, "uint", param0, "uint", param1, "uint", param2, PALETTEENTRY.Ptr, param3, "HRESULT")
         return result
     }
 
@@ -123,7 +136,7 @@ class IDirectDrawPalette extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawpalette-initialize
      */
     Initialize(param0, param1, param2) {
-        result := ComCall(5, this, "ptr", param0, "uint", param1, "ptr", param2, "HRESULT")
+        result := ComCall(5, this, "ptr", param0, "uint", param1, PALETTEENTRY.Ptr, param2, "HRESULT")
         return result
     }
 
@@ -149,7 +162,33 @@ class IDirectDrawPalette extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawpalette-setentries
      */
     SetEntries(param0, param1, param2, param3) {
-        result := ComCall(6, this, "uint", param0, "uint", param1, "uint", param2, "ptr", param3, "HRESULT")
+        result := ComCall(6, this, "uint", param0, "uint", param1, "uint", param2, PALETTEENTRY.Ptr, param3, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectDrawPalette.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCaps := CallbackCreate(GetMethod(implObj, "GetCaps"), flags, 2)
+        this.vtbl.GetEntries := CallbackCreate(GetMethod(implObj, "GetEntries"), flags, 5)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.SetEntries := CallbackCreate(GetMethod(implObj, "SetEntries"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCaps)
+        CallbackFree(this.vtbl.GetEntries)
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.SetEntries)
     }
 }

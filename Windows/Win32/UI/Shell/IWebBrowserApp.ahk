@@ -1,37 +1,62 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWebBrowser.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\SHANDLE_PTR.ahk" { SHANDLE_PTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWebBrowser.ahk" { IWebBrowser }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
- * Gets the handle of the Windows Internet Explorer main window.
- * @remarks
- * Internet Explorer 7. With the introduction of tabbed browsing, the return value of this method can be ambiguous. To alleviate confusion and maintain the highest level of compatibility with existing applications, this method returns a handle to the top-level window frame, not the currently selected tab.
- * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-iwebbrowserapp-get_hwnd
  * @namespace Windows.Win32.UI.Shell
  */
-class IWebBrowserApp extends IWebBrowser {
-
-    static sizeof => A_PtrSize
+export default struct IWebBrowserApp extends IWebBrowser {
     /**
      * The interface identifier for IWebBrowserApp
      * @type {Guid}
      */
-    static IID => Guid("{0002df05-0000-0000-c000-000000000046}")
+    static IID := Guid("{0002df05-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 32
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWebBrowserApp interfaces
+    */
+    struct Vtbl extends IWebBrowser.Vtbl {
+        Quit           : IntPtr
+        ClientToWindow : IntPtr
+        PutProperty    : IntPtr
+        GetProperty    : IntPtr
+        get_Name       : IntPtr
+        get_HWND       : IntPtr
+        get_FullName   : IntPtr
+        get_Path       : IntPtr
+        get_Visible    : IntPtr
+        put_Visible    : IntPtr
+        get_StatusBar  : IntPtr
+        put_StatusBar  : IntPtr
+        get_StatusText : IntPtr
+        put_StatusText : IntPtr
+        get_ToolBar    : IntPtr
+        put_ToolBar    : IntPtr
+        get_MenuBar    : IntPtr
+        put_MenuBar    : IntPtr
+        get_FullScreen : IntPtr
+        put_FullScreen : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Quit", "ClientToWindow", "PutProperty", "GetProperty", "get_Name", "get_HWND", "get_FullName", "get_Path", "get_Visible", "put_Visible", "get_StatusBar", "put_StatusBar", "get_StatusText", "put_StatusText", "get_ToolBar", "put_ToolBar", "get_MenuBar", "put_MenuBar", "get_FullScreen", "put_FullScreen"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWebBrowserApp.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -141,7 +166,7 @@ class IWebBrowserApp extends IWebBrowser {
     PutProperty(_Property, vtValue) {
         _Property := _Property is String ? BSTR.Alloc(_Property).Value : _Property
 
-        result := ComCall(34, this, "ptr", _Property, "ptr", vtValue, "HRESULT")
+        result := ComCall(34, this, BSTR, _Property, VARIANT, vtValue, "HRESULT")
         return result
     }
 
@@ -159,7 +184,7 @@ class IWebBrowserApp extends IWebBrowser {
         _Property := _Property is String ? BSTR.Alloc(_Property).Value : _Property
 
         pvtValue := VARIANT()
-        result := ComCall(35, this, "ptr", _Property, "ptr", pvtValue, "HRESULT")
+        result := ComCall(35, this, BSTR, _Property, VARIANT.Ptr, pvtValue, "HRESULT")
         return pvtValue
     }
 
@@ -168,8 +193,8 @@ class IWebBrowserApp extends IWebBrowser {
      * @returns {BSTR} 
      */
     get_Name() {
-        Name := BSTR()
-        result := ComCall(36, this, "ptr", Name, "HRESULT")
+        Name := BSTR.Owned()
+        result := ComCall(36, this, BSTR.Ptr, Name, "HRESULT")
         return Name
     }
 
@@ -181,7 +206,7 @@ class IWebBrowserApp extends IWebBrowser {
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-iwebbrowserapp-get_hwnd
      */
     get_HWND() {
-        result := ComCall(37, this, "ptr*", &pHWND := 0, "HRESULT")
+        result := ComCall(37, this, SHANDLE_PTR.Ptr, &pHWND := 0, "HRESULT")
         return pHWND
     }
 
@@ -190,8 +215,8 @@ class IWebBrowserApp extends IWebBrowser {
      * @returns {BSTR} 
      */
     get_FullName() {
-        FullName := BSTR()
-        result := ComCall(38, this, "ptr", FullName, "HRESULT")
+        FullName := BSTR.Owned()
+        result := ComCall(38, this, BSTR.Ptr, FullName, "HRESULT")
         return FullName
     }
 
@@ -200,8 +225,8 @@ class IWebBrowserApp extends IWebBrowser {
      * @returns {BSTR} 
      */
     get_Path() {
-        _Path := BSTR()
-        result := ComCall(39, this, "ptr", _Path, "HRESULT")
+        _Path := BSTR.Owned()
+        result := ComCall(39, this, BSTR.Ptr, _Path, "HRESULT")
         return _Path
     }
 
@@ -210,7 +235,7 @@ class IWebBrowserApp extends IWebBrowser {
      * @returns {VARIANT_BOOL} 
      */
     get_Visible() {
-        result := ComCall(40, this, "short*", &pBool := 0, "HRESULT")
+        result := ComCall(40, this, VARIANT_BOOL.Ptr, &pBool := 0, "HRESULT")
         return pBool
     }
 
@@ -220,7 +245,7 @@ class IWebBrowserApp extends IWebBrowser {
      * @returns {HRESULT} 
      */
     put_Visible(Value) {
-        result := ComCall(41, this, "short", Value, "HRESULT")
+        result := ComCall(41, this, VARIANT_BOOL, Value, "HRESULT")
         return result
     }
 
@@ -229,7 +254,7 @@ class IWebBrowserApp extends IWebBrowser {
      * @returns {VARIANT_BOOL} 
      */
     get_StatusBar() {
-        result := ComCall(42, this, "short*", &pBool := 0, "HRESULT")
+        result := ComCall(42, this, VARIANT_BOOL.Ptr, &pBool := 0, "HRESULT")
         return pBool
     }
 
@@ -239,7 +264,7 @@ class IWebBrowserApp extends IWebBrowser {
      * @returns {HRESULT} 
      */
     put_StatusBar(Value) {
-        result := ComCall(43, this, "short", Value, "HRESULT")
+        result := ComCall(43, this, VARIANT_BOOL, Value, "HRESULT")
         return result
     }
 
@@ -248,8 +273,8 @@ class IWebBrowserApp extends IWebBrowser {
      * @returns {BSTR} 
      */
     get_StatusText() {
-        StatusText := BSTR()
-        result := ComCall(44, this, "ptr", StatusText, "HRESULT")
+        StatusText := BSTR.Owned()
+        result := ComCall(44, this, BSTR.Ptr, StatusText, "HRESULT")
         return StatusText
     }
 
@@ -261,7 +286,7 @@ class IWebBrowserApp extends IWebBrowser {
     put_StatusText(StatusText) {
         StatusText := StatusText is String ? BSTR.Alloc(StatusText).Value : StatusText
 
-        result := ComCall(45, this, "ptr", StatusText, "HRESULT")
+        result := ComCall(45, this, BSTR, StatusText, "HRESULT")
         return result
     }
 
@@ -299,7 +324,7 @@ class IWebBrowserApp extends IWebBrowser {
      * @returns {VARIANT_BOOL} 
      */
     get_MenuBar() {
-        result := ComCall(48, this, "short*", &Value := 0, "HRESULT")
+        result := ComCall(48, this, VARIANT_BOOL.Ptr, &Value := 0, "HRESULT")
         return Value
     }
 
@@ -309,7 +334,7 @@ class IWebBrowserApp extends IWebBrowser {
      * @returns {HRESULT} 
      */
     put_MenuBar(Value) {
-        result := ComCall(49, this, "short", Value, "HRESULT")
+        result := ComCall(49, this, VARIANT_BOOL, Value, "HRESULT")
         return result
     }
 
@@ -318,7 +343,7 @@ class IWebBrowserApp extends IWebBrowser {
      * @returns {VARIANT_BOOL} 
      */
     get_FullScreen() {
-        result := ComCall(50, this, "short*", &pbFullScreen := 0, "HRESULT")
+        result := ComCall(50, this, VARIANT_BOOL.Ptr, &pbFullScreen := 0, "HRESULT")
         return pbFullScreen
     }
 
@@ -328,7 +353,65 @@ class IWebBrowserApp extends IWebBrowser {
      * @returns {HRESULT} 
      */
     put_FullScreen(bFullScreen) {
-        result := ComCall(51, this, "short", bFullScreen, "HRESULT")
+        result := ComCall(51, this, VARIANT_BOOL, bFullScreen, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWebBrowserApp.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Quit := CallbackCreate(GetMethod(implObj, "Quit"), flags, 1)
+        this.vtbl.ClientToWindow := CallbackCreate(GetMethod(implObj, "ClientToWindow"), flags, 3)
+        this.vtbl.PutProperty := CallbackCreate(GetMethod(implObj, "PutProperty"), flags, 3)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_HWND := CallbackCreate(GetMethod(implObj, "get_HWND"), flags, 2)
+        this.vtbl.get_FullName := CallbackCreate(GetMethod(implObj, "get_FullName"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.get_Visible := CallbackCreate(GetMethod(implObj, "get_Visible"), flags, 2)
+        this.vtbl.put_Visible := CallbackCreate(GetMethod(implObj, "put_Visible"), flags, 2)
+        this.vtbl.get_StatusBar := CallbackCreate(GetMethod(implObj, "get_StatusBar"), flags, 2)
+        this.vtbl.put_StatusBar := CallbackCreate(GetMethod(implObj, "put_StatusBar"), flags, 2)
+        this.vtbl.get_StatusText := CallbackCreate(GetMethod(implObj, "get_StatusText"), flags, 2)
+        this.vtbl.put_StatusText := CallbackCreate(GetMethod(implObj, "put_StatusText"), flags, 2)
+        this.vtbl.get_ToolBar := CallbackCreate(GetMethod(implObj, "get_ToolBar"), flags, 2)
+        this.vtbl.put_ToolBar := CallbackCreate(GetMethod(implObj, "put_ToolBar"), flags, 2)
+        this.vtbl.get_MenuBar := CallbackCreate(GetMethod(implObj, "get_MenuBar"), flags, 2)
+        this.vtbl.put_MenuBar := CallbackCreate(GetMethod(implObj, "put_MenuBar"), flags, 2)
+        this.vtbl.get_FullScreen := CallbackCreate(GetMethod(implObj, "get_FullScreen"), flags, 2)
+        this.vtbl.put_FullScreen := CallbackCreate(GetMethod(implObj, "put_FullScreen"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Quit)
+        CallbackFree(this.vtbl.ClientToWindow)
+        CallbackFree(this.vtbl.PutProperty)
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.get_HWND)
+        CallbackFree(this.vtbl.get_FullName)
+        CallbackFree(this.vtbl.get_Path)
+        CallbackFree(this.vtbl.get_Visible)
+        CallbackFree(this.vtbl.put_Visible)
+        CallbackFree(this.vtbl.get_StatusBar)
+        CallbackFree(this.vtbl.put_StatusBar)
+        CallbackFree(this.vtbl.get_StatusText)
+        CallbackFree(this.vtbl.put_StatusText)
+        CallbackFree(this.vtbl.get_ToolBar)
+        CallbackFree(this.vtbl.put_ToolBar)
+        CallbackFree(this.vtbl.get_MenuBar)
+        CallbackFree(this.vtbl.put_MenuBar)
+        CallbackFree(this.vtbl.get_FullScreen)
+        CallbackFree(this.vtbl.put_FullScreen)
     }
 }

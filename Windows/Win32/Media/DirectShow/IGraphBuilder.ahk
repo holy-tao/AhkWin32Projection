@@ -1,34 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFilterGraph.ahk
-#Include .\IBaseFilter.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IFilterGraph.ahk" { IFilterGraph }
+#Import ".\IBaseFilter.ahk" { IBaseFilter }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPin.ahk" { IPin }
 
 /**
  * This interface provides methods that enable an application to build a filter graph.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-igraphbuilder
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IGraphBuilder extends IFilterGraph {
-
-    static sizeof => A_PtrSize
+export default struct IGraphBuilder extends IFilterGraph {
     /**
      * The interface identifier for IGraphBuilder
      * @type {Guid}
      */
-    static IID => Guid("{56a868a9-0ad4-11ce-b03a-0020af0ba770}")
+    static IID := Guid("{56a868a9-0ad4-11ce-b03a-0020af0ba770}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 11
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGraphBuilder interfaces
+    */
+    struct Vtbl extends IFilterGraph.Vtbl {
+        Connect                 : IntPtr
+        Render                  : IntPtr
+        RenderFile              : IntPtr
+        AddSourceFilter         : IntPtr
+        SetLogFile              : IntPtr
+        Abort                   : IntPtr
+        ShouldOperationContinue : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Connect", "Render", "RenderFile", "AddSourceFilter", "SetLogFile", "Abort", "ShouldOperationContinue"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGraphBuilder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Connect method connects the two pins, using intermediates if necessary.
@@ -586,5 +602,37 @@ class IGraphBuilder extends IFilterGraph {
     ShouldOperationContinue() {
         result := ComCall(17, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IGraphBuilder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 3)
+        this.vtbl.Render := CallbackCreate(GetMethod(implObj, "Render"), flags, 2)
+        this.vtbl.RenderFile := CallbackCreate(GetMethod(implObj, "RenderFile"), flags, 3)
+        this.vtbl.AddSourceFilter := CallbackCreate(GetMethod(implObj, "AddSourceFilter"), flags, 4)
+        this.vtbl.SetLogFile := CallbackCreate(GetMethod(implObj, "SetLogFile"), flags, 2)
+        this.vtbl.Abort := CallbackCreate(GetMethod(implObj, "Abort"), flags, 1)
+        this.vtbl.ShouldOperationContinue := CallbackCreate(GetMethod(implObj, "ShouldOperationContinue"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Connect)
+        CallbackFree(this.vtbl.Render)
+        CallbackFree(this.vtbl.RenderFile)
+        CallbackFree(this.vtbl.AddSourceFilter)
+        CallbackFree(this.vtbl.SetLogFile)
+        CallbackFree(this.vtbl.Abort)
+        CallbackFree(this.vtbl.ShouldOperationContinue)
     }
 }

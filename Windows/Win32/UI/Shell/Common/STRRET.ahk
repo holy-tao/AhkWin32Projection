@@ -1,49 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains strings returned from the IShellFolder interface methods.
  * @see https://learn.microsoft.com/windows/win32/api/shtypes/ns-shtypes-strret
  * @namespace Windows.Win32.UI.Shell.Common
  */
-class STRRET extends Win32Struct {
-    static sizeof => 272
-
-    static packingSize => 8
+export default struct STRRET {
+    #StructPack 8
 
     /**
      * Type: <b>UINT</b>
-     * @type {Integer}
      */
-    uType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    uType : UInt32
 
-    /**
-     * @type {PWSTR}
-     */
-    pOleStr {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pOleStr : PWSTR
 
-    /**
-     * @type {Integer}
-     */
-    uOffset {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    cStr {
-        get {
-            if(!this.HasProp("__cStrProxyArray"))
-                this.__cStrProxyArray := Win32FixedArray(this.ptr + 8, 260, Primitive, "char")
-            return this.__cStrProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'uOffset', { type: UInt32, offset: 8 })
+        DefineProp(this.Prototype, 'cStr', { type: Int8[260], offset: 8 })
+        this.DeleteProp("__New")
     }
 }

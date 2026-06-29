@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Used for limiting callout enumerations.
@@ -8,26 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_callout_enum_template0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class FWPM_CALLOUT_ENUM_TEMPLATE0 extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct FWPM_CALLOUT_ENUM_TEMPLATE0 {
+    #StructPack 8
 
     /**
      * Uniquely identifies the provider associated with the callout. If this member is non-NULL, only objects associated with the specified provider will be returned.
-     * @type {Pointer<Guid>}
      */
-    providerKey {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    providerKey : Guid.Ptr
 
     /**
      * Uniquely identifies a layer. If this member is non-NULL, only callouts associated with the specified layer will be returned.
-     * @type {Pointer}
      */
-    layerKey {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    layerKey : Guid
+
 }

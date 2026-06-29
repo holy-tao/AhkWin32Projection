@@ -1,33 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMReaderAdvanced3.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IWMReaderAdvanced3.ahk" { IWMReaderAdvanced3 }
 
 /**
  * The IWMReaderAdvanced4 interface provides additional functionality to the reader.An IWMReaderAdvanced4 interface exists for every reader object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreaderadvanced4
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMReaderAdvanced4 extends IWMReaderAdvanced3 {
-
-    static sizeof => A_PtrSize
+export default struct IWMReaderAdvanced4 extends IWMReaderAdvanced3 {
     /**
      * The interface identifier for IWMReaderAdvanced4
      * @type {Guid}
      */
-    static IID => Guid("{945a76a2-12ae-4d48-bd3c-cd1d90399b85}")
+    static IID := Guid("{945a76a2-12ae-4d48-bd3c-cd1d90399b85}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 40
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMReaderAdvanced4 interfaces
+    */
+    struct Vtbl extends IWMReaderAdvanced3.Vtbl {
+        GetLanguageCount  : IntPtr
+        GetLanguage       : IntPtr
+        GetMaxSpeedFactor : IntPtr
+        IsUsingFastCache  : IntPtr
+        AddLogParam       : IntPtr
+        SendLogParams     : IntPtr
+        CanSaveFileAs     : IntPtr
+        CancelSaveFileAs  : IntPtr
+        GetURL            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetLanguageCount", "GetLanguage", "GetMaxSpeedFactor", "IsUsingFastCache", "AddLogParam", "SendLogParams", "CanSaveFileAs", "CancelSaveFileAs", "GetURL"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMReaderAdvanced4.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetLanguageCount method retrieves the total number of languages supported by an output. Only outputs associated with streams mutually exclusive by language will have more than one supported language.
@@ -98,7 +116,7 @@ class IWMReaderAdvanced4 extends IWMReaderAdvanced3 {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced4-isusingfastcache
      */
     IsUsingFastCache() {
-        result := ComCall(43, this, "int*", &pfUsingFastCache := 0, "HRESULT")
+        result := ComCall(43, this, BOOL.Ptr, &pfUsingFastCache := 0, "HRESULT")
         return pfUsingFastCache
     }
 
@@ -208,7 +226,7 @@ class IWMReaderAdvanced4 extends IWMReaderAdvanced3 {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced4-cansavefileas
      */
     CanSaveFileAs() {
-        result := ComCall(46, this, "int*", &pfCanSave := 0, "HRESULT")
+        result := ComCall(46, this, BOOL.Ptr, &pfCanSave := 0, "HRESULT")
         return pfCanSave
     }
 
@@ -285,5 +303,41 @@ class IWMReaderAdvanced4 extends IWMReaderAdvanced3 {
 
         result := ComCall(48, this, "ptr", pwszURL, pcchURLMarshal, pcchURL, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMReaderAdvanced4.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetLanguageCount := CallbackCreate(GetMethod(implObj, "GetLanguageCount"), flags, 3)
+        this.vtbl.GetLanguage := CallbackCreate(GetMethod(implObj, "GetLanguage"), flags, 5)
+        this.vtbl.GetMaxSpeedFactor := CallbackCreate(GetMethod(implObj, "GetMaxSpeedFactor"), flags, 2)
+        this.vtbl.IsUsingFastCache := CallbackCreate(GetMethod(implObj, "IsUsingFastCache"), flags, 2)
+        this.vtbl.AddLogParam := CallbackCreate(GetMethod(implObj, "AddLogParam"), flags, 4)
+        this.vtbl.SendLogParams := CallbackCreate(GetMethod(implObj, "SendLogParams"), flags, 1)
+        this.vtbl.CanSaveFileAs := CallbackCreate(GetMethod(implObj, "CanSaveFileAs"), flags, 2)
+        this.vtbl.CancelSaveFileAs := CallbackCreate(GetMethod(implObj, "CancelSaveFileAs"), flags, 1)
+        this.vtbl.GetURL := CallbackCreate(GetMethod(implObj, "GetURL"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetLanguageCount)
+        CallbackFree(this.vtbl.GetLanguage)
+        CallbackFree(this.vtbl.GetMaxSpeedFactor)
+        CallbackFree(this.vtbl.IsUsingFastCache)
+        CallbackFree(this.vtbl.AddLogParam)
+        CallbackFree(this.vtbl.SendLogParams)
+        CallbackFree(this.vtbl.CanSaveFileAs)
+        CallbackFree(this.vtbl.CancelSaveFileAs)
+        CallbackFree(this.vtbl.GetURL)
     }
 }

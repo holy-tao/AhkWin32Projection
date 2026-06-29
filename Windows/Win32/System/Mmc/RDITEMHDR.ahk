@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
 
 /**
  * The RDITEMHDR structure is introduced in MMC 1.2.
@@ -12,35 +12,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-rditemhdr
  * @namespace Windows.Win32.System.Mmc
  */
-class RDITEMHDR extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct RDITEMHDR {
+    #StructPack 8
 
     /**
      * A value that specifies whether the item is a scope or result item. If the <b>RDCI_ScopeItem</b> (0x80000000) flag is set, the item is a scope item. Otherwise, the item is a result item.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
     /**
      * The unique identifier of the scope or result item object to be compared as part of the sorting operation.
-     * @type {Pointer}
      */
-    cookie {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    cookie : IntPtr
 
     /**
      * Reserved for future use.
-     * @type {LPARAM}
      */
-    lpReserved {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpReserved : LPARAM
+
 }

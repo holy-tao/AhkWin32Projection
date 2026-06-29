@@ -1,44 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Contains extended parameters for the TrackPopupMenuEx function.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-tpmparams
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class TPMPARAMS extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct TPMPARAMS {
+    #StructPack 4
 
     /**
      * Type: <b>UINT</b>
      * 
      * The size of structure, in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a></b>
      * 
      * The rectangle to be excluded when positioning the window, in screen coordinates.
-     * @type {RECT}
      */
-    rcExclude {
-        get {
-            if(!this.HasProp("__rcExclude"))
-                this.__rcExclude := RECT(4, this)
-            return this.__rcExclude
-        }
-    }
+    rcExclude : RECT
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 20
-    }
 }

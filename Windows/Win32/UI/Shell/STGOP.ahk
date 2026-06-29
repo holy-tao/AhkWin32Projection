@@ -1,14 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Specifies features of the storage object, such as sector size, in the StgCreateStorageEx and StgOpenStorageEx functions.
- * @remarks
- * <b>STGOPTIONS</b> is only supported on Unicode APIs.
- * @see https://learn.microsoft.com/windows/win32/api/coml2api/ns-coml2api-stgoptions
  * @namespace Windows.Win32.UI.Shell
  */
-class STGOP extends Win32Enum {
+export default struct STGOP {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

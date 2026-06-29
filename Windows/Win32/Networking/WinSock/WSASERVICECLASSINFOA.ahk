@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSANSCLASSINFOA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WSANSCLASSINFOA.ahk" { WSANSCLASSINFOA }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The WSASERVICECLASSINFO structure contains information about a specified service class. For each service class in Windows Sockets 2, there is a single WSASERVICECLASSINFO structure. (ANSI)
@@ -12,44 +13,27 @@
  * @charset ANSI
  * @deprecated WSASERVICECLASSINFOW
  */
-class WSASERVICECLASSINFOA extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct WSASERVICECLASSINFOA {
+    #StructPack 8
 
     /**
      * Unique Identifier (GUID) for the service class.
-     * @type {Pointer<Guid>}
      */
-    lpServiceClassId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpServiceClassId : Guid.Ptr
 
     /**
      * Well known name associated with the service class.
-     * @type {PSTR}
      */
-    lpszServiceClassName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpszServiceClassName : PSTR
 
     /**
      * Number of entries in <b>lpClassInfos</b>.
-     * @type {Integer}
      */
-    dwCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwCount : UInt32
 
     /**
      * Array of <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsansclassinfow">WSANSCLASSINFO</a> structures that contains information about the service class.
-     * @type {Pointer<WSANSCLASSINFOA>}
      */
-    lpClassInfos {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpClassInfos : WSANSCLASSINFOA.Ptr
+
 }

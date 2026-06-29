@@ -1,38 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class RUNTIME_REPORT_DIGEST_HEADER extends Win32Struct {
-    static sizeof => 68
+export default struct RUNTIME_REPORT_DIGEST_HEADER {
+    #StructPack 2
 
-    static packingSize => 2
+    ReportType : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ReportType {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Reserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    ReportDigest : Int8[64]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ReportDigest {
-        get {
-            if(!this.HasProp("__ReportDigestProxyArray"))
-                this.__ReportDigestProxyArray := Win32FixedArray(this.ptr + 4, 64, Primitive, "char")
-            return this.__ReportDigestProxyArray
-        }
-    }
 }

@@ -1,49 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSAPOLLFD.ahk
-#Include .\SOCKET.ahk
-#Include .\WSAPOLL_EVENT_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WSAPOLL_EVENT_FLAGS.ahk" { WSAPOLL_EVENT_FLAGS }
+#Import ".\WSAPOLLFD.ahk" { WSAPOLLFD }
+#Import ".\SOCKET.ahk" { SOCKET }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class WSAPOLLDATA extends Win32Struct {
-    static sizeof => 32
+export default struct WSAPOLLDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    result : Int32
 
-    /**
-     * @type {Integer}
-     */
-    result {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    fds : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fds {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    timeout : Int32
 
-    /**
-     * @type {Integer}
-     */
-    timeout {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    fdArray : WSAPOLLFD[1]
 
-    /**
-     * @type {WSAPOLLFD}
-     */
-    fdArray {
-        get {
-            if(!this.HasProp("__fdArrayProxyArray"))
-                this.__fdArrayProxyArray := Win32FixedArray(this.ptr + 16, 1, WSAPOLLFD, "")
-            return this.__fdArrayProxyArray
-        }
-    }
 }

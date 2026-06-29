@@ -1,86 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_OBJECT_HEADER.ahk
-#Include .\NET_LUID_LH.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
+#Import ".\NET_LUID_LH.ahk" { NET_LUID_LH }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NDIS_WMI_EVENT_HEADER extends Win32Struct {
-    static sizeof => 48
+export default struct NDIS_WMI_EVENT_HEADER {
+    #StructPack 8
 
-    static packingSize => 8
+    Header : NDIS_OBJECT_HEADER
 
-    /**
-     * @type {NDIS_OBJECT_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    IfIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    IfIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NetLuid : NET_LUID_LH
 
-    /**
-     * @type {NET_LUID_LH}
-     */
-    NetLuid {
-        get {
-            if(!this.HasProp("__NetLuid"))
-                this.__NetLuid := NET_LUID_LH(8, this)
-            return this.__NetLuid
-        }
-    }
+    RequestId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    RequestId {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    PortNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PortNumber {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    DeviceNameLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DeviceNameLength {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    DeviceNameOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DeviceNameOffset {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    Padding : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Padding {
-        get {
-            if(!this.HasProp("__PaddingProxyArray"))
-                this.__PaddingProxyArray := Win32FixedArray(this.ptr + 44, 4, Primitive, "char")
-            return this.__PaddingProxyArray
-        }
-    }
 }

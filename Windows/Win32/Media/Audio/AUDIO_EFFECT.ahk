@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\AUDIO_EFFECT_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\AUDIO_EFFECT_STATE.ahk" { AUDIO_EFFECT_STATE }
 
 /**
  * Represents an audio effect.
@@ -9,35 +10,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/audioclient/ns-audioclient-audio_effect
  * @namespace Windows.Win32.Media.Audio
  */
-class AUDIO_EFFECT extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct AUDIO_EFFECT {
+    #StructPack 4
 
     /**
      * The GUID identifier for an audio effect. Audio effect GUIDs are defined in [ksmedia.h](/windows-hardware/drivers/audio/ksmedia-h).
-     * @type {Pointer}
      */
-    id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    id : Guid
 
     /**
      * A boolean value specifying whether the effect state can be modified.
-     * @type {BOOL}
      */
-    canSetState {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    canSetState : BOOL
 
     /**
      * A member of the [AUDIO_EFFECT_STATE](ne-audioclient-audio_effect_state.md) enumeration specifying the state of the audio effect.
-     * @type {AUDIO_EFFECT_STATE}
      */
-    state {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    state : AUDIO_EFFECT_STATE
+
 }

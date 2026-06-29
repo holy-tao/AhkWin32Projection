@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ICertProperty.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\ICertProperty.ahk" { ICertProperty }
 
 /**
  * Represents an external certificate property that identifies whether a certificate has been backed up and, if so, the date and time that it was saved.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icertpropertybackedup
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICertPropertyBackedUp extends ICertProperty {
-
-    static sizeof => A_PtrSize
+export default struct ICertPropertyBackedUp extends ICertProperty {
     /**
      * The interface identifier for ICertPropertyBackedUp
      * @type {Guid}
      */
-    static IID => Guid("{728ab338-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab338-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICertPropertyBackedUp interfaces
+    */
+    struct Vtbl extends ICertProperty.Vtbl {
+        InitializeFromCurrentTime : IntPtr
+        Initialize                : IntPtr
+        get_BackedUpValue         : IntPtr
+        get_BackedUpTime          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializeFromCurrentTime", "Initialize", "get_BackedUpValue", "get_BackedUpTime"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICertPropertyBackedUp.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -89,7 +101,7 @@ class ICertPropertyBackedUp extends ICertProperty {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertybackedup-initializefromcurrenttime
      */
     InitializeFromCurrentTime(BackedUpValue) {
-        result := ComCall(14, this, "short", BackedUpValue, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL, BackedUpValue, "HRESULT")
         return result
     }
 
@@ -140,7 +152,7 @@ class ICertPropertyBackedUp extends ICertProperty {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertybackedup-initialize
      */
     Initialize(BackedUpValue, Date) {
-        result := ComCall(15, this, "short", BackedUpValue, "double", Date, "HRESULT")
+        result := ComCall(15, this, VARIANT_BOOL, BackedUpValue, "double", Date, "HRESULT")
         return result
     }
 
@@ -152,7 +164,7 @@ class ICertPropertyBackedUp extends ICertProperty {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertybackedup-get_backedupvalue
      */
     get_BackedUpValue() {
-        result := ComCall(16, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(16, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -170,5 +182,31 @@ class ICertPropertyBackedUp extends ICertProperty {
     get_BackedUpTime() {
         result := ComCall(17, this, "double*", &pDate := 0, "HRESULT")
         return pDate
+    }
+
+    Query(iid) {
+        if (ICertPropertyBackedUp.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializeFromCurrentTime := CallbackCreate(GetMethod(implObj, "InitializeFromCurrentTime"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.get_BackedUpValue := CallbackCreate(GetMethod(implObj, "get_BackedUpValue"), flags, 2)
+        this.vtbl.get_BackedUpTime := CallbackCreate(GetMethod(implObj, "get_BackedUpTime"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializeFromCurrentTime)
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.get_BackedUpValue)
+        CallbackFree(this.vtbl.get_BackedUpTime)
     }
 }

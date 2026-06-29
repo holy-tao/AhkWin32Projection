@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WICRect.ahk" { WICRect }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WICBitmapTransformOptions.ahk" { WICBitmapTransformOptions }
 
 /**
  * Exposes methods for offloading certain operations to the underlying IWICBitmapSource implementation.
@@ -10,26 +14,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicbitmapsourcetransform
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class IWICBitmapSourceTransform extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWICBitmapSourceTransform extends IUnknown {
     /**
      * The interface identifier for IWICBitmapSourceTransform
      * @type {Guid}
      */
-    static IID => Guid("{3b16811b-6a43-4ec9-b713-3d5a0c13b940}")
+    static IID := Guid("{3b16811b-6a43-4ec9-b713-3d5a0c13b940}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWICBitmapSourceTransform interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CopyPixels            : IntPtr
+        GetClosestSize        : IntPtr
+        GetClosestPixelFormat : IntPtr
+        DoesSupportTransform  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CopyPixels", "GetClosestSize", "GetClosestPixelFormat", "DoesSupportTransform"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWICBitmapSourceTransform.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Copies pixel data using the supplied input parameters.
@@ -92,7 +106,7 @@ class IWICBitmapSourceTransform extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapsourcetransform-copypixels
      */
     CopyPixels(prc, uiWidth, uiHeight, pguidDstFormat, dstTransform, nStride, cbBufferSize) {
-        result := ComCall(3, this, "ptr", prc, "uint", uiWidth, "uint", uiHeight, "ptr", pguidDstFormat, "int", dstTransform, "uint", nStride, "uint", cbBufferSize, "char*", &pbBuffer := 0, "HRESULT")
+        result := ComCall(3, this, WICRect.Ptr, prc, "uint", uiWidth, "uint", uiHeight, Guid.Ptr, pguidDstFormat, WICBitmapTransformOptions, dstTransform, "uint", nStride, "uint", cbBufferSize, "char*", &pbBuffer := 0, "HRESULT")
         return pbBuffer
     }
 
@@ -146,7 +160,7 @@ class IWICBitmapSourceTransform extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapsourcetransform-getclosestpixelformat
      */
     GetClosestPixelFormat(pguidDstFormat) {
-        result := ComCall(5, this, "ptr", pguidDstFormat, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, pguidDstFormat, "HRESULT")
         return result
     }
 
@@ -170,7 +184,33 @@ class IWICBitmapSourceTransform extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapsourcetransform-doessupporttransform
      */
     DoesSupportTransform(dstTransform) {
-        result := ComCall(6, this, "int", dstTransform, "int*", &pfIsSupported := 0, "HRESULT")
+        result := ComCall(6, this, WICBitmapTransformOptions, dstTransform, BOOL.Ptr, &pfIsSupported := 0, "HRESULT")
         return pfIsSupported
+    }
+
+    Query(iid) {
+        if (IWICBitmapSourceTransform.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CopyPixels := CallbackCreate(GetMethod(implObj, "CopyPixels"), flags, 9)
+        this.vtbl.GetClosestSize := CallbackCreate(GetMethod(implObj, "GetClosestSize"), flags, 3)
+        this.vtbl.GetClosestPixelFormat := CallbackCreate(GetMethod(implObj, "GetClosestPixelFormat"), flags, 2)
+        this.vtbl.DoesSupportTransform := CallbackCreate(GetMethod(implObj, "DoesSupportTransform"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CopyPixels)
+        CallbackFree(this.vtbl.GetClosestSize)
+        CallbackFree(this.vtbl.GetClosestPixelFormat)
+        CallbackFree(this.vtbl.DoesSupportTransform)
     }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies component enumeration options.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wiccomponentenumerateoptions
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class WICComponentEnumerateOptions extends Win32Enum {
+export default struct WICComponentEnumerateOptions {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Enumerate any components that are not disabled. Because this value is 0x0, it is always included with the other options.

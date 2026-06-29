@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The ADDRESS_CAPABILITY_STRING enum is used to check on address capabilities which are described by strings.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-address_capability_string
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ADDRESS_CAPABILITY_STRING extends Win32Enum {
+export default struct ADDRESS_CAPABILITY_STRING {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Describes a protocol-specific capability. The value is returned as a GUID in string format. For possible values, see 

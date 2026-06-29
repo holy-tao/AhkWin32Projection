@@ -1,59 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\TOKEN_USER.ahk
-#Include ..\..\Security\SID_AND_ATTRIBUTES.ahk
-#Include ..\..\Security\SID.ahk
-#Include ..\..\Security\SID_IDENTIFIER_AUTHORITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Security\SID.ahk" { SID }
+#Import "..\..\Security\SID_AND_ATTRIBUTES.ahk" { SID_AND_ATTRIBUTES }
+#Import "..\..\Security\TOKEN_USER.ahk" { TOKEN_USER }
+#Import "..\..\Security\SID_IDENTIFIER_AUTHORITY.ahk" { SID_IDENTIFIER_AUTHORITY }
+#Import "..\..\Security\PSID.ahk" { PSID }
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class SE_TOKEN_USER extends Win32Struct {
-    static sizeof => 88
+export default struct SE_TOKEN_USER {
+    #StructPack 8
 
-    static packingSize => 8
+    TokenUser : TOKEN_USER
 
-    /**
-     * @type {TOKEN_USER}
-     */
-    TokenUser {
-        get {
-            if(!this.HasProp("__TokenUser"))
-                this.__TokenUser := TOKEN_USER(0, this)
-            return this.__TokenUser
-        }
-    }
+    Sid : SID
 
-    /**
-     * @type {SID_AND_ATTRIBUTES}
-     */
-    User {
-        get {
-            if(!this.HasProp("__User"))
-                this.__User := SID_AND_ATTRIBUTES(0, this)
-            return this.__User
-        }
-    }
-
-    /**
-     * @type {SID}
-     */
-    Sid {
-        get {
-            if(!this.HasProp("__Sid"))
-                this.__Sid := SID(16, this)
-            return this.__Sid
-        }
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    Buffer {
-        get {
-            if(!this.HasProp("__BufferProxyArray"))
-                this.__BufferProxyArray := Win32FixedArray(this.ptr + 16, 68, Primitive, "char")
-            return this.__BufferProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'User', { type: SID_AND_ATTRIBUTES, offset: 0 })
+        DefineProp(this.Prototype, 'Buffer', { type: Int8[68], offset: 16 })
+        this.DeleteProp("__New")
     }
 }

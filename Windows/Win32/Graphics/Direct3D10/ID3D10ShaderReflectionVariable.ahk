@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\D3D10_SHADER_VARIABLE_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID3D10ShaderReflectionType.ahk" { ID3D10ShaderReflectionType }
+#Import ".\D3D10_SHADER_VARIABLE_DESC.ahk" { D3D10_SHADER_VARIABLE_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This shader-reflection interface provides access to a variable. (ID3D10ShaderReflectionVariable)
@@ -10,26 +12,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nn-d3d10shader-id3d10shaderreflectionvariable
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class ID3D10ShaderReflectionVariable extends Win32ComInterface {
-
-    static sizeof => A_PtrSize
+export default struct ID3D10ShaderReflectionVariable extends Win32ComInterface {
     /**
      * The interface identifier for ID3D10ShaderReflectionVariable
      * @type {Guid}
      */
-    static IID => Guid("{1bf63c95-2650-405d-99c1-3636bd1da0a1}")
+    static IID := Guid("{1bf63c95-2650-405d-99c1-3636bd1da0a1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 0
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D10ShaderReflectionVariable interfaces
+    */
+    struct Vtbl {
+        GetDesc : IntPtr
+        GetType : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDesc", "GetType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D10ShaderReflectionVariable.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Get a shader-variable description. (ID3D10ShaderReflectionVariable.GetDesc)
@@ -40,7 +50,7 @@ class ID3D10ShaderReflectionVariable extends Win32ComInterface {
      */
     GetDesc() {
         pDesc := D3D10_SHADER_VARIABLE_DESC()
-        result := ComCall(0, this, "ptr", pDesc, "HRESULT")
+        result := ComCall(0, this, D3D10_SHADER_VARIABLE_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -52,7 +62,14 @@ class ID3D10ShaderReflectionVariable extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-id3d10shaderreflectionvariable-gettype
      */
     GetType() {
-        result := ComCall(1, this, "ptr")
+        result := ComCall(1, this, ID3D10ShaderReflectionType)
         return result
+    }
+
+    Query(iid) {
+        if (ID3D10ShaderReflectionVariable.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
     }
 }

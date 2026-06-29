@@ -1,70 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class PROCESS_COMMIT_USAGE extends Win32Struct {
-    static sizeof => 64
+export default struct PROCESS_COMMIT_USAGE {
+    #StructPack 8
 
-    static packingSize => 8
+    ImageFileName : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ImageFileName {
-        get {
-            if(!this.HasProp("__ImageFileNameProxyArray"))
-                this.__ImageFileNameProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
-            return this.__ImageFileNameProxyArray
-        }
-    }
+    ClientId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ClientId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ProcessAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ProcessAddress {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    CommitCharge : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CommitCharge {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    SharedCommitCharge : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SharedCommitCharge {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ReleasedCommitDebt : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ReleasedCommitDebt {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    Reserved : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
 }

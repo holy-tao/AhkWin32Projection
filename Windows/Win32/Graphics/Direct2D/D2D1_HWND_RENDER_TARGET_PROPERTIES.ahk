@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include Common\D2D_SIZE_U.ahk
-#Include .\D2D1_PRESENT_OPTIONS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "Common\D2D_SIZE_U.ahk" { D2D_SIZE_U }
+#Import ".\D2D1_PRESENT_OPTIONS.ahk" { D2D1_PRESENT_OPTIONS }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * Contains the HWND, pixel size, and presentation options for an ID2D1HwndRenderTarget.
@@ -13,47 +12,28 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_hwnd_render_target_properties
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_HWND_RENDER_TARGET_PROPERTIES extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct D2D1_HWND_RENDER_TARGET_PROPERTIES {
+    #StructPack 8
 
     /**
      * Type: <b>HWND</b>
      * 
      * The HWND to which the render target issues the output from its drawing commands.
-     * @type {HWND}
      */
-    hwnd {
-        get {
-            if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(0, this)
-            return this.__hwnd
-        }
-    }
+    hwnd : HWND
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-size-u">D2D1_SIZE_U</a></b>
      * 
      * The size of the render target, in pixels.
-     * @type {D2D_SIZE_U}
      */
-    pixelSize {
-        get {
-            if(!this.HasProp("__pixelSize"))
-                this.__pixelSize := D2D_SIZE_U(8, this)
-            return this.__pixelSize
-        }
-    }
+    pixelSize : D2D_SIZE_U
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_present_options">D2D1_PRESENT_OPTIONS</a></b>
      * 
      * A value that specifies whether the render target retains the frame after it is presented and whether the render target waits for the device to refresh before presenting.
-     * @type {D2D1_PRESENT_OPTIONS}
      */
-    presentOptions {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    presentOptions : D2D1_PRESENT_OPTIONS
+
 }

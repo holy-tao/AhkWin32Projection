@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Graphics\Imaging\IWICBitmapSource.ahk
-#Include .\IMILBitmapEffectGroup.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Graphics\Imaging\IWICBitmapSource.ahk" { IWICBitmapSource }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMILBitmapEffectRenderContext.ahk" { IMILBitmapEffectRenderContext }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMILBitmapEffectGroup.ahk" { IMILBitmapEffectGroup }
 
 /**
  * Exposes methods that define a Windows Presentation Foundation (WPF) bitmap effect.
@@ -13,26 +15,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/mileffects/nn-mileffects-imilbitmapeffect
  * @namespace Windows.Win32.UI.Wpf
  */
-class IMILBitmapEffect extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMILBitmapEffect extends IUnknown {
     /**
      * The interface identifier for IMILBitmapEffect
      * @type {Guid}
      */
-    static IID => Guid("{8a6ff321-c944-4a1b-9944-9954af301258}")
+    static IID := Guid("{8a6ff321-c944-4a1b-9944-9954af301258}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMILBitmapEffect interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetOutput       : IntPtr
+        GetParentEffect : IntPtr
+        SetInputSource  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetOutput", "GetParentEffect", "SetInputSource"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMILBitmapEffect.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the output of the effect.
@@ -80,5 +91,29 @@ class IMILBitmapEffect extends IUnknown {
     SetInputSource(uiIndex, pBitmapSource) {
         result := ComCall(5, this, "uint", uiIndex, "ptr", pBitmapSource, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMILBitmapEffect.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetOutput := CallbackCreate(GetMethod(implObj, "GetOutput"), flags, 4)
+        this.vtbl.GetParentEffect := CallbackCreate(GetMethod(implObj, "GetParentEffect"), flags, 2)
+        this.vtbl.SetInputSource := CallbackCreate(GetMethod(implObj, "SetInputSource"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetOutput)
+        CallbackFree(this.vtbl.GetParentEffect)
+        CallbackFree(this.vtbl.SetInputSource)
     }
 }

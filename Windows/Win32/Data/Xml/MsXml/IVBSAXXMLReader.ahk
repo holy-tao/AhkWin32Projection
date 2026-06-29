@@ -1,37 +1,63 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
-#Include .\IVBSAXEntityResolver.ahk
-#Include .\IVBSAXContentHandler.ahk
-#Include .\IVBSAXDTDHandler.ahk
-#Include .\IVBSAXErrorHandler.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IVBSAXContentHandler.ahk" { IVBSAXContentHandler }
+#Import ".\IVBSAXDTDHandler.ahk" { IVBSAXDTDHandler }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IVBSAXErrorHandler.ahk" { IVBSAXErrorHandler }
+#Import ".\IVBSAXEntityResolver.ahk" { IVBSAXEntityResolver }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
  */
-class IVBSAXXMLReader extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IVBSAXXMLReader extends IDispatch {
     /**
      * The interface identifier for IVBSAXXMLReader
      * @type {Guid}
      */
-    static IID => Guid("{8c033caa-6cd6-4f73-b728-4531af74945f}")
+    static IID := Guid("{8c033caa-6cd6-4f73-b728-4531af74945f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVBSAXXMLReader interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        getFeature            : IntPtr
+        putFeature            : IntPtr
+        getProperty           : IntPtr
+        putProperty           : IntPtr
+        get_entityResolver    : IntPtr
+        putref_entityResolver : IntPtr
+        get_contentHandler    : IntPtr
+        putref_contentHandler : IntPtr
+        get_dtdHandler        : IntPtr
+        putref_dtdHandler     : IntPtr
+        get_errorHandler      : IntPtr
+        putref_errorHandler   : IntPtr
+        get_baseURL           : IntPtr
+        put_baseURL           : IntPtr
+        get_secureBaseURL     : IntPtr
+        put_secureBaseURL     : IntPtr
+        parse                 : IntPtr
+        parseURL              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["getFeature", "putFeature", "getProperty", "putProperty", "get_entityResolver", "putref_entityResolver", "get_contentHandler", "putref_contentHandler", "get_dtdHandler", "putref_dtdHandler", "get_errorHandler", "putref_errorHandler", "get_baseURL", "put_baseURL", "get_secureBaseURL", "put_secureBaseURL", "parse", "parseURL"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVBSAXXMLReader.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IVBSAXEntityResolver} 
@@ -85,7 +111,7 @@ class IVBSAXXMLReader extends IDispatch {
     getFeature(strName) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(7, this, "ptr", strName, "short*", &fValue := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, strName, VARIANT_BOOL.Ptr, &fValue := 0, "HRESULT")
         return fValue
     }
 
@@ -98,7 +124,7 @@ class IVBSAXXMLReader extends IDispatch {
     putFeature(strName, fValue) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(8, this, "ptr", strName, "short", fValue, "HRESULT")
+        result := ComCall(8, this, BSTR, strName, VARIANT_BOOL, fValue, "HRESULT")
         return result
     }
 
@@ -111,7 +137,7 @@ class IVBSAXXMLReader extends IDispatch {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
         varValue := VARIANT()
-        result := ComCall(9, this, "ptr", strName, "ptr", varValue, "HRESULT")
+        result := ComCall(9, this, BSTR, strName, VARIANT.Ptr, varValue, "HRESULT")
         return varValue
     }
 
@@ -124,7 +150,7 @@ class IVBSAXXMLReader extends IDispatch {
     putProperty(strName, varValue) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(10, this, "ptr", strName, "ptr", varValue, "HRESULT")
+        result := ComCall(10, this, BSTR, strName, VARIANT, varValue, "HRESULT")
         return result
     }
 
@@ -209,8 +235,8 @@ class IVBSAXXMLReader extends IDispatch {
      * @returns {BSTR} 
      */
     get_baseURL() {
-        strBaseURL := BSTR()
-        result := ComCall(19, this, "ptr", strBaseURL, "HRESULT")
+        strBaseURL := BSTR.Owned()
+        result := ComCall(19, this, BSTR.Ptr, strBaseURL, "HRESULT")
         return strBaseURL
     }
 
@@ -222,7 +248,7 @@ class IVBSAXXMLReader extends IDispatch {
     put_baseURL(strBaseURL) {
         strBaseURL := strBaseURL is String ? BSTR.Alloc(strBaseURL).Value : strBaseURL
 
-        result := ComCall(20, this, "ptr", strBaseURL, "HRESULT")
+        result := ComCall(20, this, BSTR, strBaseURL, "HRESULT")
         return result
     }
 
@@ -231,8 +257,8 @@ class IVBSAXXMLReader extends IDispatch {
      * @returns {BSTR} 
      */
     get_secureBaseURL() {
-        strSecureBaseURL := BSTR()
-        result := ComCall(21, this, "ptr", strSecureBaseURL, "HRESULT")
+        strSecureBaseURL := BSTR.Owned()
+        result := ComCall(21, this, BSTR.Ptr, strSecureBaseURL, "HRESULT")
         return strSecureBaseURL
     }
 
@@ -244,7 +270,7 @@ class IVBSAXXMLReader extends IDispatch {
     put_secureBaseURL(strSecureBaseURL) {
         strSecureBaseURL := strSecureBaseURL is String ? BSTR.Alloc(strSecureBaseURL).Value : strSecureBaseURL
 
-        result := ComCall(22, this, "ptr", strSecureBaseURL, "HRESULT")
+        result := ComCall(22, this, BSTR, strSecureBaseURL, "HRESULT")
         return result
     }
 
@@ -254,7 +280,7 @@ class IVBSAXXMLReader extends IDispatch {
      * @returns {HRESULT} 
      */
     parse(varInput) {
-        result := ComCall(23, this, "ptr", varInput, "HRESULT")
+        result := ComCall(23, this, VARIANT, varInput, "HRESULT")
         return result
     }
 
@@ -266,7 +292,61 @@ class IVBSAXXMLReader extends IDispatch {
     parseURL(strURL) {
         strURL := strURL is String ? BSTR.Alloc(strURL).Value : strURL
 
-        result := ComCall(24, this, "ptr", strURL, "HRESULT")
+        result := ComCall(24, this, BSTR, strURL, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVBSAXXMLReader.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.getFeature := CallbackCreate(GetMethod(implObj, "getFeature"), flags, 3)
+        this.vtbl.putFeature := CallbackCreate(GetMethod(implObj, "putFeature"), flags, 3)
+        this.vtbl.getProperty := CallbackCreate(GetMethod(implObj, "getProperty"), flags, 3)
+        this.vtbl.putProperty := CallbackCreate(GetMethod(implObj, "putProperty"), flags, 3)
+        this.vtbl.get_entityResolver := CallbackCreate(GetMethod(implObj, "get_entityResolver"), flags, 2)
+        this.vtbl.putref_entityResolver := CallbackCreate(GetMethod(implObj, "putref_entityResolver"), flags, 2)
+        this.vtbl.get_contentHandler := CallbackCreate(GetMethod(implObj, "get_contentHandler"), flags, 2)
+        this.vtbl.putref_contentHandler := CallbackCreate(GetMethod(implObj, "putref_contentHandler"), flags, 2)
+        this.vtbl.get_dtdHandler := CallbackCreate(GetMethod(implObj, "get_dtdHandler"), flags, 2)
+        this.vtbl.putref_dtdHandler := CallbackCreate(GetMethod(implObj, "putref_dtdHandler"), flags, 2)
+        this.vtbl.get_errorHandler := CallbackCreate(GetMethod(implObj, "get_errorHandler"), flags, 2)
+        this.vtbl.putref_errorHandler := CallbackCreate(GetMethod(implObj, "putref_errorHandler"), flags, 2)
+        this.vtbl.get_baseURL := CallbackCreate(GetMethod(implObj, "get_baseURL"), flags, 2)
+        this.vtbl.put_baseURL := CallbackCreate(GetMethod(implObj, "put_baseURL"), flags, 2)
+        this.vtbl.get_secureBaseURL := CallbackCreate(GetMethod(implObj, "get_secureBaseURL"), flags, 2)
+        this.vtbl.put_secureBaseURL := CallbackCreate(GetMethod(implObj, "put_secureBaseURL"), flags, 2)
+        this.vtbl.parse := CallbackCreate(GetMethod(implObj, "parse"), flags, 2)
+        this.vtbl.parseURL := CallbackCreate(GetMethod(implObj, "parseURL"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.getFeature)
+        CallbackFree(this.vtbl.putFeature)
+        CallbackFree(this.vtbl.getProperty)
+        CallbackFree(this.vtbl.putProperty)
+        CallbackFree(this.vtbl.get_entityResolver)
+        CallbackFree(this.vtbl.putref_entityResolver)
+        CallbackFree(this.vtbl.get_contentHandler)
+        CallbackFree(this.vtbl.putref_contentHandler)
+        CallbackFree(this.vtbl.get_dtdHandler)
+        CallbackFree(this.vtbl.putref_dtdHandler)
+        CallbackFree(this.vtbl.get_errorHandler)
+        CallbackFree(this.vtbl.putref_errorHandler)
+        CallbackFree(this.vtbl.get_baseURL)
+        CallbackFree(this.vtbl.put_baseURL)
+        CallbackFree(this.vtbl.get_secureBaseURL)
+        CallbackFree(this.vtbl.put_secureBaseURL)
+        CallbackFree(this.vtbl.parse)
+        CallbackFree(this.vtbl.parseURL)
     }
 }

@@ -1,78 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSTOPOLOGY_CONNECTION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSTOPOLOGY_CONNECTION.ahk" { KSTOPOLOGY_CONNECTION }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
- * This topic applies to Windows XP Service Pack 2 or later. The KSTOPOLOGY_CONNECTION structure describes a node connection within a kernel-streaming (KS) filter. A node can be connected to another node within the filter, or to a pin on the filter.
- * @see https://learn.microsoft.com/windows/win32/api/vidcap/ns-vidcap-kstopology_connection
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSTOPOLOGY extends Win32Struct {
-    static sizeof => 64
+export default struct KSTOPOLOGY {
+    #StructPack 8
 
-    static packingSize => 8
+    CategoriesCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CategoriesCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Categories : Guid.Ptr
 
-    /**
-     * @type {Pointer<Guid>}
-     */
-    Categories {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    TopologyNodesCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TopologyNodesCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    TopologyNodes : Guid.Ptr
 
-    /**
-     * @type {Pointer<Guid>}
-     */
-    TopologyNodes {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    TopologyConnectionsCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TopologyConnectionsCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    TopologyConnections : KSTOPOLOGY_CONNECTION.Ptr
 
-    /**
-     * @type {Pointer<KSTOPOLOGY_CONNECTION>}
-     */
-    TopologyConnections {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    TopologyNodesNames : Guid.Ptr
 
-    /**
-     * @type {Pointer<Guid>}
-     */
-    TopologyNodesNames {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
 }

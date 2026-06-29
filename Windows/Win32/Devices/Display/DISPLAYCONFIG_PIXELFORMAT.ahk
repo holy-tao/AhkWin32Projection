@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DISPLAYCONFIG_PIXELFORMAT enumeration specifies pixel format in various bits per pixel (BPP) values.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ne-wingdi-displayconfig_pixelformat
  * @namespace Windows.Win32.Devices.Display
  */
-class DISPLAYCONFIG_PIXELFORMAT extends Win32Enum {
+export default struct DISPLAYCONFIG_PIXELFORMAT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates 8 BPP format.

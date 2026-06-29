@@ -1,62 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class WHEA_ERROR_SOURCE_CONFIGURATION_DEVICE_DRIVER_V1 extends Win32Struct {
-    static sizeof => 40
+export default struct WHEA_ERROR_SOURCE_CONFIGURATION_DEVICE_DRIVER_V1 {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SourceGuid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    SourceGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    LogTag : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    LogTag {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    Reserved : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 18, 6, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    Initialize : IntPtr
 
-    /**
-     * @type {Pointer<WHEA_ERROR_SOURCE_INITIALIZE_DEVICE_DRIVER>}
-     */
-    Initialize {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Uninitialize : IntPtr
 
-    /**
-     * @type {Pointer<WHEA_ERROR_SOURCE_UNINITIALIZE_DEVICE_DRIVER>}
-     */
-    Uninitialize {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
 }

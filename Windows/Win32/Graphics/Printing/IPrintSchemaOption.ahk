@@ -1,32 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IPrintSchemaDisplayableElement.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PrintSchemaConstrainedSetting.ahk" { PrintSchemaConstrainedSetting }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IPrintSchemaDisplayableElement.ahk" { IPrintSchemaDisplayableElement }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class IPrintSchemaOption extends IPrintSchemaDisplayableElement {
-
-    static sizeof => A_PtrSize
+export default struct IPrintSchemaOption extends IPrintSchemaDisplayableElement {
     /**
      * The interface identifier for IPrintSchemaOption
      * @type {Guid}
      */
-    static IID => Guid("{66bb2f51-5844-4997-8d70-4b7cc221cf92}")
+    static IID := Guid("{66bb2f51-5844-4997-8d70-4b7cc221cf92}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 11
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPrintSchemaOption interfaces
+    */
+    struct Vtbl extends IPrintSchemaDisplayableElement.Vtbl {
+        get_Selected     : IntPtr
+        get_Constrained  : IntPtr
+        GetPropertyValue : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Selected", "get_Constrained", "GetPropertyValue"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPrintSchemaOption.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BOOL} 
@@ -47,7 +60,7 @@ class IPrintSchemaOption extends IPrintSchemaDisplayableElement {
      * @returns {BOOL} 
      */
     get_Selected() {
-        result := ComCall(11, this, "int*", &pbIsSelected := 0, "HRESULT")
+        result := ComCall(11, this, BOOL.Ptr, &pbIsSelected := 0, "HRESULT")
         return pbIsSelected
     }
 
@@ -70,7 +83,31 @@ class IPrintSchemaOption extends IPrintSchemaDisplayableElement {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
         bstrNamespaceUri := bstrNamespaceUri is String ? BSTR.Alloc(bstrNamespaceUri).Value : bstrNamespaceUri
 
-        result := ComCall(13, this, "ptr", bstrName, "ptr", bstrNamespaceUri, "ptr*", &ppXmlValueNode := 0, "HRESULT")
+        result := ComCall(13, this, BSTR, bstrName, BSTR, bstrNamespaceUri, "ptr*", &ppXmlValueNode := 0, "HRESULT")
         return IUnknown(ppXmlValueNode)
+    }
+
+    Query(iid) {
+        if (IPrintSchemaOption.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Selected := CallbackCreate(GetMethod(implObj, "get_Selected"), flags, 2)
+        this.vtbl.get_Constrained := CallbackCreate(GetMethod(implObj, "get_Constrained"), flags, 2)
+        this.vtbl.GetPropertyValue := CallbackCreate(GetMethod(implObj, "GetPropertyValue"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Selected)
+        CallbackFree(this.vtbl.get_Constrained)
+        CallbackFree(this.vtbl.GetPropertyValue)
     }
 }

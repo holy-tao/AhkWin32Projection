@@ -1,10 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Ole\IEnumVARIANT.ahk
-#Include .\IProgressItem.ahk
-#Include .\IEnumProgressItems.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Ole\IEnumVARIANT.ahk" { IEnumVARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IProgressItem.ahk" { IProgressItem }
+#Import ".\IEnumProgressItems.ahk" { IEnumProgressItems }
 
 /**
  * Use this interface to enumerate the progress items in a result image.
@@ -13,32 +15,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-iprogressitems
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IProgressItems extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IProgressItems extends IDispatch {
     /**
      * The interface identifier for IProgressItems
      * @type {Guid}
      */
-    static IID => Guid("{2c941fd7-975b-59be-a960-9a2a262853a5}")
+    static IID := Guid("{2c941fd7-975b-59be-a960-9a2a262853a5}")
 
     /**
      * The class identifier for ProgressItems
      * @type {Guid}
      */
-    static CLSID => Guid("{2c941fc9-975b-59be-a960-9a2a262853a5}")
+    static CLSID := Guid("{2c941fc9-975b-59be-a960-9a2a262853a5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IProgressItems interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get__NewEnum                : IntPtr
+        get_Item                    : IntPtr
+        get_Count                   : IntPtr
+        ProgressItemFromBlock       : IntPtr
+        ProgressItemFromDescription : IntPtr
+        get_EnumProgressItems       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get__NewEnum", "get_Item", "get_Count", "ProgressItemFromBlock", "ProgressItemFromDescription", "get_EnumProgressItems"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IProgressItems.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IEnumVARIANT} 
@@ -118,7 +132,7 @@ class IProgressItems extends IDispatch {
     ProgressItemFromDescription(description) {
         description := description is String ? BSTR.Alloc(description).Value : description
 
-        result := ComCall(11, this, "ptr", description, "ptr*", &item := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, description, "ptr*", &item := 0, "HRESULT")
         return IProgressItem(item)
     }
 
@@ -132,5 +146,35 @@ class IProgressItems extends IDispatch {
     get_EnumProgressItems() {
         result := ComCall(12, this, "ptr*", &NewEnum := 0, "HRESULT")
         return IEnumProgressItems(NewEnum)
+    }
+
+    Query(iid) {
+        if (IProgressItems.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.ProgressItemFromBlock := CallbackCreate(GetMethod(implObj, "ProgressItemFromBlock"), flags, 3)
+        this.vtbl.ProgressItemFromDescription := CallbackCreate(GetMethod(implObj, "ProgressItemFromDescription"), flags, 3)
+        this.vtbl.get_EnumProgressItems := CallbackCreate(GetMethod(implObj, "get_EnumProgressItems"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.get_Item)
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.ProgressItemFromBlock)
+        CallbackFree(this.vtbl.ProgressItemFromDescription)
+        CallbackFree(this.vtbl.get_EnumProgressItems)
     }
 }

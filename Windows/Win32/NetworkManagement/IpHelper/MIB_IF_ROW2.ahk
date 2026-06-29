@@ -1,15 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Ndis\NET_LUID_LH.ahk
-#Include ..\Ndis\TUNNEL_TYPE.ahk
-#Include ..\Ndis\NDIS_MEDIUM.ahk
-#Include ..\Ndis\NDIS_PHYSICAL_MEDIUM.ahk
-#Include ..\Ndis\NET_IF_ACCESS_TYPE.ahk
-#Include ..\Ndis\NET_IF_DIRECTION_TYPE.ahk
-#Include ..\Ndis\IF_OPER_STATUS.ahk
-#Include ..\Ndis\NET_IF_ADMIN_STATUS.ahk
-#Include ..\Ndis\NET_IF_MEDIA_CONNECT_STATE.ahk
-#Include ..\Ndis\NET_IF_CONNECTION_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Ndis\TUNNEL_TYPE.ahk" { TUNNEL_TYPE }
+#Import "..\Ndis\NDIS_PHYSICAL_MEDIUM.ahk" { NDIS_PHYSICAL_MEDIUM }
+#Import "..\Ndis\NET_LUID_LH.ahk" { NET_LUID_LH }
+#Import "..\Ndis\NET_IF_ACCESS_TYPE.ahk" { NET_IF_ACCESS_TYPE }
+#Import "..\Ndis\NET_IF_MEDIA_CONNECT_STATE.ahk" { NET_IF_MEDIA_CONNECT_STATE }
+#Import "..\Ndis\NET_IF_CONNECTION_TYPE.ahk" { NET_IF_CONNECTION_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Ndis\NET_IF_ADMIN_STATUS.ahk" { NET_IF_ADMIN_STATUS }
+#Import "..\Ndis\IF_OPER_STATUS.ahk" { IF_OPER_STATUS }
+#Import "..\Ndis\NDIS_MEDIUM.ahk" { NDIS_MEDIUM }
+#Import "..\Ndis\NET_IF_DIRECTION_TYPE.ahk" { NET_IF_DIRECTION_TYPE }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Stores information about a particular interface. (MIB_IF_ROW2)
@@ -22,15 +23,11 @@
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_if_row2
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_IF_ROW2 extends Win32Struct {
-    static sizeof => 1352
+export default struct MIB_IF_ROW2 {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _InterfaceAndOperStatusFlags extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _InterfaceAndOperStatusFlags {
         /**
          * This bitfield backs the following members:
          * - HardwareInterface
@@ -41,12 +38,9 @@ class MIB_IF_ROW2 extends Win32Struct {
          * - Paused
          * - LowPower
          * - EndPointInterface
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -117,109 +111,64 @@ class MIB_IF_ROW2 extends Win32Struct {
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/ifdef/ns-ifdef-net_luid_lh">NET_LUID</a></b>
      * 
      * The locally unique identifier (LUID) for the network interface.
-     * @type {NET_LUID_LH}
      */
-    InterfaceLuid {
-        get {
-            if(!this.HasProp("__InterfaceLuid"))
-                this.__InterfaceLuid := NET_LUID_LH(0, this)
-            return this.__InterfaceLuid
-        }
-    }
+    InterfaceLuid : NET_LUID_LH
 
     /**
      * Type: <b>NET_IFINDEX</b>
      * 
      * The index that identifies the network interface. This index value may change when a network adapter is disabled and then enabled, and should not be considered persistent.
-     * @type {Integer}
      */
-    InterfaceIndex {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    InterfaceIndex : UInt32
 
     /**
      * Type: <b>GUID</b>
      * 
      * The GUID for the network interface.
-     * @type {Pointer}
      */
-    InterfaceGuid {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    InterfaceGuid : Guid
 
     /**
      * Type: <b>WCHAR[IF_MAX_STRING_SIZE + 1]</b>
      * 
      * A NULL-terminated Unicode string that  contains the alias name of the network interface.
-     * @type {String}
      */
-    Alias {
-        get => StrGet(this.ptr + 32, 256, "UTF-16")
-        set => StrPut(value, this.ptr + 32, 256, "UTF-16")
-    }
+    Alias : WCHAR[257]
 
     /**
      * Type: <b>WCHAR[IF_MAX_STRING_SIZE + 1]</b>
      * 
      * A NULL-terminated Unicode string that contains a description of the network interface.
-     * @type {String}
      */
-    Description {
-        get => StrGet(this.ptr + 546, 256, "UTF-16")
-        set => StrPut(value, this.ptr + 546, 256, "UTF-16")
-    }
+    Description : WCHAR[257]
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The length, in bytes, of the physical hardware address specified by the <b>PhysicalAddress</b> member.
-     * @type {Integer}
      */
-    PhysicalAddressLength {
-        get => NumGet(this, 1060, "uint")
-        set => NumPut("uint", value, this, 1060)
-    }
+    PhysicalAddressLength : UInt32
 
     /**
      * Type: <b> UCHAR[IF_MAX_PHYS_ADDRESS_LENGTH]</b>
      * 
      * The physical hardware address of the adapter for this network interface.
-     * @type {Array<Integer>}
      */
-    PhysicalAddress {
-        get {
-            if(!this.HasProp("__PhysicalAddressProxyArray"))
-                this.__PhysicalAddressProxyArray := Win32FixedArray(this.ptr + 1064, 32, Primitive, "char")
-            return this.__PhysicalAddressProxyArray
-        }
-    }
+    PhysicalAddress : Int8[32]
 
     /**
      * Type: <b> UCHAR[IF_MAX_PHYS_ADDRESS_LENGTH]</b>
      * 
      * The permanent physical hardware address of the adapter for this network interface.
-     * @type {Array<Integer>}
      */
-    PermanentPhysicalAddress {
-        get {
-            if(!this.HasProp("__PermanentPhysicalAddressProxyArray"))
-                this.__PermanentPhysicalAddressProxyArray := Win32FixedArray(this.ptr + 1096, 32, Primitive, "char")
-            return this.__PermanentPhysicalAddressProxyArray
-        }
-    }
+    PermanentPhysicalAddress : Int8[32]
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The maximum transmission unit (MTU) size, in bytes, for this network interface.
-     * @type {Integer}
      */
-    Mtu {
-        get => NumGet(this, 1128, "uint")
-        set => NumPut("uint", value, this, 1128)
-    }
+    Mtu : UInt32
 
     /**
      * Type: <b>IFTYPE</b>
@@ -383,12 +332,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Type {
-        get => NumGet(this, 1132, "uint")
-        set => NumPut("uint", value, this, 1132)
-    }
+    Type : UInt32
 
     /**
      * Type: <b>TUNNEL_TYPE</b>
@@ -475,12 +420,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {TUNNEL_TYPE}
      */
-    TunnelType {
-        get => NumGet(this, 1136, "int")
-        set => NumPut("int", value, this, 1136)
-    }
+    TunnelType : TUNNEL_TYPE
 
     /**
      * Type: <b>NDIS_MEDIUM</b>
@@ -712,12 +653,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {NDIS_MEDIUM}
      */
-    MediaType {
-        get => NumGet(this, 1140, "int")
-        set => NumPut("int", value, this, 1140)
-    }
+    MediaType : NDIS_MEDIUM
 
     /**
      * Type: <b>NDIS_PHYSICAL_MEDIUM</b>
@@ -952,12 +889,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {NDIS_PHYSICAL_MEDIUM}
      */
-    PhysicalMediumType {
-        get => NumGet(this, 1144, "int")
-        set => NumPut("int", value, this, 1144)
-    }
+    PhysicalMediumType : NDIS_PHYSICAL_MEDIUM
 
     /**
      * Type: <b>NET_IF_ACCESS_TYPE</b>
@@ -1029,12 +962,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {NET_IF_ACCESS_TYPE}
      */
-    AccessType {
-        get => NumGet(this, 1148, "int")
-        set => NumPut("int", value, this, 1148)
-    }
+    AccessType : NET_IF_ACCESS_TYPE
 
     /**
      * Type: <b>NET_IF_DIRECTION_TYPE</b>
@@ -1092,24 +1021,13 @@ class MIB_IF_ROW2 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {NET_IF_DIRECTION_TYPE}
      */
-    DirectionType {
-        get => NumGet(this, 1152, "int")
-        set => NumPut("int", value, this, 1152)
-    }
+    DirectionType : NET_IF_DIRECTION_TYPE
 
     /**
      * A set of flags that provide information about the interface. These flags are combined with a bitwise OR operation. If none of the flags applies, then this member is set to zero.
-     * @type {_InterfaceAndOperStatusFlags}
      */
-    InterfaceAndOperStatusFlags {
-        get {
-            if(!this.HasProp("__InterfaceAndOperStatusFlags"))
-                this.__InterfaceAndOperStatusFlags := MIB_IF_ROW2._InterfaceAndOperStatusFlags(1156, this)
-            return this.__InterfaceAndOperStatusFlags
-        }
-    }
+    InterfaceAndOperStatusFlags : MIB_IF_ROW2._InterfaceAndOperStatusFlags
 
     /**
      * Type: <b>IF_OPER_STATUS</b>
@@ -1218,12 +1136,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {IF_OPER_STATUS}
      */
-    OperStatus {
-        get => NumGet(this, 1160, "int")
-        set => NumPut("int", value, this, 1160)
-    }
+    OperStatus : IF_OPER_STATUS
 
     /**
      * Type: <b>NET_IF_ADMIN_STATUS</b>
@@ -1269,12 +1183,8 @@ class MIB_IF_ROW2 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {NET_IF_ADMIN_STATUS}
      */
-    AdminStatus {
-        get => NumGet(this, 1164, "int")
-        set => NumPut("int", value, this, 1164)
-    }
+    AdminStatus : NET_IF_ADMIN_STATUS
 
     /**
      * Type: <b>NET_IF_MEDIA_CONNECT_STATE</b>
@@ -1320,23 +1230,15 @@ class MIB_IF_ROW2 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {NET_IF_MEDIA_CONNECT_STATE}
      */
-    MediaConnectState {
-        get => NumGet(this, 1168, "int")
-        set => NumPut("int", value, this, 1168)
-    }
+    MediaConnectState : NET_IF_MEDIA_CONNECT_STATE
 
     /**
      * Type: <b>NET_IF_NETWORK_GUID</b>
      * 
      * The GUID that is associated with the network that the interface belongs to.
-     * @type {Pointer}
      */
-    NetworkGuid {
-        get => NumGet(this, 1176, "ptr")
-        set => NumPut("ptr", value, this, 1176)
-    }
+    NetworkGuid : Guid
 
     /**
      * Type: <b>NET_IF_CONNECTION_TYPE</b>
@@ -1395,230 +1297,147 @@ class MIB_IF_ROW2 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {NET_IF_CONNECTION_TYPE}
      */
-    ConnectionType {
-        get => NumGet(this, 1184, "int")
-        set => NumPut("int", value, this, 1184)
-    }
+    ConnectionType : NET_IF_CONNECTION_TYPE
 
     /**
      * Type: <b>ULONG64</b>
      * 
      * The speed in bits per second of the transmit link.
-     * @type {Integer}
      */
-    TransmitLinkSpeed {
-        get => NumGet(this, 1192, "uint")
-        set => NumPut("uint", value, this, 1192)
-    }
+    TransmitLinkSpeed : Int64
 
     /**
      * Type: <b>ULONG64</b>
      * 
      * The speed in bits per second of the receive link.
-     * @type {Integer}
      */
-    ReceiveLinkSpeed {
-        get => NumGet(this, 1200, "uint")
-        set => NumPut("uint", value, this, 1200)
-    }
+    ReceiveLinkSpeed : Int64
 
     /**
      * Type: <b>ULONG64</b>
      * 
      * The number of octets of data received without errors through this interface. This value includes octets in unicast, broadcast, and multicast packets.
-     * @type {Integer}
      */
-    InOctets {
-        get => NumGet(this, 1208, "uint")
-        set => NumPut("uint", value, this, 1208)
-    }
+    InOctets : Int64
 
     /**
      * Type: <b>ULONG64</b>
      * 
      * The number of unicast packets received without errors through this interface.
-     * @type {Integer}
      */
-    InUcastPkts {
-        get => NumGet(this, 1216, "uint")
-        set => NumPut("uint", value, this, 1216)
-    }
+    InUcastPkts : Int64
 
     /**
      * Type: <b>ULONG64</b>
      * 
      * The number of non-unicast packets received without errors through this interface. This value includes broadcast and multicast packets.
-     * @type {Integer}
      */
-    InNUcastPkts {
-        get => NumGet(this, 1224, "uint")
-        set => NumPut("uint", value, this, 1224)
-    }
+    InNUcastPkts : Int64
 
     /**
      * Type: <b>ULONG64</b>
      * 
      * The number of inbound packets which were chosen to be discarded even though no errors were detected to prevent the packets from being deliverable to a higher-layer protocol.
-     * @type {Integer}
      */
-    InDiscards {
-        get => NumGet(this, 1232, "uint")
-        set => NumPut("uint", value, this, 1232)
-    }
+    InDiscards : Int64
 
     /**
      * Type: <b>ULONG64</b>
      * 
      * The number of incoming packets that were discarded because of errors.
-     * @type {Integer}
      */
-    InErrors {
-        get => NumGet(this, 1240, "uint")
-        set => NumPut("uint", value, this, 1240)
-    }
+    InErrors : Int64
 
     /**
      * Type: <b>ULONG64</b>
      * 
      * The number of incoming packets that were discarded because the protocol was unknown.
-     * @type {Integer}
      */
-    InUnknownProtos {
-        get => NumGet(this, 1248, "uint")
-        set => NumPut("uint", value, this, 1248)
-    }
+    InUnknownProtos : Int64
 
     /**
      * Type: <b>ULONG64</b>
      * 
      * The number of octets of data received without errors in unicast packets through this interface.
-     * @type {Integer}
      */
-    InUcastOctets {
-        get => NumGet(this, 1256, "uint")
-        set => NumPut("uint", value, this, 1256)
-    }
+    InUcastOctets : Int64
 
     /**
      * Type: <b>ULONG64</b>
      * 
      * The number of octets of data received without errors in multicast packets through this interface.
-     * @type {Integer}
      */
-    InMulticastOctets {
-        get => NumGet(this, 1264, "uint")
-        set => NumPut("uint", value, this, 1264)
-    }
+    InMulticastOctets : Int64
 
     /**
      * Type: <b>ULONG64</b>
      * 
      * The number of octets of data received without errors in broadcast packets through this interface.
-     * @type {Integer}
      */
-    InBroadcastOctets {
-        get => NumGet(this, 1272, "uint")
-        set => NumPut("uint", value, this, 1272)
-    }
+    InBroadcastOctets : Int64
 
     /**
      * Type: <b>ULONG64</b>
      * 
      * The number of octets of data transmitted without errors through this interface. This value includes octets in unicast, broadcast, and multicast packets.
-     * @type {Integer}
      */
-    OutOctets {
-        get => NumGet(this, 1280, "uint")
-        set => NumPut("uint", value, this, 1280)
-    }
+    OutOctets : Int64
 
     /**
      * Type: <b>ULONG64</b>
      * 
      * The number of unicast packets transmitted without errors through this interface.
-     * @type {Integer}
      */
-    OutUcastPkts {
-        get => NumGet(this, 1288, "uint")
-        set => NumPut("uint", value, this, 1288)
-    }
+    OutUcastPkts : Int64
 
     /**
      * Type: <b>ULONG64</b>
      * 
      * The number of non-unicast packets transmitted without errors through this interface. This value includes broadcast and multicast packets.
-     * @type {Integer}
      */
-    OutNUcastPkts {
-        get => NumGet(this, 1296, "uint")
-        set => NumPut("uint", value, this, 1296)
-    }
+    OutNUcastPkts : Int64
 
     /**
      * Type: <b>ULONG64</b>
      * 
      * The number of outgoing packets that were discarded even though they did not have errors.
-     * @type {Integer}
      */
-    OutDiscards {
-        get => NumGet(this, 1304, "uint")
-        set => NumPut("uint", value, this, 1304)
-    }
+    OutDiscards : Int64
 
     /**
      * Type: <b>ULONG64</b>
      * 
      * The number of outgoing packets that were discarded because of errors.
-     * @type {Integer}
      */
-    OutErrors {
-        get => NumGet(this, 1312, "uint")
-        set => NumPut("uint", value, this, 1312)
-    }
+    OutErrors : Int64
 
     /**
      * Type: <b>ULONG64</b>
      * 
      * The number of octets of data transmitted without errors  in unicast packets through this interface.
-     * @type {Integer}
      */
-    OutUcastOctets {
-        get => NumGet(this, 1320, "uint")
-        set => NumPut("uint", value, this, 1320)
-    }
+    OutUcastOctets : Int64
 
     /**
      * Type: <b>ULONG64</b>
      * 
      * The number of octets of data transmitted without errors in multicast packets through this interface.
-     * @type {Integer}
      */
-    OutMulticastOctets {
-        get => NumGet(this, 1328, "uint")
-        set => NumPut("uint", value, this, 1328)
-    }
+    OutMulticastOctets : Int64
 
     /**
      * Type: <b>ULONG64</b>
      * 
      * The number of octets of data transmitted without errors in broadcast packets through this interface.
-     * @type {Integer}
      */
-    OutBroadcastOctets {
-        get => NumGet(this, 1336, "uint")
-        set => NumPut("uint", value, this, 1336)
-    }
+    OutBroadcastOctets : Int64
 
     /**
      * Type: <b>ULONG64</b>
      * 
      * The transmit queue length. This field is not currently used.
-     * @type {Integer}
      */
-    OutQLen {
-        get => NumGet(this, 1344, "uint")
-        set => NumPut("uint", value, this, 1344)
-    }
+    OutQLen : Int64
+
 }

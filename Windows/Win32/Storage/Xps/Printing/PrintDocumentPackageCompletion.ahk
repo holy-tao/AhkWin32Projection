@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The PrintDocumentPackageCompletion enumeration specifies the status of the print operation.
  * @see https://learn.microsoft.com/windows/win32/api/documenttarget/ne-documenttarget-printdocumentpackagecompletion
  * @namespace Windows.Win32.Storage.Xps.Printing
  */
-class PrintDocumentPackageCompletion extends Win32Enum {
+export default struct PrintDocumentPackageCompletion {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The print job is running.

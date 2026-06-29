@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used to cancel an asynchronous DNS-SD operation.
@@ -8,17 +7,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_service_cancel
  * @namespace Windows.Win32.NetworkManagement.Dns
  */
-class DNS_SERVICE_CANCEL extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 8
+export default struct DNS_SERVICE_CANCEL {
+    #StructPack 8
 
     /**
      * Contains a handle associated with the asynchronous operation to cancel. Your application must not modify this value.
-     * @type {Pointer<Void>}
      */
-    reserved {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    reserved : IntPtr
+
 }

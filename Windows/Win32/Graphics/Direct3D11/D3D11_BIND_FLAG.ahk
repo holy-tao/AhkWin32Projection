@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Identifies how to bind a resource to the pipeline. (D3D11_BIND_FLAG)
@@ -20,7 +19,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_bind_flag
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_BIND_FLAG extends Win32BitflagEnum {
+export default struct D3D11_BIND_FLAG {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Bind a buffer as a vertex buffer to the input-assembler stage.

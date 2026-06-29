@@ -1,34 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CERT_GET_CONFIG_FLAGS.ahk" { CERT_GET_CONFIG_FLAGS }
 
 /**
  * Provides functionality for retrieving the public configuration data (specified during client setup) for a Certificate Services server.
  * @see https://learn.microsoft.com/windows/win32/api/certcli/nn-certcli-icertgetconfig
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICertGetConfig extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ICertGetConfig extends IDispatch {
     /**
      * The interface identifier for ICertGetConfig
      * @type {Guid}
      */
-    static IID => Guid("{c7ea09c0-ce17-11d0-8833-00a0c903b83c}")
+    static IID := Guid("{c7ea09c0-ce17-11d0-8833-00a0c903b83c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICertGetConfig interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        GetConfig : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetConfig"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICertGetConfig.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The ICertGetConfig::GetConfig method retrieves the configuration string for a Certificate Services server.
@@ -116,8 +125,28 @@ class ICertGetConfig extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertgetconfig-getconfig
      */
     GetConfig(Flags) {
-        pstrOut := BSTR()
-        result := ComCall(7, this, "int", Flags, "ptr", pstrOut, "HRESULT")
+        pstrOut := BSTR.Owned()
+        result := ComCall(7, this, CERT_GET_CONFIG_FLAGS, Flags, BSTR.Ptr, pstrOut, "HRESULT")
         return pstrOut
+    }
+
+    Query(iid) {
+        if (ICertGetConfig.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetConfig := CallbackCreate(GetMethod(implObj, "GetConfig"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetConfig)
     }
 }

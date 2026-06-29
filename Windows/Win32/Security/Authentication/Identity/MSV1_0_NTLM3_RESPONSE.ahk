@@ -1,92 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class MSV1_0_NTLM3_RESPONSE extends Win32Struct {
-    static sizeof => 48
+export default struct MSV1_0_NTLM3_RESPONSE {
+    #StructPack 8
 
-    static packingSize => 8
+    Response : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Response {
-        get {
-            if(!this.HasProp("__ResponseProxyArray"))
-                this.__ResponseProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
-            return this.__ResponseProxyArray
-        }
-    }
+    RespType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    RespType {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    HiRespType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    HiRespType {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
+    Flags : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    MsgWord : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MsgWord {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    TimeStamp : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TimeStamp {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ChallengeFromClient : Int8[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ChallengeFromClient {
-        get {
-            if(!this.HasProp("__ChallengeFromClientProxyArray"))
-                this.__ChallengeFromClientProxyArray := Win32FixedArray(this.ptr + 32, 8, Primitive, "char")
-            return this.__ChallengeFromClientProxyArray
-        }
-    }
+    AvPairsOff : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AvPairsOff {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    Buffer : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Buffer {
-        get {
-            if(!this.HasProp("__BufferProxyArray"))
-                this.__BufferProxyArray := Win32FixedArray(this.ptr + 44, 1, Primitive, "char")
-            return this.__BufferProxyArray
-        }
-    }
 }

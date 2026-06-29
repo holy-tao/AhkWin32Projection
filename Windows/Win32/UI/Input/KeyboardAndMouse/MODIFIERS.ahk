@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\VK_TO_BIT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VK_TO_BIT.ahk" { VK_TO_BIT }
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
  */
-class MODIFIERS extends Win32Struct {
-    static sizeof => 16
+export default struct MODIFIERS {
+    #StructPack 8
 
-    static packingSize => 8
+    pVkToBit : VK_TO_BIT.Ptr
 
-    /**
-     * @type {Pointer<VK_TO_BIT>}
-     */
-    pVkToBit {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    wMaxModBits : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMaxModBits {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    ModNumber : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ModNumber {
-        get {
-            if(!this.HasProp("__ModNumberProxyArray"))
-                this.__ModNumberProxyArray := Win32FixedArray(this.ptr + 10, 1, Primitive, "char")
-            return this.__ModNumberProxyArray
-        }
-    }
 }

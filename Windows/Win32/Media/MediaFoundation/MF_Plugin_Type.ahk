@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the object type for the IMFPluginControl interface.
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ne-mfobjects-mf_plugin_type
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MF_Plugin_Type extends Win32Enum {
+export default struct MF_Plugin_Type {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Media Foundation transform (MFT).

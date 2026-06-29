@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE.ahk" { D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_NODE_GPU_INPUT extends Win32Struct {
-    static sizeof => 24
+export default struct D3D12_NODE_GPU_INPUT {
+    #StructPack 8
 
-    static packingSize => 8
+    EntrypointIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EntrypointIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumRecords : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumRecords {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Records : D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE
 
-    /**
-     * @type {D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE}
-     */
-    Records {
-        get {
-            if(!this.HasProp("__Records"))
-                this.__Records := D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE(8, this)
-            return this.__Records
-        }
-    }
 }

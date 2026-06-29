@@ -1,36 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_POLICY_ID.ahk
-#Include .\CRYPT_BIT_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPT_BIT_BLOB.ahk" { CRYPT_BIT_BLOB }
+#Import ".\CERT_POLICY_ID.ahk" { CERT_POLICY_ID }
 
 /**
  * The CERT_KEY_USAGE_RESTRICTION_INFO structure contains restrictions imposed on the usage of a certificate's public key. This includes purposes for use of the key and policies under which the key can be used.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_key_usage_restriction_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_KEY_USAGE_RESTRICTION_INFO extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct CERT_KEY_USAGE_RESTRICTION_INFO {
+    #StructPack 8
 
     /**
      * The number of elements in the <b>rgCertPolicyId</b> array.
-     * @type {Integer}
      */
-    cCertPolicyId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cCertPolicyId : UInt32
 
     /**
      * An array of pointers to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_policy_id">CERT_POLICY_ID</a> structures.
-     * @type {Pointer<CERT_POLICY_ID>}
      */
-    rgCertPolicyId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    rgCertPolicyId : CERT_POLICY_ID.Ptr
 
     /**
      * A 
@@ -52,13 +41,7 @@ class CERT_KEY_USAGE_RESTRICTION_INFO extends Win32Struct {
      * <li>CERT_NON_REPUDIATION_KEY_USAGE</li>
      * <li>CERT_OFFLINE_CRL_SIGN_KEY_USAGE</li>
      * </ul>
-     * @type {CRYPT_BIT_BLOB}
      */
-    RestrictedKeyUsage {
-        get {
-            if(!this.HasProp("__RestrictedKeyUsage"))
-                this.__RestrictedKeyUsage := CRYPT_BIT_BLOB(16, this)
-            return this.__RestrictedKeyUsage
-        }
-    }
+    RestrictedKeyUsage : CRYPT_BIT_BLOB
+
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The TIMECODE structure contains basic timecode frame count information. (TIMECODE)
@@ -8,40 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-timecode
  * @namespace Windows.Win32.Media
  */
-class TIMECODE extends Win32Struct {
-    static sizeof => 16
+export default struct TIMECODE {
+    #StructPack 8
 
-    static packingSize => 8
+    wFrameRate : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wFrameRate {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wFrameFract : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wFrameFract {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    dwFrames : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFrames {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    qw {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'qw', { type: Int64, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\AATrustClassID.ahk" { AATrustClassID }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SESSION_TIMEOUT_ACTION_TYPE.ahk" { SESSION_TIMEOUT_ACTION_TYPE }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that notify Remote Desktop Gateway (RD Gateway) about the result of an attempt to authorize a connection.
  * @see https://learn.microsoft.com/windows/win32/api/tsgpolicyengine/nn-tsgpolicyengine-itsgauthorizeconnectionsink
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class ITSGAuthorizeConnectionSink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITSGAuthorizeConnectionSink extends IUnknown {
     /**
      * The interface identifier for ITSGAuthorizeConnectionSink
      * @type {Guid}
      */
-    static IID => Guid("{c27ece33-7781-4318-98ef-1cf2da7b7005}")
+    static IID := Guid("{c27ece33-7781-4318-98ef-1cf2da7b7005}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITSGAuthorizeConnectionSink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnConnectionAuthorized : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnConnectionAuthorized"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITSGAuthorizeConnectionSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Notifies Remote Desktop Gateway (RD Gateway) about the result of an attempt to authorize a connection.
@@ -55,7 +65,27 @@ class ITSGAuthorizeConnectionSink extends IUnknown {
         pbSoHResponseMarshal := pbSoHResponse is VarRef ? "char*" : "ptr"
         policyAttributesMarshal := policyAttributes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "int", hrIn, "ptr", mainSessionId, "uint", cbSoHResponse, pbSoHResponseMarshal, pbSoHResponse, "uint", idleTimeout, "uint", sessionTimeout, "int", sessionTimeoutAction, "int", trustClass, policyAttributesMarshal, policyAttributes, "HRESULT")
+        result := ComCall(3, this, "int", hrIn, Guid, mainSessionId, "uint", cbSoHResponse, pbSoHResponseMarshal, pbSoHResponse, "uint", idleTimeout, "uint", sessionTimeout, SESSION_TIMEOUT_ACTION_TYPE, sessionTimeoutAction, AATrustClassID, trustClass, policyAttributesMarshal, policyAttributes, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITSGAuthorizeConnectionSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnConnectionAuthorized := CallbackCreate(GetMethod(implObj, "OnConnectionAuthorized"), flags, 10)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnConnectionAuthorized)
     }
 }

@@ -1,35 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IEnumFilters.ahk
-#Include .\IBaseFilter.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IEnumFilters.ahk" { IEnumFilters }
+#Import ".\IBaseFilter.ahk" { IBaseFilter }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPin.ahk" { IPin }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IFilterGraph interface provides methods for building a filter graph.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ifiltergraph
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IFilterGraph extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IFilterGraph extends IUnknown {
     /**
      * The interface identifier for IFilterGraph
      * @type {Guid}
      */
-    static IID => Guid("{56a8689f-0ad4-11ce-b03a-0020af0ba770}")
+    static IID := Guid("{56a8689f-0ad4-11ce-b03a-0020af0ba770}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFilterGraph interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddFilter            : IntPtr
+        RemoveFilter         : IntPtr
+        EnumFilters          : IntPtr
+        FindFilterByName     : IntPtr
+        ConnectDirect        : IntPtr
+        Reconnect            : IntPtr
+        Disconnect           : IntPtr
+        SetDefaultSyncSource : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddFilter", "RemoveFilter", "EnumFilters", "FindFilterByName", "ConnectDirect", "Reconnect", "Disconnect", "SetDefaultSyncSource"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFilterGraph.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The AddFilter method adds a filter to the graph.
@@ -275,7 +293,7 @@ class IFilterGraph extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifiltergraph-connectdirect
      */
     ConnectDirect(ppinOut, ppinIn, pmt) {
-        result := ComCall(7, this, "ptr", ppinOut, "ptr", ppinIn, "ptr", pmt, "HRESULT")
+        result := ComCall(7, this, "ptr", ppinOut, "ptr", ppinIn, AM_MEDIA_TYPE.Ptr, pmt, "HRESULT")
         return result
     }
 
@@ -476,5 +494,39 @@ class IFilterGraph extends IUnknown {
     SetDefaultSyncSource() {
         result := ComCall(10, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFilterGraph.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddFilter := CallbackCreate(GetMethod(implObj, "AddFilter"), flags, 3)
+        this.vtbl.RemoveFilter := CallbackCreate(GetMethod(implObj, "RemoveFilter"), flags, 2)
+        this.vtbl.EnumFilters := CallbackCreate(GetMethod(implObj, "EnumFilters"), flags, 2)
+        this.vtbl.FindFilterByName := CallbackCreate(GetMethod(implObj, "FindFilterByName"), flags, 3)
+        this.vtbl.ConnectDirect := CallbackCreate(GetMethod(implObj, "ConnectDirect"), flags, 4)
+        this.vtbl.Reconnect := CallbackCreate(GetMethod(implObj, "Reconnect"), flags, 2)
+        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 2)
+        this.vtbl.SetDefaultSyncSource := CallbackCreate(GetMethod(implObj, "SetDefaultSyncSource"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddFilter)
+        CallbackFree(this.vtbl.RemoveFilter)
+        CallbackFree(this.vtbl.EnumFilters)
+        CallbackFree(this.vtbl.FindFilterByName)
+        CallbackFree(this.vtbl.ConnectDirect)
+        CallbackFree(this.vtbl.Reconnect)
+        CallbackFree(this.vtbl.Disconnect)
+        CallbackFree(this.vtbl.SetDefaultSyncSource)
     }
 }

@@ -1,39 +1,137 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLCurrentStyle extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLCurrentStyle extends IDispatch {
     /**
      * The interface identifier for IHTMLCurrentStyle
      * @type {Guid}
      */
-    static IID => Guid("{3050f3db-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f3db-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for HTMLCurrentStyle
      * @type {Guid}
      */
-    static CLSID => Guid("{3050f3dc-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{3050f3dc-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLCurrentStyle interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_position             : IntPtr
+        get_styleFloat           : IntPtr
+        get_color                : IntPtr
+        get_backgroundColor      : IntPtr
+        get_fontFamily           : IntPtr
+        get_fontStyle            : IntPtr
+        get_fontVariant          : IntPtr
+        get_fontWeight           : IntPtr
+        get_fontSize             : IntPtr
+        get_backgroundImage      : IntPtr
+        get_backgroundPositionX  : IntPtr
+        get_backgroundPositionY  : IntPtr
+        get_backgroundRepeat     : IntPtr
+        get_borderLeftColor      : IntPtr
+        get_borderTopColor       : IntPtr
+        get_borderRightColor     : IntPtr
+        get_borderBottomColor    : IntPtr
+        get_borderTopStyle       : IntPtr
+        get_borderRightStyle     : IntPtr
+        get_borderBottomStyle    : IntPtr
+        get_borderLeftStyle      : IntPtr
+        get_borderTopWidth       : IntPtr
+        get_borderRightWidth     : IntPtr
+        get_borderBottomWidth    : IntPtr
+        get_borderLeftWidth      : IntPtr
+        get_left                 : IntPtr
+        get_top                  : IntPtr
+        get_width                : IntPtr
+        get_height               : IntPtr
+        get_paddingLeft          : IntPtr
+        get_paddingTop           : IntPtr
+        get_paddingRight         : IntPtr
+        get_paddingBottom        : IntPtr
+        get_textAlign            : IntPtr
+        get_textDecoration       : IntPtr
+        get_display              : IntPtr
+        get_visibility           : IntPtr
+        get_zIndex               : IntPtr
+        get_letterSpacing        : IntPtr
+        get_lineHeight           : IntPtr
+        get_textIndent           : IntPtr
+        get_verticalAlign        : IntPtr
+        get_backgroundAttachment : IntPtr
+        get_marginTop            : IntPtr
+        get_marginRight          : IntPtr
+        get_marginBottom         : IntPtr
+        get_marginLeft           : IntPtr
+        get_clear                : IntPtr
+        get_listStyleType        : IntPtr
+        get_listStylePosition    : IntPtr
+        get_listStyleImage       : IntPtr
+        get_clipTop              : IntPtr
+        get_clipRight            : IntPtr
+        get_clipBottom           : IntPtr
+        get_clipLeft             : IntPtr
+        get_overflow             : IntPtr
+        get_pageBreakBefore      : IntPtr
+        get_pageBreakAfter       : IntPtr
+        get_cursor               : IntPtr
+        get_tableLayout          : IntPtr
+        get_borderCollapse       : IntPtr
+        get_direction            : IntPtr
+        get_behavior             : IntPtr
+        getAttribute             : IntPtr
+        get_unicodeBidi          : IntPtr
+        get_right                : IntPtr
+        get_bottom               : IntPtr
+        get_imeMode              : IntPtr
+        get_rubyAlign            : IntPtr
+        get_rubyPosition         : IntPtr
+        get_rubyOverhang         : IntPtr
+        get_textAutospace        : IntPtr
+        get_lineBreak            : IntPtr
+        get_wordBreak            : IntPtr
+        get_textJustify          : IntPtr
+        get_textJustifyTrim      : IntPtr
+        get_textKashida          : IntPtr
+        get_blockDirection       : IntPtr
+        get_layoutGridChar       : IntPtr
+        get_layoutGridLine       : IntPtr
+        get_layoutGridMode       : IntPtr
+        get_layoutGridType       : IntPtr
+        get_borderStyle          : IntPtr
+        get_borderColor          : IntPtr
+        get_borderWidth          : IntPtr
+        get_padding              : IntPtr
+        get_margin               : IntPtr
+        get_accelerator          : IntPtr
+        get_overflowX            : IntPtr
+        get_overflowY            : IntPtr
+        get_textTransform        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_position", "get_styleFloat", "get_color", "get_backgroundColor", "get_fontFamily", "get_fontStyle", "get_fontVariant", "get_fontWeight", "get_fontSize", "get_backgroundImage", "get_backgroundPositionX", "get_backgroundPositionY", "get_backgroundRepeat", "get_borderLeftColor", "get_borderTopColor", "get_borderRightColor", "get_borderBottomColor", "get_borderTopStyle", "get_borderRightStyle", "get_borderBottomStyle", "get_borderLeftStyle", "get_borderTopWidth", "get_borderRightWidth", "get_borderBottomWidth", "get_borderLeftWidth", "get_left", "get_top", "get_width", "get_height", "get_paddingLeft", "get_paddingTop", "get_paddingRight", "get_paddingBottom", "get_textAlign", "get_textDecoration", "get_display", "get_visibility", "get_zIndex", "get_letterSpacing", "get_lineHeight", "get_textIndent", "get_verticalAlign", "get_backgroundAttachment", "get_marginTop", "get_marginRight", "get_marginBottom", "get_marginLeft", "get_clear", "get_listStyleType", "get_listStylePosition", "get_listStyleImage", "get_clipTop", "get_clipRight", "get_clipBottom", "get_clipLeft", "get_overflow", "get_pageBreakBefore", "get_pageBreakAfter", "get_cursor", "get_tableLayout", "get_borderCollapse", "get_direction", "get_behavior", "getAttribute", "get_unicodeBidi", "get_right", "get_bottom", "get_imeMode", "get_rubyAlign", "get_rubyPosition", "get_rubyOverhang", "get_textAutospace", "get_lineBreak", "get_wordBreak", "get_textJustify", "get_textJustifyTrim", "get_textKashida", "get_blockDirection", "get_layoutGridChar", "get_layoutGridLine", "get_layoutGridMode", "get_layoutGridType", "get_borderStyle", "get_borderColor", "get_borderWidth", "get_padding", "get_margin", "get_accelerator", "get_overflowX", "get_overflowY", "get_textTransform"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLCurrentStyle.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -670,8 +768,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_position() {
-        p := BSTR()
-        result := ComCall(7, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -680,8 +778,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_styleFloat() {
-        p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -691,7 +789,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_color() {
         p := VARIANT()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        result := ComCall(9, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -701,7 +799,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_backgroundColor() {
         p := VARIANT()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -710,8 +808,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_fontFamily() {
-        p := BSTR()
-        result := ComCall(11, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -720,8 +818,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_fontStyle() {
-        p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -730,8 +828,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_fontVariant() {
-        p := BSTR()
-        result := ComCall(13, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -741,7 +839,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_fontWeight() {
         p := VARIANT()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -751,7 +849,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_fontSize() {
         p := VARIANT()
-        result := ComCall(15, this, "ptr", p, "HRESULT")
+        result := ComCall(15, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -760,8 +858,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_backgroundImage() {
-        p := BSTR()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(16, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -771,7 +869,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_backgroundPositionX() {
         p := VARIANT()
-        result := ComCall(17, this, "ptr", p, "HRESULT")
+        result := ComCall(17, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -781,7 +879,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_backgroundPositionY() {
         p := VARIANT()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        result := ComCall(18, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -790,8 +888,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_backgroundRepeat() {
-        p := BSTR()
-        result := ComCall(19, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(19, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -801,7 +899,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_borderLeftColor() {
         p := VARIANT()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        result := ComCall(20, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -811,7 +909,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_borderTopColor() {
         p := VARIANT()
-        result := ComCall(21, this, "ptr", p, "HRESULT")
+        result := ComCall(21, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -821,7 +919,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_borderRightColor() {
         p := VARIANT()
-        result := ComCall(22, this, "ptr", p, "HRESULT")
+        result := ComCall(22, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -831,7 +929,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_borderBottomColor() {
         p := VARIANT()
-        result := ComCall(23, this, "ptr", p, "HRESULT")
+        result := ComCall(23, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -840,8 +938,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderTopStyle() {
-        p := BSTR()
-        result := ComCall(24, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(24, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -850,8 +948,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderRightStyle() {
-        p := BSTR()
-        result := ComCall(25, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(25, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -860,8 +958,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderBottomStyle() {
-        p := BSTR()
-        result := ComCall(26, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(26, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -870,8 +968,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderLeftStyle() {
-        p := BSTR()
-        result := ComCall(27, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(27, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -881,7 +979,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_borderTopWidth() {
         p := VARIANT()
-        result := ComCall(28, this, "ptr", p, "HRESULT")
+        result := ComCall(28, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -891,7 +989,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_borderRightWidth() {
         p := VARIANT()
-        result := ComCall(29, this, "ptr", p, "HRESULT")
+        result := ComCall(29, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -901,7 +999,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_borderBottomWidth() {
         p := VARIANT()
-        result := ComCall(30, this, "ptr", p, "HRESULT")
+        result := ComCall(30, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -911,7 +1009,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_borderLeftWidth() {
         p := VARIANT()
-        result := ComCall(31, this, "ptr", p, "HRESULT")
+        result := ComCall(31, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -921,7 +1019,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_left() {
         p := VARIANT()
-        result := ComCall(32, this, "ptr", p, "HRESULT")
+        result := ComCall(32, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -931,7 +1029,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_top() {
         p := VARIANT()
-        result := ComCall(33, this, "ptr", p, "HRESULT")
+        result := ComCall(33, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -941,7 +1039,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_width() {
         p := VARIANT()
-        result := ComCall(34, this, "ptr", p, "HRESULT")
+        result := ComCall(34, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -951,7 +1049,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_height() {
         p := VARIANT()
-        result := ComCall(35, this, "ptr", p, "HRESULT")
+        result := ComCall(35, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -961,7 +1059,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_paddingLeft() {
         p := VARIANT()
-        result := ComCall(36, this, "ptr", p, "HRESULT")
+        result := ComCall(36, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -971,7 +1069,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_paddingTop() {
         p := VARIANT()
-        result := ComCall(37, this, "ptr", p, "HRESULT")
+        result := ComCall(37, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -981,7 +1079,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_paddingRight() {
         p := VARIANT()
-        result := ComCall(38, this, "ptr", p, "HRESULT")
+        result := ComCall(38, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -991,7 +1089,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_paddingBottom() {
         p := VARIANT()
-        result := ComCall(39, this, "ptr", p, "HRESULT")
+        result := ComCall(39, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1000,8 +1098,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_textAlign() {
-        p := BSTR()
-        result := ComCall(40, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(40, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1010,8 +1108,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_textDecoration() {
-        p := BSTR()
-        result := ComCall(41, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(41, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1020,8 +1118,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_display() {
-        p := BSTR()
-        result := ComCall(42, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(42, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1030,8 +1128,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_visibility() {
-        p := BSTR()
-        result := ComCall(43, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(43, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1041,7 +1139,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_zIndex() {
         p := VARIANT()
-        result := ComCall(44, this, "ptr", p, "HRESULT")
+        result := ComCall(44, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1051,7 +1149,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_letterSpacing() {
         p := VARIANT()
-        result := ComCall(45, this, "ptr", p, "HRESULT")
+        result := ComCall(45, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1061,7 +1159,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_lineHeight() {
         p := VARIANT()
-        result := ComCall(46, this, "ptr", p, "HRESULT")
+        result := ComCall(46, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1071,7 +1169,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_textIndent() {
         p := VARIANT()
-        result := ComCall(47, this, "ptr", p, "HRESULT")
+        result := ComCall(47, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1081,7 +1179,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_verticalAlign() {
         p := VARIANT()
-        result := ComCall(48, this, "ptr", p, "HRESULT")
+        result := ComCall(48, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1090,8 +1188,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_backgroundAttachment() {
-        p := BSTR()
-        result := ComCall(49, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(49, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1101,7 +1199,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_marginTop() {
         p := VARIANT()
-        result := ComCall(50, this, "ptr", p, "HRESULT")
+        result := ComCall(50, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1111,7 +1209,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_marginRight() {
         p := VARIANT()
-        result := ComCall(51, this, "ptr", p, "HRESULT")
+        result := ComCall(51, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1121,7 +1219,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_marginBottom() {
         p := VARIANT()
-        result := ComCall(52, this, "ptr", p, "HRESULT")
+        result := ComCall(52, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1131,7 +1229,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_marginLeft() {
         p := VARIANT()
-        result := ComCall(53, this, "ptr", p, "HRESULT")
+        result := ComCall(53, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1140,8 +1238,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_clear() {
-        p := BSTR()
-        result := ComCall(54, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(54, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1150,8 +1248,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_listStyleType() {
-        p := BSTR()
-        result := ComCall(55, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(55, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1160,8 +1258,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_listStylePosition() {
-        p := BSTR()
-        result := ComCall(56, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(56, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1170,8 +1268,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_listStyleImage() {
-        p := BSTR()
-        result := ComCall(57, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(57, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1181,7 +1279,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_clipTop() {
         p := VARIANT()
-        result := ComCall(58, this, "ptr", p, "HRESULT")
+        result := ComCall(58, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1191,7 +1289,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_clipRight() {
         p := VARIANT()
-        result := ComCall(59, this, "ptr", p, "HRESULT")
+        result := ComCall(59, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1201,7 +1299,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_clipBottom() {
         p := VARIANT()
-        result := ComCall(60, this, "ptr", p, "HRESULT")
+        result := ComCall(60, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1211,7 +1309,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_clipLeft() {
         p := VARIANT()
-        result := ComCall(61, this, "ptr", p, "HRESULT")
+        result := ComCall(61, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1220,8 +1318,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_overflow() {
-        p := BSTR()
-        result := ComCall(62, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(62, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1230,8 +1328,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_pageBreakBefore() {
-        p := BSTR()
-        result := ComCall(63, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(63, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1240,8 +1338,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_pageBreakAfter() {
-        p := BSTR()
-        result := ComCall(64, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(64, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1250,8 +1348,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_cursor() {
-        p := BSTR()
-        result := ComCall(65, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(65, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1260,8 +1358,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_tableLayout() {
-        p := BSTR()
-        result := ComCall(66, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(66, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1270,8 +1368,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderCollapse() {
-        p := BSTR()
-        result := ComCall(67, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(67, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1280,8 +1378,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_direction() {
-        p := BSTR()
-        result := ComCall(68, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(68, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1290,8 +1388,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_behavior() {
-        p := BSTR()
-        result := ComCall(69, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(69, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1305,7 +1403,7 @@ class IHTMLCurrentStyle extends IDispatch {
         strAttributeName := strAttributeName is String ? BSTR.Alloc(strAttributeName).Value : strAttributeName
 
         AttributeValue := VARIANT()
-        result := ComCall(70, this, "ptr", strAttributeName, "int", lFlags, "ptr", AttributeValue, "HRESULT")
+        result := ComCall(70, this, BSTR, strAttributeName, "int", lFlags, VARIANT.Ptr, AttributeValue, "HRESULT")
         return AttributeValue
     }
 
@@ -1314,8 +1412,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_unicodeBidi() {
-        p := BSTR()
-        result := ComCall(71, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(71, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1325,7 +1423,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_right() {
         p := VARIANT()
-        result := ComCall(72, this, "ptr", p, "HRESULT")
+        result := ComCall(72, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1335,7 +1433,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_bottom() {
         p := VARIANT()
-        result := ComCall(73, this, "ptr", p, "HRESULT")
+        result := ComCall(73, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1344,8 +1442,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_imeMode() {
-        p := BSTR()
-        result := ComCall(74, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(74, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1354,8 +1452,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_rubyAlign() {
-        p := BSTR()
-        result := ComCall(75, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(75, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1364,8 +1462,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_rubyPosition() {
-        p := BSTR()
-        result := ComCall(76, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(76, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1374,8 +1472,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_rubyOverhang() {
-        p := BSTR()
-        result := ComCall(77, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(77, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1384,8 +1482,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_textAutospace() {
-        p := BSTR()
-        result := ComCall(78, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(78, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1394,8 +1492,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_lineBreak() {
-        p := BSTR()
-        result := ComCall(79, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(79, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1404,8 +1502,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_wordBreak() {
-        p := BSTR()
-        result := ComCall(80, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(80, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1414,8 +1512,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_textJustify() {
-        p := BSTR()
-        result := ComCall(81, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(81, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1424,8 +1522,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_textJustifyTrim() {
-        p := BSTR()
-        result := ComCall(82, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(82, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1435,7 +1533,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_textKashida() {
         p := VARIANT()
-        result := ComCall(83, this, "ptr", p, "HRESULT")
+        result := ComCall(83, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1444,8 +1542,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_blockDirection() {
-        p := BSTR()
-        result := ComCall(84, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(84, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1455,7 +1553,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_layoutGridChar() {
         p := VARIANT()
-        result := ComCall(85, this, "ptr", p, "HRESULT")
+        result := ComCall(85, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1465,7 +1563,7 @@ class IHTMLCurrentStyle extends IDispatch {
      */
     get_layoutGridLine() {
         p := VARIANT()
-        result := ComCall(86, this, "ptr", p, "HRESULT")
+        result := ComCall(86, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1474,8 +1572,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_layoutGridMode() {
-        p := BSTR()
-        result := ComCall(87, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(87, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1484,8 +1582,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_layoutGridType() {
-        p := BSTR()
-        result := ComCall(88, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(88, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1494,8 +1592,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderStyle() {
-        p := BSTR()
-        result := ComCall(89, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(89, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1504,8 +1602,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderColor() {
-        p := BSTR()
-        result := ComCall(90, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(90, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1514,8 +1612,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderWidth() {
-        p := BSTR()
-        result := ComCall(91, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(91, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1524,8 +1622,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_padding() {
-        p := BSTR()
-        result := ComCall(92, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(92, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1534,8 +1632,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_margin() {
-        p := BSTR()
-        result := ComCall(93, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(93, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1544,8 +1642,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_accelerator() {
-        p := BSTR()
-        result := ComCall(94, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(94, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1554,8 +1652,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_overflowX() {
-        p := BSTR()
-        result := ComCall(95, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(95, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1564,8 +1662,8 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_overflowY() {
-        p := BSTR()
-        result := ComCall(96, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(96, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1574,8 +1672,208 @@ class IHTMLCurrentStyle extends IDispatch {
      * @returns {BSTR} 
      */
     get_textTransform() {
-        p := BSTR()
-        result := ComCall(97, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(97, this, BSTR.Ptr, p, "HRESULT")
         return p
+    }
+
+    Query(iid) {
+        if (IHTMLCurrentStyle.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_position := CallbackCreate(GetMethod(implObj, "get_position"), flags, 2)
+        this.vtbl.get_styleFloat := CallbackCreate(GetMethod(implObj, "get_styleFloat"), flags, 2)
+        this.vtbl.get_color := CallbackCreate(GetMethod(implObj, "get_color"), flags, 2)
+        this.vtbl.get_backgroundColor := CallbackCreate(GetMethod(implObj, "get_backgroundColor"), flags, 2)
+        this.vtbl.get_fontFamily := CallbackCreate(GetMethod(implObj, "get_fontFamily"), flags, 2)
+        this.vtbl.get_fontStyle := CallbackCreate(GetMethod(implObj, "get_fontStyle"), flags, 2)
+        this.vtbl.get_fontVariant := CallbackCreate(GetMethod(implObj, "get_fontVariant"), flags, 2)
+        this.vtbl.get_fontWeight := CallbackCreate(GetMethod(implObj, "get_fontWeight"), flags, 2)
+        this.vtbl.get_fontSize := CallbackCreate(GetMethod(implObj, "get_fontSize"), flags, 2)
+        this.vtbl.get_backgroundImage := CallbackCreate(GetMethod(implObj, "get_backgroundImage"), flags, 2)
+        this.vtbl.get_backgroundPositionX := CallbackCreate(GetMethod(implObj, "get_backgroundPositionX"), flags, 2)
+        this.vtbl.get_backgroundPositionY := CallbackCreate(GetMethod(implObj, "get_backgroundPositionY"), flags, 2)
+        this.vtbl.get_backgroundRepeat := CallbackCreate(GetMethod(implObj, "get_backgroundRepeat"), flags, 2)
+        this.vtbl.get_borderLeftColor := CallbackCreate(GetMethod(implObj, "get_borderLeftColor"), flags, 2)
+        this.vtbl.get_borderTopColor := CallbackCreate(GetMethod(implObj, "get_borderTopColor"), flags, 2)
+        this.vtbl.get_borderRightColor := CallbackCreate(GetMethod(implObj, "get_borderRightColor"), flags, 2)
+        this.vtbl.get_borderBottomColor := CallbackCreate(GetMethod(implObj, "get_borderBottomColor"), flags, 2)
+        this.vtbl.get_borderTopStyle := CallbackCreate(GetMethod(implObj, "get_borderTopStyle"), flags, 2)
+        this.vtbl.get_borderRightStyle := CallbackCreate(GetMethod(implObj, "get_borderRightStyle"), flags, 2)
+        this.vtbl.get_borderBottomStyle := CallbackCreate(GetMethod(implObj, "get_borderBottomStyle"), flags, 2)
+        this.vtbl.get_borderLeftStyle := CallbackCreate(GetMethod(implObj, "get_borderLeftStyle"), flags, 2)
+        this.vtbl.get_borderTopWidth := CallbackCreate(GetMethod(implObj, "get_borderTopWidth"), flags, 2)
+        this.vtbl.get_borderRightWidth := CallbackCreate(GetMethod(implObj, "get_borderRightWidth"), flags, 2)
+        this.vtbl.get_borderBottomWidth := CallbackCreate(GetMethod(implObj, "get_borderBottomWidth"), flags, 2)
+        this.vtbl.get_borderLeftWidth := CallbackCreate(GetMethod(implObj, "get_borderLeftWidth"), flags, 2)
+        this.vtbl.get_left := CallbackCreate(GetMethod(implObj, "get_left"), flags, 2)
+        this.vtbl.get_top := CallbackCreate(GetMethod(implObj, "get_top"), flags, 2)
+        this.vtbl.get_width := CallbackCreate(GetMethod(implObj, "get_width"), flags, 2)
+        this.vtbl.get_height := CallbackCreate(GetMethod(implObj, "get_height"), flags, 2)
+        this.vtbl.get_paddingLeft := CallbackCreate(GetMethod(implObj, "get_paddingLeft"), flags, 2)
+        this.vtbl.get_paddingTop := CallbackCreate(GetMethod(implObj, "get_paddingTop"), flags, 2)
+        this.vtbl.get_paddingRight := CallbackCreate(GetMethod(implObj, "get_paddingRight"), flags, 2)
+        this.vtbl.get_paddingBottom := CallbackCreate(GetMethod(implObj, "get_paddingBottom"), flags, 2)
+        this.vtbl.get_textAlign := CallbackCreate(GetMethod(implObj, "get_textAlign"), flags, 2)
+        this.vtbl.get_textDecoration := CallbackCreate(GetMethod(implObj, "get_textDecoration"), flags, 2)
+        this.vtbl.get_display := CallbackCreate(GetMethod(implObj, "get_display"), flags, 2)
+        this.vtbl.get_visibility := CallbackCreate(GetMethod(implObj, "get_visibility"), flags, 2)
+        this.vtbl.get_zIndex := CallbackCreate(GetMethod(implObj, "get_zIndex"), flags, 2)
+        this.vtbl.get_letterSpacing := CallbackCreate(GetMethod(implObj, "get_letterSpacing"), flags, 2)
+        this.vtbl.get_lineHeight := CallbackCreate(GetMethod(implObj, "get_lineHeight"), flags, 2)
+        this.vtbl.get_textIndent := CallbackCreate(GetMethod(implObj, "get_textIndent"), flags, 2)
+        this.vtbl.get_verticalAlign := CallbackCreate(GetMethod(implObj, "get_verticalAlign"), flags, 2)
+        this.vtbl.get_backgroundAttachment := CallbackCreate(GetMethod(implObj, "get_backgroundAttachment"), flags, 2)
+        this.vtbl.get_marginTop := CallbackCreate(GetMethod(implObj, "get_marginTop"), flags, 2)
+        this.vtbl.get_marginRight := CallbackCreate(GetMethod(implObj, "get_marginRight"), flags, 2)
+        this.vtbl.get_marginBottom := CallbackCreate(GetMethod(implObj, "get_marginBottom"), flags, 2)
+        this.vtbl.get_marginLeft := CallbackCreate(GetMethod(implObj, "get_marginLeft"), flags, 2)
+        this.vtbl.get_clear := CallbackCreate(GetMethod(implObj, "get_clear"), flags, 2)
+        this.vtbl.get_listStyleType := CallbackCreate(GetMethod(implObj, "get_listStyleType"), flags, 2)
+        this.vtbl.get_listStylePosition := CallbackCreate(GetMethod(implObj, "get_listStylePosition"), flags, 2)
+        this.vtbl.get_listStyleImage := CallbackCreate(GetMethod(implObj, "get_listStyleImage"), flags, 2)
+        this.vtbl.get_clipTop := CallbackCreate(GetMethod(implObj, "get_clipTop"), flags, 2)
+        this.vtbl.get_clipRight := CallbackCreate(GetMethod(implObj, "get_clipRight"), flags, 2)
+        this.vtbl.get_clipBottom := CallbackCreate(GetMethod(implObj, "get_clipBottom"), flags, 2)
+        this.vtbl.get_clipLeft := CallbackCreate(GetMethod(implObj, "get_clipLeft"), flags, 2)
+        this.vtbl.get_overflow := CallbackCreate(GetMethod(implObj, "get_overflow"), flags, 2)
+        this.vtbl.get_pageBreakBefore := CallbackCreate(GetMethod(implObj, "get_pageBreakBefore"), flags, 2)
+        this.vtbl.get_pageBreakAfter := CallbackCreate(GetMethod(implObj, "get_pageBreakAfter"), flags, 2)
+        this.vtbl.get_cursor := CallbackCreate(GetMethod(implObj, "get_cursor"), flags, 2)
+        this.vtbl.get_tableLayout := CallbackCreate(GetMethod(implObj, "get_tableLayout"), flags, 2)
+        this.vtbl.get_borderCollapse := CallbackCreate(GetMethod(implObj, "get_borderCollapse"), flags, 2)
+        this.vtbl.get_direction := CallbackCreate(GetMethod(implObj, "get_direction"), flags, 2)
+        this.vtbl.get_behavior := CallbackCreate(GetMethod(implObj, "get_behavior"), flags, 2)
+        this.vtbl.getAttribute := CallbackCreate(GetMethod(implObj, "getAttribute"), flags, 4)
+        this.vtbl.get_unicodeBidi := CallbackCreate(GetMethod(implObj, "get_unicodeBidi"), flags, 2)
+        this.vtbl.get_right := CallbackCreate(GetMethod(implObj, "get_right"), flags, 2)
+        this.vtbl.get_bottom := CallbackCreate(GetMethod(implObj, "get_bottom"), flags, 2)
+        this.vtbl.get_imeMode := CallbackCreate(GetMethod(implObj, "get_imeMode"), flags, 2)
+        this.vtbl.get_rubyAlign := CallbackCreate(GetMethod(implObj, "get_rubyAlign"), flags, 2)
+        this.vtbl.get_rubyPosition := CallbackCreate(GetMethod(implObj, "get_rubyPosition"), flags, 2)
+        this.vtbl.get_rubyOverhang := CallbackCreate(GetMethod(implObj, "get_rubyOverhang"), flags, 2)
+        this.vtbl.get_textAutospace := CallbackCreate(GetMethod(implObj, "get_textAutospace"), flags, 2)
+        this.vtbl.get_lineBreak := CallbackCreate(GetMethod(implObj, "get_lineBreak"), flags, 2)
+        this.vtbl.get_wordBreak := CallbackCreate(GetMethod(implObj, "get_wordBreak"), flags, 2)
+        this.vtbl.get_textJustify := CallbackCreate(GetMethod(implObj, "get_textJustify"), flags, 2)
+        this.vtbl.get_textJustifyTrim := CallbackCreate(GetMethod(implObj, "get_textJustifyTrim"), flags, 2)
+        this.vtbl.get_textKashida := CallbackCreate(GetMethod(implObj, "get_textKashida"), flags, 2)
+        this.vtbl.get_blockDirection := CallbackCreate(GetMethod(implObj, "get_blockDirection"), flags, 2)
+        this.vtbl.get_layoutGridChar := CallbackCreate(GetMethod(implObj, "get_layoutGridChar"), flags, 2)
+        this.vtbl.get_layoutGridLine := CallbackCreate(GetMethod(implObj, "get_layoutGridLine"), flags, 2)
+        this.vtbl.get_layoutGridMode := CallbackCreate(GetMethod(implObj, "get_layoutGridMode"), flags, 2)
+        this.vtbl.get_layoutGridType := CallbackCreate(GetMethod(implObj, "get_layoutGridType"), flags, 2)
+        this.vtbl.get_borderStyle := CallbackCreate(GetMethod(implObj, "get_borderStyle"), flags, 2)
+        this.vtbl.get_borderColor := CallbackCreate(GetMethod(implObj, "get_borderColor"), flags, 2)
+        this.vtbl.get_borderWidth := CallbackCreate(GetMethod(implObj, "get_borderWidth"), flags, 2)
+        this.vtbl.get_padding := CallbackCreate(GetMethod(implObj, "get_padding"), flags, 2)
+        this.vtbl.get_margin := CallbackCreate(GetMethod(implObj, "get_margin"), flags, 2)
+        this.vtbl.get_accelerator := CallbackCreate(GetMethod(implObj, "get_accelerator"), flags, 2)
+        this.vtbl.get_overflowX := CallbackCreate(GetMethod(implObj, "get_overflowX"), flags, 2)
+        this.vtbl.get_overflowY := CallbackCreate(GetMethod(implObj, "get_overflowY"), flags, 2)
+        this.vtbl.get_textTransform := CallbackCreate(GetMethod(implObj, "get_textTransform"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_position)
+        CallbackFree(this.vtbl.get_styleFloat)
+        CallbackFree(this.vtbl.get_color)
+        CallbackFree(this.vtbl.get_backgroundColor)
+        CallbackFree(this.vtbl.get_fontFamily)
+        CallbackFree(this.vtbl.get_fontStyle)
+        CallbackFree(this.vtbl.get_fontVariant)
+        CallbackFree(this.vtbl.get_fontWeight)
+        CallbackFree(this.vtbl.get_fontSize)
+        CallbackFree(this.vtbl.get_backgroundImage)
+        CallbackFree(this.vtbl.get_backgroundPositionX)
+        CallbackFree(this.vtbl.get_backgroundPositionY)
+        CallbackFree(this.vtbl.get_backgroundRepeat)
+        CallbackFree(this.vtbl.get_borderLeftColor)
+        CallbackFree(this.vtbl.get_borderTopColor)
+        CallbackFree(this.vtbl.get_borderRightColor)
+        CallbackFree(this.vtbl.get_borderBottomColor)
+        CallbackFree(this.vtbl.get_borderTopStyle)
+        CallbackFree(this.vtbl.get_borderRightStyle)
+        CallbackFree(this.vtbl.get_borderBottomStyle)
+        CallbackFree(this.vtbl.get_borderLeftStyle)
+        CallbackFree(this.vtbl.get_borderTopWidth)
+        CallbackFree(this.vtbl.get_borderRightWidth)
+        CallbackFree(this.vtbl.get_borderBottomWidth)
+        CallbackFree(this.vtbl.get_borderLeftWidth)
+        CallbackFree(this.vtbl.get_left)
+        CallbackFree(this.vtbl.get_top)
+        CallbackFree(this.vtbl.get_width)
+        CallbackFree(this.vtbl.get_height)
+        CallbackFree(this.vtbl.get_paddingLeft)
+        CallbackFree(this.vtbl.get_paddingTop)
+        CallbackFree(this.vtbl.get_paddingRight)
+        CallbackFree(this.vtbl.get_paddingBottom)
+        CallbackFree(this.vtbl.get_textAlign)
+        CallbackFree(this.vtbl.get_textDecoration)
+        CallbackFree(this.vtbl.get_display)
+        CallbackFree(this.vtbl.get_visibility)
+        CallbackFree(this.vtbl.get_zIndex)
+        CallbackFree(this.vtbl.get_letterSpacing)
+        CallbackFree(this.vtbl.get_lineHeight)
+        CallbackFree(this.vtbl.get_textIndent)
+        CallbackFree(this.vtbl.get_verticalAlign)
+        CallbackFree(this.vtbl.get_backgroundAttachment)
+        CallbackFree(this.vtbl.get_marginTop)
+        CallbackFree(this.vtbl.get_marginRight)
+        CallbackFree(this.vtbl.get_marginBottom)
+        CallbackFree(this.vtbl.get_marginLeft)
+        CallbackFree(this.vtbl.get_clear)
+        CallbackFree(this.vtbl.get_listStyleType)
+        CallbackFree(this.vtbl.get_listStylePosition)
+        CallbackFree(this.vtbl.get_listStyleImage)
+        CallbackFree(this.vtbl.get_clipTop)
+        CallbackFree(this.vtbl.get_clipRight)
+        CallbackFree(this.vtbl.get_clipBottom)
+        CallbackFree(this.vtbl.get_clipLeft)
+        CallbackFree(this.vtbl.get_overflow)
+        CallbackFree(this.vtbl.get_pageBreakBefore)
+        CallbackFree(this.vtbl.get_pageBreakAfter)
+        CallbackFree(this.vtbl.get_cursor)
+        CallbackFree(this.vtbl.get_tableLayout)
+        CallbackFree(this.vtbl.get_borderCollapse)
+        CallbackFree(this.vtbl.get_direction)
+        CallbackFree(this.vtbl.get_behavior)
+        CallbackFree(this.vtbl.getAttribute)
+        CallbackFree(this.vtbl.get_unicodeBidi)
+        CallbackFree(this.vtbl.get_right)
+        CallbackFree(this.vtbl.get_bottom)
+        CallbackFree(this.vtbl.get_imeMode)
+        CallbackFree(this.vtbl.get_rubyAlign)
+        CallbackFree(this.vtbl.get_rubyPosition)
+        CallbackFree(this.vtbl.get_rubyOverhang)
+        CallbackFree(this.vtbl.get_textAutospace)
+        CallbackFree(this.vtbl.get_lineBreak)
+        CallbackFree(this.vtbl.get_wordBreak)
+        CallbackFree(this.vtbl.get_textJustify)
+        CallbackFree(this.vtbl.get_textJustifyTrim)
+        CallbackFree(this.vtbl.get_textKashida)
+        CallbackFree(this.vtbl.get_blockDirection)
+        CallbackFree(this.vtbl.get_layoutGridChar)
+        CallbackFree(this.vtbl.get_layoutGridLine)
+        CallbackFree(this.vtbl.get_layoutGridMode)
+        CallbackFree(this.vtbl.get_layoutGridType)
+        CallbackFree(this.vtbl.get_borderStyle)
+        CallbackFree(this.vtbl.get_borderColor)
+        CallbackFree(this.vtbl.get_borderWidth)
+        CallbackFree(this.vtbl.get_padding)
+        CallbackFree(this.vtbl.get_margin)
+        CallbackFree(this.vtbl.get_accelerator)
+        CallbackFree(this.vtbl.get_overflowX)
+        CallbackFree(this.vtbl.get_overflowY)
+        CallbackFree(this.vtbl.get_textTransform)
     }
 }

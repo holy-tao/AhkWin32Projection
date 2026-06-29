@@ -1,123 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCI_PM_CAPABILITY extends Win32Struct {
-    static sizeof => 40
+export default struct PCI_PM_CAPABILITY {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _PMC_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _PMC {
+        Capabilities : IntPtr
 
-        /**
-         * @type {Pointer}
-         */
-        Capabilities {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        AsUSHORT {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUSHORT', { type: UInt16, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    class _PMCSR_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _PMCSR {
+        ControlStatus : IntPtr
 
-        /**
-         * @type {Pointer}
-         */
-        ControlStatus {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        AsUSHORT {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUSHORT', { type: UInt16, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    class _PMCSR_BSE_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _PMCSR_BSE {
+        BridgeSupport : IntPtr
 
-        /**
-         * @type {Pointer}
-         */
-        BridgeSupport {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        AsUCHAR {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUCHAR', { type: Int8, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Pointer}
-     */
-    Header {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Header : IntPtr
 
-    /**
-     * @type {_PMC_e__Union}
-     */
-    PMC {
-        get {
-            if(!this.HasProp("__PMC"))
-                this.__PMC := PCI_PM_CAPABILITY._PMC_e__Union(8, this)
-            return this.__PMC
-        }
-    }
+    PMC : PCI_PM_CAPABILITY._PMC
 
-    /**
-     * @type {_PMCSR_e__Union}
-     */
-    PMCSR {
-        get {
-            if(!this.HasProp("__PMCSR"))
-                this.__PMCSR := PCI_PM_CAPABILITY._PMCSR_e__Union(16, this)
-            return this.__PMCSR
-        }
-    }
+    PMCSR : PCI_PM_CAPABILITY._PMCSR
 
-    /**
-     * @type {_PMCSR_BSE_e__Union}
-     */
-    PMCSR_BSE {
-        get {
-            if(!this.HasProp("__PMCSR_BSE"))
-                this.__PMCSR_BSE := PCI_PM_CAPABILITY._PMCSR_BSE_e__Union(24, this)
-            return this.__PMCSR_BSE
-        }
-    }
+    PMCSR_BSE : PCI_PM_CAPABILITY._PMCSR_BSE
 
-    /**
-     * @type {Integer}
-     */
-    Data {
-        get => NumGet(this, 32, "char")
-        set => NumPut("char", value, this, 32)
-    }
+    Data : Int8
+
 }

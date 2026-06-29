@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISpatialAudioObjectRenderStreamBase.ahk
-#Include .\ISpatialAudioObject.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISpatialAudioObject.ahk" { ISpatialAudioObject }
+#Import ".\ISpatialAudioObjectRenderStreamBase.ahk" { ISpatialAudioObjectRenderStreamBase }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\AudioObjectType.ahk" { AudioObjectType }
 
 /**
  * Provides methods for controlling a spatial audio object render stream, including starting, stopping, and resetting the stream.
@@ -12,26 +14,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nn-spatialaudioclient-ispatialaudioobjectrenderstream
  * @namespace Windows.Win32.Media.Audio
  */
-class ISpatialAudioObjectRenderStream extends ISpatialAudioObjectRenderStreamBase {
-
-    static sizeof => A_PtrSize
+export default struct ISpatialAudioObjectRenderStream extends ISpatialAudioObjectRenderStreamBase {
     /**
      * The interface identifier for ISpatialAudioObjectRenderStream
      * @type {Guid}
      */
-    static IID => Guid("{bab5f473-b423-477b-85f5-b5a332a04153}")
+    static IID := Guid("{bab5f473-b423-477b-85f5-b5a332a04153}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 10
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpatialAudioObjectRenderStream interfaces
+    */
+    struct Vtbl extends ISpatialAudioObjectRenderStreamBase.Vtbl {
+        ActivateSpatialAudioObject : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ActivateSpatialAudioObject"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpatialAudioObjectRenderStream.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Activates an ISpatialAudioObject for audio rendering.
@@ -42,7 +51,27 @@ class ISpatialAudioObjectRenderStream extends ISpatialAudioObjectRenderStreamBas
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioobjectrenderstream-activatespatialaudioobject
      */
     ActivateSpatialAudioObject(type) {
-        result := ComCall(10, this, "int", type, "ptr*", &audioObject := 0, "HRESULT")
+        result := ComCall(10, this, AudioObjectType, type, "ptr*", &audioObject := 0, "HRESULT")
         return ISpatialAudioObject(audioObject)
+    }
+
+    Query(iid) {
+        if (ISpatialAudioObjectRenderStream.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ActivateSpatialAudioObject := CallbackCreate(GetMethod(implObj, "ActivateSpatialAudioObject"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ActivateSpatialAudioObject)
     }
 }

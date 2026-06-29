@@ -1,88 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_CHANNEL_PROPERTIES.ahk
-#Include .\WS_CHANNEL_PROPERTY.ahk
-#Include .\WS_SECURITY_PROPERTIES.ahk
-#Include .\WS_SECURITY_PROPERTY.ahk
-#Include .\WS_SSL_TRANSPORT_SECURITY_BINDING_TEMPLATE.ahk
-#Include .\WS_SECURITY_BINDING_PROPERTIES.ahk
-#Include .\WS_SECURITY_BINDING_PROPERTY.ahk
-#Include .\WS_CERT_CREDENTIAL.ahk
-#Include .\WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING_TEMPLATE.ahk
-#Include .\WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL.ahk
-#Include .\WS_SECURITY_CONTEXT_SECURITY_BINDING_TEMPLATE.ahk
-#Include .\WS_SECURITY_CONTEXT_MESSAGE_SECURITY_BINDING_TEMPLATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_CERT_CREDENTIAL.ahk" { WS_CERT_CREDENTIAL }
+#Import ".\WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL.ahk" { WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL }
+#Import ".\WS_SECURITY_BINDING_PROPERTIES.ahk" { WS_SECURITY_BINDING_PROPERTIES }
+#Import ".\WS_SECURITY_PROPERTY.ahk" { WS_SECURITY_PROPERTY }
+#Import ".\WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING_TEMPLATE.ahk" { WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING_TEMPLATE }
+#Import ".\WS_CHANNEL_PROPERTY.ahk" { WS_CHANNEL_PROPERTY }
+#Import ".\WS_SECURITY_CONTEXT_SECURITY_BINDING_TEMPLATE.ahk" { WS_SECURITY_CONTEXT_SECURITY_BINDING_TEMPLATE }
+#Import ".\WS_SSL_TRANSPORT_SECURITY_BINDING_TEMPLATE.ahk" { WS_SSL_TRANSPORT_SECURITY_BINDING_TEMPLATE }
+#Import ".\WS_SECURITY_BINDING_PROPERTY.ahk" { WS_SECURITY_BINDING_PROPERTY }
+#Import ".\WS_CHANNEL_PROPERTIES.ahk" { WS_CHANNEL_PROPERTIES }
+#Import ".\WS_SECURITY_CONTEXT_MESSAGE_SECURITY_BINDING_TEMPLATE.ahk" { WS_SECURITY_CONTEXT_MESSAGE_SECURITY_BINDING_TEMPLATE }
+#Import ".\WS_SECURITY_PROPERTIES.ahk" { WS_SECURITY_PROPERTIES }
 
 /**
  * Security template information to be filled in by application. Associated with WS_HTTP_SSL_KERBEROS_APREQ_SECURITY_CONTEXT_BINDING_TEMPLATE_TYPE.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_http_ssl_kerberos_apreq_security_context_binding_template
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_HTTP_SSL_KERBEROS_APREQ_SECURITY_CONTEXT_BINDING_TEMPLATE extends Win32Struct {
-    static sizeof => 112
-
-    static packingSize => 8
+export default struct WS_HTTP_SSL_KERBEROS_APREQ_SECURITY_CONTEXT_BINDING_TEMPLATE {
+    #StructPack 8
 
     /**
      * Application provided additional channel properties for both bootstrap channel and service channel
      *           that cannot be represented in policy.
-     * @type {WS_CHANNEL_PROPERTIES}
      */
-    channelProperties {
-        get {
-            if(!this.HasProp("__channelProperties"))
-                this.__channelProperties := WS_CHANNEL_PROPERTIES(0, this)
-            return this.__channelProperties
-        }
-    }
+    channelProperties : WS_CHANNEL_PROPERTIES
 
     /**
      * Application provided additional security properties for the bootstrap channel that cannot be represented in policy.
-     * @type {WS_SECURITY_PROPERTIES}
      */
-    securityProperties {
-        get {
-            if(!this.HasProp("__securityProperties"))
-                this.__securityProperties := WS_SECURITY_PROPERTIES(16, this)
-            return this.__securityProperties
-        }
-    }
+    securityProperties : WS_SECURITY_PROPERTIES
 
     /**
      * Application provided SSL transport security binding information for both bootstrap channel and
      *           service channel that cannot be represented
      *           in policy.
-     * @type {WS_SSL_TRANSPORT_SECURITY_BINDING_TEMPLATE}
      */
-    sslTransportSecurityBinding {
-        get {
-            if(!this.HasProp("__sslTransportSecurityBinding"))
-                this.__sslTransportSecurityBinding := WS_SSL_TRANSPORT_SECURITY_BINDING_TEMPLATE(32, this)
-            return this.__sslTransportSecurityBinding
-        }
-    }
+    sslTransportSecurityBinding : WS_SSL_TRANSPORT_SECURITY_BINDING_TEMPLATE
 
     /**
      * Application provided username binding information for the bootstrap channel that cannot be represented in policy.
-     * @type {WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING_TEMPLATE}
      */
-    kerberosApreqMessageSecurityBinding {
-        get {
-            if(!this.HasProp("__kerberosApreqMessageSecurityBinding"))
-                this.__kerberosApreqMessageSecurityBinding := WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING_TEMPLATE(56, this)
-            return this.__kerberosApreqMessageSecurityBinding
-        }
-    }
+    kerberosApreqMessageSecurityBinding : WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING_TEMPLATE
 
     /**
      * Application provided security context message binding information for the service channel that cannot be represented in policy.
-     * @type {WS_SECURITY_CONTEXT_SECURITY_BINDING_TEMPLATE}
      */
-    securityContextSecurityBinding {
-        get {
-            if(!this.HasProp("__securityContextSecurityBinding"))
-                this.__securityContextSecurityBinding := WS_SECURITY_CONTEXT_SECURITY_BINDING_TEMPLATE(80, this)
-            return this.__securityContextSecurityBinding
-        }
-    }
+    securityContextSecurityBinding : WS_SECURITY_CONTEXT_SECURITY_BINDING_TEMPLATE
+
 }

@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IFaxInboundRoutingExtension.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFaxInboundRoutingExtension.ahk" { IFaxInboundRoutingExtension }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IFaxInboundRoutingExtensions interface defines a configuration collection used by a fax client application to manage the inbound fax routing extensions registered with the fax service.
@@ -12,32 +14,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxinboundroutingextensions
  * @namespace Windows.Win32.Devices.Fax
  */
-class IFaxInboundRoutingExtensions extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFaxInboundRoutingExtensions extends IDispatch {
     /**
      * The interface identifier for IFaxInboundRoutingExtensions
      * @type {Guid}
      */
-    static IID => Guid("{2f6c9673-7b26-42de-8eb0-915dcd2a4f4c}")
+    static IID := Guid("{2f6c9673-7b26-42de-8eb0-915dcd2a4f4c}")
 
     /**
      * The class identifier for FaxInboundRoutingExtensions
      * @type {Guid}
      */
-    static CLSID => Guid("{189a48ed-623c-4c0d-80f2-d66c7b9efec2}")
+    static CLSID := Guid("{189a48ed-623c-4c0d-80f2-d66c7b9efec2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFaxInboundRoutingExtensions interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get__NewEnum : IntPtr
+        get_Item     : IntPtr
+        get_Count    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get__NewEnum", "get_Item", "get_Count"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFaxInboundRoutingExtensions.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IUnknown} 
@@ -82,7 +93,7 @@ class IFaxInboundRoutingExtensions extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingextensions-get_item
      */
     get_Item(vIndex) {
-        result := ComCall(8, this, "ptr", vIndex, "ptr*", &pFaxInboundRoutingExtension := 0, "HRESULT")
+        result := ComCall(8, this, VARIANT, vIndex, "ptr*", &pFaxInboundRoutingExtension := 0, "HRESULT")
         return IFaxInboundRoutingExtension(pFaxInboundRoutingExtension)
     }
 
@@ -94,5 +105,29 @@ class IFaxInboundRoutingExtensions extends IDispatch {
     get_Count() {
         result := ComCall(9, this, "int*", &plCount := 0, "HRESULT")
         return plCount
+    }
+
+    Query(iid) {
+        if (IFaxInboundRoutingExtensions.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.get_Item)
+        CallbackFree(this.vtbl.get_Count)
     }
 }

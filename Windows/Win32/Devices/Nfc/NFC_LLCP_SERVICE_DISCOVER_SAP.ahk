@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
  */
-class NFC_LLCP_SERVICE_DISCOVER_SAP extends Win32Struct {
-    static sizeof => 8
+export default struct NFC_LLCP_SERVICE_DISCOVER_SAP {
+    #StructPack 4
 
-    static packingSize => 4
+    NumberOfEntries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfEntries {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SAPEntries : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    SAPEntries {
-        get {
-            if(!this.HasProp("__SAPEntriesProxyArray"))
-                this.__SAPEntriesProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
-            return this.__SAPEntriesProxyArray
-        }
-    }
 }

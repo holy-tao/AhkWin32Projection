@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IInspectable.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IInspectable.ahk" { IInspectable }
 
 /**
  * Enables interoperability with a WinRT HolographicSpace object and provides access to HolographicSpace members for representing a holographic scene.
  * @see https://learn.microsoft.com/windows/win32/api/holographicspaceinterop/nn-holographicspaceinterop-iholographicspaceinterop
  * @namespace Windows.Win32.System.WinRT
  */
-class IHolographicSpaceInterop extends IInspectable {
-
-    static sizeof => A_PtrSize
+export default struct IHolographicSpaceInterop extends IInspectable {
     /**
      * The interface identifier for IHolographicSpaceInterop
      * @type {Guid}
      */
-    static IID => Guid("{5c4ee536-6a98-4b86-a170-587013d6fd4b}")
+    static IID := Guid("{5c4ee536-6a98-4b86-a170-587013d6fd4b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHolographicSpaceInterop interfaces
+    */
+    struct Vtbl extends IInspectable.Vtbl {
+        CreateForWindow : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateForWindow"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHolographicSpaceInterop.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Instantiates a HolographicSpace object and binds it to the current application.
@@ -103,9 +112,27 @@ class IHolographicSpaceInterop extends IInspectable {
      * @see https://learn.microsoft.com/windows/win32/api/holographicspaceinterop/nf-holographicspaceinterop-iholographicspaceinterop-createforwindow
      */
     CreateForWindow(window, riid) {
-        window := window is Win32Handle ? NumGet(window, "ptr") : window
-
-        result := ComCall(6, this, "ptr", window, "ptr", riid, "ptr*", &holographicSpace := 0, "HRESULT")
+        result := ComCall(6, this, HWND, window, Guid.Ptr, riid, "ptr*", &holographicSpace := 0, "HRESULT")
         return holographicSpace
+    }
+
+    Query(iid) {
+        if (IHolographicSpaceInterop.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateForWindow := CallbackCreate(GetMethod(implObj, "CreateForWindow"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateForWindow)
     }
 }

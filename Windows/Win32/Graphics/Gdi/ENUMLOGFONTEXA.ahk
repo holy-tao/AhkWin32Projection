@@ -1,10 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\LOGFONTA.ahk
-#Include .\FONT_CHARSET.ahk
-#Include .\FONT_OUTPUT_PRECISION.ahk
-#Include .\FONT_CLIP_PRECISION.ahk
-#Include .\FONT_QUALITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FONT_OUTPUT_PRECISION.ahk" { FONT_OUTPUT_PRECISION }
+#Import ".\LOGFONTA.ahk" { LOGFONTA }
+#Import ".\FONT_CLIP_PRECISION.ahk" { FONT_CLIP_PRECISION }
+#Import ".\FONT_QUALITY.ahk" { FONT_QUALITY }
+#Import ".\FONT_CHARSET.ahk" { FONT_CHARSET }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * The ENUMLOGFONTEX structure contains information about an enumerated font. (ANSI)
@@ -15,56 +15,27 @@
  * @namespace Windows.Win32.Graphics.Gdi
  * @charset ANSI
  */
-class ENUMLOGFONTEXA extends Win32Struct {
-    static sizeof => 188
-
-    static packingSize => 4
+export default struct ENUMLOGFONTEXA {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure that contains values defining the font attributes.
-     * @type {LOGFONTA}
      */
-    elfLogFont {
-        get {
-            if(!this.HasProp("__elfLogFont"))
-                this.__elfLogFont := LOGFONTA(0, this)
-            return this.__elfLogFont
-        }
-    }
+    elfLogFont : LOGFONTA
 
     /**
      * The unique name of the font. For example, ABC Font Company TrueType Bold Italic Sans Serif.
-     * @type {Array<Integer>}
      */
-    elfFullName {
-        get {
-            if(!this.HasProp("__elfFullNameProxyArray"))
-                this.__elfFullNameProxyArray := Win32FixedArray(this.ptr + 60, 64, Primitive, "char")
-            return this.__elfFullNameProxyArray
-        }
-    }
+    elfFullName : Int8[64]
 
     /**
      * The style of the font. For example, Bold Italic.
-     * @type {Array<Integer>}
      */
-    elfStyle {
-        get {
-            if(!this.HasProp("__elfStyleProxyArray"))
-                this.__elfStyleProxyArray := Win32FixedArray(this.ptr + 124, 32, Primitive, "char")
-            return this.__elfStyleProxyArray
-        }
-    }
+    elfStyle : Int8[32]
 
     /**
      * The script, that is, the character set, of the font. For example, Cyrillic.
-     * @type {Array<Integer>}
      */
-    elfScript {
-        get {
-            if(!this.HasProp("__elfScriptProxyArray"))
-                this.__elfScriptProxyArray := Win32FixedArray(this.ptr + 156, 32, Primitive, "char")
-            return this.__elfScriptProxyArray
-        }
-    }
+    elfScript : Int8[32]
+
 }

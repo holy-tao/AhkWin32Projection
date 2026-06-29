@@ -1,67 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class DISK_RECORD extends Win32Struct {
-    static sizeof => 40
+export default struct DISK_RECORD {
+    #StructPack 8
 
-    static packingSize => 8
+    ByteOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ByteOffset {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    StartTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    StartTime {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    EndTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    EndTime {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    VirtualAddress : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    VirtualAddress {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    NumberOfBytes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfBytes {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    DeviceNumber : Int8
 
-    /**
-     * @type {Integer}
-     */
-    DeviceNumber {
-        get => NumGet(this, 36, "char")
-        set => NumPut("char", value, this, 36)
-    }
+    ReadRequest : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    ReadRequest {
-        get => NumGet(this, 37, "char")
-        set => NumPut("char", value, this, 37)
-    }
 }

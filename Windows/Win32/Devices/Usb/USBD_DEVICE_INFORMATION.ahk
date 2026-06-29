@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_DEVICE_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USB_DEVICE_DESCRIPTOR.ahk" { USB_DEVICE_DESCRIPTOR }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USBD_DEVICE_INFORMATION extends Win32Struct {
-    static sizeof => 40
+export default struct USBD_DEVICE_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    OffsetNext : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OffsetNext {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    UsbdDeviceHandle : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    UsbdDeviceHandle {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    DeviceDescriptor : USB_DEVICE_DESCRIPTOR
 
-    /**
-     * @type {USB_DEVICE_DESCRIPTOR}
-     */
-    DeviceDescriptor {
-        get {
-            if(!this.HasProp("__DeviceDescriptor"))
-                this.__DeviceDescriptor := USB_DEVICE_DESCRIPTOR(16, this)
-            return this.__DeviceDescriptor
-        }
-    }
 }

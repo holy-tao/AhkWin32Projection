@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The NET_IF_ACCESS_TYPE enumeration type specifies the NDIS network interface access type.
  * @see https://learn.microsoft.com/windows/win32/api/ifdef/ne-ifdef-net_if_access_type
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NET_IF_ACCESS_TYPE extends Win32Enum {
+export default struct NET_IF_ACCESS_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies the loopback access type. This access type indicates that the interface loops back

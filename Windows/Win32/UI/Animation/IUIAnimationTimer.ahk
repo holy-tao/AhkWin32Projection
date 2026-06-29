@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\UI_ANIMATION_IDLE_BEHAVIOR.ahk" { UI_ANIMATION_IDLE_BEHAVIOR }
+#Import ".\IUIAnimationTimerEventHandler.ahk" { IUIAnimationTimerEventHandler }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IUIAnimationTimerUpdateHandler.ahk" { IUIAnimationTimerUpdateHandler }
 
 /**
  * Defines an animation timer, which provides services for managing animation timing.
@@ -14,32 +18,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationtimer
  * @namespace Windows.Win32.UI.Animation
  */
-class IUIAnimationTimer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIAnimationTimer extends IUnknown {
     /**
      * The interface identifier for IUIAnimationTimer
      * @type {Guid}
      */
-    static IID => Guid("{6b0efad1-a053-41d6-9085-33a689144665}")
+    static IID := Guid("{6b0efad1-a053-41d6-9085-33a689144665}")
 
     /**
      * The class identifier for UIAnimationTimer
      * @type {Guid}
      */
-    static CLSID => Guid("{bfcd4a0c-06b6-4384-b768-0daa792c380e}")
+    static CLSID := Guid("{bfcd4a0c-06b6-4384-b768-0daa792c380e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAnimationTimer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetTimerUpdateHandler : IntPtr
+        SetTimerEventHandler  : IntPtr
+        Enable                : IntPtr
+        Disable               : IntPtr
+        IsEnabled             : IntPtr
+        GetTime               : IntPtr
+        SetFrameRateThreshold : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetTimerUpdateHandler", "SetTimerEventHandler", "Enable", "Disable", "IsEnabled", "GetTime", "SetFrameRateThreshold"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAnimationTimer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies a timer update handler.
@@ -58,7 +75,7 @@ class IUIAnimationTimer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtimer-settimerupdatehandler
      */
     SetTimerUpdateHandler(updateHandler, idleBehavior) {
-        result := ComCall(3, this, "ptr", updateHandler, "int", idleBehavior, "HRESULT")
+        result := ComCall(3, this, "ptr", updateHandler, UI_ANIMATION_IDLE_BEHAVIOR, idleBehavior, "HRESULT")
         return result
     }
 
@@ -134,5 +151,37 @@ class IUIAnimationTimer extends IUnknown {
     SetFrameRateThreshold(framesPerSecond) {
         result := ComCall(9, this, "uint", framesPerSecond, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUIAnimationTimer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetTimerUpdateHandler := CallbackCreate(GetMethod(implObj, "SetTimerUpdateHandler"), flags, 3)
+        this.vtbl.SetTimerEventHandler := CallbackCreate(GetMethod(implObj, "SetTimerEventHandler"), flags, 2)
+        this.vtbl.Enable := CallbackCreate(GetMethod(implObj, "Enable"), flags, 1)
+        this.vtbl.Disable := CallbackCreate(GetMethod(implObj, "Disable"), flags, 1)
+        this.vtbl.IsEnabled := CallbackCreate(GetMethod(implObj, "IsEnabled"), flags, 1)
+        this.vtbl.GetTime := CallbackCreate(GetMethod(implObj, "GetTime"), flags, 2)
+        this.vtbl.SetFrameRateThreshold := CallbackCreate(GetMethod(implObj, "SetFrameRateThreshold"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetTimerUpdateHandler)
+        CallbackFree(this.vtbl.SetTimerEventHandler)
+        CallbackFree(this.vtbl.Enable)
+        CallbackFree(this.vtbl.Disable)
+        CallbackFree(this.vtbl.IsEnabled)
+        CallbackFree(this.vtbl.GetTime)
+        CallbackFree(this.vtbl.SetFrameRateThreshold)
     }
 }

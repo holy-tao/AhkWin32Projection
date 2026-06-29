@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMStatusCallback.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\INSSBuffer.ahk" { INSSBuffer }
+#Import ".\IWMStatusCallback.ahk" { IWMStatusCallback }
 
 /**
  * The IWMReaderCallback is implemented by the application to handle data being read from a file. A pointer to the interface is passed to IWMReader::Open.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreadercallback
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMReaderCallback extends IWMStatusCallback {
-
-    static sizeof => A_PtrSize
+export default struct IWMReaderCallback extends IWMStatusCallback {
     /**
      * The interface identifier for IWMReaderCallback
      * @type {Guid}
      */
-    static IID => Guid("{96406bd8-2b2b-11d3-b36b-00c04f6108ff}")
+    static IID := Guid("{96406bd8-2b2b-11d3-b36b-00c04f6108ff}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMReaderCallback interfaces
+    */
+    struct Vtbl extends IWMStatusCallback.Vtbl {
+        OnSample : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnSample"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMReaderCallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The OnSample method is called during the reading of a file (due to a Start call) indicating that new data is available.
@@ -72,5 +81,25 @@ class IWMReaderCallback extends IWMStatusCallback {
 
         result := ComCall(4, this, "uint", dwOutputNum, "uint", cnsSampleTime, "uint", cnsSampleDuration, "uint", dwFlags, "ptr", pSample, pvContextMarshal, pvContext, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMReaderCallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnSample := CallbackCreate(GetMethod(implObj, "OnSample"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnSample)
     }
 }

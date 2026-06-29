@@ -1,35 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDirect3DAuthenticatedChannel9.ahk
-#Include .\IDirect3DCryptoSession9.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDirect3DAuthenticatedChannel9.ahk" { IDirect3DAuthenticatedChannel9 }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Graphics\Direct3D9\D3DAUTHENTICATEDCHANNELTYPE.ahk" { D3DAUTHENTICATEDCHANNELTYPE }
+#Import ".\D3DCONTENTPROTECTIONCAPS.ahk" { D3DCONTENTPROTECTIONCAPS }
+#Import ".\IDirect3DCryptoSession9.ahk" { IDirect3DCryptoSession9 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables an application to use content protection and encryption services implemented by a graphics driver.To get a pointer to this interface, call QueryInterface on a D3D9Ex device.
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3ddevice9video
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IDirect3DDevice9Video extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirect3DDevice9Video extends IUnknown {
     /**
      * The interface identifier for IDirect3DDevice9Video
      * @type {Guid}
      */
-    static IID => Guid("{26dc4561-a1ee-4ae7-96da-118a36c0ec95}")
+    static IID := Guid("{26dc4561-a1ee-4ae7-96da-118a36c0ec95}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirect3DDevice9Video interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetContentProtectionCaps   : IntPtr
+        CreateAuthenticatedChannel : IntPtr
+        CreateCryptoSession        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetContentProtectionCaps", "CreateAuthenticatedChannel", "CreateCryptoSession"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirect3DDevice9Video.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Queries the display driver for its content protection capabilities.
@@ -49,7 +62,7 @@ class IDirect3DDevice9Video extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9video-getcontentprotectioncaps
      */
     GetContentProtectionCaps(pCryptoType, pDecodeProfile, pCaps) {
-        result := ComCall(3, this, "ptr", pCryptoType, "ptr", pDecodeProfile, "ptr", pCaps, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pCryptoType, Guid.Ptr, pDecodeProfile, D3DCONTENTPROTECTIONCAPS.Ptr, pCaps, "HRESULT")
         return result
     }
 
@@ -65,7 +78,7 @@ class IDirect3DDevice9Video extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9video-createauthenticatedchannel
      */
     CreateAuthenticatedChannel(_ChannelType, pChannelHandle) {
-        result := ComCall(4, this, "int", _ChannelType, "ptr*", &ppAuthenticatedChannel := 0, "ptr", pChannelHandle, "HRESULT")
+        result := ComCall(4, this, D3DAUTHENTICATEDCHANNELTYPE, _ChannelType, "ptr*", &ppAuthenticatedChannel := 0, HANDLE.Ptr, pChannelHandle, "HRESULT")
         return IDirect3DAuthenticatedChannel9(ppAuthenticatedChannel)
     }
 
@@ -90,7 +103,31 @@ class IDirect3DDevice9Video extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9video-createcryptosession
      */
     CreateCryptoSession(pCryptoType, pDecodeProfile, pCryptoHandle) {
-        result := ComCall(5, this, "ptr", pCryptoType, "ptr", pDecodeProfile, "ptr*", &ppCryptoSession := 0, "ptr", pCryptoHandle, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, pCryptoType, Guid.Ptr, pDecodeProfile, "ptr*", &ppCryptoSession := 0, HANDLE.Ptr, pCryptoHandle, "HRESULT")
         return IDirect3DCryptoSession9(ppCryptoSession)
+    }
+
+    Query(iid) {
+        if (IDirect3DDevice9Video.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetContentProtectionCaps := CallbackCreate(GetMethod(implObj, "GetContentProtectionCaps"), flags, 4)
+        this.vtbl.CreateAuthenticatedChannel := CallbackCreate(GetMethod(implObj, "CreateAuthenticatedChannel"), flags, 4)
+        this.vtbl.CreateCryptoSession := CallbackCreate(GetMethod(implObj, "CreateCryptoSession"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetContentProtectionCaps)
+        CallbackFree(this.vtbl.CreateAuthenticatedChannel)
+        CallbackFree(this.vtbl.CreateCryptoSession)
     }
 }

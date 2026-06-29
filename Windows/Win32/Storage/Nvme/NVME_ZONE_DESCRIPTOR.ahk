@@ -1,18 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_ZONE_DESCRIPTOR extends Win32Struct {
-    static sizeof => 64
+export default struct NVME_ZONE_DESCRIPTOR {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _ZA extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _ZA {
         /**
          * This bitfield backs the following members:
          * - ZFC
@@ -20,12 +15,9 @@ class NVME_ZONE_DESCRIPTOR extends Win32Struct {
          * - RZR
          * - Reserved
          * - ZDEV
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -64,12 +56,9 @@ class NVME_ZONE_DESCRIPTOR extends Win32Struct {
      * This bitfield backs the following members:
      * - ZT
      * - Reserved1
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    _bitfield : Int8
+
 
     /**
      * @type {Integer}
@@ -86,17 +75,13 @@ class NVME_ZONE_DESCRIPTOR extends Win32Struct {
         get => (this._bitfield >> 4) & 0xF
         set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
     }
-
     /**
      * This bitfield backs the following members:
      * - Reserved2
      * - ZS
-     * @type {Integer}
      */
-    _bitfield1 {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    _bitfield1 : Int8
+
 
     /**
      * @type {Integer}
@@ -113,61 +98,16 @@ class NVME_ZONE_DESCRIPTOR extends Win32Struct {
         get => (this._bitfield1 >> 4) & 0xF
         set => this._bitfield1 := ((value & 0xF) << 4) | (this._bitfield1 & ~(0xF << 4))
     }
+    ZA : NVME_ZONE_DESCRIPTOR._ZA
 
-    /**
-     * @type {_ZA}
-     */
-    ZA {
-        get {
-            if(!this.HasProp("__ZA"))
-                this.__ZA := NVME_ZONE_DESCRIPTOR._ZA(2, this)
-            return this.__ZA
-        }
-    }
+    Reserved3 : Int8[5]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved3 {
-        get {
-            if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 3, 5, Primitive, "char")
-            return this.__Reserved3ProxyArray
-        }
-    }
+    ZCAP : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ZCAP {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ZSLBA : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ZSLBA {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    WritePointer : Int64
 
-    /**
-     * @type {Integer}
-     */
-    WritePointer {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Reserved4 : Int8[32]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved4 {
-        get {
-            if(!this.HasProp("__Reserved4ProxyArray"))
-                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 32, 32, Primitive, "char")
-            return this.__Reserved4ProxyArray
-        }
-    }
 }

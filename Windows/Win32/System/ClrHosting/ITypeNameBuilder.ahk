@@ -1,32 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
  */
-class ITypeNameBuilder extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITypeNameBuilder extends IUnknown {
     /**
      * The interface identifier for ITypeNameBuilder
      * @type {Guid}
      */
-    static IID => Guid("{b81ff171-20f3-11d2-8dcc-00a0c9b00523}")
+    static IID := Guid("{b81ff171-20f3-11d2-8dcc-00a0c9b00523}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITypeNameBuilder interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OpenGenericArguments  : IntPtr
+        CloseGenericArguments : IntPtr
+        OpenGenericArgument   : IntPtr
+        CloseGenericArgument  : IntPtr
+        AddName               : IntPtr
+        AddPointer            : IntPtr
+        AddByRef              : IntPtr
+        AddSzArray            : IntPtr
+        AddArray              : IntPtr
+        AddAssemblySpec       : IntPtr
+        ToString              : IntPtr
+        Clear                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OpenGenericArguments", "CloseGenericArguments", "OpenGenericArgument", "CloseGenericArgument", "AddName", "AddPointer", "AddByRef", "AddSzArray", "AddArray", "AddAssemblySpec", "ToString", "Clear"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITypeNameBuilder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -77,13 +97,8 @@ class ITypeNameBuilder extends IUnknown {
     }
 
     /**
-     * Include the specified pointer in the set of pointers processed by the Interaction Context object.
-     * @remarks
-     * Turn pointer filtering on by setting INTERACTION_CONTEXT_PROPERTY_FILTER_POINTERS in <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/nf-interactioncontext-setpropertyinteractioncontext">SetPropertyInteractionContext</a>.
-     * @returns {HRESULT} If this function succeeds, it returns S_OK.
-     *  
-     * Otherwise, it returns an HRESULT error code.
-     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-addpointerinteractioncontext
+     * 
+     * @returns {HRESULT} 
      */
     AddPointer() {
         result := ComCall(8, this, "HRESULT")
@@ -135,8 +150,8 @@ class ITypeNameBuilder extends IUnknown {
      * @returns {BSTR} 
      */
     ToString() {
-        pszStringRepresentation := BSTR()
-        result := ComCall(13, this, "ptr", pszStringRepresentation, "HRESULT")
+        pszStringRepresentation := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, pszStringRepresentation, "HRESULT")
         return pszStringRepresentation
     }
 
@@ -166,5 +181,47 @@ class ITypeNameBuilder extends IUnknown {
     Clear() {
         result := ComCall(14, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITypeNameBuilder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OpenGenericArguments := CallbackCreate(GetMethod(implObj, "OpenGenericArguments"), flags, 1)
+        this.vtbl.CloseGenericArguments := CallbackCreate(GetMethod(implObj, "CloseGenericArguments"), flags, 1)
+        this.vtbl.OpenGenericArgument := CallbackCreate(GetMethod(implObj, "OpenGenericArgument"), flags, 1)
+        this.vtbl.CloseGenericArgument := CallbackCreate(GetMethod(implObj, "CloseGenericArgument"), flags, 1)
+        this.vtbl.AddName := CallbackCreate(GetMethod(implObj, "AddName"), flags, 2)
+        this.vtbl.AddPointer := CallbackCreate(GetMethod(implObj, "AddPointer"), flags, 1)
+        this.vtbl.AddByRef := CallbackCreate(GetMethod(implObj, "AddByRef"), flags, 1)
+        this.vtbl.AddSzArray := CallbackCreate(GetMethod(implObj, "AddSzArray"), flags, 1)
+        this.vtbl.AddArray := CallbackCreate(GetMethod(implObj, "AddArray"), flags, 2)
+        this.vtbl.AddAssemblySpec := CallbackCreate(GetMethod(implObj, "AddAssemblySpec"), flags, 2)
+        this.vtbl.ToString := CallbackCreate(GetMethod(implObj, "ToString"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OpenGenericArguments)
+        CallbackFree(this.vtbl.CloseGenericArguments)
+        CallbackFree(this.vtbl.OpenGenericArgument)
+        CallbackFree(this.vtbl.CloseGenericArgument)
+        CallbackFree(this.vtbl.AddName)
+        CallbackFree(this.vtbl.AddPointer)
+        CallbackFree(this.vtbl.AddByRef)
+        CallbackFree(this.vtbl.AddSzArray)
+        CallbackFree(this.vtbl.AddArray)
+        CallbackFree(this.vtbl.AddAssemblySpec)
+        CallbackFree(this.vtbl.ToString)
+        CallbackFree(this.vtbl.Clear)
     }
 }

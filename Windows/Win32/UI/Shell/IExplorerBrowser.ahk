@@ -1,7 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\EXPLORER_BROWSER_FILL_FLAGS.ahk" { EXPLORER_BROWSER_FILL_FLAGS }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\EXPLORER_BROWSER_OPTIONS.ahk" { EXPLORER_BROWSER_OPTIONS }
+#Import ".\IExplorerBrowserEvents.ahk" { IExplorerBrowserEvents }
+#Import ".\FOLDERSETTINGS.ahk" { FOLDERSETTINGS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\WindowsAndMessaging\HDWP.ahk" { HDWP }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * IExplorerBrowser is a browser object that can be either navigated or that can host a view of a data object. As a full-featured browser object, it also supports an automatic travel log.
@@ -42,32 +52,53 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iexplorerbrowser
  * @namespace Windows.Win32.UI.Shell
  */
-class IExplorerBrowser extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IExplorerBrowser extends IUnknown {
     /**
      * The interface identifier for IExplorerBrowser
      * @type {Guid}
      */
-    static IID => Guid("{dfd3b6b5-c10c-4be9-85f6-a66969f402f6}")
+    static IID := Guid("{dfd3b6b5-c10c-4be9-85f6-a66969f402f6}")
 
     /**
      * The class identifier for ExplorerBrowser
      * @type {Guid}
      */
-    static CLSID => Guid("{71f96385-ddd6-48d3-a0c1-ae06e8b055fb}")
+    static CLSID := Guid("{71f96385-ddd6-48d3-a0c1-ae06e8b055fb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IExplorerBrowser interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize        : IntPtr
+        Destroy           : IntPtr
+        SetRect           : IntPtr
+        SetPropertyBag    : IntPtr
+        SetEmptyText      : IntPtr
+        SetFolderSettings : IntPtr
+        Advise            : IntPtr
+        Unadvise          : IntPtr
+        SetOptions        : IntPtr
+        GetOptions        : IntPtr
+        BrowseToIDList    : IntPtr
+        BrowseToObject    : IntPtr
+        FillFromObject    : IntPtr
+        RemoveAll         : IntPtr
+        GetCurrentView    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "Destroy", "SetRect", "SetPropertyBag", "SetEmptyText", "SetFolderSettings", "Advise", "Unadvise", "SetOptions", "GetOptions", "BrowseToIDList", "BrowseToObject", "FillFromObject", "RemoveAll", "GetCurrentView"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IExplorerBrowser.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Prepares the browser to be navigated.
@@ -88,9 +119,7 @@ class IExplorerBrowser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-initialize
      */
     Initialize(hwndParent, prc, pfs) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
-        result := ComCall(3, this, "ptr", hwndParent, "ptr", prc, "ptr", pfs, "HRESULT")
+        result := ComCall(3, this, HWND, hwndParent, RECT.Ptr, prc, FOLDERSETTINGS.Ptr, pfs, "HRESULT")
         return result
     }
 
@@ -124,7 +153,7 @@ class IExplorerBrowser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-setrect
      */
     SetRect(phdwp, rcBrowser) {
-        result := ComCall(5, this, "ptr", phdwp, "ptr", rcBrowser, "HRESULT")
+        result := ComCall(5, this, HDWP.Ptr, phdwp, RECT, rcBrowser, "HRESULT")
         return result
     }
 
@@ -189,7 +218,7 @@ class IExplorerBrowser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-setfoldersettings
      */
     SetFolderSettings(pfs) {
-        result := ComCall(8, this, "ptr", pfs, "HRESULT")
+        result := ComCall(8, this, FOLDERSETTINGS.Ptr, pfs, "HRESULT")
         return result
     }
 
@@ -264,7 +293,7 @@ class IExplorerBrowser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-setoptions
      */
     SetOptions(dwFlag) {
-        result := ComCall(11, this, "int", dwFlag, "HRESULT")
+        result := ComCall(11, this, EXPLORER_BROWSER_OPTIONS, dwFlag, "HRESULT")
         return result
     }
 
@@ -296,7 +325,7 @@ class IExplorerBrowser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-browsetoidlist
      */
     BrowseToIDList(pidl, uFlags) {
-        result := ComCall(13, this, "ptr", pidl, "uint", uFlags, "HRESULT")
+        result := ComCall(13, this, ITEMIDLIST.Ptr, pidl, "uint", uFlags, "HRESULT")
         return result
     }
 
@@ -348,7 +377,7 @@ class IExplorerBrowser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-fillfromobject
      */
     FillFromObject(punk, dwFlags) {
-        result := ComCall(15, this, "ptr", punk, "int", dwFlags, "HRESULT")
+        result := ComCall(15, this, "ptr", punk, EXPLORER_BROWSER_FILL_FLAGS, dwFlags, "HRESULT")
         return result
     }
 
@@ -379,7 +408,55 @@ class IExplorerBrowser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-getcurrentview
      */
     GetCurrentView(riid) {
-        result := ComCall(17, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(17, this, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
+    }
+
+    Query(iid) {
+        if (IExplorerBrowser.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.Destroy := CallbackCreate(GetMethod(implObj, "Destroy"), flags, 1)
+        this.vtbl.SetRect := CallbackCreate(GetMethod(implObj, "SetRect"), flags, 3)
+        this.vtbl.SetPropertyBag := CallbackCreate(GetMethod(implObj, "SetPropertyBag"), flags, 2)
+        this.vtbl.SetEmptyText := CallbackCreate(GetMethod(implObj, "SetEmptyText"), flags, 2)
+        this.vtbl.SetFolderSettings := CallbackCreate(GetMethod(implObj, "SetFolderSettings"), flags, 2)
+        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 3)
+        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.SetOptions := CallbackCreate(GetMethod(implObj, "SetOptions"), flags, 2)
+        this.vtbl.GetOptions := CallbackCreate(GetMethod(implObj, "GetOptions"), flags, 2)
+        this.vtbl.BrowseToIDList := CallbackCreate(GetMethod(implObj, "BrowseToIDList"), flags, 3)
+        this.vtbl.BrowseToObject := CallbackCreate(GetMethod(implObj, "BrowseToObject"), flags, 3)
+        this.vtbl.FillFromObject := CallbackCreate(GetMethod(implObj, "FillFromObject"), flags, 3)
+        this.vtbl.RemoveAll := CallbackCreate(GetMethod(implObj, "RemoveAll"), flags, 1)
+        this.vtbl.GetCurrentView := CallbackCreate(GetMethod(implObj, "GetCurrentView"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.Destroy)
+        CallbackFree(this.vtbl.SetRect)
+        CallbackFree(this.vtbl.SetPropertyBag)
+        CallbackFree(this.vtbl.SetEmptyText)
+        CallbackFree(this.vtbl.SetFolderSettings)
+        CallbackFree(this.vtbl.Advise)
+        CallbackFree(this.vtbl.Unadvise)
+        CallbackFree(this.vtbl.SetOptions)
+        CallbackFree(this.vtbl.GetOptions)
+        CallbackFree(this.vtbl.BrowseToIDList)
+        CallbackFree(this.vtbl.BrowseToObject)
+        CallbackFree(this.vtbl.FillFromObject)
+        CallbackFree(this.vtbl.RemoveAll)
+        CallbackFree(this.vtbl.GetCurrentView)
     }
 }

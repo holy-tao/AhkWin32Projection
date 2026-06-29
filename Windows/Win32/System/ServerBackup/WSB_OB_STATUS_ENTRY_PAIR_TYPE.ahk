@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the type of the parameter value.
  * @see https://learn.microsoft.com/windows/win32/api/wsbonline/ne-wsbonline-wsb_ob_status_entry_pair_type
  * @namespace Windows.Win32.System.ServerBackup
  */
-class WSB_OB_STATUS_ENTRY_PAIR_TYPE extends Win32Enum {
+export default struct WSB_OB_STATUS_ENTRY_PAIR_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The value type is undefined.

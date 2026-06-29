@@ -1,40 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IUPnPDevice.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IUPnPDevice.ahk" { IUPnPDevice }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IUPnPDescriptionDocument interface enables an application to load a device description.
  * @see https://learn.microsoft.com/windows/win32/api/upnp/nn-upnp-iupnpdescriptiondocument
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
  */
-class IUPnPDescriptionDocument extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IUPnPDescriptionDocument extends IDispatch {
     /**
      * The interface identifier for IUPnPDescriptionDocument
      * @type {Guid}
      */
-    static IID => Guid("{11d1c1b2-7daa-4c9e-9595-7f82ed206d1e}")
+    static IID := Guid("{11d1c1b2-7daa-4c9e-9595-7f82ed206d1e}")
 
     /**
      * The class identifier for UPnPDescriptionDocument
      * @type {Guid}
      */
-    static CLSID => Guid("{1d8a9b47-3a28-4ce2-8a4b-bd34e45bceeb}")
+    static CLSID := Guid("{1d8a9b47-3a28-4ce2-8a4b-bd34e45bceeb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUPnPDescriptionDocument interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_ReadyState : IntPtr
+        Load           : IntPtr
+        LoadAsync      : IntPtr
+        get_LoadResult : IntPtr
+        Abort          : IntPtr
+        RootDevice     : IntPtr
+        DeviceByUDN    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ReadyState", "Load", "LoadAsync", "get_LoadResult", "Abort", "RootDevice", "DeviceByUDN"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUPnPDescriptionDocument.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -263,7 +279,7 @@ class IUPnPDescriptionDocument extends IDispatch {
     Load(bstrUrl) {
         bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
 
-        result := ComCall(8, this, "ptr", bstrUrl, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrUrl, "HRESULT")
         return result
     }
 
@@ -389,7 +405,7 @@ class IUPnPDescriptionDocument extends IDispatch {
     LoadAsync(bstrUrl, punkCallback) {
         bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
 
-        result := ComCall(9, this, "ptr", bstrUrl, "ptr", punkCallback, "HRESULT")
+        result := ComCall(9, this, BSTR, bstrUrl, "ptr", punkCallback, "HRESULT")
         return result
     }
 
@@ -499,7 +515,39 @@ class IUPnPDescriptionDocument extends IDispatch {
     DeviceByUDN(bstrUDN) {
         bstrUDN := bstrUDN is String ? BSTR.Alloc(bstrUDN).Value : bstrUDN
 
-        result := ComCall(13, this, "ptr", bstrUDN, "ptr*", &ppudDevice := 0, "HRESULT")
+        result := ComCall(13, this, BSTR, bstrUDN, "ptr*", &ppudDevice := 0, "HRESULT")
         return IUPnPDevice(ppudDevice)
+    }
+
+    Query(iid) {
+        if (IUPnPDescriptionDocument.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ReadyState := CallbackCreate(GetMethod(implObj, "get_ReadyState"), flags, 2)
+        this.vtbl.Load := CallbackCreate(GetMethod(implObj, "Load"), flags, 2)
+        this.vtbl.LoadAsync := CallbackCreate(GetMethod(implObj, "LoadAsync"), flags, 3)
+        this.vtbl.get_LoadResult := CallbackCreate(GetMethod(implObj, "get_LoadResult"), flags, 2)
+        this.vtbl.Abort := CallbackCreate(GetMethod(implObj, "Abort"), flags, 1)
+        this.vtbl.RootDevice := CallbackCreate(GetMethod(implObj, "RootDevice"), flags, 2)
+        this.vtbl.DeviceByUDN := CallbackCreate(GetMethod(implObj, "DeviceByUDN"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ReadyState)
+        CallbackFree(this.vtbl.Load)
+        CallbackFree(this.vtbl.LoadAsync)
+        CallbackFree(this.vtbl.get_LoadResult)
+        CallbackFree(this.vtbl.Abort)
+        CallbackFree(this.vtbl.RootDevice)
+        CallbackFree(this.vtbl.DeviceByUDN)
     }
 }

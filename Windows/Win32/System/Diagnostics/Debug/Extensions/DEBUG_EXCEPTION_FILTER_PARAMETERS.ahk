@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class DEBUG_EXCEPTION_FILTER_PARAMETERS extends Win32Struct {
-    static sizeof => 24
+export default struct DEBUG_EXCEPTION_FILTER_PARAMETERS {
+    #StructPack 4
 
-    static packingSize => 4
+    ExecutionOption : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ExecutionOption {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ContinueOption : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ContinueOption {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    TextSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TextSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    CommandSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CommandSize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    SecondCommandSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SecondCommandSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ExceptionCode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ExceptionCode {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

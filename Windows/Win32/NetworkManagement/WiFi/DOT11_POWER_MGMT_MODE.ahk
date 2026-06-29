@@ -1,52 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_POWER_MODE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_POWER_MODE.ahk" { DOT11_POWER_MODE }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_POWER_MGMT_MODE extends Win32Struct {
-    static sizeof => 16
+export default struct DOT11_POWER_MGMT_MODE {
+    #StructPack 4
 
-    static packingSize => 4
+    dot11PowerMode : DOT11_POWER_MODE
 
-    /**
-     * @type {DOT11_POWER_MODE}
-     */
-    dot11PowerMode {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    uPowerSaveLevel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uPowerSaveLevel {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    usListenInterval : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usListenInterval {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    usAID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usAID {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    bReceiveDTIMs : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bReceiveDTIMs {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
 }

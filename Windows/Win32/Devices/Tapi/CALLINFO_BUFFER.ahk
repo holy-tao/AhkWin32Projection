@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The CALLINFO_BUFFER enum indicates the type of buffer accessed by the ITCallInfo::GetCallInfoBuffer method or the ITCallInfo::SetCallInfoBuffer method.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-callinfo_buffer
  * @namespace Windows.Win32.Devices.Tapi
  */
-class CALLINFO_BUFFER extends Win32Enum {
+export default struct CALLINFO_BUFFER {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The user-user information buffer allows an application to send information to the remote party on a call or receive information from that party.

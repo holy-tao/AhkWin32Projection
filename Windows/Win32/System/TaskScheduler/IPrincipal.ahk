@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\TASK_LOGON_TYPE.ahk" { TASK_LOGON_TYPE }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\TASK_RUNLEVEL_TYPE.ahk" { TASK_RUNLEVEL_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides the security credentials for a principal.
@@ -14,26 +18,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-iprincipal
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class IPrincipal extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IPrincipal extends IDispatch {
     /**
      * The interface identifier for IPrincipal
      * @type {Guid}
      */
-    static IID => Guid("{d98d51e5-c9b4-496a-a9c1-18980261cf0f}")
+    static IID := Guid("{d98d51e5-c9b4-496a-a9c1-18980261cf0f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPrincipal interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Id          : IntPtr
+        put_Id          : IntPtr
+        get_DisplayName : IntPtr
+        put_DisplayName : IntPtr
+        get_UserId      : IntPtr
+        put_UserId      : IntPtr
+        get_LogonType   : IntPtr
+        put_LogonType   : IntPtr
+        get_GroupId     : IntPtr
+        put_GroupId     : IntPtr
+        get_RunLevel    : IntPtr
+        put_RunLevel    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Id", "put_Id", "get_DisplayName", "put_DisplayName", "get_UserId", "put_UserId", "get_LogonType", "put_LogonType", "get_GroupId", "put_GroupId", "get_RunLevel", "put_RunLevel"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPrincipal.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -94,7 +116,7 @@ class IPrincipal extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iprincipal-get_id
      */
     get_Id(pId) {
-        result := ComCall(7, this, "ptr", pId, "HRESULT")
+        result := ComCall(7, this, BSTR.Ptr, pId, "HRESULT")
         return result
     }
 
@@ -111,7 +133,7 @@ class IPrincipal extends IDispatch {
     put_Id(Id) {
         Id := Id is String ? BSTR.Alloc(Id).Value : Id
 
-        result := ComCall(8, this, "ptr", Id, "HRESULT")
+        result := ComCall(8, this, BSTR, Id, "HRESULT")
         return result
     }
 
@@ -126,7 +148,7 @@ class IPrincipal extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iprincipal-get_displayname
      */
     get_DisplayName(pName) {
-        result := ComCall(9, this, "ptr", pName, "HRESULT")
+        result := ComCall(9, this, BSTR.Ptr, pName, "HRESULT")
         return result
     }
 
@@ -143,7 +165,7 @@ class IPrincipal extends IDispatch {
     put_DisplayName(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(10, this, "ptr", name, "HRESULT")
+        result := ComCall(10, this, BSTR, name, "HRESULT")
         return result
     }
 
@@ -158,7 +180,7 @@ class IPrincipal extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iprincipal-get_userid
      */
     get_UserId(pUser) {
-        result := ComCall(11, this, "ptr", pUser, "HRESULT")
+        result := ComCall(11, this, BSTR.Ptr, pUser, "HRESULT")
         return result
     }
 
@@ -175,7 +197,7 @@ class IPrincipal extends IDispatch {
     put_UserId(user) {
         user := user is String ? BSTR.Alloc(user).Value : user
 
-        result := ComCall(12, this, "ptr", user, "HRESULT")
+        result := ComCall(12, this, BSTR, user, "HRESULT")
         return result
     }
 
@@ -229,7 +251,7 @@ class IPrincipal extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iprincipal-put_logontype
      */
     put_LogonType(logon) {
-        result := ComCall(14, this, "int", logon, "HRESULT")
+        result := ComCall(14, this, TASK_LOGON_TYPE, logon, "HRESULT")
         return result
     }
 
@@ -244,7 +266,7 @@ class IPrincipal extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iprincipal-get_groupid
      */
     get_GroupId(pGroup) {
-        result := ComCall(15, this, "ptr", pGroup, "HRESULT")
+        result := ComCall(15, this, BSTR.Ptr, pGroup, "HRESULT")
         return result
     }
 
@@ -261,7 +283,7 @@ class IPrincipal extends IDispatch {
     put_GroupId(group) {
         group := group is String ? BSTR.Alloc(group).Value : group
 
-        result := ComCall(16, this, "ptr", group, "HRESULT")
+        result := ComCall(16, this, BSTR, group, "HRESULT")
         return result
     }
 
@@ -293,7 +315,49 @@ class IPrincipal extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iprincipal-put_runlevel
      */
     put_RunLevel(runLevel) {
-        result := ComCall(18, this, "int", runLevel, "HRESULT")
+        result := ComCall(18, this, TASK_RUNLEVEL_TYPE, runLevel, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPrincipal.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.put_Id := CallbackCreate(GetMethod(implObj, "put_Id"), flags, 2)
+        this.vtbl.get_DisplayName := CallbackCreate(GetMethod(implObj, "get_DisplayName"), flags, 2)
+        this.vtbl.put_DisplayName := CallbackCreate(GetMethod(implObj, "put_DisplayName"), flags, 2)
+        this.vtbl.get_UserId := CallbackCreate(GetMethod(implObj, "get_UserId"), flags, 2)
+        this.vtbl.put_UserId := CallbackCreate(GetMethod(implObj, "put_UserId"), flags, 2)
+        this.vtbl.get_LogonType := CallbackCreate(GetMethod(implObj, "get_LogonType"), flags, 2)
+        this.vtbl.put_LogonType := CallbackCreate(GetMethod(implObj, "put_LogonType"), flags, 2)
+        this.vtbl.get_GroupId := CallbackCreate(GetMethod(implObj, "get_GroupId"), flags, 2)
+        this.vtbl.put_GroupId := CallbackCreate(GetMethod(implObj, "put_GroupId"), flags, 2)
+        this.vtbl.get_RunLevel := CallbackCreate(GetMethod(implObj, "get_RunLevel"), flags, 2)
+        this.vtbl.put_RunLevel := CallbackCreate(GetMethod(implObj, "put_RunLevel"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Id)
+        CallbackFree(this.vtbl.put_Id)
+        CallbackFree(this.vtbl.get_DisplayName)
+        CallbackFree(this.vtbl.put_DisplayName)
+        CallbackFree(this.vtbl.get_UserId)
+        CallbackFree(this.vtbl.put_UserId)
+        CallbackFree(this.vtbl.get_LogonType)
+        CallbackFree(this.vtbl.put_LogonType)
+        CallbackFree(this.vtbl.get_GroupId)
+        CallbackFree(this.vtbl.put_GroupId)
+        CallbackFree(this.vtbl.get_RunLevel)
+        CallbackFree(this.vtbl.put_RunLevel)
     }
 }

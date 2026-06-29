@@ -1,37 +1,85 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
-#Include .\IMFPMediaItem.ahk
-#Include .\MFVideoNormalizedRect.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MFVideoNormalizedRect.ahk" { MFVideoNormalizedRect }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import ".\IMFPMediaItem.ahk" { IMFPMediaItem }
+#Import ".\MFP_MEDIAPLAYER_STATE.ahk" { MFP_MEDIAPLAYER_STATE }
 
 /**
  * Contains methods to play media files. (Deprecated.).
  * @see https://learn.microsoft.com/windows/win32/api/mfplay/nn-mfplay-imfpmediaplayer
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFPMediaPlayer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFPMediaPlayer extends IUnknown {
     /**
      * The interface identifier for IMFPMediaPlayer
      * @type {Guid}
      */
-    static IID => Guid("{a714590a-58af-430a-85bf-44f5ec838d85}")
+    static IID := Guid("{a714590a-58af-430a-85bf-44f5ec838d85}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFPMediaPlayer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Play                      : IntPtr
+        Pause                     : IntPtr
+        Stop                      : IntPtr
+        FrameStep                 : IntPtr
+        SetPosition               : IntPtr
+        GetPosition               : IntPtr
+        GetDuration               : IntPtr
+        SetRate                   : IntPtr
+        GetRate                   : IntPtr
+        GetSupportedRates         : IntPtr
+        GetState                  : IntPtr
+        CreateMediaItemFromURL    : IntPtr
+        CreateMediaItemFromObject : IntPtr
+        SetMediaItem              : IntPtr
+        ClearMediaItem            : IntPtr
+        GetMediaItem              : IntPtr
+        GetVolume                 : IntPtr
+        SetVolume                 : IntPtr
+        GetBalance                : IntPtr
+        SetBalance                : IntPtr
+        GetMute                   : IntPtr
+        SetMute                   : IntPtr
+        GetNativeVideoSize        : IntPtr
+        GetIdealVideoSize         : IntPtr
+        SetVideoSourceRect        : IntPtr
+        GetVideoSourceRect        : IntPtr
+        SetAspectRatioMode        : IntPtr
+        GetAspectRatioMode        : IntPtr
+        GetVideoWindow            : IntPtr
+        UpdateVideo               : IntPtr
+        SetBorderColor            : IntPtr
+        GetBorderColor            : IntPtr
+        InsertEffect              : IntPtr
+        RemoveEffect              : IntPtr
+        RemoveAllEffects          : IntPtr
+        Shutdown                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Play", "Pause", "Stop", "FrameStep", "SetPosition", "GetPosition", "GetDuration", "SetRate", "GetRate", "GetSupportedRates", "GetState", "CreateMediaItemFromURL", "CreateMediaItemFromObject", "SetMediaItem", "ClearMediaItem", "GetMediaItem", "GetVolume", "SetVolume", "GetBalance", "SetBalance", "GetMute", "SetMute", "GetNativeVideoSize", "GetIdealVideoSize", "SetVideoSourceRect", "GetVideoSourceRect", "SetAspectRatioMode", "GetAspectRatioMode", "GetVideoWindow", "UpdateVideo", "SetBorderColor", "GetBorderColor", "InsertEffect", "RemoveEffect", "RemoveAllEffects", "Shutdown"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFPMediaPlayer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Starts playback. (IMFPMediaPlayer.Play)
@@ -328,7 +376,7 @@ class IMFPMediaPlayer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-setposition
      */
     SetPosition(guidPositionType, pvPositionValue) {
-        result := ComCall(7, this, "ptr", guidPositionType, "ptr", pvPositionValue, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, guidPositionType, PROPVARIANT.Ptr, pvPositionValue, "HRESULT")
         return result
     }
 
@@ -365,7 +413,7 @@ class IMFPMediaPlayer extends IUnknown {
      */
     GetPosition(guidPositionType) {
         pvPositionValue := PROPVARIANT()
-        result := ComCall(8, this, "ptr", guidPositionType, "ptr", pvPositionValue, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, guidPositionType, PROPVARIANT.Ptr, pvPositionValue, "HRESULT")
         return pvPositionValue
     }
 
@@ -405,7 +453,7 @@ class IMFPMediaPlayer extends IUnknown {
      */
     GetDuration(guidPositionType) {
         pvDurationValue := PROPVARIANT()
-        result := ComCall(9, this, "ptr", guidPositionType, "ptr", pvDurationValue, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, guidPositionType, PROPVARIANT.Ptr, pvDurationValue, "HRESULT")
         return pvDurationValue
     }
 
@@ -523,7 +571,7 @@ class IMFPMediaPlayer extends IUnknown {
         pflSlowestRateMarshal := pflSlowestRate is VarRef ? "float*" : "ptr"
         pflFastestRateMarshal := pflFastestRate is VarRef ? "float*" : "ptr"
 
-        result := ComCall(12, this, "int", fForwardDirection, pflSlowestRateMarshal, pflSlowestRate, pflFastestRateMarshal, pflFastestRate, "HRESULT")
+        result := ComCall(12, this, BOOL, fForwardDirection, pflSlowestRateMarshal, pflSlowestRate, pflFastestRateMarshal, pflFastestRate, "HRESULT")
         return result
     }
 
@@ -575,7 +623,7 @@ class IMFPMediaPlayer extends IUnknown {
     CreateMediaItemFromURL(pwszURL, fSync, dwUserData) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        result := ComCall(14, this, "ptr", pwszURL, "int", fSync, "ptr", dwUserData, "ptr*", &ppMediaItem := 0, "HRESULT")
+        result := ComCall(14, this, "ptr", pwszURL, BOOL, fSync, "ptr", dwUserData, "ptr*", &ppMediaItem := 0, "HRESULT")
         return IMFPMediaItem(ppMediaItem)
     }
 
@@ -618,7 +666,7 @@ class IMFPMediaPlayer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-createmediaitemfromobject
      */
     CreateMediaItemFromObject(pIUnknownObj, fSync, dwUserData) {
-        result := ComCall(15, this, "ptr", pIUnknownObj, "int", fSync, "ptr", dwUserData, "ptr*", &ppMediaItem := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", pIUnknownObj, BOOL, fSync, "ptr", dwUserData, "ptr*", &ppMediaItem := 0, "HRESULT")
         return IMFPMediaItem(ppMediaItem)
     }
 
@@ -903,7 +951,7 @@ class IMFPMediaPlayer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-getmute
      */
     GetMute() {
-        result := ComCall(23, this, "int*", &pfMute := 0, "HRESULT")
+        result := ComCall(23, this, BOOL.Ptr, &pfMute := 0, "HRESULT")
         return pfMute
     }
 
@@ -918,7 +966,7 @@ class IMFPMediaPlayer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-setmute
      */
     SetMute(fMute) {
-        result := ComCall(24, this, "int", fMute, "HRESULT")
+        result := ComCall(24, this, BOOL, fMute, "HRESULT")
         return result
     }
 
@@ -972,7 +1020,7 @@ class IMFPMediaPlayer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-getnativevideosize
      */
     GetNativeVideoSize(pszVideo, pszARVideo) {
-        result := ComCall(25, this, "ptr", pszVideo, "ptr", pszARVideo, "HRESULT")
+        result := ComCall(25, this, SIZE.Ptr, pszVideo, SIZE.Ptr, pszARVideo, "HRESULT")
         return result
     }
 
@@ -1026,7 +1074,7 @@ class IMFPMediaPlayer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-getidealvideosize
      */
     GetIdealVideoSize(pszMin, pszMax) {
-        result := ComCall(26, this, "ptr", pszMin, "ptr", pszMax, "HRESULT")
+        result := ComCall(26, this, SIZE.Ptr, pszMin, SIZE.Ptr, pszMax, "HRESULT")
         return result
     }
 
@@ -1089,7 +1137,7 @@ class IMFPMediaPlayer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-setvideosourcerect
      */
     SetVideoSourceRect(pnrcSource) {
-        result := ComCall(27, this, "ptr", pnrcSource, "HRESULT")
+        result := ComCall(27, this, MFVideoNormalizedRect.Ptr, pnrcSource, "HRESULT")
         return result
     }
 
@@ -1106,7 +1154,7 @@ class IMFPMediaPlayer extends IUnknown {
      */
     GetVideoSourceRect() {
         pnrcSource := MFVideoNormalizedRect()
-        result := ComCall(28, this, "ptr", pnrcSource, "HRESULT")
+        result := ComCall(28, this, MFVideoNormalizedRect.Ptr, pnrcSource, "HRESULT")
         return pnrcSource
     }
 
@@ -1184,7 +1232,7 @@ class IMFPMediaPlayer extends IUnknown {
      */
     GetVideoWindow() {
         phwndVideo := HWND()
-        result := ComCall(31, this, "ptr", phwndVideo, "HRESULT")
+        result := ComCall(31, this, HWND.Ptr, phwndVideo, "HRESULT")
         return phwndVideo
     }
 
@@ -1300,7 +1348,7 @@ class IMFPMediaPlayer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-setbordercolor
      */
     SetBorderColor(Clr) {
-        result := ComCall(33, this, "uint", Clr, "HRESULT")
+        result := ComCall(33, this, COLORREF, Clr, "HRESULT")
         return result
     }
 
@@ -1310,7 +1358,7 @@ class IMFPMediaPlayer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-getbordercolor
      */
     GetBorderColor() {
-        result := ComCall(34, this, "uint*", &pClr := 0, "HRESULT")
+        result := ComCall(34, this, COLORREF.Ptr, &pClr := 0, "HRESULT")
         return pClr
     }
 
@@ -1404,7 +1452,7 @@ class IMFPMediaPlayer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-inserteffect
      */
     InsertEffect(pEffect, fOptional) {
-        result := ComCall(35, this, "ptr", pEffect, "int", fOptional, "HRESULT")
+        result := ComCall(35, this, "ptr", pEffect, BOOL, fOptional, "HRESULT")
         return result
     }
 
@@ -1474,5 +1522,95 @@ class IMFPMediaPlayer extends IUnknown {
     Shutdown() {
         result := ComCall(38, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFPMediaPlayer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Play := CallbackCreate(GetMethod(implObj, "Play"), flags, 1)
+        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.FrameStep := CallbackCreate(GetMethod(implObj, "FrameStep"), flags, 1)
+        this.vtbl.SetPosition := CallbackCreate(GetMethod(implObj, "SetPosition"), flags, 3)
+        this.vtbl.GetPosition := CallbackCreate(GetMethod(implObj, "GetPosition"), flags, 3)
+        this.vtbl.GetDuration := CallbackCreate(GetMethod(implObj, "GetDuration"), flags, 3)
+        this.vtbl.SetRate := CallbackCreate(GetMethod(implObj, "SetRate"), flags, 2)
+        this.vtbl.GetRate := CallbackCreate(GetMethod(implObj, "GetRate"), flags, 2)
+        this.vtbl.GetSupportedRates := CallbackCreate(GetMethod(implObj, "GetSupportedRates"), flags, 4)
+        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 2)
+        this.vtbl.CreateMediaItemFromURL := CallbackCreate(GetMethod(implObj, "CreateMediaItemFromURL"), flags, 5)
+        this.vtbl.CreateMediaItemFromObject := CallbackCreate(GetMethod(implObj, "CreateMediaItemFromObject"), flags, 5)
+        this.vtbl.SetMediaItem := CallbackCreate(GetMethod(implObj, "SetMediaItem"), flags, 2)
+        this.vtbl.ClearMediaItem := CallbackCreate(GetMethod(implObj, "ClearMediaItem"), flags, 1)
+        this.vtbl.GetMediaItem := CallbackCreate(GetMethod(implObj, "GetMediaItem"), flags, 2)
+        this.vtbl.GetVolume := CallbackCreate(GetMethod(implObj, "GetVolume"), flags, 2)
+        this.vtbl.SetVolume := CallbackCreate(GetMethod(implObj, "SetVolume"), flags, 2)
+        this.vtbl.GetBalance := CallbackCreate(GetMethod(implObj, "GetBalance"), flags, 2)
+        this.vtbl.SetBalance := CallbackCreate(GetMethod(implObj, "SetBalance"), flags, 2)
+        this.vtbl.GetMute := CallbackCreate(GetMethod(implObj, "GetMute"), flags, 2)
+        this.vtbl.SetMute := CallbackCreate(GetMethod(implObj, "SetMute"), flags, 2)
+        this.vtbl.GetNativeVideoSize := CallbackCreate(GetMethod(implObj, "GetNativeVideoSize"), flags, 3)
+        this.vtbl.GetIdealVideoSize := CallbackCreate(GetMethod(implObj, "GetIdealVideoSize"), flags, 3)
+        this.vtbl.SetVideoSourceRect := CallbackCreate(GetMethod(implObj, "SetVideoSourceRect"), flags, 2)
+        this.vtbl.GetVideoSourceRect := CallbackCreate(GetMethod(implObj, "GetVideoSourceRect"), flags, 2)
+        this.vtbl.SetAspectRatioMode := CallbackCreate(GetMethod(implObj, "SetAspectRatioMode"), flags, 2)
+        this.vtbl.GetAspectRatioMode := CallbackCreate(GetMethod(implObj, "GetAspectRatioMode"), flags, 2)
+        this.vtbl.GetVideoWindow := CallbackCreate(GetMethod(implObj, "GetVideoWindow"), flags, 2)
+        this.vtbl.UpdateVideo := CallbackCreate(GetMethod(implObj, "UpdateVideo"), flags, 1)
+        this.vtbl.SetBorderColor := CallbackCreate(GetMethod(implObj, "SetBorderColor"), flags, 2)
+        this.vtbl.GetBorderColor := CallbackCreate(GetMethod(implObj, "GetBorderColor"), flags, 2)
+        this.vtbl.InsertEffect := CallbackCreate(GetMethod(implObj, "InsertEffect"), flags, 3)
+        this.vtbl.RemoveEffect := CallbackCreate(GetMethod(implObj, "RemoveEffect"), flags, 2)
+        this.vtbl.RemoveAllEffects := CallbackCreate(GetMethod(implObj, "RemoveAllEffects"), flags, 1)
+        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Play)
+        CallbackFree(this.vtbl.Pause)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.FrameStep)
+        CallbackFree(this.vtbl.SetPosition)
+        CallbackFree(this.vtbl.GetPosition)
+        CallbackFree(this.vtbl.GetDuration)
+        CallbackFree(this.vtbl.SetRate)
+        CallbackFree(this.vtbl.GetRate)
+        CallbackFree(this.vtbl.GetSupportedRates)
+        CallbackFree(this.vtbl.GetState)
+        CallbackFree(this.vtbl.CreateMediaItemFromURL)
+        CallbackFree(this.vtbl.CreateMediaItemFromObject)
+        CallbackFree(this.vtbl.SetMediaItem)
+        CallbackFree(this.vtbl.ClearMediaItem)
+        CallbackFree(this.vtbl.GetMediaItem)
+        CallbackFree(this.vtbl.GetVolume)
+        CallbackFree(this.vtbl.SetVolume)
+        CallbackFree(this.vtbl.GetBalance)
+        CallbackFree(this.vtbl.SetBalance)
+        CallbackFree(this.vtbl.GetMute)
+        CallbackFree(this.vtbl.SetMute)
+        CallbackFree(this.vtbl.GetNativeVideoSize)
+        CallbackFree(this.vtbl.GetIdealVideoSize)
+        CallbackFree(this.vtbl.SetVideoSourceRect)
+        CallbackFree(this.vtbl.GetVideoSourceRect)
+        CallbackFree(this.vtbl.SetAspectRatioMode)
+        CallbackFree(this.vtbl.GetAspectRatioMode)
+        CallbackFree(this.vtbl.GetVideoWindow)
+        CallbackFree(this.vtbl.UpdateVideo)
+        CallbackFree(this.vtbl.SetBorderColor)
+        CallbackFree(this.vtbl.GetBorderColor)
+        CallbackFree(this.vtbl.InsertEffect)
+        CallbackFree(this.vtbl.RemoveEffect)
+        CallbackFree(this.vtbl.RemoveAllEffects)
+        CallbackFree(this.vtbl.Shutdown)
     }
 }

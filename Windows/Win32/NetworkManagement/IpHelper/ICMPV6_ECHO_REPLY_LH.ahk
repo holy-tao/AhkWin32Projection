@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPV6_ADDRESS_EX.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IPV6_ADDRESS_EX.ahk" { IPV6_ADDRESS_EX }
 
 /**
  * Describes the data returned in response to an IPv6 echo request.
@@ -27,24 +26,15 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipexport/ns-ipexport-icmpv6_echo_reply_lh
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class ICMPV6_ECHO_REPLY_LH extends Win32Struct {
-    static sizeof => 36
-
-    static packingSize => 4
+export default struct ICMPV6_ECHO_REPLY_LH {
+    #StructPack 4
 
     /**
      * Type: <b>IPV6_ADDRESS_EX</b>
      * 
      * The replying IPv6 address, in the form of an <a href="https://docs.microsoft.com/windows/desktop/api/ipexport/ns-ipexport-ipv6_address_ex">IPV6_ADDRESS_EX</a> structure.
-     * @type {IPV6_ADDRESS_EX}
      */
-    Address {
-        get {
-            if(!this.HasProp("__Address"))
-                this.__Address := IPV6_ADDRESS_EX(0, this)
-            return this.__Address
-        }
-    }
+    Address : IPV6_ADDRESS_EX
 
     /**
      * Type: <b>ULONG</b>
@@ -343,21 +333,14 @@ class ICMPV6_ECHO_REPLY_LH extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Status {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    Status : UInt32
 
     /**
      * Type: <b>unsigned int</b>
      * 
      * The round trip time, in milliseconds.
-     * @type {Integer}
      */
-    RoundTripTime {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    RoundTripTime : UInt32
+
 }

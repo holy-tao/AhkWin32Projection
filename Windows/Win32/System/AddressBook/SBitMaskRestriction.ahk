@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes a bitmask restriction, which is used to perform a bitwise AND operation and test the result.
@@ -10,10 +9,8 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sbitmaskrestriction
  * @namespace Windows.Win32.System.AddressBook
  */
-class SBitMaskRestriction extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct SBitMaskRestriction {
+    #StructPack 4
 
     /**
      * > Relational operator that describes how the mask specified in the **ulMask** member should be applied to the property tag. Possible values are as follows: 
@@ -25,28 +22,17 @@ class SBitMaskRestriction extends Win32Struct {
      * BMR_NEZ 
      *   
      * > Perform a bitwise **AND** operation of the mask in the **ulMask** member with the property represented by the **ulPropTag** member and test for being not equal to zero.
-     * @type {Integer}
      */
-    relBMR {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    relBMR : UInt32
 
     /**
      * > Property tag of the property to which the bitmask is applied.
-     * @type {Integer}
      */
-    ulPropTag {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulPropTag : UInt32
 
     /**
      * > Bitmask to apply to the property identified by **ulPropTag**.
-     * @type {Integer}
      */
-    ulMask {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulMask : UInt32
+
 }

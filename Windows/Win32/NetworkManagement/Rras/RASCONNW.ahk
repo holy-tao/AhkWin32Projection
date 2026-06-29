@@ -1,109 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HRASCONN.ahk
-#Include ..\..\Foundation\LUID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HRASCONN.ahk" { HRASCONN }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\LUID.ahk" { LUID }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @charset Unicode
  * @architecture X64, Arm64
  */
-class RASCONNW extends Win32Struct {
-    static sizeof => 1384
+export default struct RASCONNW {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hrasconn : HRASCONN
 
-    /**
-     * @type {HRASCONN}
-     */
-    hrasconn {
-        get {
-            if(!this.HasProp("__hrasconn"))
-                this.__hrasconn := HRASCONN(8, this)
-            return this.__hrasconn
-        }
-    }
+    szEntryName : WCHAR[257]
 
-    /**
-     * @type {String}
-     */
-    szEntryName {
-        get => StrGet(this.ptr + 16, 256, "UTF-16")
-        set => StrPut(value, this.ptr + 16, 256, "UTF-16")
-    }
+    szDeviceType : WCHAR[17]
 
-    /**
-     * @type {String}
-     */
-    szDeviceType {
-        get => StrGet(this.ptr + 530, 16, "UTF-16")
-        set => StrPut(value, this.ptr + 530, 16, "UTF-16")
-    }
+    szDeviceName : WCHAR[129]
 
-    /**
-     * @type {String}
-     */
-    szDeviceName {
-        get => StrGet(this.ptr + 564, 128, "UTF-16")
-        set => StrPut(value, this.ptr + 564, 128, "UTF-16")
-    }
+    szPhonebook : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    szPhonebook {
-        get => StrGet(this.ptr + 822, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 822, 259, "UTF-16")
-    }
+    dwSubEntry : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSubEntry {
-        get => NumGet(this, 1344, "uint")
-        set => NumPut("uint", value, this, 1344)
-    }
+    guidEntry : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    guidEntry {
-        get => NumGet(this, 1352, "ptr")
-        set => NumPut("ptr", value, this, 1352)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 1360, "uint")
-        set => NumPut("uint", value, this, 1360)
-    }
+    luid : LUID
 
-    /**
-     * @type {LUID}
-     */
-    luid {
-        get {
-            if(!this.HasProp("__luid"))
-                this.__luid := LUID(1364, this)
-            return this.__luid
-        }
-    }
+    guidCorrelationId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    guidCorrelationId {
-        get => NumGet(this, 1376, "ptr")
-        set => NumPut("ptr", value, this, 1376)
-    }
 }

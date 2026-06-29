@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IQueryContinue.ahk" { IQueryContinue }
+#Import ".\IUserNotificationCallback.ahk" { IUserNotificationCallback }
+#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that set notification information and then display that notification to the user in a balloon that appears in conjunction with the notification area of the taskbar. (IUserNotification2)
@@ -11,26 +16,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-iusernotification2
  * @namespace Windows.Win32.UI.Shell
  */
-class IUserNotification2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUserNotification2 extends IUnknown {
     /**
      * The interface identifier for IUserNotification2
      * @type {Guid}
      */
-    static IID => Guid("{215913cc-57eb-4fab-ab5a-e5fa7bea2a6c}")
+    static IID := Guid("{215913cc-57eb-4fab-ab5a-e5fa7bea2a6c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUserNotification2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetBalloonInfo  : IntPtr
+        SetBalloonRetry : IntPtr
+        SetIconInfo     : IntPtr
+        Show            : IntPtr
+        PlaySound       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetBalloonInfo", "SetBalloonRetry", "SetIconInfo", "Show", "PlaySound"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUserNotification2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the information to be displayed in a balloon notification. (IUserNotification2.SetBalloonInfo)
@@ -89,10 +105,9 @@ class IUserNotification2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iusernotification2-seticoninfo
      */
     SetIconInfo(_hIcon, pszToolTip) {
-        _hIcon := _hIcon is Win32Handle ? NumGet(_hIcon, "ptr") : _hIcon
         pszToolTip := pszToolTip is String ? StrPtr(pszToolTip) : pszToolTip
 
-        result := ComCall(5, this, "ptr", _hIcon, "ptr", pszToolTip, "HRESULT")
+        result := ComCall(5, this, HICON, _hIcon, "ptr", pszToolTip, "HRESULT")
         return result
     }
 
@@ -140,5 +155,33 @@ class IUserNotification2 extends IUnknown {
 
         result := ComCall(7, this, "ptr", pszSoundName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUserNotification2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetBalloonInfo := CallbackCreate(GetMethod(implObj, "SetBalloonInfo"), flags, 4)
+        this.vtbl.SetBalloonRetry := CallbackCreate(GetMethod(implObj, "SetBalloonRetry"), flags, 4)
+        this.vtbl.SetIconInfo := CallbackCreate(GetMethod(implObj, "SetIconInfo"), flags, 3)
+        this.vtbl.Show := CallbackCreate(GetMethod(implObj, "Show"), flags, 4)
+        this.vtbl.PlaySound := CallbackCreate(GetMethod(implObj, "PlaySound"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetBalloonInfo)
+        CallbackFree(this.vtbl.SetBalloonRetry)
+        CallbackFree(this.vtbl.SetIconInfo)
+        CallbackFree(this.vtbl.Show)
+        CallbackFree(this.vtbl.PlaySound)
     }
 }

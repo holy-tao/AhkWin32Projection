@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Identifies a shader type for tracing.
@@ -11,7 +10,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/ne-d3d11shadertracing-d3d11_shader_type
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_SHADER_TYPE extends Win32Enum {
+export default struct D3D11_SHADER_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Identifies a vertex shader.

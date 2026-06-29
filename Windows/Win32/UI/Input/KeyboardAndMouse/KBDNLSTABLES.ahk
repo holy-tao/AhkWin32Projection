@@ -1,60 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\VK_F.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VK_F.ahk" { VK_F }
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
  */
-class KBDNLSTABLES extends Win32Struct {
-    static sizeof => 32
+export default struct KBDNLSTABLES {
+    #StructPack 8
 
-    static packingSize => 8
+    OEMIdentifier : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    OEMIdentifier {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    LayoutInformation : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    LayoutInformation {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    NumOfVkToF : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumOfVkToF {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    pVkToF : VK_F.Ptr
 
-    /**
-     * @type {Pointer<VK_F>}
-     */
-    pVkToF {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    NumOfMouseVKey : Int32
 
-    /**
-     * @type {Integer}
-     */
-    NumOfMouseVKey {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    pusMouseVKey : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pusMouseVKey {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

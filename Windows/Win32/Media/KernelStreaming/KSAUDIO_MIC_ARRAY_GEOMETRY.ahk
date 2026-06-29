@@ -1,95 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSAUDIO_MICROPHONE_COORDINATES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSAUDIO_MICROPHONE_COORDINATES.ahk" { KSAUDIO_MICROPHONE_COORDINATES }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSAUDIO_MIC_ARRAY_GEOMETRY extends Win32Struct {
-    static sizeof => 30
+export default struct KSAUDIO_MIC_ARRAY_GEOMETRY {
+    #StructPack 2
 
-    static packingSize => 2
+    usVersion : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usVersion {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    usMicArrayType : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usMicArrayType {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    wVerticalAngleBegin : Int16
 
-    /**
-     * @type {Integer}
-     */
-    wVerticalAngleBegin {
-        get => NumGet(this, 4, "short")
-        set => NumPut("short", value, this, 4)
-    }
+    wVerticalAngleEnd : Int16
 
-    /**
-     * @type {Integer}
-     */
-    wVerticalAngleEnd {
-        get => NumGet(this, 6, "short")
-        set => NumPut("short", value, this, 6)
-    }
+    wHorizontalAngleBegin : Int16
 
-    /**
-     * @type {Integer}
-     */
-    wHorizontalAngleBegin {
-        get => NumGet(this, 8, "short")
-        set => NumPut("short", value, this, 8)
-    }
+    wHorizontalAngleEnd : Int16
 
-    /**
-     * @type {Integer}
-     */
-    wHorizontalAngleEnd {
-        get => NumGet(this, 10, "short")
-        set => NumPut("short", value, this, 10)
-    }
+    usFrequencyBandLo : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usFrequencyBandLo {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    usFrequencyBandHi : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usFrequencyBandHi {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    usNumberOfMicrophones : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usNumberOfMicrophones {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    KsMicCoord : KSAUDIO_MICROPHONE_COORDINATES[1]
 
-    /**
-     * @type {KSAUDIO_MICROPHONE_COORDINATES}
-     */
-    KsMicCoord {
-        get {
-            if(!this.HasProp("__KsMicCoordProxyArray"))
-                this.__KsMicCoordProxyArray := Win32FixedArray(this.ptr + 18, 1, KSAUDIO_MICROPHONE_COORDINATES, "")
-            return this.__KsMicCoordProxyArray
-        }
-    }
 }

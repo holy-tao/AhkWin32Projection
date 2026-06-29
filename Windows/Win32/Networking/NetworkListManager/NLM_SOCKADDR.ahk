@@ -1,25 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * NLM_SOCKADDR structure contains the IPv4/IPv6 destination address.
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/ns-netlistmgr-nlm_sockaddr
  * @namespace Windows.Win32.Networking.NetworkListManager
  */
-class NLM_SOCKADDR extends Win32Struct {
-    static sizeof => 128
-
-    static packingSize => 1
+export default struct NLM_SOCKADDR {
+    #StructPack 1
 
     /**
      * An IPv4/IPv6 destination address.
-     * @type {Array<Integer>}
      */
-    data {
-        get {
-            if(!this.HasProp("__dataProxyArray"))
-                this.__dataProxyArray := Win32FixedArray(this.ptr + 0, 128, Primitive, "char")
-            return this.__dataProxyArray
-        }
-    }
+    data : Int8[128]
+
 }

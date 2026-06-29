@@ -1,34 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FsiFileSystems.ahk" { FsiFileSystems }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Base interface containing properties common to both file and directory items.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-ifsiitem
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IFsiItem extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFsiItem extends IDispatch {
     /**
      * The interface identifier for IFsiItem
      * @type {Guid}
      */
-    static IID => Guid("{2c941fd9-975b-59be-a960-9a2a262853a5}")
+    static IID := Guid("{2c941fd9-975b-59be-a960-9a2a262853a5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsiItem interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Name             : IntPtr
+        get_FullPath         : IntPtr
+        get_CreationTime     : IntPtr
+        put_CreationTime     : IntPtr
+        get_LastAccessedTime : IntPtr
+        put_LastAccessedTime : IntPtr
+        get_LastModifiedTime : IntPtr
+        put_LastModifiedTime : IntPtr
+        get_IsHidden         : IntPtr
+        put_IsHidden         : IntPtr
+        FileSystemName       : IntPtr
+        FileSystemPath       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Name", "get_FullPath", "get_CreationTime", "put_CreationTime", "get_LastAccessedTime", "put_LastAccessedTime", "get_LastModifiedTime", "put_LastModifiedTime", "get_IsHidden", "put_IsHidden", "FileSystemName", "FileSystemPath"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsiItem.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -84,8 +105,8 @@ class IFsiItem extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-get_name
      */
     get_Name() {
-        pVal := BSTR()
-        result := ComCall(7, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -95,8 +116,8 @@ class IFsiItem extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-get_fullpath
      */
     get_FullPath() {
-        pVal := BSTR()
-        result := ComCall(8, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -296,7 +317,7 @@ class IFsiItem extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-get_ishidden
      */
     get_IsHidden() {
-        result := ComCall(15, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(15, this, VARIANT_BOOL.Ptr, &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -340,7 +361,7 @@ class IFsiItem extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-put_ishidden
      */
     put_IsHidden(newVal) {
-        result := ComCall(16, this, "short", newVal, "HRESULT")
+        result := ComCall(16, this, VARIANT_BOOL, newVal, "HRESULT")
         return result
     }
 
@@ -351,8 +372,8 @@ class IFsiItem extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-filesystemname
      */
     FileSystemName(fileSystem) {
-        pVal := BSTR()
-        result := ComCall(17, this, "int", fileSystem, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(17, this, FsiFileSystems, fileSystem, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -363,8 +384,50 @@ class IFsiItem extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-filesystempath
      */
     FileSystemPath(fileSystem) {
-        pVal := BSTR()
-        result := ComCall(18, this, "int", fileSystem, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(18, this, FsiFileSystems, fileSystem, BSTR.Ptr, pVal, "HRESULT")
         return pVal
+    }
+
+    Query(iid) {
+        if (IFsiItem.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_FullPath := CallbackCreate(GetMethod(implObj, "get_FullPath"), flags, 2)
+        this.vtbl.get_CreationTime := CallbackCreate(GetMethod(implObj, "get_CreationTime"), flags, 2)
+        this.vtbl.put_CreationTime := CallbackCreate(GetMethod(implObj, "put_CreationTime"), flags, 2)
+        this.vtbl.get_LastAccessedTime := CallbackCreate(GetMethod(implObj, "get_LastAccessedTime"), flags, 2)
+        this.vtbl.put_LastAccessedTime := CallbackCreate(GetMethod(implObj, "put_LastAccessedTime"), flags, 2)
+        this.vtbl.get_LastModifiedTime := CallbackCreate(GetMethod(implObj, "get_LastModifiedTime"), flags, 2)
+        this.vtbl.put_LastModifiedTime := CallbackCreate(GetMethod(implObj, "put_LastModifiedTime"), flags, 2)
+        this.vtbl.get_IsHidden := CallbackCreate(GetMethod(implObj, "get_IsHidden"), flags, 2)
+        this.vtbl.put_IsHidden := CallbackCreate(GetMethod(implObj, "put_IsHidden"), flags, 2)
+        this.vtbl.FileSystemName := CallbackCreate(GetMethod(implObj, "FileSystemName"), flags, 3)
+        this.vtbl.FileSystemPath := CallbackCreate(GetMethod(implObj, "FileSystemPath"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.get_FullPath)
+        CallbackFree(this.vtbl.get_CreationTime)
+        CallbackFree(this.vtbl.put_CreationTime)
+        CallbackFree(this.vtbl.get_LastAccessedTime)
+        CallbackFree(this.vtbl.put_LastAccessedTime)
+        CallbackFree(this.vtbl.get_LastModifiedTime)
+        CallbackFree(this.vtbl.put_LastModifiedTime)
+        CallbackFree(this.vtbl.get_IsHidden)
+        CallbackFree(this.vtbl.put_IsHidden)
+        CallbackFree(this.vtbl.FileSystemName)
+        CallbackFree(this.vtbl.FileSystemPath)
     }
 }

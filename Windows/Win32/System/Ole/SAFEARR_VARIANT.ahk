@@ -1,28 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\_wireVARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\_wireVARIANT.ahk" { _wireVARIANT }
 
 /**
  * @namespace Windows.Win32.System.Ole
  */
-class SAFEARR_VARIANT extends Win32Struct {
-    static sizeof => 16
+export default struct SAFEARR_VARIANT {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    aVariant : IntPtr
 
-    /**
-     * @type {Pointer<Pointer<_wireVARIANT>>}
-     */
-    aVariant {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

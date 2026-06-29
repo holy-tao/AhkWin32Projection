@@ -1,68 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\DEVICE_OBJECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
+#Import "..\..\Foundation\PKINTERRUPT.ahk" { PKINTERRUPT }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class IO_CONNECT_INTERRUPT_LINE_BASED_PARAMETERS extends Win32Struct {
-    static sizeof => 48
+export default struct IO_CONNECT_INTERRUPT_LINE_BASED_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
+    PhysicalDeviceObject : DEVICE_OBJECT.Ptr
 
-    /**
-     * @type {Pointer<DEVICE_OBJECT>}
-     */
-    PhysicalDeviceObject {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    InterruptObject : PKINTERRUPT.Ptr
 
-    /**
-     * @type {Pointer<PKINTERRUPT>}
-     */
-    InterruptObject {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ServiceRoutine : IntPtr
 
-    /**
-     * @type {Pointer<PKSERVICE_ROUTINE>}
-     */
-    ServiceRoutine {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ServiceContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    ServiceContext {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    SpinLock : IntPtr
 
-    /**
-     * @type {Pointer<Pointer>}
-     */
-    SpinLock {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    SynchronizeIrql : Int8
 
-    /**
-     * @type {Integer}
-     */
-    SynchronizeIrql {
-        get => NumGet(this, 40, "char")
-        set => NumPut("char", value, this, 40)
-    }
+    FloatingSave : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    FloatingSave {
-        get => NumGet(this, 41, "char")
-        set => NumPut("char", value, this, 41)
-    }
 }

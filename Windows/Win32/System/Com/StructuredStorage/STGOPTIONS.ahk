@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Specifies features of the storage object, such as sector size, in the StgCreateStorageEx and StgOpenStorageEx functions.
@@ -8,10 +8,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/coml2api/ns-coml2api-stgoptions
  * @namespace Windows.Win32.System.Com.StructuredStorage
  */
-class STGOPTIONS extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct STGOPTIONS {
+    #StructPack 8
 
     /**
      * Specifies the version of the 
@@ -25,39 +23,24 @@ class STGOPTIONS extends Win32Struct {
      * <b>In Windows XP and later:  </b><b>STGOPTIONS_VERSION</b> can be set to 2 for version 2.
      * 
      * <b>For operating systems prior to Windows 2000:  </b><b>STGOPTIONS_VERSION</b> will be set to 0 for version 0.
-     * @type {Integer}
      */
-    usVersion {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    usVersion : UInt16
 
     /**
      * Reserved for future use; must be zero.
-     * @type {Integer}
      */
-    reserved {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    reserved : UInt16
 
     /**
      * Specifies the sector size of the storage object. The default is 512 bytes.
-     * @type {Integer}
      */
-    ulSectorSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulSectorSize : UInt32
 
     /**
      * Specifies the name of a file whose Encrypted File System (EFS) metadata will be transferred to a newly created Structured Storage file. This member is valid only when <b>STGFMT_DOCFILE</b> is used with <a href="https://docs.microsoft.com/windows/desktop/api/coml2api/nf-coml2api-stgcreatestorageex">StgCreateStorageEx</a>.
      * 
      * <b>In Windows XP and later:  </b>The <b>pwcsTemplateFile</b> member is only valid if version 2 or later is specified in the <b>usVersion</b> member.
-     * @type {PWSTR}
      */
-    pwcsTemplateFile {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwcsTemplateFile : PWSTR
+
 }

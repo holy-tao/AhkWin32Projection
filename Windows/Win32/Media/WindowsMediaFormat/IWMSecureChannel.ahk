@@ -1,33 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMAuthorizer.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWMAuthorizer.ahk" { IWMAuthorizer }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The IWMSecureChannel interface provides methods that allow two DLLs to validate each other and perform secure communication.
  * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nn-wmsecure-iwmsecurechannel
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMSecureChannel extends IWMAuthorizer {
-
-    static sizeof => A_PtrSize
+export default struct IWMSecureChannel extends IWMAuthorizer {
     /**
      * The interface identifier for IWMSecureChannel
      * @type {Guid}
      */
-    static IID => Guid("{2720598a-d0f2-4189-bd10-91c46ef0936f}")
+    static IID := Guid("{2720598a-d0f2-4189-bd10-91c46ef0936f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMSecureChannel interfaces
+    */
+    struct Vtbl extends IWMAuthorizer.Vtbl {
+        WMSC_AddCertificate      : IntPtr
+        WMSC_AddSignature        : IntPtr
+        WMSC_Connect             : IntPtr
+        WMSC_IsConnected         : IntPtr
+        WMSC_Disconnect          : IntPtr
+        WMSC_GetValidCertificate : IntPtr
+        WMSC_Encrypt             : IntPtr
+        WMSC_Decrypt             : IntPtr
+        WMSC_Lock                : IntPtr
+        WMSC_Unlock              : IntPtr
+        WMSC_SetSharedData       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["WMSC_AddCertificate", "WMSC_AddSignature", "WMSC_Connect", "WMSC_IsConnected", "WMSC_Disconnect", "WMSC_GetValidCertificate", "WMSC_Encrypt", "WMSC_Decrypt", "WMSC_Lock", "WMSC_Unlock", "WMSC_SetSharedData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMSecureChannel.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The WMSC_AddCertificate method adds certificates that this object can present to other secure channel objects. If no certs are added, then this object can only connect to objects with no signatures.
@@ -75,7 +94,7 @@ class IWMSecureChannel extends IWMAuthorizer {
      * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_isconnected
      */
     WMSC_IsConnected() {
-        result := ComCall(9, this, "int*", &pfIsConnected := 0, "HRESULT")
+        result := ComCall(9, this, BOOL.Ptr, &pfIsConnected := 0, "HRESULT")
         return pfIsConnected
     }
 
@@ -172,5 +191,45 @@ class IWMSecureChannel extends IWMAuthorizer {
 
         result := ComCall(16, this, "uint", dwCertIndex, pbSharedDataMarshal, pbSharedData, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMSecureChannel.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.WMSC_AddCertificate := CallbackCreate(GetMethod(implObj, "WMSC_AddCertificate"), flags, 2)
+        this.vtbl.WMSC_AddSignature := CallbackCreate(GetMethod(implObj, "WMSC_AddSignature"), flags, 3)
+        this.vtbl.WMSC_Connect := CallbackCreate(GetMethod(implObj, "WMSC_Connect"), flags, 2)
+        this.vtbl.WMSC_IsConnected := CallbackCreate(GetMethod(implObj, "WMSC_IsConnected"), flags, 2)
+        this.vtbl.WMSC_Disconnect := CallbackCreate(GetMethod(implObj, "WMSC_Disconnect"), flags, 1)
+        this.vtbl.WMSC_GetValidCertificate := CallbackCreate(GetMethod(implObj, "WMSC_GetValidCertificate"), flags, 3)
+        this.vtbl.WMSC_Encrypt := CallbackCreate(GetMethod(implObj, "WMSC_Encrypt"), flags, 3)
+        this.vtbl.WMSC_Decrypt := CallbackCreate(GetMethod(implObj, "WMSC_Decrypt"), flags, 3)
+        this.vtbl.WMSC_Lock := CallbackCreate(GetMethod(implObj, "WMSC_Lock"), flags, 1)
+        this.vtbl.WMSC_Unlock := CallbackCreate(GetMethod(implObj, "WMSC_Unlock"), flags, 1)
+        this.vtbl.WMSC_SetSharedData := CallbackCreate(GetMethod(implObj, "WMSC_SetSharedData"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.WMSC_AddCertificate)
+        CallbackFree(this.vtbl.WMSC_AddSignature)
+        CallbackFree(this.vtbl.WMSC_Connect)
+        CallbackFree(this.vtbl.WMSC_IsConnected)
+        CallbackFree(this.vtbl.WMSC_Disconnect)
+        CallbackFree(this.vtbl.WMSC_GetValidCertificate)
+        CallbackFree(this.vtbl.WMSC_Encrypt)
+        CallbackFree(this.vtbl.WMSC_Decrypt)
+        CallbackFree(this.vtbl.WMSC_Lock)
+        CallbackFree(this.vtbl.WMSC_Unlock)
+        CallbackFree(this.vtbl.WMSC_SetSharedData)
     }
 }

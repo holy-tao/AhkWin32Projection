@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ENTRYID.ahk
-#Include .\SRestriction.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SRestriction.ahk" { SRestriction }
+#Import ".\ENTRYID.ahk" { ENTRYID }
 
 /**
  * Describes the display and behavior of the common address dialog box.
@@ -42,28 +41,18 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/adrparm
  * @namespace Windows.Win32.System.AddressBook
  */
-class ADRPARM extends Win32Struct {
-    static sizeof => 136
-
-    static packingSize => 8
+export default struct ADRPARM {
+    #StructPack 8
 
     /**
      * > Count of bytes in the entry identifier pointed to by **lpABContEntryID**.
-     * @type {Integer}
      */
-    cbABContEntryID {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbABContEntryID : UInt32
 
     /**
      * > Pointer to the entry identifier of the container that supplies the initial list of recipient addresses that are displayed in the address dialog box.
-     * @type {Pointer<ENTRYID>}
      */
-    lpABContEntryID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpABContEntryID : ENTRYID.Ptr
 
     /**
      * > Bitmask of flags associated with various address dialog box options. The following flags can be set:
@@ -91,93 +80,53 @@ class ADRPARM extends Win32Struct {
      * DIALOG_SDI
      *   
      * > Causes the modeless version of the common address dialog box to be displayed. Either this flag or DIALOG_MODAL should be set; they cannot both be set. The DIALOG_SDI flag is ignored for non-Outlook clients, and the modal version of the dialog box will be displayed. Consequently, a pointer to a handle should not be expected in the _lpulUIParam_ parameter of [IAddrBook::Address](iaddrbook-address.md).
-     * @type {Integer}
      */
-    ulFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ulFlags : UInt32
 
     /**
      * > Reserved, must be zero.
-     * @type {Pointer<Void>}
      */
-    lpReserved {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpReserved : IntPtr
 
     /**
      * > Specifies the context within **Help** that will first be shown when the user clicks the Help button in the address dialog box.
-     * @type {Integer}
      */
-    ulHelpContext {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ulHelpContext : UInt32
 
     /**
      * > Pointer to the name of a Help file that will be associated with the address dialog box. The **lpszHelpFileName** member is used together with **ulHelpContext** to call the Windows **WinHelp** function.
-     * @type {Pointer<Integer>}
      */
-    lpszHelpFileName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lpszHelpFileName : IntPtr
 
     /**
      * > Pointer to a MAPI function based on the [ACCELERATEABSDI](accelerateabsdi.md) prototype or NULL. This member applies to the modeless version of the dialog box only, as indicated by the DIALOG_SDI flag being set. Clients building an **ADRPARM** structure to pass to [IAddrBook::Address](iaddrbook-address.md) must always set the **lpfnABSDI** member to NULL. If the DIALOG_SDI flag is set, MAPI will then set it to a valid function before returning. Clients call this function from in their message loop to make sure that accelerators in the address book dialog box work. When the dialog box is dismissed and MAPI calls the function pointed to by the **lpfnDismiss** member, clients should unhook the **ACCELERATEABSDI** function from their message loop.
-     * @type {Pointer<LPFNABSDI>}
      */
-    lpfnABSDI {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    lpfnABSDI : IntPtr
 
     /**
      * > Pointer to a function based on the [DISMISSMODELESS](dismissmodeless.md) prototype or NULL. This member applies only to the modeless version of the dialog box only, as indicated by the DIALOG_SDI flag being set. MAPI calls the **DISMISSMODELESS** function when the user dismisses the modeless address dialog box, informing a client calling **IAddrBook::Address** that the dialog box is no longer active.
-     * @type {Pointer<LPFNDISMISS>}
      */
-    lpfnDismiss {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    lpfnDismiss : IntPtr
 
     /**
      * > Pointer to context information to be passed to the **DISMISSMODELESS** function pointed to by the **lpfnDismiss** member. This member applies only to the modeless version of the dialog box, as indicated by the DIALOG_SDI flag being set.
-     * @type {Pointer<Void>}
      */
-    lpvDismissContext {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    lpvDismissContext : IntPtr
 
     /**
      * > Pointer to text to be used as the title for the common address dialog box.
-     * @type {Pointer<Integer>}
      */
-    lpszCaption {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    lpszCaption : IntPtr
 
     /**
      * > Pointer to text to be used as the button label for the button that invokes either the **New Entry** dialog box or another dialog box.
-     * @type {Pointer<Integer>}
      */
-    lpszNewEntryTitle {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    lpszNewEntryTitle : IntPtr
 
     /**
      * > Pointer to text to be used as a title for the recipient text box controls that can appear in the modal version of the common address dialog box. This member is not used for modeless dialog boxes.
-     * @type {Pointer<Integer>}
      */
-    lpszDestWellsTitle {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    lpszDestWellsTitle : IntPtr
 
     /**
      * > Count of recipient text box controls in the modal version of the address dialog box, or zero if the dialog box is modeless. The address dialog box is open for browsing only when the following conditions are true:
@@ -189,55 +138,32 @@ class ADRPARM extends Win32Struct {
      * - The ADDRESS_ONE flag is not set.
      * 
      *   Setting **cDestFields** to 0XFFFFFFFF implies that MAPI should create the default number of recipient text box controls. In this case, the **lppszDestTitles** and **lpulDestComps** members must be NULL.
-     * @type {Integer}
      */
-    cDestFields {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    cDestFields : UInt32
 
     /**
      * > Indicates the particular text box control that should have the initial focus when the modal version of the dialog box appears. This value must be between 0 and the value of **cDestFields** minus 1.
-     * @type {Integer}
      */
-    nDestFieldFocus {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
+    nDestFieldFocus : UInt32
 
     /**
      * > Pointer to an array of labels for buttons associated with each of the text box controls that are displayed in the modal version of the address dialog box. The value of the **cDestFields** member indicates the number of labels included in the array. If the **lppszDestTitles** member is NULL, the **Address** method uses default titles.
-     * @type {Pointer<Pointer<Integer>>}
      */
-    lppszDestTitles {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    lppszDestTitles : IntPtr
 
     /**
      * > Pointer to an array of recipient type values, such as MAPI_TO, MAPI_CC, and MAPI_BCC, that is associated with each text box control. The value of the **CDestFields** member indicates the number of recipient types included in the array. The values pointed to by **lpulDestComps** can be used to set the **PR_RECIPIENT_TYPE** ([PidTagRecipientType](pidtagrecipienttype-canonical-property.md)) property of each recipient. If the **lpulDestComps** member is NULL, the **Address** method uses default recipient types.
-     * @type {Pointer<Integer>}
      */
-    lpulDestComps {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    lpulDestComps : IntPtr
 
     /**
      * > Pointer to an [SRestriction](srestriction.md) structure that limits the type of address entries that can be displayed in the dialog box.
-     * @type {Pointer<SRestriction>}
      */
-    lpContRestriction {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    lpContRestriction : SRestriction.Ptr
 
     /**
      * > Pointer to an **SRestriction** structure that limits the address book containers that can supply address entries to be displayed in the dialog box.
-     * @type {Pointer<SRestriction>}
      */
-    lpHierRestriction {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    lpHierRestriction : SRestriction.Ptr
+
 }

@@ -1,28 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_SGL_BITBUCKET_DESC extends Win32Struct {
-    static sizeof => 16
+export default struct NVME_SGL_BITBUCKET_DESC {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Identifier_e__Union extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _Identifier {
         /**
          * This bitfield backs the following members:
          * - SubType
          * - Type
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -39,51 +31,18 @@ class NVME_SGL_BITBUCKET_DESC extends Win32Struct {
             get => (this._bitfield >> 4) & 0xF
             set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
         }
-
-        /**
-         * @type {Integer}
-         */
-        AsUchar {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUchar', { type: Int8, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    Reserved0 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Reserved0 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Length : UInt32
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 12, 3, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    Reserved1 : Int8[3]
 
-    /**
-     * @type {_Identifier_e__Union}
-     */
-    Identifier {
-        get {
-            if(!this.HasProp("__Identifier"))
-                this.__Identifier := NVME_SGL_BITBUCKET_DESC._Identifier_e__Union(15, this)
-            return this.__Identifier
-        }
-    }
+    Identifier : NVME_SGL_BITBUCKET_DESC._Identifier
+
 }

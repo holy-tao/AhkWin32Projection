@@ -1,52 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\DMUS_CLOCKTYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DMUS_CLOCKTYPE.ahk" { DMUS_CLOCKTYPE }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
-class DMUS_CLOCKINFO8 extends Win32Struct {
-    static sizeof => 280
+export default struct DMUS_CLOCKINFO8 {
+    #StructPack 4
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ctType : DMUS_CLOCKTYPE
 
-    /**
-     * @type {DMUS_CLOCKTYPE}
-     */
-    ctType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    guidClock : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    guidClock {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    wszDescription : WCHAR[128]
 
-    /**
-     * @type {String}
-     */
-    wszDescription {
-        get => StrGet(this.ptr + 16, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 16, 127, "UTF-16")
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 272, "uint")
-        set => NumPut("uint", value, this, 272)
-    }
 }

@@ -1,24 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
  */
-class DVD_LAYER_DESCRIPTOR extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct DVD_LAYER_DESCRIPTOR {
+    #StructPack 4
 
     /**
      * This bitfield backs the following members:
      * - BookVersion
      * - BookType
-     * @type {Integer}
      */
-    _bitfield1 {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    _bitfield1 : Int8
+
 
     /**
      * @type {Integer}
@@ -35,17 +29,13 @@ class DVD_LAYER_DESCRIPTOR extends Win32Struct {
         get => (this._bitfield1 >> 4) & 0xF
         set => this._bitfield1 := ((value & 0xF) << 4) | (this._bitfield1 & ~(0xF << 4))
     }
-
     /**
      * This bitfield backs the following members:
      * - MinimumRate
      * - DiskSize
-     * @type {Integer}
      */
-    _bitfield2 {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    _bitfield2 : Int8
+
 
     /**
      * @type {Integer}
@@ -62,19 +52,15 @@ class DVD_LAYER_DESCRIPTOR extends Win32Struct {
         get => (this._bitfield2 >> 4) & 0xF
         set => this._bitfield2 := ((value & 0xF) << 4) | (this._bitfield2 & ~(0xF << 4))
     }
-
     /**
      * This bitfield backs the following members:
      * - LayerType
      * - TrackPath
      * - NumberOfLayers
      * - Reserved1
-     * @type {Integer}
      */
-    _bitfield3 {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    _bitfield3 : Int8
+
 
     /**
      * @type {Integer}
@@ -107,17 +93,13 @@ class DVD_LAYER_DESCRIPTOR extends Win32Struct {
         get => (this._bitfield3 >> 7) & 0x1
         set => this._bitfield3 := ((value & 0x1) << 7) | (this._bitfield3 & ~(0x1 << 7))
     }
-
     /**
      * This bitfield backs the following members:
      * - TrackDensity
      * - LinearDensity
-     * @type {Integer}
      */
-    _bitfield4 {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    _bitfield4 : Int8
+
 
     /**
      * @type {Integer}
@@ -134,41 +116,19 @@ class DVD_LAYER_DESCRIPTOR extends Win32Struct {
         get => (this._bitfield4 >> 4) & 0xF
         set => this._bitfield4 := ((value & 0xF) << 4) | (this._bitfield4 & ~(0xF << 4))
     }
+    StartingDataSector : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StartingDataSector {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    EndDataSector : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EndDataSector {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    EndLayerZeroSector {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    EndLayerZeroSector : UInt32
 
     /**
      * This bitfield backs the following members:
      * - Reserved5
      * - BCAFlag
-     * @type {Integer}
      */
-    _bitfield5 {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    _bitfield5 : Int8
+
 
     /**
      * @type {Integer}

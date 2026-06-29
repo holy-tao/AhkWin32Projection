@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the filtered list of property descriptions that is returned.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/propsys/ne-propsys-propdesc_enumfilter
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  */
-class PROPDESC_ENUMFILTER extends Win32Enum {
+export default struct PROPDESC_ENUMFILTER {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The list contains all property descriptions in the system.

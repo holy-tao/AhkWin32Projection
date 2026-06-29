@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The TS_STATUS structure contains document status data.
@@ -73,24 +72,11 @@
  * @see https://learn.microsoft.com/windows/win32/api/textstor/ns-textstor-ts_status
  * @namespace Windows.Win32.UI.TextServices
  */
-class TS_STATUS extends Win32Struct {
-    static sizeof => 8
+export default struct TS_STATUS {
+    #StructPack 4
 
-    static packingSize => 4
+    dwDynamicFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDynamicFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwStaticFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwStaticFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
 }

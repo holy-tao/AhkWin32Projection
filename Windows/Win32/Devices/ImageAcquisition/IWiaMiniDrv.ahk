@@ -1,31 +1,62 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MINIDRV_TRANSFER_CONTEXT.ahk" { MINIDRV_TRANSFER_CONTEXT }
+#Import ".\WIA_FORMAT_INFO.ahk" { WIA_FORMAT_INFO }
+#Import "..\..\System\Com\StructuredStorage\PROPSPEC.ahk" { PROPSPEC }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWiaDrvItem.ahk" { IWiaDrvItem }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WIA_DEV_CAP_DRV.ahk" { WIA_DEV_CAP_DRV }
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
-class IWiaMiniDrv extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWiaMiniDrv extends IUnknown {
     /**
      * The interface identifier for IWiaMiniDrv
      * @type {Guid}
      */
-    static IID => Guid("{d8cdee14-3c6c-11d2-9a35-00c04fa36145}")
+    static IID := Guid("{d8cdee14-3c6c-11d2-9a35-00c04fa36145}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWiaMiniDrv interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        drvInitializeWia          : IntPtr
+        drvAcquireItemData        : IntPtr
+        drvInitItemProperties     : IntPtr
+        drvValidateItemProperties : IntPtr
+        drvWriteItemProperties    : IntPtr
+        drvReadItemProperties     : IntPtr
+        drvLockWiaDevice          : IntPtr
+        drvUnLockWiaDevice        : IntPtr
+        drvAnalyzeItem            : IntPtr
+        drvGetDeviceErrorStr      : IntPtr
+        drvDeviceCommand          : IntPtr
+        drvGetCapabilities        : IntPtr
+        drvDeleteItem             : IntPtr
+        drvFreeDrvItemContext     : IntPtr
+        drvGetWiaFormatInfo       : IntPtr
+        drvNotifyPnpEvent         : IntPtr
+        drvUnInitializeWia        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["drvInitializeWia", "drvAcquireItemData", "drvInitItemProperties", "drvValidateItemProperties", "drvWriteItemProperties", "drvReadItemProperties", "drvLockWiaDevice", "drvUnLockWiaDevice", "drvAnalyzeItem", "drvGetDeviceErrorStr", "drvDeviceCommand", "drvGetCapabilities", "drvDeleteItem", "drvFreeDrvItemContext", "drvGetWiaFormatInfo", "drvNotifyPnpEvent", "drvUnInitializeWia"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWiaMiniDrv.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -47,7 +78,7 @@ class IWiaMiniDrv extends IUnknown {
         __MIDL__IWiaMiniDrv0000Marshal := __MIDL__IWiaMiniDrv0000 is VarRef ? "char*" : "ptr"
         __MIDL__IWiaMiniDrv0008Marshal := __MIDL__IWiaMiniDrv0008 is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, __MIDL__IWiaMiniDrv0000Marshal, __MIDL__IWiaMiniDrv0000, "int", __MIDL__IWiaMiniDrv0001, "ptr", __MIDL__IWiaMiniDrv0002, "ptr", __MIDL__IWiaMiniDrv0003, "ptr", __MIDL__IWiaMiniDrv0004, "ptr", __MIDL__IWiaMiniDrv0005, "ptr*", __MIDL__IWiaMiniDrv0006, "ptr*", __MIDL__IWiaMiniDrv0007, __MIDL__IWiaMiniDrv0008Marshal, __MIDL__IWiaMiniDrv0008, "HRESULT")
+        result := ComCall(3, this, __MIDL__IWiaMiniDrv0000Marshal, __MIDL__IWiaMiniDrv0000, "int", __MIDL__IWiaMiniDrv0001, BSTR, __MIDL__IWiaMiniDrv0002, BSTR, __MIDL__IWiaMiniDrv0003, "ptr", __MIDL__IWiaMiniDrv0004, "ptr", __MIDL__IWiaMiniDrv0005, IWiaDrvItem.Ptr, __MIDL__IWiaMiniDrv0006, IUnknown.Ptr, __MIDL__IWiaMiniDrv0007, __MIDL__IWiaMiniDrv0008Marshal, __MIDL__IWiaMiniDrv0008, "HRESULT")
         return result
     }
 
@@ -61,7 +92,7 @@ class IWiaMiniDrv extends IUnknown {
     drvAcquireItemData(__MIDL__IWiaMiniDrv0009, __MIDL__IWiaMiniDrv0010, __MIDL__IWiaMiniDrv0011) {
         __MIDL__IWiaMiniDrv0009Marshal := __MIDL__IWiaMiniDrv0009 is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, __MIDL__IWiaMiniDrv0009Marshal, __MIDL__IWiaMiniDrv0009, "int", __MIDL__IWiaMiniDrv0010, "ptr", __MIDL__IWiaMiniDrv0011, "int*", &__MIDL__IWiaMiniDrv0012 := 0, "HRESULT")
+        result := ComCall(4, this, __MIDL__IWiaMiniDrv0009Marshal, __MIDL__IWiaMiniDrv0009, "int", __MIDL__IWiaMiniDrv0010, MINIDRV_TRANSFER_CONTEXT.Ptr, __MIDL__IWiaMiniDrv0011, "int*", &__MIDL__IWiaMiniDrv0012 := 0, "HRESULT")
         return __MIDL__IWiaMiniDrv0012
     }
 
@@ -89,7 +120,7 @@ class IWiaMiniDrv extends IUnknown {
     drvValidateItemProperties(__MIDL__IWiaMiniDrv0016, __MIDL__IWiaMiniDrv0017, __MIDL__IWiaMiniDrv0018, __MIDL__IWiaMiniDrv0019) {
         __MIDL__IWiaMiniDrv0016Marshal := __MIDL__IWiaMiniDrv0016 is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, __MIDL__IWiaMiniDrv0016Marshal, __MIDL__IWiaMiniDrv0016, "int", __MIDL__IWiaMiniDrv0017, "uint", __MIDL__IWiaMiniDrv0018, "ptr", __MIDL__IWiaMiniDrv0019, "int*", &__MIDL__IWiaMiniDrv0020 := 0, "HRESULT")
+        result := ComCall(6, this, __MIDL__IWiaMiniDrv0016Marshal, __MIDL__IWiaMiniDrv0016, "int", __MIDL__IWiaMiniDrv0017, "uint", __MIDL__IWiaMiniDrv0018, PROPSPEC.Ptr, __MIDL__IWiaMiniDrv0019, "int*", &__MIDL__IWiaMiniDrv0020 := 0, "HRESULT")
         return __MIDL__IWiaMiniDrv0020
     }
 
@@ -103,7 +134,7 @@ class IWiaMiniDrv extends IUnknown {
     drvWriteItemProperties(__MIDL__IWiaMiniDrv0021, __MIDL__IWiaMiniDrv0022, __MIDL__IWiaMiniDrv0023) {
         __MIDL__IWiaMiniDrv0021Marshal := __MIDL__IWiaMiniDrv0021 is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, __MIDL__IWiaMiniDrv0021Marshal, __MIDL__IWiaMiniDrv0021, "int", __MIDL__IWiaMiniDrv0022, "ptr", __MIDL__IWiaMiniDrv0023, "int*", &__MIDL__IWiaMiniDrv0024 := 0, "HRESULT")
+        result := ComCall(7, this, __MIDL__IWiaMiniDrv0021Marshal, __MIDL__IWiaMiniDrv0021, "int", __MIDL__IWiaMiniDrv0022, MINIDRV_TRANSFER_CONTEXT.Ptr, __MIDL__IWiaMiniDrv0023, "int*", &__MIDL__IWiaMiniDrv0024 := 0, "HRESULT")
         return __MIDL__IWiaMiniDrv0024
     }
 
@@ -118,7 +149,7 @@ class IWiaMiniDrv extends IUnknown {
     drvReadItemProperties(__MIDL__IWiaMiniDrv0025, __MIDL__IWiaMiniDrv0026, __MIDL__IWiaMiniDrv0027, __MIDL__IWiaMiniDrv0028) {
         __MIDL__IWiaMiniDrv0025Marshal := __MIDL__IWiaMiniDrv0025 is VarRef ? "char*" : "ptr"
 
-        result := ComCall(8, this, __MIDL__IWiaMiniDrv0025Marshal, __MIDL__IWiaMiniDrv0025, "int", __MIDL__IWiaMiniDrv0026, "uint", __MIDL__IWiaMiniDrv0027, "ptr", __MIDL__IWiaMiniDrv0028, "int*", &__MIDL__IWiaMiniDrv0029 := 0, "HRESULT")
+        result := ComCall(8, this, __MIDL__IWiaMiniDrv0025Marshal, __MIDL__IWiaMiniDrv0025, "int", __MIDL__IWiaMiniDrv0026, "uint", __MIDL__IWiaMiniDrv0027, PROPSPEC.Ptr, __MIDL__IWiaMiniDrv0028, "int*", &__MIDL__IWiaMiniDrv0029 := 0, "HRESULT")
         return __MIDL__IWiaMiniDrv0029
     }
 
@@ -192,7 +223,7 @@ class IWiaMiniDrv extends IUnknown {
         __MIDL__IWiaMiniDrv0043Marshal := __MIDL__IWiaMiniDrv0043 is VarRef ? "char*" : "ptr"
         __MIDL__IWiaMiniDrv0047Marshal := __MIDL__IWiaMiniDrv0047 is VarRef ? "int*" : "ptr"
 
-        result := ComCall(13, this, __MIDL__IWiaMiniDrv0043Marshal, __MIDL__IWiaMiniDrv0043, "int", __MIDL__IWiaMiniDrv0044, "ptr", __MIDL__IWiaMiniDrv0045, "ptr*", __MIDL__IWiaMiniDrv0046, __MIDL__IWiaMiniDrv0047Marshal, __MIDL__IWiaMiniDrv0047, "HRESULT")
+        result := ComCall(13, this, __MIDL__IWiaMiniDrv0043Marshal, __MIDL__IWiaMiniDrv0043, "int", __MIDL__IWiaMiniDrv0044, Guid.Ptr, __MIDL__IWiaMiniDrv0045, IWiaDrvItem.Ptr, __MIDL__IWiaMiniDrv0046, __MIDL__IWiaMiniDrv0047Marshal, __MIDL__IWiaMiniDrv0047, "HRESULT")
         return result
     }
 
@@ -270,7 +301,7 @@ class IWiaMiniDrv extends IUnknown {
     drvNotifyPnpEvent(pEventGUID, bstrDeviceID, ulReserved) {
         bstrDeviceID := bstrDeviceID is String ? BSTR.Alloc(bstrDeviceID).Value : bstrDeviceID
 
-        result := ComCall(18, this, "ptr", pEventGUID, "ptr", bstrDeviceID, "uint", ulReserved, "HRESULT")
+        result := ComCall(18, this, Guid.Ptr, pEventGUID, BSTR, bstrDeviceID, "uint", ulReserved, "HRESULT")
         return result
     }
 
@@ -284,5 +315,57 @@ class IWiaMiniDrv extends IUnknown {
 
         result := ComCall(19, this, __MIDL__IWiaMiniDrv0064Marshal, __MIDL__IWiaMiniDrv0064, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWiaMiniDrv.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.drvInitializeWia := CallbackCreate(GetMethod(implObj, "drvInitializeWia"), flags, 10)
+        this.vtbl.drvAcquireItemData := CallbackCreate(GetMethod(implObj, "drvAcquireItemData"), flags, 5)
+        this.vtbl.drvInitItemProperties := CallbackCreate(GetMethod(implObj, "drvInitItemProperties"), flags, 4)
+        this.vtbl.drvValidateItemProperties := CallbackCreate(GetMethod(implObj, "drvValidateItemProperties"), flags, 6)
+        this.vtbl.drvWriteItemProperties := CallbackCreate(GetMethod(implObj, "drvWriteItemProperties"), flags, 5)
+        this.vtbl.drvReadItemProperties := CallbackCreate(GetMethod(implObj, "drvReadItemProperties"), flags, 6)
+        this.vtbl.drvLockWiaDevice := CallbackCreate(GetMethod(implObj, "drvLockWiaDevice"), flags, 4)
+        this.vtbl.drvUnLockWiaDevice := CallbackCreate(GetMethod(implObj, "drvUnLockWiaDevice"), flags, 4)
+        this.vtbl.drvAnalyzeItem := CallbackCreate(GetMethod(implObj, "drvAnalyzeItem"), flags, 4)
+        this.vtbl.drvGetDeviceErrorStr := CallbackCreate(GetMethod(implObj, "drvGetDeviceErrorStr"), flags, 5)
+        this.vtbl.drvDeviceCommand := CallbackCreate(GetMethod(implObj, "drvDeviceCommand"), flags, 6)
+        this.vtbl.drvGetCapabilities := CallbackCreate(GetMethod(implObj, "drvGetCapabilities"), flags, 6)
+        this.vtbl.drvDeleteItem := CallbackCreate(GetMethod(implObj, "drvDeleteItem"), flags, 4)
+        this.vtbl.drvFreeDrvItemContext := CallbackCreate(GetMethod(implObj, "drvFreeDrvItemContext"), flags, 4)
+        this.vtbl.drvGetWiaFormatInfo := CallbackCreate(GetMethod(implObj, "drvGetWiaFormatInfo"), flags, 6)
+        this.vtbl.drvNotifyPnpEvent := CallbackCreate(GetMethod(implObj, "drvNotifyPnpEvent"), flags, 4)
+        this.vtbl.drvUnInitializeWia := CallbackCreate(GetMethod(implObj, "drvUnInitializeWia"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.drvInitializeWia)
+        CallbackFree(this.vtbl.drvAcquireItemData)
+        CallbackFree(this.vtbl.drvInitItemProperties)
+        CallbackFree(this.vtbl.drvValidateItemProperties)
+        CallbackFree(this.vtbl.drvWriteItemProperties)
+        CallbackFree(this.vtbl.drvReadItemProperties)
+        CallbackFree(this.vtbl.drvLockWiaDevice)
+        CallbackFree(this.vtbl.drvUnLockWiaDevice)
+        CallbackFree(this.vtbl.drvAnalyzeItem)
+        CallbackFree(this.vtbl.drvGetDeviceErrorStr)
+        CallbackFree(this.vtbl.drvDeviceCommand)
+        CallbackFree(this.vtbl.drvGetCapabilities)
+        CallbackFree(this.vtbl.drvDeleteItem)
+        CallbackFree(this.vtbl.drvFreeDrvItemContext)
+        CallbackFree(this.vtbl.drvGetWiaFormatInfo)
+        CallbackFree(this.vtbl.drvNotifyPnpEvent)
+        CallbackFree(this.vtbl.drvUnInitializeWia)
     }
 }

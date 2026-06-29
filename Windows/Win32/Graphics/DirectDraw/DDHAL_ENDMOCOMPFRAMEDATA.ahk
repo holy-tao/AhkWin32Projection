@@ -1,61 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DIRECTDRAW_LCL.ahk
-#Include .\DDRAWI_DDMOTIONCOMP_LCL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DDRAWI_DDMOTIONCOMP_LCL.ahk" { DDRAWI_DDMOTIONCOMP_LCL }
+#Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDHAL_ENDMOCOMPFRAMEDATA extends Win32Struct {
-    static sizeof => 40
+export default struct DDHAL_ENDMOCOMPFRAMEDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    lpDD : DDRAWI_DIRECTDRAW_LCL.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DIRECTDRAW_LCL>}
-     */
-    lpDD {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpMoComp : DDRAWI_DDMOTIONCOMP_LCL.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DDMOTIONCOMP_LCL>}
-     */
-    lpMoComp {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpInputData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpInputData {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    dwInputDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwInputDataSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ddRVal : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    ddRVal {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    EndMoCompFrame : IntPtr
 
-    /**
-     * @type {Pointer<LPDDHALMOCOMPCB_ENDFRAME>}
-     */
-    EndMoCompFrame {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
 }

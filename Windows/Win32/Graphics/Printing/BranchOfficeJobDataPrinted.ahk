@@ -1,75 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class BranchOfficeJobDataPrinted extends Win32Struct {
-    static sizeof => 64
+export default struct BranchOfficeJobDataPrinted {
+    #StructPack 8
 
-    static packingSize => 8
+    Status : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Status {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pDocumentName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pDocumentName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pUserName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pUserName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pMachineName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pMachineName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pPrinterName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pPrinterName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pPortName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pPortName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    Size : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 48, "int64")
-        set => NumPut("int64", value, this, 48)
-    }
+    TotalPages : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TotalPages {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
 }

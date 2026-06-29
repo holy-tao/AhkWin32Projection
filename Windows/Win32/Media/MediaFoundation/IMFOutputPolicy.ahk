@@ -1,35 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFAttributes.ahk
-#Include .\IMFCollection.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFCollection.ahk" { IMFCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
 
 /**
  * Encapsulates a usage policy from an input trust authority (ITA).
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfoutputpolicy
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFOutputPolicy extends IMFAttributes {
-
-    static sizeof => A_PtrSize
+export default struct IMFOutputPolicy extends IMFAttributes {
     /**
      * The interface identifier for IMFOutputPolicy
      * @type {Guid}
      */
-    static IID => Guid("{7f00f10a-daed-41af-ab26-5fdfa4dfba3c}")
+    static IID := Guid("{7f00f10a-daed-41af-ab26-5fdfa4dfba3c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 33
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFOutputPolicy interfaces
+    */
+    struct Vtbl extends IMFAttributes.Vtbl {
+        GenerateRequiredSchemas : IntPtr
+        GetOriginatorID         : IntPtr
+        GetMinimumGRLVersion    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GenerateRequiredSchemas", "GetOriginatorID", "GetMinimumGRLVersion"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFOutputPolicy.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a list of the output protection systems that the output trust authority (OTA) must enforce, along with configuration data for each protection system.
@@ -359,7 +368,7 @@ class IMFOutputPolicy extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfoutputpolicy-generaterequiredschemas
      */
     GenerateRequiredSchemas(dwAttributes, guidOutputSubType, rgGuidProtectionSchemasSupported, cProtectionSchemasSupported) {
-        result := ComCall(33, this, "uint", dwAttributes, "ptr", guidOutputSubType, "ptr", rgGuidProtectionSchemasSupported, "uint", cProtectionSchemasSupported, "ptr*", &ppRequiredProtectionSchemas := 0, "HRESULT")
+        result := ComCall(33, this, "uint", dwAttributes, Guid, guidOutputSubType, Guid.Ptr, rgGuidProtectionSchemasSupported, "uint", cProtectionSchemasSupported, "ptr*", &ppRequiredProtectionSchemas := 0, "HRESULT")
         return IMFCollection(ppRequiredProtectionSchemas)
     }
 
@@ -372,7 +381,7 @@ class IMFOutputPolicy extends IMFAttributes {
      */
     GetOriginatorID() {
         pguidOriginatorID := Guid()
-        result := ComCall(34, this, "ptr", pguidOriginatorID, "HRESULT")
+        result := ComCall(34, this, Guid.Ptr, pguidOriginatorID, "HRESULT")
         return pguidOriginatorID
     }
 
@@ -384,5 +393,29 @@ class IMFOutputPolicy extends IMFAttributes {
     GetMinimumGRLVersion() {
         result := ComCall(35, this, "uint*", &pdwMinimumGRLVersion := 0, "HRESULT")
         return pdwMinimumGRLVersion
+    }
+
+    Query(iid) {
+        if (IMFOutputPolicy.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GenerateRequiredSchemas := CallbackCreate(GetMethod(implObj, "GenerateRequiredSchemas"), flags, 6)
+        this.vtbl.GetOriginatorID := CallbackCreate(GetMethod(implObj, "GetOriginatorID"), flags, 2)
+        this.vtbl.GetMinimumGRLVersion := CallbackCreate(GetMethod(implObj, "GetMinimumGRLVersion"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GenerateRequiredSchemas)
+        CallbackFree(this.vtbl.GetOriginatorID)
+        CallbackFree(this.vtbl.GetMinimumGRLVersion)
     }
 }

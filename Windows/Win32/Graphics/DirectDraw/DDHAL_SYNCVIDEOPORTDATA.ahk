@@ -1,93 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DIRECTDRAW_LCL.ahk
-#Include .\DDRAWI_DDVIDEOPORT_LCL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DDRAWI_DDVIDEOPORT_LCL.ahk" { DDRAWI_DDVIDEOPORT_LCL }
+#Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDHAL_SYNCVIDEOPORTDATA extends Win32Struct {
-    static sizeof => 72
+export default struct DDHAL_SYNCVIDEOPORTDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    lpDD : DDRAWI_DIRECTDRAW_LCL.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DIRECTDRAW_LCL>}
-     */
-    lpDD {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpVideoPort : DDRAWI_DDVIDEOPORT_LCL.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DDVIDEOPORT_LCL>}
-     */
-    lpVideoPort {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    dwOriginOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwOriginOffset {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwHeight {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwVBIHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVBIHeight {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwDriverReserved1 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwDriverReserved1 {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    dwDriverReserved2 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwDriverReserved2 {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    dwDriverReserved3 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwDriverReserved3 {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    ddRVal : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    ddRVal {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
-    }
 }

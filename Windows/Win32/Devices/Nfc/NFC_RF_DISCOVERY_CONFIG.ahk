@@ -1,111 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NFC_RF_DISCOVERY_MODE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\NFC_RF_DISCOVERY_MODE.ahk" { NFC_RF_DISCOVERY_MODE }
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
  */
-class NFC_RF_DISCOVERY_CONFIG extends Win32Struct {
-    static sizeof => 24
+export default struct NFC_RF_DISCOVERY_CONFIG {
+    #StructPack 4
 
-    static packingSize => 4
+    usTotalDuration : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usTotalDuration {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    ulPollConfig : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulPollConfig {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    fDisableCardEmulation : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    fDisableCardEmulation {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    ucNfcIPMode : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ucNfcIPMode {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    fNfcIPTgtModeDisable : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    fNfcIPTgtModeDisable {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    ucNfcIPTgtMode : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ucNfcIPTgtMode {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
-    }
+    ucNfcCEMode : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ucNfcCEMode {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    ucBailoutConfig : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ucBailoutConfig {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
-    }
+    ucSystemCode : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ucSystemCode {
-        get {
-            if(!this.HasProp("__ucSystemCodeProxyArray"))
-                this.__ucSystemCodeProxyArray := Win32FixedArray(this.ptr + 14, 2, Primitive, "char")
-            return this.__ucSystemCodeProxyArray
-        }
-    }
+    ucRequestCode : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ucRequestCode {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    ucTimeSlotNumber : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ucTimeSlotNumber {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
+    eRfDiscoveryMode : NFC_RF_DISCOVERY_MODE
 
-    /**
-     * @type {NFC_RF_DISCOVERY_MODE}
-     */
-    eRfDiscoveryMode {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
 }

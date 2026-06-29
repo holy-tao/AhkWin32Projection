@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * . (MF_MEDIASOURCE_STATUS_INFO)
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_mediasource_status_info
  * @namespace Windows.Win32.Media.Streaming
  */
-class MF_MEDIASOURCE_STATUS_INFO extends Win32Enum {
+export default struct MF_MEDIASOURCE_STATUS_INFO {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The media source is fully supported.

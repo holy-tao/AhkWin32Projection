@@ -1,33 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ScrollAmount.ahk" { ScrollAmount }
 
 /**
  * Provides access to a control that acts as a scrollable container for a collection of child elements.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationscrollpattern
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IUIAutomationScrollPattern extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIAutomationScrollPattern extends IUnknown {
     /**
      * The interface identifier for IUIAutomationScrollPattern
      * @type {Guid}
      */
-    static IID => Guid("{88f4d42a-e881-459d-a77c-73bbbb7e02dc}")
+    static IID := Guid("{88f4d42a-e881-459d-a77c-73bbbb7e02dc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAutomationScrollPattern interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Scroll                             : IntPtr
+        SetScrollPercent                   : IntPtr
+        get_CurrentHorizontalScrollPercent : IntPtr
+        get_CurrentVerticalScrollPercent   : IntPtr
+        get_CurrentHorizontalViewSize      : IntPtr
+        get_CurrentVerticalViewSize        : IntPtr
+        get_CurrentHorizontallyScrollable  : IntPtr
+        get_CurrentVerticallyScrollable    : IntPtr
+        get_CachedHorizontalScrollPercent  : IntPtr
+        get_CachedVerticalScrollPercent    : IntPtr
+        get_CachedHorizontalViewSize       : IntPtr
+        get_CachedVerticalViewSize         : IntPtr
+        get_CachedHorizontallyScrollable   : IntPtr
+        get_CachedVerticallyScrollable     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Scroll", "SetScrollPercent", "get_CurrentHorizontalScrollPercent", "get_CurrentVerticalScrollPercent", "get_CurrentHorizontalViewSize", "get_CurrentVerticalViewSize", "get_CurrentHorizontallyScrollable", "get_CurrentVerticallyScrollable", "get_CachedHorizontalScrollPercent", "get_CachedVerticalScrollPercent", "get_CachedHorizontalViewSize", "get_CachedVerticalViewSize", "get_CachedHorizontallyScrollable", "get_CachedVerticallyScrollable"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAutomationScrollPattern.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Float} 
@@ -123,7 +146,7 @@ class IUIAutomationScrollPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-scroll
      */
     Scroll(horizontalAmount, verticalAmount) {
-        result := ComCall(3, this, "int", horizontalAmount, "int", verticalAmount, "HRESULT")
+        result := ComCall(3, this, ScrollAmount, horizontalAmount, ScrollAmount, verticalAmount, "HRESULT")
         return result
     }
 
@@ -195,7 +218,7 @@ class IUIAutomationScrollPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_currenthorizontallyscrollable
      */
     get_CurrentHorizontallyScrollable() {
-        result := ComCall(9, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(9, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -207,7 +230,7 @@ class IUIAutomationScrollPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_currentverticallyscrollable
      */
     get_CurrentVerticallyScrollable() {
-        result := ComCall(10, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(10, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -259,7 +282,7 @@ class IUIAutomationScrollPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_cachedhorizontallyscrollable
      */
     get_CachedHorizontallyScrollable() {
-        result := ComCall(15, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(15, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -271,7 +294,53 @@ class IUIAutomationScrollPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_cachedverticallyscrollable
      */
     get_CachedVerticallyScrollable() {
-        result := ComCall(16, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(16, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
+    }
+
+    Query(iid) {
+        if (IUIAutomationScrollPattern.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Scroll := CallbackCreate(GetMethod(implObj, "Scroll"), flags, 3)
+        this.vtbl.SetScrollPercent := CallbackCreate(GetMethod(implObj, "SetScrollPercent"), flags, 3)
+        this.vtbl.get_CurrentHorizontalScrollPercent := CallbackCreate(GetMethod(implObj, "get_CurrentHorizontalScrollPercent"), flags, 2)
+        this.vtbl.get_CurrentVerticalScrollPercent := CallbackCreate(GetMethod(implObj, "get_CurrentVerticalScrollPercent"), flags, 2)
+        this.vtbl.get_CurrentHorizontalViewSize := CallbackCreate(GetMethod(implObj, "get_CurrentHorizontalViewSize"), flags, 2)
+        this.vtbl.get_CurrentVerticalViewSize := CallbackCreate(GetMethod(implObj, "get_CurrentVerticalViewSize"), flags, 2)
+        this.vtbl.get_CurrentHorizontallyScrollable := CallbackCreate(GetMethod(implObj, "get_CurrentHorizontallyScrollable"), flags, 2)
+        this.vtbl.get_CurrentVerticallyScrollable := CallbackCreate(GetMethod(implObj, "get_CurrentVerticallyScrollable"), flags, 2)
+        this.vtbl.get_CachedHorizontalScrollPercent := CallbackCreate(GetMethod(implObj, "get_CachedHorizontalScrollPercent"), flags, 2)
+        this.vtbl.get_CachedVerticalScrollPercent := CallbackCreate(GetMethod(implObj, "get_CachedVerticalScrollPercent"), flags, 2)
+        this.vtbl.get_CachedHorizontalViewSize := CallbackCreate(GetMethod(implObj, "get_CachedHorizontalViewSize"), flags, 2)
+        this.vtbl.get_CachedVerticalViewSize := CallbackCreate(GetMethod(implObj, "get_CachedVerticalViewSize"), flags, 2)
+        this.vtbl.get_CachedHorizontallyScrollable := CallbackCreate(GetMethod(implObj, "get_CachedHorizontallyScrollable"), flags, 2)
+        this.vtbl.get_CachedVerticallyScrollable := CallbackCreate(GetMethod(implObj, "get_CachedVerticallyScrollable"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Scroll)
+        CallbackFree(this.vtbl.SetScrollPercent)
+        CallbackFree(this.vtbl.get_CurrentHorizontalScrollPercent)
+        CallbackFree(this.vtbl.get_CurrentVerticalScrollPercent)
+        CallbackFree(this.vtbl.get_CurrentHorizontalViewSize)
+        CallbackFree(this.vtbl.get_CurrentVerticalViewSize)
+        CallbackFree(this.vtbl.get_CurrentHorizontallyScrollable)
+        CallbackFree(this.vtbl.get_CurrentVerticallyScrollable)
+        CallbackFree(this.vtbl.get_CachedHorizontalScrollPercent)
+        CallbackFree(this.vtbl.get_CachedVerticalScrollPercent)
+        CallbackFree(this.vtbl.get_CachedHorizontalViewSize)
+        CallbackFree(this.vtbl.get_CachedVerticalViewSize)
+        CallbackFree(this.vtbl.get_CachedHorizontallyScrollable)
+        CallbackFree(this.vtbl.get_CachedVerticallyScrollable)
     }
 }

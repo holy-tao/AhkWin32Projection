@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SoHAttribute.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SoHAttribute.ahk" { SoHAttribute }
 
 /**
  * Contains the Statement of Health (SoH) data.
@@ -15,26 +14,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/naptypes/ns-naptypes-soh
  * @namespace Windows.Win32.Security.NetworkAccessProtection
  */
-class SoH extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct SoH {
+    #StructPack 8
 
     /**
      * The number of attributes contained in the SoH as a number between 0 (zero) and <a href="https://docs.microsoft.com/windows/desktop/NAP/nap-type-constants">maxSoHAttributeCount</a>.
-     * @type {Integer}
      */
-    count {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    count : UInt16
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/naptypes/ns-naptypes-sohattribute">SoHAttribute</a> structures that contain the collection of attributes defined by this SoH.
-     * @type {Pointer<SoHAttribute>}
      */
-    attributes {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    attributes : SoHAttribute.Ptr
+
 }

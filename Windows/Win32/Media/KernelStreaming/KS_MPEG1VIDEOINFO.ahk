@@ -1,52 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KS_VIDEOINFOHEADER.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\KS_BITMAPINFOHEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KS_VIDEOINFOHEADER.ahk" { KS_VIDEOINFOHEADER }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\KS_BITMAPINFOHEADER.ahk" { KS_BITMAPINFOHEADER }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KS_MPEG1VIDEOINFO extends Win32Struct {
-    static sizeof => 104
+export default struct KS_MPEG1VIDEOINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    hdr : KS_VIDEOINFOHEADER
 
-    /**
-     * @type {KS_VIDEOINFOHEADER}
-     */
-    hdr {
-        get {
-            if(!this.HasProp("__hdr"))
-                this.__hdr := KS_VIDEOINFOHEADER(0, this)
-            return this.__hdr
-        }
-    }
+    dwStartTimeCode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwStartTimeCode {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    cbSequenceHeader : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbSequenceHeader {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    bSequenceHeader : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    bSequenceHeader {
-        get {
-            if(!this.HasProp("__bSequenceHeaderProxyArray"))
-                this.__bSequenceHeaderProxyArray := Win32FixedArray(this.ptr + 96, 1, Primitive, "char")
-            return this.__bSequenceHeaderProxyArray
-        }
-    }
 }

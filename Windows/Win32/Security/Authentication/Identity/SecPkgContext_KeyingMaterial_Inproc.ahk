@@ -1,59 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SecPkgContext_KeyingMaterial_Inproc extends Win32Struct {
-    static sizeof => 48
+export default struct SecPkgContext_KeyingMaterial_Inproc {
+    #StructPack 8
 
-    static packingSize => 8
+    cbLabel : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    cbLabel {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    pszLabel : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    pszLabel {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    cbContextValue : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    cbContextValue {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    pbContextValue : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbContextValue {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    cbKeyingMaterial : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbKeyingMaterial {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    pbKeyingMaterial : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbKeyingMaterial {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

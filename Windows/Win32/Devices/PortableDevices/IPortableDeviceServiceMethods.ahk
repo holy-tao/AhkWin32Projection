@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IPortableDeviceServiceMethodCallback.ahk" { IPortableDeviceServiceMethodCallback }
+#Import ".\IPortableDeviceValues.ahk" { IPortableDeviceValues }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Invokes, or cancels invocation of, a method on a service.
  * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nn-portabledeviceapi-iportabledeviceservicemethods
  * @namespace Windows.Win32.Devices.PortableDevices
  */
-class IPortableDeviceServiceMethods extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPortableDeviceServiceMethods extends IUnknown {
     /**
      * The interface identifier for IPortableDeviceServiceMethods
      * @type {Guid}
      */
-    static IID => Guid("{e20333c9-fd34-412d-a381-cc6f2d820df7}")
+    static IID := Guid("{e20333c9-fd34-412d-a381-cc6f2d820df7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPortableDeviceServiceMethods interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Invoke      : IntPtr
+        InvokeAsync : IntPtr
+        Cancel      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Invoke", "InvokeAsync", "Cancel"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPortableDeviceServiceMethods.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Synchronously invokes a method.
@@ -40,7 +52,7 @@ class IPortableDeviceServiceMethods extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservicemethods-invoke
      */
     Invoke(Method, pParameters, ppResults) {
-        result := ComCall(3, this, "ptr", Method, "ptr", pParameters, "ptr*", ppResults, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, Method, "ptr", pParameters, IPortableDeviceValues.Ptr, ppResults, "HRESULT")
         return result
     }
 
@@ -55,7 +67,7 @@ class IPortableDeviceServiceMethods extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservicemethods-invokeasync
      */
     InvokeAsync(Method, pParameters, pCallback) {
-        result := ComCall(4, this, "ptr", Method, "ptr", pParameters, "ptr", pCallback, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, Method, "ptr", pParameters, "ptr", pCallback, "HRESULT")
         return result
     }
 
@@ -72,5 +84,29 @@ class IPortableDeviceServiceMethods extends IUnknown {
     Cancel(pCallback) {
         result := ComCall(5, this, "ptr", pCallback, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPortableDeviceServiceMethods.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Invoke := CallbackCreate(GetMethod(implObj, "Invoke"), flags, 4)
+        this.vtbl.InvokeAsync := CallbackCreate(GetMethod(implObj, "InvokeAsync"), flags, 4)
+        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Invoke)
+        CallbackFree(this.vtbl.InvokeAsync)
+        CallbackFree(this.vtbl.Cancel)
     }
 }

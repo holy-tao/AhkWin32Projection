@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines the methods that are called by the Task Scheduler service to manage a COM handler.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-itaskhandler
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class ITaskHandler extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITaskHandler extends IUnknown {
     /**
      * The interface identifier for ITaskHandler
      * @type {Guid}
      */
-    static IID => Guid("{839d7762-5121-4009-9234-4f0d19394f04}")
+    static IID := Guid("{839d7762-5121-4009-9234-4f0d19394f04}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITaskHandler interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Start  : IntPtr
+        Stop   : IntPtr
+        Pause  : IntPtr
+        Resume : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Start", "Stop", "Pause", "Resume"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITaskHandler.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called to start the COM handler.
@@ -43,7 +55,7 @@ class ITaskHandler extends IUnknown {
     Start(pHandlerServices, data) {
         data := data is String ? BSTR.Alloc(data).Value : data
 
-        result := ComCall(3, this, "ptr", pHandlerServices, "ptr", data, "HRESULT")
+        result := ComCall(3, this, "ptr", pHandlerServices, BSTR, data, "HRESULT")
         return result
     }
 
@@ -75,5 +87,31 @@ class ITaskHandler extends IUnknown {
     Resume() {
         result := ComCall(6, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITaskHandler.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 3)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 2)
+        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Start)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.Pause)
+        CallbackFree(this.vtbl.Resume)
     }
 }

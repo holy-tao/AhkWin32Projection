@@ -1,129 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_FILTER.ahk
-#Include .\D3D12_TEXTURE_ADDRESS_MODE.ahk
-#Include .\D3D12_COMPARISON_FUNC.ahk
-#Include .\D3D12_STATIC_BORDER_COLOR.ahk
-#Include .\D3D12_SHADER_VISIBILITY.ahk
-#Include .\D3D12_SAMPLER_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_SAMPLER_FLAGS.ahk" { D3D12_SAMPLER_FLAGS }
+#Import ".\D3D12_STATIC_BORDER_COLOR.ahk" { D3D12_STATIC_BORDER_COLOR }
+#Import ".\D3D12_SHADER_VISIBILITY.ahk" { D3D12_SHADER_VISIBILITY }
+#Import ".\D3D12_COMPARISON_FUNC.ahk" { D3D12_COMPARISON_FUNC }
+#Import ".\D3D12_TEXTURE_ADDRESS_MODE.ahk" { D3D12_TEXTURE_ADDRESS_MODE }
+#Import ".\D3D12_FILTER.ahk" { D3D12_FILTER }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_STATIC_SAMPLER_DESC1 extends Win32Struct {
-    static sizeof => 56
+export default struct D3D12_STATIC_SAMPLER_DESC1 {
+    #StructPack 4
 
-    static packingSize => 4
+    Filter : D3D12_FILTER
 
-    /**
-     * @type {D3D12_FILTER}
-     */
-    Filter {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    AddressU : D3D12_TEXTURE_ADDRESS_MODE
 
-    /**
-     * @type {D3D12_TEXTURE_ADDRESS_MODE}
-     */
-    AddressU {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    AddressV : D3D12_TEXTURE_ADDRESS_MODE
 
-    /**
-     * @type {D3D12_TEXTURE_ADDRESS_MODE}
-     */
-    AddressV {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    AddressW : D3D12_TEXTURE_ADDRESS_MODE
 
-    /**
-     * @type {D3D12_TEXTURE_ADDRESS_MODE}
-     */
-    AddressW {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    MipLODBias : Float32
 
-    /**
-     * @type {Float}
-     */
-    MipLODBias {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
+    MaxAnisotropy : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxAnisotropy {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ComparisonFunc : D3D12_COMPARISON_FUNC
 
-    /**
-     * @type {D3D12_COMPARISON_FUNC}
-     */
-    ComparisonFunc {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    BorderColor : D3D12_STATIC_BORDER_COLOR
 
-    /**
-     * @type {D3D12_STATIC_BORDER_COLOR}
-     */
-    BorderColor {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    MinLOD : Float32
 
-    /**
-     * @type {Float}
-     */
-    MinLOD {
-        get => NumGet(this, 32, "float")
-        set => NumPut("float", value, this, 32)
-    }
+    MaxLOD : Float32
 
-    /**
-     * @type {Float}
-     */
-    MaxLOD {
-        get => NumGet(this, 36, "float")
-        set => NumPut("float", value, this, 36)
-    }
+    ShaderRegister : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ShaderRegister {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    RegisterSpace : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RegisterSpace {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    ShaderVisibility : D3D12_SHADER_VISIBILITY
 
-    /**
-     * @type {D3D12_SHADER_VISIBILITY}
-     */
-    ShaderVisibility {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    Flags : D3D12_SAMPLER_FLAGS
 
-    /**
-     * @type {D3D12_SAMPLER_FLAGS}
-     */
-    Flags {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
 }

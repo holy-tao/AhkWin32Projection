@@ -1,103 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MINIDUMP_THREAD_INFO_DUMP_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MINIDUMP_THREAD_INFO_DUMP_FLAGS.ahk" { MINIDUMP_THREAD_INFO_DUMP_FLAGS }
 
 /**
  * Contains thread state information.
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_thread_info
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class MINIDUMP_THREAD_INFO extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct MINIDUMP_THREAD_INFO {
+    #StructPack 8
 
     /**
      * The identifier of the thread.
-     * @type {Integer}
      */
-    ThreadId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ThreadId : UInt32
 
-    /**
-     * @type {MINIDUMP_THREAD_INFO_DUMP_FLAGS}
-     */
-    DumpFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    DumpFlags : MINIDUMP_THREAD_INFO_DUMP_FLAGS
 
     /**
      * An <b>HRESULT</b> value that indicates the dump status.
-     * @type {Integer}
      */
-    DumpError {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    DumpError : UInt32
 
     /**
      * The thread termination status code.
-     * @type {Integer}
      */
-    ExitStatus {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ExitStatus : UInt32
 
     /**
      * The time when the thread was created, in 100-nanosecond intervals since January 1, 1601 (UTC).
-     * @type {Integer}
      */
-    CreateTime {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    CreateTime : Int64
 
     /**
      * The time when the thread exited, in 100-nanosecond intervals since January 1, 1601 (UTC).
-     * @type {Integer}
      */
-    ExitTime {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ExitTime : Int64
 
     /**
      * The time executed in kernel mode, in 100-nanosecond intervals.
-     * @type {Integer}
      */
-    KernelTime {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    KernelTime : Int64
 
     /**
      * The time executed in user mode, in 100-nanosecond intervals.
-     * @type {Integer}
      */
-    UserTime {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    UserTime : Int64
 
     /**
      * The starting address of the thread.
-     * @type {Integer}
      */
-    StartAddress {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    StartAddress : Int64
 
     /**
      * The processor affinity mask.
-     * @type {Integer}
      */
-    Affinity {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    Affinity : Int64
+
 }

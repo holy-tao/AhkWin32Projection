@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The VMR9NormalizedRect structure is used with the VMR-9 filter in mixing operations to specify or retrieve the location of a video rectangle in composition space.
@@ -8,44 +7,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/ns-vmr9-vmr9normalizedrect
  * @namespace Windows.Win32.Media.DirectShow
  */
-class VMR9NormalizedRect extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct VMR9NormalizedRect {
+    #StructPack 4
 
     /**
      * Specifies left.
-     * @type {Float}
      */
-    left {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    left : Float32
 
     /**
      * Specifies top.
-     * @type {Float}
      */
-    top {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    top : Float32
 
     /**
      * Specifies right.
-     * @type {Float}
      */
-    right {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    right : Float32
 
     /**
      * Specifies bottom.
-     * @type {Float}
      */
-    bottom {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    bottom : Float32
+
 }

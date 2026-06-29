@@ -1,9 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IUpdateServiceCollection.ahk
-#Include .\IUpdateService.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IUpdateService.ahk" { IUpdateService }
+#Import ".\IUpdateServiceCollection.ahk" { IUpdateServiceCollection }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Adds or removes the registration of the update service with Windows Update Agent or Automatic Updates. (IUpdateServiceManager)
@@ -12,32 +15,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdateservicemanager
  * @namespace Windows.Win32.System.UpdateAgent
  */
-class IUpdateServiceManager extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IUpdateServiceManager extends IDispatch {
     /**
      * The interface identifier for IUpdateServiceManager
      * @type {Guid}
      */
-    static IID => Guid("{23857e3c-02ba-44a3-9423-b1c900805f37}")
+    static IID := Guid("{23857e3c-02ba-44a3-9423-b1c900805f37}")
 
     /**
      * The class identifier for UpdateServiceManager
      * @type {Guid}
      */
-    static CLSID => Guid("{f8d253d9-89a4-4daa-87b6-1168369f0b21}")
+    static CLSID := Guid("{f8d253d9-89a4-4daa-87b6-1168369f0b21}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUpdateServiceManager interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Services            : IntPtr
+        AddService              : IntPtr
+        RegisterServiceWithAU   : IntPtr
+        RemoveService           : IntPtr
+        UnregisterServiceWithAU : IntPtr
+        AddScanPackageService   : IntPtr
+        SetOption               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Services", "AddService", "RegisterServiceWithAU", "RemoveService", "UnregisterServiceWithAU", "AddScanPackageService", "SetOption"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUpdateServiceManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IUpdateServiceCollection} 
@@ -69,7 +85,7 @@ class IUpdateServiceManager extends IDispatch {
         serviceID := serviceID is String ? BSTR.Alloc(serviceID).Value : serviceID
         authorizationCabPath := authorizationCabPath is String ? BSTR.Alloc(authorizationCabPath).Value : authorizationCabPath
 
-        result := ComCall(8, this, "ptr", serviceID, "ptr", authorizationCabPath, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, serviceID, BSTR, authorizationCabPath, "ptr*", &retval := 0, "HRESULT")
         return IUpdateService(retval)
     }
 
@@ -156,7 +172,7 @@ class IUpdateServiceManager extends IDispatch {
     RegisterServiceWithAU(serviceID) {
         serviceID := serviceID is String ? BSTR.Alloc(serviceID).Value : serviceID
 
-        result := ComCall(9, this, "ptr", serviceID, "HRESULT")
+        result := ComCall(9, this, BSTR, serviceID, "HRESULT")
         return result
     }
 
@@ -233,7 +249,7 @@ class IUpdateServiceManager extends IDispatch {
     RemoveService(serviceID) {
         serviceID := serviceID is String ? BSTR.Alloc(serviceID).Value : serviceID
 
-        result := ComCall(10, this, "ptr", serviceID, "HRESULT")
+        result := ComCall(10, this, BSTR, serviceID, "HRESULT")
         return result
     }
 
@@ -339,7 +355,7 @@ class IUpdateServiceManager extends IDispatch {
     UnregisterServiceWithAU(serviceID) {
         serviceID := serviceID is String ? BSTR.Alloc(serviceID).Value : serviceID
 
-        result := ComCall(11, this, "ptr", serviceID, "HRESULT")
+        result := ComCall(11, this, BSTR, serviceID, "HRESULT")
         return result
     }
 
@@ -369,7 +385,7 @@ class IUpdateServiceManager extends IDispatch {
         serviceName := serviceName is String ? BSTR.Alloc(serviceName).Value : serviceName
         scanFileLocation := scanFileLocation is String ? BSTR.Alloc(scanFileLocation).Value : scanFileLocation
 
-        result := ComCall(12, this, "ptr", serviceName, "ptr", scanFileLocation, "int", flags, "ptr*", &ppService := 0, "HRESULT")
+        result := ComCall(12, this, BSTR, serviceName, BSTR, scanFileLocation, "int", flags, "ptr*", &ppService := 0, "HRESULT")
         return IUpdateService(ppService)
     }
 
@@ -420,7 +436,39 @@ class IUpdateServiceManager extends IDispatch {
     SetOption(optionName, optionValue) {
         optionName := optionName is String ? BSTR.Alloc(optionName).Value : optionName
 
-        result := ComCall(13, this, "ptr", optionName, "ptr", optionValue, "HRESULT")
+        result := ComCall(13, this, BSTR, optionName, VARIANT, optionValue, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUpdateServiceManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Services := CallbackCreate(GetMethod(implObj, "get_Services"), flags, 2)
+        this.vtbl.AddService := CallbackCreate(GetMethod(implObj, "AddService"), flags, 4)
+        this.vtbl.RegisterServiceWithAU := CallbackCreate(GetMethod(implObj, "RegisterServiceWithAU"), flags, 2)
+        this.vtbl.RemoveService := CallbackCreate(GetMethod(implObj, "RemoveService"), flags, 2)
+        this.vtbl.UnregisterServiceWithAU := CallbackCreate(GetMethod(implObj, "UnregisterServiceWithAU"), flags, 2)
+        this.vtbl.AddScanPackageService := CallbackCreate(GetMethod(implObj, "AddScanPackageService"), flags, 5)
+        this.vtbl.SetOption := CallbackCreate(GetMethod(implObj, "SetOption"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Services)
+        CallbackFree(this.vtbl.AddService)
+        CallbackFree(this.vtbl.RegisterServiceWithAU)
+        CallbackFree(this.vtbl.RemoveService)
+        CallbackFree(this.vtbl.UnregisterServiceWithAU)
+        CallbackFree(this.vtbl.AddScanPackageService)
+        CallbackFree(this.vtbl.SetOption)
     }
 }

@@ -1,60 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSCAMERA_PROFILE_MEDIAINFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSCAMERA_PROFILE_MEDIAINFO.ahk" { KSCAMERA_PROFILE_MEDIAINFO }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSCAMERA_PROFILE_PININFO extends Win32Struct {
-    static sizeof => 24
+export default struct KSCAMERA_PROFILE_PININFO {
+    #StructPack 8
 
-    static packingSize => 8
+    PinCategory : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    PinCategory {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    PinIndex : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    PinIndex {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    ProfileSensorType : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ProfileSensorType {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    MediaInfoCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MediaInfos : KSCAMERA_PROFILE_MEDIAINFO.Ptr
 
-    /**
-     * @type {Integer}
-     */
-    MediaInfoCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
-
-    /**
-     * @type {Pointer<KSCAMERA_PROFILE_MEDIAINFO>}
-     */
-    MediaInfos {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    static __New() {
+        DefineProp(this.Prototype, 'Reserved', { type: UInt32, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

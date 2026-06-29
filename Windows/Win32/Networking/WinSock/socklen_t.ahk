@@ -1,19 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class socklen_t extends Win32Struct {
-    static sizeof => 4
+export default struct socklen_t {
+    value : Int32
 
-    static packingSize => 4
+    __value {
+        set {
+            if (value is socklen_t) {
+                this.value := value.value
+            }
+            else {
+                this.value := value
+            }
+        }
+    }
 
-    /**
-     * @type {Integer}
-     */
-    Value {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    __New(value := 0) {
+        this.value := value
     }
 }

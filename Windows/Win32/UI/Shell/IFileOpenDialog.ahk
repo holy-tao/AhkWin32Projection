@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFileDialog.ahk
-#Include .\IShellItemArray.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFileDialog.ahk" { IFileDialog }
+#Import ".\IShellItemArray.ahk" { IShellItemArray }
 
 /**
  * Extends the IFileDialog interface by adding methods specific to the open dialog.
@@ -14,32 +15,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ifileopendialog
  * @namespace Windows.Win32.UI.Shell
  */
-class IFileOpenDialog extends IFileDialog {
-
-    static sizeof => A_PtrSize
+export default struct IFileOpenDialog extends IFileDialog {
     /**
      * The interface identifier for IFileOpenDialog
      * @type {Guid}
      */
-    static IID => Guid("{d57c7288-d4ad-4768-be02-9d969532d960}")
+    static IID := Guid("{d57c7288-d4ad-4768-be02-9d969532d960}")
 
     /**
      * The class identifier for FileOpenDialog
      * @type {Guid}
      */
-    static CLSID => Guid("{dc1c5a9c-e88a-4dde-a5a1-60f82a20aef7}")
+    static CLSID := Guid("{dc1c5a9c-e88a-4dde-a5a1-60f82a20aef7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 27
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFileOpenDialog interfaces
+    */
+    struct Vtbl extends IFileDialog.Vtbl {
+        GetResults       : IntPtr
+        GetSelectedItems : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetResults", "GetSelectedItems"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFileOpenDialog.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the user's choices in a dialog that allows multiple selection.
@@ -72,5 +81,27 @@ class IFileOpenDialog extends IFileDialog {
     GetSelectedItems() {
         result := ComCall(28, this, "ptr*", &ppsai := 0, "HRESULT")
         return IShellItemArray(ppsai)
+    }
+
+    Query(iid) {
+        if (IFileOpenDialog.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetResults := CallbackCreate(GetMethod(implObj, "GetResults"), flags, 2)
+        this.vtbl.GetSelectedItems := CallbackCreate(GetMethod(implObj, "GetSelectedItems"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetResults)
+        CallbackFree(this.vtbl.GetSelectedItems)
     }
 }

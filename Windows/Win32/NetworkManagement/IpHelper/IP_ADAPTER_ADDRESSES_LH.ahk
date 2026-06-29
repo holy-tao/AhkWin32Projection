@@ -1,20 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IP_ADAPTER_ADDRESSES_LH.ahk
-#Include .\IP_ADAPTER_UNICAST_ADDRESS_LH.ahk
-#Include .\IP_ADAPTER_ANYCAST_ADDRESS_XP.ahk
-#Include .\IP_ADAPTER_MULTICAST_ADDRESS_XP.ahk
-#Include .\IP_ADAPTER_DNS_SERVER_ADDRESS_XP.ahk
-#Include ..\Ndis\IF_OPER_STATUS.ahk
-#Include .\IP_ADAPTER_PREFIX_XP.ahk
-#Include .\IP_ADAPTER_WINS_SERVER_ADDRESS_LH.ahk
-#Include .\IP_ADAPTER_GATEWAY_ADDRESS_LH.ahk
-#Include ..\Ndis\NET_LUID_LH.ahk
-#Include ..\..\Networking\WinSock\SOCKET_ADDRESS.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR.ahk
-#Include ..\Ndis\NET_IF_CONNECTION_TYPE.ahk
-#Include ..\Ndis\TUNNEL_TYPE.ahk
-#Include .\IP_ADAPTER_DNS_SUFFIX.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IP_ADAPTER_ANYCAST_ADDRESS_XP.ahk" { IP_ADAPTER_ANYCAST_ADDRESS_XP }
+#Import ".\IP_ADAPTER_UNICAST_ADDRESS_LH.ahk" { IP_ADAPTER_UNICAST_ADDRESS_LH }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IP_ADAPTER_PREFIX_XP.ahk" { IP_ADAPTER_PREFIX_XP }
+#Import "..\..\Networking\WinSock\SOCKADDR.ahk" { SOCKADDR }
+#Import "..\Ndis\IF_OPER_STATUS.ahk" { IF_OPER_STATUS }
+#Import ".\IP_ADAPTER_GATEWAY_ADDRESS_LH.ahk" { IP_ADAPTER_GATEWAY_ADDRESS_LH }
+#Import ".\IP_ADAPTER_WINS_SERVER_ADDRESS_LH.ahk" { IP_ADAPTER_WINS_SERVER_ADDRESS_LH }
+#Import ".\IP_ADAPTER_DNS_SERVER_ADDRESS_XP.ahk" { IP_ADAPTER_DNS_SERVER_ADDRESS_XP }
+#Import "..\Ndis\NET_IF_CONNECTION_TYPE.ahk" { NET_IF_CONNECTION_TYPE }
+#Import "..\Ndis\NET_IF_COMPARTMENT_ID.ahk" { NET_IF_COMPARTMENT_ID }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Ndis\NET_LUID_LH.ahk" { NET_LUID_LH }
+#Import ".\IP_ADAPTER_DNS_SUFFIX.ahk" { IP_ADAPTER_DNS_SUFFIX }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\IP_ADAPTER_MULTICAST_ADDRESS_XP.ahk" { IP_ADAPTER_MULTICAST_ADDRESS_XP }
+#Import "..\..\Networking\WinSock\SOCKET_ADDRESS.ahk" { SOCKET_ADDRESS }
+#Import "..\Ndis\TUNNEL_TYPE.ahk" { TUNNEL_TYPE }
 
 /**
  * The IP_ADAPTER_ADDRESSES_LH structure (iptypes.h) is the header node for a linked list of addresses for a particular adapter.
@@ -110,45 +112,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/iptypes/ns-iptypes-ip_adapter_addresses_lh
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
-    static sizeof => 448
+export default struct IP_ADAPTER_ADDRESSES_LH {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {Integer}
-     */
-    Alignment {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    IfIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Alignment : Int64
 
     /**
      * Type: <b>struct _IP_ADAPTER_ADDRESSES*</b>
      * 
      * A pointer to the next adapter addresses structure in the list.
-     * @type {Pointer<IP_ADAPTER_ADDRESSES_LH>}
      */
-    Next {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Next : IP_ADAPTER_ADDRESSES_LH.Ptr
 
     /**
      * Type: <b>PCHAR</b>
@@ -156,12 +130,8 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * An array of characters that contains the name of the adapter with which these addresses are associated. 
      *       Unlike an adapter's friendly name, the adapter name specified in <b>AdapterName</b> is 
      *       permanent and cannot be modified by the user.
-     * @type {PSTR}
      */
-    AdapterName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    AdapterName : PSTR
 
     /**
      * Type: <b>PIP_ADAPTER_UNICAST_ADDRESS</b>
@@ -169,12 +139,8 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * A pointer to the first 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_adapter_unicast_address_lh">IP_ADAPTER_UNICAST_ADDRESS</a> structure in a 
      *       linked list of IP unicast addresses for the adapter.
-     * @type {Pointer<IP_ADAPTER_UNICAST_ADDRESS_LH>}
      */
-    FirstUnicastAddress {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    FirstUnicastAddress : IP_ADAPTER_UNICAST_ADDRESS_LH.Ptr
 
     /**
      * Type: <b>PIP_ADAPTER_ANYCAST_ADDRESS</b>
@@ -182,12 +148,8 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * A pointer to the first 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_adapter_anycast_address_xp">IP_ADAPTER_ANYCAST_ADDRESS</a> structure in a 
      *       linked list of IP anycast addresses for the adapter.
-     * @type {Pointer<IP_ADAPTER_ANYCAST_ADDRESS_XP>}
      */
-    FirstAnycastAddress {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    FirstAnycastAddress : IP_ADAPTER_ANYCAST_ADDRESS_XP.Ptr
 
     /**
      * Type: <b>PIP_ADAPTER_MULTICAST_ADDRESS</b>
@@ -195,12 +157,8 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * A pointer to the first 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_adapter_multicast_address_xp">IP_ADAPTER_MULTICAST_ADDRESS</a> structure 
      *       in a list of IP multicast addresses for the adapter.
-     * @type {Pointer<IP_ADAPTER_MULTICAST_ADDRESS_XP>}
      */
-    FirstMulticastAddress {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    FirstMulticastAddress : IP_ADAPTER_MULTICAST_ADDRESS_XP.Ptr
 
     /**
      * Type: <b>PIP_ADAPTER_DNS_SERVER_ADDRESS</b>
@@ -208,34 +166,22 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * A pointer to the first 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_adapter_dns_server_address_xp">IP_ADAPTER_DNS_SERVER_ADDRESS</a> structure 
      *       in a linked list of DNS server addresses for the adapter.
-     * @type {Pointer<IP_ADAPTER_DNS_SERVER_ADDRESS_XP>}
      */
-    FirstDnsServerAddress {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    FirstDnsServerAddress : IP_ADAPTER_DNS_SERVER_ADDRESS_XP.Ptr
 
     /**
      * Type: <b>PWCHAR</b>
      * 
      * The Domain Name System (DNS) suffix associated with this adapter.
-     * @type {PWSTR}
      */
-    DnsSuffix {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    DnsSuffix : PWSTR
 
     /**
      * Type: <b>PWCHAR</b>
      * 
      * A description for the adapter. This member is read-only.
-     * @type {PWSTR}
      */
-    Description {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    Description : PWSTR
 
     /**
      * Type: <b>PWCHAR</b>
@@ -249,66 +195,27 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      *        <a href="https://www.ietf.org/rfc/rfc2863.txt">RFC 2863</a>. The ifAlias field can be set by an 
      *        NDIS interface provider when the NDIS driver is installed. For NDIS miniport drivers, this field is set by 
      *        NDIS.
-     * @type {PWSTR}
      */
-    FriendlyName {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    FriendlyName : PWSTR
 
     /**
      * Type: <b>BYTE[MAX_ADAPTER_ADDRESS_LENGTH]</b>
      * 
      * The Media Access Control (MAC) address for the adapter. For example, on an Ethernet network this member 
      *       would specify the Ethernet hardware address.
-     * @type {Array<Integer>}
      */
-    PhysicalAddress {
-        get {
-            if(!this.HasProp("__PhysicalAddressProxyArray"))
-                this.__PhysicalAddressProxyArray := Win32FixedArray(this.ptr + 80, 8, Primitive, "char")
-            return this.__PhysicalAddressProxyArray
-        }
-    }
+    PhysicalAddress : Int8[8]
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The length, in bytes, of the address specified in the <b>PhysicalAddress</b> member. 
      *       For interfaces that do not have a data-link layer, this value is zero.
-     * @type {Integer}
      */
-    PhysicalAddressLength {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    PhysicalAddressLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    Flags : UInt32
 
-    /**
-     * This bitfield backs the following members:
-     * - DdnsEnabled
-     * - RegisterAdapterSuffix
-     * - Dhcpv4Enabled
-     * - ReceiveOnly
-     * - NoMulticast
-     * - Ipv6OtherStatefulConfig
-     * - NetbiosOverTcpipEnabled
-     * - Ipv4Enabled
-     * - Ipv6Enabled
-     * - Ipv6ManagedAddressConfigurationSupported
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
 
     /**
      * @type {Integer}
@@ -389,17 +296,12 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
         get => (this._bitfield >> 9) & 0x1
         set => this._bitfield := ((value & 0x1) << 9) | (this._bitfield & ~(0x1 << 9))
     }
-
     /**
      * Type: <b>DWORD</b>
      * 
      * The maximum transmission unit (MTU) size, in bytes.
-     * @type {Integer}
      */
-    Mtu {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    Mtu : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -521,12 +423,8 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    IfType {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
+    IfType : UInt32
 
     /**
      * Type: <b>IF_OPER_STATUS</b>
@@ -634,12 +532,8 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {IF_OPER_STATUS}
      */
-    OperStatus {
-        get => NumGet(this, 104, "int")
-        set => NumPut("int", value, this, 104)
-    }
+    OperStatus : IF_OPER_STATUS
 
     /**
      * Type: <b>DWORD</b>
@@ -649,12 +543,8 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  This structure member is only available on Windows XP with SP1 and later.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    Ipv6IfIndex {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
+    Ipv6IfIndex : UInt32
 
     /**
      * Type: <b>DWORD[16]</b>
@@ -667,15 +557,8 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  This structure member is only available on Windows XP with SP1 and later.</div>
      * <div> </div>
-     * @type {Array<Integer>}
      */
-    ZoneIndices {
-        get {
-            if(!this.HasProp("__ZoneIndicesProxyArray"))
-                this.__ZoneIndicesProxyArray := Win32FixedArray(this.ptr + 112, 16, Primitive, "uint")
-            return this.__ZoneIndicesProxyArray
-        }
-    }
+    ZoneIndices : UInt32[16]
 
     /**
      * Type: <b>PIP_ADAPTER_PREFIX</b>
@@ -686,12 +569,8 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  This structure member is only available on Windows XP with SP1 and later.</div>
      * <div> </div>
-     * @type {Pointer<IP_ADAPTER_PREFIX_XP>}
      */
-    FirstPrefix {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
-    }
+    FirstPrefix : IP_ADAPTER_PREFIX_XP.Ptr
 
     /**
      * Type: <b>ULONG64</b>
@@ -701,12 +580,8 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  This structure member is only available on Windows Vista and later.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    TransmitLinkSpeed {
-        get => NumGet(this, 184, "uint")
-        set => NumPut("uint", value, this, 184)
-    }
+    TransmitLinkSpeed : Int64
 
     /**
      * Type: <b>ULONG64</b>
@@ -716,12 +591,8 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  This structure member is only available on Windows Vista and later.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    ReceiveLinkSpeed {
-        get => NumGet(this, 192, "uint")
-        set => NumPut("uint", value, this, 192)
-    }
+    ReceiveLinkSpeed : Int64
 
     /**
      * Type: <b>PIP_ADAPTER_WINS_SERVER_ADDRESS_LH</b>
@@ -733,12 +604,8 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  This structure member is only available on Windows Vista and later.</div>
      * <div> </div>
-     * @type {Pointer<IP_ADAPTER_WINS_SERVER_ADDRESS_LH>}
      */
-    FirstWinsServerAddress {
-        get => NumGet(this, 200, "ptr")
-        set => NumPut("ptr", value, this, 200)
-    }
+    FirstWinsServerAddress : IP_ADAPTER_WINS_SERVER_ADDRESS_LH.Ptr
 
     /**
      * Type: <b>PIP_ADAPTER_GATEWAY_ADDRESS_LH</b>
@@ -749,12 +616,8 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  This structure member is only available on Windows Vista and later.</div>
      * <div> </div>
-     * @type {Pointer<IP_ADAPTER_GATEWAY_ADDRESS_LH>}
      */
-    FirstGatewayAddress {
-        get => NumGet(this, 208, "ptr")
-        set => NumPut("ptr", value, this, 208)
-    }
+    FirstGatewayAddress : IP_ADAPTER_GATEWAY_ADDRESS_LH.Ptr
 
     /**
      * Type: <b>ULONG</b>
@@ -769,12 +632,8 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  This structure member is only available on Windows Vista and later.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    Ipv4Metric {
-        get => NumGet(this, 216, "uint")
-        set => NumPut("uint", value, this, 216)
-    }
+    Ipv4Metric : UInt32
 
     /**
      * Type: <b>ULONG</b>
@@ -790,12 +649,8 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  This structure member is only available on Windows Vista and later.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    Ipv6Metric {
-        get => NumGet(this, 220, "uint")
-        set => NumPut("uint", value, this, 220)
-    }
+    Ipv6Metric : UInt32
 
     /**
      * Type: <b>IF_LUID</b>
@@ -805,15 +660,8 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  This structure member is only available on Windows Vista and later.</div>
      * <div> </div>
-     * @type {NET_LUID_LH}
      */
-    Luid {
-        get {
-            if(!this.HasProp("__Luid"))
-                this.__Luid := NET_LUID_LH(224, this)
-            return this.__Luid
-        }
-    }
+    Luid : NET_LUID_LH
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-socket_address">SOCKET_ADDRESS</a></b>
@@ -824,15 +672,8 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  This structure member is only available on Windows Vista and later.</div>
      * <div> </div>
-     * @type {SOCKET_ADDRESS}
      */
-    Dhcpv4Server {
-        get {
-            if(!this.HasProp("__Dhcpv4Server"))
-                this.__Dhcpv4Server := SOCKET_ADDRESS(240, this)
-            return this.__Dhcpv4Server
-        }
-    }
+    Dhcpv4Server : SOCKET_ADDRESS
 
     /**
      * Type: <b>NET_IF_COMPARTMENT_ID</b>
@@ -843,12 +684,8 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * <div class="alert"><b>Note</b>  This structure member is only available on Windows Vista and later. This member is not 
      *        currently supported and is reserved for future use.</div>
      * <div> </div>
-     * @type {NET_IF_COMPARTMENT_ID}
      */
-    CompartmentId {
-        get => NumGet(this, 256, "uint")
-        set => NumPut("uint", value, this, 256)
-    }
+    CompartmentId : NET_IF_COMPARTMENT_ID
 
     /**
      * Type: <b>NET_IF_NETWORK_GUID</b>
@@ -861,12 +698,8 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  This structure member is only available on Windows Vista and later.</div>
      * <div> </div>
-     * @type {Pointer}
      */
-    NetworkGuid {
-        get => NumGet(this, 264, "ptr")
-        set => NumPut("ptr", value, this, 264)
-    }
+    NetworkGuid : Guid
 
     /**
      * Type: <b>NET_IF_CONNECTION_TYPE</b>
@@ -935,12 +768,8 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  This structure member is only available on Windows Vista and later.</div>
      * <div> </div>
-     * @type {NET_IF_CONNECTION_TYPE}
      */
-    ConnectionType {
-        get => NumGet(this, 272, "int")
-        set => NumPut("int", value, this, 272)
-    }
+    ConnectionType : NET_IF_CONNECTION_TYPE
 
     /**
      * Type: <b>TUNNEL_TYPE</b>
@@ -1043,12 +872,8 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {TUNNEL_TYPE}
      */
-    TunnelType {
-        get => NumGet(this, 276, "int")
-        set => NumPut("int", value, this, 276)
-    }
+    TunnelType : TUNNEL_TYPE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-socket_address">SOCKET_ADDRESS</a></b>
@@ -1058,15 +883,8 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  This structure member is only available on Windows Vista and later.</div>
      * <div> </div>
-     * @type {SOCKET_ADDRESS}
      */
-    Dhcpv6Server {
-        get {
-            if(!this.HasProp("__Dhcpv6Server"))
-                this.__Dhcpv6Server := SOCKET_ADDRESS(280, this)
-            return this.__Dhcpv6Server
-        }
-    }
+    Dhcpv6Server : SOCKET_ADDRESS
 
     /**
      * Type: <b>BYTE[MAX_DHCPV6_DUID_LENGTH]</b>
@@ -1077,15 +895,8 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  This structure member is only available on Windows Vista and later.</div>
      * <div> </div>
-     * @type {Array<Integer>}
      */
-    Dhcpv6ClientDuid {
-        get {
-            if(!this.HasProp("__Dhcpv6ClientDuidProxyArray"))
-                this.__Dhcpv6ClientDuidProxyArray := Win32FixedArray(this.ptr + 296, 130, Primitive, "char")
-            return this.__Dhcpv6ClientDuidProxyArray
-        }
-    }
+    Dhcpv6ClientDuid : Int8[130]
 
     /**
      * Type: <b>ULONG</b>
@@ -1096,12 +907,8 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  This structure member is only available on Windows Vista and later.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    Dhcpv6ClientDuidLength {
-        get => NumGet(this, 428, "uint")
-        set => NumPut("uint", value, this, 428)
-    }
+    Dhcpv6ClientDuidLength : UInt32
 
     /**
      * Type: <b>ULONG</b>
@@ -1111,12 +918,8 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  This structure member is only available on Windows Vista and later.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    Dhcpv6Iaid {
-        get => NumGet(this, 432, "uint")
-        set => NumPut("uint", value, this, 432)
-    }
+    Dhcpv6Iaid : UInt32
 
     /**
      * Type: <b>PIP_ADAPTER_DNS_SUFFIX</b>
@@ -1126,10 +929,13 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  This structure member is only available on Windows Vista with SP1and later and on Windows Server 2008  and later.</div>
      * <div> </div>
-     * @type {Pointer<IP_ADAPTER_DNS_SUFFIX>}
      */
-    FirstDnsSuffix {
-        get => NumGet(this, 440, "ptr")
-        set => NumPut("ptr", value, this, 440)
+    FirstDnsSuffix : IP_ADAPTER_DNS_SUFFIX.Ptr
+
+    static __New() {
+        DefineProp(this.Prototype, 'Length', { type: UInt32, offset: 0 })
+        DefineProp(this.Prototype, 'IfIndex', { type: UInt32, offset: 4 })
+        DefineProp(this.Prototype, '_bitfield', { type: Int32, offset: 92 })
+        this.DeleteProp("__New")
     }
 }

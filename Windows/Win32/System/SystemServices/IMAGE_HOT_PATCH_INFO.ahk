@@ -1,83 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class IMAGE_HOT_PATCH_INFO extends Win32Struct {
-    static sizeof => 36
+export default struct IMAGE_HOT_PATCH_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SequenceNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SequenceNumber {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    BaseImageList : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BaseImageList {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    BaseImageCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BaseImageCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    BufferOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BufferOffset {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ExtraPatchSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ExtraPatchSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    MinSequenceNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MinSequenceNumber {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

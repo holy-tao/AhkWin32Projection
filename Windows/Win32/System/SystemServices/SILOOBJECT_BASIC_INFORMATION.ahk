@@ -1,54 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class SILOOBJECT_BASIC_INFORMATION extends Win32Struct {
-    static sizeof => 16
+export default struct SILOOBJECT_BASIC_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
+    SiloId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SiloId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SiloParentId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SiloParentId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NumberOfProcesses : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfProcesses {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    IsInServerSilo : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    IsInServerSilo {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    Reserved : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 13, 3, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
 }

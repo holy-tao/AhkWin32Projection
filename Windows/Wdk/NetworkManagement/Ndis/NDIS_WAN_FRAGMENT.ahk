@@ -1,33 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class NDIS_WAN_FRAGMENT extends Win32Struct {
-    static sizeof => 12
+export default struct NDIS_WAN_FRAGMENT {
+    #StructPack 1
 
-    static packingSize => 1
+    RemoteAddress : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    RemoteAddress {
-        get {
-            if(!this.HasProp("__RemoteAddressProxyArray"))
-                this.__RemoteAddressProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
-            return this.__RemoteAddressProxyArray
-        }
-    }
+    LocalAddress : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    LocalAddress {
-        get {
-            if(!this.HasProp("__LocalAddressProxyArray"))
-                this.__LocalAddressProxyArray := Win32FixedArray(this.ptr + 6, 6, Primitive, "char")
-            return this.__LocalAddressProxyArray
-        }
-    }
 }

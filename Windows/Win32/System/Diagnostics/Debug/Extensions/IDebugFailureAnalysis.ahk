@@ -1,38 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FA_ENTRY.ahk" { FA_ENTRY }
+#Import ".\DEBUG_FLR_PARAM_TYPE.ahk" { DEBUG_FLR_PARAM_TYPE }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DEBUG_FAILURE_TYPE.ahk" { DEBUG_FAILURE_TYPE }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IDebugFailureAnalysis extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDebugFailureAnalysis extends IUnknown {
     /**
      * The interface identifier for IDebugFailureAnalysis
      * @type {Guid}
      */
-    static IID => Guid("{ed0de363-451f-4943-820c-62dccdfa7e6d}")
+    static IID := Guid("{ed0de363-451f-4943-820c-62dccdfa7e6d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDebugFailureAnalysis interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetFailureClass : IntPtr
+        GetFailureType  : IntPtr
+        GetFailureCode  : IntPtr
+        Get             : IntPtr
+        GetNext         : IntPtr
+        GetString       : IntPtr
+        GetBuffer       : IntPtr
+        GetUlong        : IntPtr
+        GetUlong64      : IntPtr
+        NextEntry       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFailureClass", "GetFailureType", "GetFailureCode", "Get", "GetNext", "GetString", "GetBuffer", "GetUlong", "GetUlong64", "NextEntry"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDebugFailureAnalysis.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
      * @returns {Integer} 
      */
     GetFailureClass() {
-        result := ComCall(3, this, "uint")
+        result := ComCall(3, this, UInt32)
         return result
     }
 
@@ -41,7 +60,7 @@ class IDebugFailureAnalysis extends IUnknown {
      * @returns {DEBUG_FAILURE_TYPE} 
      */
     GetFailureType() {
-        result := ComCall(4, this, "int")
+        result := ComCall(4, this, DEBUG_FAILURE_TYPE)
         return result
     }
 
@@ -50,7 +69,7 @@ class IDebugFailureAnalysis extends IUnknown {
      * @returns {Integer} 
      */
     GetFailureCode() {
-        result := ComCall(5, this, "uint")
+        result := ComCall(5, this, UInt32)
         return result
     }
 
@@ -61,66 +80,43 @@ class IDebugFailureAnalysis extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/desktop-programming
      */
     Get(Tag) {
-        result := ComCall(6, this, "int", Tag, "ptr")
+        result := ComCall(6, this, DEBUG_FLR_PARAM_TYPE, Tag, FA_ENTRY.Ptr)
         return result
     }
 
     /**
-     * Retrieves a handle to the first control in a group of controls that precedes (or follows) the specified control in a dialog box.
-     * @remarks
-     * The <b>GetNextDlgGroupItem</b> function searches controls in the order (or reverse order) they were created in the dialog box template. The first control in the group must have the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/dlgbox-programming-considerations">WS_GROUP</a> style; all other controls in the group must have been consecutively created and must not have the <b>WS_GROUP</b> style. 
      * 
-     * When searching for the previous control, the function returns the first control it locates that is visible and not disabled. If the control specified by <i>hCtl</i> has the <b>WS_GROUP</b> style, the function temporarily reverses the search to locate the first control having the <b>WS_GROUP</b> style, then resumes the search in the original direction, returning the first control it locates that is visible and not disabled, or returning <i>hCtl</i> if no such control is found. 
-     * 
-     * When searching for the next control, the function returns the first control it locates that is visible, not disabled, and does not have the <b>WS_GROUP</b> style. If it encounters a control having the <b>WS_GROUP</b> style, the function reverses the search, locates the first control having the <b>WS_GROUP</b> style, and returns this control if it is visible and not disabled. Otherwise, the function resumes the search in the original direction and returns the first control it locates that is visible and not disabled, or returns <i>hCtl</i> if no such control is found. 
-     * 
-     * If the search for the next control in the group encounters a window with the <b>WS_EX_CONTROLPARENT</b> style, the system recursively searches the window's children.
      * @param {Pointer<FA_ENTRY>} Entry 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {DEBUG_FLR_PARAM_TYPE} TagMask 
-     * @returns {Pointer<FA_ENTRY>} Type: <b>HWND</b>
-     * 
-     * If the function succeeds, the return value is a handle to the previous (or next) control in the group of controls. 
-     * 
-     * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getnextdlggroupitem
+     * @returns {Pointer<FA_ENTRY>} 
      */
     GetNext(Entry, Tag, TagMask) {
-        result := ComCall(7, this, "ptr", Entry, "int", Tag, "int", TagMask, "ptr")
+        result := ComCall(7, this, FA_ENTRY.Ptr, Entry, DEBUG_FLR_PARAM_TYPE, Tag, DEBUG_FLR_PARAM_TYPE, TagMask, FA_ENTRY.Ptr)
         return result
     }
 
     /**
-     * Returns a string located at a given position within a BLOB.
+     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Integer} Str 
      * @param {Integer} MaxSize 
-     * @returns {Pointer<FA_ENTRY>} If the function is successful, the return value is NMERR\_SUCCESS.
-     * 
-     * If the function is unsuccessful, the return value is a NMERR value that indicates the error.
-     * 
-     * If the specified **Owner**, **Category**, or **Tag** data does not exist, the function returns **NMERR\_BLOB\_ENTRY\_DOES\_NOT\_EXIST**.
-     * @see https://learn.microsoft.com/windows/win32/NetMon2/getstringfromblob
+     * @returns {Pointer<FA_ENTRY>} 
      */
     GetString(Tag, Str, MaxSize) {
-        result := ComCall(8, this, "int", Tag, "ptr", Str, "uint", MaxSize, "ptr")
+        result := ComCall(8, this, DEBUG_FLR_PARAM_TYPE, Tag, "ptr", Str, "uint", MaxSize, FA_ENTRY.Ptr)
         return result
     }
 
     /**
-     * Retrieves a pointer to the buffer bitmap if the buffer is a device-independent bitmap (DIB).
-     * @remarks
-     * The number of bits per pixel depends on the pixel format passed to <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-beginbufferedpaint">BeginBufferedPaint</a>.
+     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Integer} Buf 
      * @param {Integer} _Size 
-     * @returns {Pointer<FA_ENTRY>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * Returns S_OK if successful, or an error value otherwise. If an error occurs, <i>ppbBuffer</i>  is set to <b>NULL</b> and <i>pcxRow</i> is set to zero.
-     * @see https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-getbufferedpaintbits
+     * @returns {Pointer<FA_ENTRY>} 
      */
     GetBuffer(Tag, Buf, _Size) {
-        result := ComCall(9, this, "int", Tag, "ptr", Buf, "uint", _Size, "ptr")
+        result := ComCall(9, this, DEBUG_FLR_PARAM_TYPE, Tag, "ptr", Buf, "uint", _Size, FA_ENTRY.Ptr)
         return result
     }
 
@@ -133,7 +129,7 @@ class IDebugFailureAnalysis extends IUnknown {
     GetUlong(Tag, Value) {
         ValueMarshal := Value is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "int", Tag, ValueMarshal, Value, "ptr")
+        result := ComCall(10, this, DEBUG_FLR_PARAM_TYPE, Tag, ValueMarshal, Value, FA_ENTRY.Ptr)
         return result
     }
 
@@ -146,7 +142,7 @@ class IDebugFailureAnalysis extends IUnknown {
     GetUlong64(Tag, Value) {
         ValueMarshal := Value is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "int", Tag, ValueMarshal, Value, "ptr")
+        result := ComCall(11, this, DEBUG_FLR_PARAM_TYPE, Tag, ValueMarshal, Value, FA_ENTRY.Ptr)
         return result
     }
 
@@ -156,7 +152,45 @@ class IDebugFailureAnalysis extends IUnknown {
      * @returns {Pointer<FA_ENTRY>} 
      */
     NextEntry(Entry) {
-        result := ComCall(12, this, "ptr", Entry, "ptr")
+        result := ComCall(12, this, FA_ENTRY.Ptr, Entry, FA_ENTRY.Ptr)
         return result
+    }
+
+    Query(iid) {
+        if (IDebugFailureAnalysis.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFailureClass := CallbackCreate(GetMethod(implObj, "GetFailureClass"), flags, 1)
+        this.vtbl.GetFailureType := CallbackCreate(GetMethod(implObj, "GetFailureType"), flags, 1)
+        this.vtbl.GetFailureCode := CallbackCreate(GetMethod(implObj, "GetFailureCode"), flags, 1)
+        this.vtbl.Get := CallbackCreate(GetMethod(implObj, "Get"), flags, 2)
+        this.vtbl.GetNext := CallbackCreate(GetMethod(implObj, "GetNext"), flags, 4)
+        this.vtbl.GetString := CallbackCreate(GetMethod(implObj, "GetString"), flags, 4)
+        this.vtbl.GetBuffer := CallbackCreate(GetMethod(implObj, "GetBuffer"), flags, 4)
+        this.vtbl.GetUlong := CallbackCreate(GetMethod(implObj, "GetUlong"), flags, 3)
+        this.vtbl.GetUlong64 := CallbackCreate(GetMethod(implObj, "GetUlong64"), flags, 3)
+        this.vtbl.NextEntry := CallbackCreate(GetMethod(implObj, "NextEntry"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFailureClass)
+        CallbackFree(this.vtbl.GetFailureType)
+        CallbackFree(this.vtbl.GetFailureCode)
+        CallbackFree(this.vtbl.Get)
+        CallbackFree(this.vtbl.GetNext)
+        CallbackFree(this.vtbl.GetString)
+        CallbackFree(this.vtbl.GetBuffer)
+        CallbackFree(this.vtbl.GetUlong)
+        CallbackFree(this.vtbl.GetUlong64)
+        CallbackFree(this.vtbl.NextEntry)
     }
 }

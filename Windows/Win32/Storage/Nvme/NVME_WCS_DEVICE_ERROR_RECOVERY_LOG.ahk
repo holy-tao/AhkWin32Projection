@@ -1,121 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NVME_WCS_DEVICE_RESET_ACTION.ahk
-#Include .\NVME_WCS_DEVICE_CAPABILITIES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NVME_WCS_DEVICE_RESET_ACTION.ahk" { NVME_WCS_DEVICE_RESET_ACTION }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\NVME_WCS_DEVICE_CAPABILITIES.ahk" { NVME_WCS_DEVICE_CAPABILITIES }
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_WCS_DEVICE_ERROR_RECOVERY_LOG extends Win32Struct {
-    static sizeof => 512
+export default struct NVME_WCS_DEVICE_ERROR_RECOVERY_LOG {
+    #StructPack 8
 
-    static packingSize => 8
+    PanicResetWaitTime : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    PanicResetWaitTime {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    PanicResetAction : NVME_WCS_DEVICE_RESET_ACTION
 
-    /**
-     * @type {NVME_WCS_DEVICE_RESET_ACTION}
-     */
-    PanicResetAction {
-        get {
-            if(!this.HasProp("__PanicResetAction"))
-                this.__PanicResetAction := NVME_WCS_DEVICE_RESET_ACTION(2, this)
-            return this.__PanicResetAction
-        }
-    }
+    DriveRecoveryAction : Int8
 
-    /**
-     * @type {Integer}
-     */
-    DriveRecoveryAction {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    PanicId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PanicId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    DeviceCapabilitiesA : NVME_WCS_DEVICE_CAPABILITIES
 
-    /**
-     * @type {NVME_WCS_DEVICE_CAPABILITIES}
-     */
-    DeviceCapabilitiesA {
-        get {
-            if(!this.HasProp("__DeviceCapabilitiesA"))
-                this.__DeviceCapabilitiesA := NVME_WCS_DEVICE_CAPABILITIES(16, this)
-            return this.__DeviceCapabilitiesA
-        }
-    }
+    VendorSpecificRecoveryCode : Int8
 
-    /**
-     * @type {Integer}
-     */
-    VendorSpecificRecoveryCode {
-        get => NumGet(this, 20, "char")
-        set => NumPut("char", value, this, 20)
-    }
+    Reserved0 : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved0 {
-        get {
-            if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 21, 3, Primitive, "char")
-            return this.__Reserved0ProxyArray
-        }
-    }
+    VendorSpecificCommandCDW12 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VendorSpecificCommandCDW12 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    VendorSpecificCommandCDW13 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VendorSpecificCommandCDW13 {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    Reserved1 : Int8[466]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 32, 466, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    LogPageVersionNumber : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    LogPageVersionNumber {
-        get => NumGet(this, 498, "ushort")
-        set => NumPut("ushort", value, this, 498)
-    }
+    LogPageGUID : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    LogPageGUID {
-        get => NumGet(this, 504, "ptr")
-        set => NumPut("ptr", value, this, 504)
-    }
 }

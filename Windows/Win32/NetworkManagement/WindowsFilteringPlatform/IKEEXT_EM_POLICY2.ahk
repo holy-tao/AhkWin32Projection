@@ -1,28 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IKEEXT_AUTHENTICATION_METHOD2.ahk
-#Include .\IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE.ahk" { IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE }
+#Import ".\IKEEXT_AUTHENTICATION_METHOD2.ahk" { IKEEXT_AUTHENTICATION_METHOD2 }
 
 /**
  * Is used to store AuthIP's extended mode negotiation policy. (IKEEXT_EM_POLICY2)
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_em_policy2
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IKEEXT_EM_POLICY2 extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct IKEEXT_EM_POLICY2 {
+    #StructPack 8
 
     /**
      * Type: <b>UINT32</b>
      * 
      *  Number of authentication methods in the array.
-     * @type {Integer}
      */
-    numAuthenticationMethods {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    numAuthenticationMethods : UInt32
 
     /**
      * Type: [IKEEXT_AUTHENTICATION_METHOD2](/windows/desktop/api/iketypes/ns-iketypes-ikeext_authentication_method2)*</b>
@@ -30,21 +23,14 @@ class IKEEXT_EM_POLICY2 extends Win32Struct {
      * size_is(numAuthenticationMethods)
      * 
      * Array of acceptable authentication methods.
-     * @type {Pointer<IKEEXT_AUTHENTICATION_METHOD2>}
      */
-    authenticationMethods {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    authenticationMethods : IKEEXT_AUTHENTICATION_METHOD2.Ptr
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/iketypes/ne-iketypes-ikeext_authentication_impersonation_type">IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE</a></b>
      * 
      * Type of impersonation.
-     * @type {IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE}
      */
-    initiatorImpersonationType {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    initiatorImpersonationType : IKEEXT_AUTHENTICATION_IMPERSONATION_TYPE
+
 }

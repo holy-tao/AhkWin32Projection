@@ -1,44 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TDIObjectID.ahk
-#Include .\TDIEntityID.ahk
-#Include .\TDIENTITY_ENTITY_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TDIEntityID.ahk" { TDIEntityID }
+#Import ".\TDIObjectID.ahk" { TDIObjectID }
+#Import ".\TDIENTITY_ENTITY_TYPE.ahk" { TDIENTITY_ENTITY_TYPE }
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
  */
-class TCP_REQUEST_SET_INFORMATION_EX extends Win32Struct {
-    static sizeof => 28
+export default struct TCP_REQUEST_SET_INFORMATION_EX {
+    #StructPack 4
 
-    static packingSize => 4
+    ID : TDIObjectID
 
-    /**
-     * @type {TDIObjectID}
-     */
-    ID {
-        get {
-            if(!this.HasProp("__ID"))
-                this.__ID := TDIObjectID(0, this)
-            return this.__ID
-        }
-    }
+    BufferSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BufferSize {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    Buffer : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Buffer {
-        get {
-            if(!this.HasProp("__BufferProxyArray"))
-                this.__BufferProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
-            return this.__BufferProxyArray
-        }
-    }
 }

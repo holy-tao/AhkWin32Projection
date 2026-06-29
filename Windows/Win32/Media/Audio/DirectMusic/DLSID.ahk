@@ -1,46 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
-class DLSID extends Win32Struct {
-    static sizeof => 16
+export default struct DLSID {
+    #StructPack 4
 
-    static packingSize => 4
+    ulData1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulData1 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    usData2 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usData2 {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    usData3 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usData3 {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    abData4 : Int8[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    abData4 {
-        get {
-            if(!this.HasProp("__abData4ProxyArray"))
-                this.__abData4ProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "char")
-            return this.__abData4ProxyArray
-        }
-    }
 }

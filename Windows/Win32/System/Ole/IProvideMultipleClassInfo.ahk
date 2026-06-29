@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IProvideClassInfo2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IProvideClassInfo2.ahk" { IProvideClassInfo2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MULTICLASSINFO_FLAGS.ahk" { MULTICLASSINFO_FLAGS }
+#Import "..\Com\ITypeInfo.ahk" { ITypeInfo }
 
 /**
  * An extension to IProvideClassInfo2 that makes it faster and easier to retrieve type information from a component that may have multiple coclasses that determine its behavior.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-iprovidemultipleclassinfo
  * @namespace Windows.Win32.System.Ole
  */
-class IProvideMultipleClassInfo extends IProvideClassInfo2 {
-
-    static sizeof => A_PtrSize
+export default struct IProvideMultipleClassInfo extends IProvideClassInfo2 {
     /**
      * The interface identifier for IProvideMultipleClassInfo
      * @type {Guid}
      */
-    static IID => Guid("{a7aba9c1-8983-11cf-8f20-00805f2cd064}")
+    static IID := Guid("{a7aba9c1-8983-11cf-8f20-00805f2cd064}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IProvideMultipleClassInfo interfaces
+    */
+    struct Vtbl extends IProvideClassInfo2.Vtbl {
+        GetMultiTypeInfoCount : IntPtr
+        GetInfoOfIndex        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetMultiTypeInfoCount", "GetInfoOfIndex"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IProvideMultipleClassInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the number of type information blocks that this object must provide.
@@ -55,7 +66,29 @@ class IProvideMultipleClassInfo extends IProvideClassInfo2 {
         pdwTIFlagsMarshal := pdwTIFlags is VarRef ? "uint*" : "ptr"
         pcdispidReservedMarshal := pcdispidReserved is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", iti, "uint", dwFlags, "ptr*", pptiCoClass, pdwTIFlagsMarshal, pdwTIFlags, pcdispidReservedMarshal, pcdispidReserved, "ptr", piidPrimary, "ptr", piidSource, "HRESULT")
+        result := ComCall(6, this, "uint", iti, MULTICLASSINFO_FLAGS, dwFlags, ITypeInfo.Ptr, pptiCoClass, pdwTIFlagsMarshal, pdwTIFlags, pcdispidReservedMarshal, pcdispidReserved, Guid.Ptr, piidPrimary, Guid.Ptr, piidSource, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IProvideMultipleClassInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetMultiTypeInfoCount := CallbackCreate(GetMethod(implObj, "GetMultiTypeInfoCount"), flags, 2)
+        this.vtbl.GetInfoOfIndex := CallbackCreate(GetMethod(implObj, "GetInfoOfIndex"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetMultiTypeInfoCount)
+        CallbackFree(this.vtbl.GetInfoOfIndex)
     }
 }

@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains information needed by IContextMenu::InvokeCommand to invoke a shortcut menu command.
@@ -10,46 +10,29 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-cminvokecommandinfo
  * @namespace Windows.Win32.UI.Shell
  */
-class CMINVOKECOMMANDINFO extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct CMINVOKECOMMANDINFO {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The size of this structure, in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Zero, or one or more of the following flags.
-     * @type {Integer}
      */
-    fMask {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    fMask : UInt32
 
     /**
      * Type: <b>HWND</b>
      * 
      * A handle to the window that is the owner of the shortcut menu. An extension can also use this handle as the owner of any message boxes or dialog boxes it displays.
-     * @type {HWND}
      */
-    hwnd {
-        get {
-            if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(8, this)
-            return this.__hwnd
-        }
-    }
+    hwnd : HWND
 
     /**
      * Type: <b>LPCSTR</b>
@@ -85,73 +68,42 @@ class CMINVOKECOMMANDINFO extends Win32Struct {
      * If a canonical verb exists and a menu handler does not implement the canonical verb, it must return a failure code to enable the next handler to be able to handle this verb. Failing to do this will break functionality in the system including <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shellexecutea">ShellExecute</a>.
      * 
      * Alternatively, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(offset) where <i>offset</i> is the menu-identifier offset of the command to carry out. Implementations can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-is_intresource">IS_INTRESOURCE</a> macro to detect that this alternative is being employed. The Shell uses this alternative when the user chooses a menu command.
-     * @type {PSTR}
      */
-    lpVerb {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpVerb : PSTR
 
     /**
      * Type: <b>LPCSTR</b>
      * 
      * An optional string containing parameters that are passed to the command. The format of this string is determined by the command that is to be invoked. This member is always <b>NULL</b> for menu items inserted by a Shell extension.
-     * @type {PSTR}
      */
-    lpParameters {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpParameters : PSTR
 
     /**
      * Type: <b>LPCSTR</b>
      * 
      * An optional working directory name. This member is always <b>NULL</b> for menu items inserted by a Shell extension.
-     * @type {PSTR}
      */
-    lpDirectory {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpDirectory : PSTR
 
     /**
      * Type: <b>int</b>
      * 
      * A set of SW_ values to pass to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-showwindow">ShowWindow</a> function if the command displays a window or starts an application.
-     * @type {Integer}
      */
-    nShow {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    nShow : Int32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * An optional keyboard shortcut to assign to any application activated by the command. If the <b>fMask</b> parameter does not specify <b>CMIC_MASK_HOTKEY</b>, this member is ignored.
-     * @type {Integer}
      */
-    dwHotKey {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    dwHotKey : UInt32
 
     /**
      * Type: <b>HANDLE</b>
      * 
      * An icon to use for any application activated by the command. If the <b>fMask</b> member does not specify <b>CMIC_MASK_ICON</b>, this member is ignored.
-     * @type {HANDLE}
      */
-    hIcon {
-        get {
-            if(!this.HasProp("__hIcon"))
-                this.__hIcon := HANDLE(48, this)
-            return this.__hIcon
-        }
-    }
+    hIcon : HANDLE
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 56
-    }
 }

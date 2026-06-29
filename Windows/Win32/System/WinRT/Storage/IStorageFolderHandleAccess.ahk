@@ -1,34 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Com\IUnknown.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\HANDLE_SHARING_OPTIONS.ahk" { HANDLE_SHARING_OPTIONS }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\HANDLE_ACCESS_OPTIONS.ahk" { HANDLE_ACCESS_OPTIONS }
+#Import ".\HANDLE_CREATION_OPTIONS.ahk" { HANDLE_CREATION_OPTIONS }
+#Import ".\IOplockBreakingHandler.ahk" { IOplockBreakingHandler }
+#Import ".\HANDLE_OPTIONS.ahk" { HANDLE_OPTIONS }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides access to the operating system handle of a storage folder.
  * @see https://learn.microsoft.com/windows/win32/api/windowsstoragecom/nn-windowsstoragecom-istoragefolderhandleaccess
  * @namespace Windows.Win32.System.WinRT.Storage
  */
-class IStorageFolderHandleAccess extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IStorageFolderHandleAccess extends IUnknown {
     /**
      * The interface identifier for IStorageFolderHandleAccess
      * @type {Guid}
      */
-    static IID => Guid("{df19938f-5462-48a0-be65-d2a3271a08d6}")
+    static IID := Guid("{df19938f-5462-48a0-be65-d2a3271a08d6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IStorageFolderHandleAccess interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Create : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Create"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IStorageFolderHandleAccess.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a handle to a file that is in a storage folder.
@@ -44,8 +58,28 @@ class IStorageFolderHandleAccess extends IUnknown {
     Create(fileName, creationOptions, accessOptions, sharingOptions, options, oplockBreakingHandler) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
 
-        interopHandle := HANDLE()
-        result := ComCall(3, this, "ptr", fileName, "int", creationOptions, "int", accessOptions, "int", sharingOptions, "uint", options, "ptr", oplockBreakingHandler, "ptr", interopHandle, "HRESULT")
+        interopHandle := HANDLE.Owned()
+        result := ComCall(3, this, "ptr", fileName, HANDLE_CREATION_OPTIONS, creationOptions, HANDLE_ACCESS_OPTIONS, accessOptions, HANDLE_SHARING_OPTIONS, sharingOptions, HANDLE_OPTIONS, options, "ptr", oplockBreakingHandler, HANDLE.Ptr, interopHandle, "HRESULT")
         return interopHandle
+    }
+
+    Query(iid) {
+        if (IStorageFolderHandleAccess.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Create)
     }
 }

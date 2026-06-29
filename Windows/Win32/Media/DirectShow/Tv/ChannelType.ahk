@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines a channel to which providers can log events.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/WES/eventmanifestschema-channeltype-complextype
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class ChannelType extends Win32Enum {
+export default struct ChannelType {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

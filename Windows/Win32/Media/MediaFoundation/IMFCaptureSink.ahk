@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFMediaType.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import ".\IMFMediaType.ahk" { IMFMediaType }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Controls a capture sink, which is an object that receives one or more streams from a capture device.
@@ -54,26 +56,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nn-mfcaptureengine-imfcapturesink
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFCaptureSink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFCaptureSink extends IUnknown {
     /**
      * The interface identifier for IMFCaptureSink
      * @type {Guid}
      */
-    static IID => Guid("{72d6135b-35e9-412c-b926-fd5265f2a885}")
+    static IID := Guid("{72d6135b-35e9-412c-b926-fd5265f2a885}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFCaptureSink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetOutputMediaType : IntPtr
+        GetService         : IntPtr
+        AddStream          : IntPtr
+        Prepare            : IntPtr
+        RemoveAllStreams   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetOutputMediaType", "GetService", "AddStream", "Prepare", "RemoveAllStreams"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFCaptureSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the output format for a stream on this capture sink.
@@ -95,7 +108,7 @@ class IMFCaptureSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesink-getservice
      */
     GetService(dwSinkStreamIndex, rguidService, riid) {
-        result := ComCall(4, this, "uint", dwSinkStreamIndex, "ptr", rguidService, "ptr", riid, "ptr*", &ppUnknown := 0, "HRESULT")
+        result := ComCall(4, this, "uint", dwSinkStreamIndex, Guid.Ptr, rguidService, Guid.Ptr, riid, "ptr*", &ppUnknown := 0, "HRESULT")
         return IUnknown(ppUnknown)
     }
 
@@ -226,5 +239,33 @@ class IMFCaptureSink extends IUnknown {
     RemoveAllStreams() {
         result := ComCall(7, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFCaptureSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetOutputMediaType := CallbackCreate(GetMethod(implObj, "GetOutputMediaType"), flags, 3)
+        this.vtbl.GetService := CallbackCreate(GetMethod(implObj, "GetService"), flags, 5)
+        this.vtbl.AddStream := CallbackCreate(GetMethod(implObj, "AddStream"), flags, 5)
+        this.vtbl.Prepare := CallbackCreate(GetMethod(implObj, "Prepare"), flags, 1)
+        this.vtbl.RemoveAllStreams := CallbackCreate(GetMethod(implObj, "RemoveAllStreams"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetOutputMediaType)
+        CallbackFree(this.vtbl.GetService)
+        CallbackFree(this.vtbl.AddStream)
+        CallbackFree(this.vtbl.Prepare)
+        CallbackFree(this.vtbl.RemoveAllStreams)
     }
 }

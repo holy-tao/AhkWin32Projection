@@ -1,67 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class INTERLEAVED_AUDIO_FORMAT_INFORMATION extends Win32Struct {
-    static sizeof => 28
+export default struct INTERLEAVED_AUDIO_FORMAT_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PrimaryChannelCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PrimaryChannelCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    PrimaryChannelStartPosition : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PrimaryChannelStartPosition {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    PrimaryChannelMask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PrimaryChannelMask {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    InterleavedChannelCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InterleavedChannelCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    InterleavedChannelStartPosition : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InterleavedChannelStartPosition {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    InterleavedChannelMask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InterleavedChannelMask {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

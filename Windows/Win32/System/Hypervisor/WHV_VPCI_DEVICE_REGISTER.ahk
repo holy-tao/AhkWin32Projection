@@ -1,36 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHV_VPCI_DEVICE_REGISTER_SPACE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WHV_VPCI_DEVICE_REGISTER_SPACE.ahk" { WHV_VPCI_DEVICE_REGISTER_SPACE }
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_VPCI_DEVICE_REGISTER extends Win32Struct {
-    static sizeof => 16
+export default struct WHV_VPCI_DEVICE_REGISTER {
+    #StructPack 8
 
-    static packingSize => 8
+    Location : WHV_VPCI_DEVICE_REGISTER_SPACE
 
-    /**
-     * @type {WHV_VPCI_DEVICE_REGISTER_SPACE}
-     */
-    Location {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    SizeInBytes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SizeInBytes {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    OffsetInBytes : Int64
 
-    /**
-     * @type {Integer}
-     */
-    OffsetInBytes {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

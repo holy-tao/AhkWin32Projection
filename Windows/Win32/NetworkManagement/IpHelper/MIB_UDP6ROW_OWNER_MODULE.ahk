@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains an entry from the User Datagram Protocol (UDP) listener table for IPv6 on the local computer. This entry also also includes any available ownership data and the process ID (PID) that issued the call to the bind function for the UDP endpoint.
@@ -19,10 +18,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/udpmib/ns-udpmib-mib_udp6row_owner_module
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_UDP6ROW_OWNER_MODULE extends Win32Struct {
-    static sizeof => 176
-
-    static packingSize => 8
+export default struct MIB_UDP6ROW_OWNER_MODULE {
+    #StructPack 8
 
     /**
      * Type: <b>UCHAR[16]</b>
@@ -31,69 +28,43 @@ class MIB_UDP6ROW_OWNER_MODULE extends Win32Struct {
      * 
      * A value of zero indicates a UDP listener  willing to accept datagrams for any IP interface associated
      *                       with the local computer.
-     * @type {Array<Integer>}
      */
-    ucLocalAddr {
-        get {
-            if(!this.HasProp("__ucLocalAddrProxyArray"))
-                this.__ucLocalAddrProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
-            return this.__ucLocalAddrProxyArray
-        }
-    }
+    ucLocalAddr : Int8[16]
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The scope ID for the IPv6 address of the UDP endpoint on the local computer.
-     * @type {Integer}
      */
-    dwLocalScopeId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwLocalScopeId : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The port number for the local UDP endpoint.
-     * @type {Integer}
      */
-    dwLocalPort {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwLocalPort : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The PID of the process that issued a context bind for this endpoint. If this value is set to 0, the information for this endpoint is unavailable.
-     * @type {Integer}
      */
-    dwOwningPid {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwOwningPid : UInt32
 
     /**
      * Type: <b>LARGE_INTEGER</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that indicates when the context bind operation that created this endpoint occurred.
-     * @type {Integer}
      */
-    liCreateTimestamp {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
+    liCreateTimestamp : Int64
 
     /**
      * This bitfield backs the following members:
      * - SpecificPortBind
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -102,26 +73,15 @@ class MIB_UDP6ROW_OWNER_MODULE extends Win32Struct {
         get => (this._bitfield >> 0) & 0x1
         set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
     }
-
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
-
     /**
      * Type: <b>ULONGLONG[TCPIP_OWNING_MODULE_SIZE]</b>
      * 
      * An array of opaque data that contains ownership information.
-     * @type {Array<Integer>}
      */
-    OwningModuleInfo {
-        get {
-            if(!this.HasProp("__OwningModuleInfoProxyArray"))
-                this.__OwningModuleInfoProxyArray := Win32FixedArray(this.ptr + 48, 16, Primitive, "uint")
-            return this.__OwningModuleInfoProxyArray
-        }
+    OwningModuleInfo : Int64[16]
+
+    static __New() {
+        DefineProp(this.Prototype, 'dwFlags', { type: Int32, offset: 40 })
+        this.DeleteProp("__New")
     }
 }

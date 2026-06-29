@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DD_DIRECTDRAW_GLOBAL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DD_DIRECTDRAW_GLOBAL.ahk" { DD_DIRECTDRAW_GLOBAL }
 
 /**
  * The DD_GETDRIVERSTATEDATA structure describes the state of the driver.
@@ -16,10 +16,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_getdriverstatedata
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DD_GETDRIVERSTATEDATA extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct DD_GETDRIVERSTATEDATA {
+    #StructPack 8
 
     /**
      * Specifies the set of flags to indicate the data requested. This parameter can be set to one of the following flags:
@@ -75,53 +73,28 @@ class DD_GETDRIVERSTATEDATA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Pointer<DD_DIRECTDRAW_GLOBAL>}
-     */
-    lpDD {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    dwhContext {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpDD : DD_DIRECTDRAW_GLOBAL.Ptr
 
     /**
      * Points to the Direct3D driver state data to be filled in by the driver. If, for example, D3DDEVINFOID_VCACHE is specified in the <b>dwFlags</b> member, the driver points the <b>lpdwStates</b> member to a D3DDEVINFO_VCACHE structure that contains vertex-cache information.
-     * @type {Pointer<Integer>}
      */
-    lpdwStates {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpdwStates : IntPtr
 
     /**
      * Specifies the length, in bytes, of the state data to be filled in by the driver.
-     * @type {Integer}
      */
-    dwLength {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwLength : UInt32
 
     /**
      * Specifies the location where the driver writes the return value of the <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_getdriverstate">D3dGetDriverState</a> callback. A return code of D3D_OK indicates success. For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/return-codes-for-direct3d-driver-callbacks">Return Codes for Direct3D Driver Callbacks</a>.
-     * @type {HRESULT}
      */
-    ddRVal {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+    ddRVal : HRESULT
+
+    static __New() {
+        DefineProp(this.Prototype, 'dwhContext', { type: IntPtr, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

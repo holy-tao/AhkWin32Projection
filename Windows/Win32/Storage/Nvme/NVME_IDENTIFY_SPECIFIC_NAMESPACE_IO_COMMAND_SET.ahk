@@ -1,30 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NVME_LBA_ZONE_FORMAT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NVME_LBA_ZONE_FORMAT.ahk" { NVME_LBA_ZONE_FORMAT }
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_IDENTIFY_SPECIFIC_NAMESPACE_IO_COMMAND_SET extends Win32Struct {
-    static sizeof => 4096
+export default struct NVME_IDENTIFY_SPECIFIC_NAMESPACE_IO_COMMAND_SET {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _ZOC extends Win32Struct {
-        static sizeof => 2
-        static packingSize => 2
-
+    struct _ZOC {
         /**
          * This bitfield backs the following members:
          * - VariableZoneCapacity
          * - ZoneExcursions
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
+        _bitfield : Int16
+
 
         /**
          * @type {Integer}
@@ -43,20 +35,14 @@ class NVME_IDENTIFY_SPECIFIC_NAMESPACE_IO_COMMAND_SET extends Win32Struct {
         }
     }
 
-    class _OZCS extends Win32Struct {
-        static sizeof => 2
-        static packingSize => 2
-
+    struct _OZCS {
         /**
          * This bitfield backs the following members:
          * - ReadAcrossZoneBoundaries
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
+        _bitfield : Int16
+
 
         /**
          * @type {Integer}
@@ -67,101 +53,24 @@ class NVME_IDENTIFY_SPECIFIC_NAMESPACE_IO_COMMAND_SET extends Win32Struct {
         }
     }
 
-    /**
-     * @type {_ZOC}
-     */
-    ZOC {
-        get {
-            if(!this.HasProp("__ZOC"))
-                this.__ZOC := NVME_IDENTIFY_SPECIFIC_NAMESPACE_IO_COMMAND_SET._ZOC(0, this)
-            return this.__ZOC
-        }
-    }
+    ZOC : NVME_IDENTIFY_SPECIFIC_NAMESPACE_IO_COMMAND_SET._ZOC
 
-    /**
-     * @type {_OZCS}
-     */
-    OZCS {
-        get {
-            if(!this.HasProp("__OZCS"))
-                this.__OZCS := NVME_IDENTIFY_SPECIFIC_NAMESPACE_IO_COMMAND_SET._OZCS(2, this)
-            return this.__OZCS
-        }
-    }
+    OZCS : NVME_IDENTIFY_SPECIFIC_NAMESPACE_IO_COMMAND_SET._OZCS
 
-    /**
-     * @type {Integer}
-     */
-    MAR {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    MAR : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MOR {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MOR : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RRL {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    RRL : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FRL {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    FRL : UInt32
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved0 {
-        get {
-            if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 20, 2796, Primitive, "char")
-            return this.__Reserved0ProxyArray
-        }
-    }
+    Reserved0 : Int8[2796]
 
-    /**
-     * @type {NVME_LBA_ZONE_FORMAT}
-     */
-    LBAEF {
-        get {
-            if(!this.HasProp("__LBAEFProxyArray"))
-                this.__LBAEFProxyArray := Win32FixedArray(this.ptr + 2816, 16, NVME_LBA_ZONE_FORMAT, "")
-            return this.__LBAEFProxyArray
-        }
-    }
+    LBAEF : NVME_LBA_ZONE_FORMAT[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 3072, 768, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    Reserved1 : Int8[768]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    VS {
-        get {
-            if(!this.HasProp("__VSProxyArray"))
-                this.__VSProxyArray := Win32FixedArray(this.ptr + 3840, 256, Primitive, "char")
-            return this.__VSProxyArray
-        }
-    }
+    VS : Int8[256]
+
 }

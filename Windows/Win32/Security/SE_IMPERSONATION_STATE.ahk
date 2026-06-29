@@ -1,44 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include .\SECURITY_IMPERSONATION_LEVEL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\SECURITY_IMPERSONATION_LEVEL.ahk" { SECURITY_IMPERSONATION_LEVEL }
 
 /**
  * @namespace Windows.Win32.Security
  */
-class SE_IMPERSONATION_STATE extends Win32Struct {
-    static sizeof => 16
+export default struct SE_IMPERSONATION_STATE {
+    #StructPack 8
 
-    static packingSize => 8
+    Token : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Token {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    CopyOnOpen : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    CopyOnOpen {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    EffectiveOnly : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    EffectiveOnly {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    Level : SECURITY_IMPERSONATION_LEVEL
 
-    /**
-     * @type {SECURITY_IMPERSONATION_LEVEL}
-     */
-    Level {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
 }

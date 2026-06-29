@@ -1,11 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\EVENT_TRACE.ahk
-#Include .\EVENT_TRACE_HEADER.ahk
-#Include .\ETW_BUFFER_CONTEXT.ahk
-#Include .\TRACE_LOGFILE_HEADER.ahk
-#Include ..\..\Time\TIME_ZONE_INFORMATION.ahk
-#Include ..\..\..\Foundation\SYSTEMTIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ETW_BUFFER_CONTEXT.ahk" { ETW_BUFFER_CONTEXT }
+#Import ".\EVENT_TRACE_HEADER.ahk" { EVENT_TRACE_HEADER }
+#Import ".\TRACE_LOGFILE_HEADER.ahk" { TRACE_LOGFILE_HEADER }
+#Import "..\..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import "..\..\Time\TIME_ZONE_INFORMATION.ahk" { TIME_ZONE_INFORMATION }
+#Import ".\EVENT_TRACE.ahk" { EVENT_TRACE }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The EVENT_TRACE_LOGFILEW (Unicode) structure (evntrace.h) stores information about a trace data source.
@@ -54,10 +56,8 @@
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @charset Unicode
  */
-class EVENT_TRACE_LOGFILEW extends Win32Struct {
-    static sizeof => 432
-
-    static packingSize => 8
+export default struct EVENT_TRACE_LOGFILEW {
+    #StructPack 8
 
     /**
      * Name of the log file being processed, or **NULL** if processing data from a
@@ -82,12 +82,8 @@ class EVENT_TRACE_LOGFILEW extends Win32Struct {
      * > This can also occur if the file was created using the
      * > **EVENT_TRACE_FILE_MODE_NEWFILE** mode, in which case the generated ETL file
      * > will include a sequence number.
-     * @type {PWSTR}
      */
-    LogFileName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    LogFileName : PWSTR
 
     /**
      * Name of the real-time event tracing session, or **NULL** if processing data from
@@ -109,75 +105,35 @@ class EVENT_TRACE_LOGFILEW extends Win32Struct {
      * [EventAccessControl](/windows/desktop/api/evntcons/nf-evntcons-eventaccesscontrol).
      * 
      * **Windows XP and Windows 2000:** Anyone can consume real time events.
-     * @type {PWSTR}
      */
-    LoggerName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    LoggerName : PWSTR
 
     /**
      * On output, the current time, in 100-nanosecond intervals since midnight, January
      * 1, 1601.
-     * @type {Integer}
      */
-    CurrentTime {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    CurrentTime : Int64
 
     /**
      * On output, the number of buffers processed.
-     * @type {Integer}
      */
-    BuffersRead {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    BuffersRead : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LogFileMode {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ProcessTraceMode {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    LogFileMode : UInt32
 
     /**
      * On output, an [EVENT_TRACE](/windows/win32/api/evntrace/ns-evntrace-event_trace)
      * structure that contains the last event processed.
-     * @type {EVENT_TRACE}
      */
-    CurrentEvent {
-        get {
-            if(!this.HasProp("__CurrentEvent"))
-                this.__CurrentEvent := EVENT_TRACE(32, this)
-            return this.__CurrentEvent
-        }
-    }
+    CurrentEvent : EVENT_TRACE
 
     /**
      * On output, a
      * [TRACE_LOGFILE_HEADER](/windows/win32/api/evntrace/ns-evntrace-trace_logfile_header)
      * structure that contains general information about the session and the computer
      * on which the session ran.
-     * @type {TRACE_LOGFILE_HEADER}
      */
-    LogfileHeader {
-        get {
-            if(!this.HasProp("__LogfileHeader"))
-                this.__LogfileHeader := TRACE_LOGFILE_HEADER(104, this)
-            return this.__LogfileHeader
-        }
-    }
+    LogfileHeader : TRACE_LOGFILE_HEADER
 
     /**
      * Pointer to the
@@ -185,66 +141,32 @@ class EVENT_TRACE_LOGFILEW extends Win32Struct {
      * function that receives buffer-related statistics for each buffer ETW flushes.
      * ETW calls this callback after it delivers all the events in the buffer. This
      * callback is optional.
-     * @type {Pointer<PEVENT_TRACE_BUFFER_CALLBACKW>}
      */
-    BufferCallback {
-        get => NumGet(this, 384, "ptr")
-        set => NumPut("ptr", value, this, 384)
-    }
+    BufferCallback : IntPtr
 
     /**
      * On output, contains the size of each buffer, in bytes.
-     * @type {Integer}
      */
-    BufferSize {
-        get => NumGet(this, 392, "uint")
-        set => NumPut("uint", value, this, 392)
-    }
+    BufferSize : UInt32
 
     /**
      * On output, contains the number of bytes in the buffer that contain valid
      * information.
-     * @type {Integer}
      */
-    Filled {
-        get => NumGet(this, 396, "uint")
-        set => NumPut("uint", value, this, 396)
-    }
+    Filled : UInt32
 
     /**
      * Not used.
-     * @type {Integer}
      */
-    EventsLost {
-        get => NumGet(this, 400, "uint")
-        set => NumPut("uint", value, this, 400)
-    }
+    EventsLost : UInt32
 
-    /**
-     * @type {Pointer<PEVENT_CALLBACK>}
-     */
-    EventCallback {
-        get => NumGet(this, 408, "ptr")
-        set => NumPut("ptr", value, this, 408)
-    }
-
-    /**
-     * @type {Pointer<PEVENT_RECORD_CALLBACK>}
-     */
-    EventRecordCallback {
-        get => NumGet(this, 408, "ptr")
-        set => NumPut("ptr", value, this, 408)
-    }
+    EventCallback : IntPtr
 
     /**
      * On output, if this member is **TRUE**, the event tracing session is the NT
      * Kernel Logger. Otherwise, it is another event tracing session.
-     * @type {Integer}
      */
-    IsKernelTrace {
-        get => NumGet(this, 416, "uint")
-        set => NumPut("uint", value, this, 416)
-    }
+    IsKernelTrace : UInt32
 
     /**
      * Context data that a consumer can specify when calling
@@ -256,10 +178,12 @@ class EVENT_TRACE_LOGFILEW extends Win32Struct {
      * to this value.
      * 
      * **Prior to Windows Vista:** Not supported.
-     * @type {Pointer<Void>}
      */
-    Context {
-        get => NumGet(this, 424, "ptr")
-        set => NumPut("ptr", value, this, 424)
+    Context : IntPtr
+
+    static __New() {
+        DefineProp(this.Prototype, 'ProcessTraceMode', { type: UInt32, offset: 28 })
+        DefineProp(this.Prototype, 'EventRecordCallback', { type: IntPtr, offset: 424 })
+        this.DeleteProp("__New")
     }
 }

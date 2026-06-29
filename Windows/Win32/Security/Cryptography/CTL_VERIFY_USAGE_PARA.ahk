@@ -1,26 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
-#Include .\HCERTSTORE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\HCERTSTORE.ahk" { HCERTSTORE }
 
 /**
  * The CTL_VERIFY_USAGE_PARA structure contains parameters used by CertVerifyCTLUsage to establish the validity of a CTL's usage.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ctl_verify_usage_para
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CTL_VERIFY_USAGE_PARA extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct CTL_VERIFY_USAGE_PARA {
+    #StructPack 8
 
     /**
      * Size of this structure in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> that specifies a <b>ListIdentifier</b> of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">CTL</a> to be found or verified. Normally the <b>cbData</b> member of the <b>ListIdentifier</b> BLOB will be zero, indicating that a CTL with any <b>ListIdentifier</b> can be a match.
@@ -28,54 +21,27 @@ class CTL_VERIFY_USAGE_PARA extends Win32Struct {
      * To match only CTLs with no <b>ListIdentifier</b>, the <b>cbData</b> member of the <b>ListIdentifier</b> BLOB is set to CTL_FIND_NO_LIST_ID_CBDATA.
      * 
      * If an issuer creates multiple CTLs for the same <b>SubjectUsage</b>, a <b>ListIdentifier</b> can distinguish among them.
-     * @type {CRYPT_INTEGER_BLOB}
      */
-    ListIdentifier {
-        get {
-            if(!this.HasProp("__ListIdentifier"))
-                this.__ListIdentifier := CRYPT_INTEGER_BLOB(8, this)
-            return this.__ListIdentifier
-        }
-    }
+    ListIdentifier : CRYPT_INTEGER_BLOB
 
     /**
      * The count of stores to be searched for a matching CTL.
-     * @type {Integer}
      */
-    cCtlStore {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    cCtlStore : UInt32
 
     /**
      * Array of handles of stores to be searched to find a matching CTL.
-     * @type {Pointer<HCERTSTORE>}
      */
-    rghCtlStore {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    rghCtlStore : HCERTSTORE.Ptr
 
     /**
      * Count of stores to be searched for acceptable CTL signers.
-     * @type {Integer}
      */
-    cSignerStore {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    cSignerStore : UInt32
 
     /**
      * Array of handles of stores to be searched for acceptable CTL signers.
-     * @type {Pointer<HCERTSTORE>}
      */
-    rghSignerStore {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    rghSignerStore : HCERTSTORE.Ptr
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 56
-    }
 }

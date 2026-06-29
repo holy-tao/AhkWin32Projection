@@ -1,11 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Documentation varies per use. Refer to each: <see href="https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_system_info">MINIDUMP_SYSTEM_INFO</see>, <see href="https://learn.microsoft.com/windows/win32/api/sysinfoapi/ns-sysinfoapi-system_info">SYSTEM_INFO</see>, <see href="https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscligetimagearchitecture">WdsCliGetImageArchitecture</see>, <see href="https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdscliinitializelog">WdsCliInitializeLog</see>.
  * @namespace Windows.Win32.System.SystemInformation
  */
-class PROCESSOR_ARCHITECTURE extends Win32Enum {
+export default struct PROCESSOR_ARCHITECTURE {
+    value : UInt16
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt16)}

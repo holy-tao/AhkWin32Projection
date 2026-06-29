@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * A multithread interface accesses multithread settings and can only be used if the thread-safe layer is turned on.
@@ -10,26 +11,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/nn-d3d10-id3d10multithread
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class ID3D10Multithread extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID3D10Multithread extends IUnknown {
     /**
      * The interface identifier for ID3D10Multithread
      * @type {Guid}
      */
-    static IID => Guid("{9b7e4e00-342c-4106-a19f-4f2704f689f0}")
+    static IID := Guid("{9b7e4e00-342c-4106-a19f-4f2704f689f0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D10Multithread interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Enter                   : IntPtr
+        Leave                   : IntPtr
+        SetMultithreadProtected : IntPtr
+        GetMultithreadProtected : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Enter", "Leave", "SetMultithreadProtected", "GetMultithreadProtected"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D10Multithread.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Enter a device's critical section. (ID3D10Multithread.Enter)
@@ -66,7 +77,7 @@ class ID3D10Multithread extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10multithread-setmultithreadprotected
      */
     SetMultithreadProtected(bMTProtect) {
-        result := ComCall(5, this, "int", bMTProtect, "int")
+        result := ComCall(5, this, BOOL, bMTProtect, BOOL)
         return result
     }
 
@@ -78,7 +89,33 @@ class ID3D10Multithread extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10multithread-getmultithreadprotected
      */
     GetMultithreadProtected() {
-        result := ComCall(6, this, "int")
+        result := ComCall(6, this, BOOL)
         return result
+    }
+
+    Query(iid) {
+        if (ID3D10Multithread.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Enter := CallbackCreate(GetMethod(implObj, "Enter"), flags, 1)
+        this.vtbl.Leave := CallbackCreate(GetMethod(implObj, "Leave"), flags, 1)
+        this.vtbl.SetMultithreadProtected := CallbackCreate(GetMethod(implObj, "SetMultithreadProtected"), flags, 2)
+        this.vtbl.GetMultithreadProtected := CallbackCreate(GetMethod(implObj, "GetMultithreadProtected"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Enter)
+        CallbackFree(this.vtbl.Leave)
+        CallbackFree(this.vtbl.SetMultithreadProtected)
+        CallbackFree(this.vtbl.GetMultithreadProtected)
     }
 }

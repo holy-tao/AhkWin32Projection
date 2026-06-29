@@ -1,10 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Com\IStream.ahk
-#Include .\IProgressItems.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IProgressItems.ahk" { IProgressItems }
 
 /**
  * Use this interface to get information about the burn image, the image data stream, and progress information.
@@ -13,32 +14,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-ifilesystemimageresult
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IFileSystemImageResult extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFileSystemImageResult extends IDispatch {
     /**
      * The interface identifier for IFileSystemImageResult
      * @type {Guid}
      */
-    static IID => Guid("{2c941fd8-975b-59be-a960-9a2a262853a5}")
+    static IID := Guid("{2c941fd8-975b-59be-a960-9a2a262853a5}")
 
     /**
      * The class identifier for FileSystemImageResult
      * @type {Guid}
      */
-    static CLSID => Guid("{2c941fcc-975b-59be-a960-9a2a262853a5}")
+    static CLSID := Guid("{2c941fcc-975b-59be-a960-9a2a262853a5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFileSystemImageResult interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_ImageStream   : IntPtr
+        get_ProgressItems : IntPtr
+        get_TotalBlocks   : IntPtr
+        get_BlockSize     : IntPtr
+        get_DiscId        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ImageStream", "get_ProgressItems", "get_TotalBlocks", "get_BlockSize", "get_DiscId"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFileSystemImageResult.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IStream} 
@@ -121,8 +133,36 @@ class IFileSystemImageResult extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimageresult-get_discid
      */
     get_DiscId() {
-        pVal := BSTR()
-        result := ComCall(11, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
+    }
+
+    Query(iid) {
+        if (IFileSystemImageResult.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ImageStream := CallbackCreate(GetMethod(implObj, "get_ImageStream"), flags, 2)
+        this.vtbl.get_ProgressItems := CallbackCreate(GetMethod(implObj, "get_ProgressItems"), flags, 2)
+        this.vtbl.get_TotalBlocks := CallbackCreate(GetMethod(implObj, "get_TotalBlocks"), flags, 2)
+        this.vtbl.get_BlockSize := CallbackCreate(GetMethod(implObj, "get_BlockSize"), flags, 2)
+        this.vtbl.get_DiscId := CallbackCreate(GetMethod(implObj, "get_DiscId"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ImageStream)
+        CallbackFree(this.vtbl.get_ProgressItems)
+        CallbackFree(this.vtbl.get_TotalBlocks)
+        CallbackFree(this.vtbl.get_BlockSize)
+        CallbackFree(this.vtbl.get_DiscId)
     }
 }

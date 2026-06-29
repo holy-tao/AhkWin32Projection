@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IUPnPService.ahk" { IUPnPService }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IUPnPServiceCallback interface is used to send event notifications to clients of Service objects.
  * @see https://learn.microsoft.com/windows/win32/api/upnp/nn-upnp-iupnpservicecallback
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
  */
-class IUPnPServiceCallback extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUPnPServiceCallback extends IUnknown {
     /**
      * The interface identifier for IUPnPServiceCallback
      * @type {Guid}
      */
-    static IID => Guid("{31fadca9-ab73-464b-b67d-5c1d0f83c8b8}")
+    static IID := Guid("{31fadca9-ab73-464b-b67d-5c1d0f83c8b8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUPnPServiceCallback interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        StateVariableChanged : IntPtr
+        ServiceInstanceDied  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["StateVariableChanged", "ServiceInstanceDied"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUPnPServiceCallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The StateVariableChanged method is invoked when a state variable has changed.
@@ -41,7 +53,7 @@ class IUPnPServiceCallback extends IUnknown {
     StateVariableChanged(pus, pcwszStateVarName, vaValue) {
         pcwszStateVarName := pcwszStateVarName is String ? StrPtr(pcwszStateVarName) : pcwszStateVarName
 
-        result := ComCall(3, this, "ptr", pus, "ptr", pcwszStateVarName, "ptr", vaValue, "HRESULT")
+        result := ComCall(3, this, "ptr", pus, "ptr", pcwszStateVarName, VARIANT, vaValue, "HRESULT")
         return result
     }
 
@@ -57,5 +69,27 @@ class IUPnPServiceCallback extends IUnknown {
     ServiceInstanceDied(pus) {
         result := ComCall(4, this, "ptr", pus, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUPnPServiceCallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.StateVariableChanged := CallbackCreate(GetMethod(implObj, "StateVariableChanged"), flags, 4)
+        this.vtbl.ServiceInstanceDied := CallbackCreate(GetMethod(implObj, "ServiceInstanceDied"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.StateVariableChanged)
+        CallbackFree(this.vtbl.ServiceInstanceDied)
     }
 }

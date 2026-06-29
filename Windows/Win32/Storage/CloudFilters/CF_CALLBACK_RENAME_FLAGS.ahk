@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Call back flags to inform the sync provider that a placeholder under one of its sync roots is about to be renamed or moved.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_callback_rename_flags
  * @namespace Windows.Win32.Storage.CloudFilters
  */
-class CF_CALLBACK_RENAME_FLAGS extends Win32BitflagEnum {
+export default struct CF_CALLBACK_RENAME_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No rename flag.

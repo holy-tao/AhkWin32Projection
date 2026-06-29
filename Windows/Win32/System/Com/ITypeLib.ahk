@@ -1,9 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
-#Include .\ITypeInfo.ahk
-#Include .\ITypeComp.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TLIBATTR.ahk" { TLIBATTR }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ITypeInfo.ahk" { ITypeInfo }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ITypeComp.ahk" { ITypeComp }
+#Import ".\TYPEKIND.ahk" { TYPEKIND }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a type library, the data that describes a set of objects. (ITypeLib)
@@ -31,26 +37,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-itypelib
  * @namespace Windows.Win32.System.Com
  */
-class ITypeLib extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITypeLib extends IUnknown {
     /**
      * The interface identifier for ITypeLib
      * @type {Guid}
      */
-    static IID => Guid("{00020402-0000-0000-c000-000000000046}")
+    static IID := Guid("{00020402-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITypeLib interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetTypeInfoCount  : IntPtr
+        GetTypeInfo       : IntPtr
+        GetTypeInfoType   : IntPtr
+        GetTypeInfoOfGuid : IntPtr
+        GetLibAttr        : IntPtr
+        GetTypeComp       : IntPtr
+        GetDocumentation  : IntPtr
+        IsName            : IntPtr
+        FindName          : IntPtr
+        ReleaseTLibAttr   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetTypeInfoCount", "GetTypeInfo", "GetTypeInfoType", "GetTypeInfoOfGuid", "GetLibAttr", "GetTypeComp", "GetDocumentation", "IsName", "FindName", "ReleaseTLibAttr"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITypeLib.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Provides the number of type descriptions that are in a type library.
@@ -58,7 +80,7 @@ class ITypeLib extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib-gettypeinfocount
      */
     GetTypeInfoCount() {
-        result := ComCall(3, this, "uint")
+        result := ComCall(3, this, UInt32)
         return result
     }
 
@@ -93,7 +115,7 @@ class ITypeLib extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib-gettypeinfoofguid
      */
     GetTypeInfoOfGuid(guid) {
-        result := ComCall(6, this, "ptr", guid, "ptr*", &ppTinfo := 0, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, guid, "ptr*", &ppTinfo := 0, "HRESULT")
         return ITypeInfo(ppTinfo)
     }
 
@@ -186,7 +208,7 @@ class ITypeLib extends IUnknown {
     GetDocumentation(index, pBstrName, pBstrDocString, pdwHelpContext, pBstrHelpFile) {
         pdwHelpContextMarshal := pdwHelpContext is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "int", index, "ptr", pBstrName, "ptr", pBstrDocString, pdwHelpContextMarshal, pdwHelpContext, "ptr", pBstrHelpFile, "HRESULT")
+        result := ComCall(9, this, "int", index, BSTR.Ptr, pBstrName, BSTR.Ptr, pBstrDocString, pdwHelpContextMarshal, pdwHelpContext, BSTR.Ptr, pBstrHelpFile, "HRESULT")
         return result
     }
 
@@ -200,7 +222,7 @@ class ITypeLib extends IUnknown {
     IsName(szNameBuf, lHashVal) {
         szNameBuf := szNameBuf is String ? StrPtr(szNameBuf) : szNameBuf
 
-        result := ComCall(10, this, "ptr", szNameBuf, "uint", lHashVal, "int*", &pfName := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", szNameBuf, "uint", lHashVal, BOOL.Ptr, &pfName := 0, "HRESULT")
         return pfName
     }
 
@@ -267,7 +289,7 @@ class ITypeLib extends IUnknown {
         rgMemIdMarshal := rgMemId is VarRef ? "int*" : "ptr"
         pcFoundMarshal := pcFound is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(11, this, "ptr", szNameBuf, "uint", lHashVal, "ptr*", ppTInfo, rgMemIdMarshal, rgMemId, pcFoundMarshal, pcFound, "HRESULT")
+        result := ComCall(11, this, "ptr", szNameBuf, "uint", lHashVal, ITypeInfo.Ptr, ppTInfo, rgMemIdMarshal, rgMemId, pcFoundMarshal, pcFound, "HRESULT")
         return result
     }
 
@@ -278,6 +300,44 @@ class ITypeLib extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib-releasetlibattr
      */
     ReleaseTLibAttr(pTLibAttr) {
-        ComCall(12, this, "ptr", pTLibAttr)
+        ComCall(12, this, TLIBATTR.Ptr, pTLibAttr)
+    }
+
+    Query(iid) {
+        if (ITypeLib.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetTypeInfoCount := CallbackCreate(GetMethod(implObj, "GetTypeInfoCount"), flags, 1)
+        this.vtbl.GetTypeInfo := CallbackCreate(GetMethod(implObj, "GetTypeInfo"), flags, 3)
+        this.vtbl.GetTypeInfoType := CallbackCreate(GetMethod(implObj, "GetTypeInfoType"), flags, 3)
+        this.vtbl.GetTypeInfoOfGuid := CallbackCreate(GetMethod(implObj, "GetTypeInfoOfGuid"), flags, 3)
+        this.vtbl.GetLibAttr := CallbackCreate(GetMethod(implObj, "GetLibAttr"), flags, 2)
+        this.vtbl.GetTypeComp := CallbackCreate(GetMethod(implObj, "GetTypeComp"), flags, 2)
+        this.vtbl.GetDocumentation := CallbackCreate(GetMethod(implObj, "GetDocumentation"), flags, 6)
+        this.vtbl.IsName := CallbackCreate(GetMethod(implObj, "IsName"), flags, 4)
+        this.vtbl.FindName := CallbackCreate(GetMethod(implObj, "FindName"), flags, 6)
+        this.vtbl.ReleaseTLibAttr := CallbackCreate(GetMethod(implObj, "ReleaseTLibAttr"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetTypeInfoCount)
+        CallbackFree(this.vtbl.GetTypeInfo)
+        CallbackFree(this.vtbl.GetTypeInfoType)
+        CallbackFree(this.vtbl.GetTypeInfoOfGuid)
+        CallbackFree(this.vtbl.GetLibAttr)
+        CallbackFree(this.vtbl.GetTypeComp)
+        CallbackFree(this.vtbl.GetDocumentation)
+        CallbackFree(this.vtbl.IsName)
+        CallbackFree(this.vtbl.FindName)
+        CallbackFree(this.vtbl.ReleaseTLibAttr)
     }
 }

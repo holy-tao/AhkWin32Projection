@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used to enable stream processing of data rather than single block processing.
@@ -16,19 +15,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_stream_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CMSG_STREAM_INFO extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct CMSG_STREAM_INFO {
+    #StructPack 8
 
     /**
      * Specifies the size, in bytes, of the content. Normal <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">Distinguished Encoding Rules</a> (DER) encoding is used unless <b>CMSG_INDEFINITE_LENGTH</b>(0xFFFFFFFF) is passed, indicating that the application is not specifying the content length. This forces the use of indefinite-length <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">Basic Encoding Rules</a> (BER) encoding.
-     * @type {Integer}
      */
-    cbContent {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbContent : UInt32
 
     /**
      * The address of a callback function used to read from and write data to a disk when processing large messages. 
@@ -40,19 +33,12 @@ class CMSG_STREAM_INFO extends Win32Struct {
      * 
      * 
      * ```cpp
-     * @type {Pointer<PFN_CMSG_STREAM_OUTPUT>}
      */
-    pfnStreamOutput {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pfnStreamOutput : IntPtr
 
     /**
      * A pointer to the argument to pass to the callback function. Typically, this is used for state data that includes the handle to a more deeply nested message (when decoding) or a less deeply nested message (when encoding).
-     * @type {Pointer<Void>}
      */
-    pvArg {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pvArg : IntPtr
+
 }

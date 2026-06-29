@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The PHONECAPS_LONG enum is used by methods that set or get phone capabilities described by a long value.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-phonecaps_long
  * @namespace Windows.Win32.Devices.Tapi
  */
-class PHONECAPS_LONG extends Win32Enum {
+export default struct PHONECAPS_LONG {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies the hookswitch devices available using one or more members of the 

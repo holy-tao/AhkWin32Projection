@@ -1,634 +1,197 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDCORECAPS.ahk
-#Include .\DDSCAPS.ahk
-#Include .\DDHAL_CALLBACKS.ahk
-#Include .\DDRAWI_DDRAWSURFACE_INT.ahk
-#Include .\DDRAWI_DDRAWPALETTE_INT.ahk
-#Include .\DDRAWI_DDRAWCLIPPER_INT.ahk
-#Include .\DDRAWI_DIRECTDRAW_GBL.ahk
-#Include .\DDCOLORKEY.ahk
-#Include .\VIDMEMINFO.ahk
-#Include .\DDPIXELFORMAT.ahk
-#Include .\VIDMEM.ahk
-#Include .\DDRAWI_DIRECTDRAW_LCL.ahk
-#Include .\DDHALMODEINFO.ahk
-#Include .\PROCESS_LIST.ahk
-#Include .\DBLNODE.ahk
-#Include .\DDRAWI_DDRAWSURFACE_LCL.ahk
-#Include .\DDVIDEOPORTCAPS.ahk
-#Include .\DDRAWI_DDVIDEOPORT_INT.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\HEAPALIASINFO.ahk
-#Include .\DDKERNELCAPS.ahk
-#Include .\DDNONLOCALVIDMEMCAPS.ahk
-#Include .\DDRAWI_DDMOTIONCOMP_INT.ahk
-#Include .\DDSCAPSEX.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDHAL_CALLBACKS.ahk" { DDHAL_CALLBACKS }
+#Import ".\HEAPALIASINFO.ahk" { HEAPALIASINFO }
+#Import ".\DDRAWI_DDMOTIONCOMP_INT.ahk" { DDRAWI_DDMOTIONCOMP_INT }
+#Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
+#Import ".\DDRAWI_DDVIDEOPORT_INT.ahk" { DDRAWI_DDVIDEOPORT_INT }
+#Import ".\DDRAWI_DDRAWPALETTE_INT.ahk" { DDRAWI_DDRAWPALETTE_INT }
+#Import ".\DBLNODE.ahk" { DBLNODE }
+#Import ".\DDVIDEOPORTCAPS.ahk" { DDVIDEOPORTCAPS }
+#Import ".\VIDMEM.ahk" { VIDMEM }
+#Import ".\DDRAWI_DDRAWSURFACE_INT.ahk" { DDRAWI_DDRAWSURFACE_INT }
+#Import ".\DDSCAPSEX.ahk" { DDSCAPSEX }
+#Import ".\PROCESS_LIST.ahk" { PROCESS_LIST }
+#Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
+#Import ".\DDKERNELCAPS.ahk" { DDKERNELCAPS }
+#Import ".\DDCORECAPS.ahk" { DDCORECAPS }
+#Import ".\DDRAWI_DDRAWCLIPPER_INT.ahk" { DDRAWI_DDRAWCLIPPER_INT }
+#Import ".\DDSCAPS.ahk" { DDSCAPS }
+#Import ".\VIDMEMINFO.ahk" { VIDMEMINFO }
+#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
+#Import ".\DDNONLOCALVIDMEMCAPS.ahk" { DDNONLOCALVIDMEMCAPS }
+#Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
+#Import ".\DDHALMODEINFO.ahk" { DDHALMODEINFO }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDRAWI_DIRECTDRAW_GBL extends Win32Struct {
-    static sizeof => 1808
+export default struct DDRAWI_DIRECTDRAW_GBL {
+    #StructPack 8
 
-    static packingSize => 8
+    dwRefCnt : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwRefCnt {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    fpPrimaryOrig : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    fpPrimaryOrig {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ddCaps : DDCORECAPS
 
-    /**
-     * @type {DDCORECAPS}
-     */
-    ddCaps {
-        get {
-            if(!this.HasProp("__ddCaps"))
-                this.__ddCaps := DDCORECAPS(16, this)
-            return this.__ddCaps
-        }
-    }
+    dwInternal1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwInternal1 {
-        get => NumGet(this, 332, "uint")
-        set => NumPut("uint", value, this, 332)
-    }
+    dwUnused1 : UInt32[9]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    dwUnused1 {
-        get {
-            if(!this.HasProp("__dwUnused1ProxyArray"))
-                this.__dwUnused1ProxyArray := Win32FixedArray(this.ptr + 336, 9, Primitive, "uint")
-            return this.__dwUnused1ProxyArray
-        }
-    }
+    lpDDCBtmp : DDHAL_CALLBACKS.Ptr
 
-    /**
-     * @type {Pointer<DDHAL_CALLBACKS>}
-     */
-    lpDDCBtmp {
-        get => NumGet(this, 376, "ptr")
-        set => NumPut("ptr", value, this, 376)
-    }
-
-    /**
-     * @type {Pointer<DDRAWI_DDRAWSURFACE_INT>}
-     */
+    __dsList_ptr : IntPtr
     dsList {
-        get => NumGet(this, 384, "ptr")
-        set => NumPut("ptr", value, this, 384)
+        get => (addr := this.__dsList_ptr) ? DDRAWI_DDRAWSURFACE_INT.At(addr) : unset
+        set => this.__dsList_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer<DDRAWI_DDRAWPALETTE_INT>}
-     */
+    __palList_ptr : IntPtr
     palList {
-        get => NumGet(this, 392, "ptr")
-        set => NumPut("ptr", value, this, 392)
+        get => (addr := this.__palList_ptr) ? DDRAWI_DDRAWPALETTE_INT.At(addr) : unset
+        set => this.__palList_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer<DDRAWI_DDRAWCLIPPER_INT>}
-     */
+    __clipperList_ptr : IntPtr
     clipperList {
-        get => NumGet(this, 400, "ptr")
-        set => NumPut("ptr", value, this, 400)
+        get => (addr := this.__clipperList_ptr) ? DDRAWI_DDRAWCLIPPER_INT.At(addr) : unset
+        set => this.__clipperList_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer<DDRAWI_DIRECTDRAW_GBL>}
-     */
-    lp16DD {
-        get => NumGet(this, 408, "ptr")
-        set => NumPut("ptr", value, this, 408)
-    }
+    lp16DD : DDRAWI_DIRECTDRAW_GBL.Ptr
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxOverlays {
-        get => NumGet(this, 416, "uint")
-        set => NumPut("uint", value, this, 416)
-    }
+    dwMaxOverlays : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCurrOverlays {
-        get => NumGet(this, 420, "uint")
-        set => NumPut("uint", value, this, 420)
-    }
+    dwCurrOverlays : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMonitorFrequency {
-        get => NumGet(this, 424, "uint")
-        set => NumPut("uint", value, this, 424)
-    }
+    dwMonitorFrequency : UInt32
 
-    /**
-     * @type {DDCORECAPS}
-     */
-    ddHELCaps {
-        get {
-            if(!this.HasProp("__ddHELCaps"))
-                this.__ddHELCaps := DDCORECAPS(428, this)
-            return this.__ddHELCaps
-        }
-    }
+    ddHELCaps : DDCORECAPS
 
-    /**
-     * @type {Array<Integer>}
-     */
-    dwUnused2 {
-        get {
-            if(!this.HasProp("__dwUnused2ProxyArray"))
-                this.__dwUnused2ProxyArray := Win32FixedArray(this.ptr + 744, 50, Primitive, "uint")
-            return this.__dwUnused2ProxyArray
-        }
-    }
+    dwUnused2 : UInt32[50]
 
-    /**
-     * @type {DDCOLORKEY}
-     */
-    ddckCKDestOverlay {
-        get {
-            if(!this.HasProp("__ddckCKDestOverlay"))
-                this.__ddckCKDestOverlay := DDCOLORKEY(944, this)
-            return this.__ddckCKDestOverlay
-        }
-    }
+    ddckCKDestOverlay : DDCOLORKEY
 
-    /**
-     * @type {DDCOLORKEY}
-     */
-    ddckCKSrcOverlay {
-        get {
-            if(!this.HasProp("__ddckCKSrcOverlay"))
-                this.__ddckCKSrcOverlay := DDCOLORKEY(952, this)
-            return this.__ddckCKSrcOverlay
-        }
-    }
+    ddckCKSrcOverlay : DDCOLORKEY
 
-    /**
-     * @type {VIDMEMINFO}
-     */
-    vmiData {
-        get {
-            if(!this.HasProp("__vmiData"))
-                this.__vmiData := VIDMEMINFO(960, this)
-            return this.__vmiData
-        }
-    }
+    vmiData : VIDMEMINFO
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpDriverHandle {
-        get => NumGet(this, 1048, "ptr")
-        set => NumPut("ptr", value, this, 1048)
-    }
+    lpDriverHandle : IntPtr
 
-    /**
-     * @type {Pointer<DDRAWI_DIRECTDRAW_LCL>}
-     */
+    __lpExclusiveOwner_ptr : IntPtr
     lpExclusiveOwner {
-        get => NumGet(this, 1056, "ptr")
-        set => NumPut("ptr", value, this, 1056)
+        get => (addr := this.__lpExclusiveOwner_ptr) ? DDRAWI_DIRECTDRAW_LCL.At(addr) : unset
+        set => this.__lpExclusiveOwner_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Integer}
-     */
-    dwModeIndex {
-        get => NumGet(this, 1064, "uint")
-        set => NumPut("uint", value, this, 1064)
-    }
+    dwModeIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwModeIndexOrig {
-        get => NumGet(this, 1068, "uint")
-        set => NumPut("uint", value, this, 1068)
-    }
+    dwModeIndexOrig : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNumFourCC {
-        get => NumGet(this, 1072, "uint")
-        set => NumPut("uint", value, this, 1072)
-    }
+    dwNumFourCC : UInt32
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    lpdwFourCC {
-        get => NumGet(this, 1080, "ptr")
-        set => NumPut("ptr", value, this, 1080)
-    }
+    lpdwFourCC : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    dwNumModes {
-        get => NumGet(this, 1088, "uint")
-        set => NumPut("uint", value, this, 1088)
-    }
+    dwNumModes : UInt32
 
-    /**
-     * @type {Pointer<DDHALMODEINFO>}
-     */
-    lpModeInfo {
-        get => NumGet(this, 1096, "ptr")
-        set => NumPut("ptr", value, this, 1096)
-    }
+    lpModeInfo : DDHALMODEINFO.Ptr
 
-    /**
-     * @type {PROCESS_LIST}
-     */
-    plProcessList {
-        get {
-            if(!this.HasProp("__plProcessList"))
-                this.__plProcessList := PROCESS_LIST(1104, this)
-            return this.__plProcessList
-        }
-    }
+    plProcessList : PROCESS_LIST
 
-    /**
-     * @type {Integer}
-     */
-    dwSurfaceLockCount {
-        get => NumGet(this, 1128, "uint")
-        set => NumPut("uint", value, this, 1128)
-    }
+    dwSurfaceLockCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAliasedLockCnt {
-        get => NumGet(this, 1132, "uint")
-        set => NumPut("uint", value, this, 1132)
-    }
+    dwAliasedLockCnt : UInt32
 
-    /**
-     * @type {Pointer}
-     */
-    dwReserved3 {
-        get => NumGet(this, 1136, "ptr")
-        set => NumPut("ptr", value, this, 1136)
-    }
+    dwReserved3 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    hDD {
-        get => NumGet(this, 1144, "ptr")
-        set => NumPut("ptr", value, this, 1144)
-    }
+    hDD : IntPtr
 
-    /**
-     * @type {String}
-     */
-    cObsolete {
-        get => StrGet(this.ptr + 1152, 11, "UTF-8")
-        set => StrPut(value, this.ptr + 1152, 11, "UTF-8")
-    }
+    cObsolete : CHAR[12]
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved1 {
-        get => NumGet(this, 1164, "uint")
-        set => NumPut("uint", value, this, 1164)
-    }
+    dwReserved1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved2 {
-        get => NumGet(this, 1168, "uint")
-        set => NumPut("uint", value, this, 1168)
-    }
+    dwReserved2 : UInt32
 
-    /**
-     * @type {DBLNODE}
-     */
-    dbnOverlayRoot {
-        get {
-            if(!this.HasProp("__dbnOverlayRoot"))
-                this.__dbnOverlayRoot := DBLNODE(1176, this)
-            return this.__dbnOverlayRoot
-        }
-    }
+    dbnOverlayRoot : DBLNODE
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    lpwPDeviceFlags {
-        get => NumGet(this, 1208, "ptr")
-        set => NumPut("ptr", value, this, 1208)
-    }
+    lpwPDeviceFlags : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    dwPDevice {
-        get => NumGet(this, 1216, "uint")
-        set => NumPut("uint", value, this, 1216)
-    }
+    dwPDevice : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwWin16LockCnt {
-        get => NumGet(this, 1220, "uint")
-        set => NumPut("uint", value, this, 1220)
-    }
+    dwWin16LockCnt : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwUnused3 {
-        get => NumGet(this, 1224, "uint")
-        set => NumPut("uint", value, this, 1224)
-    }
+    dwUnused3 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hInstance {
-        get => NumGet(this, 1228, "uint")
-        set => NumPut("uint", value, this, 1228)
-    }
+    hInstance : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwEvent16 {
-        get => NumGet(this, 1232, "uint")
-        set => NumPut("uint", value, this, 1232)
-    }
+    dwEvent16 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSaveNumModes {
-        get => NumGet(this, 1236, "uint")
-        set => NumPut("uint", value, this, 1236)
-    }
+    dwSaveNumModes : UInt32
 
-    /**
-     * @type {Pointer}
-     */
-    lpD3DGlobalDriverData {
-        get => NumGet(this, 1240, "ptr")
-        set => NumPut("ptr", value, this, 1240)
-    }
+    lpD3DGlobalDriverData : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    lpD3DHALCallbacks {
-        get => NumGet(this, 1248, "ptr")
-        set => NumPut("ptr", value, this, 1248)
-    }
+    lpD3DHALCallbacks : IntPtr
 
-    /**
-     * @type {DDCORECAPS}
-     */
-    ddBothCaps {
-        get {
-            if(!this.HasProp("__ddBothCaps"))
-                this.__ddBothCaps := DDCORECAPS(1256, this)
-            return this.__ddBothCaps
-        }
-    }
+    ddBothCaps : DDCORECAPS
 
-    /**
-     * @type {Pointer<DDVIDEOPORTCAPS>}
-     */
-    lpDDVideoPortCaps {
-        get => NumGet(this, 1576, "ptr")
-        set => NumPut("ptr", value, this, 1576)
-    }
+    lpDDVideoPortCaps : DDVIDEOPORTCAPS.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DDVIDEOPORT_INT>}
-     */
+    __dvpList_ptr : IntPtr
     dvpList {
-        get => NumGet(this, 1584, "ptr")
-        set => NumPut("ptr", value, this, 1584)
+        get => (addr := this.__dvpList_ptr) ? DDRAWI_DDVIDEOPORT_INT.At(addr) : unset
+        set => this.__dvpList_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer}
-     */
-    lpD3DHALCallbacks2 {
-        get => NumGet(this, 1592, "ptr")
-        set => NumPut("ptr", value, this, 1592)
-    }
+    lpD3DHALCallbacks2 : IntPtr
 
-    /**
-     * @type {RECT}
-     */
-    rectDevice {
-        get {
-            if(!this.HasProp("__rectDevice"))
-                this.__rectDevice := RECT(1600, this)
-            return this.__rectDevice
-        }
-    }
+    rectDevice : RECT
 
-    /**
-     * @type {Integer}
-     */
-    cMonitors {
-        get => NumGet(this, 1616, "uint")
-        set => NumPut("uint", value, this, 1616)
-    }
+    cMonitors : UInt32
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    gpbmiSrc {
-        get => NumGet(this, 1624, "ptr")
-        set => NumPut("ptr", value, this, 1624)
-    }
+    gpbmiSrc : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    gpbmiDest {
-        get => NumGet(this, 1632, "ptr")
-        set => NumPut("ptr", value, this, 1632)
-    }
+    gpbmiDest : IntPtr
 
-    /**
-     * @type {Pointer<HEAPALIASINFO>}
-     */
-    phaiHeapAliases {
-        get => NumGet(this, 1640, "ptr")
-        set => NumPut("ptr", value, this, 1640)
-    }
+    phaiHeapAliases : HEAPALIASINFO.Ptr
 
-    /**
-     * @type {Pointer}
-     */
-    hKernelHandle {
-        get => NumGet(this, 1648, "ptr")
-        set => NumPut("ptr", value, this, 1648)
-    }
+    hKernelHandle : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    pfnNotifyProc {
-        get => NumGet(this, 1656, "ptr")
-        set => NumPut("ptr", value, this, 1656)
-    }
+    pfnNotifyProc : IntPtr
 
-    /**
-     * @type {Pointer<DDKERNELCAPS>}
-     */
-    lpDDKernelCaps {
-        get => NumGet(this, 1664, "ptr")
-        set => NumPut("ptr", value, this, 1664)
-    }
+    lpDDKernelCaps : DDKERNELCAPS.Ptr
 
-    /**
-     * @type {Pointer<DDNONLOCALVIDMEMCAPS>}
-     */
-    lpddNLVCaps {
-        get => NumGet(this, 1672, "ptr")
-        set => NumPut("ptr", value, this, 1672)
-    }
+    lpddNLVCaps : DDNONLOCALVIDMEMCAPS.Ptr
 
-    /**
-     * @type {Pointer<DDNONLOCALVIDMEMCAPS>}
-     */
-    lpddNLVHELCaps {
-        get => NumGet(this, 1680, "ptr")
-        set => NumPut("ptr", value, this, 1680)
-    }
+    lpddNLVHELCaps : DDNONLOCALVIDMEMCAPS.Ptr
 
-    /**
-     * @type {Pointer<DDNONLOCALVIDMEMCAPS>}
-     */
-    lpddNLVBothCaps {
-        get => NumGet(this, 1688, "ptr")
-        set => NumPut("ptr", value, this, 1688)
-    }
+    lpddNLVBothCaps : DDNONLOCALVIDMEMCAPS.Ptr
 
-    /**
-     * @type {Pointer}
-     */
-    lpD3DExtendedCaps {
-        get => NumGet(this, 1696, "ptr")
-        set => NumPut("ptr", value, this, 1696)
-    }
+    lpD3DExtendedCaps : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    dwDOSBoxEvent {
-        get => NumGet(this, 1704, "uint")
-        set => NumPut("uint", value, this, 1704)
-    }
+    dwDOSBoxEvent : UInt32
 
-    /**
-     * @type {RECT}
-     */
-    rectDesktop {
-        get {
-            if(!this.HasProp("__rectDesktop"))
-                this.__rectDesktop := RECT(1708, this)
-            return this.__rectDesktop
-        }
-    }
+    rectDesktop : RECT
 
-    /**
-     * @type {String}
-     */
-    cDriverName {
-        get => StrGet(this.ptr + 1724, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 1724, 31, "UTF-8")
-    }
+    cDriverName : CHAR[32]
 
-    /**
-     * @type {Pointer}
-     */
-    lpD3DHALCallbacks3 {
-        get => NumGet(this, 1760, "ptr")
-        set => NumPut("ptr", value, this, 1760)
-    }
+    lpD3DHALCallbacks3 : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    dwNumZPixelFormats {
-        get => NumGet(this, 1768, "uint")
-        set => NumPut("uint", value, this, 1768)
-    }
+    dwNumZPixelFormats : UInt32
 
-    /**
-     * @type {Pointer<DDPIXELFORMAT>}
-     */
-    lpZPixelFormats {
-        get => NumGet(this, 1776, "ptr")
-        set => NumPut("ptr", value, this, 1776)
-    }
+    lpZPixelFormats : DDPIXELFORMAT.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DDMOTIONCOMP_INT>}
-     */
+    __mcList_ptr : IntPtr
     mcList {
-        get => NumGet(this, 1784, "ptr")
-        set => NumPut("ptr", value, this, 1784)
+        get => (addr := this.__mcList_ptr) ? DDRAWI_DDMOTIONCOMP_INT.At(addr) : unset
+        set => this.__mcList_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Integer}
-     */
-    hDDVxd {
-        get => NumGet(this, 1792, "uint")
-        set => NumPut("uint", value, this, 1792)
-    }
+    hDDVxd : UInt32
 
-    /**
-     * @type {DDSCAPSEX}
-     */
-    ddsCapsMore {
-        get {
-            if(!this.HasProp("__ddsCapsMore"))
-                this.__ddsCapsMore := DDSCAPSEX(1796, this)
-            return this.__ddsCapsMore
-        }
-    }
+    ddsCapsMore : DDSCAPSEX
+
 }

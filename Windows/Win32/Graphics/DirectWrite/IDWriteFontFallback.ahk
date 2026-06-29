@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DWRITE_FONT_STRETCH.ahk" { DWRITE_FONT_STRETCH }
+#Import ".\DWRITE_FONT_WEIGHT.ahk" { DWRITE_FONT_WEIGHT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_FONT_STYLE.ahk" { DWRITE_FONT_STYLE }
+#Import ".\IDWriteFont.ahk" { IDWriteFont }
+#Import ".\IDWriteTextAnalysisSource.ahk" { IDWriteTextAnalysisSource }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
 
 /**
  * Allows you to access fallback fonts from the font list.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nn-dwrite_2-idwritefontfallback
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteFontFallback extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteFontFallback extends IUnknown {
     /**
      * The interface identifier for IDWriteFontFallback
      * @type {Guid}
      */
-    static IID => Guid("{efa008f9-f7a1-48bf-b05c-f224713cc0ff}")
+    static IID := Guid("{efa008f9-f7a1-48bf-b05c-f224713cc0ff}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteFontFallback interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        MapCharacters : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["MapCharacters"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteFontFallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Determines an appropriate font to use to render the beginning range of text.
@@ -73,7 +88,27 @@ class IDWriteFontFallback extends IUnknown {
         mappedLengthMarshal := mappedLength is VarRef ? "uint*" : "ptr"
         scaleMarshal := scale is VarRef ? "float*" : "ptr"
 
-        result := ComCall(3, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", baseFontCollection, "ptr", baseFamilyName, "int", baseWeight, "int", baseStyle, "int", baseStretch, mappedLengthMarshal, mappedLength, "ptr*", mappedFont, scaleMarshal, scale, "HRESULT")
+        result := ComCall(3, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", baseFontCollection, "ptr", baseFamilyName, DWRITE_FONT_WEIGHT, baseWeight, DWRITE_FONT_STYLE, baseStyle, DWRITE_FONT_STRETCH, baseStretch, mappedLengthMarshal, mappedLength, IDWriteFont.Ptr, mappedFont, scaleMarshal, scale, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDWriteFontFallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.MapCharacters := CallbackCreate(GetMethod(implObj, "MapCharacters"), flags, 12)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.MapCharacters)
     }
 }

@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\TransactionVote.ahk" { TransactionVote }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Controls object deactivation and transaction voting by manipulating context state flags.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icontextstate
  * @namespace Windows.Win32.System.ComponentServices
  */
-class IContextState extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IContextState extends IUnknown {
     /**
      * The interface identifier for IContextState
      * @type {Guid}
      */
-    static IID => Guid("{3c05e54b-a42a-11d2-afc4-00c04f8ee1c4}")
+    static IID := Guid("{3c05e54b-a42a-11d2-afc4-00c04f8ee1c4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IContextState interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetDeactivateOnReturn : IntPtr
+        GetDeactivateOnReturn : IntPtr
+        SetMyTransactionVote  : IntPtr
+        GetMyTransactionVote  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetDeactivateOnReturn", "GetDeactivateOnReturn", "SetMyTransactionVote", "GetMyTransactionVote"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IContextState.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the done flag, which controls whether the object deactivates on method return.
@@ -69,7 +82,7 @@ class IContextState extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icontextstate-setdeactivateonreturn
      */
     SetDeactivateOnReturn(bDeactivate) {
-        result := ComCall(3, this, "short", bDeactivate, "HRESULT")
+        result := ComCall(3, this, VARIANT_BOOL, bDeactivate, "HRESULT")
         return result
     }
 
@@ -159,7 +172,7 @@ class IContextState extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icontextstate-setmytransactionvote
      */
     SetMyTransactionVote(txVote) {
-        result := ComCall(5, this, "int", txVote, "HRESULT")
+        result := ComCall(5, this, TransactionVote, txVote, "HRESULT")
         return result
     }
 
@@ -205,5 +218,31 @@ class IContextState extends IUnknown {
 
         result := ComCall(6, this, ptxVoteMarshal, ptxVote, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IContextState.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetDeactivateOnReturn := CallbackCreate(GetMethod(implObj, "SetDeactivateOnReturn"), flags, 2)
+        this.vtbl.GetDeactivateOnReturn := CallbackCreate(GetMethod(implObj, "GetDeactivateOnReturn"), flags, 2)
+        this.vtbl.SetMyTransactionVote := CallbackCreate(GetMethod(implObj, "SetMyTransactionVote"), flags, 2)
+        this.vtbl.GetMyTransactionVote := CallbackCreate(GetMethod(implObj, "GetMyTransactionVote"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetDeactivateOnReturn)
+        CallbackFree(this.vtbl.GetDeactivateOnReturn)
+        CallbackFree(this.vtbl.SetMyTransactionVote)
+        CallbackFree(this.vtbl.GetMyTransactionVote)
     }
 }

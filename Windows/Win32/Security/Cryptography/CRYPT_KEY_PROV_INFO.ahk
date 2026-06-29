@@ -1,81 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_KEY_FLAGS.ahk
-#Include .\CRYPT_KEY_PROV_PARAM.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CRYPT_KEY_PROV_PARAM.ahk" { CRYPT_KEY_PROV_PARAM }
+#Import ".\CRYPT_KEY_FLAGS.ahk" { CRYPT_KEY_FLAGS }
 
 /**
  * The CRYPT_KEY_PROV_INFO structure contains information about a key container within a cryptographic service provider (CSP).
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_key_prov_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRYPT_KEY_PROV_INFO extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct CRYPT_KEY_PROV_INFO {
+    #StructPack 8
 
     /**
      * A pointer to a null-terminated Unicode string that contains the name of the key container.
      * 
      * When the <b>dwProvType</b> member is zero, this string contains the name of a key within a CNG key storage provider. This string is passed as the <i>pwszKeyName</i> parameter to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenkey">NCryptOpenKey</a> function.
-     * @type {PWSTR}
      */
-    pwszContainerName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pwszContainerName : PWSTR
 
     /**
      * A pointer to a null-terminated Unicode string that contains the name of the CSP.
      * 
      * When the <b>dwProvType</b> member is zero, this string contains the name of a CNG key storage provider. This string is passed as the <i>pwszProviderName</i> parameter to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenstorageprovider">NCryptOpenStorageProvider</a> function.
-     * @type {PWSTR}
      */
-    pwszProvName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwszProvName : PWSTR
 
     /**
      * Specifies the CSP type. This can be zero or one of the <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/cryptographic-provider-types">Cryptographic Provider Types</a>. 
      * 
      * 
      * If this member is zero, the key container is one of the CNG key storage providers.
-     * @type {Integer}
      */
-    dwProvType {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwProvType : UInt32
 
-    /**
-     * @type {CRYPT_KEY_FLAGS}
-     */
-    dwFlags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwFlags : CRYPT_KEY_FLAGS
 
     /**
      * The number of elements in the <b>rgProvParam</b> array.
      * 
      * When the <b>dwProvType</b> member is zero, this member is not used and must be zero.
-     * @type {Integer}
      */
-    cProvParam {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    cProvParam : UInt32
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_key_prov_param">CRYPT_KEY_PROV_PARAM</a> structures that contain the parameters for the key container. The <b>cProvParam</b> member contains the number of elements in this array.
      * 
      * When the <b>dwProvType</b> member is zero, this member is not used and must be <b>NULL</b>.
-     * @type {Pointer<CRYPT_KEY_PROV_PARAM>}
      */
-    rgProvParam {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    rgProvParam : CRYPT_KEY_PROV_PARAM.Ptr
 
     /**
      * The specification of the private key to retrieve. 
@@ -112,10 +84,7 @@ class CRYPT_KEY_PROV_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwKeySpec {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwKeySpec : UInt32
+
 }

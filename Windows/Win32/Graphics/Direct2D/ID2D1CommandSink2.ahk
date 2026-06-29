@@ -1,33 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1CommandSink1.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID2D1CommandSink1.ahk" { ID2D1CommandSink1 }
+#Import ".\ID2D1GradientMesh.ahk" { ID2D1GradientMesh }
+#Import ".\ID2D1InkStyle.ahk" { ID2D1InkStyle }
+#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
+#Import ".\ID2D1Ink.ahk" { ID2D1Ink }
+#Import ".\ID2D1GdiMetafile.ahk" { ID2D1GdiMetafile }
 
 /**
  * This interface performs all the same functions as the existing ID2D1CommandSink1 interface. It also enables access to ink rendering and gradient mesh rendering.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nn-d2d1_3-id2d1commandsink2
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1CommandSink2 extends ID2D1CommandSink1 {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1CommandSink2 extends ID2D1CommandSink1 {
     /**
      * The interface identifier for ID2D1CommandSink2
      * @type {Guid}
      */
-    static IID => Guid("{3bab440e-417e-47df-a2e2-bc0be6a00916}")
+    static IID := Guid("{3bab440e-417e-47df-a2e2-bc0be6a00916}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 29
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1CommandSink2 interfaces
+    */
+    struct Vtbl extends ID2D1CommandSink1.Vtbl {
+        DrawInk          : IntPtr
+        DrawGradientMesh : IntPtr
+        DrawGdiMetafile  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["DrawInk", "DrawGradientMesh", "DrawGdiMetafile"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1CommandSink2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Renders the given ink object using the given brush and ink style. (ID2D1CommandSink2.DrawInk)
@@ -77,7 +93,31 @@ class ID2D1CommandSink2 extends ID2D1CommandSink1 {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1commandsink2-drawgdimetafile
      */
     DrawGdiMetafile(gdiMetafile, destinationRectangle, sourceRectangle) {
-        result := ComCall(31, this, "ptr", gdiMetafile, "ptr", destinationRectangle, "ptr", sourceRectangle, "HRESULT")
+        result := ComCall(31, this, "ptr", gdiMetafile, D2D_RECT_F.Ptr, destinationRectangle, D2D_RECT_F.Ptr, sourceRectangle, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID2D1CommandSink2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.DrawInk := CallbackCreate(GetMethod(implObj, "DrawInk"), flags, 4)
+        this.vtbl.DrawGradientMesh := CallbackCreate(GetMethod(implObj, "DrawGradientMesh"), flags, 2)
+        this.vtbl.DrawGdiMetafile := CallbackCreate(GetMethod(implObj, "DrawGdiMetafile"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.DrawInk)
+        CallbackFree(this.vtbl.DrawGradientMesh)
+        CallbackFree(this.vtbl.DrawGdiMetafile)
     }
 }

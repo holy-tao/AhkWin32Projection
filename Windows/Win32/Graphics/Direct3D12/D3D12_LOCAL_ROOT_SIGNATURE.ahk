@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ID3D12RootSignature.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ID3D12RootSignature.ahk" { ID3D12RootSignature }
 
 /**
  * Defines a local root signature state subobject that will be used with associated shaders.
@@ -11,17 +10,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_local_root_signature
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_LOCAL_ROOT_SIGNATURE extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 8
+export default struct D3D12_LOCAL_ROOT_SIGNATURE {
+    #StructPack 8
 
     /**
      * The root signature that will function as a local root signature.  A state object holds a reference to this signature.
-     * @type {ID3D12RootSignature}
      */
-    pLocalRootSignature {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pLocalRootSignature : ID3D12RootSignature
+
 }

@@ -1,32 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ITransactionEnlistmentAsync.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITransactionEnlistmentAsync.ahk" { ITransactionEnlistmentAsync }
+#Import ".\ITransactionResourceAsync.ahk" { ITransactionResourceAsync }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\XID.ahk" { XID }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITransaction.ahk" { ITransaction }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
  */
-class IDtcToXaHelperSinglePipe extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDtcToXaHelperSinglePipe extends IUnknown {
     /**
      * The interface identifier for IDtcToXaHelperSinglePipe
      * @type {Guid}
      */
-    static IID => Guid("{47ed4971-53b3-11d1-bbb9-00c04fd658f6}")
+    static IID := Guid("{47ed4971-53b3-11d1-bbb9-00c04fd658f6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDtcToXaHelperSinglePipe interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        XARMCreate       : IntPtr
+        ConvertTridToXID : IntPtr
+        EnlistWithRM     : IntPtr
+        ReleaseRMCookie  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["XARMCreate", "ConvertTridToXID", "EnlistWithRM", "ReleaseRMCookie"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDtcToXaHelperSinglePipe.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -55,7 +71,7 @@ class IDtcToXaHelperSinglePipe extends IUnknown {
     ConvertTridToXID(pdwITrans, dwRMCookie, pxid) {
         pdwITransMarshal := pdwITrans is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pdwITransMarshal, pdwITrans, "uint", dwRMCookie, "ptr", pxid, "HRESULT")
+        result := ComCall(4, this, pdwITransMarshal, pdwITrans, "uint", dwRMCookie, XID.Ptr, pxid, "HRESULT")
         return result
     }
 
@@ -78,6 +94,32 @@ class IDtcToXaHelperSinglePipe extends IUnknown {
      * @returns {String} Nothing - always returns an empty string
      */
     ReleaseRMCookie(i_dwRMCookie, i_fNormal) {
-        ComCall(6, this, "uint", i_dwRMCookie, "int", i_fNormal)
+        ComCall(6, this, "uint", i_dwRMCookie, BOOL, i_fNormal)
+    }
+
+    Query(iid) {
+        if (IDtcToXaHelperSinglePipe.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.XARMCreate := CallbackCreate(GetMethod(implObj, "XARMCreate"), flags, 4)
+        this.vtbl.ConvertTridToXID := CallbackCreate(GetMethod(implObj, "ConvertTridToXID"), flags, 4)
+        this.vtbl.EnlistWithRM := CallbackCreate(GetMethod(implObj, "EnlistWithRM"), flags, 5)
+        this.vtbl.ReleaseRMCookie := CallbackCreate(GetMethod(implObj, "ReleaseRMCookie"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.XARMCreate)
+        CallbackFree(this.vtbl.ConvertTridToXID)
+        CallbackFree(this.vtbl.EnlistWithRM)
+        CallbackFree(this.vtbl.ReleaseRMCookie)
     }
 }

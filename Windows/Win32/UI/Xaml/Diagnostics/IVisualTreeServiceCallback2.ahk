@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IVisualTreeServiceCallback.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VisualElementState.ahk" { VisualElementState }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IVisualTreeServiceCallback.ahk" { IVisualTreeServiceCallback }
 
 /**
  * Represents additional capabilities of an IVisualTreeServiceCallback object.
  * @see https://learn.microsoft.com/windows/win32/api/xamlom/nn-xamlom-ivisualtreeservicecallback2
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
  */
-class IVisualTreeServiceCallback2 extends IVisualTreeServiceCallback {
-
-    static sizeof => A_PtrSize
+export default struct IVisualTreeServiceCallback2 extends IVisualTreeServiceCallback {
     /**
      * The interface identifier for IVisualTreeServiceCallback2
      * @type {Guid}
      */
-    static IID => Guid("{bad9eb88-ae77-4397-b948-5fa2db0a19ea}")
+    static IID := Guid("{bad9eb88-ae77-4397-b948-5fa2db0a19ea}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVisualTreeServiceCallback2 interfaces
+    */
+    struct Vtbl extends IVisualTreeServiceCallback.Vtbl {
+        OnElementStateChanged : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnElementStateChanged"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVisualTreeServiceCallback2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Communicates the state of an element in the visual tree when it changes.
@@ -42,7 +52,27 @@ class IVisualTreeServiceCallback2 extends IVisualTreeServiceCallback {
     OnElementStateChanged(element, elementState, _context) {
         _context := _context is String ? StrPtr(_context) : _context
 
-        result := ComCall(4, this, "uint", element, "int", elementState, "ptr", _context, "HRESULT")
+        result := ComCall(4, this, "uint", element, VisualElementState, elementState, "ptr", _context, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVisualTreeServiceCallback2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnElementStateChanged := CallbackCreate(GetMethod(implObj, "OnElementStateChanged"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnElementStateChanged)
     }
 }

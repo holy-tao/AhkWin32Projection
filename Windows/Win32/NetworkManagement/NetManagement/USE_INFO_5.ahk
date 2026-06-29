@@ -1,73 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USE_INFO_3.ahk
-#Include .\USE_INFO_2.ahk
-#Include .\USE_INFO_ASG_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USE_INFO_3.ahk" { USE_INFO_3 }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\USE_INFO_ASG_TYPE.ahk" { USE_INFO_ASG_TYPE }
+#Import ".\USE_INFO_2.ahk" { USE_INFO_2 }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class USE_INFO_5 extends Win32Struct {
-    static sizeof => 112
+export default struct USE_INFO_5 {
+    #StructPack 8
 
-    static packingSize => 8
+    ui4_ui3 : USE_INFO_3
 
-    /**
-     * @type {USE_INFO_3}
-     */
-    ui4_ui3 {
-        get {
-            if(!this.HasProp("__ui4_ui3"))
-                this.__ui4_ui3 := USE_INFO_3(0, this)
-            return this.__ui4_ui3
-        }
-    }
+    ui4_auth_identity_length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ui4_auth_identity_length {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    ui4_auth_identity : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    ui4_auth_identity {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    ui5_security_descriptor_length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ui5_security_descriptor_length {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    ui5_security_descriptor : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    ui5_security_descriptor {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    ui5_use_options_length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ui5_use_options_length {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    ui5_use_options : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    ui5_use_options {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
 }

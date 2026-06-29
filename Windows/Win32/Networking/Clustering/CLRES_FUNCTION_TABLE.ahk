@@ -1,9 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLRES_V1_FUNCTIONS.ahk
-#Include .\CLRES_V2_FUNCTIONS.ahk
-#Include .\CLRES_V3_FUNCTIONS.ahk
-#Include .\CLRES_V4_FUNCTIONS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CLRES_V2_FUNCTIONS.ahk" { CLRES_V2_FUNCTIONS }
+#Import ".\CLRES_V3_FUNCTIONS.ahk" { CLRES_V3_FUNCTIONS }
+#Import ".\CLRES_V1_FUNCTIONS.ahk" { CLRES_V1_FUNCTIONS }
+#Import ".\CLRES_V4_FUNCTIONS.ahk" { CLRES_V4_FUNCTIONS }
 
 /**
  * Describes a function table for any version of the Resource API.
@@ -34,76 +33,31 @@
  * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-clres_function_table
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLRES_FUNCTION_TABLE extends Win32Struct {
-    static sizeof => 120
-
-    static packingSize => 8
+export default struct CLRES_FUNCTION_TABLE {
+    #StructPack 8
 
     /**
      * Count of bytes in the structure.
      * 
      * 
      * This can contain one of these values:
-     * @type {Integer}
      */
-    TableSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    TableSize : UInt32
 
     /**
      * The supported version of the Resource API.
      * 
      * 
      * This can contain one of these values:
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Version : UInt32
 
-    /**
-     * @type {CLRES_V1_FUNCTIONS}
-     */
-    V1Functions {
-        get {
-            if(!this.HasProp("__V1Functions"))
-                this.__V1Functions := CLRES_V1_FUNCTIONS(8, this)
-            return this.__V1Functions
-        }
-    }
+    V1Functions : CLRES_V1_FUNCTIONS
 
-    /**
-     * @type {CLRES_V2_FUNCTIONS}
-     */
-    V2Functions {
-        get {
-            if(!this.HasProp("__V2Functions"))
-                this.__V2Functions := CLRES_V2_FUNCTIONS(8, this)
-            return this.__V2Functions
-        }
-    }
-
-    /**
-     * @type {CLRES_V3_FUNCTIONS}
-     */
-    V3Functions {
-        get {
-            if(!this.HasProp("__V3Functions"))
-                this.__V3Functions := CLRES_V3_FUNCTIONS(8, this)
-            return this.__V3Functions
-        }
-    }
-
-    /**
-     * @type {CLRES_V4_FUNCTIONS}
-     */
-    V4Functions {
-        get {
-            if(!this.HasProp("__V4Functions"))
-                this.__V4Functions := CLRES_V4_FUNCTIONS(8, this)
-            return this.__V4Functions
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'V2Functions', { type: CLRES_V2_FUNCTIONS, offset: 8 })
+        DefineProp(this.Prototype, 'V3Functions', { type: CLRES_V3_FUNCTIONS, offset: 8 })
+        DefineProp(this.Prototype, 'V4Functions', { type: CLRES_V4_FUNCTIONS, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

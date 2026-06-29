@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\AF_OP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\AF_OP.ahk" { AF_OP }
 
 /**
  * The USER_INFO_1010 structure contains a set of bit flags defining the operator privileges assigned to a user network account. This information level is valid only when you call the NetUserSetInfo function.
@@ -9,18 +8,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_1010
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class USER_INFO_1010 extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct USER_INFO_1010 {
+    #StructPack 4
 
     /**
      * Specifies a <b>DWORD</b> value that contains a set of bit flags that specify the user's operator privileges. The user is specified in the <i>username</i> parameter to the 
      * <b>NetUserSetInfo</b> function.
-     * @type {AF_OP}
      */
-    usri1010_auth_flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    usri1010_auth_flags : AF_OP
+
 }

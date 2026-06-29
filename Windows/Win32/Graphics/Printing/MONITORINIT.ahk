@@ -1,73 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\System\Registry\HKEY.ahk
-#Include .\MONITORREG.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\MONITORREG.ahk" { MONITORREG }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class MONITORINIT extends Win32Struct {
-    static sizeof => 48
+export default struct MONITORINIT {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hSpooler : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hSpooler {
-        get {
-            if(!this.HasProp("__hSpooler"))
-                this.__hSpooler := HANDLE(8, this)
-            return this.__hSpooler
-        }
-    }
+    hckRegistryRoot : HKEY
 
-    /**
-     * @type {HKEY}
-     */
-    hckRegistryRoot {
-        get {
-            if(!this.HasProp("__hckRegistryRoot"))
-                this.__hckRegistryRoot := HKEY(16, this)
-            return this.__hckRegistryRoot
-        }
-    }
+    pMonitorReg : MONITORREG.Ptr
 
-    /**
-     * @type {Pointer<MONITORREG>}
-     */
-    pMonitorReg {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    bLocal : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    bLocal {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    pszServerName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszServerName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 48
-    }
 }

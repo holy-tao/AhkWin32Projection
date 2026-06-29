@@ -1,94 +1,39 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WINML_BINDING_TYPE.ahk
-#Include .\WINML_TENSOR_BINDING_DESC.ahk
-#Include .\WINML_TENSOR_DATA_TYPE.ahk
-#Include .\WINML_SEQUENCE_BINDING_DESC.ahk
-#Include .\WINML_MAP_BINDING_DESC.ahk
-#Include .\WINML_IMAGE_BINDING_DESC.ahk
-#Include .\WINML_RESOURCE_BINDING_DESC.ahk
-#Include ..\..\..\Graphics\Direct3D12\ID3D12Resource.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WINML_TENSOR_BINDING_DESC.ahk" { WINML_TENSOR_BINDING_DESC }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WINML_MAP_BINDING_DESC.ahk" { WINML_MAP_BINDING_DESC }
+#Import ".\WINML_IMAGE_BINDING_DESC.ahk" { WINML_IMAGE_BINDING_DESC }
+#Import ".\WINML_SEQUENCE_BINDING_DESC.ahk" { WINML_SEQUENCE_BINDING_DESC }
+#Import ".\WINML_BINDING_TYPE.ahk" { WINML_BINDING_TYPE }
+#Import ".\WINML_TENSOR_DATA_TYPE.ahk" { WINML_TENSOR_DATA_TYPE }
+#Import ".\WINML_RESOURCE_BINDING_DESC.ahk" { WINML_RESOURCE_BINDING_DESC }
+#Import "..\..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
 
 /**
  * Contains a description of the WinML binding.
  * @see https://learn.microsoft.com/windows/win32/api/winml/ns-winml-winml_binding_desc
  * @namespace Windows.Win32.AI.MachineLearning.WinML
  */
-class WINML_BINDING_DESC extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct WINML_BINDING_DESC {
+    #StructPack 8
 
     /**
      * The name of the WinML binding.
-     * @type {PWSTR}
      */
-    Name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Name : PWSTR
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/winml/ne-winml-winml_binding_type">WINML_BINDING_TYPE</a> containing the type of the WinML binding.
-     * @type {WINML_BINDING_TYPE}
      */
-    BindType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    BindType : WINML_BINDING_TYPE
 
-    /**
-     * @type {WINML_TENSOR_BINDING_DESC}
-     */
-    Tensor {
-        get {
-            if(!this.HasProp("__Tensor"))
-                this.__Tensor := WINML_TENSOR_BINDING_DESC(16, this)
-            return this.__Tensor
-        }
-    }
+    Tensor : WINML_TENSOR_BINDING_DESC
 
-    /**
-     * @type {WINML_SEQUENCE_BINDING_DESC}
-     */
-    Sequence {
-        get {
-            if(!this.HasProp("__Sequence"))
-                this.__Sequence := WINML_SEQUENCE_BINDING_DESC(16, this)
-            return this.__Sequence
-        }
-    }
-
-    /**
-     * @type {WINML_MAP_BINDING_DESC}
-     */
-    Map {
-        get {
-            if(!this.HasProp("__Map"))
-                this.__Map := WINML_MAP_BINDING_DESC(16, this)
-            return this.__Map
-        }
-    }
-
-    /**
-     * @type {WINML_IMAGE_BINDING_DESC}
-     */
-    Image {
-        get {
-            if(!this.HasProp("__Image"))
-                this.__Image := WINML_IMAGE_BINDING_DESC(16, this)
-            return this.__Image
-        }
-    }
-
-    /**
-     * @type {WINML_RESOURCE_BINDING_DESC}
-     */
-    Resource {
-        get {
-            if(!this.HasProp("__Resource"))
-                this.__Resource := WINML_RESOURCE_BINDING_DESC(16, this)
-            return this.__Resource
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Sequence', { type: WINML_SEQUENCE_BINDING_DESC, offset: 16 })
+        DefineProp(this.Prototype, 'Map', { type: WINML_MAP_BINDING_DESC, offset: 16 })
+        DefineProp(this.Prototype, 'Image', { type: WINML_IMAGE_BINDING_DESC, offset: 16 })
+        DefineProp(this.Prototype, 'Resource', { type: WINML_RESOURCE_BINDING_DESC, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

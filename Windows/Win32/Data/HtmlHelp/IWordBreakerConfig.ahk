@@ -1,32 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Search\IStemmer.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Search\IStemmer.ahk" { IStemmer }
 
 /**
  * @namespace Windows.Win32.Data.HtmlHelp
  */
-class IWordBreakerConfig extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWordBreakerConfig extends IUnknown {
     /**
      * The interface identifier for IWordBreakerConfig
      * @type {Guid}
      */
-    static IID => Guid("{8fa0d5a6-dedf-11d0-9a61-00c04fb68bf7}")
+    static IID := Guid("{8fa0d5a6-dedf-11d0-9a61-00c04fb68bf7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWordBreakerConfig interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetLocaleInfo           : IntPtr
+        GetLocaleInfo           : IntPtr
+        SetBreakWordType        : IntPtr
+        GetBreakWordType        : IntPtr
+        SetControlInfo          : IntPtr
+        GetControlInfo          : IntPtr
+        LoadExternalBreakerData : IntPtr
+        SetWordStemmer          : IntPtr
+        GetWordStemmer          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetLocaleInfo", "GetLocaleInfo", "SetBreakWordType", "GetBreakWordType", "SetControlInfo", "GetControlInfo", "LoadExternalBreakerData", "SetWordStemmer", "GetWordStemmer"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWordBreakerConfig.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets an item of information in the user override portion of the current locale. This function does not set the system defaults. (ANSI)
@@ -190,7 +207,7 @@ class IWordBreakerConfig extends IUnknown {
      * @returns {HRESULT} 
      */
     SetWordStemmer(rclsid, pStemmer) {
-        result := ComCall(10, this, "ptr", rclsid, "ptr", pStemmer, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, rclsid, "ptr", pStemmer, "HRESULT")
         return result
     }
 
@@ -201,5 +218,41 @@ class IWordBreakerConfig extends IUnknown {
     GetWordStemmer() {
         result := ComCall(11, this, "ptr*", &ppStemmer := 0, "HRESULT")
         return IStemmer(ppStemmer)
+    }
+
+    Query(iid) {
+        if (IWordBreakerConfig.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetLocaleInfo := CallbackCreate(GetMethod(implObj, "SetLocaleInfo"), flags, 3)
+        this.vtbl.GetLocaleInfo := CallbackCreate(GetMethod(implObj, "GetLocaleInfo"), flags, 3)
+        this.vtbl.SetBreakWordType := CallbackCreate(GetMethod(implObj, "SetBreakWordType"), flags, 2)
+        this.vtbl.GetBreakWordType := CallbackCreate(GetMethod(implObj, "GetBreakWordType"), flags, 2)
+        this.vtbl.SetControlInfo := CallbackCreate(GetMethod(implObj, "SetControlInfo"), flags, 3)
+        this.vtbl.GetControlInfo := CallbackCreate(GetMethod(implObj, "GetControlInfo"), flags, 3)
+        this.vtbl.LoadExternalBreakerData := CallbackCreate(GetMethod(implObj, "LoadExternalBreakerData"), flags, 3)
+        this.vtbl.SetWordStemmer := CallbackCreate(GetMethod(implObj, "SetWordStemmer"), flags, 3)
+        this.vtbl.GetWordStemmer := CallbackCreate(GetMethod(implObj, "GetWordStemmer"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetLocaleInfo)
+        CallbackFree(this.vtbl.GetLocaleInfo)
+        CallbackFree(this.vtbl.SetBreakWordType)
+        CallbackFree(this.vtbl.GetBreakWordType)
+        CallbackFree(this.vtbl.SetControlInfo)
+        CallbackFree(this.vtbl.GetControlInfo)
+        CallbackFree(this.vtbl.LoadExternalBreakerData)
+        CallbackFree(this.vtbl.SetWordStemmer)
+        CallbackFree(this.vtbl.GetWordStemmer)
     }
 }

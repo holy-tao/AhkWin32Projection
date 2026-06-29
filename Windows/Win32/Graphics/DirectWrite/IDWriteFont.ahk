@@ -1,36 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDWriteFontFamily.ahk
-#Include .\IDWriteLocalizedStrings.ahk
-#Include .\IDWriteFontFace.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DWRITE_FONT_STYLE.ahk" { DWRITE_FONT_STYLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_FONT_METRICS.ahk" { DWRITE_FONT_METRICS }
+#Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DWRITE_FONT_STRETCH.ahk" { DWRITE_FONT_STRETCH }
+#Import ".\IDWriteLocalizedStrings.ahk" { IDWriteLocalizedStrings }
+#Import ".\IDWriteFontFamily.ahk" { IDWriteFontFamily }
+#Import ".\DWRITE_INFORMATIONAL_STRING_ID.ahk" { DWRITE_INFORMATIONAL_STRING_ID }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
+#Import ".\DWRITE_FONT_WEIGHT.ahk" { DWRITE_FONT_WEIGHT }
 
 /**
  * Represents a physical font in a font collection. This interface is used to create font faces from physical fonts, or to retrieve information such as font face metrics or face names from existing font faces.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteFont extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteFont extends IUnknown {
     /**
      * The interface identifier for IDWriteFont
      * @type {Guid}
      */
-    static IID => Guid("{acd16696-8c14-4f5d-877e-fe3fc1d32737}")
+    static IID := Guid("{acd16696-8c14-4f5d-877e-fe3fc1d32737}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteFont interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetFontFamily           : IntPtr
+        GetWeight               : IntPtr
+        GetStretch              : IntPtr
+        GetStyle                : IntPtr
+        IsSymbolFont            : IntPtr
+        GetFaceNames            : IntPtr
+        GetInformationalStrings : IntPtr
+        GetSimulations          : IntPtr
+        GetMetrics              : IntPtr
+        HasCharacter            : IntPtr
+        CreateFontFace          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFontFamily", "GetWeight", "GetStretch", "GetStyle", "IsSymbolFont", "GetFaceNames", "GetInformationalStrings", "GetSimulations", "GetMetrics", "HasCharacter", "CreateFontFace"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteFont.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the font family to which the specified font belongs.
@@ -52,7 +77,7 @@ class IDWriteFont extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-getweight
      */
     GetWeight() {
-        result := ComCall(4, this, "int")
+        result := ComCall(4, this, DWRITE_FONT_WEIGHT)
         return result
     }
 
@@ -64,7 +89,7 @@ class IDWriteFont extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-getstretch
      */
     GetStretch() {
-        result := ComCall(5, this, "int")
+        result := ComCall(5, this, DWRITE_FONT_STRETCH)
         return result
     }
 
@@ -76,7 +101,7 @@ class IDWriteFont extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-getstyle
      */
     GetStyle() {
-        result := ComCall(6, this, "int")
+        result := ComCall(6, this, DWRITE_FONT_STYLE)
         return result
     }
 
@@ -88,7 +113,7 @@ class IDWriteFont extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-issymbolfont
      */
     IsSymbolFont() {
-        result := ComCall(7, this, "int")
+        result := ComCall(7, this, BOOL)
         return result
     }
 
@@ -126,7 +151,7 @@ class IDWriteFont extends IUnknown {
     GetInformationalStrings(informationalStringID, informationalStrings, exists) {
         existsMarshal := exists is VarRef ? "int*" : "ptr"
 
-        result := ComCall(9, this, "int", informationalStringID, "ptr*", informationalStrings, existsMarshal, exists, "HRESULT")
+        result := ComCall(9, this, DWRITE_INFORMATIONAL_STRING_ID, informationalStringID, IDWriteLocalizedStrings.Ptr, informationalStrings, existsMarshal, exists, "HRESULT")
         return result
     }
 
@@ -138,7 +163,7 @@ class IDWriteFont extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-getsimulations
      */
     GetSimulations() {
-        result := ComCall(10, this, "int")
+        result := ComCall(10, this, DWRITE_FONT_SIMULATIONS)
         return result
     }
 
@@ -151,7 +176,7 @@ class IDWriteFont extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-getmetrics
      */
     GetMetrics(fontMetrics) {
-        ComCall(11, this, "ptr", fontMetrics)
+        ComCall(11, this, DWRITE_FONT_METRICS.Ptr, fontMetrics)
     }
 
     /**
@@ -165,7 +190,7 @@ class IDWriteFont extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-hascharacter
      */
     HasCharacter(unicodeValue) {
-        result := ComCall(12, this, "uint", unicodeValue, "int*", &exists := 0, "HRESULT")
+        result := ComCall(12, this, "uint", unicodeValue, BOOL.Ptr, &exists := 0, "HRESULT")
         return exists
     }
 
@@ -179,5 +204,45 @@ class IDWriteFont extends IUnknown {
     CreateFontFace() {
         result := ComCall(13, this, "ptr*", &fontFace := 0, "HRESULT")
         return IDWriteFontFace(fontFace)
+    }
+
+    Query(iid) {
+        if (IDWriteFont.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFontFamily := CallbackCreate(GetMethod(implObj, "GetFontFamily"), flags, 2)
+        this.vtbl.GetWeight := CallbackCreate(GetMethod(implObj, "GetWeight"), flags, 1)
+        this.vtbl.GetStretch := CallbackCreate(GetMethod(implObj, "GetStretch"), flags, 1)
+        this.vtbl.GetStyle := CallbackCreate(GetMethod(implObj, "GetStyle"), flags, 1)
+        this.vtbl.IsSymbolFont := CallbackCreate(GetMethod(implObj, "IsSymbolFont"), flags, 1)
+        this.vtbl.GetFaceNames := CallbackCreate(GetMethod(implObj, "GetFaceNames"), flags, 2)
+        this.vtbl.GetInformationalStrings := CallbackCreate(GetMethod(implObj, "GetInformationalStrings"), flags, 4)
+        this.vtbl.GetSimulations := CallbackCreate(GetMethod(implObj, "GetSimulations"), flags, 1)
+        this.vtbl.GetMetrics := CallbackCreate(GetMethod(implObj, "GetMetrics"), flags, 2)
+        this.vtbl.HasCharacter := CallbackCreate(GetMethod(implObj, "HasCharacter"), flags, 3)
+        this.vtbl.CreateFontFace := CallbackCreate(GetMethod(implObj, "CreateFontFace"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFontFamily)
+        CallbackFree(this.vtbl.GetWeight)
+        CallbackFree(this.vtbl.GetStretch)
+        CallbackFree(this.vtbl.GetStyle)
+        CallbackFree(this.vtbl.IsSymbolFont)
+        CallbackFree(this.vtbl.GetFaceNames)
+        CallbackFree(this.vtbl.GetInformationalStrings)
+        CallbackFree(this.vtbl.GetSimulations)
+        CallbackFree(this.vtbl.GetMetrics)
+        CallbackFree(this.vtbl.HasCharacter)
+        CallbackFree(this.vtbl.CreateFontFace)
     }
 }

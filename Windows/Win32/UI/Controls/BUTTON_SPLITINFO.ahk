@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HIMAGELIST.ahk
-#Include ..\..\Foundation\SIZE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HIMAGELIST.ahk" { HIMAGELIST }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * Contains information that defines a split button (BS_SPLITBUTTON and BS_DEFSPLITBUTTON styles). Used with the BCM_GETSPLITINFO and BCM_SETSPLITINFO messages.
@@ -10,10 +9,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-button_splitinfo
  * @namespace Windows.Win32.UI.Controls
  */
-class BUTTON_SPLITINFO extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct BUTTON_SPLITINFO {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -66,26 +63,15 @@ class BUTTON_SPLITINFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    mask {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    mask : UInt32
 
     /**
      * Type: <b>HIMAGELIST</b>
      * 
      * A handle to the image list. The provider retains ownership of the image list and is ultimately responsible for its disposal.
-     * @type {HIMAGELIST}
      */
-    himlGlyph {
-        get {
-            if(!this.HasProp("__himlGlyph"))
-                this.__himlGlyph := HIMAGELIST(8, this)
-            return this.__himlGlyph
-        }
-    }
+    himlGlyph : HIMAGELIST
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -138,24 +124,14 @@ class BUTTON_SPLITINFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    uSplitStyle {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    uSplitStyle : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that specifies the size of the glyph in <b>himlGlyph</b>.
-     * @type {SIZE}
      */
-    size {
-        get {
-            if(!this.HasProp("__size"))
-                this.__size := SIZE(20, this)
-            return this.__size
-        }
-    }
+    size : SIZE
+
 }

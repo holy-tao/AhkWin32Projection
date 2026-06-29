@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Resource data formats, including fully-typed and typeless formats. A list of modifiers at the bottom of the page more fully describes each format type.
@@ -157,7 +156,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgiformat/ne-dxgiformat-dxgi_format
  * @namespace Windows.Win32.Graphics.Dxgi.Common
  */
-class DXGI_FORMAT extends Win32Enum {
+export default struct DXGI_FORMAT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The format is not known.

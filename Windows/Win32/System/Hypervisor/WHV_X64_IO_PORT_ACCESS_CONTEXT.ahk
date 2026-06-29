@@ -1,127 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHV_X64_IO_PORT_ACCESS_INFO.ahk
-#Include .\WHV_X64_SEGMENT_REGISTER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WHV_X64_IO_PORT_ACCESS_INFO.ahk" { WHV_X64_IO_PORT_ACCESS_INFO }
+#Import ".\WHV_X64_SEGMENT_REGISTER.ahk" { WHV_X64_SEGMENT_REGISTER }
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_X64_IO_PORT_ACCESS_CONTEXT extends Win32Struct {
-    static sizeof => 104
+export default struct WHV_X64_IO_PORT_ACCESS_CONTEXT {
+    #StructPack 8
 
-    static packingSize => 8
+    InstructionByteCount : Int8
 
-    /**
-     * @type {Integer}
-     */
-    InstructionByteCount {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Reserved : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    InstructionBytes : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    InstructionBytes {
-        get {
-            if(!this.HasProp("__InstructionBytesProxyArray"))
-                this.__InstructionBytesProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
-            return this.__InstructionBytesProxyArray
-        }
-    }
+    AccessInfo : WHV_X64_IO_PORT_ACCESS_INFO
 
-    /**
-     * @type {WHV_X64_IO_PORT_ACCESS_INFO}
-     */
-    AccessInfo {
-        get {
-            if(!this.HasProp("__AccessInfo"))
-                this.__AccessInfo := WHV_X64_IO_PORT_ACCESS_INFO(20, this)
-            return this.__AccessInfo
-        }
-    }
+    PortNumber : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    PortNumber {
-        get => NumGet(this, 28, "ushort")
-        set => NumPut("ushort", value, this, 28)
-    }
+    Reserved2 : UInt16[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved2 {
-        get {
-            if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 30, 3, Primitive, "ushort")
-            return this.__Reserved2ProxyArray
-        }
-    }
+    Rax : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Rax {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    Rcx : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Rcx {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    Rsi : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Rsi {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    Rdi : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Rdi {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    Ds : WHV_X64_SEGMENT_REGISTER
 
-    /**
-     * @type {WHV_X64_SEGMENT_REGISTER}
-     */
-    Ds {
-        get {
-            if(!this.HasProp("__Ds"))
-                this.__Ds := WHV_X64_SEGMENT_REGISTER(72, this)
-            return this.__Ds
-        }
-    }
+    Es : WHV_X64_SEGMENT_REGISTER
 
-    /**
-     * @type {WHV_X64_SEGMENT_REGISTER}
-     */
-    Es {
-        get {
-            if(!this.HasProp("__Es"))
-                this.__Es := WHV_X64_SEGMENT_REGISTER(88, this)
-            return this.__Es
-        }
-    }
 }

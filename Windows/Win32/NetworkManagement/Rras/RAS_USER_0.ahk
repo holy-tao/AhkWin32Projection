@@ -1,15 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The RAS_USER_0 structure contains information for a particular Remote Access Service user.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ras_user_0
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class RAS_USER_0 extends Win32Struct {
-    static sizeof => 260
-
-    static packingSize => 2
+export default struct RAS_USER_0 {
+    #StructPack 2
 
     /**
      * Specifies the types of remote access privilege available to the RAS user. 
@@ -75,19 +73,12 @@ class RAS_USER_0 extends Win32Struct {
      * Use the following constant as a mask to isolate the call-back privilege. (This constant is also defined in Mprapi.h.)
      * 
      * RASPRIV_CallbackType
-     * @type {Integer}
      */
-    bfPrivilege {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    bfPrivilege : Int8
 
     /**
      * Pointer to a Unicode string containing the phone number at which the RAS user should be called back.
-     * @type {String}
      */
-    wszPhoneNumber {
-        get => StrGet(this.ptr + 2, 128, "UTF-16")
-        set => StrPut(value, this.ptr + 2, 128, "UTF-16")
-    }
+    wszPhoneNumber : WCHAR[129]
+
 }

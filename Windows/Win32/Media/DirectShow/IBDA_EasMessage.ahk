@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IBDA_EasMessage interface represents an ATSC emergency alert system (EAS) message table.
@@ -10,26 +11,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_easmessage
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IBDA_EasMessage extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBDA_EasMessage extends IUnknown {
     /**
      * The interface identifier for IBDA_EasMessage
      * @type {Guid}
      */
-    static IID => Guid("{d806973d-3ebe-46de-8fbb-6358fe784208}")
+    static IID := Guid("{d806973d-3ebe-46de-8fbb-6358fe784208}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBDA_EasMessage interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_EasMessage : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_EasMessage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBDA_EasMessage.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The get_EasMessage method retrieves an EAS message.
@@ -41,7 +49,27 @@ class IBDA_EasMessage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_easmessage-get_easmessage
      */
     get_EasMessage(ulEventID, ppEASObject) {
-        result := ComCall(3, this, "uint", ulEventID, "ptr*", ppEASObject, "HRESULT")
+        result := ComCall(3, this, "uint", ulEventID, IUnknown.Ptr, ppEASObject, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBDA_EasMessage.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_EasMessage := CallbackCreate(GetMethod(implObj, "get_EasMessage"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_EasMessage)
     }
 }

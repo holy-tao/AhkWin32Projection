@@ -1,61 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\NetworkManagement\Ndis\NET_IF_MEDIA_DUPLEX_STATE.ahk
-#Include .\NDIS_SUPPORTED_PAUSE_FUNCTIONS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\NetworkManagement\Ndis\NET_IF_MEDIA_DUPLEX_STATE.ahk" { NET_IF_MEDIA_DUPLEX_STATE }
+#Import ".\NDIS_SUPPORTED_PAUSE_FUNCTIONS.ahk" { NDIS_SUPPORTED_PAUSE_FUNCTIONS }
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class NDIS_LINK_PARAMETERS extends Win32Struct {
-    static sizeof => 40
+export default struct NDIS_LINK_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
+    Header : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Header {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    MediaDuplexState : NET_IF_MEDIA_DUPLEX_STATE
 
-    /**
-     * @type {NET_IF_MEDIA_DUPLEX_STATE}
-     */
-    MediaDuplexState {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    XmitLinkSpeed : Int64
 
-    /**
-     * @type {Integer}
-     */
-    XmitLinkSpeed {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    RcvLinkSpeed : Int64
 
-    /**
-     * @type {Integer}
-     */
-    RcvLinkSpeed {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    PauseFunctions : NDIS_SUPPORTED_PAUSE_FUNCTIONS
 
-    /**
-     * @type {NDIS_SUPPORTED_PAUSE_FUNCTIONS}
-     */
-    PauseFunctions {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    AutoNegotiationFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AutoNegotiationFlags {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
 }

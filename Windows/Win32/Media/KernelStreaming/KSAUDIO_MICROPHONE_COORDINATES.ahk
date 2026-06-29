@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSAUDIO_MICROPHONE_COORDINATES extends Win32Struct {
-    static sizeof => 12
+export default struct KSAUDIO_MICROPHONE_COORDINATES {
+    #StructPack 2
 
-    static packingSize => 2
+    usType : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usType {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wXCoord : Int16
 
-    /**
-     * @type {Integer}
-     */
-    wXCoord {
-        get => NumGet(this, 2, "short")
-        set => NumPut("short", value, this, 2)
-    }
+    wYCoord : Int16
 
-    /**
-     * @type {Integer}
-     */
-    wYCoord {
-        get => NumGet(this, 4, "short")
-        set => NumPut("short", value, this, 4)
-    }
+    wZCoord : Int16
 
-    /**
-     * @type {Integer}
-     */
-    wZCoord {
-        get => NumGet(this, 6, "short")
-        set => NumPut("short", value, this, 6)
-    }
+    wVerticalAngle : Int16
 
-    /**
-     * @type {Integer}
-     */
-    wVerticalAngle {
-        get => NumGet(this, 8, "short")
-        set => NumPut("short", value, this, 8)
-    }
+    wHorizontalAngle : Int16
 
-    /**
-     * @type {Integer}
-     */
-    wHorizontalAngle {
-        get => NumGet(this, 10, "short")
-        set => NumPut("short", value, this, 10)
-    }
 }

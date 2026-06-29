@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Learn more about: JET_RECSIZE2 Structure
@@ -7,96 +6,29 @@
  * @namespace Windows.Win32.Storage.Jet
  * @architecture X64, Arm64
  */
-class JET_RECSIZE2 extends Win32Struct {
-    static sizeof => 88
+export default struct JET_RECSIZE2 {
+    #StructPack 8
 
-    static packingSize => 8
+    cbData : Int64
 
-    /**
-     * @type {Integer}
-     */
-    cbData {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbLongValueData : Int64
 
-    /**
-     * @type {Integer}
-     */
-    cbLongValueData {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cbOverhead : Int64
 
-    /**
-     * @type {Integer}
-     */
-    cbOverhead {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cbLongValueOverhead : Int64
 
-    /**
-     * @type {Integer}
-     */
-    cbLongValueOverhead {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    cNonTaggedColumns : Int64
 
-    /**
-     * @type {Integer}
-     */
-    cNonTaggedColumns {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    cTaggedColumns : Int64
 
-    /**
-     * @type {Integer}
-     */
-    cTaggedColumns {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    cLongValues : Int64
 
-    /**
-     * @type {Integer}
-     */
-    cLongValues {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    cMultiValues : Int64
 
-    /**
-     * @type {Integer}
-     */
-    cMultiValues {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    cCompressedColumns : Int64
 
-    /**
-     * @type {Integer}
-     */
-    cCompressedColumns {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    cbDataCompressed : Int64
 
-    /**
-     * @type {Integer}
-     */
-    cbDataCompressed {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    cbLongValueDataCompressed : Int64
 
-    /**
-     * @type {Integer}
-     */
-    cbLongValueDataCompressed {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
 }

@@ -1,33 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Implemented by a client and called by Microsoft Media Foundation to get the client Secure Sockets Layer (SSL) certificate requested by the server.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsslcertificatemanager
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFSSLCertificateManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFSSLCertificateManager extends IUnknown {
     /**
      * The interface identifier for IMFSSLCertificateManager
      * @type {Guid}
      */
-    static IID => Guid("{61f7d887-1230-4a8b-aeba-8ad434d1a64d}")
+    static IID := Guid("{61f7d887-1230-4a8b-aeba-8ad434d1a64d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFSSLCertificateManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetClientCertificate      : IntPtr
+        BeginGetClientCertificate : IntPtr
+        EndGetClientCertificate   : IntPtr
+        GetCertificatePolicy      : IntPtr
+        OnServerCertificate       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetClientCertificate", "BeginGetClientCertificate", "EndGetClientCertificate", "GetCertificatePolicy", "OnServerCertificate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFSSLCertificateManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the client SSL certificate synchronously.
@@ -114,7 +130,35 @@ class IMFSSLCertificateManager extends IUnknown {
     OnServerCertificate(pszURL, pbData, cbData) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := ComCall(7, this, "ptr", pszURL, "ptr", pbData, "uint", cbData, "int*", &pfIsGood := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pszURL, "ptr", pbData, "uint", cbData, BOOL.Ptr, &pfIsGood := 0, "HRESULT")
         return pfIsGood
+    }
+
+    Query(iid) {
+        if (IMFSSLCertificateManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetClientCertificate := CallbackCreate(GetMethod(implObj, "GetClientCertificate"), flags, 4)
+        this.vtbl.BeginGetClientCertificate := CallbackCreate(GetMethod(implObj, "BeginGetClientCertificate"), flags, 4)
+        this.vtbl.EndGetClientCertificate := CallbackCreate(GetMethod(implObj, "EndGetClientCertificate"), flags, 4)
+        this.vtbl.GetCertificatePolicy := CallbackCreate(GetMethod(implObj, "GetCertificatePolicy"), flags, 4)
+        this.vtbl.OnServerCertificate := CallbackCreate(GetMethod(implObj, "OnServerCertificate"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetClientCertificate)
+        CallbackFree(this.vtbl.BeginGetClientCertificate)
+        CallbackFree(this.vtbl.EndGetClientCertificate)
+        CallbackFree(this.vtbl.GetCertificatePolicy)
+        CallbackFree(this.vtbl.OnServerCertificate)
     }
 }

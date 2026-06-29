@@ -1,35 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
-#Include .\IX509CertificateTemplate.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\CommitTemplateFlags.ahk" { CommitTemplateFlags }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\EnrollmentTemplateProperty.ahk" { EnrollmentTemplateProperty }
+#Import ".\IX509CertificateTemplate.ahk" { IX509CertificateTemplate }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IX509CertificateTemplateWritable interface enables you to add a template to or delete it from a template store. Currently, Active Directory is the only available store.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509certificatetemplatewritable
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IX509CertificateTemplateWritable extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IX509CertificateTemplateWritable extends IDispatch {
     /**
      * The interface identifier for IX509CertificateTemplateWritable
      * @type {Guid}
      */
-    static IID => Guid("{f49466a7-395a-4e9e-b6e7-32b331600dc0}")
+    static IID := Guid("{f49466a7-395a-4e9e-b6e7-32b331600dc0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IX509CertificateTemplateWritable interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Initialize   : IntPtr
+        Commit       : IntPtr
+        get_Property : IntPtr
+        put_Property : IntPtr
+        get_Template : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "Commit", "get_Property", "put_Property", "get_Template"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IX509CertificateTemplateWritable.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IX509CertificateTemplate} 
@@ -196,7 +211,7 @@ class IX509CertificateTemplateWritable extends IDispatch {
     Commit(commitFlags, strServerContext) {
         strServerContext := strServerContext is String ? BSTR.Alloc(strServerContext).Value : strServerContext
 
-        result := ComCall(8, this, "int", commitFlags, "ptr", strServerContext, "HRESULT")
+        result := ComCall(8, this, CommitTemplateFlags, commitFlags, BSTR, strServerContext, "HRESULT")
         return result
     }
 
@@ -210,7 +225,7 @@ class IX509CertificateTemplateWritable extends IDispatch {
      */
     get_Property(_property) {
         pValue := VARIANT()
-        result := ComCall(9, this, "int", _property, "ptr", pValue, "HRESULT")
+        result := ComCall(9, this, EnrollmentTemplateProperty, _property, VARIANT.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -224,7 +239,7 @@ class IX509CertificateTemplateWritable extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplatewritable-put_property
      */
     put_Property(_property, value) {
-        result := ComCall(10, this, "int", _property, "ptr", value, "HRESULT")
+        result := ComCall(10, this, EnrollmentTemplateProperty, _property, VARIANT, value, "HRESULT")
         return result
     }
 
@@ -238,5 +253,33 @@ class IX509CertificateTemplateWritable extends IDispatch {
     get_Template() {
         result := ComCall(11, this, "ptr*", &ppValue := 0, "HRESULT")
         return IX509CertificateTemplate(ppValue)
+    }
+
+    Query(iid) {
+        if (IX509CertificateTemplateWritable.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 3)
+        this.vtbl.get_Property := CallbackCreate(GetMethod(implObj, "get_Property"), flags, 3)
+        this.vtbl.put_Property := CallbackCreate(GetMethod(implObj, "put_Property"), flags, 3)
+        this.vtbl.get_Template := CallbackCreate(GetMethod(implObj, "get_Template"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.Commit)
+        CallbackFree(this.vtbl.get_Property)
+        CallbackFree(this.vtbl.put_Property)
+        CallbackFree(this.vtbl.get_Template)
     }
 }

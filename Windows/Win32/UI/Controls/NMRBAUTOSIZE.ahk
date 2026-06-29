@@ -1,72 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NMHDR.ahk" { NMHDR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains information used in handling the RBN_AUTOSIZE notification codes.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmrbautosize
  * @namespace Windows.Win32.UI.Controls
  */
-class NMRBAUTOSIZE extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct NMRBAUTOSIZE {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains additional information about the notification.
-     * @type {NMHDR}
      */
-    hdr {
-        get {
-            if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(0, this)
-            return this.__hdr
-        }
-    }
+    hdr : NMHDR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Member that indicates if the size or layout of the rebar control has changed (nonzero if a change occurred or zero otherwise).
-     * @type {BOOL}
      */
-    fChanged {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    fChanged : BOOL
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the rectangle to which the rebar control tried to size itself.
-     * @type {RECT}
      */
-    rcTarget {
-        get {
-            if(!this.HasProp("__rcTarget"))
-                this.__rcTarget := RECT(28, this)
-            return this.__rcTarget
-        }
-    }
+    rcTarget : RECT
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the rectangle to which the rebar control actually sized itself.
-     * @type {RECT}
      */
-    rcActual {
-        get {
-            if(!this.HasProp("__rcActual"))
-                this.__rcActual := RECT(44, this)
-            return this.__rcActual
-        }
-    }
+    rcActual : RECT
+
 }

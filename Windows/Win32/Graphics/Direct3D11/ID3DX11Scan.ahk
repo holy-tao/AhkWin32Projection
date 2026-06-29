@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3DX11_SCAN_DIRECTION.ahk" { D3DX11_SCAN_DIRECTION }
+#Import ".\D3DX11_SCAN_DATA_TYPE.ahk" { D3DX11_SCAN_DATA_TYPE }
+#Import ".\D3DX11_SCAN_OPCODE.ahk" { D3DX11_SCAN_OPCODE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ID3D11UnorderedAccessView.ahk" { ID3D11UnorderedAccessView }
 
 /**
  * Scan context.
  * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nn-d3dcsx-id3dx11scan
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3DX11Scan extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID3DX11Scan extends IUnknown {
     /**
      * The interface identifier for ID3DX11Scan
      * @type {Guid}
      */
-    static IID => Guid("{5089b68f-e71d-4d38-be8e-f363b95a9405}")
+    static IID := Guid("{5089b68f-e71d-4d38-be8e-f363b95a9405}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3DX11Scan interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetScanDirection : IntPtr
+        Scan             : IntPtr
+        Multiscan        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetScanDirection", "Scan", "Multiscan"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3DX11Scan.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets which direction to perform scans in. (ID3DX11Scan.SetScanDirection)
@@ -42,7 +56,7 @@ class ID3DX11Scan extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-id3dx11scan-setscandirection
      */
     SetScanDirection(_Direction) {
-        result := ComCall(3, this, "int", _Direction, "HRESULT")
+        result := ComCall(3, this, D3DX11_SCAN_DIRECTION, _Direction, "HRESULT")
         return result
     }
 
@@ -71,7 +85,7 @@ class ID3DX11Scan extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-id3dx11scan-scan
      */
     Scan(ElementType, OpCode, ElementScanSize, pSrc, pDst) {
-        result := ComCall(4, this, "int", ElementType, "int", OpCode, "uint", ElementScanSize, "ptr", pSrc, "ptr", pDst, "HRESULT")
+        result := ComCall(4, this, D3DX11_SCAN_DATA_TYPE, ElementType, D3DX11_SCAN_OPCODE, OpCode, "uint", ElementScanSize, "ptr", pSrc, "ptr", pDst, "HRESULT")
         return result
     }
 
@@ -106,7 +120,31 @@ class ID3DX11Scan extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-id3dx11scan-multiscan
      */
     Multiscan(ElementType, OpCode, ElementScanSize, ElementScanPitch, ScanCount, pSrc, pDst) {
-        result := ComCall(5, this, "int", ElementType, "int", OpCode, "uint", ElementScanSize, "uint", ElementScanPitch, "uint", ScanCount, "ptr", pSrc, "ptr", pDst, "HRESULT")
+        result := ComCall(5, this, D3DX11_SCAN_DATA_TYPE, ElementType, D3DX11_SCAN_OPCODE, OpCode, "uint", ElementScanSize, "uint", ElementScanPitch, "uint", ScanCount, "ptr", pSrc, "ptr", pDst, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID3DX11Scan.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetScanDirection := CallbackCreate(GetMethod(implObj, "SetScanDirection"), flags, 2)
+        this.vtbl.Scan := CallbackCreate(GetMethod(implObj, "Scan"), flags, 6)
+        this.vtbl.Multiscan := CallbackCreate(GetMethod(implObj, "Multiscan"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetScanDirection)
+        CallbackFree(this.vtbl.Scan)
+        CallbackFree(this.vtbl.Multiscan)
     }
 }

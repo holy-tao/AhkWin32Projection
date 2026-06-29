@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NMHDR.ahk" { NMHDR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Contains information used with the CBEN_DRAGBEGIN notification code. (ANSI)
@@ -12,44 +12,28 @@
  * @namespace Windows.Win32.UI.Controls
  * @charset ANSI
  */
-class NMCBEDRAGBEGINA extends Win32Struct {
-    static sizeof => 288
-
-    static packingSize => 8
+export default struct NMCBEDRAGBEGINA {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a></b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains information about the notification code.
-     * @type {NMHDR}
      */
-    hdr {
-        get {
-            if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(0, this)
-            return this.__hdr
-        }
-    }
+    hdr : NMHDR
 
     /**
      * Type: <b>int</b>
      * 
      * The zero-based index of the item being dragged. This value will always be -1, indicating that the item being dragged is the item displayed in the edit portion of the control.
-     * @type {Integer}
      */
-    iItemid {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    iItemid : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">TCHAR</a></b>
      * 
      * The character buffer that contains the text of the item being dragged.
-     * @type {String}
      */
-    szText {
-        get => StrGet(this.ptr + 28, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 28, 259, "UTF-8")
-    }
+    szText : CHAR[260]
+
 }

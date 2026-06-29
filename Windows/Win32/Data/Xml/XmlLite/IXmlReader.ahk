@@ -1,56 +1,69 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\XmlNodeType.ahk" { XmlNodeType }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Data.Xml.XmlLite
  */
-class IXmlReader extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IXmlReader extends IUnknown {
     /**
      * The interface identifier for IXmlReader
      * @type {Guid}
      */
-    static IID => Guid("{7279fc81-709d-4095-b63d-69fe4b0d9030}")
+    static IID := Guid("{7279fc81-709d-4095-b63d-69fe4b0d9030}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXmlReader interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetInput              : IntPtr
+        GetProperty           : IntPtr
+        SetProperty           : IntPtr
+        Read                  : IntPtr
+        GetNodeType           : IntPtr
+        MoveToFirstAttribute  : IntPtr
+        MoveToNextAttribute   : IntPtr
+        MoveToAttributeByName : IntPtr
+        MoveToElement         : IntPtr
+        GetQualifiedName      : IntPtr
+        GetNamespaceUri       : IntPtr
+        GetLocalName          : IntPtr
+        GetPrefix             : IntPtr
+        GetValue              : IntPtr
+        ReadValueChunk        : IntPtr
+        GetBaseUri            : IntPtr
+        IsDefault             : IntPtr
+        IsEmptyElement        : IntPtr
+        GetLineNumber         : IntPtr
+        GetLinePosition       : IntPtr
+        GetAttributeCount     : IntPtr
+        GetDepth              : IntPtr
+        IsEOF                 : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXmlReader.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetInput", "GetProperty", "SetProperty", "Read", "GetNodeType", "MoveToFirstAttribute", "MoveToNextAttribute", "MoveToAttributeByName", "MoveToElement", "GetQualifiedName", "GetNamespaceUri", "GetLocalName", "GetPrefix", "GetValue", "ReadValueChunk", "GetBaseUri", "IsDefault", "IsEmptyElement", "GetLineNumber", "GetLinePosition", "GetAttributeCount", "GetDepth", "IsEOF"]
-
-    /**
-     * Sets an input scope for the specified window.
-     * @remarks
-     * Calling this method replaces whatever scope is associated with the window.
      * 
-     * An application must call this method, passing in IS_DEFAULT to the <i>hwnd</i> parameter, to remove the input scope association before the window is destroyed.
-     * 
-     * This API works only when the window (<i>hwnd</i> parameter) and the calling thread are in the same thread. If you call this API for a different thread's window, it fails with E_INVALIDARG.
-     * 
-     * If you call this method on a window (<i>hwnd</i> parameter) that has 
-     * not been associated with a Document Manager, then no text service notifications are sent to interested clients (such as the touch keyboard) that may want to respond to the 
-     * scope change.
      * @param {IUnknown} pInput 
-     * @returns {HRESULT} <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td>S_OK</td>
-     * <td>The method was successful.</td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/inputscope/nf-inputscope-setinputscope
+     * @returns {HRESULT} 
      */
     SetInput(pInput) {
         result := ComCall(3, this, "ptr", pInput, "HRESULT")
@@ -73,13 +86,10 @@ class IXmlReader extends IUnknown {
     }
 
     /**
-     * Sets Interaction Context object properties.
+     * 
      * @param {Integer} nProperty 
      * @param {Pointer} pValue 
-     * @returns {HRESULT} If this function succeeds, it returns S_OK.
-     *  
-     * Otherwise, it returns an HRESULT error code.
-     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-setpropertyinteractioncontext
+     * @returns {HRESULT} 
      */
     SetProperty(nProperty, pValue) {
         result := ComCall(5, this, "uint", nProperty, "ptr", pValue, "HRESULT")
@@ -87,12 +97,11 @@ class IXmlReader extends IUnknown {
     }
 
     /**
-     * The ReadBlobFromFile function reads a BLOB in a file.
+     * 
      * @returns {XmlNodeType} 
-     * @see https://learn.microsoft.com/windows/win32/NetMon2/readblobfromfile
      */
     Read() {
-        result := ComCall(6, this, "int*", &pNodeType := 0, "int")
+        result := ComCall(6, this, "int*", &pNodeType := 0, Int32)
         return pNodeType
     }
 
@@ -110,7 +119,7 @@ class IXmlReader extends IUnknown {
      * @returns {HRESULT} 
      */
     MoveToFirstAttribute() {
-        result := ComCall(8, this, "int")
+        result := ComCall(8, this, Int32)
         return result
     }
 
@@ -119,7 +128,7 @@ class IXmlReader extends IUnknown {
      * @returns {HRESULT} 
      */
     MoveToNextAttribute() {
-        result := ComCall(9, this, "int")
+        result := ComCall(9, this, Int32)
         return result
     }
 
@@ -133,7 +142,7 @@ class IXmlReader extends IUnknown {
         pwszLocalName := pwszLocalName is String ? StrPtr(pwszLocalName) : pwszLocalName
         pwszNamespaceUri := pwszNamespaceUri is String ? StrPtr(pwszNamespaceUri) : pwszNamespaceUri
 
-        result := ComCall(10, this, "ptr", pwszLocalName, "ptr", pwszNamespaceUri, "int")
+        result := ComCall(10, this, "ptr", pwszLocalName, "ptr", pwszNamespaceUri, Int32)
         return result
     }
 
@@ -203,11 +212,10 @@ class IXmlReader extends IUnknown {
     }
 
     /**
-     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetValueAndName
+     * 
      * @param {Pointer<PWSTR>} ppwszValue 
      * @param {Pointer<Integer>} pcwchValue 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecmetadata-getvalueandname
      */
     GetValue(ppwszValue, pcwchValue) {
         ppwszValueMarshal := ppwszValue is VarRef ? "ptr*" : "ptr"
@@ -229,7 +237,7 @@ class IXmlReader extends IUnknown {
 
         pcwchReadMarshal := pcwchRead is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(17, this, "ptr", pwchBuffer, "uint", cwchChunkSize, pcwchReadMarshal, pcwchRead, "int")
+        result := ComCall(17, this, "ptr", pwchBuffer, "uint", cwchChunkSize, pcwchReadMarshal, pcwchRead, Int32)
         return result
     }
 
@@ -253,7 +261,7 @@ class IXmlReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/mbn/element-isdefault
      */
     IsDefault() {
-        result := ComCall(19, this, "int")
+        result := ComCall(19, this, BOOL)
         return result
     }
 
@@ -262,7 +270,7 @@ class IXmlReader extends IUnknown {
      * @returns {BOOL} 
      */
     IsEmptyElement() {
-        result := ComCall(20, this, "int")
+        result := ComCall(20, this, BOOL)
         return result
     }
 
@@ -307,7 +315,71 @@ class IXmlReader extends IUnknown {
      * @returns {BOOL} 
      */
     IsEOF() {
-        result := ComCall(25, this, "int")
+        result := ComCall(25, this, BOOL)
         return result
+    }
+
+    Query(iid) {
+        if (IXmlReader.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetInput := CallbackCreate(GetMethod(implObj, "SetInput"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
+        this.vtbl.Read := CallbackCreate(GetMethod(implObj, "Read"), flags, 2)
+        this.vtbl.GetNodeType := CallbackCreate(GetMethod(implObj, "GetNodeType"), flags, 2)
+        this.vtbl.MoveToFirstAttribute := CallbackCreate(GetMethod(implObj, "MoveToFirstAttribute"), flags, 1)
+        this.vtbl.MoveToNextAttribute := CallbackCreate(GetMethod(implObj, "MoveToNextAttribute"), flags, 1)
+        this.vtbl.MoveToAttributeByName := CallbackCreate(GetMethod(implObj, "MoveToAttributeByName"), flags, 3)
+        this.vtbl.MoveToElement := CallbackCreate(GetMethod(implObj, "MoveToElement"), flags, 1)
+        this.vtbl.GetQualifiedName := CallbackCreate(GetMethod(implObj, "GetQualifiedName"), flags, 3)
+        this.vtbl.GetNamespaceUri := CallbackCreate(GetMethod(implObj, "GetNamespaceUri"), flags, 3)
+        this.vtbl.GetLocalName := CallbackCreate(GetMethod(implObj, "GetLocalName"), flags, 3)
+        this.vtbl.GetPrefix := CallbackCreate(GetMethod(implObj, "GetPrefix"), flags, 3)
+        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 3)
+        this.vtbl.ReadValueChunk := CallbackCreate(GetMethod(implObj, "ReadValueChunk"), flags, 4)
+        this.vtbl.GetBaseUri := CallbackCreate(GetMethod(implObj, "GetBaseUri"), flags, 3)
+        this.vtbl.IsDefault := CallbackCreate(GetMethod(implObj, "IsDefault"), flags, 1)
+        this.vtbl.IsEmptyElement := CallbackCreate(GetMethod(implObj, "IsEmptyElement"), flags, 1)
+        this.vtbl.GetLineNumber := CallbackCreate(GetMethod(implObj, "GetLineNumber"), flags, 2)
+        this.vtbl.GetLinePosition := CallbackCreate(GetMethod(implObj, "GetLinePosition"), flags, 2)
+        this.vtbl.GetAttributeCount := CallbackCreate(GetMethod(implObj, "GetAttributeCount"), flags, 2)
+        this.vtbl.GetDepth := CallbackCreate(GetMethod(implObj, "GetDepth"), flags, 2)
+        this.vtbl.IsEOF := CallbackCreate(GetMethod(implObj, "IsEOF"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetInput)
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.SetProperty)
+        CallbackFree(this.vtbl.Read)
+        CallbackFree(this.vtbl.GetNodeType)
+        CallbackFree(this.vtbl.MoveToFirstAttribute)
+        CallbackFree(this.vtbl.MoveToNextAttribute)
+        CallbackFree(this.vtbl.MoveToAttributeByName)
+        CallbackFree(this.vtbl.MoveToElement)
+        CallbackFree(this.vtbl.GetQualifiedName)
+        CallbackFree(this.vtbl.GetNamespaceUri)
+        CallbackFree(this.vtbl.GetLocalName)
+        CallbackFree(this.vtbl.GetPrefix)
+        CallbackFree(this.vtbl.GetValue)
+        CallbackFree(this.vtbl.ReadValueChunk)
+        CallbackFree(this.vtbl.GetBaseUri)
+        CallbackFree(this.vtbl.IsDefault)
+        CallbackFree(this.vtbl.IsEmptyElement)
+        CallbackFree(this.vtbl.GetLineNumber)
+        CallbackFree(this.vtbl.GetLinePosition)
+        CallbackFree(this.vtbl.GetAttributeCount)
+        CallbackFree(this.vtbl.GetDepth)
+        CallbackFree(this.vtbl.IsEOF)
     }
 }

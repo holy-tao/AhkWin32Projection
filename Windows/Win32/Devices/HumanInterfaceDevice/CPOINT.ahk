@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class CPOINT extends Win32Struct {
-    static sizeof => 8
+export default struct CPOINT {
+    #StructPack 4
 
-    static packingSize => 4
+    lP : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lP {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    dwLog : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwLog {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
 }

@@ -1,91 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVA_BufferDescription extends Win32Struct {
-    static sizeof => 40
+export default struct DXVA_BufferDescription {
+    #StructPack 4
 
-    static packingSize => 4
+    dwTypeIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwTypeIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwBufferIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwBufferIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwDataOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDataOffset {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDataSize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwFirstMBaddress : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFirstMBaddress {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwNumMBsInBuffer : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNumMBsInBuffer {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwWidth {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwHeight {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwStride : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwStride {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwReservedBits : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReservedBits {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
 }

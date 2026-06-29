@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IOpcRelationshipSelector.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IOpcRelationshipSelector.ahk" { IOpcRelationshipSelector }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * A read-only enumerator of IOpcRelationshipSelector interface pointers.
@@ -18,26 +20,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcrelationshipselectorenumerator
  * @namespace Windows.Win32.Storage.Packaging.Opc
  */
-class IOpcRelationshipSelectorEnumerator extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOpcRelationshipSelectorEnumerator extends IUnknown {
     /**
      * The interface identifier for IOpcRelationshipSelectorEnumerator
      * @type {Guid}
      */
-    static IID => Guid("{5e50a181-a91b-48ac-88d2-bca3d8f8c0b1}")
+    static IID := Guid("{5e50a181-a91b-48ac-88d2-bca3d8f8c0b1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOpcRelationshipSelectorEnumerator interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        MoveNext     : IntPtr
+        MovePrevious : IntPtr
+        GetCurrent   : IntPtr
+        Clone        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["MoveNext", "MovePrevious", "GetCurrent", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOpcRelationshipSelectorEnumerator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Moves the current position of the enumerator to the next IOpcRelationshipSelectorinterface pointer.
@@ -76,7 +88,7 @@ class IOpcRelationshipSelectorEnumerator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationshipselectorenumerator-movenext
      */
     MoveNext() {
-        result := ComCall(3, this, "int*", &hasNext := 0, "HRESULT")
+        result := ComCall(3, this, BOOL.Ptr, &hasNext := 0, "HRESULT")
         return hasNext
     }
 
@@ -117,7 +129,7 @@ class IOpcRelationshipSelectorEnumerator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationshipselectorenumerator-moveprevious
      */
     MovePrevious() {
-        result := ComCall(4, this, "int*", &hasPrevious := 0, "HRESULT")
+        result := ComCall(4, this, BOOL.Ptr, &hasPrevious := 0, "HRESULT")
         return hasPrevious
     }
 
@@ -145,5 +157,31 @@ class IOpcRelationshipSelectorEnumerator extends IUnknown {
     Clone() {
         result := ComCall(6, this, "ptr*", &copy := 0, "HRESULT")
         return IOpcRelationshipSelectorEnumerator(copy)
+    }
+
+    Query(iid) {
+        if (IOpcRelationshipSelectorEnumerator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.MoveNext := CallbackCreate(GetMethod(implObj, "MoveNext"), flags, 2)
+        this.vtbl.MovePrevious := CallbackCreate(GetMethod(implObj, "MovePrevious"), flags, 2)
+        this.vtbl.GetCurrent := CallbackCreate(GetMethod(implObj, "GetCurrent"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.MoveNext)
+        CallbackFree(this.vtbl.MovePrevious)
+        CallbackFree(this.vtbl.GetCurrent)
+        CallbackFree(this.vtbl.Clone)
     }
 }

@@ -1,11 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\ITuningSpace.ahk
-#Include .\IEnumTuningSpaces.ahk
-#Include .\ITuneRequest.ahk
-#Include .\IComponentTypes.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITuningSpace.ahk" { ITuningSpace }
+#Import ".\ITuneRequest.ahk" { ITuneRequest }
+#Import ".\IComponentTypes.ahk" { IComponentTypes }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumTuningSpaces.ahk" { IEnumTuningSpaces }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITuner interface is implemented on the Microsoft BDA Network Provider filters.
@@ -14,26 +15,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-ituner
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class ITuner extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITuner extends IUnknown {
     /**
      * The interface identifier for ITuner
      * @type {Guid}
      */
-    static IID => Guid("{28c52640-018a-11d3-9d8e-00c04f72d980}")
+    static IID := Guid("{28c52640-018a-11d3-9d8e-00c04f72d980}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITuner interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_TuningSpace             : IntPtr
+        put_TuningSpace             : IntPtr
+        EnumTuningSpaces            : IntPtr
+        get_TuneRequest             : IntPtr
+        put_TuneRequest             : IntPtr
+        Validate                    : IntPtr
+        get_PreferredComponentTypes : IntPtr
+        put_PreferredComponentTypes : IntPtr
+        get_SignalStrength          : IntPtr
+        TriggerSignalEvents         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_TuningSpace", "put_TuningSpace", "EnumTuningSpaces", "get_TuneRequest", "put_TuneRequest", "Validate", "get_PreferredComponentTypes", "put_PreferredComponentTypes", "get_SignalStrength", "TriggerSignalEvents"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITuner.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ITuningSpace} 
@@ -189,5 +206,43 @@ class ITuner extends IUnknown {
     TriggerSignalEvents(_Interval) {
         result := ComCall(12, this, "int", _Interval, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITuner.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_TuningSpace := CallbackCreate(GetMethod(implObj, "get_TuningSpace"), flags, 2)
+        this.vtbl.put_TuningSpace := CallbackCreate(GetMethod(implObj, "put_TuningSpace"), flags, 2)
+        this.vtbl.EnumTuningSpaces := CallbackCreate(GetMethod(implObj, "EnumTuningSpaces"), flags, 2)
+        this.vtbl.get_TuneRequest := CallbackCreate(GetMethod(implObj, "get_TuneRequest"), flags, 2)
+        this.vtbl.put_TuneRequest := CallbackCreate(GetMethod(implObj, "put_TuneRequest"), flags, 2)
+        this.vtbl.Validate := CallbackCreate(GetMethod(implObj, "Validate"), flags, 2)
+        this.vtbl.get_PreferredComponentTypes := CallbackCreate(GetMethod(implObj, "get_PreferredComponentTypes"), flags, 2)
+        this.vtbl.put_PreferredComponentTypes := CallbackCreate(GetMethod(implObj, "put_PreferredComponentTypes"), flags, 2)
+        this.vtbl.get_SignalStrength := CallbackCreate(GetMethod(implObj, "get_SignalStrength"), flags, 2)
+        this.vtbl.TriggerSignalEvents := CallbackCreate(GetMethod(implObj, "TriggerSignalEvents"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_TuningSpace)
+        CallbackFree(this.vtbl.put_TuningSpace)
+        CallbackFree(this.vtbl.EnumTuningSpaces)
+        CallbackFree(this.vtbl.get_TuneRequest)
+        CallbackFree(this.vtbl.put_TuneRequest)
+        CallbackFree(this.vtbl.Validate)
+        CallbackFree(this.vtbl.get_PreferredComponentTypes)
+        CallbackFree(this.vtbl.put_PreferredComponentTypes)
+        CallbackFree(this.vtbl.get_SignalStrength)
+        CallbackFree(this.vtbl.TriggerSignalEvents)
     }
 }

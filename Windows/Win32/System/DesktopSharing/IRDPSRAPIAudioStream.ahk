@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables sending an audio stream from the collaboration sharer Microsoft ActiveX control to collaboration viewer controls.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapiaudiostream
  * @namespace Windows.Win32.System.DesktopSharing
  */
-class IRDPSRAPIAudioStream extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRDPSRAPIAudioStream extends IUnknown {
     /**
      * The interface identifier for IRDPSRAPIAudioStream
      * @type {Guid}
      */
-    static IID => Guid("{e3e30ef9-89c6-4541-ba3b-19336ac6d31c}")
+    static IID := Guid("{e3e30ef9-89c6-4541-ba3b-19336ac6d31c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRDPSRAPIAudioStream interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize : IntPtr
+        Start      : IntPtr
+        Stop       : IntPtr
+        GetBuffer  : IntPtr
+        FreeBuffer : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "Start", "Stop", "GetBuffer", "FreeBuffer"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRDPSRAPIAudioStream.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes the audio stream.
@@ -84,5 +96,33 @@ class IRDPSRAPIAudioStream extends IUnknown {
     FreeBuffer() {
         result := ComCall(7, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRDPSRAPIAudioStream.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 1)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.GetBuffer := CallbackCreate(GetMethod(implObj, "GetBuffer"), flags, 4)
+        this.vtbl.FreeBuffer := CallbackCreate(GetMethod(implObj, "FreeBuffer"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.Start)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.GetBuffer)
+        CallbackFree(this.vtbl.FreeBuffer)
     }
 }

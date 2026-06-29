@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include .\TIMECODE.ahk
-#Include .\TIMECODE_SAMPLE_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TIMECODE.ahk" { TIMECODE }
+#Import ".\TIMECODE_SAMPLE_FLAGS.ahk" { TIMECODE_SAMPLE_FLAGS }
 
 /**
  * The TIMECODE_SAMPLE structure contains complete timecode information.
@@ -10,46 +9,24 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-timecode_sample
  * @namespace Windows.Win32.Media
  */
-class TIMECODE_SAMPLE extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct TIMECODE_SAMPLE {
+    #StructPack 8
 
     /**
      * Reference time, in 100-nanosecond units.
-     * @type {Integer}
      */
-    qwTick {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    qwTick : Int64
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/DirectShow/getting-timecode-from-the-device">TIMECODE</a> structure.
-     * @type {TIMECODE}
      */
-    timecode {
-        get {
-            if(!this.HasProp("__timecode"))
-                this.__timecode := TIMECODE(8, this)
-            return this.__timecode
-        }
-    }
+    timecode : TIMECODE
 
     /**
      * Packed SMPTE userbits.
-     * @type {Integer}
      */
-    dwUser {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwUser : UInt32
 
-    /**
-     * @type {TIMECODE_SAMPLE_FLAGS}
-     */
-    dwFlags {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwFlags : TIMECODE_SAMPLE_FLAGS
+
 }

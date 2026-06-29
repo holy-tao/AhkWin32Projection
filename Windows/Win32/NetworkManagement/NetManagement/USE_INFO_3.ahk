@@ -1,29 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USE_INFO_2.ahk
-#Include .\USE_INFO_ASG_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\USE_INFO_ASG_TYPE.ahk" { USE_INFO_ASG_TYPE }
+#Import ".\USE_INFO_2.ahk" { USE_INFO_2 }
 
 /**
  * The USE_INFO_3 structure contains information about a connection between a local computer and a shared resource, including connection type, connection status, user name, domain name, and specific flags that describe connection behavior.
  * @see https://learn.microsoft.com/windows/win32/api/lmuse/ns-lmuse-use_info_3
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class USE_INFO_3 extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct USE_INFO_3 {
+    #StructPack 8
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmuse/ns-lmuse-use_info_2">USE_INFO_2</a> structure that contains
-     * @type {USE_INFO_2}
      */
-    ui3_ui2 {
-        get {
-            if(!this.HasProp("__ui3_ui2"))
-                this.__ui3_ui2 := USE_INFO_2(0, this)
-            return this.__ui3_ui2
-        }
-    }
+    ui3_ui2 : USE_INFO_2
 
     /**
      * A set of bit flags that describe connection behavior and credential handling.
@@ -64,10 +55,7 @@ class USE_INFO_3 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ui3_flags {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    ui3_flags : UInt32
+
 }

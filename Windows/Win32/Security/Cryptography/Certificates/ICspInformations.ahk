@@ -1,39 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\ICspInformation.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\ICspStatus.ahk
-#Include .\ICspStatuses.ahk
-#Include .\ICspAlgorithms.ahk
-#Include .\IObjectIds.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\X509KeySpec.ahk" { X509KeySpec }
+#Import ".\AlgorithmOperationFlags.ahk" { AlgorithmOperationFlags }
+#Import ".\ICspStatuses.ahk" { ICspStatuses }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ICspInformation.ahk" { ICspInformation }
+#Import ".\IObjectIds.ahk" { IObjectIds }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ICspAlgorithms.ahk" { ICspAlgorithms }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ICspStatus.ahk" { ICspStatus }
 
 /**
  * The ICspInformations interface defines the following methods and properties to manage a collection of ICspInformation objects.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icspinformations
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICspInformations extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ICspInformations extends IDispatch {
     /**
      * The interface identifier for ICspInformations
      * @type {Guid}
      */
-    static IID => Guid("{728ab308-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab308-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICspInformations interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_ItemByIndex              : IntPtr
+        get_Count                    : IntPtr
+        get__NewEnum                 : IntPtr
+        Add                          : IntPtr
+        Remove                       : IntPtr
+        Clear                        : IntPtr
+        AddAvailableCsps             : IntPtr
+        get_ItemByName               : IntPtr
+        GetCspStatusFromProviderName : IntPtr
+        GetCspStatusesFromOperations : IntPtr
+        GetEncryptionCspAlgorithms   : IntPtr
+        GetHashAlgorithms            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ItemByIndex", "get_Count", "get__NewEnum", "Add", "Remove", "Clear", "AddAvailableCsps", "get_ItemByName", "GetCspStatusFromProviderName", "GetCspStatusesFromOperations", "GetEncryptionCspAlgorithms", "GetHashAlgorithms"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICspInformations.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -160,7 +182,7 @@ class ICspInformations extends IDispatch {
     get_ItemByName(strName) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(14, this, "ptr", strName, "ptr*", &ppCspInformation := 0, "HRESULT")
+        result := ComCall(14, this, BSTR, strName, "ptr*", &ppCspInformation := 0, "HRESULT")
         return ICspInformation(ppCspInformation)
     }
 
@@ -174,7 +196,7 @@ class ICspInformations extends IDispatch {
     GetCspStatusFromProviderName(strProviderName, LegacyKeySpec) {
         strProviderName := strProviderName is String ? BSTR.Alloc(strProviderName).Value : strProviderName
 
-        result := ComCall(15, this, "ptr", strProviderName, "int", LegacyKeySpec, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(15, this, BSTR, strProviderName, X509KeySpec, LegacyKeySpec, "ptr*", &ppValue := 0, "HRESULT")
         return ICspStatus(ppValue)
     }
 
@@ -201,7 +223,7 @@ class ICspInformations extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformations-getcspstatusesfromoperations
      */
     GetCspStatusesFromOperations(Operations, pCspInformation) {
-        result := ComCall(16, this, "int", Operations, "ptr", pCspInformation, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(16, this, AlgorithmOperationFlags, Operations, "ptr", pCspInformation, "ptr*", &ppValue := 0, "HRESULT")
         return ICspStatuses(ppValue)
     }
 
@@ -225,5 +247,47 @@ class ICspInformations extends IDispatch {
     GetHashAlgorithms(pCspInformation) {
         result := ComCall(18, this, "ptr", pCspInformation, "ptr*", &ppValue := 0, "HRESULT")
         return IObjectIds(ppValue)
+    }
+
+    Query(iid) {
+        if (ICspInformations.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ItemByIndex := CallbackCreate(GetMethod(implObj, "get_ItemByIndex"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.AddAvailableCsps := CallbackCreate(GetMethod(implObj, "AddAvailableCsps"), flags, 1)
+        this.vtbl.get_ItemByName := CallbackCreate(GetMethod(implObj, "get_ItemByName"), flags, 3)
+        this.vtbl.GetCspStatusFromProviderName := CallbackCreate(GetMethod(implObj, "GetCspStatusFromProviderName"), flags, 4)
+        this.vtbl.GetCspStatusesFromOperations := CallbackCreate(GetMethod(implObj, "GetCspStatusesFromOperations"), flags, 4)
+        this.vtbl.GetEncryptionCspAlgorithms := CallbackCreate(GetMethod(implObj, "GetEncryptionCspAlgorithms"), flags, 3)
+        this.vtbl.GetHashAlgorithms := CallbackCreate(GetMethod(implObj, "GetHashAlgorithms"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ItemByIndex)
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.Remove)
+        CallbackFree(this.vtbl.Clear)
+        CallbackFree(this.vtbl.AddAvailableCsps)
+        CallbackFree(this.vtbl.get_ItemByName)
+        CallbackFree(this.vtbl.GetCspStatusFromProviderName)
+        CallbackFree(this.vtbl.GetCspStatusesFromOperations)
+        CallbackFree(this.vtbl.GetEncryptionCspAlgorithms)
+        CallbackFree(this.vtbl.GetHashAlgorithms)
     }
 }

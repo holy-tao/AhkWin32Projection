@@ -1,25 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\StationsAndDesktops\HDESK.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\StationsAndDesktops\HDESK.ahk" { HDESK }
 
 /**
  * Used to pass desktop information between your GINA DLL and Winlogon.
  * @see https://learn.microsoft.com/windows/win32/api/winwlx/ns-winwlx-wlx_desktop
  * @namespace Windows.Win32.Security.WinWlx
  */
-class WLX_DESKTOP extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct WLX_DESKTOP {
+    #StructPack 8
 
     /**
      * Specifies the size of the <b>WLX_DESKTOP</b> structure. Set to sizeof(WLX_DESKTOP).
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
     /**
      * Specifies the valid fields. Specify one of the following.
@@ -50,31 +44,17 @@ class WLX_DESKTOP extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : UInt32
 
     /**
      * A handle to the desktop returned by <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createdesktopa">CreateDesktop</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-opendesktopa">OpenDesktop</a>.
-     * @type {HDESK}
      */
-    hDesktop {
-        get {
-            if(!this.HasProp("__hDesktop"))
-                this.__hDesktop := HDESK(8, this)
-            return this.__hDesktop
-        }
-    }
+    hDesktop : HDESK
 
     /**
      * Name of the desktop.
-     * @type {PWSTR}
      */
-    pszDesktopName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszDesktopName : PWSTR
+
 }

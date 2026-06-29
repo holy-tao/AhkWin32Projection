@@ -1,102 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_SEND_RAW_COMMAND_PARAMETERS extends Win32Struct {
-    static sizeof => 28
+export default struct USB_SEND_RAW_COMMAND_PARAMETERS {
+    #StructPack 4
 
-    static packingSize => 4
+    Usb_bmRequest : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Usb_bmRequest {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Usb_bRequest : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Usb_bRequest {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Usb_wVlaue : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Usb_wVlaue {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Usb_wIndex : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Usb_wIndex {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    Usb_wLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Usb_wLength {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    DeviceAddress : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DeviceAddress {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    MaximumPacketSize : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    MaximumPacketSize {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    Timeout : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Timeout {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    DataLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataLength {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    UsbdStatusCode : Int32
 
-    /**
-     * @type {Integer}
-     */
-    UsbdStatusCode {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    Data : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Data {
-        get {
-            if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "char")
-            return this.__DataProxyArray
-        }
-    }
 }

@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ID3D11CryptoSession.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ID3D11CryptoSession.ahk" { ID3D11CryptoSession }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Provides data to the ID3D11VideoContext::DecoderBeginFrame method.
@@ -9,63 +9,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/ns-d3d11_1-d3d11_video_decoder_begin_frame_crypto_session
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_VIDEO_DECODER_BEGIN_FRAME_CRYPTO_SESSION extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct D3D11_VIDEO_DECODER_BEGIN_FRAME_CRYPTO_SESSION {
+    #StructPack 8
 
     /**
      * A pointer to the ID3D11CryptoSession interface.  To get this pointer, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9video-createcryptosession">ID3D11VideoDevice1::CreateCryptoSession</a>.
-     * @type {ID3D11CryptoSession}
      */
-    pCryptoSession {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pCryptoSession : ID3D11CryptoSession
 
     /**
      * The size of the memory buffer referenced by the <i>pBlob</i> member.
-     * @type {Integer}
      */
-    BlobSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    BlobSize : UInt32
 
     /**
      * The definition of this buffer is dependent on the implementation of the secure execution environment. It could contain a sealed key blob or any other per-key data that the secure execution environment needs to pass to the decode API.
      * 
      * The definition of this buffer is dependent on the implementation of the secure environment. It may contain data specific to the current frame.
-     * @type {Pointer<Void>}
      */
-    pBlob {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pBlob : IntPtr
 
     /**
      * A pointer to a GUID identifying the hardware key.
-     * @type {Pointer<Guid>}
      */
-    pKeyInfoId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pKeyInfoId : Guid.Ptr
 
     /**
      * The size of the memory buffer referenced by the <i>pPrivateData</i> member.
-     * @type {Integer}
      */
-    PrivateDataSize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    PrivateDataSize : UInt32
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pPrivateData {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pPrivateData : IntPtr
+
 }

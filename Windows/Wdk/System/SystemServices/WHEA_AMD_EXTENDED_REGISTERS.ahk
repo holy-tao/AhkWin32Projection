@@ -1,102 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_AMD_EXTENDED_REGISTERS extends Win32Struct {
-    static sizeof => 192
+export default struct WHEA_AMD_EXTENDED_REGISTERS {
+    #StructPack 8
 
-    static packingSize => 8
+    IPID : Int64
 
-    /**
-     * @type {Integer}
-     */
-    IPID {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SYND : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SYND {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    CONFIG : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CONFIG {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    DESTAT : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DESTAT {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    DEADDR : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DEADDR {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    MISC1 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MISC1 {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    MISC2 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MISC2 {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    MISC3 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MISC3 {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    MISC4 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MISC4 {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    RasCap : Int64
 
-    /**
-     * @type {Integer}
-     */
-    RasCap {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    Reserved : Int64[14]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 80, 14, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
-    }
 }

@@ -1,88 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_TRUST_STATUS.ahk
-#Include .\CERT_CHAIN_ELEMENT.ahk
-#Include .\CERT_TRUST_LIST_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CERT_TRUST_STATUS.ahk" { CERT_TRUST_STATUS }
+#Import ".\CERT_CHAIN_ELEMENT.ahk" { CERT_CHAIN_ELEMENT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\CERT_TRUST_LIST_INFO.ahk" { CERT_TRUST_LIST_INFO }
 
 /**
  * The CERT_SIMPLE_CHAIN structure contains an array of chain elements and a summary trust status for the chain that the array represents.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_simple_chain
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_SIMPLE_CHAIN extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct CERT_SIMPLE_CHAIN {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * A structure that indicates the trust status of the whole chain. The structure includes an error status code and an information status code. For information about status code values, see <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_trust_status">CERT_TRUST_STATUS</a>.
-     * @type {CERT_TRUST_STATUS}
      */
-    TrustStatus {
-        get {
-            if(!this.HasProp("__TrustStatus"))
-                this.__TrustStatus := CERT_TRUST_STATUS(4, this)
-            return this.__TrustStatus
-        }
-    }
+    TrustStatus : CERT_TRUST_STATUS
 
     /**
      * The number of <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_chain_element">CERT_CHAIN_ELEMENT</a> structures in the array.
-     * @type {Integer}
      */
-    cElement {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    cElement : UInt32
 
     /**
      * An array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_chain_element">CERT_CHAIN_ELEMENT</a> structures. <b>rgpElement</b>[0] is the end certificate chain element. <b>rgpElement</b>[<b>cElement</b>–1] is the self-signed "root" certificate element.
-     * @type {Pointer<Pointer<CERT_CHAIN_ELEMENT>>}
      */
-    rgpElement {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    rgpElement : IntPtr
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_trust_list_info">CERT_TRUST_LIST_INFO</a> structure that contains a pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate trust list</a> (CTL) connecting this chain to a next certificate chain. If the current chain is the final chain, <b>pTrustListInfo</b> is <b>NULL</b>.
-     * @type {Pointer<CERT_TRUST_LIST_INFO>}
      */
-    pTrustListInfo {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pTrustListInfo : CERT_TRUST_LIST_INFO.Ptr
 
     /**
      * BOOL. If <b>TRUE</b>, <b>dwRevocationFreshnessTime</b> has been calculated.
-     * @type {BOOL}
      */
-    fHasRevocationFreshnessTime {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    fHasRevocationFreshnessTime : BOOL
 
     /**
      * The age of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate revocation list</a> 
      * (CRL) in seconds, calculated as the CurrentTime minus the CRL's ThisUpdate time. This values is the largest time across all elements checked.
-     * @type {Integer}
      */
-    dwRevocationFreshnessTime {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwRevocationFreshnessTime : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 40
-    }
 }

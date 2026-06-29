@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IFaxRecipient interface defines a FaxRecipient messaging object is used by a fax client application to retrieve and set the personal information for fax recipients.
@@ -11,32 +12,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxrecipient
  * @namespace Windows.Win32.Devices.Fax
  */
-class IFaxRecipient extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFaxRecipient extends IDispatch {
     /**
      * The interface identifier for IFaxRecipient
      * @type {Guid}
      */
-    static IID => Guid("{9a3da3a0-538d-42b6-9444-aaa57d0ce2bc}")
+    static IID := Guid("{9a3da3a0-538d-42b6-9444-aaa57d0ce2bc}")
 
     /**
      * The class identifier for FaxRecipient
      * @type {Guid}
      */
-    static CLSID => Guid("{60bf3301-7df8-4bd8-9148-7b5801f9efdf}")
+    static CLSID := Guid("{60bf3301-7df8-4bd8-9148-7b5801f9efdf}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFaxRecipient interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_FaxNumber : IntPtr
+        put_FaxNumber : IntPtr
+        get_Name      : IntPtr
+        put_Name      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_FaxNumber", "put_FaxNumber", "get_Name", "put_Name"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFaxRecipient.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -62,8 +73,8 @@ class IFaxRecipient extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxrecipient-get_faxnumber
      */
     get_FaxNumber() {
-        pbstrFaxNumber := BSTR()
-        result := ComCall(7, this, "ptr", pbstrFaxNumber, "HRESULT")
+        pbstrFaxNumber := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pbstrFaxNumber, "HRESULT")
         return pbstrFaxNumber
     }
 
@@ -78,7 +89,7 @@ class IFaxRecipient extends IDispatch {
     put_FaxNumber(bstrFaxNumber) {
         bstrFaxNumber := bstrFaxNumber is String ? BSTR.Alloc(bstrFaxNumber).Value : bstrFaxNumber
 
-        result := ComCall(8, this, "ptr", bstrFaxNumber, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrFaxNumber, "HRESULT")
         return result
     }
 
@@ -88,8 +99,8 @@ class IFaxRecipient extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxrecipient-get_name
      */
     get_Name() {
-        pbstrName := BSTR()
-        result := ComCall(9, this, "ptr", pbstrName, "HRESULT")
+        pbstrName := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 
@@ -102,7 +113,33 @@ class IFaxRecipient extends IDispatch {
     put_Name(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(10, this, "ptr", bstrName, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFaxRecipient.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_FaxNumber := CallbackCreate(GetMethod(implObj, "get_FaxNumber"), flags, 2)
+        this.vtbl.put_FaxNumber := CallbackCreate(GetMethod(implObj, "put_FaxNumber"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_FaxNumber)
+        CallbackFree(this.vtbl.put_FaxNumber)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.put_Name)
     }
 }

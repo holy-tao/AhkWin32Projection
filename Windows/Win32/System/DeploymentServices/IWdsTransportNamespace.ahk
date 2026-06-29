@@ -1,41 +1,71 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IWdsTransportCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\WDSTRANSPORT_NAMESPACE_TYPE.ahk" { WDSTRANSPORT_NAMESPACE_TYPE }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IWdsTransportCollection.ahk" { IWdsTransportCollection }
 
 /**
  * Represents a namespace on a WDS transport server.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportnamespace
  * @namespace Windows.Win32.System.DeploymentServices
  */
-class IWdsTransportNamespace extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWdsTransportNamespace extends IDispatch {
     /**
      * The interface identifier for IWdsTransportNamespace
      * @type {Guid}
      */
-    static IID => Guid("{fa561f57-fbef-4ed3-b056-127cb1b33b84}")
+    static IID := Guid("{fa561f57-fbef-4ed3-b056-127cb1b33b84}")
 
     /**
      * The class identifier for WdsTransportNamespace
      * @type {Guid}
      */
-    static CLSID => Guid("{d8385768-0732-4ec1-95ea-16da581908a1}")
+    static CLSID := Guid("{d8385768-0732-4ec1-95ea-16da581908a1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWdsTransportNamespace interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Type                : IntPtr
+        get_Id                  : IntPtr
+        get_Name                : IntPtr
+        put_Name                : IntPtr
+        get_FriendlyName        : IntPtr
+        put_FriendlyName        : IntPtr
+        get_Description         : IntPtr
+        put_Description         : IntPtr
+        get_ContentProvider     : IntPtr
+        put_ContentProvider     : IntPtr
+        get_Configuration       : IntPtr
+        put_Configuration       : IntPtr
+        get_Registered          : IntPtr
+        get_Tombstoned          : IntPtr
+        get_TombstoneTime       : IntPtr
+        get_TransmissionStarted : IntPtr
+        Register                : IntPtr
+        Deregister              : IntPtr
+        Clone                   : IntPtr
+        Refresh                 : IntPtr
+        RetrieveContents        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Type", "get_Id", "get_Name", "put_Name", "get_FriendlyName", "put_FriendlyName", "get_Description", "put_Description", "get_ContentProvider", "put_ContentProvider", "get_Configuration", "put_Configuration", "get_Registered", "get_Tombstoned", "get_TombstoneTime", "get_TransmissionStarted", "Register", "Deregister", "Clone", "Refresh", "RetrieveContents"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWdsTransportNamespace.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {WDSTRANSPORT_NAMESPACE_TYPE} 
@@ -145,8 +175,8 @@ class IWdsTransportNamespace extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_name
      */
     get_Name() {
-        pbszName := BSTR()
-        result := ComCall(9, this, "ptr", pbszName, "HRESULT")
+        pbszName := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pbszName, "HRESULT")
         return pbszName
     }
 
@@ -159,7 +189,7 @@ class IWdsTransportNamespace extends IDispatch {
     put_Name(bszName) {
         bszName := bszName is String ? BSTR.Alloc(bszName).Value : bszName
 
-        result := ComCall(10, this, "ptr", bszName, "HRESULT")
+        result := ComCall(10, this, BSTR, bszName, "HRESULT")
         return result
     }
 
@@ -174,8 +204,8 @@ class IWdsTransportNamespace extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_friendlyname
      */
     get_FriendlyName() {
-        pbszFriendlyName := BSTR()
-        result := ComCall(11, this, "ptr", pbszFriendlyName, "HRESULT")
+        pbszFriendlyName := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pbszFriendlyName, "HRESULT")
         return pbszFriendlyName
     }
 
@@ -193,7 +223,7 @@ class IWdsTransportNamespace extends IDispatch {
     put_FriendlyName(bszFriendlyName) {
         bszFriendlyName := bszFriendlyName is String ? BSTR.Alloc(bszFriendlyName).Value : bszFriendlyName
 
-        result := ComCall(12, this, "ptr", bszFriendlyName, "HRESULT")
+        result := ComCall(12, this, BSTR, bszFriendlyName, "HRESULT")
         return result
     }
 
@@ -203,8 +233,8 @@ class IWdsTransportNamespace extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_description
      */
     get_Description() {
-        pbszDescription := BSTR()
-        result := ComCall(13, this, "ptr", pbszDescription, "HRESULT")
+        pbszDescription := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, pbszDescription, "HRESULT")
         return pbszDescription
     }
 
@@ -217,7 +247,7 @@ class IWdsTransportNamespace extends IDispatch {
     put_Description(bszDescription) {
         bszDescription := bszDescription is String ? BSTR.Alloc(bszDescription).Value : bszDescription
 
-        result := ComCall(14, this, "ptr", bszDescription, "HRESULT")
+        result := ComCall(14, this, BSTR, bszDescription, "HRESULT")
         return result
     }
 
@@ -227,8 +257,8 @@ class IWdsTransportNamespace extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_contentprovider
      */
     get_ContentProvider() {
-        pbszContentProvider := BSTR()
-        result := ComCall(15, this, "ptr", pbszContentProvider, "HRESULT")
+        pbszContentProvider := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, pbszContentProvider, "HRESULT")
         return pbszContentProvider
     }
 
@@ -241,7 +271,7 @@ class IWdsTransportNamespace extends IDispatch {
     put_ContentProvider(bszContentProvider) {
         bszContentProvider := bszContentProvider is String ? BSTR.Alloc(bszContentProvider).Value : bszContentProvider
 
-        result := ComCall(16, this, "ptr", bszContentProvider, "HRESULT")
+        result := ComCall(16, this, BSTR, bszContentProvider, "HRESULT")
         return result
     }
 
@@ -251,8 +281,8 @@ class IWdsTransportNamespace extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_configuration
      */
     get_Configuration() {
-        pbszConfiguration := BSTR()
-        result := ComCall(17, this, "ptr", pbszConfiguration, "HRESULT")
+        pbszConfiguration := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, pbszConfiguration, "HRESULT")
         return pbszConfiguration
     }
 
@@ -265,7 +295,7 @@ class IWdsTransportNamespace extends IDispatch {
     put_Configuration(bszConfiguration) {
         bszConfiguration := bszConfiguration is String ? BSTR.Alloc(bszConfiguration).Value : bszConfiguration
 
-        result := ComCall(18, this, "ptr", bszConfiguration, "HRESULT")
+        result := ComCall(18, this, BSTR, bszConfiguration, "HRESULT")
         return result
     }
 
@@ -275,7 +305,7 @@ class IWdsTransportNamespace extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_registered
      */
     get_Registered() {
-        result := ComCall(19, this, "short*", &pbRegistered := 0, "HRESULT")
+        result := ComCall(19, this, VARIANT_BOOL.Ptr, &pbRegistered := 0, "HRESULT")
         return pbRegistered
     }
 
@@ -285,7 +315,7 @@ class IWdsTransportNamespace extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_tombstoned
      */
     get_Tombstoned() {
-        result := ComCall(20, this, "short*", &pbTombstoned := 0, "HRESULT")
+        result := ComCall(20, this, VARIANT_BOOL.Ptr, &pbTombstoned := 0, "HRESULT")
         return pbTombstoned
     }
 
@@ -307,7 +337,7 @@ class IWdsTransportNamespace extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_transmissionstarted
      */
     get_TransmissionStarted() {
-        result := ComCall(22, this, "short*", &pbTransmissionStarted := 0, "HRESULT")
+        result := ComCall(22, this, VARIANT_BOOL.Ptr, &pbTransmissionStarted := 0, "HRESULT")
         return pbTransmissionStarted
     }
 
@@ -328,7 +358,7 @@ class IWdsTransportNamespace extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-deregister
      */
     Deregister(bTerminateSessions) {
-        result := ComCall(24, this, "short", bTerminateSessions, "HRESULT")
+        result := ComCall(24, this, VARIANT_BOOL, bTerminateSessions, "HRESULT")
         return result
     }
 
@@ -362,5 +392,65 @@ class IWdsTransportNamespace extends IDispatch {
     RetrieveContents() {
         result := ComCall(27, this, "ptr*", &ppWdsTransportContents := 0, "HRESULT")
         return IWdsTransportCollection(ppWdsTransportContents)
+    }
+
+    Query(iid) {
+        if (IWdsTransportNamespace.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_FriendlyName := CallbackCreate(GetMethod(implObj, "get_FriendlyName"), flags, 2)
+        this.vtbl.put_FriendlyName := CallbackCreate(GetMethod(implObj, "put_FriendlyName"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.get_ContentProvider := CallbackCreate(GetMethod(implObj, "get_ContentProvider"), flags, 2)
+        this.vtbl.put_ContentProvider := CallbackCreate(GetMethod(implObj, "put_ContentProvider"), flags, 2)
+        this.vtbl.get_Configuration := CallbackCreate(GetMethod(implObj, "get_Configuration"), flags, 2)
+        this.vtbl.put_Configuration := CallbackCreate(GetMethod(implObj, "put_Configuration"), flags, 2)
+        this.vtbl.get_Registered := CallbackCreate(GetMethod(implObj, "get_Registered"), flags, 2)
+        this.vtbl.get_Tombstoned := CallbackCreate(GetMethod(implObj, "get_Tombstoned"), flags, 2)
+        this.vtbl.get_TombstoneTime := CallbackCreate(GetMethod(implObj, "get_TombstoneTime"), flags, 2)
+        this.vtbl.get_TransmissionStarted := CallbackCreate(GetMethod(implObj, "get_TransmissionStarted"), flags, 2)
+        this.vtbl.Register := CallbackCreate(GetMethod(implObj, "Register"), flags, 1)
+        this.vtbl.Deregister := CallbackCreate(GetMethod(implObj, "Deregister"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.RetrieveContents := CallbackCreate(GetMethod(implObj, "RetrieveContents"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Type)
+        CallbackFree(this.vtbl.get_Id)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.put_Name)
+        CallbackFree(this.vtbl.get_FriendlyName)
+        CallbackFree(this.vtbl.put_FriendlyName)
+        CallbackFree(this.vtbl.get_Description)
+        CallbackFree(this.vtbl.put_Description)
+        CallbackFree(this.vtbl.get_ContentProvider)
+        CallbackFree(this.vtbl.put_ContentProvider)
+        CallbackFree(this.vtbl.get_Configuration)
+        CallbackFree(this.vtbl.put_Configuration)
+        CallbackFree(this.vtbl.get_Registered)
+        CallbackFree(this.vtbl.get_Tombstoned)
+        CallbackFree(this.vtbl.get_TombstoneTime)
+        CallbackFree(this.vtbl.get_TransmissionStarted)
+        CallbackFree(this.vtbl.Register)
+        CallbackFree(this.vtbl.Deregister)
+        CallbackFree(this.vtbl.Clone)
+        CallbackFree(this.vtbl.Refresh)
+        CallbackFree(this.vtbl.RetrieveContents)
     }
 }

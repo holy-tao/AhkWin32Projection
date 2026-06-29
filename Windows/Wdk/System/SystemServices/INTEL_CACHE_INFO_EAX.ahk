@@ -1,37 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class INTEL_CACHE_INFO_EAX extends Win32Struct {
-    static sizeof => 8
+export default struct INTEL_CACHE_INFO_EAX {
+    #StructPack 4
 
-    static packingSize => 4
+    Ulong : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Ulong {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - Type
-     * - Level
-     * - SelfInitializing
-     * - FullyAssociative
-     * - Reserved
-     * - ThreadsSharing
-     * - ProcessorCores
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
 
     /**
      * @type {Integer}
@@ -79,5 +55,9 @@ class INTEL_CACHE_INFO_EAX extends Win32Struct {
     ProcessorCores {
         get => (this._bitfield >> 26) & 0x3F
         set => this._bitfield := ((value & 0x3F) << 26) | (this._bitfield & ~(0x3F << 26))
+    }
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

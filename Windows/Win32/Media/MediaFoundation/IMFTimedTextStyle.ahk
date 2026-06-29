@@ -1,34 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\MFARGB.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MF_TIMED_TEXT_FONT_STYLE.ahk" { MF_TIMED_TEXT_FONT_STYLE }
+#Import ".\MFARGB.ahk" { MFARGB }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MF_TIMED_TEXT_ALIGNMENT.ahk" { MF_TIMED_TEXT_ALIGNMENT }
+#Import ".\MF_TIMED_TEXT_UNIT_TYPE.ahk" { MF_TIMED_TEXT_UNIT_TYPE }
 
 /**
  * Represents the style for timed text.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imftimedtextstyle
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFTimedTextStyle extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFTimedTextStyle extends IUnknown {
     /**
      * The interface identifier for IMFTimedTextStyle
      * @type {Guid}
      */
-    static IID => Guid("{09b2455d-b834-4f01-a347-9052e21c450e}")
+    static IID := Guid("{09b2455d-b834-4f01-a347-9052e21c450e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFTimedTextStyle interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetName                 : IntPtr
+        IsExternal              : IntPtr
+        GetFontFamily           : IntPtr
+        GetFontSize             : IntPtr
+        GetColor                : IntPtr
+        GetBackgroundColor      : IntPtr
+        GetShowBackgroundAlways : IntPtr
+        GetFontStyle            : IntPtr
+        GetBold                 : IntPtr
+        GetRightToLeft          : IntPtr
+        GetTextAlignment        : IntPtr
+        GetTextDecoration       : IntPtr
+        GetTextOutline          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetName", "IsExternal", "GetFontFamily", "GetFontSize", "GetColor", "GetBackgroundColor", "GetShowBackgroundAlways", "GetFontStyle", "GetBold", "GetRightToLeft", "GetTextAlignment", "GetTextDecoration", "GetTextOutline"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFTimedTextStyle.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the name of the timed-text style.
@@ -38,7 +63,7 @@ class IMFTimedTextStyle extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getname
      */
     GetName() {
-        result := ComCall(3, this, "ptr*", &name := 0, "HRESULT")
+        result := ComCall(3, this, PWSTR.Ptr, &name := 0, "HRESULT")
         return name
     }
 
@@ -50,7 +75,7 @@ class IMFTimedTextStyle extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-isexternal
      */
     IsExternal() {
-        result := ComCall(4, this, "int")
+        result := ComCall(4, this, BOOL)
         return result
     }
 
@@ -62,7 +87,7 @@ class IMFTimedTextStyle extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getfontfamily
      */
     GetFontFamily() {
-        result := ComCall(5, this, "ptr*", &_fontFamily := 0, "HRESULT")
+        result := ComCall(5, this, PWSTR.Ptr, &_fontFamily := 0, "HRESULT")
         return _fontFamily
     }
 
@@ -96,7 +121,7 @@ class IMFTimedTextStyle extends IUnknown {
      */
     GetColor() {
         _color := MFARGB()
-        result := ComCall(7, this, "ptr", _color, "HRESULT")
+        result := ComCall(7, this, MFARGB.Ptr, _color, "HRESULT")
         return _color
     }
 
@@ -109,7 +134,7 @@ class IMFTimedTextStyle extends IUnknown {
      */
     GetBackgroundColor() {
         bgColor := MFARGB()
-        result := ComCall(8, this, "ptr", bgColor, "HRESULT")
+        result := ComCall(8, this, MFARGB.Ptr, bgColor, "HRESULT")
         return bgColor
     }
 
@@ -121,7 +146,7 @@ class IMFTimedTextStyle extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getshowbackgroundalways
      */
     GetShowBackgroundAlways() {
-        result := ComCall(9, this, "int*", &showBackgroundAlways := 0, "HRESULT")
+        result := ComCall(9, this, BOOL.Ptr, &showBackgroundAlways := 0, "HRESULT")
         return showBackgroundAlways
     }
 
@@ -145,7 +170,7 @@ class IMFTimedTextStyle extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getbold
      */
     GetBold() {
-        result := ComCall(11, this, "int*", &bold := 0, "HRESULT")
+        result := ComCall(11, this, BOOL.Ptr, &bold := 0, "HRESULT")
         return bold
     }
 
@@ -157,7 +182,7 @@ class IMFTimedTextStyle extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getrighttoleft
      */
     GetRightToLeft() {
-        result := ComCall(12, this, "int*", &rightToLeft := 0, "HRESULT")
+        result := ComCall(12, this, BOOL.Ptr, &rightToLeft := 0, "HRESULT")
         return rightToLeft
     }
 
@@ -209,7 +234,51 @@ class IMFTimedTextStyle extends IUnknown {
         blurRadiusMarshal := blurRadius is VarRef ? "double*" : "ptr"
         unitTypeMarshal := unitType is VarRef ? "int*" : "ptr"
 
-        result := ComCall(15, this, "ptr", _color, thicknessMarshal, thickness, blurRadiusMarshal, blurRadius, unitTypeMarshal, unitType, "HRESULT")
+        result := ComCall(15, this, MFARGB.Ptr, _color, thicknessMarshal, thickness, blurRadiusMarshal, blurRadius, unitTypeMarshal, unitType, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFTimedTextStyle.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.IsExternal := CallbackCreate(GetMethod(implObj, "IsExternal"), flags, 1)
+        this.vtbl.GetFontFamily := CallbackCreate(GetMethod(implObj, "GetFontFamily"), flags, 2)
+        this.vtbl.GetFontSize := CallbackCreate(GetMethod(implObj, "GetFontSize"), flags, 3)
+        this.vtbl.GetColor := CallbackCreate(GetMethod(implObj, "GetColor"), flags, 2)
+        this.vtbl.GetBackgroundColor := CallbackCreate(GetMethod(implObj, "GetBackgroundColor"), flags, 2)
+        this.vtbl.GetShowBackgroundAlways := CallbackCreate(GetMethod(implObj, "GetShowBackgroundAlways"), flags, 2)
+        this.vtbl.GetFontStyle := CallbackCreate(GetMethod(implObj, "GetFontStyle"), flags, 2)
+        this.vtbl.GetBold := CallbackCreate(GetMethod(implObj, "GetBold"), flags, 2)
+        this.vtbl.GetRightToLeft := CallbackCreate(GetMethod(implObj, "GetRightToLeft"), flags, 2)
+        this.vtbl.GetTextAlignment := CallbackCreate(GetMethod(implObj, "GetTextAlignment"), flags, 2)
+        this.vtbl.GetTextDecoration := CallbackCreate(GetMethod(implObj, "GetTextDecoration"), flags, 2)
+        this.vtbl.GetTextOutline := CallbackCreate(GetMethod(implObj, "GetTextOutline"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.IsExternal)
+        CallbackFree(this.vtbl.GetFontFamily)
+        CallbackFree(this.vtbl.GetFontSize)
+        CallbackFree(this.vtbl.GetColor)
+        CallbackFree(this.vtbl.GetBackgroundColor)
+        CallbackFree(this.vtbl.GetShowBackgroundAlways)
+        CallbackFree(this.vtbl.GetFontStyle)
+        CallbackFree(this.vtbl.GetBold)
+        CallbackFree(this.vtbl.GetRightToLeft)
+        CallbackFree(this.vtbl.GetTextAlignment)
+        CallbackFree(this.vtbl.GetTextDecoration)
+        CallbackFree(this.vtbl.GetTextOutline)
     }
 }

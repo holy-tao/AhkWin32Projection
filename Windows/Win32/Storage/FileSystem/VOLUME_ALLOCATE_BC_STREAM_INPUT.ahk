@@ -1,94 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class VOLUME_ALLOCATE_BC_STREAM_INPUT extends Win32Struct {
-    static sizeof => 40
+export default struct VOLUME_ALLOCATE_BC_STREAM_INPUT {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    RequestsPerPeriod : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RequestsPerPeriod {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Period : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Period {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    RetryFailures : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    RetryFailures {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    Discardable : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Discardable {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
-    }
+    Reserved1 : BOOLEAN[2]
 
-    /**
-     * @type {Array<BOOLEAN>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 14, 2, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    LowestByteOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    LowestByteOffset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    HighestByteOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    HighestByteOffset {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    AccessType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AccessType {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    AccessMode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AccessMode {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
 }

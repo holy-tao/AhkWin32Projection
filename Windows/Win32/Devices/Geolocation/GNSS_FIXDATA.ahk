@@ -1,108 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\GNSS_FIXDATA_BASIC.ahk
-#Include .\GNSS_FIXDATA_ACCURACY.ahk
-#Include .\GNSS_FIXDATA_SATELLITE.ahk
-#Include .\GNSS_SATELLITEINFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\GNSS_FIXDATA_ACCURACY.ahk" { GNSS_FIXDATA_ACCURACY }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\GNSS_FIXDATA_SATELLITE.ahk" { GNSS_FIXDATA_SATELLITE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\GNSS_SATELLITEINFO.ahk" { GNSS_SATELLITEINFO }
+#Import ".\GNSS_FIXDATA_BASIC.ahk" { GNSS_FIXDATA_BASIC }
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
  */
-class GNSS_FIXDATA extends Win32Struct {
-    static sizeof => 2208
+export default struct GNSS_FIXDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    FixSessionID : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FixSessionID {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    FixTimeStamp : FILETIME
 
-    /**
-     * @type {FILETIME}
-     */
-    FixTimeStamp {
-        get {
-            if(!this.HasProp("__FixTimeStamp"))
-                this.__FixTimeStamp := FILETIME(12, this)
-            return this.__FixTimeStamp
-        }
-    }
+    IsFinalFix : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    IsFinalFix {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    FixStatus : NTSTATUS
 
-    /**
-     * @type {NTSTATUS}
-     */
-    FixStatus {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    FixLevelOfDetails : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FixLevelOfDetails {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    BasicData : GNSS_FIXDATA_BASIC
 
-    /**
-     * @type {GNSS_FIXDATA_BASIC}
-     */
-    BasicData {
-        get {
-            if(!this.HasProp("__BasicData"))
-                this.__BasicData := GNSS_FIXDATA_BASIC(32, this)
-            return this.__BasicData
-        }
-    }
+    AccuracyData : GNSS_FIXDATA_ACCURACY
 
-    /**
-     * @type {GNSS_FIXDATA_ACCURACY}
-     */
-    AccuracyData {
-        get {
-            if(!this.HasProp("__AccuracyData"))
-                this.__AccuracyData := GNSS_FIXDATA_ACCURACY(80, this)
-            return this.__AccuracyData
-        }
-    }
+    SatelliteData : GNSS_FIXDATA_SATELLITE
 
-    /**
-     * @type {GNSS_FIXDATA_SATELLITE}
-     */
-    SatelliteData {
-        get {
-            if(!this.HasProp("__SatelliteData"))
-                this.__SatelliteData := GNSS_FIXDATA_SATELLITE(144, this)
-            return this.__SatelliteData
-        }
-    }
 }

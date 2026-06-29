@@ -1,112 +1,38 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ID3D12GraphicsCommandList.ahk
-#Include .\ID3D12CommandQueue.ahk
-#Include .\D3D12_AUTO_BREADCRUMB_OP.ahk
-#Include .\D3D12_AUTO_BREADCRUMB_NODE1.ahk
-#Include .\D3D12_DRED_BREADCRUMB_CONTEXT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_DRED_BREADCRUMB_CONTEXT.ahk" { D3D12_DRED_BREADCRUMB_CONTEXT }
+#Import ".\ID3D12GraphicsCommandList.ahk" { ID3D12GraphicsCommandList }
+#Import ".\ID3D12CommandQueue.ahk" { ID3D12CommandQueue }
+#Import ".\D3D12_AUTO_BREADCRUMB_OP.ahk" { D3D12_AUTO_BREADCRUMB_OP }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_AUTO_BREADCRUMB_NODE1 extends Win32Struct {
-    static sizeof => 96
+export default struct D3D12_AUTO_BREADCRUMB_NODE1 {
+    #StructPack 8
 
-    static packingSize => 8
+    pCommandListDebugNameA : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pCommandListDebugNameA {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pCommandListDebugNameW : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pCommandListDebugNameW {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pCommandQueueDebugNameA : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pCommandQueueDebugNameA {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pCommandQueueDebugNameW : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pCommandQueueDebugNameW {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pCommandList : ID3D12GraphicsCommandList
 
-    /**
-     * @type {ID3D12GraphicsCommandList}
-     */
-    pCommandList {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pCommandQueue : ID3D12CommandQueue
 
-    /**
-     * @type {ID3D12CommandQueue}
-     */
-    pCommandQueue {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    BreadcrumbCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BreadcrumbCount {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    pLastBreadcrumbValue : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pLastBreadcrumbValue {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pCommandHistory : D3D12_AUTO_BREADCRUMB_OP.Ptr
 
-    /**
-     * @type {Pointer<D3D12_AUTO_BREADCRUMB_OP>}
-     */
-    pCommandHistory {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    pNext : D3D12_AUTO_BREADCRUMB_NODE1.Ptr
 
-    /**
-     * @type {Pointer<D3D12_AUTO_BREADCRUMB_NODE1>}
-     */
-    pNext {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    BreadcrumbContextsCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BreadcrumbContextsCount {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    pBreadcrumbContexts : D3D12_DRED_BREADCRUMB_CONTEXT.Ptr
 
-    /**
-     * @type {Pointer<D3D12_DRED_BREADCRUMB_CONTEXT>}
-     */
-    pBreadcrumbContexts {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
 }

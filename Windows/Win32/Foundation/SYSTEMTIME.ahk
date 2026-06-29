@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies a date and time, using individual members for the month, day, year, weekday, hour, minute, second, and millisecond. The time is either in coordinated universal time (UTC) or local time, depending on the function that is being called.
@@ -24,78 +23,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-systemtime
  * @namespace Windows.Win32.Foundation
  */
-class SYSTEMTIME extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 2
+export default struct SYSTEMTIME {
+    #StructPack 2
 
     /**
      * The year. The valid values for this member are 1601 through 30827.
-     * @type {Integer}
      */
-    wYear {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wYear : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMonth {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    wMonth : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wDayOfWeek {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    wDayOfWeek : UInt16
 
     /**
      * The day of the month. The valid values for this member are 1 through 31.
-     * @type {Integer}
      */
-    wDay {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    wDay : UInt16
 
     /**
      * The hour. The valid values for this member are 0 through 23.
-     * @type {Integer}
      */
-    wHour {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    wHour : UInt16
 
     /**
      * The minute. The valid values for this member are 0 through 59.
-     * @type {Integer}
      */
-    wMinute {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    wMinute : UInt16
 
     /**
      * The second. The valid values for this member are 0 through 59.
-     * @type {Integer}
      */
-    wSecond {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    wSecond : UInt16
 
     /**
      * The millisecond. The valid values for this member are 0 through 999.
-     * @type {Integer}
      */
-    wMilliseconds {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    wMilliseconds : UInt16
+
 }

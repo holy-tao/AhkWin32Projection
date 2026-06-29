@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines constants that specify how font families are grouped together.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_font_family_model
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class DWRITE_FONT_FAMILY_MODEL extends Win32Enum {
+export default struct DWRITE_FONT_FAMILY_MODEL {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Families are grouped by the typographic family name preferred by the font author. The family can contain as many faces as the font author wants. This corresponds to <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_font_property_id">DWRITE_FONT_PROPERTY_ID_TYPOGRAPHIC_FAMILY_NAME</a>.

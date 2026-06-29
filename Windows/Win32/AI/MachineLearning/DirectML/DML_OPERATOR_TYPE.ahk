@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the type of an operator description.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ne-directml-dml_operator_type
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  */
-class DML_OPERATOR_TYPE extends Win32Enum {
+export default struct DML_OPERATOR_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates an unknown operator type, and is never valid. Using this value results in an error.

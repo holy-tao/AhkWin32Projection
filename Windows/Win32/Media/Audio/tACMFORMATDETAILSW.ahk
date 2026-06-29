@@ -1,68 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WAVEFORMATEX.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Media.Audio
  */
-class tACMFORMATDETAILSW extends Win32Struct {
-    static sizeof => 288
+export default struct tACMFORMATDETAILSW {
+    #StructPack 8
 
-    static packingSize => 8
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFormatIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFormatIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFormatTag : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFormatTag {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    fdwSupport : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fdwSupport {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    pwfx : WAVEFORMATEX.Ptr
 
-    /**
-     * @type {Pointer<WAVEFORMATEX>}
-     */
-    pwfx {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    cbwfx : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbwfx {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    szFormat : WCHAR[128]
 
-    /**
-     * @type {String}
-     */
-    szFormat {
-        get => StrGet(this.ptr + 28, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 28, 127, "UTF-16")
-    }
 }

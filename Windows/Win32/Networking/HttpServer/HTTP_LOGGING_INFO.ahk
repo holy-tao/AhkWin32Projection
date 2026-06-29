@@ -1,9 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_PROPERTY_FLAGS.ahk
-#Include .\HTTP_LOGGING_TYPE.ahk
-#Include .\HTTP_LOGGING_ROLLOVER_TYPE.ahk
-#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HTTP_PROPERTY_FLAGS.ahk" { HTTP_PROPERTY_FLAGS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HTTP_LOGGING_ROLLOVER_TYPE.ahk" { HTTP_LOGGING_ROLLOVER_TYPE }
+#Import "..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
+#Import ".\HTTP_LOGGING_TYPE.ahk" { HTTP_LOGGING_TYPE }
 
 /**
  * Used to enable server side logging on a URL Group or on a server session.
@@ -119,22 +119,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_logging_info
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_LOGGING_INFO extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct HTTP_LOGGING_INFO {
+    #StructPack 8
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_property_flags">HTTP_PROPERTY_FLAGS</a> structure that specifies whether the property is present.
-     * @type {HTTP_PROPERTY_FLAGS}
      */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := HTTP_PROPERTY_FLAGS(0, this)
-            return this.__Flags
-        }
-    }
+    Flags : HTTP_PROPERTY_FLAGS
 
     /**
      * The optional logging flags change the default logging behavior.
@@ -191,52 +182,32 @@ class HTTP_LOGGING_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    LoggingFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    LoggingFlags : UInt32
 
     /**
      * The optional software name string used in W3C type logging. This name is not used for other types of logging. If this parameter is <b>NULL</b>, the HTTP Server API logs a default string.
-     * @type {PWSTR}
      */
-    SoftwareName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    SoftwareName : PWSTR
 
     /**
      * The length, in bytes, of the software name. The length cannot be greater than <b>MAX_PATH</b>.
      * 
      * If the <b>SoftwareName</b> member is <b>NULL</b>, this length must be zero.
-     * @type {Integer}
      */
-    SoftwareNameLength {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    SoftwareNameLength : UInt16
 
     /**
      * The length, in bytes, of the directory name. The length cannot be greater than 424  bytes.
-     * @type {Integer}
      */
-    DirectoryNameLength {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    DirectoryNameLength : UInt16
 
     /**
      * The logging directory under which the log files are created. The directory string must be a fully qualified path including the drive letter.
      * 
      *   Applications can use a UNC path to a remote machine to enable UNC logging.
-     * @type {PWSTR}
      */
-    DirectoryName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    DirectoryName : PWSTR
 
     /**
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_logging_type">HTTP_LOGGING_TYPE</a> enumeration specifying one of the following log file formats.
@@ -287,50 +258,30 @@ class HTTP_LOGGING_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {HTTP_LOGGING_TYPE}
      */
-    Format {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    Format : HTTP_LOGGING_TYPE
 
     /**
      * The fields that are logged when the format is set to W3C. These  can be one or more of the <a href="https://docs.microsoft.com/windows/desktop/Http/http-log-field--constants">HTTP_LOG_FIELD_ Constants</a> values.
      * 
      * When the logging format is W3C is , applications must specify the log fields otherwise no fields are logged.
-     * @type {Integer}
      */
-    Fields {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    Fields : UInt32
 
     /**
      * Reserved. Set to 0 (zero) or <b>NULL</b>.
-     * @type {Pointer<Void>}
      */
-    pExtFields {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pExtFields : IntPtr
 
     /**
      * Reserved. Set to 0 (zero) or <b>NULL</b>.
-     * @type {Integer}
      */
-    NumOfExtFields {
-        get => NumGet(this, 48, "ushort")
-        set => NumPut("ushort", value, this, 48)
-    }
+    NumOfExtFields : UInt16
 
     /**
      * Reserved. Set to 0 (zero) or <b>NULL</b>.
-     * @type {Integer}
      */
-    MaxRecordSize {
-        get => NumGet(this, 50, "ushort")
-        set => NumPut("ushort", value, this, 50)
-    }
+    MaxRecordSize : UInt16
 
     /**
      * One of the following members of the <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_logging_rollover_type">HTTP_LOGGING_ROLLOVER_TYPE</a> enumeration specifying the criteria for log file rollover.
@@ -391,12 +342,8 @@ class HTTP_LOGGING_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {HTTP_LOGGING_ROLLOVER_TYPE}
      */
-    RolloverType {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    RolloverType : HTTP_LOGGING_ROLLOVER_TYPE
 
     /**
      * The maximum size, in bytes, after which the log files is rolled over. A value of <b>HTTP_LIMIT_INFINITE</b> indicates an unlimited size. The minimum value cannot be smaller than <b>HTTP_MIN_ALLOWED_LOG_FILE_ROLLOVER_SIZE</b> (1024 * 1024).
@@ -404,22 +351,12 @@ class HTTP_LOGGING_INFO extends Win32Struct {
      * This field is used only for <b>HttpLoggingRolloverSize</b> rollover type and should be set to zero for all other types.
      * 
      * When rollover type is <b>HttpLoggingRolloverSize</b>, applications must specify the maximum size for the log file.
-     * @type {Integer}
      */
-    RolloverSize {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    RolloverSize : UInt32
 
     /**
      * The security descriptor that is applied to the log files directory and all sub-directories. If this member is <b>NULL</b>, either the system default ACL is used or the ACL is inherited from the parent directory.
-     * @type {PSECURITY_DESCRIPTOR}
      */
-    pSecurityDescriptor {
-        get {
-            if(!this.HasProp("__pSecurityDescriptor"))
-                this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(64, this)
-            return this.__pSecurityDescriptor
-        }
-    }
+    pSecurityDescriptor : PSECURITY_DESCRIPTOR
+
 }

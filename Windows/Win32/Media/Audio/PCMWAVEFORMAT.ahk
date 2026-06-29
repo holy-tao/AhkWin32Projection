@@ -1,35 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WAVEFORMAT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WAVEFORMAT.ahk" { WAVEFORMAT }
 
 /**
  * The PCMWAVEFORMAT structure describes the data format for PCM waveform-audio data. This structure has been superseded by the WAVEFORMATEX structure.
  * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-pcmwaveformat
  * @namespace Windows.Win32.Media.Audio
  */
-class PCMWAVEFORMAT extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct PCMWAVEFORMAT {
+    #StructPack 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-waveformatex">WAVEFORMAT</a> structure containing general information about the format of the data.
-     * @type {WAVEFORMAT}
      */
-    wf {
-        get {
-            if(!this.HasProp("__wf"))
-                this.__wf := WAVEFORMAT(0, this)
-            return this.__wf
-        }
-    }
+    wf : WAVEFORMAT
 
     /**
      * Number of bits per sample.
-     * @type {Integer}
      */
-    wBitsPerSample {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    wBitsPerSample : UInt16
+
 }

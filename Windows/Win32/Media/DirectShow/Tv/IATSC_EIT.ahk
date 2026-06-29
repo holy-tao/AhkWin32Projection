@@ -1,36 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\MPEG_DATE_AND_TIME.ahk
-#Include .\MPEG_TIME.ahk
-#Include .\IGenericDescriptor.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MPEG_TIME.ahk" { MPEG_TIME }
+#Import ".\ISectionList.ahk" { ISectionList }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMpeg2Data.ahk" { IMpeg2Data }
+#Import ".\MPEG_DATE_AND_TIME.ahk" { MPEG_DATE_AND_TIME }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
  * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nn-atscpsipparser-iatsc_eit
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IATSC_EIT extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IATSC_EIT extends IUnknown {
     /**
      * The interface identifier for IATSC_EIT
      * @type {Guid}
      */
-    static IID => Guid("{d7c212d7-76a2-4b4b-aa56-846879a80096}")
+    static IID := Guid("{d7c212d7-76a2-4b4b-aa56-846879a80096}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IATSC_EIT interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize                  : IntPtr
+        GetVersionNumber            : IntPtr
+        GetSourceId                 : IntPtr
+        GetProtocolVersion          : IntPtr
+        GetCountOfRecords           : IntPtr
+        GetRecordEventId            : IntPtr
+        GetRecordStartTime          : IntPtr
+        GetRecordEtmLocation        : IntPtr
+        GetRecordDuration           : IntPtr
+        GetRecordTitleText          : IntPtr
+        GetRecordCountOfDescriptors : IntPtr
+        GetRecordDescriptorByIndex  : IntPtr
+        GetRecordDescriptorByTag    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetVersionNumber", "GetSourceId", "GetProtocolVersion", "GetCountOfRecords", "GetRecordEventId", "GetRecordStartTime", "GetRecordEtmLocation", "GetRecordDuration", "GetRecordTitleText", "GetRecordCountOfDescriptors", "GetRecordDescriptorByIndex", "GetRecordDescriptorByTag"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IATSC_EIT.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
@@ -143,7 +165,7 @@ class IATSC_EIT extends IUnknown {
      */
     GetRecordStartTime(dwRecordIndex) {
         pmdtVal := MPEG_DATE_AND_TIME()
-        result := ComCall(9, this, "uint", dwRecordIndex, "ptr", pmdtVal, "HRESULT")
+        result := ComCall(9, this, "uint", dwRecordIndex, MPEG_DATE_AND_TIME.Ptr, pmdtVal, "HRESULT")
         return pmdtVal
     }
 
@@ -166,7 +188,7 @@ class IATSC_EIT extends IUnknown {
      */
     GetRecordDuration(dwRecordIndex) {
         pmdVal := MPEG_TIME()
-        result := ComCall(11, this, "uint", dwRecordIndex, "ptr", pmdVal, "HRESULT")
+        result := ComCall(11, this, "uint", dwRecordIndex, MPEG_TIME.Ptr, pmdVal, "HRESULT")
         return pmdVal
     }
 
@@ -286,5 +308,49 @@ class IATSC_EIT extends IUnknown {
 
         result := ComCall(15, this, "uint", dwRecordIndex, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
+    }
+
+    Query(iid) {
+        if (IATSC_EIT.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetVersionNumber := CallbackCreate(GetMethod(implObj, "GetVersionNumber"), flags, 2)
+        this.vtbl.GetSourceId := CallbackCreate(GetMethod(implObj, "GetSourceId"), flags, 2)
+        this.vtbl.GetProtocolVersion := CallbackCreate(GetMethod(implObj, "GetProtocolVersion"), flags, 2)
+        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordEventId := CallbackCreate(GetMethod(implObj, "GetRecordEventId"), flags, 3)
+        this.vtbl.GetRecordStartTime := CallbackCreate(GetMethod(implObj, "GetRecordStartTime"), flags, 3)
+        this.vtbl.GetRecordEtmLocation := CallbackCreate(GetMethod(implObj, "GetRecordEtmLocation"), flags, 3)
+        this.vtbl.GetRecordDuration := CallbackCreate(GetMethod(implObj, "GetRecordDuration"), flags, 3)
+        this.vtbl.GetRecordTitleText := CallbackCreate(GetMethod(implObj, "GetRecordTitleText"), flags, 4)
+        this.vtbl.GetRecordCountOfDescriptors := CallbackCreate(GetMethod(implObj, "GetRecordCountOfDescriptors"), flags, 3)
+        this.vtbl.GetRecordDescriptorByIndex := CallbackCreate(GetMethod(implObj, "GetRecordDescriptorByIndex"), flags, 4)
+        this.vtbl.GetRecordDescriptorByTag := CallbackCreate(GetMethod(implObj, "GetRecordDescriptorByTag"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetVersionNumber)
+        CallbackFree(this.vtbl.GetSourceId)
+        CallbackFree(this.vtbl.GetProtocolVersion)
+        CallbackFree(this.vtbl.GetCountOfRecords)
+        CallbackFree(this.vtbl.GetRecordEventId)
+        CallbackFree(this.vtbl.GetRecordStartTime)
+        CallbackFree(this.vtbl.GetRecordEtmLocation)
+        CallbackFree(this.vtbl.GetRecordDuration)
+        CallbackFree(this.vtbl.GetRecordTitleText)
+        CallbackFree(this.vtbl.GetRecordCountOfDescriptors)
+        CallbackFree(this.vtbl.GetRecordDescriptorByIndex)
+        CallbackFree(this.vtbl.GetRecordDescriptorByTag)
     }
 }

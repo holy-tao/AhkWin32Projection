@@ -1,45 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include ..\..\Security\Cryptography\CERT_PUBLIC_KEY_INFO.ahk
-#Include .\PEER_GROUP_AUTHENTICATION_SCHEME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Security\Cryptography\CERT_PUBLIC_KEY_INFO.ahk" { CERT_PUBLIC_KEY_INFO }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PEER_GROUP_AUTHENTICATION_SCHEME.ahk" { PEER_GROUP_AUTHENTICATION_SCHEME }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The PEER_INVITATION_INFO structure defines information about an invitation to join a peer group.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_invitation_info
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
-class PEER_INVITATION_INFO extends Win32Struct {
-    static sizeof => 136
-
-    static packingSize => 8
+export default struct PEER_INVITATION_INFO {
+    #StructPack 8
 
     /**
      * Specifies the size of this structure, in bytes.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Must be set to 0x00000000.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : UInt32
 
     /**
      * Pointer to a Unicode string that specifies the PNRP cloud name.
-     * @type {PWSTR}
      */
-    pwzCloudName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwzCloudName : PWSTR
 
     /**
      * Specifies the scope under which the peer group was registered.
@@ -80,12 +67,8 @@ class PEER_INVITATION_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwScope {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwScope : UInt32
 
     /**
      * Specifies a set of flags that describe PNRP cloud features.
@@ -118,99 +101,53 @@ class PEER_INVITATION_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwCloudFlags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwCloudFlags : UInt32
 
     /**
      * Pointer to a Unicode string that specifies the peer name of the peer group.
-     * @type {PWSTR}
      */
-    pwzGroupPeerName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pwzGroupPeerName : PWSTR
 
     /**
      * Pointer to a Unicode string that specifies the PNRP name of the peer issuing the invitation.
-     * @type {PWSTR}
      */
-    pwzIssuerPeerName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pwzIssuerPeerName : PWSTR
 
     /**
      * Pointer to a Unicode string that specifies the PNRP name of the peer that receives the invitation.
-     * @type {PWSTR}
      */
-    pwzSubjectPeerName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pwzSubjectPeerName : PWSTR
 
     /**
      * Pointer to a Unicode string that specifies the friendly (display) name of the peer group.
-     * @type {PWSTR}
      */
-    pwzGroupFriendlyName {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pwzGroupFriendlyName : PWSTR
 
     /**
      * Pointer to a Unicode string that specifies the friendly (display) name of the peer issuing the invitation.
-     * @type {PWSTR}
      */
-    pwzIssuerFriendlyName {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pwzIssuerFriendlyName : PWSTR
 
     /**
      * Pointer to a Unicode string that specifies the friendly (display) name of the peer that receives the invitation.
-     * @type {PWSTR}
      */
-    pwzSubjectFriendlyName {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    pwzSubjectFriendlyName : PWSTR
 
     /**
      * Specifies a UTC <b>FILETIME</b> value that indicates when the invitation  becomes valid.
-     * @type {FILETIME}
      */
-    ftValidityStart {
-        get {
-            if(!this.HasProp("__ftValidityStart"))
-                this.__ftValidityStart := FILETIME(72, this)
-            return this.__ftValidityStart
-        }
-    }
+    ftValidityStart : FILETIME
 
     /**
      * Specifies a UTC <b>FILETIME</b> value that indicates when the invitation becomes invalid.
-     * @type {FILETIME}
      */
-    ftValidityEnd {
-        get {
-            if(!this.HasProp("__ftValidityEnd"))
-                this.__ftValidityEnd := FILETIME(80, this)
-            return this.__ftValidityEnd
-        }
-    }
+    ftValidityEnd : FILETIME
 
     /**
      * Specifies the number of role GUIDs present in <b>pRoles</b>.
-     * @type {Integer}
      */
-    cRoles {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    cRoles : UInt32
 
     /**
      * Pointer to a list of GUIDs that specifies the combined set of available roles. The available roles are as follows.
@@ -241,47 +178,28 @@ class PEER_INVITATION_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Guid>}
      */
-    pRoles {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    pRoles : Guid.Ptr
 
     /**
      * Unsigned integer value that contains the number of string values listed in <b>ppwzClassifiers</b>. This field is reserved for future use.
-     * @type {Integer}
      */
-    cClassifiers {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    cClassifiers : UInt32
 
     /**
      * List of pointers to Unicode strings. This field is reserved for future use.
-     * @type {Pointer<PWSTR>}
      */
-    ppwzClassifiers {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    ppwzClassifiers : PWSTR.Ptr
 
     /**
      * Pointer to a <b>CERT_PUBLIC_KEY_INFO</b> structure that contains the recipient's returned public key and the encryption algorithm type it uses.
-     * @type {Pointer<CERT_PUBLIC_KEY_INFO>}
      */
-    pSubjectPublicKey {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    pSubjectPublicKey : CERT_PUBLIC_KEY_INFO.Ptr
 
     /**
      * <b>Windows Vista or later.</b>           The <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_group_authentication_scheme">PEER_GROUP_AUTHENTICATION_SCHEME</a> enumeration value that indicates the type of authentication used to validate the peer group invitee.
      * @deprecated
-     * @type {PEER_GROUP_AUTHENTICATION_SCHEME}
      */
-    authScheme {
-        get => NumGet(this, 128, "int")
-        set => NumPut("int", value, this, 128)
-    }
+    authScheme : PEER_GROUP_AUTHENTICATION_SCHEME
+
 }

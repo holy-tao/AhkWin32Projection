@@ -1,33 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IHTMLTableSection.ahk
-#Include .\IHTMLTableCaption.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHTMLTableSection.ahk" { IHTMLTableSection }
+#Import ".\IHTMLTableCaption.ahk" { IHTMLTableCaption }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLTable4 extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLTable4 extends IDispatch {
     /**
      * The interface identifier for IHTMLTable4
      * @type {Guid}
      */
-    static IID => Guid("{305106c2-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{305106c2-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLTable4 interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        putref_tHead   : IntPtr
+        get_tHead      : IntPtr
+        putref_tFoot   : IntPtr
+        get_tFoot      : IntPtr
+        putref_caption : IntPtr
+        get_caption    : IntPtr
+        insertRow      : IntPtr
+        deleteRow      : IntPtr
+        createTBody    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["putref_tHead", "get_tHead", "putref_tFoot", "get_tFoot", "putref_caption", "get_caption", "insertRow", "deleteRow", "createTBody"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLTable4.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IHTMLTableSection} 
@@ -134,5 +150,41 @@ class IHTMLTable4 extends IDispatch {
     createTBody() {
         result := ComCall(15, this, "ptr*", &tbody := 0, "HRESULT")
         return IHTMLTableSection(tbody)
+    }
+
+    Query(iid) {
+        if (IHTMLTable4.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.putref_tHead := CallbackCreate(GetMethod(implObj, "putref_tHead"), flags, 2)
+        this.vtbl.get_tHead := CallbackCreate(GetMethod(implObj, "get_tHead"), flags, 2)
+        this.vtbl.putref_tFoot := CallbackCreate(GetMethod(implObj, "putref_tFoot"), flags, 2)
+        this.vtbl.get_tFoot := CallbackCreate(GetMethod(implObj, "get_tFoot"), flags, 2)
+        this.vtbl.putref_caption := CallbackCreate(GetMethod(implObj, "putref_caption"), flags, 2)
+        this.vtbl.get_caption := CallbackCreate(GetMethod(implObj, "get_caption"), flags, 2)
+        this.vtbl.insertRow := CallbackCreate(GetMethod(implObj, "insertRow"), flags, 3)
+        this.vtbl.deleteRow := CallbackCreate(GetMethod(implObj, "deleteRow"), flags, 2)
+        this.vtbl.createTBody := CallbackCreate(GetMethod(implObj, "createTBody"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.putref_tHead)
+        CallbackFree(this.vtbl.get_tHead)
+        CallbackFree(this.vtbl.putref_tFoot)
+        CallbackFree(this.vtbl.get_tFoot)
+        CallbackFree(this.vtbl.putref_caption)
+        CallbackFree(this.vtbl.get_caption)
+        CallbackFree(this.vtbl.insertRow)
+        CallbackFree(this.vtbl.deleteRow)
+        CallbackFree(this.vtbl.createTBody)
     }
 }

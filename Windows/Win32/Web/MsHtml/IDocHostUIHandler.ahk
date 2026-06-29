@@ -1,34 +1,66 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Ole\IDropTarget.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Com\IDataObject.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Ole\IOleInPlaceActiveObject.ahk" { IOleInPlaceActiveObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Ole\IDropTarget.ahk" { IDropTarget }
+#Import "..\..\System\Ole\IOleInPlaceFrame.ahk" { IOleInPlaceFrame }
+#Import "..\..\System\Ole\IOleInPlaceUIWindow.ahk" { IOleInPlaceUIWindow }
+#Import ".\DOCHOSTUIINFO.ahk" { DOCHOSTUIINFO }
+#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Ole\IOleCommandTarget.ahk" { IOleCommandTarget }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IDocHostUIHandler extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDocHostUIHandler extends IUnknown {
     /**
      * The interface identifier for IDocHostUIHandler
      * @type {Guid}
      */
-    static IID => Guid("{bd3f23c0-d43e-11cf-893b-00aa00bdce1a}")
+    static IID := Guid("{bd3f23c0-d43e-11cf-893b-00aa00bdce1a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDocHostUIHandler interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ShowContextMenu       : IntPtr
+        GetHostInfo           : IntPtr
+        ShowUI                : IntPtr
+        HideUI                : IntPtr
+        UpdateUI              : IntPtr
+        EnableModeless        : IntPtr
+        OnDocWindowActivate   : IntPtr
+        OnFrameWindowActivate : IntPtr
+        ResizeBorder          : IntPtr
+        TranslateAccelerator  : IntPtr
+        GetOptionKeyPath      : IntPtr
+        GetDropTarget         : IntPtr
+        GetExternal           : IntPtr
+        TranslateUrl          : IntPtr
+        FilterDataObject      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ShowContextMenu", "GetHostInfo", "ShowUI", "HideUI", "UpdateUI", "EnableModeless", "OnDocWindowActivate", "OnFrameWindowActivate", "ResizeBorder", "TranslateAccelerator", "GetOptionKeyPath", "GetDropTarget", "GetExternal", "TranslateUrl", "FilterDataObject"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDocHostUIHandler.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -39,7 +71,7 @@ class IDocHostUIHandler extends IUnknown {
      * @returns {HRESULT} 
      */
     ShowContextMenu(dwID, ppt, pcmdtReserved, pdispReserved) {
-        result := ComCall(3, this, "uint", dwID, "ptr", ppt, "ptr", pcmdtReserved, "ptr", pdispReserved, "HRESULT")
+        result := ComCall(3, this, "uint", dwID, POINT.Ptr, ppt, "ptr", pcmdtReserved, "ptr", pdispReserved, "HRESULT")
         return result
     }
 
@@ -49,7 +81,7 @@ class IDocHostUIHandler extends IUnknown {
      * @returns {HRESULT} 
      */
     GetHostInfo(pInfo) {
-        result := ComCall(4, this, "ptr", pInfo, "HRESULT")
+        result := ComCall(4, this, DOCHOSTUIINFO.Ptr, pInfo, "HRESULT")
         return result
     }
 
@@ -91,7 +123,7 @@ class IDocHostUIHandler extends IUnknown {
      * @returns {HRESULT} 
      */
     EnableModeless(fEnable) {
-        result := ComCall(8, this, "int", fEnable, "HRESULT")
+        result := ComCall(8, this, BOOL, fEnable, "HRESULT")
         return result
     }
 
@@ -101,7 +133,7 @@ class IDocHostUIHandler extends IUnknown {
      * @returns {HRESULT} 
      */
     OnDocWindowActivate(fActivate) {
-        result := ComCall(9, this, "int", fActivate, "HRESULT")
+        result := ComCall(9, this, BOOL, fActivate, "HRESULT")
         return result
     }
 
@@ -111,7 +143,7 @@ class IDocHostUIHandler extends IUnknown {
      * @returns {HRESULT} 
      */
     OnFrameWindowActivate(fActivate) {
-        result := ComCall(10, this, "int", fActivate, "HRESULT")
+        result := ComCall(10, this, BOOL, fActivate, "HRESULT")
         return result
     }
 
@@ -123,7 +155,7 @@ class IDocHostUIHandler extends IUnknown {
      * @returns {HRESULT} 
      */
     ResizeBorder(prcBorder, pUIWindow, fRameWindow) {
-        result := ComCall(11, this, "ptr", prcBorder, "ptr", pUIWindow, "int", fRameWindow, "HRESULT")
+        result := ComCall(11, this, RECT.Ptr, prcBorder, "ptr", pUIWindow, BOOL, fRameWindow, "HRESULT")
         return result
     }
 
@@ -166,7 +198,7 @@ class IDocHostUIHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-translateacceleratora
      */
     TranslateAccelerator(lpMsg, pguidCmdGroup, nCmdID) {
-        result := ComCall(12, this, "ptr", lpMsg, "ptr", pguidCmdGroup, "uint", nCmdID, "HRESULT")
+        result := ComCall(12, this, MSG.Ptr, lpMsg, Guid.Ptr, pguidCmdGroup, "uint", nCmdID, "HRESULT")
         return result
     }
 
@@ -176,7 +208,7 @@ class IDocHostUIHandler extends IUnknown {
      * @returns {PWSTR} 
      */
     GetOptionKeyPath(dw) {
-        result := ComCall(13, this, "ptr*", &pchKey := 0, "uint", dw, "HRESULT")
+        result := ComCall(13, this, PWSTR.Ptr, &pchKey := 0, "uint", dw, "HRESULT")
         return pchKey
     }
 
@@ -191,11 +223,8 @@ class IDocHostUIHandler extends IUnknown {
     }
 
     /**
-     * Returns the name of the file that contains the external key.
-     * @remarks
-     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
+     * 
      * @returns {IDispatch} 
-     * @see https://learn.microsoft.com/windows/win32/SecProv/getexternalkeyfilename-win32-encryptablevolume
      */
     GetExternal() {
         result := ComCall(15, this, "ptr*", &ppDispatch := 0, "HRESULT")
@@ -211,7 +240,7 @@ class IDocHostUIHandler extends IUnknown {
     TranslateUrl(dwTranslate, pchURLIn) {
         pchURLIn := pchURLIn is String ? StrPtr(pchURLIn) : pchURLIn
 
-        result := ComCall(16, this, "uint", dwTranslate, "ptr", pchURLIn, "ptr*", &ppchURLOut := 0, "HRESULT")
+        result := ComCall(16, this, "uint", dwTranslate, "ptr", pchURLIn, PWSTR.Ptr, &ppchURLOut := 0, "HRESULT")
         return ppchURLOut
     }
 
@@ -223,5 +252,53 @@ class IDocHostUIHandler extends IUnknown {
     FilterDataObject(pDO) {
         result := ComCall(17, this, "ptr", pDO, "ptr*", &ppDORet := 0, "HRESULT")
         return IDataObject(ppDORet)
+    }
+
+    Query(iid) {
+        if (IDocHostUIHandler.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ShowContextMenu := CallbackCreate(GetMethod(implObj, "ShowContextMenu"), flags, 5)
+        this.vtbl.GetHostInfo := CallbackCreate(GetMethod(implObj, "GetHostInfo"), flags, 2)
+        this.vtbl.ShowUI := CallbackCreate(GetMethod(implObj, "ShowUI"), flags, 6)
+        this.vtbl.HideUI := CallbackCreate(GetMethod(implObj, "HideUI"), flags, 1)
+        this.vtbl.UpdateUI := CallbackCreate(GetMethod(implObj, "UpdateUI"), flags, 1)
+        this.vtbl.EnableModeless := CallbackCreate(GetMethod(implObj, "EnableModeless"), flags, 2)
+        this.vtbl.OnDocWindowActivate := CallbackCreate(GetMethod(implObj, "OnDocWindowActivate"), flags, 2)
+        this.vtbl.OnFrameWindowActivate := CallbackCreate(GetMethod(implObj, "OnFrameWindowActivate"), flags, 2)
+        this.vtbl.ResizeBorder := CallbackCreate(GetMethod(implObj, "ResizeBorder"), flags, 4)
+        this.vtbl.TranslateAccelerator := CallbackCreate(GetMethod(implObj, "TranslateAccelerator"), flags, 4)
+        this.vtbl.GetOptionKeyPath := CallbackCreate(GetMethod(implObj, "GetOptionKeyPath"), flags, 3)
+        this.vtbl.GetDropTarget := CallbackCreate(GetMethod(implObj, "GetDropTarget"), flags, 3)
+        this.vtbl.GetExternal := CallbackCreate(GetMethod(implObj, "GetExternal"), flags, 2)
+        this.vtbl.TranslateUrl := CallbackCreate(GetMethod(implObj, "TranslateUrl"), flags, 4)
+        this.vtbl.FilterDataObject := CallbackCreate(GetMethod(implObj, "FilterDataObject"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ShowContextMenu)
+        CallbackFree(this.vtbl.GetHostInfo)
+        CallbackFree(this.vtbl.ShowUI)
+        CallbackFree(this.vtbl.HideUI)
+        CallbackFree(this.vtbl.UpdateUI)
+        CallbackFree(this.vtbl.EnableModeless)
+        CallbackFree(this.vtbl.OnDocWindowActivate)
+        CallbackFree(this.vtbl.OnFrameWindowActivate)
+        CallbackFree(this.vtbl.ResizeBorder)
+        CallbackFree(this.vtbl.TranslateAccelerator)
+        CallbackFree(this.vtbl.GetOptionKeyPath)
+        CallbackFree(this.vtbl.GetDropTarget)
+        CallbackFree(this.vtbl.GetExternal)
+        CallbackFree(this.vtbl.TranslateUrl)
+        CallbackFree(this.vtbl.FilterDataObject)
     }
 }

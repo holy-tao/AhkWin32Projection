@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents an item ID range to exclude from a knowledge object.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-irangeexception
  * @namespace Windows.Win32.System.WindowsSync
  */
-class IRangeException extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRangeException extends IUnknown {
     /**
      * The interface identifier for IRangeException
      * @type {Guid}
      */
-    static IID => Guid("{75ae8777-6848-49f7-956c-a3a92f5096e8}")
+    static IID := Guid("{75ae8777-6848-49f7-956c-a3a92f5096e8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRangeException interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetClosedRangeStart : IntPtr
+        GetClosedRangeEnd   : IntPtr
+        GetClockVector      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetClosedRangeStart", "GetClosedRangeEnd", "GetClockVector"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRangeException.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the lower bound of the range of item IDs to exclude.
@@ -185,7 +195,31 @@ class IRangeException extends IUnknown {
     GetClockVector(riid, ppUnk) {
         ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", riid, ppUnkMarshal, ppUnk, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, riid, ppUnkMarshal, ppUnk, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRangeException.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetClosedRangeStart := CallbackCreate(GetMethod(implObj, "GetClosedRangeStart"), flags, 3)
+        this.vtbl.GetClosedRangeEnd := CallbackCreate(GetMethod(implObj, "GetClosedRangeEnd"), flags, 3)
+        this.vtbl.GetClockVector := CallbackCreate(GetMethod(implObj, "GetClockVector"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetClosedRangeStart)
+        CallbackFree(this.vtbl.GetClosedRangeEnd)
+        CallbackFree(this.vtbl.GetClockVector)
     }
 }

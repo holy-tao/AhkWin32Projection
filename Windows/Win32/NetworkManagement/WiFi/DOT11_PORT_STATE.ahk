@@ -1,46 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_PORT_STATE extends Win32Struct {
-    static sizeof => 20
+export default struct DOT11_PORT_STATE {
+    #StructPack 4
 
-    static packingSize => 4
+    PeerMacAddress : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    PeerMacAddress {
-        get {
-            if(!this.HasProp("__PeerMacAddressProxyArray"))
-                this.__PeerMacAddressProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
-            return this.__PeerMacAddressProxyArray
-        }
-    }
+    uSessionId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uSessionId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    bPortControlled : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    bPortControlled {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    bPortAuthorized : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    bPortAuthorized {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
 }

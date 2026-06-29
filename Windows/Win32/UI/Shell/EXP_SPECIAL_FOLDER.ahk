@@ -1,62 +1,39 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Holds an extra data block used by IShellLinkDataList. It holds special folder information.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-exp_special_folder
  * @namespace Windows.Win32.UI.Shell
  */
-class EXP_SPECIAL_FOLDER extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct EXP_SPECIAL_FOLDER {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The size of the <b>EXP_SPECIAL_FOLDER</b> structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The structure's signature. It should be set to EXP_SPECIAL_FOLDER_SIG.
-     * @type {Integer}
      */
-    dwSignature {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwSignature : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The ID of the special folder that the link points into.
-     * @type {Integer}
      */
-    idSpecialFolder {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    idSpecialFolder : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The offset into the saved PIDL.
-     * @type {Integer}
      */
-    cbOffset {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    cbOffset : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 16
-    }
 }

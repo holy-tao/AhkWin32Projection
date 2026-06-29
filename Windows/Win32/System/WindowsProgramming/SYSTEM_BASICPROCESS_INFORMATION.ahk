@@ -1,62 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
  */
-class SYSTEM_BASICPROCESS_INFORMATION extends Win32Struct {
-    static sizeof => 48
+export default struct SYSTEM_BASICPROCESS_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    NextEntryOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NextEntryOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    UniqueProcessId : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    UniqueProcessId {
-        get {
-            if(!this.HasProp("__UniqueProcessId"))
-                this.__UniqueProcessId := HANDLE(8, this)
-            return this.__UniqueProcessId
-        }
-    }
+    InheritedFromUniqueProcessId : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    InheritedFromUniqueProcessId {
-        get {
-            if(!this.HasProp("__InheritedFromUniqueProcessId"))
-                this.__InheritedFromUniqueProcessId := HANDLE(16, this)
-            return this.__InheritedFromUniqueProcessId
-        }
-    }
+    SequenceNumber : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SequenceNumber {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ImageName : UNICODE_STRING
 
-    /**
-     * @type {UNICODE_STRING}
-     */
-    ImageName {
-        get {
-            if(!this.HasProp("__ImageName"))
-                this.__ImageName := UNICODE_STRING(32, this)
-            return this.__ImageName
-        }
-    }
 }

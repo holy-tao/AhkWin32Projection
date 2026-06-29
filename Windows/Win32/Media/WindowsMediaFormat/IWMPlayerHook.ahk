@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMPlayerHook interface can be implemented by a player application that uses DirectX Video Acceleration (DirectX VA).
@@ -10,26 +11,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmplayerhook
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMPlayerHook extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMPlayerHook extends IUnknown {
     /**
      * The interface identifier for IWMPlayerHook
      * @type {Guid}
      */
-    static IID => Guid("{e5b7ca9a-0f1c-4f66-9002-74ec50d8b304}")
+    static IID := Guid("{e5b7ca9a-0f1c-4f66-9002-74ec50d8b304}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPlayerHook interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        PreDecode : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["PreDecode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPlayerHook.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The PreDecode method is called by the reader object before a sample from the output to which the IWMPlayerHook interface is assigned is passed to the video processor for decoding.
@@ -41,5 +49,25 @@ class IWMPlayerHook extends IUnknown {
     PreDecode() {
         result := ComCall(3, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPlayerHook.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.PreDecode := CallbackCreate(GetMethod(implObj, "PreDecode"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.PreDecode)
     }
 }

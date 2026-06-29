@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Discriminator for the union in the FILE_ID_DESCRIPTOR structure.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ne-winbase-file_id_type
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class FILE_ID_TYPE extends Win32Enum {
+export default struct FILE_ID_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Use the <b>FileId</b> member of the union.

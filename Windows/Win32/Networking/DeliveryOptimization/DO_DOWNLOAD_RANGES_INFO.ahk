@@ -1,35 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DO_DOWNLOAD_RANGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DO_DOWNLOAD_RANGE.ahk" { DO_DOWNLOAD_RANGE }
 
 /**
  * Identifies an array of ranges of bytes to download from a file.
  * @see https://learn.microsoft.com/windows/win32/api/deliveryoptimization/ns-deliveryoptimization-do_download_ranges_info
  * @namespace Windows.Win32.Networking.DeliveryOptimization
  */
-class DO_DOWNLOAD_RANGES_INFO extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct DO_DOWNLOAD_RANGES_INFO {
+    #StructPack 8
 
     /**
      * Number of elements in Ranges.
-     * @type {Integer}
      */
-    RangeCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    RangeCount : UInt32
 
     /**
      * Array of one or more **DO_DOWNLOAD_RANGE** structures that specify the ranges to download.
-     * @type {DO_DOWNLOAD_RANGE}
      */
-    Ranges {
-        get {
-            if(!this.HasProp("__RangesProxyArray"))
-                this.__RangesProxyArray := Win32FixedArray(this.ptr + 8, 1, DO_DOWNLOAD_RANGE, "")
-            return this.__RangesProxyArray
-        }
-    }
+    Ranges : DO_DOWNLOAD_RANGE[1]
+
 }

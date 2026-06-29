@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IUPnPReregistrar interface allows the application to re-register a UPnP-based device with the device host.
  * @see https://learn.microsoft.com/windows/win32/api/upnphost/nn-upnphost-iupnpreregistrar
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
  */
-class IUPnPReregistrar extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUPnPReregistrar extends IUnknown {
     /**
      * The interface identifier for IUPnPReregistrar
      * @type {Guid}
      */
-    static IID => Guid("{204810b7-73b2-11d4-bf42-00b0d0118b56}")
+    static IID := Guid("{204810b7-73b2-11d4-bf42-00b0d0118b56}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUPnPReregistrar interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ReregisterDevice        : IntPtr
+        ReregisterRunningDevice : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ReregisterDevice", "ReregisterRunningDevice"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUPnPReregistrar.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The ReregisterDevice method re-registers a device with the device host. The device information is stored by the device host. Then, the device host returns a device identifier and publishes and announces the device on the network.
@@ -161,7 +171,7 @@ class IUPnPReregistrar extends IUnknown {
         bstrContainerId := bstrContainerId is String ? BSTR.Alloc(bstrContainerId).Value : bstrContainerId
         bstrResourcePath := bstrResourcePath is String ? BSTR.Alloc(bstrResourcePath).Value : bstrResourcePath
 
-        result := ComCall(3, this, "ptr", bstrDeviceIdentifier, "ptr", bstrXMLDesc, "ptr", bstrProgIDDeviceControlClass, "ptr", bstrInitString, "ptr", bstrContainerId, "ptr", bstrResourcePath, "int", nLifeTime, "HRESULT")
+        result := ComCall(3, this, BSTR, bstrDeviceIdentifier, BSTR, bstrXMLDesc, BSTR, bstrProgIDDeviceControlClass, BSTR, bstrInitString, BSTR, bstrContainerId, BSTR, bstrResourcePath, "int", nLifeTime, "HRESULT")
         return result
     }
 
@@ -286,7 +296,29 @@ class IUPnPReregistrar extends IUnknown {
         bstrInitString := bstrInitString is String ? BSTR.Alloc(bstrInitString).Value : bstrInitString
         bstrResourcePath := bstrResourcePath is String ? BSTR.Alloc(bstrResourcePath).Value : bstrResourcePath
 
-        result := ComCall(4, this, "ptr", bstrDeviceIdentifier, "ptr", bstrXMLDesc, "ptr", punkDeviceControl, "ptr", bstrInitString, "ptr", bstrResourcePath, "int", nLifeTime, "HRESULT")
+        result := ComCall(4, this, BSTR, bstrDeviceIdentifier, BSTR, bstrXMLDesc, "ptr", punkDeviceControl, BSTR, bstrInitString, BSTR, bstrResourcePath, "int", nLifeTime, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUPnPReregistrar.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ReregisterDevice := CallbackCreate(GetMethod(implObj, "ReregisterDevice"), flags, 8)
+        this.vtbl.ReregisterRunningDevice := CallbackCreate(GetMethod(implObj, "ReregisterRunningDevice"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ReregisterDevice)
+        CallbackFree(this.vtbl.ReregisterRunningDevice)
     }
 }

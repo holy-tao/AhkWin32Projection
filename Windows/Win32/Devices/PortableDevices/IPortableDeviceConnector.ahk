@@ -1,33 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\DEVPROPKEY.ahk" { DEVPROPKEY }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IConnectionRequestCallback.ahk" { IConnectionRequestCallback }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Properties\DEVPROPTYPE.ahk" { DEVPROPTYPE }
 
 /**
  * Defines methods used for connection-management and property-retrieval for a paired MTP/Bluetooth device.
  * @see https://learn.microsoft.com/windows/win32/api/portabledeviceconnectapi/nn-portabledeviceconnectapi-iportabledeviceconnector
  * @namespace Windows.Win32.Devices.PortableDevices
  */
-class IPortableDeviceConnector extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPortableDeviceConnector extends IUnknown {
     /**
      * The interface identifier for IPortableDeviceConnector
      * @type {Guid}
      */
-    static IID => Guid("{625e2df8-6392-4cf0-9ad1-3cfa5f17775c}")
+    static IID := Guid("{625e2df8-6392-4cf0-9ad1-3cfa5f17775c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPortableDeviceConnector interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Connect     : IntPtr
+        Disconnect  : IntPtr
+        Cancel      : IntPtr
+        GetProperty : IntPtr
+        SetProperty : IntPtr
+        GetPnPID    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Connect", "Disconnect", "Cancel", "GetProperty", "SetProperty", "GetPnPID"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPortableDeviceConnector.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sends an asynchronous connection request to the MTP/Bluetooth device.
@@ -188,7 +205,7 @@ class IPortableDeviceConnector extends IUnknown {
         ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pPropertyKey, pPropertyTypeMarshal, pPropertyType, ppDataMarshal, ppData, pcbDataMarshal, pcbData, "HRESULT")
+        result := ComCall(6, this, DEVPROPKEY.Ptr, pPropertyKey, pPropertyTypeMarshal, pPropertyType, ppDataMarshal, ppData, pcbDataMarshal, pcbData, "HRESULT")
         return result
     }
 
@@ -235,7 +252,7 @@ class IPortableDeviceConnector extends IUnknown {
     SetProperty(pPropertyKey, PropertyType, pData, cbData) {
         pDataMarshal := pData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pPropertyKey, "uint", PropertyType, pDataMarshal, pData, "uint", cbData, "HRESULT")
+        result := ComCall(7, this, DEVPROPKEY.Ptr, pPropertyKey, DEVPROPTYPE, PropertyType, pDataMarshal, pData, "uint", cbData, "HRESULT")
         return result
     }
 
@@ -249,7 +266,37 @@ class IPortableDeviceConnector extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceconnectapi/nf-portabledeviceconnectapi-iportabledeviceconnector-getpnpid
      */
     GetPnPID() {
-        result := ComCall(8, this, "ptr*", &ppwszPnPID := 0, "HRESULT")
+        result := ComCall(8, this, PWSTR.Ptr, &ppwszPnPID := 0, "HRESULT")
         return ppwszPnPID
+    }
+
+    Query(iid) {
+        if (IPortableDeviceConnector.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 2)
+        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 2)
+        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 5)
+        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 5)
+        this.vtbl.GetPnPID := CallbackCreate(GetMethod(implObj, "GetPnPID"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Connect)
+        CallbackFree(this.vtbl.Disconnect)
+        CallbackFree(this.vtbl.Cancel)
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.SetProperty)
+        CallbackFree(this.vtbl.GetPnPID)
     }
 }

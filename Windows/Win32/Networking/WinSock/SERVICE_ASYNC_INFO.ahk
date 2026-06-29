@@ -1,39 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class SERVICE_ASYNC_INFO extends Win32Struct {
-    static sizeof => 24
+export default struct SERVICE_ASYNC_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    lpServiceCallbackProc : IntPtr
 
-    /**
-     * @type {Pointer<LPSERVICE_CALLBACK_PROC>}
-     */
-    lpServiceCallbackProc {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lParam : LPARAM
 
-    /**
-     * @type {LPARAM}
-     */
-    lParam {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    hAsyncTaskHandle : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hAsyncTaskHandle {
-        get {
-            if(!this.HasProp("__hAsyncTaskHandle"))
-                this.__hAsyncTaskHandle := HANDLE(16, this)
-            return this.__hAsyncTaskHandle
-        }
-    }
 }

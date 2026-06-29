@@ -1,13 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used to represent the value of an IADsPropertyEntry object in a predefined data type.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadspropertyvalue
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class PropertyValue extends Win32Struct {
-    static sizeof => 0
+export default struct PropertyValue {
+    #StructPack 1
 
-    static packingSize => 1
 }

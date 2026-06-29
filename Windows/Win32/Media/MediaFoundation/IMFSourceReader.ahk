@@ -1,9 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFMediaType.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\IMFSample.ahk" { IMFSample }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFMediaType.ahk" { IMFMediaType }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Implemented by the Microsoft Media Foundation source reader object.
@@ -29,26 +32,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nn-mfreadwrite-imfsourcereader
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFSourceReader extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFSourceReader extends IUnknown {
     /**
      * The interface identifier for IMFSourceReader
      * @type {Guid}
      */
-    static IID => Guid("{70ae66f2-c809-4e4f-8915-bdcb406b7993}")
+    static IID := Guid("{70ae66f2-c809-4e4f-8915-bdcb406b7993}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFSourceReader interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetStreamSelection       : IntPtr
+        SetStreamSelection       : IntPtr
+        GetNativeMediaType       : IntPtr
+        GetCurrentMediaType      : IntPtr
+        SetCurrentMediaType      : IntPtr
+        SetCurrentPosition       : IntPtr
+        ReadSample               : IntPtr
+        Flush                    : IntPtr
+        GetServiceForStream      : IntPtr
+        GetPresentationAttribute : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetStreamSelection", "SetStreamSelection", "GetNativeMediaType", "GetCurrentMediaType", "SetCurrentMediaType", "SetCurrentPosition", "ReadSample", "Flush", "GetServiceForStream", "GetPresentationAttribute"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFSourceReader.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Queries whether a stream is selected.
@@ -99,7 +118,7 @@ class IMFSourceReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-getstreamselection
      */
     GetStreamSelection(dwStreamIndex) {
-        result := ComCall(3, this, "uint", dwStreamIndex, "int*", &pfSelected := 0, "HRESULT")
+        result := ComCall(3, this, "uint", dwStreamIndex, BOOL.Ptr, &pfSelected := 0, "HRESULT")
         return pfSelected
     }
 
@@ -176,7 +195,7 @@ class IMFSourceReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-setstreamselection
      */
     SetStreamSelection(dwStreamIndex, fSelected) {
-        result := ComCall(4, this, "uint", dwStreamIndex, "int", fSelected, "HRESULT")
+        result := ComCall(4, this, "uint", dwStreamIndex, BOOL, fSelected, "HRESULT")
         return result
     }
 
@@ -513,7 +532,7 @@ class IMFSourceReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-setcurrentposition
      */
     SetCurrentPosition(guidTimeFormat, varPosition) {
-        result := ComCall(8, this, "ptr", guidTimeFormat, "ptr", varPosition, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, guidTimeFormat, PROPVARIANT.Ptr, varPosition, "HRESULT")
         return result
     }
 
@@ -675,7 +694,7 @@ class IMFSourceReader extends IUnknown {
         pdwStreamFlagsMarshal := pdwStreamFlags is VarRef ? "uint*" : "ptr"
         pllTimestampMarshal := pllTimestamp is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(9, this, "uint", dwStreamIndex, "uint", dwControlFlags, pdwActualStreamIndexMarshal, pdwActualStreamIndex, pdwStreamFlagsMarshal, pdwStreamFlags, pllTimestampMarshal, pllTimestamp, "ptr*", ppSample, "HRESULT")
+        result := ComCall(9, this, "uint", dwStreamIndex, "uint", dwControlFlags, pdwActualStreamIndexMarshal, pdwActualStreamIndex, pdwStreamFlagsMarshal, pdwStreamFlags, pllTimestampMarshal, pllTimestamp, IMFSample.Ptr, ppSample, "HRESULT")
         return result
     }
 
@@ -818,7 +837,7 @@ class IMFSourceReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-getserviceforstream
      */
     GetServiceForStream(dwStreamIndex, guidService, riid) {
-        result := ComCall(11, this, "uint", dwStreamIndex, "ptr", guidService, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        result := ComCall(11, this, "uint", dwStreamIndex, Guid.Ptr, guidService, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
         return ppvObject
     }
 
@@ -892,7 +911,45 @@ class IMFSourceReader extends IUnknown {
      */
     GetPresentationAttribute(dwStreamIndex, _guidAttribute) {
         pvarAttribute := PROPVARIANT()
-        result := ComCall(12, this, "uint", dwStreamIndex, "ptr", _guidAttribute, "ptr", pvarAttribute, "HRESULT")
+        result := ComCall(12, this, "uint", dwStreamIndex, Guid.Ptr, _guidAttribute, PROPVARIANT.Ptr, pvarAttribute, "HRESULT")
         return pvarAttribute
+    }
+
+    Query(iid) {
+        if (IMFSourceReader.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetStreamSelection := CallbackCreate(GetMethod(implObj, "GetStreamSelection"), flags, 3)
+        this.vtbl.SetStreamSelection := CallbackCreate(GetMethod(implObj, "SetStreamSelection"), flags, 3)
+        this.vtbl.GetNativeMediaType := CallbackCreate(GetMethod(implObj, "GetNativeMediaType"), flags, 4)
+        this.vtbl.GetCurrentMediaType := CallbackCreate(GetMethod(implObj, "GetCurrentMediaType"), flags, 3)
+        this.vtbl.SetCurrentMediaType := CallbackCreate(GetMethod(implObj, "SetCurrentMediaType"), flags, 4)
+        this.vtbl.SetCurrentPosition := CallbackCreate(GetMethod(implObj, "SetCurrentPosition"), flags, 3)
+        this.vtbl.ReadSample := CallbackCreate(GetMethod(implObj, "ReadSample"), flags, 7)
+        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 2)
+        this.vtbl.GetServiceForStream := CallbackCreate(GetMethod(implObj, "GetServiceForStream"), flags, 5)
+        this.vtbl.GetPresentationAttribute := CallbackCreate(GetMethod(implObj, "GetPresentationAttribute"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetStreamSelection)
+        CallbackFree(this.vtbl.SetStreamSelection)
+        CallbackFree(this.vtbl.GetNativeMediaType)
+        CallbackFree(this.vtbl.GetCurrentMediaType)
+        CallbackFree(this.vtbl.SetCurrentMediaType)
+        CallbackFree(this.vtbl.SetCurrentPosition)
+        CallbackFree(this.vtbl.ReadSample)
+        CallbackFree(this.vtbl.Flush)
+        CallbackFree(this.vtbl.GetServiceForStream)
+        CallbackFree(this.vtbl.GetPresentationAttribute)
     }
 }

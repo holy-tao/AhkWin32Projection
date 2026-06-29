@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
  */
-class LIGATURE2 extends Win32Struct {
-    static sizeof => 8
+export default struct LIGATURE2 {
+    #StructPack 2
 
-    static packingSize => 2
+    VirtualKey : Int8
 
-    /**
-     * @type {Integer}
-     */
-    VirtualKey {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    ModificationNumber : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ModificationNumber {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    wch : WCHAR[2]
 
-    /**
-     * @type {String}
-     */
-    wch {
-        get => StrGet(this.ptr + 4, 1, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 1, "UTF-16")
-    }
 }

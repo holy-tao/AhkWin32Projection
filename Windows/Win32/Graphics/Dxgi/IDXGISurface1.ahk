@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDXGISurface.ahk
-#Include ..\Gdi\HDC.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\IDXGISurface.ahk" { IDXGISurface }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The IDXGISurface1 interface extends the IDXGISurface by adding support for using Windows Graphics Device Interface (GDI) to render to a Microsoft DirectX Graphics Infrastructure (DXGI) surface.
@@ -18,26 +21,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/nn-dxgi-idxgisurface1
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGISurface1 extends IDXGISurface {
-
-    static sizeof => A_PtrSize
+export default struct IDXGISurface1 extends IDXGISurface {
     /**
      * The interface identifier for IDXGISurface1
      * @type {Guid}
      */
-    static IID => Guid("{4ae63092-6327-4c1b-80ae-bfe12ea32b86}")
+    static IID := Guid("{4ae63092-6327-4c1b-80ae-bfe12ea32b86}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 11
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGISurface1 interfaces
+    */
+    struct Vtbl extends IDXGISurface.Vtbl {
+        GetDC     : IntPtr
+        ReleaseDC : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDC", "ReleaseDC"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGISurface1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns a device context (DC) that allows you to render to a Microsoft DirectX Graphics Infrastructure (DXGI) surface using Windows Graphics Device Interface (GDI).
@@ -89,7 +100,7 @@ class IDXGISurface1 extends IDXGISurface {
      */
     GetDC(Discard) {
         phdc := HDC()
-        result := ComCall(11, this, "int", Discard, "ptr", phdc, "HRESULT")
+        result := ComCall(11, this, BOOL, Discard, HDC.Ptr, phdc, "HRESULT")
         return phdc
     }
 
@@ -119,7 +130,29 @@ class IDXGISurface1 extends IDXGISurface {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgisurface1-releasedc
      */
     ReleaseDC(pDirtyRect) {
-        result := ComCall(12, this, "ptr", pDirtyRect, "HRESULT")
+        result := ComCall(12, this, RECT.Ptr, pDirtyRect, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDXGISurface1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDC := CallbackCreate(GetMethod(implObj, "GetDC"), flags, 3)
+        this.vtbl.ReleaseDC := CallbackCreate(GetMethod(implObj, "ReleaseDC"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDC)
+        CallbackFree(this.vtbl.ReleaseDC)
     }
 }

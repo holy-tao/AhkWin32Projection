@@ -1,179 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class NTMS_I1_LIBRARYINFORMATION extends Win32Struct {
-    static sizeof => 104
+export default struct NTMS_I1_LIBRARYINFORMATION {
+    #StructPack 4
 
-    static packingSize => 8
+    LibraryType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LibraryType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    CleanerSlot : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    CleanerSlot {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    CleanerSlotDefault : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    CleanerSlotDefault {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    LibrarySupportsDriveCleaning : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    LibrarySupportsDriveCleaning {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    BarCodeReaderInstalled : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    BarCodeReaderInstalled {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    InventoryMethod : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InventoryMethod {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwCleanerUsesRemaining : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCleanerUsesRemaining {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    FirstDriveNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FirstDriveNumber {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwNumberOfDrives : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNumberOfDrives {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    FirstSlotNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FirstSlotNumber {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwNumberOfSlots : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNumberOfSlots {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    FirstDoorNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FirstDoorNumber {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    dwNumberOfDoors : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNumberOfDoors {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    FirstPortNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FirstPortNumber {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    dwNumberOfPorts : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNumberOfPorts {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    FirstChangerNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FirstChangerNumber {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    dwNumberOfChangers : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNumberOfChangers {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    dwNumberOfMedia : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNumberOfMedia {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    dwNumberOfMediaTypes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNumberOfMediaTypes {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    dwNumberOfLibRequests : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNumberOfLibRequests {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    Reserved : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    Reserved {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
 }

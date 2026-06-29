@@ -1,63 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RAW_SCSI_VIRTUAL_DISK_VERSION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RAW_SCSI_VIRTUAL_DISK_VERSION.ahk" { RAW_SCSI_VIRTUAL_DISK_VERSION }
 
 /**
  * Contains raw SCSI virtual disk response parameters.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-raw_scsi_virtual_disk_response
  * @namespace Windows.Win32.Storage.Vhd
  */
-class RAW_SCSI_VIRTUAL_DISK_RESPONSE extends Win32Struct {
-    static sizeof => 12
+export default struct RAW_SCSI_VIRTUAL_DISK_RESPONSE {
+    #StructPack 4
 
-    static packingSize => 4
+
+    struct _Version1 {
+        ScsiStatus : Int8
+
+        SenseInfoLength : Int8
+
+        DataTransferLength : UInt32
+
+    }
 
     /**
      * A [RAW_SCSI_VIRTUAL_DISK_PARAMETERS](./ns-virtdisk-raw_scsi_virtual_disk_parameters.md) structure being passed to or from the VHD functions.
-     * @type {RAW_SCSI_VIRTUAL_DISK_VERSION}
      */
-    Version {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Version : RAW_SCSI_VIRTUAL_DISK_VERSION
 
-    class _Version1 extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 4
+    Version1 : RAW_SCSI_VIRTUAL_DISK_RESPONSE._Version1
 
-        /**
-         * @type {Integer}
-         */
-        ScsiStatus {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        SenseInfoLength {
-            get => NumGet(this, 1, "char")
-            set => NumPut("char", value, this, 1)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        DataTransferLength {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
-    }
-
-    /**
-     * @type {_Version1}
-     */
-    Version1 {
-        get {
-            if(!this.HasProp("__Version1"))
-                this.__Version1 := RAW_SCSI_VIRTUAL_DISK_RESPONSE._Version1(4, this)
-            return this.__Version1
-        }
-    }
 }

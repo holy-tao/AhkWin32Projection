@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Graphics\Direct2D\Common\D2D_RECT_F.ahk
-#Include ..\..\..\Graphics\Direct2D\Common\D2D_COLOR_F.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\Graphics\Direct2D\Common\D2D_COLOR_F.ahk" { D2D_COLOR_F }
+#Import "..\..\..\Graphics\Direct2D\Common\D2D_RECT_F.ahk" { D2D_RECT_F }
 
 /**
  * Represents a set of properties for outputting a single page of a Portable Document Format (PDF) file.
@@ -10,54 +10,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/windows.data.pdf.interop/ns-windows-data-pdf-interop-pdf_render_params
  * @namespace Windows.Win32.System.WinRT.Pdf
  */
-class PDF_RENDER_PARAMS extends Win32Struct {
-    static sizeof => 44
+export default struct PDF_RENDER_PARAMS {
+    #StructPack 4
 
-    static packingSize => 4
+    SourceRect : D2D_RECT_F
 
-    /**
-     * @type {D2D_RECT_F}
-     */
-    SourceRect {
-        get {
-            if(!this.HasProp("__SourceRect"))
-                this.__SourceRect := D2D_RECT_F(0, this)
-            return this.__SourceRect
-        }
-    }
+    DestinationWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DestinationWidth {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    DestinationHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DestinationHeight {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    BackgroundColor : D2D_COLOR_F
 
-    /**
-     * @type {D2D_COLOR_F}
-     */
-    BackgroundColor {
-        get {
-            if(!this.HasProp("__BackgroundColor"))
-                this.__BackgroundColor := D2D_COLOR_F(24, this)
-            return this.__BackgroundColor
-        }
-    }
+    IgnoreHighContrast : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    IgnoreHighContrast {
-        get => NumGet(this, 40, "char")
-        set => NumPut("char", value, this, 40)
-    }
 }

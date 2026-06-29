@@ -1,36 +1,64 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFPMediaPlayer.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
-#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IMFPMediaPlayer.ahk" { IMFPMediaPlayer }
+#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a media item. (Deprecated.).
  * @see https://learn.microsoft.com/windows/win32/api/mfplay/nn-mfplay-imfpmediaitem
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFPMediaItem extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFPMediaItem extends IUnknown {
     /**
      * The interface identifier for IMFPMediaItem
      * @type {Guid}
      */
-    static IID => Guid("{90eb3e6b-ecbf-45cc-b1da-c6fe3ea70d57}")
+    static IID := Guid("{90eb3e6b-ecbf-45cc-b1da-c6fe3ea70d57}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFPMediaItem interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetMediaPlayer           : IntPtr
+        GetURL                   : IntPtr
+        GetObject                : IntPtr
+        GetUserData              : IntPtr
+        SetUserData              : IntPtr
+        GetStartStopPosition     : IntPtr
+        SetStartStopPosition     : IntPtr
+        HasVideo                 : IntPtr
+        HasAudio                 : IntPtr
+        IsProtected              : IntPtr
+        GetDuration              : IntPtr
+        GetNumberOfStreams       : IntPtr
+        GetStreamSelection       : IntPtr
+        SetStreamSelection       : IntPtr
+        GetStreamAttribute       : IntPtr
+        GetPresentationAttribute : IntPtr
+        GetCharacteristics       : IntPtr
+        SetStreamSink            : IntPtr
+        GetMetadata              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetMediaPlayer", "GetURL", "GetObject", "GetUserData", "SetUserData", "GetStartStopPosition", "SetStartStopPosition", "HasVideo", "HasAudio", "IsProtected", "GetDuration", "GetNumberOfStreams", "GetStreamSelection", "SetStreamSelection", "GetStreamAttribute", "GetPresentationAttribute", "GetCharacteristics", "SetStreamSink", "GetMetadata"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFPMediaItem.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a pointer to the MFPlay player object that created the media item.
@@ -50,7 +78,7 @@ class IMFPMediaItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-geturl
      */
     GetURL() {
-        result := ComCall(4, this, "ptr*", &ppwszURL := 0, "HRESULT")
+        result := ComCall(4, this, PWSTR.Ptr, &ppwszURL := 0, "HRESULT")
         return ppwszURL
     }
 
@@ -120,7 +148,7 @@ class IMFPMediaItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-getstartstopposition
      */
     GetStartStopPosition(pguidStartPositionType, pvStartValue, pguidStopPositionType, pvStopValue) {
-        result := ComCall(8, this, "ptr", pguidStartPositionType, "ptr", pvStartValue, "ptr", pguidStopPositionType, "ptr", pvStopValue, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, pguidStartPositionType, PROPVARIANT.Ptr, pvStartValue, Guid.Ptr, pguidStopPositionType, PROPVARIANT.Ptr, pvStopValue, "HRESULT")
         return result
     }
 
@@ -207,7 +235,7 @@ class IMFPMediaItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-setstartstopposition
      */
     SetStartStopPosition(pguidStartPositionType, pvStartValue, pguidStopPositionType, pvStopValue) {
-        result := ComCall(9, this, "ptr", pguidStartPositionType, "ptr", pvStartValue, "ptr", pguidStopPositionType, "ptr", pvStopValue, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, pguidStartPositionType, PROPVARIANT.Ptr, pvStartValue, Guid.Ptr, pguidStopPositionType, PROPVARIANT.Ptr, pvStopValue, "HRESULT")
         return result
     }
 
@@ -251,7 +279,7 @@ class IMFPMediaItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-isprotected
      */
     IsProtected() {
-        result := ComCall(12, this, "int*", &pfProtected := 0, "HRESULT")
+        result := ComCall(12, this, BOOL.Ptr, &pfProtected := 0, "HRESULT")
         return pfProtected
     }
 
@@ -289,7 +317,7 @@ class IMFPMediaItem extends IUnknown {
      */
     GetDuration(guidPositionType) {
         pvDurationValue := PROPVARIANT()
-        result := ComCall(13, this, "ptr", guidPositionType, "ptr", pvDurationValue, "HRESULT")
+        result := ComCall(13, this, Guid.Ptr, guidPositionType, PROPVARIANT.Ptr, pvDurationValue, "HRESULT")
         return pvDurationValue
     }
 
@@ -339,7 +367,7 @@ class IMFPMediaItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-getstreamselection
      */
     GetStreamSelection(dwStreamIndex) {
-        result := ComCall(15, this, "uint", dwStreamIndex, "int*", &pfEnabled := 0, "HRESULT")
+        result := ComCall(15, this, "uint", dwStreamIndex, BOOL.Ptr, &pfEnabled := 0, "HRESULT")
         return pfEnabled
     }
 
@@ -380,7 +408,7 @@ class IMFPMediaItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-setstreamselection
      */
     SetStreamSelection(dwStreamIndex, fEnabled) {
-        result := ComCall(16, this, "uint", dwStreamIndex, "int", fEnabled, "HRESULT")
+        result := ComCall(16, this, "uint", dwStreamIndex, BOOL, fEnabled, "HRESULT")
         return result
     }
 
@@ -404,7 +432,7 @@ class IMFPMediaItem extends IUnknown {
      */
     GetStreamAttribute(dwStreamIndex, guidMFAttribute) {
         pvValue := PROPVARIANT()
-        result := ComCall(17, this, "uint", dwStreamIndex, "ptr", guidMFAttribute, "ptr", pvValue, "HRESULT")
+        result := ComCall(17, this, "uint", dwStreamIndex, Guid.Ptr, guidMFAttribute, PROPVARIANT.Ptr, pvValue, "HRESULT")
         return pvValue
     }
 
@@ -420,7 +448,7 @@ class IMFPMediaItem extends IUnknown {
      */
     GetPresentationAttribute(guidMFAttribute) {
         pvValue := PROPVARIANT()
-        result := ComCall(18, this, "ptr", guidMFAttribute, "ptr", pvValue, "HRESULT")
+        result := ComCall(18, this, Guid.Ptr, guidMFAttribute, PROPVARIANT.Ptr, pvValue, "HRESULT")
         return pvValue
     }
 
@@ -469,5 +497,61 @@ class IMFPMediaItem extends IUnknown {
     GetMetadata() {
         result := ComCall(21, this, "ptr*", &ppMetadataStore := 0, "HRESULT")
         return IPropertyStore(ppMetadataStore)
+    }
+
+    Query(iid) {
+        if (IMFPMediaItem.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetMediaPlayer := CallbackCreate(GetMethod(implObj, "GetMediaPlayer"), flags, 2)
+        this.vtbl.GetURL := CallbackCreate(GetMethod(implObj, "GetURL"), flags, 2)
+        this.vtbl.GetObject := CallbackCreate(GetMethod(implObj, "GetObject"), flags, 2)
+        this.vtbl.GetUserData := CallbackCreate(GetMethod(implObj, "GetUserData"), flags, 2)
+        this.vtbl.SetUserData := CallbackCreate(GetMethod(implObj, "SetUserData"), flags, 2)
+        this.vtbl.GetStartStopPosition := CallbackCreate(GetMethod(implObj, "GetStartStopPosition"), flags, 5)
+        this.vtbl.SetStartStopPosition := CallbackCreate(GetMethod(implObj, "SetStartStopPosition"), flags, 5)
+        this.vtbl.HasVideo := CallbackCreate(GetMethod(implObj, "HasVideo"), flags, 3)
+        this.vtbl.HasAudio := CallbackCreate(GetMethod(implObj, "HasAudio"), flags, 3)
+        this.vtbl.IsProtected := CallbackCreate(GetMethod(implObj, "IsProtected"), flags, 2)
+        this.vtbl.GetDuration := CallbackCreate(GetMethod(implObj, "GetDuration"), flags, 3)
+        this.vtbl.GetNumberOfStreams := CallbackCreate(GetMethod(implObj, "GetNumberOfStreams"), flags, 2)
+        this.vtbl.GetStreamSelection := CallbackCreate(GetMethod(implObj, "GetStreamSelection"), flags, 3)
+        this.vtbl.SetStreamSelection := CallbackCreate(GetMethod(implObj, "SetStreamSelection"), flags, 3)
+        this.vtbl.GetStreamAttribute := CallbackCreate(GetMethod(implObj, "GetStreamAttribute"), flags, 4)
+        this.vtbl.GetPresentationAttribute := CallbackCreate(GetMethod(implObj, "GetPresentationAttribute"), flags, 3)
+        this.vtbl.GetCharacteristics := CallbackCreate(GetMethod(implObj, "GetCharacteristics"), flags, 2)
+        this.vtbl.SetStreamSink := CallbackCreate(GetMethod(implObj, "SetStreamSink"), flags, 3)
+        this.vtbl.GetMetadata := CallbackCreate(GetMethod(implObj, "GetMetadata"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetMediaPlayer)
+        CallbackFree(this.vtbl.GetURL)
+        CallbackFree(this.vtbl.GetObject)
+        CallbackFree(this.vtbl.GetUserData)
+        CallbackFree(this.vtbl.SetUserData)
+        CallbackFree(this.vtbl.GetStartStopPosition)
+        CallbackFree(this.vtbl.SetStartStopPosition)
+        CallbackFree(this.vtbl.HasVideo)
+        CallbackFree(this.vtbl.HasAudio)
+        CallbackFree(this.vtbl.IsProtected)
+        CallbackFree(this.vtbl.GetDuration)
+        CallbackFree(this.vtbl.GetNumberOfStreams)
+        CallbackFree(this.vtbl.GetStreamSelection)
+        CallbackFree(this.vtbl.SetStreamSelection)
+        CallbackFree(this.vtbl.GetStreamAttribute)
+        CallbackFree(this.vtbl.GetPresentationAttribute)
+        CallbackFree(this.vtbl.GetCharacteristics)
+        CallbackFree(this.vtbl.SetStreamSink)
+        CallbackFree(this.vtbl.GetMetadata)
     }
 }

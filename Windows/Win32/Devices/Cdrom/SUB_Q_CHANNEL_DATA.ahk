@@ -1,48 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SUB_Q_CURRENT_POSITION.ahk
-#Include .\SUB_Q_HEADER.ahk
-#Include .\SUB_Q_MEDIA_CATALOG_NUMBER.ahk
-#Include .\SUB_Q_TRACK_ISRC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SUB_Q_TRACK_ISRC.ahk" { SUB_Q_TRACK_ISRC }
+#Import ".\SUB_Q_MEDIA_CATALOG_NUMBER.ahk" { SUB_Q_MEDIA_CATALOG_NUMBER }
+#Import ".\SUB_Q_CURRENT_POSITION.ahk" { SUB_Q_CURRENT_POSITION }
+#Import ".\SUB_Q_HEADER.ahk" { SUB_Q_HEADER }
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
  */
-class SUB_Q_CHANNEL_DATA extends Win32Struct {
-    static sizeof => 64
+export default struct SUB_Q_CHANNEL_DATA {
+    #StructPack 1
 
-    static packingSize => 1
+    CurrentPosition : SUB_Q_CURRENT_POSITION
 
-    /**
-     * @type {SUB_Q_CURRENT_POSITION}
-     */
-    CurrentPosition {
-        get {
-            if(!this.HasProp("__CurrentPosition"))
-                this.__CurrentPosition := SUB_Q_CURRENT_POSITION(0, this)
-            return this.__CurrentPosition
-        }
-    }
-
-    /**
-     * @type {SUB_Q_MEDIA_CATALOG_NUMBER}
-     */
-    MediaCatalog {
-        get {
-            if(!this.HasProp("__MediaCatalog"))
-                this.__MediaCatalog := SUB_Q_MEDIA_CATALOG_NUMBER(0, this)
-            return this.__MediaCatalog
-        }
-    }
-
-    /**
-     * @type {SUB_Q_TRACK_ISRC}
-     */
-    TrackIsrc {
-        get {
-            if(!this.HasProp("__TrackIsrc"))
-                this.__TrackIsrc := SUB_Q_TRACK_ISRC(0, this)
-            return this.__TrackIsrc
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'MediaCatalog', { type: SUB_Q_MEDIA_CATALOG_NUMBER, offset: 0 })
+        DefineProp(this.Prototype, 'TrackIsrc', { type: SUB_Q_TRACK_ISRC, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ITCallInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITCallInfo.ahk" { ITCallInfo }
 
 /**
  * The ITDigitDetectionEvent interface contains methods that retrieve the description of DTMF digit events.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itdigitdetectionevent
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITDigitDetectionEvent extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITDigitDetectionEvent extends IDispatch {
     /**
      * The interface identifier for ITDigitDetectionEvent
      * @type {Guid}
      */
-    static IID => Guid("{80d3bfac-57d9-11d2-a04a-00c04fb6809f}")
+    static IID := Guid("{80d3bfac-57d9-11d2-a04a-00c04fb6809f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITDigitDetectionEvent interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Call             : IntPtr
+        get_Digit            : IntPtr
+        get_DigitMode        : IntPtr
+        get_TickCount        : IntPtr
+        get_CallbackInstance : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Call", "get_Digit", "get_DigitMode", "get_TickCount", "get_CallbackInstance"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITDigitDetectionEvent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ITCallInfo} 
@@ -115,5 +127,33 @@ class ITDigitDetectionEvent extends IDispatch {
     get_CallbackInstance() {
         result := ComCall(11, this, "int*", &plCallbackInstance := 0, "HRESULT")
         return plCallbackInstance
+    }
+
+    Query(iid) {
+        if (ITDigitDetectionEvent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Call := CallbackCreate(GetMethod(implObj, "get_Call"), flags, 2)
+        this.vtbl.get_Digit := CallbackCreate(GetMethod(implObj, "get_Digit"), flags, 2)
+        this.vtbl.get_DigitMode := CallbackCreate(GetMethod(implObj, "get_DigitMode"), flags, 2)
+        this.vtbl.get_TickCount := CallbackCreate(GetMethod(implObj, "get_TickCount"), flags, 2)
+        this.vtbl.get_CallbackInstance := CallbackCreate(GetMethod(implObj, "get_CallbackInstance"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Call)
+        CallbackFree(this.vtbl.get_Digit)
+        CallbackFree(this.vtbl.get_DigitMode)
+        CallbackFree(this.vtbl.get_TickCount)
+        CallbackFree(this.vtbl.get_CallbackInstance)
     }
 }

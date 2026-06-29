@@ -1,70 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class EXTLOGPEN32 extends Win32Struct {
-    static sizeof => 28
+export default struct EXTLOGPEN32 {
+    #StructPack 4
 
-    static packingSize => 4
+    elpPenStyle : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    elpPenStyle {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    elpWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    elpWidth {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    elpBrushStyle : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    elpBrushStyle {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    elpColor : COLORREF
 
-    /**
-     * @type {COLORREF}
-     */
-    elpColor {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    elpHatch : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    elpHatch {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    elpNumEntries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    elpNumEntries {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    elpStyleEntry : UInt32[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    elpStyleEntry {
-        get {
-            if(!this.HasProp("__elpStyleEntryProxyArray"))
-                this.__elpStyleEntryProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "uint")
-            return this.__elpStyleEntryProxyArray
-        }
-    }
 }

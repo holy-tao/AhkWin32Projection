@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT extends Win32Struct {
-    static sizeof => 24
+export default struct DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT {
+    #StructPack 8
 
-    static packingSize => 8
+    TopologyRangeBytes : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TopologyRangeBytes {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    TopologyId : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    TopologyId {
-        get {
-            if(!this.HasProp("__TopologyIdProxyArray"))
-                this.__TopologyIdProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
-            return this.__TopologyIdProxyArray
-        }
-    }
 }

@@ -1,34 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * The MIXERCONTROLDETAILS structure refers to control-detail structures, retrieving or setting state information of an audio mixer control. (MIXERCONTROLDETAILS)
  * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-mixercontroldetails
  * @namespace Windows.Win32.Media.Audio
  */
-class MIXERCONTROLDETAILS extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct MIXERCONTROLDETAILS {
+    #StructPack 8
 
     /**
      * Size, in bytes, of the <b>MIXERCONTROLDETAILS</b> structure. The size must be large enough to contain the base <b>MIXERCONTROLDETAILS</b> structure. When <a href="https://docs.microsoft.com/previous-versions/dd757299(v=vs.85)">mixerGetControlDetails</a> returns, this member contains the actual size of the information returned. The returned information will not exceed the requested size, nor will it be smaller than the base <b>MIXERCONTROLDETAILS</b> structure.
-     * @type {Integer}
      */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbStruct : UInt32
 
     /**
      * Control identifier on which to get or set properties.
-     * @type {Integer}
      */
-    dwControlID {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwControlID : UInt32
 
     /**
      * Number of channels on which to get or set control properties. The following values are defined:
@@ -75,31 +64,10 @@ class MIXERCONTROLDETAILS extends Win32Struct {
      * 
      * 
      * This member cannot be 0 for noncustom control types.
-     * @type {Integer}
      */
-    cChannels {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cChannels : UInt32
 
-    /**
-     * @type {HWND}
-     */
-    hwndOwner {
-        get {
-            if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(12, this)
-            return this.__hwndOwner
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    cMultipleItems {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    hwndOwner : HWND
 
     /**
      * Size, in bytes, of one of the following details structures being used:
@@ -150,12 +118,8 @@ class MIXERCONTROLDETAILS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    cbDetails {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    cbDetails : UInt32
 
     /**
      * Pointer to an array of one or more structures in which properties for 
@@ -170,10 +134,11 @@ class MIXERCONTROLDETAILS extends Win32Struct {
      * For controls other than MIXERCONTROL_CONTROLF_MULTIPLE types, each element index is equivalent to the zero-based channel that it affects. That is, paDetails[0] is for the left channel and paDetails[1] is for the right channel.
      * 
      * If the control is a MIXERCONTROL_CONTROLTYPE_CUSTOM control, this member must point to a buffer that is at least large enough to contain the size, in bytes, specified by the cbCustomData member of the MIXERCONTROL structure.
-     * @type {Pointer<Void>}
      */
-    paDetails {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    paDetails : IntPtr
+
+    static __New() {
+        DefineProp(this.Prototype, 'cMultipleItems', { type: UInt32, offset: 12 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,69 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Disables the DTR line when the device is opened and leaves it disabled.
- * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-dcb
  * @namespace Windows.Win32.Devices.Tapi
  */
-class DTR extends Win32Struct {
-    static sizeof => 14
+export default struct DTR {
+    #StructPack 2
 
-    static packingSize => 2
+    wYear : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wYear {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wMonth : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMonth {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    wDay : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wDay {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    wHour : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wHour {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    wMinute : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMinute {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    wSecond : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wSecond {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    wDayOfWeek : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wDayOfWeek {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
 }

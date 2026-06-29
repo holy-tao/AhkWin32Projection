@@ -1,34 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WSD_ENDPOINT_REFERENCE.ahk" { WSD_ENDPOINT_REFERENCE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WSD_URI_LIST.ahk" { WSD_URI_LIST }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WSD_NAME_LIST.ahk" { WSD_NAME_LIST }
+#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
 
 /**
  * This interface represents a remotely discovered host.
  * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nn-wsddisco-iwsdiscoveredservice
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class IWSDiscoveredService extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWSDiscoveredService extends IUnknown {
     /**
      * The interface identifier for IWSDiscoveredService
      * @type {Guid}
      */
-    static IID => Guid("{4bad8a3b-b374-4420-9632-aac945b374aa}")
+    static IID := Guid("{4bad8a3b-b374-4420-9632-aac945b374aa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWSDiscoveredService interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetEndpointReference      : IntPtr
+        GetTypes                  : IntPtr
+        GetScopes                 : IntPtr
+        GetXAddrs                 : IntPtr
+        GetMetadataVersion        : IntPtr
+        GetExtendedDiscoXML       : IntPtr
+        GetProbeResolveTag        : IntPtr
+        GetRemoteTransportAddress : IntPtr
+        GetLocalTransportAddress  : IntPtr
+        GetLocalInterfaceGUID     : IntPtr
+        GetInstanceId             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetEndpointReference", "GetTypes", "GetScopes", "GetXAddrs", "GetMetadataVersion", "GetExtendedDiscoXML", "GetProbeResolveTag", "GetRemoteTransportAddress", "GetLocalTransportAddress", "GetLocalInterfaceGUID", "GetInstanceId"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWSDiscoveredService.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a WS-Addressing address referencing an endpoint of the remote device.
@@ -140,7 +162,7 @@ class IWSDiscoveredService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-getproberesolvetag
      */
     GetProbeResolveTag() {
-        result := ComCall(9, this, "ptr*", &ppszTag := 0, "HRESULT")
+        result := ComCall(9, this, PWSTR.Ptr, &ppszTag := 0, "HRESULT")
         return ppszTag
     }
 
@@ -155,7 +177,7 @@ class IWSDiscoveredService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-getremotetransportaddress
      */
     GetRemoteTransportAddress() {
-        result := ComCall(10, this, "ptr*", &ppszRemoteTransportAddress := 0, "HRESULT")
+        result := ComCall(10, this, PWSTR.Ptr, &ppszRemoteTransportAddress := 0, "HRESULT")
         return ppszRemoteTransportAddress
     }
 
@@ -168,7 +190,7 @@ class IWSDiscoveredService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-getlocaltransportaddress
      */
     GetLocalTransportAddress() {
-        result := ComCall(11, this, "ptr*", &ppszLocalTransportAddress := 0, "HRESULT")
+        result := ComCall(11, this, PWSTR.Ptr, &ppszLocalTransportAddress := 0, "HRESULT")
         return ppszLocalTransportAddress
     }
 
@@ -179,7 +201,7 @@ class IWSDiscoveredService extends IUnknown {
      */
     GetLocalInterfaceGUID() {
         pGuid := Guid()
-        result := ComCall(12, this, "ptr", pGuid, "HRESULT")
+        result := ComCall(12, this, Guid.Ptr, pGuid, "HRESULT")
         return pGuid
     }
 
@@ -191,5 +213,45 @@ class IWSDiscoveredService extends IUnknown {
     GetInstanceId() {
         result := ComCall(13, this, "uint*", &pullInstanceId := 0, "HRESULT")
         return pullInstanceId
+    }
+
+    Query(iid) {
+        if (IWSDiscoveredService.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetEndpointReference := CallbackCreate(GetMethod(implObj, "GetEndpointReference"), flags, 2)
+        this.vtbl.GetTypes := CallbackCreate(GetMethod(implObj, "GetTypes"), flags, 2)
+        this.vtbl.GetScopes := CallbackCreate(GetMethod(implObj, "GetScopes"), flags, 2)
+        this.vtbl.GetXAddrs := CallbackCreate(GetMethod(implObj, "GetXAddrs"), flags, 2)
+        this.vtbl.GetMetadataVersion := CallbackCreate(GetMethod(implObj, "GetMetadataVersion"), flags, 2)
+        this.vtbl.GetExtendedDiscoXML := CallbackCreate(GetMethod(implObj, "GetExtendedDiscoXML"), flags, 3)
+        this.vtbl.GetProbeResolveTag := CallbackCreate(GetMethod(implObj, "GetProbeResolveTag"), flags, 2)
+        this.vtbl.GetRemoteTransportAddress := CallbackCreate(GetMethod(implObj, "GetRemoteTransportAddress"), flags, 2)
+        this.vtbl.GetLocalTransportAddress := CallbackCreate(GetMethod(implObj, "GetLocalTransportAddress"), flags, 2)
+        this.vtbl.GetLocalInterfaceGUID := CallbackCreate(GetMethod(implObj, "GetLocalInterfaceGUID"), flags, 2)
+        this.vtbl.GetInstanceId := CallbackCreate(GetMethod(implObj, "GetInstanceId"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetEndpointReference)
+        CallbackFree(this.vtbl.GetTypes)
+        CallbackFree(this.vtbl.GetScopes)
+        CallbackFree(this.vtbl.GetXAddrs)
+        CallbackFree(this.vtbl.GetMetadataVersion)
+        CallbackFree(this.vtbl.GetExtendedDiscoXML)
+        CallbackFree(this.vtbl.GetProbeResolveTag)
+        CallbackFree(this.vtbl.GetRemoteTransportAddress)
+        CallbackFree(this.vtbl.GetLocalTransportAddress)
+        CallbackFree(this.vtbl.GetLocalInterfaceGUID)
+        CallbackFree(this.vtbl.GetInstanceId)
     }
 }

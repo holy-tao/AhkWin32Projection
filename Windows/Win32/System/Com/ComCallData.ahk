@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Com
  */
-class ComCallData extends Win32Struct {
-    static sizeof => 16
+export default struct ComCallData {
+    #StructPack 8
 
-    static packingSize => 8
+    dwDispid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDispid {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwReserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    pUserDefined : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pUserDefined {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

@@ -1,110 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\RGNRANGE.ahk
-#Include .\WAVELINK.ahk
-#Include .\WSMPL.ahk
-#Include .\WLOOP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WAVELINK.ahk" { WAVELINK }
+#Import ".\WSMPL.ahk" { WSMPL }
+#Import ".\RGNRANGE.ahk" { RGNRANGE }
+#Import ".\WLOOP.ahk" { WLOOP }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
-class DMUS_REGION extends Win32Struct {
-    static sizeof => 72
+export default struct DMUS_REGION {
+    #StructPack 4
 
-    static packingSize => 4
+    RangeKey : RGNRANGE
 
-    /**
-     * @type {RGNRANGE}
-     */
-    RangeKey {
-        get {
-            if(!this.HasProp("__RangeKey"))
-                this.__RangeKey := RGNRANGE(0, this)
-            return this.__RangeKey
-        }
-    }
+    RangeVelocity : RGNRANGE
 
-    /**
-     * @type {RGNRANGE}
-     */
-    RangeVelocity {
-        get {
-            if(!this.HasProp("__RangeVelocity"))
-                this.__RangeVelocity := RGNRANGE(4, this)
-            return this.__RangeVelocity
-        }
-    }
+    fusOptions : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    fusOptions {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    usKeyGroup : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usKeyGroup {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    ulRegionArtIdx : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulRegionArtIdx {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ulNextRegionIdx : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulNextRegionIdx {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ulFirstExtCkIdx : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulFirstExtCkIdx {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    WaveLink : WAVELINK
 
-    /**
-     * @type {WAVELINK}
-     */
-    WaveLink {
-        get {
-            if(!this.HasProp("__WaveLink"))
-                this.__WaveLink := WAVELINK(24, this)
-            return this.__WaveLink
-        }
-    }
+    WSMP : WSMPL
 
-    /**
-     * @type {WSMPL}
-     */
-    WSMP {
-        get {
-            if(!this.HasProp("__WSMP"))
-                this.__WSMP := WSMPL(36, this)
-            return this.__WSMP
-        }
-    }
+    WLOOP : WLOOP[1]
 
-    /**
-     * @type {WLOOP}
-     */
-    WLOOP {
-        get {
-            if(!this.HasProp("__WLOOPProxyArray"))
-                this.__WLOOPProxyArray := Win32FixedArray(this.ptr + 56, 1, WLOOP, "")
-            return this.__WLOOPProxyArray
-        }
-    }
 }

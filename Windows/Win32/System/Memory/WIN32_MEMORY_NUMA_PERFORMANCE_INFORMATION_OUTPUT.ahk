@@ -1,31 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WIN32_MEMORY_NUMA_PERFORMANCE_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WIN32_MEMORY_NUMA_PERFORMANCE_ENTRY.ahk" { WIN32_MEMORY_NUMA_PERFORMANCE_ENTRY }
 
 /**
  * @namespace Windows.Win32.System.Memory
  */
-class WIN32_MEMORY_NUMA_PERFORMANCE_INFORMATION_OUTPUT extends Win32Struct {
-    static sizeof => 40
+export default struct WIN32_MEMORY_NUMA_PERFORMANCE_INFORMATION_OUTPUT {
+    #StructPack 8
 
-    static packingSize => 8
+    EntryCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EntryCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PerformanceEntries : WIN32_MEMORY_NUMA_PERFORMANCE_ENTRY[1]
 
-    /**
-     * @type {WIN32_MEMORY_NUMA_PERFORMANCE_ENTRY}
-     */
-    PerformanceEntries {
-        get {
-            if(!this.HasProp("__PerformanceEntriesProxyArray"))
-                this.__PerformanceEntriesProxyArray := Win32FixedArray(this.ptr + 8, 1, WIN32_MEMORY_NUMA_PERFORMANCE_ENTRY, "")
-            return this.__PerformanceEntriesProxyArray
-        }
-    }
 }

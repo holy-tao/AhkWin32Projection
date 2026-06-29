@@ -1,7 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WTS_FLAGS.ahk" { WTS_FLAGS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISharedBitmap.ahk" { ISharedBitmap }
+#Import ".\IShellItem.ahk" { IShellItem }
+#Import ".\WTS_THUMBNAILID.ahk" { WTS_THUMBNAILID }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WTS_CACHEFLAGS.ahk" { WTS_CACHEFLAGS }
 
 /**
  * Exposes methods for a system thumbnail cache that is shared across applications.
@@ -21,26 +27,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nn-thumbcache-ithumbnailcache
  * @namespace Windows.Win32.UI.Shell
  */
-class IThumbnailCache extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IThumbnailCache extends IUnknown {
     /**
      * The interface identifier for IThumbnailCache
      * @type {Guid}
      */
-    static IID => Guid("{f676c15d-596a-4ce2-8234-33996f445db1}")
+    static IID := Guid("{f676c15d-596a-4ce2-8234-33996f445db1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IThumbnailCache interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetThumbnail     : IntPtr
+        GetThumbnailByID : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetThumbnail", "GetThumbnailByID"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IThumbnailCache.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a cached thumbnail for a given Shell item.
@@ -164,7 +178,7 @@ class IThumbnailCache extends IUnknown {
     GetThumbnail(pShellItem, cxyRequestedThumbSize, flags, ppvThumb, pOutFlags, pThumbnailID) {
         pOutFlagsMarshal := pOutFlags is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pShellItem, "uint", cxyRequestedThumbSize, "int", flags, "ptr*", ppvThumb, pOutFlagsMarshal, pOutFlags, "ptr", pThumbnailID, "HRESULT")
+        result := ComCall(3, this, "ptr", pShellItem, "uint", cxyRequestedThumbSize, WTS_FLAGS, flags, ISharedBitmap.Ptr, ppvThumb, pOutFlagsMarshal, pOutFlags, WTS_THUMBNAILID.Ptr, pThumbnailID, "HRESULT")
         return result
     }
 
@@ -254,7 +268,29 @@ class IThumbnailCache extends IUnknown {
     GetThumbnailByID(thumbnailID, cxyRequestedThumbSize, ppvThumb, pOutFlags) {
         pOutFlagsMarshal := pOutFlags is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", thumbnailID, "uint", cxyRequestedThumbSize, "ptr*", ppvThumb, pOutFlagsMarshal, pOutFlags, "HRESULT")
+        result := ComCall(4, this, WTS_THUMBNAILID, thumbnailID, "uint", cxyRequestedThumbSize, ISharedBitmap.Ptr, ppvThumb, pOutFlagsMarshal, pOutFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IThumbnailCache.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetThumbnail := CallbackCreate(GetMethod(implObj, "GetThumbnail"), flags, 7)
+        this.vtbl.GetThumbnailByID := CallbackCreate(GetMethod(implObj, "GetThumbnailByID"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetThumbnail)
+        CallbackFree(this.vtbl.GetThumbnailByID)
     }
 }

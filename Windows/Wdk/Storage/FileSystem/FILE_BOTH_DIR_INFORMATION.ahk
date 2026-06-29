@@ -1,123 +1,38 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class FILE_BOTH_DIR_INFORMATION extends Win32Struct {
-    static sizeof => 96
+export default struct FILE_BOTH_DIR_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    NextEntryOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NextEntryOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    FileIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FileIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    CreationTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CreationTime {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    LastAccessTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    LastAccessTime {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    LastWriteTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    LastWriteTime {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    ChangeTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ChangeTime {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
+    EndOfFile : Int64
 
-    /**
-     * @type {Integer}
-     */
-    EndOfFile {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
-    }
+    AllocationSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    AllocationSize {
-        get => NumGet(this, 48, "int64")
-        set => NumPut("int64", value, this, 48)
-    }
+    FileAttributes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FileAttributes {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    FileNameLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FileNameLength {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    EaSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EaSize {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    ShortNameLength : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ShortNameLength {
-        get => NumGet(this, 68, "char")
-        set => NumPut("char", value, this, 68)
-    }
+    ShortName : WCHAR[12]
 
-    /**
-     * @type {String}
-     */
-    ShortName {
-        get => StrGet(this.ptr + 70, 11, "UTF-16")
-        set => StrPut(value, this.ptr + 70, 11, "UTF-16")
-    }
+    FileName : WCHAR[1]
 
-    /**
-     * @type {String}
-     */
-    FileName {
-        get => StrGet(this.ptr + 94, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 94, 0, "UTF-16")
-    }
 }

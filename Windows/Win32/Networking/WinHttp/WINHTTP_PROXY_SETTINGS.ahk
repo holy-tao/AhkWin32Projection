@@ -1,146 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\WINHTTP_PROXY_NETWORKING_KEY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\WINHTTP_PROXY_NETWORKING_KEY.ahk" { WINHTTP_PROXY_NETWORKING_KEY }
 
 /**
- * The WINHTTP_PROXY_SETTINGS_EX structure represents extended proxy settings.
- * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_proxy_settings_ex
  * @namespace Windows.Win32.Networking.WinHttp
  */
-class WINHTTP_PROXY_SETTINGS extends Win32Struct {
-    static sizeof => 112
+export default struct WINHTTP_PROXY_SETTINGS {
+    #StructPack 8
 
-    static packingSize => 8
+    dwStructSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwStructSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwCurrentSettingsVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCurrentSettingsVersion {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    pwszConnectionName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszConnectionName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pwszProxy : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszProxy {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pwszProxyBypass : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszProxyBypass {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pwszAutoconfigUrl : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszAutoconfigUrl {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pwszAutoconfigSecondaryUrl : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszAutoconfigSecondaryUrl {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    dwAutoDiscoveryFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAutoDiscoveryFlags {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    pwszLastKnownGoodAutoConfigUrl : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszLastKnownGoodAutoConfigUrl {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    dwAutoconfigReloadDelayMins : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAutoconfigReloadDelayMins {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    ftLastKnownDetectTime : FILETIME
 
-    /**
-     * @type {FILETIME}
-     */
-    ftLastKnownDetectTime {
-        get {
-            if(!this.HasProp("__ftLastKnownDetectTime"))
-                this.__ftLastKnownDetectTime := FILETIME(76, this)
-            return this.__ftLastKnownDetectTime
-        }
-    }
+    dwDetectedInterfaceIpCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDetectedInterfaceIpCount {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    pdwDetectedInterfaceIp : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pdwDetectedInterfaceIp {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    cNetworkKeys : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cNetworkKeys {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    pNetworkKeys : WINHTTP_PROXY_NETWORKING_KEY.Ptr
 
-    /**
-     * @type {Pointer<WINHTTP_PROXY_NETWORKING_KEY>}
-     */
-    pNetworkKeys {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the format of ink that is stored on the Clipboard.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkclipboardformats
  * @namespace Windows.Win32.UI.TabletPC
  */
-class InkClipboardFormats extends Win32Enum {
+export default struct InkClipboardFormats {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * A flag that can be used to verify whether any formats are present by checking against it.

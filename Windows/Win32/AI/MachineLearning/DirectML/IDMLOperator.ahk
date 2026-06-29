@@ -1,31 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IDMLDeviceChild.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDMLDeviceChild.ahk" { IDMLDeviceChild }
 
 /**
  * Represents a DirectML operator.
  * @see https://learn.microsoft.com/windows/win32/api/directml/nn-directml-idmloperator
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  */
-class IDMLOperator extends IDMLDeviceChild {
-
-    static sizeof => A_PtrSize
+export default struct IDMLOperator extends IDMLDeviceChild {
     /**
      * The interface identifier for IDMLOperator
      * @type {Guid}
      */
-    static IID => Guid("{26caae7a-3081-4633-9581-226fbe57695d}")
+    static IID := Guid("{26caae7a-3081-4633-9581-226fbe57695d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDMLOperator interfaces
+    */
+    struct Vtbl extends IDMLDeviceChild.Vtbl {
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => []
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDMLOperator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
+
+    Query(iid) {
+        if (IDMLOperator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+    }
 }

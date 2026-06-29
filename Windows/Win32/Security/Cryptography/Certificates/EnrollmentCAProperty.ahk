@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies certification authority property values.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-enrollmentcaproperty
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class EnrollmentCAProperty extends Win32Enum {
+export default struct EnrollmentCAProperty {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * A <b>VT_BSTR</b> value that contains the common name of the certification authority (CA) in Active Directory.

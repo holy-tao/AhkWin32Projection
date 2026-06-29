@@ -1,31 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DWRITE_UNICODE_RANGE structure specifies the range of Unicode code points.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_unicode_range
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class DWRITE_UNICODE_RANGE extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct DWRITE_UNICODE_RANGE {
+    #StructPack 4
 
     /**
      * The first code point in the Unicode range.
-     * @type {Integer}
      */
-    first {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    first : UInt32
 
     /**
      * The last code point in the Unicode range.
-     * @type {Integer}
      */
-    last {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    last : UInt32
+
 }

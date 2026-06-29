@@ -1,12 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmObject.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IFsrmActionCommand.ahk
-#Include .\IFsrmCollection.ahk
-#Include .\IFsrmAction.ahk
-#Include .\IFsrmPropertyCondition.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FsrmReportRunningStatus.ahk" { FsrmReportRunningStatus }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\FsrmReportGenerationContext.ahk" { FsrmReportGenerationContext }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import ".\IFsrmAction.ahk" { IFsrmAction }
+#Import ".\IFsrmActionCommand.ahk" { IFsrmActionCommand }
+#Import ".\FsrmActionType.ahk" { FsrmActionType }
+#Import ".\IFsrmCollection.ahk" { IFsrmCollection }
+#Import ".\FsrmFileManagementType.ahk" { FsrmFileManagementType }
+#Import ".\IFsrmObject.ahk" { IFsrmObject }
+#Import ".\IFsrmPropertyCondition.ahk" { IFsrmPropertyCondition }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Defines a file management job.
@@ -42,26 +49,81 @@
  * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nn-fsrmreports-ifsrmfilemanagementjob
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmFileManagementJob extends IFsrmObject {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmFileManagementJob extends IFsrmObject {
     /**
      * The interface identifier for IFsrmFileManagementJob
      * @type {Guid}
      */
-    static IID => Guid("{0770687e-9f36-4d6f-8778-599d188461c9}")
+    static IID := Guid("{0770687e-9f36-4d6f-8778-599d188461c9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 12
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmFileManagementJob interfaces
+    */
+    struct Vtbl extends IFsrmObject.Vtbl {
+        get_Name                           : IntPtr
+        put_Name                           : IntPtr
+        get_NamespaceRoots                 : IntPtr
+        put_NamespaceRoots                 : IntPtr
+        get_Enabled                        : IntPtr
+        put_Enabled                        : IntPtr
+        get_OperationType                  : IntPtr
+        put_OperationType                  : IntPtr
+        get_ExpirationDirectory            : IntPtr
+        put_ExpirationDirectory            : IntPtr
+        get_CustomAction                   : IntPtr
+        get_Notifications                  : IntPtr
+        get_Logging                        : IntPtr
+        put_Logging                        : IntPtr
+        get_ReportEnabled                  : IntPtr
+        put_ReportEnabled                  : IntPtr
+        get_Formats                        : IntPtr
+        put_Formats                        : IntPtr
+        get_MailTo                         : IntPtr
+        put_MailTo                         : IntPtr
+        get_DaysSinceFileCreated           : IntPtr
+        put_DaysSinceFileCreated           : IntPtr
+        get_DaysSinceFileLastAccessed      : IntPtr
+        put_DaysSinceFileLastAccessed      : IntPtr
+        get_DaysSinceFileLastModified      : IntPtr
+        put_DaysSinceFileLastModified      : IntPtr
+        get_PropertyConditions             : IntPtr
+        get_FromDate                       : IntPtr
+        put_FromDate                       : IntPtr
+        get_Task                           : IntPtr
+        put_Task                           : IntPtr
+        get_Parameters                     : IntPtr
+        put_Parameters                     : IntPtr
+        get_RunningStatus                  : IntPtr
+        get_LastError                      : IntPtr
+        get_LastReportPathWithoutExtension : IntPtr
+        get_LastRun                        : IntPtr
+        get_FileNamePattern                : IntPtr
+        put_FileNamePattern                : IntPtr
+        Run                                : IntPtr
+        WaitForCompletion                  : IntPtr
+        Cancel                             : IntPtr
+        AddNotification                    : IntPtr
+        DeleteNotification                 : IntPtr
+        ModifyNotification                 : IntPtr
+        CreateNotificationAction           : IntPtr
+        EnumNotificationActions            : IntPtr
+        CreatePropertyCondition            : IntPtr
+        CreateCustomAction                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Name", "put_Name", "get_NamespaceRoots", "put_NamespaceRoots", "get_Enabled", "put_Enabled", "get_OperationType", "put_OperationType", "get_ExpirationDirectory", "put_ExpirationDirectory", "get_CustomAction", "get_Notifications", "get_Logging", "put_Logging", "get_ReportEnabled", "put_ReportEnabled", "get_Formats", "put_Formats", "get_MailTo", "put_MailTo", "get_DaysSinceFileCreated", "put_DaysSinceFileCreated", "get_DaysSinceFileLastAccessed", "put_DaysSinceFileLastAccessed", "get_DaysSinceFileLastModified", "put_DaysSinceFileLastModified", "get_PropertyConditions", "get_FromDate", "put_FromDate", "get_Task", "put_Task", "get_Parameters", "put_Parameters", "get_RunningStatus", "get_LastError", "get_LastReportPathWithoutExtension", "get_LastRun", "get_FileNamePattern", "put_FileNamePattern", "Run", "WaitForCompletion", "Cancel", "AddNotification", "DeleteNotification", "ModifyNotification", "CreateNotificationAction", "EnumNotificationActions", "CreatePropertyCondition", "CreateCustomAction"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmFileManagementJob.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -246,8 +308,8 @@ class IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_name
      */
     get_Name() {
-        name := BSTR()
-        result := ComCall(12, this, "ptr", name, "HRESULT")
+        name := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, name, "HRESULT")
         return name
     }
 
@@ -260,7 +322,7 @@ class IFsrmFileManagementJob extends IFsrmObject {
     put_Name(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(13, this, "ptr", name, "HRESULT")
+        result := ComCall(13, this, BSTR, name, "HRESULT")
         return result
     }
 
@@ -309,7 +371,7 @@ class IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_namespaceroots
      */
     put_NamespaceRoots(namespaceRoots) {
-        result := ComCall(15, this, "ptr", namespaceRoots, "HRESULT")
+        result := ComCall(15, this, SAFEARRAY.Ptr, namespaceRoots, "HRESULT")
         return result
     }
 
@@ -319,7 +381,7 @@ class IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_enabled
      */
     get_Enabled() {
-        result := ComCall(16, this, "short*", &enabled := 0, "HRESULT")
+        result := ComCall(16, this, VARIANT_BOOL.Ptr, &enabled := 0, "HRESULT")
         return enabled
     }
 
@@ -330,7 +392,7 @@ class IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_enabled
      */
     put_Enabled(enabled) {
-        result := ComCall(17, this, "short", enabled, "HRESULT")
+        result := ComCall(17, this, VARIANT_BOOL, enabled, "HRESULT")
         return result
     }
 
@@ -371,7 +433,7 @@ class IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_operationtype
      */
     put_OperationType(operationType) {
-        result := ComCall(19, this, "int", operationType, "HRESULT")
+        result := ComCall(19, this, FsrmFileManagementType, operationType, "HRESULT")
         return result
     }
 
@@ -402,8 +464,8 @@ class IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_expirationdirectory
      */
     get_ExpirationDirectory() {
-        expirationDirectory := BSTR()
-        result := ComCall(20, this, "ptr", expirationDirectory, "HRESULT")
+        expirationDirectory := BSTR.Owned()
+        result := ComCall(20, this, BSTR.Ptr, expirationDirectory, "HRESULT")
         return expirationDirectory
     }
 
@@ -437,7 +499,7 @@ class IFsrmFileManagementJob extends IFsrmObject {
     put_ExpirationDirectory(expirationDirectory) {
         expirationDirectory := expirationDirectory is String ? BSTR.Alloc(expirationDirectory).Value : expirationDirectory
 
-        result := ComCall(21, this, "ptr", expirationDirectory, "HRESULT")
+        result := ComCall(21, this, BSTR, expirationDirectory, "HRESULT")
         return result
     }
 
@@ -531,7 +593,7 @@ class IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_reportenabled
      */
     get_ReportEnabled() {
-        result := ComCall(26, this, "short*", &reportEnabled := 0, "HRESULT")
+        result := ComCall(26, this, VARIANT_BOOL.Ptr, &reportEnabled := 0, "HRESULT")
         return reportEnabled
     }
 
@@ -549,7 +611,7 @@ class IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_reportenabled
      */
     put_ReportEnabled(reportEnabled) {
-        result := ComCall(27, this, "short", reportEnabled, "HRESULT")
+        result := ComCall(27, this, VARIANT_BOOL, reportEnabled, "HRESULT")
         return result
     }
 
@@ -574,7 +636,7 @@ class IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_formats
      */
     put_Formats(formats) {
-        result := ComCall(29, this, "ptr", formats, "HRESULT")
+        result := ComCall(29, this, SAFEARRAY.Ptr, formats, "HRESULT")
         return result
     }
 
@@ -592,8 +654,8 @@ class IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_mailto
      */
     get_MailTo() {
-        mailTo := BSTR()
-        result := ComCall(30, this, "ptr", mailTo, "HRESULT")
+        mailTo := BSTR.Owned()
+        result := ComCall(30, this, BSTR.Ptr, mailTo, "HRESULT")
         return mailTo
     }
 
@@ -614,7 +676,7 @@ class IFsrmFileManagementJob extends IFsrmObject {
     put_MailTo(mailTo) {
         mailTo := mailTo is String ? BSTR.Alloc(mailTo).Value : mailTo
 
-        result := ComCall(31, this, "ptr", mailTo, "HRESULT")
+        result := ComCall(31, this, BSTR, mailTo, "HRESULT")
         return result
     }
 
@@ -783,8 +845,8 @@ class IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_task
      */
     get_Task() {
-        taskName := BSTR()
-        result := ComCall(41, this, "ptr", taskName, "HRESULT")
+        taskName := BSTR.Owned()
+        result := ComCall(41, this, BSTR.Ptr, taskName, "HRESULT")
         return taskName
     }
 
@@ -806,7 +868,7 @@ class IFsrmFileManagementJob extends IFsrmObject {
     put_Task(taskName) {
         taskName := taskName is String ? BSTR.Alloc(taskName).Value : taskName
 
-        result := ComCall(42, this, "ptr", taskName, "HRESULT")
+        result := ComCall(42, this, BSTR, taskName, "HRESULT")
         return result
     }
 
@@ -835,7 +897,7 @@ class IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_parameters
      */
     put_Parameters(parameters) {
-        result := ComCall(44, this, "ptr", parameters, "HRESULT")
+        result := ComCall(44, this, SAFEARRAY.Ptr, parameters, "HRESULT")
         return result
     }
 
@@ -855,8 +917,8 @@ class IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_lasterror
      */
     get_LastError() {
-        lastError := BSTR()
-        result := ComCall(46, this, "ptr", lastError, "HRESULT")
+        lastError := BSTR.Owned()
+        result := ComCall(46, this, BSTR.Ptr, lastError, "HRESULT")
         return lastError
     }
 
@@ -869,8 +931,8 @@ class IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_lastreportpathwithoutextension
      */
     get_LastReportPathWithoutExtension() {
-        _path := BSTR()
-        result := ComCall(47, this, "ptr", _path, "HRESULT")
+        _path := BSTR.Owned()
+        result := ComCall(47, this, BSTR.Ptr, _path, "HRESULT")
         return _path
     }
 
@@ -897,8 +959,8 @@ class IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_filenamepattern
      */
     get_FileNamePattern() {
-        fileNamePattern := BSTR()
-        result := ComCall(49, this, "ptr", fileNamePattern, "HRESULT")
+        fileNamePattern := BSTR.Owned()
+        result := ComCall(49, this, BSTR.Ptr, fileNamePattern, "HRESULT")
         return fileNamePattern
     }
 
@@ -918,7 +980,7 @@ class IFsrmFileManagementJob extends IFsrmObject {
     put_FileNamePattern(fileNamePattern) {
         fileNamePattern := fileNamePattern is String ? BSTR.Alloc(fileNamePattern).Value : fileNamePattern
 
-        result := ComCall(50, this, "ptr", fileNamePattern, "HRESULT")
+        result := ComCall(50, this, BSTR, fileNamePattern, "HRESULT")
         return result
     }
 
@@ -946,7 +1008,7 @@ class IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-run
      */
     Run(_context) {
-        result := ComCall(51, this, "int", _context, "HRESULT")
+        result := ComCall(51, this, FsrmReportGenerationContext, _context, "HRESULT")
         return result
     }
 
@@ -969,7 +1031,7 @@ class IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-waitforcompletion
      */
     WaitForCompletion(waitSeconds) {
-        result := ComCall(52, this, "int", waitSeconds, "short*", &completed := 0, "HRESULT")
+        result := ComCall(52, this, "int", waitSeconds, VARIANT_BOOL.Ptr, &completed := 0, "HRESULT")
         return completed
     }
 
@@ -1084,7 +1146,7 @@ class IFsrmFileManagementJob extends IFsrmObject {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-createnotificationaction
      */
     CreateNotificationAction(days, actionType) {
-        result := ComCall(57, this, "int", days, "int", actionType, "ptr*", &action := 0, "HRESULT")
+        result := ComCall(57, this, "int", days, FsrmActionType, actionType, "ptr*", &action := 0, "HRESULT")
         return IFsrmAction(action)
     }
 
@@ -1116,7 +1178,7 @@ class IFsrmFileManagementJob extends IFsrmObject {
     CreatePropertyCondition(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(59, this, "ptr", name, "ptr*", &propertyCondition := 0, "HRESULT")
+        result := ComCall(59, this, BSTR, name, "ptr*", &propertyCondition := 0, "HRESULT")
         return IFsrmPropertyCondition(propertyCondition)
     }
 
@@ -1142,5 +1204,121 @@ class IFsrmFileManagementJob extends IFsrmObject {
     CreateCustomAction() {
         result := ComCall(60, this, "ptr*", &customAction := 0, "HRESULT")
         return IFsrmActionCommand(customAction)
+    }
+
+    Query(iid) {
+        if (IFsrmFileManagementJob.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_NamespaceRoots := CallbackCreate(GetMethod(implObj, "get_NamespaceRoots"), flags, 2)
+        this.vtbl.put_NamespaceRoots := CallbackCreate(GetMethod(implObj, "put_NamespaceRoots"), flags, 2)
+        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.put_Enabled := CallbackCreate(GetMethod(implObj, "put_Enabled"), flags, 2)
+        this.vtbl.get_OperationType := CallbackCreate(GetMethod(implObj, "get_OperationType"), flags, 2)
+        this.vtbl.put_OperationType := CallbackCreate(GetMethod(implObj, "put_OperationType"), flags, 2)
+        this.vtbl.get_ExpirationDirectory := CallbackCreate(GetMethod(implObj, "get_ExpirationDirectory"), flags, 2)
+        this.vtbl.put_ExpirationDirectory := CallbackCreate(GetMethod(implObj, "put_ExpirationDirectory"), flags, 2)
+        this.vtbl.get_CustomAction := CallbackCreate(GetMethod(implObj, "get_CustomAction"), flags, 2)
+        this.vtbl.get_Notifications := CallbackCreate(GetMethod(implObj, "get_Notifications"), flags, 2)
+        this.vtbl.get_Logging := CallbackCreate(GetMethod(implObj, "get_Logging"), flags, 2)
+        this.vtbl.put_Logging := CallbackCreate(GetMethod(implObj, "put_Logging"), flags, 2)
+        this.vtbl.get_ReportEnabled := CallbackCreate(GetMethod(implObj, "get_ReportEnabled"), flags, 2)
+        this.vtbl.put_ReportEnabled := CallbackCreate(GetMethod(implObj, "put_ReportEnabled"), flags, 2)
+        this.vtbl.get_Formats := CallbackCreate(GetMethod(implObj, "get_Formats"), flags, 2)
+        this.vtbl.put_Formats := CallbackCreate(GetMethod(implObj, "put_Formats"), flags, 2)
+        this.vtbl.get_MailTo := CallbackCreate(GetMethod(implObj, "get_MailTo"), flags, 2)
+        this.vtbl.put_MailTo := CallbackCreate(GetMethod(implObj, "put_MailTo"), flags, 2)
+        this.vtbl.get_DaysSinceFileCreated := CallbackCreate(GetMethod(implObj, "get_DaysSinceFileCreated"), flags, 2)
+        this.vtbl.put_DaysSinceFileCreated := CallbackCreate(GetMethod(implObj, "put_DaysSinceFileCreated"), flags, 2)
+        this.vtbl.get_DaysSinceFileLastAccessed := CallbackCreate(GetMethod(implObj, "get_DaysSinceFileLastAccessed"), flags, 2)
+        this.vtbl.put_DaysSinceFileLastAccessed := CallbackCreate(GetMethod(implObj, "put_DaysSinceFileLastAccessed"), flags, 2)
+        this.vtbl.get_DaysSinceFileLastModified := CallbackCreate(GetMethod(implObj, "get_DaysSinceFileLastModified"), flags, 2)
+        this.vtbl.put_DaysSinceFileLastModified := CallbackCreate(GetMethod(implObj, "put_DaysSinceFileLastModified"), flags, 2)
+        this.vtbl.get_PropertyConditions := CallbackCreate(GetMethod(implObj, "get_PropertyConditions"), flags, 2)
+        this.vtbl.get_FromDate := CallbackCreate(GetMethod(implObj, "get_FromDate"), flags, 2)
+        this.vtbl.put_FromDate := CallbackCreate(GetMethod(implObj, "put_FromDate"), flags, 2)
+        this.vtbl.get_Task := CallbackCreate(GetMethod(implObj, "get_Task"), flags, 2)
+        this.vtbl.put_Task := CallbackCreate(GetMethod(implObj, "put_Task"), flags, 2)
+        this.vtbl.get_Parameters := CallbackCreate(GetMethod(implObj, "get_Parameters"), flags, 2)
+        this.vtbl.put_Parameters := CallbackCreate(GetMethod(implObj, "put_Parameters"), flags, 2)
+        this.vtbl.get_RunningStatus := CallbackCreate(GetMethod(implObj, "get_RunningStatus"), flags, 2)
+        this.vtbl.get_LastError := CallbackCreate(GetMethod(implObj, "get_LastError"), flags, 2)
+        this.vtbl.get_LastReportPathWithoutExtension := CallbackCreate(GetMethod(implObj, "get_LastReportPathWithoutExtension"), flags, 2)
+        this.vtbl.get_LastRun := CallbackCreate(GetMethod(implObj, "get_LastRun"), flags, 2)
+        this.vtbl.get_FileNamePattern := CallbackCreate(GetMethod(implObj, "get_FileNamePattern"), flags, 2)
+        this.vtbl.put_FileNamePattern := CallbackCreate(GetMethod(implObj, "put_FileNamePattern"), flags, 2)
+        this.vtbl.Run := CallbackCreate(GetMethod(implObj, "Run"), flags, 2)
+        this.vtbl.WaitForCompletion := CallbackCreate(GetMethod(implObj, "WaitForCompletion"), flags, 3)
+        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.AddNotification := CallbackCreate(GetMethod(implObj, "AddNotification"), flags, 2)
+        this.vtbl.DeleteNotification := CallbackCreate(GetMethod(implObj, "DeleteNotification"), flags, 2)
+        this.vtbl.ModifyNotification := CallbackCreate(GetMethod(implObj, "ModifyNotification"), flags, 3)
+        this.vtbl.CreateNotificationAction := CallbackCreate(GetMethod(implObj, "CreateNotificationAction"), flags, 4)
+        this.vtbl.EnumNotificationActions := CallbackCreate(GetMethod(implObj, "EnumNotificationActions"), flags, 3)
+        this.vtbl.CreatePropertyCondition := CallbackCreate(GetMethod(implObj, "CreatePropertyCondition"), flags, 3)
+        this.vtbl.CreateCustomAction := CallbackCreate(GetMethod(implObj, "CreateCustomAction"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.put_Name)
+        CallbackFree(this.vtbl.get_NamespaceRoots)
+        CallbackFree(this.vtbl.put_NamespaceRoots)
+        CallbackFree(this.vtbl.get_Enabled)
+        CallbackFree(this.vtbl.put_Enabled)
+        CallbackFree(this.vtbl.get_OperationType)
+        CallbackFree(this.vtbl.put_OperationType)
+        CallbackFree(this.vtbl.get_ExpirationDirectory)
+        CallbackFree(this.vtbl.put_ExpirationDirectory)
+        CallbackFree(this.vtbl.get_CustomAction)
+        CallbackFree(this.vtbl.get_Notifications)
+        CallbackFree(this.vtbl.get_Logging)
+        CallbackFree(this.vtbl.put_Logging)
+        CallbackFree(this.vtbl.get_ReportEnabled)
+        CallbackFree(this.vtbl.put_ReportEnabled)
+        CallbackFree(this.vtbl.get_Formats)
+        CallbackFree(this.vtbl.put_Formats)
+        CallbackFree(this.vtbl.get_MailTo)
+        CallbackFree(this.vtbl.put_MailTo)
+        CallbackFree(this.vtbl.get_DaysSinceFileCreated)
+        CallbackFree(this.vtbl.put_DaysSinceFileCreated)
+        CallbackFree(this.vtbl.get_DaysSinceFileLastAccessed)
+        CallbackFree(this.vtbl.put_DaysSinceFileLastAccessed)
+        CallbackFree(this.vtbl.get_DaysSinceFileLastModified)
+        CallbackFree(this.vtbl.put_DaysSinceFileLastModified)
+        CallbackFree(this.vtbl.get_PropertyConditions)
+        CallbackFree(this.vtbl.get_FromDate)
+        CallbackFree(this.vtbl.put_FromDate)
+        CallbackFree(this.vtbl.get_Task)
+        CallbackFree(this.vtbl.put_Task)
+        CallbackFree(this.vtbl.get_Parameters)
+        CallbackFree(this.vtbl.put_Parameters)
+        CallbackFree(this.vtbl.get_RunningStatus)
+        CallbackFree(this.vtbl.get_LastError)
+        CallbackFree(this.vtbl.get_LastReportPathWithoutExtension)
+        CallbackFree(this.vtbl.get_LastRun)
+        CallbackFree(this.vtbl.get_FileNamePattern)
+        CallbackFree(this.vtbl.put_FileNamePattern)
+        CallbackFree(this.vtbl.Run)
+        CallbackFree(this.vtbl.WaitForCompletion)
+        CallbackFree(this.vtbl.Cancel)
+        CallbackFree(this.vtbl.AddNotification)
+        CallbackFree(this.vtbl.DeleteNotification)
+        CallbackFree(this.vtbl.ModifyNotification)
+        CallbackFree(this.vtbl.CreateNotificationAction)
+        CallbackFree(this.vtbl.EnumNotificationActions)
+        CallbackFree(this.vtbl.CreatePropertyCondition)
+        CallbackFree(this.vtbl.CreateCustomAction)
     }
 }

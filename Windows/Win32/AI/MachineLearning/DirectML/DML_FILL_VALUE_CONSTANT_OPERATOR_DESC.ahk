@@ -1,52 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\DML_TENSOR_DESC.ahk
-#Include .\DML_TENSOR_DATA_TYPE.ahk
-#Include .\DML_SCALAR_UNION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DML_TENSOR_DESC.ahk" { DML_TENSOR_DESC }
+#Import ".\DML_TENSOR_DATA_TYPE.ahk" { DML_TENSOR_DATA_TYPE }
+#Import ".\DML_SCALAR_UNION.ahk" { DML_SCALAR_UNION }
 
 /**
  * Fills a tensor with the given constant *Value*.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_fill_value_constant_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  */
-class DML_FILL_VALUE_CONSTANT_OPERATOR_DESC extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct DML_FILL_VALUE_CONSTANT_OPERATOR_DESC {
+    #StructPack 8
 
     /**
      * Type: **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
      * 
      * The tensor to write the results to. This tensor may have any size.
-     * @type {Pointer<DML_TENSOR_DESC>}
      */
-    OutputTensor {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    OutputTensor : DML_TENSOR_DESC.Ptr
 
     /**
      * Type: **[DML_TENSOR_DATA_TYPE](/windows/win32/api/directml/ne-directml-dml_tensor_data_type)**
      * 
      * The data type of the *Value* field, which must match *OutputTensor.DataType*.
-     * @type {DML_TENSOR_DATA_TYPE}
      */
-    ValueDataType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    ValueDataType : DML_TENSOR_DATA_TYPE
 
     /**
      * Type: **[DML_SCALAR_UNION](/windows/win32/api/directml/ns-directml-dml_scalar_union)**
      * 
      * A constant value to fill the output, with *ValueDataType* determining how to interpret the field.
-     * @type {DML_SCALAR_UNION}
      */
-    Value {
-        get {
-            if(!this.HasProp("__Value"))
-                this.__Value := DML_SCALAR_UNION(16, this)
-            return this.__Value
-        }
-    }
+    Value : DML_SCALAR_UNION
+
 }

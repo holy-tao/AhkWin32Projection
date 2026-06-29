@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_INDIRECT_ARGUMENT_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_INDIRECT_ARGUMENT_TYPE.ahk" { D3D12_INDIRECT_ARGUMENT_TYPE }
 
 /**
  * Describes an indirect argument (an indirect parameter), for use with a command signature.
@@ -9,185 +8,59 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_indirect_argument_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct {
-    static sizeof => 16
+export default struct D3D12_INDIRECT_ARGUMENT_DESC {
+    #StructPack 4
 
-    static packingSize => 4
+
+    struct _VertexBuffer {
+        Slot : UInt32
+
+    }
+
+    struct _Constant {
+        RootParameterIndex : UInt32
+
+        DestOffsetIn32BitValues : UInt32
+
+        Num32BitValuesToSet : UInt32
+
+    }
+
+    struct _ConstantBufferView {
+        RootParameterIndex : UInt32
+
+    }
+
+    struct _ShaderResourceView {
+        RootParameterIndex : UInt32
+
+    }
+
+    struct _UnorderedAccessView {
+        RootParameterIndex : UInt32
+
+    }
+
+    struct _IncrementingConstant {
+        RootParameterIndex : UInt32
+
+        DestOffsetIn32BitValues : UInt32
+
+    }
 
     /**
      * A single <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_indirect_argument_type">D3D12_INDIRECT_ARGUMENT_TYPE</a> enumeration constant.
-     * @type {D3D12_INDIRECT_ARGUMENT_TYPE}
      */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Type : D3D12_INDIRECT_ARGUMENT_TYPE
 
-    class _VertexBuffer extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
+    VertexBuffer : D3D12_INDIRECT_ARGUMENT_DESC._VertexBuffer
 
-        /**
-         * @type {Integer}
-         */
-        Slot {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-    }
-
-    class _Constant extends Win32Struct {
-        static sizeof => 12
-        static packingSize => 4
-
-        /**
-         * @type {Integer}
-         */
-        RootParameterIndex {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        DestOffsetIn32BitValues {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        Num32BitValuesToSet {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
-    }
-
-    class _ConstantBufferView extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
-        /**
-         * @type {Integer}
-         */
-        RootParameterIndex {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-    }
-
-    class _ShaderResourceView extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
-        /**
-         * @type {Integer}
-         */
-        RootParameterIndex {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-    }
-
-    class _UnorderedAccessView extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
-        /**
-         * @type {Integer}
-         */
-        RootParameterIndex {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-    }
-
-    class _IncrementingConstant extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 4
-
-        /**
-         * @type {Integer}
-         */
-        RootParameterIndex {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        DestOffsetIn32BitValues {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
-    }
-
-    /**
-     * @type {_VertexBuffer}
-     */
-    VertexBuffer {
-        get {
-            if(!this.HasProp("__VertexBuffer"))
-                this.__VertexBuffer := D3D12_INDIRECT_ARGUMENT_DESC._VertexBuffer(4, this)
-            return this.__VertexBuffer
-        }
-    }
-
-    /**
-     * @type {_Constant}
-     */
-    Constant {
-        get {
-            if(!this.HasProp("__Constant"))
-                this.__Constant := D3D12_INDIRECT_ARGUMENT_DESC._Constant(4, this)
-            return this.__Constant
-        }
-    }
-
-    /**
-     * @type {_ConstantBufferView}
-     */
-    ConstantBufferView {
-        get {
-            if(!this.HasProp("__ConstantBufferView"))
-                this.__ConstantBufferView := D3D12_INDIRECT_ARGUMENT_DESC._ConstantBufferView(4, this)
-            return this.__ConstantBufferView
-        }
-    }
-
-    /**
-     * @type {_ShaderResourceView}
-     */
-    ShaderResourceView {
-        get {
-            if(!this.HasProp("__ShaderResourceView"))
-                this.__ShaderResourceView := D3D12_INDIRECT_ARGUMENT_DESC._ShaderResourceView(4, this)
-            return this.__ShaderResourceView
-        }
-    }
-
-    /**
-     * @type {_UnorderedAccessView}
-     */
-    UnorderedAccessView {
-        get {
-            if(!this.HasProp("__UnorderedAccessView"))
-                this.__UnorderedAccessView := D3D12_INDIRECT_ARGUMENT_DESC._UnorderedAccessView(4, this)
-            return this.__UnorderedAccessView
-        }
-    }
-
-    /**
-     * @type {_IncrementingConstant}
-     */
-    IncrementingConstant {
-        get {
-            if(!this.HasProp("__IncrementingConstant"))
-                this.__IncrementingConstant := D3D12_INDIRECT_ARGUMENT_DESC._IncrementingConstant(4, this)
-            return this.__IncrementingConstant
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Constant', { type: D3D12_INDIRECT_ARGUMENT_DESC._Constant, offset: 4 })
+        DefineProp(this.Prototype, 'ConstantBufferView', { type: D3D12_INDIRECT_ARGUMENT_DESC._ConstantBufferView, offset: 4 })
+        DefineProp(this.Prototype, 'ShaderResourceView', { type: D3D12_INDIRECT_ARGUMENT_DESC._ShaderResourceView, offset: 4 })
+        DefineProp(this.Prototype, 'UnorderedAccessView', { type: D3D12_INDIRECT_ARGUMENT_DESC._UnorderedAccessView, offset: 4 })
+        DefineProp(this.Prototype, 'IncrementingConstant', { type: D3D12_INDIRECT_ARGUMENT_DESC._IncrementingConstant, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

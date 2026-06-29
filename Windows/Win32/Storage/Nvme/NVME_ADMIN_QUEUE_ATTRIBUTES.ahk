@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains the Admin Queue Attributes (AQA) for the Admin Submission Queue and Admin Completion Queue.
@@ -11,10 +10,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_admin_queue_attributes
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_ADMIN_QUEUE_ATTRIBUTES extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct NVME_ADMIN_QUEUE_ATTRIBUTES {
+    #StructPack 4
 
     /**
      * This bitfield backs the following members:
@@ -22,12 +19,9 @@ class NVME_ADMIN_QUEUE_ATTRIBUTES extends Win32Struct {
      * - Reserved0
      * - ACQS
      * - Reserved1
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -60,12 +54,8 @@ class NVME_ADMIN_QUEUE_ATTRIBUTES extends Win32Struct {
         get => (this._bitfield >> 28) & 0xF
         set => this._bitfield := ((value & 0xF) << 28) | (this._bitfield & ~(0xF << 28))
     }
-
-    /**
-     * @type {Integer}
-     */
-    AsUlong {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'AsUlong', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

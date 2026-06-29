@@ -1,107 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXVA2_ExtendedFormat.ahk
-#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\DXVA2_AYUVSample8.ahk
-#Include .\DXVA2_Fixed32.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DXVA2_Fixed32.ahk" { DXVA2_Fixed32 }
+#Import ".\DXVA2_ExtendedFormat.ahk" { DXVA2_ExtendedFormat }
+#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
+#Import ".\DXVA2_AYUVSample8.ahk" { DXVA2_AYUVSample8 }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Specifies an input sample for the IDirectXVideoProcessor::VideoProcessBlt method.
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_videosample
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVA2_VideoSample extends Win32Struct {
-    static sizeof => 136
-
-    static packingSize => 8
+export default struct DXVA2_VideoSample {
+    #StructPack 8
 
     /**
      * Start time of the sample, in 100-nanosecond units. For video substream samples, the value is zero.
-     * @type {Integer}
      */
-    Start {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    Start : Int64
 
     /**
      * End time of the sample, in 100-nanosecond units. For video substream samples, the value is zero.
-     * @type {Integer}
      */
-    End {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    End : Int64
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_extendedformat">DXVA2_ExtendedFormat</a> structure that describes the interlacing and extended color information for the sample.
-     * @type {DXVA2_ExtendedFormat}
      */
-    SampleFormat {
-        get {
-            if(!this.HasProp("__SampleFormat"))
-                this.__SampleFormat := DXVA2_ExtendedFormat(16, this)
-            return this.__SampleFormat
-        }
-    }
+    SampleFormat : DXVA2_ExtendedFormat
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3dsurface9">IDirect3DSurface9</a> interface of the Direct3D surface that contains the sample.
-     * @type {IDirect3DSurface9}
      */
-    SrcSurface {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    SrcSurface : IDirect3DSurface9
 
     /**
      * Source rectangle. The source rectangle defines which portion of the input sample is copied to the destination surface. The source rectangle is specified using pixel coordinates on the input surface.
-     * @type {RECT}
      */
-    SrcRect {
-        get {
-            if(!this.HasProp("__SrcRect"))
-                this.__SrcRect := RECT(32, this)
-            return this.__SrcRect
-        }
-    }
+    SrcRect : RECT
 
     /**
      * Destination rectangle. The destination rectangle defines the portion of the destination surface where the source rectangle is copied. The destination rectangle is specified using pixel coordinates on the destination surface.
-     * @type {RECT}
      */
-    DstRect {
-        get {
-            if(!this.HasProp("__DstRect"))
-                this.__DstRect := RECT(48, this)
-            return this.__DstRect
-        }
-    }
+    DstRect : RECT
 
     /**
      * If the input sample is for a substream and uses a palettized YUV color format, this member contains an array of <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_ayuvsample8">DXVA2_AYUVSample8</a> structures that define the palette entries. For non-palettized pixel formats, the array elements should all be zero.
-     * @type {DXVA2_AYUVSample8}
      */
-    Pal {
-        get {
-            if(!this.HasProp("__PalProxyArray"))
-                this.__PalProxyArray := Win32FixedArray(this.ptr + 64, 16, DXVA2_AYUVSample8, "")
-            return this.__PalProxyArray
-        }
-    }
+    Pal : DXVA2_AYUVSample8[16]
 
     /**
      * Alpha value that will be applied to this input sample when it is composited.
-     * @type {DXVA2_Fixed32}
      */
-    PlanarAlpha {
-        get {
-            if(!this.HasProp("__PlanarAlpha"))
-                this.__PlanarAlpha := DXVA2_Fixed32(128, this)
-            return this.__PlanarAlpha
-        }
-    }
+    PlanarAlpha : DXVA2_Fixed32
 
     /**
      * Contains additional flags. The following flags are defined.
@@ -149,10 +99,7 @@ class DXVA2_VideoSample extends Win32Struct {
      *  
      * 
      * These flags provide a hint to the deinterlacer when it performs inverse telecine.
-     * @type {Integer}
      */
-    SampleData {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
-    }
+    SampleData : UInt32
+
 }

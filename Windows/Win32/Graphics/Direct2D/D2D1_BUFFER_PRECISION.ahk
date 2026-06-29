@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents the bit depth of the imaging pipeline in Direct2D.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ne-d2d1_1-d2d1_buffer_precision
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_BUFFER_PRECISION extends Win32Enum {
+export default struct D2D1_BUFFER_PRECISION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The buffer precision is not specified.

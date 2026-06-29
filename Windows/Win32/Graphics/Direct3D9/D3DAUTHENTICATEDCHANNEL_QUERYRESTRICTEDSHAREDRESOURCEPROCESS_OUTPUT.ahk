@@ -1,9 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT.ahk
-#Include .\D3D_OMAC.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\D3DAUTHENTICATEDCHANNEL_PROCESSIDENTIFIERTYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\D3DAUTHENTICATEDCHANNEL_PROCESSIDENTIFIERTYPE.ahk" { D3DAUTHENTICATEDCHANNEL_PROCESSIDENTIFIERTYPE }
+#Import ".\D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT.ahk" { D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D_OMAC.ahk" { D3D_OMAC }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains the response to a D3DAUTHENTICATEDQUERY\_RESTRICTEDSHAREDRESOURCEPROCESS query.
@@ -12,50 +13,27 @@
  * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchannel-queryrestrictedsharedresourceprocess-output
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DAUTHENTICATEDCHANNEL_QUERYRESTRICTEDSHAREDRESOURCEPROCESS_OUTPUT extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct D3DAUTHENTICATEDCHANNEL_QUERYRESTRICTEDSHAREDRESOURCEPROCESS_OUTPUT {
+    #StructPack 8
 
     /**
      * A [**D3DAUTHENTICATEDCHANNEL\_QUERY\_OUTPUT**](d3dauthenticatedchannel-query-output.md) structure that contains a Message Authentication Code (MAC) and other data.
-     * @type {D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT}
      */
-    Output {
-        get {
-            if(!this.HasProp("__Output"))
-                this.__Output := D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT(0, this)
-            return this.__Output
-        }
-    }
+    Output : D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT
 
     /**
      * The index of the process in the list of processes.
-     * @type {Integer}
      */
-    ProcessIndex {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ProcessIndex : UInt32
 
     /**
      * A [**D3DAUTHENTICATEDCHANNEL\_PROCESSIDENTIFIERTYPE**](d3dauthenticatedchannel-processidentifiertype.md) value that specifies the type of process.
-     * @type {D3DAUTHENTICATEDCHANNEL_PROCESSIDENTIFIERTYPE}
      */
-    ProcessIdentifer {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    ProcessIdentifer : D3DAUTHENTICATEDCHANNEL_PROCESSIDENTIFIERTYPE
 
     /**
      * A process handle. If the **ProcessIdentifier** member equals **PROCESSIDTYPE\_HANDLE**, the **ProcessHandle** member contains a valid handle to a process. Otherwise, this member is ignored.
-     * @type {HANDLE}
      */
-    ProcessHandle {
-        get {
-            if(!this.HasProp("__ProcessHandle"))
-                this.__ProcessHandle := HANDLE(48, this)
-            return this.__ProcessHandle
-        }
-    }
+    ProcessHandle : HANDLE
+
 }

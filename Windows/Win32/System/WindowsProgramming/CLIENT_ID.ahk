@@ -1,34 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
  */
-class CLIENT_ID extends Win32Struct {
-    static sizeof => 16
+export default struct CLIENT_ID {
+    #StructPack 8
 
-    static packingSize => 8
+    UniqueProcess : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    UniqueProcess {
-        get {
-            if(!this.HasProp("__UniqueProcess"))
-                this.__UniqueProcess := HANDLE(0, this)
-            return this.__UniqueProcess
-        }
-    }
+    UniqueThread : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    UniqueThread {
-        get {
-            if(!this.HasProp("__UniqueThread"))
-                this.__UniqueThread := HANDLE(8, this)
-            return this.__UniqueThread
-        }
-    }
 }

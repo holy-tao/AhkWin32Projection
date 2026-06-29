@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSTER_REG_COMMAND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CLUSTER_REG_COMMAND.ahk" { CLUSTER_REG_COMMAND }
 
 /**
  * Represents a result for a single command in a read batch.
@@ -11,62 +11,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-cluster_read_batch_command
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUSTER_READ_BATCH_COMMAND extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct CLUSTER_READ_BATCH_COMMAND {
+    #StructPack 8
 
     /**
      * The command result status, which can be one of these values.
-     * @type {CLUSTER_REG_COMMAND}
      */
-    Command {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Command : CLUSTER_REG_COMMAND
 
     /**
      * The registry value type or the read error type, depending on the <i>Command</i> result.
-     * @type {Integer}
      */
-    dwOptions {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwOptions : UInt32
 
     /**
      * The name of the key requested in the read command.
-     * @type {PWSTR}
      */
-    wzSubkeyName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    wzSubkeyName : PWSTR
 
     /**
      * The name of the value requested in the read command.
-     * @type {PWSTR}
      */
-    wzValueName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    wzValueName : PWSTR
 
     /**
      * A pointer to value data.
-     * @type {Pointer<Integer>}
      */
-    lpData {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpData : IntPtr
 
     /**
      * The count, in bytes, of the <i>lpData</i> value data.
-     * @type {Integer}
      */
-    cbData {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    cbData : UInt32
+
 }

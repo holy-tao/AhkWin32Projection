@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The LINEMEDIACONTROLDIGIT structure describes a media action to be executed when detecting a digit. It is used as an entry in an array. The lineSetMediaControl and TSPI_lineSetMediaControl functions use this structure.
@@ -12,37 +11,24 @@
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linemediacontroldigit
  * @namespace Windows.Win32.Devices.Tapi
  */
-class LINEMEDIACONTROLDIGIT extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct LINEMEDIACONTROLDIGIT {
+    #StructPack 4
 
     /**
      * Low-order byte is the digit in whose detection is to trigger a media action. Valid digits depend on the media type.
-     * @type {Integer}
      */
-    dwDigit {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwDigit : UInt32
 
     /**
      * Digit mode(s) to monitor. This member uses one or more of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linedigitmode--constants">LINEDIGITMODE_ Constants</a>.
-     * @type {Integer}
      */
-    dwDigitModes {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwDigitModes : UInt32
 
     /**
      * Media control action. This member uses one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linemediacontrol--constants">LINEMEDIACONTROL_ Constants</a>.
-     * @type {Integer}
      */
-    dwMediaControl {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwMediaControl : UInt32
+
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the function type.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ne-oaidl-funckind
  * @namespace Windows.Win32.System.Com
  */
-class FUNCKIND extends Win32Enum {
+export default struct FUNCKIND {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The function is accessed the same as PUREVIRTUAL, except the function has an implementation.

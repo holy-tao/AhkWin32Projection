@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents the type of offline activation for a license.
  * @see https://learn.microsoft.com/windows/win32/api/slpublic/ne-slpublic-sl_activation_type
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SL_ACTIVATION_TYPE extends Win32Enum {
+export default struct SL_ACTIVATION_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Retail phone activation.

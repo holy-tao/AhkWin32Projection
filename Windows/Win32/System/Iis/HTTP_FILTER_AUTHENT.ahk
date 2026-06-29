@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.Iis
  */
-class HTTP_FILTER_AUTHENT extends Win32Struct {
-    static sizeof => 32
+export default struct HTTP_FILTER_AUTHENT {
+    #StructPack 8
 
-    static packingSize => 8
+    pszUser : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    pszUser {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    cbUserBuff : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbUserBuff {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    pszPassword : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    pszPassword {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    cbPasswordBuff : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbPasswordBuff {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

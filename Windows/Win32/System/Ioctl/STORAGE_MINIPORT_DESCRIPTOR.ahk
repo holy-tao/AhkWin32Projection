@@ -1,32 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_PORT_CODE_SET.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\STORAGE_PORT_CODE_SET.ahk" { STORAGE_PORT_CODE_SET }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * Reserved for system use. (STORAGE_MINIPORT_DESCRIPTOR)
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_miniport_descriptor
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_MINIPORT_DESCRIPTOR extends Win32Struct {
-    static sizeof => 24
+export default struct STORAGE_MINIPORT_DESCRIPTOR {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _Flags_e__Union extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _Flags {
         /**
          * This bitfield backs the following members:
          * - LogicalPoFxForDisk
          * - ForwardIo
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -43,35 +36,23 @@ class STORAGE_MINIPORT_DESCRIPTOR extends Win32Struct {
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-
-        /**
-         * @type {Integer}
-         */
-        AsBYTE {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsBYTE', { type: Int8, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
     /**
      * Contains the size of this structure, in bytes. The value of this member will change as members are added to 
      *       the structure.
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
     /**
      * Specifies the total size of the data returned, in bytes. This may include data that follows this 
      *       structure.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Size : UInt32
 
     /**
      * Type of port driver as enumerated by the 
@@ -116,74 +97,27 @@ class STORAGE_MINIPORT_DESCRIPTOR extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {STORAGE_PORT_CODE_SET}
      */
-    Portdriver {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    Portdriver : STORAGE_PORT_CODE_SET
 
     /**
      * Indicates whether a LUN reset is supported.
-     * @type {BOOLEAN}
      */
-    LUNResetSupported {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    LUNResetSupported : BOOLEAN
 
     /**
      * Indicates whether a target reset is supported.
-     * @type {BOOLEAN}
      */
-    TargetResetSupported {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
-    }
+    TargetResetSupported : BOOLEAN
 
-    /**
-     * @type {Integer}
-     */
-    IoTimeoutValue {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    IoTimeoutValue : UInt16
 
-    /**
-     * @type {BOOLEAN}
-     */
-    ExtraIoInfoSupported {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    ExtraIoInfoSupported : BOOLEAN
 
-    /**
-     * @type {_Flags_e__Union}
-     */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := STORAGE_MINIPORT_DESCRIPTOR._Flags_e__Union(17, this)
-            return this.__Flags
-        }
-    }
+    Flags : STORAGE_MINIPORT_DESCRIPTOR._Flags
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved0 {
-        get {
-            if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 18, 2, Primitive, "char")
-            return this.__Reserved0ProxyArray
-        }
-    }
+    Reserved0 : Int8[2]
 
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    Reserved1 : UInt32
+
 }

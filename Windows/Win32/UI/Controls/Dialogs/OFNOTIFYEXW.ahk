@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\NMHDR.ahk
-#Include ..\..\..\Foundation\HWND.ahk
-#Include .\OPENFILENAMEW.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\NMHDR.ahk" { NMHDR }
+#Import ".\OPENFILENAMEW.ahk" { OPENFILENAMEW }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * Contains information about a CDN_INCLUDEITEM notification message. (Unicode)
@@ -14,55 +13,35 @@
  * @charset Unicode
  * @architecture X64, Arm64
  */
-class OFNOTIFYEXW extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct OFNOTIFYEXW {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a></b>
      * 
      * The <b>code</b> member of this structure identifies the notification message being sent.
-     * @type {NMHDR}
      */
-    hdr {
-        get {
-            if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(0, this)
-            return this.__hdr
-        }
-    }
+    hdr : NMHDR
 
     /**
      * Type: <b>LPOPENFILENAME</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/win32/api/commdlg/ns-commdlg-openfilenamea">OPENFILENAME</a> structure containing the values specified when the <b>Open</b> or <b>Save As</b> dialog box was created.
-     * @type {Pointer<OPENFILENAMEW>}
      */
-    lpOFN {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpOFN : OPENFILENAMEW.Ptr
 
     /**
      * Type: <b>LPVOID</b>
      * 
      * A pointer to the  interface for the folder or shell name-space extension whose items are being enumerated.
-     * @type {Pointer<Void>}
      */
-    psf {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    psf : IntPtr
 
     /**
      * Type: <b>LPVOID</b>
      * 
      * A pointer to an item identifier list that identifies an item in the container identified by the <b>psf</b> member. The item identifier is relative to the <b>psf</b> container.
-     * @type {Pointer<Void>}
      */
-    pidl {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pidl : IntPtr
+
 }

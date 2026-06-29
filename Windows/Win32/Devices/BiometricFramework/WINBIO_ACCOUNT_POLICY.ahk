@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WINBIO_IDENTITY.ahk
-#Include .\WINBIO_ANTI_SPOOF_POLICY_ACTION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WINBIO_IDENTITY.ahk" { WINBIO_IDENTITY }
+#Import ".\WINBIO_ANTI_SPOOF_POLICY_ACTION.ahk" { WINBIO_ANTI_SPOOF_POLICY_ACTION }
 
 /**
  * Contains either a default or account-specific antispoofing policy.
@@ -10,29 +10,17 @@
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-account-policy
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
-class WINBIO_ACCOUNT_POLICY extends Win32Struct {
-    static sizeof => 88
-
-    static packingSize => 8
+export default struct WINBIO_ACCOUNT_POLICY {
+    #StructPack 4
 
     /**
      * A [**WINBIO\_IDENTITY**](winbio-identity.md) structure that specifies the account information.
-     * @type {WINBIO_IDENTITY}
      */
-    Identity {
-        get {
-            if(!this.HasProp("__Identity"))
-                this.__Identity := WINBIO_IDENTITY(0, this)
-            return this.__Identity
-        }
-    }
+    Identity : WINBIO_IDENTITY
 
     /**
      * One of the [**WINBIO\_ANTI\_SPOOF\_POLICY\_ACTION**](winbio-anti-spoof-policy-action.md) enumeration values that specifies what antispoofing policy action to use for the account.
-     * @type {WINBIO_ANTI_SPOOF_POLICY_ACTION}
      */
-    AntiSpoofBehavior {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
-    }
+    AntiSpoofBehavior : WINBIO_ANTI_SPOOF_POLICY_ACTION
+
 }

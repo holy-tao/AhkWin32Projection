@@ -1,37 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IPortableDevicePropVariantCollection.ahk
-#Include .\IPortableDeviceValues.ahk
-#Include .\IPortableDeviceKeyCollection.ahk
-#Include .\IPortableDeviceValuesCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IPortableDeviceKeyCollection.ahk" { IPortableDeviceKeyCollection }
+#Import ".\IPortableDeviceValues.ahk" { IPortableDeviceValues }
+#Import ".\IPortableDevicePropVariantCollection.ahk" { IPortableDevicePropVariantCollection }
+#Import ".\IPortableDeviceValuesCollection.ahk" { IPortableDeviceValuesCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Retrieves information describing the capabilities of a service.
  * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nn-portabledeviceapi-iportabledeviceservicecapabilities
  * @namespace Windows.Win32.Devices.PortableDevices
  */
-class IPortableDeviceServiceCapabilities extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPortableDeviceServiceCapabilities extends IUnknown {
     /**
      * The interface identifier for IPortableDeviceServiceCapabilities
      * @type {Guid}
      */
-    static IID => Guid("{24dbd89d-413e-43e0-bd5b-197f3c56c886}")
+    static IID := Guid("{24dbd89d-413e-43e0-bd5b-197f3c56c886}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPortableDeviceServiceCapabilities interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetSupportedMethods          : IntPtr
+        GetSupportedMethodsByFormat  : IntPtr
+        GetMethodAttributes          : IntPtr
+        GetMethodParameterAttributes : IntPtr
+        GetSupportedFormats          : IntPtr
+        GetFormatAttributes          : IntPtr
+        GetSupportedFormatProperties : IntPtr
+        GetFormatPropertyAttributes  : IntPtr
+        GetSupportedEvents           : IntPtr
+        GetEventAttributes           : IntPtr
+        GetEventParameterAttributes  : IntPtr
+        GetInheritedServices         : IntPtr
+        GetFormatRenderingProfiles   : IntPtr
+        GetSupportedCommands         : IntPtr
+        GetCommandOptions            : IntPtr
+        Cancel                       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSupportedMethods", "GetSupportedMethodsByFormat", "GetMethodAttributes", "GetMethodParameterAttributes", "GetSupportedFormats", "GetFormatAttributes", "GetSupportedFormatProperties", "GetFormatPropertyAttributes", "GetSupportedEvents", "GetEventAttributes", "GetEventParameterAttributes", "GetInheritedServices", "GetFormatRenderingProfiles", "GetSupportedCommands", "GetCommandOptions", "Cancel"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPortableDeviceServiceCapabilities.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the methods supported by the service.
@@ -50,7 +74,7 @@ class IPortableDeviceServiceCapabilities extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservicecapabilities-getsupportedmethodsbyformat
      */
     GetSupportedMethodsByFormat(Format) {
-        result := ComCall(4, this, "ptr", Format, "ptr*", &ppMethods := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, Format, "ptr*", &ppMethods := 0, "HRESULT")
         return IPortableDevicePropVariantCollection(ppMethods)
     }
 
@@ -63,7 +87,7 @@ class IPortableDeviceServiceCapabilities extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservicecapabilities-getmethodattributes
      */
     GetMethodAttributes(Method) {
-        result := ComCall(5, this, "ptr", Method, "ptr*", &ppAttributes := 0, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, Method, "ptr*", &ppAttributes := 0, "HRESULT")
         return IPortableDeviceValues(ppAttributes)
     }
 
@@ -77,7 +101,7 @@ class IPortableDeviceServiceCapabilities extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservicecapabilities-getmethodparameterattributes
      */
     GetMethodParameterAttributes(Method, Parameter) {
-        result := ComCall(6, this, "ptr", Method, "ptr", Parameter, "ptr*", &ppAttributes := 0, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, Method, PROPERTYKEY.Ptr, Parameter, "ptr*", &ppAttributes := 0, "HRESULT")
         return IPortableDeviceValues(ppAttributes)
     }
 
@@ -100,7 +124,7 @@ class IPortableDeviceServiceCapabilities extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservicecapabilities-getformatattributes
      */
     GetFormatAttributes(Format) {
-        result := ComCall(8, this, "ptr", Format, "ptr*", &ppAttributes := 0, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, Format, "ptr*", &ppAttributes := 0, "HRESULT")
         return IPortableDeviceValues(ppAttributes)
     }
 
@@ -115,7 +139,7 @@ class IPortableDeviceServiceCapabilities extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservicecapabilities-getsupportedformatproperties
      */
     GetSupportedFormatProperties(Format) {
-        result := ComCall(9, this, "ptr", Format, "ptr*", &ppKeys := 0, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, Format, "ptr*", &ppKeys := 0, "HRESULT")
         return IPortableDeviceKeyCollection(ppKeys)
     }
 
@@ -131,7 +155,7 @@ class IPortableDeviceServiceCapabilities extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservicecapabilities-getformatpropertyattributes
      */
     GetFormatPropertyAttributes(Format, _Property) {
-        result := ComCall(10, this, "ptr", Format, "ptr", _Property, "ptr*", &ppAttributes := 0, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, Format, PROPERTYKEY.Ptr, _Property, "ptr*", &ppAttributes := 0, "HRESULT")
         return IPortableDeviceValues(ppAttributes)
     }
 
@@ -154,7 +178,7 @@ class IPortableDeviceServiceCapabilities extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservicecapabilities-geteventattributes
      */
     GetEventAttributes(Event) {
-        result := ComCall(12, this, "ptr", Event, "ptr*", &ppAttributes := 0, "HRESULT")
+        result := ComCall(12, this, Guid.Ptr, Event, "ptr*", &ppAttributes := 0, "HRESULT")
         return IPortableDeviceValues(ppAttributes)
     }
 
@@ -168,7 +192,7 @@ class IPortableDeviceServiceCapabilities extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservicecapabilities-geteventparameterattributes
      */
     GetEventParameterAttributes(Event, Parameter) {
-        result := ComCall(13, this, "ptr", Event, "ptr", Parameter, "ptr*", &ppAttributes := 0, "HRESULT")
+        result := ComCall(13, this, Guid.Ptr, Event, PROPERTYKEY.Ptr, Parameter, "ptr*", &ppAttributes := 0, "HRESULT")
         return IPortableDeviceValues(ppAttributes)
     }
 
@@ -198,7 +222,7 @@ class IPortableDeviceServiceCapabilities extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservicecapabilities-getformatrenderingprofiles
      */
     GetFormatRenderingProfiles(Format) {
-        result := ComCall(15, this, "ptr", Format, "ptr*", &ppRenderingProfiles := 0, "HRESULT")
+        result := ComCall(15, this, Guid.Ptr, Format, "ptr*", &ppRenderingProfiles := 0, "HRESULT")
         return IPortableDeviceValuesCollection(ppRenderingProfiles)
     }
 
@@ -219,7 +243,7 @@ class IPortableDeviceServiceCapabilities extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservicecapabilities-getcommandoptions
      */
     GetCommandOptions(Command) {
-        result := ComCall(17, this, "ptr", Command, "ptr*", &ppOptions := 0, "HRESULT")
+        result := ComCall(17, this, PROPERTYKEY.Ptr, Command, "ptr*", &ppOptions := 0, "HRESULT")
         return IPortableDeviceValues(ppOptions)
     }
 
@@ -233,5 +257,55 @@ class IPortableDeviceServiceCapabilities extends IUnknown {
     Cancel() {
         result := ComCall(18, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPortableDeviceServiceCapabilities.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSupportedMethods := CallbackCreate(GetMethod(implObj, "GetSupportedMethods"), flags, 2)
+        this.vtbl.GetSupportedMethodsByFormat := CallbackCreate(GetMethod(implObj, "GetSupportedMethodsByFormat"), flags, 3)
+        this.vtbl.GetMethodAttributes := CallbackCreate(GetMethod(implObj, "GetMethodAttributes"), flags, 3)
+        this.vtbl.GetMethodParameterAttributes := CallbackCreate(GetMethod(implObj, "GetMethodParameterAttributes"), flags, 4)
+        this.vtbl.GetSupportedFormats := CallbackCreate(GetMethod(implObj, "GetSupportedFormats"), flags, 2)
+        this.vtbl.GetFormatAttributes := CallbackCreate(GetMethod(implObj, "GetFormatAttributes"), flags, 3)
+        this.vtbl.GetSupportedFormatProperties := CallbackCreate(GetMethod(implObj, "GetSupportedFormatProperties"), flags, 3)
+        this.vtbl.GetFormatPropertyAttributes := CallbackCreate(GetMethod(implObj, "GetFormatPropertyAttributes"), flags, 4)
+        this.vtbl.GetSupportedEvents := CallbackCreate(GetMethod(implObj, "GetSupportedEvents"), flags, 2)
+        this.vtbl.GetEventAttributes := CallbackCreate(GetMethod(implObj, "GetEventAttributes"), flags, 3)
+        this.vtbl.GetEventParameterAttributes := CallbackCreate(GetMethod(implObj, "GetEventParameterAttributes"), flags, 4)
+        this.vtbl.GetInheritedServices := CallbackCreate(GetMethod(implObj, "GetInheritedServices"), flags, 3)
+        this.vtbl.GetFormatRenderingProfiles := CallbackCreate(GetMethod(implObj, "GetFormatRenderingProfiles"), flags, 3)
+        this.vtbl.GetSupportedCommands := CallbackCreate(GetMethod(implObj, "GetSupportedCommands"), flags, 2)
+        this.vtbl.GetCommandOptions := CallbackCreate(GetMethod(implObj, "GetCommandOptions"), flags, 3)
+        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSupportedMethods)
+        CallbackFree(this.vtbl.GetSupportedMethodsByFormat)
+        CallbackFree(this.vtbl.GetMethodAttributes)
+        CallbackFree(this.vtbl.GetMethodParameterAttributes)
+        CallbackFree(this.vtbl.GetSupportedFormats)
+        CallbackFree(this.vtbl.GetFormatAttributes)
+        CallbackFree(this.vtbl.GetSupportedFormatProperties)
+        CallbackFree(this.vtbl.GetFormatPropertyAttributes)
+        CallbackFree(this.vtbl.GetSupportedEvents)
+        CallbackFree(this.vtbl.GetEventAttributes)
+        CallbackFree(this.vtbl.GetEventParameterAttributes)
+        CallbackFree(this.vtbl.GetInheritedServices)
+        CallbackFree(this.vtbl.GetFormatRenderingProfiles)
+        CallbackFree(this.vtbl.GetSupportedCommands)
+        CallbackFree(this.vtbl.GetCommandOptions)
+        CallbackFree(this.vtbl.Cancel)
     }
 }

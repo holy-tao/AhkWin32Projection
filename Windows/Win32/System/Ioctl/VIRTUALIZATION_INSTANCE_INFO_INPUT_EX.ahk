@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class VIRTUALIZATION_INSTANCE_INFO_INPUT_EX extends Win32Struct {
-    static sizeof => 16
+export default struct VIRTUALIZATION_INSTANCE_INFO_INPUT_EX {
+    #StructPack 4
 
-    static packingSize => 4
+    HeaderSize : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    HeaderSize {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NotificationInfoSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NotificationInfoSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NotificationInfoOffset : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NotificationInfoOffset {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    ProviderMajorVersion : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ProviderMajorVersion {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
 }

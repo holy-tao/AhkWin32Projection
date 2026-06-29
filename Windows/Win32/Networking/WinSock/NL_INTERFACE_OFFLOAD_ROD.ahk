@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies a set of flags that indicate the offload capabilities for an IP interface.
@@ -8,10 +7,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/nldef/ns-nldef-nl_interface_offload_rod
  * @namespace Windows.Win32.Networking.WinSock
  */
-class NL_INTERFACE_OFFLOAD_ROD extends Win32Struct {
-    static sizeof => 1
-
-    static packingSize => 1
+export default struct NL_INTERFACE_OFFLOAD_ROD {
+    #StructPack 1
 
     /**
      * This bitfield backs the following members:
@@ -23,12 +20,9 @@ class NL_INTERFACE_OFFLOAD_ROD extends Win32Struct {
      * - FastPathCompatible
      * - TlLargeSendOffloadSupported
      * - TlGiantSendOffloadSupported
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    _bitfield : Int8
+
 
     /**
      * @type {Integer}

@@ -1,31 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSVidGraphSegmentUserInput extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMSVidGraphSegmentUserInput extends IUnknown {
     /**
      * The interface identifier for IMSVidGraphSegmentUserInput
      * @type {Guid}
      */
-    static IID => Guid("{301c060e-20d9-4587-9b03-f82ed9a9943c}")
+    static IID := Guid("{301c060e-20d9-4587-9b03-f82ed9a9943c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSVidGraphSegmentUserInput interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Click     : IntPtr
+        DblClick  : IntPtr
+        KeyDown   : IntPtr
+        KeyPress  : IntPtr
+        KeyUp     : IntPtr
+        MouseDown : IntPtr
+        MouseMove : IntPtr
+        MouseUp   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Click", "DblClick", "KeyDown", "KeyPress", "KeyUp", "MouseDown", "MouseMove", "MouseUp"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSVidGraphSegmentUserInput.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Click event occurs when the user clicks a mouse button on a Windows Media Player control.
@@ -193,5 +208,39 @@ class IMSVidGraphSegmentUserInput extends IUnknown {
     MouseUp(ButtonState, ShiftState, x, y) {
         result := ComCall(10, this, "short", ButtonState, "short", ShiftState, "int", x, "int", y, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMSVidGraphSegmentUserInput.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Click := CallbackCreate(GetMethod(implObj, "Click"), flags, 1)
+        this.vtbl.DblClick := CallbackCreate(GetMethod(implObj, "DblClick"), flags, 1)
+        this.vtbl.KeyDown := CallbackCreate(GetMethod(implObj, "KeyDown"), flags, 3)
+        this.vtbl.KeyPress := CallbackCreate(GetMethod(implObj, "KeyPress"), flags, 2)
+        this.vtbl.KeyUp := CallbackCreate(GetMethod(implObj, "KeyUp"), flags, 3)
+        this.vtbl.MouseDown := CallbackCreate(GetMethod(implObj, "MouseDown"), flags, 5)
+        this.vtbl.MouseMove := CallbackCreate(GetMethod(implObj, "MouseMove"), flags, 5)
+        this.vtbl.MouseUp := CallbackCreate(GetMethod(implObj, "MouseUp"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Click)
+        CallbackFree(this.vtbl.DblClick)
+        CallbackFree(this.vtbl.KeyDown)
+        CallbackFree(this.vtbl.KeyPress)
+        CallbackFree(this.vtbl.KeyUp)
+        CallbackFree(this.vtbl.MouseDown)
+        CallbackFree(this.vtbl.MouseMove)
+        CallbackFree(this.vtbl.MouseUp)
     }
 }

@@ -1,34 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPV6_OPTION_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IPV6_OPTION_HEADER.ahk" { IPV6_OPTION_HEADER }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class IPV6_OPTION_ROUTER_ALERT extends Win32Struct {
-    static sizeof => 4
+export default struct IPV6_OPTION_ROUTER_ALERT {
+    #StructPack 1
 
-    static packingSize => 1
+    Header : IPV6_OPTION_HEADER
 
-    /**
-     * @type {IPV6_OPTION_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := IPV6_OPTION_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    Value : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Value {
-        get {
-            if(!this.HasProp("__ValueProxyArray"))
-                this.__ValueProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")
-            return this.__ValueProxyArray
-        }
-    }
 }

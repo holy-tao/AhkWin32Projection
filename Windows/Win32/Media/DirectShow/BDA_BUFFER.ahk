@@ -1,38 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class BDA_BUFFER extends Win32Struct {
-    static sizeof => 12
+export default struct BDA_BUFFER {
+    #StructPack 4
 
-    static packingSize => 4
+    lResult : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lResult {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ulBufferSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulBufferSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    argbBuffer : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    argbBuffer {
-        get {
-            if(!this.HasProp("__argbBufferProxyArray"))
-                this.__argbBufferProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
-            return this.__argbBufferProxyArray
-        }
-    }
 }

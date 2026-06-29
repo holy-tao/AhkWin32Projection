@@ -1,24 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents information in the miscellaneous information stream.
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_misc_info_2
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class MINIDUMP_MISC_INFO_2 extends Win32Struct {
-    static sizeof => 44
-
-    static packingSize => 4
+export default struct MINIDUMP_MISC_INFO_2 {
+    #StructPack 4
 
     /**
      * The size of the structure, in bytes.
-     * @type {Integer}
      */
-    SizeOfInfo {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SizeOfInfo : UInt32
 
     /**
      * The flags that indicate the valid members of this structure. This member can be one or more of the 
@@ -66,107 +59,68 @@ class MINIDUMP_MISC_INFO_2 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags1 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags1 : UInt32
 
     /**
      * The identifier of the process. If <b>Flags1</b> does not specify 
      *       <b>MINIDUMP_MISC1_PROCESS_ID</b>, this member is unused.
-     * @type {Integer}
      */
-    ProcessId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ProcessId : UInt32
 
     /**
      * The creation time of the process, in <b>time_t</b> format. If 
      *       <b>Flags1</b> does not specify <b>MINIDUMP_MISC1_PROCESS_TIMES</b>, this 
      *       member is unused.
-     * @type {Integer}
      */
-    ProcessCreateTime {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ProcessCreateTime : UInt32
 
     /**
      * The time the process has executed in user mode, in seconds. The time that each of the threads of the 
      *       process has executed in user mode is determined, then all these times are summed to obtain this value. If 
      *       <b>Flags1</b> does not specify <b>MINIDUMP_MISC1_PROCESS_TIMES</b>, this 
      *       member is unused.
-     * @type {Integer}
      */
-    ProcessUserTime {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ProcessUserTime : UInt32
 
     /**
      * The time the process has executed in kernel mode, in seconds. The time that each of the threads of the 
      *       process has executed in kernel mode is determined, then all these times are summed to obtain this value. If 
      *       <b>Flags1</b> does not specify <b>MINIDUMP_MISC1_PROCESS_TIMES</b>, this 
      *       member is unused.
-     * @type {Integer}
      */
-    ProcessKernelTime {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ProcessKernelTime : UInt32
 
     /**
      * The maximum specified clock frequency of the system processor, in MHz. If <b>Flags1</b> 
      *       does not specify <b>MINIDUMP_MISC1_PROCESSOR_POWER_INFO</b>, this member is unused.
-     * @type {Integer}
      */
-    ProcessorMaxMhz {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ProcessorMaxMhz : UInt32
 
     /**
      * The processor clock frequency, in MHz. This number is the maximum specified processor clock frequency 
      *       multiplied by the current processor throttle. If <b>Flags1</b> does not specify 
      *       <b>MINIDUMP_MISC1_PROCESSOR_POWER_INFO</b>, this member is unused.
-     * @type {Integer}
      */
-    ProcessorCurrentMhz {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    ProcessorCurrentMhz : UInt32
 
     /**
      * The limit on the processor clock frequency, in MHz. This number is the maximum specified processor clock 
      *       frequency multiplied by the current processor thermal throttle limit. If <b>Flags1</b> does 
      *       not specify <b>MINIDUMP_MISC1_PROCESSOR_POWER_INFO</b>, this member is unused.
-     * @type {Integer}
      */
-    ProcessorMhzLimit {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ProcessorMhzLimit : UInt32
 
     /**
      * The maximum idle state of the processor. If <b>Flags1</b> does not specify 
      *       <b>MINIDUMP_MISC1_PROCESSOR_POWER_INFO</b>, this member is unused.
-     * @type {Integer}
      */
-    ProcessorMaxIdleState {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    ProcessorMaxIdleState : UInt32
 
     /**
      * The current idle state of the processor. If <b>Flags1</b> does not specify 
      *       <b>MINIDUMP_MISC1_PROCESSOR_POWER_INFO</b>, this member is unused.
-     * @type {Integer}
      */
-    ProcessorCurrentIdleState {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ProcessorCurrentIdleState : UInt32
+
 }

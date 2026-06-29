@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class SERVICE_INFO_1 extends Win32Struct {
-    static sizeof => 24
+export default struct SERVICE_INFO_1 {
+    #StructPack 8
 
-    static packingSize => 8
+    svci1_name : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    svci1_name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    svci1_status : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    svci1_status {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    svci1_code : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    svci1_code {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    svci1_pid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    svci1_pid {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

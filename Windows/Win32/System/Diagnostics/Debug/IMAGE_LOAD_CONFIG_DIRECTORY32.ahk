@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\IMAGE_LOAD_CONFIG_CODE_INTEGRITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IMAGE_LOAD_CONFIG_CODE_INTEGRITY.ahk" { IMAGE_LOAD_CONFIG_CODE_INTEGRITY }
 
 /**
  * Contains the load configuration data of an image. (32 bit)
@@ -35,431 +34,165 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_load_config_directory32
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class IMAGE_LOAD_CONFIG_DIRECTORY32 extends Win32Struct {
-    static sizeof => 196
-
-    static packingSize => 4
+export default struct IMAGE_LOAD_CONFIG_DIRECTORY32 {
+    #StructPack 4
 
     /**
      * The size of the structure. For Windows XP, the size must be specified as 64 for x86 images.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
     /**
      * The date and time stamp value. The value is represented in the number of seconds elapsed since midnight (00:00:00), January 1, 1970, Universal Coordinated Time, according to the system clock. The time stamp can be printed using the C run-time (CRT) function <b>ctime</b>.
-     * @type {Integer}
      */
-    TimeDateStamp {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    TimeDateStamp : UInt32
 
     /**
      * The major version number.
-     * @type {Integer}
      */
-    MajorVersion {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    MajorVersion : UInt16
 
     /**
      * The minor version number.
-     * @type {Integer}
      */
-    MinorVersion {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    MinorVersion : UInt16
 
     /**
      * The global flags that control system behavior. For more information, see Gflags.exe.
-     * @type {Integer}
      */
-    GlobalFlagsClear {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    GlobalFlagsClear : UInt32
 
     /**
      * The global flags that control system behavior. For more information, see Gflags.exe.
-     * @type {Integer}
      */
-    GlobalFlagsSet {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    GlobalFlagsSet : UInt32
 
     /**
      * The critical section default time-out value.
-     * @type {Integer}
      */
-    CriticalSectionDefaultTimeout {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    CriticalSectionDefaultTimeout : UInt32
 
     /**
      * The size of the minimum block that must be freed before it is freed (de-committed), in bytes. This value is advisory.
-     * @type {Integer}
      */
-    DeCommitFreeBlockThreshold {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    DeCommitFreeBlockThreshold : UInt32
 
     /**
      * The size of the minimum total memory that must be freed in the process heap before it is freed (de-committed), in bytes. This value is advisory.
-     * @type {Integer}
      */
-    DeCommitTotalFreeThreshold {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    DeCommitTotalFreeThreshold : UInt32
 
     /**
      * The VA of a list of addresses where the LOCK prefix is used. These will be replaced by NOP on single-processor systems. This member is available only for x86.
-     * @type {Integer}
      */
-    LockPrefixTable {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    LockPrefixTable : UInt32
 
     /**
      * The maximum allocation size, in bytes. This member is obsolete and is used only for debugging purposes.
-     * @type {Integer}
      */
-    MaximumAllocationSize {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    MaximumAllocationSize : UInt32
 
     /**
      * The maximum block size that can be allocated from heap segments, in bytes.
-     * @type {Integer}
      */
-    VirtualMemoryThreshold {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    VirtualMemoryThreshold : UInt32
 
     /**
      * The process heap flags. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapcreate">HeapCreate</a>.
-     * @type {Integer}
      */
-    ProcessHeapFlags {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    ProcessHeapFlags : UInt32
 
     /**
      * The process affinity mask. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getprocessaffinitymask">GetProcessAffinityMask</a>. This member is available only for .exe files.
-     * @type {Integer}
      */
-    ProcessAffinityMask {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    ProcessAffinityMask : UInt32
 
     /**
      * The service pack version.
-     * @type {Integer}
      */
-    CSDVersion {
-        get => NumGet(this, 52, "ushort")
-        set => NumPut("ushort", value, this, 52)
-    }
+    CSDVersion : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DependentLoadFlags {
-        get => NumGet(this, 54, "ushort")
-        set => NumPut("ushort", value, this, 54)
-    }
+    DependentLoadFlags : UInt16
 
     /**
      * Reserved for use by the system.
-     * @type {Integer}
      */
-    EditList {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    EditList : UInt32
 
     /**
      * A pointer to a cookie that is used by Visual C++ or GS implementation.
-     * @type {Integer}
      */
-    SecurityCookie {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    SecurityCookie : UInt32
 
     /**
      * The VA of the sorted table of RVAs of each valid, unique handler in the image. This member is available only for x86.
-     * @type {Integer}
      */
-    SEHandlerTable {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    SEHandlerTable : UInt32
 
     /**
      * The count of unique handlers in the table. This member is available only for x86.
-     * @type {Integer}
      */
-    SEHandlerCount {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    SEHandlerCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GuardCFCheckFunctionPointer {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    GuardCFCheckFunctionPointer : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GuardCFDispatchFunctionPointer {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    GuardCFDispatchFunctionPointer : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GuardCFFunctionTable {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    GuardCFFunctionTable : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GuardCFFunctionCount {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    GuardCFFunctionCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GuardFlags {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    GuardFlags : UInt32
 
-    /**
-     * @type {IMAGE_LOAD_CONFIG_CODE_INTEGRITY}
-     */
-    CodeIntegrity {
-        get {
-            if(!this.HasProp("__CodeIntegrity"))
-                this.__CodeIntegrity := IMAGE_LOAD_CONFIG_CODE_INTEGRITY(92, this)
-            return this.__CodeIntegrity
-        }
-    }
+    CodeIntegrity : IMAGE_LOAD_CONFIG_CODE_INTEGRITY
 
-    /**
-     * @type {Integer}
-     */
-    GuardAddressTakenIatEntryTable {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    GuardAddressTakenIatEntryTable : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GuardAddressTakenIatEntryCount {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
+    GuardAddressTakenIatEntryCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GuardLongJumpTargetTable {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    GuardLongJumpTargetTable : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GuardLongJumpTargetCount {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
-    }
+    GuardLongJumpTargetCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DynamicValueRelocTable {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    DynamicValueRelocTable : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CHPEMetadataPointer {
-        get => NumGet(this, 124, "uint")
-        set => NumPut("uint", value, this, 124)
-    }
+    CHPEMetadataPointer : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GuardRFFailureRoutine {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    GuardRFFailureRoutine : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GuardRFFailureRoutineFunctionPointer {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
-    }
+    GuardRFFailureRoutineFunctionPointer : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DynamicValueRelocTableOffset {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    DynamicValueRelocTableOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DynamicValueRelocTableSection {
-        get => NumGet(this, 140, "ushort")
-        set => NumPut("ushort", value, this, 140)
-    }
+    DynamicValueRelocTableSection : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved2 {
-        get => NumGet(this, 142, "ushort")
-        set => NumPut("ushort", value, this, 142)
-    }
+    Reserved2 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    GuardRFVerifyStackPointerFunctionPointer {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
-    }
+    GuardRFVerifyStackPointerFunctionPointer : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HotPatchTableOffset {
-        get => NumGet(this, 148, "uint")
-        set => NumPut("uint", value, this, 148)
-    }
+    HotPatchTableOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved3 {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
-    }
+    Reserved3 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EnclaveConfigurationPointer {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
-    }
+    EnclaveConfigurationPointer : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VolatileMetadataPointer {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
-    }
+    VolatileMetadataPointer : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GuardEHContinuationTable {
-        get => NumGet(this, 164, "uint")
-        set => NumPut("uint", value, this, 164)
-    }
+    GuardEHContinuationTable : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GuardEHContinuationCount {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
-    }
+    GuardEHContinuationCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GuardXFGCheckFunctionPointer {
-        get => NumGet(this, 172, "uint")
-        set => NumPut("uint", value, this, 172)
-    }
+    GuardXFGCheckFunctionPointer : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GuardXFGDispatchFunctionPointer {
-        get => NumGet(this, 176, "uint")
-        set => NumPut("uint", value, this, 176)
-    }
+    GuardXFGDispatchFunctionPointer : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GuardXFGTableDispatchFunctionPointer {
-        get => NumGet(this, 180, "uint")
-        set => NumPut("uint", value, this, 180)
-    }
+    GuardXFGTableDispatchFunctionPointer : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CastGuardOsDeterminedFailureMode {
-        get => NumGet(this, 184, "uint")
-        set => NumPut("uint", value, this, 184)
-    }
+    CastGuardOsDeterminedFailureMode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GuardMemcpyFunctionPointer {
-        get => NumGet(this, 188, "uint")
-        set => NumPut("uint", value, this, 188)
-    }
+    GuardMemcpyFunctionPointer : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    UmaFunctionPointers {
-        get => NumGet(this, 192, "uint")
-        set => NumPut("uint", value, this, 192)
-    }
+    UmaFunctionPointers : UInt32
+
 }

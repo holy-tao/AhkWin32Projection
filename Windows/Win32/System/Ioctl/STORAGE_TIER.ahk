@@ -1,69 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_TIER_MEDIA_TYPE.ahk
-#Include .\STORAGE_TIER_CLASS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\STORAGE_TIER_MEDIA_TYPE.ahk" { STORAGE_TIER_MEDIA_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\STORAGE_TIER_CLASS.ahk" { STORAGE_TIER_CLASS }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_TIER extends Win32Struct {
-    static sizeof => 1056
+export default struct STORAGE_TIER {
+    #StructPack 8
 
-    static packingSize => 8
+    Id : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    Id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Name : WCHAR[256]
 
-    /**
-     * @type {String}
-     */
-    Name {
-        get => StrGet(this.ptr + 8, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 255, "UTF-16")
-    }
+    Description : WCHAR[256]
 
-    /**
-     * @type {String}
-     */
-    Description {
-        get => StrGet(this.ptr + 520, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 520, 255, "UTF-16")
-    }
+    Flags : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 1032, "uint")
-        set => NumPut("uint", value, this, 1032)
-    }
+    ProvisionedCapacity : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ProvisionedCapacity {
-        get => NumGet(this, 1040, "uint")
-        set => NumPut("uint", value, this, 1040)
-    }
+    MediaType : STORAGE_TIER_MEDIA_TYPE
 
-    /**
-     * @type {STORAGE_TIER_MEDIA_TYPE}
-     */
-    MediaType {
-        get => NumGet(this, 1048, "int")
-        set => NumPut("int", value, this, 1048)
-    }
+    Class : STORAGE_TIER_CLASS
 
-    /**
-     * @type {STORAGE_TIER_CLASS}
-     */
-    Class {
-        get => NumGet(this, 1052, "int")
-        set => NumPut("int", value, this, 1052)
-    }
 }

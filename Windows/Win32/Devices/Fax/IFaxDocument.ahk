@@ -1,11 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IFaxSender.ahk
-#Include .\IFaxRecipients.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFaxServer.ahk" { IFaxServer }
+#Import ".\FAX_COVERPAGE_TYPE_ENUM.ahk" { FAX_COVERPAGE_TYPE_ENUM }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IFaxSender.ahk" { IFaxSender }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\FAX_SCHEDULE_TYPE_ENUM.ahk" { FAX_SCHEDULE_TYPE_ENUM }
+#Import ".\FAX_PRIORITY_TYPE_ENUM.ahk" { FAX_PRIORITY_TYPE_ENUM }
+#Import ".\FAX_RECEIPT_TYPE_ENUM.ahk" { FAX_RECEIPT_TYPE_ENUM }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IFaxRecipients.ahk" { IFaxRecipients }
 
 /**
  * The IFaxDocument interface defines a messaging object used by a fax client application to compose a fax document and submit it to the fax service for processing.
@@ -14,32 +21,72 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxdocument
  * @namespace Windows.Win32.Devices.Fax
  */
-class IFaxDocument extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFaxDocument extends IDispatch {
     /**
      * The interface identifier for IFaxDocument
      * @type {Guid}
      */
-    static IID => Guid("{b207a246-09e3-4a4e-a7dc-fea31d29458f}")
+    static IID := Guid("{b207a246-09e3-4a4e-a7dc-fea31d29458f}")
 
     /**
      * The class identifier for FaxDocument
      * @type {Guid}
      */
-    static CLSID => Guid("{0f3f9f91-c838-415e-a4f3-3e828ca445e0}")
+    static CLSID := Guid("{0f3f9f91-c838-415e-a4f3-3e828ca445e0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFaxDocument interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Body                   : IntPtr
+        put_Body                   : IntPtr
+        get_Sender                 : IntPtr
+        get_Recipients             : IntPtr
+        get_CoverPage              : IntPtr
+        put_CoverPage              : IntPtr
+        get_Subject                : IntPtr
+        put_Subject                : IntPtr
+        get_Note                   : IntPtr
+        put_Note                   : IntPtr
+        get_ScheduleTime           : IntPtr
+        put_ScheduleTime           : IntPtr
+        get_ReceiptAddress         : IntPtr
+        put_ReceiptAddress         : IntPtr
+        get_DocumentName           : IntPtr
+        put_DocumentName           : IntPtr
+        get_CallHandle             : IntPtr
+        put_CallHandle             : IntPtr
+        get_CoverPageType          : IntPtr
+        put_CoverPageType          : IntPtr
+        get_ScheduleType           : IntPtr
+        put_ScheduleType           : IntPtr
+        get_ReceiptType            : IntPtr
+        put_ReceiptType            : IntPtr
+        get_GroupBroadcastReceipts : IntPtr
+        put_GroupBroadcastReceipts : IntPtr
+        get_Priority               : IntPtr
+        put_Priority               : IntPtr
+        get_TapiConnection         : IntPtr
+        putref_TapiConnection      : IntPtr
+        Submit                     : IntPtr
+        ConnectedSubmit            : IntPtr
+        get_AttachFaxToReceipt     : IntPtr
+        put_AttachFaxToReceipt     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Body", "put_Body", "get_Sender", "get_Recipients", "get_CoverPage", "put_CoverPage", "get_Subject", "put_Subject", "get_Note", "put_Note", "get_ScheduleTime", "put_ScheduleTime", "get_ReceiptAddress", "put_ReceiptAddress", "get_DocumentName", "put_DocumentName", "get_CallHandle", "put_CallHandle", "get_CoverPageType", "put_CoverPageType", "get_ScheduleType", "put_ScheduleType", "get_ReceiptType", "put_ReceiptType", "get_GroupBroadcastReceipts", "put_GroupBroadcastReceipts", "get_Priority", "put_Priority", "get_TapiConnection", "putref_TapiConnection", "Submit", "ConnectedSubmit", "get_AttachFaxToReceipt", "put_AttachFaxToReceipt"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFaxDocument.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -184,8 +231,8 @@ class IFaxDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_body
      */
     get_Body() {
-        pbstrBody := BSTR()
-        result := ComCall(7, this, "ptr", pbstrBody, "HRESULT")
+        pbstrBody := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pbstrBody, "HRESULT")
         return pbstrBody
     }
 
@@ -202,7 +249,7 @@ class IFaxDocument extends IDispatch {
     put_Body(bstrBody) {
         bstrBody := bstrBody is String ? BSTR.Alloc(bstrBody).Value : bstrBody
 
-        result := ComCall(8, this, "ptr", bstrBody, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrBody, "HRESULT")
         return result
     }
 
@@ -238,8 +285,8 @@ class IFaxDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_coverpage
      */
     get_CoverPage() {
-        pbstrCoverPage := BSTR()
-        result := ComCall(11, this, "ptr", pbstrCoverPage, "HRESULT")
+        pbstrCoverPage := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pbstrCoverPage, "HRESULT")
         return pbstrCoverPage
     }
 
@@ -258,7 +305,7 @@ class IFaxDocument extends IDispatch {
     put_CoverPage(bstrCoverPage) {
         bstrCoverPage := bstrCoverPage is String ? BSTR.Alloc(bstrCoverPage).Value : bstrCoverPage
 
-        result := ComCall(12, this, "ptr", bstrCoverPage, "HRESULT")
+        result := ComCall(12, this, BSTR, bstrCoverPage, "HRESULT")
         return result
     }
 
@@ -268,8 +315,8 @@ class IFaxDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_subject
      */
     get_Subject() {
-        pbstrSubject := BSTR()
-        result := ComCall(13, this, "ptr", pbstrSubject, "HRESULT")
+        pbstrSubject := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, pbstrSubject, "HRESULT")
         return pbstrSubject
     }
 
@@ -282,7 +329,7 @@ class IFaxDocument extends IDispatch {
     put_Subject(bstrSubject) {
         bstrSubject := bstrSubject is String ? BSTR.Alloc(bstrSubject).Value : bstrSubject
 
-        result := ComCall(14, this, "ptr", bstrSubject, "HRESULT")
+        result := ComCall(14, this, BSTR, bstrSubject, "HRESULT")
         return result
     }
 
@@ -292,8 +339,8 @@ class IFaxDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_note
      */
     get_Note() {
-        pbstrNote := BSTR()
-        result := ComCall(15, this, "ptr", pbstrNote, "HRESULT")
+        pbstrNote := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, pbstrNote, "HRESULT")
         return pbstrNote
     }
 
@@ -306,7 +353,7 @@ class IFaxDocument extends IDispatch {
     put_Note(bstrNote) {
         bstrNote := bstrNote is String ? BSTR.Alloc(bstrNote).Value : bstrNote
 
-        result := ComCall(16, this, "ptr", bstrNote, "HRESULT")
+        result := ComCall(16, this, BSTR, bstrNote, "HRESULT")
         return result
     }
 
@@ -353,8 +400,8 @@ class IFaxDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_receiptaddress
      */
     get_ReceiptAddress() {
-        pbstrReceiptAddress := BSTR()
-        result := ComCall(19, this, "ptr", pbstrReceiptAddress, "HRESULT")
+        pbstrReceiptAddress := BSTR.Owned()
+        result := ComCall(19, this, BSTR.Ptr, pbstrReceiptAddress, "HRESULT")
         return pbstrReceiptAddress
     }
 
@@ -369,7 +416,7 @@ class IFaxDocument extends IDispatch {
     put_ReceiptAddress(bstrReceiptAddress) {
         bstrReceiptAddress := bstrReceiptAddress is String ? BSTR.Alloc(bstrReceiptAddress).Value : bstrReceiptAddress
 
-        result := ComCall(20, this, "ptr", bstrReceiptAddress, "HRESULT")
+        result := ComCall(20, this, BSTR, bstrReceiptAddress, "HRESULT")
         return result
     }
 
@@ -379,8 +426,8 @@ class IFaxDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_documentname
      */
     get_DocumentName() {
-        pbstrDocumentName := BSTR()
-        result := ComCall(21, this, "ptr", pbstrDocumentName, "HRESULT")
+        pbstrDocumentName := BSTR.Owned()
+        result := ComCall(21, this, BSTR.Ptr, pbstrDocumentName, "HRESULT")
         return pbstrDocumentName
     }
 
@@ -393,7 +440,7 @@ class IFaxDocument extends IDispatch {
     put_DocumentName(bstrDocumentName) {
         bstrDocumentName := bstrDocumentName is String ? BSTR.Alloc(bstrDocumentName).Value : bstrDocumentName
 
-        result := ComCall(22, this, "ptr", bstrDocumentName, "HRESULT")
+        result := ComCall(22, this, BSTR, bstrDocumentName, "HRESULT")
         return result
     }
 
@@ -441,7 +488,7 @@ class IFaxDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-put_coverpagetype
      */
     put_CoverPageType(CoverPageType) {
-        result := ComCall(26, this, "int", CoverPageType, "HRESULT")
+        result := ComCall(26, this, FAX_COVERPAGE_TYPE_ENUM, CoverPageType, "HRESULT")
         return result
     }
 
@@ -466,7 +513,7 @@ class IFaxDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-put_scheduletype
      */
     put_ScheduleType(ScheduleType) {
-        result := ComCall(28, this, "int", ScheduleType, "HRESULT")
+        result := ComCall(28, this, FAX_SCHEDULE_TYPE_ENUM, ScheduleType, "HRESULT")
         return result
     }
 
@@ -495,7 +542,7 @@ class IFaxDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-put_receipttype
      */
     put_ReceiptType(ReceiptType) {
-        result := ComCall(30, this, "int", ReceiptType, "HRESULT")
+        result := ComCall(30, this, FAX_RECEIPT_TYPE_ENUM, ReceiptType, "HRESULT")
         return result
     }
 
@@ -505,7 +552,7 @@ class IFaxDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_groupbroadcastreceipts
      */
     get_GroupBroadcastReceipts() {
-        result := ComCall(31, this, "short*", &pbUseGrouping := 0, "HRESULT")
+        result := ComCall(31, this, VARIANT_BOOL.Ptr, &pbUseGrouping := 0, "HRESULT")
         return pbUseGrouping
     }
 
@@ -516,7 +563,7 @@ class IFaxDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-put_groupbroadcastreceipts
      */
     put_GroupBroadcastReceipts(bUseGrouping) {
-        result := ComCall(32, this, "short", bUseGrouping, "HRESULT")
+        result := ComCall(32, this, VARIANT_BOOL, bUseGrouping, "HRESULT")
         return result
     }
 
@@ -541,7 +588,7 @@ class IFaxDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-put_priority
      */
     put_Priority(_Priority) {
-        result := ComCall(34, this, "int", _Priority, "HRESULT")
+        result := ComCall(34, this, FAX_PRIORITY_TYPE_ENUM, _Priority, "HRESULT")
         return result
     }
 
@@ -586,7 +633,7 @@ class IFaxDocument extends IDispatch {
         bstrFaxServerName := bstrFaxServerName is String ? BSTR.Alloc(bstrFaxServerName).Value : bstrFaxServerName
 
         pvFaxOutgoingJobIDs := VARIANT()
-        result := ComCall(37, this, "ptr", bstrFaxServerName, "ptr", pvFaxOutgoingJobIDs, "HRESULT")
+        result := ComCall(37, this, BSTR, bstrFaxServerName, VARIANT.Ptr, pvFaxOutgoingJobIDs, "HRESULT")
         return pvFaxOutgoingJobIDs
     }
 
@@ -608,7 +655,7 @@ class IFaxDocument extends IDispatch {
      */
     ConnectedSubmit(pFaxServer) {
         pvFaxOutgoingJobIDs := VARIANT()
-        result := ComCall(38, this, "ptr", pFaxServer, "ptr", pvFaxOutgoingJobIDs, "HRESULT")
+        result := ComCall(38, this, "ptr", pFaxServer, VARIANT.Ptr, pvFaxOutgoingJobIDs, "HRESULT")
         return pvFaxOutgoingJobIDs
     }
 
@@ -622,7 +669,7 @@ class IFaxDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_attachfaxtoreceipt
      */
     get_AttachFaxToReceipt() {
-        result := ComCall(39, this, "short*", &pbAttachFax := 0, "HRESULT")
+        result := ComCall(39, this, VARIANT_BOOL.Ptr, &pbAttachFax := 0, "HRESULT")
         return pbAttachFax
     }
 
@@ -637,7 +684,93 @@ class IFaxDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-put_attachfaxtoreceipt
      */
     put_AttachFaxToReceipt(bAttachFax) {
-        result := ComCall(40, this, "short", bAttachFax, "HRESULT")
+        result := ComCall(40, this, VARIANT_BOOL, bAttachFax, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFaxDocument.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Body := CallbackCreate(GetMethod(implObj, "get_Body"), flags, 2)
+        this.vtbl.put_Body := CallbackCreate(GetMethod(implObj, "put_Body"), flags, 2)
+        this.vtbl.get_Sender := CallbackCreate(GetMethod(implObj, "get_Sender"), flags, 2)
+        this.vtbl.get_Recipients := CallbackCreate(GetMethod(implObj, "get_Recipients"), flags, 2)
+        this.vtbl.get_CoverPage := CallbackCreate(GetMethod(implObj, "get_CoverPage"), flags, 2)
+        this.vtbl.put_CoverPage := CallbackCreate(GetMethod(implObj, "put_CoverPage"), flags, 2)
+        this.vtbl.get_Subject := CallbackCreate(GetMethod(implObj, "get_Subject"), flags, 2)
+        this.vtbl.put_Subject := CallbackCreate(GetMethod(implObj, "put_Subject"), flags, 2)
+        this.vtbl.get_Note := CallbackCreate(GetMethod(implObj, "get_Note"), flags, 2)
+        this.vtbl.put_Note := CallbackCreate(GetMethod(implObj, "put_Note"), flags, 2)
+        this.vtbl.get_ScheduleTime := CallbackCreate(GetMethod(implObj, "get_ScheduleTime"), flags, 2)
+        this.vtbl.put_ScheduleTime := CallbackCreate(GetMethod(implObj, "put_ScheduleTime"), flags, 2)
+        this.vtbl.get_ReceiptAddress := CallbackCreate(GetMethod(implObj, "get_ReceiptAddress"), flags, 2)
+        this.vtbl.put_ReceiptAddress := CallbackCreate(GetMethod(implObj, "put_ReceiptAddress"), flags, 2)
+        this.vtbl.get_DocumentName := CallbackCreate(GetMethod(implObj, "get_DocumentName"), flags, 2)
+        this.vtbl.put_DocumentName := CallbackCreate(GetMethod(implObj, "put_DocumentName"), flags, 2)
+        this.vtbl.get_CallHandle := CallbackCreate(GetMethod(implObj, "get_CallHandle"), flags, 2)
+        this.vtbl.put_CallHandle := CallbackCreate(GetMethod(implObj, "put_CallHandle"), flags, 2)
+        this.vtbl.get_CoverPageType := CallbackCreate(GetMethod(implObj, "get_CoverPageType"), flags, 2)
+        this.vtbl.put_CoverPageType := CallbackCreate(GetMethod(implObj, "put_CoverPageType"), flags, 2)
+        this.vtbl.get_ScheduleType := CallbackCreate(GetMethod(implObj, "get_ScheduleType"), flags, 2)
+        this.vtbl.put_ScheduleType := CallbackCreate(GetMethod(implObj, "put_ScheduleType"), flags, 2)
+        this.vtbl.get_ReceiptType := CallbackCreate(GetMethod(implObj, "get_ReceiptType"), flags, 2)
+        this.vtbl.put_ReceiptType := CallbackCreate(GetMethod(implObj, "put_ReceiptType"), flags, 2)
+        this.vtbl.get_GroupBroadcastReceipts := CallbackCreate(GetMethod(implObj, "get_GroupBroadcastReceipts"), flags, 2)
+        this.vtbl.put_GroupBroadcastReceipts := CallbackCreate(GetMethod(implObj, "put_GroupBroadcastReceipts"), flags, 2)
+        this.vtbl.get_Priority := CallbackCreate(GetMethod(implObj, "get_Priority"), flags, 2)
+        this.vtbl.put_Priority := CallbackCreate(GetMethod(implObj, "put_Priority"), flags, 2)
+        this.vtbl.get_TapiConnection := CallbackCreate(GetMethod(implObj, "get_TapiConnection"), flags, 2)
+        this.vtbl.putref_TapiConnection := CallbackCreate(GetMethod(implObj, "putref_TapiConnection"), flags, 2)
+        this.vtbl.Submit := CallbackCreate(GetMethod(implObj, "Submit"), flags, 3)
+        this.vtbl.ConnectedSubmit := CallbackCreate(GetMethod(implObj, "ConnectedSubmit"), flags, 3)
+        this.vtbl.get_AttachFaxToReceipt := CallbackCreate(GetMethod(implObj, "get_AttachFaxToReceipt"), flags, 2)
+        this.vtbl.put_AttachFaxToReceipt := CallbackCreate(GetMethod(implObj, "put_AttachFaxToReceipt"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Body)
+        CallbackFree(this.vtbl.put_Body)
+        CallbackFree(this.vtbl.get_Sender)
+        CallbackFree(this.vtbl.get_Recipients)
+        CallbackFree(this.vtbl.get_CoverPage)
+        CallbackFree(this.vtbl.put_CoverPage)
+        CallbackFree(this.vtbl.get_Subject)
+        CallbackFree(this.vtbl.put_Subject)
+        CallbackFree(this.vtbl.get_Note)
+        CallbackFree(this.vtbl.put_Note)
+        CallbackFree(this.vtbl.get_ScheduleTime)
+        CallbackFree(this.vtbl.put_ScheduleTime)
+        CallbackFree(this.vtbl.get_ReceiptAddress)
+        CallbackFree(this.vtbl.put_ReceiptAddress)
+        CallbackFree(this.vtbl.get_DocumentName)
+        CallbackFree(this.vtbl.put_DocumentName)
+        CallbackFree(this.vtbl.get_CallHandle)
+        CallbackFree(this.vtbl.put_CallHandle)
+        CallbackFree(this.vtbl.get_CoverPageType)
+        CallbackFree(this.vtbl.put_CoverPageType)
+        CallbackFree(this.vtbl.get_ScheduleType)
+        CallbackFree(this.vtbl.put_ScheduleType)
+        CallbackFree(this.vtbl.get_ReceiptType)
+        CallbackFree(this.vtbl.put_ReceiptType)
+        CallbackFree(this.vtbl.get_GroupBroadcastReceipts)
+        CallbackFree(this.vtbl.put_GroupBroadcastReceipts)
+        CallbackFree(this.vtbl.get_Priority)
+        CallbackFree(this.vtbl.put_Priority)
+        CallbackFree(this.vtbl.get_TapiConnection)
+        CallbackFree(this.vtbl.putref_TapiConnection)
+        CallbackFree(this.vtbl.Submit)
+        CallbackFree(this.vtbl.ConnectedSubmit)
+        CallbackFree(this.vtbl.get_AttachFaxToReceipt)
+        CallbackFree(this.vtbl.put_AttachFaxToReceipt)
     }
 }

@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Rpc
  */
-class NDR64_BIND_PRIMITIVE extends Win32Struct {
-    static sizeof => 6
+export default struct NDR64_BIND_PRIMITIVE {
+    #StructPack 2
 
-    static packingSize => 2
+    HandleType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    HandleType {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Flags : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    StackOffset : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    StackOffset {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Reserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
 }

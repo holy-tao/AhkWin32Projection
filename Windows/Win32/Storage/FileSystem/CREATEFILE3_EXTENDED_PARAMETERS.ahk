@@ -1,64 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class CREATEFILE3_EXTENDED_PARAMETERS extends Win32Struct {
-    static sizeof => 32
+export default struct CREATEFILE3_EXTENDED_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFileAttributes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFileAttributes {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFileFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFileFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwSecurityQosFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSecurityQosFlags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    lpSecurityAttributes : SECURITY_ATTRIBUTES.Ptr
 
-    /**
-     * @type {Pointer<SECURITY_ATTRIBUTES>}
-     */
-    lpSecurityAttributes {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    hTemplateFile : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hTemplateFile {
-        get {
-            if(!this.HasProp("__hTemplateFile"))
-                this.__hTemplateFile := HANDLE(24, this)
-            return this.__hTemplateFile
-        }
-    }
 }

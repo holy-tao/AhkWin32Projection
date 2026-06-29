@@ -1,9 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk
-#Include ..\..\Graphics\Gdi\RGBQUAD.ahk
-#Include .\TRUECOLORINFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\TRUECOLORINFO.ahk" { TRUECOLORINFO }
+#Import "..\..\Graphics\Gdi\RGBQUAD.ahk" { RGBQUAD }
+#Import "..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
 
 /**
  * The VIDEOINFO structure is equivalent to a VIDEOINFOHEADER structure, but it contains enough memory to hold three color masks plus a color table with 256 colors.If you are writing a video filter, you can use this structure to guarantee that the format block always has enough memory to contain the largest possible VIDEOINFOHEADER structure.
@@ -16,104 +15,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/amvideo/ns-amvideo-videoinfo
  * @namespace Windows.Win32.Media.DirectShow
  */
-class VIDEOINFO extends Win32Struct {
-    static sizeof => 1128
-
-    static packingSize => 8
+export default struct VIDEOINFO {
+    #StructPack 8
 
     /**
      * Portion of the input video to use.
-     * @type {RECT}
      */
-    rcSource {
-        get {
-            if(!this.HasProp("__rcSource"))
-                this.__rcSource := RECT(0, this)
-            return this.__rcSource
-        }
-    }
+    rcSource : RECT
 
     /**
      * Where the video should be displayed.
-     * @type {RECT}
      */
-    rcTarget {
-        get {
-            if(!this.HasProp("__rcTarget"))
-                this.__rcTarget := RECT(16, this)
-            return this.__rcTarget
-        }
-    }
+    rcTarget : RECT
 
     /**
      * Approximate data rate in bits per second.
-     * @type {Integer}
      */
-    dwBitRate {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwBitRate : UInt32
 
     /**
      * Bit error rate for this stream.
-     * @type {Integer}
      */
-    dwBitErrorRate {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwBitErrorRate : UInt32
 
     /**
      * The desired average time per frame, in 100-nanosecond units. For more information, see the Remarks section for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/amvideo/ns-amvideo-videoinfoheader">VIDEOINFOHEADER</a> structure.
-     * @type {Integer}
      */
-    AvgTimePerFrame {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
-    }
+    AvgTimePerFrame : Int64
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure that contains color and dimension information for a device-independent bitmap.
-     * @type {BITMAPINFOHEADER}
      */
-    bmiHeader {
-        get {
-            if(!this.HasProp("__bmiHeader"))
-                this.__bmiHeader := BITMAPINFOHEADER(48, this)
-            return this.__bmiHeader
-        }
-    }
+    bmiHeader : BITMAPINFOHEADER
 
-    /**
-     * @type {RGBQUAD}
-     */
-    bmiColors {
-        get {
-            if(!this.HasProp("__bmiColorsProxyArray"))
-                this.__bmiColorsProxyArray := Win32FixedArray(this.ptr + 88, 256, RGBQUAD, "")
-            return this.__bmiColorsProxyArray
-        }
-    }
+    bmiColors : RGBQUAD[256]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    dwBitMasks {
-        get {
-            if(!this.HasProp("__dwBitMasksProxyArray"))
-                this.__dwBitMasksProxyArray := Win32FixedArray(this.ptr + 88, 3, Primitive, "uint")
-            return this.__dwBitMasksProxyArray
-        }
-    }
-
-    /**
-     * @type {TRUECOLORINFO}
-     */
-    TrueColorInfo {
-        get {
-            if(!this.HasProp("__TrueColorInfo"))
-                this.__TrueColorInfo := TRUECOLORINFO(88, this)
-            return this.__TrueColorInfo
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'dwBitMasks', { type: UInt32[3], offset: 88 })
+        DefineProp(this.Prototype, 'TrueColorInfo', { type: TRUECOLORINFO, offset: 88 })
+        this.DeleteProp("__New")
     }
 }

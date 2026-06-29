@@ -1,31 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WINBIO_DATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WINBIO_DATA.ahk" { WINBIO_DATA }
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
-class WINBIO_UPDATE_FIRMWARE extends Win32Struct {
-    static sizeof => 12
+export default struct WINBIO_UPDATE_FIRMWARE {
+    #StructPack 4
 
-    static packingSize => 4
+    PayloadSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PayloadSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    FirmwareData : WINBIO_DATA
 
-    /**
-     * @type {WINBIO_DATA}
-     */
-    FirmwareData {
-        get {
-            if(!this.HasProp("__FirmwareData"))
-                this.__FirmwareData := WINBIO_DATA(4, this)
-            return this.__FirmwareData
-        }
-    }
 }

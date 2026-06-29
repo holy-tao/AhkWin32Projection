@@ -1,28 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_SERIALIZED_BLOCK_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_SERIALIZED_BLOCK_TYPE.ahk" { D3D12_SERIALIZED_BLOCK_TYPE }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_RAYTRACING_SERIALIZED_BLOCK extends Win32Struct {
-    static sizeof => 16
+export default struct D3D12_RAYTRACING_SERIALIZED_BLOCK {
+    #StructPack 8
 
-    static packingSize => 8
+    Type : D3D12_SERIALIZED_BLOCK_TYPE
 
-    /**
-     * @type {D3D12_SERIALIZED_BLOCK_TYPE}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    NumBlockPointersAfterHeader : Int64
 
-    /**
-     * @type {Integer}
-     */
-    NumBlockPointersAfterHeader {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

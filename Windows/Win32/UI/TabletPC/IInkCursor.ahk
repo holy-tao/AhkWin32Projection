@@ -1,11 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IInkDrawingAttributes.ahk
-#Include .\IInkTablet.ahk
-#Include .\IInkCursorButtons.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IInkDrawingAttributes.ahk" { IInkDrawingAttributes }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IInkCursorButtons.ahk" { IInkCursorButtons }
+#Import ".\IInkTablet.ahk" { IInkTablet }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Represents general information about the tablet cursor.
@@ -22,26 +24,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkcursor
  * @namespace Windows.Win32.UI.TabletPC
  */
-class IInkCursor extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IInkCursor extends IDispatch {
     /**
      * The interface identifier for IInkCursor
      * @type {Guid}
      */
-    static IID => Guid("{ad30c630-40c5-4350-8405-9c71012fc558}")
+    static IID := Guid("{ad30c630-40c5-4350-8405-9c71012fc558}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IInkCursor interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Name                 : IntPtr
+        get_Id                   : IntPtr
+        get_Inverted             : IntPtr
+        get_DrawingAttributes    : IntPtr
+        putref_DrawingAttributes : IntPtr
+        get_Tablet               : IntPtr
+        get_Buttons              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Name", "get_Id", "get_Inverted", "get_DrawingAttributes", "putref_DrawingAttributes", "get_Tablet", "get_Buttons"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IInkCursor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -93,8 +108,8 @@ class IInkCursor extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursor-get_name
      */
     get_Name() {
-        Name := BSTR()
-        result := ComCall(7, this, "ptr", Name, "HRESULT")
+        Name := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, Name, "HRESULT")
         return Name
     }
 
@@ -126,7 +141,7 @@ class IInkCursor extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursor-get_inverted
      */
     get_Inverted() {
-        result := ComCall(9, this, "short*", &_Status := 0, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL.Ptr, &_Status := 0, "HRESULT")
         return _Status
     }
 
@@ -193,5 +208,37 @@ class IInkCursor extends IDispatch {
     get_Buttons() {
         result := ComCall(13, this, "ptr*", &Buttons := 0, "HRESULT")
         return IInkCursorButtons(Buttons)
+    }
+
+    Query(iid) {
+        if (IInkCursor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_Inverted := CallbackCreate(GetMethod(implObj, "get_Inverted"), flags, 2)
+        this.vtbl.get_DrawingAttributes := CallbackCreate(GetMethod(implObj, "get_DrawingAttributes"), flags, 2)
+        this.vtbl.putref_DrawingAttributes := CallbackCreate(GetMethod(implObj, "putref_DrawingAttributes"), flags, 2)
+        this.vtbl.get_Tablet := CallbackCreate(GetMethod(implObj, "get_Tablet"), flags, 2)
+        this.vtbl.get_Buttons := CallbackCreate(GetMethod(implObj, "get_Buttons"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.get_Id)
+        CallbackFree(this.vtbl.get_Inverted)
+        CallbackFree(this.vtbl.get_DrawingAttributes)
+        CallbackFree(this.vtbl.putref_DrawingAttributes)
+        CallbackFree(this.vtbl.get_Tablet)
+        CallbackFree(this.vtbl.get_Buttons)
     }
 }

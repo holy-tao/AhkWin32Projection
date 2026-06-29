@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAMVideoCompression interface sets and retrieves video compression properties.
@@ -10,26 +11,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamvideocompression
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAMVideoCompression extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAMVideoCompression extends IUnknown {
     /**
      * The interface identifier for IAMVideoCompression
      * @type {Guid}
      */
-    static IID => Guid("{c6e13343-30ac-11d0-a18c-00a0c9118956}")
+    static IID := Guid("{c6e13343-30ac-11d0-a18c-00a0c9118956}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAMVideoCompression interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        put_KeyFrameRate       : IntPtr
+        get_KeyFrameRate       : IntPtr
+        put_PFramesPerKeyFrame : IntPtr
+        get_PFramesPerKeyFrame : IntPtr
+        put_Quality            : IntPtr
+        get_Quality            : IntPtr
+        put_WindowSize         : IntPtr
+        get_WindowSize         : IntPtr
+        GetInfo                : IntPtr
+        OverrideKeyFrame       : IntPtr
+        OverrideFrameSize      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_KeyFrameRate", "get_KeyFrameRate", "put_PFramesPerKeyFrame", "get_PFramesPerKeyFrame", "put_Quality", "get_Quality", "put_WindowSize", "get_WindowSize", "GetInfo", "OverrideKeyFrame", "OverrideFrameSize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAMVideoCompression.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -312,5 +330,45 @@ class IAMVideoCompression extends IUnknown {
     OverrideFrameSize(FrameNumber, _Size) {
         result := ComCall(13, this, "int", FrameNumber, "int", _Size, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAMVideoCompression.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_KeyFrameRate := CallbackCreate(GetMethod(implObj, "put_KeyFrameRate"), flags, 2)
+        this.vtbl.get_KeyFrameRate := CallbackCreate(GetMethod(implObj, "get_KeyFrameRate"), flags, 2)
+        this.vtbl.put_PFramesPerKeyFrame := CallbackCreate(GetMethod(implObj, "put_PFramesPerKeyFrame"), flags, 2)
+        this.vtbl.get_PFramesPerKeyFrame := CallbackCreate(GetMethod(implObj, "get_PFramesPerKeyFrame"), flags, 2)
+        this.vtbl.put_Quality := CallbackCreate(GetMethod(implObj, "put_Quality"), flags, 2)
+        this.vtbl.get_Quality := CallbackCreate(GetMethod(implObj, "get_Quality"), flags, 2)
+        this.vtbl.put_WindowSize := CallbackCreate(GetMethod(implObj, "put_WindowSize"), flags, 2)
+        this.vtbl.get_WindowSize := CallbackCreate(GetMethod(implObj, "get_WindowSize"), flags, 2)
+        this.vtbl.GetInfo := CallbackCreate(GetMethod(implObj, "GetInfo"), flags, 9)
+        this.vtbl.OverrideKeyFrame := CallbackCreate(GetMethod(implObj, "OverrideKeyFrame"), flags, 2)
+        this.vtbl.OverrideFrameSize := CallbackCreate(GetMethod(implObj, "OverrideFrameSize"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_KeyFrameRate)
+        CallbackFree(this.vtbl.get_KeyFrameRate)
+        CallbackFree(this.vtbl.put_PFramesPerKeyFrame)
+        CallbackFree(this.vtbl.get_PFramesPerKeyFrame)
+        CallbackFree(this.vtbl.put_Quality)
+        CallbackFree(this.vtbl.get_Quality)
+        CallbackFree(this.vtbl.put_WindowSize)
+        CallbackFree(this.vtbl.get_WindowSize)
+        CallbackFree(this.vtbl.GetInfo)
+        CallbackFree(this.vtbl.OverrideKeyFrame)
+        CallbackFree(this.vtbl.OverrideFrameSize)
     }
 }

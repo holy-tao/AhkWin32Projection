@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\UI_ANIMATION_PRIORITY_EFFECT.ahk" { UI_ANIMATION_PRIORITY_EFFECT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IUIAnimationStoryboard.ahk" { IUIAnimationStoryboard }
 
 /**
  * Defines a method for priority comparison that the animation manager uses to resolve scheduling conflicts.
@@ -14,26 +17,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationprioritycomparison
  * @namespace Windows.Win32.UI.Animation
  */
-class IUIAnimationPriorityComparison extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIAnimationPriorityComparison extends IUnknown {
     /**
      * The interface identifier for IUIAnimationPriorityComparison
      * @type {Guid}
      */
-    static IID => Guid("{83fa9b74-5f86-4618-bc6a-a2fac19b3f44}")
+    static IID := Guid("{83fa9b74-5f86-4618-bc6a-a2fac19b3f44}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAnimationPriorityComparison interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        HasPriority : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["HasPriority"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAnimationPriorityComparison.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Determines whether a new storyboard has priority over a scheduled storyboard.
@@ -117,7 +127,27 @@ class IUIAnimationPriorityComparison extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationprioritycomparison-haspriority
      */
     HasPriority(scheduledStoryboard, newStoryboard, priorityEffect) {
-        result := ComCall(3, this, "ptr", scheduledStoryboard, "ptr", newStoryboard, "int", priorityEffect, "HRESULT")
+        result := ComCall(3, this, "ptr", scheduledStoryboard, "ptr", newStoryboard, UI_ANIMATION_PRIORITY_EFFECT, priorityEffect, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUIAnimationPriorityComparison.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.HasPriority := CallbackCreate(GetMethod(implObj, "HasPriority"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.HasPriority)
     }
 }

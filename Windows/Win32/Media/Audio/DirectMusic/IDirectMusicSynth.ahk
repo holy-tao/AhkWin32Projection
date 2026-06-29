@@ -1,34 +1,65 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\IReferenceClock.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DMUS_PORTCAPS.ahk" { DMUS_PORTCAPS }
+#Import "..\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\DMUS_SYNTHSTATS.ahk" { DMUS_SYNTHSTATS }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\IDirectMusicSynthSink.ahk" { IDirectMusicSynthSink }
+#Import ".\DMUS_PORTPARAMS8.ahk" { DMUS_PORTPARAMS8 }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\IReferenceClock.ahk" { IReferenceClock }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDirectMusicSynth interface is used by DirectMusic to communicate with user-mode synthesizers.
  * @see https://learn.microsoft.com/windows/win32/api/dmusics/nn-dmusics-idirectmusicsynth
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
-class IDirectMusicSynth extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectMusicSynth extends IUnknown {
     /**
      * The interface identifier for IDirectMusicSynth
      * @type {Guid}
      */
-    static IID => Guid("{09823661-5c85-11d2-afa6-00aa0024d8b6}")
+    static IID := Guid("{09823661-5c85-11d2-afa6-00aa0024d8b6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectMusicSynth interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Open                : IntPtr
+        Close               : IntPtr
+        SetNumChannelGroups : IntPtr
+        Download            : IntPtr
+        Unload              : IntPtr
+        PlayBuffer          : IntPtr
+        GetRunningStats     : IntPtr
+        GetPortCaps         : IntPtr
+        SetMasterClock      : IntPtr
+        GetLatencyClock     : IntPtr
+        Activate            : IntPtr
+        SetSynthSink        : IntPtr
+        Render              : IntPtr
+        SetChannelPriority  : IntPtr
+        GetChannelPriority  : IntPtr
+        GetFormat           : IntPtr
+        GetAppend           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Open", "Close", "SetNumChannelGroups", "Download", "Unload", "PlayBuffer", "GetRunningStats", "GetPortCaps", "SetMasterClock", "GetLatencyClock", "Activate", "SetSynthSink", "Render", "SetChannelPriority", "GetChannelPriority", "GetFormat", "GetAppend"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectMusicSynth.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Open method opens a DirectMusic synthesizer &quot;port&quot;.
@@ -89,7 +120,7 @@ class IDirectMusicSynth extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth-open
      */
     Open(pPortParams) {
-        result := ComCall(3, this, "ptr", pPortParams, "HRESULT")
+        result := ComCall(3, this, DMUS_PORTPARAMS8.Ptr, pPortParams, "HRESULT")
         return result
     }
 
@@ -334,7 +365,7 @@ class IDirectMusicSynth extends IUnknown {
         pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
         pbFreeMarshal := pbFree is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, "ptr", phDownload, pvDataMarshal, pvData, pbFreeMarshal, pbFree, "HRESULT")
+        result := ComCall(6, this, HANDLE.Ptr, phDownload, pvDataMarshal, pvData, pbFreeMarshal, pbFree, "HRESULT")
         return result
     }
 
@@ -392,10 +423,7 @@ class IDirectMusicSynth extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth-unload
      */
     Unload(hDownload, lpFreeHandle, hUserData) {
-        hDownload := hDownload is Win32Handle ? NumGet(hDownload, "ptr") : hDownload
-        hUserData := hUserData is Win32Handle ? NumGet(hUserData, "ptr") : hUserData
-
-        result := ComCall(7, this, "ptr", hDownload, "ptr", lpFreeHandle, "ptr", hUserData, "HRESULT")
+        result := ComCall(7, this, HANDLE, hDownload, "ptr", lpFreeHandle, HANDLE, hUserData, "HRESULT")
         return result
     }
 
@@ -548,7 +576,7 @@ class IDirectMusicSynth extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth-getrunningstats
      */
     GetRunningStats(pStats) {
-        result := ComCall(9, this, "ptr", pStats, "HRESULT")
+        result := ComCall(9, this, DMUS_SYNTHSTATS.Ptr, pStats, "HRESULT")
         return result
     }
 
@@ -583,7 +611,7 @@ class IDirectMusicSynth extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth-getportcaps
      */
     GetPortCaps(pCaps) {
-        result := ComCall(10, this, "ptr", pCaps, "HRESULT")
+        result := ComCall(10, this, DMUS_PORTCAPS.Ptr, pCaps, "HRESULT")
         return result
     }
 
@@ -741,7 +769,7 @@ class IDirectMusicSynth extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth-activate
      */
     Activate(fEnable) {
-        result := ComCall(13, this, "int", fEnable, "HRESULT")
+        result := ComCall(13, this, BOOL, fEnable, "HRESULT")
         return result
     }
 
@@ -959,7 +987,7 @@ class IDirectMusicSynth extends IUnknown {
     GetFormat(pWaveFormatEx, pdwWaveFormatExSize) {
         pdwWaveFormatExSizeMarshal := pdwWaveFormatExSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(18, this, "ptr", pWaveFormatEx, pdwWaveFormatExSizeMarshal, pdwWaveFormatExSize, "HRESULT")
+        result := ComCall(18, this, WAVEFORMATEX.Ptr, pWaveFormatEx, pdwWaveFormatExSizeMarshal, pdwWaveFormatExSize, "HRESULT")
         return result
     }
 
@@ -1013,5 +1041,57 @@ class IDirectMusicSynth extends IUnknown {
 
         result := ComCall(19, this, pdwAppendMarshal, pdwAppend, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectMusicSynth.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 2)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.SetNumChannelGroups := CallbackCreate(GetMethod(implObj, "SetNumChannelGroups"), flags, 2)
+        this.vtbl.Download := CallbackCreate(GetMethod(implObj, "Download"), flags, 4)
+        this.vtbl.Unload := CallbackCreate(GetMethod(implObj, "Unload"), flags, 4)
+        this.vtbl.PlayBuffer := CallbackCreate(GetMethod(implObj, "PlayBuffer"), flags, 4)
+        this.vtbl.GetRunningStats := CallbackCreate(GetMethod(implObj, "GetRunningStats"), flags, 2)
+        this.vtbl.GetPortCaps := CallbackCreate(GetMethod(implObj, "GetPortCaps"), flags, 2)
+        this.vtbl.SetMasterClock := CallbackCreate(GetMethod(implObj, "SetMasterClock"), flags, 2)
+        this.vtbl.GetLatencyClock := CallbackCreate(GetMethod(implObj, "GetLatencyClock"), flags, 2)
+        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 2)
+        this.vtbl.SetSynthSink := CallbackCreate(GetMethod(implObj, "SetSynthSink"), flags, 2)
+        this.vtbl.Render := CallbackCreate(GetMethod(implObj, "Render"), flags, 4)
+        this.vtbl.SetChannelPriority := CallbackCreate(GetMethod(implObj, "SetChannelPriority"), flags, 4)
+        this.vtbl.GetChannelPriority := CallbackCreate(GetMethod(implObj, "GetChannelPriority"), flags, 4)
+        this.vtbl.GetFormat := CallbackCreate(GetMethod(implObj, "GetFormat"), flags, 3)
+        this.vtbl.GetAppend := CallbackCreate(GetMethod(implObj, "GetAppend"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Open)
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.SetNumChannelGroups)
+        CallbackFree(this.vtbl.Download)
+        CallbackFree(this.vtbl.Unload)
+        CallbackFree(this.vtbl.PlayBuffer)
+        CallbackFree(this.vtbl.GetRunningStats)
+        CallbackFree(this.vtbl.GetPortCaps)
+        CallbackFree(this.vtbl.SetMasterClock)
+        CallbackFree(this.vtbl.GetLatencyClock)
+        CallbackFree(this.vtbl.Activate)
+        CallbackFree(this.vtbl.SetSynthSink)
+        CallbackFree(this.vtbl.Render)
+        CallbackFree(this.vtbl.SetChannelPriority)
+        CallbackFree(this.vtbl.GetChannelPriority)
+        CallbackFree(this.vtbl.GetFormat)
+        CallbackFree(this.vtbl.GetAppend)
     }
 }

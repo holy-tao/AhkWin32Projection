@@ -1,64 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\_URB_HEADER.ahk
-#Include .\USBD_STREAM_INFORMATION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USBD_STREAM_INFORMATION.ahk" { USBD_STREAM_INFORMATION }
+#Import ".\_URB_HEADER.ahk" { _URB_HEADER }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class _URB_OPEN_STATIC_STREAMS extends Win32Struct {
-    static sizeof => 48
+export default struct _URB_OPEN_STATIC_STREAMS {
+    #StructPack 8
 
-    static packingSize => 8
+    Hdr : _URB_HEADER
 
-    /**
-     * @type {_URB_HEADER}
-     */
-    Hdr {
-        get {
-            if(!this.HasProp("__Hdr"))
-                this.__Hdr := _URB_HEADER(0, this)
-            return this.__Hdr
-        }
-    }
+    PipeHandle : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    PipeHandle {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    NumberOfStreams : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfStreams {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    StreamInfoVersion : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    StreamInfoVersion {
-        get => NumGet(this, 36, "ushort")
-        set => NumPut("ushort", value, this, 36)
-    }
+    StreamInfoSize : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    StreamInfoSize {
-        get => NumGet(this, 38, "ushort")
-        set => NumPut("ushort", value, this, 38)
-    }
+    Streams : USBD_STREAM_INFORMATION.Ptr
 
-    /**
-     * @type {Pointer<USBD_STREAM_INFORMATION>}
-     */
-    Streams {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

@@ -1,35 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IToc.ahk
-#Include .\ITocCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TOC_POS_TYPE.ahk" { TOC_POS_TYPE }
+#Import ".\ITocCollection.ahk" { ITocCollection }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IToc.ahk" { IToc }
 
 /**
  * The ITocParser interface represents a TOC Parser object. It provides methods for storing tables of contents in a video file and retrieving tables of contents from a video file.
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nn-wmcodecdsp-itocparser
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class ITocParser extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITocParser extends IUnknown {
     /**
      * The interface identifier for ITocParser
      * @type {Guid}
      */
-    static IID => Guid("{ecfb9a55-9298-4f49-887f-0b36206599d2}")
+    static IID := Guid("{ecfb9a55-9298-4f49-887f-0b36206599d2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITocParser interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Init             : IntPtr
+        GetTocCount      : IntPtr
+        GetTocByIndex    : IntPtr
+        GetTocByType     : IntPtr
+        AddToc           : IntPtr
+        RemoveTocByIndex : IntPtr
+        RemoveTocByType  : IntPtr
+        Commit           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Init", "GetTocCount", "GetTocByIndex", "GetTocByType", "AddToc", "RemoveTocByIndex", "RemoveTocByType", "Commit"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITocParser.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Init method initializes the TOC Parser object and associates it with a media file.
@@ -94,7 +111,7 @@ class ITocParser extends IUnknown {
     GetTocCount(enumTocPosType, pdwTocCount) {
         pdwTocCountMarshal := pdwTocCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "int", enumTocPosType, pdwTocCountMarshal, pdwTocCount, "HRESULT")
+        result := ComCall(4, this, TOC_POS_TYPE, enumTocPosType, pdwTocCountMarshal, pdwTocCount, "HRESULT")
         return result
     }
 
@@ -106,7 +123,7 @@ class ITocParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocparser-gettocbyindex
      */
     GetTocByIndex(enumTocPosType, dwTocIndex) {
-        result := ComCall(5, this, "int", enumTocPosType, "uint", dwTocIndex, "ptr*", &ppToc := 0, "HRESULT")
+        result := ComCall(5, this, TOC_POS_TYPE, enumTocPosType, "uint", dwTocIndex, "ptr*", &ppToc := 0, "HRESULT")
         return IToc(ppToc)
     }
 
@@ -120,7 +137,7 @@ class ITocParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocparser-gettocbytype
      */
     GetTocByType(enumTocPosType, guidTocType) {
-        result := ComCall(6, this, "int", enumTocPosType, "ptr", guidTocType, "ptr*", &ppTocs := 0, "HRESULT")
+        result := ComCall(6, this, TOC_POS_TYPE, enumTocPosType, Guid, guidTocType, "ptr*", &ppTocs := 0, "HRESULT")
         return ITocCollection(ppTocs)
     }
 
@@ -153,7 +170,7 @@ class ITocParser extends IUnknown {
     AddToc(enumTocPosType, pToc, pdwTocIndex) {
         pdwTocIndexMarshal := pdwTocIndex is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "int", enumTocPosType, "ptr", pToc, pdwTocIndexMarshal, pdwTocIndex, "HRESULT")
+        result := ComCall(7, this, TOC_POS_TYPE, enumTocPosType, "ptr", pToc, pdwTocIndexMarshal, pdwTocIndex, "HRESULT")
         return result
     }
 
@@ -183,7 +200,7 @@ class ITocParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocparser-removetocbyindex
      */
     RemoveTocByIndex(enumTocPosType, dwTocIndex) {
-        result := ComCall(8, this, "int", enumTocPosType, "uint", dwTocIndex, "HRESULT")
+        result := ComCall(8, this, TOC_POS_TYPE, enumTocPosType, "uint", dwTocIndex, "HRESULT")
         return result
     }
 
@@ -215,7 +232,7 @@ class ITocParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocparser-removetocbytype
      */
     RemoveTocByType(enumTocPosType, guidTocType) {
-        result := ComCall(9, this, "int", enumTocPosType, "ptr", guidTocType, "HRESULT")
+        result := ComCall(9, this, TOC_POS_TYPE, enumTocPosType, Guid, guidTocType, "HRESULT")
         return result
     }
 
@@ -247,5 +264,39 @@ class ITocParser extends IUnknown {
     Commit() {
         result := ComCall(10, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITocParser.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 2)
+        this.vtbl.GetTocCount := CallbackCreate(GetMethod(implObj, "GetTocCount"), flags, 3)
+        this.vtbl.GetTocByIndex := CallbackCreate(GetMethod(implObj, "GetTocByIndex"), flags, 4)
+        this.vtbl.GetTocByType := CallbackCreate(GetMethod(implObj, "GetTocByType"), flags, 4)
+        this.vtbl.AddToc := CallbackCreate(GetMethod(implObj, "AddToc"), flags, 4)
+        this.vtbl.RemoveTocByIndex := CallbackCreate(GetMethod(implObj, "RemoveTocByIndex"), flags, 3)
+        this.vtbl.RemoveTocByType := CallbackCreate(GetMethod(implObj, "RemoveTocByType"), flags, 3)
+        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Init)
+        CallbackFree(this.vtbl.GetTocCount)
+        CallbackFree(this.vtbl.GetTocByIndex)
+        CallbackFree(this.vtbl.GetTocByType)
+        CallbackFree(this.vtbl.AddToc)
+        CallbackFree(this.vtbl.RemoveTocByIndex)
+        CallbackFree(this.vtbl.RemoveTocByType)
+        CallbackFree(this.vtbl.Commit)
     }
 }

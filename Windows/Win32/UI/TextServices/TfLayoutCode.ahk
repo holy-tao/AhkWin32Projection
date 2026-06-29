@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Elements of the TfLayoutCode enumeration specify the type of layout change in an ITfTextLayoutSink::OnLayoutChange notification.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/msctf/ne-msctf-tflayoutcode
  * @namespace Windows.Win32.UI.TextServices
  */
-class TfLayoutCode extends Win32Enum {
+export default struct TfLayoutCode {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The view has just been created.

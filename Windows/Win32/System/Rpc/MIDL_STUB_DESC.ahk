@@ -1,199 +1,111 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\GENERIC_BINDING_INFO.ahk
-#Include .\GENERIC_BINDING_ROUTINE_PAIR.ahk
-#Include .\XMIT_ROUTINE_QUINTUPLE.ahk
-#Include .\MALLOC_FREE_STRUCT.ahk
-#Include .\COMM_FAULT_OFFSETS.ahk
-#Include .\USER_MARSHAL_ROUTINE_QUADRUPLE.ahk
-#Include .\NDR_CS_ROUTINES.ahk
-#Include .\NDR_EXPR_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NDR_CS_ROUTINES.ahk" { NDR_CS_ROUTINES }
+#Import ".\GENERIC_BINDING_INFO.ahk" { GENERIC_BINDING_INFO }
+#Import ".\COMM_FAULT_OFFSETS.ahk" { COMM_FAULT_OFFSETS }
+#Import ".\NDR_EXPR_DESC.ahk" { NDR_EXPR_DESC }
+#Import ".\MALLOC_FREE_STRUCT.ahk" { MALLOC_FREE_STRUCT }
+#Import ".\XMIT_ROUTINE_QUINTUPLE.ahk" { XMIT_ROUTINE_QUINTUPLE }
+#Import ".\GENERIC_BINDING_ROUTINE_PAIR.ahk" { GENERIC_BINDING_ROUTINE_PAIR }
+#Import ".\USER_MARSHAL_ROUTINE_QUADRUPLE.ahk" { USER_MARSHAL_ROUTINE_QUADRUPLE }
 
 /**
  * The MIDL_STUB_DESC structure is a MIDL-generated structure that contains information about the interface stub regarding RPC calls between the client and server.
  * @see https://learn.microsoft.com/windows/win32/api/rpcndr/ns-rpcndr-midl_stub_desc
  * @namespace Windows.Win32.System.Rpc
  */
-class MIDL_STUB_DESC extends Win32Struct {
-    static sizeof => 152
+export default struct MIDL_STUB_DESC {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _IMPLICIT_HANDLE_INFO_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _IMPLICIT_HANDLE_INFO {
+        pAutoHandle : IntPtr
 
-        /**
-         * @type {Pointer<Pointer<Void>>}
-         */
-        pAutoHandle {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<Pointer<Void>>}
-         */
-        pPrimitiveHandle {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<GENERIC_BINDING_INFO>}
-         */
-        pGenericBindingInfo {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'pPrimitiveHandle', { type: IntPtr, offset: 0 })
+            DefineProp(this.Prototype, 'pGenericBindingInfo', { type: GENERIC_BINDING_INFO.Ptr, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
     /**
      * For a nonobject RPC interface on the server-side, it points to an RPC server interface structure. On the client-side, it points to an RPC client interface structure. It is null for an object interface.
-     * @type {Pointer<Void>}
      */
-    RpcInterfaceInformation {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    RpcInterfaceInformation : IntPtr
 
     /**
      * Memory allocation function to be used by the stub. Set to <a href="https://msdn.microsoft.com/">midl_user_allocate</a> for nonobject interface and <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/nf-rpcndr-ndroleallocate"> NdrOleAllocate</a> for object interface.
-     * @type {Pointer<PFN_RPC_ALLOCATE>}
      */
-    pfnAllocate {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pfnAllocate : IntPtr
 
     /**
      * Memory-free function to be used by the stub. Set to <a href="https://docs.microsoft.com/windows/desktop/Midl/midl-user-free-1">midl_user_free</a> for nonobject interface and <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/nf-rpcndr-ndrolefree"> NdrOleFree</a> for object interface.
-     * @type {Pointer<PFN_RPC_FREE>}
      */
-    pfnFree {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pfnFree : IntPtr
 
     /**
      * The union contains one of the following handles.
-     * @type {_IMPLICIT_HANDLE_INFO_e__Union}
      */
-    IMPLICIT_HANDLE_INFO {
-        get {
-            if(!this.HasProp("__IMPLICIT_HANDLE_INFO"))
-                this.__IMPLICIT_HANDLE_INFO := MIDL_STUB_DESC._IMPLICIT_HANDLE_INFO_e__Union(24, this)
-            return this.__IMPLICIT_HANDLE_INFO
-        }
-    }
+    IMPLICIT_HANDLE_INFO : MIDL_STUB_DESC._IMPLICIT_HANDLE_INFO
 
     /**
      * Array of context handle rundown functions.
-     * @type {Pointer<Pointer<NDR_RUNDOWN>>}
      */
-    apfnNdrRundownRoutines {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    apfnNdrRundownRoutines : IntPtr
 
     /**
      * Array of function pointers to bind and unbind function pairs for the implicit generic handle.
-     * @type {Pointer<GENERIC_BINDING_ROUTINE_PAIR>}
      */
-    aGenericBindingRoutinePairs {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    aGenericBindingRoutinePairs : GENERIC_BINDING_ROUTINE_PAIR.Ptr
 
     /**
      * Array of function pointers to expression evaluator functions used to evaluate MIDL complex conformance and varying descriptions. For example, <a href="https://docs.microsoft.com/windows/desktop/Midl/size-is">size_is</a>(param1 + param2).
-     * @type {Pointer<Pointer<EXPR_EVAL>>}
      */
-    apfnExprEval {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    apfnExprEval : IntPtr
 
     /**
      * Array of an array of function pointers for user-defined <a href="https://docs.microsoft.com/windows/desktop/Midl/transmit-as">transmit_as</a> and <a href="https://msdn.microsoft.com/">represent_as</a>  types.
-     * @type {Pointer<XMIT_ROUTINE_QUINTUPLE>}
      */
-    aXmitQuintuple {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    aXmitQuintuple : XMIT_ROUTINE_QUINTUPLE.Ptr
 
     /**
      * Pointer to the type format description.
-     * @type {Pointer<Integer>}
      */
-    pFormatTypes {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    pFormatTypes : IntPtr
 
     /**
      * Flag describing the user-specified <a href="https://docs.microsoft.com/windows/desktop/Midl/-error">/error</a> MIDL compiler option.
-     * @type {Integer}
      */
-    fCheckBounds {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
-    }
+    fCheckBounds : Int32
 
     /**
      * NDR version required for the stub.
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    Version : UInt32
 
     /**
      * Pointer to the MALLOC_FREE_STRUCT structure which contains the allocate and free function pointers. Use if the <a href="https://docs.microsoft.com/windows/desktop/Midl/enable-allocate">enable_allocate</a> MIDL attribute is specified.
-     * @type {Pointer<MALLOC_FREE_STRUCT>}
      */
-    pMallocFreeStruct {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    pMallocFreeStruct : MALLOC_FREE_STRUCT.Ptr
 
     /**
      * Version of the MIDL compiler used to compile the .idl file.
-     * @type {Integer}
      */
-    MIDLVersion {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
-    }
+    MIDLVersion : Int32
 
     /**
      * Array of stack offsets for parameters with <a href="https://docs.microsoft.com/windows/desktop/Midl/comm-status">comm_status</a> or <a href="https://msdn.microsoft.com/">fault_status</a> attributes.
-     * @type {Pointer<COMM_FAULT_OFFSETS>}
      */
-    CommFaultOffsets {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    CommFaultOffsets : COMM_FAULT_OFFSETS.Ptr
 
     /**
      * Array of an array of function pointers for user-defined <a href="https://docs.microsoft.com/windows/desktop/Midl/user-marshal">user_marshal</a> and <a href="https://docs.microsoft.com/windows/desktop/Midl/wire-marshal">wire_marshal</a>  types.
-     * @type {Pointer<USER_MARSHAL_ROUTINE_QUADRUPLE>}
      */
-    aUserMarshalQuadruple {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    aUserMarshalQuadruple : USER_MARSHAL_ROUTINE_QUADRUPLE.Ptr
 
     /**
      * Array of notification function pointers for methods with the <a href="https://docs.microsoft.com/windows/desktop/Midl/notify">notify</a> or <a href="https://docs.microsoft.com/windows/desktop/Midl/notify-flag">notify_flag</a> attribute specified.
-     * @type {Pointer<Pointer<NDR_NOTIFY_ROUTINE>>}
      */
-    NotifyRoutineTable {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    NotifyRoutineTable : IntPtr
 
     /**
      * Flag describing the attributes of the stub
@@ -234,35 +146,16 @@ class MIDL_STUB_DESC extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer}
      */
-    mFlags {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    mFlags : IntPtr
 
     /**
      * Unused.
-     * @type {Pointer<NDR_CS_ROUTINES>}
      */
-    CsRoutineTables {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    CsRoutineTables : NDR_CS_ROUTINES.Ptr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    ProxyServerInfo {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
-    }
+    ProxyServerInfo : IntPtr
 
-    /**
-     * @type {Pointer<NDR_EXPR_DESC>}
-     */
-    pExprInfo {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
-    }
+    pExprInfo : NDR_EXPR_DESC.Ptr
+
 }

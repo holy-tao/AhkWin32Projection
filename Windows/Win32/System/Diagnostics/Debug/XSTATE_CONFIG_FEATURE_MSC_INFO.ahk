@@ -1,47 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\XSTATE_FEATURE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\XSTATE_FEATURE.ahk" { XSTATE_FEATURE }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class XSTATE_CONFIG_FEATURE_MSC_INFO extends Win32Struct {
-    static sizeof => 528
+export default struct XSTATE_CONFIG_FEATURE_MSC_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    SizeOfInfo : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SizeOfInfo {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ContextSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ContextSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    EnabledFeatures : Int64
 
-    /**
-     * @type {Integer}
-     */
-    EnabledFeatures {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Features : XSTATE_FEATURE[64]
 
-    /**
-     * @type {XSTATE_FEATURE}
-     */
-    Features {
-        get {
-            if(!this.HasProp("__FeaturesProxyArray"))
-                this.__FeaturesProxyArray := Win32FixedArray(this.ptr + 16, 64, XSTATE_FEATURE, "")
-            return this.__FeaturesProxyArray
-        }
-    }
 }

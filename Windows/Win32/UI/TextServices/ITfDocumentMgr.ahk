@@ -1,35 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ITfContext.ahk
-#Include .\IEnumTfContexts.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITfContext.ahk" { ITfContext }
+#Import ".\IEnumTfContexts.ahk" { IEnumTfContexts }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITfDocumentMgr interface is implemented by the TSF manager and used by an application or text service to create and manage text contexts. To obtain an instance of this interface call ITfThreadMgr::CreateDocumentMgr.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfdocumentmgr
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfDocumentMgr extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfDocumentMgr extends IUnknown {
     /**
      * The interface identifier for ITfDocumentMgr
      * @type {Guid}
      */
-    static IID => Guid("{aa80e7f4-2021-11d2-93e0-0060b067b86e}")
+    static IID := Guid("{aa80e7f4-2021-11d2-93e0-0060b067b86e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfDocumentMgr interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateContext : IntPtr
+        Push          : IntPtr
+        Pop           : IntPtr
+        GetTop        : IntPtr
+        GetBase       : IntPtr
+        EnumContexts  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateContext", "Push", "Pop", "GetTop", "GetBase", "EnumContexts"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfDocumentMgr.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfDocumentMgr::CreateContext method
@@ -97,7 +110,7 @@ class ITfDocumentMgr extends IUnknown {
     CreateContext(tidOwner, dwFlags, punk, ppic, pecTextStore) {
         pecTextStoreMarshal := pecTextStore is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", tidOwner, "uint", dwFlags, "ptr", punk, "ptr*", ppic, pecTextStoreMarshal, pecTextStore, "HRESULT")
+        result := ComCall(3, this, "uint", tidOwner, "uint", dwFlags, "ptr", punk, ITfContext.Ptr, ppic, pecTextStoreMarshal, pecTextStore, "HRESULT")
         return result
     }
 
@@ -268,5 +281,35 @@ class ITfDocumentMgr extends IUnknown {
     EnumContexts() {
         result := ComCall(8, this, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumTfContexts(ppEnum)
+    }
+
+    Query(iid) {
+        if (ITfDocumentMgr.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateContext := CallbackCreate(GetMethod(implObj, "CreateContext"), flags, 6)
+        this.vtbl.Push := CallbackCreate(GetMethod(implObj, "Push"), flags, 2)
+        this.vtbl.Pop := CallbackCreate(GetMethod(implObj, "Pop"), flags, 2)
+        this.vtbl.GetTop := CallbackCreate(GetMethod(implObj, "GetTop"), flags, 2)
+        this.vtbl.GetBase := CallbackCreate(GetMethod(implObj, "GetBase"), flags, 2)
+        this.vtbl.EnumContexts := CallbackCreate(GetMethod(implObj, "EnumContexts"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateContext)
+        CallbackFree(this.vtbl.Push)
+        CallbackFree(this.vtbl.Pop)
+        CallbackFree(this.vtbl.GetTop)
+        CallbackFree(this.vtbl.GetBase)
+        CallbackFree(this.vtbl.EnumContexts)
     }
 }

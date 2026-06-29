@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the compression control mode for a Dolby AC-3 audio stream. This enumeration is used with the AVDecDDOperationalMode property.
  * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavdecddoperationalmode
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class eAVDecDDOperationalMode extends Win32Enum {
+export default struct eAVDecDDOperationalMode {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No dynamic range control or dialogue normalization (dialnorm). This mode should be used only for signal tests.

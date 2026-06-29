@@ -1,42 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\LSA_UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\PSID.ahk" { PSID }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class LSA_FOREST_TRUST_SCANNER_INFO extends Win32Struct {
-    static sizeof => 40
+export default struct LSA_FOREST_TRUST_SCANNER_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    DomainSid : PSID
 
-    /**
-     * @type {PSID}
-     */
-    DomainSid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    DnsName : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    DnsName {
-        get {
-            if(!this.HasProp("__DnsName"))
-                this.__DnsName := LSA_UNICODE_STRING(8, this)
-            return this.__DnsName
-        }
-    }
+    NetbiosName : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    NetbiosName {
-        get {
-            if(!this.HasProp("__NetbiosName"))
-                this.__NetbiosName := LSA_UNICODE_STRING(24, this)
-            return this.__NetbiosName
-        }
-    }
 }

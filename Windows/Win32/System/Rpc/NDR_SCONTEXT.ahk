@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Rpc
  */
-class NDR_SCONTEXT extends Win32Struct {
-    static sizeof => 24
+export default struct NDR_SCONTEXT {
+    #StructPack 8
 
-    static packingSize => 8
+    pad : IntPtr[2]
 
-    /**
-     * @type {Array<Pointer<Void>>}
-     */
-    pad {
-        get {
-            if(!this.HasProp("__padProxyArray"))
-                this.__padProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "ptr")
-            return this.__padProxyArray
-        }
-    }
+    userContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    userContext {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the types of resources that can be enumerated using the VerifierEnumerateResource function.
  * @see https://learn.microsoft.com/windows/win32/api/avrfsdk/ne-avrfsdk-eavrfresourcetypes
  * @namespace Windows.Win32.System.ApplicationVerifier
  */
-class eAvrfResourceTypes extends Win32Enum {
+export default struct eAvrfResourceTypes {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates heap-allocation information is being obtained.

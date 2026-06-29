@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDataCollector.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IDataCollector.ahk" { IDataCollector }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Logs Win32 calls to Kernel32.dll, Advapi32.dll, Gdi32.dll, and User32.dll.
@@ -29,26 +32,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-iapitracingdatacollector
  * @namespace Windows.Win32.System.Performance
  */
-class IApiTracingDataCollector extends IDataCollector {
-
-    static sizeof => A_PtrSize
+export default struct IApiTracingDataCollector extends IDataCollector {
     /**
      * The interface identifier for IApiTracingDataCollector
      * @type {Guid}
      */
-    static IID => Guid("{0383751a-098b-11d8-9414-505054503030}")
+    static IID := Guid("{0383751a-098b-11d8-9414-505054503030}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 32
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IApiTracingDataCollector interfaces
+    */
+    struct Vtbl extends IDataCollector.Vtbl {
+        get_LogApiNamesOnly    : IntPtr
+        put_LogApiNamesOnly    : IntPtr
+        get_LogApisRecursively : IntPtr
+        put_LogApisRecursively : IntPtr
+        get_ExePath            : IntPtr
+        put_ExePath            : IntPtr
+        get_LogFilePath        : IntPtr
+        put_LogFilePath        : IntPtr
+        get_IncludeModules     : IntPtr
+        put_IncludeModules     : IntPtr
+        get_IncludeApis        : IntPtr
+        put_IncludeApis        : IntPtr
+        get_ExcludeApis        : IntPtr
+        put_ExcludeApis        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_LogApiNamesOnly", "put_LogApiNamesOnly", "get_LogApisRecursively", "put_LogApisRecursively", "get_ExePath", "put_ExePath", "get_LogFilePath", "put_LogFilePath", "get_IncludeModules", "put_IncludeModules", "get_IncludeApis", "put_IncludeApis", "get_ExcludeApis", "put_ExcludeApis"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IApiTracingDataCollector.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -112,7 +135,7 @@ class IApiTracingDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-get_logapinamesonly
      */
     get_LogApiNamesOnly() {
-        result := ComCall(32, this, "short*", &logapinames := 0, "HRESULT")
+        result := ComCall(32, this, VARIANT_BOOL.Ptr, &logapinames := 0, "HRESULT")
         return logapinames
     }
 
@@ -123,7 +146,7 @@ class IApiTracingDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-put_logapinamesonly
      */
     put_LogApiNamesOnly(logapinames) {
-        result := ComCall(33, this, "short", logapinames, "HRESULT")
+        result := ComCall(33, this, VARIANT_BOOL, logapinames, "HRESULT")
         return result
     }
 
@@ -135,7 +158,7 @@ class IApiTracingDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-get_logapisrecursively
      */
     get_LogApisRecursively() {
-        result := ComCall(34, this, "short*", &logrecursively := 0, "HRESULT")
+        result := ComCall(34, this, VARIANT_BOOL.Ptr, &logrecursively := 0, "HRESULT")
         return logrecursively
     }
 
@@ -148,7 +171,7 @@ class IApiTracingDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-put_logapisrecursively
      */
     put_LogApisRecursively(logrecursively) {
-        result := ComCall(35, this, "short", logrecursively, "HRESULT")
+        result := ComCall(35, this, VARIANT_BOOL, logrecursively, "HRESULT")
         return result
     }
 
@@ -160,8 +183,8 @@ class IApiTracingDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-get_exepath
      */
     get_ExePath() {
-        exepath := BSTR()
-        result := ComCall(36, this, "ptr", exepath, "HRESULT")
+        exepath := BSTR.Owned()
+        result := ComCall(36, this, BSTR.Ptr, exepath, "HRESULT")
         return exepath
     }
 
@@ -176,7 +199,7 @@ class IApiTracingDataCollector extends IDataCollector {
     put_ExePath(exepath) {
         exepath := exepath is String ? BSTR.Alloc(exepath).Value : exepath
 
-        result := ComCall(37, this, "ptr", exepath, "HRESULT")
+        result := ComCall(37, this, BSTR, exepath, "HRESULT")
         return result
     }
 
@@ -186,8 +209,8 @@ class IApiTracingDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-get_logfilepath
      */
     get_LogFilePath() {
-        logfilepath := BSTR()
-        result := ComCall(38, this, "ptr", logfilepath, "HRESULT")
+        logfilepath := BSTR.Owned()
+        result := ComCall(38, this, BSTR.Ptr, logfilepath, "HRESULT")
         return logfilepath
     }
 
@@ -200,7 +223,7 @@ class IApiTracingDataCollector extends IDataCollector {
     put_LogFilePath(logfilepath) {
         logfilepath := logfilepath is String ? BSTR.Alloc(logfilepath).Value : logfilepath
 
-        result := ComCall(39, this, "ptr", logfilepath, "HRESULT")
+        result := ComCall(39, this, BSTR, logfilepath, "HRESULT")
         return result
     }
 
@@ -241,7 +264,7 @@ class IApiTracingDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-put_includemodules
      */
     put_IncludeModules(includemodules) {
-        result := ComCall(41, this, "ptr", includemodules, "HRESULT")
+        result := ComCall(41, this, SAFEARRAY.Ptr, includemodules, "HRESULT")
         return result
     }
 
@@ -266,7 +289,7 @@ class IApiTracingDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-put_includeapis
      */
     put_IncludeApis(includeapis) {
-        result := ComCall(43, this, "ptr", includeapis, "HRESULT")
+        result := ComCall(43, this, SAFEARRAY.Ptr, includeapis, "HRESULT")
         return result
     }
 
@@ -287,7 +310,53 @@ class IApiTracingDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-put_excludeapis
      */
     put_ExcludeApis(excludeapis) {
-        result := ComCall(45, this, "ptr", excludeapis, "HRESULT")
+        result := ComCall(45, this, SAFEARRAY.Ptr, excludeapis, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IApiTracingDataCollector.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_LogApiNamesOnly := CallbackCreate(GetMethod(implObj, "get_LogApiNamesOnly"), flags, 2)
+        this.vtbl.put_LogApiNamesOnly := CallbackCreate(GetMethod(implObj, "put_LogApiNamesOnly"), flags, 2)
+        this.vtbl.get_LogApisRecursively := CallbackCreate(GetMethod(implObj, "get_LogApisRecursively"), flags, 2)
+        this.vtbl.put_LogApisRecursively := CallbackCreate(GetMethod(implObj, "put_LogApisRecursively"), flags, 2)
+        this.vtbl.get_ExePath := CallbackCreate(GetMethod(implObj, "get_ExePath"), flags, 2)
+        this.vtbl.put_ExePath := CallbackCreate(GetMethod(implObj, "put_ExePath"), flags, 2)
+        this.vtbl.get_LogFilePath := CallbackCreate(GetMethod(implObj, "get_LogFilePath"), flags, 2)
+        this.vtbl.put_LogFilePath := CallbackCreate(GetMethod(implObj, "put_LogFilePath"), flags, 2)
+        this.vtbl.get_IncludeModules := CallbackCreate(GetMethod(implObj, "get_IncludeModules"), flags, 2)
+        this.vtbl.put_IncludeModules := CallbackCreate(GetMethod(implObj, "put_IncludeModules"), flags, 2)
+        this.vtbl.get_IncludeApis := CallbackCreate(GetMethod(implObj, "get_IncludeApis"), flags, 2)
+        this.vtbl.put_IncludeApis := CallbackCreate(GetMethod(implObj, "put_IncludeApis"), flags, 2)
+        this.vtbl.get_ExcludeApis := CallbackCreate(GetMethod(implObj, "get_ExcludeApis"), flags, 2)
+        this.vtbl.put_ExcludeApis := CallbackCreate(GetMethod(implObj, "put_ExcludeApis"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_LogApiNamesOnly)
+        CallbackFree(this.vtbl.put_LogApiNamesOnly)
+        CallbackFree(this.vtbl.get_LogApisRecursively)
+        CallbackFree(this.vtbl.put_LogApisRecursively)
+        CallbackFree(this.vtbl.get_ExePath)
+        CallbackFree(this.vtbl.put_ExePath)
+        CallbackFree(this.vtbl.get_LogFilePath)
+        CallbackFree(this.vtbl.put_LogFilePath)
+        CallbackFree(this.vtbl.get_IncludeModules)
+        CallbackFree(this.vtbl.put_IncludeModules)
+        CallbackFree(this.vtbl.get_IncludeApis)
+        CallbackFree(this.vtbl.put_IncludeApis)
+        CallbackFree(this.vtbl.get_ExcludeApis)
+        CallbackFree(this.vtbl.put_ExcludeApis)
     }
 }

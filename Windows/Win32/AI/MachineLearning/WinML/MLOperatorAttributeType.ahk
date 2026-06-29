@@ -1,10 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML
  */
-class MLOperatorAttributeType extends Win32Enum {
+export default struct MLOperatorAttributeType {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}
@@ -14,7 +23,7 @@ class MLOperatorAttributeType extends Win32Enum {
     /**
      * @type {Integer (UInt32)}
      */
-    static Float => 2
+    static Win32Float => 2
 
     /**
      * @type {Integer (UInt32)}
@@ -24,7 +33,7 @@ class MLOperatorAttributeType extends Win32Enum {
     /**
      * @type {Integer (UInt32)}
      */
-    static String => 4
+    static Win32String => 4
 
     /**
      * @type {Integer (UInt32)}

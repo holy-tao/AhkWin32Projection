@@ -1,67 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSIDENTIFIER.ahk
-#Include .\KSPIN_DATAFLOW.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSPIN_DATAFLOW.ahk" { KSPIN_DATAFLOW }
+#Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSPROPERTY_CROSSBAR_PININFO_S extends Win32Struct {
-    static sizeof => 48
+export default struct KSPROPERTY_CROSSBAR_PININFO_S {
+    #StructPack 8
 
-    static packingSize => 8
+    Property : KSIDENTIFIER
 
-    /**
-     * @type {KSIDENTIFIER}
-     */
-    Property {
-        get {
-            if(!this.HasProp("__Property"))
-                this.__Property := KSIDENTIFIER(0, this)
-            return this.__Property
-        }
-    }
+    Direction : KSPIN_DATAFLOW
 
-    /**
-     * @type {KSPIN_DATAFLOW}
-     */
-    Direction {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    Index : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Index {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    PinType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PinType {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    RelatedPinIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RelatedPinIndex {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    Medium : KSIDENTIFIER
 
-    /**
-     * @type {KSIDENTIFIER}
-     */
-    Medium {
-        get {
-            if(!this.HasProp("__Medium"))
-                this.__Medium := KSIDENTIFIER(32, this)
-            return this.__Medium
-        }
-    }
 }

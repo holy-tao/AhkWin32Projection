@@ -1,227 +1,78 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DIRECTDRAW_GBL.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\DDRAWI_DDRAWSURFACE_INT.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include .\DDHAL_CALLBACKS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDHAL_CALLBACKS.ahk" { DDHAL_CALLBACKS }
+#Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DDRAWI_DDRAWSURFACE_INT.ahk" { DDRAWI_DDRAWSURFACE_INT }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDRAWI_DIRECTDRAW_LCL extends Win32Struct {
-    static sizeof => 184
+export default struct DDRAWI_DIRECTDRAW_LCL {
+    #StructPack 8
 
-    static packingSize => 8
+    lpDDMore : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    lpDDMore {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Pointer<DDRAWI_DIRECTDRAW_GBL>}
-     */
+    __lpGbl_ptr : IntPtr
     lpGbl {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => (addr := this.__lpGbl_ptr) ? DDRAWI_DIRECTDRAW_GBL.At(addr) : unset
+        set => this.__lpGbl_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Integer}
-     */
-    dwUnused0 {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwUnused0 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwLocalFlags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwLocalFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwLocalRefCnt {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwLocalRefCnt : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwProcessId {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwProcessId : UInt32
 
-    /**
-     * @type {IUnknown}
-     */
-    pUnkOuter {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pUnkOuter : IUnknown
 
-    /**
-     * @type {Integer}
-     */
-    dwObsolete1 {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwObsolete1 : UInt32
 
-    /**
-     * @type {Pointer}
-     */
-    hWnd {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    hWnd : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    hDC {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    hDC : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    dwErrorMode {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    dwErrorMode : UInt32
 
-    /**
-     * @type {Pointer<DDRAWI_DDRAWSURFACE_INT>}
-     */
+    __lpPrimary_ptr : IntPtr
     lpPrimary {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => (addr := this.__lpPrimary_ptr) ? DDRAWI_DDRAWSURFACE_INT.At(addr) : unset
+        set => this.__lpPrimary_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer<DDRAWI_DDRAWSURFACE_INT>}
-     */
+    __lpCB_ptr : IntPtr
     lpCB {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => (addr := this.__lpCB_ptr) ? DDRAWI_DDRAWSURFACE_INT.At(addr) : unset
+        set => this.__lpCB_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Integer}
-     */
-    dwPreferredMode {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    dwPreferredMode : UInt32
 
-    /**
-     * @type {HINSTANCE}
-     */
-    hD3DInstance {
-        get {
-            if(!this.HasProp("__hD3DInstance"))
-                this.__hD3DInstance := HINSTANCE(96, this)
-            return this.__hD3DInstance
-        }
-    }
+    hD3DInstance : HINSTANCE
 
-    /**
-     * @type {IUnknown}
-     */
-    pD3DIUnknown {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    pD3DIUnknown : IUnknown
 
-    /**
-     * @type {Pointer<DDHAL_CALLBACKS>}
-     */
-    lpDDCB {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    lpDDCB : DDHAL_CALLBACKS.Ptr
 
-    /**
-     * @type {Pointer}
-     */
-    hDDVxd {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    hDDVxd : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    dwAppHackFlags {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    dwAppHackFlags : UInt32
 
-    /**
-     * @type {Pointer}
-     */
-    hFocusWnd {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
-    }
+    hFocusWnd : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    dwHotTracking {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
-    }
+    dwHotTracking : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwIMEState {
-        get => NumGet(this, 148, "uint")
-        set => NumPut("uint", value, this, 148)
-    }
+    dwIMEState : UInt32
 
-    /**
-     * @type {Pointer}
-     */
-    hWndPopup {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
-    }
+    hWndPopup : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    hDD {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
-    }
+    hDD : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    hGammaCalibrator {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
-    }
+    hGammaCalibrator : IntPtr
 
-    /**
-     * @type {Pointer<LPDDGAMMACALIBRATORPROC>}
-     */
-    lpGammaCalibrator {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
-    }
+    lpGammaCalibrator : IntPtr
+
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Identifies the tier level at which tiled resources are supported.
@@ -43,7 +42,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_tiled_resources_tier
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_TILED_RESOURCES_TIER extends Win32Enum {
+export default struct D3D12_TILED_RESOURCES_TIER {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates that textures cannot be created with the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_texture_layout">D3D12_TEXTURE_LAYOUT_64KB_UNDEFINED_SWIZZLE</a> layout.

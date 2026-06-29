@@ -1,117 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DDDI_FLIPINTERVAL_TYPE.ahk
-#Include .\D3DKMT_MULTIPLANE_OVERLAY_ATTRIBUTES3.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DDDI_FLIPINTERVAL_TYPE.ahk" { D3DDDI_FLIPINTERVAL_TYPE }
+#Import ".\D3DKMT_MULTIPLANE_OVERLAY_ATTRIBUTES3.ahk" { D3DKMT_MULTIPLANE_OVERLAY_ATTRIBUTES3 }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_MULTIPLANE_OVERLAY3 extends Win32Struct {
-    static sizeof => 88
+export default struct D3DKMT_MULTIPLANE_OVERLAY3 {
+    #StructPack 8
 
-    static packingSize => 8
+    LayerIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LayerIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    InputFlags : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    InputFlags {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    FlipInterval : D3DDDI_FLIPINTERVAL_TYPE
 
-    /**
-     * @type {D3DDDI_FLIPINTERVAL_TYPE}
-     */
-    FlipInterval {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    MaxImmediateFlipLine : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxImmediateFlipLine {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    AllocationCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AllocationCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    pAllocationList : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pAllocationList {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    DriverPrivateDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DriverPrivateDataSize {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    pDriverPrivateData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pDriverPrivateData {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pPlaneAttributes : D3DKMT_MULTIPLANE_OVERLAY_ATTRIBUTES3.Ptr
 
-    /**
-     * @type {Pointer<D3DKMT_MULTIPLANE_OVERLAY_ATTRIBUTES3>}
-     */
-    pPlaneAttributes {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    hFlipToFence : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hFlipToFence {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    hFlipAwayFence : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hFlipAwayFence {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    FlipToFenceValue : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FlipToFenceValue {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    FlipAwayFenceValue : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FlipAwayFenceValue {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
 }

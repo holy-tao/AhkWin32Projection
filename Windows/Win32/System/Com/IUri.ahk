@@ -1,32 +1,66 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\Uri_PROPERTY.ahk" { Uri_PROPERTY }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Com
  */
-class IUri extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUri extends IUnknown {
     /**
      * The interface identifier for IUri
      * @type {Guid}
      */
-    static IID => Guid("{a39ee748-6a27-4817-a6f2-13914bef5890}")
+    static IID := Guid("{a39ee748-6a27-4817-a6f2-13914bef5890}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUri interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetPropertyBSTR   : IntPtr
+        GetPropertyLength : IntPtr
+        GetPropertyDWORD  : IntPtr
+        HasProperty       : IntPtr
+        GetAbsoluteUri    : IntPtr
+        GetAuthority      : IntPtr
+        GetDisplayUri     : IntPtr
+        GetDomain         : IntPtr
+        GetExtension      : IntPtr
+        GetFragment       : IntPtr
+        GetHost           : IntPtr
+        GetPassword       : IntPtr
+        GetPath           : IntPtr
+        GetPathAndQuery   : IntPtr
+        GetQuery          : IntPtr
+        GetRawUri         : IntPtr
+        GetSchemeName     : IntPtr
+        GetUserInfo       : IntPtr
+        GetUserName       : IntPtr
+        GetHostType       : IntPtr
+        GetPort           : IntPtr
+        GetScheme         : IntPtr
+        GetZone           : IntPtr
+        GetProperties     : IntPtr
+        IsEqual           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPropertyBSTR", "GetPropertyLength", "GetPropertyDWORD", "HasProperty", "GetAbsoluteUri", "GetAuthority", "GetDisplayUri", "GetDomain", "GetExtension", "GetFragment", "GetHost", "GetPassword", "GetPath", "GetPathAndQuery", "GetQuery", "GetRawUri", "GetSchemeName", "GetUserInfo", "GetUserName", "GetHostType", "GetPort", "GetScheme", "GetZone", "GetProperties", "IsEqual"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUri.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -35,8 +69,8 @@ class IUri extends IUnknown {
      * @returns {BSTR} 
      */
     GetPropertyBSTR(uriProp, dwFlags) {
-        pbstrProperty := BSTR()
-        result := ComCall(3, this, "int", uriProp, "ptr", pbstrProperty, "uint", dwFlags, "HRESULT")
+        pbstrProperty := BSTR.Owned()
+        result := ComCall(3, this, Uri_PROPERTY, uriProp, BSTR.Ptr, pbstrProperty, "uint", dwFlags, "HRESULT")
         return pbstrProperty
     }
 
@@ -47,7 +81,7 @@ class IUri extends IUnknown {
      * @returns {Integer} 
      */
     GetPropertyLength(uriProp, dwFlags) {
-        result := ComCall(4, this, "int", uriProp, "uint*", &pcchProperty := 0, "uint", dwFlags, "HRESULT")
+        result := ComCall(4, this, Uri_PROPERTY, uriProp, "uint*", &pcchProperty := 0, "uint", dwFlags, "HRESULT")
         return pcchProperty
     }
 
@@ -58,7 +92,7 @@ class IUri extends IUnknown {
      * @returns {Integer} 
      */
     GetPropertyDWORD(uriProp, dwFlags) {
-        result := ComCall(5, this, "int", uriProp, "uint*", &pdwProperty := 0, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, Uri_PROPERTY, uriProp, "uint*", &pdwProperty := 0, "uint", dwFlags, "HRESULT")
         return pdwProperty
     }
 
@@ -68,7 +102,7 @@ class IUri extends IUnknown {
      * @returns {BOOL} 
      */
     HasProperty(uriProp) {
-        result := ComCall(6, this, "int", uriProp, "int*", &pfHasProperty := 0, "HRESULT")
+        result := ComCall(6, this, Uri_PROPERTY, uriProp, BOOL.Ptr, &pfHasProperty := 0, "HRESULT")
         return pfHasProperty
     }
 
@@ -77,8 +111,8 @@ class IUri extends IUnknown {
      * @returns {BSTR} 
      */
     GetAbsoluteUri() {
-        pbstrAbsoluteUri := BSTR()
-        result := ComCall(7, this, "ptr", pbstrAbsoluteUri, "HRESULT")
+        pbstrAbsoluteUri := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pbstrAbsoluteUri, "HRESULT")
         return pbstrAbsoluteUri
     }
 
@@ -87,8 +121,8 @@ class IUri extends IUnknown {
      * @returns {BSTR} 
      */
     GetAuthority() {
-        pbstrAuthority := BSTR()
-        result := ComCall(8, this, "ptr", pbstrAuthority, "HRESULT")
+        pbstrAuthority := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, pbstrAuthority, "HRESULT")
         return pbstrAuthority
     }
 
@@ -97,8 +131,8 @@ class IUri extends IUnknown {
      * @returns {BSTR} 
      */
     GetDisplayUri() {
-        pbstrDisplayString := BSTR()
-        result := ComCall(9, this, "ptr", pbstrDisplayString, "HRESULT")
+        pbstrDisplayString := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pbstrDisplayString, "HRESULT")
         return pbstrDisplayString
     }
 
@@ -107,8 +141,8 @@ class IUri extends IUnknown {
      * @returns {BSTR} 
      */
     GetDomain() {
-        pbstrDomain := BSTR()
-        result := ComCall(10, this, "ptr", pbstrDomain, "HRESULT")
+        pbstrDomain := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, pbstrDomain, "HRESULT")
         return pbstrDomain
     }
 
@@ -117,8 +151,8 @@ class IUri extends IUnknown {
      * @returns {BSTR} 
      */
     GetExtension() {
-        pbstrExtension := BSTR()
-        result := ComCall(11, this, "ptr", pbstrExtension, "HRESULT")
+        pbstrExtension := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pbstrExtension, "HRESULT")
         return pbstrExtension
     }
 
@@ -127,47 +161,18 @@ class IUri extends IUnknown {
      * @returns {BSTR} 
      */
     GetFragment() {
-        pbstrFragment := BSTR()
-        result := ComCall(12, this, "ptr", pbstrFragment, "HRESULT")
+        pbstrFragment := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, pbstrFragment, "HRESULT")
         return pbstrFragment
     }
 
     /**
-     * The GetHostNameW function retrieves the standard host name for the local computer as a Unicode string.
-     * @remarks
-     * The 
-     * <b>GetHostNameW</b> function returns the name of the local host into the buffer specified by the <i>name</i> parameter in Unicode (UTF-16). The host name is returned as a <b>null</b>-terminated Unicode string. The form of the host name is dependent on the Windows Sockets provider—it can be a simple host name, or it can be a fully qualified domain name. However, it is guaranteed that the name returned will be successfully parsed by 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfow">GetAddrInfoW</a>.
      * 
-     * With the growth of the Internet, there is a growing need to identify Internet host names for other languages not represented by the ASCII character set. Identifiers which facilitate this need and allow non-ASCII characters (Unicode) to be represented as special ASCII character strings (Punycode) are known as Internationalized Domain Names (IDNs). A  mechanism called
-     *    Internationalizing Domain Names in Applications (IDNA) is used to handle
-     *    IDNs in a standard fashion. The <b>GetHostNameW</b> function does not convert the local hostname between Punycode and Unicode. The <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfow">GetAddrInfoW</a> function provides support for Internationalized Domain Name (IDN) parsing and performs Punycode/IDN encoding and conversion.  
-     * 
-     * If the 
-     * <b>GetHostNameW</b> function is used on a cluster resource on Windows Server 2012 and the _CLUSTER_NETWORK_NAME_ environment variable is defined, then the value in this environment variable overrides the actual hostname and is returned. On a cluster resource, the _CLUSTER_NETWORK_NAME_ environment variable contains the name of the cluster.
-     * 
-     * The 
-     * <b>GetHostNameW</b> function queries namespace providers to determine the local host name using the SVCID_HOSTNAME GUID defined in the <i>Svgguid.h</i> header file. If no namespace provider responds, then the 
-     * <b>GetHostNameW</b> function returns the NetBIOS name of the local computer in Unicode.
-     * 
-     * The maximum length, in wide characters, of the string returned in the buffer pointed to by the <i>name</i> parameter is dependent on the namespace provider, but this string must be 256 wide characters or less. So if a buffer of 256 wide characters is passed in the <i>name</i> parameter and the <i>namelen</i> parameter is set to 256, the buffer size will always be adequate.
-     * 
-     * 
-     * <div class="alert"><b>Note</b>  If no local host name has been configured, 
-     * <b>GetHostNameW</b> must succeed and return a token host name that 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfow">GetAddrInfoW</a> can resolve.</div>
-     * <div> </div>
-     * 
-     * 
-     * <b>Windows Phone 8:</b> This function is supported for Windows Phone Store apps on Windows Phone 8 and later.
-     * 
-     * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-gethostnamew
      */
     GetHost() {
-        pbstrHost := BSTR()
-        result := ComCall(13, this, "ptr", pbstrHost, "HRESULT")
+        pbstrHost := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, pbstrHost, "HRESULT")
         return pbstrHost
     }
 
@@ -176,8 +181,8 @@ class IUri extends IUnknown {
      * @returns {BSTR} 
      */
     GetPassword() {
-        pbstrPassword := BSTR()
-        result := ComCall(14, this, "ptr", pbstrPassword, "HRESULT")
+        pbstrPassword := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, pbstrPassword, "HRESULT")
         return pbstrPassword
     }
 
@@ -193,8 +198,8 @@ class IUri extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getpath
      */
     GetPath() {
-        pbstrPath := BSTR()
-        result := ComCall(15, this, "ptr", pbstrPath, "HRESULT")
+        pbstrPath := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, pbstrPath, "HRESULT")
         return pbstrPath
     }
 
@@ -203,8 +208,8 @@ class IUri extends IUnknown {
      * @returns {BSTR} 
      */
     GetPathAndQuery() {
-        pbstrPathAndQuery := BSTR()
-        result := ComCall(16, this, "ptr", pbstrPathAndQuery, "HRESULT")
+        pbstrPathAndQuery := BSTR.Owned()
+        result := ComCall(16, this, BSTR.Ptr, pbstrPathAndQuery, "HRESULT")
         return pbstrPathAndQuery
     }
 
@@ -213,8 +218,8 @@ class IUri extends IUnknown {
      * @returns {BSTR} 
      */
     GetQuery() {
-        pbstrQuery := BSTR()
-        result := ComCall(17, this, "ptr", pbstrQuery, "HRESULT")
+        pbstrQuery := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, pbstrQuery, "HRESULT")
         return pbstrQuery
     }
 
@@ -223,8 +228,8 @@ class IUri extends IUnknown {
      * @returns {BSTR} 
      */
     GetRawUri() {
-        pbstrRawUri := BSTR()
-        result := ComCall(18, this, "ptr", pbstrRawUri, "HRESULT")
+        pbstrRawUri := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, pbstrRawUri, "HRESULT")
         return pbstrRawUri
     }
 
@@ -233,8 +238,8 @@ class IUri extends IUnknown {
      * @returns {BSTR} 
      */
     GetSchemeName() {
-        pbstrSchemeName := BSTR()
-        result := ComCall(19, this, "ptr", pbstrSchemeName, "HRESULT")
+        pbstrSchemeName := BSTR.Owned()
+        result := ComCall(19, this, BSTR.Ptr, pbstrSchemeName, "HRESULT")
         return pbstrSchemeName
     }
 
@@ -243,8 +248,8 @@ class IUri extends IUnknown {
      * @returns {BSTR} 
      */
     GetUserInfo() {
-        pbstrUserInfo := BSTR()
-        result := ComCall(20, this, "ptr", pbstrUserInfo, "HRESULT")
+        pbstrUserInfo := BSTR.Owned()
+        result := ComCall(20, this, BSTR.Ptr, pbstrUserInfo, "HRESULT")
         return pbstrUserInfo
     }
 
@@ -259,8 +264,8 @@ class IUri extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getusernamew
      */
     GetUserName() {
-        pbstrUserName := BSTR()
-        result := ComCall(21, this, "ptr", pbstrUserName, "HRESULT")
+        pbstrUserName := BSTR.Owned()
+        result := ComCall(21, this, BSTR.Ptr, pbstrUserName, "HRESULT")
         return pbstrUserName
     }
 
@@ -310,13 +315,80 @@ class IUri extends IUnknown {
     }
 
     /**
-     * Evaluates to a Boolean value that indicates whether two CLSIDs are equal.
+     * 
      * @param {IUri} pUri 
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/guiddef/nf-guiddef-isequalclsid
      */
     IsEqual(pUri) {
-        result := ComCall(27, this, "ptr", pUri, "int*", &pfEqual := 0, "HRESULT")
+        result := ComCall(27, this, "ptr", pUri, BOOL.Ptr, &pfEqual := 0, "HRESULT")
         return pfEqual
+    }
+
+    Query(iid) {
+        if (IUri.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPropertyBSTR := CallbackCreate(GetMethod(implObj, "GetPropertyBSTR"), flags, 4)
+        this.vtbl.GetPropertyLength := CallbackCreate(GetMethod(implObj, "GetPropertyLength"), flags, 4)
+        this.vtbl.GetPropertyDWORD := CallbackCreate(GetMethod(implObj, "GetPropertyDWORD"), flags, 4)
+        this.vtbl.HasProperty := CallbackCreate(GetMethod(implObj, "HasProperty"), flags, 3)
+        this.vtbl.GetAbsoluteUri := CallbackCreate(GetMethod(implObj, "GetAbsoluteUri"), flags, 2)
+        this.vtbl.GetAuthority := CallbackCreate(GetMethod(implObj, "GetAuthority"), flags, 2)
+        this.vtbl.GetDisplayUri := CallbackCreate(GetMethod(implObj, "GetDisplayUri"), flags, 2)
+        this.vtbl.GetDomain := CallbackCreate(GetMethod(implObj, "GetDomain"), flags, 2)
+        this.vtbl.GetExtension := CallbackCreate(GetMethod(implObj, "GetExtension"), flags, 2)
+        this.vtbl.GetFragment := CallbackCreate(GetMethod(implObj, "GetFragment"), flags, 2)
+        this.vtbl.GetHost := CallbackCreate(GetMethod(implObj, "GetHost"), flags, 2)
+        this.vtbl.GetPassword := CallbackCreate(GetMethod(implObj, "GetPassword"), flags, 2)
+        this.vtbl.GetPath := CallbackCreate(GetMethod(implObj, "GetPath"), flags, 2)
+        this.vtbl.GetPathAndQuery := CallbackCreate(GetMethod(implObj, "GetPathAndQuery"), flags, 2)
+        this.vtbl.GetQuery := CallbackCreate(GetMethod(implObj, "GetQuery"), flags, 2)
+        this.vtbl.GetRawUri := CallbackCreate(GetMethod(implObj, "GetRawUri"), flags, 2)
+        this.vtbl.GetSchemeName := CallbackCreate(GetMethod(implObj, "GetSchemeName"), flags, 2)
+        this.vtbl.GetUserInfo := CallbackCreate(GetMethod(implObj, "GetUserInfo"), flags, 2)
+        this.vtbl.GetUserName := CallbackCreate(GetMethod(implObj, "GetUserName"), flags, 2)
+        this.vtbl.GetHostType := CallbackCreate(GetMethod(implObj, "GetHostType"), flags, 2)
+        this.vtbl.GetPort := CallbackCreate(GetMethod(implObj, "GetPort"), flags, 2)
+        this.vtbl.GetScheme := CallbackCreate(GetMethod(implObj, "GetScheme"), flags, 2)
+        this.vtbl.GetZone := CallbackCreate(GetMethod(implObj, "GetZone"), flags, 2)
+        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.IsEqual := CallbackCreate(GetMethod(implObj, "IsEqual"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPropertyBSTR)
+        CallbackFree(this.vtbl.GetPropertyLength)
+        CallbackFree(this.vtbl.GetPropertyDWORD)
+        CallbackFree(this.vtbl.HasProperty)
+        CallbackFree(this.vtbl.GetAbsoluteUri)
+        CallbackFree(this.vtbl.GetAuthority)
+        CallbackFree(this.vtbl.GetDisplayUri)
+        CallbackFree(this.vtbl.GetDomain)
+        CallbackFree(this.vtbl.GetExtension)
+        CallbackFree(this.vtbl.GetFragment)
+        CallbackFree(this.vtbl.GetHost)
+        CallbackFree(this.vtbl.GetPassword)
+        CallbackFree(this.vtbl.GetPath)
+        CallbackFree(this.vtbl.GetPathAndQuery)
+        CallbackFree(this.vtbl.GetQuery)
+        CallbackFree(this.vtbl.GetRawUri)
+        CallbackFree(this.vtbl.GetSchemeName)
+        CallbackFree(this.vtbl.GetUserInfo)
+        CallbackFree(this.vtbl.GetUserName)
+        CallbackFree(this.vtbl.GetHostType)
+        CallbackFree(this.vtbl.GetPort)
+        CallbackFree(this.vtbl.GetScheme)
+        CallbackFree(this.vtbl.GetZone)
+        CallbackFree(this.vtbl.GetProperties)
+        CallbackFree(this.vtbl.IsEqual)
     }
 }

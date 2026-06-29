@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
  */
-class RemFORMATETC extends Win32Struct {
-    static sizeof => 20
+export default struct RemFORMATETC {
+    #StructPack 4
 
-    static packingSize => 4
+    cfFormat : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cfFormat {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ptd : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ptd {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwAspect : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAspect {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    lindex : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lindex {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    tymed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    tymed {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

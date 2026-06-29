@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Provides predefined status codes to represent the progress of the TPM virtual smart card manager.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/tpmvscmgr/ne-tpmvscmgr-tpmvscmgr_status
  * @namespace Windows.Win32.Security.Tpm
  */
-class TPMVSCMGR_STATUS extends Win32Enum {
+export default struct TPMVSCMGR_STATUS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Initializing the virtual smart card 	manager.

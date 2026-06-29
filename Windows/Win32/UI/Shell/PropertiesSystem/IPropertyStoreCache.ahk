@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IPropertyStore.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import ".\PSC_STATE.ahk" { PSC_STATE }
+#Import ".\IPropertyStore.ahk" { IPropertyStore }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 
 /**
  * Exposes methods that allow a handler to manage various states for each property.
@@ -17,26 +21,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-ipropertystorecache
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  */
-class IPropertyStoreCache extends IPropertyStore {
-
-    static sizeof => A_PtrSize
+export default struct IPropertyStoreCache extends IPropertyStore {
     /**
      * The interface identifier for IPropertyStoreCache
      * @type {Guid}
      */
-    static IID => Guid("{3017056d-9a91-4e90-937d-746c72abbf4f}")
+    static IID := Guid("{3017056d-9a91-4e90-937d-746c72abbf4f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPropertyStoreCache interfaces
+    */
+    struct Vtbl extends IPropertyStore.Vtbl {
+        GetState         : IntPtr
+        GetValueAndState : IntPtr
+        SetState         : IntPtr
+        SetValueAndState : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetState", "GetValueAndState", "SetState", "SetValueAndState"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPropertyStoreCache.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the state of a specified property key.
@@ -49,7 +63,7 @@ class IPropertyStoreCache extends IPropertyStore {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertystorecache-getstate
      */
     GetState(key) {
-        result := ComCall(8, this, "ptr", key, "int*", &pstate := 0, "HRESULT")
+        result := ComCall(8, this, PROPERTYKEY.Ptr, key, "int*", &pstate := 0, "HRESULT")
         return pstate
     }
 
@@ -72,7 +86,7 @@ class IPropertyStoreCache extends IPropertyStore {
     GetValueAndState(key, ppropvar, pstate) {
         pstateMarshal := pstate is VarRef ? "int*" : "ptr"
 
-        result := ComCall(9, this, "ptr", key, "ptr", ppropvar, pstateMarshal, pstate, "HRESULT")
+        result := ComCall(9, this, PROPERTYKEY.Ptr, key, PROPVARIANT.Ptr, ppropvar, pstateMarshal, pstate, "HRESULT")
         return result
     }
 
@@ -83,7 +97,7 @@ class IPropertyStoreCache extends IPropertyStore {
      * @returns {HRESULT} 
      */
     SetState(key, state) {
-        result := ComCall(10, this, "ptr", key, "int", state, "HRESULT")
+        result := ComCall(10, this, PROPERTYKEY.Ptr, key, PSC_STATE, state, "HRESULT")
         return result
     }
 
@@ -104,7 +118,33 @@ class IPropertyStoreCache extends IPropertyStore {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertystorecache-setvalueandstate
      */
     SetValueAndState(key, ppropvar, state) {
-        result := ComCall(11, this, "ptr", key, "ptr", ppropvar, "int", state, "HRESULT")
+        result := ComCall(11, this, PROPERTYKEY.Ptr, key, PROPVARIANT.Ptr, ppropvar, PSC_STATE, state, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPropertyStoreCache.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 3)
+        this.vtbl.GetValueAndState := CallbackCreate(GetMethod(implObj, "GetValueAndState"), flags, 4)
+        this.vtbl.SetState := CallbackCreate(GetMethod(implObj, "SetState"), flags, 3)
+        this.vtbl.SetValueAndState := CallbackCreate(GetMethod(implObj, "SetValueAndState"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetState)
+        CallbackFree(this.vtbl.GetValueAndState)
+        CallbackFree(this.vtbl.SetState)
+        CallbackFree(this.vtbl.SetValueAndState)
     }
 }

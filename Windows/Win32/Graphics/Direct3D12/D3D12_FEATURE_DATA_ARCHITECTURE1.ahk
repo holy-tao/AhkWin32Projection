@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Provides detail about each adapter's architectural details, so that your application can better optimize for certain adapter properties.
@@ -55,51 +55,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_architecture1
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_FEATURE_DATA_ARCHITECTURE1 extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct D3D12_FEATURE_DATA_ARCHITECTURE1 {
+    #StructPack 4
 
     /**
      * In multi-adapter operation, this indicates which physical adapter of the device is relevant.
      *             See <a href="https://docs.microsoft.com/windows/win32/direct3d12/multi-engine">Multi-adapter systems</a>.
      *             <b>NodeIndex</b> is filled out by the application before calling <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-checkfeaturesupport">CheckFeatureSupport</a>, as the application can retrieve details about the architecture of each adapter.
-     * @type {Integer}
      */
-    NodeIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NodeIndex : UInt32
 
     /**
      * Specifies whether the hardware and driver support a tile-based renderer.
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support a tile-based renderer.
-     * @type {BOOL}
      */
-    TileBasedRenderer {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    TileBasedRenderer : BOOL
 
     /**
      * Specifies whether the hardware and driver support UMA.
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support UMA.
-     * @type {BOOL}
      */
-    UMA {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    UMA : BOOL
 
     /**
      * Specifies whether the hardware and driver support cache-coherent UMA.
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support cache-coherent UMA.
-     * @type {BOOL}
      */
-    CacheCoherentUMA {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    CacheCoherentUMA : BOOL
 
     /**
      * <a href="https://docs.microsoft.com/visualstudio/code-quality/annotating-structs-and-classes">SAL</a>: <c>_Out_</c>
@@ -108,10 +90,7 @@ class D3D12_FEATURE_DATA_ARCHITECTURE1 extends Win32Struct {
      *             The runtime sets this member to <b>TRUE</b> if the GPU honors CPU page table properties like <b>MEM_WRITE_WATCH</b> (for more information, see <a href="https://docs.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc">VirtualAlloc</a>) and <b>PAGE_READONLY</b> (for more information, see <a href="https://docs.microsoft.com/windows/win32/Memory/memory-protection-constants">Memory Protection Constants</a>).
      * 
      * If <b>TRUE</b>, the application must take care to no use memory with these page table properties with the GPU, as the GPU might trigger these page table properties in unexpected ways. For example, GPU write operations might be coarser than the application expects, particularly writes from within shaders. Certain write-watch pages might appear dirty, even when it isn't obvious how GPU writes may have affected them. GPU operations associated with upload and readback heap usage scenarios work well with write-watch pages, but might occasionally generate false positives that can be safely ignored.
-     * @type {BOOL}
      */
-    IsolatedMMU {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    IsolatedMMU : BOOL
+
 }

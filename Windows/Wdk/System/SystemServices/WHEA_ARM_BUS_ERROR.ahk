@@ -1,32 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_ARM_BUS_ERROR extends Win32Struct {
-    static sizeof => 24
+export default struct WHEA_ARM_BUS_ERROR {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {Pointer}
-     */
-    ValidationBit {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ValidationBit : IntPtr
 
     /**
      * This bitfield backs the following members:
      * - TransactionType
      * - Operation
-     * @type {Integer}
      */
-    _bitfield1 {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    _bitfield1 : Int8
+
 
     /**
      * @type {Integer}
@@ -43,7 +31,6 @@ class WHEA_ARM_BUS_ERROR extends Win32Struct {
         get => (this._bitfield1 >> 2) & 0xF
         set => this._bitfield1 := ((value & 0xF) << 2) | (this._bitfield1 & ~(0xF << 2))
     }
-
     /**
      * This bitfield backs the following members:
      * - Level
@@ -51,12 +38,9 @@ class WHEA_ARM_BUS_ERROR extends Win32Struct {
      * - Corrected
      * - PrecisePC
      * - RestartablePC
-     * @type {Integer}
      */
-    _bitfield2 {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    _bitfield2 : Int8
+
 
     /**
      * @type {Integer}
@@ -97,18 +81,14 @@ class WHEA_ARM_BUS_ERROR extends Win32Struct {
         get => (this._bitfield2 >> 6) & 0x1
         set => this._bitfield2 := ((value & 0x1) << 6) | (this._bitfield2 & ~(0x1 << 6))
     }
-
     /**
      * This bitfield backs the following members:
      * - ParticipationType
      * - TimeOut
      * - AddressSpace
-     * @type {Integer}
      */
-    _bitfield3 {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    _bitfield3 : Int8
+
 
     /**
      * @type {Integer}
@@ -133,16 +113,12 @@ class WHEA_ARM_BUS_ERROR extends Win32Struct {
         get => (this._bitfield3 >> 3) & 0x3
         set => this._bitfield3 := ((value & 0x3) << 3) | (this._bitfield3 & ~(0x3 << 3))
     }
-
     /**
      * This bitfield backs the following members:
      * - MemoryAccessAttributes
-     * @type {Integer}
      */
-    _bitfield4 {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    _bitfield4 : Int16
+
 
     /**
      * @type {Integer}
@@ -151,16 +127,12 @@ class WHEA_ARM_BUS_ERROR extends Win32Struct {
         get => (this._bitfield4 >> 0) & 0x1FF
         set => this._bitfield4 := ((value & 0x1FF) << 0) | (this._bitfield4 & ~(0x1FF << 0))
     }
-
     /**
      * This bitfield backs the following members:
      * - AccessMode
-     * @type {Integer}
      */
-    _bitfield5 {
-        get => NumGet(this, 14, "char")
-        set => NumPut("char", value, this, 14)
-    }
+    _bitfield5 : Int8
+
 
     /**
      * @type {Integer}
@@ -169,14 +141,10 @@ class WHEA_ARM_BUS_ERROR extends Win32Struct {
         get => (this._bitfield5 >> 0) & 0x1
         set => this._bitfield5 := ((value & 0x1) << 0) | (this._bitfield5 & ~(0x1 << 0))
     }
-
     /**
      * This bitfield backs the following members:
      * - Reserved
-     * @type {Integer}
      */
-    _bitfield6 {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    _bitfield6 : Int32
+
 }

@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIDevice1.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\DXGI_OFFER_RESOURCE_PRIORITY.ahk" { DXGI_OFFER_RESOURCE_PRIORITY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDXGIResource.ahk" { IDXGIResource }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDXGIDevice1.ahk" { IDXGIDevice1 }
 
 /**
  * The IDXGIDevice2 interface implements a derived class for DXGI objects that produce image data. The interface exposes methods to block CPU processing until the GPU completes processing, and to offer resources to the operating system.
@@ -27,26 +32,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nn-dxgi1_2-idxgidevice2
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGIDevice2 extends IDXGIDevice1 {
-
-    static sizeof => A_PtrSize
+export default struct IDXGIDevice2 extends IDXGIDevice1 {
     /**
      * The interface identifier for IDXGIDevice2
      * @type {Guid}
      */
-    static IID => Guid("{05008617-fbfd-4051-a790-144884b4f6a9}")
+    static IID := Guid("{05008617-fbfd-4051-a790-144884b4f6a9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGIDevice2 interfaces
+    */
+    struct Vtbl extends IDXGIDevice1.Vtbl {
+        OfferResources   : IntPtr
+        ReclaimResources : IntPtr
+        EnqueueSetEvent  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OfferResources", "ReclaimResources", "EnqueueSetEvent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGIDevice2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Allows the operating system to free the video memory of resources by discarding their content. (IDXGIDevice2.OfferResources)
@@ -74,7 +88,7 @@ class IDXGIDevice2 extends IDXGIDevice1 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgidevice2-offerresources
      */
     OfferResources(NumResources, ppResources, _Priority) {
-        result := ComCall(14, this, "uint", NumResources, "ptr*", ppResources, "int", _Priority, "HRESULT")
+        result := ComCall(14, this, "uint", NumResources, IDXGIResource.Ptr, ppResources, DXGI_OFFER_RESOURCE_PRIORITY, _Priority, "HRESULT")
         return result
     }
 
@@ -92,7 +106,7 @@ class IDXGIDevice2 extends IDXGIDevice1 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgidevice2-reclaimresources
      */
     ReclaimResources(NumResources, ppResources) {
-        result := ComCall(15, this, "uint", NumResources, "ptr*", ppResources, "int*", &pDiscarded := 0, "HRESULT")
+        result := ComCall(15, this, "uint", NumResources, IDXGIResource.Ptr, ppResources, BOOL.Ptr, &pDiscarded := 0, "HRESULT")
         return pDiscarded
     }
 
@@ -117,9 +131,31 @@ class IDXGIDevice2 extends IDXGIDevice1 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgidevice2-enqueuesetevent
      */
     EnqueueSetEvent(hEvent) {
-        hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
-
-        result := ComCall(16, this, "ptr", hEvent, "HRESULT")
+        result := ComCall(16, this, HANDLE, hEvent, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDXGIDevice2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OfferResources := CallbackCreate(GetMethod(implObj, "OfferResources"), flags, 4)
+        this.vtbl.ReclaimResources := CallbackCreate(GetMethod(implObj, "ReclaimResources"), flags, 4)
+        this.vtbl.EnqueueSetEvent := CallbackCreate(GetMethod(implObj, "EnqueueSetEvent"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OfferResources)
+        CallbackFree(this.vtbl.ReclaimResources)
+        CallbackFree(this.vtbl.EnqueueSetEvent)
     }
 }

@@ -1,60 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @charset Unicode
  */
-class RASNOUSERW extends Win32Struct {
-    static sizeof => 1072
+export default struct RASNOUSERW {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwTimeoutMs : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwTimeoutMs {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    szUserName : WCHAR[257]
 
-    /**
-     * @type {String}
-     */
-    szUserName {
-        get => StrGet(this.ptr + 12, 256, "UTF-16")
-        set => StrPut(value, this.ptr + 12, 256, "UTF-16")
-    }
+    szPassword : WCHAR[257]
 
-    /**
-     * @type {String}
-     */
-    szPassword {
-        get => StrGet(this.ptr + 526, 256, "UTF-16")
-        set => StrPut(value, this.ptr + 526, 256, "UTF-16")
-    }
+    szDomain : WCHAR[16]
 
-    /**
-     * @type {String}
-     */
-    szDomain {
-        get => StrGet(this.ptr + 1040, 15, "UTF-16")
-        set => StrPut(value, this.ptr + 1040, 15, "UTF-16")
-    }
 }

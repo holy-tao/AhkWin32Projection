@@ -1,28 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMT_DEVICE_ERROR_REASON.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DKMT_DEVICE_ERROR_REASON.ahk" { D3DKMT_DEVICE_ERROR_REASON }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_MARKDEVICEASERROR extends Win32Struct {
-    static sizeof => 8
+export default struct D3DKMT_MARKDEVICEASERROR {
+    #StructPack 4
 
-    static packingSize => 4
+    hDevice : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hDevice {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Reason : D3DKMT_DEVICE_ERROR_REASON
 
-    /**
-     * @type {D3DKMT_DEVICE_ERROR_REASON}
-     */
-    Reason {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
 }

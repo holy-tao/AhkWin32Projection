@@ -1,64 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSIDENTIFIER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSPROPERTY_TUNER_CAPS_S extends Win32Struct {
-    static sizeof => 72
+export default struct KSPROPERTY_TUNER_CAPS_S {
+    #StructPack 8
 
-    static packingSize => 8
+    Property : KSIDENTIFIER
 
-    /**
-     * @type {KSIDENTIFIER}
-     */
-    Property {
-        get {
-            if(!this.HasProp("__Property"))
-                this.__Property := KSIDENTIFIER(0, this)
-            return this.__Property
-        }
-    }
+    ModesSupported : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ModesSupported {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    VideoMedium : KSIDENTIFIER
 
-    /**
-     * @type {KSIDENTIFIER}
-     */
-    VideoMedium {
-        get {
-            if(!this.HasProp("__VideoMedium"))
-                this.__VideoMedium := KSIDENTIFIER(24, this)
-            return this.__VideoMedium
-        }
-    }
+    TVAudioMedium : KSIDENTIFIER
 
-    /**
-     * @type {KSIDENTIFIER}
-     */
-    TVAudioMedium {
-        get {
-            if(!this.HasProp("__TVAudioMedium"))
-                this.__TVAudioMedium := KSIDENTIFIER(40, this)
-            return this.__TVAudioMedium
-        }
-    }
+    RadioAudioMedium : KSIDENTIFIER
 
-    /**
-     * @type {KSIDENTIFIER}
-     */
-    RadioAudioMedium {
-        get {
-            if(!this.HasProp("__RadioAudioMedium"))
-                this.__RadioAudioMedium := KSIDENTIFIER(56, this)
-            return this.__RadioAudioMedium
-        }
-    }
 }

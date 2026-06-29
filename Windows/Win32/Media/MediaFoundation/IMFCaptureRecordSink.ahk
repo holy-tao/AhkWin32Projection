@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFCaptureSink.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFCaptureEngineOnSampleCallback.ahk" { IMFCaptureEngineOnSampleCallback }
+#Import ".\IMFMediaSink.ahk" { IMFMediaSink }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFCaptureSink.ahk" { IMFCaptureSink }
+#Import ".\IMFByteStream.ahk" { IMFByteStream }
 
 /**
  * Controls the recording sink.
@@ -21,26 +26,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nn-mfcaptureengine-imfcapturerecordsink
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFCaptureRecordSink extends IMFCaptureSink {
-
-    static sizeof => A_PtrSize
+export default struct IMFCaptureRecordSink extends IMFCaptureSink {
     /**
      * The interface identifier for IMFCaptureRecordSink
      * @type {Guid}
      */
-    static IID => Guid("{3323b55a-f92a-4fe2-8edc-e9bfc0634d77}")
+    static IID := Guid("{3323b55a-f92a-4fe2-8edc-e9bfc0634d77}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFCaptureRecordSink interfaces
+    */
+    struct Vtbl extends IMFCaptureSink.Vtbl {
+        SetOutputByteStream : IntPtr
+        SetOutputFileName   : IntPtr
+        SetSampleCallback   : IntPtr
+        SetCustomSink       : IntPtr
+        GetRotation         : IntPtr
+        SetRotation         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetOutputByteStream", "SetOutputFileName", "SetSampleCallback", "SetCustomSink", "GetRotation", "SetRotation"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFCaptureRecordSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies a byte stream that will receive the data for the recording.
@@ -52,7 +69,7 @@ class IMFCaptureRecordSink extends IMFCaptureSink {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturerecordsink-setoutputbytestream
      */
     SetOutputByteStream(pByteStream, guidContainerType) {
-        result := ComCall(8, this, "ptr", pByteStream, "ptr", guidContainerType, "HRESULT")
+        result := ComCall(8, this, "ptr", pByteStream, Guid.Ptr, guidContainerType, "HRESULT")
         return result
     }
 
@@ -121,5 +138,35 @@ class IMFCaptureRecordSink extends IMFCaptureSink {
     SetRotation(dwStreamIndex, dwRotationValue) {
         result := ComCall(13, this, "uint", dwStreamIndex, "uint", dwRotationValue, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFCaptureRecordSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetOutputByteStream := CallbackCreate(GetMethod(implObj, "SetOutputByteStream"), flags, 3)
+        this.vtbl.SetOutputFileName := CallbackCreate(GetMethod(implObj, "SetOutputFileName"), flags, 2)
+        this.vtbl.SetSampleCallback := CallbackCreate(GetMethod(implObj, "SetSampleCallback"), flags, 3)
+        this.vtbl.SetCustomSink := CallbackCreate(GetMethod(implObj, "SetCustomSink"), flags, 2)
+        this.vtbl.GetRotation := CallbackCreate(GetMethod(implObj, "GetRotation"), flags, 3)
+        this.vtbl.SetRotation := CallbackCreate(GetMethod(implObj, "SetRotation"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetOutputByteStream)
+        CallbackFree(this.vtbl.SetOutputFileName)
+        CallbackFree(this.vtbl.SetSampleCallback)
+        CallbackFree(this.vtbl.SetCustomSink)
+        CallbackFree(this.vtbl.GetRotation)
+        CallbackFree(this.vtbl.SetRotation)
     }
 }

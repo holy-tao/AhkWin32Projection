@@ -1,8 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IInspectable.ahk
-#Include ..\..\..\Graphics\Direct3D12\ID3D12Resource.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Graphics\Direct3D12\ID3D12CommandQueue.ahk" { ID3D12CommandQueue }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Graphics\Direct3D12\ID3D12ProtectedResourceSession.ahk" { ID3D12ProtectedResourceSession }
+#Import "..\..\..\Graphics\Direct3D12\ID3D12Device.ahk" { ID3D12Device }
+#Import "..\IInspectable.ahk" { IInspectable }
+#Import "..\..\..\Graphics\Direct3D12\D3D12_RESOURCE_DESC.ahk" { D3D12_RESOURCE_DESC }
+#Import "..\..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
 
 /**
  * Extends [HolographicCamera](/uwp/api/windows.graphics.holographic.holographiccamera) to allow 2D texture resources to be created and used as back buffers for holographic rendering in Direct3D 12.
@@ -50,26 +55,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.holographic.interop/nn-windows-graphics-holographic-interop-iholographiccamerainterop
  * @namespace Windows.Win32.System.WinRT.Holographic
  */
-class IHolographicCameraInterop extends IInspectable {
-
-    static sizeof => A_PtrSize
+export default struct IHolographicCameraInterop extends IInspectable {
     /**
      * The interface identifier for IHolographicCameraInterop
      * @type {Guid}
      */
-    static IID => Guid("{7cc1f9c5-6d02-41fa-9500-e1809eb48eec}")
+    static IID := Guid("{7cc1f9c5-6d02-41fa-9500-e1809eb48eec}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHolographicCameraInterop interfaces
+    */
+    struct Vtbl extends IInspectable.Vtbl {
+        CreateDirect3D12BackBufferResource                  : IntPtr
+        CreateDirect3D12HardwareProtectedBackBufferResource : IntPtr
+        AcquireDirect3D12BufferResource                     : IntPtr
+        AcquireDirect3D12BufferResourceWithTimeout          : IntPtr
+        UnacquireDirect3D12BufferResource                   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateDirect3D12BackBufferResource", "CreateDirect3D12HardwareProtectedBackBufferResource", "AcquireDirect3D12BufferResource", "AcquireDirect3D12BufferResourceWithTimeout", "UnacquireDirect3D12BufferResource"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHolographicCameraInterop.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a Direct3D 12 resource for use as a content buffer for the camera.
@@ -87,7 +103,7 @@ class IHolographicCameraInterop extends IInspectable {
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.holographic.interop/nf-windows-graphics-holographic-interop-iholographiccamerainterop-createdirect3d12backbufferresource
      */
     CreateDirect3D12BackBufferResource(pDevice, pTexture2DDesc) {
-        result := ComCall(6, this, "ptr", pDevice, "ptr", pTexture2DDesc, "ptr*", &ppCreatedTexture2DResource := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pDevice, D3D12_RESOURCE_DESC.Ptr, pTexture2DDesc, "ptr*", &ppCreatedTexture2DResource := 0, "HRESULT")
         return ID3D12Resource(ppCreatedTexture2DResource)
     }
 
@@ -110,7 +126,7 @@ class IHolographicCameraInterop extends IInspectable {
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.holographic.interop/nf-windows-graphics-holographic-interop-iholographiccamerainterop-createdirect3d12hardwareprotectedbackbufferresource
      */
     CreateDirect3D12HardwareProtectedBackBufferResource(pDevice, pTexture2DDesc, pProtectedResourceSession) {
-        result := ComCall(7, this, "ptr", pDevice, "ptr", pTexture2DDesc, "ptr", pProtectedResourceSession, "ptr*", &ppCreatedTexture2DResource := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pDevice, D3D12_RESOURCE_DESC.Ptr, pTexture2DDesc, "ptr", pProtectedResourceSession, "ptr*", &ppCreatedTexture2DResource := 0, "HRESULT")
         return ID3D12Resource(ppCreatedTexture2DResource)
     }
 
@@ -161,5 +177,33 @@ class IHolographicCameraInterop extends IInspectable {
     UnacquireDirect3D12BufferResource(pResourceToUnacquire) {
         result := ComCall(10, this, "ptr", pResourceToUnacquire, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IHolographicCameraInterop.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateDirect3D12BackBufferResource := CallbackCreate(GetMethod(implObj, "CreateDirect3D12BackBufferResource"), flags, 4)
+        this.vtbl.CreateDirect3D12HardwareProtectedBackBufferResource := CallbackCreate(GetMethod(implObj, "CreateDirect3D12HardwareProtectedBackBufferResource"), flags, 5)
+        this.vtbl.AcquireDirect3D12BufferResource := CallbackCreate(GetMethod(implObj, "AcquireDirect3D12BufferResource"), flags, 3)
+        this.vtbl.AcquireDirect3D12BufferResourceWithTimeout := CallbackCreate(GetMethod(implObj, "AcquireDirect3D12BufferResourceWithTimeout"), flags, 4)
+        this.vtbl.UnacquireDirect3D12BufferResource := CallbackCreate(GetMethod(implObj, "UnacquireDirect3D12BufferResource"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateDirect3D12BackBufferResource)
+        CallbackFree(this.vtbl.CreateDirect3D12HardwareProtectedBackBufferResource)
+        CallbackFree(this.vtbl.AcquireDirect3D12BufferResource)
+        CallbackFree(this.vtbl.AcquireDirect3D12BufferResourceWithTimeout)
+        CallbackFree(this.vtbl.UnacquireDirect3D12BufferResource)
     }
 }

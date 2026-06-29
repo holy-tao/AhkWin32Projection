@@ -1,66 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_UDP6ROW2 extends Win32Struct {
-    static sizeof => 200
+export default struct MIB_UDP6ROW2 {
+    #StructPack 8
 
-    static packingSize => 8
+    ucLocalAddr : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ucLocalAddr {
-        get {
-            if(!this.HasProp("__ucLocalAddrProxyArray"))
-                this.__ucLocalAddrProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
-            return this.__ucLocalAddrProxyArray
-        }
-    }
+    dwLocalScopeId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwLocalScopeId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwLocalPort : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwLocalPort {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwOwningPid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwOwningPid {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    liCreateTimestamp {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
+    liCreateTimestamp : Int64
 
     /**
      * This bitfield backs the following members:
      * - SpecificPortBind
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -69,50 +30,16 @@ class MIB_UDP6ROW2 extends Win32Struct {
         get => (this._bitfield >> 0) & 0x1
         set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
     }
+    OwningModuleInfo : Int64[16]
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    ucRemoteAddr : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    OwningModuleInfo {
-        get {
-            if(!this.HasProp("__OwningModuleInfoProxyArray"))
-                this.__OwningModuleInfoProxyArray := Win32FixedArray(this.ptr + 48, 16, Primitive, "uint")
-            return this.__OwningModuleInfoProxyArray
-        }
-    }
+    dwRemoteScopeId : UInt32
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ucRemoteAddr {
-        get {
-            if(!this.HasProp("__ucRemoteAddrProxyArray"))
-                this.__ucRemoteAddrProxyArray := Win32FixedArray(this.ptr + 176, 16, Primitive, "char")
-            return this.__ucRemoteAddrProxyArray
-        }
-    }
+    dwRemotePort : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwRemoteScopeId {
-        get => NumGet(this, 192, "uint")
-        set => NumPut("uint", value, this, 192)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwRemotePort {
-        get => NumGet(this, 196, "uint")
-        set => NumPut("uint", value, this, 196)
+    static __New() {
+        DefineProp(this.Prototype, 'dwFlags', { type: Int32, offset: 40 })
+        this.DeleteProp("__New")
     }
 }

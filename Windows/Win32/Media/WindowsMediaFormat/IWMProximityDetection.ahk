@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\INSSBuffer.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\INSSBuffer.ahk" { INSSBuffer }
+#Import ".\IWMStatusCallback.ahk" { IWMStatusCallback }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMProximityDetection interface validates a playback device for receiving media data.
@@ -13,26 +15,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmproximitydetection
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMProximityDetection extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMProximityDetection extends IUnknown {
     /**
      * The interface identifier for IWMProximityDetection
      * @type {Guid}
      */
-    static IID => Guid("{6a9fd8ee-b651-4bf0-b849-7d4ece79a2b1}")
+    static IID := Guid("{6a9fd8ee-b651-4bf0-b849-7d4ece79a2b1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMProximityDetection interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        StartDetection : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["StartDetection"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMProximityDetection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The StartDetection method begins the proximity detection process. After calling this method, do not release the IWMProximityDetection until you receive the WMT_PROXIMITY_COMPLETED message.
@@ -59,5 +68,25 @@ class IWMProximityDetection extends IUnknown {
 
         result := ComCall(3, this, pbRegistrationMsgMarshal, pbRegistrationMsg, "uint", cbRegistrationMsg, pbLocalAddressMarshal, pbLocalAddress, "uint", cbLocalAddress, "uint", dwExtraPortsAllowed, "ptr*", &ppRegistrationResponseMsg := 0, "ptr", pCallback, pvContextMarshal, pvContext, "HRESULT")
         return INSSBuffer(ppRegistrationResponseMsg)
+    }
+
+    Query(iid) {
+        if (IWMProximityDetection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.StartDetection := CallbackCreate(GetMethod(implObj, "StartDetection"), flags, 9)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.StartDetection)
     }
 }

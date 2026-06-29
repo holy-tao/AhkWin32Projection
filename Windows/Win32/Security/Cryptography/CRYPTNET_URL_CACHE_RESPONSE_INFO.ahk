@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * Contains response information used by the Cryptnet URL Cache (CUC) service to maintain a URL cache entry.
@@ -24,19 +24,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cryptnet_url_cache_response_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRYPTNET_URL_CACHE_RESPONSE_INFO extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct CRYPTNET_URL_CACHE_RESPONSE_INFO {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * A value that indicates whether the cache entry contains HTTP response information.
@@ -69,63 +63,32 @@ class CRYPTNET_URL_CACHE_RESPONSE_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    wResponseType {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    wResponseType : UInt16
 
     /**
      * A value that specifies a collection of flags that control server-based certificate validation response options.
-     * @type {Integer}
      */
-    wResponseFlags {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    wResponseFlags : UInt16
 
     /**
      * A <b>FILETIME</b> structure that specifies the <b>Last-Modified</b> entity-header field value  of the cached HTTP response for the URL.
-     * @type {FILETIME}
      */
-    LastModifiedTime {
-        get {
-            if(!this.HasProp("__LastModifiedTime"))
-                this.__LastModifiedTime := FILETIME(8, this)
-            return this.__LastModifiedTime
-        }
-    }
+    LastModifiedTime : FILETIME
 
     /**
      * A value that specifies the number of seconds in the <b>max-age</b> directive  of the <b>Cache-Control</b> header of the cached HTTP response for the URL.
-     * @type {Integer}
      */
-    dwMaxAge {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwMaxAge : UInt32
 
     /**
      * A pointer to a string that contains the <b>ETag</b> response-header field value of the cached HTTP response for the URL.
-     * @type {PWSTR}
      */
-    pwszETag {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pwszETag : PWSTR
 
     /**
      * A value that contains the MD5 hash of the HTTP response header values <b>Via</b>, <b>ETag</b>, and <b>Last-Modified</b>, if they exist.
-     * @type {Integer}
      */
-    dwProxyId {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwProxyId : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 40
-    }
 }

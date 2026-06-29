@@ -1,171 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\CERT_CONTEXT.ahk
-#Include ..\HCERTSTORE.ahk
-#Include ..\CRYPT_INTEGER_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import "..\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import "..\HCERTSTORE.ahk" { HCERTSTORE }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.UI
  */
-class CERT_VERIFY_CERTIFICATE_TRUST extends Win32Struct {
-    static sizeof => 144
+export default struct CERT_VERIFY_CERTIFICATE_TRUST {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pccert : CERT_CONTEXT.Ptr
 
-    /**
-     * @type {Pointer<CERT_CONTEXT>}
-     */
-    pccert {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwIgnoreErr : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwIgnoreErr {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    pdwErrors : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pdwErrors {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pszUsageOid : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    pszUsageOid {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    hprov : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    hprov {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    cRootStores : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cRootStores {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    rghstoreRoots : HCERTSTORE.Ptr
 
-    /**
-     * @type {Pointer<HCERTSTORE>}
-     */
-    rghstoreRoots {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    cStores : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cStores {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    rghstoreCAs : HCERTSTORE.Ptr
 
-    /**
-     * @type {Pointer<HCERTSTORE>}
-     */
-    rghstoreCAs {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    cTrustStores : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cTrustStores {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    rghstoreTrust : HCERTSTORE.Ptr
 
-    /**
-     * @type {Pointer<HCERTSTORE>}
-     */
-    rghstoreTrust {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    lCustData : LPARAM
 
-    /**
-     * @type {LPARAM}
-     */
-    lCustData {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    pfnTrustHelper : IntPtr
 
-    /**
-     * @type {Pointer<PFNTRUSTHELPER>}
-     */
-    pfnTrustHelper {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    pcChain : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pcChain {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    prgChain : IntPtr
 
-    /**
-     * @type {Pointer<Pointer<Pointer<CERT_CONTEXT>>>}
-     */
-    prgChain {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    prgdwErrors : IntPtr
 
-    /**
-     * @type {Pointer<Pointer<Integer>>}
-     */
-    prgdwErrors {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    prgpbTrustInfo : IntPtr
 
-    /**
-     * @type {Pointer<Pointer<CRYPT_INTEGER_BLOB>>}
-     */
-    prgpbTrustInfo {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 144
-    }
 }

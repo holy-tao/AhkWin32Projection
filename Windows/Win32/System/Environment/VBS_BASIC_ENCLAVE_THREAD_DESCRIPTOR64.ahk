@@ -1,62 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Environment
  */
-class VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR64 extends Win32Struct {
-    static sizeof => 72
+export default struct VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR64 {
+    #StructPack 8
 
-    static packingSize => 8
+    ThreadContext : Int64[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ThreadContext {
-        get {
-            if(!this.HasProp("__ThreadContextProxyArray"))
-                this.__ThreadContextProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "uint")
-            return this.__ThreadContextProxyArray
-        }
-    }
+    EntryPoint : Int64
 
-    /**
-     * @type {Integer}
-     */
-    EntryPoint {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    StackPointer : Int64
 
-    /**
-     * @type {Integer}
-     */
-    StackPointer {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ExceptionEntryPoint : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ExceptionEntryPoint {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    ExceptionStack : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ExceptionStack {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    ExceptionActive : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ExceptionActive {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
 }

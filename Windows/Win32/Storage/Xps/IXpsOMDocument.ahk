@@ -1,12 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMPart.ahk
-#Include .\IXpsOMDocumentSequence.ahk
-#Include .\IXpsOMPageReferenceCollection.ahk
-#Include .\IXpsOMPrintTicketResource.ahk
-#Include .\IXpsOMDocumentStructureResource.ahk
-#Include .\IXpsOMSignatureBlockResourceCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IXpsOMDocumentStructureResource.ahk" { IXpsOMDocumentStructureResource }
+#Import ".\IXpsOMPageReferenceCollection.ahk" { IXpsOMPageReferenceCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsOMPrintTicketResource.ahk" { IXpsOMPrintTicketResource }
+#Import ".\IXpsOMDocumentSequence.ahk" { IXpsOMDocumentSequence }
+#Import ".\IXpsOMPart.ahk" { IXpsOMPart }
+#Import ".\IXpsOMSignatureBlockResourceCollection.ahk" { IXpsOMSignatureBlockResourceCollection }
 
 /**
  * An ordered sequence of fixed pages and document-level resources that make up the document.
@@ -57,26 +58,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdocument
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMDocument extends IXpsOMPart {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMDocument extends IXpsOMPart {
     /**
      * The interface identifier for IXpsOMDocument
      * @type {Guid}
      */
-    static IID => Guid("{2c2c94cb-ac5f-4254-8ee9-23948309d9f0}")
+    static IID := Guid("{2c2c94cb-ac5f-4254-8ee9-23948309d9f0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMDocument interfaces
+    */
+    struct Vtbl extends IXpsOMPart.Vtbl {
+        GetOwner                     : IntPtr
+        GetPageReferences            : IntPtr
+        GetPrintTicketResource       : IntPtr
+        SetPrintTicketResource       : IntPtr
+        GetDocumentStructureResource : IntPtr
+        SetDocumentStructureResource : IntPtr
+        GetSignatureBlockResources   : IntPtr
+        Clone                        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetOwner", "GetPageReferences", "GetPrintTicketResource", "SetPrintTicketResource", "GetDocumentStructureResource", "SetDocumentStructureResource", "GetSignatureBlockResources", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMDocument.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a pointer to the IXpsOMDocumentSequence interface that contains the document.
@@ -236,5 +251,39 @@ class IXpsOMDocument extends IXpsOMPart {
     Clone() {
         result := ComCall(12, this, "ptr*", &_document := 0, "HRESULT")
         return IXpsOMDocument(_document)
+    }
+
+    Query(iid) {
+        if (IXpsOMDocument.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetOwner := CallbackCreate(GetMethod(implObj, "GetOwner"), flags, 2)
+        this.vtbl.GetPageReferences := CallbackCreate(GetMethod(implObj, "GetPageReferences"), flags, 2)
+        this.vtbl.GetPrintTicketResource := CallbackCreate(GetMethod(implObj, "GetPrintTicketResource"), flags, 2)
+        this.vtbl.SetPrintTicketResource := CallbackCreate(GetMethod(implObj, "SetPrintTicketResource"), flags, 2)
+        this.vtbl.GetDocumentStructureResource := CallbackCreate(GetMethod(implObj, "GetDocumentStructureResource"), flags, 2)
+        this.vtbl.SetDocumentStructureResource := CallbackCreate(GetMethod(implObj, "SetDocumentStructureResource"), flags, 2)
+        this.vtbl.GetSignatureBlockResources := CallbackCreate(GetMethod(implObj, "GetSignatureBlockResources"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetOwner)
+        CallbackFree(this.vtbl.GetPageReferences)
+        CallbackFree(this.vtbl.GetPrintTicketResource)
+        CallbackFree(this.vtbl.SetPrintTicketResource)
+        CallbackFree(this.vtbl.GetDocumentStructureResource)
+        CallbackFree(this.vtbl.SetDocumentStructureResource)
+        CallbackFree(this.vtbl.GetSignatureBlockResources)
+        CallbackFree(this.vtbl.Clone)
     }
 }

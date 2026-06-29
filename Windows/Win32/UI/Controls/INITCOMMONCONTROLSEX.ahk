@@ -1,34 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\INITCOMMONCONTROLSEX_ICC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\INITCOMMONCONTROLSEX_ICC.ahk" { INITCOMMONCONTROLSEX_ICC }
 
 /**
  * Carries information used to load common control classes from the dynamic-link library (DLL). This structure is used with the InitCommonControlsEx function.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-initcommoncontrolsex
  * @namespace Windows.Win32.UI.Controls
  */
-class INITCOMMONCONTROLSEX extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct INITCOMMONCONTROLSEX {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * The size of the structure, in bytes.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {INITCOMMONCONTROLSEX_ICC}
      */
-    dwICC {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwICC : INITCOMMONCONTROLSEX_ICC
+
 }

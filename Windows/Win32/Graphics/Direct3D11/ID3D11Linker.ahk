@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Direct3D\ID3DBlob.ahk" { ID3DBlob }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ID3D11ModuleInstance.ahk" { ID3D11ModuleInstance }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * A linker interface is used to link a shader module.
@@ -15,26 +19,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nn-d3d11shader-id3d11linker
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3D11Linker extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11Linker extends IUnknown {
     /**
      * The interface identifier for ID3D11Linker
      * @type {Guid}
      */
-    static IID => Guid("{59a6cd0e-e10d-4c1f-88c0-63aba1daf30e}")
+    static IID := Guid("{59a6cd0e-e10d-4c1f-88c0-63aba1daf30e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11Linker interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Link                    : IntPtr
+        UseLibrary              : IntPtr
+        AddClipPlaneFromCBuffer : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Link", "UseLibrary", "AddClipPlaneFromCBuffer"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11Linker.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Links the shader and produces a shader blob that the Direct3D runtime can use.
@@ -65,7 +78,7 @@ class ID3D11Linker extends IUnknown {
         pEntryName := pEntryName is String ? StrPtr(pEntryName) : pEntryName
         pTargetName := pTargetName is String ? StrPtr(pTargetName) : pTargetName
 
-        result := ComCall(3, this, "ptr", pEntry, "ptr", pEntryName, "ptr", pTargetName, "uint", uFlags, "ptr*", ppShaderBlob, "ptr*", ppErrorBuffer, "HRESULT")
+        result := ComCall(3, this, "ptr", pEntry, "ptr", pEntryName, "ptr", pTargetName, "uint", uFlags, ID3DBlob.Ptr, ppShaderBlob, ID3DBlob.Ptr, ppErrorBuffer, "HRESULT")
         return result
     }
 
@@ -100,5 +113,29 @@ class ID3D11Linker extends IUnknown {
     AddClipPlaneFromCBuffer(uCBufferSlot, uCBufferEntry) {
         result := ComCall(5, this, "uint", uCBufferSlot, "uint", uCBufferEntry, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID3D11Linker.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Link := CallbackCreate(GetMethod(implObj, "Link"), flags, 7)
+        this.vtbl.UseLibrary := CallbackCreate(GetMethod(implObj, "UseLibrary"), flags, 2)
+        this.vtbl.AddClipPlaneFromCBuffer := CallbackCreate(GetMethod(implObj, "AddClipPlaneFromCBuffer"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Link)
+        CallbackFree(this.vtbl.UseLibrary)
+        CallbackFree(this.vtbl.AddClipPlaneFromCBuffer)
     }
 }

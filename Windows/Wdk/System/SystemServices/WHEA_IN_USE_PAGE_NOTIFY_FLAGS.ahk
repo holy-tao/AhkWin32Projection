@@ -1,30 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_IN_USE_PAGE_NOTIFY_FLAGS extends Win32Struct {
-    static sizeof => 2
+export default struct WHEA_IN_USE_PAGE_NOTIFY_FLAGS {
+    #StructPack 1
 
-    static packingSize => 1
 
-    class _Bits extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _Bits {
         /**
          * This bitfield backs the following members:
          * - PlatformDirected
          * - Reserved
          * - NotifyAllOfflines
          * - PageOfflined
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -51,22 +43,10 @@ class WHEA_IN_USE_PAGE_NOTIFY_FLAGS extends Win32Struct {
         }
     }
 
-    /**
-     * @type {_Bits}
-     */
-    Bits {
-        get {
-            if(!this.HasProp("__Bits"))
-                this.__Bits := WHEA_IN_USE_PAGE_NOTIFY_FLAGS._Bits(0, this)
-            return this.__Bits
-        }
-    }
+    Bits : WHEA_IN_USE_PAGE_NOTIFY_FLAGS._Bits
 
-    /**
-     * @type {Integer}
-     */
-    AsUCHAR {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'AsUCHAR', { type: Int8, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

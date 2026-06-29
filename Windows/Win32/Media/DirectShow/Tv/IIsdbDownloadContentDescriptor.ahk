@@ -1,34 +1,60 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DVB_STRCONV_MODE.ahk" { DVB_STRCONV_MODE }
 
 /**
  * Implements methods that get data from an Integrated Services Digital Broadcasting (ISDB) download content descriptor.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-iisdbdownloadcontentdescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IIsdbDownloadContentDescriptor extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IIsdbDownloadContentDescriptor extends IUnknown {
     /**
      * The interface identifier for IIsdbDownloadContentDescriptor
      * @type {Guid}
      */
-    static IID => Guid("{5298661e-cb88-4f5f-a1de-5f440c185b92}")
+    static IID := Guid("{5298661e-cb88-4f5f-a1de-5f440c185b92}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IIsdbDownloadContentDescriptor interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetTag                          : IntPtr
+        GetLength                       : IntPtr
+        GetFlags                        : IntPtr
+        GetComponentSize                : IntPtr
+        GetDownloadId                   : IntPtr
+        GetTimeOutValueDII              : IntPtr
+        GetLeakRate                     : IntPtr
+        GetComponentTag                 : IntPtr
+        GetCompatiblityDescriptorLength : IntPtr
+        GetCompatiblityDescriptor       : IntPtr
+        GetCountOfRecords               : IntPtr
+        GetRecordModuleId               : IntPtr
+        GetRecordModuleSize             : IntPtr
+        GetRecordModuleInfoLength       : IntPtr
+        GetRecordModuleInfo             : IntPtr
+        GetTextLanguageCode             : IntPtr
+        GetTextW                        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetTag", "GetLength", "GetFlags", "GetComponentSize", "GetDownloadId", "GetTimeOutValueDII", "GetLeakRate", "GetComponentTag", "GetCompatiblityDescriptorLength", "GetCompatiblityDescriptor", "GetCountOfRecords", "GetRecordModuleId", "GetRecordModuleSize", "GetRecordModuleInfoLength", "GetRecordModuleInfo", "GetTextLanguageCode", "GetTextW"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IIsdbDownloadContentDescriptor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the tag that identifies an Integrated Services Digital Broadcasting (ISDB) download content descriptor.
@@ -216,8 +242,60 @@ class IIsdbDownloadContentDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-gettextw
      */
     GetTextW(convMode) {
-        pbstrName := BSTR()
-        result := ComCall(19, this, "int", convMode, "ptr", pbstrName, "HRESULT")
+        pbstrName := BSTR.Owned()
+        result := ComCall(19, this, DVB_STRCONV_MODE, convMode, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
+    }
+
+    Query(iid) {
+        if (IIsdbDownloadContentDescriptor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 6)
+        this.vtbl.GetComponentSize := CallbackCreate(GetMethod(implObj, "GetComponentSize"), flags, 2)
+        this.vtbl.GetDownloadId := CallbackCreate(GetMethod(implObj, "GetDownloadId"), flags, 2)
+        this.vtbl.GetTimeOutValueDII := CallbackCreate(GetMethod(implObj, "GetTimeOutValueDII"), flags, 2)
+        this.vtbl.GetLeakRate := CallbackCreate(GetMethod(implObj, "GetLeakRate"), flags, 2)
+        this.vtbl.GetComponentTag := CallbackCreate(GetMethod(implObj, "GetComponentTag"), flags, 2)
+        this.vtbl.GetCompatiblityDescriptorLength := CallbackCreate(GetMethod(implObj, "GetCompatiblityDescriptorLength"), flags, 2)
+        this.vtbl.GetCompatiblityDescriptor := CallbackCreate(GetMethod(implObj, "GetCompatiblityDescriptor"), flags, 2)
+        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordModuleId := CallbackCreate(GetMethod(implObj, "GetRecordModuleId"), flags, 3)
+        this.vtbl.GetRecordModuleSize := CallbackCreate(GetMethod(implObj, "GetRecordModuleSize"), flags, 3)
+        this.vtbl.GetRecordModuleInfoLength := CallbackCreate(GetMethod(implObj, "GetRecordModuleInfoLength"), flags, 3)
+        this.vtbl.GetRecordModuleInfo := CallbackCreate(GetMethod(implObj, "GetRecordModuleInfo"), flags, 3)
+        this.vtbl.GetTextLanguageCode := CallbackCreate(GetMethod(implObj, "GetTextLanguageCode"), flags, 2)
+        this.vtbl.GetTextW := CallbackCreate(GetMethod(implObj, "GetTextW"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetTag)
+        CallbackFree(this.vtbl.GetLength)
+        CallbackFree(this.vtbl.GetFlags)
+        CallbackFree(this.vtbl.GetComponentSize)
+        CallbackFree(this.vtbl.GetDownloadId)
+        CallbackFree(this.vtbl.GetTimeOutValueDII)
+        CallbackFree(this.vtbl.GetLeakRate)
+        CallbackFree(this.vtbl.GetComponentTag)
+        CallbackFree(this.vtbl.GetCompatiblityDescriptorLength)
+        CallbackFree(this.vtbl.GetCompatiblityDescriptor)
+        CallbackFree(this.vtbl.GetCountOfRecords)
+        CallbackFree(this.vtbl.GetRecordModuleId)
+        CallbackFree(this.vtbl.GetRecordModuleSize)
+        CallbackFree(this.vtbl.GetRecordModuleInfoLength)
+        CallbackFree(this.vtbl.GetRecordModuleInfo)
+        CallbackFree(this.vtbl.GetTextLanguageCode)
+        CallbackFree(this.vtbl.GetTextW)
     }
 }

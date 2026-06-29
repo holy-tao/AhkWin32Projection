@@ -1,71 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MODIFY_VHDSET_VERSION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MODIFY_VHDSET_VERSION.ahk" { MODIFY_VHDSET_VERSION }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains VHD Set modification parameters, indicating how the VHD Set should be altered.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-modify_vhdset_parameters
  * @namespace Windows.Win32.Storage.Vhd
  */
-class MODIFY_VHDSET_PARAMETERS extends Win32Struct {
-    static sizeof => 24
+export default struct MODIFY_VHDSET_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
+
+    struct _SnapshotPath {
+        SnapshotId : Guid
+
+        SnapshotFilePath : PWSTR
+
+    }
 
     /**
      * A value from the MODIFY_VHDSET_VERSION enumeration that determines that is the discriminant for the union.
-     * @type {MODIFY_VHDSET_VERSION}
      */
-    Version {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Version : MODIFY_VHDSET_VERSION
 
-    class _SnapshotPath extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    SnapshotPath : MODIFY_VHDSET_PARAMETERS._SnapshotPath
 
-        /**
-         * @type {Pointer}
-         */
-        SnapshotId {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {PWSTR}
-         */
-        SnapshotFilePath {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
-    }
-
-    /**
-     * @type {_SnapshotPath}
-     */
-    SnapshotPath {
-        get {
-            if(!this.HasProp("__SnapshotPath"))
-                this.__SnapshotPath := MODIFY_VHDSET_PARAMETERS._SnapshotPath(8, this)
-            return this.__SnapshotPath
-        }
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    SnapshotId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {PWSTR}
-     */
-    DefaultFilePath {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'SnapshotId', { type: Guid, offset: 8 })
+        DefineProp(this.Prototype, 'DefaultFilePath', { type: PWSTR, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

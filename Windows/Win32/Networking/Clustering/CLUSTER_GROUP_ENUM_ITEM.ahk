@@ -1,132 +1,79 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSTER_GROUP_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CLUSTER_GROUP_STATE.ahk" { CLUSTER_GROUP_STATE }
 
 /**
  * The CLUSTER_GROUP_ENUM_ITEM structure contains the properties of a cluster group. (CLUSTER_GROUP_ENUM_ITEM)
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ns-msclus-cluster_group_enum_item
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUSTER_GROUP_ENUM_ITEM extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct CLUSTER_GROUP_ENUM_ITEM {
+    #StructPack 8
 
     /**
      * The version of the 
      *       <b>CLUSTER_GROUP_ENUM_ITEM</b> structure.
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
     /**
      * The size, in bytes, of the <b>lpszId</b> field.
-     * @type {Integer}
      */
-    cbId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cbId : UInt32
 
     /**
      * The Id of the cluster group.
-     * @type {PWSTR}
      */
-    lpszId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpszId : PWSTR
 
     /**
      * The size, in bytes, of the <b>IpszName</b> field.
-     * @type {Integer}
      */
-    cbName {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cbName : UInt32
 
     /**
      * The name of the cluster group.
-     * @type {PWSTR}
      */
-    lpszName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpszName : PWSTR
 
     /**
      * The current state of the cluster group.
-     * @type {CLUSTER_GROUP_STATE}
      */
-    state {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    state : CLUSTER_GROUP_STATE
 
     /**
      * The size, in bytes, of the <b>IpszOwnerNode</b> field.
-     * @type {Integer}
      */
-    cbOwnerNode {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    cbOwnerNode : UInt32
 
     /**
      * The name of the cluster node hosting the group.
-     * @type {PWSTR}
      */
-    lpszOwnerNode {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lpszOwnerNode : PWSTR
 
     /**
      * The group flags.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwFlags : UInt32
 
     /**
      * The size, in bytes, of the <b>pProperties</b> field.
-     * @type {Integer}
      */
-    cbProperties {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    cbProperties : UInt32
 
     /**
      * A pointer to a list of names of common properties.
-     * @type {Pointer<Void>}
      */
-    pProperties {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pProperties : IntPtr
 
     /**
      * The size, in bytes, of the <b>pRoProperties</b> field.
-     * @type {Integer}
      */
-    cbRoProperties {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    cbRoProperties : UInt32
 
     /**
      * A pointer to a list of names of read-only common properties.
-     * @type {Pointer<Void>}
      */
-    pRoProperties {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    pRoProperties : IntPtr
+
 }

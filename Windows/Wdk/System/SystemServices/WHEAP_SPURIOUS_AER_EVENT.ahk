@@ -1,68 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHEA_ERROR_SEVERITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WHEA_ERROR_SEVERITY.ahk" { WHEA_ERROR_SEVERITY }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEAP_SPURIOUS_AER_EVENT extends Win32Struct {
-    static sizeof => 32
+export default struct WHEAP_SPURIOUS_AER_EVENT {
+    #StructPack 8
 
-    static packingSize => 8
+    WheaEventLogEntry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    WheaEventLogEntry {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ErrorSeverity : WHEA_ERROR_SEVERITY
 
-    /**
-     * @type {WHEA_ERROR_SEVERITY}
-     */
-    ErrorSeverity {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    ErrorHandlerType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ErrorHandlerType {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    SpuriousErrorSourceId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SpuriousErrorSourceId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    RootErrorCommand : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RootErrorCommand {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    RootErrorStatus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RootErrorStatus {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    DeviceAssociationBitmap : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DeviceAssociationBitmap {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
 }

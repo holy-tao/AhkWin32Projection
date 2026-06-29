@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\System\Com\IUri.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\System\Com\IUri.ahk" { IUri }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Represents package settings used to create a package.
@@ -15,30 +15,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/ns-appxpackaging-appx_package_settings
  * @namespace Windows.Win32.Storage.Packaging.Appx
  */
-class APPX_PACKAGE_SETTINGS extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct APPX_PACKAGE_SETTINGS {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if the package is created as Zip32; <b>FALSE</b> if the package is created as Zip64. The default is Zip64.
-     * @type {BOOL}
      */
-    forceZip32 {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    forceZip32 : BOOL
 
     /**
      * Type: <b><b>IUri</b>*</b>
      * 
      * The hash algorithm URI to use for the block map of the package.
-     * @type {IUri}
      */
-    hashMethod {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    hashMethod : IUri
+
 }

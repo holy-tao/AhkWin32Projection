@@ -1,9 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\IMMDevice.ahk
-#Include ..\AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE.ahk
-#Include ..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
-#Include ..\..\..\Foundation\PROPERTYKEY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE.ahk" { AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE }
+#Import "..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
+#Import "..\IMMDevice.ahk" { IMMDevice }
+#Import "..\..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Represents a system audio effect APO notification.
@@ -12,56 +12,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/ns-audioengineextensionapo-audio_systemeffects_property_change_notification
  * @namespace Windows.Win32.Media.Audio.Apo
  */
-class AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION {
+    #StructPack 8
 
     /**
      * An [IMMDevice](../mmdeviceapi/nn-mmdeviceapi-immdevice.md) representing the audio endpoint associated with the notification.
-     * @type {IMMDevice}
      */
-    endpoint {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    endpoint : IMMDevice
 
     /**
      * A GUID identifying the APO property store associated with the notification.
-     * @type {Pointer}
      */
-    propertyStoreContext {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    propertyStoreContext : Guid
 
     /**
      * A value from the [AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE](../mmdeviceapi/ne-mmdeviceapi-audio_systemeffects_propertystore_type.md) enumeration specifying the type of the property store associated with the notification.
-     * @type {AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE}
      */
-    propertyStoreType {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    propertyStoreType : AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE
 
     /**
      * An [IPropertyStore](../propsys/nn-propsys-ipropertystore.md) representing the property store associated with the notification.
-     * @type {IPropertyStore}
      */
-    propertyStore {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    propertyStore : IPropertyStore
 
     /**
      * A [PROPERTYKEY](/windows/win32/api/wtypes/ns-wtypes-propertykey) structure identifying the property associated with the notification.
-     * @type {PROPERTYKEY}
      */
-    propertyKey {
-        get {
-            if(!this.HasProp("__propertyKey"))
-                this.__propertyKey := PROPERTYKEY(32, this)
-            return this.__propertyKey
-        }
-    }
+    propertyKey : PROPERTYKEY
+
 }

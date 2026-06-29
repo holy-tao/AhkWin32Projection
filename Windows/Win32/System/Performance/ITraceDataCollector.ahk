@@ -1,10 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDataCollector.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ITraceDataProviderCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ClockType.ahk" { ClockType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ITraceDataProviderCollection.ahk" { ITraceDataProviderCollection }
+#Import ".\StreamMode.ahk" { StreamMode }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IDataCollector.ahk" { IDataCollector }
 
 /**
  * Collects trace events from registered providers.This interface defines the trace session.
@@ -66,26 +69,72 @@
  * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-itracedatacollector
  * @namespace Windows.Win32.System.Performance
  */
-class ITraceDataCollector extends IDataCollector {
-
-    static sizeof => A_PtrSize
+export default struct ITraceDataCollector extends IDataCollector {
     /**
      * The interface identifier for ITraceDataCollector
      * @type {Guid}
      */
-    static IID => Guid("{0383750b-098b-11d8-9414-505054503030}")
+    static IID := Guid("{0383750b-098b-11d8-9414-505054503030}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 32
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITraceDataCollector interfaces
+    */
+    struct Vtbl extends IDataCollector.Vtbl {
+        get_BufferSize          : IntPtr
+        put_BufferSize          : IntPtr
+        get_BuffersLost         : IntPtr
+        put_BuffersLost         : IntPtr
+        get_BuffersWritten      : IntPtr
+        put_BuffersWritten      : IntPtr
+        get_ClockType           : IntPtr
+        put_ClockType           : IntPtr
+        get_EventsLost          : IntPtr
+        put_EventsLost          : IntPtr
+        get_ExtendedModes       : IntPtr
+        put_ExtendedModes       : IntPtr
+        get_FlushTimer          : IntPtr
+        put_FlushTimer          : IntPtr
+        get_FreeBuffers         : IntPtr
+        put_FreeBuffers         : IntPtr
+        get_Guid                : IntPtr
+        put_Guid                : IntPtr
+        get_IsKernelTrace       : IntPtr
+        get_MaximumBuffers      : IntPtr
+        put_MaximumBuffers      : IntPtr
+        get_MinimumBuffers      : IntPtr
+        put_MinimumBuffers      : IntPtr
+        get_NumberOfBuffers     : IntPtr
+        put_NumberOfBuffers     : IntPtr
+        get_PreallocateFile     : IntPtr
+        put_PreallocateFile     : IntPtr
+        get_ProcessMode         : IntPtr
+        put_ProcessMode         : IntPtr
+        get_RealTimeBuffersLost : IntPtr
+        put_RealTimeBuffersLost : IntPtr
+        get_SessionId           : IntPtr
+        put_SessionId           : IntPtr
+        get_SessionName         : IntPtr
+        put_SessionName         : IntPtr
+        get_SessionThreadId     : IntPtr
+        put_SessionThreadId     : IntPtr
+        get_StreamMode          : IntPtr
+        put_StreamMode          : IntPtr
+        get_TraceDataProviders  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_BufferSize", "put_BufferSize", "get_BuffersLost", "put_BuffersLost", "get_BuffersWritten", "put_BuffersWritten", "get_ClockType", "put_ClockType", "get_EventsLost", "put_EventsLost", "get_ExtendedModes", "put_ExtendedModes", "get_FlushTimer", "put_FlushTimer", "get_FreeBuffers", "put_FreeBuffers", "get_Guid", "put_Guid", "get_IsKernelTrace", "get_MaximumBuffers", "put_MaximumBuffers", "get_MinimumBuffers", "put_MinimumBuffers", "get_NumberOfBuffers", "put_NumberOfBuffers", "get_PreallocateFile", "put_PreallocateFile", "get_ProcessMode", "put_ProcessMode", "get_RealTimeBuffersLost", "put_RealTimeBuffersLost", "get_SessionId", "put_SessionId", "get_SessionName", "put_SessionName", "get_SessionThreadId", "put_SessionThreadId", "get_StreamMode", "put_StreamMode", "get_TraceDataProviders"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITraceDataCollector.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -331,7 +380,7 @@ class ITraceDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-put_clocktype
      */
     put_ClockType(clock) {
-        result := ComCall(39, this, "int", clock, "HRESULT")
+        result := ComCall(39, this, ClockType, clock, "HRESULT")
         return result
     }
 
@@ -538,7 +587,7 @@ class ITraceDataCollector extends IDataCollector {
      */
     get_Guid() {
         guid := Guid()
-        result := ComCall(48, this, "ptr", guid, "HRESULT")
+        result := ComCall(48, this, Guid.Ptr, guid, "HRESULT")
         return guid
     }
 
@@ -549,7 +598,7 @@ class ITraceDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-put_guid
      */
     put_Guid(guid) {
-        result := ComCall(49, this, "ptr", guid, "HRESULT")
+        result := ComCall(49, this, Guid, guid, "HRESULT")
         return result
     }
 
@@ -559,7 +608,7 @@ class ITraceDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_iskerneltrace
      */
     get_IsKernelTrace() {
-        result := ComCall(50, this, "short*", &kernel := 0, "HRESULT")
+        result := ComCall(50, this, VARIANT_BOOL.Ptr, &kernel := 0, "HRESULT")
         return kernel
     }
 
@@ -632,7 +681,7 @@ class ITraceDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_preallocatefile
      */
     get_PreallocateFile() {
-        result := ComCall(57, this, "short*", &allocate := 0, "HRESULT")
+        result := ComCall(57, this, VARIANT_BOOL.Ptr, &allocate := 0, "HRESULT")
         return allocate
     }
 
@@ -643,7 +692,7 @@ class ITraceDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-put_preallocatefile
      */
     put_PreallocateFile(allocate) {
-        result := ComCall(58, this, "short", allocate, "HRESULT")
+        result := ComCall(58, this, VARIANT_BOOL, allocate, "HRESULT")
         return result
     }
 
@@ -655,7 +704,7 @@ class ITraceDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_processmode
      */
     get_ProcessMode() {
-        result := ComCall(59, this, "short*", &process := 0, "HRESULT")
+        result := ComCall(59, this, VARIANT_BOOL.Ptr, &process := 0, "HRESULT")
         return process
     }
 
@@ -668,7 +717,7 @@ class ITraceDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-put_processmode
      */
     put_ProcessMode(process) {
-        result := ComCall(60, this, "short", process, "HRESULT")
+        result := ComCall(60, this, VARIANT_BOOL, process, "HRESULT")
         return result
     }
 
@@ -718,8 +767,8 @@ class ITraceDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_sessionname
      */
     get_SessionName() {
-        name := BSTR()
-        result := ComCall(65, this, "ptr", name, "HRESULT")
+        name := BSTR.Owned()
+        result := ComCall(65, this, BSTR.Ptr, name, "HRESULT")
         return name
     }
 
@@ -732,7 +781,7 @@ class ITraceDataCollector extends IDataCollector {
     put_SessionName(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(66, this, "ptr", name, "HRESULT")
+        result := ComCall(66, this, BSTR, name, "HRESULT")
         return result
     }
 
@@ -773,7 +822,7 @@ class ITraceDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-put_streammode
      */
     put_StreamMode(_mode) {
-        result := ComCall(70, this, "int", _mode, "HRESULT")
+        result := ComCall(70, this, StreamMode, _mode, "HRESULT")
         return result
     }
 
@@ -787,5 +836,103 @@ class ITraceDataCollector extends IDataCollector {
     get_TraceDataProviders() {
         result := ComCall(71, this, "ptr*", &providers := 0, "HRESULT")
         return ITraceDataProviderCollection(providers)
+    }
+
+    Query(iid) {
+        if (ITraceDataCollector.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_BufferSize := CallbackCreate(GetMethod(implObj, "get_BufferSize"), flags, 2)
+        this.vtbl.put_BufferSize := CallbackCreate(GetMethod(implObj, "put_BufferSize"), flags, 2)
+        this.vtbl.get_BuffersLost := CallbackCreate(GetMethod(implObj, "get_BuffersLost"), flags, 2)
+        this.vtbl.put_BuffersLost := CallbackCreate(GetMethod(implObj, "put_BuffersLost"), flags, 2)
+        this.vtbl.get_BuffersWritten := CallbackCreate(GetMethod(implObj, "get_BuffersWritten"), flags, 2)
+        this.vtbl.put_BuffersWritten := CallbackCreate(GetMethod(implObj, "put_BuffersWritten"), flags, 2)
+        this.vtbl.get_ClockType := CallbackCreate(GetMethod(implObj, "get_ClockType"), flags, 2)
+        this.vtbl.put_ClockType := CallbackCreate(GetMethod(implObj, "put_ClockType"), flags, 2)
+        this.vtbl.get_EventsLost := CallbackCreate(GetMethod(implObj, "get_EventsLost"), flags, 2)
+        this.vtbl.put_EventsLost := CallbackCreate(GetMethod(implObj, "put_EventsLost"), flags, 2)
+        this.vtbl.get_ExtendedModes := CallbackCreate(GetMethod(implObj, "get_ExtendedModes"), flags, 2)
+        this.vtbl.put_ExtendedModes := CallbackCreate(GetMethod(implObj, "put_ExtendedModes"), flags, 2)
+        this.vtbl.get_FlushTimer := CallbackCreate(GetMethod(implObj, "get_FlushTimer"), flags, 2)
+        this.vtbl.put_FlushTimer := CallbackCreate(GetMethod(implObj, "put_FlushTimer"), flags, 2)
+        this.vtbl.get_FreeBuffers := CallbackCreate(GetMethod(implObj, "get_FreeBuffers"), flags, 2)
+        this.vtbl.put_FreeBuffers := CallbackCreate(GetMethod(implObj, "put_FreeBuffers"), flags, 2)
+        this.vtbl.get_Guid := CallbackCreate(GetMethod(implObj, "get_Guid"), flags, 2)
+        this.vtbl.put_Guid := CallbackCreate(GetMethod(implObj, "put_Guid"), flags, 2)
+        this.vtbl.get_IsKernelTrace := CallbackCreate(GetMethod(implObj, "get_IsKernelTrace"), flags, 2)
+        this.vtbl.get_MaximumBuffers := CallbackCreate(GetMethod(implObj, "get_MaximumBuffers"), flags, 2)
+        this.vtbl.put_MaximumBuffers := CallbackCreate(GetMethod(implObj, "put_MaximumBuffers"), flags, 2)
+        this.vtbl.get_MinimumBuffers := CallbackCreate(GetMethod(implObj, "get_MinimumBuffers"), flags, 2)
+        this.vtbl.put_MinimumBuffers := CallbackCreate(GetMethod(implObj, "put_MinimumBuffers"), flags, 2)
+        this.vtbl.get_NumberOfBuffers := CallbackCreate(GetMethod(implObj, "get_NumberOfBuffers"), flags, 2)
+        this.vtbl.put_NumberOfBuffers := CallbackCreate(GetMethod(implObj, "put_NumberOfBuffers"), flags, 2)
+        this.vtbl.get_PreallocateFile := CallbackCreate(GetMethod(implObj, "get_PreallocateFile"), flags, 2)
+        this.vtbl.put_PreallocateFile := CallbackCreate(GetMethod(implObj, "put_PreallocateFile"), flags, 2)
+        this.vtbl.get_ProcessMode := CallbackCreate(GetMethod(implObj, "get_ProcessMode"), flags, 2)
+        this.vtbl.put_ProcessMode := CallbackCreate(GetMethod(implObj, "put_ProcessMode"), flags, 2)
+        this.vtbl.get_RealTimeBuffersLost := CallbackCreate(GetMethod(implObj, "get_RealTimeBuffersLost"), flags, 2)
+        this.vtbl.put_RealTimeBuffersLost := CallbackCreate(GetMethod(implObj, "put_RealTimeBuffersLost"), flags, 2)
+        this.vtbl.get_SessionId := CallbackCreate(GetMethod(implObj, "get_SessionId"), flags, 2)
+        this.vtbl.put_SessionId := CallbackCreate(GetMethod(implObj, "put_SessionId"), flags, 2)
+        this.vtbl.get_SessionName := CallbackCreate(GetMethod(implObj, "get_SessionName"), flags, 2)
+        this.vtbl.put_SessionName := CallbackCreate(GetMethod(implObj, "put_SessionName"), flags, 2)
+        this.vtbl.get_SessionThreadId := CallbackCreate(GetMethod(implObj, "get_SessionThreadId"), flags, 2)
+        this.vtbl.put_SessionThreadId := CallbackCreate(GetMethod(implObj, "put_SessionThreadId"), flags, 2)
+        this.vtbl.get_StreamMode := CallbackCreate(GetMethod(implObj, "get_StreamMode"), flags, 2)
+        this.vtbl.put_StreamMode := CallbackCreate(GetMethod(implObj, "put_StreamMode"), flags, 2)
+        this.vtbl.get_TraceDataProviders := CallbackCreate(GetMethod(implObj, "get_TraceDataProviders"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_BufferSize)
+        CallbackFree(this.vtbl.put_BufferSize)
+        CallbackFree(this.vtbl.get_BuffersLost)
+        CallbackFree(this.vtbl.put_BuffersLost)
+        CallbackFree(this.vtbl.get_BuffersWritten)
+        CallbackFree(this.vtbl.put_BuffersWritten)
+        CallbackFree(this.vtbl.get_ClockType)
+        CallbackFree(this.vtbl.put_ClockType)
+        CallbackFree(this.vtbl.get_EventsLost)
+        CallbackFree(this.vtbl.put_EventsLost)
+        CallbackFree(this.vtbl.get_ExtendedModes)
+        CallbackFree(this.vtbl.put_ExtendedModes)
+        CallbackFree(this.vtbl.get_FlushTimer)
+        CallbackFree(this.vtbl.put_FlushTimer)
+        CallbackFree(this.vtbl.get_FreeBuffers)
+        CallbackFree(this.vtbl.put_FreeBuffers)
+        CallbackFree(this.vtbl.get_Guid)
+        CallbackFree(this.vtbl.put_Guid)
+        CallbackFree(this.vtbl.get_IsKernelTrace)
+        CallbackFree(this.vtbl.get_MaximumBuffers)
+        CallbackFree(this.vtbl.put_MaximumBuffers)
+        CallbackFree(this.vtbl.get_MinimumBuffers)
+        CallbackFree(this.vtbl.put_MinimumBuffers)
+        CallbackFree(this.vtbl.get_NumberOfBuffers)
+        CallbackFree(this.vtbl.put_NumberOfBuffers)
+        CallbackFree(this.vtbl.get_PreallocateFile)
+        CallbackFree(this.vtbl.put_PreallocateFile)
+        CallbackFree(this.vtbl.get_ProcessMode)
+        CallbackFree(this.vtbl.put_ProcessMode)
+        CallbackFree(this.vtbl.get_RealTimeBuffersLost)
+        CallbackFree(this.vtbl.put_RealTimeBuffersLost)
+        CallbackFree(this.vtbl.get_SessionId)
+        CallbackFree(this.vtbl.put_SessionId)
+        CallbackFree(this.vtbl.get_SessionName)
+        CallbackFree(this.vtbl.put_SessionName)
+        CallbackFree(this.vtbl.get_SessionThreadId)
+        CallbackFree(this.vtbl.put_SessionThreadId)
+        CallbackFree(this.vtbl.get_StreamMode)
+        CallbackFree(this.vtbl.put_StreamMode)
+        CallbackFree(this.vtbl.get_TraceDataProviders)
     }
 }

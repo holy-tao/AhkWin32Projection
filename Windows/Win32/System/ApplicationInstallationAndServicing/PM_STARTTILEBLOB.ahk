@@ -1,133 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\TILE_TEMPLATE_TYPE.ahk
-#Include .\PM_STARTTILE_TYPE.ahk
-#Include .\PM_INVOCATIONINFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\PM_INVOCATIONINFO.ahk" { PM_INVOCATIONINFO }
+#Import ".\TILE_TEMPLATE_TYPE.ahk" { TILE_TEMPLATE_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\PM_STARTTILE_TYPE.ahk" { PM_STARTTILE_TYPE }
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
-class PM_STARTTILEBLOB extends Win32Struct {
-    static sizeof => 208
+export default struct PM_STARTTILEBLOB {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ProductID : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    ProductID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    TileID : BSTR
 
-    /**
-     * @type {BSTR}
-     */
-    TileID {
-        get {
-            if(!this.HasProp("__TileID"))
-                this.__TileID := BSTR(16, this)
-            return this.__TileID
-        }
-    }
+    TemplateType : TILE_TEMPLATE_TYPE
 
-    /**
-     * @type {TILE_TEMPLATE_TYPE}
-     */
-    TemplateType {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    HubPosition : UInt32[32]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    HubPosition {
-        get {
-            if(!this.HasProp("__HubPositionProxyArray"))
-                this.__HubPositionProxyArray := Win32FixedArray(this.ptr + 28, 32, Primitive, "uint")
-            return this.__HubPositionProxyArray
-        }
-    }
+    HubVisibilityBitmask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HubVisibilityBitmask {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
-    }
+    IsDefault : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    IsDefault {
-        get => NumGet(this, 160, "int")
-        set => NumPut("int", value, this, 160)
-    }
+    TileType : PM_STARTTILE_TYPE
 
-    /**
-     * @type {PM_STARTTILE_TYPE}
-     */
-    TileType {
-        get => NumGet(this, 164, "int")
-        set => NumPut("int", value, this, 164)
-    }
+    pbPropBlob : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbPropBlob {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
-    }
+    cbPropBlob : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbPropBlob {
-        get => NumGet(this, 176, "uint")
-        set => NumPut("uint", value, this, 176)
-    }
+    IsRestoring : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    IsRestoring {
-        get => NumGet(this, 180, "int")
-        set => NumPut("int", value, this, 180)
-    }
+    IsModern : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    IsModern {
-        get => NumGet(this, 184, "int")
-        set => NumPut("int", value, this, 184)
-    }
+    InvocationInfo : PM_INVOCATIONINFO
 
-    /**
-     * @type {PM_INVOCATIONINFO}
-     */
-    InvocationInfo {
-        get {
-            if(!this.HasProp("__InvocationInfo"))
-                this.__InvocationInfo := PM_INVOCATIONINFO(192, this)
-            return this.__InvocationInfo
-        }
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 208
-    }
 }

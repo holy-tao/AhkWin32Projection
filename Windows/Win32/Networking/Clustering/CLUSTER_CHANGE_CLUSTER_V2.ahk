@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The CLUSTER_CHANGE_CLUSTER_V2 enumeration (msclus.h) defines the list of notifications that are generated for a cluster.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_change_cluster_v2
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUSTER_CHANGE_CLUSTER_V2 extends Win32Enum {
+export default struct CLUSTER_CHANGE_CLUSTER_V2 {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates that a reconnect procedure occurred. This notification applies to clients only.

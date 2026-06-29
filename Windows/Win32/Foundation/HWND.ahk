@@ -1,16 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32Handle.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Places the window at the bottom of the Z order. If the <i>hWnd</i> parameter identifies a topmost window, the window loses its topmost status and is placed at the bottom of all other windows.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-deferwindowpos
  * @namespace Windows.Win32.Foundation
  */
-class HWND extends Win32Handle {
-    static sizeof => 8
+export default struct HWND {
+    Value : IntPtr
 
-    static packingSize => 8
+    __value {
+        set {
+            if (value is HWND) {
+                this.Value := value.Value
+            }
+            else {
+                this.Value := value
+            }
+        }
+    }
 
     /**
      * The list of values which indicate that the handle is invalid
@@ -18,11 +23,7 @@ class HWND extends Win32Handle {
      */
     static invalidValues => []
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Value {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    __New(Value := 0) {
+        this.Value := Value
     }
 }

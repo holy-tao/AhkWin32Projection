@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\UIAutomationType.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\UIAutomationType.ahk" { UIAutomationType }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains information about a custom property.
@@ -19,41 +20,28 @@
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ns-uiautomationcore-uiautomationpropertyinfo
  * @namespace Windows.Win32.UI.Accessibility
  */
-class UIAutomationPropertyInfo extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct UIAutomationPropertyInfo {
+    #StructPack 8
 
     /**
      * Type: <b>GUID</b>
      * 
      * The unique identifier of the property.
-     * @type {Pointer}
      */
-    guid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    guid : Guid
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
      * The programmatic name of the property (a non-localizable string).
-     * @type {PWSTR}
      */
-    pProgrammaticName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pProgrammaticName : PWSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-uiautomationtype">UIAutomationType</a></b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-uiautomationtype">UIAutomationType</a> enumerated type indicating the data type of the property value.
-     * @type {UIAutomationType}
      */
-    type {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    type : UIAutomationType
+
 }

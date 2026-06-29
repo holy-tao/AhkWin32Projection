@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the type of NAME fields possible for a certificate selection &quot;subject&quot; criteria.
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ne-iketypes-ikeext_cert_criteria_name_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IKEEXT_CERT_CRITERIA_NAME_TYPE extends Win32Enum {
+export default struct IKEEXT_CERT_CRITERIA_NAME_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * DNS name in the Subject Alternative Name of the certificate.

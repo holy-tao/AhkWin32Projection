@@ -1,79 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Ndis\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_WFD_DEVICE_CAPABILITY_CONFIG extends Win32Struct {
-    static sizeof => 16
+export default struct DOT11_WFD_DEVICE_CAPABILITY_CONFIG {
+    #StructPack 4
 
-    static packingSize => 4
+    Header : NDIS_OBJECT_HEADER
 
-    /**
-     * @type {NDIS_OBJECT_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    bServiceDiscoveryEnabled : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bServiceDiscoveryEnabled {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    bClientDiscoverabilityEnabled : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bClientDiscoverabilityEnabled {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    bConcurrentOperationSupported : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bConcurrentOperationSupported {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    bInfrastructureManagementEnabled : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bInfrastructureManagementEnabled {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    bDeviceLimitReached : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bDeviceLimitReached {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    bInvitationProcedureEnabled : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bInvitationProcedureEnabled {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    WPSVersionsEnabled : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    WPSVersionsEnabled {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVMRSurface9 interface is implemented on the media samples used by the Video Mixing Renderer Filter 9.
@@ -11,26 +12,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/nn-vmr9-ivmrsurface9
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IVMRSurface9 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVMRSurface9 extends IUnknown {
     /**
      * The interface identifier for IVMRSurface9
      * @type {Guid}
      */
-    static IID => Guid("{dfc581a1-6e1f-4c3a-8d0a-5e9792ea2afc}")
+    static IID := Guid("{dfc581a1-6e1f-4c3a-8d0a-5e9792ea2afc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVMRSurface9 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        IsSurfaceLocked : IntPtr
+        LockSurface     : IntPtr
+        UnlockSurface   : IntPtr
+        GetSurface      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsSurfaceLocked", "LockSurface", "UnlockSurface", "GetSurface"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVMRSurface9.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IsSurfaceLocked method indicates whether the Direct3D surface attached to this media sample is locked.
@@ -127,5 +138,31 @@ class IVMRSurface9 extends IUnknown {
     GetSurface() {
         result := ComCall(6, this, "ptr*", &lplpSurface := 0, "HRESULT")
         return IDirect3DSurface9(lplpSurface)
+    }
+
+    Query(iid) {
+        if (IVMRSurface9.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsSurfaceLocked := CallbackCreate(GetMethod(implObj, "IsSurfaceLocked"), flags, 1)
+        this.vtbl.LockSurface := CallbackCreate(GetMethod(implObj, "LockSurface"), flags, 2)
+        this.vtbl.UnlockSurface := CallbackCreate(GetMethod(implObj, "UnlockSurface"), flags, 1)
+        this.vtbl.GetSurface := CallbackCreate(GetMethod(implObj, "GetSurface"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsSurfaceLocked)
+        CallbackFree(this.vtbl.LockSurface)
+        CallbackFree(this.vtbl.UnlockSurface)
+        CallbackFree(this.vtbl.GetSurface)
     }
 }

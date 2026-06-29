@@ -1,26 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Basic information about a profile.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_profile_info
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WLAN_PROFILE_INFO extends Win32Struct {
-    static sizeof => 516
-
-    static packingSize => 4
+export default struct WLAN_PROFILE_INFO {
+    #StructPack 4
 
     /**
      * The name of the profile.  This value may be the name of a domain if the profile is for provisioning. Profile names are case-sensitive. This string must be NULL-terminated.
      * 
      * <b>Windows XP with SP3 and Wireless LAN API for Windows XP with SP2:  </b>The name of the profile is derived automatically from the SSID of the wireless network. For infrastructure network profiles, the name of the profile is the SSID of the network. For ad hoc network profiles, the name of the profile is the SSID of the ad hoc network followed by <c>-adhoc</c>.
-     * @type {String}
      */
-    strProfileName {
-        get => StrGet(this.ptr + 0, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 255, "UTF-16")
-    }
+    strProfileName : WCHAR[256]
 
     /**
      * A set of flags specifying settings for wireless profile. These values are defined in the <i>Wlanapi.h</i> header file. 
@@ -58,10 +52,7 @@ class WLAN_PROFILE_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 512, "uint")
-        set => NumPut("uint", value, this, 512)
-    }
+    dwFlags : UInt32
+
 }

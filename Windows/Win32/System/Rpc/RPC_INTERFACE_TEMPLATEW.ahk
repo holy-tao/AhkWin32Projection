@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\UUID_VECTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\UUID_VECTOR.ahk" { UUID_VECTOR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The RPC_INTERFACE_TEMPLATEW (Unicode) structure (rpcdce.h) defines an RPC interface group server interface.
@@ -38,55 +39,33 @@
  * @namespace Windows.Win32.System.Rpc
  * @charset Unicode
  */
-class RPC_INTERFACE_TEMPLATEW extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct RPC_INTERFACE_TEMPLATEW {
+    #StructPack 8
 
     /**
      * This field is reserved and must be set to 0.
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
     /**
      * MIDL-generated structure that defines the interface to register.
-     * @type {Pointer<Void>}
      */
-    IfSpec {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    IfSpec : IntPtr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a> to associate with <i>MgrEpv</i>. <b>NULL</b> or a nil <b>UUID</b> registers <i>IfSpec</i> with a nil <b>UUID</b>.
-     * @type {Pointer<Guid>}
      */
-    MgrTypeUuid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    MgrTypeUuid : Guid.Ptr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-mgr-epv">RPC_MGR_EPV</a> structure that contains the manager routines' entry-point vector (EPV). If <b>NULL</b>,the MIDL-generated default EPV is used.
-     * @type {Pointer<Void>}
      */
-    MgrEpv {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    MgrEpv : IntPtr
 
     /**
      * Flags. For a list of flag values, see <a href="https://docs.microsoft.com/windows/desktop/Rpc/interface-registration-flags">Interface Registration Flags</a>. Interface group interfaces are always treated as <b>auto-listen</b>.
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Flags : UInt32
 
     /**
      * Maximum number of concurrent remote procedure call requests the server can accept on this interface.  The RPC run-time library makes its best effort to ensure the server does not allow more concurrent call requests than the number of calls specified in <i>MaxCalls</i>. However, the actual number can be greater than <i>MaxCalls</i> and can vary for each protocol sequence.
@@ -94,57 +73,34 @@ class RPC_INTERFACE_TEMPLATEW extends Win32Struct {
      * Calls on other interfaces are governed by the value of the process-wide <i>MaxCalls</i> parameter specified in <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcserverlisten">RpcServerListen</a>.
      * 
      * If the number of concurrent calls is not a concern, slightly better server-side performance can be achieved by specifying the default value using <b>RPC_C_LISTEN_MAX_CALLS_DEFAULT</b>. Doing so relieves the RPC run-time environment from enforcing an unnecessary restriction.
-     * @type {Integer}
      */
-    MaxCalls {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    MaxCalls : UInt32
 
     /**
      * Maximum size, in bytes, of incoming data blocks. <i>MaxRpcSize</i> may be used to help prevent malicious denial-of-service attacks. If the data block of a remote procedure call is larger than <i>MaxRpcSize</i>, the RPC run-time library rejects the call and sends an <b>RPC_S_ACCESS_DENIED</b> error to the client. Specifying a value of (unsigned int) –1 in <i>MaxRpcSize</i> removes the limit on the size of incoming data blocks. This parameter has no effect on calls made over the <a href="https://docs.microsoft.com/windows/desktop/Rpc/protocol-sequence-constants">ncalrpc</a> protocol.
-     * @type {Integer}
      */
-    MaxRpcSize {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    MaxRpcSize : UInt32
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nc-rpcdce-rpc_interface_group_idle_callback_fn">RPC_INTERFACE_GROUP_IDLE_CALLBACK_FN</a> security-callback function, or <b>NULL</b> for no callback. Each registered interface can have a different callback function.
-     * @type {Pointer<RPC_IF_CALLBACK_FN>}
      */
-    IfCallback {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    IfCallback : IntPtr
 
     /**
      * Pointer to a vector of object <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUIDs</a> offered by the server to be registered with the RPC endpoint mapper. The server application constructs this vector.  <b>NULL</b> indicates there are no object <b>UUIDs</b> to register.
-     * @type {Pointer<UUID_VECTOR>}
      */
-    UuidVector {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    UuidVector : UUID_VECTOR.Ptr
 
     /**
      * Pointer to the character-string comment applied to each cross-product element added to the local endpoint-map database. The string can be up to 64 characters long, including the null terminating character. Specify a null value or a null-terminated string ("\0") if there is no annotation string.
      * 
      * The annotation string is used by applications for information only. RPC does not use this string to determine which server instance a client communicates with or for enumerating elements in the endpoint-map database.
-     * @type {PWSTR}
      */
-    Annotation {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    Annotation : PWSTR
 
     /**
      * Optional security descriptor describing which clients have the right to access the interface.
-     * @type {Pointer<Void>}
      */
-    SecurityDescriptor {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    SecurityDescriptor : IntPtr
+
 }

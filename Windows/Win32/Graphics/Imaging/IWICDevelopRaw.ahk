@@ -1,34 +1,79 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWICBitmapFrameDecode.ahk
-#Include ..\..\System\Com\StructuredStorage\IPropertyBag2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWICDevelopRawNotificationCallback.ahk" { IWICDevelopRawNotificationCallback }
+#Import ".\WICRawRenderMode.ahk" { WICRawRenderMode }
+#Import ".\IWICColorContext.ahk" { IWICColorContext }
+#Import ".\WICNamedWhitePoint.ahk" { WICNamedWhitePoint }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WICRawParameterSet.ahk" { WICRawParameterSet }
+#Import ".\WICRawCapabilitiesInfo.ahk" { WICRawCapabilitiesInfo }
+#Import ".\IWICBitmapFrameDecode.ahk" { IWICBitmapFrameDecode }
+#Import "..\..\System\Com\StructuredStorage\IPropertyBag2.ahk" { IPropertyBag2 }
 
 /**
  * Exposes methods that provide access to the capabilities of a raw codec format.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicdevelopraw
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class IWICDevelopRaw extends IWICBitmapFrameDecode {
-
-    static sizeof => A_PtrSize
+export default struct IWICDevelopRaw extends IWICBitmapFrameDecode {
     /**
      * The interface identifier for IWICDevelopRaw
      * @type {Guid}
      */
-    static IID => Guid("{fbec5e44-f7be-4b65-b7f8-c0c81fef026d}")
+    static IID := Guid("{fbec5e44-f7be-4b65-b7f8-c0c81fef026d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 11
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWICDevelopRaw interfaces
+    */
+    struct Vtbl extends IWICBitmapFrameDecode.Vtbl {
+        QueryRawCapabilitiesInfo   : IntPtr
+        LoadParameterSet           : IntPtr
+        GetCurrentParameterSet     : IntPtr
+        SetExposureCompensation    : IntPtr
+        GetExposureCompensation    : IntPtr
+        SetWhitePointRGB           : IntPtr
+        GetWhitePointRGB           : IntPtr
+        SetNamedWhitePoint         : IntPtr
+        GetNamedWhitePoint         : IntPtr
+        SetWhitePointKelvin        : IntPtr
+        GetWhitePointKelvin        : IntPtr
+        GetKelvinRangeInfo         : IntPtr
+        SetContrast                : IntPtr
+        GetContrast                : IntPtr
+        SetGamma                   : IntPtr
+        GetGamma                   : IntPtr
+        SetSharpness               : IntPtr
+        GetSharpness               : IntPtr
+        SetSaturation              : IntPtr
+        GetSaturation              : IntPtr
+        SetTint                    : IntPtr
+        GetTint                    : IntPtr
+        SetNoiseReduction          : IntPtr
+        GetNoiseReduction          : IntPtr
+        SetDestinationColorContext : IntPtr
+        SetToneCurve               : IntPtr
+        GetToneCurve               : IntPtr
+        SetRotation                : IntPtr
+        GetRotation                : IntPtr
+        SetRenderMode              : IntPtr
+        GetRenderMode              : IntPtr
+        SetNotificationCallback    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["QueryRawCapabilitiesInfo", "LoadParameterSet", "GetCurrentParameterSet", "SetExposureCompensation", "GetExposureCompensation", "SetWhitePointRGB", "GetWhitePointRGB", "SetNamedWhitePoint", "GetNamedWhitePoint", "SetWhitePointKelvin", "GetWhitePointKelvin", "GetKelvinRangeInfo", "SetContrast", "GetContrast", "SetGamma", "GetGamma", "SetSharpness", "GetSharpness", "SetSaturation", "GetSaturation", "SetTint", "GetTint", "SetNoiseReduction", "GetNoiseReduction", "SetDestinationColorContext", "SetToneCurve", "GetToneCurve", "SetRotation", "GetRotation", "SetRenderMode", "GetRenderMode", "SetNotificationCallback"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWICDevelopRaw.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves information about which capabilities are supported for a raw image.
@@ -43,7 +88,7 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-queryrawcapabilitiesinfo
      */
     QueryRawCapabilitiesInfo(pInfo) {
-        result := ComCall(11, this, "ptr", pInfo, "HRESULT")
+        result := ComCall(11, this, WICRawCapabilitiesInfo.Ptr, pInfo, "HRESULT")
         return result
     }
 
@@ -58,7 +103,7 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-loadparameterset
      */
     LoadParameterSet(ParameterSet) {
-        result := ComCall(12, this, "int", ParameterSet, "HRESULT")
+        result := ComCall(12, this, WICRawParameterSet, ParameterSet, "HRESULT")
         return result
     }
 
@@ -170,7 +215,7 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-setnamedwhitepoint
      */
     SetNamedWhitePoint(WhitePoint) {
-        result := ComCall(18, this, "int", WhitePoint, "HRESULT")
+        result := ComCall(18, this, WICNamedWhitePoint, WhitePoint, "HRESULT")
         return result
     }
 
@@ -516,7 +561,7 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-setrendermode
      */
     SetRenderMode(RenderMode) {
-        result := ComCall(40, this, "int", RenderMode, "HRESULT")
+        result := ComCall(40, this, WICRawRenderMode, RenderMode, "HRESULT")
         return result
     }
 
@@ -545,5 +590,87 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode {
     SetNotificationCallback(pCallback) {
         result := ComCall(42, this, "ptr", pCallback, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWICDevelopRaw.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.QueryRawCapabilitiesInfo := CallbackCreate(GetMethod(implObj, "QueryRawCapabilitiesInfo"), flags, 2)
+        this.vtbl.LoadParameterSet := CallbackCreate(GetMethod(implObj, "LoadParameterSet"), flags, 2)
+        this.vtbl.GetCurrentParameterSet := CallbackCreate(GetMethod(implObj, "GetCurrentParameterSet"), flags, 2)
+        this.vtbl.SetExposureCompensation := CallbackCreate(GetMethod(implObj, "SetExposureCompensation"), flags, 2)
+        this.vtbl.GetExposureCompensation := CallbackCreate(GetMethod(implObj, "GetExposureCompensation"), flags, 2)
+        this.vtbl.SetWhitePointRGB := CallbackCreate(GetMethod(implObj, "SetWhitePointRGB"), flags, 4)
+        this.vtbl.GetWhitePointRGB := CallbackCreate(GetMethod(implObj, "GetWhitePointRGB"), flags, 4)
+        this.vtbl.SetNamedWhitePoint := CallbackCreate(GetMethod(implObj, "SetNamedWhitePoint"), flags, 2)
+        this.vtbl.GetNamedWhitePoint := CallbackCreate(GetMethod(implObj, "GetNamedWhitePoint"), flags, 2)
+        this.vtbl.SetWhitePointKelvin := CallbackCreate(GetMethod(implObj, "SetWhitePointKelvin"), flags, 2)
+        this.vtbl.GetWhitePointKelvin := CallbackCreate(GetMethod(implObj, "GetWhitePointKelvin"), flags, 2)
+        this.vtbl.GetKelvinRangeInfo := CallbackCreate(GetMethod(implObj, "GetKelvinRangeInfo"), flags, 4)
+        this.vtbl.SetContrast := CallbackCreate(GetMethod(implObj, "SetContrast"), flags, 2)
+        this.vtbl.GetContrast := CallbackCreate(GetMethod(implObj, "GetContrast"), flags, 2)
+        this.vtbl.SetGamma := CallbackCreate(GetMethod(implObj, "SetGamma"), flags, 2)
+        this.vtbl.GetGamma := CallbackCreate(GetMethod(implObj, "GetGamma"), flags, 2)
+        this.vtbl.SetSharpness := CallbackCreate(GetMethod(implObj, "SetSharpness"), flags, 2)
+        this.vtbl.GetSharpness := CallbackCreate(GetMethod(implObj, "GetSharpness"), flags, 2)
+        this.vtbl.SetSaturation := CallbackCreate(GetMethod(implObj, "SetSaturation"), flags, 2)
+        this.vtbl.GetSaturation := CallbackCreate(GetMethod(implObj, "GetSaturation"), flags, 2)
+        this.vtbl.SetTint := CallbackCreate(GetMethod(implObj, "SetTint"), flags, 2)
+        this.vtbl.GetTint := CallbackCreate(GetMethod(implObj, "GetTint"), flags, 2)
+        this.vtbl.SetNoiseReduction := CallbackCreate(GetMethod(implObj, "SetNoiseReduction"), flags, 2)
+        this.vtbl.GetNoiseReduction := CallbackCreate(GetMethod(implObj, "GetNoiseReduction"), flags, 2)
+        this.vtbl.SetDestinationColorContext := CallbackCreate(GetMethod(implObj, "SetDestinationColorContext"), flags, 2)
+        this.vtbl.SetToneCurve := CallbackCreate(GetMethod(implObj, "SetToneCurve"), flags, 3)
+        this.vtbl.GetToneCurve := CallbackCreate(GetMethod(implObj, "GetToneCurve"), flags, 4)
+        this.vtbl.SetRotation := CallbackCreate(GetMethod(implObj, "SetRotation"), flags, 2)
+        this.vtbl.GetRotation := CallbackCreate(GetMethod(implObj, "GetRotation"), flags, 2)
+        this.vtbl.SetRenderMode := CallbackCreate(GetMethod(implObj, "SetRenderMode"), flags, 2)
+        this.vtbl.GetRenderMode := CallbackCreate(GetMethod(implObj, "GetRenderMode"), flags, 2)
+        this.vtbl.SetNotificationCallback := CallbackCreate(GetMethod(implObj, "SetNotificationCallback"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.QueryRawCapabilitiesInfo)
+        CallbackFree(this.vtbl.LoadParameterSet)
+        CallbackFree(this.vtbl.GetCurrentParameterSet)
+        CallbackFree(this.vtbl.SetExposureCompensation)
+        CallbackFree(this.vtbl.GetExposureCompensation)
+        CallbackFree(this.vtbl.SetWhitePointRGB)
+        CallbackFree(this.vtbl.GetWhitePointRGB)
+        CallbackFree(this.vtbl.SetNamedWhitePoint)
+        CallbackFree(this.vtbl.GetNamedWhitePoint)
+        CallbackFree(this.vtbl.SetWhitePointKelvin)
+        CallbackFree(this.vtbl.GetWhitePointKelvin)
+        CallbackFree(this.vtbl.GetKelvinRangeInfo)
+        CallbackFree(this.vtbl.SetContrast)
+        CallbackFree(this.vtbl.GetContrast)
+        CallbackFree(this.vtbl.SetGamma)
+        CallbackFree(this.vtbl.GetGamma)
+        CallbackFree(this.vtbl.SetSharpness)
+        CallbackFree(this.vtbl.GetSharpness)
+        CallbackFree(this.vtbl.SetSaturation)
+        CallbackFree(this.vtbl.GetSaturation)
+        CallbackFree(this.vtbl.SetTint)
+        CallbackFree(this.vtbl.GetTint)
+        CallbackFree(this.vtbl.SetNoiseReduction)
+        CallbackFree(this.vtbl.GetNoiseReduction)
+        CallbackFree(this.vtbl.SetDestinationColorContext)
+        CallbackFree(this.vtbl.SetToneCurve)
+        CallbackFree(this.vtbl.GetToneCurve)
+        CallbackFree(this.vtbl.SetRotation)
+        CallbackFree(this.vtbl.GetRotation)
+        CallbackFree(this.vtbl.SetRenderMode)
+        CallbackFree(this.vtbl.GetRenderMode)
+        CallbackFree(this.vtbl.SetNotificationCallback)
     }
 }

@@ -1,25 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCI_EXPRESS_DESIGNATED_VENDOR_SPECIFIC_HEADER_1 extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct PCI_EXPRESS_DESIGNATED_VENDOR_SPECIFIC_HEADER_1 {
+    #StructPack 4
 
     /**
      * This bitfield backs the following members:
      * - DvsecVendorId
      * - DvsecVersion
      * - DvsecLength
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -44,12 +38,8 @@ class PCI_EXPRESS_DESIGNATED_VENDOR_SPECIFIC_HEADER_1 extends Win32Struct {
         get => (this._bitfield >> 20) & 0xFFF
         set => this._bitfield := ((value & 0xFFF) << 20) | (this._bitfield & ~(0xFFF << 20))
     }
-
-    /**
-     * @type {Integer}
-     */
-    AsULONG {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'AsULONG', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

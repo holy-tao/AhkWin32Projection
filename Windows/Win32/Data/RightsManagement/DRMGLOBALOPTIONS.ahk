@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines values for specifying which protocol is used for the transport protocol and whether the server lockbox is used. This enumeration is used by the DRMSetGlobalOptions function.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/msdrmdefs/ne-msdrmdefs-drmglobaloptions
  * @namespace Windows.Win32.Data.RightsManagement
  */
-class DRMGLOBALOPTIONS extends Win32Enum {
+export default struct DRMGLOBALOPTIONS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The WinHTTP protocol is used for the transport protocol. By default, the WinINet protocol is used.

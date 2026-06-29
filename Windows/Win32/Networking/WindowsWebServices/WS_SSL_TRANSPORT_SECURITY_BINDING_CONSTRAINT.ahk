@@ -1,30 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_SECURITY_BINDING_CONSTRAINT.ahk
-#Include .\WS_SECURITY_BINDING_CONSTRAINT_TYPE.ahk
-#Include .\WS_SECURITY_BINDING_PROPERTY_CONSTRAINT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_SECURITY_BINDING_PROPERTY_CONSTRAINT.ahk" { WS_SECURITY_BINDING_PROPERTY_CONSTRAINT }
+#Import ".\WS_SECURITY_BINDING_CONSTRAINT.ahk" { WS_SECURITY_BINDING_CONSTRAINT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\WS_SECURITY_BINDING_CONSTRAINT_TYPE.ahk" { WS_SECURITY_BINDING_CONSTRAINT_TYPE }
 
 /**
  * A security binding constraint that corresponds to the WS_SSL_TRANSPORT_SECURITY_BINDING.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_ssl_transport_security_binding_constraint
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_SSL_TRANSPORT_SECURITY_BINDING_CONSTRAINT extends Win32Struct {
-    static sizeof => 32
+export default struct WS_SSL_TRANSPORT_SECURITY_BINDING_CONSTRAINT {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _out extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
+    struct _out {
+        clientCertCredentialRequired : BOOL
 
-        /**
-         * @type {BOOL}
-         */
-        clientCertCredentialRequired {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
     }
 
     /**
@@ -33,26 +24,13 @@ class WS_SSL_TRANSPORT_SECURITY_BINDING_CONSTRAINT extends Win32Struct {
      * 
      * There are no binding-specific properties are defined for this binding constraint
      *                     at this time.
-     * @type {WS_SECURITY_BINDING_CONSTRAINT}
      */
-    bindingConstraint {
-        get {
-            if(!this.HasProp("__bindingConstraint"))
-                this.__bindingConstraint := WS_SECURITY_BINDING_CONSTRAINT(0, this)
-            return this.__bindingConstraint
-        }
-    }
+    bindingConstraint : WS_SECURITY_BINDING_CONSTRAINT
 
     /**
      * When <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsmatchpolicyalternative">WsMatchPolicyAlternative</a> returns NOERROR, the
      *                     entire contents of this structure will be filled out.
-     * @type {_out}
      */
-    out {
-        get {
-            if(!this.HasProp("__out"))
-                this.__out := WS_SSL_TRANSPORT_SECURITY_BINDING_CONSTRAINT._out(24, this)
-            return this.__out
-        }
-    }
+    out : WS_SSL_TRANSPORT_SECURITY_BINDING_CONSTRAINT._out
+
 }

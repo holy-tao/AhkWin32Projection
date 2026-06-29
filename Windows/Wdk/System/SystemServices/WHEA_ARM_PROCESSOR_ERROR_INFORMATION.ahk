@@ -1,83 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_ARM_PROCESSOR_ERROR_INFORMATION extends Win32Struct {
-    static sizeof => 48
+export default struct WHEA_ARM_PROCESSOR_ERROR_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Length : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    ValidationBit : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ValidationBit {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Type : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    MultipleError : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    MultipleError {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    Flags : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 20, "char")
-        set => NumPut("char", value, this, 20)
-    }
+    ErrorInformation : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ErrorInformation {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    VirtualFaultAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    VirtualFaultAddress {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    PhysicalFaultAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PhysicalFaultAddress {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
 }

@@ -1,16 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WCM_CONNECTION_COST_SOURCE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WCM_CONNECTION_COST_SOURCE.ahk" { WCM_CONNECTION_COST_SOURCE }
 
 /**
  * Specifies information about a connection cost.
  * @see https://learn.microsoft.com/windows/win32/api/wcmapi/ns-wcmapi-wcm_connection_cost_data
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectionManager
  */
-class WCM_CONNECTION_COST_DATA extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct WCM_CONNECTION_COST_DATA {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
@@ -115,21 +112,14 @@ class WCM_CONNECTION_COST_DATA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ConnectionCost {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ConnectionCost : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wcmapi/ne-wcmapi-wcm_connection_cost_source">WCM_CONNECTION_COST_SOURCE</a></b>
      * 
      * Specifies the cost source.
-     * @type {WCM_CONNECTION_COST_SOURCE}
      */
-    CostSource {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    CostSource : WCM_CONNECTION_COST_SOURCE
+
 }

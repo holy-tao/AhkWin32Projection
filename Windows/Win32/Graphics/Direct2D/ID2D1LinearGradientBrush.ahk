@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Brush.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID2D1GradientStopCollection.ahk" { ID2D1GradientStopCollection }
+#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
+#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
 
 /**
  * Paints an area with a linear gradient.
@@ -20,26 +22,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1lineargradientbrush
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1LinearGradientBrush extends ID2D1Brush {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1LinearGradientBrush extends ID2D1Brush {
     /**
      * The interface identifier for ID2D1LinearGradientBrush
      * @type {Guid}
      */
-    static IID => Guid("{2cd906ab-12e2-11dc-9fed-001143a055f9}")
+    static IID := Guid("{2cd906ab-12e2-11dc-9fed-001143a055f9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1LinearGradientBrush interfaces
+    */
+    struct Vtbl extends ID2D1Brush.Vtbl {
+        SetStartPoint             : IntPtr
+        SetEndPoint               : IntPtr
+        GetStartPoint             : IntPtr
+        GetEndPoint               : IntPtr
+        GetGradientStopCollection : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetStartPoint", "SetEndPoint", "GetStartPoint", "GetEndPoint", "GetGradientStopCollection"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1LinearGradientBrush.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the starting coordinates of the linear gradient in the brush's coordinate space.
@@ -52,7 +65,7 @@ class ID2D1LinearGradientBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1lineargradientbrush-setstartpoint
      */
     SetStartPoint(startPoint) {
-        ComCall(8, this, "ptr", startPoint)
+        ComCall(8, this, D2D_POINT_2F, startPoint)
     }
 
     /**
@@ -66,7 +79,7 @@ class ID2D1LinearGradientBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1lineargradientbrush-setendpoint
      */
     SetEndPoint(endPoint) {
-        ComCall(9, this, "ptr", endPoint)
+        ComCall(9, this, D2D_POINT_2F, endPoint)
     }
 
     /**
@@ -79,7 +92,7 @@ class ID2D1LinearGradientBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1lineargradientbrush-getstartpoint
      */
     GetStartPoint() {
-        result := ComCall(10, this, "ptr")
+        result := ComCall(10, this, D2D_POINT_2F)
         return result
     }
 
@@ -93,7 +106,7 @@ class ID2D1LinearGradientBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1lineargradientbrush-getendpoint
      */
     GetEndPoint() {
-        result := ComCall(11, this, "ptr")
+        result := ComCall(11, this, D2D_POINT_2F)
         return result
     }
 
@@ -108,6 +121,34 @@ class ID2D1LinearGradientBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1lineargradientbrush-getgradientstopcollection
      */
     GetGradientStopCollection(gradientStopCollection) {
-        ComCall(12, this, "ptr*", gradientStopCollection)
+        ComCall(12, this, ID2D1GradientStopCollection.Ptr, gradientStopCollection)
+    }
+
+    Query(iid) {
+        if (ID2D1LinearGradientBrush.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetStartPoint := CallbackCreate(GetMethod(implObj, "SetStartPoint"), flags, 2)
+        this.vtbl.SetEndPoint := CallbackCreate(GetMethod(implObj, "SetEndPoint"), flags, 2)
+        this.vtbl.GetStartPoint := CallbackCreate(GetMethod(implObj, "GetStartPoint"), flags, 1)
+        this.vtbl.GetEndPoint := CallbackCreate(GetMethod(implObj, "GetEndPoint"), flags, 1)
+        this.vtbl.GetGradientStopCollection := CallbackCreate(GetMethod(implObj, "GetGradientStopCollection"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetStartPoint)
+        CallbackFree(this.vtbl.SetEndPoint)
+        CallbackFree(this.vtbl.GetStartPoint)
+        CallbackFree(this.vtbl.GetEndPoint)
+        CallbackFree(this.vtbl.GetGradientStopCollection)
     }
 }

@@ -1,31 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IDebugHostType.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VarArgsKind.ahk" { VarArgsKind }
+#Import ".\IDebugHostType.ahk" { IDebugHostType }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IDebugHostType2 extends IDebugHostType {
-
-    static sizeof => A_PtrSize
+export default struct IDebugHostType2 extends IDebugHostType {
     /**
      * The interface identifier for IDebugHostType2
      * @type {Guid}
      */
-    static IID => Guid("{b28632b9-8506-4676-87ce-8f7e05e59876}")
+    static IID := Guid("{b28632b9-8506-4676-87ce-8f7e05e59876}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 29
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDebugHostType2 interfaces
+    */
+    struct Vtbl extends IDebugHostType.Vtbl {
+        IsTypedef                      : IntPtr
+        GetTypedefBaseType             : IntPtr
+        GetTypedefFinalBaseType        : IntPtr
+        GetFunctionVarArgsKind         : IntPtr
+        GetFunctionInstancePointerType : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsTypedef", "GetTypedefBaseType", "GetTypedefFinalBaseType", "GetFunctionVarArgsKind", "GetFunctionInstancePointerType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDebugHostType2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -70,5 +83,33 @@ class IDebugHostType2 extends IDebugHostType {
     GetFunctionInstancePointerType() {
         result := ComCall(33, this, "ptr*", &instancePointerType := 0, "HRESULT")
         return IDebugHostType2(instancePointerType)
+    }
+
+    Query(iid) {
+        if (IDebugHostType2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsTypedef := CallbackCreate(GetMethod(implObj, "IsTypedef"), flags, 2)
+        this.vtbl.GetTypedefBaseType := CallbackCreate(GetMethod(implObj, "GetTypedefBaseType"), flags, 2)
+        this.vtbl.GetTypedefFinalBaseType := CallbackCreate(GetMethod(implObj, "GetTypedefFinalBaseType"), flags, 2)
+        this.vtbl.GetFunctionVarArgsKind := CallbackCreate(GetMethod(implObj, "GetFunctionVarArgsKind"), flags, 2)
+        this.vtbl.GetFunctionInstancePointerType := CallbackCreate(GetMethod(implObj, "GetFunctionInstancePointerType"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsTypedef)
+        CallbackFree(this.vtbl.GetTypedefBaseType)
+        CallbackFree(this.vtbl.GetTypedefFinalBaseType)
+        CallbackFree(this.vtbl.GetFunctionVarArgsKind)
+        CallbackFree(this.vtbl.GetFunctionInstancePointerType)
     }
 }

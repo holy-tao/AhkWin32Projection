@@ -1,31 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\Guid.ahk
-#Include ..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Globalization
  */
-class IMLangString extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMLangString extends IUnknown {
     /**
      * The interface identifier for IMLangString
      * @type {Guid}
      */
-    static IID => Guid("{c04d65ce-b70d-11d0-b188-00aa0038c969}")
+    static IID := Guid("{c04d65ce-b70d-11d0-b188-00aa0038c969}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMLangString interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Sync      : IntPtr
+        GetLength : IntPtr
+        SetMLStr  : IntPtr
+        GetMLStr  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Sync", "GetLength", "SetMLStr", "GetMLStr"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMLangString.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Sync01 through Sync16 attributes are string representations of 32-bit values that Windows Media Player uses when it synchronizes playlists with one of up to 16 portable devices.
@@ -61,14 +73,13 @@ class IMLangString extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/WMP/sync-attributes
      */
     Sync(fNoAccess) {
-        result := ComCall(3, this, "int", fNoAccess, "HRESULT")
+        result := ComCall(3, this, BOOL, fNoAccess, "HRESULT")
         return result
     }
 
     /**
-     * Returns the length, in bytes, of a valid security identifier (SID).
+     * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getlengthsid
      */
     GetLength() {
         result := ComCall(4, this, "int*", &plLen := 0, "HRESULT")
@@ -105,7 +116,33 @@ class IMLangString extends IUnknown {
         plDestPosMarshal := plDestPos is VarRef ? "int*" : "ptr"
         plDestLenMarshal := plDestLen is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, "int", lSrcPos, "int", lSrcLen, "ptr", pUnkOuter, "uint", dwClsContext, "ptr", piid, "ptr*", ppDestMLStr, plDestPosMarshal, plDestPos, plDestLenMarshal, plDestLen, "HRESULT")
+        result := ComCall(6, this, "int", lSrcPos, "int", lSrcLen, "ptr", pUnkOuter, "uint", dwClsContext, Guid.Ptr, piid, IUnknown.Ptr, ppDestMLStr, plDestPosMarshal, plDestPos, plDestLenMarshal, plDestLen, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMLangString.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Sync := CallbackCreate(GetMethod(implObj, "Sync"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.SetMLStr := CallbackCreate(GetMethod(implObj, "SetMLStr"), flags, 6)
+        this.vtbl.GetMLStr := CallbackCreate(GetMethod(implObj, "GetMLStr"), flags, 9)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Sync)
+        CallbackFree(this.vtbl.GetLength)
+        CallbackFree(this.vtbl.SetMLStr)
+        CallbackFree(this.vtbl.GetMLStr)
     }
 }

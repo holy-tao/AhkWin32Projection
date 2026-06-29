@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes a method that determines whether a property can be edited in the UI by the user.
@@ -13,26 +15,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-ipropertystorecapabilities
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  */
-class IPropertyStoreCapabilities extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPropertyStoreCapabilities extends IUnknown {
     /**
      * The interface identifier for IPropertyStoreCapabilities
      * @type {Guid}
      */
-    static IID => Guid("{c8e2d566-186e-4d49-bf41-6909ead56acc}")
+    static IID := Guid("{c8e2d566-186e-4d49-bf41-6909ead56acc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPropertyStoreCapabilities interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        IsPropertyWritable : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsPropertyWritable"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPropertyStoreCapabilities.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Queries whether the property handler allows a specific property to be edited in the UI by the user.
@@ -76,7 +85,27 @@ class IPropertyStoreCapabilities extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertystorecapabilities-ispropertywritable
      */
     IsPropertyWritable(key) {
-        result := ComCall(3, this, "ptr", key, "int")
+        result := ComCall(3, this, PROPERTYKEY.Ptr, key, Int32)
         return result
+    }
+
+    Query(iid) {
+        if (IPropertyStoreCapabilities.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsPropertyWritable := CallbackCreate(GetMethod(implObj, "IsPropertyWritable"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsPropertyWritable)
     }
 }

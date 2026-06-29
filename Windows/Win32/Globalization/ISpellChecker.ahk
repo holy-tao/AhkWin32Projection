@@ -1,36 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\Guid.ahk
-#Include ..\System\Com\IUnknown.ahk
-#Include .\IEnumSpellingError.ahk
-#Include ..\System\Com\IEnumString.ahk
-#Include .\IOptionDescription.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
+#Import "..\System\Com\IEnumString.ahk" { IEnumString }
+#Import "..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumSpellingError.ahk" { IEnumSpellingError }
+#Import "..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IOptionDescription.ahk" { IOptionDescription }
+#Import ".\ISpellCheckerChangedEventHandler.ahk" { ISpellCheckerChangedEventHandler }
 
 /**
  * Represents a particular spell checker for a particular language.
  * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nn-spellcheck-ispellchecker
  * @namespace Windows.Win32.Globalization
  */
-class ISpellChecker extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISpellChecker extends IUnknown {
     /**
      * The interface identifier for ISpellChecker
      * @type {Guid}
      */
-    static IID => Guid("{b6fd0b71-e2bc-4653-8d05-f197e412770b}")
+    static IID := Guid("{b6fd0b71-e2bc-4653-8d05-f197e412770b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpellChecker interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_LanguageTag            : IntPtr
+        Check                      : IntPtr
+        Suggest                    : IntPtr
+        Add                        : IntPtr
+        Ignore                     : IntPtr
+        AutoCorrect                : IntPtr
+        GetOptionValue             : IntPtr
+        get_OptionIds              : IntPtr
+        get_Id                     : IntPtr
+        get_LocalizedName          : IntPtr
+        add_SpellCheckerChanged    : IntPtr
+        remove_SpellCheckerChanged : IntPtr
+        GetOptionDescription       : IntPtr
+        ComprehensiveCheck         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_LanguageTag", "Check", "Suggest", "Add", "Ignore", "AutoCorrect", "GetOptionValue", "get_OptionIds", "get_Id", "get_LocalizedName", "add_SpellCheckerChanged", "remove_SpellCheckerChanged", "GetOptionDescription", "ComprehensiveCheck"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpellChecker.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {PWSTR} 
@@ -66,7 +89,7 @@ class ISpellChecker extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellchecker-get_languagetag
      */
     get_LanguageTag() {
-        result := ComCall(3, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(3, this, PWSTR.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -288,7 +311,7 @@ class ISpellChecker extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellchecker-get_id
      */
     get_Id() {
-        result := ComCall(11, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(11, this, PWSTR.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -298,7 +321,7 @@ class ISpellChecker extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellchecker-get_localizedname
      */
     get_LocalizedName() {
-        result := ComCall(12, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(12, this, PWSTR.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -355,5 +378,51 @@ class ISpellChecker extends IUnknown {
 
         result := ComCall(16, this, "ptr", text, "ptr*", &value := 0, "HRESULT")
         return IEnumSpellingError(value)
+    }
+
+    Query(iid) {
+        if (ISpellChecker.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_LanguageTag := CallbackCreate(GetMethod(implObj, "get_LanguageTag"), flags, 2)
+        this.vtbl.Check := CallbackCreate(GetMethod(implObj, "Check"), flags, 3)
+        this.vtbl.Suggest := CallbackCreate(GetMethod(implObj, "Suggest"), flags, 3)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Ignore := CallbackCreate(GetMethod(implObj, "Ignore"), flags, 2)
+        this.vtbl.AutoCorrect := CallbackCreate(GetMethod(implObj, "AutoCorrect"), flags, 3)
+        this.vtbl.GetOptionValue := CallbackCreate(GetMethod(implObj, "GetOptionValue"), flags, 3)
+        this.vtbl.get_OptionIds := CallbackCreate(GetMethod(implObj, "get_OptionIds"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_LocalizedName := CallbackCreate(GetMethod(implObj, "get_LocalizedName"), flags, 2)
+        this.vtbl.add_SpellCheckerChanged := CallbackCreate(GetMethod(implObj, "add_SpellCheckerChanged"), flags, 3)
+        this.vtbl.remove_SpellCheckerChanged := CallbackCreate(GetMethod(implObj, "remove_SpellCheckerChanged"), flags, 2)
+        this.vtbl.GetOptionDescription := CallbackCreate(GetMethod(implObj, "GetOptionDescription"), flags, 3)
+        this.vtbl.ComprehensiveCheck := CallbackCreate(GetMethod(implObj, "ComprehensiveCheck"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_LanguageTag)
+        CallbackFree(this.vtbl.Check)
+        CallbackFree(this.vtbl.Suggest)
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.Ignore)
+        CallbackFree(this.vtbl.AutoCorrect)
+        CallbackFree(this.vtbl.GetOptionValue)
+        CallbackFree(this.vtbl.get_OptionIds)
+        CallbackFree(this.vtbl.get_Id)
+        CallbackFree(this.vtbl.get_LocalizedName)
+        CallbackFree(this.vtbl.add_SpellCheckerChanged)
+        CallbackFree(this.vtbl.remove_SpellCheckerChanged)
+        CallbackFree(this.vtbl.GetOptionDescription)
+        CallbackFree(this.vtbl.ComprehensiveCheck)
     }
 }

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RIO_BUFFERID.ahk" { RIO_BUFFERID }
 
 /**
  * Specifies a portion of a registered buffer used for sending or receiving network data with the Winsock registered I/O extensions.
@@ -14,35 +14,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/mswsockdef/ns-mswsockdef-rio_buf
  * @namespace Windows.Win32.Networking.WinSock
  */
-class RIO_BUF extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct RIO_BUF {
+    #StructPack 8
 
     /**
      * The registered buffer descriptor for a Winsock registered I/O buffer used with send and receive requests.
-     * @type {RIO_BUFFERID}
      */
-    BufferId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    BufferId : RIO_BUFFERID
 
     /**
      * The offset, in bytes, into the buffer specified by the <b>BufferId</b> member. An <b>Offset</b> value of zero points to the beginning of the buffer
-     * @type {Integer}
      */
-    Offset {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Offset : UInt32
 
     /**
      * A length, in bytes, of the buffer to use from the <b>Offset</b> member.
-     * @type {Integer}
      */
-    Length {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Length : UInt32
+
 }

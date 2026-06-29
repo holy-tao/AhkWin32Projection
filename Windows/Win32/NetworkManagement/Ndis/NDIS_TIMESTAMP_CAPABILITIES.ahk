@@ -1,67 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_OBJECT_HEADER.ahk
-#Include .\NDIS_TIMESTAMP_CAPABILITY_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
+#Import ".\NDIS_TIMESTAMP_CAPABILITY_FLAGS.ahk" { NDIS_TIMESTAMP_CAPABILITY_FLAGS }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NDIS_TIMESTAMP_CAPABILITIES extends Win32Struct {
-    static sizeof => 56
+export default struct NDIS_TIMESTAMP_CAPABILITIES {
+    #StructPack 8
 
-    static packingSize => 8
+    Header : NDIS_OBJECT_HEADER
 
-    /**
-     * @type {NDIS_OBJECT_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    HardwareClockFrequencyHz : Int64
 
-    /**
-     * @type {Integer}
-     */
-    HardwareClockFrequencyHz {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    CrossTimestamp : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    CrossTimestamp {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    Reserved1 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Reserved2 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Reserved2 {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    TimestampFlags : NDIS_TIMESTAMP_CAPABILITY_FLAGS
 
-    /**
-     * @type {NDIS_TIMESTAMP_CAPABILITY_FLAGS}
-     */
-    TimestampFlags {
-        get {
-            if(!this.HasProp("__TimestampFlags"))
-                this.__TimestampFlags := NDIS_TIMESTAMP_CAPABILITY_FLAGS(40, this)
-            return this.__TimestampFlags
-        }
-    }
 }

@@ -1,31 +1,64 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CONTACT_AGGREGATION_BLOB.ahk" { CONTACT_AGGREGATION_BLOB }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Contacts
  */
-class IContactAggregationServerPerson extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IContactAggregationServerPerson extends IUnknown {
     /**
      * The interface identifier for IContactAggregationServerPerson
      * @type {Guid}
      */
-    static IID => Guid("{7fdc3d4b-1b82-4334-85c5-25184ee5a5f2}")
+    static IID := Guid("{7fdc3d4b-1b82-4334-85c5-25184ee5a5f2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IContactAggregationServerPerson interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Delete                    : IntPtr
+        Save                      : IntPtr
+        get_AggregateId           : IntPtr
+        put_AggregateId           : IntPtr
+        get_AntiLink              : IntPtr
+        put_AntiLink              : IntPtr
+        get_AntiLinkBaseline      : IntPtr
+        put_AntiLinkBaseline      : IntPtr
+        get_FavoriteOrder         : IntPtr
+        put_FavoriteOrder         : IntPtr
+        get_FavoriteOrderBaseline : IntPtr
+        put_FavoriteOrderBaseline : IntPtr
+        get_Groups                : IntPtr
+        put_Groups                : IntPtr
+        get_GroupsBaseline        : IntPtr
+        put_GroupsBaseline        : IntPtr
+        get_Id                    : IntPtr
+        get_IsTombstone           : IntPtr
+        put_IsTombstone           : IntPtr
+        get_LinkedAggregateId     : IntPtr
+        put_LinkedAggregateId     : IntPtr
+        get_ObjectId              : IntPtr
+        put_ObjectId              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Delete", "Save", "get_AggregateId", "put_AggregateId", "get_AntiLink", "put_AntiLink", "get_AntiLinkBaseline", "put_AntiLinkBaseline", "get_FavoriteOrder", "put_FavoriteOrder", "get_FavoriteOrderBaseline", "put_FavoriteOrderBaseline", "get_Groups", "put_Groups", "get_GroupsBaseline", "put_GroupsBaseline", "get_Id", "get_IsTombstone", "put_IsTombstone", "get_LinkedAggregateId", "put_LinkedAggregateId", "get_ObjectId", "put_ObjectId"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IContactAggregationServerPerson.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {PWSTR} 
@@ -115,17 +148,8 @@ class IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * Deletes an access control entry (ACE) from an access control list (ACL).
-     * @remarks
-     * An application can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl_size_information">ACL_SIZE_INFORMATION</a> structure retrieved by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getaclinformation">GetAclInformation</a> function to discover the size of the ACL and the number of ACEs it contains. The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getace">GetAce</a> function retrieves information about an individual ACE.
-     * @returns {HRESULT} If the function succeeds, the function returns nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-deleteace
+     * @returns {HRESULT} 
      */
     Delete() {
         result := ComCall(3, this, "HRESULT")
@@ -133,11 +157,8 @@ class IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * The SaveBookmark method saves the current disc position and state of the MSWebDVD object so the user can return to the same place later.
-     * @remarks
-     * A bookmark is a snapshot of the DVD Navigator's current state. This includes information such as where it is playing on the disc, and which audio and subpictures streams are selected. By saving a bookmark, the user can close the application, shut down the computer, and come back later to continue viewing the disc right where he or she left off, with all settings just as they were before. Only one bookmark can be saved at any given time. When you call `SaveBookmark`, the old bookmark is overwritten.
-     * @returns {HRESULT} No return value.
-     * @see https://learn.microsoft.com/windows/win32/DirectShow/savebookmark-method
+     * 
+     * @returns {HRESULT} 
      */
     Save() {
         result := ComCall(4, this, "HRESULT")
@@ -149,7 +170,7 @@ class IContactAggregationServerPerson extends IUnknown {
      * @returns {PWSTR} 
      */
     get_AggregateId() {
-        result := ComCall(5, this, "ptr*", &ppAggregateId := 0, "HRESULT")
+        result := ComCall(5, this, PWSTR.Ptr, &ppAggregateId := 0, "HRESULT")
         return ppAggregateId
     }
 
@@ -170,7 +191,7 @@ class IContactAggregationServerPerson extends IUnknown {
      * @returns {PWSTR} 
      */
     get_AntiLink() {
-        result := ComCall(7, this, "ptr*", &ppAntiLink := 0, "HRESULT")
+        result := ComCall(7, this, PWSTR.Ptr, &ppAntiLink := 0, "HRESULT")
         return ppAntiLink
     }
 
@@ -191,7 +212,7 @@ class IContactAggregationServerPerson extends IUnknown {
      * @returns {PWSTR} 
      */
     get_AntiLinkBaseline() {
-        result := ComCall(9, this, "ptr*", &ppAntiLink := 0, "HRESULT")
+        result := ComCall(9, this, PWSTR.Ptr, &ppAntiLink := 0, "HRESULT")
         return ppAntiLink
     }
 
@@ -260,7 +281,7 @@ class IContactAggregationServerPerson extends IUnknown {
      * @returns {HRESULT} 
      */
     put_Groups(pGroups) {
-        result := ComCall(16, this, "ptr", pGroups, "HRESULT")
+        result := ComCall(16, this, CONTACT_AGGREGATION_BLOB.Ptr, pGroups, "HRESULT")
         return result
     }
 
@@ -279,7 +300,7 @@ class IContactAggregationServerPerson extends IUnknown {
      * @returns {HRESULT} 
      */
     put_GroupsBaseline(pGroups) {
-        result := ComCall(18, this, "ptr", pGroups, "HRESULT")
+        result := ComCall(18, this, CONTACT_AGGREGATION_BLOB.Ptr, pGroups, "HRESULT")
         return result
     }
 
@@ -288,7 +309,7 @@ class IContactAggregationServerPerson extends IUnknown {
      * @returns {PWSTR} 
      */
     get_Id() {
-        result := ComCall(19, this, "ptr*", &ppId := 0, "HRESULT")
+        result := ComCall(19, this, PWSTR.Ptr, &ppId := 0, "HRESULT")
         return ppId
     }
 
@@ -297,7 +318,7 @@ class IContactAggregationServerPerson extends IUnknown {
      * @returns {BOOL} 
      */
     get_IsTombstone() {
-        result := ComCall(20, this, "int*", &pIsTombstone := 0, "HRESULT")
+        result := ComCall(20, this, BOOL.Ptr, &pIsTombstone := 0, "HRESULT")
         return pIsTombstone
     }
 
@@ -307,7 +328,7 @@ class IContactAggregationServerPerson extends IUnknown {
      * @returns {HRESULT} 
      */
     put_IsTombstone(isTombstone) {
-        result := ComCall(21, this, "int", isTombstone, "HRESULT")
+        result := ComCall(21, this, BOOL, isTombstone, "HRESULT")
         return result
     }
 
@@ -316,7 +337,7 @@ class IContactAggregationServerPerson extends IUnknown {
      * @returns {PWSTR} 
      */
     get_LinkedAggregateId() {
-        result := ComCall(22, this, "ptr*", &ppLinkedAggregateId := 0, "HRESULT")
+        result := ComCall(22, this, PWSTR.Ptr, &ppLinkedAggregateId := 0, "HRESULT")
         return ppLinkedAggregateId
     }
 
@@ -337,7 +358,7 @@ class IContactAggregationServerPerson extends IUnknown {
      * @returns {PWSTR} 
      */
     get_ObjectId() {
-        result := ComCall(24, this, "ptr*", &ppObjectId := 0, "HRESULT")
+        result := ComCall(24, this, PWSTR.Ptr, &ppObjectId := 0, "HRESULT")
         return ppObjectId
     }
 
@@ -351,5 +372,69 @@ class IContactAggregationServerPerson extends IUnknown {
 
         result := ComCall(25, this, "ptr", pObjectId, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IContactAggregationServerPerson.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
+        this.vtbl.get_AggregateId := CallbackCreate(GetMethod(implObj, "get_AggregateId"), flags, 2)
+        this.vtbl.put_AggregateId := CallbackCreate(GetMethod(implObj, "put_AggregateId"), flags, 2)
+        this.vtbl.get_AntiLink := CallbackCreate(GetMethod(implObj, "get_AntiLink"), flags, 2)
+        this.vtbl.put_AntiLink := CallbackCreate(GetMethod(implObj, "put_AntiLink"), flags, 2)
+        this.vtbl.get_AntiLinkBaseline := CallbackCreate(GetMethod(implObj, "get_AntiLinkBaseline"), flags, 2)
+        this.vtbl.put_AntiLinkBaseline := CallbackCreate(GetMethod(implObj, "put_AntiLinkBaseline"), flags, 2)
+        this.vtbl.get_FavoriteOrder := CallbackCreate(GetMethod(implObj, "get_FavoriteOrder"), flags, 2)
+        this.vtbl.put_FavoriteOrder := CallbackCreate(GetMethod(implObj, "put_FavoriteOrder"), flags, 2)
+        this.vtbl.get_FavoriteOrderBaseline := CallbackCreate(GetMethod(implObj, "get_FavoriteOrderBaseline"), flags, 2)
+        this.vtbl.put_FavoriteOrderBaseline := CallbackCreate(GetMethod(implObj, "put_FavoriteOrderBaseline"), flags, 2)
+        this.vtbl.get_Groups := CallbackCreate(GetMethod(implObj, "get_Groups"), flags, 2)
+        this.vtbl.put_Groups := CallbackCreate(GetMethod(implObj, "put_Groups"), flags, 2)
+        this.vtbl.get_GroupsBaseline := CallbackCreate(GetMethod(implObj, "get_GroupsBaseline"), flags, 2)
+        this.vtbl.put_GroupsBaseline := CallbackCreate(GetMethod(implObj, "put_GroupsBaseline"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_IsTombstone := CallbackCreate(GetMethod(implObj, "get_IsTombstone"), flags, 2)
+        this.vtbl.put_IsTombstone := CallbackCreate(GetMethod(implObj, "put_IsTombstone"), flags, 2)
+        this.vtbl.get_LinkedAggregateId := CallbackCreate(GetMethod(implObj, "get_LinkedAggregateId"), flags, 2)
+        this.vtbl.put_LinkedAggregateId := CallbackCreate(GetMethod(implObj, "put_LinkedAggregateId"), flags, 2)
+        this.vtbl.get_ObjectId := CallbackCreate(GetMethod(implObj, "get_ObjectId"), flags, 2)
+        this.vtbl.put_ObjectId := CallbackCreate(GetMethod(implObj, "put_ObjectId"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.Save)
+        CallbackFree(this.vtbl.get_AggregateId)
+        CallbackFree(this.vtbl.put_AggregateId)
+        CallbackFree(this.vtbl.get_AntiLink)
+        CallbackFree(this.vtbl.put_AntiLink)
+        CallbackFree(this.vtbl.get_AntiLinkBaseline)
+        CallbackFree(this.vtbl.put_AntiLinkBaseline)
+        CallbackFree(this.vtbl.get_FavoriteOrder)
+        CallbackFree(this.vtbl.put_FavoriteOrder)
+        CallbackFree(this.vtbl.get_FavoriteOrderBaseline)
+        CallbackFree(this.vtbl.put_FavoriteOrderBaseline)
+        CallbackFree(this.vtbl.get_Groups)
+        CallbackFree(this.vtbl.put_Groups)
+        CallbackFree(this.vtbl.get_GroupsBaseline)
+        CallbackFree(this.vtbl.put_GroupsBaseline)
+        CallbackFree(this.vtbl.get_Id)
+        CallbackFree(this.vtbl.get_IsTombstone)
+        CallbackFree(this.vtbl.put_IsTombstone)
+        CallbackFree(this.vtbl.get_LinkedAggregateId)
+        CallbackFree(this.vtbl.put_LinkedAggregateId)
+        CallbackFree(this.vtbl.get_ObjectId)
+        CallbackFree(this.vtbl.put_ObjectId)
     }
 }

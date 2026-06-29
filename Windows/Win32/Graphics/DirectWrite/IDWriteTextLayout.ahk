@@ -1,14 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteTextFormat.ahk
-#Include .\IDWriteFontCollection.ahk
-#Include .\DWRITE_TEXT_RANGE.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDWriteInlineObject.ahk
-#Include .\IDWriteTypography.ahk
-#Include .\DWRITE_TEXT_METRICS.ahk
-#Include .\DWRITE_OVERHANG_METRICS.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DWRITE_OVERHANG_METRICS.ahk" { DWRITE_OVERHANG_METRICS }
+#Import ".\DWRITE_FONT_STYLE.ahk" { DWRITE_FONT_STYLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_TEXT_METRICS.ahk" { DWRITE_TEXT_METRICS }
+#Import ".\IDWriteInlineObject.ahk" { IDWriteInlineObject }
+#Import ".\DWRITE_CLUSTER_METRICS.ahk" { DWRITE_CLUSTER_METRICS }
+#Import ".\IDWriteTextFormat.ahk" { IDWriteTextFormat }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DWRITE_LINE_METRICS.ahk" { DWRITE_LINE_METRICS }
+#Import ".\IDWriteTextRenderer.ahk" { IDWriteTextRenderer }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
+#Import ".\IDWriteTypography.ahk" { IDWriteTypography }
+#Import ".\DWRITE_FONT_STRETCH.ahk" { DWRITE_FONT_STRETCH }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DWRITE_TEXT_RANGE.ahk" { DWRITE_TEXT_RANGE }
+#Import ".\DWRITE_HIT_TEST_METRICS.ahk" { DWRITE_HIT_TEST_METRICS }
+#Import ".\DWRITE_FONT_WEIGHT.ahk" { DWRITE_FONT_WEIGHT }
 
 /**
  * The IDWriteTextLayout interface represents a block of text after it has been fully analyzed and formatted.
@@ -89,26 +99,71 @@
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextlayout
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteTextLayout extends IDWriteTextFormat {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteTextLayout extends IDWriteTextFormat {
     /**
      * The interface identifier for IDWriteTextLayout
      * @type {Guid}
      */
-    static IID => Guid("{53737037-6d14-410b-9bfe-0b182bb70961}")
+    static IID := Guid("{53737037-6d14-410b-9bfe-0b182bb70961}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 28
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteTextLayout interfaces
+    */
+    struct Vtbl extends IDWriteTextFormat.Vtbl {
+        SetMaxWidth             : IntPtr
+        SetMaxHeight            : IntPtr
+        SetFontCollection       : IntPtr
+        SetFontFamilyName       : IntPtr
+        SetFontWeight           : IntPtr
+        SetFontStyle            : IntPtr
+        SetFontStretch          : IntPtr
+        SetFontSize             : IntPtr
+        SetUnderline            : IntPtr
+        SetStrikethrough        : IntPtr
+        SetDrawingEffect        : IntPtr
+        SetInlineObject         : IntPtr
+        SetTypography           : IntPtr
+        SetLocaleName           : IntPtr
+        GetMaxWidth             : IntPtr
+        GetMaxHeight            : IntPtr
+        GetFontCollection       : IntPtr
+        GetFontFamilyNameLength : IntPtr
+        GetFontFamilyName       : IntPtr
+        GetFontWeight           : IntPtr
+        GetFontStyle            : IntPtr
+        GetFontStretch          : IntPtr
+        GetFontSize             : IntPtr
+        GetUnderline            : IntPtr
+        GetStrikethrough        : IntPtr
+        GetDrawingEffect        : IntPtr
+        GetInlineObject         : IntPtr
+        GetTypography           : IntPtr
+        GetLocaleNameLength     : IntPtr
+        GetLocaleName           : IntPtr
+        Draw                    : IntPtr
+        GetLineMetrics          : IntPtr
+        GetMetrics              : IntPtr
+        GetOverhangMetrics      : IntPtr
+        GetClusterMetrics       : IntPtr
+        DetermineMinWidth       : IntPtr
+        HitTestPoint            : IntPtr
+        HitTestTextPosition     : IntPtr
+        HitTestTextRange        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetMaxWidth", "SetMaxHeight", "SetFontCollection", "SetFontFamilyName", "SetFontWeight", "SetFontStyle", "SetFontStretch", "SetFontSize", "SetUnderline", "SetStrikethrough", "SetDrawingEffect", "SetInlineObject", "SetTypography", "SetLocaleName", "GetMaxWidth", "GetMaxHeight", "GetFontCollection", "GetFontFamilyNameLength", "GetFontFamilyName", "GetFontWeight", "GetFontStyle", "GetFontStretch", "GetFontSize", "GetUnderline", "GetStrikethrough", "GetDrawingEffect", "GetInlineObject", "GetTypography", "GetLocaleNameLength", "GetLocaleName", "Draw", "GetLineMetrics", "GetMetrics", "GetOverhangMetrics", "GetClusterMetrics", "DetermineMinWidth", "HitTestPoint", "HitTestTextPosition", "HitTestTextRange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteTextLayout.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the layout maximum width.
@@ -154,7 +209,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-setfontcollection
      */
     SetFontCollection(_fontCollection, textRange) {
-        result := ComCall(30, this, "ptr", _fontCollection, "ptr", textRange, "HRESULT")
+        result := ComCall(30, this, "ptr", _fontCollection, DWRITE_TEXT_RANGE, textRange, "HRESULT")
         return result
     }
 
@@ -174,7 +229,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
     SetFontFamilyName(fontFamilyName, textRange) {
         fontFamilyName := fontFamilyName is String ? StrPtr(fontFamilyName) : fontFamilyName
 
-        result := ComCall(31, this, "ptr", fontFamilyName, "ptr", textRange, "HRESULT")
+        result := ComCall(31, this, "ptr", fontFamilyName, DWRITE_TEXT_RANGE, textRange, "HRESULT")
         return result
     }
 
@@ -198,7 +253,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-setfontweight
      */
     SetFontWeight(fontWeight, textRange) {
-        result := ComCall(32, this, "int", fontWeight, "ptr", textRange, "HRESULT")
+        result := ComCall(32, this, DWRITE_FONT_WEIGHT, fontWeight, DWRITE_TEXT_RANGE, textRange, "HRESULT")
         return result
     }
 
@@ -220,7 +275,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-setfontstyle
      */
     SetFontStyle(_fontStyle, textRange) {
-        result := ComCall(33, this, "int", _fontStyle, "ptr", textRange, "HRESULT")
+        result := ComCall(33, this, DWRITE_FONT_STYLE, _fontStyle, DWRITE_TEXT_RANGE, textRange, "HRESULT")
         return result
     }
 
@@ -238,7 +293,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-setfontstretch
      */
     SetFontStretch(fontStretch, textRange) {
-        result := ComCall(34, this, "int", fontStretch, "ptr", textRange, "HRESULT")
+        result := ComCall(34, this, DWRITE_FONT_STRETCH, fontStretch, DWRITE_TEXT_RANGE, textRange, "HRESULT")
         return result
     }
 
@@ -256,7 +311,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-setfontsize
      */
     SetFontSize(fontSize, textRange) {
-        result := ComCall(35, this, "float", fontSize, "ptr", textRange, "HRESULT")
+        result := ComCall(35, this, "float", fontSize, DWRITE_TEXT_RANGE, textRange, "HRESULT")
         return result
     }
 
@@ -274,7 +329,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-setunderline
      */
     SetUnderline(hasUnderline, textRange) {
-        result := ComCall(36, this, "int", hasUnderline, "ptr", textRange, "HRESULT")
+        result := ComCall(36, this, BOOL, hasUnderline, DWRITE_TEXT_RANGE, textRange, "HRESULT")
         return result
     }
 
@@ -292,7 +347,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-setstrikethrough
      */
     SetStrikethrough(hasStrikethrough, textRange) {
-        result := ComCall(37, this, "int", hasStrikethrough, "ptr", textRange, "HRESULT")
+        result := ComCall(37, this, BOOL, hasStrikethrough, DWRITE_TEXT_RANGE, textRange, "HRESULT")
         return result
     }
 
@@ -315,7 +370,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-setdrawingeffect
      */
     SetDrawingEffect(drawingEffect, textRange) {
-        result := ComCall(38, this, "ptr", drawingEffect, "ptr", textRange, "HRESULT")
+        result := ComCall(38, this, "ptr", drawingEffect, DWRITE_TEXT_RANGE, textRange, "HRESULT")
         return result
     }
 
@@ -339,7 +394,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-setinlineobject
      */
     SetInlineObject(inlineObject, textRange) {
-        result := ComCall(39, this, "ptr", inlineObject, "ptr", textRange, "HRESULT")
+        result := ComCall(39, this, "ptr", inlineObject, DWRITE_TEXT_RANGE, textRange, "HRESULT")
         return result
     }
 
@@ -357,7 +412,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-settypography
      */
     SetTypography(typography, textRange) {
-        result := ComCall(40, this, "ptr", typography, "ptr", textRange, "HRESULT")
+        result := ComCall(40, this, "ptr", typography, DWRITE_TEXT_RANGE, textRange, "HRESULT")
         return result
     }
 
@@ -377,7 +432,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
     SetLocaleName(localeName, textRange) {
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
-        result := ComCall(41, this, "ptr", localeName, "ptr", textRange, "HRESULT")
+        result := ComCall(41, this, "ptr", localeName, DWRITE_TEXT_RANGE, textRange, "HRESULT")
         return result
     }
 
@@ -389,7 +444,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getmaxwidth
      */
     GetMaxWidth() {
-        result := ComCall(42, this, "float")
+        result := ComCall(42, this, Float32)
         return result
     }
 
@@ -401,7 +456,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getmaxheight
      */
     GetMaxHeight() {
-        result := ComCall(43, this, "float")
+        result := ComCall(43, this, Float32)
         return result
     }
 
@@ -422,7 +477,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getfontcollection
      */
     GetFontCollection(currentPosition, _fontCollection, textRange) {
-        result := ComCall(44, this, "uint", currentPosition, "ptr*", _fontCollection, "ptr", textRange, "HRESULT")
+        result := ComCall(44, this, "uint", currentPosition, IDWriteFontCollection.Ptr, _fontCollection, DWRITE_TEXT_RANGE.Ptr, textRange, "HRESULT")
         return result
     }
 
@@ -445,7 +500,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
     GetFontFamilyNameLength(currentPosition, nameLength, textRange) {
         nameLengthMarshal := nameLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(45, this, "uint", currentPosition, nameLengthMarshal, nameLength, "ptr", textRange, "HRESULT")
+        result := ComCall(45, this, "uint", currentPosition, nameLengthMarshal, nameLength, DWRITE_TEXT_RANGE.Ptr, textRange, "HRESULT")
         return result
     }
 
@@ -469,7 +524,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
         fontFamilyName := fontFamilyName is String ? StrPtr(fontFamilyName) : fontFamilyName
 
         textRange := DWRITE_TEXT_RANGE()
-        result := ComCall(46, this, "uint", currentPosition, "ptr", fontFamilyName, "uint", nameSize, "ptr", textRange, "HRESULT")
+        result := ComCall(46, this, "uint", currentPosition, "ptr", fontFamilyName, "uint", nameSize, DWRITE_TEXT_RANGE.Ptr, textRange, "HRESULT")
         return textRange
     }
 
@@ -492,7 +547,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
     GetFontWeight(currentPosition, fontWeight, textRange) {
         fontWeightMarshal := fontWeight is VarRef ? "int*" : "ptr"
 
-        result := ComCall(47, this, "uint", currentPosition, fontWeightMarshal, fontWeight, "ptr", textRange, "HRESULT")
+        result := ComCall(47, this, "uint", currentPosition, fontWeightMarshal, fontWeight, DWRITE_TEXT_RANGE.Ptr, textRange, "HRESULT")
         return result
     }
 
@@ -515,7 +570,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
     GetFontStyle(currentPosition, _fontStyle, textRange) {
         _fontStyleMarshal := _fontStyle is VarRef ? "int*" : "ptr"
 
-        result := ComCall(48, this, "uint", currentPosition, _fontStyleMarshal, _fontStyle, "ptr", textRange, "HRESULT")
+        result := ComCall(48, this, "uint", currentPosition, _fontStyleMarshal, _fontStyle, DWRITE_TEXT_RANGE.Ptr, textRange, "HRESULT")
         return result
     }
 
@@ -538,7 +593,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
     GetFontStretch(currentPosition, fontStretch, textRange) {
         fontStretchMarshal := fontStretch is VarRef ? "int*" : "ptr"
 
-        result := ComCall(49, this, "uint", currentPosition, fontStretchMarshal, fontStretch, "ptr", textRange, "HRESULT")
+        result := ComCall(49, this, "uint", currentPosition, fontStretchMarshal, fontStretch, DWRITE_TEXT_RANGE.Ptr, textRange, "HRESULT")
         return result
     }
 
@@ -561,7 +616,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
     GetFontSize(currentPosition, fontSize, textRange) {
         fontSizeMarshal := fontSize is VarRef ? "float*" : "ptr"
 
-        result := ComCall(50, this, "uint", currentPosition, fontSizeMarshal, fontSize, "ptr", textRange, "HRESULT")
+        result := ComCall(50, this, "uint", currentPosition, fontSizeMarshal, fontSize, DWRITE_TEXT_RANGE.Ptr, textRange, "HRESULT")
         return result
     }
 
@@ -584,7 +639,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
     GetUnderline(currentPosition, hasUnderline, textRange) {
         hasUnderlineMarshal := hasUnderline is VarRef ? "int*" : "ptr"
 
-        result := ComCall(51, this, "uint", currentPosition, hasUnderlineMarshal, hasUnderline, "ptr", textRange, "HRESULT")
+        result := ComCall(51, this, "uint", currentPosition, hasUnderlineMarshal, hasUnderline, DWRITE_TEXT_RANGE.Ptr, textRange, "HRESULT")
         return result
     }
 
@@ -607,7 +662,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
     GetStrikethrough(currentPosition, hasStrikethrough, textRange) {
         hasStrikethroughMarshal := hasStrikethrough is VarRef ? "int*" : "ptr"
 
-        result := ComCall(52, this, "uint", currentPosition, hasStrikethroughMarshal, hasStrikethrough, "ptr", textRange, "HRESULT")
+        result := ComCall(52, this, "uint", currentPosition, hasStrikethroughMarshal, hasStrikethrough, DWRITE_TEXT_RANGE.Ptr, textRange, "HRESULT")
         return result
     }
 
@@ -628,7 +683,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getdrawingeffect
      */
     GetDrawingEffect(currentPosition, drawingEffect, textRange) {
-        result := ComCall(53, this, "uint", currentPosition, "ptr*", drawingEffect, "ptr", textRange, "HRESULT")
+        result := ComCall(53, this, "uint", currentPosition, IUnknown.Ptr, drawingEffect, DWRITE_TEXT_RANGE.Ptr, textRange, "HRESULT")
         return result
     }
 
@@ -649,7 +704,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getinlineobject
      */
     GetInlineObject(currentPosition, inlineObject, textRange) {
-        result := ComCall(54, this, "uint", currentPosition, "ptr*", inlineObject, "ptr", textRange, "HRESULT")
+        result := ComCall(54, this, "uint", currentPosition, IDWriteInlineObject.Ptr, inlineObject, DWRITE_TEXT_RANGE.Ptr, textRange, "HRESULT")
         return result
     }
 
@@ -670,7 +725,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-gettypography
      */
     GetTypography(currentPosition, typography, textRange) {
-        result := ComCall(55, this, "uint", currentPosition, "ptr*", typography, "ptr", textRange, "HRESULT")
+        result := ComCall(55, this, "uint", currentPosition, IDWriteTypography.Ptr, typography, DWRITE_TEXT_RANGE.Ptr, textRange, "HRESULT")
         return result
     }
 
@@ -693,7 +748,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
     GetLocaleNameLength(currentPosition, nameLength, textRange) {
         nameLengthMarshal := nameLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(56, this, "uint", currentPosition, nameLengthMarshal, nameLength, "ptr", textRange, "HRESULT")
+        result := ComCall(56, this, "uint", currentPosition, nameLengthMarshal, nameLength, DWRITE_TEXT_RANGE.Ptr, textRange, "HRESULT")
         return result
     }
 
@@ -717,7 +772,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
         textRange := DWRITE_TEXT_RANGE()
-        result := ComCall(57, this, "uint", currentPosition, "ptr", localeName, "uint", nameSize, "ptr", textRange, "HRESULT")
+        result := ComCall(57, this, "uint", currentPosition, "ptr", localeName, "uint", nameSize, DWRITE_TEXT_RANGE.Ptr, textRange, "HRESULT")
         return textRange
     }
 
@@ -776,7 +831,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
     GetLineMetrics(lineMetrics, maxLineCount, actualLineCount) {
         actualLineCountMarshal := actualLineCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(59, this, "ptr", lineMetrics, "uint", maxLineCount, actualLineCountMarshal, actualLineCount, "HRESULT")
+        result := ComCall(59, this, DWRITE_LINE_METRICS.Ptr, lineMetrics, "uint", maxLineCount, actualLineCountMarshal, actualLineCount, "HRESULT")
         return result
     }
 
@@ -789,7 +844,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
      */
     GetMetrics() {
         textMetrics := DWRITE_TEXT_METRICS()
-        result := ComCall(60, this, "ptr", textMetrics, "HRESULT")
+        result := ComCall(60, this, DWRITE_TEXT_METRICS.Ptr, textMetrics, "HRESULT")
         return textMetrics
     }
 
@@ -804,7 +859,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
      */
     GetOverhangMetrics() {
         overhangs := DWRITE_OVERHANG_METRICS()
-        result := ComCall(61, this, "ptr", overhangs, "HRESULT")
+        result := ComCall(61, this, DWRITE_OVERHANG_METRICS.Ptr, overhangs, "HRESULT")
         return overhangs
     }
 
@@ -831,7 +886,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
     GetClusterMetrics(clusterMetrics, maxClusterCount, actualClusterCount) {
         actualClusterCountMarshal := actualClusterCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(62, this, "ptr", clusterMetrics, "uint", maxClusterCount, actualClusterCountMarshal, actualClusterCount, "HRESULT")
+        result := ComCall(62, this, DWRITE_CLUSTER_METRICS.Ptr, clusterMetrics, "uint", maxClusterCount, actualClusterCountMarshal, actualClusterCount, "HRESULT")
         return result
     }
 
@@ -877,7 +932,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
         isTrailingHitMarshal := isTrailingHit is VarRef ? "int*" : "ptr"
         isInsideMarshal := isInside is VarRef ? "int*" : "ptr"
 
-        result := ComCall(64, this, "float", pointX, "float", pointY, isTrailingHitMarshal, isTrailingHit, isInsideMarshal, isInside, "ptr", hitTestMetrics, "HRESULT")
+        result := ComCall(64, this, "float", pointX, "float", pointY, isTrailingHitMarshal, isTrailingHit, isInsideMarshal, isInside, DWRITE_HIT_TEST_METRICS.Ptr, hitTestMetrics, "HRESULT")
         return result
     }
 
@@ -907,7 +962,7 @@ class IDWriteTextLayout extends IDWriteTextFormat {
         pointXMarshal := pointX is VarRef ? "float*" : "ptr"
         pointYMarshal := pointY is VarRef ? "float*" : "ptr"
 
-        result := ComCall(65, this, "uint", textPosition, "int", isTrailingHit, pointXMarshal, pointX, pointYMarshal, pointY, "ptr", hitTestMetrics, "HRESULT")
+        result := ComCall(65, this, "uint", textPosition, BOOL, isTrailingHit, pointXMarshal, pointX, pointYMarshal, pointY, DWRITE_HIT_TEST_METRICS.Ptr, hitTestMetrics, "HRESULT")
         return result
     }
 
@@ -942,7 +997,103 @@ class IDWriteTextLayout extends IDWriteTextFormat {
     HitTestTextRange(textPosition, textLength, originX, originY, hitTestMetrics, maxHitTestMetricsCount, actualHitTestMetricsCount) {
         actualHitTestMetricsCountMarshal := actualHitTestMetricsCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(66, this, "uint", textPosition, "uint", textLength, "float", originX, "float", originY, "ptr", hitTestMetrics, "uint", maxHitTestMetricsCount, actualHitTestMetricsCountMarshal, actualHitTestMetricsCount, "HRESULT")
+        result := ComCall(66, this, "uint", textPosition, "uint", textLength, "float", originX, "float", originY, DWRITE_HIT_TEST_METRICS.Ptr, hitTestMetrics, "uint", maxHitTestMetricsCount, actualHitTestMetricsCountMarshal, actualHitTestMetricsCount, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDWriteTextLayout.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetMaxWidth := CallbackCreate(GetMethod(implObj, "SetMaxWidth"), flags, 2)
+        this.vtbl.SetMaxHeight := CallbackCreate(GetMethod(implObj, "SetMaxHeight"), flags, 2)
+        this.vtbl.SetFontCollection := CallbackCreate(GetMethod(implObj, "SetFontCollection"), flags, 3)
+        this.vtbl.SetFontFamilyName := CallbackCreate(GetMethod(implObj, "SetFontFamilyName"), flags, 3)
+        this.vtbl.SetFontWeight := CallbackCreate(GetMethod(implObj, "SetFontWeight"), flags, 3)
+        this.vtbl.SetFontStyle := CallbackCreate(GetMethod(implObj, "SetFontStyle"), flags, 3)
+        this.vtbl.SetFontStretch := CallbackCreate(GetMethod(implObj, "SetFontStretch"), flags, 3)
+        this.vtbl.SetFontSize := CallbackCreate(GetMethod(implObj, "SetFontSize"), flags, 3)
+        this.vtbl.SetUnderline := CallbackCreate(GetMethod(implObj, "SetUnderline"), flags, 3)
+        this.vtbl.SetStrikethrough := CallbackCreate(GetMethod(implObj, "SetStrikethrough"), flags, 3)
+        this.vtbl.SetDrawingEffect := CallbackCreate(GetMethod(implObj, "SetDrawingEffect"), flags, 3)
+        this.vtbl.SetInlineObject := CallbackCreate(GetMethod(implObj, "SetInlineObject"), flags, 3)
+        this.vtbl.SetTypography := CallbackCreate(GetMethod(implObj, "SetTypography"), flags, 3)
+        this.vtbl.SetLocaleName := CallbackCreate(GetMethod(implObj, "SetLocaleName"), flags, 3)
+        this.vtbl.GetMaxWidth := CallbackCreate(GetMethod(implObj, "GetMaxWidth"), flags, 1)
+        this.vtbl.GetMaxHeight := CallbackCreate(GetMethod(implObj, "GetMaxHeight"), flags, 1)
+        this.vtbl.GetFontCollection := CallbackCreate(GetMethod(implObj, "GetFontCollection"), flags, 4)
+        this.vtbl.GetFontFamilyNameLength := CallbackCreate(GetMethod(implObj, "GetFontFamilyNameLength"), flags, 4)
+        this.vtbl.GetFontFamilyName := CallbackCreate(GetMethod(implObj, "GetFontFamilyName"), flags, 5)
+        this.vtbl.GetFontWeight := CallbackCreate(GetMethod(implObj, "GetFontWeight"), flags, 4)
+        this.vtbl.GetFontStyle := CallbackCreate(GetMethod(implObj, "GetFontStyle"), flags, 4)
+        this.vtbl.GetFontStretch := CallbackCreate(GetMethod(implObj, "GetFontStretch"), flags, 4)
+        this.vtbl.GetFontSize := CallbackCreate(GetMethod(implObj, "GetFontSize"), flags, 4)
+        this.vtbl.GetUnderline := CallbackCreate(GetMethod(implObj, "GetUnderline"), flags, 4)
+        this.vtbl.GetStrikethrough := CallbackCreate(GetMethod(implObj, "GetStrikethrough"), flags, 4)
+        this.vtbl.GetDrawingEffect := CallbackCreate(GetMethod(implObj, "GetDrawingEffect"), flags, 4)
+        this.vtbl.GetInlineObject := CallbackCreate(GetMethod(implObj, "GetInlineObject"), flags, 4)
+        this.vtbl.GetTypography := CallbackCreate(GetMethod(implObj, "GetTypography"), flags, 4)
+        this.vtbl.GetLocaleNameLength := CallbackCreate(GetMethod(implObj, "GetLocaleNameLength"), flags, 4)
+        this.vtbl.GetLocaleName := CallbackCreate(GetMethod(implObj, "GetLocaleName"), flags, 5)
+        this.vtbl.Draw := CallbackCreate(GetMethod(implObj, "Draw"), flags, 5)
+        this.vtbl.GetLineMetrics := CallbackCreate(GetMethod(implObj, "GetLineMetrics"), flags, 4)
+        this.vtbl.GetMetrics := CallbackCreate(GetMethod(implObj, "GetMetrics"), flags, 2)
+        this.vtbl.GetOverhangMetrics := CallbackCreate(GetMethod(implObj, "GetOverhangMetrics"), flags, 2)
+        this.vtbl.GetClusterMetrics := CallbackCreate(GetMethod(implObj, "GetClusterMetrics"), flags, 4)
+        this.vtbl.DetermineMinWidth := CallbackCreate(GetMethod(implObj, "DetermineMinWidth"), flags, 2)
+        this.vtbl.HitTestPoint := CallbackCreate(GetMethod(implObj, "HitTestPoint"), flags, 6)
+        this.vtbl.HitTestTextPosition := CallbackCreate(GetMethod(implObj, "HitTestTextPosition"), flags, 6)
+        this.vtbl.HitTestTextRange := CallbackCreate(GetMethod(implObj, "HitTestTextRange"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetMaxWidth)
+        CallbackFree(this.vtbl.SetMaxHeight)
+        CallbackFree(this.vtbl.SetFontCollection)
+        CallbackFree(this.vtbl.SetFontFamilyName)
+        CallbackFree(this.vtbl.SetFontWeight)
+        CallbackFree(this.vtbl.SetFontStyle)
+        CallbackFree(this.vtbl.SetFontStretch)
+        CallbackFree(this.vtbl.SetFontSize)
+        CallbackFree(this.vtbl.SetUnderline)
+        CallbackFree(this.vtbl.SetStrikethrough)
+        CallbackFree(this.vtbl.SetDrawingEffect)
+        CallbackFree(this.vtbl.SetInlineObject)
+        CallbackFree(this.vtbl.SetTypography)
+        CallbackFree(this.vtbl.SetLocaleName)
+        CallbackFree(this.vtbl.GetMaxWidth)
+        CallbackFree(this.vtbl.GetMaxHeight)
+        CallbackFree(this.vtbl.GetFontCollection)
+        CallbackFree(this.vtbl.GetFontFamilyNameLength)
+        CallbackFree(this.vtbl.GetFontFamilyName)
+        CallbackFree(this.vtbl.GetFontWeight)
+        CallbackFree(this.vtbl.GetFontStyle)
+        CallbackFree(this.vtbl.GetFontStretch)
+        CallbackFree(this.vtbl.GetFontSize)
+        CallbackFree(this.vtbl.GetUnderline)
+        CallbackFree(this.vtbl.GetStrikethrough)
+        CallbackFree(this.vtbl.GetDrawingEffect)
+        CallbackFree(this.vtbl.GetInlineObject)
+        CallbackFree(this.vtbl.GetTypography)
+        CallbackFree(this.vtbl.GetLocaleNameLength)
+        CallbackFree(this.vtbl.GetLocaleName)
+        CallbackFree(this.vtbl.Draw)
+        CallbackFree(this.vtbl.GetLineMetrics)
+        CallbackFree(this.vtbl.GetMetrics)
+        CallbackFree(this.vtbl.GetOverhangMetrics)
+        CallbackFree(this.vtbl.GetClusterMetrics)
+        CallbackFree(this.vtbl.DetermineMinWidth)
+        CallbackFree(this.vtbl.HitTestPoint)
+        CallbackFree(this.vtbl.HitTestTextPosition)
+        CallbackFree(this.vtbl.HitTestTextRange)
     }
 }

@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MONITORINFO.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MONITORINFO.ahk" { MONITORINFO }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * The MONITORINFOEX structure contains information about a display monitor.The GetMonitorInfo function stores information into a MONITORINFOEX structure or a MONITORINFO structure.The MONITORINFOEX structure is a superset of the MONITORINFO structure. (ANSI)
@@ -12,28 +12,14 @@
  * @namespace Windows.Win32.Graphics.Gdi
  * @charset ANSI
  */
-class MONITORINFOEXA extends Win32Struct {
-    static sizeof => 72
+export default struct MONITORINFOEXA {
+    #StructPack 4
 
-    static packingSize => 4
-
-    /**
-     * @type {MONITORINFO}
-     */
-    monitorInfo {
-        get {
-            if(!this.HasProp("__monitorInfo"))
-                this.__monitorInfo := MONITORINFO(0, this)
-            return this.__monitorInfo
-        }
-    }
+    monitorInfo : MONITORINFO
 
     /**
      * A string that specifies the device name of the monitor being used.  Most applications have no use for a display monitor name, and so can save some bytes by using a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-monitorinfo">MONITORINFO</a> structure.
-     * @type {String}
      */
-    szDevice {
-        get => StrGet(this.ptr + 40, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 40, 31, "UTF-8")
-    }
+    szDevice : CHAR[32]
+
 }

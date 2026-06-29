@@ -1,37 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VDS_CONTROLLER_PROP.ahk
-#Include .\IVdsSubSystem.ahk
-#Include .\VDS_PORT_PROP.ahk
-#Include .\IEnumVdsObject.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VDS_CONTROLLER_PROP.ahk" { VDS_CONTROLLER_PROP }
+#Import ".\VDS_CONTROLLER_STATUS.ahk" { VDS_CONTROLLER_STATUS }
+#Import ".\VDS_PORT_PROP.ahk" { VDS_PORT_PROP }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IVdsSubSystem.ahk" { IVdsSubSystem }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
 
 /**
  * The IVdsController (vdshwprv.h) interface provides methods for performing query and configuration operations on a controller.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdscontroller
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsController extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsController extends IUnknown {
     /**
      * The interface identifier for IVdsController
      * @type {Guid}
      */
-    static IID => Guid("{cb53d96e-dffb-474a-a078-790d1e2bc082}")
+    static IID := Guid("{cb53d96e-dffb-474a-a078-790d1e2bc082}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsController interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetProperties       : IntPtr
+        GetSubSystem        : IntPtr
+        GetPortProperties   : IntPtr
+        FlushCache          : IntPtr
+        InvalidateCache     : IntPtr
+        Reset               : IntPtr
+        QueryAssociatedLuns : IntPtr
+        SetStatus           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetProperties", "GetSubSystem", "GetPortProperties", "FlushCache", "InvalidateCache", "Reset", "QueryAssociatedLuns", "SetStatus"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsController.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IVdsController::GetProperties method (vdshwprv.h) returns the properties of a controller.
@@ -40,7 +56,7 @@ class IVdsController extends IUnknown {
      */
     GetProperties() {
         pControllerProp := VDS_CONTROLLER_PROP()
-        result := ComCall(3, this, "ptr", pControllerProp, "HRESULT")
+        result := ComCall(3, this, VDS_CONTROLLER_PROP.Ptr, pControllerProp, "HRESULT")
         return pControllerProp
     }
 
@@ -69,7 +85,7 @@ class IVdsController extends IUnknown {
      */
     GetPortProperties(sPortNumber) {
         pPortProp := VDS_PORT_PROP()
-        result := ComCall(5, this, "short", sPortNumber, "ptr", pPortProp, "HRESULT")
+        result := ComCall(5, this, "short", sPortNumber, VDS_PORT_PROP.Ptr, pPortProp, "HRESULT")
         return pPortProp
     }
 
@@ -391,7 +407,41 @@ class IVdsController extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdscontroller-setstatus
      */
     SetStatus(_status) {
-        result := ComCall(10, this, "int", _status, "HRESULT")
+        result := ComCall(10, this, VDS_CONTROLLER_STATUS, _status, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVdsController.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetSubSystem := CallbackCreate(GetMethod(implObj, "GetSubSystem"), flags, 2)
+        this.vtbl.GetPortProperties := CallbackCreate(GetMethod(implObj, "GetPortProperties"), flags, 3)
+        this.vtbl.FlushCache := CallbackCreate(GetMethod(implObj, "FlushCache"), flags, 1)
+        this.vtbl.InvalidateCache := CallbackCreate(GetMethod(implObj, "InvalidateCache"), flags, 1)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.QueryAssociatedLuns := CallbackCreate(GetMethod(implObj, "QueryAssociatedLuns"), flags, 2)
+        this.vtbl.SetStatus := CallbackCreate(GetMethod(implObj, "SetStatus"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetProperties)
+        CallbackFree(this.vtbl.GetSubSystem)
+        CallbackFree(this.vtbl.GetPortProperties)
+        CallbackFree(this.vtbl.FlushCache)
+        CallbackFree(this.vtbl.InvalidateCache)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.QueryAssociatedLuns)
+        CallbackFree(this.vtbl.SetStatus)
     }
 }

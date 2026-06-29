@@ -1,40 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains information about an extension.
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_extension
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
  */
-class WEBAUTHN_EXTENSION extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct WEBAUTHN_EXTENSION {
+    #StructPack 8
 
     /**
      * The extension identifier.
-     * @type {PWSTR}
      */
-    pwszExtensionIdentifier {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pwszExtensionIdentifier : PWSTR
 
     /**
      * The size of **pvExtension**.
-     * @type {Integer}
      */
-    cbExtension {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cbExtension : UInt32
 
     /**
      * The extension data.
-     * @type {Pointer<Void>}
      */
-    pvExtension {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pvExtension : IntPtr
+
 }

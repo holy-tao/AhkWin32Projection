@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains information about a protocol. (ANSI)
@@ -10,10 +10,8 @@
  * @namespace Windows.Win32.Networking.WinSock
  * @charset ANSI
  */
-class PROTOCOL_INFOA extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct PROTOCOL_INFOA {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
@@ -171,12 +169,8 @@ class PROTOCOL_INFOA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwServiceFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwServiceFlags : UInt32
 
     /**
      * Type: <b>INT</b>
@@ -184,34 +178,22 @@ class PROTOCOL_INFOA extends Win32Struct {
      * Value to pass as the <i>af</i> parameter when the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-socket">socket</a> function is called to open a socket for the protocol. This address family value uniquely defines the structure of protocol addresses, also known as 
      * <b>sockaddr</b> structures, used by the protocol.
-     * @type {Integer}
      */
-    iAddressFamily {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    iAddressFamily : Int32
 
     /**
      * Type: <b>INT</b>
      * 
      * Maximum length of a socket address supported by the protocol, in bytes.
-     * @type {Integer}
      */
-    iMaxSockAddr {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    iMaxSockAddr : Int32
 
     /**
      * Type: <b>INT</b>
      * 
      * Minimum length of a socket address supported by the protocol, in bytes.
-     * @type {Integer}
      */
-    iMinSockAddr {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    iMinSockAddr : Int32
 
     /**
      * Type: <b>INT</b>
@@ -224,24 +206,16 @@ class PROTOCOL_INFOA extends Win32Struct {
      * 
      * Note that if XP_PSEUDO_STREAM is set in <b>dwServiceFlags</b>, the application can specify SOCK_STREAM as the <i>type</i> parameter to 
      * <b>socket</b>, regardless of the value of <b>iSocketType</b>.
-     * @type {Integer}
      */
-    iSocketType {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    iSocketType : Int32
 
     /**
      * Type: <b>INT</b>
      * 
      * Value to pass as the <i>protocol</i> parameter when the 
      * <b>socket</b> function is called to open a socket for the protocol.
-     * @type {Integer}
      */
-    iProtocol {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    iProtocol : Int32
 
     /**
      * Type: <b>DWORD</b>
@@ -279,21 +253,14 @@ class PROTOCOL_INFOA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwMessageSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwMessageSize : UInt32
 
     /**
      * Type: <b>LPTSTR</b>
      * 
      * Pointer to a zero-terminated string that supplies a name for the protocol; for example, "SPX2."
-     * @type {PSTR}
      */
-    lpProtocol {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpProtocol : PSTR
+
 }

@@ -1,7 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\System\Ole\DROPEFFECT.ahk" { DROPEFFECT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that allow drop targets to display a drag image while the image is over the target window.
@@ -21,26 +27,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-idroptargethelper
  * @namespace Windows.Win32.UI.Shell
  */
-class IDropTargetHelper extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDropTargetHelper extends IUnknown {
     /**
      * The interface identifier for IDropTargetHelper
      * @type {Guid}
      */
-    static IID => Guid("{4657278b-411b-11d2-839a-00c04fd918d0}")
+    static IID := Guid("{4657278b-411b-11d2-839a-00c04fd918d0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDropTargetHelper interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        DragEnter : IntPtr
+        DragLeave : IntPtr
+        DragOver  : IntPtr
+        Drop      : IntPtr
+        Show      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["DragEnter", "DragLeave", "DragOver", "Drop", "Show"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDropTargetHelper.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Notifies the drag-image manager that the drop target's IDropTarget::DragEnter method has been called.
@@ -66,9 +83,7 @@ class IDropTargetHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idroptargethelper-dragenter
      */
     DragEnter(hwndTarget, pDataObject, ppt, dwEffect) {
-        hwndTarget := hwndTarget is Win32Handle ? NumGet(hwndTarget, "ptr") : hwndTarget
-
-        result := ComCall(3, this, "ptr", hwndTarget, "ptr", pDataObject, "ptr", ppt, "uint", dwEffect, "HRESULT")
+        result := ComCall(3, this, HWND, hwndTarget, "ptr", pDataObject, POINT.Ptr, ppt, DROPEFFECT, dwEffect, "HRESULT")
         return result
     }
 
@@ -104,7 +119,7 @@ class IDropTargetHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idroptargethelper-dragover
      */
     DragOver(ppt, dwEffect) {
-        result := ComCall(5, this, "ptr", ppt, "uint", dwEffect, "HRESULT")
+        result := ComCall(5, this, POINT.Ptr, ppt, DROPEFFECT, dwEffect, "HRESULT")
         return result
     }
 
@@ -129,7 +144,7 @@ class IDropTargetHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idroptargethelper-drop
      */
     Drop(pDataObject, ppt, dwEffect) {
-        result := ComCall(6, this, "ptr", pDataObject, "ptr", ppt, "uint", dwEffect, "HRESULT")
+        result := ComCall(6, this, "ptr", pDataObject, POINT.Ptr, ppt, DROPEFFECT, dwEffect, "HRESULT")
         return result
     }
 
@@ -146,7 +161,35 @@ class IDropTargetHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idroptargethelper-show
      */
     Show(fShow) {
-        result := ComCall(7, this, "int", fShow, "HRESULT")
+        result := ComCall(7, this, BOOL, fShow, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDropTargetHelper.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.DragEnter := CallbackCreate(GetMethod(implObj, "DragEnter"), flags, 5)
+        this.vtbl.DragLeave := CallbackCreate(GetMethod(implObj, "DragLeave"), flags, 1)
+        this.vtbl.DragOver := CallbackCreate(GetMethod(implObj, "DragOver"), flags, 3)
+        this.vtbl.Drop := CallbackCreate(GetMethod(implObj, "Drop"), flags, 4)
+        this.vtbl.Show := CallbackCreate(GetMethod(implObj, "Show"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.DragEnter)
+        CallbackFree(this.vtbl.DragLeave)
+        CallbackFree(this.vtbl.DragOver)
+        CallbackFree(this.vtbl.Drop)
+        CallbackFree(this.vtbl.Show)
     }
 }

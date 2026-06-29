@@ -1,31 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSQUALITY_MANAGER extends Win32Struct {
-    static sizeof => 16
+export default struct KSQUALITY_MANAGER {
+    #StructPack 8
 
-    static packingSize => 8
+    QualityManager : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    QualityManager {
-        get {
-            if(!this.HasProp("__QualityManager"))
-                this.__QualityManager := HANDLE(0, this)
-            return this.__QualityManager
-        }
-    }
+    Context : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Context {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

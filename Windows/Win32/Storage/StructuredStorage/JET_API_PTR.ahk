@@ -1,16 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\..\Win32Handle.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Learn more about: JET_API_PTR
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-api-ptr
  * @namespace Windows.Win32.Storage.StructuredStorage
  */
-class JET_API_PTR extends Win32Handle {
-    static sizeof => 8
+export default struct JET_API_PTR {
+    Value : IntPtr
 
-    static packingSize => 8
+    __value {
+        set {
+            if (value is JET_API_PTR) {
+                this.Value := value.Value
+            }
+            else {
+                this.Value := value
+            }
+        }
+    }
 
     /**
      * The list of values which indicate that the handle is invalid
@@ -18,11 +25,7 @@ class JET_API_PTR extends Win32Handle {
      */
     static invalidValues => [0]
 
-    /**
-     * @type {Pointer}
-     */
-    Value {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    __New(Value := 0) {
+        this.Value := Value
     }
 }

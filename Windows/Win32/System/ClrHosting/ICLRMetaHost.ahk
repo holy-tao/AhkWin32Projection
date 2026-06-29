@@ -1,32 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\Com\IEnumUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\Com\IEnumUnknown.ahk" { IEnumUnknown }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
  */
-class ICLRMetaHost extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICLRMetaHost extends IUnknown {
     /**
      * The interface identifier for ICLRMetaHost
      * @type {Guid}
      */
-    static IID => Guid("{d332db9e-b9b3-4125-8207-a14884f53216}")
+    static IID := Guid("{d332db9e-b9b3-4125-8207-a14884f53216}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICLRMetaHost interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetRuntime                       : IntPtr
+        GetVersionFromFile               : IntPtr
+        EnumerateInstalledRuntimes       : IntPtr
+        EnumerateLoadedRuntimes          : IntPtr
+        RequestRuntimeLoadedNotification : IntPtr
+        QueryLegacyV2RuntimeBinding      : IntPtr
+        ExitProcess                      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetRuntime", "GetVersionFromFile", "EnumerateInstalledRuntimes", "EnumerateLoadedRuntimes", "RequestRuntimeLoadedNotification", "QueryLegacyV2RuntimeBinding", "ExitProcess"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICLRMetaHost.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -37,7 +53,7 @@ class ICLRMetaHost extends IUnknown {
     GetRuntime(pwzVersion, riid) {
         pwzVersion := pwzVersion is String ? StrPtr(pwzVersion) : pwzVersion
 
-        result := ComCall(3, this, "ptr", pwzVersion, "ptr", riid, "ptr*", &ppRuntime := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pwzVersion, Guid.Ptr, riid, "ptr*", &ppRuntime := 0, "HRESULT")
         return ppRuntime
     }
 
@@ -73,9 +89,7 @@ class ICLRMetaHost extends IUnknown {
      * @returns {IEnumUnknown} 
      */
     EnumerateLoadedRuntimes(hndProcess) {
-        hndProcess := hndProcess is Win32Handle ? NumGet(hndProcess, "ptr") : hndProcess
-
-        result := ComCall(6, this, "ptr", hndProcess, "ptr*", &ppEnumerator := 0, "HRESULT")
+        result := ComCall(6, this, HANDLE, hndProcess, "ptr*", &ppEnumerator := 0, "HRESULT")
         return IEnumUnknown(ppEnumerator)
     }
 
@@ -95,7 +109,7 @@ class ICLRMetaHost extends IUnknown {
      * @returns {Pointer<Void>} 
      */
     QueryLegacyV2RuntimeBinding(riid) {
-        result := ComCall(8, this, "ptr", riid, "ptr*", &ppUnk := 0, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, riid, "ptr*", &ppUnk := 0, "HRESULT")
         return ppUnk
     }
 
@@ -136,5 +150,37 @@ class ICLRMetaHost extends IUnknown {
     ExitProcess(iExitCode) {
         result := ComCall(9, this, "int", iExitCode, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICLRMetaHost.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetRuntime := CallbackCreate(GetMethod(implObj, "GetRuntime"), flags, 4)
+        this.vtbl.GetVersionFromFile := CallbackCreate(GetMethod(implObj, "GetVersionFromFile"), flags, 4)
+        this.vtbl.EnumerateInstalledRuntimes := CallbackCreate(GetMethod(implObj, "EnumerateInstalledRuntimes"), flags, 2)
+        this.vtbl.EnumerateLoadedRuntimes := CallbackCreate(GetMethod(implObj, "EnumerateLoadedRuntimes"), flags, 3)
+        this.vtbl.RequestRuntimeLoadedNotification := CallbackCreate(GetMethod(implObj, "RequestRuntimeLoadedNotification"), flags, 2)
+        this.vtbl.QueryLegacyV2RuntimeBinding := CallbackCreate(GetMethod(implObj, "QueryLegacyV2RuntimeBinding"), flags, 3)
+        this.vtbl.ExitProcess := CallbackCreate(GetMethod(implObj, "ExitProcess"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetRuntime)
+        CallbackFree(this.vtbl.GetVersionFromFile)
+        CallbackFree(this.vtbl.EnumerateInstalledRuntimes)
+        CallbackFree(this.vtbl.EnumerateLoadedRuntimes)
+        CallbackFree(this.vtbl.RequestRuntimeLoadedNotification)
+        CallbackFree(this.vtbl.QueryLegacyV2RuntimeBinding)
+        CallbackFree(this.vtbl.ExitProcess)
     }
 }

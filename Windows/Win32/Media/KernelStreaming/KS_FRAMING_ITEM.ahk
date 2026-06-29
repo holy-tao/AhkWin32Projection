@@ -1,107 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KS_FRAMING_RANGE.ahk
-#Include .\KS_FRAMING_RANGE_WEIGHTED.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KS_FRAMING_RANGE.ahk" { KS_FRAMING_RANGE }
+#Import ".\KS_FRAMING_RANGE_WEIGHTED.ahk" { KS_FRAMING_RANGE_WEIGHTED }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KS_FRAMING_ITEM extends Win32Struct {
-    static sizeof => 72
+export default struct KS_FRAMING_ITEM {
+    #StructPack 4
 
-    static packingSize => 8
+    MemoryType : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    MemoryType {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    BusType : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    BusType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    MemoryFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MemoryFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    BusFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BusFlags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Frames : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Frames {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    FileAlignment : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FileAlignment {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    MemoryTypeWeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FramePitch {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    PhysicalRange : KS_FRAMING_RANGE
 
-    /**
-     * @type {Integer}
-     */
-    MemoryTypeWeight {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    FramingRange : KS_FRAMING_RANGE_WEIGHTED
 
-    /**
-     * @type {KS_FRAMING_RANGE}
-     */
-    PhysicalRange {
-        get {
-            if(!this.HasProp("__PhysicalRange"))
-                this.__PhysicalRange := KS_FRAMING_RANGE(40, this)
-            return this.__PhysicalRange
-        }
-    }
-
-    /**
-     * @type {KS_FRAMING_RANGE_WEIGHTED}
-     */
-    FramingRange {
-        get {
-            if(!this.HasProp("__FramingRange"))
-                this.__FramingRange := KS_FRAMING_RANGE_WEIGHTED(52, this)
-            return this.__FramingRange
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'FramePitch', { type: Int32, offset: 48 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides information about the result of an asynchronous operation. (IMFAsyncResult)
@@ -21,26 +22,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfasyncresult
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFAsyncResult extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFAsyncResult extends IUnknown {
     /**
      * The interface identifier for IMFAsyncResult
      * @type {Guid}
      */
-    static IID => Guid("{ac6b7889-0740-4d51-8619-905994a55cc6}")
+    static IID := Guid("{ac6b7889-0740-4d51-8619-905994a55cc6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFAsyncResult interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetState         : IntPtr
+        GetStatus        : IntPtr
+        SetStatus        : IntPtr
+        GetObject        : IntPtr
+        GetStateNoAddRef : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetState", "GetStatus", "SetStatus", "GetObject", "GetStateNoAddRef"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFAsyncResult.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns the state object specified by the caller in the asynchronous Begin method. (IMFAsyncResult.GetState)
@@ -174,7 +186,35 @@ class IMFAsyncResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfasyncresult-getstatenoaddref
      */
     GetStateNoAddRef() {
-        result := ComCall(7, this, "ptr")
+        result := ComCall(7, this, IUnknown)
         return result
+    }
+
+    Query(iid) {
+        if (IMFAsyncResult.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 2)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 1)
+        this.vtbl.SetStatus := CallbackCreate(GetMethod(implObj, "SetStatus"), flags, 2)
+        this.vtbl.GetObject := CallbackCreate(GetMethod(implObj, "GetObject"), flags, 2)
+        this.vtbl.GetStateNoAddRef := CallbackCreate(GetMethod(implObj, "GetStateNoAddRef"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetState)
+        CallbackFree(this.vtbl.GetStatus)
+        CallbackFree(this.vtbl.SetStatus)
+        CallbackFree(this.vtbl.GetObject)
+        CallbackFree(this.vtbl.GetStateNoAddRef)
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the authentication algorithm for user or machine authentication on an ad hoc network.
@@ -31,7 +30,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/adhoc/ne-adhoc-dot11_adhoc_auth_algorithm
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_ADHOC_AUTH_ALGORITHM extends Win32Enum {
+export default struct DOT11_ADHOC_AUTH_ALGORITHM {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The authentication algorithm specified is invalid.

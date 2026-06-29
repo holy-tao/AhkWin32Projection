@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Contains properties and methods that are available to a search operation.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-isearchjob
  * @namespace Windows.Win32.System.UpdateAgent
  */
-class ISearchJob extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISearchJob extends IDispatch {
     /**
      * The interface identifier for ISearchJob
      * @type {Guid}
      */
-    static IID => Guid("{7366ea16-7a1a-4ea2-b042-973d3e9cd99b}")
+    static IID := Guid("{7366ea16-7a1a-4ea2-b042-973d3e9cd99b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISearchJob interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_AsyncState  : IntPtr
+        get_IsCompleted : IntPtr
+        CleanUp         : IntPtr
+        RequestAbort    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_AsyncState", "get_IsCompleted", "CleanUp", "RequestAbort"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISearchJob.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT} 
@@ -51,7 +63,7 @@ class ISearchJob extends IDispatch {
      */
     get_AsyncState() {
         retval := VARIANT()
-        result := ComCall(7, this, "ptr", retval, "HRESULT")
+        result := ComCall(7, this, VARIANT.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -61,7 +73,7 @@ class ISearchJob extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-isearchjob-get_iscompleted
      */
     get_IsCompleted() {
-        result := ComCall(8, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(8, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -85,5 +97,31 @@ class ISearchJob extends IDispatch {
     RequestAbort() {
         result := ComCall(10, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISearchJob.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_AsyncState := CallbackCreate(GetMethod(implObj, "get_AsyncState"), flags, 2)
+        this.vtbl.get_IsCompleted := CallbackCreate(GetMethod(implObj, "get_IsCompleted"), flags, 2)
+        this.vtbl.CleanUp := CallbackCreate(GetMethod(implObj, "CleanUp"), flags, 1)
+        this.vtbl.RequestAbort := CallbackCreate(GetMethod(implObj, "RequestAbort"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_AsyncState)
+        CallbackFree(this.vtbl.get_IsCompleted)
+        CallbackFree(this.vtbl.CleanUp)
+        CallbackFree(this.vtbl.RequestAbort)
     }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains flags that specify how to convert an audio media type.
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ne-mfapi-mfwaveformatexconvertflags
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFWaveFormatExConvertFlags extends Win32Enum {
+export default struct MFWaveFormatExConvertFlags {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Convert the media type to a <b>WAVEFORMATEX</b> structure if possible, or a <b>WAVEFORMATEXTENSIBLE</b> structure otherwise.

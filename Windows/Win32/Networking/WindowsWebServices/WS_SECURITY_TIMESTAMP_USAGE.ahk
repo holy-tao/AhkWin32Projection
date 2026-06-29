@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * With message security and mixed-mode security, this defines when a timestamp element should be generated and demanded in the WS-Security header.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_security_timestamp_usage
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_SECURITY_TIMESTAMP_USAGE extends Win32Enum {
+export default struct WS_SECURITY_TIMESTAMP_USAGE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Always generate a timestamp in each outgoing message and demand a

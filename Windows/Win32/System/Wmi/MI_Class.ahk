@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MI_ClassFT.ahk
-#Include .\MI_ClassDecl.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MI_ClassDecl.ahk" { MI_ClassDecl }
+#Import ".\MI_ClassFT.ahk" { MI_ClassFT }
 
 /**
  * Represents the schema of an instance.
@@ -10,56 +9,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_class
  * @namespace Windows.Win32.System.Wmi
  */
-class MI_Class extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct MI_Class {
+    #StructPack 8
 
     /**
      * Pointer to <b>MI_Class</b> function table.
-     * @type {Pointer<MI_ClassFT>}
      */
-    ft {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ft : MI_ClassFT.Ptr
 
+    __classDecl_ptr : IntPtr
     /**
      * Pointer to the class declaration.
-     * @type {Pointer<MI_ClassDecl>}
      */
     classDecl {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => (addr := this.__classDecl_ptr) ? MI_ClassDecl.At(addr) : unset
+        set => this.__classDecl_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
     /**
      * The namespace name.
-     * @type {Pointer<Integer>}
      */
-    namespaceName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    namespaceName : IntPtr
 
     /**
      * The server name.
-     * @type {Pointer<Integer>}
      */
-    serverName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    serverName : IntPtr
 
     /**
      * Reserved for internal use.
-     * @type {Array<Pointer>}
      */
-    reserved {
-        get {
-            if(!this.HasProp("__reservedProxyArray"))
-                this.__reservedProxyArray := Win32FixedArray(this.ptr + 32, 4, Primitive, "ptr")
-            return this.__reservedProxyArray
-        }
-    }
+    reserved : IntPtr[4]
+
 }

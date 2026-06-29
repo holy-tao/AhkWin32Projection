@@ -1,109 +1,40 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The SURFACEALIGNMENT structure is used by a display driver to describe the alignment restrictions for a surface being allocated by HeapVidMemAllocAligned.
  * @see https://learn.microsoft.com/windows/win32/api/dmemmgr/ns-dmemmgr-surfacealignment
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class SURFACEALIGNMENT extends Win32Struct {
-    static sizeof => 16
+export default struct SURFACEALIGNMENT {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _Linear extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 4
+    struct _Linear {
+        dwStartAlignment : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        dwStartAlignment {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        dwPitchAlignment : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        dwPitchAlignment {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
+        dwFlags : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        dwFlags {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
+        dwReserved2 : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        dwReserved2 {
-            get => NumGet(this, 12, "uint")
-            set => NumPut("uint", value, this, 12)
-        }
     }
 
-    class _Rectangular extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 4
+    struct _Rectangular {
+        dwXAlignment : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        dwXAlignment {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        dwYAlignment : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        dwYAlignment {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
+        dwFlags : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        dwFlags {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
+        dwReserved2 : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        dwReserved2 {
-            get => NumGet(this, 12, "uint")
-            set => NumPut("uint", value, this, 12)
-        }
     }
 
-    /**
-     * @type {_Linear}
-     */
-    Linear {
-        get {
-            if(!this.HasProp("__Linear"))
-                this.__Linear := SURFACEALIGNMENT._Linear(0, this)
-            return this.__Linear
-        }
-    }
+    Linear : SURFACEALIGNMENT._Linear
 
-    /**
-     * @type {_Rectangular}
-     */
-    Rectangular {
-        get {
-            if(!this.HasProp("__Rectangular"))
-                this.__Rectangular := SURFACEALIGNMENT._Rectangular(0, this)
-            return this.__Rectangular
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Rectangular', { type: SURFACEALIGNMENT._Rectangular, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,34 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ASF_MUX_STATISTICS.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFSample.ahk" { IMFSample }
+#Import ".\IMFASFContentInfo.ahk" { IMFASFContentInfo }
+#Import ".\ASF_MUX_STATISTICS.ahk" { ASF_MUX_STATISTICS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods to create Advanced Systems Format (ASF) data packets.
  * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nn-wmcontainer-imfasfmultiplexer
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFASFMultiplexer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFASFMultiplexer extends IUnknown {
     /**
      * The interface identifier for IMFASFMultiplexer
      * @type {Guid}
      */
-    static IID => Guid("{57bdd80a-9b38-4838-b737-c58f670d7d4f}")
+    static IID := Guid("{57bdd80a-9b38-4838-b737-c58f670d7d4f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFASFMultiplexer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize       : IntPtr
+        SetFlags         : IntPtr
+        GetFlags         : IntPtr
+        ProcessSample    : IntPtr
+        GetNextPacket    : IntPtr
+        Flush            : IntPtr
+        End              : IntPtr
+        GetStatistics    : IntPtr
+        SetSyncTolerance : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "SetFlags", "GetFlags", "ProcessSample", "GetNextPacket", "Flush", "End", "GetStatistics", "SetSyncTolerance"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFASFMultiplexer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes the multiplexer with the data from an ASF ContentInfo object.
@@ -219,7 +237,7 @@ class IMFASFMultiplexer extends IUnknown {
     GetNextPacket(pdwStatusFlags, ppIPacket) {
         pdwStatusFlagsMarshal := pdwStatusFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, pdwStatusFlagsMarshal, pdwStatusFlags, "ptr*", ppIPacket, "HRESULT")
+        result := ComCall(7, this, pdwStatusFlagsMarshal, pdwStatusFlags, IMFSample.Ptr, ppIPacket, "HRESULT")
         return result
     }
 
@@ -305,7 +323,7 @@ class IMFASFMultiplexer extends IUnknown {
      */
     GetStatistics(wStreamNumber) {
         pMuxStats := ASF_MUX_STATISTICS()
-        result := ComCall(10, this, "ushort", wStreamNumber, "ptr", pMuxStats, "HRESULT")
+        result := ComCall(10, this, "ushort", wStreamNumber, ASF_MUX_STATISTICS.Ptr, pMuxStats, "HRESULT")
         return pMuxStats
     }
 
@@ -338,5 +356,41 @@ class IMFASFMultiplexer extends IUnknown {
     SetSyncTolerance(msSyncTolerance) {
         result := ComCall(11, this, "uint", msSyncTolerance, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFASFMultiplexer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 2)
+        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.ProcessSample := CallbackCreate(GetMethod(implObj, "ProcessSample"), flags, 4)
+        this.vtbl.GetNextPacket := CallbackCreate(GetMethod(implObj, "GetNextPacket"), flags, 3)
+        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 1)
+        this.vtbl.End := CallbackCreate(GetMethod(implObj, "End"), flags, 2)
+        this.vtbl.GetStatistics := CallbackCreate(GetMethod(implObj, "GetStatistics"), flags, 3)
+        this.vtbl.SetSyncTolerance := CallbackCreate(GetMethod(implObj, "SetSyncTolerance"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.SetFlags)
+        CallbackFree(this.vtbl.GetFlags)
+        CallbackFree(this.vtbl.ProcessSample)
+        CallbackFree(this.vtbl.GetNextPacket)
+        CallbackFree(this.vtbl.Flush)
+        CallbackFree(this.vtbl.End)
+        CallbackFree(this.vtbl.GetStatistics)
+        CallbackFree(this.vtbl.SetSyncTolerance)
     }
 }

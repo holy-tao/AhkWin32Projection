@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ITuneRequest.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITuneRequest.ahk" { ITuneRequest }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IDVBTuneRequest interface is implemented on the DVBTuneRequest object.
@@ -10,32 +11,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-idvbtunerequest
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IDVBTuneRequest extends ITuneRequest {
-
-    static sizeof => A_PtrSize
+export default struct IDVBTuneRequest extends ITuneRequest {
     /**
      * The interface identifier for IDVBTuneRequest
      * @type {Guid}
      */
-    static IID => Guid("{0d6f567e-a636-42bb-83ba-ce4c1704afa2}")
+    static IID := Guid("{0d6f567e-a636-42bb-83ba-ce4c1704afa2}")
 
     /**
      * The class identifier for DVBTuneRequest
      * @type {Guid}
      */
-    static CLSID => Guid("{15d6504a-5494-499c-886c-973c9e53b9f1}")
+    static CLSID := Guid("{15d6504a-5494-499c-886c-973c9e53b9f1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 12
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDVBTuneRequest interfaces
+    */
+    struct Vtbl extends ITuneRequest.Vtbl {
+        get_ONID : IntPtr
+        put_ONID : IntPtr
+        get_TSID : IntPtr
+        put_TSID : IntPtr
+        get_SID  : IntPtr
+        put_SID  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ONID", "put_ONID", "get_TSID", "put_TSID", "get_SID", "put_SID"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDVBTuneRequest.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -122,5 +135,35 @@ class IDVBTuneRequest extends ITuneRequest {
     put_SID(_SID) {
         result := ComCall(17, this, "int", _SID, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDVBTuneRequest.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ONID := CallbackCreate(GetMethod(implObj, "get_ONID"), flags, 2)
+        this.vtbl.put_ONID := CallbackCreate(GetMethod(implObj, "put_ONID"), flags, 2)
+        this.vtbl.get_TSID := CallbackCreate(GetMethod(implObj, "get_TSID"), flags, 2)
+        this.vtbl.put_TSID := CallbackCreate(GetMethod(implObj, "put_TSID"), flags, 2)
+        this.vtbl.get_SID := CallbackCreate(GetMethod(implObj, "get_SID"), flags, 2)
+        this.vtbl.put_SID := CallbackCreate(GetMethod(implObj, "put_SID"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ONID)
+        CallbackFree(this.vtbl.put_ONID)
+        CallbackFree(this.vtbl.get_TSID)
+        CallbackFree(this.vtbl.put_TSID)
+        CallbackFree(this.vtbl.get_SID)
+        CallbackFree(this.vtbl.put_SID)
     }
 }

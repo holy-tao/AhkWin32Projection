@@ -1,39 +1,73 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IEventTarget.ahk
-#Include .\IHTMLElement.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHTMLWindow2.ahk" { IHTMLWindow2 }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IEventTarget.ahk" { IEventTarget }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IDOMMouseEvent extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IDOMMouseEvent extends IDispatch {
     /**
      * The interface identifier for IDOMMouseEvent
      * @type {Guid}
      */
-    static IID => Guid("{305106ce-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{305106ce-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for DOMMouseEvent
      * @type {Guid}
      */
-    static CLSID => Guid("{305106cf-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{305106cf-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDOMMouseEvent interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_screenX       : IntPtr
+        get_screenY       : IntPtr
+        get_clientX       : IntPtr
+        get_clientY       : IntPtr
+        get_ctrlKey       : IntPtr
+        get_shiftKey      : IntPtr
+        get_altKey        : IntPtr
+        get_metaKey       : IntPtr
+        get_button        : IntPtr
+        get_relatedTarget : IntPtr
+        initMouseEvent    : IntPtr
+        getModifierState  : IntPtr
+        get_buttons       : IntPtr
+        get_fromElement   : IntPtr
+        get_toElement     : IntPtr
+        get_x             : IntPtr
+        get_y             : IntPtr
+        get_offsetX       : IntPtr
+        get_offsetY       : IntPtr
+        get_pageX         : IntPtr
+        get_pageY         : IntPtr
+        get_layerX        : IntPtr
+        get_layerY        : IntPtr
+        get_which         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_screenX", "get_screenY", "get_clientX", "get_clientY", "get_ctrlKey", "get_shiftKey", "get_altKey", "get_metaKey", "get_button", "get_relatedTarget", "initMouseEvent", "getModifierState", "get_buttons", "get_fromElement", "get_toElement", "get_x", "get_y", "get_offsetX", "get_offsetY", "get_pageX", "get_pageY", "get_layerX", "get_layerY", "get_which"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDOMMouseEvent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -230,7 +264,7 @@ class IDOMMouseEvent extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_ctrlKey() {
-        result := ComCall(11, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -239,7 +273,7 @@ class IDOMMouseEvent extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_shiftKey() {
-        result := ComCall(12, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -248,7 +282,7 @@ class IDOMMouseEvent extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_altKey() {
-        result := ComCall(13, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -257,7 +291,7 @@ class IDOMMouseEvent extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_metaKey() {
-        result := ComCall(14, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -301,7 +335,7 @@ class IDOMMouseEvent extends IDispatch {
     initMouseEvent(eventType, canBubble, cancelable, viewArg, detailArg, screenXArg, screenYArg, clientXArg, clientYArg, ctrlKeyArg, altKeyArg, shiftKeyArg, metaKeyArg, buttonArg, relatedTargetArg) {
         eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
 
-        result := ComCall(17, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", viewArg, "int", detailArg, "int", screenXArg, "int", screenYArg, "int", clientXArg, "int", clientYArg, "short", ctrlKeyArg, "short", altKeyArg, "short", shiftKeyArg, "short", metaKeyArg, "ushort", buttonArg, "ptr", relatedTargetArg, "HRESULT")
+        result := ComCall(17, this, BSTR, eventType, VARIANT_BOOL, canBubble, VARIANT_BOOL, cancelable, "ptr", viewArg, "int", detailArg, "int", screenXArg, "int", screenYArg, "int", clientXArg, "int", clientYArg, VARIANT_BOOL, ctrlKeyArg, VARIANT_BOOL, altKeyArg, VARIANT_BOOL, shiftKeyArg, VARIANT_BOOL, metaKeyArg, "ushort", buttonArg, "ptr", relatedTargetArg, "HRESULT")
         return result
     }
 
@@ -313,7 +347,7 @@ class IDOMMouseEvent extends IDispatch {
     getModifierState(keyArg) {
         keyArg := keyArg is String ? BSTR.Alloc(keyArg).Value : keyArg
 
-        result := ComCall(18, this, "ptr", keyArg, "short*", &activated := 0, "HRESULT")
+        result := ComCall(18, this, BSTR, keyArg, VARIANT_BOOL.Ptr, &activated := 0, "HRESULT")
         return activated
     }
 
@@ -423,5 +457,71 @@ class IDOMMouseEvent extends IDispatch {
     get_which() {
         result := ComCall(30, this, "ushort*", &p := 0, "HRESULT")
         return p
+    }
+
+    Query(iid) {
+        if (IDOMMouseEvent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_screenX := CallbackCreate(GetMethod(implObj, "get_screenX"), flags, 2)
+        this.vtbl.get_screenY := CallbackCreate(GetMethod(implObj, "get_screenY"), flags, 2)
+        this.vtbl.get_clientX := CallbackCreate(GetMethod(implObj, "get_clientX"), flags, 2)
+        this.vtbl.get_clientY := CallbackCreate(GetMethod(implObj, "get_clientY"), flags, 2)
+        this.vtbl.get_ctrlKey := CallbackCreate(GetMethod(implObj, "get_ctrlKey"), flags, 2)
+        this.vtbl.get_shiftKey := CallbackCreate(GetMethod(implObj, "get_shiftKey"), flags, 2)
+        this.vtbl.get_altKey := CallbackCreate(GetMethod(implObj, "get_altKey"), flags, 2)
+        this.vtbl.get_metaKey := CallbackCreate(GetMethod(implObj, "get_metaKey"), flags, 2)
+        this.vtbl.get_button := CallbackCreate(GetMethod(implObj, "get_button"), flags, 2)
+        this.vtbl.get_relatedTarget := CallbackCreate(GetMethod(implObj, "get_relatedTarget"), flags, 2)
+        this.vtbl.initMouseEvent := CallbackCreate(GetMethod(implObj, "initMouseEvent"), flags, 16)
+        this.vtbl.getModifierState := CallbackCreate(GetMethod(implObj, "getModifierState"), flags, 3)
+        this.vtbl.get_buttons := CallbackCreate(GetMethod(implObj, "get_buttons"), flags, 2)
+        this.vtbl.get_fromElement := CallbackCreate(GetMethod(implObj, "get_fromElement"), flags, 2)
+        this.vtbl.get_toElement := CallbackCreate(GetMethod(implObj, "get_toElement"), flags, 2)
+        this.vtbl.get_x := CallbackCreate(GetMethod(implObj, "get_x"), flags, 2)
+        this.vtbl.get_y := CallbackCreate(GetMethod(implObj, "get_y"), flags, 2)
+        this.vtbl.get_offsetX := CallbackCreate(GetMethod(implObj, "get_offsetX"), flags, 2)
+        this.vtbl.get_offsetY := CallbackCreate(GetMethod(implObj, "get_offsetY"), flags, 2)
+        this.vtbl.get_pageX := CallbackCreate(GetMethod(implObj, "get_pageX"), flags, 2)
+        this.vtbl.get_pageY := CallbackCreate(GetMethod(implObj, "get_pageY"), flags, 2)
+        this.vtbl.get_layerX := CallbackCreate(GetMethod(implObj, "get_layerX"), flags, 2)
+        this.vtbl.get_layerY := CallbackCreate(GetMethod(implObj, "get_layerY"), flags, 2)
+        this.vtbl.get_which := CallbackCreate(GetMethod(implObj, "get_which"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_screenX)
+        CallbackFree(this.vtbl.get_screenY)
+        CallbackFree(this.vtbl.get_clientX)
+        CallbackFree(this.vtbl.get_clientY)
+        CallbackFree(this.vtbl.get_ctrlKey)
+        CallbackFree(this.vtbl.get_shiftKey)
+        CallbackFree(this.vtbl.get_altKey)
+        CallbackFree(this.vtbl.get_metaKey)
+        CallbackFree(this.vtbl.get_button)
+        CallbackFree(this.vtbl.get_relatedTarget)
+        CallbackFree(this.vtbl.initMouseEvent)
+        CallbackFree(this.vtbl.getModifierState)
+        CallbackFree(this.vtbl.get_buttons)
+        CallbackFree(this.vtbl.get_fromElement)
+        CallbackFree(this.vtbl.get_toElement)
+        CallbackFree(this.vtbl.get_x)
+        CallbackFree(this.vtbl.get_y)
+        CallbackFree(this.vtbl.get_offsetX)
+        CallbackFree(this.vtbl.get_offsetY)
+        CallbackFree(this.vtbl.get_pageX)
+        CallbackFree(this.vtbl.get_pageY)
+        CallbackFree(this.vtbl.get_layerX)
+        CallbackFree(this.vtbl.get_layerY)
+        CallbackFree(this.vtbl.get_which)
     }
 }

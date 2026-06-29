@@ -1,12 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\DXVA2_VideoProcessorCaps.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\DXVA2_ValueRange.ahk
-#Include .\DXVA2_ProcAmpValues.ahk
-#Include .\DXVA2_Fixed32.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DXVA2_VideoProcessorCaps.ahk" { DXVA2_VideoProcessorCaps }
+#Import ".\DXVA2_ValueRange.ahk" { DXVA2_ValueRange }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXVA2_Fixed32.ahk" { DXVA2_Fixed32 }
+#Import ".\DXVA2_ProcAmpValues.ahk" { DXVA2_ProcAmpValues }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Controls video processing in the Enhanced Video Renderer (EVR).
@@ -44,26 +45,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/evr9/nn-evr9-imfvideoprocessor
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFVideoProcessor extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFVideoProcessor extends IUnknown {
     /**
      * The interface identifier for IMFVideoProcessor
      * @type {Guid}
      */
-    static IID => Guid("{6ab0000c-fece-4d1f-a2ac-a9573530656e}")
+    static IID := Guid("{6ab0000c-fece-4d1f-a2ac-a9573530656e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFVideoProcessor interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetAvailableVideoProcessorModes : IntPtr
+        GetVideoProcessorCaps           : IntPtr
+        GetVideoProcessorMode           : IntPtr
+        SetVideoProcessorMode           : IntPtr
+        GetProcAmpRange                 : IntPtr
+        GetProcAmpValues                : IntPtr
+        SetProcAmpValues                : IntPtr
+        GetFilteringRange               : IntPtr
+        GetFilteringValue               : IntPtr
+        SetFilteringValue               : IntPtr
+        GetBackgroundColor              : IntPtr
+        SetBackgroundColor              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetAvailableVideoProcessorModes", "GetVideoProcessorCaps", "GetVideoProcessorMode", "SetVideoProcessorMode", "GetProcAmpRange", "GetProcAmpValues", "SetProcAmpValues", "GetFilteringRange", "GetFilteringValue", "SetFilteringValue", "GetBackgroundColor", "SetBackgroundColor"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFVideoProcessor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the video processor modes that the video driver supports.
@@ -92,7 +111,7 @@ class IMFVideoProcessor extends IUnknown {
      */
     GetVideoProcessorCaps(lpVideoProcessorMode) {
         lpVideoProcessorCaps := DXVA2_VideoProcessorCaps()
-        result := ComCall(4, this, "ptr", lpVideoProcessorMode, "ptr", lpVideoProcessorCaps, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, lpVideoProcessorMode, DXVA2_VideoProcessorCaps.Ptr, lpVideoProcessorCaps, "HRESULT")
         return lpVideoProcessorCaps
     }
 
@@ -103,7 +122,7 @@ class IMFVideoProcessor extends IUnknown {
      */
     GetVideoProcessorMode() {
         lpMode := Guid()
-        result := ComCall(5, this, "ptr", lpMode, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, lpMode, "HRESULT")
         return lpMode
     }
 
@@ -185,7 +204,7 @@ class IMFVideoProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evr9/nf-evr9-imfvideoprocessor-setvideoprocessormode
      */
     SetVideoProcessorMode(lpMode) {
-        result := ComCall(6, this, "ptr", lpMode, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, lpMode, "HRESULT")
         return result
     }
 
@@ -203,7 +222,7 @@ class IMFVideoProcessor extends IUnknown {
      */
     GetProcAmpRange(dwProperty) {
         pPropRange := DXVA2_ValueRange()
-        result := ComCall(7, this, "uint", dwProperty, "ptr", pPropRange, "HRESULT")
+        result := ComCall(7, this, "uint", dwProperty, DXVA2_ValueRange.Ptr, pPropRange, "HRESULT")
         return pPropRange
     }
 
@@ -221,7 +240,7 @@ class IMFVideoProcessor extends IUnknown {
      */
     GetProcAmpValues(dwFlags) {
         Values := DXVA2_ProcAmpValues()
-        result := ComCall(8, this, "uint", dwFlags, "ptr", Values, "HRESULT")
+        result := ComCall(8, this, "uint", dwFlags, DXVA2_ProcAmpValues.Ptr, Values, "HRESULT")
         return Values
     }
 
@@ -277,7 +296,7 @@ class IMFVideoProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evr9/nf-evr9-imfvideoprocessor-setprocampvalues
      */
     SetProcAmpValues(dwFlags, pValues) {
-        result := ComCall(9, this, "uint", dwFlags, "ptr", pValues, "HRESULT")
+        result := ComCall(9, this, "uint", dwFlags, DXVA2_ProcAmpValues.Ptr, pValues, "HRESULT")
         return result
     }
 
@@ -295,7 +314,7 @@ class IMFVideoProcessor extends IUnknown {
      */
     GetFilteringRange(dwProperty) {
         pPropRange := DXVA2_ValueRange()
-        result := ComCall(10, this, "uint", dwProperty, "ptr", pPropRange, "HRESULT")
+        result := ComCall(10, this, "uint", dwProperty, DXVA2_ValueRange.Ptr, pPropRange, "HRESULT")
         return pPropRange
     }
 
@@ -313,7 +332,7 @@ class IMFVideoProcessor extends IUnknown {
      */
     GetFilteringValue(dwProperty) {
         pValue := DXVA2_Fixed32()
-        result := ComCall(11, this, "uint", dwProperty, "ptr", pValue, "HRESULT")
+        result := ComCall(11, this, "uint", dwProperty, DXVA2_Fixed32.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -369,7 +388,7 @@ class IMFVideoProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evr9/nf-evr9-imfvideoprocessor-setfilteringvalue
      */
     SetFilteringValue(dwProperty, pValue) {
-        result := ComCall(12, this, "uint", dwProperty, "ptr", pValue, "HRESULT")
+        result := ComCall(12, this, "uint", dwProperty, DXVA2_Fixed32.Ptr, pValue, "HRESULT")
         return result
     }
 
@@ -379,7 +398,7 @@ class IMFVideoProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evr9/nf-evr9-imfvideoprocessor-getbackgroundcolor
      */
     GetBackgroundColor() {
-        result := ComCall(13, this, "uint*", &lpClrBkg := 0, "HRESULT")
+        result := ComCall(13, this, COLORREF.Ptr, &lpClrBkg := 0, "HRESULT")
         return lpClrBkg
     }
 
@@ -408,7 +427,49 @@ class IMFVideoProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evr9/nf-evr9-imfvideoprocessor-setbackgroundcolor
      */
     SetBackgroundColor(ClrBkg) {
-        result := ComCall(14, this, "uint", ClrBkg, "HRESULT")
+        result := ComCall(14, this, COLORREF, ClrBkg, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFVideoProcessor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetAvailableVideoProcessorModes := CallbackCreate(GetMethod(implObj, "GetAvailableVideoProcessorModes"), flags, 3)
+        this.vtbl.GetVideoProcessorCaps := CallbackCreate(GetMethod(implObj, "GetVideoProcessorCaps"), flags, 3)
+        this.vtbl.GetVideoProcessorMode := CallbackCreate(GetMethod(implObj, "GetVideoProcessorMode"), flags, 2)
+        this.vtbl.SetVideoProcessorMode := CallbackCreate(GetMethod(implObj, "SetVideoProcessorMode"), flags, 2)
+        this.vtbl.GetProcAmpRange := CallbackCreate(GetMethod(implObj, "GetProcAmpRange"), flags, 3)
+        this.vtbl.GetProcAmpValues := CallbackCreate(GetMethod(implObj, "GetProcAmpValues"), flags, 3)
+        this.vtbl.SetProcAmpValues := CallbackCreate(GetMethod(implObj, "SetProcAmpValues"), flags, 3)
+        this.vtbl.GetFilteringRange := CallbackCreate(GetMethod(implObj, "GetFilteringRange"), flags, 3)
+        this.vtbl.GetFilteringValue := CallbackCreate(GetMethod(implObj, "GetFilteringValue"), flags, 3)
+        this.vtbl.SetFilteringValue := CallbackCreate(GetMethod(implObj, "SetFilteringValue"), flags, 3)
+        this.vtbl.GetBackgroundColor := CallbackCreate(GetMethod(implObj, "GetBackgroundColor"), flags, 2)
+        this.vtbl.SetBackgroundColor := CallbackCreate(GetMethod(implObj, "SetBackgroundColor"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetAvailableVideoProcessorModes)
+        CallbackFree(this.vtbl.GetVideoProcessorCaps)
+        CallbackFree(this.vtbl.GetVideoProcessorMode)
+        CallbackFree(this.vtbl.SetVideoProcessorMode)
+        CallbackFree(this.vtbl.GetProcAmpRange)
+        CallbackFree(this.vtbl.GetProcAmpValues)
+        CallbackFree(this.vtbl.SetProcAmpValues)
+        CallbackFree(this.vtbl.GetFilteringRange)
+        CallbackFree(this.vtbl.GetFilteringValue)
+        CallbackFree(this.vtbl.SetFilteringValue)
+        CallbackFree(this.vtbl.GetBackgroundColor)
+        CallbackFree(this.vtbl.SetBackgroundColor)
     }
 }

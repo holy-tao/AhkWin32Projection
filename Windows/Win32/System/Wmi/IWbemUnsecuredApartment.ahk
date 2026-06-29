@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnsecuredApartment.ahk
-#Include .\IWbemObjectSink.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IUnsecuredApartment.ahk" { IUnsecuredApartment }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWbemObjectSink.ahk" { IWbemObjectSink }
 
 /**
  * Allows client applications to determine whether Unsecapp.exe performs access checks on asynchronous callbacks.
@@ -17,26 +19,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemunsecuredapartment
  * @namespace Windows.Win32.System.Wmi
  */
-class IWbemUnsecuredApartment extends IUnsecuredApartment {
-
-    static sizeof => A_PtrSize
+export default struct IWbemUnsecuredApartment extends IUnsecuredApartment {
     /**
      * The interface identifier for IWbemUnsecuredApartment
      * @type {Guid}
      */
-    static IID => Guid("{31739d04-3471-4cf4-9a7c-57a44ae71956}")
+    static IID := Guid("{31739d04-3471-4cf4-9a7c-57a44ae71956}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWbemUnsecuredApartment interfaces
+    */
+    struct Vtbl extends IUnsecuredApartment.Vtbl {
+        CreateSinkStub : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateSinkStub"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWbemUnsecuredApartment.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The CreateSinkStub method is similar to the IUnsecuredApartment::CreateObjectStub and creates an object forwarder sink and performs access checks for receiving asynchronous calls from Windows Management.
@@ -61,5 +70,25 @@ class IWbemUnsecuredApartment extends IUnsecuredApartment {
 
         result := ComCall(4, this, "ptr", pSink, "uint", dwFlags, "ptr", wszReserved, "ptr*", &ppStub := 0, "HRESULT")
         return IWbemObjectSink(ppStub)
+    }
+
+    Query(iid) {
+        if (IWbemUnsecuredApartment.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateSinkStub := CallbackCreate(GetMethod(implObj, "CreateSinkStub"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateSinkStub)
     }
 }

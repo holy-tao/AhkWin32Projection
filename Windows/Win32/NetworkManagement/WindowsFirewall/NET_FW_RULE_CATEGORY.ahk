@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The firewall rule category.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/icftypes/ne-icftypes-net_fw_rule_category
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  */
-class NET_FW_RULE_CATEGORY extends Win32Enum {
+export default struct NET_FW_RULE_CATEGORY {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies boot time filters.

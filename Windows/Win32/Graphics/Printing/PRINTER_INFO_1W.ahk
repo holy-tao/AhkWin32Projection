@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The PRINTER\_INFO\_1 structure specifies general printer information.
@@ -7,10 +7,8 @@
  * @namespace Windows.Win32.Graphics.Printing
  * @charset Unicode
  */
-class PRINTER_INFO_1W extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct PRINTER_INFO_1W {
+    #StructPack 8
 
     /**
      * Specifies information about the returned data. Following are the values for this member.
@@ -29,37 +27,22 @@ class PRINTER_INFO_1W extends Win32Struct {
      * | PRINTER\_ENUM\_ICON6     | Reserved.                                                                                                                                                                                                                                                 |
      * | PRINTER\_ENUM\_ICON7     | Reserved.                                                                                                                                                                                                                                                 |
      * | PRINTER\_ENUM\_ICON8     | Indicates that, where appropriate, an application should display an icon that identifies the object as a printer.                                                                                                                                         |
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : UInt32
 
     /**
      * Pointer to a null-terminated string that describes the contents of the structure.
-     * @type {PWSTR}
      */
-    pDescription {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pDescription : PWSTR
 
     /**
      * Pointer to a null-terminated string that names the contents of the structure.
-     * @type {PWSTR}
      */
-    pName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pName : PWSTR
 
     /**
      * Pointer to a null-terminated string that contains additional data describing the structure.
-     * @type {PWSTR}
      */
-    pComment {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pComment : PWSTR
+
 }

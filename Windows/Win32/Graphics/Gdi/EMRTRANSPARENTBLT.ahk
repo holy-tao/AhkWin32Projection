@@ -1,9 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EMR.ahk
-#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
-#Include ..\..\Foundation\RECTL.ahk
-#Include .\XFORM.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\XFORM.ahk" { XFORM }
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import ".\EMR.ahk" { EMR }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
 
 /**
  * The EMRTRANSPARENTBLT structure contains members for the TransparentBLT enhanced metafile record.
@@ -12,179 +12,97 @@
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrtransparentblt
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class EMRTRANSPARENTBLT extends Win32Struct {
-    static sizeof => 108
-
-    static packingSize => 4
+export default struct EMRTRANSPARENTBLT {
+    #StructPack 4
 
     /**
      * The base structure for all record types.
-     * @type {EMR}
      */
-    emr {
-        get {
-            if(!this.HasProp("__emr"))
-                this.__emr := EMR(0, this)
-            return this.__emr
-        }
-    }
+    emr : EMR
 
     /**
      * Inclusive bounds, in device units.
-     * @type {RECTL}
      */
-    rclBounds {
-        get {
-            if(!this.HasProp("__rclBounds"))
-                this.__rclBounds := RECTL(8, this)
-            return this.__rclBounds
-        }
-    }
+    rclBounds : RECTL
 
     /**
      * Logical x coordinate of the upper-left corner of the destination rectangle.
-     * @type {Integer}
      */
-    xDest {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    xDest : Int32
 
     /**
      * Logical y coordinate of the upper-left corner of the destination rectangle.
-     * @type {Integer}
      */
-    yDest {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    yDest : Int32
 
     /**
      * Logical width of the destination rectangle.
-     * @type {Integer}
      */
-    cxDest {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    cxDest : Int32
 
     /**
      * Logical height of the destination rectangle.
-     * @type {Integer}
      */
-    cyDest {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    cyDest : Int32
 
     /**
      * Stores the transparent color.
-     * @type {Integer}
      */
-    dwRop {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwRop : UInt32
 
     /**
      * Logical x coordinate of the upper-left corner of the source rectangle.
-     * @type {Integer}
      */
-    xSrc {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    xSrc : Int32
 
     /**
      * Logical y coordinate of the upper-left corner of the source rectangle.
-     * @type {Integer}
      */
-    ySrc {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    ySrc : Int32
 
     /**
      * World-space to page-space transformation of the source device context.
-     * @type {XFORM}
      */
-    xformSrc {
-        get {
-            if(!this.HasProp("__xformSrc"))
-                this.__xformSrc := XFORM(52, this)
-            return this.__xformSrc
-        }
-    }
+    xformSrc : XFORM
 
     /**
      * Background color (the RGB value) of the source device context. To make a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
-     * @type {COLORREF}
      */
-    crBkColorSrc {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    crBkColorSrc : COLORREF
 
     /**
      * Source bitmap information color table usage (DIB_RGB_COLORS).
-     * @type {Integer}
      */
-    iUsageSrc {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    iUsageSrc : UInt32
 
     /**
      * Offset to the source <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure.
-     * @type {Integer}
      */
-    offBmiSrc {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    offBmiSrc : UInt32
 
     /**
      * Size of the source <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure.
-     * @type {Integer}
      */
-    cbBmiSrc {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    cbBmiSrc : UInt32
 
     /**
      * Offset to the source bitmap bits.
-     * @type {Integer}
      */
-    offBitsSrc {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    offBitsSrc : UInt32
 
     /**
      * Size of the source bitmap bits.
-     * @type {Integer}
      */
-    cbBitsSrc {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    cbBitsSrc : UInt32
 
     /**
      * Width of the source rectangle, in logical units.
-     * @type {Integer}
      */
-    cxSrc {
-        get => NumGet(this, 100, "int")
-        set => NumPut("int", value, this, 100)
-    }
+    cxSrc : Int32
 
     /**
      * Height of the source rectangle, in logical units.
-     * @type {Integer}
      */
-    cySrc {
-        get => NumGet(this, 104, "int")
-        set => NumPut("int", value, this, 104)
-    }
+    cySrc : Int32
+
 }

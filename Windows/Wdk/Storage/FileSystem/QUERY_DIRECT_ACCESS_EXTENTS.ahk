@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class QUERY_DIRECT_ACCESS_EXTENTS extends Win32Struct {
-    static sizeof => 24
+export default struct QUERY_DIRECT_ACCESS_EXTENTS {
+    #StructPack 8
 
-    static packingSize => 8
+    FileOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FileOffset {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    Length : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

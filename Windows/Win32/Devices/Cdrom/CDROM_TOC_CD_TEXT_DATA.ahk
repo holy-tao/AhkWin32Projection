@@ -1,50 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CDROM_TOC_CD_TEXT_DATA_BLOCK.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CDROM_TOC_CD_TEXT_DATA_BLOCK.ahk" { CDROM_TOC_CD_TEXT_DATA_BLOCK }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
  */
-class CDROM_TOC_CD_TEXT_DATA extends Win32Struct {
-    static sizeof => 22
+export default struct CDROM_TOC_CD_TEXT_DATA {
+    #StructPack 2
 
-    static packingSize => 2
+    Length : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Length {
-        get {
-            if(!this.HasProp("__LengthProxyArray"))
-                this.__LengthProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "char")
-            return this.__LengthProxyArray
-        }
-    }
+    Reserved1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    Reserved2 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved2 {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    Descriptors : CDROM_TOC_CD_TEXT_DATA_BLOCK[1]
 
-    /**
-     * @type {CDROM_TOC_CD_TEXT_DATA_BLOCK}
-     */
-    Descriptors {
-        get {
-            if(!this.HasProp("__DescriptorsProxyArray"))
-                this.__DescriptorsProxyArray := Win32FixedArray(this.ptr + 4, 1, CDROM_TOC_CD_TEXT_DATA_BLOCK, "")
-            return this.__DescriptorsProxyArray
-        }
-    }
 }

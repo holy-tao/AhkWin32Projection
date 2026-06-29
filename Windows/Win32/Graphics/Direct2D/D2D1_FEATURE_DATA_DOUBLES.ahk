@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Describes the support for doubles in shaders.
@@ -8,17 +8,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/ns-d2d1effectauthor-d2d1_feature_data_doubles
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_FEATURE_DATA_DOUBLES extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct D2D1_FEATURE_DATA_DOUBLES {
+    #StructPack 4
 
     /**
      * TRUE is doubles are supported within the shaders.
-     * @type {BOOL}
      */
-    doublePrecisionFloatShaderOps {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    doublePrecisionFloatShaderOps : BOOL
+
 }

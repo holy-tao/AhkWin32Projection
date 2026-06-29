@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\LIST_VIEW_ITEM_FLAGS.ahk
-#Include .\LIST_VIEW_ITEM_STATE_FLAGS.ahk
-#Include .\LIST_VIEW_ITEM_COLUMN_FORMAT_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LIST_VIEW_ITEM_STATE_FLAGS.ahk" { LIST_VIEW_ITEM_STATE_FLAGS }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\LIST_VIEW_ITEM_COLUMN_FORMAT_FLAGS.ahk" { LIST_VIEW_ITEM_COLUMN_FORMAT_FLAGS }
+#Import ".\LIST_VIEW_ITEM_FLAGS.ahk" { LIST_VIEW_ITEM_FLAGS }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Specifies or receives the attributes of a list-view item. This structure has been updated to support a new mask value (LVIF_INDENT) that enables item indenting. This structure supersedes the LV_ITEM structure. (ANSI)
@@ -24,10 +25,8 @@
  * @namespace Windows.Win32.UI.Controls
  * @charset ANSI
  */
-class LVITEMA extends Win32Struct {
-    static sizeof => 88
-
-    static packingSize => 8
+export default struct LVITEMA {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -142,34 +141,22 @@ class LVITEMA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {LIST_VIEW_ITEM_FLAGS}
      */
-    mask {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    mask : LIST_VIEW_ITEM_FLAGS
 
     /**
      * Type: <b>int</b>
      * 
      * Zero-based index of the item to which this structure refers.
-     * @type {Integer}
      */
-    iItem {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    iItem : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * One-based index of the subitem to which this structure refers, or zero if this structure refers to an item rather than a subitem.
-     * @type {Integer}
      */
-    iSubItem {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    iSubItem : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -188,12 +175,8 @@ class LVITEMA extends Win32Struct {
      * 
      * 
      * Bits 12 through 15 of this member specify the state image index. The state image is displayed next to an item's icon to indicate an application-defined state. If these bits are zero, the item has no state image. To isolate these bits, use the <a href="https://docs.microsoft.com/windows/desktop/Controls/list-view-item-states">LVIS_STATEIMAGEMASK</a> mask. To set the state image index, use the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-indextostateimagemask">INDEXTOSTATEIMAGEMASK</a> macro. The state image index specifies the index of the image in the state image list that should be drawn. The state image list is specified with the <a href="https://docs.microsoft.com/windows/desktop/Controls/lvm-setimagelist">LVM_SETIMAGELIST</a> message.
-     * @type {LIST_VIEW_ITEM_STATE_FLAGS}
      */
-    state {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    state : LIST_VIEW_ITEM_STATE_FLAGS
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -212,12 +195,8 @@ class LVITEMA extends Win32Struct {
      * 
      * 
      * You can use the macro <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-listview_setitemstate">ListView_SetItemState</a> both to set and to clear bits.
-     * @type {LIST_VIEW_ITEM_STATE_FLAGS}
      */
-    stateMask {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    stateMask : LIST_VIEW_ITEM_STATE_FLAGS
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
@@ -235,12 +214,8 @@ class LVITEMA extends Win32Struct {
      * 
      * 
      * Do not set <b>pszText</b> to LPSTR_TEXTCALLBACK if the list-view control has the <a href="https://docs.microsoft.com/windows/desktop/Controls/list-view-window-styles">LVS_SORTASCENDING</a> or <a href="https://docs.microsoft.com/windows/desktop/Controls/list-view-window-styles">LVS_SORTDESCENDING</a> style.
-     * @type {PSTR}
      */
-    pszText {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pszText : PSTR
 
     /**
      * Type: <b>int</b>
@@ -255,79 +230,51 @@ class LVITEMA extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  Never copy more than <b>cchTextMax</b> <b>TCHAR</b><b>s</b>—where <b>cchTextMax</b> includes the terminating <b>NULL</b>—into <b>pszText</b> during an LVN_  notification, otherwise your program can fail.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    cchTextMax {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    cchTextMax : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * Index of the item's icon in the control's image list. This applies to both the large and small image list. If this member is the I_IMAGECALLBACK value, the parent window is responsible for storing the index. In this case, the list-view control sends the parent an <a href="https://docs.microsoft.com/windows/desktop/Controls/lvn-getdispinfo">LVN_GETDISPINFO</a> notification code to retrieve the index when it needs to display the image.
-     * @type {Integer}
      */
-    iImage {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    iImage : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
      * 
      * Value specific to the item. If you use the <a href="https://docs.microsoft.com/windows/desktop/Controls/lvm-sortitems">LVM_SORTITEMS</a> message, the list-view control passes this value to the application-defined comparison function. You can also use the <a href="https://docs.microsoft.com/windows/desktop/Controls/lvm-finditem">LVM_FINDITEM</a> message to search a list-view control for an item with a specified <b>lParam</b> value.
-     * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lParam : LPARAM
 
     /**
      * Type: <b>int</b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 4.70</a>. Number of image widths to indent the item. A single indentation equals the width of an item image. Therefore, the value 1 indents the item by the width of one image, the value 2 indents by two images, and so on. Note that this field is supported only for items. Attempting to set subitem indentation will cause the calling function to fail.
-     * @type {Integer}
      */
-    iIndent {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    iIndent : Int32
 
     /**
      * Type: <b>int</b>
-     * @type {Integer}
      */
-    iGroupId {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    iGroupId : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 6.0 </a> Number of data columns (subitems) to display for this item in tile view. The maximum value is 20. If this value is I_COLUMNSCALLBACK, the size of the column array and the array itself (<b>puColumns</b>) are obtained by sending a <a href="https://docs.microsoft.com/windows/desktop/Controls/lvn-getdispinfo">LVN_GETDISPINFO</a> notification.
-     * @type {Integer}
      */
-    cColumns {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    cColumns : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PUINT</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 6.0 </a> A pointer to an array of column indices, specifying which columns are displayed for this item, and the order of those columns.
-     * @type {Pointer<Integer>}
      */
-    puColumns {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    puColumns : IntPtr
 
     /**
      * Type: <b>int*</b>
@@ -390,22 +337,15 @@ class LVITEMA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<LIST_VIEW_ITEM_COLUMN_FORMAT_FLAGS>}
      */
-    piColFmt {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    piColFmt : LIST_VIEW_ITEM_COLUMN_FORMAT_FLAGS.Ptr
 
     /**
      * Type: <b>int</b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Windows Vista</a>: Group index of the item. Valid only for owner data/callback (single item in multiple groups).
-     * @type {Integer}
      */
-    iGroup {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
-    }
+    iGroup : Int32
+
 }

@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.DXCore
  */
-class DXCoreFrequencyQueryOutput extends Win32Struct {
-    static sizeof => 24
+export default struct DXCoreFrequencyQueryOutput {
+    #StructPack 8
 
-    static packingSize => 8
+    frequency : Int64
 
-    /**
-     * @type {Integer}
-     */
-    frequency {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    maxFrequency : Int64
 
-    /**
-     * @type {Integer}
-     */
-    maxFrequency {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    maxOverclockedFrequency : Int64
 
-    /**
-     * @type {Integer}
-     */
-    maxOverclockedFrequency {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

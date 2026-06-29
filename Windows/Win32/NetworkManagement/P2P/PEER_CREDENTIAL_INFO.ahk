@@ -1,104 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\Cryptography\CERT_PUBLIC_KEY_INFO.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Security\Cryptography\CERT_PUBLIC_KEY_INFO.ahk" { CERT_PUBLIC_KEY_INFO }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The PEER_CREDENTIAL_INFO structure defines information used to obtain and issue a peer's security credentials.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_credential_info
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
-class PEER_CREDENTIAL_INFO extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct PEER_CREDENTIAL_INFO {
+    #StructPack 8
 
     /**
      * Specifies the size of this structure, in bytes.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Reserved. This field must be set to 0.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : UInt32
 
     /**
      * Pointer to a Unicode string that specifies the friendly (display) name of the issuer.
-     * @type {PWSTR}
      */
-    pwzFriendlyName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwzFriendlyName : PWSTR
 
     /**
      * Pointer to a <b>CERT_PUBLIC_KEY_INFO</b> structure that contains the peer group member's public key and the encryption type it uses.
-     * @type {Pointer<CERT_PUBLIC_KEY_INFO>}
      */
-    pPublicKey {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pPublicKey : CERT_PUBLIC_KEY_INFO.Ptr
 
     /**
      * Pointer to a Unicode string that specifies the membership issuer's PNRP name.
-     * @type {PWSTR}
      */
-    pwzIssuerPeerName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pwzIssuerPeerName : PWSTR
 
     /**
      * Pointer to a Unicode string that specifies the friendly (display) name of the issuer.
-     * @type {PWSTR}
      */
-    pwzIssuerFriendlyName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pwzIssuerFriendlyName : PWSTR
 
     /**
      * Specifies the <a href="https://docs.microsoft.com/windows/desktop/P2PSdk/graphing-reference-links">FILETIME</a> structure that contains the time when the recipient's membership in the peer group becomes valid. When issuing new credentials this value must be greater than the ValidityStart value for the member's current credentials.
-     * @type {FILETIME}
      */
-    ftValidityStart {
-        get {
-            if(!this.HasProp("__ftValidityStart"))
-                this.__ftValidityStart := FILETIME(40, this)
-            return this.__ftValidityStart
-        }
-    }
+    ftValidityStart : FILETIME
 
     /**
      * Specifies the <a href="https://docs.microsoft.com/windows/desktop/P2PSdk/graphing-reference-links">FILETIME</a> structure that contains the time when the recipient's membership in the peer group becomes invalid.
-     * @type {FILETIME}
      */
-    ftValidityEnd {
-        get {
-            if(!this.HasProp("__ftValidityEnd"))
-                this.__ftValidityEnd := FILETIME(48, this)
-            return this.__ftValidityEnd
-        }
-    }
+    ftValidityEnd : FILETIME
 
     /**
      * Specifies the number of role GUIDs present in <b>pRoles</b>.
-     * @type {Integer}
      */
-    cRoles {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    cRoles : UInt32
 
     /**
      * Pointer to a list of GUIDs that specifies the combined set of available roles. The available roles are as follows.
@@ -129,10 +86,7 @@ class PEER_CREDENTIAL_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Guid>}
      */
-    pRoles {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    pRoles : Guid.Ptr
+
 }

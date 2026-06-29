@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The APTTYPE (objidlbase.h) enumeration specifies different types of apartments.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/ne-objidlbase-apttype
  * @namespace Windows.Win32.System.Com
  */
-class APTTYPE extends Win32Enum {
+export default struct APTTYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The current thread.

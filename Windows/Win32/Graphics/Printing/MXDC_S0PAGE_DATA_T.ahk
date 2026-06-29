@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MXDC\_S0PAGE\_DATA\_T structure holds an XPS document page to be passed to the Microsoft XPS Document Converter (MXDC) output file without any processing.
@@ -14,29 +13,17 @@
  * @see https://learn.microsoft.com/windows/win32/printdocs/mxdcs0pagedata
  * @namespace Windows.Win32.Graphics.Printing
  */
-class MXDC_S0PAGE_DATA_T extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct MXDC_S0PAGE_DATA_T {
+    #StructPack 4
 
     /**
      * The size of the output buffer, **bData**.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * The XPS document page.
-     * @type {Array<Integer>}
      */
-    bData {
-        get {
-            if(!this.HasProp("__bDataProxyArray"))
-                this.__bDataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
-            return this.__bDataProxyArray
-        }
-    }
+    bData : Int8[1]
+
 }

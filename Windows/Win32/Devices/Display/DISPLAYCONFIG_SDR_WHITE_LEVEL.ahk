@@ -1,30 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DISPLAYCONFIG_DEVICE_INFO_HEADER.ahk
-#Include .\DISPLAYCONFIG_DEVICE_INFO_TYPE.ahk
-#Include ..\..\Foundation\LUID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DISPLAYCONFIG_DEVICE_INFO_TYPE.ahk" { DISPLAYCONFIG_DEVICE_INFO_TYPE }
+#Import ".\DISPLAYCONFIG_DEVICE_INFO_HEADER.ahk" { DISPLAYCONFIG_DEVICE_INFO_HEADER }
+#Import "..\..\Foundation\LUID.ahk" { LUID }
 
 /**
  * The DISPLAYCONFIG_SDR_WHITE_LEVEL structure (wingdi.h) contains information about a display's current SDR white level.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_sdr_white_level
  * @namespace Windows.Win32.Devices.Display
  */
-class DISPLAYCONFIG_SDR_WHITE_LEVEL extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct DISPLAYCONFIG_SDR_WHITE_LEVEL {
+    #StructPack 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_device_info_header">DISPLAYCONFIG_DEVICE_INFO_HEADER</a> structure that contains information for getting the SDR white level. The <b>type</b> member of DISPLAYCONFIG_DEVICE_INFO_HEADER is set to DISPLAYCONFIG_DEVICE_INFO_GET_SDR_WHITE_LEVEL. DISPLAYCONFIG_DEVICE_INFO_HEADER also contains the adapter and target identifiers of the target to get the SDR white level for. The <b>size</b> member of DISPLAYCONFIG_DEVICE_INFO_HEADER is set to at least the size of the DISPLAYCONFIG_SDR_WHITE_LEVEL structure.
-     * @type {DISPLAYCONFIG_DEVICE_INFO_HEADER}
      */
-    header {
-        get {
-            if(!this.HasProp("__header"))
-                this.__header := DISPLAYCONFIG_DEVICE_INFO_HEADER(0, this)
-            return this.__header
-        }
-    }
+    header : DISPLAYCONFIG_DEVICE_INFO_HEADER
 
     /**
      * The monitor's current SDR white level, specified as a multiplier of 80 nits, multiplied by 1000. E.g. a value of 1000 would indicate that the SDR white level is 80 nits, while a value of 2000 would indicate an SDR white level of 160 nits.
@@ -34,10 +24,7 @@ class DISPLAYCONFIG_SDR_WHITE_LEVEL extends Win32Struct {
      * ...
      * float SDRWhiteLevelInNits = (float)sdrWhiteLevel.SDRWhiteLevel / 1000 * 80;
      * ```
-     * @type {Integer}
      */
-    SDRWhiteLevel {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    SDRWhiteLevel : UInt32
+
 }

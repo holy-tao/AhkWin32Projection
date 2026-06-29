@@ -1,103 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PAN_FAMILY_TYPE.ahk
-#Include .\PAN_SERIF_STYLE.ahk
-#Include .\PAN_WEIGHT.ahk
-#Include .\PAN_PROPORTION.ahk
-#Include .\PAN_CONTRAST.ahk
-#Include .\PAN_STROKE_VARIATION.ahk
-#Include .\PAN_ARM_STYLE.ahk
-#Include .\PAN_LETT_FORM.ahk
-#Include .\PAN_MIDLINE.ahk
-#Include .\PAN_XHEIGHT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PAN_LETT_FORM.ahk" { PAN_LETT_FORM }
+#Import ".\PAN_MIDLINE.ahk" { PAN_MIDLINE }
+#Import ".\PAN_PROPORTION.ahk" { PAN_PROPORTION }
+#Import ".\PAN_FAMILY_TYPE.ahk" { PAN_FAMILY_TYPE }
+#Import ".\PAN_XHEIGHT.ahk" { PAN_XHEIGHT }
+#Import ".\PAN_SERIF_STYLE.ahk" { PAN_SERIF_STYLE }
+#Import ".\PAN_CONTRAST.ahk" { PAN_CONTRAST }
+#Import ".\PAN_STROKE_VARIATION.ahk" { PAN_STROKE_VARIATION }
+#Import ".\PAN_ARM_STYLE.ahk" { PAN_ARM_STYLE }
+#Import ".\PAN_WEIGHT.ahk" { PAN_WEIGHT }
 
 /**
  * The PANOSE structure describes the PANOSE font-classification values for a TrueType font. These characteristics are then used to associate the font with other fonts of similar appearance but different names.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-panose
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class PANOSE extends Win32Struct {
-    static sizeof => 10
+export default struct PANOSE {
+    #StructPack 8
 
-    static packingSize => 1
+    bFamilyType : PAN_FAMILY_TYPE
 
-    /**
-     * @type {PAN_FAMILY_TYPE}
-     */
-    bFamilyType {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    bSerifStyle : PAN_SERIF_STYLE
 
-    /**
-     * @type {PAN_SERIF_STYLE}
-     */
-    bSerifStyle {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    bWeight : PAN_WEIGHT
 
-    /**
-     * @type {PAN_WEIGHT}
-     */
-    bWeight {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    bProportion : PAN_PROPORTION
 
-    /**
-     * @type {PAN_PROPORTION}
-     */
-    bProportion {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    bContrast : PAN_CONTRAST
 
-    /**
-     * @type {PAN_CONTRAST}
-     */
-    bContrast {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    bStrokeVariation : PAN_STROKE_VARIATION
 
-    /**
-     * @type {PAN_STROKE_VARIATION}
-     */
-    bStrokeVariation {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    bArmStyle : PAN_ARM_STYLE
 
-    /**
-     * @type {PAN_ARM_STYLE}
-     */
-    bArmStyle {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    bLetterform : PAN_LETT_FORM
 
-    /**
-     * @type {PAN_LETT_FORM}
-     */
-    bLetterform {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    bMidline : PAN_MIDLINE
 
-    /**
-     * @type {PAN_MIDLINE}
-     */
-    bMidline {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    bXHeight : PAN_XHEIGHT
 
-    /**
-     * @type {PAN_XHEIGHT}
-     */
-    bXHeight {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
 }

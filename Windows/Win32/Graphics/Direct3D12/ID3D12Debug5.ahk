@@ -1,33 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12Debug4.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID3D12Debug4.ahk" { ID3D12Debug4 }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Adds to the debug layer the ability to configure the auto-naming of objects.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debug5
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class ID3D12Debug5 extends ID3D12Debug4 {
-
-    static sizeof => A_PtrSize
+export default struct ID3D12Debug5 extends ID3D12Debug4 {
     /**
      * The interface identifier for ID3D12Debug5
      * @type {Guid}
      */
-    static IID => Guid("{548d6b12-09fa-40e0-9069-5dcd589a52c9}")
+    static IID := Guid("{548d6b12-09fa-40e0-9069-5dcd589a52c9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D12Debug5 interfaces
+    */
+    struct Vtbl extends ID3D12Debug4.Vtbl {
+        SetEnableAutoName : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetEnableAutoName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D12Debug5.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Configures the auto-naming of objects.
@@ -48,6 +56,26 @@ class ID3D12Debug5 extends ID3D12Debug4 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12debug5-setenableautoname
      */
     SetEnableAutoName(Enable) {
-        ComCall(8, this, "int", Enable)
+        ComCall(8, this, BOOL, Enable)
+    }
+
+    Query(iid) {
+        if (ID3D12Debug5.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetEnableAutoName := CallbackCreate(GetMethod(implObj, "SetEnableAutoName"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetEnableAutoName)
     }
 }

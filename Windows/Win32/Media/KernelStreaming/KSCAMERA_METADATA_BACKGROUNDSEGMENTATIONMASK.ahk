@@ -1,69 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSCAMERA_METADATA_ITEMHEADER.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\SIZE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import ".\KSCAMERA_METADATA_ITEMHEADER.ahk" { KSCAMERA_METADATA_ITEMHEADER }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSCAMERA_METADATA_BACKGROUNDSEGMENTATIONMASK extends Win32Struct {
-    static sizeof => 52
+export default struct KSCAMERA_METADATA_BACKGROUNDSEGMENTATIONMASK {
+    #StructPack 4
 
-    static packingSize => 4
+    Header : KSCAMERA_METADATA_ITEMHEADER
 
-    /**
-     * @type {KSCAMERA_METADATA_ITEMHEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := KSCAMERA_METADATA_ITEMHEADER(0, this)
-            return this.__Header
-        }
-    }
+    MaskCoverageBoundingBox : RECT
 
-    /**
-     * @type {RECT}
-     */
-    MaskCoverageBoundingBox {
-        get {
-            if(!this.HasProp("__MaskCoverageBoundingBox"))
-                this.__MaskCoverageBoundingBox := RECT(8, this)
-            return this.__MaskCoverageBoundingBox
-        }
-    }
+    MaskResolution : SIZE
 
-    /**
-     * @type {SIZE}
-     */
-    MaskResolution {
-        get {
-            if(!this.HasProp("__MaskResolution"))
-                this.__MaskResolution := SIZE(24, this)
-            return this.__MaskResolution
-        }
-    }
+    ForegroundBoundingBox : RECT
 
-    /**
-     * @type {RECT}
-     */
-    ForegroundBoundingBox {
-        get {
-            if(!this.HasProp("__ForegroundBoundingBox"))
-                this.__ForegroundBoundingBox := RECT(32, this)
-            return this.__ForegroundBoundingBox
-        }
-    }
+    MaskData : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    MaskData {
-        get {
-            if(!this.HasProp("__MaskDataProxyArray"))
-                this.__MaskDataProxyArray := Win32FixedArray(this.ptr + 48, 1, Primitive, "char")
-            return this.__MaskDataProxyArray
-        }
-    }
 }

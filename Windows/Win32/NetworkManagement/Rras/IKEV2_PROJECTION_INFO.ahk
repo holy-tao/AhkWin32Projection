@@ -1,123 +1,68 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains information obtained during Internet Key Exchange (IKE) negotiation. (IKEV2_PROJECTION_INFO)
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ikev2_projection_info
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class IKEV2_PROJECTION_INFO extends Win32Struct {
-    static sizeof => 144
-
-    static packingSize => 8
+export default struct IKEV2_PROJECTION_INFO {
+    #StructPack 8
 
     /**
      * A value that specifies the result of IPv4 negotiation. A value of zero indicates an IPv4 address has been assigned successfully. A nonzero value indicates failure, and is the fatal error that occurred during negotiation.
-     * @type {Integer}
      */
-    dwIPv4NegotiationError {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwIPv4NegotiationError : UInt32
 
     /**
      * An array that contains a Unicode string that specifies the IPv4 address of the local client. This string has the form "a.b.c.d". <b>wszAddress</b> is valid only if <b>dwIPv4NegotiationError</b> is zero.
-     * @type {String}
      */
-    wszAddress {
-        get => StrGet(this.ptr + 4, 15, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 15, "UTF-16")
-    }
+    wszAddress : WCHAR[16]
 
     /**
      * An array that contains a Unicode string that specifies the IPv4 address of the remote server. This string has the form "a.b.c.d". <b>wszRemoteAddress</b> is valid only if <b>dwIPv4NegotiationError</b> is zero. If the address is not available, this member is an empty string.
-     * @type {String}
      */
-    wszRemoteAddress {
-        get => StrGet(this.ptr + 36, 15, "UTF-16")
-        set => StrPut(value, this.ptr + 36, 15, "UTF-16")
-    }
+    wszRemoteAddress : WCHAR[16]
 
     /**
      * A value that specifies the IPv4 subinterface   index corresponding to the connection on the server.
-     * @type {Integer}
      */
-    IPv4SubInterfaceIndex {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    IPv4SubInterfaceIndex : Int64
 
     /**
      * A value that specifies the result of IPv6 negotiation. A value of zero indicates an IPv6 address has been negotiated successfully. A nonzero value indicates failure, and is the fatal error that occurred during negotiation.
-     * @type {Integer}
      */
-    dwIPv6NegotiationError {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    dwIPv6NegotiationError : UInt32
 
     /**
      * An array that specifies the 64-bit IPv6 interface identifier of the client. The last 64 bits of a 128-bit IPv6 internet address are considered the "interface identifier," which provides a strong level of uniqueness for the preceding 64-bits. <b>bInterfaceIdentifier</b> is valid only if <b>dwIPv6NegotiationError</b> is zero and must not be zero.
-     * @type {Array<Integer>}
      */
-    bInterfaceIdentifier {
-        get {
-            if(!this.HasProp("__bInterfaceIdentifierProxyArray"))
-                this.__bInterfaceIdentifierProxyArray := Win32FixedArray(this.ptr + 84, 8, Primitive, "char")
-            return this.__bInterfaceIdentifierProxyArray
-        }
-    }
+    bInterfaceIdentifier : Int8[8]
 
     /**
      * An array that specifies the 64-bit IPv6 interface identifier of the server. The last 64 bits of a 128-bit IPv6 internet address are considered the "interface identifier," which provides a strong level of uniqueness for the preceding 64-bits. <b>bInterfaceIdentifier</b> is valid only if <b>dwIPv6NegotiationError</b> is zero and must not be zero.
-     * @type {Array<Integer>}
      */
-    bRemoteInterfaceIdentifier {
-        get {
-            if(!this.HasProp("__bRemoteInterfaceIdentifierProxyArray"))
-                this.__bRemoteInterfaceIdentifierProxyArray := Win32FixedArray(this.ptr + 92, 8, Primitive, "char")
-            return this.__bRemoteInterfaceIdentifierProxyArray
-        }
-    }
+    bRemoteInterfaceIdentifier : Int8[8]
 
     /**
      * A value that specifies the client interface IPv6  address prefix.
-     * @type {Array<Integer>}
      */
-    bPrefix {
-        get {
-            if(!this.HasProp("__bPrefixProxyArray"))
-                this.__bPrefixProxyArray := Win32FixedArray(this.ptr + 100, 8, Primitive, "char")
-            return this.__bPrefixProxyArray
-        }
-    }
+    bPrefix : Int8[8]
 
     /**
      * A value that specifies the length, in bits, of <b>bPrefix</b>.
-     * @type {Integer}
      */
-    dwPrefixLength {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
+    dwPrefixLength : UInt32
 
     /**
      * A value that specifies the IPv6 subinterface   index corresponding to the connection on the server.
-     * @type {Integer}
      */
-    IPv6SubInterfaceIndex {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    IPv6SubInterfaceIndex : Int64
 
     /**
      * Not used.
-     * @type {Integer}
      */
-    dwOptions {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    dwOptions : UInt32
 
     /**
      * A value that specifies the authentication protocol used to authenticate the remote server. The following authentication protocols are supported:
@@ -149,30 +94,18 @@ class IKEV2_PROJECTION_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwAuthenticationProtocol {
-        get => NumGet(this, 124, "uint")
-        set => NumPut("uint", value, this, 124)
-    }
+    dwAuthenticationProtocol : UInt32
 
     /**
      * A value that specifies the type identifier of the Extensible Authentication Protocol (EAP) used to authenticate the local client. The value of this member is valid only if <b>dwAuthenticationProtocol</b> is <b>MPRAPI_IKEV2_AUTH_USING_EAP</b>.
-     * @type {Integer}
      */
-    dwEapTypeId {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    dwEapTypeId : UInt32
 
     /**
      * Not used.
-     * @type {Integer}
      */
-    dwCompressionAlgorithm {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
-    }
+    dwCompressionAlgorithm : UInt32
 
     /**
      * A value that specifies the encryption method used in the connection. The following encryption methods are supported:
@@ -223,10 +156,7 @@ class IKEV2_PROJECTION_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwEncryptionMethod {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    dwEncryptionMethod : UInt32
+
 }

@@ -1,44 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class IPrintReadStream extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPrintReadStream extends IUnknown {
     /**
      * The interface identifier for IPrintReadStream
      * @type {Guid}
      */
-    static IID => Guid("{4d47a67c-66cc-4430-850e-daf466fe5bc4}")
+    static IID := Guid("{4d47a67c-66cc-4430-850e-daf466fe5bc4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPrintReadStream interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Seek      : IntPtr
+        ReadBytes : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPrintReadStream.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Seek", "ReadBytes"]
-
-    /**
-     * The Seekable attribute is a file-level attribute specifying whether an application can seek to points within the content.
-     * @remarks
-     * This is a coded attribute.
      * 
-     * This attribute cannot be duplicated at the file level. If this attribute is used for an individual stream, it will be treated as custom metadata and will not convey its normal meaning to the objects of the Windows Media Format SDK.
-     * 
-     * The value of this attribute for a file may vary depending upon the object exposing the [**IWMHeaderInfo**](/previous-versions/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmheaderinfo) or [**IWMHeaderInfo3**](/previous-versions/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmheaderinfo3) interface used to retrieve it. This is because the reader objects (both synchronous and asynchronous) perform a more thorough check than the metadata editor object does, to ascertain whether you can seek to a point in a file. The **Seekable** attribute value returned by a reader object is more accurate.
      * @param {Integer} dlibMove 
      * @param {Integer} dwOrigin 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/wmformat/seekable
      */
     Seek(dlibMove, dwOrigin) {
         result := ComCall(3, this, "int64", dlibMove, "uint", dwOrigin, "uint*", &plibNewPosition := 0, "HRESULT")
@@ -59,5 +62,27 @@ class IPrintReadStream extends IUnknown {
 
         result := ComCall(4, this, "ptr", pvBuffer, "uint", cbRequested, pcbReadMarshal, pcbRead, pbEndOfFileMarshal, pbEndOfFile, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPrintReadStream.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Seek := CallbackCreate(GetMethod(implObj, "Seek"), flags, 4)
+        this.vtbl.ReadBytes := CallbackCreate(GetMethod(implObj, "ReadBytes"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Seek)
+        CallbackFree(this.vtbl.ReadBytes)
     }
 }

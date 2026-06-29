@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IComponentType.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IComponentType.ahk" { IComponentType }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ILanguageComponentType interface is implemented on LanguageComponentType objects. It provides methods that define the language of the stream content. Not all streams have a language component.
@@ -10,32 +11,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-ilanguagecomponenttype
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class ILanguageComponentType extends IComponentType {
-
-    static sizeof => A_PtrSize
+export default struct ILanguageComponentType extends IComponentType {
     /**
      * The interface identifier for ILanguageComponentType
      * @type {Guid}
      */
-    static IID => Guid("{b874c8ba-0fa2-11d3-9d8e-00c04f72d980}")
+    static IID := Guid("{b874c8ba-0fa2-11d3-9d8e-00c04f72d980}")
 
     /**
      * The class identifier for LanguageComponentType
      * @type {Guid}
      */
-    static CLSID => Guid("{1be49f30-0e1b-11d3-9d8e-00c04f72d980}")
+    static CLSID := Guid("{1be49f30-0e1b-11d3-9d8e-00c04f72d980}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 24
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ILanguageComponentType interfaces
+    */
+    struct Vtbl extends IComponentType.Vtbl {
+        get_LangID : IntPtr
+        put_LangID : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_LangID", "put_LangID"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ILanguageComponentType.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -68,5 +77,27 @@ class ILanguageComponentType extends IComponentType {
     put_LangID(LangID) {
         result := ComCall(25, this, "int", LangID, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ILanguageComponentType.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_LangID := CallbackCreate(GetMethod(implObj, "get_LangID"), flags, 2)
+        this.vtbl.put_LangID := CallbackCreate(GetMethod(implObj, "put_LangID"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_LangID)
+        CallbackFree(this.vtbl.put_LangID)
     }
 }

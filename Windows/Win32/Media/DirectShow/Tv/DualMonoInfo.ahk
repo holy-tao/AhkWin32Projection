@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class DualMonoInfo extends Win32Struct {
-    static sizeof => 12
+export default struct DualMonoInfo {
+    #StructPack 4
 
-    static packingSize => 4
+    LangID1 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    LangID1 {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    LangID2 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    LangID2 {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    lISOLangCode1 : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lISOLangCode1 {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    lISOLangCode2 : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lISOLangCode2 {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
 }

@@ -1,39 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ISWbemMethod.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ISWbemMethod.ahk" { ISWbemMethod }
 
 /**
  * @namespace Windows.Win32.System.Wmi
  */
-class ISWbemMethodSet extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISWbemMethodSet extends IDispatch {
     /**
      * The interface identifier for ISWbemMethodSet
      * @type {Guid}
      */
-    static IID => Guid("{c93ba292-d955-11d1-8b09-00600806d9b6}")
+    static IID := Guid("{c93ba292-d955-11d1-8b09-00600806d9b6}")
 
     /**
      * The class identifier for SWbemMethodSet
      * @type {Guid}
      */
-    static CLSID => Guid("{04b83d5a-21ae-11d2-8b33-00600806d9b6}")
+    static CLSID := Guid("{04b83d5a-21ae-11d2-8b33-00600806d9b6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISWbemMethodSet interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get__NewEnum : IntPtr
+        Item         : IntPtr
+        get_Count    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get__NewEnum", "Item", "get_Count"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISWbemMethodSet.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IUnknown} 
@@ -73,7 +84,7 @@ class ISWbemMethodSet extends IDispatch {
     Item(strName, iFlags) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(8, this, "ptr", strName, "int", iFlags, "ptr*", &objWbemMethod := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, strName, "int", iFlags, "ptr*", &objWbemMethod := 0, "HRESULT")
         return ISWbemMethod(objWbemMethod)
     }
 
@@ -84,5 +95,29 @@ class ISWbemMethodSet extends IDispatch {
     get_Count() {
         result := ComCall(9, this, "int*", &iCount := 0, "HRESULT")
         return iCount
+    }
+
+    Query(iid) {
+        if (ISWbemMethodSet.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 4)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.Item)
+        CallbackFree(this.vtbl.get_Count)
     }
 }

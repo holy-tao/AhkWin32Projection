@@ -1,9 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CF_OPERATION_TYPE.ahk
-#Include .\CF_CONNECTION_KEY.ahk
-#Include ..\..\System\CorrelationVector\CORRELATION_VECTOR.ahk
-#Include .\CF_SYNC_STATUS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CF_CONNECTION_KEY.ahk" { CF_CONNECTION_KEY }
+#Import ".\CF_SYNC_STATUS.ahk" { CF_SYNC_STATUS }
+#Import ".\CF_OPERATION_TYPE.ahk" { CF_OPERATION_TYPE }
+#Import "..\..\System\CorrelationVector\CORRELATION_VECTOR.ahk" { CORRELATION_VECTOR }
 
 /**
  * Information about an operation on a placeholder file or folder.
@@ -12,58 +11,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_operation_info
  * @namespace Windows.Win32.Storage.CloudFilters
  */
-class CF_OPERATION_INFO extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct CF_OPERATION_INFO {
+    #StructPack 8
 
     /**
      * The size of the **CF_OPERATION_INFO** structure.
-     * @type {Integer}
      */
-    StructSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    StructSize : UInt32
 
     /**
      * The type of operation being performed. See [CF_OPERATION_TYPE](ne-cfapi-cf_operation_type.md) for more information.
-     * @type {CF_OPERATION_TYPE}
      */
-    Type {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Type : CF_OPERATION_TYPE
 
     /**
      * A connection key obtained for the communication channel.
-     * @type {CF_CONNECTION_KEY}
      */
-    ConnectionKey {
-        get {
-            if(!this.HasProp("__ConnectionKey"))
-                this.__ConnectionKey := CF_CONNECTION_KEY(8, this)
-            return this.__ConnectionKey
-        }
-    }
+    ConnectionKey : CF_CONNECTION_KEY
 
     /**
      * An opaque handle to the placeholder.
-     * @type {Integer}
      */
-    TransferKey {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    TransferKey : Int64
 
     /**
      * A correlation vector on a placeholder used for telemetry purposes.
-     * @type {Pointer<CORRELATION_VECTOR>}
      */
-    CorrelationVector {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    CorrelationVector : CORRELATION_VECTOR.Ptr
 
     /**
      * >[!NOTE]
@@ -72,19 +46,12 @@ class CF_OPERATION_INFO extends Win32Struct {
      * The current [CF_SYNC_STATUS](ns-cfapi-cf_sync_status.md) of the platform.
      * 
      * The platform queries this information upon any failed operations on a cloud file placeholder. If a structure is available, the platform will use the information provided to construct a more meaningful and actionable message to the user. The platform will keep this information on the file until the last handle on it goes away. If *SyncStatus* is **null**, the platform will clear the previously set sync status, if there is one.
-     * @type {Pointer<CF_SYNC_STATUS>}
      */
-    SyncStatus {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    SyncStatus : CF_SYNC_STATUS.Ptr
 
     /**
      * An opaque id that uniquely identifies a cloud file operation on a particular cloud file.
-     * @type {Integer}
      */
-    RequestKey {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
-    }
+    RequestKey : Int64
+
 }

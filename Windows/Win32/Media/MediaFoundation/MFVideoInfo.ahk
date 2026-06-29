@@ -1,16 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MFRatio.ahk
-#Include .\MFVideoChromaSubsampling.ahk
-#Include .\MFVideoInterlaceMode.ahk
-#Include .\MFVideoTransferFunction.ahk
-#Include .\MFVideoPrimaries.ahk
-#Include .\MFVideoTransferMatrix.ahk
-#Include .\MFVideoLighting.ahk
-#Include .\MFNominalRange.ahk
-#Include .\MFVideoArea.ahk
-#Include .\MFOffset.ahk
-#Include ..\..\Foundation\SIZE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MFVideoTransferFunction.ahk" { MFVideoTransferFunction }
+#Import ".\MFVideoArea.ahk" { MFVideoArea }
+#Import ".\MFOffset.ahk" { MFOffset }
+#Import ".\MFVideoPrimaries.ahk" { MFVideoPrimaries }
+#Import ".\MFVideoChromaSubsampling.ahk" { MFVideoChromaSubsampling }
+#Import ".\MFRatio.ahk" { MFRatio }
+#Import ".\MFVideoLighting.ahk" { MFVideoLighting }
+#Import ".\MFVideoTransferMatrix.ahk" { MFVideoTransferMatrix }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import ".\MFNominalRange.ahk" { MFNominalRange }
+#Import ".\MFVideoInterlaceMode.ahk" { MFVideoInterlaceMode }
 
 /**
  * Contains video format information that applies to both compressed and uncompressed formats.This structure is used in the MFVIDEOFORMAT structure.
@@ -108,158 +107,82 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ns-mfobjects-mfvideoinfo
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFVideoInfo extends Win32Struct {
-    static sizeof => 112
-
-    static packingSize => 8
+export default struct MFVideoInfo {
+    #StructPack 8
 
     /**
      * Width of the decoded image, in pixels.
-     * @type {Integer}
      */
-    dwWidth {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwWidth : UInt32
 
     /**
      * Height of the decoded image, in pixels.
-     * @type {Integer}
      */
-    dwHeight {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwHeight : UInt32
 
     /**
      * Pixel aspect ratio, specified as an <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfratio">MFRatio</a> structure.
-     * @type {MFRatio}
      */
-    PixelAspectRatio {
-        get {
-            if(!this.HasProp("__PixelAspectRatio"))
-                this.__PixelAspectRatio := MFRatio(8, this)
-            return this.__PixelAspectRatio
-        }
-    }
+    PixelAspectRatio : MFRatio
 
     /**
      * Chroma sub-sampling of the original image, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mfvideochromasubsampling">MFVideoChromaSubsampling</a> enumeration.
-     * @type {MFVideoChromaSubsampling}
      */
-    SourceChromaSubsampling {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    SourceChromaSubsampling : MFVideoChromaSubsampling
 
     /**
      * Image interlacing, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mfvideointerlacemode">MFVideoInterlaceMode</a> enumeration.
-     * @type {MFVideoInterlaceMode}
      */
-    InterlaceMode {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    InterlaceMode : MFVideoInterlaceMode
 
     /**
      * R'G'B' gamma curve function, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mfvideotransferfunction">MFVideoTransferFunction</a> enumeration.
-     * @type {MFVideoTransferFunction}
      */
-    TransferFunction {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    TransferFunction : MFVideoTransferFunction
 
     /**
      * Color primaries of the video source, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mfvideoprimaries">MFVideoPrimaries</a> enumeration. This value provides the conversion from R'G'B' to linear RGB.
-     * @type {MFVideoPrimaries}
      */
-    ColorPrimaries {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    ColorPrimaries : MFVideoPrimaries
 
     /**
      * Conversion matrix from Y'Cb'Cr' to R'G'B, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mfvideotransfermatrix">MFVideoTransferMatrix</a> enumeration.
-     * @type {MFVideoTransferMatrix}
      */
-    TransferMatrix {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    TransferMatrix : MFVideoTransferMatrix
 
     /**
      * Intended viewing conditions, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mfvideolighting">MFVideoLighting</a> enumeration.
-     * @type {MFVideoLighting}
      */
-    SourceLighting {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    SourceLighting : MFVideoLighting
 
     /**
      * Frames per second, specified as an <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfratio">MFRatio</a> structure. If the frame rate is unknown or variable, the numerator and denominator should both be set to zero. It is invalid for only one member of the <b>MFRatio</b> structure to be zero.
-     * @type {MFRatio}
      */
-    FramesPerSecond {
-        get {
-            if(!this.HasProp("__FramesPerSecond"))
-                this.__FramesPerSecond := MFRatio(40, this)
-            return this.__FramesPerSecond
-        }
-    }
+    FramesPerSecond : MFRatio
 
     /**
      * Range of valid RGB values, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mfnominalrange">MFNominalRange</a> enumeration. The value indicates whether color values contain headroom and toeroom.
-     * @type {MFNominalRange}
      */
-    NominalRange {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    NominalRange : MFNominalRange
 
     /**
      * Geometric aperture, specified as an <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfvideoarea">MFVideoArea</a> structure. For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-geometric-aperture-attribute">MF_MT_GEOMETRIC_APERTURE</a>.
-     * @type {MFVideoArea}
      */
-    GeometricAperture {
-        get {
-            if(!this.HasProp("__GeometricAperture"))
-                this.__GeometricAperture := MFVideoArea(52, this)
-            return this.__GeometricAperture
-        }
-    }
+    GeometricAperture : MFVideoArea
 
     /**
      * The display aperture, specified as an <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfvideoarea">MFVideoArea</a> structure. The display aperture is the region of the video image that is intended to be shown. Any data outside of this area is the overscan region. For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-minimum-display-aperture-attribute">MF_MT_MINIMUM_DISPLAY_APERTURE</a>.
-     * @type {MFVideoArea}
      */
-    MinimumDisplayAperture {
-        get {
-            if(!this.HasProp("__MinimumDisplayAperture"))
-                this.__MinimumDisplayAperture := MFVideoArea(68, this)
-            return this.__MinimumDisplayAperture
-        }
-    }
+    MinimumDisplayAperture : MFVideoArea
 
     /**
      * Pan-scan rectangle, specified as an <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfvideoarea">MFVideoArea</a> structure. The pan-scan rectangle defines a region of the image that is displayed in pan-and-scan mode. It can be used when wide-screen content is shown on a 4 x 3 display. The value is valid only when the <b>VideoFlags</b> member contains the MFVideoFlag_PanScanEnabled flag.
-     * @type {MFVideoArea}
      */
-    PanScanAperture {
-        get {
-            if(!this.HasProp("__PanScanAperture"))
-                this.__PanScanAperture := MFVideoArea(84, this)
-            return this.__PanScanAperture
-        }
-    }
+    PanScanAperture : MFVideoArea
 
     /**
      * Bitwise <b>OR</b> of zero or more flags from the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mfvideoflags">MFVideoFlags</a> enumeration.
-     * @type {Integer}
      */
-    VideoFlags {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    VideoFlags : Int64
+
 }

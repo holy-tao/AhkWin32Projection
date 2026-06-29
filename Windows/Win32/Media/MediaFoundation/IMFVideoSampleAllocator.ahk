@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFSample.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFSample.ahk" { IMFSample }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFMediaType.ahk" { IMFMediaType }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Allocates video samples for a video media sink.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfvideosampleallocator
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFVideoSampleAllocator extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFVideoSampleAllocator extends IUnknown {
     /**
      * The interface identifier for IMFVideoSampleAllocator
      * @type {Guid}
      */
-    static IID => Guid("{86cbc910-e533-4751-8e3b-f19b5b806a03}")
+    static IID := Guid("{86cbc910-e533-4751-8e3b-f19b5b806a03}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFVideoSampleAllocator interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetDirectXManager           : IntPtr
+        UninitializeSampleAllocator : IntPtr
+        InitializeSampleAllocator   : IntPtr
+        AllocateSample              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetDirectXManager", "UninitializeSampleAllocator", "InitializeSampleAllocator", "AllocateSample"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFVideoSampleAllocator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies the Direct3D device manager for the video media sink to use.
@@ -140,5 +152,31 @@ class IMFVideoSampleAllocator extends IUnknown {
     AllocateSample() {
         result := ComCall(6, this, "ptr*", &ppSample := 0, "HRESULT")
         return IMFSample(ppSample)
+    }
+
+    Query(iid) {
+        if (IMFVideoSampleAllocator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetDirectXManager := CallbackCreate(GetMethod(implObj, "SetDirectXManager"), flags, 2)
+        this.vtbl.UninitializeSampleAllocator := CallbackCreate(GetMethod(implObj, "UninitializeSampleAllocator"), flags, 1)
+        this.vtbl.InitializeSampleAllocator := CallbackCreate(GetMethod(implObj, "InitializeSampleAllocator"), flags, 3)
+        this.vtbl.AllocateSample := CallbackCreate(GetMethod(implObj, "AllocateSample"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetDirectXManager)
+        CallbackFree(this.vtbl.UninitializeSampleAllocator)
+        CallbackFree(this.vtbl.InitializeSampleAllocator)
+        CallbackFree(this.vtbl.AllocateSample)
     }
 }

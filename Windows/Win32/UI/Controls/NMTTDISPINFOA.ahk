@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include .\TOOLTIP_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\NMHDR.ahk" { NMHDR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import ".\TOOLTIP_FLAGS.ahk" { TOOLTIP_FLAGS }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Contains information used in handling the TTN_GETDISPINFO notification code. This structure supersedes the TOOLTIPTEXT structure. (ANSI)
@@ -19,61 +21,37 @@
  * @namespace Windows.Win32.UI.Controls
  * @charset ANSI
  */
-class NMTTDISPINFOA extends Win32Struct {
-    static sizeof => 136
-
-    static packingSize => 8
+export default struct NMTTDISPINFOA {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains additional information about the notification.
-     * @type {NMHDR}
      */
-    hdr {
-        get {
-            if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(0, this)
-            return this.__hdr
-        }
-    }
+    hdr : NMHDR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * Pointer to a null-terminated string that will be displayed as the tooltip text. If <b>hinst</b> specifies an instance handle, this member must be the identifier of a string resource.
-     * @type {PSTR}
      */
-    lpszText {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpszText : PSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">TCHAR</a></b>
      * 
      * Buffer that receives the tooltip text. An application can copy the text to this buffer instead of specifying a string address or string resource. For tooltip text that exceeds 80 <b>TCHAR</b><b>s</b>, see comments in the remarks section of this document.
-     * @type {String}
      */
-    szText {
-        get => StrGet(this.ptr + 32, 79, "UTF-8")
-        set => StrPut(value, this.ptr + 32, 79, "UTF-8")
-    }
+    szText : CHAR[80]
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HINSTANCE</a></b>
      * 
      * Handle to the instance that contains a string resource to be used as the tooltip text. If <b>lpszText</b> is the address of the tooltip text string, this member must be <b>NULL</b>.
-     * @type {HINSTANCE}
      */
-    hinst {
-        get {
-            if(!this.HasProp("__hinst"))
-                this.__hinst := HINSTANCE(112, this)
-            return this.__hinst
-        }
-    }
+    hinst : HINSTANCE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -119,22 +97,15 @@ class NMTTDISPINFOA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {TOOLTIP_FLAGS}
      */
-    uFlags {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    uFlags : TOOLTIP_FLAGS
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 4.70</a>. Application-defined data associated with the tool.
-     * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    lParam : LPARAM
+
 }

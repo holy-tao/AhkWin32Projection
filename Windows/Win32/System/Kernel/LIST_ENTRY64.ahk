@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Kernel
  */
-class LIST_ENTRY64 extends Win32Struct {
-    static sizeof => 16
+export default struct LIST_ENTRY64 {
+    #StructPack 8
 
-    static packingSize => 8
+    Flink : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Flink {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Blink : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Blink {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

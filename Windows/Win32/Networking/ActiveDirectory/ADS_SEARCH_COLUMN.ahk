@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ADSTYPE.ahk
-#Include .\ADSVALUE.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ADSTYPE.ahk" { ADSTYPE }
+#Import ".\ADSVALUE.ahk" { ADSVALUE }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The ADS_SEARCH_COLUMN structure specifies the contents of a search column in the query returned from the directory service database.
@@ -13,56 +13,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_search_column
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class ADS_SEARCH_COLUMN extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct ADS_SEARCH_COLUMN {
+    #StructPack 8
 
     /**
      * A  null-terminated Unicode string that contains the name of the attribute whose values are contained in the current search column.
-     * @type {PWSTR}
      */
-    pszAttrName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pszAttrName : PWSTR
 
     /**
      * Value from the  <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-adstypeenum">ADSTYPEENUM</a> enumeration that indicates how the attribute values are interpreted.
-     * @type {ADSTYPE}
      */
-    dwADsType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    dwADsType : ADSTYPE
 
     /**
      * Array of  <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-adsvalue">ADSVALUE</a> structures that contain values of the attribute in the current search column for the current row.
-     * @type {Pointer<ADSVALUE>}
      */
-    pADsValues {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pADsValues : ADSVALUE.Ptr
 
     /**
      * Size of the <b>pADsValues</b> array.
-     * @type {Integer}
      */
-    dwNumValues {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwNumValues : UInt32
 
     /**
      * Reserved for internal use by providers.
-     * @type {HANDLE}
      */
-    hReserved {
-        get {
-            if(!this.HasProp("__hReserved"))
-                this.__hReserved := HANDLE(32, this)
-            return this.__hReserved
-        }
-    }
+    hReserved : HANDLE
+
 }

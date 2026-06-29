@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\SIZE.ahk
-#Include ..\..\Foundation\POINTL.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\POINTL.ahk" { POINTL }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Describes the properties of a file that is being copied by means of the clipboard during a Microsoft ActiveX drag-and-drop operation. (Unicode)
@@ -20,142 +21,82 @@
  * @namespace Windows.Win32.UI.Shell
  * @charset Unicode
  */
-class FILEDESCRIPTORW extends Win32Struct {
-    static sizeof => 592
-
-    static packingSize => 8
+export default struct FILEDESCRIPTORW {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
     /**
      * Type: <b>CLSID</b>
      * 
      * The file type identifier.
-     * @type {Pointer}
      */
-    clsid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    clsid : Guid
 
     /**
      * Type: <b>SIZEL</b>
      * 
      * The width and height of the file icon.
-     * @type {SIZE}
      */
-    sizel {
-        get {
-            if(!this.HasProp("__sizel"))
-                this.__sizel := SIZE(16, this)
-            return this.__sizel
-        }
-    }
+    sizel : SIZE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-pointl">POINTL</a></b>
      * 
      * The screen coordinates of the file object.
-     * @type {POINTL}
      */
-    pointl {
-        get {
-            if(!this.HasProp("__pointl"))
-                this.__pointl := POINTL(24, this)
-            return this.__pointl
-        }
-    }
+    pointl : POINTL
 
     /**
      * Type: <b>DWORD</b>
      * 
      * File attribute flags. This will be a combination of the FILE_ATTRIBUTE_ values described in <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getfileattributesa">GetFileAttributes</a>.
-     * @type {Integer}
      */
-    dwFileAttributes {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwFileAttributes : UInt32
 
     /**
      * Type: <b>FILETIME</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the time of file creation.
-     * @type {FILETIME}
      */
-    ftCreationTime {
-        get {
-            if(!this.HasProp("__ftCreationTime"))
-                this.__ftCreationTime := FILETIME(36, this)
-            return this.__ftCreationTime
-        }
-    }
+    ftCreationTime : FILETIME
 
     /**
      * Type: <b>FILETIME</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the time that the file was last accessed.
-     * @type {FILETIME}
      */
-    ftLastAccessTime {
-        get {
-            if(!this.HasProp("__ftLastAccessTime"))
-                this.__ftLastAccessTime := FILETIME(44, this)
-            return this.__ftLastAccessTime
-        }
-    }
+    ftLastAccessTime : FILETIME
 
     /**
      * Type: <b>FILETIME</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the time of the last write operation.
-     * @type {FILETIME}
      */
-    ftLastWriteTime {
-        get {
-            if(!this.HasProp("__ftLastWriteTime"))
-                this.__ftLastWriteTime := FILETIME(52, this)
-            return this.__ftLastWriteTime
-        }
-    }
+    ftLastWriteTime : FILETIME
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The high-order <b>DWORD</b> of the file size, in bytes.
-     * @type {Integer}
      */
-    nFileSizeHigh {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    nFileSizeHigh : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The low-order <b>DWORD</b> of the file size, in bytes.
-     * @type {Integer}
      */
-    nFileSizeLow {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    nFileSizeLow : UInt32
 
     /**
      * Type: <b>TCHAR[MAX_PATH]</b>
      * 
      * The null-terminated string that contains the name of the file.
-     * @type {String}
      */
-    cFileName {
-        get => StrGet(this.ptr + 68, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 68, 259, "UTF-16")
-    }
+    cFileName : WCHAR[260]
+
 }

@@ -1,9 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CMC_TAGGED_ATTRIBUTE.ahk
-#Include .\CMC_TAGGED_REQUEST.ahk
-#Include .\CMC_TAGGED_CONTENT_INFO.ahk
-#Include .\CMC_TAGGED_OTHER_MSG.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CMC_TAGGED_ATTRIBUTE.ahk" { CMC_TAGGED_ATTRIBUTE }
+#Import ".\CMC_TAGGED_CONTENT_INFO.ahk" { CMC_TAGGED_CONTENT_INFO }
+#Import ".\CMC_TAGGED_OTHER_MSG.ahk" { CMC_TAGGED_OTHER_MSG }
+#Import ".\CMC_TAGGED_REQUEST.ahk" { CMC_TAGGED_REQUEST }
 
 /**
  * Provides a means of communicating different pieces of tagged information. (CMC_DATA_INFO)
@@ -12,84 +11,51 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmc_data_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CMC_DATA_INFO extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct CMC_DATA_INFO {
+    #StructPack 8
 
     /**
      * Count of the number of elements in the <b>rgTaggedAttribute</b> member array.
-     * @type {Integer}
      */
-    cTaggedAttribute {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cTaggedAttribute : UInt32
 
     /**
      * Array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmc_tagged_attribute">CMC_TAGGED_ATTRIBUTE</a> structures.
-     * @type {Pointer<CMC_TAGGED_ATTRIBUTE>}
      */
-    rgTaggedAttribute {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    rgTaggedAttribute : CMC_TAGGED_ATTRIBUTE.Ptr
 
     /**
      * Count of the number of elements in the <b>rgTaggedRequest</b> member array.
-     * @type {Integer}
      */
-    cTaggedRequest {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cTaggedRequest : UInt32
 
     /**
      * Array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmc_tagged_request">CMC_TAGGED_REQUEST</a> structures.
-     * @type {Pointer<CMC_TAGGED_REQUEST>}
      */
-    rgTaggedRequest {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    rgTaggedRequest : CMC_TAGGED_REQUEST.Ptr
 
     /**
      * Count of the number of elements in the <b>rgTaggedContentInfo</b> member array.
-     * @type {Integer}
      */
-    cTaggedContentInfo {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    cTaggedContentInfo : UInt32
 
     /**
      * Array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmc_tagged_content_info">CMC_TAGGED_CONTENT_INFO</a> structures.
-     * @type {Pointer<CMC_TAGGED_CONTENT_INFO>}
      */
-    rgTaggedContentInfo {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    rgTaggedContentInfo : CMC_TAGGED_CONTENT_INFO.Ptr
 
     /**
      * Count of the number of elements in the <b>rgTaggedOtherMsg</b> member array.
-     * @type {Integer}
      */
-    cTaggedOtherMsg {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    cTaggedOtherMsg : UInt32
 
     /**
      * Array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmc_tagged_other_msg">CMC_TAGGED_OTHER_MSG</a> structures.
-     * @type {Pointer<CMC_TAGGED_OTHER_MSG>}
      */
-    rgTaggedOtherMsg {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    rgTaggedOtherMsg : CMC_TAGGED_OTHER_MSG.Ptr
+
 }

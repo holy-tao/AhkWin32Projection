@@ -1,25 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The AMCOPPSignature structure contains the signature needed for the IAMCertifiedOutputProtection::SessionSequenceStart method.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-amcoppsignature
  * @namespace Windows.Win32.Media.DirectShow
  */
-class AMCOPPSignature extends Win32Struct {
-    static sizeof => 256
-
-    static packingSize => 1
+export default struct AMCOPPSignature {
+    #StructPack 1
 
     /**
      * Buffer that contains the signature. For more information, see the Remarks section for the <b>SessionSequenceStart</b> method.
-     * @type {Array<Integer>}
      */
-    Signature {
-        get {
-            if(!this.HasProp("__SignatureProxyArray"))
-                this.__SignatureProxyArray := Win32FixedArray(this.ptr + 0, 256, Primitive, "char")
-            return this.__SignatureProxyArray
-        }
-    }
+    Signature : Int8[256]
+
 }

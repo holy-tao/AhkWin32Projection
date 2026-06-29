@@ -1,47 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IN6_ADDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IN6_ADDR.ahk" { IN6_ADDR }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class MLDV2_REPORT_RECORD_HEADER extends Win32Struct {
-    static sizeof => 20
+export default struct MLDV2_REPORT_RECORD_HEADER {
+    #StructPack 2
 
-    static packingSize => 2
+    Type : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    AuxillaryDataLength : Int8
 
-    /**
-     * @type {Integer}
-     */
-    AuxillaryDataLength {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    SourceCount : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    SourceCount {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    MulticastAddress : IN6_ADDR
 
-    /**
-     * @type {IN6_ADDR}
-     */
-    MulticastAddress {
-        get {
-            if(!this.HasProp("__MulticastAddress"))
-                this.__MulticastAddress := IN6_ADDR(4, this)
-            return this.__MulticastAddress
-        }
-    }
 }

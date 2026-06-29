@@ -1,188 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\LUID.ahk
-#Include .\LSA_UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\PSID.ahk" { PSID }
+#Import "..\..\..\Foundation\LUID.ahk" { LUID }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SECPKG_PRIMARY_CRED_EX extends Win32Struct {
-    static sizeof => 224
+export default struct SECPKG_PRIMARY_CRED_EX {
+    #StructPack 8
 
-    static packingSize => 8
+    LogonId : LUID
 
-    /**
-     * @type {LUID}
-     */
-    LogonId {
-        get {
-            if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(0, this)
-            return this.__LogonId
-        }
-    }
+    DownlevelName : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    DownlevelName {
-        get {
-            if(!this.HasProp("__DownlevelName"))
-                this.__DownlevelName := LSA_UNICODE_STRING(8, this)
-            return this.__DownlevelName
-        }
-    }
+    DomainName : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    DomainName {
-        get {
-            if(!this.HasProp("__DomainName"))
-                this.__DomainName := LSA_UNICODE_STRING(24, this)
-            return this.__DomainName
-        }
-    }
+    Password : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    Password {
-        get {
-            if(!this.HasProp("__Password"))
-                this.__Password := LSA_UNICODE_STRING(40, this)
-            return this.__Password
-        }
-    }
+    OldPassword : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    OldPassword {
-        get {
-            if(!this.HasProp("__OldPassword"))
-                this.__OldPassword := LSA_UNICODE_STRING(56, this)
-            return this.__OldPassword
-        }
-    }
+    UserSid : PSID
 
-    /**
-     * @type {PSID}
-     */
-    UserSid {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    DnsDomainName : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    DnsDomainName {
-        get {
-            if(!this.HasProp("__DnsDomainName"))
-                this.__DnsDomainName := LSA_UNICODE_STRING(88, this)
-            return this.__DnsDomainName
-        }
-    }
+    Upn : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    Upn {
-        get {
-            if(!this.HasProp("__Upn"))
-                this.__Upn := LSA_UNICODE_STRING(104, this)
-            return this.__Upn
-        }
-    }
+    LogonServer : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    LogonServer {
-        get {
-            if(!this.HasProp("__LogonServer"))
-                this.__LogonServer := LSA_UNICODE_STRING(120, this)
-            return this.__LogonServer
-        }
-    }
+    Spare1 : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    Spare1 {
-        get {
-            if(!this.HasProp("__Spare1"))
-                this.__Spare1 := LSA_UNICODE_STRING(136, this)
-            return this.__Spare1
-        }
-    }
+    Spare2 : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    Spare2 {
-        get {
-            if(!this.HasProp("__Spare2"))
-                this.__Spare2 := LSA_UNICODE_STRING(152, this)
-            return this.__Spare2
-        }
-    }
+    Spare3 : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    Spare3 {
-        get {
-            if(!this.HasProp("__Spare3"))
-                this.__Spare3 := LSA_UNICODE_STRING(168, this)
-            return this.__Spare3
-        }
-    }
+    Spare4 : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    Spare4 {
-        get {
-            if(!this.HasProp("__Spare4"))
-                this.__Spare4 := LSA_UNICODE_STRING(184, this)
-            return this.__Spare4
-        }
-    }
+    PackageId : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    PackageId {
-        get => NumGet(this, 200, "ptr")
-        set => NumPut("ptr", value, this, 200)
-    }
+    PrevLogonId : LUID
 
-    /**
-     * @type {LUID}
-     */
-    PrevLogonId {
-        get {
-            if(!this.HasProp("__PrevLogonId"))
-                this.__PrevLogonId := LUID(208, this)
-            return this.__PrevLogonId
-        }
-    }
+    FlagsEx : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FlagsEx {
-        get => NumGet(this, 216, "uint")
-        set => NumPut("uint", value, this, 216)
-    }
 }

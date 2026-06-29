@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\POINTERINACTIVE.ahk" { POINTERINACTIVE }
 
 /**
  * Enables an object to remain inactive most of the time, yet still participate in interaction with the mouse, including drag and drop.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-ipointerinactive
  * @namespace Windows.Win32.System.Ole
  */
-class IPointerInactive extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPointerInactive extends IUnknown {
     /**
      * The interface identifier for IPointerInactive
      * @type {Guid}
      */
-    static IID => Guid("{55980ba0-35aa-11cf-b671-00aa004cd6d8}")
+    static IID := Guid("{55980ba0-35aa-11cf-b671-00aa004cd6d8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPointerInactive interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetActivationPolicy : IntPtr
+        OnInactiveMouseMove : IntPtr
+        OnInactiveSetCursor : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetActivationPolicy", "OnInactiveMouseMove", "OnInactiveSetCursor"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPointerInactive.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the current activation policy for the object. This method is called by the container on receipt of a WM_SETCURSOR or WM_MOUSEMOVE message when an inactive object is under the mouse pointer.
@@ -66,7 +79,7 @@ class IPointerInactive extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipointerinactive-oninactivemousemove
      */
     OnInactiveMouseMove(pRectBounds, x, y, grfKeyState) {
-        result := ComCall(4, this, "ptr", pRectBounds, "int", x, "int", y, "uint", grfKeyState, "HRESULT")
+        result := ComCall(4, this, RECT.Ptr, pRectBounds, "int", x, "int", y, "uint", grfKeyState, "HRESULT")
         return result
     }
 
@@ -118,7 +131,31 @@ class IPointerInactive extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipointerinactive-oninactivesetcursor
      */
     OnInactiveSetCursor(pRectBounds, x, y, dwMouseMsg, fSetAlways) {
-        result := ComCall(5, this, "ptr", pRectBounds, "int", x, "int", y, "uint", dwMouseMsg, "int", fSetAlways, "HRESULT")
+        result := ComCall(5, this, RECT.Ptr, pRectBounds, "int", x, "int", y, "uint", dwMouseMsg, BOOL, fSetAlways, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPointerInactive.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetActivationPolicy := CallbackCreate(GetMethod(implObj, "GetActivationPolicy"), flags, 2)
+        this.vtbl.OnInactiveMouseMove := CallbackCreate(GetMethod(implObj, "OnInactiveMouseMove"), flags, 5)
+        this.vtbl.OnInactiveSetCursor := CallbackCreate(GetMethod(implObj, "OnInactiveSetCursor"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetActivationPolicy)
+        CallbackFree(this.vtbl.OnInactiveMouseMove)
+        CallbackFree(this.vtbl.OnInactiveSetCursor)
     }
 }

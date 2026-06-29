@@ -1,75 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR1 extends Win32Struct {
-    static sizeof => 56
+export default struct D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR1 {
+    #StructPack 8
 
-    static packingSize => 8
+    InitialQP : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InitialQP {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    MinQP : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MinQP {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    MaxQP : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxQP {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MaxFrameBitSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MaxFrameBitSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    TargetBitRate : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TargetBitRate {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    VBVCapacity : Int64
 
-    /**
-     * @type {Integer}
-     */
-    VBVCapacity {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    InitialVBVFullness : Int64
 
-    /**
-     * @type {Integer}
-     */
-    InitialVBVFullness {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    QualityVsSpeed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    QualityVsSpeed {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
 }

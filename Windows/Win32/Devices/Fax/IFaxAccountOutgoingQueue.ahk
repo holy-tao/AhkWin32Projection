@@ -1,41 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IFaxOutgoingJobs.ahk
-#Include .\IFaxOutgoingJob.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFaxOutgoingJobs.ahk" { IFaxOutgoingJobs }
+#Import ".\IFaxOutgoingJob.ahk" { IFaxOutgoingJob }
 
 /**
  * Used by a fax client application to retrieve the outbound fax jobs (FaxOutgoingJobs object) in the job queue for a particular fax account.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxaccountoutgoingqueue
  * @namespace Windows.Win32.Devices.Fax
  */
-class IFaxAccountOutgoingQueue extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFaxAccountOutgoingQueue extends IDispatch {
     /**
      * The interface identifier for IFaxAccountOutgoingQueue
      * @type {Guid}
      */
-    static IID => Guid("{0f1424e9-f22d-4553-b7a5-0d24bd0d7e46}")
+    static IID := Guid("{0f1424e9-f22d-4553-b7a5-0d24bd0d7e46}")
 
     /**
      * The class identifier for FaxAccountOutgoingQueue
      * @type {Guid}
      */
-    static CLSID => Guid("{feeceefb-c149-48ba-bab8-b791e101f62f}")
+    static CLSID := Guid("{feeceefb-c149-48ba-bab8-b791e101f62f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFaxAccountOutgoingQueue interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        GetJobs : IntPtr
+        GetJob  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetJobs", "GetJob"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFaxAccountOutgoingQueue.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns the collection of outbound fax jobs in the queue for the current fax account.
@@ -62,7 +72,29 @@ class IFaxAccountOutgoingQueue extends IDispatch {
     GetJob(bstrJobId) {
         bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId
 
-        result := ComCall(8, this, "ptr", bstrJobId, "ptr*", &pFaxOutgoingJob := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrJobId, "ptr*", &pFaxOutgoingJob := 0, "HRESULT")
         return IFaxOutgoingJob(pFaxOutgoingJob)
+    }
+
+    Query(iid) {
+        if (IFaxAccountOutgoingQueue.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetJobs := CallbackCreate(GetMethod(implObj, "GetJobs"), flags, 2)
+        this.vtbl.GetJob := CallbackCreate(GetMethod(implObj, "GetJob"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetJobs)
+        CallbackFree(this.vtbl.GetJob)
     }
 }

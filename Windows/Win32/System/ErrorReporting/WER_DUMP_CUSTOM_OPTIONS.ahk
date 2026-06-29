@@ -1,5 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Specifies custom minidump information to be collected by the WerReportAddDump function.
@@ -12,113 +13,69 @@
  * @see https://learn.microsoft.com/windows/win32/api/werapi/ns-werapi-wer_dump_custom_options
  * @namespace Windows.Win32.System.ErrorReporting
  */
-class WER_DUMP_CUSTOM_OPTIONS extends Win32Struct {
-    static sizeof => 552
-
-    static packingSize => 4
+export default struct WER_DUMP_CUSTOM_OPTIONS {
+    #StructPack 4
 
     /**
      * The size of the structure, in bytes.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMask {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwMask : UInt32
 
     /**
      * The type information to include in the minidump. You can specify one or more of the <a href="https://docs.microsoft.com/windows/desktop/api/minidumpapiset/ne-minidumpapiset-minidump_type">MINIDUMP_TYPE</a> flags. 
      * 
      * This member is valid only if <b>dwMask</b> contains WER_DUMP_MASK_DUMPTYPE.
-     * @type {Integer}
      */
-    dwDumpFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwDumpFlags : UInt32
 
     /**
      * If this member is <b>TRUE</b> and <b>dwMask</b> contains WER_DUMP_MASK_ONLY_THISTHREAD, the minidump is to be collected only for the calling thread.
-     * @type {BOOL}
      */
-    bOnlyThisThread {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    bOnlyThisThread : BOOL
 
     /**
      * The type of thread information to include in the minidump. You can specify one or more of the <a href="https://docs.microsoft.com/windows/desktop/api/minidumpapiset/ne-minidumpapiset-thread_write_flags">THREAD_WRITE_FLAGS</a> flags.
      * 
      * This member is valid only if <b>dwMask</b> contains WER_DUMP_MASK_THREADFLAGS.
-     * @type {Integer}
      */
-    dwExceptionThreadFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwExceptionThreadFlags : UInt32
 
     /**
      * The type of thread information to include in the minidump. You can specify one or more of the <a href="https://docs.microsoft.com/windows/desktop/api/minidumpapiset/ne-minidumpapiset-thread_write_flags">THREAD_WRITE_FLAGS</a> flags.
      * 
      * This member is valid only if <b>dwMask</b> contains WER_DUMP_MASK_OTHERTHREADFLAGS.
-     * @type {Integer}
      */
-    dwOtherThreadFlags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwOtherThreadFlags : UInt32
 
     /**
      * The type of thread information to include in the minidump. You can specify one or more of the <a href="https://docs.microsoft.com/windows/desktop/api/minidumpapiset/ne-minidumpapiset-thread_write_flags">THREAD_WRITE_FLAGS</a> flags.
      * 
      * This member is valid only if <b>dwMask</b> contains WER_DUMP_MASK_THREADFLAGS_EX.
-     * @type {Integer}
      */
-    dwExceptionThreadExFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwExceptionThreadExFlags : UInt32
 
     /**
      * The type of thread information to include in the minidump. You can specify one or more of the <a href="https://docs.microsoft.com/windows/desktop/api/minidumpapiset/ne-minidumpapiset-thread_write_flags">THREAD_WRITE_FLAGS</a> flags.
      * 
      * This member is valid only if <b>dwMask</b> contains WER_DUMP_MASK_OTHERTHREADFLAGS_EX.
-     * @type {Integer}
      */
-    dwOtherThreadExFlags {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwOtherThreadExFlags : UInt32
 
     /**
      * The type of module information to include in the minidump for modules specified in the <b>wzPreferredModuleList</b> member. You can specify one or more of the <a href="https://docs.microsoft.com/windows/desktop/api/minidumpapiset/ne-minidumpapiset-module_write_flags">MODULE_WRITE_FLAGS</a> flags.
      * 
      * This member is valid only if <b>dwMask</b> contains WER_DUMP_MASK_PREFERRED_MODULESFLAGS.
-     * @type {Integer}
      */
-    dwPreferredModuleFlags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwPreferredModuleFlags : UInt32
 
     /**
      * The type of module information to include in the minidump. You can specify one or more of the <a href="https://docs.microsoft.com/windows/desktop/api/minidumpapiset/ne-minidumpapiset-module_write_flags">MODULE_WRITE_FLAGS</a> flags.
      * 
      * This member is valid only if <b>dwMask</b> contains WER_DUMP_MASK_OTHER_MODULESFLAGS.
-     * @type {Integer}
      */
-    dwOtherModuleFlags {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwOtherModuleFlags : UInt32
 
     /**
      * A list of module names (do not include the path) to which the <b>dwPreferredModuleFlags</b> flags apply. Each name must be null-terminated, and the list must be terminated with two null characters (for example, module1.dll\0module2.dll\0\0).
@@ -126,10 +83,7 @@ class WER_DUMP_CUSTOM_OPTIONS extends Win32Struct {
      * To specify that all modules are preferred, set this member to "*\0\0". If you include * in a list with other module names, the * is ignored. 
      * 
      * This member is valid only if <b>dwMask</b> contains WER_DUMP_MASK_PREFERRED_MODULE_LIST.
-     * @type {String}
      */
-    wzPreferredModuleList {
-        get => StrGet(this.ptr + 40, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 40, 255, "UTF-16")
-    }
+    wzPreferredModuleList : WCHAR[256]
+
 }

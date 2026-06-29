@@ -1,6 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\XAUDIO2_VOICE_DETAILS.ahk" { XAUDIO2_VOICE_DETAILS }
+#Import ".\XAUDIO2_VOICE_SENDS.ahk" { XAUDIO2_VOICE_SENDS }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\XAUDIO2_EFFECT_CHAIN.ahk" { XAUDIO2_EFFECT_CHAIN }
+#Import ".\XAUDIO2_FILTER_PARAMETERS.ahk" { XAUDIO2_FILTER_PARAMETERS }
 
 /**
  * IXAudio2Voice represents the base interface from which IXAudio2SourceVoice, IXAudio2SubmixVoice and IXAudio2MasteringVoice are derived. The methods listed below are common to all voice subclasses.
@@ -10,21 +16,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nn-xaudio2-ixaudio2voice
  * @namespace Windows.Win32.Media.Audio.XAudio2
  */
-class IXAudio2Voice extends Win32ComInterface {
+export default struct IXAudio2Voice extends Win32ComInterface {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 0
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetVoiceDetails", "SetOutputVoices", "SetEffectChain", "EnableEffect", "DisableEffect", "GetEffectState", "SetEffectParameters", "GetEffectParameters", "SetFilterParameters", "GetFilterParameters", "SetOutputFilterParameters", "GetOutputFilterParameters", "SetVolume", "GetVolume", "SetChannelVolumes", "GetChannelVolumes", "SetOutputMatrix", "GetOutputMatrix", "DestroyVoice"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXAudio2Voice interfaces
+    */
+    struct Vtbl {
+        GetVoiceDetails           : IntPtr
+        SetOutputVoices           : IntPtr
+        SetEffectChain            : IntPtr
+        EnableEffect              : IntPtr
+        DisableEffect             : IntPtr
+        GetEffectState            : IntPtr
+        SetEffectParameters       : IntPtr
+        GetEffectParameters       : IntPtr
+        SetFilterParameters       : IntPtr
+        GetFilterParameters       : IntPtr
+        SetOutputFilterParameters : IntPtr
+        GetOutputFilterParameters : IntPtr
+        SetVolume                 : IntPtr
+        GetVolume                 : IntPtr
+        SetChannelVolumes         : IntPtr
+        GetChannelVolumes         : IntPtr
+        SetOutputMatrix           : IntPtr
+        GetOutputMatrix           : IntPtr
+        DestroyVoice              : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXAudio2Voice.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns information about the creation flags, input channels, and sample rate of a voice.
@@ -36,7 +67,7 @@ class IXAudio2Voice extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2voice-getvoicedetails
      */
     GetVoiceDetails(pVoiceDetails) {
-        ComCall(0, this, "ptr", pVoiceDetails)
+        ComCall(0, this, XAUDIO2_VOICE_DETAILS.Ptr, pVoiceDetails)
     }
 
     /**
@@ -61,7 +92,7 @@ class IXAudio2Voice extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2voice-setoutputvoices
      */
     SetOutputVoices(pSendList) {
-        result := ComCall(1, this, "ptr", pSendList, "HRESULT")
+        result := ComCall(1, this, XAUDIO2_VOICE_SENDS.Ptr, pSendList, "HRESULT")
         return result
     }
 
@@ -96,7 +127,7 @@ class IXAudio2Voice extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2voice-seteffectchain
      */
     SetEffectChain(pEffectChain) {
-        result := ComCall(2, this, "ptr", pEffectChain, "HRESULT")
+        result := ComCall(2, this, XAUDIO2_EFFECT_CHAIN.Ptr, pEffectChain, "HRESULT")
         return result
     }
 
@@ -247,7 +278,7 @@ class IXAudio2Voice extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2voice-setfilterparameters
      */
     SetFilterParameters(pParameters, OperationSet) {
-        result := ComCall(8, this, "ptr", pParameters, "uint", OperationSet, "HRESULT")
+        result := ComCall(8, this, XAUDIO2_FILTER_PARAMETERS.Ptr, pParameters, "uint", OperationSet, "HRESULT")
         return result
     }
 
@@ -271,7 +302,7 @@ class IXAudio2Voice extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2voice-getfilterparameters
      */
     GetFilterParameters(pParameters) {
-        ComCall(9, this, "ptr", pParameters)
+        ComCall(9, this, XAUDIO2_FILTER_PARAMETERS.Ptr, pParameters)
     }
 
     /**
@@ -291,7 +322,7 @@ class IXAudio2Voice extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2voice-setoutputfilterparameters
      */
     SetOutputFilterParameters(pDestinationVoice, pParameters, OperationSet) {
-        result := ComCall(10, this, "ptr", pDestinationVoice, "ptr", pParameters, "uint", OperationSet, "HRESULT")
+        result := ComCall(10, this, "ptr", pDestinationVoice, XAUDIO2_FILTER_PARAMETERS.Ptr, pParameters, "uint", OperationSet, "HRESULT")
         return result
     }
 
@@ -312,7 +343,7 @@ class IXAudio2Voice extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2voice-getoutputfilterparameters
      */
     GetOutputFilterParameters(pDestinationVoice, pParameters) {
-        ComCall(11, this, "ptr", pDestinationVoice, "ptr", pParameters)
+        ComCall(11, this, "ptr", pDestinationVoice, XAUDIO2_FILTER_PARAMETERS.Ptr, pParameters)
     }
 
     /**
@@ -561,5 +592,12 @@ class IXAudio2Voice extends Win32ComInterface {
      */
     DestroyVoice() {
         ComCall(18, this)
+    }
+
+    Query(iid) {
+        if (IXAudio2Voice.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
     }
 }

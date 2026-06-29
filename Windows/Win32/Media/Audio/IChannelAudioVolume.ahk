@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IChannelAudioVolume interface enables a client to control and monitor the volume levels for all of the channels in the audio session that the stream belongs to.
  * @see https://learn.microsoft.com/windows/win32/api/audioclient/nn-audioclient-ichannelaudiovolume
  * @namespace Windows.Win32.Media.Audio
  */
-class IChannelAudioVolume extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IChannelAudioVolume extends IUnknown {
     /**
      * The interface identifier for IChannelAudioVolume
      * @type {Guid}
      */
-    static IID => Guid("{1c158861-b533-4b30-b1cf-e853e51c59b8}")
+    static IID := Guid("{1c158861-b533-4b30-b1cf-e853e51c59b8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IChannelAudioVolume interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetChannelCount  : IntPtr
+        SetChannelVolume : IntPtr
+        GetChannelVolume : IntPtr
+        SetAllVolumes    : IntPtr
+        GetAllVolumes    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetChannelCount", "SetChannelVolume", "GetChannelVolume", "SetAllVolumes", "GetAllVolumes"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IChannelAudioVolume.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetChannelCount method retrieves the number of channels in the stream format for the audio session.
@@ -92,7 +104,7 @@ class IChannelAudioVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-ichannelaudiovolume-setchannelvolume
      */
     SetChannelVolume(dwIndex, fLevel, EventContext) {
-        result := ComCall(4, this, "uint", dwIndex, "float", fLevel, "ptr", EventContext, "HRESULT")
+        result := ComCall(4, this, "uint", dwIndex, "float", fLevel, Guid.Ptr, EventContext, "HRESULT")
         return result
     }
 
@@ -173,7 +185,7 @@ class IChannelAudioVolume extends IUnknown {
     SetAllVolumes(dwCount, pfVolumes, EventContext) {
         pfVolumesMarshal := pfVolumes is VarRef ? "float*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwCount, pfVolumesMarshal, pfVolumes, "ptr", EventContext, "HRESULT")
+        result := ComCall(6, this, "uint", dwCount, pfVolumesMarshal, pfVolumes, Guid.Ptr, EventContext, "HRESULT")
         return result
     }
 
@@ -188,5 +200,33 @@ class IChannelAudioVolume extends IUnknown {
     GetAllVolumes(dwCount) {
         result := ComCall(7, this, "uint", dwCount, "float*", &pfVolumes := 0, "HRESULT")
         return pfVolumes
+    }
+
+    Query(iid) {
+        if (IChannelAudioVolume.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetChannelCount := CallbackCreate(GetMethod(implObj, "GetChannelCount"), flags, 2)
+        this.vtbl.SetChannelVolume := CallbackCreate(GetMethod(implObj, "SetChannelVolume"), flags, 4)
+        this.vtbl.GetChannelVolume := CallbackCreate(GetMethod(implObj, "GetChannelVolume"), flags, 3)
+        this.vtbl.SetAllVolumes := CallbackCreate(GetMethod(implObj, "SetAllVolumes"), flags, 4)
+        this.vtbl.GetAllVolumes := CallbackCreate(GetMethod(implObj, "GetAllVolumes"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetChannelCount)
+        CallbackFree(this.vtbl.SetChannelVolume)
+        CallbackFree(this.vtbl.GetChannelVolume)
+        CallbackFree(this.vtbl.SetAllVolumes)
+        CallbackFree(this.vtbl.GetAllVolumes)
     }
 }

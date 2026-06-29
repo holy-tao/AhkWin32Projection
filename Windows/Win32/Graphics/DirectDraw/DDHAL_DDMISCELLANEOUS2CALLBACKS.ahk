@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDHAL_DDMISCELLANEOUS2CALLBACKS extends Win32Struct {
-    static sizeof => 40
+export default struct DDHAL_DDMISCELLANEOUS2CALLBACKS {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Reserved : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Reserved {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    CreateSurfaceEx : IntPtr
 
-    /**
-     * @type {Pointer<LPDDHAL_CREATESURFACEEX>}
-     */
-    CreateSurfaceEx {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    GetDriverState : IntPtr
 
-    /**
-     * @type {Pointer<LPDDHAL_GETDRIVERSTATE>}
-     */
-    GetDriverState {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    DestroyDDLocal : IntPtr
 
-    /**
-     * @type {Pointer<LPDDHAL_DESTROYDDLOCAL>}
-     */
-    DestroyDDLocal {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
 }

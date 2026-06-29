@@ -1,31 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MF_HDCP_STATUS.ahk" { MF_HDCP_STATUS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFHDCPStatus extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFHDCPStatus extends IUnknown {
     /**
      * The interface identifier for IMFHDCPStatus
      * @type {Guid}
      */
-    static IID => Guid("{de400f54-5bf1-40cf-8964-0bea136b1e3d}")
+    static IID := Guid("{de400f54-5bf1-40cf-8964-0bea136b1e3d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFHDCPStatus interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Query : IntPtr
+        Set   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Query", "Set"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFHDCPStatus.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Query object represents a compound query.
@@ -43,18 +54,34 @@ class IMFHDCPStatus extends IUnknown {
     }
 
     /**
-     * The SetAbortProc function sets the application-defined abort function that allows a print job to be canceled during spooling.
-     * @remarks
-     * <div class="alert"><b>Note</b>  This is a blocking or synchronous function and might not return immediately. How quickly this function returns depends on run-time factors such as network status, print server configuration, and printer driver implementation—factors that are difficult to predict when writing an application. Calling this function from a thread that manages interaction with the user interface could make the application appear to be unresponsive.</div>
-     * <div> </div>
-     * @param {MF_HDCP_STATUS} _status 
-     * @returns {HRESULT} If the function succeeds, the return value is greater than zero.
      * 
-     * If the function fails, the return value is SP_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setabortproc
+     * @param {MF_HDCP_STATUS} _status 
+     * @returns {HRESULT} 
      */
     Set(_status) {
-        result := ComCall(4, this, "int", _status, "HRESULT")
+        result := ComCall(4, this, MF_HDCP_STATUS, _status, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFHDCPStatus.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Query := CallbackCreate(GetMethod(implObj, "Query"), flags, 3)
+        this.vtbl.Set := CallbackCreate(GetMethod(implObj, "Set"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Query)
+        CallbackFree(this.vtbl.Set)
     }
 }

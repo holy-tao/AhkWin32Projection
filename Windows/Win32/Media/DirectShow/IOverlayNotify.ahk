@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Graphics\Gdi\RGNDATA.ahk" { RGNDATA }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\COLORKEY.ahk" { COLORKEY }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Graphics\Gdi\PALETTEENTRY.ahk" { PALETTEENTRY }
 
 /**
  * The IOverlayNotify interface provides an upstream filter, such as a decoder, with notifications of changes to the rendering window.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ioverlaynotify
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IOverlayNotify extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOverlayNotify extends IUnknown {
     /**
      * The interface identifier for IOverlayNotify
      * @type {Guid}
      */
-    static IID => Guid("{56a868a0-0ad4-11ce-b03a-0020af0ba770}")
+    static IID := Guid("{56a868a0-0ad4-11ce-b03a-0020af0ba770}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOverlayNotify interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnPaletteChange  : IntPtr
+        OnClipChange     : IntPtr
+        OnColorKeyChange : IntPtr
+        OnPositionChange : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnPaletteChange", "OnClipChange", "OnColorKeyChange", "OnPositionChange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOverlayNotify.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The OnPaletteChange method provides notification that the palette of the window has changed.
@@ -39,7 +54,7 @@ class IOverlayNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ioverlaynotify-onpalettechange
      */
     OnPaletteChange(dwColors, pPalette) {
-        result := ComCall(3, this, "uint", dwColors, "ptr", pPalette, "HRESULT")
+        result := ComCall(3, this, "uint", dwColors, PALETTEENTRY.Ptr, pPalette, "HRESULT")
         return result
     }
 
@@ -56,7 +71,7 @@ class IOverlayNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ioverlaynotify-onclipchange
      */
     OnClipChange(pSourceRect, pDestinationRect, pRgnData) {
-        result := ComCall(4, this, "ptr", pSourceRect, "ptr", pDestinationRect, "ptr", pRgnData, "HRESULT")
+        result := ComCall(4, this, RECT.Ptr, pSourceRect, RECT.Ptr, pDestinationRect, RGNDATA.Ptr, pRgnData, "HRESULT")
         return result
     }
 
@@ -67,7 +82,7 @@ class IOverlayNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ioverlaynotify-oncolorkeychange
      */
     OnColorKeyChange(pColorKey) {
-        result := ComCall(5, this, "ptr", pColorKey, "HRESULT")
+        result := ComCall(5, this, COLORKEY.Ptr, pColorKey, "HRESULT")
         return result
     }
 
@@ -83,7 +98,33 @@ class IOverlayNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ioverlaynotify-onpositionchange
      */
     OnPositionChange(pSourceRect, pDestinationRect) {
-        result := ComCall(6, this, "ptr", pSourceRect, "ptr", pDestinationRect, "HRESULT")
+        result := ComCall(6, this, RECT.Ptr, pSourceRect, RECT.Ptr, pDestinationRect, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOverlayNotify.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnPaletteChange := CallbackCreate(GetMethod(implObj, "OnPaletteChange"), flags, 3)
+        this.vtbl.OnClipChange := CallbackCreate(GetMethod(implObj, "OnClipChange"), flags, 4)
+        this.vtbl.OnColorKeyChange := CallbackCreate(GetMethod(implObj, "OnColorKeyChange"), flags, 2)
+        this.vtbl.OnPositionChange := CallbackCreate(GetMethod(implObj, "OnPositionChange"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnPaletteChange)
+        CallbackFree(this.vtbl.OnClipChange)
+        CallbackFree(this.vtbl.OnColorKeyChange)
+        CallbackFree(this.vtbl.OnPositionChange)
     }
 }

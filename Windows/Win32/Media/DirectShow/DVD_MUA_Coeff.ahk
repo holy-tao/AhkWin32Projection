@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DVD_MUA_Coeff structure defines the mixing coefficients for one channel in a multichannel audio stream. The DVD_MultichannelAudioAttributes structure contains an array of eight DVD_MUA_Coeff structures, one for each channel in the stream.
@@ -24,26 +23,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-dvd_mua_coeff
  * @namespace Windows.Win32.Media.DirectShow
  */
-class DVD_MUA_Coeff extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct DVD_MUA_Coeff {
+    #StructPack 8
 
     /**
      * The mixing coefficient for this channel to channel 0.
-     * @type {Float}
      */
-    log2_alpha {
-        get => NumGet(this, 0, "double")
-        set => NumPut("double", value, this, 0)
-    }
+    log2_alpha : Float64
 
     /**
      * The mixing coefficient for this channel to channel 1.
-     * @type {Float}
      */
-    log2_beta {
-        get => NumGet(this, 8, "double")
-        set => NumPut("double", value, this, 8)
-    }
+    log2_beta : Float64
+
 }

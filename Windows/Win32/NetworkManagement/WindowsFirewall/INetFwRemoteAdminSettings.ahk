@@ -1,8 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\NET_FW_SCOPE.ahk" { NET_FW_SCOPE }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\NET_FW_IP_VERSION.ahk" { NET_FW_IP_VERSION }
 
 /**
  * The INetFwRemoteAdminSettings interface provides access to the settings that control remote administration.
@@ -15,26 +19,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwremoteadminsettings
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  */
-class INetFwRemoteAdminSettings extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct INetFwRemoteAdminSettings extends IDispatch {
     /**
      * The interface identifier for INetFwRemoteAdminSettings
      * @type {Guid}
      */
-    static IID => Guid("{d4becddf-6f73-4a83-b832-9c66874cd20e}")
+    static IID := Guid("{d4becddf-6f73-4a83-b832-9c66874cd20e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INetFwRemoteAdminSettings interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_IpVersion       : IntPtr
+        put_IpVersion       : IntPtr
+        get_Scope           : IntPtr
+        put_Scope           : IntPtr
+        get_RemoteAddresses : IntPtr
+        put_RemoteAddresses : IntPtr
+        get_Enabled         : IntPtr
+        put_Enabled         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_IpVersion", "put_IpVersion", "get_Scope", "put_Scope", "get_RemoteAddresses", "put_RemoteAddresses", "get_Enabled", "put_Enabled"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INetFwRemoteAdminSettings.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {NET_FW_IP_VERSION} 
@@ -95,7 +113,7 @@ class INetFwRemoteAdminSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwremoteadminsettings-put_ipversion
      */
     put_IpVersion(ipVersion) {
-        result := ComCall(8, this, "int", ipVersion, "HRESULT")
+        result := ComCall(8, this, NET_FW_IP_VERSION, ipVersion, "HRESULT")
         return result
     }
 
@@ -134,7 +152,7 @@ class INetFwRemoteAdminSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwremoteadminsettings-put_scope
      */
     put_Scope(scope) {
-        result := ComCall(10, this, "int", scope, "HRESULT")
+        result := ComCall(10, this, NET_FW_SCOPE, scope, "HRESULT")
         return result
     }
 
@@ -162,8 +180,8 @@ class INetFwRemoteAdminSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwremoteadminsettings-get_remoteaddresses
      */
     get_RemoteAddresses() {
-        remoteAddrs := BSTR()
-        result := ComCall(11, this, "ptr", remoteAddrs, "HRESULT")
+        remoteAddrs := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, remoteAddrs, "HRESULT")
         return remoteAddrs
     }
 
@@ -194,7 +212,7 @@ class INetFwRemoteAdminSettings extends IDispatch {
     put_RemoteAddresses(remoteAddrs) {
         remoteAddrs := remoteAddrs is String ? BSTR.Alloc(remoteAddrs).Value : remoteAddrs
 
-        result := ComCall(12, this, "ptr", remoteAddrs, "HRESULT")
+        result := ComCall(12, this, BSTR, remoteAddrs, "HRESULT")
         return result
     }
 
@@ -204,7 +222,7 @@ class INetFwRemoteAdminSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwremoteadminsettings-get_enabled
      */
     get_Enabled() {
-        result := ComCall(13, this, "short*", &enabled := 0, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL.Ptr, &enabled := 0, "HRESULT")
         return enabled
     }
 
@@ -215,7 +233,41 @@ class INetFwRemoteAdminSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwremoteadminsettings-put_enabled
      */
     put_Enabled(enabled) {
-        result := ComCall(14, this, "short", enabled, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL, enabled, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (INetFwRemoteAdminSettings.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_IpVersion := CallbackCreate(GetMethod(implObj, "get_IpVersion"), flags, 2)
+        this.vtbl.put_IpVersion := CallbackCreate(GetMethod(implObj, "put_IpVersion"), flags, 2)
+        this.vtbl.get_Scope := CallbackCreate(GetMethod(implObj, "get_Scope"), flags, 2)
+        this.vtbl.put_Scope := CallbackCreate(GetMethod(implObj, "put_Scope"), flags, 2)
+        this.vtbl.get_RemoteAddresses := CallbackCreate(GetMethod(implObj, "get_RemoteAddresses"), flags, 2)
+        this.vtbl.put_RemoteAddresses := CallbackCreate(GetMethod(implObj, "put_RemoteAddresses"), flags, 2)
+        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.put_Enabled := CallbackCreate(GetMethod(implObj, "put_Enabled"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_IpVersion)
+        CallbackFree(this.vtbl.put_IpVersion)
+        CallbackFree(this.vtbl.get_Scope)
+        CallbackFree(this.vtbl.put_Scope)
+        CallbackFree(this.vtbl.get_RemoteAddresses)
+        CallbackFree(this.vtbl.put_RemoteAddresses)
+        CallbackFree(this.vtbl.get_Enabled)
+        CallbackFree(this.vtbl.put_Enabled)
     }
 }

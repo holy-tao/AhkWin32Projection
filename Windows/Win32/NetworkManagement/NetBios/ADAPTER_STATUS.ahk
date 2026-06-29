@@ -1,261 +1,148 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The ADAPTER_STATUS structure contains information about a network adapter.
  * @see https://learn.microsoft.com/windows/win32/api/nb30/ns-nb30-adapter_status
  * @namespace Windows.Win32.NetworkManagement.NetBios
  */
-class ADAPTER_STATUS extends Win32Struct {
-    static sizeof => 60
-
-    static packingSize => 4
+export default struct ADAPTER_STATUS {
+    #StructPack 4
 
     /**
      * Specifies encoded address of the adapter.
-     * @type {Array<Integer>}
      */
-    adapter_address {
-        get {
-            if(!this.HasProp("__adapter_addressProxyArray"))
-                this.__adapter_addressProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
-            return this.__adapter_addressProxyArray
-        }
-    }
+    adapter_address : Int8[6]
 
     /**
      * Specifies the major software-release level. This value is 3 for IBM NetBIOS 3. x.
-     * @type {Integer}
      */
-    rev_major {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    rev_major : Int8
 
     /**
      * Reserved. This value is always zero.
-     * @type {Integer}
      */
-    reserved0 {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    reserved0 : Int8
 
     /**
      * Specifies the adapter type. This value is 0xFF for a Token Ring adapter or 0xFE for an Ethernet adapter.
-     * @type {Integer}
      */
-    adapter_type {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    adapter_type : Int8
 
     /**
      * Specifies the minor software-release level. This value is zero for IBM NetBIOS x.0.
-     * @type {Integer}
      */
-    rev_minor {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    rev_minor : Int8
 
     /**
      * Specifies the duration of the reporting period, in minutes.
-     * @type {Integer}
      */
-    duration {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    duration : UInt16
 
     /**
      * Specifies the number of FRMR frames received.
-     * @type {Integer}
      */
-    frmr_recv {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    frmr_recv : UInt16
 
     /**
      * Specifies the number of FRMR frames transmitted.
-     * @type {Integer}
      */
-    frmr_xmit {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    frmr_xmit : UInt16
 
     /**
      * Specifies the number of I frames received in error.
-     * @type {Integer}
      */
-    iframe_recv_err {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    iframe_recv_err : UInt16
 
     /**
      * Specifies the number of aborted transmissions.
-     * @type {Integer}
      */
-    xmit_aborts {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    xmit_aborts : UInt16
 
     /**
      * Specifies the number of successfully transmitted packets.
-     * @type {Integer}
      */
-    xmit_success {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    xmit_success : UInt32
 
     /**
      * Specifies the number of successfully received packets.
-     * @type {Integer}
      */
-    recv_success {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    recv_success : UInt32
 
     /**
      * Specifies the number of I frames transmitted in error.
-     * @type {Integer}
      */
-    iframe_xmit_err {
-        get => NumGet(this, 28, "ushort")
-        set => NumPut("ushort", value, this, 28)
-    }
+    iframe_xmit_err : UInt16
 
     /**
      * Specifies the number of times a buffer was not available to service a request from a remote computer.
-     * @type {Integer}
      */
-    recv_buff_unavail {
-        get => NumGet(this, 30, "ushort")
-        set => NumPut("ushort", value, this, 30)
-    }
+    recv_buff_unavail : UInt16
 
     /**
      * Specifies the number of times that the DLC T1 timer timed out.
      * 
      * <b>Windows 95:  </b>DLC is no longer supported.
-     * @type {Integer}
      */
-    t1_timeouts {
-        get => NumGet(this, 32, "ushort")
-        set => NumPut("ushort", value, this, 32)
-    }
+    t1_timeouts : UInt16
 
     /**
      * Specifies the number of times that the ti inactivity timer timed out. The ti timer is used to detect links that have been broken.
-     * @type {Integer}
      */
-    ti_timeouts {
-        get => NumGet(this, 34, "ushort")
-        set => NumPut("ushort", value, this, 34)
-    }
+    ti_timeouts : UInt16
 
     /**
      * Reserved. This value is always zero.
-     * @type {Integer}
      */
-    reserved1 {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    reserved1 : UInt32
 
     /**
      * Specifies the current number of free network control blocks.
-     * @type {Integer}
      */
-    free_ncbs {
-        get => NumGet(this, 40, "ushort")
-        set => NumPut("ushort", value, this, 40)
-    }
+    free_ncbs : UInt16
 
     /**
      * Undefined for IBM NetBIOS 3.0.
-     * @type {Integer}
      */
-    max_cfg_ncbs {
-        get => NumGet(this, 42, "ushort")
-        set => NumPut("ushort", value, this, 42)
-    }
+    max_cfg_ncbs : UInt16
 
     /**
      * Undefined for IBM NetBIOS 3.0.
-     * @type {Integer}
      */
-    max_ncbs {
-        get => NumGet(this, 44, "ushort")
-        set => NumPut("ushort", value, this, 44)
-    }
+    max_ncbs : UInt16
 
     /**
      * Undefined for IBM NetBIOS 3.0.
-     * @type {Integer}
      */
-    xmit_buf_unavail {
-        get => NumGet(this, 46, "ushort")
-        set => NumPut("ushort", value, this, 46)
-    }
+    xmit_buf_unavail : UInt16
 
     /**
      * Specifies the maximum size of a datagram packet. This value is always at least 512 bytes.
-     * @type {Integer}
      */
-    max_dgram_size {
-        get => NumGet(this, 48, "ushort")
-        set => NumPut("ushort", value, this, 48)
-    }
+    max_dgram_size : UInt16
 
     /**
      * Specifies the number of pending sessions.
-     * @type {Integer}
      */
-    pending_sess {
-        get => NumGet(this, 50, "ushort")
-        set => NumPut("ushort", value, this, 50)
-    }
+    pending_sess : UInt16
 
     /**
      * Specifies the configured maximum pending sessions.
-     * @type {Integer}
      */
-    max_cfg_sess {
-        get => NumGet(this, 52, "ushort")
-        set => NumPut("ushort", value, this, 52)
-    }
+    max_cfg_sess : UInt16
 
     /**
      * Undefined for IBM NetBIOS 3.0.
-     * @type {Integer}
      */
-    max_sess {
-        get => NumGet(this, 54, "ushort")
-        set => NumPut("ushort", value, this, 54)
-    }
+    max_sess : UInt16
 
     /**
      * Specifies the maximum size of a session data packet.
-     * @type {Integer}
      */
-    max_sess_pkt_size {
-        get => NumGet(this, 56, "ushort")
-        set => NumPut("ushort", value, this, 56)
-    }
+    max_sess_pkt_size : UInt16
 
     /**
      * Specifies the number of names in the local names table.
-     * @type {Integer}
      */
-    name_count {
-        get => NumGet(this, 58, "ushort")
-        set => NumPut("ushort", value, this, 58)
-    }
+    name_count : UInt16
+
 }

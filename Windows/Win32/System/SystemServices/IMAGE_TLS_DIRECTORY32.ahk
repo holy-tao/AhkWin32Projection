@@ -1,73 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class IMAGE_TLS_DIRECTORY32 extends Win32Struct {
-    static sizeof => 24
+export default struct IMAGE_TLS_DIRECTORY32 {
+    #StructPack 4
 
-    static packingSize => 4
+    StartAddressOfRawData : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StartAddressOfRawData {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    EndAddressOfRawData : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EndAddressOfRawData {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    AddressOfIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AddressOfIndex {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    AddressOfCallBacks : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AddressOfCallBacks {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    SizeOfZeroFill : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SizeOfZeroFill {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Characteristics : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Characteristics {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - Reserved0
-     * - Alignment
-     * - Reserved1
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 
     /**
      * @type {Integer}
@@ -91,5 +41,9 @@ class IMAGE_TLS_DIRECTORY32 extends Win32Struct {
     Reserved1 {
         get => (this._bitfield >> 24) & 0xFF
         set => this._bitfield := ((value & 0xFF) << 24) | (this._bitfield & ~(0xFF << 24))
+    }
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int32, offset: 20 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the supported payload operators for a trace data helper (TDH).
  * @see https://learn.microsoft.com/windows/win32/api/tdh/ne-tdh-payload_operator
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class PAYLOAD_OPERATOR extends Win32Enum {
+export default struct PAYLOAD_OPERATOR {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

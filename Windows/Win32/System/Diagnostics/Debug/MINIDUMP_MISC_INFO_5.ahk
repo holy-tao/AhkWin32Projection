@@ -1,181 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\Time\TIME_ZONE_INFORMATION.ahk
-#Include ..\..\..\Foundation\SYSTEMTIME.ahk
-#Include .\XSTATE_CONFIG_FEATURE_MSC_INFO.ahk
-#Include .\XSTATE_FEATURE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Time\TIME_ZONE_INFORMATION.ahk" { TIME_ZONE_INFORMATION }
+#Import "..\..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import ".\XSTATE_CONFIG_FEATURE_MSC_INFO.ahk" { XSTATE_CONFIG_FEATURE_MSC_INFO }
+#Import ".\XSTATE_FEATURE.ahk" { XSTATE_FEATURE }
+#Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class MINIDUMP_MISC_INFO_5 extends Win32Struct {
-    static sizeof => 1368
+export default struct MINIDUMP_MISC_INFO_5 {
+    #StructPack 8
 
-    static packingSize => 8
+    SizeOfInfo : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SizeOfInfo {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags1 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ProcessId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProcessId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ProcessCreateTime : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProcessCreateTime {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ProcessUserTime : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProcessUserTime {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ProcessKernelTime : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProcessKernelTime {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ProcessorMaxMhz : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProcessorMaxMhz {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ProcessorCurrentMhz : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProcessorCurrentMhz {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    ProcessorMhzLimit : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProcessorMhzLimit {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ProcessorMaxIdleState : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProcessorMaxIdleState {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    ProcessorCurrentIdleState : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProcessorCurrentIdleState {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ProcessIntegrityLevel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProcessIntegrityLevel {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    ProcessExecuteFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProcessExecuteFlags {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    ProtectedProcess : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProtectedProcess {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    TimeZoneId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TimeZoneId {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    TimeZone : TIME_ZONE_INFORMATION
 
-    /**
-     * @type {TIME_ZONE_INFORMATION}
-     */
-    TimeZone {
-        get {
-            if(!this.HasProp("__TimeZone"))
-                this.__TimeZone := TIME_ZONE_INFORMATION(60, this)
-            return this.__TimeZone
-        }
-    }
+    BuildString : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    BuildString {
-        get => StrGet(this.ptr + 232, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 232, 259, "UTF-16")
-    }
+    DbgBldStr : WCHAR[40]
 
-    /**
-     * @type {String}
-     */
-    DbgBldStr {
-        get => StrGet(this.ptr + 752, 39, "UTF-16")
-        set => StrPut(value, this.ptr + 752, 39, "UTF-16")
-    }
+    XStateData : XSTATE_CONFIG_FEATURE_MSC_INFO
 
-    /**
-     * @type {XSTATE_CONFIG_FEATURE_MSC_INFO}
-     */
-    XStateData {
-        get {
-            if(!this.HasProp("__XStateData"))
-                this.__XStateData := XSTATE_CONFIG_FEATURE_MSC_INFO(832, this)
-            return this.__XStateData
-        }
-    }
+    ProcessCookie : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProcessCookie {
-        get => NumGet(this, 1360, "uint")
-        set => NumPut("uint", value, this, 1360)
-    }
 }

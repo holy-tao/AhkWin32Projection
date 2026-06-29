@@ -1,71 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DHCP_OPTION_SCOPE_TYPE6.ahk
-#Include .\DHCP_IPV6_ADDRESS.ahk
-#Include .\DHCP_RESERVED_SCOPE6.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DHCP_RESERVED_SCOPE6.ahk" { DHCP_RESERVED_SCOPE6 }
+#Import ".\DHCP_IPV6_ADDRESS.ahk" { DHCP_IPV6_ADDRESS }
+#Import ".\DHCP_OPTION_SCOPE_TYPE6.ahk" { DHCP_OPTION_SCOPE_TYPE6 }
 
 /**
  * Defines the data associated with a DHCP option scope.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_option_scope_info6
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  */
-class DHCP_OPTION_SCOPE_INFO6 extends Win32Struct {
-    static sizeof => 64
+export default struct DHCP_OPTION_SCOPE_INFO6 {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class DHCP_OPTION_SCOPE_UNION6 extends Win32Struct {
-        static sizeof => 56
-        static packingSize => 8
+    struct DHCP_OPTION_SCOPE_UNION6 {
+        DefaultScopeInfo : IntPtr
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        DefaultScopeInfo {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {DHCP_IPV6_ADDRESS}
-         */
-        SubnetScopeInfo {
-            get {
-                if(!this.HasProp("__SubnetScopeInfo"))
-                    this.__SubnetScopeInfo := DHCP_IPV6_ADDRESS(0, this)
-                return this.__SubnetScopeInfo
-            }
-        }
-
-        /**
-         * @type {DHCP_RESERVED_SCOPE6}
-         */
-        ReservedScopeInfo {
-            get {
-                if(!this.HasProp("__ReservedScopeInfo"))
-                    this.__ReservedScopeInfo := DHCP_RESERVED_SCOPE6(0, this)
-                return this.__ReservedScopeInfo
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'SubnetScopeInfo', { type: DHCP_IPV6_ADDRESS, offset: 0 })
+            DefineProp(this.Prototype, 'ReservedScopeInfo', { type: DHCP_RESERVED_SCOPE6, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ne-dhcpsapi-dhcp_option_scope_type6">DHCP_OPTION_SCOPE_TYPE6</a> enumeration value that indicates the type of the DHCP option. This value is used as the selector for the union arms listed in the following fields.
-     * @type {DHCP_OPTION_SCOPE_TYPE6}
      */
-    ScopeType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ScopeType : DHCP_OPTION_SCOPE_TYPE6
 
-    /**
-     * @type {DHCP_OPTION_SCOPE_UNION6}
-     */
-    ScopeInfo {
-        get {
-            if(!this.HasProp("__ScopeInfo"))
-                this.__ScopeInfo := DHCP_OPTION_SCOPE_INFO6.DHCP_OPTION_SCOPE_UNION6(8, this)
-            return this.__ScopeInfo
-        }
-    }
+    ScopeInfo : DHCP_OPTION_SCOPE_INFO6.DHCP_OPTION_SCOPE_UNION6
+
 }

@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIEW_INSTANCE_LOCATION.ahk
-#Include .\D3D12_VIEW_INSTANCING_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_VIEW_INSTANCE_LOCATION.ahk" { D3D12_VIEW_INSTANCE_LOCATION }
+#Import ".\D3D12_VIEW_INSTANCING_FLAGS.ahk" { D3D12_VIEW_INSTANCING_FLAGS }
 
 /**
  * Specifies parameters used during view instancing configuration.
@@ -16,35 +15,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_view_instancing_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_VIEW_INSTANCING_DESC extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct D3D12_VIEW_INSTANCING_DESC {
+    #StructPack 8
 
     /**
      * Specifies the number of views to be used, up to D3D12_MAX_VIEW_INSTANCE_COUNT.
-     * @type {Integer}
      */
-    ViewInstanceCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ViewInstanceCount : UInt32
 
     /**
      * The address of a memory location that contains <b>ViewInstanceCount</b> view instance location structures that specify the location of viewport/scissor and render target details of each view instance.
-     * @type {Pointer<D3D12_VIEW_INSTANCE_LOCATION>}
      */
-    pViewInstanceLocations {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pViewInstanceLocations : D3D12_VIEW_INSTANCE_LOCATION.Ptr
 
     /**
      * Configures view instancing with additional options.
-     * @type {D3D12_VIEW_INSTANCING_FLAGS}
      */
-    Flags {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    Flags : D3D12_VIEW_INSTANCING_FLAGS
+
 }

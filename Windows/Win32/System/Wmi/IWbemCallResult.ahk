@@ -1,36 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IWbemClassObject.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IWbemServices.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IWbemClassObject.ahk" { IWbemClassObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWbemServices.ahk" { IWbemServices }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Used for semisynchronous calls of the IWbemServices interface. When making such calls, the called IWbemServices method returns immediately, along with an IWbemCallResult object.
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemcallresult
  * @namespace Windows.Win32.System.Wmi
  */
-class IWbemCallResult extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWbemCallResult extends IUnknown {
     /**
      * The interface identifier for IWbemCallResult
      * @type {Guid}
      */
-    static IID => Guid("{44aca675-e8fc-11d0-a07c-00c04fb68820}")
+    static IID := Guid("{44aca675-e8fc-11d0-a07c-00c04fb68820}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWbemCallResult interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetResultObject   : IntPtr
+        GetResultString   : IntPtr
+        GetResultServices : IntPtr
+        GetCallStatus     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetResultObject", "GetResultString", "GetResultServices", "GetCallStatus"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWbemCallResult.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IWbemCallResult::GetResultObject method attempts to retrieve an object from a previous semisynchronous call to IWbemServices::GetObject or IWbemServices::ExecMethod.
@@ -50,8 +61,8 @@ class IWbemCallResult extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemcallresult-getresultstring
      */
     GetResultString(lTimeout) {
-        pstrResultString := BSTR()
-        result := ComCall(4, this, "int", lTimeout, "ptr", pstrResultString, "HRESULT")
+        pstrResultString := BSTR.Owned()
+        result := ComCall(4, this, "int", lTimeout, BSTR.Ptr, pstrResultString, "HRESULT")
         return pstrResultString
     }
 
@@ -116,5 +127,31 @@ class IWbemCallResult extends IUnknown {
     GetCallStatus(lTimeout) {
         result := ComCall(6, this, "int", lTimeout, "int*", &plStatus := 0, "HRESULT")
         return plStatus
+    }
+
+    Query(iid) {
+        if (IWbemCallResult.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetResultObject := CallbackCreate(GetMethod(implObj, "GetResultObject"), flags, 3)
+        this.vtbl.GetResultString := CallbackCreate(GetMethod(implObj, "GetResultString"), flags, 3)
+        this.vtbl.GetResultServices := CallbackCreate(GetMethod(implObj, "GetResultServices"), flags, 3)
+        this.vtbl.GetCallStatus := CallbackCreate(GetMethod(implObj, "GetCallStatus"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetResultObject)
+        CallbackFree(this.vtbl.GetResultString)
+        CallbackFree(this.vtbl.GetResultServices)
+        CallbackFree(this.vtbl.GetCallStatus)
     }
 }

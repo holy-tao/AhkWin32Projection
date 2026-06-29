@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\COMBOBOXINFO_BUTTON_STATE.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\COMBOBOXINFO_BUTTON_STATE.ahk" { COMBOBOXINFO_BUTTON_STATE }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Contains combo box status information.
@@ -18,103 +17,54 @@
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-comboboxinfo
  * @namespace Windows.Win32.UI.Controls
  */
-class COMBOBOXINFO extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct COMBOBOXINFO {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * The size, in bytes, of the structure. The calling application must set this to sizeof(COMBOBOXINFO).
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that specifies the coordinates of the edit box.
-     * @type {RECT}
      */
-    rcItem {
-        get {
-            if(!this.HasProp("__rcItem"))
-                this.__rcItem := RECT(4, this)
-            return this.__rcItem
-        }
-    }
+    rcItem : RECT
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that specifies the coordinates of the button that contains the drop-down arrow.
-     * @type {RECT}
      */
-    rcButton {
-        get {
-            if(!this.HasProp("__rcButton"))
-                this.__rcButton := RECT(20, this)
-            return this.__rcButton
-        }
-    }
+    rcButton : RECT
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {COMBOBOXINFO_BUTTON_STATE}
      */
-    stateButton {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    stateButton : COMBOBOXINFO_BUTTON_STATE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the combo box.
-     * @type {HWND}
      */
-    hwndCombo {
-        get {
-            if(!this.HasProp("__hwndCombo"))
-                this.__hwndCombo := HWND(40, this)
-            return this.__hwndCombo
-        }
-    }
+    hwndCombo : HWND
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the edit box.
-     * @type {HWND}
      */
-    hwndItem {
-        get {
-            if(!this.HasProp("__hwndItem"))
-                this.__hwndItem := HWND(48, this)
-            return this.__hwndItem
-        }
-    }
+    hwndItem : HWND
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the drop-down list.
-     * @type {HWND}
      */
-    hwndList {
-        get {
-            if(!this.HasProp("__hwndList"))
-                this.__hwndList := HWND(56, this)
-            return this.__hwndList
-        }
-    }
+    hwndList : HWND
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 64
-    }
 }

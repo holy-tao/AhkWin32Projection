@@ -1,31 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
  */
-class IJsDebugBreakPoint extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IJsDebugBreakPoint extends IUnknown {
     /**
      * The interface identifier for IJsDebugBreakPoint
      * @type {Guid}
      */
-    static IID => Guid("{df6773e3-ed8d-488b-8a3e-5812577d1542}")
+    static IID := Guid("{df6773e3-ed8d-488b-8a3e-5812577d1542}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IJsDebugBreakPoint interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        IsEnabled           : IntPtr
+        Enable              : IntPtr
+        Disable             : IntPtr
+        Delete              : IntPtr
+        GetDocumentPosition : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsEnabled", "Enable", "Disable", "Delete", "GetDocumentPosition"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IJsDebugBreakPoint.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IsEnabled method of the Win32\_Tpm class indicates whether the device is enabled. This value can be changed by the Enable and Disable methods.
@@ -61,7 +74,7 @@ class IJsDebugBreakPoint extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/SecProv/isenabled-win32-tpm
      */
     IsEnabled() {
-        result := ComCall(3, this, "int*", &pIsEnabled := 0, "HRESULT")
+        result := ComCall(3, this, BOOL.Ptr, &pIsEnabled := 0, "HRESULT")
         return pIsEnabled
     }
 
@@ -92,17 +105,8 @@ class IJsDebugBreakPoint extends IUnknown {
     }
 
     /**
-     * Deletes an access control entry (ACE) from an access control list (ACL).
-     * @remarks
-     * An application can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl_size_information">ACL_SIZE_INFORMATION</a> structure retrieved by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getaclinformation">GetAclInformation</a> function to discover the size of the ACL and the number of ACEs it contains. The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getace">GetAce</a> function retrieves information about an individual ACE.
-     * @returns {HRESULT} If the function succeeds, the function returns nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-deleteace
+     * @returns {HRESULT} 
      */
     Delete() {
         result := ComCall(6, this, "HRESULT")
@@ -123,5 +127,33 @@ class IJsDebugBreakPoint extends IUnknown {
 
         result := ComCall(7, this, pDocumentIdMarshal, pDocumentId, pCharacterOffsetMarshal, pCharacterOffset, pStatementCharCountMarshal, pStatementCharCount, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IJsDebugBreakPoint.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsEnabled := CallbackCreate(GetMethod(implObj, "IsEnabled"), flags, 2)
+        this.vtbl.Enable := CallbackCreate(GetMethod(implObj, "Enable"), flags, 1)
+        this.vtbl.Disable := CallbackCreate(GetMethod(implObj, "Disable"), flags, 1)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.GetDocumentPosition := CallbackCreate(GetMethod(implObj, "GetDocumentPosition"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsEnabled)
+        CallbackFree(this.vtbl.Enable)
+        CallbackFree(this.vtbl.Disable)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.GetDocumentPosition)
     }
 }

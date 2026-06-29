@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Forwards the events fired by a specified ShellFolderView object to corresponding ShellFolderViewOC event handlers.
@@ -16,8 +15,7 @@
  * @see https://learn.microsoft.com/windows/win32/shell/shellfolderviewoc-object
  * @namespace Windows.Win32.UI.Shell
  */
-class ShellFolderViewOC extends Win32Struct {
-    static sizeof => 0
+export default struct ShellFolderViewOC {
+    #StructPack 1
 
-    static packingSize => 1
 }

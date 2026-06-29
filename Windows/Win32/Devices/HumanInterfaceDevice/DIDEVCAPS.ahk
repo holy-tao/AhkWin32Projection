@@ -1,99 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class DIDEVCAPS extends Win32Struct {
-    static sizeof => 44
+export default struct DIDEVCAPS {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwDevType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDevType {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwAxes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAxes {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwButtons : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwButtons {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwPOVs : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwPOVs {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwFFSamplePeriod : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFFSamplePeriod {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwFFMinTimeResolution : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFFMinTimeResolution {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwFirmwareRevision : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFirmwareRevision {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwHardwareRevision : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwHardwareRevision {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwFFDriverVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFFDriverVersion {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
 }

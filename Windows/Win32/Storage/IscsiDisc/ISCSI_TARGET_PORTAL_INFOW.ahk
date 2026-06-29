@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * ISCSI_TARGET_PORTAL_INFO structure contains information about a target portal. (Unicode)
@@ -10,53 +10,32 @@
  * @namespace Windows.Win32.Storage.IscsiDisc
  * @charset Unicode
  */
-class ISCSI_TARGET_PORTAL_INFOW extends Win32Struct {
-    static sizeof => 1544
-
-    static packingSize => 4
+export default struct ISCSI_TARGET_PORTAL_INFOW {
+    #StructPack 4
 
     /**
      * A string representing the name of the Host-Bus Adapter initiator.
-     * @type {String}
      */
-    InitiatorName {
-        get => StrGet(this.ptr + 0, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 255, "UTF-16")
-    }
+    InitiatorName : WCHAR[256]
 
     /**
      * The port number on the Host-Bus Adapter (HBA) associated with the portal. This port number corresponds to the source IP address on the HBA
-     * @type {Integer}
      */
-    InitiatorPortNumber {
-        get => NumGet(this, 512, "uint")
-        set => NumPut("uint", value, this, 512)
-    }
+    InitiatorPortNumber : UInt32
 
     /**
      * A string representing the symbolic name of the portal.
-     * @type {String}
      */
-    SymbolicName {
-        get => StrGet(this.ptr + 516, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 516, 255, "UTF-16")
-    }
+    SymbolicName : WCHAR[256]
 
     /**
      * A string representing the IP address or DNS name of the portal.
-     * @type {String}
      */
-    Address {
-        get => StrGet(this.ptr + 1028, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 1028, 255, "UTF-16")
-    }
+    Address : WCHAR[256]
 
     /**
      * The socket number.
-     * @type {Integer}
      */
-    Socket {
-        get => NumGet(this, 1540, "ushort")
-        set => NumPut("ushort", value, this, 1540)
-    }
+    Socket : UInt16
+
 }

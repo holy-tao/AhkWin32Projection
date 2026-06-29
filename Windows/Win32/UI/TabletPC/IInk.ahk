@@ -1,42 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
- * Provides access to handwriting recognizers for use with ink analysis.
- * @remarks
- * The **IInkAnalysisRecognizer** interface inherits from the [**IUnknown**](/windows/desktop/api/unknwn/nn-unknwn-iunknown) interface. **IInkAnalysisRecognizer** also has these types of members:
- * 
- * -   [Methods](#methods)
- * 
- * 
- * A recognizer has specific attributes and properties that allow it to perform recognition. The properties of a recognizer must be determined before recognition can occur. The types of properties that a recognizer supports determine the types of recognition that it can perform. For instance, if a recognizer does not support cursive handwriting, it returns inaccurate results when a user writes in cursive.
- * 
- * A recognizer also has built-in functionality that automatically manages many aspects of handwriting. For instance, it determines the metrics for the lines on which strokes are drawn. You can return the line number of a stroke, but you never need to specify how those line metrics are determined because of the built-in functionality of the recognizer.
- * 
- * The [**IInkAnalyzer**](iinkanalyzer.md) maintains a list of available recognizers. To access this list, use the [**IInkAnalyzer::GetInkAnalysisRecognizersByPriority Method**](iinkanalyzer-getinkanalysisrecognizersbypriority.md) method.
- * @see https://learn.microsoft.com/windows/win32/tablet/iinkanalysisrecognizer
  * @namespace Windows.Win32.UI.TabletPC
  */
-class IInk extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IInk extends IDispatch {
     /**
      * The interface identifier for IInk
      * @type {Guid}
      */
-    static IID => Guid("{03f8e511-43a1-11d3-8bb6-0080c7d6bad5}")
+    static IID := Guid("{03f8e511-43a1-11d3-8bb6-0080c7d6bad5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IInk interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => []
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IInk.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
+
+    Query(iid) {
+        if (IInk.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+    }
 }

@@ -1,34 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WSC_SECURITY_SIGNATURE_STATUS.ahk" { WSC_SECURITY_SIGNATURE_STATUS }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\WSC_SECURITY_PRODUCT_STATE.ahk" { WSC_SECURITY_PRODUCT_STATE }
 
 /**
  * Provides methods for getting product information for an individual provider to interact with Windows Security Center.
  * @see https://learn.microsoft.com/windows/win32/api/iwscapi/nn-iwscapi-iwscproduct
  * @namespace Windows.Win32.System.SecurityCenter
  */
-class IWscProduct extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWscProduct extends IDispatch {
     /**
      * The interface identifier for IWscProduct
      * @type {Guid}
      */
-    static IID => Guid("{8c38232e-3a45-4a27-92b0-1a16a975f669}")
+    static IID := Guid("{8c38232e-3a45-4a27-92b0-1a16a975f669}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWscProduct interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_ProductName           : IntPtr
+        get_ProductState          : IntPtr
+        get_SignatureStatus       : IntPtr
+        get_RemediationPath       : IntPtr
+        get_ProductStateTimestamp : IntPtr
+        get_ProductGuid           : IntPtr
+        get_ProductIsDefault      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ProductName", "get_ProductState", "get_SignatureStatus", "get_RemediationPath", "get_ProductStateTimestamp", "get_ProductGuid", "get_ProductIsDefault"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWscProduct.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -85,8 +102,8 @@ class IWscProduct extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iwscapi/nf-iwscapi-iwscproduct-get_productname
      */
     get_ProductName() {
-        pVal := BSTR()
-        result := ComCall(7, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -116,8 +133,8 @@ class IWscProduct extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iwscapi/nf-iwscapi-iwscproduct-get_remediationpath
      */
     get_RemediationPath() {
-        pVal := BSTR()
-        result := ComCall(10, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -127,8 +144,8 @@ class IWscProduct extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iwscapi/nf-iwscapi-iwscproduct-get_productstatetimestamp
      */
     get_ProductStateTimestamp() {
-        pVal := BSTR()
-        result := ComCall(11, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -137,8 +154,8 @@ class IWscProduct extends IDispatch {
      * @returns {BSTR} 
      */
     get_ProductGuid() {
-        pVal := BSTR()
-        result := ComCall(12, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -147,7 +164,39 @@ class IWscProduct extends IDispatch {
      * @returns {BOOL} 
      */
     get_ProductIsDefault() {
-        result := ComCall(13, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(13, this, BOOL.Ptr, &pVal := 0, "HRESULT")
         return pVal
+    }
+
+    Query(iid) {
+        if (IWscProduct.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ProductName := CallbackCreate(GetMethod(implObj, "get_ProductName"), flags, 2)
+        this.vtbl.get_ProductState := CallbackCreate(GetMethod(implObj, "get_ProductState"), flags, 2)
+        this.vtbl.get_SignatureStatus := CallbackCreate(GetMethod(implObj, "get_SignatureStatus"), flags, 2)
+        this.vtbl.get_RemediationPath := CallbackCreate(GetMethod(implObj, "get_RemediationPath"), flags, 2)
+        this.vtbl.get_ProductStateTimestamp := CallbackCreate(GetMethod(implObj, "get_ProductStateTimestamp"), flags, 2)
+        this.vtbl.get_ProductGuid := CallbackCreate(GetMethod(implObj, "get_ProductGuid"), flags, 2)
+        this.vtbl.get_ProductIsDefault := CallbackCreate(GetMethod(implObj, "get_ProductIsDefault"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ProductName)
+        CallbackFree(this.vtbl.get_ProductState)
+        CallbackFree(this.vtbl.get_SignatureStatus)
+        CallbackFree(this.vtbl.get_RemediationPath)
+        CallbackFree(this.vtbl.get_ProductStateTimestamp)
+        CallbackFree(this.vtbl.get_ProductGuid)
+        CallbackFree(this.vtbl.get_ProductIsDefault)
     }
 }

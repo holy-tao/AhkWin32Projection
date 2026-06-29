@@ -1,10 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\LOGFONTA.ahk
-#Include ..\..\Graphics\Gdi\FONT_CHARSET.ahk
-#Include ..\..\Graphics\Gdi\FONT_OUTPUT_PRECISION.ahk
-#Include ..\..\Graphics\Gdi\FONT_CLIP_PRECISION.ahk
-#Include ..\..\Graphics\Gdi\FONT_QUALITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\Gdi\FONT_OUTPUT_PRECISION.ahk" { FONT_OUTPUT_PRECISION }
+#Import "..\..\Graphics\Gdi\LOGFONTA.ahk" { LOGFONTA }
+#Import "..\..\Graphics\Gdi\FONT_CLIP_PRECISION.ahk" { FONT_CLIP_PRECISION }
+#Import "..\..\Graphics\Gdi\FONT_QUALITY.ahk" { FONT_QUALITY }
+#Import "..\..\Graphics\Gdi\FONT_CHARSET.ahk" { FONT_CHARSET }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Contains the scalable metrics associated with the nonclient area of a nonminimized window. (ANSI)
@@ -23,174 +23,89 @@
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @charset ANSI
  */
-class NONCLIENTMETRICSA extends Win32Struct {
-    static sizeof => 344
-
-    static packingSize => 4
+export default struct NONCLIENTMETRICSA {
+    #StructPack 8
 
     /**
      * The size of the structure, in bytes. The caller must set this to <c>sizeof(NONCLIENTMETRICS)</c>. For   information about application compatibility, see Remarks.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * The thickness of the sizing border, in pixels. The default is 1 pixel.
-     * @type {Integer}
      */
-    iBorderWidth {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    iBorderWidth : Int32
 
     /**
      * The width of a standard vertical scroll bar, in pixels.
-     * @type {Integer}
      */
-    iScrollWidth {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    iScrollWidth : Int32
 
     /**
      * The height of a standard horizontal scroll bar, in pixels.
-     * @type {Integer}
      */
-    iScrollHeight {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    iScrollHeight : Int32
 
     /**
      * The width of caption buttons, in pixels.
-     * @type {Integer}
      */
-    iCaptionWidth {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    iCaptionWidth : Int32
 
     /**
      * The height of caption buttons, in pixels.
-     * @type {Integer}
      */
-    iCaptionHeight {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    iCaptionHeight : Int32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure that contains information about the caption font.
-     * @type {LOGFONTA}
      */
-    lfCaptionFont {
-        get {
-            if(!this.HasProp("__lfCaptionFont"))
-                this.__lfCaptionFont := LOGFONTA(24, this)
-            return this.__lfCaptionFont
-        }
-    }
+    lfCaptionFont : LOGFONTA
 
     /**
      * The width of small caption buttons, in pixels.
-     * @type {Integer}
      */
-    iSmCaptionWidth {
-        get => NumGet(this, 84, "int")
-        set => NumPut("int", value, this, 84)
-    }
+    iSmCaptionWidth : Int32
 
     /**
      * The height of small captions, in pixels.
-     * @type {Integer}
      */
-    iSmCaptionHeight {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
-    }
+    iSmCaptionHeight : Int32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure that contains information about the small caption font.
-     * @type {LOGFONTA}
      */
-    lfSmCaptionFont {
-        get {
-            if(!this.HasProp("__lfSmCaptionFont"))
-                this.__lfSmCaptionFont := LOGFONTA(92, this)
-            return this.__lfSmCaptionFont
-        }
-    }
+    lfSmCaptionFont : LOGFONTA
 
     /**
      * The width of menu-bar buttons, in pixels.
-     * @type {Integer}
      */
-    iMenuWidth {
-        get => NumGet(this, 152, "int")
-        set => NumPut("int", value, this, 152)
-    }
+    iMenuWidth : Int32
 
     /**
      * The height of a menu bar, in pixels.
-     * @type {Integer}
      */
-    iMenuHeight {
-        get => NumGet(this, 156, "int")
-        set => NumPut("int", value, this, 156)
-    }
+    iMenuHeight : Int32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure that contains information about the font used in menu bars.
-     * @type {LOGFONTA}
      */
-    lfMenuFont {
-        get {
-            if(!this.HasProp("__lfMenuFont"))
-                this.__lfMenuFont := LOGFONTA(160, this)
-            return this.__lfMenuFont
-        }
-    }
+    lfMenuFont : LOGFONTA
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure that contains information about the font used in status bars and tooltips.
-     * @type {LOGFONTA}
      */
-    lfStatusFont {
-        get {
-            if(!this.HasProp("__lfStatusFont"))
-                this.__lfStatusFont := LOGFONTA(220, this)
-            return this.__lfStatusFont
-        }
-    }
+    lfStatusFont : LOGFONTA
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure that contains information about the font used in message boxes.
-     * @type {LOGFONTA}
      */
-    lfMessageFont {
-        get {
-            if(!this.HasProp("__lfMessageFont"))
-                this.__lfMessageFont := LOGFONTA(280, this)
-            return this.__lfMessageFont
-        }
-    }
+    lfMessageFont : LOGFONTA
 
     /**
      * The thickness of the padded border, in pixels. The default value is 4 pixels. The <b>iPaddedBorderWidth</b> and <b>iBorderWidth</b> members are combined for both resizable and nonresizable windows in  the Windows Aero desktop experience. To compile an application that uses this member, define <b>_WIN32_WINNT</b> as 0x0600 or later. For more information, see Remarks. 
      * 
      * <b>Windows Server 2003 and Windows XP/2000:  </b>This member is not supported.
-     * @type {Integer}
      */
-    iPaddedBorderWidth {
-        get => NumGet(this, 340, "int")
-        set => NumPut("int", value, this, 340)
-    }
+    iPaddedBorderWidth : Int32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 344
-    }
 }

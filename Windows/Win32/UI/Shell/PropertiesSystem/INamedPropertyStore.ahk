@@ -1,35 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that get and set named properties.
  * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-inamedpropertystore
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  */
-class INamedPropertyStore extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct INamedPropertyStore extends IUnknown {
     /**
      * The interface identifier for INamedPropertyStore
      * @type {Guid}
      */
-    static IID => Guid("{71604b0f-97b0-4764-8577-2f13e98a1422}")
+    static IID := Guid("{71604b0f-97b0-4764-8577-2f13e98a1422}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INamedPropertyStore interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetNamedValue : IntPtr
+        SetNamedValue : IntPtr
+        GetNameCount  : IntPtr
+        GetNameAt     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetNamedValue", "SetNamedValue", "GetNameCount", "GetNameAt"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INamedPropertyStore.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the value of a named property from the named property store.
@@ -45,7 +57,7 @@ class INamedPropertyStore extends IUnknown {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
         ppropvar := PROPVARIANT()
-        result := ComCall(3, this, "ptr", pszName, "ptr", ppropvar, "HRESULT")
+        result := ComCall(3, this, "ptr", pszName, PROPVARIANT.Ptr, ppropvar, "HRESULT")
         return ppropvar
     }
 
@@ -65,7 +77,7 @@ class INamedPropertyStore extends IUnknown {
     SetNamedValue(pszName, propvar) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(4, this, "ptr", pszName, "ptr", propvar, "HRESULT")
+        result := ComCall(4, this, "ptr", pszName, PROPVARIANT.Ptr, propvar, "HRESULT")
         return result
     }
 
@@ -92,8 +104,34 @@ class INamedPropertyStore extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-inamedpropertystore-getnameat
      */
     GetNameAt(iProp) {
-        pbstrName := BSTR()
-        result := ComCall(6, this, "uint", iProp, "ptr", pbstrName, "HRESULT")
+        pbstrName := BSTR.Owned()
+        result := ComCall(6, this, "uint", iProp, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
+    }
+
+    Query(iid) {
+        if (INamedPropertyStore.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetNamedValue := CallbackCreate(GetMethod(implObj, "GetNamedValue"), flags, 3)
+        this.vtbl.SetNamedValue := CallbackCreate(GetMethod(implObj, "SetNamedValue"), flags, 3)
+        this.vtbl.GetNameCount := CallbackCreate(GetMethod(implObj, "GetNameCount"), flags, 2)
+        this.vtbl.GetNameAt := CallbackCreate(GetMethod(implObj, "GetNameAt"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetNamedValue)
+        CallbackFree(this.vtbl.SetNamedValue)
+        CallbackFree(this.vtbl.GetNameCount)
+        CallbackFree(this.vtbl.GetNameAt)
     }
 }

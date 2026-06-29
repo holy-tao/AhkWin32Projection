@@ -1,51 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class SPSEMANTICERRORINFO extends Win32Struct {
-    static sizeof => 40
+export default struct SPSEMANTICERRORINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    ulLineNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulLineNumber {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pszScriptLine : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszScriptLine {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszSource : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszSource {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszDescription : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszDescription {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    hrResultCode : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    hrResultCode {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
 }

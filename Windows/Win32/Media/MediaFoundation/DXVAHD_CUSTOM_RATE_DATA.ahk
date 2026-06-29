@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXVAHD_RATIONAL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DXVAHD_RATIONAL.ahk" { DXVAHD_RATIONAL }
 
 /**
  * Specifies a custom rate for frame-rate conversion or inverse telecine (IVTC). (DXVAHD_CUSTOM_RATE_DATA)
@@ -36,47 +36,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_custom_rate_data
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVAHD_CUSTOM_RATE_DATA extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct DXVAHD_CUSTOM_RATE_DATA {
+    #StructPack 4
 
     /**
      * The ratio of the output frame rate to the input frame rate, expressed as a <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_rational">DXVAHD_RATIONAL</a> structure that holds a rational number.
-     * @type {DXVAHD_RATIONAL}
      */
-    CustomRate {
-        get {
-            if(!this.HasProp("__CustomRate"))
-                this.__CustomRate := DXVAHD_RATIONAL(0, this)
-            return this.__CustomRate
-        }
-    }
+    CustomRate : DXVAHD_RATIONAL
 
     /**
      * The number of output frames that will be generated for every <i>N</i> input samples, where <i>N</i> = <b>InputFramesOrFields</b>.
-     * @type {Integer}
      */
-    OutputFrames {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    OutputFrames : UInt32
 
     /**
      * If <b>TRUE</b>, the input stream must be interlaced<b></b>. Otherwise, the input stream must be progressive.
-     * @type {BOOL}
      */
-    InputInterlaced {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    InputInterlaced : BOOL
 
     /**
      * The number of input fields or frames for every <i>N</i> output frames that will be generated, where <i>N</i> = <b>OutputFrames</b>.
-     * @type {Integer}
      */
-    InputFramesOrFields {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    InputFramesOrFields : UInt32
+
 }

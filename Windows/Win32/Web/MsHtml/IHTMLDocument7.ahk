@@ -1,41 +1,153 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IHTMLWindow2.ahk
-#Include .\IHTMLDOMNode.ahk
-#Include .\IHTMLSelection.ahk
-#Include .\IHTMLElementCollection.ahk
-#Include .\IHTMLElement.ahk
-#Include .\IHTMLDOMAttribute.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IDOMProcessingInstruction.ahk
-#Include .\IHTMLDOMNode3.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHTMLWindow2.ahk" { IHTMLWindow2 }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IDOMProcessingInstruction.ahk" { IDOMProcessingInstruction }
+#Import ".\IHTMLDOMAttribute.ahk" { IHTMLDOMAttribute }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IHTMLSelection.ahk" { IHTMLSelection }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IHTMLDOMNode.ahk" { IHTMLDOMNode }
+#Import ".\IHTMLElementCollection.ahk" { IHTMLElementCollection }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IHTMLDOMNode3.ahk" { IHTMLDOMNode3 }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLDocument7 extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLDocument7 extends IDispatch {
     /**
      * The interface identifier for IHTMLDocument7
      * @type {Guid}
      */
-    static IID => Guid("{305104b8-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{305104b8-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLDocument7 interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_defaultView                     : IntPtr
+        createCDATASection                  : IntPtr
+        getSelection                        : IntPtr
+        getElementsByTagNameNS              : IntPtr
+        createElementNS                     : IntPtr
+        createAttributeNS                   : IntPtr
+        put_onmsthumbnailclick              : IntPtr
+        get_onmsthumbnailclick              : IntPtr
+        get_characterSet                    : IntPtr
+        createElement                       : IntPtr
+        createAttribute                     : IntPtr
+        getElementsByClassName              : IntPtr
+        createProcessingInstruction         : IntPtr
+        adoptNode                           : IntPtr
+        put_onmssitemodejumplistitemremoved : IntPtr
+        get_onmssitemodejumplistitemremoved : IntPtr
+        get_all                             : IntPtr
+        get_inputEncoding                   : IntPtr
+        get_xmlEncoding                     : IntPtr
+        put_xmlStandalone                   : IntPtr
+        get_xmlStandalone                   : IntPtr
+        put_xmlVersion                      : IntPtr
+        get_xmlVersion                      : IntPtr
+        hasAttributes                       : IntPtr
+        put_onabort                         : IntPtr
+        get_onabort                         : IntPtr
+        put_onblur                          : IntPtr
+        get_onblur                          : IntPtr
+        put_oncanplay                       : IntPtr
+        get_oncanplay                       : IntPtr
+        put_oncanplaythrough                : IntPtr
+        get_oncanplaythrough                : IntPtr
+        put_onchange                        : IntPtr
+        get_onchange                        : IntPtr
+        put_ondrag                          : IntPtr
+        get_ondrag                          : IntPtr
+        put_ondragend                       : IntPtr
+        get_ondragend                       : IntPtr
+        put_ondragenter                     : IntPtr
+        get_ondragenter                     : IntPtr
+        put_ondragleave                     : IntPtr
+        get_ondragleave                     : IntPtr
+        put_ondragover                      : IntPtr
+        get_ondragover                      : IntPtr
+        put_ondrop                          : IntPtr
+        get_ondrop                          : IntPtr
+        put_ondurationchange                : IntPtr
+        get_ondurationchange                : IntPtr
+        put_onemptied                       : IntPtr
+        get_onemptied                       : IntPtr
+        put_onended                         : IntPtr
+        get_onended                         : IntPtr
+        put_onerror                         : IntPtr
+        get_onerror                         : IntPtr
+        put_onfocus                         : IntPtr
+        get_onfocus                         : IntPtr
+        put_oninput                         : IntPtr
+        get_oninput                         : IntPtr
+        put_onload                          : IntPtr
+        get_onload                          : IntPtr
+        put_onloadeddata                    : IntPtr
+        get_onloadeddata                    : IntPtr
+        put_onloadedmetadata                : IntPtr
+        get_onloadedmetadata                : IntPtr
+        put_onloadstart                     : IntPtr
+        get_onloadstart                     : IntPtr
+        put_onpause                         : IntPtr
+        get_onpause                         : IntPtr
+        put_onplay                          : IntPtr
+        get_onplay                          : IntPtr
+        put_onplaying                       : IntPtr
+        get_onplaying                       : IntPtr
+        put_onprogress                      : IntPtr
+        get_onprogress                      : IntPtr
+        put_onratechange                    : IntPtr
+        get_onratechange                    : IntPtr
+        put_onreset                         : IntPtr
+        get_onreset                         : IntPtr
+        put_onscroll                        : IntPtr
+        get_onscroll                        : IntPtr
+        put_onseeked                        : IntPtr
+        get_onseeked                        : IntPtr
+        put_onseeking                       : IntPtr
+        get_onseeking                       : IntPtr
+        put_onselect                        : IntPtr
+        get_onselect                        : IntPtr
+        put_onstalled                       : IntPtr
+        get_onstalled                       : IntPtr
+        put_onsubmit                        : IntPtr
+        get_onsubmit                        : IntPtr
+        put_onsuspend                       : IntPtr
+        get_onsuspend                       : IntPtr
+        put_ontimeupdate                    : IntPtr
+        get_ontimeupdate                    : IntPtr
+        put_onvolumechange                  : IntPtr
+        get_onvolumechange                  : IntPtr
+        put_onwaiting                       : IntPtr
+        get_onwaiting                       : IntPtr
+        normalize                           : IntPtr
+        importNode                          : IntPtr
+        get_parentWindow                    : IntPtr
+        putref_body                         : IntPtr
+        get_body                            : IntPtr
+        get_head                            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_defaultView", "createCDATASection", "getSelection", "getElementsByTagNameNS", "createElementNS", "createAttributeNS", "put_onmsthumbnailclick", "get_onmsthumbnailclick", "get_characterSet", "createElement", "createAttribute", "getElementsByClassName", "createProcessingInstruction", "adoptNode", "put_onmssitemodejumplistitemremoved", "get_onmssitemodejumplistitemremoved", "get_all", "get_inputEncoding", "get_xmlEncoding", "put_xmlStandalone", "get_xmlStandalone", "put_xmlVersion", "get_xmlVersion", "hasAttributes", "put_onabort", "get_onabort", "put_onblur", "get_onblur", "put_oncanplay", "get_oncanplay", "put_oncanplaythrough", "get_oncanplaythrough", "put_onchange", "get_onchange", "put_ondrag", "get_ondrag", "put_ondragend", "get_ondragend", "put_ondragenter", "get_ondragenter", "put_ondragleave", "get_ondragleave", "put_ondragover", "get_ondragover", "put_ondrop", "get_ondrop", "put_ondurationchange", "get_ondurationchange", "put_onemptied", "get_onemptied", "put_onended", "get_onended", "put_onerror", "get_onerror", "put_onfocus", "get_onfocus", "put_oninput", "get_oninput", "put_onload", "get_onload", "put_onloadeddata", "get_onloadeddata", "put_onloadedmetadata", "get_onloadedmetadata", "put_onloadstart", "get_onloadstart", "put_onpause", "get_onpause", "put_onplay", "get_onplay", "put_onplaying", "get_onplaying", "put_onprogress", "get_onprogress", "put_onratechange", "get_onratechange", "put_onreset", "get_onreset", "put_onscroll", "get_onscroll", "put_onseeked", "get_onseeked", "put_onseeking", "get_onseeking", "put_onselect", "get_onselect", "put_onstalled", "get_onstalled", "put_onsubmit", "get_onsubmit", "put_onsuspend", "get_onsuspend", "put_ontimeupdate", "get_ontimeupdate", "put_onvolumechange", "get_onvolumechange", "put_onwaiting", "get_onwaiting", "normalize", "importNode", "get_parentWindow", "putref_body", "get_body", "get_head"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLDocument7.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IHTMLWindow2} 
@@ -438,7 +550,7 @@ class IHTMLDocument7 extends IDispatch {
     createCDATASection(text) {
         text := text is String ? BSTR.Alloc(text).Value : text
 
-        result := ComCall(8, this, "ptr", text, "ptr*", &newCDATASectionNode := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, text, "ptr*", &newCDATASectionNode := 0, "HRESULT")
         return IHTMLDOMNode(newCDATASectionNode)
     }
 
@@ -460,7 +572,7 @@ class IHTMLDocument7 extends IDispatch {
     getElementsByTagNameNS(pvarNS, bstrLocalName) {
         bstrLocalName := bstrLocalName is String ? BSTR.Alloc(bstrLocalName).Value : bstrLocalName
 
-        result := ComCall(10, this, "ptr", pvarNS, "ptr", bstrLocalName, "ptr*", &pelColl := 0, "HRESULT")
+        result := ComCall(10, this, VARIANT.Ptr, pvarNS, BSTR, bstrLocalName, "ptr*", &pelColl := 0, "HRESULT")
         return IHTMLElementCollection(pelColl)
     }
 
@@ -473,7 +585,7 @@ class IHTMLDocument7 extends IDispatch {
     createElementNS(pvarNS, bstrTag) {
         bstrTag := bstrTag is String ? BSTR.Alloc(bstrTag).Value : bstrTag
 
-        result := ComCall(11, this, "ptr", pvarNS, "ptr", bstrTag, "ptr*", &newElem := 0, "HRESULT")
+        result := ComCall(11, this, VARIANT.Ptr, pvarNS, BSTR, bstrTag, "ptr*", &newElem := 0, "HRESULT")
         return IHTMLElement(newElem)
     }
 
@@ -486,7 +598,7 @@ class IHTMLDocument7 extends IDispatch {
     createAttributeNS(pvarNS, bstrAttrName) {
         bstrAttrName := bstrAttrName is String ? BSTR.Alloc(bstrAttrName).Value : bstrAttrName
 
-        result := ComCall(12, this, "ptr", pvarNS, "ptr", bstrAttrName, "ptr*", &ppAttribute := 0, "HRESULT")
+        result := ComCall(12, this, VARIANT.Ptr, pvarNS, BSTR, bstrAttrName, "ptr*", &ppAttribute := 0, "HRESULT")
         return IHTMLDOMAttribute(ppAttribute)
     }
 
@@ -496,7 +608,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onmsthumbnailclick(v) {
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -506,7 +618,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_onmsthumbnailclick() {
         p := VARIANT()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -515,8 +627,8 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {BSTR} 
      */
     get_characterSet() {
-        p := BSTR()
-        result := ComCall(15, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -528,7 +640,7 @@ class IHTMLDocument7 extends IDispatch {
     createElement(bstrTag) {
         bstrTag := bstrTag is String ? BSTR.Alloc(bstrTag).Value : bstrTag
 
-        result := ComCall(16, this, "ptr", bstrTag, "ptr*", &newElem := 0, "HRESULT")
+        result := ComCall(16, this, BSTR, bstrTag, "ptr*", &newElem := 0, "HRESULT")
         return IHTMLElement(newElem)
     }
 
@@ -540,7 +652,7 @@ class IHTMLDocument7 extends IDispatch {
     createAttribute(bstrAttrName) {
         bstrAttrName := bstrAttrName is String ? BSTR.Alloc(bstrAttrName).Value : bstrAttrName
 
-        result := ComCall(17, this, "ptr", bstrAttrName, "ptr*", &ppAttribute := 0, "HRESULT")
+        result := ComCall(17, this, BSTR, bstrAttrName, "ptr*", &ppAttribute := 0, "HRESULT")
         return IHTMLDOMAttribute(ppAttribute)
     }
 
@@ -552,7 +664,7 @@ class IHTMLDocument7 extends IDispatch {
     getElementsByClassName(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(18, this, "ptr", v, "ptr*", &pel := 0, "HRESULT")
+        result := ComCall(18, this, BSTR, v, "ptr*", &pel := 0, "HRESULT")
         return IHTMLElementCollection(pel)
     }
 
@@ -566,7 +678,7 @@ class IHTMLDocument7 extends IDispatch {
         bstrTarget := bstrTarget is String ? BSTR.Alloc(bstrTarget).Value : bstrTarget
         bstrData := bstrData is String ? BSTR.Alloc(bstrData).Value : bstrData
 
-        result := ComCall(19, this, "ptr", bstrTarget, "ptr", bstrData, "ptr*", &newProcessingInstruction := 0, "HRESULT")
+        result := ComCall(19, this, BSTR, bstrTarget, BSTR, bstrData, "ptr*", &newProcessingInstruction := 0, "HRESULT")
         return IDOMProcessingInstruction(newProcessingInstruction)
     }
 
@@ -586,7 +698,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onmssitemodejumplistitemremoved(v) {
-        result := ComCall(21, this, "ptr", v, "HRESULT")
+        result := ComCall(21, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -596,7 +708,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_onmssitemodejumplistitemremoved() {
         p := VARIANT()
-        result := ComCall(22, this, "ptr", p, "HRESULT")
+        result := ComCall(22, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -614,8 +726,8 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {BSTR} 
      */
     get_inputEncoding() {
-        p := BSTR()
-        result := ComCall(24, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(24, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -624,8 +736,8 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {BSTR} 
      */
     get_xmlEncoding() {
-        p := BSTR()
-        result := ComCall(25, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(25, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -635,7 +747,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_xmlStandalone(v) {
-        result := ComCall(26, this, "short", v, "HRESULT")
+        result := ComCall(26, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -644,7 +756,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_xmlStandalone() {
-        result := ComCall(27, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(27, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -656,7 +768,7 @@ class IHTMLDocument7 extends IDispatch {
     put_xmlVersion(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(28, this, "ptr", v, "HRESULT")
+        result := ComCall(28, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -665,8 +777,8 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {BSTR} 
      */
     get_xmlVersion() {
-        p := BSTR()
-        result := ComCall(29, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(29, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -675,7 +787,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     hasAttributes() {
-        result := ComCall(30, this, "short*", &pfHasAttributes := 0, "HRESULT")
+        result := ComCall(30, this, VARIANT_BOOL.Ptr, &pfHasAttributes := 0, "HRESULT")
         return pfHasAttributes
     }
 
@@ -685,7 +797,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onabort(v) {
-        result := ComCall(31, this, "ptr", v, "HRESULT")
+        result := ComCall(31, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -695,7 +807,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_onabort() {
         p := VARIANT()
-        result := ComCall(32, this, "ptr", p, "HRESULT")
+        result := ComCall(32, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -705,7 +817,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onblur(v) {
-        result := ComCall(33, this, "ptr", v, "HRESULT")
+        result := ComCall(33, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -715,7 +827,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_onblur() {
         p := VARIANT()
-        result := ComCall(34, this, "ptr", p, "HRESULT")
+        result := ComCall(34, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -725,7 +837,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_oncanplay(v) {
-        result := ComCall(35, this, "ptr", v, "HRESULT")
+        result := ComCall(35, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -735,7 +847,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_oncanplay() {
         p := VARIANT()
-        result := ComCall(36, this, "ptr", p, "HRESULT")
+        result := ComCall(36, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -745,7 +857,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_oncanplaythrough(v) {
-        result := ComCall(37, this, "ptr", v, "HRESULT")
+        result := ComCall(37, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -755,7 +867,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_oncanplaythrough() {
         p := VARIANT()
-        result := ComCall(38, this, "ptr", p, "HRESULT")
+        result := ComCall(38, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -765,7 +877,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onchange(v) {
-        result := ComCall(39, this, "ptr", v, "HRESULT")
+        result := ComCall(39, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -775,7 +887,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_onchange() {
         p := VARIANT()
-        result := ComCall(40, this, "ptr", p, "HRESULT")
+        result := ComCall(40, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -785,7 +897,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_ondrag(v) {
-        result := ComCall(41, this, "ptr", v, "HRESULT")
+        result := ComCall(41, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -795,7 +907,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_ondrag() {
         p := VARIANT()
-        result := ComCall(42, this, "ptr", p, "HRESULT")
+        result := ComCall(42, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -805,7 +917,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_ondragend(v) {
-        result := ComCall(43, this, "ptr", v, "HRESULT")
+        result := ComCall(43, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -815,7 +927,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_ondragend() {
         p := VARIANT()
-        result := ComCall(44, this, "ptr", p, "HRESULT")
+        result := ComCall(44, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -825,7 +937,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_ondragenter(v) {
-        result := ComCall(45, this, "ptr", v, "HRESULT")
+        result := ComCall(45, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -835,7 +947,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_ondragenter() {
         p := VARIANT()
-        result := ComCall(46, this, "ptr", p, "HRESULT")
+        result := ComCall(46, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -845,7 +957,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_ondragleave(v) {
-        result := ComCall(47, this, "ptr", v, "HRESULT")
+        result := ComCall(47, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -855,7 +967,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_ondragleave() {
         p := VARIANT()
-        result := ComCall(48, this, "ptr", p, "HRESULT")
+        result := ComCall(48, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -865,7 +977,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_ondragover(v) {
-        result := ComCall(49, this, "ptr", v, "HRESULT")
+        result := ComCall(49, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -875,7 +987,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_ondragover() {
         p := VARIANT()
-        result := ComCall(50, this, "ptr", p, "HRESULT")
+        result := ComCall(50, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -885,7 +997,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_ondrop(v) {
-        result := ComCall(51, this, "ptr", v, "HRESULT")
+        result := ComCall(51, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -895,7 +1007,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_ondrop() {
         p := VARIANT()
-        result := ComCall(52, this, "ptr", p, "HRESULT")
+        result := ComCall(52, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -905,7 +1017,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_ondurationchange(v) {
-        result := ComCall(53, this, "ptr", v, "HRESULT")
+        result := ComCall(53, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -915,7 +1027,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_ondurationchange() {
         p := VARIANT()
-        result := ComCall(54, this, "ptr", p, "HRESULT")
+        result := ComCall(54, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -925,7 +1037,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onemptied(v) {
-        result := ComCall(55, this, "ptr", v, "HRESULT")
+        result := ComCall(55, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -935,7 +1047,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_onemptied() {
         p := VARIANT()
-        result := ComCall(56, this, "ptr", p, "HRESULT")
+        result := ComCall(56, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -945,7 +1057,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onended(v) {
-        result := ComCall(57, this, "ptr", v, "HRESULT")
+        result := ComCall(57, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -955,7 +1067,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_onended() {
         p := VARIANT()
-        result := ComCall(58, this, "ptr", p, "HRESULT")
+        result := ComCall(58, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -965,7 +1077,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onerror(v) {
-        result := ComCall(59, this, "ptr", v, "HRESULT")
+        result := ComCall(59, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -975,7 +1087,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_onerror() {
         p := VARIANT()
-        result := ComCall(60, this, "ptr", p, "HRESULT")
+        result := ComCall(60, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -985,7 +1097,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onfocus(v) {
-        result := ComCall(61, this, "ptr", v, "HRESULT")
+        result := ComCall(61, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -995,7 +1107,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_onfocus() {
         p := VARIANT()
-        result := ComCall(62, this, "ptr", p, "HRESULT")
+        result := ComCall(62, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1005,7 +1117,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_oninput(v) {
-        result := ComCall(63, this, "ptr", v, "HRESULT")
+        result := ComCall(63, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1015,7 +1127,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_oninput() {
         p := VARIANT()
-        result := ComCall(64, this, "ptr", p, "HRESULT")
+        result := ComCall(64, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1025,7 +1137,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onload(v) {
-        result := ComCall(65, this, "ptr", v, "HRESULT")
+        result := ComCall(65, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1035,7 +1147,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_onload() {
         p := VARIANT()
-        result := ComCall(66, this, "ptr", p, "HRESULT")
+        result := ComCall(66, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1045,7 +1157,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onloadeddata(v) {
-        result := ComCall(67, this, "ptr", v, "HRESULT")
+        result := ComCall(67, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1055,7 +1167,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_onloadeddata() {
         p := VARIANT()
-        result := ComCall(68, this, "ptr", p, "HRESULT")
+        result := ComCall(68, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1065,7 +1177,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onloadedmetadata(v) {
-        result := ComCall(69, this, "ptr", v, "HRESULT")
+        result := ComCall(69, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1075,7 +1187,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_onloadedmetadata() {
         p := VARIANT()
-        result := ComCall(70, this, "ptr", p, "HRESULT")
+        result := ComCall(70, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1085,7 +1197,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onloadstart(v) {
-        result := ComCall(71, this, "ptr", v, "HRESULT")
+        result := ComCall(71, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1095,7 +1207,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_onloadstart() {
         p := VARIANT()
-        result := ComCall(72, this, "ptr", p, "HRESULT")
+        result := ComCall(72, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1105,7 +1217,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onpause(v) {
-        result := ComCall(73, this, "ptr", v, "HRESULT")
+        result := ComCall(73, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1115,7 +1227,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_onpause() {
         p := VARIANT()
-        result := ComCall(74, this, "ptr", p, "HRESULT")
+        result := ComCall(74, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1125,7 +1237,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onplay(v) {
-        result := ComCall(75, this, "ptr", v, "HRESULT")
+        result := ComCall(75, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1135,7 +1247,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_onplay() {
         p := VARIANT()
-        result := ComCall(76, this, "ptr", p, "HRESULT")
+        result := ComCall(76, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1145,7 +1257,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onplaying(v) {
-        result := ComCall(77, this, "ptr", v, "HRESULT")
+        result := ComCall(77, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1155,7 +1267,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_onplaying() {
         p := VARIANT()
-        result := ComCall(78, this, "ptr", p, "HRESULT")
+        result := ComCall(78, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1165,7 +1277,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onprogress(v) {
-        result := ComCall(79, this, "ptr", v, "HRESULT")
+        result := ComCall(79, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1175,7 +1287,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_onprogress() {
         p := VARIANT()
-        result := ComCall(80, this, "ptr", p, "HRESULT")
+        result := ComCall(80, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1185,7 +1297,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onratechange(v) {
-        result := ComCall(81, this, "ptr", v, "HRESULT")
+        result := ComCall(81, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1195,7 +1307,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_onratechange() {
         p := VARIANT()
-        result := ComCall(82, this, "ptr", p, "HRESULT")
+        result := ComCall(82, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1205,7 +1317,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onreset(v) {
-        result := ComCall(83, this, "ptr", v, "HRESULT")
+        result := ComCall(83, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1215,7 +1327,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_onreset() {
         p := VARIANT()
-        result := ComCall(84, this, "ptr", p, "HRESULT")
+        result := ComCall(84, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1225,7 +1337,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onscroll(v) {
-        result := ComCall(85, this, "ptr", v, "HRESULT")
+        result := ComCall(85, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1235,7 +1347,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_onscroll() {
         p := VARIANT()
-        result := ComCall(86, this, "ptr", p, "HRESULT")
+        result := ComCall(86, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1245,7 +1357,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onseeked(v) {
-        result := ComCall(87, this, "ptr", v, "HRESULT")
+        result := ComCall(87, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1255,7 +1367,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_onseeked() {
         p := VARIANT()
-        result := ComCall(88, this, "ptr", p, "HRESULT")
+        result := ComCall(88, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1265,7 +1377,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onseeking(v) {
-        result := ComCall(89, this, "ptr", v, "HRESULT")
+        result := ComCall(89, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1275,7 +1387,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_onseeking() {
         p := VARIANT()
-        result := ComCall(90, this, "ptr", p, "HRESULT")
+        result := ComCall(90, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1285,7 +1397,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onselect(v) {
-        result := ComCall(91, this, "ptr", v, "HRESULT")
+        result := ComCall(91, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1295,7 +1407,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_onselect() {
         p := VARIANT()
-        result := ComCall(92, this, "ptr", p, "HRESULT")
+        result := ComCall(92, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1305,7 +1417,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onstalled(v) {
-        result := ComCall(93, this, "ptr", v, "HRESULT")
+        result := ComCall(93, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1315,7 +1427,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_onstalled() {
         p := VARIANT()
-        result := ComCall(94, this, "ptr", p, "HRESULT")
+        result := ComCall(94, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1325,7 +1437,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onsubmit(v) {
-        result := ComCall(95, this, "ptr", v, "HRESULT")
+        result := ComCall(95, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1335,7 +1447,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_onsubmit() {
         p := VARIANT()
-        result := ComCall(96, this, "ptr", p, "HRESULT")
+        result := ComCall(96, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1345,7 +1457,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onsuspend(v) {
-        result := ComCall(97, this, "ptr", v, "HRESULT")
+        result := ComCall(97, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1355,7 +1467,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_onsuspend() {
         p := VARIANT()
-        result := ComCall(98, this, "ptr", p, "HRESULT")
+        result := ComCall(98, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1365,7 +1477,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_ontimeupdate(v) {
-        result := ComCall(99, this, "ptr", v, "HRESULT")
+        result := ComCall(99, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1375,7 +1487,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_ontimeupdate() {
         p := VARIANT()
-        result := ComCall(100, this, "ptr", p, "HRESULT")
+        result := ComCall(100, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1385,7 +1497,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onvolumechange(v) {
-        result := ComCall(101, this, "ptr", v, "HRESULT")
+        result := ComCall(101, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1395,7 +1507,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_onvolumechange() {
         p := VARIANT()
-        result := ComCall(102, this, "ptr", p, "HRESULT")
+        result := ComCall(102, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1405,7 +1517,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onwaiting(v) {
-        result := ComCall(103, this, "ptr", v, "HRESULT")
+        result := ComCall(103, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1415,7 +1527,7 @@ class IHTMLDocument7 extends IDispatch {
      */
     get_onwaiting() {
         p := VARIANT()
-        result := ComCall(104, this, "ptr", p, "HRESULT")
+        result := ComCall(104, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1447,7 +1559,7 @@ class IHTMLDocument7 extends IDispatch {
      * @returns {IHTMLDOMNode3} 
      */
     importNode(pNodeSource, fDeep) {
-        result := ComCall(106, this, "ptr", pNodeSource, "short", fDeep, "ptr*", &ppNodeDest := 0, "HRESULT")
+        result := ComCall(106, this, "ptr", pNodeSource, VARIANT_BOOL, fDeep, "ptr*", &ppNodeDest := 0, "HRESULT")
         return IHTMLDOMNode3(ppNodeDest)
     }
 
@@ -1486,5 +1598,231 @@ class IHTMLDocument7 extends IDispatch {
     get_head() {
         result := ComCall(110, this, "ptr*", &p := 0, "HRESULT")
         return IHTMLElement(p)
+    }
+
+    Query(iid) {
+        if (IHTMLDocument7.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_defaultView := CallbackCreate(GetMethod(implObj, "get_defaultView"), flags, 2)
+        this.vtbl.createCDATASection := CallbackCreate(GetMethod(implObj, "createCDATASection"), flags, 3)
+        this.vtbl.getSelection := CallbackCreate(GetMethod(implObj, "getSelection"), flags, 2)
+        this.vtbl.getElementsByTagNameNS := CallbackCreate(GetMethod(implObj, "getElementsByTagNameNS"), flags, 4)
+        this.vtbl.createElementNS := CallbackCreate(GetMethod(implObj, "createElementNS"), flags, 4)
+        this.vtbl.createAttributeNS := CallbackCreate(GetMethod(implObj, "createAttributeNS"), flags, 4)
+        this.vtbl.put_onmsthumbnailclick := CallbackCreate(GetMethod(implObj, "put_onmsthumbnailclick"), flags, 2)
+        this.vtbl.get_onmsthumbnailclick := CallbackCreate(GetMethod(implObj, "get_onmsthumbnailclick"), flags, 2)
+        this.vtbl.get_characterSet := CallbackCreate(GetMethod(implObj, "get_characterSet"), flags, 2)
+        this.vtbl.createElement := CallbackCreate(GetMethod(implObj, "createElement"), flags, 3)
+        this.vtbl.createAttribute := CallbackCreate(GetMethod(implObj, "createAttribute"), flags, 3)
+        this.vtbl.getElementsByClassName := CallbackCreate(GetMethod(implObj, "getElementsByClassName"), flags, 3)
+        this.vtbl.createProcessingInstruction := CallbackCreate(GetMethod(implObj, "createProcessingInstruction"), flags, 4)
+        this.vtbl.adoptNode := CallbackCreate(GetMethod(implObj, "adoptNode"), flags, 3)
+        this.vtbl.put_onmssitemodejumplistitemremoved := CallbackCreate(GetMethod(implObj, "put_onmssitemodejumplistitemremoved"), flags, 2)
+        this.vtbl.get_onmssitemodejumplistitemremoved := CallbackCreate(GetMethod(implObj, "get_onmssitemodejumplistitemremoved"), flags, 2)
+        this.vtbl.get_all := CallbackCreate(GetMethod(implObj, "get_all"), flags, 2)
+        this.vtbl.get_inputEncoding := CallbackCreate(GetMethod(implObj, "get_inputEncoding"), flags, 2)
+        this.vtbl.get_xmlEncoding := CallbackCreate(GetMethod(implObj, "get_xmlEncoding"), flags, 2)
+        this.vtbl.put_xmlStandalone := CallbackCreate(GetMethod(implObj, "put_xmlStandalone"), flags, 2)
+        this.vtbl.get_xmlStandalone := CallbackCreate(GetMethod(implObj, "get_xmlStandalone"), flags, 2)
+        this.vtbl.put_xmlVersion := CallbackCreate(GetMethod(implObj, "put_xmlVersion"), flags, 2)
+        this.vtbl.get_xmlVersion := CallbackCreate(GetMethod(implObj, "get_xmlVersion"), flags, 2)
+        this.vtbl.hasAttributes := CallbackCreate(GetMethod(implObj, "hasAttributes"), flags, 2)
+        this.vtbl.put_onabort := CallbackCreate(GetMethod(implObj, "put_onabort"), flags, 2)
+        this.vtbl.get_onabort := CallbackCreate(GetMethod(implObj, "get_onabort"), flags, 2)
+        this.vtbl.put_onblur := CallbackCreate(GetMethod(implObj, "put_onblur"), flags, 2)
+        this.vtbl.get_onblur := CallbackCreate(GetMethod(implObj, "get_onblur"), flags, 2)
+        this.vtbl.put_oncanplay := CallbackCreate(GetMethod(implObj, "put_oncanplay"), flags, 2)
+        this.vtbl.get_oncanplay := CallbackCreate(GetMethod(implObj, "get_oncanplay"), flags, 2)
+        this.vtbl.put_oncanplaythrough := CallbackCreate(GetMethod(implObj, "put_oncanplaythrough"), flags, 2)
+        this.vtbl.get_oncanplaythrough := CallbackCreate(GetMethod(implObj, "get_oncanplaythrough"), flags, 2)
+        this.vtbl.put_onchange := CallbackCreate(GetMethod(implObj, "put_onchange"), flags, 2)
+        this.vtbl.get_onchange := CallbackCreate(GetMethod(implObj, "get_onchange"), flags, 2)
+        this.vtbl.put_ondrag := CallbackCreate(GetMethod(implObj, "put_ondrag"), flags, 2)
+        this.vtbl.get_ondrag := CallbackCreate(GetMethod(implObj, "get_ondrag"), flags, 2)
+        this.vtbl.put_ondragend := CallbackCreate(GetMethod(implObj, "put_ondragend"), flags, 2)
+        this.vtbl.get_ondragend := CallbackCreate(GetMethod(implObj, "get_ondragend"), flags, 2)
+        this.vtbl.put_ondragenter := CallbackCreate(GetMethod(implObj, "put_ondragenter"), flags, 2)
+        this.vtbl.get_ondragenter := CallbackCreate(GetMethod(implObj, "get_ondragenter"), flags, 2)
+        this.vtbl.put_ondragleave := CallbackCreate(GetMethod(implObj, "put_ondragleave"), flags, 2)
+        this.vtbl.get_ondragleave := CallbackCreate(GetMethod(implObj, "get_ondragleave"), flags, 2)
+        this.vtbl.put_ondragover := CallbackCreate(GetMethod(implObj, "put_ondragover"), flags, 2)
+        this.vtbl.get_ondragover := CallbackCreate(GetMethod(implObj, "get_ondragover"), flags, 2)
+        this.vtbl.put_ondrop := CallbackCreate(GetMethod(implObj, "put_ondrop"), flags, 2)
+        this.vtbl.get_ondrop := CallbackCreate(GetMethod(implObj, "get_ondrop"), flags, 2)
+        this.vtbl.put_ondurationchange := CallbackCreate(GetMethod(implObj, "put_ondurationchange"), flags, 2)
+        this.vtbl.get_ondurationchange := CallbackCreate(GetMethod(implObj, "get_ondurationchange"), flags, 2)
+        this.vtbl.put_onemptied := CallbackCreate(GetMethod(implObj, "put_onemptied"), flags, 2)
+        this.vtbl.get_onemptied := CallbackCreate(GetMethod(implObj, "get_onemptied"), flags, 2)
+        this.vtbl.put_onended := CallbackCreate(GetMethod(implObj, "put_onended"), flags, 2)
+        this.vtbl.get_onended := CallbackCreate(GetMethod(implObj, "get_onended"), flags, 2)
+        this.vtbl.put_onerror := CallbackCreate(GetMethod(implObj, "put_onerror"), flags, 2)
+        this.vtbl.get_onerror := CallbackCreate(GetMethod(implObj, "get_onerror"), flags, 2)
+        this.vtbl.put_onfocus := CallbackCreate(GetMethod(implObj, "put_onfocus"), flags, 2)
+        this.vtbl.get_onfocus := CallbackCreate(GetMethod(implObj, "get_onfocus"), flags, 2)
+        this.vtbl.put_oninput := CallbackCreate(GetMethod(implObj, "put_oninput"), flags, 2)
+        this.vtbl.get_oninput := CallbackCreate(GetMethod(implObj, "get_oninput"), flags, 2)
+        this.vtbl.put_onload := CallbackCreate(GetMethod(implObj, "put_onload"), flags, 2)
+        this.vtbl.get_onload := CallbackCreate(GetMethod(implObj, "get_onload"), flags, 2)
+        this.vtbl.put_onloadeddata := CallbackCreate(GetMethod(implObj, "put_onloadeddata"), flags, 2)
+        this.vtbl.get_onloadeddata := CallbackCreate(GetMethod(implObj, "get_onloadeddata"), flags, 2)
+        this.vtbl.put_onloadedmetadata := CallbackCreate(GetMethod(implObj, "put_onloadedmetadata"), flags, 2)
+        this.vtbl.get_onloadedmetadata := CallbackCreate(GetMethod(implObj, "get_onloadedmetadata"), flags, 2)
+        this.vtbl.put_onloadstart := CallbackCreate(GetMethod(implObj, "put_onloadstart"), flags, 2)
+        this.vtbl.get_onloadstart := CallbackCreate(GetMethod(implObj, "get_onloadstart"), flags, 2)
+        this.vtbl.put_onpause := CallbackCreate(GetMethod(implObj, "put_onpause"), flags, 2)
+        this.vtbl.get_onpause := CallbackCreate(GetMethod(implObj, "get_onpause"), flags, 2)
+        this.vtbl.put_onplay := CallbackCreate(GetMethod(implObj, "put_onplay"), flags, 2)
+        this.vtbl.get_onplay := CallbackCreate(GetMethod(implObj, "get_onplay"), flags, 2)
+        this.vtbl.put_onplaying := CallbackCreate(GetMethod(implObj, "put_onplaying"), flags, 2)
+        this.vtbl.get_onplaying := CallbackCreate(GetMethod(implObj, "get_onplaying"), flags, 2)
+        this.vtbl.put_onprogress := CallbackCreate(GetMethod(implObj, "put_onprogress"), flags, 2)
+        this.vtbl.get_onprogress := CallbackCreate(GetMethod(implObj, "get_onprogress"), flags, 2)
+        this.vtbl.put_onratechange := CallbackCreate(GetMethod(implObj, "put_onratechange"), flags, 2)
+        this.vtbl.get_onratechange := CallbackCreate(GetMethod(implObj, "get_onratechange"), flags, 2)
+        this.vtbl.put_onreset := CallbackCreate(GetMethod(implObj, "put_onreset"), flags, 2)
+        this.vtbl.get_onreset := CallbackCreate(GetMethod(implObj, "get_onreset"), flags, 2)
+        this.vtbl.put_onscroll := CallbackCreate(GetMethod(implObj, "put_onscroll"), flags, 2)
+        this.vtbl.get_onscroll := CallbackCreate(GetMethod(implObj, "get_onscroll"), flags, 2)
+        this.vtbl.put_onseeked := CallbackCreate(GetMethod(implObj, "put_onseeked"), flags, 2)
+        this.vtbl.get_onseeked := CallbackCreate(GetMethod(implObj, "get_onseeked"), flags, 2)
+        this.vtbl.put_onseeking := CallbackCreate(GetMethod(implObj, "put_onseeking"), flags, 2)
+        this.vtbl.get_onseeking := CallbackCreate(GetMethod(implObj, "get_onseeking"), flags, 2)
+        this.vtbl.put_onselect := CallbackCreate(GetMethod(implObj, "put_onselect"), flags, 2)
+        this.vtbl.get_onselect := CallbackCreate(GetMethod(implObj, "get_onselect"), flags, 2)
+        this.vtbl.put_onstalled := CallbackCreate(GetMethod(implObj, "put_onstalled"), flags, 2)
+        this.vtbl.get_onstalled := CallbackCreate(GetMethod(implObj, "get_onstalled"), flags, 2)
+        this.vtbl.put_onsubmit := CallbackCreate(GetMethod(implObj, "put_onsubmit"), flags, 2)
+        this.vtbl.get_onsubmit := CallbackCreate(GetMethod(implObj, "get_onsubmit"), flags, 2)
+        this.vtbl.put_onsuspend := CallbackCreate(GetMethod(implObj, "put_onsuspend"), flags, 2)
+        this.vtbl.get_onsuspend := CallbackCreate(GetMethod(implObj, "get_onsuspend"), flags, 2)
+        this.vtbl.put_ontimeupdate := CallbackCreate(GetMethod(implObj, "put_ontimeupdate"), flags, 2)
+        this.vtbl.get_ontimeupdate := CallbackCreate(GetMethod(implObj, "get_ontimeupdate"), flags, 2)
+        this.vtbl.put_onvolumechange := CallbackCreate(GetMethod(implObj, "put_onvolumechange"), flags, 2)
+        this.vtbl.get_onvolumechange := CallbackCreate(GetMethod(implObj, "get_onvolumechange"), flags, 2)
+        this.vtbl.put_onwaiting := CallbackCreate(GetMethod(implObj, "put_onwaiting"), flags, 2)
+        this.vtbl.get_onwaiting := CallbackCreate(GetMethod(implObj, "get_onwaiting"), flags, 2)
+        this.vtbl.normalize := CallbackCreate(GetMethod(implObj, "normalize"), flags, 1)
+        this.vtbl.importNode := CallbackCreate(GetMethod(implObj, "importNode"), flags, 4)
+        this.vtbl.get_parentWindow := CallbackCreate(GetMethod(implObj, "get_parentWindow"), flags, 2)
+        this.vtbl.putref_body := CallbackCreate(GetMethod(implObj, "putref_body"), flags, 2)
+        this.vtbl.get_body := CallbackCreate(GetMethod(implObj, "get_body"), flags, 2)
+        this.vtbl.get_head := CallbackCreate(GetMethod(implObj, "get_head"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_defaultView)
+        CallbackFree(this.vtbl.createCDATASection)
+        CallbackFree(this.vtbl.getSelection)
+        CallbackFree(this.vtbl.getElementsByTagNameNS)
+        CallbackFree(this.vtbl.createElementNS)
+        CallbackFree(this.vtbl.createAttributeNS)
+        CallbackFree(this.vtbl.put_onmsthumbnailclick)
+        CallbackFree(this.vtbl.get_onmsthumbnailclick)
+        CallbackFree(this.vtbl.get_characterSet)
+        CallbackFree(this.vtbl.createElement)
+        CallbackFree(this.vtbl.createAttribute)
+        CallbackFree(this.vtbl.getElementsByClassName)
+        CallbackFree(this.vtbl.createProcessingInstruction)
+        CallbackFree(this.vtbl.adoptNode)
+        CallbackFree(this.vtbl.put_onmssitemodejumplistitemremoved)
+        CallbackFree(this.vtbl.get_onmssitemodejumplistitemremoved)
+        CallbackFree(this.vtbl.get_all)
+        CallbackFree(this.vtbl.get_inputEncoding)
+        CallbackFree(this.vtbl.get_xmlEncoding)
+        CallbackFree(this.vtbl.put_xmlStandalone)
+        CallbackFree(this.vtbl.get_xmlStandalone)
+        CallbackFree(this.vtbl.put_xmlVersion)
+        CallbackFree(this.vtbl.get_xmlVersion)
+        CallbackFree(this.vtbl.hasAttributes)
+        CallbackFree(this.vtbl.put_onabort)
+        CallbackFree(this.vtbl.get_onabort)
+        CallbackFree(this.vtbl.put_onblur)
+        CallbackFree(this.vtbl.get_onblur)
+        CallbackFree(this.vtbl.put_oncanplay)
+        CallbackFree(this.vtbl.get_oncanplay)
+        CallbackFree(this.vtbl.put_oncanplaythrough)
+        CallbackFree(this.vtbl.get_oncanplaythrough)
+        CallbackFree(this.vtbl.put_onchange)
+        CallbackFree(this.vtbl.get_onchange)
+        CallbackFree(this.vtbl.put_ondrag)
+        CallbackFree(this.vtbl.get_ondrag)
+        CallbackFree(this.vtbl.put_ondragend)
+        CallbackFree(this.vtbl.get_ondragend)
+        CallbackFree(this.vtbl.put_ondragenter)
+        CallbackFree(this.vtbl.get_ondragenter)
+        CallbackFree(this.vtbl.put_ondragleave)
+        CallbackFree(this.vtbl.get_ondragleave)
+        CallbackFree(this.vtbl.put_ondragover)
+        CallbackFree(this.vtbl.get_ondragover)
+        CallbackFree(this.vtbl.put_ondrop)
+        CallbackFree(this.vtbl.get_ondrop)
+        CallbackFree(this.vtbl.put_ondurationchange)
+        CallbackFree(this.vtbl.get_ondurationchange)
+        CallbackFree(this.vtbl.put_onemptied)
+        CallbackFree(this.vtbl.get_onemptied)
+        CallbackFree(this.vtbl.put_onended)
+        CallbackFree(this.vtbl.get_onended)
+        CallbackFree(this.vtbl.put_onerror)
+        CallbackFree(this.vtbl.get_onerror)
+        CallbackFree(this.vtbl.put_onfocus)
+        CallbackFree(this.vtbl.get_onfocus)
+        CallbackFree(this.vtbl.put_oninput)
+        CallbackFree(this.vtbl.get_oninput)
+        CallbackFree(this.vtbl.put_onload)
+        CallbackFree(this.vtbl.get_onload)
+        CallbackFree(this.vtbl.put_onloadeddata)
+        CallbackFree(this.vtbl.get_onloadeddata)
+        CallbackFree(this.vtbl.put_onloadedmetadata)
+        CallbackFree(this.vtbl.get_onloadedmetadata)
+        CallbackFree(this.vtbl.put_onloadstart)
+        CallbackFree(this.vtbl.get_onloadstart)
+        CallbackFree(this.vtbl.put_onpause)
+        CallbackFree(this.vtbl.get_onpause)
+        CallbackFree(this.vtbl.put_onplay)
+        CallbackFree(this.vtbl.get_onplay)
+        CallbackFree(this.vtbl.put_onplaying)
+        CallbackFree(this.vtbl.get_onplaying)
+        CallbackFree(this.vtbl.put_onprogress)
+        CallbackFree(this.vtbl.get_onprogress)
+        CallbackFree(this.vtbl.put_onratechange)
+        CallbackFree(this.vtbl.get_onratechange)
+        CallbackFree(this.vtbl.put_onreset)
+        CallbackFree(this.vtbl.get_onreset)
+        CallbackFree(this.vtbl.put_onscroll)
+        CallbackFree(this.vtbl.get_onscroll)
+        CallbackFree(this.vtbl.put_onseeked)
+        CallbackFree(this.vtbl.get_onseeked)
+        CallbackFree(this.vtbl.put_onseeking)
+        CallbackFree(this.vtbl.get_onseeking)
+        CallbackFree(this.vtbl.put_onselect)
+        CallbackFree(this.vtbl.get_onselect)
+        CallbackFree(this.vtbl.put_onstalled)
+        CallbackFree(this.vtbl.get_onstalled)
+        CallbackFree(this.vtbl.put_onsubmit)
+        CallbackFree(this.vtbl.get_onsubmit)
+        CallbackFree(this.vtbl.put_onsuspend)
+        CallbackFree(this.vtbl.get_onsuspend)
+        CallbackFree(this.vtbl.put_ontimeupdate)
+        CallbackFree(this.vtbl.get_ontimeupdate)
+        CallbackFree(this.vtbl.put_onvolumechange)
+        CallbackFree(this.vtbl.get_onvolumechange)
+        CallbackFree(this.vtbl.put_onwaiting)
+        CallbackFree(this.vtbl.get_onwaiting)
+        CallbackFree(this.vtbl.normalize)
+        CallbackFree(this.vtbl.importNode)
+        CallbackFree(this.vtbl.get_parentWindow)
+        CallbackFree(this.vtbl.putref_body)
+        CallbackFree(this.vtbl.get_body)
+        CallbackFree(this.vtbl.get_head)
     }
 }

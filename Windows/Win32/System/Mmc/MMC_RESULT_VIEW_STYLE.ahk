@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MMC_RESULT_VIEW_STYLE enumeration defines the Win32 list view style (LVS_*) flags that can be used to set the view style in the MMC result view pane. They can be used in the add and remove parameters of the IResultData::ModifyViewStyle method.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ne-mmc-mmc_result_view_style
  * @namespace Windows.Win32.System.Mmc
  */
-class MMC_RESULT_VIEW_STYLE extends Win32Enum {
+export default struct MMC_RESULT_VIEW_STYLE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Allows only one item at a time to be selected. Without this view style, multiple items can be selected.

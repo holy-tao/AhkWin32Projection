@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IconIdentifier.ahk" { IconIdentifier }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IMessageView interface is introduced in MMC 1.2.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-imessageview
  * @namespace Windows.Win32.System.Mmc
  */
-class IMessageView extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMessageView extends IUnknown {
     /**
      * The interface identifier for IMessageView
      * @type {Guid}
      */
-    static IID => Guid("{80f94174-fccc-11d2-b991-00c04f8ecd78}")
+    static IID := Guid("{80f94174-fccc-11d2-b991-00c04f8ecd78}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMessageView interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetTitleText : IntPtr
+        SetBodyText  : IntPtr
+        SetIcon      : IntPtr
+        Clear        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetTitleText", "SetBodyText", "SetIcon", "Clear"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMessageView.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IMessageView::SetTitleText method enables a snap-in to set the title text for the result pane message displayed using the MMC message OCX control.
@@ -71,7 +84,7 @@ class IMessageView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-imessageview-seticon
      */
     SetIcon(id) {
-        result := ComCall(5, this, "int", id, "HRESULT")
+        result := ComCall(5, this, IconIdentifier, id, "HRESULT")
         return result
     }
 
@@ -88,5 +101,31 @@ class IMessageView extends IUnknown {
     Clear() {
         result := ComCall(6, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMessageView.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetTitleText := CallbackCreate(GetMethod(implObj, "SetTitleText"), flags, 2)
+        this.vtbl.SetBodyText := CallbackCreate(GetMethod(implObj, "SetBodyText"), flags, 2)
+        this.vtbl.SetIcon := CallbackCreate(GetMethod(implObj, "SetIcon"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetTitleText)
+        CallbackFree(this.vtbl.SetBodyText)
+        CallbackFree(this.vtbl.SetIcon)
+        CallbackFree(this.vtbl.Clear)
     }
 }

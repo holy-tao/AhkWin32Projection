@@ -1,16 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Specifies the target rectangle for blitting, when using Microsoft DirectX Video Acceleration High Definition (DXVA-HD).
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_blt_state_target_rect_data
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVAHD_BLT_STATE_TARGET_RECT_DATA extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct DXVAHD_BLT_STATE_TARGET_RECT_DATA {
+    #StructPack 4
 
     /**
      * Specifies whether to use the target rectangle. The default state value is <b>FALSE</b>.
@@ -41,24 +39,14 @@ class DXVAHD_BLT_STATE_TARGET_RECT_DATA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {BOOL}
      */
-    Enable {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Enable : BOOL
 
     /**
      * Specifies the <i>target rectangle</i>. The target rectangle is the area within the destination surface where the output will be drawn. The target rectangle is given in pixel coordinates, relative to the destination surface. The default state value is an empty rectangle, (0, 0, 0, 0).
      * 
      * If the <b>Enable</b> member is <b>FALSE</b>, the <b>TargetRect</b> member is ignored.
-     * @type {RECT}
      */
-    TargetRect {
-        get {
-            if(!this.HasProp("__TargetRect"))
-                this.__TargetRect := RECT(4, this)
-            return this.__TargetRect
-        }
-    }
+    TargetRect : RECT
+
 }

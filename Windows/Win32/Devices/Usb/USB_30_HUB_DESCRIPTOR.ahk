@@ -1,83 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_30_HUB_DESCRIPTOR extends Win32Struct {
-    static sizeof => 14
+export default struct USB_30_HUB_DESCRIPTOR {
+    #StructPack 2
 
-    static packingSize => 2
+    bLength : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bLength {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    bDescriptorType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bDescriptorType {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    bNumberOfPorts : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bNumberOfPorts {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    wHubCharacteristics : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wHubCharacteristics {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    bPowerOnToPowerGood : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bPowerOnToPowerGood {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    bHubControlCurrent : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bHubControlCurrent {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    bHubHdrDecLat : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bHubHdrDecLat {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    wHubDelay : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wHubDelay {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    DeviceRemovable : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DeviceRemovable {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
 }

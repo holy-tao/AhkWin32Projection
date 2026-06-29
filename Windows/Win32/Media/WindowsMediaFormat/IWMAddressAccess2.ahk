@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMAddressAccess.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WM_AETYPE.ahk" { WM_AETYPE }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMAddressAccess.ahk" { IWMAddressAccess }
 
 /**
  * The IWMAddressAccess2 interface controls IP access lists on the writer network sink object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmaddressaccess2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMAddressAccess2 extends IWMAddressAccess {
-
-    static sizeof => A_PtrSize
+export default struct IWMAddressAccess2 extends IWMAddressAccess {
     /**
      * The interface identifier for IWMAddressAccess2
      * @type {Guid}
      */
-    static IID => Guid("{65a83fc2-3e98-4d4d-81b5-2a742886b33d}")
+    static IID := Guid("{65a83fc2-3e98-4d4d-81b5-2a742886b33d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMAddressAccess2 interfaces
+    */
+    struct Vtbl extends IWMAddressAccess.Vtbl {
+        GetAccessEntryEx : IntPtr
+        AddAccessEntryEx : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetAccessEntryEx", "AddAccessEntryEx"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMAddressAccess2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetAccessEntryEx method retrieves an entry from the IP address access list.
@@ -43,7 +54,7 @@ class IWMAddressAccess2 extends IWMAddressAccess {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmaddressaccess2-getaccessentryex
      */
     GetAccessEntryEx(aeType, dwEntryNum, pbstrAddress, pbstrMask) {
-        result := ComCall(7, this, "int", aeType, "uint", dwEntryNum, "ptr", pbstrAddress, "ptr", pbstrMask, "HRESULT")
+        result := ComCall(7, this, WM_AETYPE, aeType, "uint", dwEntryNum, BSTR.Ptr, pbstrAddress, BSTR.Ptr, pbstrMask, "HRESULT")
         return result
     }
 
@@ -59,7 +70,29 @@ class IWMAddressAccess2 extends IWMAddressAccess {
         bstrAddress := bstrAddress is String ? BSTR.Alloc(bstrAddress).Value : bstrAddress
         bstrMask := bstrMask is String ? BSTR.Alloc(bstrMask).Value : bstrMask
 
-        result := ComCall(8, this, "int", aeType, "ptr", bstrAddress, "ptr", bstrMask, "HRESULT")
+        result := ComCall(8, this, WM_AETYPE, aeType, BSTR, bstrAddress, BSTR, bstrMask, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMAddressAccess2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetAccessEntryEx := CallbackCreate(GetMethod(implObj, "GetAccessEntryEx"), flags, 5)
+        this.vtbl.AddAccessEntryEx := CallbackCreate(GetMethod(implObj, "AddAccessEntryEx"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetAccessEntryEx)
+        CallbackFree(this.vtbl.AddAccessEntryEx)
     }
 }

@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITForwardInformation.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ITForwardInformation.ahk" { ITForwardInformation }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITForwardInformation2 interface exposes methods that provide additional methods for the control of forwarding information. See ITForwardInformation for the basic forwarding control methods.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itforwardinformation2
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITForwardInformation2 extends ITForwardInformation {
-
-    static sizeof => A_PtrSize
+export default struct ITForwardInformation2 extends ITForwardInformation {
     /**
      * The interface identifier for ITForwardInformation2
      * @type {Guid}
      */
-    static IID => Guid("{5229b4ed-b260-4382-8e1a-5df3a8a4ccc0}")
+    static IID := Guid("{5229b4ed-b260-4382-8e1a-5df3a8a4ccc0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITForwardInformation2 interfaces
+    */
+    struct Vtbl extends ITForwardInformation.Vtbl {
+        SetForwardType2                       : IntPtr
+        GetForwardType2                       : IntPtr
+        get_ForwardTypeDestinationAddressType : IntPtr
+        get_ForwardTypeCallerAddressType      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetForwardType2", "GetForwardType2", "get_ForwardTypeDestinationAddressType", "get_ForwardTypeCallerAddressType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITForwardInformation2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetForwardType2 method sets the current forwarding mode, specified by caller address.
@@ -94,7 +106,7 @@ class ITForwardInformation2 extends ITForwardInformation {
         pDestAddress := pDestAddress is String ? BSTR.Alloc(pDestAddress).Value : pDestAddress
         pCallerAddress := pCallerAddress is String ? BSTR.Alloc(pCallerAddress).Value : pCallerAddress
 
-        result := ComCall(14, this, "int", ForwardType, "ptr", pDestAddress, "int", DestAddressType, "ptr", pCallerAddress, "int", CallerAddressType, "HRESULT")
+        result := ComCall(14, this, "int", ForwardType, BSTR, pDestAddress, "int", DestAddressType, BSTR, pCallerAddress, "int", CallerAddressType, "HRESULT")
         return result
     }
 
@@ -163,7 +175,7 @@ class ITForwardInformation2 extends ITForwardInformation {
         pDestAddressTypeMarshal := pDestAddressType is VarRef ? "int*" : "ptr"
         pCallerAddressTypeMarshal := pCallerAddressType is VarRef ? "int*" : "ptr"
 
-        result := ComCall(15, this, "int", ForwardType, "ptr", ppDestinationAddress, pDestAddressTypeMarshal, pDestAddressType, "ptr", ppCallerAddress, pCallerAddressTypeMarshal, pCallerAddressType, "HRESULT")
+        result := ComCall(15, this, "int", ForwardType, BSTR.Ptr, ppDestinationAddress, pDestAddressTypeMarshal, pDestAddressType, BSTR.Ptr, ppCallerAddress, pCallerAddressTypeMarshal, pCallerAddressType, "HRESULT")
         return result
     }
 
@@ -187,5 +199,31 @@ class ITForwardInformation2 extends ITForwardInformation {
     get_ForwardTypeCallerAddressType(Forwardtype) {
         result := ComCall(17, this, "int", Forwardtype, "int*", &pCallerAddressType := 0, "HRESULT")
         return pCallerAddressType
+    }
+
+    Query(iid) {
+        if (ITForwardInformation2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetForwardType2 := CallbackCreate(GetMethod(implObj, "SetForwardType2"), flags, 6)
+        this.vtbl.GetForwardType2 := CallbackCreate(GetMethod(implObj, "GetForwardType2"), flags, 6)
+        this.vtbl.get_ForwardTypeDestinationAddressType := CallbackCreate(GetMethod(implObj, "get_ForwardTypeDestinationAddressType"), flags, 3)
+        this.vtbl.get_ForwardTypeCallerAddressType := CallbackCreate(GetMethod(implObj, "get_ForwardTypeCallerAddressType"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetForwardType2)
+        CallbackFree(this.vtbl.GetForwardType2)
+        CallbackFree(this.vtbl.get_ForwardTypeDestinationAddressType)
+        CallbackFree(this.vtbl.get_ForwardTypeCallerAddressType)
     }
 }

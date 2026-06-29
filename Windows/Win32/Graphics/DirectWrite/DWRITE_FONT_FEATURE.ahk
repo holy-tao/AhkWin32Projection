@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DWRITE_FONT_FEATURE_TAG.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DWRITE_FONT_FEATURE_TAG.ahk" { DWRITE_FONT_FEATURE_TAG }
 
 /**
  * Specifies properties used to identify and execute typographic features in the current font face.
@@ -13,30 +12,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_font_feature
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class DWRITE_FONT_FEATURE extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct DWRITE_FONT_FEATURE {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_feature_tag">DWRITE_FONT_FEATURE_TAG</a></b>
      * 
      * The feature OpenType name identifier.
-     * @type {DWRITE_FONT_FEATURE_TAG}
      */
-    nameTag {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    nameTag : DWRITE_FONT_FEATURE_TAG
 
     /**
      * Type: <b>UINT32</b>
      * 
      * The execution parameter of the feature.
-     * @type {Integer}
      */
-    parameter {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    parameter : UInt32
+
 }

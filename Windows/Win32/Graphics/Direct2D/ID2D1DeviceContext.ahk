@@ -1,15 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1RenderTarget.ahk
-#Include .\ID2D1Bitmap1.ahk
-#Include .\ID2D1ColorContext.ahk
-#Include .\ID2D1Effect.ahk
-#Include .\ID2D1GradientStopCollection1.ahk
-#Include .\ID2D1ImageBrush.ahk
-#Include .\ID2D1BitmapBrush1.ahk
-#Include .\ID2D1CommandList.ahk
-#Include Common\D2D_RECT_F.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID2D1CommandList.ahk" { ID2D1CommandList }
+#Import "..\Imaging\IWICBitmapSource.ahk" { IWICBitmapSource }
+#Import ".\D2D1_EXTEND_MODE.ahk" { D2D1_EXTEND_MODE }
+#Import ".\ID2D1Effect.ahk" { ID2D1Effect }
+#Import "Common\D2D_MATRIX_4X4_F.ahk" { D2D_MATRIX_4X4_F }
+#Import ".\D2D1_COLOR_SPACE.ahk" { D2D1_COLOR_SPACE }
+#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D2D1_INTERPOLATION_MODE.ahk" { D2D1_INTERPOLATION_MODE }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\D2D1_BRUSH_PROPERTIES.ahk" { D2D1_BRUSH_PROPERTIES }
+#Import "Common\D2D1_COMPOSITE_MODE.ahk" { D2D1_COMPOSITE_MODE }
+#Import ".\ID2D1ColorContext.ahk" { ID2D1ColorContext }
+#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
+#Import ".\D2D1_LAYER_PARAMETERS1.ahk" { D2D1_LAYER_PARAMETERS1 }
+#Import ".\ID2D1Bitmap1.ahk" { ID2D1Bitmap1 }
+#Import "..\DirectWrite\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
+#Import ".\ID2D1ImageBrush.ahk" { ID2D1ImageBrush }
+#Import ".\ID2D1GradientStopCollection1.ahk" { ID2D1GradientStopCollection1 }
+#Import "Common\D2D1_GRADIENT_STOP.ahk" { D2D1_GRADIENT_STOP }
+#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
+#Import "..\Imaging\IWICColorContext.ahk" { IWICColorContext }
+#Import "..\Dxgi\IDXGISurface.ahk" { IDXGISurface }
+#Import ".\ID2D1GdiMetafile.ahk" { ID2D1GdiMetafile }
+#Import ".\D2D1_BUFFER_PRECISION.ahk" { D2D1_BUFFER_PRECISION }
+#Import ".\D2D1_UNIT_MODE.ahk" { D2D1_UNIT_MODE }
+#Import "..\DirectWrite\DWRITE_GLYPH_RUN_DESCRIPTION.ahk" { DWRITE_GLYPH_RUN_DESCRIPTION }
+#Import ".\D2D1_PRIMITIVE_BLEND.ahk" { D2D1_PRIMITIVE_BLEND }
+#Import "..\DirectWrite\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import "Common\D2D_SIZE_U.ahk" { D2D_SIZE_U }
+#Import ".\ID2D1Layer.ahk" { ID2D1Layer }
+#Import ".\D2D1_BITMAP_PROPERTIES1.ahk" { D2D1_BITMAP_PROPERTIES1 }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ID2D1Bitmap.ahk" { ID2D1Bitmap }
+#Import ".\D2D1_RENDERING_CONTROLS.ahk" { D2D1_RENDERING_CONTROLS }
+#Import ".\D2D1_BITMAP_BRUSH_PROPERTIES1.ahk" { D2D1_BITMAP_BRUSH_PROPERTIES1 }
+#Import ".\ID2D1Image.ahk" { ID2D1Image }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\D2D1_COLOR_INTERPOLATION_MODE.ahk" { D2D1_COLOR_INTERPOLATION_MODE }
+#Import ".\ID2D1RenderTarget.ahk" { ID2D1RenderTarget }
+#Import ".\D2D1_EFFECT_INPUT_DESCRIPTION.ahk" { D2D1_EFFECT_INPUT_DESCRIPTION }
+#Import ".\ID2D1Device.ahk" { ID2D1Device }
+#Import ".\D2D1_IMAGE_BRUSH_PROPERTIES.ahk" { D2D1_IMAGE_BRUSH_PROPERTIES }
+#Import ".\ID2D1BitmapBrush1.ahk" { ID2D1BitmapBrush1 }
 
 /**
  * Represents a set of state and command buffers that are used to render to a target.
@@ -18,26 +53,67 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nn-d2d1_1-id2d1devicecontext
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1DeviceContext extends ID2D1RenderTarget {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1DeviceContext extends ID2D1RenderTarget {
     /**
      * The interface identifier for ID2D1DeviceContext
      * @type {Guid}
      */
-    static IID => Guid("{e8f7fe7a-191c-466d-ad95-975678bda998}")
+    static IID := Guid("{e8f7fe7a-191c-466d-ad95-975678bda998}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 57
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1DeviceContext interfaces
+    */
+    struct Vtbl extends ID2D1RenderTarget.Vtbl {
+        CreateBitmap                          : IntPtr
+        CreateBitmapFromWicBitmap             : IntPtr
+        CreateColorContext                    : IntPtr
+        CreateColorContextFromFilename        : IntPtr
+        CreateColorContextFromWicColorContext : IntPtr
+        CreateBitmapFromDxgiSurface           : IntPtr
+        CreateEffect                          : IntPtr
+        CreateGradientStopCollection          : IntPtr
+        CreateImageBrush                      : IntPtr
+        CreateBitmapBrush                     : IntPtr
+        CreateCommandList                     : IntPtr
+        IsDxgiFormatSupported                 : IntPtr
+        IsBufferPrecisionSupported            : IntPtr
+        GetImageLocalBounds                   : IntPtr
+        GetImageWorldBounds                   : IntPtr
+        GetGlyphRunWorldBounds                : IntPtr
+        GetDevice                             : IntPtr
+        SetTarget                             : IntPtr
+        GetTarget                             : IntPtr
+        SetRenderingControls                  : IntPtr
+        GetRenderingControls                  : IntPtr
+        SetPrimitiveBlend                     : IntPtr
+        GetPrimitiveBlend                     : IntPtr
+        SetUnitMode                           : IntPtr
+        GetUnitMode                           : IntPtr
+        DrawGlyphRun                          : IntPtr
+        DrawImage                             : IntPtr
+        DrawGdiMetafile                       : IntPtr
+        DrawBitmap                            : IntPtr
+        PushLayer                             : IntPtr
+        InvalidateEffectInputRectangle        : IntPtr
+        GetEffectInvalidRectangleCount        : IntPtr
+        GetEffectInvalidRectangles            : IntPtr
+        GetEffectRequiredInputRectangles      : IntPtr
+        FillOpacityMask                       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateBitmap", "CreateBitmapFromWicBitmap", "CreateColorContext", "CreateColorContextFromFilename", "CreateColorContextFromWicColorContext", "CreateBitmapFromDxgiSurface", "CreateEffect", "CreateGradientStopCollection", "CreateImageBrush", "CreateBitmapBrush", "CreateCommandList", "IsDxgiFormatSupported", "IsBufferPrecisionSupported", "GetImageLocalBounds", "GetImageWorldBounds", "GetGlyphRunWorldBounds", "GetDevice", "SetTarget", "GetTarget", "SetRenderingControls", "GetRenderingControls", "SetPrimitiveBlend", "GetPrimitiveBlend", "SetUnitMode", "GetUnitMode", "DrawGlyphRun", "DrawImage", "DrawGdiMetafile", "DrawBitmap", "PushLayer", "InvalidateEffectInputRectangle", "GetEffectInvalidRectangleCount", "GetEffectInvalidRectangles", "GetEffectRequiredInputRectangles", "FillOpacityMask"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1DeviceContext.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a bitmap that can be used as a target surface, for reading back to the CPU, or as a source for the DrawBitmap and ID2D1BitmapBrush APIs. In addition, color context information can be passed to the bitmap. (overload 2/2)
@@ -63,7 +139,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget {
     CreateBitmap(_size, sourceData, pitch, bitmapProperties) {
         sourceDataMarshal := sourceData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(57, this, "ptr", _size, sourceDataMarshal, sourceData, "uint", pitch, "ptr", bitmapProperties, "ptr*", &_bitmap := 0, "HRESULT")
+        result := ComCall(57, this, D2D_SIZE_U, _size, sourceDataMarshal, sourceData, "uint", pitch, D2D1_BITMAP_PROPERTIES1.Ptr, bitmapProperties, "ptr*", &_bitmap := 0, "HRESULT")
         return ID2D1Bitmap1(_bitmap)
     }
 
@@ -79,7 +155,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-createbitmapfromwicbitmap(iwicbitmapsource_id2d1bitmap1)
      */
     CreateBitmapFromWicBitmap(wicBitmapSource, bitmapProperties) {
-        result := ComCall(58, this, "ptr", wicBitmapSource, "ptr", bitmapProperties, "ptr*", &_bitmap := 0, "HRESULT")
+        result := ComCall(58, this, "ptr", wicBitmapSource, D2D1_BITMAP_PROPERTIES1.Ptr, bitmapProperties, "ptr*", &_bitmap := 0, "HRESULT")
         return ID2D1Bitmap1(_bitmap)
     }
 
@@ -106,7 +182,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget {
     CreateColorContext(space, _profile, profileSize) {
         _profileMarshal := _profile is VarRef ? "char*" : "ptr"
 
-        result := ComCall(59, this, "int", space, _profileMarshal, _profile, "uint", profileSize, "ptr*", &colorContext := 0, "HRESULT")
+        result := ComCall(59, this, D2D1_COLOR_SPACE, space, _profileMarshal, _profile, "uint", profileSize, "ptr*", &colorContext := 0, "HRESULT")
         return ID2D1ColorContext(colorContext)
     }
 
@@ -187,7 +263,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-createbitmapfromdxgisurface(idxgisurface_constd2d1_bitmap_properties1_id2d1bitmap1)
      */
     CreateBitmapFromDxgiSurface(surface, bitmapProperties) {
-        result := ComCall(62, this, "ptr", surface, "ptr", bitmapProperties, "ptr*", &_bitmap := 0, "HRESULT")
+        result := ComCall(62, this, "ptr", surface, D2D1_BITMAP_PROPERTIES1.Ptr, bitmapProperties, "ptr*", &_bitmap := 0, "HRESULT")
         return ID2D1Bitmap1(_bitmap)
     }
 
@@ -205,7 +281,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-createeffect
      */
     CreateEffect(effectId) {
-        result := ComCall(63, this, "ptr", effectId, "ptr*", &_effect := 0, "HRESULT")
+        result := ComCall(63, this, Guid.Ptr, effectId, "ptr*", &_effect := 0, "HRESULT")
         return ID2D1Effect(_effect)
     }
 
@@ -317,7 +393,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-creategradientstopcollection
      */
     CreateGradientStopCollection(straightAlphaGradientStops, straightAlphaGradientStopsCount, preInterpolationSpace, postInterpolationSpace, bufferPrecision, extendMode, colorInterpolationMode) {
-        result := ComCall(64, this, "ptr", straightAlphaGradientStops, "uint", straightAlphaGradientStopsCount, "int", preInterpolationSpace, "int", postInterpolationSpace, "int", bufferPrecision, "int", extendMode, "int", colorInterpolationMode, "ptr*", &gradientStopCollection1 := 0, "HRESULT")
+        result := ComCall(64, this, D2D1_GRADIENT_STOP.Ptr, straightAlphaGradientStops, "uint", straightAlphaGradientStopsCount, D2D1_COLOR_SPACE, preInterpolationSpace, D2D1_COLOR_SPACE, postInterpolationSpace, D2D1_BUFFER_PRECISION, bufferPrecision, D2D1_EXTEND_MODE, extendMode, D2D1_COLOR_INTERPOLATION_MODE, colorInterpolationMode, "ptr*", &gradientStopCollection1 := 0, "HRESULT")
         return ID2D1GradientStopCollection1(gradientStopCollection1)
     }
 
@@ -393,7 +469,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-createimagebrush(id2d1image_constd2d1_image_brush_properties__id2d1imagebrush)
      */
     CreateImageBrush(_image, imageBrushProperties, brushProperties) {
-        result := ComCall(65, this, "ptr", _image, "ptr", imageBrushProperties, "ptr", brushProperties, "ptr*", &imageBrush := 0, "HRESULT")
+        result := ComCall(65, this, "ptr", _image, D2D1_IMAGE_BRUSH_PROPERTIES.Ptr, imageBrushProperties, D2D1_BRUSH_PROPERTIES.Ptr, brushProperties, "ptr*", &imageBrush := 0, "HRESULT")
         return ID2D1ImageBrush(imageBrush)
     }
 
@@ -414,7 +490,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-createbitmapbrush(id2d1bitmap_constd2d1_bitmap_brush_properties1__constd2d1_brush_properties__id2d1bitmapbrush1)
      */
     CreateBitmapBrush(_bitmap, bitmapBrushProperties, brushProperties) {
-        result := ComCall(66, this, "ptr", _bitmap, "ptr", bitmapBrushProperties, "ptr", brushProperties, "ptr*", &bitmapBrush := 0, "HRESULT")
+        result := ComCall(66, this, "ptr", _bitmap, D2D1_BITMAP_BRUSH_PROPERTIES1.Ptr, bitmapBrushProperties, D2D1_BRUSH_PROPERTIES.Ptr, brushProperties, "ptr*", &bitmapBrush := 0, "HRESULT")
         return ID2D1BitmapBrush1(bitmapBrush)
     }
 
@@ -447,7 +523,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-isdxgiformatsupported
      */
     IsDxgiFormatSupported(format) {
-        result := ComCall(68, this, "int", format, "int")
+        result := ComCall(68, this, DXGI_FORMAT, format, BOOL)
         return result
     }
 
@@ -462,7 +538,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-isbufferprecisionsupported
      */
     IsBufferPrecisionSupported(bufferPrecision) {
-        result := ComCall(69, this, "int", bufferPrecision, "int")
+        result := ComCall(69, this, D2D1_BUFFER_PRECISION, bufferPrecision, BOOL)
         return result
     }
 
@@ -484,7 +560,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget {
      */
     GetImageLocalBounds(_image) {
         localBounds := D2D_RECT_F()
-        result := ComCall(70, this, "ptr", _image, "ptr", localBounds, "HRESULT")
+        result := ComCall(70, this, "ptr", _image, D2D_RECT_F.Ptr, localBounds, "HRESULT")
         return localBounds
     }
 
@@ -507,7 +583,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget {
      */
     GetImageWorldBounds(_image) {
         worldBounds := D2D_RECT_F()
-        result := ComCall(71, this, "ptr", _image, "ptr", worldBounds, "HRESULT")
+        result := ComCall(71, this, "ptr", _image, D2D_RECT_F.Ptr, worldBounds, "HRESULT")
         return worldBounds
     }
 
@@ -531,7 +607,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget {
      */
     GetGlyphRunWorldBounds(baselineOrigin, _glyphRun, measuringMode) {
         bounds := D2D_RECT_F()
-        result := ComCall(72, this, "ptr", baselineOrigin, "ptr", _glyphRun, "int", measuringMode, "ptr", bounds, "HRESULT")
+        result := ComCall(72, this, D2D_POINT_2F, baselineOrigin, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_MEASURING_MODE, measuringMode, D2D_RECT_F.Ptr, bounds, "HRESULT")
         return bounds
     }
 
@@ -546,7 +622,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-getdevice
      */
     GetDevice(device) {
-        ComCall(73, this, "ptr*", device)
+        ComCall(73, this, ID2D1Device.Ptr, device)
     }
 
     /**
@@ -704,7 +780,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-gettarget
      */
     GetTarget(_image) {
-        ComCall(75, this, "ptr*", _image)
+        ComCall(75, this, ID2D1Image.Ptr, _image)
     }
 
     /**
@@ -718,7 +794,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-setrenderingcontrols(constd2d1_rendering_controls_)
      */
     SetRenderingControls(renderingControls) {
-        ComCall(76, this, "ptr", renderingControls)
+        ComCall(76, this, D2D1_RENDERING_CONTROLS.Ptr, renderingControls)
     }
 
     /**
@@ -730,7 +806,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-getrenderingcontrols
      */
     GetRenderingControls(renderingControls) {
-        ComCall(77, this, "ptr", renderingControls)
+        ComCall(77, this, D2D1_RENDERING_CONTROLS.Ptr, renderingControls)
     }
 
     /**
@@ -748,7 +824,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-setprimitiveblend
      */
     SetPrimitiveBlend(primitiveBlend) {
-        ComCall(78, this, "int", primitiveBlend)
+        ComCall(78, this, D2D1_PRIMITIVE_BLEND, primitiveBlend)
     }
 
     /**
@@ -759,7 +835,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-getprimitiveblend
      */
     GetPrimitiveBlend() {
-        result := ComCall(79, this, "int")
+        result := ComCall(79, this, D2D1_PRIMITIVE_BLEND)
         return result
     }
 
@@ -786,7 +862,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-setunitmode
      */
     SetUnitMode(unitMode) {
-        ComCall(80, this, "int", unitMode)
+        ComCall(80, this, D2D1_UNIT_MODE, unitMode)
     }
 
     /**
@@ -797,7 +873,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-getunitmode
      */
     GetUnitMode() {
-        result := ComCall(81, this, "int")
+        result := ComCall(81, this, D2D1_UNIT_MODE)
         return result
     }
 
@@ -824,7 +900,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-drawglyphrun
      */
     DrawGlyphRun(baselineOrigin, _glyphRun, glyphRunDescription, foregroundBrush, measuringMode) {
-        ComCall(82, this, "ptr", baselineOrigin, "ptr", _glyphRun, "ptr", glyphRunDescription, "ptr", foregroundBrush, "int", measuringMode)
+        ComCall(82, this, D2D_POINT_2F, baselineOrigin, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_GLYPH_RUN_DESCRIPTION.Ptr, glyphRunDescription, "ptr", foregroundBrush, DWRITE_MEASURING_MODE, measuringMode)
     }
 
     /**
@@ -856,7 +932,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-drawimage(id2d1image_constd2d1_point_2f_constd2d1_rect_f_d2d1_interpolation_mode_d2d1_composite_mode)
      */
     DrawImage(_image, targetOffset, imageRectangle, _interpolationMode, compositeMode) {
-        ComCall(83, this, "ptr", _image, "ptr", targetOffset, "ptr", imageRectangle, "int", _interpolationMode, "int", compositeMode)
+        ComCall(83, this, "ptr", _image, D2D_POINT_2F.Ptr, targetOffset, D2D_RECT_F.Ptr, imageRectangle, D2D1_INTERPOLATION_MODE, _interpolationMode, D2D1_COMPOSITE_MODE, compositeMode)
     }
 
     /**
@@ -871,7 +947,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-drawgdimetafile(id2d1gdimetafile_constd2d1_point_2f)
      */
     DrawGdiMetafile(gdiMetafile, targetOffset) {
-        ComCall(84, this, "ptr", gdiMetafile, "ptr", targetOffset)
+        ComCall(84, this, "ptr", gdiMetafile, D2D_POINT_2F.Ptr, targetOffset)
     }
 
     /**
@@ -908,7 +984,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-drawbitmap(id2d1bitmap_constd2d1_rect_f_float_d2d1_interpolation_mode_constd2d1_rect_f_constd2d1_matrix_4x4_f)
      */
     DrawBitmap(_bitmap, destinationRectangle, opacity, _interpolationMode, sourceRectangle, perspectiveTransform) {
-        ComCall(85, this, "ptr", _bitmap, "ptr", destinationRectangle, "float", opacity, "int", _interpolationMode, "ptr", sourceRectangle, "ptr", perspectiveTransform)
+        ComCall(85, this, "ptr", _bitmap, D2D_RECT_F.Ptr, destinationRectangle, "float", opacity, D2D1_INTERPOLATION_MODE, _interpolationMode, D2D_RECT_F.Ptr, sourceRectangle, D2D_MATRIX_4X4_F.Ptr, perspectiveTransform)
     }
 
     /**
@@ -926,7 +1002,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-pushlayer(constd2d1_layer_parameters1__id2d1layer)
      */
     PushLayer(layerParameters, layer) {
-        ComCall(86, this, "ptr", layerParameters, "ptr", layer)
+        ComCall(86, this, D2D1_LAYER_PARAMETERS1.Ptr, layerParameters, "ptr", layer)
     }
 
     /**
@@ -965,7 +1041,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-invalidateeffectinputrectangle
      */
     InvalidateEffectInputRectangle(_effect, _input, inputRectangle) {
-        result := ComCall(87, this, "ptr", _effect, "uint", _input, "ptr", inputRectangle, "HRESULT")
+        result := ComCall(87, this, "ptr", _effect, "uint", _input, D2D_RECT_F.Ptr, inputRectangle, "HRESULT")
         return result
     }
 
@@ -1007,7 +1083,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget {
      */
     GetEffectInvalidRectangles(_effect, rectanglesCount) {
         rectangles := D2D_RECT_F()
-        result := ComCall(89, this, "ptr", _effect, "ptr", rectangles, "uint", rectanglesCount, "HRESULT")
+        result := ComCall(89, this, "ptr", _effect, D2D_RECT_F.Ptr, rectangles, "uint", rectanglesCount, "HRESULT")
         return rectangles
     }
 
@@ -1036,7 +1112,7 @@ class ID2D1DeviceContext extends ID2D1RenderTarget {
      */
     GetEffectRequiredInputRectangles(renderEffect, renderImageRectangle, inputDescriptions, inputCount) {
         requiredInputRects := D2D_RECT_F()
-        result := ComCall(90, this, "ptr", renderEffect, "ptr", renderImageRectangle, "ptr", inputDescriptions, "ptr", requiredInputRects, "uint", inputCount, "HRESULT")
+        result := ComCall(90, this, "ptr", renderEffect, D2D_RECT_F.Ptr, renderImageRectangle, D2D1_EFFECT_INPUT_DESCRIPTION.Ptr, inputDescriptions, D2D_RECT_F.Ptr, requiredInputRects, "uint", inputCount, "HRESULT")
         return requiredInputRects
     }
 
@@ -1058,6 +1134,94 @@ class ID2D1DeviceContext extends ID2D1RenderTarget {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-fillopacitymask(id2d1bitmap_id2d1brush_constd2d1_rect_f__constd2d1_rect_f)
      */
     FillOpacityMask(opacityMask, brush, destinationRectangle, sourceRectangle) {
-        ComCall(91, this, "ptr", opacityMask, "ptr", brush, "ptr", destinationRectangle, "ptr", sourceRectangle)
+        ComCall(91, this, "ptr", opacityMask, "ptr", brush, D2D_RECT_F.Ptr, destinationRectangle, D2D_RECT_F.Ptr, sourceRectangle)
+    }
+
+    Query(iid) {
+        if (ID2D1DeviceContext.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateBitmap := CallbackCreate(GetMethod(implObj, "CreateBitmap"), flags, 6)
+        this.vtbl.CreateBitmapFromWicBitmap := CallbackCreate(GetMethod(implObj, "CreateBitmapFromWicBitmap"), flags, 4)
+        this.vtbl.CreateColorContext := CallbackCreate(GetMethod(implObj, "CreateColorContext"), flags, 5)
+        this.vtbl.CreateColorContextFromFilename := CallbackCreate(GetMethod(implObj, "CreateColorContextFromFilename"), flags, 3)
+        this.vtbl.CreateColorContextFromWicColorContext := CallbackCreate(GetMethod(implObj, "CreateColorContextFromWicColorContext"), flags, 3)
+        this.vtbl.CreateBitmapFromDxgiSurface := CallbackCreate(GetMethod(implObj, "CreateBitmapFromDxgiSurface"), flags, 4)
+        this.vtbl.CreateEffect := CallbackCreate(GetMethod(implObj, "CreateEffect"), flags, 3)
+        this.vtbl.CreateGradientStopCollection := CallbackCreate(GetMethod(implObj, "CreateGradientStopCollection"), flags, 9)
+        this.vtbl.CreateImageBrush := CallbackCreate(GetMethod(implObj, "CreateImageBrush"), flags, 5)
+        this.vtbl.CreateBitmapBrush := CallbackCreate(GetMethod(implObj, "CreateBitmapBrush"), flags, 5)
+        this.vtbl.CreateCommandList := CallbackCreate(GetMethod(implObj, "CreateCommandList"), flags, 2)
+        this.vtbl.IsDxgiFormatSupported := CallbackCreate(GetMethod(implObj, "IsDxgiFormatSupported"), flags, 2)
+        this.vtbl.IsBufferPrecisionSupported := CallbackCreate(GetMethod(implObj, "IsBufferPrecisionSupported"), flags, 2)
+        this.vtbl.GetImageLocalBounds := CallbackCreate(GetMethod(implObj, "GetImageLocalBounds"), flags, 3)
+        this.vtbl.GetImageWorldBounds := CallbackCreate(GetMethod(implObj, "GetImageWorldBounds"), flags, 3)
+        this.vtbl.GetGlyphRunWorldBounds := CallbackCreate(GetMethod(implObj, "GetGlyphRunWorldBounds"), flags, 5)
+        this.vtbl.GetDevice := CallbackCreate(GetMethod(implObj, "GetDevice"), flags, 2)
+        this.vtbl.SetTarget := CallbackCreate(GetMethod(implObj, "SetTarget"), flags, 2)
+        this.vtbl.GetTarget := CallbackCreate(GetMethod(implObj, "GetTarget"), flags, 2)
+        this.vtbl.SetRenderingControls := CallbackCreate(GetMethod(implObj, "SetRenderingControls"), flags, 2)
+        this.vtbl.GetRenderingControls := CallbackCreate(GetMethod(implObj, "GetRenderingControls"), flags, 2)
+        this.vtbl.SetPrimitiveBlend := CallbackCreate(GetMethod(implObj, "SetPrimitiveBlend"), flags, 2)
+        this.vtbl.GetPrimitiveBlend := CallbackCreate(GetMethod(implObj, "GetPrimitiveBlend"), flags, 1)
+        this.vtbl.SetUnitMode := CallbackCreate(GetMethod(implObj, "SetUnitMode"), flags, 2)
+        this.vtbl.GetUnitMode := CallbackCreate(GetMethod(implObj, "GetUnitMode"), flags, 1)
+        this.vtbl.DrawGlyphRun := CallbackCreate(GetMethod(implObj, "DrawGlyphRun"), flags, 6)
+        this.vtbl.DrawImage := CallbackCreate(GetMethod(implObj, "DrawImage"), flags, 6)
+        this.vtbl.DrawGdiMetafile := CallbackCreate(GetMethod(implObj, "DrawGdiMetafile"), flags, 3)
+        this.vtbl.DrawBitmap := CallbackCreate(GetMethod(implObj, "DrawBitmap"), flags, 7)
+        this.vtbl.PushLayer := CallbackCreate(GetMethod(implObj, "PushLayer"), flags, 3)
+        this.vtbl.InvalidateEffectInputRectangle := CallbackCreate(GetMethod(implObj, "InvalidateEffectInputRectangle"), flags, 4)
+        this.vtbl.GetEffectInvalidRectangleCount := CallbackCreate(GetMethod(implObj, "GetEffectInvalidRectangleCount"), flags, 3)
+        this.vtbl.GetEffectInvalidRectangles := CallbackCreate(GetMethod(implObj, "GetEffectInvalidRectangles"), flags, 4)
+        this.vtbl.GetEffectRequiredInputRectangles := CallbackCreate(GetMethod(implObj, "GetEffectRequiredInputRectangles"), flags, 6)
+        this.vtbl.FillOpacityMask := CallbackCreate(GetMethod(implObj, "FillOpacityMask"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateBitmap)
+        CallbackFree(this.vtbl.CreateBitmapFromWicBitmap)
+        CallbackFree(this.vtbl.CreateColorContext)
+        CallbackFree(this.vtbl.CreateColorContextFromFilename)
+        CallbackFree(this.vtbl.CreateColorContextFromWicColorContext)
+        CallbackFree(this.vtbl.CreateBitmapFromDxgiSurface)
+        CallbackFree(this.vtbl.CreateEffect)
+        CallbackFree(this.vtbl.CreateGradientStopCollection)
+        CallbackFree(this.vtbl.CreateImageBrush)
+        CallbackFree(this.vtbl.CreateBitmapBrush)
+        CallbackFree(this.vtbl.CreateCommandList)
+        CallbackFree(this.vtbl.IsDxgiFormatSupported)
+        CallbackFree(this.vtbl.IsBufferPrecisionSupported)
+        CallbackFree(this.vtbl.GetImageLocalBounds)
+        CallbackFree(this.vtbl.GetImageWorldBounds)
+        CallbackFree(this.vtbl.GetGlyphRunWorldBounds)
+        CallbackFree(this.vtbl.GetDevice)
+        CallbackFree(this.vtbl.SetTarget)
+        CallbackFree(this.vtbl.GetTarget)
+        CallbackFree(this.vtbl.SetRenderingControls)
+        CallbackFree(this.vtbl.GetRenderingControls)
+        CallbackFree(this.vtbl.SetPrimitiveBlend)
+        CallbackFree(this.vtbl.GetPrimitiveBlend)
+        CallbackFree(this.vtbl.SetUnitMode)
+        CallbackFree(this.vtbl.GetUnitMode)
+        CallbackFree(this.vtbl.DrawGlyphRun)
+        CallbackFree(this.vtbl.DrawImage)
+        CallbackFree(this.vtbl.DrawGdiMetafile)
+        CallbackFree(this.vtbl.DrawBitmap)
+        CallbackFree(this.vtbl.PushLayer)
+        CallbackFree(this.vtbl.InvalidateEffectInputRectangle)
+        CallbackFree(this.vtbl.GetEffectInvalidRectangleCount)
+        CallbackFree(this.vtbl.GetEffectInvalidRectangles)
+        CallbackFree(this.vtbl.GetEffectRequiredInputRectangles)
+        CallbackFree(this.vtbl.FillOpacityMask)
     }
 }

@@ -1,10 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WNDCLASS_STYLES.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include .\HICON.ahk
-#Include .\HCURSOR.ahk
-#Include ..\..\Graphics\Gdi\HBRUSH.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HICON.ahk" { HICON }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Graphics\Gdi\HBRUSH.ahk" { HBRUSH }
+#Import ".\WNDCLASS_STYLES.ahk" { WNDCLASS_STYLES }
+#Import ".\HCURSOR.ahk" { HCURSOR }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains the window class attributes that are registered by the RegisterClass function. (ANSI)
@@ -15,97 +15,58 @@
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @charset ANSI
  */
-class WNDCLASSA extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct WNDCLASSA {
+    #StructPack 8
 
     /**
      * Type: <b>UINT</b>
      * 
      * The class style(s). This member can be any combination of the <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-window-classes#class-styles">Class Styles</a>.
-     * @type {WNDCLASS_STYLES}
      */
-    style {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    style : WNDCLASS_STYLES
 
     /**
      * Type: <b>WNDPROC</b>
      * 
      * A pointer to the window procedure. You must use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-callwindowproca">CallWindowProc</a> function to call the window procedure. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms633573(v=vs.85)">WindowProc</a>.
-     * @type {Pointer<WNDPROC>}
      */
-    lpfnWndProc {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpfnWndProc : IntPtr
 
     /**
      * Type: <b>int</b>
      * 
      * The number of extra bytes to allocate following the window-class structure. The system initializes the bytes to zero.
-     * @type {Integer}
      */
-    cbClsExtra {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    cbClsExtra : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * The number of extra bytes to allocate following the window instance. The system initializes the bytes to zero. If an application uses <b>WNDCLASS</b> to register a dialog box created by using the 
      * 					<b>CLASS</b> directive in the resource file, it must set this member to <b>DLGWINDOWEXTRA</b>.
-     * @type {Integer}
      */
-    cbWndExtra {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    cbWndExtra : Int32
 
     /**
      * Type: <b>HINSTANCE</b>
      * 
      * A handle to the instance that contains the window procedure for the class.
-     * @type {HINSTANCE}
      */
-    hInstance {
-        get {
-            if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(24, this)
-            return this.__hInstance
-        }
-    }
+    hInstance : HINSTANCE
 
     /**
      * Type: <b>HICON</b>
      * 
      * A handle to the class icon. This member must be a handle to an icon resource. If this member is <b>NULL</b>, the system provides a default icon.
-     * @type {HICON}
      */
-    hIcon {
-        get {
-            if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(32, this)
-            return this.__hIcon
-        }
-    }
+    hIcon : HICON
 
     /**
      * Type: <b>HCURSOR</b>
      * 
      * A handle to the class cursor. This member must be a handle to a cursor resource. If this member is <b>NULL</b>, an application must explicitly set the cursor shape whenever the mouse moves into the application's window.
-     * @type {HCURSOR}
      */
-    hCursor {
-        get {
-            if(!this.HasProp("__hCursor"))
-                this.__hCursor := HCURSOR(40, this)
-            return this.__hCursor
-        }
-    }
+    hCursor : HCURSOR
 
     /**
      * Type: <b>HBRUSH</b>
@@ -140,26 +101,15 @@ class WNDCLASSA extends Win32Struct {
      * When this member is <b>NULL</b>, an application must paint its own background whenever it is requested to paint in its client area. To determine whether the background must be painted, an application can either process the 
      * 						<a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-erasebkgnd">WM_ERASEBKGND</a> message or test the 
      * 						<b>fErase</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-paintstruct">PAINTSTRUCT</a> structure filled by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-beginpaint">BeginPaint</a> function.
-     * @type {HBRUSH}
      */
-    hbrBackground {
-        get {
-            if(!this.HasProp("__hbrBackground"))
-                this.__hbrBackground := HBRUSH(48, this)
-            return this.__hbrBackground
-        }
-    }
+    hbrBackground : HBRUSH
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * The resource name of the class menu, as the name appears in the resource file. If you use an integer to identify the menu, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. If this member is <b>NULL</b>, windows belonging to this class have no default menu.
-     * @type {PSTR}
      */
-    lpszMenuName {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    lpszMenuName : PSTR
 
     /**
      * Type: <b>LPCTSTR</b>
@@ -171,10 +121,7 @@ class WNDCLASSA extends Win32Struct {
      * If <b>lpszClassName</b> is a string, it specifies the window class name. The class name can be any name registered with <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a>, or any of the predefined control-class names. 
      * 
      * The maximum length for <b>lpszClassName</b> is 256. If <b>lpszClassName</b> is greater than the maximum length, the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> function will fail.
-     * @type {PSTR}
      */
-    lpszClassName {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    lpszClassName : PSTR
+
 }

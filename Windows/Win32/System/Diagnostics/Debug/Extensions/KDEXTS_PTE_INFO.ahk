@@ -1,69 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class KDEXTS_PTE_INFO extends Win32Struct {
-    static sizeof => 64
+export default struct KDEXTS_PTE_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    SizeOfStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SizeOfStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    VirtualAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    VirtualAddress {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    PpeAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PpeAddress {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    PdeAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PdeAddress {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    PteAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PteAddress {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Pfn : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Pfn {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Levels {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    Levels : Int64
 
     /**
      * This bitfield backs the following members:
@@ -72,12 +27,9 @@ class KDEXTS_PTE_INFO extends Win32Struct {
      * - Prototype
      * - Protection
      * - Reserved
-     * @type {Integer}
      */
-    _bitfield1 {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    _bitfield1 : Int32
+
 
     /**
      * @type {Integer}
@@ -110,18 +62,14 @@ class KDEXTS_PTE_INFO extends Win32Struct {
         get => (this._bitfield1 >> 3) & 0x1
         set => this._bitfield1 := ((value & 0x1) << 3) | (this._bitfield1 & ~(0x1 << 3))
     }
-
     /**
      * This bitfield backs the following members:
      * - ReadInProgress
      * - WriteInProgress
      * - Modified
-     * @type {Integer}
      */
-    _bitfield2 {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    _bitfield2 : Int32
+
 
     /**
      * @type {Integer}

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the red, green, blue, and alpha components of a color. | D2D_COLOR_F (D2DBaseTypes.h)
@@ -8,40 +7,15 @@
  * @see https://learn.microsoft.com/windows/win32/Direct2D/d2d-color-f
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  */
-class D2D_COLOR_F extends Win32Struct {
-    static sizeof => 16
+export default struct D2D_COLOR_F {
+    #StructPack 4
 
-    static packingSize => 4
+    r : Float32
 
-    /**
-     * @type {Float}
-     */
-    r {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    g : Float32
 
-    /**
-     * @type {Float}
-     */
-    g {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    b : Float32
 
-    /**
-     * @type {Float}
-     */
-    b {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    a : Float32
 
-    /**
-     * @type {Float}
-     */
-    a {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
 }

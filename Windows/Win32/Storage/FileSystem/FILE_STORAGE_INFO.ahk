@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains directory information for a file. (FILE_STORAGE_INFO)
@@ -10,49 +9,31 @@
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_storage_info
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class FILE_STORAGE_INFO extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct FILE_STORAGE_INFO {
+    #StructPack 4
 
     /**
      * Logical bytes per sector  reported by physical storage. This is the smallest size for which uncached I/O is 
      *       supported.
-     * @type {Integer}
      */
-    LogicalBytesPerSector {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    LogicalBytesPerSector : UInt32
 
     /**
      * Bytes per sector for atomic writes. Writes smaller than this may require a read before the entire block can 
      *       be written atomically.
-     * @type {Integer}
      */
-    PhysicalBytesPerSectorForAtomicity {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    PhysicalBytesPerSectorForAtomicity : UInt32
 
     /**
      * Bytes per sector for optimal performance for writes.
-     * @type {Integer}
      */
-    PhysicalBytesPerSectorForPerformance {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    PhysicalBytesPerSectorForPerformance : UInt32
 
     /**
      * This is the size of the block used for atomicity by the file system. This may be a trade-off between the 
      *       optimal size of the physical media and one that is easier to adapt existing code and structures.
-     * @type {Integer}
      */
-    FileSystemEffectivePhysicalBytesPerSectorForAtomicity {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    FileSystemEffectivePhysicalBytesPerSectorForAtomicity : UInt32
 
     /**
      * This member can contain combinations of flags specifying information about the alignment of the 
@@ -88,32 +69,21 @@ class FILE_STORAGE_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Flags : UInt32
 
     /**
      * Logical sector offset within the first physical sector where the first logical sector is placed, in bytes. 
      *       If this value is set to <b>STORAGE_INFO_OFFSET_UNKNOWN</b> (0xffffffff), there was 
      *       insufficient information to compute this field.
-     * @type {Integer}
      */
-    ByteOffsetForSectorAlignment {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ByteOffsetForSectorAlignment : UInt32
 
     /**
      * Offset used to align the partition to a physical sector boundary on the storage device, in bytes. If this 
      *       value is set to <b>STORAGE_INFO_OFFSET_UNKNOWN</b> (0xffffffff), there was insufficient 
      *       information to compute this field.
-     * @type {Integer}
      */
-    ByteOffsetForPartitionAlignment {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ByteOffsetForPartitionAlignment : UInt32
+
 }

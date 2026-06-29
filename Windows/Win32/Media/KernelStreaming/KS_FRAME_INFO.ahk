@@ -1,126 +1,38 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KS_FRAME_INFO extends Win32Struct {
-    static sizeof => 72
+export default struct KS_FRAME_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    ExtendedHeaderSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ExtendedHeaderSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFrameFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFrameFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    PictureNumber : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PictureNumber {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    DropCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DropCount {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    hDirectDraw : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hDirectDraw {
-        get {
-            if(!this.HasProp("__hDirectDraw"))
-                this.__hDirectDraw := HANDLE(24, this)
-            return this.__hDirectDraw
-        }
-    }
+    hSurfaceHandle : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hSurfaceHandle {
-        get {
-            if(!this.HasProp("__hSurfaceHandle"))
-                this.__hSurfaceHandle := HANDLE(32, this)
-            return this.__hSurfaceHandle
-        }
-    }
+    DirectDrawRect : RECT
 
-    /**
-     * @type {RECT}
-     */
-    DirectDrawRect {
-        get {
-            if(!this.HasProp("__DirectDrawRect"))
-                this.__DirectDrawRect := RECT(40, this)
-            return this.__DirectDrawRect
-        }
-    }
+    lSurfacePitch : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lSurfacePitch {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    Reserved2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    Reserved3 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved2 {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    Reserved4 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved3 {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved4 {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    FrameCompletionNumber {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+    static __New() {
+        DefineProp(this.Prototype, 'Reserved1', { type: UInt32, offset: 56 })
+        DefineProp(this.Prototype, 'FrameCompletionNumber', { type: Int64, offset: 64 })
+        this.DeleteProp("__New")
     }
 }

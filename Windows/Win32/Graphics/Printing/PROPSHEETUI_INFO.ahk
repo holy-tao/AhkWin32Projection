@@ -1,92 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class PROPSHEETUI_INFO extends Win32Struct {
-    static sizeof => 48
+export default struct PROPSHEETUI_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt16 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Version : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Flags : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    Reason : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reason {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    hComPropSheet : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hComPropSheet {
-        get {
-            if(!this.HasProp("__hComPropSheet"))
-                this.__hComPropSheet := HANDLE(8, this)
-            return this.__hComPropSheet
-        }
-    }
+    pfnComPropSheet : IntPtr
 
-    /**
-     * @type {Pointer<PFNCOMPROPSHEET>}
-     */
-    pfnComPropSheet {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lParamInit : LPARAM
 
-    /**
-     * @type {LPARAM}
-     */
-    lParamInit {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    UserData : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    UserData {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Result : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Result {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 48
-    }
 }

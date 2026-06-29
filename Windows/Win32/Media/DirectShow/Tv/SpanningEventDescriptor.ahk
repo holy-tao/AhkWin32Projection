@@ -1,46 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class SpanningEventDescriptor extends Win32Struct {
-    static sizeof => 8
+export default struct SpanningEventDescriptor {
+    #StructPack 2
 
-    static packingSize => 2
+    wDataLen : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wDataLen {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wProgNumber : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wProgNumber {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    wSID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wSID {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    bDescriptor : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    bDescriptor {
-        get {
-            if(!this.HasProp("__bDescriptorProxyArray"))
-                this.__bDescriptorProxyArray := Win32FixedArray(this.ptr + 6, 1, Primitive, "char")
-            return this.__bDescriptorProxyArray
-        }
-    }
 }

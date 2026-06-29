@@ -1,47 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
  */
-class IHostCrst extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IHostCrst extends IUnknown {
     /**
      * The interface identifier for IHostCrst
      * @type {Guid}
      */
-    static IID => Guid("{6df710a6-26a4-4a65-8cd5-7237b8bda8dc}")
+    static IID := Guid("{6df710a6-26a4-4a65-8cd5-7237b8bda8dc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHostCrst interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Enter        : IntPtr
+        Leave        : IntPtr
+        TryEnter     : IntPtr
+        SetSpinCount : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHostCrst.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Enter", "Leave", "TryEnter", "SetSpinCount"]
-
-    /**
-     * The EnterCriticalPolicySection function pauses the application of policy to allow applications to safely read policy settings.
-     * @remarks
-     * The maximum amount of time an application can hold a critical section is 10 minutes. After 10 minutes, the system releases the critical section and policy can be applied again.
      * 
-     * To acquire both the computer and user critical section objects, acquire the user critical section object before acquiring the computer critical section object. This will help prevent a deadlock situation.
-     * 
-     * To close the handle, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-leavecriticalpolicysection">LeaveCriticalPolicySection</a> function. The policy section handle cannot be used in any other Windows functions.
      * @param {Integer} option 
-     * @returns {HRESULT} If the function succeeds, the return value is a handle to a policy section.
-     * 
-     * If the function fails, the return value is <b>NULL</b>. To get extended error information, call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-entercriticalpolicysection
+     * @returns {HRESULT} 
      */
     Enter(option) {
         result := ComCall(3, this, "uint", option, "HRESULT")
@@ -49,12 +50,8 @@ class IHostCrst extends IUnknown {
     }
 
     /**
-     * The LeaveCriticalPolicySection function resumes the background application of policy. This function closes the handle to the policy section.
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-leavecriticalpolicysection
+     * @returns {HRESULT} 
      */
     Leave() {
         result := ComCall(4, this, "HRESULT")
@@ -62,33 +59,12 @@ class IHostCrst extends IUnknown {
     }
 
     /**
-     * Attempts to enter a critical section without blocking. If the call is successful, the calling thread takes ownership of the critical section.
-     * @remarks
-     * The threads of a single process can use a critical section object for mutual-exclusion synchronization. The process is responsible for allocating the memory used by a critical section object, which it can do by declaring a variable of type <b>CRITICAL_SECTION</b>. Before using a critical section, some thread of the process must call the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-initializecriticalsection">InitializeCriticalSection</a> or 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-initializecriticalsectionandspincount">InitializeCriticalSectionAndSpinCount</a> function to initialize the object.
      * 
-     * To enable mutually exclusive use of a shared resource, each thread calls the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-entercriticalsection">EnterCriticalSection</a> or 
-     * <b>TryEnterCriticalSection</b> function to request ownership of the critical section before executing any section of code that uses the protected resource. The difference is that 
-     * <b>TryEnterCriticalSection</b> returns immediately, regardless of whether it obtained ownership of the critical section, while 
-     * <b>EnterCriticalSection</b> blocks until the thread can take ownership of the critical section. When it has finished executing the protected code, the thread uses the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-leavecriticalsection">LeaveCriticalSection</a> function to relinquish ownership, enabling another thread to become the owner and gain access to the protected resource. The thread must call 
-     * <b>LeaveCriticalSection</b> once for each time that it entered the critical section.
-     * 
-     * Any thread of the process can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-deletecriticalsection">DeleteCriticalSection</a> function to release the system resources that were allocated when the critical section object was initialized. After this function has been called, the critical section object can no longer be used for synchronization.
-     * 
-     * If a thread terminates while it has ownership of a critical section, the state of the critical section is undefined.
-     * 
-     * To compile an application that uses this function, define <b>_WIN32_WINNT</b> as 0x0400 or later. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Integer} option 
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-tryentercriticalsection
      */
     TryEnter(option) {
-        result := ComCall(5, this, "uint", option, "int*", &pbSucceeded := 0, "HRESULT")
+        result := ComCall(5, this, "uint", option, BOOL.Ptr, &pbSucceeded := 0, "HRESULT")
         return pbSucceeded
     }
 
@@ -100,5 +76,31 @@ class IHostCrst extends IUnknown {
     SetSpinCount(dwSpinCount) {
         result := ComCall(6, this, "uint", dwSpinCount, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IHostCrst.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Enter := CallbackCreate(GetMethod(implObj, "Enter"), flags, 2)
+        this.vtbl.Leave := CallbackCreate(GetMethod(implObj, "Leave"), flags, 1)
+        this.vtbl.TryEnter := CallbackCreate(GetMethod(implObj, "TryEnter"), flags, 3)
+        this.vtbl.SetSpinCount := CallbackCreate(GetMethod(implObj, "SetSpinCount"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Enter)
+        CallbackFree(this.vtbl.Leave)
+        CallbackFree(this.vtbl.TryEnter)
+        CallbackFree(this.vtbl.SetSpinCount)
     }
 }

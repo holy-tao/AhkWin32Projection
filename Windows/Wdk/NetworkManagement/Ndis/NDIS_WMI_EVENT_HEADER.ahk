@@ -1,78 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class NDIS_WMI_EVENT_HEADER extends Win32Struct {
-    static sizeof => 48
+export default struct NDIS_WMI_EVENT_HEADER {
+    #StructPack 8
 
-    static packingSize => 8
+    Header : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Header {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    IfIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    IfIndex {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NetLuid : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    NetLuid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    RequestId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    RequestId {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    PortNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PortNumber {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    DeviceNameLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DeviceNameLength {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    DeviceNameOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DeviceNameOffset {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    Padding : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Padding {
-        get {
-            if(!this.HasProp("__PaddingProxyArray"))
-                this.__PaddingProxyArray := Win32FixedArray(this.ptr + 44, 4, Primitive, "char")
-            return this.__PaddingProxyArray
-        }
-    }
 }

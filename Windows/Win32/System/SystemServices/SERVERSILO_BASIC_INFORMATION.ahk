@@ -1,76 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SERVERSILO_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\SERVERSILO_STATE.ahk" { SERVERSILO_STATE }
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class SERVERSILO_BASIC_INFORMATION extends Win32Struct {
-    static sizeof => 40
+export default struct SERVERSILO_BASIC_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    ServiceSessionId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ServiceSessionId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    State : SERVERSILO_STATE
 
-    /**
-     * @type {SERVERSILO_STATE}
-     */
-    State {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    ExitStatus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ExitStatus {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Reserved : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Reserved {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    ApiSetSchema : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    ApiSetSchema {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    HostApiSetSchema : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    HostApiSetSchema {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ContainerBuildNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ContainerBuildNumber {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    HostBuildNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HostBuildNumber {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
 }

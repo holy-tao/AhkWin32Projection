@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains volume attributes retrieved with the IOCTL_VOLUME_GET_GPT_ATTRIBUTES control code.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-volume_get_gpt_attributes_information
  * @namespace Windows.Win32.System.Ioctl
  */
-class VOLUME_GET_GPT_ATTRIBUTES_INFORMATION extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 8
+export default struct VOLUME_GET_GPT_ATTRIBUTES_INFORMATION {
+    #StructPack 8
 
     /**
      * Specifies all of the attributes
@@ -65,10 +62,7 @@ class VOLUME_GET_GPT_ATTRIBUTES_INFORMATION extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    GptAttributes {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    GptAttributes : Int64
+
 }

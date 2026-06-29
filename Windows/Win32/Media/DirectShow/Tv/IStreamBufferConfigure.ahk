@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IStreamBufferConfigure interface configures the location, number, and size of the backing files used by the various stream buffer objects.The StreamBufferConfig object exposes this interface.Before calling any of the Set methods on this interface, you must specify a registry key to hold the new settings. For more information, see IStreamBufferInitialize::SetHKEY.
@@ -10,26 +12,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/sbe/nn-sbe-istreambufferconfigure
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IStreamBufferConfigure extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IStreamBufferConfigure extends IUnknown {
     /**
      * The interface identifier for IStreamBufferConfigure
      * @type {Guid}
      */
-    static IID => Guid("{ce14dfae-4098-4af7-bbf7-d6511f835414}")
+    static IID := Guid("{ce14dfae-4098-4af7-bbf7-d6511f835414}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IStreamBufferConfigure interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetDirectory           : IntPtr
+        GetDirectory           : IntPtr
+        SetBackingFileCount    : IntPtr
+        GetBackingFileCount    : IntPtr
+        SetBackingFileDuration : IntPtr
+        GetBackingFileDuration : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetDirectory", "GetDirectory", "SetBackingFileCount", "GetBackingFileCount", "SetBackingFileDuration", "GetBackingFileDuration"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IStreamBufferConfigure.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetDirectory method sets the directory where backing files are saved.
@@ -87,7 +101,7 @@ class IStreamBufferConfigure extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferconfigure-getdirectory
      */
     GetDirectory() {
-        result := ComCall(4, this, "ptr*", &ppszDirectoryName := 0, "HRESULT")
+        result := ComCall(4, this, PWSTR.Ptr, &ppszDirectoryName := 0, "HRESULT")
         return ppszDirectoryName
     }
 
@@ -221,5 +235,35 @@ class IStreamBufferConfigure extends IUnknown {
     GetBackingFileDuration() {
         result := ComCall(8, this, "uint*", &pdwSeconds := 0, "HRESULT")
         return pdwSeconds
+    }
+
+    Query(iid) {
+        if (IStreamBufferConfigure.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetDirectory := CallbackCreate(GetMethod(implObj, "SetDirectory"), flags, 2)
+        this.vtbl.GetDirectory := CallbackCreate(GetMethod(implObj, "GetDirectory"), flags, 2)
+        this.vtbl.SetBackingFileCount := CallbackCreate(GetMethod(implObj, "SetBackingFileCount"), flags, 3)
+        this.vtbl.GetBackingFileCount := CallbackCreate(GetMethod(implObj, "GetBackingFileCount"), flags, 3)
+        this.vtbl.SetBackingFileDuration := CallbackCreate(GetMethod(implObj, "SetBackingFileDuration"), flags, 2)
+        this.vtbl.GetBackingFileDuration := CallbackCreate(GetMethod(implObj, "GetBackingFileDuration"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetDirectory)
+        CallbackFree(this.vtbl.GetDirectory)
+        CallbackFree(this.vtbl.SetBackingFileCount)
+        CallbackFree(this.vtbl.GetBackingFileCount)
+        CallbackFree(this.vtbl.SetBackingFileDuration)
+        CallbackFree(this.vtbl.GetBackingFileDuration)
     }
 }

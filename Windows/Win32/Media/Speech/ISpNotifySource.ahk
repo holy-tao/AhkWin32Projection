@@ -1,32 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\ISpNotifyCallback.ahk" { ISpNotifyCallback }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISpNotifySink.ahk" { ISpNotifySink }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpNotifySource extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISpNotifySource extends IUnknown {
     /**
      * The interface identifier for ISpNotifySource
      * @type {Guid}
      */
-    static IID => Guid("{5eff4aef-8487-11d2-961c-00c04f8ee628}")
+    static IID := Guid("{5eff4aef-8487-11d2-961c-00c04f8ee628}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpNotifySource interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetNotifySink              : IntPtr
+        SetNotifyWindowMessage     : IntPtr
+        SetNotifyCallbackFunction  : IntPtr
+        SetNotifyCallbackInterface : IntPtr
+        SetNotifyWin32Event        : IntPtr
+        WaitForNotifyEvent         : IntPtr
+        GetNotifyEventHandle       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetNotifySink", "SetNotifyWindowMessage", "SetNotifyCallbackFunction", "SetNotifyCallbackInterface", "SetNotifyWin32Event", "WaitForNotifyEvent", "GetNotifyEventHandle"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpNotifySource.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -47,9 +66,7 @@ class ISpNotifySource extends IUnknown {
      * @returns {HRESULT} 
      */
     SetNotifyWindowMessage(_hWnd, _Msg, _wParam, _lParam) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-
-        result := ComCall(4, this, "ptr", _hWnd, "uint", _Msg, "ptr", _wParam, "ptr", _lParam, "HRESULT")
+        result := ComCall(4, this, HWND, _hWnd, "uint", _Msg, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -63,7 +80,7 @@ class ISpNotifySource extends IUnknown {
     SetNotifyCallbackFunction(_pfnCallback, _wParam, _lParam) {
         _pfnCallbackMarshal := _pfnCallback is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, _pfnCallbackMarshal, _pfnCallback, "ptr", _wParam, "ptr", _lParam, "HRESULT")
+        result := ComCall(5, this, _pfnCallbackMarshal, _pfnCallback, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -75,7 +92,7 @@ class ISpNotifySource extends IUnknown {
      * @returns {HRESULT} 
      */
     SetNotifyCallbackInterface(pSpCallback, _wParam, _lParam) {
-        result := ComCall(6, this, "ptr", pSpCallback, "ptr", _wParam, "ptr", _lParam, "HRESULT")
+        result := ComCall(6, this, "ptr", pSpCallback, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -106,8 +123,39 @@ class ISpNotifySource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-getnotifyeventhandle
      */
     GetNotifyEventHandle() {
-        result := ComCall(9, this, "ptr")
-        resultHandle := HANDLE({Value: result}, True)
-        return resultHandle
+        result := ComCall(9, this, HANDLE.Owned)
+        return result
+    }
+
+    Query(iid) {
+        if (ISpNotifySource.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetNotifySink := CallbackCreate(GetMethod(implObj, "SetNotifySink"), flags, 2)
+        this.vtbl.SetNotifyWindowMessage := CallbackCreate(GetMethod(implObj, "SetNotifyWindowMessage"), flags, 5)
+        this.vtbl.SetNotifyCallbackFunction := CallbackCreate(GetMethod(implObj, "SetNotifyCallbackFunction"), flags, 4)
+        this.vtbl.SetNotifyCallbackInterface := CallbackCreate(GetMethod(implObj, "SetNotifyCallbackInterface"), flags, 4)
+        this.vtbl.SetNotifyWin32Event := CallbackCreate(GetMethod(implObj, "SetNotifyWin32Event"), flags, 1)
+        this.vtbl.WaitForNotifyEvent := CallbackCreate(GetMethod(implObj, "WaitForNotifyEvent"), flags, 2)
+        this.vtbl.GetNotifyEventHandle := CallbackCreate(GetMethod(implObj, "GetNotifyEventHandle"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetNotifySink)
+        CallbackFree(this.vtbl.SetNotifyWindowMessage)
+        CallbackFree(this.vtbl.SetNotifyCallbackFunction)
+        CallbackFree(this.vtbl.SetNotifyCallbackInterface)
+        CallbackFree(this.vtbl.SetNotifyWin32Event)
+        CallbackFree(this.vtbl.WaitForNotifyEvent)
+        CallbackFree(this.vtbl.GetNotifyEventHandle)
     }
 }

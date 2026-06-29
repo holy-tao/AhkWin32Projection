@@ -1,32 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\HMODULE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
  */
-class ICLRRuntimeInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICLRRuntimeInfo extends IUnknown {
     /**
      * The interface identifier for ICLRRuntimeInfo
      * @type {Guid}
      */
-    static IID => Guid("{bd39d1d2-ba2f-486a-89b0-b4b0cb466891}")
+    static IID := Guid("{bd39d1d2-ba2f-486a-89b0-b4b0cb466891}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICLRRuntimeInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetVersionString       : IntPtr
+        GetRuntimeDirectory    : IntPtr
+        IsLoaded               : IntPtr
+        LoadErrorString        : IntPtr
+        LoadLibraryA           : IntPtr
+        GetProcAddress         : IntPtr
+        GetInterface           : IntPtr
+        IsLoadable             : IntPtr
+        SetDefaultStartupFlags : IntPtr
+        GetDefaultStartupFlags : IntPtr
+        BindAsLegacyV2Runtime  : IntPtr
+        IsStarted              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetVersionString", "GetRuntimeDirectory", "IsLoaded", "LoadErrorString", "LoadLibraryA", "GetProcAddress", "GetInterface", "IsLoadable", "SetDefaultStartupFlags", "GetDefaultStartupFlags", "BindAsLegacyV2Runtime", "IsStarted"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICLRRuntimeInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -64,9 +87,7 @@ class ICLRRuntimeInfo extends IUnknown {
      * @returns {BOOL} 
      */
     IsLoaded(hndProcess) {
-        hndProcess := hndProcess is Win32Handle ? NumGet(hndProcess, "ptr") : hndProcess
-
-        result := ComCall(5, this, "ptr", hndProcess, "int*", &pbLoaded := 0, "HRESULT")
+        result := ComCall(5, this, HANDLE, hndProcess, BOOL.Ptr, &pbLoaded := 0, "HRESULT")
         return pbLoaded
     }
 
@@ -202,8 +223,8 @@ class ICLRRuntimeInfo extends IUnknown {
     LoadLibraryA(pwzDllName) {
         pwzDllName := pwzDllName is String ? StrPtr(pwzDllName) : pwzDllName
 
-        phndModule := HMODULE()
-        result := ComCall(7, this, "ptr", pwzDllName, "ptr", phndModule, "HRESULT")
+        phndModule := HMODULE.Owned()
+        result := ComCall(7, this, "ptr", pwzDllName, HMODULE.Ptr, phndModule, "HRESULT")
         return phndModule
     }
 
@@ -271,7 +292,7 @@ class ICLRRuntimeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/getinterface
      */
     GetInterface(rclsid, riid) {
-        result := ComCall(9, this, "ptr", rclsid, "ptr", riid, "ptr*", &ppUnk := 0, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, rclsid, Guid.Ptr, riid, "ptr*", &ppUnk := 0, "HRESULT")
         return ppUnk
     }
 
@@ -280,7 +301,7 @@ class ICLRRuntimeInfo extends IUnknown {
      * @returns {BOOL} 
      */
     IsLoadable() {
-        result := ComCall(10, this, "int*", &pbLoadable := 0, "HRESULT")
+        result := ComCall(10, this, BOOL.Ptr, &pbLoadable := 0, "HRESULT")
         return pbLoadable
     }
 
@@ -333,5 +354,47 @@ class ICLRRuntimeInfo extends IUnknown {
 
         result := ComCall(14, this, pbStartedMarshal, pbStarted, pdwStartupFlagsMarshal, pdwStartupFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICLRRuntimeInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetVersionString := CallbackCreate(GetMethod(implObj, "GetVersionString"), flags, 3)
+        this.vtbl.GetRuntimeDirectory := CallbackCreate(GetMethod(implObj, "GetRuntimeDirectory"), flags, 3)
+        this.vtbl.IsLoaded := CallbackCreate(GetMethod(implObj, "IsLoaded"), flags, 3)
+        this.vtbl.LoadErrorString := CallbackCreate(GetMethod(implObj, "LoadErrorString"), flags, 5)
+        this.vtbl.LoadLibraryA := CallbackCreate(GetMethod(implObj, "LoadLibraryA"), flags, 3)
+        this.vtbl.GetProcAddress := CallbackCreate(GetMethod(implObj, "GetProcAddress"), flags, 3)
+        this.vtbl.GetInterface := CallbackCreate(GetMethod(implObj, "GetInterface"), flags, 4)
+        this.vtbl.IsLoadable := CallbackCreate(GetMethod(implObj, "IsLoadable"), flags, 2)
+        this.vtbl.SetDefaultStartupFlags := CallbackCreate(GetMethod(implObj, "SetDefaultStartupFlags"), flags, 3)
+        this.vtbl.GetDefaultStartupFlags := CallbackCreate(GetMethod(implObj, "GetDefaultStartupFlags"), flags, 4)
+        this.vtbl.BindAsLegacyV2Runtime := CallbackCreate(GetMethod(implObj, "BindAsLegacyV2Runtime"), flags, 1)
+        this.vtbl.IsStarted := CallbackCreate(GetMethod(implObj, "IsStarted"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetVersionString)
+        CallbackFree(this.vtbl.GetRuntimeDirectory)
+        CallbackFree(this.vtbl.IsLoaded)
+        CallbackFree(this.vtbl.LoadErrorString)
+        CallbackFree(this.vtbl.LoadLibraryA)
+        CallbackFree(this.vtbl.GetProcAddress)
+        CallbackFree(this.vtbl.GetInterface)
+        CallbackFree(this.vtbl.IsLoadable)
+        CallbackFree(this.vtbl.SetDefaultStartupFlags)
+        CallbackFree(this.vtbl.GetDefaultStartupFlags)
+        CallbackFree(this.vtbl.BindAsLegacyV2Runtime)
+        CallbackFree(this.vtbl.IsStarted)
     }
 }

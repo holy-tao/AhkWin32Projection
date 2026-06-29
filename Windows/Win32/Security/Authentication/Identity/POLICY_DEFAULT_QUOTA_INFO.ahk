@@ -1,23 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\QUOTA_LIMITS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\QUOTA_LIMITS.ahk" { QUOTA_LIMITS }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class POLICY_DEFAULT_QUOTA_INFO extends Win32Struct {
-    static sizeof => 48
+export default struct POLICY_DEFAULT_QUOTA_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    QuotaLimits : QUOTA_LIMITS
 
-    /**
-     * @type {QUOTA_LIMITS}
-     */
-    QuotaLimits {
-        get {
-            if(!this.HasProp("__QuotaLimits"))
-                this.__QuotaLimits := QUOTA_LIMITS(0, this)
-            return this.__QuotaLimits
-        }
-    }
 }

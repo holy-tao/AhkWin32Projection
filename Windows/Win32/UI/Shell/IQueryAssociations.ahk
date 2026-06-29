@@ -1,8 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Registry\HKEY.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ASSOCDATA.ahk" { ASSOCDATA }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\ASSOCSTR.ahk" { ASSOCSTR }
+#Import ".\ASSOCF.ahk" { ASSOCF }
+#Import ".\ASSOCKEY.ahk" { ASSOCKEY }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ASSOCENUM.ahk" { ASSOCENUM }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
 
 /**
  * Exposes methods that simplify the process of retrieving information stored in the registry in association with defining a file type or protocol and associating it with an application.
@@ -23,26 +31,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nn-shlwapi-iqueryassociations
  * @namespace Windows.Win32.UI.Shell
  */
-class IQueryAssociations extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IQueryAssociations extends IUnknown {
     /**
      * The interface identifier for IQueryAssociations
      * @type {Guid}
      */
-    static IID => Guid("{c46ca590-3c3f-11d2-bee6-0000f805ca57}")
+    static IID := Guid("{c46ca590-3c3f-11d2-bee6-0000f805ca57}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IQueryAssociations interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Init      : IntPtr
+        GetString : IntPtr
+        GetKey    : IntPtr
+        GetData   : IntPtr
+        GetEnum   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Init", "GetString", "GetKey", "GetData", "GetEnum"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IQueryAssociations.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes the IQueryAssociations interface and sets the root key to the appropriate ProgID.
@@ -79,10 +98,8 @@ class IQueryAssociations extends IUnknown {
      */
     Init(flags, pszAssoc, hkProgid, _hwnd) {
         pszAssoc := pszAssoc is String ? StrPtr(pszAssoc) : pszAssoc
-        hkProgid := hkProgid is Win32Handle ? NumGet(hkProgid, "ptr") : hkProgid
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
 
-        result := ComCall(3, this, "uint", flags, "ptr", pszAssoc, "ptr", hkProgid, "ptr", _hwnd, "HRESULT")
+        result := ComCall(3, this, ASSOCF, flags, "ptr", pszAssoc, HKEY, hkProgid, HWND, _hwnd, "HRESULT")
         return result
     }
 
@@ -162,7 +179,7 @@ class IQueryAssociations extends IUnknown {
 
         pcchOutMarshal := pcchOut is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", flags, "int", str, "ptr", pszExtra, "ptr", pszOut, pcchOutMarshal, pcchOut, "HRESULT")
+        result := ComCall(4, this, ASSOCF, flags, ASSOCSTR, str, "ptr", pszExtra, "ptr", pszOut, pcchOutMarshal, pcchOut, "HRESULT")
         return result
     }
 
@@ -185,8 +202,8 @@ class IQueryAssociations extends IUnknown {
     GetKey(flags, key, pszExtra) {
         pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
 
-        phkeyOut := HKEY()
-        result := ComCall(5, this, "uint", flags, "int", key, "ptr", pszExtra, "ptr", phkeyOut, "HRESULT")
+        phkeyOut := HKEY.Owned()
+        result := ComCall(5, this, ASSOCF, flags, ASSOCKEY, key, "ptr", pszExtra, HKEY.Ptr, phkeyOut, "HRESULT")
         return phkeyOut
     }
 
@@ -217,7 +234,7 @@ class IQueryAssociations extends IUnknown {
 
         pcbOutMarshal := pcbOut is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", flags, "int", data, "ptr", pszExtra, "ptr", pvOut, pcbOutMarshal, pcbOut, "HRESULT")
+        result := ComCall(6, this, ASSOCF, flags, ASSOCDATA, data, "ptr", pszExtra, "ptr", pvOut, pcbOutMarshal, pcbOut, "HRESULT")
         return result
     }
 
@@ -233,7 +250,35 @@ class IQueryAssociations extends IUnknown {
     GetEnum(flags, _assocenum, pszExtra, riid) {
         pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
 
-        result := ComCall(7, this, "uint", flags, "int", _assocenum, "ptr", pszExtra, "ptr", riid, "ptr*", &ppvOut := 0, "HRESULT")
+        result := ComCall(7, this, ASSOCF, flags, ASSOCENUM, _assocenum, "ptr", pszExtra, Guid.Ptr, riid, "ptr*", &ppvOut := 0, "HRESULT")
         return ppvOut
+    }
+
+    Query(iid) {
+        if (IQueryAssociations.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 5)
+        this.vtbl.GetString := CallbackCreate(GetMethod(implObj, "GetString"), flags, 6)
+        this.vtbl.GetKey := CallbackCreate(GetMethod(implObj, "GetKey"), flags, 5)
+        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 6)
+        this.vtbl.GetEnum := CallbackCreate(GetMethod(implObj, "GetEnum"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Init)
+        CallbackFree(this.vtbl.GetString)
+        CallbackFree(this.vtbl.GetKey)
+        CallbackFree(this.vtbl.GetData)
+        CallbackFree(this.vtbl.GetEnum)
     }
 }

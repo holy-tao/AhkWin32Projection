@@ -1,317 +1,84 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RANGEVALUE.ahk
-#Include .\SCANWINDOW.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\SCANWINDOW.ahk" { SCANWINDOW }
+#Import ".\RANGEVALUE.ahk" { RANGEVALUE }
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
-class SCANINFO extends Win32Struct {
-    static sizeof => 312
+export default struct SCANINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    ADF : Int32
 
-    /**
-     * @type {Integer}
-     */
-    ADF {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    TPA : Int32
 
-    /**
-     * @type {Integer}
-     */
-    TPA {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Endorser : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Endorser {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    OpticalXResolution : Int32
 
-    /**
-     * @type {Integer}
-     */
-    OpticalXResolution {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    OpticalYResolution : Int32
 
-    /**
-     * @type {Integer}
-     */
-    OpticalYResolution {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    BedWidth : Int32
 
-    /**
-     * @type {Integer}
-     */
-    BedWidth {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    BedHeight : Int32
 
-    /**
-     * @type {Integer}
-     */
-    BedHeight {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    IntensityRange : RANGEVALUE
 
-    /**
-     * @type {RANGEVALUE}
-     */
-    IntensityRange {
-        get {
-            if(!this.HasProp("__IntensityRange"))
-                this.__IntensityRange := RANGEVALUE(28, this)
-            return this.__IntensityRange
-        }
-    }
+    ContrastRange : RANGEVALUE
 
-    /**
-     * @type {RANGEVALUE}
-     */
-    ContrastRange {
-        get {
-            if(!this.HasProp("__ContrastRange"))
-                this.__ContrastRange := RANGEVALUE(40, this)
-            return this.__ContrastRange
-        }
-    }
+    SupportedCompressionType : Int32
 
-    /**
-     * @type {Integer}
-     */
-    SupportedCompressionType {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    SupportedDataTypes : Int32
 
-    /**
-     * @type {Integer}
-     */
-    SupportedDataTypes {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    WidthPixels : Int32
 
-    /**
-     * @type {Integer}
-     */
-    WidthPixels {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
-    }
+    WidthBytes : Int32
 
-    /**
-     * @type {Integer}
-     */
-    WidthBytes {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
-    }
+    Lines : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Lines {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
-    }
+    DataType : Int32
 
-    /**
-     * @type {Integer}
-     */
-    DataType {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
-    }
+    PixelBits : Int32
 
-    /**
-     * @type {Integer}
-     */
-    PixelBits {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
-    }
+    Intensity : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Intensity {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
-    }
+    Contrast : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Contrast {
-        get => NumGet(this, 84, "int")
-        set => NumPut("int", value, this, 84)
-    }
+    Xresolution : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Xresolution {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
-    }
+    Yresolution : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Yresolution {
-        get => NumGet(this, 92, "int")
-        set => NumPut("int", value, this, 92)
-    }
+    Window : SCANWINDOW
 
-    /**
-     * @type {SCANWINDOW}
-     */
-    Window {
-        get {
-            if(!this.HasProp("__Window"))
-                this.__Window := SCANWINDOW(96, this)
-            return this.__Window
-        }
-    }
+    DitherPattern : Int32
 
-    /**
-     * @type {Integer}
-     */
-    DitherPattern {
-        get => NumGet(this, 112, "int")
-        set => NumPut("int", value, this, 112)
-    }
+    Negative : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Negative {
-        get => NumGet(this, 116, "int")
-        set => NumPut("int", value, this, 116)
-    }
+    Mirror : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Mirror {
-        get => NumGet(this, 120, "int")
-        set => NumPut("int", value, this, 120)
-    }
+    AutoBack : Int32
 
-    /**
-     * @type {Integer}
-     */
-    AutoBack {
-        get => NumGet(this, 124, "int")
-        set => NumPut("int", value, this, 124)
-    }
+    ColorDitherPattern : Int32
 
-    /**
-     * @type {Integer}
-     */
-    ColorDitherPattern {
-        get => NumGet(this, 128, "int")
-        set => NumPut("int", value, this, 128)
-    }
+    ToneMap : Int32
 
-    /**
-     * @type {Integer}
-     */
-    ToneMap {
-        get => NumGet(this, 132, "int")
-        set => NumPut("int", value, this, 132)
-    }
+    Compression : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Compression {
-        get => NumGet(this, 136, "int")
-        set => NumPut("int", value, this, 136)
-    }
+    RawDataFormat : Int32
 
-    /**
-     * @type {Integer}
-     */
-    RawDataFormat {
-        get => NumGet(this, 140, "int")
-        set => NumPut("int", value, this, 140)
-    }
+    RawPixelOrder : Int32
 
-    /**
-     * @type {Integer}
-     */
-    RawPixelOrder {
-        get => NumGet(this, 144, "int")
-        set => NumPut("int", value, this, 144)
-    }
+    bNeedDataAlignment : Int32
 
-    /**
-     * @type {Integer}
-     */
-    bNeedDataAlignment {
-        get => NumGet(this, 148, "int")
-        set => NumPut("int", value, this, 148)
-    }
+    DelayBetweenRead : Int32
 
-    /**
-     * @type {Integer}
-     */
-    DelayBetweenRead {
-        get => NumGet(this, 152, "int")
-        set => NumPut("int", value, this, 152)
-    }
+    MaxBufferSize : Int32
 
-    /**
-     * @type {Integer}
-     */
-    MaxBufferSize {
-        get => NumGet(this, 156, "int")
-        set => NumPut("int", value, this, 156)
-    }
+    DeviceIOHandles : HANDLE[16]
 
-    /**
-     * @type {Array<HANDLE>}
-     */
-    DeviceIOHandles {
-        get {
-            if(!this.HasProp("__DeviceIOHandlesProxyArray"))
-                this.__DeviceIOHandlesProxyArray := Win32FixedArray(this.ptr + 160, 16, Primitive, "ptr")
-            return this.__DeviceIOHandlesProxyArray
-        }
-    }
+    lReserved : Int32[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    lReserved {
-        get {
-            if(!this.HasProp("__lReservedProxyArray"))
-                this.__lReservedProxyArray := Win32FixedArray(this.ptr + 288, 4, Primitive, "int")
-            return this.__lReservedProxyArray
-        }
-    }
+    pMicroDriverContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pMicroDriverContext {
-        get => NumGet(this, 304, "ptr")
-        set => NumPut("ptr", value, this, 304)
-    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes FLATMTSIDLIST and provides syntax, members, and additional remarks.
@@ -10,38 +9,22 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/flatmtsidlist
  * @namespace Windows.Win32.System.AddressBook
  */
-class FLATMTSIDLIST extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct FLATMTSIDLIST {
+    #StructPack 4
 
     /**
      * > Count of **MTSID** structures in the array described by the **abMTSIDs** member.
-     * @type {Integer}
      */
-    cMTSIDs {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cMTSIDs : UInt32
 
     /**
      * > Count of bytes in the array described by **abMTSIDs**.
-     * @type {Integer}
      */
-    cbMTSIDs {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cbMTSIDs : UInt32
 
     /**
      * > Byte array that contains one or more **MTSID** structures.
-     * @type {Array<Integer>}
      */
-    abMTSIDs {
-        get {
-            if(!this.HasProp("__abMTSIDsProxyArray"))
-                this.__abMTSIDsProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
-            return this.__abMTSIDsProxyArray
-        }
-    }
+    abMTSIDs : Int8[1]
+
 }

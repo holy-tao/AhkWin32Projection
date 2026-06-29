@@ -1,41 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DVD_DISC_CONTROL_BLOCK_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DVD_DISC_CONTROL_BLOCK_HEADER.ahk" { DVD_DISC_CONTROL_BLOCK_HEADER }
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
  */
-class DVD_DISC_CONTROL_BLOCK_WRITE_INHIBIT extends Win32Struct {
-    static sizeof => 32768
+export default struct DVD_DISC_CONTROL_BLOCK_WRITE_INHIBIT {
+    #StructPack 1
 
-    static packingSize => 1
 
-    class _WriteProtectActions_e__Union extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 1
-
-        /**
-         * @type {Array<Integer>}
-         */
-        ReservedDoNotUse_UseAsByteInstead_0 {
-            get {
-                if(!this.HasProp("__ReservedDoNotUse_UseAsByteInstead_0ProxyArray"))
-                    this.__ReservedDoNotUse_UseAsByteInstead_0ProxyArray := Win32FixedArray(this.ptr + 0, 3, Primitive, "char")
-                return this.__ReservedDoNotUse_UseAsByteInstead_0ProxyArray
-            }
-        }
+    struct _WriteProtectActions {
+        ReservedDoNotUse_UseAsByteInstead_0 : Int8[3]
 
         /**
          * This bitfield backs the following members:
          * - WriteProtectStatus
          * - ReservedDoNotUse_UseAsByteInstead_1
          * - UpdateRequiresPassword
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 3, "char")
-            set => NumPut("char", value, this, 3)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -60,82 +43,22 @@ class DVD_DISC_CONTROL_BLOCK_WRITE_INHIBIT extends Win32Struct {
             get => (this._bitfield >> 7) & 0x1
             set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
         }
-
-        /**
-         * @type {Array<Integer>}
-         */
-        AsByte {
-            get {
-                if(!this.HasProp("__AsByteProxyArray"))
-                    this.__AsByteProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
-                return this.__AsByteProxyArray
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'AsByte', { type: Int8[4], offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {DVD_DISC_CONTROL_BLOCK_HEADER}
-     */
-    header {
-        get {
-            if(!this.HasProp("__header"))
-                this.__header := DVD_DISC_CONTROL_BLOCK_HEADER(0, this)
-            return this.__header
-        }
-    }
+    header : DVD_DISC_CONTROL_BLOCK_HEADER
 
-    /**
-     * @type {Array<Integer>}
-     */
-    UpdateCount {
-        get {
-            if(!this.HasProp("__UpdateCountProxyArray"))
-                this.__UpdateCountProxyArray := Win32FixedArray(this.ptr + 40, 4, Primitive, "char")
-            return this.__UpdateCountProxyArray
-        }
-    }
+    UpdateCount : Int8[4]
 
-    /**
-     * @type {_WriteProtectActions_e__Union}
-     */
-    WriteProtectActions {
-        get {
-            if(!this.HasProp("__WriteProtectActions"))
-                this.__WriteProtectActions := DVD_DISC_CONTROL_BLOCK_WRITE_INHIBIT._WriteProtectActions_e__Union(44, this)
-            return this.__WriteProtectActions
-        }
-    }
+    WriteProtectActions : DVD_DISC_CONTROL_BLOCK_WRITE_INHIBIT._WriteProtectActions
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved0 {
-        get {
-            if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 48, 16, Primitive, "char")
-            return this.__Reserved0ProxyArray
-        }
-    }
+    Reserved0 : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    UpdatePassword {
-        get {
-            if(!this.HasProp("__UpdatePasswordProxyArray"))
-                this.__UpdatePasswordProxyArray := Win32FixedArray(this.ptr + 64, 32, Primitive, "char")
-            return this.__UpdatePasswordProxyArray
-        }
-    }
+    UpdatePassword : Int8[32]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 96, 32672, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    Reserved1 : Int8[32672]
+
 }

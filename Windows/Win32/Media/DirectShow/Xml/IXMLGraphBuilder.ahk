@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Data\Xml\MsXml\IXMLElement.ahk" { IXMLElement }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\IGraphBuilder.ahk" { IGraphBuilder }
 
 /**
  * The IXMLGraphBuilder interface is used to persist a DirectShow filter graph using an XML file format.Note  Support for this interface was removed in Windows 7. New applications should not use this interface. .
@@ -22,26 +27,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/amxmlgraphbuilder/nn-amxmlgraphbuilder-ixmlgraphbuilder
  * @namespace Windows.Win32.Media.DirectShow.Xml
  */
-class IXMLGraphBuilder extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IXMLGraphBuilder extends IUnknown {
     /**
      * The interface identifier for IXMLGraphBuilder
      * @type {Guid}
      */
-    static IID => Guid("{1bb05960-5fbf-11d2-a521-44df07c10000}")
+    static IID := Guid("{1bb05960-5fbf-11d2-a521-44df07c10000}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXMLGraphBuilder interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        BuildFromXML     : IntPtr
+        SaveToXML        : IntPtr
+        BuildFromXMLFile : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["BuildFromXML", "SaveToXML", "BuildFromXMLFile"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXMLGraphBuilder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The BuildFromXML method loads a filter graph from an XML element.
@@ -66,7 +80,7 @@ class IXMLGraphBuilder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/amxmlgraphbuilder/nf-amxmlgraphbuilder-ixmlgraphbuilder-savetoxml
      */
     SaveToXML(pGraph, pbstrxml) {
-        result := ComCall(4, this, "ptr", pGraph, "ptr", pbstrxml, "HRESULT")
+        result := ComCall(4, this, "ptr", pGraph, BSTR.Ptr, pbstrxml, "HRESULT")
         return result
     }
 
@@ -84,5 +98,29 @@ class IXMLGraphBuilder extends IUnknown {
 
         result := ComCall(5, this, "ptr", pGraph, "ptr", wszFileName, "ptr", wszBaseURL, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IXMLGraphBuilder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.BuildFromXML := CallbackCreate(GetMethod(implObj, "BuildFromXML"), flags, 3)
+        this.vtbl.SaveToXML := CallbackCreate(GetMethod(implObj, "SaveToXML"), flags, 3)
+        this.vtbl.BuildFromXMLFile := CallbackCreate(GetMethod(implObj, "BuildFromXMLFile"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.BuildFromXML)
+        CallbackFree(this.vtbl.SaveToXML)
+        CallbackFree(this.vtbl.BuildFromXMLFile)
     }
 }

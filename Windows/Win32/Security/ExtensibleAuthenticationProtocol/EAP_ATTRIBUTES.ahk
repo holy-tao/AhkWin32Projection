@@ -1,32 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EAP_ATTRIBUTE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EAP_ATTRIBUTE.ahk" { EAP_ATTRIBUTE }
 
 /**
  * Contains an array of EAP attributes.
  * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eap_attributes
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  */
-class EAP_ATTRIBUTES extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct EAP_ATTRIBUTES {
+    #StructPack 8
 
     /**
      * The number of <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_attribute">EAP_ATTRIBUTE</a> structures in <b>pAttribs</b>.
-     * @type {Integer}
      */
-    dwNumberOfAttributes {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwNumberOfAttributes : UInt32
 
     /**
      * Pointer to the address of the first element in an array of <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_attribute">EAP_ATTRIBUTE</a> structures. The total number of elements is specified in <b>dwNumberOfAttributes</b>.
-     * @type {Pointer<EAP_ATTRIBUTE>}
      */
-    pAttribs {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pAttribs : EAP_ATTRIBUTE.Ptr
+
 }

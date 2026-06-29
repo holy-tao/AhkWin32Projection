@@ -1,10 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IFsrmFileGroup.ahk
-#Include .\IFsrmCommittableCollection.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFsrmCommittableCollection.ahk" { IFsrmCommittableCollection }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFsrmFileGroup.ahk" { IFsrmFileGroup }
+#Import ".\FsrmEnumOptions.ahk" { FsrmEnumOptions }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Used to manage file group objects.
@@ -29,32 +32,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nn-fsrmscreen-ifsrmfilegroupmanager
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmFileGroupManager extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmFileGroupManager extends IDispatch {
     /**
      * The interface identifier for IFsrmFileGroupManager
      * @type {Guid}
      */
-    static IID => Guid("{426677d5-018c-485c-8a51-20b86d00bdc4}")
+    static IID := Guid("{426677d5-018c-485c-8a51-20b86d00bdc4}")
 
     /**
      * The class identifier for FsrmFileGroupManager
      * @type {Guid}
      */
-    static CLSID => Guid("{8f1363f6-656f-4496-9226-13aecbd7718f}")
+    static CLSID := Guid("{8f1363f6-656f-4496-9226-13aecbd7718f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmFileGroupManager interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        CreateFileGroup  : IntPtr
+        GetFileGroup     : IntPtr
+        EnumFileGroups   : IntPtr
+        ExportFileGroups : IntPtr
+        ImportFileGroups : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateFileGroup", "GetFileGroup", "EnumFileGroups", "ExportFileGroups", "ImportFileGroups"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmFileGroupManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a file group object.
@@ -78,7 +92,7 @@ class IFsrmFileGroupManager extends IDispatch {
     GetFileGroup(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(8, this, "ptr", name, "ptr*", &fileGroup := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, name, "ptr*", &fileGroup := 0, "HRESULT")
         return IFsrmFileGroup(fileGroup)
     }
 
@@ -97,7 +111,7 @@ class IFsrmFileGroupManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-enumfilegroups
      */
     EnumFileGroups(options) {
-        result := ComCall(9, this, "int", options, "ptr*", &fileGroups := 0, "HRESULT")
+        result := ComCall(9, this, FsrmEnumOptions, options, "ptr*", &fileGroups := 0, "HRESULT")
         return IFsrmCommittableCollection(fileGroups)
     }
 
@@ -114,8 +128,8 @@ class IFsrmFileGroupManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-exportfilegroups
      */
     ExportFileGroups(fileGroupNamesArray) {
-        serializedFileGroups := BSTR()
-        result := ComCall(10, this, "ptr", fileGroupNamesArray, "ptr", serializedFileGroups, "HRESULT")
+        serializedFileGroups := BSTR.Owned()
+        result := ComCall(10, this, VARIANT.Ptr, fileGroupNamesArray, BSTR.Ptr, serializedFileGroups, "HRESULT")
         return serializedFileGroups
     }
 
@@ -139,7 +153,35 @@ class IFsrmFileGroupManager extends IDispatch {
     ImportFileGroups(serializedFileGroups, fileGroupNamesArray) {
         serializedFileGroups := serializedFileGroups is String ? BSTR.Alloc(serializedFileGroups).Value : serializedFileGroups
 
-        result := ComCall(11, this, "ptr", serializedFileGroups, "ptr", fileGroupNamesArray, "ptr*", &fileGroups := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, serializedFileGroups, VARIANT.Ptr, fileGroupNamesArray, "ptr*", &fileGroups := 0, "HRESULT")
         return IFsrmCommittableCollection(fileGroups)
+    }
+
+    Query(iid) {
+        if (IFsrmFileGroupManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateFileGroup := CallbackCreate(GetMethod(implObj, "CreateFileGroup"), flags, 2)
+        this.vtbl.GetFileGroup := CallbackCreate(GetMethod(implObj, "GetFileGroup"), flags, 3)
+        this.vtbl.EnumFileGroups := CallbackCreate(GetMethod(implObj, "EnumFileGroups"), flags, 3)
+        this.vtbl.ExportFileGroups := CallbackCreate(GetMethod(implObj, "ExportFileGroups"), flags, 3)
+        this.vtbl.ImportFileGroups := CallbackCreate(GetMethod(implObj, "ImportFileGroups"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateFileGroup)
+        CallbackFree(this.vtbl.GetFileGroup)
+        CallbackFree(this.vtbl.EnumFileGroups)
+        CallbackFree(this.vtbl.ExportFileGroups)
+        CallbackFree(this.vtbl.ImportFileGroups)
     }
 }

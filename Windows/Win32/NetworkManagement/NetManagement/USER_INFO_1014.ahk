@@ -1,15 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The USER_INFO_1014 structure contains the names of workstations from which the user can log on. This information level is valid only when you call the NetUserSetInfo function.
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_1014
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class USER_INFO_1014 extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 8
+export default struct USER_INFO_1014 {
+    #StructPack 8
 
     /**
      * > [!IMPORTANT]
@@ -19,10 +17,7 @@ class USER_INFO_1014 extends Win32Struct {
      * <b>NetUserSetInfo</b> function. 
      * 
      * As many as eight workstations can be specified; the names must be separated by commas. A null string indicates that there is no restriction.
-     * @type {PWSTR}
      */
-    usri1014_workstations {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    usri1014_workstations : PWSTR
+
 }

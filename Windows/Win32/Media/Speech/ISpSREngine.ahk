@@ -1,31 +1,85 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISpSREngineSite.ahk" { ISpSREngineSite }
+#Import ".\SPLOADOPTIONS.ahk" { SPLOADOPTIONS }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\SPRECOCONTEXTHANDLE.ahk" { SPRECOCONTEXTHANDLE }
+#Import ".\SPRULESTATE.ahk" { SPRULESTATE }
+#Import ".\SPWORDENTRY.ahk" { SPWORDENTRY }
+#Import ".\SPCONTEXTSTATE.ahk" { SPCONTEXTSTATE }
+#Import ".\SPTEXTSELECTIONINFO.ahk" { SPTEXTSELECTIONINFO }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\SPPROPSRC.ahk" { SPPROPSRC }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\SPWORDPRONOUNCEABLE.ahk" { SPWORDPRONOUNCEABLE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ISpObjectToken.ahk" { ISpObjectToken }
+#Import ".\SPRULEENTRY.ahk" { SPRULEENTRY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SPGRAMMARSTATE.ahk" { SPGRAMMARSTATE }
+#Import ".\SPGRAMMARHANDLE.ahk" { SPGRAMMARHANDLE }
+#Import ".\SPCFGNOTIFY.ahk" { SPCFGNOTIFY }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpSREngine extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISpSREngine extends IUnknown {
     /**
      * The interface identifier for ISpSREngine
      * @type {Guid}
      */
-    static IID => Guid("{2f472991-854b-4465-b613-fbafb3ad8ed8}")
+    static IID := Guid("{2f472991-854b-4465-b613-fbafb3ad8ed8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpSREngine interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetSite                   : IntPtr
+        GetInputAudioFormat       : IntPtr
+        RecognizeStream           : IntPtr
+        SetRecoProfile            : IntPtr
+        OnCreateGrammar           : IntPtr
+        OnDeleteGrammar           : IntPtr
+        LoadProprietaryGrammar    : IntPtr
+        UnloadProprietaryGrammar  : IntPtr
+        SetProprietaryRuleState   : IntPtr
+        SetProprietaryRuleIdState : IntPtr
+        LoadSLM                   : IntPtr
+        UnloadSLM                 : IntPtr
+        SetSLMState               : IntPtr
+        SetWordSequenceData       : IntPtr
+        SetTextSelection          : IntPtr
+        IsPronounceable           : IntPtr
+        OnCreateRecoContext       : IntPtr
+        OnDeleteRecoContext       : IntPtr
+        PrivateCall               : IntPtr
+        SetAdaptationData         : IntPtr
+        SetPropertyNum            : IntPtr
+        GetPropertyNum            : IntPtr
+        SetPropertyString         : IntPtr
+        GetPropertyString         : IntPtr
+        SetGrammarState           : IntPtr
+        WordNotify                : IntPtr
+        RuleNotify                : IntPtr
+        PrivateCallEx             : IntPtr
+        SetContextState           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetSite", "GetInputAudioFormat", "RecognizeStream", "SetRecoProfile", "OnCreateGrammar", "OnDeleteGrammar", "LoadProprietaryGrammar", "UnloadProprietaryGrammar", "SetProprietaryRuleState", "SetProprietaryRuleIdState", "LoadSLM", "UnloadSLM", "SetSLMState", "SetWordSequenceData", "SetTextSelection", "IsPronounceable", "OnCreateRecoContext", "OnDeleteRecoContext", "PrivateCall", "SetAdaptationData", "SetPropertyNum", "GetPropertyNum", "SetPropertyString", "GetPropertyString", "SetGrammarState", "WordNotify", "RuleNotify", "PrivateCallEx", "SetContextState"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpSREngine.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -48,7 +102,7 @@ class ISpSREngine extends IUnknown {
     GetInputAudioFormat(pguidSourceFormatId, pSourceWaveFormatEx, pguidDesiredFormatId, ppCoMemDesiredWaveFormatEx) {
         ppCoMemDesiredWaveFormatExMarshal := ppCoMemDesiredWaveFormatEx is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pguidSourceFormatId, "ptr", pSourceWaveFormatEx, "ptr", pguidDesiredFormatId, ppCoMemDesiredWaveFormatExMarshal, ppCoMemDesiredWaveFormatEx, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, pguidSourceFormatId, WAVEFORMATEX.Ptr, pSourceWaveFormatEx, Guid.Ptr, pguidDesiredFormatId, ppCoMemDesiredWaveFormatExMarshal, ppCoMemDesiredWaveFormatEx, "HRESULT")
         return result
     }
 
@@ -65,11 +119,7 @@ class ISpSREngine extends IUnknown {
      * @returns {HRESULT} 
      */
     RecognizeStream(rguidFmtId, pWaveFormatEx, hRequestSync, hDataAvailable, hExit, fNewAudioStream, fRealTimeAudio, pAudioObjectToken) {
-        hRequestSync := hRequestSync is Win32Handle ? NumGet(hRequestSync, "ptr") : hRequestSync
-        hDataAvailable := hDataAvailable is Win32Handle ? NumGet(hDataAvailable, "ptr") : hDataAvailable
-        hExit := hExit is Win32Handle ? NumGet(hExit, "ptr") : hExit
-
-        result := ComCall(5, this, "ptr", rguidFmtId, "ptr", pWaveFormatEx, "ptr", hRequestSync, "ptr", hDataAvailable, "ptr", hExit, "int", fNewAudioStream, "int", fRealTimeAudio, "ptr", pAudioObjectToken, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, rguidFmtId, WAVEFORMATEX.Ptr, pWaveFormatEx, HANDLE, hRequestSync, HANDLE, hDataAvailable, HANDLE, hExit, BOOL, fNewAudioStream, BOOL, fRealTimeAudio, "ptr", pAudioObjectToken, "HRESULT")
         return result
     }
 
@@ -90,11 +140,9 @@ class ISpSREngine extends IUnknown {
      * @returns {Pointer<Void>} 
      */
     OnCreateGrammar(pvEngineRecoContext, hSAPIGrammar) {
-        hSAPIGrammar := hSAPIGrammar is Win32Handle ? NumGet(hSAPIGrammar, "ptr") : hSAPIGrammar
-
         pvEngineRecoContextMarshal := pvEngineRecoContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, pvEngineRecoContextMarshal, pvEngineRecoContext, "ptr", hSAPIGrammar, "ptr*", &ppvEngineGrammarContext := 0, "HRESULT")
+        result := ComCall(7, this, pvEngineRecoContextMarshal, pvEngineRecoContext, SPGRAMMARHANDLE, hSAPIGrammar, "ptr*", &ppvEngineGrammarContext := 0, "HRESULT")
         return ppvEngineGrammarContext
     }
 
@@ -126,7 +174,7 @@ class ISpSREngine extends IUnknown {
         pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
         pvDataParamMarshal := pvDataParam is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, pvEngineGrammarMarshal, pvEngineGrammar, "ptr", rguidParam, "ptr", pszStringParam, pvDataParamMarshal, pvDataParam, "uint", ulDataSize, "int", Options, "HRESULT")
+        result := ComCall(9, this, pvEngineGrammarMarshal, pvEngineGrammar, Guid.Ptr, rguidParam, "ptr", pszStringParam, pvDataParamMarshal, pvDataParam, "uint", ulDataSize, SPLOADOPTIONS, Options, "HRESULT")
         return result
     }
 
@@ -156,7 +204,7 @@ class ISpSREngine extends IUnknown {
         pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
         pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(11, this, pvEngineGrammarMarshal, pvEngineGrammar, "ptr", pszName, pReservedMarshal, pReserved, "int", NewState, "uint*", &pcRulesChanged := 0, "HRESULT")
+        result := ComCall(11, this, pvEngineGrammarMarshal, pvEngineGrammar, "ptr", pszName, pReservedMarshal, pReserved, SPRULESTATE, NewState, "uint*", &pcRulesChanged := 0, "HRESULT")
         return pcRulesChanged
     }
 
@@ -170,7 +218,7 @@ class ISpSREngine extends IUnknown {
     SetProprietaryRuleIdState(pvEngineGrammar, dwRuleId, NewState) {
         pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(12, this, pvEngineGrammarMarshal, pvEngineGrammar, "uint", dwRuleId, "int", NewState, "HRESULT")
+        result := ComCall(12, this, pvEngineGrammarMarshal, pvEngineGrammar, "uint", dwRuleId, SPRULESTATE, NewState, "HRESULT")
         return result
     }
 
@@ -210,7 +258,7 @@ class ISpSREngine extends IUnknown {
     SetSLMState(pvEngineGrammar, NewState) {
         pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(15, this, pvEngineGrammarMarshal, pvEngineGrammar, "int", NewState, "HRESULT")
+        result := ComCall(15, this, pvEngineGrammarMarshal, pvEngineGrammar, SPRULESTATE, NewState, "HRESULT")
         return result
     }
 
@@ -227,7 +275,7 @@ class ISpSREngine extends IUnknown {
 
         pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(16, this, pvEngineGrammarMarshal, pvEngineGrammar, "ptr", pText, "uint", cchText, "ptr", pInfo, "HRESULT")
+        result := ComCall(16, this, pvEngineGrammarMarshal, pvEngineGrammar, "ptr", pText, "uint", cchText, SPTEXTSELECTIONINFO.Ptr, pInfo, "HRESULT")
         return result
     }
 
@@ -240,7 +288,7 @@ class ISpSREngine extends IUnknown {
     SetTextSelection(pvEngineGrammar, pInfo) {
         pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(17, this, pvEngineGrammarMarshal, pvEngineGrammar, "ptr", pInfo, "HRESULT")
+        result := ComCall(17, this, pvEngineGrammarMarshal, pvEngineGrammar, SPTEXTSELECTIONINFO.Ptr, pInfo, "HRESULT")
         return result
     }
 
@@ -265,9 +313,7 @@ class ISpSREngine extends IUnknown {
      * @returns {Pointer<Void>} 
      */
     OnCreateRecoContext(hSAPIRecoContext) {
-        hSAPIRecoContext := hSAPIRecoContext is Win32Handle ? NumGet(hSAPIRecoContext, "ptr") : hSAPIRecoContext
-
-        result := ComCall(19, this, "ptr", hSAPIRecoContext, "ptr*", &ppvEngineContext := 0, "HRESULT")
+        result := ComCall(19, this, SPRECOCONTEXTHANDLE, hSAPIRecoContext, "ptr*", &ppvEngineContext := 0, "HRESULT")
         return ppvEngineContext
     }
 
@@ -327,7 +373,7 @@ class ISpSREngine extends IUnknown {
 
         pvSrcObjMarshal := pvSrcObj is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(23, this, "int", eSrc, pvSrcObjMarshal, pvSrcObj, "ptr", pName, "int", lValue, "HRESULT")
+        result := ComCall(23, this, SPPROPSRC, eSrc, pvSrcObjMarshal, pvSrcObj, "ptr", pName, "int", lValue, "HRESULT")
         return result
     }
 
@@ -343,7 +389,7 @@ class ISpSREngine extends IUnknown {
 
         pvSrcObjMarshal := pvSrcObj is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(24, this, "int", eSrc, pvSrcObjMarshal, pvSrcObj, "ptr", pName, "int*", &lValue := 0, "HRESULT")
+        result := ComCall(24, this, SPPROPSRC, eSrc, pvSrcObjMarshal, pvSrcObj, "ptr", pName, "int*", &lValue := 0, "HRESULT")
         return lValue
     }
 
@@ -361,7 +407,7 @@ class ISpSREngine extends IUnknown {
 
         pvSrcObjMarshal := pvSrcObj is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(25, this, "int", eSrc, pvSrcObjMarshal, pvSrcObj, "ptr", pName, "ptr", pValue, "HRESULT")
+        result := ComCall(25, this, SPPROPSRC, eSrc, pvSrcObjMarshal, pvSrcObj, "ptr", pName, "ptr", pValue, "HRESULT")
         return result
     }
 
@@ -377,7 +423,7 @@ class ISpSREngine extends IUnknown {
 
         pvSrcObjMarshal := pvSrcObj is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(26, this, "int", eSrc, pvSrcObjMarshal, pvSrcObj, "ptr", pName, "ptr*", &ppCoMemValue := 0, "HRESULT")
+        result := ComCall(26, this, SPPROPSRC, eSrc, pvSrcObjMarshal, pvSrcObj, "ptr", pName, PWSTR.Ptr, &ppCoMemValue := 0, "HRESULT")
         return ppCoMemValue
     }
 
@@ -390,7 +436,7 @@ class ISpSREngine extends IUnknown {
     SetGrammarState(pvEngineGrammar, eGrammarState) {
         pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(27, this, pvEngineGrammarMarshal, pvEngineGrammar, "int", eGrammarState, "HRESULT")
+        result := ComCall(27, this, pvEngineGrammarMarshal, pvEngineGrammar, SPGRAMMARSTATE, eGrammarState, "HRESULT")
         return result
     }
 
@@ -402,7 +448,7 @@ class ISpSREngine extends IUnknown {
      * @returns {HRESULT} 
      */
     WordNotify(Action, cWords, pWords) {
-        result := ComCall(28, this, "int", Action, "uint", cWords, "ptr", pWords, "HRESULT")
+        result := ComCall(28, this, SPCFGNOTIFY, Action, "uint", cWords, SPWORDENTRY.Ptr, pWords, "HRESULT")
         return result
     }
 
@@ -414,7 +460,7 @@ class ISpSREngine extends IUnknown {
      * @returns {HRESULT} 
      */
     RuleNotify(Action, cRules, pRules) {
-        result := ComCall(29, this, "int", Action, "uint", cRules, "ptr", pRules, "HRESULT")
+        result := ComCall(29, this, SPCFGNOTIFY, Action, "uint", cRules, SPRULEENTRY.Ptr, pRules, "HRESULT")
         return result
     }
 
@@ -446,7 +492,83 @@ class ISpSREngine extends IUnknown {
     SetContextState(pvEngineContext, eContextState) {
         pvEngineContextMarshal := pvEngineContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(31, this, pvEngineContextMarshal, pvEngineContext, "int", eContextState, "HRESULT")
+        result := ComCall(31, this, pvEngineContextMarshal, pvEngineContext, SPCONTEXTSTATE, eContextState, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISpSREngine.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetSite := CallbackCreate(GetMethod(implObj, "SetSite"), flags, 2)
+        this.vtbl.GetInputAudioFormat := CallbackCreate(GetMethod(implObj, "GetInputAudioFormat"), flags, 5)
+        this.vtbl.RecognizeStream := CallbackCreate(GetMethod(implObj, "RecognizeStream"), flags, 9)
+        this.vtbl.SetRecoProfile := CallbackCreate(GetMethod(implObj, "SetRecoProfile"), flags, 2)
+        this.vtbl.OnCreateGrammar := CallbackCreate(GetMethod(implObj, "OnCreateGrammar"), flags, 4)
+        this.vtbl.OnDeleteGrammar := CallbackCreate(GetMethod(implObj, "OnDeleteGrammar"), flags, 2)
+        this.vtbl.LoadProprietaryGrammar := CallbackCreate(GetMethod(implObj, "LoadProprietaryGrammar"), flags, 7)
+        this.vtbl.UnloadProprietaryGrammar := CallbackCreate(GetMethod(implObj, "UnloadProprietaryGrammar"), flags, 2)
+        this.vtbl.SetProprietaryRuleState := CallbackCreate(GetMethod(implObj, "SetProprietaryRuleState"), flags, 6)
+        this.vtbl.SetProprietaryRuleIdState := CallbackCreate(GetMethod(implObj, "SetProprietaryRuleIdState"), flags, 4)
+        this.vtbl.LoadSLM := CallbackCreate(GetMethod(implObj, "LoadSLM"), flags, 3)
+        this.vtbl.UnloadSLM := CallbackCreate(GetMethod(implObj, "UnloadSLM"), flags, 2)
+        this.vtbl.SetSLMState := CallbackCreate(GetMethod(implObj, "SetSLMState"), flags, 3)
+        this.vtbl.SetWordSequenceData := CallbackCreate(GetMethod(implObj, "SetWordSequenceData"), flags, 5)
+        this.vtbl.SetTextSelection := CallbackCreate(GetMethod(implObj, "SetTextSelection"), flags, 3)
+        this.vtbl.IsPronounceable := CallbackCreate(GetMethod(implObj, "IsPronounceable"), flags, 4)
+        this.vtbl.OnCreateRecoContext := CallbackCreate(GetMethod(implObj, "OnCreateRecoContext"), flags, 3)
+        this.vtbl.OnDeleteRecoContext := CallbackCreate(GetMethod(implObj, "OnDeleteRecoContext"), flags, 2)
+        this.vtbl.PrivateCall := CallbackCreate(GetMethod(implObj, "PrivateCall"), flags, 4)
+        this.vtbl.SetAdaptationData := CallbackCreate(GetMethod(implObj, "SetAdaptationData"), flags, 4)
+        this.vtbl.SetPropertyNum := CallbackCreate(GetMethod(implObj, "SetPropertyNum"), flags, 5)
+        this.vtbl.GetPropertyNum := CallbackCreate(GetMethod(implObj, "GetPropertyNum"), flags, 5)
+        this.vtbl.SetPropertyString := CallbackCreate(GetMethod(implObj, "SetPropertyString"), flags, 5)
+        this.vtbl.GetPropertyString := CallbackCreate(GetMethod(implObj, "GetPropertyString"), flags, 5)
+        this.vtbl.SetGrammarState := CallbackCreate(GetMethod(implObj, "SetGrammarState"), flags, 3)
+        this.vtbl.WordNotify := CallbackCreate(GetMethod(implObj, "WordNotify"), flags, 4)
+        this.vtbl.RuleNotify := CallbackCreate(GetMethod(implObj, "RuleNotify"), flags, 4)
+        this.vtbl.PrivateCallEx := CallbackCreate(GetMethod(implObj, "PrivateCallEx"), flags, 6)
+        this.vtbl.SetContextState := CallbackCreate(GetMethod(implObj, "SetContextState"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetSite)
+        CallbackFree(this.vtbl.GetInputAudioFormat)
+        CallbackFree(this.vtbl.RecognizeStream)
+        CallbackFree(this.vtbl.SetRecoProfile)
+        CallbackFree(this.vtbl.OnCreateGrammar)
+        CallbackFree(this.vtbl.OnDeleteGrammar)
+        CallbackFree(this.vtbl.LoadProprietaryGrammar)
+        CallbackFree(this.vtbl.UnloadProprietaryGrammar)
+        CallbackFree(this.vtbl.SetProprietaryRuleState)
+        CallbackFree(this.vtbl.SetProprietaryRuleIdState)
+        CallbackFree(this.vtbl.LoadSLM)
+        CallbackFree(this.vtbl.UnloadSLM)
+        CallbackFree(this.vtbl.SetSLMState)
+        CallbackFree(this.vtbl.SetWordSequenceData)
+        CallbackFree(this.vtbl.SetTextSelection)
+        CallbackFree(this.vtbl.IsPronounceable)
+        CallbackFree(this.vtbl.OnCreateRecoContext)
+        CallbackFree(this.vtbl.OnDeleteRecoContext)
+        CallbackFree(this.vtbl.PrivateCall)
+        CallbackFree(this.vtbl.SetAdaptationData)
+        CallbackFree(this.vtbl.SetPropertyNum)
+        CallbackFree(this.vtbl.GetPropertyNum)
+        CallbackFree(this.vtbl.SetPropertyString)
+        CallbackFree(this.vtbl.GetPropertyString)
+        CallbackFree(this.vtbl.SetGrammarState)
+        CallbackFree(this.vtbl.WordNotify)
+        CallbackFree(this.vtbl.RuleNotify)
+        CallbackFree(this.vtbl.PrivateCallEx)
+        CallbackFree(this.vtbl.SetContextState)
     }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines values that specify how another enclave must be related to the enclave that calls EnclaveSealData for the enclave to unseal the data.
  * @see https://learn.microsoft.com/windows/win32/api/ntenclv/ne-ntenclv-enclave_sealing_identity_policy
  * @namespace Windows.Win32.System.Environment
  */
-class ENCLAVE_SEALING_IDENTITY_POLICY extends Win32Enum {
+export default struct ENCLAVE_SEALING_IDENTITY_POLICY {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * This value is not valid. Do not use.

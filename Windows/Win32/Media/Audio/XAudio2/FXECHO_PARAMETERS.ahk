@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Parameters for use with the FXECHO XAPOFX.
@@ -11,35 +10,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/xapofx/ns-xapofx-fxecho_parameters
  * @namespace Windows.Win32.Media.Audio.XAudio2
  */
-class FXECHO_PARAMETERS extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct FXECHO_PARAMETERS {
+    #StructPack 4
 
     /**
      * Ratio of wet (processed) signal to dry (original) signal.
-     * @type {Float}
      */
-    WetDryMix {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    WetDryMix : Float32
 
     /**
      * Amount of output to feed back into input.
-     * @type {Float}
      */
-    Feedback {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    Feedback : Float32
 
     /**
      * Delay to all channels in milliseconds. This value must be between <b>FXECHO_MIN_DELAY</b> and <a href="https://docs.microsoft.com/windows/desktop/api/xapofx/ns-xapofx-fxecho_initdata">FXECHO_INITDATA</a>.<b>MaxDelay</b>.
-     * @type {Float}
      */
-    Delay {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    Delay : Float32
+
 }

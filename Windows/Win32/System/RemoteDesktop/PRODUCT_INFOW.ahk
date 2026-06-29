@@ -1,28 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop
  * @charset Unicode
  */
-class PRODUCT_INFOW extends Win32Struct {
-    static sizeof => 520
+export default struct PRODUCT_INFOW {
+    #StructPack 2
 
-    static packingSize => 2
+    CompanyName : WCHAR[256]
 
-    /**
-     * @type {String}
-     */
-    CompanyName {
-        get => StrGet(this.ptr + 0, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 255, "UTF-16")
-    }
+    ProductID : WCHAR[4]
 
-    /**
-     * @type {String}
-     */
-    ProductID {
-        get => StrGet(this.ptr + 512, 3, "UTF-16")
-        set => StrPut(value, this.ptr + 512, 3, "UTF-16")
-    }
 }

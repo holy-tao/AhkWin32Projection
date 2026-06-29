@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Deprecated. This enumeration is used by the BASEBROWSERDATA structure to indicate the base browser's lock icon status.
  * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/ne-shdeprecated-securelockcode
  * @namespace Windows.Win32.UI.Shell
  */
-class SECURELOCKCODE extends Win32Enum {
+export default struct SECURELOCKCODE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No change in security encryption status.

@@ -1,54 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WNV_OBJECT_HEADER.ahk
-#Include .\WNV_NOTIFICATION_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WNV_OBJECT_HEADER.ahk" { WNV_OBJECT_HEADER }
+#Import ".\WNV_NOTIFICATION_TYPE.ahk" { WNV_NOTIFICATION_TYPE }
 
 /**
  * Specifies the version, notification type, and the buffer location in a WnvRequestNotification function call.
  * @see https://learn.microsoft.com/windows/win32/api/wnvapi/ns-wnvapi-wnv_notification_param
  * @namespace Windows.Win32.NetworkManagement.WindowsNetworkVirtualization
  */
-class WNV_NOTIFICATION_PARAM extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct WNV_NOTIFICATION_PARAM {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wnvapi/ns-wnvapi-wnv_object_header">WNV_OBJECT_HEADER</a></b>
      * 
      * The version and buffer size for this structure.
-     * @type {WNV_OBJECT_HEADER}
      */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := WNV_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    Header : WNV_OBJECT_HEADER
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wnvapi/ne-wnvapi-wnv_notification_type">WNV_NOTIFICATION_TYPE</a></b>
      * 
      * A value of the <a href="https://docs.microsoft.com/windows/desktop/api/wnvapi/ne-wnvapi-wnv_notification_type">WNV_NOTIFICATION_TYPE</a> enumeration that specifies the type of notifications requested, such as policy mismatches, Internet Control Message Protocol
      * (ICMP) redirect message arrivals, and object changes.
-     * @type {WNV_NOTIFICATION_TYPE}
      */
-    NotificationType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    NotificationType : WNV_NOTIFICATION_TYPE
 
     /**
      * Type: <b>ULONG</b>
      * 
      * An output value that provides the caller information about the number of pending events of the specified notification type. The pending events are queued within the WNV driver along with the events that have already been added to the <b>Buffer</b> field when the current <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wnvapi/nf-wnvapi-wnvrequestnotification">WnvRequestNotification</a> function call is completed. This field allows the WNV driver to indicate the number of remaining events to the caller of <b>WnvRequestNotification</b>, so the caller can estimate the size of the buffer required. The caller should post another call with enough buffer size to <b>WnvRequestNotification</b> to consume these remaining events.
-     * @type {Integer}
      */
-    PendingNotifications {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    PendingNotifications : UInt32
 
     /**
      * Type: <b>PUCHAR</b>
@@ -82,10 +64,7 @@ class WNV_NOTIFICATION_PARAM extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Integer>}
      */
-    Buffer {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Buffer : IntPtr
+
 }

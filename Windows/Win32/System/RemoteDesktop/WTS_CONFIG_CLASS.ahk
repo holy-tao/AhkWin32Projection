@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains values that indicate the type of user configuration information to set or retrieve in a call to the WTSQueryUserConfig and WTSSetUserConfig functions.
  * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/ne-wtsapi32-wts_config_class
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class WTS_CONFIG_CLASS extends Win32Enum {
+export default struct WTS_CONFIG_CLASS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * A null-terminated string that contains the path of the initial program that Remote Desktop Services runs when the 

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MCI\_WAVE\_DELETE\_PARMS structure contains position information for the MCI\_DELETE command for waveform-audio devices.
@@ -8,35 +7,22 @@
  * @see https://learn.microsoft.com/windows/win32/Multimedia/mci-wave-delete-parms
  * @namespace Windows.Win32.Media.Multimedia
  */
-class MCI_WAVE_DELETE_PARMS extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct MCI_WAVE_DELETE_PARMS {
+    #StructPack 8
 
     /**
      * The low-order word specifies a window handle used for the MCI\_NOTIFY flag.
-     * @type {Pointer}
      */
-    dwCallback {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwCallback : IntPtr
 
     /**
      * Position to delete from.
-     * @type {Integer}
      */
-    dwFrom {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwFrom : UInt32
 
     /**
      * Position to delete to.
-     * @type {Integer}
      */
-    dwTo {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwTo : UInt32
+
 }

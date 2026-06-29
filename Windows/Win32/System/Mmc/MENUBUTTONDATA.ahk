@@ -1,40 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MENUBUTTONDATA structure contains values used to create buttons on a toolbar.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-menubuttondata
  * @namespace Windows.Win32.System.Mmc
  */
-class MENUBUTTONDATA extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct MENUBUTTONDATA {
+    #StructPack 4
 
     /**
      * A value that specifies a user-supplied value that uniquely identifies the menu button.
-     * @type {Integer}
      */
-    idCommand {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    idCommand : Int32
 
     /**
      * A value that specifies the horizontal position, in pixels, at which the snap-in's context menu is displayed.
-     * @type {Integer}
      */
-    x {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    x : Int32
 
     /**
      * A value that specifies the vertical position, in pixels, at which the snap-in's context menu is displayed.
-     * @type {Integer}
      */
-    y {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    y : Int32
+
 }

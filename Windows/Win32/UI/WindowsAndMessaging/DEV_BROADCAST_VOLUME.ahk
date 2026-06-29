@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DEV_BROADCAST_VOLUME_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DEV_BROADCAST_VOLUME_FLAGS.ahk" { DEV_BROADCAST_VOLUME_FLAGS }
 
 /**
  * Contains information about a logical volume.
@@ -17,53 +16,30 @@
  * @see https://learn.microsoft.com/windows/win32/api/dbt/ns-dbt-dev_broadcast_volume
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class DEV_BROADCAST_VOLUME extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct DEV_BROADCAST_VOLUME {
+    #StructPack 4
 
     /**
      * The size of this structure, in bytes.
-     * @type {Integer}
      */
-    dbcv_size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dbcv_size : UInt32
 
     /**
      * Set to <b>DBT_DEVTYP_VOLUME</b> (2).
-     * @type {Integer}
      */
-    dbcv_devicetype {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dbcv_devicetype : UInt32
 
     /**
      * Reserved; do not use.
-     * @type {Integer}
      */
-    dbcv_reserved {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dbcv_reserved : UInt32
 
     /**
      * The logical unit mask identifying one or more logical units. Each bit in the mask corresponds to one 
      *       logical drive. Bit 0 represents drive A, bit 1 represents drive B, and so on.
-     * @type {Integer}
      */
-    dbcv_unitmask {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dbcv_unitmask : UInt32
 
-    /**
-     * @type {DEV_BROADCAST_VOLUME_FLAGS}
-     */
-    dbcv_flags {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    dbcv_flags : DEV_BROADCAST_VOLUME_FLAGS
+
 }

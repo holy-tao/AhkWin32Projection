@@ -1,101 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPRULEHANDLE.ahk
-#Include .\SPPATHENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SPPATHENTRY.ahk" { SPPATHENTRY }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SPRULEHANDLE.ahk" { SPRULEHANDLE }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class SPPARSEINFO extends Win32Struct {
-    static sizeof => 72
+export default struct SPPARSEINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hRule : SPRULEHANDLE
 
-    /**
-     * @type {SPRULEHANDLE}
-     */
-    hRule {
-        get {
-            if(!this.HasProp("__hRule"))
-                this.__hRule := SPRULEHANDLE(8, this)
-            return this.__hRule
-        }
-    }
+    ullAudioStreamPosition : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullAudioStreamPosition {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ulAudioSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulAudioSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    cTransitions : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cTransitions {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    pPath : SPPATHENTRY.Ptr
 
-    /**
-     * @type {Pointer<SPPATHENTRY>}
-     */
-    pPath {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    SREngineID : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    SREngineID {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    ulSREnginePrivateDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulSREnginePrivateDataSize {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    pSREnginePrivateData : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pSREnginePrivateData {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    fHypothesis : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    fHypothesis {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 72
-    }
 }

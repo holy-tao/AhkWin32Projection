@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMCodecInfo2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWMCodecInfo2.ahk" { IWMCodecInfo2 }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WMT_ATTR_DATATYPE.ahk" { WMT_ATTR_DATATYPE }
 
 /**
  * The IWMCodecInfo3 interface retrieves properties from a codec.You can retrieve a pointer to IWMCodecInfo3 with a call to the QueryInterface method of any other interface of the profile manager object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmcodecinfo3
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMCodecInfo3 extends IWMCodecInfo2 {
-
-    static sizeof => A_PtrSize
+export default struct IWMCodecInfo3 extends IWMCodecInfo2 {
     /**
      * The interface identifier for IWMCodecInfo3
      * @type {Guid}
      */
-    static IID => Guid("{7e51f487-4d93-4f98-8ab4-27d0565adc51}")
+    static IID := Guid("{7e51f487-4d93-4f98-8ab4-27d0565adc51}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMCodecInfo3 interfaces
+    */
+    struct Vtbl extends IWMCodecInfo2.Vtbl {
+        GetCodecFormatProp         : IntPtr
+        GetCodecProp               : IntPtr
+        SetCodecEnumerationSetting : IntPtr
+        GetCodecEnumerationSetting : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCodecFormatProp", "GetCodecProp", "SetCodecEnumerationSetting", "GetCodecEnumerationSetting"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMCodecInfo3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetCodecFormatProp method retrieves a property from one format of a codec.
@@ -122,7 +135,7 @@ class IWMCodecInfo3 extends IWMCodecInfo2 {
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", guidType, "uint", dwCodecIndex, "uint", dwFormatIndex, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, guidType, "uint", dwCodecIndex, "uint", dwFormatIndex, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
     }
 
@@ -233,7 +246,7 @@ class IWMCodecInfo3 extends IWMCodecInfo2 {
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "ptr", guidType, "uint", dwCodecIndex, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, guidType, "uint", dwCodecIndex, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
     }
 
@@ -357,7 +370,7 @@ class IWMCodecInfo3 extends IWMCodecInfo2 {
 
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
 
-        result := ComCall(10, this, "ptr", guidType, "uint", dwCodecIndex, "ptr", pszName, "int", Type, pValueMarshal, pValue, "uint", dwSize, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, guidType, "uint", dwCodecIndex, "ptr", pszName, WMT_ATTR_DATATYPE, Type, pValueMarshal, pValue, "uint", dwSize, "HRESULT")
         return result
     }
 
@@ -446,7 +459,33 @@ class IWMCodecInfo3 extends IWMCodecInfo2 {
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "ptr", guidType, "uint", dwCodecIndex, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
+        result := ComCall(11, this, Guid.Ptr, guidType, "uint", dwCodecIndex, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMCodecInfo3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCodecFormatProp := CallbackCreate(GetMethod(implObj, "GetCodecFormatProp"), flags, 8)
+        this.vtbl.GetCodecProp := CallbackCreate(GetMethod(implObj, "GetCodecProp"), flags, 7)
+        this.vtbl.SetCodecEnumerationSetting := CallbackCreate(GetMethod(implObj, "SetCodecEnumerationSetting"), flags, 7)
+        this.vtbl.GetCodecEnumerationSetting := CallbackCreate(GetMethod(implObj, "GetCodecEnumerationSetting"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCodecFormatProp)
+        CallbackFree(this.vtbl.GetCodecProp)
+        CallbackFree(this.vtbl.SetCodecEnumerationSetting)
+        CallbackFree(this.vtbl.GetCodecEnumerationSetting)
     }
 }

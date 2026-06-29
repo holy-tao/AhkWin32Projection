@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
@@ -16,26 +17,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvbsatellitedeliverysystemdescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IDvbSatelliteDeliverySystemDescriptor extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDvbSatelliteDeliverySystemDescriptor extends IUnknown {
     /**
      * The interface identifier for IDvbSatelliteDeliverySystemDescriptor
      * @type {Guid}
      */
-    static IID => Guid("{02f2225a-805b-4ec5-a9a6-f9b5913cd470}")
+    static IID := Guid("{02f2225a-805b-4ec5-a9a6-f9b5913cd470}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDvbSatelliteDeliverySystemDescriptor interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetTag             : IntPtr
+        GetLength          : IntPtr
+        GetFrequency       : IntPtr
+        GetOrbitalPosition : IntPtr
+        GetWestEastFlag    : IntPtr
+        GetPolarization    : IntPtr
+        GetModulation      : IntPtr
+        GetSymbolRate      : IntPtr
+        GetFECInner        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetTag", "GetLength", "GetFrequency", "GetOrbitalPosition", "GetWestEastFlag", "GetPolarization", "GetModulation", "GetSymbolRate", "GetFECInner"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDvbSatelliteDeliverySystemDescriptor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
@@ -125,5 +141,41 @@ class IDvbSatelliteDeliverySystemDescriptor extends IUnknown {
     GetFECInner() {
         result := ComCall(11, this, "char*", &pbVal := 0, "HRESULT")
         return pbVal
+    }
+
+    Query(iid) {
+        if (IDvbSatelliteDeliverySystemDescriptor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetFrequency := CallbackCreate(GetMethod(implObj, "GetFrequency"), flags, 2)
+        this.vtbl.GetOrbitalPosition := CallbackCreate(GetMethod(implObj, "GetOrbitalPosition"), flags, 2)
+        this.vtbl.GetWestEastFlag := CallbackCreate(GetMethod(implObj, "GetWestEastFlag"), flags, 2)
+        this.vtbl.GetPolarization := CallbackCreate(GetMethod(implObj, "GetPolarization"), flags, 2)
+        this.vtbl.GetModulation := CallbackCreate(GetMethod(implObj, "GetModulation"), flags, 2)
+        this.vtbl.GetSymbolRate := CallbackCreate(GetMethod(implObj, "GetSymbolRate"), flags, 2)
+        this.vtbl.GetFECInner := CallbackCreate(GetMethod(implObj, "GetFECInner"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetTag)
+        CallbackFree(this.vtbl.GetLength)
+        CallbackFree(this.vtbl.GetFrequency)
+        CallbackFree(this.vtbl.GetOrbitalPosition)
+        CallbackFree(this.vtbl.GetWestEastFlag)
+        CallbackFree(this.vtbl.GetPolarization)
+        CallbackFree(this.vtbl.GetModulation)
+        CallbackFree(this.vtbl.GetSymbolRate)
+        CallbackFree(this.vtbl.GetFECInner)
     }
 }

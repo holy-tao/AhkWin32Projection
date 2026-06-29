@@ -1,142 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class REFS_VOLUME_DATA_BUFFER extends Win32Struct {
-    static sizeof => 152
+export default struct REFS_VOLUME_DATA_BUFFER {
+    #StructPack 8
 
-    static packingSize => 8
+    ByteCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ByteCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    MajorVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MajorVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    MinorVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MinorVersion {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    BytesPerPhysicalSector : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BytesPerPhysicalSector {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    VolumeSerialNumber : Int64
 
-    /**
-     * @type {Integer}
-     */
-    VolumeSerialNumber {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    NumberSectors : Int64
 
-    /**
-     * @type {Integer}
-     */
-    NumberSectors {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    TotalClusters : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TotalClusters {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
+    FreeClusters : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FreeClusters {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
-    }
+    TotalReserved : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TotalReserved {
-        get => NumGet(this, 48, "int64")
-        set => NumPut("int64", value, this, 48)
-    }
+    BytesPerSector : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BytesPerSector {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    BytesPerCluster : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BytesPerCluster {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    MaximumSizeOfResidentFile : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MaximumSizeOfResidentFile {
-        get => NumGet(this, 64, "int64")
-        set => NumPut("int64", value, this, 64)
-    }
+    FastTierDataFillRatio : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    FastTierDataFillRatio {
-        get => NumGet(this, 72, "ushort")
-        set => NumPut("ushort", value, this, 72)
-    }
+    SlowTierDataFillRatio : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    SlowTierDataFillRatio {
-        get => NumGet(this, 74, "ushort")
-        set => NumPut("ushort", value, this, 74)
-    }
+    DestagesFastTierToSlowTierRate : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DestagesFastTierToSlowTierRate {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    Reserved : Int64[9]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 80, 9, Primitive, "int64")
-            return this.__ReservedProxyArray
-        }
-    }
 }

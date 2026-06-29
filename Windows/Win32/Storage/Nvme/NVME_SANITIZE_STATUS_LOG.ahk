@@ -1,98 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NVME_SANITIZE_STATUS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NVME_SANITIZE_STATUS.ahk" { NVME_SANITIZE_STATUS }
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_SANITIZE_STATUS_LOG extends Win32Struct {
-    static sizeof => 512
+export default struct NVME_SANITIZE_STATUS_LOG {
+    #StructPack 4
 
-    static packingSize => 4
+    SPROG : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    SPROG {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    SSTAT : NVME_SANITIZE_STATUS
 
-    /**
-     * @type {NVME_SANITIZE_STATUS}
-     */
-    SSTAT {
-        get {
-            if(!this.HasProp("__SSTAT"))
-                this.__SSTAT := NVME_SANITIZE_STATUS(2, this)
-            return this.__SSTAT
-        }
-    }
+    SCDW10 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SCDW10 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    EstimatedTimeForOverwrite : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EstimatedTimeForOverwrite {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    EstimatedTimeForBlockErase : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EstimatedTimeForBlockErase {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    EstimatedTimeForCryptoErase : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EstimatedTimeForCryptoErase {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    EstimatedTimeForOverwriteWithNoDeallocateMediaModification : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EstimatedTimeForOverwriteWithNoDeallocateMediaModification {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    EstimatedTimeForBlockEraseWithNoDeallocateMediaModification : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EstimatedTimeForBlockEraseWithNoDeallocateMediaModification {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    EstimatedTimeForCryptoEraseWithNoDeallocateMediaModification : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EstimatedTimeForCryptoEraseWithNoDeallocateMediaModification {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    Reserved : Int8[480]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 32, 480, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
 }

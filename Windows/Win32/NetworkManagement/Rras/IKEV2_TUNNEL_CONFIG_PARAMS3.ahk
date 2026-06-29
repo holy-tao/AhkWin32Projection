@@ -1,124 +1,38 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk
-#Include .\ROUTER_CUSTOM_IKEv2_POLICY0.ahk
-#Include .\MPR_CERT_EKU.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ROUTER_CUSTOM_IKEv2_POLICY0.ahk" { ROUTER_CUSTOM_IKEv2_POLICY0 }
+#Import "..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\MPR_CERT_EKU.ahk" { MPR_CERT_EKU }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class IKEV2_TUNNEL_CONFIG_PARAMS3 extends Win32Struct {
-    static sizeof => 96
+export default struct IKEV2_TUNNEL_CONFIG_PARAMS3 {
+    #StructPack 8
 
-    static packingSize => 8
+    dwIdleTimeout : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwIdleTimeout {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwNetworkBlackoutTime : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNetworkBlackoutTime {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwSaLifeTime : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSaLifeTime {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwSaDataSizeForRenegotiation : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSaDataSizeForRenegotiation {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwConfigOptions : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwConfigOptions {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwTotalCertificates : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwTotalCertificates {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    certificateNames : CRYPT_INTEGER_BLOB.Ptr
 
-    /**
-     * @type {Pointer<CRYPT_INTEGER_BLOB>}
-     */
-    certificateNames {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    machineCertificateName : CRYPT_INTEGER_BLOB
 
-    /**
-     * @type {CRYPT_INTEGER_BLOB}
-     */
-    machineCertificateName {
-        get {
-            if(!this.HasProp("__machineCertificateName"))
-                this.__machineCertificateName := CRYPT_INTEGER_BLOB(32, this)
-            return this.__machineCertificateName
-        }
-    }
+    dwEncryptionType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwEncryptionType {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    customPolicy : ROUTER_CUSTOM_IKEv2_POLICY0.Ptr
 
-    /**
-     * @type {Pointer<ROUTER_CUSTOM_IKEv2_POLICY0>}
-     */
-    customPolicy {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    dwTotalEkus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwTotalEkus {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    certificateEKUs : MPR_CERT_EKU.Ptr
 
-    /**
-     * @type {Pointer<MPR_CERT_EKU>}
-     */
-    certificateEKUs {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    machineCertificateHash : CRYPT_INTEGER_BLOB
 
-    /**
-     * @type {CRYPT_INTEGER_BLOB}
-     */
-    machineCertificateHash {
-        get {
-            if(!this.HasProp("__machineCertificateHash"))
-                this.__machineCertificateHash := CRYPT_INTEGER_BLOB(80, this)
-            return this.__machineCertificateHash
-        }
-    }
 }

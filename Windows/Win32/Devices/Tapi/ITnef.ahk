@@ -1,29 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\IStream.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\AddressBook\SPropValue.ahk" { SPropValue }
+#Import "..\..\System\AddressBook\IMAPITable.ahk" { IMAPITable }
+#Import "..\..\System\AddressBook\SPropTagArray.ahk" { SPropTagArray }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\AddressBook\IMessage.ahk" { IMessage }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\STnefProblemArray.ahk" { STnefProblemArray }
 
 /**
  * Provides methods for encapsulating MAPI properties that are not supported by a messaging system into binary streams that can be attached to messages.
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itnefiunknown
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITnef extends IUnknown {
+export default struct ITnef extends IUnknown {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddProps", "ExtractProps", "Finish", "OpenTaggedBody", "SetProps", "EncodeRecips", "FinishComponent"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITnef interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddProps        : IntPtr
+        ExtractProps    : IntPtr
+        Finish          : IntPtr
+        OpenTaggedBody  : IntPtr
+        SetProps        : IntPtr
+        EncodeRecips    : IntPtr
+        FinishComponent : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITnef.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITnefAddProps enables the calling service provider or gateway to add properties to the encapsulation of a message or an attachment.
@@ -69,7 +88,7 @@ class ITnef extends IUnknown {
     AddProps(ulFlags, ulElemID, lpvData, lpPropList) {
         lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "uint", ulFlags, "uint", ulElemID, lpvDataMarshal, lpvData, "ptr", lpPropList, "HRESULT")
+        result := ComCall(3, this, "uint", ulFlags, "uint", ulElemID, lpvDataMarshal, lpvData, SPropTagArray.Ptr, lpPropList, "HRESULT")
         return result
     }
 
@@ -115,7 +134,7 @@ class ITnef extends IUnknown {
     ExtractProps(ulFlags, lpPropList, lpProblems) {
         lpProblemsMarshal := lpProblems is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulFlags, "ptr", lpPropList, lpProblemsMarshal, lpProblems, "HRESULT")
+        result := ComCall(4, this, "uint", ulFlags, SPropTagArray.Ptr, lpPropList, lpProblemsMarshal, lpProblems, "HRESULT")
         return result
     }
 
@@ -202,7 +221,7 @@ class ITnef extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itnef-setprops
      */
     SetProps(ulFlags, ulElemID, cValues, lpProps) {
-        result := ComCall(7, this, "uint", ulFlags, "uint", ulElemID, "uint", cValues, "ptr", lpProps, "HRESULT")
+        result := ComCall(7, this, "uint", ulFlags, "uint", ulElemID, "uint", cValues, SPropValue.Ptr, lpProps, "HRESULT")
         return result
     }
 
@@ -264,7 +283,39 @@ class ITnef extends IUnknown {
     FinishComponent(ulFlags, ulComponentID, lpCustomPropList, lpCustomProps, lpPropList, lpProblems) {
         lpProblemsMarshal := lpProblems is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "uint", ulFlags, "uint", ulComponentID, "ptr", lpCustomPropList, "ptr", lpCustomProps, "ptr", lpPropList, lpProblemsMarshal, lpProblems, "HRESULT")
+        result := ComCall(9, this, "uint", ulFlags, "uint", ulComponentID, SPropTagArray.Ptr, lpCustomPropList, SPropValue.Ptr, lpCustomProps, SPropTagArray.Ptr, lpPropList, lpProblemsMarshal, lpProblems, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITnef.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddProps := CallbackCreate(GetMethod(implObj, "AddProps"), flags, 5)
+        this.vtbl.ExtractProps := CallbackCreate(GetMethod(implObj, "ExtractProps"), flags, 4)
+        this.vtbl.Finish := CallbackCreate(GetMethod(implObj, "Finish"), flags, 4)
+        this.vtbl.OpenTaggedBody := CallbackCreate(GetMethod(implObj, "OpenTaggedBody"), flags, 4)
+        this.vtbl.SetProps := CallbackCreate(GetMethod(implObj, "SetProps"), flags, 5)
+        this.vtbl.EncodeRecips := CallbackCreate(GetMethod(implObj, "EncodeRecips"), flags, 3)
+        this.vtbl.FinishComponent := CallbackCreate(GetMethod(implObj, "FinishComponent"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddProps)
+        CallbackFree(this.vtbl.ExtractProps)
+        CallbackFree(this.vtbl.Finish)
+        CallbackFree(this.vtbl.OpenTaggedBody)
+        CallbackFree(this.vtbl.SetProps)
+        CallbackFree(this.vtbl.EncodeRecips)
+        CallbackFree(this.vtbl.FinishComponent)
     }
 }

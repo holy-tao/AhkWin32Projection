@@ -1,39 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @charset ANSI
  */
-class RASEAPUSERIDENTITYA extends Win32Struct {
-    static sizeof => 268
+export default struct RASEAPUSERIDENTITYA {
+    #StructPack 4
 
-    static packingSize => 4
+    szUserName : CHAR[257]
 
-    /**
-     * @type {String}
-     */
-    szUserName {
-        get => StrGet(this.ptr + 0, 256, "UTF-8")
-        set => StrPut(value, this.ptr + 0, 256, "UTF-8")
-    }
+    dwSizeofEapInfo : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSizeofEapInfo {
-        get => NumGet(this, 260, "uint")
-        set => NumPut("uint", value, this, 260)
-    }
+    pbEapInfo : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    pbEapInfo {
-        get {
-            if(!this.HasProp("__pbEapInfoProxyArray"))
-                this.__pbEapInfoProxyArray := Win32FixedArray(this.ptr + 264, 1, Primitive, "char")
-            return this.__pbEapInfoProxyArray
-        }
-    }
 }

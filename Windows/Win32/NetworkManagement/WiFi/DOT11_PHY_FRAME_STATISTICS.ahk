@@ -1,155 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_PHY_FRAME_STATISTICS extends Win32Struct {
-    static sizeof => 144
+export default struct DOT11_PHY_FRAME_STATISTICS {
+    #StructPack 8
 
-    static packingSize => 8
+    ullTransmittedFrameCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullTransmittedFrameCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ullMulticastTransmittedFrameCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullMulticastTransmittedFrameCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ullFailedCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullFailedCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ullRetryCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullRetryCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ullMultipleRetryCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullMultipleRetryCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ullMaxTXLifetimeExceededCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullMaxTXLifetimeExceededCount {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ullTransmittedFragmentCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullTransmittedFragmentCount {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    ullRTSSuccessCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullRTSSuccessCount {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    ullRTSFailureCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullRTSFailureCount {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    ullACKFailureCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullACKFailureCount {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    ullReceivedFrameCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullReceivedFrameCount {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    ullMulticastReceivedFrameCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullMulticastReceivedFrameCount {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    ullPromiscuousReceivedFrameCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullPromiscuousReceivedFrameCount {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    ullMaxRXLifetimeExceededCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullMaxRXLifetimeExceededCount {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    ullFrameDuplicateCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullFrameDuplicateCount {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    ullReceivedFragmentCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullReceivedFragmentCount {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    ullPromiscuousReceivedFragmentCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullPromiscuousReceivedFragmentCount {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    ullFCSErrorCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullFCSErrorCount {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
 }

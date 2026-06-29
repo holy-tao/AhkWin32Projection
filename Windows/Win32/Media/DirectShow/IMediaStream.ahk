@@ -1,35 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMultiMediaStream.ahk
-#Include .\IStreamSample.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\STREAM_TYPE.ahk" { STREAM_TYPE }
+#Import ".\IStreamSample.ahk" { IStreamSample }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMultiMediaStream.ahk" { IMultiMediaStream }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Note  This interface is deprecated.
  * @see https://learn.microsoft.com/windows/win32/api/mmstream/nn-mmstream-imediastream
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IMediaStream extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMediaStream extends IUnknown {
     /**
      * The interface identifier for IMediaStream
      * @type {Guid}
      */
-    static IID => Guid("{b502d1bd-9a57-11d0-8fde-00c04fd9189d}")
+    static IID := Guid("{b502d1bd-9a57-11d0-8fde-00c04fd9189d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMediaStream interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetMultiMediaStream : IntPtr
+        GetInformation      : IntPtr
+        SetSameFormat       : IntPtr
+        AllocateSample      : IntPtr
+        CreateSharedSample  : IntPtr
+        SendEndOfStream     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetMultiMediaStream", "GetInformation", "SetSameFormat", "AllocateSample", "CreateSharedSample", "SendEndOfStream"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMediaStream.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Note  This interface is deprecated. New applications should not use it. Retrieves a pointer to the multimedia stream that contains the specified media stream.
@@ -55,7 +69,7 @@ class IMediaStream extends IUnknown {
     GetInformation(pPurposeId, pType) {
         pTypeMarshal := pType is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pPurposeId, pTypeMarshal, pType, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, pPurposeId, pTypeMarshal, pType, "HRESULT")
         return result
     }
 
@@ -109,5 +123,35 @@ class IMediaStream extends IUnknown {
     SendEndOfStream(dwFlags) {
         result := ComCall(8, this, "uint", dwFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMediaStream.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetMultiMediaStream := CallbackCreate(GetMethod(implObj, "GetMultiMediaStream"), flags, 2)
+        this.vtbl.GetInformation := CallbackCreate(GetMethod(implObj, "GetInformation"), flags, 3)
+        this.vtbl.SetSameFormat := CallbackCreate(GetMethod(implObj, "SetSameFormat"), flags, 3)
+        this.vtbl.AllocateSample := CallbackCreate(GetMethod(implObj, "AllocateSample"), flags, 3)
+        this.vtbl.CreateSharedSample := CallbackCreate(GetMethod(implObj, "CreateSharedSample"), flags, 4)
+        this.vtbl.SendEndOfStream := CallbackCreate(GetMethod(implObj, "SendEndOfStream"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetMultiMediaStream)
+        CallbackFree(this.vtbl.GetInformation)
+        CallbackFree(this.vtbl.SetSameFormat)
+        CallbackFree(this.vtbl.AllocateSample)
+        CallbackFree(this.vtbl.CreateSharedSample)
+        CallbackFree(this.vtbl.SendEndOfStream)
     }
 }

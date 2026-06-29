@@ -1,31 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\Guid.ahk
-#Include ..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
+#Import "..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Globalization
  */
-class IMLangConvertCharset extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMLangConvertCharset extends IUnknown {
     /**
      * The interface identifier for IMLangConvertCharset
      * @type {Guid}
      */
-    static IID => Guid("{d66d6f98-cdaa-11d0-b822-00c04fc9b31f}")
+    static IID := Guid("{d66d6f98-cdaa-11d0-b822-00c04fc9b31f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMLangConvertCharset interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize              : IntPtr
+        GetSourceCodePage       : IntPtr
+        GetDestinationCodePage  : IntPtr
+        GetProperty             : IntPtr
+        DoConversion            : IntPtr
+        DoConversionToUnicode   : IntPtr
+        DoConversionFromUnicode : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetSourceCodePage", "GetDestinationCodePage", "GetProperty", "DoConversion", "DoConversionToUnicode", "DoConversionFromUnicode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMLangConvertCharset.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes a thread to use Windows Runtime APIs.
@@ -145,5 +160,37 @@ class IMLangConvertCharset extends IUnknown {
 
         result := ComCall(9, this, "ptr", pSrcStr, pcSrcSizeMarshal, pcSrcSize, "ptr", pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMLangConvertCharset.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.GetSourceCodePage := CallbackCreate(GetMethod(implObj, "GetSourceCodePage"), flags, 2)
+        this.vtbl.GetDestinationCodePage := CallbackCreate(GetMethod(implObj, "GetDestinationCodePage"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 2)
+        this.vtbl.DoConversion := CallbackCreate(GetMethod(implObj, "DoConversion"), flags, 5)
+        this.vtbl.DoConversionToUnicode := CallbackCreate(GetMethod(implObj, "DoConversionToUnicode"), flags, 5)
+        this.vtbl.DoConversionFromUnicode := CallbackCreate(GetMethod(implObj, "DoConversionFromUnicode"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetSourceCodePage)
+        CallbackFree(this.vtbl.GetDestinationCodePage)
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.DoConversion)
+        CallbackFree(this.vtbl.DoConversionToUnicode)
+        CallbackFree(this.vtbl.DoConversionFromUnicode)
     }
 }

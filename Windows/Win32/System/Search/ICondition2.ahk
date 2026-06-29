@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ICondition.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "Common\CONDITION_OPERATION.ahk" { CONDITION_OPERATION }
+#Import ".\ICondition.ahk" { ICondition }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
 
 /**
  * Extends the functionality of the ICondition interface. ICondition2 provides methods for retrieving information about a search condition.
@@ -10,26 +15,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nn-structuredquerycondition-icondition2
  * @namespace Windows.Win32.System.Search
  */
-class ICondition2 extends ICondition {
-
-    static sizeof => A_PtrSize
+export default struct ICondition2 extends ICondition {
     /**
      * The interface identifier for ICondition2
      * @type {Guid}
      */
-    static IID => Guid("{0db8851d-2e5b-47eb-9208-d28c325a01d7}")
+    static IID := Guid("{0db8851d-2e5b-47eb-9208-d28c325a01d7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 15
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICondition2 interfaces
+    */
+    struct Vtbl extends ICondition.Vtbl {
+        GetLocale            : IntPtr
+        GetLeafConditionInfo : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetLocale", "GetLeafConditionInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICondition2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the property name, operation, and value from a leaf search condition node. (ICondition2.GetLocale)
@@ -39,7 +52,7 @@ class ICondition2 extends ICondition {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nf-structuredquerycondition-icondition2-getlocale
      */
     GetLocale() {
-        result := ComCall(15, this, "ptr*", &ppszLocaleName := 0, "HRESULT")
+        result := ComCall(15, this, PWSTR.Ptr, &ppszLocaleName := 0, "HRESULT")
         return ppszLocaleName
     }
 
@@ -66,7 +79,29 @@ class ICondition2 extends ICondition {
     GetLeafConditionInfo(ppropkey, pcop, ppropvar) {
         pcopMarshal := pcop is VarRef ? "int*" : "ptr"
 
-        result := ComCall(16, this, "ptr", ppropkey, pcopMarshal, pcop, "ptr", ppropvar, "HRESULT")
+        result := ComCall(16, this, PROPERTYKEY.Ptr, ppropkey, pcopMarshal, pcop, PROPVARIANT.Ptr, ppropvar, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICondition2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetLocale := CallbackCreate(GetMethod(implObj, "GetLocale"), flags, 2)
+        this.vtbl.GetLeafConditionInfo := CallbackCreate(GetMethod(implObj, "GetLeafConditionInfo"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetLocale)
+        CallbackFree(this.vtbl.GetLeafConditionInfo)
     }
 }

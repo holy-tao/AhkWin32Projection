@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Security\Authorization\TRUSTEE_W.ahk" { TRUSTEE_W }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
- * Enables the access control editor to communicate with the caller of the CreateSecurityPage and EditSecurity functions.
- * @see https://learn.microsoft.com/windows/win32/api/aclui/nn-aclui-isecurityinformation
  * @namespace Windows.Win32.System.Search
  */
-class ISecurityInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISecurityInfo extends IUnknown {
     /**
      * The interface identifier for ISecurityInfo
      * @type {Guid}
      */
-    static IID => Guid("{0c733aa4-2a1c-11ce-ade5-00aa0044773d}")
+    static IID := Guid("{0c733aa4-2a1c-11ce-ade5-00aa0044773d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISecurityInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCurrentTrustee : IntPtr
+        GetObjectTypes    : IntPtr
+        GetPermissions    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCurrentTrustee", "GetObjectTypes", "GetPermissions"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISecurityInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -58,7 +67,31 @@ class ISecurityInfo extends IUnknown {
      * @returns {Integer} 
      */
     GetPermissions(_ObjectType) {
-        result := ComCall(5, this, "ptr", _ObjectType, "uint*", &pPermissions := 0, "HRESULT")
+        result := ComCall(5, this, Guid, _ObjectType, "uint*", &pPermissions := 0, "HRESULT")
         return pPermissions
+    }
+
+    Query(iid) {
+        if (ISecurityInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCurrentTrustee := CallbackCreate(GetMethod(implObj, "GetCurrentTrustee"), flags, 2)
+        this.vtbl.GetObjectTypes := CallbackCreate(GetMethod(implObj, "GetObjectTypes"), flags, 3)
+        this.vtbl.GetPermissions := CallbackCreate(GetMethod(implObj, "GetPermissions"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCurrentTrustee)
+        CallbackFree(this.vtbl.GetObjectTypes)
+        CallbackFree(this.vtbl.GetPermissions)
     }
 }

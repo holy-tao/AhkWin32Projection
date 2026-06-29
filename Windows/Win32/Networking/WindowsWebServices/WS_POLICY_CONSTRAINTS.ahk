@@ -1,19 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_CHANNEL_BINDING.ahk
-#Include .\WS_CHANNEL_PROPERTY_CONSTRAINT.ahk
-#Include .\WS_SECURITY_CONSTRAINTS.ahk
-#Include .\WS_POLICY_EXTENSION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_CHANNEL_BINDING.ahk" { WS_CHANNEL_BINDING }
+#Import ".\WS_CHANNEL_PROPERTY_CONSTRAINT.ahk" { WS_CHANNEL_PROPERTY_CONSTRAINT }
+#Import ".\WS_SECURITY_CONSTRAINTS.ahk" { WS_SECURITY_CONSTRAINTS }
+#Import ".\WS_POLICY_EXTENSION.ahk" { WS_POLICY_EXTENSION }
 
 /**
  * Specifies policy constraints for a channel.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_policy_constraints
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_POLICY_CONSTRAINTS extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct WS_POLICY_CONSTRAINTS {
+    #StructPack 8
 
     /**
      * Which channel binding is required.  The
@@ -28,12 +25,8 @@ class WS_POLICY_CONSTRAINTS extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_binding">WS_TCP_CHANNEL_BINDING</a>
      * </li>
      * </ul>
-     * @type {WS_CHANNEL_BINDING}
      */
-    channelBinding {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    channelBinding : WS_CHANNEL_BINDING
 
     /**
      * An array of channel property constraints which override the default
@@ -46,50 +39,27 @@ class WS_POLICY_CONSTRAINTS extends Win32Struct {
      *                     then a default constraint value will be used.
      *                     See <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_channel_property_constraint">WS_CHANNEL_PROPERTY_CONSTRAINT</a> for the
      *                     supported set of properties and their default values.
-     * @type {Pointer<WS_CHANNEL_PROPERTY_CONSTRAINT>}
      */
-    channelPropertyConstraints {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    channelPropertyConstraints : WS_CHANNEL_PROPERTY_CONSTRAINT.Ptr
 
     /**
      * The number of elements specified in the <b>channelPropertyConstraints</b> array.  
      *                 
      * 
      * If this value is 0, then the channelPropertyConstraints array may be <b>NULL</b>.
-     * @type {Integer}
      */
-    channelPropertyConstraintCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    channelPropertyConstraintCount : UInt32
 
     /**
      * Constraints on the type of security that may be used.
      *                 
      * 
      * Setting this field to <b>NULL</b> indicates a constraint of no security.
-     * @type {Pointer<WS_SECURITY_CONSTRAINTS>}
      */
-    securityConstraints {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    securityConstraints : WS_SECURITY_CONSTRAINTS.Ptr
 
-    /**
-     * @type {Pointer<Pointer<WS_POLICY_EXTENSION>>}
-     */
-    policyExtensions {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    policyExtensions : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    policyExtensionCount {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    policyExtensionCount : UInt32
+
 }

@@ -1,67 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class RTL_QUERY_REGISTRY_TABLE extends Win32Struct {
-    static sizeof => 56
+export default struct RTL_QUERY_REGISTRY_TABLE {
+    #StructPack 8
 
-    static packingSize => 8
+    QueryRoutine : IntPtr
 
-    /**
-     * @type {Pointer<PRTL_QUERY_REGISTRY_ROUTINE>}
-     */
-    QueryRoutine {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Name : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    Name {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    EntryContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    EntryContext {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    DefaultType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DefaultType {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    DefaultData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    DefaultData {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    DefaultLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DefaultLength {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
 }

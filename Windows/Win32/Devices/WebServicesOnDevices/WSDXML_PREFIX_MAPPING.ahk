@@ -1,51 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSDXML_PREFIX_MAPPING.ahk
-#Include .\WSDXML_NAMESPACE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WSDXML_NAMESPACE.ahk" { WSDXML_NAMESPACE }
 
 /**
  * Describes an XML namespace prefix.
  * @see https://learn.microsoft.com/windows/win32/api/wsdxmldom/ns-wsdxmldom-wsdxml_prefix_mapping
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class WSDXML_PREFIX_MAPPING extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct WSDXML_PREFIX_MAPPING {
+    #StructPack 8
 
     /**
      * The number of references to the mapping. When the value reaches zero, the mapping is deleted.
-     * @type {Integer}
      */
-    Refs {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Refs : UInt32
 
     /**
      * Reference to the next node in a linked list of <b>WSDXML_PREFIX_MAPPING</b> structures.
-     * @type {Pointer<WSDXML_PREFIX_MAPPING>}
      */
-    Next {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Next : WSDXML_PREFIX_MAPPING.Ptr
 
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_namespace">WSDXML_NAMESPACE</a> structure.
-     * @type {Pointer<WSDXML_NAMESPACE>}
      */
-    Space {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Space : WSDXML_NAMESPACE.Ptr
 
     /**
      * The text of the XML prefix.
-     * @type {PWSTR}
      */
-    Prefix {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Prefix : PWSTR
+
 }

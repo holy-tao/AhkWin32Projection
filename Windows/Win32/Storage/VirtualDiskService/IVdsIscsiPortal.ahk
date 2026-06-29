@@ -1,36 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VDS_ISCSI_PORTAL_PROP.ahk
-#Include .\IVdsSubSystem.ahk
-#Include .\IEnumVdsObject.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VDS_ISCSI_PORTAL_PROP.ahk" { VDS_ISCSI_PORTAL_PROP }
+#Import ".\VDS_ISCSI_IPSEC_KEY.ahk" { VDS_ISCSI_IPSEC_KEY }
+#Import ".\VDS_IPADDRESS.ahk" { VDS_IPADDRESS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IVdsSubSystem.ahk" { IVdsSubSystem }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\VDS_ISCSI_PORTAL_STATUS.ahk" { VDS_ISCSI_PORTAL_STATUS }
+#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
 
 /**
  * The IVdsIscsiPortal interface (vdshwprv.h) provides methods for performing query and configuration operations on an iSCSI portal.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdsiscsiportal
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsIscsiPortal extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsIscsiPortal extends IUnknown {
     /**
      * The interface identifier for IVdsIscsiPortal
      * @type {Guid}
      */
-    static IID => Guid("{7fa1499d-ec85-4a8a-a47b-ff69201fcd34}")
+    static IID := Guid("{7fa1499d-ec85-4a8a-a47b-ff69201fcd34}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsIscsiPortal interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetProperties               : IntPtr
+        GetSubSystem                : IntPtr
+        QueryAssociatedPortalGroups : IntPtr
+        SetStatus                   : IntPtr
+        SetIpsecTunnelAddress       : IntPtr
+        GetIpsecSecurity            : IntPtr
+        SetIpsecSecurity            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetProperties", "GetSubSystem", "QueryAssociatedPortalGroups", "SetStatus", "SetIpsecTunnelAddress", "GetIpsecSecurity", "SetIpsecSecurity"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsIscsiPortal.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IVdsIscsiPortal::GetProperties (vdshwprv.h) method returns the properties of a portal.
@@ -39,7 +56,7 @@ class IVdsIscsiPortal extends IUnknown {
      */
     GetProperties() {
         pPortalProp := VDS_ISCSI_PORTAL_PROP()
-        result := ComCall(3, this, "ptr", pPortalProp, "HRESULT")
+        result := ComCall(3, this, VDS_ISCSI_PORTAL_PROP.Ptr, pPortalProp, "HRESULT")
         return pPortalProp
     }
 
@@ -139,7 +156,7 @@ class IVdsIscsiPortal extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsiportal-setstatus
      */
     SetStatus(_status) {
-        result := ComCall(6, this, "int", _status, "HRESULT")
+        result := ComCall(6, this, VDS_ISCSI_PORTAL_STATUS, _status, "HRESULT")
         return result
     }
 
@@ -169,7 +186,7 @@ class IVdsIscsiPortal extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsiportal-setipsectunneladdress
      */
     SetIpsecTunnelAddress(pTunnelAddress, pDestinationAddress) {
-        result := ComCall(7, this, "ptr", pTunnelAddress, "ptr", pDestinationAddress, "HRESULT")
+        result := ComCall(7, this, VDS_IPADDRESS.Ptr, pTunnelAddress, VDS_IPADDRESS.Ptr, pDestinationAddress, "HRESULT")
         return result
     }
 
@@ -180,7 +197,7 @@ class IVdsIscsiPortal extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsiportal-getipsecsecurity
      */
     GetIpsecSecurity(pInitiatorPortalAddress) {
-        result := ComCall(8, this, "ptr", pInitiatorPortalAddress, "uint*", &pullSecurityFlags := 0, "HRESULT")
+        result := ComCall(8, this, VDS_IPADDRESS.Ptr, pInitiatorPortalAddress, "uint*", &pullSecurityFlags := 0, "HRESULT")
         return pullSecurityFlags
     }
 
@@ -211,7 +228,39 @@ class IVdsIscsiPortal extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsiportal-setipsecsecurity
      */
     SetIpsecSecurity(pInitiatorPortalAddress, ullSecurityFlags, pIpsecKey) {
-        result := ComCall(9, this, "ptr", pInitiatorPortalAddress, "uint", ullSecurityFlags, "ptr", pIpsecKey, "HRESULT")
+        result := ComCall(9, this, VDS_IPADDRESS.Ptr, pInitiatorPortalAddress, "uint", ullSecurityFlags, VDS_ISCSI_IPSEC_KEY.Ptr, pIpsecKey, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVdsIscsiPortal.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetSubSystem := CallbackCreate(GetMethod(implObj, "GetSubSystem"), flags, 2)
+        this.vtbl.QueryAssociatedPortalGroups := CallbackCreate(GetMethod(implObj, "QueryAssociatedPortalGroups"), flags, 2)
+        this.vtbl.SetStatus := CallbackCreate(GetMethod(implObj, "SetStatus"), flags, 2)
+        this.vtbl.SetIpsecTunnelAddress := CallbackCreate(GetMethod(implObj, "SetIpsecTunnelAddress"), flags, 3)
+        this.vtbl.GetIpsecSecurity := CallbackCreate(GetMethod(implObj, "GetIpsecSecurity"), flags, 3)
+        this.vtbl.SetIpsecSecurity := CallbackCreate(GetMethod(implObj, "SetIpsecSecurity"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetProperties)
+        CallbackFree(this.vtbl.GetSubSystem)
+        CallbackFree(this.vtbl.QueryAssociatedPortalGroups)
+        CallbackFree(this.vtbl.SetStatus)
+        CallbackFree(this.vtbl.SetIpsecTunnelAddress)
+        CallbackFree(this.vtbl.GetIpsecSecurity)
+        CallbackFree(this.vtbl.SetIpsecSecurity)
     }
 }

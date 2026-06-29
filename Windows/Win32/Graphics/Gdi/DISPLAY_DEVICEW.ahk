@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DISPLAY_DEVICE_STATE_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DISPLAY_DEVICE_STATE_FLAGS.ahk" { DISPLAY_DEVICE_STATE_FLAGS }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The DISPLAY_DEVICE structure receives information about the display device specified by the iDevNum parameter of the EnumDisplayDevices function. (Unicode)
@@ -17,37 +17,23 @@
  * @namespace Windows.Win32.Graphics.Gdi
  * @charset Unicode
  */
-class DISPLAY_DEVICEW extends Win32Struct {
-    static sizeof => 840
-
-    static packingSize => 4
+export default struct DISPLAY_DEVICEW {
+    #StructPack 4
 
     /**
      * Size, in bytes, of the <b>DISPLAY_DEVICE</b> structure. This must be initialized prior to calling <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumdisplaydevicesa">EnumDisplayDevices</a>.
-     * @type {Integer}
      */
-    cb {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cb : UInt32
 
     /**
      * An array of characters identifying the device name. This is either the adapter device or the monitor device.
-     * @type {String}
      */
-    DeviceName {
-        get => StrGet(this.ptr + 4, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 31, "UTF-16")
-    }
+    DeviceName : WCHAR[32]
 
     /**
      * An array of characters containing the device context string. This is either a description of the display adapter or of the display monitor.
-     * @type {String}
      */
-    DeviceString {
-        get => StrGet(this.ptr + 68, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 68, 127, "UTF-16")
-    }
+    DeviceString : WCHAR[128]
 
     /**
      * Device state flags. It can be any reasonable combination of the following.
@@ -84,28 +70,17 @@ class DISPLAY_DEVICEW extends Win32Struct {
      * <td>The device is VGA compatible.</td>
      * </tr>
      * </table>
-     * @type {DISPLAY_DEVICE_STATE_FLAGS}
      */
-    StateFlags {
-        get => NumGet(this, 324, "uint")
-        set => NumPut("uint", value, this, 324)
-    }
+    StateFlags : DISPLAY_DEVICE_STATE_FLAGS
 
     /**
      * Not used.
-     * @type {String}
      */
-    DeviceID {
-        get => StrGet(this.ptr + 328, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 328, 127, "UTF-16")
-    }
+    DeviceID : WCHAR[128]
 
     /**
      * Reserved.
-     * @type {String}
      */
-    DeviceKey {
-        get => StrGet(this.ptr + 584, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 584, 127, "UTF-16")
-    }
+    DeviceKey : WCHAR[128]
+
 }

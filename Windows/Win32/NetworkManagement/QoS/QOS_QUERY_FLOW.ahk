@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The QOS_QUERY_FLOW enumeration indicates the type of information a QOSQueryFlow function will request.
  * @see https://learn.microsoft.com/windows/win32/api/qos2/ne-qos2-qos_query_flow
  * @namespace Windows.Win32.NetworkManagement.QoS
  */
-class QOS_QUERY_FLOW extends Win32Enum {
+export default struct QOS_QUERY_FLOW {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates an information request for the flow fundamentals. This information includes bottleneck bandwidth, available bandwidth, and the average Round Trip Time (RTT)

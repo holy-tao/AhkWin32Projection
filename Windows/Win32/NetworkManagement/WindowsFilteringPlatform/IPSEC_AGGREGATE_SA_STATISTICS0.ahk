@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Stores aggregate IPsec kernel security association (SA) statistics.
@@ -8,71 +7,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_aggregate_sa_statistics0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IPSEC_AGGREGATE_SA_STATISTICS0 extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct IPSEC_AGGREGATE_SA_STATISTICS0 {
+    #StructPack 4
 
     /**
      * Number of active SAs.
-     * @type {Integer}
      */
-    activeSas {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    activeSas : UInt32
 
     /**
      * Number of pending SA negotiations.
-     * @type {Integer}
      */
-    pendingSaNegotiations {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    pendingSaNegotiations : UInt32
 
     /**
      * Total number of SAs added.
-     * @type {Integer}
      */
-    totalSasAdded {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    totalSasAdded : UInt32
 
     /**
      * Total number of SAs deleted.
-     * @type {Integer}
      */
-    totalSasDeleted {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    totalSasDeleted : UInt32
 
     /**
      * Number of successful re-keys.
-     * @type {Integer}
      */
-    successfulRekeys {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    successfulRekeys : UInt32
 
     /**
      * Number of active tunnels.
-     * @type {Integer}
      */
-    activeTunnels {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    activeTunnels : UInt32
 
     /**
      * Number of offloaded SAs.
-     * @type {Integer}
      */
-    offloadedSas {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    offloadedSas : UInt32
+
 }

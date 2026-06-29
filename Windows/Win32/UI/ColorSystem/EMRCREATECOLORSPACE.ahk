@@ -1,11 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\EMR.ahk
-#Include ..\..\Graphics\Gdi\ENHANCED_METAFILE_RECORD_TYPE.ahk
-#Include .\LOGCOLORSPACEA.ahk
-#Include .\LCSCSTYPE.ahk
-#Include ..\..\Graphics\Gdi\CIEXYZTRIPLE.ahk
-#Include ..\..\Graphics\Gdi\CIEXYZ.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LCSCSTYPE.ahk" { LCSCSTYPE }
+#Import "..\..\Graphics\Gdi\EMR.ahk" { EMR }
+#Import "..\..\Graphics\Gdi\CIEXYZ.ahk" { CIEXYZ }
+#Import ".\LOGCOLORSPACEA.ahk" { LOGCOLORSPACEA }
+#Import "..\..\Graphics\Gdi\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
+#Import "..\..\Graphics\Gdi\CIEXYZTRIPLE.ahk" { CIEXYZTRIPLE }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * The EMRCREATECOLORSPACE structure contains members for the CreateColorSpace enhanced metafile record.
@@ -13,41 +13,22 @@
  * @namespace Windows.Win32.UI.ColorSystem
  * @charset ANSI
  */
-class EMRCREATECOLORSPACE extends Win32Struct {
-    static sizeof => 340
-
-    static packingSize => 4
+export default struct EMRCREATECOLORSPACE {
+    #StructPack 4
 
     /**
      * The base structure for all record types.
-     * @type {EMR}
      */
-    emr {
-        get {
-            if(!this.HasProp("__emr"))
-                this.__emr := EMR(0, this)
-            return this.__emr
-        }
-    }
+    emr : EMR
 
     /**
      * The index of the color space in handle table.
-     * @type {Integer}
      */
-    ihCS {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ihCS : UInt32
 
     /**
      * The logical color space.
-     * @type {LOGCOLORSPACEA}
      */
-    lcs {
-        get {
-            if(!this.HasProp("__lcs"))
-                this.__lcs := LOGCOLORSPACEA(12, this)
-            return this.__lcs
-        }
-    }
+    lcs : LOGCOLORSPACEA
+
 }

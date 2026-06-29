@@ -1,7 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\D3D10_STATE_BLOCK_MASK.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3D10_TECHNIQUE_DESC.ahk" { D3D10_TECHNIQUE_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D10EffectVariable.ahk" { ID3D10EffectVariable }
+#Import ".\D3D10_STATE_BLOCK_MASK.ahk" { D3D10_STATE_BLOCK_MASK }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\ID3D10EffectPass.ahk" { ID3D10EffectPass }
 
 /**
  * An ID3D10EffectTechnique interface is a collection of passes.
@@ -12,26 +18,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nn-d3d10effect-id3d10effecttechnique
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class ID3D10EffectTechnique extends Win32ComInterface {
-
-    static sizeof => A_PtrSize
+export default struct ID3D10EffectTechnique extends Win32ComInterface {
     /**
      * The interface identifier for ID3D10EffectTechnique
      * @type {Guid}
      */
-    static IID => Guid("{db122ce8-d1c9-4292-b237-24ed3de8b175}")
+    static IID := Guid("{db122ce8-d1c9-4292-b237-24ed3de8b175}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 0
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D10EffectTechnique interfaces
+    */
+    struct Vtbl {
+        IsValid               : IntPtr
+        GetDesc               : IntPtr
+        GetAnnotationByIndex  : IntPtr
+        GetAnnotationByName   : IntPtr
+        GetPassByIndex        : IntPtr
+        GetPassByName         : IntPtr
+        ComputeStateBlockMask : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsValid", "GetDesc", "GetAnnotationByIndex", "GetAnnotationByName", "GetPassByIndex", "GetPassByName", "ComputeStateBlockMask"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D10EffectTechnique.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Test a technique to see if it contains valid syntax.
@@ -41,7 +60,7 @@ class ID3D10EffectTechnique extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effecttechnique-isvalid
      */
     IsValid() {
-        result := ComCall(0, this, "int")
+        result := ComCall(0, this, BOOL)
         return result
     }
 
@@ -56,7 +75,7 @@ class ID3D10EffectTechnique extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effecttechnique-getdesc
      */
     GetDesc(pDesc) {
-        result := ComCall(1, this, "ptr", pDesc, "HRESULT")
+        result := ComCall(1, this, D3D10_TECHNIQUE_DESC.Ptr, pDesc, "HRESULT")
         return result
     }
 
@@ -73,7 +92,7 @@ class ID3D10EffectTechnique extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effecttechnique-getannotationbyindex
      */
     GetAnnotationByIndex(Index) {
-        result := ComCall(2, this, "uint", Index, "ptr")
+        result := ComCall(2, this, "uint", Index, ID3D10EffectVariable)
         return result
     }
 
@@ -92,7 +111,7 @@ class ID3D10EffectTechnique extends Win32ComInterface {
     GetAnnotationByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        result := ComCall(3, this, "ptr", Name, "ptr")
+        result := ComCall(3, this, "ptr", Name, ID3D10EffectVariable)
         return result
     }
 
@@ -109,7 +128,7 @@ class ID3D10EffectTechnique extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effecttechnique-getpassbyindex
      */
     GetPassByIndex(Index) {
-        result := ComCall(4, this, "uint", Index, "ptr")
+        result := ComCall(4, this, "uint", Index, ID3D10EffectPass)
         return result
     }
 
@@ -128,7 +147,7 @@ class ID3D10EffectTechnique extends Win32ComInterface {
     GetPassByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        result := ComCall(5, this, "ptr", Name, "ptr")
+        result := ComCall(5, this, "ptr", Name, ID3D10EffectPass)
         return result
     }
 
@@ -141,7 +160,14 @@ class ID3D10EffectTechnique extends Win32ComInterface {
      */
     ComputeStateBlockMask() {
         pStateBlockMask := D3D10_STATE_BLOCK_MASK()
-        result := ComCall(6, this, "ptr", pStateBlockMask, "HRESULT")
+        result := ComCall(6, this, D3D10_STATE_BLOCK_MASK.Ptr, pStateBlockMask, "HRESULT")
         return pStateBlockMask
+    }
+
+    Query(iid) {
+        if (ID3D10EffectTechnique.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
     }
 }

@@ -1,47 +1,67 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IGPMGPO.ahk
-#Include .\IGPMGPOCollection.ahk
-#Include .\IGPMResult.ahk
-#Include .\IGPMSOM.ahk
-#Include .\IGPMSOMCollection.ahk
-#Include .\IGPMWMIFilter.ahk
-#Include .\IGPMWMIFilterCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IGPMGPO.ahk" { IGPMGPO }
+#Import ".\IGPMGPOCollection.ahk" { IGPMGPOCollection }
+#Import ".\IGPMSOM.ahk" { IGPMSOM }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IGPMBackup.ahk" { IGPMBackup }
+#Import ".\IGPMSOMCollection.ahk" { IGPMSOMCollection }
+#Import ".\IGPMWMIFilter.ahk" { IGPMWMIFilter }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IGPMSearchCriteria.ahk" { IGPMSearchCriteria }
+#Import ".\IGPMWMIFilterCollection.ahk" { IGPMWMIFilterCollection }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IGPMResult.ahk" { IGPMResult }
 
 /**
  * Represents a given domain and supports methods that allow you to query scope of management (SOM) objects, create, restore and query GPOs, and create and query WMI filters when you are using the Group Policy Management Console (GPMC) interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmdomain
  * @namespace Windows.Win32.System.GroupPolicy
  */
-class IGPMDomain extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IGPMDomain extends IDispatch {
     /**
      * The interface identifier for IGPMDomain
      * @type {Guid}
      */
-    static IID => Guid("{6b21cc14-5a00-4f44-a738-feec8a94c7e3}")
+    static IID := Guid("{6b21cc14-5a00-4f44-a738-feec8a94c7e3}")
 
     /**
      * The class identifier for GPMDomain
      * @type {Guid}
      */
-    static CLSID => Guid("{710901be-1050-4cb1-838a-c5cff259e183}")
+    static CLSID := Guid("{710901be-1050-4cb1-838a-c5cff259e183}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGPMDomain interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_DomainController : IntPtr
+        get_Domain           : IntPtr
+        CreateGPO            : IntPtr
+        GetGPO               : IntPtr
+        SearchGPOs           : IntPtr
+        RestoreGPO           : IntPtr
+        GetSOM               : IntPtr
+        SearchSOMs           : IntPtr
+        GetWMIFilter         : IntPtr
+        SearchWMIFilters     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_DomainController", "get_Domain", "CreateGPO", "GetGPO", "SearchGPOs", "RestoreGPO", "GetSOM", "SearchSOMs", "GetWMIFilter", "SearchWMIFilters"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGPMDomain.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -62,8 +82,8 @@ class IGPMDomain extends IDispatch {
      * @returns {BSTR} 
      */
     get_DomainController() {
-        pVal := BSTR()
-        result := ComCall(7, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -72,8 +92,8 @@ class IGPMDomain extends IDispatch {
      * @returns {BSTR} 
      */
     get_Domain() {
-        pVal := BSTR()
-        result := ComCall(8, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -98,7 +118,7 @@ class IGPMDomain extends IDispatch {
     GetGPO(bstrGuid) {
         bstrGuid := bstrGuid is String ? BSTR.Alloc(bstrGuid).Value : bstrGuid
 
-        result := ComCall(10, this, "ptr", bstrGuid, "ptr*", &ppGPO := 0, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrGuid, "ptr*", &ppGPO := 0, "HRESULT")
         return IGPMGPO(ppGPO)
     }
 
@@ -140,7 +160,7 @@ class IGPMDomain extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmdomain-restoregpo
      */
     RestoreGPO(pIGPMBackup, lDCFlags, pvarGPMProgress, pvarGPMCancel) {
-        result := ComCall(12, this, "ptr", pIGPMBackup, "int", lDCFlags, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", pIGPMBackup, "int", lDCFlags, VARIANT.Ptr, pvarGPMProgress, VARIANT.Ptr, pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
         return IGPMResult(ppIGPMResult)
     }
 
@@ -160,7 +180,7 @@ class IGPMDomain extends IDispatch {
     GetSOM(bstrPath) {
         bstrPath := bstrPath is String ? BSTR.Alloc(bstrPath).Value : bstrPath
 
-        result := ComCall(13, this, "ptr", bstrPath, "ptr*", &ppSOM := 0, "HRESULT")
+        result := ComCall(13, this, BSTR, bstrPath, "ptr*", &ppSOM := 0, "HRESULT")
         return IGPMSOM(ppSOM)
     }
 
@@ -189,7 +209,7 @@ class IGPMDomain extends IDispatch {
     GetWMIFilter(bstrPath) {
         bstrPath := bstrPath is String ? BSTR.Alloc(bstrPath).Value : bstrPath
 
-        result := ComCall(15, this, "ptr", bstrPath, "ptr*", &ppWMIFilter := 0, "HRESULT")
+        result := ComCall(15, this, BSTR, bstrPath, "ptr*", &ppWMIFilter := 0, "HRESULT")
         return IGPMWMIFilter(ppWMIFilter)
     }
 
@@ -205,5 +225,43 @@ class IGPMDomain extends IDispatch {
     SearchWMIFilters(pIGPMSearchCriteria) {
         result := ComCall(16, this, "ptr", pIGPMSearchCriteria, "ptr*", &ppIGPMWMIFilterCollection := 0, "HRESULT")
         return IGPMWMIFilterCollection(ppIGPMWMIFilterCollection)
+    }
+
+    Query(iid) {
+        if (IGPMDomain.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_DomainController := CallbackCreate(GetMethod(implObj, "get_DomainController"), flags, 2)
+        this.vtbl.get_Domain := CallbackCreate(GetMethod(implObj, "get_Domain"), flags, 2)
+        this.vtbl.CreateGPO := CallbackCreate(GetMethod(implObj, "CreateGPO"), flags, 2)
+        this.vtbl.GetGPO := CallbackCreate(GetMethod(implObj, "GetGPO"), flags, 3)
+        this.vtbl.SearchGPOs := CallbackCreate(GetMethod(implObj, "SearchGPOs"), flags, 3)
+        this.vtbl.RestoreGPO := CallbackCreate(GetMethod(implObj, "RestoreGPO"), flags, 6)
+        this.vtbl.GetSOM := CallbackCreate(GetMethod(implObj, "GetSOM"), flags, 3)
+        this.vtbl.SearchSOMs := CallbackCreate(GetMethod(implObj, "SearchSOMs"), flags, 3)
+        this.vtbl.GetWMIFilter := CallbackCreate(GetMethod(implObj, "GetWMIFilter"), flags, 3)
+        this.vtbl.SearchWMIFilters := CallbackCreate(GetMethod(implObj, "SearchWMIFilters"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_DomainController)
+        CallbackFree(this.vtbl.get_Domain)
+        CallbackFree(this.vtbl.CreateGPO)
+        CallbackFree(this.vtbl.GetGPO)
+        CallbackFree(this.vtbl.SearchGPOs)
+        CallbackFree(this.vtbl.RestoreGPO)
+        CallbackFree(this.vtbl.GetSOM)
+        CallbackFree(this.vtbl.SearchSOMs)
+        CallbackFree(this.vtbl.GetWMIFilter)
+        CallbackFree(this.vtbl.SearchWMIFilters)
     }
 }

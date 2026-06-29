@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The USER_OTHER_INFO structure contains user error code information. The NetAlertRaise and NetAlertRaiseEx functions use the USER_OTHER_INFO structure to specify information about an event or condition of interest to a user.
@@ -34,26 +33,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/lmalert/ns-lmalert-user_other_info
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class USER_OTHER_INFO extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct USER_OTHER_INFO {
+    #StructPack 4
 
     /**
      * Specifies the error code for the new message in the message log.
-     * @type {Integer}
      */
-    alrtus_errcode {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    alrtus_errcode : UInt32
 
     /**
      * Specifies the number (0-9) of consecutive Unicode strings in the message log.
-     * @type {Integer}
      */
-    alrtus_numstrings {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    alrtus_numstrings : UInt32
+
 }

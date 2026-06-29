@@ -1,32 +1,40 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IPMTilePropertyInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IPMTilePropertyInfo.ahk" { IPMTilePropertyInfo }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
-class IPMTilePropertyEnumerator extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPMTilePropertyEnumerator extends IUnknown {
     /**
      * The interface identifier for IPMTilePropertyEnumerator
      * @type {Guid}
      */
-    static IID => Guid("{cc4cd629-9047-4250-aac8-930e47812421}")
+    static IID := Guid("{cc4cd629-9047-4250-aac8-930e47812421}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPMTilePropertyEnumerator interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_Next : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Next"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPMTilePropertyEnumerator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IPMTilePropertyInfo} 
@@ -42,5 +50,25 @@ class IPMTilePropertyEnumerator extends IUnknown {
     get_Next() {
         result := ComCall(3, this, "ptr*", &ppPropInfo := 0, "HRESULT")
         return IPMTilePropertyInfo(ppPropInfo)
+    }
+
+    Query(iid) {
+        if (IPMTilePropertyEnumerator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Next := CallbackCreate(GetMethod(implObj, "get_Next"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Next)
     }
 }

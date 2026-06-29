@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes a method that checks for previous versions of server files or folders, stored for the purpose of reversion by the shadow copies technology provided with Windows Server 2003.
@@ -35,26 +38,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-ipreviousversionsinfo
  * @namespace Windows.Win32.UI.Shell
  */
-class IPreviousVersionsInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPreviousVersionsInfo extends IUnknown {
     /**
      * The interface identifier for IPreviousVersionsInfo
      * @type {Guid}
      */
-    static IID => Guid("{76e54780-ad74-48e3-a695-3ba9a0aff10d}")
+    static IID := Guid("{76e54780-ad74-48e3-a695-3ba9a0aff10d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPreviousVersionsInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AreSnapshotsAvailable : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AreSnapshotsAvailable"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPreviousVersionsInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Queries for the availability of a Windows Server 2003 volume image recorded by the system at an earlier time.
@@ -93,7 +103,27 @@ class IPreviousVersionsInfo extends IUnknown {
     AreSnapshotsAvailable(pszPath, fOkToBeSlow) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(3, this, "ptr", pszPath, "int", fOkToBeSlow, "int*", &pfAvailable := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pszPath, BOOL, fOkToBeSlow, BOOL.Ptr, &pfAvailable := 0, "HRESULT")
         return pfAvailable
+    }
+
+    Query(iid) {
+        if (IPreviousVersionsInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AreSnapshotsAvailable := CallbackCreate(GetMethod(implObj, "AreSnapshotsAvailable"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AreSnapshotsAvailable)
     }
 }

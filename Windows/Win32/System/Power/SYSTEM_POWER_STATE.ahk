@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines values that are used to specify system power states.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-system_power_state
  * @namespace Windows.Win32.System.Power
  */
-class SYSTEM_POWER_STATE extends Win32Enum {
+export default struct SYSTEM_POWER_STATE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Unspecified system power state.

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the priority of processing an item that has changed.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/ne-searchapi-search_notification_priority
  * @namespace Windows.Win32.System.Search
  */
-class SEARCH_NOTIFICATION_PRIORITY extends Win32Enum {
+export default struct SEARCH_NOTIFICATION_PRIORITY {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The changed item is added to the end of the indexer's queue.

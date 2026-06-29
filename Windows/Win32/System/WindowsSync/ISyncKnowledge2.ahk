@@ -1,8 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISyncKnowledge.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SYNC_SERIALIZATION_VERSION.ahk" { SYNC_SERIALIZATION_VERSION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\KNOWLEDGE_COOKIE_COMPARISON_RESULT.ahk" { KNOWLEDGE_COOKIE_COMPARISON_RESULT }
+#Import ".\SYNC_STATISTICS.ahk" { SYNC_STATISTICS }
+#Import ".\ID_PARAMETERS.ahk" { ID_PARAMETERS }
+#Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents additional information about the knowledge that a replica has about its item store.
@@ -11,26 +16,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isyncknowledge2
  * @namespace Windows.Win32.System.WindowsSync
  */
-class ISyncKnowledge2 extends ISyncKnowledge {
-
-    static sizeof => A_PtrSize
+export default struct ISyncKnowledge2 extends ISyncKnowledge {
     /**
      * The interface identifier for ISyncKnowledge2
      * @type {Guid}
      */
-    static IID => Guid("{ed0addc0-3b4b-46a1-9a45-45661d2114c8}")
+    static IID := Guid("{ed0addc0-3b4b-46a1-9a45-45661d2114c8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 27
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISyncKnowledge2 interfaces
+    */
+    struct Vtbl extends ISyncKnowledge.Vtbl {
+        GetIdParameters                      : IntPtr
+        ProjectOntoColumnSet                 : IntPtr
+        SerializeWithOptions                 : IntPtr
+        GetLowestUncontainedId               : IntPtr
+        GetInspector                         : IntPtr
+        GetMinimumSupportedVersion           : IntPtr
+        GetStatistics                        : IntPtr
+        ContainsKnowledgeForItem             : IntPtr
+        ContainsKnowledgeForChangeUnit       : IntPtr
+        ProjectOntoKnowledgeWithPrerequisite : IntPtr
+        Complement                           : IntPtr
+        IntersectsWithKnowledge              : IntPtr
+        GetKnowledgeCookie                   : IntPtr
+        CompareToKnowledgeCookie             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetIdParameters", "ProjectOntoColumnSet", "SerializeWithOptions", "GetLowestUncontainedId", "GetInspector", "GetMinimumSupportedVersion", "GetStatistics", "ContainsKnowledgeForItem", "ContainsKnowledgeForChangeUnit", "ProjectOntoKnowledgeWithPrerequisite", "Complement", "IntersectsWithKnowledge", "GetKnowledgeCookie", "CompareToKnowledgeCookie"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISyncKnowledge2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the ID format schema of the provider. (ISyncKnowledge2.GetIdParameters)
@@ -80,7 +105,7 @@ class ISyncKnowledge2 extends ISyncKnowledge {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge2-getidparameters
      */
     GetIdParameters(pIdParameters) {
-        result := ComCall(27, this, "ptr", pIdParameters, "HRESULT")
+        result := ComCall(27, this, ID_PARAMETERS.Ptr, pIdParameters, "HRESULT")
         return result
     }
 
@@ -174,7 +199,7 @@ class ISyncKnowledge2 extends ISyncKnowledge {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
         pdwSerializedSizeMarshal := pdwSerializedSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(29, this, "int", targetFormatVersion, "uint", dwFlags, pbBufferMarshal, pbBuffer, pdwSerializedSizeMarshal, pdwSerializedSize, "HRESULT")
+        result := ComCall(29, this, SYNC_SERIALIZATION_VERSION, targetFormatVersion, "uint", dwFlags, pbBufferMarshal, pbBuffer, pdwSerializedSizeMarshal, pdwSerializedSize, "HRESULT")
         return result
     }
 
@@ -306,7 +331,7 @@ class ISyncKnowledge2 extends ISyncKnowledge {
     GetInspector(riid, ppiInspector) {
         ppiInspectorMarshal := ppiInspector is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(31, this, "ptr", riid, ppiInspectorMarshal, ppiInspector, "HRESULT")
+        result := ComCall(31, this, Guid.Ptr, riid, ppiInspectorMarshal, ppiInspector, "HRESULT")
         return result
     }
 
@@ -409,7 +434,7 @@ class ISyncKnowledge2 extends ISyncKnowledge {
     GetStatistics(which, pValue) {
         pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(33, this, "int", which, pValueMarshal, pValue, "HRESULT")
+        result := ComCall(33, this, SYNC_STATISTICS, which, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -687,5 +712,51 @@ class ISyncKnowledge2 extends ISyncKnowledge {
 
         result := ComCall(40, this, "ptr", pKnowledgeCookie, pResultMarshal, pResult, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISyncKnowledge2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetIdParameters := CallbackCreate(GetMethod(implObj, "GetIdParameters"), flags, 2)
+        this.vtbl.ProjectOntoColumnSet := CallbackCreate(GetMethod(implObj, "ProjectOntoColumnSet"), flags, 4)
+        this.vtbl.SerializeWithOptions := CallbackCreate(GetMethod(implObj, "SerializeWithOptions"), flags, 5)
+        this.vtbl.GetLowestUncontainedId := CallbackCreate(GetMethod(implObj, "GetLowestUncontainedId"), flags, 4)
+        this.vtbl.GetInspector := CallbackCreate(GetMethod(implObj, "GetInspector"), flags, 3)
+        this.vtbl.GetMinimumSupportedVersion := CallbackCreate(GetMethod(implObj, "GetMinimumSupportedVersion"), flags, 2)
+        this.vtbl.GetStatistics := CallbackCreate(GetMethod(implObj, "GetStatistics"), flags, 3)
+        this.vtbl.ContainsKnowledgeForItem := CallbackCreate(GetMethod(implObj, "ContainsKnowledgeForItem"), flags, 3)
+        this.vtbl.ContainsKnowledgeForChangeUnit := CallbackCreate(GetMethod(implObj, "ContainsKnowledgeForChangeUnit"), flags, 4)
+        this.vtbl.ProjectOntoKnowledgeWithPrerequisite := CallbackCreate(GetMethod(implObj, "ProjectOntoKnowledgeWithPrerequisite"), flags, 4)
+        this.vtbl.Complement := CallbackCreate(GetMethod(implObj, "Complement"), flags, 3)
+        this.vtbl.IntersectsWithKnowledge := CallbackCreate(GetMethod(implObj, "IntersectsWithKnowledge"), flags, 2)
+        this.vtbl.GetKnowledgeCookie := CallbackCreate(GetMethod(implObj, "GetKnowledgeCookie"), flags, 2)
+        this.vtbl.CompareToKnowledgeCookie := CallbackCreate(GetMethod(implObj, "CompareToKnowledgeCookie"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetIdParameters)
+        CallbackFree(this.vtbl.ProjectOntoColumnSet)
+        CallbackFree(this.vtbl.SerializeWithOptions)
+        CallbackFree(this.vtbl.GetLowestUncontainedId)
+        CallbackFree(this.vtbl.GetInspector)
+        CallbackFree(this.vtbl.GetMinimumSupportedVersion)
+        CallbackFree(this.vtbl.GetStatistics)
+        CallbackFree(this.vtbl.ContainsKnowledgeForItem)
+        CallbackFree(this.vtbl.ContainsKnowledgeForChangeUnit)
+        CallbackFree(this.vtbl.ProjectOntoKnowledgeWithPrerequisite)
+        CallbackFree(this.vtbl.Complement)
+        CallbackFree(this.vtbl.IntersectsWithKnowledge)
+        CallbackFree(this.vtbl.GetKnowledgeCookie)
+        CallbackFree(this.vtbl.CompareToKnowledgeCookie)
     }
 }

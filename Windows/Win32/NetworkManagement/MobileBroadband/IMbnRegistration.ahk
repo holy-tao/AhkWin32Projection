@@ -1,8 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MBN_REGISTER_STATE.ahk" { MBN_REGISTER_STATE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MBN_REGISTER_MODE.ahk" { MBN_REGISTER_MODE }
 
 /**
  * Provides access to network registration data.
@@ -11,26 +15,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnregistration
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  */
-class IMbnRegistration extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMbnRegistration extends IUnknown {
     /**
      * The interface identifier for IMbnRegistration
      * @type {Guid}
      */
-    static IID => Guid("{dcbbbab6-2009-4bbb-aaee-338e368af6fa}")
+    static IID := Guid("{dcbbbab6-2009-4bbb-aaee-338e368af6fa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMbnRegistration interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetRegisterState            : IntPtr
+        GetRegisterMode             : IntPtr
+        GetProviderID               : IntPtr
+        GetProviderName             : IntPtr
+        GetRoamingText              : IntPtr
+        GetAvailableDataClasses     : IntPtr
+        GetCurrentDataClass         : IntPtr
+        GetRegistrationNetworkError : IntPtr
+        GetPacketAttachNetworkError : IntPtr
+        SetRegisterMode             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetRegisterState", "GetRegisterMode", "GetProviderID", "GetProviderName", "GetRoamingText", "GetAvailableDataClasses", "GetCurrentDataClass", "GetRegistrationNetworkError", "GetPacketAttachNetworkError", "SetRegisterMode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMbnRegistration.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the registration state.
@@ -76,8 +96,8 @@ class IMbnRegistration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-getproviderid
      */
     GetProviderID() {
-        providerID := BSTR()
-        result := ComCall(5, this, "ptr", providerID, "HRESULT")
+        providerID := BSTR.Owned()
+        result := ComCall(5, this, BSTR.Ptr, providerID, "HRESULT")
         return providerID
     }
 
@@ -91,8 +111,8 @@ class IMbnRegistration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-getprovidername
      */
     GetProviderName() {
-        providerName := BSTR()
-        result := ComCall(6, this, "ptr", providerName, "HRESULT")
+        providerName := BSTR.Owned()
+        result := ComCall(6, this, BSTR.Ptr, providerName, "HRESULT")
         return providerName
     }
 
@@ -108,8 +128,8 @@ class IMbnRegistration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-getroamingtext
      */
     GetRoamingText() {
-        roamingText := BSTR()
-        result := ComCall(7, this, "ptr", roamingText, "HRESULT")
+        roamingText := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, roamingText, "HRESULT")
         return roamingText
     }
 
@@ -195,7 +215,45 @@ class IMbnRegistration extends IUnknown {
     SetRegisterMode(registerMode, providerID, dataClass) {
         providerID := providerID is String ? StrPtr(providerID) : providerID
 
-        result := ComCall(12, this, "int", registerMode, "ptr", providerID, "uint", dataClass, "uint*", &requestID := 0, "HRESULT")
+        result := ComCall(12, this, MBN_REGISTER_MODE, registerMode, "ptr", providerID, "uint", dataClass, "uint*", &requestID := 0, "HRESULT")
         return requestID
+    }
+
+    Query(iid) {
+        if (IMbnRegistration.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetRegisterState := CallbackCreate(GetMethod(implObj, "GetRegisterState"), flags, 2)
+        this.vtbl.GetRegisterMode := CallbackCreate(GetMethod(implObj, "GetRegisterMode"), flags, 2)
+        this.vtbl.GetProviderID := CallbackCreate(GetMethod(implObj, "GetProviderID"), flags, 2)
+        this.vtbl.GetProviderName := CallbackCreate(GetMethod(implObj, "GetProviderName"), flags, 2)
+        this.vtbl.GetRoamingText := CallbackCreate(GetMethod(implObj, "GetRoamingText"), flags, 2)
+        this.vtbl.GetAvailableDataClasses := CallbackCreate(GetMethod(implObj, "GetAvailableDataClasses"), flags, 2)
+        this.vtbl.GetCurrentDataClass := CallbackCreate(GetMethod(implObj, "GetCurrentDataClass"), flags, 2)
+        this.vtbl.GetRegistrationNetworkError := CallbackCreate(GetMethod(implObj, "GetRegistrationNetworkError"), flags, 2)
+        this.vtbl.GetPacketAttachNetworkError := CallbackCreate(GetMethod(implObj, "GetPacketAttachNetworkError"), flags, 2)
+        this.vtbl.SetRegisterMode := CallbackCreate(GetMethod(implObj, "SetRegisterMode"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetRegisterState)
+        CallbackFree(this.vtbl.GetRegisterMode)
+        CallbackFree(this.vtbl.GetProviderID)
+        CallbackFree(this.vtbl.GetProviderName)
+        CallbackFree(this.vtbl.GetRoamingText)
+        CallbackFree(this.vtbl.GetAvailableDataClasses)
+        CallbackFree(this.vtbl.GetCurrentDataClass)
+        CallbackFree(this.vtbl.GetRegistrationNetworkError)
+        CallbackFree(this.vtbl.GetPacketAttachNetworkError)
+        CallbackFree(this.vtbl.SetRegisterMode)
     }
 }

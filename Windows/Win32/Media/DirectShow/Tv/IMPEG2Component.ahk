@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IComponent.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IComponent.ahk" { IComponent }
 
 /**
  * The IMPEG2Component interface contains methods for getting and setting properties that describe an MPEG2 elementary stream.
@@ -10,32 +11,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-impeg2component
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMPEG2Component extends IComponent {
-
-    static sizeof => A_PtrSize
+export default struct IMPEG2Component extends IComponent {
     /**
      * The interface identifier for IMPEG2Component
      * @type {Guid}
      */
-    static IID => Guid("{1493e353-1eb6-473c-802d-8e6b8ec9d2a9}")
+    static IID := Guid("{1493e353-1eb6-473c-802d-8e6b8ec9d2a9}")
 
     /**
      * The class identifier for MPEG2Component
      * @type {Guid}
      */
-    static CLSID => Guid("{055cb2d7-2969-45cd-914b-76890722f112}")
+    static CLSID := Guid("{055cb2d7-2969-45cd-914b-76890722f112}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 16
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMPEG2Component interfaces
+    */
+    struct Vtbl extends IComponent.Vtbl {
+        get_PID           : IntPtr
+        put_PID           : IntPtr
+        get_PCRPID        : IntPtr
+        put_PCRPID        : IntPtr
+        get_ProgramNumber : IntPtr
+        put_ProgramNumber : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_PID", "put_PID", "get_PCRPID", "put_PCRPID", "get_ProgramNumber", "put_ProgramNumber"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMPEG2Component.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -122,5 +135,35 @@ class IMPEG2Component extends IComponent {
     put_ProgramNumber(ProgramNumber) {
         result := ComCall(21, this, "int", ProgramNumber, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMPEG2Component.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_PID := CallbackCreate(GetMethod(implObj, "get_PID"), flags, 2)
+        this.vtbl.put_PID := CallbackCreate(GetMethod(implObj, "put_PID"), flags, 2)
+        this.vtbl.get_PCRPID := CallbackCreate(GetMethod(implObj, "get_PCRPID"), flags, 2)
+        this.vtbl.put_PCRPID := CallbackCreate(GetMethod(implObj, "put_PCRPID"), flags, 2)
+        this.vtbl.get_ProgramNumber := CallbackCreate(GetMethod(implObj, "get_ProgramNumber"), flags, 2)
+        this.vtbl.put_ProgramNumber := CallbackCreate(GetMethod(implObj, "put_ProgramNumber"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_PID)
+        CallbackFree(this.vtbl.put_PID)
+        CallbackFree(this.vtbl.get_PCRPID)
+        CallbackFree(this.vtbl.put_PCRPID)
+        CallbackFree(this.vtbl.get_ProgramNumber)
+        CallbackFree(this.vtbl.put_ProgramNumber)
     }
 }

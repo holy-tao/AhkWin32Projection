@@ -1,104 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
  * @charset Unicode
  */
-class NTMS_I1_OPREQUESTINFORMATIONW extends Win32Struct {
-    static sizeof => 696
+export default struct NTMS_I1_OPREQUESTINFORMATIONW {
+    #StructPack 4
 
-    static packingSize => 8
+    Request : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Request {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Submitted : SYSTEMTIME
 
-    /**
-     * @type {SYSTEMTIME}
-     */
-    Submitted {
-        get {
-            if(!this.HasProp("__Submitted"))
-                this.__Submitted := SYSTEMTIME(4, this)
-            return this.__Submitted
-        }
-    }
+    State : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    State {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    szMessage : WCHAR[127]
 
-    /**
-     * @type {String}
-     */
-    szMessage {
-        get => StrGet(this.ptr + 24, 126, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 126, "UTF-16")
-    }
+    Arg1Type : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Arg1Type {
-        get => NumGet(this, 280, "uint")
-        set => NumPut("uint", value, this, 280)
-    }
+    Arg1 : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    Arg1 {
-        get => NumGet(this, 288, "ptr")
-        set => NumPut("ptr", value, this, 288)
-    }
+    Arg2Type : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Arg2Type {
-        get => NumGet(this, 296, "uint")
-        set => NumPut("uint", value, this, 296)
-    }
+    Arg2 : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    Arg2 {
-        get => NumGet(this, 304, "ptr")
-        set => NumPut("ptr", value, this, 304)
-    }
+    szApplication : WCHAR[64]
 
-    /**
-     * @type {String}
-     */
-    szApplication {
-        get => StrGet(this.ptr + 312, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 312, 63, "UTF-16")
-    }
+    szUser : WCHAR[64]
 
-    /**
-     * @type {String}
-     */
-    szUser {
-        get => StrGet(this.ptr + 440, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 440, 63, "UTF-16")
-    }
+    szComputer : WCHAR[64]
 
-    /**
-     * @type {String}
-     */
-    szComputer {
-        get => StrGet(this.ptr + 568, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 568, 63, "UTF-16")
-    }
 }

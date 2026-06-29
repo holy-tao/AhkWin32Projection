@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * HCS_EVENT_TYPE
  * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HCS_EVENT_TYPE
  * @namespace Windows.Win32.System.HostComputeSystem
  */
-class HCS_EVENT_TYPE extends Win32Enum {
+export default struct HCS_EVENT_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

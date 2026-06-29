@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEAP_ERR_SRC_INVALID_EVENT extends Win32Struct {
-    static sizeof => 48
+export default struct WHEAP_ERR_SRC_INVALID_EVENT {
+    #StructPack 8
 
-    static packingSize => 8
+    WheaEventLogEntry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    WheaEventLogEntry {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ErrDescriptor : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ErrDescriptor {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Error : CHAR[32]
 
-    /**
-     * @type {String}
-     */
-    Error {
-        get => StrGet(this.ptr + 16, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 16, 31, "UTF-8")
-    }
 }

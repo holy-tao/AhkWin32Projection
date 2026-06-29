@@ -1,31 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IDocHostShowUI extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDocHostShowUI extends IUnknown {
     /**
      * The interface identifier for IDocHostShowUI
      * @type {Guid}
      */
-    static IID => Guid("{c4d244b0-d43e-11cf-893b-00aa00bdce1a}")
+    static IID := Guid("{c4d244b0-d43e-11cf-893b-00aa00bdce1a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDocHostShowUI interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ShowMessage : IntPtr
+        ShowHelp    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ShowMessage", "ShowHelp"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDocHostShowUI.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Represents an action that shows a message box.
@@ -45,12 +59,11 @@ class IDocHostShowUI extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-showmessage-actiongroup-element
      */
     ShowMessage(_hwnd, lpstrText, lpstrCaption, dwType, lpstrHelpFile, dwHelpContext) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         lpstrText := lpstrText is String ? StrPtr(lpstrText) : lpstrText
         lpstrCaption := lpstrCaption is String ? StrPtr(lpstrCaption) : lpstrCaption
         lpstrHelpFile := lpstrHelpFile is String ? StrPtr(lpstrHelpFile) : lpstrHelpFile
 
-        result := ComCall(3, this, "ptr", _hwnd, "ptr", lpstrText, "ptr", lpstrCaption, "uint", dwType, "ptr", lpstrHelpFile, "uint", dwHelpContext, "ptr*", &plResult := 0, "HRESULT")
+        result := ComCall(3, this, HWND, _hwnd, "ptr", lpstrText, "ptr", lpstrCaption, "uint", dwType, "ptr", lpstrHelpFile, "uint", dwHelpContext, LRESULT.Ptr, &plResult := 0, "HRESULT")
         return plResult
     }
 
@@ -65,10 +78,31 @@ class IDocHostShowUI extends IUnknown {
      * @returns {HRESULT} 
      */
     ShowHelp(_hwnd, pszHelpFile, uCommand, dwData, ptMouse, pDispatchObjectHit) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszHelpFile := pszHelpFile is String ? StrPtr(pszHelpFile) : pszHelpFile
 
-        result := ComCall(4, this, "ptr", _hwnd, "ptr", pszHelpFile, "uint", uCommand, "uint", dwData, "ptr", ptMouse, "ptr", pDispatchObjectHit, "HRESULT")
+        result := ComCall(4, this, HWND, _hwnd, "ptr", pszHelpFile, "uint", uCommand, "uint", dwData, POINT, ptMouse, "ptr", pDispatchObjectHit, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDocHostShowUI.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ShowMessage := CallbackCreate(GetMethod(implObj, "ShowMessage"), flags, 8)
+        this.vtbl.ShowHelp := CallbackCreate(GetMethod(implObj, "ShowHelp"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ShowMessage)
+        CallbackFree(this.vtbl.ShowHelp)
     }
 }

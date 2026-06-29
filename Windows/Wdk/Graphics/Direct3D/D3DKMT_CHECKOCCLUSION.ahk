@@ -1,23 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HWND.ahk" { HWND }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_CHECKOCCLUSION extends Win32Struct {
-    static sizeof => 8
+export default struct D3DKMT_CHECKOCCLUSION {
+    #StructPack 8
 
-    static packingSize => 8
+    hWindow : HWND
 
-    /**
-     * @type {HWND}
-     */
-    hWindow {
-        get {
-            if(!this.HasProp("__hWindow"))
-                this.__hWindow := HWND(0, this)
-            return this.__hWindow
-        }
-    }
 }

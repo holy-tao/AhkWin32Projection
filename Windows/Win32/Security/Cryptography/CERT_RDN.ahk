@@ -1,33 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_RDN_ATTR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CERT_RDN_ATTR.ahk" { CERT_RDN_ATTR }
 
 /**
  * The CERT_RDN structure contains a relative distinguished name (RDN) consisting of an array of CERT_RDN_ATTR structures.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_rdn
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_RDN extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct CERT_RDN {
+    #StructPack 8
 
     /**
      * Number of elements in the <b>rgRDNAttr</b> array.
-     * @type {Integer}
      */
-    cRDNAttr {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cRDNAttr : UInt32
 
     /**
      * Array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_rdn_attr">CERT_RDN_ATTR</a> structures.
-     * @type {Pointer<CERT_RDN_ATTR>}
      */
-    rgRDNAttr {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    rgRDNAttr : CERT_RDN_ATTR.Ptr
+
 }

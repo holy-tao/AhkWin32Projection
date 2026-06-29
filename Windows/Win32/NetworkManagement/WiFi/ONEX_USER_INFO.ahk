@@ -1,34 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ONEX_AUTH_IDENTITY.ahk
-#Include .\ONEX_VARIABLE_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ONEX_VARIABLE_BLOB.ahk" { ONEX_VARIABLE_BLOB }
+#Import ".\ONEX_AUTH_IDENTITY.ahk" { ONEX_AUTH_IDENTITY }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class ONEX_USER_INFO extends Win32Struct {
-    static sizeof => 24
+export default struct ONEX_USER_INFO {
+    #StructPack 4
 
-    static packingSize => 4
-
-    /**
-     * @type {ONEX_AUTH_IDENTITY}
-     */
-    authIdentity {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    authIdentity : ONEX_AUTH_IDENTITY
 
     /**
      * This bitfield backs the following members:
      * - fUserName
      * - fDomainName
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -45,26 +33,8 @@ class ONEX_USER_INFO extends Win32Struct {
         get => (this._bitfield >> 1) & 0x1
         set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
     }
+    UserName : ONEX_VARIABLE_BLOB
 
-    /**
-     * @type {ONEX_VARIABLE_BLOB}
-     */
-    UserName {
-        get {
-            if(!this.HasProp("__UserName"))
-                this.__UserName := ONEX_VARIABLE_BLOB(8, this)
-            return this.__UserName
-        }
-    }
+    DomainName : ONEX_VARIABLE_BLOB
 
-    /**
-     * @type {ONEX_VARIABLE_BLOB}
-     */
-    DomainName {
-        get {
-            if(!this.HasProp("__DomainName"))
-                this.__DomainName := ONEX_VARIABLE_BLOB(16, this)
-            return this.__DomainName
-        }
-    }
 }

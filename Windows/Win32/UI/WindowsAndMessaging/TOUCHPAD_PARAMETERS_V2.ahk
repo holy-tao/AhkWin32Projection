@@ -1,27 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TOUCHPAD_PARAMETERS_V1.ahk
-#Include .\LEGACY_TOUCHPAD_FEATURES.ahk
-#Include .\TOUCHPAD_SENSITIVITY_LEVEL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LEGACY_TOUCHPAD_FEATURES.ahk" { LEGACY_TOUCHPAD_FEATURES }
+#Import ".\TOUCHPAD_SENSITIVITY_LEVEL.ahk" { TOUCHPAD_SENSITIVITY_LEVEL }
+#Import ".\TOUCHPAD_PARAMETERS_V1.ahk" { TOUCHPAD_PARAMETERS_V1 }
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class TOUCHPAD_PARAMETERS_V2 extends Win32Struct {
-    static sizeof => 48
+export default struct TOUCHPAD_PARAMETERS_V2 {
+    #StructPack 4
 
-    static packingSize => 4
-
-    /**
-     * @type {TOUCHPAD_PARAMETERS_V1}
-     */
-    Base {
-        get {
-            if(!this.HasProp("__Base"))
-                this.__Base := TOUCHPAD_PARAMETERS_V1(0, this)
-            return this.__Base
-        }
-    }
+    Base : TOUCHPAD_PARAMETERS_V1
 
     /**
      * This bitfield backs the following members:
@@ -29,12 +17,9 @@ class TOUCHPAD_PARAMETERS_V2 extends Win32Struct {
      * - button2Supported
      * - button3Supported
      * - Reserved3
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}

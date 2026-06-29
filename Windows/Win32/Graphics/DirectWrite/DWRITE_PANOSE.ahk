@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DWRITE_PANOSE union describes typeface classification values that you use with IDWriteFont1::GetPanose to select and match the font.
@@ -9,417 +8,113 @@
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_panose
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class DWRITE_PANOSE extends Win32Struct {
-    static sizeof => 51
+export default struct DWRITE_PANOSE {
+    #StructPack 1
 
-    static packingSize => 1
 
-    class _text extends Win32Struct {
-        static sizeof => 10
-        static packingSize => 1
+    struct _text {
+        familyKind : Int8
 
-        /**
-         * @type {Integer}
-         */
-        familyKind {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        serifStyle : Int8
 
-        /**
-         * @type {Integer}
-         */
-        serifStyle {
-            get => NumGet(this, 1, "char")
-            set => NumPut("char", value, this, 1)
-        }
+        weight : Int8
 
-        /**
-         * @type {Integer}
-         */
-        weight {
-            get => NumGet(this, 2, "char")
-            set => NumPut("char", value, this, 2)
-        }
+        proportion : Int8
 
-        /**
-         * @type {Integer}
-         */
-        proportion {
-            get => NumGet(this, 3, "char")
-            set => NumPut("char", value, this, 3)
-        }
+        contrast : Int8
 
-        /**
-         * @type {Integer}
-         */
-        contrast {
-            get => NumGet(this, 4, "char")
-            set => NumPut("char", value, this, 4)
-        }
+        strokeVariation : Int8
 
-        /**
-         * @type {Integer}
-         */
-        strokeVariation {
-            get => NumGet(this, 5, "char")
-            set => NumPut("char", value, this, 5)
-        }
+        armStyle : Int8
 
-        /**
-         * @type {Integer}
-         */
-        armStyle {
-            get => NumGet(this, 6, "char")
-            set => NumPut("char", value, this, 6)
-        }
+        letterform : Int8
 
-        /**
-         * @type {Integer}
-         */
-        letterform {
-            get => NumGet(this, 7, "char")
-            set => NumPut("char", value, this, 7)
-        }
+        midline : Int8
 
-        /**
-         * @type {Integer}
-         */
-        midline {
-            get => NumGet(this, 8, "char")
-            set => NumPut("char", value, this, 8)
-        }
+        xHeight : Int8
 
-        /**
-         * @type {Integer}
-         */
-        xHeight {
-            get => NumGet(this, 9, "char")
-            set => NumPut("char", value, this, 9)
-        }
     }
 
-    class _script extends Win32Struct {
-        static sizeof => 10
-        static packingSize => 1
+    struct _script {
+        familyKind : Int8
 
-        /**
-         * @type {Integer}
-         */
-        familyKind {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        toolKind : Int8
 
-        /**
-         * @type {Integer}
-         */
-        toolKind {
-            get => NumGet(this, 1, "char")
-            set => NumPut("char", value, this, 1)
-        }
+        weight : Int8
 
-        /**
-         * @type {Integer}
-         */
-        weight {
-            get => NumGet(this, 2, "char")
-            set => NumPut("char", value, this, 2)
-        }
+        spacing : Int8
 
-        /**
-         * @type {Integer}
-         */
-        spacing {
-            get => NumGet(this, 3, "char")
-            set => NumPut("char", value, this, 3)
-        }
+        aspectRatio : Int8
 
-        /**
-         * @type {Integer}
-         */
-        aspectRatio {
-            get => NumGet(this, 4, "char")
-            set => NumPut("char", value, this, 4)
-        }
+        contrast : Int8
 
-        /**
-         * @type {Integer}
-         */
-        contrast {
-            get => NumGet(this, 5, "char")
-            set => NumPut("char", value, this, 5)
-        }
+        scriptTopology : Int8
 
-        /**
-         * @type {Integer}
-         */
-        scriptTopology {
-            get => NumGet(this, 6, "char")
-            set => NumPut("char", value, this, 6)
-        }
+        scriptForm : Int8
 
-        /**
-         * @type {Integer}
-         */
-        scriptForm {
-            get => NumGet(this, 7, "char")
-            set => NumPut("char", value, this, 7)
-        }
+        finials : Int8
 
-        /**
-         * @type {Integer}
-         */
-        finials {
-            get => NumGet(this, 8, "char")
-            set => NumPut("char", value, this, 8)
-        }
+        xAscent : Int8
 
-        /**
-         * @type {Integer}
-         */
-        xAscent {
-            get => NumGet(this, 9, "char")
-            set => NumPut("char", value, this, 9)
-        }
     }
 
-    class _decorative extends Win32Struct {
-        static sizeof => 10
-        static packingSize => 1
+    struct _decorative {
+        familyKind : Int8
 
-        /**
-         * @type {Integer}
-         */
-        familyKind {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        decorativeClass : Int8
 
-        /**
-         * @type {Integer}
-         */
-        decorativeClass {
-            get => NumGet(this, 1, "char")
-            set => NumPut("char", value, this, 1)
-        }
+        weight : Int8
 
-        /**
-         * @type {Integer}
-         */
-        weight {
-            get => NumGet(this, 2, "char")
-            set => NumPut("char", value, this, 2)
-        }
+        aspect : Int8
 
-        /**
-         * @type {Integer}
-         */
-        aspect {
-            get => NumGet(this, 3, "char")
-            set => NumPut("char", value, this, 3)
-        }
+        contrast : Int8
 
-        /**
-         * @type {Integer}
-         */
-        contrast {
-            get => NumGet(this, 4, "char")
-            set => NumPut("char", value, this, 4)
-        }
+        serifVariant : Int8
 
-        /**
-         * @type {Integer}
-         */
-        serifVariant {
-            get => NumGet(this, 5, "char")
-            set => NumPut("char", value, this, 5)
-        }
+        fill : Int8
 
-        /**
-         * @type {Integer}
-         */
-        fill {
-            get => NumGet(this, 6, "char")
-            set => NumPut("char", value, this, 6)
-        }
+        lining : Int8
 
-        /**
-         * @type {Integer}
-         */
-        lining {
-            get => NumGet(this, 7, "char")
-            set => NumPut("char", value, this, 7)
-        }
+        decorativeTopology : Int8
 
-        /**
-         * @type {Integer}
-         */
-        decorativeTopology {
-            get => NumGet(this, 8, "char")
-            set => NumPut("char", value, this, 8)
-        }
+        characterRange : Int8
 
-        /**
-         * @type {Integer}
-         */
-        characterRange {
-            get => NumGet(this, 9, "char")
-            set => NumPut("char", value, this, 9)
-        }
     }
 
-    class _symbol extends Win32Struct {
-        static sizeof => 10
-        static packingSize => 1
+    struct _symbol {
+        familyKind : Int8
 
-        /**
-         * @type {Integer}
-         */
-        familyKind {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        symbolKind : Int8
 
-        /**
-         * @type {Integer}
-         */
-        symbolKind {
-            get => NumGet(this, 1, "char")
-            set => NumPut("char", value, this, 1)
-        }
+        weight : Int8
 
-        /**
-         * @type {Integer}
-         */
-        weight {
-            get => NumGet(this, 2, "char")
-            set => NumPut("char", value, this, 2)
-        }
+        spacing : Int8
 
-        /**
-         * @type {Integer}
-         */
-        spacing {
-            get => NumGet(this, 3, "char")
-            set => NumPut("char", value, this, 3)
-        }
+        aspectRatioAndContrast : Int8
 
-        /**
-         * @type {Integer}
-         */
-        aspectRatioAndContrast {
-            get => NumGet(this, 4, "char")
-            set => NumPut("char", value, this, 4)
-        }
+        aspectRatio94 : Int8
 
-        /**
-         * @type {Integer}
-         */
-        aspectRatio94 {
-            get => NumGet(this, 5, "char")
-            set => NumPut("char", value, this, 5)
-        }
+        aspectRatio119 : Int8
 
-        /**
-         * @type {Integer}
-         */
-        aspectRatio119 {
-            get => NumGet(this, 6, "char")
-            set => NumPut("char", value, this, 6)
-        }
+        aspectRatio157 : Int8
 
-        /**
-         * @type {Integer}
-         */
-        aspectRatio157 {
-            get => NumGet(this, 7, "char")
-            set => NumPut("char", value, this, 7)
-        }
+        aspectRatio163 : Int8
 
-        /**
-         * @type {Integer}
-         */
-        aspectRatio163 {
-            get => NumGet(this, 8, "char")
-            set => NumPut("char", value, this, 8)
-        }
+        aspectRatio211 : Int8
 
-        /**
-         * @type {Integer}
-         */
-        aspectRatio211 {
-            get => NumGet(this, 9, "char")
-            set => NumPut("char", value, this, 9)
-        }
     }
 
     /**
      * A 10-byte array of typeface classification values.
-     * @type {Array<Integer>}
      */
-    values {
-        get {
-            if(!this.HasProp("__valuesProxyArray"))
-                this.__valuesProxyArray := Win32FixedArray(this.ptr + 0, 10, Primitive, "char")
-            return this.__valuesProxyArray
-        }
-    }
+    values : Int8[10]
 
-    /**
-     * A <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_panose_family">DWRITE_PANOSE_FAMILY</a>-typed value that specifies the typeface classification values to get.
-     * @type {Integer}
-     */
-    familyKind {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
-
-    /**
-     * The text structure.
-     * @type {_text}
-     */
-    text {
-        get {
-            if(!this.HasProp("__text"))
-                this.__text := DWRITE_PANOSE._text(0, this)
-            return this.__text
-        }
-    }
-
-    /**
-     * The script structure.
-     * @type {_script}
-     */
-    script {
-        get {
-            if(!this.HasProp("__script"))
-                this.__script := DWRITE_PANOSE._script(0, this)
-            return this.__script
-        }
-    }
-
-    /**
-     * The decorative structure.
-     * @type {_decorative}
-     */
-    decorative {
-        get {
-            if(!this.HasProp("__decorative"))
-                this.__decorative := DWRITE_PANOSE._decorative(0, this)
-            return this.__decorative
-        }
-    }
-
-    /**
-     * The symbol structure.
-     * @type {_symbol}
-     */
-    symbol {
-        get {
-            if(!this.HasProp("__symbol"))
-                this.__symbol := DWRITE_PANOSE._symbol(0, this)
-            return this.__symbol
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'familyKind', { type: Int8, offset: 0 })
+        DefineProp(this.Prototype, 'text', { type: DWRITE_PANOSE._text, offset: 0 })
+        DefineProp(this.Prototype, 'script', { type: DWRITE_PANOSE._script, offset: 0 })
+        DefineProp(this.Prototype, 'decorative', { type: DWRITE_PANOSE._decorative, offset: 0 })
+        DefineProp(this.Prototype, 'symbol', { type: DWRITE_PANOSE._symbol, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

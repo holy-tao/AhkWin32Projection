@@ -1,99 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Foundation
  */
-class KDPC extends Win32Struct {
-    static sizeof => 64
+export default struct KDPC {
+    #StructPack 8
 
-    static packingSize => 8
+    TargetInfoAsUlong : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TargetInfoAsUlong {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DpcListEntry : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    ProcessorHistory : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    Importance {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    DeferredRoutine : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    Number {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    DeferredContext : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    DpcListEntry {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    SystemArgument1 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ProcessorHistory {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    SystemArgument2 : IntPtr
 
-    /**
-     * @type {Pointer<PKDEFERRED_ROUTINE>}
-     */
-    DeferredRoutine {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    DpcData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    DeferredContext {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    SystemArgument1 {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    SystemArgument2 {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    DpcData {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    static __New() {
+        DefineProp(this.Prototype, 'Type', { type: Int8, offset: 0 })
+        DefineProp(this.Prototype, 'Importance', { type: Int8, offset: 1 })
+        DefineProp(this.Prototype, 'Number', { type: UInt16, offset: 2 })
+        this.DeleteProp("__New")
     }
 }

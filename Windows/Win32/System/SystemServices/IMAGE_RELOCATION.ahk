@@ -1,43 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class IMAGE_RELOCATION extends Win32Struct {
-    static sizeof => 12
+export default struct IMAGE_RELOCATION {
+    #StructPack 4
 
-    static packingSize => 4
+    VirtualAddress : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VirtualAddress {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SymbolTableIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RelocCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Type : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    SymbolTableIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'RelocCount', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

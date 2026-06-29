@@ -1,90 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_WWN.ahk
-#Include .\VDS_HBAPORT_TYPE.ahk
-#Include .\VDS_HBAPORT_STATUS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VDS_HBAPORT_TYPE.ahk" { VDS_HBAPORT_TYPE }
+#Import ".\VDS_WWN.ahk" { VDS_WWN }
+#Import ".\VDS_HBAPORT_STATUS.ahk" { VDS_HBAPORT_STATUS }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The VDS_HBAPORT_PROP structure (vdshwprv.h) defines the properties of an HBA port.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_hbaport_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_HBAPORT_PROP extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct VDS_HBAPORT_PROP {
+    #StructPack 4
 
     /**
      * The GUID assigned to the HBA port. This ID is used by the VDS service only; hardware providers should 
      *       ignore this field.
-     * @type {Pointer}
      */
-    id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    id : Guid
 
     /**
      * The node WWN of the HBA port.
-     * @type {VDS_WWN}
      */
-    wwnNode {
-        get {
-            if(!this.HasProp("__wwnNode"))
-                this.__wwnNode := VDS_WWN(8, this)
-            return this.__wwnNode
-        }
-    }
+    wwnNode : VDS_WWN
 
     /**
      * The port WWN of the HBA port.
-     * @type {VDS_WWN}
      */
-    wwnPort {
-        get {
-            if(!this.HasProp("__wwnPort"))
-                this.__wwnPort := VDS_WWN(16, this)
-            return this.__wwnPort
-        }
-    }
+    wwnPort : VDS_WWN
 
     /**
      * The type of the HBA port enumerated by 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_hbaport_type">VDS_HBAPORT_TYPE</a>.
-     * @type {VDS_HBAPORT_TYPE}
      */
-    type {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    type : VDS_HBAPORT_TYPE
 
     /**
      * The status of the HBA port enumerated by 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_hbaport_status">VDS_HBAPORT_STATUS</a>.
-     * @type {VDS_HBAPORT_STATUS}
      */
-    status {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    status : VDS_HBAPORT_STATUS
 
     /**
      * The speed of the HBA port enumerated by 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_hbaport_speed_flag">VDS_HBAPORT_SPEED_FLAG</a>.
-     * @type {Integer}
      */
-    ulPortSpeed {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ulPortSpeed : UInt32
 
     /**
      * The set of supported speeds of the HBA port, one bit set for each of the supported speeds  enumerated by 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_hbaport_speed_flag">VDS_HBAPORT_SPEED_FLAG</a>.
-     * @type {Integer}
      */
-    ulSupportedPortSpeed {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    ulSupportedPortSpeed : UInt32
+
 }

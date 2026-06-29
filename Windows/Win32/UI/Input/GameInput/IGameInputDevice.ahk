@@ -1,40 +1,73 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IGameInputForceFeedbackEffect.ahk
-#Include .\IGameInputRawDeviceReport.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\GameInputRumbleParams.ahk" { GameInputRumbleParams }
+#Import ".\GameInputBatteryState.ahk" { GameInputBatteryState }
+#Import ".\GameInputForceFeedbackParams.ahk" { GameInputForceFeedbackParams }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IGameInputForceFeedbackEffect.ahk" { IGameInputForceFeedbackEffect }
+#Import ".\IGameInputRawDeviceReport.ahk" { IGameInputRawDeviceReport }
+#Import ".\GameInputRawDeviceReportKind.ahk" { GameInputRawDeviceReportKind }
+#Import ".\GameInputHapticFeedbackParams.ahk" { GameInputHapticFeedbackParams }
+#Import ".\GameInputDeviceInfo.ahk" { GameInputDeviceInfo }
+#Import ".\GameInputDeviceStatus.ahk" { GameInputDeviceStatus }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
  */
-class IGameInputDevice extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IGameInputDevice extends IUnknown {
     /**
      * The interface identifier for IGameInputDevice
      * @type {Guid}
      */
-    static IID => Guid("{31dd86fb-4c1b-408a-868f-439b3cd47125}")
+    static IID := Guid("{31dd86fb-4c1b-408a-868f-439b3cd47125}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGameInputDevice interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDeviceInfo                   : IntPtr
+        GetDeviceStatus                 : IntPtr
+        GetBatteryState                 : IntPtr
+        CreateForceFeedbackEffect       : IntPtr
+        IsForceFeedbackMotorPoweredOn   : IntPtr
+        SetForceFeedbackMotorGain       : IntPtr
+        SetHapticMotorState             : IntPtr
+        SetRumbleState                  : IntPtr
+        SetInputSynchronizationState    : IntPtr
+        SendInputSynchronizationHint    : IntPtr
+        PowerOff                        : IntPtr
+        CreateRawDeviceReport           : IntPtr
+        GetRawDeviceFeature             : IntPtr
+        SetRawDeviceFeature             : IntPtr
+        SendRawDeviceOutput             : IntPtr
+        SendRawDeviceOutputWithResponse : IntPtr
+        ExecuteRawDeviceIoControl       : IntPtr
+        AcquireExclusiveRawDeviceAccess : IntPtr
+        ReleaseExclusiveRawDeviceAccess : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDeviceInfo", "GetDeviceStatus", "GetBatteryState", "CreateForceFeedbackEffect", "IsForceFeedbackMotorPoweredOn", "SetForceFeedbackMotorGain", "SetHapticMotorState", "SetRumbleState", "SetInputSynchronizationState", "SendInputSynchronizationHint", "PowerOff", "CreateRawDeviceReport", "GetRawDeviceFeature", "SetRawDeviceFeature", "SendRawDeviceOutput", "SendRawDeviceOutputWithResponse", "ExecuteRawDeviceIoControl", "AcquireExclusiveRawDeviceAccess", "ReleaseExclusiveRawDeviceAccess"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGameInputDevice.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
      * @returns {Pointer<GameInputDeviceInfo>} 
      */
     GetDeviceInfo() {
-        result := ComCall(3, this, "ptr")
+        result := ComCall(3, this, GameInputDeviceInfo.Ptr)
         return result
     }
 
@@ -43,7 +76,7 @@ class IGameInputDevice extends IUnknown {
      * @returns {GameInputDeviceStatus} 
      */
     GetDeviceStatus() {
-        result := ComCall(4, this, "int")
+        result := ComCall(4, this, GameInputDeviceStatus)
         return result
     }
 
@@ -53,7 +86,7 @@ class IGameInputDevice extends IUnknown {
      * @returns {String} Nothing - always returns an empty string
      */
     GetBatteryState(state) {
-        ComCall(5, this, "ptr", state)
+        ComCall(5, this, GameInputBatteryState.Ptr, state)
     }
 
     /**
@@ -63,7 +96,7 @@ class IGameInputDevice extends IUnknown {
      * @returns {IGameInputForceFeedbackEffect} 
      */
     CreateForceFeedbackEffect(motorIndex, params) {
-        result := ComCall(6, this, "uint", motorIndex, "ptr", params, "ptr*", &_effect := 0, "HRESULT")
+        result := ComCall(6, this, "uint", motorIndex, GameInputForceFeedbackParams.Ptr, params, "ptr*", &_effect := 0, "HRESULT")
         return IGameInputForceFeedbackEffect(_effect)
     }
 
@@ -73,7 +106,7 @@ class IGameInputDevice extends IUnknown {
      * @returns {Boolean} 
      */
     IsForceFeedbackMotorPoweredOn(motorIndex) {
-        result := ComCall(7, this, "uint", motorIndex, "int")
+        result := ComCall(7, this, "uint", motorIndex, Int32)
         return result
     }
 
@@ -94,7 +127,7 @@ class IGameInputDevice extends IUnknown {
      * @returns {HRESULT} 
      */
     SetHapticMotorState(motorIndex, params) {
-        result := ComCall(9, this, "uint", motorIndex, "ptr", params, "HRESULT")
+        result := ComCall(9, this, "uint", motorIndex, GameInputHapticFeedbackParams.Ptr, params, "HRESULT")
         return result
     }
 
@@ -104,7 +137,7 @@ class IGameInputDevice extends IUnknown {
      * @returns {String} Nothing - always returns an empty string
      */
     SetRumbleState(params) {
-        ComCall(10, this, "ptr", params)
+        ComCall(10, this, GameInputRumbleParams.Ptr, params)
     }
 
     /**
@@ -139,7 +172,7 @@ class IGameInputDevice extends IUnknown {
      * @returns {IGameInputRawDeviceReport} 
      */
     CreateRawDeviceReport(reportId, reportKind) {
-        result := ComCall(14, this, "uint", reportId, "int", reportKind, "ptr*", &report := 0, "HRESULT")
+        result := ComCall(14, this, "uint", reportId, GameInputRawDeviceReportKind, reportKind, "ptr*", &report := 0, "HRESULT")
         return IGameInputRawDeviceReport(report)
     }
 
@@ -203,7 +236,7 @@ class IGameInputDevice extends IUnknown {
      * @returns {Boolean} 
      */
     AcquireExclusiveRawDeviceAccess(timeoutInMicroseconds) {
-        result := ComCall(20, this, "uint", timeoutInMicroseconds, "int")
+        result := ComCall(20, this, "uint", timeoutInMicroseconds, Int32)
         return result
     }
 
@@ -213,5 +246,61 @@ class IGameInputDevice extends IUnknown {
      */
     ReleaseExclusiveRawDeviceAccess() {
         ComCall(21, this)
+    }
+
+    Query(iid) {
+        if (IGameInputDevice.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDeviceInfo := CallbackCreate(GetMethod(implObj, "GetDeviceInfo"), flags, 1)
+        this.vtbl.GetDeviceStatus := CallbackCreate(GetMethod(implObj, "GetDeviceStatus"), flags, 1)
+        this.vtbl.GetBatteryState := CallbackCreate(GetMethod(implObj, "GetBatteryState"), flags, 2)
+        this.vtbl.CreateForceFeedbackEffect := CallbackCreate(GetMethod(implObj, "CreateForceFeedbackEffect"), flags, 4)
+        this.vtbl.IsForceFeedbackMotorPoweredOn := CallbackCreate(GetMethod(implObj, "IsForceFeedbackMotorPoweredOn"), flags, 2)
+        this.vtbl.SetForceFeedbackMotorGain := CallbackCreate(GetMethod(implObj, "SetForceFeedbackMotorGain"), flags, 3)
+        this.vtbl.SetHapticMotorState := CallbackCreate(GetMethod(implObj, "SetHapticMotorState"), flags, 3)
+        this.vtbl.SetRumbleState := CallbackCreate(GetMethod(implObj, "SetRumbleState"), flags, 2)
+        this.vtbl.SetInputSynchronizationState := CallbackCreate(GetMethod(implObj, "SetInputSynchronizationState"), flags, 2)
+        this.vtbl.SendInputSynchronizationHint := CallbackCreate(GetMethod(implObj, "SendInputSynchronizationHint"), flags, 1)
+        this.vtbl.PowerOff := CallbackCreate(GetMethod(implObj, "PowerOff"), flags, 1)
+        this.vtbl.CreateRawDeviceReport := CallbackCreate(GetMethod(implObj, "CreateRawDeviceReport"), flags, 4)
+        this.vtbl.GetRawDeviceFeature := CallbackCreate(GetMethod(implObj, "GetRawDeviceFeature"), flags, 3)
+        this.vtbl.SetRawDeviceFeature := CallbackCreate(GetMethod(implObj, "SetRawDeviceFeature"), flags, 2)
+        this.vtbl.SendRawDeviceOutput := CallbackCreate(GetMethod(implObj, "SendRawDeviceOutput"), flags, 2)
+        this.vtbl.SendRawDeviceOutputWithResponse := CallbackCreate(GetMethod(implObj, "SendRawDeviceOutputWithResponse"), flags, 3)
+        this.vtbl.ExecuteRawDeviceIoControl := CallbackCreate(GetMethod(implObj, "ExecuteRawDeviceIoControl"), flags, 7)
+        this.vtbl.AcquireExclusiveRawDeviceAccess := CallbackCreate(GetMethod(implObj, "AcquireExclusiveRawDeviceAccess"), flags, 2)
+        this.vtbl.ReleaseExclusiveRawDeviceAccess := CallbackCreate(GetMethod(implObj, "ReleaseExclusiveRawDeviceAccess"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDeviceInfo)
+        CallbackFree(this.vtbl.GetDeviceStatus)
+        CallbackFree(this.vtbl.GetBatteryState)
+        CallbackFree(this.vtbl.CreateForceFeedbackEffect)
+        CallbackFree(this.vtbl.IsForceFeedbackMotorPoweredOn)
+        CallbackFree(this.vtbl.SetForceFeedbackMotorGain)
+        CallbackFree(this.vtbl.SetHapticMotorState)
+        CallbackFree(this.vtbl.SetRumbleState)
+        CallbackFree(this.vtbl.SetInputSynchronizationState)
+        CallbackFree(this.vtbl.SendInputSynchronizationHint)
+        CallbackFree(this.vtbl.PowerOff)
+        CallbackFree(this.vtbl.CreateRawDeviceReport)
+        CallbackFree(this.vtbl.GetRawDeviceFeature)
+        CallbackFree(this.vtbl.SetRawDeviceFeature)
+        CallbackFree(this.vtbl.SendRawDeviceOutput)
+        CallbackFree(this.vtbl.SendRawDeviceOutputWithResponse)
+        CallbackFree(this.vtbl.ExecuteRawDeviceIoControl)
+        CallbackFree(this.vtbl.AcquireExclusiveRawDeviceAccess)
+        CallbackFree(this.vtbl.ReleaseExclusiveRawDeviceAccess)
     }
 }

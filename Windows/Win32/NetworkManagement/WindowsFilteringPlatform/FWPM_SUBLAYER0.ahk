@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWPM_DISPLAY_DATA0.ahk
-#Include .\FWP_BYTE_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
+#Import ".\FWPM_DISPLAY_DATA0.ahk" { FWPM_DISPLAY_DATA0 }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Stores the state associated with a sublayer.
@@ -10,33 +11,20 @@
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_sublayer0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class FWPM_SUBLAYER0 extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct FWPM_SUBLAYER0 {
+    #StructPack 8
 
     /**
      * Uniquely identifies the sublayer. See <a href="https://docs.microsoft.com/windows/desktop/FWP/management-filtering-sublayer-identifiers">Filtering Sublayer Identifiers</a> for a list of built-in sublayers.
      * 
      * If the GUID is zero-initialized in the call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmsublayeradd0">FwpmSubLayerAdd0</a>, the Base Filtering Engine (BFE) will generate one.
-     * @type {Pointer}
      */
-    subLayerKey {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    subLayerKey : Guid
 
     /**
      * Allows sublayers to be annotated in human-readable form.   The [FWPM_DISPLAY_DATA0](/windows/desktop/api/fwptypes/ns-fwptypes-fwpm_display_data0) structure is required.
-     * @type {FWPM_DISPLAY_DATA0}
      */
-    displayData {
-        get {
-            if(!this.HasProp("__displayData"))
-                this.__displayData := FWPM_DISPLAY_DATA0(8, this)
-            return this.__displayData
-        }
-    }
+    displayData : FWPM_DISPLAY_DATA0
 
     /**
      * Possible values:
@@ -57,42 +45,24 @@ class FWPM_SUBLAYER0 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    flags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    flags : UInt32
 
     /**
      * Uniquely identifies the provider that manages this sublayer.
-     * @type {Pointer<Guid>}
      */
-    providerKey {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    providerKey : Guid.Ptr
 
     /**
      * An [FWP_BYTE_BLOB](/windows/desktop/api/fwptypes/ns-fwptypes-fwp_byte_blob) structure that contains optional provider-specific data that allows providers to store additional context info with the object.
-     * @type {FWP_BYTE_BLOB}
      */
-    providerData {
-        get {
-            if(!this.HasProp("__providerData"))
-                this.__providerData := FWP_BYTE_BLOB(40, this)
-            return this.__providerData
-        }
-    }
+    providerData : FWP_BYTE_BLOB
 
     /**
      * Weight of the sublayer. 
      * 
      * Higher-weighted sublayers are invoked first.
-     * @type {Integer}
      */
-    weight {
-        get => NumGet(this, 56, "ushort")
-        set => NumPut("ushort", value, this, 56)
-    }
+    weight : UInt16
+
 }

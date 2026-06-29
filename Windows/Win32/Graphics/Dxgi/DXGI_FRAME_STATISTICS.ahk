@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes timing and presentation statistics for a frame.
@@ -13,10 +12,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/ns-dxgi-dxgi_frame_statistics
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class DXGI_FRAME_STATISTICS extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct DXGI_FRAME_STATISTICS {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -26,34 +23,22 @@ class DXGI_FRAME_STATISTICS extends Win32Struct {
      * <div class="alert"><b>Note</b>  The number of times that an image was presented to the monitor is not necessarily the same as the number of times 
      *         that you called <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiswapchain-present">IDXGISwapChain::Present</a> or <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-present1">IDXGISwapChain1::Present1</a>.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    PresentCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PresentCount : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * A value that represents  the running total count of v-blanks at which the last image was presented to the monitor and that have happened since the computer booted (for windowed mode, since the swap chain was created).
-     * @type {Integer}
      */
-    PresentRefreshCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    PresentRefreshCount : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * A value that represents  the running total count of v-blanks when the scheduler last sampled the machine time by calling <a href="https://docs.microsoft.com/windows/desktop/api/profileapi/nf-profileapi-queryperformancecounter">QueryPerformanceCounter</a> and that have happened since the computer booted (for windowed mode, since the swap chain was created).
-     * @type {Integer}
      */
-    SyncRefreshCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SyncRefreshCount : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a></b>
@@ -61,21 +46,14 @@ class DXGI_FRAME_STATISTICS extends Win32Struct {
      * A value that represents the high-resolution performance counter timer. 
      *         This value is the same as the value returned by the <a href="https://docs.microsoft.com/windows/desktop/api/profileapi/nf-profileapi-queryperformancecounter">QueryPerformanceCounter</a> 
      *         function.
-     * @type {Integer}
      */
-    SyncQPCTime {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    SyncQPCTime : Int64
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a></b>
      * 
      * Reserved. Always returns 0.
-     * @type {Integer}
      */
-    SyncGPUTime {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    SyncGPUTime : Int64
+
 }

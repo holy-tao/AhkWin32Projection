@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCW_CALLBACK_INFORMATION extends Win32Struct {
-    static sizeof => 32
+export default struct PCW_CALLBACK_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    AddCounter : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    AddCounter {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    RemoveCounter {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    EnumerateInstances {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    CollectData {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'RemoveCounter', { type: IntPtr, offset: 0 })
+        DefineProp(this.Prototype, 'EnumerateInstances', { type: IntPtr, offset: 0 })
+        DefineProp(this.Prototype, 'CollectData', { type: IntPtr, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

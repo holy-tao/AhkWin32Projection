@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IEnumStreamBufferRecordingAttrib.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IEnumStreamBufferRecordingAttrib.ahk" { IEnumStreamBufferRecordingAttrib }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\STREAMBUFFER_ATTR_DATATYPE.ahk" { STREAMBUFFER_ATTR_DATATYPE }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IStreamBufferRecordingAttribute interface sets and retrieves attributes on a stream buffer recording.
@@ -11,26 +14,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/sbe/nn-sbe-istreambufferrecordingattribute
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IStreamBufferRecordingAttribute extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IStreamBufferRecordingAttribute extends IUnknown {
     /**
      * The interface identifier for IStreamBufferRecordingAttribute
      * @type {Guid}
      */
-    static IID => Guid("{16ca4e03-fe69-4705-bd41-5b7dfc0c95f3}")
+    static IID := Guid("{16ca4e03-fe69-4705-bd41-5b7dfc0c95f3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IStreamBufferRecordingAttribute interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetAttribute        : IntPtr
+        GetAttributeCount   : IntPtr
+        GetAttributeByName  : IntPtr
+        GetAttributeByIndex : IntPtr
+        EnumAttributes      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetAttribute", "GetAttributeCount", "GetAttributeByName", "GetAttributeByIndex", "EnumAttributes"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IStreamBufferRecordingAttribute.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetAttribute method sets an attribute on the stream buffer file.
@@ -51,7 +65,7 @@ class IStreamBufferRecordingAttribute extends IUnknown {
 
         pbAttributeMarshal := pbAttribute is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "uint", ulReserved, "ptr", pszAttributeName, "int", StreamBufferAttributeType, pbAttributeMarshal, pbAttribute, "ushort", cbAttributeLength, "HRESULT")
+        result := ComCall(3, this, "uint", ulReserved, "ptr", pszAttributeName, STREAMBUFFER_ATTR_DATATYPE, StreamBufferAttributeType, pbAttributeMarshal, pbAttribute, "ushort", cbAttributeLength, "HRESULT")
         return result
     }
 
@@ -180,5 +194,33 @@ class IStreamBufferRecordingAttribute extends IUnknown {
     EnumAttributes() {
         result := ComCall(7, this, "ptr*", &ppIEnumStreamBufferAttrib := 0, "HRESULT")
         return IEnumStreamBufferRecordingAttrib(ppIEnumStreamBufferAttrib)
+    }
+
+    Query(iid) {
+        if (IStreamBufferRecordingAttribute.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetAttribute := CallbackCreate(GetMethod(implObj, "SetAttribute"), flags, 6)
+        this.vtbl.GetAttributeCount := CallbackCreate(GetMethod(implObj, "GetAttributeCount"), flags, 3)
+        this.vtbl.GetAttributeByName := CallbackCreate(GetMethod(implObj, "GetAttributeByName"), flags, 6)
+        this.vtbl.GetAttributeByIndex := CallbackCreate(GetMethod(implObj, "GetAttributeByIndex"), flags, 8)
+        this.vtbl.EnumAttributes := CallbackCreate(GetMethod(implObj, "EnumAttributes"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetAttribute)
+        CallbackFree(this.vtbl.GetAttributeCount)
+        CallbackFree(this.vtbl.GetAttributeByName)
+        CallbackFree(this.vtbl.GetAttributeByIndex)
+        CallbackFree(this.vtbl.EnumAttributes)
     }
 }

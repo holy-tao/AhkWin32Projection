@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The BCRYPT_MULTI_OBJECT_LENGTH_STRUCT structure contains information to determine the size of the pbHashObject buffer for the BCryptCreateMultiHash function.
@@ -8,26 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_multi_object_length_struct
  * @namespace Windows.Win32.Security.Cryptography
  */
-class BCRYPT_MULTI_OBJECT_LENGTH_STRUCT extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct BCRYPT_MULTI_OBJECT_LENGTH_STRUCT {
+    #StructPack 4
 
     /**
      * The number of bytes needed for the object overhead.
-     * @type {Integer}
      */
-    cbPerObject {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbPerObject : UInt32
 
     /**
      * The number of bytes needed for each element of the object.
-     * @type {Integer}
      */
-    cbPerElement {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cbPerElement : UInt32
+
 }

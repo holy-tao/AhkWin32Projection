@@ -1,8 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\SMDATA.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IShellMenuCallback.ahk" { IShellMenuCallback }
+#Import ".\SMDATA.ahk" { SMDATA }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\IShellFolder.ahk" { IShellFolder }
+#Import "..\WindowsAndMessaging\HMENU.ahk" { HMENU }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
 
 /**
  * Exposes methods that interact with Shell menus such as the Start menu, and the Favorites menu.
@@ -11,26 +18,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishellmenu
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellMenu extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IShellMenu extends IUnknown {
     /**
      * The interface identifier for IShellMenu
      * @type {Guid}
      */
-    static IID => Guid("{ee1f7637-e138-11d1-8379-00c04fd918d0}")
+    static IID := Guid("{ee1f7637-e138-11d1-8379-00c04fd918d0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellMenu interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize     : IntPtr
+        GetMenuInfo    : IntPtr
+        SetShellFolder : IntPtr
+        GetShellFolder : IntPtr
+        SetMenu        : IntPtr
+        GetMenu        : IntPtr
+        InvalidateItem : IntPtr
+        GetState       : IntPtr
+        SetMenuToolbar : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetMenuInfo", "SetShellFolder", "GetShellFolder", "SetMenu", "GetMenu", "InvalidateItem", "GetState", "SetMenuToolbar"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellMenu.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes a menu band.
@@ -163,7 +185,7 @@ class IShellMenu extends IUnknown {
         puIdAncestorMarshal := puIdAncestor is VarRef ? "uint*" : "ptr"
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr*", ppsmc, puIdMarshal, puId, puIdAncestorMarshal, puIdAncestor, pdwFlagsMarshal, pdwFlags, "HRESULT")
+        result := ComCall(4, this, IShellMenuCallback.Ptr, ppsmc, puIdMarshal, puId, puIdAncestorMarshal, puIdAncestor, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -189,9 +211,7 @@ class IShellMenu extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellmenu-setshellfolder
      */
     SetShellFolder(psf, pidlFolder, _hKey, dwFlags) {
-        _hKey := _hKey is Win32Handle ? NumGet(_hKey, "ptr") : _hKey
-
-        result := ComCall(5, this, "ptr", psf, "ptr", pidlFolder, "ptr", _hKey, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, "ptr", psf, ITEMIDLIST.Ptr, pidlFolder, HKEY, _hKey, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -304,7 +324,7 @@ class IShellMenu extends IUnknown {
         ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
         ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, pdwFlagsMarshal, pdwFlags, ppidlMarshal, ppidl, "ptr", riid, ppvMarshal, ppv, "HRESULT")
+        result := ComCall(6, this, pdwFlagsMarshal, pdwFlags, ppidlMarshal, ppidl, Guid.Ptr, riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -325,10 +345,7 @@ class IShellMenu extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellmenu-setmenu
      */
     SetMenu(_hmenu, _hwnd, dwFlags) {
-        _hmenu := _hmenu is Win32Handle ? NumGet(_hmenu, "ptr") : _hmenu
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(7, this, "ptr", _hmenu, "ptr", _hwnd, "uint", dwFlags, "HRESULT")
+        result := ComCall(7, this, HMENU, _hmenu, HWND, _hwnd, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -351,7 +368,7 @@ class IShellMenu extends IUnknown {
     GetMenu(phmenu, phwnd, pdwFlags) {
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", phmenu, "ptr", phwnd, pdwFlagsMarshal, pdwFlags, "HRESULT")
+        result := ComCall(8, this, HMENU.Ptr, phmenu, HWND.Ptr, phwnd, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -369,7 +386,7 @@ class IShellMenu extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellmenu-invalidateitem
      */
     InvalidateItem(psmd, dwFlags) {
-        result := ComCall(9, this, "ptr", psmd, "uint", dwFlags, "HRESULT")
+        result := ComCall(9, this, SMDATA.Ptr, psmd, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -382,7 +399,7 @@ class IShellMenu extends IUnknown {
      */
     GetState() {
         psmd := SMDATA()
-        result := ComCall(10, this, "ptr", psmd, "HRESULT")
+        result := ComCall(10, this, SMDATA.Ptr, psmd, "HRESULT")
         return psmd
     }
 
@@ -402,5 +419,41 @@ class IShellMenu extends IUnknown {
     SetMenuToolbar(punk, dwFlags) {
         result := ComCall(11, this, "ptr", punk, "uint", dwFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IShellMenu.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 5)
+        this.vtbl.GetMenuInfo := CallbackCreate(GetMethod(implObj, "GetMenuInfo"), flags, 5)
+        this.vtbl.SetShellFolder := CallbackCreate(GetMethod(implObj, "SetShellFolder"), flags, 5)
+        this.vtbl.GetShellFolder := CallbackCreate(GetMethod(implObj, "GetShellFolder"), flags, 5)
+        this.vtbl.SetMenu := CallbackCreate(GetMethod(implObj, "SetMenu"), flags, 4)
+        this.vtbl.GetMenu := CallbackCreate(GetMethod(implObj, "GetMenu"), flags, 4)
+        this.vtbl.InvalidateItem := CallbackCreate(GetMethod(implObj, "InvalidateItem"), flags, 3)
+        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 2)
+        this.vtbl.SetMenuToolbar := CallbackCreate(GetMethod(implObj, "SetMenuToolbar"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetMenuInfo)
+        CallbackFree(this.vtbl.SetShellFolder)
+        CallbackFree(this.vtbl.GetShellFolder)
+        CallbackFree(this.vtbl.SetMenu)
+        CallbackFree(this.vtbl.GetMenu)
+        CallbackFree(this.vtbl.InvalidateItem)
+        CallbackFree(this.vtbl.GetState)
+        CallbackFree(this.vtbl.SetMenuToolbar)
     }
 }

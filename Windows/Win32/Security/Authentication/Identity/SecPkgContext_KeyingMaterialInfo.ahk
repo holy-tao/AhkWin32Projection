@@ -1,59 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The SecPkgContext_KeyingMaterialInfo structure contains information about the exportable keying material in a security context.
  * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-secpkgcontext_keyingmaterialinfo
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SecPkgContext_KeyingMaterialInfo extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct SecPkgContext_KeyingMaterialInfo {
+    #StructPack 8
 
     /**
      * The length, in bytes, of the disambiguating ASCII label, including NUL terminator.
-     * @type {Integer}
      */
-    cbLabel {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    cbLabel : UInt16
 
     /**
      * A NUL-terminated ASCII string. The NUL terminator will be removed by schannel before mixing in pszLabel. 
      * 
      * IANA-registered labels should begin with "EXPORTER" to  avoid collisions with existing PRF labels. Labels beginning with "EXPERIMENTAL" may be used without registration.
-     * @type {PSTR}
      */
-    pszLabel {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszLabel : PSTR
 
-    /**
-     * @type {Integer}
-     */
-    cbContextValue {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    cbContextValue : UInt16
 
     /**
      * The pointer to the application context. Must be <b>NULL</b> if <i>cbContextValue</i> is zero.
-     * @type {Pointer<Integer>}
      */
-    pbContextValue {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pbContextValue : IntPtr
 
     /**
      * The length, in bytes, of the keying material to be generated. Must be greater than zero.
-     * @type {Integer}
      */
-    cbKeyingMaterial {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    cbKeyingMaterial : UInt32
+
 }

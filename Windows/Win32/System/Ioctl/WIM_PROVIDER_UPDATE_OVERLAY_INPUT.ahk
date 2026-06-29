@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class WIM_PROVIDER_UPDATE_OVERLAY_INPUT extends Win32Struct {
-    static sizeof => 16
+export default struct WIM_PROVIDER_UPDATE_OVERLAY_INPUT {
+    #StructPack 8
 
-    static packingSize => 8
+    DataSourceId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DataSourceId {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    WimFileNameOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    WimFileNameOffset {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    WimFileNameLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    WimFileNameLength {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

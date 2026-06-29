@@ -1,34 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMemoryData.ahk
-#Include ..\Audio\WAVEFORMATEX.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMemoryData.ahk" { IMemoryData }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 
 /**
  * Note  This interface is deprecated.
  * @see https://learn.microsoft.com/windows/win32/api/austream/nn-austream-iaudiodata
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAudioData extends IMemoryData {
-
-    static sizeof => A_PtrSize
+export default struct IAudioData extends IMemoryData {
     /**
      * The interface identifier for IAudioData
      * @type {Guid}
      */
-    static IID => Guid("{54c719c0-af60-11d0-8212-00c04fc32c45}")
+    static IID := Guid("{54c719c0-af60-11d0-8212-00c04fc32c45}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAudioData interfaces
+    */
+    struct Vtbl extends IMemoryData.Vtbl {
+        GetFormat : IntPtr
+        SetFormat : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFormat", "SetFormat"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAudioData.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Note  This interface is deprecated. New applications should not use it. The GetFormat method retrieves the current data format.
@@ -39,7 +48,7 @@ class IAudioData extends IMemoryData {
      */
     GetFormat() {
         pWaveFormatCurrent := WAVEFORMATEX()
-        result := ComCall(6, this, "ptr", pWaveFormatCurrent, "HRESULT")
+        result := ComCall(6, this, WAVEFORMATEX.Ptr, pWaveFormatCurrent, "HRESULT")
         return pWaveFormatCurrent
     }
 
@@ -90,7 +99,29 @@ class IAudioData extends IMemoryData {
      * @see https://learn.microsoft.com/windows/win32/api/austream/nf-austream-iaudiodata-setformat
      */
     SetFormat(lpWaveFormat) {
-        result := ComCall(7, this, "ptr", lpWaveFormat, "HRESULT")
+        result := ComCall(7, this, WAVEFORMATEX.Ptr, lpWaveFormat, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAudioData.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFormat := CallbackCreate(GetMethod(implObj, "GetFormat"), flags, 2)
+        this.vtbl.SetFormat := CallbackCreate(GetMethod(implObj, "SetFormat"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFormat)
+        CallbackFree(this.vtbl.SetFormat)
     }
 }

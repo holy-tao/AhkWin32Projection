@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDirect3DDevice9.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDirect3DDevice9.ahk" { IDirect3DDevice9 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDirect3DVertexShader9 (d3d9.h) interface is used by applications to encapsulate the functionality of a vertex shader.
@@ -18,26 +19,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3dvertexshader9
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class IDirect3DVertexShader9 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirect3DVertexShader9 extends IUnknown {
     /**
      * The interface identifier for IDirect3DVertexShader9
      * @type {Guid}
      */
-    static IID => Guid("{efc5557e-6265-4613-8a94-43857889eb36}")
+    static IID := Guid("{efc5557e-6265-4613-8a94-43857889eb36}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirect3DVertexShader9 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDevice   : IntPtr
+        GetFunction : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDevice", "GetFunction"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirect3DVertexShader9.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IDirect3DVertexShader9::GetDevice (d3d9.h) method gets the device.
@@ -69,5 +78,27 @@ class IDirect3DVertexShader9 extends IUnknown {
 
         result := ComCall(4, this, param0Marshal, param0, pSizeOfDataMarshal, pSizeOfData, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirect3DVertexShader9.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDevice := CallbackCreate(GetMethod(implObj, "GetDevice"), flags, 2)
+        this.vtbl.GetFunction := CallbackCreate(GetMethod(implObj, "GetFunction"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDevice)
+        CallbackFree(this.vtbl.GetFunction)
     }
 }

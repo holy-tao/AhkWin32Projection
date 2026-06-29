@@ -1,125 +1,75 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SWbemQueryQualifiedName.ahk
-#Include .\SWbemRpnQueryToken.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SWbemQueryQualifiedName.ahk" { SWbemQueryQualifiedName }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SWbemRpnQueryToken.ahk" { SWbemRpnQueryToken }
 
 /**
  * The SWbemRpnEncodedQuery structure contains information from the IWbemQuery::GetAnalysis method when you use the WMIQ_ANALYSIS_RPN_SEQUENCE analysis type. Not all the fields in the structure are used actively, because some are reserved for future use.
  * @see https://learn.microsoft.com/windows/win32/api/wmiutils/ns-wmiutils-swbemrpnencodedquery
  * @namespace Windows.Win32.System.Wmi
  */
-class SWbemRpnEncodedQuery extends Win32Struct {
-    static sizeof => 136
-
-    static packingSize => 8
+export default struct SWbemRpnEncodedQuery {
+    #StructPack 8
 
     /**
      * Unused.  Value is always 1.
-     * @type {Integer}
      */
-    m_uVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    m_uVersion : UInt32
 
     /**
      * Unused.  Value is always 0 (zero).
-     * @type {Integer}
      */
-    m_uTokenType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    m_uTokenType : UInt32
 
     /**
      * Unused.  Value is always 0 (zero).
-     * @type {Integer}
      */
-    m_uParsedFeatureMask {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    m_uParsedFeatureMask : Int64
 
     /**
      * Unused. Value is always 0 (zero).
-     * @type {Integer}
      */
-    m_uDetectedArraySize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    m_uDetectedArraySize : UInt32
 
     /**
      * Unused. Value is always <b>NULL</b>.
-     * @type {Pointer<Integer>}
      */
-    m_puDetectedFeatures {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    m_puDetectedFeatures : IntPtr
 
     /**
      * Number of elements listed in a SELECT clause. For example, in the statement <c>SELECT a,b,c FROM d</c>, <b>m_uSelectListSize</b> is the value 3 (a, b and c).
-     * @type {Integer}
      */
-    m_uSelectListSize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    m_uSelectListSize : UInt32
 
     /**
      * Structure used to store property names. This field is used  with the  <b>m_uSelectListSize</b> field. For example, in the statement <c>SELECT a,b,c FROM d</c>, <b>m_uSelectListSize</b> is 3, and the <b>m_ppszNameList</b> field of the <b>m_ppSelectList</b> structure contains the strings "a", "b" and "c". For more information, see <a href="https://docs.microsoft.com/windows/win32/api/wmiutils/ns-wmiutils-swbemqueryqualifiedname">SWbemQueryQualifiedName</a>.
-     * @type {Pointer<Pointer<SWbemQueryQualifiedName>>}
      */
-    m_ppSelectList {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    m_ppSelectList : IntPtr
 
     /**
      * Bitmap used to indicate  the form of the FROM clause.
-     * @type {Integer}
      */
-    m_uFromTargetType {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    m_uFromTargetType : UInt32
 
     /**
      * Optional FROM path. If not used this field is <b>NULL</b>.
-     * @type {PWSTR}
      */
-    m_pszOptionalFromPath {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    m_pszOptionalFromPath : PWSTR
 
     /**
      * Number of items in the FROM clause of the SELECT statement.  For example, in the statement, <c>SELECT * FROM  a, b</c>, the value of <b>m_uFromListSize</b> is 2.
-     * @type {Integer}
      */
-    m_uFromListSize {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    m_uFromListSize : UInt32
 
     /**
      * Pointer to a list of strings. Each string is one element of the FROM clause of a SELECT statement.  For example, in the statement <c>SELECT * FROM a, b</c>, the list  contains the strings "a" and "b".
-     * @type {Pointer<PWSTR>}
      */
-    m_ppszFromList {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    m_ppszFromList : PWSTR.Ptr
 
     /**
      * Number of tokens in the WHERE clause. For example, in the statement <c>SELECT  * FROM a, b WHERE c &lt; 1000 AND d ISA e</code>, the value of <b>m_uWhereClauseSize</b> is 2 (the phrases <code>c &lt; 1000</code> and <code>d ISA e</c>).
-     * @type {Integer}
      */
-    m_uWhereClauseSize {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    m_uWhereClauseSize : UInt32
 
     /**
      * <a href="https://docs.microsoft.com/windows/win32/api/wmiutils/ns-wmiutils-swbemrpnquerytoken">SWbemRpnQueryToken</a>
@@ -127,52 +77,23 @@ class SWbemRpnEncodedQuery extends Win32Struct {
      * <c>c &lt; 1000</c>
      * <c>d ISA e</c>
      * <c>AND</c>
-     * @type {Pointer<Pointer<SWbemRpnQueryToken>>}
      */
-    m_ppRpnWhereClause {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    m_ppRpnWhereClause : IntPtr
 
     /**
      * If there is a WITHIN clause, this field indicates the polling interval. If there is a GROUP WITHIN  clause, this <b>m_dblWithinPolling</b> is unused.
-     * @type {Float}
      */
-    m_dblWithinPolling {
-        get => NumGet(this, 96, "double")
-        set => NumPut("double", value, this, 96)
-    }
+    m_dblWithinPolling : Float64
 
     /**
      * Used if there is  a GROUP WITHIN clause to indicate the interval over which to group results.
-     * @type {Float}
      */
-    m_dblWithinWindow {
-        get => NumGet(this, 104, "double")
-        set => NumPut("double", value, this, 104)
-    }
+    m_dblWithinWindow : Float64
 
-    /**
-     * @type {Integer}
-     */
-    m_uOrderByListSize {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    m_uOrderByListSize : UInt32
 
-    /**
-     * @type {Pointer<PWSTR>}
-     */
-    m_ppszOrderByList {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    m_ppszOrderByList : PWSTR.Ptr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    m_uOrderDirectionEl {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    m_uOrderDirectionEl : IntPtr
+
 }

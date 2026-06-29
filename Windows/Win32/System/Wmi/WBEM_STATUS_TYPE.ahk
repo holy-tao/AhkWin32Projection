@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the status of an asynchronous operation.
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/ne-wbemcli-wbem_status_type
  * @namespace Windows.Win32.System.Wmi
  */
-class WBEM_STATUS_TYPE extends Win32Enum {
+export default struct WBEM_STATUS_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The operation has completed.

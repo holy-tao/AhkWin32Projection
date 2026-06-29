@@ -1,68 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\LUID.ahk
-#Include .\AUTHZ_AUDIT_EVENT_TYPE_UNION.ahk
-#Include .\AUTHZ_AUDIT_EVENT_TYPE_LEGACY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\AUTHZ_AUDIT_EVENT_TYPE_UNION.ahk" { AUTHZ_AUDIT_EVENT_TYPE_UNION }
+#Import "..\..\Foundation\LUID.ahk" { LUID }
+#Import ".\AUTHZ_AUDIT_EVENT_TYPE_LEGACY.ahk" { AUTHZ_AUDIT_EVENT_TYPE_LEGACY }
 
 /**
  * @namespace Windows.Win32.Security.Authorization
  */
-class AUTHZ_AUDIT_EVENT_TYPE_OLD extends Win32Struct {
-    static sizeof => 40
+export default struct AUTHZ_AUDIT_EVENT_TYPE_OLD {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    RefCount : Int32
 
-    /**
-     * @type {Integer}
-     */
-    RefCount {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    hAudit : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    hAudit {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    LinkId : LUID
 
-    /**
-     * @type {LUID}
-     */
-    LinkId {
-        get {
-            if(!this.HasProp("__LinkId"))
-                this.__LinkId := LUID(24, this)
-            return this.__LinkId
-        }
-    }
+    u : AUTHZ_AUDIT_EVENT_TYPE_UNION
 
-    /**
-     * @type {AUTHZ_AUDIT_EVENT_TYPE_UNION}
-     */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := AUTHZ_AUDIT_EVENT_TYPE_UNION(32, this)
-            return this.__u
-        }
-    }
 }

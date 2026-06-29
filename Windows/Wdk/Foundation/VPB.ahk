@@ -1,84 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include .\DEVICE_OBJECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
+#Import "..\..\Win32\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Wdk.Foundation
  */
-class VPB extends Win32Struct {
-    static sizeof => 96
+export default struct VPB {
+    #StructPack 8
 
-    static packingSize => 8
+    Type : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 0, "short")
-        set => NumPut("short", value, this, 0)
-    }
+    Size : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 2, "short")
-        set => NumPut("short", value, this, 2)
-    }
+    Flags : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    VolumeLabelLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    VolumeLabelLength {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
-
-    /**
-     * @type {Pointer<DEVICE_OBJECT>}
-     */
+    __DeviceObject_ptr : IntPtr
     DeviceObject {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => (addr := this.__DeviceObject_ptr) ? DEVICE_OBJECT.At(addr) : unset
+        set => this.__DeviceObject_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer<DEVICE_OBJECT>}
-     */
+    __RealDevice_ptr : IntPtr
     RealDevice {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => (addr := this.__RealDevice_ptr) ? DEVICE_OBJECT.At(addr) : unset
+        set => this.__RealDevice_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Integer}
-     */
-    SerialNumber {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    SerialNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ReferenceCount {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    ReferenceCount : UInt32
 
-    /**
-     * @type {String}
-     */
-    VolumeLabel {
-        get => StrGet(this.ptr + 32, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 32, 31, "UTF-16")
-    }
+    VolumeLabel : WCHAR[32]
+
 }

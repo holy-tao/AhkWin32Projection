@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The ANSI_STRING structure defines a counted string used for ANSI strings.
@@ -12,35 +12,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/ntdef/ns-ntdef-string
  * @namespace Windows.Win32.System.Kernel
  */
-class Win32STRING extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct Win32STRING {
+    #StructPack 8
 
     /**
      * The length in bytes of the string stored in the buffer pointed to by <b>Buffer</b>.
-     * @type {Integer}
      */
-    Length {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Length : UInt16
 
     /**
      * The length in bytes of the buffer pointed to by <b>Buffer</b>.
-     * @type {Integer}
      */
-    MaximumLength {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    MaximumLength : UInt16
 
     /**
      * Pointer to a buffer used to contain a string of characters.
-     * @type {PSTR}
      */
-    Buffer {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Buffer : PSTR
+
 }

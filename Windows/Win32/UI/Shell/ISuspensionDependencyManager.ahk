@@ -1,39 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * . (ISuspensionDependencyManager)
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-isuspensiondependencymanager
  * @namespace Windows.Win32.UI.Shell
  */
-class ISuspensionDependencyManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISuspensionDependencyManager extends IUnknown {
     /**
      * The interface identifier for ISuspensionDependencyManager
      * @type {Guid}
      */
-    static IID => Guid("{52b83a42-2543-416a-81d9-c0de7969c8b3}")
+    static IID := Guid("{52b83a42-2543-416a-81d9-c0de7969c8b3}")
 
     /**
      * The class identifier for SuspensionDependencyManager
      * @type {Guid}
      */
-    static CLSID => Guid("{6b273fc5-61fd-4918-95a2-c3b5e9d7f581}")
+    static CLSID := Guid("{6b273fc5-61fd-4918-95a2-c3b5e9d7f581}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISuspensionDependencyManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RegisterAsChild        : IntPtr
+        GroupChildWithParent   : IntPtr
+        UngroupChildFromParent : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RegisterAsChild", "GroupChildWithParent", "UngroupChildFromParent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISuspensionDependencyManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ISuspensionDependencyManager::RegisterAsChild method
@@ -46,9 +57,7 @@ class ISuspensionDependencyManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isuspensiondependencymanager-registeraschild
      */
     RegisterAsChild(processHandle) {
-        processHandle := processHandle is Win32Handle ? NumGet(processHandle, "ptr") : processHandle
-
-        result := ComCall(3, this, "ptr", processHandle, "HRESULT")
+        result := ComCall(3, this, HANDLE, processHandle, "HRESULT")
         return result
     }
 
@@ -63,9 +72,7 @@ class ISuspensionDependencyManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isuspensiondependencymanager-groupchildwithparent
      */
     GroupChildWithParent(childProcessHandle) {
-        childProcessHandle := childProcessHandle is Win32Handle ? NumGet(childProcessHandle, "ptr") : childProcessHandle
-
-        result := ComCall(4, this, "ptr", childProcessHandle, "HRESULT")
+        result := ComCall(4, this, HANDLE, childProcessHandle, "HRESULT")
         return result
     }
 
@@ -80,9 +87,31 @@ class ISuspensionDependencyManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isuspensiondependencymanager-ungroupchildfromparent
      */
     UngroupChildFromParent(childProcessHandle) {
-        childProcessHandle := childProcessHandle is Win32Handle ? NumGet(childProcessHandle, "ptr") : childProcessHandle
-
-        result := ComCall(5, this, "ptr", childProcessHandle, "HRESULT")
+        result := ComCall(5, this, HANDLE, childProcessHandle, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISuspensionDependencyManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RegisterAsChild := CallbackCreate(GetMethod(implObj, "RegisterAsChild"), flags, 2)
+        this.vtbl.GroupChildWithParent := CallbackCreate(GetMethod(implObj, "GroupChildWithParent"), flags, 2)
+        this.vtbl.UngroupChildFromParent := CallbackCreate(GetMethod(implObj, "UngroupChildFromParent"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RegisterAsChild)
+        CallbackFree(this.vtbl.GroupChildWithParent)
+        CallbackFree(this.vtbl.UngroupChildFromParent)
     }
 }

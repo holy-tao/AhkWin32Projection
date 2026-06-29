@@ -1,38 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
  */
-class SUB_Q_HEADER extends Win32Struct {
-    static sizeof => 4
+export default struct SUB_Q_HEADER {
+    #StructPack 1
 
-    static packingSize => 1
+    Reserved : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    AudioStatus : Int8
 
-    /**
-     * @type {Integer}
-     */
-    AudioStatus {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    DataLength : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    DataLength {
-        get {
-            if(!this.HasProp("__DataLengthProxyArray"))
-                this.__DataLengthProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")
-            return this.__DataLengthProxyArray
-        }
-    }
 }

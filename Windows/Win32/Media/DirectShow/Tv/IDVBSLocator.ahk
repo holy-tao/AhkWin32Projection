@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IDigitalLocator.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Polarisation.ahk" { Polarisation }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IDigitalLocator.ahk" { IDigitalLocator }
 
 /**
  * The IDVBSLocator interface is implemented on the DVBSLocator object.
@@ -10,32 +13,48 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-idvbslocator
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IDVBSLocator extends IDigitalLocator {
-
-    static sizeof => A_PtrSize
+export default struct IDVBSLocator extends IDigitalLocator {
     /**
      * The interface identifier for IDVBSLocator
      * @type {Guid}
      */
-    static IID => Guid("{3d7c353c-0d04-45f1-a742-f97cc1188dc8}")
+    static IID := Guid("{3d7c353c-0d04-45f1-a742-f97cc1188dc8}")
 
     /**
      * The class identifier for DVBSLocator
      * @type {Guid}
      */
-    static CLSID => Guid("{1df7d126-4050-47f0-a7cf-4c4ca9241333}")
+    static CLSID := Guid("{1df7d126-4050-47f0-a7cf-4c4ca9241333}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 22
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDVBSLocator interfaces
+    */
+    struct Vtbl extends IDigitalLocator.Vtbl {
+        get_SignalPolarisation : IntPtr
+        put_SignalPolarisation : IntPtr
+        get_WestPosition       : IntPtr
+        put_WestPosition       : IntPtr
+        get_OrbitalPosition    : IntPtr
+        put_OrbitalPosition    : IntPtr
+        get_Azimuth            : IntPtr
+        put_Azimuth            : IntPtr
+        get_Elevation          : IntPtr
+        put_Elevation          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_SignalPolarisation", "put_SignalPolarisation", "get_WestPosition", "put_WestPosition", "get_OrbitalPosition", "put_OrbitalPosition", "get_Azimuth", "put_Azimuth", "get_Elevation", "put_Elevation"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDVBSLocator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Polarisation} 
@@ -98,7 +117,7 @@ class IDVBSLocator extends IDigitalLocator {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator-put_signalpolarisation
      */
     put_SignalPolarisation(PolarisationVal) {
-        result := ComCall(23, this, "int", PolarisationVal, "HRESULT")
+        result := ComCall(23, this, Polarisation, PolarisationVal, "HRESULT")
         return result
     }
 
@@ -108,7 +127,7 @@ class IDVBSLocator extends IDigitalLocator {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator-get_westposition
      */
     get_WestPosition() {
-        result := ComCall(24, this, "short*", &WestLongitude := 0, "HRESULT")
+        result := ComCall(24, this, VARIANT_BOOL.Ptr, &WestLongitude := 0, "HRESULT")
         return WestLongitude
     }
 
@@ -119,7 +138,7 @@ class IDVBSLocator extends IDigitalLocator {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator-put_westposition
      */
     put_WestPosition(WestLongitude) {
-        result := ComCall(25, this, "short", WestLongitude, "HRESULT")
+        result := ComCall(25, this, VARIANT_BOOL, WestLongitude, "HRESULT")
         return result
     }
 
@@ -184,5 +203,43 @@ class IDVBSLocator extends IDigitalLocator {
     put_Elevation(Elevation) {
         result := ComCall(31, this, "int", Elevation, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDVBSLocator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_SignalPolarisation := CallbackCreate(GetMethod(implObj, "get_SignalPolarisation"), flags, 2)
+        this.vtbl.put_SignalPolarisation := CallbackCreate(GetMethod(implObj, "put_SignalPolarisation"), flags, 2)
+        this.vtbl.get_WestPosition := CallbackCreate(GetMethod(implObj, "get_WestPosition"), flags, 2)
+        this.vtbl.put_WestPosition := CallbackCreate(GetMethod(implObj, "put_WestPosition"), flags, 2)
+        this.vtbl.get_OrbitalPosition := CallbackCreate(GetMethod(implObj, "get_OrbitalPosition"), flags, 2)
+        this.vtbl.put_OrbitalPosition := CallbackCreate(GetMethod(implObj, "put_OrbitalPosition"), flags, 2)
+        this.vtbl.get_Azimuth := CallbackCreate(GetMethod(implObj, "get_Azimuth"), flags, 2)
+        this.vtbl.put_Azimuth := CallbackCreate(GetMethod(implObj, "put_Azimuth"), flags, 2)
+        this.vtbl.get_Elevation := CallbackCreate(GetMethod(implObj, "get_Elevation"), flags, 2)
+        this.vtbl.put_Elevation := CallbackCreate(GetMethod(implObj, "put_Elevation"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_SignalPolarisation)
+        CallbackFree(this.vtbl.put_SignalPolarisation)
+        CallbackFree(this.vtbl.get_WestPosition)
+        CallbackFree(this.vtbl.put_WestPosition)
+        CallbackFree(this.vtbl.get_OrbitalPosition)
+        CallbackFree(this.vtbl.put_OrbitalPosition)
+        CallbackFree(this.vtbl.get_Azimuth)
+        CallbackFree(this.vtbl.put_Azimuth)
+        CallbackFree(this.vtbl.get_Elevation)
+        CallbackFree(this.vtbl.put_Elevation)
     }
 }

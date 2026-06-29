@@ -1,70 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
  */
-class DNS_NSEC3_DATA extends Win32Struct {
-    static sizeof => 10
+export default struct DNS_NSEC3_DATA {
+    #StructPack 2
 
-    static packingSize => 2
+    chAlgorithm : Int8
 
-    /**
-     * @type {Integer}
-     */
-    chAlgorithm {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    bFlags : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bFlags {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    wIterations : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wIterations {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    bSaltLength : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bSaltLength {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    bHashLength : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bHashLength {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    wTypeBitMapsLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wTypeBitMapsLength {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    chData : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    chData {
-        get {
-            if(!this.HasProp("__chDataProxyArray"))
-                this.__chDataProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
-            return this.__chDataProxyArray
-        }
-    }
 }

@@ -1,59 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class STACK_SRC_INFO extends Win32Struct {
-    static sizeof => 40
+export default struct STACK_SRC_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    ImagePath : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    ImagePath {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ModuleName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    ModuleName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Function : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    Function {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Displacement : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Displacement {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Row : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Row {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    Column : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Column {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

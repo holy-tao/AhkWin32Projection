@@ -1,55 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ATM_ADDRESS.ahk
-#Include .\ATM_BLLI.ahk
-#Include .\ATM_BHLI.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ATM_BLLI.ahk" { ATM_BLLI }
+#Import ".\ATM_ADDRESS.ahk" { ATM_ADDRESS }
+#Import ".\ATM_BHLI.ahk" { ATM_BHLI }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class SOCKADDR_ATM extends Win32Struct {
-    static sizeof => 76
+export default struct SOCKADDR_ATM {
+    #StructPack 4
 
-    static packingSize => 4
+    satm_family : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    satm_family {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    satm_number : ATM_ADDRESS
 
-    /**
-     * @type {ATM_ADDRESS}
-     */
-    satm_number {
-        get {
-            if(!this.HasProp("__satm_number"))
-                this.__satm_number := ATM_ADDRESS(4, this)
-            return this.__satm_number
-        }
-    }
+    satm_blli : ATM_BLLI
 
-    /**
-     * @type {ATM_BLLI}
-     */
-    satm_blli {
-        get {
-            if(!this.HasProp("__satm_blli"))
-                this.__satm_blli := ATM_BLLI(32, this)
-            return this.__satm_blli
-        }
-    }
+    satm_bhli : ATM_BHLI
 
-    /**
-     * @type {ATM_BHLI}
-     */
-    satm_bhli {
-        get {
-            if(!this.HasProp("__satm_bhli"))
-                this.__satm_bhli := ATM_BHLI(60, this)
-            return this.__satm_bhli
-        }
-    }
 }

@@ -1,172 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDCOLORCONTROL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDCOLORCONTROL.ahk" { DDCOLORCONTROL }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDRAWI_DDRAWSURFACE_GBL_MORE extends Win32Struct {
-    static sizeof => 144
+export default struct DDRAWI_DDRAWSURFACE_GBL_MORE {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwPhysicalPageTable : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwPhysicalPageTable {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    pPageTable : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    fpPhysicalVidMem {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    cPages : UInt32
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pPageTable {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    dwSavedDCContext : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    cPages {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    fpAliasedVidMem : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwSavedDCContext {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    dwDriverReserved : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    fpAliasedVidMem {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    dwHELReserved : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwDriverReserved {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    cPageUnlocks : UInt32
 
-    /**
-     * @type {Pointer}
-     */
-    dwHELReserved {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    hKernelSurface : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    cPageUnlocks {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    dwKernelRefCnt : UInt32
 
-    /**
-     * @type {Pointer}
-     */
-    hKernelSurface {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    lpColorInfo : DDCOLORCONTROL.Ptr
 
-    /**
-     * @type {Integer}
-     */
-    dwKernelRefCnt {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    fpNTAlias : IntPtr
 
-    /**
-     * @type {Pointer<DDCOLORCONTROL>}
-     */
-    lpColorInfo {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    dwContentsStamp : UInt32
 
-    /**
-     * @type {Pointer}
-     */
-    fpNTAlias {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    lpvUnswappedDriverReserved : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    dwContentsStamp {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    lpDDRAWReserved2 : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpvUnswappedDriverReserved {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    dwDDRAWReserved1 : UInt32
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpDDRAWReserved2 {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    dwDDRAWReserved2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDDRAWReserved1 {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    fpAliasOfVidMem : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    dwDDRAWReserved2 {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    fpAliasOfVidMem {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
+    static __New() {
+        DefineProp(this.Prototype, 'fpPhysicalVidMem', { type: IntPtr, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

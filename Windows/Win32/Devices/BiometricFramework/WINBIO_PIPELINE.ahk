@@ -1,10 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\WINBIO_SENSOR_INTERFACE.ahk
-#Include .\WINBIO_ENGINE_INTERFACE.ahk
-#Include .\WINBIO_STORAGE_INTERFACE.ahk
-#Include .\WINBIO_FRAMEWORK_INTERFACE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WINIBIO_SENSOR_CONTEXT.ahk" { WINIBIO_SENSOR_CONTEXT }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\WINBIO_SENSOR_INTERFACE.ahk" { WINBIO_SENSOR_INTERFACE }
+#Import ".\WINBIO_ENGINE_INTERFACE.ahk" { WINBIO_ENGINE_INTERFACE }
+#Import ".\WINBIO_STORAGE_INTERFACE.ahk" { WINBIO_STORAGE_INTERFACE }
+#Import ".\WINIBIO_ENGINE_CONTEXT.ahk" { WINIBIO_ENGINE_CONTEXT }
+#Import ".\WINBIO_FRAMEWORK_INTERFACE.ahk" { WINBIO_FRAMEWORK_INTERFACE }
+#Import ".\WINIBIO_STORAGE_CONTEXT.ahk" { WINIBIO_STORAGE_CONTEXT }
 
 /**
  * Contains shared context information used by the sensor, engine, and storage adapter components in a single biometric unit.
@@ -13,106 +15,54 @@
  * @see https://learn.microsoft.com/windows/win32/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
-class WINBIO_PIPELINE extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct WINBIO_PIPELINE {
+    #StructPack 8
 
     /**
      * File handle to the sensor device associated with the biometric unit. Adapters should treat this as a read-only field.
-     * @type {HANDLE}
      */
-    SensorHandle {
-        get {
-            if(!this.HasProp("__SensorHandle"))
-                this.__SensorHandle := HANDLE(0, this)
-            return this.__SensorHandle
-        }
-    }
+    SensorHandle : HANDLE
 
     /**
      * File handle to the dedicated hardware matching engine, if one is present. This is modified only by the engine adapter. It is read by the Windows Biometric Framework.
-     * @type {HANDLE}
      */
-    EngineHandle {
-        get {
-            if(!this.HasProp("__EngineHandle"))
-                this.__EngineHandle := HANDLE(8, this)
-            return this.__EngineHandle
-        }
-    }
+    EngineHandle : HANDLE
 
     /**
      * File handle to the template storage database. This is read by the Windows Biometric Framework, but it is modified only by the storage adapter.
-     * @type {HANDLE}
      */
-    StorageHandle {
-        get {
-            if(!this.HasProp("__StorageHandle"))
-                this.__StorageHandle := HANDLE(16, this)
-            return this.__StorageHandle
-        }
-    }
+    StorageHandle : HANDLE
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/win32/api/winbio_adapter/ns-winbio_adapter-winbio_sensor_interface">WINBIO_SENSOR_INTERFACE</a> structure for the biometric unit. Adapters should ignore this field.
-     * @type {Pointer<WINBIO_SENSOR_INTERFACE>}
      */
-    SensorInterface {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    SensorInterface : WINBIO_SENSOR_INTERFACE.Ptr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/win32/api/winbio_adapter/ns-winbio_adapter-winbio_engine_interface">WINBIO_ENGINE_INTERFACE</a> structure for the biometric unit. Adapters should ignore this field.
-     * @type {Pointer<WINBIO_ENGINE_INTERFACE>}
      */
-    EngineInterface {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    EngineInterface : WINBIO_ENGINE_INTERFACE.Ptr
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/win32/api/winbio_adapter/ns-winbio_adapter-winbio_storage_interface">WINBIO_STORAGE_INTERFACE</a> structure for the biometric unit. Adapters should ignore this field.
-     * @type {Pointer<WINBIO_STORAGE_INTERFACE>}
      */
-    StorageInterface {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    StorageInterface : WINBIO_STORAGE_INTERFACE.Ptr
 
     /**
      * Pointer to a private data structure defined by the sensor adapter. This pointer and the structure contents are managed by the sensor adapter and are never accessed by the Windows Biometric Framework.
-     * @type {Pointer<WINIBIO_SENSOR_CONTEXT>}
      */
-    SensorContext {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    SensorContext : WINIBIO_SENSOR_CONTEXT.Ptr
 
     /**
      * Pointer to a private data structure defined by the engine adapter. This pointer and the structure contents are managed by the engine adapter and are never accessed by the Windows Biometric Framework.
-     * @type {Pointer<WINIBIO_ENGINE_CONTEXT>}
      */
-    EngineContext {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    EngineContext : WINIBIO_ENGINE_CONTEXT.Ptr
 
     /**
      * Pointer to a private data structure defined by the storage adapter. This pointer and the structure contents are managed by the storage adapter and are never accessed by the Windows Biometric Framework.
-     * @type {Pointer<WINIBIO_STORAGE_CONTEXT>}
      */
-    StorageContext {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    StorageContext : WINIBIO_STORAGE_CONTEXT.Ptr
 
-    /**
-     * @type {Pointer<WINBIO_FRAMEWORK_INTERFACE>}
-     */
-    FrameworkInterface {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    FrameworkInterface : WINBIO_FRAMEWORK_INTERFACE.Ptr
+
 }

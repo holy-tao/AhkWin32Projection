@@ -1,78 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
-#Include ..\..\Graphics\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk" { DXGI_COLOR_SPACE_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
 
 /**
  * Specifies the parameters for decode output conversion. (D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS1)
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_decode_conversion_arguments1
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS1 extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS1 {
+    #StructPack 8
 
     /**
      * A boolean value indicating whether decode conversion should be used.
-     * @type {BOOL}
      */
-    Enable {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Enable : BOOL
 
     /**
      * A pointer to an [ID3D12Resource](/windows/desktop/api/d3d12/nn-d3d12-id3d12resource) containing the native decoding output. When downsampling is enabled, the output at native decode resolution, color space, and format may be required for future decode submissions (as reference frames, for instance).
-     * @type {ID3D12Resource}
      */
-    pReferenceTexture2D {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pReferenceTexture2D : ID3D12Resource
 
     /**
      * The subresource index of the resource provided in *pDecodeTexture2D* to use.
-     * @type {Integer}
      */
-    ReferenceSubresource {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ReferenceSubresource : UInt32
 
     /**
      * A value from the [DXGI_COLOR_SPACE_TYPE](/windows/desktop/api/dxgicommon/ne-dxgicommon-dxgi_color_space_type) enumeration specifying the target color space of the output.
-     * @type {DXGI_COLOR_SPACE_TYPE}
      */
-    OutputColorSpace {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    OutputColorSpace : DXGI_COLOR_SPACE_TYPE
 
     /**
      * A value from the [DXGI_COLOR_SPACE_TYPE](/windows/desktop/api/dxgicommon/ne-dxgicommon-dxgi_color_space_type) enumeration specifying the source-decoded color space before conversion.
-     * @type {DXGI_COLOR_SPACE_TYPE}
      */
-    DecodeColorSpace {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    DecodeColorSpace : DXGI_COLOR_SPACE_TYPE
 
     /**
      * The output width, in pixels.
-     * @type {Integer}
      */
-    OutputWidth {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    OutputWidth : UInt32
 
     /**
      * The output width, in pixels.
-     * @type {Integer}
      */
-    OutputHeight {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    OutputHeight : UInt32
+
 }

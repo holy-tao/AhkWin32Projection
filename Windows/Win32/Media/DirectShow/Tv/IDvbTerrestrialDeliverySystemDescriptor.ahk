@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
@@ -16,26 +17,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvbterrestrialdeliverysystemdescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IDvbTerrestrialDeliverySystemDescriptor extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDvbTerrestrialDeliverySystemDescriptor extends IUnknown {
     /**
      * The interface identifier for IDvbTerrestrialDeliverySystemDescriptor
      * @type {Guid}
      */
-    static IID => Guid("{ed7e1b91-d12e-420c-b41d-a49d84fe1823}")
+    static IID := Guid("{ed7e1b91-d12e-420c-b41d-a49d84fe1823}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDvbTerrestrialDeliverySystemDescriptor interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetTag                  : IntPtr
+        GetLength               : IntPtr
+        GetCentreFrequency      : IntPtr
+        GetBandwidth            : IntPtr
+        GetConstellation        : IntPtr
+        GetHierarchyInformation : IntPtr
+        GetCodeRateHPStream     : IntPtr
+        GetCodeRateLPStream     : IntPtr
+        GetGuardInterval        : IntPtr
+        GetTransmissionMode     : IntPtr
+        GetOtherFrequencyFlag   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetTag", "GetLength", "GetCentreFrequency", "GetBandwidth", "GetConstellation", "GetHierarchyInformation", "GetCodeRateHPStream", "GetCodeRateLPStream", "GetGuardInterval", "GetTransmissionMode", "GetOtherFrequencyFlag"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDvbTerrestrialDeliverySystemDescriptor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
@@ -145,5 +163,45 @@ class IDvbTerrestrialDeliverySystemDescriptor extends IUnknown {
     GetOtherFrequencyFlag() {
         result := ComCall(13, this, "char*", &pbVal := 0, "HRESULT")
         return pbVal
+    }
+
+    Query(iid) {
+        if (IDvbTerrestrialDeliverySystemDescriptor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetCentreFrequency := CallbackCreate(GetMethod(implObj, "GetCentreFrequency"), flags, 2)
+        this.vtbl.GetBandwidth := CallbackCreate(GetMethod(implObj, "GetBandwidth"), flags, 2)
+        this.vtbl.GetConstellation := CallbackCreate(GetMethod(implObj, "GetConstellation"), flags, 2)
+        this.vtbl.GetHierarchyInformation := CallbackCreate(GetMethod(implObj, "GetHierarchyInformation"), flags, 2)
+        this.vtbl.GetCodeRateHPStream := CallbackCreate(GetMethod(implObj, "GetCodeRateHPStream"), flags, 2)
+        this.vtbl.GetCodeRateLPStream := CallbackCreate(GetMethod(implObj, "GetCodeRateLPStream"), flags, 2)
+        this.vtbl.GetGuardInterval := CallbackCreate(GetMethod(implObj, "GetGuardInterval"), flags, 2)
+        this.vtbl.GetTransmissionMode := CallbackCreate(GetMethod(implObj, "GetTransmissionMode"), flags, 2)
+        this.vtbl.GetOtherFrequencyFlag := CallbackCreate(GetMethod(implObj, "GetOtherFrequencyFlag"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetTag)
+        CallbackFree(this.vtbl.GetLength)
+        CallbackFree(this.vtbl.GetCentreFrequency)
+        CallbackFree(this.vtbl.GetBandwidth)
+        CallbackFree(this.vtbl.GetConstellation)
+        CallbackFree(this.vtbl.GetHierarchyInformation)
+        CallbackFree(this.vtbl.GetCodeRateHPStream)
+        CallbackFree(this.vtbl.GetCodeRateLPStream)
+        CallbackFree(this.vtbl.GetGuardInterval)
+        CallbackFree(this.vtbl.GetTransmissionMode)
+        CallbackFree(this.vtbl.GetOtherFrequencyFlag)
     }
 }

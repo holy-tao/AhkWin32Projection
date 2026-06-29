@@ -1,36 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\CLIENT_DISPLAY.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\TSSESSION_STATE.ahk" { TSSESSION_STATE }
+#Import ".\CLIENT_DISPLAY.ahk" { CLIENT_DISPLAY }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes properties that store information about a user session.
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbsession
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class ITsSbSession extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITsSbSession extends IUnknown {
     /**
      * The interface identifier for ITsSbSession
      * @type {Guid}
      */
-    static IID => Guid("{d453aac7-b1d8-4c5e-ba34-9afb4c8c5510}")
+    static IID := Guid("{d453aac7-b1d8-4c5e-ba34-9afb4c8c5510}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITsSbSession interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_SessionId      : IntPtr
+        get_TargetName     : IntPtr
+        put_TargetName     : IntPtr
+        get_Username       : IntPtr
+        get_Domain         : IntPtr
+        get_State          : IntPtr
+        put_State          : IntPtr
+        get_CreateTime     : IntPtr
+        put_CreateTime     : IntPtr
+        get_DisconnectTime : IntPtr
+        put_DisconnectTime : IntPtr
+        get_InitialProgram : IntPtr
+        put_InitialProgram : IntPtr
+        get_ClientDisplay  : IntPtr
+        put_ClientDisplay  : IntPtr
+        get_ProtocolType   : IntPtr
+        put_ProtocolType   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_SessionId", "get_TargetName", "put_TargetName", "get_Username", "get_Domain", "get_State", "put_State", "get_CreateTime", "put_CreateTime", "get_DisconnectTime", "put_DisconnectTime", "get_InitialProgram", "put_InitialProgram", "get_ClientDisplay", "put_ClientDisplay", "get_ProtocolType", "put_ProtocolType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITsSbSession.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -125,8 +150,8 @@ class ITsSbSession extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_targetname
      */
     get_TargetName() {
-        targetName := BSTR()
-        result := ComCall(4, this, "ptr", targetName, "HRESULT")
+        targetName := BSTR.Owned()
+        result := ComCall(4, this, BSTR.Ptr, targetName, "HRESULT")
         return targetName
     }
 
@@ -138,7 +163,7 @@ class ITsSbSession extends IUnknown {
     put_TargetName(targetName) {
         targetName := targetName is String ? BSTR.Alloc(targetName).Value : targetName
 
-        result := ComCall(5, this, "ptr", targetName, "HRESULT")
+        result := ComCall(5, this, BSTR, targetName, "HRESULT")
         return result
     }
 
@@ -148,8 +173,8 @@ class ITsSbSession extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_username
      */
     get_Username() {
-        userName := BSTR()
-        result := ComCall(6, this, "ptr", userName, "HRESULT")
+        userName := BSTR.Owned()
+        result := ComCall(6, this, BSTR.Ptr, userName, "HRESULT")
         return userName
     }
 
@@ -159,8 +184,8 @@ class ITsSbSession extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_domain
      */
     get_Domain() {
-        domain := BSTR()
-        result := ComCall(7, this, "ptr", domain, "HRESULT")
+        domain := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, domain, "HRESULT")
         return domain
     }
 
@@ -181,7 +206,7 @@ class ITsSbSession extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-put_state
      */
     put_State(State) {
-        result := ComCall(9, this, "int", State, "HRESULT")
+        result := ComCall(9, this, TSSESSION_STATE, State, "HRESULT")
         return result
     }
 
@@ -192,7 +217,7 @@ class ITsSbSession extends IUnknown {
      */
     get_CreateTime() {
         pTime := FILETIME()
-        result := ComCall(10, this, "ptr", pTime, "HRESULT")
+        result := ComCall(10, this, FILETIME.Ptr, pTime, "HRESULT")
         return pTime
     }
 
@@ -203,7 +228,7 @@ class ITsSbSession extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-put_createtime
      */
     put_CreateTime(Time) {
-        result := ComCall(11, this, "ptr", Time, "HRESULT")
+        result := ComCall(11, this, FILETIME, Time, "HRESULT")
         return result
     }
 
@@ -214,7 +239,7 @@ class ITsSbSession extends IUnknown {
      */
     get_DisconnectTime() {
         pTime := FILETIME()
-        result := ComCall(12, this, "ptr", pTime, "HRESULT")
+        result := ComCall(12, this, FILETIME.Ptr, pTime, "HRESULT")
         return pTime
     }
 
@@ -225,7 +250,7 @@ class ITsSbSession extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-put_disconnecttime
      */
     put_DisconnectTime(Time) {
-        result := ComCall(13, this, "ptr", Time, "HRESULT")
+        result := ComCall(13, this, FILETIME, Time, "HRESULT")
         return result
     }
 
@@ -235,8 +260,8 @@ class ITsSbSession extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_initialprogram
      */
     get_InitialProgram() {
-        app := BSTR()
-        result := ComCall(14, this, "ptr", app, "HRESULT")
+        app := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, app, "HRESULT")
         return app
     }
 
@@ -249,7 +274,7 @@ class ITsSbSession extends IUnknown {
     put_InitialProgram(_Application) {
         _Application := _Application is String ? BSTR.Alloc(_Application).Value : _Application
 
-        result := ComCall(15, this, "ptr", _Application, "HRESULT")
+        result := ComCall(15, this, BSTR, _Application, "HRESULT")
         return result
     }
 
@@ -260,7 +285,7 @@ class ITsSbSession extends IUnknown {
      */
     get_ClientDisplay() {
         pClientDisplay := CLIENT_DISPLAY()
-        result := ComCall(16, this, "ptr", pClientDisplay, "HRESULT")
+        result := ComCall(16, this, CLIENT_DISPLAY.Ptr, pClientDisplay, "HRESULT")
         return pClientDisplay
     }
 
@@ -271,7 +296,7 @@ class ITsSbSession extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-put_clientdisplay
      */
     put_ClientDisplay(pClientDisplay) {
-        result := ComCall(17, this, "ptr", pClientDisplay, "HRESULT")
+        result := ComCall(17, this, CLIENT_DISPLAY, pClientDisplay, "HRESULT")
         return result
     }
 
@@ -294,5 +319,57 @@ class ITsSbSession extends IUnknown {
     put_ProtocolType(_Val) {
         result := ComCall(19, this, "uint", _Val, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITsSbSession.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_SessionId := CallbackCreate(GetMethod(implObj, "get_SessionId"), flags, 2)
+        this.vtbl.get_TargetName := CallbackCreate(GetMethod(implObj, "get_TargetName"), flags, 2)
+        this.vtbl.put_TargetName := CallbackCreate(GetMethod(implObj, "put_TargetName"), flags, 2)
+        this.vtbl.get_Username := CallbackCreate(GetMethod(implObj, "get_Username"), flags, 2)
+        this.vtbl.get_Domain := CallbackCreate(GetMethod(implObj, "get_Domain"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.put_State := CallbackCreate(GetMethod(implObj, "put_State"), flags, 2)
+        this.vtbl.get_CreateTime := CallbackCreate(GetMethod(implObj, "get_CreateTime"), flags, 2)
+        this.vtbl.put_CreateTime := CallbackCreate(GetMethod(implObj, "put_CreateTime"), flags, 2)
+        this.vtbl.get_DisconnectTime := CallbackCreate(GetMethod(implObj, "get_DisconnectTime"), flags, 2)
+        this.vtbl.put_DisconnectTime := CallbackCreate(GetMethod(implObj, "put_DisconnectTime"), flags, 2)
+        this.vtbl.get_InitialProgram := CallbackCreate(GetMethod(implObj, "get_InitialProgram"), flags, 2)
+        this.vtbl.put_InitialProgram := CallbackCreate(GetMethod(implObj, "put_InitialProgram"), flags, 2)
+        this.vtbl.get_ClientDisplay := CallbackCreate(GetMethod(implObj, "get_ClientDisplay"), flags, 2)
+        this.vtbl.put_ClientDisplay := CallbackCreate(GetMethod(implObj, "put_ClientDisplay"), flags, 2)
+        this.vtbl.get_ProtocolType := CallbackCreate(GetMethod(implObj, "get_ProtocolType"), flags, 2)
+        this.vtbl.put_ProtocolType := CallbackCreate(GetMethod(implObj, "put_ProtocolType"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_SessionId)
+        CallbackFree(this.vtbl.get_TargetName)
+        CallbackFree(this.vtbl.put_TargetName)
+        CallbackFree(this.vtbl.get_Username)
+        CallbackFree(this.vtbl.get_Domain)
+        CallbackFree(this.vtbl.get_State)
+        CallbackFree(this.vtbl.put_State)
+        CallbackFree(this.vtbl.get_CreateTime)
+        CallbackFree(this.vtbl.put_CreateTime)
+        CallbackFree(this.vtbl.get_DisconnectTime)
+        CallbackFree(this.vtbl.put_DisconnectTime)
+        CallbackFree(this.vtbl.get_InitialProgram)
+        CallbackFree(this.vtbl.put_InitialProgram)
+        CallbackFree(this.vtbl.get_ClientDisplay)
+        CallbackFree(this.vtbl.put_ClientDisplay)
+        CallbackFree(this.vtbl.get_ProtocolType)
+        CallbackFree(this.vtbl.put_ProtocolType)
     }
 }

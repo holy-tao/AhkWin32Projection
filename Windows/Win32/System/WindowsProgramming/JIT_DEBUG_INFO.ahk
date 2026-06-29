@@ -1,67 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
  */
-class JIT_DEBUG_INFO extends Win32Struct {
-    static sizeof => 40
+export default struct JIT_DEBUG_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwProcessorArchitecture : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwProcessorArchitecture {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwThreadID : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwThreadID {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwReserved0 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved0 {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    lpExceptionAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    lpExceptionAddress {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    lpExceptionRecord : Int64
 
-    /**
-     * @type {Integer}
-     */
-    lpExceptionRecord {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    lpContextRecord : Int64
 
-    /**
-     * @type {Integer}
-     */
-    lpContextRecord {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

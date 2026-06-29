@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WTSINFOEX_LEVEL1_A.ahk
-#Include .\WTS_CONNECTSTATE_CLASS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WTS_CONNECTSTATE_CLASS.ahk" { WTS_CONNECTSTATE_CLASS }
+#Import ".\WTSINFOEX_LEVEL1_A.ahk" { WTSINFOEX_LEVEL1_A }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Contains a WTSINFOEX_LEVEL1 structure that contains extended information about a Remote Desktop Services session. (ANSI)
@@ -9,20 +9,12 @@
  * @namespace Windows.Win32.System.RemoteDesktop
  * @charset ANSI
  */
-class WTSINFOEX_LEVEL_A extends Win32Struct {
-    static sizeof => 152
-
-    static packingSize => 8
+export default struct WTSINFOEX_LEVEL_A {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wtsinfoex_level1_a">WTSINFOEX_LEVEL1</a> structure that contains extended session information.
-     * @type {WTSINFOEX_LEVEL1_A}
      */
-    WTSInfoExLevel1 {
-        get {
-            if(!this.HasProp("__WTSInfoExLevel1"))
-                this.__WTSInfoExLevel1 := WTSINFOEX_LEVEL1_A(0, this)
-            return this.__WTSInfoExLevel1
-        }
-    }
+    WTSInfoExLevel1 : WTSINFOEX_LEVEL1_A
+
 }

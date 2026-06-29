@@ -1,34 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IItemEnumerator.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISettingsResult.ahk" { ISettingsResult }
+#Import ".\ISettingsIdentity.ahk" { ISettingsIdentity }
+#Import ".\IItemEnumerator.ahk" { IItemEnumerator }
+#Import "..\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ITargetInfo.ahk" { ITargetInfo }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * An interface to a backing store that is used to store setting changes made through the other SMI APIs, and provides operations to serialize to and deserialize from a representation.
  * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nn-wcmconfig-isettingscontext
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
  */
-class ISettingsContext extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISettingsContext extends IUnknown {
     /**
      * The interface identifier for ISettingsContext
      * @type {Guid}
      */
-    static IID => Guid("{9f7d7bbd-20b3-11da-81a5-0030f1642e3c}")
+    static IID := Guid("{9f7d7bbd-20b3-11da-81a5-0030f1642e3c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISettingsContext interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Serialize         : IntPtr
+        Deserialize       : IntPtr
+        SetUserData       : IntPtr
+        GetUserData       : IntPtr
+        GetNamespaces     : IntPtr
+        GetStoredSettings : IntPtr
+        RevertSetting     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Serialize", "Deserialize", "SetUserData", "GetUserData", "GetNamespaces", "GetStoredSettings", "RevertSetting"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISettingsContext.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Serializes the data in this context into the provided stream.
@@ -108,7 +127,7 @@ class ISettingsContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingscontext-getstoredsettings
      */
     GetStoredSettings(pIdentity, ppAddedSettings, ppModifiedSettings, ppDeletedSettings) {
-        result := ComCall(8, this, "ptr", pIdentity, "ptr*", ppAddedSettings, "ptr*", ppModifiedSettings, "ptr*", ppDeletedSettings, "HRESULT")
+        result := ComCall(8, this, "ptr", pIdentity, IItemEnumerator.Ptr, ppAddedSettings, IItemEnumerator.Ptr, ppModifiedSettings, IItemEnumerator.Ptr, ppDeletedSettings, "HRESULT")
         return result
     }
 
@@ -124,5 +143,37 @@ class ISettingsContext extends IUnknown {
 
         result := ComCall(9, this, "ptr", pIdentity, "ptr", pwzSetting, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISettingsContext.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Serialize := CallbackCreate(GetMethod(implObj, "Serialize"), flags, 3)
+        this.vtbl.Deserialize := CallbackCreate(GetMethod(implObj, "Deserialize"), flags, 5)
+        this.vtbl.SetUserData := CallbackCreate(GetMethod(implObj, "SetUserData"), flags, 2)
+        this.vtbl.GetUserData := CallbackCreate(GetMethod(implObj, "GetUserData"), flags, 2)
+        this.vtbl.GetNamespaces := CallbackCreate(GetMethod(implObj, "GetNamespaces"), flags, 2)
+        this.vtbl.GetStoredSettings := CallbackCreate(GetMethod(implObj, "GetStoredSettings"), flags, 5)
+        this.vtbl.RevertSetting := CallbackCreate(GetMethod(implObj, "RevertSetting"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Serialize)
+        CallbackFree(this.vtbl.Deserialize)
+        CallbackFree(this.vtbl.SetUserData)
+        CallbackFree(this.vtbl.GetUserData)
+        CallbackFree(this.vtbl.GetNamespaces)
+        CallbackFree(this.vtbl.GetStoredSettings)
+        CallbackFree(this.vtbl.RevertSetting)
     }
 }

@@ -1,33 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
  */
-class CDROM_EXCEPTION_PERFORMANCE_DESCRIPTOR extends Win32Struct {
-    static sizeof => 6
+export default struct CDROM_EXCEPTION_PERFORMANCE_DESCRIPTOR {
+    #StructPack 1
 
-    static packingSize => 1
+    Lba : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Lba {
-        get {
-            if(!this.HasProp("__LbaProxyArray"))
-                this.__LbaProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
-            return this.__LbaProxyArray
-        }
-    }
+    Time : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Time {
-        get {
-            if(!this.HasProp("__TimeProxyArray"))
-                this.__TimeProxyArray := Win32FixedArray(this.ptr + 4, 2, Primitive, "char")
-            return this.__TimeProxyArray
-        }
-    }
 }

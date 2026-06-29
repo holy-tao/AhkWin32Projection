@@ -1,71 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Audio\WAVEFORMATEX.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
  */
-class WMAUDIO3WAVEFORMAT extends Win32Struct {
-    static sizeof => 40
+export default struct WMAUDIO3WAVEFORMAT {
+    #StructPack 4
 
-    static packingSize => 4
+    wfx : WAVEFORMATEX
 
-    /**
-     * @type {WAVEFORMATEX}
-     */
-    wfx {
-        get {
-            if(!this.HasProp("__wfx"))
-                this.__wfx := WAVEFORMATEX(0, this)
-            return this.__wfx
-        }
-    }
+    wValidBitsPerSample : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wValidBitsPerSample {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
+    dwChannelMask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwChannelMask {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwReserved1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved1 {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwReserved2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved2 {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    wEncodeOptions : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wEncodeOptions {
-        get => NumGet(this, 36, "ushort")
-        set => NumPut("ushort", value, this, 36)
-    }
+    wReserved3 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wReserved3 {
-        get => NumGet(this, 38, "ushort")
-        set => NumPut("ushort", value, this, 38)
-    }
 }

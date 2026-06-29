@@ -1,11 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWICBitmapEncoderInfo.ahk
-#Include .\IWICBitmapFrameEncode.ahk
-#Include .\IWICMetadataQueryWriter.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWICBitmapEncoderInfo.ahk" { IWICBitmapEncoderInfo }
+#Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\IWICBitmapFrameEncode.ahk" { IWICBitmapFrameEncode }
+#Import ".\WICBitmapEncoderCacheOption.ahk" { WICBitmapEncoderCacheOption }
+#Import ".\IWICPalette.ahk" { IWICPalette }
+#Import "..\..\System\Com\StructuredStorage\IPropertyBag2.ahk" { IPropertyBag2 }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWICMetadataQueryWriter.ahk" { IWICMetadataQueryWriter }
+#Import ".\IWICColorContext.ahk" { IWICColorContext }
 
 /**
  * Defines methods for setting an encoder's properties such as thumbnails, frames, and palettes.
@@ -55,26 +61,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicbitmapencoder
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class IWICBitmapEncoder extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWICBitmapEncoder extends IUnknown {
     /**
      * The interface identifier for IWICBitmapEncoder
      * @type {Guid}
      */
-    static IID => Guid("{00000103-a8f2-4877-ba0a-fd2b6645fb94}")
+    static IID := Guid("{00000103-a8f2-4877-ba0a-fd2b6645fb94}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWICBitmapEncoder interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize             : IntPtr
+        GetContainerFormat     : IntPtr
+        GetEncoderInfo         : IntPtr
+        SetColorContexts       : IntPtr
+        SetPalette             : IntPtr
+        SetThumbnail           : IntPtr
+        SetPreview             : IntPtr
+        CreateNewFrame         : IntPtr
+        Commit                 : IntPtr
+        GetMetadataQueryWriter : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetContainerFormat", "GetEncoderInfo", "SetColorContexts", "SetPalette", "SetThumbnail", "SetPreview", "CreateNewFrame", "Commit", "GetMetadataQueryWriter"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWICBitmapEncoder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes the encoder with an IStream which tells the encoder where to encode the bits.
@@ -90,7 +112,7 @@ class IWICBitmapEncoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapencoder-initialize
      */
     Initialize(pIStream, cacheOption) {
-        result := ComCall(3, this, "ptr", pIStream, "int", cacheOption, "HRESULT")
+        result := ComCall(3, this, "ptr", pIStream, WICBitmapEncoderCacheOption, cacheOption, "HRESULT")
         return result
     }
 
@@ -103,7 +125,7 @@ class IWICBitmapEncoder extends IUnknown {
      */
     GetContainerFormat() {
         pguidContainerFormat := Guid()
-        result := ComCall(4, this, "ptr", pguidContainerFormat, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, pguidContainerFormat, "HRESULT")
         return pguidContainerFormat
     }
 
@@ -133,7 +155,7 @@ class IWICBitmapEncoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapencoder-setcolorcontexts
      */
     SetColorContexts(cCount, ppIColorContext) {
-        result := ComCall(6, this, "uint", cCount, "ptr*", ppIColorContext, "HRESULT")
+        result := ComCall(6, this, "uint", cCount, IWICColorContext.Ptr, ppIColorContext, "HRESULT")
         return result
     }
 
@@ -214,7 +236,7 @@ class IWICBitmapEncoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapencoder-createnewframe
      */
     CreateNewFrame(ppIEncoderOptions) {
-        result := ComCall(10, this, "ptr*", &ppIFrameEncode := 0, "ptr*", ppIEncoderOptions, "HRESULT")
+        result := ComCall(10, this, "ptr*", &ppIFrameEncode := 0, IPropertyBag2.Ptr, ppIEncoderOptions, "HRESULT")
         return IWICBitmapFrameEncode(ppIFrameEncode)
     }
 
@@ -251,5 +273,43 @@ class IWICBitmapEncoder extends IUnknown {
     GetMetadataQueryWriter() {
         result := ComCall(12, this, "ptr*", &ppIMetadataQueryWriter := 0, "HRESULT")
         return IWICMetadataQueryWriter(ppIMetadataQueryWriter)
+    }
+
+    Query(iid) {
+        if (IWICBitmapEncoder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetContainerFormat := CallbackCreate(GetMethod(implObj, "GetContainerFormat"), flags, 2)
+        this.vtbl.GetEncoderInfo := CallbackCreate(GetMethod(implObj, "GetEncoderInfo"), flags, 2)
+        this.vtbl.SetColorContexts := CallbackCreate(GetMethod(implObj, "SetColorContexts"), flags, 3)
+        this.vtbl.SetPalette := CallbackCreate(GetMethod(implObj, "SetPalette"), flags, 2)
+        this.vtbl.SetThumbnail := CallbackCreate(GetMethod(implObj, "SetThumbnail"), flags, 2)
+        this.vtbl.SetPreview := CallbackCreate(GetMethod(implObj, "SetPreview"), flags, 2)
+        this.vtbl.CreateNewFrame := CallbackCreate(GetMethod(implObj, "CreateNewFrame"), flags, 3)
+        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 1)
+        this.vtbl.GetMetadataQueryWriter := CallbackCreate(GetMethod(implObj, "GetMetadataQueryWriter"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetContainerFormat)
+        CallbackFree(this.vtbl.GetEncoderInfo)
+        CallbackFree(this.vtbl.SetColorContexts)
+        CallbackFree(this.vtbl.SetPalette)
+        CallbackFree(this.vtbl.SetThumbnail)
+        CallbackFree(this.vtbl.SetPreview)
+        CallbackFree(this.vtbl.CreateNewFrame)
+        CallbackFree(this.vtbl.Commit)
+        CallbackFree(this.vtbl.GetMetadataQueryWriter)
     }
 }

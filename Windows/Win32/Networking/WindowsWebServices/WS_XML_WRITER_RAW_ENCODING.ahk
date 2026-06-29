@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_XML_WRITER_ENCODING.ahk
-#Include .\WS_XML_WRITER_ENCODING_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_XML_WRITER_ENCODING_TYPE.ahk" { WS_XML_WRITER_ENCODING_TYPE }
+#Import ".\WS_XML_WRITER_ENCODING.ahk" { WS_XML_WRITER_ENCODING }
 
 /**
  * Used to indicate that the writer should emit bytes from decoded base64 characters.
@@ -24,20 +23,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_raw_encoding
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_XML_WRITER_RAW_ENCODING extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct WS_XML_WRITER_RAW_ENCODING {
+    #StructPack 4
 
     /**
      * The base type for all types that derive from <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_writer_encoding">WS_XML_WRITER_ENCODING</a>.
-     * @type {WS_XML_WRITER_ENCODING}
      */
-    encoding {
-        get {
-            if(!this.HasProp("__encoding"))
-                this.__encoding := WS_XML_WRITER_ENCODING(0, this)
-            return this.__encoding
-        }
-    }
+    encoding : WS_XML_WRITER_ENCODING
+
 }

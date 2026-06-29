@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MXDC\_ESCAPE\_HEADER\_T structure holds the operation code for a call to ExtEscape with MXDC\_ESCAPE as the nEscape parameter. It also provides the sizes of the input and output buffers.
@@ -45,28 +44,18 @@
  * @see https://learn.microsoft.com/windows/win32/printdocs/mxdcescapeheader
  * @namespace Windows.Win32.Graphics.Printing
  */
-class MXDC_ESCAPE_HEADER_T extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct MXDC_ESCAPE_HEADER_T {
+    #StructPack 4
 
     /**
      * The size of the input buffer that will be passed to the *lpszOutData* parameter of the [**ExtEscape**](/windows/desktop/api/Wingdi/nf-wingdi-extescape) function.
-     * @type {Integer}
      */
-    cbInput {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbInput : UInt32
 
     /**
      * The size of the output buffer. This is the same value as the *cbOutput* parameter of the [**ExtEscape**](/windows/desktop/api/Wingdi/nf-wingdi-extescape) function.
-     * @type {Integer}
      */
-    cbOutput {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cbOutput : UInt32
 
     /**
      * The code constant that tells MXDC what to do.
@@ -82,10 +71,7 @@ class MXDC_ESCAPE_HEADER_T extends Win32Struct {
      * | MXDCOP\_SET\_S0PAGE                  | Sends the XPS markup of the current page to the output.                                                                                                                                                                |
      * | MXDCOP\_SET\_S0PAGE\_RESOURCE        | Sends a resource on the page, such as an image or font, to the output.                                                                                                                                                 |
      * | MXDCOP\_SET\_XPSPASSTHRU\_MODE       | Puts the MXDC into a pass-through state, enabling an application to write XPS directly to the output file without any processing by the MXDC. An entire document or even document sequence can be written in this way. |
-     * @type {Integer}
      */
-    opCode {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    opCode : UInt32
+
 }

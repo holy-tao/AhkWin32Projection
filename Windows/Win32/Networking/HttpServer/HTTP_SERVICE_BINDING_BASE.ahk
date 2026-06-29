@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_SERVICE_BINDING_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HTTP_SERVICE_BINDING_TYPE.ahk" { HTTP_SERVICE_BINDING_TYPE }
 
 /**
  * HTTP_SERVICE_BINDING_BASE.
@@ -14,17 +13,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_binding_base
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_SERVICE_BINDING_BASE extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct HTTP_SERVICE_BINDING_BASE {
+    #StructPack 4
 
     /**
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_service_binding_type">HTTP_SERVICE_BINDING_TYPE</a> value that indicates whether the data is in ASCII or Unicode.
-     * @type {HTTP_SERVICE_BINDING_TYPE}
      */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Type : HTTP_SERVICE_BINDING_TYPE
+
 }

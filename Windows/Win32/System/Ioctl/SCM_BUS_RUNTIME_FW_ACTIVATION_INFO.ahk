@@ -1,31 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SCM_BUS_FIRMWARE_ACTIVATION_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\SCM_BUS_FIRMWARE_ACTIVATION_STATE.ahk" { SCM_BUS_FIRMWARE_ACTIVATION_STATE }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class SCM_BUS_RUNTIME_FW_ACTIVATION_INFO extends Win32Struct {
-    static sizeof => 56
+export default struct SCM_BUS_RUNTIME_FW_ACTIVATION_INFO {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _FirmwareActivationCapability extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
+    struct _FirmwareActivationCapability {
         /**
          * This bitfield backs the following members:
          * - FwManagedIoQuiesceFwActivationSupported
          * - OsManagedIoQuiesceFwActivationSupported
          * - WarmResetBasedFwActivationSupported
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -52,78 +45,22 @@ class SCM_BUS_RUNTIME_FW_ACTIVATION_INFO extends Win32Struct {
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Size : UInt32
 
-    /**
-     * @type {BOOLEAN}
-     */
-    RuntimeFwActivationSupported {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    RuntimeFwActivationSupported : BOOLEAN
 
-    /**
-     * @type {SCM_BUS_FIRMWARE_ACTIVATION_STATE}
-     */
-    FirmwareActivationState {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    FirmwareActivationState : SCM_BUS_FIRMWARE_ACTIVATION_STATE
 
-    /**
-     * @type {_FirmwareActivationCapability}
-     */
-    FirmwareActivationCapability {
-        get {
-            if(!this.HasProp("__FirmwareActivationCapability"))
-                this.__FirmwareActivationCapability := SCM_BUS_RUNTIME_FW_ACTIVATION_INFO._FirmwareActivationCapability(16, this)
-            return this.__FirmwareActivationCapability
-        }
-    }
+    FirmwareActivationCapability : SCM_BUS_RUNTIME_FW_ACTIVATION_INFO._FirmwareActivationCapability
 
-    /**
-     * @type {Integer}
-     */
-    EstimatedFirmwareActivationTimeInUSecs {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    EstimatedFirmwareActivationTimeInUSecs : Int64
 
-    /**
-     * @type {Integer}
-     */
-    EstimatedProcessorAccessQuiesceTimeInUSecs {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    EstimatedProcessorAccessQuiesceTimeInUSecs : Int64
 
-    /**
-     * @type {Integer}
-     */
-    EstimatedIOAccessQuiesceTimeInUSecs {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    EstimatedIOAccessQuiesceTimeInUSecs : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PlatformSupportedMaxIOAccessQuiesceTimeInUSecs {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    PlatformSupportedMaxIOAccessQuiesceTimeInUSecs : Int64
+
 }

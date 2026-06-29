@@ -1,52 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXGK_ENGINE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\DXGK_ENGINE_TYPE.ahk" { DXGK_ENGINE_TYPE }
+#Import "..\..\..\Win32\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class DXGK_NODEMETADATA extends Win32Struct {
-    static sizeof => 88
+export default struct DXGK_NODEMETADATA {
+    #StructPack 8
 
-    static packingSize => 8
+    EngineType : DXGK_ENGINE_TYPE
 
-    /**
-     * @type {DXGK_ENGINE_TYPE}
-     */
-    EngineType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    FriendlyName : WCHAR[32]
 
-    /**
-     * @type {String}
-     */
-    FriendlyName {
-        get => StrGet(this.ptr + 4, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 31, "UTF-16")
-    }
+    Flags : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Flags {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    GpuMmuSupported : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    GpuMmuSupported {
-        get => NumGet(this, 80, "char")
-        set => NumPut("char", value, this, 80)
-    }
+    IoMmuSupported : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    IoMmuSupported {
-        get => NumGet(this, 81, "char")
-        set => NumPut("char", value, this, 81)
-    }
 }

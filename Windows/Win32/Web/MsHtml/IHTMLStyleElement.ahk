@@ -1,40 +1,62 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IHTMLStyleSheet.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IHTMLStyleSheet.ahk" { IHTMLStyleSheet }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLStyleElement extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLStyleElement extends IDispatch {
     /**
      * The interface identifier for IHTMLStyleElement
      * @type {Guid}
      */
-    static IID => Guid("{3050f375-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f375-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for HTMLStyleElement
      * @type {Guid}
      */
-    static CLSID => Guid("{3050f37d-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{3050f37d-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLStyleElement interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_type               : IntPtr
+        get_type               : IntPtr
+        get_readyState         : IntPtr
+        put_onreadystatechange : IntPtr
+        get_onreadystatechange : IntPtr
+        put_onload             : IntPtr
+        get_onload             : IntPtr
+        put_onerror            : IntPtr
+        get_onerror            : IntPtr
+        get_styleSheet         : IntPtr
+        put_disabled           : IntPtr
+        get_disabled           : IntPtr
+        put_media              : IntPtr
+        get_media              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_type", "get_type", "get_readyState", "put_onreadystatechange", "get_onreadystatechange", "put_onload", "get_onload", "put_onerror", "get_onerror", "get_styleSheet", "put_disabled", "get_disabled", "put_media", "get_media"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLStyleElement.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -106,7 +128,7 @@ class IHTMLStyleElement extends IDispatch {
     put_type(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -115,8 +137,8 @@ class IHTMLStyleElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_type() {
-        p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -125,8 +147,8 @@ class IHTMLStyleElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_readyState() {
-        p := BSTR()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -136,7 +158,7 @@ class IHTMLStyleElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onreadystatechange(v) {
-        result := ComCall(10, this, "ptr", v, "HRESULT")
+        result := ComCall(10, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -146,7 +168,7 @@ class IHTMLStyleElement extends IDispatch {
      */
     get_onreadystatechange() {
         p := VARIANT()
-        result := ComCall(11, this, "ptr", p, "HRESULT")
+        result := ComCall(11, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -156,7 +178,7 @@ class IHTMLStyleElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onload(v) {
-        result := ComCall(12, this, "ptr", v, "HRESULT")
+        result := ComCall(12, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -166,7 +188,7 @@ class IHTMLStyleElement extends IDispatch {
      */
     get_onload() {
         p := VARIANT()
-        result := ComCall(13, this, "ptr", p, "HRESULT")
+        result := ComCall(13, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -176,7 +198,7 @@ class IHTMLStyleElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onerror(v) {
-        result := ComCall(14, this, "ptr", v, "HRESULT")
+        result := ComCall(14, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -186,7 +208,7 @@ class IHTMLStyleElement extends IDispatch {
      */
     get_onerror() {
         p := VARIANT()
-        result := ComCall(15, this, "ptr", p, "HRESULT")
+        result := ComCall(15, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -205,7 +227,7 @@ class IHTMLStyleElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_disabled(v) {
-        result := ComCall(17, this, "short", v, "HRESULT")
+        result := ComCall(17, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -214,7 +236,7 @@ class IHTMLStyleElement extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
-        result := ComCall(18, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(18, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -226,7 +248,7 @@ class IHTMLStyleElement extends IDispatch {
     put_media(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(19, this, "ptr", v, "HRESULT")
+        result := ComCall(19, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -235,8 +257,54 @@ class IHTMLStyleElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_media() {
-        p := BSTR()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(20, this, BSTR.Ptr, p, "HRESULT")
         return p
+    }
+
+    Query(iid) {
+        if (IHTMLStyleElement.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_type := CallbackCreate(GetMethod(implObj, "put_type"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.get_readyState := CallbackCreate(GetMethod(implObj, "get_readyState"), flags, 2)
+        this.vtbl.put_onreadystatechange := CallbackCreate(GetMethod(implObj, "put_onreadystatechange"), flags, 2)
+        this.vtbl.get_onreadystatechange := CallbackCreate(GetMethod(implObj, "get_onreadystatechange"), flags, 2)
+        this.vtbl.put_onload := CallbackCreate(GetMethod(implObj, "put_onload"), flags, 2)
+        this.vtbl.get_onload := CallbackCreate(GetMethod(implObj, "get_onload"), flags, 2)
+        this.vtbl.put_onerror := CallbackCreate(GetMethod(implObj, "put_onerror"), flags, 2)
+        this.vtbl.get_onerror := CallbackCreate(GetMethod(implObj, "get_onerror"), flags, 2)
+        this.vtbl.get_styleSheet := CallbackCreate(GetMethod(implObj, "get_styleSheet"), flags, 2)
+        this.vtbl.put_disabled := CallbackCreate(GetMethod(implObj, "put_disabled"), flags, 2)
+        this.vtbl.get_disabled := CallbackCreate(GetMethod(implObj, "get_disabled"), flags, 2)
+        this.vtbl.put_media := CallbackCreate(GetMethod(implObj, "put_media"), flags, 2)
+        this.vtbl.get_media := CallbackCreate(GetMethod(implObj, "get_media"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_type)
+        CallbackFree(this.vtbl.get_type)
+        CallbackFree(this.vtbl.get_readyState)
+        CallbackFree(this.vtbl.put_onreadystatechange)
+        CallbackFree(this.vtbl.get_onreadystatechange)
+        CallbackFree(this.vtbl.put_onload)
+        CallbackFree(this.vtbl.get_onload)
+        CallbackFree(this.vtbl.put_onerror)
+        CallbackFree(this.vtbl.get_onerror)
+        CallbackFree(this.vtbl.get_styleSheet)
+        CallbackFree(this.vtbl.put_disabled)
+        CallbackFree(this.vtbl.get_disabled)
+        CallbackFree(this.vtbl.put_media)
+        CallbackFree(this.vtbl.get_media)
     }
 }

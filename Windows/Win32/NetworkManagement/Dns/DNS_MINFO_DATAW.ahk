@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The DNS_MINFO_DATA structure represents a DNS mail information (MINFO) record as specified in section 3.3.7 of RFC 1035. (Unicode)
@@ -18,26 +18,17 @@
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @charset Unicode
  */
-class DNS_MINFO_DATAW extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct DNS_MINFO_DATAW {
+    #StructPack 8
 
     /**
      * A pointer to a string that represents the <a href="https://docs.microsoft.com/windows/win32/dns/f-gly">fully qualified domain name</a> (FQDN) of the mailbox responsible for the mailing list or mailbox specified in the record's owner name.
-     * @type {PWSTR}
      */
-    pNameMailbox {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pNameMailbox : PWSTR
 
     /**
      * A pointer to a string that represents the FQDN of the mailbox to receive error messages related to the mailing list.
-     * @type {PWSTR}
      */
-    pNameErrorsMailbox {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pNameErrorsMailbox : PWSTR
+
 }

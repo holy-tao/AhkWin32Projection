@@ -1,33 +1,79 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DVD_MENU_ID.ahk" { DVD_MENU_ID }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Note  This interface has been deprecated. (IDvdControl)
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-idvdcontrol
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IDvdControl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDvdControl extends IUnknown {
     /**
      * The interface identifier for IDvdControl
      * @type {Guid}
      */
-    static IID => Guid("{a70efe61-e2a3-11d0-a9be-00aa0061be93}")
+    static IID := Guid("{a70efe61-e2a3-11d0-a9be-00aa0061be93}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDvdControl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        TitlePlay                          : IntPtr
+        ChapterPlay                        : IntPtr
+        TimePlay                           : IntPtr
+        StopForResume                      : IntPtr
+        GoUp                               : IntPtr
+        TimeSearch                         : IntPtr
+        ChapterSearch                      : IntPtr
+        PrevPGSearch                       : IntPtr
+        TopPGSearch                        : IntPtr
+        NextPGSearch                       : IntPtr
+        ForwardScan                        : IntPtr
+        BackwardScan                       : IntPtr
+        MenuCall                           : IntPtr
+        Resume                             : IntPtr
+        UpperButtonSelect                  : IntPtr
+        LowerButtonSelect                  : IntPtr
+        LeftButtonSelect                   : IntPtr
+        RightButtonSelect                  : IntPtr
+        ButtonActivate                     : IntPtr
+        ButtonSelectAndActivate            : IntPtr
+        StillOff                           : IntPtr
+        PauseOn                            : IntPtr
+        PauseOff                           : IntPtr
+        MenuLanguageSelect                 : IntPtr
+        AudioStreamChange                  : IntPtr
+        SubpictureStreamChange             : IntPtr
+        AngleChange                        : IntPtr
+        ParentalLevelSelect                : IntPtr
+        ParentalCountrySelect              : IntPtr
+        KaraokeAudioPresentationModeChange : IntPtr
+        VideoModePreferrence               : IntPtr
+        SetRoot                            : IntPtr
+        MouseActivate                      : IntPtr
+        MouseSelect                        : IntPtr
+        ChapterPlayAutoStop                : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["TitlePlay", "ChapterPlay", "TimePlay", "StopForResume", "GoUp", "TimeSearch", "ChapterSearch", "PrevPGSearch", "TopPGSearch", "NextPGSearch", "ForwardScan", "BackwardScan", "MenuCall", "Resume", "UpperButtonSelect", "LowerButtonSelect", "LeftButtonSelect", "RightButtonSelect", "ButtonActivate", "ButtonSelectAndActivate", "StillOff", "PauseOn", "PauseOff", "MenuLanguageSelect", "AudioStreamChange", "SubpictureStreamChange", "AngleChange", "ParentalLevelSelect", "ParentalCountrySelect", "KaraokeAudioPresentationModeChange", "VideoModePreferrence", "SetRoot", "MouseActivate", "MouseSelect", "ChapterPlayAutoStop"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDvdControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Note  The IDvdControl interface is deprecated. Use IDvdControl2 instread. Finds the media file with the specified title index and plays it back.
@@ -203,7 +249,7 @@ class IDvdControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol-menucall
      */
     MenuCall(MenuID) {
-        result := ComCall(15, this, "int", MenuID, "HRESULT")
+        result := ComCall(15, this, DVD_MENU_ID, MenuID, "HRESULT")
         return result
     }
 
@@ -421,7 +467,7 @@ class IDvdControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol-subpicturestreamchange
      */
     SubpictureStreamChange(ulSubPicture, bDisplay) {
-        result := ComCall(28, this, "uint", ulSubPicture, "int", bDisplay, "HRESULT")
+        result := ComCall(28, this, "uint", ulSubPicture, BOOL, bDisplay, "HRESULT")
         return result
     }
 
@@ -574,7 +620,7 @@ class IDvdControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol-mouseactivate
      */
     MouseActivate(_point) {
-        result := ComCall(35, this, "ptr", _point, "HRESULT")
+        result := ComCall(35, this, POINT, _point, "HRESULT")
         return result
     }
 
@@ -591,7 +637,7 @@ class IDvdControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol-mouseselect
      */
     MouseSelect(_point) {
-        result := ComCall(36, this, "ptr", _point, "HRESULT")
+        result := ComCall(36, this, POINT, _point, "HRESULT")
         return result
     }
 
@@ -610,5 +656,93 @@ class IDvdControl extends IUnknown {
     ChapterPlayAutoStop(ulTitle, ulChapter, ulChaptersToPlay) {
         result := ComCall(37, this, "uint", ulTitle, "uint", ulChapter, "uint", ulChaptersToPlay, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDvdControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.TitlePlay := CallbackCreate(GetMethod(implObj, "TitlePlay"), flags, 2)
+        this.vtbl.ChapterPlay := CallbackCreate(GetMethod(implObj, "ChapterPlay"), flags, 3)
+        this.vtbl.TimePlay := CallbackCreate(GetMethod(implObj, "TimePlay"), flags, 3)
+        this.vtbl.StopForResume := CallbackCreate(GetMethod(implObj, "StopForResume"), flags, 1)
+        this.vtbl.GoUp := CallbackCreate(GetMethod(implObj, "GoUp"), flags, 1)
+        this.vtbl.TimeSearch := CallbackCreate(GetMethod(implObj, "TimeSearch"), flags, 2)
+        this.vtbl.ChapterSearch := CallbackCreate(GetMethod(implObj, "ChapterSearch"), flags, 2)
+        this.vtbl.PrevPGSearch := CallbackCreate(GetMethod(implObj, "PrevPGSearch"), flags, 1)
+        this.vtbl.TopPGSearch := CallbackCreate(GetMethod(implObj, "TopPGSearch"), flags, 1)
+        this.vtbl.NextPGSearch := CallbackCreate(GetMethod(implObj, "NextPGSearch"), flags, 1)
+        this.vtbl.ForwardScan := CallbackCreate(GetMethod(implObj, "ForwardScan"), flags, 2)
+        this.vtbl.BackwardScan := CallbackCreate(GetMethod(implObj, "BackwardScan"), flags, 2)
+        this.vtbl.MenuCall := CallbackCreate(GetMethod(implObj, "MenuCall"), flags, 2)
+        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.UpperButtonSelect := CallbackCreate(GetMethod(implObj, "UpperButtonSelect"), flags, 1)
+        this.vtbl.LowerButtonSelect := CallbackCreate(GetMethod(implObj, "LowerButtonSelect"), flags, 1)
+        this.vtbl.LeftButtonSelect := CallbackCreate(GetMethod(implObj, "LeftButtonSelect"), flags, 1)
+        this.vtbl.RightButtonSelect := CallbackCreate(GetMethod(implObj, "RightButtonSelect"), flags, 1)
+        this.vtbl.ButtonActivate := CallbackCreate(GetMethod(implObj, "ButtonActivate"), flags, 1)
+        this.vtbl.ButtonSelectAndActivate := CallbackCreate(GetMethod(implObj, "ButtonSelectAndActivate"), flags, 2)
+        this.vtbl.StillOff := CallbackCreate(GetMethod(implObj, "StillOff"), flags, 1)
+        this.vtbl.PauseOn := CallbackCreate(GetMethod(implObj, "PauseOn"), flags, 1)
+        this.vtbl.PauseOff := CallbackCreate(GetMethod(implObj, "PauseOff"), flags, 1)
+        this.vtbl.MenuLanguageSelect := CallbackCreate(GetMethod(implObj, "MenuLanguageSelect"), flags, 2)
+        this.vtbl.AudioStreamChange := CallbackCreate(GetMethod(implObj, "AudioStreamChange"), flags, 2)
+        this.vtbl.SubpictureStreamChange := CallbackCreate(GetMethod(implObj, "SubpictureStreamChange"), flags, 3)
+        this.vtbl.AngleChange := CallbackCreate(GetMethod(implObj, "AngleChange"), flags, 2)
+        this.vtbl.ParentalLevelSelect := CallbackCreate(GetMethod(implObj, "ParentalLevelSelect"), flags, 2)
+        this.vtbl.ParentalCountrySelect := CallbackCreate(GetMethod(implObj, "ParentalCountrySelect"), flags, 2)
+        this.vtbl.KaraokeAudioPresentationModeChange := CallbackCreate(GetMethod(implObj, "KaraokeAudioPresentationModeChange"), flags, 2)
+        this.vtbl.VideoModePreferrence := CallbackCreate(GetMethod(implObj, "VideoModePreferrence"), flags, 2)
+        this.vtbl.SetRoot := CallbackCreate(GetMethod(implObj, "SetRoot"), flags, 2)
+        this.vtbl.MouseActivate := CallbackCreate(GetMethod(implObj, "MouseActivate"), flags, 2)
+        this.vtbl.MouseSelect := CallbackCreate(GetMethod(implObj, "MouseSelect"), flags, 2)
+        this.vtbl.ChapterPlayAutoStop := CallbackCreate(GetMethod(implObj, "ChapterPlayAutoStop"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.TitlePlay)
+        CallbackFree(this.vtbl.ChapterPlay)
+        CallbackFree(this.vtbl.TimePlay)
+        CallbackFree(this.vtbl.StopForResume)
+        CallbackFree(this.vtbl.GoUp)
+        CallbackFree(this.vtbl.TimeSearch)
+        CallbackFree(this.vtbl.ChapterSearch)
+        CallbackFree(this.vtbl.PrevPGSearch)
+        CallbackFree(this.vtbl.TopPGSearch)
+        CallbackFree(this.vtbl.NextPGSearch)
+        CallbackFree(this.vtbl.ForwardScan)
+        CallbackFree(this.vtbl.BackwardScan)
+        CallbackFree(this.vtbl.MenuCall)
+        CallbackFree(this.vtbl.Resume)
+        CallbackFree(this.vtbl.UpperButtonSelect)
+        CallbackFree(this.vtbl.LowerButtonSelect)
+        CallbackFree(this.vtbl.LeftButtonSelect)
+        CallbackFree(this.vtbl.RightButtonSelect)
+        CallbackFree(this.vtbl.ButtonActivate)
+        CallbackFree(this.vtbl.ButtonSelectAndActivate)
+        CallbackFree(this.vtbl.StillOff)
+        CallbackFree(this.vtbl.PauseOn)
+        CallbackFree(this.vtbl.PauseOff)
+        CallbackFree(this.vtbl.MenuLanguageSelect)
+        CallbackFree(this.vtbl.AudioStreamChange)
+        CallbackFree(this.vtbl.SubpictureStreamChange)
+        CallbackFree(this.vtbl.AngleChange)
+        CallbackFree(this.vtbl.ParentalLevelSelect)
+        CallbackFree(this.vtbl.ParentalCountrySelect)
+        CallbackFree(this.vtbl.KaraokeAudioPresentationModeChange)
+        CallbackFree(this.vtbl.VideoModePreferrence)
+        CallbackFree(this.vtbl.SetRoot)
+        CallbackFree(this.vtbl.MouseActivate)
+        CallbackFree(this.vtbl.MouseSelect)
+        CallbackFree(this.vtbl.ChapterPlayAutoStop)
     }
 }

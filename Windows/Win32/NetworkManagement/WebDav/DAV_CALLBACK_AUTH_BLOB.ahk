@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Stores an authentication BLOB that was retrieved by the DavAuthCallback callback function.
@@ -10,28 +9,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/davclnt/ns-davclnt-dav_callback_auth_blob
  * @namespace Windows.Win32.NetworkManagement.WebDav
  */
-class DAV_CALLBACK_AUTH_BLOB extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct DAV_CALLBACK_AUTH_BLOB {
+    #StructPack 8
 
     /**
      * A pointer to a buffer that receives the authentication <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a>.
-     * @type {Pointer<Void>}
      */
-    pBuffer {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pBuffer : IntPtr
 
     /**
      * The size, in bytes, of the buffer that the <b>pBuffer</b> member points to.
-     * @type {Integer}
      */
-    ulSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulSize : UInt32
 
     /**
      * The data type of the buffer that the <b>pBuffer</b> member points to.
@@ -53,10 +42,7 @@ class DAV_CALLBACK_AUTH_BLOB extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ulType {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ulType : UInt32
+
 }

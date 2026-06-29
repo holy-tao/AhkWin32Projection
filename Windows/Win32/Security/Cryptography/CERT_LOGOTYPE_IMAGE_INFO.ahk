@@ -1,83 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_LOGOTYPE_IMAGE_INFO_TYPE.ahk
-#Include .\CERT_LOGOTYPE_CHOICE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CERT_LOGOTYPE_CHOICE.ahk" { CERT_LOGOTYPE_CHOICE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CERT_LOGOTYPE_IMAGE_INFO_TYPE.ahk" { CERT_LOGOTYPE_IMAGE_INFO_TYPE }
 
 /**
  * Contains more detailed information about an image logotype.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_logotype_image_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_LOGOTYPE_IMAGE_INFO extends Win32Struct {
-    static sizeof => 32
+export default struct CERT_LOGOTYPE_IMAGE_INFO {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {CERT_LOGOTYPE_IMAGE_INFO_TYPE}
-     */
-    dwLogotypeImageInfoChoice {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwLogotypeImageInfoChoice : CERT_LOGOTYPE_IMAGE_INFO_TYPE
 
     /**
      * The size, in octets, of the image.
-     * @type {Integer}
      */
-    dwFileSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFileSize : UInt32
 
     /**
      * The horizontal size, in pixels, of the image.
-     * @type {Integer}
      */
-    dwXSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwXSize : UInt32
 
     /**
      * The vertical size, in pixels, of the image.
-     * @type {Integer}
      */
-    dwYSize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwYSize : UInt32
 
-    /**
-     * @type {CERT_LOGOTYPE_CHOICE}
-     */
-    dwLogotypeImageResolutionChoice {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwLogotypeImageResolutionChoice : CERT_LOGOTYPE_CHOICE
 
-    /**
-     * @type {Integer}
-     */
-    dwNumBits {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwTableSize {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwNumBits : UInt32
 
     /**
      * The address of a null-terminated IA5 string that contains the RFC 3066 language identifier that specifies the language of the image. This member is optional and may be <b>NULL</b>.
-     * @type {PWSTR}
      */
-    pwszLanguage {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pwszLanguage : PWSTR
+
+    static __New() {
+        DefineProp(this.Prototype, 'dwTableSize', { type: UInt32, offset: 20 })
+        this.DeleteProp("__New")
     }
 }

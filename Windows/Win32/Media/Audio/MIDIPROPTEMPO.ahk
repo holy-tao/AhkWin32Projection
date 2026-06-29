@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MIDIPROPTEMPO structure contains the tempo property for a stream.
@@ -8,26 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-midiproptempo
  * @namespace Windows.Win32.Media.Audio
  */
-class MIDIPROPTEMPO extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct MIDIPROPTEMPO {
+    #StructPack 4
 
     /**
      * Length, in bytes, of this structure. This member must be filled in for both the MIDIPROP_SET and MIDIPROP_GET operations of the <a href="https://docs.microsoft.com/previous-versions/dd798490(v=vs.85)">midiStreamProperty</a> function.
-     * @type {Integer}
      */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbStruct : UInt32
 
     /**
      * Tempo of the stream, in microseconds per quarter note. The tempo is honored only if the time division for the stream is specified in quarter note format. This member is set in a MIDIPROP_SET operation and is filled on return from a MIDIPROP_GET operation.
-     * @type {Integer}
      */
-    dwTempo {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwTempo : UInt32
+
 }

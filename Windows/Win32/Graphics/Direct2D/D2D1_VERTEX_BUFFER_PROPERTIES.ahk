@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D2D1_VERTEX_USAGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D2D1_VERTEX_USAGE.ahk" { D2D1_VERTEX_USAGE }
 
 /**
  * Defines the properties of a vertex buffer that are standard for all vertex shader definitions.
@@ -11,44 +10,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/ns-d2d1effectauthor-d2d1_vertex_buffer_properties
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_VERTEX_BUFFER_PROPERTIES extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct D2D1_VERTEX_BUFFER_PROPERTIES {
+    #StructPack 8
 
     /**
      * The number of inputs to the vertex shader.
-     * @type {Integer}
      */
-    inputCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    inputCount : UInt32
 
     /**
      * Indicates how frequently the vertex buffer is likely to be updated.
-     * @type {D2D1_VERTEX_USAGE}
      */
-    usage {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    usage : D2D1_VERTEX_USAGE
 
     /**
      * The initial contents of the vertex buffer.
-     * @type {Pointer<Integer>}
      */
-    data {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    data : IntPtr
 
     /**
      * The size of the vertex buffer, in bytes.
-     * @type {Integer}
      */
-    byteWidth {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    byteWidth : UInt32
+
 }

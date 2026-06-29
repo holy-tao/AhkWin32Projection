@@ -1,93 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_DEVICE_DESCRIPTOR.ahk
-#Include .\USB_CONNECTION_STATUS.ahk
-#Include .\USB_PIPE_INFO.ahk
-#Include .\USB_ENDPOINT_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USB_ENDPOINT_DESCRIPTOR.ahk" { USB_ENDPOINT_DESCRIPTOR }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\USB_CONNECTION_STATUS.ahk" { USB_CONNECTION_STATUS }
+#Import ".\USB_DEVICE_DESCRIPTOR.ahk" { USB_DEVICE_DESCRIPTOR }
+#Import ".\USB_PIPE_INFO.ahk" { USB_PIPE_INFO }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_NODE_CONNECTION_INFORMATION extends Win32Struct {
-    static sizeof => 48
+export default struct USB_NODE_CONNECTION_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
+    ConnectionIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ConnectionIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DeviceDescriptor : USB_DEVICE_DESCRIPTOR
 
-    /**
-     * @type {USB_DEVICE_DESCRIPTOR}
-     */
-    DeviceDescriptor {
-        get {
-            if(!this.HasProp("__DeviceDescriptor"))
-                this.__DeviceDescriptor := USB_DEVICE_DESCRIPTOR(4, this)
-            return this.__DeviceDescriptor
-        }
-    }
+    CurrentConfigurationValue : Int8
 
-    /**
-     * @type {Integer}
-     */
-    CurrentConfigurationValue {
-        get => NumGet(this, 22, "char")
-        set => NumPut("char", value, this, 22)
-    }
+    LowSpeed : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    LowSpeed {
-        get => NumGet(this, 23, "char")
-        set => NumPut("char", value, this, 23)
-    }
+    DeviceIsHub : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    DeviceIsHub {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
-    }
+    DeviceAddress : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DeviceAddress {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
-    }
+    NumberOfOpenPipes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfOpenPipes {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    ConnectionStatus : USB_CONNECTION_STATUS
 
-    /**
-     * @type {USB_CONNECTION_STATUS}
-     */
-    ConnectionStatus {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    PipeList : USB_PIPE_INFO[1]
 
-    /**
-     * @type {USB_PIPE_INFO}
-     */
-    PipeList {
-        get {
-            if(!this.HasProp("__PipeListProxyArray"))
-                this.__PipeListProxyArray := Win32FixedArray(this.ptr + 36, 1, USB_PIPE_INFO, "")
-            return this.__PipeListProxyArray
-        }
-    }
 }

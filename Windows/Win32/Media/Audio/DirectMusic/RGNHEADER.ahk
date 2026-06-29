@@ -1,50 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\RGNRANGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RGNRANGE.ahk" { RGNRANGE }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
-class RGNHEADER extends Win32Struct {
-    static sizeof => 12
+export default struct RGNHEADER {
+    #StructPack 2
 
-    static packingSize => 2
+    RangeKey : RGNRANGE
 
-    /**
-     * @type {RGNRANGE}
-     */
-    RangeKey {
-        get {
-            if(!this.HasProp("__RangeKey"))
-                this.__RangeKey := RGNRANGE(0, this)
-            return this.__RangeKey
-        }
-    }
+    RangeVelocity : RGNRANGE
 
-    /**
-     * @type {RGNRANGE}
-     */
-    RangeVelocity {
-        get {
-            if(!this.HasProp("__RangeVelocity"))
-                this.__RangeVelocity := RGNRANGE(4, this)
-            return this.__RangeVelocity
-        }
-    }
+    fusOptions : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    fusOptions {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    usKeyGroup : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usKeyGroup {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
 }

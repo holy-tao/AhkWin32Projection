@@ -1,58 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\TIMECODE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\TIMECODE.ahk" { TIMECODE }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class AVITCDLINDEX_ENTRY extends Win32Struct {
-    static sizeof => 48
+export default struct AVITCDLINDEX_ENTRY {
+    #StructPack 8
 
-    static packingSize => 8
+    dwTick : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwTick {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    time : TIMECODE
 
-    /**
-     * @type {TIMECODE}
-     */
-    time {
-        get {
-            if(!this.HasProp("__time"))
-                this.__time := TIMECODE(8, this)
-            return this.__time
-        }
-    }
+    dwSMPTEflags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSMPTEflags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwUser : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwUser {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    szReelId : Int8[12]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    szReelId {
-        get {
-            if(!this.HasProp("__szReelIdProxyArray"))
-                this.__szReelIdProxyArray := Win32FixedArray(this.ptr + 32, 12, Primitive, "char")
-            return this.__szReelIdProxyArray
-        }
-    }
 }

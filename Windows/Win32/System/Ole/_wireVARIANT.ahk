@@ -1,425 +1,79 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Com\CY.ahk
-#Include ..\Com\FLAGGED_WORD_BLOB.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\_wireSAFEARRAY.ahk
-#Include .\_wireBRECORD.ahk
-#Include .\_wireVARIANT.ahk
-#Include ..\..\Foundation\DECIMAL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Com\CY.ahk" { CY }
+#Import "..\Com\FLAGGED_WORD_BLOB.ahk" { FLAGGED_WORD_BLOB }
+#Import ".\_wireBRECORD.ahk" { _wireBRECORD }
+#Import ".\_wireSAFEARRAY.ahk" { _wireSAFEARRAY }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\DECIMAL.ahk" { DECIMAL }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.System.Ole
  */
-class _wireVARIANT extends Win32Struct {
-    static sizeof => 32
+export default struct _wireVARIANT {
+    #StructPack 8
 
-    static packingSize => 8
+    clSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    clSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    rpcReserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    rpcReserved {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    vt : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    vt {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    wReserved1 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wReserved1 {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    wReserved2 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wReserved2 {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    wReserved3 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wReserved3 {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    llVal : Int64
 
-    /**
-     * @type {Integer}
-     */
-    llVal {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    lVal {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    bVal {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    iVal {
-        get => NumGet(this, 16, "short")
-        set => NumPut("short", value, this, 16)
-    }
-
-    /**
-     * @type {Float}
-     */
-    fltVal {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
-
-    /**
-     * @type {Float}
-     */
-    dblVal {
-        get => NumGet(this, 16, "double")
-        set => NumPut("double", value, this, 16)
-    }
-
-    /**
-     * @type {VARIANT_BOOL}
-     */
-    boolVal {
-        get => NumGet(this, 16, "short")
-        set => NumPut("short", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    scode {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
-
-    /**
-     * @type {CY}
-     */
-    cyVal {
-        get {
-            if(!this.HasProp("__cyVal"))
-                this.__cyVal := CY(16, this)
-            return this.__cyVal
-        }
-    }
-
-    /**
-     * @type {Float}
-     */
-    date {
-        get => NumGet(this, 16, "double")
-        set => NumPut("double", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<FLAGGED_WORD_BLOB>}
-     */
-    bstrVal {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {IUnknown}
-     */
-    punkVal {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {IDispatch}
-     */
-    pdispVal {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Pointer<_wireSAFEARRAY>>}
-     */
-    parray {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<_wireBRECORD>}
-     */
-    brecVal {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbVal {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    piVal {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    plVal {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pllVal {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Float>}
-     */
-    pfltVal {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Float>}
-     */
-    pdblVal {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<VARIANT_BOOL>}
-     */
-    pboolVal {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pscode {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<CY>}
-     */
-    pcyVal {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Float>}
-     */
-    pdate {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Pointer<FLAGGED_WORD_BLOB>>}
-     */
-    pbstrVal {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<IUnknown>}
-     */
-    ppunkVal {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<IDispatch>}
-     */
-    ppdispVal {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Pointer<Pointer<_wireSAFEARRAY>>>}
-     */
-    pparray {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Pointer<_wireVARIANT>>}
-     */
-    pvarVal {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {CHAR}
-     */
-    cVal {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    uiVal {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ulVal {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ullVal {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    intVal {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    uintVal {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {DECIMAL}
-     */
-    decVal {
-        get {
-            if(!this.HasProp("__decVal"))
-                this.__decVal := DECIMAL(16, this)
-            return this.__decVal
-        }
-    }
-
-    /**
-     * @type {Pointer<DECIMAL>}
-     */
-    pdecVal {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {PSTR}
-     */
-    pcVal {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    puiVal {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pulVal {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pullVal {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pintVal {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    puintVal {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    static __New() {
+        DefineProp(this.Prototype, 'lVal', { type: Int32, offset: 16 })
+        DefineProp(this.Prototype, 'bVal', { type: Int8, offset: 16 })
+        DefineProp(this.Prototype, 'iVal', { type: Int16, offset: 16 })
+        DefineProp(this.Prototype, 'fltVal', { type: Float32, offset: 16 })
+        DefineProp(this.Prototype, 'dblVal', { type: Float64, offset: 16 })
+        DefineProp(this.Prototype, 'boolVal', { type: VARIANT_BOOL, offset: 16 })
+        DefineProp(this.Prototype, 'scode', { type: Int32, offset: 16 })
+        DefineProp(this.Prototype, 'cyVal', { type: CY, offset: 16 })
+        DefineProp(this.Prototype, 'date', { type: Float64, offset: 16 })
+        DefineProp(this.Prototype, 'bstrVal', { type: FLAGGED_WORD_BLOB.Ptr, offset: 16 })
+        DefineProp(this.Prototype, 'punkVal', { type: IUnknown, offset: 16 })
+        DefineProp(this.Prototype, 'pdispVal', { type: IDispatch, offset: 16 })
+        DefineProp(this.Prototype, 'parray', { type: IntPtr, offset: 16 })
+        DefineProp(this.Prototype, 'brecVal', { type: _wireBRECORD.Ptr, offset: 16 })
+        DefineProp(this.Prototype, 'pbVal', { type: IntPtr, offset: 16 })
+        DefineProp(this.Prototype, 'piVal', { type: IntPtr, offset: 16 })
+        DefineProp(this.Prototype, 'plVal', { type: IntPtr, offset: 16 })
+        DefineProp(this.Prototype, 'pllVal', { type: IntPtr, offset: 16 })
+        DefineProp(this.Prototype, 'pfltVal', { type: IntPtr, offset: 16 })
+        DefineProp(this.Prototype, 'pdblVal', { type: IntPtr, offset: 16 })
+        DefineProp(this.Prototype, 'pboolVal', { type: VARIANT_BOOL.Ptr, offset: 16 })
+        DefineProp(this.Prototype, 'pscode', { type: IntPtr, offset: 16 })
+        DefineProp(this.Prototype, 'pcyVal', { type: CY.Ptr, offset: 16 })
+        DefineProp(this.Prototype, 'pdate', { type: IntPtr, offset: 16 })
+        DefineProp(this.Prototype, 'pbstrVal', { type: IntPtr, offset: 16 })
+        DefineProp(this.Prototype, 'ppunkVal', { type: IUnknown.Ptr, offset: 16 })
+        DefineProp(this.Prototype, 'ppdispVal', { type: IDispatch.Ptr, offset: 16 })
+        DefineProp(this.Prototype, 'pparray', { type: IntPtr, offset: 16 })
+        DefineProp(this.Prototype, 'pvarVal', { type: IntPtr, offset: 16 })
+        DefineProp(this.Prototype, 'cVal', { type: CHAR, offset: 16 })
+        DefineProp(this.Prototype, 'uiVal', { type: UInt16, offset: 16 })
+        DefineProp(this.Prototype, 'ulVal', { type: UInt32, offset: 16 })
+        DefineProp(this.Prototype, 'ullVal', { type: Int64, offset: 16 })
+        DefineProp(this.Prototype, 'intVal', { type: Int32, offset: 16 })
+        DefineProp(this.Prototype, 'uintVal', { type: UInt32, offset: 16 })
+        DefineProp(this.Prototype, 'decVal', { type: DECIMAL, offset: 16 })
+        DefineProp(this.Prototype, 'pdecVal', { type: DECIMAL.Ptr, offset: 16 })
+        DefineProp(this.Prototype, 'pcVal', { type: PSTR, offset: 16 })
+        DefineProp(this.Prototype, 'puiVal', { type: IntPtr, offset: 16 })
+        DefineProp(this.Prototype, 'pulVal', { type: IntPtr, offset: 16 })
+        DefineProp(this.Prototype, 'pullVal', { type: IntPtr, offset: 16 })
+        DefineProp(this.Prototype, 'pintVal', { type: IntPtr, offset: 16 })
+        DefineProp(this.Prototype, 'puintVal', { type: IntPtr, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

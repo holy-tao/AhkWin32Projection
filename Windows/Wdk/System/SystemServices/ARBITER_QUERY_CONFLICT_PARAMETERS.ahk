@@ -1,46 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\DEVICE_OBJECT.ahk
-#Include .\IO_RESOURCE_DESCRIPTOR.ahk
-#Include .\ARBITER_CONFLICT_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
+#Import ".\ARBITER_CONFLICT_INFO.ahk" { ARBITER_CONFLICT_INFO }
+#Import ".\IO_RESOURCE_DESCRIPTOR.ahk" { IO_RESOURCE_DESCRIPTOR }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class ARBITER_QUERY_CONFLICT_PARAMETERS extends Win32Struct {
-    static sizeof => 32
+export default struct ARBITER_QUERY_CONFLICT_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
+    PhysicalDeviceObject : DEVICE_OBJECT.Ptr
 
-    /**
-     * @type {Pointer<DEVICE_OBJECT>}
-     */
-    PhysicalDeviceObject {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ConflictingResource : IO_RESOURCE_DESCRIPTOR.Ptr
 
-    /**
-     * @type {Pointer<IO_RESOURCE_DESCRIPTOR>}
-     */
-    ConflictingResource {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ConflictCount : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    ConflictCount {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Conflicts : IntPtr
 
-    /**
-     * @type {Pointer<Pointer<ARBITER_CONFLICT_INFO>>}
-     */
-    Conflicts {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

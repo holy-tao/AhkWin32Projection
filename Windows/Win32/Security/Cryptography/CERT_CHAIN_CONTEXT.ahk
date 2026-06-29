@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_TRUST_STATUS.ahk
-#Include .\CERT_SIMPLE_CHAIN.ahk
-#Include .\CERT_CHAIN_CONTEXT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CERT_SIMPLE_CHAIN.ahk" { CERT_SIMPLE_CHAIN }
+#Import ".\CERT_TRUST_STATUS.ahk" { CERT_TRUST_STATUS }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains an array of simple certificate chains and a trust status structure that indicates summary validity data on all of the connected simple chains.
@@ -11,105 +11,52 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_chain_context
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_CHAIN_CONTEXT extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct CERT_CHAIN_CONTEXT {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * A structure that indicates the combined trust status of the simple chains array. The structure includes an error status code and an information status code. For information about status code values, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_trust_status">CERT_TRUST_STATUS</a>.
-     * @type {CERT_TRUST_STATUS}
      */
-    TrustStatus {
-        get {
-            if(!this.HasProp("__TrustStatus"))
-                this.__TrustStatus := CERT_TRUST_STATUS(4, this)
-            return this.__TrustStatus
-        }
-    }
+    TrustStatus : CERT_TRUST_STATUS
 
     /**
      * The number of simple chains in the array.
-     * @type {Integer}
      */
-    cChain {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    cChain : UInt32
 
     /**
      * An array of pointers to simple chain structures. <b>rgpChain</b>[0] is the end certificate simple chain, and <b>rgpChain</b>[<b>cChain</b>–1] is the final chain. If the end certificate is to be considered valid, the final chain must begin with a certificate contained in the root store or an otherwise trusted, self-signed certificate. If the original chain begins with a trusted certificate, there will be only a single simple chain in the array.
-     * @type {Pointer<Pointer<CERT_SIMPLE_CHAIN>>}
      */
-    rgpChain {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    rgpChain : IntPtr
 
     /**
      * The number of chains in the  <b>rgpLowerQualityChainContext</b> array.
-     * @type {Integer}
      */
-    cLowerQualityChainContext {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    cLowerQualityChainContext : UInt32
 
     /**
      * An array of pointers to CERT_CHAIN_CONTEXT structures. Returned when CERT_CHAIN_RETURN_LOWER_QUALITY_CONTEXTS is set in dwFlags.
-     * @type {Pointer<Pointer<CERT_CHAIN_CONTEXT>>}
      */
-    rgpLowerQualityChainContext {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    rgpLowerQualityChainContext : IntPtr
 
     /**
      * A Boolean value set to <b>TRUE</b> if <b>dwRevocationFreshnessTime</b> is available.
-     * @type {BOOL}
      */
-    fHasRevocationFreshnessTime {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    fHasRevocationFreshnessTime : BOOL
 
     /**
      * The largest CurrentTime, in seconds, minus the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate revocation list's</a> (CRL's) ThisUpdate of all elements checked.
-     * @type {Integer}
      */
-    dwRevocationFreshnessTime {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    dwRevocationFreshnessTime : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCreateFlags {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwCreateFlags : UInt32
 
-    /**
-     * @type {Pointer}
-     */
-    ChainId {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    ChainId : Guid
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 64
-    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Provides information about the PERF_INSTANCE_HEADER block that contains the structure.
@@ -26,26 +25,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_instance_header
  * @namespace Windows.Win32.System.Performance
  */
-class PERF_INSTANCE_HEADER extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct PERF_INSTANCE_HEADER {
+    #StructPack 4
 
     /**
      * The total size of the <b>PERF_INSTANCE_HEADER</b> block, in bytes. This total size is the sum of the sizes of the <b>PERF_INSTANCE_HEADER</b> structures, the string that  contains the instance name, and the padding.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
     /**
      * The instance identifier.
-     * @type {Integer}
      */
-    InstanceId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    InstanceId : UInt32
+
 }

@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class AE_CONNSTOP extends Win32Struct {
-    static sizeof => 20
+export default struct AE_CONNSTOP {
+    #StructPack 4
 
-    static packingSize => 4
+    ae_cp_compname : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_cp_compname {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ae_cp_username : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_cp_username {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ae_cp_netname : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_cp_netname {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ae_cp_connid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_cp_connid {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ae_cp_reason : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_cp_reason {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

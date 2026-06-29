@@ -1,41 +1,62 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IKnownFolder.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\KNOWNFOLDER_DEFINITION.ahk" { KNOWNFOLDER_DEFINITION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\IKnownFolder.ahk" { IKnownFolder }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FFFP_MODE.ahk" { FFFP_MODE }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that create, enumerate or manage existing known folders.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iknownfoldermanager
  * @namespace Windows.Win32.UI.Shell
  */
-class IKnownFolderManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IKnownFolderManager extends IUnknown {
     /**
      * The interface identifier for IKnownFolderManager
      * @type {Guid}
      */
-    static IID => Guid("{8be2d872-86aa-4d47-b776-32cca40c7018}")
+    static IID := Guid("{8be2d872-86aa-4d47-b776-32cca40c7018}")
 
     /**
      * The class identifier for KnownFolderManager
      * @type {Guid}
      */
-    static CLSID => Guid("{4df0c730-df9d-4ae3-9153-aa6b82e9795a}")
+    static CLSID := Guid("{4df0c730-df9d-4ae3-9153-aa6b82e9795a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IKnownFolderManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        FolderIdFromCsidl    : IntPtr
+        FolderIdToCsidl      : IntPtr
+        GetFolderIds         : IntPtr
+        GetFolder            : IntPtr
+        GetFolderByName      : IntPtr
+        RegisterFolder       : IntPtr
+        UnregisterFolder     : IntPtr
+        FindFolderFromPath   : IntPtr
+        FindFolderFromIDList : IntPtr
+        Redirect             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["FolderIdFromCsidl", "FolderIdToCsidl", "GetFolderIds", "GetFolder", "GetFolderByName", "RegisterFolder", "UnregisterFolder", "FindFolderFromPath", "FindFolderFromIDList", "Redirect"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IKnownFolderManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the KNOWNFOLDERID that is the equivalent of a legacy CSIDL value.
@@ -51,7 +72,7 @@ class IKnownFolderManager extends IUnknown {
      */
     FolderIdFromCsidl(nCsidl) {
         pfid := Guid()
-        result := ComCall(3, this, "int", nCsidl, "ptr", pfid, "HRESULT")
+        result := ComCall(3, this, "int", nCsidl, Guid.Ptr, pfid, "HRESULT")
         return pfid
     }
 
@@ -68,7 +89,7 @@ class IKnownFolderManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfoldermanager-folderidtocsidl
      */
     FolderIdToCsidl(rfid) {
-        result := ComCall(4, this, "ptr", rfid, "int*", &pnCsidl := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, rfid, "int*", &pnCsidl := 0, "HRESULT")
         return pnCsidl
     }
 
@@ -109,7 +130,7 @@ class IKnownFolderManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfoldermanager-getfolder
      */
     GetFolder(rfid) {
-        result := ComCall(6, this, "ptr", rfid, "ptr*", &ppkf := 0, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, rfid, "ptr*", &ppkf := 0, "HRESULT")
         return IKnownFolder(ppkf)
     }
 
@@ -166,7 +187,7 @@ class IKnownFolderManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfoldermanager-registerfolder
      */
     RegisterFolder(rfid, pKFD) {
-        result := ComCall(8, this, "ptr", rfid, "ptr", pKFD, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, rfid, KNOWNFOLDER_DEFINITION.Ptr, pKFD, "HRESULT")
         return result
     }
 
@@ -202,7 +223,7 @@ class IKnownFolderManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfoldermanager-unregisterfolder
      */
     UnregisterFolder(rfid) {
-        result := ComCall(9, this, "ptr", rfid, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, rfid, "HRESULT")
         return result
     }
 
@@ -220,7 +241,7 @@ class IKnownFolderManager extends IUnknown {
     FindFolderFromPath(pszPath, _mode) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(10, this, "ptr", pszPath, "int", _mode, "ptr*", &ppkf := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", pszPath, FFFP_MODE, _mode, "ptr*", &ppkf := 0, "HRESULT")
         return IKnownFolder(ppkf)
     }
 
@@ -235,7 +256,7 @@ class IKnownFolderManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfoldermanager-findfolderfromidlist
      */
     FindFolderFromIDList(pidl) {
-        result := ComCall(11, this, "ptr", pidl, "ptr*", &ppkf := 0, "HRESULT")
+        result := ComCall(11, this, ITEMIDLIST.Ptr, pidl, "ptr*", &ppkf := 0, "HRESULT")
         return IKnownFolder(ppkf)
     }
 
@@ -265,10 +286,47 @@ class IKnownFolderManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfoldermanager-redirect
      */
     Redirect(rfid, _hwnd, flags, pszTargetPath, cFolders, pExclusion) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszTargetPath := pszTargetPath is String ? StrPtr(pszTargetPath) : pszTargetPath
 
-        result := ComCall(12, this, "ptr", rfid, "ptr", _hwnd, "uint", flags, "ptr", pszTargetPath, "uint", cFolders, "ptr", pExclusion, "ptr*", &ppszError := 0, "HRESULT")
+        result := ComCall(12, this, Guid.Ptr, rfid, HWND, _hwnd, "uint", flags, "ptr", pszTargetPath, "uint", cFolders, Guid.Ptr, pExclusion, PWSTR.Ptr, &ppszError := 0, "HRESULT")
         return ppszError
+    }
+
+    Query(iid) {
+        if (IKnownFolderManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.FolderIdFromCsidl := CallbackCreate(GetMethod(implObj, "FolderIdFromCsidl"), flags, 3)
+        this.vtbl.FolderIdToCsidl := CallbackCreate(GetMethod(implObj, "FolderIdToCsidl"), flags, 3)
+        this.vtbl.GetFolderIds := CallbackCreate(GetMethod(implObj, "GetFolderIds"), flags, 3)
+        this.vtbl.GetFolder := CallbackCreate(GetMethod(implObj, "GetFolder"), flags, 3)
+        this.vtbl.GetFolderByName := CallbackCreate(GetMethod(implObj, "GetFolderByName"), flags, 3)
+        this.vtbl.RegisterFolder := CallbackCreate(GetMethod(implObj, "RegisterFolder"), flags, 3)
+        this.vtbl.UnregisterFolder := CallbackCreate(GetMethod(implObj, "UnregisterFolder"), flags, 2)
+        this.vtbl.FindFolderFromPath := CallbackCreate(GetMethod(implObj, "FindFolderFromPath"), flags, 4)
+        this.vtbl.FindFolderFromIDList := CallbackCreate(GetMethod(implObj, "FindFolderFromIDList"), flags, 3)
+        this.vtbl.Redirect := CallbackCreate(GetMethod(implObj, "Redirect"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.FolderIdFromCsidl)
+        CallbackFree(this.vtbl.FolderIdToCsidl)
+        CallbackFree(this.vtbl.GetFolderIds)
+        CallbackFree(this.vtbl.GetFolder)
+        CallbackFree(this.vtbl.GetFolderByName)
+        CallbackFree(this.vtbl.RegisterFolder)
+        CallbackFree(this.vtbl.UnregisterFolder)
+        CallbackFree(this.vtbl.FindFolderFromPath)
+        CallbackFree(this.vtbl.FindFolderFromIDList)
+        CallbackFree(this.vtbl.Redirect)
     }
 }

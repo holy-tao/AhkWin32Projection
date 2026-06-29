@@ -1,59 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MLOperatorParameterOptions.ahk
-#Include .\MLOperatorSchemaEdgeTypeFormat.ahk
-#Include .\MLOperatorEdgeDescription.ahk
-#Include .\MLOperatorEdgeType.ahk
-#Include .\MLOperatorTensorDataType.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MLOperatorParameterOptions.ahk" { MLOperatorParameterOptions }
+#Import ".\MLOperatorEdgeType.ahk" { MLOperatorEdgeType }
+#Import ".\MLOperatorSchemaEdgeTypeFormat.ahk" { MLOperatorSchemaEdgeTypeFormat }
+#Import ".\MLOperatorTensorDataType.ahk" { MLOperatorTensorDataType }
+#Import ".\MLOperatorEdgeDescription.ahk" { MLOperatorEdgeDescription }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML
  */
-class MLOperatorSchemaEdgeDescription extends Win32Struct {
-    static sizeof => 24
+export default struct MLOperatorSchemaEdgeDescription {
+    #StructPack 8
 
-    static packingSize => 8
+    options : MLOperatorParameterOptions
 
-    /**
-     * @type {MLOperatorParameterOptions}
-     */
-    options {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    typeFormat : MLOperatorSchemaEdgeTypeFormat
 
-    /**
-     * @type {MLOperatorSchemaEdgeTypeFormat}
-     */
-    typeFormat {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    reserved : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    reserved {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {PSTR}
-     */
-    typeLabel {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {MLOperatorEdgeDescription}
-     */
-    edgeDescription {
-        get {
-            if(!this.HasProp("__edgeDescription"))
-                this.__edgeDescription := MLOperatorEdgeDescription(8, this)
-            return this.__edgeDescription
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'typeLabel', { type: PSTR, offset: 8 })
+        DefineProp(this.Prototype, 'edgeDescription', { type: MLOperatorEdgeDescription, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

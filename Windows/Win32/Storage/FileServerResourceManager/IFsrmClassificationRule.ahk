@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmRule.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FsrmExecutionOption.ahk" { FsrmExecutionOption }
+#Import ".\IFsrmRule.ahk" { IFsrmRule }
 
 /**
  * Defines a classification rule.
@@ -13,26 +15,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nn-fsrmpipeline-ifsrmclassificationrule
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmClassificationRule extends IFsrmRule {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmClassificationRule extends IFsrmRule {
     /**
      * The interface identifier for IFsrmClassificationRule
      * @type {Guid}
      */
-    static IID => Guid("{afc052c2-5315-45ab-841b-c6db0e120148}")
+    static IID := Guid("{afc052c2-5315-45ab-841b-c6db0e120148}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 24
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmClassificationRule interfaces
+    */
+    struct Vtbl extends IFsrmRule.Vtbl {
+        get_ExecutionOption  : IntPtr
+        put_ExecutionOption  : IntPtr
+        get_PropertyAffected : IntPtr
+        put_PropertyAffected : IntPtr
+        get_Value            : IntPtr
+        put_Value            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ExecutionOption", "put_ExecutionOption", "get_PropertyAffected", "put_PropertyAffected", "get_Value", "put_Value"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmClassificationRule.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {FsrmExecutionOption} 
@@ -75,7 +89,7 @@ class IFsrmClassificationRule extends IFsrmRule {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationrule-put_executionoption
      */
     put_ExecutionOption(executionOption) {
-        result := ComCall(25, this, "int", executionOption, "HRESULT")
+        result := ComCall(25, this, FsrmExecutionOption, executionOption, "HRESULT")
         return result
     }
 
@@ -91,8 +105,8 @@ class IFsrmClassificationRule extends IFsrmRule {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationrule-get_propertyaffected
      */
     get_PropertyAffected() {
-        _property := BSTR()
-        result := ComCall(26, this, "ptr", _property, "HRESULT")
+        _property := BSTR.Owned()
+        result := ComCall(26, this, BSTR.Ptr, _property, "HRESULT")
         return _property
     }
 
@@ -111,7 +125,7 @@ class IFsrmClassificationRule extends IFsrmRule {
     put_PropertyAffected(_property) {
         _property := _property is String ? BSTR.Alloc(_property).Value : _property
 
-        result := ComCall(27, this, "ptr", _property, "HRESULT")
+        result := ComCall(27, this, BSTR, _property, "HRESULT")
         return result
     }
 
@@ -126,8 +140,8 @@ class IFsrmClassificationRule extends IFsrmRule {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationrule-get_value
      */
     get_Value() {
-        value := BSTR()
-        result := ComCall(28, this, "ptr", value, "HRESULT")
+        value := BSTR.Owned()
+        result := ComCall(28, this, BSTR.Ptr, value, "HRESULT")
         return value
     }
 
@@ -145,7 +159,37 @@ class IFsrmClassificationRule extends IFsrmRule {
     put_Value(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        result := ComCall(29, this, "ptr", value, "HRESULT")
+        result := ComCall(29, this, BSTR, value, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFsrmClassificationRule.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ExecutionOption := CallbackCreate(GetMethod(implObj, "get_ExecutionOption"), flags, 2)
+        this.vtbl.put_ExecutionOption := CallbackCreate(GetMethod(implObj, "put_ExecutionOption"), flags, 2)
+        this.vtbl.get_PropertyAffected := CallbackCreate(GetMethod(implObj, "get_PropertyAffected"), flags, 2)
+        this.vtbl.put_PropertyAffected := CallbackCreate(GetMethod(implObj, "put_PropertyAffected"), flags, 2)
+        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 2)
+        this.vtbl.put_Value := CallbackCreate(GetMethod(implObj, "put_Value"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ExecutionOption)
+        CallbackFree(this.vtbl.put_ExecutionOption)
+        CallbackFree(this.vtbl.get_PropertyAffected)
+        CallbackFree(this.vtbl.put_PropertyAffected)
+        CallbackFree(this.vtbl.get_Value)
+        CallbackFree(this.vtbl.put_Value)
     }
 }

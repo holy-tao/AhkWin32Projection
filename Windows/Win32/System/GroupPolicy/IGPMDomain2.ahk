@@ -1,37 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IGPMDomain.ahk
-#Include .\IGPMStarterGPO.ahk
-#Include .\IGPMGPO.ahk
-#Include .\IGPMStarterGPOCollection.ahk
-#Include .\IGPMResult.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IGPMStarterGPO.ahk" { IGPMStarterGPO }
+#Import ".\IGPMStarterGPOCollection.ahk" { IGPMStarterGPOCollection }
+#Import ".\IGPMGPO.ahk" { IGPMGPO }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IGPMStarterGPOBackup.ahk" { IGPMStarterGPOBackup }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IGPMSearchCriteria.ahk" { IGPMSearchCriteria }
+#Import ".\IGPMDomain.ahk" { IGPMDomain }
+#Import ".\IGPMResult.ahk" { IGPMResult }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Represents a given domain and supports methods that allow you to query scope of management (SOM) objects, create, restore and query Starter GPOs, and create and query WMI filters when you are using the Group Policy Management Console (GPMC) interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmdomain2
  * @namespace Windows.Win32.System.GroupPolicy
  */
-class IGPMDomain2 extends IGPMDomain {
-
-    static sizeof => A_PtrSize
+export default struct IGPMDomain2 extends IGPMDomain {
     /**
      * The interface identifier for IGPMDomain2
      * @type {Guid}
      */
-    static IID => Guid("{7ca6bb8b-f1eb-490a-938d-3c4e51c768e6}")
+    static IID := Guid("{7ca6bb8b-f1eb-490a-938d-3c4e51c768e6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 17
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGPMDomain2 interfaces
+    */
+    struct Vtbl extends IGPMDomain.Vtbl {
+        CreateStarterGPO        : IntPtr
+        CreateGPOFromStarterGPO : IntPtr
+        GetStarterGPO           : IntPtr
+        SearchStarterGPOs       : IntPtr
+        LoadStarterGPO          : IntPtr
+        RestoreStarterGPO       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateStarterGPO", "CreateGPOFromStarterGPO", "GetStarterGPO", "SearchStarterGPOs", "LoadStarterGPO", "RestoreStarterGPO"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGPMDomain2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates and retrieves a GPMStarterGPO object.
@@ -65,7 +83,7 @@ class IGPMDomain2 extends IGPMDomain {
     GetStarterGPO(bstrGuid) {
         bstrGuid := bstrGuid is String ? BSTR.Alloc(bstrGuid).Value : bstrGuid
 
-        result := ComCall(19, this, "ptr", bstrGuid, "ptr*", &ppTemplate := 0, "HRESULT")
+        result := ComCall(19, this, BSTR, bstrGuid, "ptr*", &ppTemplate := 0, "HRESULT")
         return IGPMStarterGPO(ppTemplate)
     }
 
@@ -98,7 +116,7 @@ class IGPMDomain2 extends IGPMDomain {
     LoadStarterGPO(bstrLoadFile, bOverwrite, pvarGPMProgress, pvarGPMCancel) {
         bstrLoadFile := bstrLoadFile is String ? BSTR.Alloc(bstrLoadFile).Value : bstrLoadFile
 
-        result := ComCall(21, this, "ptr", bstrLoadFile, "short", bOverwrite, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        result := ComCall(21, this, BSTR, bstrLoadFile, VARIANT_BOOL, bOverwrite, VARIANT.Ptr, pvarGPMProgress, VARIANT.Ptr, pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
         return IGPMResult(ppIGPMResult)
     }
 
@@ -122,7 +140,37 @@ class IGPMDomain2 extends IGPMDomain {
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmdomain2-restorestartergpo
      */
     RestoreStarterGPO(pIGPMTmplBackup, pvarGPMProgress, pvarGPMCancel) {
-        result := ComCall(22, this, "ptr", pIGPMTmplBackup, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        result := ComCall(22, this, "ptr", pIGPMTmplBackup, VARIANT.Ptr, pvarGPMProgress, VARIANT.Ptr, pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
         return IGPMResult(ppIGPMResult)
+    }
+
+    Query(iid) {
+        if (IGPMDomain2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateStarterGPO := CallbackCreate(GetMethod(implObj, "CreateStarterGPO"), flags, 2)
+        this.vtbl.CreateGPOFromStarterGPO := CallbackCreate(GetMethod(implObj, "CreateGPOFromStarterGPO"), flags, 3)
+        this.vtbl.GetStarterGPO := CallbackCreate(GetMethod(implObj, "GetStarterGPO"), flags, 3)
+        this.vtbl.SearchStarterGPOs := CallbackCreate(GetMethod(implObj, "SearchStarterGPOs"), flags, 3)
+        this.vtbl.LoadStarterGPO := CallbackCreate(GetMethod(implObj, "LoadStarterGPO"), flags, 6)
+        this.vtbl.RestoreStarterGPO := CallbackCreate(GetMethod(implObj, "RestoreStarterGPO"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateStarterGPO)
+        CallbackFree(this.vtbl.CreateGPOFromStarterGPO)
+        CallbackFree(this.vtbl.GetStarterGPO)
+        CallbackFree(this.vtbl.SearchStarterGPOs)
+        CallbackFree(this.vtbl.LoadStarterGPO)
+        CallbackFree(this.vtbl.RestoreStarterGPO)
     }
 }

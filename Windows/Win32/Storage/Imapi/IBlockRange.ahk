@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Use this interface to retrieve information about a single continuous range of sectors on the media. This interface is typically used together with the IBlockRangeList interface to describe a collection of sector ranges.
@@ -10,32 +11,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-iblockrange
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IBlockRange extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IBlockRange extends IDispatch {
     /**
      * The interface identifier for IBlockRange
      * @type {Guid}
      */
-    static IID => Guid("{b507ca25-2204-11dd-966a-001aa01bbc58}")
+    static IID := Guid("{b507ca25-2204-11dd-966a-001aa01bbc58}")
 
     /**
      * The class identifier for BlockRange
      * @type {Guid}
      */
-    static CLSID => Guid("{b507ca27-2204-11dd-966a-001aa01bbc58}")
+    static CLSID := Guid("{b507ca27-2204-11dd-966a-001aa01bbc58}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBlockRange interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_StartLba : IntPtr
+        get_EndLba   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_StartLba", "get_EndLba"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBlockRange.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -71,5 +80,27 @@ class IBlockRange extends IDispatch {
     get_EndLba() {
         result := ComCall(8, this, "int*", &value := 0, "HRESULT")
         return value
+    }
+
+    Query(iid) {
+        if (IBlockRange.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_StartLba := CallbackCreate(GetMethod(implObj, "get_StartLba"), flags, 2)
+        this.vtbl.get_EndLba := CallbackCreate(GetMethod(implObj, "get_EndLba"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_StartLba)
+        CallbackFree(this.vtbl.get_EndLba)
     }
 }

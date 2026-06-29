@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class CPE_DRIVER_INFO extends Win32Struct {
-    static sizeof => 24
+export default struct CPE_DRIVER_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    ExceptionCallback : IntPtr
 
-    /**
-     * @type {Pointer<PDRIVER_CPE_EXCEPTION_CALLBACK>}
-     */
-    ExceptionCallback {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    DpcCallback : IntPtr
 
-    /**
-     * @type {Pointer<PKDEFERRED_ROUTINE>}
-     */
-    DpcCallback {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    DeviceContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    DeviceContext {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

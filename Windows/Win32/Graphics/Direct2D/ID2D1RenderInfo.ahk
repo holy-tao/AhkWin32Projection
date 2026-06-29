@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D2D1_CHANNEL_DEPTH.ahk" { D2D1_CHANNEL_DEPTH }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D2D1_BUFFER_PRECISION.ahk" { D2D1_BUFFER_PRECISION }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\D2D1_INPUT_DESCRIPTION.ahk" { D2D1_INPUT_DESCRIPTION }
 
 /**
  * Describes the render information common to all of the various transform implementations.
@@ -10,26 +15,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1renderinfo
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1RenderInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1RenderInfo extends IUnknown {
     /**
      * The interface identifier for ID2D1RenderInfo
      * @type {Guid}
      */
-    static IID => Guid("{519ae1bd-d19a-420d-b849-364f594776b7}")
+    static IID := Guid("{519ae1bd-d19a-420d-b849-364f594776b7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1RenderInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetInputDescription     : IntPtr
+        SetOutputBuffer         : IntPtr
+        SetCached               : IntPtr
+        SetInstructionCountHint : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetInputDescription", "SetOutputBuffer", "SetCached", "SetInstructionCountHint"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1RenderInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets how a specific input to the transform should be handled by the renderer in terms of sampling.
@@ -63,7 +78,7 @@ class ID2D1RenderInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1renderinfo-setinputdescription
      */
     SetInputDescription(inputIndex, inputDescription) {
-        result := ComCall(3, this, "uint", inputIndex, "ptr", inputDescription, "HRESULT")
+        result := ComCall(3, this, "uint", inputIndex, D2D1_INPUT_DESCRIPTION, inputDescription, "HRESULT")
         return result
     }
 
@@ -87,7 +102,7 @@ class ID2D1RenderInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1renderinfo-setoutputbuffer
      */
     SetOutputBuffer(bufferPrecision, channelDepth) {
-        result := ComCall(4, this, "int", bufferPrecision, "int", channelDepth, "HRESULT")
+        result := ComCall(4, this, D2D1_BUFFER_PRECISION, bufferPrecision, D2D1_CHANNEL_DEPTH, channelDepth, "HRESULT")
         return result
     }
 
@@ -100,7 +115,7 @@ class ID2D1RenderInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1renderinfo-setcached
      */
     SetCached(isCached) {
-        ComCall(5, this, "int", isCached)
+        ComCall(5, this, BOOL, isCached)
     }
 
     /**
@@ -120,5 +135,31 @@ class ID2D1RenderInfo extends IUnknown {
      */
     SetInstructionCountHint(instructionCount) {
         ComCall(6, this, "uint", instructionCount)
+    }
+
+    Query(iid) {
+        if (ID2D1RenderInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetInputDescription := CallbackCreate(GetMethod(implObj, "SetInputDescription"), flags, 3)
+        this.vtbl.SetOutputBuffer := CallbackCreate(GetMethod(implObj, "SetOutputBuffer"), flags, 3)
+        this.vtbl.SetCached := CallbackCreate(GetMethod(implObj, "SetCached"), flags, 2)
+        this.vtbl.SetInstructionCountHint := CallbackCreate(GetMethod(implObj, "SetInstructionCountHint"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetInputDescription)
+        CallbackFree(this.vtbl.SetOutputBuffer)
+        CallbackFree(this.vtbl.SetCached)
+        CallbackFree(this.vtbl.SetInstructionCountHint)
     }
 }

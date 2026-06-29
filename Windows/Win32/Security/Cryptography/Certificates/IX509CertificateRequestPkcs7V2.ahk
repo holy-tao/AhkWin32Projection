@@ -1,35 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509CertificateRequestPkcs7.ahk
-#Include .\IX509EnrollmentPolicyServer.ahk
-#Include .\IX509CertificateTemplate.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
+#Import ".\IX509CertificateRequestPkcs7.ahk" { IX509CertificateRequestPkcs7 }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IX509CertificateTemplate.ahk" { IX509CertificateTemplate }
+#Import ".\IX509EnrollmentPolicyServer.ahk" { IX509EnrollmentPolicyServer }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IX509CertificateRequestPkcs7V2 interface represents a PKCS
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509certificaterequestpkcs7v2
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IX509CertificateRequestPkcs7V2 extends IX509CertificateRequestPkcs7 {
-
-    static sizeof => A_PtrSize
+export default struct IX509CertificateRequestPkcs7V2 extends IX509CertificateRequestPkcs7 {
     /**
      * The interface identifier for IX509CertificateRequestPkcs7V2
      * @type {Guid}
      */
-    static IID => Guid("{728ab35c-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab35c-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 40
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IX509CertificateRequestPkcs7V2 interfaces
+    */
+    struct Vtbl extends IX509CertificateRequestPkcs7.Vtbl {
+        InitializeFromTemplate    : IntPtr
+        get_PolicyServer          : IntPtr
+        get_Template              : IntPtr
+        CheckCertificateSignature : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializeFromTemplate", "get_PolicyServer", "get_Template", "CheckCertificateSignature"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IX509CertificateRequestPkcs7V2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IX509EnrollmentPolicyServer} 
@@ -126,7 +139,7 @@ class IX509CertificateRequestPkcs7V2 extends IX509CertificateRequestPkcs7 {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7v2-initializefromtemplate
      */
     InitializeFromTemplate(_context, pPolicyServer, pTemplate) {
-        result := ComCall(40, this, "int", _context, "ptr", pPolicyServer, "ptr", pTemplate, "HRESULT")
+        result := ComCall(40, this, X509CertificateEnrollmentContext, _context, "ptr", pPolicyServer, "ptr", pTemplate, "HRESULT")
         return result
     }
 
@@ -180,7 +193,33 @@ class IX509CertificateRequestPkcs7V2 extends IX509CertificateRequestPkcs7 {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7v2-checkcertificatesignature
      */
     CheckCertificateSignature(ValidateCertificateChain) {
-        result := ComCall(43, this, "short", ValidateCertificateChain, "HRESULT")
+        result := ComCall(43, this, VARIANT_BOOL, ValidateCertificateChain, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IX509CertificateRequestPkcs7V2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializeFromTemplate := CallbackCreate(GetMethod(implObj, "InitializeFromTemplate"), flags, 4)
+        this.vtbl.get_PolicyServer := CallbackCreate(GetMethod(implObj, "get_PolicyServer"), flags, 2)
+        this.vtbl.get_Template := CallbackCreate(GetMethod(implObj, "get_Template"), flags, 2)
+        this.vtbl.CheckCertificateSignature := CallbackCreate(GetMethod(implObj, "CheckCertificateSignature"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializeFromTemplate)
+        CallbackFree(this.vtbl.get_PolicyServer)
+        CallbackFree(this.vtbl.get_Template)
+        CallbackFree(this.vtbl.CheckCertificateSignature)
     }
 }

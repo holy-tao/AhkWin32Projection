@@ -1,56 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_DEVICE_STATE.ahk
-#Include .\USB_CONNECTION_STATUS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USB_DEVICE_STATE.ahk" { USB_DEVICE_STATE }
+#Import ".\USB_CONNECTION_STATUS.ahk" { USB_CONNECTION_STATUS }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_HUB_PORT_INFORMATION extends Win32Struct {
-    static sizeof => 16
+export default struct USB_HUB_PORT_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
+    DeviceState : USB_DEVICE_STATE
 
-    /**
-     * @type {USB_DEVICE_STATE}
-     */
-    DeviceState {
-        get {
-            if(!this.HasProp("__DeviceState"))
-                this.__DeviceState := USB_DEVICE_STATE(0, this)
-            return this.__DeviceState
-        }
-    }
+    PortNumber : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    PortNumber {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    DeviceAddress : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DeviceAddress {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    ConnectionIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ConnectionIndex {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ConnectionStatus : USB_CONNECTION_STATUS
 
-    /**
-     * @type {USB_CONNECTION_STATUS}
-     */
-    ConnectionStatus {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used to implement external caching of connections.
@@ -121,44 +120,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_referral_callback
  * @namespace Windows.Win32.Networking.Ldap
  */
-class LDAP_REFERRAL_CALLBACK extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct LDAP_REFERRAL_CALLBACK {
+    #StructPack 8
 
     /**
      * The amount of memory required for the callback. Set this field to <c>sizeof(LDAP_REFERRAL_CALLBACK)</c>.
-     * @type {Integer}
      */
-    SizeOfCallbacks {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SizeOfCallbacks : UInt32
 
     /**
      * A pointer to a callback function to determine whether there is a cached connection cached available. For more information, see Remarks.
-     * @type {Pointer<QUERYFORCONNECTION>}
      */
-    QueryForConnection {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    QueryForConnection : IntPtr
 
     /**
      * A pointer to a callback function that determines whether a new connection will be cached or destroyed after the operation completes. For more information, see Remarks.
-     * @type {Pointer<NOTIFYOFNEWCONNECTION>}
      */
-    NotifyRoutine {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    NotifyRoutine : IntPtr
 
     /**
      * A pointer to a callback function to dereference a connection that is not in use. For more information, see Remarks.
-     * @type {Pointer<DEREFERENCECONNECTION>}
      */
-    DereferenceRoutine {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    DereferenceRoutine : IntPtr
+
 }

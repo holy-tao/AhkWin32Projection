@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class RASCUSTOMSCRIPTEXTENSIONS extends Win32Struct {
-    static sizeof => 16
+export default struct RASCUSTOMSCRIPTEXTENSIONS {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pfnRasSetCommSettings : IntPtr
 
-    /**
-     * @type {Pointer<PFNRASSETCOMMSETTINGS>}
-     */
-    pfnRasSetCommSettings {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

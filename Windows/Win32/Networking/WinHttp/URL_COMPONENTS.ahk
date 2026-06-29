@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WINHTTP_INTERNET_SCHEME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WINHTTP_INTERNET_SCHEME.ahk" { WINHTTP_INTERNET_SCHEME }
 
 /**
  * The URL_COMPONENTS structure contains the constituent parts of a URL. This structure is used with the WinHttpCrackUrl and WinHttpCreateUrl functions.
@@ -19,142 +19,79 @@
  * @namespace Windows.Win32.Networking.WinHttp
  * @charset ANSI
  */
-class URL_COMPONENTS extends Win32Struct {
-    static sizeof => 104
-
-    static packingSize => 8
+export default struct URL_COMPONENTS {
+    #StructPack 8
 
     /**
      * Size of this structure, in bytes. Used for version checking. The size of this structure must be set to initialize this structure properly.
-     * @type {Integer}
      */
-    dwStructSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwStructSize : UInt32
 
     /**
      * Pointer to a string value that contains the scheme name.
-     * @type {PWSTR}
      */
-    lpszScheme {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpszScheme : PWSTR
 
     /**
      * Length of the scheme name, in characters.
-     * @type {Integer}
      */
-    dwSchemeLength {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwSchemeLength : UInt32
 
-    /**
-     * @type {WINHTTP_INTERNET_SCHEME}
-     */
-    nScheme {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    nScheme : WINHTTP_INTERNET_SCHEME
 
     /**
      * Pointer to a string value that contains the host name.
-     * @type {PWSTR}
      */
-    lpszHostName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpszHostName : PWSTR
 
     /**
      * Length of the host name, in characters.
-     * @type {Integer}
      */
-    dwHostNameLength {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwHostNameLength : UInt32
 
     /**
      * Port number.
-     * @type {Integer}
      */
-    nPort {
-        get => NumGet(this, 36, "ushort")
-        set => NumPut("ushort", value, this, 36)
-    }
+    nPort : UInt16
 
     /**
      * Pointer to a string  that contains the user name.
-     * @type {PWSTR}
      */
-    lpszUserName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lpszUserName : PWSTR
 
     /**
      * Length of the user name, in characters.
-     * @type {Integer}
      */
-    dwUserNameLength {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwUserNameLength : UInt32
 
     /**
      * Pointer to a string  that contains the password.
-     * @type {PWSTR}
      */
-    lpszPassword {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    lpszPassword : PWSTR
 
     /**
      * Length of the password, in characters.
-     * @type {Integer}
      */
-    dwPasswordLength {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    dwPasswordLength : UInt32
 
     /**
      * Pointer to a string  that contains the URL path.
-     * @type {PWSTR}
      */
-    lpszUrlPath {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    lpszUrlPath : PWSTR
 
     /**
      * Length of the URL path, in characters.
-     * @type {Integer}
      */
-    dwUrlPathLength {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    dwUrlPathLength : UInt32
 
     /**
      * Pointer to a string value that contains the extra information, for example, ?something or #something.
-     * @type {PWSTR}
      */
-    lpszExtraInfo {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    lpszExtraInfo : PWSTR
 
     /**
      * Unsigned long integer value that contains the length of the extra information, in characters.
-     * @type {Integer}
      */
-    dwExtraInfoLength {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    dwExtraInfoLength : UInt32
+
 }

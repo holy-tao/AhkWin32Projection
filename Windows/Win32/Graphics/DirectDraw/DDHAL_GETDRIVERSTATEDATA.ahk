@@ -1,51 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDHAL_GETDRIVERSTATEDATA extends Win32Struct {
-    static sizeof => 32
+export default struct DDHAL_GETDRIVERSTATEDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwhContext : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwhContext {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpdwStates : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    lpdwStates {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    dwLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwLength {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ddRVal : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    ddRVal {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
 }

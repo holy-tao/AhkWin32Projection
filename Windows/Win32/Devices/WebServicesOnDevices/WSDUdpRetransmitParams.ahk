@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the parameters for repeating a message transmission.
@@ -14,53 +13,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/wsdbase/ns-wsdbase-wsdudpretransmitparams
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class WSDUdpRetransmitParams extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct WSDUdpRetransmitParams {
+    #StructPack 4
 
     /**
      * Time to wait before sending the first transmission, in milliseconds. Specify zero for no delay. Cannot be INFINITE.
-     * @type {Integer}
      */
-    ulSendDelay {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulSendDelay : UInt32
 
     /**
      * Maximum number of transmissions to send. Specify a value between 1 and 256, inclusively.
-     * @type {Integer}
      */
-    ulRepeat {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulRepeat : UInt32
 
     /**
      * Minimum value of the range used to generate the initial delay value, in milliseconds. This value must be less than or equal to <b>ulRepeatMaxDelay</b>, can be zero, but cannot be INFINITE. See Remarks.
-     * @type {Integer}
      */
-    ulRepeatMinDelay {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulRepeatMinDelay : UInt32
 
     /**
      * Maximum value of the range used to generate the initial delay value, in milliseconds. This value be less than or equal to <b>ulRepeatUpperDelay</b>, can be zero, but cannot be INFINITE. See Remarks.
-     * @type {Integer}
      */
-    ulRepeatMaxDelay {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ulRepeatMaxDelay : UInt32
 
     /**
      * Maximum delay to wait before sending message, in milliseconds. This value be can be zero, but cannot be INFINITE.
-     * @type {Integer}
      */
-    ulRepeatUpperDelay {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ulRepeatUpperDelay : UInt32
+
 }

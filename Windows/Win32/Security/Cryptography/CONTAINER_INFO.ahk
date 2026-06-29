@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CONTAINER_INFO extends Win32Struct {
-    static sizeof => 40
+export default struct CONTAINER_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    dwVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwReserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cbSigPublicKey : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbSigPublicKey {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    pbSigPublicKey : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbSigPublicKey {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    cbKeyExPublicKey : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbKeyExPublicKey {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    pbKeyExPublicKey : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbKeyExPublicKey {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
 }

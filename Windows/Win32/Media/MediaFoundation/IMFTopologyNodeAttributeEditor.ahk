@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MFTOPONODE_ATTRIBUTE_UPDATE.ahk" { MFTOPONODE_ATTRIBUTE_UPDATE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Updates the attributes of one or more nodes in the Media Session's current topology.
@@ -10,26 +12,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imftopologynodeattributeeditor
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFTopologyNodeAttributeEditor extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFTopologyNodeAttributeEditor extends IUnknown {
     /**
      * The interface identifier for IMFTopologyNodeAttributeEditor
      * @type {Guid}
      */
-    static IID => Guid("{676aa6dd-238a-410d-bb99-65668d01605a}")
+    static IID := Guid("{676aa6dd-238a-410d-bb99-65668d01605a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFTopologyNodeAttributeEditor interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        UpdateNodeAttributes : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["UpdateNodeAttributes"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFTopologyNodeAttributeEditor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Updates the attributes of one or more nodes in the current topology.
@@ -60,7 +69,27 @@ class IMFTopologyNodeAttributeEditor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopologynodeattributeeditor-updatenodeattributes
      */
     UpdateNodeAttributes(TopoId, cUpdates, pUpdates) {
-        result := ComCall(3, this, "uint", TopoId, "uint", cUpdates, "ptr", pUpdates, "HRESULT")
+        result := ComCall(3, this, "uint", TopoId, "uint", cUpdates, MFTOPONODE_ATTRIBUTE_UPDATE.Ptr, pUpdates, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFTopologyNodeAttributeEditor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.UpdateNodeAttributes := CallbackCreate(GetMethod(implObj, "UpdateNodeAttributes"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.UpdateNodeAttributes)
     }
 }

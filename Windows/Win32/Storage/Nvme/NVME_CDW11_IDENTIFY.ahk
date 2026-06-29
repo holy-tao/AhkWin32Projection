@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains a parameter for the Identify command.
@@ -8,38 +7,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw11_identify
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_CDW11_IDENTIFY extends Win32Struct {
-    static sizeof => 12
+export default struct NVME_CDW11_IDENTIFY {
+    #StructPack 4
 
-    static packingSize => 4
+    NVMSETID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NVMSETID {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Reserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - CNSID
-     * - Reserved2
-     * - CSI
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
 
     /**
      * @type {Integer}
@@ -64,12 +38,9 @@ class NVME_CDW11_IDENTIFY extends Win32Struct {
         get => (this._bitfield >> 24) & 0xFF
         set => this._bitfield := ((value & 0xFF) << 24) | (this._bitfield & ~(0xFF << 24))
     }
-
-    /**
-     * @type {Integer}
-     */
-    AsUlong {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int32, offset: 0 })
+        DefineProp(this.Prototype, 'AsUlong', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

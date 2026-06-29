@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * MIB_IPMCAST_OIF_STATS_LH (ipmib.h) stores the statistics that are associated with an outgoing multicast interface.
@@ -8,21 +7,15 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipmib/ns-ipmib-mib_ipmcast_oif_stats_lh
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_IPMCAST_OIF_STATS_LH extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct MIB_IPMCAST_OIF_STATS_LH {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Specifies the outgoing interface to which these statistics are related.
-     * @type {Integer}
      */
-    dwOutIfIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwOutIfIndex : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -30,63 +23,40 @@ class MIB_IPMCAST_OIF_STATS_LH extends Win32Struct {
      * Specifies the address of the next hop that corresponds to <b>dwOutIfIndex</b>. The <b>dwOutIfIndex</b> and <b>dwIfNextHopIPAddr</b> members uniquely identify a next hop on point-to-multipoint interfaces, where one interface connects to multiple networks. Examples of point-to-multipoint interfaces include non-broadcast multiple-access (NBMA) interfaces, and the internal interface on which all dial-up clients connect. 
      * 
      * For Ethernet and other broadcast interfaces, specify zero. Also specify zero for point-to-point interfaces, which are identified by only <b>dwOutIfIndex</b>.
-     * @type {Integer}
      */
-    dwNextHopAddr {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwNextHopAddr : UInt32
 
     /**
      * TBD
-     * @type {Integer}
      */
-    dwDialContext {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwDialContext : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * Specifies the number of packets on this outgoing interface that were discarded because the packet's time-to-live (TTL) value was too low.
-     * @type {Integer}
      */
-    ulTtlTooLow {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ulTtlTooLow : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * Specifies the number of packets that required fragmentation when they were forwarded on this interface.
-     * @type {Integer}
      */
-    ulFragNeeded {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ulFragNeeded : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * Specifies the number of packets that were forwarded out this interface.
-     * @type {Integer}
      */
-    ulOutPackets {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ulOutPackets : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * Specifies the number of packets that were discarded on this interface.
-     * @type {Integer}
      */
-    ulOutDiscards {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ulOutDiscards : UInt32
+
 }

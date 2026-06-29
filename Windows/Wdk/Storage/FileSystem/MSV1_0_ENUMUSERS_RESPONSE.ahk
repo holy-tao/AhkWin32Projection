@@ -1,45 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Security\Authentication\Identity\MSV1_0_PROTOCOL_MESSAGE_TYPE.ahk
-#Include ..\..\..\Win32\Foundation\LUID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\LUID.ahk" { LUID }
+#Import "..\..\..\Win32\Security\Authentication\Identity\MSV1_0_PROTOCOL_MESSAGE_TYPE.ahk" { MSV1_0_PROTOCOL_MESSAGE_TYPE }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class MSV1_0_ENUMUSERS_RESPONSE extends Win32Struct {
-    static sizeof => 24
+export default struct MSV1_0_ENUMUSERS_RESPONSE {
+    #StructPack 8
 
-    static packingSize => 8
+    MessageType : MSV1_0_PROTOCOL_MESSAGE_TYPE
 
-    /**
-     * @type {MSV1_0_PROTOCOL_MESSAGE_TYPE}
-     */
-    MessageType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    NumberOfLoggedOnUsers : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfLoggedOnUsers {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    LogonIds : LUID.Ptr
 
-    /**
-     * @type {Pointer<LUID>}
-     */
-    LogonIds {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    EnumHandles : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    EnumHandles {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

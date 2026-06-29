@@ -1,40 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISVGElement.ahk
-#Include .\ISVGUseElement.ahk
-#Include .\ISVGElementInstanceList.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISVGUseElement.ahk" { ISVGUseElement }
+#Import ".\ISVGElementInstanceList.ahk" { ISVGElementInstanceList }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISVGElement.ahk" { ISVGElement }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class ISVGElementInstance extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISVGElementInstance extends IDispatch {
     /**
      * The interface identifier for ISVGElementInstance
      * @type {Guid}
      */
-    static IID => Guid("{305104ee-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{305104ee-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for SVGElementInstance
      * @type {Guid}
      */
-    static CLSID => Guid("{30510575-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{30510575-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISVGElementInstance interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_correspondingElement    : IntPtr
+        get_correspondingUseElement : IntPtr
+        get_parentNode              : IntPtr
+        get_childNodes              : IntPtr
+        get_firstChild              : IntPtr
+        get_lastChild               : IntPtr
+        get_previousSibling         : IntPtr
+        get_nextSibling             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_correspondingElement", "get_correspondingUseElement", "get_parentNode", "get_childNodes", "get_firstChild", "get_lastChild", "get_previousSibling", "get_nextSibling"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISVGElementInstance.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ISVGElement} 
@@ -162,5 +177,39 @@ class ISVGElementInstance extends IDispatch {
     get_nextSibling() {
         result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
         return ISVGElementInstance(p)
+    }
+
+    Query(iid) {
+        if (ISVGElementInstance.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_correspondingElement := CallbackCreate(GetMethod(implObj, "get_correspondingElement"), flags, 2)
+        this.vtbl.get_correspondingUseElement := CallbackCreate(GetMethod(implObj, "get_correspondingUseElement"), flags, 2)
+        this.vtbl.get_parentNode := CallbackCreate(GetMethod(implObj, "get_parentNode"), flags, 2)
+        this.vtbl.get_childNodes := CallbackCreate(GetMethod(implObj, "get_childNodes"), flags, 2)
+        this.vtbl.get_firstChild := CallbackCreate(GetMethod(implObj, "get_firstChild"), flags, 2)
+        this.vtbl.get_lastChild := CallbackCreate(GetMethod(implObj, "get_lastChild"), flags, 2)
+        this.vtbl.get_previousSibling := CallbackCreate(GetMethod(implObj, "get_previousSibling"), flags, 2)
+        this.vtbl.get_nextSibling := CallbackCreate(GetMethod(implObj, "get_nextSibling"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_correspondingElement)
+        CallbackFree(this.vtbl.get_correspondingUseElement)
+        CallbackFree(this.vtbl.get_parentNode)
+        CallbackFree(this.vtbl.get_childNodes)
+        CallbackFree(this.vtbl.get_firstChild)
+        CallbackFree(this.vtbl.get_lastChild)
+        CallbackFree(this.vtbl.get_previousSibling)
+        CallbackFree(this.vtbl.get_nextSibling)
     }
 }

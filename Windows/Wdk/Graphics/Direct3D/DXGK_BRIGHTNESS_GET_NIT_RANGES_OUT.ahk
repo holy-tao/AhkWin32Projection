@@ -1,46 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class DXGK_BRIGHTNESS_GET_NIT_RANGES_OUT extends Win32Struct {
-    static sizeof => 144
+export default struct DXGK_BRIGHTNESS_GET_NIT_RANGES_OUT {
+    #StructPack 8
 
-    static packingSize => 8
+    NormalRangeCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NormalRangeCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    RangeCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RangeCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    PreferredMaximumBrightness : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PreferredMaximumBrightness {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SupportedRanges : IntPtr[16]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    SupportedRanges {
-        get {
-            if(!this.HasProp("__SupportedRangesProxyArray"))
-                this.__SupportedRangesProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "ptr")
-            return this.__SupportedRangesProxyArray
-        }
-    }
 }

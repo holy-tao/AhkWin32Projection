@@ -1,9 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WNODE_HEADER.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
-#Include .\EVENT_TRACE_FLAG.ahk
-#Include .\EVENT_FILTER_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EVENT_FILTER_DESCRIPTOR.ahk" { EVENT_FILTER_DESCRIPTOR }
+#Import ".\WNODE_HEADER.ahk" { WNODE_HEADER }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\EVENT_TRACE_FLAG.ahk" { EVENT_TRACE_FLAG }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The EVENT_TRACE_PROPERTIES_V2 structure contains information about an event tracing session and is used with APIs such as StartTrace and ControlTrace.
@@ -71,10 +71,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-event_trace_properties_v2
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class EVENT_TRACE_PROPERTIES_V2 extends Win32Struct {
-    static sizeof => 136
-
-    static packingSize => 8
+export default struct EVENT_TRACE_PROPERTIES_V2 {
+    #StructPack 8
 
     /**
      * A [WNODE_HEADER](/windows/win32/etw/wnode-header) structure. You must specify
@@ -85,15 +83,8 @@ class EVENT_TRACE_PROPERTIES_V2 extends Win32Struct {
      * > In order for the version-2 fields (e.g. **FilterDesc** and
      * > **V2Options**) to be recognized, you must set the
      * > `WNODE_FLAG_VERSIONED_PROPERTIES` flag in `Wnode.Flags`.
-     * @type {WNODE_HEADER}
      */
-    Wnode {
-        get {
-            if(!this.HasProp("__Wnode"))
-                this.__Wnode := WNODE_HEADER(0, this)
-            return this.__Wnode
-        }
-    }
+    Wnode : WNODE_HEADER
 
     /**
      * Kilobytes of memory allocated for each event tracing session buffer. The minimum
@@ -132,12 +123,8 @@ class EVENT_TRACE_PROPERTIES_V2 extends Win32Struct {
      * > Instead, select the buffer size based on your session's event size and event
      * > rate, then use the **MinimumBuffers** and **MaximumBuffers** parameters to
      * > adjust session memory usage.
-     * @type {Integer}
      */
-    BufferSize {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    BufferSize : UInt32
 
     /**
      * Minimum number of buffers reserved for the tracing session's buffer pool.
@@ -171,12 +158,8 @@ class EVENT_TRACE_PROPERTIES_V2 extends Win32Struct {
      * trace is started. When all buffers are filled, ETW will reuse the oldest filled
      * buffer for new events. Note that ETW will not allocate additional buffers (ETW
      * ignores **MaximumBuffers** for buffering-mode traces).
-     * @type {Integer}
      */
-    MinimumBuffers {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    MinimumBuffers : UInt32
 
     /**
      * Maximum number of buffers to be allocated for the tracing session's buffer pool.
@@ -197,12 +180,8 @@ class EVENT_TRACE_PROPERTIES_V2 extends Win32Struct {
      * > include logging mode `EVENT_TRACE_BUFFERING_MODE`). Buffering-mode sessions
      * > always allocate **MinimumBuffers** at the start of the trace collection and
      * > never allocate additional buffers.
-     * @type {Integer}
      */
-    MaximumBuffers {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    MaximumBuffers : UInt32
 
     /**
      * Maximum size of the file used to log events, in megabytes, or zero for no size
@@ -217,12 +196,8 @@ class EVENT_TRACE_PROPERTIES_V2 extends Win32Struct {
      * whether you are using the maximum file size parameter. Therefore, if you specify
      * 100MB as the maximum file size for the trace file in the system drive, you need
      * to have 300MB of free space on the drive.
-     * @type {Integer}
      */
-    MaximumFileSize {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    MaximumFileSize : UInt32
 
     /**
      * Logging flags for the event tracing session. You use this member to specify
@@ -243,12 +218,8 @@ class EVENT_TRACE_PROPERTIES_V2 extends Win32Struct {
      * If a consumer begins processing real-time events, the events in the playback
      * file are consumed first. After all events in the playback file are consumed, the
      * session will begin reporting new events.
-     * @type {Integer}
      */
-    LogFileMode {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    LogFileMode : UInt32
 
     /**
      * How often, in seconds, any non-empty trace buffer are flushed.
@@ -269,12 +240,8 @@ class EVENT_TRACE_PROPERTIES_V2 extends Win32Struct {
      * - For buffered (circular in-memory) sessions, **FlushTimer** is not used. The
      *   trace data will only be flushed on-demand (i.e. flushed to a file via
      *   [ControlTrace](/windows/win32/api/evntrace/nf-evntrace-controltracea)).
-     * @type {Integer}
      */
-    FlushTimer {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    FlushTimer : UInt32
 
     /**
      * A _system_ logger session may set **EnableFlags** to indicate which
@@ -285,97 +252,48 @@ class EVENT_TRACE_PROPERTIES_V2 extends Win32Struct {
      * > that are started using the `EVENT_TRACE_SYSTEM_LOGGER_MODE` logger mode flag,
      * > the `KERNEL_LOGGER_NAME` session name, the `SystemTraceControlGuid` session
      * > GUID, or the `GlobalLoggerGuid` session GUID.
-     * @type {EVENT_TRACE_FLAG}
      */
-    EnableFlags {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    EnableFlags : EVENT_TRACE_FLAG
 
-    /**
-     * @type {Integer}
-     */
-    AgeLimit {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    FlushThreshold {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
-    }
+    AgeLimit : Int32
 
     /**
      * On output, the number of buffers allocated for the event tracing session's
      * buffer pool.
-     * @type {Integer}
      */
-    NumberOfBuffers {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    NumberOfBuffers : UInt32
 
     /**
      * On output, the number of buffers that are allocated but unused in the event
      * tracing session's buffer pool.
-     * @type {Integer}
      */
-    FreeBuffers {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    FreeBuffers : UInt32
 
     /**
      * On output, the number of events that were not recorded.
-     * @type {Integer}
      */
-    EventsLost {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    EventsLost : UInt32
 
     /**
      * On output, the number of buffers written.
-     * @type {Integer}
      */
-    BuffersWritten {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    BuffersWritten : UInt32
 
     /**
      * On output, the number of buffers that could not be written to the log file.
-     * @type {Integer}
      */
-    LogBuffersLost {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    LogBuffersLost : UInt32
 
     /**
      * On output, the number of buffers that could not be delivered in real-time to the
      * consumer.
-     * @type {Integer}
      */
-    RealTimeBuffersLost {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    RealTimeBuffersLost : UInt32
 
     /**
      * On output, the thread identifier for the event tracing session.
-     * @type {HANDLE}
      */
-    LoggerThreadId {
-        get {
-            if(!this.HasProp("__LoggerThreadId"))
-                this.__LoggerThreadId := HANDLE(96, this)
-            return this.__LoggerThreadId
-        }
-    }
+    LoggerThreadId : HANDLE
 
     /**
      * Offset (in bytes) from the start of this structure's allocated memory to
@@ -408,12 +326,8 @@ class EVENT_TRACE_PROPERTIES_V2 extends Win32Struct {
      * Trace files are created using the default security descriptor, meaning that the
      * log file will have the same ACL as the parent directory. If you want access to
      * the files restricted, create a parent directory with the appropriate ACLs.
-     * @type {Integer}
      */
-    LogFileNameOffset {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    LogFileNameOffset : UInt32
 
     /**
      * Offset (in bytes) from the start of the structure's allocated memory to the
@@ -435,22 +349,15 @@ class EVENT_TRACE_PROPERTIES_V2 extends Win32Struct {
      * **Windows 2000:** Session names are case-sensitive. As a result, sessions with
      * names differing only in case are allowed. However, to reduce confusion, you
      * should make sure your session names are unique.
-     * @type {Integer}
      */
-    LoggerNameOffset {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
+    LoggerNameOffset : UInt32
 
     /**
      * This bitfield backs the following members:
      * - VersionNumber
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -459,24 +366,11 @@ class EVENT_TRACE_PROPERTIES_V2 extends Win32Struct {
         get => (this._bitfield >> 0) & 0xFF
         set => this._bitfield := ((value & 0xFF) << 0) | (this._bitfield & ~(0xFF << 0))
     }
-
-    /**
-     * @type {Integer}
-     */
-    V2Control {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
-
     /**
      * The number of filters that the **FilterDesc** points to. This should be zero
      * unless configuring a system-wide private logger.
-     * @type {Integer}
      */
-    FilterDescCount {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
-    }
+    FilterDescCount : UInt32
 
     /**
      * Supported
@@ -492,12 +386,8 @@ class EVENT_TRACE_PROPERTIES_V2 extends Win32Struct {
      * **EVENT_FILTER_DESCRIPTOR** structure.
      * 
      * This should be NULL unless configuring a system-wide private logger.
-     * @type {Pointer<EVENT_FILTER_DESCRIPTOR>}
      */
-    FilterDesc {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    FilterDesc : EVENT_FILTER_DESCRIPTOR.Ptr
 
     /**
      * This bitfield backs the following members:
@@ -505,12 +395,9 @@ class EVENT_TRACE_PROPERTIES_V2 extends Win32Struct {
      * - QpcDeltaTracking
      * - LargeMdlPages
      * - ExcludeKernelStack
-     * @type {Integer}
      */
-    _bitfield1 {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    _bitfield1 : Int32
+
 
     /**
      * @type {Integer}
@@ -543,12 +430,10 @@ class EVENT_TRACE_PROPERTIES_V2 extends Win32Struct {
         get => (this._bitfield1 >> 3) & 0x1
         set => this._bitfield1 := ((value & 0x1) << 3) | (this._bitfield1 & ~(0x1 << 3))
     }
-
-    /**
-     * @type {Integer}
-     */
-    V2Options {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
+    static __New() {
+        DefineProp(this.Prototype, 'FlushThreshold', { type: Int32, offset: 76 })
+        DefineProp(this.Prototype, 'V2Control', { type: UInt32, offset: 120 })
+        DefineProp(this.Prototype, 'V2Options', { type: Int64, offset: 136 })
+        this.DeleteProp("__New")
     }
 }

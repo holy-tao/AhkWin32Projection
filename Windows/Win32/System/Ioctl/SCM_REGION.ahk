@@ -1,107 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class SCM_REGION extends Win32Struct {
-    static sizeof => 80
+export default struct SCM_REGION {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NfitHandle : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NfitHandle {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    LogicalDeviceGuid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    LogicalDeviceGuid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    AddressRangeType : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    AddressRangeType {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    AssociatedId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AssociatedId {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Length : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    StartingDPA : Int64
 
-    /**
-     * @type {Integer}
-     */
-    StartingDPA {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    BaseSPA : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BaseSPA {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    SPAOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SPAOffset {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    RegionOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    RegionOffset {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
 }

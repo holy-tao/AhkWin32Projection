@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The INTERNET_DIAGNOSTIC_SOCKET_INFO structure is returned by the InternetQueryOption function when the INTERNET_OPTION_DIAGNOSTIC_SOCKET_INFO flag is passed to it together with a handle to an HTTP Request.
@@ -9,37 +8,23 @@
  * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-internet_diagnostic_socket_info
  * @namespace Windows.Win32.Networking.WinInet
  */
-class INTERNET_DIAGNOSTIC_SOCKET_INFO extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct INTERNET_DIAGNOSTIC_SOCKET_INFO {
+    #StructPack 8
 
     /**
      * Descriptor that identifies the socket associated with the specified HTTP Request.
-     * @type {Pointer}
      */
-    Socket {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Socket : IntPtr
 
     /**
      * The address of the port at which the HTTP Request and response was received.
-     * @type {Integer}
      */
-    SourcePort {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SourcePort : UInt32
 
     /**
      * The address of the port at which the response was sent.
-     * @type {Integer}
      */
-    DestPort {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    DestPort : UInt32
 
     /**
      * <table>
@@ -88,10 +73,7 @@ class INTERNET_DIAGNOSTIC_SOCKET_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Flags : UInt32
+
 }

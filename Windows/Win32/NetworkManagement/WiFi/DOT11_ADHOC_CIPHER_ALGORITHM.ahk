@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies a cipher algorithm used to encrypt and decrypt information on an ad hoc network.
@@ -31,7 +30,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/adhoc/ne-adhoc-dot11_adhoc_cipher_algorithm
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_ADHOC_CIPHER_ALGORITHM extends Win32Enum {
+export default struct DOT11_ADHOC_CIPHER_ALGORITHM {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The cipher algorithm specified is invalid.

@@ -1,26 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains address information for a service. The structure can accommodate many types of interprocess communications (IPC) mechanisms and their address forms, including remote procedure calls (RPC), named pipes, and sockets.
  * @see https://learn.microsoft.com/windows/win32/api/nspapi/ns-nspapi-service_address
  * @namespace Windows.Win32.Networking.WinSock
  */
-class SERVICE_ADDRESS extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct SERVICE_ADDRESS {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The address family to which the socket address pointed to by <b>lpAddress</b> member belongs.
-     * @type {Integer}
      */
-    dwAddressType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwAddressType : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -63,54 +56,35 @@ class SERVICE_ADDRESS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwAddressFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwAddressFlags : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The size, in bytes, of the address.
-     * @type {Integer}
      */
-    dwAddressLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwAddressLength : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Reserved for future use. Must be zero.
-     * @type {Integer}
      */
-    dwPrincipalLength {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwPrincipalLength : UInt32
 
     /**
      * Type: <b>BYTE*</b>
      * 
      * A pointer to a socket address of the appropriate type.
-     * @type {Pointer<Integer>}
      */
-    lpAddress {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpAddress : IntPtr
 
     /**
      * Type: <b>BYTE*</b>
      * 
      * Reserved for future use. Must be <b>NULL</b>.
-     * @type {Pointer<Integer>}
      */
-    lpPrincipal {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpPrincipal : IntPtr
+
 }

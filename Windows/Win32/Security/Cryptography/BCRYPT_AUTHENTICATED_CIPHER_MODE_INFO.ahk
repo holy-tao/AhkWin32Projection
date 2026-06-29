@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used with the BCryptEncrypt and BCryptDecrypt functions to contain additional information related to authenticated cipher modes.
@@ -8,65 +7,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_authenticated_cipher_mode_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO extends Win32Struct {
-    static sizeof => 88
-
-    static packingSize => 8
+export default struct BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure. Do not set this field directly. Use the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcrypt_init_auth_mode_info">BCRYPT_INIT_AUTH_MODE_INFO</a> macro instead.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * The version number of the structure.   The only supported value is <b>BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO_VERSION</b>. Do not set this field directly. Use the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcrypt_init_auth_mode_info">BCRYPT_INIT_AUTH_MODE_INFO</a> macro instead.
-     * @type {Integer}
      */
-    dwInfoVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwInfoVersion : UInt32
 
     /**
      * A pointer to a buffer that contains a nonce. The Microsoft algorithm providers for <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Advanced Encryption Standard</a> (AES) require a nonce for the Counter with CBC-MAC (CCM) and Galois/Counter Mode (GCM) chaining modes, and will return an error if none is present. If a nonce is not used, this member must be set to <b>NULL</b>.
-     * @type {Pointer<Integer>}
      */
-    pbNonce {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pbNonce : IntPtr
 
     /**
      * The size, in bytes, of the buffer pointed to by the <b>pbNonce</b> member.
      * 	If a nonce is not used, this member must be set to zero.
-     * @type {Integer}
      */
-    cbNonce {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cbNonce : UInt32
 
     /**
      * A pointer to a buffer that contains the authenticated data.  This is data that will be included in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">Message Authentication Code</a> (MAC) but not encrypted.  If there is no authenticated data, this member must be set to <b>NULL</b>.
-     * @type {Pointer<Integer>}
      */
-    pbAuthData {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pbAuthData : IntPtr
 
     /**
      * The size, in bytes, of the buffer pointed to by the <b>pbAuthData</b> member.  If there is no authenticated data, this member must be set to zero.
-     * @type {Integer}
      */
-    cbAuthData {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    cbAuthData : UInt32
 
     /**
      * A pointer to a buffer.
@@ -104,21 +77,13 @@ class BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO extends Win32Struct {
      *  
      * 
      * If there is no tag, this member must be set to <b>NULL</b>.
-     * @type {Pointer<Integer>}
      */
-    pbTag {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pbTag : IntPtr
 
     /**
      * The size, in bytes, of the <b>pbTag</b> buffer. The buffer must be long enough to include the whole authentication tag.  Some authentication modes, such as CCM and GCM, support checking against a tag with multiple lengths.  To obtain the valid authentication tag lengths use <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> to query the <b>BCRYPT_AUTH_TAG_LENGTH</b> property.  If there is no tag, this member must be set to zero.
-     * @type {Integer}
      */
-    cbTag {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    cbTag : UInt32
 
     /**
      * A pointer to a buffer that stores the partially computed MAC between calls to <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptencrypt">BCryptEncrypt</a> and <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdecrypt">BCryptDecrypt</a> when chaining encryption or decryption.
@@ -128,21 +93,13 @@ class BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO extends Win32Struct {
      * This buffer must be supplied by the caller and must be at least as large as the maximum length of an authentication tag for the cipher you are using. To get the valid authentication tag lengths, use <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> to query the <b>BCRYPT_AUTH_TAG_LENGTH</b> property.
      * 
      * If <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptencrypt">BCryptEncrypt</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdecrypt">BCryptDecrypt</a> calls are not being chained, this member must be set to <b>NULL</b>.
-     * @type {Pointer<Integer>}
      */
-    pbMacContext {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pbMacContext : IntPtr
 
     /**
      * The size, in bytes, of the buffer pointed to by the <b>pbMacContext</b> member.  If <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptencrypt">BCryptEncrypt</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdecrypt">BCryptDecrypt</a> calls are not being chained, this member must be set to zero.
-     * @type {Integer}
      */
-    cbMacContext {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    cbMacContext : UInt32
 
     /**
      * The length, in bytes, of additional authenticated data (AAD) to be used by the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptencrypt">BCryptEncrypt</a> and <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdecrypt">BCryptDecrypt</a> functions.  This member is used only  when chaining calls.
@@ -154,12 +111,8 @@ class BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  During the chaining sequence, this member is maintained internally and must not be changed or the value of the computed MAC will be corrupted.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    cbAAD {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    cbAAD : UInt32
 
     /**
      * The length, in bytes, of the payload data that was encrypted or decrypted.  This member is used only when chaining calls.
@@ -171,12 +124,8 @@ class BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  During the chaining sequence, this member is maintained internally and must not be changed or the value of the computed MAC will be corrupted.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    cbData {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    cbData : Int64
 
     /**
      * This flag is used when chaining <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptencrypt">BCryptEncrypt</a> or <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdecrypt">BCryptDecrypt</a> function calls.  If calls are not being chained, this member must be set to zero.
@@ -227,15 +176,7 @@ class BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    dwFlags : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 88
-    }
 }

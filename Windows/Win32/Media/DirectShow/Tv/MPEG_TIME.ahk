@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MPEG_TIME structure represents a time of day, or a duration.
@@ -10,35 +9,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-mpeg_time
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class MPEG_TIME extends Win32Struct {
-    static sizeof => 3
-
-    static packingSize => 1
+export default struct MPEG_TIME {
+    #StructPack 1
 
     /**
      * Specifies the hours. The value can range from 0 to 23, inclusive.
-     * @type {Integer}
      */
-    Hours {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Hours : Int8
 
     /**
      * Specifies the minutes. The value can range from 0 to 59, inclusive.
-     * @type {Integer}
      */
-    Minutes {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Minutes : Int8
 
     /**
      * Specifies the seconds. The value can range from 0 to 59, inclusive.
-     * @type {Integer}
      */
-    Seconds {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    Seconds : Int8
+
 }

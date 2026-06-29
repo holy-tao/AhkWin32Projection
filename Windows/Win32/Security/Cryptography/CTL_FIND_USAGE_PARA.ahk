@@ -1,27 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CTL_USAGE.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
-#Include .\CERT_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CTL_USAGE.ahk" { CTL_USAGE }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\CERT_INFO.ahk" { CERT_INFO }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * A member of the CTL_FIND_SUBJECT_PARA structure and it is used by CertFindCTLInStore.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ctl_find_usage_para
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CTL_FIND_USAGE_PARA extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct CTL_FIND_USAGE_PARA {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_usage">CTL_USAGE</a> structure that includes a sequence of object identifiers to be matched when finding a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate trust list</a> (CTL). 
@@ -32,15 +26,8 @@ class CTL_FIND_USAGE_PARA extends Win32Struct {
      * A found CTL must contain all the usage object identifiers specified by the <b>SubjectUsage</b> member.
      * 
      * If the <b>cUsageIdentifier</b> member of this structure is zero, a CTL with any usage can be a match.
-     * @type {CTL_USAGE}
      */
-    SubjectUsage {
-        get {
-            if(!this.HasProp("__SubjectUsage"))
-                this.__SubjectUsage := CTL_USAGE(8, this)
-            return this.__SubjectUsage
-        }
-    }
+    SubjectUsage : CTL_USAGE
 
     /**
      * Specified to restrict a search to a particular signer CTL list. Normally the <b>ListIdentifier</b> member will be zero, indicating that any <b>ListIdentifier</b> can be matched. If it is not zero, this <b>ListIdentifier</b> and the <b>ListIdentifier</b> in a CTL must match. 
@@ -51,15 +38,8 @@ class CTL_FIND_USAGE_PARA extends Win32Struct {
      * To match only CTLs that have no <b>ListIdentifier</b> the <b>cbData</b> member of <b>ListIdentifier</b> is set to CTL_FIND_NO_LIST_ID_CBDATA.
      * 
      * A CTL uses a <b>ListIdentifier</b> to distinguish among multiple CTLs created by the same issuer with the same <b>SubjectUsage</b>.
-     * @type {CRYPT_INTEGER_BLOB}
      */
-    ListIdentifier {
-        get {
-            if(!this.HasProp("__ListIdentifier"))
-                this.__ListIdentifier := CRYPT_INTEGER_BLOB(24, this)
-            return this.__ListIdentifier
-        }
-    }
+    ListIdentifier : CRYPT_INTEGER_BLOB
 
     /**
      * A pointer to a 
@@ -72,15 +52,7 @@ class CTL_FIND_USAGE_PARA extends Win32Struct {
      * 
      * The CertEncodingType of the signer is obtained from the <i>dwMsgAndCertEncodingType</i> parameter of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfindctlinstore">CertFindCTLInStore</a>.
-     * @type {Pointer<CERT_INFO>}
      */
-    pSigner {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pSigner : CERT_INFO.Ptr
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 48
-    }
 }

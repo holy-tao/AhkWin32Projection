@@ -1,34 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWICBitmapCodecInfo.ahk
-#Include .\IWICBitmapEncoder.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWICBitmapCodecInfo.ahk" { IWICBitmapCodecInfo }
+#Import ".\IWICBitmapEncoder.ahk" { IWICBitmapEncoder }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Exposes methods that provide information about an encoder.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicbitmapencoderinfo
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class IWICBitmapEncoderInfo extends IWICBitmapCodecInfo {
-
-    static sizeof => A_PtrSize
+export default struct IWICBitmapEncoderInfo extends IWICBitmapCodecInfo {
     /**
      * The interface identifier for IWICBitmapEncoderInfo
      * @type {Guid}
      */
-    static IID => Guid("{94c9b4ee-a09f-4f92-8a1e-4a9bce7e76fb}")
+    static IID := Guid("{94c9b4ee-a09f-4f92-8a1e-4a9bce7e76fb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 23
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWICBitmapEncoderInfo interfaces
+    */
+    struct Vtbl extends IWICBitmapCodecInfo.Vtbl {
+        CreateInstance : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateInstance"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWICBitmapEncoderInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a new IWICBitmapEncoder instance.
@@ -40,5 +48,25 @@ class IWICBitmapEncoderInfo extends IWICBitmapCodecInfo {
     CreateInstance() {
         result := ComCall(23, this, "ptr*", &ppIBitmapEncoder := 0, "HRESULT")
         return IWICBitmapEncoder(ppIBitmapEncoder)
+    }
+
+    Query(iid) {
+        if (IWICBitmapEncoderInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateInstance := CallbackCreate(GetMethod(implObj, "CreateInstance"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateInstance)
     }
 }

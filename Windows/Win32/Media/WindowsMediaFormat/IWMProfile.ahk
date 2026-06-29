@@ -1,35 +1,62 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IWMStreamConfig.ahk
-#Include .\IWMMutualExclusion.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWMMutualExclusion.ahk" { IWMMutualExclusion }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWMStreamConfig.ahk" { IWMStreamConfig }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WMT_VERSION.ahk" { WMT_VERSION }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMProfile interface is the primary interface for a profile object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmprofile
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMProfile extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMProfile extends IUnknown {
     /**
      * The interface identifier for IWMProfile
      * @type {Guid}
      */
-    static IID => Guid("{96406bdb-2b2b-11d3-b36b-00c04f6108ff}")
+    static IID := Guid("{96406bdb-2b2b-11d3-b36b-00c04f6108ff}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMProfile interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetVersion               : IntPtr
+        GetName                  : IntPtr
+        SetName                  : IntPtr
+        GetDescription           : IntPtr
+        SetDescription           : IntPtr
+        GetStreamCount           : IntPtr
+        GetStream                : IntPtr
+        GetStreamByNumber        : IntPtr
+        RemoveStream             : IntPtr
+        RemoveStreamByNumber     : IntPtr
+        AddStream                : IntPtr
+        ReconfigStream           : IntPtr
+        CreateNewStream          : IntPtr
+        GetMutualExclusionCount  : IntPtr
+        GetMutualExclusion       : IntPtr
+        RemoveMutualExclusion    : IntPtr
+        AddMutualExclusion       : IntPtr
+        CreateNewMutualExclusion : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetVersion", "GetName", "SetName", "GetDescription", "SetDescription", "GetStreamCount", "GetStream", "GetStreamByNumber", "RemoveStream", "RemoveStreamByNumber", "AddStream", "ReconfigStream", "CreateNewStream", "GetMutualExclusionCount", "GetMutualExclusion", "RemoveMutualExclusion", "AddMutualExclusion", "CreateNewMutualExclusion"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMProfile.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetVersion method retrieves the version number of the Windows Media Format SDK used to create the profile.
@@ -554,7 +581,7 @@ class IWMProfile extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile-createnewstream
      */
     CreateNewStream(guidStreamType) {
-        result := ComCall(15, this, "ptr", guidStreamType, "ptr*", &ppConfig := 0, "HRESULT")
+        result := ComCall(15, this, Guid.Ptr, guidStreamType, "ptr*", &ppConfig := 0, "HRESULT")
         return IWMStreamConfig(ppConfig)
     }
 
@@ -695,5 +722,59 @@ class IWMProfile extends IUnknown {
     CreateNewMutualExclusion() {
         result := ComCall(20, this, "ptr*", &ppME := 0, "HRESULT")
         return IWMMutualExclusion(ppME)
+    }
+
+    Query(iid) {
+        if (IWMProfile.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetVersion := CallbackCreate(GetMethod(implObj, "GetVersion"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 3)
+        this.vtbl.SetName := CallbackCreate(GetMethod(implObj, "SetName"), flags, 2)
+        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 3)
+        this.vtbl.SetDescription := CallbackCreate(GetMethod(implObj, "SetDescription"), flags, 2)
+        this.vtbl.GetStreamCount := CallbackCreate(GetMethod(implObj, "GetStreamCount"), flags, 2)
+        this.vtbl.GetStream := CallbackCreate(GetMethod(implObj, "GetStream"), flags, 3)
+        this.vtbl.GetStreamByNumber := CallbackCreate(GetMethod(implObj, "GetStreamByNumber"), flags, 3)
+        this.vtbl.RemoveStream := CallbackCreate(GetMethod(implObj, "RemoveStream"), flags, 2)
+        this.vtbl.RemoveStreamByNumber := CallbackCreate(GetMethod(implObj, "RemoveStreamByNumber"), flags, 2)
+        this.vtbl.AddStream := CallbackCreate(GetMethod(implObj, "AddStream"), flags, 2)
+        this.vtbl.ReconfigStream := CallbackCreate(GetMethod(implObj, "ReconfigStream"), flags, 2)
+        this.vtbl.CreateNewStream := CallbackCreate(GetMethod(implObj, "CreateNewStream"), flags, 3)
+        this.vtbl.GetMutualExclusionCount := CallbackCreate(GetMethod(implObj, "GetMutualExclusionCount"), flags, 2)
+        this.vtbl.GetMutualExclusion := CallbackCreate(GetMethod(implObj, "GetMutualExclusion"), flags, 3)
+        this.vtbl.RemoveMutualExclusion := CallbackCreate(GetMethod(implObj, "RemoveMutualExclusion"), flags, 2)
+        this.vtbl.AddMutualExclusion := CallbackCreate(GetMethod(implObj, "AddMutualExclusion"), flags, 2)
+        this.vtbl.CreateNewMutualExclusion := CallbackCreate(GetMethod(implObj, "CreateNewMutualExclusion"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetVersion)
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.SetName)
+        CallbackFree(this.vtbl.GetDescription)
+        CallbackFree(this.vtbl.SetDescription)
+        CallbackFree(this.vtbl.GetStreamCount)
+        CallbackFree(this.vtbl.GetStream)
+        CallbackFree(this.vtbl.GetStreamByNumber)
+        CallbackFree(this.vtbl.RemoveStream)
+        CallbackFree(this.vtbl.RemoveStreamByNumber)
+        CallbackFree(this.vtbl.AddStream)
+        CallbackFree(this.vtbl.ReconfigStream)
+        CallbackFree(this.vtbl.CreateNewStream)
+        CallbackFree(this.vtbl.GetMutualExclusionCount)
+        CallbackFree(this.vtbl.GetMutualExclusion)
+        CallbackFree(this.vtbl.RemoveMutualExclusion)
+        CallbackFree(this.vtbl.AddMutualExclusion)
+        CallbackFree(this.vtbl.CreateNewMutualExclusion)
     }
 }

@@ -1,99 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
  */
-class CTAPCBOR_HYBRID_STORAGE_LINKED_DATA extends Win32Struct {
-    static sizeof => 80
+export default struct CTAPCBOR_HYBRID_STORAGE_LINKED_DATA {
+    #StructPack 8
 
-    static packingSize => 8
+    dwVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbContactId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbContactId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    pbContactId : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbContactId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    cbLinkId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbLinkId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    pbLinkId : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbLinkId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    cbLinkSecret : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbLinkSecret {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    pbLinkSecret : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbLinkSecret {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    cbPublicKey : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbPublicKey {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    pbPublicKey : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbPublicKey {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pwszAuthenticatorName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszAuthenticatorName {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    wEncodedTunnelServerDomain : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wEncodedTunnelServerDomain {
-        get => NumGet(this, 72, "ushort")
-        set => NumPut("ushort", value, this, 72)
-    }
 }

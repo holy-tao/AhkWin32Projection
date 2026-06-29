@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\QOS_OBJECT_HDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\QOS_OBJECT_HDR.ahk" { QOS_OBJECT_HDR }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The QOS_FRIENDLY_NAME traffic control object associates a friendly name with flow.
@@ -10,31 +10,19 @@
  * @see https://learn.microsoft.com/windows/win32/api/qosobjs/ns-qosobjs-qos_friendly_name
  * @namespace Windows.Win32.NetworkManagement.QoS
  */
-class QOS_FRIENDLY_NAME extends Win32Struct {
-    static sizeof => 520
-
-    static packingSize => 4
+export default struct QOS_FRIENDLY_NAME {
+    #StructPack 4
 
     /**
      * The QOS object 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos/ns-qos-qos_object_hdr">QOS_OBJECT_HDR</a>. The object type for this traffic control object should be 
      * <b>QOS_OBJECT_FRIENDLY_NAME</b>.
-     * @type {QOS_OBJECT_HDR}
      */
-    ObjectHdr {
-        get {
-            if(!this.HasProp("__ObjectHdr"))
-                this.__ObjectHdr := QOS_OBJECT_HDR(0, this)
-            return this.__ObjectHdr
-        }
-    }
+    ObjectHdr : QOS_OBJECT_HDR
 
     /**
      * Name to be associated with the flow.
-     * @type {String}
      */
-    FriendlyName {
-        get => StrGet(this.ptr + 8, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 255, "UTF-16")
-    }
+    FriendlyName : WCHAR[256]
+
 }

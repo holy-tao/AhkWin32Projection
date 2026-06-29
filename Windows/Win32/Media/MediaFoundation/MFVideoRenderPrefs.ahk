@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains flags that define how the enhanced video renderer (EVR) displays the video.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/evr/ne-evr-mfvideorenderprefs
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFVideoRenderPrefs extends Win32Enum {
+export default struct MFVideoRenderPrefs {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * If this flag is set, the EVR does not draw the border color. By default, the EVR draws a border on areas of the destination rectangle that have no video. See <a href="https://docs.microsoft.com/windows/desktop/api/evr/nf-evr-imfvideodisplaycontrol-setbordercolor">IMFVideoDisplayControl::SetBorderColor</a>.

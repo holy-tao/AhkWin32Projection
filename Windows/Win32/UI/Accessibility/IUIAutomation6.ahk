@@ -1,34 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomation5.ahk
-#Include .\IUIAutomationEventHandlerGroup.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ConnectionRecoveryBehaviorOptions.ahk" { ConnectionRecoveryBehaviorOptions }
+#Import ".\CoalesceEventsOptions.ahk" { CoalesceEventsOptions }
+#Import ".\IUIAutomationCacheRequest.ahk" { IUIAutomationCacheRequest }
+#Import ".\IUIAutomationActiveTextPositionChangedEventHandler.ahk" { IUIAutomationActiveTextPositionChangedEventHandler }
+#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
+#Import ".\IUIAutomation5.ahk" { IUIAutomation5 }
+#Import ".\IUIAutomationEventHandlerGroup.ahk" { IUIAutomationEventHandlerGroup }
+#Import ".\TreeScope.ahk" { TreeScope }
 
 /**
  * Extends the IUIAutomation5 interface to expose additional methods for controlling Microsoft UI Automation functionality.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomation6
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IUIAutomation6 extends IUIAutomation5 {
-
-    static sizeof => A_PtrSize
+export default struct IUIAutomation6 extends IUIAutomation5 {
     /**
      * The interface identifier for IUIAutomation6
      * @type {Guid}
      */
-    static IID => Guid("{aae072da-29e3-413d-87a7-192dbf81ed10}")
+    static IID := Guid("{aae072da-29e3-413d-87a7-192dbf81ed10}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 70
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAutomation6 interfaces
+    */
+    struct Vtbl extends IUIAutomation5.Vtbl {
+        CreateEventHandlerGroup                     : IntPtr
+        AddEventHandlerGroup                        : IntPtr
+        RemoveEventHandlerGroup                     : IntPtr
+        get_ConnectionRecoveryBehavior              : IntPtr
+        put_ConnectionRecoveryBehavior              : IntPtr
+        get_CoalesceEvents                          : IntPtr
+        put_CoalesceEvents                          : IntPtr
+        AddActiveTextPositionChangedEventHandler    : IntPtr
+        RemoveActiveTextPositionChangedEventHandler : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateEventHandlerGroup", "AddEventHandlerGroup", "RemoveEventHandlerGroup", "get_ConnectionRecoveryBehavior", "put_ConnectionRecoveryBehavior", "get_CoalesceEvents", "put_CoalesceEvents", "AddActiveTextPositionChangedEventHandler", "RemoveActiveTextPositionChangedEventHandler"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAutomation6.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ConnectionRecoveryBehaviorOptions} 
@@ -123,7 +145,7 @@ class IUIAutomation6 extends IUIAutomation5 {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation6-put_connectionrecoverybehavior
      */
     put_ConnectionRecoveryBehavior(_connectionRecoveryBehaviorOptions) {
-        result := ComCall(74, this, "int", _connectionRecoveryBehaviorOptions, "HRESULT")
+        result := ComCall(74, this, ConnectionRecoveryBehaviorOptions, _connectionRecoveryBehaviorOptions, "HRESULT")
         return result
     }
 
@@ -160,7 +182,7 @@ class IUIAutomation6 extends IUIAutomation5 {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation6-put_coalesceevents
      */
     put_CoalesceEvents(_coalesceEventsOptions) {
-        result := ComCall(76, this, "int", _coalesceEventsOptions, "HRESULT")
+        result := ComCall(76, this, CoalesceEventsOptions, _coalesceEventsOptions, "HRESULT")
         return result
     }
 
@@ -193,7 +215,7 @@ class IUIAutomation6 extends IUIAutomation5 {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation6-addactivetextpositionchangedeventhandler
      */
     AddActiveTextPositionChangedEventHandler(element, scope, cacheRequest, handler) {
-        result := ComCall(77, this, "ptr", element, "int", scope, "ptr", cacheRequest, "ptr", handler, "HRESULT")
+        result := ComCall(77, this, "ptr", element, TreeScope, scope, "ptr", cacheRequest, "ptr", handler, "HRESULT")
         return result
     }
 
@@ -226,5 +248,41 @@ class IUIAutomation6 extends IUIAutomation5 {
     RemoveActiveTextPositionChangedEventHandler(element, handler) {
         result := ComCall(78, this, "ptr", element, "ptr", handler, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUIAutomation6.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateEventHandlerGroup := CallbackCreate(GetMethod(implObj, "CreateEventHandlerGroup"), flags, 2)
+        this.vtbl.AddEventHandlerGroup := CallbackCreate(GetMethod(implObj, "AddEventHandlerGroup"), flags, 3)
+        this.vtbl.RemoveEventHandlerGroup := CallbackCreate(GetMethod(implObj, "RemoveEventHandlerGroup"), flags, 3)
+        this.vtbl.get_ConnectionRecoveryBehavior := CallbackCreate(GetMethod(implObj, "get_ConnectionRecoveryBehavior"), flags, 2)
+        this.vtbl.put_ConnectionRecoveryBehavior := CallbackCreate(GetMethod(implObj, "put_ConnectionRecoveryBehavior"), flags, 2)
+        this.vtbl.get_CoalesceEvents := CallbackCreate(GetMethod(implObj, "get_CoalesceEvents"), flags, 2)
+        this.vtbl.put_CoalesceEvents := CallbackCreate(GetMethod(implObj, "put_CoalesceEvents"), flags, 2)
+        this.vtbl.AddActiveTextPositionChangedEventHandler := CallbackCreate(GetMethod(implObj, "AddActiveTextPositionChangedEventHandler"), flags, 5)
+        this.vtbl.RemoveActiveTextPositionChangedEventHandler := CallbackCreate(GetMethod(implObj, "RemoveActiveTextPositionChangedEventHandler"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateEventHandlerGroup)
+        CallbackFree(this.vtbl.AddEventHandlerGroup)
+        CallbackFree(this.vtbl.RemoveEventHandlerGroup)
+        CallbackFree(this.vtbl.get_ConnectionRecoveryBehavior)
+        CallbackFree(this.vtbl.put_ConnectionRecoveryBehavior)
+        CallbackFree(this.vtbl.get_CoalesceEvents)
+        CallbackFree(this.vtbl.put_CoalesceEvents)
+        CallbackFree(this.vtbl.AddActiveTextPositionChangedEventHandler)
+        CallbackFree(this.vtbl.RemoveActiveTextPositionChangedEventHandler)
     }
 }

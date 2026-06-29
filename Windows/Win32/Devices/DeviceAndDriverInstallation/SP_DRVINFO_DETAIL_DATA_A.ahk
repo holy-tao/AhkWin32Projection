@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * An SP_DRVINFO_DETAIL_DATA structure contains detailed information about a particular driver information structure. (ANSI)
@@ -69,42 +69,25 @@
  * @charset ANSI
  * @architecture X64, Arm64
  */
-class SP_DRVINFO_DETAIL_DATA_A extends Win32Struct {
-    static sizeof => 808
-
-    static packingSize => 8
+export default struct SP_DRVINFO_DETAIL_DATA_A {
+    #StructPack 8
 
     /**
      * The size, in bytes, of the SP_DRVINFO_DETAIL_DATA structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Date of the INF file for this driver.
-     * @type {FILETIME}
      */
-    InfDate {
-        get {
-            if(!this.HasProp("__InfDate"))
-                this.__InfDate := FILETIME(4, this)
-            return this.__InfDate
-        }
-    }
+    InfDate : FILETIME
 
     /**
      * The offset, in characters, from the beginning of the <b>HardwareID</b> buffer where the CompatIDs list begins.
      * 
      * This value can also be used to determine whether there is a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/hardware-ids">hardware ID</a> that precedes the CompatIDs list. If this value is greater than 1, the first string in the <b>HardwareID</b> buffer is the hardware ID. If this value is less than or equal to 1, there is no hardware ID.
-     * @type {Integer}
      */
-    CompatIDsOffset {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    CompatIDsOffset : UInt32
 
     /**
      * The length, in characters, of the CompatIDs list starting at offset <b>CompatIDsOffset</b> from the beginning of the <b>HardwareID</b> buffer. 
@@ -112,48 +95,28 @@ class SP_DRVINFO_DETAIL_DATA_A extends Win32Struct {
      * If <b>CompatIDsLength</b> is nonzero, the CompatIDs list contains one or more NULL-terminated strings with an additional NULL character at the end of the list.
      * 
      * If <b>CompatIDsLength</b> is zero, the CompatIDs list is empty. In that case, there is no additional NULL character at the end of the list.
-     * @type {Integer}
      */
-    CompatIDsLength {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    CompatIDsLength : UInt32
 
     /**
      * Reserved. For internal use only.
-     * @type {Pointer}
      */
-    Reserved {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Reserved : IntPtr
 
     /**
      * A NULL-terminated string that contains the name of the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/inf-ddinstall-section">INF DDInstall section</a> for this driver. This must be the basic <i>DDInstall</i> section name, such as <b>InstallSec</b>, without any OS/architecture-specific extensions.
-     * @type {String}
      */
-    SectionName {
-        get => StrGet(this.ptr + 32, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 32, 255, "UTF-8")
-    }
+    SectionName : CHAR[256]
 
     /**
      * A NULL-terminated string that contains the full-qualified name of the INF file for this driver.
-     * @type {String}
      */
-    InfFileName {
-        get => StrGet(this.ptr + 288, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 288, 259, "UTF-8")
-    }
+    InfFileName : CHAR[260]
 
     /**
      * A NULL-terminated string that describes the driver.
-     * @type {String}
      */
-    DrvDescription {
-        get => StrGet(this.ptr + 548, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 548, 255, "UTF-8")
-    }
+    DrvDescription : CHAR[256]
 
     /**
      * A buffer that contains a list of IDs (a single <a href="https://docs.microsoft.com/windows-hardware/drivers/install/hardware-ids">hardware ID</a> followed by a list of <a href="https://docs.microsoft.com/windows-hardware/drivers/install/compatible-ids">compatible IDs</a>). These IDs correspond to the hardware ID and compatible IDs in the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/inf-models-section">INF Models section</a>. 
@@ -163,15 +126,7 @@ class SP_DRVINFO_DETAIL_DATA_A extends Win32Struct {
      * If the hardware ID exists (that is, if <b>CompatIDsOffset</b> is greater than one), this single NULL-terminated string is found at the beginning of the buffer. 
      * 
      * If the CompatIDs list is not empty (that is, if <b>CompatIDsLength</b> is not zero), the CompatIDs list starts at offset <b>CompatIDsOffset</b> from the beginning of this buffer, and is terminated with an additional NULL character at the end of the list.
-     * @type {String}
      */
-    HardwareID {
-        get => StrGet(this.ptr + 804, 0, "UTF-8")
-        set => StrPut(value, this.ptr + 804, 0, "UTF-8")
-    }
+    HardwareID : CHAR[1]
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 808
-    }
 }

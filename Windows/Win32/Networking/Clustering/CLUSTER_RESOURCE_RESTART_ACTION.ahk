@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * CLUSTER_RESOURCE_RESTART_ACTION (msclus.h) is used by the RestartAction resource common property to specify the cluster service's action if the resource fails.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_resource_restart_action
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUSTER_RESOURCE_RESTART_ACTION extends Win32Enum {
+export default struct CLUSTER_RESOURCE_RESTART_ACTION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Do not restart the resource after a failure.

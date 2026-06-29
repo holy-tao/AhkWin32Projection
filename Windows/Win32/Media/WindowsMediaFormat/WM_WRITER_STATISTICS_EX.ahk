@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The WM_WRITER_STATISTICS_EX structure is used by IWMWriterAdvanced3::GetStatisticsEx to obtain extended writer statistics.
@@ -10,71 +9,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wm_writer_statistics_ex
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class WM_WRITER_STATISTICS_EX extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct WM_WRITER_STATISTICS_EX {
+    #StructPack 4
 
     /**
      * <b>DWORD</b> containing the bit rate plus any overhead.
-     * @type {Integer}
      */
-    dwBitratePlusOverhead {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwBitratePlusOverhead : UInt32
 
     /**
      * <b>DWORD</b> containing the current rate at which samples are dropped in the queue in order to reduce demands on the CPU.
-     * @type {Integer}
      */
-    dwCurrentSampleDropRateInQueue {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwCurrentSampleDropRateInQueue : UInt32
 
     /**
      * <b>DWORD</b> containing the current rate at which samples are dropped in the codec. Samples can be dropped when they contain little new data. To prevent this from happening, call <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmwriteradvanced2-setinputsetting">IWMWriterAdvanced2::SetInputSetting</a> to set the g_wszFixedFrameRate setting to <b>TRUE</b>.
-     * @type {Integer}
      */
-    dwCurrentSampleDropRateInCodec {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwCurrentSampleDropRateInCodec : UInt32
 
     /**
      * <b>DWORD</b> containing the current rate at which samples are dropped in the multiplexer because they arrived late or overflowed the buffer window.
-     * @type {Integer}
      */
-    dwCurrentSampleDropRateInMultiplexer {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwCurrentSampleDropRateInMultiplexer : UInt32
 
     /**
      * <b>DWORD</b> containing the total number of samples dropped in the queue.
-     * @type {Integer}
      */
-    dwTotalSampleDropsInQueue {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwTotalSampleDropsInQueue : UInt32
 
     /**
      * <b>DWORD</b> containing the total number of samples dropped in the codec.
-     * @type {Integer}
      */
-    dwTotalSampleDropsInCodec {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwTotalSampleDropsInCodec : UInt32
 
     /**
      * <b>DWORD</b> containing the total number of samples dropped in the multiplexer.
-     * @type {Integer}
      */
-    dwTotalSampleDropsInMultiplexer {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwTotalSampleDropsInMultiplexer : UInt32
+
 }

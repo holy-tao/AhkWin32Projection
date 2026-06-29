@@ -1,25 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains three vertex indices for accessing a vertex buffer.
  * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/ns-wcsplugin-gamutshelltriangle
  * @namespace Windows.Win32.UI.ColorSystem
  */
-class GamutShellTriangle extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct GamutShellTriangle {
+    #StructPack 4
 
     /**
      * An array of three vertex indices that are used for accessing a vertex buffer.
-     * @type {Array<Integer>}
      */
-    aVertexIndex {
-        get {
-            if(!this.HasProp("__aVertexIndexProxyArray"))
-                this.__aVertexIndexProxyArray := Win32FixedArray(this.ptr + 0, 3, Primitive, "uint")
-            return this.__aVertexIndexProxyArray
-        }
-    }
+    aVertexIndex : UInt32[3]
+
 }

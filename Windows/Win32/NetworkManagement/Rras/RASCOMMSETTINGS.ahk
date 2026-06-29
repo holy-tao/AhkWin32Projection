@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class RASCOMMSETTINGS extends Win32Struct {
-    static sizeof => 8
+export default struct RASCOMMSETTINGS {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    bParity : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bParity {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    bStop : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bStop {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    bByteSize : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bByteSize {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    bAlign : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bAlign {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
 }

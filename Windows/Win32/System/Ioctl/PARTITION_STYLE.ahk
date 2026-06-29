@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents the format of a partition.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-partition_style
  * @namespace Windows.Win32.System.Ioctl
  */
-class PARTITION_STYLE extends Win32Enum {
+export default struct PARTITION_STYLE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Master boot record (MBR) format. This corresponds to standard *AT-style* MBR partitions.

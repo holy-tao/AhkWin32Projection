@@ -1,99 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class CONFIGURATION_INFORMATION extends Win32Struct {
-    static sizeof => 40
+export default struct CONFIGURATION_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
+    DiskCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DiskCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    FloppyCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FloppyCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    CdRomCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CdRomCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    TapeCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TapeCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ScsiPortCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ScsiPortCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    SerialCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SerialCount {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ParallelCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ParallelCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    AtDiskPrimaryAddressClaimed : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    AtDiskPrimaryAddressClaimed {
-        get => NumGet(this, 28, "char")
-        set => NumPut("char", value, this, 28)
-    }
+    AtDiskSecondaryAddressClaimed : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    AtDiskSecondaryAddressClaimed {
-        get => NumGet(this, 29, "char")
-        set => NumPut("char", value, this, 29)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    MediumChangerCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MediumChangerCount {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
 }

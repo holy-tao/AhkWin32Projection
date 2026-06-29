@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the dimensions of a viewport.
@@ -8,62 +7,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_viewport
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_VIEWPORT extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct D3D12_VIEWPORT {
+    #StructPack 4
 
     /**
      * X position of the left hand side of the viewport.
-     * @type {Float}
      */
-    TopLeftX {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    TopLeftX : Float32
 
     /**
      * Y position of the top of the viewport.
-     * @type {Float}
      */
-    TopLeftY {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    TopLeftY : Float32
 
     /**
      * Width of the viewport.
-     * @type {Float}
      */
-    Width {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    Width : Float32
 
     /**
      * Height of the viewport.
-     * @type {Float}
      */
-    Height {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    Height : Float32
 
     /**
      * Minimum depth of the viewport. Ranges between 0 and 1.
-     * @type {Float}
      */
-    MinDepth {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
+    MinDepth : Float32
 
     /**
      * Maximum depth of the viewport. Ranges between 0 and 1.
-     * @type {Float}
      */
-    MaxDepth {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
-    }
+    MaxDepth : Float32
+
 }

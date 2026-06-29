@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITfMouseSink.ahk" { ITfMouseSink }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfRangeACP.ahk" { ITfRangeACP }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITfMouseTrackerACP interface is implemented by an application to support mouse event sinks.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfmousetrackeracp
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfMouseTrackerACP extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfMouseTrackerACP extends IUnknown {
     /**
      * The interface identifier for ITfMouseTrackerACP
      * @type {Guid}
      */
-    static IID => Guid("{3bdd78e2-c16e-47fd-b883-ce6facc1a208}")
+    static IID := Guid("{3bdd78e2-c16e-47fd-b883-ce6facc1a208}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfMouseTrackerACP interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AdviseMouseSink   : IntPtr
+        UnadviseMouseSink : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AdviseMouseSink", "UnadviseMouseSink"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfMouseTrackerACP.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfMouseTrackerACP::AdviseMouseSink method
@@ -85,5 +96,27 @@ class ITfMouseTrackerACP extends IUnknown {
     UnadviseMouseSink(dwCookie) {
         result := ComCall(4, this, "uint", dwCookie, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITfMouseTrackerACP.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AdviseMouseSink := CallbackCreate(GetMethod(implObj, "AdviseMouseSink"), flags, 4)
+        this.vtbl.UnadviseMouseSink := CallbackCreate(GetMethod(implObj, "UnadviseMouseSink"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AdviseMouseSink)
+        CallbackFree(this.vtbl.UnadviseMouseSink)
     }
 }

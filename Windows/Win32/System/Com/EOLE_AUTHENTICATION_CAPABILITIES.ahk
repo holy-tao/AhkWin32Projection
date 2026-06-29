@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The EOLE_AUTHENTICATION_CAPABILITIES (objidlbase.h) enumeration specifies various capabilities in CoInitializeSecurity and IClientSecurity::SetBlanket.
@@ -12,7 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/ne-objidlbase-eole_authentication_capabilities
  * @namespace Windows.Win32.System.Com
  */
-class EOLE_AUTHENTICATION_CAPABILITIES extends Win32Enum {
+export default struct EOLE_AUTHENTICATION_CAPABILITIES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates that no capability flags are set.

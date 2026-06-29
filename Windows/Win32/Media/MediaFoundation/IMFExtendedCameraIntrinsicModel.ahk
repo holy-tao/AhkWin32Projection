@@ -1,32 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\MFExtendedCameraIntrinsic_IntrinsicModel.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MFCameraIntrinsic_DistortionModelType.ahk" { MFCameraIntrinsic_DistortionModelType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MFExtendedCameraIntrinsic_IntrinsicModel.ahk" { MFExtendedCameraIntrinsic_IntrinsicModel }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFExtendedCameraIntrinsicModel extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFExtendedCameraIntrinsicModel extends IUnknown {
     /**
      * The interface identifier for IMFExtendedCameraIntrinsicModel
      * @type {Guid}
      */
-    static IID => Guid("{5c595e64-4630-4231-855a-12842f733245}")
+    static IID := Guid("{5c595e64-4630-4231-855a-12842f733245}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFExtendedCameraIntrinsicModel interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetModel               : IntPtr
+        SetModel               : IntPtr
+        GetDistortionModelType : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetModel", "SetModel", "GetDistortionModelType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFExtendedCameraIntrinsicModel.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -34,7 +45,7 @@ class IMFExtendedCameraIntrinsicModel extends IUnknown {
      */
     GetModel() {
         pIntrinsicModel := MFExtendedCameraIntrinsic_IntrinsicModel()
-        result := ComCall(3, this, "ptr", pIntrinsicModel, "HRESULT")
+        result := ComCall(3, this, MFExtendedCameraIntrinsic_IntrinsicModel.Ptr, pIntrinsicModel, "HRESULT")
         return pIntrinsicModel
     }
 
@@ -44,7 +55,7 @@ class IMFExtendedCameraIntrinsicModel extends IUnknown {
      * @returns {HRESULT} 
      */
     SetModel(pIntrinsicModel) {
-        result := ComCall(4, this, "ptr", pIntrinsicModel, "HRESULT")
+        result := ComCall(4, this, MFExtendedCameraIntrinsic_IntrinsicModel.Ptr, pIntrinsicModel, "HRESULT")
         return result
     }
 
@@ -55,5 +66,29 @@ class IMFExtendedCameraIntrinsicModel extends IUnknown {
     GetDistortionModelType() {
         result := ComCall(5, this, "int*", &pDistortionModelType := 0, "HRESULT")
         return pDistortionModelType
+    }
+
+    Query(iid) {
+        if (IMFExtendedCameraIntrinsicModel.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetModel := CallbackCreate(GetMethod(implObj, "GetModel"), flags, 2)
+        this.vtbl.SetModel := CallbackCreate(GetMethod(implObj, "SetModel"), flags, 2)
+        this.vtbl.GetDistortionModelType := CallbackCreate(GetMethod(implObj, "GetDistortionModelType"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetModel)
+        CallbackFree(this.vtbl.SetModel)
+        CallbackFree(this.vtbl.GetDistortionModelType)
     }
 }

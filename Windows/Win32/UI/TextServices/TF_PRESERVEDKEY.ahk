@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The TF_PRESERVEDKEY structure represents a preserved key.
@@ -8,26 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/msctf/ns-msctf-tf_preservedkey
  * @namespace Windows.Win32.UI.TextServices
  */
-class TF_PRESERVEDKEY extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct TF_PRESERVEDKEY {
+    #StructPack 4
 
     /**
      * Virtual key code of the keyboard shortcut.
-     * @type {Integer}
      */
-    uVKey {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    uVKey : UInt32
 
     /**
      * Modifies the preserved key. This can be zero or a combination of one or more of the <a href="https://docs.microsoft.com/windows/desktop/TSF/tf-mod--constants">TF_MOD_* constants</a>.
-     * @type {Integer}
      */
-    uModifiers {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    uModifiers : UInt32
+
 }

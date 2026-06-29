@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMPacketSize.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMPacketSize.ahk" { IWMPacketSize }
 
 /**
  * The IWMPacketSize2 interface provides methods to set and retrieve the minimum packet size for a profile.An IWMPacketSize2 interface can be obtained for either a profile object, a reader object, or a synchronous reader object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmpacketsize2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMPacketSize2 extends IWMPacketSize {
-
-    static sizeof => A_PtrSize
+export default struct IWMPacketSize2 extends IWMPacketSize {
     /**
      * The interface identifier for IWMPacketSize2
      * @type {Guid}
      */
-    static IID => Guid("{8bfc2b9e-b646-4233-a877-1c6a079669dc}")
+    static IID := Guid("{8bfc2b9e-b646-4233-a877-1c6a079669dc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPacketSize2 interfaces
+    */
+    struct Vtbl extends IWMPacketSize.Vtbl {
+        GetMinPacketSize : IntPtr
+        SetMinPacketSize : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetMinPacketSize", "SetMinPacketSize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPacketSize2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetMinPacketSize method retrieves the minimum packet size for files created with the profile. If you use this method from an interface belonging to a reader or synchronous reader object, the retrieved minimum packet size will always be zero.
@@ -52,5 +61,27 @@ class IWMPacketSize2 extends IWMPacketSize {
     SetMinPacketSize(dwMinPacketSize) {
         result := ComCall(6, this, "uint", dwMinPacketSize, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPacketSize2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetMinPacketSize := CallbackCreate(GetMethod(implObj, "GetMinPacketSize"), flags, 2)
+        this.vtbl.SetMinPacketSize := CallbackCreate(GetMethod(implObj, "SetMinPacketSize"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetMinPacketSize)
+        CallbackFree(this.vtbl.SetMinPacketSize)
     }
 }

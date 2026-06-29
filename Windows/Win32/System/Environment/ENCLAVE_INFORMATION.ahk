@@ -1,16 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ENCLAVE_IDENTITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ENCLAVE_IDENTITY.ahk" { ENCLAVE_IDENTITY }
 
 /**
  * Contains information about the currently executing enclave.
  * @see https://learn.microsoft.com/windows/win32/api/ntenclv/ns-ntenclv-enclave_information
  * @namespace Windows.Win32.System.Environment
  */
-class ENCLAVE_INFORMATION extends Win32Struct {
-    static sizeof => 176
-
-    static packingSize => 8
+export default struct ENCLAVE_INFORMATION {
+    #StructPack 8
 
     /**
      * The architecture type of the enclave.
@@ -43,49 +40,27 @@ class ENCLAVE_INFORMATION extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    EnclaveType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    EnclaveType : UInt32
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Reserved : UInt32
 
     /**
      * A pointer to the base address of the enclave.
-     * @type {Pointer<Void>}
      */
-    BaseAddress {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    BaseAddress : IntPtr
 
     /**
      * The size of the enclave, in bytes.
-     * @type {Pointer}
      */
-    Size {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Size : IntPtr
 
     /**
      * The identity of the primary module of an enclave.
-     * @type {ENCLAVE_IDENTITY}
      */
-    Identity {
-        get {
-            if(!this.HasProp("__Identity"))
-                this.__Identity := ENCLAVE_IDENTITY(24, this)
-            return this.__Identity
-        }
-    }
+    Identity : ENCLAVE_IDENTITY
+
 }

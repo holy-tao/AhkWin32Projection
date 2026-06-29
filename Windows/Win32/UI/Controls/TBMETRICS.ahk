@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the metrics of a toolbar that are used to shrink or expand toolbar items.
@@ -12,21 +11,15 @@
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-tbmetrics
  * @namespace Windows.Win32.UI.Controls
  */
-class TBMETRICS extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 4
+export default struct TBMETRICS {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Size of the <b>TBMETRICS</b> structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -53,81 +46,49 @@ class TBMETRICS extends Win32Struct {
      * <td>Retrieve the <b>cxButtonSpacing</b> and <b>cyButtonSpacing</b> values.</td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwMask {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwMask : UInt32
 
     /**
      * Type: <b>int</b>
      * 
      * Width of the padding inside the toolbar buttons, between the content and the edge of the button.
-     * @type {Integer}
      */
-    cxPad {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    cxPad : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * Height of the padding inside the toolbar buttons, between the content and the edge of the button.
-     * @type {Integer}
      */
-    cyPad {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    cyPad : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * Width of the toolbar. Not used.
-     * @type {Integer}
      */
-    cxBarPad {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    cxBarPad : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * Height of the toolbar. Not used.
-     * @type {Integer}
      */
-    cyBarPad {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    cyBarPad : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * Width of the space between toolbar buttons.
-     * @type {Integer}
      */
-    cxButtonSpacing {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    cxButtonSpacing : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * Height of the space between toolbar buttons.
-     * @type {Integer}
      */
-    cyButtonSpacing {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    cyButtonSpacing : Int32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 32
-    }
 }

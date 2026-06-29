@@ -1,35 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IEnumSyncChangeUnits.ahk
-#Include .\ISyncKnowledge.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
+#Import ".\IEnumSyncChangeUnits.ahk" { IEnumSyncChangeUnits }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SYNC_VERSION.ahk" { SYNC_VERSION }
 
 /**
  * Represents a change to an item.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isyncchange
  * @namespace Windows.Win32.System.WindowsSync
  */
-class ISyncChange extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISyncChange extends IUnknown {
     /**
      * The interface identifier for ISyncChange
      * @type {Guid}
      */
-    static IID => Guid("{a1952beb-0f6b-4711-b136-01da85b968a6}")
+    static IID := Guid("{a1952beb-0f6b-4711-b136-01da85b968a6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISyncChange interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetOwnerReplicaId    : IntPtr
+        GetRootItemId        : IntPtr
+        GetChangeVersion     : IntPtr
+        GetCreationVersion   : IntPtr
+        GetFlags             : IntPtr
+        GetWorkEstimate      : IntPtr
+        GetChangeUnits       : IntPtr
+        GetMadeWithKnowledge : IntPtr
+        GetLearnedKnowledge  : IntPtr
+        SetWorkEstimate      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetOwnerReplicaId", "GetRootItemId", "GetChangeVersion", "GetCreationVersion", "GetFlags", "GetWorkEstimate", "GetChangeUnits", "GetMadeWithKnowledge", "GetLearnedKnowledge", "SetWorkEstimate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISyncChange.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the ID of the replica that originated this change.
@@ -225,7 +243,7 @@ class ISyncChange extends IUnknown {
     GetChangeVersion(pbCurrentReplicaId, pVersion) {
         pbCurrentReplicaIdMarshal := pbCurrentReplicaId is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, pbCurrentReplicaIdMarshal, pbCurrentReplicaId, "ptr", pVersion, "HRESULT")
+        result := ComCall(5, this, pbCurrentReplicaIdMarshal, pbCurrentReplicaId, SYNC_VERSION.Ptr, pVersion, "HRESULT")
         return result
     }
 
@@ -291,7 +309,7 @@ class ISyncChange extends IUnknown {
     GetCreationVersion(pbCurrentReplicaId, pVersion) {
         pbCurrentReplicaIdMarshal := pbCurrentReplicaId is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, pbCurrentReplicaIdMarshal, pbCurrentReplicaId, "ptr", pVersion, "HRESULT")
+        result := ComCall(6, this, pbCurrentReplicaIdMarshal, pbCurrentReplicaId, SYNC_VERSION.Ptr, pVersion, "HRESULT")
         return result
     }
 
@@ -471,5 +489,43 @@ class ISyncChange extends IUnknown {
     SetWorkEstimate(dwWork) {
         result := ComCall(12, this, "uint", dwWork, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISyncChange.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetOwnerReplicaId := CallbackCreate(GetMethod(implObj, "GetOwnerReplicaId"), flags, 3)
+        this.vtbl.GetRootItemId := CallbackCreate(GetMethod(implObj, "GetRootItemId"), flags, 3)
+        this.vtbl.GetChangeVersion := CallbackCreate(GetMethod(implObj, "GetChangeVersion"), flags, 3)
+        this.vtbl.GetCreationVersion := CallbackCreate(GetMethod(implObj, "GetCreationVersion"), flags, 3)
+        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.GetWorkEstimate := CallbackCreate(GetMethod(implObj, "GetWorkEstimate"), flags, 2)
+        this.vtbl.GetChangeUnits := CallbackCreate(GetMethod(implObj, "GetChangeUnits"), flags, 2)
+        this.vtbl.GetMadeWithKnowledge := CallbackCreate(GetMethod(implObj, "GetMadeWithKnowledge"), flags, 2)
+        this.vtbl.GetLearnedKnowledge := CallbackCreate(GetMethod(implObj, "GetLearnedKnowledge"), flags, 2)
+        this.vtbl.SetWorkEstimate := CallbackCreate(GetMethod(implObj, "SetWorkEstimate"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetOwnerReplicaId)
+        CallbackFree(this.vtbl.GetRootItemId)
+        CallbackFree(this.vtbl.GetChangeVersion)
+        CallbackFree(this.vtbl.GetCreationVersion)
+        CallbackFree(this.vtbl.GetFlags)
+        CallbackFree(this.vtbl.GetWorkEstimate)
+        CallbackFree(this.vtbl.GetChangeUnits)
+        CallbackFree(this.vtbl.GetMadeWithKnowledge)
+        CallbackFree(this.vtbl.GetLearnedKnowledge)
+        CallbackFree(this.vtbl.SetWorkEstimate)
     }
 }

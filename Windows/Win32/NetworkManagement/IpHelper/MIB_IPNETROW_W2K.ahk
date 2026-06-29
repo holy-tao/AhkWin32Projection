@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * MIB_IPNETROW_W2K (ipmib.h) contains information for an Address Resolution Protocol (ARP) table entry for an IPv4 address.
@@ -8,57 +7,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipmib/ns-ipmib-mib_ipnetrow_w2k
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_IPNETROW_W2K extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct MIB_IPNETROW_W2K {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The index of the adapter.
-     * @type {Integer}
      */
-    dwIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwIndex : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The length, in bytes, of the physical address.
-     * @type {Integer}
      */
-    dwPhysAddrLen {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwPhysAddrLen : UInt32
 
     /**
      * Type: <b>BYTE[MAXLEN_PHYSADDR]</b>
      * 
      * The physical address.
-     * @type {Array<Integer>}
      */
-    bPhysAddr {
-        get {
-            if(!this.HasProp("__bPhysAddrProxyArray"))
-                this.__bPhysAddrProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "char")
-            return this.__bPhysAddrProxyArray
-        }
-    }
+    bPhysAddr : Int8[8]
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The IPv4 address.
-     * @type {Integer}
      */
-    dwAddr {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwAddr : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -117,10 +95,7 @@ class MIB_IPNETROW_W2K extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwType {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwType : UInt32
+
 }

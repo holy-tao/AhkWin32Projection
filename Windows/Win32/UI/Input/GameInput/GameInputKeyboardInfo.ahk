@@ -1,77 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\GameInputKeyboardKind.ahk
-#Include .\GameInputString.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GameInputString.ahk" { GameInputString }
+#Import ".\GameInputKeyboardKind.ahk" { GameInputKeyboardKind }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
  */
-class GameInputKeyboardInfo extends Win32Struct {
-    static sizeof => 40
+export default struct GameInputKeyboardInfo {
+    #StructPack 8
 
-    static packingSize => 8
+    kind : GameInputKeyboardKind
 
-    /**
-     * @type {GameInputKeyboardKind}
-     */
-    kind {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    layout : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    layout {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    keyCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    keyCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    functionKeyCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    functionKeyCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    maxSimultaneousKeys : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    maxSimultaneousKeys {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    platformType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    platformType {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    platformSubtype : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    platformSubtype {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    nativeLanguage : GameInputString.Ptr
 
-    /**
-     * @type {Pointer<GameInputString>}
-     */
-    nativeLanguage {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
 }

@@ -1,71 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSIDENTIFIER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSPROPERTY_VIDEOCOMPRESSION_GETINFO_S extends Win32Struct {
-    static sizeof => 40
+export default struct KSPROPERTY_VIDEOCOMPRESSION_GETINFO_S {
+    #StructPack 8
 
-    static packingSize => 8
+    Property : KSIDENTIFIER
 
-    /**
-     * @type {KSIDENTIFIER}
-     */
-    Property {
-        get {
-            if(!this.HasProp("__Property"))
-                this.__Property := KSIDENTIFIER(0, this)
-            return this.__Property
-        }
-    }
+    StreamIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StreamIndex {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    DefaultKeyFrameRate : Int32
 
-    /**
-     * @type {Integer}
-     */
-    DefaultKeyFrameRate {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    DefaultPFrameRate : Int32
 
-    /**
-     * @type {Integer}
-     */
-    DefaultPFrameRate {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    DefaultQuality : Int32
 
-    /**
-     * @type {Integer}
-     */
-    DefaultQuality {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    NumberOfQualitySettings : Int32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfQualitySettings {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    Capabilities : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Capabilities {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
 }

@@ -1,18 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\DEBUG_EVENT_CODE.ahk
-#Include .\EXCEPTION_DEBUG_INFO.ahk
-#Include .\EXCEPTION_RECORD.ahk
-#Include .\CREATE_THREAD_DEBUG_INFO.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
-#Include .\CREATE_PROCESS_DEBUG_INFO.ahk
-#Include .\EXIT_THREAD_DEBUG_INFO.ahk
-#Include .\EXIT_PROCESS_DEBUG_INFO.ahk
-#Include .\LOAD_DLL_DEBUG_INFO.ahk
-#Include .\UNLOAD_DLL_DEBUG_INFO.ahk
-#Include .\OUTPUT_DEBUG_STRING_INFO.ahk
-#Include .\RIP_INFO.ahk
-#Include .\RIP_INFO_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RIP_INFO_TYPE.ahk" { RIP_INFO_TYPE }
+#Import ".\LOAD_DLL_DEBUG_INFO.ahk" { LOAD_DLL_DEBUG_INFO }
+#Import ".\UNLOAD_DLL_DEBUG_INFO.ahk" { UNLOAD_DLL_DEBUG_INFO }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\DEBUG_EVENT_CODE.ahk" { DEBUG_EVENT_CODE }
+#Import ".\RIP_INFO.ahk" { RIP_INFO }
+#Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\OUTPUT_DEBUG_STRING_INFO.ahk" { OUTPUT_DEBUG_STRING_INFO }
+#Import ".\CREATE_THREAD_DEBUG_INFO.ahk" { CREATE_THREAD_DEBUG_INFO }
+#Import ".\EXCEPTION_DEBUG_INFO.ahk" { EXCEPTION_DEBUG_INFO }
+#Import ".\EXIT_THREAD_DEBUG_INFO.ahk" { EXIT_THREAD_DEBUG_INFO }
+#Import ".\EXCEPTION_RECORD.ahk" { EXCEPTION_RECORD }
+#Import ".\EXIT_PROCESS_DEBUG_INFO.ahk" { EXIT_PROCESS_DEBUG_INFO }
+#Import ".\CREATE_PROCESS_DEBUG_INFO.ahk" { CREATE_PROCESS_DEBUG_INFO }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Describes a debugging event.
@@ -22,123 +23,30 @@
  * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-debug_event
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class DEBUG_EVENT extends Win32Struct {
-    static sizeof => 176
+export default struct DEBUG_EVENT {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
-        static sizeof => 160
-        static packingSize => 8
+    struct _u {
+        Exception : EXCEPTION_DEBUG_INFO
 
-        /**
-         * @type {EXCEPTION_DEBUG_INFO}
-         */
-        Exception {
-            get {
-                if(!this.HasProp("__Exception"))
-                    this.__Exception := EXCEPTION_DEBUG_INFO(0, this)
-                return this.__Exception
-            }
-        }
-
-        /**
-         * @type {CREATE_THREAD_DEBUG_INFO}
-         */
-        CreateThread {
-            get {
-                if(!this.HasProp("__CreateThread"))
-                    this.__CreateThread := CREATE_THREAD_DEBUG_INFO(0, this)
-                return this.__CreateThread
-            }
-        }
-
-        /**
-         * @type {CREATE_PROCESS_DEBUG_INFO}
-         */
-        CreateProcessInfo {
-            get {
-                if(!this.HasProp("__CreateProcessInfo"))
-                    this.__CreateProcessInfo := CREATE_PROCESS_DEBUG_INFO(0, this)
-                return this.__CreateProcessInfo
-            }
-        }
-
-        /**
-         * @type {EXIT_THREAD_DEBUG_INFO}
-         */
-        ExitThread {
-            get {
-                if(!this.HasProp("__ExitThread"))
-                    this.__ExitThread := EXIT_THREAD_DEBUG_INFO(0, this)
-                return this.__ExitThread
-            }
-        }
-
-        /**
-         * @type {EXIT_PROCESS_DEBUG_INFO}
-         */
-        ExitProcess {
-            get {
-                if(!this.HasProp("__ExitProcess"))
-                    this.__ExitProcess := EXIT_PROCESS_DEBUG_INFO(0, this)
-                return this.__ExitProcess
-            }
-        }
-
-        /**
-         * @type {LOAD_DLL_DEBUG_INFO}
-         */
-        LoadDll {
-            get {
-                if(!this.HasProp("__LoadDll"))
-                    this.__LoadDll := LOAD_DLL_DEBUG_INFO(0, this)
-                return this.__LoadDll
-            }
-        }
-
-        /**
-         * @type {UNLOAD_DLL_DEBUG_INFO}
-         */
-        UnloadDll {
-            get {
-                if(!this.HasProp("__UnloadDll"))
-                    this.__UnloadDll := UNLOAD_DLL_DEBUG_INFO(0, this)
-                return this.__UnloadDll
-            }
-        }
-
-        /**
-         * @type {OUTPUT_DEBUG_STRING_INFO}
-         */
-        DebugString {
-            get {
-                if(!this.HasProp("__DebugString"))
-                    this.__DebugString := OUTPUT_DEBUG_STRING_INFO(0, this)
-                return this.__DebugString
-            }
-        }
-
-        /**
-         * @type {RIP_INFO}
-         */
-        RipInfo {
-            get {
-                if(!this.HasProp("__RipInfo"))
-                    this.__RipInfo := RIP_INFO(0, this)
-                return this.__RipInfo
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'CreateThread', { type: CREATE_THREAD_DEBUG_INFO, offset: 0 })
+            DefineProp(this.Prototype, 'CreateProcessInfo', { type: CREATE_PROCESS_DEBUG_INFO, offset: 0 })
+            DefineProp(this.Prototype, 'ExitThread', { type: EXIT_THREAD_DEBUG_INFO, offset: 0 })
+            DefineProp(this.Prototype, 'ExitProcess', { type: EXIT_PROCESS_DEBUG_INFO, offset: 0 })
+            DefineProp(this.Prototype, 'LoadDll', { type: LOAD_DLL_DEBUG_INFO, offset: 0 })
+            DefineProp(this.Prototype, 'UnloadDll', { type: UNLOAD_DLL_DEBUG_INFO, offset: 0 })
+            DefineProp(this.Prototype, 'DebugString', { type: OUTPUT_DEBUG_STRING_INFO, offset: 0 })
+            DefineProp(this.Prototype, 'RipInfo', { type: RIP_INFO, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
     /**
      * Type: <b>DWORD</b>
-     * @type {DEBUG_EVENT_CODE}
      */
-    dwDebugEventCode {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwDebugEventCode : DEBUG_EVENT_CODE
 
     /**
      * Type: <b>DWORD</b>
@@ -146,12 +54,8 @@ class DEBUG_EVENT extends Win32Struct {
      * The identifier of the process in which the debugging event occurred. A debugger uses this value to locate 
      *       the debugger's per-process structure. These values are not necessarily small integers that can be used as table 
      *       indices.
-     * @type {Integer}
      */
-    dwProcessId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwProcessId : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -159,24 +63,14 @@ class DEBUG_EVENT extends Win32Struct {
      * The identifier of the thread in which the debugging event occurred. A debugger uses this value to locate 
      *       the debugger's per-thread structure. These values are not necessarily small integers that can be used as table 
      *       indices.
-     * @type {Integer}
      */
-    dwThreadId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwThreadId : UInt32
 
     /**
      * Any additional information relating to the debugging event. This union takes on the type and value 
      *       appropriate to the type of debugging event, as described in the <b>dwDebugEventCode</b> 
      *       member.
-     * @type {_u_e__Union}
      */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := DEBUG_EVENT._u_e__Union(16, this)
-            return this.__u
-        }
-    }
+    u : DEBUG_EVENT._u
+
 }

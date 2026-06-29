@@ -1,17 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_IPFORWARD_ROW2.ahk
-#Include ..\Ndis\NET_LUID_LH.ahk
-#Include .\IP_ADDRESS_PREFIX.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_INET.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_IN.ahk
-#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
-#Include ..\..\Networking\WinSock\IN_ADDR.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
-#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
-#Include ..\..\Networking\WinSock\SCOPE_ID.ahk
-#Include ..\..\Networking\WinSock\NL_ROUTE_PROTOCOL.ahk
-#Include ..\..\Networking\WinSock\NL_ROUTE_ORIGIN.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
+#Import "..\..\Networking\WinSock\SOCKADDR_INET.ahk" { SOCKADDR_INET }
+#Import "..\..\Networking\WinSock\SOCKADDR_IN.ahk" { SOCKADDR_IN }
+#Import ".\MIB_IPFORWARD_ROW2.ahk" { MIB_IPFORWARD_ROW2 }
+#Import ".\IP_ADDRESS_PREFIX.ahk" { IP_ADDRESS_PREFIX }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Networking\WinSock\NL_ROUTE_ORIGIN.ahk" { NL_ROUTE_ORIGIN }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
+#Import "..\..\Networking\WinSock\NL_ROUTE_PROTOCOL.ahk" { NL_ROUTE_PROTOCOL }
+#Import "..\..\Networking\WinSock\SOCKADDR_IN6.ahk" { SOCKADDR_IN6 }
+#Import "..\..\Networking\WinSock\SCOPE_ID.ahk" { SCOPE_ID }
+#Import "..\Ndis\NET_LUID_LH.ahk" { NET_LUID_LH }
+#Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Contains a table of IP route entries.
@@ -32,30 +33,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_ipforward_table2
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_IPFORWARD_TABLE2 extends Win32Struct {
-    static sizeof => 160
-
-    static packingSize => 8
+export default struct MIB_IPFORWARD_TABLE2 {
+    #StructPack 8
 
     /**
      * A value that specifies the number of IP route entries in the array.
-     * @type {Integer}
      */
-    NumEntries {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumEntries : UInt32
 
     /**
      * An array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipforward_row2">MIB_IPFORWARD_ROW2</a> structures containing IP route entries.
-     * @type {MIB_IPFORWARD_ROW2}
      */
-    Table {
-        get {
-            if(!this.HasProp("__TableProxyArray"))
-                this.__TableProxyArray := Win32FixedArray(this.ptr + 8, 1, MIB_IPFORWARD_ROW2, "")
-            return this.__TableProxyArray
-        }
-    }
+    Table : MIB_IPFORWARD_ROW2[1]
+
 }

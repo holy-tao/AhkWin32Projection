@@ -1,10 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IUIAutomationElementArray.ahk
-#Include .\IAccessible.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUIAutomationElementArray.ahk" { IUIAutomationElementArray }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IAccessible.ahk" { IAccessible }
 
 /**
  * Exposes methods and properties that enable Microsoft UI Automation clients to retrieve UI information from Microsoft Active Accessibility (MSAA) servers.
@@ -13,26 +15,56 @@
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationlegacyiaccessiblepattern
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IUIAutomationLegacyIAccessiblePattern extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIAutomationLegacyIAccessiblePattern extends IUnknown {
     /**
      * The interface identifier for IUIAutomationLegacyIAccessiblePattern
      * @type {Guid}
      */
-    static IID => Guid("{828055ad-355b-4435-86d5-3b51c14a9b1b}")
+    static IID := Guid("{828055ad-355b-4435-86d5-3b51c14a9b1b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAutomationLegacyIAccessiblePattern interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Select                      : IntPtr
+        DoDefaultAction             : IntPtr
+        SetValue                    : IntPtr
+        get_CurrentChildId          : IntPtr
+        get_CurrentName             : IntPtr
+        get_CurrentValue            : IntPtr
+        get_CurrentDescription      : IntPtr
+        get_CurrentRole             : IntPtr
+        get_CurrentState            : IntPtr
+        get_CurrentHelp             : IntPtr
+        get_CurrentKeyboardShortcut : IntPtr
+        GetCurrentSelection         : IntPtr
+        get_CurrentDefaultAction    : IntPtr
+        get_CachedChildId           : IntPtr
+        get_CachedName              : IntPtr
+        get_CachedValue             : IntPtr
+        get_CachedDescription       : IntPtr
+        get_CachedRole              : IntPtr
+        get_CachedState             : IntPtr
+        get_CachedHelp              : IntPtr
+        get_CachedKeyboardShortcut  : IntPtr
+        GetCachedSelection          : IntPtr
+        get_CachedDefaultAction     : IntPtr
+        GetIAccessible              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Select", "DoDefaultAction", "SetValue", "get_CurrentChildId", "get_CurrentName", "get_CurrentValue", "get_CurrentDescription", "get_CurrentRole", "get_CurrentState", "get_CurrentHelp", "get_CurrentKeyboardShortcut", "GetCurrentSelection", "get_CurrentDefaultAction", "get_CachedChildId", "get_CachedName", "get_CachedValue", "get_CachedDescription", "get_CachedRole", "get_CachedState", "get_CachedHelp", "get_CachedKeyboardShortcut", "GetCachedSelection", "get_CachedDefaultAction", "GetIAccessible"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAutomationLegacyIAccessiblePattern.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -226,8 +258,8 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentname
      */
     get_CurrentName() {
-        pszName := BSTR()
-        result := ComCall(7, this, "ptr", pszName, "HRESULT")
+        pszName := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pszName, "HRESULT")
         return pszName
     }
 
@@ -237,8 +269,8 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentvalue
      */
     get_CurrentValue() {
-        pszValue := BSTR()
-        result := ComCall(8, this, "ptr", pszValue, "HRESULT")
+        pszValue := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, pszValue, "HRESULT")
         return pszValue
     }
 
@@ -248,8 +280,8 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentdescription
      */
     get_CurrentDescription() {
-        pszDescription := BSTR()
-        result := ComCall(9, this, "ptr", pszDescription, "HRESULT")
+        pszDescription := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pszDescription, "HRESULT")
         return pszDescription
     }
 
@@ -279,8 +311,8 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currenthelp
      */
     get_CurrentHelp() {
-        pszHelp := BSTR()
-        result := ComCall(12, this, "ptr", pszHelp, "HRESULT")
+        pszHelp := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, pszHelp, "HRESULT")
         return pszHelp
     }
 
@@ -290,8 +322,8 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentkeyboardshortcut
      */
     get_CurrentKeyboardShortcut() {
-        pszKeyboardShortcut := BSTR()
-        result := ComCall(13, this, "ptr", pszKeyboardShortcut, "HRESULT")
+        pszKeyboardShortcut := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, pszKeyboardShortcut, "HRESULT")
         return pszKeyboardShortcut
     }
 
@@ -313,8 +345,8 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_currentdefaultaction
      */
     get_CurrentDefaultAction() {
-        pszDefaultAction := BSTR()
-        result := ComCall(15, this, "ptr", pszDefaultAction, "HRESULT")
+        pszDefaultAction := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, pszDefaultAction, "HRESULT")
         return pszDefaultAction
     }
 
@@ -336,8 +368,8 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedname
      */
     get_CachedName() {
-        pszName := BSTR()
-        result := ComCall(17, this, "ptr", pszName, "HRESULT")
+        pszName := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, pszName, "HRESULT")
         return pszName
     }
 
@@ -347,8 +379,8 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedvalue
      */
     get_CachedValue() {
-        pszValue := BSTR()
-        result := ComCall(18, this, "ptr", pszValue, "HRESULT")
+        pszValue := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, pszValue, "HRESULT")
         return pszValue
     }
 
@@ -358,8 +390,8 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cacheddescription
      */
     get_CachedDescription() {
-        pszDescription := BSTR()
-        result := ComCall(19, this, "ptr", pszDescription, "HRESULT")
+        pszDescription := BSTR.Owned()
+        result := ComCall(19, this, BSTR.Ptr, pszDescription, "HRESULT")
         return pszDescription
     }
 
@@ -389,8 +421,8 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedhelp
      */
     get_CachedHelp() {
-        pszHelp := BSTR()
-        result := ComCall(22, this, "ptr", pszHelp, "HRESULT")
+        pszHelp := BSTR.Owned()
+        result := ComCall(22, this, BSTR.Ptr, pszHelp, "HRESULT")
         return pszHelp
     }
 
@@ -400,8 +432,8 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cachedkeyboardshortcut
      */
     get_CachedKeyboardShortcut() {
-        pszKeyboardShortcut := BSTR()
-        result := ComCall(23, this, "ptr", pszKeyboardShortcut, "HRESULT")
+        pszKeyboardShortcut := BSTR.Owned()
+        result := ComCall(23, this, BSTR.Ptr, pszKeyboardShortcut, "HRESULT")
         return pszKeyboardShortcut
     }
 
@@ -423,8 +455,8 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationlegacyiaccessiblepattern-get_cacheddefaultaction
      */
     get_CachedDefaultAction() {
-        pszDefaultAction := BSTR()
-        result := ComCall(25, this, "ptr", pszDefaultAction, "HRESULT")
+        pszDefaultAction := BSTR.Owned()
+        result := ComCall(25, this, BSTR.Ptr, pszDefaultAction, "HRESULT")
         return pszDefaultAction
     }
 
@@ -440,5 +472,71 @@ class IUIAutomationLegacyIAccessiblePattern extends IUnknown {
     GetIAccessible() {
         result := ComCall(26, this, "ptr*", &ppAccessible := 0, "HRESULT")
         return IAccessible(ppAccessible)
+    }
+
+    Query(iid) {
+        if (IUIAutomationLegacyIAccessiblePattern.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Select := CallbackCreate(GetMethod(implObj, "Select"), flags, 2)
+        this.vtbl.DoDefaultAction := CallbackCreate(GetMethod(implObj, "DoDefaultAction"), flags, 1)
+        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 2)
+        this.vtbl.get_CurrentChildId := CallbackCreate(GetMethod(implObj, "get_CurrentChildId"), flags, 2)
+        this.vtbl.get_CurrentName := CallbackCreate(GetMethod(implObj, "get_CurrentName"), flags, 2)
+        this.vtbl.get_CurrentValue := CallbackCreate(GetMethod(implObj, "get_CurrentValue"), flags, 2)
+        this.vtbl.get_CurrentDescription := CallbackCreate(GetMethod(implObj, "get_CurrentDescription"), flags, 2)
+        this.vtbl.get_CurrentRole := CallbackCreate(GetMethod(implObj, "get_CurrentRole"), flags, 2)
+        this.vtbl.get_CurrentState := CallbackCreate(GetMethod(implObj, "get_CurrentState"), flags, 2)
+        this.vtbl.get_CurrentHelp := CallbackCreate(GetMethod(implObj, "get_CurrentHelp"), flags, 2)
+        this.vtbl.get_CurrentKeyboardShortcut := CallbackCreate(GetMethod(implObj, "get_CurrentKeyboardShortcut"), flags, 2)
+        this.vtbl.GetCurrentSelection := CallbackCreate(GetMethod(implObj, "GetCurrentSelection"), flags, 2)
+        this.vtbl.get_CurrentDefaultAction := CallbackCreate(GetMethod(implObj, "get_CurrentDefaultAction"), flags, 2)
+        this.vtbl.get_CachedChildId := CallbackCreate(GetMethod(implObj, "get_CachedChildId"), flags, 2)
+        this.vtbl.get_CachedName := CallbackCreate(GetMethod(implObj, "get_CachedName"), flags, 2)
+        this.vtbl.get_CachedValue := CallbackCreate(GetMethod(implObj, "get_CachedValue"), flags, 2)
+        this.vtbl.get_CachedDescription := CallbackCreate(GetMethod(implObj, "get_CachedDescription"), flags, 2)
+        this.vtbl.get_CachedRole := CallbackCreate(GetMethod(implObj, "get_CachedRole"), flags, 2)
+        this.vtbl.get_CachedState := CallbackCreate(GetMethod(implObj, "get_CachedState"), flags, 2)
+        this.vtbl.get_CachedHelp := CallbackCreate(GetMethod(implObj, "get_CachedHelp"), flags, 2)
+        this.vtbl.get_CachedKeyboardShortcut := CallbackCreate(GetMethod(implObj, "get_CachedKeyboardShortcut"), flags, 2)
+        this.vtbl.GetCachedSelection := CallbackCreate(GetMethod(implObj, "GetCachedSelection"), flags, 2)
+        this.vtbl.get_CachedDefaultAction := CallbackCreate(GetMethod(implObj, "get_CachedDefaultAction"), flags, 2)
+        this.vtbl.GetIAccessible := CallbackCreate(GetMethod(implObj, "GetIAccessible"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Select)
+        CallbackFree(this.vtbl.DoDefaultAction)
+        CallbackFree(this.vtbl.SetValue)
+        CallbackFree(this.vtbl.get_CurrentChildId)
+        CallbackFree(this.vtbl.get_CurrentName)
+        CallbackFree(this.vtbl.get_CurrentValue)
+        CallbackFree(this.vtbl.get_CurrentDescription)
+        CallbackFree(this.vtbl.get_CurrentRole)
+        CallbackFree(this.vtbl.get_CurrentState)
+        CallbackFree(this.vtbl.get_CurrentHelp)
+        CallbackFree(this.vtbl.get_CurrentKeyboardShortcut)
+        CallbackFree(this.vtbl.GetCurrentSelection)
+        CallbackFree(this.vtbl.get_CurrentDefaultAction)
+        CallbackFree(this.vtbl.get_CachedChildId)
+        CallbackFree(this.vtbl.get_CachedName)
+        CallbackFree(this.vtbl.get_CachedValue)
+        CallbackFree(this.vtbl.get_CachedDescription)
+        CallbackFree(this.vtbl.get_CachedRole)
+        CallbackFree(this.vtbl.get_CachedState)
+        CallbackFree(this.vtbl.get_CachedHelp)
+        CallbackFree(this.vtbl.get_CachedKeyboardShortcut)
+        CallbackFree(this.vtbl.GetCachedSelection)
+        CallbackFree(this.vtbl.get_CachedDefaultAction)
+        CallbackFree(this.vtbl.GetIAccessible)
     }
 }

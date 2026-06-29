@@ -1,306 +1,82 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDSCAPS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDSCAPS.ahk" { DDSCAPS }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDCAPS_DX1 extends Win32Struct {
-    static sizeof => 172
+export default struct DDCAPS_DX1 {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCaps {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwCaps2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCaps2 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwCKeyCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCKeyCaps {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwFXCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFXCaps {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwFXAlphaCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFXAlphaCaps {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwPalCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwPalCaps {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwSVCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSVCaps {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwAlphaBltConstBitDepths : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAlphaBltConstBitDepths {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwAlphaBltPixelBitDepths : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAlphaBltPixelBitDepths {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwAlphaBltSurfaceBitDepths : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAlphaBltSurfaceBitDepths {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwAlphaOverlayConstBitDepths : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAlphaOverlayConstBitDepths {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    dwAlphaOverlayPixelBitDepths : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAlphaOverlayPixelBitDepths {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwAlphaOverlaySurfaceBitDepths : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAlphaOverlaySurfaceBitDepths {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwZBufferBitDepths : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwZBufferBitDepths {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    dwVidMemTotal : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVidMemTotal {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    dwVidMemFree : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVidMemFree {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    dwMaxVisibleOverlays : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxVisibleOverlays {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    dwCurrVisibleOverlays : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCurrVisibleOverlays {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    dwNumFourCCCodes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNumFourCCCodes {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    dwAlignBoundarySrc : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAlignBoundarySrc {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    dwAlignSizeSrc : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAlignSizeSrc {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    dwAlignBoundaryDest : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAlignBoundaryDest {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    dwAlignSizeDest : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAlignSizeDest {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    dwAlignStrideAlign : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAlignStrideAlign {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    dwRops : UInt32[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    dwRops {
-        get {
-            if(!this.HasProp("__dwRopsProxyArray"))
-                this.__dwRopsProxyArray := Win32FixedArray(this.ptr + 100, 8, Primitive, "uint")
-            return this.__dwRopsProxyArray
-        }
-    }
+    ddsCaps : DDSCAPS
 
-    /**
-     * @type {DDSCAPS}
-     */
-    ddsCaps {
-        get {
-            if(!this.HasProp("__ddsCaps"))
-                this.__ddsCaps := DDSCAPS(132, this)
-            return this.__ddsCaps
-        }
-    }
+    dwMinOverlayStretch : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMinOverlayStretch {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    dwMaxOverlayStretch : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxOverlayStretch {
-        get => NumGet(this, 140, "uint")
-        set => NumPut("uint", value, this, 140)
-    }
+    dwMinLiveVideoStretch : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMinLiveVideoStretch {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
-    }
+    dwMaxLiveVideoStretch : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxLiveVideoStretch {
-        get => NumGet(this, 148, "uint")
-        set => NumPut("uint", value, this, 148)
-    }
+    dwMinHwCodecStretch : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMinHwCodecStretch {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
-    }
+    dwMaxHwCodecStretch : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxHwCodecStretch {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
-    }
+    dwReserved1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved1 {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
-    }
+    dwReserved2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved2 {
-        get => NumGet(this, 164, "uint")
-        set => NumPut("uint", value, this, 164)
-    }
+    dwReserved3 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved3 {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
-    }
 }

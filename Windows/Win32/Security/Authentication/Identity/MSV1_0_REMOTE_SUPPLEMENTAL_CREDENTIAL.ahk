@@ -1,67 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MSV1_0_CREDENTIAL_KEY.ahk
-#Include .\MSV1_0_CREDENTIAL_KEY_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MSV1_0_CREDENTIAL_KEY_TYPE.ahk" { MSV1_0_CREDENTIAL_KEY_TYPE }
+#Import ".\MSV1_0_CREDENTIAL_KEY.ahk" { MSV1_0_CREDENTIAL_KEY }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class MSV1_0_REMOTE_SUPPLEMENTAL_CREDENTIAL extends Win32Struct {
-    static sizeof => 40
+export default struct MSV1_0_REMOTE_SUPPLEMENTAL_CREDENTIAL {
+    #StructPack 4
 
-    static packingSize => 4
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    CredentialKey : MSV1_0_CREDENTIAL_KEY
 
-    /**
-     * @type {MSV1_0_CREDENTIAL_KEY}
-     */
-    CredentialKey {
-        get {
-            if(!this.HasProp("__CredentialKey"))
-                this.__CredentialKey := MSV1_0_CREDENTIAL_KEY(8, this)
-            return this.__CredentialKey
-        }
-    }
+    CredentialKeyType : MSV1_0_CREDENTIAL_KEY_TYPE
 
-    /**
-     * @type {MSV1_0_CREDENTIAL_KEY_TYPE}
-     */
-    CredentialKeyType {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    EncryptedCredsSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EncryptedCredsSize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    EncryptedCreds : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    EncryptedCreds {
-        get {
-            if(!this.HasProp("__EncryptedCredsProxyArray"))
-                this.__EncryptedCredsProxyArray := Win32FixedArray(this.ptr + 36, 1, Primitive, "char")
-            return this.__EncryptedCredsProxyArray
-        }
-    }
 }

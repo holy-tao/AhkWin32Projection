@@ -1,41 +1,70 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IHTMLElement.ahk
-#Include .\IHTMLStyleSheetsCollection.ahk
-#Include .\IHTMLStyleSheetRulesCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IHTMLStyleSheetsCollection.ahk" { IHTMLStyleSheetsCollection }
+#Import ".\IHTMLStyleSheetRulesCollection.ahk" { IHTMLStyleSheetRulesCollection }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLStyleSheet extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLStyleSheet extends IDispatch {
     /**
      * The interface identifier for IHTMLStyleSheet
      * @type {Guid}
      */
-    static IID => Guid("{3050f2e3-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f2e3-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for HTMLStyleSheet
      * @type {Guid}
      */
-    static CLSID => Guid("{3050f2e4-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{3050f2e4-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLStyleSheet interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_title            : IntPtr
+        get_title            : IntPtr
+        get_parentStyleSheet : IntPtr
+        get_owningElement    : IntPtr
+        put_disabled         : IntPtr
+        get_disabled         : IntPtr
+        get_readOnly         : IntPtr
+        get_imports          : IntPtr
+        put_href             : IntPtr
+        get_href             : IntPtr
+        get_type             : IntPtr
+        get_id               : IntPtr
+        addImport            : IntPtr
+        addRule              : IntPtr
+        removeImport         : IntPtr
+        removeRule           : IntPtr
+        put_media            : IntPtr
+        get_media            : IntPtr
+        put_cssText          : IntPtr
+        get_cssText          : IntPtr
+        get_rules            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_title", "get_title", "get_parentStyleSheet", "get_owningElement", "put_disabled", "get_disabled", "get_readOnly", "get_imports", "put_href", "get_href", "get_type", "get_id", "addImport", "addRule", "removeImport", "removeRule", "put_media", "get_media", "put_cssText", "get_cssText", "get_rules"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLStyleSheet.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -134,7 +163,7 @@ class IHTMLStyleSheet extends IDispatch {
     put_title(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -143,8 +172,8 @@ class IHTMLStyleSheet extends IDispatch {
      * @returns {BSTR} 
      */
     get_title() {
-        p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -172,7 +201,7 @@ class IHTMLStyleSheet extends IDispatch {
      * @returns {HRESULT} 
      */
     put_disabled(v) {
-        result := ComCall(11, this, "short", v, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -181,7 +210,7 @@ class IHTMLStyleSheet extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
-        result := ComCall(12, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -190,7 +219,7 @@ class IHTMLStyleSheet extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_readOnly() {
-        result := ComCall(13, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -211,7 +240,7 @@ class IHTMLStyleSheet extends IDispatch {
     put_href(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -220,8 +249,8 @@ class IHTMLStyleSheet extends IDispatch {
      * @returns {BSTR} 
      */
     get_href() {
-        p := BSTR()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(16, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -230,8 +259,8 @@ class IHTMLStyleSheet extends IDispatch {
      * @returns {BSTR} 
      */
     get_type() {
-        p := BSTR()
-        result := ComCall(17, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -240,8 +269,8 @@ class IHTMLStyleSheet extends IDispatch {
      * @returns {BSTR} 
      */
     get_id() {
-        p := BSTR()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -254,7 +283,7 @@ class IHTMLStyleSheet extends IDispatch {
     addImport(bstrURL, lIndex) {
         bstrURL := bstrURL is String ? BSTR.Alloc(bstrURL).Value : bstrURL
 
-        result := ComCall(19, this, "ptr", bstrURL, "int", lIndex, "int*", &plIndex := 0, "HRESULT")
+        result := ComCall(19, this, BSTR, bstrURL, "int", lIndex, "int*", &plIndex := 0, "HRESULT")
         return plIndex
     }
 
@@ -269,7 +298,7 @@ class IHTMLStyleSheet extends IDispatch {
         bstrSelector := bstrSelector is String ? BSTR.Alloc(bstrSelector).Value : bstrSelector
         bstrStyle := bstrStyle is String ? BSTR.Alloc(bstrStyle).Value : bstrStyle
 
-        result := ComCall(20, this, "ptr", bstrSelector, "ptr", bstrStyle, "int", lIndex, "int*", &plNewIndex := 0, "HRESULT")
+        result := ComCall(20, this, BSTR, bstrSelector, BSTR, bstrStyle, "int", lIndex, "int*", &plNewIndex := 0, "HRESULT")
         return plNewIndex
     }
 
@@ -301,7 +330,7 @@ class IHTMLStyleSheet extends IDispatch {
     put_media(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(23, this, "ptr", v, "HRESULT")
+        result := ComCall(23, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -310,8 +339,8 @@ class IHTMLStyleSheet extends IDispatch {
      * @returns {BSTR} 
      */
     get_media() {
-        p := BSTR()
-        result := ComCall(24, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(24, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -323,7 +352,7 @@ class IHTMLStyleSheet extends IDispatch {
     put_cssText(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(25, this, "ptr", v, "HRESULT")
+        result := ComCall(25, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -332,8 +361,8 @@ class IHTMLStyleSheet extends IDispatch {
      * @returns {BSTR} 
      */
     get_cssText() {
-        p := BSTR()
-        result := ComCall(26, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(26, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -344,5 +373,65 @@ class IHTMLStyleSheet extends IDispatch {
     get_rules() {
         result := ComCall(27, this, "ptr*", &p := 0, "HRESULT")
         return IHTMLStyleSheetRulesCollection(p)
+    }
+
+    Query(iid) {
+        if (IHTMLStyleSheet.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_title := CallbackCreate(GetMethod(implObj, "put_title"), flags, 2)
+        this.vtbl.get_title := CallbackCreate(GetMethod(implObj, "get_title"), flags, 2)
+        this.vtbl.get_parentStyleSheet := CallbackCreate(GetMethod(implObj, "get_parentStyleSheet"), flags, 2)
+        this.vtbl.get_owningElement := CallbackCreate(GetMethod(implObj, "get_owningElement"), flags, 2)
+        this.vtbl.put_disabled := CallbackCreate(GetMethod(implObj, "put_disabled"), flags, 2)
+        this.vtbl.get_disabled := CallbackCreate(GetMethod(implObj, "get_disabled"), flags, 2)
+        this.vtbl.get_readOnly := CallbackCreate(GetMethod(implObj, "get_readOnly"), flags, 2)
+        this.vtbl.get_imports := CallbackCreate(GetMethod(implObj, "get_imports"), flags, 2)
+        this.vtbl.put_href := CallbackCreate(GetMethod(implObj, "put_href"), flags, 2)
+        this.vtbl.get_href := CallbackCreate(GetMethod(implObj, "get_href"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.get_id := CallbackCreate(GetMethod(implObj, "get_id"), flags, 2)
+        this.vtbl.addImport := CallbackCreate(GetMethod(implObj, "addImport"), flags, 4)
+        this.vtbl.addRule := CallbackCreate(GetMethod(implObj, "addRule"), flags, 5)
+        this.vtbl.removeImport := CallbackCreate(GetMethod(implObj, "removeImport"), flags, 2)
+        this.vtbl.removeRule := CallbackCreate(GetMethod(implObj, "removeRule"), flags, 2)
+        this.vtbl.put_media := CallbackCreate(GetMethod(implObj, "put_media"), flags, 2)
+        this.vtbl.get_media := CallbackCreate(GetMethod(implObj, "get_media"), flags, 2)
+        this.vtbl.put_cssText := CallbackCreate(GetMethod(implObj, "put_cssText"), flags, 2)
+        this.vtbl.get_cssText := CallbackCreate(GetMethod(implObj, "get_cssText"), flags, 2)
+        this.vtbl.get_rules := CallbackCreate(GetMethod(implObj, "get_rules"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_title)
+        CallbackFree(this.vtbl.get_title)
+        CallbackFree(this.vtbl.get_parentStyleSheet)
+        CallbackFree(this.vtbl.get_owningElement)
+        CallbackFree(this.vtbl.put_disabled)
+        CallbackFree(this.vtbl.get_disabled)
+        CallbackFree(this.vtbl.get_readOnly)
+        CallbackFree(this.vtbl.get_imports)
+        CallbackFree(this.vtbl.put_href)
+        CallbackFree(this.vtbl.get_href)
+        CallbackFree(this.vtbl.get_type)
+        CallbackFree(this.vtbl.get_id)
+        CallbackFree(this.vtbl.addImport)
+        CallbackFree(this.vtbl.addRule)
+        CallbackFree(this.vtbl.removeImport)
+        CallbackFree(this.vtbl.removeRule)
+        CallbackFree(this.vtbl.put_media)
+        CallbackFree(this.vtbl.get_media)
+        CallbackFree(this.vtbl.put_cssText)
+        CallbackFree(this.vtbl.get_cssText)
+        CallbackFree(this.vtbl.get_rules)
     }
 }

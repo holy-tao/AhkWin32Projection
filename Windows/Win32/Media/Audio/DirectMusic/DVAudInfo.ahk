@@ -1,76 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
-class DVAudInfo extends Win32Struct {
-    static sizeof => 16
+export default struct DVAudInfo {
+    #StructPack 2
 
-    static packingSize => 2
+    bAudStyle : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    bAudStyle {
-        get {
-            if(!this.HasProp("__bAudStyleProxyArray"))
-                this.__bAudStyleProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "char")
-            return this.__bAudStyleProxyArray
-        }
-    }
+    bAudQu : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    bAudQu {
-        get {
-            if(!this.HasProp("__bAudQuProxyArray"))
-                this.__bAudQuProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")
-            return this.__bAudQuProxyArray
-        }
-    }
+    bNumAudPin : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bNumAudPin {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    wAvgSamplesPerPinPerFrm : UInt16[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    wAvgSamplesPerPinPerFrm {
-        get {
-            if(!this.HasProp("__wAvgSamplesPerPinPerFrmProxyArray"))
-                this.__wAvgSamplesPerPinPerFrmProxyArray := Win32FixedArray(this.ptr + 6, 2, Primitive, "ushort")
-            return this.__wAvgSamplesPerPinPerFrmProxyArray
-        }
-    }
+    wBlkMode : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wBlkMode {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    wDIFMode : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wDIFMode {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    wBlkDiv : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wBlkDiv {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
 }

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The TOC_DESCRIPTOR structure holds descriptive information for a table of contents.
@@ -8,44 +8,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/ns-wmcodecdsp-toc_descriptor
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class TOC_DESCRIPTOR extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct TOC_DESCRIPTOR {
+    #StructPack 4
 
     /**
      * A globally unique identifier (<b>GUID</b>) that identifies an individual table of contents. This identifier has meaning only to the you, the developer. TOC Parser does not inspect or interpret this identifier.
-     * @type {Pointer}
      */
-    guidID {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    guidID : Guid
 
     /**
      * Not used.
-     * @type {Integer}
      */
-    wStreamNumber {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    wStreamNumber : UInt16
 
     /**
      * A globally unique identifier (<b>GUID</b>) that identifies a table of contents as belonging to a particular type. This identifier has meaning only to you, the developer. TOC Parser does not inspect or interpret this identifier. See Remarks.
-     * @type {Pointer}
      */
-    guidType {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    guidType : Guid
 
     /**
      * An integer that identifies the language of a table of contents. This index has meaning only to you, the developer. TOC Parser does not inspect or interpret this index.
-     * @type {Integer}
      */
-    wLanguageIndex {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
-    }
+    wLanguageIndex : UInt16
+
 }

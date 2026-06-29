@@ -1,295 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Com\CY.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\SBinary.ahk
-#Include .\SShortArray.ahk
-#Include .\SLongArray.ahk
-#Include .\SRealArray.ahk
-#Include .\SDoubleArray.ahk
-#Include .\SCurrencyArray.ahk
-#Include .\SAppTimeArray.ahk
-#Include .\SDateTimeArray.ahk
-#Include .\SBinaryArray.ahk
-#Include .\SLPSTRArray.ahk
-#Include .\SWStringArray.ahk
-#Include .\SGuidArray.ahk
-#Include .\SLargeIntegerArray.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SBinary.ahk" { SBinary }
+#Import ".\SDoubleArray.ahk" { SDoubleArray }
+#Import "..\Com\CY.ahk" { CY }
+#Import ".\SLongArray.ahk" { SLongArray }
+#Import ".\SGuidArray.ahk" { SGuidArray }
+#Import ".\SDateTimeArray.ahk" { SDateTimeArray }
+#Import ".\SLargeIntegerArray.ahk" { SLargeIntegerArray }
+#Import ".\SLPSTRArray.ahk" { SLPSTRArray }
+#Import ".\SBinaryArray.ahk" { SBinaryArray }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\SRealArray.ahk" { SRealArray }
+#Import ".\SShortArray.ahk" { SShortArray }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SAppTimeArray.ahk" { SAppTimeArray }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SWStringArray.ahk" { SWStringArray }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\SCurrencyArray.ahk" { SCurrencyArray }
 
 /**
  * @namespace Windows.Win32.System.AddressBook
  */
-class __UPV extends Win32Struct {
-    static sizeof => 312
+export default struct __UPV {
+    #StructPack 8
 
-    static packingSize => 8
+    i : Int16
 
-    /**
-     * @type {Integer}
-     */
-    i {
-        get => NumGet(this, 0, "short")
-        set => NumPut("short", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    l {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ul {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Float}
-     */
-    flt {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
-
-    /**
-     * @type {Float}
-     */
-    dbl {
-        get => NumGet(this, 0, "double")
-        set => NumPut("double", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    b {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
-
-    /**
-     * @type {CY}
-     */
-    cur {
-        get {
-            if(!this.HasProp("__cur"))
-                this.__cur := CY(0, this)
-            return this.__cur
-        }
-    }
-
-    /**
-     * @type {Float}
-     */
-    at {
-        get => NumGet(this, 0, "double")
-        set => NumPut("double", value, this, 0)
-    }
-
-    /**
-     * @type {FILETIME}
-     */
-    ft {
-        get {
-            if(!this.HasProp("__ft"))
-                this.__ft := FILETIME(0, this)
-            return this.__ft
-        }
-    }
-
-    /**
-     * @type {PSTR}
-     */
-    lpszA {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {SBinary}
-     */
-    bin {
-        get {
-            if(!this.HasProp("__bin"))
-                this.__bin := SBinary(0, this)
-            return this.__bin
-        }
-    }
-
-    /**
-     * @type {PWSTR}
-     */
-    lpszW {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {Pointer<Guid>}
-     */
-    lpguid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    li {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
-
-    /**
-     * @type {SShortArray}
-     */
-    MVi {
-        get {
-            if(!this.HasProp("__MVi"))
-                this.__MVi := SShortArray(0, this)
-            return this.__MVi
-        }
-    }
-
-    /**
-     * @type {SLongArray}
-     */
-    MVl {
-        get {
-            if(!this.HasProp("__MVl"))
-                this.__MVl := SLongArray(0, this)
-            return this.__MVl
-        }
-    }
-
-    /**
-     * @type {SRealArray}
-     */
-    MVflt {
-        get {
-            if(!this.HasProp("__MVflt"))
-                this.__MVflt := SRealArray(0, this)
-            return this.__MVflt
-        }
-    }
-
-    /**
-     * @type {SDoubleArray}
-     */
-    MVdbl {
-        get {
-            if(!this.HasProp("__MVdbl"))
-                this.__MVdbl := SDoubleArray(0, this)
-            return this.__MVdbl
-        }
-    }
-
-    /**
-     * @type {SCurrencyArray}
-     */
-    MVcur {
-        get {
-            if(!this.HasProp("__MVcur"))
-                this.__MVcur := SCurrencyArray(0, this)
-            return this.__MVcur
-        }
-    }
-
-    /**
-     * @type {SAppTimeArray}
-     */
-    MVat {
-        get {
-            if(!this.HasProp("__MVat"))
-                this.__MVat := SAppTimeArray(0, this)
-            return this.__MVat
-        }
-    }
-
-    /**
-     * @type {SDateTimeArray}
-     */
-    MVft {
-        get {
-            if(!this.HasProp("__MVft"))
-                this.__MVft := SDateTimeArray(0, this)
-            return this.__MVft
-        }
-    }
-
-    /**
-     * @type {SBinaryArray}
-     */
-    MVbin {
-        get {
-            if(!this.HasProp("__MVbin"))
-                this.__MVbin := SBinaryArray(0, this)
-            return this.__MVbin
-        }
-    }
-
-    /**
-     * @type {SLPSTRArray}
-     */
-    MVszA {
-        get {
-            if(!this.HasProp("__MVszA"))
-                this.__MVszA := SLPSTRArray(0, this)
-            return this.__MVszA
-        }
-    }
-
-    /**
-     * @type {SWStringArray}
-     */
-    MVszW {
-        get {
-            if(!this.HasProp("__MVszW"))
-                this.__MVszW := SWStringArray(0, this)
-            return this.__MVszW
-        }
-    }
-
-    /**
-     * @type {SGuidArray}
-     */
-    MVguid {
-        get {
-            if(!this.HasProp("__MVguid"))
-                this.__MVguid := SGuidArray(0, this)
-            return this.__MVguid
-        }
-    }
-
-    /**
-     * @type {SLargeIntegerArray}
-     */
-    MVli {
-        get {
-            if(!this.HasProp("__MVli"))
-                this.__MVli := SLargeIntegerArray(0, this)
-            return this.__MVli
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    err {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    x {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'l', { type: Int32, offset: 0 })
+        DefineProp(this.Prototype, 'ul', { type: UInt32, offset: 0 })
+        DefineProp(this.Prototype, 'flt', { type: Float32, offset: 0 })
+        DefineProp(this.Prototype, 'dbl', { type: Float64, offset: 0 })
+        DefineProp(this.Prototype, 'b', { type: UInt16, offset: 0 })
+        DefineProp(this.Prototype, 'cur', { type: CY, offset: 0 })
+        DefineProp(this.Prototype, 'at', { type: Float64, offset: 0 })
+        DefineProp(this.Prototype, 'ft', { type: FILETIME, offset: 0 })
+        DefineProp(this.Prototype, 'lpszA', { type: PSTR, offset: 0 })
+        DefineProp(this.Prototype, 'bin', { type: SBinary, offset: 0 })
+        DefineProp(this.Prototype, 'lpszW', { type: PWSTR, offset: 0 })
+        DefineProp(this.Prototype, 'lpguid', { type: Guid.Ptr, offset: 0 })
+        DefineProp(this.Prototype, 'li', { type: Int64, offset: 0 })
+        DefineProp(this.Prototype, 'MVi', { type: SShortArray, offset: 0 })
+        DefineProp(this.Prototype, 'MVl', { type: SLongArray, offset: 0 })
+        DefineProp(this.Prototype, 'MVflt', { type: SRealArray, offset: 0 })
+        DefineProp(this.Prototype, 'MVdbl', { type: SDoubleArray, offset: 0 })
+        DefineProp(this.Prototype, 'MVcur', { type: SCurrencyArray, offset: 0 })
+        DefineProp(this.Prototype, 'MVat', { type: SAppTimeArray, offset: 0 })
+        DefineProp(this.Prototype, 'MVft', { type: SDateTimeArray, offset: 0 })
+        DefineProp(this.Prototype, 'MVbin', { type: SBinaryArray, offset: 0 })
+        DefineProp(this.Prototype, 'MVszA', { type: SLPSTRArray, offset: 0 })
+        DefineProp(this.Prototype, 'MVszW', { type: SWStringArray, offset: 0 })
+        DefineProp(this.Prototype, 'MVguid', { type: SGuidArray, offset: 0 })
+        DefineProp(this.Prototype, 'MVli', { type: SLargeIntegerArray, offset: 0 })
+        DefineProp(this.Prototype, 'err', { type: Int32, offset: 0 })
+        DefineProp(this.Prototype, 'x', { type: Int32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

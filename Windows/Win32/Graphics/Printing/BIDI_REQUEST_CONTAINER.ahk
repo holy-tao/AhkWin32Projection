@@ -1,49 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BIDI_REQUEST_DATA.ahk
-#Include .\BIDI_DATA.ahk
-#Include .\BINARY_CONTAINER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\BIDI_REQUEST_DATA.ahk" { BIDI_REQUEST_DATA }
+#Import ".\BIDI_DATA.ahk" { BIDI_DATA }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\BINARY_CONTAINER.ahk" { BINARY_CONTAINER }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class BIDI_REQUEST_CONTAINER extends Win32Struct {
-    static sizeof => 56
+export default struct BIDI_REQUEST_CONTAINER {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Count : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Count {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    aData : BIDI_REQUEST_DATA[1]
 
-    /**
-     * @type {BIDI_REQUEST_DATA}
-     */
-    aData {
-        get {
-            if(!this.HasProp("__aDataProxyArray"))
-                this.__aDataProxyArray := Win32FixedArray(this.ptr + 16, 1, BIDI_REQUEST_DATA, "")
-            return this.__aDataProxyArray
-        }
-    }
 }

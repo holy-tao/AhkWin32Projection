@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * The MCI_DGV_DELETE_PARMS structure contains parameters for the MCI_DELETE command for digital-video devices.
@@ -9,64 +8,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/digitalv/ns-digitalv-mci_dgv_delete_parms
  * @namespace Windows.Win32.Media.Multimedia
  */
-class MCI_DGV_DELETE_PARMS extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct MCI_DGV_DELETE_PARMS {
+    #StructPack 8
 
     /**
      * The low-order word specifies a window handle used for the MCI_NOTIFY flag.
-     * @type {Pointer}
      */
-    dwCallback {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwCallback : IntPtr
 
     /**
      * Starting position for delete.
-     * @type {Integer}
      */
-    dwFrom {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwFrom : UInt32
 
     /**
      * Ending position for delete.
-     * @type {Integer}
      */
-    dwTo {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwTo : UInt32
 
     /**
      * Rectangle describing area to delete. <a href="https://docs.microsoft.com/previous-versions//ms536136(v=vs.85)">RECT</a> structures are handled differently in MCI than in other parts of Windows; in MCI, <b>rc.right</b> contains the width of the rectangle and <b>rc.bottom</b> contains its height.
-     * @type {RECT}
      */
-    rc {
-        get {
-            if(!this.HasProp("__rc"))
-                this.__rc := RECT(16, this)
-            return this.__rc
-        }
-    }
+    rc : RECT
 
     /**
      * Audio stream.
-     * @type {Integer}
      */
-    dwAudioStream {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwAudioStream : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVideoStream {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwVideoStream : UInt32
+
 }

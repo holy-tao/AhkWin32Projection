@@ -1,40 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The PROTOENT (winsock.h) structure contains the name and protocol numbers that correspond to a given protocol name.
  * @see https://learn.microsoft.com/windows/win32/api/winsock/ns-winsock-protoent
  * @namespace Windows.Win32.Networking.WinSock
  */
-class PROTOENT extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct PROTOENT {
+    #StructPack 8
 
     /**
      * Official name of the protocol.
-     * @type {PSTR}
      */
-    p_name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    p_name : PSTR
 
     /**
      * Null-terminated array of alternate names.
-     * @type {Pointer<Pointer<Integer>>}
      */
-    p_aliases {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    p_aliases : IntPtr
 
     /**
      * Protocol number, in host byte order.
-     * @type {Integer}
      */
-    p_proto {
-        get => NumGet(this, 16, "short")
-        set => NumPut("short", value, this, 16)
-    }
+    p_proto : Int16
+
 }

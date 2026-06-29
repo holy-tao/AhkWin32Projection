@@ -1,24 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class SPEVENT extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct SPEVENT {
+    #StructPack 8
 
     /**
      * This bitfield backs the following members:
      * - eEventId
      * - elParamType
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -35,36 +31,12 @@ class SPEVENT extends Win32Struct {
         get => (this._bitfield >> 16) & 0xFFFF
         set => this._bitfield := ((value & 0xFFFF) << 16) | (this._bitfield & ~(0xFFFF << 16))
     }
+    ulStreamNum : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulStreamNum {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ullAudioStreamOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullAudioStreamOffset {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    wParam : WPARAM
 
-    /**
-     * @type {WPARAM}
-     */
-    wParam {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lParam : LPARAM
 
-    /**
-     * @type {LPARAM}
-     */
-    lParam {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

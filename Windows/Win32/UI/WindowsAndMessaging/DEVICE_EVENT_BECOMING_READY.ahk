@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class DEVICE_EVENT_BECOMING_READY extends Win32Struct {
-    static sizeof => 12
+export default struct DEVICE_EVENT_BECOMING_READY {
+    #StructPack 4
 
-    static packingSize => 4
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Reason : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reason {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Estimated100msToReady : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Estimated100msToReady {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

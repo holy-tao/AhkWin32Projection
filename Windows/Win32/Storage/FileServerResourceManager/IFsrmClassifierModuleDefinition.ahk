@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmPipelineModuleDefinition.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFsrmPipelineModuleDefinition.ahk" { IFsrmPipelineModuleDefinition }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Defines a classifier module.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nn-fsrmpipeline-ifsrmclassifiermoduledefinition
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmClassifierModuleDefinition extends IFsrmPipelineModuleDefinition {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmClassifierModuleDefinition extends IFsrmPipelineModuleDefinition {
     /**
      * The interface identifier for IFsrmClassifierModuleDefinition
      * @type {Guid}
      */
-    static IID => Guid("{bb36ea26-6318-4b8c-8592-f72dd602e7a5}")
+    static IID := Guid("{bb36ea26-6318-4b8c-8592-f72dd602e7a5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 31
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmClassifierModuleDefinition interfaces
+    */
+    struct Vtbl extends IFsrmPipelineModuleDefinition.Vtbl {
+        get_PropertiesAffected : IntPtr
+        put_PropertiesAffected : IntPtr
+        get_PropertiesUsed     : IntPtr
+        put_PropertiesUsed     : IntPtr
+        get_NeedsExplicitValue : IntPtr
+        put_NeedsExplicitValue : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_PropertiesAffected", "put_PropertiesAffected", "get_PropertiesUsed", "put_PropertiesUsed", "get_NeedsExplicitValue", "put_NeedsExplicitValue"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmClassifierModuleDefinition.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Pointer<SAFEARRAY>} 
@@ -74,7 +89,7 @@ class IFsrmClassifierModuleDefinition extends IFsrmPipelineModuleDefinition {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduledefinition-put_propertiesaffected
      */
     put_PropertiesAffected(propertiesAffected) {
-        result := ComCall(32, this, "ptr", propertiesAffected, "HRESULT")
+        result := ComCall(32, this, SAFEARRAY.Ptr, propertiesAffected, "HRESULT")
         return result
     }
 
@@ -103,7 +118,7 @@ class IFsrmClassifierModuleDefinition extends IFsrmPipelineModuleDefinition {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduledefinition-put_propertiesused
      */
     put_PropertiesUsed(propertiesUsed) {
-        result := ComCall(34, this, "ptr", propertiesUsed, "HRESULT")
+        result := ComCall(34, this, SAFEARRAY.Ptr, propertiesUsed, "HRESULT")
         return result
     }
 
@@ -115,7 +130,7 @@ class IFsrmClassifierModuleDefinition extends IFsrmPipelineModuleDefinition {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduledefinition-get_needsexplicitvalue
      */
     get_NeedsExplicitValue() {
-        result := ComCall(35, this, "short*", &needsExplicitValue := 0, "HRESULT")
+        result := ComCall(35, this, VARIANT_BOOL.Ptr, &needsExplicitValue := 0, "HRESULT")
         return needsExplicitValue
     }
 
@@ -128,7 +143,37 @@ class IFsrmClassifierModuleDefinition extends IFsrmPipelineModuleDefinition {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduledefinition-put_needsexplicitvalue
      */
     put_NeedsExplicitValue(needsExplicitValue) {
-        result := ComCall(36, this, "short", needsExplicitValue, "HRESULT")
+        result := ComCall(36, this, VARIANT_BOOL, needsExplicitValue, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFsrmClassifierModuleDefinition.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_PropertiesAffected := CallbackCreate(GetMethod(implObj, "get_PropertiesAffected"), flags, 2)
+        this.vtbl.put_PropertiesAffected := CallbackCreate(GetMethod(implObj, "put_PropertiesAffected"), flags, 2)
+        this.vtbl.get_PropertiesUsed := CallbackCreate(GetMethod(implObj, "get_PropertiesUsed"), flags, 2)
+        this.vtbl.put_PropertiesUsed := CallbackCreate(GetMethod(implObj, "put_PropertiesUsed"), flags, 2)
+        this.vtbl.get_NeedsExplicitValue := CallbackCreate(GetMethod(implObj, "get_NeedsExplicitValue"), flags, 2)
+        this.vtbl.put_NeedsExplicitValue := CallbackCreate(GetMethod(implObj, "put_NeedsExplicitValue"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_PropertiesAffected)
+        CallbackFree(this.vtbl.put_PropertiesAffected)
+        CallbackFree(this.vtbl.get_PropertiesUsed)
+        CallbackFree(this.vtbl.put_PropertiesUsed)
+        CallbackFree(this.vtbl.get_NeedsExplicitValue)
+        CallbackFree(this.vtbl.put_NeedsExplicitValue)
     }
 }

@@ -1,63 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_OPENNATIVEFENCEFROMNTHANDLE extends Win32Struct {
-    static sizeof => 40
+export default struct D3DKMT_OPENNATIVEFENCEFROMNTHANDLE {
+    #StructPack 8
 
-    static packingSize => 8
+    hNtHandle : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hNtHandle {
-        get {
-            if(!this.HasProp("__hNtHandle"))
-                this.__hNtHandle := HANDLE(0, this)
-            return this.__hNtHandle
-        }
-    }
+    hDevice : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hDevice {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    EngineAffinity : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EngineAffinity {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Flags : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Flags {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    hSyncObject : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hSyncObject {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    NativeFenceMapping : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    NativeFenceMapping {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
 }

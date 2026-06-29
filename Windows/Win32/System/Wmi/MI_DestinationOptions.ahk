@@ -1,41 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MI_DestinationOptionsFT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MI_DestinationOptionsFT.ahk" { MI_DestinationOptionsFT }
 
 /**
  * Represents a set of destination options. Destination options are a set of configurations that define the way an operation communicates with the server.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_destinationoptions
  * @namespace Windows.Win32.System.Wmi
  */
-class MI_DestinationOptions extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct MI_DestinationOptions {
+    #StructPack 8
 
     /**
      * Used internally and must not be changed. Should be set to 0.
-     * @type {Integer}
      */
-    reserved1 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    reserved1 : Int64
 
     /**
      * Used internally and must not be changed. Should be set to 0.
-     * @type {Pointer}
      */
-    reserved2 {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    reserved2 : IntPtr
 
     /**
      * This member is used internally, and it must not be changed.
-     * @type {Pointer<MI_DestinationOptionsFT>}
      */
-    ft {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ft : MI_DestinationOptionsFT.Ptr
+
 }

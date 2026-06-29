@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The WAVEOUTCAPS structure describes the capabilities of a waveform-audio output device. (WAVEOUTCAPSW)
@@ -16,46 +16,28 @@
  * @namespace Windows.Win32.Media.Audio
  * @charset Unicode
  */
-class WAVEOUTCAPSW extends Win32Struct {
-    static sizeof => 84
-
-    static packingSize => 4
+export default struct WAVEOUTCAPSW {
+    #StructPack 4
 
     /**
      * Manufacturer identifier for the device driver for the device. Manufacturer identifiers are defined in <a href="https://docs.microsoft.com/windows/desktop/Multimedia/manufacturer-and-product-identifiers">Manufacturer and Product Identifiers</a>.
-     * @type {Integer}
      */
-    wMid {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wMid : UInt16
 
     /**
      * Product identifier for the device. Product identifiers are defined in <a href="https://docs.microsoft.com/windows/desktop/Multimedia/manufacturer-and-product-identifiers">Manufacturer and Product Identifiers</a>.
-     * @type {Integer}
      */
-    wPid {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    wPid : UInt16
 
     /**
      * Version number of the device driver for the device. The high-order byte is the major version number, and the low-order byte is the minor version number.
-     * @type {Integer}
      */
-    vDriverVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    vDriverVersion : UInt32
 
     /**
      * Product name in a null-terminated string.
-     * @type {String}
      */
-    szPname {
-        get => StrGet(this.ptr + 8, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 31, "UTF-16")
-    }
+    szPname : WCHAR[32]
 
     /**
      * Standard formats that are supported. Can be a combination of the following:
@@ -130,29 +112,15 @@ class WAVEOUTCAPSW extends Win32Struct {
      * <td>96 kHz, stereo, 16-bit</td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFormats {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    dwFormats : UInt32
 
     /**
      * Number specifying whether the device supports mono (1) or stereo (2) output.
-     * @type {Integer}
      */
-    wChannels {
-        get => NumGet(this, 76, "ushort")
-        set => NumPut("ushort", value, this, 76)
-    }
+    wChannels : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wReserved1 {
-        get => NumGet(this, 78, "ushort")
-        set => NumPut("ushort", value, this, 78)
-    }
+    wReserved1 : UInt16
 
     /**
      * Optional functionality supported by the device. The following values are defined:
@@ -187,10 +155,7 @@ class WAVEOUTCAPSW extends Win32Struct {
      * <td>Returns sample-accurate position information.</td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwSupport {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    dwSupport : UInt32
+
 }

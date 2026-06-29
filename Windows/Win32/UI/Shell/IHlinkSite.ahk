@@ -1,51 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\IMoniker.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IMoniker.ahk" { IMoniker }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.UI.Shell
  */
-class IHlinkSite extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IHlinkSite extends IUnknown {
     /**
      * The interface identifier for IHlinkSite
      * @type {Guid}
      */
-    static IID => Guid("{79eac9c2-baf9-11ce-8c82-00aa004ba90b}")
+    static IID := Guid("{79eac9c2-baf9-11ce-8c82-00aa004ba90b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHlinkSite interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        QueryService         : IntPtr
+        GetMoniker           : IntPtr
+        ReadyToNavigate      : IntPtr
+        OnNavigationComplete : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHlinkSite.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["QueryService", "GetMoniker", "ReadyToNavigate", "OnNavigationComplete"]
-
-    /**
-     * Retrieves the configuration parameters of the specified service. (Unicode)
-     * @remarks
-     * The 
-     * <b>QueryServiceConfig</b> function returns the service configuration information kept in the registry for a particular service. This configuration information is first set by a service control program using the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function. This information may have been updated by a service configuration program using the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-changeserviceconfiga">ChangeServiceConfig</a> function.
      * 
-     * If the service was running when the configuration information was last changed, the information returned by 
-     * <b>QueryServiceConfig</b> will not reflect the current configuration of the service. Instead, it will reflect the configuration of the service when it is next run. The <b>DisplayName</b> key is an exception to this. When the <b>DisplayName</b> key is changed, it takes effect immediately, regardless of whether the service is running.
      * @param {Integer} dwSiteData 
      * @param {Pointer<Guid>} guidService 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-queryserviceconfigw
      */
     QueryService(dwSiteData, guidService, riid) {
-        result := ComCall(3, this, "uint", dwSiteData, "ptr", guidService, "ptr", riid, "ptr*", &ppiunk := 0, "HRESULT")
+        result := ComCall(3, this, "uint", dwSiteData, Guid.Ptr, guidService, Guid.Ptr, riid, "ptr*", &ppiunk := 0, "HRESULT")
         return IUnknown(ppiunk)
     }
 
@@ -85,5 +88,31 @@ class IHlinkSite extends IUnknown {
 
         result := ComCall(6, this, "uint", dwSiteData, "uint", dwreserved, "int", hrError, "ptr", pwzError, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IHlinkSite.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.QueryService := CallbackCreate(GetMethod(implObj, "QueryService"), flags, 5)
+        this.vtbl.GetMoniker := CallbackCreate(GetMethod(implObj, "GetMoniker"), flags, 5)
+        this.vtbl.ReadyToNavigate := CallbackCreate(GetMethod(implObj, "ReadyToNavigate"), flags, 3)
+        this.vtbl.OnNavigationComplete := CallbackCreate(GetMethod(implObj, "OnNavigationComplete"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.QueryService)
+        CallbackFree(this.vtbl.GetMoniker)
+        CallbackFree(this.vtbl.ReadyToNavigate)
+        CallbackFree(this.vtbl.OnNavigationComplete)
     }
 }

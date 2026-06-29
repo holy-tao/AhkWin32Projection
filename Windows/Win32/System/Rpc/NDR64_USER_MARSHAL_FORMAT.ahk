@@ -1,75 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Rpc
  */
-class NDR64_USER_MARSHAL_FORMAT extends Win32Struct {
-    static sizeof => 24
+export default struct NDR64_USER_MARSHAL_FORMAT {
+    #StructPack 8
 
-    static packingSize => 8
+    FormatCode : Int8
 
-    /**
-     * @type {Integer}
-     */
-    FormatCode {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Flags : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    RoutineIndex : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    RoutineIndex {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    TransmittedTypeWireAlignment : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    TransmittedTypeWireAlignment {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    MemoryAlignment : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    MemoryAlignment {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    UserTypeMemorySize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    UserTypeMemorySize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    TransmittedTypeBufferSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TransmittedTypeBufferSize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    TransmittedType : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    TransmittedType {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

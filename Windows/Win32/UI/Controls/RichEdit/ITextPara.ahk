@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\tomConstants.ahk" { tomConstants }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Text Object Model (TOM) rich text-range attributes are accessed through a pair of dual interfaces, ITextFont and ITextPara. (ITextPara)
@@ -40,26 +42,80 @@
  * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextpara
  * @namespace Windows.Win32.UI.Controls.RichEdit
  */
-class ITextPara extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITextPara extends IDispatch {
     /**
      * The interface identifier for ITextPara
      * @type {Guid}
      */
-    static IID => Guid("{8cc497c4-a1df-11ce-8098-00aa0047be5d}")
+    static IID := Guid("{8cc497c4-a1df-11ce-8098-00aa0047be5d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITextPara interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        GetDuplicate       : IntPtr
+        SetDuplicate       : IntPtr
+        CanChange          : IntPtr
+        IsEqual            : IntPtr
+        Reset              : IntPtr
+        GetStyle           : IntPtr
+        SetStyle           : IntPtr
+        GetAlignment       : IntPtr
+        SetAlignment       : IntPtr
+        GetHyphenation     : IntPtr
+        SetHyphenation     : IntPtr
+        GetFirstLineIndent : IntPtr
+        GetKeepTogether    : IntPtr
+        SetKeepTogether    : IntPtr
+        GetKeepWithNext    : IntPtr
+        SetKeepWithNext    : IntPtr
+        GetLeftIndent      : IntPtr
+        GetLineSpacing     : IntPtr
+        GetLineSpacingRule : IntPtr
+        GetListAlignment   : IntPtr
+        SetListAlignment   : IntPtr
+        GetListLevelIndex  : IntPtr
+        SetListLevelIndex  : IntPtr
+        GetListStart       : IntPtr
+        SetListStart       : IntPtr
+        GetListTab         : IntPtr
+        SetListTab         : IntPtr
+        GetListType        : IntPtr
+        SetListType        : IntPtr
+        GetNoLineNumber    : IntPtr
+        SetNoLineNumber    : IntPtr
+        GetPageBreakBefore : IntPtr
+        SetPageBreakBefore : IntPtr
+        GetRightIndent     : IntPtr
+        SetRightIndent     : IntPtr
+        SetIndents         : IntPtr
+        SetLineSpacing     : IntPtr
+        GetSpaceAfter      : IntPtr
+        SetSpaceAfter      : IntPtr
+        GetSpaceBefore     : IntPtr
+        SetSpaceBefore     : IntPtr
+        GetWidowControl    : IntPtr
+        SetWidowControl    : IntPtr
+        GetTabCount        : IntPtr
+        AddTab             : IntPtr
+        ClearAllTabs       : IntPtr
+        DeleteTab          : IntPtr
+        GetTab             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDuplicate", "SetDuplicate", "CanChange", "IsEqual", "Reset", "GetStyle", "SetStyle", "GetAlignment", "SetAlignment", "GetHyphenation", "SetHyphenation", "GetFirstLineIndent", "GetKeepTogether", "SetKeepTogether", "GetKeepWithNext", "SetKeepWithNext", "GetLeftIndent", "GetLineSpacing", "GetLineSpacingRule", "GetListAlignment", "SetListAlignment", "GetListLevelIndex", "SetListLevelIndex", "GetListStart", "SetListStart", "GetListTab", "SetListTab", "GetListType", "SetListType", "GetNoLineNumber", "SetNoLineNumber", "GetPageBreakBefore", "SetPageBreakBefore", "GetRightIndent", "SetRightIndent", "SetIndents", "SetLineSpacing", "GetSpaceAfter", "SetSpaceAfter", "GetSpaceBefore", "SetSpaceBefore", "GetWidowControl", "SetWidowControl", "GetTabCount", "AddTab", "ClearAllTabs", "DeleteTab", "GetTab"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITextPara.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a duplicate of the specified paragraph format object. The duplicate property is the default property of an ITextPara object.
@@ -2942,5 +2998,119 @@ class ITextPara extends IDispatch {
 
         result := ComCall(54, this, "int", iTab, ptbPosMarshal, ptbPos, ptbAlignMarshal, ptbAlign, ptbLeaderMarshal, ptbLeader, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITextPara.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDuplicate := CallbackCreate(GetMethod(implObj, "GetDuplicate"), flags, 2)
+        this.vtbl.SetDuplicate := CallbackCreate(GetMethod(implObj, "SetDuplicate"), flags, 2)
+        this.vtbl.CanChange := CallbackCreate(GetMethod(implObj, "CanChange"), flags, 2)
+        this.vtbl.IsEqual := CallbackCreate(GetMethod(implObj, "IsEqual"), flags, 3)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 2)
+        this.vtbl.GetStyle := CallbackCreate(GetMethod(implObj, "GetStyle"), flags, 2)
+        this.vtbl.SetStyle := CallbackCreate(GetMethod(implObj, "SetStyle"), flags, 2)
+        this.vtbl.GetAlignment := CallbackCreate(GetMethod(implObj, "GetAlignment"), flags, 2)
+        this.vtbl.SetAlignment := CallbackCreate(GetMethod(implObj, "SetAlignment"), flags, 2)
+        this.vtbl.GetHyphenation := CallbackCreate(GetMethod(implObj, "GetHyphenation"), flags, 2)
+        this.vtbl.SetHyphenation := CallbackCreate(GetMethod(implObj, "SetHyphenation"), flags, 2)
+        this.vtbl.GetFirstLineIndent := CallbackCreate(GetMethod(implObj, "GetFirstLineIndent"), flags, 2)
+        this.vtbl.GetKeepTogether := CallbackCreate(GetMethod(implObj, "GetKeepTogether"), flags, 2)
+        this.vtbl.SetKeepTogether := CallbackCreate(GetMethod(implObj, "SetKeepTogether"), flags, 2)
+        this.vtbl.GetKeepWithNext := CallbackCreate(GetMethod(implObj, "GetKeepWithNext"), flags, 2)
+        this.vtbl.SetKeepWithNext := CallbackCreate(GetMethod(implObj, "SetKeepWithNext"), flags, 2)
+        this.vtbl.GetLeftIndent := CallbackCreate(GetMethod(implObj, "GetLeftIndent"), flags, 2)
+        this.vtbl.GetLineSpacing := CallbackCreate(GetMethod(implObj, "GetLineSpacing"), flags, 2)
+        this.vtbl.GetLineSpacingRule := CallbackCreate(GetMethod(implObj, "GetLineSpacingRule"), flags, 2)
+        this.vtbl.GetListAlignment := CallbackCreate(GetMethod(implObj, "GetListAlignment"), flags, 2)
+        this.vtbl.SetListAlignment := CallbackCreate(GetMethod(implObj, "SetListAlignment"), flags, 2)
+        this.vtbl.GetListLevelIndex := CallbackCreate(GetMethod(implObj, "GetListLevelIndex"), flags, 2)
+        this.vtbl.SetListLevelIndex := CallbackCreate(GetMethod(implObj, "SetListLevelIndex"), flags, 2)
+        this.vtbl.GetListStart := CallbackCreate(GetMethod(implObj, "GetListStart"), flags, 2)
+        this.vtbl.SetListStart := CallbackCreate(GetMethod(implObj, "SetListStart"), flags, 2)
+        this.vtbl.GetListTab := CallbackCreate(GetMethod(implObj, "GetListTab"), flags, 2)
+        this.vtbl.SetListTab := CallbackCreate(GetMethod(implObj, "SetListTab"), flags, 2)
+        this.vtbl.GetListType := CallbackCreate(GetMethod(implObj, "GetListType"), flags, 2)
+        this.vtbl.SetListType := CallbackCreate(GetMethod(implObj, "SetListType"), flags, 2)
+        this.vtbl.GetNoLineNumber := CallbackCreate(GetMethod(implObj, "GetNoLineNumber"), flags, 2)
+        this.vtbl.SetNoLineNumber := CallbackCreate(GetMethod(implObj, "SetNoLineNumber"), flags, 2)
+        this.vtbl.GetPageBreakBefore := CallbackCreate(GetMethod(implObj, "GetPageBreakBefore"), flags, 2)
+        this.vtbl.SetPageBreakBefore := CallbackCreate(GetMethod(implObj, "SetPageBreakBefore"), flags, 2)
+        this.vtbl.GetRightIndent := CallbackCreate(GetMethod(implObj, "GetRightIndent"), flags, 2)
+        this.vtbl.SetRightIndent := CallbackCreate(GetMethod(implObj, "SetRightIndent"), flags, 2)
+        this.vtbl.SetIndents := CallbackCreate(GetMethod(implObj, "SetIndents"), flags, 4)
+        this.vtbl.SetLineSpacing := CallbackCreate(GetMethod(implObj, "SetLineSpacing"), flags, 3)
+        this.vtbl.GetSpaceAfter := CallbackCreate(GetMethod(implObj, "GetSpaceAfter"), flags, 2)
+        this.vtbl.SetSpaceAfter := CallbackCreate(GetMethod(implObj, "SetSpaceAfter"), flags, 2)
+        this.vtbl.GetSpaceBefore := CallbackCreate(GetMethod(implObj, "GetSpaceBefore"), flags, 2)
+        this.vtbl.SetSpaceBefore := CallbackCreate(GetMethod(implObj, "SetSpaceBefore"), flags, 2)
+        this.vtbl.GetWidowControl := CallbackCreate(GetMethod(implObj, "GetWidowControl"), flags, 2)
+        this.vtbl.SetWidowControl := CallbackCreate(GetMethod(implObj, "SetWidowControl"), flags, 2)
+        this.vtbl.GetTabCount := CallbackCreate(GetMethod(implObj, "GetTabCount"), flags, 2)
+        this.vtbl.AddTab := CallbackCreate(GetMethod(implObj, "AddTab"), flags, 4)
+        this.vtbl.ClearAllTabs := CallbackCreate(GetMethod(implObj, "ClearAllTabs"), flags, 1)
+        this.vtbl.DeleteTab := CallbackCreate(GetMethod(implObj, "DeleteTab"), flags, 2)
+        this.vtbl.GetTab := CallbackCreate(GetMethod(implObj, "GetTab"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDuplicate)
+        CallbackFree(this.vtbl.SetDuplicate)
+        CallbackFree(this.vtbl.CanChange)
+        CallbackFree(this.vtbl.IsEqual)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.GetStyle)
+        CallbackFree(this.vtbl.SetStyle)
+        CallbackFree(this.vtbl.GetAlignment)
+        CallbackFree(this.vtbl.SetAlignment)
+        CallbackFree(this.vtbl.GetHyphenation)
+        CallbackFree(this.vtbl.SetHyphenation)
+        CallbackFree(this.vtbl.GetFirstLineIndent)
+        CallbackFree(this.vtbl.GetKeepTogether)
+        CallbackFree(this.vtbl.SetKeepTogether)
+        CallbackFree(this.vtbl.GetKeepWithNext)
+        CallbackFree(this.vtbl.SetKeepWithNext)
+        CallbackFree(this.vtbl.GetLeftIndent)
+        CallbackFree(this.vtbl.GetLineSpacing)
+        CallbackFree(this.vtbl.GetLineSpacingRule)
+        CallbackFree(this.vtbl.GetListAlignment)
+        CallbackFree(this.vtbl.SetListAlignment)
+        CallbackFree(this.vtbl.GetListLevelIndex)
+        CallbackFree(this.vtbl.SetListLevelIndex)
+        CallbackFree(this.vtbl.GetListStart)
+        CallbackFree(this.vtbl.SetListStart)
+        CallbackFree(this.vtbl.GetListTab)
+        CallbackFree(this.vtbl.SetListTab)
+        CallbackFree(this.vtbl.GetListType)
+        CallbackFree(this.vtbl.SetListType)
+        CallbackFree(this.vtbl.GetNoLineNumber)
+        CallbackFree(this.vtbl.SetNoLineNumber)
+        CallbackFree(this.vtbl.GetPageBreakBefore)
+        CallbackFree(this.vtbl.SetPageBreakBefore)
+        CallbackFree(this.vtbl.GetRightIndent)
+        CallbackFree(this.vtbl.SetRightIndent)
+        CallbackFree(this.vtbl.SetIndents)
+        CallbackFree(this.vtbl.SetLineSpacing)
+        CallbackFree(this.vtbl.GetSpaceAfter)
+        CallbackFree(this.vtbl.SetSpaceAfter)
+        CallbackFree(this.vtbl.GetSpaceBefore)
+        CallbackFree(this.vtbl.SetSpaceBefore)
+        CallbackFree(this.vtbl.GetWidowControl)
+        CallbackFree(this.vtbl.SetWidowControl)
+        CallbackFree(this.vtbl.GetTabCount)
+        CallbackFree(this.vtbl.AddTab)
+        CallbackFree(this.vtbl.ClearAllTabs)
+        CallbackFree(this.vtbl.DeleteTab)
+        CallbackFree(this.vtbl.GetTab)
     }
 }

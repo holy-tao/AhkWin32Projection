@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The rule used by a composite shape to determine whether a given point is part of the geometry.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_fill_rule
  * @namespace Windows.Win32.Storage.Xps
  */
-class XPS_FILL_RULE extends Win32Enum {
+export default struct XPS_FILL_RULE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The rule that determines whether a point is in the fill region. This is determined by drawing 

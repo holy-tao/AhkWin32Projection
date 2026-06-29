@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies how to reconnect filters when dynamically rebuilding the filter graph.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-am_graph_config_reconnect_flags
  * @namespace Windows.Win32.Media.DirectShow
  */
-class AM_GRAPH_CONFIG_RECONNECT_FLAGS extends Win32Enum {
+export default struct AM_GRAPH_CONFIG_RECONNECT_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Do not insert additional filters into the graph while reconnecting, aside from any filter explicitly requested.

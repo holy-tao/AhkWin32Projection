@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SecPkgContext_TokenBinding extends Win32Struct {
-    static sizeof => 16
+export default struct SecPkgContext_TokenBinding {
+    #StructPack 8
 
-    static packingSize => 8
+    MajorVersion : Int8
 
-    /**
-     * @type {Integer}
-     */
-    MajorVersion {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    MinorVersion : Int8
 
-    /**
-     * @type {Integer}
-     */
-    MinorVersion {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    KeyParametersSize : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    KeyParametersSize {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    KeyParameters : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    KeyParameters {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

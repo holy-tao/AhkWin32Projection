@@ -1,62 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class FILE_COMPRESSION_INFORMATION extends Win32Struct {
-    static sizeof => 16
+export default struct FILE_COMPRESSION_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    CompressedFileSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CompressedFileSize {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    CompressionFormat : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    CompressionFormat {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    CompressionUnitShift : Int8
 
-    /**
-     * @type {Integer}
-     */
-    CompressionUnitShift {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    ChunkShift : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ChunkShift {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
-    }
+    ClusterShift : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ClusterShift {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    Reserved : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 13, 3, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
 }

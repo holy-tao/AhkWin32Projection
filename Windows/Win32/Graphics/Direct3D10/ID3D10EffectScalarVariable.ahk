@@ -1,33 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D10EffectVariable.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D10EffectVariable.ahk" { ID3D10EffectVariable }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * An effect-scalar-variable interface accesses scalar values.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nn-d3d10effect-id3d10effectscalarvariable
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class ID3D10EffectScalarVariable extends ID3D10EffectVariable {
-
-    static sizeof => A_PtrSize
+export default struct ID3D10EffectScalarVariable extends ID3D10EffectVariable {
     /**
      * The interface identifier for ID3D10EffectScalarVariable
      * @type {Guid}
      */
-    static IID => Guid("{00e48f7b-d2c8-49e8-a86c-022dee53431f}")
+    static IID := Guid("{00e48f7b-d2c8-49e8-a86c-022dee53431f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 25
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D10EffectScalarVariable interfaces
+    */
+    struct Vtbl extends ID3D10EffectVariable.Vtbl {
+        SetFloat      : IntPtr
+        GetFloat      : IntPtr
+        SetFloatArray : IntPtr
+        GetFloatArray : IntPtr
+        SetInt        : IntPtr
+        GetInt        : IntPtr
+        SetIntArray   : IntPtr
+        GetIntArray   : IntPtr
+        SetBool       : IntPtr
+        GetBool       : IntPtr
+        SetBoolArray  : IntPtr
+        GetBoolArray  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetFloat", "GetFloat", "SetFloatArray", "GetFloatArray", "SetInt", "GetInt", "SetIntArray", "GetIntArray", "SetBool", "GetBool", "SetBoolArray", "GetBoolArray"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D10EffectScalarVariable.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Set a floating-point variable.
@@ -176,7 +196,7 @@ class ID3D10EffectScalarVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-setbool
      */
     SetBool(Value) {
-        result := ComCall(33, this, "int", Value, "HRESULT")
+        result := ComCall(33, this, BOOL, Value, "HRESULT")
         return result
     }
 
@@ -188,7 +208,7 @@ class ID3D10EffectScalarVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-getbool
      */
     GetBool() {
-        result := ComCall(34, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(34, this, BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -229,7 +249,49 @@ class ID3D10EffectScalarVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-getboolarray
      */
     GetBoolArray(Offset, Count) {
-        result := ComCall(36, this, "int*", &pData := 0, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(36, this, BOOL.Ptr, &pData := 0, "uint", Offset, "uint", Count, "HRESULT")
         return pData
+    }
+
+    Query(iid) {
+        if (ID3D10EffectScalarVariable.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetFloat := CallbackCreate(GetMethod(implObj, "SetFloat"), flags, 2)
+        this.vtbl.GetFloat := CallbackCreate(GetMethod(implObj, "GetFloat"), flags, 2)
+        this.vtbl.SetFloatArray := CallbackCreate(GetMethod(implObj, "SetFloatArray"), flags, 4)
+        this.vtbl.GetFloatArray := CallbackCreate(GetMethod(implObj, "GetFloatArray"), flags, 4)
+        this.vtbl.SetInt := CallbackCreate(GetMethod(implObj, "SetInt"), flags, 2)
+        this.vtbl.GetInt := CallbackCreate(GetMethod(implObj, "GetInt"), flags, 2)
+        this.vtbl.SetIntArray := CallbackCreate(GetMethod(implObj, "SetIntArray"), flags, 4)
+        this.vtbl.GetIntArray := CallbackCreate(GetMethod(implObj, "GetIntArray"), flags, 4)
+        this.vtbl.SetBool := CallbackCreate(GetMethod(implObj, "SetBool"), flags, 2)
+        this.vtbl.GetBool := CallbackCreate(GetMethod(implObj, "GetBool"), flags, 2)
+        this.vtbl.SetBoolArray := CallbackCreate(GetMethod(implObj, "SetBoolArray"), flags, 4)
+        this.vtbl.GetBoolArray := CallbackCreate(GetMethod(implObj, "GetBoolArray"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetFloat)
+        CallbackFree(this.vtbl.GetFloat)
+        CallbackFree(this.vtbl.SetFloatArray)
+        CallbackFree(this.vtbl.GetFloatArray)
+        CallbackFree(this.vtbl.SetInt)
+        CallbackFree(this.vtbl.GetInt)
+        CallbackFree(this.vtbl.SetIntArray)
+        CallbackFree(this.vtbl.GetIntArray)
+        CallbackFree(this.vtbl.SetBool)
+        CallbackFree(this.vtbl.GetBool)
+        CallbackFree(this.vtbl.SetBoolArray)
+        CallbackFree(this.vtbl.GetBoolArray)
     }
 }

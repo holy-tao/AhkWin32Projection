@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\Cryptography\CERT_CONTEXT.ahk
-#Include ..\..\Security\Cryptography\HCERTSTORE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Security\Cryptography\HCERTSTORE.ahk" { HCERTSTORE }
 
 /**
  * Represents the criteria for matching client certificates against those of an HTTPS server. (WSD_SECURITY_CERT_VALIDATION)
@@ -24,52 +24,28 @@
  * @see https://learn.microsoft.com/windows/win32/api/wsdbase/ns-wsdbase-wsd_security_cert_validation
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class WSD_SECURITY_CERT_VALIDATION extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct WSD_SECURITY_CERT_VALIDATION {
+    #StructPack 8
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structures that contain certificates to be matched against those provided by the HTTPS server or client.  Only one matching certificate is required for validation.  This parameter can be NULL.
-     * @type {Pointer<Pointer<CERT_CONTEXT>>}
      */
-    certMatchArray {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    certMatchArray : IntPtr
 
     /**
      * The count of certificates in <i>certMatchArray</i>.
-     * @type {Integer}
      */
-    dwCertMatchArrayCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwCertMatchArrayCount : UInt32
 
     /**
      * A handle to a certificate store that contains certificates to be matched against those provided by the HTTPS server or client.  Only one matching certificate is required for validation.  This parameter can be NULL.
-     * @type {HCERTSTORE}
      */
-    hCertMatchStore {
-        get {
-            if(!this.HasProp("__hCertMatchStore"))
-                this.__hCertMatchStore := HCERTSTORE(16, this)
-            return this.__hCertMatchStore
-        }
-    }
+    hCertMatchStore : HCERTSTORE
 
     /**
      * A handle to a certificate store that contains root certificates against which a certificate from the HTTPS server or client should chain to.  Validation succeeds as long as the certificate chains up to at least one root certificate.  This parameter can be NULL.
-     * @type {HCERTSTORE}
      */
-    hCertIssuerStore {
-        get {
-            if(!this.HasProp("__hCertIssuerStore"))
-                this.__hCertIssuerStore := HCERTSTORE(24, this)
-            return this.__hCertIssuerStore
-        }
-    }
+    hCertIssuerStore : HCERTSTORE
 
     /**
      * A bitwise OR combination of values that specify which certificate checks to ignore.
@@ -146,34 +122,13 @@ class WSD_SECURITY_CERT_VALIDATION extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwCertCheckOptions {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwCertCheckOptions : UInt32
 
-    /**
-     * @type {PWSTR}
-     */
-    pszCNGHashAlgId {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pszCNGHashAlgId : PWSTR
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbCertHash {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pbCertHash : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    dwCertHashSize {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    dwCertHashSize : UInt32
+
 }

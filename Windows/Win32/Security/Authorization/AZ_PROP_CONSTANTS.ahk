@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines constants used by Authorization Manager.
  * @see https://learn.microsoft.com/windows/win32/api/azroles/ne-azroles-az_prop_constants
  * @namespace Windows.Win32.Security.Authorization
  */
-class AZ_PROP_CONSTANTS extends Win32Enum {
+export default struct AZ_PROP_CONSTANTS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

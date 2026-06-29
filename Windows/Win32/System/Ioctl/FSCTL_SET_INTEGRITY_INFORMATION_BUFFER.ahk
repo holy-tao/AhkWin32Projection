@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Input buffer passed with the FSCTL_SET_INTEGRITY_INFORMATION control code.
@@ -10,10 +9,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-fsctl_set_integrity_information_buffer
  * @namespace Windows.Win32.System.Ioctl
  */
-class FSCTL_SET_INTEGRITY_INFORMATION_BUFFER extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct FSCTL_SET_INTEGRITY_INFORMATION_BUFFER {
+    #StructPack 4
 
     /**
      * Specifies the checksum algorithm.
@@ -68,21 +65,13 @@ class FSCTL_SET_INTEGRITY_INFORMATION_BUFFER extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ChecksumAlgorithm {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    ChecksumAlgorithm : UInt16
 
     /**
      * Must be 0
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Reserved : UInt16
 
     /**
      * Contains zero or more flags.
@@ -107,10 +96,7 @@ class FSCTL_SET_INTEGRITY_INFORMATION_BUFFER extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : UInt32
+
 }

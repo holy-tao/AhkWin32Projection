@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The IP_ADAPTER_ORDER_MAP structure stores an array of information about adapters and their relative priority on the local computer.
@@ -12,29 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipexport/ns-ipexport-ip_adapter_order_map
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class IP_ADAPTER_ORDER_MAP extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct IP_ADAPTER_ORDER_MAP {
+    #StructPack 4
 
     /**
      * The number of network adapters in the <b>AdapterOrder</b> member.
-     * @type {Integer}
      */
-    NumAdapters {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumAdapters : UInt32
 
     /**
      * An array of adapter indexes  on the local computer, provided in the order specified in the <b>Adapters and Bindings</b> dialog box for <b>Network Connections</b>.
-     * @type {Array<Integer>}
      */
-    AdapterOrder {
-        get {
-            if(!this.HasProp("__AdapterOrderProxyArray"))
-                this.__AdapterOrderProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")
-            return this.__AdapterOrderProxyArray
-        }
-    }
+    AdapterOrder : UInt32[1]
+
 }

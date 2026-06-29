@@ -1,32 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IInspectable.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IInspectable.ahk" { IInspectable }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.WinRT
  */
-class ICoreWindowAdapterInterop extends IInspectable {
-
-    static sizeof => A_PtrSize
+export default struct ICoreWindowAdapterInterop extends IInspectable {
     /**
      * The interface identifier for ICoreWindowAdapterInterop
      * @type {Guid}
      */
-    static IID => Guid("{7a5b6fd1-cd73-4b6c-9cf4-2e869eaf470a}")
+    static IID := Guid("{7a5b6fd1-cd73-4b6c-9cf4-2e869eaf470a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICoreWindowAdapterInterop interfaces
+    */
+    struct Vtbl extends IInspectable.Vtbl {
+        get_AppActivationClientAdapter       : IntPtr
+        get_ApplicationViewClientAdapter     : IntPtr
+        get_CoreApplicationViewClientAdapter : IntPtr
+        get_HoloViewClientAdapter            : IntPtr
+        get_PositionerClientAdapter          : IntPtr
+        get_SystemNavigationClientAdapter    : IntPtr
+        get_TitleBarClientAdapter            : IntPtr
+        SetWindowClientAdapter               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_AppActivationClientAdapter", "get_ApplicationViewClientAdapter", "get_CoreApplicationViewClientAdapter", "get_HoloViewClientAdapter", "get_PositionerClientAdapter", "get_SystemNavigationClientAdapter", "get_TitleBarClientAdapter", "SetWindowClientAdapter"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICoreWindowAdapterInterop.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IUnknown} 
@@ -148,5 +163,39 @@ class ICoreWindowAdapterInterop extends IInspectable {
     SetWindowClientAdapter(value) {
         result := ComCall(13, this, "ptr", value, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICoreWindowAdapterInterop.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_AppActivationClientAdapter := CallbackCreate(GetMethod(implObj, "get_AppActivationClientAdapter"), flags, 2)
+        this.vtbl.get_ApplicationViewClientAdapter := CallbackCreate(GetMethod(implObj, "get_ApplicationViewClientAdapter"), flags, 2)
+        this.vtbl.get_CoreApplicationViewClientAdapter := CallbackCreate(GetMethod(implObj, "get_CoreApplicationViewClientAdapter"), flags, 2)
+        this.vtbl.get_HoloViewClientAdapter := CallbackCreate(GetMethod(implObj, "get_HoloViewClientAdapter"), flags, 2)
+        this.vtbl.get_PositionerClientAdapter := CallbackCreate(GetMethod(implObj, "get_PositionerClientAdapter"), flags, 2)
+        this.vtbl.get_SystemNavigationClientAdapter := CallbackCreate(GetMethod(implObj, "get_SystemNavigationClientAdapter"), flags, 2)
+        this.vtbl.get_TitleBarClientAdapter := CallbackCreate(GetMethod(implObj, "get_TitleBarClientAdapter"), flags, 2)
+        this.vtbl.SetWindowClientAdapter := CallbackCreate(GetMethod(implObj, "SetWindowClientAdapter"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_AppActivationClientAdapter)
+        CallbackFree(this.vtbl.get_ApplicationViewClientAdapter)
+        CallbackFree(this.vtbl.get_CoreApplicationViewClientAdapter)
+        CallbackFree(this.vtbl.get_HoloViewClientAdapter)
+        CallbackFree(this.vtbl.get_PositionerClientAdapter)
+        CallbackFree(this.vtbl.get_SystemNavigationClientAdapter)
+        CallbackFree(this.vtbl.get_TitleBarClientAdapter)
+        CallbackFree(this.vtbl.SetWindowClientAdapter)
     }
 }

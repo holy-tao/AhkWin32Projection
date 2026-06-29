@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class WINDBG_OLD_EXTENSION_APIS extends Win32Struct {
-    static sizeof => 48
+export default struct WINDBG_OLD_EXTENSION_APIS {
+    #StructPack 8
 
-    static packingSize => 8
+    nSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    lpOutputRoutine : IntPtr
 
-    /**
-     * @type {Pointer<PWINDBG_OUTPUT_ROUTINE>}
-     */
-    lpOutputRoutine {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpGetExpressionRoutine : IntPtr
 
-    /**
-     * @type {Pointer<PWINDBG_GET_EXPRESSION>}
-     */
-    lpGetExpressionRoutine {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpGetSymbolRoutine : IntPtr
 
-    /**
-     * @type {Pointer<PWINDBG_GET_SYMBOL>}
-     */
-    lpGetSymbolRoutine {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpDisasmRoutine : IntPtr
 
-    /**
-     * @type {Pointer<PWINDBG_DISASM>}
-     */
-    lpDisasmRoutine {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpCheckControlCRoutine : IntPtr
 
-    /**
-     * @type {Pointer<PWINDBG_CHECK_CONTROL_C>}
-     */
-    lpCheckControlCRoutine {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

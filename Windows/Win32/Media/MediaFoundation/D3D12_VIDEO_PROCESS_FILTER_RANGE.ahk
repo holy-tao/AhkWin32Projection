@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the range of supported values for an image filter. (D3D12_VIDEO_PROCESS_FILTER_RANGE)
@@ -16,46 +15,29 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_process_filter_range
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_PROCESS_FILTER_RANGE extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct D3D12_VIDEO_PROCESS_FILTER_RANGE {
+    #StructPack 4
 
     /**
      * The minimum value of the filter.
-     * @type {Integer}
      */
-    Minimum {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Minimum : Int32
 
     /**
      * The maximum value of the filter.
-     * @type {Integer}
      */
-    Maximum {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Maximum : Int32
 
     /**
      * The default value of the filter.
-     * @type {Integer}
      */
-    Default {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    Default : Int32
 
     /**
      * A multiplier. Use the following formula to translate the filter setting into the actual filter value: 
      * 
      * `Actual Value = Set Value × Multiplier.`
-     * @type {Float}
      */
-    Multiplier {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    Multiplier : Float32
+
 }

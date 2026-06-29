@@ -1,86 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\EOC_ChangeType.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EOC_ChangeType.ahk" { EOC_ChangeType }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 
 /**
  * Represents a system event structure, which contains the partition and application ID from which an event originated.
  * @see https://learn.microsoft.com/windows/win32/api/eventsys/ns-eventsys-comeventsyschangeinfo
  * @namespace Windows.Win32.System.Com.Events
  */
-class COMEVENTSYSCHANGEINFO extends Win32Struct {
-    static sizeof => 112
-
-    static packingSize => 8
+export default struct COMEVENTSYSCHANGEINFO {
+    #StructPack 8
 
     /**
      * The size of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * The type of change that has been made to the subscription. For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/ne-eventsys-eoc_changetype">EOC_ChangeType</a>.
-     * @type {EOC_ChangeType}
      */
-    changeType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    changeType : EOC_ChangeType
 
     /**
      * The EventClass ID or subscription ID from which the change impacts.
-     * @type {BSTR}
      */
-    objectId {
-        get {
-            if(!this.HasProp("__objectId"))
-                this.__objectId := BSTR(8, this)
-            return this.__objectId
-        }
-    }
+    objectId : BSTR
 
     /**
      * The EventClass partition ID or the subscriber partition ID affected.
-     * @type {BSTR}
      */
-    partitionId {
-        get {
-            if(!this.HasProp("__partitionId"))
-                this.__partitionId := BSTR(16, this)
-            return this.__partitionId
-        }
-    }
+    partitionId : BSTR
 
     /**
      * The EventClass application ID or subscriber application ID affected.
-     * @type {BSTR}
      */
-    applicationId {
-        get {
-            if(!this.HasProp("__applicationId"))
-                this.__applicationId := BSTR(24, this)
-            return this.__applicationId
-        }
-    }
+    applicationId : BSTR
 
     /**
      * This member is reserved.
-     * @type {Array<Pointer>}
      */
-    reserved {
-        get {
-            if(!this.HasProp("__reservedProxyArray"))
-                this.__reservedProxyArray := Win32FixedArray(this.ptr + 32, 10, Primitive, "ptr")
-            return this.__reservedProxyArray
-        }
-    }
+    reserved : IntPtr[10]
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 112
-    }
 }

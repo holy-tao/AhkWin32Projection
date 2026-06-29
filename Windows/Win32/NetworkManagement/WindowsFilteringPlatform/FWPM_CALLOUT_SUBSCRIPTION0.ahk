@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWPM_CALLOUT_ENUM_TEMPLATE0.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FWPM_CALLOUT_ENUM_TEMPLATE0.ahk" { FWPM_CALLOUT_ENUM_TEMPLATE0 }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Used to subscribe for change notifications. (FWPM_CALLOUT_SUBSCRIPTION0)
@@ -14,19 +14,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_callout_subscription0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class FWPM_CALLOUT_SUBSCRIPTION0 extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct FWPM_CALLOUT_SUBSCRIPTION0 {
+    #StructPack 8
 
     /**
      * A [FWPM_CALLOUT_ENUM_TEMPLATE0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_callout_enum_template0) structure that is used to limit the subscription.
-     * @type {Pointer<FWPM_CALLOUT_ENUM_TEMPLATE0>}
      */
-    enumTemplate {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    enumTemplate : FWPM_CALLOUT_ENUM_TEMPLATE0.Ptr
 
     /**
      * The notification type(s) received by the subscription.
@@ -57,19 +51,12 @@ class FWPM_CALLOUT_SUBSCRIPTION0 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    flags : UInt32
 
     /**
      * Uniquely identifies this session.
-     * @type {Pointer}
      */
-    sessionKey {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    sessionKey : Guid
+
 }

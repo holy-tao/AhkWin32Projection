@@ -1,145 +1,100 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Resource statistics gathered by the D3DDEVINFO\_ResourceManager when using the asynchronous query mechanism.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dresourcestats
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DRESOURCESTATS extends Win32Struct {
-    static sizeof => 44
-
-    static packingSize => 4
+export default struct D3DRESOURCESTATS {
+    #StructPack 4
 
     /**
      * Type: **[**BOOL**](../winprog/windows-data-types.md)**
      * 
      * 
      * Indicates if thrashing is occurring.
-     * @type {BOOL}
      */
-    bThrashing {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    bThrashing : BOOL
 
     /**
      * Type: **[**DWORD**](../winprog/windows-data-types.md)**
      * 
      * 
      * Approximate number of bytes downloaded by the resource manager.
-     * @type {Integer}
      */
-    ApproxBytesDownloaded {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ApproxBytesDownloaded : UInt32
 
     /**
      * Type: **[**DWORD**](../winprog/windows-data-types.md)**
      * 
      * 
      * Number of objects evicted.
-     * @type {Integer}
      */
-    NumEvicts {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NumEvicts : UInt32
 
     /**
      * Type: **[**DWORD**](../winprog/windows-data-types.md)**
      * 
      * 
      * Number of objects created in video memory.
-     * @type {Integer}
      */
-    NumVidCreates {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    NumVidCreates : UInt32
 
     /**
      * Type: **[**DWORD**](../winprog/windows-data-types.md)**
      * 
      * 
      * Priority of last object evicted.
-     * @type {Integer}
      */
-    LastPri {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    LastPri : UInt32
 
     /**
      * Type: **[**DWORD**](../winprog/windows-data-types.md)**
      * 
      * 
      * Number of objects set to the device.
-     * @type {Integer}
      */
-    NumUsed {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    NumUsed : UInt32
 
     /**
      * Type: **[**DWORD**](../winprog/windows-data-types.md)**
      * 
      * 
      * Number of objects set to the device, which are already in video memory.
-     * @type {Integer}
      */
-    NumUsedInVidMem {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    NumUsedInVidMem : UInt32
 
     /**
      * Type: **[**DWORD**](../winprog/windows-data-types.md)**
      * 
      * 
      * Number of objects in video memory.
-     * @type {Integer}
      */
-    WorkingSet {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    WorkingSet : UInt32
 
     /**
      * Type: **[**DWORD**](../winprog/windows-data-types.md)**
      * 
      * 
      * Number of bytes in video memory.
-     * @type {Integer}
      */
-    WorkingSetBytes {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    WorkingSetBytes : UInt32
 
     /**
      * Type: **[**DWORD**](../winprog/windows-data-types.md)**
      * 
      * 
      * Total number of managed objects.
-     * @type {Integer}
      */
-    TotalManaged {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    TotalManaged : UInt32
 
     /**
      * Type: **[**DWORD**](../winprog/windows-data-types.md)**
      * 
      * 
      * Total number of bytes of managed objects.
-     * @type {Integer}
      */
-    TotalBytes {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    TotalBytes : UInt32
+
 }

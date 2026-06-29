@@ -1,19 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class TRANSACTION_LIST_ENTRY extends Win32Struct {
-    static sizeof => 8
+export default struct TRANSACTION_LIST_ENTRY {
+    #StructPack 4
 
-    static packingSize => 8
+    UOW : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    UOW {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
 }

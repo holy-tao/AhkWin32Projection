@@ -1,150 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
  */
-class DCISURFACEINFO extends Win32Struct {
-    static sizeof => 88
+export default struct DCISURFACEINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwDCICaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDCICaps {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwCompression : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCompression {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwMask : UInt32[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    dwMask {
-        get {
-            if(!this.HasProp("__dwMaskProxyArray"))
-                this.__dwMaskProxyArray := Win32FixedArray(this.ptr + 12, 3, Primitive, "uint")
-            return this.__dwMaskProxyArray
-        }
-    }
+    dwWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwWidth {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwHeight {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    lStride : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lStride {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    dwBitCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwBitCount {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwOffSurface : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwOffSurface {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    wSelSurface : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wSelSurface {
-        get => NumGet(this, 48, "ushort")
-        set => NumPut("ushort", value, this, 48)
-    }
+    wReserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wReserved {
-        get => NumGet(this, 50, "ushort")
-        set => NumPut("ushort", value, this, 50)
-    }
+    dwReserved1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved1 {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwReserved2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved2 {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    dwReserved3 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved3 {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    BeginAccess : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    BeginAccess {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    EndAccess : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    EndAccess {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    DestroySurface : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    DestroySurface {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
 }

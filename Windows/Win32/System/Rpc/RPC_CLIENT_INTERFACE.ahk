@@ -1,95 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RPC_SYNTAX_IDENTIFIER.ahk
-#Include .\RPC_VERSION.ahk
-#Include .\RPC_DISPATCH_TABLE.ahk
-#Include .\RPC_PROTSEQ_ENDPOINT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RPC_PROTSEQ_ENDPOINT.ahk" { RPC_PROTSEQ_ENDPOINT }
+#Import ".\RPC_VERSION.ahk" { RPC_VERSION }
+#Import ".\RPC_SYNTAX_IDENTIFIER.ahk" { RPC_SYNTAX_IDENTIFIER }
+#Import ".\RPC_DISPATCH_TABLE.ahk" { RPC_DISPATCH_TABLE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The RPC_CLIENT_INTERFACE structure is part of the private interface between the run-time libraries and the stubs. Most distributed applications that use Microsoft RPC do not need this structure.
  * @see https://learn.microsoft.com/windows/win32/api/rpcdcep/ns-rpcdcep-rpc_client_interface
  * @namespace Windows.Win32.System.Rpc
  */
-class RPC_CLIENT_INTERFACE extends Win32Struct {
-    static sizeof => 88
+export default struct RPC_CLIENT_INTERFACE {
+    #StructPack 8
 
-    static packingSize => 8
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    InterfaceId : RPC_SYNTAX_IDENTIFIER
 
-    /**
-     * @type {RPC_SYNTAX_IDENTIFIER}
-     */
-    InterfaceId {
-        get {
-            if(!this.HasProp("__InterfaceId"))
-                this.__InterfaceId := RPC_SYNTAX_IDENTIFIER(8, this)
-            return this.__InterfaceId
-        }
-    }
+    TransferSyntax : RPC_SYNTAX_IDENTIFIER
 
-    /**
-     * @type {RPC_SYNTAX_IDENTIFIER}
-     */
-    TransferSyntax {
-        get {
-            if(!this.HasProp("__TransferSyntax"))
-                this.__TransferSyntax := RPC_SYNTAX_IDENTIFIER(24, this)
-            return this.__TransferSyntax
-        }
-    }
+    DispatchTable : RPC_DISPATCH_TABLE.Ptr
 
-    /**
-     * @type {Pointer<RPC_DISPATCH_TABLE>}
-     */
-    DispatchTable {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    RpcProtseqEndpointCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RpcProtseqEndpointCount {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    RpcProtseqEndpoint : RPC_PROTSEQ_ENDPOINT.Ptr
 
-    /**
-     * @type {Pointer<RPC_PROTSEQ_ENDPOINT>}
-     */
-    RpcProtseqEndpoint {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    Reserved : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Reserved {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    InterpreterInfo : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    InterpreterInfo {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The WSAPROTOCOLCHAIN structure contains a counted list of Catalog Entry identifiers that comprise a protocol chain.
@@ -8,10 +7,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsaprotocolchain
  * @namespace Windows.Win32.Networking.WinSock
  */
-class WSAPROTOCOLCHAIN extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 4
+export default struct WSAPROTOCOLCHAIN {
+    #StructPack 4
 
     /**
      * Length of the chain, in bytes. The following settings apply: 
@@ -24,22 +21,12 @@ class WSAPROTOCOLCHAIN extends Win32Struct {
      * Setting <b>ChainLen</b> to one indicates a base protocol
      * 
      * Setting <b>ChainLen</b> to greater than one indicates a protocol chain
-     * @type {Integer}
      */
-    ChainLen {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ChainLen : Int32
 
     /**
      * Array of protocol chain entries.
-     * @type {Array<Integer>}
      */
-    ChainEntries {
-        get {
-            if(!this.HasProp("__ChainEntriesProxyArray"))
-                this.__ChainEntriesProxyArray := Win32FixedArray(this.ptr + 4, 7, Primitive, "uint")
-            return this.__ChainEntriesProxyArray
-        }
-    }
+    ChainEntries : UInt32[7]
+
 }

@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXVAHD_COLOR.ahk
-#Include .\DXVAHD_COLOR_RGBA.ahk
-#Include .\DXVAHD_COLOR_YCbCrA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DXVAHD_COLOR.ahk" { DXVAHD_COLOR }
+#Import ".\DXVAHD_COLOR_YCbCrA.ahk" { DXVAHD_COLOR_YCbCrA }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DXVAHD_COLOR_RGBA.ahk" { DXVAHD_COLOR_RGBA }
 
 /**
  * Specifies the background color for blit operations, when using Microsoft DirectX Video Acceleration High Definition (DXVA-HD).
@@ -17,29 +17,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_blt_state_background_color_data
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVAHD_BLT_STATE_BACKGROUND_COLOR_DATA extends Win32Struct {
-    static sizeof => 36
-
-    static packingSize => 4
+export default struct DXVAHD_BLT_STATE_BACKGROUND_COLOR_DATA {
+    #StructPack 4
 
     /**
      * If <b>TRUE</b>, the <b>BackgroundColor</b> member specifies a YCbCr color. Otherwise, it specifies an RGB color.  The default device state is <b>FALSE</b> (RGB color).
-     * @type {BOOL}
      */
-    YCbCr {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    YCbCr : BOOL
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_color">DXVAHD_COLOR</a> union that specifies the background color. The default state value is (0.0, 0.0, 0.0, 1.0).
-     * @type {DXVAHD_COLOR}
      */
-    BackgroundColor {
-        get {
-            if(!this.HasProp("__BackgroundColor"))
-                this.__BackgroundColor := DXVAHD_COLOR(4, this)
-            return this.__BackgroundColor
-        }
-    }
+    BackgroundColor : DXVAHD_COLOR
+
 }

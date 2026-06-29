@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Implemented by a query form extension object to allow the form object to add forms and pages to the system-supplied directory service query dialog box.
@@ -57,26 +60,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/cmnquery/nn-cmnquery-iqueryform
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IQueryForm extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IQueryForm extends IUnknown {
     /**
      * The interface identifier for IQueryForm
      * @type {Guid}
      */
-    static IID => Guid("{8cfcee30-39bd-11d0-b8d1-00a024ab2dbb}")
+    static IID := Guid("{8cfcee30-39bd-11d0-b8d1-00a024ab2dbb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IQueryForm interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize : IntPtr
+        AddForms   : IntPtr
+        AddPages   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "AddForms", "AddPages"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IQueryForm.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes the query form extension object.
@@ -85,9 +97,7 @@ class IQueryForm extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cmnquery/nf-cmnquery-iqueryform-initialize
      */
     Initialize(hkForm) {
-        hkForm := hkForm is Win32Handle ? NumGet(hkForm, "ptr") : hkForm
-
-        result := ComCall(3, this, "ptr", hkForm, "HRESULT")
+        result := ComCall(3, this, HKEY, hkForm, "HRESULT")
         return result
     }
 
@@ -99,7 +109,7 @@ class IQueryForm extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cmnquery/nf-cmnquery-iqueryform-addforms
      */
     AddForms(pAddFormsProc, _lParam) {
-        result := ComCall(4, this, "ptr", pAddFormsProc, "ptr", _lParam, "HRESULT")
+        result := ComCall(4, this, "ptr", pAddFormsProc, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -111,7 +121,31 @@ class IQueryForm extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cmnquery/nf-cmnquery-iqueryform-addpages
      */
     AddPages(pAddPagesProc, _lParam) {
-        result := ComCall(5, this, "ptr", pAddPagesProc, "ptr", _lParam, "HRESULT")
+        result := ComCall(5, this, "ptr", pAddPagesProc, LPARAM, _lParam, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IQueryForm.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.AddForms := CallbackCreate(GetMethod(implObj, "AddForms"), flags, 3)
+        this.vtbl.AddPages := CallbackCreate(GetMethod(implObj, "AddPages"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.AddForms)
+        CallbackFree(this.vtbl.AddPages)
     }
 }

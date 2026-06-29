@@ -1,8 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITfReadOnlyProperty.ahk
-#Include .\ITfRange.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITfReadOnlyProperty.ahk" { ITfReadOnlyProperty }
+#Import ".\ITfRange.ahk" { ITfRange }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfPropertyStore.ahk" { ITfPropertyStore }
+#Import ".\TfAnchor.ahk" { TfAnchor }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ITfProperty interface is implemented by the TSF manager and used by a client (application or text service) to modify a property value.
@@ -11,26 +15,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfproperty
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfProperty extends ITfReadOnlyProperty {
-
-    static sizeof => A_PtrSize
+export default struct ITfProperty extends ITfReadOnlyProperty {
     /**
      * The interface identifier for ITfProperty
      * @type {Guid}
      */
-    static IID => Guid("{e2449660-9542-11d2-bf46-00105a2799b5}")
+    static IID := Guid("{e2449660-9542-11d2-bf46-00105a2799b5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfProperty interfaces
+    */
+    struct Vtbl extends ITfReadOnlyProperty.Vtbl {
+        FindRange     : IntPtr
+        SetValueStore : IntPtr
+        SetValue      : IntPtr
+        Clear         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["FindRange", "SetValueStore", "SetValue", "Clear"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfProperty.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfProperty::FindRange method
@@ -61,7 +75,7 @@ class ITfProperty extends ITfReadOnlyProperty {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfproperty-findrange
      */
     FindRange(ec, pRange, aPos) {
-        result := ComCall(7, this, "uint", ec, "ptr", pRange, "ptr*", &ppRange := 0, "int", aPos, "HRESULT")
+        result := ComCall(7, this, "uint", ec, "ptr", pRange, "ptr*", &ppRange := 0, TfAnchor, aPos, "HRESULT")
         return ITfRange(ppRange)
     }
 
@@ -234,7 +248,7 @@ class ITfProperty extends ITfReadOnlyProperty {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfproperty-setvalue
      */
     SetValue(ec, pRange, pvarValue) {
-        result := ComCall(9, this, "uint", ec, "ptr", pRange, "ptr", pvarValue, "HRESULT")
+        result := ComCall(9, this, "uint", ec, "ptr", pRange, VARIANT.Ptr, pvarValue, "HRESULT")
         return result
     }
 
@@ -312,5 +326,31 @@ class ITfProperty extends ITfReadOnlyProperty {
     Clear(ec, pRange) {
         result := ComCall(10, this, "uint", ec, "ptr", pRange, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITfProperty.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.FindRange := CallbackCreate(GetMethod(implObj, "FindRange"), flags, 5)
+        this.vtbl.SetValueStore := CallbackCreate(GetMethod(implObj, "SetValueStore"), flags, 4)
+        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 4)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.FindRange)
+        CallbackFree(this.vtbl.SetValueStore)
+        CallbackFree(this.vtbl.SetValue)
+        CallbackFree(this.vtbl.Clear)
     }
 }

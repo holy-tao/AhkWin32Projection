@@ -1,28 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\SECPKG_FAILURE_SPECIAL_REASON.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\SECPKG_FAILURE_SPECIAL_REASON.ahk" { SECPKG_FAILURE_SPECIAL_REASON }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SECPKG_FAILURE_REASON extends Win32Struct {
-    static sizeof => 8
+export default struct SECPKG_FAILURE_REASON {
+    #StructPack 4
 
-    static packingSize => 4
+    Status : NTSTATUS
 
-    /**
-     * @type {NTSTATUS}
-     */
-    Status {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Reason : SECPKG_FAILURE_SPECIAL_REASON
 
-    /**
-     * @type {SECPKG_FAILURE_SPECIAL_REASON}
-     */
-    Reason {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
 }

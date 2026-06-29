@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WAVEFORMATEX.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The WAVEFORMATEXTENSIBLE structure defines the format of waveform-audio data for formats having more than two channels or higher sample resolutions than allowed by WAVEFORMATEX.
@@ -154,79 +154,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/mmreg/ns-mmreg-waveformatextensible
  * @namespace Windows.Win32.Media.Audio
  */
-class WAVEFORMATEXTENSIBLE extends Win32Struct {
-    static sizeof => 40
+export default struct WAVEFORMATEXTENSIBLE {
+    #StructPack 4
 
-    static packingSize => 8
 
-    class _Samples_e__Union extends Win32Struct {
-        static sizeof => 2
-        static packingSize => 1
+    struct _Samples {
+        wValidBitsPerSample : UInt16
 
-        /**
-         * @type {Integer}
-         */
-        wValidBitsPerSample {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        wSamplesPerBlock {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        wReserved {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'wSamplesPerBlock', { type: UInt16, offset: 0 })
+            DefineProp(this.Prototype, 'wReserved', { type: UInt16, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure that specifies the basic format. The <b>wFormatTag</b> member must be WAVE_FORMAT_EXTENSIBLE. The <b>cbSize</b> member must be at least 22.
-     * @type {WAVEFORMATEX}
      */
-    Format {
-        get {
-            if(!this.HasProp("__Format"))
-                this.__Format := WAVEFORMATEX(0, this)
-            return this.__Format
-        }
-    }
+    Format : WAVEFORMATEX
 
     /**
      * A union describing the sample format.
-     * @type {_Samples_e__Union}
      */
-    Samples {
-        get {
-            if(!this.HasProp("__Samples"))
-                this.__Samples := WAVEFORMATEXTENSIBLE._Samples_e__Union(20, this)
-            return this.__Samples
-        }
-    }
+    Samples : WAVEFORMATEXTENSIBLE._Samples
 
     /**
      * Bitmask specifying the assignment of channels in the stream to speaker positions.
-     * @type {Integer}
      */
-    dwChannelMask {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwChannelMask : UInt32
 
     /**
      * Subformat of the data, such as KSDATAFORMAT_SUBTYPE_PCM. The subformat information is similar to that provided by the tag in the <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure's <b>wFormatTag</b> member.
-     * @type {Pointer}
      */
-    SubFormat {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    SubFormat : Guid
+
 }

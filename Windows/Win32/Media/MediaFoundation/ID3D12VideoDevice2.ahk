@@ -1,33 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12VideoDevice1.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC.ahk" { D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC }
+#Import ".\D3D12_VIDEO_DECODER_DESC.ahk" { D3D12_VIDEO_DECODER_DESC }
+#Import ".\D3D12_VIDEO_DECODER_HEAP_DESC.ahk" { D3D12_VIDEO_DECODER_HEAP_DESC }
+#Import "..\..\Graphics\Direct3D12\ID3D12ProtectedResourceSession.ahk" { ID3D12ProtectedResourceSession }
+#Import ".\ID3D12VideoExtensionCommand.ahk" { ID3D12VideoExtensionCommand }
+#Import ".\D3D12_VIDEO_EXTENSION_COMMAND_DESC.ahk" { D3D12_VIDEO_EXTENSION_COMMAND_DESC }
+#Import ".\ID3D12VideoDevice1.ahk" { ID3D12VideoDevice1 }
+#Import ".\D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC.ahk" { D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC }
 
 /**
  * Adds support for protected resources.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nn-d3d12video-id3d12videodevice2
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class ID3D12VideoDevice2 extends ID3D12VideoDevice1 {
-
-    static sizeof => A_PtrSize
+export default struct ID3D12VideoDevice2 extends ID3D12VideoDevice1 {
     /**
      * The interface identifier for ID3D12VideoDevice2
      * @type {Guid}
      */
-    static IID => Guid("{f019ac49-f838-4a95-9b17-579437c8f513}")
+    static IID := Guid("{f019ac49-f838-4a95-9b17-579437c8f513}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D12VideoDevice2 interfaces
+    */
+    struct Vtbl extends ID3D12VideoDevice1.Vtbl {
+        CreateVideoDecoder1         : IntPtr
+        CreateVideoDecoderHeap1     : IntPtr
+        CreateVideoProcessor1       : IntPtr
+        CreateVideoExtensionCommand : IntPtr
+        ExecuteExtensionCommand     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateVideoDecoder1", "CreateVideoDecoderHeap1", "CreateVideoProcessor1", "CreateVideoExtensionCommand", "ExecuteExtensionCommand"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D12VideoDevice2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a video decoder instance that contains the resolution-independent driver resources and state, with support for protected resources.
@@ -40,7 +59,7 @@ class ID3D12VideoDevice2 extends ID3D12VideoDevice1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice2-createvideodecoder1
      */
     CreateVideoDecoder1(pDesc, pProtectedResourceSession, riid) {
-        result := ComCall(9, this, "ptr", pDesc, "ptr", pProtectedResourceSession, "ptr", riid, "ptr*", &ppVideoDecoder := 0, "HRESULT")
+        result := ComCall(9, this, D3D12_VIDEO_DECODER_DESC.Ptr, pDesc, "ptr", pProtectedResourceSession, Guid.Ptr, riid, "ptr*", &ppVideoDecoder := 0, "HRESULT")
         return ppVideoDecoder
     }
 
@@ -53,7 +72,7 @@ class ID3D12VideoDevice2 extends ID3D12VideoDevice1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice2-createvideodecoderheap1
      */
     CreateVideoDecoderHeap1(pVideoDecoderHeapDesc, pProtectedResourceSession, riid) {
-        result := ComCall(10, this, "ptr", pVideoDecoderHeapDesc, "ptr", pProtectedResourceSession, "ptr", riid, "ptr*", &ppVideoDecoderHeap := 0, "HRESULT")
+        result := ComCall(10, this, D3D12_VIDEO_DECODER_HEAP_DESC.Ptr, pVideoDecoderHeapDesc, "ptr", pProtectedResourceSession, Guid.Ptr, riid, "ptr*", &ppVideoDecoderHeap := 0, "HRESULT")
         return ppVideoDecoderHeap
     }
 
@@ -71,7 +90,7 @@ class ID3D12VideoDevice2 extends ID3D12VideoDevice1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice2-createvideoprocessor1
      */
     CreateVideoProcessor1(NodeMask, pOutputStreamDesc, NumInputStreamDescs, pInputStreamDescs, pProtectedResourceSession, riid) {
-        result := ComCall(11, this, "uint", NodeMask, "ptr", pOutputStreamDesc, "uint", NumInputStreamDescs, "ptr", pInputStreamDescs, "ptr", pProtectedResourceSession, "ptr", riid, "ptr*", &ppVideoProcessor := 0, "HRESULT")
+        result := ComCall(11, this, "uint", NodeMask, D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC.Ptr, pOutputStreamDesc, "uint", NumInputStreamDescs, D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC.Ptr, pInputStreamDescs, "ptr", pProtectedResourceSession, Guid.Ptr, riid, "ptr*", &ppVideoProcessor := 0, "HRESULT")
         return ppVideoProcessor
     }
 
@@ -86,7 +105,7 @@ class ID3D12VideoDevice2 extends ID3D12VideoDevice1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice2-createvideoextensioncommand
      */
     CreateVideoExtensionCommand(pDesc, pCreationParameters, CreationParametersDataSizeInBytes, pProtectedResourceSession, riid) {
-        result := ComCall(12, this, "ptr", pDesc, "ptr", pCreationParameters, "ptr", CreationParametersDataSizeInBytes, "ptr", pProtectedResourceSession, "ptr", riid, "ptr*", &ppVideoExtensionCommand := 0, "HRESULT")
+        result := ComCall(12, this, D3D12_VIDEO_EXTENSION_COMMAND_DESC.Ptr, pDesc, "ptr", pCreationParameters, "ptr", CreationParametersDataSizeInBytes, "ptr", pProtectedResourceSession, Guid.Ptr, riid, "ptr*", &ppVideoExtensionCommand := 0, "HRESULT")
         return ppVideoExtensionCommand
     }
 
@@ -109,5 +128,33 @@ class ID3D12VideoDevice2 extends ID3D12VideoDevice1 {
     ExecuteExtensionCommand(pExtensionCommand, pExecutionParameters, ExecutionParametersSizeInBytes, pOutputData, OutputDataSizeInBytes) {
         result := ComCall(13, this, "ptr", pExtensionCommand, "ptr", pExecutionParameters, "ptr", ExecutionParametersSizeInBytes, "ptr", pOutputData, "ptr", OutputDataSizeInBytes, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID3D12VideoDevice2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateVideoDecoder1 := CallbackCreate(GetMethod(implObj, "CreateVideoDecoder1"), flags, 5)
+        this.vtbl.CreateVideoDecoderHeap1 := CallbackCreate(GetMethod(implObj, "CreateVideoDecoderHeap1"), flags, 5)
+        this.vtbl.CreateVideoProcessor1 := CallbackCreate(GetMethod(implObj, "CreateVideoProcessor1"), flags, 8)
+        this.vtbl.CreateVideoExtensionCommand := CallbackCreate(GetMethod(implObj, "CreateVideoExtensionCommand"), flags, 7)
+        this.vtbl.ExecuteExtensionCommand := CallbackCreate(GetMethod(implObj, "ExecuteExtensionCommand"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateVideoDecoder1)
+        CallbackFree(this.vtbl.CreateVideoDecoderHeap1)
+        CallbackFree(this.vtbl.CreateVideoProcessor1)
+        CallbackFree(this.vtbl.CreateVideoExtensionCommand)
+        CallbackFree(this.vtbl.ExecuteExtensionCommand)
     }
 }

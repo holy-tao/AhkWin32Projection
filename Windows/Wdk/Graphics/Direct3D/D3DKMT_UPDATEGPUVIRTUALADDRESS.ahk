@@ -1,29 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DDDI_UPDATEGPUVIRTUALADDRESS_OPERATION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DDDI_UPDATEGPUVIRTUALADDRESS_OPERATION.ahk" { D3DDDI_UPDATEGPUVIRTUALADDRESS_OPERATION }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_UPDATEGPUVIRTUALADDRESS extends Win32Struct {
-    static sizeof => 56
+export default struct D3DKMT_UPDATEGPUVIRTUALADDRESS {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Flags_e__Union extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
+    struct _Flags {
         /**
          * This bitfield backs the following members:
          * - DoNotWait
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -32,88 +24,28 @@ class D3DKMT_UPDATEGPUVIRTUALADDRESS extends Win32Struct {
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-
-        /**
-         * @type {Integer}
-         */
-        Value {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'Value', { type: UInt32, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    hDevice {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hDevice : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hContext {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    hContext : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hFenceObject {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    hFenceObject : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumOperations {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    NumOperations : UInt32
 
-    /**
-     * @type {Pointer<D3DDDI_UPDATEGPUVIRTUALADDRESS_OPERATION>}
-     */
-    Operations {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Operations : D3DDDI_UPDATEGPUVIRTUALADDRESS_OPERATION.Ptr
 
-    /**
-     * @type {Pointer}
-     */
-    Reserved0 {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Reserved0 : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Reserved1 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FenceValue {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    FenceValue : Int64
 
-    /**
-     * @type {_Flags_e__Union}
-     */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := D3DKMT_UPDATEGPUVIRTUALADDRESS._Flags_e__Union(48, this)
-            return this.__Flags
-        }
-    }
+    Flags : D3DKMT_UPDATEGPUVIRTUALADDRESS._Flags
+
 }

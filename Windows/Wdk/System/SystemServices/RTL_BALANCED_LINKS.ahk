@@ -1,55 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RTL_BALANCED_LINKS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class RTL_BALANCED_LINKS extends Win32Struct {
-    static sizeof => 32
+export default struct RTL_BALANCED_LINKS {
+    #StructPack 8
 
-    static packingSize => 8
+    Parent : RTL_BALANCED_LINKS.Ptr
 
-    /**
-     * @type {Pointer<RTL_BALANCED_LINKS>}
-     */
-    Parent {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    LeftChild : RTL_BALANCED_LINKS.Ptr
 
-    /**
-     * @type {Pointer<RTL_BALANCED_LINKS>}
-     */
-    LeftChild {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    RightChild : RTL_BALANCED_LINKS.Ptr
 
-    /**
-     * @type {Pointer<RTL_BALANCED_LINKS>}
-     */
-    RightChild {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Balance : CHAR
 
-    /**
-     * @type {CHAR}
-     */
-    Balance {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
-    }
+    Reserved : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 25, 3, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
 }

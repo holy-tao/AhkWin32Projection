@@ -1,33 +1,63 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionFilterEffect.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDCompositionFilterEffect.ahk" { IDCompositionFilterEffect }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 
 /**
  * The linear transfer effect is used to map the color intensities of an image using a linear function created from a list of values you provide for each channel.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionlineartransfereffect
  * @namespace Windows.Win32.Graphics.DirectComposition
  */
-class IDCompositionLinearTransferEffect extends IDCompositionFilterEffect {
-
-    static sizeof => A_PtrSize
+export default struct IDCompositionLinearTransferEffect extends IDCompositionFilterEffect {
     /**
      * The interface identifier for IDCompositionLinearTransferEffect
      * @type {Guid}
      */
-    static IID => Guid("{4305ee5b-c4a0-4c88-9385-67124e017683}")
+    static IID := Guid("{4305ee5b-c4a0-4c88-9385-67124e017683}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDCompositionLinearTransferEffect interfaces
+    */
+    struct Vtbl extends IDCompositionFilterEffect.Vtbl {
+        SetRedYIntercept    : IntPtr
+        SetRedYIntercept1   : IntPtr
+        SetRedSlope         : IntPtr
+        SetRedSlope1        : IntPtr
+        SetRedDisable       : IntPtr
+        SetGreenYIntercept  : IntPtr
+        SetGreenYIntercept1 : IntPtr
+        SetGreenSlope       : IntPtr
+        SetGreenSlope1      : IntPtr
+        SetGreenDisable     : IntPtr
+        SetBlueYIntercept   : IntPtr
+        SetBlueYIntercept1  : IntPtr
+        SetBlueSlope        : IntPtr
+        SetBlueSlope1       : IntPtr
+        SetBlueDisable      : IntPtr
+        SetAlphaYIntercept  : IntPtr
+        SetAlphaYIntercept1 : IntPtr
+        SetAlphaSlope       : IntPtr
+        SetAlphaSlope1      : IntPtr
+        SetAlphaDisable     : IntPtr
+        SetClampOutput      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetRedYIntercept", "SetRedYIntercept1", "SetRedSlope", "SetRedSlope1", "SetRedDisable", "SetGreenYIntercept", "SetGreenYIntercept1", "SetGreenSlope", "SetGreenSlope1", "SetGreenDisable", "SetBlueYIntercept", "SetBlueYIntercept1", "SetBlueSlope", "SetBlueSlope1", "SetBlueDisable", "SetAlphaYIntercept", "SetAlphaYIntercept1", "SetAlphaSlope", "SetAlphaSlope1", "SetAlphaDisable", "SetClampOutput"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDCompositionLinearTransferEffect.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the Y-intercept of the linear function for the red channel. (overload 1/2)
@@ -97,7 +127,7 @@ class IDCompositionLinearTransferEffect extends IDCompositionFilterEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setreddisable
      */
     SetRedDisable(redDisable) {
-        result := ComCall(8, this, "int", redDisable, "HRESULT")
+        result := ComCall(8, this, BOOL, redDisable, "HRESULT")
         return result
     }
 
@@ -169,7 +199,7 @@ class IDCompositionLinearTransferEffect extends IDCompositionFilterEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setgreendisable
      */
     SetGreenDisable(greenDisable) {
-        result := ComCall(13, this, "int", greenDisable, "HRESULT")
+        result := ComCall(13, this, BOOL, greenDisable, "HRESULT")
         return result
     }
 
@@ -241,7 +271,7 @@ class IDCompositionLinearTransferEffect extends IDCompositionFilterEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setbluedisable
      */
     SetBlueDisable(blueDisable) {
-        result := ComCall(18, this, "int", blueDisable, "HRESULT")
+        result := ComCall(18, this, BOOL, blueDisable, "HRESULT")
         return result
     }
 
@@ -313,7 +343,7 @@ class IDCompositionLinearTransferEffect extends IDCompositionFilterEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setalphadisable
      */
     SetAlphaDisable(alphaDisable) {
-        result := ComCall(23, this, "int", alphaDisable, "HRESULT")
+        result := ComCall(23, this, BOOL, alphaDisable, "HRESULT")
         return result
     }
 
@@ -330,7 +360,67 @@ class IDCompositionLinearTransferEffect extends IDCompositionFilterEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setclampoutput
      */
     SetClampOutput(clampOutput) {
-        result := ComCall(24, this, "int", clampOutput, "HRESULT")
+        result := ComCall(24, this, BOOL, clampOutput, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDCompositionLinearTransferEffect.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetRedYIntercept := CallbackCreate(GetMethod(implObj, "SetRedYIntercept"), flags, 2)
+        this.vtbl.SetRedYIntercept1 := CallbackCreate(GetMethod(implObj, "SetRedYIntercept1"), flags, 2)
+        this.vtbl.SetRedSlope := CallbackCreate(GetMethod(implObj, "SetRedSlope"), flags, 2)
+        this.vtbl.SetRedSlope1 := CallbackCreate(GetMethod(implObj, "SetRedSlope1"), flags, 2)
+        this.vtbl.SetRedDisable := CallbackCreate(GetMethod(implObj, "SetRedDisable"), flags, 2)
+        this.vtbl.SetGreenYIntercept := CallbackCreate(GetMethod(implObj, "SetGreenYIntercept"), flags, 2)
+        this.vtbl.SetGreenYIntercept1 := CallbackCreate(GetMethod(implObj, "SetGreenYIntercept1"), flags, 2)
+        this.vtbl.SetGreenSlope := CallbackCreate(GetMethod(implObj, "SetGreenSlope"), flags, 2)
+        this.vtbl.SetGreenSlope1 := CallbackCreate(GetMethod(implObj, "SetGreenSlope1"), flags, 2)
+        this.vtbl.SetGreenDisable := CallbackCreate(GetMethod(implObj, "SetGreenDisable"), flags, 2)
+        this.vtbl.SetBlueYIntercept := CallbackCreate(GetMethod(implObj, "SetBlueYIntercept"), flags, 2)
+        this.vtbl.SetBlueYIntercept1 := CallbackCreate(GetMethod(implObj, "SetBlueYIntercept1"), flags, 2)
+        this.vtbl.SetBlueSlope := CallbackCreate(GetMethod(implObj, "SetBlueSlope"), flags, 2)
+        this.vtbl.SetBlueSlope1 := CallbackCreate(GetMethod(implObj, "SetBlueSlope1"), flags, 2)
+        this.vtbl.SetBlueDisable := CallbackCreate(GetMethod(implObj, "SetBlueDisable"), flags, 2)
+        this.vtbl.SetAlphaYIntercept := CallbackCreate(GetMethod(implObj, "SetAlphaYIntercept"), flags, 2)
+        this.vtbl.SetAlphaYIntercept1 := CallbackCreate(GetMethod(implObj, "SetAlphaYIntercept1"), flags, 2)
+        this.vtbl.SetAlphaSlope := CallbackCreate(GetMethod(implObj, "SetAlphaSlope"), flags, 2)
+        this.vtbl.SetAlphaSlope1 := CallbackCreate(GetMethod(implObj, "SetAlphaSlope1"), flags, 2)
+        this.vtbl.SetAlphaDisable := CallbackCreate(GetMethod(implObj, "SetAlphaDisable"), flags, 2)
+        this.vtbl.SetClampOutput := CallbackCreate(GetMethod(implObj, "SetClampOutput"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetRedYIntercept)
+        CallbackFree(this.vtbl.SetRedYIntercept1)
+        CallbackFree(this.vtbl.SetRedSlope)
+        CallbackFree(this.vtbl.SetRedSlope1)
+        CallbackFree(this.vtbl.SetRedDisable)
+        CallbackFree(this.vtbl.SetGreenYIntercept)
+        CallbackFree(this.vtbl.SetGreenYIntercept1)
+        CallbackFree(this.vtbl.SetGreenSlope)
+        CallbackFree(this.vtbl.SetGreenSlope1)
+        CallbackFree(this.vtbl.SetGreenDisable)
+        CallbackFree(this.vtbl.SetBlueYIntercept)
+        CallbackFree(this.vtbl.SetBlueYIntercept1)
+        CallbackFree(this.vtbl.SetBlueSlope)
+        CallbackFree(this.vtbl.SetBlueSlope1)
+        CallbackFree(this.vtbl.SetBlueDisable)
+        CallbackFree(this.vtbl.SetAlphaYIntercept)
+        CallbackFree(this.vtbl.SetAlphaYIntercept1)
+        CallbackFree(this.vtbl.SetAlphaSlope)
+        CallbackFree(this.vtbl.SetAlphaSlope1)
+        CallbackFree(this.vtbl.SetAlphaDisable)
+        CallbackFree(this.vtbl.SetClampOutput)
     }
 }

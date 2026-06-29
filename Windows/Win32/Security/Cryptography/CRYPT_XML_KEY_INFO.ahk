@@ -1,68 +1,39 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_XML_KEY_INFO_ITEM.ahk
-#Include .\BCRYPT_KEY_HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BCRYPT_KEY_HANDLE.ahk" { BCRYPT_KEY_HANDLE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CRYPT_XML_KEY_INFO_ITEM.ahk" { CRYPT_XML_KEY_INFO_ITEM }
 
 /**
  * Encapsulates key information data.
  * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_key_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRYPT_XML_KEY_INFO extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct CRYPT_XML_KEY_INFO {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * A pointer to a null-terminated wide character string that specifies the value of the <b>ID</b> attribute of the key information element.
-     * @type {PWSTR}
      */
-    wszId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    wszId : PWSTR
 
     /**
      * The number of items in the array pointed to by the <b>rgKeyInfo</b> member.
-     * @type {Integer}
      */
-    cKeyInfo {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cKeyInfo : UInt32
 
     /**
      * A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_key_info_item">CRYPT_XML_KEY_INFO_ITEM</a> structures that contain key information.
-     * @type {Pointer<CRYPT_XML_KEY_INFO_ITEM>}
      */
-    rgKeyInfo {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    rgKeyInfo : CRYPT_XML_KEY_INFO_ITEM.Ptr
 
     /**
      * Optional. The handle of data  derived from the first key value.
-     * @type {BCRYPT_KEY_HANDLE}
      */
-    hVerifyKey {
-        get {
-            if(!this.HasProp("__hVerifyKey"))
-                this.__hVerifyKey := BCRYPT_KEY_HANDLE(32, this)
-            return this.__hVerifyKey
-        }
-    }
+    hVerifyKey : BCRYPT_KEY_HANDLE
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 40
-    }
 }

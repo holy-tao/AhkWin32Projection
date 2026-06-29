@@ -1,43 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IPrinterScriptableSequentialStream.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPrinterScriptableSequentialStream.ahk" { IPrinterScriptableSequentialStream }
+#Import "..\..\System\Com\STREAM_SEEK.ahk" { STREAM_SEEK }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class IPrinterScriptableStream extends IPrinterScriptableSequentialStream {
-
-    static sizeof => A_PtrSize
+export default struct IPrinterScriptableStream extends IPrinterScriptableSequentialStream {
     /**
      * The interface identifier for IPrinterScriptableStream
      * @type {Guid}
      */
-    static IID => Guid("{7edf9a92-4750-41a5-a17f-879a6f4f7dcb}")
+    static IID := Guid("{7edf9a92-4750-41a5-a17f-879a6f4f7dcb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPrinterScriptableStream interfaces
+    */
+    struct Vtbl extends IPrinterScriptableSequentialStream.Vtbl {
+        Commit  : IntPtr
+        Seek    : IntPtr
+        SetSize : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPrinterScriptableStream.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Commit", "Seek", "SetSize"]
-
-    /**
-     * Indicates that a resource manager (RM) has finished committing a transaction that was requested by the transaction manager (TM).
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero. 
      * 
-     * 
-     *   
-     * 
-     * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * 
-     *  The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-commitcomplete
+     * @returns {HRESULT} 
      */
     Commit() {
         result := ComCall(9, this, "HRESULT")
@@ -45,20 +48,13 @@ class IPrinterScriptableStream extends IPrinterScriptableSequentialStream {
     }
 
     /**
-     * The Seekable attribute is a file-level attribute specifying whether an application can seek to points within the content.
-     * @remarks
-     * This is a coded attribute.
      * 
-     * This attribute cannot be duplicated at the file level. If this attribute is used for an individual stream, it will be treated as custom metadata and will not convey its normal meaning to the objects of the Windows Media Format SDK.
-     * 
-     * The value of this attribute for a file may vary depending upon the object exposing the [**IWMHeaderInfo**](/previous-versions/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmheaderinfo) or [**IWMHeaderInfo3**](/previous-versions/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmheaderinfo3) interface used to retrieve it. This is because the reader objects (both synchronous and asynchronous) perform a more thorough check than the metadata editor object does, to ascertain whether you can seek to a point in a file. The **Seekable** attribute value returned by a reader object is more accurate.
      * @param {Integer} lOffset 
      * @param {STREAM_SEEK} streamSeek 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/wmformat/seekable
      */
     Seek(lOffset, streamSeek) {
-        result := ComCall(10, this, "int", lOffset, "uint", streamSeek, "int*", &plPosition := 0, "HRESULT")
+        result := ComCall(10, this, "int", lOffset, STREAM_SEEK, streamSeek, "int*", &plPosition := 0, "HRESULT")
         return plPosition
     }
 
@@ -70,5 +66,29 @@ class IPrinterScriptableStream extends IPrinterScriptableSequentialStream {
     SetSize(lSize) {
         result := ComCall(11, this, "int", lSize, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPrinterScriptableStream.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 1)
+        this.vtbl.Seek := CallbackCreate(GetMethod(implObj, "Seek"), flags, 4)
+        this.vtbl.SetSize := CallbackCreate(GetMethod(implObj, "SetSize"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Commit)
+        CallbackFree(this.vtbl.Seek)
+        CallbackFree(this.vtbl.SetSize)
     }
 }

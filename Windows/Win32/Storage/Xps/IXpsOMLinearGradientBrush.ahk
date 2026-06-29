@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMGradientBrush.ahk
-#Include .\XPS_POINT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IXpsOMGradientBrush.ahk" { IXpsOMGradientBrush }
+#Import ".\XPS_POINT.ahk" { XPS_POINT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Specifies a linear gradient, which is the color gradient along a vector.
@@ -62,26 +63,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomlineargradientbrush
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMLinearGradientBrush extends IXpsOMGradientBrush {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMLinearGradientBrush extends IXpsOMGradientBrush {
     /**
      * The interface identifier for IXpsOMLinearGradientBrush
      * @type {Guid}
      */
-    static IID => Guid("{005e279f-c30d-40ff-93ec-1950d3c528db}")
+    static IID := Guid("{005e279f-c30d-40ff-93ec-1950d3c528db}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 17
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMLinearGradientBrush interfaces
+    */
+    struct Vtbl extends IXpsOMGradientBrush.Vtbl {
+        GetStartPoint : IntPtr
+        SetStartPoint : IntPtr
+        GetEndPoint   : IntPtr
+        SetEndPoint   : IntPtr
+        Clone         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetStartPoint", "SetStartPoint", "GetEndPoint", "SetEndPoint", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMLinearGradientBrush.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the start point of the gradient.
@@ -92,7 +104,7 @@ class IXpsOMLinearGradientBrush extends IXpsOMGradientBrush {
      */
     GetStartPoint() {
         startPoint := XPS_POINT()
-        result := ComCall(17, this, "ptr", startPoint, "HRESULT")
+        result := ComCall(17, this, XPS_POINT.Ptr, startPoint, "HRESULT")
         return startPoint
     }
 
@@ -145,7 +157,7 @@ class IXpsOMLinearGradientBrush extends IXpsOMGradientBrush {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomlineargradientbrush-setstartpoint
      */
     SetStartPoint(startPoint) {
-        result := ComCall(18, this, "ptr", startPoint, "HRESULT")
+        result := ComCall(18, this, XPS_POINT.Ptr, startPoint, "HRESULT")
         return result
     }
 
@@ -158,7 +170,7 @@ class IXpsOMLinearGradientBrush extends IXpsOMGradientBrush {
      */
     GetEndPoint() {
         endPoint := XPS_POINT()
-        result := ComCall(19, this, "ptr", endPoint, "HRESULT")
+        result := ComCall(19, this, XPS_POINT.Ptr, endPoint, "HRESULT")
         return endPoint
     }
 
@@ -211,7 +223,7 @@ class IXpsOMLinearGradientBrush extends IXpsOMGradientBrush {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomlineargradientbrush-setendpoint
      */
     SetEndPoint(endPoint) {
-        result := ComCall(20, this, "ptr", endPoint, "HRESULT")
+        result := ComCall(20, this, XPS_POINT.Ptr, endPoint, "HRESULT")
         return result
     }
 
@@ -225,5 +237,33 @@ class IXpsOMLinearGradientBrush extends IXpsOMGradientBrush {
     Clone() {
         result := ComCall(21, this, "ptr*", &linearGradientBrush := 0, "HRESULT")
         return IXpsOMLinearGradientBrush(linearGradientBrush)
+    }
+
+    Query(iid) {
+        if (IXpsOMLinearGradientBrush.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetStartPoint := CallbackCreate(GetMethod(implObj, "GetStartPoint"), flags, 2)
+        this.vtbl.SetStartPoint := CallbackCreate(GetMethod(implObj, "SetStartPoint"), flags, 2)
+        this.vtbl.GetEndPoint := CallbackCreate(GetMethod(implObj, "GetEndPoint"), flags, 2)
+        this.vtbl.SetEndPoint := CallbackCreate(GetMethod(implObj, "SetEndPoint"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetStartPoint)
+        CallbackFree(this.vtbl.SetStartPoint)
+        CallbackFree(this.vtbl.GetEndPoint)
+        CallbackFree(this.vtbl.SetEndPoint)
+        CallbackFree(this.vtbl.Clone)
     }
 }

@@ -1,55 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Variant\VARENUM.ahk
-#Include ..\..\System\Com\CY.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Com\SAFEARRAY.ahk
-#Include ..\..\Foundation\DECIMAL.ahk
-#Include ..\..\System\Ole\IRecordInfo.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Ole\IRecordInfo.ahk" { IRecordInfo }
+#Import "..\..\Foundation\DECIMAL.ahk" { DECIMAL }
+#Import "..\..\System\Variant\VARENUM.ahk" { VARENUM }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\CY.ahk" { CY }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class SPPROPERTYINFO extends Win32Struct {
-    static sizeof => 48
+export default struct SPPROPERTYINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    pszName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ulId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    pszValue : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszValue {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    vValue : VARIANT
 
-    /**
-     * @type {VARIANT}
-     */
-    vValue {
-        get {
-            if(!this.HasProp("__vValue"))
-                this.__vValue := VARIANT(24, this)
-            return this.__vValue
-        }
-    }
 }

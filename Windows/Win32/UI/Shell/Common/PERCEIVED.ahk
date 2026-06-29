@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies a file's perceived type. This set of constants is used in the AssocGetPerceivedType function.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/shtypes/ne-shtypes-perceived
  * @namespace Windows.Win32.UI.Shell.Common
  */
-class PERCEIVED extends Win32Enum {
+export default struct PERCEIVED {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

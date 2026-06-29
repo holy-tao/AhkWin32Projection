@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VIEW_OBJECT_PROPERTIES_FLAGS.ahk
-#Include .\OLEUIOBJECTPROPSW.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\OLEUIOBJECTPROPSW.ahk" { OLEUIOBJECTPROPSW }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\VIEW_OBJECT_PROPERTIES_FLAGS.ahk" { VIEW_OBJECT_PROPERTIES_FLAGS }
 
 /**
  * Contains information that is used to initialize the View tab of the Object properties dialog box. (Unicode)
@@ -12,19 +12,13 @@
  * @namespace Windows.Win32.System.Ole
  * @charset Unicode
  */
-class OLEUIVIEWPROPSW extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct OLEUIVIEWPROPSW {
+    #StructPack 8
 
     /**
      * The size of the structure, in bytes.
-     * @type {Integer}
      */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbStruct : UInt32
 
     /**
      * Flags specific to view page.
@@ -65,79 +59,46 @@ class OLEUIVIEWPROPSW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {VIEW_OBJECT_PROPERTIES_FLAGS}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : VIEW_OBJECT_PROPERTIES_FLAGS
 
     /**
      * This member is reserved.
-     * @type {Array<Integer>}
      */
-    dwReserved1 {
-        get {
-            if(!this.HasProp("__dwReserved1ProxyArray"))
-                this.__dwReserved1ProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "uint")
-            return this.__dwReserved1ProxyArray
-        }
-    }
+    dwReserved1 : UInt32[2]
 
     /**
      * Pointer to a hook callback (not used in this dialog box).
-     * @type {Pointer<LPFNOLEUIHOOK>}
      */
-    lpfnHook {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpfnHook : IntPtr
 
     /**
      * Custom data to pass to the hook (not used in this dialog box).
-     * @type {LPARAM}
      */
-    lCustData {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lCustData : LPARAM
 
     /**
      * This member is reserved.
-     * @type {Array<Integer>}
      */
-    dwReserved2 {
-        get {
-            if(!this.HasProp("__dwReserved2ProxyArray"))
-                this.__dwReserved2ProxyArray := Win32FixedArray(this.ptr + 32, 3, Primitive, "uint")
-            return this.__dwReserved2ProxyArray
-        }
-    }
+    dwReserved2 : UInt32[3]
 
+    __lpOP_ptr : IntPtr
     /**
      * Used internally.
-     * @type {Pointer<OLEUIOBJECTPROPSW>}
      */
     lpOP {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => (addr := this.__lpOP_ptr) ? OLEUIOBJECTPROPSW.At(addr) : unset
+        set => this.__lpOP_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
     /**
      * Minimum value for the scale range.
-     * @type {Integer}
      */
-    nScaleMin {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    nScaleMin : Int32
 
     /**
      * Maximum value for the scale range.
-     * @type {Integer}
      */
-    nScaleMax {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
-    }
+    nScaleMax : Int32
+
 }

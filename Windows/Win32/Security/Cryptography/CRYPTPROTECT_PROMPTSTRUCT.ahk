@@ -1,25 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * Provides the text of a prompt and information about when and where that prompt is to be displayed when using the CryptProtectData and CryptUnprotectData functions.
  * @see https://learn.microsoft.com/windows/win32/api/dpapi/ns-dpapi-cryptprotect_promptstruct
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRYPTPROTECT_PROMPTSTRUCT extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct CRYPTPROTECT_PROMPTSTRUCT {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * <b>DWORD</b> flags that indicate when prompts to the user are to be displayed. Current <b>dwPromptFlags</b> values are as follows.
@@ -50,36 +44,17 @@ class CRYPTPROTECT_PROMPTSTRUCT extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwPromptFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwPromptFlags : UInt32
 
     /**
      * Window handle to the parent window.
-     * @type {HWND}
      */
-    hwndApp {
-        get {
-            if(!this.HasProp("__hwndApp"))
-                this.__hwndApp := HWND(8, this)
-            return this.__hwndApp
-        }
-    }
+    hwndApp : HWND
 
     /**
      * A string containing the text of a prompt to be displayed.
-     * @type {PWSTR}
      */
-    szPrompt {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    szPrompt : PWSTR
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 24
-    }
 }

@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSDATAFORMAT.ahk
-#Include .\KS_VBIINFOHEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KS_VBIINFOHEADER.ahk" { KS_VBIINFOHEADER }
+#Import ".\KSDATAFORMAT.ahk" { KSDATAFORMAT }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KS_DATAFORMAT_VBIINFOHEADER extends Win32Struct {
-    static sizeof => 96
+export default struct KS_DATAFORMAT_VBIINFOHEADER {
+    #StructPack 8
 
-    static packingSize => 8
+    DataFormat : KSDATAFORMAT
 
-    /**
-     * @type {KSDATAFORMAT}
-     */
-    DataFormat {
-        get {
-            if(!this.HasProp("__DataFormat"))
-                this.__DataFormat := KSDATAFORMAT(0, this)
-            return this.__DataFormat
-        }
-    }
+    VBIInfoHeader : KS_VBIINFOHEADER
 
-    /**
-     * @type {KS_VBIINFOHEADER}
-     */
-    VBIInfoHeader {
-        get {
-            if(!this.HasProp("__VBIInfoHeader"))
-                this.__VBIInfoHeader := KS_VBIINFOHEADER(48, this)
-            return this.__VBIInfoHeader
-        }
-    }
 }

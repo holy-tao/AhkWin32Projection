@@ -1,8 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ITextRangeProvider.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import ".\UiaPoint.ahk" { UiaPoint }
+#Import ".\IRawElementProviderSimple.ahk" { IRawElementProviderSimple }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITextRangeProvider.ahk" { ITextRangeProvider }
+#Import ".\SupportedTextSelection.ahk" { SupportedTextSelection }
 
 /**
  * Provides access to controls that contain text.
@@ -11,26 +16,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-itextprovider
  * @namespace Windows.Win32.UI.Accessibility
  */
-class ITextProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITextProvider extends IUnknown {
     /**
      * The interface identifier for ITextProvider
      * @type {Guid}
      */
-    static IID => Guid("{3589c92c-63f3-4367-99bb-ada653b77cf2}")
+    static IID := Guid("{3589c92c-63f3-4367-99bb-ada653b77cf2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITextProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetSelection               : IntPtr
+        GetVisibleRanges           : IntPtr
+        RangeFromChild             : IntPtr
+        RangeFromPoint             : IntPtr
+        get_DocumentRange          : IntPtr
+        get_SupportedTextSelection : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSelection", "GetVisibleRanges", "RangeFromChild", "RangeFromPoint", "get_DocumentRange", "get_SupportedTextSelection"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITextProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ITextRangeProvider} 
@@ -140,7 +157,7 @@ class ITextProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextprovider-rangefrompoint
      */
     RangeFromPoint(_point) {
-        result := ComCall(6, this, "ptr", _point, "ptr*", &pRetVal := 0, "HRESULT")
+        result := ComCall(6, this, UiaPoint, _point, "ptr*", &pRetVal := 0, "HRESULT")
         return ITextRangeProvider(pRetVal)
     }
 
@@ -172,5 +189,35 @@ class ITextProvider extends IUnknown {
     get_SupportedTextSelection() {
         result := ComCall(8, this, "int*", &pRetVal := 0, "HRESULT")
         return pRetVal
+    }
+
+    Query(iid) {
+        if (ITextProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSelection := CallbackCreate(GetMethod(implObj, "GetSelection"), flags, 2)
+        this.vtbl.GetVisibleRanges := CallbackCreate(GetMethod(implObj, "GetVisibleRanges"), flags, 2)
+        this.vtbl.RangeFromChild := CallbackCreate(GetMethod(implObj, "RangeFromChild"), flags, 3)
+        this.vtbl.RangeFromPoint := CallbackCreate(GetMethod(implObj, "RangeFromPoint"), flags, 3)
+        this.vtbl.get_DocumentRange := CallbackCreate(GetMethod(implObj, "get_DocumentRange"), flags, 2)
+        this.vtbl.get_SupportedTextSelection := CallbackCreate(GetMethod(implObj, "get_SupportedTextSelection"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSelection)
+        CallbackFree(this.vtbl.GetVisibleRanges)
+        CallbackFree(this.vtbl.RangeFromChild)
+        CallbackFree(this.vtbl.RangeFromPoint)
+        CallbackFree(this.vtbl.get_DocumentRange)
+        CallbackFree(this.vtbl.get_SupportedTextSelection)
     }
 }

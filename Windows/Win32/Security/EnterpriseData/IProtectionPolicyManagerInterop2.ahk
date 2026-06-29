@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\WinRT\IInspectable.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\WinRT\IInspectable.ahk" { IInspectable }
+#Import "..\..\System\WinRT\HSTRING.ahk" { HSTRING }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Manages enterprise protection policy on protected content. (IProtectionPolicyManagerInterop2)
  * @see https://learn.microsoft.com/windows/win32/api/efswrtinterop/nn-efswrtinterop-iprotectionpolicymanagerinterop2
  * @namespace Windows.Win32.Security.EnterpriseData
  */
-class IProtectionPolicyManagerInterop2 extends IInspectable {
-
-    static sizeof => A_PtrSize
+export default struct IProtectionPolicyManagerInterop2 extends IInspectable {
     /**
      * The interface identifier for IProtectionPolicyManagerInterop2
      * @type {Guid}
      */
-    static IID => Guid("{157cfbe4-a78d-4156-b384-61fdac41e686}")
+    static IID := Guid("{157cfbe4-a78d-4156-b384-61fdac41e686}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IProtectionPolicyManagerInterop2 interfaces
+    */
+    struct Vtbl extends IInspectable.Vtbl {
+        RequestAccessForAppWithWindowAsync                : IntPtr
+        RequestAccessWithAuditingInfoForWindowAsync       : IntPtr
+        RequestAccessWithMessageForWindowAsync            : IntPtr
+        RequestAccessForAppWithAuditingInfoForWindowAsync : IntPtr
+        RequestAccessForAppWithMessageForWindowAsync      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RequestAccessForAppWithWindowAsync", "RequestAccessWithAuditingInfoForWindowAsync", "RequestAccessWithMessageForWindowAsync", "RequestAccessForAppWithAuditingInfoForWindowAsync", "RequestAccessForAppWithMessageForWindowAsync"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IProtectionPolicyManagerInterop2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Request access to enterprise-protected content for a specific target app. (IProtectionPolicyManagerInterop2.RequestAccessForAppWithWindowAsync)
@@ -39,11 +54,7 @@ class IProtectionPolicyManagerInterop2 extends IInspectable {
      * @see https://learn.microsoft.com/windows/win32/api/efswrtinterop/nf-efswrtinterop-iprotectionpolicymanagerinterop2-requestaccessforappwithwindowasync
      */
     RequestAccessForAppWithWindowAsync(appWindow, sourceIdentity, appPackageFamilyName, riid) {
-        appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
-        sourceIdentity := sourceIdentity is Win32Handle ? NumGet(sourceIdentity, "ptr") : sourceIdentity
-        appPackageFamilyName := appPackageFamilyName is Win32Handle ? NumGet(appPackageFamilyName, "ptr") : appPackageFamilyName
-
-        result := ComCall(6, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", appPackageFamilyName, "ptr", riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        result := ComCall(6, this, HWND, appWindow, HSTRING, sourceIdentity, HSTRING, appPackageFamilyName, Guid.Ptr, riid, "ptr*", &asyncOperation := 0, "HRESULT")
         return asyncOperation
     }
 
@@ -58,11 +69,7 @@ class IProtectionPolicyManagerInterop2 extends IInspectable {
      * @see https://learn.microsoft.com/windows/win32/api/efswrtinterop/nf-efswrtinterop-iprotectionpolicymanagerinterop2-requestaccesswithauditinginfoforwindowasync
      */
     RequestAccessWithAuditingInfoForWindowAsync(appWindow, sourceIdentity, targetIdentity, auditInfoUnk, riid) {
-        appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
-        sourceIdentity := sourceIdentity is Win32Handle ? NumGet(sourceIdentity, "ptr") : sourceIdentity
-        targetIdentity := targetIdentity is Win32Handle ? NumGet(targetIdentity, "ptr") : targetIdentity
-
-        result := ComCall(7, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", targetIdentity, "ptr", auditInfoUnk, "ptr", riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        result := ComCall(7, this, HWND, appWindow, HSTRING, sourceIdentity, HSTRING, targetIdentity, "ptr", auditInfoUnk, Guid.Ptr, riid, "ptr*", &asyncOperation := 0, "HRESULT")
         return asyncOperation
     }
 
@@ -78,12 +85,7 @@ class IProtectionPolicyManagerInterop2 extends IInspectable {
      * @see https://learn.microsoft.com/windows/win32/api/efswrtinterop/nf-efswrtinterop-iprotectionpolicymanagerinterop2-requestaccesswithmessageforwindowasync
      */
     RequestAccessWithMessageForWindowAsync(appWindow, sourceIdentity, targetIdentity, auditInfoUnk, messageFromApp, riid) {
-        appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
-        sourceIdentity := sourceIdentity is Win32Handle ? NumGet(sourceIdentity, "ptr") : sourceIdentity
-        targetIdentity := targetIdentity is Win32Handle ? NumGet(targetIdentity, "ptr") : targetIdentity
-        messageFromApp := messageFromApp is Win32Handle ? NumGet(messageFromApp, "ptr") : messageFromApp
-
-        result := ComCall(8, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", targetIdentity, "ptr", auditInfoUnk, "ptr", messageFromApp, "ptr", riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        result := ComCall(8, this, HWND, appWindow, HSTRING, sourceIdentity, HSTRING, targetIdentity, "ptr", auditInfoUnk, HSTRING, messageFromApp, Guid.Ptr, riid, "ptr*", &asyncOperation := 0, "HRESULT")
         return asyncOperation
     }
 
@@ -98,11 +100,7 @@ class IProtectionPolicyManagerInterop2 extends IInspectable {
      * @see https://learn.microsoft.com/windows/win32/api/efswrtinterop/nf-efswrtinterop-iprotectionpolicymanagerinterop2-requestaccessforappwithauditinginfoforwindowasync
      */
     RequestAccessForAppWithAuditingInfoForWindowAsync(appWindow, sourceIdentity, appPackageFamilyName, auditInfoUnk, riid) {
-        appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
-        sourceIdentity := sourceIdentity is Win32Handle ? NumGet(sourceIdentity, "ptr") : sourceIdentity
-        appPackageFamilyName := appPackageFamilyName is Win32Handle ? NumGet(appPackageFamilyName, "ptr") : appPackageFamilyName
-
-        result := ComCall(9, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", appPackageFamilyName, "ptr", auditInfoUnk, "ptr", riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        result := ComCall(9, this, HWND, appWindow, HSTRING, sourceIdentity, HSTRING, appPackageFamilyName, "ptr", auditInfoUnk, Guid.Ptr, riid, "ptr*", &asyncOperation := 0, "HRESULT")
         return asyncOperation
     }
 
@@ -118,12 +116,35 @@ class IProtectionPolicyManagerInterop2 extends IInspectable {
      * @see https://learn.microsoft.com/windows/win32/api/efswrtinterop/nf-efswrtinterop-iprotectionpolicymanagerinterop2-requestaccessforappwithmessageforwindowasync
      */
     RequestAccessForAppWithMessageForWindowAsync(appWindow, sourceIdentity, appPackageFamilyName, auditInfoUnk, messageFromApp, riid) {
-        appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
-        sourceIdentity := sourceIdentity is Win32Handle ? NumGet(sourceIdentity, "ptr") : sourceIdentity
-        appPackageFamilyName := appPackageFamilyName is Win32Handle ? NumGet(appPackageFamilyName, "ptr") : appPackageFamilyName
-        messageFromApp := messageFromApp is Win32Handle ? NumGet(messageFromApp, "ptr") : messageFromApp
-
-        result := ComCall(10, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", appPackageFamilyName, "ptr", auditInfoUnk, "ptr", messageFromApp, "ptr", riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        result := ComCall(10, this, HWND, appWindow, HSTRING, sourceIdentity, HSTRING, appPackageFamilyName, "ptr", auditInfoUnk, HSTRING, messageFromApp, Guid.Ptr, riid, "ptr*", &asyncOperation := 0, "HRESULT")
         return asyncOperation
+    }
+
+    Query(iid) {
+        if (IProtectionPolicyManagerInterop2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RequestAccessForAppWithWindowAsync := CallbackCreate(GetMethod(implObj, "RequestAccessForAppWithWindowAsync"), flags, 6)
+        this.vtbl.RequestAccessWithAuditingInfoForWindowAsync := CallbackCreate(GetMethod(implObj, "RequestAccessWithAuditingInfoForWindowAsync"), flags, 7)
+        this.vtbl.RequestAccessWithMessageForWindowAsync := CallbackCreate(GetMethod(implObj, "RequestAccessWithMessageForWindowAsync"), flags, 8)
+        this.vtbl.RequestAccessForAppWithAuditingInfoForWindowAsync := CallbackCreate(GetMethod(implObj, "RequestAccessForAppWithAuditingInfoForWindowAsync"), flags, 7)
+        this.vtbl.RequestAccessForAppWithMessageForWindowAsync := CallbackCreate(GetMethod(implObj, "RequestAccessForAppWithMessageForWindowAsync"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RequestAccessForAppWithWindowAsync)
+        CallbackFree(this.vtbl.RequestAccessWithAuditingInfoForWindowAsync)
+        CallbackFree(this.vtbl.RequestAccessWithMessageForWindowAsync)
+        CallbackFree(this.vtbl.RequestAccessForAppWithAuditingInfoForWindowAsync)
+        CallbackFree(this.vtbl.RequestAccessForAppWithMessageForWindowAsync)
     }
 }

@@ -1,54 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_XML_TEXT.ahk
-#Include .\WS_XML_TEXT_TYPE.ahk
-#Include .\WS_XML_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
+#Import ".\WS_XML_TEXT_TYPE.ahk" { WS_XML_TEXT_TYPE }
+#Import ".\WS_XML_TEXT.ahk" { WS_XML_TEXT }
 
 /**
  * Represents a qname formatted as the text &quot;prefix:localName&quot;
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_qname_text
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_XML_QNAME_TEXT extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct WS_XML_QNAME_TEXT {
+    #StructPack 8
 
     /**
      * The base type for all types that derive from <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_text">WS_XML_TEXT</a>.
-     * @type {WS_XML_TEXT}
      */
-    text {
-        get {
-            if(!this.HasProp("__text"))
-                this.__text := WS_XML_TEXT(0, this)
-            return this.__text
-        }
-    }
+    text : WS_XML_TEXT
 
     /**
      * The prefix.
-     * @type {Pointer<WS_XML_STRING>}
      */
-    prefix {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    prefix : WS_XML_STRING.Ptr
 
     /**
      * The local name.
-     * @type {Pointer<WS_XML_STRING>}
      */
-    localName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    localName : WS_XML_STRING.Ptr
 
-    /**
-     * @type {Pointer<WS_XML_STRING>}
-     */
-    ns {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ns : WS_XML_STRING.Ptr
+
 }

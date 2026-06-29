@@ -1,75 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
  */
-class GameInputForceFeedbackEnvelope extends Win32Struct {
-    static sizeof => 48
+export default struct GameInputForceFeedbackEnvelope {
+    #StructPack 8
 
-    static packingSize => 8
+    attackDuration : Int64
 
-    /**
-     * @type {Integer}
-     */
-    attackDuration {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    sustainDuration : Int64
 
-    /**
-     * @type {Integer}
-     */
-    sustainDuration {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    releaseDuration : Int64
 
-    /**
-     * @type {Integer}
-     */
-    releaseDuration {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    attackGain : Float32
 
-    /**
-     * @type {Float}
-     */
-    attackGain {
-        get => NumGet(this, 24, "float")
-        set => NumPut("float", value, this, 24)
-    }
+    sustainGain : Float32
 
-    /**
-     * @type {Float}
-     */
-    sustainGain {
-        get => NumGet(this, 28, "float")
-        set => NumPut("float", value, this, 28)
-    }
+    releaseGain : Float32
 
-    /**
-     * @type {Float}
-     */
-    releaseGain {
-        get => NumGet(this, 32, "float")
-        set => NumPut("float", value, this, 32)
-    }
+    playCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    playCount {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    repeatDelay : Int64
 
-    /**
-     * @type {Integer}
-     */
-    repeatDelay {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
 }

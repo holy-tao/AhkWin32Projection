@@ -1,64 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WINML_TENSOR_DATA_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WINML_TENSOR_DATA_TYPE.ahk" { WINML_TENSOR_DATA_TYPE }
 
 /**
  * Contains description properties of the sequence binding.
  * @see https://learn.microsoft.com/windows/win32/api/winml/ns-winml-winml_sequence_binding_desc
  * @namespace Windows.Win32.AI.MachineLearning.WinML
  */
-class WINML_SEQUENCE_BINDING_DESC extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct WINML_SEQUENCE_BINDING_DESC {
+    #StructPack 8
 
     /**
      * The element count in the sequence binding.
-     * @type {Integer}
      */
-    ElementCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ElementCount : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/winml/ne-winml-winml_tensor_data_type">WINML_TENSOR_DATA_TYPE</a> containing the element tensor data type.
-     * @type {WINML_TENSOR_DATA_TYPE}
      */
-    ElementType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    ElementType : WINML_TENSOR_DATA_TYPE
 
-    /**
-     * @type {Pointer<PWSTR>}
-     */
-    pStrings {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pStrings : PWSTR.Ptr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pInts {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Float>}
-     */
-    pFloats {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Float>}
-     */
-    pDoubles {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'pInts', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'pFloats', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'pDoubles', { type: IntPtr, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

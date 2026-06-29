@@ -1,35 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509CertificateRequestCmc.ahk
-#Include .\IX509EnrollmentPolicyServer.ahk
-#Include .\IX509CertificateTemplate.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
+#Import ".\ISignerCertificate.ahk" { ISignerCertificate }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IX509CertificateTemplate.ahk" { IX509CertificateTemplate }
+#Import ".\IX509EnrollmentPolicyServer.ahk" { IX509EnrollmentPolicyServer }
+#Import ".\Pkcs10AllowedSignatureTypes.ahk" { Pkcs10AllowedSignatureTypes }
+#Import ".\IX509CertificateRequest.ahk" { IX509CertificateRequest }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IX509CertificateRequestCmc.ahk" { IX509CertificateRequestCmc }
 
 /**
  * The IX509CertificateRequestCmc2 interface represents a CMC (Certificate Management Message over CMS) certificate request.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509certificaterequestcmc2
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IX509CertificateRequestCmc2 extends IX509CertificateRequestCmc {
-
-    static sizeof => A_PtrSize
+export default struct IX509CertificateRequestCmc2 extends IX509CertificateRequestCmc {
     /**
      * The interface identifier for IX509CertificateRequestCmc2
      * @type {Guid}
      */
-    static IID => Guid("{728ab35d-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab35d-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 63
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IX509CertificateRequestCmc2 interfaces
+    */
+    struct Vtbl extends IX509CertificateRequestCmc.Vtbl {
+        InitializeFromTemplate             : IntPtr
+        InitializeFromInnerRequestTemplate : IntPtr
+        get_PolicyServer                   : IntPtr
+        get_Template                       : IntPtr
+        CheckSignature                     : IntPtr
+        CheckCertificateSignature          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializeFromTemplate", "InitializeFromInnerRequestTemplate", "get_PolicyServer", "get_Template", "CheckSignature", "CheckCertificateSignature"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IX509CertificateRequestCmc2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IX509EnrollmentPolicyServer} 
@@ -107,7 +125,7 @@ class IX509CertificateRequestCmc2 extends IX509CertificateRequestCmc {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc2-initializefromtemplate
      */
     InitializeFromTemplate(_context, pPolicyServer, pTemplate) {
-        result := ComCall(63, this, "int", _context, "ptr", pPolicyServer, "ptr", pTemplate, "HRESULT")
+        result := ComCall(63, this, X509CertificateEnrollmentContext, _context, "ptr", pPolicyServer, "ptr", pTemplate, "HRESULT")
         return result
     }
 
@@ -254,7 +272,7 @@ class IX509CertificateRequestCmc2 extends IX509CertificateRequestCmc {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc2-checksignature
      */
     CheckSignature(AllowedSignatureTypes) {
-        result := ComCall(67, this, "int", AllowedSignatureTypes, "HRESULT")
+        result := ComCall(67, this, Pkcs10AllowedSignatureTypes, AllowedSignatureTypes, "HRESULT")
         return result
     }
 
@@ -298,7 +316,37 @@ class IX509CertificateRequestCmc2 extends IX509CertificateRequestCmc {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc2-checkcertificatesignature
      */
     CheckCertificateSignature(pSignerCertificate, ValidateCertificateChain) {
-        result := ComCall(68, this, "ptr", pSignerCertificate, "short", ValidateCertificateChain, "HRESULT")
+        result := ComCall(68, this, "ptr", pSignerCertificate, VARIANT_BOOL, ValidateCertificateChain, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IX509CertificateRequestCmc2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializeFromTemplate := CallbackCreate(GetMethod(implObj, "InitializeFromTemplate"), flags, 4)
+        this.vtbl.InitializeFromInnerRequestTemplate := CallbackCreate(GetMethod(implObj, "InitializeFromInnerRequestTemplate"), flags, 4)
+        this.vtbl.get_PolicyServer := CallbackCreate(GetMethod(implObj, "get_PolicyServer"), flags, 2)
+        this.vtbl.get_Template := CallbackCreate(GetMethod(implObj, "get_Template"), flags, 2)
+        this.vtbl.CheckSignature := CallbackCreate(GetMethod(implObj, "CheckSignature"), flags, 2)
+        this.vtbl.CheckCertificateSignature := CallbackCreate(GetMethod(implObj, "CheckCertificateSignature"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializeFromTemplate)
+        CallbackFree(this.vtbl.InitializeFromInnerRequestTemplate)
+        CallbackFree(this.vtbl.get_PolicyServer)
+        CallbackFree(this.vtbl.get_Template)
+        CallbackFree(this.vtbl.CheckSignature)
+        CallbackFree(this.vtbl.CheckCertificateSignature)
     }
 }

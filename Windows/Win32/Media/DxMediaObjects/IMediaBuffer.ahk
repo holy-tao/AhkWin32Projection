@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IMediaBuffer interface provides methods for manipulating a data buffer. Buffers passed to the IMediaObject::ProcessInput and ProcessOutput methods must implement this interface.
  * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nn-mediaobj-imediabuffer
  * @namespace Windows.Win32.Media.DxMediaObjects
  */
-class IMediaBuffer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMediaBuffer extends IUnknown {
     /**
      * The interface identifier for IMediaBuffer
      * @type {Guid}
      */
-    static IID => Guid("{59eff8b9-938c-4a26-82f2-95cb84cdc837}")
+    static IID := Guid("{59eff8b9-938c-4a26-82f2-95cb84cdc837}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMediaBuffer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetLength          : IntPtr
+        GetMaxLength       : IntPtr
+        GetBufferAndLength : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetLength", "GetMaxLength", "GetBufferAndLength"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMediaBuffer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetLength method specifies the length of the data currently in the buffer.
@@ -98,5 +108,29 @@ class IMediaBuffer extends IUnknown {
 
         result := ComCall(5, this, ppBufferMarshal, ppBuffer, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMediaBuffer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetLength := CallbackCreate(GetMethod(implObj, "SetLength"), flags, 2)
+        this.vtbl.GetMaxLength := CallbackCreate(GetMethod(implObj, "GetMaxLength"), flags, 2)
+        this.vtbl.GetBufferAndLength := CallbackCreate(GetMethod(implObj, "GetBufferAndLength"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetLength)
+        CallbackFree(this.vtbl.GetMaxLength)
+        CallbackFree(this.vtbl.GetBufferAndLength)
     }
 }

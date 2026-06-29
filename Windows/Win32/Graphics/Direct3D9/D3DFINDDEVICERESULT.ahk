@@ -1,53 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DDEVICEDESC.ahk
-#Include .\D3DTRANSFORMCAPS.ahk
-#Include .\D3DLIGHTINGCAPS.ahk
-#Include .\D3DPRIMCAPS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DTRANSFORMCAPS.ahk" { D3DTRANSFORMCAPS }
+#Import ".\D3DPRIMCAPS.ahk" { D3DPRIMCAPS }
+#Import ".\D3DLIGHTINGCAPS.ahk" { D3DLIGHTINGCAPS }
+#Import ".\D3DDEVICEDESC.ahk" { D3DDEVICEDESC }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DFINDDEVICERESULT extends Win32Struct {
-    static sizeof => 520
+export default struct D3DFINDDEVICERESULT {
+    #StructPack 4
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    guid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    guid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ddHwDesc : D3DDEVICEDESC
 
-    /**
-     * @type {D3DDEVICEDESC}
-     */
-    ddHwDesc {
-        get {
-            if(!this.HasProp("__ddHwDesc"))
-                this.__ddHwDesc := D3DDEVICEDESC(16, this)
-            return this.__ddHwDesc
-        }
-    }
+    ddSwDesc : D3DDEVICEDESC
 
-    /**
-     * @type {D3DDEVICEDESC}
-     */
-    ddSwDesc {
-        get {
-            if(!this.HasProp("__ddSwDesc"))
-                this.__ddSwDesc := D3DDEVICEDESC(268, this)
-            return this.__ddSwDesc
-        }
-    }
 }

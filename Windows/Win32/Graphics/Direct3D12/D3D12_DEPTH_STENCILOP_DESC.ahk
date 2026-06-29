@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_STENCIL_OP.ahk
-#Include .\D3D12_COMPARISON_FUNC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_STENCIL_OP.ahk" { D3D12_STENCIL_OP }
+#Import ".\D3D12_COMPARISON_FUNC.ahk" { D3D12_COMPARISON_FUNC }
 
 /**
  * Describes stencil operations that can be performed based on the results of stencil test.
@@ -12,44 +11,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_depth_stencilop_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_DEPTH_STENCILOP_DESC extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct D3D12_DEPTH_STENCILOP_DESC {
+    #StructPack 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_stencil_op">D3D12_STENCIL_OP</a>-typed value that identifies the stencil operation to perform when stencil testing fails.
-     * @type {D3D12_STENCIL_OP}
      */
-    StencilFailOp {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    StencilFailOp : D3D12_STENCIL_OP
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_stencil_op">D3D12_STENCIL_OP</a>-typed value that identifies the stencil operation to perform when stencil testing passes and depth testing fails.
-     * @type {D3D12_STENCIL_OP}
      */
-    StencilDepthFailOp {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    StencilDepthFailOp : D3D12_STENCIL_OP
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_stencil_op">D3D12_STENCIL_OP</a>-typed value that identifies the stencil operation to perform when stencil testing and depth testing both pass.
-     * @type {D3D12_STENCIL_OP}
      */
-    StencilPassOp {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    StencilPassOp : D3D12_STENCIL_OP
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_comparison_func">D3D12_COMPARISON_FUNC</a>-typed value that identifies the function that compares stencil data against existing stencil data.
-     * @type {D3D12_COMPARISON_FUNC}
      */
-    StencilFunc {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    StencilFunc : D3D12_COMPARISON_FUNC
+
 }

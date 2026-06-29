@@ -1,44 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IRecordInfo.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IRecordInfo.ahk" { IRecordInfo }
 
 /**
  * @namespace Windows.Win32.System.Ole
  */
-class _wireBRECORD extends Win32Struct {
-    static sizeof => 24
+export default struct _wireBRECORD {
+    #StructPack 8
 
-    static packingSize => 8
+    fFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    clSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    clSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    pRecInfo : IRecordInfo
 
-    /**
-     * @type {IRecordInfo}
-     */
-    pRecInfo {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pRecord : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pRecord {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

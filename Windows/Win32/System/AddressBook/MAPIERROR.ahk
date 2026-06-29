@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the MAPIERROR function and provides syntax, members, additional remarks, and links to additional resources.
@@ -14,53 +13,32 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/mapierror
  * @namespace Windows.Win32.System.AddressBook
  */
-class MAPIERROR extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct MAPIERROR {
+    #StructPack 8
 
     /**
      * > Version number of the structure. The **ulVersion** member is used for future expansion and should be set to MAPI_ERROR_VERSION, which is currently defined as zero.
-     * @type {Integer}
      */
-    ulVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulVersion : UInt32
 
     /**
      * > Pointer to a string that describes the error. This string will be in Unicode format if the _ulFlags_ parameter to the method in which this structure is used is set to MAPI_UNICODE.
-     * @type {Pointer<Integer>}
      */
-    lpszError {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpszError : IntPtr
 
     /**
      * > Pointer to a string that describes the component that generated the error. This string will be in Unicode format if the _ulFlags_ parameter to the method in which this structure is used is set to MAPI_UNICODE.
-     * @type {Pointer<Integer>}
      */
-    lpszComponent {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpszComponent : IntPtr
 
     /**
      * > Low-level error value that is used only when the error to be returned is low-level.
-     * @type {Integer}
      */
-    ulLowLevelError {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ulLowLevelError : UInt32
 
     /**
      * > Value that represents the location in the component pointed to by the **lpszComponent** member that identifies where the error occurred.
-     * @type {Integer}
      */
-    ulContext {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    ulContext : UInt32
+
 }

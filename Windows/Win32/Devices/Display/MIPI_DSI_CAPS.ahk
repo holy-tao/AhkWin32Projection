@@ -1,155 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class MIPI_DSI_CAPS extends Win32Struct {
-    static sizeof => 20
+export default struct MIPI_DSI_CAPS {
+    #StructPack 2
 
-    static packingSize => 2
+    DSITypeMajor : Int8
 
-    /**
-     * @type {Integer}
-     */
-    DSITypeMajor {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    DSITypeMinor : Int8
 
-    /**
-     * @type {Integer}
-     */
-    DSITypeMinor {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    SpecVersionMajor : Int8
 
-    /**
-     * @type {Integer}
-     */
-    SpecVersionMajor {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    SpecVersionMinor : Int8
 
-    /**
-     * @type {Integer}
-     */
-    SpecVersionMinor {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    SpecVersionPatch : Int8
 
-    /**
-     * @type {Integer}
-     */
-    SpecVersionPatch {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    TargetMaximumReturnPacketSize : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    TargetMaximumReturnPacketSize {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    ResultCodeFlags : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ResultCodeFlags {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    ResultCodeStatus : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ResultCodeStatus {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    Revision : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Revision {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    Level : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Level {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
-    }
+    DeviceClassHi : Int8
 
-    /**
-     * @type {Integer}
-     */
-    DeviceClassHi {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    DeviceClassLo : Int8
 
-    /**
-     * @type {Integer}
-     */
-    DeviceClassLo {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
-    }
+    ManufacturerHi : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ManufacturerHi {
-        get => NumGet(this, 14, "char")
-        set => NumPut("char", value, this, 14)
-    }
+    ManufacturerLo : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ManufacturerLo {
-        get => NumGet(this, 15, "char")
-        set => NumPut("char", value, this, 15)
-    }
+    ProductHi : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ProductHi {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    ProductLo : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ProductLo {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
+    LengthHi : Int8
 
-    /**
-     * @type {Integer}
-     */
-    LengthHi {
-        get => NumGet(this, 18, "char")
-        set => NumPut("char", value, this, 18)
-    }
+    LengthLo : Int8
 
-    /**
-     * @type {Integer}
-     */
-    LengthLo {
-        get => NumGet(this, 19, "char")
-        set => NumPut("char", value, this, 19)
-    }
 }

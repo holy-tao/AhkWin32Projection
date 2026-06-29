@@ -1,67 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class DEVICE_DSM_DEFINITION extends Win32Struct {
-    static sizeof => 28
+export default struct DEVICE_DSM_DEFINITION {
+    #StructPack 4
 
-    static packingSize => 4
+    Action : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Action {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SingleRange : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    SingleRange {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    ParameterBlockAlignment : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ParameterBlockAlignment {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ParameterBlockLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ParameterBlockLength {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    HasOutput : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    HasOutput {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    OutputBlockAlignment : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OutputBlockAlignment {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    OutputBlockLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OutputBlockLength {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

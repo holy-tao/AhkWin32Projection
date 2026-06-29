@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * Contains read/write configuration information for extended TCP statistics on fine-grained round-trip time (RTT) estimation statistics for a TCP connection.
@@ -14,10 +14,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/tcpestats/ns-tcpestats-tcp_estats_fine_rtt_rw_v0
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class TCP_ESTATS_FINE_RTT_RW_v0 extends Win32Struct {
-    static sizeof => 1
-
-    static packingSize => 1
+export default struct TCP_ESTATS_FINE_RTT_RW_v0 {
+    #StructPack 1
 
     /**
      * A value that indicates if extended statistics on a TCP connection should be collected for fine-grained RTT estimation statistics. 
@@ -25,10 +23,7 @@ class TCP_ESTATS_FINE_RTT_RW_v0 extends Win32Struct {
      * If this member is set to <b>TRUE</b>, extended statistics on the TCP connection are enabled. If this member is set to <b>FALSE</b>, extended statistics on the TCP connection are disabled. 
      * 
      * The default state for this member when not set is disabled.
-     * @type {BOOLEAN}
      */
-    EnableCollection {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    EnableCollection : BOOLEAN
+
 }

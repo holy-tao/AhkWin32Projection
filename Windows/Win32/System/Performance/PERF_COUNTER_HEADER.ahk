@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PerfCounterDataType.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PerfCounterDataType.ahk" { PerfCounterDataType }
 
 /**
  * Contains information about the PERF_COUNTER_HEADER block that contains the structure.
@@ -10,19 +9,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_counter_header
  * @namespace Windows.Win32.System.Performance
  */
-class PERF_COUNTER_HEADER extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct PERF_COUNTER_HEADER {
+    #StructPack 4
 
     /**
      * An error code that indicates whether the operation to query the performance succeeded or failed.
-     * @type {Integer}
      */
-    dwStatus {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwStatus : UInt32
 
     /**
      * The type of performance counter information that the <b>PERF_COUNTER_HEADER</b> block provides.
@@ -94,28 +87,17 @@ class PERF_COUNTER_HEADER extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {PerfCounterDataType}
      */
-    dwType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    dwType : PerfCounterDataType
 
     /**
      * The total size of the <b>PERF_COUNTER_HEADER</b> block, which equals the sum of the size of the <b>PERF_COUNTER_HEADER</b> structure and the size of the  additional data.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwSize : UInt32
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Reserved : UInt32
+
 }

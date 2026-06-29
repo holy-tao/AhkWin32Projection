@@ -1,39 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFactory5.ahk
-#Include .\IDWriteFontFaceReference1.ahk
-#Include .\IDWriteFontResource.ahk
-#Include .\IDWriteFontSet1.ahk
-#Include .\IDWriteFontCollection2.ahk
-#Include .\IDWriteFontSetBuilder2.ahk
-#Include .\IDWriteTextFormat3.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDWriteFontSetBuilder2.ahk" { IDWriteFontSetBuilder2 }
+#Import ".\IDWriteFontResource.ahk" { IDWriteFontResource }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IDWriteFontSet1.ahk" { IDWriteFontSet1 }
+#Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
+#Import ".\IDWriteFontCollection2.ahk" { IDWriteFontCollection2 }
+#Import ".\IDWriteFontFile.ahk" { IDWriteFontFile }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
+#Import ".\IDWriteFactory5.ahk" { IDWriteFactory5 }
+#Import ".\IDWriteTextFormat3.ahk" { IDWriteTextFormat3 }
+#Import ".\IDWriteFontFaceReference1.ahk" { IDWriteFontFaceReference1 }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDWriteFontSet.ahk" { IDWriteFontSet }
+#Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
+#Import ".\DWRITE_FONT_FAMILY_MODEL.ahk" { DWRITE_FONT_FAMILY_MODEL }
 
 /**
  * This interface represents a factory object from which all DirectWrite objects are created. **IDWriteFactory6** adds new facilities for working with fonts and font resources.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefactory6
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteFactory6 extends IDWriteFactory5 {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteFactory6 extends IDWriteFactory5 {
     /**
      * The interface identifier for IDWriteFactory6
      * @type {Guid}
      */
-    static IID => Guid("{f3744d80-21f7-42eb-b35d-995bc72fc223}")
+    static IID := Guid("{f3744d80-21f7-42eb-b35d-995bc72fc223}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 48
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteFactory6 interfaces
+    */
+    struct Vtbl extends IDWriteFactory5.Vtbl {
+        CreateFontFaceReference         : IntPtr
+        CreateFontResource              : IntPtr
+        GetSystemFontSet                : IntPtr
+        GetSystemFontCollection         : IntPtr
+        CreateFontCollectionFromFontSet : IntPtr
+        CreateFontSetBuilder            : IntPtr
+        CreateTextFormat                : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateFontFaceReference", "CreateFontResource", "GetSystemFontSet", "GetSystemFontCollection", "CreateFontCollectionFromFontSet", "CreateFontSetBuilder", "CreateTextFormat"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteFactory6.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a reference to a specific font instance within a file.
@@ -58,7 +80,7 @@ class IDWriteFactory6 extends IDWriteFactory5 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory6-createfontfacereference
      */
     CreateFontFaceReference(fontFile, faceIndex, fontSimulations, fontAxisValues, fontAxisValueCount) {
-        result := ComCall(48, this, "ptr", fontFile, "uint", faceIndex, "int", fontSimulations, "ptr", fontAxisValues, "uint", fontAxisValueCount, "ptr*", &fontFaceReference := 0, "HRESULT")
+        result := ComCall(48, this, "ptr", fontFile, "uint", faceIndex, DWRITE_FONT_SIMULATIONS, fontSimulations, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, "uint", fontAxisValueCount, "ptr*", &fontFaceReference := 0, "HRESULT")
         return IDWriteFontFaceReference1(fontFaceReference)
     }
 
@@ -91,7 +113,7 @@ class IDWriteFactory6 extends IDWriteFactory5 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory6-getsystemfontset
      */
     GetSystemFontSet(includeDownloadableFonts) {
-        result := ComCall(50, this, "int", includeDownloadableFonts, "ptr*", &fontSet := 0, "HRESULT")
+        result := ComCall(50, this, BOOL, includeDownloadableFonts, "ptr*", &fontSet := 0, "HRESULT")
         return IDWriteFontSet1(fontSet)
     }
 
@@ -109,7 +131,7 @@ class IDWriteFactory6 extends IDWriteFactory5 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory6-getsystemfontcollection
      */
     GetSystemFontCollection(includeDownloadableFonts, fontFamilyModel) {
-        result := ComCall(51, this, "int", includeDownloadableFonts, "int", fontFamilyModel, "ptr*", &_fontCollection := 0, "HRESULT")
+        result := ComCall(51, this, BOOL, includeDownloadableFonts, DWRITE_FONT_FAMILY_MODEL, fontFamilyModel, "ptr*", &_fontCollection := 0, "HRESULT")
         return IDWriteFontCollection2(_fontCollection)
     }
 
@@ -127,7 +149,7 @@ class IDWriteFactory6 extends IDWriteFactory5 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory6-createfontcollectionfromfontset
      */
     CreateFontCollectionFromFontSet(fontSet, fontFamilyModel) {
-        result := ComCall(52, this, "ptr", fontSet, "int", fontFamilyModel, "ptr*", &_fontCollection := 0, "HRESULT")
+        result := ComCall(52, this, "ptr", fontSet, DWRITE_FONT_FAMILY_MODEL, fontFamilyModel, "ptr*", &_fontCollection := 0, "HRESULT")
         return IDWriteFontCollection2(_fontCollection)
     }
 
@@ -174,7 +196,39 @@ class IDWriteFactory6 extends IDWriteFactory5 {
         fontFamilyName := fontFamilyName is String ? StrPtr(fontFamilyName) : fontFamilyName
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
-        result := ComCall(54, this, "ptr", fontFamilyName, "ptr", _fontCollection, "ptr", fontAxisValues, "uint", fontAxisValueCount, "float", fontSize, "ptr", localeName, "ptr*", &textFormat := 0, "HRESULT")
+        result := ComCall(54, this, "ptr", fontFamilyName, "ptr", _fontCollection, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, "uint", fontAxisValueCount, "float", fontSize, "ptr", localeName, "ptr*", &textFormat := 0, "HRESULT")
         return IDWriteTextFormat3(textFormat)
+    }
+
+    Query(iid) {
+        if (IDWriteFactory6.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateFontFaceReference := CallbackCreate(GetMethod(implObj, "CreateFontFaceReference"), flags, 7)
+        this.vtbl.CreateFontResource := CallbackCreate(GetMethod(implObj, "CreateFontResource"), flags, 4)
+        this.vtbl.GetSystemFontSet := CallbackCreate(GetMethod(implObj, "GetSystemFontSet"), flags, 3)
+        this.vtbl.GetSystemFontCollection := CallbackCreate(GetMethod(implObj, "GetSystemFontCollection"), flags, 4)
+        this.vtbl.CreateFontCollectionFromFontSet := CallbackCreate(GetMethod(implObj, "CreateFontCollectionFromFontSet"), flags, 4)
+        this.vtbl.CreateFontSetBuilder := CallbackCreate(GetMethod(implObj, "CreateFontSetBuilder"), flags, 2)
+        this.vtbl.CreateTextFormat := CallbackCreate(GetMethod(implObj, "CreateTextFormat"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateFontFaceReference)
+        CallbackFree(this.vtbl.CreateFontResource)
+        CallbackFree(this.vtbl.GetSystemFontSet)
+        CallbackFree(this.vtbl.GetSystemFontCollection)
+        CallbackFree(this.vtbl.CreateFontCollectionFromFontSet)
+        CallbackFree(this.vtbl.CreateFontSetBuilder)
+        CallbackFree(this.vtbl.CreateTextFormat)
     }
 }

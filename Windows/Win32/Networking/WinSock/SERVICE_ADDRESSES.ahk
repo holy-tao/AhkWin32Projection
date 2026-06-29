@@ -1,35 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SERVICE_ADDRESS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SERVICE_ADDRESS.ahk" { SERVICE_ADDRESS }
 
 /**
  * The SERVICE_ADDRESSES structure contains an array of SERVICE_ADDRESS data structures.
  * @see https://learn.microsoft.com/windows/win32/api/nspapi/ns-nspapi-service_addresses
  * @namespace Windows.Win32.Networking.WinSock
  */
-class SERVICE_ADDRESSES extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct SERVICE_ADDRESSES {
+    #StructPack 8
 
     /**
      * Number of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-service_address">SERVICE_ADDRESS</a> structures in the <b>Addresses</b> array.
-     * @type {Integer}
      */
-    dwAddressCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwAddressCount : UInt32
 
-    /**
-     * @type {SERVICE_ADDRESS}
-     */
-    Addresses {
-        get {
-            if(!this.HasProp("__AddressesProxyArray"))
-                this.__AddressesProxyArray := Win32FixedArray(this.ptr + 8, 1, SERVICE_ADDRESS, "")
-            return this.__AddressesProxyArray
-        }
-    }
+    Addresses : SERVICE_ADDRESS[1]
+
 }

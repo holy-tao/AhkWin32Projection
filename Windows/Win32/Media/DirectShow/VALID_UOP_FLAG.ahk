@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates which user operation (UOP) commands are currently allowed by the DVD.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-valid_uop_flag
  * @namespace Windows.Win32.Media.DirectShow
  */
-class VALID_UOP_FLAG extends Win32Enum {
+export default struct VALID_UOP_FLAG {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Annex J commands: Time_Play, TimeSearch.

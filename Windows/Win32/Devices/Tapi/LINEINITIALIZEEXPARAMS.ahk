@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * The LINEINITIZALIZEEXPARAMS structure describes parameters supplied when making calls using LINEINITIALIZEEX.
@@ -10,93 +9,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineinitializeexparams
  * @namespace Windows.Win32.Devices.Tapi
  */
-class LINEINITIALIZEEXPARAMS extends Win32Struct {
-    static sizeof => 28
+export default struct LINEINITIALIZEEXPARAMS {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _Handles_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 1
+    struct _Handles {
+        hEvent : HANDLE
 
-        /**
-         * @type {HANDLE}
-         */
-        hEvent {
-            get {
-                if(!this.HasProp("__hEvent"))
-                    this.__hEvent := HANDLE(0, this)
-                return this.__hEvent
-            }
-        }
-
-        /**
-         * @type {HANDLE}
-         */
-        hCompletionPort {
-            get {
-                if(!this.HasProp("__hCompletionPort"))
-                    this.__hCompletionPort := HANDLE(0, this)
-                return this.__hCompletionPort
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'hCompletionPort', { type: HANDLE, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
     /**
      * Total size, in bytes, allocated to this data structure.
-     * @type {Integer}
      */
-    dwTotalSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwTotalSize : UInt32
 
     /**
      * Size for this data structure that is needed to hold all the returned information, in bytes.
-     * @type {Integer}
      */
-    dwNeededSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwNeededSize : UInt32
 
     /**
      * Size of the portion of this data structure that contains useful information, in bytes.
-     * @type {Integer}
      */
-    dwUsedSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwUsedSize : UInt32
 
     /**
      * One of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineinitializeexoption--constants">LINEINITIALIZEEXOPTION_ Constants</a>. Specifies the event notification mechanism the application desires to use.
-     * @type {Integer}
      */
-    dwOptions {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwOptions : UInt32
 
-    /**
-     * @type {_Handles_e__Union}
-     */
-    Handles {
-        get {
-            if(!this.HasProp("__Handles"))
-                this.__Handles := LINEINITIALIZEEXPARAMS._Handles_e__Union(16, this)
-            return this.__Handles
-        }
-    }
+    Handles : LINEINITIALIZEEXPARAMS._Handles
 
     /**
      * If <b>dwOptions</b> specifies LINEINITIALIZEEXOPTION_USECOMPLETIONPORT, the application must specify in this field a value that is returned through the <i>lpCompletionKey</i> parameter of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-getqueuedcompletionstatus">GetQueuedCompletionStatus</a> to identify the completion message as a telephony message.
-     * @type {Integer}
      */
-    dwCompletionKey {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwCompletionKey : UInt32
+
 }

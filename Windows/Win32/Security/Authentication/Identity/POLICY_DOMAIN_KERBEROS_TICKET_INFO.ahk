@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class POLICY_DOMAIN_KERBEROS_TICKET_INFO extends Win32Struct {
-    static sizeof => 48
+export default struct POLICY_DOMAIN_KERBEROS_TICKET_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    AuthenticationOptions : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AuthenticationOptions {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    MaxServiceTicketAge : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MaxServiceTicketAge {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    MaxTicketAge : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MaxTicketAge {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    MaxRenewAge : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MaxRenewAge {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    MaxClockSkew : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MaxClockSkew {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
+    Reserved : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
-    }
 }

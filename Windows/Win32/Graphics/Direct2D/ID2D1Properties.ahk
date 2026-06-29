@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D2D1_PROPERTY_TYPE.ahk" { D2D1_PROPERTY_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a set of run-time bindable and discoverable properties that allow a data-driven application to modify the state of a Direct2D effect.
@@ -238,26 +241,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nn-d2d1_1-id2d1properties
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1Properties extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1Properties extends IUnknown {
     /**
      * The interface identifier for ID2D1Properties
      * @type {Guid}
      */
-    static IID => Guid("{483473d7-cd46-4f9d-9d3a-3112aa80159d}")
+    static IID := Guid("{483473d7-cd46-4f9d-9d3a-3112aa80159d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1Properties interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetPropertyCount      : IntPtr
+        GetPropertyName       : IntPtr
+        GetPropertyNameLength : IntPtr
+        GetType               : IntPtr
+        GetPropertyIndex      : IntPtr
+        SetValueByName        : IntPtr
+        SetValue              : IntPtr
+        GetValueByName        : IntPtr
+        GetValue              : IntPtr
+        GetValueSize          : IntPtr
+        GetSubProperties      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPropertyCount", "GetPropertyName", "GetPropertyNameLength", "GetType", "GetPropertyIndex", "SetValueByName", "SetValue", "GetValueByName", "GetValue", "GetValueSize", "GetSubProperties"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1Properties.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the number of top-level properties.
@@ -269,7 +289,7 @@ class ID2D1Properties extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-getpropertycount
      */
     GetPropertyCount() {
-        result := ComCall(3, this, "uint")
+        result := ComCall(3, this, UInt32)
         return result
     }
 
@@ -337,7 +357,7 @@ class ID2D1Properties extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-getpropertynamelength(u)
      */
     GetPropertyNameLength(index) {
-        result := ComCall(5, this, "uint", index, "uint")
+        result := ComCall(5, this, "uint", index, UInt32)
         return result
     }
 
@@ -354,7 +374,7 @@ class ID2D1Properties extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-gettype(uint32)
      */
     GetType(index) {
-        result := ComCall(6, this, "uint", index, "int")
+        result := ComCall(6, this, "uint", index, D2D1_PROPERTY_TYPE)
         return result
     }
 
@@ -373,7 +393,7 @@ class ID2D1Properties extends IUnknown {
     GetPropertyIndex(name) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(7, this, "ptr", name, "uint")
+        result := ComCall(7, this, "ptr", name, UInt32)
         return result
     }
 
@@ -434,7 +454,7 @@ class ID2D1Properties extends IUnknown {
 
         dataMarshal := data is VarRef ? "char*" : "ptr"
 
-        result := ComCall(8, this, "ptr", name, "int", type, dataMarshal, data, "uint", dataSize, "HRESULT")
+        result := ComCall(8, this, "ptr", name, D2D1_PROPERTY_TYPE, type, dataMarshal, data, "uint", dataSize, "HRESULT")
         return result
     }
 
@@ -490,7 +510,7 @@ class ID2D1Properties extends IUnknown {
     SetValue(index, type, data, dataSize) {
         dataMarshal := data is VarRef ? "char*" : "ptr"
 
-        result := ComCall(9, this, "uint", index, "int", type, dataMarshal, data, "uint", dataSize, "HRESULT")
+        result := ComCall(9, this, "uint", index, D2D1_PROPERTY_TYPE, type, dataMarshal, data, "uint", dataSize, "HRESULT")
         return result
     }
 
@@ -505,7 +525,7 @@ class ID2D1Properties extends IUnknown {
     GetValueByName(name, type, dataSize) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(10, this, "ptr", name, "int", type, "char*", &data := 0, "uint", dataSize, "HRESULT")
+        result := ComCall(10, this, "ptr", name, D2D1_PROPERTY_TYPE, type, "char*", &data := 0, "uint", dataSize, "HRESULT")
         return data
     }
 
@@ -527,7 +547,7 @@ class ID2D1Properties extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-getvalue(u_t)
      */
     GetValue(index, type, dataSize) {
-        result := ComCall(11, this, "uint", index, "int", type, "char*", &data := 0, "uint", dataSize, "HRESULT")
+        result := ComCall(11, this, "uint", index, D2D1_PROPERTY_TYPE, type, "char*", &data := 0, "uint", dataSize, "HRESULT")
         return data
     }
 
@@ -553,7 +573,7 @@ class ID2D1Properties extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-getvaluesize(u)
      */
     GetValueSize(index) {
-        result := ComCall(12, this, "uint", index, "uint")
+        result := ComCall(12, this, "uint", index, UInt32)
         return result
     }
 
@@ -572,5 +592,45 @@ class ID2D1Properties extends IUnknown {
     GetSubProperties(index) {
         result := ComCall(13, this, "uint", index, "ptr*", &subProperties := 0, "HRESULT")
         return ID2D1Properties(subProperties)
+    }
+
+    Query(iid) {
+        if (ID2D1Properties.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPropertyCount := CallbackCreate(GetMethod(implObj, "GetPropertyCount"), flags, 1)
+        this.vtbl.GetPropertyName := CallbackCreate(GetMethod(implObj, "GetPropertyName"), flags, 4)
+        this.vtbl.GetPropertyNameLength := CallbackCreate(GetMethod(implObj, "GetPropertyNameLength"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetPropertyIndex := CallbackCreate(GetMethod(implObj, "GetPropertyIndex"), flags, 2)
+        this.vtbl.SetValueByName := CallbackCreate(GetMethod(implObj, "SetValueByName"), flags, 5)
+        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 5)
+        this.vtbl.GetValueByName := CallbackCreate(GetMethod(implObj, "GetValueByName"), flags, 5)
+        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 5)
+        this.vtbl.GetValueSize := CallbackCreate(GetMethod(implObj, "GetValueSize"), flags, 2)
+        this.vtbl.GetSubProperties := CallbackCreate(GetMethod(implObj, "GetSubProperties"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPropertyCount)
+        CallbackFree(this.vtbl.GetPropertyName)
+        CallbackFree(this.vtbl.GetPropertyNameLength)
+        CallbackFree(this.vtbl.GetType)
+        CallbackFree(this.vtbl.GetPropertyIndex)
+        CallbackFree(this.vtbl.SetValueByName)
+        CallbackFree(this.vtbl.SetValue)
+        CallbackFree(this.vtbl.GetValueByName)
+        CallbackFree(this.vtbl.GetValue)
+        CallbackFree(this.vtbl.GetValueSize)
+        CallbackFree(this.vtbl.GetSubProperties)
     }
 }

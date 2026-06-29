@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IFaxAccountFolders.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FAX_ACCOUNT_EVENTS_TYPE_ENUM.ahk" { FAX_ACCOUNT_EVENTS_TYPE_ENUM }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFaxAccountFolders.ahk" { IFaxAccountFolders }
 
 /**
  * Represents a fax account on the fax server.
@@ -12,32 +14,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxaccount
  * @namespace Windows.Win32.Devices.Fax
  */
-class IFaxAccount extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFaxAccount extends IDispatch {
     /**
      * The interface identifier for IFaxAccount
      * @type {Guid}
      */
-    static IID => Guid("{68535b33-5dc4-4086-be26-b76f9b711006}")
+    static IID := Guid("{68535b33-5dc4-4086-be26-b76f9b711006}")
 
     /**
      * The class identifier for FaxAccount
      * @type {Guid}
      */
-    static CLSID => Guid("{a7e0647f-4524-4464-a56d-b9fe666f715e}")
+    static CLSID := Guid("{a7e0647f-4524-4464-a56d-b9fe666f715e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFaxAccount interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_AccountName       : IntPtr
+        get_Folders           : IntPtr
+        ListenToAccountEvents : IntPtr
+        get_RegisteredEvents  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_AccountName", "get_Folders", "ListenToAccountEvents", "get_RegisteredEvents"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFaxAccount.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -72,8 +84,8 @@ class IFaxAccount extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccount-get_accountname
      */
     get_AccountName() {
-        pbstrAccountName := BSTR()
-        result := ComCall(7, this, "ptr", pbstrAccountName, "HRESULT")
+        pbstrAccountName := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pbstrAccountName, "HRESULT")
         return pbstrAccountName
     }
 
@@ -98,7 +110,7 @@ class IFaxAccount extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccount-listentoaccountevents
      */
     ListenToAccountEvents(EventTypes) {
-        result := ComCall(9, this, "int", EventTypes, "HRESULT")
+        result := ComCall(9, this, FAX_ACCOUNT_EVENTS_TYPE_ENUM, EventTypes, "HRESULT")
         return result
     }
 
@@ -110,5 +122,31 @@ class IFaxAccount extends IDispatch {
     get_RegisteredEvents() {
         result := ComCall(10, this, "int*", &pRegisteredEvents := 0, "HRESULT")
         return pRegisteredEvents
+    }
+
+    Query(iid) {
+        if (IFaxAccount.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_AccountName := CallbackCreate(GetMethod(implObj, "get_AccountName"), flags, 2)
+        this.vtbl.get_Folders := CallbackCreate(GetMethod(implObj, "get_Folders"), flags, 2)
+        this.vtbl.ListenToAccountEvents := CallbackCreate(GetMethod(implObj, "ListenToAccountEvents"), flags, 2)
+        this.vtbl.get_RegisteredEvents := CallbackCreate(GetMethod(implObj, "get_RegisteredEvents"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_AccountName)
+        CallbackFree(this.vtbl.get_Folders)
+        CallbackFree(this.vtbl.ListenToAccountEvents)
+        CallbackFree(this.vtbl.get_RegisteredEvents)
     }
 }

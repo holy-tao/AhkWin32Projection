@@ -1,9 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\ISectionList.ahk
-#Include .\IMpeg2Stream.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\ISectionList.ahk" { ISectionList }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMpeg2Stream.ahk" { IMpeg2Stream }
+#Import ".\MPEG2_FILTER.ahk" { MPEG2_FILTER }
 
 /**
  * IMpeg2Data is no longer available for use as of Windows 7.
@@ -12,32 +15,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nn-mpeg2data-impeg2data
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMpeg2Data extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMpeg2Data extends IUnknown {
     /**
      * The interface identifier for IMpeg2Data
      * @type {Guid}
      */
-    static IID => Guid("{9b396d40-f380-4e3c-a514-1a82bf6ebfe6}")
+    static IID := Guid("{9b396d40-f380-4e3c-a514-1a82bf6ebfe6}")
 
     /**
      * The class identifier for Mpeg2Data
      * @type {Guid}
      */
-    static CLSID => Guid("{c666e115-bb62-4027-a113-82d643fe2d99}")
+    static CLSID := Guid("{c666e115-bb62-4027-a113-82d643fe2d99}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMpeg2Data interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetSection          : IntPtr
+        GetTable            : IntPtr
+        GetStreamOfSections : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSection", "GetTable", "GetStreamOfSections"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMpeg2Data.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * GetSection is no longer available for use as of Windows 7.
@@ -49,7 +61,7 @@ class IMpeg2Data extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nf-mpeg2data-impeg2data-getsection
      */
     GetSection(pid, tid, pFilter, dwTimeout) {
-        result := ComCall(3, this, "ushort", pid, "char", tid, "ptr", pFilter, "uint", dwTimeout, "ptr*", &ppSectionList := 0, "HRESULT")
+        result := ComCall(3, this, "ushort", pid, "char", tid, MPEG2_FILTER.Ptr, pFilter, "uint", dwTimeout, "ptr*", &ppSectionList := 0, "HRESULT")
         return ISectionList(ppSectionList)
     }
 
@@ -65,7 +77,7 @@ class IMpeg2Data extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nf-mpeg2data-impeg2data-gettable
      */
     GetTable(pid, tid, pFilter, dwTimeout) {
-        result := ComCall(4, this, "ushort", pid, "char", tid, "ptr", pFilter, "uint", dwTimeout, "ptr*", &ppSectionList := 0, "HRESULT")
+        result := ComCall(4, this, "ushort", pid, "char", tid, MPEG2_FILTER.Ptr, pFilter, "uint", dwTimeout, "ptr*", &ppSectionList := 0, "HRESULT")
         return ISectionList(ppSectionList)
     }
 
@@ -79,9 +91,31 @@ class IMpeg2Data extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nf-mpeg2data-impeg2data-getstreamofsections
      */
     GetStreamOfSections(pid, tid, pFilter, hDataReadyEvent) {
-        hDataReadyEvent := hDataReadyEvent is Win32Handle ? NumGet(hDataReadyEvent, "ptr") : hDataReadyEvent
-
-        result := ComCall(5, this, "ushort", pid, "char", tid, "ptr", pFilter, "ptr", hDataReadyEvent, "ptr*", &ppMpegStream := 0, "HRESULT")
+        result := ComCall(5, this, "ushort", pid, "char", tid, MPEG2_FILTER.Ptr, pFilter, HANDLE, hDataReadyEvent, "ptr*", &ppMpegStream := 0, "HRESULT")
         return IMpeg2Stream(ppMpegStream)
+    }
+
+    Query(iid) {
+        if (IMpeg2Data.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSection := CallbackCreate(GetMethod(implObj, "GetSection"), flags, 6)
+        this.vtbl.GetTable := CallbackCreate(GetMethod(implObj, "GetTable"), flags, 6)
+        this.vtbl.GetStreamOfSections := CallbackCreate(GetMethod(implObj, "GetStreamOfSections"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSection)
+        CallbackFree(this.vtbl.GetTable)
+        CallbackFree(this.vtbl.GetStreamOfSections)
     }
 }

@@ -1,78 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The DSMCC_FILTER_OPTIONS structure specifies additional filtering criteria for the DSM-CC portions of the section header.
  * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-dsmcc_filter_options
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class DSMCC_FILTER_OPTIONS extends Win32Struct {
-    static sizeof => 60
-
-    static packingSize => 4
+export default struct DSMCC_FILTER_OPTIONS {
+    #StructPack 4
 
     /**
      * If this flag is <b>TRUE</b>, the protocolDiscriminator field in the header must match the value of the <b>Protocol</b> structure member. Otherwise, the protocolDiscriminator field is ignored.
-     * @type {BOOL}
      */
-    fSpecifyProtocol {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    fSpecifyProtocol : BOOL
 
     /**
      * Specifies a value for the protocolDiscriminator field. For MPEG-2 DSM-CC messages, this field must equal 0x11.
-     * @type {Integer}
      */
-    Protocol {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    Protocol : Int8
 
     /**
      * If this field is <b>TRUE</b>, the dsmccType field in the header must match the value of the <b>Type</b> structure member. Otherwise, the dsmccType field is ignored.
-     * @type {BOOL}
      */
-    fSpecifyType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    fSpecifyType : BOOL
 
     /**
      * Specifies a value for the dsmccType field, which defines the DSM-CC message type.
-     * @type {Integer}
      */
-    Type {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    Type : Int8
 
     /**
      * If this flag is <b>TRUE</b>, the messageId field in the header must match the value of the <b>MessageId</b> structure member. Otherwise, the messageId field is ignored.
-     * @type {BOOL}
      */
-    fSpecifyMessageId {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    fSpecifyMessageId : BOOL
 
     /**
      * Specifies a value for the messageId field, which defines the DSM-CC message within the scope of the message type.
-     * @type {Integer}
      */
-    MessageId {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
+    MessageId : UInt16
 
     /**
      * If this flag is <b>TRUE</b>, the transactionId (or downloadId) field in the header must match the value of the <b>TransactionId</b> structure member. Otherwise, the transactionId/downloadId field is ignored.
-     * @type {BOOL}
      */
-    fSpecifyTransactionId {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    fSpecifyTransactionId : BOOL
 
     /**
      * If this flag is <b>TRUE</b>, the transactionId bits are masked so that the following subfields are ignored:
@@ -92,73 +62,42 @@ class DSMCC_FILTER_OPTIONS extends Win32Struct {
      * and countries.)
      * 
      * This flag is ignored if <b>fSpecifyTransactionId</b> is <b>FALSE</b>.
-     * @type {BOOL}
      */
-    fUseTrxIdMessageIdMask {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    fUseTrxIdMessageIdMask : BOOL
 
     /**
      * Specifies a value for the transactionId field.
-     * @type {Integer}
      */
-    TransactionId {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    TransactionId : UInt32
 
     /**
      * If this flag is <b>TRUE</b>, the moduleVersion field in the header must match the value of the <b>ModuleVersion</b> structure member. Otherwise, the moduleVersion field is ignored.
-     * @type {BOOL}
      */
-    fSpecifyModuleVersion {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    fSpecifyModuleVersion : BOOL
 
     /**
      * Specifies a value for the moduleVersion field.
-     * @type {Integer}
      */
-    ModuleVersion {
-        get => NumGet(this, 40, "char")
-        set => NumPut("char", value, this, 40)
-    }
+    ModuleVersion : Int8
 
     /**
      * If this flag is <b>TRUE</b>, the blockNumber field in the header must match the value of the BlockNumber structure member. Otherwise, the moduleVersion field is ignored.
-     * @type {BOOL}
      */
-    fSpecifyBlockNumber {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    fSpecifyBlockNumber : BOOL
 
     /**
      * Specifies a value for the blockNumber field.
-     * @type {Integer}
      */
-    BlockNumber {
-        get => NumGet(this, 48, "ushort")
-        set => NumPut("ushort", value, this, 48)
-    }
+    BlockNumber : UInt16
 
     /**
      * If this flag is <b>TRUE</b>, the <b>NumberOfBlocksInModule</b> structure member specifies the number of blocks in the module. Applies only to download data block (DDB) messages.
-     * @type {BOOL}
      */
-    fGetModuleCall {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    fGetModuleCall : BOOL
 
     /**
      * Specifies the number of blocks in the module. Applies only to DDB messages.
-     * @type {Integer}
      */
-    NumberOfBlocksInModule {
-        get => NumGet(this, 56, "ushort")
-        set => NumPut("ushort", value, this, 56)
-    }
+    NumberOfBlocksInModule : UInt16
+
 }

@@ -1,24 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDR64_STRING_HEADER_FORMAT.ahk
-#Include .\NDR64_STRING_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NDR64_STRING_HEADER_FORMAT.ahk" { NDR64_STRING_HEADER_FORMAT }
+#Import ".\NDR64_STRING_FLAGS.ahk" { NDR64_STRING_FLAGS }
 
 /**
  * @namespace Windows.Win32.System.Rpc
  */
-class NDR64_CONFORMANT_STRING_FORMAT extends Win32Struct {
-    static sizeof => 4
+export default struct NDR64_CONFORMANT_STRING_FORMAT {
+    #StructPack 2
 
-    static packingSize => 2
+    Header : NDR64_STRING_HEADER_FORMAT
 
-    /**
-     * @type {NDR64_STRING_HEADER_FORMAT}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NDR64_STRING_HEADER_FORMAT(0, this)
-            return this.__Header
-        }
-    }
 }

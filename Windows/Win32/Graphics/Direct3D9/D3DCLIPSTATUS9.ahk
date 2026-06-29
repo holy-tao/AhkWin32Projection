@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the current clip status.
@@ -10,10 +9,8 @@
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dclipstatus9
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DCLIPSTATUS9 extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct D3DCLIPSTATUS9 {
+    #StructPack 4
 
     /**
      * Type: **[**DWORD**](../winprog/windows-data-types.md)**
@@ -38,22 +35,15 @@ class D3DCLIPSTATUS9 extends Win32Struct {
      * | <span id="D3DCS_PLANE3"></span><span id="d3dcs_plane3"></span><dl> <dt>**D3DCS\_PLANE3**</dt> </dl> | Application-defined clipping planes.<br/>                                 |
      * | <span id="D3DCS_PLANE4"></span><span id="d3dcs_plane4"></span><dl> <dt>**D3DCS\_PLANE4**</dt> </dl> | Application-defined clipping planes.<br/>                                 |
      * | <span id="D3DCS_PLANE5"></span><span id="d3dcs_plane5"></span><dl> <dt>**D3DCS\_PLANE5**</dt> </dl> | Application-defined clipping planes.<br/>                                 |
-     * @type {Integer}
      */
-    ClipUnion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ClipUnion : UInt32
 
     /**
      * Type: **[**DWORD**](../winprog/windows-data-types.md)**
      * 
      * 
      * Clip intersection flags that describe the current clip status. This member can take the same flags as ClipUnion.
-     * @type {Integer}
      */
-    ClipIntersection {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ClipIntersection : UInt32
+
 }

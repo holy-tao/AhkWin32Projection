@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUrlAccessor.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IUrlAccessor.ahk" { IUrlAccessor }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Extends functionality of the IUrlAccessor interface.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-iurlaccessor2
  * @namespace Windows.Win32.System.Search
  */
-class IUrlAccessor2 extends IUrlAccessor {
-
-    static sizeof => A_PtrSize
+export default struct IUrlAccessor2 extends IUrlAccessor {
     /**
      * The interface identifier for IUrlAccessor2
      * @type {Guid}
      */
-    static IID => Guid("{c7310734-ac80-11d1-8df3-00c04fb6ef4f}")
+    static IID := Guid("{c7310734-ac80-11d1-8df3-00c04fb6ef4f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 16
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUrlAccessor2 interfaces
+    */
+    struct Vtbl extends IUrlAccessor.Vtbl {
+        GetDisplayUrl : IntPtr
+        IsDocument    : IntPtr
+        GetCodePage   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDisplayUrl", "IsDocument", "GetCodePage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUrlAccessor2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the user-friendly path for the URL item.
@@ -86,5 +97,29 @@ class IUrlAccessor2 extends IUrlAccessor {
 
         result := ComCall(18, this, "ptr", wszCodePage, "uint", dwSize, "uint*", &pdwLength := 0, "HRESULT")
         return pdwLength
+    }
+
+    Query(iid) {
+        if (IUrlAccessor2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDisplayUrl := CallbackCreate(GetMethod(implObj, "GetDisplayUrl"), flags, 4)
+        this.vtbl.IsDocument := CallbackCreate(GetMethod(implObj, "IsDocument"), flags, 1)
+        this.vtbl.GetCodePage := CallbackCreate(GetMethod(implObj, "GetCodePage"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDisplayUrl)
+        CallbackFree(this.vtbl.IsDocument)
+        CallbackFree(this.vtbl.GetCodePage)
     }
 }

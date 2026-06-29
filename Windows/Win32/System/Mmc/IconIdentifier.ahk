@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The IconIdentifier enumeration is introduced in MMC 1.2.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ne-mmc-iconidentifier
  * @namespace Windows.Win32.System.Mmc
  */
-class IconIdentifier extends Win32Enum {
+export default struct IconIdentifier {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No icon displayed in error message.

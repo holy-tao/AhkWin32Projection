@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the possible values that indicate the reason that 802.1X authentication failed.
@@ -12,7 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dot1x/ne-dot1x-onex_reason_code
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class ONEX_REASON_CODE extends Win32Enum {
+export default struct ONEX_REASON_CODE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates the 802.1X authentication was a success.

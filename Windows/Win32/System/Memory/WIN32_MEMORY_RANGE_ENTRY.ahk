@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies a range of memory.
@@ -10,24 +9,11 @@
  * @see https://learn.microsoft.com/windows/win32/api/memoryapi/ns-memoryapi-win32_memory_range_entry
  * @namespace Windows.Win32.System.Memory
  */
-class WIN32_MEMORY_RANGE_ENTRY extends Win32Struct {
-    static sizeof => 16
+export default struct WIN32_MEMORY_RANGE_ENTRY {
+    #StructPack 8
 
-    static packingSize => 8
+    VirtualAddress : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    VirtualAddress {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    NumberOfBytes : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    NumberOfBytes {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

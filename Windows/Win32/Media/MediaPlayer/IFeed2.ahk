@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFeed.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFeed.ahk" { IFeed }
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IFeed2 extends IFeed {
-
-    static sizeof => A_PtrSize
+export default struct IFeed2 extends IFeed {
     /**
      * The interface identifier for IFeed2
      * @type {Guid}
      */
-    static IID => Guid("{33f2ea09-1398-4ab9-b6a4-f94b49d0a42e}")
+    static IID := Guid("{33f2ea09-1398-4ab9-b6a4-f94b49d0a42e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 51
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFeed2 interfaces
+    */
+    struct Vtbl extends IFeed.Vtbl {
+        GetItemByEffectiveId     : IntPtr
+        get_LastItemDownloadTime : IntPtr
+        get_Username             : IntPtr
+        get_Password             : IntPtr
+        SetCredentials           : IntPtr
+        ClearCredentials         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetItemByEffectiveId", "get_LastItemDownloadTime", "get_Username", "get_Password", "SetCredentials", "ClearCredentials"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFeed2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Float} 
@@ -74,8 +87,8 @@ class IFeed2 extends IFeed {
      * @returns {BSTR} 
      */
     get_Username() {
-        username := BSTR()
-        result := ComCall(53, this, "ptr", username, "HRESULT")
+        username := BSTR.Owned()
+        result := ComCall(53, this, BSTR.Ptr, username, "HRESULT")
         return username
     }
 
@@ -84,68 +97,22 @@ class IFeed2 extends IFeed {
      * @returns {BSTR} 
      */
     get_Password() {
-        password := BSTR()
-        result := ComCall(54, this, "ptr", password, "HRESULT")
+        password := BSTR.Owned()
+        result := ComCall(54, this, BSTR.Ptr, password, "HRESULT")
         return password
     }
 
     /**
-     * Sets the attributes of a credential, such as the name associated with the credential. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The sspi.h header defines SetCredentialsAttributes as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * 
      * @param {BSTR} username 
      * @param {BSTR} password 
-     * @returns {HRESULT} If the function succeeds, the return value is SEC_E_OK.
-     * 
-     * If the function fails, the return value may be one of the following error codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_INVALID_HANDLE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The handle passed to the function is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_UNSUPPORTED_FUNCTION</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The specified <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">attribute</a> is not supported by Schannel. This return value will only be returned when the Schannel SSP is being used.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_INSUFFICIENT_MEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Not enough memory is available to complete the request.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-setcredentialsattributesa
+     * @returns {HRESULT} 
      */
     SetCredentials(username, password) {
         username := username is String ? BSTR.Alloc(username).Value : username
         password := password is String ? BSTR.Alloc(password).Value : password
 
-        result := ComCall(55, this, "ptr", username, "ptr", password, "HRESULT")
+        result := ComCall(55, this, BSTR, username, BSTR, password, "HRESULT")
         return result
     }
 
@@ -156,5 +123,35 @@ class IFeed2 extends IFeed {
     ClearCredentials() {
         result := ComCall(56, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFeed2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetItemByEffectiveId := CallbackCreate(GetMethod(implObj, "GetItemByEffectiveId"), flags, 3)
+        this.vtbl.get_LastItemDownloadTime := CallbackCreate(GetMethod(implObj, "get_LastItemDownloadTime"), flags, 2)
+        this.vtbl.get_Username := CallbackCreate(GetMethod(implObj, "get_Username"), flags, 2)
+        this.vtbl.get_Password := CallbackCreate(GetMethod(implObj, "get_Password"), flags, 2)
+        this.vtbl.SetCredentials := CallbackCreate(GetMethod(implObj, "SetCredentials"), flags, 3)
+        this.vtbl.ClearCredentials := CallbackCreate(GetMethod(implObj, "ClearCredentials"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetItemByEffectiveId)
+        CallbackFree(this.vtbl.get_LastItemDownloadTime)
+        CallbackFree(this.vtbl.get_Username)
+        CallbackFree(this.vtbl.get_Password)
+        CallbackFree(this.vtbl.SetCredentials)
+        CallbackFree(this.vtbl.ClearCredentials)
     }
 }

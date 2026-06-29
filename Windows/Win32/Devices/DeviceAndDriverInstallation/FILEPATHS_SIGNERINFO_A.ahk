@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The FILEPATHS_SINGNERINFO structure stores source and target path information, and also file signature information. (ANSI)
@@ -11,38 +11,24 @@
  * @charset ANSI
  * @architecture X64, Arm64
  */
-class FILEPATHS_SIGNERINFO_A extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct FILEPATHS_SIGNERINFO_A {
+    #StructPack 8
 
     /**
      * Path to the target file.
-     * @type {PSTR}
      */
-    Target {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Target : PSTR
 
     /**
      * Path to the source file. This member is not used when the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-filepaths_a">FILEPATHS</a> structure is used with a file delete operation.
-     * @type {PSTR}
      */
-    Source {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Source : PSTR
 
     /**
      * If an error occurs, this member is the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. If no error has occurred, it is  NO_ERROR.
-     * @type {Integer}
      */
-    Win32Error {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Win32Error : UInt32
 
     /**
      * Additional information that depends on the notification sent with the 
@@ -52,37 +38,22 @@ class FILEPATHS_SIGNERINFO_A extends Win32Struct {
      * 
      * 
      * For
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    Flags : UInt32
 
     /**
      * Digital signer of the file.
-     * @type {PSTR}
      */
-    DigitalSigner {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    DigitalSigner : PSTR
 
     /**
      * Version of the file.
-     * @type {PSTR}
      */
-    Version {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Version : PSTR
 
     /**
      * Catalog file.
-     * @type {PSTR}
      */
-    CatalogFile {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    CatalogFile : PSTR
+
 }

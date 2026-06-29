@@ -1,36 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IEnumDirectoryObject.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumDirectoryObject.ahk" { IEnumDirectoryObject }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\DIRECTORY_OBJECT_TYPE.ahk" { DIRECTORY_OBJECT_TYPE }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\DIRECTORY_TYPE.ahk" { DIRECTORY_TYPE }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ITDirectoryObject.ahk" { ITDirectoryObject }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The ITDirectory interface is exposed by the Directory object, which corresponds to a particular directory.
  * @see https://learn.microsoft.com/windows/win32/api/rend/nn-rend-itdirectory
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITDirectory extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITDirectory extends IDispatch {
     /**
      * The interface identifier for ITDirectory
      * @type {Guid}
      */
-    static IID => Guid("{34621d6c-6cff-11d1-aff7-00c04fc31fee}")
+    static IID := Guid("{34621d6c-6cff-11d1-aff7-00c04fc31fee}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITDirectory interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_DirectoryType         : IntPtr
+        get_DisplayName           : IntPtr
+        get_IsDynamic             : IntPtr
+        get_DefaultObjectTTL      : IntPtr
+        put_DefaultObjectTTL      : IntPtr
+        EnableAutoRefresh         : IntPtr
+        Connect                   : IntPtr
+        Bind                      : IntPtr
+        AddDirectoryObject        : IntPtr
+        ModifyDirectoryObject     : IntPtr
+        RefreshDirectoryObject    : IntPtr
+        DeleteDirectoryObject     : IntPtr
+        get_DirectoryObjects      : IntPtr
+        EnumerateDirectoryObjects : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_DirectoryType", "get_DisplayName", "get_IsDynamic", "get_DefaultObjectTTL", "put_DefaultObjectTTL", "EnableAutoRefresh", "Connect", "Bind", "AddDirectoryObject", "ModifyDirectoryObject", "RefreshDirectoryObject", "DeleteDirectoryObject", "get_DirectoryObjects", "EnumerateDirectoryObjects"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITDirectory.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {DIRECTORY_TYPE} 
@@ -80,8 +105,8 @@ class ITDirectory extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectory-get_displayname
      */
     get_DisplayName() {
-        pName := BSTR()
-        result := ComCall(8, this, "ptr", pName, "HRESULT")
+        pName := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, pName, "HRESULT")
         return pName
     }
 
@@ -91,7 +116,7 @@ class ITDirectory extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectory-get_isdynamic
      */
     get_IsDynamic() {
-        result := ComCall(9, this, "short*", &pfDynamic := 0, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL.Ptr, &pfDynamic := 0, "HRESULT")
         return pfDynamic
     }
 
@@ -247,7 +272,7 @@ class ITDirectory extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectory-enableautorefresh
      */
     EnableAutoRefresh(fEnable) {
-        result := ComCall(12, this, "short", fEnable, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL, fEnable, "HRESULT")
         return result
     }
 
@@ -303,7 +328,7 @@ class ITDirectory extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectory-connect
      */
     Connect(fSecure) {
-        result := ComCall(13, this, "short", fSecure, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL, fSecure, "HRESULT")
         return result
     }
 
@@ -382,7 +407,7 @@ class ITDirectory extends IDispatch {
         pUserName := pUserName is String ? BSTR.Alloc(pUserName).Value : pUserName
         pPassword := pPassword is String ? BSTR.Alloc(pPassword).Value : pPassword
 
-        result := ComCall(14, this, "ptr", pDomainName, "ptr", pUserName, "ptr", pPassword, "int", lFlags, "HRESULT")
+        result := ComCall(14, this, BSTR, pDomainName, BSTR, pUserName, BSTR, pPassword, "int", lFlags, "HRESULT")
         return result
     }
 
@@ -660,7 +685,7 @@ class ITDirectory extends IDispatch {
         pName := pName is String ? BSTR.Alloc(pName).Value : pName
 
         pVariant := VARIANT()
-        result := ComCall(19, this, "int", DirectoryObjectType, "ptr", pName, "ptr", pVariant, "HRESULT")
+        result := ComCall(19, this, DIRECTORY_OBJECT_TYPE, DirectoryObjectType, BSTR, pName, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
     }
 
@@ -684,7 +709,53 @@ class ITDirectory extends IDispatch {
     EnumerateDirectoryObjects(DirectoryObjectType, pName) {
         pName := pName is String ? BSTR.Alloc(pName).Value : pName
 
-        result := ComCall(20, this, "int", DirectoryObjectType, "ptr", pName, "ptr*", &ppEnumObject := 0, "HRESULT")
+        result := ComCall(20, this, DIRECTORY_OBJECT_TYPE, DirectoryObjectType, BSTR, pName, "ptr*", &ppEnumObject := 0, "HRESULT")
         return IEnumDirectoryObject(ppEnumObject)
+    }
+
+    Query(iid) {
+        if (ITDirectory.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_DirectoryType := CallbackCreate(GetMethod(implObj, "get_DirectoryType"), flags, 2)
+        this.vtbl.get_DisplayName := CallbackCreate(GetMethod(implObj, "get_DisplayName"), flags, 2)
+        this.vtbl.get_IsDynamic := CallbackCreate(GetMethod(implObj, "get_IsDynamic"), flags, 2)
+        this.vtbl.get_DefaultObjectTTL := CallbackCreate(GetMethod(implObj, "get_DefaultObjectTTL"), flags, 2)
+        this.vtbl.put_DefaultObjectTTL := CallbackCreate(GetMethod(implObj, "put_DefaultObjectTTL"), flags, 2)
+        this.vtbl.EnableAutoRefresh := CallbackCreate(GetMethod(implObj, "EnableAutoRefresh"), flags, 2)
+        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 2)
+        this.vtbl.Bind := CallbackCreate(GetMethod(implObj, "Bind"), flags, 5)
+        this.vtbl.AddDirectoryObject := CallbackCreate(GetMethod(implObj, "AddDirectoryObject"), flags, 2)
+        this.vtbl.ModifyDirectoryObject := CallbackCreate(GetMethod(implObj, "ModifyDirectoryObject"), flags, 2)
+        this.vtbl.RefreshDirectoryObject := CallbackCreate(GetMethod(implObj, "RefreshDirectoryObject"), flags, 2)
+        this.vtbl.DeleteDirectoryObject := CallbackCreate(GetMethod(implObj, "DeleteDirectoryObject"), flags, 2)
+        this.vtbl.get_DirectoryObjects := CallbackCreate(GetMethod(implObj, "get_DirectoryObjects"), flags, 4)
+        this.vtbl.EnumerateDirectoryObjects := CallbackCreate(GetMethod(implObj, "EnumerateDirectoryObjects"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_DirectoryType)
+        CallbackFree(this.vtbl.get_DisplayName)
+        CallbackFree(this.vtbl.get_IsDynamic)
+        CallbackFree(this.vtbl.get_DefaultObjectTTL)
+        CallbackFree(this.vtbl.put_DefaultObjectTTL)
+        CallbackFree(this.vtbl.EnableAutoRefresh)
+        CallbackFree(this.vtbl.Connect)
+        CallbackFree(this.vtbl.Bind)
+        CallbackFree(this.vtbl.AddDirectoryObject)
+        CallbackFree(this.vtbl.ModifyDirectoryObject)
+        CallbackFree(this.vtbl.RefreshDirectoryObject)
+        CallbackFree(this.vtbl.DeleteDirectoryObject)
+        CallbackFree(this.vtbl.get_DirectoryObjects)
+        CallbackFree(this.vtbl.EnumerateDirectoryObjects)
     }
 }

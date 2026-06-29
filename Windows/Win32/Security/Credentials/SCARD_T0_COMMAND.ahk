@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security.Credentials
  */
-class SCARD_T0_COMMAND extends Win32Struct {
-    static sizeof => 5
+export default struct SCARD_T0_COMMAND {
+    #StructPack 1
 
-    static packingSize => 1
+    bCla : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bCla {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    bIns : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bIns {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    bP1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bP1 {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    bP2 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bP2 {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    bP3 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bP3 {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
 }

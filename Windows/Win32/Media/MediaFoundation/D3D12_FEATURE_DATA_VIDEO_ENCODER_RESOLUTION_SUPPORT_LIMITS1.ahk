@@ -1,95 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_QPMAP.ahk
-#Include .\D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_DIRTY_REGIONS.ahk
-#Include .\D3D12_VIDEO_ENCODER_DIRTY_REGIONS_SUPPORT_FLAGS.ahk
-#Include .\D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_MOTION_SEARCH.ahk
-#Include .\D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS.ahk
-#Include .\D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS.ahk
-#Include .\D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_FRAME_ANALYSIS.ahk
-#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS.ahk" { D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS }
+#Import ".\D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_FRAME_ANALYSIS.ahk" { D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_FRAME_ANALYSIS }
+#Import ".\D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_DIRTY_REGIONS.ahk" { D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_DIRTY_REGIONS }
+#Import ".\D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_QPMAP.ahk" { D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_QPMAP }
+#Import ".\D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAGS.ahk" { D3D12_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS_SUPPORT_FLAGS }
+#Import ".\D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS.ahk" { D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS }
+#Import ".\D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_MOTION_SEARCH.ahk" { D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_MOTION_SEARCH }
+#Import ".\D3D12_VIDEO_ENCODER_DIRTY_REGIONS_SUPPORT_FLAGS.ahk" { D3D12_VIDEO_ENCODER_DIRTY_REGIONS_SUPPORT_FLAGS }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_LIMITS1 extends Win32Struct {
-    static sizeof => 56
+export default struct D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_LIMITS1 {
+    #StructPack 4
 
-    static packingSize => 4
+    MaxSubregionsNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxSubregionsNumber {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    MaxIntraRefreshFrameDuration : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxIntraRefreshFrameDuration {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SubregionBlockPixelsSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SubregionBlockPixelsSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    QPMapRegionPixelsSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    QPMapRegionPixelsSize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    QPMap : D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_QPMAP
 
-    /**
-     * @type {D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_QPMAP}
-     */
-    QPMap {
-        get {
-            if(!this.HasProp("__QPMap"))
-                this.__QPMap := D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_QPMAP(16, this)
-            return this.__QPMap
-        }
-    }
+    DirtyRegions : D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_DIRTY_REGIONS
 
-    /**
-     * @type {D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_DIRTY_REGIONS}
-     */
-    DirtyRegions {
-        get {
-            if(!this.HasProp("__DirtyRegions"))
-                this.__DirtyRegions := D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_DIRTY_REGIONS(20, this)
-            return this.__DirtyRegions
-        }
-    }
+    MotionSearch : D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_MOTION_SEARCH
 
-    /**
-     * @type {D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_MOTION_SEARCH}
-     */
-    MotionSearch {
-        get {
-            if(!this.HasProp("__MotionSearch"))
-                this.__MotionSearch := D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_MOTION_SEARCH(28, this)
-            return this.__MotionSearch
-        }
-    }
+    FrameAnalysis : D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_FRAME_ANALYSIS
 
-    /**
-     * @type {D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_FRAME_ANALYSIS}
-     */
-    FrameAnalysis {
-        get {
-            if(!this.HasProp("__FrameAnalysis"))
-                this.__FrameAnalysis := D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_FRAME_ANALYSIS(52, this)
-            return this.__FrameAnalysis
-        }
-    }
 }

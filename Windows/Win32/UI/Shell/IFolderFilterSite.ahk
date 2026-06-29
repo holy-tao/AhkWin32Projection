@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exported by a host to allow clients to specify how to filter a Shell folder enumeration.
@@ -18,26 +19,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ifolderfiltersite
  * @namespace Windows.Win32.UI.Shell
  */
-class IFolderFilterSite extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IFolderFilterSite extends IUnknown {
     /**
      * The interface identifier for IFolderFilterSite
      * @type {Guid}
      */
-    static IID => Guid("{c0a651f5-b48b-11d2-b5ed-006097c686f6}")
+    static IID := Guid("{c0a651f5-b48b-11d2-b5ed-006097c686f6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFolderFilterSite interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetFilter : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetFilter"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFolderFilterSite.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Exposed by a host to allow clients to pass the host their IUnknown interface pointers.
@@ -54,5 +62,25 @@ class IFolderFilterSite extends IUnknown {
     SetFilter(punk) {
         result := ComCall(3, this, "ptr", punk, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFolderFilterSite.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetFilter := CallbackCreate(GetMethod(implObj, "SetFilter"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetFilter)
     }
 }

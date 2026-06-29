@@ -1,12 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HWND.ahk
-#Include .\CRYPTUI_VIEWCERTIFICATE_FLAGS.ahk
-#Include ..\CERT_CONTEXT.ahk
-#Include ..\..\WinTrust\CRYPT_PROVIDER_DATA.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
-#Include ..\HCERTSTORE.ahk
-#Include ..\..\..\UI\Controls\PROPSHEETPAGEA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\UI\Controls\PROPSHEETPAGEA.ahk" { PROPSHEETPAGEA }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\WinTrust\CRYPT_PROVIDER_DATA.ahk" { CRYPT_PROVIDER_DATA }
+#Import "..\HCERTSTORE.ahk" { HCERTSTORE }
+#Import ".\CRYPTUI_VIEWCERTIFICATE_FLAGS.ahk" { CRYPTUI_VIEWCERTIFICATE_FLAGS }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains information about a certificate to view. This structure is used in the CryptUIDlgViewCertificate function. (ANSI)
@@ -17,182 +18,95 @@
  * @namespace Windows.Win32.Security.Cryptography.UI
  * @charset ANSI
  */
-class CRYPTUI_VIEWCERTIFICATE_STRUCTA extends Win32Struct {
-    static sizeof => 120
-
-    static packingSize => 8
+export default struct CRYPTUI_VIEWCERTIFICATE_STRUCTA {
+    #StructPack 8
 
     /**
      * The size, in bytes, of the <b>CRYPTUI_VIEWCERTIFICATE_STRUCT</b> structure.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * A handle to the window that is the parent of the dialog box produced by <a href="https://docs.microsoft.com/windows/desktop/api/cryptuiapi/nf-cryptuiapi-cryptuidlgviewcertificatea">CryptUIDlgViewCertificate</a>.
-     * @type {HWND}
      */
-    hwndParent {
-        get {
-            if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(8, this)
-            return this.__hwndParent
-        }
-    }
+    hwndParent : HWND
 
-    /**
-     * @type {CRYPTUI_VIEWCERTIFICATE_FLAGS}
-     */
-    dwFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwFlags : CRYPTUI_VIEWCERTIFICATE_FLAGS
 
     /**
      * A pointer to a null-terminated string that contains the title for the window.
-     * @type {PSTR}
      */
-    szTitle {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    szTitle : PSTR
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure that contains the certificate context to display.
-     * @type {Pointer<CERT_CONTEXT>}
      */
-    pCertContext {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pCertContext : CERT_CONTEXT.Ptr
 
     /**
      * An array of pointers to null-terminated strings that contain the purposes for which this certificate will be validated.
-     * @type {Pointer<PSTR>}
      */
-    rgszPurposes {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    rgszPurposes : PSTR.Ptr
 
     /**
      * The number of purposes in the <b>rgszPurposes</b> array.
-     * @type {Integer}
      */
-    cPurposes {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    cPurposes : UInt32
 
-    /**
-     * @type {Pointer<CRYPT_PROVIDER_DATA>}
-     */
-    pCryptProviderData {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
-
-    /**
-     * @type {HANDLE}
-     */
-    hWVTStateData {
-        get {
-            if(!this.HasProp("__hWVTStateData"))
-                this.__hWVTStateData := HANDLE(56, this)
-            return this.__hWVTStateData
-        }
-    }
+    pCryptProviderData : CRYPT_PROVIDER_DATA.Ptr
 
     /**
      * If <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/nf-wintrust-winverifytrust">WinVerifyTrust</a> was called, this is the result of whether the certificate was trusted.
-     * @type {BOOL}
      */
-    fpCryptProviderDataTrustedUsage {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
-    }
+    fpCryptProviderDataTrustedUsage : BOOL
 
     /**
      * The index of the signer to view.
-     * @type {Integer}
      */
-    idxSigner {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    idxSigner : UInt32
 
     /**
      * The index of the certificate that is being viewed within the signer chain.  The certificate context of this cert must match <b>pCertContext</b>.
-     * @type {Integer}
      */
-    idxCert {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    idxCert : UInt32
 
     /**
      * <b>TRUE</b> if a countersignature is being viewed.  If  this is <b>TRUE</b>, <b>idxCounterSigner</b> must be valid.
-     * @type {BOOL}
      */
-    fCounterSigner {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
-    }
+    fCounterSigner : BOOL
 
     /**
      * The index of the countersigner to view.
-     * @type {Integer}
      */
-    idxCounterSigner {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    idxCounterSigner : UInt32
 
     /**
      * The number of other stores in the  <b>rghStores</b> array of certificate stores to search when building and validating the certificate chain.
-     * @type {Integer}
      */
-    cStores {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    cStores : UInt32
 
     /**
      * An array of <b>HCERTSTORE</b> handles to other certificate stores to search when building and validating the certificate chain.
-     * @type {Pointer<HCERTSTORE>}
      */
-    rghStores {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    rghStores : HCERTSTORE.Ptr
 
     /**
      * The number of property pages to add to the dialog box.
-     * @type {Integer}
      */
-    cPropSheetPages {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    cPropSheetPages : UInt32
 
     /**
      * An array of property pages to add to the dialog box.                        Each page in this array will not receive the <b>lParam</b> in the <a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetpagea_v2">PROPSHEETPAGE</a> structure as the <b>lParam</b> in the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/wm-initdialog">WM_INITDIALOG</a> message. It will instead receive a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptuiapi/ns-cryptuiapi-cryptui_initdialog_struct">CRYPTUI_INITDIALOG_STRUCT</a>  structure. It contains the <b>lParam</b> in  <b>PROPSHEETPAGE</b> and the pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> for which the page is being displayed.
-     * @type {Pointer<PROPSHEETPAGEA>}
      */
-    rgPropSheetPages {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    rgPropSheetPages : PROPSHEETPAGEA.Ptr
 
     /**
      * The index of the initial page that will be displayed.  If the highest bit (0x8000) is set, the index is assumed to index <b>rgPropSheetPages</b> (after the highest bit has been stripped off, for example, 0x8000 will indicate the first page in <b>rgPropSheetPages</b>).  If the highest bit is zero,  <b>nStartPage</b> will be the starting index of the default certificate dialog box property pages.
-     * @type {Integer}
      */
-    nStartPage {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
+    nStartPage : UInt32
+
+    static __New() {
+        DefineProp(this.Prototype, 'hWVTStateData', { type: HANDLE, offset: 56 })
+        this.DeleteProp("__New")
     }
 }

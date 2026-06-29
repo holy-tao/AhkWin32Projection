@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains an entry from the User Datagram Protocol (UDP) listener table for IPv4 on the local computer.
@@ -19,29 +18,20 @@
  * @see https://learn.microsoft.com/windows/win32/api/udpmib/ns-udpmib-mib_udprow
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_UDPROW extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct MIB_UDPROW {
+    #StructPack 4
 
     /**
      * The IPv4 address of the UDP endpoint on the local computer. 
      * 
      * A value of zero indicates a UDP listener  willing to accept datagrams for any IP interface associated
      *                       with the local computer.
-     * @type {Integer}
      */
-    dwLocalAddr {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwLocalAddr : UInt32
 
     /**
      * The port number of the UDP endpoint on the local computer. This member is stored in network byte order.
-     * @type {Integer}
      */
-    dwLocalPort {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwLocalPort : UInt32
+
 }

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Used to specify the permissions associated with a particular record in the URL namespace reservation store.
@@ -18,18 +18,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_config_urlacl_param
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_SERVICE_CONFIG_URLACL_PARAM extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 8
+export default struct HTTP_SERVICE_CONFIG_URLACL_PARAM {
+    #StructPack 8
 
     /**
      * A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-string-format">Security Descriptor Definition Language (SDDL) string</a> that contains the permissions associated with this URL namespace reservation record.
-     * @type {PWSTR}
      */
-    pStringSecurityDescriptor {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pStringSecurityDescriptor : PWSTR
+
 }

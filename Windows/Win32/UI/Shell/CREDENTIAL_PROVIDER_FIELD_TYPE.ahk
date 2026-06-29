@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies a type of credential field. Used by CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_field_type
  * @namespace Windows.Win32.UI.Shell
  */
-class CREDENTIAL_PROVIDER_FIELD_TYPE extends Win32Enum {
+export default struct CREDENTIAL_PROVIDER_FIELD_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The value is invalid. This is a safe initialization value, as fields do not default to any given type.

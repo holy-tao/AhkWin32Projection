@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IMediaObjectInPlace interface provides methods for processing data in place. A Microsoft DirectX Media Object (DMO) can expose this interface if it meets the following conditions:\_
  * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nn-mediaobj-imediaobjectinplace
  * @namespace Windows.Win32.Media.DxMediaObjects
  */
-class IMediaObjectInPlace extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMediaObjectInPlace extends IUnknown {
     /**
      * The interface identifier for IMediaObjectInPlace
      * @type {Guid}
      */
-    static IID => Guid("{651b9ad0-0fc7-4aa9-9538-d89931010741}")
+    static IID := Guid("{651b9ad0-0fc7-4aa9-9538-d89931010741}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMediaObjectInPlace interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Process    : IntPtr
+        Clone      : IntPtr
+        GetLatency : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Process", "Clone", "GetLatency"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMediaObjectInPlace.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Process method processes a block of data. The application supplies a pointer to a block of input data. The DMO processes the data in place.
@@ -113,5 +123,29 @@ class IMediaObjectInPlace extends IUnknown {
     GetLatency() {
         result := ComCall(5, this, "int64*", &pLatencyTime := 0, "HRESULT")
         return pLatencyTime
+    }
+
+    Query(iid) {
+        if (IMediaObjectInPlace.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Process := CallbackCreate(GetMethod(implObj, "Process"), flags, 5)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetLatency := CallbackCreate(GetMethod(implObj, "GetLatency"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Process)
+        CallbackFree(this.vtbl.Clone)
+        CallbackFree(this.vtbl.GetLatency)
     }
 }

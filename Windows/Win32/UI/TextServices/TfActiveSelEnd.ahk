@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Elements of the TfActiveSelEnd enumeration specify which end of a selected range of text is active.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/msctf/ne-msctf-tfactiveselend
  * @namespace Windows.Win32.UI.TextServices
  */
-class TfActiveSelEnd extends Win32Enum {
+export default struct TfActiveSelEnd {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The selected range has no active end. This is typical for selected ranges other than the default selected range.

@@ -1,24 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The AUTHENTICODE_TS_EXTRA_CERT_CHAIN_POLICY_PARA structure contains time stamp policy information that can be used in certificate chain verification of files.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-authenticode_ts_extra_cert_chain_policy_para
  * @namespace Windows.Win32.Security.Cryptography
  */
-class AUTHENTICODE_TS_EXTRA_CERT_CHAIN_POLICY_PARA extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct AUTHENTICODE_TS_EXTRA_CERT_CHAIN_POLICY_PARA {
+    #StructPack 4
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Flag set during installation that can be modified by a user. The SetReg tool found in the Authenticode Tool Pack can be used to select or cancel the selection of each value. Flag values can be combined using a bitwise-<b>OR</b> operation.
@@ -139,24 +133,12 @@ class AUTHENTICODE_TS_EXTRA_CERT_CHAIN_POLICY_PARA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwRegPolicySettings {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwRegPolicySettings : UInt32
 
     /**
      * BOOL flag. If <b>TRUE</b>, a signer has been verified by a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a> (CA) as meeting certain minimum financial standards.
-     * @type {BOOL}
      */
-    fCommercial {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    fCommercial : BOOL
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 12
-    }
 }

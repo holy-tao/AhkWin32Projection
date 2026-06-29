@@ -1,36 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMediaFilter.ahk
-#Include .\IEnumPins.ahk
-#Include .\IPin.ahk
-#Include .\FILTER_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFilterGraph.ahk" { IFilterGraph }
+#Import ".\IPin.ahk" { IPin }
+#Import ".\IMediaFilter.ahk" { IMediaFilter }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\FILTER_INFO.ahk" { FILTER_INFO }
+#Import ".\IEnumPins.ahk" { IEnumPins }
 
 /**
  * The IBaseFilter interface is the primary interface for DirectShow filters.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ibasefilter
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IBaseFilter extends IMediaFilter {
-
-    static sizeof => A_PtrSize
+export default struct IBaseFilter extends IMediaFilter {
     /**
      * The interface identifier for IBaseFilter
      * @type {Guid}
      */
-    static IID => Guid("{56a86895-0ad4-11ce-b03a-0020af0ba770}")
+    static IID := Guid("{56a86895-0ad4-11ce-b03a-0020af0ba770}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 10
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBaseFilter interfaces
+    */
+    struct Vtbl extends IMediaFilter.Vtbl {
+        EnumPins        : IntPtr
+        FindPin         : IntPtr
+        QueryFilterInfo : IntPtr
+        JoinFilterGraph : IntPtr
+        QueryVendorInfo : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EnumPins", "FindPin", "QueryFilterInfo", "JoinFilterGraph", "QueryVendorInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBaseFilter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The EnumPins method enumerates the pins on this filter.
@@ -72,7 +86,7 @@ class IBaseFilter extends IMediaFilter {
      */
     QueryFilterInfo() {
         pInfo := FILTER_INFO()
-        result := ComCall(12, this, "ptr", pInfo, "HRESULT")
+        result := ComCall(12, this, FILTER_INFO.Ptr, pInfo, "HRESULT")
         return pInfo
     }
 
@@ -108,7 +122,35 @@ class IBaseFilter extends IMediaFilter {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ibasefilter-queryvendorinfo
      */
     QueryVendorInfo() {
-        result := ComCall(14, this, "ptr*", &pVendorInfo := 0, "HRESULT")
+        result := ComCall(14, this, PWSTR.Ptr, &pVendorInfo := 0, "HRESULT")
         return pVendorInfo
+    }
+
+    Query(iid) {
+        if (IBaseFilter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EnumPins := CallbackCreate(GetMethod(implObj, "EnumPins"), flags, 2)
+        this.vtbl.FindPin := CallbackCreate(GetMethod(implObj, "FindPin"), flags, 3)
+        this.vtbl.QueryFilterInfo := CallbackCreate(GetMethod(implObj, "QueryFilterInfo"), flags, 2)
+        this.vtbl.JoinFilterGraph := CallbackCreate(GetMethod(implObj, "JoinFilterGraph"), flags, 3)
+        this.vtbl.QueryVendorInfo := CallbackCreate(GetMethod(implObj, "QueryVendorInfo"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EnumPins)
+        CallbackFree(this.vtbl.FindPin)
+        CallbackFree(this.vtbl.QueryFilterInfo)
+        CallbackFree(this.vtbl.JoinFilterGraph)
+        CallbackFree(this.vtbl.QueryVendorInfo)
     }
 }

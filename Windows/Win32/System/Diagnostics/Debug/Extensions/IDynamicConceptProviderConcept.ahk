@@ -1,31 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IKeyStore.ahk" { IKeyStore }
+#Import ".\IModelObject.ahk" { IModelObject }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IDynamicConceptProviderConcept extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDynamicConceptProviderConcept extends IUnknown {
     /**
      * The interface identifier for IDynamicConceptProviderConcept
      * @type {Guid}
      */
-    static IID => Guid("{95a7f7dd-602e-483f-9d06-a15c0ee13174}")
+    static IID := Guid("{95a7f7dd-602e-483f-9d06-a15c0ee13174}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDynamicConceptProviderConcept interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetConcept         : IntPtr
+        SetConcept         : IntPtr
+        NotifyParent       : IntPtr
+        NotifyParentChange : IntPtr
+        NotifyDestruct     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetConcept", "SetConcept", "NotifyParent", "NotifyParentChange", "NotifyDestruct"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDynamicConceptProviderConcept.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -39,7 +53,7 @@ class IDynamicConceptProviderConcept extends IUnknown {
     GetConcept(contextObject, conceptId, conceptInterface, conceptMetadata, hasConcept) {
         hasConceptMarshal := hasConcept is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", contextObject, "ptr", conceptId, "ptr*", conceptInterface, "ptr*", conceptMetadata, hasConceptMarshal, hasConcept, "HRESULT")
+        result := ComCall(3, this, "ptr", contextObject, Guid.Ptr, conceptId, IUnknown.Ptr, conceptInterface, IKeyStore.Ptr, conceptMetadata, hasConceptMarshal, hasConcept, "HRESULT")
         return result
     }
 
@@ -52,23 +66,14 @@ class IDynamicConceptProviderConcept extends IUnknown {
      * @returns {HRESULT} 
      */
     SetConcept(contextObject, conceptId, conceptInterface, conceptMetadata) {
-        result := ComCall(4, this, "ptr", contextObject, "ptr", conceptId, "ptr", conceptInterface, "ptr", conceptMetadata, "HRESULT")
+        result := ComCall(4, this, "ptr", contextObject, Guid.Ptr, conceptId, "ptr", conceptInterface, "ptr", conceptMetadata, "HRESULT")
         return result
     }
 
     /**
-     * The NotifyParentalLevelChange method enables or disables the event handling for temporary parental management level commands.
-     * @remarks
-     * Parental management notifications are disabled by default. This means that temporary parental commands from the disc are allowed but ignored and disc will play without interruption. Call this method during initialization of your application if you need to handle temporary parental management level commands from the disc. To disable parental management after it is enabled, call this method with an argument of false. For more details on parental management, see [**AcceptParentalLevelChange**](acceptparentallevelchange-method.md).
+     * 
      * @param {IModelObject} parentModel 
-     * @returns {HRESULT} <span id="bNotify"></span><span id="bnotify"></span><span id="BNOTIFY"></span>*bNotify*
-     * 
-     * Specifies a Boolean value indicating whether or not the application is notified when the MSWebDVD object encounters video segments with a rating more restrictive than the overall rating for the disc.
-     * 
-     * 
-     * 
-     * No return value.
-     * @see https://learn.microsoft.com/windows/win32/DirectShow/notifyparentallevelchange-method
+     * @returns {HRESULT} 
      */
     NotifyParent(parentModel) {
         result := ComCall(5, this, "ptr", parentModel, "HRESULT")
@@ -92,5 +97,33 @@ class IDynamicConceptProviderConcept extends IUnknown {
     NotifyDestruct() {
         result := ComCall(7, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDynamicConceptProviderConcept.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetConcept := CallbackCreate(GetMethod(implObj, "GetConcept"), flags, 6)
+        this.vtbl.SetConcept := CallbackCreate(GetMethod(implObj, "SetConcept"), flags, 5)
+        this.vtbl.NotifyParent := CallbackCreate(GetMethod(implObj, "NotifyParent"), flags, 2)
+        this.vtbl.NotifyParentChange := CallbackCreate(GetMethod(implObj, "NotifyParentChange"), flags, 2)
+        this.vtbl.NotifyDestruct := CallbackCreate(GetMethod(implObj, "NotifyDestruct"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetConcept)
+        CallbackFree(this.vtbl.SetConcept)
+        CallbackFree(this.vtbl.NotifyParent)
+        CallbackFree(this.vtbl.NotifyParentChange)
+        CallbackFree(this.vtbl.NotifyDestruct)
     }
 }

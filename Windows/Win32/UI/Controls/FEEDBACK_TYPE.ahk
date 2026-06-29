@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the visual feedback associated with an event.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ne-winuser-feedback_type
  * @namespace Windows.Win32.UI.Controls
  */
-class FEEDBACK_TYPE extends Win32Enum {
+export default struct FEEDBACK_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Feedback for a touch contact event.

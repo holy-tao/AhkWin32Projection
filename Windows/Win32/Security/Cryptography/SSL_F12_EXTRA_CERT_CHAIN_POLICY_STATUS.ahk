@@ -1,24 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The SSL_F12_EXTRA_CERT_CHAIN_POLICY_STATUS structure checks if any certificates in the chain have weak cryptography and checks if a third party root certificate is compliant with the Microsoft Root Program requirements.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ssl_f12_extra_cert_chain_policy_status
  * @namespace Windows.Win32.Security.Cryptography
  */
-class SSL_F12_EXTRA_CERT_CHAIN_POLICY_STATUS extends Win32Struct {
-    static sizeof => 528
-
-    static packingSize => 4
+export default struct SSL_F12_EXTRA_CERT_CHAIN_POLICY_STATUS {
+    #StructPack 4
 
     /**
      * <b>DWORD</b> value that specifies the size, in bytes, of this structure. This value must be set to a value greater than or equal to sizeof(SSL_F12_EXTRA_CERT_CHAIN_POLICY_STATUS).
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * <b>DWORD</b> value that specifies the level of an error.
@@ -62,12 +56,8 @@ class SSL_F12_EXTRA_CERT_CHAIN_POLICY_STATUS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwErrorLevel {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwErrorLevel : UInt32
 
     /**
      * <b>DWORD</b> value that specifies the category of an error. Each error category has a corresponding <b>dwErrorLevel</b>.
@@ -113,33 +103,17 @@ class SSL_F12_EXTRA_CERT_CHAIN_POLICY_STATUS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwErrorCategory {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwErrorCategory : UInt32
 
     /**
      * <b>DWORD</b> value reserved for future use.
-     * @type {Integer}
      */
-    dwReserved {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwReserved : UInt32
 
     /**
      * The error string provided if any certificates in the chain have weak cryptography or if the third party root certificate is not compliant with the Microsoft Root Program requirements.
-     * @type {String}
      */
-    wszErrorText {
-        get => StrGet(this.ptr + 16, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 16, 255, "UTF-16")
-    }
+    wszErrorText : WCHAR[256]
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 528
-    }
 }

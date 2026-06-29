@@ -1,34 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ADSTYPE.ahk" { ADSTYPE }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DSCLASSCREATIONINFO.ahk" { DSCLASSCREATIONINFO }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides access to Active Directory Domain Service objects of the displaySpecifier class.
  * @see https://learn.microsoft.com/windows/win32/api/dsclient/nn-dsclient-idsdisplayspecifier
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IDsDisplaySpecifier extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDsDisplaySpecifier extends IUnknown {
     /**
      * The interface identifier for IDsDisplaySpecifier
      * @type {Guid}
      */
-    static IID => Guid("{1ab4a8c0-6a0b-11d2-ad49-00c04fa31a86}")
+    static IID := Guid("{1ab4a8c0-6a0b-11d2-ad49-00c04fa31a86}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDsDisplaySpecifier interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetServer                : IntPtr
+        SetLanguageID            : IntPtr
+        GetDisplaySpecifier      : IntPtr
+        GetIconLocation          : IntPtr
+        GetIcon                  : IntPtr
+        GetFriendlyClassName     : IntPtr
+        GetFriendlyAttributeName : IntPtr
+        IsClassContainer         : IntPtr
+        GetClassCreationInfo     : IntPtr
+        EnumClassAttributes      : IntPtr
+        GetAttributeADsType      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetServer", "SetLanguageID", "GetDisplaySpecifier", "GetIconLocation", "GetIcon", "GetFriendlyClassName", "GetFriendlyAttributeName", "IsClassContainer", "GetClassCreationInfo", "EnumClassAttributes", "GetAttributeADsType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDsDisplaySpecifier.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies the server from which display specifier data is obtained.
@@ -83,7 +106,7 @@ class IDsDisplaySpecifier extends IUnknown {
 
         ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pszObjectClass, "ptr", riid, ppvMarshal, ppv, "HRESULT")
+        result := ComCall(5, this, "ptr", pszObjectClass, Guid.Ptr, riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -116,9 +139,8 @@ class IDsDisplaySpecifier extends IUnknown {
     GetIcon(pszObjectClass, dwFlags, cxIcon, cyIcon) {
         pszObjectClass := pszObjectClass is String ? StrPtr(pszObjectClass) : pszObjectClass
 
-        result := ComCall(7, this, "ptr", pszObjectClass, "uint", dwFlags, "int", cxIcon, "int", cyIcon, "ptr")
-        resultHandle := HICON({Value: result}, True)
-        return resultHandle
+        result := ComCall(7, this, "ptr", pszObjectClass, "uint", dwFlags, "int", cxIcon, "int", cyIcon, HICON.Owned)
+        return result
     }
 
     /**
@@ -173,7 +195,7 @@ class IDsDisplaySpecifier extends IUnknown {
         pszObjectClass := pszObjectClass is String ? StrPtr(pszObjectClass) : pszObjectClass
         pszADsPath := pszADsPath is String ? StrPtr(pszADsPath) : pszADsPath
 
-        result := ComCall(10, this, "ptr", pszObjectClass, "ptr", pszADsPath, "uint", dwFlags, "int")
+        result := ComCall(10, this, "ptr", pszObjectClass, "ptr", pszADsPath, "uint", dwFlags, BOOL)
         return result
     }
 
@@ -204,7 +226,7 @@ class IDsDisplaySpecifier extends IUnknown {
     EnumClassAttributes(pszObjectClass, pcbEnum, _lParam) {
         pszObjectClass := pszObjectClass is String ? StrPtr(pszObjectClass) : pszObjectClass
 
-        result := ComCall(12, this, "ptr", pszObjectClass, "ptr", pcbEnum, "ptr", _lParam, "HRESULT")
+        result := ComCall(12, this, "ptr", pszObjectClass, "ptr", pcbEnum, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -217,7 +239,47 @@ class IDsDisplaySpecifier extends IUnknown {
     GetAttributeADsType(pszAttributeName) {
         pszAttributeName := pszAttributeName is String ? StrPtr(pszAttributeName) : pszAttributeName
 
-        result := ComCall(13, this, "ptr", pszAttributeName, "int")
+        result := ComCall(13, this, "ptr", pszAttributeName, ADSTYPE)
         return result
+    }
+
+    Query(iid) {
+        if (IDsDisplaySpecifier.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetServer := CallbackCreate(GetMethod(implObj, "SetServer"), flags, 5)
+        this.vtbl.SetLanguageID := CallbackCreate(GetMethod(implObj, "SetLanguageID"), flags, 2)
+        this.vtbl.GetDisplaySpecifier := CallbackCreate(GetMethod(implObj, "GetDisplaySpecifier"), flags, 4)
+        this.vtbl.GetIconLocation := CallbackCreate(GetMethod(implObj, "GetIconLocation"), flags, 6)
+        this.vtbl.GetIcon := CallbackCreate(GetMethod(implObj, "GetIcon"), flags, 5)
+        this.vtbl.GetFriendlyClassName := CallbackCreate(GetMethod(implObj, "GetFriendlyClassName"), flags, 4)
+        this.vtbl.GetFriendlyAttributeName := CallbackCreate(GetMethod(implObj, "GetFriendlyAttributeName"), flags, 5)
+        this.vtbl.IsClassContainer := CallbackCreate(GetMethod(implObj, "IsClassContainer"), flags, 4)
+        this.vtbl.GetClassCreationInfo := CallbackCreate(GetMethod(implObj, "GetClassCreationInfo"), flags, 3)
+        this.vtbl.EnumClassAttributes := CallbackCreate(GetMethod(implObj, "EnumClassAttributes"), flags, 4)
+        this.vtbl.GetAttributeADsType := CallbackCreate(GetMethod(implObj, "GetAttributeADsType"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetServer)
+        CallbackFree(this.vtbl.SetLanguageID)
+        CallbackFree(this.vtbl.GetDisplaySpecifier)
+        CallbackFree(this.vtbl.GetIconLocation)
+        CallbackFree(this.vtbl.GetIcon)
+        CallbackFree(this.vtbl.GetFriendlyClassName)
+        CallbackFree(this.vtbl.GetFriendlyAttributeName)
+        CallbackFree(this.vtbl.IsClassContainer)
+        CallbackFree(this.vtbl.GetClassCreationInfo)
+        CallbackFree(this.vtbl.EnumClassAttributes)
+        CallbackFree(this.vtbl.GetAttributeADsType)
     }
 }

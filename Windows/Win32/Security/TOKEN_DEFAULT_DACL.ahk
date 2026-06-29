@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include .\ACL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ACL.ahk" { ACL }
 
 /**
  * Specifies a discretionary access control list (DACL).
@@ -9,17 +8,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-token_default_dacl
  * @namespace Windows.Win32.Security
  */
-class TOKEN_DEFAULT_DACL extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 8
+export default struct TOKEN_DEFAULT_DACL {
+    #StructPack 8
 
     /**
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure assigned by default to any objects created by the user. The user is represented by the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access token</a>.
-     * @type {Pointer<ACL>}
      */
-    DefaultDacl {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    DefaultDacl : ACL.Ptr
+
 }

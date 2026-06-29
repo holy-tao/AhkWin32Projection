@@ -1,40 +1,62 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWdsTransportCacheable.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WDSTRANSPORT_NETWORK_PROFILE_TYPE.ahk" { WDSTRANSPORT_NETWORK_PROFILE_TYPE }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IWdsTransportCacheable.ahk" { IWdsTransportCacheable }
+#Import ".\WDSTRANSPORT_IP_ADDRESS_TYPE.ahk" { WDSTRANSPORT_IP_ADDRESS_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WDSTRANSPORT_IP_ADDRESS_SOURCE_TYPE.ahk" { WDSTRANSPORT_IP_ADDRESS_SOURCE_TYPE }
 
 /**
  * Represents the service policy part of the WDS transport server's configuration.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportservicepolicy
  * @namespace Windows.Win32.System.DeploymentServices
  */
-class IWdsTransportServicePolicy extends IWdsTransportCacheable {
-
-    static sizeof => A_PtrSize
+export default struct IWdsTransportServicePolicy extends IWdsTransportCacheable {
     /**
      * The interface identifier for IWdsTransportServicePolicy
      * @type {Guid}
      */
-    static IID => Guid("{b9468578-9f2b-48cc-b27a-a60799c2750c}")
+    static IID := Guid("{b9468578-9f2b-48cc-b27a-a60799c2750c}")
 
     /**
      * The class identifier for WdsTransportServicePolicy
      * @type {Guid}
      */
-    static CLSID => Guid("{65aceadc-2f0b-4f43-9f4d-811865d8cead}")
+    static CLSID := Guid("{65aceadc-2f0b-4f43-9f4d-811865d8cead}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 11
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWdsTransportServicePolicy interfaces
+    */
+    struct Vtbl extends IWdsTransportCacheable.Vtbl {
+        get_IpAddressSource : IntPtr
+        put_IpAddressSource : IntPtr
+        get_StartIpAddress  : IntPtr
+        put_StartIpAddress  : IntPtr
+        get_EndIpAddress    : IntPtr
+        put_EndIpAddress    : IntPtr
+        get_StartPort       : IntPtr
+        put_StartPort       : IntPtr
+        get_EndPort         : IntPtr
+        put_EndPort         : IntPtr
+        get_NetworkProfile  : IntPtr
+        put_NetworkProfile  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_IpAddressSource", "put_IpAddressSource", "get_StartIpAddress", "put_StartIpAddress", "get_EndIpAddress", "put_EndIpAddress", "get_StartPort", "put_StartPort", "get_EndPort", "put_EndPort", "get_NetworkProfile", "put_NetworkProfile"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWdsTransportServicePolicy.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -67,7 +89,7 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_ipaddresssource
      */
     get_IpAddressSource(AddressType) {
-        result := ComCall(11, this, "int", AddressType, "int*", &pSourceType := 0, "HRESULT")
+        result := ComCall(11, this, WDSTRANSPORT_IP_ADDRESS_TYPE, AddressType, "int*", &pSourceType := 0, "HRESULT")
         return pSourceType
     }
 
@@ -79,7 +101,7 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_ipaddresssource
      */
     put_IpAddressSource(AddressType, SourceType) {
-        result := ComCall(12, this, "int", AddressType, "int", SourceType, "HRESULT")
+        result := ComCall(12, this, WDSTRANSPORT_IP_ADDRESS_TYPE, AddressType, WDSTRANSPORT_IP_ADDRESS_SOURCE_TYPE, SourceType, "HRESULT")
         return result
     }
 
@@ -92,8 +114,8 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_startipaddress
      */
     get_StartIpAddress(AddressType) {
-        pbszStartIpAddress := BSTR()
-        result := ComCall(13, this, "int", AddressType, "ptr", pbszStartIpAddress, "HRESULT")
+        pbszStartIpAddress := BSTR.Owned()
+        result := ComCall(13, this, WDSTRANSPORT_IP_ADDRESS_TYPE, AddressType, BSTR.Ptr, pbszStartIpAddress, "HRESULT")
         return pbszStartIpAddress
     }
 
@@ -109,7 +131,7 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable {
     put_StartIpAddress(AddressType, bszStartIpAddress) {
         bszStartIpAddress := bszStartIpAddress is String ? BSTR.Alloc(bszStartIpAddress).Value : bszStartIpAddress
 
-        result := ComCall(14, this, "int", AddressType, "ptr", bszStartIpAddress, "HRESULT")
+        result := ComCall(14, this, WDSTRANSPORT_IP_ADDRESS_TYPE, AddressType, BSTR, bszStartIpAddress, "HRESULT")
         return result
     }
 
@@ -122,8 +144,8 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_endipaddress
      */
     get_EndIpAddress(AddressType) {
-        pbszEndIpAddress := BSTR()
-        result := ComCall(15, this, "int", AddressType, "ptr", pbszEndIpAddress, "HRESULT")
+        pbszEndIpAddress := BSTR.Owned()
+        result := ComCall(15, this, WDSTRANSPORT_IP_ADDRESS_TYPE, AddressType, BSTR.Ptr, pbszEndIpAddress, "HRESULT")
         return pbszEndIpAddress
     }
 
@@ -139,7 +161,7 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable {
     put_EndIpAddress(AddressType, bszEndIpAddress) {
         bszEndIpAddress := bszEndIpAddress is String ? BSTR.Alloc(bszEndIpAddress).Value : bszEndIpAddress
 
-        result := ComCall(16, this, "int", AddressType, "ptr", bszEndIpAddress, "HRESULT")
+        result := ComCall(16, this, WDSTRANSPORT_IP_ADDRESS_TYPE, AddressType, BSTR, bszEndIpAddress, "HRESULT")
         return result
     }
 
@@ -210,7 +232,49 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_networkprofile
      */
     put_NetworkProfile(ProfileType) {
-        result := ComCall(22, this, "int", ProfileType, "HRESULT")
+        result := ComCall(22, this, WDSTRANSPORT_NETWORK_PROFILE_TYPE, ProfileType, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWdsTransportServicePolicy.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_IpAddressSource := CallbackCreate(GetMethod(implObj, "get_IpAddressSource"), flags, 3)
+        this.vtbl.put_IpAddressSource := CallbackCreate(GetMethod(implObj, "put_IpAddressSource"), flags, 3)
+        this.vtbl.get_StartIpAddress := CallbackCreate(GetMethod(implObj, "get_StartIpAddress"), flags, 3)
+        this.vtbl.put_StartIpAddress := CallbackCreate(GetMethod(implObj, "put_StartIpAddress"), flags, 3)
+        this.vtbl.get_EndIpAddress := CallbackCreate(GetMethod(implObj, "get_EndIpAddress"), flags, 3)
+        this.vtbl.put_EndIpAddress := CallbackCreate(GetMethod(implObj, "put_EndIpAddress"), flags, 3)
+        this.vtbl.get_StartPort := CallbackCreate(GetMethod(implObj, "get_StartPort"), flags, 2)
+        this.vtbl.put_StartPort := CallbackCreate(GetMethod(implObj, "put_StartPort"), flags, 2)
+        this.vtbl.get_EndPort := CallbackCreate(GetMethod(implObj, "get_EndPort"), flags, 2)
+        this.vtbl.put_EndPort := CallbackCreate(GetMethod(implObj, "put_EndPort"), flags, 2)
+        this.vtbl.get_NetworkProfile := CallbackCreate(GetMethod(implObj, "get_NetworkProfile"), flags, 2)
+        this.vtbl.put_NetworkProfile := CallbackCreate(GetMethod(implObj, "put_NetworkProfile"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_IpAddressSource)
+        CallbackFree(this.vtbl.put_IpAddressSource)
+        CallbackFree(this.vtbl.get_StartIpAddress)
+        CallbackFree(this.vtbl.put_StartIpAddress)
+        CallbackFree(this.vtbl.get_EndIpAddress)
+        CallbackFree(this.vtbl.put_EndIpAddress)
+        CallbackFree(this.vtbl.get_StartPort)
+        CallbackFree(this.vtbl.put_StartPort)
+        CallbackFree(this.vtbl.get_EndPort)
+        CallbackFree(this.vtbl.put_EndPort)
+        CallbackFree(this.vtbl.get_NetworkProfile)
+        CallbackFree(this.vtbl.put_NetworkProfile)
     }
 }

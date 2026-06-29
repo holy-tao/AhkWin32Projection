@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMDRMReader.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DRM_COPY_OPL.ahk" { DRM_COPY_OPL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMDRMReader.ahk" { IWMDRMReader }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DRM_PLAY_OPL.ahk" { DRM_PLAY_OPL }
 
 /**
  * The IWMDRMReader2 interface provides methods for examining the rights granted by DRM version 10 licenses.An IWMDRMReader2 interface exists for every instance of the reader object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmdrmreader2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMDRMReader2 extends IWMDRMReader {
-
-    static sizeof => A_PtrSize
+export default struct IWMDRMReader2 extends IWMDRMReader {
     /**
      * The interface identifier for IWMDRMReader2
      * @type {Guid}
      */
-    static IID => Guid("{befe7a75-9f1d-4075-b9d9-a3c37bda49a0}")
+    static IID := Guid("{befe7a75-9f1d-4075-b9d9-a3c37bda49a0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 11
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMDRMReader2 interfaces
+    */
+    struct Vtbl extends IWMDRMReader.Vtbl {
+        SetEvaluateOutputLevelLicenses : IntPtr
+        GetPlayOutputLevels            : IntPtr
+        GetCopyOutputLevels            : IntPtr
+        TryNextLicense                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetEvaluateOutputLevelLicenses", "GetPlayOutputLevels", "GetCopyOutputLevels", "TryNextLicense"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMDRMReader2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetEvaluateOutputLevelLicenses method sets the reader to evaluate licenses that use output protection levels (OPLs).
@@ -60,7 +74,7 @@ class IWMDRMReader2 extends IWMDRMReader {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmreader2-setevaluateoutputlevellicenses
      */
     SetEvaluateOutputLevelLicenses(fEvaluate) {
-        result := ComCall(11, this, "int", fEvaluate, "HRESULT")
+        result := ComCall(11, this, BOOL, fEvaluate, "HRESULT")
         return result
     }
 
@@ -100,7 +114,7 @@ class IWMDRMReader2 extends IWMDRMReader {
         pcbLengthMarshal := pcbLength is VarRef ? "uint*" : "ptr"
         pdwMinAppComplianceLevelMarshal := pdwMinAppComplianceLevel is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "ptr", pPlayOPL, pcbLengthMarshal, pcbLength, pdwMinAppComplianceLevelMarshal, pdwMinAppComplianceLevel, "HRESULT")
+        result := ComCall(12, this, DRM_PLAY_OPL.Ptr, pPlayOPL, pcbLengthMarshal, pcbLength, pdwMinAppComplianceLevelMarshal, pdwMinAppComplianceLevel, "HRESULT")
         return result
     }
 
@@ -140,7 +154,7 @@ class IWMDRMReader2 extends IWMDRMReader {
         pcbLengthMarshal := pcbLength is VarRef ? "uint*" : "ptr"
         pdwMinAppComplianceLevelMarshal := pdwMinAppComplianceLevel is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "ptr", pCopyOPL, pcbLengthMarshal, pcbLength, pdwMinAppComplianceLevelMarshal, pdwMinAppComplianceLevel, "HRESULT")
+        result := ComCall(13, this, DRM_COPY_OPL.Ptr, pCopyOPL, pcbLengthMarshal, pcbLength, pdwMinAppComplianceLevelMarshal, pdwMinAppComplianceLevel, "HRESULT")
         return result
     }
 
@@ -214,5 +228,31 @@ class IWMDRMReader2 extends IWMDRMReader {
     TryNextLicense() {
         result := ComCall(14, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMDRMReader2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetEvaluateOutputLevelLicenses := CallbackCreate(GetMethod(implObj, "SetEvaluateOutputLevelLicenses"), flags, 2)
+        this.vtbl.GetPlayOutputLevels := CallbackCreate(GetMethod(implObj, "GetPlayOutputLevels"), flags, 4)
+        this.vtbl.GetCopyOutputLevels := CallbackCreate(GetMethod(implObj, "GetCopyOutputLevels"), flags, 4)
+        this.vtbl.TryNextLicense := CallbackCreate(GetMethod(implObj, "TryNextLicense"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetEvaluateOutputLevelLicenses)
+        CallbackFree(this.vtbl.GetPlayOutputLevels)
+        CallbackFree(this.vtbl.GetCopyOutputLevels)
+        CallbackFree(this.vtbl.TryNextLicense)
     }
 }

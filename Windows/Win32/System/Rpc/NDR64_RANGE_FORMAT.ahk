@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Rpc
  */
-class NDR64_RANGE_FORMAT extends Win32Struct {
-    static sizeof => 24
+export default struct NDR64_RANGE_FORMAT {
+    #StructPack 8
 
-    static packingSize => 8
+    FormatCode : Int8
 
-    /**
-     * @type {Integer}
-     */
-    FormatCode {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    RangeType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    RangeType {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Reserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    MinValue : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MinValue {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    MaxValue : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MaxValue {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
 }

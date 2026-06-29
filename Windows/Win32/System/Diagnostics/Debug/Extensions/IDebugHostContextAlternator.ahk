@@ -1,58 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IDebugHostContextAlternator extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDebugHostContextAlternator extends IUnknown {
     /**
      * The interface identifier for IDebugHostContextAlternator
      * @type {Guid}
      */
-    static IID => Guid("{6301eee8-85e3-4058-a7c0-d37e0ea65f75}")
+    static IID := Guid("{6301eee8-85e3-4058-a7c0-d37e0ea65f75}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDebugHostContextAlternator interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SwitchTo   : IntPtr
+        SwitchBack : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDebugHostContextAlternator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SwitchTo", "SwitchBack"]
-
-    /**
-     * Schedules a fiber. The function must be called on a fiber.
-     * @remarks
-     * You create fibers with the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createfiber">CreateFiber</a> function. Before you can schedule fibers associated with a thread, you must call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-convertthreadtofiber">ConvertThreadToFiber</a> to set up an area in which to save the fiber state information. The thread is now the currently executing fiber.
      * 
-     * The 
-     * <b>SwitchToFiber</b> function saves the state information of the current fiber and restores the state of the specified fiber. You can call 
-     * <b>SwitchToFiber</b> with the address of a fiber created by a different thread. To do this, you must have the address returned to the other thread when it called 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createfiber">CreateFiber</a> and you must use proper synchronization.
-     * 
-     * Avoid making the following call:
-     * 
-     * 
-     * ``` syntax
-     * SwitchToFiber( GetCurrentFiber() );
-     * ```
-     * 
-     * This call can cause unpredictable problems.
-     * 
-     * To compile an application that uses this function, define _WIN32_WINNT as 0x0400 or later. For more information, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Integer} fullSwitch 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-switchtofiber
      */
     SwitchTo(fullSwitch) {
         result := ComCall(3, this, "char", fullSwitch, "HRESULT")
@@ -66,5 +53,27 @@ class IDebugHostContextAlternator extends IUnknown {
     SwitchBack() {
         result := ComCall(4, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDebugHostContextAlternator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SwitchTo := CallbackCreate(GetMethod(implObj, "SwitchTo"), flags, 2)
+        this.vtbl.SwitchBack := CallbackCreate(GetMethod(implObj, "SwitchBack"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SwitchTo)
+        CallbackFree(this.vtbl.SwitchBack)
     }
 }

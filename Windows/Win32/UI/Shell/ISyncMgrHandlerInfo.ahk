@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SYNCMGR_HANDLER_TYPE.ahk" { SYNCMGR_HANDLER_TYPE }
 
 /**
  * Exposes methods that allow a handler to provide property and state information to Sync Center.
@@ -11,26 +14,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nn-syncmgr-isyncmgrhandlerinfo
  * @namespace Windows.Win32.UI.Shell
  */
-class ISyncMgrHandlerInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISyncMgrHandlerInfo extends IUnknown {
     /**
      * The interface identifier for ISyncMgrHandlerInfo
      * @type {Guid}
      */
-    static IID => Guid("{4ff1d798-ecf7-4524-aa81-1e362a0aef3a}")
+    static IID := Guid("{4ff1d798-ecf7-4524-aa81-1e362a0aef3a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISyncMgrHandlerInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetType         : IntPtr
+        GetTypeLabel    : IntPtr
+        GetComment      : IntPtr
+        GetLastSyncTime : IntPtr
+        IsActive        : IntPtr
+        IsEnabled       : IntPtr
+        IsConnected     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetType", "GetTypeLabel", "GetComment", "GetLastSyncTime", "IsActive", "IsEnabled", "IsConnected"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISyncMgrHandlerInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the handler type for Sync Center.
@@ -58,7 +74,7 @@ class ISyncMgrHandlerInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrhandlerinfo-gettypelabel
      */
     GetTypeLabel() {
-        result := ComCall(4, this, "ptr*", &ppszTypeLabel := 0, "HRESULT")
+        result := ComCall(4, this, PWSTR.Ptr, &ppszTypeLabel := 0, "HRESULT")
         return ppszTypeLabel
     }
 
@@ -78,7 +94,7 @@ class ISyncMgrHandlerInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrhandlerinfo-getcomment
      */
     GetComment() {
-        result := ComCall(5, this, "ptr*", &ppszComment := 0, "HRESULT")
+        result := ComCall(5, this, PWSTR.Ptr, &ppszComment := 0, "HRESULT")
         return ppszComment
     }
 
@@ -95,7 +111,7 @@ class ISyncMgrHandlerInfo extends IUnknown {
      */
     GetLastSyncTime() {
         pftLastSync := FILETIME()
-        result := ComCall(6, this, "ptr", pftLastSync, "HRESULT")
+        result := ComCall(6, this, FILETIME.Ptr, pftLastSync, "HRESULT")
         return pftLastSync
     }
 
@@ -163,5 +179,37 @@ class ISyncMgrHandlerInfo extends IUnknown {
     IsConnected() {
         result := ComCall(9, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISyncMgrHandlerInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetTypeLabel := CallbackCreate(GetMethod(implObj, "GetTypeLabel"), flags, 2)
+        this.vtbl.GetComment := CallbackCreate(GetMethod(implObj, "GetComment"), flags, 2)
+        this.vtbl.GetLastSyncTime := CallbackCreate(GetMethod(implObj, "GetLastSyncTime"), flags, 2)
+        this.vtbl.IsActive := CallbackCreate(GetMethod(implObj, "IsActive"), flags, 1)
+        this.vtbl.IsEnabled := CallbackCreate(GetMethod(implObj, "IsEnabled"), flags, 1)
+        this.vtbl.IsConnected := CallbackCreate(GetMethod(implObj, "IsConnected"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetType)
+        CallbackFree(this.vtbl.GetTypeLabel)
+        CallbackFree(this.vtbl.GetComment)
+        CallbackFree(this.vtbl.GetLastSyncTime)
+        CallbackFree(this.vtbl.IsActive)
+        CallbackFree(this.vtbl.IsEnabled)
+        CallbackFree(this.vtbl.IsConnected)
     }
 }

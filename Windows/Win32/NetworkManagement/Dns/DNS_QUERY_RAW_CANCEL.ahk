@@ -1,19 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
  */
-class DNS_QUERY_RAW_CANCEL extends Win32Struct {
-    static sizeof => 32
+export default struct DNS_QUERY_RAW_CANCEL {
+    #StructPack 2
 
-    static packingSize => 2
+    reserved : CHAR[32]
 
-    /**
-     * @type {String}
-     */
-    reserved {
-        get => StrGet(this.ptr + 0, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 0, 31, "UTF-8")
-    }
 }

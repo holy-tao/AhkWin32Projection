@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
  */
-class JS_NATIVE_FRAME extends Win32Struct {
-    static sizeof => 32
+export default struct JS_NATIVE_FRAME {
+    #StructPack 8
 
-    static packingSize => 8
+    InstructionOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    InstructionOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ReturnOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ReturnOffset {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    FrameOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FrameOffset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    StackOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    StackOffset {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The FAX_RULE_STATUS_ENUM enumeration defines the status types for outbound routing rules.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/ne-faxcomex-fax_rule_status_enum
  * @namespace Windows.Win32.Devices.Fax
  */
-class FAX_RULE_STATUS_ENUM extends Win32Enum {
+export default struct FAX_RULE_STATUS_ENUM {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The routing rule is valid and can be applied to outbound faxes.

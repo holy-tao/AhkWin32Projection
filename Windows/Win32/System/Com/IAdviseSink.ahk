@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMoniker.ahk" { IMoniker }
+#Import ".\STGMEDIUM.ahk" { STGMEDIUM }
+#Import ".\FORMATETC.ahk" { FORMATETC }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables containers and other objects to receive notifications of data changes, view changes, and compound-document changes occurring in objects of interest.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-iadvisesink
  * @namespace Windows.Win32.System.Com
  */
-class IAdviseSink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAdviseSink extends IUnknown {
     /**
      * The interface identifier for IAdviseSink
      * @type {Guid}
      */
-    static IID => Guid("{0000010f-0000-0000-c000-000000000046}")
+    static IID := Guid("{0000010f-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAdviseSink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnDataChange : IntPtr
+        OnViewChange : IntPtr
+        OnRename     : IntPtr
+        OnSave       : IntPtr
+        OnClose      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnDataChange", "OnViewChange", "OnRename", "OnSave", "OnClose"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAdviseSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called by the server to notify a data object's currently registered advise sinks that data in the object has changed.
@@ -46,7 +60,7 @@ class IAdviseSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-iadvisesink-ondatachange
      */
     OnDataChange(pFormatetc, pStgmed) {
-        ComCall(3, this, "ptr", pFormatetc, "ptr", pStgmed)
+        ComCall(3, this, FORMATETC.Ptr, pFormatetc, STGMEDIUM.Ptr, pStgmed)
     }
 
     /**
@@ -102,5 +116,33 @@ class IAdviseSink extends IUnknown {
      */
     OnClose() {
         ComCall(7, this)
+    }
+
+    Query(iid) {
+        if (IAdviseSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnDataChange := CallbackCreate(GetMethod(implObj, "OnDataChange"), flags, 3)
+        this.vtbl.OnViewChange := CallbackCreate(GetMethod(implObj, "OnViewChange"), flags, 3)
+        this.vtbl.OnRename := CallbackCreate(GetMethod(implObj, "OnRename"), flags, 2)
+        this.vtbl.OnSave := CallbackCreate(GetMethod(implObj, "OnSave"), flags, 1)
+        this.vtbl.OnClose := CallbackCreate(GetMethod(implObj, "OnClose"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnDataChange)
+        CallbackFree(this.vtbl.OnViewChange)
+        CallbackFree(this.vtbl.OnRename)
+        CallbackFree(this.vtbl.OnSave)
+        CallbackFree(this.vtbl.OnClose)
     }
 }

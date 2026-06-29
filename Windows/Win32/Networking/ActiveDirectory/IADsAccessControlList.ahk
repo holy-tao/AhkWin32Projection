@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IADsAccessControlList interface is a dual interface that manages individual access-control entries (ACEs).
@@ -32,26 +33,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsaccesscontrollist
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IADsAccessControlList extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IADsAccessControlList extends IDispatch {
     /**
      * The interface identifier for IADsAccessControlList
      * @type {Guid}
      */
-    static IID => Guid("{b7ee91cc-9bdd-11d0-852c-00c04fd8d503}")
+    static IID := Guid("{b7ee91cc-9bdd-11d0-852c-00c04fd8d503}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IADsAccessControlList interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_AclRevision : IntPtr
+        put_AclRevision : IntPtr
+        get_AceCount    : IntPtr
+        put_AceCount    : IntPtr
+        AddAce          : IntPtr
+        RemoveAce       : IntPtr
+        CopyAccessList  : IntPtr
+        get__NewEnum    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_AclRevision", "put_AclRevision", "get_AceCount", "put_AceCount", "AddAce", "RemoveAce", "CopyAccessList", "get__NewEnum"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IADsAccessControlList.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -172,5 +187,39 @@ class IADsAccessControlList extends IDispatch {
     get__NewEnum() {
         result := ComCall(14, this, "ptr*", &retval := 0, "HRESULT")
         return IUnknown(retval)
+    }
+
+    Query(iid) {
+        if (IADsAccessControlList.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_AclRevision := CallbackCreate(GetMethod(implObj, "get_AclRevision"), flags, 2)
+        this.vtbl.put_AclRevision := CallbackCreate(GetMethod(implObj, "put_AclRevision"), flags, 2)
+        this.vtbl.get_AceCount := CallbackCreate(GetMethod(implObj, "get_AceCount"), flags, 2)
+        this.vtbl.put_AceCount := CallbackCreate(GetMethod(implObj, "put_AceCount"), flags, 2)
+        this.vtbl.AddAce := CallbackCreate(GetMethod(implObj, "AddAce"), flags, 2)
+        this.vtbl.RemoveAce := CallbackCreate(GetMethod(implObj, "RemoveAce"), flags, 2)
+        this.vtbl.CopyAccessList := CallbackCreate(GetMethod(implObj, "CopyAccessList"), flags, 2)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_AclRevision)
+        CallbackFree(this.vtbl.put_AclRevision)
+        CallbackFree(this.vtbl.get_AceCount)
+        CallbackFree(this.vtbl.put_AceCount)
+        CallbackFree(this.vtbl.AddAce)
+        CallbackFree(this.vtbl.RemoveAce)
+        CallbackFree(this.vtbl.CopyAccessList)
+        CallbackFree(this.vtbl.get__NewEnum)
     }
 }

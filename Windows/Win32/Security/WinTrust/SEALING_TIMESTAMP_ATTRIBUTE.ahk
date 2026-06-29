@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Cryptography\CRYPT_INTEGER_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Cryptography\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
  */
-class SEALING_TIMESTAMP_ATTRIBUTE extends Win32Struct {
-    static sizeof => 24
+export default struct SEALING_TIMESTAMP_ATTRIBUTE {
+    #StructPack 8
 
-    static packingSize => 8
+    version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    signerIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    signerIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    sealTimeStampToken : CRYPT_INTEGER_BLOB
 
-    /**
-     * @type {CRYPT_INTEGER_BLOB}
-     */
-    sealTimeStampToken {
-        get {
-            if(!this.HasProp("__sealTimeStampToken"))
-                this.__sealTimeStampToken := CRYPT_INTEGER_BLOB(8, this)
-            return this.__sealTimeStampToken
-        }
-    }
 }

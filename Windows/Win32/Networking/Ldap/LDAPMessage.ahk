@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\LDAPMessage.ahk
-#Include .\LDAP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\LDAP.ahk" { LDAP }
 
 /**
  * Used by an LDAP function to return results and error data.
@@ -15,112 +14,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/winldap/ns-winldap-ldapmessage
  * @namespace Windows.Win32.Networking.Ldap
  */
-class LDAPMessage extends Win32Struct {
-    static sizeof => 72
+export default struct LDAPMessage {
+    #StructPack 8
 
-    static packingSize => 8
+    lm_msgid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    lm_msgid {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    lm_msgtype : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    lm_msgtype {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    lm_ber : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lm_ber {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lm_chain : LDAPMessage.Ptr
 
-    /**
-     * @type {Pointer<LDAPMessage>}
-     */
-    lm_chain {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lm_next : LDAPMessage.Ptr
 
-    /**
-     * @type {Pointer<LDAPMessage>}
-     */
-    lm_next {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lm_time : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    lm_time {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Connection : LDAP.Ptr
 
-    /**
-     * @type {Pointer<LDAP>}
-     */
-    Connection {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    Request : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Request {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    lm_returncode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    lm_returncode {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    lm_referral : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    lm_referral {
-        get => NumGet(this, 60, "ushort")
-        set => NumPut("ushort", value, this, 60)
-    }
+    lm_chased : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    lm_chased {
-        get => NumGet(this, 62, "char")
-        set => NumPut("char", value, this, 62)
-    }
+    lm_eom : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    lm_eom {
-        get => NumGet(this, 63, "char")
-        set => NumPut("char", value, this, 63)
-    }
+    ConnectionReferenced : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    ConnectionReferenced {
-        get => NumGet(this, 64, "char")
-        set => NumPut("char", value, this, 64)
-    }
 }

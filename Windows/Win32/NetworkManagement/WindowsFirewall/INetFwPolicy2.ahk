@@ -1,10 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\INetFwRules.ahk
-#Include .\INetFwServiceRestriction.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\INetFwServiceRestriction.ahk" { INetFwServiceRestriction }
+#Import ".\INetFwRules.ahk" { INetFwRules }
+#Import ".\NET_FW_ACTION.ahk" { NET_FW_ACTION }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\NET_FW_PROFILE_TYPE2.ahk" { NET_FW_PROFILE_TYPE2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\NET_FW_MODIFY_STATE.ahk" { NET_FW_MODIFY_STATE }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * To access the firewall policy.
@@ -15,32 +21,60 @@
  * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwpolicy2
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  */
-class INetFwPolicy2 extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct INetFwPolicy2 extends IDispatch {
     /**
      * The interface identifier for INetFwPolicy2
      * @type {Guid}
      */
-    static IID => Guid("{98325047-c671-4174-8d81-defcd3f03186}")
+    static IID := Guid("{98325047-c671-4174-8d81-defcd3f03186}")
 
     /**
      * The class identifier for NetFwPolicy2
      * @type {Guid}
      */
-    static CLSID => Guid("{e2b3c97f-6ae1-41ac-817a-f6f92166d7dd}")
+    static CLSID := Guid("{e2b3c97f-6ae1-41ac-817a-f6f92166d7dd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INetFwPolicy2 interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_CurrentProfileTypes                          : IntPtr
+        get_FirewallEnabled                              : IntPtr
+        put_FirewallEnabled                              : IntPtr
+        get_ExcludedInterfaces                           : IntPtr
+        put_ExcludedInterfaces                           : IntPtr
+        get_BlockAllInboundTraffic                       : IntPtr
+        put_BlockAllInboundTraffic                       : IntPtr
+        get_NotificationsDisabled                        : IntPtr
+        put_NotificationsDisabled                        : IntPtr
+        get_UnicastResponsesToMulticastBroadcastDisabled : IntPtr
+        put_UnicastResponsesToMulticastBroadcastDisabled : IntPtr
+        get_Rules                                        : IntPtr
+        get_ServiceRestriction                           : IntPtr
+        EnableRuleGroup                                  : IntPtr
+        IsRuleGroupEnabled                               : IntPtr
+        RestoreLocalFirewallDefaults                     : IntPtr
+        get_DefaultInboundAction                         : IntPtr
+        put_DefaultInboundAction                         : IntPtr
+        get_DefaultOutboundAction                        : IntPtr
+        put_DefaultOutboundAction                        : IntPtr
+        get_IsRuleGroupCurrentlyEnabled                  : IntPtr
+        get_LocalPolicyModifyState                       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_CurrentProfileTypes", "get_FirewallEnabled", "put_FirewallEnabled", "get_ExcludedInterfaces", "put_ExcludedInterfaces", "get_BlockAllInboundTraffic", "put_BlockAllInboundTraffic", "get_NotificationsDisabled", "put_NotificationsDisabled", "get_UnicastResponsesToMulticastBroadcastDisabled", "put_UnicastResponsesToMulticastBroadcastDisabled", "get_Rules", "get_ServiceRestriction", "EnableRuleGroup", "IsRuleGroupEnabled", "RestoreLocalFirewallDefaults", "get_DefaultInboundAction", "put_DefaultInboundAction", "get_DefaultOutboundAction", "put_DefaultOutboundAction", "get_IsRuleGroupCurrentlyEnabled", "get_LocalPolicyModifyState"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INetFwPolicy2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -91,7 +125,7 @@ class INetFwPolicy2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_firewallenabled
      */
     get_FirewallEnabled(profileType) {
-        result := ComCall(8, this, "int", profileType, "short*", &enabled := 0, "HRESULT")
+        result := ComCall(8, this, NET_FW_PROFILE_TYPE2, profileType, VARIANT_BOOL.Ptr, &enabled := 0, "HRESULT")
         return enabled
     }
 
@@ -105,7 +139,7 @@ class INetFwPolicy2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-put_firewallenabled
      */
     put_FirewallEnabled(profileType, enabled) {
-        result := ComCall(9, this, "int", profileType, "short", enabled, "HRESULT")
+        result := ComCall(9, this, NET_FW_PROFILE_TYPE2, profileType, VARIANT_BOOL, enabled, "HRESULT")
         return result
     }
 
@@ -121,7 +155,7 @@ class INetFwPolicy2 extends IDispatch {
      */
     get_ExcludedInterfaces(profileType) {
         interfaces := VARIANT()
-        result := ComCall(10, this, "int", profileType, "ptr", interfaces, "HRESULT")
+        result := ComCall(10, this, NET_FW_PROFILE_TYPE2, profileType, VARIANT.Ptr, interfaces, "HRESULT")
         return interfaces
     }
 
@@ -137,7 +171,7 @@ class INetFwPolicy2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-put_excludedinterfaces
      */
     put_ExcludedInterfaces(profileType, interfaces) {
-        result := ComCall(11, this, "int", profileType, "ptr", interfaces, "HRESULT")
+        result := ComCall(11, this, NET_FW_PROFILE_TYPE2, profileType, VARIANT, interfaces, "HRESULT")
         return result
     }
 
@@ -153,7 +187,7 @@ class INetFwPolicy2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_blockallinboundtraffic
      */
     get_BlockAllInboundTraffic(profileType) {
-        result := ComCall(12, this, "int", profileType, "short*", &Block := 0, "HRESULT")
+        result := ComCall(12, this, NET_FW_PROFILE_TYPE2, profileType, VARIANT_BOOL.Ptr, &Block := 0, "HRESULT")
         return Block
     }
 
@@ -170,7 +204,7 @@ class INetFwPolicy2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-put_blockallinboundtraffic
      */
     put_BlockAllInboundTraffic(profileType, Block) {
-        result := ComCall(13, this, "int", profileType, "short", Block, "HRESULT")
+        result := ComCall(13, this, NET_FW_PROFILE_TYPE2, profileType, VARIANT_BOOL, Block, "HRESULT")
         return result
     }
 
@@ -183,7 +217,7 @@ class INetFwPolicy2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_notificationsdisabled
      */
     get_NotificationsDisabled(profileType) {
-        result := ComCall(14, this, "int", profileType, "short*", &disabled := 0, "HRESULT")
+        result := ComCall(14, this, NET_FW_PROFILE_TYPE2, profileType, VARIANT_BOOL.Ptr, &disabled := 0, "HRESULT")
         return disabled
     }
 
@@ -197,7 +231,7 @@ class INetFwPolicy2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-put_notificationsdisabled
      */
     put_NotificationsDisabled(profileType, disabled) {
-        result := ComCall(15, this, "int", profileType, "short", disabled, "HRESULT")
+        result := ComCall(15, this, NET_FW_PROFILE_TYPE2, profileType, VARIANT_BOOL, disabled, "HRESULT")
         return result
     }
 
@@ -212,7 +246,7 @@ class INetFwPolicy2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_unicastresponsestomulticastbroadcastdisabled
      */
     get_UnicastResponsesToMulticastBroadcastDisabled(profileType) {
-        result := ComCall(16, this, "int", profileType, "short*", &disabled := 0, "HRESULT")
+        result := ComCall(16, this, NET_FW_PROFILE_TYPE2, profileType, VARIANT_BOOL.Ptr, &disabled := 0, "HRESULT")
         return disabled
     }
 
@@ -228,7 +262,7 @@ class INetFwPolicy2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-put_unicastresponsestomulticastbroadcastdisabled
      */
     put_UnicastResponsesToMulticastBroadcastDisabled(profileType, disabled) {
-        result := ComCall(17, this, "int", profileType, "short", disabled, "HRESULT")
+        result := ComCall(17, this, NET_FW_PROFILE_TYPE2, profileType, VARIANT_BOOL, disabled, "HRESULT")
         return result
     }
 
@@ -356,7 +390,7 @@ class INetFwPolicy2 extends IDispatch {
     EnableRuleGroup(profileTypesBitmask, group, enable) {
         group := group is String ? BSTR.Alloc(group).Value : group
 
-        result := ComCall(20, this, "int", profileTypesBitmask, "ptr", group, "short", enable, "HRESULT")
+        result := ComCall(20, this, "int", profileTypesBitmask, BSTR, group, VARIANT_BOOL, enable, "HRESULT")
         return result
     }
 
@@ -374,7 +408,7 @@ class INetFwPolicy2 extends IDispatch {
     IsRuleGroupEnabled(profileTypesBitmask, group) {
         group := group is String ? BSTR.Alloc(group).Value : group
 
-        result := ComCall(21, this, "int", profileTypesBitmask, "ptr", group, "short*", &enabled := 0, "HRESULT")
+        result := ComCall(21, this, "int", profileTypesBitmask, BSTR, group, VARIANT_BOOL.Ptr, &enabled := 0, "HRESULT")
         return enabled
     }
 
@@ -445,7 +479,7 @@ class INetFwPolicy2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_defaultinboundaction
      */
     get_DefaultInboundAction(profileType) {
-        result := ComCall(23, this, "int", profileType, "int*", &action := 0, "HRESULT")
+        result := ComCall(23, this, NET_FW_PROFILE_TYPE2, profileType, "int*", &action := 0, "HRESULT")
         return action
     }
 
@@ -462,7 +496,7 @@ class INetFwPolicy2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-put_defaultinboundaction
      */
     put_DefaultInboundAction(profileType, action) {
-        result := ComCall(24, this, "int", profileType, "int", action, "HRESULT")
+        result := ComCall(24, this, NET_FW_PROFILE_TYPE2, profileType, NET_FW_ACTION, action, "HRESULT")
         return result
     }
 
@@ -478,7 +512,7 @@ class INetFwPolicy2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_defaultoutboundaction
      */
     get_DefaultOutboundAction(profileType) {
-        result := ComCall(25, this, "int", profileType, "int*", &action := 0, "HRESULT")
+        result := ComCall(25, this, NET_FW_PROFILE_TYPE2, profileType, "int*", &action := 0, "HRESULT")
         return action
     }
 
@@ -495,7 +529,7 @@ class INetFwPolicy2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-put_defaultoutboundaction
      */
     put_DefaultOutboundAction(profileType, action) {
-        result := ComCall(26, this, "int", profileType, "int", action, "HRESULT")
+        result := ComCall(26, this, NET_FW_PROFILE_TYPE2, profileType, NET_FW_ACTION, action, "HRESULT")
         return result
     }
 
@@ -514,7 +548,7 @@ class INetFwPolicy2 extends IDispatch {
     get_IsRuleGroupCurrentlyEnabled(group) {
         group := group is String ? BSTR.Alloc(group).Value : group
 
-        result := ComCall(27, this, "ptr", group, "short*", &enabled := 0, "HRESULT")
+        result := ComCall(27, this, BSTR, group, VARIANT_BOOL.Ptr, &enabled := 0, "HRESULT")
         return enabled
     }
 
@@ -526,5 +560,67 @@ class INetFwPolicy2 extends IDispatch {
     get_LocalPolicyModifyState() {
         result := ComCall(28, this, "int*", &modifyState := 0, "HRESULT")
         return modifyState
+    }
+
+    Query(iid) {
+        if (INetFwPolicy2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_CurrentProfileTypes := CallbackCreate(GetMethod(implObj, "get_CurrentProfileTypes"), flags, 2)
+        this.vtbl.get_FirewallEnabled := CallbackCreate(GetMethod(implObj, "get_FirewallEnabled"), flags, 3)
+        this.vtbl.put_FirewallEnabled := CallbackCreate(GetMethod(implObj, "put_FirewallEnabled"), flags, 3)
+        this.vtbl.get_ExcludedInterfaces := CallbackCreate(GetMethod(implObj, "get_ExcludedInterfaces"), flags, 3)
+        this.vtbl.put_ExcludedInterfaces := CallbackCreate(GetMethod(implObj, "put_ExcludedInterfaces"), flags, 3)
+        this.vtbl.get_BlockAllInboundTraffic := CallbackCreate(GetMethod(implObj, "get_BlockAllInboundTraffic"), flags, 3)
+        this.vtbl.put_BlockAllInboundTraffic := CallbackCreate(GetMethod(implObj, "put_BlockAllInboundTraffic"), flags, 3)
+        this.vtbl.get_NotificationsDisabled := CallbackCreate(GetMethod(implObj, "get_NotificationsDisabled"), flags, 3)
+        this.vtbl.put_NotificationsDisabled := CallbackCreate(GetMethod(implObj, "put_NotificationsDisabled"), flags, 3)
+        this.vtbl.get_UnicastResponsesToMulticastBroadcastDisabled := CallbackCreate(GetMethod(implObj, "get_UnicastResponsesToMulticastBroadcastDisabled"), flags, 3)
+        this.vtbl.put_UnicastResponsesToMulticastBroadcastDisabled := CallbackCreate(GetMethod(implObj, "put_UnicastResponsesToMulticastBroadcastDisabled"), flags, 3)
+        this.vtbl.get_Rules := CallbackCreate(GetMethod(implObj, "get_Rules"), flags, 2)
+        this.vtbl.get_ServiceRestriction := CallbackCreate(GetMethod(implObj, "get_ServiceRestriction"), flags, 2)
+        this.vtbl.EnableRuleGroup := CallbackCreate(GetMethod(implObj, "EnableRuleGroup"), flags, 4)
+        this.vtbl.IsRuleGroupEnabled := CallbackCreate(GetMethod(implObj, "IsRuleGroupEnabled"), flags, 4)
+        this.vtbl.RestoreLocalFirewallDefaults := CallbackCreate(GetMethod(implObj, "RestoreLocalFirewallDefaults"), flags, 1)
+        this.vtbl.get_DefaultInboundAction := CallbackCreate(GetMethod(implObj, "get_DefaultInboundAction"), flags, 3)
+        this.vtbl.put_DefaultInboundAction := CallbackCreate(GetMethod(implObj, "put_DefaultInboundAction"), flags, 3)
+        this.vtbl.get_DefaultOutboundAction := CallbackCreate(GetMethod(implObj, "get_DefaultOutboundAction"), flags, 3)
+        this.vtbl.put_DefaultOutboundAction := CallbackCreate(GetMethod(implObj, "put_DefaultOutboundAction"), flags, 3)
+        this.vtbl.get_IsRuleGroupCurrentlyEnabled := CallbackCreate(GetMethod(implObj, "get_IsRuleGroupCurrentlyEnabled"), flags, 3)
+        this.vtbl.get_LocalPolicyModifyState := CallbackCreate(GetMethod(implObj, "get_LocalPolicyModifyState"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_CurrentProfileTypes)
+        CallbackFree(this.vtbl.get_FirewallEnabled)
+        CallbackFree(this.vtbl.put_FirewallEnabled)
+        CallbackFree(this.vtbl.get_ExcludedInterfaces)
+        CallbackFree(this.vtbl.put_ExcludedInterfaces)
+        CallbackFree(this.vtbl.get_BlockAllInboundTraffic)
+        CallbackFree(this.vtbl.put_BlockAllInboundTraffic)
+        CallbackFree(this.vtbl.get_NotificationsDisabled)
+        CallbackFree(this.vtbl.put_NotificationsDisabled)
+        CallbackFree(this.vtbl.get_UnicastResponsesToMulticastBroadcastDisabled)
+        CallbackFree(this.vtbl.put_UnicastResponsesToMulticastBroadcastDisabled)
+        CallbackFree(this.vtbl.get_Rules)
+        CallbackFree(this.vtbl.get_ServiceRestriction)
+        CallbackFree(this.vtbl.EnableRuleGroup)
+        CallbackFree(this.vtbl.IsRuleGroupEnabled)
+        CallbackFree(this.vtbl.RestoreLocalFirewallDefaults)
+        CallbackFree(this.vtbl.get_DefaultInboundAction)
+        CallbackFree(this.vtbl.put_DefaultInboundAction)
+        CallbackFree(this.vtbl.get_DefaultOutboundAction)
+        CallbackFree(this.vtbl.put_DefaultOutboundAction)
+        CallbackFree(this.vtbl.get_IsRuleGroupCurrentlyEnabled)
+        CallbackFree(this.vtbl.get_LocalPolicyModifyState)
     }
 }

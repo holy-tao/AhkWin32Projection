@@ -1,10 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMVisual.ahk
-#Include .\IXpsOMVisualCollection.ahk
-#Include .\IXpsOMDictionary.ahk
-#Include .\IXpsOMRemoteDictionaryResource.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IXpsOMVisualCollection.ahk" { IXpsOMVisualCollection }
+#Import ".\IXpsOMDictionary.ahk" { IXpsOMDictionary }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsOMVisual.ahk" { IXpsOMVisual }
+#Import ".\IXpsOMRemoteDictionaryResource.ahk" { IXpsOMRemoteDictionaryResource }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * A group of visual elements and related properties.
@@ -47,26 +50,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomcanvas
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMCanvas extends IXpsOMVisual {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMCanvas extends IXpsOMVisual {
     /**
      * The interface identifier for IXpsOMCanvas
      * @type {Guid}
      */
-    static IID => Guid("{221d1452-331e-47c6-87e9-6ccefb9b5ba3}")
+    static IID := Guid("{221d1452-331e-47c6-87e9-6ccefb9b5ba3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 30
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMCanvas interfaces
+    */
+    struct Vtbl extends IXpsOMVisual.Vtbl {
+        GetVisuals                       : IntPtr
+        GetUseAliasedEdgeMode            : IntPtr
+        SetUseAliasedEdgeMode            : IntPtr
+        GetAccessibilityShortDescription : IntPtr
+        SetAccessibilityShortDescription : IntPtr
+        GetAccessibilityLongDescription  : IntPtr
+        SetAccessibilityLongDescription  : IntPtr
+        GetDictionary                    : IntPtr
+        GetDictionaryLocal               : IntPtr
+        SetDictionaryLocal               : IntPtr
+        GetDictionaryResource            : IntPtr
+        SetDictionaryResource            : IntPtr
+        Clone                            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetVisuals", "GetUseAliasedEdgeMode", "SetUseAliasedEdgeMode", "GetAccessibilityShortDescription", "SetAccessibilityShortDescription", "GetAccessibilityLongDescription", "SetAccessibilityLongDescription", "GetDictionary", "GetDictionaryLocal", "SetDictionaryLocal", "GetDictionaryResource", "SetDictionaryResource", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMCanvas.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a pointer to an IXpsOMVisualCollection interface that contains a collection of the visual objects in the canvas.
@@ -117,7 +139,7 @@ class IXpsOMCanvas extends IXpsOMVisual {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getusealiasededgemode
      */
     GetUseAliasedEdgeMode() {
-        result := ComCall(31, this, "int*", &useAliasedEdgeMode := 0, "HRESULT")
+        result := ComCall(31, this, BOOL.Ptr, &useAliasedEdgeMode := 0, "HRESULT")
         return useAliasedEdgeMode
     }
 
@@ -161,7 +183,7 @@ class IXpsOMCanvas extends IXpsOMVisual {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-setusealiasededgemode
      */
     SetUseAliasedEdgeMode(useAliasedEdgeMode) {
-        result := ComCall(32, this, "int", useAliasedEdgeMode, "HRESULT")
+        result := ComCall(32, this, BOOL, useAliasedEdgeMode, "HRESULT")
         return result
     }
 
@@ -175,7 +197,7 @@ class IXpsOMCanvas extends IXpsOMVisual {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getaccessibilityshortdescription
      */
     GetAccessibilityShortDescription() {
-        result := ComCall(33, this, "ptr*", &shortDescription := 0, "HRESULT")
+        result := ComCall(33, this, PWSTR.Ptr, &shortDescription := 0, "HRESULT")
         return shortDescription
     }
 
@@ -204,7 +226,7 @@ class IXpsOMCanvas extends IXpsOMVisual {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getaccessibilitylongdescription
      */
     GetAccessibilityLongDescription() {
-        result := ComCall(35, this, "ptr*", &longDescription := 0, "HRESULT")
+        result := ComCall(35, this, PWSTR.Ptr, &longDescription := 0, "HRESULT")
         return longDescription
     }
 
@@ -619,5 +641,49 @@ class IXpsOMCanvas extends IXpsOMVisual {
     Clone() {
         result := ComCall(42, this, "ptr*", &canvas := 0, "HRESULT")
         return IXpsOMCanvas(canvas)
+    }
+
+    Query(iid) {
+        if (IXpsOMCanvas.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetVisuals := CallbackCreate(GetMethod(implObj, "GetVisuals"), flags, 2)
+        this.vtbl.GetUseAliasedEdgeMode := CallbackCreate(GetMethod(implObj, "GetUseAliasedEdgeMode"), flags, 2)
+        this.vtbl.SetUseAliasedEdgeMode := CallbackCreate(GetMethod(implObj, "SetUseAliasedEdgeMode"), flags, 2)
+        this.vtbl.GetAccessibilityShortDescription := CallbackCreate(GetMethod(implObj, "GetAccessibilityShortDescription"), flags, 2)
+        this.vtbl.SetAccessibilityShortDescription := CallbackCreate(GetMethod(implObj, "SetAccessibilityShortDescription"), flags, 2)
+        this.vtbl.GetAccessibilityLongDescription := CallbackCreate(GetMethod(implObj, "GetAccessibilityLongDescription"), flags, 2)
+        this.vtbl.SetAccessibilityLongDescription := CallbackCreate(GetMethod(implObj, "SetAccessibilityLongDescription"), flags, 2)
+        this.vtbl.GetDictionary := CallbackCreate(GetMethod(implObj, "GetDictionary"), flags, 2)
+        this.vtbl.GetDictionaryLocal := CallbackCreate(GetMethod(implObj, "GetDictionaryLocal"), flags, 2)
+        this.vtbl.SetDictionaryLocal := CallbackCreate(GetMethod(implObj, "SetDictionaryLocal"), flags, 2)
+        this.vtbl.GetDictionaryResource := CallbackCreate(GetMethod(implObj, "GetDictionaryResource"), flags, 2)
+        this.vtbl.SetDictionaryResource := CallbackCreate(GetMethod(implObj, "SetDictionaryResource"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetVisuals)
+        CallbackFree(this.vtbl.GetUseAliasedEdgeMode)
+        CallbackFree(this.vtbl.SetUseAliasedEdgeMode)
+        CallbackFree(this.vtbl.GetAccessibilityShortDescription)
+        CallbackFree(this.vtbl.SetAccessibilityShortDescription)
+        CallbackFree(this.vtbl.GetAccessibilityLongDescription)
+        CallbackFree(this.vtbl.SetAccessibilityLongDescription)
+        CallbackFree(this.vtbl.GetDictionary)
+        CallbackFree(this.vtbl.GetDictionaryLocal)
+        CallbackFree(this.vtbl.SetDictionaryLocal)
+        CallbackFree(this.vtbl.GetDictionaryResource)
+        CallbackFree(this.vtbl.SetDictionaryResource)
+        CallbackFree(this.vtbl.Clone)
     }
 }

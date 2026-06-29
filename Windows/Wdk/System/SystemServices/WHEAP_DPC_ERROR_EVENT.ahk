@@ -1,68 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHEAP_DPC_ERROR_EVENT_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WHEAP_DPC_ERROR_EVENT_TYPE.ahk" { WHEAP_DPC_ERROR_EVENT_TYPE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEAP_DPC_ERROR_EVENT extends Win32Struct {
-    static sizeof => 32
+export default struct WHEAP_DPC_ERROR_EVENT {
+    #StructPack 8
 
-    static packingSize => 8
+    WheaEventLogEntry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    WheaEventLogEntry {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ErrType : WHEAP_DPC_ERROR_EVENT_TYPE
 
-    /**
-     * @type {WHEAP_DPC_ERROR_EVENT_TYPE}
-     */
-    ErrType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    Bus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Bus {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Device : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Device {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Function : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Function {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    DeviceId : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DeviceId {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
-    }
+    VendorId : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    VendorId {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
-    }
 }

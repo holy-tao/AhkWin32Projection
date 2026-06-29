@@ -1,16 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\Cryptography\ALG_ID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Cryptography\ALG_ID.ahk" { ALG_ID }
 
 /**
  * The SecPkgContext_ConnectionInfo structure contains protocol and cipher information. This structure is used by the InitializeSecurityContext (Schannel) function.This attribute is supported only by the Schannel security support provider (SSP).
  * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-secpkgcontext_connectioninfo
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SecPkgContext_ConnectionInfo extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct SecPkgContext_ConnectionInfo {
+    #StructPack 4
 
     /**
      * Protocol used to establish this connection. The following table describes the constants valid for this member.
@@ -198,12 +195,8 @@ class SecPkgContext_ConnectionInfo extends Win32Struct {
      * </tr>
      * 
      * </table>
-     * @type {Integer}
      */
-    dwProtocol {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwProtocol : UInt32
 
     /**
      * Algorithm identifier (<a href="https://docs.microsoft.com/windows/desktop/SecCrypto/alg-id">ALG_ID</a>) for the bulk encryption cipher used by this connection. The following table describes the constants valid for this member.
@@ -284,20 +277,10 @@ class SecPkgContext_ConnectionInfo extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {ALG_ID}
      */
-    aiCipher {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    aiCipher : ALG_ID
 
-    /**
-     * @type {Integer}
-     */
-    dwCipherStrength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwCipherStrength : UInt32
 
     /**
      * <b>ALG_ID</b> indicating the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hash</a> used for generating <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">Message Authentication Codes</a> (MACs). The following table describes the constants valid for this member.
@@ -328,21 +311,13 @@ class SecPkgContext_ConnectionInfo extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {ALG_ID}
      */
-    aiHash {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    aiHash : ALG_ID
 
     /**
      * Strength of the hash, in bits: 128 or 160.
-     * @type {Integer}
      */
-    dwHashStrength {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwHashStrength : UInt32
 
     /**
      * <b>ALG_ID</b> indicating the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">key exchange algorithm</a> used to generate the shared master secret. The following table describes the constants valid for this member.
@@ -373,18 +348,9 @@ class SecPkgContext_ConnectionInfo extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {ALG_ID}
      */
-    aiExch {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    aiExch : ALG_ID
 
-    /**
-     * @type {Integer}
-     */
-    dwExchStrength {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwExchStrength : UInt32
+
 }

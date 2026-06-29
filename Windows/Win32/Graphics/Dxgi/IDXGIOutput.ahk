@@ -1,12 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIObject.ahk
-#Include .\DXGI_OUTPUT_DESC.ahk
-#Include Common\DXGI_MODE_DESC.ahk
-#Include Common\DXGI_GAMMA_CONTROL_CAPABILITIES.ahk
-#Include Common\DXGI_GAMMA_CONTROL.ahk
-#Include .\DXGI_FRAME_STATISTICS.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DXGI_ENUM_MODES.ahk" { DXGI_ENUM_MODES }
+#Import ".\DXGI_OUTPUT_DESC.ahk" { DXGI_OUTPUT_DESC }
+#Import ".\DXGI_FRAME_STATISTICS.ahk" { DXGI_FRAME_STATISTICS }
+#Import "Common\DXGI_GAMMA_CONTROL.ahk" { DXGI_GAMMA_CONTROL }
+#Import "Common\DXGI_MODE_DESC.ahk" { DXGI_MODE_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import "Common\DXGI_GAMMA_CONTROL_CAPABILITIES.ahk" { DXGI_GAMMA_CONTROL_CAPABILITIES }
+#Import ".\IDXGISurface.ahk" { IDXGISurface }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDXGIObject.ahk" { IDXGIObject }
 
 /**
  * An IDXGIOutput interface represents an adapter output (such as a monitor).
@@ -15,26 +21,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/nn-dxgi-idxgioutput
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGIOutput extends IDXGIObject {
-
-    static sizeof => A_PtrSize
+export default struct IDXGIOutput extends IDXGIObject {
     /**
      * The interface identifier for IDXGIOutput
      * @type {Guid}
      */
-    static IID => Guid("{ae02eedb-c735-4690-8d52-5a8dc20213aa}")
+    static IID := Guid("{ae02eedb-c735-4690-8d52-5a8dc20213aa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGIOutput interfaces
+    */
+    struct Vtbl extends IDXGIObject.Vtbl {
+        GetDesc                     : IntPtr
+        GetDisplayModeList          : IntPtr
+        FindClosestMatchingMode     : IntPtr
+        WaitForVBlank               : IntPtr
+        TakeOwnership               : IntPtr
+        ReleaseOwnership            : IntPtr
+        GetGammaControlCapabilities : IntPtr
+        SetGammaControl             : IntPtr
+        GetGammaControl             : IntPtr
+        SetDisplaySurface           : IntPtr
+        GetDisplaySurfaceData       : IntPtr
+        GetFrameStatistics          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDesc", "GetDisplayModeList", "FindClosestMatchingMode", "WaitForVBlank", "TakeOwnership", "ReleaseOwnership", "GetGammaControlCapabilities", "SetGammaControl", "GetGammaControl", "SetDisplaySurface", "GetDisplaySurfaceData", "GetFrameStatistics"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGIOutput.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Get a description of the output.
@@ -47,7 +71,7 @@ class IDXGIOutput extends IDXGIObject {
      */
     GetDesc() {
         pDesc := DXGI_OUTPUT_DESC()
-        result := ComCall(7, this, "ptr", pDesc, "HRESULT")
+        result := ComCall(7, this, DXGI_OUTPUT_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -96,7 +120,7 @@ class IDXGIOutput extends IDXGIObject {
         pNumModesMarshal := pNumModes is VarRef ? "uint*" : "ptr"
 
         pDesc := DXGI_MODE_DESC()
-        result := ComCall(8, this, "int", EnumFormat, "uint", Flags, pNumModesMarshal, pNumModes, "ptr", pDesc, "HRESULT")
+        result := ComCall(8, this, DXGI_FORMAT, EnumFormat, DXGI_ENUM_MODES, Flags, pNumModesMarshal, pNumModes, DXGI_MODE_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -149,7 +173,7 @@ class IDXGIOutput extends IDXGIObject {
      */
     FindClosestMatchingMode(pModeToMatch, pConcernedDevice) {
         pClosestMatch := DXGI_MODE_DESC()
-        result := ComCall(9, this, "ptr", pModeToMatch, "ptr", pClosestMatch, "ptr", pConcernedDevice, "HRESULT")
+        result := ComCall(9, this, DXGI_MODE_DESC.Ptr, pModeToMatch, DXGI_MODE_DESC.Ptr, pClosestMatch, "ptr", pConcernedDevice, "HRESULT")
         return pClosestMatch
     }
 
@@ -188,7 +212,7 @@ class IDXGIOutput extends IDXGIObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgioutput-takeownership
      */
     TakeOwnership(pDevice, Exclusive) {
-        result := ComCall(11, this, "ptr", pDevice, "int", Exclusive, "HRESULT")
+        result := ComCall(11, this, "ptr", pDevice, BOOL, Exclusive, "HRESULT")
         return result
     }
 
@@ -218,7 +242,7 @@ class IDXGIOutput extends IDXGIObject {
      */
     GetGammaControlCapabilities() {
         pGammaCaps := DXGI_GAMMA_CONTROL_CAPABILITIES()
-        result := ComCall(13, this, "ptr", pGammaCaps, "HRESULT")
+        result := ComCall(13, this, DXGI_GAMMA_CONTROL_CAPABILITIES.Ptr, pGammaCaps, "HRESULT")
         return pGammaCaps
     }
 
@@ -239,7 +263,7 @@ class IDXGIOutput extends IDXGIObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgioutput-setgammacontrol
      */
     SetGammaControl(pArray) {
-        result := ComCall(14, this, "ptr", pArray, "HRESULT")
+        result := ComCall(14, this, DXGI_GAMMA_CONTROL.Ptr, pArray, "HRESULT")
         return result
     }
 
@@ -258,7 +282,7 @@ class IDXGIOutput extends IDXGIObject {
      */
     GetGammaControl() {
         pArray := DXGI_GAMMA_CONTROL()
-        result := ComCall(15, this, "ptr", pArray, "HRESULT")
+        result := ComCall(15, this, DXGI_GAMMA_CONTROL.Ptr, pArray, "HRESULT")
         return pArray
     }
 
@@ -318,7 +342,49 @@ class IDXGIOutput extends IDXGIObject {
      */
     GetFrameStatistics() {
         pStats := DXGI_FRAME_STATISTICS()
-        result := ComCall(18, this, "ptr", pStats, "HRESULT")
+        result := ComCall(18, this, DXGI_FRAME_STATISTICS.Ptr, pStats, "HRESULT")
         return pStats
+    }
+
+    Query(iid) {
+        if (IDXGIOutput.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 2)
+        this.vtbl.GetDisplayModeList := CallbackCreate(GetMethod(implObj, "GetDisplayModeList"), flags, 5)
+        this.vtbl.FindClosestMatchingMode := CallbackCreate(GetMethod(implObj, "FindClosestMatchingMode"), flags, 4)
+        this.vtbl.WaitForVBlank := CallbackCreate(GetMethod(implObj, "WaitForVBlank"), flags, 1)
+        this.vtbl.TakeOwnership := CallbackCreate(GetMethod(implObj, "TakeOwnership"), flags, 3)
+        this.vtbl.ReleaseOwnership := CallbackCreate(GetMethod(implObj, "ReleaseOwnership"), flags, 1)
+        this.vtbl.GetGammaControlCapabilities := CallbackCreate(GetMethod(implObj, "GetGammaControlCapabilities"), flags, 2)
+        this.vtbl.SetGammaControl := CallbackCreate(GetMethod(implObj, "SetGammaControl"), flags, 2)
+        this.vtbl.GetGammaControl := CallbackCreate(GetMethod(implObj, "GetGammaControl"), flags, 2)
+        this.vtbl.SetDisplaySurface := CallbackCreate(GetMethod(implObj, "SetDisplaySurface"), flags, 2)
+        this.vtbl.GetDisplaySurfaceData := CallbackCreate(GetMethod(implObj, "GetDisplaySurfaceData"), flags, 2)
+        this.vtbl.GetFrameStatistics := CallbackCreate(GetMethod(implObj, "GetFrameStatistics"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDesc)
+        CallbackFree(this.vtbl.GetDisplayModeList)
+        CallbackFree(this.vtbl.FindClosestMatchingMode)
+        CallbackFree(this.vtbl.WaitForVBlank)
+        CallbackFree(this.vtbl.TakeOwnership)
+        CallbackFree(this.vtbl.ReleaseOwnership)
+        CallbackFree(this.vtbl.GetGammaControlCapabilities)
+        CallbackFree(this.vtbl.SetGammaControl)
+        CallbackFree(this.vtbl.GetGammaControl)
+        CallbackFree(this.vtbl.SetDisplaySurface)
+        CallbackFree(this.vtbl.GetDisplaySurfaceData)
+        CallbackFree(this.vtbl.GetFrameStatistics)
     }
 }

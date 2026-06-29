@@ -1,32 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISVGPathSegList.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISVGPathSegList.ahk" { ISVGPathSegList }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class ISVGAnimatedPathData extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISVGAnimatedPathData extends IDispatch {
     /**
      * The interface identifier for ISVGAnimatedPathData
      * @type {Guid}
      */
-    static IID => Guid("{30510511-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{30510511-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISVGAnimatedPathData interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        putref_pathSegList                   : IntPtr
+        get_pathSegList                      : IntPtr
+        putref_normalizedPathSegList         : IntPtr
+        get_normalizedPathSegList            : IntPtr
+        putref_animatedPathSegList           : IntPtr
+        get_animatedPathSegList              : IntPtr
+        putref_animatedNormalizedPathSegList : IntPtr
+        get_animatedNormalizedPathSegList    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["putref_pathSegList", "get_pathSegList", "putref_normalizedPathSegList", "get_normalizedPathSegList", "putref_animatedPathSegList", "get_animatedPathSegList", "putref_animatedNormalizedPathSegList", "get_animatedNormalizedPathSegList"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISVGAnimatedPathData.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ISVGPathSegList} 
@@ -130,5 +145,39 @@ class ISVGAnimatedPathData extends IDispatch {
     get_animatedNormalizedPathSegList() {
         result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
         return ISVGPathSegList(p)
+    }
+
+    Query(iid) {
+        if (ISVGAnimatedPathData.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.putref_pathSegList := CallbackCreate(GetMethod(implObj, "putref_pathSegList"), flags, 2)
+        this.vtbl.get_pathSegList := CallbackCreate(GetMethod(implObj, "get_pathSegList"), flags, 2)
+        this.vtbl.putref_normalizedPathSegList := CallbackCreate(GetMethod(implObj, "putref_normalizedPathSegList"), flags, 2)
+        this.vtbl.get_normalizedPathSegList := CallbackCreate(GetMethod(implObj, "get_normalizedPathSegList"), flags, 2)
+        this.vtbl.putref_animatedPathSegList := CallbackCreate(GetMethod(implObj, "putref_animatedPathSegList"), flags, 2)
+        this.vtbl.get_animatedPathSegList := CallbackCreate(GetMethod(implObj, "get_animatedPathSegList"), flags, 2)
+        this.vtbl.putref_animatedNormalizedPathSegList := CallbackCreate(GetMethod(implObj, "putref_animatedNormalizedPathSegList"), flags, 2)
+        this.vtbl.get_animatedNormalizedPathSegList := CallbackCreate(GetMethod(implObj, "get_animatedNormalizedPathSegList"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.putref_pathSegList)
+        CallbackFree(this.vtbl.get_pathSegList)
+        CallbackFree(this.vtbl.putref_normalizedPathSegList)
+        CallbackFree(this.vtbl.get_normalizedPathSegList)
+        CallbackFree(this.vtbl.putref_animatedPathSegList)
+        CallbackFree(this.vtbl.get_animatedPathSegList)
+        CallbackFree(this.vtbl.putref_animatedNormalizedPathSegList)
+        CallbackFree(this.vtbl.get_animatedNormalizedPathSegList)
     }
 }

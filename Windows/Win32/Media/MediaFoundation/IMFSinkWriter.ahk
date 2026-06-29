@@ -1,8 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\MF_SINK_WRITER_STATISTICS.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MF_SINK_WRITER_STATISTICS.ahk" { MF_SINK_WRITER_STATISTICS }
+#Import ".\IMFSample.ahk" { IMFSample }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import ".\IMFMediaType.ahk" { IMFMediaType }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Implemented by the Microsoft Media Foundation sink writer object.
@@ -25,26 +29,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nn-mfreadwrite-imfsinkwriter
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFSinkWriter extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFSinkWriter extends IUnknown {
     /**
      * The interface identifier for IMFSinkWriter
      * @type {Guid}
      */
-    static IID => Guid("{3137f1cd-fe5e-4805-a5d8-fb477448cb3d}")
+    static IID := Guid("{3137f1cd-fe5e-4805-a5d8-fb477448cb3d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFSinkWriter interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddStream           : IntPtr
+        SetInputMediaType   : IntPtr
+        BeginWriting        : IntPtr
+        WriteSample         : IntPtr
+        SendStreamTick      : IntPtr
+        PlaceMarker         : IntPtr
+        NotifyEndOfSegment  : IntPtr
+        Flush               : IntPtr
+        Finalize            : IntPtr
+        GetServiceForStream : IntPtr
+        GetStatistics       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddStream", "SetInputMediaType", "BeginWriting", "WriteSample", "SendStreamTick", "PlaceMarker", "NotifyEndOfSegment", "Flush", "Finalize", "GetServiceForStream", "GetStatistics"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFSinkWriter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds a stream to the sink writer.
@@ -464,7 +485,7 @@ class IMFSinkWriter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsinkwriter-getserviceforstream
      */
     GetServiceForStream(dwStreamIndex, guidService, riid) {
-        result := ComCall(12, this, "uint", dwStreamIndex, "ptr", guidService, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        result := ComCall(12, this, "uint", dwStreamIndex, Guid.Ptr, guidService, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
         return ppvObject
     }
 
@@ -478,7 +499,47 @@ class IMFSinkWriter extends IUnknown {
      */
     GetStatistics(dwStreamIndex) {
         pStats := MF_SINK_WRITER_STATISTICS()
-        result := ComCall(13, this, "uint", dwStreamIndex, "ptr", pStats, "HRESULT")
+        result := ComCall(13, this, "uint", dwStreamIndex, MF_SINK_WRITER_STATISTICS.Ptr, pStats, "HRESULT")
         return pStats
+    }
+
+    Query(iid) {
+        if (IMFSinkWriter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddStream := CallbackCreate(GetMethod(implObj, "AddStream"), flags, 3)
+        this.vtbl.SetInputMediaType := CallbackCreate(GetMethod(implObj, "SetInputMediaType"), flags, 4)
+        this.vtbl.BeginWriting := CallbackCreate(GetMethod(implObj, "BeginWriting"), flags, 1)
+        this.vtbl.WriteSample := CallbackCreate(GetMethod(implObj, "WriteSample"), flags, 3)
+        this.vtbl.SendStreamTick := CallbackCreate(GetMethod(implObj, "SendStreamTick"), flags, 3)
+        this.vtbl.PlaceMarker := CallbackCreate(GetMethod(implObj, "PlaceMarker"), flags, 3)
+        this.vtbl.NotifyEndOfSegment := CallbackCreate(GetMethod(implObj, "NotifyEndOfSegment"), flags, 2)
+        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 2)
+        this.vtbl.Finalize := CallbackCreate(GetMethod(implObj, "Finalize"), flags, 1)
+        this.vtbl.GetServiceForStream := CallbackCreate(GetMethod(implObj, "GetServiceForStream"), flags, 5)
+        this.vtbl.GetStatistics := CallbackCreate(GetMethod(implObj, "GetStatistics"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddStream)
+        CallbackFree(this.vtbl.SetInputMediaType)
+        CallbackFree(this.vtbl.BeginWriting)
+        CallbackFree(this.vtbl.WriteSample)
+        CallbackFree(this.vtbl.SendStreamTick)
+        CallbackFree(this.vtbl.PlaceMarker)
+        CallbackFree(this.vtbl.NotifyEndOfSegment)
+        CallbackFree(this.vtbl.Flush)
+        CallbackFree(this.vtbl.Finalize)
+        CallbackFree(this.vtbl.GetServiceForStream)
+        CallbackFree(this.vtbl.GetStatistics)
     }
 }

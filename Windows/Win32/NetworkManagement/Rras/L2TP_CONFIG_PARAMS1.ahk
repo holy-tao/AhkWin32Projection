@@ -1,17 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\L2TP_TUNNEL_CONFIG_PARAMS2.ahk
-#Include .\ROUTER_CUSTOM_IKEv2_POLICY0.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ROUTER_CUSTOM_IKEv2_POLICY0.ahk" { ROUTER_CUSTOM_IKEv2_POLICY0 }
+#Import ".\L2TP_TUNNEL_CONFIG_PARAMS2.ahk" { L2TP_TUNNEL_CONFIG_PARAMS2 }
 
 /**
  * Used to get and set the device configuration for Layer 2 Tunneling Protocol (L2TP) on a RAS Server. (L2TP_CONFIG_PARAMS1)
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-l2tp_config_params1
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class L2TP_CONFIG_PARAMS1 extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct L2TP_CONFIG_PARAMS1 {
+    #StructPack 8
 
     /**
      * A value that specifies the number of ports configured on the RRAS server to accept L2TP connections. The maximum values for <b>dwNumPorts</b> are listed in the following table. The value zero is not allowed.
@@ -59,12 +56,8 @@ class L2TP_CONFIG_PARAMS1 extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  If <b>dwNumPorts</b> contains a value beyond the limit configured in the registry at service start time (the default is 1000 for Windows Server 2008 Standard and Windows Server 2008 Enterprise), the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigservergetinfoex">MprConfigServerGetInfoEx</a> and <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserversetinfoex">MprConfigServerSetInfoEx</a> functions will return <b>ERROR_SUCCESS_REBOOT_REQUIRED</b>.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    dwNumPorts {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwNumPorts : UInt32
 
     /**
      * A value that specifies the type of ports configured on the  RRAS server for L2TP. The following values are supported:
@@ -95,29 +88,11 @@ class L2TP_CONFIG_PARAMS1 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwPortFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwPortFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwTunnelConfigParamFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwTunnelConfigParamFlags : UInt32
 
-    /**
-     * @type {L2TP_TUNNEL_CONFIG_PARAMS2}
-     */
-    TunnelConfigParams {
-        get {
-            if(!this.HasProp("__TunnelConfigParams"))
-                this.__TunnelConfigParams := L2TP_TUNNEL_CONFIG_PARAMS2(16, this)
-            return this.__TunnelConfigParams
-        }
-    }
+    TunnelConfigParams : L2TP_TUNNEL_CONFIG_PARAMS2
+
 }

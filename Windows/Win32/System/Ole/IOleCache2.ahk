@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IOleCache.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IOleCache.ahk" { IOleCache }
+#Import "..\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\UPDFCACHE_FLAGS.ahk" { UPDFCACHE_FLAGS }
 
 /**
  * Enables object clients to selectively update each cache that was created with IOleCache::Cache.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-iolecache2
  * @namespace Windows.Win32.System.Ole
  */
-class IOleCache2 extends IOleCache {
-
-    static sizeof => A_PtrSize
+export default struct IOleCache2 extends IOleCache {
     /**
      * The interface identifier for IOleCache2
      * @type {Guid}
      */
-    static IID => Guid("{00000128-0000-0000-c000-000000000046}")
+    static IID := Guid("{00000128-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOleCache2 interfaces
+    */
+    struct Vtbl extends IOleCache.Vtbl {
+        UpdateCache  : IntPtr
+        DiscardCache : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["UpdateCache", "DiscardCache"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOleCache2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Updates the specified caches. This method is used when the application needs precise control over caching.
@@ -112,7 +123,7 @@ class IOleCache2 extends IOleCache {
     UpdateCache(pDataObject, grfUpdf) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
-        result := ComCall(8, this, "ptr", pDataObject, "uint", grfUpdf, "ptr", pReserved, "HRESULT")
+        result := ComCall(8, this, "ptr", pDataObject, UPDFCACHE_FLAGS, grfUpdf, "ptr", pReserved, "HRESULT")
         return result
     }
 
@@ -160,5 +171,27 @@ class IOleCache2 extends IOleCache {
     DiscardCache(dwDiscardOptions) {
         result := ComCall(9, this, "uint", dwDiscardOptions, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOleCache2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.UpdateCache := CallbackCreate(GetMethod(implObj, "UpdateCache"), flags, 4)
+        this.vtbl.DiscardCache := CallbackCreate(GetMethod(implObj, "DiscardCache"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.UpdateCache)
+        CallbackFree(this.vtbl.DiscardCache)
     }
 }

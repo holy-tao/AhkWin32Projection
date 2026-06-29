@@ -1,10 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IOpcSignatureRelationshipReference.ahk
-#Include .\IOpcRelationshipSelectorSet.ahk
-#Include .\IOpcSignatureRelationshipReferenceEnumerator.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\OPC_RELATIONSHIPS_SIGNING_OPTION.ahk" { OPC_RELATIONSHIPS_SIGNING_OPTION }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\OPC_CANONICALIZATION_METHOD.ahk" { OPC_CANONICALIZATION_METHOD }
+#Import ".\IOpcSignatureRelationshipReferenceEnumerator.ahk" { IOpcSignatureRelationshipReferenceEnumerator }
+#Import ".\IOpcRelationshipSelectorSet.ahk" { IOpcRelationshipSelectorSet }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IOpcSignatureRelationshipReference.ahk" { IOpcSignatureRelationshipReference }
+#Import ".\IOpcUri.ahk" { IOpcUri }
 
 /**
  * An unordered set of IOpcSignatureRelationshipReference interface pointers that represent references to Relationships parts that contain relationships to be signed.
@@ -19,26 +24,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcsignaturerelationshipreferenceset
  * @namespace Windows.Win32.Storage.Packaging.Opc
  */
-class IOpcSignatureRelationshipReferenceSet extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOpcSignatureRelationshipReferenceSet extends IUnknown {
     /**
      * The interface identifier for IOpcSignatureRelationshipReferenceSet
      * @type {Guid}
      */
-    static IID => Guid("{9f863ca5-3631-404c-828d-807e0715069b}")
+    static IID := Guid("{9f863ca5-3631-404c-828d-807e0715069b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOpcSignatureRelationshipReferenceSet interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Create                        : IntPtr
+        CreateRelationshipSelectorSet : IntPtr
+        Delete                        : IntPtr
+        GetEnumerator                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Create", "CreateRelationshipSelectorSet", "Delete", "GetEnumerator"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOpcSignatureRelationshipReferenceSet.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates an IOpcSignatureRelationshipReference interface pointer that represents a reference to a Relationships part, and adds the new interface pointer to the set.
@@ -103,7 +118,7 @@ class IOpcSignatureRelationshipReferenceSet extends IUnknown {
     Create(sourceUri, digestMethod, relationshipSigningOption, selectorSet, transformMethod) {
         digestMethod := digestMethod is String ? StrPtr(digestMethod) : digestMethod
 
-        result := ComCall(3, this, "ptr", sourceUri, "ptr", digestMethod, "int", relationshipSigningOption, "ptr", selectorSet, "int", transformMethod, "ptr*", &relationshipReference := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", sourceUri, "ptr", digestMethod, OPC_RELATIONSHIPS_SIGNING_OPTION, relationshipSigningOption, "ptr", selectorSet, OPC_CANONICALIZATION_METHOD, transformMethod, "ptr*", &relationshipReference := 0, "HRESULT")
         return IOpcSignatureRelationshipReference(relationshipReference)
     }
 
@@ -169,5 +184,31 @@ class IOpcSignatureRelationshipReferenceSet extends IUnknown {
     GetEnumerator() {
         result := ComCall(6, this, "ptr*", &relationshipReferenceEnumerator := 0, "HRESULT")
         return IOpcSignatureRelationshipReferenceEnumerator(relationshipReferenceEnumerator)
+    }
+
+    Query(iid) {
+        if (IOpcSignatureRelationshipReferenceSet.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 7)
+        this.vtbl.CreateRelationshipSelectorSet := CallbackCreate(GetMethod(implObj, "CreateRelationshipSelectorSet"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 2)
+        this.vtbl.GetEnumerator := CallbackCreate(GetMethod(implObj, "GetEnumerator"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Create)
+        CallbackFree(this.vtbl.CreateRelationshipSelectorSet)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.GetEnumerator)
     }
 }

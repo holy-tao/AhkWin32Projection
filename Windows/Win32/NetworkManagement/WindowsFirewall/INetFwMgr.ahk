@@ -1,8 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\INetFwPolicy.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\NET_FW_IP_PROTOCOL.ahk" { NET_FW_IP_PROTOCOL }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\NET_FW_IP_VERSION.ahk" { NET_FW_IP_VERSION }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\NET_FW_PROFILE_TYPE.ahk" { NET_FW_PROFILE_TYPE }
+#Import ".\INetFwPolicy.ahk" { INetFwPolicy }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * The INetFwMgr interface provides access to the firewall settings for a computer.
@@ -17,32 +23,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwmgr
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  */
-class INetFwMgr extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct INetFwMgr extends IDispatch {
     /**
      * The interface identifier for INetFwMgr
      * @type {Guid}
      */
-    static IID => Guid("{f7898af5-cac4-4632-a2ec-da06e5111af2}")
+    static IID := Guid("{f7898af5-cac4-4632-a2ec-da06e5111af2}")
 
     /**
      * The class identifier for NetFwMgr
      * @type {Guid}
      */
-    static CLSID => Guid("{304ce942-6e39-40d8-943a-b913c40c9cd4}")
+    static CLSID := Guid("{304ce942-6e39-40d8-943a-b913c40c9cd4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INetFwMgr interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_LocalPolicy        : IntPtr
+        get_CurrentProfileType : IntPtr
+        RestoreDefaults        : IntPtr
+        IsPortAllowed          : IntPtr
+        IsIcmpTypeAllowed      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_LocalPolicy", "get_CurrentProfileType", "RestoreDefaults", "IsPortAllowed", "IsIcmpTypeAllowed"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INetFwMgr.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {INetFwPolicy} 
@@ -309,7 +326,7 @@ class INetFwMgr extends IDispatch {
         imageFileName := imageFileName is String ? BSTR.Alloc(imageFileName).Value : imageFileName
         localAddress := localAddress is String ? BSTR.Alloc(localAddress).Value : localAddress
 
-        result := ComCall(10, this, "ptr", imageFileName, "int", ipVersion, "int", portNumber, "ptr", localAddress, "int", ipProtocol, "ptr", allowed, "ptr", restricted, "HRESULT")
+        result := ComCall(10, this, BSTR, imageFileName, NET_FW_IP_VERSION, ipVersion, "int", portNumber, BSTR, localAddress, NET_FW_IP_PROTOCOL, ipProtocol, VARIANT.Ptr, allowed, VARIANT.Ptr, restricted, "HRESULT")
         return result
     }
 
@@ -458,7 +475,35 @@ class INetFwMgr extends IDispatch {
     IsIcmpTypeAllowed(ipVersion, localAddress, type, allowed, restricted) {
         localAddress := localAddress is String ? BSTR.Alloc(localAddress).Value : localAddress
 
-        result := ComCall(11, this, "int", ipVersion, "ptr", localAddress, "char", type, "ptr", allowed, "ptr", restricted, "HRESULT")
+        result := ComCall(11, this, NET_FW_IP_VERSION, ipVersion, BSTR, localAddress, "char", type, VARIANT.Ptr, allowed, VARIANT.Ptr, restricted, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (INetFwMgr.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_LocalPolicy := CallbackCreate(GetMethod(implObj, "get_LocalPolicy"), flags, 2)
+        this.vtbl.get_CurrentProfileType := CallbackCreate(GetMethod(implObj, "get_CurrentProfileType"), flags, 2)
+        this.vtbl.RestoreDefaults := CallbackCreate(GetMethod(implObj, "RestoreDefaults"), flags, 1)
+        this.vtbl.IsPortAllowed := CallbackCreate(GetMethod(implObj, "IsPortAllowed"), flags, 8)
+        this.vtbl.IsIcmpTypeAllowed := CallbackCreate(GetMethod(implObj, "IsIcmpTypeAllowed"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_LocalPolicy)
+        CallbackFree(this.vtbl.get_CurrentProfileType)
+        CallbackFree(this.vtbl.RestoreDefaults)
+        CallbackFree(this.vtbl.IsPortAllowed)
+        CallbackFree(this.vtbl.IsIcmpTypeAllowed)
     }
 }

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Holds license acquisition data during nonsilent license acquisition.
@@ -8,62 +8,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/msdrmdefs/ns-msdrmdefs-drm_license_acq_data
  * @namespace Windows.Win32.Data.RightsManagement
  */
-class DRM_LICENSE_ACQ_DATA extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct DRM_LICENSE_ACQ_DATA {
+    #StructPack 8
 
     /**
      * Version of this structure, for backward compatibility. In C, this value should be initialized to <b>DRMLICENSEACQDATAVERSION</b>.
-     * @type {Integer}
      */
-    uVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    uVersion : UInt32
 
     /**
      * URL of a license-granting website.
-     * @type {PWSTR}
      */
-    wszURL {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    wszURL : PWSTR
 
     /**
      * The path and file name of a local HTML file that will automatically send a license request when loaded in a browser.
-     * @type {PWSTR}
      */
-    wszLocalFilename {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    wszLocalFilename : PWSTR
 
     /**
      * Pointer to a URL-safe base64-encoded string containing the license request.
-     * @type {Pointer<Integer>}
      */
-    pbPostData {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pbPostData : IntPtr
 
     /**
      * The post data size in characters, plus one for a null terminator.
-     * @type {Integer}
      */
-    dwPostDataSize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwPostDataSize : UInt32
 
     /**
      * A human-readable name for the license-granting website.
-     * @type {PWSTR}
      */
-    wszFriendlyName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    wszFriendlyName : PWSTR
+
 }

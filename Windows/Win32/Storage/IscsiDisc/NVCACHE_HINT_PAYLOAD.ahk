@@ -1,118 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
  */
-class NVCACHE_HINT_PAYLOAD extends Win32Struct {
-    static sizeof => 16
+export default struct NVCACHE_HINT_PAYLOAD {
+    #StructPack 1
 
-    static packingSize => 1
+    Command : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Command {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Feature7_0 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Feature7_0 {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Feature15_8 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Feature15_8 {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    Count15_8 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Count15_8 {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    LBA7_0 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    LBA7_0 {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    LBA15_8 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    LBA15_8 {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    LBA23_16 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    LBA23_16 {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    LBA31_24 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    LBA31_24 {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    LBA39_32 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    LBA39_32 {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    LBA47_40 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    LBA47_40 {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    Auxiliary7_0 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Auxiliary7_0 {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    Auxiliary23_16 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Auxiliary23_16 {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
-    }
+    Reserved : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
 }

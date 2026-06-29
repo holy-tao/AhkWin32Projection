@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Whether messages that are sent or received are streamed or buffered.
@@ -14,7 +13,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_transfer_mode
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_TRANSFER_MODE extends Win32Enum {
+export default struct WS_TRANSFER_MODE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Setting this flag means messages are delivered in chunks.  The start of the message

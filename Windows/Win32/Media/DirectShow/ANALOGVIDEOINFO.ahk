@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * The ANALOGVIDEOINFO structure maintains information about the format of the analog video signal.
@@ -11,59 +10,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/amvideo/ns-amvideo-analogvideoinfo
  * @namespace Windows.Win32.Media.DirectShow
  */
-class ANALOGVIDEOINFO extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct ANALOGVIDEOINFO {
+    #StructPack 8
 
     /**
      * Source video rectangle.
-     * @type {RECT}
      */
-    rcSource {
-        get {
-            if(!this.HasProp("__rcSource"))
-                this.__rcSource := RECT(0, this)
-            return this.__rcSource
-        }
-    }
+    rcSource : RECT
 
     /**
      * Destination target rectangle.
-     * @type {RECT}
      */
-    rcTarget {
-        get {
-            if(!this.HasProp("__rcTarget"))
-                this.__rcTarget := RECT(16, this)
-            return this.__rcTarget
-        }
-    }
+    rcTarget : RECT
 
     /**
      * Source video width.
-     * @type {Integer}
      */
-    dwActiveWidth {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwActiveWidth : UInt32
 
     /**
      * Source video height (483 for NTSC, 575 for PAL/SECAM).
-     * @type {Integer}
      */
-    dwActiveHeight {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwActiveHeight : UInt32
 
     /**
      * Average time per frame in 100-nanosecond units.
-     * @type {Integer}
      */
-    AvgTimePerFrame {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
-    }
+    AvgTimePerFrame : Int64
+
 }

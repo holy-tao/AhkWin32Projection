@@ -1,27 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PCALLBACK_OBJECT.ahk" { PCALLBACK_OBJECT }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class HAL_CALLBACKS extends Win32Struct {
-    static sizeof => 16
+export default struct HAL_CALLBACKS {
+    #StructPack 8
 
-    static packingSize => 8
+    SetSystemInformation : PCALLBACK_OBJECT
 
-    /**
-     * @type {PCALLBACK_OBJECT}
-     */
-    SetSystemInformation {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    BusCheck : PCALLBACK_OBJECT
 
-    /**
-     * @type {PCALLBACK_OBJECT}
-     */
-    BusCheck {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

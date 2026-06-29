@@ -1,124 +1,38 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\GameInputLabel.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GameInputLabel.ahk" { GameInputLabel }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
  */
-class GameInputArcadeStickInfo extends Win32Struct {
-    static sizeof => 56
+export default struct GameInputArcadeStickInfo {
+    #StructPack 4
 
-    static packingSize => 4
+    menuButtonLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    menuButtonLabel {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    viewButtonLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    viewButtonLabel {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    stickUpLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    stickUpLabel {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    stickDownLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    stickDownLabel {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    stickLeftLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    stickLeftLabel {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    stickRightLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    stickRightLabel {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    actionButton1Label : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    actionButton1Label {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    actionButton2Label : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    actionButton2Label {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    actionButton3Label : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    actionButton3Label {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    actionButton4Label : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    actionButton4Label {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    actionButton5Label : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    actionButton5Label {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    actionButton6Label : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    actionButton6Label {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    specialButton1Label : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    specialButton1Label {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    specialButton2Label : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    specialButton2Label {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
 }

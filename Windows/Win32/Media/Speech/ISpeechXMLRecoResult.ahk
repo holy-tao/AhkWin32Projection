@@ -1,32 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISpeechRecoResult.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SPXMLRESULTOPTIONS.ahk" { SPXMLRESULTOPTIONS }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\ISpeechRecoResult.ahk" { ISpeechRecoResult }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpeechXMLRecoResult extends ISpeechRecoResult {
-
-    static sizeof => A_PtrSize
+export default struct ISpeechXMLRecoResult extends ISpeechRecoResult {
     /**
      * The interface identifier for ISpeechXMLRecoResult
      * @type {Guid}
      */
-    static IID => Guid("{aaec54af-8f85-4924-944d-b79d39d72e19}")
+    static IID := Guid("{aaec54af-8f85-4924-944d-b79d39d72e19}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 17
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpeechXMLRecoResult interfaces
+    */
+    struct Vtbl extends ISpeechRecoResult.Vtbl {
+        GetXMLResult    : IntPtr
+        GetXMLErrorInfo : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetXMLResult", "GetXMLErrorInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpeechXMLRecoResult.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -34,8 +45,8 @@ class ISpeechXMLRecoResult extends ISpeechRecoResult {
      * @returns {BSTR} 
      */
     GetXMLResult(Options) {
-        pResult := BSTR()
-        result := ComCall(17, this, "int", Options, "ptr", pResult, "HRESULT")
+        pResult := BSTR.Owned()
+        result := ComCall(17, this, SPXMLRESULTOPTIONS, Options, BSTR.Ptr, pResult, "HRESULT")
         return pResult
     }
 
@@ -54,7 +65,29 @@ class ISpeechXMLRecoResult extends ISpeechRecoResult {
         ResultCodeMarshal := ResultCode is VarRef ? "int*" : "ptr"
         IsErrorMarshal := IsError is VarRef ? "short*" : "ptr"
 
-        result := ComCall(18, this, LineNumberMarshal, LineNumber, "ptr", ScriptLine, "ptr", Source, "ptr", Description, ResultCodeMarshal, ResultCode, IsErrorMarshal, IsError, "HRESULT")
+        result := ComCall(18, this, LineNumberMarshal, LineNumber, BSTR.Ptr, ScriptLine, BSTR.Ptr, Source, BSTR.Ptr, Description, ResultCodeMarshal, ResultCode, IsErrorMarshal, IsError, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISpeechXMLRecoResult.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetXMLResult := CallbackCreate(GetMethod(implObj, "GetXMLResult"), flags, 3)
+        this.vtbl.GetXMLErrorInfo := CallbackCreate(GetMethod(implObj, "GetXMLErrorInfo"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetXMLResult)
+        CallbackFree(this.vtbl.GetXMLErrorInfo)
     }
 }

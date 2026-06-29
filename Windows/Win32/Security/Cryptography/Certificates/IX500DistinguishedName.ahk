@@ -1,34 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\X500NameFlags.ahk" { X500NameFlags }
 
 /**
  * Represents an X.500 distinguished name (DN).
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix500distinguishedname
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IX500DistinguishedName extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IX500DistinguishedName extends IDispatch {
     /**
      * The interface identifier for IX500DistinguishedName
      * @type {Guid}
      */
-    static IID => Guid("{728ab303-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab303-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IX500DistinguishedName interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Decode          : IntPtr
+        Encode          : IntPtr
+        get_Name        : IntPtr
+        get_EncodedName : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Decode", "Encode", "get_Name", "get_EncodedName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IX500DistinguishedName.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -103,7 +116,7 @@ class IX500DistinguishedName extends IDispatch {
     Decode(strEncodedName, Encoding, NameFlags) {
         strEncodedName := strEncodedName is String ? BSTR.Alloc(strEncodedName).Value : strEncodedName
 
-        result := ComCall(7, this, "ptr", strEncodedName, "int", Encoding, "int", NameFlags, "HRESULT")
+        result := ComCall(7, this, BSTR, strEncodedName, EncodingType, Encoding, X500NameFlags, NameFlags, "HRESULT")
         return result
     }
 
@@ -171,7 +184,7 @@ class IX500DistinguishedName extends IDispatch {
     Encode(strName, NameFlags) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(8, this, "ptr", strName, "int", NameFlags, "HRESULT")
+        result := ComCall(8, this, BSTR, strName, X500NameFlags, NameFlags, "HRESULT")
         return result
     }
 
@@ -183,8 +196,8 @@ class IX500DistinguishedName extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix500distinguishedname-get_name
      */
     get_Name() {
-        pValue := BSTR()
-        result := ComCall(9, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -197,8 +210,34 @@ class IX500DistinguishedName extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix500distinguishedname-get_encodedname
      */
     get_EncodedName(Encoding) {
-        pValue := BSTR()
-        result := ComCall(10, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(10, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
+    }
+
+    Query(iid) {
+        if (IX500DistinguishedName.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Decode := CallbackCreate(GetMethod(implObj, "Decode"), flags, 4)
+        this.vtbl.Encode := CallbackCreate(GetMethod(implObj, "Encode"), flags, 3)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_EncodedName := CallbackCreate(GetMethod(implObj, "get_EncodedName"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Decode)
+        CallbackFree(this.vtbl.Encode)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.get_EncodedName)
     }
 }

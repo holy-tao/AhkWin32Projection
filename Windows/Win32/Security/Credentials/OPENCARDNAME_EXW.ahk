@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
-#Include .\OPENCARD_SEARCH_CRITERIAW.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\OPENCARD_SEARCH_CRITERIAW.ahk" { OPENCARD_SEARCH_CRITERIAW }
 
 /**
  * The OPENCARDNAME_EX structure contains the information that the SCardUIDlgSelectCard function uses to initialize a smart card Select Card dialog box. (Unicode)
@@ -13,42 +13,25 @@
  * @namespace Windows.Win32.Security.Credentials
  * @charset Unicode
  */
-class OPENCARDNAME_EXW extends Win32Struct {
-    static sizeof => 128
-
-    static packingSize => 8
+export default struct OPENCARDNAME_EXW {
+    #StructPack 8
 
     /**
      * The length, in bytes, of the structure. The value of this member must not be <b>NULL</b>.
-     * @type {Integer}
      */
-    dwStructSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwStructSize : UInt32
 
     /**
      * The context used for communication with the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager</a>. Call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a> to set the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardreleasecontext">SCardReleaseContext</a> to release it. The value of this member must not be <b>NULL</b>.
-     * @type {Pointer}
      */
-    hSCardContext {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    hSCardContext : IntPtr
 
     /**
      * The window that owns the dialog box. This member can be any valid window handle, or it can be <b>NULL</b> for the desktop default.
-     * @type {HWND}
      */
-    hwndOwner {
-        get {
-            if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(16, this)
-            return this.__hwndOwner
-        }
-    }
+    hwndOwner : HWND
 
     /**
      * A set of bit flags that you can use to initialize the dialog box. When the dialog box returns, it sets these flags to indicate the user's input. This member can be one of the following flags.
@@ -89,52 +72,29 @@ class OPENCARDNAME_EXW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwFlags : UInt32
 
     /**
      * A pointer to a string to be placed in the title bar of the dialog box. If this member is <b>NULL</b>, the system uses the default title "Select Card:".
-     * @type {PWSTR}
      */
-    lpstrTitle {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpstrTitle : PWSTR
 
     /**
      * A pointer to a string to be displayed to the user as a prompt to insert the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a>. If this member is <b>NULL</b>, the system uses the default text "Please insert a smart card".
-     * @type {PWSTR}
      */
-    lpstrSearchDesc {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lpstrSearchDesc : PWSTR
 
     /**
      * A handle to an icon (32 x 32 pixels). You can specify a vendor-specific icon to display in the dialog box. If this value is <b>NULL</b>, a generic, smart card reader–loaded icon is displayed.
-     * @type {HICON}
      */
-    hIcon {
-        get {
-            if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(48, this)
-            return this.__hIcon
-        }
-    }
+    hIcon : HICON
 
     /**
      * A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/ns-winscard-opencard_search_criteriaa">OPENCARD_SEARCH_CRITERIA</a> structure to be used, or <b>NULL</b>, if one is not used.
-     * @type {Pointer<OPENCARD_SEARCH_CRITERIAW>}
      */
-    pOpenCardSearchCriteria {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pOpenCardSearchCriteria : OPENCARD_SEARCH_CRITERIAW.Ptr
 
     /**
      * A pointer to the caller's card connect routine. If the caller needs to perform additional processing to connect to the card, this function pointer is set to the user's connect function. If the connect function is successful, the card is left connected and initialized, and the card handle is returned. 
@@ -155,94 +115,55 @@ class OPENCARDNAME_EXW extends Win32Struct {
      * );
      * 
      * ```
-     * @type {Pointer<LPOCNCONNPROCW>}
      */
-    lpfnConnect {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    lpfnConnect : IntPtr
 
     /**
      * A void pointer to user data. This pointer is passed back to the caller on the Connect routine.
-     * @type {Pointer<Void>}
      */
-    pvUserData {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    pvUserData : IntPtr
 
     /**
      * If <b>lpfnConnect</b> is not <b>NULL</b>, the <b>dwShareMode</b> and <b>dwPreferredProtocols</b> members are ignored. If <b>lpfnConnect</b> is <b>NULL</b> and <b>dwShareMode</b> is nonzero, an internal call is made to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardconnecta">SCardConnect</a> that uses <b>dwShareMode</b> and <b>dwPreferredProtocols</b> as the <i>dwShareMode</i> and <i>dwPreferredProtocols</i> parameters. If the connect succeeds, <b>hCardHandle</b> is set to the handle returned by <b>SCardConnect</b>. If <b>lpfnConnect</b> is <b>NULL</b> and <b>dwShareMode</b> is zero, <b>hCardHandle</b> is set to <b>NULL</b>.
-     * @type {Integer}
      */
-    dwShareMode {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    dwShareMode : UInt32
 
     /**
      * Used for internal connection as described in <b>dwShareMode</b>.
-     * @type {Integer}
      */
-    dwPreferredProtocols {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    dwPreferredProtocols : UInt32
 
     /**
      * If the card is located, the <b>lpstrRdr</b> buffer contains the name of the reader that contains the located card. The buffer should be at least 256 characters long.
-     * @type {PWSTR}
      */
-    lpstrRdr {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    lpstrRdr : PWSTR
 
     /**
      * Size, in bytes (ANSI version) or characters (<a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">Unicode</a> version), of the buffer pointed to by <b>lpstrRdr</b>. If the buffer is too small to contain the reader information, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scarduidlgselectcarda">SCardUIDlgSelectCard</a> returns SCARD_E_NO_MEMORY and the required size of the buffer pointed to by <b>lpstrRdr</b>.
-     * @type {Integer}
      */
-    nMaxRdr {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    nMaxRdr : UInt32
 
     /**
      * If the card is located, the <i>lpstrCard</i> buffer contains the name of the located card. The buffer should be at least 256 characters long.
-     * @type {PWSTR}
      */
-    lpstrCard {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    lpstrCard : PWSTR
 
     /**
      * Size, in bytes (ANSI version) or characters (<a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">Unicode</a> version), of the buffer pointed to by <i>lpstrCard</i>. If the buffer is too small to contain the card information, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scarduidlgselectcarda">SCardUIDlgSelectCard</a> returns SCARD_E_NO_MEMORY and the required size of the buffer in <b>nMaxCard</b>.
-     * @type {Integer}
      */
-    nMaxCard {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    nMaxCard : UInt32
 
     /**
      * The actual protocol in use when the dialog box makes a connection to a card.
-     * @type {Integer}
      */
-    dwActiveProtocol {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
-    }
+    dwActiveProtocol : UInt32
 
     /**
      * A handle of the connected card (either through an internal dialog box connect or an <b>lpfnConnect</b> callback).
-     * @type {Pointer}
      */
-    hCardHandle {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    hCardHandle : IntPtr
+
 }

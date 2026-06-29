@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MMC_SORT_SET_DATA.ahk" { MMC_SORT_SET_DATA }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SColumnSetID.ahk" { SColumnSetID }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MMC_COLUMN_SET_DATA.ahk" { MMC_COLUMN_SET_DATA }
 
 /**
  * The IColumnData interface is introduced in MMC 1.2.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-icolumndata
  * @namespace Windows.Win32.System.Mmc
  */
-class IColumnData extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IColumnData extends IUnknown {
     /**
      * The interface identifier for IColumnData
      * @type {Guid}
      */
-    static IID => Guid("{547c1354-024d-11d3-a707-00c04f8ef4cb}")
+    static IID := Guid("{547c1354-024d-11d3-a707-00c04f8ef4cb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IColumnData interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetColumnConfigData : IntPtr
+        GetColumnConfigData : IntPtr
+        SetColumnSortData   : IntPtr
+        GetColumnSortData   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetColumnConfigData", "GetColumnConfigData", "SetColumnSortData", "GetColumnSortData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IColumnData.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IColumnData::SetColumnConfigData method enables a snap-in to set the persisted width, order, and hidden status of columns in a column set.
@@ -44,7 +58,7 @@ class IColumnData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icolumndata-setcolumnconfigdata
      */
     SetColumnConfigData(pColID, pColSetData) {
-        result := ComCall(3, this, "ptr", pColID, "ptr", pColSetData, "HRESULT")
+        result := ComCall(3, this, SColumnSetID.Ptr, pColID, MMC_COLUMN_SET_DATA.Ptr, pColSetData, "HRESULT")
         return result
     }
 
@@ -69,7 +83,7 @@ class IColumnData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icolumndata-getcolumnconfigdata
      */
     GetColumnConfigData(pColID) {
-        result := ComCall(4, this, "ptr", pColID, "ptr*", &ppColSetData := 0, "HRESULT")
+        result := ComCall(4, this, SColumnSetID.Ptr, pColID, "ptr*", &ppColSetData := 0, "HRESULT")
         return ppColSetData
     }
 
@@ -92,7 +106,7 @@ class IColumnData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icolumndata-setcolumnsortdata
      */
     SetColumnSortData(pColID, pColSortData) {
-        result := ComCall(5, this, "ptr", pColID, "ptr", pColSortData, "HRESULT")
+        result := ComCall(5, this, SColumnSetID.Ptr, pColID, MMC_SORT_SET_DATA.Ptr, pColSortData, "HRESULT")
         return result
     }
 
@@ -117,7 +131,33 @@ class IColumnData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icolumndata-getcolumnsortdata
      */
     GetColumnSortData(pColID) {
-        result := ComCall(6, this, "ptr", pColID, "ptr*", &ppColSortData := 0, "HRESULT")
+        result := ComCall(6, this, SColumnSetID.Ptr, pColID, "ptr*", &ppColSortData := 0, "HRESULT")
         return ppColSortData
+    }
+
+    Query(iid) {
+        if (IColumnData.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetColumnConfigData := CallbackCreate(GetMethod(implObj, "SetColumnConfigData"), flags, 3)
+        this.vtbl.GetColumnConfigData := CallbackCreate(GetMethod(implObj, "GetColumnConfigData"), flags, 3)
+        this.vtbl.SetColumnSortData := CallbackCreate(GetMethod(implObj, "SetColumnSortData"), flags, 3)
+        this.vtbl.GetColumnSortData := CallbackCreate(GetMethod(implObj, "GetColumnSortData"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetColumnConfigData)
+        CallbackFree(this.vtbl.GetColumnConfigData)
+        CallbackFree(this.vtbl.SetColumnSortData)
+        CallbackFree(this.vtbl.GetColumnSortData)
     }
 }

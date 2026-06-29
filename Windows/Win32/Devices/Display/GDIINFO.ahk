@@ -1,9 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\POINTL.ahk
-#Include ..\..\Foundation\SIZE.ahk
-#Include .\COLORINFO.ahk
-#Include .\CIECHROMA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\POINTL.ahk" { POINTL }
+#Import ".\COLORINFO.ahk" { COLORINFO }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import ".\CIECHROMA.ahk" { CIECHROMA }
 
 /**
  * The GDIINFO structure describes the graphics capabilities of a given device.
@@ -36,10 +35,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-gdiinfo
  * @namespace Windows.Win32.Devices.Display
  */
-class GDIINFO extends Win32Struct {
-    static sizeof => 320
-
-    static packingSize => 8
+export default struct GDIINFO {
+    #StructPack 8
 
     /**
      * Specifies the driver version number. The byte ordering of <b>ulVersion</b> has the following form.
@@ -49,12 +46,8 @@ class GDIINFO extends Win32Struct {
      * The high-order 16 bits must be set to zero. Bits 8 through 15 specify the version number of the Microsoft operating system for which the driver is designed. The high-order 4 bits of this range specify the major number of the version, the low-order 4 bits contain the minor number of the version. The low-order 8 bits of <b>ulVersion</b> specify the version number of the display driver; this value should be incremented for each release of the display driver binary file.
      * 
      * The Display program in Control Panel indicates the version number contained in <b>ulVersion</b>, along with other driver-specific information.
-     * @type {Integer}
      */
-    ulVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulVersion : UInt32
 
     /**
      * Specifies the device technology. This member can be one of the values listed in the following table.
@@ -115,86 +108,50 @@ class GDIINFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ulTechnology {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulTechnology : UInt32
 
     /**
      * Specifies the width of the physical surface. A positive value indicates that the width is in units of millimeters, while a negative value denotes that the width is in units of micrometers.
-     * @type {Integer}
      */
-    ulHorzSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulHorzSize : UInt32
 
     /**
      * Specifies the height of the physical surface. A positive value indicates that the height is in units of millimeters, while a negative value denotes that the height is in units of micrometers.
-     * @type {Integer}
      */
-    ulVertSize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ulVertSize : UInt32
 
     /**
      * Specifies the width in pixels of the physical surface (display devices), or of the printable surface (printers). 
      * 
      * See also <b>ulDesktopHorzRes</b>.
-     * @type {Integer}
      */
-    ulHorzRes {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ulHorzRes : UInt32
 
     /**
      * Specifies the height in pixels of the physical surface (display devices), or of the printable surface (printers).
-     * @type {Integer}
      */
-    ulVertRes {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ulVertRes : UInt32
 
     /**
      * Specifies the number of adjacent bits in each color plane. The total number of bits per pixel is the product of <b>cBitsPixel</b> and <b>cPlanes</b>.
-     * @type {Integer}
      */
-    cBitsPixel {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    cBitsPixel : UInt32
 
     /**
      * Specifies the number of color planes.
-     * @type {Integer}
      */
-    cPlanes {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    cPlanes : UInt32
 
     /**
      * For palettized devices, <b>ulNumColors</b> specifies the number of entries in the default color palette. For nonpalettized devices (which do not include printers), <b>ulNumColors</b> is set to -1.
-     * @type {Integer}
      */
-    ulNumColors {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ulNumColors : UInt32
 
     /**
      * Is reserved and must be left set to zero.
-     * @type {Integer}
      */
-    flRaster {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    flRaster : UInt32
 
     /**
      * Specifies the width resolution of the device in logical pixels per inch.
@@ -202,12 +159,8 @@ class GDIINFO extends Win32Struct {
      * For printers, this member should be set to the printer's resolution in dpi.
      * 
      * For displays, this member must be set to 96.
-     * @type {Integer}
      */
-    ulLogPixelsX {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ulLogPixelsX : UInt32
 
     /**
      * Specifies the height resolution of the device in logical pixels per inch.
@@ -215,145 +168,72 @@ class GDIINFO extends Win32Struct {
      * For printers, this member should be set to the printer's resolution in dpi.
      * 
      * For displays, this member must be set to 96.
-     * @type {Integer}
      */
-    ulLogPixelsY {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    ulLogPixelsY : UInt32
 
     /**
      * Specifies a flag describing Windows 3.1 text capabilities. If the driver TC_SCROLLBLT flag is in this member, it indicates that the console should perform text scrolling by redrawing the entire screen, using the driver-supplied <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvtextout">DrvTextOut</a> function rather than the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvbitblt">DrvBitBlt</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvcopybits">DrvCopyBits</a> functions. The driver should set this flag if screen-to-screen bit-block transfers are slow. If this flag is not set, the driver is implicitly requesting that the console perform text scrolls through <i>DrvBitBlt</i><b>/</b><i>DrvCopyBits</i>.
-     * @type {Integer}
      */
-    flTextCaps {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    flTextCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulDACRed {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    ulDACRed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulDACGreen {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    ulDACGreen : UInt32
 
     /**
      * Specifies the display number of DAC bits for the specified color.
-     * @type {Integer}
      */
-    ulDACBlue {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    ulDACBlue : UInt32
 
     /**
      * Specifies the relative width of a device pixel, in the range of one to 1000.
-     * @type {Integer}
      */
-    ulAspectX {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    ulAspectX : UInt32
 
     /**
      * Specifies the relative height of a device pixel, in the range of one to 1000.
-     * @type {Integer}
      */
-    ulAspectY {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    ulAspectY : UInt32
 
     /**
      * Specifies the square root of the sum of the squares of <b>ulAspectX</b> and <b>ulAspectY</b>.
-     * @type {Integer}
      */
-    ulAspectXY {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    ulAspectXY : UInt32
 
     /**
      * Specifies the numerator of style advance for x-major lines, <i>dx</i>. For additional information, refer to the following <b>Remarks</b> section and <a href="https://docs.microsoft.com/windows-hardware/drivers/display/styled-cosmetic-lines">Styled Cosmetic Lines</a>.
-     * @type {Integer}
      */
-    xStyleStep {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
-    }
+    xStyleStep : Int32
 
     /**
      * Specifies the numerator of style advance for y-major lines, <i>dy</i>. For additional information, refer to the following <b>Remarks</b> section and <a href="https://docs.microsoft.com/windows-hardware/drivers/display/styled-cosmetic-lines">Styled Cosmetic Lines</a>.
-     * @type {Integer}
      */
-    yStyleStep {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
-    }
+    yStyleStep : Int32
 
     /**
      * Specifies the denominator of style advance, D. For additional information, refer to the following <b>Remarks</b> section and <a href="https://docs.microsoft.com/windows-hardware/drivers/display/styled-cosmetic-lines">Styled Cosmetic Lines</a>.
-     * @type {Integer}
      */
-    denStyleStep {
-        get => NumGet(this, 84, "int")
-        set => NumPut("int", value, this, 84)
-    }
+    denStyleStep : Int32
 
     /**
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-pointl">POINTL</a> structure that contains the size, in pixels, of the unwritable margin of a surface.
-     * @type {POINTL}
      */
-    ptlPhysOffset {
-        get {
-            if(!this.HasProp("__ptlPhysOffset"))
-                this.__ptlPhysOffset := POINTL(88, this)
-            return this.__ptlPhysOffset
-        }
-    }
+    ptlPhysOffset : POINTL
 
     /**
      * Specifies a SIZEL structure that contains the size, in pixels, of the entire surface, including unwritable margins. A SIZEL structure is identical to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-size">SIZE</a> structure.
-     * @type {SIZE}
      */
-    szlPhysSize {
-        get {
-            if(!this.HasProp("__szlPhysSize"))
-                this.__szlPhysSize := SIZE(96, this)
-            return this.__szlPhysSize
-        }
-    }
+    szlPhysSize : SIZE
 
     /**
      * Specifies the number of palette registers for an indexed device.
-     * @type {Integer}
      */
-    ulNumPalReg {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    ulNumPalReg : UInt32
 
     /**
      * Is a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-colorinfo">COLORINFO</a> structure that defines the device's colors in CIE coordinate space.
-     * @type {COLORINFO}
      */
-    ciDevice {
-        get {
-            if(!this.HasProp("__ciDevice"))
-                this.__ciDevice := COLORINFO(108, this)
-            return this.__ciDevice
-        }
-    }
+    ciDevice : COLORINFO
 
     /**
      * For printers, specifies the number of pixels (or dots, or nozzles) per inch if the pixels are laid out side by side without overlapping or space between. For example, if the size of a pixel is 0.001 inch, this value is equal to one-divided-by 0.001. If the member is zero, GDI halftoning calculates this number based on the assumption that all pixels are connected with no overlapping. 
@@ -361,12 +241,8 @@ class GDIINFO extends Win32Struct {
      * Because the physical dot size for most printers is larger than the measured dot size, GDI uses this value to approximate how many physical dots can be placed, based on the cell size (pattern size). A log regression is then performed to determine what is most linear; that is, where the dots should be placed for the best coverage to optimize the overlapped device pixels coverage (dot gain).
      * 
      * For displays, this member should be set to zero.
-     * @type {Integer}
      */
-    ulDevicePelsDPI {
-        get => NumGet(this, 228, "uint")
-        set => NumPut("uint", value, this, 228)
-    }
+    ulDevicePelsDPI : UInt32
 
     /**
      * Specifies the bit order of the device's primary colors or plane numbers for the halftone output. This member can be one of the values listed in the following table.
@@ -437,143 +313,63 @@ class GDIINFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ulPrimaryOrder {
-        get => NumGet(this, 232, "uint")
-        set => NumPut("uint", value, this, 232)
-    }
+    ulPrimaryOrder : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulHTPatternSize {
-        get => NumGet(this, 236, "uint")
-        set => NumPut("uint", value, this, 236)
-    }
+    ulHTPatternSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulHTOutputFormat {
-        get => NumGet(this, 240, "uint")
-        set => NumPut("uint", value, this, 240)
-    }
+    ulHTOutputFormat : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    flHTFlags {
-        get => NumGet(this, 244, "uint")
-        set => NumPut("uint", value, this, 244)
-    }
+    flHTFlags : UInt32
 
     /**
      * The video refresh rate for the current display mode. This is the value returned by the miniport driver for the refresh rate for the current mode.
      * 
      * The Display program in Control Panel displays the refresh rate contained in the <b>ulVRefresh</b> member.
-     * @type {Integer}
      */
-    ulVRefresh {
-        get => NumGet(this, 248, "uint")
-        set => NumPut("uint", value, this, 248)
-    }
+    ulVRefresh : UInt32
 
     /**
      * This member indicates the preferred x-alignment for bit block transfers to the device. A value of zero indicates that bit block transfers are accelerated; any other nonnegative number indicates that bit block transfers are not accelerated, and gives the preferred horizontal alignment as a pixel multiple.
      * 
      * This value is used by the system to determine the default alignment for window positions and is also used to set the initial full-drag default during setup. A value of zero indicates that full-drag should be on by default; any value other than zero indicates that full-drag should be off by default.
-     * @type {Integer}
      */
-    ulBltAlignment {
-        get => NumGet(this, 252, "uint")
-        set => NumPut("uint", value, this, 252)
-    }
+    ulBltAlignment : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulPanningHorzRes {
-        get => NumGet(this, 256, "uint")
-        set => NumPut("uint", value, this, 256)
-    }
+    ulPanningHorzRes : UInt32
 
     /**
      * Should be ignored by the driver and remain zero-initialized.
-     * @type {Integer}
      */
-    ulPanningVertRes {
-        get => NumGet(this, 260, "uint")
-        set => NumPut("uint", value, this, 260)
-    }
+    ulPanningVertRes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    xPanningAlignment {
-        get => NumGet(this, 264, "uint")
-        set => NumPut("uint", value, this, 264)
-    }
+    xPanningAlignment : UInt32
 
     /**
      * Should be ignored by the driver and remain zero-initialized.
-     * @type {Integer}
      */
-    yPanningAlignment {
-        get => NumGet(this, 268, "uint")
-        set => NumPut("uint", value, this, 268)
-    }
+    yPanningAlignment : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cxHTPat {
-        get => NumGet(this, 272, "uint")
-        set => NumPut("uint", value, this, 272)
-    }
+    cxHTPat : UInt32
 
     /**
      * Specify the width and height, respectively, in pixels, of the user-supplied halftone dither pattern. The value of <b>cxHTPat</b> must be in the range HT_USERPAT_CX_MIN to HT_USERPAT_CX_MAX, inclusive. The value of <b>cyHTPat</b> must be in the range HT_USERPAT_CY_MIN to HT_USERPAT_CY_MAX, inclusive. These constants are defined in <i>winddi.h</i>. See the following <b>Remarks</b> section for more information.
-     * @type {Integer}
      */
-    cyHTPat {
-        get => NumGet(this, 276, "uint")
-        set => NumPut("uint", value, this, 276)
-    }
+    cyHTPat : UInt32
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pHTPatA {
-        get => NumGet(this, 280, "ptr")
-        set => NumPut("ptr", value, this, 280)
-    }
+    pHTPatA : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pHTPatB {
-        get => NumGet(this, 288, "ptr")
-        set => NumPut("ptr", value, this, 288)
-    }
+    pHTPatB : IntPtr
 
     /**
      * Point to the user-defined halftone dither patterns for primary colors A, B, and C, respectively, as defined by the PRIMARY_ORDER_XXX value in the <b>ulPrimaryOrder</b> member. Each dither pattern must be a valid two-dimensional byte array of size <b>cxHTPat</b> by <b>cyHTPat</b>. See the following <b>Remarks</b> section for more information.
-     * @type {Pointer<Integer>}
      */
-    pHTPatC {
-        get => NumGet(this, 296, "ptr")
-        set => NumPut("ptr", value, this, 296)
-    }
+    pHTPatC : IntPtr
 
     /**
      * Specifies a set of flags that indicate the shading and blending capabilities of the device. Display drivers should ignore this member and should leave it set to zero. For printer drivers, the value that the driver places in this member is the value that GDI reports when an application calls <b>GetDeviceCaps</b>(hdc, SHADEBLENDCAPS). The <b>GetDeviceCaps</b> function is described in the Microsoft Window SDK documentation.
-     * @type {Integer}
      */
-    flShadeBlend {
-        get => NumGet(this, 304, "uint")
-        set => NumPut("uint", value, this, 304)
-    }
+    flShadeBlend : UInt32
 
     /**
      * Specifies the way that color fragments are configured to form pixels on the display device. The color fragments on the display device can be arranged in RGB order, or in BGR order, completely independent of the RGB ordering in the <a href="https://docs.microsoft.com/windows-hardware/drivers/">frame buffer</a>. The color fragments can be configured in horizontal stripes in which all of the fragments in one row are the same color. Alternatively, the color fragments can be configured in vertical stripes, in which all fragments in one column are the same color. Vertical striping is preferred, since it effectively provides three separate fragments in a row for each pixel, thereby giving greater horizontal subpixel resolution.  
@@ -656,18 +452,9 @@ class GDIINFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ulPhysicalPixelCharacteristics {
-        get => NumGet(this, 308, "uint")
-        set => NumPut("uint", value, this, 308)
-    }
+    ulPhysicalPixelCharacteristics : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulPhysicalPixelGamma {
-        get => NumGet(this, 312, "uint")
-        set => NumPut("uint", value, this, 312)
-    }
+    ulPhysicalPixelGamma : UInt32
+
 }

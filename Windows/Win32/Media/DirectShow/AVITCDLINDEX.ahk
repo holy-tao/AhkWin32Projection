@@ -1,102 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\AVITCDLINDEX_ENTRY.ahk
-#Include ..\TIMECODE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\TIMECODE.ahk" { TIMECODE }
+#Import ".\AVITCDLINDEX_ENTRY.ahk" { AVITCDLINDEX_ENTRY }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class AVITCDLINDEX extends Win32Struct {
-    static sizeof => 42112
+export default struct AVITCDLINDEX {
+    #StructPack 8
 
-    static packingSize => 8
+    fcc : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fcc {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cb : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cb {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    wLongsPerEntry : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wLongsPerEntry {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    bIndexSubType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bIndexSubType {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    bIndexType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bIndexType {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
-    }
+    nEntriesInUse : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nEntriesInUse {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwChunkId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwChunkId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwReserved : UInt32[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    dwReserved {
-        get {
-            if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 20, 3, Primitive, "uint")
-            return this.__dwReservedProxyArray
-        }
-    }
+    aIndex : AVITCDLINDEX_ENTRY[584]
 
-    /**
-     * @type {AVITCDLINDEX_ENTRY}
-     */
-    aIndex {
-        get {
-            if(!this.HasProp("__aIndexProxyArray"))
-                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 32, 584, AVITCDLINDEX_ENTRY, "")
-            return this.__aIndexProxyArray
-        }
-    }
+    adwTrailingFill : UInt32[3512]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    adwTrailingFill {
-        get {
-            if(!this.HasProp("__adwTrailingFillProxyArray"))
-                this.__adwTrailingFillProxyArray := Win32FixedArray(this.ptr + 28064, 3512, Primitive, "uint")
-            return this.__adwTrailingFillProxyArray
-        }
-    }
 }

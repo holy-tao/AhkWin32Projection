@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ISCPSecureQuery.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISCPSecureQuery.ahk" { ISCPSecureQuery }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMDSPDevice.ahk" { IMDSPDevice }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ISCPSession interface provides efficient common state management for multiple operations.A secure content provider (SCP) session is useful when transferring multiple files.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iscpsession
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class ISCPSession extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISCPSession extends IUnknown {
     /**
      * The interface identifier for ISCPSession
      * @type {Guid}
      */
-    static IID => Guid("{88a3e6ed-eee4-4619-bbb3-fd4fb62715d1}")
+    static IID := Guid("{88a3e6ed-eee4-4619-bbb3-fd4fb62715d1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISCPSession interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        BeginSession   : IntPtr
+        EndSession     : IntPtr
+        GetSecureQuery : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["BeginSession", "EndSession", "GetSecureQuery"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISCPSession.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The BeginSession method indicates beginning of a transfer session. It can be used to optimize operations that need to occur only once per transfer session.
@@ -69,5 +80,29 @@ class ISCPSession extends IUnknown {
     GetSecureQuery() {
         result := ComCall(5, this, "ptr*", &ppSecureQuery := 0, "HRESULT")
         return ISCPSecureQuery(ppSecureQuery)
+    }
+
+    Query(iid) {
+        if (ISCPSession.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.BeginSession := CallbackCreate(GetMethod(implObj, "BeginSession"), flags, 4)
+        this.vtbl.EndSession := CallbackCreate(GetMethod(implObj, "EndSession"), flags, 3)
+        this.vtbl.GetSecureQuery := CallbackCreate(GetMethod(implObj, "GetSecureQuery"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.BeginSession)
+        CallbackFree(this.vtbl.EndSession)
+        CallbackFree(this.vtbl.GetSecureQuery)
     }
 }

@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\IStream.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\StructuredStorage\IStorage.ahk" { IStorage }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IShellItem.ahk" { IShellItem }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes a method that recompress images.
@@ -14,26 +17,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-iimagerecompress
  * @namespace Windows.Win32.UI.Shell
  */
-class IImageRecompress extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IImageRecompress extends IUnknown {
     /**
      * The interface identifier for IImageRecompress
      * @type {Guid}
      */
-    static IID => Guid("{505f1513-6b3e-4892-a272-59f8889a4d3e}")
+    static IID := Guid("{505f1513-6b3e-4892-a272-59f8889a4d3e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IImageRecompress interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RecompressImage : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RecompressImage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IImageRecompress.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Recompresses an image. Implemented in an ImageRecompress object, this method accepts x and y dimensions with a designation of quality. The method creates a stream containing the new image that has been recompressed to the specified size.
@@ -62,5 +72,25 @@ class IImageRecompress extends IUnknown {
     RecompressImage(psi, cx, _cy, iQuality, pstg) {
         result := ComCall(3, this, "ptr", psi, "int", cx, "int", _cy, "int", iQuality, "ptr", pstg, "ptr*", &ppstrmOut := 0, "HRESULT")
         return IStream(ppstrmOut)
+    }
+
+    Query(iid) {
+        if (IImageRecompress.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RecompressImage := CallbackCreate(GetMethod(implObj, "RecompressImage"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RecompressImage)
     }
 }

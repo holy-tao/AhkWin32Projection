@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOCKET_ADDRESS.ahk
-#Include .\SOCKADDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SOCKADDR.ahk" { SOCKADDR }
+#Import ".\SOCKET_ADDRESS.ahk" { SOCKET_ADDRESS }
 
 /**
  * The INTERFACE_INFO_EX structure is used in conjunction with the SIO_GET_INTERFACE_LIST IOCTL command to obtain information about an interface IP address.
@@ -10,10 +9,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-interface_info_ex
  * @namespace Windows.Win32.Networking.WinSock
  */
-class INTERFACE_INFO_EX extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct INTERFACE_INFO_EX {
+    #StructPack 8
 
     /**
      * Bitmask describing the status of the interface. The following flags are possible.
@@ -74,46 +71,22 @@ class INTERFACE_INFO_EX extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    iiFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    iiFlags : UInt32
 
     /**
      * Address of an interface.
-     * @type {SOCKET_ADDRESS}
      */
-    iiAddress {
-        get {
-            if(!this.HasProp("__iiAddress"))
-                this.__iiAddress := SOCKET_ADDRESS(8, this)
-            return this.__iiAddress
-        }
-    }
+    iiAddress : SOCKET_ADDRESS
 
     /**
      * Broadcast address of the interface or the address of the other side for point-to-point links.
-     * @type {SOCKET_ADDRESS}
      */
-    iiBroadcastAddress {
-        get {
-            if(!this.HasProp("__iiBroadcastAddress"))
-                this.__iiBroadcastAddress := SOCKET_ADDRESS(24, this)
-            return this.__iiBroadcastAddress
-        }
-    }
+    iiBroadcastAddress : SOCKET_ADDRESS
 
     /**
      * Netmask used by the interface.
-     * @type {SOCKET_ADDRESS}
      */
-    iiNetmask {
-        get {
-            if(!this.HasProp("__iiNetmask"))
-                this.__iiNetmask := SOCKET_ADDRESS(40, this)
-            return this.__iiNetmask
-        }
-    }
+    iiNetmask : SOCKET_ADDRESS
+
 }

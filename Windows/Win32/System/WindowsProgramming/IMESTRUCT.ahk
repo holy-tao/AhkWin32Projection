@@ -1,84 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 
 /**
  * Used by SendIMEMessageEx to specify the subfunction to be executed in the Input Method Editor (IME) message and its parameters. This structure is also used to receive return values from those subfunctions.
  * @see https://learn.microsoft.com/windows/win32/api/ime/ns-ime-imestruct
  * @namespace Windows.Win32.System.WindowsProgramming
  */
-class IMESTRUCT extends Win32Struct {
-    static sizeof => 56
+export default struct IMESTRUCT {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {Integer}
-     */
-    fnc {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    fnc : UInt32
 
     /**
      * Usage depends on the subfunction specified in <b>fnc</b>.
-     * @type {WPARAM}
      */
-    wParam {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    wParam : WPARAM
 
     /**
      * Usage depends on the subfunction specified in <b>fnc</b>.
-     * @type {Integer}
      */
-    wCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    wCount : UInt32
 
     /**
      * Usage depends on the subfunction specified in <b>fnc</b>.
-     * @type {Integer}
      */
-    dchSource {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dchSource : UInt32
 
     /**
      * Usage depends on the subfunction specified in <b>fnc</b>.
-     * @type {Integer}
      */
-    dchDest {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dchDest : UInt32
 
     /**
      * Usage depends on the subfunction specified in <b>fnc</b>.
-     * @type {LPARAM}
      */
-    lParam1 {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lParam1 : LPARAM
 
     /**
      * Usage depends on the subfunction specified in <b>fnc</b>.
-     * @type {LPARAM}
      */
-    lParam2 {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lParam2 : LPARAM
 
     /**
      * Usage depends on the subfunction specified in <b>fnc</b>.
-     * @type {LPARAM}
      */
-    lParam3 {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    lParam3 : LPARAM
+
 }

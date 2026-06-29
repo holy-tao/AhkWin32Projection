@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the type of work queue for the MFAllocateWorkQueueEx function to create.
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ne-mfapi-mfasync_workqueue_type
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFASYNC_WORKQUEUE_TYPE extends Win32Enum {
+export default struct MFASYNC_WORKQUEUE_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Create a work queue without a message loop.

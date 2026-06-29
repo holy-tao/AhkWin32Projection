@@ -1,7 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WSDXML_NAME.ahk" { WSDXML_NAME }
+#Import ".\WSD_THIS_DEVICE_METADATA.ahk" { WSD_THIS_DEVICE_METADATA }
+#Import ".\IWSDXMLContext.ahk" { IWSDXMLContext }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IWSDDeviceHostNotify.ahk" { IWSDDeviceHostNotify }
+#Import ".\WSD_PORT_TYPE.ahk" { WSD_PORT_TYPE }
+#Import ".\WSD_METADATA_SECTION_LIST.ahk" { WSD_METADATA_SECTION_LIST }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WSD_URI_LIST.ahk" { WSD_URI_LIST }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WSD_OPERATION.ahk" { WSD_OPERATION }
+#Import ".\WSD_THIS_MODEL_METADATA.ahk" { WSD_THIS_MODEL_METADATA }
+#Import ".\IWSDAddress.ahk" { IWSDAddress }
+#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
+#Import ".\WSD_HOST_METADATA.ahk" { WSD_HOST_METADATA }
 
 /**
  * Represents a DPWS-compliant device.
@@ -27,26 +42,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nn-wsdhost-iwsddevicehost
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class IWSDDeviceHost extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWSDDeviceHost extends IUnknown {
     /**
      * The interface identifier for IWSDDeviceHost
      * @type {Guid}
      */
-    static IID => Guid("{917fe891-3d13-4138-9809-934c8abeb12c}")
+    static IID := Guid("{917fe891-3d13-4138-9809-934c8abeb12c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWSDDeviceHost interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Init                   : IntPtr
+        Start                  : IntPtr
+        Stop                   : IntPtr
+        Terminate              : IntPtr
+        RegisterPortType       : IntPtr
+        SetMetadata            : IntPtr
+        RegisterService        : IntPtr
+        RetireService          : IntPtr
+        AddDynamicService      : IntPtr
+        RemoveDynamicService   : IntPtr
+        SetServiceDiscoverable : IntPtr
+        SignalEvent            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Init", "Start", "Stop", "Terminate", "RegisterPortType", "SetMetadata", "RegisterService", "RetireService", "AddDynamicService", "RemoveDynamicService", "SetServiceDiscoverable", "SignalEvent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWSDDeviceHost.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes an instance of an IWSDDeviceHost object.
@@ -153,7 +186,7 @@ class IWSDDeviceHost extends IUnknown {
     Init(pszLocalId, pContext, ppHostAddresses, dwHostAddressCount) {
         pszLocalId := pszLocalId is String ? StrPtr(pszLocalId) : pszLocalId
 
-        result := ComCall(3, this, "ptr", pszLocalId, "ptr", pContext, "ptr*", ppHostAddresses, "uint", dwHostAddressCount, "HRESULT")
+        result := ComCall(3, this, "ptr", pszLocalId, "ptr", pContext, IWSDAddress.Ptr, ppHostAddresses, "uint", dwHostAddressCount, "HRESULT")
         return result
     }
 
@@ -220,7 +253,7 @@ class IWSDDeviceHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nf-wsdhost-iwsddevicehost-start
      */
     Start(ullInstanceId, pScopeList, pNotificationSink) {
-        result := ComCall(4, this, "uint", ullInstanceId, "ptr", pScopeList, "ptr", pNotificationSink, "HRESULT")
+        result := ComCall(4, this, "uint", ullInstanceId, WSD_URI_LIST.Ptr, pScopeList, "ptr", pNotificationSink, "HRESULT")
         return result
     }
 
@@ -370,7 +403,7 @@ class IWSDDeviceHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nf-wsdhost-iwsddevicehost-registerporttype
      */
     RegisterPortType(pPortType) {
-        result := ComCall(7, this, "ptr", pPortType, "HRESULT")
+        result := ComCall(7, this, WSD_PORT_TYPE.Ptr, pPortType, "HRESULT")
         return result
     }
 
@@ -432,7 +465,7 @@ class IWSDDeviceHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nf-wsdhost-iwsddevicehost-setmetadata
      */
     SetMetadata(pThisModelMetadata, pThisDeviceMetadata, pHostMetadata, pCustomMetadata) {
-        result := ComCall(8, this, "ptr", pThisModelMetadata, "ptr", pThisDeviceMetadata, "ptr", pHostMetadata, "ptr", pCustomMetadata, "HRESULT")
+        result := ComCall(8, this, WSD_THIS_MODEL_METADATA.Ptr, pThisModelMetadata, WSD_THIS_DEVICE_METADATA.Ptr, pThisDeviceMetadata, WSD_HOST_METADATA.Ptr, pHostMetadata, WSD_METADATA_SECTION_LIST.Ptr, pCustomMetadata, "HRESULT")
         return result
     }
 
@@ -625,7 +658,7 @@ class IWSDDeviceHost extends IUnknown {
         pszServiceId := pszServiceId is String ? StrPtr(pszServiceId) : pszServiceId
         pszEndpointAddress := pszEndpointAddress is String ? StrPtr(pszEndpointAddress) : pszEndpointAddress
 
-        result := ComCall(11, this, "ptr", pszServiceId, "ptr", pszEndpointAddress, "ptr", pPortType, "ptr", pPortName, "ptr", pAny, "ptr", pService, "HRESULT")
+        result := ComCall(11, this, "ptr", pszServiceId, "ptr", pszEndpointAddress, WSD_PORT_TYPE.Ptr, pPortType, WSDXML_NAME.Ptr, pPortName, WSDXML_ELEMENT.Ptr, pAny, "ptr", pService, "HRESULT")
         return result
     }
 
@@ -729,7 +762,7 @@ class IWSDDeviceHost extends IUnknown {
     SetServiceDiscoverable(pszServiceId, fDiscoverable) {
         pszServiceId := pszServiceId is String ? StrPtr(pszServiceId) : pszServiceId
 
-        result := ComCall(13, this, "ptr", pszServiceId, "int", fDiscoverable, "HRESULT")
+        result := ComCall(13, this, "ptr", pszServiceId, BOOL, fDiscoverable, "HRESULT")
         return result
     }
 
@@ -788,7 +821,49 @@ class IWSDDeviceHost extends IUnknown {
 
         pBodyMarshal := pBody is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(14, this, "ptr", pszServiceId, pBodyMarshal, pBody, "ptr", pOperation, "HRESULT")
+        result := ComCall(14, this, "ptr", pszServiceId, pBodyMarshal, pBody, WSD_OPERATION.Ptr, pOperation, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWSDDeviceHost.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 5)
+        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 4)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Terminate := CallbackCreate(GetMethod(implObj, "Terminate"), flags, 1)
+        this.vtbl.RegisterPortType := CallbackCreate(GetMethod(implObj, "RegisterPortType"), flags, 2)
+        this.vtbl.SetMetadata := CallbackCreate(GetMethod(implObj, "SetMetadata"), flags, 5)
+        this.vtbl.RegisterService := CallbackCreate(GetMethod(implObj, "RegisterService"), flags, 3)
+        this.vtbl.RetireService := CallbackCreate(GetMethod(implObj, "RetireService"), flags, 2)
+        this.vtbl.AddDynamicService := CallbackCreate(GetMethod(implObj, "AddDynamicService"), flags, 7)
+        this.vtbl.RemoveDynamicService := CallbackCreate(GetMethod(implObj, "RemoveDynamicService"), flags, 2)
+        this.vtbl.SetServiceDiscoverable := CallbackCreate(GetMethod(implObj, "SetServiceDiscoverable"), flags, 3)
+        this.vtbl.SignalEvent := CallbackCreate(GetMethod(implObj, "SignalEvent"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Init)
+        CallbackFree(this.vtbl.Start)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.Terminate)
+        CallbackFree(this.vtbl.RegisterPortType)
+        CallbackFree(this.vtbl.SetMetadata)
+        CallbackFree(this.vtbl.RegisterService)
+        CallbackFree(this.vtbl.RetireService)
+        CallbackFree(this.vtbl.AddDynamicService)
+        CallbackFree(this.vtbl.RemoveDynamicService)
+        CallbackFree(this.vtbl.SetServiceDiscoverable)
+        CallbackFree(this.vtbl.SignalEvent)
     }
 }

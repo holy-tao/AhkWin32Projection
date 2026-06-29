@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDirectManipulationCompositor.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDirectManipulationPrimaryContent.ahk" { IDirectManipulationPrimaryContent }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDirectManipulationCompositor.ahk" { IDirectManipulationCompositor }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a compositor object that associates manipulated content with drawing surfaces across multiple processes.
@@ -19,26 +22,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nn-directmanipulation-idirectmanipulationcompositor2
  * @namespace Windows.Win32.Graphics.DirectManipulation
  */
-class IDirectManipulationCompositor2 extends IDirectManipulationCompositor {
-
-    static sizeof => A_PtrSize
+export default struct IDirectManipulationCompositor2 extends IDirectManipulationCompositor {
     /**
      * The interface identifier for IDirectManipulationCompositor2
      * @type {Guid}
      */
-    static IID => Guid("{d38c7822-f1cb-43cb-b4b9-ac0c767a412e}")
+    static IID := Guid("{d38c7822-f1cb-43cb-b4b9-ac0c767a412e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectManipulationCompositor2 interfaces
+    */
+    struct Vtbl extends IDirectManipulationCompositor.Vtbl {
+        AddContentWithCrossProcessChaining : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddContentWithCrossProcessChaining"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectManipulationCompositor2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Associates content (owned by the component host) with the compositor, assigns a composition device to the content, and specifies the position of the content in the composition tree relative to other composition visuals.
@@ -85,5 +95,25 @@ class IDirectManipulationCompositor2 extends IDirectManipulationCompositor {
     AddContentWithCrossProcessChaining(content, device, parentVisual, childVisual) {
         result := ComCall(7, this, "ptr", content, "ptr", device, "ptr", parentVisual, "ptr", childVisual, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectManipulationCompositor2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddContentWithCrossProcessChaining := CallbackCreate(GetMethod(implObj, "AddContentWithCrossProcessChaining"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddContentWithCrossProcessChaining)
     }
 }

@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCI_FIRMWARE_BUS_CAPS_RETURN_BUFFER extends Win32Struct {
-    static sizeof => 16
+export default struct PCI_FIRMWARE_BUS_CAPS_RETURN_BUFFER {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Status : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Status {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Caps : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Caps {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

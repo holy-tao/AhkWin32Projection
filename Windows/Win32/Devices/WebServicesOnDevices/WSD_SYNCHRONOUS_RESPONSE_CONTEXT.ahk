@@ -1,54 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\IWSDMessageParameters.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWSDMessageParameters.ahk" { IWSDMessageParameters }
 
 /**
  * Provides a context for handling the response to a two-way request.
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_synchronous_response_context
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class WSD_SYNCHRONOUS_RESPONSE_CONTEXT extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct WSD_SYNCHRONOUS_RESPONSE_CONTEXT {
+    #StructPack 8
 
     /**
      * The result code of the last operation performed using this response context.
-     * @type {HRESULT}
      */
-    hr {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    hr : HRESULT
 
     /**
      * The event handle to be signaled when the response is ready.
-     * @type {HANDLE}
      */
-    eventHandle {
-        get {
-            if(!this.HasProp("__eventHandle"))
-                this.__eventHandle := HANDLE(8, this)
-            return this.__eventHandle
-        }
-    }
+    eventHandle : HANDLE
 
     /**
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdmessageparameters">IWSDMessageParameters</a> object that contains transport information associated with the response.
-     * @type {IWSDMessageParameters}
      */
-    messageParameters {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    messageParameters : IWSDMessageParameters
 
     /**
      * The body of the response message.
-     * @type {Pointer<Void>}
      */
-    results {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    results : IntPtr
+
 }

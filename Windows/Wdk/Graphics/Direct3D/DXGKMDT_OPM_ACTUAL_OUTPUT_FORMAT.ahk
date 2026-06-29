@@ -1,76 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXGKMDT_OPM_INTERLEAVE_FORMAT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DXGKMDT_OPM_INTERLEAVE_FORMAT.ahk" { DXGKMDT_OPM_INTERLEAVE_FORMAT }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class DXGKMDT_OPM_ACTUAL_OUTPUT_FORMAT extends Win32Struct {
-    static sizeof => 40
+export default struct DXGKMDT_OPM_ACTUAL_OUTPUT_FORMAT {
+    #StructPack 8
 
-    static packingSize => 8
+    rnRandomNumber : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    rnRandomNumber {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ulStatusFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulStatusFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulDisplayWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulDisplayWidth {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ulDisplayHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulDisplayHeight {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ifInterleaveFormat : DXGKMDT_OPM_INTERLEAVE_FORMAT
 
-    /**
-     * @type {DXGKMDT_OPM_INTERLEAVE_FORMAT}
-     */
-    ifInterleaveFormat {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    d3dFormat : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    d3dFormat {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ulFrequencyNumerator : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulFrequencyNumerator {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    ulFrequencyDenominator : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulFrequencyDenominator {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

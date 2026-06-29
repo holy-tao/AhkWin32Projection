@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * . (PACKAGE_EXECUTION_STATE)
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-package_execution_state
  * @namespace Windows.Win32.UI.Shell
  */
-class PACKAGE_EXECUTION_STATE extends Win32Enum {
+export default struct PACKAGE_EXECUTION_STATE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The package is in an unknown state.

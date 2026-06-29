@@ -1,52 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
-#Include .\D3D12_RESOURCE_DIMENSION.ahk
-#Include .\D3D12_HEAP_PROPERTIES.ahk
-#Include .\D3D12_HEAP_TYPE.ahk
-#Include .\D3D12_CPU_PAGE_PROPERTY.ahk
-#Include .\D3D12_MEMORY_POOL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_CPU_PAGE_PROPERTY.ahk" { D3D12_CPU_PAGE_PROPERTY }
+#Import ".\D3D12_HEAP_TYPE.ahk" { D3D12_HEAP_TYPE }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\D3D12_MEMORY_POOL.ahk" { D3D12_MEMORY_POOL }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D12_HEAP_PROPERTIES.ahk" { D3D12_HEAP_PROPERTIES }
+#Import ".\D3D12_RESOURCE_DIMENSION.ahk" { D3D12_RESOURCE_DIMENSION }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_FEATURE_DATA_PLACED_RESOURCE_SUPPORT_INFO extends Win32Struct {
-    static sizeof => 32
+export default struct D3D12_FEATURE_DATA_PLACED_RESOURCE_SUPPORT_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    Format : DXGI_FORMAT
 
-    /**
-     * @type {DXGI_FORMAT}
-     */
-    Format {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Dimension : D3D12_RESOURCE_DIMENSION
 
-    /**
-     * @type {D3D12_RESOURCE_DIMENSION}
-     */
-    Dimension {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    DestHeapProperties : D3D12_HEAP_PROPERTIES
 
-    /**
-     * @type {D3D12_HEAP_PROPERTIES}
-     */
-    DestHeapProperties {
-        get {
-            if(!this.HasProp("__DestHeapProperties"))
-                this.__DestHeapProperties := D3D12_HEAP_PROPERTIES(8, this)
-            return this.__DestHeapProperties
-        }
-    }
+    Supported : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    Supported {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
 }

@@ -1,62 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_WORK_GRAPH_FLAGS.ahk
-#Include .\D3D12_NODE_ID.ahk
-#Include .\D3D12_NODE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_WORK_GRAPH_FLAGS.ahk" { D3D12_WORK_GRAPH_FLAGS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\D3D12_NODE_ID.ahk" { D3D12_NODE_ID }
+#Import ".\D3D12_NODE.ahk" { D3D12_NODE }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_WORK_GRAPH_DESC extends Win32Struct {
-    static sizeof => 40
+export default struct D3D12_WORK_GRAPH_DESC {
+    #StructPack 8
 
-    static packingSize => 8
+    ProgramName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    ProgramName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Flags : D3D12_WORK_GRAPH_FLAGS
 
-    /**
-     * @type {D3D12_WORK_GRAPH_FLAGS}
-     */
-    Flags {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    NumEntrypoints : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumEntrypoints {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    pEntrypoints : D3D12_NODE_ID.Ptr
 
-    /**
-     * @type {Pointer<D3D12_NODE_ID>}
-     */
-    pEntrypoints {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    NumExplicitlyDefinedNodes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumExplicitlyDefinedNodes {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    pExplicitlyDefinedNodes : D3D12_NODE.Ptr
 
-    /**
-     * @type {Pointer<D3D12_NODE>}
-     */
-    pExplicitlyDefinedNodes {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
 }

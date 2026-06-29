@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOCKET_SECURITY_PROTOCOL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SOCKET_SECURITY_PROTOCOL.ahk" { SOCKET_SECURITY_PROTOCOL }
 
 /**
  * Contains security information returned by the WSAQuerySocketSecurity function.
@@ -11,19 +10,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-socket_security_query_info
  * @namespace Windows.Win32.Networking.WinSock
  */
-class SOCKET_SECURITY_QUERY_INFO extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct SOCKET_SECURITY_QUERY_INFO {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ne-mstcpip-socket_security_protocol">SOCKET_SECURITY_PROTOCOL</a> value that identifies the protocol used to secure the traffic.
-     * @type {SOCKET_SECURITY_PROTOCOL}
      */
-    SecurityProtocol {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    SecurityProtocol : SOCKET_SECURITY_PROTOCOL
 
     /**
      * The  set of possible security flags for the connection defined in the <i>Mstcpip.h</i> header file.
@@ -56,28 +49,17 @@ class SOCKET_SECURITY_QUERY_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : UInt32
 
     /**
      * A handle to the access token that represents the account under which the peer application is running.  After using the token for access checks, the application should close the handle using the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function.
-     * @type {Integer}
      */
-    PeerApplicationAccessTokenHandle {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    PeerApplicationAccessTokenHandle : Int64
 
     /**
      * A handle to the access token for the peer computer's account during the course of the application.  After using the token for access checks, the application should close the handle using the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function.
-     * @type {Integer}
      */
-    PeerMachineAccessTokenHandle {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    PeerMachineAccessTokenHandle : Int64
+
 }

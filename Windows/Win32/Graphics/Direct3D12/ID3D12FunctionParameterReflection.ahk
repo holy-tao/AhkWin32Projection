@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\D3D12_PARAMETER_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3D12_PARAMETER_DESC.ahk" { D3D12_PARAMETER_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * A function-parameter-reflection interface accesses function-parameter info. (ID3D12FunctionParameterReflection)
@@ -15,26 +16,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nn-d3d12shader-id3d12functionparameterreflection
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class ID3D12FunctionParameterReflection extends Win32ComInterface {
-
-    static sizeof => A_PtrSize
+export default struct ID3D12FunctionParameterReflection extends Win32ComInterface {
     /**
      * The interface identifier for ID3D12FunctionParameterReflection
      * @type {Guid}
      */
-    static IID => Guid("{ec25f42d-7006-4f2b-b33e-02cc3375733f}")
+    static IID := Guid("{ec25f42d-7006-4f2b-b33e-02cc3375733f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 0
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D12FunctionParameterReflection interfaces
+    */
+    struct Vtbl {
+        GetDesc : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDesc"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D12FunctionParameterReflection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Fills the parameter descriptor structure for the function's parameter. (ID3D12FunctionParameterReflection.GetDesc)
@@ -45,7 +53,14 @@ class ID3D12FunctionParameterReflection extends Win32ComInterface {
      */
     GetDesc() {
         pDesc := D3D12_PARAMETER_DESC()
-        result := ComCall(0, this, "ptr", pDesc, "HRESULT")
+        result := ComCall(0, this, D3D12_PARAMETER_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
+    }
+
+    Query(iid) {
+        if (ID3D12FunctionParameterReflection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
     }
 }

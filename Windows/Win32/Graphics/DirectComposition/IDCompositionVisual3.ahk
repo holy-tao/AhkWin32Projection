@@ -1,33 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionVisualDebug.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDCompositionVisualDebug.ahk" { IDCompositionVisualDebug }
+#Import ".\DCOMPOSITION_DEPTH_MODE.ahk" { DCOMPOSITION_DEPTH_MODE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
+#Import ".\IDCompositionTransform3D.ahk" { IDCompositionTransform3D }
+#Import "..\Direct2D\Common\D2D_MATRIX_4X4_F.ahk" { D2D_MATRIX_4X4_F }
 
 /**
  * Represents one DirectComposition visual in a visual tree. (IDCompositionVisual3)
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionvisual3
  * @namespace Windows.Win32.Graphics.DirectComposition
  */
-class IDCompositionVisual3 extends IDCompositionVisualDebug {
-
-    static sizeof => A_PtrSize
+export default struct IDCompositionVisual3 extends IDCompositionVisualDebug {
     /**
      * The interface identifier for IDCompositionVisual3
      * @type {Guid}
      */
-    static IID => Guid("{2775f462-b6c1-4015-b0be-b3e7d6a4976d}")
+    static IID := Guid("{2775f462-b6c1-4015-b0be-b3e7d6a4976d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 26
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDCompositionVisual3 interfaces
+    */
+    struct Vtbl extends IDCompositionVisualDebug.Vtbl {
+        SetDepthMode  : IntPtr
+        SetOffsetZ    : IntPtr
+        SetOffsetZ1   : IntPtr
+        SetOpacity    : IntPtr
+        SetOpacity1   : IntPtr
+        SetTransform  : IntPtr
+        SetTransform1 : IntPtr
+        SetVisible    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetDepthMode", "SetOffsetZ", "SetOffsetZ1", "SetOpacity", "SetOpacity1", "SetTransform", "SetTransform1", "SetVisible"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDCompositionVisual3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the depth mode property associated with this visual.
@@ -40,7 +60,7 @@ class IDCompositionVisual3 extends IDCompositionVisualDebug {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual3-setdepthmode
      */
     SetDepthMode(_mode) {
-        result := ComCall(26, this, "int", _mode, "HRESULT")
+        result := ComCall(26, this, DCOMPOSITION_DEPTH_MODE, _mode, "HRESULT")
         return result
     }
 
@@ -136,7 +156,7 @@ class IDCompositionVisual3 extends IDCompositionVisualDebug {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual3-settransform(constd2d_matrix_4x4_f_)
      */
     SetTransform1(_matrix) {
-        result := ComCall(32, this, "ptr", _matrix, "HRESULT")
+        result := ComCall(32, this, D2D_MATRIX_4X4_F.Ptr, _matrix, "HRESULT")
         return result
     }
 
@@ -151,7 +171,41 @@ class IDCompositionVisual3 extends IDCompositionVisualDebug {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual3-setvisible
      */
     SetVisible(visible) {
-        result := ComCall(33, this, "int", visible, "HRESULT")
+        result := ComCall(33, this, BOOL, visible, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDCompositionVisual3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetDepthMode := CallbackCreate(GetMethod(implObj, "SetDepthMode"), flags, 2)
+        this.vtbl.SetOffsetZ := CallbackCreate(GetMethod(implObj, "SetOffsetZ"), flags, 2)
+        this.vtbl.SetOffsetZ1 := CallbackCreate(GetMethod(implObj, "SetOffsetZ1"), flags, 2)
+        this.vtbl.SetOpacity := CallbackCreate(GetMethod(implObj, "SetOpacity"), flags, 2)
+        this.vtbl.SetOpacity1 := CallbackCreate(GetMethod(implObj, "SetOpacity1"), flags, 2)
+        this.vtbl.SetTransform := CallbackCreate(GetMethod(implObj, "SetTransform"), flags, 2)
+        this.vtbl.SetTransform1 := CallbackCreate(GetMethod(implObj, "SetTransform1"), flags, 2)
+        this.vtbl.SetVisible := CallbackCreate(GetMethod(implObj, "SetVisible"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetDepthMode)
+        CallbackFree(this.vtbl.SetOffsetZ)
+        CallbackFree(this.vtbl.SetOffsetZ1)
+        CallbackFree(this.vtbl.SetOpacity)
+        CallbackFree(this.vtbl.SetOpacity1)
+        CallbackFree(this.vtbl.SetTransform)
+        CallbackFree(this.vtbl.SetTransform1)
+        CallbackFree(this.vtbl.SetVisible)
     }
 }

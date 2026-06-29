@@ -1,34 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IGenericDescriptor.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISectionList.ahk" { ISectionList }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMpeg2Data.ahk" { IMpeg2Data }
 
 /**
  * Implements methods that get information from an Integrated Services Digital Broadcasting (ISDB) broadcaster information table (BIT). A BIT contains a broadcaster unit and the service information transmission parameter for each broadcaster unit.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-iisdb_bit
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IISDB_BIT extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IISDB_BIT extends IUnknown {
     /**
      * The interface identifier for IISDB_BIT
      * @type {Guid}
      */
-    static IID => Guid("{537cd71e-0e46-4173-9001-ba043f3e49e2}")
+    static IID := Guid("{537cd71e-0e46-4173-9001-ba043f3e49e2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IISDB_BIT interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize                  : IntPtr
+        GetVersionNumber            : IntPtr
+        GetOriginalNetworkId        : IntPtr
+        GetBroadcastViewPropriety   : IntPtr
+        GetCountOfTableDescriptors  : IntPtr
+        GetTableDescriptorByIndex   : IntPtr
+        GetTableDescriptorByTag     : IntPtr
+        GetCountOfRecords           : IntPtr
+        GetRecordBroadcasterId      : IntPtr
+        GetRecordCountOfDescriptors : IntPtr
+        GetRecordDescriptorByIndex  : IntPtr
+        GetRecordDescriptorByTag    : IntPtr
+        GetVersionHash              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetVersionNumber", "GetOriginalNetworkId", "GetBroadcastViewPropriety", "GetCountOfTableDescriptors", "GetTableDescriptorByIndex", "GetTableDescriptorByTag", "GetCountOfRecords", "GetRecordBroadcasterId", "GetRecordCountOfDescriptors", "GetRecordDescriptorByIndex", "GetRecordDescriptorByTag", "GetVersionHash"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IISDB_BIT.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes the object by using captured table section data for an Integrated Services Digital Broadcasting (ISDB) broadcaster information table (BIT).
@@ -203,5 +225,49 @@ class IISDB_BIT extends IUnknown {
     GetVersionHash() {
         result := ComCall(15, this, "uint*", &pdwVersionHash := 0, "HRESULT")
         return pdwVersionHash
+    }
+
+    Query(iid) {
+        if (IISDB_BIT.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetVersionNumber := CallbackCreate(GetMethod(implObj, "GetVersionNumber"), flags, 2)
+        this.vtbl.GetOriginalNetworkId := CallbackCreate(GetMethod(implObj, "GetOriginalNetworkId"), flags, 2)
+        this.vtbl.GetBroadcastViewPropriety := CallbackCreate(GetMethod(implObj, "GetBroadcastViewPropriety"), flags, 2)
+        this.vtbl.GetCountOfTableDescriptors := CallbackCreate(GetMethod(implObj, "GetCountOfTableDescriptors"), flags, 2)
+        this.vtbl.GetTableDescriptorByIndex := CallbackCreate(GetMethod(implObj, "GetTableDescriptorByIndex"), flags, 3)
+        this.vtbl.GetTableDescriptorByTag := CallbackCreate(GetMethod(implObj, "GetTableDescriptorByTag"), flags, 4)
+        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordBroadcasterId := CallbackCreate(GetMethod(implObj, "GetRecordBroadcasterId"), flags, 3)
+        this.vtbl.GetRecordCountOfDescriptors := CallbackCreate(GetMethod(implObj, "GetRecordCountOfDescriptors"), flags, 3)
+        this.vtbl.GetRecordDescriptorByIndex := CallbackCreate(GetMethod(implObj, "GetRecordDescriptorByIndex"), flags, 4)
+        this.vtbl.GetRecordDescriptorByTag := CallbackCreate(GetMethod(implObj, "GetRecordDescriptorByTag"), flags, 5)
+        this.vtbl.GetVersionHash := CallbackCreate(GetMethod(implObj, "GetVersionHash"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetVersionNumber)
+        CallbackFree(this.vtbl.GetOriginalNetworkId)
+        CallbackFree(this.vtbl.GetBroadcastViewPropriety)
+        CallbackFree(this.vtbl.GetCountOfTableDescriptors)
+        CallbackFree(this.vtbl.GetTableDescriptorByIndex)
+        CallbackFree(this.vtbl.GetTableDescriptorByTag)
+        CallbackFree(this.vtbl.GetCountOfRecords)
+        CallbackFree(this.vtbl.GetRecordBroadcasterId)
+        CallbackFree(this.vtbl.GetRecordCountOfDescriptors)
+        CallbackFree(this.vtbl.GetRecordDescriptorByIndex)
+        CallbackFree(this.vtbl.GetRecordDescriptorByTag)
+        CallbackFree(this.vtbl.GetVersionHash)
     }
 }

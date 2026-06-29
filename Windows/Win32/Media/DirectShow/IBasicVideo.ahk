@@ -1,33 +1,72 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IBasicVideo interface sets video properties such as the destination and source rectangles.
  * @see https://learn.microsoft.com/windows/win32/api/control/nn-control-ibasicvideo
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IBasicVideo extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IBasicVideo extends IDispatch {
     /**
      * The interface identifier for IBasicVideo
      * @type {Guid}
      */
-    static IID => Guid("{56a868b5-0ad4-11ce-b03a-0020af0ba770}")
+    static IID := Guid("{56a868b5-0ad4-11ce-b03a-0020af0ba770}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBasicVideo interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_AvgTimePerFrame           : IntPtr
+        get_BitRate                   : IntPtr
+        get_BitErrorRate              : IntPtr
+        get_VideoWidth                : IntPtr
+        get_VideoHeight               : IntPtr
+        put_SourceLeft                : IntPtr
+        get_SourceLeft                : IntPtr
+        put_SourceWidth               : IntPtr
+        get_SourceWidth               : IntPtr
+        put_SourceTop                 : IntPtr
+        get_SourceTop                 : IntPtr
+        put_SourceHeight              : IntPtr
+        get_SourceHeight              : IntPtr
+        put_DestinationLeft           : IntPtr
+        get_DestinationLeft           : IntPtr
+        put_DestinationWidth          : IntPtr
+        get_DestinationWidth          : IntPtr
+        put_DestinationTop            : IntPtr
+        get_DestinationTop            : IntPtr
+        put_DestinationHeight         : IntPtr
+        get_DestinationHeight         : IntPtr
+        SetSourcePosition             : IntPtr
+        GetSourcePosition             : IntPtr
+        SetDefaultSourcePosition      : IntPtr
+        SetDestinationPosition        : IntPtr
+        GetDestinationPosition        : IntPtr
+        SetDefaultDestinationPosition : IntPtr
+        GetVideoSize                  : IntPtr
+        GetVideoPaletteEntries        : IntPtr
+        GetCurrentImage               : IntPtr
+        IsUsingDefaultSource          : IntPtr
+        IsUsingDefaultDestination     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_AvgTimePerFrame", "get_BitRate", "get_BitErrorRate", "get_VideoWidth", "get_VideoHeight", "put_SourceLeft", "get_SourceLeft", "put_SourceWidth", "get_SourceWidth", "put_SourceTop", "get_SourceTop", "put_SourceHeight", "get_SourceHeight", "put_DestinationLeft", "get_DestinationLeft", "put_DestinationWidth", "get_DestinationWidth", "put_DestinationTop", "get_DestinationTop", "put_DestinationHeight", "get_DestinationHeight", "SetSourcePosition", "GetSourcePosition", "SetDefaultSourcePosition", "SetDestinationPosition", "GetDestinationPosition", "SetDefaultDestinationPosition", "GetVideoSize", "GetVideoPaletteEntries", "GetCurrentImage", "IsUsingDefaultSource", "IsUsingDefaultDestination"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBasicVideo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Float} 
@@ -781,5 +820,87 @@ class IBasicVideo extends IDispatch {
     IsUsingDefaultDestination() {
         result := ComCall(38, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBasicVideo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_AvgTimePerFrame := CallbackCreate(GetMethod(implObj, "get_AvgTimePerFrame"), flags, 2)
+        this.vtbl.get_BitRate := CallbackCreate(GetMethod(implObj, "get_BitRate"), flags, 2)
+        this.vtbl.get_BitErrorRate := CallbackCreate(GetMethod(implObj, "get_BitErrorRate"), flags, 2)
+        this.vtbl.get_VideoWidth := CallbackCreate(GetMethod(implObj, "get_VideoWidth"), flags, 2)
+        this.vtbl.get_VideoHeight := CallbackCreate(GetMethod(implObj, "get_VideoHeight"), flags, 2)
+        this.vtbl.put_SourceLeft := CallbackCreate(GetMethod(implObj, "put_SourceLeft"), flags, 2)
+        this.vtbl.get_SourceLeft := CallbackCreate(GetMethod(implObj, "get_SourceLeft"), flags, 2)
+        this.vtbl.put_SourceWidth := CallbackCreate(GetMethod(implObj, "put_SourceWidth"), flags, 2)
+        this.vtbl.get_SourceWidth := CallbackCreate(GetMethod(implObj, "get_SourceWidth"), flags, 2)
+        this.vtbl.put_SourceTop := CallbackCreate(GetMethod(implObj, "put_SourceTop"), flags, 2)
+        this.vtbl.get_SourceTop := CallbackCreate(GetMethod(implObj, "get_SourceTop"), flags, 2)
+        this.vtbl.put_SourceHeight := CallbackCreate(GetMethod(implObj, "put_SourceHeight"), flags, 2)
+        this.vtbl.get_SourceHeight := CallbackCreate(GetMethod(implObj, "get_SourceHeight"), flags, 2)
+        this.vtbl.put_DestinationLeft := CallbackCreate(GetMethod(implObj, "put_DestinationLeft"), flags, 2)
+        this.vtbl.get_DestinationLeft := CallbackCreate(GetMethod(implObj, "get_DestinationLeft"), flags, 2)
+        this.vtbl.put_DestinationWidth := CallbackCreate(GetMethod(implObj, "put_DestinationWidth"), flags, 2)
+        this.vtbl.get_DestinationWidth := CallbackCreate(GetMethod(implObj, "get_DestinationWidth"), flags, 2)
+        this.vtbl.put_DestinationTop := CallbackCreate(GetMethod(implObj, "put_DestinationTop"), flags, 2)
+        this.vtbl.get_DestinationTop := CallbackCreate(GetMethod(implObj, "get_DestinationTop"), flags, 2)
+        this.vtbl.put_DestinationHeight := CallbackCreate(GetMethod(implObj, "put_DestinationHeight"), flags, 2)
+        this.vtbl.get_DestinationHeight := CallbackCreate(GetMethod(implObj, "get_DestinationHeight"), flags, 2)
+        this.vtbl.SetSourcePosition := CallbackCreate(GetMethod(implObj, "SetSourcePosition"), flags, 5)
+        this.vtbl.GetSourcePosition := CallbackCreate(GetMethod(implObj, "GetSourcePosition"), flags, 5)
+        this.vtbl.SetDefaultSourcePosition := CallbackCreate(GetMethod(implObj, "SetDefaultSourcePosition"), flags, 1)
+        this.vtbl.SetDestinationPosition := CallbackCreate(GetMethod(implObj, "SetDestinationPosition"), flags, 5)
+        this.vtbl.GetDestinationPosition := CallbackCreate(GetMethod(implObj, "GetDestinationPosition"), flags, 5)
+        this.vtbl.SetDefaultDestinationPosition := CallbackCreate(GetMethod(implObj, "SetDefaultDestinationPosition"), flags, 1)
+        this.vtbl.GetVideoSize := CallbackCreate(GetMethod(implObj, "GetVideoSize"), flags, 3)
+        this.vtbl.GetVideoPaletteEntries := CallbackCreate(GetMethod(implObj, "GetVideoPaletteEntries"), flags, 5)
+        this.vtbl.GetCurrentImage := CallbackCreate(GetMethod(implObj, "GetCurrentImage"), flags, 3)
+        this.vtbl.IsUsingDefaultSource := CallbackCreate(GetMethod(implObj, "IsUsingDefaultSource"), flags, 1)
+        this.vtbl.IsUsingDefaultDestination := CallbackCreate(GetMethod(implObj, "IsUsingDefaultDestination"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_AvgTimePerFrame)
+        CallbackFree(this.vtbl.get_BitRate)
+        CallbackFree(this.vtbl.get_BitErrorRate)
+        CallbackFree(this.vtbl.get_VideoWidth)
+        CallbackFree(this.vtbl.get_VideoHeight)
+        CallbackFree(this.vtbl.put_SourceLeft)
+        CallbackFree(this.vtbl.get_SourceLeft)
+        CallbackFree(this.vtbl.put_SourceWidth)
+        CallbackFree(this.vtbl.get_SourceWidth)
+        CallbackFree(this.vtbl.put_SourceTop)
+        CallbackFree(this.vtbl.get_SourceTop)
+        CallbackFree(this.vtbl.put_SourceHeight)
+        CallbackFree(this.vtbl.get_SourceHeight)
+        CallbackFree(this.vtbl.put_DestinationLeft)
+        CallbackFree(this.vtbl.get_DestinationLeft)
+        CallbackFree(this.vtbl.put_DestinationWidth)
+        CallbackFree(this.vtbl.get_DestinationWidth)
+        CallbackFree(this.vtbl.put_DestinationTop)
+        CallbackFree(this.vtbl.get_DestinationTop)
+        CallbackFree(this.vtbl.put_DestinationHeight)
+        CallbackFree(this.vtbl.get_DestinationHeight)
+        CallbackFree(this.vtbl.SetSourcePosition)
+        CallbackFree(this.vtbl.GetSourcePosition)
+        CallbackFree(this.vtbl.SetDefaultSourcePosition)
+        CallbackFree(this.vtbl.SetDestinationPosition)
+        CallbackFree(this.vtbl.GetDestinationPosition)
+        CallbackFree(this.vtbl.SetDefaultDestinationPosition)
+        CallbackFree(this.vtbl.GetVideoSize)
+        CallbackFree(this.vtbl.GetVideoPaletteEntries)
+        CallbackFree(this.vtbl.GetCurrentImage)
+        CallbackFree(this.vtbl.IsUsingDefaultSource)
+        CallbackFree(this.vtbl.IsUsingDefaultDestination)
     }
 }

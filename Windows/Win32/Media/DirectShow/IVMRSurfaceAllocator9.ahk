@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IVMRSurfaceAllocatorNotify9.ahk" { IVMRSurfaceAllocatorNotify9 }
+#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VMR9AllocationInfo.ahk" { VMR9AllocationInfo }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVMRSurfaceAllocator9 interface is implemented by the default allocator-presenter for the Video Mixing Renderer Filter 9 (VMR-9).
@@ -11,26 +14,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/nn-vmr9-ivmrsurfaceallocator9
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IVMRSurfaceAllocator9 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVMRSurfaceAllocator9 extends IUnknown {
     /**
      * The interface identifier for IVMRSurfaceAllocator9
      * @type {Guid}
      */
-    static IID => Guid("{8d5148ea-3f5d-46cf-9df1-d1b896eedb1f}")
+    static IID := Guid("{8d5148ea-3f5d-46cf-9df1-d1b896eedb1f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVMRSurfaceAllocator9 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        InitializeDevice : IntPtr
+        TerminateDevice  : IntPtr
+        GetSurface       : IntPtr
+        AdviseNotify     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializeDevice", "TerminateDevice", "GetSurface", "AdviseNotify"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVMRSurfaceAllocator9.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The InitializeDevice method is called by the Video Mixing Renderer 9 (VMR-9) when it needs the allocator-presenter to allocate surfaces.
@@ -65,7 +78,7 @@ class IVMRSurfaceAllocator9 extends IUnknown {
     InitializeDevice(dwUserID, lpAllocInfo, lpNumBuffers) {
         lpNumBuffersMarshal := lpNumBuffers is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", dwUserID, "ptr", lpAllocInfo, lpNumBuffersMarshal, lpNumBuffers, "HRESULT")
+        result := ComCall(3, this, "ptr", dwUserID, VMR9AllocationInfo.Ptr, lpAllocInfo, lpNumBuffersMarshal, lpNumBuffers, "HRESULT")
         return result
     }
 
@@ -144,5 +157,31 @@ class IVMRSurfaceAllocator9 extends IUnknown {
     AdviseNotify(lpIVMRSurfAllocNotify) {
         result := ComCall(6, this, "ptr", lpIVMRSurfAllocNotify, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVMRSurfaceAllocator9.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializeDevice := CallbackCreate(GetMethod(implObj, "InitializeDevice"), flags, 4)
+        this.vtbl.TerminateDevice := CallbackCreate(GetMethod(implObj, "TerminateDevice"), flags, 2)
+        this.vtbl.GetSurface := CallbackCreate(GetMethod(implObj, "GetSurface"), flags, 5)
+        this.vtbl.AdviseNotify := CallbackCreate(GetMethod(implObj, "AdviseNotify"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializeDevice)
+        CallbackFree(this.vtbl.TerminateDevice)
+        CallbackFree(this.vtbl.GetSurface)
+        CallbackFree(this.vtbl.AdviseNotify)
     }
 }

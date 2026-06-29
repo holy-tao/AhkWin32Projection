@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines constants that specify proxy settings types for extended proxy settings APIs.
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/ne-winhttp-winhttp_proxy_settings_type
  * @namespace Windows.Win32.Networking.WinHttp
  */
-class WINHTTP_PROXY_SETTINGS_TYPE extends Win32Enum {
+export default struct WINHTTP_PROXY_SETTINGS_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies an unknown type.

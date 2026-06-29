@@ -1,16 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
-#Include ..\Direct3D\D3D_SRV_DIMENSION.ahk
-#Include .\D3D10_BUFFER_SRV.ahk
-#Include .\D3D10_TEX1D_SRV.ahk
-#Include .\D3D10_TEX1D_ARRAY_SRV.ahk
-#Include .\D3D10_TEX2D_SRV.ahk
-#Include .\D3D10_TEX2D_ARRAY_SRV.ahk
-#Include .\D3D10_TEX2DMS_SRV.ahk
-#Include .\D3D10_TEX2DMS_ARRAY_SRV.ahk
-#Include .\D3D10_TEX3D_SRV.ahk
-#Include .\D3D10_TEXCUBE_SRV.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import "..\Direct3D\D3D_SRV_DIMENSION.ahk" { D3D_SRV_DIMENSION }
+#Import ".\D3D10_TEX3D_SRV.ahk" { D3D10_TEX3D_SRV }
+#Import ".\D3D10_TEX1D_SRV.ahk" { D3D10_TEX1D_SRV }
+#Import ".\D3D10_TEX2D_SRV.ahk" { D3D10_TEX2D_SRV }
+#Import ".\D3D10_TEX2DMS_ARRAY_SRV.ahk" { D3D10_TEX2DMS_ARRAY_SRV }
+#Import ".\D3D10_TEX2DMS_SRV.ahk" { D3D10_TEX2DMS_SRV }
+#Import ".\D3D10_TEXCUBE_SRV.ahk" { D3D10_TEXCUBE_SRV }
+#Import ".\D3D10_TEX1D_ARRAY_SRV.ahk" { D3D10_TEX1D_ARRAY_SRV }
+#Import ".\D3D10_TEX2D_ARRAY_SRV.ahk" { D3D10_TEX2D_ARRAY_SRV }
+#Import ".\D3D10_BUFFER_SRV.ahk" { D3D10_BUFFER_SRV }
 
 /**
  * Describes a shader-resource view. (D3D10_SHADER_RESOURCE_VIEW_DESC)
@@ -24,129 +23,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ns-d3d10-d3d10_shader_resource_view_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class D3D10_SHADER_RESOURCE_VIEW_DESC extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct D3D10_SHADER_RESOURCE_VIEW_DESC {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
      * 
      * The viewing <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">format</a>. See remarks.
-     * @type {DXGI_FORMAT}
      */
-    Format {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Format : DXGI_FORMAT
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_buffer_srv">D3D10_SRV_DIMENSION</a></b>
      * 
      * The resource type of the view. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_buffer_srv">D3D10_SRV_DIMENSION</a>. This should be the same as the resource type of the underlying resource. This parameter also determines which _SRV to use in the union below.
-     * @type {D3D_SRV_DIMENSION}
      */
-    ViewDimension {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    ViewDimension : D3D_SRV_DIMENSION
 
-    /**
-     * @type {D3D10_BUFFER_SRV}
-     */
-    Buffer {
-        get {
-            if(!this.HasProp("__Buffer"))
-                this.__Buffer := D3D10_BUFFER_SRV(8, this)
-            return this.__Buffer
-        }
-    }
+    Buffer : D3D10_BUFFER_SRV
 
-    /**
-     * @type {D3D10_TEX1D_SRV}
-     */
-    Texture1D {
-        get {
-            if(!this.HasProp("__Texture1D"))
-                this.__Texture1D := D3D10_TEX1D_SRV(8, this)
-            return this.__Texture1D
-        }
-    }
-
-    /**
-     * @type {D3D10_TEX1D_ARRAY_SRV}
-     */
-    Texture1DArray {
-        get {
-            if(!this.HasProp("__Texture1DArray"))
-                this.__Texture1DArray := D3D10_TEX1D_ARRAY_SRV(8, this)
-            return this.__Texture1DArray
-        }
-    }
-
-    /**
-     * @type {D3D10_TEX2D_SRV}
-     */
-    Texture2D {
-        get {
-            if(!this.HasProp("__Texture2D"))
-                this.__Texture2D := D3D10_TEX2D_SRV(8, this)
-            return this.__Texture2D
-        }
-    }
-
-    /**
-     * @type {D3D10_TEX2D_ARRAY_SRV}
-     */
-    Texture2DArray {
-        get {
-            if(!this.HasProp("__Texture2DArray"))
-                this.__Texture2DArray := D3D10_TEX2D_ARRAY_SRV(8, this)
-            return this.__Texture2DArray
-        }
-    }
-
-    /**
-     * @type {D3D10_TEX2DMS_SRV}
-     */
-    Texture2DMS {
-        get {
-            if(!this.HasProp("__Texture2DMS"))
-                this.__Texture2DMS := D3D10_TEX2DMS_SRV(8, this)
-            return this.__Texture2DMS
-        }
-    }
-
-    /**
-     * @type {D3D10_TEX2DMS_ARRAY_SRV}
-     */
-    Texture2DMSArray {
-        get {
-            if(!this.HasProp("__Texture2DMSArray"))
-                this.__Texture2DMSArray := D3D10_TEX2DMS_ARRAY_SRV(8, this)
-            return this.__Texture2DMSArray
-        }
-    }
-
-    /**
-     * @type {D3D10_TEX3D_SRV}
-     */
-    Texture3D {
-        get {
-            if(!this.HasProp("__Texture3D"))
-                this.__Texture3D := D3D10_TEX3D_SRV(8, this)
-            return this.__Texture3D
-        }
-    }
-
-    /**
-     * @type {D3D10_TEXCUBE_SRV}
-     */
-    TextureCube {
-        get {
-            if(!this.HasProp("__TextureCube"))
-                this.__TextureCube := D3D10_TEXCUBE_SRV(8, this)
-            return this.__TextureCube
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Texture1D', { type: D3D10_TEX1D_SRV, offset: 8 })
+        DefineProp(this.Prototype, 'Texture1DArray', { type: D3D10_TEX1D_ARRAY_SRV, offset: 8 })
+        DefineProp(this.Prototype, 'Texture2D', { type: D3D10_TEX2D_SRV, offset: 8 })
+        DefineProp(this.Prototype, 'Texture2DArray', { type: D3D10_TEX2D_ARRAY_SRV, offset: 8 })
+        DefineProp(this.Prototype, 'Texture2DMS', { type: D3D10_TEX2DMS_SRV, offset: 8 })
+        DefineProp(this.Prototype, 'Texture2DMSArray', { type: D3D10_TEX2DMS_ARRAY_SRV, offset: 8 })
+        DefineProp(this.Prototype, 'Texture3D', { type: D3D10_TEX3D_SRV, offset: 8 })
+        DefineProp(this.Prototype, 'TextureCube', { type: D3D10_TEXCUBE_SRV, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

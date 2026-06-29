@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SCSI_ADDRESS.ahk
-#Include ..\..\System\Ioctl\STORAGE_DEVICE_NUMBER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SCSI_ADDRESS.ahk" { SCSI_ADDRESS }
+#Import "..\..\System\Ioctl\STORAGE_DEVICE_NUMBER.ahk" { STORAGE_DEVICE_NUMBER }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * ISCSI_DEVICE_ON_SESSION structure specifies multiple methods for identifying a device associated with an iSCSI login session. (ANSI)
@@ -12,40 +13,23 @@
  * @namespace Windows.Win32.Storage.IscsiDisc
  * @charset ANSI
  */
-class ISCSI_DEVICE_ON_SESSIONA extends Win32Struct {
-    static sizeof => 1032
-
-    static packingSize => 8
+export default struct ISCSI_DEVICE_ON_SESSIONA {
+    #StructPack 4
 
     /**
      * A string that indicates the initiator name.
-     * @type {String}
      */
-    InitiatorName {
-        get => StrGet(this.ptr + 0, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 0, 255, "UTF-8")
-    }
+    InitiatorName : CHAR[256]
 
     /**
      * A string that indicates the target name.
-     * @type {String}
      */
-    TargetName {
-        get => StrGet(this.ptr + 256, 223, "UTF-8")
-        set => StrPut(value, this.ptr + 256, 223, "UTF-8")
-    }
+    TargetName : CHAR[224]
 
     /**
      * A SCSI_ADDRESS structure that contains the SCSI address of the device.
-     * @type {SCSI_ADDRESS}
      */
-    ScsiAddress {
-        get {
-            if(!this.HasProp("__ScsiAddress"))
-                this.__ScsiAddress := SCSI_ADDRESS(480, this)
-            return this.__ScsiAddress
-        }
-    }
+    ScsiAddress : SCSI_ADDRESS
 
     /**
      * A GUID that specifies the device interface class associated with the device. Device interface class GUIDs include, but are not limited to, the following:
@@ -84,49 +68,27 @@ class ISCSI_DEVICE_ON_SESSIONA extends Win32Struct {
      * <td>Floppy</td>
      * </tr>
      * </table>
-     * @type {Pointer}
      */
-    DeviceInterfaceType {
-        get => NumGet(this, 488, "ptr")
-        set => NumPut("ptr", value, this, 488)
-    }
+    DeviceInterfaceType : Guid
 
     /**
      * A string that specifies the name of the device interface class.
-     * @type {String}
      */
-    DeviceInterfaceName {
-        get => StrGet(this.ptr + 496, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 496, 259, "UTF-8")
-    }
+    DeviceInterfaceName : CHAR[260]
 
     /**
      * A string that specifies the legacy device name.
-     * @type {String}
      */
-    LegacyName {
-        get => StrGet(this.ptr + 756, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 756, 259, "UTF-8")
-    }
+    LegacyName : CHAR[260]
 
     /**
      * A <b>STORAGE_DEVICE_NUMBER</b> structure containing the storage device number.
-     * @type {STORAGE_DEVICE_NUMBER}
      */
-    StorageDeviceNumber {
-        get {
-            if(!this.HasProp("__StorageDeviceNumber"))
-                this.__StorageDeviceNumber := STORAGE_DEVICE_NUMBER(1016, this)
-            return this.__StorageDeviceNumber
-        }
-    }
+    StorageDeviceNumber : STORAGE_DEVICE_NUMBER
 
     /**
      * A handle to the instance of the device in the devnode tree. For information on the cfgmgr32Xxx functions that utilize this handle, see PnP Configuration Manager Functions.
-     * @type {Integer}
      */
-    DeviceInstance {
-        get => NumGet(this, 1028, "uint")
-        set => NumPut("uint", value, this, 1028)
-    }
+    DeviceInstance : UInt32
+
 }

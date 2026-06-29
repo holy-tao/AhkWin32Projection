@@ -1,7 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSDXML_ELEMENT.ahk
-#Include .\WSDXML_NODE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
 
 /**
  * Describes an XML node.
@@ -10,50 +8,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/wsdxmldom/ns-wsdxmldom-wsdxml_node
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class WSDXML_NODE extends Win32Struct {
-    static sizeof => 32
+export default struct WSDXML_NODE {
+    #StructPack 8
 
-    static packingSize => 8
+    Type : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
-
+    __Parent_ptr : IntPtr
     /**
      * Reference to the parent node in a linked list of <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_element">WSDXML_ELEMENT</a> structures.
-     * @type {Pointer<WSDXML_ELEMENT>}
      */
     Parent {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => (addr := this.__Parent_ptr) ? WSDXML_ELEMENT.At(addr) : unset
+        set => this.__Parent_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
     /**
      * Reference to the next node in the linked list of <b>WSDXML_NODE</b> structures.
-     * @type {Pointer<WSDXML_NODE>}
      */
-    Next {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Next : WSDXML_NODE.Ptr
 
-    /**
-     * @type {Integer}
-     */
-    ElementType {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    ElementType : Int32
 
-    /**
-     * @type {Integer}
-     */
-    TextType {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    TextType : Int32
+
 }

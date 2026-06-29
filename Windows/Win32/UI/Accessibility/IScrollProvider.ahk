@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ScrollAmount.ahk" { ScrollAmount }
 
 /**
  * Provides access to controls that act as scrollable containers for a collection of child objects.
@@ -11,26 +14,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-iscrollprovider
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IScrollProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IScrollProvider extends IUnknown {
     /**
      * The interface identifier for IScrollProvider
      * @type {Guid}
      */
-    static IID => Guid("{b38b8077-1fc3-42a5-8cae-d40c2215055a}")
+    static IID := Guid("{b38b8077-1fc3-42a5-8cae-d40c2215055a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IScrollProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Scroll                      : IntPtr
+        SetScrollPercent            : IntPtr
+        get_HorizontalScrollPercent : IntPtr
+        get_VerticalScrollPercent   : IntPtr
+        get_HorizontalViewSize      : IntPtr
+        get_VerticalViewSize        : IntPtr
+        get_HorizontallyScrollable  : IntPtr
+        get_VerticallyScrollable    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Scroll", "SetScrollPercent", "get_HorizontalScrollPercent", "get_VerticalScrollPercent", "get_HorizontalViewSize", "get_VerticalViewSize", "get_HorizontallyScrollable", "get_VerticallyScrollable"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IScrollProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Float} 
@@ -84,7 +101,7 @@ class IScrollProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iscrollprovider-scroll
      */
     Scroll(horizontalAmount, verticalAmount) {
-        result := ComCall(3, this, "int", horizontalAmount, "int", verticalAmount, "HRESULT")
+        result := ComCall(3, this, ScrollAmount, horizontalAmount, ScrollAmount, verticalAmount, "HRESULT")
         return result
     }
 
@@ -164,7 +181,7 @@ class IScrollProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iscrollprovider-get_horizontallyscrollable
      */
     get_HorizontallyScrollable() {
-        result := ComCall(9, this, "int*", &pRetVal := 0, "HRESULT")
+        result := ComCall(9, this, BOOL.Ptr, &pRetVal := 0, "HRESULT")
         return pRetVal
     }
 
@@ -179,7 +196,41 @@ class IScrollProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iscrollprovider-get_verticallyscrollable
      */
     get_VerticallyScrollable() {
-        result := ComCall(10, this, "int*", &pRetVal := 0, "HRESULT")
+        result := ComCall(10, this, BOOL.Ptr, &pRetVal := 0, "HRESULT")
         return pRetVal
+    }
+
+    Query(iid) {
+        if (IScrollProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Scroll := CallbackCreate(GetMethod(implObj, "Scroll"), flags, 3)
+        this.vtbl.SetScrollPercent := CallbackCreate(GetMethod(implObj, "SetScrollPercent"), flags, 3)
+        this.vtbl.get_HorizontalScrollPercent := CallbackCreate(GetMethod(implObj, "get_HorizontalScrollPercent"), flags, 2)
+        this.vtbl.get_VerticalScrollPercent := CallbackCreate(GetMethod(implObj, "get_VerticalScrollPercent"), flags, 2)
+        this.vtbl.get_HorizontalViewSize := CallbackCreate(GetMethod(implObj, "get_HorizontalViewSize"), flags, 2)
+        this.vtbl.get_VerticalViewSize := CallbackCreate(GetMethod(implObj, "get_VerticalViewSize"), flags, 2)
+        this.vtbl.get_HorizontallyScrollable := CallbackCreate(GetMethod(implObj, "get_HorizontallyScrollable"), flags, 2)
+        this.vtbl.get_VerticallyScrollable := CallbackCreate(GetMethod(implObj, "get_VerticallyScrollable"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Scroll)
+        CallbackFree(this.vtbl.SetScrollPercent)
+        CallbackFree(this.vtbl.get_HorizontalScrollPercent)
+        CallbackFree(this.vtbl.get_VerticalScrollPercent)
+        CallbackFree(this.vtbl.get_HorizontalViewSize)
+        CallbackFree(this.vtbl.get_VerticalViewSize)
+        CallbackFree(this.vtbl.get_HorizontallyScrollable)
+        CallbackFree(this.vtbl.get_VerticallyScrollable)
     }
 }

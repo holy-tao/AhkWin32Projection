@@ -1,42 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\INVOC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\INVOC.ahk" { INVOC }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class UNI_CODEPAGEINFO extends Win32Struct {
-    static sizeof => 20
+export default struct UNI_CODEPAGEINFO {
+    #StructPack 4
 
-    static packingSize => 4
+    dwCodePage : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCodePage {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SelectSymbolSet : INVOC
 
-    /**
-     * @type {INVOC}
-     */
-    SelectSymbolSet {
-        get {
-            if(!this.HasProp("__SelectSymbolSet"))
-                this.__SelectSymbolSet := INVOC(4, this)
-            return this.__SelectSymbolSet
-        }
-    }
+    UnSelectSymbolSet : INVOC
 
-    /**
-     * @type {INVOC}
-     */
-    UnSelectSymbolSet {
-        get {
-            if(!this.HasProp("__UnSelectSymbolSet"))
-                this.__UnSelectSymbolSet := INVOC(12, this)
-            return this.__UnSelectSymbolSet
-        }
-    }
 }

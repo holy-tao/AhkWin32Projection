@@ -1,39 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_DATETIME.ahk
-#Include .\WS_DATETIME_FORMAT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_DATETIME.ahk" { WS_DATETIME }
+#Import ".\WS_DATETIME_FORMAT.ahk" { WS_DATETIME_FORMAT }
 
 /**
  * This type description is used with WS_DATETIME_TYPE and is optional. It is used to specify constraints on the set of values which can be deserialized.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_datetime_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_DATETIME_DESCRIPTION extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct WS_DATETIME_DESCRIPTION {
+    #StructPack 8
 
     /**
      * The minimum value.
-     * @type {WS_DATETIME}
      */
-    minValue {
-        get {
-            if(!this.HasProp("__minValue"))
-                this.__minValue := WS_DATETIME(0, this)
-            return this.__minValue
-        }
-    }
+    minValue : WS_DATETIME
 
     /**
      * The maximum value.
-     * @type {WS_DATETIME}
      */
-    maxValue {
-        get {
-            if(!this.HasProp("__maxValue"))
-                this.__maxValue := WS_DATETIME(16, this)
-            return this.__maxValue
-        }
-    }
+    maxValue : WS_DATETIME
+
 }

@@ -1,10 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIDeviceSubObject.ahk
-#Include .\DXGI_SWAP_CHAIN_DESC.ahk
-#Include .\IDXGIOutput.ahk
-#Include .\DXGI_FRAME_STATISTICS.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDXGIDeviceSubObject.ahk" { IDXGIDeviceSubObject }
+#Import ".\DXGI_SWAP_CHAIN_DESC.ahk" { DXGI_SWAP_CHAIN_DESC }
+#Import ".\DXGI_PRESENT.ahk" { DXGI_PRESENT }
+#Import ".\DXGI_FRAME_STATISTICS.ahk" { DXGI_FRAME_STATISTICS }
+#Import "Common\DXGI_MODE_DESC.ahk" { DXGI_MODE_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDXGIOutput.ahk" { IDXGIOutput }
 
 /**
  * An IDXGISwapChain interface implements one or more surfaces for storing rendered data before presenting it to an output.
@@ -14,26 +19,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/nn-dxgi-idxgiswapchain
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGISwapChain extends IDXGIDeviceSubObject {
-
-    static sizeof => A_PtrSize
+export default struct IDXGISwapChain extends IDXGIDeviceSubObject {
     /**
      * The interface identifier for IDXGISwapChain
      * @type {Guid}
      */
-    static IID => Guid("{310d36a0-d2e7-4c0a-aa04-6a9d23b8886a}")
+    static IID := Guid("{310d36a0-d2e7-4c0a-aa04-6a9d23b8886a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGISwapChain interfaces
+    */
+    struct Vtbl extends IDXGIDeviceSubObject.Vtbl {
+        Present             : IntPtr
+        GetBuffer           : IntPtr
+        SetFullscreenState  : IntPtr
+        GetFullscreenState  : IntPtr
+        GetDesc             : IntPtr
+        ResizeBuffers       : IntPtr
+        ResizeTarget        : IntPtr
+        GetContainingOutput : IntPtr
+        GetFrameStatistics  : IntPtr
+        GetLastPresentCount : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Present", "GetBuffer", "SetFullscreenState", "GetFullscreenState", "GetDesc", "ResizeBuffers", "ResizeTarget", "GetContainingOutput", "GetFrameStatistics", "GetLastPresentCount"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGISwapChain.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Presents a rendered image to the user.
@@ -103,7 +124,7 @@ class IDXGISwapChain extends IDXGIDeviceSubObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiswapchain-present
      */
     Present(SyncInterval, Flags) {
-        result := ComCall(8, this, "uint", SyncInterval, "uint", Flags, "int")
+        result := ComCall(8, this, "uint", SyncInterval, DXGI_PRESENT, Flags, Int32)
         return result
     }
 
@@ -125,7 +146,7 @@ class IDXGISwapChain extends IDXGIDeviceSubObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiswapchain-getbuffer
      */
     GetBuffer(_Buffer, riid) {
-        result := ComCall(9, this, "uint", _Buffer, "ptr", riid, "ptr*", &ppSurface := 0, "HRESULT")
+        result := ComCall(9, this, "uint", _Buffer, Guid.Ptr, riid, "ptr*", &ppSurface := 0, "HRESULT")
         return ppSurface
     }
 
@@ -163,7 +184,7 @@ class IDXGISwapChain extends IDXGIDeviceSubObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiswapchain-setfullscreenstate
      */
     SetFullscreenState(Fullscreen, pTarget) {
-        result := ComCall(10, this, "int", Fullscreen, "ptr", pTarget, "HRESULT")
+        result := ComCall(10, this, BOOL, Fullscreen, "ptr", pTarget, "HRESULT")
         return result
     }
 
@@ -191,7 +212,7 @@ class IDXGISwapChain extends IDXGIDeviceSubObject {
     GetFullscreenState(pFullscreen, ppTarget) {
         pFullscreenMarshal := pFullscreen is VarRef ? "int*" : "ptr"
 
-        result := ComCall(11, this, pFullscreenMarshal, pFullscreen, "ptr*", ppTarget, "HRESULT")
+        result := ComCall(11, this, pFullscreenMarshal, pFullscreen, IDXGIOutput.Ptr, ppTarget, "HRESULT")
         return result
     }
 
@@ -204,7 +225,7 @@ class IDXGISwapChain extends IDXGIDeviceSubObject {
      */
     GetDesc() {
         pDesc := DXGI_SWAP_CHAIN_DESC()
-        result := ComCall(12, this, "ptr", pDesc, "HRESULT")
+        result := ComCall(12, this, DXGI_SWAP_CHAIN_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -279,7 +300,7 @@ class IDXGISwapChain extends IDXGIDeviceSubObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiswapchain-resizebuffers
      */
     ResizeBuffers(BufferCount, Width, Height, NewFormat, SwapChainFlags) {
-        result := ComCall(13, this, "uint", BufferCount, "uint", Width, "uint", Height, "int", NewFormat, "uint", SwapChainFlags, "HRESULT")
+        result := ComCall(13, this, "uint", BufferCount, "uint", Width, "uint", Height, DXGI_FORMAT, NewFormat, "uint", SwapChainFlags, "HRESULT")
         return result
     }
 
@@ -307,7 +328,7 @@ class IDXGISwapChain extends IDXGIDeviceSubObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiswapchain-resizetarget
      */
     ResizeTarget(pNewTargetParameters) {
-        result := ComCall(14, this, "ptr", pNewTargetParameters, "HRESULT")
+        result := ComCall(14, this, DXGI_MODE_DESC.Ptr, pNewTargetParameters, "HRESULT")
         return result
     }
 
@@ -346,7 +367,7 @@ class IDXGISwapChain extends IDXGIDeviceSubObject {
      */
     GetFrameStatistics() {
         pStats := DXGI_FRAME_STATISTICS()
-        result := ComCall(16, this, "ptr", pStats, "HRESULT")
+        result := ComCall(16, this, DXGI_FRAME_STATISTICS.Ptr, pStats, "HRESULT")
         return pStats
     }
 
@@ -362,5 +383,43 @@ class IDXGISwapChain extends IDXGIDeviceSubObject {
     GetLastPresentCount() {
         result := ComCall(17, this, "uint*", &pLastPresentCount := 0, "HRESULT")
         return pLastPresentCount
+    }
+
+    Query(iid) {
+        if (IDXGISwapChain.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Present := CallbackCreate(GetMethod(implObj, "Present"), flags, 3)
+        this.vtbl.GetBuffer := CallbackCreate(GetMethod(implObj, "GetBuffer"), flags, 4)
+        this.vtbl.SetFullscreenState := CallbackCreate(GetMethod(implObj, "SetFullscreenState"), flags, 3)
+        this.vtbl.GetFullscreenState := CallbackCreate(GetMethod(implObj, "GetFullscreenState"), flags, 3)
+        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 2)
+        this.vtbl.ResizeBuffers := CallbackCreate(GetMethod(implObj, "ResizeBuffers"), flags, 6)
+        this.vtbl.ResizeTarget := CallbackCreate(GetMethod(implObj, "ResizeTarget"), flags, 2)
+        this.vtbl.GetContainingOutput := CallbackCreate(GetMethod(implObj, "GetContainingOutput"), flags, 2)
+        this.vtbl.GetFrameStatistics := CallbackCreate(GetMethod(implObj, "GetFrameStatistics"), flags, 2)
+        this.vtbl.GetLastPresentCount := CallbackCreate(GetMethod(implObj, "GetLastPresentCount"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Present)
+        CallbackFree(this.vtbl.GetBuffer)
+        CallbackFree(this.vtbl.SetFullscreenState)
+        CallbackFree(this.vtbl.GetFullscreenState)
+        CallbackFree(this.vtbl.GetDesc)
+        CallbackFree(this.vtbl.ResizeBuffers)
+        CallbackFree(this.vtbl.ResizeTarget)
+        CallbackFree(this.vtbl.GetContainingOutput)
+        CallbackFree(this.vtbl.GetFrameStatistics)
+        CallbackFree(this.vtbl.GetLastPresentCount)
     }
 }

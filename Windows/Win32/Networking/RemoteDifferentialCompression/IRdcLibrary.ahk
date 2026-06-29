@@ -1,43 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IRdcGeneratorParameters.ahk
-#Include .\IRdcGenerator.ahk
-#Include .\IRdcComparator.ahk
-#Include .\IRdcSignatureReader.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IRdcSignatureReader.ahk" { IRdcSignatureReader }
+#Import ".\IRdcGenerator.ahk" { IRdcGenerator }
+#Import ".\IRdcGeneratorParameters.ahk" { IRdcGeneratorParameters }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRdcFileReader.ahk" { IRdcFileReader }
+#Import ".\IRdcComparator.ahk" { IRdcComparator }
+#Import ".\GeneratorParametersType.ahk" { GeneratorParametersType }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Is the primary interface for using RDC.
  * @see https://learn.microsoft.com/windows/win32/api/msrdc/nn-msrdc-irdclibrary
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  */
-class IRdcLibrary extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRdcLibrary extends IUnknown {
     /**
      * The interface identifier for IRdcLibrary
      * @type {Guid}
      */
-    static IID => Guid("{96236a78-9dbc-11da-9e3f-0011114ae311}")
+    static IID := Guid("{96236a78-9dbc-11da-9e3f-0011114ae311}")
 
     /**
      * The class identifier for RdcLibrary
      * @type {Guid}
      */
-    static CLSID => Guid("{96236a85-9dbc-11da-9e3f-0011114ae311}")
+    static CLSID := Guid("{96236a85-9dbc-11da-9e3f-0011114ae311}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRdcLibrary interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ComputeDefaultRecursionDepth : IntPtr
+        CreateGeneratorParameters    : IntPtr
+        OpenGeneratorParameters      : IntPtr
+        CreateGenerator              : IntPtr
+        CreateComparator             : IntPtr
+        CreateSignatureReader        : IntPtr
+        GetRDCVersion                : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ComputeDefaultRecursionDepth", "CreateGeneratorParameters", "OpenGeneratorParameters", "CreateGenerator", "CreateComparator", "CreateSignatureReader", "GetRDCVersion"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRdcLibrary.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Computes the maximum level of recursion for the specified file size.
@@ -65,7 +81,7 @@ class IRdcLibrary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdclibrary-creategeneratorparameters
      */
     CreateGeneratorParameters(parametersType, level) {
-        result := ComCall(4, this, "int", parametersType, "uint", level, "ptr*", &iGeneratorParameters := 0, "HRESULT")
+        result := ComCall(4, this, GeneratorParametersType, parametersType, "uint", level, "ptr*", &iGeneratorParameters := 0, "HRESULT")
         return IRdcGeneratorParameters(iGeneratorParameters)
     }
 
@@ -103,7 +119,7 @@ class IRdcLibrary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdclibrary-creategenerator
      */
     CreateGenerator(depth, iGeneratorParametersArray) {
-        result := ComCall(6, this, "uint", depth, "ptr*", iGeneratorParametersArray, "ptr*", &iGenerator := 0, "HRESULT")
+        result := ComCall(6, this, "uint", depth, IRdcGeneratorParameters.Ptr, iGeneratorParametersArray, "ptr*", &iGenerator := 0, "HRESULT")
         return IRdcGenerator(iGenerator)
     }
 
@@ -156,5 +172,37 @@ class IRdcLibrary extends IUnknown {
 
         result := ComCall(9, this, currentVersionMarshal, currentVersion, minimumCompatibleAppVersionMarshal, minimumCompatibleAppVersion, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRdcLibrary.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ComputeDefaultRecursionDepth := CallbackCreate(GetMethod(implObj, "ComputeDefaultRecursionDepth"), flags, 3)
+        this.vtbl.CreateGeneratorParameters := CallbackCreate(GetMethod(implObj, "CreateGeneratorParameters"), flags, 4)
+        this.vtbl.OpenGeneratorParameters := CallbackCreate(GetMethod(implObj, "OpenGeneratorParameters"), flags, 4)
+        this.vtbl.CreateGenerator := CallbackCreate(GetMethod(implObj, "CreateGenerator"), flags, 4)
+        this.vtbl.CreateComparator := CallbackCreate(GetMethod(implObj, "CreateComparator"), flags, 4)
+        this.vtbl.CreateSignatureReader := CallbackCreate(GetMethod(implObj, "CreateSignatureReader"), flags, 3)
+        this.vtbl.GetRDCVersion := CallbackCreate(GetMethod(implObj, "GetRDCVersion"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ComputeDefaultRecursionDepth)
+        CallbackFree(this.vtbl.CreateGeneratorParameters)
+        CallbackFree(this.vtbl.OpenGeneratorParameters)
+        CallbackFree(this.vtbl.CreateGenerator)
+        CallbackFree(this.vtbl.CreateComparator)
+        CallbackFree(this.vtbl.CreateSignatureReader)
+        CallbackFree(this.vtbl.GetRDCVersion)
     }
 }

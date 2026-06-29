@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the state of the machine for the current user in relation to the propriety of sending a notification. Used by SHQueryUserNotificationState.
  * @see https://learn.microsoft.com/windows/win32/api/shellapi/ne-shellapi-query_user_notification_state
  * @namespace Windows.Win32.UI.Shell
  */
-class QUERY_USER_NOTIFICATION_STATE extends Win32Enum {
+export default struct QUERY_USER_NOTIFICATION_STATE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * A screen saver is displayed, the machine is locked, or a nonactive Fast User Switching session is in progress.

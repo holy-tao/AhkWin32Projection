@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class SPPHRASEREPLACEMENT extends Win32Struct {
-    static sizeof => 24
+export default struct SPPHRASEREPLACEMENT {
+    #StructPack 8
 
-    static packingSize => 8
+    bDisplayAttributes : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bDisplayAttributes {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    pszReplacementText : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszReplacementText {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ulFirstElement : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulFirstElement {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ulCountOfElements : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulCountOfElements {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

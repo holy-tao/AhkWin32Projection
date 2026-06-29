@@ -1,55 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\System\Kernel\LIST_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\System\Kernel\LIST_ENTRY.ahk" { LIST_ENTRY }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class KSEC_LIST_ENTRY extends Win32Struct {
-    static sizeof => 40
+export default struct KSEC_LIST_ENTRY {
+    #StructPack 8
 
-    static packingSize => 8
+    List : LIST_ENTRY
 
-    /**
-     * @type {LIST_ENTRY}
-     */
-    List {
-        get {
-            if(!this.HasProp("__List"))
-                this.__List := LIST_ENTRY(0, this)
-            return this.__List
-        }
-    }
+    RefCount : Int32
 
-    /**
-     * @type {Integer}
-     */
-    RefCount {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    Signature : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Signature {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    OwningList : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    OwningList {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Reserved : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Reserved {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
 }

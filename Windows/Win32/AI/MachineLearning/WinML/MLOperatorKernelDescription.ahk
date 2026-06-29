@@ -1,95 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MLOperatorExecutionType.ahk
-#Include .\MLOperatorEdgeTypeConstraint.ahk
-#Include .\MLOperatorAttributeNameValue.ahk
-#Include .\MLOperatorKernelOptions.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MLOperatorEdgeTypeConstraint.ahk" { MLOperatorEdgeTypeConstraint }
+#Import ".\MLOperatorKernelOptions.ahk" { MLOperatorKernelOptions }
+#Import ".\MLOperatorAttributeNameValue.ahk" { MLOperatorAttributeNameValue }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\MLOperatorExecutionType.ahk" { MLOperatorExecutionType }
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML
  */
-class MLOperatorKernelDescription extends Win32Struct {
-    static sizeof => 64
+export default struct MLOperatorKernelDescription {
+    #StructPack 8
 
-    static packingSize => 8
+    domain : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    domain {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    name : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    name {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    minimumOperatorSetVersion : Int32
 
-    /**
-     * @type {Integer}
-     */
-    minimumOperatorSetVersion {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    executionType : MLOperatorExecutionType
 
-    /**
-     * @type {MLOperatorExecutionType}
-     */
-    executionType {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    typeConstraints : MLOperatorEdgeTypeConstraint.Ptr
 
-    /**
-     * @type {Pointer<MLOperatorEdgeTypeConstraint>}
-     */
-    typeConstraints {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    typeConstraintCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    typeConstraintCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    defaultAttributes : MLOperatorAttributeNameValue.Ptr
 
-    /**
-     * @type {Pointer<MLOperatorAttributeNameValue>}
-     */
-    defaultAttributes {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    defaultAttributeCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    defaultAttributeCount {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    options : MLOperatorKernelOptions
 
-    /**
-     * @type {MLOperatorKernelOptions}
-     */
-    options {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    executionOptions : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    executionOptions {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
 }

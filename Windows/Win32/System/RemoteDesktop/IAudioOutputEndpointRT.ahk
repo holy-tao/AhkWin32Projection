@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\AE_CURRENT_POSITION.ahk" { AE_CURRENT_POSITION }
+#Import "..\..\Media\Audio\Apo\APO_CONNECTION_PROPERTY.ahk" { APO_CONNECTION_PROPERTY }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Gets the output buffer for each processing pass.
@@ -15,26 +17,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nn-audioengineendpoint-iaudiooutputendpointrt
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class IAudioOutputEndpointRT extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAudioOutputEndpointRT extends IUnknown {
     /**
      * The interface identifier for IAudioOutputEndpointRT
      * @type {Guid}
      */
-    static IID => Guid("{8fa906e4-c31c-4e31-932e-19a66385e9aa}")
+    static IID := Guid("{8fa906e4-c31c-4e31-932e-19a66385e9aa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAudioOutputEndpointRT interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetOutputDataPointer     : IntPtr
+        ReleaseOutputDataPointer : IntPtr
+        PulseEndpoint            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetOutputDataPointer", "ReleaseOutputDataPointer", "PulseEndpoint"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAudioOutputEndpointRT.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns a pointer to the output buffer in which data will be written by the audio engine.
@@ -57,7 +68,7 @@ class IAudioOutputEndpointRT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudiooutputendpointrt-getoutputdatapointer
      */
     GetOutputDataPointer(u32FrameCount, pAeTimeStamp) {
-        result := ComCall(3, this, "uint", u32FrameCount, "ptr", pAeTimeStamp, "ptr")
+        result := ComCall(3, this, "uint", u32FrameCount, AE_CURRENT_POSITION.Ptr, pAeTimeStamp, IntPtr)
         return result
     }
 
@@ -91,7 +102,7 @@ class IAudioOutputEndpointRT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudiooutputendpointrt-releaseoutputdatapointer
      */
     ReleaseOutputDataPointer(pConnectionProperty) {
-        ComCall(4, this, "ptr", pConnectionProperty)
+        ComCall(4, this, APO_CONNECTION_PROPERTY.Ptr, pConnectionProperty)
     }
 
     /**
@@ -106,5 +117,29 @@ class IAudioOutputEndpointRT extends IUnknown {
      */
     PulseEndpoint() {
         ComCall(5, this)
+    }
+
+    Query(iid) {
+        if (IAudioOutputEndpointRT.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetOutputDataPointer := CallbackCreate(GetMethod(implObj, "GetOutputDataPointer"), flags, 3)
+        this.vtbl.ReleaseOutputDataPointer := CallbackCreate(GetMethod(implObj, "ReleaseOutputDataPointer"), flags, 2)
+        this.vtbl.PulseEndpoint := CallbackCreate(GetMethod(implObj, "PulseEndpoint"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetOutputDataPointer)
+        CallbackFree(this.vtbl.ReleaseOutputDataPointer)
+        CallbackFree(this.vtbl.PulseEndpoint)
     }
 }

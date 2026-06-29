@@ -1,124 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMT_PRESENT_MODEL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DKMT_PRESENT_MODEL.ahk" { D3DKMT_PRESENT_MODEL }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_PRESENTHISTORYTOKEN extends Win32Struct {
-    static sizeof => 24
+export default struct D3DKMT_PRESENTHISTORYTOKEN {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Token_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _Token {
+        Flip : IntPtr
 
-        /**
-         * @type {Pointer}
-         */
-        Flip {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        Blt {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        VistaBlt {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        Gdi {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        Fence {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        GdiSysMem {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        Composition {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        FlipManager {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        SurfaceComplete {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'Blt', { type: IntPtr, offset: 0 })
+            DefineProp(this.Prototype, 'VistaBlt', { type: Int64, offset: 0 })
+            DefineProp(this.Prototype, 'Gdi', { type: IntPtr, offset: 0 })
+            DefineProp(this.Prototype, 'Fence', { type: IntPtr, offset: 0 })
+            DefineProp(this.Prototype, 'GdiSysMem', { type: IntPtr, offset: 0 })
+            DefineProp(this.Prototype, 'Composition', { type: IntPtr, offset: 0 })
+            DefineProp(this.Prototype, 'FlipManager', { type: IntPtr, offset: 0 })
+            DefineProp(this.Prototype, 'SurfaceComplete', { type: IntPtr, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {D3DKMT_PRESENT_MODEL}
-     */
-    Model {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Model : D3DKMT_PRESENT_MODEL
 
-    /**
-     * @type {Integer}
-     */
-    TokenSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    TokenSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CompositionBindingId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    CompositionBindingId : Int64
 
-    /**
-     * @type {_Token_e__Union}
-     */
-    Token {
-        get {
-            if(!this.HasProp("__Token"))
-                this.__Token := D3DKMT_PRESENTHISTORYTOKEN._Token_e__Union(16, this)
-            return this.__Token
-        }
-    }
+    Token : D3DKMT_PRESENTHISTORYTOKEN._Token
+
 }

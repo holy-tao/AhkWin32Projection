@@ -1,9 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\IMAGE_OPTIONAL_HEADER_MAGIC.ahk
-#Include .\IMAGE_SUBSYSTEM.ahk
-#Include .\IMAGE_DLL_CHARACTERISTICS.ahk
-#Include .\IMAGE_DATA_DIRECTORY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IMAGE_DLL_CHARACTERISTICS.ahk" { IMAGE_DLL_CHARACTERISTICS }
+#Import ".\IMAGE_OPTIONAL_HEADER_MAGIC.ahk" { IMAGE_OPTIONAL_HEADER_MAGIC }
+#Import ".\IMAGE_DATA_DIRECTORY.ahk" { IMAGE_DATA_DIRECTORY }
+#Import ".\IMAGE_SUBSYSTEM.ahk" { IMAGE_SUBSYSTEM }
 
 /**
  * Represents the optional header format. (32 bit)
@@ -56,201 +55,117 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_optional_header32
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class IMAGE_OPTIONAL_HEADER32 extends Win32Struct {
-    static sizeof => 224
+export default struct IMAGE_OPTIONAL_HEADER32 {
+    #StructPack 4
 
-    static packingSize => 4
-
-    /**
-     * @type {IMAGE_OPTIONAL_HEADER_MAGIC}
-     */
-    Magic {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Magic : IMAGE_OPTIONAL_HEADER_MAGIC
 
     /**
      * The major version number of the linker.
-     * @type {Integer}
      */
-    MajorLinkerVersion {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    MajorLinkerVersion : Int8
 
     /**
      * The minor version number of the linker.
-     * @type {Integer}
      */
-    MinorLinkerVersion {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    MinorLinkerVersion : Int8
 
     /**
      * The size of the code section, in bytes, or the sum of all such sections if there are multiple code 
      *       sections.
-     * @type {Integer}
      */
-    SizeOfCode {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SizeOfCode : UInt32
 
     /**
      * The size of the initialized data section, in bytes, or the sum of all such sections if there are multiple 
      *       initialized data sections.
-     * @type {Integer}
      */
-    SizeOfInitializedData {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SizeOfInitializedData : UInt32
 
     /**
      * The size of the uninitialized data section, in bytes, or the sum of all such sections if there are multiple 
      *       uninitialized data sections.
-     * @type {Integer}
      */
-    SizeOfUninitializedData {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    SizeOfUninitializedData : UInt32
 
     /**
      * A pointer to the entry point function, relative to the image base address. For executable files, this is 
      *       the starting address. For device drivers, this is the address of the initialization function. The entry point 
      *       function is optional for DLLs. When no entry point is present, this member is zero.
-     * @type {Integer}
      */
-    AddressOfEntryPoint {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    AddressOfEntryPoint : UInt32
 
     /**
      * A pointer to the beginning of the code section, relative to the image base.
-     * @type {Integer}
      */
-    BaseOfCode {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    BaseOfCode : UInt32
 
     /**
      * A pointer to the beginning of the data section, relative to the image base.
-     * @type {Integer}
      */
-    BaseOfData {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    BaseOfData : UInt32
 
     /**
      * The preferred address of the first byte of the image when it is loaded in memory. This value is a multiple 
      *       of 64K bytes. The default value for DLLs is 0x10000000. The default value for applications is 0x00400000, except 
      *       on Windows CE where it is 0x00010000.
-     * @type {Integer}
      */
-    ImageBase {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    ImageBase : UInt32
 
     /**
      * The alignment of sections loaded in memory, in bytes. This value must be greater than or equal to the 
      *       <b>FileAlignment</b> member. The default value is the page size for the system.
-     * @type {Integer}
      */
-    SectionAlignment {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    SectionAlignment : UInt32
 
     /**
      * The alignment of the raw data of sections in the image file, in bytes. The value should be a power of 2 
      *       between 512 and 64K (inclusive). The default is 512. If the <b>SectionAlignment</b> member 
      *       is less than the system page size, this member must be the same as 
      *       <b>SectionAlignment</b>.
-     * @type {Integer}
      */
-    FileAlignment {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    FileAlignment : UInt32
 
     /**
      * The major version number of the required operating system.
-     * @type {Integer}
      */
-    MajorOperatingSystemVersion {
-        get => NumGet(this, 40, "ushort")
-        set => NumPut("ushort", value, this, 40)
-    }
+    MajorOperatingSystemVersion : UInt16
 
     /**
      * The minor version number of the required operating system.
-     * @type {Integer}
      */
-    MinorOperatingSystemVersion {
-        get => NumGet(this, 42, "ushort")
-        set => NumPut("ushort", value, this, 42)
-    }
+    MinorOperatingSystemVersion : UInt16
 
     /**
      * The major version number of the image.
-     * @type {Integer}
      */
-    MajorImageVersion {
-        get => NumGet(this, 44, "ushort")
-        set => NumPut("ushort", value, this, 44)
-    }
+    MajorImageVersion : UInt16
 
     /**
      * The minor version number of the image.
-     * @type {Integer}
      */
-    MinorImageVersion {
-        get => NumGet(this, 46, "ushort")
-        set => NumPut("ushort", value, this, 46)
-    }
+    MinorImageVersion : UInt16
 
     /**
      * The major version number of the subsystem.
-     * @type {Integer}
      */
-    MajorSubsystemVersion {
-        get => NumGet(this, 48, "ushort")
-        set => NumPut("ushort", value, this, 48)
-    }
+    MajorSubsystemVersion : UInt16
 
     /**
      * The minor version number of the subsystem.
-     * @type {Integer}
      */
-    MinorSubsystemVersion {
-        get => NumGet(this, 50, "ushort")
-        set => NumPut("ushort", value, this, 50)
-    }
+    MinorSubsystemVersion : UInt16
 
     /**
      * This member is reserved and must be 0.
-     * @type {Integer}
      */
-    Win32VersionValue {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    Win32VersionValue : UInt32
 
     /**
      * The size of the image, in bytes, including all headers. Must be a multiple of 
      *       <b>SectionAlignment</b>.
-     * @type {Integer}
      */
-    SizeOfImage {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    SizeOfImage : UInt32
 
     /**
      * The combined size of the following items, rounded to a multiple of the value specified in the 
@@ -265,22 +180,14 @@ class IMAGE_OPTIONAL_HEADER32 extends Win32Struct {
      * <li>size of optional header</li>
      * <li>size of all section headers</li>
      * </ul>
-     * @type {Integer}
      */
-    SizeOfHeaders {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    SizeOfHeaders : UInt32
 
     /**
      * The image file checksum. The following files are validated at load time: all drivers, any DLL loaded at 
      *       boot time, and any DLL loaded into a critical system process.
-     * @type {Integer}
      */
-    CheckSum {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    CheckSum : UInt32
 
     /**
      * The subsystem required to run this image. The following values are defined.
@@ -434,12 +341,8 @@ class IMAGE_OPTIONAL_HEADER32 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {IMAGE_SUBSYSTEM}
      */
-    Subsystem {
-        get => NumGet(this, 68, "ushort")
-        set => NumPut("ushort", value, this, 68)
-    }
+    Subsystem : IMAGE_SUBSYSTEM
 
     /**
      * The DLL characteristics of the image. The following values are defined.
@@ -619,84 +522,50 @@ class IMAGE_OPTIONAL_HEADER32 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {IMAGE_DLL_CHARACTERISTICS}
      */
-    DllCharacteristics {
-        get => NumGet(this, 70, "ushort")
-        set => NumPut("ushort", value, this, 70)
-    }
+    DllCharacteristics : IMAGE_DLL_CHARACTERISTICS
 
     /**
      * The number of bytes to reserve for the stack. Only the memory specified by the 
      *       <b>SizeOfStackCommit</b> member is committed at load time; the rest is made available one 
      *       page at a time until this reserve size is reached.
-     * @type {Integer}
      */
-    SizeOfStackReserve {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    SizeOfStackReserve : UInt32
 
     /**
      * The number of bytes to commit for the stack.
-     * @type {Integer}
      */
-    SizeOfStackCommit {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    SizeOfStackCommit : UInt32
 
     /**
      * The number of bytes to reserve for the local heap. Only the memory specified by the 
      *       <b>SizeOfHeapCommit</b> member is committed at load time; the rest is made available one 
      *       page at a time until this reserve size is reached.
-     * @type {Integer}
      */
-    SizeOfHeapReserve {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    SizeOfHeapReserve : UInt32
 
     /**
      * The number of bytes to commit for the local heap.
-     * @type {Integer}
      */
-    SizeOfHeapCommit {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    SizeOfHeapCommit : UInt32
 
     /**
      * This member is obsolete.
      * @deprecated
-     * @type {Integer}
      */
-    LoaderFlags {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    LoaderFlags : UInt32
 
     /**
      * The number of directory entries in the remainder of the optional header. Each entry describes a location 
      *       and size.
-     * @type {Integer}
      */
-    NumberOfRvaAndSizes {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    NumberOfRvaAndSizes : UInt32
 
     /**
      * A pointer to the first 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-image_data_directory">IMAGE_DATA_DIRECTORY</a> structure in the data 
      *  directory.
-     * @type {IMAGE_DATA_DIRECTORY}
      */
-    DataDirectory {
-        get {
-            if(!this.HasProp("__DataDirectoryProxyArray"))
-                this.__DataDirectoryProxyArray := Win32FixedArray(this.ptr + 96, 16, IMAGE_DATA_DIRECTORY, "")
-            return this.__DataDirectoryProxyArray
-        }
-    }
+    DataDirectory : IMAGE_DATA_DIRECTORY[16]
+
 }

@@ -1,40 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This interface is used to specify information of a TFTP client session currently active in the server.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransporttftpclient
  * @namespace Windows.Win32.System.DeploymentServices
  */
-class IWdsTransportTftpClient extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWdsTransportTftpClient extends IDispatch {
     /**
      * The interface identifier for IWdsTransportTftpClient
      * @type {Guid}
      */
-    static IID => Guid("{b022d3ae-884d-4d85-b146-53320e76ef62}")
+    static IID := Guid("{b022d3ae-884d-4d85-b146-53320e76ef62}")
 
     /**
      * The class identifier for WdsTransportTftpClient
      * @type {Guid}
      */
-    static CLSID => Guid("{50343925-7c5c-4c8c-96c4-ad9fa5005fba}")
+    static CLSID := Guid("{50343925-7c5c-4c8c-96c4-ad9fa5005fba}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWdsTransportTftpClient interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_FileName          : IntPtr
+        get_IpAddress         : IntPtr
+        get_Timeout           : IntPtr
+        get_CurrentFileOffset : IntPtr
+        get_FileSize          : IntPtr
+        get_BlockSize         : IntPtr
+        get_WindowSize        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_FileName", "get_IpAddress", "get_Timeout", "get_CurrentFileOffset", "get_FileSize", "get_BlockSize", "get_WindowSize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWdsTransportTftpClient.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -91,8 +105,8 @@ class IWdsTransportTftpClient extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_filename
      */
     get_FileName() {
-        pbszFileName := BSTR()
-        result := ComCall(7, this, "ptr", pbszFileName, "HRESULT")
+        pbszFileName := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pbszFileName, "HRESULT")
         return pbszFileName
     }
 
@@ -102,8 +116,8 @@ class IWdsTransportTftpClient extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_ipaddress
      */
     get_IpAddress() {
-        pbszIpAddress := BSTR()
-        result := ComCall(8, this, "ptr", pbszIpAddress, "HRESULT")
+        pbszIpAddress := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, pbszIpAddress, "HRESULT")
         return pbszIpAddress
     }
 
@@ -155,5 +169,37 @@ class IWdsTransportTftpClient extends IDispatch {
     get_WindowSize() {
         result := ComCall(13, this, "uint*", &pulWindowSize := 0, "HRESULT")
         return pulWindowSize
+    }
+
+    Query(iid) {
+        if (IWdsTransportTftpClient.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_FileName := CallbackCreate(GetMethod(implObj, "get_FileName"), flags, 2)
+        this.vtbl.get_IpAddress := CallbackCreate(GetMethod(implObj, "get_IpAddress"), flags, 2)
+        this.vtbl.get_Timeout := CallbackCreate(GetMethod(implObj, "get_Timeout"), flags, 2)
+        this.vtbl.get_CurrentFileOffset := CallbackCreate(GetMethod(implObj, "get_CurrentFileOffset"), flags, 2)
+        this.vtbl.get_FileSize := CallbackCreate(GetMethod(implObj, "get_FileSize"), flags, 2)
+        this.vtbl.get_BlockSize := CallbackCreate(GetMethod(implObj, "get_BlockSize"), flags, 2)
+        this.vtbl.get_WindowSize := CallbackCreate(GetMethod(implObj, "get_WindowSize"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_FileName)
+        CallbackFree(this.vtbl.get_IpAddress)
+        CallbackFree(this.vtbl.get_Timeout)
+        CallbackFree(this.vtbl.get_CurrentFileOffset)
+        CallbackFree(this.vtbl.get_FileSize)
+        CallbackFree(this.vtbl.get_BlockSize)
+        CallbackFree(this.vtbl.get_WindowSize)
     }
 }

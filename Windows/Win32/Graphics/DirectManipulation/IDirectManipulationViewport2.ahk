@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDirectManipulationViewport.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDirectManipulationViewport.ahk" { IDirectManipulationViewport }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides management of behaviors on a viewport. A behavior affects the functionality of a particular part of the Direct Manipulation workflow.
@@ -15,26 +17,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nn-directmanipulation-idirectmanipulationviewport2
  * @namespace Windows.Win32.Graphics.DirectManipulation
  */
-class IDirectManipulationViewport2 extends IDirectManipulationViewport {
-
-    static sizeof => A_PtrSize
+export default struct IDirectManipulationViewport2 extends IDirectManipulationViewport {
     /**
      * The interface identifier for IDirectManipulationViewport2
      * @type {Guid}
      */
-    static IID => Guid("{923ccaac-61e1-4385-b726-017af189882a}")
+    static IID := Guid("{923ccaac-61e1-4385-b726-017af189882a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 31
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectManipulationViewport2 interfaces
+    */
+    struct Vtbl extends IDirectManipulationViewport.Vtbl {
+        AddBehavior        : IntPtr
+        RemoveBehavior     : IntPtr
+        RemoveAllBehaviors : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddBehavior", "RemoveBehavior", "RemoveAllBehaviors"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectManipulationViewport2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds a behavior to the viewport and returns a cookie to the caller.
@@ -70,5 +81,29 @@ class IDirectManipulationViewport2 extends IDirectManipulationViewport {
     RemoveAllBehaviors() {
         result := ComCall(33, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectManipulationViewport2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddBehavior := CallbackCreate(GetMethod(implObj, "AddBehavior"), flags, 3)
+        this.vtbl.RemoveBehavior := CallbackCreate(GetMethod(implObj, "RemoveBehavior"), flags, 2)
+        this.vtbl.RemoveAllBehaviors := CallbackCreate(GetMethod(implObj, "RemoveAllBehaviors"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddBehavior)
+        CallbackFree(this.vtbl.RemoveBehavior)
+        CallbackFree(this.vtbl.RemoveAllBehaviors)
     }
 }

@@ -1,35 +1,68 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\LIFE_TIME.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\HYPOTHESIS.ahk" { HYPOTHESIS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\REPAIR_STATUS.ahk" { REPAIR_STATUS }
+#Import ".\DIAGNOSIS_STATUS.ahk" { DIAGNOSIS_STATUS }
+#Import ".\PROBLEM_TYPE.ahk" { PROBLEM_TYPE }
+#Import ".\DiagnosticsInfo.ahk" { DiagnosticsInfo }
+#Import ".\LIFE_TIME.ahk" { LIFE_TIME }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\HELPER_ATTRIBUTE.ahk" { HELPER_ATTRIBUTE }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\RepairInfo.ahk" { RepairInfo }
 
 /**
  * The INetDiagHelper interface provides methods that capture and provide information associated with diagnoses and resolution of network-related issues.
  * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nn-ndhelper-inetdiaghelper
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  */
-class INetDiagHelper extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct INetDiagHelper extends IUnknown {
     /**
      * The interface identifier for INetDiagHelper
      * @type {Guid}
      */
-    static IID => Guid("{c0b35746-ebf5-11d8-bbe9-505054503030}")
+    static IID := Guid("{c0b35746-ebf5-11d8-bbe9-505054503030}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INetDiagHelper interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize              : IntPtr
+        GetDiagnosticsInfo      : IntPtr
+        GetKeyAttributes        : IntPtr
+        LowHealth               : IntPtr
+        HighUtilization         : IntPtr
+        GetLowerHypotheses      : IntPtr
+        GetDownStreamHypotheses : IntPtr
+        GetHigherHypotheses     : IntPtr
+        GetUpStreamHypotheses   : IntPtr
+        Repair                  : IntPtr
+        Validate                : IntPtr
+        GetRepairInfo           : IntPtr
+        GetLifeTime             : IntPtr
+        SetLifeTime             : IntPtr
+        GetCacheTime            : IntPtr
+        GetAttributes           : IntPtr
+        Cancel                  : IntPtr
+        Cleanup                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetDiagnosticsInfo", "GetKeyAttributes", "LowHealth", "HighUtilization", "GetLowerHypotheses", "GetDownStreamHypotheses", "GetHigherHypotheses", "GetUpStreamHypotheses", "Repair", "Validate", "GetRepairInfo", "GetLifeTime", "SetLifeTime", "GetCacheTime", "GetAttributes", "Cancel", "Cleanup"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INetDiagHelper.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Initialize method passes in attributes to the Helper Class Extension from the hypothesis. The helper class should store these parameters for use in the main diagnostics functions. This method must be called before any diagnostics function.
@@ -104,7 +137,7 @@ class INetDiagHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-initialize
      */
     Initialize(celt, rgAttributes) {
-        result := ComCall(3, this, "uint", celt, "ptr", rgAttributes, "HRESULT")
+        result := ComCall(3, this, "uint", celt, HELPER_ATTRIBUTE.Ptr, rgAttributes, "HRESULT")
         return result
     }
 
@@ -850,7 +883,7 @@ class INetDiagHelper extends IUnknown {
         pDeferredTimeMarshal := pDeferredTime is VarRef ? "int*" : "ptr"
         pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
 
-        result := ComCall(12, this, "ptr", pInfo, pDeferredTimeMarshal, pDeferredTime, pStatusMarshal, pStatus, "HRESULT")
+        result := ComCall(12, this, RepairInfo.Ptr, pInfo, pDeferredTimeMarshal, pDeferredTime, pStatusMarshal, pStatus, "HRESULT")
         return result
     }
 
@@ -944,7 +977,7 @@ class INetDiagHelper extends IUnknown {
         pDeferredTimeMarshal := pDeferredTime is VarRef ? "int*" : "ptr"
         pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
 
-        result := ComCall(13, this, "int", problem, pDeferredTimeMarshal, pDeferredTime, pStatusMarshal, pStatus, "HRESULT")
+        result := ComCall(13, this, PROBLEM_TYPE, problem, pDeferredTimeMarshal, pDeferredTime, pStatusMarshal, pStatus, "HRESULT")
         return result
     }
 
@@ -1036,7 +1069,7 @@ class INetDiagHelper extends IUnknown {
         pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
         ppInfoMarshal := ppInfo is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(14, this, "int", problem, pceltMarshal, pcelt, ppInfoMarshal, ppInfo, "HRESULT")
+        result := ComCall(14, this, PROBLEM_TYPE, problem, pceltMarshal, pcelt, ppInfoMarshal, ppInfo, "HRESULT")
         return result
     }
 
@@ -1053,7 +1086,7 @@ class INetDiagHelper extends IUnknown {
      */
     GetLifeTime() {
         pLifeTime := LIFE_TIME()
-        result := ComCall(15, this, "ptr", pLifeTime, "HRESULT")
+        result := ComCall(15, this, LIFE_TIME.Ptr, pLifeTime, "HRESULT")
         return pLifeTime
     }
 
@@ -1140,7 +1173,7 @@ class INetDiagHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-setlifetime
      */
     SetLifeTime(lifeTime) {
-        result := ComCall(16, this, "ptr", lifeTime, "HRESULT")
+        result := ComCall(16, this, LIFE_TIME, lifeTime, "HRESULT")
         return result
     }
 
@@ -1157,7 +1190,7 @@ class INetDiagHelper extends IUnknown {
      */
     GetCacheTime() {
         pCacheTime := FILETIME()
-        result := ComCall(17, this, "ptr", pCacheTime, "HRESULT")
+        result := ComCall(17, this, FILETIME.Ptr, pCacheTime, "HRESULT")
         return pCacheTime
     }
 
@@ -1420,5 +1453,59 @@ class INetDiagHelper extends IUnknown {
     Cleanup() {
         result := ComCall(20, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (INetDiagHelper.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetDiagnosticsInfo := CallbackCreate(GetMethod(implObj, "GetDiagnosticsInfo"), flags, 2)
+        this.vtbl.GetKeyAttributes := CallbackCreate(GetMethod(implObj, "GetKeyAttributes"), flags, 3)
+        this.vtbl.LowHealth := CallbackCreate(GetMethod(implObj, "LowHealth"), flags, 5)
+        this.vtbl.HighUtilization := CallbackCreate(GetMethod(implObj, "HighUtilization"), flags, 5)
+        this.vtbl.GetLowerHypotheses := CallbackCreate(GetMethod(implObj, "GetLowerHypotheses"), flags, 3)
+        this.vtbl.GetDownStreamHypotheses := CallbackCreate(GetMethod(implObj, "GetDownStreamHypotheses"), flags, 3)
+        this.vtbl.GetHigherHypotheses := CallbackCreate(GetMethod(implObj, "GetHigherHypotheses"), flags, 3)
+        this.vtbl.GetUpStreamHypotheses := CallbackCreate(GetMethod(implObj, "GetUpStreamHypotheses"), flags, 3)
+        this.vtbl.Repair := CallbackCreate(GetMethod(implObj, "Repair"), flags, 4)
+        this.vtbl.Validate := CallbackCreate(GetMethod(implObj, "Validate"), flags, 4)
+        this.vtbl.GetRepairInfo := CallbackCreate(GetMethod(implObj, "GetRepairInfo"), flags, 4)
+        this.vtbl.GetLifeTime := CallbackCreate(GetMethod(implObj, "GetLifeTime"), flags, 2)
+        this.vtbl.SetLifeTime := CallbackCreate(GetMethod(implObj, "SetLifeTime"), flags, 2)
+        this.vtbl.GetCacheTime := CallbackCreate(GetMethod(implObj, "GetCacheTime"), flags, 2)
+        this.vtbl.GetAttributes := CallbackCreate(GetMethod(implObj, "GetAttributes"), flags, 3)
+        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.Cleanup := CallbackCreate(GetMethod(implObj, "Cleanup"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetDiagnosticsInfo)
+        CallbackFree(this.vtbl.GetKeyAttributes)
+        CallbackFree(this.vtbl.LowHealth)
+        CallbackFree(this.vtbl.HighUtilization)
+        CallbackFree(this.vtbl.GetLowerHypotheses)
+        CallbackFree(this.vtbl.GetDownStreamHypotheses)
+        CallbackFree(this.vtbl.GetHigherHypotheses)
+        CallbackFree(this.vtbl.GetUpStreamHypotheses)
+        CallbackFree(this.vtbl.Repair)
+        CallbackFree(this.vtbl.Validate)
+        CallbackFree(this.vtbl.GetRepairInfo)
+        CallbackFree(this.vtbl.GetLifeTime)
+        CallbackFree(this.vtbl.SetLifeTime)
+        CallbackFree(this.vtbl.GetCacheTime)
+        CallbackFree(this.vtbl.GetAttributes)
+        CallbackFree(this.vtbl.Cancel)
+        CallbackFree(this.vtbl.Cleanup)
     }
 }

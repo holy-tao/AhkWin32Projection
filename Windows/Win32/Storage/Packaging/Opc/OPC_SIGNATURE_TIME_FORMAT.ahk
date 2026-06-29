@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes how to interpret the signingTime parameter, which is a record of when a signature was created, of the IOpcDigitalSignature::GetSigningTime method.
@@ -128,7 +127,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_signature_time_format
  * @namespace Windows.Win32.Storage.Packaging.Opc
  */
-class OPC_SIGNATURE_TIME_FORMAT extends Win32Enum {
+export default struct OPC_SIGNATURE_TIME_FORMAT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The format is the complete date with hours, minutes, and seconds expressed as a decimal fraction.

@@ -1,9 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ITfCompartment.ahk
-#Include ..\..\System\Com\IEnumGUID.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfCompartment.ahk" { ITfCompartment }
+#Import "..\..\System\Com\IEnumGUID.ahk" { IEnumGUID }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITfCompartmentMgr interface is implemented by the TSF manager and used by clients (applications and text services) to obtain and manipulate TSF compartments.
@@ -21,26 +22,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcompartmentmgr
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfCompartmentMgr extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfCompartmentMgr extends IUnknown {
     /**
      * The interface identifier for ITfCompartmentMgr
      * @type {Guid}
      */
-    static IID => Guid("{7dcf57ac-18ad-438b-824d-979bffb74b7c}")
+    static IID := Guid("{7dcf57ac-18ad-438b-824d-979bffb74b7c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfCompartmentMgr interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCompartment   : IntPtr
+        ClearCompartment : IntPtr
+        EnumCompartments : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCompartment", "ClearCompartment", "EnumCompartments"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfCompartmentMgr.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfCompartmentMgr::GetCompartment method
@@ -49,7 +59,7 @@ class ITfCompartmentMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcompartmentmgr-getcompartment
      */
     GetCompartment(rguid) {
-        result := ComCall(3, this, "ptr", rguid, "ptr*", &ppcomp := 0, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, rguid, "ptr*", &ppcomp := 0, "HRESULT")
         return ITfCompartment(ppcomp)
     }
 
@@ -112,7 +122,7 @@ class ITfCompartmentMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcompartmentmgr-clearcompartment
      */
     ClearCompartment(tid, rguid) {
-        result := ComCall(4, this, "uint", tid, "ptr", rguid, "HRESULT")
+        result := ComCall(4, this, "uint", tid, Guid.Ptr, rguid, "HRESULT")
         return result
     }
 
@@ -124,5 +134,29 @@ class ITfCompartmentMgr extends IUnknown {
     EnumCompartments() {
         result := ComCall(5, this, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumGUID(ppEnum)
+    }
+
+    Query(iid) {
+        if (ITfCompartmentMgr.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCompartment := CallbackCreate(GetMethod(implObj, "GetCompartment"), flags, 3)
+        this.vtbl.ClearCompartment := CallbackCreate(GetMethod(implObj, "ClearCompartment"), flags, 3)
+        this.vtbl.EnumCompartments := CallbackCreate(GetMethod(implObj, "EnumCompartments"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCompartment)
+        CallbackFree(this.vtbl.ClearCompartment)
+        CallbackFree(this.vtbl.EnumCompartments)
     }
 }

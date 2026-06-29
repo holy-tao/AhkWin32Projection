@@ -1,19 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
  */
-class DNS_CONNECTION_NAME extends Win32Struct {
-    static sizeof => 130
+export default struct DNS_CONNECTION_NAME {
+    #StructPack 2
 
-    static packingSize => 2
+    wszName : WCHAR[65]
 
-    /**
-     * @type {String}
-     */
-    wszName {
-        get => StrGet(this.ptr + 0, 64, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 64, "UTF-16")
-    }
 }

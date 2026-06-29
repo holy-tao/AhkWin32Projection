@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
 
 /**
  * The ICOPEN structure contains information about the data stream being compressed or decompressed, the version number of the driver, and how the driver is used.
@@ -8,46 +8,28 @@
  * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-icopen
  * @namespace Windows.Win32.Media.Multimedia
  */
-class ICOPEN extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct ICOPEN {
+    #StructPack 8
 
     /**
      * Size, in bytes, of the structure.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Four-character code indicating the type of stream being compressed or decompressed. Specify "VIDC" for video streams.
-     * @type {Integer}
      */
-    fccType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    fccType : UInt32
 
     /**
      * Four-character code identifying a specific compressor.
-     * @type {Integer}
      */
-    fccHandler {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    fccHandler : UInt32
 
     /**
      * Version of the installable driver interface used to open the driver.
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwVersion : UInt32
 
     /**
      * Applicable flags indicating why the driver is opened. The following values are defined:
@@ -98,45 +80,24 @@ class ICOPEN extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {LRESULT}
-     */
-    dwError {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    dwError : LRESULT
 
     /**
      * Reserved; do not use.
-     * @type {Pointer<Void>}
      */
-    pV1Reserved {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pV1Reserved : IntPtr
 
     /**
      * Reserved; do not use.
-     * @type {Pointer<Void>}
      */
-    pV2Reserved {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pV2Reserved : IntPtr
 
     /**
      * Device node for plug and play devices.
-     * @type {Integer}
      */
-    dnDevNode {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dnDevNode : UInt32
+
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The TRIVERTEX structure contains color information and position information.
@@ -8,62 +7,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-trivertex
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class TRIVERTEX extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct TRIVERTEX {
+    #StructPack 4
 
     /**
      * The x-coordinate, in logical units, of the upper-left corner of the rectangle.
-     * @type {Integer}
      */
-    x {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    x : Int32
 
     /**
      * The y-coordinate, in logical units, of the upper-left corner of the rectangle.
-     * @type {Integer}
      */
-    y {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    y : Int32
 
     /**
      * The color information at the point of x, y.
-     * @type {Integer}
      */
-    Red {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    Red : UInt16
 
     /**
      * The color information at the point of x, y.
-     * @type {Integer}
      */
-    Green {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    Green : UInt16
 
     /**
      * The color information at the point of x, y.
-     * @type {Integer}
      */
-    Blue {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    Blue : UInt16
 
     /**
      * The color information at the point of x, y.
-     * @type {Integer}
      */
-    Alpha {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    Alpha : UInt16
+
 }

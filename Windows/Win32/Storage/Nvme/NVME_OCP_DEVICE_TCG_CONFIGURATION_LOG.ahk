@@ -1,18 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_OCP_DEVICE_TCG_CONFIGURATION_LOG extends Win32Struct {
-    static sizeof => 504
+export default struct NVME_OCP_DEVICE_TCG_CONFIGURATION_LOG {
+    #StructPack 4
 
-    static packingSize => 8
 
-    class _State_e__Union extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _State {
         /**
          * This bitfield backs the following members:
          * - CPINSIDValue
@@ -20,12 +16,9 @@ class NVME_OCP_DEVICE_TCG_CONFIGURATION_LOG extends Win32Struct {
          * - LockingEnabled
          * - SUMOwner
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -58,190 +51,52 @@ class NVME_OCP_DEVICE_TCG_CONFIGURATION_LOG extends Win32Struct {
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-
-        /**
-         * @type {Integer}
-         */
-        AsUchar {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUchar', { type: Int8, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {_State_e__Union}
-     */
-    State {
-        get {
-            if(!this.HasProp("__State"))
-                this.__State := NVME_OCP_DEVICE_TCG_CONFIGURATION_LOG._State_e__Union(0, this)
-            return this.__State
-        }
-    }
+    State : NVME_OCP_DEVICE_TCG_CONFIGURATION_LOG._State
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved0 {
-        get {
-            if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
-            return this.__Reserved0ProxyArray
-        }
-    }
+    Reserved0 : Int8[3]
 
-    /**
-     * @type {Integer}
-     */
-    LSPActivationCount {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    LSPActivationCount : Int8
 
-    /**
-     * @type {Integer}
-     */
-    TPRevertCount {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    TPRevertCount : Int8
 
-    /**
-     * @type {Integer}
-     */
-    LSPRevertCount {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    LSPRevertCount : Int8
 
-    /**
-     * @type {Integer}
-     */
-    LOCount {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    LOCount : Int8
 
-    /**
-     * @type {Integer}
-     */
-    SUMLOCount {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    SUMLOCount : Int8
 
-    /**
-     * @type {Integer}
-     */
-    RPLOCount {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    RPLOCount : Int8
 
-    /**
-     * @type {Integer}
-     */
-    NPLOCount {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    NPLOCount : Int8
 
-    /**
-     * @type {Integer}
-     */
-    RLLOCount {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
-    }
+    RLLOCount : Int8
 
-    /**
-     * @type {Integer}
-     */
-    WLLOCount {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    WLLOCount : Int8
 
-    /**
-     * @type {Integer}
-     */
-    RULOCount {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
-    }
+    RULOCount : Int8
 
-    /**
-     * @type {Integer}
-     */
-    WULOCount {
-        get => NumGet(this, 14, "char")
-        set => NumPut("char", value, this, 14)
-    }
+    WULOCount : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 15, "char")
-        set => NumPut("char", value, this, 15)
-    }
+    Reserved1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    SIDAuthTryCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    SIDAuthTryCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SIDAuthTryLimit {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    SIDAuthTryLimit : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ResetCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ResetCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ResetLockCount {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    ResetLockCount : UInt32
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved2 {
-        get {
-            if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 32, 462, Primitive, "char")
-            return this.__Reserved2ProxyArray
-        }
-    }
+    Reserved2 : Int8[462]
 
-    /**
-     * @type {Integer}
-     */
-    LogPageVersionNumber {
-        get => NumGet(this, 494, "ushort")
-        set => NumPut("ushort", value, this, 494)
-    }
+    LogPageVersionNumber : UInt16
 
-    /**
-     * @type {Pointer}
-     */
-    LogPageGUID {
-        get => NumGet(this, 496, "ptr")
-        set => NumPut("ptr", value, this, 496)
-    }
+    LogPageGUID : Guid
+
 }

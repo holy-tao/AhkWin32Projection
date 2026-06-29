@@ -1,28 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_STRING.ahk" { WS_STRING }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains an explanation of the fault.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_fault_reason
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_FAULT_REASON extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct WS_FAULT_REASON {
+    #StructPack 8
 
     /**
      * Text describing the fault.
-     * @type {WS_STRING}
      */
-    text {
-        get {
-            if(!this.HasProp("__text"))
-                this.__text := WS_STRING(0, this)
-            return this.__text
-        }
-    }
+    text : WS_STRING
 
     /**
      * The language identifier that identifies the language of the text.
@@ -30,13 +21,7 @@ class WS_FAULT_REASON extends Win32Struct {
      * 
      * The identifier is serialized using the xml:lang attribute, and has
      *                     values that follow <a href="https://www.ietf.org/rfc/rfc3066.txt">RFC3066.txt</a>.
-     * @type {WS_STRING}
      */
-    lang {
-        get {
-            if(!this.HasProp("__lang"))
-                this.__lang := WS_STRING(16, this)
-            return this.__lang
-        }
-    }
+    lang : WS_STRING
+
 }

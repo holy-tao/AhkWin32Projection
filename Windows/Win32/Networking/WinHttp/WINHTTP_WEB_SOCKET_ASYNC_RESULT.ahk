@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WINHTTP_ASYNC_RESULT.ahk
-#Include .\WINHTTP_WEB_SOCKET_OPERATION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WINHTTP_WEB_SOCKET_OPERATION.ahk" { WINHTTP_WEB_SOCKET_OPERATION }
+#Import ".\WINHTTP_ASYNC_RESULT.ahk" { WINHTTP_ASYNC_RESULT }
 
 /**
  * The WINHTTP_WEB_SOCKET_ASYNC_RESULT includes the result status of a WebSocket operation.
@@ -10,33 +9,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_web_socket_async_result
  * @namespace Windows.Win32.Networking.WinHttp
  */
-class WINHTTP_WEB_SOCKET_ASYNC_RESULT extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct WINHTTP_WEB_SOCKET_ASYNC_RESULT {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_async_result">WINHTTP_ASYNC_RESULT</a></b>
      * 
      * The result of a WebSocket operation.
-     * @type {WINHTTP_ASYNC_RESULT}
      */
-    AsyncResult {
-        get {
-            if(!this.HasProp("__AsyncResult"))
-                this.__AsyncResult := WINHTTP_ASYNC_RESULT(0, this)
-            return this.__AsyncResult
-        }
-    }
+    AsyncResult : WINHTTP_ASYNC_RESULT
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winhttp/ne-winhttp-winhttp_web_socket_operation">WINHTTP_WEB_SOCKET_OPERATION</a></b>
      * 
      * The type of WebSocket operation.
-     * @type {WINHTTP_WEB_SOCKET_OPERATION}
      */
-    Operation {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    Operation : WINHTTP_WEB_SOCKET_OPERATION
+
 }

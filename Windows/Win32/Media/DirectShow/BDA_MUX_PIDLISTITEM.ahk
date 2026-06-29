@@ -1,36 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MUX_PID_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MUX_PID_TYPE.ahk" { MUX_PID_TYPE }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class BDA_MUX_PIDLISTITEM extends Win32Struct {
-    static sizeof => 8
+export default struct BDA_MUX_PIDLISTITEM {
+    #StructPack 4
 
-    static packingSize => 4
+    usPIDNumber : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usPIDNumber {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    usProgramNumber : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usProgramNumber {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    ePIDType : MUX_PID_TYPE
 
-    /**
-     * @type {MUX_PID_TYPE}
-     */
-    ePIDType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
 }

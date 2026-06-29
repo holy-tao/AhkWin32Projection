@@ -1,39 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Manages setup tasks on a WDS transport server.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportsetupmanager
  * @namespace Windows.Win32.System.DeploymentServices
  */
-class IWdsTransportSetupManager extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWdsTransportSetupManager extends IDispatch {
     /**
      * The interface identifier for IWdsTransportSetupManager
      * @type {Guid}
      */
-    static IID => Guid("{f7238425-efa8-40a4-aef9-c98d969c0b75}")
+    static IID := Guid("{f7238425-efa8-40a4-aef9-c98d969c0b75}")
 
     /**
      * The class identifier for WdsTransportSetupManager
      * @type {Guid}
      */
-    static CLSID => Guid("{c7beeaad-9f04-4923-9f0c-fbf52bc7590f}")
+    static CLSID := Guid("{c7beeaad-9f04-4923-9f0c-fbf52bc7590f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWdsTransportSetupManager interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Version               : IntPtr
+        get_InstalledFeatures     : IntPtr
+        get_Protocols             : IntPtr
+        RegisterContentProvider   : IntPtr
+        DeregisterContentProvider : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Version", "get_InstalledFeatures", "get_Protocols", "RegisterContentProvider", "DeregisterContentProvider"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWdsTransportSetupManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -106,7 +119,7 @@ class IWdsTransportSetupManager extends IDispatch {
         bszFilePath := bszFilePath is String ? BSTR.Alloc(bszFilePath).Value : bszFilePath
         bszInitializationRoutine := bszInitializationRoutine is String ? BSTR.Alloc(bszInitializationRoutine).Value : bszInitializationRoutine
 
-        result := ComCall(10, this, "ptr", bszName, "ptr", bszDescription, "ptr", bszFilePath, "ptr", bszInitializationRoutine, "HRESULT")
+        result := ComCall(10, this, BSTR, bszName, BSTR, bszDescription, BSTR, bszFilePath, BSTR, bszInitializationRoutine, "HRESULT")
         return result
     }
 
@@ -119,7 +132,35 @@ class IWdsTransportSetupManager extends IDispatch {
     DeregisterContentProvider(bszName) {
         bszName := bszName is String ? BSTR.Alloc(bszName).Value : bszName
 
-        result := ComCall(11, this, "ptr", bszName, "HRESULT")
+        result := ComCall(11, this, BSTR, bszName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWdsTransportSetupManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Version := CallbackCreate(GetMethod(implObj, "get_Version"), flags, 2)
+        this.vtbl.get_InstalledFeatures := CallbackCreate(GetMethod(implObj, "get_InstalledFeatures"), flags, 2)
+        this.vtbl.get_Protocols := CallbackCreate(GetMethod(implObj, "get_Protocols"), flags, 2)
+        this.vtbl.RegisterContentProvider := CallbackCreate(GetMethod(implObj, "RegisterContentProvider"), flags, 5)
+        this.vtbl.DeregisterContentProvider := CallbackCreate(GetMethod(implObj, "DeregisterContentProvider"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Version)
+        CallbackFree(this.vtbl.get_InstalledFeatures)
+        CallbackFree(this.vtbl.get_Protocols)
+        CallbackFree(this.vtbl.RegisterContentProvider)
+        CallbackFree(this.vtbl.DeregisterContentProvider)
     }
 }

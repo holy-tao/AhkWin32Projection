@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Fax
  */
-class STI_DEVICE_STATUS extends Win32Struct {
-    static sizeof => 24
+export default struct STI_DEVICE_STATUS {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    StatusMask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StatusMask {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwOnlineState : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwOnlineState {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwHardwareStatusCode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwHardwareStatusCode {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwEventHandlingState : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwEventHandlingState {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwPollingInterval : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwPollingInterval {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

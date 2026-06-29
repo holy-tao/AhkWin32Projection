@@ -1,60 +1,39 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_COMMAND_LIST_SUPPORT_FLAGS.ahk
-#Include .\D3D12_VIEW_INSTANCING_TIER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_VIEW_INSTANCING_TIER.ahk" { D3D12_VIEW_INSTANCING_TIER }
+#Import ".\D3D12_COMMAND_LIST_SUPPORT_FLAGS.ahk" { D3D12_COMMAND_LIST_SUPPORT_FLAGS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Indicates the level of support that the adapter provides for timestamp queries, format-casting, immediate write, view instancing, and barycentrics.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options3
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_FEATURE_DATA_D3D12_OPTIONS3 extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct D3D12_FEATURE_DATA_D3D12_OPTIONS3 {
+    #StructPack 4
 
     /**
      * Indicates whether timestamp queries are supported on copy queues.
-     * @type {BOOL}
      */
-    CopyQueueTimestampQueriesSupported {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    CopyQueueTimestampQueriesSupported : BOOL
 
     /**
      * Indicates whether casting from one fully typed format to another, compatible, format is supported.
-     * @type {BOOL}
      */
-    CastingFullyTypedFormatSupported {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    CastingFullyTypedFormatSupported : BOOL
 
     /**
      * Indicates the kinds of command lists that support the ability to write an immediate value directly from the command stream into a specified buffer.
-     * @type {D3D12_COMMAND_LIST_SUPPORT_FLAGS}
      */
-    WriteBufferImmediateSupportFlags {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    WriteBufferImmediateSupportFlags : D3D12_COMMAND_LIST_SUPPORT_FLAGS
 
     /**
      * Indicates the level of support the adapter has for view instancing.
-     * @type {D3D12_VIEW_INSTANCING_TIER}
      */
-    ViewInstancingTier {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    ViewInstancingTier : D3D12_VIEW_INSTANCING_TIER
 
     /**
      * Indicates whether barycentrics are supported.
-     * @type {BOOL}
      */
-    BarycentricsSupported {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    BarycentricsSupported : BOOL
+
 }

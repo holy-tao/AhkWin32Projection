@@ -1,59 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
  */
-class DVD_PRERECORDED_INFORMATION extends Win32Struct {
-    static sizeof => 64
+export default struct DVD_PRERECORDED_INFORMATION {
+    #StructPack 1
 
-    static packingSize => 1
+    FieldID_1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    FieldID_1 {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    DiscApplicationCode : Int8
 
-    /**
-     * @type {Integer}
-     */
-    DiscApplicationCode {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    DiscPhysicalCode : Int8
 
-    /**
-     * @type {Integer}
-     */
-    DiscPhysicalCode {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    LastAddressOfDataRecordableArea {
-        get {
-            if(!this.HasProp("__LastAddressOfDataRecordableAreaProxyArray"))
-                this.__LastAddressOfDataRecordableAreaProxyArray := Win32FixedArray(this.ptr + 3, 3, Primitive, "char")
-            return this.__LastAddressOfDataRecordableAreaProxyArray
-        }
-    }
+    LastAddressOfDataRecordableArea : Int8[3]
 
     /**
      * This bitfield backs the following members:
      * - ExtensionCode
      * - PartVers1on
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    _bitfield : Int8
+
 
     /**
      * @type {Integer}
@@ -70,147 +37,36 @@ class DVD_PRERECORDED_INFORMATION extends Win32Struct {
         get => (this._bitfield >> 4) & 0xF
         set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
     }
+    Reserved0 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved0 {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    FieldID_2 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    FieldID_2 {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    OpcSuggestedCode : Int8
 
-    /**
-     * @type {Integer}
-     */
-    OpcSuggestedCode {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    WavelengthCode : Int8
 
-    /**
-     * @type {Integer}
-     */
-    WavelengthCode {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    WriteStrategyCode : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    WriteStrategyCode {
-        get {
-            if(!this.HasProp("__WriteStrategyCodeProxyArray"))
-                this.__WriteStrategyCodeProxyArray := Win32FixedArray(this.ptr + 11, 4, Primitive, "char")
-            return this.__WriteStrategyCodeProxyArray
-        }
-    }
+    Reserved2 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved2 {
-        get => NumGet(this, 15, "char")
-        set => NumPut("char", value, this, 15)
-    }
+    FieldID_3 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    FieldID_3 {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    ManufacturerId_3 : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ManufacturerId_3 {
-        get {
-            if(!this.HasProp("__ManufacturerId_3ProxyArray"))
-                this.__ManufacturerId_3ProxyArray := Win32FixedArray(this.ptr + 17, 6, Primitive, "char")
-            return this.__ManufacturerId_3ProxyArray
-        }
-    }
+    Reserved3 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved3 {
-        get => NumGet(this, 23, "char")
-        set => NumPut("char", value, this, 23)
-    }
+    FieldID_4 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    FieldID_4 {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
-    }
+    ManufacturerId_4 : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ManufacturerId_4 {
-        get {
-            if(!this.HasProp("__ManufacturerId_4ProxyArray"))
-                this.__ManufacturerId_4ProxyArray := Win32FixedArray(this.ptr + 25, 6, Primitive, "char")
-            return this.__ManufacturerId_4ProxyArray
-        }
-    }
+    Reserved4 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved4 {
-        get => NumGet(this, 31, "char")
-        set => NumPut("char", value, this, 31)
-    }
+    FieldID_5 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    FieldID_5 {
-        get => NumGet(this, 32, "char")
-        set => NumPut("char", value, this, 32)
-    }
+    ManufacturerId_5 : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ManufacturerId_5 {
-        get {
-            if(!this.HasProp("__ManufacturerId_5ProxyArray"))
-                this.__ManufacturerId_5ProxyArray := Win32FixedArray(this.ptr + 33, 6, Primitive, "char")
-            return this.__ManufacturerId_5ProxyArray
-        }
-    }
+    Reserved5 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved5 {
-        get => NumGet(this, 39, "char")
-        set => NumPut("char", value, this, 39)
-    }
+    Reserved99 : Int8[24]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved99 {
-        get {
-            if(!this.HasProp("__Reserved99ProxyArray"))
-                this.__Reserved99ProxyArray := Win32FixedArray(this.ptr + 40, 24, Primitive, "char")
-            return this.__Reserved99ProxyArray
-        }
-    }
 }

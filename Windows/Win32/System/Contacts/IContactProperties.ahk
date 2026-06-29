@@ -1,35 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\Com\IStream.ahk
-#Include .\IContactPropertyCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\IContactPropertyCollection.ahk" { IContactPropertyCollection }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Do not use. Used to retrieve, set, create, and remove properties on an IContact. Property names and extension mechanisms are described in icontactproperties.h.
  * @see https://learn.microsoft.com/windows/win32/api/icontact/nn-icontact-icontactproperties
  * @namespace Windows.Win32.System.Contacts
  */
-class IContactProperties extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IContactProperties extends IUnknown {
     /**
      * The interface identifier for IContactProperties
      * @type {Guid}
      */
-    static IID => Guid("{70dd27dd-5cbd-46e8-bef0-23b6b346288f}")
+    static IID := Guid("{70dd27dd-5cbd-46e8-bef0-23b6b346288f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IContactProperties interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetString             : IntPtr
+        GetDate               : IntPtr
+        GetBinary             : IntPtr
+        GetLabels             : IntPtr
+        SetString             : IntPtr
+        SetDate               : IntPtr
+        SetBinary             : IntPtr
+        SetLabels             : IntPtr
+        CreateArrayNode       : IntPtr
+        DeleteProperty        : IntPtr
+        DeleteArrayNode       : IntPtr
+        DeleteLabels          : IntPtr
+        GetPropertyCollection : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetString", "GetDate", "GetBinary", "GetLabels", "SetString", "SetDate", "SetBinary", "SetLabels", "CreateArrayNode", "DeleteProperty", "DeleteArrayNode", "DeleteLabels", "GetPropertyCollection"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IContactProperties.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the string value at a specified property into a caller-allocated buffer.
@@ -187,7 +210,7 @@ class IContactProperties extends IUnknown {
     GetDate(pszPropertyName, dwFlags, pftDateTime) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
-        result := ComCall(4, this, "ptr", pszPropertyName, "uint", dwFlags, "ptr", pftDateTime, "HRESULT")
+        result := ComCall(4, this, "ptr", pszPropertyName, "uint", dwFlags, FILETIME.Ptr, pftDateTime, "HRESULT")
         return result
     }
 
@@ -445,7 +468,7 @@ class IContactProperties extends IUnknown {
     SetDate(pszPropertyName, dwFlags, ftDateTime) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
-        result := ComCall(8, this, "ptr", pszPropertyName, "uint", dwFlags, "ptr", ftDateTime, "HRESULT")
+        result := ComCall(8, this, "ptr", pszPropertyName, "uint", dwFlags, FILETIME, ftDateTime, "HRESULT")
         return result
     }
 
@@ -673,7 +696,7 @@ class IContactProperties extends IUnknown {
 
         pdwcchNewArrayElementNameRequiredMarshal := pdwcchNewArrayElementNameRequired is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "ptr", pszArrayName, "uint", dwFlags, "int", fAppend, "ptr", pszNewArrayElementName, "uint", cchNewArrayElementName, pdwcchNewArrayElementNameRequiredMarshal, pdwcchNewArrayElementNameRequired, "HRESULT")
+        result := ComCall(11, this, "ptr", pszArrayName, "uint", dwFlags, BOOL, fAppend, "ptr", pszNewArrayElementName, "uint", cchNewArrayElementName, pdwcchNewArrayElementNameRequiredMarshal, pdwcchNewArrayElementNameRequired, "HRESULT")
         return result
     }
 
@@ -864,7 +887,51 @@ class IContactProperties extends IUnknown {
 
         ppszLabelsMarshal := ppszLabels is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(15, this, "ptr*", &ppPropertyCollection := 0, "uint", dwFlags, "ptr", pszMultiValueName, "uint", dwLabelCount, ppszLabelsMarshal, ppszLabels, "int", fAnyLabelMatches, "HRESULT")
+        result := ComCall(15, this, "ptr*", &ppPropertyCollection := 0, "uint", dwFlags, "ptr", pszMultiValueName, "uint", dwLabelCount, ppszLabelsMarshal, ppszLabels, BOOL, fAnyLabelMatches, "HRESULT")
         return IContactPropertyCollection(ppPropertyCollection)
+    }
+
+    Query(iid) {
+        if (IContactProperties.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetString := CallbackCreate(GetMethod(implObj, "GetString"), flags, 6)
+        this.vtbl.GetDate := CallbackCreate(GetMethod(implObj, "GetDate"), flags, 4)
+        this.vtbl.GetBinary := CallbackCreate(GetMethod(implObj, "GetBinary"), flags, 7)
+        this.vtbl.GetLabels := CallbackCreate(GetMethod(implObj, "GetLabels"), flags, 6)
+        this.vtbl.SetString := CallbackCreate(GetMethod(implObj, "SetString"), flags, 4)
+        this.vtbl.SetDate := CallbackCreate(GetMethod(implObj, "SetDate"), flags, 4)
+        this.vtbl.SetBinary := CallbackCreate(GetMethod(implObj, "SetBinary"), flags, 5)
+        this.vtbl.SetLabels := CallbackCreate(GetMethod(implObj, "SetLabels"), flags, 5)
+        this.vtbl.CreateArrayNode := CallbackCreate(GetMethod(implObj, "CreateArrayNode"), flags, 7)
+        this.vtbl.DeleteProperty := CallbackCreate(GetMethod(implObj, "DeleteProperty"), flags, 3)
+        this.vtbl.DeleteArrayNode := CallbackCreate(GetMethod(implObj, "DeleteArrayNode"), flags, 3)
+        this.vtbl.DeleteLabels := CallbackCreate(GetMethod(implObj, "DeleteLabels"), flags, 3)
+        this.vtbl.GetPropertyCollection := CallbackCreate(GetMethod(implObj, "GetPropertyCollection"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetString)
+        CallbackFree(this.vtbl.GetDate)
+        CallbackFree(this.vtbl.GetBinary)
+        CallbackFree(this.vtbl.GetLabels)
+        CallbackFree(this.vtbl.SetString)
+        CallbackFree(this.vtbl.SetDate)
+        CallbackFree(this.vtbl.SetBinary)
+        CallbackFree(this.vtbl.SetLabels)
+        CallbackFree(this.vtbl.CreateArrayNode)
+        CallbackFree(this.vtbl.DeleteProperty)
+        CallbackFree(this.vtbl.DeleteArrayNode)
+        CallbackFree(this.vtbl.DeleteLabels)
+        CallbackFree(this.vtbl.GetPropertyCollection)
     }
 }

@@ -1,36 +1,78 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ITsSbTarget.ahk
-#Include .\ITsSbSession.ahk
-#Include .\ITsSbEnvironment.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TSSESSION_STATE.ahk" { TSSESSION_STATE }
+#Import ".\ITsSbTarget.ahk" { ITsSbTarget }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import ".\TS_SB_SORT_BY.ahk" { TS_SB_SORT_BY }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ITsSbSession.ahk" { ITsSbSession }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ITsSbEnvironment.ahk" { ITsSbEnvironment }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\TARGET_STATE.ahk" { TARGET_STATE }
 
 /**
  * Exposes methods that enable resource plug-ins to store objects such as sessions and targets.
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbresourcepluginstore
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class ITsSbResourcePluginStore extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITsSbResourcePluginStore extends IUnknown {
     /**
      * The interface identifier for ITsSbResourcePluginStore
      * @type {Guid}
      */
-    static IID => Guid("{5c38f65f-bcf1-4036-a6bf-9e3cccae0b63}")
+    static IID := Guid("{5c38f65f-bcf1-4036-a6bf-9e3cccae0b63}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITsSbResourcePluginStore interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        QueryTarget                            : IntPtr
+        QuerySessionBySessionId                : IntPtr
+        AddTargetToStore                       : IntPtr
+        AddSessionToStore                      : IntPtr
+        AddEnvironmentToStore                  : IntPtr
+        RemoveEnvironmentFromStore             : IntPtr
+        EnumerateFarms                         : IntPtr
+        QueryEnvironment                       : IntPtr
+        EnumerateEnvironments                  : IntPtr
+        SaveTarget                             : IntPtr
+        SaveEnvironment                        : IntPtr
+        SaveSession                            : IntPtr
+        SetTargetProperty                      : IntPtr
+        SetEnvironmentProperty                 : IntPtr
+        SetTargetState                         : IntPtr
+        SetSessionState                        : IntPtr
+        EnumerateTargets                       : IntPtr
+        EnumerateSessions                      : IntPtr
+        GetFarmProperty                        : IntPtr
+        DeleteTarget                           : IntPtr
+        SetTargetPropertyWithVersionCheck      : IntPtr
+        SetEnvironmentPropertyWithVersionCheck : IntPtr
+        AcquireTargetLock                      : IntPtr
+        ReleaseTargetLock                      : IntPtr
+        TestAndSetServerState                  : IntPtr
+        SetServerWaitingToStart                : IntPtr
+        GetServerState                         : IntPtr
+        SetServerDrainMode                     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["QueryTarget", "QuerySessionBySessionId", "AddTargetToStore", "AddSessionToStore", "AddEnvironmentToStore", "RemoveEnvironmentFromStore", "EnumerateFarms", "QueryEnvironment", "EnumerateEnvironments", "SaveTarget", "SaveEnvironment", "SaveSession", "SetTargetProperty", "SetEnvironmentProperty", "SetTargetState", "SetSessionState", "EnumerateTargets", "EnumerateSessions", "GetFarmProperty", "DeleteTarget", "SetTargetPropertyWithVersionCheck", "SetEnvironmentPropertyWithVersionCheck", "AcquireTargetLock", "ReleaseTargetLock", "TestAndSetServerState", "SetServerWaitingToStart", "GetServerState", "SetServerDrainMode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITsSbResourcePluginStore.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns the target that has the specified target name and farm name.
@@ -45,7 +87,7 @@ class ITsSbResourcePluginStore extends IUnknown {
         TargetName := TargetName is String ? BSTR.Alloc(TargetName).Value : TargetName
         FarmName := FarmName is String ? BSTR.Alloc(FarmName).Value : FarmName
 
-        result := ComCall(3, this, "ptr", TargetName, "ptr", FarmName, "ptr*", &ppTarget := 0, "HRESULT")
+        result := ComCall(3, this, BSTR, TargetName, BSTR, FarmName, "ptr*", &ppTarget := 0, "HRESULT")
         return ITsSbTarget(ppTarget)
     }
 
@@ -61,7 +103,7 @@ class ITsSbResourcePluginStore extends IUnknown {
     QuerySessionBySessionId(dwSessionId, TargetName) {
         TargetName := TargetName is String ? BSTR.Alloc(TargetName).Value : TargetName
 
-        result := ComCall(4, this, "uint", dwSessionId, "ptr", TargetName, "ptr*", &ppSession := 0, "HRESULT")
+        result := ComCall(4, this, "uint", dwSessionId, BSTR, TargetName, "ptr*", &ppSession := 0, "HRESULT")
         return ITsSbSession(ppSession)
     }
 
@@ -113,7 +155,7 @@ class ITsSbResourcePluginStore extends IUnknown {
     RemoveEnvironmentFromStore(EnvironmentName, bIgnoreOwner) {
         EnvironmentName := EnvironmentName is String ? BSTR.Alloc(EnvironmentName).Value : EnvironmentName
 
-        result := ComCall(8, this, "ptr", EnvironmentName, "int", bIgnoreOwner, "HRESULT")
+        result := ComCall(8, this, BSTR, EnvironmentName, BOOL, bIgnoreOwner, "HRESULT")
         return result
     }
 
@@ -141,7 +183,7 @@ class ITsSbResourcePluginStore extends IUnknown {
     QueryEnvironment(EnvironmentName) {
         EnvironmentName := EnvironmentName is String ? BSTR.Alloc(EnvironmentName).Value : EnvironmentName
 
-        result := ComCall(10, this, "ptr", EnvironmentName, "ptr*", &ppEnvironment := 0, "HRESULT")
+        result := ComCall(10, this, BSTR, EnvironmentName, "ptr*", &ppEnvironment := 0, "HRESULT")
         return ITsSbEnvironment(ppEnvironment)
     }
 
@@ -166,7 +208,7 @@ class ITsSbResourcePluginStore extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbresourcepluginstore-savetarget
      */
     SaveTarget(pTarget, bForceWrite) {
-        result := ComCall(12, this, "ptr", pTarget, "int", bForceWrite, "HRESULT")
+        result := ComCall(12, this, "ptr", pTarget, BOOL, bForceWrite, "HRESULT")
         return result
     }
 
@@ -178,7 +220,7 @@ class ITsSbResourcePluginStore extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbresourcepluginstore-saveenvironment
      */
     SaveEnvironment(pEnvironment, bForceWrite) {
-        result := ComCall(13, this, "ptr", pEnvironment, "int", bForceWrite, "HRESULT")
+        result := ComCall(13, this, "ptr", pEnvironment, BOOL, bForceWrite, "HRESULT")
         return result
     }
 
@@ -205,7 +247,7 @@ class ITsSbResourcePluginStore extends IUnknown {
         TargetName := TargetName is String ? BSTR.Alloc(TargetName).Value : TargetName
         PropertyName := PropertyName is String ? BSTR.Alloc(PropertyName).Value : PropertyName
 
-        result := ComCall(15, this, "ptr", TargetName, "ptr", PropertyName, "ptr", pProperty, "HRESULT")
+        result := ComCall(15, this, BSTR, TargetName, BSTR, PropertyName, VARIANT.Ptr, pProperty, "HRESULT")
         return result
     }
 
@@ -221,7 +263,7 @@ class ITsSbResourcePluginStore extends IUnknown {
         EnvironmentName := EnvironmentName is String ? BSTR.Alloc(EnvironmentName).Value : EnvironmentName
         PropertyName := PropertyName is String ? BSTR.Alloc(PropertyName).Value : PropertyName
 
-        result := ComCall(16, this, "ptr", EnvironmentName, "ptr", PropertyName, "ptr", pProperty, "HRESULT")
+        result := ComCall(16, this, BSTR, EnvironmentName, BSTR, PropertyName, VARIANT.Ptr, pProperty, "HRESULT")
         return result
     }
 
@@ -235,7 +277,7 @@ class ITsSbResourcePluginStore extends IUnknown {
     SetTargetState(targetName, newState) {
         targetName := targetName is String ? BSTR.Alloc(targetName).Value : targetName
 
-        result := ComCall(17, this, "ptr", targetName, "int", newState, "int*", &pOldState := 0, "HRESULT")
+        result := ComCall(17, this, BSTR, targetName, TARGET_STATE, newState, "int*", &pOldState := 0, "HRESULT")
         return pOldState
     }
 
@@ -267,7 +309,7 @@ class ITsSbResourcePluginStore extends IUnknown {
 
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(19, this, "ptr", FarmName, "ptr", EnvName, "int", sortByFieldId, "ptr", sortyByPropName, pdwCountMarshal, pdwCount, "ptr*", &pVal := 0, "HRESULT")
+        result := ComCall(19, this, BSTR, FarmName, BSTR, EnvName, TS_SB_SORT_BY, sortByFieldId, BSTR, sortyByPropName, pdwCountMarshal, pdwCount, "ptr*", &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -293,7 +335,7 @@ class ITsSbResourcePluginStore extends IUnknown {
         pSessionStateMarshal := pSessionState is VarRef ? "int*" : "ptr"
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(20, this, "ptr", targetName, "ptr", userName, "ptr", userDomain, "ptr", poolName, "ptr", initialProgram, pSessionStateMarshal, pSessionState, pdwCountMarshal, pdwCount, "ptr*", &ppVal := 0, "HRESULT")
+        result := ComCall(20, this, BSTR, targetName, BSTR, userName, BSTR, userDomain, BSTR, poolName, BSTR, initialProgram, pSessionStateMarshal, pSessionState, pdwCountMarshal, pdwCount, "ptr*", &ppVal := 0, "HRESULT")
         return ppVal
     }
 
@@ -309,7 +351,7 @@ class ITsSbResourcePluginStore extends IUnknown {
         farmName := farmName is String ? BSTR.Alloc(farmName).Value : farmName
         propertyName := propertyName is String ? BSTR.Alloc(propertyName).Value : propertyName
 
-        result := ComCall(21, this, "ptr", farmName, "ptr", propertyName, "ptr", pVarValue, "HRESULT")
+        result := ComCall(21, this, BSTR, farmName, BSTR, propertyName, VARIANT.Ptr, pVarValue, "HRESULT")
         return result
     }
 
@@ -324,7 +366,7 @@ class ITsSbResourcePluginStore extends IUnknown {
         targetName := targetName is String ? BSTR.Alloc(targetName).Value : targetName
         hostName := hostName is String ? BSTR.Alloc(hostName).Value : hostName
 
-        result := ComCall(22, this, "ptr", targetName, "ptr", hostName, "HRESULT")
+        result := ComCall(22, this, BSTR, targetName, BSTR, hostName, "HRESULT")
         return result
     }
 
@@ -341,7 +383,7 @@ class ITsSbResourcePluginStore extends IUnknown {
     SetTargetPropertyWithVersionCheck(pTarget, PropertyName, pProperty) {
         PropertyName := PropertyName is String ? BSTR.Alloc(PropertyName).Value : PropertyName
 
-        result := ComCall(23, this, "ptr", pTarget, "ptr", PropertyName, "ptr", pProperty, "HRESULT")
+        result := ComCall(23, this, "ptr", pTarget, BSTR, PropertyName, VARIANT.Ptr, pProperty, "HRESULT")
         return result
     }
 
@@ -358,7 +400,7 @@ class ITsSbResourcePluginStore extends IUnknown {
     SetEnvironmentPropertyWithVersionCheck(pEnvironment, PropertyName, pProperty) {
         PropertyName := PropertyName is String ? BSTR.Alloc(PropertyName).Value : PropertyName
 
-        result := ComCall(24, this, "ptr", pEnvironment, "ptr", PropertyName, "ptr", pProperty, "HRESULT")
+        result := ComCall(24, this, "ptr", pEnvironment, BSTR, PropertyName, VARIANT.Ptr, pProperty, "HRESULT")
         return result
     }
 
@@ -377,7 +419,7 @@ class ITsSbResourcePluginStore extends IUnknown {
     AcquireTargetLock(targetName, dwTimeout) {
         targetName := targetName is String ? BSTR.Alloc(targetName).Value : targetName
 
-        result := ComCall(25, this, "ptr", targetName, "uint", dwTimeout, "ptr*", &ppContext := 0, "HRESULT")
+        result := ComCall(25, this, BSTR, targetName, "uint", dwTimeout, "ptr*", &ppContext := 0, "HRESULT")
         return IUnknown(ppContext)
     }
 
@@ -405,7 +447,7 @@ class ITsSbResourcePluginStore extends IUnknown {
         PoolName := PoolName is String ? BSTR.Alloc(PoolName).Value : PoolName
         ServerFQDN := ServerFQDN is String ? BSTR.Alloc(ServerFQDN).Value : ServerFQDN
 
-        result := ComCall(27, this, "ptr", PoolName, "ptr", ServerFQDN, "int", NewState, "int", TestState, "int*", &pInitState := 0, "HRESULT")
+        result := ComCall(27, this, BSTR, PoolName, BSTR, ServerFQDN, TARGET_STATE, NewState, TARGET_STATE, TestState, "int*", &pInitState := 0, "HRESULT")
         return pInitState
     }
 
@@ -420,7 +462,7 @@ class ITsSbResourcePluginStore extends IUnknown {
         PoolName := PoolName is String ? BSTR.Alloc(PoolName).Value : PoolName
         serverName := serverName is String ? BSTR.Alloc(serverName).Value : serverName
 
-        result := ComCall(28, this, "ptr", PoolName, "ptr", serverName, "HRESULT")
+        result := ComCall(28, this, BSTR, PoolName, BSTR, serverName, "HRESULT")
         return result
     }
 
@@ -435,7 +477,7 @@ class ITsSbResourcePluginStore extends IUnknown {
         PoolName := PoolName is String ? BSTR.Alloc(PoolName).Value : PoolName
         ServerFQDN := ServerFQDN is String ? BSTR.Alloc(ServerFQDN).Value : ServerFQDN
 
-        result := ComCall(29, this, "ptr", PoolName, "ptr", ServerFQDN, "int*", &pState := 0, "HRESULT")
+        result := ComCall(29, this, BSTR, PoolName, BSTR, ServerFQDN, "int*", &pState := 0, "HRESULT")
         return pState
     }
 
@@ -449,7 +491,81 @@ class ITsSbResourcePluginStore extends IUnknown {
     SetServerDrainMode(ServerFQDN, DrainMode) {
         ServerFQDN := ServerFQDN is String ? BSTR.Alloc(ServerFQDN).Value : ServerFQDN
 
-        result := ComCall(30, this, "ptr", ServerFQDN, "uint", DrainMode, "HRESULT")
+        result := ComCall(30, this, BSTR, ServerFQDN, "uint", DrainMode, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITsSbResourcePluginStore.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.QueryTarget := CallbackCreate(GetMethod(implObj, "QueryTarget"), flags, 4)
+        this.vtbl.QuerySessionBySessionId := CallbackCreate(GetMethod(implObj, "QuerySessionBySessionId"), flags, 4)
+        this.vtbl.AddTargetToStore := CallbackCreate(GetMethod(implObj, "AddTargetToStore"), flags, 2)
+        this.vtbl.AddSessionToStore := CallbackCreate(GetMethod(implObj, "AddSessionToStore"), flags, 2)
+        this.vtbl.AddEnvironmentToStore := CallbackCreate(GetMethod(implObj, "AddEnvironmentToStore"), flags, 2)
+        this.vtbl.RemoveEnvironmentFromStore := CallbackCreate(GetMethod(implObj, "RemoveEnvironmentFromStore"), flags, 3)
+        this.vtbl.EnumerateFarms := CallbackCreate(GetMethod(implObj, "EnumerateFarms"), flags, 3)
+        this.vtbl.QueryEnvironment := CallbackCreate(GetMethod(implObj, "QueryEnvironment"), flags, 3)
+        this.vtbl.EnumerateEnvironments := CallbackCreate(GetMethod(implObj, "EnumerateEnvironments"), flags, 3)
+        this.vtbl.SaveTarget := CallbackCreate(GetMethod(implObj, "SaveTarget"), flags, 3)
+        this.vtbl.SaveEnvironment := CallbackCreate(GetMethod(implObj, "SaveEnvironment"), flags, 3)
+        this.vtbl.SaveSession := CallbackCreate(GetMethod(implObj, "SaveSession"), flags, 2)
+        this.vtbl.SetTargetProperty := CallbackCreate(GetMethod(implObj, "SetTargetProperty"), flags, 4)
+        this.vtbl.SetEnvironmentProperty := CallbackCreate(GetMethod(implObj, "SetEnvironmentProperty"), flags, 4)
+        this.vtbl.SetTargetState := CallbackCreate(GetMethod(implObj, "SetTargetState"), flags, 4)
+        this.vtbl.SetSessionState := CallbackCreate(GetMethod(implObj, "SetSessionState"), flags, 2)
+        this.vtbl.EnumerateTargets := CallbackCreate(GetMethod(implObj, "EnumerateTargets"), flags, 7)
+        this.vtbl.EnumerateSessions := CallbackCreate(GetMethod(implObj, "EnumerateSessions"), flags, 9)
+        this.vtbl.GetFarmProperty := CallbackCreate(GetMethod(implObj, "GetFarmProperty"), flags, 4)
+        this.vtbl.DeleteTarget := CallbackCreate(GetMethod(implObj, "DeleteTarget"), flags, 3)
+        this.vtbl.SetTargetPropertyWithVersionCheck := CallbackCreate(GetMethod(implObj, "SetTargetPropertyWithVersionCheck"), flags, 4)
+        this.vtbl.SetEnvironmentPropertyWithVersionCheck := CallbackCreate(GetMethod(implObj, "SetEnvironmentPropertyWithVersionCheck"), flags, 4)
+        this.vtbl.AcquireTargetLock := CallbackCreate(GetMethod(implObj, "AcquireTargetLock"), flags, 4)
+        this.vtbl.ReleaseTargetLock := CallbackCreate(GetMethod(implObj, "ReleaseTargetLock"), flags, 2)
+        this.vtbl.TestAndSetServerState := CallbackCreate(GetMethod(implObj, "TestAndSetServerState"), flags, 6)
+        this.vtbl.SetServerWaitingToStart := CallbackCreate(GetMethod(implObj, "SetServerWaitingToStart"), flags, 3)
+        this.vtbl.GetServerState := CallbackCreate(GetMethod(implObj, "GetServerState"), flags, 4)
+        this.vtbl.SetServerDrainMode := CallbackCreate(GetMethod(implObj, "SetServerDrainMode"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.QueryTarget)
+        CallbackFree(this.vtbl.QuerySessionBySessionId)
+        CallbackFree(this.vtbl.AddTargetToStore)
+        CallbackFree(this.vtbl.AddSessionToStore)
+        CallbackFree(this.vtbl.AddEnvironmentToStore)
+        CallbackFree(this.vtbl.RemoveEnvironmentFromStore)
+        CallbackFree(this.vtbl.EnumerateFarms)
+        CallbackFree(this.vtbl.QueryEnvironment)
+        CallbackFree(this.vtbl.EnumerateEnvironments)
+        CallbackFree(this.vtbl.SaveTarget)
+        CallbackFree(this.vtbl.SaveEnvironment)
+        CallbackFree(this.vtbl.SaveSession)
+        CallbackFree(this.vtbl.SetTargetProperty)
+        CallbackFree(this.vtbl.SetEnvironmentProperty)
+        CallbackFree(this.vtbl.SetTargetState)
+        CallbackFree(this.vtbl.SetSessionState)
+        CallbackFree(this.vtbl.EnumerateTargets)
+        CallbackFree(this.vtbl.EnumerateSessions)
+        CallbackFree(this.vtbl.GetFarmProperty)
+        CallbackFree(this.vtbl.DeleteTarget)
+        CallbackFree(this.vtbl.SetTargetPropertyWithVersionCheck)
+        CallbackFree(this.vtbl.SetEnvironmentPropertyWithVersionCheck)
+        CallbackFree(this.vtbl.AcquireTargetLock)
+        CallbackFree(this.vtbl.ReleaseTargetLock)
+        CallbackFree(this.vtbl.TestAndSetServerState)
+        CallbackFree(this.vtbl.SetServerWaitingToStart)
+        CallbackFree(this.vtbl.GetServerState)
+        CallbackFree(this.vtbl.SetServerDrainMode)
     }
 }

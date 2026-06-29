@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The ShellCommandInfo structure contains data required to launch an additional application for manual repair options.
@@ -79,63 +79,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/ndattrib/ns-ndattrib-shellcommandinfo
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  */
-class ShellCommandInfo extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct ShellCommandInfo {
+    #StructPack 8
 
     /**
      * Type: <b>[string] LPWSTR</b>
      * 
      * A pointer to a null-terminated string that contains the action to be performed. The set of available verbs that specifies the action depends on the particular file or folder. Generally, the actions available from an object's shortcut menu are available verbs. For more information, see the Remarks section.
-     * @type {PWSTR}
      */
-    pwszOperation {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pwszOperation : PWSTR
 
     /**
      * Type: <b>[string] LPWSTR</b>
      * 
      * A pointer to a null-terminated string that specifies the file or object on which to execute the specified verb. To specify a Shell namespace object, pass the fully qualified parse name. Note that not all verbs are supported on all objects. For example, not all document types support the "print" verb.
-     * @type {PWSTR}
      */
-    pwszFile {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwszFile : PWSTR
 
     /**
      * Type: <b>[string] LPWSTR</b>
      * 
      * A pointer to a null-terminated strings that specifies the parameters to be passed to the application, only if the <i>pwszFile</i> parameter specifies an executable file. The format of this string is determined by the verb that is to be invoked. If <i>pwszFile</i> specifies a document file, <i>pwszParameters</i> should be <b>NULL</b>.
-     * @type {PWSTR}
      */
-    pwszParameters {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pwszParameters : PWSTR
 
     /**
      * Type: <b>[string] LPWSTR</b>
      * 
      * A pointer to a null-terminated string that specifies the default directory.
-     * @type {PWSTR}
      */
-    pwszDirectory {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pwszDirectory : PWSTR
 
     /**
      * Type: <b>ULONG</b>
      * 
      * Flags that specify how an application is to be displayed when it is opened. If <i>pwszFile</i> specifies a document file, the flag is simply passed to the associated application. It is up to the application to decide how to handle it.
-     * @type {Integer}
      */
-    nShowCmd {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    nShowCmd : UInt32
+
 }

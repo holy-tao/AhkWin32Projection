@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents methods that an IAsynchronousDataRetriever object can call to indicate that processing has been completed on an IAsynchronousDataRetriever method.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-idataretrievercallback
  * @namespace Windows.Win32.System.WindowsSync
  */
-class IDataRetrieverCallback extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDataRetrieverCallback extends IUnknown {
     /**
      * The interface identifier for IDataRetrieverCallback
      * @type {Guid}
      */
-    static IID => Guid("{71b4863b-f969-4676-bbc3-3d9fdc3fb2c7}")
+    static IID := Guid("{71b4863b-f969-4676-bbc3-3d9fdc3fb2c7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDataRetrieverCallback interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        LoadChangeDataComplete : IntPtr
+        LoadChangeDataError    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["LoadChangeDataComplete", "LoadChangeDataError"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDataRetrieverCallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Indicates that IAsynchronousDataRetriever::LoadChangeData has finished successfully.
@@ -85,5 +94,27 @@ class IDataRetrieverCallback extends IUnknown {
     LoadChangeDataError(hrError) {
         result := ComCall(4, this, "int", hrError, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDataRetrieverCallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.LoadChangeDataComplete := CallbackCreate(GetMethod(implObj, "LoadChangeDataComplete"), flags, 2)
+        this.vtbl.LoadChangeDataError := CallbackCreate(GetMethod(implObj, "LoadChangeDataError"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.LoadChangeDataComplete)
+        CallbackFree(this.vtbl.LoadChangeDataError)
     }
 }

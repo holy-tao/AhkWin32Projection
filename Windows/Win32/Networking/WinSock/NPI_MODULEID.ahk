@@ -1,48 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NPI_MODULEID_TYPE.ahk
-#Include ..\..\Foundation\LUID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NPI_MODULEID_TYPE.ahk" { NPI_MODULEID_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\LUID.ahk" { LUID }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class NPI_MODULEID extends Win32Struct {
-    static sizeof => 16
+export default struct NPI_MODULEID {
+    #StructPack 4
 
-    static packingSize => 8
+    Length : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Type : NPI_MODULEID_TYPE
 
-    /**
-     * @type {NPI_MODULEID_TYPE}
-     */
-    Type {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Guid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    Guid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {LUID}
-     */
-    IfLuid {
-        get {
-            if(!this.HasProp("__IfLuid"))
-                this.__IfLuid := LUID(8, this)
-            return this.__IfLuid
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'IfLuid', { type: LUID, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

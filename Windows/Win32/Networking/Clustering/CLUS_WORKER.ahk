@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains information about a worker thread.
@@ -16,29 +16,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-clus_worker
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUS_WORKER extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct CLUS_WORKER {
+    #StructPack 8
 
     /**
      * Handle to the worker thread.
-     * @type {HANDLE}
      */
-    hThread {
-        get {
-            if(!this.HasProp("__hThread"))
-                this.__hThread := HANDLE(0, this)
-            return this.__hThread
-        }
-    }
+    hThread : HANDLE
 
     /**
      * Flag that indicates whether the thread is to be terminated.
-     * @type {BOOL}
      */
-    Terminate {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    Terminate : BOOL
+
 }

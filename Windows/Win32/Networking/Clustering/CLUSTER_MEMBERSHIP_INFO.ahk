@@ -1,43 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The CLUSTER_MEMBERSHIP_INFO structure represents membership information for a cluster. (CLUSTER_MEMBERSHIP_INFO)
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ns-msclus-cluster_membership_info
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUSTER_MEMBERSHIP_INFO extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct CLUSTER_MEMBERSHIP_INFO {
+    #StructPack 4
 
     /**
      * <b>TRUE</b> if the cluster has a majority quorum; otherwise <b>FALSE</b>.
-     * @type {BOOL}
      */
-    HasQuorum {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    HasQuorum : BOOL
 
     /**
      * The size of the <i>Upnodes</i> parameter.
-     * @type {Integer}
      */
-    UpnodesSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    UpnodesSize : UInt32
 
     /**
      * A byte array that specifies the nodes in the cluster that are online.
-     * @type {Array<Integer>}
      */
-    Upnodes {
-        get {
-            if(!this.HasProp("__UpnodesProxyArray"))
-                this.__UpnodesProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
-            return this.__UpnodesProxyArray
-        }
-    }
+    Upnodes : Int8[1]
+
 }

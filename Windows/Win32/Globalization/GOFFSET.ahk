@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains the x and y offsets of the combining glyph.
@@ -8,26 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/usp10/ns-usp10-goffset
  * @namespace Windows.Win32.Globalization
  */
-class GOFFSET extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct GOFFSET {
+    #StructPack 4
 
     /**
      * x offset, in logical units, for the combining glyph.
-     * @type {Integer}
      */
-    du {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    du : Int32
 
     /**
      * y offset, in logical units, for the combining glyph.
-     * @type {Integer}
      */
-    dv {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    dv : Int32
+
 }

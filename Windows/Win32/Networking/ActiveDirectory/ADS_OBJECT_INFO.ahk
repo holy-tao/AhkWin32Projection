@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The ADS_OBJECT_INFO structure specifies the data, including the identity and location, of a directory service object.
@@ -8,53 +8,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_object_info
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class ADS_OBJECT_INFO extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct ADS_OBJECT_INFO {
+    #StructPack 8
 
     /**
      * The null-terminated Unicode string that contains the relative distinguished name of the directory service object.
-     * @type {PWSTR}
      */
-    pszRDN {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pszRDN : PWSTR
 
     /**
      * The null-terminated Unicode string that contains the distinguished name  of the directory service object.
-     * @type {PWSTR}
      */
-    pszObjectDN {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszObjectDN : PWSTR
 
     /**
      * The null-terminated Unicode string that contains the distinguished name of the parent object.
-     * @type {PWSTR}
      */
-    pszParentDN {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszParentDN : PWSTR
 
     /**
      * The null-terminated Unicode string that contains the distinguished name of the schema class of the object.
-     * @type {PWSTR}
      */
-    pszSchemaDN {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pszSchemaDN : PWSTR
 
     /**
      * The null-terminated Unicode string that contains the name of the class of which this object is an instance.
-     * @type {PWSTR}
      */
-    pszClassName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pszClassName : PWSTR
+
 }

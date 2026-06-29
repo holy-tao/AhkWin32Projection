@@ -1,75 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_VPCI_HARDWARE_IDS extends Win32Struct {
-    static sizeof => 12
+export default struct WHV_VPCI_HARDWARE_IDS {
+    #StructPack 2
 
-    static packingSize => 2
+    VendorID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    VendorID {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    DeviceID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DeviceID {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    RevisionID : Int8
 
-    /**
-     * @type {Integer}
-     */
-    RevisionID {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    ProgIf : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ProgIf {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    SubClass : Int8
 
-    /**
-     * @type {Integer}
-     */
-    SubClass {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    BaseClass : Int8
 
-    /**
-     * @type {Integer}
-     */
-    BaseClass {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    SubVendorID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    SubVendorID {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    SubSystemID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    SubSystemID {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
 }

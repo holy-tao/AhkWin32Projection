@@ -1,33 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMPControls2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMPControls2.ahk" { IWMPControls2 }
 
 /**
  * The IWMPControls3 interface provides methods that supplement the IWMPControls2 interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpcontrols3
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPControls3 extends IWMPControls2 {
-
-    static sizeof => A_PtrSize
+export default struct IWMPControls3 extends IWMPControls2 {
     /**
      * The interface identifier for IWMPControls3
      * @type {Guid}
      */
-    static IID => Guid("{a1d1110e-d545-476a-9a78-ac3e4cb1e6bd}")
+    static IID := Guid("{a1d1110e-d545-476a-9a78-ac3e4cb1e6bd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 24
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPControls3 interfaces
+    */
+    struct Vtbl extends IWMPControls2.Vtbl {
+        get_audioLanguageCount        : IntPtr
+        getAudioLanguageID            : IntPtr
+        getAudioLanguageDescription   : IntPtr
+        get_currentAudioLanguage      : IntPtr
+        put_currentAudioLanguage      : IntPtr
+        get_currentAudioLanguageIndex : IntPtr
+        put_currentAudioLanguageIndex : IntPtr
+        getLanguageName               : IntPtr
+        get_currentPositionTimecode   : IntPtr
+        put_currentPositionTimecode   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_audioLanguageCount", "getAudioLanguageID", "getAudioLanguageDescription", "get_currentAudioLanguage", "put_currentAudioLanguage", "get_currentAudioLanguageIndex", "put_currentAudioLanguageIndex", "getLanguageName", "get_currentPositionTimecode", "put_currentPositionTimecode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPControls3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      */
@@ -166,7 +184,7 @@ class IWMPControls3 extends IWMPControls2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols3-getaudiolanguagedescription
      */
     getAudioLanguageDescription(lIndex, pbstrLangDesc) {
-        result := ComCall(26, this, "int", lIndex, "ptr", pbstrLangDesc, "HRESULT")
+        result := ComCall(26, this, "int", lIndex, BSTR.Ptr, pbstrLangDesc, "HRESULT")
         return result
     }
 
@@ -348,7 +366,7 @@ class IWMPControls3 extends IWMPControls2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols3-getlanguagename
      */
     getLanguageName(lLangID, pbstrLangName) {
-        result := ComCall(31, this, "int", lLangID, "ptr", pbstrLangName, "HRESULT")
+        result := ComCall(31, this, "int", lLangID, BSTR.Ptr, pbstrLangName, "HRESULT")
         return result
     }
 
@@ -389,7 +407,7 @@ class IWMPControls3 extends IWMPControls2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols3-get_currentpositiontimecode
      */
     get_currentPositionTimecode(bstrTimecode) {
-        result := ComCall(32, this, "ptr", bstrTimecode, "HRESULT")
+        result := ComCall(32, this, BSTR.Ptr, bstrTimecode, "HRESULT")
         return result
     }
 
@@ -432,7 +450,45 @@ class IWMPControls3 extends IWMPControls2 {
     put_currentPositionTimecode(bstrTimecode) {
         bstrTimecode := bstrTimecode is String ? BSTR.Alloc(bstrTimecode).Value : bstrTimecode
 
-        result := ComCall(33, this, "ptr", bstrTimecode, "HRESULT")
+        result := ComCall(33, this, BSTR, bstrTimecode, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPControls3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_audioLanguageCount := CallbackCreate(GetMethod(implObj, "get_audioLanguageCount"), flags, 2)
+        this.vtbl.getAudioLanguageID := CallbackCreate(GetMethod(implObj, "getAudioLanguageID"), flags, 3)
+        this.vtbl.getAudioLanguageDescription := CallbackCreate(GetMethod(implObj, "getAudioLanguageDescription"), flags, 3)
+        this.vtbl.get_currentAudioLanguage := CallbackCreate(GetMethod(implObj, "get_currentAudioLanguage"), flags, 2)
+        this.vtbl.put_currentAudioLanguage := CallbackCreate(GetMethod(implObj, "put_currentAudioLanguage"), flags, 2)
+        this.vtbl.get_currentAudioLanguageIndex := CallbackCreate(GetMethod(implObj, "get_currentAudioLanguageIndex"), flags, 2)
+        this.vtbl.put_currentAudioLanguageIndex := CallbackCreate(GetMethod(implObj, "put_currentAudioLanguageIndex"), flags, 2)
+        this.vtbl.getLanguageName := CallbackCreate(GetMethod(implObj, "getLanguageName"), flags, 3)
+        this.vtbl.get_currentPositionTimecode := CallbackCreate(GetMethod(implObj, "get_currentPositionTimecode"), flags, 2)
+        this.vtbl.put_currentPositionTimecode := CallbackCreate(GetMethod(implObj, "put_currentPositionTimecode"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_audioLanguageCount)
+        CallbackFree(this.vtbl.getAudioLanguageID)
+        CallbackFree(this.vtbl.getAudioLanguageDescription)
+        CallbackFree(this.vtbl.get_currentAudioLanguage)
+        CallbackFree(this.vtbl.put_currentAudioLanguage)
+        CallbackFree(this.vtbl.get_currentAudioLanguageIndex)
+        CallbackFree(this.vtbl.put_currentAudioLanguageIndex)
+        CallbackFree(this.vtbl.getLanguageName)
+        CallbackFree(this.vtbl.get_currentPositionTimecode)
+        CallbackFree(this.vtbl.put_currentPositionTimecode)
     }
 }

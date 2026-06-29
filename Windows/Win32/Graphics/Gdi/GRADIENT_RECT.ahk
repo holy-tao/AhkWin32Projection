@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The GRADIENT_RECT structure specifies the index of two vertices in the pVertex array in the GradientFill function. These two vertices form the upper-left and lower-right boundaries of a rectangle.
@@ -13,26 +12,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-gradient_rect
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class GRADIENT_RECT extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct GRADIENT_RECT {
+    #StructPack 4
 
     /**
      * The upper-left corner of a rectangle.
-     * @type {Integer}
      */
-    UpperLeft {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    UpperLeft : UInt32
 
     /**
      * The lower-right corner of a rectangle.
-     * @type {Integer}
      */
-    LowerRight {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    LowerRight : UInt32
+
 }

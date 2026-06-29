@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMPStringCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IWMPStringCollection.ahk" { IWMPStringCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IWMPStringCollection2 interface provides methods that supplement the IWMPStringCollection interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpstringcollection2
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPStringCollection2 extends IWMPStringCollection {
-
-    static sizeof => A_PtrSize
+export default struct IWMPStringCollection2 extends IWMPStringCollection {
     /**
      * The interface identifier for IWMPStringCollection2
      * @type {Guid}
      */
-    static IID => Guid("{46ad648d-53f1-4a74-92e2-2a1b68d63fd4}")
+    static IID := Guid("{46ad648d-53f1-4a74-92e2-2a1b68d63fd4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPStringCollection2 interfaces
+    */
+    struct Vtbl extends IWMPStringCollection.Vtbl {
+        isIdentical             : IntPtr
+        getItemInfo             : IntPtr
+        getAttributeCountByType : IntPtr
+        getItemInfoByType       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["isIdentical", "getItemInfo", "getAttributeCountByType", "getItemInfoByType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPStringCollection2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The isIdentical method retrieves a value indicating whether the supplied object is the same as the current one.
@@ -100,7 +114,7 @@ class IWMPStringCollection2 extends IWMPStringCollection {
     getItemInfo(lCollectionIndex, bstrItemName, pbstrValue) {
         bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName
 
-        result := ComCall(10, this, "int", lCollectionIndex, "ptr", bstrItemName, "ptr", pbstrValue, "HRESULT")
+        result := ComCall(10, this, "int", lCollectionIndex, BSTR, bstrItemName, BSTR.Ptr, pbstrValue, "HRESULT")
         return result
     }
 
@@ -143,7 +157,7 @@ class IWMPStringCollection2 extends IWMPStringCollection {
 
         plCountMarshal := plCount is VarRef ? "int*" : "ptr"
 
-        result := ComCall(11, this, "int", lCollectionIndex, "ptr", bstrType, "ptr", bstrLanguage, plCountMarshal, plCount, "HRESULT")
+        result := ComCall(11, this, "int", lCollectionIndex, BSTR, bstrType, BSTR, bstrLanguage, plCountMarshal, plCount, "HRESULT")
         return result
     }
 
@@ -189,7 +203,33 @@ class IWMPStringCollection2 extends IWMPStringCollection {
         bstrType := bstrType is String ? BSTR.Alloc(bstrType).Value : bstrType
         bstrLanguage := bstrLanguage is String ? BSTR.Alloc(bstrLanguage).Value : bstrLanguage
 
-        result := ComCall(12, this, "int", lCollectionIndex, "ptr", bstrType, "ptr", bstrLanguage, "int", lAttributeIndex, "ptr", pvarValue, "HRESULT")
+        result := ComCall(12, this, "int", lCollectionIndex, BSTR, bstrType, BSTR, bstrLanguage, "int", lAttributeIndex, VARIANT.Ptr, pvarValue, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPStringCollection2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.isIdentical := CallbackCreate(GetMethod(implObj, "isIdentical"), flags, 3)
+        this.vtbl.getItemInfo := CallbackCreate(GetMethod(implObj, "getItemInfo"), flags, 4)
+        this.vtbl.getAttributeCountByType := CallbackCreate(GetMethod(implObj, "getAttributeCountByType"), flags, 5)
+        this.vtbl.getItemInfoByType := CallbackCreate(GetMethod(implObj, "getItemInfoByType"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.isIdentical)
+        CallbackFree(this.vtbl.getItemInfo)
+        CallbackFree(this.vtbl.getAttributeCountByType)
+        CallbackFree(this.vtbl.getItemInfoByType)
     }
 }

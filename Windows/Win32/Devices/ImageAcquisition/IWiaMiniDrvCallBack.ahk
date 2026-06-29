@@ -1,31 +1,40 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MINIDRV_TRANSFER_CONTEXT.ahk" { MINIDRV_TRANSFER_CONTEXT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
-class IWiaMiniDrvCallBack extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWiaMiniDrvCallBack extends IUnknown {
     /**
      * The interface identifier for IWiaMiniDrvCallBack
      * @type {Guid}
      */
-    static IID => Guid("{33a57d5a-3de8-11d2-9a36-00c04fa36145}")
+    static IID := Guid("{33a57d5a-3de8-11d2-9a36-00c04fa36145}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWiaMiniDrvCallBack interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        MiniDrvCallback : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["MiniDrvCallback"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWiaMiniDrvCallBack.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -39,7 +48,27 @@ class IWiaMiniDrvCallBack extends IUnknown {
      * @returns {HRESULT} 
      */
     MiniDrvCallback(lReason, lStatus, lPercentComplete, lOffset, lLength, pTranCtx, lReserved) {
-        result := ComCall(3, this, "int", lReason, "int", lStatus, "int", lPercentComplete, "int", lOffset, "int", lLength, "ptr", pTranCtx, "int", lReserved, "HRESULT")
+        result := ComCall(3, this, "int", lReason, "int", lStatus, "int", lPercentComplete, "int", lOffset, "int", lLength, MINIDRV_TRANSFER_CONTEXT.Ptr, pTranCtx, "int", lReserved, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWiaMiniDrvCallBack.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.MiniDrvCallback := CallbackCreate(GetMethod(implObj, "MiniDrvCallback"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.MiniDrvCallback)
     }
 }

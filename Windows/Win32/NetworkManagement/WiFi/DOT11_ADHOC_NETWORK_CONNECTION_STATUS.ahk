@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the connection state of an ad hoc network.
  * @see https://learn.microsoft.com/windows/win32/api/adhoc/ne-adhoc-dot11_adhoc_network_connection_status
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_ADHOC_NETWORK_CONNECTION_STATUS extends Win32Enum {
+export default struct DOT11_ADHOC_NETWORK_CONNECTION_STATUS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The connection status cannot be determined. A network with this status should not be used.

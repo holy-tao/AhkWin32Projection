@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.SerialCommunication
  */
-class SERIAL_XOFF_COUNTER extends Win32Struct {
-    static sizeof => 12
+export default struct SERIAL_XOFF_COUNTER {
+    #StructPack 4
 
-    static packingSize => 4
+    Timeout : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Timeout {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Counter : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Counter {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    XoffChar : Int8
 
-    /**
-     * @type {Integer}
-     */
-    XoffChar {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
 }

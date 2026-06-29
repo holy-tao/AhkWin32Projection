@@ -1,67 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
-class DMUS_PEGPARAMS extends Win32Struct {
-    static sizeof => 28
+export default struct DMUS_PEGPARAMS {
+    #StructPack 4
 
-    static packingSize => 4
+    tcAttack : Int32
 
-    /**
-     * @type {Integer}
-     */
-    tcAttack {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    tcDecay : Int32
 
-    /**
-     * @type {Integer}
-     */
-    tcDecay {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    ptSustain : Int32
 
-    /**
-     * @type {Integer}
-     */
-    ptSustain {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    tcRelease : Int32
 
-    /**
-     * @type {Integer}
-     */
-    tcRelease {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    tcVel2Attack : Int32
 
-    /**
-     * @type {Integer}
-     */
-    tcVel2Attack {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    tcKey2Decay : Int32
 
-    /**
-     * @type {Integer}
-     */
-    tcKey2Decay {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    pcRange : Int32
 
-    /**
-     * @type {Integer}
-     */
-    pcRange {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
 }

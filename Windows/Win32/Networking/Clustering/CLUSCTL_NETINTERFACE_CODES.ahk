@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The CLUSCTL_NETINTERFACE_CODES enumeration (msclus.h) enumerates Network Interface control codes.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clusctl_netinterface_codes
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUSCTL_NETINTERFACE_CODES extends Win32Enum {
+export default struct CLUSCTL_NETINTERFACE_CODES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * See 

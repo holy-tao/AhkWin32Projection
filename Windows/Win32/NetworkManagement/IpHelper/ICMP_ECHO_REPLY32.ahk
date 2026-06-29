@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IP_OPTION_INFORMATION32.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IP_OPTION_INFORMATION32.ahk" { IP_OPTION_INFORMATION32 }
 
 /**
  * Describes the data returned in response to an IPv4 echo request on a 64-bit platform.
@@ -17,21 +16,15 @@
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @architecture X64, Arm64
  */
-class ICMP_ECHO_REPLY32 extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct ICMP_ECHO_REPLY32 {
+    #StructPack 8
 
     /**
      * Type: <b>IPAddr</b>
      * 
      * The replying IPv4 address, in the form of an <a href="https://docs.microsoft.com/windows/desktop/api/inaddr/ns-inaddr-in_addr">IPAddr</a> structure.
-     * @type {Integer}
      */
-    Address {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Address : UInt32
 
     /**
      * Type: <b>ULONG</b>
@@ -264,68 +257,42 @@ class ICMP_ECHO_REPLY32 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Status {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Status : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The round trip time, in milliseconds.
-     * @type {Integer}
      */
-    RoundTripTime {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    RoundTripTime : UInt32
 
     /**
      * Type: <b>USHORT</b>
      * 
      * The data size, in bytes, of the reply.
-     * @type {Integer}
      */
-    DataSize {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    DataSize : UInt16
 
     /**
      * Type: <b>USHORT</b>
      * 
      * Reserved for system use.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    Reserved : UInt16
 
     /**
      * Type: <b>VOID * POINTER_32</b>
      * 
      * A pointer to the reply data.
-     * @type {Pointer<Void>}
      */
-    Data {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Data : IntPtr
 
     /**
      * Type: <b>struct ip_option_information32</b>
      * 
      * The IP options in the IP header of the reply, in the form of an <a href="https://docs.microsoft.com/windows/desktop/api/ipexport/ns-ipexport-ip_option_information32">IP_OPTION_INFORMATION32</a> structure.
-     * @type {IP_OPTION_INFORMATION32}
      */
-    Options {
-        get {
-            if(!this.HasProp("__Options"))
-                this.__Options := IP_OPTION_INFORMATION32(24, this)
-            return this.__Options
-        }
-    }
+    Options : IP_OPTION_INFORMATION32
+
 }

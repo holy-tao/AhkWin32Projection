@@ -1,36 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Graphics\Direct3D9\D3DSTATEBLOCKTYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Graphics\Direct3D9\D3DSTATEBLOCKTYPE.ahk" { D3DSTATEBLOCKTYPE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DNTHAL_DP2STATESET extends Win32Struct {
-    static sizeof => 12
+export default struct D3DNTHAL_DP2STATESET {
+    #StructPack 4
 
-    static packingSize => 4
+    dwOperation : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwOperation {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwParam : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwParam {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    sbType : D3DSTATEBLOCKTYPE
 
-    /**
-     * @type {D3DSTATEBLOCKTYPE}
-     */
-    sbType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
 }

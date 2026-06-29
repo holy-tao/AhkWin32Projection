@@ -1,13 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DDDICB_LOCKFLAGS extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct D3DDDICB_LOCKFLAGS {
+    #StructPack 4
 
     /**
      * This bitfield backs the following members:
@@ -23,12 +20,9 @@ class D3DDDICB_LOCKFLAGS extends Win32Struct {
      * - UseAlternateVA
      * - IgnoreReadSync
      * - Reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -117,12 +111,8 @@ class D3DDDICB_LOCKFLAGS extends Win32Struct {
         get => (this._bitfield >> 10) & 0x1
         set => this._bitfield := ((value & 0x1) << 10) | (this._bitfield & ~(0x1 << 10))
     }
-
-    /**
-     * @type {Integer}
-     */
-    Value {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'Value', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

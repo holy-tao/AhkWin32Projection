@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISyncChangeBatchBase.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SYNC_SERIALIZATION_VERSION.ahk" { SYNC_SERIALIZATION_VERSION }
+#Import ".\ISyncChangeBatchBase.ahk" { ISyncChangeBatchBase }
 
 /**
  * Represents additional capabilities of an ISyncChangeBatchBase object.
@@ -10,26 +12,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isyncchangebatchbase2
  * @namespace Windows.Win32.System.WindowsSync
  */
-class ISyncChangeBatchBase2 extends ISyncChangeBatchBase {
-
-    static sizeof => A_PtrSize
+export default struct ISyncChangeBatchBase2 extends ISyncChangeBatchBase {
     /**
      * The interface identifier for ISyncChangeBatchBase2
      * @type {Guid}
      */
-    static IID => Guid("{6fdb596a-d755-4584-bd0c-c0c23a548fbf}")
+    static IID := Guid("{6fdb596a-d755-4584-bd0c-c0c23a548fbf}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 17
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISyncChangeBatchBase2 interfaces
+    */
+    struct Vtbl extends ISyncChangeBatchBase.Vtbl {
+        SerializeWithOptions : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SerializeWithOptions"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISyncChangeBatchBase2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Serializes the change batch object data to a byte array, based on the specified version and serialization options.
@@ -146,7 +155,27 @@ class ISyncChangeBatchBase2 extends ISyncChangeBatchBase {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
         pdwSerializedSizeMarshal := pdwSerializedSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(17, this, "int", targetFormatVersion, "uint", dwFlags, pbBufferMarshal, pbBuffer, pdwSerializedSizeMarshal, pdwSerializedSize, "HRESULT")
+        result := ComCall(17, this, SYNC_SERIALIZATION_VERSION, targetFormatVersion, "uint", dwFlags, pbBufferMarshal, pbBuffer, pdwSerializedSizeMarshal, pdwSerializedSize, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISyncChangeBatchBase2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SerializeWithOptions := CallbackCreate(GetMethod(implObj, "SerializeWithOptions"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SerializeWithOptions)
     }
 }

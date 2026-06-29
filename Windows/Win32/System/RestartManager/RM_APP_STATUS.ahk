@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the current status of an application that is acted upon by the Restart Manager.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/restartmanager/ne-restartmanager-rm_app_status
  * @namespace Windows.Win32.System.RestartManager
  */
-class RM_APP_STATUS extends Win32Enum {
+export default struct RM_APP_STATUS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The application is in a state that is not described by any other enumerated state.

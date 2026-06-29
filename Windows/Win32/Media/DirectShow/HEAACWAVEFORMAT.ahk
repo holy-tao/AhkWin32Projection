@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HEAACWAVEINFO.ahk
-#Include ..\Audio\WAVEFORMATEX.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HEAACWAVEINFO.ahk" { HEAACWAVEINFO }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
 
 /**
  * Contains format data for an AAC or HE-AAC stream that includes AudioSpecificConfig() data.
@@ -10,32 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mmreg/ns-mmreg-heaacwaveformat
  * @namespace Windows.Win32.Media.DirectShow
  */
-class HEAACWAVEFORMAT extends Win32Struct {
-    static sizeof => 36
-
-    static packingSize => 4
+export default struct HEAACWAVEFORMAT {
+    #StructPack 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/mmreg/ns-mmreg-heaacwaveinfo">HEAACWAVEINFO</a> structure.
-     * @type {HEAACWAVEINFO}
      */
-    wfInfo {
-        get {
-            if(!this.HasProp("__wfInfo"))
-                this.__wfInfo := HEAACWAVEINFO(0, this)
-            return this.__wfInfo
-        }
-    }
+    wfInfo : HEAACWAVEINFO
 
     /**
      * A byte array that contains the value of AudioSpecificConfig(), as defined by ISO/IEC 14496-3. The array might be larger than the size given in the structure declaration. Use the value of <b>wfInfo.wfx.cbSize</b>  to determine the size.
-     * @type {Array<Integer>}
      */
-    pbAudioSpecificConfig {
-        get {
-            if(!this.HasProp("__pbAudioSpecificConfigProxyArray"))
-                this.__pbAudioSpecificConfigProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
-            return this.__pbAudioSpecificConfigProxyArray
-        }
-    }
+    pbAudioSpecificConfig : Int8[1]
+
 }

@@ -1,352 +1,69 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MI_Datetime.ahk
-#Include .\MI_Timestamp.ahk
-#Include .\MI_Interval.ahk
-#Include .\MI_Instance.ahk
-#Include .\MI_BooleanA.ahk
-#Include .\MI_Uint8A.ahk
-#Include .\MI_Sint8A.ahk
-#Include .\MI_Uint16A.ahk
-#Include .\MI_Sint16A.ahk
-#Include .\MI_Uint32A.ahk
-#Include .\MI_Sint32A.ahk
-#Include .\MI_Uint64A.ahk
-#Include .\MI_Sint64A.ahk
-#Include .\MI_Real32A.ahk
-#Include .\MI_Real64A.ahk
-#Include .\MI_Char16A.ahk
-#Include .\MI_DatetimeA.ahk
-#Include .\MI_StringA.ahk
-#Include .\MI_ReferenceA.ahk
-#Include .\MI_InstanceA.ahk
-#Include .\MI_Array.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MI_Sint32A.ahk" { MI_Sint32A }
+#Import ".\MI_Array.ahk" { MI_Array }
+#Import ".\MI_InstanceA.ahk" { MI_InstanceA }
+#Import ".\MI_Sint8A.ahk" { MI_Sint8A }
+#Import ".\MI_DatetimeA.ahk" { MI_DatetimeA }
+#Import ".\MI_Timestamp.ahk" { MI_Timestamp }
+#Import ".\MI_Sint16A.ahk" { MI_Sint16A }
+#Import ".\MI_BooleanA.ahk" { MI_BooleanA }
+#Import ".\MI_Instance.ahk" { MI_Instance }
+#Import ".\MI_Uint16A.ahk" { MI_Uint16A }
+#Import ".\MI_Interval.ahk" { MI_Interval }
+#Import ".\MI_Char16A.ahk" { MI_Char16A }
+#Import ".\MI_Uint32A.ahk" { MI_Uint32A }
+#Import ".\MI_Sint64A.ahk" { MI_Sint64A }
+#Import ".\MI_Datetime.ahk" { MI_Datetime }
+#Import ".\MI_Uint64A.ahk" { MI_Uint64A }
+#Import ".\MI_Real64A.ahk" { MI_Real64A }
+#Import ".\MI_StringA.ahk" { MI_StringA }
+#Import ".\MI_ReferenceA.ahk" { MI_ReferenceA }
+#Import ".\MI_Uint8A.ahk" { MI_Uint8A }
+#Import ".\MI_Real32A.ahk" { MI_Real32A }
 
 /**
  * A union of all CIM data types.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_value
  * @namespace Windows.Win32.System.Wmi
  */
-class MI_Value extends Win32Struct {
-    static sizeof => 384
+export default struct MI_Value {
+    #StructPack 8
 
-    static packingSize => 8
+    boolean : Int8
 
-    /**
-     * @type {Integer}
-     */
-    boolean {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    uint8 {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    sint8 {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    uint16 {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    sint16 {
-        get => NumGet(this, 0, "short")
-        set => NumPut("short", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    uint32 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    sint32 {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    uint64 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    sint64 {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
-
-    /**
-     * @type {Float}
-     */
-    real32 {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
-
-    /**
-     * @type {Float}
-     */
-    real64 {
-        get => NumGet(this, 0, "double")
-        set => NumPut("double", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    char16 {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
-
-    /**
-     * @type {MI_Datetime}
-     */
-    datetime {
-        get {
-            if(!this.HasProp("__datetime"))
-                this.__datetime := MI_Datetime(0, this)
-            return this.__datetime
-        }
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    string {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {Pointer<MI_Instance>}
-     */
-    instance {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {Pointer<MI_Instance>}
-     */
-    reference {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {MI_BooleanA}
-     */
-    booleana {
-        get {
-            if(!this.HasProp("__booleana"))
-                this.__booleana := MI_BooleanA(0, this)
-            return this.__booleana
-        }
-    }
-
-    /**
-     * @type {MI_Uint8A}
-     */
-    uint8a {
-        get {
-            if(!this.HasProp("__uint8a"))
-                this.__uint8a := MI_Uint8A(0, this)
-            return this.__uint8a
-        }
-    }
-
-    /**
-     * @type {MI_Sint8A}
-     */
-    sint8a {
-        get {
-            if(!this.HasProp("__sint8a"))
-                this.__sint8a := MI_Sint8A(0, this)
-            return this.__sint8a
-        }
-    }
-
-    /**
-     * @type {MI_Uint16A}
-     */
-    uint16a {
-        get {
-            if(!this.HasProp("__uint16a"))
-                this.__uint16a := MI_Uint16A(0, this)
-            return this.__uint16a
-        }
-    }
-
-    /**
-     * @type {MI_Sint16A}
-     */
-    sint16a {
-        get {
-            if(!this.HasProp("__sint16a"))
-                this.__sint16a := MI_Sint16A(0, this)
-            return this.__sint16a
-        }
-    }
-
-    /**
-     * @type {MI_Uint32A}
-     */
-    uint32a {
-        get {
-            if(!this.HasProp("__uint32a"))
-                this.__uint32a := MI_Uint32A(0, this)
-            return this.__uint32a
-        }
-    }
-
-    /**
-     * @type {MI_Sint32A}
-     */
-    sint32a {
-        get {
-            if(!this.HasProp("__sint32a"))
-                this.__sint32a := MI_Sint32A(0, this)
-            return this.__sint32a
-        }
-    }
-
-    /**
-     * @type {MI_Uint64A}
-     */
-    uint64a {
-        get {
-            if(!this.HasProp("__uint64a"))
-                this.__uint64a := MI_Uint64A(0, this)
-            return this.__uint64a
-        }
-    }
-
-    /**
-     * @type {MI_Sint64A}
-     */
-    sint64a {
-        get {
-            if(!this.HasProp("__sint64a"))
-                this.__sint64a := MI_Sint64A(0, this)
-            return this.__sint64a
-        }
-    }
-
-    /**
-     * @type {MI_Real32A}
-     */
-    real32a {
-        get {
-            if(!this.HasProp("__real32a"))
-                this.__real32a := MI_Real32A(0, this)
-            return this.__real32a
-        }
-    }
-
-    /**
-     * @type {MI_Real64A}
-     */
-    real64a {
-        get {
-            if(!this.HasProp("__real64a"))
-                this.__real64a := MI_Real64A(0, this)
-            return this.__real64a
-        }
-    }
-
-    /**
-     * @type {MI_Char16A}
-     */
-    char16a {
-        get {
-            if(!this.HasProp("__char16a"))
-                this.__char16a := MI_Char16A(0, this)
-            return this.__char16a
-        }
-    }
-
-    /**
-     * @type {MI_DatetimeA}
-     */
-    datetimea {
-        get {
-            if(!this.HasProp("__datetimea"))
-                this.__datetimea := MI_DatetimeA(0, this)
-            return this.__datetimea
-        }
-    }
-
-    /**
-     * @type {MI_StringA}
-     */
-    stringa {
-        get {
-            if(!this.HasProp("__stringa"))
-                this.__stringa := MI_StringA(0, this)
-            return this.__stringa
-        }
-    }
-
-    /**
-     * @type {MI_ReferenceA}
-     */
-    referencea {
-        get {
-            if(!this.HasProp("__referencea"))
-                this.__referencea := MI_ReferenceA(0, this)
-            return this.__referencea
-        }
-    }
-
-    /**
-     * @type {MI_InstanceA}
-     */
-    instancea {
-        get {
-            if(!this.HasProp("__instancea"))
-                this.__instancea := MI_InstanceA(0, this)
-            return this.__instancea
-        }
-    }
-
-    /**
-     * @type {MI_Array}
-     */
-    array {
-        get {
-            if(!this.HasProp("__array"))
-                this.__array := MI_Array(0, this)
-            return this.__array
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'uint8', { type: Int8, offset: 0 })
+        DefineProp(this.Prototype, 'sint8', { type: Int8, offset: 0 })
+        DefineProp(this.Prototype, 'uint16', { type: UInt16, offset: 0 })
+        DefineProp(this.Prototype, 'sint16', { type: Int16, offset: 0 })
+        DefineProp(this.Prototype, 'uint32', { type: UInt32, offset: 0 })
+        DefineProp(this.Prototype, 'sint32', { type: Int32, offset: 0 })
+        DefineProp(this.Prototype, 'uint64', { type: Int64, offset: 0 })
+        DefineProp(this.Prototype, 'sint64', { type: Int64, offset: 0 })
+        DefineProp(this.Prototype, 'real32', { type: Float32, offset: 0 })
+        DefineProp(this.Prototype, 'real64', { type: Float64, offset: 0 })
+        DefineProp(this.Prototype, 'char16', { type: UInt16, offset: 0 })
+        DefineProp(this.Prototype, 'datetime', { type: MI_Datetime, offset: 0 })
+        DefineProp(this.Prototype, 'string', { type: IntPtr, offset: 0 })
+        DefineProp(this.Prototype, 'instance', { type: MI_Instance.Ptr, offset: 0 })
+        DefineProp(this.Prototype, 'reference', { type: MI_Instance.Ptr, offset: 0 })
+        DefineProp(this.Prototype, 'booleana', { type: MI_BooleanA, offset: 0 })
+        DefineProp(this.Prototype, 'uint8a', { type: MI_Uint8A, offset: 0 })
+        DefineProp(this.Prototype, 'sint8a', { type: MI_Sint8A, offset: 0 })
+        DefineProp(this.Prototype, 'uint16a', { type: MI_Uint16A, offset: 0 })
+        DefineProp(this.Prototype, 'sint16a', { type: MI_Sint16A, offset: 0 })
+        DefineProp(this.Prototype, 'uint32a', { type: MI_Uint32A, offset: 0 })
+        DefineProp(this.Prototype, 'sint32a', { type: MI_Sint32A, offset: 0 })
+        DefineProp(this.Prototype, 'uint64a', { type: MI_Uint64A, offset: 0 })
+        DefineProp(this.Prototype, 'sint64a', { type: MI_Sint64A, offset: 0 })
+        DefineProp(this.Prototype, 'real32a', { type: MI_Real32A, offset: 0 })
+        DefineProp(this.Prototype, 'real64a', { type: MI_Real64A, offset: 0 })
+        DefineProp(this.Prototype, 'char16a', { type: MI_Char16A, offset: 0 })
+        DefineProp(this.Prototype, 'datetimea', { type: MI_DatetimeA, offset: 0 })
+        DefineProp(this.Prototype, 'stringa', { type: MI_StringA, offset: 0 })
+        DefineProp(this.Prototype, 'referencea', { type: MI_ReferenceA, offset: 0 })
+        DefineProp(this.Prototype, 'instancea', { type: MI_InstanceA, offset: 0 })
+        DefineProp(this.Prototype, 'array', { type: MI_Array, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

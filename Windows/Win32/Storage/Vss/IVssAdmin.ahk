@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IVssEnumObject.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VSS_PROVIDER_TYPE.ahk" { VSS_PROVIDER_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IVssEnumObject.ahk" { IVssEnumObject }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVssAdmin interface manages providers registered with VSS.
  * @see https://learn.microsoft.com/windows/win32/api/vsadmin/nn-vsadmin-ivssadmin
  * @namespace Windows.Win32.Storage.Vss
  */
-class IVssAdmin extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVssAdmin extends IUnknown {
     /**
      * The interface identifier for IVssAdmin
      * @type {Guid}
      */
-    static IID => Guid("{77ed5996-2f63-11d3-8a39-00c04f72d8e3}")
+    static IID := Guid("{77ed5996-2f63-11d3-8a39-00c04f72d8e3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVssAdmin interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RegisterProvider            : IntPtr
+        UnregisterProvider          : IntPtr
+        QueryProviders              : IntPtr
+        AbortAllSnapshotsInProgress : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RegisterProvider", "UnregisterProvider", "QueryProviders", "AbortAllSnapshotsInProgress"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVssAdmin.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Registers a new shadow copy provider.
@@ -139,7 +151,7 @@ class IVssAdmin extends IUnknown {
         pwszProviderNameMarshal := pwszProviderName is VarRef ? "ushort*" : "ptr"
         pwszProviderVersionMarshal := pwszProviderVersion is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pProviderId, "ptr", ClassId, pwszProviderNameMarshal, pwszProviderName, "int", eProviderType, pwszProviderVersionMarshal, pwszProviderVersion, "ptr", ProviderVersionId, "HRESULT")
+        result := ComCall(3, this, Guid, pProviderId, Guid, ClassId, pwszProviderNameMarshal, pwszProviderName, VSS_PROVIDER_TYPE, eProviderType, pwszProviderVersionMarshal, pwszProviderVersion, Guid, ProviderVersionId, "HRESULT")
         return result
     }
 
@@ -215,7 +227,7 @@ class IVssAdmin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsadmin/nf-vsadmin-ivssadmin-unregisterprovider
      */
     UnregisterProvider(ProviderId) {
-        result := ComCall(4, this, "ptr", ProviderId, "HRESULT")
+        result := ComCall(4, this, Guid, ProviderId, "HRESULT")
         return result
     }
 
@@ -245,5 +257,31 @@ class IVssAdmin extends IUnknown {
     AbortAllSnapshotsInProgress() {
         result := ComCall(6, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVssAdmin.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RegisterProvider := CallbackCreate(GetMethod(implObj, "RegisterProvider"), flags, 7)
+        this.vtbl.UnregisterProvider := CallbackCreate(GetMethod(implObj, "UnregisterProvider"), flags, 2)
+        this.vtbl.QueryProviders := CallbackCreate(GetMethod(implObj, "QueryProviders"), flags, 2)
+        this.vtbl.AbortAllSnapshotsInProgress := CallbackCreate(GetMethod(implObj, "AbortAllSnapshotsInProgress"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RegisterProvider)
+        CallbackFree(this.vtbl.UnregisterProvider)
+        CallbackFree(this.vtbl.QueryProviders)
+        CallbackFree(this.vtbl.AbortAllSnapshotsInProgress)
     }
 }

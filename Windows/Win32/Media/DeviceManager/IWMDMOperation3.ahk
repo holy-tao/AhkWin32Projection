@@ -1,33 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMDMOperation.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMDMOperation.ahk" { IWMDMOperation }
 
 /**
  * The optional, application-implemented IWMDMOperation3 interface extends IWMDMOperation by providing a new method for transferring data unencrypted for added efficiency.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmoperation3
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class IWMDMOperation3 extends IWMDMOperation {
-
-    static sizeof => A_PtrSize
+export default struct IWMDMOperation3 extends IWMDMOperation {
     /**
      * The interface identifier for IWMDMOperation3
      * @type {Guid}
      */
-    static IID => Guid("{d1f9b46a-9ca8-46d8-9d0f-1ec9bae54919}")
+    static IID := Guid("{d1f9b46a-9ca8-46d8-9d0f-1ec9bae54919}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 13
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMDMOperation3 interfaces
+    */
+    struct Vtbl extends IWMDMOperation.Vtbl {
+        TransferObjectDataOnClearChannel : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["TransferObjectDataOnClearChannel"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMDMOperation3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The TransferObjectDataOnClearChannel method is a more efficient implementation of IWMDMOperation::TransferObjectData.
@@ -88,5 +96,25 @@ class IWMDMOperation3 extends IWMDMOperation {
 
         result := ComCall(13, this, pDataMarshal, pData, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMDMOperation3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.TransferObjectDataOnClearChannel := CallbackCreate(GetMethod(implObj, "TransferObjectDataOnClearChannel"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.TransferObjectDataOnClearChannel)
     }
 }

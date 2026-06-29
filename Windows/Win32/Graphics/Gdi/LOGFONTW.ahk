@@ -1,9 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FONT_CHARSET.ahk
-#Include .\FONT_OUTPUT_PRECISION.ahk
-#Include .\FONT_CLIP_PRECISION.ahk
-#Include .\FONT_QUALITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FONT_OUTPUT_PRECISION.ahk" { FONT_OUTPUT_PRECISION }
+#Import ".\FONT_CLIP_PRECISION.ahk" { FONT_CLIP_PRECISION }
+#Import ".\FONT_QUALITY.ahk" { FONT_QUALITY }
+#Import ".\FONT_CHARSET.ahk" { FONT_CHARSET }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Defines the attributes of a font. (LOGFONTW)
@@ -29,10 +29,8 @@
  * @namespace Windows.Win32.Graphics.Gdi
  * @charset Unicode
  */
-class LOGFONTW extends Win32Struct {
-    static sizeof => 92
-
-    static packingSize => 4
+export default struct LOGFONTW {
+    #StructPack 8
 
     /**
      * Type: <b>LONG</b>
@@ -78,23 +76,15 @@ class LOGFONTW extends Win32Struct {
      * 
      * 
      * ```cpp
-     * @type {Integer}
      */
-    lfHeight {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    lfHeight : Int32
 
     /**
      * Type: <b>LONG</b>
      * 
      * Specifies the average width, in logical units, of characters in the font. If <b>lfWidth</b> is not zero, the aspect ratio of the device is matched against the digitization aspect ratio of the available fonts to find the closest match, determined by the absolute value of the difference.
-     * @type {Integer}
      */
-    lfWidth {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    lfWidth : Int32
 
     /**
      * Type: <b>LONG</b>
@@ -102,23 +92,15 @@ class LOGFONTW extends Win32Struct {
      * Specifies the angle, in tenths of degrees, between the escapement vector and the x-axis of the device. The escapement vector is parallel to the base line of a row of text.
      * 
      * The <b>lfEscapement</b> member specifies both the escapement and orientation. You should set <b>lfEscapement</b> and <b>lfOrientation</b> to the same value.
-     * @type {Integer}
      */
-    lfEscapement {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    lfEscapement : Int32
 
     /**
      * Type: <b>LONG</b>
      * 
      * Specifies the angle, in tenths of degrees, between each character's base line and the x-axis of the device.
-     * @type {Integer}
      */
-    lfOrientation {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    lfOrientation : Int32
 
     /**
      * Type: <b>LONG</b>
@@ -193,45 +175,29 @@ class LOGFONTW extends Win32Struct {
      * <td>900</td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    lfWeight {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    lfWeight : Int32
 
     /**
      * Type: <b>BYTE</b>
      * 
      * <b>TRUE</b> to specify an italic font.
-     * @type {Integer}
      */
-    lfItalic {
-        get => NumGet(this, 20, "char")
-        set => NumPut("char", value, this, 20)
-    }
+    lfItalic : Int8
 
     /**
      * Type: <b>BYTE</b>
      * 
      * <b>TRUE</b> to specify an underlined font.
-     * @type {Integer}
      */
-    lfUnderline {
-        get => NumGet(this, 21, "char")
-        set => NumPut("char", value, this, 21)
-    }
+    lfUnderline : Int8
 
     /**
      * Type: <b>BYTE</b>
      * 
      * <b>TRUE</b> to specify a strikeout font.
-     * @type {Integer}
      */
-    lfStrikeOut {
-        get => NumGet(this, 22, "char")
-        set => NumPut("char", value, this, 22)
-    }
+    lfStrikeOut : Int8
 
     /**
      * Type: <b>BYTE</b>
@@ -318,57 +284,34 @@ class LOGFONTW extends Win32Struct {
      * Fonts with other character sets may exist in the operating system. If an application uses a font with an unknown character set, it should not attempt to translate or interpret strings that are rendered with that font.
      * 
      * This member is important in the font mapping process. To ensure consistent results, specify a specific character set. If you specify a typeface name in the <b>lfFaceName</b> member, make sure that the <b>lfCharSet</b> value matches the character set of the typeface specified in <b>lfFaceName</b>.
-     * @type {FONT_CHARSET}
      */
-    lfCharSet {
-        get => NumGet(this, 23, "char")
-        set => NumPut("char", value, this, 23)
-    }
+    lfCharSet : FONT_CHARSET
 
     /**
      * Type: <b>BYTE</b>
-     * @type {FONT_OUTPUT_PRECISION}
      */
-    lfOutPrecision {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
-    }
+    lfOutPrecision : FONT_OUTPUT_PRECISION
 
     /**
      * Type: <b>BYTE</b>
-     * @type {FONT_CLIP_PRECISION}
      */
-    lfClipPrecision {
-        get => NumGet(this, 25, "char")
-        set => NumPut("char", value, this, 25)
-    }
+    lfClipPrecision : FONT_CLIP_PRECISION
 
     /**
      * Type: <b>BYTE</b>
-     * @type {FONT_QUALITY}
      */
-    lfQuality {
-        get => NumGet(this, 26, "char")
-        set => NumPut("char", value, this, 26)
-    }
+    lfQuality : FONT_QUALITY
 
     /**
      * Type: <b>BYTE</b>
-     * @type {Integer}
      */
-    lfPitchAndFamily {
-        get => NumGet(this, 27, "char")
-        set => NumPut("char", value, this, 27)
-    }
+    lfPitchAndFamily : Int8
 
     /**
      * Type: <b>TCHAR[LF_FACESIZE]</b>
      * 
      * Specifies a null-terminated string that specifies the typeface name of the font. The length of this string must not exceed 32 characters, including the terminating null character. The <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontfamiliesa">EnumFontFamilies</a> function can be used to enumerate the typeface names of all currently available fonts. If <b>lfFaceName</b> is an empty string, GDI uses the first font that matches the other specified attributes.
-     * @type {String}
      */
-    lfFaceName {
-        get => StrGet(this.ptr + 28, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 28, 31, "UTF-16")
-    }
+    lfFaceName : WCHAR[32]
+
 }

@@ -1,85 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_CODEC.ahk
-#Include .\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk
-#Include .\D3D12_VIDEO_ENCODER_PROFILE_H264.ahk
-#Include .\D3D12_VIDEO_ENCODER_PROFILE_HEVC.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_PROFILE.ahk
-#Include .\D3D12_VIDEO_ENCODER_LEVEL_SETTING.ahk
-#Include .\D3D12_VIDEO_ENCODER_LEVELS_H264.ahk
-#Include .\D3D12_VIDEO_ENCODER_LEVEL_TIER_CONSTRAINTS_HEVC.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_LEVEL_TIER_CONSTRAINTS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_VIDEO_ENCODER_AV1_LEVEL_TIER_CONSTRAINTS.ahk" { D3D12_VIDEO_ENCODER_AV1_LEVEL_TIER_CONSTRAINTS }
+#Import ".\D3D12_VIDEO_ENCODER_CODEC.ahk" { D3D12_VIDEO_ENCODER_CODEC }
+#Import ".\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk" { D3D12_VIDEO_ENCODER_PROFILE_DESC }
+#Import ".\D3D12_VIDEO_ENCODER_LEVEL_TIER_CONSTRAINTS_HEVC.ahk" { D3D12_VIDEO_ENCODER_LEVEL_TIER_CONSTRAINTS_HEVC }
+#Import ".\D3D12_VIDEO_ENCODER_LEVELS_H264.ahk" { D3D12_VIDEO_ENCODER_LEVELS_H264 }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D12_VIDEO_ENCODER_PROFILE_H264.ahk" { D3D12_VIDEO_ENCODER_PROFILE_H264 }
+#Import ".\D3D12_VIDEO_ENCODER_AV1_PROFILE.ahk" { D3D12_VIDEO_ENCODER_AV1_PROFILE }
+#Import ".\D3D12_VIDEO_ENCODER_LEVEL_SETTING.ahk" { D3D12_VIDEO_ENCODER_LEVEL_SETTING }
+#Import ".\D3D12_VIDEO_ENCODER_PROFILE_HEVC.ahk" { D3D12_VIDEO_ENCODER_PROFILE_HEVC }
 
 /**
  * Retrieves a value indicating if the specified profile is supported for video encoding.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_encoder_profile_level
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_PROFILE_LEVEL extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct D3D12_FEATURE_DATA_VIDEO_ENCODER_PROFILE_LEVEL {
+    #StructPack 8
 
     /**
      * For single GPU operation, set this to zero. If there are multiple GPU nodes, set a bit to identify the node (the device's physical adapter) to which the command queue applies. Each bit in the mask corresponds to a single node. Only 1 bit may be set.
-     * @type {Integer}
      */
-    NodeIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NodeIndex : UInt32
 
     /**
      * A member of the [D3D12_VIDEO_ENCODER_CODEC](ne-d3d12video-d3d12_video_encoder_codec.md) enumeration specifying the codec for which the supported profile level is being queried.
-     * @type {D3D12_VIDEO_ENCODER_CODEC}
      */
-    Codec {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Codec : D3D12_VIDEO_ENCODER_CODEC
 
     /**
      * A [D3D12_VIDEO_ENCODER_PROFILE_DESC](ns-d3d12video-d3d12_video_encoder_profile_desc.md) structure specifying the profile for which  support is being queried.
-     * @type {D3D12_VIDEO_ENCODER_PROFILE_DESC}
      */
-    Profile {
-        get {
-            if(!this.HasProp("__Profile"))
-                this.__Profile := D3D12_VIDEO_ENCODER_PROFILE_DESC(8, this)
-            return this.__Profile
-        }
-    }
+    Profile : D3D12_VIDEO_ENCODER_PROFILE_DESC
 
     /**
      * Receives a boolean value indicating if the specified profile is supported for the specified codec.
-     * @type {BOOL}
      */
-    IsSupported {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    IsSupported : BOOL
 
     /**
      * Output field that receives the minimum supported level for the selected codec and profile if supported.
-     * @type {D3D12_VIDEO_ENCODER_LEVEL_SETTING}
      */
-    MinSupportedLevel {
-        get {
-            if(!this.HasProp("__MinSupportedLevel"))
-                this.__MinSupportedLevel := D3D12_VIDEO_ENCODER_LEVEL_SETTING(32, this)
-            return this.__MinSupportedLevel
-        }
-    }
+    MinSupportedLevel : D3D12_VIDEO_ENCODER_LEVEL_SETTING
 
     /**
      * Output field that receives the maximum supported level for the selected codec and profile if supported.
-     * @type {D3D12_VIDEO_ENCODER_LEVEL_SETTING}
      */
-    MaxSupportedLevel {
-        get {
-            if(!this.HasProp("__MaxSupportedLevel"))
-                this.__MaxSupportedLevel := D3D12_VIDEO_ENCODER_LEVEL_SETTING(48, this)
-            return this.__MaxSupportedLevel
-        }
-    }
+    MaxSupportedLevel : D3D12_VIDEO_ENCODER_LEVEL_SETTING
+
 }

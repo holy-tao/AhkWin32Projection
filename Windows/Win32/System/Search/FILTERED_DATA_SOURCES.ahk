@@ -1,5 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Specifies parameters for a Shell data source for which a filter is loaded.
@@ -10,44 +11,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/filtereg/ns-filtereg-filtered_data_sources
  * @namespace Windows.Win32.System.Search
  */
-class FILTERED_DATA_SOURCES extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct FILTERED_DATA_SOURCES {
+    #StructPack 8
 
     /**
      * Pointer to a buffer that contains a file name extension.
-     * @type {PWSTR}
      */
-    pwcsExtension {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pwcsExtension : PWSTR
 
     /**
      * Pointer to a buffer that contains the name of a MIME type.
-     * @type {PWSTR}
      */
-    pwcsMime {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwcsMime : PWSTR
 
     /**
      * Pointer to a CLSID that identifies the content type.
-     * @type {Pointer<Guid>}
      */
-    pClsid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pClsid : Guid.Ptr
 
     /**
      * Not implemented.
-     * @type {PWSTR}
      */
-    pwcsOverride {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pwcsOverride : PWSTR
+
 }

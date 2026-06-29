@@ -1,42 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DFORMAT.ahk
-#Include .\D3DRESOURCETYPE.ahk
-#Include .\D3DPOOL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DRESOURCETYPE.ahk" { D3DRESOURCETYPE }
+#Import ".\D3DPOOL.ahk" { D3DPOOL }
+#Import ".\D3DFORMAT.ahk" { D3DFORMAT }
 
 /**
  * Describes an index buffer.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dindexbuffer-desc
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DINDEXBUFFER_DESC extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct D3DINDEXBUFFER_DESC {
+    #StructPack 4
 
     /**
      * Type: **[D3DFORMAT](d3dformat.md)**
      * 
      * 
      * Member of the [D3DFORMAT](d3dformat.md) enumerated type, describing the surface format of the index buffer data.
-     * @type {D3DFORMAT}
      */
-    Format {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Format : D3DFORMAT
 
     /**
      * Type: **[**D3DRESOURCETYPE**](./d3dresourcetype.md)**
      * 
      * 
      * Member of the [**D3DRESOURCETYPE**](./d3dresourcetype.md) enumerated type, identifying this resource as an index buffer.
-     * @type {D3DRESOURCETYPE}
      */
-    Type {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Type : D3DRESOURCETYPE
 
     /**
      * Type: **[**DWORD**](../winprog/windows-data-types.md)**
@@ -55,34 +44,23 @@ class D3DINDEXBUFFER_DESC extends Win32Struct {
      * | <span id="D3DUSAGE_POINTS"></span><span id="d3dusage_points"></span><dl> <dt>**D3DUSAGE\_POINTS**</dt> </dl>                                     | Set to indicate when the index buffer is to be used for drawing point sprites or indexed point lists.<br/>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
      * | <span id="D3DUSAGE_SOFTWAREPROCESSING"></span><span id="d3dusage_softwareprocessing"></span><dl> <dt>**D3DUSAGE\_SOFTWAREPROCESSING**</dt> </dl> | Set to indicate that the buffer is to be used with software processing.<br/>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
      * | <span id="D3DUSAGE_WRITEONLY"></span><span id="d3dusage_writeonly"></span><dl> <dt>**D3DUSAGE\_WRITEONLY**</dt> </dl>                            | Informs the system that the application writes only to the index buffer. Using this flag enables the driver to choose the best memory location for efficient write operations and rendering. Attempts to read from an index buffer that is created with this capability can result in degraded performance.<br/>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-     * @type {Integer}
      */
-    Usage {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Usage : UInt32
 
     /**
      * Type: **[**D3DPOOL**](./d3dpool.md)**
      * 
      * 
      * Member of the [**D3DPOOL**](./d3dpool.md) enumerated type, specifying the class of memory allocated for this index buffer.
-     * @type {D3DPOOL}
      */
-    Pool {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    Pool : D3DPOOL
 
     /**
      * Type: **[**UINT**](../winprog/windows-data-types.md)**
      * 
      * 
      * Size of the index buffer, in bytes.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Size : UInt32
+
 }

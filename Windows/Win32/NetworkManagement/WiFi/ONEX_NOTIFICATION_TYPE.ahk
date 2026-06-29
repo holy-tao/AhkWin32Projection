@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the possible values of the NotificationCode member of the WLAN_NOTIFICATION_DATA structure for 802.1X module notifications.
@@ -14,7 +13,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dot1x/ne-dot1x-onex_notification_type
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class ONEX_NOTIFICATION_TYPE extends Win32Enum {
+export default struct ONEX_NOTIFICATION_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates the beginning of the range that specifies the possible values for 802.1X notifications.

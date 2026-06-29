@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IFilterInfo extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFilterInfo extends IDispatch {
     /**
      * The interface identifier for IFilterInfo
      * @type {Guid}
      */
-    static IID => Guid("{56a868ba-0ad4-11ce-b03a-0020af0ba770}")
+    static IID := Guid("{56a868ba-0ad4-11ce-b03a-0020af0ba770}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFilterInfo interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        FindPin          : IntPtr
+        get_Name         : IntPtr
+        get_VendorInfo   : IntPtr
+        get_Filter       : IntPtr
+        get_Pins         : IntPtr
+        get_IsFileSource : IntPtr
+        get_Filename     : IntPtr
+        put_Filename     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["FindPin", "get_Name", "get_VendorInfo", "get_Filter", "get_Pins", "get_IsFileSource", "get_Filename", "put_Filename"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFilterInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -80,7 +95,7 @@ class IFilterInfo extends IDispatch {
     FindPin(strPinID) {
         strPinID := strPinID is String ? BSTR.Alloc(strPinID).Value : strPinID
 
-        result := ComCall(7, this, "ptr", strPinID, "ptr*", &ppUnk := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, strPinID, "ptr*", &ppUnk := 0, "HRESULT")
         return IDispatch(ppUnk)
     }
 
@@ -89,8 +104,8 @@ class IFilterInfo extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        strName := BSTR()
-        result := ComCall(8, this, "ptr", strName, "HRESULT")
+        strName := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, strName, "HRESULT")
         return strName
     }
 
@@ -99,8 +114,8 @@ class IFilterInfo extends IDispatch {
      * @returns {BSTR} 
      */
     get_VendorInfo() {
-        strVendorInfo := BSTR()
-        result := ComCall(9, this, "ptr", strVendorInfo, "HRESULT")
+        strVendorInfo := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, strVendorInfo, "HRESULT")
         return strVendorInfo
     }
 
@@ -136,8 +151,8 @@ class IFilterInfo extends IDispatch {
      * @returns {BSTR} 
      */
     get_Filename() {
-        pstrFilename := BSTR()
-        result := ComCall(13, this, "ptr", pstrFilename, "HRESULT")
+        pstrFilename := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, pstrFilename, "HRESULT")
         return pstrFilename
     }
 
@@ -149,7 +164,41 @@ class IFilterInfo extends IDispatch {
     put_Filename(strFilename) {
         strFilename := strFilename is String ? BSTR.Alloc(strFilename).Value : strFilename
 
-        result := ComCall(14, this, "ptr", strFilename, "HRESULT")
+        result := ComCall(14, this, BSTR, strFilename, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFilterInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.FindPin := CallbackCreate(GetMethod(implObj, "FindPin"), flags, 3)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_VendorInfo := CallbackCreate(GetMethod(implObj, "get_VendorInfo"), flags, 2)
+        this.vtbl.get_Filter := CallbackCreate(GetMethod(implObj, "get_Filter"), flags, 2)
+        this.vtbl.get_Pins := CallbackCreate(GetMethod(implObj, "get_Pins"), flags, 2)
+        this.vtbl.get_IsFileSource := CallbackCreate(GetMethod(implObj, "get_IsFileSource"), flags, 2)
+        this.vtbl.get_Filename := CallbackCreate(GetMethod(implObj, "get_Filename"), flags, 2)
+        this.vtbl.put_Filename := CallbackCreate(GetMethod(implObj, "put_Filename"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.FindPin)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.get_VendorInfo)
+        CallbackFree(this.vtbl.get_Filter)
+        CallbackFree(this.vtbl.get_Pins)
+        CallbackFree(this.vtbl.get_IsFileSource)
+        CallbackFree(this.vtbl.get_Filename)
+        CallbackFree(this.vtbl.put_Filename)
     }
 }

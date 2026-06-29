@@ -1,83 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class DXGK_ADAPTER_PERFDATA extends Win32Struct {
-    static sizeof => 56
+export default struct DXGK_ADAPTER_PERFDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    MemoryFrequency : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MemoryFrequency {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    MaxMemoryFrequency : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MaxMemoryFrequency {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MaxMemoryFrequencyOC : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MaxMemoryFrequencyOC {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    MemoryBandwidth : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MemoryBandwidth {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    PCIEBandwidth : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PCIEBandwidth {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    FanRPM : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FanRPM {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    Power : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Power {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    Temperature : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Temperature {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    PowerStateOverride : Int8
 
-    /**
-     * @type {Integer}
-     */
-    PowerStateOverride {
-        get => NumGet(this, 52, "char")
-        set => NumPut("char", value, this, 52)
-    }
 }

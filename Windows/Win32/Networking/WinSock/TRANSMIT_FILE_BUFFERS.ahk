@@ -1,49 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The TRANSMIT_FILE_BUFFERS structure (mswsock.h) specifies data to be transmitted before and after file data during a TransmitFile function file transfer operation.
  * @see https://learn.microsoft.com/windows/win32/api/mswsock/ns-mswsock-transmit_file_buffers
  * @namespace Windows.Win32.Networking.WinSock
  */
-class TRANSMIT_FILE_BUFFERS extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct TRANSMIT_FILE_BUFFERS {
+    #StructPack 8
 
     /**
      * Pointer to a buffer that contains data to be transmitted before the file data is transmitted.
-     * @type {Pointer<Void>}
      */
-    Head {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Head : IntPtr
 
     /**
      * Size of the buffer pointed to by <b>Head</b>, in bytes, to be transmitted.
-     * @type {Integer}
      */
-    HeadLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    HeadLength : UInt32
 
     /**
      * Pointer to a buffer that contains data to be transmitted after the file data is transmitted.
-     * @type {Pointer<Void>}
      */
-    Tail {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Tail : IntPtr
 
     /**
      * Size of the buffer pointed to <b>Tail</b>, in bytes, to be transmitted.
-     * @type {Integer}
      */
-    TailLength {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    TailLength : UInt32
+
 }

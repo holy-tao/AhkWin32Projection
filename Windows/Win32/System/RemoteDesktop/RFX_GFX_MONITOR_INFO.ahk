@@ -1,75 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class RFX_GFX_MONITOR_INFO extends Win32Struct {
-    static sizeof => 32
+export default struct RFX_GFX_MONITOR_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    left : Int32
 
-    /**
-     * @type {Integer}
-     */
-    left {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    top : Int32
 
-    /**
-     * @type {Integer}
-     */
-    top {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    right : Int32
 
-    /**
-     * @type {Integer}
-     */
-    right {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    bottom : Int32
 
-    /**
-     * @type {Integer}
-     */
-    bottom {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    physicalWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    physicalWidth {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    physicalHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    physicalHeight {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    orientation : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    orientation {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    primary : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    primary {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
 }

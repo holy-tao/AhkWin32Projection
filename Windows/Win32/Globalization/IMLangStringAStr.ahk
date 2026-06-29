@@ -1,31 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\Guid.ahk
-#Include .\IMLangString.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
+#Import ".\IMLangStringBufA.ahk" { IMLangStringBufA }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMLangString.ahk" { IMLangString }
+#Import "..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.Globalization
  */
-class IMLangStringAStr extends IMLangString {
-
-    static sizeof => A_PtrSize
+export default struct IMLangStringAStr extends IMLangString {
     /**
      * The interface identifier for IMLangStringAStr
      * @type {Guid}
      */
-    static IID => Guid("{c04d65d2-b70d-11d0-b188-00aa0038c969}")
+    static IID := Guid("{c04d65d2-b70d-11d0-b188-00aa0038c969}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMLangStringAStr interfaces
+    */
+    struct Vtbl extends IMLangString.Vtbl {
+        SetAStr    : IntPtr
+        SetStrBufA : IntPtr
+        GetAStr    : IntPtr
+        GetStrBufA : IntPtr
+        LockAStr   : IntPtr
+        UnlockAStr : IntPtr
+        SetLocale  : IntPtr
+        GetLocale  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetAStr", "SetStrBufA", "GetAStr", "GetStrBufA", "LockAStr", "UnlockAStr", "SetLocale", "GetLocale"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMLangStringAStr.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -102,7 +119,7 @@ class IMLangStringAStr extends IMLangString {
         puDestCodePageMarshal := puDestCodePage is VarRef ? "uint*" : "ptr"
         plDestLenMarshal := plDestLen is VarRef ? "int*" : "ptr"
 
-        result := ComCall(10, this, "int", lSrcPos, "int", lSrcMaxLen, puDestCodePageMarshal, puDestCodePage, "ptr*", ppDestBuf, plDestLenMarshal, plDestLen, "HRESULT")
+        result := ComCall(10, this, "int", lSrcPos, "int", lSrcMaxLen, puDestCodePageMarshal, puDestCodePage, IMLangStringBufA.Ptr, ppDestBuf, plDestLenMarshal, plDestLen, "HRESULT")
         return result
     }
 
@@ -148,34 +165,11 @@ class IMLangStringAStr extends IMLangString {
     }
 
     /**
-     * Sets an item of information in the user override portion of the current locale. This function does not set the system defaults. (ANSI)
-     * @remarks
-     * This function writes to the registry, where it sets values that are associated with a particular user instead of a particular application. These registry values affect the behavior of other applications run by the user. As a rule, an application should call this function only when the user has explicitly requested the changes. The registry settings should not be changed for the convenience of a single application.
      * 
-     * For the <i>LCType</i> parameter, the application should set <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-use-cp-acp">LOCALE_USE_CP_ACP</a> to use the operating system ANSI code page instead of the locale code page for string translation.
-     * 
-     * When the ANSI version of this function is used with a Unicode-only locale identifier, the function can succeed because the operating system uses the system code page. However, characters that are undefined in the system code page appear in the string as a question mark (?). 
-     * 
-     * As of Windows Vista, the <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-sdate">LOCALE_SDATE</a> and <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-stime-constants">LOCALE_STIME</a> constants are obsolete. Do not use these constants. Use <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-sshortdate">LOCALE_SSHORTDATE</a> and <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-stime-constants">LOCALE_STIMEFORMAT</a> instead. A custom locale might not have a single, uniform separator character within the date or time format: for example, a format such as "12/31, 2006" or "03:56'23" might be valid.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines SetLocaleInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} lDestPos 
      * @param {Integer} lDestLen 
      * @param {Integer} locale 
-     * @returns {HRESULT} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
-     * 
-     * <ul>
-     * <li>ERROR_ACCESS_DISABLED_BY_POLICY. The group policy of the computer or the user has forbidden this operation.</li>
-     * <li>ERROR_INVALID_ACCESS. The access code was invalid.</li>
-     * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
-     * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
-     * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-setlocaleinfoa
+     * @returns {HRESULT} 
      */
     SetLocale(lDestPos, lDestLen, locale) {
         result := ComCall(13, this, "int", lDestPos, "int", lDestLen, "uint", locale, "HRESULT")
@@ -183,62 +177,13 @@ class IMLangStringAStr extends IMLangString {
     }
 
     /**
-     * Retrieves information about a locale specified by identifier. (ANSI)
-     * @remarks
-     * For the operation of this function, see Remarks for <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getlocaleinfoex">GetLocaleInfoEx</a>.
      * 
-     * <div class="alert"><b>Note</b>   Even when the <i>LCType</i> parameter is specified as LOCALE_FONTSIGNATURE, <i>cchData</i> and the function return are still TCHAR counts. The count is different for the ANSI and Unicode versions of the function. When an application calls the generic version of <b>GetLocaleInfo</b> with LOCALE_FONTSIGNATURE, <i>cchData</i> can be safely specified as sizeof(LOCALESIGNATURE) / sizeof(TCHAR).</div>
-     * <div> </div>
-     * The following examples deal correctly with the buffer size for non-text values:
-     * 
-     * 
-     * ```cpp
-     * int   ret;
-     * CALID calid;
-     * DWORD value;
-     * 
-     * ret = GetLocaleInfo(LOCALE_USER_DEFAULT,
-     *                     LOCALE_ICALENDARTYPE | LOCALE_RETURN_NUMBER,
-     *                     (LPTSTR)&value,
-     *                     sizeof(value) / sizeof(TCHAR) );
-     * calid = value;
-     * 
-     * LOCALESIGNATURE LocSig;
-     * 
-     * ret = GetLocaleInfo(LOCALE_USER_DEFAULT,
-     *                     LOCALE_FONTSIGNATURE,
-     *                     (LPWSTR)&LocSig,
-     *                     sizeof(LocSig) / sizeof(TCHAR) );
-     * 
-     * ```
-     * 
-     * 
-     * The ANSI string retrieved by the ANSI version of this function is translated from Unicode to ANSI based on the default ANSI code page for the locale identifier. However, if <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-use-cp-acp">LOCALE_USE_CP_ACP</a> is specified, the translation is based on the system default ANSI code page.
-     * 
-     * When the ANSI version of this function is used with a Unicode-only locale identifier, the function can succeed because the operating system uses the system code page. However, characters that are undefined in the system code page appear in the string as a question mark (?). 
-     *       
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines GetLocaleInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} lSrcPos 
      * @param {Integer} lSrcMaxLen 
      * @param {Pointer<Integer>} plocale 
      * @param {Pointer<Integer>} plLocalePos 
      * @param {Pointer<Integer>} plLocaleLen 
-     * @returns {HRESULT} Returns the number of characters retrieved in the locale data buffer if successful and <i>cchData</i> is a nonzero value. If the function succeeds, <i>cchData</i> is nonzero, and <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-return-constants">LOCALE_RETURN_NUMBER</a> is specified, the return value is the size of the integer retrieved in the data buffer; that is, 2 for the Unicode version of the function or 4 for the ANSI version. If the function succeeds and the value of <i>cchData</i> is 0, the return value is the required size, in characters including a null character, for the locale data buffer.
-     * 
-     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
-     * 
-     * <ul>
-     * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or  it was incorrectly set to <b>NULL</b>. </li>
-     * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
-     * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
-     * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getlocaleinfoa
+     * @returns {HRESULT} 
      */
     GetLocale(lSrcPos, lSrcMaxLen, plocale, plLocalePos, plLocaleLen) {
         plocaleMarshal := plocale is VarRef ? "uint*" : "ptr"
@@ -247,5 +192,39 @@ class IMLangStringAStr extends IMLangString {
 
         result := ComCall(14, this, "int", lSrcPos, "int", lSrcMaxLen, plocaleMarshal, plocale, plLocalePosMarshal, plLocalePos, plLocaleLenMarshal, plLocaleLen, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMLangStringAStr.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetAStr := CallbackCreate(GetMethod(implObj, "SetAStr"), flags, 8)
+        this.vtbl.SetStrBufA := CallbackCreate(GetMethod(implObj, "SetStrBufA"), flags, 7)
+        this.vtbl.GetAStr := CallbackCreate(GetMethod(implObj, "GetAStr"), flags, 9)
+        this.vtbl.GetStrBufA := CallbackCreate(GetMethod(implObj, "GetStrBufA"), flags, 6)
+        this.vtbl.LockAStr := CallbackCreate(GetMethod(implObj, "LockAStr"), flags, 10)
+        this.vtbl.UnlockAStr := CallbackCreate(GetMethod(implObj, "UnlockAStr"), flags, 5)
+        this.vtbl.SetLocale := CallbackCreate(GetMethod(implObj, "SetLocale"), flags, 4)
+        this.vtbl.GetLocale := CallbackCreate(GetMethod(implObj, "GetLocale"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetAStr)
+        CallbackFree(this.vtbl.SetStrBufA)
+        CallbackFree(this.vtbl.GetAStr)
+        CallbackFree(this.vtbl.GetStrBufA)
+        CallbackFree(this.vtbl.LockAStr)
+        CallbackFree(this.vtbl.UnlockAStr)
+        CallbackFree(this.vtbl.SetLocale)
+        CallbackFree(this.vtbl.GetLocale)
     }
 }

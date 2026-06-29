@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\ISBE2EnumStream.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISBE2EnumStream.ahk" { ISBE2EnumStream }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Handles the mapping between output pins and streams for the Stream Buffer Source filter.
@@ -21,26 +22,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/sbe/nn-sbe-isbe2streammap
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class ISBE2StreamMap extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISBE2StreamMap extends IUnknown {
     /**
      * The interface identifier for ISBE2StreamMap
      * @type {Guid}
      */
-    static IID => Guid("{667c7745-85b1-4c55-ae55-4e25056159fc}")
+    static IID := Guid("{667c7745-85b1-4c55-ae55-4e25056159fc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISBE2StreamMap interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        MapStream         : IntPtr
+        UnmapStream       : IntPtr
+        EnumMappedStreams : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["MapStream", "UnmapStream", "EnumMappedStreams"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISBE2StreamMap.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Maps a stream to an output pin for a Stream Buffer Source filter.
@@ -165,5 +175,29 @@ class ISBE2StreamMap extends IUnknown {
     EnumMappedStreams() {
         result := ComCall(5, this, "ptr*", &ppStreams := 0, "HRESULT")
         return ISBE2EnumStream(ppStreams)
+    }
+
+    Query(iid) {
+        if (ISBE2StreamMap.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.MapStream := CallbackCreate(GetMethod(implObj, "MapStream"), flags, 2)
+        this.vtbl.UnmapStream := CallbackCreate(GetMethod(implObj, "UnmapStream"), flags, 2)
+        this.vtbl.EnumMappedStreams := CallbackCreate(GetMethod(implObj, "EnumMappedStreams"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.MapStream)
+        CallbackFree(this.vtbl.UnmapStream)
+        CallbackFree(this.vtbl.EnumMappedStreams)
     }
 }

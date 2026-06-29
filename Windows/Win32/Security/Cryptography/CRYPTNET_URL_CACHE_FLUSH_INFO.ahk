@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * Contains expiry information used by the Cryptnet URL Cache (CUC) service to maintain a URL cache entry.
@@ -9,19 +8,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cryptnet_url_cache_flush_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRYPTNET_URL_CACHE_FLUSH_INFO extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct CRYPTNET_URL_CACHE_FLUSH_INFO {
+    #StructPack 4
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * A value that specifies how long to extend the <b>ExpireTime</b> member. If prefetch is enabled, the CUC service ignores this value.
@@ -63,27 +56,12 @@ class CRYPTNET_URL_CACHE_FLUSH_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwExemptSeconds {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwExemptSeconds : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the time the object expires.
-     * @type {FILETIME}
      */
-    ExpireTime {
-        get {
-            if(!this.HasProp("__ExpireTime"))
-                this.__ExpireTime := FILETIME(8, this)
-            return this.__ExpireTime
-        }
-    }
+    ExpireTime : FILETIME
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 16
-    }
 }

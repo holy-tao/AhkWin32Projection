@@ -1,47 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
  */
-class GNSS_AGNSS_INJECTTIME extends Win32Struct {
-    static sizeof => 20
+export default struct GNSS_AGNSS_INJECTTIME {
+    #StructPack 4
 
-    static packingSize => 4
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    UtcTime : FILETIME
 
-    /**
-     * @type {FILETIME}
-     */
-    UtcTime {
-        get {
-            if(!this.HasProp("__UtcTime"))
-                this.__UtcTime := FILETIME(8, this)
-            return this.__UtcTime
-        }
-    }
+    TimeUncertainty : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TimeUncertainty {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

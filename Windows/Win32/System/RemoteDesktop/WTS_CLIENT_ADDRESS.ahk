@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains the client network address of a Remote Desktop Services session.
@@ -12,19 +11,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/ns-wtsapi32-wts_client_address
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class WTS_CLIENT_ADDRESS extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct WTS_CLIENT_ADDRESS {
+    #StructPack 4
 
     /**
      * Address family. This member can be <b>AF_INET</b>, <b>AF_INET6</b>, <b>AF_IPX</b>, <b>AF_NETBIOS</b>, or <b>AF_UNSPEC</b>.
-     * @type {Integer}
      */
-    AddressFamily {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    AddressFamily : UInt32
 
     /**
      * Client network address. The format of the field of <b>Address</b> depends on the address type as specified by the <b>AddressFamily</b> member.
@@ -33,13 +26,7 @@ class WTS_CLIENT_ADDRESS extends Win32Struct {
      * 
      * 
      * For a family <b>AF_INET6</b>: <b>Address </b> contains the IPV6 address of the client as raw byte values. (For example, the address "FFFF::1" would be represented as the following series of byte values: "0xFF 0xFF 0x00 0x00  0x00 0x00  0x00 0x00  0x00 0x00  0x00 0x00  0x00 0x00  0x00 0x01")
-     * @type {Array<Integer>}
      */
-    Address {
-        get {
-            if(!this.HasProp("__AddressProxyArray"))
-                this.__AddressProxyArray := Win32FixedArray(this.ptr + 4, 20, Primitive, "char")
-            return this.__AddressProxyArray
-        }
-    }
+    Address : Int8[20]
+
 }

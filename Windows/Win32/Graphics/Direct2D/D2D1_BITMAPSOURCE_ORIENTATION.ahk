@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies whether a flip and/or rotation operation should be performed by the Bitmap source effect.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effects/ne-d2d1effects-d2d1_bitmapsource_orientation
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_BITMAPSOURCE_ORIENTATION extends Win32Enum {
+export default struct D2D1_BITMAPSOURCE_ORIENTATION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The effect doesn't change the orientation of the input.

@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Geometry.ahk
-#Include .\ID2D1GeometrySink.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID2D1Geometry.ahk" { ID2D1Geometry }
+#Import ".\ID2D1GeometrySink.ahk" { ID2D1GeometrySink }
 
 /**
  * Represents a complex shape that may be composed of arcs, curves, and lines.
@@ -16,26 +17,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1pathgeometry
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1PathGeometry extends ID2D1Geometry {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1PathGeometry extends ID2D1Geometry {
     /**
      * The interface identifier for ID2D1PathGeometry
      * @type {Guid}
      */
-    static IID => Guid("{2cd906a5-12e2-11dc-9fed-001143a055f9}")
+    static IID := Guid("{2cd906a5-12e2-11dc-9fed-001143a055f9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 17
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1PathGeometry interfaces
+    */
+    struct Vtbl extends ID2D1Geometry.Vtbl {
+        Open            : IntPtr
+        Stream          : IntPtr
+        GetSegmentCount : IntPtr
+        GetFigureCount  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Open", "Stream", "GetSegmentCount", "GetFigureCount"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1PathGeometry.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the geometry sink that is used to populate the path geometry with figures and segments.
@@ -90,5 +101,31 @@ class ID2D1PathGeometry extends ID2D1Geometry {
     GetFigureCount() {
         result := ComCall(20, this, "uint*", &count := 0, "HRESULT")
         return count
+    }
+
+    Query(iid) {
+        if (ID2D1PathGeometry.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 2)
+        this.vtbl.Stream := CallbackCreate(GetMethod(implObj, "Stream"), flags, 2)
+        this.vtbl.GetSegmentCount := CallbackCreate(GetMethod(implObj, "GetSegmentCount"), flags, 2)
+        this.vtbl.GetFigureCount := CallbackCreate(GetMethod(implObj, "GetFigureCount"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Open)
+        CallbackFree(this.vtbl.Stream)
+        CallbackFree(this.vtbl.GetSegmentCount)
+        CallbackFree(this.vtbl.GetFigureCount)
     }
 }

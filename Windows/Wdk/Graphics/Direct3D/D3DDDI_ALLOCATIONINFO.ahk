@@ -1,29 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DDDI_ALLOCATIONINFO extends Win32Struct {
-    static sizeof => 40
+export default struct D3DDDI_ALLOCATIONINFO {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Flags_e__Union extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
+    struct _Flags {
         /**
          * This bitfield backs the following members:
          * - Primary
          * - Stereo
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -40,64 +32,22 @@ class D3DDDI_ALLOCATIONINFO extends Win32Struct {
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-
-        /**
-         * @type {Integer}
-         */
-        Value {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'Value', { type: UInt32, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    hAllocation {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hAllocation : UInt32
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pSystemMem {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pSystemMem : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pPrivateDriverData {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pPrivateDriverData : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    PrivateDriverDataSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    PrivateDriverDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VidPnSourceId {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    VidPnSourceId : UInt32
 
-    /**
-     * @type {_Flags_e__Union}
-     */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := D3DDDI_ALLOCATIONINFO._Flags_e__Union(32, this)
-            return this.__Flags
-        }
-    }
+    Flags : D3DDDI_ALLOCATIONINFO._Flags
+
 }

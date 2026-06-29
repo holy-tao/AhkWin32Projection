@@ -1,45 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_IPADDRESS.ahk
-#Include .\VDS_IPADDRESS_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VDS_IPADDRESS_TYPE.ahk" { VDS_IPADDRESS_TYPE }
+#Import ".\VDS_IPADDRESS.ahk" { VDS_IPADDRESS }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The VDS_ISCSI_INITIATOR_PORTAL_PROP structure (vdshwprv.h) defines the properties of an iSCSI initiator portal.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_iscsi_initiator_portal_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_ISCSI_INITIATOR_PORTAL_PROP extends Win32Struct {
-    static sizeof => 568
-
-    static packingSize => 8
+export default struct VDS_ISCSI_INITIATOR_PORTAL_PROP {
+    #StructPack 4
 
     /**
      * The <b>VDS_OBJECT_ID</b> assigned to the initiator portal.
-     * @type {Pointer}
      */
-    id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    id : Guid
 
     /**
      * The IP address and port of the portal.
-     * @type {VDS_IPADDRESS}
      */
-    address {
-        get {
-            if(!this.HasProp("__address"))
-                this.__address := VDS_IPADDRESS(8, this)
-            return this.__address
-        }
-    }
+    address : VDS_IPADDRESS
 
     /**
      * The port index assigned to the portal by the iSCSI initiator service.
-     * @type {Integer}
      */
-    ulPortIndex {
-        get => NumGet(this, 560, "uint")
-        set => NumPut("uint", value, this, 560)
-    }
+    ulPortIndex : UInt32
+
 }

@@ -1,109 +1,40 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\DEVICE_OBJECT.ahk
-#Include .\IO_INTERRUPT_MESSAGE_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
+#Import "..\..\Foundation\PKINTERRUPT.ahk" { PKINTERRUPT }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\IO_INTERRUPT_MESSAGE_INFO.ahk" { IO_INTERRUPT_MESSAGE_INFO }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class IO_CONNECT_INTERRUPT_MESSAGE_BASED_PARAMETERS extends Win32Struct {
-    static sizeof => 56
+export default struct IO_CONNECT_INTERRUPT_MESSAGE_BASED_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _ConnectionContext_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _ConnectionContext {
+        Generic : IntPtr
 
-        /**
-         * @type {Pointer<Pointer<Void>>}
-         */
-        Generic {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<Pointer<IO_INTERRUPT_MESSAGE_INFO>>}
-         */
-        InterruptMessageTable {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<PKINTERRUPT>}
-         */
-        InterruptObject {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'InterruptMessageTable', { type: IntPtr, offset: 0 })
+            DefineProp(this.Prototype, 'InterruptObject', { type: PKINTERRUPT.Ptr, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Pointer<DEVICE_OBJECT>}
-     */
-    PhysicalDeviceObject {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    PhysicalDeviceObject : DEVICE_OBJECT.Ptr
 
-    /**
-     * @type {_ConnectionContext_e__Union}
-     */
-    ConnectionContext {
-        get {
-            if(!this.HasProp("__ConnectionContext"))
-                this.__ConnectionContext := IO_CONNECT_INTERRUPT_MESSAGE_BASED_PARAMETERS._ConnectionContext_e__Union(8, this)
-            return this.__ConnectionContext
-        }
-    }
+    ConnectionContext : IO_CONNECT_INTERRUPT_MESSAGE_BASED_PARAMETERS._ConnectionContext
 
-    /**
-     * @type {Pointer<PKMESSAGE_SERVICE_ROUTINE>}
-     */
-    MessageServiceRoutine {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    MessageServiceRoutine : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    ServiceContext {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ServiceContext : IntPtr
 
-    /**
-     * @type {Pointer<Pointer>}
-     */
-    SpinLock {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    SpinLock : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    SynchronizeIrql {
-        get => NumGet(this, 40, "char")
-        set => NumPut("char", value, this, 40)
-    }
+    SynchronizeIrql : Int8
 
-    /**
-     * @type {BOOLEAN}
-     */
-    FloatingSave {
-        get => NumGet(this, 41, "char")
-        set => NumPut("char", value, this, 41)
-    }
+    FloatingSave : BOOLEAN
 
-    /**
-     * @type {Pointer<PKSERVICE_ROUTINE>}
-     */
-    FallBackServiceRoutine {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    FallBackServiceRoutine : IntPtr
+
 }

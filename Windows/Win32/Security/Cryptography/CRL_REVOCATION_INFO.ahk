@@ -1,38 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRL_ENTRY.ahk
-#Include .\CRL_CONTEXT.ahk
-#Include .\CERT_CHAIN_CONTEXT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CERT_CHAIN_CONTEXT.ahk" { CERT_CHAIN_CONTEXT }
+#Import ".\CRL_ENTRY.ahk" { CRL_ENTRY }
+#Import ".\CRL_CONTEXT.ahk" { CRL_CONTEXT }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRL_REVOCATION_INFO extends Win32Struct {
-    static sizeof => 24
+export default struct CRL_REVOCATION_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    pCrlEntry : CRL_ENTRY.Ptr
 
-    /**
-     * @type {Pointer<CRL_ENTRY>}
-     */
-    pCrlEntry {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pCrlContext : CRL_CONTEXT.Ptr
 
-    /**
-     * @type {Pointer<CRL_CONTEXT>}
-     */
-    pCrlContext {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pCrlIssuerChain : CERT_CHAIN_CONTEXT.Ptr
 
-    /**
-     * @type {Pointer<CERT_CHAIN_CONTEXT>}
-     */
-    pCrlIssuerChain {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

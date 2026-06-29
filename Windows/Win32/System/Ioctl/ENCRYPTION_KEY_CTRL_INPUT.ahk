@@ -1,67 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class ENCRYPTION_KEY_CTRL_INPUT extends Win32Struct {
-    static sizeof => 32
+export default struct ENCRYPTION_KEY_CTRL_INPUT {
+    #StructPack 8
 
-    static packingSize => 8
+    HeaderSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HeaderSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    StructureSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StructureSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    KeyOffset : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    KeyOffset {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    KeySize : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    KeySize {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    DplLock : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DplLock {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    DplUserId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DplUserId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    DplCredentialId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DplCredentialId {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

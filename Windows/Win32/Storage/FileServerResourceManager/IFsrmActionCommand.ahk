@@ -1,34 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmAction.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFsrmAction.ahk" { IFsrmAction }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\FsrmAccountType.ahk" { FsrmAccountType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Used to run a command or script in response to a quota, file screen, or file management job event.
  * @see https://learn.microsoft.com/windows/win32/api/fsrm/nn-fsrm-ifsrmactioncommand
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmActionCommand extends IFsrmAction {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmActionCommand extends IFsrmAction {
     /**
      * The interface identifier for IFsrmActionCommand
      * @type {Guid}
      */
-    static IID => Guid("{12937789-e247-4917-9c20-f3ee9c7ee783}")
+    static IID := Guid("{12937789-e247-4917-9c20-f3ee9c7ee783}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 12
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmActionCommand interfaces
+    */
+    struct Vtbl extends IFsrmAction.Vtbl {
+        get_ExecutablePath   : IntPtr
+        put_ExecutablePath   : IntPtr
+        get_Arguments        : IntPtr
+        put_Arguments        : IntPtr
+        get_Account          : IntPtr
+        put_Account          : IntPtr
+        get_WorkingDirectory : IntPtr
+        put_WorkingDirectory : IntPtr
+        get_MonitorCommand   : IntPtr
+        put_MonitorCommand   : IntPtr
+        get_KillTimeOut      : IntPtr
+        put_KillTimeOut      : IntPtr
+        get_LogResult        : IntPtr
+        put_LogResult        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ExecutablePath", "put_ExecutablePath", "get_Arguments", "put_Arguments", "get_Account", "put_Account", "get_WorkingDirectory", "put_WorkingDirectory", "get_MonitorCommand", "put_MonitorCommand", "get_KillTimeOut", "put_KillTimeOut", "get_LogResult", "put_LogResult"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmActionCommand.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -102,8 +125,8 @@ class IFsrmActionCommand extends IFsrmAction {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioncommand-get_executablepath
      */
     get_ExecutablePath() {
-        executablePath := BSTR()
-        result := ComCall(12, this, "ptr", executablePath, "HRESULT")
+        executablePath := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, executablePath, "HRESULT")
         return executablePath
     }
 
@@ -126,7 +149,7 @@ class IFsrmActionCommand extends IFsrmAction {
     put_ExecutablePath(executablePath) {
         executablePath := executablePath is String ? BSTR.Alloc(executablePath).Value : executablePath
 
-        result := ComCall(13, this, "ptr", executablePath, "HRESULT")
+        result := ComCall(13, this, BSTR, executablePath, "HRESULT")
         return result
     }
 
@@ -136,8 +159,8 @@ class IFsrmActionCommand extends IFsrmAction {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioncommand-get_arguments
      */
     get_Arguments() {
-        arguments := BSTR()
-        result := ComCall(14, this, "ptr", arguments, "HRESULT")
+        arguments := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, arguments, "HRESULT")
         return arguments
     }
 
@@ -150,7 +173,7 @@ class IFsrmActionCommand extends IFsrmAction {
     put_Arguments(arguments) {
         arguments := arguments is String ? BSTR.Alloc(arguments).Value : arguments
 
-        result := ComCall(15, this, "ptr", arguments, "HRESULT")
+        result := ComCall(15, this, BSTR, arguments, "HRESULT")
         return result
     }
 
@@ -171,7 +194,7 @@ class IFsrmActionCommand extends IFsrmAction {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioncommand-put_account
      */
     put_Account(account) {
-        result := ComCall(17, this, "int", account, "HRESULT")
+        result := ComCall(17, this, FsrmAccountType, account, "HRESULT")
         return result
     }
 
@@ -186,8 +209,8 @@ class IFsrmActionCommand extends IFsrmAction {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioncommand-get_workingdirectory
      */
     get_WorkingDirectory() {
-        workingDirectory := BSTR()
-        result := ComCall(18, this, "ptr", workingDirectory, "HRESULT")
+        workingDirectory := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, workingDirectory, "HRESULT")
         return workingDirectory
     }
 
@@ -205,7 +228,7 @@ class IFsrmActionCommand extends IFsrmAction {
     put_WorkingDirectory(workingDirectory) {
         workingDirectory := workingDirectory is String ? BSTR.Alloc(workingDirectory).Value : workingDirectory
 
-        result := ComCall(19, this, "ptr", workingDirectory, "HRESULT")
+        result := ComCall(19, this, BSTR, workingDirectory, "HRESULT")
         return result
     }
 
@@ -219,7 +242,7 @@ class IFsrmActionCommand extends IFsrmAction {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioncommand-get_monitorcommand
      */
     get_MonitorCommand() {
-        result := ComCall(20, this, "short*", &monitorCommand := 0, "HRESULT")
+        result := ComCall(20, this, VARIANT_BOOL.Ptr, &monitorCommand := 0, "HRESULT")
         return monitorCommand
     }
 
@@ -234,7 +257,7 @@ class IFsrmActionCommand extends IFsrmAction {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioncommand-put_monitorcommand
      */
     put_MonitorCommand(monitorCommand) {
-        result := ComCall(21, this, "short", monitorCommand, "HRESULT")
+        result := ComCall(21, this, VARIANT_BOOL, monitorCommand, "HRESULT")
         return result
     }
 
@@ -277,7 +300,7 @@ class IFsrmActionCommand extends IFsrmAction {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioncommand-get_logresult
      */
     get_LogResult() {
-        result := ComCall(24, this, "short*", &logResults := 0, "HRESULT")
+        result := ComCall(24, this, VARIANT_BOOL.Ptr, &logResults := 0, "HRESULT")
         return logResults
     }
 
@@ -292,7 +315,53 @@ class IFsrmActionCommand extends IFsrmAction {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioncommand-put_logresult
      */
     put_LogResult(logResults) {
-        result := ComCall(25, this, "short", logResults, "HRESULT")
+        result := ComCall(25, this, VARIANT_BOOL, logResults, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFsrmActionCommand.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ExecutablePath := CallbackCreate(GetMethod(implObj, "get_ExecutablePath"), flags, 2)
+        this.vtbl.put_ExecutablePath := CallbackCreate(GetMethod(implObj, "put_ExecutablePath"), flags, 2)
+        this.vtbl.get_Arguments := CallbackCreate(GetMethod(implObj, "get_Arguments"), flags, 2)
+        this.vtbl.put_Arguments := CallbackCreate(GetMethod(implObj, "put_Arguments"), flags, 2)
+        this.vtbl.get_Account := CallbackCreate(GetMethod(implObj, "get_Account"), flags, 2)
+        this.vtbl.put_Account := CallbackCreate(GetMethod(implObj, "put_Account"), flags, 2)
+        this.vtbl.get_WorkingDirectory := CallbackCreate(GetMethod(implObj, "get_WorkingDirectory"), flags, 2)
+        this.vtbl.put_WorkingDirectory := CallbackCreate(GetMethod(implObj, "put_WorkingDirectory"), flags, 2)
+        this.vtbl.get_MonitorCommand := CallbackCreate(GetMethod(implObj, "get_MonitorCommand"), flags, 2)
+        this.vtbl.put_MonitorCommand := CallbackCreate(GetMethod(implObj, "put_MonitorCommand"), flags, 2)
+        this.vtbl.get_KillTimeOut := CallbackCreate(GetMethod(implObj, "get_KillTimeOut"), flags, 2)
+        this.vtbl.put_KillTimeOut := CallbackCreate(GetMethod(implObj, "put_KillTimeOut"), flags, 2)
+        this.vtbl.get_LogResult := CallbackCreate(GetMethod(implObj, "get_LogResult"), flags, 2)
+        this.vtbl.put_LogResult := CallbackCreate(GetMethod(implObj, "put_LogResult"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ExecutablePath)
+        CallbackFree(this.vtbl.put_ExecutablePath)
+        CallbackFree(this.vtbl.get_Arguments)
+        CallbackFree(this.vtbl.put_Arguments)
+        CallbackFree(this.vtbl.get_Account)
+        CallbackFree(this.vtbl.put_Account)
+        CallbackFree(this.vtbl.get_WorkingDirectory)
+        CallbackFree(this.vtbl.put_WorkingDirectory)
+        CallbackFree(this.vtbl.get_MonitorCommand)
+        CallbackFree(this.vtbl.put_MonitorCommand)
+        CallbackFree(this.vtbl.get_KillTimeOut)
+        CallbackFree(this.vtbl.put_KillTimeOut)
+        CallbackFree(this.vtbl.get_LogResult)
+        CallbackFree(this.vtbl.put_LogResult)
     }
 }

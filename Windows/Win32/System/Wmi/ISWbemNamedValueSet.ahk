@@ -1,39 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ISWbemNamedValue.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ISWbemNamedValue.ahk" { ISWbemNamedValue }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.Wmi
  */
-class ISWbemNamedValueSet extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISWbemNamedValueSet extends IDispatch {
     /**
      * The interface identifier for ISWbemNamedValueSet
      * @type {Guid}
      */
-    static IID => Guid("{cf2376ea-ce8c-11d1-8b05-00600806d9b6}")
+    static IID := Guid("{cf2376ea-ce8c-11d1-8b05-00600806d9b6}")
 
     /**
      * The class identifier for SWbemNamedValueSet
      * @type {Guid}
      */
-    static CLSID => Guid("{9aed384e-ce8b-11d1-8b05-00600806d9b6}")
+    static CLSID := Guid("{9aed384e-ce8b-11d1-8b05-00600806d9b6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISWbemNamedValueSet interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get__NewEnum : IntPtr
+        Item         : IntPtr
+        get_Count    : IntPtr
+        Add          : IntPtr
+        Remove       : IntPtr
+        Clone        : IntPtr
+        DeleteAll    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get__NewEnum", "Item", "get_Count", "Add", "Remove", "Clone", "DeleteAll"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISWbemNamedValueSet.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IUnknown} 
@@ -73,7 +89,7 @@ class ISWbemNamedValueSet extends IDispatch {
     Item(strName, iFlags) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(8, this, "ptr", strName, "int", iFlags, "ptr*", &objWbemNamedValue := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, strName, "int", iFlags, "ptr*", &objWbemNamedValue := 0, "HRESULT")
         return ISWbemNamedValue(objWbemNamedValue)
     }
 
@@ -87,59 +103,35 @@ class ISWbemNamedValueSet extends IDispatch {
     }
 
     /**
-     * Adds an access-allowed access control entry (ACE) to an access control list (ACL). The access is granted to a specified security identifier (SID).
-     * @remarks
-     * The addition of an access-allowed ACE to an ACL is the most common form of ACL modification.
      * 
-     * The <b>AddAccessAllowedAce</b> and <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-addaccessdeniedace">AddAccessDeniedAce</a> functions add a new ACE to the end of the list of ACEs for the ACL. These functions do not automatically place the new ACE in the proper canonical order. It is the caller's responsibility to ensure that the ACL is in canonical order by adding ACEs in the proper sequence.
-     * 
-     * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure placed in the ACE by the <b>AddAccessAllowedAce</b> function specifies a type and size, but provides no inheritance and no ACE flags.
      * @param {BSTR} strName 
      * @param {Pointer<VARIANT>} varValue 
      * @param {Integer} iFlags 
      * @returns {ISWbemNamedValue} 
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addaccessallowedace
      */
     Add(strName, varValue, iFlags) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(10, this, "ptr", strName, "ptr", varValue, "int", iFlags, "ptr*", &objWbemNamedValue := 0, "HRESULT")
+        result := ComCall(10, this, BSTR, strName, VARIANT.Ptr, varValue, "int", iFlags, "ptr*", &objWbemNamedValue := 0, "HRESULT")
         return ISWbemNamedValue(objWbemNamedValue)
     }
 
     /**
-     * Removes a TPM command from the local list of commands blocked from running on the computer.
-     * @remarks
-     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
+     * 
      * @param {BSTR} strName 
      * @param {Integer} iFlags 
-     * @returns {HRESULT} Type: **uint32**
-     * 
-     * All TPM errors as well as errors specific to TPM Base Services can be returned.
-     * 
-     * Common return codes are listed below.
-     * 
-     * 
-     * 
-     * | Return code/value                                                                                                                                 | Description                           |
-     * |---------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------|
-     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl> | The method was successful.<br/> |
-     * @see https://learn.microsoft.com/windows/win32/SecProv/removeblockedcommand-win32-tpm
+     * @returns {HRESULT} 
      */
     Remove(strName, iFlags) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(11, this, "ptr", strName, "int", iFlags, "HRESULT")
+        result := ComCall(11, this, BSTR, strName, "int", iFlags, "HRESULT")
         return result
     }
 
     /**
-     * Creates a recognizer context that contains the same settings as the original. The new recognizer context does not include the ink or recognition results of the original.
-     * @remarks
-     * The settings  for this context include the recognition guide, character Autocomplete mode, and any factoids that improve the recognition results. An example of a factoid may include whether the ink is a phone number, a name, or a URL. The TextContext and Wordlists are preserved in the new context.
+     * 
      * @returns {ISWbemNamedValueSet} 
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-clonecontext
      */
     Clone() {
         result := ComCall(12, this, "ptr*", &objWbemNamedValueSet := 0, "HRESULT")
@@ -147,12 +139,43 @@ class ISWbemNamedValueSet extends IDispatch {
     }
 
     /**
-     * The DeleteAllGPOLinks function deletes all GPO links for the specified site, domain, or organizational unit.
-     * @returns {HRESULT} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the header file WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-deleteallgpolinks
+     * 
+     * @returns {HRESULT} 
      */
     DeleteAll() {
         result := ComCall(13, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISWbemNamedValueSet.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 4)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 5)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 3)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.DeleteAll := CallbackCreate(GetMethod(implObj, "DeleteAll"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.Item)
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.Remove)
+        CallbackFree(this.vtbl.Clone)
+        CallbackFree(this.vtbl.DeleteAll)
     }
 }

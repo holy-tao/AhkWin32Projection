@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class REFS_REMOVE_HARDLINK_BACKPOINTER extends Win32Struct {
-    static sizeof => 24
+export default struct REFS_REMOVE_HARDLINK_BACKPOINTER {
+    #StructPack 8
 
-    static packingSize => 8
+    ParentDirectory : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ParentDirectory {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Reserved : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    FileName : WCHAR[1]
 
-    /**
-     * @type {String}
-     */
-    FileName {
-        get => StrGet(this.ptr + 16, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 16, 0, "UTF-16")
-    }
 }

@@ -1,33 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAMAudioInputMixer interface controls audio capture properties, such as panning and loudness; and enables or disables specific audio inputs, such as the line in or the microphone. The Audio Capture filter exposes this interface on each input pin, as well as on the filter itself. The input pins on the Audio Capture Filter represent physical hardware connections; they are not connected to other DirectShow filters. The pin name indicates the input type; for example, &quot;Line In&quot; or &quot;Microphone.&quot; Use the IAMAudioInputMixer interface as follows:To control the settings on a particular input, use the interface on the pin.To set the overall properties when multiple inputs are enabled, use the interface on the filter.To enable or disable an input, call that pin's IAMAudioInputMixer::put_Enable method.Some methods on this interface might fail, depending on the capabilities of the underlying hardware.Filter Developers:\_Implement this interface on each input pin of an audio capture filter. You can also implement this interface on the audio capture filter itself to control the overall audio settings after mixing.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamaudioinputmixer
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAMAudioInputMixer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAMAudioInputMixer extends IUnknown {
     /**
      * The interface identifier for IAMAudioInputMixer
      * @type {Guid}
      */
-    static IID => Guid("{54c39221-8380-11d0-b3f0-00aa003761c5}")
+    static IID := Guid("{54c39221-8380-11d0-b3f0-00aa003761c5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAMAudioInputMixer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        put_Enable      : IntPtr
+        get_Enable      : IntPtr
+        put_Mono        : IntPtr
+        get_Mono        : IntPtr
+        put_MixLevel    : IntPtr
+        get_MixLevel    : IntPtr
+        put_Pan         : IntPtr
+        get_Pan         : IntPtr
+        put_Loudness    : IntPtr
+        get_Loudness    : IntPtr
+        put_Treble      : IntPtr
+        get_Treble      : IntPtr
+        get_TrebleRange : IntPtr
+        put_Bass        : IntPtr
+        get_Bass        : IntPtr
+        get_BassRange   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_Enable", "get_Enable", "put_Mono", "get_Mono", "put_MixLevel", "get_MixLevel", "put_Pan", "get_Pan", "put_Loudness", "get_Loudness", "put_Treble", "get_Treble", "get_TrebleRange", "put_Bass", "get_Bass", "get_BassRange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAMAudioInputMixer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BOOL} 
@@ -139,7 +163,7 @@ class IAMAudioInputMixer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamaudioinputmixer-put_enable
      */
     put_Enable(fEnable) {
-        result := ComCall(3, this, "int", fEnable, "HRESULT")
+        result := ComCall(3, this, BOOL, fEnable, "HRESULT")
         return result
     }
 
@@ -151,7 +175,7 @@ class IAMAudioInputMixer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamaudioinputmixer-get_enable
      */
     get_Enable() {
-        result := ComCall(4, this, "int*", &pfEnable := 0, "HRESULT")
+        result := ComCall(4, this, BOOL.Ptr, &pfEnable := 0, "HRESULT")
         return pfEnable
     }
 
@@ -193,7 +217,7 @@ class IAMAudioInputMixer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamaudioinputmixer-put_mono
      */
     put_Mono(fMono) {
-        result := ComCall(5, this, "int", fMono, "HRESULT")
+        result := ComCall(5, this, BOOL, fMono, "HRESULT")
         return result
     }
 
@@ -203,7 +227,7 @@ class IAMAudioInputMixer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamaudioinputmixer-get_mono
      */
     get_Mono() {
-        result := ComCall(6, this, "int*", &pfMono := 0, "HRESULT")
+        result := ComCall(6, this, BOOL.Ptr, &pfMono := 0, "HRESULT")
         return pfMono
     }
 
@@ -376,7 +400,7 @@ class IAMAudioInputMixer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamaudioinputmixer-put_loudness
      */
     put_Loudness(fLoudness) {
-        result := ComCall(11, this, "int", fLoudness, "HRESULT")
+        result := ComCall(11, this, BOOL, fLoudness, "HRESULT")
         return result
     }
 
@@ -386,7 +410,7 @@ class IAMAudioInputMixer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamaudioinputmixer-get_loudness
      */
     get_Loudness() {
-        result := ComCall(12, this, "int*", &pfLoudness := 0, "HRESULT")
+        result := ComCall(12, this, BOOL.Ptr, &pfLoudness := 0, "HRESULT")
         return pfLoudness
     }
 
@@ -512,5 +536,55 @@ class IAMAudioInputMixer extends IUnknown {
     get_BassRange() {
         result := ComCall(18, this, "double*", &pRange := 0, "HRESULT")
         return pRange
+    }
+
+    Query(iid) {
+        if (IAMAudioInputMixer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_Enable := CallbackCreate(GetMethod(implObj, "put_Enable"), flags, 2)
+        this.vtbl.get_Enable := CallbackCreate(GetMethod(implObj, "get_Enable"), flags, 2)
+        this.vtbl.put_Mono := CallbackCreate(GetMethod(implObj, "put_Mono"), flags, 2)
+        this.vtbl.get_Mono := CallbackCreate(GetMethod(implObj, "get_Mono"), flags, 2)
+        this.vtbl.put_MixLevel := CallbackCreate(GetMethod(implObj, "put_MixLevel"), flags, 2)
+        this.vtbl.get_MixLevel := CallbackCreate(GetMethod(implObj, "get_MixLevel"), flags, 2)
+        this.vtbl.put_Pan := CallbackCreate(GetMethod(implObj, "put_Pan"), flags, 2)
+        this.vtbl.get_Pan := CallbackCreate(GetMethod(implObj, "get_Pan"), flags, 2)
+        this.vtbl.put_Loudness := CallbackCreate(GetMethod(implObj, "put_Loudness"), flags, 2)
+        this.vtbl.get_Loudness := CallbackCreate(GetMethod(implObj, "get_Loudness"), flags, 2)
+        this.vtbl.put_Treble := CallbackCreate(GetMethod(implObj, "put_Treble"), flags, 2)
+        this.vtbl.get_Treble := CallbackCreate(GetMethod(implObj, "get_Treble"), flags, 2)
+        this.vtbl.get_TrebleRange := CallbackCreate(GetMethod(implObj, "get_TrebleRange"), flags, 2)
+        this.vtbl.put_Bass := CallbackCreate(GetMethod(implObj, "put_Bass"), flags, 2)
+        this.vtbl.get_Bass := CallbackCreate(GetMethod(implObj, "get_Bass"), flags, 2)
+        this.vtbl.get_BassRange := CallbackCreate(GetMethod(implObj, "get_BassRange"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_Enable)
+        CallbackFree(this.vtbl.get_Enable)
+        CallbackFree(this.vtbl.put_Mono)
+        CallbackFree(this.vtbl.get_Mono)
+        CallbackFree(this.vtbl.put_MixLevel)
+        CallbackFree(this.vtbl.get_MixLevel)
+        CallbackFree(this.vtbl.put_Pan)
+        CallbackFree(this.vtbl.get_Pan)
+        CallbackFree(this.vtbl.put_Loudness)
+        CallbackFree(this.vtbl.get_Loudness)
+        CallbackFree(this.vtbl.put_Treble)
+        CallbackFree(this.vtbl.get_Treble)
+        CallbackFree(this.vtbl.get_TrebleRange)
+        CallbackFree(this.vtbl.put_Bass)
+        CallbackFree(this.vtbl.get_Bass)
+        CallbackFree(this.vtbl.get_BassRange)
     }
 }

@@ -1,60 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_MINIPORT_TIMER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NDIS_MINIPORT_BLOCK.ahk" { NDIS_MINIPORT_BLOCK }
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class NDIS_MINIPORT_TIMER extends Win32Struct {
-    static sizeof => 48
+export default struct NDIS_MINIPORT_TIMER {
+    #StructPack 8
 
-    static packingSize => 8
+    Timer : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Timer {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Dpc : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Dpc {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    MiniportTimerFunction : IntPtr
 
-    /**
-     * @type {Pointer<PNDIS_TIMER_FUNCTION>}
-     */
-    MiniportTimerFunction {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    MiniportTimerContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    MiniportTimerContext {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Miniport : NDIS_MINIPORT_BLOCK.Ptr
 
-    /**
-     * @type {Pointer<NDIS_MINIPORT_BLOCK>}
-     */
-    Miniport {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    NextTimer : NDIS_MINIPORT_TIMER.Ptr
 
-    /**
-     * @type {Pointer<NDIS_MINIPORT_TIMER>}
-     */
-    NextTimer {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

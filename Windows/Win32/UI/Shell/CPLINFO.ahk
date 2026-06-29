@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains resource information and an application-defined value for a dialog box supported by a Control Panel application. (CPLINFO)
@@ -8,52 +7,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/cpl/ns-cpl-cplinfo
  * @namespace Windows.Win32.UI.Shell
  */
-class CPLINFO extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct CPLINFO {
+    #StructPack 8
 
     /**
      * Type: <b>int</b>
      * 
      * The resource identifier of the icon that represents the dialog box.
-     * @type {Integer}
      */
-    idIcon {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    idIcon : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * The resource identifier of the string containing the short name for the dialog box. This name is intended to be displayed below the icon.
-     * @type {Integer}
      */
-    idName {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    idName : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * The resource identifier of the string containing the description for the dialog box that is intended to be displayed when the application icon is selected.
-     * @type {Integer}
      */
-    idInfo {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    idInfo : Int32
 
     /**
      * Type: <b>LONG_PTR</b>
      * 
      * A pointer to data defined by the application. When the Control Panel sends the <a href="https://docs.microsoft.com/windows/desktop/shell/fa-associationarray">CPL_DBLCLK</a> and <a href="https://docs.microsoft.com/windows/desktop/shell/library-functions-bumper">CPL_STOP</a> messages, it passes this value back to your application.
-     * @type {Pointer}
      */
-    lData {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lData : IntPtr
+
 }

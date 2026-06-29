@@ -1,33 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLCurrentStyle5 extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLCurrentStyle5 extends IDispatch {
     /**
      * The interface identifier for IHTMLCurrentStyle5
      * @type {Guid}
      */
-    static IID => Guid("{30510481-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{30510481-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLCurrentStyle5 interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_captionSide        : IntPtr
+        get_outline            : IntPtr
+        get_outlineWidth       : IntPtr
+        get_outlineStyle       : IntPtr
+        get_outlineColor       : IntPtr
+        get_boxSizing          : IntPtr
+        get_borderSpacing      : IntPtr
+        get_orphans            : IntPtr
+        get_widows             : IntPtr
+        get_pageBreakInside    : IntPtr
+        get_emptyCells         : IntPtr
+        get_msBlockProgression : IntPtr
+        get_quotes             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_captionSide", "get_outline", "get_outlineWidth", "get_outlineStyle", "get_outlineColor", "get_boxSizing", "get_borderSpacing", "get_orphans", "get_widows", "get_pageBreakInside", "get_emptyCells", "get_msBlockProgression", "get_quotes"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLCurrentStyle5.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -125,8 +145,8 @@ class IHTMLCurrentStyle5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_captionSide() {
-        p := BSTR()
-        result := ComCall(7, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -135,8 +155,8 @@ class IHTMLCurrentStyle5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_outline() {
-        p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -146,7 +166,7 @@ class IHTMLCurrentStyle5 extends IDispatch {
      */
     get_outlineWidth() {
         p := VARIANT()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        result := ComCall(9, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -155,8 +175,8 @@ class IHTMLCurrentStyle5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_outlineStyle() {
-        p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -166,7 +186,7 @@ class IHTMLCurrentStyle5 extends IDispatch {
      */
     get_outlineColor() {
         p := VARIANT()
-        result := ComCall(11, this, "ptr", p, "HRESULT")
+        result := ComCall(11, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -175,8 +195,8 @@ class IHTMLCurrentStyle5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_boxSizing() {
-        p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -185,8 +205,8 @@ class IHTMLCurrentStyle5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderSpacing() {
-        p := BSTR()
-        result := ComCall(13, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -196,7 +216,7 @@ class IHTMLCurrentStyle5 extends IDispatch {
      */
     get_orphans() {
         p := VARIANT()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -206,7 +226,7 @@ class IHTMLCurrentStyle5 extends IDispatch {
      */
     get_widows() {
         p := VARIANT()
-        result := ComCall(15, this, "ptr", p, "HRESULT")
+        result := ComCall(15, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -215,8 +235,8 @@ class IHTMLCurrentStyle5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_pageBreakInside() {
-        p := BSTR()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(16, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -225,8 +245,8 @@ class IHTMLCurrentStyle5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_emptyCells() {
-        p := BSTR()
-        result := ComCall(17, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -235,8 +255,8 @@ class IHTMLCurrentStyle5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msBlockProgression() {
-        p := BSTR()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -245,8 +265,52 @@ class IHTMLCurrentStyle5 extends IDispatch {
      * @returns {BSTR} 
      */
     get_quotes() {
-        p := BSTR()
-        result := ComCall(19, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(19, this, BSTR.Ptr, p, "HRESULT")
         return p
+    }
+
+    Query(iid) {
+        if (IHTMLCurrentStyle5.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_captionSide := CallbackCreate(GetMethod(implObj, "get_captionSide"), flags, 2)
+        this.vtbl.get_outline := CallbackCreate(GetMethod(implObj, "get_outline"), flags, 2)
+        this.vtbl.get_outlineWidth := CallbackCreate(GetMethod(implObj, "get_outlineWidth"), flags, 2)
+        this.vtbl.get_outlineStyle := CallbackCreate(GetMethod(implObj, "get_outlineStyle"), flags, 2)
+        this.vtbl.get_outlineColor := CallbackCreate(GetMethod(implObj, "get_outlineColor"), flags, 2)
+        this.vtbl.get_boxSizing := CallbackCreate(GetMethod(implObj, "get_boxSizing"), flags, 2)
+        this.vtbl.get_borderSpacing := CallbackCreate(GetMethod(implObj, "get_borderSpacing"), flags, 2)
+        this.vtbl.get_orphans := CallbackCreate(GetMethod(implObj, "get_orphans"), flags, 2)
+        this.vtbl.get_widows := CallbackCreate(GetMethod(implObj, "get_widows"), flags, 2)
+        this.vtbl.get_pageBreakInside := CallbackCreate(GetMethod(implObj, "get_pageBreakInside"), flags, 2)
+        this.vtbl.get_emptyCells := CallbackCreate(GetMethod(implObj, "get_emptyCells"), flags, 2)
+        this.vtbl.get_msBlockProgression := CallbackCreate(GetMethod(implObj, "get_msBlockProgression"), flags, 2)
+        this.vtbl.get_quotes := CallbackCreate(GetMethod(implObj, "get_quotes"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_captionSide)
+        CallbackFree(this.vtbl.get_outline)
+        CallbackFree(this.vtbl.get_outlineWidth)
+        CallbackFree(this.vtbl.get_outlineStyle)
+        CallbackFree(this.vtbl.get_outlineColor)
+        CallbackFree(this.vtbl.get_boxSizing)
+        CallbackFree(this.vtbl.get_borderSpacing)
+        CallbackFree(this.vtbl.get_orphans)
+        CallbackFree(this.vtbl.get_widows)
+        CallbackFree(this.vtbl.get_pageBreakInside)
+        CallbackFree(this.vtbl.get_emptyCells)
+        CallbackFree(this.vtbl.get_msBlockProgression)
+        CallbackFree(this.vtbl.get_quotes)
     }
 }

@@ -1,72 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DSTATUS.ahk
-#Include .\D3DRECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DSTATUS.ahk" { D3DSTATUS }
+#Import ".\D3DRECT.ahk" { D3DRECT }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DEXECUTEDATA extends Win32Struct {
-    static sizeof => 48
+export default struct D3DEXECUTEDATA {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVertexOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVertexOffset {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwVertexCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVertexCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwInstructionOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwInstructionOffset {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwInstructionLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwInstructionLength {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwHVertexOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwHVertexOffset {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dsStatus : D3DSTATUS
 
-    /**
-     * @type {D3DSTATUS}
-     */
-    dsStatus {
-        get {
-            if(!this.HasProp("__dsStatus"))
-                this.__dsStatus := D3DSTATUS(24, this)
-            return this.__dsStatus
-        }
-    }
 }

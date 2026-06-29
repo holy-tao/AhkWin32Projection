@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFMediaType.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\IMFMediaType.ahk" { IMFMediaType }
 
 /**
  * IMFAudioMediaType is no longer available for use as of Windows 7.
@@ -19,26 +20,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfaudiomediatype
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFAudioMediaType extends IMFMediaType {
-
-    static sizeof => A_PtrSize
+export default struct IMFAudioMediaType extends IMFMediaType {
     /**
      * The interface identifier for IMFAudioMediaType
      * @type {Guid}
      */
-    static IID => Guid("{26a0adc3-ce26-4672-9304-69552edd3faf}")
+    static IID := Guid("{26a0adc3-ce26-4672-9304-69552edd3faf}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 38
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFAudioMediaType interfaces
+    */
+    struct Vtbl extends IMFMediaType.Vtbl {
+        GetAudioFormat : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetAudioFormat"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFAudioMediaType.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * GetAudioFormat is no longer available for use as of Windows 7.
@@ -57,7 +65,27 @@ class IMFAudioMediaType extends IMFMediaType {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfaudiomediatype-getaudioformat
      */
     GetAudioFormat() {
-        result := ComCall(38, this, "ptr")
+        result := ComCall(38, this, WAVEFORMATEX.Ptr)
         return result
+    }
+
+    Query(iid) {
+        if (IMFAudioMediaType.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetAudioFormat := CallbackCreate(GetMethod(implObj, "GetAudioFormat"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetAudioFormat)
     }
 }

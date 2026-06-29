@@ -1,79 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The RPCOLEMESSAGE (objidlbase.h) structure contains marshaling invocation arguments and return values between COM components.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/ns-objidlbase-rpcolemessage
  * @namespace Windows.Win32.System.Com
  */
-class RPCOLEMESSAGE extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct RPCOLEMESSAGE {
+    #StructPack 8
 
     /**
      * This member is reserved.
-     * @type {Pointer<Void>}
      */
-    reserved1 {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    reserved1 : IntPtr
 
     /**
      * The data representation with which the data was marshaled.
-     * @type {Integer}
      */
-    dataRepresentation {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dataRepresentation : UInt32
 
     /**
      * A buffer for marshaled data.
-     * @type {Pointer<Void>}
      */
-    Buffer {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Buffer : IntPtr
 
     /**
      * The size of the buffer, in bytes.
-     * @type {Integer}
      */
-    cbBuffer {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    cbBuffer : UInt32
 
     /**
      * The number of the method to be invoked.
-     * @type {Integer}
      */
-    iMethod {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    iMethod : UInt32
 
     /**
      * This member is reserved.
-     * @type {Array<Pointer<Void>>}
      */
-    reserved2 {
-        get {
-            if(!this.HasProp("__reserved2ProxyArray"))
-                this.__reserved2ProxyArray := Win32FixedArray(this.ptr + 32, 5, Primitive, "ptr")
-            return this.__reserved2ProxyArray
-        }
-    }
+    reserved2 : IntPtr[5]
 
     /**
      * Status flags for the RPC connection.
-     * @type {Integer}
      */
-    rpcFlags {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    rpcFlags : UInt32
+
 }

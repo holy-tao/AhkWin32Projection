@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents the header for the function table stream.
@@ -9,62 +8,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_function_table_stream
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class MINIDUMP_FUNCTION_TABLE_STREAM extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct MINIDUMP_FUNCTION_TABLE_STREAM {
+    #StructPack 4
 
     /**
      * The size of header information for the stream, in bytes. This value is <c>sizeof(MINIDUMP_FUNCTION_TABLE_STREAM)</c>.
-     * @type {Integer}
      */
-    SizeOfHeader {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SizeOfHeader : UInt32
 
     /**
      * The size of a descriptor in the stream, in bytes. This value is <c>sizeof(MINIDUMP_FUNCTION_TABLE_DESCRIPTOR)</c>.
-     * @type {Integer}
      */
-    SizeOfDescriptor {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SizeOfDescriptor : UInt32
 
     /**
      * The size of a raw system descriptor in the stream, in bytes. This value depends on the particular platform and system version on which the minidump was generated.
-     * @type {Integer}
      */
-    SizeOfNativeDescriptor {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SizeOfNativeDescriptor : UInt32
 
     /**
      * The size of a raw system function table entry, in bytes. This value depends on the particular platform and system version on which the minidump was generated.
-     * @type {Integer}
      */
-    SizeOfFunctionEntry {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    SizeOfFunctionEntry : UInt32
 
     /**
      * The number of descriptors in the stream.
-     * @type {Integer}
      */
-    NumberOfDescriptors {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    NumberOfDescriptors : UInt32
 
     /**
      * The size of alignment padding that follows the header, in bytes.
-     * @type {Integer}
      */
-    SizeOfAlignPad {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    SizeOfAlignPad : UInt32
+
 }

@@ -1,38 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWP_NETWORK_CONNECTION_POLICY_SETTING_TYPE.ahk
-#Include .\FWP_VALUE0.ahk
-#Include .\FWP_DATA_TYPE.ahk
-#Include .\FWP_BYTE_ARRAY16.ahk
-#Include .\FWP_BYTE_BLOB.ahk
-#Include ..\..\Security\SID.ahk
-#Include .\FWP_TOKEN_INFORMATION.ahk
-#Include .\FWP_BYTE_ARRAY6.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Security\SID.ahk" { SID }
+#Import ".\FWP_TOKEN_INFORMATION.ahk" { FWP_TOKEN_INFORMATION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\FWP_BYTE_ARRAY6.ahk" { FWP_BYTE_ARRAY6 }
+#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
+#Import ".\FWP_VALUE0.ahk" { FWP_VALUE0 }
+#Import ".\FWP_DATA_TYPE.ahk" { FWP_DATA_TYPE }
+#Import ".\FWP_BYTE_ARRAY16.ahk" { FWP_BYTE_ARRAY16 }
+#Import ".\FWP_NETWORK_CONNECTION_POLICY_SETTING_TYPE.ahk" { FWP_NETWORK_CONNECTION_POLICY_SETTING_TYPE }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class FWPM_NETWORK_CONNECTION_POLICY_SETTING0 extends Win32Struct {
-    static sizeof => 24
+export default struct FWPM_NETWORK_CONNECTION_POLICY_SETTING0 {
+    #StructPack 8
 
-    static packingSize => 8
+    type : FWP_NETWORK_CONNECTION_POLICY_SETTING_TYPE
 
-    /**
-     * @type {FWP_NETWORK_CONNECTION_POLICY_SETTING_TYPE}
-     */
-    type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    value : FWP_VALUE0
 
-    /**
-     * @type {FWP_VALUE0}
-     */
-    value {
-        get {
-            if(!this.HasProp("__value"))
-                this.__value := FWP_VALUE0(8, this)
-            return this.__value
-        }
-    }
 }

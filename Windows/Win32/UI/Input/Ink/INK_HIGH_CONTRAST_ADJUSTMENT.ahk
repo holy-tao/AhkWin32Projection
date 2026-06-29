@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies how the IInkD2DRenderer2 object draws ink (standard and modified) when system is in a contrast theme mode.
  * @see https://learn.microsoft.com/windows/win32/api/inkrenderer/ne-inkrenderer-ink_high_contrast_adjustment
  * @namespace Windows.Win32.UI.Input.Ink
  */
-class INK_HIGH_CONTRAST_ADJUSTMENT extends Win32Enum {
+export default struct INK_HIGH_CONTRAST_ADJUSTMENT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * For standard strokes, use selected color if contrast is sufficient against the background. Otherwise, use system color.

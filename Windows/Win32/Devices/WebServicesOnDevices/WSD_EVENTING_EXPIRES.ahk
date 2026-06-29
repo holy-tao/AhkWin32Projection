@@ -1,33 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSD_DURATION.ahk
-#Include .\WSD_DATETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WSD_DATETIME.ahk" { WSD_DATETIME }
+#Import ".\WSD_DURATION.ahk" { WSD_DURATION }
 
 /**
  * Represents the expiration time of a WS-Eventing message.
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_eventing_expires
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class WSD_EVENTING_EXPIRES extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct WSD_EVENTING_EXPIRES {
+    #StructPack 8
 
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/ns-wsdxml-wsd_duration">WSD_DURATION</a> structure that specifies the length of time a request or response is valid.
-     * @type {Pointer<WSD_DURATION>}
      */
-    Duration {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Duration : WSD_DURATION.Ptr
 
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/ns-wsdxml-wsd_datetime">WSD_DATETIME</a> structure that specifies the time that the request or response expires.
-     * @type {Pointer<WSD_DATETIME>}
      */
-    DateTime {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    DateTime : WSD_DATETIME.Ptr
+
 }

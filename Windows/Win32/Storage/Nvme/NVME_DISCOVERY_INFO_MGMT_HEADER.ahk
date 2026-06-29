@@ -1,18 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_DISCOVERY_INFO_MGMT_HEADER extends Win32Struct {
-    static sizeof => 1024
+export default struct NVME_DISCOVERY_INFO_MGMT_HEADER {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _EKTYPE_e__Union extends Win32Struct {
-        static sizeof => 2
-        static packingSize => 2
-
+    struct _EKTYPE {
         /**
          * This bitfield backs the following members:
          * - NQN
@@ -23,12 +18,9 @@ class NVME_DISCOVERY_INFO_MGMT_HEADER extends Win32Struct {
          * - PORTID
          * - TRADDR
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
+        _bitfield : Int16
+
 
         /**
          * @type {Integer}
@@ -85,124 +77,34 @@ class NVME_DISCOVERY_INFO_MGMT_HEADER extends Win32Struct {
             get => (this._bitfield >> 6) & 0x1
             set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
         }
-
-        /**
-         * @type {Integer}
-         */
-        AsUshort {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUshort', { type: UInt16, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    TDL {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    TDL : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved0 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Reserved0 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NUMENT {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NUMENT : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ENTFMT {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    ENTFMT : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ETYPE {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    ETYPE : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    PORTLCL {
-        get => NumGet(this, 20, "char")
-        set => NumPut("char", value, this, 20)
-    }
+    PORTLCL : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 21, "char")
-        set => NumPut("char", value, this, 21)
-    }
+    Reserved1 : Int8
 
-    /**
-     * @type {_EKTYPE_e__Union}
-     */
-    EKTYPE {
-        get {
-            if(!this.HasProp("__EKTYPE"))
-                this.__EKTYPE := NVME_DISCOVERY_INFO_MGMT_HEADER._EKTYPE_e__Union(22, this)
-            return this.__EKTYPE
-        }
-    }
+    EKTYPE : NVME_DISCOVERY_INFO_MGMT_HEADER._EKTYPE
 
-    /**
-     * @type {Array<Integer>}
-     */
-    EID {
-        get {
-            if(!this.HasProp("__EIDProxyArray"))
-                this.__EIDProxyArray := Win32FixedArray(this.ptr + 24, 256, Primitive, "char")
-            return this.__EIDProxyArray
-        }
-    }
+    EID : Int8[256]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ENAME {
-        get {
-            if(!this.HasProp("__ENAMEProxyArray"))
-                this.__ENAMEProxyArray := Win32FixedArray(this.ptr + 280, 256, Primitive, "char")
-            return this.__ENAMEProxyArray
-        }
-    }
+    ENAME : Int8[256]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    EVER {
-        get {
-            if(!this.HasProp("__EVERProxyArray"))
-                this.__EVERProxyArray := Win32FixedArray(this.ptr + 536, 64, Primitive, "char")
-            return this.__EVERProxyArray
-        }
-    }
+    EVER : Int8[64]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved2 {
-        get {
-            if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 600, 424, Primitive, "char")
-            return this.__Reserved2ProxyArray
-        }
-    }
+    Reserved2 : Int8[424]
+
 }

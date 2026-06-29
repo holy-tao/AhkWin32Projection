@@ -1,65 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
  */
-class DNS_NSEC3PARAM_DATA extends Win32Struct {
-    static sizeof => 10
+export default struct DNS_NSEC3PARAM_DATA {
+    #StructPack 2
 
-    static packingSize => 2
+    chAlgorithm : Int8
 
-    /**
-     * @type {Integer}
-     */
-    chAlgorithm {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    bFlags : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bFlags {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    wIterations : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wIterations {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    bSaltLength : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bSaltLength {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    bPad : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    bPad {
-        get {
-            if(!this.HasProp("__bPadProxyArray"))
-                this.__bPadProxyArray := Win32FixedArray(this.ptr + 5, 3, Primitive, "char")
-            return this.__bPadProxyArray
-        }
-    }
+    pbSalt : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    pbSalt {
-        get {
-            if(!this.HasProp("__pbSaltProxyArray"))
-                this.__pbSaltProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
-            return this.__pbSaltProxyArray
-        }
-    }
 }

@@ -1,9 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Ole\IOleWindow.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\FOLDERSETTINGS.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\FOLDERSETTINGS.ahk" { FOLDERSETTINGS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Ole\IOleWindow.ahk" { IOleWindow }
+#Import "..\WindowsAndMessaging\MSG.ahk" { MSG }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import ".\IShellBrowser.ahk" { IShellBrowser }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Exposes methods that present a view in the Windows Explorer or folder windows.
@@ -20,26 +27,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishellview
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellView extends IOleWindow {
-
-    static sizeof => A_PtrSize
+export default struct IShellView extends IOleWindow {
     /**
      * The interface identifier for IShellView
      * @type {Guid}
      */
-    static IID => Guid("{000214e3-0000-0000-c000-000000000046}")
+    static IID := Guid("{000214e3-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellView interfaces
+    */
+    struct Vtbl extends IOleWindow.Vtbl {
+        TranslateAccelerator  : IntPtr
+        EnableModeless        : IntPtr
+        UIActivate            : IntPtr
+        Refresh               : IntPtr
+        CreateViewWindow      : IntPtr
+        DestroyViewWindow     : IntPtr
+        GetCurrentInfo        : IntPtr
+        AddPropertySheetPages : IntPtr
+        SaveViewState         : IntPtr
+        SelectItem            : IntPtr
+        GetItemObject         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["TranslateAccelerator", "EnableModeless", "UIActivate", "Refresh", "CreateViewWindow", "DestroyViewWindow", "GetCurrentInfo", "AddPropertySheetPages", "SaveViewState", "SelectItem", "GetItemObject"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellView.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Translates keyboard shortcut (accelerator) key strokes when a namespace extension's view has the focus.
@@ -62,7 +86,7 @@ class IShellView extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview-translateaccelerator
      */
     TranslateAccelerator(pmsg) {
-        result := ComCall(5, this, "ptr", pmsg, "int")
+        result := ComCall(5, this, MSG.Ptr, pmsg, Int32)
         return result
     }
 
@@ -77,7 +101,7 @@ class IShellView extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview-enablemodeless
      */
     EnableModeless(fEnable) {
-        result := ComCall(6, this, "int", fEnable, "HRESULT")
+        result := ComCall(6, this, BOOL, fEnable, "HRESULT")
         return result
     }
 
@@ -149,7 +173,7 @@ class IShellView extends IOleWindow {
      */
     CreateViewWindow(psvPrevious, pfs, psb, prcView) {
         phWnd := HWND()
-        result := ComCall(9, this, "ptr", psvPrevious, "ptr", pfs, "ptr", psb, "ptr", prcView, "ptr", phWnd, "HRESULT")
+        result := ComCall(9, this, "ptr", psvPrevious, FOLDERSETTINGS.Ptr, pfs, "ptr", psb, RECT.Ptr, prcView, HWND.Ptr, phWnd, "HRESULT")
         return phWnd
     }
 
@@ -187,7 +211,7 @@ class IShellView extends IOleWindow {
      */
     GetCurrentInfo() {
         pfs := FOLDERSETTINGS()
-        result := ComCall(11, this, "ptr", pfs, "HRESULT")
+        result := ComCall(11, this, FOLDERSETTINGS.Ptr, pfs, "HRESULT")
         return pfs
     }
 
@@ -211,7 +235,7 @@ class IShellView extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview-addpropertysheetpages
      */
     AddPropertySheetPages(dwReserved, _pfn, _lparam) {
-        result := ComCall(12, this, "uint", dwReserved, "ptr", _pfn, "ptr", _lparam, "HRESULT")
+        result := ComCall(12, this, "uint", dwReserved, "ptr", _pfn, LPARAM, _lparam, "HRESULT")
         return result
     }
 
@@ -252,7 +276,7 @@ class IShellView extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview-selectitem
      */
     SelectItem(pidlItem, uFlags) {
-        result := ComCall(14, this, "ptr", pidlItem, "uint", uFlags, "HRESULT")
+        result := ComCall(14, this, ITEMIDLIST.Ptr, pidlItem, "uint", uFlags, "HRESULT")
         return result
     }
 
@@ -272,7 +296,47 @@ class IShellView extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview-getitemobject
      */
     GetItemObject(uItem, riid) {
-        result := ComCall(15, this, "uint", uItem, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(15, this, "uint", uItem, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
+    }
+
+    Query(iid) {
+        if (IShellView.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.TranslateAccelerator := CallbackCreate(GetMethod(implObj, "TranslateAccelerator"), flags, 2)
+        this.vtbl.EnableModeless := CallbackCreate(GetMethod(implObj, "EnableModeless"), flags, 2)
+        this.vtbl.UIActivate := CallbackCreate(GetMethod(implObj, "UIActivate"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.CreateViewWindow := CallbackCreate(GetMethod(implObj, "CreateViewWindow"), flags, 6)
+        this.vtbl.DestroyViewWindow := CallbackCreate(GetMethod(implObj, "DestroyViewWindow"), flags, 1)
+        this.vtbl.GetCurrentInfo := CallbackCreate(GetMethod(implObj, "GetCurrentInfo"), flags, 2)
+        this.vtbl.AddPropertySheetPages := CallbackCreate(GetMethod(implObj, "AddPropertySheetPages"), flags, 4)
+        this.vtbl.SaveViewState := CallbackCreate(GetMethod(implObj, "SaveViewState"), flags, 1)
+        this.vtbl.SelectItem := CallbackCreate(GetMethod(implObj, "SelectItem"), flags, 3)
+        this.vtbl.GetItemObject := CallbackCreate(GetMethod(implObj, "GetItemObject"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.TranslateAccelerator)
+        CallbackFree(this.vtbl.EnableModeless)
+        CallbackFree(this.vtbl.UIActivate)
+        CallbackFree(this.vtbl.Refresh)
+        CallbackFree(this.vtbl.CreateViewWindow)
+        CallbackFree(this.vtbl.DestroyViewWindow)
+        CallbackFree(this.vtbl.GetCurrentInfo)
+        CallbackFree(this.vtbl.AddPropertySheetPages)
+        CallbackFree(this.vtbl.SaveViewState)
+        CallbackFree(this.vtbl.SelectItem)
+        CallbackFree(this.vtbl.GetItemObject)
     }
 }

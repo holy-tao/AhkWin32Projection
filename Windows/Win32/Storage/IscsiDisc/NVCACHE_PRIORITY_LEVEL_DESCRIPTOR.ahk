@@ -1,70 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
  */
-class NVCACHE_PRIORITY_LEVEL_DESCRIPTOR extends Win32Struct {
-    static sizeof => 24
+export default struct NVCACHE_PRIORITY_LEVEL_DESCRIPTOR {
+    #StructPack 4
 
-    static packingSize => 4
+    PriorityLevel : Int8
 
-    /**
-     * @type {Integer}
-     */
-    PriorityLevel {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Reserved0 : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved0 {
-        get {
-            if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
-            return this.__Reserved0ProxyArray
-        }
-    }
+    ConsumedNVMSizeFraction : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ConsumedNVMSizeFraction {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ConsumedMappingResourcesFraction : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ConsumedMappingResourcesFraction {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ConsumedNVMSizeForDirtyDataFraction : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ConsumedNVMSizeForDirtyDataFraction {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ConsumedMappingResourcesForDirtyDataFraction : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ConsumedMappingResourcesForDirtyDataFraction {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Reserved1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

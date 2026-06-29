@@ -1,49 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Globalization
  */
-class UParseError extends Win32Struct {
-    static sizeof => 72
+export default struct UParseError {
+    #StructPack 4
 
-    static packingSize => 4
+    line : Int32
 
-    /**
-     * @type {Integer}
-     */
-    line {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    offset : Int32
 
-    /**
-     * @type {Integer}
-     */
-    offset {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    preContext : UInt16[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    preContext {
-        get {
-            if(!this.HasProp("__preContextProxyArray"))
-                this.__preContextProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "ushort")
-            return this.__preContextProxyArray
-        }
-    }
+    postContext : UInt16[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    postContext {
-        get {
-            if(!this.HasProp("__postContextProxyArray"))
-                this.__postContextProxyArray := Win32FixedArray(this.ptr + 40, 16, Primitive, "ushort")
-            return this.__postContextProxyArray
-        }
-    }
 }

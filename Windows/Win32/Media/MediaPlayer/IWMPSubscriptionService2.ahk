@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMPSubscriptionService.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\WMPSubscriptionServiceEvent.ahk" { WMPSubscriptionServiceEvent }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMPSubscriptionService.ahk" { IWMPSubscriptionService }
+#Import ".\IWMPSubscriptionServiceCallback.ahk" { IWMPSubscriptionServiceCallback }
 
 /**
  * Note  This section describes functionality designed for use by online stores.
  * @see https://learn.microsoft.com/windows/win32/api/subscriptionservices/nn-subscriptionservices-iwmpsubscriptionservice2
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPSubscriptionService2 extends IWMPSubscriptionService {
-
-    static sizeof => A_PtrSize
+export default struct IWMPSubscriptionService2 extends IWMPSubscriptionService {
     /**
      * The interface identifier for IWMPSubscriptionService2
      * @type {Guid}
      */
-    static IID => Guid("{a94c120e-d600-4ec6-b05e-ec9d56d84de0}")
+    static IID := Guid("{a94c120e-d600-4ec6-b05e-ec9d56d84de0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPSubscriptionService2 interfaces
+    */
+    struct Vtbl extends IWMPSubscriptionService.Vtbl {
+        stopBackgroundProcessing : IntPtr
+        serviceEvent             : IntPtr
+        deviceAvailable          : IntPtr
+        prepareForSync           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["stopBackgroundProcessing", "serviceEvent", "deviceAvailable", "prepareForSync"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPSubscriptionService2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Note  This section describes functionality designed for use by online stores.
@@ -86,7 +100,7 @@ class IWMPSubscriptionService2 extends IWMPSubscriptionService {
      * @see https://learn.microsoft.com/windows/win32/api/subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice2-serviceevent
      */
     serviceEvent(event) {
-        result := ComCall(8, this, "int", event, "HRESULT")
+        result := ComCall(8, this, WMPSubscriptionServiceEvent, event, "HRESULT")
         return result
     }
 
@@ -131,7 +145,7 @@ class IWMPSubscriptionService2 extends IWMPSubscriptionService {
     deviceAvailable(bstrDeviceName, pCB) {
         bstrDeviceName := bstrDeviceName is String ? BSTR.Alloc(bstrDeviceName).Value : bstrDeviceName
 
-        result := ComCall(9, this, "ptr", bstrDeviceName, "ptr", pCB, "HRESULT")
+        result := ComCall(9, this, BSTR, bstrDeviceName, "ptr", pCB, "HRESULT")
         return result
     }
 
@@ -178,7 +192,33 @@ class IWMPSubscriptionService2 extends IWMPSubscriptionService {
         bstrFilename := bstrFilename is String ? BSTR.Alloc(bstrFilename).Value : bstrFilename
         bstrDeviceName := bstrDeviceName is String ? BSTR.Alloc(bstrDeviceName).Value : bstrDeviceName
 
-        result := ComCall(10, this, "ptr", bstrFilename, "ptr", bstrDeviceName, "ptr", pCB, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrFilename, BSTR, bstrDeviceName, "ptr", pCB, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPSubscriptionService2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.stopBackgroundProcessing := CallbackCreate(GetMethod(implObj, "stopBackgroundProcessing"), flags, 1)
+        this.vtbl.serviceEvent := CallbackCreate(GetMethod(implObj, "serviceEvent"), flags, 2)
+        this.vtbl.deviceAvailable := CallbackCreate(GetMethod(implObj, "deviceAvailable"), flags, 3)
+        this.vtbl.prepareForSync := CallbackCreate(GetMethod(implObj, "prepareForSync"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.stopBackgroundProcessing)
+        CallbackFree(this.vtbl.serviceEvent)
+        CallbackFree(this.vtbl.deviceAvailable)
+        CallbackFree(this.vtbl.prepareForSync)
     }
 }

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Identifies the kernel event for which you want to enable call stack tracing.
@@ -10,39 +10,23 @@
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-classic_event_id
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class CLASSIC_EVENT_ID extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct CLASSIC_EVENT_ID {
+    #StructPack 4
 
     /**
      * The GUID that identifies the kernel event class.
-     * @type {Pointer}
      */
-    EventGuid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    EventGuid : Guid
 
     /**
      * The event type that identifies the event within the kernel event class to
      * enable.
-     * @type {Integer}
      */
-    Type {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    Type : Int8
 
     /**
      * Reserved.
-     * @type {Array<Integer>}
      */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 9, 7, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    Reserved : Int8[7]
+
 }

@@ -1,91 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CARD_DERIVE_KEY extends Win32Struct {
-    static sizeof => 72
+export default struct CARD_DERIVE_KEY {
+    #StructPack 8
 
-    static packingSize => 8
+    dwVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    pwszKDF : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszKDF {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    bSecretAgreementIndex : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bSecretAgreementIndex {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    pParameterList : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pParameterList {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pbDerivedKey : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbDerivedKey {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    cbDerivedKey : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbDerivedKey {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    pwszAlgId : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszAlgId {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    dwKeyLen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwKeyLen {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    hKey : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    hKey {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
 }

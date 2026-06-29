@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes a method that launches an advanced association dialog box through which the user can customize their associations.
@@ -10,32 +12,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-iapplicationassociationregistrationui
  * @namespace Windows.Win32.UI.Shell
  */
-class IApplicationAssociationRegistrationUI extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IApplicationAssociationRegistrationUI extends IUnknown {
     /**
      * The interface identifier for IApplicationAssociationRegistrationUI
      * @type {Guid}
      */
-    static IID => Guid("{1f76a169-f994-40ac-8fc8-0959e8874710}")
+    static IID := Guid("{1f76a169-f994-40ac-8fc8-0959e8874710}")
 
     /**
      * The class identifier for ApplicationAssociationRegistrationUI
      * @type {Guid}
      */
-    static CLSID => Guid("{1968106d-f3b5-44cf-890e-116fcb9ecef1}")
+    static CLSID := Guid("{1968106d-f3b5-44cf-890e-116fcb9ecef1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IApplicationAssociationRegistrationUI interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        LaunchAdvancedAssociationUI : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["LaunchAdvancedAssociationUI"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IApplicationAssociationRegistrationUI.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Launches an advanced association dialog box through which the user can customize the associations for the application specified in pszAppRegName.
@@ -54,5 +63,25 @@ class IApplicationAssociationRegistrationUI extends IUnknown {
 
         result := ComCall(3, this, "ptr", pszAppRegistryName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IApplicationAssociationRegistrationUI.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.LaunchAdvancedAssociationUI := CallbackCreate(GetMethod(implObj, "LaunchAdvancedAssociationUI"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.LaunchAdvancedAssociationUI)
     }
 }

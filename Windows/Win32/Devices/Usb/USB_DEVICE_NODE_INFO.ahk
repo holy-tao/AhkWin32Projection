@@ -1,126 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_WMI_DEVICE_NODE_TYPE.ahk
-#Include .\USB_TOPOLOGY_ADDRESS.ahk
-#Include .\USB_DEVICE_INFO.ahk
-#Include .\USB_DEVICE_STATE.ahk
-#Include .\USB_DEVICE_DESCRIPTOR.ahk
-#Include .\USB_DEVICE_SPEED.ahk
-#Include .\USB_CONNECTION_STATUS.ahk
-#Include .\USB_PIPE_INFO.ahk
-#Include .\USB_ENDPOINT_DESCRIPTOR.ahk
-#Include .\USB_HUB_DEVICE_INFO.ahk
-#Include .\USB_HUB_DESCRIPTOR.ahk
-#Include .\USB_HUB_CAPABILITIES.ahk
-#Include .\USB_HUB_PORT_INFORMATION.ahk
-#Include .\USB_COMPOSITE_DEVICE_INFO.ahk
-#Include .\USB_CONFIGURATION_DESCRIPTOR.ahk
-#Include .\USB_COMPOSITE_FUNCTION_INFO.ahk
-#Include .\USB_CONTROLLER_DEVICE_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USB_DEVICE_DESCRIPTOR.ahk" { USB_DEVICE_DESCRIPTOR }
+#Import ".\USB_CONFIGURATION_DESCRIPTOR.ahk" { USB_CONFIGURATION_DESCRIPTOR }
+#Import ".\USB_HUB_DEVICE_INFO.ahk" { USB_HUB_DEVICE_INFO }
+#Import ".\USB_HUB_CAPABILITIES.ahk" { USB_HUB_CAPABILITIES }
+#Import ".\USB_DEVICE_SPEED.ahk" { USB_DEVICE_SPEED }
+#Import ".\USB_CONNECTION_STATUS.ahk" { USB_CONNECTION_STATUS }
+#Import ".\USB_COMPOSITE_DEVICE_INFO.ahk" { USB_COMPOSITE_DEVICE_INFO }
+#Import ".\USB_WMI_DEVICE_NODE_TYPE.ahk" { USB_WMI_DEVICE_NODE_TYPE }
+#Import ".\USB_HUB_DESCRIPTOR.ahk" { USB_HUB_DESCRIPTOR }
+#Import ".\USB_CONTROLLER_DEVICE_INFO.ahk" { USB_CONTROLLER_DEVICE_INFO }
+#Import ".\USB_HUB_PORT_INFORMATION.ahk" { USB_HUB_PORT_INFORMATION }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\USB_PIPE_INFO.ahk" { USB_PIPE_INFO }
+#Import ".\USB_TOPOLOGY_ADDRESS.ahk" { USB_TOPOLOGY_ADDRESS }
+#Import ".\USB_COMPOSITE_FUNCTION_INFO.ahk" { USB_COMPOSITE_FUNCTION_INFO }
+#Import ".\USB_ENDPOINT_DESCRIPTOR.ahk" { USB_ENDPOINT_DESCRIPTOR }
+#Import ".\USB_DEVICE_INFO.ahk" { USB_DEVICE_INFO }
+#Import ".\USB_DEVICE_STATE.ahk" { USB_DEVICE_STATE }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_DEVICE_NODE_INFO extends Win32Struct {
-    static sizeof => 1208
+export default struct USB_DEVICE_NODE_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    Sig : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Sig {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    LengthInBytes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LengthInBytes {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    DeviceDescription : WCHAR[40]
 
-    /**
-     * @type {String}
-     */
-    DeviceDescription {
-        get => StrGet(this.ptr + 8, 39, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 39, "UTF-16")
-    }
+    NodeType : USB_WMI_DEVICE_NODE_TYPE
 
-    /**
-     * @type {USB_WMI_DEVICE_NODE_TYPE}
-     */
-    NodeType {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
-    }
+    BusAddress : USB_TOPOLOGY_ADDRESS
 
-    /**
-     * @type {USB_TOPOLOGY_ADDRESS}
-     */
-    BusAddress {
-        get {
-            if(!this.HasProp("__BusAddress"))
-                this.__BusAddress := USB_TOPOLOGY_ADDRESS(92, this)
-            return this.__BusAddress
-        }
-    }
+    UsbDeviceInfo : USB_DEVICE_INFO
 
-    /**
-     * @type {USB_DEVICE_INFO}
-     */
-    UsbDeviceInfo {
-        get {
-            if(!this.HasProp("__UsbDeviceInfo"))
-                this.__UsbDeviceInfo := USB_DEVICE_INFO(124, this)
-            return this.__UsbDeviceInfo
-        }
-    }
-
-    /**
-     * @type {USB_HUB_DEVICE_INFO}
-     */
-    HubDeviceInfo {
-        get {
-            if(!this.HasProp("__HubDeviceInfo"))
-                this.__HubDeviceInfo := USB_HUB_DEVICE_INFO(124, this)
-            return this.__HubDeviceInfo
-        }
-    }
-
-    /**
-     * @type {USB_COMPOSITE_DEVICE_INFO}
-     */
-    CompositeDeviceInfo {
-        get {
-            if(!this.HasProp("__CompositeDeviceInfo"))
-                this.__CompositeDeviceInfo := USB_COMPOSITE_DEVICE_INFO(124, this)
-            return this.__CompositeDeviceInfo
-        }
-    }
-
-    /**
-     * @type {USB_CONTROLLER_DEVICE_INFO}
-     */
-    ControllerDeviceInfo {
-        get {
-            if(!this.HasProp("__ControllerDeviceInfo"))
-                this.__ControllerDeviceInfo := USB_CONTROLLER_DEVICE_INFO(124, this)
-            return this.__ControllerDeviceInfo
-        }
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    DeviceInformation {
-        get {
-            if(!this.HasProp("__DeviceInformationProxyArray"))
-                this.__DeviceInformationProxyArray := Win32FixedArray(this.ptr + 124, 4, Primitive, "char")
-            return this.__DeviceInformationProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'HubDeviceInfo', { type: USB_HUB_DEVICE_INFO, offset: 124 })
+        DefineProp(this.Prototype, 'CompositeDeviceInfo', { type: USB_COMPOSITE_DEVICE_INFO, offset: 124 })
+        DefineProp(this.Prototype, 'ControllerDeviceInfo', { type: USB_CONTROLLER_DEVICE_INFO, offset: 124 })
+        DefineProp(this.Prototype, 'DeviceInformation', { type: Int8[4], offset: 124 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DDSCAPS structure defines the capabilities of a Microsoft DirectDraw surface object.
@@ -8,10 +7,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddscaps
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDSCAPS extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct DDSCAPS {
+    #StructPack 4
 
     /**
      * Indicates a set of flags that specify the capabilities of the surface. This member is a bitwise OR of any of the following flags:
@@ -146,10 +143,7 @@ class DDSCAPS extends Win32Struct {
      * </tr>
      * </tbody>
      * </table>
-     * @type {Integer}
      */
-    dwCaps {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwCaps : UInt32
+
 }

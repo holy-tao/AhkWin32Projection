@@ -1,34 +1,71 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IGenericDescriptor.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ISectionList.ahk" { ISectionList }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMpeg2Data.ahk" { IMpeg2Data }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
  * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nn-atscpsipparser-iatsc_vct
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IATSC_VCT extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IATSC_VCT extends IUnknown {
     /**
      * The interface identifier for IATSC_VCT
      * @type {Guid}
      */
-    static IID => Guid("{26879a18-32f9-46c6-91f0-fb6479270e8c}")
+    static IID := Guid("{26879a18-32f9-46c6-91f0-fb6479270e8c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IATSC_VCT interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize                        : IntPtr
+        GetVersionNumber                  : IntPtr
+        GetTransportStreamId              : IntPtr
+        GetProtocolVersion                : IntPtr
+        GetCountOfRecords                 : IntPtr
+        GetRecordName                     : IntPtr
+        GetRecordMajorChannelNumber       : IntPtr
+        GetRecordMinorChannelNumber       : IntPtr
+        GetRecordModulationMode           : IntPtr
+        GetRecordCarrierFrequency         : IntPtr
+        GetRecordTransportStreamId        : IntPtr
+        GetRecordProgramNumber            : IntPtr
+        GetRecordEtmLocation              : IntPtr
+        GetRecordIsAccessControlledBitSet : IntPtr
+        GetRecordIsHiddenBitSet           : IntPtr
+        GetRecordIsPathSelectBitSet       : IntPtr
+        GetRecordIsOutOfBandBitSet        : IntPtr
+        GetRecordIsHideGuideBitSet        : IntPtr
+        GetRecordServiceType              : IntPtr
+        GetRecordSourceId                 : IntPtr
+        GetRecordCountOfDescriptors       : IntPtr
+        GetRecordDescriptorByIndex        : IntPtr
+        GetRecordDescriptorByTag          : IntPtr
+        GetCountOfTableDescriptors        : IntPtr
+        GetTableDescriptorByIndex         : IntPtr
+        GetTableDescriptorByTag           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetVersionNumber", "GetTransportStreamId", "GetProtocolVersion", "GetCountOfRecords", "GetRecordName", "GetRecordMajorChannelNumber", "GetRecordMinorChannelNumber", "GetRecordModulationMode", "GetRecordCarrierFrequency", "GetRecordTransportStreamId", "GetRecordProgramNumber", "GetRecordEtmLocation", "GetRecordIsAccessControlledBitSet", "GetRecordIsHiddenBitSet", "GetRecordIsPathSelectBitSet", "GetRecordIsOutOfBandBitSet", "GetRecordIsHideGuideBitSet", "GetRecordServiceType", "GetRecordSourceId", "GetRecordCountOfDescriptors", "GetRecordDescriptorByIndex", "GetRecordDescriptorByTag", "GetCountOfTableDescriptors", "GetTableDescriptorByIndex", "GetTableDescriptorByTag"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IATSC_VCT.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
@@ -131,7 +168,7 @@ class IATSC_VCT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordname
      */
     GetRecordName(dwRecordIndex) {
-        result := ComCall(8, this, "uint", dwRecordIndex, "ptr*", &pwsName := 0, "HRESULT")
+        result := ComCall(8, this, "uint", dwRecordIndex, PWSTR.Ptr, &pwsName := 0, "HRESULT")
         return pwsName
     }
 
@@ -219,7 +256,7 @@ class IATSC_VCT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordisaccesscontrolledbitset
      */
     GetRecordIsAccessControlledBitSet(dwRecordIndex) {
-        result := ComCall(16, this, "uint", dwRecordIndex, "int*", &pfVal := 0, "HRESULT")
+        result := ComCall(16, this, "uint", dwRecordIndex, BOOL.Ptr, &pfVal := 0, "HRESULT")
         return pfVal
     }
 
@@ -230,7 +267,7 @@ class IATSC_VCT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordishiddenbitset
      */
     GetRecordIsHiddenBitSet(dwRecordIndex) {
-        result := ComCall(17, this, "uint", dwRecordIndex, "int*", &pfVal := 0, "HRESULT")
+        result := ComCall(17, this, "uint", dwRecordIndex, BOOL.Ptr, &pfVal := 0, "HRESULT")
         return pfVal
     }
 
@@ -243,7 +280,7 @@ class IATSC_VCT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordispathselectbitset
      */
     GetRecordIsPathSelectBitSet(dwRecordIndex) {
-        result := ComCall(18, this, "uint", dwRecordIndex, "int*", &pfVal := 0, "HRESULT")
+        result := ComCall(18, this, "uint", dwRecordIndex, BOOL.Ptr, &pfVal := 0, "HRESULT")
         return pfVal
     }
 
@@ -256,7 +293,7 @@ class IATSC_VCT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordisoutofbandbitset
      */
     GetRecordIsOutOfBandBitSet(dwRecordIndex) {
-        result := ComCall(19, this, "uint", dwRecordIndex, "int*", &pfVal := 0, "HRESULT")
+        result := ComCall(19, this, "uint", dwRecordIndex, BOOL.Ptr, &pfVal := 0, "HRESULT")
         return pfVal
     }
 
@@ -269,7 +306,7 @@ class IATSC_VCT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordishideguidebitset
      */
     GetRecordIsHideGuideBitSet(dwRecordIndex) {
-        result := ComCall(20, this, "uint", dwRecordIndex, "int*", &pfVal := 0, "HRESULT")
+        result := ComCall(20, this, "uint", dwRecordIndex, BOOL.Ptr, &pfVal := 0, "HRESULT")
         return pfVal
     }
 
@@ -391,5 +428,75 @@ class IATSC_VCT extends IUnknown {
 
         result := ComCall(28, this, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
+    }
+
+    Query(iid) {
+        if (IATSC_VCT.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetVersionNumber := CallbackCreate(GetMethod(implObj, "GetVersionNumber"), flags, 2)
+        this.vtbl.GetTransportStreamId := CallbackCreate(GetMethod(implObj, "GetTransportStreamId"), flags, 2)
+        this.vtbl.GetProtocolVersion := CallbackCreate(GetMethod(implObj, "GetProtocolVersion"), flags, 2)
+        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordName := CallbackCreate(GetMethod(implObj, "GetRecordName"), flags, 3)
+        this.vtbl.GetRecordMajorChannelNumber := CallbackCreate(GetMethod(implObj, "GetRecordMajorChannelNumber"), flags, 3)
+        this.vtbl.GetRecordMinorChannelNumber := CallbackCreate(GetMethod(implObj, "GetRecordMinorChannelNumber"), flags, 3)
+        this.vtbl.GetRecordModulationMode := CallbackCreate(GetMethod(implObj, "GetRecordModulationMode"), flags, 3)
+        this.vtbl.GetRecordCarrierFrequency := CallbackCreate(GetMethod(implObj, "GetRecordCarrierFrequency"), flags, 3)
+        this.vtbl.GetRecordTransportStreamId := CallbackCreate(GetMethod(implObj, "GetRecordTransportStreamId"), flags, 3)
+        this.vtbl.GetRecordProgramNumber := CallbackCreate(GetMethod(implObj, "GetRecordProgramNumber"), flags, 3)
+        this.vtbl.GetRecordEtmLocation := CallbackCreate(GetMethod(implObj, "GetRecordEtmLocation"), flags, 3)
+        this.vtbl.GetRecordIsAccessControlledBitSet := CallbackCreate(GetMethod(implObj, "GetRecordIsAccessControlledBitSet"), flags, 3)
+        this.vtbl.GetRecordIsHiddenBitSet := CallbackCreate(GetMethod(implObj, "GetRecordIsHiddenBitSet"), flags, 3)
+        this.vtbl.GetRecordIsPathSelectBitSet := CallbackCreate(GetMethod(implObj, "GetRecordIsPathSelectBitSet"), flags, 3)
+        this.vtbl.GetRecordIsOutOfBandBitSet := CallbackCreate(GetMethod(implObj, "GetRecordIsOutOfBandBitSet"), flags, 3)
+        this.vtbl.GetRecordIsHideGuideBitSet := CallbackCreate(GetMethod(implObj, "GetRecordIsHideGuideBitSet"), flags, 3)
+        this.vtbl.GetRecordServiceType := CallbackCreate(GetMethod(implObj, "GetRecordServiceType"), flags, 3)
+        this.vtbl.GetRecordSourceId := CallbackCreate(GetMethod(implObj, "GetRecordSourceId"), flags, 3)
+        this.vtbl.GetRecordCountOfDescriptors := CallbackCreate(GetMethod(implObj, "GetRecordCountOfDescriptors"), flags, 3)
+        this.vtbl.GetRecordDescriptorByIndex := CallbackCreate(GetMethod(implObj, "GetRecordDescriptorByIndex"), flags, 4)
+        this.vtbl.GetRecordDescriptorByTag := CallbackCreate(GetMethod(implObj, "GetRecordDescriptorByTag"), flags, 5)
+        this.vtbl.GetCountOfTableDescriptors := CallbackCreate(GetMethod(implObj, "GetCountOfTableDescriptors"), flags, 2)
+        this.vtbl.GetTableDescriptorByIndex := CallbackCreate(GetMethod(implObj, "GetTableDescriptorByIndex"), flags, 3)
+        this.vtbl.GetTableDescriptorByTag := CallbackCreate(GetMethod(implObj, "GetTableDescriptorByTag"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetVersionNumber)
+        CallbackFree(this.vtbl.GetTransportStreamId)
+        CallbackFree(this.vtbl.GetProtocolVersion)
+        CallbackFree(this.vtbl.GetCountOfRecords)
+        CallbackFree(this.vtbl.GetRecordName)
+        CallbackFree(this.vtbl.GetRecordMajorChannelNumber)
+        CallbackFree(this.vtbl.GetRecordMinorChannelNumber)
+        CallbackFree(this.vtbl.GetRecordModulationMode)
+        CallbackFree(this.vtbl.GetRecordCarrierFrequency)
+        CallbackFree(this.vtbl.GetRecordTransportStreamId)
+        CallbackFree(this.vtbl.GetRecordProgramNumber)
+        CallbackFree(this.vtbl.GetRecordEtmLocation)
+        CallbackFree(this.vtbl.GetRecordIsAccessControlledBitSet)
+        CallbackFree(this.vtbl.GetRecordIsHiddenBitSet)
+        CallbackFree(this.vtbl.GetRecordIsPathSelectBitSet)
+        CallbackFree(this.vtbl.GetRecordIsOutOfBandBitSet)
+        CallbackFree(this.vtbl.GetRecordIsHideGuideBitSet)
+        CallbackFree(this.vtbl.GetRecordServiceType)
+        CallbackFree(this.vtbl.GetRecordSourceId)
+        CallbackFree(this.vtbl.GetRecordCountOfDescriptors)
+        CallbackFree(this.vtbl.GetRecordDescriptorByIndex)
+        CallbackFree(this.vtbl.GetRecordDescriptorByTag)
+        CallbackFree(this.vtbl.GetCountOfTableDescriptors)
+        CallbackFree(this.vtbl.GetTableDescriptorByIndex)
+        CallbackFree(this.vtbl.GetTableDescriptorByTag)
     }
 }

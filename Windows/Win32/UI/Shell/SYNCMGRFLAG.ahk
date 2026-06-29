@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The SYNCMGRFLAG enumeration values are used in the ISyncMgrSynchronize::Initialize method to indicate how the synchronization event was initiated.
  * @see https://learn.microsoft.com/windows/win32/api/mobsync/ne-mobsync-syncmgrflag
  * @namespace Windows.Win32.UI.Shell
  */
-class SYNCMGRFLAG extends Win32Enum {
+export default struct SYNCMGRFLAG {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Synchronization was initiated by a network connect event.

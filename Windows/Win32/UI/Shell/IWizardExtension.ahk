@@ -1,34 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\Controls\HPROPSHEETPAGE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Controls\HPROPSHEETPAGE.ahk" { HPROPSHEETPAGE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Used by wizards such as the Web Publishing Wizard and Online Print Ordering Wizard which host server-side content pages. This interface exposes methods to specify supported extension pages and to navigate into and out of those pages.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-iwizardextension
  * @namespace Windows.Win32.UI.Shell
  */
-class IWizardExtension extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWizardExtension extends IUnknown {
     /**
      * The interface identifier for IWizardExtension
      * @type {Guid}
      */
-    static IID => Guid("{c02ea696-86cc-491e-9b23-74394a0444a8}")
+    static IID := Guid("{c02ea696-86cc-491e-9b23-74394a0444a8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWizardExtension interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddPages     : IntPtr
+        GetFirstPage : IntPtr
+        GetLastPage  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddPages", "GetFirstPage", "GetLastPage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWizardExtension.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds extension pages to the wizard by filling an array with handles to PROPSHEETPAGE structures representing those pages.
@@ -58,7 +68,7 @@ class IWizardExtension extends IUnknown {
     AddPages(aPages, cPages, pnPagesAdded) {
         pnPagesAddedMarshal := pnPagesAdded is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", aPages, "uint", cPages, pnPagesAddedMarshal, pnPagesAdded, "HRESULT")
+        result := ComCall(3, this, HPROPSHEETPAGE.Ptr, aPages, "uint", cPages, pnPagesAddedMarshal, pnPagesAdded, "HRESULT")
         return result
     }
 
@@ -72,8 +82,8 @@ class IWizardExtension extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iwizardextension-getfirstpage
      */
     GetFirstPage() {
-        phpage := HPROPSHEETPAGE()
-        result := ComCall(4, this, "ptr", phpage, "HRESULT")
+        phpage := HPROPSHEETPAGE.Owned()
+        result := ComCall(4, this, HPROPSHEETPAGE.Ptr, phpage, "HRESULT")
         return phpage
     }
 
@@ -90,8 +100,32 @@ class IWizardExtension extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iwizardextension-getlastpage
      */
     GetLastPage() {
-        phpage := HPROPSHEETPAGE()
-        result := ComCall(5, this, "ptr", phpage, "HRESULT")
+        phpage := HPROPSHEETPAGE.Owned()
+        result := ComCall(5, this, HPROPSHEETPAGE.Ptr, phpage, "HRESULT")
         return phpage
+    }
+
+    Query(iid) {
+        if (IWizardExtension.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddPages := CallbackCreate(GetMethod(implObj, "AddPages"), flags, 4)
+        this.vtbl.GetFirstPage := CallbackCreate(GetMethod(implObj, "GetFirstPage"), flags, 2)
+        this.vtbl.GetLastPage := CallbackCreate(GetMethod(implObj, "GetLastPage"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddPages)
+        CallbackFree(this.vtbl.GetFirstPage)
+        CallbackFree(this.vtbl.GetLastPage)
     }
 }

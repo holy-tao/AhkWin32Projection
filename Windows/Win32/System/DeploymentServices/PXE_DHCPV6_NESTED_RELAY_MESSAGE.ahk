@@ -1,51 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PXE_DHCPV6_RELAY_MESSAGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PXE_DHCPV6_RELAY_MESSAGE.ahk" { PXE_DHCPV6_RELAY_MESSAGE }
 
 /**
  * Describes packets nested in OPTION_RELAY_MSG message.
  * @see https://learn.microsoft.com/windows/win32/api/wdspxe/ns-wdspxe-pxe_dhcpv6_nested_relay_message
  * @namespace Windows.Win32.System.DeploymentServices
  */
-class PXE_DHCPV6_NESTED_RELAY_MESSAGE extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct PXE_DHCPV6_NESTED_RELAY_MESSAGE {
+    #StructPack 8
 
     /**
      * A pointer to the nested RELAY-FORW message.
-     * @type {Pointer<PXE_DHCPV6_RELAY_MESSAGE>}
      */
-    pRelayMessage {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pRelayMessage : PXE_DHCPV6_RELAY_MESSAGE.Ptr
 
     /**
      * A pointer to the size of the nested RELAY-FORW message.
-     * @type {Integer}
      */
-    cbRelayMessage {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cbRelayMessage : UInt32
 
     /**
      * If the nested RELAY-FORW message contains <b>OPTION_INTERFACE_ID</b>, this  is a pointer to the option payload. Otherwise, this field will be <b>NULL</b>.
-     * @type {Pointer<Void>}
      */
-    pInterfaceIdOption {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pInterfaceIdOption : IntPtr
 
     /**
      * If the nested RELAY-FORW message contains <b>OPTION_INTERFACE_ID</b>, this  is the size of the option payload.
      *      Otherwise, this field will be 0.
-     * @type {Integer}
      */
-    cbInterfaceIdOption {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
-    }
+    cbInterfaceIdOption : UInt16
+
 }

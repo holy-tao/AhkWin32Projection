@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFileDialog.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IShellItem.ahk" { IShellItem }
+#Import ".\IFileDialog.ahk" { IFileDialog }
 
 /**
  * Extends the IFileDialog interface by providing methods that allow the caller to name a specific, restricted location that can be browsed in the common file dialog as well as to specify alternate text to display as a label on the Cancel button.
@@ -23,26 +26,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-ifiledialog2
  * @namespace Windows.Win32.UI.Shell
  */
-class IFileDialog2 extends IFileDialog {
-
-    static sizeof => A_PtrSize
+export default struct IFileDialog2 extends IFileDialog {
     /**
      * The interface identifier for IFileDialog2
      * @type {Guid}
      */
-    static IID => Guid("{61744fc7-85b5-4791-a9b0-272276309b13}")
+    static IID := Guid("{61744fc7-85b5-4791-a9b0-272276309b13}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 27
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFileDialog2 interfaces
+    */
+    struct Vtbl extends IFileDialog.Vtbl {
+        SetCancelButtonLabel : IntPtr
+        SetNavigationRoot    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetCancelButtonLabel", "SetNavigationRoot"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFileDialog2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Replaces the default text &quot;Cancel&quot; on the common file dialog's Cancel button.
@@ -80,5 +91,27 @@ class IFileDialog2 extends IFileDialog {
     SetNavigationRoot(psi) {
         result := ComCall(28, this, "ptr", psi, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFileDialog2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetCancelButtonLabel := CallbackCreate(GetMethod(implObj, "SetCancelButtonLabel"), flags, 2)
+        this.vtbl.SetNavigationRoot := CallbackCreate(GetMethod(implObj, "SetNavigationRoot"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetCancelButtonLabel)
+        CallbackFree(this.vtbl.SetNavigationRoot)
     }
 }

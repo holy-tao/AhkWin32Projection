@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The QOS_SHAPING enumeration defines the shaping behavior of a flow.
  * @see https://learn.microsoft.com/windows/win32/api/qos2/ne-qos2-qos_shaping
  * @namespace Windows.Win32.NetworkManagement.QoS
  */
-class QOS_SHAPING extends Win32Enum {
+export default struct QOS_SHAPING {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates that the Windows packet scheduler (Pacer) will be used to enforce the requested flow rate. Data packets that exceed the rate are delayed until appropriate in order to maintain the specified flow rate.  If the network supports prioritization, packets will always receive conformant priority values when QOSShapeFlow is specified.

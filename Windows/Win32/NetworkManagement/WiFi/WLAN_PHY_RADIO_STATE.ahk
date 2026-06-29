@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_RADIO_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_RADIO_STATE.ahk" { DOT11_RADIO_STATE }
 
 /**
  * Specifies the radio state.
@@ -21,35 +20,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_phy_radio_state
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WLAN_PHY_RADIO_STATE extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct WLAN_PHY_RADIO_STATE {
+    #StructPack 4
 
     /**
      * The index of the PHY type on which the radio state is being set or queried. The <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlangetinterfacecapability">WlanGetInterfaceCapability</a> function returns a list of valid PHY types.
-     * @type {Integer}
      */
-    dwPhyIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwPhyIndex : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-dot11_radio_state-r1">DOT11_RADIO_STATE</a> value that indicates the software radio state.
-     * @type {DOT11_RADIO_STATE}
      */
-    dot11SoftwareRadioState {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    dot11SoftwareRadioState : DOT11_RADIO_STATE
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-dot11_radio_state-r1">DOT11_RADIO_STATE</a> value that indicates the hardware radio state.
-     * @type {DOT11_RADIO_STATE}
      */
-    dot11HardwareRadioState {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    dot11HardwareRadioState : DOT11_RADIO_STATE
+
 }

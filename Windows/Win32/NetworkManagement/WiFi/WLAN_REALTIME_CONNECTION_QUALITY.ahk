@@ -1,73 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_PHY_TYPE.ahk
-#Include .\WLAN_REALTIME_CONNECTION_QUALITY_LINK_INFO.ahk
-#Include .\WLAN_RATE_SET.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WLAN_RATE_SET.ahk" { WLAN_RATE_SET }
+#Import ".\DOT11_PHY_TYPE.ahk" { DOT11_PHY_TYPE }
+#Import ".\WLAN_REALTIME_CONNECTION_QUALITY_LINK_INFO.ahk" { WLAN_REALTIME_CONNECTION_QUALITY_LINK_INFO }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WLAN_REALTIME_CONNECTION_QUALITY extends Win32Struct {
-    static sizeof => 296
+export default struct WLAN_REALTIME_CONNECTION_QUALITY {
+    #StructPack 4
 
-    static packingSize => 4
+    dot11PhyType : DOT11_PHY_TYPE
 
-    /**
-     * @type {DOT11_PHY_TYPE}
-     */
-    dot11PhyType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ulLinkQuality : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulLinkQuality {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulRxRate : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulRxRate {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulTxRate : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulTxRate {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    bIsMLOConnection : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    bIsMLOConnection {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    ulNumLinks : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulNumLinks {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    linksInfo : WLAN_REALTIME_CONNECTION_QUALITY_LINK_INFO[1]
 
-    /**
-     * @type {WLAN_REALTIME_CONNECTION_QUALITY_LINK_INFO}
-     */
-    linksInfo {
-        get {
-            if(!this.HasProp("__linksInfoProxyArray"))
-                this.__linksInfoProxyArray := Win32FixedArray(this.ptr + 24, 1, WLAN_REALTIME_CONNECTION_QUALITY_LINK_INFO, "")
-            return this.__linksInfoProxyArray
-        }
-    }
 }

@@ -1,45 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTPSPOLICY_CALLBACK_DATA_AUTH_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HTTPSPOLICY_CALLBACK_DATA_AUTH_TYPE.ahk" { HTTPSPOLICY_CALLBACK_DATA_AUTH_TYPE }
 
 /**
  * Holds policy information used in the verification of Secure Sockets Layer (SSL) client/server certificate chains.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-httpspolicycallbackdata
  * @namespace Windows.Win32.Security.Cryptography
  */
-class HTTPSPolicyCallbackData extends Win32Struct {
-    static sizeof => 24
+export default struct HTTPSPolicyCallbackData {
+    #StructPack 8
 
-    static packingSize => 8
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 4
-    }
-
-    /**
-     * @type {HTTPSPOLICY_CALLBACK_DATA_AUTH_TYPE}
-     */
-    dwAuthType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwAuthType : HTTPSPOLICY_CALLBACK_DATA_AUTH_TYPE
 
     /**
      * <b>DWORD</b> value that specifies certificate errors to ignore. This can be a bitwise combination of the following flags.
@@ -105,12 +78,8 @@ class HTTPSPolicyCallbackData extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    fdwChecks {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    fdwChecks : UInt32
 
     /**
      * A pointer to a null-terminated wide character string that contains the server name. This member is ignored if the value of the <b>dwAuthType</b> member is <b>AUTHTYPE_CLIENT</b>.
@@ -118,10 +87,11 @@ class HTTPSPolicyCallbackData extends Win32Struct {
      * If the string is Punycode encoded, then the server name from the certificate, either the DNS name or common name, is converted to a Punycode encoded string. Matching is then performed, label-by-label if the name contains wildcards, or a case-insensitive exact match otherwise. 
      * 
      * If the string contains Unicode characters outside of the ASCII character set and the subject name, either the DNS name or common name, is a Punycode encoded string then it is Punycode encoded before comparison.
-     * @type {PWSTR}
      */
-    pwszServerName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pwszServerName : PWSTR
+
+    static __New() {
+        DefineProp(this.Prototype, 'cbSize', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

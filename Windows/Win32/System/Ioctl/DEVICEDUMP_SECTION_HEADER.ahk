@@ -1,95 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class DEVICEDUMP_SECTION_HEADER extends Win32Struct {
-    static sizeof => 240
+export default struct DEVICEDUMP_SECTION_HEADER {
+    #StructPack 4
 
-    static packingSize => 8
+    guidDeviceDataId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    guidDeviceDataId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    sOrganizationID : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    sOrganizationID {
-        get {
-            if(!this.HasProp("__sOrganizationIDProxyArray"))
-                this.__sOrganizationIDProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
-            return this.__sOrganizationIDProxyArray
-        }
-    }
+    dwFirmwareRevision : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFirmwareRevision {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    sModelNumber : Int8[32]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    sModelNumber {
-        get {
-            if(!this.HasProp("__sModelNumberProxyArray"))
-                this.__sModelNumberProxyArray := Win32FixedArray(this.ptr + 28, 32, Primitive, "char")
-            return this.__sModelNumberProxyArray
-        }
-    }
+    szDeviceManufacturingID : Int8[32]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    szDeviceManufacturingID {
-        get {
-            if(!this.HasProp("__szDeviceManufacturingIDProxyArray"))
-                this.__szDeviceManufacturingIDProxyArray := Win32FixedArray(this.ptr + 60, 32, Primitive, "char")
-            return this.__szDeviceManufacturingIDProxyArray
-        }
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    bRestrictedPrivateDataVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    bRestrictedPrivateDataVersion {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    dwFirmwareIssueId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFirmwareIssueId {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
+    szIssueDescriptionString : Int8[132]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    szIssueDescriptionString {
-        get {
-            if(!this.HasProp("__szIssueDescriptionStringProxyArray"))
-                this.__szIssueDescriptionStringProxyArray := Win32FixedArray(this.ptr + 104, 132, Primitive, "char")
-            return this.__szIssueDescriptionStringProxyArray
-        }
-    }
 }

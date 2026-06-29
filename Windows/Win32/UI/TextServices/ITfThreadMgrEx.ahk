@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITfThreadMgr.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfThreadMgr.ahk" { ITfThreadMgr }
 
 /**
  * The ITfThreadMgrEx interface is used by the application to activate the textservices with some flags. ITfThreadMgrEx can be obtained by QI from ITfThreadMgr.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfthreadmgrex
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfThreadMgrEx extends ITfThreadMgr {
-
-    static sizeof => A_PtrSize
+export default struct ITfThreadMgrEx extends ITfThreadMgr {
     /**
      * The interface identifier for ITfThreadMgrEx
      * @type {Guid}
      */
-    static IID => Guid("{3e90ade3-7594-4cb0-bb58-69628f5f458c}")
+    static IID := Guid("{3e90ade3-7594-4cb0-bb58-69628f5f458c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfThreadMgrEx interfaces
+    */
+    struct Vtbl extends ITfThreadMgr.Vtbl {
+        ActivateEx     : IntPtr
+        GetActiveFlags : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ActivateEx", "GetActiveFlags"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfThreadMgrEx.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The ITfThreadMgrEx::ActivateEx method is used by an application to initialize and activate TSF for the calling thread. Unlike ITfThreadMgr::Activate, ITfThreadMgrEx::ActivateEx can take a flag to specify how TSF is activated.
@@ -180,5 +189,27 @@ class ITfThreadMgrEx extends ITfThreadMgr {
     GetActiveFlags() {
         result := ComCall(15, this, "uint*", &lpdwFlags := 0, "HRESULT")
         return lpdwFlags
+    }
+
+    Query(iid) {
+        if (ITfThreadMgrEx.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ActivateEx := CallbackCreate(GetMethod(implObj, "ActivateEx"), flags, 3)
+        this.vtbl.GetActiveFlags := CallbackCreate(GetMethod(implObj, "GetActiveFlags"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ActivateEx)
+        CallbackFree(this.vtbl.GetActiveFlags)
     }
 }

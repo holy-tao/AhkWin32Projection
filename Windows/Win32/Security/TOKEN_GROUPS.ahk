@@ -1,25 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include .\SID_AND_ATTRIBUTES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SID_AND_ATTRIBUTES.ahk" { SID_AND_ATTRIBUTES }
+#Import ".\PSID.ahk" { PSID }
 
 /**
  * Contains information about the group security identifiers (SIDs) in an access token.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-token_groups
  * @namespace Windows.Win32.Security
  */
-class TOKEN_GROUPS extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct TOKEN_GROUPS {
+    #StructPack 8
 
     /**
      * Specifies the number of groups in the access token.
-     * @type {Integer}
      */
-    GroupCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    GroupCount : UInt32
 
     /**
      * Specifies an array of 
@@ -148,13 +142,7 @@ class TOKEN_GROUPS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {SID_AND_ATTRIBUTES}
      */
-    Groups {
-        get {
-            if(!this.HasProp("__GroupsProxyArray"))
-                this.__GroupsProxyArray := Win32FixedArray(this.ptr + 8, 1, SID_AND_ATTRIBUTES, "")
-            return this.__GroupsProxyArray
-        }
-    }
+    Groups : SID_AND_ATTRIBUTES[1]
+
 }

@@ -1,14 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Disable special diagnostics mode for IKE/Authip. This will prevent IKE/AuthIp
-  * from accepting unauthenticated notifications from peer, or sending MS_STATUS 
-  * notifications to peer.
- * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_policy0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IKEEXT_POLICY_FLAG extends Win32BitflagEnum {
+export default struct IKEEXT_POLICY_FLAG {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

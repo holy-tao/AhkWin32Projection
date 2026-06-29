@@ -1,53 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents a header for an HSTRING.
  * @see https://learn.microsoft.com/windows/win32/api/hstring/ns-hstring-hstring_header
  * @namespace Windows.Win32.System.WinRT
  */
-class HSTRING_HEADER extends Win32Struct {
-    static sizeof => 24
+export default struct HSTRING_HEADER {
+    #StructPack 8
 
-    static packingSize => 8
+    flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    length {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    padding1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    padding1 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    padding2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    padding2 {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    data : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    data {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

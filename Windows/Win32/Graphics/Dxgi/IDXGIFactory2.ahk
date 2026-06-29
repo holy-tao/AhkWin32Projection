@@ -1,9 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIFactory1.ahk
-#Include .\IDXGISwapChain1.ahk
-#Include ..\..\Foundation\LUID.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDXGIFactory1.ahk" { IDXGIFactory1 }
+#Import ".\DXGI_SWAP_CHAIN_FULLSCREEN_DESC.ahk" { DXGI_SWAP_CHAIN_FULLSCREEN_DESC }
+#Import ".\DXGI_SWAP_CHAIN_DESC1.ahk" { DXGI_SWAP_CHAIN_DESC1 }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\LUID.ahk" { LUID }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDXGIOutput.ahk" { IDXGIOutput }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDXGISwapChain1.ahk" { IDXGISwapChain1 }
 
 /**
  * The IDXGIFactory2 interface includes methods to create a newer version swap chain with more features than IDXGISwapChain and to monitor stereoscopic 3D capabilities.
@@ -30,26 +38,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nn-dxgi1_2-idxgifactory2
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGIFactory2 extends IDXGIFactory1 {
-
-    static sizeof => A_PtrSize
+export default struct IDXGIFactory2 extends IDXGIFactory1 {
     /**
      * The interface identifier for IDXGIFactory2
      * @type {Guid}
      */
-    static IID => Guid("{50c83a1c-e072-4c48-87b0-3630fa36a6d0}")
+    static IID := Guid("{50c83a1c-e072-4c48-87b0-3630fa36a6d0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGIFactory2 interfaces
+    */
+    struct Vtbl extends IDXGIFactory1.Vtbl {
+        IsWindowedStereoEnabled       : IntPtr
+        CreateSwapChainForHwnd        : IntPtr
+        CreateSwapChainForCoreWindow  : IntPtr
+        GetSharedResourceAdapterLuid  : IntPtr
+        RegisterStereoStatusWindow    : IntPtr
+        RegisterStereoStatusEvent     : IntPtr
+        UnregisterStereoStatus        : IntPtr
+        RegisterOcclusionStatusWindow : IntPtr
+        RegisterOcclusionStatusEvent  : IntPtr
+        UnregisterOcclusionStatus     : IntPtr
+        CreateSwapChainForComposition : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsWindowedStereoEnabled", "CreateSwapChainForHwnd", "CreateSwapChainForCoreWindow", "GetSharedResourceAdapterLuid", "RegisterStereoStatusWindow", "RegisterStereoStatusEvent", "UnregisterStereoStatus", "RegisterOcclusionStatusWindow", "RegisterOcclusionStatusEvent", "UnregisterOcclusionStatus", "CreateSwapChainForComposition"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGIFactory2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Determines whether to use stereo mode.
@@ -69,7 +94,7 @@ class IDXGIFactory2 extends IDXGIFactory1 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-iswindowedstereoenabled
      */
     IsWindowedStereoEnabled() {
-        result := ComCall(14, this, "int")
+        result := ComCall(14, this, BOOL)
         return result
     }
 
@@ -97,9 +122,7 @@ class IDXGIFactory2 extends IDXGIFactory1 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforhwnd
      */
     CreateSwapChainForHwnd(pDevice, _hWnd, pDesc, pFullscreenDesc, pRestrictToOutput) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-
-        result := ComCall(15, this, "ptr", pDevice, "ptr", _hWnd, "ptr", pDesc, "ptr", pFullscreenDesc, "ptr", pRestrictToOutput, "ptr*", &ppSwapChain := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", pDevice, HWND, _hWnd, DXGI_SWAP_CHAIN_DESC1.Ptr, pDesc, DXGI_SWAP_CHAIN_FULLSCREEN_DESC.Ptr, pFullscreenDesc, "ptr", pRestrictToOutput, "ptr*", &ppSwapChain := 0, "HRESULT")
         return IDXGISwapChain1(ppSwapChain)
     }
 
@@ -176,7 +199,7 @@ class IDXGIFactory2 extends IDXGIFactory1 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforcorewindow
      */
     CreateSwapChainForCoreWindow(pDevice, pWindow, pDesc, pRestrictToOutput) {
-        result := ComCall(16, this, "ptr", pDevice, "ptr", pWindow, "ptr", pDesc, "ptr", pRestrictToOutput, "ptr*", &ppSwapChain := 0, "HRESULT")
+        result := ComCall(16, this, "ptr", pDevice, "ptr", pWindow, DXGI_SWAP_CHAIN_DESC1.Ptr, pDesc, "ptr", pRestrictToOutput, "ptr*", &ppSwapChain := 0, "HRESULT")
         return IDXGISwapChain1(ppSwapChain)
     }
 
@@ -189,10 +212,8 @@ class IDXGIFactory2 extends IDXGIFactory1 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-getsharedresourceadapterluid
      */
     GetSharedResourceAdapterLuid(_hResource) {
-        _hResource := _hResource is Win32Handle ? NumGet(_hResource, "ptr") : _hResource
-
         pLuid := LUID()
-        result := ComCall(17, this, "ptr", _hResource, "ptr", pLuid, "HRESULT")
+        result := ComCall(17, this, HANDLE, _hResource, LUID.Ptr, pLuid, "HRESULT")
         return pLuid
     }
 
@@ -204,9 +225,7 @@ class IDXGIFactory2 extends IDXGIFactory1 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-registerstereostatuswindow
      */
     RegisterStereoStatusWindow(WindowHandle, wMsg) {
-        WindowHandle := WindowHandle is Win32Handle ? NumGet(WindowHandle, "ptr") : WindowHandle
-
-        result := ComCall(18, this, "ptr", WindowHandle, "uint", wMsg, "uint*", &pdwCookie := 0, "HRESULT")
+        result := ComCall(18, this, HWND, WindowHandle, "uint", wMsg, "uint*", &pdwCookie := 0, "HRESULT")
         return pdwCookie
     }
 
@@ -217,9 +236,7 @@ class IDXGIFactory2 extends IDXGIFactory1 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-registerstereostatusevent
      */
     RegisterStereoStatusEvent(hEvent) {
-        hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
-
-        result := ComCall(19, this, "ptr", hEvent, "uint*", &pdwCookie := 0, "HRESULT")
+        result := ComCall(19, this, HANDLE, hEvent, "uint*", &pdwCookie := 0, "HRESULT")
         return pdwCookie
     }
 
@@ -245,9 +262,7 @@ class IDXGIFactory2 extends IDXGIFactory1 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-registerocclusionstatuswindow
      */
     RegisterOcclusionStatusWindow(WindowHandle, wMsg) {
-        WindowHandle := WindowHandle is Win32Handle ? NumGet(WindowHandle, "ptr") : WindowHandle
-
-        result := ComCall(21, this, "ptr", WindowHandle, "uint", wMsg, "uint*", &pdwCookie := 0, "HRESULT")
+        result := ComCall(21, this, HWND, WindowHandle, "uint", wMsg, "uint*", &pdwCookie := 0, "HRESULT")
         return pdwCookie
     }
 
@@ -262,9 +277,7 @@ class IDXGIFactory2 extends IDXGIFactory1 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-registerocclusionstatusevent
      */
     RegisterOcclusionStatusEvent(hEvent) {
-        hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
-
-        result := ComCall(22, this, "ptr", hEvent, "uint*", &pdwCookie := 0, "HRESULT")
+        result := ComCall(22, this, HANDLE, hEvent, "uint*", &pdwCookie := 0, "HRESULT")
         return pdwCookie
     }
 
@@ -307,7 +320,47 @@ class IDXGIFactory2 extends IDXGIFactory1 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforcomposition
      */
     CreateSwapChainForComposition(pDevice, pDesc, pRestrictToOutput) {
-        result := ComCall(24, this, "ptr", pDevice, "ptr", pDesc, "ptr", pRestrictToOutput, "ptr*", &ppSwapChain := 0, "HRESULT")
+        result := ComCall(24, this, "ptr", pDevice, DXGI_SWAP_CHAIN_DESC1.Ptr, pDesc, "ptr", pRestrictToOutput, "ptr*", &ppSwapChain := 0, "HRESULT")
         return IDXGISwapChain1(ppSwapChain)
+    }
+
+    Query(iid) {
+        if (IDXGIFactory2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsWindowedStereoEnabled := CallbackCreate(GetMethod(implObj, "IsWindowedStereoEnabled"), flags, 1)
+        this.vtbl.CreateSwapChainForHwnd := CallbackCreate(GetMethod(implObj, "CreateSwapChainForHwnd"), flags, 7)
+        this.vtbl.CreateSwapChainForCoreWindow := CallbackCreate(GetMethod(implObj, "CreateSwapChainForCoreWindow"), flags, 6)
+        this.vtbl.GetSharedResourceAdapterLuid := CallbackCreate(GetMethod(implObj, "GetSharedResourceAdapterLuid"), flags, 3)
+        this.vtbl.RegisterStereoStatusWindow := CallbackCreate(GetMethod(implObj, "RegisterStereoStatusWindow"), flags, 4)
+        this.vtbl.RegisterStereoStatusEvent := CallbackCreate(GetMethod(implObj, "RegisterStereoStatusEvent"), flags, 3)
+        this.vtbl.UnregisterStereoStatus := CallbackCreate(GetMethod(implObj, "UnregisterStereoStatus"), flags, 2)
+        this.vtbl.RegisterOcclusionStatusWindow := CallbackCreate(GetMethod(implObj, "RegisterOcclusionStatusWindow"), flags, 4)
+        this.vtbl.RegisterOcclusionStatusEvent := CallbackCreate(GetMethod(implObj, "RegisterOcclusionStatusEvent"), flags, 3)
+        this.vtbl.UnregisterOcclusionStatus := CallbackCreate(GetMethod(implObj, "UnregisterOcclusionStatus"), flags, 2)
+        this.vtbl.CreateSwapChainForComposition := CallbackCreate(GetMethod(implObj, "CreateSwapChainForComposition"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsWindowedStereoEnabled)
+        CallbackFree(this.vtbl.CreateSwapChainForHwnd)
+        CallbackFree(this.vtbl.CreateSwapChainForCoreWindow)
+        CallbackFree(this.vtbl.GetSharedResourceAdapterLuid)
+        CallbackFree(this.vtbl.RegisterStereoStatusWindow)
+        CallbackFree(this.vtbl.RegisterStereoStatusEvent)
+        CallbackFree(this.vtbl.UnregisterStereoStatus)
+        CallbackFree(this.vtbl.RegisterOcclusionStatusWindow)
+        CallbackFree(this.vtbl.RegisterOcclusionStatusEvent)
+        CallbackFree(this.vtbl.UnregisterOcclusionStatus)
+        CallbackFree(this.vtbl.CreateSwapChainForComposition)
     }
 }

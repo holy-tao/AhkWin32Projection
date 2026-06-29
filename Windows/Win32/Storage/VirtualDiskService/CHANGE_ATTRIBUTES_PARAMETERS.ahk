@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_PARTITION_STYLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\VDS_PARTITION_STYLE.ahk" { VDS_PARTITION_STYLE }
 
 /**
  * Defines the partition parameters of a partition style. (CHANGE_ATTRIBUTES_PARAMETERS)
@@ -11,66 +11,30 @@
  * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-change_attributes_parameters
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class CHANGE_ATTRIBUTES_PARAMETERS extends Win32Struct {
-    static sizeof => 16
+export default struct CHANGE_ATTRIBUTES_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
+
+    struct _MbrPartInfo {
+        bootIndicator : BOOLEAN
+
+    }
+
+    struct _GptPartInfo {
+        attributes : Int64
+
+    }
 
     /**
      * Determines the partition parameters. Supported values are <b>VDS_PST_MBR</b> or 
      *       <b>VDS_PST_GPT</b>.
-     * @type {VDS_PARTITION_STYLE}
      */
-    style {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    style : VDS_PARTITION_STYLE
 
-    class _MbrPartInfo extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
+    MbrPartInfo : CHANGE_ATTRIBUTES_PARAMETERS._MbrPartInfo
 
-        /**
-         * @type {BOOLEAN}
-         */
-        bootIndicator {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
-    }
-
-    class _GptPartInfo extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        attributes {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-    }
-
-    /**
-     * @type {_MbrPartInfo}
-     */
-    MbrPartInfo {
-        get {
-            if(!this.HasProp("__MbrPartInfo"))
-                this.__MbrPartInfo := CHANGE_ATTRIBUTES_PARAMETERS._MbrPartInfo(8, this)
-            return this.__MbrPartInfo
-        }
-    }
-
-    /**
-     * @type {_GptPartInfo}
-     */
-    GptPartInfo {
-        get {
-            if(!this.HasProp("__GptPartInfo"))
-                this.__GptPartInfo := CHANGE_ATTRIBUTES_PARAMETERS._GptPartInfo(8, this)
-            return this.__GptPartInfo
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'GptPartInfo', { type: CHANGE_ATTRIBUTES_PARAMETERS._GptPartInfo, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

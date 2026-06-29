@@ -1,34 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPortableDeviceValuesCollection.ahk" { IPortableDeviceValuesCollection }
+#Import ".\IPortableDevicePropertiesBulkCallback.ahk" { IPortableDevicePropertiesBulkCallback }
+#Import ".\IPortableDevicePropVariantCollection.ahk" { IPortableDevicePropVariantCollection }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IPortableDeviceKeyCollection.ahk" { IPortableDeviceKeyCollection }
 
 /**
  * The IPortableDevicePropertiesBulk interface queries or sets multiple properties on multiple objects on a device, asynchronously.
  * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nn-portabledeviceapi-iportabledevicepropertiesbulk
  * @namespace Windows.Win32.Devices.PortableDevices
  */
-class IPortableDevicePropertiesBulk extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPortableDevicePropertiesBulk extends IUnknown {
     /**
      * The interface identifier for IPortableDevicePropertiesBulk
      * @type {Guid}
      */
-    static IID => Guid("{482b05c0-4056-44ed-9e0f-5e23b009da93}")
+    static IID := Guid("{482b05c0-4056-44ed-9e0f-5e23b009da93}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPortableDevicePropertiesBulk interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        QueueGetValuesByObjectList   : IntPtr
+        QueueGetValuesByObjectFormat : IntPtr
+        QueueSetValuesByObjectList   : IntPtr
+        Start                        : IntPtr
+        Cancel                       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["QueueGetValuesByObjectList", "QueueGetValuesByObjectFormat", "QueueSetValuesByObjectList", "Start", "Cancel"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPortableDevicePropertiesBulk.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The QueueGetValuesByObjectList method queues a request for one or more specified properties from one or more specified objects on the device.
@@ -44,7 +60,7 @@ class IPortableDevicePropertiesBulk extends IUnknown {
      */
     QueueGetValuesByObjectList(pObjectIDs, pKeys, pCallback) {
         pContext := Guid()
-        result := ComCall(3, this, "ptr", pObjectIDs, "ptr", pKeys, "ptr", pCallback, "ptr", pContext, "HRESULT")
+        result := ComCall(3, this, "ptr", pObjectIDs, "ptr", pKeys, "ptr", pCallback, Guid.Ptr, pContext, "HRESULT")
         return pContext
     }
 
@@ -108,7 +124,7 @@ class IPortableDevicePropertiesBulk extends IUnknown {
         pszParentObjectID := pszParentObjectID is String ? StrPtr(pszParentObjectID) : pszParentObjectID
 
         pContext := Guid()
-        result := ComCall(4, this, "ptr", pguidObjectFormat, "ptr", pszParentObjectID, "uint", dwDepth, "ptr", pKeys, "ptr", pCallback, "ptr", pContext, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, pguidObjectFormat, "ptr", pszParentObjectID, "uint", dwDepth, "ptr", pKeys, "ptr", pCallback, Guid.Ptr, pContext, "HRESULT")
         return pContext
     }
 
@@ -123,7 +139,7 @@ class IPortableDevicePropertiesBulk extends IUnknown {
      */
     QueueSetValuesByObjectList(pObjectValues, pCallback) {
         pContext := Guid()
-        result := ComCall(5, this, "ptr", pObjectValues, "ptr", pCallback, "ptr", pContext, "HRESULT")
+        result := ComCall(5, this, "ptr", pObjectValues, "ptr", pCallback, Guid.Ptr, pContext, "HRESULT")
         return pContext
     }
 
@@ -163,7 +179,7 @@ class IPortableDevicePropertiesBulk extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicepropertiesbulk-start
      */
     Start(pContext) {
-        result := ComCall(6, this, "ptr", pContext, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, pContext, "HRESULT")
         return result
     }
 
@@ -192,7 +208,35 @@ class IPortableDevicePropertiesBulk extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicepropertiesbulk-cancel
      */
     Cancel(pContext) {
-        result := ComCall(7, this, "ptr", pContext, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, pContext, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPortableDevicePropertiesBulk.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.QueueGetValuesByObjectList := CallbackCreate(GetMethod(implObj, "QueueGetValuesByObjectList"), flags, 5)
+        this.vtbl.QueueGetValuesByObjectFormat := CallbackCreate(GetMethod(implObj, "QueueGetValuesByObjectFormat"), flags, 7)
+        this.vtbl.QueueSetValuesByObjectList := CallbackCreate(GetMethod(implObj, "QueueSetValuesByObjectList"), flags, 4)
+        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 2)
+        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.QueueGetValuesByObjectList)
+        CallbackFree(this.vtbl.QueueGetValuesByObjectFormat)
+        CallbackFree(this.vtbl.QueueSetValuesByObjectList)
+        CallbackFree(this.vtbl.Start)
+        CallbackFree(this.vtbl.Cancel)
     }
 }

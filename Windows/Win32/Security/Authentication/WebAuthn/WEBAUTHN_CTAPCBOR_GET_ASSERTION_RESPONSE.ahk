@@ -1,84 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WEBAUTHN_ASSERTION.ahk
-#Include .\WEBAUTHN_CREDENTIAL.ahk
-#Include .\WEBAUTHN_EXTENSIONS.ahk
-#Include .\WEBAUTHN_EXTENSION.ahk
-#Include .\WEBAUTHN_HMAC_SECRET_SALT.ahk
-#Include .\WEBAUTHN_USER_ENTITY_INFORMATION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WEBAUTHN_CREDENTIAL.ahk" { WEBAUTHN_CREDENTIAL }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WEBAUTHN_ASSERTION.ahk" { WEBAUTHN_ASSERTION }
+#Import ".\WEBAUTHN_USER_ENTITY_INFORMATION.ahk" { WEBAUTHN_USER_ENTITY_INFORMATION }
+#Import ".\WEBAUTHN_EXTENSION.ahk" { WEBAUTHN_EXTENSION }
+#Import ".\WEBAUTHN_EXTENSIONS.ahk" { WEBAUTHN_EXTENSIONS }
+#Import ".\WEBAUTHN_HMAC_SECRET_SALT.ahk" { WEBAUTHN_HMAC_SECRET_SALT }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
  */
-class WEBAUTHN_CTAPCBOR_GET_ASSERTION_RESPONSE extends Win32Struct {
-    static sizeof => 216
+export default struct WEBAUTHN_CTAPCBOR_GET_ASSERTION_RESPONSE {
+    #StructPack 8
 
-    static packingSize => 8
+    WebAuthNAssertion : WEBAUTHN_ASSERTION
 
-    /**
-     * @type {WEBAUTHN_ASSERTION}
-     */
-    WebAuthNAssertion {
-        get {
-            if(!this.HasProp("__WebAuthNAssertion"))
-                this.__WebAuthNAssertion := WEBAUTHN_ASSERTION(0, this)
-            return this.__WebAuthNAssertion
-        }
-    }
+    pUserInformation : WEBAUTHN_USER_ENTITY_INFORMATION.Ptr
 
-    /**
-     * @type {Pointer<WEBAUTHN_USER_ENTITY_INFORMATION>}
-     */
-    pUserInformation {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
-    }
+    dwNumberOfCredentials : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNumberOfCredentials {
-        get => NumGet(this, 176, "uint")
-        set => NumPut("uint", value, this, 176)
-    }
+    lUserSelected : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lUserSelected {
-        get => NumGet(this, 180, "int")
-        set => NumPut("int", value, this, 180)
-    }
+    cbLargeBlobKey : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbLargeBlobKey {
-        get => NumGet(this, 184, "uint")
-        set => NumPut("uint", value, this, 184)
-    }
+    pbLargeBlobKey : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbLargeBlobKey {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
-    }
+    cbUnsignedExtensionOutputs : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbUnsignedExtensionOutputs {
-        get => NumGet(this, 200, "uint")
-        set => NumPut("uint", value, this, 200)
-    }
+    pbUnsignedExtensionOutputs : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbUnsignedExtensionOutputs {
-        get => NumGet(this, 208, "ptr")
-        set => NumPut("ptr", value, this, 208)
-    }
 }

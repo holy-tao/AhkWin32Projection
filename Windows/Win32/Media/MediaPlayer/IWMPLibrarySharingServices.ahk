@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMPLibrarySharingServices interface provides methods to manage library sharing.To use this interface, you must create a remoted instance of the Windows Media Player control.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmplibrarysharingservices
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPLibrarySharingServices extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMPLibrarySharingServices extends IUnknown {
     /**
      * The interface identifier for IWMPLibrarySharingServices
      * @type {Guid}
      */
-    static IID => Guid("{82cba86b-9f04-474b-a365-d6dd1466e541}")
+    static IID := Guid("{82cba86b-9f04-474b-a365-d6dd1466e541}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPLibrarySharingServices interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        isLibraryShared         : IntPtr
+        isLibrarySharingEnabled : IntPtr
+        showLibrarySharing      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["isLibraryShared", "isLibrarySharingEnabled", "showLibrarySharing"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPLibrarySharingServices.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The isLibraryShared method retrieves a value indicating whether the user's library is shared.
@@ -125,5 +136,29 @@ class IWMPLibrarySharingServices extends IUnknown {
     showLibrarySharing() {
         result := ComCall(5, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPLibrarySharingServices.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.isLibraryShared := CallbackCreate(GetMethod(implObj, "isLibraryShared"), flags, 2)
+        this.vtbl.isLibrarySharingEnabled := CallbackCreate(GetMethod(implObj, "isLibrarySharingEnabled"), flags, 2)
+        this.vtbl.showLibrarySharing := CallbackCreate(GetMethod(implObj, "showLibrarySharing"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.isLibraryShared)
+        CallbackFree(this.vtbl.isLibrarySharingEnabled)
+        CallbackFree(this.vtbl.showLibrarySharing)
     }
 }

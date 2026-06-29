@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
  */
-class GNSS_GEOREGION_CIRCLE extends Win32Struct {
-    static sizeof => 24
+export default struct GNSS_GEOREGION_CIRCLE {
+    #StructPack 8
 
-    static packingSize => 8
+    Latitude : Float64
 
-    /**
-     * @type {Float}
-     */
-    Latitude {
-        get => NumGet(this, 0, "double")
-        set => NumPut("double", value, this, 0)
-    }
+    Longitude : Float64
 
-    /**
-     * @type {Float}
-     */
-    Longitude {
-        get => NumGet(this, 8, "double")
-        set => NumPut("double", value, this, 8)
-    }
+    RadiusInMeters : Float64
 
-    /**
-     * @type {Float}
-     */
-    RadiusInMeters {
-        get => NumGet(this, 16, "double")
-        set => NumPut("double", value, this, 16)
-    }
 }

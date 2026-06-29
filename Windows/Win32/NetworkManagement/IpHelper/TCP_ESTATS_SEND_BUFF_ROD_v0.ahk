@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains read-only dynamic information for extended TCP statistics on output queuing for a TCP connection.
@@ -68,34 +67,24 @@
  * @see https://learn.microsoft.com/windows/win32/api/tcpestats/ns-tcpestats-tcp_estats_send_buff_rod_v0
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class TCP_ESTATS_SEND_BUFF_ROD_v0 extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct TCP_ESTATS_SEND_BUFF_ROD_v0 {
+    #StructPack 8
 
     /**
      * Type: <b>SIZE_T</b>
      * 
      * The current number of bytes of data occupying the
      *            retransmit queue.
-     * @type {Pointer}
      */
-    CurRetxQueue {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    CurRetxQueue : IntPtr
 
     /**
      * Type: <b>SIZE_T</b>
      * 
      * The maximum number of bytes of data occupying the
      *            retransmit queue.
-     * @type {Pointer}
      */
-    MaxRetxQueue {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    MaxRetxQueue : IntPtr
 
     /**
      * Type: <b>SIZE_T</b>
@@ -110,12 +99,8 @@ class TCP_ESTATS_SEND_BUFF_ROD_v0 extends Win32Struct {
      *            transmission, without scheduling the application.  TCP
      *            performance may suffer if there is insufficient queued
      *            write data.
-     * @type {Pointer}
      */
-    CurAppWQueue {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    CurAppWQueue : IntPtr
 
     /**
      * Type: <b>SIZE_T</b>
@@ -129,10 +114,7 @@ class TCP_ESTATS_SEND_BUFF_ROD_v0 extends Win32Struct {
      *            state (suggesting insufficient queue space) or transient
      *            (suggesting insufficient application performance or
      *            excessive CPU load or scheduler latency).
-     * @type {Pointer}
      */
-    MaxAppWQueue {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    MaxAppWQueue : IntPtr
+
 }

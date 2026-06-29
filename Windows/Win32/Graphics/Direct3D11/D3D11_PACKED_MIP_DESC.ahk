@@ -1,24 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the tile structure of a tiled resource with mipmaps. (D3D11_PACKED_MIP_DESC)
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/ns-d3d11_2-d3d11_packed_mip_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_PACKED_MIP_DESC extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct D3D11_PACKED_MIP_DESC {
+    #StructPack 4
 
     /**
      * Number of standard mipmaps in the tiled resource.
-     * @type {Integer}
      */
-    NumStandardMips {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    NumStandardMips : Int8
 
     /**
      * Number of packed mipmaps in the tiled resource. 
@@ -32,12 +25,8 @@ class D3D11_PACKED_MIP_DESC extends Win32Struct {
      * are not allowed to be included in the set of packed mipmaps.  On Tier_1 hardware, mipmaps that are an integer multiple of one standard shaped tile in all dimensions are not allowed to be included in the set of packed mipmaps.  Mipmaps with at least one 
      * dimension less than the standard tile shape may or may not be packed.  When a given mipmap needs to be packed, all coarser 
      * mipmaps for a given array slice are considered packed as well.
-     * @type {Integer}
      */
-    NumPackedMips {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    NumPackedMips : Int8
 
     /**
      * Number of tiles for the packed mipmaps in the tiled resource. 
@@ -49,12 +38,8 @@ class D3D11_PACKED_MIP_DESC extends Win32Struct {
      * If apps define only partial mappings for the set of tiles in packed mipmaps, read and write behavior is vendor specific and undefined.
      * For arrays, this value is only the count of packed mipmaps within
      * the subresources for each array slice.
-     * @type {Integer}
      */
-    NumTilesForPackedMips {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NumTilesForPackedMips : UInt32
 
     /**
      * Offset of the first packed tile for the resource
@@ -74,10 +59,7 @@ class D3D11_PACKED_MIP_DESC extends Win32Struct {
      * any given array slice, out of which <b>StartTileIndexInOverallResource</b> identifies
      * which of those are packed.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    StartTileIndexInOverallResource {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    StartTileIndexInOverallResource : UInt32
+
 }

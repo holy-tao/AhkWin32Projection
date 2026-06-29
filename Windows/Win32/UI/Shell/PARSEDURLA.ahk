@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Used by the ParseURL function to return the parsed URL. (ANSI)
@@ -10,79 +10,49 @@
  * @namespace Windows.Win32.UI.Shell
  * @charset ANSI
  */
-class PARSEDURLA extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct PARSEDURLA {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * [in] The size of the structure, in bytes. The calling application must set this member before calling the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-parseurla">ParseURL</a> function.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * [out] A pointer to the beginning of the protocol part of the URL.
-     * @type {PSTR}
      */
-    pszProtocol {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszProtocol : PSTR
 
     /**
      * Type: <b>UINT</b>
      * 
      * The number of characters in the URL's protocol section.
-     * @type {Integer}
      */
-    cchProtocol {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cchProtocol : UInt32
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * [out] A pointer to the section of the URL that follows the protocol and colon (':'). For file URLs, the function also skips the leading "//" characters.
-     * @type {PSTR}
      */
-    pszSuffix {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pszSuffix : PSTR
 
     /**
      * Type: <b>UINT</b>
      * 
      * [out] The number of characters in the URL's suffix.
-     * @type {Integer}
      */
-    cchSuffix {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    cchSuffix : UInt32
 
     /**
      * Type: <b>UINT</b>
      * 
      * [out] A value from the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-url_scheme">URL_SCHEME</a> enumeration that specifies the URL's scheme.
-     * @type {Integer}
      */
-    nScheme {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    nScheme : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 40
-    }
 }

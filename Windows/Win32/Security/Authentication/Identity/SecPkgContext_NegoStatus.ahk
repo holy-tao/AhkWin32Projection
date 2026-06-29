@@ -1,22 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the error status of the last attempt to create a client context.
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_negostatus
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SecPkgContext_NegoStatus extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct SecPkgContext_NegoStatus {
+    #StructPack 4
 
     /**
      * The error status of the last attempt to create a client context.
-     * @type {Integer}
      */
-    LastStatus {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    LastStatus : UInt32
+
 }

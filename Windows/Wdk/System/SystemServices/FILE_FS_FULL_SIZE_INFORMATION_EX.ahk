@@ -1,115 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class FILE_FS_FULL_SIZE_INFORMATION_EX extends Win32Struct {
-    static sizeof => 96
+export default struct FILE_FS_FULL_SIZE_INFORMATION_EX {
+    #StructPack 8
 
-    static packingSize => 8
+    ActualTotalAllocationUnits : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ActualTotalAllocationUnits {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ActualAvailableAllocationUnits : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ActualAvailableAllocationUnits {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ActualPoolUnavailableAllocationUnits : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ActualPoolUnavailableAllocationUnits {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    CallerTotalAllocationUnits : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CallerTotalAllocationUnits {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    CallerAvailableAllocationUnits : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CallerAvailableAllocationUnits {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    CallerPoolUnavailableAllocationUnits : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CallerPoolUnavailableAllocationUnits {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    UsedAllocationUnits : Int64
 
-    /**
-     * @type {Integer}
-     */
-    UsedAllocationUnits {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    TotalReservedAllocationUnits : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TotalReservedAllocationUnits {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    VolumeStorageReserveAllocationUnits : Int64
 
-    /**
-     * @type {Integer}
-     */
-    VolumeStorageReserveAllocationUnits {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    AvailableCommittedAllocationUnits : Int64
 
-    /**
-     * @type {Integer}
-     */
-    AvailableCommittedAllocationUnits {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    PoolAvailableAllocationUnits : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PoolAvailableAllocationUnits {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    SectorsPerAllocationUnit : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SectorsPerAllocationUnit {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    BytesPerSector : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BytesPerSector {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
 }

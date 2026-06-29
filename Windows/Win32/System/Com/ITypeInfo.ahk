@@ -1,9 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
-#Include .\ITypeComp.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VARDESC.ahk" { VARDESC }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TYPEATTR.ahk" { TYPEATTR }
+#Import ".\INVOKEKIND.ahk" { INVOKEKIND }
+#Import ".\EXCEPINFO.ahk" { EXCEPINFO }
+#Import ".\IMPLTYPEFLAGS.ahk" { IMPLTYPEFLAGS }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IUnknown.ahk" { IUnknown }
+#Import ".\FUNCDESC.ahk" { FUNCDESC }
+#Import ".\ITypeLib.ahk" { ITypeLib }
+#Import ".\ITypeComp.ahk" { ITypeComp }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DISPPARAMS.ahk" { DISPPARAMS }
+#Import ".\DISPATCH_FLAGS.ahk" { DISPATCH_FLAGS }
 
 /**
  * Used for reading information about objects. (ITypeInfo)
@@ -32,26 +44,51 @@
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-itypeinfo
  * @namespace Windows.Win32.System.Com
  */
-class ITypeInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITypeInfo extends IUnknown {
     /**
      * The interface identifier for ITypeInfo
      * @type {Guid}
      */
-    static IID => Guid("{00020401-0000-0000-c000-000000000046}")
+    static IID := Guid("{00020401-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITypeInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetTypeAttr          : IntPtr
+        GetTypeComp          : IntPtr
+        GetFuncDesc          : IntPtr
+        GetVarDesc           : IntPtr
+        GetNames             : IntPtr
+        GetRefTypeOfImplType : IntPtr
+        GetImplTypeFlags     : IntPtr
+        GetIDsOfNames        : IntPtr
+        Invoke               : IntPtr
+        GetDocumentation     : IntPtr
+        GetDllEntry          : IntPtr
+        GetRefTypeInfo       : IntPtr
+        AddressOfMember      : IntPtr
+        CreateInstance       : IntPtr
+        GetMops              : IntPtr
+        GetContainingTypeLib : IntPtr
+        ReleaseTypeAttr      : IntPtr
+        ReleaseFuncDesc      : IntPtr
+        ReleaseVarDesc       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetTypeAttr", "GetTypeComp", "GetFuncDesc", "GetVarDesc", "GetNames", "GetRefTypeOfImplType", "GetImplTypeFlags", "GetIDsOfNames", "Invoke", "GetDocumentation", "GetDllEntry", "GetRefTypeInfo", "AddressOfMember", "CreateInstance", "GetMops", "GetContainingTypeLib", "ReleaseTypeAttr", "ReleaseFuncDesc", "ReleaseVarDesc"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITypeInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a TYPEATTR structure that contains the attributes of the type description.
@@ -172,7 +209,7 @@ class ITypeInfo extends IUnknown {
     GetNames(memid, rgBstrNames, cMaxNames, pcNames) {
         pcNamesMarshal := pcNames is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "int", memid, "ptr", rgBstrNames, "uint", cMaxNames, pcNamesMarshal, pcNames, "HRESULT")
+        result := ComCall(7, this, "int", memid, BSTR.Ptr, rgBstrNames, "uint", cMaxNames, pcNamesMarshal, pcNames, "HRESULT")
         return result
     }
 
@@ -347,7 +384,7 @@ class ITypeInfo extends IUnknown {
         pvInstanceMarshal := pvInstance is VarRef ? "ptr" : "ptr"
         puArgErrMarshal := puArgErr is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, pvInstanceMarshal, pvInstance, "int", memid, "ushort", wFlags, "ptr", pDispParams, "ptr", pVarResult, "ptr", pExcepInfo, puArgErrMarshal, puArgErr, "HRESULT")
+        result := ComCall(11, this, pvInstanceMarshal, pvInstance, "int", memid, DISPATCH_FLAGS, wFlags, DISPPARAMS.Ptr, pDispParams, VARIANT.Ptr, pVarResult, EXCEPINFO.Ptr, pExcepInfo, puArgErrMarshal, puArgErr, "HRESULT")
         return result
     }
 
@@ -417,7 +454,7 @@ class ITypeInfo extends IUnknown {
     GetDocumentation(memid, pBstrName, pBstrDocString, pdwHelpContext, pBstrHelpFile) {
         pdwHelpContextMarshal := pdwHelpContext is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "int", memid, "ptr", pBstrName, "ptr", pBstrDocString, pdwHelpContextMarshal, pdwHelpContext, "ptr", pBstrHelpFile, "HRESULT")
+        result := ComCall(12, this, "int", memid, BSTR.Ptr, pBstrName, BSTR.Ptr, pBstrDocString, pdwHelpContextMarshal, pdwHelpContext, BSTR.Ptr, pBstrHelpFile, "HRESULT")
         return result
     }
 
@@ -487,7 +524,7 @@ class ITypeInfo extends IUnknown {
     GetDllEntry(memid, invKind, pBstrDllName, pBstrName, pwOrdinal) {
         pwOrdinalMarshal := pwOrdinal is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(13, this, "int", memid, "int", invKind, "ptr", pBstrDllName, "ptr", pBstrName, pwOrdinalMarshal, pwOrdinal, "HRESULT")
+        result := ComCall(13, this, "int", memid, INVOKEKIND, invKind, BSTR.Ptr, pBstrDllName, BSTR.Ptr, pBstrName, pwOrdinalMarshal, pwOrdinal, "HRESULT")
         return result
     }
 
@@ -516,7 +553,7 @@ class ITypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-addressofmember
      */
     AddressOfMember(memid, invKind) {
-        result := ComCall(15, this, "int", memid, "int", invKind, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(15, this, "int", memid, INVOKEKIND, invKind, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -530,7 +567,7 @@ class ITypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-createinstance
      */
     CreateInstance(pUnkOuter, riid) {
-        result := ComCall(16, this, "ptr", pUnkOuter, "ptr", riid, "ptr*", &ppvObj := 0, "HRESULT")
+        result := ComCall(16, this, "ptr", pUnkOuter, Guid.Ptr, riid, "ptr*", &ppvObj := 0, "HRESULT")
         return ppvObj
     }
 
@@ -547,8 +584,8 @@ class ITypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-getmops
      */
     GetMops(memid) {
-        pBstrMops := BSTR()
-        result := ComCall(17, this, "int", memid, "ptr", pBstrMops, "HRESULT")
+        pBstrMops := BSTR.Owned()
+        result := ComCall(17, this, "int", memid, BSTR.Ptr, pBstrMops, "HRESULT")
         return pBstrMops
     }
 
@@ -616,7 +653,7 @@ class ITypeInfo extends IUnknown {
     GetContainingTypeLib(ppTLib, pIndex) {
         pIndexMarshal := pIndex is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(18, this, "ptr*", ppTLib, pIndexMarshal, pIndex, "HRESULT")
+        result := ComCall(18, this, ITypeLib.Ptr, ppTLib, pIndexMarshal, pIndex, "HRESULT")
         return result
     }
 
@@ -627,7 +664,7 @@ class ITypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-releasetypeattr
      */
     ReleaseTypeAttr(pTypeAttr) {
-        ComCall(19, this, "ptr", pTypeAttr)
+        ComCall(19, this, TYPEATTR.Ptr, pTypeAttr)
     }
 
     /**
@@ -637,7 +674,7 @@ class ITypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-releasefuncdesc
      */
     ReleaseFuncDesc(pFuncDesc) {
-        ComCall(20, this, "ptr", pFuncDesc)
+        ComCall(20, this, FUNCDESC.Ptr, pFuncDesc)
     }
 
     /**
@@ -647,6 +684,62 @@ class ITypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-releasevardesc
      */
     ReleaseVarDesc(pVarDesc) {
-        ComCall(21, this, "ptr", pVarDesc)
+        ComCall(21, this, VARDESC.Ptr, pVarDesc)
+    }
+
+    Query(iid) {
+        if (ITypeInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetTypeAttr := CallbackCreate(GetMethod(implObj, "GetTypeAttr"), flags, 2)
+        this.vtbl.GetTypeComp := CallbackCreate(GetMethod(implObj, "GetTypeComp"), flags, 2)
+        this.vtbl.GetFuncDesc := CallbackCreate(GetMethod(implObj, "GetFuncDesc"), flags, 3)
+        this.vtbl.GetVarDesc := CallbackCreate(GetMethod(implObj, "GetVarDesc"), flags, 3)
+        this.vtbl.GetNames := CallbackCreate(GetMethod(implObj, "GetNames"), flags, 5)
+        this.vtbl.GetRefTypeOfImplType := CallbackCreate(GetMethod(implObj, "GetRefTypeOfImplType"), flags, 3)
+        this.vtbl.GetImplTypeFlags := CallbackCreate(GetMethod(implObj, "GetImplTypeFlags"), flags, 3)
+        this.vtbl.GetIDsOfNames := CallbackCreate(GetMethod(implObj, "GetIDsOfNames"), flags, 4)
+        this.vtbl.Invoke := CallbackCreate(GetMethod(implObj, "Invoke"), flags, 8)
+        this.vtbl.GetDocumentation := CallbackCreate(GetMethod(implObj, "GetDocumentation"), flags, 6)
+        this.vtbl.GetDllEntry := CallbackCreate(GetMethod(implObj, "GetDllEntry"), flags, 6)
+        this.vtbl.GetRefTypeInfo := CallbackCreate(GetMethod(implObj, "GetRefTypeInfo"), flags, 3)
+        this.vtbl.AddressOfMember := CallbackCreate(GetMethod(implObj, "AddressOfMember"), flags, 4)
+        this.vtbl.CreateInstance := CallbackCreate(GetMethod(implObj, "CreateInstance"), flags, 4)
+        this.vtbl.GetMops := CallbackCreate(GetMethod(implObj, "GetMops"), flags, 3)
+        this.vtbl.GetContainingTypeLib := CallbackCreate(GetMethod(implObj, "GetContainingTypeLib"), flags, 3)
+        this.vtbl.ReleaseTypeAttr := CallbackCreate(GetMethod(implObj, "ReleaseTypeAttr"), flags, 2)
+        this.vtbl.ReleaseFuncDesc := CallbackCreate(GetMethod(implObj, "ReleaseFuncDesc"), flags, 2)
+        this.vtbl.ReleaseVarDesc := CallbackCreate(GetMethod(implObj, "ReleaseVarDesc"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetTypeAttr)
+        CallbackFree(this.vtbl.GetTypeComp)
+        CallbackFree(this.vtbl.GetFuncDesc)
+        CallbackFree(this.vtbl.GetVarDesc)
+        CallbackFree(this.vtbl.GetNames)
+        CallbackFree(this.vtbl.GetRefTypeOfImplType)
+        CallbackFree(this.vtbl.GetImplTypeFlags)
+        CallbackFree(this.vtbl.GetIDsOfNames)
+        CallbackFree(this.vtbl.Invoke)
+        CallbackFree(this.vtbl.GetDocumentation)
+        CallbackFree(this.vtbl.GetDllEntry)
+        CallbackFree(this.vtbl.GetRefTypeInfo)
+        CallbackFree(this.vtbl.AddressOfMember)
+        CallbackFree(this.vtbl.CreateInstance)
+        CallbackFree(this.vtbl.GetMops)
+        CallbackFree(this.vtbl.GetContainingTypeLib)
+        CallbackFree(this.vtbl.ReleaseTypeAttr)
+        CallbackFree(this.vtbl.ReleaseFuncDesc)
+        CallbackFree(this.vtbl.ReleaseVarDesc)
     }
 }

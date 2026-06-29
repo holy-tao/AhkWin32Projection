@@ -1,32 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\ITypeInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\EXCEPINFO.ahk" { EXCEPINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\ITypeInfo.ahk" { ITypeInfo }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\DISPPARAMS.ahk" { DISPPARAMS }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IPrivateDispatch extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPrivateDispatch extends IUnknown {
     /**
      * The interface identifier for IPrivateDispatch
      * @type {Guid}
      */
-    static IID => Guid("{86ab4bbe-65f6-11d1-8c13-00c04fd8d503}")
+    static IID := Guid("{86ab4bbe-65f6-11d1-8c13-00c04fd8d503}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPrivateDispatch interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ADSIInitializeDispatchManager : IntPtr
+        ADSIGetTypeInfoCount          : IntPtr
+        ADSIGetTypeInfo               : IntPtr
+        ADSIGetIDsOfNames             : IntPtr
+        ADSIInvoke                    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ADSIInitializeDispatchManager", "ADSIGetTypeInfoCount", "ADSIGetTypeInfo", "ADSIGetIDsOfNames", "ADSIInvoke"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPrivateDispatch.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -69,7 +84,7 @@ class IPrivateDispatch extends IUnknown {
     ADSIGetIDsOfNames(riid, rgszNames, cNames, lcid) {
         rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", riid, rgszNamesMarshal, rgszNames, "uint", cNames, "uint", lcid, "int*", &rgdispid := 0, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, riid, rgszNamesMarshal, rgszNames, "uint", cNames, "uint", lcid, "int*", &rgdispid := 0, "HRESULT")
         return rgdispid
     }
 
@@ -88,7 +103,35 @@ class IPrivateDispatch extends IUnknown {
     ADSIInvoke(dispidMember, riid, lcid, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr) {
         puArgErrMarshal := puArgErr is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "int", dispidMember, "ptr", riid, "uint", lcid, "ushort", wFlags, "ptr", pdispparams, "ptr", pvarResult, "ptr", pexcepinfo, puArgErrMarshal, puArgErr, "HRESULT")
+        result := ComCall(7, this, "int", dispidMember, Guid.Ptr, riid, "uint", lcid, "ushort", wFlags, DISPPARAMS.Ptr, pdispparams, VARIANT.Ptr, pvarResult, EXCEPINFO.Ptr, pexcepinfo, puArgErrMarshal, puArgErr, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPrivateDispatch.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ADSIInitializeDispatchManager := CallbackCreate(GetMethod(implObj, "ADSIInitializeDispatchManager"), flags, 2)
+        this.vtbl.ADSIGetTypeInfoCount := CallbackCreate(GetMethod(implObj, "ADSIGetTypeInfoCount"), flags, 2)
+        this.vtbl.ADSIGetTypeInfo := CallbackCreate(GetMethod(implObj, "ADSIGetTypeInfo"), flags, 4)
+        this.vtbl.ADSIGetIDsOfNames := CallbackCreate(GetMethod(implObj, "ADSIGetIDsOfNames"), flags, 6)
+        this.vtbl.ADSIInvoke := CallbackCreate(GetMethod(implObj, "ADSIInvoke"), flags, 9)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ADSIInitializeDispatchManager)
+        CallbackFree(this.vtbl.ADSIGetTypeInfoCount)
+        CallbackFree(this.vtbl.ADSIGetTypeInfo)
+        CallbackFree(this.vtbl.ADSIGetIDsOfNames)
+        CallbackFree(this.vtbl.ADSIInvoke)
     }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Qualifies the filter conditions used for searching for function instances.
  * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryconstraints/ne-functiondiscoveryconstraints-propertyconstraint
  * @namespace Windows.Win32.Devices.FunctionDiscovery
  */
-class PropertyConstraint extends Win32Enum {
+export default struct PropertyConstraint {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The constraint's PKEY and the function instance's  PKEY must be equal.

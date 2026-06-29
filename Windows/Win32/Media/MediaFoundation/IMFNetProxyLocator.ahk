@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Determines the proxy to use when connecting to a server.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfnetproxylocator
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFNetProxyLocator extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFNetProxyLocator extends IUnknown {
     /**
      * The interface identifier for IMFNetProxyLocator
      * @type {Guid}
      */
-    static IID => Guid("{e9cd0383-a268-4bb4-82de-658d53574d41}")
+    static IID := Guid("{e9cd0383-a268-4bb4-82de-658d53574d41}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFNetProxyLocator interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        FindFirstProxy      : IntPtr
+        FindNextProxy       : IntPtr
+        RegisterProxyResult : IntPtr
+        GetCurrentProxy     : IntPtr
+        Clone               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["FindFirstProxy", "FindNextProxy", "RegisterProxyResult", "GetCurrentProxy", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFNetProxyLocator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes the proxy locator object.
@@ -59,7 +73,7 @@ class IMFNetProxyLocator extends IUnknown {
         pszHost := pszHost is String ? StrPtr(pszHost) : pszHost
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
-        result := ComCall(3, this, "ptr", pszHost, "ptr", pszUrl, "int", fReserved, "HRESULT")
+        result := ComCall(3, this, "ptr", pszHost, "ptr", pszUrl, BOOL, fReserved, "HRESULT")
         return result
     }
 
@@ -184,5 +198,33 @@ class IMFNetProxyLocator extends IUnknown {
     Clone() {
         result := ComCall(7, this, "ptr*", &ppProxyLocator := 0, "HRESULT")
         return IMFNetProxyLocator(ppProxyLocator)
+    }
+
+    Query(iid) {
+        if (IMFNetProxyLocator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.FindFirstProxy := CallbackCreate(GetMethod(implObj, "FindFirstProxy"), flags, 4)
+        this.vtbl.FindNextProxy := CallbackCreate(GetMethod(implObj, "FindNextProxy"), flags, 1)
+        this.vtbl.RegisterProxyResult := CallbackCreate(GetMethod(implObj, "RegisterProxyResult"), flags, 2)
+        this.vtbl.GetCurrentProxy := CallbackCreate(GetMethod(implObj, "GetCurrentProxy"), flags, 3)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.FindFirstProxy)
+        CallbackFree(this.vtbl.FindNextProxy)
+        CallbackFree(this.vtbl.RegisterProxyResult)
+        CallbackFree(this.vtbl.GetCurrentProxy)
+        CallbackFree(this.vtbl.Clone)
     }
 }

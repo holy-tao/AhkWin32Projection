@@ -1,81 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Handle.ahk
+#Requires AutoHotkey >= v2.1-alpha.24+ 64-bit
+
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CORRELATION_VECTOR.ahk" { CORRELATION_VECTOR }
 
 /**
  * @namespace Windows.Win32.System.CorrelationVector
  */
-class CorrelationVector {
 
-;@region Constants
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RTL_CORRELATION_VECTOR_STRING_LENGTH => 129
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RTL_CORRELATION_VECTOR_V1_PREFIX_LENGTH => 16
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RTL_CORRELATION_VECTOR_V1_LENGTH => 64
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RTL_CORRELATION_VECTOR_V2_PREFIX_LENGTH => 22
-
-    /**
-     * @type {Integer (UInt32)}
-     */
-    static RTL_CORRELATION_VECTOR_V2_LENGTH => 128
-;@endregion Constants
-
-;@region Methods
-    /**
-     * 
-     * @param {Pointer<CORRELATION_VECTOR>} CorrelationVector 
-     * @param {Integer} _Version 
-     * @param {Pointer<Guid>} Guid 
-     * @returns {Integer} 
-     */
-    static RtlInitializeCorrelationVector(CorrelationVector, _Version, Guid) {
-        result := DllCall("ntdll.dll\RtlInitializeCorrelationVector", "ptr", CorrelationVector, "int", _Version, "ptr", Guid, "uint")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Pointer<CORRELATION_VECTOR>} CorrelationVector 
-     * @returns {Integer} 
-     */
-    static RtlIncrementCorrelationVector(CorrelationVector) {
-        result := DllCall("ntdll.dll\RtlIncrementCorrelationVector", "ptr", CorrelationVector, "uint")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Pointer<CORRELATION_VECTOR>} CorrelationVector 
-     * @returns {Integer} 
-     */
-    static RtlExtendCorrelationVector(CorrelationVector) {
-        result := DllCall("ntdll.dll\RtlExtendCorrelationVector", "ptr", CorrelationVector, "uint")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Pointer<CORRELATION_VECTOR>} Vector 
-     * @returns {Integer} 
-     */
-    static RtlValidateCorrelationVector(Vector) {
-        result := DllCall("ntdll.dll\RtlValidateCorrelationVector", "ptr", Vector, "uint")
-        return result
-    }
-
-;@endregion Methods
+;@region Functions
+/**
+ * 
+ * @param {Pointer<CORRELATION_VECTOR>} CorrelationVector 
+ * @param {Integer} _Version 
+ * @param {Pointer<Guid>} Guid 
+ * @returns {Integer} 
+ */
+export RtlInitializeCorrelationVector(CorrelationVector, _Version, Guid) {
+    result := DllCall("ntdll.dll\RtlInitializeCorrelationVector", CORRELATION_VECTOR.Ptr, CorrelationVector, "int", _Version, Guid.Ptr, Guid, UInt32)
+    return result
 }
+
+/**
+ * 
+ * @param {Pointer<CORRELATION_VECTOR>} CorrelationVector 
+ * @returns {Integer} 
+ */
+export RtlIncrementCorrelationVector(CorrelationVector) {
+    result := DllCall("ntdll.dll\RtlIncrementCorrelationVector", CORRELATION_VECTOR.Ptr, CorrelationVector, UInt32)
+    return result
+}
+
+/**
+ * 
+ * @param {Pointer<CORRELATION_VECTOR>} CorrelationVector 
+ * @returns {Integer} 
+ */
+export RtlExtendCorrelationVector(CorrelationVector) {
+    result := DllCall("ntdll.dll\RtlExtendCorrelationVector", CORRELATION_VECTOR.Ptr, CorrelationVector, UInt32)
+    return result
+}
+
+/**
+ * 
+ * @param {Pointer<CORRELATION_VECTOR>} Vector 
+ * @returns {Integer} 
+ */
+export RtlValidateCorrelationVector(Vector) {
+    result := DllCall("ntdll.dll\RtlValidateCorrelationVector", CORRELATION_VECTOR.Ptr, Vector, UInt32)
+    return result
+}
+
+;@endregion Functions

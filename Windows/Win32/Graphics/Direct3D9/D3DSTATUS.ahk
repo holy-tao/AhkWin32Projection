@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DRECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DRECT.ahk" { D3DRECT }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DSTATUS extends Win32Struct {
-    static sizeof => 24
+export default struct D3DSTATUS {
+    #StructPack 4
 
-    static packingSize => 4
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwStatus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwStatus {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    drExtent : D3DRECT
 
-    /**
-     * @type {D3DRECT}
-     */
-    drExtent {
-        get {
-            if(!this.HasProp("__drExtent"))
-                this.__drExtent := D3DRECT(8, this)
-            return this.__drExtent
-        }
-    }
 }

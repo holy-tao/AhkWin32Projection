@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_LOG_DATA.ahk
-#Include .\HTTP_LOG_DATA_TYPE.ahk
-#Include .\HTTP_VERB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HTTP_VERB.ahk" { HTTP_VERB }
+#Import ".\HTTP_LOG_DATA_TYPE.ahk" { HTTP_LOG_DATA_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\HTTP_LOG_DATA.ahk" { HTTP_LOG_DATA }
 
 /**
  * Used to pass the fields that are logged for an HTTP response when WC3 logging is enabled.
@@ -15,280 +16,154 @@
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_log_fields_data
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_LOG_FIELDS_DATA extends Win32Struct {
-    static sizeof => 144
-
-    static packingSize => 8
+export default struct HTTP_LOG_FIELDS_DATA {
+    #StructPack 8
 
     /**
      * Initialize this member to the <b>HttpLogDataTypeFields</b> value of the <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_log_data_type">HTTP_LOG_DATA_TYPE</a> enumeration.
-     * @type {HTTP_LOG_DATA}
      */
-    Base {
-        get {
-            if(!this.HasProp("__Base"))
-                this.__Base := HTTP_LOG_DATA(0, this)
-            return this.__Base
-        }
-    }
+    Base : HTTP_LOG_DATA
 
     /**
      * The size, in bytes, of the user name member.
-     * @type {Integer}
      */
-    UserNameLength {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    UserNameLength : UInt16
 
     /**
      * The size, in bytes, of the URI stem member.
-     * @type {Integer}
      */
-    UriStemLength {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    UriStemLength : UInt16
 
     /**
      * The size, in bytes, of the client IP address member.
-     * @type {Integer}
      */
-    ClientIpLength {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    ClientIpLength : UInt16
 
     /**
      * The size, in bytes, of the server name member.
-     * @type {Integer}
      */
-    ServerNameLength {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    ServerNameLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ServiceNameLength {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    ServiceNameLength : UInt16
 
     /**
      * The size, in bytes, of the server IP address member.
-     * @type {Integer}
      */
-    ServerIpLength {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    ServerIpLength : UInt16
 
     /**
      * The size, in bytes, of the HTTP method member.
-     * @type {Integer}
      */
-    MethodLength {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    MethodLength : UInt16
 
     /**
      * The size, in bytes, of the URI query member.
-     * @type {Integer}
      */
-    UriQueryLength {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    UriQueryLength : UInt16
 
     /**
      * The size, in bytes, of the host name member.
-     * @type {Integer}
      */
-    HostLength {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
+    HostLength : UInt16
 
     /**
      * The size, in bytes, of the user agent member.
-     * @type {Integer}
      */
-    UserAgentLength {
-        get => NumGet(this, 22, "ushort")
-        set => NumPut("ushort", value, this, 22)
-    }
+    UserAgentLength : UInt16
 
     /**
      * The size, in bytes, of the cookie member.
-     * @type {Integer}
      */
-    CookieLength {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
-    }
+    CookieLength : UInt16
 
     /**
      * The size, in bytes, of the referrer member.
-     * @type {Integer}
      */
-    ReferrerLength {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
-    }
+    ReferrerLength : UInt16
 
     /**
      * The name of the  user.
-     * @type {PWSTR}
      */
-    UserName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    UserName : PWSTR
 
     /**
      * The URI stem.
-     * @type {PWSTR}
      */
-    UriStem {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    UriStem : PWSTR
 
     /**
      * The IP address of the client.
-     * @type {PSTR}
      */
-    ClientIp {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    ClientIp : PSTR
 
     /**
      * The name of the server.
-     * @type {PSTR}
      */
-    ServerName {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    ServerName : PSTR
 
     /**
      * The name of the service.
-     * @type {PSTR}
      */
-    ServiceName {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    ServiceName : PSTR
 
     /**
      * The IP address of the server.
-     * @type {PSTR}
      */
-    ServerIp {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    ServerIp : PSTR
 
     /**
      * The HTTP method.
-     * @type {PSTR}
      */
-    Method {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    Method : PSTR
 
     /**
      * The URI query.
-     * @type {PSTR}
      */
-    UriQuery {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    UriQuery : PSTR
 
     /**
      * The host information from the request.
-     * @type {PSTR}
      */
-    Host {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    Host : PSTR
 
     /**
      * The user agent name.
-     * @type {PSTR}
      */
-    UserAgent {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    UserAgent : PSTR
 
     /**
      * The cookie provided by the application.
-     * @type {PSTR}
      */
-    Cookie {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    Cookie : PSTR
 
     /**
      * The referrer.
-     * @type {PSTR}
      */
-    Referrer {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    Referrer : PSTR
 
     /**
      * The port for the server.
-     * @type {Integer}
      */
-    ServerPort {
-        get => NumGet(this, 128, "ushort")
-        set => NumPut("ushort", value, this, 128)
-    }
+    ServerPort : UInt16
 
     /**
      * The protocol status.
-     * @type {Integer}
      */
-    ProtocolStatus {
-        get => NumGet(this, 130, "ushort")
-        set => NumPut("ushort", value, this, 130)
-    }
+    ProtocolStatus : UInt16
 
     /**
      * The win32 status.
-     * @type {Integer}
      */
-    Win32Status {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
-    }
+    Win32Status : UInt32
 
     /**
      * The method number.
-     * @type {HTTP_VERB}
      */
-    MethodNum {
-        get => NumGet(this, 136, "int")
-        set => NumPut("int", value, this, 136)
-    }
+    MethodNum : HTTP_VERB
 
     /**
      * The sub status.
-     * @type {Integer}
      */
-    SubStatus {
-        get => NumGet(this, 140, "ushort")
-        set => NumPut("ushort", value, this, 140)
-    }
+    SubStatus : UInt16
+
 }

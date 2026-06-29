@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies values that indicate the type of artifact that is used to define the lifetime of a package dependency.
  * @see https://learn.microsoft.com/windows/win32/api/appmodel/ne-appmodel-packagedependencylifetimekind
  * @namespace Windows.Win32.Storage.Packaging.Appx
  */
-class PackageDependencyLifetimeKind extends Win32Enum {
+export default struct PackageDependencyLifetimeKind {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The current process is the lifetime artifact. The package dependency is implicitly deleted when the process terminates.

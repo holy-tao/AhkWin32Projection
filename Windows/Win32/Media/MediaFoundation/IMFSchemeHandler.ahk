@@ -1,7 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
+#Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
+#Import ".\MF_OBJECT_TYPE.ahk" { MF_OBJECT_TYPE }
 
 /**
  * Creates a media source or a byte stream from a URL.
@@ -10,26 +16,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfschemehandler
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFSchemeHandler extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFSchemeHandler extends IUnknown {
     /**
      * The interface identifier for IMFSchemeHandler
      * @type {Guid}
      */
-    static IID => Guid("{6d4c7b74-52a0-4bb7-b0db-55f29f47a668}")
+    static IID := Guid("{6d4c7b74-52a0-4bb7-b0db-55f29f47a668}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFSchemeHandler interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        BeginCreateObject    : IntPtr
+        EndCreateObject      : IntPtr
+        CancelObjectCreation : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["BeginCreateObject", "EndCreateObject", "CancelObjectCreation"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFSchemeHandler.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Begins an asynchronous request to create an object from a URL.When the Source Resolver creates a media source from a URL, it passes the request to a scheme handler.
@@ -116,7 +131,7 @@ class IMFSchemeHandler extends IUnknown {
     EndCreateObject(pResult, pObjectType, ppObject) {
         pObjectTypeMarshal := pObjectType is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pResult, pObjectTypeMarshal, pObjectType, "ptr*", ppObject, "HRESULT")
+        result := ComCall(4, this, "ptr", pResult, pObjectTypeMarshal, pObjectType, IUnknown.Ptr, ppObject, "HRESULT")
         return result
     }
 
@@ -151,5 +166,29 @@ class IMFSchemeHandler extends IUnknown {
     CancelObjectCreation(pIUnknownCancelCookie) {
         result := ComCall(5, this, "ptr", pIUnknownCancelCookie, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFSchemeHandler.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.BeginCreateObject := CallbackCreate(GetMethod(implObj, "BeginCreateObject"), flags, 7)
+        this.vtbl.EndCreateObject := CallbackCreate(GetMethod(implObj, "EndCreateObject"), flags, 4)
+        this.vtbl.CancelObjectCreation := CallbackCreate(GetMethod(implObj, "CancelObjectCreation"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.BeginCreateObject)
+        CallbackFree(this.vtbl.EndCreateObject)
+        CallbackFree(this.vtbl.CancelObjectCreation)
     }
 }

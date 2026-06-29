@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Graphics\Direct3D12\ID3D12CommandQueue.ahk" { ID3D12CommandQueue }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides commands that allow a producer or a consumer of D3D12 resource to signal down-stream components when the resource is ready for use or can be released.
  * @see https://learn.microsoft.com/windows/win32/api/mfd3d12/nn-mfd3d12-imfd3d12synchronizationobjectcommands
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFD3D12SynchronizationObjectCommands extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFD3D12SynchronizationObjectCommands extends IUnknown {
     /**
      * The interface identifier for IMFD3D12SynchronizationObjectCommands
      * @type {Guid}
      */
-    static IID => Guid("{09d0f835-92ff-4e53-8efa-40faa551f233}")
+    static IID := Guid("{09d0f835-92ff-4e53-8efa-40faa551f233}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFD3D12SynchronizationObjectCommands interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        EnqueueResourceReady       : IntPtr
+        EnqueueResourceReadyWait   : IntPtr
+        SignalEventOnResourceReady : IntPtr
+        EnqueueResourceRelease     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EnqueueResourceReady", "EnqueueResourceReadyWait", "SignalEventOnResourceReady", "EnqueueResourceRelease"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFD3D12SynchronizationObjectCommands.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Queues a fence on the specified producer command queue that will signal to a downstream consumer when the associated D3D12 resource is ready to be used.
@@ -80,9 +93,7 @@ class IMFD3D12SynchronizationObjectCommands extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfd3d12/nf-mfd3d12-imfd3d12synchronizationobjectcommands-signaleventonresourceready
      */
     SignalEventOnResourceReady(hEvent) {
-        hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
-
-        result := ComCall(5, this, "ptr", hEvent, "HRESULT")
+        result := ComCall(5, this, HANDLE, hEvent, "HRESULT")
         return result
     }
 
@@ -99,5 +110,31 @@ class IMFD3D12SynchronizationObjectCommands extends IUnknown {
     EnqueueResourceRelease(pConsumerCommandQueue) {
         result := ComCall(6, this, "ptr", pConsumerCommandQueue, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFD3D12SynchronizationObjectCommands.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EnqueueResourceReady := CallbackCreate(GetMethod(implObj, "EnqueueResourceReady"), flags, 2)
+        this.vtbl.EnqueueResourceReadyWait := CallbackCreate(GetMethod(implObj, "EnqueueResourceReadyWait"), flags, 2)
+        this.vtbl.SignalEventOnResourceReady := CallbackCreate(GetMethod(implObj, "SignalEventOnResourceReady"), flags, 2)
+        this.vtbl.EnqueueResourceRelease := CallbackCreate(GetMethod(implObj, "EnqueueResourceRelease"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EnqueueResourceReady)
+        CallbackFree(this.vtbl.EnqueueResourceReadyWait)
+        CallbackFree(this.vtbl.SignalEventOnResourceReady)
+        CallbackFree(this.vtbl.EnqueueResourceRelease)
     }
 }

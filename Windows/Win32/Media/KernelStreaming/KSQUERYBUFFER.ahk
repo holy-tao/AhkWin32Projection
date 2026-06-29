@@ -1,40 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSIDENTIFIER.ahk
-#Include .\KSEVENTDATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSEVENTDATA.ahk" { KSEVENTDATA }
+#Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSQUERYBUFFER extends Win32Struct {
-    static sizeof => 32
+export default struct KSQUERYBUFFER {
+    #StructPack 8
 
-    static packingSize => 8
+    Event : KSIDENTIFIER
 
-    /**
-     * @type {KSIDENTIFIER}
-     */
-    Event {
-        get {
-            if(!this.HasProp("__Event"))
-                this.__Event := KSIDENTIFIER(0, this)
-            return this.__Event
-        }
-    }
+    EventData : KSEVENTDATA.Ptr
 
-    /**
-     * @type {Pointer<KSEVENTDATA>}
-     */
-    EventData {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Reserved : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Reserved {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

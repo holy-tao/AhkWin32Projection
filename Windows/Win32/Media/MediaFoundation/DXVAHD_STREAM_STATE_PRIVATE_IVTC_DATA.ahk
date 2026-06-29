@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains inverse telecine (IVTC) statistics from a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) device.
@@ -31,44 +31,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_stream_state_private_ivtc_data
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVAHD_STREAM_STATE_PRIVATE_IVTC_DATA extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct DXVAHD_STREAM_STATE_PRIVATE_IVTC_DATA {
+    #StructPack 4
 
     /**
      * Specifies whether IVTC statistics are enabled. The default state value is <b>FALSE</b>. Setting the value to <b>TRUE</b> enables IVTC statistics, and resets all of the IVTC statistical data to zero.
-     * @type {BOOL}
      */
-    Enable {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Enable : BOOL
 
     /**
      * If the driver detects that the frames are telecined, and is able to perform inverse telecine, this field contains a member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ne-dxvahd-dxvahd_itelecine_caps">DXVAHD_ITELECINE_CAPS</a> enumeration. Otherwise, the value is 0.
-     * @type {Integer}
      */
-    ITelecineFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ITelecineFlags : UInt32
 
     /**
      * The number of consecutive telecined frames that the device has detected.
-     * @type {Integer}
      */
-    Frames {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Frames : UInt32
 
     /**
      * The index of the most recent input field. The value  of this member equals the most recent value of the <b>InputFrameOrField</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_stream_data">DXVAHD_STREAM_DATA</a> structure.
-     * @type {Integer}
      */
-    InputField {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    InputField : UInt32
+
 }

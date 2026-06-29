@@ -1,40 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WCM_PROFILE_INFO.ahk
-#Include .\WCM_MEDIA_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WCM_PROFILE_INFO.ahk" { WCM_PROFILE_INFO }
+#Import ".\WCM_MEDIA_TYPE.ahk" { WCM_MEDIA_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains a list of profiles in preferred order.
  * @see https://learn.microsoft.com/windows/win32/api/wcmapi/ns-wcmapi-wcm_profile_info_list
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectionManager
  */
-class WCM_PROFILE_INFO_LIST extends Win32Struct {
-    static sizeof => 536
-
-    static packingSize => 8
+export default struct WCM_PROFILE_INFO_LIST {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of profiles in the list.
-     * @type {Integer}
      */
-    dwNumberOfItems {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwNumberOfItems : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wcmapi/ns-wcmapi-wcm_profile_info">WCM_PROFILE_INFO</a>[1]</b>
      * 
      * Information about each profile.
-     * @type {WCM_PROFILE_INFO}
      */
-    ProfileInfo {
-        get {
-            if(!this.HasProp("__ProfileInfoProxyArray"))
-                this.__ProfileInfoProxyArray := Win32FixedArray(this.ptr + 8, 1, WCM_PROFILE_INFO, "")
-            return this.__ProfileInfoProxyArray
-        }
-    }
+    ProfileInfo : WCM_PROFILE_INFO[1]
+
 }

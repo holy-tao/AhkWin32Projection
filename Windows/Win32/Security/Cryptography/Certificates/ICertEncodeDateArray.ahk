@@ -1,34 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides methods for handling Date arrays used in certificate extensions.
  * @see https://learn.microsoft.com/windows/win32/api/certenc/nn-certenc-icertencodedatearray
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICertEncodeDateArray extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ICertEncodeDateArray extends IDispatch {
     /**
      * The interface identifier for ICertEncodeDateArray
      * @type {Guid}
      */
-    static IID => Guid("{2f9469a0-a470-11d0-8821-00a0c903b83c}")
+    static IID := Guid("{2f9469a0-a470-11d0-8821-00a0c903b83c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICertEncodeDateArray interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Decode   : IntPtr
+        GetCount : IntPtr
+        GetValue : IntPtr
+        Reset    : IntPtr
+        SetValue : IntPtr
+        Encode   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Decode", "GetCount", "GetValue", "Reset", "SetValue", "Encode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICertEncodeDateArray.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Decodes an Abstract Syntax Notation One (ASN.1)-encoded date array and stores the resulting array of date values in the CertEncodeDateArray object.
@@ -44,7 +57,7 @@ class ICertEncodeDateArray extends IDispatch {
     Decode(strBinary) {
         strBinary := strBinary is String ? BSTR.Alloc(strBinary).Value : strBinary
 
-        result := ComCall(7, this, "ptr", strBinary, "HRESULT")
+        result := ComCall(7, this, BSTR, strBinary, "HRESULT")
         return result
     }
 
@@ -104,8 +117,38 @@ class ICertEncodeDateArray extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodedatearray-encode
      */
     Encode() {
-        pstrBinary := BSTR()
-        result := ComCall(12, this, "ptr", pstrBinary, "HRESULT")
+        pstrBinary := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, pstrBinary, "HRESULT")
         return pstrBinary
+    }
+
+    Query(iid) {
+        if (ICertEncodeDateArray.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Decode := CallbackCreate(GetMethod(implObj, "Decode"), flags, 2)
+        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 3)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 2)
+        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 3)
+        this.vtbl.Encode := CallbackCreate(GetMethod(implObj, "Encode"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Decode)
+        CallbackFree(this.vtbl.GetCount)
+        CallbackFree(this.vtbl.GetValue)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.SetValue)
+        CallbackFree(this.vtbl.Encode)
     }
 }

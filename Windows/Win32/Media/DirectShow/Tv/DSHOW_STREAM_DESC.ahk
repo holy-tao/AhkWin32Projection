@@ -1,51 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class DSHOW_STREAM_DESC extends Win32Struct {
-    static sizeof => 20
+export default struct DSHOW_STREAM_DESC {
+    #StructPack 4
 
-    static packingSize => 4
+    VersionNo : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VersionNo {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    StreamId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StreamId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Default : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    Default {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    Creation : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    Creation {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

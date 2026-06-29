@@ -1,34 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Com\IUnknown.ahk
-#Include .\DebugPropertyInfo.ahk
-#Include ..\..\Variant\VARIANT.ahk
-#Include .\IEnumDebugPropertyInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IEnumDebugPropertyInfo.ahk" { IEnumDebugPropertyInfo }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DebugPropertyInfo.ahk" { DebugPropertyInfo }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class IDebugProperty extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDebugProperty extends IUnknown {
     /**
      * The interface identifier for IDebugProperty
      * @type {Guid}
      */
-    static IID => Guid("{51973c50-cb0c-11d0-b5c9-00a0244a0e7a}")
+    static IID := Guid("{51973c50-cb0c-11d0-b5c9-00a0244a0e7a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDebugProperty interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetPropertyInfo  : IntPtr
+        GetExtendedInfo  : IntPtr
+        SetValueAsString : IntPtr
+        EnumMembers      : IntPtr
+        GetParent        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPropertyInfo", "GetExtendedInfo", "SetValueAsString", "EnumMembers", "GetParent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDebugProperty.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetPropertyInfo function returns a pointer to the property information of a given protocol.
@@ -41,7 +54,7 @@ class IDebugProperty extends IUnknown {
      */
     GetPropertyInfo(dwFieldSpec, nRadix) {
         pPropertyInfo := DebugPropertyInfo()
-        result := ComCall(3, this, "uint", dwFieldSpec, "uint", nRadix, "ptr", pPropertyInfo, "HRESULT")
+        result := ComCall(3, this, "uint", dwFieldSpec, "uint", nRadix, DebugPropertyInfo.Ptr, pPropertyInfo, "HRESULT")
         return pPropertyInfo
     }
 
@@ -53,7 +66,7 @@ class IDebugProperty extends IUnknown {
      */
     GetExtendedInfo(cInfos, rgguidExtendedInfo) {
         rgvar := VARIANT()
-        result := ComCall(4, this, "uint", cInfos, "ptr", rgguidExtendedInfo, "ptr", rgvar, "HRESULT")
+        result := ComCall(4, this, "uint", cInfos, Guid.Ptr, rgguidExtendedInfo, VARIANT.Ptr, rgvar, "HRESULT")
         return rgvar
     }
 
@@ -78,7 +91,7 @@ class IDebugProperty extends IUnknown {
      * @returns {IEnumDebugPropertyInfo} 
      */
     EnumMembers(dwFieldSpec, nRadix, refiid) {
-        result := ComCall(6, this, "uint", dwFieldSpec, "uint", nRadix, "ptr", refiid, "ptr*", &ppepi := 0, "HRESULT")
+        result := ComCall(6, this, "uint", dwFieldSpec, "uint", nRadix, Guid.Ptr, refiid, "ptr*", &ppepi := 0, "HRESULT")
         return IEnumDebugPropertyInfo(ppepi)
     }
 
@@ -92,5 +105,33 @@ class IDebugProperty extends IUnknown {
     GetParent() {
         result := ComCall(7, this, "ptr*", &ppDebugProp := 0, "HRESULT")
         return IDebugProperty(ppDebugProp)
+    }
+
+    Query(iid) {
+        if (IDebugProperty.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPropertyInfo := CallbackCreate(GetMethod(implObj, "GetPropertyInfo"), flags, 4)
+        this.vtbl.GetExtendedInfo := CallbackCreate(GetMethod(implObj, "GetExtendedInfo"), flags, 4)
+        this.vtbl.SetValueAsString := CallbackCreate(GetMethod(implObj, "SetValueAsString"), flags, 3)
+        this.vtbl.EnumMembers := CallbackCreate(GetMethod(implObj, "EnumMembers"), flags, 5)
+        this.vtbl.GetParent := CallbackCreate(GetMethod(implObj, "GetParent"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPropertyInfo)
+        CallbackFree(this.vtbl.GetExtendedInfo)
+        CallbackFree(this.vtbl.SetValueAsString)
+        CallbackFree(this.vtbl.EnumMembers)
+        CallbackFree(this.vtbl.GetParent)
     }
 }

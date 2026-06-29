@@ -1,9 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMShareable.ahk
-#Include .\IXpsOMGeometryFigureCollection.ahk
-#Include .\IXpsOMMatrixTransform.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IXpsOMMatrixTransform.ahk" { IXpsOMMatrixTransform }
+#Import ".\IXpsOMGeometryFigureCollection.ahk" { IXpsOMGeometryFigureCollection }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsOMShareable.ahk" { IXpsOMShareable }
+#Import ".\XPS_FILL_RULE.ahk" { XPS_FILL_RULE }
 
 /**
  * Describes the shape of a path or of a clipping region.
@@ -46,26 +49,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomgeometry
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMGeometry extends IXpsOMShareable {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMGeometry extends IXpsOMShareable {
     /**
      * The interface identifier for IXpsOMGeometry
      * @type {Guid}
      */
-    static IID => Guid("{64fcf3d7-4d58-44ba-ad73-a13af6492072}")
+    static IID := Guid("{64fcf3d7-4d58-44ba-ad73-a13af6492072}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMGeometry interfaces
+    */
+    struct Vtbl extends IXpsOMShareable.Vtbl {
+        GetFigures         : IntPtr
+        GetFillRule        : IntPtr
+        SetFillRule        : IntPtr
+        GetTransform       : IntPtr
+        GetTransformLocal  : IntPtr
+        SetTransformLocal  : IntPtr
+        GetTransformLookup : IntPtr
+        SetTransformLookup : IntPtr
+        Clone              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFigures", "GetFillRule", "SetFillRule", "GetTransform", "GetTransformLocal", "SetTransformLocal", "GetTransformLookup", "SetTransformLookup", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMGeometry.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a pointer to the geometry's IXpsOMGeometryFigureCollection interface, which contains the collection of figures that make up this geometry.
@@ -131,7 +149,7 @@ class IXpsOMGeometry extends IXpsOMShareable {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometry-setfillrule
      */
     SetFillRule(fillRule) {
-        result := ComCall(7, this, "int", fillRule, "HRESULT")
+        result := ComCall(7, this, XPS_FILL_RULE, fillRule, "HRESULT")
         return result
     }
 
@@ -402,7 +420,7 @@ class IXpsOMGeometry extends IXpsOMShareable {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometry-gettransformlookup
      */
     GetTransformLookup() {
-        result := ComCall(11, this, "ptr*", &lookup := 0, "HRESULT")
+        result := ComCall(11, this, PWSTR.Ptr, &lookup := 0, "HRESULT")
         return lookup
     }
 
@@ -548,5 +566,41 @@ class IXpsOMGeometry extends IXpsOMShareable {
     Clone() {
         result := ComCall(13, this, "ptr*", &geometry := 0, "HRESULT")
         return IXpsOMGeometry(geometry)
+    }
+
+    Query(iid) {
+        if (IXpsOMGeometry.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFigures := CallbackCreate(GetMethod(implObj, "GetFigures"), flags, 2)
+        this.vtbl.GetFillRule := CallbackCreate(GetMethod(implObj, "GetFillRule"), flags, 2)
+        this.vtbl.SetFillRule := CallbackCreate(GetMethod(implObj, "SetFillRule"), flags, 2)
+        this.vtbl.GetTransform := CallbackCreate(GetMethod(implObj, "GetTransform"), flags, 2)
+        this.vtbl.GetTransformLocal := CallbackCreate(GetMethod(implObj, "GetTransformLocal"), flags, 2)
+        this.vtbl.SetTransformLocal := CallbackCreate(GetMethod(implObj, "SetTransformLocal"), flags, 2)
+        this.vtbl.GetTransformLookup := CallbackCreate(GetMethod(implObj, "GetTransformLookup"), flags, 2)
+        this.vtbl.SetTransformLookup := CallbackCreate(GetMethod(implObj, "SetTransformLookup"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFigures)
+        CallbackFree(this.vtbl.GetFillRule)
+        CallbackFree(this.vtbl.SetFillRule)
+        CallbackFree(this.vtbl.GetTransform)
+        CallbackFree(this.vtbl.GetTransformLocal)
+        CallbackFree(this.vtbl.SetTransformLocal)
+        CallbackFree(this.vtbl.GetTransformLookup)
+        CallbackFree(this.vtbl.SetTransformLookup)
+        CallbackFree(this.vtbl.Clone)
     }
 }

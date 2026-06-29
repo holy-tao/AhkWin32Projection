@@ -1,32 +1,68 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include .\DEBUG_VALUE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DEBUG_VALUE.ahk" { DEBUG_VALUE }
+#Import ".\DEBUG_REGISTER_DESCRIPTION.ahk" { DEBUG_REGISTER_DESCRIPTION }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IDebugRegisters2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDebugRegisters2 extends IUnknown {
     /**
      * The interface identifier for IDebugRegisters2
      * @type {Guid}
      */
-    static IID => Guid("{1656afa9-19c6-4e3a-97e7-5dc9160cf9c4}")
+    static IID := Guid("{1656afa9-19c6-4e3a-97e7-5dc9160cf9c4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDebugRegisters2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetNumberRegisters       : IntPtr
+        GetDescription           : IntPtr
+        GetIndexByName           : IntPtr
+        GetValue                 : IntPtr
+        SetValue                 : IntPtr
+        GetValues                : IntPtr
+        SetValues                : IntPtr
+        OutputRegisters          : IntPtr
+        GetInstructionOffset     : IntPtr
+        GetStackOffset           : IntPtr
+        GetFrameOffset           : IntPtr
+        GetDescriptionWide       : IntPtr
+        GetIndexByNameWide       : IntPtr
+        GetNumberPseudoRegisters : IntPtr
+        GetPseudoDescription     : IntPtr
+        GetPseudoDescriptionWide : IntPtr
+        GetPseudoIndexByName     : IntPtr
+        GetPseudoIndexByNameWide : IntPtr
+        GetPseudoValues          : IntPtr
+        SetPseudoValues          : IntPtr
+        GetValues2               : IntPtr
+        SetValues2               : IntPtr
+        OutputRegisters2         : IntPtr
+        GetInstructionOffset2    : IntPtr
+        GetStackOffset2          : IntPtr
+        GetFrameOffset2          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetNumberRegisters", "GetDescription", "GetIndexByName", "GetValue", "SetValue", "GetValues", "SetValues", "OutputRegisters", "GetInstructionOffset", "GetStackOffset", "GetFrameOffset", "GetDescriptionWide", "GetIndexByNameWide", "GetNumberPseudoRegisters", "GetPseudoDescription", "GetPseudoDescriptionWide", "GetPseudoIndexByName", "GetPseudoIndexByNameWide", "GetPseudoValues", "SetPseudoValues", "GetValues2", "SetValues2", "OutputRegisters2", "GetInstructionOffset2", "GetStackOffset2", "GetFrameOffset2"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDebugRegisters2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -52,7 +88,7 @@ class IDebugRegisters2 extends IUnknown {
 
         NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", Register, "ptr", NameBuffer, "uint", NameBufferSize, NameSizeMarshal, NameSize, "ptr", Desc, "HRESULT")
+        result := ComCall(4, this, "uint", Register, "ptr", NameBuffer, "uint", NameBufferSize, NameSizeMarshal, NameSize, DEBUG_REGISTER_DESCRIPTION.Ptr, Desc, "HRESULT")
         return result
     }
 
@@ -69,14 +105,13 @@ class IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetValueAndName
+     * 
      * @param {Integer} Register 
      * @returns {DEBUG_VALUE} 
-     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecmetadata-getvalueandname
      */
     GetValue(Register) {
         Value := DEBUG_VALUE()
-        result := ComCall(6, this, "uint", Register, "ptr", Value, "HRESULT")
+        result := ComCall(6, this, "uint", Register, DEBUG_VALUE.Ptr, Value, "HRESULT")
         return Value
     }
 
@@ -87,7 +122,7 @@ class IDebugRegisters2 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetValue(Register, Value) {
-        result := ComCall(7, this, "uint", Register, "ptr", Value, "HRESULT")
+        result := ComCall(7, this, "uint", Register, DEBUG_VALUE.Ptr, Value, "HRESULT")
         return result
     }
 
@@ -102,7 +137,7 @@ class IDebugRegisters2 extends IUnknown {
         IndicesMarshal := Indices is VarRef ? "uint*" : "ptr"
 
         Values := DEBUG_VALUE()
-        result := ComCall(8, this, "uint", Count, IndicesMarshal, Indices, "uint", Start, "ptr", Values, "HRESULT")
+        result := ComCall(8, this, "uint", Count, IndicesMarshal, Indices, "uint", Start, DEBUG_VALUE.Ptr, Values, "HRESULT")
         return Values
     }
 
@@ -117,7 +152,7 @@ class IDebugRegisters2 extends IUnknown {
     SetValues(Count, Indices, Start, Values) {
         IndicesMarshal := Indices is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "uint", Count, IndicesMarshal, Indices, "uint", Start, "ptr", Values, "HRESULT")
+        result := ComCall(9, this, "uint", Count, IndicesMarshal, Indices, "uint", Start, DEBUG_VALUE.Ptr, Values, "HRESULT")
         return result
     }
 
@@ -173,7 +208,7 @@ class IDebugRegisters2 extends IUnknown {
 
         NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "uint", Register, "ptr", NameBuffer, "uint", NameBufferSize, NameSizeMarshal, NameSize, "ptr", Desc, "HRESULT")
+        result := ComCall(14, this, "uint", Register, "ptr", NameBuffer, "uint", NameBufferSize, NameSizeMarshal, NameSize, DEBUG_REGISTER_DESCRIPTION.Ptr, Desc, "HRESULT")
         return result
     }
 
@@ -276,7 +311,7 @@ class IDebugRegisters2 extends IUnknown {
         IndicesMarshal := Indices is VarRef ? "uint*" : "ptr"
 
         Values := DEBUG_VALUE()
-        result := ComCall(21, this, "uint", Source, "uint", Count, IndicesMarshal, Indices, "uint", Start, "ptr", Values, "HRESULT")
+        result := ComCall(21, this, "uint", Source, "uint", Count, IndicesMarshal, Indices, "uint", Start, DEBUG_VALUE.Ptr, Values, "HRESULT")
         return Values
     }
 
@@ -292,7 +327,7 @@ class IDebugRegisters2 extends IUnknown {
     SetPseudoValues(Source, Count, Indices, Start, Values) {
         IndicesMarshal := Indices is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(22, this, "uint", Source, "uint", Count, IndicesMarshal, Indices, "uint", Start, "ptr", Values, "HRESULT")
+        result := ComCall(22, this, "uint", Source, "uint", Count, IndicesMarshal, Indices, "uint", Start, DEBUG_VALUE.Ptr, Values, "HRESULT")
         return result
     }
 
@@ -308,7 +343,7 @@ class IDebugRegisters2 extends IUnknown {
         IndicesMarshal := Indices is VarRef ? "uint*" : "ptr"
 
         Values := DEBUG_VALUE()
-        result := ComCall(23, this, "uint", Source, "uint", Count, IndicesMarshal, Indices, "uint", Start, "ptr", Values, "HRESULT")
+        result := ComCall(23, this, "uint", Source, "uint", Count, IndicesMarshal, Indices, "uint", Start, DEBUG_VALUE.Ptr, Values, "HRESULT")
         return Values
     }
 
@@ -324,7 +359,7 @@ class IDebugRegisters2 extends IUnknown {
     SetValues2(Source, Count, Indices, Start, Values) {
         IndicesMarshal := Indices is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(24, this, "uint", Source, "uint", Count, IndicesMarshal, Indices, "uint", Start, "ptr", Values, "HRESULT")
+        result := ComCall(24, this, "uint", Source, "uint", Count, IndicesMarshal, Indices, "uint", Start, DEBUG_VALUE.Ptr, Values, "HRESULT")
         return result
     }
 
@@ -368,5 +403,75 @@ class IDebugRegisters2 extends IUnknown {
     GetFrameOffset2(Source) {
         result := ComCall(28, this, "uint", Source, "uint*", &Offset := 0, "HRESULT")
         return Offset
+    }
+
+    Query(iid) {
+        if (IDebugRegisters2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetNumberRegisters := CallbackCreate(GetMethod(implObj, "GetNumberRegisters"), flags, 2)
+        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 6)
+        this.vtbl.GetIndexByName := CallbackCreate(GetMethod(implObj, "GetIndexByName"), flags, 3)
+        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 3)
+        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 3)
+        this.vtbl.GetValues := CallbackCreate(GetMethod(implObj, "GetValues"), flags, 5)
+        this.vtbl.SetValues := CallbackCreate(GetMethod(implObj, "SetValues"), flags, 5)
+        this.vtbl.OutputRegisters := CallbackCreate(GetMethod(implObj, "OutputRegisters"), flags, 3)
+        this.vtbl.GetInstructionOffset := CallbackCreate(GetMethod(implObj, "GetInstructionOffset"), flags, 2)
+        this.vtbl.GetStackOffset := CallbackCreate(GetMethod(implObj, "GetStackOffset"), flags, 2)
+        this.vtbl.GetFrameOffset := CallbackCreate(GetMethod(implObj, "GetFrameOffset"), flags, 2)
+        this.vtbl.GetDescriptionWide := CallbackCreate(GetMethod(implObj, "GetDescriptionWide"), flags, 6)
+        this.vtbl.GetIndexByNameWide := CallbackCreate(GetMethod(implObj, "GetIndexByNameWide"), flags, 3)
+        this.vtbl.GetNumberPseudoRegisters := CallbackCreate(GetMethod(implObj, "GetNumberPseudoRegisters"), flags, 2)
+        this.vtbl.GetPseudoDescription := CallbackCreate(GetMethod(implObj, "GetPseudoDescription"), flags, 7)
+        this.vtbl.GetPseudoDescriptionWide := CallbackCreate(GetMethod(implObj, "GetPseudoDescriptionWide"), flags, 7)
+        this.vtbl.GetPseudoIndexByName := CallbackCreate(GetMethod(implObj, "GetPseudoIndexByName"), flags, 3)
+        this.vtbl.GetPseudoIndexByNameWide := CallbackCreate(GetMethod(implObj, "GetPseudoIndexByNameWide"), flags, 3)
+        this.vtbl.GetPseudoValues := CallbackCreate(GetMethod(implObj, "GetPseudoValues"), flags, 6)
+        this.vtbl.SetPseudoValues := CallbackCreate(GetMethod(implObj, "SetPseudoValues"), flags, 6)
+        this.vtbl.GetValues2 := CallbackCreate(GetMethod(implObj, "GetValues2"), flags, 6)
+        this.vtbl.SetValues2 := CallbackCreate(GetMethod(implObj, "SetValues2"), flags, 6)
+        this.vtbl.OutputRegisters2 := CallbackCreate(GetMethod(implObj, "OutputRegisters2"), flags, 4)
+        this.vtbl.GetInstructionOffset2 := CallbackCreate(GetMethod(implObj, "GetInstructionOffset2"), flags, 3)
+        this.vtbl.GetStackOffset2 := CallbackCreate(GetMethod(implObj, "GetStackOffset2"), flags, 3)
+        this.vtbl.GetFrameOffset2 := CallbackCreate(GetMethod(implObj, "GetFrameOffset2"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetNumberRegisters)
+        CallbackFree(this.vtbl.GetDescription)
+        CallbackFree(this.vtbl.GetIndexByName)
+        CallbackFree(this.vtbl.GetValue)
+        CallbackFree(this.vtbl.SetValue)
+        CallbackFree(this.vtbl.GetValues)
+        CallbackFree(this.vtbl.SetValues)
+        CallbackFree(this.vtbl.OutputRegisters)
+        CallbackFree(this.vtbl.GetInstructionOffset)
+        CallbackFree(this.vtbl.GetStackOffset)
+        CallbackFree(this.vtbl.GetFrameOffset)
+        CallbackFree(this.vtbl.GetDescriptionWide)
+        CallbackFree(this.vtbl.GetIndexByNameWide)
+        CallbackFree(this.vtbl.GetNumberPseudoRegisters)
+        CallbackFree(this.vtbl.GetPseudoDescription)
+        CallbackFree(this.vtbl.GetPseudoDescriptionWide)
+        CallbackFree(this.vtbl.GetPseudoIndexByName)
+        CallbackFree(this.vtbl.GetPseudoIndexByNameWide)
+        CallbackFree(this.vtbl.GetPseudoValues)
+        CallbackFree(this.vtbl.SetPseudoValues)
+        CallbackFree(this.vtbl.GetValues2)
+        CallbackFree(this.vtbl.SetValues2)
+        CallbackFree(this.vtbl.OutputRegisters2)
+        CallbackFree(this.vtbl.GetInstructionOffset2)
+        CallbackFree(this.vtbl.GetStackOffset2)
+        CallbackFree(this.vtbl.GetFrameOffset2)
     }
 }

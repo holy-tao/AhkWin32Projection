@@ -1,43 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class PROCESS_MITIGATION_PAYLOAD_RESTRICTION_POLICY extends Win32Struct {
-    static sizeof => 4
+export default struct PROCESS_MITIGATION_PAYLOAD_RESTRICTION_POLICY {
+    #StructPack 4
 
-    static packingSize => 4
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - EnableExportAddressFilter
-     * - AuditExportAddressFilter
-     * - EnableExportAddressFilterPlus
-     * - AuditExportAddressFilterPlus
-     * - EnableImportAddressFilter
-     * - AuditImportAddressFilter
-     * - EnableRopStackPivot
-     * - AuditRopStackPivot
-     * - EnableRopCallerCheck
-     * - AuditRopCallerCheck
-     * - EnableRopSimExec
-     * - AuditRopSimExec
-     * - ReservedFlags
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
 
     /**
      * @type {Integer}
@@ -141,5 +111,9 @@ class PROCESS_MITIGATION_PAYLOAD_RESTRICTION_POLICY extends Win32Struct {
     ReservedFlags {
         get => (this._bitfield >> 12) & 0xFFFFF
         set => this._bitfield := ((value & 0xFFFFF) << 12) | (this._bitfield & ~(0xFFFFF << 12))
+    }
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

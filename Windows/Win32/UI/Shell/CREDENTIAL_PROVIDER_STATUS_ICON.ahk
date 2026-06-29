@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates which status icon should be displayed.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_status_icon
  * @namespace Windows.Win32.UI.Shell
  */
-class CREDENTIAL_PROVIDER_STATUS_ICON extends Win32Enum {
+export default struct CREDENTIAL_PROVIDER_STATUS_ICON {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No icon indicated.

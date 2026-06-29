@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFileSystemImage.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFileSystemImage.ahk" { IFileSystemImage }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Use this interface to write multiple boot entries or boot images required for the EFI/UEFI support. For example, boot media with boot straps for both Windows XP and Windows Vista.
@@ -12,26 +14,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-ifilesystemimage2
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IFileSystemImage2 extends IFileSystemImage {
-
-    static sizeof => A_PtrSize
+export default struct IFileSystemImage2 extends IFileSystemImage {
     /**
      * The interface identifier for IFileSystemImage2
      * @type {Guid}
      */
-    static IID => Guid("{d7644b2c-1537-4767-b62f-f1387b02ddfd}")
+    static IID := Guid("{d7644b2c-1537-4767-b62f-f1387b02ddfd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 57
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFileSystemImage2 interfaces
+    */
+    struct Vtbl extends IFileSystemImage.Vtbl {
+        get_BootImageOptionsArray : IntPtr
+        put_BootImageOptionsArray : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_BootImageOptionsArray", "put_BootImageOptionsArray"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFileSystemImage2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Pointer<SAFEARRAY>} 
@@ -112,7 +122,29 @@ class IFileSystemImage2 extends IFileSystemImage {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage2-put_bootimageoptionsarray
      */
     put_BootImageOptionsArray(newVal) {
-        result := ComCall(58, this, "ptr", newVal, "HRESULT")
+        result := ComCall(58, this, SAFEARRAY.Ptr, newVal, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFileSystemImage2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_BootImageOptionsArray := CallbackCreate(GetMethod(implObj, "get_BootImageOptionsArray"), flags, 2)
+        this.vtbl.put_BootImageOptionsArray := CallbackCreate(GetMethod(implObj, "put_BootImageOptionsArray"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_BootImageOptionsArray)
+        CallbackFree(this.vtbl.put_BootImageOptionsArray)
     }
 }

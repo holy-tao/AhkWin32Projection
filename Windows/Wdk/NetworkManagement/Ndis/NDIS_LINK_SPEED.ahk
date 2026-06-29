@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class NDIS_LINK_SPEED extends Win32Struct {
-    static sizeof => 16
+export default struct NDIS_LINK_SPEED {
+    #StructPack 8
 
-    static packingSize => 8
+    XmitLinkSpeed : Int64
 
-    /**
-     * @type {Integer}
-     */
-    XmitLinkSpeed {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    RcvLinkSpeed : Int64
 
-    /**
-     * @type {Integer}
-     */
-    RcvLinkSpeed {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

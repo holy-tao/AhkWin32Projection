@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDirectManipulationUpdateManager.ahk" { IDirectManipulationUpdateManager }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDirectManipulationContent.ahk" { IDirectManipulationContent }
 
 /**
  * Represents a compositor object that associates manipulated content with a drawing surface, such as canvas (Windows app using JavaScript) or Canvas (Windows Store app using C++, C#, or Visual Basic).
@@ -19,26 +22,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nn-directmanipulation-idirectmanipulationcompositor
  * @namespace Windows.Win32.Graphics.DirectManipulation
  */
-class IDirectManipulationCompositor extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectManipulationCompositor extends IUnknown {
     /**
      * The interface identifier for IDirectManipulationCompositor
      * @type {Guid}
      */
-    static IID => Guid("{537a0825-0387-4efa-b62f-71eb1f085a7e}")
+    static IID := Guid("{537a0825-0387-4efa-b62f-71eb1f085a7e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectManipulationCompositor interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddContent       : IntPtr
+        RemoveContent    : IntPtr
+        SetUpdateManager : IntPtr
+        Flush            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddContent", "RemoveContent", "SetUpdateManager", "Flush"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectManipulationCompositor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Associates content (owned by the caller) with the compositor, assigns a composition device to the content, and specifies the position of the content in the composition tree relative to other composition visuals.
@@ -123,5 +136,31 @@ class IDirectManipulationCompositor extends IUnknown {
     Flush() {
         result := ComCall(6, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectManipulationCompositor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddContent := CallbackCreate(GetMethod(implObj, "AddContent"), flags, 5)
+        this.vtbl.RemoveContent := CallbackCreate(GetMethod(implObj, "RemoveContent"), flags, 2)
+        this.vtbl.SetUpdateManager := CallbackCreate(GetMethod(implObj, "SetUpdateManager"), flags, 2)
+        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddContent)
+        CallbackFree(this.vtbl.RemoveContent)
+        CallbackFree(this.vtbl.SetUpdateManager)
+        CallbackFree(this.vtbl.Flush)
     }
 }

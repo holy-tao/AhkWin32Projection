@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_COMPOSITE_FUNCTION_INFO extends Win32Struct {
-    static sizeof => 4
+export default struct USB_COMPOSITE_FUNCTION_INFO {
+    #StructPack 1
 
-    static packingSize => 1
+    FunctionNumber : Int8
 
-    /**
-     * @type {Integer}
-     */
-    FunctionNumber {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    BaseInterfaceNumber : Int8
 
-    /**
-     * @type {Integer}
-     */
-    BaseInterfaceNumber {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    NumberOfInterfaces : Int8
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfInterfaces {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    FunctionIsIdle : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    FunctionIsIdle {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
 }

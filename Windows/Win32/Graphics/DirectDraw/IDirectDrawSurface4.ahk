@@ -1,33 +1,93 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDirectDrawClipper.ahk
-#Include .\IDirectDrawPalette.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
+#Import ".\DDBLTBATCH.ahk" { DDBLTBATCH }
+#Import ".\IDirectDrawPalette.ahk" { IDirectDrawPalette }
+#Import ".\DDBLTFX.ahk" { DDBLTFX }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\DDOVERLAYFX.ahk" { DDOVERLAYFX }
+#Import ".\DDSURFACEDESC2.ahk" { DDSURFACEDESC2 }
+#Import ".\DDSCAPS2.ahk" { DDSCAPS2 }
+#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
+#Import "..\Gdi\HDC.ahk" { HDC }
+#Import ".\IDirectDraw.ahk" { IDirectDraw }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDirectDrawClipper.ahk" { IDirectDrawClipper }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class IDirectDrawSurface4 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectDrawSurface4 extends IUnknown {
     /**
      * The interface identifier for IDirectDrawSurface4
      * @type {Guid}
      */
-    static IID => Guid("{0b2b8630-ad35-11d0-8ea6-00609797ea5b}")
+    static IID := Guid("{0b2b8630-ad35-11d0-8ea6-00609797ea5b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectDrawSurface4 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddAttachedSurface    : IntPtr
+        AddOverlayDirtyRect   : IntPtr
+        Blt                   : IntPtr
+        BltBatch              : IntPtr
+        BltFast               : IntPtr
+        DeleteAttachedSurface : IntPtr
+        EnumAttachedSurfaces  : IntPtr
+        EnumOverlayZOrders    : IntPtr
+        Flip                  : IntPtr
+        GetAttachedSurface    : IntPtr
+        GetBltStatus          : IntPtr
+        GetCaps               : IntPtr
+        GetClipper            : IntPtr
+        GetColorKey           : IntPtr
+        GetDC                 : IntPtr
+        GetFlipStatus         : IntPtr
+        GetOverlayPosition    : IntPtr
+        GetPalette            : IntPtr
+        GetPixelFormat        : IntPtr
+        GetSurfaceDesc        : IntPtr
+        Initialize            : IntPtr
+        IsLost                : IntPtr
+        Lock                  : IntPtr
+        ReleaseDC             : IntPtr
+        Restore               : IntPtr
+        SetClipper            : IntPtr
+        SetColorKey           : IntPtr
+        SetOverlayPosition    : IntPtr
+        SetPalette            : IntPtr
+        Unlock                : IntPtr
+        UpdateOverlay         : IntPtr
+        UpdateOverlayDisplay  : IntPtr
+        UpdateOverlayZOrder   : IntPtr
+        GetDDInterface        : IntPtr
+        PageLock              : IntPtr
+        PageUnlock            : IntPtr
+        SetSurfaceDesc        : IntPtr
+        SetPrivateData        : IntPtr
+        GetPrivateData        : IntPtr
+        FreePrivateData       : IntPtr
+        GetUniquenessValue    : IntPtr
+        ChangeUniquenessValue : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddAttachedSurface", "AddOverlayDirtyRect", "Blt", "BltBatch", "BltFast", "DeleteAttachedSurface", "EnumAttachedSurfaces", "EnumOverlayZOrders", "Flip", "GetAttachedSurface", "GetBltStatus", "GetCaps", "GetClipper", "GetColorKey", "GetDC", "GetFlipStatus", "GetOverlayPosition", "GetPalette", "GetPixelFormat", "GetSurfaceDesc", "Initialize", "IsLost", "Lock", "ReleaseDC", "Restore", "SetClipper", "SetColorKey", "SetOverlayPosition", "SetPalette", "Unlock", "UpdateOverlay", "UpdateOverlayDisplay", "UpdateOverlayZOrder", "GetDDInterface", "PageLock", "PageUnlock", "SetSurfaceDesc", "SetPrivateData", "GetPrivateData", "FreePrivateData", "GetUniquenessValue", "ChangeUniquenessValue"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectDrawSurface4.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -45,7 +105,7 @@ class IDirectDrawSurface4 extends IUnknown {
      * @returns {HRESULT} 
      */
     AddOverlayDirtyRect(param0) {
-        result := ComCall(4, this, "ptr", param0, "HRESULT")
+        result := ComCall(4, this, RECT.Ptr, param0, "HRESULT")
         return result
     }
 
@@ -59,7 +119,7 @@ class IDirectDrawSurface4 extends IUnknown {
      * @returns {HRESULT} 
      */
     Blt(param0, param1, param2, param3, param4) {
-        result := ComCall(5, this, "ptr", param0, "ptr", param1, "ptr", param2, "uint", param3, "ptr", param4, "HRESULT")
+        result := ComCall(5, this, RECT.Ptr, param0, "ptr", param1, RECT.Ptr, param2, "uint", param3, DDBLTFX.Ptr, param4, "HRESULT")
         return result
     }
 
@@ -71,7 +131,7 @@ class IDirectDrawSurface4 extends IUnknown {
      * @returns {HRESULT} 
      */
     BltBatch(param0, param1, param2) {
-        result := ComCall(6, this, "ptr", param0, "uint", param1, "uint", param2, "HRESULT")
+        result := ComCall(6, this, DDBLTBATCH.Ptr, param0, "uint", param1, "uint", param2, "HRESULT")
         return result
     }
 
@@ -85,7 +145,7 @@ class IDirectDrawSurface4 extends IUnknown {
      * @returns {HRESULT} 
      */
     BltFast(param0, param1, param2, param3, param4) {
-        result := ComCall(7, this, "uint", param0, "uint", param1, "ptr", param2, "ptr", param3, "uint", param4, "HRESULT")
+        result := ComCall(7, this, "uint", param0, "uint", param1, "ptr", param2, RECT.Ptr, param3, "uint", param4, "HRESULT")
         return result
     }
 
@@ -144,7 +204,7 @@ class IDirectDrawSurface4 extends IUnknown {
      * @returns {IDirectDrawSurface4} 
      */
     GetAttachedSurface(param0) {
-        result := ComCall(12, this, "ptr", param0, "ptr*", &param1 := 0, "HRESULT")
+        result := ComCall(12, this, DDSCAPS2.Ptr, param0, "ptr*", &param1 := 0, "HRESULT")
         return IDirectDrawSurface4(param1)
     }
 
@@ -164,7 +224,7 @@ class IDirectDrawSurface4 extends IUnknown {
      * @returns {HRESULT} 
      */
     GetCaps(param0) {
-        result := ComCall(14, this, "ptr", param0, "HRESULT")
+        result := ComCall(14, this, DDSCAPS2.Ptr, param0, "HRESULT")
         return result
     }
 
@@ -184,7 +244,7 @@ class IDirectDrawSurface4 extends IUnknown {
      * @returns {HRESULT} 
      */
     GetColorKey(param0, param1) {
-        result := ComCall(16, this, "uint", param0, "ptr", param1, "HRESULT")
+        result := ComCall(16, this, "uint", param0, DDCOLORKEY.Ptr, param1, "HRESULT")
         return result
     }
 
@@ -203,7 +263,7 @@ class IDirectDrawSurface4 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getdc
      */
     GetDC(param0) {
-        result := ComCall(17, this, "ptr", param0, "HRESULT")
+        result := ComCall(17, this, HDC.Ptr, param0, "HRESULT")
         return result
     }
 
@@ -232,13 +292,8 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * The GetPaletteEntries function retrieves a specified range of palette entries from the given logical palette.
-     * @remarks
-     * An application can determine whether a device supports palette operations by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function and specifying the RASTERCAPS constant.
      * 
-     * If the <i>nEntries</i> parameter specifies more entries than exist in the palette, the remaining members of the <a href="https://docs.microsoft.com/previous-versions/dd162769(v=vs.85)">PALETTEENTRY</a> structure are not altered.
      * @returns {IDirectDrawPalette} 
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getpaletteentries
      */
     GetPalette() {
         result := ComCall(20, this, "ptr*", &param0 := 0, "HRESULT")
@@ -254,7 +309,7 @@ class IDirectDrawSurface4 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getpixelformat
      */
     GetPixelFormat(param0) {
-        result := ComCall(21, this, "ptr", param0, "HRESULT")
+        result := ComCall(21, this, DDPIXELFORMAT.Ptr, param0, "HRESULT")
         return result
     }
 
@@ -264,7 +319,7 @@ class IDirectDrawSurface4 extends IUnknown {
      * @returns {HRESULT} 
      */
     GetSurfaceDesc(param0) {
-        result := ComCall(22, this, "ptr", param0, "HRESULT")
+        result := ComCall(22, this, DDSURFACEDESC2.Ptr, param0, "HRESULT")
         return result
     }
 
@@ -299,7 +354,7 @@ class IDirectDrawSurface4 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(param0, param1) {
-        result := ComCall(23, this, "ptr", param0, "ptr", param1, "HRESULT")
+        result := ComCall(23, this, "ptr", param0, DDSURFACEDESC2.Ptr, param1, "HRESULT")
         return result
     }
 
@@ -336,9 +391,7 @@ class IDirectDrawSurface4 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/SecProv/lock-win32-encryptablevolume
      */
     Lock(param0, param1, param2, param3) {
-        param3 := param3 is Win32Handle ? NumGet(param3, "ptr") : param3
-
-        result := ComCall(25, this, "ptr", param0, "ptr", param1, "uint", param2, "ptr", param3, "HRESULT")
+        result := ComCall(25, this, RECT.Ptr, param0, DDSURFACEDESC2.Ptr, param1, "uint", param2, HANDLE, param3, "HRESULT")
         return result
     }
 
@@ -355,9 +408,7 @@ class IDirectDrawSurface4 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-releasedc
      */
     ReleaseDC(param0) {
-        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
-
-        result := ComCall(26, this, "ptr", param0, "HRESULT")
+        result := ComCall(26, this, HDC, param0, "HRESULT")
         return result
     }
 
@@ -388,7 +439,7 @@ class IDirectDrawSurface4 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetColorKey(param0, param1) {
-        result := ComCall(29, this, "uint", param0, "ptr", param1, "HRESULT")
+        result := ComCall(29, this, "uint", param0, DDCOLORKEY.Ptr, param1, "HRESULT")
         return result
     }
 
@@ -404,16 +455,9 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * The SetPaletteEntries function sets RGB (red, green, blue) color values and flags in a range of entries in a logical palette.
-     * @remarks
-     * An application can determine whether a device supports palette operations by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function and specifying the RASTERCAPS constant.
      * 
-     * Even if a logical palette has been selected and realized, changes to the palette do not affect the physical palette in the surface. <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-realizepalette">RealizePalette</a> must be called again to set the new logical palette into the surface.
      * @param {IDirectDrawPalette} param0 
-     * @returns {HRESULT} If the function succeeds, the return value is the number of entries that were set in the logical palette.
-     * 
-     * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setpaletteentries
+     * @returns {HRESULT} 
      */
     SetPalette(param0) {
         result := ComCall(31, this, "ptr", param0, "HRESULT")
@@ -421,81 +465,12 @@ class IDirectDrawSurface4 extends IUnknown {
     }
 
     /**
-     * Unlocks a region in an open file.
-     * @remarks
-     * This function always operates synchronously, but may not queue a completion entry when a completion port is associated with the file handle.
      * 
-     * Unlocking a region of a file releases a previously acquired lock on the file. The region to unlock must correspond exactly to an existing locked region. Two adjacent regions of a file cannot be locked separately and then unlocked using a single region that spans both locked regions.
-     * 
-     * If a process terminates with a portion of a file locked or closes a file that has outstanding locks, the locks are unlocked by the operating system. However, the time it takes for the operating system to unlock these locks depends upon available system resources. Therefore, it is recommended that your process explicitly unlock all files it has locked when it terminates. If this is not done, access to these files may be denied if the operating system has not yet unlocked them.
-     * 
-     * In Windows 8 and Windows Server 2012, this function is supported by the following technologies.
-     * 
-     * <table>
-     * <tr>
-     * <th>Technology</th>
-     * <th>Supported</th>
-     * </tr>
-     * <tr>
-     * <td>
-     * Server Message Block (SMB) 3.0 protocol
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * SMB 3.0 Transparent Failover (TFO)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * SMB 3.0 with Scale-out File Shares (SO)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * Cluster Shared Volume File System (CsvFS)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * Resilient File System (ReFS)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @param {Pointer<RECT>} param0 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-unlockfile
+     * @returns {HRESULT} 
      */
     Unlock(param0) {
-        result := ComCall(32, this, "ptr", param0, "HRESULT")
+        result := ComCall(32, this, RECT.Ptr, param0, "HRESULT")
         return result
     }
 
@@ -509,7 +484,7 @@ class IDirectDrawSurface4 extends IUnknown {
      * @returns {HRESULT} 
      */
     UpdateOverlay(param0, param1, param2, param3, param4) {
-        result := ComCall(33, this, "ptr", param0, "ptr", param1, "ptr", param2, "uint", param3, "ptr", param4, "HRESULT")
+        result := ComCall(33, this, RECT.Ptr, param0, "ptr", param1, RECT.Ptr, param2, "uint", param3, DDOVERLAYFX.Ptr, param4, "HRESULT")
         return result
     }
 
@@ -573,7 +548,7 @@ class IDirectDrawSurface4 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetSurfaceDesc(param0, param1) {
-        result := ComCall(39, this, "ptr", param0, "uint", param1, "HRESULT")
+        result := ComCall(39, this, DDSURFACEDESC2.Ptr, param0, "uint", param1, "HRESULT")
         return result
     }
 
@@ -588,7 +563,7 @@ class IDirectDrawSurface4 extends IUnknown {
     SetPrivateData(param0, param1, param2, param3) {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(40, this, "ptr", param0, param1Marshal, param1, "uint", param2, "uint", param3, "HRESULT")
+        result := ComCall(40, this, Guid.Ptr, param0, param1Marshal, param1, "uint", param2, "uint", param3, "HRESULT")
         return result
     }
 
@@ -604,7 +579,7 @@ class IDirectDrawSurface4 extends IUnknown {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
         param2Marshal := param2 is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(41, this, "ptr", param0, param1Marshal, param1, param2Marshal, param2, "HRESULT")
+        result := ComCall(41, this, Guid.Ptr, param0, param1Marshal, param1, param2Marshal, param2, "HRESULT")
         return result
     }
 
@@ -623,7 +598,7 @@ class IDirectDrawSurface4 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/NAP/freeprivatedata-func
      */
     FreePrivateData(param0) {
-        result := ComCall(42, this, "ptr", param0, "HRESULT")
+        result := ComCall(42, this, Guid.Ptr, param0, "HRESULT")
         return result
     }
 
@@ -646,5 +621,107 @@ class IDirectDrawSurface4 extends IUnknown {
     ChangeUniquenessValue() {
         result := ComCall(44, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectDrawSurface4.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddAttachedSurface := CallbackCreate(GetMethod(implObj, "AddAttachedSurface"), flags, 2)
+        this.vtbl.AddOverlayDirtyRect := CallbackCreate(GetMethod(implObj, "AddOverlayDirtyRect"), flags, 2)
+        this.vtbl.Blt := CallbackCreate(GetMethod(implObj, "Blt"), flags, 6)
+        this.vtbl.BltBatch := CallbackCreate(GetMethod(implObj, "BltBatch"), flags, 4)
+        this.vtbl.BltFast := CallbackCreate(GetMethod(implObj, "BltFast"), flags, 6)
+        this.vtbl.DeleteAttachedSurface := CallbackCreate(GetMethod(implObj, "DeleteAttachedSurface"), flags, 3)
+        this.vtbl.EnumAttachedSurfaces := CallbackCreate(GetMethod(implObj, "EnumAttachedSurfaces"), flags, 3)
+        this.vtbl.EnumOverlayZOrders := CallbackCreate(GetMethod(implObj, "EnumOverlayZOrders"), flags, 4)
+        this.vtbl.Flip := CallbackCreate(GetMethod(implObj, "Flip"), flags, 3)
+        this.vtbl.GetAttachedSurface := CallbackCreate(GetMethod(implObj, "GetAttachedSurface"), flags, 3)
+        this.vtbl.GetBltStatus := CallbackCreate(GetMethod(implObj, "GetBltStatus"), flags, 2)
+        this.vtbl.GetCaps := CallbackCreate(GetMethod(implObj, "GetCaps"), flags, 2)
+        this.vtbl.GetClipper := CallbackCreate(GetMethod(implObj, "GetClipper"), flags, 2)
+        this.vtbl.GetColorKey := CallbackCreate(GetMethod(implObj, "GetColorKey"), flags, 3)
+        this.vtbl.GetDC := CallbackCreate(GetMethod(implObj, "GetDC"), flags, 2)
+        this.vtbl.GetFlipStatus := CallbackCreate(GetMethod(implObj, "GetFlipStatus"), flags, 2)
+        this.vtbl.GetOverlayPosition := CallbackCreate(GetMethod(implObj, "GetOverlayPosition"), flags, 3)
+        this.vtbl.GetPalette := CallbackCreate(GetMethod(implObj, "GetPalette"), flags, 2)
+        this.vtbl.GetPixelFormat := CallbackCreate(GetMethod(implObj, "GetPixelFormat"), flags, 2)
+        this.vtbl.GetSurfaceDesc := CallbackCreate(GetMethod(implObj, "GetSurfaceDesc"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.IsLost := CallbackCreate(GetMethod(implObj, "IsLost"), flags, 1)
+        this.vtbl.Lock := CallbackCreate(GetMethod(implObj, "Lock"), flags, 5)
+        this.vtbl.ReleaseDC := CallbackCreate(GetMethod(implObj, "ReleaseDC"), flags, 2)
+        this.vtbl.Restore := CallbackCreate(GetMethod(implObj, "Restore"), flags, 1)
+        this.vtbl.SetClipper := CallbackCreate(GetMethod(implObj, "SetClipper"), flags, 2)
+        this.vtbl.SetColorKey := CallbackCreate(GetMethod(implObj, "SetColorKey"), flags, 3)
+        this.vtbl.SetOverlayPosition := CallbackCreate(GetMethod(implObj, "SetOverlayPosition"), flags, 3)
+        this.vtbl.SetPalette := CallbackCreate(GetMethod(implObj, "SetPalette"), flags, 2)
+        this.vtbl.Unlock := CallbackCreate(GetMethod(implObj, "Unlock"), flags, 2)
+        this.vtbl.UpdateOverlay := CallbackCreate(GetMethod(implObj, "UpdateOverlay"), flags, 6)
+        this.vtbl.UpdateOverlayDisplay := CallbackCreate(GetMethod(implObj, "UpdateOverlayDisplay"), flags, 2)
+        this.vtbl.UpdateOverlayZOrder := CallbackCreate(GetMethod(implObj, "UpdateOverlayZOrder"), flags, 3)
+        this.vtbl.GetDDInterface := CallbackCreate(GetMethod(implObj, "GetDDInterface"), flags, 2)
+        this.vtbl.PageLock := CallbackCreate(GetMethod(implObj, "PageLock"), flags, 2)
+        this.vtbl.PageUnlock := CallbackCreate(GetMethod(implObj, "PageUnlock"), flags, 2)
+        this.vtbl.SetSurfaceDesc := CallbackCreate(GetMethod(implObj, "SetSurfaceDesc"), flags, 3)
+        this.vtbl.SetPrivateData := CallbackCreate(GetMethod(implObj, "SetPrivateData"), flags, 5)
+        this.vtbl.GetPrivateData := CallbackCreate(GetMethod(implObj, "GetPrivateData"), flags, 4)
+        this.vtbl.FreePrivateData := CallbackCreate(GetMethod(implObj, "FreePrivateData"), flags, 2)
+        this.vtbl.GetUniquenessValue := CallbackCreate(GetMethod(implObj, "GetUniquenessValue"), flags, 2)
+        this.vtbl.ChangeUniquenessValue := CallbackCreate(GetMethod(implObj, "ChangeUniquenessValue"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddAttachedSurface)
+        CallbackFree(this.vtbl.AddOverlayDirtyRect)
+        CallbackFree(this.vtbl.Blt)
+        CallbackFree(this.vtbl.BltBatch)
+        CallbackFree(this.vtbl.BltFast)
+        CallbackFree(this.vtbl.DeleteAttachedSurface)
+        CallbackFree(this.vtbl.EnumAttachedSurfaces)
+        CallbackFree(this.vtbl.EnumOverlayZOrders)
+        CallbackFree(this.vtbl.Flip)
+        CallbackFree(this.vtbl.GetAttachedSurface)
+        CallbackFree(this.vtbl.GetBltStatus)
+        CallbackFree(this.vtbl.GetCaps)
+        CallbackFree(this.vtbl.GetClipper)
+        CallbackFree(this.vtbl.GetColorKey)
+        CallbackFree(this.vtbl.GetDC)
+        CallbackFree(this.vtbl.GetFlipStatus)
+        CallbackFree(this.vtbl.GetOverlayPosition)
+        CallbackFree(this.vtbl.GetPalette)
+        CallbackFree(this.vtbl.GetPixelFormat)
+        CallbackFree(this.vtbl.GetSurfaceDesc)
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.IsLost)
+        CallbackFree(this.vtbl.Lock)
+        CallbackFree(this.vtbl.ReleaseDC)
+        CallbackFree(this.vtbl.Restore)
+        CallbackFree(this.vtbl.SetClipper)
+        CallbackFree(this.vtbl.SetColorKey)
+        CallbackFree(this.vtbl.SetOverlayPosition)
+        CallbackFree(this.vtbl.SetPalette)
+        CallbackFree(this.vtbl.Unlock)
+        CallbackFree(this.vtbl.UpdateOverlay)
+        CallbackFree(this.vtbl.UpdateOverlayDisplay)
+        CallbackFree(this.vtbl.UpdateOverlayZOrder)
+        CallbackFree(this.vtbl.GetDDInterface)
+        CallbackFree(this.vtbl.PageLock)
+        CallbackFree(this.vtbl.PageUnlock)
+        CallbackFree(this.vtbl.SetSurfaceDesc)
+        CallbackFree(this.vtbl.SetPrivateData)
+        CallbackFree(this.vtbl.GetPrivateData)
+        CallbackFree(this.vtbl.FreePrivateData)
+        CallbackFree(this.vtbl.GetUniquenessValue)
+        CallbackFree(this.vtbl.ChangeUniquenessValue)
     }
 }

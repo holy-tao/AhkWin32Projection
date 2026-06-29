@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains read-only dynamic information for extended TCP statistics on fine-grained round-trip time (RTT) estimation for a TCP connection.
@@ -16,52 +15,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/tcpestats/ns-tcpestats-tcp_estats_fine_rtt_rod_v0
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class TCP_ESTATS_FINE_RTT_ROD_v0 extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct TCP_ESTATS_FINE_RTT_ROD_v0 {
+    #StructPack 4
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The round trip time variation, in microseconds, used in receive window auto-tuning when the TCP extended statistics feature is enabled.
-     * @type {Integer}
      */
-    RttVar {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    RttVar : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The maximum sampled round trip time, in microseconds.
-     * @type {Integer}
      */
-    MaxRtt {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    MaxRtt : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The minimum sampled round trip time, in microseconds.
-     * @type {Integer}
      */
-    MinRtt {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MinRtt : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * A smoothed value round trip time, in microseconds,  computed from all sampled round trip times. The smoothing is a weighted additive function that uses the <b>RttVar</b> member.
-     * @type {Integer}
      */
-    SumRtt {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    SumRtt : UInt32
+
 }

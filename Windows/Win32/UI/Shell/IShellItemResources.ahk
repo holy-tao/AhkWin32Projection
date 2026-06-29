@@ -1,34 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IEnumResources.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumResources.ahk" { IEnumResources }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SHELL_ITEM_RESOURCE.ahk" { SHELL_ITEM_RESOURCE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * Exposes methods to manipulate and query Shell item resources.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishellitemresources
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellItemResources extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IShellItemResources extends IUnknown {
     /**
      * The interface identifier for IShellItemResources
      * @type {Guid}
      */
-    static IID => Guid("{ff5693be-2ce0-4d48-b5c5-40817d1acdb9}")
+    static IID := Guid("{ff5693be-2ce0-4d48-b5c5-40817d1acdb9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellItemResources interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetAttributes          : IntPtr
+        GetSize                : IntPtr
+        GetTimes               : IntPtr
+        SetTimes               : IntPtr
+        GetResourceDescription : IntPtr
+        EnumResources          : IntPtr
+        SupportsResource       : IntPtr
+        OpenResource           : IntPtr
+        CreateResource         : IntPtr
+        MarkForDelete          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetAttributes", "GetSize", "GetTimes", "SetTimes", "GetResourceDescription", "EnumResources", "SupportsResource", "OpenResource", "CreateResource", "MarkForDelete"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellItemResources.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets resource attributes.
@@ -71,7 +91,7 @@ class IShellItemResources extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemresources-gettimes
      */
     GetTimes(pftCreation, pftWrite, pftAccess) {
-        result := ComCall(5, this, "ptr", pftCreation, "ptr", pftWrite, "ptr", pftAccess, "HRESULT")
+        result := ComCall(5, this, FILETIME.Ptr, pftCreation, FILETIME.Ptr, pftWrite, FILETIME.Ptr, pftAccess, "HRESULT")
         return result
     }
 
@@ -92,7 +112,7 @@ class IShellItemResources extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemresources-settimes
      */
     SetTimes(pftCreation, pftWrite, pftAccess) {
-        result := ComCall(6, this, "ptr", pftCreation, "ptr", pftWrite, "ptr", pftAccess, "HRESULT")
+        result := ComCall(6, this, FILETIME.Ptr, pftCreation, FILETIME.Ptr, pftWrite, FILETIME.Ptr, pftAccess, "HRESULT")
         return result
     }
 
@@ -107,7 +127,7 @@ class IShellItemResources extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemresources-getresourcedescription
      */
     GetResourceDescription(pcsir) {
-        result := ComCall(7, this, "ptr", pcsir, "ptr*", &ppszDescription := 0, "HRESULT")
+        result := ComCall(7, this, SHELL_ITEM_RESOURCE.Ptr, pcsir, PWSTR.Ptr, &ppszDescription := 0, "HRESULT")
         return ppszDescription
     }
 
@@ -134,7 +154,7 @@ class IShellItemResources extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemresources-supportsresource
      */
     SupportsResource(pcsir) {
-        result := ComCall(9, this, "ptr", pcsir, "HRESULT")
+        result := ComCall(9, this, SHELL_ITEM_RESOURCE.Ptr, pcsir, "HRESULT")
         return result
     }
 
@@ -152,7 +172,7 @@ class IShellItemResources extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemresources-openresource
      */
     OpenResource(pcsir, riid) {
-        result := ComCall(10, this, "ptr", pcsir, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(10, this, SHELL_ITEM_RESOURCE.Ptr, pcsir, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -170,7 +190,7 @@ class IShellItemResources extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemresources-createresource
      */
     CreateResource(pcsir, riid) {
-        result := ComCall(11, this, "ptr", pcsir, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(11, this, SHELL_ITEM_RESOURCE.Ptr, pcsir, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -184,5 +204,43 @@ class IShellItemResources extends IUnknown {
     MarkForDelete() {
         result := ComCall(12, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IShellItemResources.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetAttributes := CallbackCreate(GetMethod(implObj, "GetAttributes"), flags, 2)
+        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 2)
+        this.vtbl.GetTimes := CallbackCreate(GetMethod(implObj, "GetTimes"), flags, 4)
+        this.vtbl.SetTimes := CallbackCreate(GetMethod(implObj, "SetTimes"), flags, 4)
+        this.vtbl.GetResourceDescription := CallbackCreate(GetMethod(implObj, "GetResourceDescription"), flags, 3)
+        this.vtbl.EnumResources := CallbackCreate(GetMethod(implObj, "EnumResources"), flags, 2)
+        this.vtbl.SupportsResource := CallbackCreate(GetMethod(implObj, "SupportsResource"), flags, 2)
+        this.vtbl.OpenResource := CallbackCreate(GetMethod(implObj, "OpenResource"), flags, 4)
+        this.vtbl.CreateResource := CallbackCreate(GetMethod(implObj, "CreateResource"), flags, 4)
+        this.vtbl.MarkForDelete := CallbackCreate(GetMethod(implObj, "MarkForDelete"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetAttributes)
+        CallbackFree(this.vtbl.GetSize)
+        CallbackFree(this.vtbl.GetTimes)
+        CallbackFree(this.vtbl.SetTimes)
+        CallbackFree(this.vtbl.GetResourceDescription)
+        CallbackFree(this.vtbl.EnumResources)
+        CallbackFree(this.vtbl.SupportsResource)
+        CallbackFree(this.vtbl.OpenResource)
+        CallbackFree(this.vtbl.CreateResource)
+        CallbackFree(this.vtbl.MarkForDelete)
     }
 }

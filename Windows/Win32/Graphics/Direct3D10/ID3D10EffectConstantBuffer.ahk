@@ -1,9 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D10EffectVariable.ahk
-#Include .\ID3D10Buffer.ahk
-#Include .\ID3D10ShaderResourceView.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID3D10ShaderResourceView.ahk" { ID3D10ShaderResourceView }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D10EffectVariable.ahk" { ID3D10EffectVariable }
+#Import ".\ID3D10Buffer.ahk" { ID3D10Buffer }
 
 /**
  * A constant-buffer interface accesses constant buffers or texture buffers.
@@ -12,26 +13,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nn-d3d10effect-id3d10effectconstantbuffer
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class ID3D10EffectConstantBuffer extends ID3D10EffectVariable {
-
-    static sizeof => A_PtrSize
+export default struct ID3D10EffectConstantBuffer extends ID3D10EffectVariable {
     /**
      * The interface identifier for ID3D10EffectConstantBuffer
      * @type {Guid}
      */
-    static IID => Guid("{56648f4d-cc8b-4444-a5ad-b5a3d76e91b3}")
+    static IID := Guid("{56648f4d-cc8b-4444-a5ad-b5a3d76e91b3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 25
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D10EffectConstantBuffer interfaces
+    */
+    struct Vtbl extends ID3D10EffectVariable.Vtbl {
+        SetConstantBuffer : IntPtr
+        GetConstantBuffer : IntPtr
+        SetTextureBuffer  : IntPtr
+        GetTextureBuffer  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetConstantBuffer", "GetConstantBuffer", "SetTextureBuffer", "GetTextureBuffer"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D10EffectConstantBuffer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Set a constant-buffer.
@@ -85,5 +96,31 @@ class ID3D10EffectConstantBuffer extends ID3D10EffectVariable {
     GetTextureBuffer() {
         result := ComCall(28, this, "ptr*", &ppTextureBuffer := 0, "HRESULT")
         return ID3D10ShaderResourceView(ppTextureBuffer)
+    }
+
+    Query(iid) {
+        if (ID3D10EffectConstantBuffer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetConstantBuffer := CallbackCreate(GetMethod(implObj, "SetConstantBuffer"), flags, 2)
+        this.vtbl.GetConstantBuffer := CallbackCreate(GetMethod(implObj, "GetConstantBuffer"), flags, 2)
+        this.vtbl.SetTextureBuffer := CallbackCreate(GetMethod(implObj, "SetTextureBuffer"), flags, 2)
+        this.vtbl.GetTextureBuffer := CallbackCreate(GetMethod(implObj, "GetTextureBuffer"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetConstantBuffer)
+        CallbackFree(this.vtbl.GetConstantBuffer)
+        CallbackFree(this.vtbl.SetTextureBuffer)
+        CallbackFree(this.vtbl.GetTextureBuffer)
     }
 }

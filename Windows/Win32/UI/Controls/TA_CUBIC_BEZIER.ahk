@@ -1,56 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TA_TIMINGFUNCTION.ahk
-#Include .\TA_TIMINGFUNCTION_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TA_TIMINGFUNCTION_TYPE.ahk" { TA_TIMINGFUNCTION_TYPE }
+#Import ".\TA_TIMINGFUNCTION.ahk" { TA_TIMINGFUNCTION }
 
 /**
  * @namespace Windows.Win32.UI.Controls
  */
-class TA_CUBIC_BEZIER extends Win32Struct {
-    static sizeof => 20
+export default struct TA_CUBIC_BEZIER {
+    #StructPack 4
 
-    static packingSize => 4
+    header : TA_TIMINGFUNCTION
 
-    /**
-     * @type {TA_TIMINGFUNCTION}
-     */
-    header {
-        get {
-            if(!this.HasProp("__header"))
-                this.__header := TA_TIMINGFUNCTION(0, this)
-            return this.__header
-        }
-    }
+    rX0 : Float32
 
-    /**
-     * @type {Float}
-     */
-    rX0 {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    rY0 : Float32
 
-    /**
-     * @type {Float}
-     */
-    rY0 {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    rX1 : Float32
 
-    /**
-     * @type {Float}
-     */
-    rX1 {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    rY1 : Float32
 
-    /**
-     * @type {Float}
-     */
-    rY1 {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
 }

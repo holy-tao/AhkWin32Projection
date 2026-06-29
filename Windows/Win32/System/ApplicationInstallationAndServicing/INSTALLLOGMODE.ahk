@@ -1,12 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Logs the data record with the installation action.
- * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienableloga
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
-class INSTALLLOGMODE extends Win32Enum {
+export default struct INSTALLLOGMODE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

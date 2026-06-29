@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Provides information about the PERF_MULTI_COUNTERS block that contains the structure.
@@ -9,26 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_multi_counters
  * @namespace Windows.Win32.System.Performance
  */
-class PERF_MULTI_COUNTERS extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct PERF_MULTI_COUNTERS {
+    #StructPack 4
 
     /**
      * The total size of the <b>PERF_MULTI_COUNTERS</b> block, in bytes. This total size is the sum of the sizes of the <b>PERF_MULTI_COUNTERS</b> structure and all of the performance counter identifiers.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * The number of performance counter identifiers that the <b>PERF_MULTI_COUNTERS</b> block contains.
-     * @type {Integer}
      */
-    dwCounters {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwCounters : UInt32
+
 }

@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class SPVCONTEXT extends Win32Struct {
-    static sizeof => 24
+export default struct SPVCONTEXT {
+    #StructPack 8
 
-    static packingSize => 8
+    pCategory : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pCategory {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pBefore : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pBefore {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pAfter : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pAfter {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

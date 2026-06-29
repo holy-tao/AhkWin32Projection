@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * This section lists the styles, in addition to standard window styles, supported by status bar controls.
  * @see https://learn.microsoft.com/windows/win32/Controls/status-bar-styles
  * @namespace Windows.Win32.Graphics.GdiPlus
  */
-class Status extends Win32Enum {
+export default struct Status {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

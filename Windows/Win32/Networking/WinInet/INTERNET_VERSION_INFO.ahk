@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains the HTTP version number of the server. This structure is used when passing the INTERNET_OPTION_VERSION flag to the InternetQueryOption function.
@@ -9,26 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-internet_version_info
  * @namespace Windows.Win32.Networking.WinInet
  */
-class INTERNET_VERSION_INFO extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct INTERNET_VERSION_INFO {
+    #StructPack 4
 
     /**
      * Major version number.
-     * @type {Integer}
      */
-    dwMajorVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwMajorVersion : UInt32
 
     /**
      * Minor version number.
-     * @type {Integer}
      */
-    dwMinorVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwMinorVersion : UInt32
+
 }

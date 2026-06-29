@@ -1,58 +1,39 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains information to register a cloud backup provider with Windows Server Backup.
  * @see https://learn.microsoft.com/windows/win32/api/wsbonline/ns-wsbonline-wsb_ob_registration_info
  * @namespace Windows.Win32.System.ServerBackup
  */
-class WSB_OB_REGISTRATION_INFO extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct WSB_OB_REGISTRATION_INFO {
+    #StructPack 8
 
     /**
      * The complete path to the resource DLL where the provider name and icon resources can be loaded from.
-     * @type {PWSTR}
      */
-    m_wszResourceDLL {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    m_wszResourceDLL : PWSTR
 
     /**
      * The snap-in identifier of the cloud backup provider to be registered with Windows Server Backup.
-     * @type {Pointer}
      */
-    m_guidSnapinId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    m_guidSnapinId : Guid
 
     /**
      * The resource identifier of the cloud backup provider name. This name will be shown in the Windows Server Backup MMC  snap-in.
-     * @type {Integer}
      */
-    m_dwProviderName {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    m_dwProviderName : UInt32
 
     /**
      * The resource identifier of the cloud backup provider icon. This icon will be shown in the Windows Server Backup MMC snap-in.
-     * @type {Integer}
      */
-    m_dwProviderIcon {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    m_dwProviderIcon : UInt32
 
     /**
      * A flag to indicate whether the cloud backup provider can communicate with a remote cloud backup provider engine.
-     * @type {BOOLEAN}
      */
-    m_bSupportsRemoting {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
-    }
+    m_bSupportsRemoting : BOOLEAN
+
 }

@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IShellItem.ahk" { IShellItem }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposed by a client to specify how to filter the enumeration of a Shell item by a server application.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishellitemfilter
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellItemFilter extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IShellItemFilter extends IUnknown {
     /**
      * The interface identifier for IShellItemFilter
      * @type {Guid}
      */
-    static IID => Guid("{2659b475-eeb8-48b7-8f07-b378810f48cf}")
+    static IID := Guid("{2659b475-eeb8-48b7-8f07-b378810f48cf}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellItemFilter interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        IncludeItem         : IntPtr
+        GetEnumFlagsForItem : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IncludeItem", "GetEnumFlagsForItem"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellItemFilter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets a given Shell item status to inclusion in the view.
@@ -59,5 +69,27 @@ class IShellItemFilter extends IUnknown {
     GetEnumFlagsForItem(psi) {
         result := ComCall(4, this, "ptr", psi, "uint*", &pgrfFlags := 0, "HRESULT")
         return pgrfFlags
+    }
+
+    Query(iid) {
+        if (IShellItemFilter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IncludeItem := CallbackCreate(GetMethod(implObj, "IncludeItem"), flags, 2)
+        this.vtbl.GetEnumFlagsForItem := CallbackCreate(GetMethod(implObj, "GetEnumFlagsForItem"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IncludeItem)
+        CallbackFree(this.vtbl.GetEnumFlagsForItem)
     }
 }

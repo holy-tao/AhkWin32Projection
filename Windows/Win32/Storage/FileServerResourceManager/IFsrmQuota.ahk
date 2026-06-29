@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmQuotaObject.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFsrmQuotaObject.ahk" { IFsrmQuotaObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Used to define a quota for a specified directory and to retrieve use statistics.
@@ -11,26 +12,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nn-fsrmquota-ifsrmquota
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmQuota extends IFsrmQuotaObject {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmQuota extends IFsrmQuotaObject {
     /**
      * The interface identifier for IFsrmQuota
      * @type {Guid}
      */
-    static IID => Guid("{377f739d-9647-4b8e-97d2-5ffce6d759cd}")
+    static IID := Guid("{377f739d-9647-4b8e-97d2-5ffce6d759cd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 28
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmQuota interfaces
+    */
+    struct Vtbl extends IFsrmQuotaObject.Vtbl {
+        get_QuotaUsed          : IntPtr
+        get_QuotaPeakUsage     : IntPtr
+        get_QuotaPeakUsageTime : IntPtr
+        ResetPeakUsage         : IntPtr
+        RefreshUsageProperties : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_QuotaUsed", "get_QuotaPeakUsage", "get_QuotaPeakUsageTime", "ResetPeakUsage", "RefreshUsageProperties"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmQuota.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT} 
@@ -64,7 +76,7 @@ class IFsrmQuota extends IFsrmQuotaObject {
      */
     get_QuotaUsed() {
         used := VARIANT()
-        result := ComCall(28, this, "ptr", used, "HRESULT")
+        result := ComCall(28, this, VARIANT.Ptr, used, "HRESULT")
         return used
     }
 
@@ -79,7 +91,7 @@ class IFsrmQuota extends IFsrmQuotaObject {
      */
     get_QuotaPeakUsage() {
         peakUsage := VARIANT()
-        result := ComCall(29, this, "ptr", peakUsage, "HRESULT")
+        result := ComCall(29, this, VARIANT.Ptr, peakUsage, "HRESULT")
         return peakUsage
     }
 
@@ -117,5 +129,33 @@ class IFsrmQuota extends IFsrmQuotaObject {
     RefreshUsageProperties() {
         result := ComCall(32, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFsrmQuota.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_QuotaUsed := CallbackCreate(GetMethod(implObj, "get_QuotaUsed"), flags, 2)
+        this.vtbl.get_QuotaPeakUsage := CallbackCreate(GetMethod(implObj, "get_QuotaPeakUsage"), flags, 2)
+        this.vtbl.get_QuotaPeakUsageTime := CallbackCreate(GetMethod(implObj, "get_QuotaPeakUsageTime"), flags, 2)
+        this.vtbl.ResetPeakUsage := CallbackCreate(GetMethod(implObj, "ResetPeakUsage"), flags, 1)
+        this.vtbl.RefreshUsageProperties := CallbackCreate(GetMethod(implObj, "RefreshUsageProperties"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_QuotaUsed)
+        CallbackFree(this.vtbl.get_QuotaPeakUsage)
+        CallbackFree(this.vtbl.get_QuotaPeakUsageTime)
+        CallbackFree(this.vtbl.ResetPeakUsage)
+        CallbackFree(this.vtbl.RefreshUsageProperties)
     }
 }

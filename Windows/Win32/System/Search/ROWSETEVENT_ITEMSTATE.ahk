@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes whether an item that matches the search criteria of a rowset is currently in that rowset.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/ne-searchapi-rowsetevent_itemstate
  * @namespace Windows.Win32.System.Search
  */
-class ROWSETEVENT_ITEMSTATE extends Win32Enum {
+export default struct ROWSETEVENT_ITEMSTATE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The item is definitely not in the rowset.

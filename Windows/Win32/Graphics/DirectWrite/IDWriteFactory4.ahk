@@ -1,35 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFactory3.ahk
-#Include .\IDWriteColorGlyphRunEnumerator1.ahk
-#Include ..\Direct2D\Common\D2D_POINT_2F.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
+#Import ".\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
+#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_GLYPH_RUN_DESCRIPTION.ahk" { DWRITE_GLYPH_RUN_DESCRIPTION }
+#Import ".\IDWriteFactory3.ahk" { IDWriteFactory3 }
+#Import ".\DWRITE_GLYPH_IMAGE_FORMATS.ahk" { DWRITE_GLYPH_IMAGE_FORMATS }
+#Import ".\IDWriteColorGlyphRunEnumerator1.ahk" { IDWriteColorGlyphRunEnumerator1 }
+#Import "..\Direct2D\Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
 
 /**
  * The root factory interface for all DirectWrite objects. (IDWriteFactory4)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefactory4
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteFactory4 extends IDWriteFactory3 {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteFactory4 extends IDWriteFactory3 {
     /**
      * The interface identifier for IDWriteFactory4
      * @type {Guid}
      */
-    static IID => Guid("{4b0b5bd3-0797-4549-8ac5-fe915cc53856}")
+    static IID := Guid("{4b0b5bd3-0797-4549-8ac5-fe915cc53856}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 40
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteFactory4 interfaces
+    */
+    struct Vtbl extends IDWriteFactory3.Vtbl {
+        TranslateColorGlyphRun : IntPtr
+        ComputeGlyphOrigins    : IntPtr
+        ComputeGlyphOrigins1   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["TranslateColorGlyphRun", "ComputeGlyphOrigins", "ComputeGlyphOrigins1"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteFactory4.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Translates a glyph run to a sequence of color glyph runs, which can be rendered to produce a color representation of the original &quot;base&quot; run.
@@ -66,7 +81,7 @@ class IDWriteFactory4 extends IDWriteFactory3 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory4-translatecolorglyphrun
      */
     TranslateColorGlyphRun(baselineOrigin, _glyphRun, glyphRunDescription, desiredGlyphImageFormats, measuringMode, worldAndDpiTransform, colorPaletteIndex) {
-        result := ComCall(40, this, "ptr", baselineOrigin, "ptr", _glyphRun, "ptr", glyphRunDescription, "int", desiredGlyphImageFormats, "int", measuringMode, "ptr", worldAndDpiTransform, "uint", colorPaletteIndex, "ptr*", &colorLayers := 0, "HRESULT")
+        result := ComCall(40, this, D2D_POINT_2F, baselineOrigin, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_GLYPH_RUN_DESCRIPTION.Ptr, glyphRunDescription, DWRITE_GLYPH_IMAGE_FORMATS, desiredGlyphImageFormats, DWRITE_MEASURING_MODE, measuringMode, DWRITE_MATRIX.Ptr, worldAndDpiTransform, "uint", colorPaletteIndex, "ptr*", &colorLayers := 0, "HRESULT")
         return IDWriteColorGlyphRunEnumerator1(colorLayers)
     }
 
@@ -87,7 +102,7 @@ class IDWriteFactory4 extends IDWriteFactory3 {
      */
     ComputeGlyphOrigins(_glyphRun, baselineOrigin) {
         glyphOrigins := D2D_POINT_2F()
-        result := ComCall(41, this, "ptr", _glyphRun, "ptr", baselineOrigin, "ptr", glyphOrigins, "HRESULT")
+        result := ComCall(41, this, DWRITE_GLYPH_RUN.Ptr, _glyphRun, D2D_POINT_2F, baselineOrigin, D2D_POINT_2F.Ptr, glyphOrigins, "HRESULT")
         return glyphOrigins
     }
 
@@ -110,7 +125,31 @@ class IDWriteFactory4 extends IDWriteFactory3 {
      */
     ComputeGlyphOrigins1(_glyphRun, measuringMode, baselineOrigin, worldAndDpiTransform) {
         glyphOrigins := D2D_POINT_2F()
-        result := ComCall(42, this, "ptr", _glyphRun, "int", measuringMode, "ptr", baselineOrigin, "ptr", worldAndDpiTransform, "ptr", glyphOrigins, "HRESULT")
+        result := ComCall(42, this, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_MEASURING_MODE, measuringMode, D2D_POINT_2F, baselineOrigin, DWRITE_MATRIX.Ptr, worldAndDpiTransform, D2D_POINT_2F.Ptr, glyphOrigins, "HRESULT")
         return glyphOrigins
+    }
+
+    Query(iid) {
+        if (IDWriteFactory4.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.TranslateColorGlyphRun := CallbackCreate(GetMethod(implObj, "TranslateColorGlyphRun"), flags, 9)
+        this.vtbl.ComputeGlyphOrigins := CallbackCreate(GetMethod(implObj, "ComputeGlyphOrigins"), flags, 4)
+        this.vtbl.ComputeGlyphOrigins1 := CallbackCreate(GetMethod(implObj, "ComputeGlyphOrigins1"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.TranslateColorGlyphRun)
+        CallbackFree(this.vtbl.ComputeGlyphOrigins)
+        CallbackFree(this.vtbl.ComputeGlyphOrigins1)
     }
 }

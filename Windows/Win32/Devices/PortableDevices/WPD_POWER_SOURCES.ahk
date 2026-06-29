@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The WPD\_POWER\_SOURCES enumeration type describes the power source that a device is using.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-power-sources
  * @namespace Windows.Win32.Devices.PortableDevices
  */
-class WPD_POWER_SOURCES extends Win32Enum {
+export default struct WPD_POWER_SOURCES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

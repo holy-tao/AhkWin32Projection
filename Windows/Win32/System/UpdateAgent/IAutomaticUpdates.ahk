@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IAutomaticUpdatesSettings.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IAutomaticUpdatesSettings.ahk" { IAutomaticUpdatesSettings }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Contains the functionality of Automatic Updates. (IAutomaticUpdates)
@@ -11,32 +13,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iautomaticupdates
  * @namespace Windows.Win32.System.UpdateAgent
  */
-class IAutomaticUpdates extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IAutomaticUpdates extends IDispatch {
     /**
      * The interface identifier for IAutomaticUpdates
      * @type {Guid}
      */
-    static IID => Guid("{673425bf-c082-4c7c-bdfd-569464b8e0ce}")
+    static IID := Guid("{673425bf-c082-4c7c-bdfd-569464b8e0ce}")
 
     /**
      * The class identifier for AutomaticUpdates
      * @type {Guid}
      */
-    static CLSID => Guid("{bfe18e9c-6d87-4450-b37c-e02f0b373803}")
+    static CLSID := Guid("{bfe18e9c-6d87-4450-b37c-e02f0b373803}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAutomaticUpdates interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        DetectNow          : IntPtr
+        Pause              : IntPtr
+        Resume             : IntPtr
+        ShowSettingsDialog : IntPtr
+        get_Settings       : IntPtr
+        get_ServiceEnabled : IntPtr
+        EnableService      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["DetectNow", "Pause", "Resume", "ShowSettingsDialog", "get_Settings", "get_ServiceEnabled", "EnableService"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAutomaticUpdates.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IAutomaticUpdatesSettings} 
@@ -379,7 +394,7 @@ class IAutomaticUpdates extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdates-get_serviceenabled
      */
     get_ServiceEnabled() {
-        result := ComCall(12, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -452,5 +467,37 @@ class IAutomaticUpdates extends IDispatch {
     EnableService() {
         result := ComCall(13, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAutomaticUpdates.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.DetectNow := CallbackCreate(GetMethod(implObj, "DetectNow"), flags, 1)
+        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.ShowSettingsDialog := CallbackCreate(GetMethod(implObj, "ShowSettingsDialog"), flags, 1)
+        this.vtbl.get_Settings := CallbackCreate(GetMethod(implObj, "get_Settings"), flags, 2)
+        this.vtbl.get_ServiceEnabled := CallbackCreate(GetMethod(implObj, "get_ServiceEnabled"), flags, 2)
+        this.vtbl.EnableService := CallbackCreate(GetMethod(implObj, "EnableService"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.DetectNow)
+        CallbackFree(this.vtbl.Pause)
+        CallbackFree(this.vtbl.Resume)
+        CallbackFree(this.vtbl.ShowSettingsDialog)
+        CallbackFree(this.vtbl.get_Settings)
+        CallbackFree(this.vtbl.get_ServiceEnabled)
+        CallbackFree(this.vtbl.EnableService)
     }
 }

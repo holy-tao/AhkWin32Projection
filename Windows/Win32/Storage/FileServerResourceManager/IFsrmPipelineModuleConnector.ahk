@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IFsrmPipelineModuleImplementation.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IFsrmPipelineModuleDefinition.ahk" { IFsrmPipelineModuleDefinition }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFsrmPipelineModuleImplementation.ahk" { IFsrmPipelineModuleImplementation }
 
 /**
  * Creates the communication channel between FSRM and your pipeline module implementation.
@@ -26,32 +28,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nn-fsrmpipeline-ifsrmpipelinemoduleconnector
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmPipelineModuleConnector extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmPipelineModuleConnector extends IDispatch {
     /**
      * The interface identifier for IFsrmPipelineModuleConnector
      * @type {Guid}
      */
-    static IID => Guid("{c16014f3-9aa1-46b3-b0a7-ab146eb205f2}")
+    static IID := Guid("{c16014f3-9aa1-46b3-b0a7-ab146eb205f2}")
 
     /**
      * The class identifier for FsrmPipelineModuleConnector
      * @type {Guid}
      */
-    static CLSID => Guid("{c7643375-1eb5-44de-a062-623547d933bc}")
+    static CLSID := Guid("{c7643375-1eb5-44de-a062-623547d933bc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmPipelineModuleConnector interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_ModuleImplementation : IntPtr
+        get_ModuleName           : IntPtr
+        get_HostingUserAccount   : IntPtr
+        get_HostingProcessPid    : IntPtr
+        Bind                     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ModuleImplementation", "get_ModuleName", "get_HostingUserAccount", "get_HostingProcessPid", "Bind"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmPipelineModuleConnector.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IFsrmPipelineModuleImplementation} 
@@ -97,8 +110,8 @@ class IFsrmPipelineModuleConnector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-get_modulename
      */
     get_ModuleName() {
-        userName := BSTR()
-        result := ComCall(8, this, "ptr", userName, "HRESULT")
+        userName := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, userName, "HRESULT")
         return userName
     }
 
@@ -108,8 +121,8 @@ class IFsrmPipelineModuleConnector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-get_hostinguseraccount
      */
     get_HostingUserAccount() {
-        userAccount := BSTR()
-        result := ComCall(9, this, "ptr", userAccount, "HRESULT")
+        userAccount := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, userAccount, "HRESULT")
         return userAccount
     }
 
@@ -135,5 +148,33 @@ class IFsrmPipelineModuleConnector extends IDispatch {
     Bind(moduleDefinition, moduleImplementation) {
         result := ComCall(11, this, "ptr", moduleDefinition, "ptr", moduleImplementation, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFsrmPipelineModuleConnector.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ModuleImplementation := CallbackCreate(GetMethod(implObj, "get_ModuleImplementation"), flags, 2)
+        this.vtbl.get_ModuleName := CallbackCreate(GetMethod(implObj, "get_ModuleName"), flags, 2)
+        this.vtbl.get_HostingUserAccount := CallbackCreate(GetMethod(implObj, "get_HostingUserAccount"), flags, 2)
+        this.vtbl.get_HostingProcessPid := CallbackCreate(GetMethod(implObj, "get_HostingProcessPid"), flags, 2)
+        this.vtbl.Bind := CallbackCreate(GetMethod(implObj, "Bind"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ModuleImplementation)
+        CallbackFree(this.vtbl.get_ModuleName)
+        CallbackFree(this.vtbl.get_HostingUserAccount)
+        CallbackFree(this.vtbl.get_HostingProcessPid)
+        CallbackFree(this.vtbl.Bind)
     }
 }

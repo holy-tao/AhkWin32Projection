@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IAction.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IAction.ahk" { IAction }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents an action that executes a command-line operation.
@@ -14,26 +16,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-iexecaction
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class IExecAction extends IAction {
-
-    static sizeof => A_PtrSize
+export default struct IExecAction extends IAction {
     /**
      * The interface identifier for IExecAction
      * @type {Guid}
      */
-    static IID => Guid("{4c3d624d-fd6b-49a3-b9b7-09cb3cd3f047}")
+    static IID := Guid("{4c3d624d-fd6b-49a3-b9b7-09cb3cd3f047}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 10
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IExecAction interfaces
+    */
+    struct Vtbl extends IAction.Vtbl {
+        get_Path             : IntPtr
+        put_Path             : IntPtr
+        get_Arguments        : IntPtr
+        put_Arguments        : IntPtr
+        get_WorkingDirectory : IntPtr
+        put_WorkingDirectory : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Path", "put_Path", "get_Arguments", "put_Arguments", "get_WorkingDirectory", "put_WorkingDirectory"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IExecAction.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -72,7 +86,7 @@ class IExecAction extends IAction {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iexecaction-get_path
      */
     get_Path(pPath) {
-        result := ComCall(10, this, "ptr", pPath, "HRESULT")
+        result := ComCall(10, this, BSTR.Ptr, pPath, "HRESULT")
         return result
     }
 
@@ -91,7 +105,7 @@ class IExecAction extends IAction {
     put_Path(_path) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(11, this, "ptr", _path, "HRESULT")
+        result := ComCall(11, this, BSTR, _path, "HRESULT")
         return result
     }
 
@@ -104,7 +118,7 @@ class IExecAction extends IAction {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iexecaction-get_arguments
      */
     get_Arguments(pArgument) {
-        result := ComCall(12, this, "ptr", pArgument, "HRESULT")
+        result := ComCall(12, this, BSTR.Ptr, pArgument, "HRESULT")
         return result
     }
 
@@ -119,7 +133,7 @@ class IExecAction extends IAction {
     put_Arguments(argument) {
         argument := argument is String ? BSTR.Alloc(argument).Value : argument
 
-        result := ComCall(13, this, "ptr", argument, "HRESULT")
+        result := ComCall(13, this, BSTR, argument, "HRESULT")
         return result
     }
 
@@ -134,7 +148,7 @@ class IExecAction extends IAction {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iexecaction-get_workingdirectory
      */
     get_WorkingDirectory(pWorkingDirectory) {
-        result := ComCall(14, this, "ptr", pWorkingDirectory, "HRESULT")
+        result := ComCall(14, this, BSTR.Ptr, pWorkingDirectory, "HRESULT")
         return result
     }
 
@@ -151,7 +165,37 @@ class IExecAction extends IAction {
     put_WorkingDirectory(workingDirectory) {
         workingDirectory := workingDirectory is String ? BSTR.Alloc(workingDirectory).Value : workingDirectory
 
-        result := ComCall(15, this, "ptr", workingDirectory, "HRESULT")
+        result := ComCall(15, this, BSTR, workingDirectory, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IExecAction.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.put_Path := CallbackCreate(GetMethod(implObj, "put_Path"), flags, 2)
+        this.vtbl.get_Arguments := CallbackCreate(GetMethod(implObj, "get_Arguments"), flags, 2)
+        this.vtbl.put_Arguments := CallbackCreate(GetMethod(implObj, "put_Arguments"), flags, 2)
+        this.vtbl.get_WorkingDirectory := CallbackCreate(GetMethod(implObj, "get_WorkingDirectory"), flags, 2)
+        this.vtbl.put_WorkingDirectory := CallbackCreate(GetMethod(implObj, "put_WorkingDirectory"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Path)
+        CallbackFree(this.vtbl.put_Path)
+        CallbackFree(this.vtbl.get_Arguments)
+        CallbackFree(this.vtbl.put_Arguments)
+        CallbackFree(this.vtbl.get_WorkingDirectory)
+        CallbackFree(this.vtbl.put_WorkingDirectory)
     }
 }

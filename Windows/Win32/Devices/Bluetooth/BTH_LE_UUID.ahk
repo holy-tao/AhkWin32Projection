@@ -1,55 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The BTH_LE_UUID structure contains information about a Bluetooth Low Energy (LE) Universally Unique Identifier (UUID).
  * @see https://learn.microsoft.com/windows/win32/api/bthledef/ns-bthledef-bth_le_uuid
  * @namespace Windows.Win32.Devices.Bluetooth
  */
-class BTH_LE_UUID extends Win32Struct {
-    static sizeof => 16
+export default struct BTH_LE_UUID {
+    #StructPack 4
 
-    static packingSize => 8
 
-    class _Value_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _Value {
+        ShortUuid : UInt16
 
-        /**
-         * @type {Integer}
-         */
-        ShortUuid {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        LongUuid {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'LongUuid', { type: Guid, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
     /**
      * Indicates if the Low Energy (LE) UUID a 16-bit shortened value, or if it is the long 128-bit value.
-     * @type {BOOLEAN}
      */
-    IsShortUuid {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    IsShortUuid : BOOLEAN
 
     /**
      * The value of the UUID.
-     * @type {_Value_e__Union}
      */
-    Value {
-        get {
-            if(!this.HasProp("__Value"))
-                this.__Value := BTH_LE_UUID._Value_e__Union(8, this)
-            return this.__Value
-        }
-    }
+    Value : BTH_LE_UUID._Value
+
 }

@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IAMNetworkStatus interface reports the quality of the network connection for the legacy Windows Media Player 6.4 source filter.
@@ -12,26 +14,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nn-qnetwork-iamnetworkstatus
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAMNetworkStatus extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IAMNetworkStatus extends IDispatch {
     /**
      * The interface identifier for IAMNetworkStatus
      * @type {Guid}
      */
-    static IID => Guid("{fa2aa8f3-8b62-11d0-a520-000000000000}")
+    static IID := Guid("{fa2aa8f3-8b62-11d0-a520-000000000000}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAMNetworkStatus interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_ReceivedPackets   : IntPtr
+        get_RecoveredPackets  : IntPtr
+        get_LostPackets       : IntPtr
+        get_ReceptionQuality  : IntPtr
+        get_BufferingCount    : IntPtr
+        get_IsBroadcast       : IntPtr
+        get_BufferingProgress : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ReceivedPackets", "get_RecoveredPackets", "get_LostPackets", "get_ReceptionQuality", "get_BufferingCount", "get_IsBroadcast", "get_BufferingProgress"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAMNetworkStatus.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      */
@@ -170,5 +185,37 @@ class IAMNetworkStatus extends IDispatch {
 
         result := ComCall(13, this, pBufferingProgressMarshal, pBufferingProgress, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAMNetworkStatus.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ReceivedPackets := CallbackCreate(GetMethod(implObj, "get_ReceivedPackets"), flags, 2)
+        this.vtbl.get_RecoveredPackets := CallbackCreate(GetMethod(implObj, "get_RecoveredPackets"), flags, 2)
+        this.vtbl.get_LostPackets := CallbackCreate(GetMethod(implObj, "get_LostPackets"), flags, 2)
+        this.vtbl.get_ReceptionQuality := CallbackCreate(GetMethod(implObj, "get_ReceptionQuality"), flags, 2)
+        this.vtbl.get_BufferingCount := CallbackCreate(GetMethod(implObj, "get_BufferingCount"), flags, 2)
+        this.vtbl.get_IsBroadcast := CallbackCreate(GetMethod(implObj, "get_IsBroadcast"), flags, 2)
+        this.vtbl.get_BufferingProgress := CallbackCreate(GetMethod(implObj, "get_BufferingProgress"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ReceivedPackets)
+        CallbackFree(this.vtbl.get_RecoveredPackets)
+        CallbackFree(this.vtbl.get_LostPackets)
+        CallbackFree(this.vtbl.get_ReceptionQuality)
+        CallbackFree(this.vtbl.get_BufferingCount)
+        CallbackFree(this.vtbl.get_IsBroadcast)
+        CallbackFree(this.vtbl.get_BufferingProgress)
     }
 }

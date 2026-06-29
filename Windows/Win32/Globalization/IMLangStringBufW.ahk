@@ -1,32 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\Guid.ahk
-#Include ..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
+#Import "..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Globalization
  * @charset Unicode
  */
-class IMLangStringBufW extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMLangStringBufW extends IUnknown {
     /**
      * The interface identifier for IMLangStringBufW
      * @type {Guid}
      */
-    static IID => Guid("{d24acd21-ba72-11d0-b188-00aa0038c969}")
+    static IID := Guid("{d24acd21-ba72-11d0-b188-00aa0038c969}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMLangStringBufW interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetStatus : IntPtr
+        LockBuf   : IntPtr
+        UnlockBuf : IntPtr
+        Insert    : IntPtr
+        Delete    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetStatus", "LockBuf", "UnlockBuf", "Insert", "Delete"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMLangStringBufW.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -73,11 +86,10 @@ class IMLangStringBufW extends IUnknown {
     }
 
     /**
-     * Inserts a file into the cache.
+     * 
      * @param {Integer} cchOffset 
      * @param {Integer} cchMaxInsert 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/filehc/nf-filehc-insertfile
      */
     Insert(cchOffset, cchMaxInsert) {
         result := ComCall(6, this, "int", cchOffset, "int", cchMaxInsert, "int*", &pcchActual := 0, "HRESULT")
@@ -85,22 +97,41 @@ class IMLangStringBufW extends IUnknown {
     }
 
     /**
-     * Deletes an access control entry (ACE) from an access control list (ACL).
-     * @remarks
-     * An application can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl_size_information">ACL_SIZE_INFORMATION</a> structure retrieved by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getaclinformation">GetAclInformation</a> function to discover the size of the ACL and the number of ACEs it contains. The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getace">GetAce</a> function retrieves information about an individual ACE.
+     * 
      * @param {Integer} cchOffset 
      * @param {Integer} cchDelete 
-     * @returns {HRESULT} If the function succeeds, the function returns nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-deleteace
+     * @returns {HRESULT} 
      */
     Delete(cchOffset, cchDelete) {
         result := ComCall(7, this, "int", cchOffset, "int", cchDelete, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMLangStringBufW.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 3)
+        this.vtbl.LockBuf := CallbackCreate(GetMethod(implObj, "LockBuf"), flags, 5)
+        this.vtbl.UnlockBuf := CallbackCreate(GetMethod(implObj, "UnlockBuf"), flags, 4)
+        this.vtbl.Insert := CallbackCreate(GetMethod(implObj, "Insert"), flags, 4)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetStatus)
+        CallbackFree(this.vtbl.LockBuf)
+        CallbackFree(this.vtbl.UnlockBuf)
+        CallbackFree(this.vtbl.Insert)
+        CallbackFree(this.vtbl.Delete)
     }
 }

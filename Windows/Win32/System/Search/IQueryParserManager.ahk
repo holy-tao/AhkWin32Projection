@@ -1,7 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IQueryParser.ahk" { IQueryParser }
+#Import ".\QUERY_PARSER_MANAGER_OPTION.ahk" { QUERY_PARSER_MANAGER_OPTION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods to create, initialize, and change options for an IQueryParser object.
@@ -10,32 +16,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nn-structuredquery-iqueryparsermanager
  * @namespace Windows.Win32.System.Search
  */
-class IQueryParserManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IQueryParserManager extends IUnknown {
     /**
      * The interface identifier for IQueryParserManager
      * @type {Guid}
      */
-    static IID => Guid("{a879e3c4-af77-44fb-8f37-ebd1487cf920}")
+    static IID := Guid("{a879e3c4-af77-44fb-8f37-ebd1487cf920}")
 
     /**
      * The class identifier for QueryParserManager
      * @type {Guid}
      */
-    static CLSID => Guid("{5088b39a-29b4-4d9d-8245-4ee289222f66}")
+    static CLSID := Guid("{5088b39a-29b4-4d9d-8245-4ee289222f66}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IQueryParserManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateLoadedParser : IntPtr
+        InitializeOptions  : IntPtr
+        SetOption          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateLoadedParser", "InitializeOptions", "SetOption"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IQueryParserManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a new instance of a IQueryParser interface implementation. This instance of the query parser is loaded with the schema for the specified catalog and is localized to a specified language. All other settings are initialized to default settings.
@@ -58,7 +73,7 @@ class IQueryParserManager extends IUnknown {
     CreateLoadedParser(pszCatalog, langidForKeywords, riid) {
         pszCatalog := pszCatalog is String ? StrPtr(pszCatalog) : pszCatalog
 
-        result := ComCall(3, this, "ptr", pszCatalog, "ushort", langidForKeywords, "ptr", riid, "ptr*", &ppQueryParser := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pszCatalog, "ushort", langidForKeywords, Guid.Ptr, riid, "ptr*", &ppQueryParser := 0, "HRESULT")
         return ppQueryParser
     }
 
@@ -79,7 +94,7 @@ class IQueryParserManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iqueryparsermanager-initializeoptions
      */
     InitializeOptions(fUnderstandNQS, fAutoWildCard, pQueryParser) {
-        result := ComCall(4, this, "int", fUnderstandNQS, "int", fAutoWildCard, "ptr", pQueryParser, "HRESULT")
+        result := ComCall(4, this, BOOL, fUnderstandNQS, BOOL, fAutoWildCard, "ptr", pQueryParser, "HRESULT")
         return result
     }
 
@@ -97,7 +112,31 @@ class IQueryParserManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iqueryparsermanager-setoption
      */
     SetOption(option, pOptionValue) {
-        result := ComCall(5, this, "int", option, "ptr", pOptionValue, "HRESULT")
+        result := ComCall(5, this, QUERY_PARSER_MANAGER_OPTION, option, PROPVARIANT.Ptr, pOptionValue, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IQueryParserManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateLoadedParser := CallbackCreate(GetMethod(implObj, "CreateLoadedParser"), flags, 5)
+        this.vtbl.InitializeOptions := CallbackCreate(GetMethod(implObj, "InitializeOptions"), flags, 4)
+        this.vtbl.SetOption := CallbackCreate(GetMethod(implObj, "SetOption"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateLoadedParser)
+        CallbackFree(this.vtbl.InitializeOptions)
+        CallbackFree(this.vtbl.SetOption)
     }
 }

@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IXpsOMPackageWriter.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
+#Import ".\IXpsOMPackageWriter.ahk" { IXpsOMPackageWriter }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsOMPrintTicketResource.ahk" { IXpsOMPrintTicketResource }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides the method to create an IXpsOMPackageWriter that can be used by a print job that was created by the StartXpsPrintJob1 function.
@@ -15,26 +18,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompackagetarget
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMPackageTarget extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMPackageTarget extends IUnknown {
     /**
      * The interface identifier for IXpsOMPackageTarget
      * @type {Guid}
      */
-    static IID => Guid("{219a9db0-4959-47d0-8034-b1ce84f41a4d}")
+    static IID := Guid("{219a9db0-4959-47d0-8034-b1ce84f41a4d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMPackageTarget interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateXpsOMPackageWriter : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateXpsOMPackageWriter"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMPackageTarget.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Create an IXpsOMPackageWriter interface for use with a print job that the StartXpsPrintJob1 function created.
@@ -47,5 +57,25 @@ class IXpsOMPackageTarget extends IUnknown {
     CreateXpsOMPackageWriter(documentSequencePartName, documentSequencePrintTicket, discardControlPartName) {
         result := ComCall(3, this, "ptr", documentSequencePartName, "ptr", documentSequencePrintTicket, "ptr", discardControlPartName, "ptr*", &packageWriter := 0, "HRESULT")
         return IXpsOMPackageWriter(packageWriter)
+    }
+
+    Query(iid) {
+        if (IXpsOMPackageTarget.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateXpsOMPackageWriter := CallbackCreate(GetMethod(implObj, "CreateXpsOMPackageWriter"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateXpsOMPackageWriter)
     }
 }

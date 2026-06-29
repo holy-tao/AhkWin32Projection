@@ -1,34 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDirectXVideoAccelerationService.ahk
-#Include .\IDirectXVideoDecoder.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXVA2_VideoDesc.ahk" { DXVA2_VideoDesc }
+#Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
+#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
+#Import ".\DXVA2_ConfigPictureDecode.ahk" { DXVA2_ConfigPictureDecode }
+#Import ".\IDirectXVideoAccelerationService.ahk" { IDirectXVideoAccelerationService }
+#Import ".\IDirectXVideoDecoder.ahk" { IDirectXVideoDecoder }
 
 /**
  * Provides access to DirectX Video Acceleration (DXVA) decoder services.
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nn-dxva2api-idirectxvideodecoderservice
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IDirectXVideoDecoderService extends IDirectXVideoAccelerationService {
-
-    static sizeof => A_PtrSize
+export default struct IDirectXVideoDecoderService extends IDirectXVideoAccelerationService {
     /**
      * The interface identifier for IDirectXVideoDecoderService
      * @type {Guid}
      */
-    static IID => Guid("{fc51a551-d5e7-11d9-af55-00054e43ff02}")
+    static IID := Guid("{fc51a551-d5e7-11d9-af55-00054e43ff02}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectXVideoDecoderService interfaces
+    */
+    struct Vtbl extends IDirectXVideoAccelerationService.Vtbl {
+        GetDecoderDeviceGuids    : IntPtr
+        GetDecoderRenderTargets  : IntPtr
+        GetDecoderConfigurations : IntPtr
+        CreateVideoDecoder       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDecoderDeviceGuids", "GetDecoderRenderTargets", "GetDecoderConfigurations", "CreateVideoDecoder"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectXVideoDecoderService.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves an array of GUIDs that identifies the decoder devices supported by the graphics hardware.
@@ -204,7 +219,7 @@ class IDirectXVideoDecoderService extends IDirectXVideoAccelerationService {
         pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
         pFormatsMarshal := pFormats is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", Guid, pCountMarshal, pCount, pFormatsMarshal, pFormats, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, Guid, pCountMarshal, pCount, pFormatsMarshal, pFormats, "HRESULT")
         return result
     }
 
@@ -223,7 +238,7 @@ class IDirectXVideoDecoderService extends IDirectXVideoAccelerationService {
         pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
         ppConfigsMarshal := ppConfigs is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", Guid, "ptr", pVideoDesc, "ptr", pReserved, pCountMarshal, pCount, ppConfigsMarshal, ppConfigs, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, Guid, DXVA2_VideoDesc.Ptr, pVideoDesc, "ptr", pReserved, pCountMarshal, pCount, ppConfigsMarshal, ppConfigs, "HRESULT")
         return result
     }
 
@@ -238,7 +253,33 @@ class IDirectXVideoDecoderService extends IDirectXVideoAccelerationService {
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideodecoderservice-createvideodecoder
      */
     CreateVideoDecoder(Guid, pVideoDesc, pConfig, ppDecoderRenderTargets, NumRenderTargets) {
-        result := ComCall(7, this, "ptr", Guid, "ptr", pVideoDesc, "ptr", pConfig, "ptr*", ppDecoderRenderTargets, "uint", NumRenderTargets, "ptr*", &ppDecode := 0, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, Guid, DXVA2_VideoDesc.Ptr, pVideoDesc, DXVA2_ConfigPictureDecode.Ptr, pConfig, IDirect3DSurface9.Ptr, ppDecoderRenderTargets, "uint", NumRenderTargets, "ptr*", &ppDecode := 0, "HRESULT")
         return IDirectXVideoDecoder(ppDecode)
+    }
+
+    Query(iid) {
+        if (IDirectXVideoDecoderService.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDecoderDeviceGuids := CallbackCreate(GetMethod(implObj, "GetDecoderDeviceGuids"), flags, 3)
+        this.vtbl.GetDecoderRenderTargets := CallbackCreate(GetMethod(implObj, "GetDecoderRenderTargets"), flags, 4)
+        this.vtbl.GetDecoderConfigurations := CallbackCreate(GetMethod(implObj, "GetDecoderConfigurations"), flags, 6)
+        this.vtbl.CreateVideoDecoder := CallbackCreate(GetMethod(implObj, "CreateVideoDecoder"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDecoderDeviceGuids)
+        CallbackFree(this.vtbl.GetDecoderRenderTargets)
+        CallbackFree(this.vtbl.GetDecoderConfigurations)
+        CallbackFree(this.vtbl.CreateVideoDecoder)
     }
 }

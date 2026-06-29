@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes buffer requirements for an FFT.
@@ -16,60 +15,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/ns-d3dcsx-d3dx11_fft_buffer_info
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3DX11_FFT_BUFFER_INFO extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 4
+export default struct D3DX11_FFT_BUFFER_INFO {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Number of temporary buffers needed. 
      *             Allowed range is 0 to <b>D3DX11_FFT_MAX_TEMP_BUFFERS</b>.
-     * @type {Integer}
      */
-    NumTempBufferSizes {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumTempBufferSizes : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>[D3DX11_FFT_MAX_TEMP_BUFFERS]</b>
      * 
      * Minimum sizes (in FLOATs) of temporary buffers.
-     * @type {Array<Integer>}
      */
-    TempBufferFloatSizes {
-        get {
-            if(!this.HasProp("__TempBufferFloatSizesProxyArray"))
-                this.__TempBufferFloatSizesProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
-            return this.__TempBufferFloatSizesProxyArray
-        }
-    }
+    TempBufferFloatSizes : UInt32[4]
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Number of precompute buffers required.  
      *             Allowed range is 0 to <b>D3DX11_FFT_MAX_PRECOMPUTE_BUFFERS</b>.
-     * @type {Integer}
      */
-    NumPrecomputeBufferSizes {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    NumPrecomputeBufferSizes : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>[D3DX11_FFT_MAX_PRECOMPUTE_BUFFERS]</b>
      * 
      * Minimum sizes (in FLOATs) for precompute buffers.
-     * @type {Array<Integer>}
      */
-    PrecomputeBufferFloatSizes {
-        get {
-            if(!this.HasProp("__PrecomputeBufferFloatSizesProxyArray"))
-                this.__PrecomputeBufferFloatSizesProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "uint")
-            return this.__PrecomputeBufferFloatSizesProxyArray
-        }
-    }
+    PrecomputeBufferFloatSizes : UInt32[4]
+
 }

@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWbemObjectAccess.ahk" { IWbemObjectAccess }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Used in refresher operations to provide rapid access to enumerations of instance objects.
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemhiperfenum
  * @namespace Windows.Win32.System.Wmi
  */
-class IWbemHiPerfEnum extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWbemHiPerfEnum extends IUnknown {
     /**
      * The interface identifier for IWbemHiPerfEnum
      * @type {Guid}
      */
-    static IID => Guid("{2705c288-79ae-11d2-b348-00105a1f8177}")
+    static IID := Guid("{2705c288-79ae-11d2-b348-00105a1f8177}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWbemHiPerfEnum interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddObjects    : IntPtr
+        RemoveObjects : IntPtr
+        GetObjects    : IntPtr
+        RemoveAll     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddObjects", "RemoveObjects", "GetObjects", "RemoveAll"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWbemHiPerfEnum.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IWbemHiPerfEnum::AddObjects method adds the supplied instance objects to the enumerator.
@@ -43,7 +55,7 @@ class IWbemHiPerfEnum extends IUnknown {
     AddObjects(lFlags, uNumObjects, apIds, apObj) {
         apIdsMarshal := apIds is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "int", lFlags, "uint", uNumObjects, apIdsMarshal, apIds, "ptr*", apObj, "HRESULT")
+        result := ComCall(3, this, "int", lFlags, "uint", uNumObjects, apIdsMarshal, apIds, IWbemObjectAccess.Ptr, apObj, "HRESULT")
         return result
     }
 
@@ -77,7 +89,7 @@ class IWbemHiPerfEnum extends IUnknown {
     GetObjects(lFlags, uNumObjects, apObj, puReturned) {
         puReturnedMarshal := puReturned is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "int", lFlags, "uint", uNumObjects, "ptr*", apObj, puReturnedMarshal, puReturned, "HRESULT")
+        result := ComCall(5, this, "int", lFlags, "uint", uNumObjects, IWbemObjectAccess.Ptr, apObj, puReturnedMarshal, puReturned, "HRESULT")
         return result
     }
 
@@ -90,5 +102,31 @@ class IWbemHiPerfEnum extends IUnknown {
     RemoveAll(lFlags) {
         result := ComCall(6, this, "int", lFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWbemHiPerfEnum.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddObjects := CallbackCreate(GetMethod(implObj, "AddObjects"), flags, 5)
+        this.vtbl.RemoveObjects := CallbackCreate(GetMethod(implObj, "RemoveObjects"), flags, 4)
+        this.vtbl.GetObjects := CallbackCreate(GetMethod(implObj, "GetObjects"), flags, 5)
+        this.vtbl.RemoveAll := CallbackCreate(GetMethod(implObj, "RemoveAll"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddObjects)
+        CallbackFree(this.vtbl.RemoveObjects)
+        CallbackFree(this.vtbl.GetObjects)
+        CallbackFree(this.vtbl.RemoveAll)
     }
 }

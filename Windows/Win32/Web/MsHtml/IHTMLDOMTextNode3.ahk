@@ -1,33 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IHTMLDOMNode.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IHTMLDOMNode.ahk" { IHTMLDOMNode }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLDOMTextNode3 extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLDOMTextNode3 extends IDispatch {
     /**
      * The interface identifier for IHTMLDOMTextNode3
      * @type {Guid}
      */
-    static IID => Guid("{3051073e-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3051073e-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLDOMTextNode3 interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        substringData    : IntPtr
+        insertData       : IntPtr
+        deleteData       : IntPtr
+        replaceData      : IntPtr
+        splitText        : IntPtr
+        get_wholeText    : IntPtr
+        replaceWholeText : IntPtr
+        hasAttributes    : IntPtr
+        normalize        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["substringData", "insertData", "deleteData", "replaceData", "splitText", "get_wholeText", "replaceWholeText", "hasAttributes", "normalize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLDOMTextNode3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -43,8 +60,8 @@ class IHTMLDOMTextNode3 extends IDispatch {
      * @returns {BSTR} 
      */
     substringData(offset, Count) {
-        pbstrsubString := BSTR()
-        result := ComCall(7, this, "int", offset, "int", Count, "ptr", pbstrsubString, "HRESULT")
+        pbstrsubString := BSTR.Owned()
+        result := ComCall(7, this, "int", offset, "int", Count, BSTR.Ptr, pbstrsubString, "HRESULT")
         return pbstrsubString
     }
 
@@ -57,7 +74,7 @@ class IHTMLDOMTextNode3 extends IDispatch {
     insertData(offset, bstrstring) {
         bstrstring := bstrstring is String ? BSTR.Alloc(bstrstring).Value : bstrstring
 
-        result := ComCall(8, this, "int", offset, "ptr", bstrstring, "HRESULT")
+        result := ComCall(8, this, "int", offset, BSTR, bstrstring, "HRESULT")
         return result
     }
 
@@ -82,7 +99,7 @@ class IHTMLDOMTextNode3 extends IDispatch {
     replaceData(offset, Count, bstrstring) {
         bstrstring := bstrstring is String ? BSTR.Alloc(bstrstring).Value : bstrstring
 
-        result := ComCall(10, this, "int", offset, "int", Count, "ptr", bstrstring, "HRESULT")
+        result := ComCall(10, this, "int", offset, "int", Count, BSTR, bstrstring, "HRESULT")
         return result
     }
 
@@ -101,8 +118,8 @@ class IHTMLDOMTextNode3 extends IDispatch {
      * @returns {BSTR} 
      */
     get_wholeText() {
-        p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -114,7 +131,7 @@ class IHTMLDOMTextNode3 extends IDispatch {
     replaceWholeText(bstrText) {
         bstrText := bstrText is String ? BSTR.Alloc(bstrText).Value : bstrText
 
-        result := ComCall(13, this, "ptr", bstrText, "ptr*", &ppRetNode := 0, "HRESULT")
+        result := ComCall(13, this, BSTR, bstrText, "ptr*", &ppRetNode := 0, "HRESULT")
         return IHTMLDOMNode(ppRetNode)
     }
 
@@ -123,7 +140,7 @@ class IHTMLDOMTextNode3 extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     hasAttributes() {
-        result := ComCall(14, this, "short*", &pfHasAttributes := 0, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL.Ptr, &pfHasAttributes := 0, "HRESULT")
         return pfHasAttributes
     }
 
@@ -146,5 +163,41 @@ class IHTMLDOMTextNode3 extends IDispatch {
     normalize() {
         result := ComCall(15, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IHTMLDOMTextNode3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.substringData := CallbackCreate(GetMethod(implObj, "substringData"), flags, 4)
+        this.vtbl.insertData := CallbackCreate(GetMethod(implObj, "insertData"), flags, 3)
+        this.vtbl.deleteData := CallbackCreate(GetMethod(implObj, "deleteData"), flags, 3)
+        this.vtbl.replaceData := CallbackCreate(GetMethod(implObj, "replaceData"), flags, 4)
+        this.vtbl.splitText := CallbackCreate(GetMethod(implObj, "splitText"), flags, 3)
+        this.vtbl.get_wholeText := CallbackCreate(GetMethod(implObj, "get_wholeText"), flags, 2)
+        this.vtbl.replaceWholeText := CallbackCreate(GetMethod(implObj, "replaceWholeText"), flags, 3)
+        this.vtbl.hasAttributes := CallbackCreate(GetMethod(implObj, "hasAttributes"), flags, 2)
+        this.vtbl.normalize := CallbackCreate(GetMethod(implObj, "normalize"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.substringData)
+        CallbackFree(this.vtbl.insertData)
+        CallbackFree(this.vtbl.deleteData)
+        CallbackFree(this.vtbl.replaceData)
+        CallbackFree(this.vtbl.splitText)
+        CallbackFree(this.vtbl.get_wholeText)
+        CallbackFree(this.vtbl.replaceWholeText)
+        CallbackFree(this.vtbl.hasAttributes)
+        CallbackFree(this.vtbl.normalize)
     }
 }

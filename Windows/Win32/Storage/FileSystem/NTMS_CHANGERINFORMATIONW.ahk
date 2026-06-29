@@ -1,5 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The NTMS_CHANGERINFORMATION structure defines properties specific to a robotic changer object. (Unicode)
@@ -18,98 +19,57 @@
  * @namespace Windows.Win32.Storage.FileSystem
  * @charset Unicode
  */
-class NTMS_CHANGERINFORMATIONW extends Win32Struct {
-    static sizeof => 288
-
-    static packingSize => 8
+export default struct NTMS_CHANGERINFORMATIONW {
+    #StructPack 4
 
     /**
      * Number of the changer within the library.
-     * @type {Integer}
      */
-    Number {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Number : UInt32
 
     /**
      * Identifier of the changer type of this changer.
-     * @type {Pointer}
      */
-    ChangerType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ChangerType : Guid
 
     /**
      * Serial number for the changer represented as a string. Devices that do not support serial numbers report <b>NULL</b> for this member.
-     * @type {String}
      */
-    szSerialNumber {
-        get => StrGet(this.ptr + 16, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 16, 31, "UTF-16")
-    }
+    szSerialNumber : WCHAR[32]
 
     /**
      * Revision for the changer, represented as a string.
-     * @type {String}
      */
-    szRevision {
-        get => StrGet(this.ptr + 80, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 80, 31, "UTF-16")
-    }
+    szRevision : WCHAR[32]
 
     /**
      * Name of the device used to access the changer.
-     * @type {String}
      */
-    szDeviceName {
-        get => StrGet(this.ptr + 144, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 144, 63, "UTF-16")
-    }
+    szDeviceName : WCHAR[64]
 
     /**
      * SCSI host adapter to which the changer is connected.
-     * @type {Integer}
      */
-    ScsiPort {
-        get => NumGet(this, 272, "ushort")
-        set => NumPut("ushort", value, this, 272)
-    }
+    ScsiPort : UInt16
 
     /**
      * SCSI bus to which the changer is connected.
-     * @type {Integer}
      */
-    ScsiBus {
-        get => NumGet(this, 274, "ushort")
-        set => NumPut("ushort", value, this, 274)
-    }
+    ScsiBus : UInt16
 
     /**
      * SCSI target ID for the changer.
-     * @type {Integer}
      */
-    ScsiTarget {
-        get => NumGet(this, 276, "ushort")
-        set => NumPut("ushort", value, this, 276)
-    }
+    ScsiTarget : UInt16
 
     /**
      * SCSI logical unit ID for the changer.
-     * @type {Integer}
      */
-    ScsiLun {
-        get => NumGet(this, 278, "ushort")
-        set => NumPut("ushort", value, this, 278)
-    }
+    ScsiLun : UInt16
 
     /**
      * Unique identifier of the library that contains the changer.
-     * @type {Pointer}
      */
-    Library {
-        get => NumGet(this, 280, "ptr")
-        set => NumPut("ptr", value, this, 280)
-    }
+    Library : Guid
+
 }

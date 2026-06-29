@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents a buffer that has been registered with an I/O ring with a call to BuildIoRingRegisterBuffers.
@@ -8,26 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/ntioring_x/ns-ntioring_x-ioring_registered_buffer
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class IORING_REGISTERED_BUFFER extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct IORING_REGISTERED_BUFFER {
+    #StructPack 4
 
     /**
      * A **UINT32** specifying the index of the registered buffer.
-     * @type {Integer}
      */
-    BufferIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    BufferIndex : UInt32
 
     /**
      * A **UINT32** specifying the offset into the registered buffer.
-     * @type {Integer}
      */
-    Offset {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Offset : UInt32
+
 }

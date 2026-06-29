@@ -1,43 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class HIDP_DATA extends Win32Struct {
-    static sizeof => 8
+export default struct HIDP_DATA {
+    #StructPack 4
 
-    static packingSize => 4
+    DataIndex : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DataIndex {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Reserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    RawValue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RawValue {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {BOOLEAN}
-     */
-    On {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
+    static __New() {
+        DefineProp(this.Prototype, 'On', { type: BOOLEAN, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

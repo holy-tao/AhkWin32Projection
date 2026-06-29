@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains trust information about a certificate in a certificate chain, summary trust information about a simple chain of certificates, or summary information about an array of simple chains.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_trust_status
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_TRUST_STATUS extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct CERT_TRUST_STATUS {
+    #StructPack 4
 
     /**
      * dwErrorStatus is a bitmask of the following error codes defined for certificates and chains. 
@@ -325,12 +322,8 @@ class CERT_TRUST_STATUS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwErrorStatus {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwErrorStatus : UInt32
 
     /**
      * The following information status codes are defined.
@@ -485,10 +478,7 @@ class CERT_TRUST_STATUS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwInfoStatus {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwInfoStatus : UInt32
+
 }

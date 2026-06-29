@@ -1,13 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_XPF_PROCESSOR_ERROR_SECTION_VALIDBITS extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 1
+export default struct WHEA_XPF_PROCESSOR_ERROR_SECTION_VALIDBITS {
+    #StructPack 1
 
     /**
      * This bitfield backs the following members:
@@ -16,12 +13,9 @@ class WHEA_XPF_PROCESSOR_ERROR_SECTION_VALIDBITS extends Win32Struct {
      * - ProcInfoCount
      * - ContextInfoCount
      * - Reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int64
+
 
     /**
      * @type {Integer}
@@ -54,12 +48,8 @@ class WHEA_XPF_PROCESSOR_ERROR_SECTION_VALIDBITS extends Win32Struct {
         get => (this._bitfield >> 8) & 0x3F
         set => this._bitfield := ((value & 0x3F) << 8) | (this._bitfield & ~(0x3F << 8))
     }
-
-    /**
-     * @type {Integer}
-     */
-    ValidBits {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'ValidBits', { type: Int64, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

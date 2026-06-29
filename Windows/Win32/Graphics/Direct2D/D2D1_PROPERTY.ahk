@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the indices of the system properties present on the ID2D1Properties interface for an ID2D1Effect.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ne-d2d1_1-d2d1_property
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_PROPERTY extends Win32Enum {
+export default struct D2D1_PROPERTY {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The CLSID of the effect.

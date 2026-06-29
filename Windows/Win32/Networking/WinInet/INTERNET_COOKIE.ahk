@@ -1,98 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
- * Enables the retrieval of cookies that are marked as "HTTPOnly".  
-  * 
-  * 
-  * 
-  * Do  not use this flag if you expose a scriptable interface, because this has security implications. It is imperative that you use this flag only if you can guarantee that you will never expose the cookie to third-party code by way of an extensibility mechanism you provide.
-  * 
-  * 
-  * <b>Version:  </b>Requires Internet Explorer 8.0 or later.
- * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetcookieexa
  * @namespace Windows.Win32.Networking.WinInet
  */
-class INTERNET_COOKIE extends Win32Struct {
-    static sizeof => 72
+export default struct INTERNET_COOKIE {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pszName : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    pszName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszData : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    pszData {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszDomain : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    pszDomain {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pszPath : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    pszPath {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pftExpires : FILETIME.Ptr
 
-    /**
-     * @type {Pointer<FILETIME>}
-     */
-    pftExpires {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    pszUrl : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    pszUrl {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pszP3PPolicy : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    pszP3PPolicy {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 72
-    }
 }

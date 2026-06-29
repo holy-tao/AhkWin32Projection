@@ -1,54 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class BDA_ISDBCAS_RESPONSEDATA extends Win32Struct {
-    static sizeof => 20
+export default struct BDA_ISDBCAS_RESPONSEDATA {
+    #StructPack 4
 
-    static packingSize => 4
+    lResult : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lResult {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ulRequestID : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulRequestID {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulIsdbStatus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulIsdbStatus {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulIsdbDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulIsdbDataSize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    argbIsdbCommandData : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    argbIsdbCommandData {
-        get {
-            if(!this.HasProp("__argbIsdbCommandDataProxyArray"))
-                this.__argbIsdbCommandDataProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
-            return this.__argbIsdbCommandDataProxyArray
-        }
-    }
 }

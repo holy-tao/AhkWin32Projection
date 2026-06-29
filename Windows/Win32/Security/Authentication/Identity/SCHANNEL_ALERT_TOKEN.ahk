@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\SCHANNEL_ALERT_TOKEN_ALERT_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SCHANNEL_ALERT_TOKEN_ALERT_TYPE.ahk" { SCHANNEL_ALERT_TOKEN_ALERT_TYPE }
 
 /**
  * Generates a Secure Sockets Layer Protocol (SSL) or Transport Layer Security Protocol (TLS) alert to be sent to the target of a call to either the InitializeSecurityContext (Schannel) function or the AcceptSecurityContext (Schannel) function.
@@ -9,33 +8,16 @@
  * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-schannel_alert_token
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SCHANNEL_ALERT_TOKEN extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct SCHANNEL_ALERT_TOKEN {
+    #StructPack 4
 
     /**
      * Specifies the type of this structure. Set the value of this member to <b>SCHANNEL_ALERT</b>.
-     * @type {Integer}
      */
-    dwTokenType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwTokenType : UInt32
 
-    /**
-     * @type {SCHANNEL_ALERT_TOKEN_ALERT_TYPE}
-     */
-    dwAlertType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwAlertType : SCHANNEL_ALERT_TOKEN_ALERT_TYPE
 
-    /**
-     * @type {Integer}
-     */
-    dwAlertNumber {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwAlertNumber : UInt32
+
 }

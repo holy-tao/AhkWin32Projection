@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicate the activation policy of the object and are used in the IPointerInactive::GetActivationPolicy method.
@@ -21,7 +20,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/ne-ocidl-pointerinactive
  * @namespace Windows.Win32.System.Ole
  */
-class POINTERINACTIVE extends Win32Enum {
+export default struct POINTERINACTIVE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The object should be in-place activated when the mouse enters it during a mouse move operation.

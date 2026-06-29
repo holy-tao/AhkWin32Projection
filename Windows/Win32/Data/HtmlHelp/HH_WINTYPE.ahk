@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Use this structure to specify or modify the attributes of a window type.
@@ -22,365 +22,193 @@
  * @see https://learn.microsoft.com/windows/win32/api/htmlhelp/ns-htmlhelp-hh_wintype
  * @namespace Windows.Win32.Data.HtmlHelp
  */
-class HH_WINTYPE extends Win32Struct {
-    static sizeof => 280
-
-    static packingSize => 8
+export default struct HH_WINTYPE {
+    #StructPack 8
 
     /**
      * Specifies the size of the structure. This value must always be filled in before passing the structure to HtmlHelp().
-     * @type {Integer}
      */
-    cbStruct {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    cbStruct : Int32
 
     /**
      * Specifies whether the strings used in this structure are UNICODE.
-     * @type {BOOL}
      */
-    fUniCodeStrings {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    fUniCodeStrings : BOOL
 
     /**
      * A null-terminated string that specifies the name of the window type.
-     * @type {Pointer<Integer>}
      */
-    pszType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszType : IntPtr
 
     /**
      * Specifies which members in the structure are valid.
-     * @type {Integer}
      */
-    fsValidMembers {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    fsValidMembers : UInt32
 
     /**
      * Specifies the properties of the window, such as whether it is the standard HTML Help Viewer or whether it includes a Search tab.
-     * @type {Integer}
      */
-    fsWinProperties {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    fsWinProperties : UInt32
 
     /**
      * A null-terminated string that specifies the caption to display in the title bar of the window.
-     * @type {Pointer<Integer>}
      */
-    pszCaption {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pszCaption : IntPtr
 
     /**
      * Specifies the styles used to create the window. These styles can be ignored, combined with extended styles, or used exclusively depending on the value of the <i>fsValidMembers</i> and <i>fsWinProperties</i> parameters.
-     * @type {Integer}
      */
-    dwStyles {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwStyles : UInt32
 
     /**
      * Specifies the extended styles used to create the window. These styles can be ignored, combined with default styles, or used exclusively depending on the value of the <i>fsValidMembers</i> and <i>fsWinProperties</i> parameters.
-     * @type {Integer}
      */
-    dwExStyles {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwExStyles : UInt32
 
     /**
      * Specifies the coordinates of the window in pixels. The values are read in the following order: 
      * 
      * 
      * <i>rcWindowPos</i> = {left, top, right, bottom};
-     * @type {RECT}
      */
-    rcWindowPos {
-        get {
-            if(!this.HasProp("__rcWindowPos"))
-                this.__rcWindowPos := RECT(40, this)
-            return this.__rcWindowPos
-        }
-    }
+    rcWindowPos : RECT
 
     /**
      * Specifies the initial display state of the window. Valid values are the same as those for the Win32 API <b>ShowWindow</b> function.
-     * @type {Integer}
      */
-    nShowState {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    nShowState : Int32
 
     /**
      * Specifies the handle of the window if the window has been created.
-     * @type {HWND}
      */
-    hwndHelp {
-        get {
-            if(!this.HasProp("__hwndHelp"))
-                this.__hwndHelp := HWND(64, this)
-            return this.__hwndHelp
-        }
-    }
+    hwndHelp : HWND
 
     /**
      * Specifies the window that will receive HTML Help notification messages. <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/about-notification-messages">Notification messages</a> are sent via Windows <b>WM_NOTIFY</b> messages.
-     * @type {HWND}
      */
-    hwndCaller {
-        get {
-            if(!this.HasProp("__hwndCaller"))
-                this.__hwndCaller := HWND(72, this)
-            return this.__hwndCaller
-        }
-    }
+    hwndCaller : HWND
 
     /**
      * Pointer to an array of Information Types.
-     * @type {Pointer<Integer>}
      */
-    paInfoTypes {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    paInfoTypes : IntPtr
 
     /**
      * Specifies the handle of the toolbar.
-     * @type {HWND}
      */
-    hwndToolBar {
-        get {
-            if(!this.HasProp("__hwndToolBar"))
-                this.__hwndToolBar := HWND(88, this)
-            return this.__hwndToolBar
-        }
-    }
+    hwndToolBar : HWND
 
     /**
      * Specifies the handle of the Navigation pane.
-     * @type {HWND}
      */
-    hwndNavigation {
-        get {
-            if(!this.HasProp("__hwndNavigation"))
-                this.__hwndNavigation := HWND(96, this)
-            return this.__hwndNavigation
-        }
-    }
+    hwndNavigation : HWND
 
     /**
      * Specifies the handle of the Topic pane, which hosts Shdocvw.dll.
-     * @type {HWND}
      */
-    hwndHTML {
-        get {
-            if(!this.HasProp("__hwndHTML"))
-                this.__hwndHTML := HWND(104, this)
-            return this.__hwndHTML
-        }
-    }
+    hwndHTML : HWND
 
     /**
      * Specifies the width of the Navigation pane when the Help Viewer is expanded.
-     * @type {Integer}
      */
-    iNavWidth {
-        get => NumGet(this, 112, "int")
-        set => NumPut("int", value, this, 112)
-    }
+    iNavWidth : Int32
 
     /**
      * Specifies the coordinates of the Topic pane.
-     * @type {RECT}
      */
-    rcHTML {
-        get {
-            if(!this.HasProp("__rcHTML"))
-                this.__rcHTML := RECT(116, this)
-            return this.__rcHTML
-        }
-    }
+    rcHTML : RECT
 
     /**
      * Specifies the contents (.hhc) file to display in the Navigation pane.
-     * @type {Pointer<Integer>}
      */
-    pszToc {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
-    }
+    pszToc : IntPtr
 
     /**
      * Specifies the index (.hhk) file to display in the Navigation pane.
-     * @type {Pointer<Integer>}
      */
-    pszIndex {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
-    }
+    pszIndex : IntPtr
 
     /**
      * Specifies the default HTML file to display in the Topic pane.
-     * @type {Pointer<Integer>}
      */
-    pszFile {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
-    }
+    pszFile : IntPtr
 
     /**
      * Specifies the file or URL to display in the Topic pane when the Home button is clicked. 
      * 
      * 
      * Specifies which buttons to include on the toolbar.
-     * @type {Pointer<Integer>}
      */
-    pszHome {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
-    }
+    pszHome : IntPtr
 
     /**
      * Specifies which buttons to include on the Toolbar pane of a three-pane Help Viewer.
-     * @type {Integer}
      */
-    fsToolBarFlags {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
-    }
+    fsToolBarFlags : UInt32
 
     /**
      * Specifies that the Help Viewer open with the Navigation pane closed.
-     * @type {BOOL}
      */
-    fNotExpanded {
-        get => NumGet(this, 172, "int")
-        set => NumPut("int", value, this, 172)
-    }
+    fNotExpanded : BOOL
 
     /**
      * Specifies the default tab to display on the Navigation pane.
-     * @type {Integer}
      */
-    curNavType {
-        get => NumGet(this, 176, "int")
-        set => NumPut("int", value, this, 176)
-    }
+    curNavType : Int32
 
     /**
      * Specifies where to place the tabs on the Navigation pane of the HTML Help Viewer.
-     * @type {Integer}
      */
-    tabpos {
-        get => NumGet(this, 180, "int")
-        set => NumPut("int", value, this, 180)
-    }
+    tabpos : Int32
 
     /**
      * Specifies a non-zero ID for enabling HTML Help notification messages. This ID is passed as the wParam value of Windows <b>WM_NOTIFY</b> messages.
-     * @type {Integer}
      */
-    idNotify {
-        get => NumGet(this, 184, "int")
-        set => NumPut("int", value, this, 184)
-    }
+    idNotify : Int32
 
     /**
      * Tab order: Contents, Index, Search, History, Favorites, Reserved 1-5, Custom tabs
-     * @type {Array<Integer>}
      */
-    tabOrder {
-        get {
-            if(!this.HasProp("__tabOrderProxyArray"))
-                this.__tabOrderProxyArray := Win32FixedArray(this.ptr + 188, 20, Primitive, "char")
-            return this.__tabOrderProxyArray
-        }
-    }
+    tabOrder : Int8[20]
 
     /**
      * Number of history items to keep.  (Default: 30)
-     * @type {Integer}
      */
-    cHistory {
-        get => NumGet(this, 208, "int")
-        set => NumPut("int", value, this, 208)
-    }
+    cHistory : Int32
 
     /**
      * Specifies the text to display underneath the Jump1 button.
-     * @type {Pointer<Integer>}
      */
-    pszJump1 {
-        get => NumGet(this, 216, "ptr")
-        set => NumPut("ptr", value, this, 216)
-    }
+    pszJump1 : IntPtr
 
     /**
      * Specifies the text to display underneath the Jump2 button.
-     * @type {Pointer<Integer>}
      */
-    pszJump2 {
-        get => NumGet(this, 224, "ptr")
-        set => NumPut("ptr", value, this, 224)
-    }
+    pszJump2 : IntPtr
 
     /**
      * Specifies the URL to jump to when the Jump1 button is clicked.
-     * @type {Pointer<Integer>}
      */
-    pszUrlJump1 {
-        get => NumGet(this, 232, "ptr")
-        set => NumPut("ptr", value, this, 232)
-    }
+    pszUrlJump1 : IntPtr
 
     /**
      * Specifies the URL to jump to when the Jump2 button is clicked.
-     * @type {Pointer<Integer>}
      */
-    pszUrlJump2 {
-        get => NumGet(this, 240, "ptr")
-        set => NumPut("ptr", value, this, 240)
-    }
+    pszUrlJump2 : IntPtr
 
     /**
      * Minimum size for window (ignored in version 1).
-     * @type {RECT}
      */
-    rcMinSize {
-        get {
-            if(!this.HasProp("__rcMinSize"))
-                this.__rcMinSize := RECT(248, this)
-            return this.__rcMinSize
-        }
-    }
+    rcMinSize : RECT
 
     /**
      * Size of <i>paInfoTypes</i>
-     * @type {Integer}
      */
-    cbInfoTypes {
-        get => NumGet(this, 264, "int")
-        set => NumPut("int", value, this, 264)
-    }
+    cbInfoTypes : Int32
 
     /**
      * Series of zero-terminated strings to be used as tab labels.
-     * @type {Pointer<Integer>}
      */
-    pszCustomTabs {
-        get => NumGet(this, 272, "ptr")
-        set => NumPut("ptr", value, this, 272)
-    }
+    pszCustomTabs : IntPtr
+
 }

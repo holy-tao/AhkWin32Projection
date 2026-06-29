@@ -1,15 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The SERVER_INFO_100 structure contains information about the specified server, including the name and platform.
  * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_info_100
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class SERVER_INFO_100 extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct SERVER_INFO_100 {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
@@ -80,21 +78,14 @@ class SERVER_INFO_100 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    sv100_platform_id {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    sv100_platform_id : UInt32
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that specifies the name of the server.
-     * @type {PWSTR}
      */
-    sv100_name {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    sv100_name : PWSTR
+
 }

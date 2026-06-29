@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D11DeviceChild.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID3D11DeviceChild.ahk" { ID3D11DeviceChild }
 
 /**
  * This interface encapsulates methods for retrieving data from the GPU asynchronously. (ID3D11Asynchronous)
@@ -19,26 +19,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/nn-d3d11-id3d11asynchronous
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3D11Asynchronous extends ID3D11DeviceChild {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11Asynchronous extends ID3D11DeviceChild {
     /**
      * The interface identifier for ID3D11Asynchronous
      * @type {Guid}
      */
-    static IID => Guid("{4b35d0cd-1e15-4258-9c98-1b1333f6dd3b}")
+    static IID := Guid("{4b35d0cd-1e15-4258-9c98-1b1333f6dd3b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11Asynchronous interfaces
+    */
+    struct Vtbl extends ID3D11DeviceChild.Vtbl {
+        GetDataSize : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDataSize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11Asynchronous.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Get the size of the data (in bytes) that is output when calling ID3D11DeviceContext::GetData.
@@ -48,7 +55,27 @@ class ID3D11Asynchronous extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11asynchronous-getdatasize
      */
     GetDataSize() {
-        result := ComCall(7, this, "uint")
+        result := ComCall(7, this, UInt32)
         return result
+    }
+
+    Query(iid) {
+        if (ID3D11Asynchronous.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDataSize := CallbackCreate(GetMethod(implObj, "GetDataSize"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDataSize)
     }
 }

@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_DRIVE_STATUS.ahk
-#Include .\VDS_HEALTH.ahk
-#Include .\VDS_STORAGE_BUS_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\VDS_DRIVE_STATUS.ahk" { VDS_DRIVE_STATUS }
+#Import ".\VDS_HEALTH.ahk" { VDS_HEALTH }
+#Import ".\VDS_STORAGE_BUS_TYPE.ahk" { VDS_STORAGE_BUS_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The VDS_DRIVE_PROP2 structure (vdshwprv.h) defines the properties of a drive object.
@@ -11,121 +12,72 @@
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_drive_prop2
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_DRIVE_PROP2 extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct VDS_DRIVE_PROP2 {
+    #StructPack 8
 
     /**
      * The GUID of the drive object.
-     * @type {Pointer}
      */
-    id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    id : Guid
 
     /**
      * The size of the drive, in bytes.
-     * @type {Integer}
      */
-    ullSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ullSize : Int64
 
     /**
      * A <b>NULL</b>-terminated wide-character string that contains the name of the drive.
-     * @type {PWSTR}
      */
-    pwszFriendlyName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pwszFriendlyName : PWSTR
 
     /**
      * A <b>NULL</b>-terminated wide-character string that contains the drive identifier.
-     * @type {PWSTR}
      */
-    pwszIdentification {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pwszIdentification : PWSTR
 
     /**
      * A bitmask of  
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_drive_flag">VDS_DRIVE_FLAG</a> enumeration values.
-     * @type {Integer}
      */
-    ulFlags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ulFlags : UInt32
 
     /**
      * A  
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_drive_status">VDS_DRIVE_STATUS</a> enumeration value that specifies the status of the drive.
-     * @type {VDS_DRIVE_STATUS}
      */
-    status {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    status : VDS_DRIVE_STATUS
 
     /**
      * A 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_health">VDS_HEALTH</a> enumeration value that specifies the health status of the drive. The following are the valid values for this member.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b><b>VDS_H_REPLACED</b> and <b>VDS_H_PENDING_FAILURE</b> are not supported.
-     * @type {VDS_HEALTH}
      */
-    health {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    health : VDS_HEALTH
 
     /**
      * The number of the bus to which the drive is connected. This number is an implementer-assigned value that uniquely identifies the bus within the subsystem. It is not constrained by the number of buses that the subsystem contains, and it is not related to the value of the <b>sNumberOfInternalBuses</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_sub_system_prop">VDS_SUB_SYSTEM_PROP</a> structure.
-     * @type {Integer}
      */
-    sInternalBusNumber {
-        get => NumGet(this, 44, "short")
-        set => NumPut("short", value, this, 44)
-    }
+    sInternalBusNumber : Int16
 
     /**
      * The number of the slot that the drive occupies. This number is an implementer-assigned value that uniquely identifies the slot within the bus. It is not constrained by the number of slots that the bus contains, and it is not related to the value of the <b>sMaxNumberOfSlotsEachBus</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_sub_system_prop">VDS_SUB_SYSTEM_PROP</a> structure.
-     * @type {Integer}
      */
-    sSlotNumber {
-        get => NumGet(this, 46, "short")
-        set => NumPut("short", value, this, 46)
-    }
+    sSlotNumber : Int16
 
     /**
      * The number of the enclosure that contains the drive. A value of ULONG_MAX indicates that this number is not defined for the drive. Because some enclosure numbering schemes are zero-based, zero is a valid value for this member. This member corresponds to the <i>ulEnclosureNumber</i>  parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdssubsystem2-getdrive2">IVdsSubSystem2::GetDrive2</a> method.
-     * @type {Integer}
      */
-    ulEnclosureNumber {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    ulEnclosureNumber : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ne-vdslun-vds_storage_bus_type">VDS_STORAGE_BUS_TYPE</a> value that specifies the bus type of the drive. A value of zero means that the bus type is unknown.
-     * @type {VDS_STORAGE_BUS_TYPE}
      */
-    busType {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    busType : VDS_STORAGE_BUS_TYPE
 
     /**
      * The spindle speed of the drive, in RPM. The default value for this member is zero. A value of zero means that the spindle speed is unknown. A value of 1 means that the drive does not have rotating media. (For example, it might be a solid-state drive.)
-     * @type {Integer}
      */
-    ulSpindleSpeed {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    ulSpindleSpeed : UInt32
+
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The NL_ADDRESS_TYPE enumeration type specifies the IP address type of the network layer.
  * @see https://learn.microsoft.com/windows/win32/api/nldef/ne-nldef-nl_address_type
  * @namespace Windows.Win32.Networking.WinSock
  */
-class NL_ADDRESS_TYPE extends Win32Enum {
+export default struct NL_ADDRESS_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The unspecified IP address. For example, for IPv4, this address is 0.0.0.0.

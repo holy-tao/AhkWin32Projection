@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Flags that describe miscellaneous query behavior. (D3D10_QUERY_MISC_FLAG)
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_query_misc_flag
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class D3D10_QUERY_MISC_FLAG extends Win32Enum {
+export default struct D3D10_QUERY_MISC_FLAG {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Tell the hardware that if it is not yet sure if something is hidden or not to draw it anyway. This is only used with an occlusion predicate. Predication data cannot be returned to your application via <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10asynchronous-getdata">ID3D10Asynchronous::GetData</a> when using this flag.

@@ -1,38 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\ISWbemPrivilegeSet.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WbemImpersonationLevelEnum.ahk" { WbemImpersonationLevelEnum }
+#Import ".\ISWbemPrivilegeSet.ahk" { ISWbemPrivilegeSet }
+#Import ".\WbemAuthenticationLevelEnum.ahk" { WbemAuthenticationLevelEnum }
 
 /**
  * @namespace Windows.Win32.System.Wmi
  */
-class ISWbemSecurity extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISWbemSecurity extends IDispatch {
     /**
      * The interface identifier for ISWbemSecurity
      * @type {Guid}
      */
-    static IID => Guid("{b54d66e6-2287-11d2-8b33-00600806d9b6}")
+    static IID := Guid("{b54d66e6-2287-11d2-8b33-00600806d9b6}")
 
     /**
      * The class identifier for SWbemSecurity
      * @type {Guid}
      */
-    static CLSID => Guid("{b54d66e9-2287-11d2-8b33-00600806d9b6}")
+    static CLSID := Guid("{b54d66e9-2287-11d2-8b33-00600806d9b6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISWbemSecurity interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_ImpersonationLevel  : IntPtr
+        put_ImpersonationLevel  : IntPtr
+        get_AuthenticationLevel : IntPtr
+        put_AuthenticationLevel : IntPtr
+        get_Privileges          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ImpersonationLevel", "put_ImpersonationLevel", "get_AuthenticationLevel", "put_AuthenticationLevel", "get_Privileges"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISWbemSecurity.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {WbemImpersonationLevelEnum} 
@@ -72,7 +86,7 @@ class ISWbemSecurity extends IDispatch {
      * @returns {HRESULT} 
      */
     put_ImpersonationLevel(iImpersonationLevel) {
-        result := ComCall(8, this, "int", iImpersonationLevel, "HRESULT")
+        result := ComCall(8, this, WbemImpersonationLevelEnum, iImpersonationLevel, "HRESULT")
         return result
     }
 
@@ -91,7 +105,7 @@ class ISWbemSecurity extends IDispatch {
      * @returns {HRESULT} 
      */
     put_AuthenticationLevel(iAuthenticationLevel) {
-        result := ComCall(10, this, "int", iAuthenticationLevel, "HRESULT")
+        result := ComCall(10, this, WbemAuthenticationLevelEnum, iAuthenticationLevel, "HRESULT")
         return result
     }
 
@@ -102,5 +116,33 @@ class ISWbemSecurity extends IDispatch {
     get_Privileges() {
         result := ComCall(11, this, "ptr*", &objWbemPrivilegeSet := 0, "HRESULT")
         return ISWbemPrivilegeSet(objWbemPrivilegeSet)
+    }
+
+    Query(iid) {
+        if (ISWbemSecurity.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ImpersonationLevel := CallbackCreate(GetMethod(implObj, "get_ImpersonationLevel"), flags, 2)
+        this.vtbl.put_ImpersonationLevel := CallbackCreate(GetMethod(implObj, "put_ImpersonationLevel"), flags, 2)
+        this.vtbl.get_AuthenticationLevel := CallbackCreate(GetMethod(implObj, "get_AuthenticationLevel"), flags, 2)
+        this.vtbl.put_AuthenticationLevel := CallbackCreate(GetMethod(implObj, "put_AuthenticationLevel"), flags, 2)
+        this.vtbl.get_Privileges := CallbackCreate(GetMethod(implObj, "get_Privileges"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ImpersonationLevel)
+        CallbackFree(this.vtbl.put_ImpersonationLevel)
+        CallbackFree(this.vtbl.get_AuthenticationLevel)
+        CallbackFree(this.vtbl.put_AuthenticationLevel)
+        CallbackFree(this.vtbl.get_Privileges)
     }
 }

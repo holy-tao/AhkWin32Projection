@@ -1,67 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DDDI_CREATENATIVEFENCEINFO extends Win32Struct {
-    static sizeof => 48
+export default struct D3DDDI_CREATENATIVEFENCEINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    InitialFenceValue : Int64
 
-    /**
-     * @type {Integer}
-     */
-    InitialFenceValue {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pPrivateDriverData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pPrivateDriverData {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    PrivateDriverDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PrivateDriverDataSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    EngineAffinity : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EngineAffinity {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    Flags : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Flags {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    hSyncObject : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hSyncObject {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    NativeFenceMapping : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    NativeFenceMapping {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

@@ -1,85 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Learn more about: JET_COLUMNDEF constructor
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-columndef-constructor
  * @namespace Windows.Win32.Storage.Jet
  */
-class JET_COLUMNDEF extends Win32Struct {
-    static sizeof => 28
+export default struct JET_COLUMNDEF {
+    #StructPack 4
 
-    static packingSize => 4
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    columnid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    columnid {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    coltyp : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    coltyp {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    wCountry : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wCountry {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    langid : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    langid {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    cp : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    cp {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    wCollate : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wCollate {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    cbMax : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbMax {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    grbit : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    grbit {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

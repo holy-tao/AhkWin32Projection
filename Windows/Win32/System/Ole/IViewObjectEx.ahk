@@ -1,35 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IViewObject2.ahk
-#Include ..\..\Foundation\RECTL.ahk
-#Include ..\..\Foundation\SIZE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import "..\Com\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
+#Import ".\IViewObject2.ahk" { IViewObject2 }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\Com\DVASPECT.ahk" { DVASPECT }
+#Import ".\DVEXTENTINFO.ahk" { DVEXTENTINFO }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * An extension derived from IViewObject2 to provide support for Enhanced, flicker-free drawing for non-rectangular objects and transparent objects, hit testing for non-rectangular objects, and Control sizing
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-iviewobjectex
  * @namespace Windows.Win32.System.Ole
  */
-class IViewObjectEx extends IViewObject2 {
-
-    static sizeof => A_PtrSize
+export default struct IViewObjectEx extends IViewObject2 {
     /**
      * The interface identifier for IViewObjectEx
      * @type {Guid}
      */
-    static IID => Guid("{3af24292-0c96-11ce-a0cf-00aa00600ab8}")
+    static IID := Guid("{3af24292-0c96-11ce-a0cf-00aa00600ab8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 10
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IViewObjectEx interfaces
+    */
+    struct Vtbl extends IViewObject2.Vtbl {
+        GetRect          : IntPtr
+        GetViewStatus    : IntPtr
+        QueryHitPoint    : IntPtr
+        QueryHitRect     : IntPtr
+        GetNaturalExtent : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetRect", "GetViewStatus", "QueryHitPoint", "QueryHitRect", "GetNaturalExtent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IViewObjectEx.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a rectangle describing a requested drawing aspect.
@@ -80,7 +98,7 @@ class IViewObjectEx extends IViewObject2 {
      */
     GetRect(dwAspect) {
         pRect := RECTL()
-        result := ComCall(10, this, "uint", dwAspect, "ptr", pRect, "HRESULT")
+        result := ComCall(10, this, "uint", dwAspect, RECTL.Ptr, pRect, "HRESULT")
         return pRect
     }
 
@@ -180,7 +198,7 @@ class IViewObjectEx extends IViewObject2 {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iviewobjectex-queryhitpoint
      */
     QueryHitPoint(dwAspect, pRectBounds, ptlLoc, lCloseHint) {
-        result := ComCall(12, this, "uint", dwAspect, "ptr", pRectBounds, "ptr", ptlLoc, "int", lCloseHint, "uint*", &pHitResult := 0, "HRESULT")
+        result := ComCall(12, this, "uint", dwAspect, RECT.Ptr, pRectBounds, POINT, ptlLoc, "int", lCloseHint, "uint*", &pHitResult := 0, "HRESULT")
         return pHitResult
     }
 
@@ -201,7 +219,7 @@ class IViewObjectEx extends IViewObject2 {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iviewobjectex-queryhitrect
      */
     QueryHitRect(dwAspect, pRectBounds, pRectLoc, lCloseHint) {
-        result := ComCall(13, this, "uint", dwAspect, "ptr", pRectBounds, "ptr", pRectLoc, "int", lCloseHint, "uint*", &pHitResult := 0, "HRESULT")
+        result := ComCall(13, this, "uint", dwAspect, RECT.Ptr, pRectBounds, RECT.Ptr, pRectLoc, "int", lCloseHint, "uint*", &pHitResult := 0, "HRESULT")
         return pHitResult
     }
 
@@ -236,10 +254,36 @@ class IViewObjectEx extends IViewObject2 {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iviewobjectex-getnaturalextent
      */
     GetNaturalExtent(dwAspect, lindex, ptd, hicTargetDev, pExtentInfo) {
-        hicTargetDev := hicTargetDev is Win32Handle ? NumGet(hicTargetDev, "ptr") : hicTargetDev
-
         pSizel := SIZE()
-        result := ComCall(14, this, "uint", dwAspect, "int", lindex, "ptr", ptd, "ptr", hicTargetDev, "ptr", pExtentInfo, "ptr", pSizel, "HRESULT")
+        result := ComCall(14, this, DVASPECT, dwAspect, "int", lindex, DVTARGETDEVICE.Ptr, ptd, HDC, hicTargetDev, DVEXTENTINFO.Ptr, pExtentInfo, SIZE.Ptr, pSizel, "HRESULT")
         return pSizel
+    }
+
+    Query(iid) {
+        if (IViewObjectEx.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetRect := CallbackCreate(GetMethod(implObj, "GetRect"), flags, 3)
+        this.vtbl.GetViewStatus := CallbackCreate(GetMethod(implObj, "GetViewStatus"), flags, 2)
+        this.vtbl.QueryHitPoint := CallbackCreate(GetMethod(implObj, "QueryHitPoint"), flags, 6)
+        this.vtbl.QueryHitRect := CallbackCreate(GetMethod(implObj, "QueryHitRect"), flags, 6)
+        this.vtbl.GetNaturalExtent := CallbackCreate(GetMethod(implObj, "GetNaturalExtent"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetRect)
+        CallbackFree(this.vtbl.GetViewStatus)
+        CallbackFree(this.vtbl.QueryHitPoint)
+        CallbackFree(this.vtbl.QueryHitRect)
+        CallbackFree(this.vtbl.GetNaturalExtent)
     }
 }

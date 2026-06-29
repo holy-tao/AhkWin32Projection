@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFClock.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFClock.ahk" { IMFClock }
 
 /**
  * Provides the clock times for the presentation clock.
@@ -16,26 +17,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfpresentationtimesource
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFPresentationTimeSource extends IMFClock {
-
-    static sizeof => A_PtrSize
+export default struct IMFPresentationTimeSource extends IMFClock {
     /**
      * The interface identifier for IMFPresentationTimeSource
      * @type {Guid}
      */
-    static IID => Guid("{7ff12cce-f76f-41c2-863b-1666c8e5e139}")
+    static IID := Guid("{7ff12cce-f76f-41c2-863b-1666c8e5e139}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFPresentationTimeSource interfaces
+    */
+    struct Vtbl extends IMFClock.Vtbl {
+        GetUnderlyingClock : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetUnderlyingClock"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFPresentationTimeSource.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the underlying clock that the presentation time source uses to generate its clock times.
@@ -53,5 +61,25 @@ class IMFPresentationTimeSource extends IMFClock {
     GetUnderlyingClock() {
         result := ComCall(8, this, "ptr*", &ppClock := 0, "HRESULT")
         return IMFClock(ppClock)
+    }
+
+    Query(iid) {
+        if (IMFPresentationTimeSource.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetUnderlyingClock := CallbackCreate(GetMethod(implObj, "GetUnderlyingClock"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetUnderlyingClock)
     }
 }

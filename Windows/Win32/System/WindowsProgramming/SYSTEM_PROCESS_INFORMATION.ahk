@@ -1,209 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\UNICODE_STRING.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
  */
-class SYSTEM_PROCESS_INFORMATION extends Win32Struct {
-    static sizeof => 256
+export default struct SYSTEM_PROCESS_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    NextEntryOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NextEntryOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumberOfThreads : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfThreads {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Reserved1 : Int8[48]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 8, 48, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    ImageName : UNICODE_STRING
 
-    /**
-     * @type {UNICODE_STRING}
-     */
-    ImageName {
-        get {
-            if(!this.HasProp("__ImageName"))
-                this.__ImageName := UNICODE_STRING(56, this)
-            return this.__ImageName
-        }
-    }
+    BasePriority : Int32
 
-    /**
-     * @type {Integer}
-     */
-    BasePriority {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
-    }
+    UniqueProcessId : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    UniqueProcessId {
-        get {
-            if(!this.HasProp("__UniqueProcessId"))
-                this.__UniqueProcessId := HANDLE(80, this)
-            return this.__UniqueProcessId
-        }
-    }
+    Reserved2 : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Reserved2 {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    HandleCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HandleCount {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    SessionId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SessionId {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
+    Reserved3 : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Reserved3 {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    PeakVirtualSize : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    PeakVirtualSize {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    VirtualSize : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    VirtualSize {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    Reserved4 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved4 {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    PeakWorkingSetSize : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    PeakWorkingSetSize {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
-    }
+    WorkingSetSize : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    WorkingSetSize {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
-    }
+    Reserved5 : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Reserved5 {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
-    }
+    QuotaPagedPoolUsage : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    QuotaPagedPoolUsage {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
-    }
+    Reserved6 : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Reserved6 {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
-    }
+    QuotaNonPagedPoolUsage : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    QuotaNonPagedPoolUsage {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
-    }
+    PagefileUsage : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    PagefileUsage {
-        get => NumGet(this, 184, "ptr")
-        set => NumPut("ptr", value, this, 184)
-    }
+    PeakPagefileUsage : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    PeakPagefileUsage {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
-    }
+    PrivatePageCount : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    PrivatePageCount {
-        get => NumGet(this, 200, "ptr")
-        set => NumPut("ptr", value, this, 200)
-    }
+    Reserved7 : Int64[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved7 {
-        get {
-            if(!this.HasProp("__Reserved7ProxyArray"))
-                this.__Reserved7ProxyArray := Win32FixedArray(this.ptr + 208, 6, Primitive, "int64")
-            return this.__Reserved7ProxyArray
-        }
-    }
 }

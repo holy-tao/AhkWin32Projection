@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IOleUndoUnit.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOleUndoUnit.ahk" { IOleUndoUnit }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Enables undo units to contain child undo units.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-ioleparentundounit
  * @namespace Windows.Win32.System.Ole
  */
-class IOleParentUndoUnit extends IOleUndoUnit {
-
-    static sizeof => A_PtrSize
+export default struct IOleParentUndoUnit extends IOleUndoUnit {
     /**
      * The interface identifier for IOleParentUndoUnit
      * @type {Guid}
      */
-    static IID => Guid("{a1faf330-ef97-11ce-9bc9-00aa00608e01}")
+    static IID := Guid("{a1faf330-ef97-11ce-9bc9-00aa00608e01}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOleParentUndoUnit interfaces
+    */
+    struct Vtbl extends IOleUndoUnit.Vtbl {
+        Open           : IntPtr
+        Close          : IntPtr
+        Add            : IntPtr
+        FindUnit       : IntPtr
+        GetParentState : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Open", "Close", "Add", "FindUnit", "GetParentState"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOleParentUndoUnit.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Opens a new parent undo unit, which becomes part of the containing unit's undo stack.
@@ -101,7 +114,7 @@ class IOleParentUndoUnit extends IOleUndoUnit {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleparentundounit-close
      */
     Close(pPUU, fCommit) {
-        result := ComCall(8, this, "ptr", pPUU, "int", fCommit, "HRESULT")
+        result := ComCall(8, this, "ptr", pPUU, BOOL, fCommit, "HRESULT")
         return result
     }
 
@@ -145,5 +158,33 @@ class IOleParentUndoUnit extends IOleUndoUnit {
     GetParentState() {
         result := ComCall(11, this, "uint*", &pdwState := 0, "HRESULT")
         return pdwState
+    }
+
+    Query(iid) {
+        if (IOleParentUndoUnit.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 2)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 3)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
+        this.vtbl.FindUnit := CallbackCreate(GetMethod(implObj, "FindUnit"), flags, 2)
+        this.vtbl.GetParentState := CallbackCreate(GetMethod(implObj, "GetParentState"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Open)
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.FindUnit)
+        CallbackFree(this.vtbl.GetParentState)
     }
 }

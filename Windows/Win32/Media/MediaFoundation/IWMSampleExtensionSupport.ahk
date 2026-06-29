@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Configures codec support for sample extensions.
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nn-wmcodecdsp-iwmsampleextensionsupport
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IWMSampleExtensionSupport extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMSampleExtensionSupport extends IUnknown {
     /**
      * The interface identifier for IWMSampleExtensionSupport
      * @type {Guid}
      */
-    static IID => Guid("{9bca9884-0604-4c2a-87da-793ff4d586c3}")
+    static IID := Guid("{9bca9884-0604-4c2a-87da-793ff4d586c3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMSampleExtensionSupport interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetUseSampleExtensions : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetUseSampleExtensions"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMSampleExtensionSupport.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Configures whether the codec supports sample extensions.
@@ -54,7 +63,27 @@ class IWMSampleExtensionSupport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmsampleextensionsupport-setusesampleextensions
      */
     SetUseSampleExtensions(fUseExtensions) {
-        result := ComCall(3, this, "int", fUseExtensions, "HRESULT")
+        result := ComCall(3, this, BOOL, fUseExtensions, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMSampleExtensionSupport.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetUseSampleExtensions := CallbackCreate(GetMethod(implObj, "SetUseSampleExtensions"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetUseSampleExtensions)
     }
 }

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Stores an optional friendly name and an optional description for an object.
@@ -12,26 +12,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ns-fwptypes-fwpm_display_data0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class FWPM_DISPLAY_DATA0 extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct FWPM_DISPLAY_DATA0 {
+    #StructPack 8
 
     /**
      * Optional friendly name.
-     * @type {PWSTR}
      */
-    name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    name : PWSTR
 
     /**
      * Optional description.
-     * @type {PWSTR}
      */
-    description {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    description : PWSTR
+
 }

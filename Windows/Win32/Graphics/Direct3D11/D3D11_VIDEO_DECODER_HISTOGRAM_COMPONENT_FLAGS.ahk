@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Flags for indicating a subset of components used with video decode histogram. (D3D11_VIDEO_DECODER_HISTOGRAM_COMPONENT_FLAGS)
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/ne-d3d11_4-d3d11_video_decoder_histogram_component_flags
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_VIDEO_DECODER_HISTOGRAM_COMPONENT_FLAGS extends Win32BitflagEnum {
+export default struct D3D11_VIDEO_DECODER_HISTOGRAM_COMPONENT_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No associated component.

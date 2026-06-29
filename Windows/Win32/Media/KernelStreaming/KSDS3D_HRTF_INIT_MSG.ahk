@@ -1,76 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSDS3D_HRTF_FILTER_QUALITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSDS3D_HRTF_FILTER_QUALITY.ahk" { KSDS3D_HRTF_FILTER_QUALITY }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSDS3D_HRTF_INIT_MSG extends Win32Struct {
-    static sizeof => 32
+export default struct KSDS3D_HRTF_INIT_MSG {
+    #StructPack 4
 
-    static packingSize => 4
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Quality : KSDS3D_HRTF_FILTER_QUALITY
 
-    /**
-     * @type {KSDS3D_HRTF_FILTER_QUALITY}
-     */
-    Quality {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    SampleRate : Float32
 
-    /**
-     * @type {Float}
-     */
-    SampleRate {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    MaxFilterSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxFilterSize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    FilterTransientMuteLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FilterTransientMuteLength {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    FilterOverlapBufferLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FilterOverlapBufferLength {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    OutputOverlapBufferLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OutputOverlapBufferLength {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
 }

@@ -1,34 +1,77 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\WM_PORT_NUMBER_RANGE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WM_PORT_NUMBER_RANGE.ahk" { WM_PORT_NUMBER_RANGE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WMT_PROXY_SETTINGS.ahk" { WMT_PROXY_SETTINGS }
 
 /**
  * The IWMReaderNetworkConfig interface is used to set and test network configuration settings.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreadernetworkconfig
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMReaderNetworkConfig extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMReaderNetworkConfig extends IUnknown {
     /**
      * The interface identifier for IWMReaderNetworkConfig
      * @type {Guid}
      */
-    static IID => Guid("{96406bec-2b2b-11d3-b36b-00c04f6108ff}")
+    static IID := Guid("{96406bec-2b2b-11d3-b36b-00c04f6108ff}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMReaderNetworkConfig interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetBufferingTime                : IntPtr
+        SetBufferingTime                : IntPtr
+        GetUDPPortRanges                : IntPtr
+        SetUDPPortRanges                : IntPtr
+        GetProxySettings                : IntPtr
+        SetProxySettings                : IntPtr
+        GetProxyHostName                : IntPtr
+        SetProxyHostName                : IntPtr
+        GetProxyPort                    : IntPtr
+        SetProxyPort                    : IntPtr
+        GetProxyExceptionList           : IntPtr
+        SetProxyExceptionList           : IntPtr
+        GetProxyBypassForLocal          : IntPtr
+        SetProxyBypassForLocal          : IntPtr
+        GetForceRerunAutoProxyDetection : IntPtr
+        SetForceRerunAutoProxyDetection : IntPtr
+        GetEnableMulticast              : IntPtr
+        SetEnableMulticast              : IntPtr
+        GetEnableHTTP                   : IntPtr
+        SetEnableHTTP                   : IntPtr
+        GetEnableUDP                    : IntPtr
+        SetEnableUDP                    : IntPtr
+        GetEnableTCP                    : IntPtr
+        SetEnableTCP                    : IntPtr
+        ResetProtocolRollover           : IntPtr
+        GetConnectionBandwidth          : IntPtr
+        SetConnectionBandwidth          : IntPtr
+        GetNumProtocolsSupported        : IntPtr
+        GetSupportedProtocolName        : IntPtr
+        AddLoggingUrl                   : IntPtr
+        GetLoggingUrl                   : IntPtr
+        GetLoggingUrlCount              : IntPtr
+        ResetLoggingUrlList             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetBufferingTime", "SetBufferingTime", "GetUDPPortRanges", "SetUDPPortRanges", "GetProxySettings", "SetProxySettings", "GetProxyHostName", "SetProxyHostName", "GetProxyPort", "SetProxyPort", "GetProxyExceptionList", "SetProxyExceptionList", "GetProxyBypassForLocal", "SetProxyBypassForLocal", "GetForceRerunAutoProxyDetection", "SetForceRerunAutoProxyDetection", "GetEnableMulticast", "SetEnableMulticast", "GetEnableHTTP", "SetEnableHTTP", "GetEnableUDP", "SetEnableUDP", "GetEnableTCP", "SetEnableTCP", "ResetProtocolRollover", "GetConnectionBandwidth", "SetConnectionBandwidth", "GetNumProtocolsSupported", "GetSupportedProtocolName", "AddLoggingUrl", "GetLoggingUrl", "GetLoggingUrlCount", "ResetLoggingUrlList"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMReaderNetworkConfig.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetBufferingTime method retrieves the amount of time that the network source buffers data before rendering it.
@@ -96,7 +139,7 @@ class IWMReaderNetworkConfig extends IUnknown {
         pcRangesMarshal := pcRanges is VarRef ? "uint*" : "ptr"
 
         pRangeArray := WM_PORT_NUMBER_RANGE()
-        result := ComCall(5, this, "ptr", pRangeArray, pcRangesMarshal, pcRanges, "HRESULT")
+        result := ComCall(5, this, WM_PORT_NUMBER_RANGE.Ptr, pRangeArray, pcRangesMarshal, pcRanges, "HRESULT")
         return pRangeArray
     }
 
@@ -139,7 +182,7 @@ class IWMReaderNetworkConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig-setudpportranges
      */
     SetUDPPortRanges(pRangeArray, cRanges) {
-        result := ComCall(6, this, "ptr", pRangeArray, "uint", cRanges, "HRESULT")
+        result := ComCall(6, this, WM_PORT_NUMBER_RANGE.Ptr, pRangeArray, "uint", cRanges, "HRESULT")
         return result
     }
 
@@ -197,7 +240,7 @@ class IWMReaderNetworkConfig extends IUnknown {
     SetProxySettings(pwszProtocol, ProxySetting) {
         pwszProtocol := pwszProtocol is String ? StrPtr(pwszProtocol) : pwszProtocol
 
-        result := ComCall(8, this, "ptr", pwszProtocol, "int", ProxySetting, "HRESULT")
+        result := ComCall(8, this, "ptr", pwszProtocol, WMT_PROXY_SETTINGS, ProxySetting, "HRESULT")
         return result
     }
 
@@ -486,7 +529,7 @@ class IWMReaderNetworkConfig extends IUnknown {
     GetProxyBypassForLocal(pwszProtocol) {
         pwszProtocol := pwszProtocol is String ? StrPtr(pwszProtocol) : pwszProtocol
 
-        result := ComCall(15, this, "ptr", pwszProtocol, "int*", &pfBypassForLocal := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", pwszProtocol, BOOL.Ptr, &pfBypassForLocal := 0, "HRESULT")
         return pfBypassForLocal
     }
 
@@ -531,7 +574,7 @@ class IWMReaderNetworkConfig extends IUnknown {
     SetProxyBypassForLocal(pwszProtocol, fBypassForLocal) {
         pwszProtocol := pwszProtocol is String ? StrPtr(pwszProtocol) : pwszProtocol
 
-        result := ComCall(16, this, "ptr", pwszProtocol, "int", fBypassForLocal, "HRESULT")
+        result := ComCall(16, this, "ptr", pwszProtocol, BOOL, fBypassForLocal, "HRESULT")
         return result
     }
 
@@ -543,7 +586,7 @@ class IWMReaderNetworkConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig-getforcererunautoproxydetection
      */
     GetForceRerunAutoProxyDetection() {
-        result := ComCall(17, this, "int*", &pfForceRerunDetection := 0, "HRESULT")
+        result := ComCall(17, this, BOOL.Ptr, &pfForceRerunDetection := 0, "HRESULT")
         return pfForceRerunDetection
     }
 
@@ -587,7 +630,7 @@ class IWMReaderNetworkConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig-setforcererunautoproxydetection
      */
     SetForceRerunAutoProxyDetection(fForceRerunDetection) {
-        result := ComCall(18, this, "int", fForceRerunDetection, "HRESULT")
+        result := ComCall(18, this, BOOL, fForceRerunDetection, "HRESULT")
         return result
     }
 
@@ -597,7 +640,7 @@ class IWMReaderNetworkConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig-getenablemulticast
      */
     GetEnableMulticast() {
-        result := ComCall(19, this, "int*", &pfEnableMulticast := 0, "HRESULT")
+        result := ComCall(19, this, BOOL.Ptr, &pfEnableMulticast := 0, "HRESULT")
         return pfEnableMulticast
     }
 
@@ -637,7 +680,7 @@ class IWMReaderNetworkConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig-setenablemulticast
      */
     SetEnableMulticast(fEnableMulticast) {
-        result := ComCall(20, this, "int", fEnableMulticast, "HRESULT")
+        result := ComCall(20, this, BOOL, fEnableMulticast, "HRESULT")
         return result
     }
 
@@ -647,7 +690,7 @@ class IWMReaderNetworkConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig-getenablehttp
      */
     GetEnableHTTP() {
-        result := ComCall(21, this, "int*", &pfEnableHTTP := 0, "HRESULT")
+        result := ComCall(21, this, BOOL.Ptr, &pfEnableHTTP := 0, "HRESULT")
         return pfEnableHTTP
     }
 
@@ -689,7 +732,7 @@ class IWMReaderNetworkConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig-setenablehttp
      */
     SetEnableHTTP(fEnableHTTP) {
-        result := ComCall(22, this, "int", fEnableHTTP, "HRESULT")
+        result := ComCall(22, this, BOOL, fEnableHTTP, "HRESULT")
         return result
     }
 
@@ -699,7 +742,7 @@ class IWMReaderNetworkConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig-getenableudp
      */
     GetEnableUDP() {
-        result := ComCall(23, this, "int*", &pfEnableUDP := 0, "HRESULT")
+        result := ComCall(23, this, BOOL.Ptr, &pfEnableUDP := 0, "HRESULT")
         return pfEnableUDP
     }
 
@@ -743,7 +786,7 @@ class IWMReaderNetworkConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig-setenableudp
      */
     SetEnableUDP(fEnableUDP) {
-        result := ComCall(24, this, "int", fEnableUDP, "HRESULT")
+        result := ComCall(24, this, BOOL, fEnableUDP, "HRESULT")
         return result
     }
 
@@ -753,7 +796,7 @@ class IWMReaderNetworkConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig-getenabletcp
      */
     GetEnableTCP() {
-        result := ComCall(25, this, "int*", &pfEnableTCP := 0, "HRESULT")
+        result := ComCall(25, this, BOOL.Ptr, &pfEnableTCP := 0, "HRESULT")
         return pfEnableTCP
     }
 
@@ -795,7 +838,7 @@ class IWMReaderNetworkConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig-setenabletcp
      */
     SetEnableTCP(fEnableTCP) {
-        result := ComCall(26, this, "int", fEnableTCP, "HRESULT")
+        result := ComCall(26, this, BOOL, fEnableTCP, "HRESULT")
         return result
     }
 
@@ -1078,5 +1121,89 @@ class IWMReaderNetworkConfig extends IUnknown {
     ResetLoggingUrlList() {
         result := ComCall(35, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMReaderNetworkConfig.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetBufferingTime := CallbackCreate(GetMethod(implObj, "GetBufferingTime"), flags, 2)
+        this.vtbl.SetBufferingTime := CallbackCreate(GetMethod(implObj, "SetBufferingTime"), flags, 2)
+        this.vtbl.GetUDPPortRanges := CallbackCreate(GetMethod(implObj, "GetUDPPortRanges"), flags, 3)
+        this.vtbl.SetUDPPortRanges := CallbackCreate(GetMethod(implObj, "SetUDPPortRanges"), flags, 3)
+        this.vtbl.GetProxySettings := CallbackCreate(GetMethod(implObj, "GetProxySettings"), flags, 3)
+        this.vtbl.SetProxySettings := CallbackCreate(GetMethod(implObj, "SetProxySettings"), flags, 3)
+        this.vtbl.GetProxyHostName := CallbackCreate(GetMethod(implObj, "GetProxyHostName"), flags, 4)
+        this.vtbl.SetProxyHostName := CallbackCreate(GetMethod(implObj, "SetProxyHostName"), flags, 3)
+        this.vtbl.GetProxyPort := CallbackCreate(GetMethod(implObj, "GetProxyPort"), flags, 3)
+        this.vtbl.SetProxyPort := CallbackCreate(GetMethod(implObj, "SetProxyPort"), flags, 3)
+        this.vtbl.GetProxyExceptionList := CallbackCreate(GetMethod(implObj, "GetProxyExceptionList"), flags, 4)
+        this.vtbl.SetProxyExceptionList := CallbackCreate(GetMethod(implObj, "SetProxyExceptionList"), flags, 3)
+        this.vtbl.GetProxyBypassForLocal := CallbackCreate(GetMethod(implObj, "GetProxyBypassForLocal"), flags, 3)
+        this.vtbl.SetProxyBypassForLocal := CallbackCreate(GetMethod(implObj, "SetProxyBypassForLocal"), flags, 3)
+        this.vtbl.GetForceRerunAutoProxyDetection := CallbackCreate(GetMethod(implObj, "GetForceRerunAutoProxyDetection"), flags, 2)
+        this.vtbl.SetForceRerunAutoProxyDetection := CallbackCreate(GetMethod(implObj, "SetForceRerunAutoProxyDetection"), flags, 2)
+        this.vtbl.GetEnableMulticast := CallbackCreate(GetMethod(implObj, "GetEnableMulticast"), flags, 2)
+        this.vtbl.SetEnableMulticast := CallbackCreate(GetMethod(implObj, "SetEnableMulticast"), flags, 2)
+        this.vtbl.GetEnableHTTP := CallbackCreate(GetMethod(implObj, "GetEnableHTTP"), flags, 2)
+        this.vtbl.SetEnableHTTP := CallbackCreate(GetMethod(implObj, "SetEnableHTTP"), flags, 2)
+        this.vtbl.GetEnableUDP := CallbackCreate(GetMethod(implObj, "GetEnableUDP"), flags, 2)
+        this.vtbl.SetEnableUDP := CallbackCreate(GetMethod(implObj, "SetEnableUDP"), flags, 2)
+        this.vtbl.GetEnableTCP := CallbackCreate(GetMethod(implObj, "GetEnableTCP"), flags, 2)
+        this.vtbl.SetEnableTCP := CallbackCreate(GetMethod(implObj, "SetEnableTCP"), flags, 2)
+        this.vtbl.ResetProtocolRollover := CallbackCreate(GetMethod(implObj, "ResetProtocolRollover"), flags, 1)
+        this.vtbl.GetConnectionBandwidth := CallbackCreate(GetMethod(implObj, "GetConnectionBandwidth"), flags, 2)
+        this.vtbl.SetConnectionBandwidth := CallbackCreate(GetMethod(implObj, "SetConnectionBandwidth"), flags, 2)
+        this.vtbl.GetNumProtocolsSupported := CallbackCreate(GetMethod(implObj, "GetNumProtocolsSupported"), flags, 2)
+        this.vtbl.GetSupportedProtocolName := CallbackCreate(GetMethod(implObj, "GetSupportedProtocolName"), flags, 4)
+        this.vtbl.AddLoggingUrl := CallbackCreate(GetMethod(implObj, "AddLoggingUrl"), flags, 2)
+        this.vtbl.GetLoggingUrl := CallbackCreate(GetMethod(implObj, "GetLoggingUrl"), flags, 4)
+        this.vtbl.GetLoggingUrlCount := CallbackCreate(GetMethod(implObj, "GetLoggingUrlCount"), flags, 2)
+        this.vtbl.ResetLoggingUrlList := CallbackCreate(GetMethod(implObj, "ResetLoggingUrlList"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetBufferingTime)
+        CallbackFree(this.vtbl.SetBufferingTime)
+        CallbackFree(this.vtbl.GetUDPPortRanges)
+        CallbackFree(this.vtbl.SetUDPPortRanges)
+        CallbackFree(this.vtbl.GetProxySettings)
+        CallbackFree(this.vtbl.SetProxySettings)
+        CallbackFree(this.vtbl.GetProxyHostName)
+        CallbackFree(this.vtbl.SetProxyHostName)
+        CallbackFree(this.vtbl.GetProxyPort)
+        CallbackFree(this.vtbl.SetProxyPort)
+        CallbackFree(this.vtbl.GetProxyExceptionList)
+        CallbackFree(this.vtbl.SetProxyExceptionList)
+        CallbackFree(this.vtbl.GetProxyBypassForLocal)
+        CallbackFree(this.vtbl.SetProxyBypassForLocal)
+        CallbackFree(this.vtbl.GetForceRerunAutoProxyDetection)
+        CallbackFree(this.vtbl.SetForceRerunAutoProxyDetection)
+        CallbackFree(this.vtbl.GetEnableMulticast)
+        CallbackFree(this.vtbl.SetEnableMulticast)
+        CallbackFree(this.vtbl.GetEnableHTTP)
+        CallbackFree(this.vtbl.SetEnableHTTP)
+        CallbackFree(this.vtbl.GetEnableUDP)
+        CallbackFree(this.vtbl.SetEnableUDP)
+        CallbackFree(this.vtbl.GetEnableTCP)
+        CallbackFree(this.vtbl.SetEnableTCP)
+        CallbackFree(this.vtbl.ResetProtocolRollover)
+        CallbackFree(this.vtbl.GetConnectionBandwidth)
+        CallbackFree(this.vtbl.SetConnectionBandwidth)
+        CallbackFree(this.vtbl.GetNumProtocolsSupported)
+        CallbackFree(this.vtbl.GetSupportedProtocolName)
+        CallbackFree(this.vtbl.AddLoggingUrl)
+        CallbackFree(this.vtbl.GetLoggingUrl)
+        CallbackFree(this.vtbl.GetLoggingUrlCount)
+        CallbackFree(this.vtbl.ResetLoggingUrlList)
     }
 }

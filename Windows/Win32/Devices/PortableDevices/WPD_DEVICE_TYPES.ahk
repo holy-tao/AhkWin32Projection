@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The WPD\_DEVICE\_TYPES enumeration type describes the different Windows Portable Device (WPD) types commonly used to determine the basic classification and visual appearance of a portable device.
@@ -11,7 +10,17 @@
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-device-types
  * @namespace Windows.Win32.Devices.PortableDevices
  */
-class WPD_DEVICE_TYPES extends Win32Enum {
+export default struct WPD_DEVICE_TYPES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

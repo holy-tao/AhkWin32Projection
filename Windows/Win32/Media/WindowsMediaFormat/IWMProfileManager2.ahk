@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMProfileManager.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWMProfileManager.ahk" { IWMProfileManager }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WMT_VERSION.ahk" { WMT_VERSION }
 
 /**
  * The IWMProfileManager2 interface adds methods to specify and retrieve the version number of the system profiles enumerated by the profile manager.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmprofilemanager2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMProfileManager2 extends IWMProfileManager {
-
-    static sizeof => A_PtrSize
+export default struct IWMProfileManager2 extends IWMProfileManager {
     /**
      * The interface identifier for IWMProfileManager2
      * @type {Guid}
      */
-    static IID => Guid("{7a924e51-73c1-494d-8019-23d37ed9b89a}")
+    static IID := Guid("{7a924e51-73c1-494d-8019-23d37ed9b89a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMProfileManager2 interfaces
+    */
+    struct Vtbl extends IWMProfileManager.Vtbl {
+        GetSystemProfileVersion : IntPtr
+        SetSystemProfileVersion : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSystemProfileVersion", "SetSystemProfileVersion"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMProfileManager2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetSystemProfileVersion method retrieves the version number of the system profiles that the profile manager enumerates.
@@ -55,7 +65,29 @@ class IWMProfileManager2 extends IWMProfileManager {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofilemanager2-setsystemprofileversion
      */
     SetSystemProfileVersion(dwVersion) {
-        result := ComCall(10, this, "int", dwVersion, "HRESULT")
+        result := ComCall(10, this, WMT_VERSION, dwVersion, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMProfileManager2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSystemProfileVersion := CallbackCreate(GetMethod(implObj, "GetSystemProfileVersion"), flags, 2)
+        this.vtbl.SetSystemProfileVersion := CallbackCreate(GetMethod(implObj, "SetSystemProfileVersion"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSystemProfileVersion)
+        CallbackFree(this.vtbl.SetSystemProfileVersion)
     }
 }

@@ -1,11 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Documentation varies per use. Refer to each: <see href="https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-flatsb_getscrollprop">FlatSB_GetScrollProp</see>, <see href="https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-flatsb_getscrollpropptr">FlatSB_GetScrollPropPtr</see>, <see href="https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-flatsb_setscrollprop">FlatSB_SetScrollProp</see>.
  * @namespace Windows.Win32.UI.Controls
  */
-class WSB_PROP extends Win32Enum {
+export default struct WSB_PROP {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

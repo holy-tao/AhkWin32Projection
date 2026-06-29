@@ -1,44 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IOMMU_DMA_LOGICAL_ALLOCATOR_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IOMMU_DMA_LOGICAL_ALLOCATOR_TYPE.ahk" { IOMMU_DMA_LOGICAL_ALLOCATOR_TYPE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class IOMMU_DMA_LOGICAL_ALLOCATOR_CONFIG extends Win32Struct {
-    static sizeof => 8
+export default struct IOMMU_DMA_LOGICAL_ALLOCATOR_CONFIG {
+    #StructPack 4
 
-    static packingSize => 4
 
-    /**
-     * @type {IOMMU_DMA_LOGICAL_ALLOCATOR_TYPE}
-     */
-    LogicalAllocatorType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    struct _BuddyAllocatorConfig {
+        AddressWidth : UInt32
+
     }
 
-    class _BuddyAllocatorConfig extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
+    LogicalAllocatorType : IOMMU_DMA_LOGICAL_ALLOCATOR_TYPE
 
-        /**
-         * @type {Integer}
-         */
-        AddressWidth {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-    }
+    BuddyAllocatorConfig : IOMMU_DMA_LOGICAL_ALLOCATOR_CONFIG._BuddyAllocatorConfig
 
-    /**
-     * @type {_BuddyAllocatorConfig}
-     */
-    BuddyAllocatorConfig {
-        get {
-            if(!this.HasProp("__BuddyAllocatorConfig"))
-                this.__BuddyAllocatorConfig := IOMMU_DMA_LOGICAL_ALLOCATOR_CONFIG._BuddyAllocatorConfig(4, this)
-            return this.__BuddyAllocatorConfig
-        }
-    }
 }

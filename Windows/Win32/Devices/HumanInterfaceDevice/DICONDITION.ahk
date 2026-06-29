@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class DICONDITION extends Win32Struct {
-    static sizeof => 24
+export default struct DICONDITION {
+    #StructPack 4
 
-    static packingSize => 4
+    lOffset : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lOffset {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    lPositiveCoefficient : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lPositiveCoefficient {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    lNegativeCoefficient : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lNegativeCoefficient {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    dwPositiveSaturation : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwPositiveSaturation {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwNegativeSaturation : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNegativeSaturation {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    lDeadBand : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lDeadBand {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
 }

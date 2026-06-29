@@ -1,95 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Graphics\DirectDraw\DDRAWI_DIRECTDRAW_GBL.ahk
-#Include ..\..\..\Win32\Graphics\DirectDraw\DDRAWI_DIRECTDRAW_LCL.ahk
-#Include ..\..\..\Win32\Graphics\DirectDraw\IDirectDrawSurface.ahk
-#Include ..\..\..\Win32\Graphics\DirectDraw\DDRAWI_DDRAWSURFACE_LCL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Win32\Graphics\DirectDraw\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
+#Import "..\..\..\Win32\Graphics\DirectDraw\IDirectDrawSurface.ahk" { IDirectDrawSurface }
+#Import "..\..\..\Win32\Graphics\DirectDraw\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
+#Import "..\..\..\Win32\Graphics\DirectDraw\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DHAL_CONTEXTCREATEDATA extends Win32Struct {
-    static sizeof => 48
+export default struct D3DHAL_CONTEXTCREATEDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    lpDDGbl : DDRAWI_DIRECTDRAW_GBL.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DIRECTDRAW_GBL>}
-     */
-    lpDDGbl {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpDDS : IDirectDrawSurface
 
-    /**
-     * @type {Pointer<DDRAWI_DIRECTDRAW_LCL>}
-     */
-    lpDDLcl {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpDDSZ : IDirectDrawSurface
 
-    /**
-     * @type {IDirectDrawSurface}
-     */
-    lpDDS {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    dwPID : UInt32
 
-    /**
-     * @type {Pointer<DDRAWI_DDRAWSURFACE_LCL>}
-     */
-    lpDDSLcl {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    dwhContext : IntPtr
 
-    /**
-     * @type {IDirectDrawSurface}
-     */
-    lpDDSZ {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ddrval : HRESULT
 
-    /**
-     * @type {Pointer<DDRAWI_DDRAWSURFACE_LCL>}
-     */
-    lpDDSZLcl {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwPID {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    dwrstates {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    dwhContext {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {HRESULT}
-     */
-    ddrval {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+    static __New() {
+        DefineProp(this.Prototype, 'lpDDLcl', { type: DDRAWI_DIRECTDRAW_LCL.Ptr, offset: 0 })
+        DefineProp(this.Prototype, 'lpDDSLcl', { type: DDRAWI_DDRAWSURFACE_LCL.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'lpDDSZLcl', { type: DDRAWI_DDRAWSURFACE_LCL.Ptr, offset: 16 })
+        DefineProp(this.Prototype, 'dwrstates', { type: IntPtr, offset: 24 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,45 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_DRED_ALLOCATION_NODE1.ahk
-#Include .\D3D12_DRED_PAGE_FAULT_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_DRED_ALLOCATION_NODE1.ahk" { D3D12_DRED_ALLOCATION_NODE1 }
+#Import ".\D3D12_DRED_PAGE_FAULT_FLAGS.ahk" { D3D12_DRED_PAGE_FAULT_FLAGS }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_DRED_PAGE_FAULT_OUTPUT2 extends Win32Struct {
-    static sizeof => 32
+export default struct D3D12_DRED_PAGE_FAULT_OUTPUT2 {
+    #StructPack 8
 
-    static packingSize => 8
+    PageFaultVA : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PageFaultVA {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pHeadExistingAllocationNode : D3D12_DRED_ALLOCATION_NODE1.Ptr
 
-    /**
-     * @type {Pointer<D3D12_DRED_ALLOCATION_NODE1>}
-     */
-    pHeadExistingAllocationNode {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pHeadRecentFreedAllocationNode : D3D12_DRED_ALLOCATION_NODE1.Ptr
 
-    /**
-     * @type {Pointer<D3D12_DRED_ALLOCATION_NODE1>}
-     */
-    pHeadRecentFreedAllocationNode {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    PageFaultFlags : D3D12_DRED_PAGE_FAULT_FLAGS
 
-    /**
-     * @type {D3D12_DRED_PAGE_FAULT_FLAGS}
-     */
-    PageFaultFlags {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
 }

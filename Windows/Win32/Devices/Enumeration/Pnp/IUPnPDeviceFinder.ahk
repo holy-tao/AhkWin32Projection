@@ -1,41 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IUPnPDevices.ahk
-#Include .\IUPnPDevice.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IUPnPDevices.ahk" { IUPnPDevices }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IUPnPDevice.ahk" { IUPnPDevice }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IUPnPDeviceFinder interface enables an application to find a device.
  * @see https://learn.microsoft.com/windows/win32/api/upnp/nn-upnp-iupnpdevicefinder
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
  */
-class IUPnPDeviceFinder extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IUPnPDeviceFinder extends IDispatch {
     /**
      * The interface identifier for IUPnPDeviceFinder
      * @type {Guid}
      */
-    static IID => Guid("{adda3d55-6f72-4319-bff9-18600a539b10}")
+    static IID := Guid("{adda3d55-6f72-4319-bff9-18600a539b10}")
 
     /**
      * The class identifier for UPnPDeviceFinder
      * @type {Guid}
      */
-    static CLSID => Guid("{e2085f28-feb7-404a-b8e7-e659bdeaaa02}")
+    static CLSID := Guid("{e2085f28-feb7-404a-b8e7-e659bdeaaa02}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUPnPDeviceFinder interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        FindByType      : IntPtr
+        CreateAsyncFind : IntPtr
+        StartAsyncFind  : IntPtr
+        CancelAsyncFind : IntPtr
+        FindByUDN       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["FindByType", "CreateAsyncFind", "StartAsyncFind", "CancelAsyncFind", "FindByUDN"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUPnPDeviceFinder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The FindByType method searches synchronously for devices by device type or service type.
@@ -50,7 +64,7 @@ class IUPnPDeviceFinder extends IDispatch {
     FindByType(bstrTypeURI, dwFlags) {
         bstrTypeURI := bstrTypeURI is String ? BSTR.Alloc(bstrTypeURI).Value : bstrTypeURI
 
-        result := ComCall(7, this, "ptr", bstrTypeURI, "uint", dwFlags, "ptr*", &pDevices := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrTypeURI, "uint", dwFlags, "ptr*", &pDevices := 0, "HRESULT")
         return IUPnPDevices(pDevices)
     }
 
@@ -91,7 +105,7 @@ class IUPnPDeviceFinder extends IDispatch {
     CreateAsyncFind(bstrTypeURI, dwFlags, punkDeviceFinderCallback) {
         bstrTypeURI := bstrTypeURI is String ? BSTR.Alloc(bstrTypeURI).Value : bstrTypeURI
 
-        result := ComCall(8, this, "ptr", bstrTypeURI, "uint", dwFlags, "ptr", punkDeviceFinderCallback, "int*", &plFindData := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrTypeURI, "uint", dwFlags, "ptr", punkDeviceFinderCallback, "int*", &plFindData := 0, "HRESULT")
         return plFindData
     }
 
@@ -138,7 +152,35 @@ class IUPnPDeviceFinder extends IDispatch {
     FindByUDN(bstrUDN) {
         bstrUDN := bstrUDN is String ? BSTR.Alloc(bstrUDN).Value : bstrUDN
 
-        result := ComCall(11, this, "ptr", bstrUDN, "ptr*", &pDevice := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, bstrUDN, "ptr*", &pDevice := 0, "HRESULT")
         return IUPnPDevice(pDevice)
+    }
+
+    Query(iid) {
+        if (IUPnPDeviceFinder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.FindByType := CallbackCreate(GetMethod(implObj, "FindByType"), flags, 4)
+        this.vtbl.CreateAsyncFind := CallbackCreate(GetMethod(implObj, "CreateAsyncFind"), flags, 5)
+        this.vtbl.StartAsyncFind := CallbackCreate(GetMethod(implObj, "StartAsyncFind"), flags, 2)
+        this.vtbl.CancelAsyncFind := CallbackCreate(GetMethod(implObj, "CancelAsyncFind"), flags, 2)
+        this.vtbl.FindByUDN := CallbackCreate(GetMethod(implObj, "FindByUDN"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.FindByType)
+        CallbackFree(this.vtbl.CreateAsyncFind)
+        CallbackFree(this.vtbl.StartAsyncFind)
+        CallbackFree(this.vtbl.CancelAsyncFind)
+        CallbackFree(this.vtbl.FindByUDN)
     }
 }

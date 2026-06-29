@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_MESSAGE_CATEGORY.ahk
-#Include .\D3D12_MESSAGE_SEVERITY.ahk
-#Include .\D3D12_MESSAGE_ID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_MESSAGE_CATEGORY.ahk" { D3D12_MESSAGE_CATEGORY }
+#Import ".\D3D12_MESSAGE_SEVERITY.ahk" { D3D12_MESSAGE_SEVERITY }
+#Import ".\D3D12_MESSAGE_ID.ahk" { D3D12_MESSAGE_ID }
 
 /**
  * A debug message in the Information Queue. (D3D12_MESSAGE)
@@ -11,53 +10,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/ns-d3d12sdklayers-d3d12_message
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_MESSAGE extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct D3D12_MESSAGE {
+    #StructPack 8
 
     /**
      * The category of the message. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_category">D3D12_MESSAGE_CATEGORY</a>.
-     * @type {D3D12_MESSAGE_CATEGORY}
      */
-    Category {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Category : D3D12_MESSAGE_CATEGORY
 
     /**
      * The severity of the message. See  <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_severity">D3D12_MESSAGE_SEVERITY</a>.
-     * @type {D3D12_MESSAGE_SEVERITY}
      */
-    Severity {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Severity : D3D12_MESSAGE_SEVERITY
 
     /**
      * The ID of the message. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_id">D3D12_MESSAGE_ID</a>.
-     * @type {D3D12_MESSAGE_ID}
      */
-    ID {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    ID : D3D12_MESSAGE_ID
 
     /**
      * The message string.
-     * @type {Pointer<Integer>}
      */
-    pDescription {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pDescription : IntPtr
 
     /**
      * The length of <i>pDescription</i>, in bytes.
-     * @type {Pointer}
      */
-    DescriptionByteLength {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    DescriptionByteLength : IntPtr
+
 }

@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Resource.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D2D1_INK_NIB_SHAPE.ahk" { D2D1_INK_NIB_SHAPE }
+#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
+#Import ".\ID2D1Resource.ahk" { ID2D1Resource }
 
 /**
  * Represents a collection of style properties to be used by methods like ID2D1DeviceContext2::DrawInk when rendering ink. The ink style defines the nib (pen tip) shape and transform.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nn-d2d1_3-id2d1inkstyle
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1InkStyle extends ID2D1Resource {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1InkStyle extends ID2D1Resource {
     /**
      * The interface identifier for ID2D1InkStyle
      * @type {Guid}
      */
-    static IID => Guid("{bae8b344-23fc-4071-8cb5-d05d6f073848}")
+    static IID := Guid("{bae8b344-23fc-4071-8cb5-d05d6f073848}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1InkStyle interfaces
+    */
+    struct Vtbl extends ID2D1Resource.Vtbl {
+        SetNibTransform : IntPtr
+        GetNibTransform : IntPtr
+        SetNibShape     : IntPtr
+        GetNibShape     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetNibTransform", "GetNibTransform", "SetNibShape", "GetNibShape"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1InkStyle.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the transform to apply to this style's nib shape. (overload 1/2)
@@ -38,7 +50,7 @@ class ID2D1InkStyle extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1inkstyle-setnibtransform(constd2d1_matrix_3x2_f_)
      */
     SetNibTransform(transform) {
-        ComCall(4, this, "ptr", transform)
+        ComCall(4, this, D2D_MATRIX_3X2_F.Ptr, transform)
     }
 
     /**
@@ -50,7 +62,7 @@ class ID2D1InkStyle extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1inkstyle-getnibtransform
      */
     GetNibTransform(transform) {
-        ComCall(5, this, "ptr", transform)
+        ComCall(5, this, D2D_MATRIX_3X2_F.Ptr, transform)
     }
 
     /**
@@ -62,7 +74,7 @@ class ID2D1InkStyle extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1inkstyle-setnibshape
      */
     SetNibShape(nibShape) {
-        ComCall(6, this, "int", nibShape)
+        ComCall(6, this, D2D1_INK_NIB_SHAPE, nibShape)
     }
 
     /**
@@ -73,7 +85,33 @@ class ID2D1InkStyle extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1inkstyle-getnibshape
      */
     GetNibShape() {
-        result := ComCall(7, this, "int")
+        result := ComCall(7, this, D2D1_INK_NIB_SHAPE)
         return result
+    }
+
+    Query(iid) {
+        if (ID2D1InkStyle.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetNibTransform := CallbackCreate(GetMethod(implObj, "SetNibTransform"), flags, 2)
+        this.vtbl.GetNibTransform := CallbackCreate(GetMethod(implObj, "GetNibTransform"), flags, 2)
+        this.vtbl.SetNibShape := CallbackCreate(GetMethod(implObj, "SetNibShape"), flags, 2)
+        this.vtbl.GetNibShape := CallbackCreate(GetMethod(implObj, "GetNibShape"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetNibTransform)
+        CallbackFree(this.vtbl.GetNibTransform)
+        CallbackFree(this.vtbl.SetNibShape)
+        CallbackFree(this.vtbl.GetNibShape)
     }
 }

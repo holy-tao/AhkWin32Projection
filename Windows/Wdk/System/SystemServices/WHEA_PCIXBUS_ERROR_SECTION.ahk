@@ -1,99 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_PCIXBUS_ERROR_SECTION extends Win32Struct {
-    static sizeof => 88
+export default struct WHEA_PCIXBUS_ERROR_SECTION {
+    #StructPack 8
 
-    static packingSize => 8
+    ValidBits : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ValidBits {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ErrorStatus : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ErrorStatus {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ErrorType : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ErrorType {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    BusId : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    BusId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    BusAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BusAddress {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    BusData : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BusData {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    BusCommand : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    BusCommand {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    RequesterId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    RequesterId {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    CompleterId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CompleterId {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    TargetId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TargetId {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
 }

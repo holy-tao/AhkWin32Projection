@@ -1,48 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPC_SERIALIZED_OBJECT.ahk
-#Include ..\Cryptography\CRYPT_INTEGER_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SPC_SERIALIZED_OBJECT.ahk" { SPC_SERIALIZED_OBJECT }
+#Import "..\Cryptography\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
  */
-class SPC_LINK extends Win32Struct {
-    static sizeof => 40
+export default struct SPC_LINK {
+    #StructPack 8
 
-    static packingSize => 8
+    dwLinkChoice : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwLinkChoice {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pwszUrl : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszUrl {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {SPC_SERIALIZED_OBJECT}
-     */
-    Moniker {
-        get {
-            if(!this.HasProp("__Moniker"))
-                this.__Moniker := SPC_SERIALIZED_OBJECT(8, this)
-            return this.__Moniker
-        }
-    }
-
-    /**
-     * @type {PWSTR}
-     */
-    pwszFile {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'Moniker', { type: SPC_SERIALIZED_OBJECT, offset: 8 })
+        DefineProp(this.Prototype, 'pwszFile', { type: PWSTR, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

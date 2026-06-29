@@ -1,36 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DD_DIRECTDRAW_LOCAL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DD_DIRECTDRAW_LOCAL.ahk" { DD_DIRECTDRAW_LOCAL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DD_DESTROYDDLOCALDATA extends Win32Struct {
-    static sizeof => 24
+export default struct DD_DESTROYDDLOCALDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pDDLcl : DD_DIRECTDRAW_LOCAL.Ptr
 
-    /**
-     * @type {Pointer<DD_DIRECTDRAW_LOCAL>}
-     */
-    pDDLcl {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ddRVal : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    ddRVal {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
 }

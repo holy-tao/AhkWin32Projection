@@ -1,35 +1,69 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Describes a set of operations.
  * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iaztask
  * @namespace Windows.Win32.Security.Authorization
  */
-class IAzTask extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IAzTask extends IDispatch {
     /**
      * The interface identifier for IAzTask
      * @type {Guid}
      */
-    static IID => Guid("{cb94e592-2e0e-4a6c-a336-b89a6dc1e388}")
+    static IID := Guid("{cb94e592-2e0e-4a6c-a336-b89a6dc1e388}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAzTask interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Name                : IntPtr
+        put_Name                : IntPtr
+        get_Description         : IntPtr
+        put_Description         : IntPtr
+        get_ApplicationData     : IntPtr
+        put_ApplicationData     : IntPtr
+        get_BizRule             : IntPtr
+        put_BizRule             : IntPtr
+        get_BizRuleLanguage     : IntPtr
+        put_BizRuleLanguage     : IntPtr
+        get_BizRuleImportedPath : IntPtr
+        put_BizRuleImportedPath : IntPtr
+        get_IsRoleDefinition    : IntPtr
+        put_IsRoleDefinition    : IntPtr
+        get_Operations          : IntPtr
+        get_Tasks               : IntPtr
+        AddOperation            : IntPtr
+        DeleteOperation         : IntPtr
+        AddTask                 : IntPtr
+        DeleteTask              : IntPtr
+        get_Writable            : IntPtr
+        GetProperty             : IntPtr
+        SetProperty             : IntPtr
+        AddPropertyItem         : IntPtr
+        DeletePropertyItem      : IntPtr
+        Submit                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Name", "put_Name", "get_Description", "put_Description", "get_ApplicationData", "put_ApplicationData", "get_BizRule", "put_BizRule", "get_BizRuleLanguage", "put_BizRuleLanguage", "get_BizRuleImportedPath", "put_BizRuleImportedPath", "get_IsRoleDefinition", "put_IsRoleDefinition", "get_Operations", "get_Tasks", "AddOperation", "DeleteOperation", "AddTask", "DeleteTask", "get_Writable", "GetProperty", "SetProperty", "AddPropertyItem", "DeletePropertyItem", "Submit"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAzTask.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -116,8 +150,8 @@ class IAzTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-get_name
      */
     get_Name() {
-        pbstrName := BSTR()
-        result := ComCall(7, this, "ptr", pbstrName, "HRESULT")
+        pbstrName := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 
@@ -132,7 +166,7 @@ class IAzTask extends IDispatch {
     put_Name(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(8, this, "ptr", bstrName, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrName, "HRESULT")
         return result
     }
 
@@ -144,8 +178,8 @@ class IAzTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-get_description
      */
     get_Description() {
-        pbstrDescription := BSTR()
-        result := ComCall(9, this, "ptr", pbstrDescription, "HRESULT")
+        pbstrDescription := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pbstrDescription, "HRESULT")
         return pbstrDescription
     }
 
@@ -160,7 +194,7 @@ class IAzTask extends IDispatch {
     put_Description(bstrDescription) {
         bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
 
-        result := ComCall(10, this, "ptr", bstrDescription, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrDescription, "HRESULT")
         return result
     }
 
@@ -173,8 +207,8 @@ class IAzTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-get_applicationdata
      */
     get_ApplicationData() {
-        pbstrApplicationData := BSTR()
-        result := ComCall(11, this, "ptr", pbstrApplicationData, "HRESULT")
+        pbstrApplicationData := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pbstrApplicationData, "HRESULT")
         return pbstrApplicationData
     }
 
@@ -190,7 +224,7 @@ class IAzTask extends IDispatch {
     put_ApplicationData(bstrApplicationData) {
         bstrApplicationData := bstrApplicationData is String ? BSTR.Alloc(bstrApplicationData).Value : bstrApplicationData
 
-        result := ComCall(12, this, "ptr", bstrApplicationData, "HRESULT")
+        result := ComCall(12, this, BSTR, bstrApplicationData, "HRESULT")
         return result
     }
 
@@ -206,8 +240,8 @@ class IAzTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-get_bizrule
      */
     get_BizRule() {
-        pbstrProp := BSTR()
-        result := ComCall(13, this, "ptr", pbstrProp, "HRESULT")
+        pbstrProp := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, pbstrProp, "HRESULT")
         return pbstrProp
     }
 
@@ -226,7 +260,7 @@ class IAzTask extends IDispatch {
     put_BizRule(bstrProp) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
 
-        result := ComCall(14, this, "ptr", bstrProp, "HRESULT")
+        result := ComCall(14, this, BSTR, bstrProp, "HRESULT")
         return result
     }
 
@@ -238,8 +272,8 @@ class IAzTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-get_bizrulelanguage
      */
     get_BizRuleLanguage() {
-        pbstrProp := BSTR()
-        result := ComCall(15, this, "ptr", pbstrProp, "HRESULT")
+        pbstrProp := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, pbstrProp, "HRESULT")
         return pbstrProp
     }
 
@@ -254,7 +288,7 @@ class IAzTask extends IDispatch {
     put_BizRuleLanguage(bstrProp) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
 
-        result := ComCall(16, this, "ptr", bstrProp, "HRESULT")
+        result := ComCall(16, this, BSTR, bstrProp, "HRESULT")
         return result
     }
 
@@ -268,8 +302,8 @@ class IAzTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-get_bizruleimportedpath
      */
     get_BizRuleImportedPath() {
-        pbstrProp := BSTR()
-        result := ComCall(17, this, "ptr", pbstrProp, "HRESULT")
+        pbstrProp := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, pbstrProp, "HRESULT")
         return pbstrProp
     }
 
@@ -286,7 +320,7 @@ class IAzTask extends IDispatch {
     put_BizRuleImportedPath(bstrProp) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
 
-        result := ComCall(18, this, "ptr", bstrProp, "HRESULT")
+        result := ComCall(18, this, BSTR, bstrProp, "HRESULT")
         return result
     }
 
@@ -298,7 +332,7 @@ class IAzTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-get_isroledefinition
      */
     get_IsRoleDefinition() {
-        result := ComCall(19, this, "int*", &pfProp := 0, "HRESULT")
+        result := ComCall(19, this, BOOL.Ptr, &pfProp := 0, "HRESULT")
         return pfProp
     }
 
@@ -311,7 +345,7 @@ class IAzTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-put_isroledefinition
      */
     put_IsRoleDefinition(fProp) {
-        result := ComCall(20, this, "int", fProp, "HRESULT")
+        result := ComCall(20, this, BOOL, fProp, "HRESULT")
         return result
     }
 
@@ -324,7 +358,7 @@ class IAzTask extends IDispatch {
      */
     get_Operations() {
         pvarProp := VARIANT()
-        result := ComCall(21, this, "ptr", pvarProp, "HRESULT")
+        result := ComCall(21, this, VARIANT.Ptr, pvarProp, "HRESULT")
         return pvarProp
     }
 
@@ -339,7 +373,7 @@ class IAzTask extends IDispatch {
      */
     get_Tasks() {
         pvarProp := VARIANT()
-        result := ComCall(22, this, "ptr", pvarProp, "HRESULT")
+        result := ComCall(22, this, VARIANT.Ptr, pvarProp, "HRESULT")
         return pvarProp
     }
 
@@ -355,7 +389,7 @@ class IAzTask extends IDispatch {
     AddOperation(bstrOp, varReserved) {
         bstrOp := bstrOp is String ? BSTR.Alloc(bstrOp).Value : bstrOp
 
-        result := ComCall(23, this, "ptr", bstrOp, "ptr", varReserved, "HRESULT")
+        result := ComCall(23, this, BSTR, bstrOp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -371,7 +405,7 @@ class IAzTask extends IDispatch {
     DeleteOperation(bstrOp, varReserved) {
         bstrOp := bstrOp is String ? BSTR.Alloc(bstrOp).Value : bstrOp
 
-        result := ComCall(24, this, "ptr", bstrOp, "ptr", varReserved, "HRESULT")
+        result := ComCall(24, this, BSTR, bstrOp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -389,7 +423,7 @@ class IAzTask extends IDispatch {
     AddTask(bstrTask, varReserved) {
         bstrTask := bstrTask is String ? BSTR.Alloc(bstrTask).Value : bstrTask
 
-        result := ComCall(25, this, "ptr", bstrTask, "ptr", varReserved, "HRESULT")
+        result := ComCall(25, this, BSTR, bstrTask, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -405,7 +439,7 @@ class IAzTask extends IDispatch {
     DeleteTask(bstrTask, varReserved) {
         bstrTask := bstrTask is String ? BSTR.Alloc(bstrTask).Value : bstrTask
 
-        result := ComCall(26, this, "ptr", bstrTask, "ptr", varReserved, "HRESULT")
+        result := ComCall(26, this, BSTR, bstrTask, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -415,7 +449,7 @@ class IAzTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-get_writable
      */
     get_Writable() {
-        result := ComCall(27, this, "int*", &pfProp := 0, "HRESULT")
+        result := ComCall(27, this, BOOL.Ptr, &pfProp := 0, "HRESULT")
         return pfProp
     }
 
@@ -535,7 +569,7 @@ class IAzTask extends IDispatch {
      */
     GetProperty(lPropId, varReserved) {
         pvarProp := VARIANT()
-        result := ComCall(28, this, "int", lPropId, "ptr", varReserved, "ptr", pvarProp, "HRESULT")
+        result := ComCall(28, this, "int", lPropId, VARIANT, varReserved, VARIANT.Ptr, pvarProp, "HRESULT")
         return pvarProp
     }
 
@@ -690,7 +724,7 @@ class IAzTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-setproperty
      */
     SetProperty(lPropId, varProp, varReserved) {
-        result := ComCall(29, this, "int", lPropId, "ptr", varProp, "ptr", varReserved, "HRESULT")
+        result := ComCall(29, this, "int", lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -734,7 +768,7 @@ class IAzTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-addpropertyitem
      */
     AddPropertyItem(lPropId, varProp, varReserved) {
-        result := ComCall(30, this, "int", lPropId, "ptr", varProp, "ptr", varReserved, "HRESULT")
+        result := ComCall(30, this, "int", lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -776,7 +810,7 @@ class IAzTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-deletepropertyitem
      */
     DeletePropertyItem(lPropId, varProp, varReserved) {
-        result := ComCall(31, this, "int", lPropId, "ptr", varProp, "ptr", varReserved, "HRESULT")
+        result := ComCall(31, this, "int", lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -790,7 +824,77 @@ class IAzTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iaztask-submit
      */
     Submit(lFlags, varReserved) {
-        result := ComCall(32, this, "int", lFlags, "ptr", varReserved, "HRESULT")
+        result := ComCall(32, this, "int", lFlags, VARIANT, varReserved, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAzTask.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.get_ApplicationData := CallbackCreate(GetMethod(implObj, "get_ApplicationData"), flags, 2)
+        this.vtbl.put_ApplicationData := CallbackCreate(GetMethod(implObj, "put_ApplicationData"), flags, 2)
+        this.vtbl.get_BizRule := CallbackCreate(GetMethod(implObj, "get_BizRule"), flags, 2)
+        this.vtbl.put_BizRule := CallbackCreate(GetMethod(implObj, "put_BizRule"), flags, 2)
+        this.vtbl.get_BizRuleLanguage := CallbackCreate(GetMethod(implObj, "get_BizRuleLanguage"), flags, 2)
+        this.vtbl.put_BizRuleLanguage := CallbackCreate(GetMethod(implObj, "put_BizRuleLanguage"), flags, 2)
+        this.vtbl.get_BizRuleImportedPath := CallbackCreate(GetMethod(implObj, "get_BizRuleImportedPath"), flags, 2)
+        this.vtbl.put_BizRuleImportedPath := CallbackCreate(GetMethod(implObj, "put_BizRuleImportedPath"), flags, 2)
+        this.vtbl.get_IsRoleDefinition := CallbackCreate(GetMethod(implObj, "get_IsRoleDefinition"), flags, 2)
+        this.vtbl.put_IsRoleDefinition := CallbackCreate(GetMethod(implObj, "put_IsRoleDefinition"), flags, 2)
+        this.vtbl.get_Operations := CallbackCreate(GetMethod(implObj, "get_Operations"), flags, 2)
+        this.vtbl.get_Tasks := CallbackCreate(GetMethod(implObj, "get_Tasks"), flags, 2)
+        this.vtbl.AddOperation := CallbackCreate(GetMethod(implObj, "AddOperation"), flags, 3)
+        this.vtbl.DeleteOperation := CallbackCreate(GetMethod(implObj, "DeleteOperation"), flags, 3)
+        this.vtbl.AddTask := CallbackCreate(GetMethod(implObj, "AddTask"), flags, 3)
+        this.vtbl.DeleteTask := CallbackCreate(GetMethod(implObj, "DeleteTask"), flags, 3)
+        this.vtbl.get_Writable := CallbackCreate(GetMethod(implObj, "get_Writable"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 4)
+        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 4)
+        this.vtbl.AddPropertyItem := CallbackCreate(GetMethod(implObj, "AddPropertyItem"), flags, 4)
+        this.vtbl.DeletePropertyItem := CallbackCreate(GetMethod(implObj, "DeletePropertyItem"), flags, 4)
+        this.vtbl.Submit := CallbackCreate(GetMethod(implObj, "Submit"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.put_Name)
+        CallbackFree(this.vtbl.get_Description)
+        CallbackFree(this.vtbl.put_Description)
+        CallbackFree(this.vtbl.get_ApplicationData)
+        CallbackFree(this.vtbl.put_ApplicationData)
+        CallbackFree(this.vtbl.get_BizRule)
+        CallbackFree(this.vtbl.put_BizRule)
+        CallbackFree(this.vtbl.get_BizRuleLanguage)
+        CallbackFree(this.vtbl.put_BizRuleLanguage)
+        CallbackFree(this.vtbl.get_BizRuleImportedPath)
+        CallbackFree(this.vtbl.put_BizRuleImportedPath)
+        CallbackFree(this.vtbl.get_IsRoleDefinition)
+        CallbackFree(this.vtbl.put_IsRoleDefinition)
+        CallbackFree(this.vtbl.get_Operations)
+        CallbackFree(this.vtbl.get_Tasks)
+        CallbackFree(this.vtbl.AddOperation)
+        CallbackFree(this.vtbl.DeleteOperation)
+        CallbackFree(this.vtbl.AddTask)
+        CallbackFree(this.vtbl.DeleteTask)
+        CallbackFree(this.vtbl.get_Writable)
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.SetProperty)
+        CallbackFree(this.vtbl.AddPropertyItem)
+        CallbackFree(this.vtbl.DeletePropertyItem)
+        CallbackFree(this.vtbl.Submit)
     }
 }

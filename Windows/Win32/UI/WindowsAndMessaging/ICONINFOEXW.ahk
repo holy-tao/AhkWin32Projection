@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains information about an icon or a cursor. Extends ICONINFO. Used by GetIconInfoEx. (Unicode)
@@ -17,118 +18,70 @@
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @charset Unicode
  */
-class ICONINFOEXW extends Win32Struct {
-    static sizeof => 1080
-
-    static packingSize => 8
+export default struct ICONINFOEXW {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b>BOOL</b>
      * 
      * Specifies whether this structure defines an icon or a cursor. A value of <b>TRUE</b> specifies an icon; <b>FALSE</b> specifies a cursor.
-     * @type {BOOL}
      */
-    fIcon {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    fIcon : BOOL
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The x-coordinate of a cursor's hot spot. If this structure defines an icon, the hot spot is always in the center of the icon, and this member is ignored.
-     * @type {Integer}
      */
-    xHotspot {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    xHotspot : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The y-coordinate of the cursor's hot spot. If this structure defines an icon, the hot spot is always in the center of the icon, and this member is ignored.
-     * @type {Integer}
      */
-    yHotspot {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    yHotspot : UInt32
 
     /**
      * Type: <b>HBITMAP</b>
      * 
      * A handle to the icon monochrome mask <a href="https://docs.microsoft.com/windows/win32/gdi/bitmaps">bitmap</a>.
-     * @type {HBITMAP}
      */
-    hbmMask {
-        get {
-            if(!this.HasProp("__hbmMask"))
-                this.__hbmMask := HBITMAP(16, this)
-            return this.__hbmMask
-        }
-    }
+    hbmMask : HBITMAP
 
     /**
      * Type: <b>HBITMAP</b>
      * 
      * A handle to the icon color <a href="https://docs.microsoft.com/windows/win32/gdi/bitmaps">bitmap</a>.
-     * @type {HBITMAP}
      */
-    hbmColor {
-        get {
-            if(!this.HasProp("__hbmColor"))
-                this.__hbmColor := HBITMAP(24, this)
-            return this.__hbmColor
-        }
-    }
+    hbmColor : HBITMAP
 
     /**
      * Type: <b>WORD</b>
      * 
      * The icon or cursor resource bits. These bits are typically loaded by calls to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-lookupiconidfromdirectoryex">LookupIconIdFromDirectoryEx</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadresource">LoadResource</a> functions.
-     * @type {Integer}
      */
-    wResID {
-        get => NumGet(this, 32, "ushort")
-        set => NumPut("ushort", value, this, 32)
-    }
+    wResID : UInt16
 
     /**
      * Type: <b>TCHAR[MAX_PATH]</b>
      * 
      * The fully qualified path of the module.
-     * @type {String}
      */
-    szModName {
-        get => StrGet(this.ptr + 34, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 34, 259, "UTF-16")
-    }
+    szModName : WCHAR[260]
 
     /**
      * Type: <b>TCHAR[MAX_PATH]</b>
      * 
      * The fully qualified path of the resource.
-     * @type {String}
      */
-    szResName {
-        get => StrGet(this.ptr + 554, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 554, 259, "UTF-16")
-    }
+    szResName : WCHAR[260]
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 1080
-    }
 }

@@ -1,22 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The SecPkgContext_Flags structure contains information about the flags in the current security context. This structure is returned by QueryContextAttributes (General).
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_flags
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SecPkgContext_Flags extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct SecPkgContext_Flags {
+    #StructPack 4
 
     /**
      * Flag values for the current security context. These values correspond to the flags negotiated by the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-initializesecuritycontexta">InitializeSecurityContext (General)</a> and <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-acceptsecuritycontext">AcceptSecurityContext (General)</a> functions.
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : UInt32
+
 }

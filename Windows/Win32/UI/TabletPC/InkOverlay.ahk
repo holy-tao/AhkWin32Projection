@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents an object that is useful for annotation scenarios where users are not concerned with performing recognition on ink but instead are interested in the size, shape, color, and position of the ink.
@@ -38,8 +37,7 @@
  * @see https://learn.microsoft.com/windows/win32/tablet/inkoverlay-class
  * @namespace Windows.Win32.UI.TabletPC
  */
-class InkOverlay extends Win32Struct {
-    static sizeof => 0
+export default struct InkOverlay {
+    #StructPack 1
 
-    static packingSize => 1
 }

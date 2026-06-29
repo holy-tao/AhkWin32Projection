@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SBE2_STREAM_DESC.ahk" { SBE2_STREAM_DESC }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enumerates a collection of streams. This is a utility interface, which you can use to enumerate the streams discovered in a WTV file. The Stream Buffer Source filter implements this interface.
@@ -10,26 +12,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/sbe/nn-sbe-isbe2enumstream
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class ISBE2EnumStream extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISBE2EnumStream extends IUnknown {
     /**
      * The interface identifier for ISBE2EnumStream
      * @type {Guid}
      */
-    static IID => Guid("{f7611092-9fbc-46ec-a7c7-548ea78b71a4}")
+    static IID := Guid("{f7611092-9fbc-46ec-a7c7-548ea78b71a4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISBE2EnumStream interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Next  : IntPtr
+        Skip  : IntPtr
+        Reset : IntPtr
+        Clone : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Next", "Skip", "Reset", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISBE2EnumStream.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the next n streams in the collection.
@@ -39,7 +51,7 @@ class ISBE2EnumStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2enumstream-next
      */
     Next(cRequest, pStreamDesc) {
-        result := ComCall(3, this, "uint", cRequest, "ptr", pStreamDesc, "uint*", &pcReceived := 0, "HRESULT")
+        result := ComCall(3, this, "uint", cRequest, SBE2_STREAM_DESC.Ptr, pStreamDesc, "uint*", &pcReceived := 0, "HRESULT")
         return pcReceived
     }
 
@@ -101,5 +113,31 @@ class ISBE2EnumStream extends IUnknown {
     Clone() {
         result := ComCall(6, this, "ptr*", &ppIEnumStream := 0, "HRESULT")
         return ISBE2EnumStream(ppIEnumStream)
+    }
+
+    Query(iid) {
+        if (ISBE2EnumStream.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 4)
+        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Next)
+        CallbackFree(this.vtbl.Skip)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.Clone)
     }
 }

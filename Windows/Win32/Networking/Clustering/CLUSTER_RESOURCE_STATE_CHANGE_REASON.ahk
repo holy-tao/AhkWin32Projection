@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * CLUSTER_RESOURCE_STATE_CHANGE_REASON (msclus.h) is used by two specific control codes to describe the reason for a resource state change.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_resource_state_change_reason
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUSTER_RESOURCE_STATE_CHANGE_REASON extends Win32Enum {
+export default struct CLUSTER_RESOURCE_STATE_CHANGE_REASON {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * This reason code is never sent by the cluster. 

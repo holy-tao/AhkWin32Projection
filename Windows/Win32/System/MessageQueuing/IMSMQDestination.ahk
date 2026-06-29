@@ -1,38 +1,60 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
  */
-class IMSMQDestination extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IMSMQDestination extends IDispatch {
     /**
      * The interface identifier for IMSMQDestination
      * @type {Guid}
      */
-    static IID => Guid("{eba96b16-2168-11d3-898c-00e02c074f6b}")
+    static IID := Guid("{eba96b16-2168-11d3-898c-00e02c074f6b}")
 
     /**
      * The class identifier for MSMQDestination
      * @type {Guid}
      */
-    static CLSID => Guid("{eba96b18-2168-11d3-898c-00e02c074f6b}")
+    static CLSID := Guid("{eba96b18-2168-11d3-898c-00e02c074f6b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSMQDestination interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Open                : IntPtr
+        Close               : IntPtr
+        get_IsOpen          : IntPtr
+        get_IADs            : IntPtr
+        putref_IADs         : IntPtr
+        get_ADsPath         : IntPtr
+        put_ADsPath         : IntPtr
+        get_PathName        : IntPtr
+        put_PathName        : IntPtr
+        get_FormatName      : IntPtr
+        put_FormatName      : IntPtr
+        get_Destinations    : IntPtr
+        putref_Destinations : IntPtr
+        get_Properties      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Open", "Close", "get_IsOpen", "get_IADs", "putref_IADs", "get_ADsPath", "put_ADsPath", "get_PathName", "put_PathName", "get_FormatName", "put_FormatName", "get_Destinations", "putref_Destinations", "get_Properties"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSMQDestination.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -87,24 +109,8 @@ class IMSMQDestination extends IDispatch {
     }
 
     /**
-     * Opens a handle to a backup event log created by the BackupEventLog function. (ANSI)
-     * @remarks
-     * If the backup filename specifies a remote server, the <i>lpUNCServerName</i> parameter must be <b>NULL</b>.
      * 
-     * When this function is used on Windows Vista and later computers, only backup event logs that were saved with the <b>BackupEventLog</b> function on Windows Vista and later computers can be opened.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines OpenBackupEventLog as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @returns {HRESULT} If the function succeeds, the return value is a handle to the backup event log.
-     * 						
-     * 
-     * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-openbackupeventloga
+     * @returns {HRESULT} 
      */
     Open() {
         result := ComCall(7, this, "HRESULT")
@@ -112,15 +118,8 @@ class IMSMQDestination extends IDispatch {
     }
 
     /**
-     * Use the Close-Session packet to tell the BITS server that file upload is complete and to end the session.
-     * @remarks
-     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
      * 
-     * For upload-reply jobs, you must download the reply before sending **Close-Session**. Otherwise, the reply is lost.
-     * 
-     * If you send this packet before uploading all fragments, the upload file is deleted; you cannot upload a partial file.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Bits/close-session
      */
     Close() {
         result := ComCall(8, this, "HRESULT")
@@ -132,7 +131,7 @@ class IMSMQDestination extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_IsOpen() {
-        result := ComCall(9, this, "short*", &pfIsOpen := 0, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL.Ptr, &pfIsOpen := 0, "HRESULT")
         return pfIsOpen
     }
 
@@ -160,8 +159,8 @@ class IMSMQDestination extends IDispatch {
      * @returns {BSTR} 
      */
     get_ADsPath() {
-        pbstrADsPath := BSTR()
-        result := ComCall(12, this, "ptr", pbstrADsPath, "HRESULT")
+        pbstrADsPath := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, pbstrADsPath, "HRESULT")
         return pbstrADsPath
     }
 
@@ -173,7 +172,7 @@ class IMSMQDestination extends IDispatch {
     put_ADsPath(bstrADsPath) {
         bstrADsPath := bstrADsPath is String ? BSTR.Alloc(bstrADsPath).Value : bstrADsPath
 
-        result := ComCall(13, this, "ptr", bstrADsPath, "HRESULT")
+        result := ComCall(13, this, BSTR, bstrADsPath, "HRESULT")
         return result
     }
 
@@ -182,8 +181,8 @@ class IMSMQDestination extends IDispatch {
      * @returns {BSTR} 
      */
     get_PathName() {
-        pbstrPathName := BSTR()
-        result := ComCall(14, this, "ptr", pbstrPathName, "HRESULT")
+        pbstrPathName := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, pbstrPathName, "HRESULT")
         return pbstrPathName
     }
 
@@ -195,7 +194,7 @@ class IMSMQDestination extends IDispatch {
     put_PathName(bstrPathName) {
         bstrPathName := bstrPathName is String ? BSTR.Alloc(bstrPathName).Value : bstrPathName
 
-        result := ComCall(15, this, "ptr", bstrPathName, "HRESULT")
+        result := ComCall(15, this, BSTR, bstrPathName, "HRESULT")
         return result
     }
 
@@ -204,8 +203,8 @@ class IMSMQDestination extends IDispatch {
      * @returns {BSTR} 
      */
     get_FormatName() {
-        pbstrFormatName := BSTR()
-        result := ComCall(16, this, "ptr", pbstrFormatName, "HRESULT")
+        pbstrFormatName := BSTR.Owned()
+        result := ComCall(16, this, BSTR.Ptr, pbstrFormatName, "HRESULT")
         return pbstrFormatName
     }
 
@@ -217,7 +216,7 @@ class IMSMQDestination extends IDispatch {
     put_FormatName(bstrFormatName) {
         bstrFormatName := bstrFormatName is String ? BSTR.Alloc(bstrFormatName).Value : bstrFormatName
 
-        result := ComCall(17, this, "ptr", bstrFormatName, "HRESULT")
+        result := ComCall(17, this, BSTR, bstrFormatName, "HRESULT")
         return result
     }
 
@@ -247,5 +246,51 @@ class IMSMQDestination extends IDispatch {
     get_Properties() {
         result := ComCall(20, this, "ptr*", &ppcolProperties := 0, "HRESULT")
         return IDispatch(ppcolProperties)
+    }
+
+    Query(iid) {
+        if (IMSMQDestination.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 1)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.get_IsOpen := CallbackCreate(GetMethod(implObj, "get_IsOpen"), flags, 2)
+        this.vtbl.get_IADs := CallbackCreate(GetMethod(implObj, "get_IADs"), flags, 2)
+        this.vtbl.putref_IADs := CallbackCreate(GetMethod(implObj, "putref_IADs"), flags, 2)
+        this.vtbl.get_ADsPath := CallbackCreate(GetMethod(implObj, "get_ADsPath"), flags, 2)
+        this.vtbl.put_ADsPath := CallbackCreate(GetMethod(implObj, "put_ADsPath"), flags, 2)
+        this.vtbl.get_PathName := CallbackCreate(GetMethod(implObj, "get_PathName"), flags, 2)
+        this.vtbl.put_PathName := CallbackCreate(GetMethod(implObj, "put_PathName"), flags, 2)
+        this.vtbl.get_FormatName := CallbackCreate(GetMethod(implObj, "get_FormatName"), flags, 2)
+        this.vtbl.put_FormatName := CallbackCreate(GetMethod(implObj, "put_FormatName"), flags, 2)
+        this.vtbl.get_Destinations := CallbackCreate(GetMethod(implObj, "get_Destinations"), flags, 2)
+        this.vtbl.putref_Destinations := CallbackCreate(GetMethod(implObj, "putref_Destinations"), flags, 2)
+        this.vtbl.get_Properties := CallbackCreate(GetMethod(implObj, "get_Properties"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Open)
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.get_IsOpen)
+        CallbackFree(this.vtbl.get_IADs)
+        CallbackFree(this.vtbl.putref_IADs)
+        CallbackFree(this.vtbl.get_ADsPath)
+        CallbackFree(this.vtbl.put_ADsPath)
+        CallbackFree(this.vtbl.get_PathName)
+        CallbackFree(this.vtbl.put_PathName)
+        CallbackFree(this.vtbl.get_FormatName)
+        CallbackFree(this.vtbl.put_FormatName)
+        CallbackFree(this.vtbl.get_Destinations)
+        CallbackFree(this.vtbl.putref_Destinations)
+        CallbackFree(this.vtbl.get_Properties)
     }
 }

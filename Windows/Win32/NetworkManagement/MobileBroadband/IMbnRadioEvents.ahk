@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMbnRadio.ahk" { IMbnRadio }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Notification interface used to indicate a change in the radio state as well as the completion of a programmatic change in the state .
@@ -19,26 +21,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnradioevents
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  */
-class IMbnRadioEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMbnRadioEvents extends IUnknown {
     /**
      * The interface identifier for IMbnRadioEvents
      * @type {Guid}
      */
-    static IID => Guid("{dcdddab6-201f-4bbb-aaee-338e368af6fa}")
+    static IID := Guid("{dcdddab6-201f-4bbb-aaee-338e368af6fa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMbnRadioEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnRadioStateChange              : IntPtr
+        OnSetSoftwareRadioStateComplete : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnRadioStateChange", "OnSetSoftwareRadioStateComplete"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMbnRadioEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * A notification signaling that the radio state of the device has changed.
@@ -64,5 +74,27 @@ class IMbnRadioEvents extends IUnknown {
     OnSetSoftwareRadioStateComplete(newInterface, requestID, _status) {
         result := ComCall(4, this, "ptr", newInterface, "uint", requestID, "int", _status, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMbnRadioEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnRadioStateChange := CallbackCreate(GetMethod(implObj, "OnRadioStateChange"), flags, 2)
+        this.vtbl.OnSetSoftwareRadioStateComplete := CallbackCreate(GetMethod(implObj, "OnSetSoftwareRadioStateComplete"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnRadioStateChange)
+        CallbackFree(this.vtbl.OnSetSoftwareRadioStateComplete)
     }
 }

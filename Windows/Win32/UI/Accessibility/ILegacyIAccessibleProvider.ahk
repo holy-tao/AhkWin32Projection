@@ -1,9 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IAccessible.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IAccessible.ahk" { IAccessible }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Enables Microsoft UI Automation clients to access the underlying IAccessible implementation of Microsoft Active Accessibility elements.
@@ -12,26 +15,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-ilegacyiaccessibleprovider
  * @namespace Windows.Win32.UI.Accessibility
  */
-class ILegacyIAccessibleProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ILegacyIAccessibleProvider extends IUnknown {
     /**
      * The interface identifier for ILegacyIAccessibleProvider
      * @type {Guid}
      */
-    static IID => Guid("{e44c3566-915d-4070-99c6-047bff5a08f5}")
+    static IID := Guid("{e44c3566-915d-4070-99c6-047bff5a08f5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ILegacyIAccessibleProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Select               : IntPtr
+        DoDefaultAction      : IntPtr
+        SetValue             : IntPtr
+        GetIAccessible       : IntPtr
+        get_ChildId          : IntPtr
+        get_Name             : IntPtr
+        get_Value            : IntPtr
+        get_Description      : IntPtr
+        get_Role             : IntPtr
+        get_State            : IntPtr
+        get_Help             : IntPtr
+        get_KeyboardShortcut : IntPtr
+        GetSelection         : IntPtr
+        get_DefaultAction    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Select", "DoDefaultAction", "SetValue", "GetIAccessible", "get_ChildId", "get_Name", "get_Value", "get_Description", "get_Role", "get_State", "get_Help", "get_KeyboardShortcut", "GetSelection", "get_DefaultAction"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ILegacyIAccessibleProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -168,8 +191,8 @@ class ILegacyIAccessibleProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_name
      */
     get_Name() {
-        pszName := BSTR()
-        result := ComCall(8, this, "ptr", pszName, "HRESULT")
+        pszName := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, pszName, "HRESULT")
         return pszName
     }
 
@@ -179,8 +202,8 @@ class ILegacyIAccessibleProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_value
      */
     get_Value() {
-        pszValue := BSTR()
-        result := ComCall(9, this, "ptr", pszValue, "HRESULT")
+        pszValue := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pszValue, "HRESULT")
         return pszValue
     }
 
@@ -190,8 +213,8 @@ class ILegacyIAccessibleProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_description
      */
     get_Description() {
-        pszDescription := BSTR()
-        result := ComCall(10, this, "ptr", pszDescription, "HRESULT")
+        pszDescription := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, pszDescription, "HRESULT")
         return pszDescription
     }
 
@@ -221,8 +244,8 @@ class ILegacyIAccessibleProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_help
      */
     get_Help() {
-        pszHelp := BSTR()
-        result := ComCall(13, this, "ptr", pszHelp, "HRESULT")
+        pszHelp := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, pszHelp, "HRESULT")
         return pszHelp
     }
 
@@ -232,8 +255,8 @@ class ILegacyIAccessibleProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_keyboardshortcut
      */
     get_KeyboardShortcut() {
-        pszKeyboardShortcut := BSTR()
-        result := ComCall(14, this, "ptr", pszKeyboardShortcut, "HRESULT")
+        pszKeyboardShortcut := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, pszKeyboardShortcut, "HRESULT")
         return pszKeyboardShortcut
     }
 
@@ -255,8 +278,54 @@ class ILegacyIAccessibleProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ilegacyiaccessibleprovider-get_defaultaction
      */
     get_DefaultAction() {
-        pszDefaultAction := BSTR()
-        result := ComCall(16, this, "ptr", pszDefaultAction, "HRESULT")
+        pszDefaultAction := BSTR.Owned()
+        result := ComCall(16, this, BSTR.Ptr, pszDefaultAction, "HRESULT")
         return pszDefaultAction
+    }
+
+    Query(iid) {
+        if (ILegacyIAccessibleProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Select := CallbackCreate(GetMethod(implObj, "Select"), flags, 2)
+        this.vtbl.DoDefaultAction := CallbackCreate(GetMethod(implObj, "DoDefaultAction"), flags, 1)
+        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 2)
+        this.vtbl.GetIAccessible := CallbackCreate(GetMethod(implObj, "GetIAccessible"), flags, 2)
+        this.vtbl.get_ChildId := CallbackCreate(GetMethod(implObj, "get_ChildId"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.get_Role := CallbackCreate(GetMethod(implObj, "get_Role"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.get_Help := CallbackCreate(GetMethod(implObj, "get_Help"), flags, 2)
+        this.vtbl.get_KeyboardShortcut := CallbackCreate(GetMethod(implObj, "get_KeyboardShortcut"), flags, 2)
+        this.vtbl.GetSelection := CallbackCreate(GetMethod(implObj, "GetSelection"), flags, 2)
+        this.vtbl.get_DefaultAction := CallbackCreate(GetMethod(implObj, "get_DefaultAction"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Select)
+        CallbackFree(this.vtbl.DoDefaultAction)
+        CallbackFree(this.vtbl.SetValue)
+        CallbackFree(this.vtbl.GetIAccessible)
+        CallbackFree(this.vtbl.get_ChildId)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.get_Value)
+        CallbackFree(this.vtbl.get_Description)
+        CallbackFree(this.vtbl.get_Role)
+        CallbackFree(this.vtbl.get_State)
+        CallbackFree(this.vtbl.get_Help)
+        CallbackFree(this.vtbl.get_KeyboardShortcut)
+        CallbackFree(this.vtbl.GetSelection)
+        CallbackFree(this.vtbl.get_DefaultAction)
     }
 }

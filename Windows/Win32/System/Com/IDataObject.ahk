@@ -1,37 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
-#Include .\STGMEDIUM.ahk
-#Include .\FORMATETC.ahk
-#Include .\IEnumFORMATETC.ahk
-#Include .\IEnumSTATDATA.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IAdviseSink.ahk" { IAdviseSink }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\STGMEDIUM.ahk" { STGMEDIUM }
+#Import ".\FORMATETC.ahk" { FORMATETC }
+#Import ".\IEnumSTATDATA.ahk" { IEnumSTATDATA }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumFORMATETC.ahk" { IEnumFORMATETC }
 
 /**
  * Enables data transfer and notification of changes in data.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-idataobject
  * @namespace Windows.Win32.System.Com
  */
-class IDataObject extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDataObject extends IUnknown {
     /**
      * The interface identifier for IDataObject
      * @type {Guid}
      */
-    static IID => Guid("{0000010e-0000-0000-c000-000000000046}")
+    static IID := Guid("{0000010e-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDataObject interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetData               : IntPtr
+        GetDataHere           : IntPtr
+        QueryGetData          : IntPtr
+        GetCanonicalFormatEtc : IntPtr
+        SetData               : IntPtr
+        EnumFormatEtc         : IntPtr
+        DAdvise               : IntPtr
+        DUnadvise             : IntPtr
+        EnumDAdvise           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetData", "GetDataHere", "QueryGetData", "GetCanonicalFormatEtc", "SetData", "EnumFormatEtc", "DAdvise", "DUnadvise", "EnumDAdvise"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDataObject.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called by a data consumer to obtain data from a source data object.
@@ -53,7 +71,7 @@ class IDataObject extends IUnknown {
      */
     GetData(pformatetcIn) {
         pmedium := STGMEDIUM()
-        result := ComCall(3, this, "ptr", pformatetcIn, "ptr", pmedium, "HRESULT")
+        result := ComCall(3, this, FORMATETC.Ptr, pformatetcIn, STGMEDIUM.Ptr, pmedium, "HRESULT")
         return pmedium
     }
 
@@ -177,7 +195,7 @@ class IDataObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-idataobject-getdatahere
      */
     GetDataHere(pformatetc, pmedium) {
-        result := ComCall(4, this, "ptr", pformatetc, "ptr", pmedium, "HRESULT")
+        result := ComCall(4, this, FORMATETC.Ptr, pformatetc, STGMEDIUM.Ptr, pmedium, "HRESULT")
         return result
     }
 
@@ -285,7 +303,7 @@ class IDataObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-idataobject-querygetdata
      */
     QueryGetData(pformatetc) {
-        result := ComCall(5, this, "ptr", pformatetc, "int")
+        result := ComCall(5, this, FORMATETC.Ptr, pformatetc, Int32)
         return result
     }
 
@@ -307,7 +325,7 @@ class IDataObject extends IUnknown {
      */
     GetCanonicalFormatEtc(pformatectIn) {
         pformatetcOut := FORMATETC()
-        result := ComCall(6, this, "ptr", pformatectIn, "ptr", pformatetcOut, "int")
+        result := ComCall(6, this, FORMATETC.Ptr, pformatectIn, FORMATETC.Ptr, pformatetcOut, Int32)
         return pformatetcOut
     }
 
@@ -432,7 +450,7 @@ class IDataObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-idataobject-setdata
      */
     SetData(pformatetc, pmedium, fRelease) {
-        result := ComCall(7, this, "ptr", pformatetc, "ptr", pmedium, "int", fRelease, "HRESULT")
+        result := ComCall(7, this, FORMATETC.Ptr, pformatetc, STGMEDIUM.Ptr, pmedium, BOOL, fRelease, "HRESULT")
         return result
     }
 
@@ -556,7 +574,7 @@ class IDataObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-idataobject-dadvise
      */
     DAdvise(pformatetc, _advf, pAdvSink) {
-        result := ComCall(9, this, "ptr", pformatetc, "uint", _advf, "ptr", pAdvSink, "uint*", &pdwConnection := 0, "HRESULT")
+        result := ComCall(9, this, FORMATETC.Ptr, pformatetc, "uint", _advf, "ptr", pAdvSink, "uint*", &pdwConnection := 0, "HRESULT")
         return pdwConnection
     }
 
@@ -617,5 +635,41 @@ class IDataObject extends IUnknown {
     EnumDAdvise() {
         result := ComCall(11, this, "ptr*", &ppenumAdvise := 0, "HRESULT")
         return IEnumSTATDATA(ppenumAdvise)
+    }
+
+    Query(iid) {
+        if (IDataObject.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 3)
+        this.vtbl.GetDataHere := CallbackCreate(GetMethod(implObj, "GetDataHere"), flags, 3)
+        this.vtbl.QueryGetData := CallbackCreate(GetMethod(implObj, "QueryGetData"), flags, 2)
+        this.vtbl.GetCanonicalFormatEtc := CallbackCreate(GetMethod(implObj, "GetCanonicalFormatEtc"), flags, 3)
+        this.vtbl.SetData := CallbackCreate(GetMethod(implObj, "SetData"), flags, 4)
+        this.vtbl.EnumFormatEtc := CallbackCreate(GetMethod(implObj, "EnumFormatEtc"), flags, 3)
+        this.vtbl.DAdvise := CallbackCreate(GetMethod(implObj, "DAdvise"), flags, 5)
+        this.vtbl.DUnadvise := CallbackCreate(GetMethod(implObj, "DUnadvise"), flags, 2)
+        this.vtbl.EnumDAdvise := CallbackCreate(GetMethod(implObj, "EnumDAdvise"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetData)
+        CallbackFree(this.vtbl.GetDataHere)
+        CallbackFree(this.vtbl.QueryGetData)
+        CallbackFree(this.vtbl.GetCanonicalFormatEtc)
+        CallbackFree(this.vtbl.SetData)
+        CallbackFree(this.vtbl.EnumFormatEtc)
+        CallbackFree(this.vtbl.DAdvise)
+        CallbackFree(this.vtbl.DUnadvise)
+        CallbackFree(this.vtbl.EnumDAdvise)
     }
 }

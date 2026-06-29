@@ -1,20 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHV_X64_PENDING_INTERRUPTION_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WHV_X64_PENDING_INTERRUPTION_TYPE.ahk" { WHV_X64_PENDING_INTERRUPTION_TYPE }
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_X64_INTERRUPTION_DELIVERABLE_CONTEXT extends Win32Struct {
-    static sizeof => 4
+export default struct WHV_X64_INTERRUPTION_DELIVERABLE_CONTEXT {
+    #StructPack 4
 
-    static packingSize => 4
+    DeliverableType : WHV_X64_PENDING_INTERRUPTION_TYPE
 
-    /**
-     * @type {WHV_X64_PENDING_INTERRUPTION_TYPE}
-     */
-    DeliverableType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
 }

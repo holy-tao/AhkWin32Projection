@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies values that identify the ownership conditions under which an image is created by the Windows Ribbon framework.
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/ne-uiribbon-ui_ownership
  * @namespace Windows.Win32.UI.Ribbon
  */
-class UI_OWNERSHIP extends Win32Enum {
+export default struct UI_OWNERSHIP {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The handle to the bitmap (HBITMAP) is owned by the Ribbon framework 

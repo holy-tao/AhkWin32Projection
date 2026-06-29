@@ -1,45 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DIPROPHEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DIPROPHEADER.ahk" { DIPROPHEADER }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class DIPROPCALPOV extends Win32Struct {
-    static sizeof => 56
+export default struct DIPROPCALPOV {
+    #StructPack 4
 
-    static packingSize => 4
+    diph : DIPROPHEADER
 
-    /**
-     * @type {DIPROPHEADER}
-     */
-    diph {
-        get {
-            if(!this.HasProp("__diph"))
-                this.__diph := DIPROPHEADER(0, this)
-            return this.__diph
-        }
-    }
+    lMin : Int32[5]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    lMin {
-        get {
-            if(!this.HasProp("__lMinProxyArray"))
-                this.__lMinProxyArray := Win32FixedArray(this.ptr + 16, 5, Primitive, "int")
-            return this.__lMinProxyArray
-        }
-    }
+    lMax : Int32[5]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    lMax {
-        get {
-            if(!this.HasProp("__lMaxProxyArray"))
-                this.__lMaxProxyArray := Win32FixedArray(this.ptr + 36, 5, Primitive, "int")
-            return this.__lMaxProxyArray
-        }
-    }
 }

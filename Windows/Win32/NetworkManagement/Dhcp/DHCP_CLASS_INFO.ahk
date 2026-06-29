@@ -1,51 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Defines a DHCP option class.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_class_info
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  */
-class DHCP_CLASS_INFO extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct DHCP_CLASS_INFO {
+    #StructPack 8
 
     /**
      * Unicode string that contains the name of the class.
-     * @type {PWSTR}
      */
-    ClassName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ClassName : PWSTR
 
     /**
      * Unicode string that contains a comment associated with the class.
-     * @type {PWSTR}
      */
-    ClassComment {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ClassComment : PWSTR
 
     /**
      * Specifies the size of <b>ClassData</b>, in bytes. When passing this structure into <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcpgetclassinfo">DhcpGetClassInfo</a>, this value should be set to the size of the initialized buffer.
-     * @type {Integer}
      */
-    ClassDataLength {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ClassDataLength : UInt32
 
     /**
      * Specifies whether or not this option class is a vendor-defined option class. If <b>TRUE</b>, it is a vendor class; if not, it is not a vendor class. Vendor-defined option classes can be used by DHCP clients that are configured to optionally identify themselves by their vendor type to the DHCP server when obtaining a lease.
-     * @type {BOOL}
      */
-    IsVendor {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    IsVendor : BOOL
 
     /**
      * Specifies a bit flag that indicates whether or not the options are vendor-specific. If it is not, this parameter should be 0.
@@ -66,19 +49,12 @@ class DHCP_CLASS_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Flags : UInt32
 
     /**
      * Pointer to a byte buffer that contains specific data for the class. When passing this structure into <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcpgetclassinfo">DhcpGetClassInfo</a>, this buffer should be initialized to the anticipated size of the data to be returned.
-     * @type {Pointer<Integer>}
      */
-    ClassData {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    ClassData : IntPtr
+
 }

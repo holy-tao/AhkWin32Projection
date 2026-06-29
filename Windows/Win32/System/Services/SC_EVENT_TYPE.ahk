@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates a type of service status change for monitoring and reporting.
  * @see https://learn.microsoft.com/windows/win32/Services/sc-event-type
  * @namespace Windows.Win32.System.Services
  */
-class SC_EVENT_TYPE extends Win32Enum {
+export default struct SC_EVENT_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

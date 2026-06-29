@@ -1,35 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\System\WinRT\IInspectable.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\..\System\WinRT\IInspectable.ahk" { IInspectable }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a XAML Diagnostics session.
  * @see https://learn.microsoft.com/windows/win32/api/xamlom/nn-xamlom-ixamldiagnostics
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
  */
-class IXamlDiagnostics extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IXamlDiagnostics extends IUnknown {
     /**
      * The interface identifier for IXamlDiagnostics
      * @type {Guid}
      */
-    static IID => Guid("{18c9e2b6-3f43-4116-9f2b-ff935d7770d2}")
+    static IID := Guid("{18c9e2b6-3f43-4116-9f2b-ff935d7770d2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXamlDiagnostics interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDispatcher             : IntPtr
+        GetUiLayer                : IntPtr
+        GetApplication            : IntPtr
+        GetIInspectableFromHandle : IntPtr
+        GetHandleFromIInspectable : IntPtr
+        HitTest                   : IntPtr
+        RegisterInstance          : IntPtr
+        GetInitializationData     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDispatcher", "GetUiLayer", "GetApplication", "GetIInspectableFromHandle", "GetHandleFromIInspectable", "HitTest", "RegisterInstance", "GetInitializationData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXamlDiagnostics.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the core dispatcher used to access elements on the UI thread.
@@ -102,7 +118,7 @@ class IXamlDiagnostics extends IUnknown {
         pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
         ppInstanceHandlesMarshal := ppInstanceHandles is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, "ptr", _rect, pCountMarshal, pCount, ppInstanceHandlesMarshal, ppInstanceHandles, "HRESULT")
+        result := ComCall(8, this, RECT, _rect, pCountMarshal, pCount, ppInstanceHandlesMarshal, ppInstanceHandles, "HRESULT")
         return result
     }
 
@@ -123,8 +139,42 @@ class IXamlDiagnostics extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ixamldiagnostics-getinitializationdata
      */
     GetInitializationData() {
-        pInitializationData := BSTR()
-        result := ComCall(10, this, "ptr", pInitializationData, "HRESULT")
+        pInitializationData := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, pInitializationData, "HRESULT")
         return pInitializationData
+    }
+
+    Query(iid) {
+        if (IXamlDiagnostics.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDispatcher := CallbackCreate(GetMethod(implObj, "GetDispatcher"), flags, 2)
+        this.vtbl.GetUiLayer := CallbackCreate(GetMethod(implObj, "GetUiLayer"), flags, 2)
+        this.vtbl.GetApplication := CallbackCreate(GetMethod(implObj, "GetApplication"), flags, 2)
+        this.vtbl.GetIInspectableFromHandle := CallbackCreate(GetMethod(implObj, "GetIInspectableFromHandle"), flags, 3)
+        this.vtbl.GetHandleFromIInspectable := CallbackCreate(GetMethod(implObj, "GetHandleFromIInspectable"), flags, 3)
+        this.vtbl.HitTest := CallbackCreate(GetMethod(implObj, "HitTest"), flags, 4)
+        this.vtbl.RegisterInstance := CallbackCreate(GetMethod(implObj, "RegisterInstance"), flags, 3)
+        this.vtbl.GetInitializationData := CallbackCreate(GetMethod(implObj, "GetInitializationData"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDispatcher)
+        CallbackFree(this.vtbl.GetUiLayer)
+        CallbackFree(this.vtbl.GetApplication)
+        CallbackFree(this.vtbl.GetIInspectableFromHandle)
+        CallbackFree(this.vtbl.GetHandleFromIInspectable)
+        CallbackFree(this.vtbl.HitTest)
+        CallbackFree(this.vtbl.RegisterInstance)
+        CallbackFree(this.vtbl.GetInitializationData)
     }
 }

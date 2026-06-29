@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The VARSTRING structure is used for returning variably sized strings. It is used both by the line device class and the phone device class.
@@ -16,63 +15,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-varstring
  * @namespace Windows.Win32.Devices.Tapi
  */
-class VARSTRING extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct VARSTRING {
+    #StructPack 4
 
     /**
      * Total size allocated to this data structure, in bytes.
-     * @type {Integer}
      */
-    dwTotalSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwTotalSize : UInt32
 
     /**
      * Size for this data structure that is needed to hold all the returned information, in bytes.
-     * @type {Integer}
      */
-    dwNeededSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwNeededSize : UInt32
 
     /**
      * Size of the portion of this data structure that contains useful information, in bytes.
-     * @type {Integer}
      */
-    dwUsedSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwUsedSize : UInt32
 
     /**
      * Format of the string. This member uses one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/stringformat--constants">STRINGFORMAT_ Constants</a>.
-     * @type {Integer}
      */
-    dwStringFormat {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwStringFormat : UInt32
 
     /**
      * Size of the string information, including the <b>null</b> terminator, in bytes.
-     * @type {Integer}
      */
-    dwStringSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwStringSize : UInt32
 
     /**
      * Offset from the beginning of the structure to the variably sized device field containing the string information. The size of the field is specified by <b>dwStringSize</b>.
-     * @type {Integer}
      */
-    dwStringOffset {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwStringOffset : UInt32
+
 }

@@ -1,34 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IAudioMediaType.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\APO_REG_PROPERTIES.ahk" { APO_REG_PROPERTIES }
+#Import ".\IAudioMediaType.ahk" { IAudioMediaType }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * System Effects Audio Processing Objects (sAPOs) are typically used in or called from real-time process threads.
  * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nn-audioenginebaseapo-iaudioprocessingobject
  * @namespace Windows.Win32.Media.Audio.Apo
  */
-class IAudioProcessingObject extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAudioProcessingObject extends IUnknown {
     /**
      * The interface identifier for IAudioProcessingObject
      * @type {Guid}
      */
-    static IID => Guid("{fd7f2b29-24d0-4b5c-b177-592c39f9ca10}")
+    static IID := Guid("{fd7f2b29-24d0-4b5c-b177-592c39f9ca10}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAudioProcessingObject interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Reset                     : IntPtr
+        GetLatency                : IntPtr
+        GetRegistrationProperties : IntPtr
+        Initialize                : IntPtr
+        IsInputFormatSupported    : IntPtr
+        IsOutputFormatSupported   : IntPtr
+        GetInputChannelCount      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Reset", "GetLatency", "GetRegistrationProperties", "Initialize", "IsInputFormatSupported", "IsOutputFormatSupported", "GetInputChannelCount"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAudioProcessingObject.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Reset method resets the APO to its original state. This method does not cause any changes in the connection objects that are attached to the input or the output of the APO.
@@ -191,5 +206,37 @@ class IAudioProcessingObject extends IUnknown {
     GetInputChannelCount() {
         result := ComCall(9, this, "uint*", &pu32ChannelCount := 0, "HRESULT")
         return pu32ChannelCount
+    }
+
+    Query(iid) {
+        if (IAudioProcessingObject.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.GetLatency := CallbackCreate(GetMethod(implObj, "GetLatency"), flags, 2)
+        this.vtbl.GetRegistrationProperties := CallbackCreate(GetMethod(implObj, "GetRegistrationProperties"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.IsInputFormatSupported := CallbackCreate(GetMethod(implObj, "IsInputFormatSupported"), flags, 4)
+        this.vtbl.IsOutputFormatSupported := CallbackCreate(GetMethod(implObj, "IsOutputFormatSupported"), flags, 4)
+        this.vtbl.GetInputChannelCount := CallbackCreate(GetMethod(implObj, "GetInputChannelCount"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.GetLatency)
+        CallbackFree(this.vtbl.GetRegistrationProperties)
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.IsInputFormatSupported)
+        CallbackFree(this.vtbl.IsOutputFormatSupported)
+        CallbackFree(this.vtbl.GetInputChannelCount)
     }
 }

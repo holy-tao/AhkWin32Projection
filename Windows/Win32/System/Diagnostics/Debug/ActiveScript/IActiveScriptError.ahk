@@ -1,50 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include ..\..\..\Com\EXCEPINFO.ahk
-#Include ..\..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Com\EXCEPINFO.ahk" { EXCEPINFO }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
  */
-class IActiveScriptError extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IActiveScriptError extends IUnknown {
     /**
      * The interface identifier for IActiveScriptError
      * @type {Guid}
      */
-    static IID => Guid("{eae1ba61-a4ed-11cf-8f20-00805f2cd064}")
+    static IID := Guid("{eae1ba61-a4ed-11cf-8f20-00805f2cd064}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IActiveScriptError interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetExceptionInfo  : IntPtr
+        GetSourcePosition : IntPtr
+        GetSourceLineText : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IActiveScriptError.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetExceptionInfo", "GetSourcePosition", "GetSourceLineText"]
-
-    /**
-     * Retrieves a computer-independent description of an exception, and information about the computer state that exists for the thread when the exception occurs. This function can be called only from within the filter expression of an exception handler.
-     * @remarks
-     * The filter expression (from which the function is called) is evaluated if an exception occurs during execution of the **\_\_try** block, and it determines whether or not the **\_\_except** block is executed.
      * 
-     * The filter expression can invoke a filter function. The filter function cannot call **GetExceptionInformation**. However, the return value of **GetExceptionInformation** can be passed as a parameter to a filter function.
-     * 
-     * To pass the [**EXCEPTION\_POINTERS**](/windows/desktop/api/WinNT/ns-winnt-exception_pointers) information to the exception-handler block, the filter expression or filter function must copy the pointer or the data to safe storage that the handler can later access.
-     * 
-     * In the case of nested handlers, each filter expression is evaluated until one is evaluated as **EXCEPTION\_EXECUTE\_HANDLER** or **EXCEPTION\_CONTINUE\_EXECUTION**. Each filter expression can invoke **GetExceptionInformation** to get exception information.
      * @returns {EXCEPINFO} 
-     * @see https://learn.microsoft.com/windows/win32/Debug/getexceptioninformation
      */
     GetExceptionInfo() {
         pexcepinfo := EXCEPINFO()
-        result := ComCall(3, this, "ptr", pexcepinfo, "HRESULT")
+        result := ComCall(3, this, EXCEPINFO.Ptr, pexcepinfo, "HRESULT")
         return pexcepinfo
     }
 
@@ -69,8 +70,32 @@ class IActiveScriptError extends IUnknown {
      * @returns {BSTR} 
      */
     GetSourceLineText() {
-        pbstrSourceLine := BSTR()
-        result := ComCall(5, this, "ptr", pbstrSourceLine, "HRESULT")
+        pbstrSourceLine := BSTR.Owned()
+        result := ComCall(5, this, BSTR.Ptr, pbstrSourceLine, "HRESULT")
         return pbstrSourceLine
+    }
+
+    Query(iid) {
+        if (IActiveScriptError.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetExceptionInfo := CallbackCreate(GetMethod(implObj, "GetExceptionInfo"), flags, 2)
+        this.vtbl.GetSourcePosition := CallbackCreate(GetMethod(implObj, "GetSourcePosition"), flags, 4)
+        this.vtbl.GetSourceLineText := CallbackCreate(GetMethod(implObj, "GetSourceLineText"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetExceptionInfo)
+        CallbackFree(this.vtbl.GetSourcePosition)
+        CallbackFree(this.vtbl.GetSourceLineText)
     }
 }

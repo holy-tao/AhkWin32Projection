@@ -1,110 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\GameInputRawDeviceItemCollectionKind.ahk
-#Include .\GameInputUsage.ahk
-#Include .\GameInputRawDeviceItemCollectionInfo.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GameInputUsage.ahk" { GameInputUsage }
+#Import ".\GameInputRawDeviceItemCollectionKind.ahk" { GameInputRawDeviceItemCollectionKind }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
  */
-class GameInputRawDeviceItemCollectionInfo extends Win32Struct {
-    static sizeof => 80
+export default struct GameInputRawDeviceItemCollectionInfo {
+    #StructPack 8
 
-    static packingSize => 8
+    kind : GameInputRawDeviceItemCollectionKind
 
-    /**
-     * @type {GameInputRawDeviceItemCollectionKind}
-     */
-    kind {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    childCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    childCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    siblingCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    siblingCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    usageCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    usageCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    usages : GameInputUsage.Ptr
 
-    /**
-     * @type {Pointer<GameInputUsage>}
-     */
-    usages {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    parent : GameInputRawDeviceItemCollectionInfo.Ptr
 
-    /**
-     * @type {Pointer<GameInputRawDeviceItemCollectionInfo>}
-     */
-    parent {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    firstSibling : GameInputRawDeviceItemCollectionInfo.Ptr
 
-    /**
-     * @type {Pointer<GameInputRawDeviceItemCollectionInfo>}
-     */
-    firstSibling {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    previousSibling : GameInputRawDeviceItemCollectionInfo.Ptr
 
-    /**
-     * @type {Pointer<GameInputRawDeviceItemCollectionInfo>}
-     */
-    previousSibling {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    nextSibling : GameInputRawDeviceItemCollectionInfo.Ptr
 
-    /**
-     * @type {Pointer<GameInputRawDeviceItemCollectionInfo>}
-     */
-    nextSibling {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    lastSibling : GameInputRawDeviceItemCollectionInfo.Ptr
 
-    /**
-     * @type {Pointer<GameInputRawDeviceItemCollectionInfo>}
-     */
-    lastSibling {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    firstChild : GameInputRawDeviceItemCollectionInfo.Ptr
 
-    /**
-     * @type {Pointer<GameInputRawDeviceItemCollectionInfo>}
-     */
-    firstChild {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    lastChild : GameInputRawDeviceItemCollectionInfo.Ptr
 
-    /**
-     * @type {Pointer<GameInputRawDeviceItemCollectionInfo>}
-     */
-    lastChild {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
 }

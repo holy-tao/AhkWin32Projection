@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\INTERNET_CACHE_CONFIG_PATH_ENTRYA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\INTERNET_CACHE_CONFIG_PATH_ENTRYA.ahk" { INTERNET_CACHE_CONFIG_PATH_ENTRYA }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Contains information about the configuration of the Internet cache. (ANSI)
@@ -17,116 +18,60 @@
  * @namespace Windows.Win32.Networking.WinInet
  * @charset ANSI
  */
-class INTERNET_CACHE_CONFIG_INFOA extends Win32Struct {
-    static sizeof => 300
-
-    static packingSize => 4
+export default struct INTERNET_CACHE_CONFIG_INFOA {
+    #StructPack 4
 
     /**
      * Size of this structure, in bytes. This value can be used to help determine the version of the cache system.
-     * @type {Integer}
      */
-    dwStructSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwStructSize : UInt32
 
     /**
      * The container that the rest of the data in the struct applies to. 0 (zero) indicates the content container.
-     * @type {Integer}
      */
-    dwContainer {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwContainer : UInt32
 
     /**
      * The cache quota limit of the container specified in kilobytes.
-     * @type {Integer}
      */
-    dwQuota {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwQuota : UInt32
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    dwReserved4 {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwReserved4 : UInt32
 
     /**
      * Reserved.
-     * @type {BOOL}
      */
-    fPerUser {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    fPerUser : BOOL
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    dwSyncMode {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwSyncMode : UInt32
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    dwNumCachePaths {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwNumCachePaths : UInt32
 
-    /**
-     * @type {String}
-     */
-    CachePath {
-        get => StrGet(this.ptr + 28, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 28, 259, "UTF-8")
-    }
+    CachePath : CHAR[260]
 
-    /**
-     * @type {Integer}
-     */
-    dwCacheSize {
-        get => NumGet(this, 288, "uint")
-        set => NumPut("uint", value, this, 288)
-    }
-
-    /**
-     * @type {INTERNET_CACHE_CONFIG_PATH_ENTRYA}
-     */
-    CachePaths {
-        get {
-            if(!this.HasProp("__CachePathsProxyArray"))
-                this.__CachePathsProxyArray := Win32FixedArray(this.ptr + 28, 1, INTERNET_CACHE_CONFIG_PATH_ENTRYA, "")
-            return this.__CachePathsProxyArray
-        }
-    }
+    dwCacheSize : UInt32
 
     /**
      * The cache size of the container specified in kilobytes.
-     * @type {Integer}
      */
-    dwNormalUsage {
-        get => NumGet(this, 292, "uint")
-        set => NumPut("uint", value, this, 292)
-    }
+    dwNormalUsage : UInt32
 
     /**
      * The number of kilobytes for this container exempt from scavenging.
-     * @type {Integer}
      */
-    dwExemptUsage {
-        get => NumGet(this, 296, "uint")
-        set => NumPut("uint", value, this, 296)
+    dwExemptUsage : UInt32
+
+    static __New() {
+        DefineProp(this.Prototype, 'CachePaths', { type: INTERNET_CACHE_CONFIG_PATH_ENTRYA[1], offset: 28 })
+        this.DeleteProp("__New")
     }
 }

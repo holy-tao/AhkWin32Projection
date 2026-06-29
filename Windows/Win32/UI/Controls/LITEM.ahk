@@ -1,17 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\LIST_ITEM_FLAGS.ahk
-#Include .\LIST_ITEM_STATE_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LIST_ITEM_FLAGS.ahk" { LIST_ITEM_FLAGS }
+#Import ".\LIST_ITEM_STATE_FLAGS.ahk" { LIST_ITEM_STATE_FLAGS }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Used to set and retrieve information about a link item.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-litem
  * @namespace Windows.Win32.UI.Controls
  */
-class LITEM extends Win32Struct {
-    static sizeof => 4280
-
-    static packingSize => 4
+export default struct LITEM {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -68,23 +66,15 @@ class LITEM extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {LIST_ITEM_FLAGS}
      */
-    mask {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    mask : LIST_ITEM_FLAGS
 
     /**
      * Type: <b>int</b>
      * 
      * Value of type <b>int</b> that contains the item index. This numeric index is used to access a SysLink control link.
-     * @type {Integer}
      */
-    iLink {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    iLink : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -152,43 +142,28 @@ class LITEM extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {LIST_ITEM_STATE_FLAGS}
      */
-    state {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    state : LIST_ITEM_STATE_FLAGS
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Combination of flags describing which state item to get or set. Allowable items are identical to those allowed in <b>state</b>.
-     * @type {LIST_ITEM_STATE_FLAGS}
      */
-    stateMask {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    stateMask : LIST_ITEM_STATE_FLAGS
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WCHAR</a>[MAX_LINKID_TEXT]</b>
      * 
      * <b>WCHAR</b> string that contains the ID name. The maximum number of characters in the array is MAX_LINKID_TEXT. The ID name cannot be used to access a SysLink control link. You use the item index to access the item.
-     * @type {String}
      */
-    szID {
-        get => StrGet(this.ptr + 16, 47, "UTF-16")
-        set => StrPut(value, this.ptr + 16, 47, "UTF-16")
-    }
+    szID : WCHAR[48]
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WCHAR</a>[L_MAX_URL_LENGTH]</b>
      * 
      * <b>WCHAR</b> string that contains the URL represented by the link. The maximum number of characters in the array is L_MAX_URL_LENGTH.
-     * @type {String}
      */
-    szUrl {
-        get => StrGet(this.ptr + 112, 2083, "UTF-16")
-        set => StrPut(value, this.ptr + 112, 2083, "UTF-16")
-    }
+    szUrl : WCHAR[2084]
+
 }

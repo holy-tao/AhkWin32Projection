@@ -1,22 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class VBICODECFILTERING_NABTS_SUBSTREAMS extends Win32Struct {
-    static sizeof => 512
+export default struct VBICODECFILTERING_NABTS_SUBSTREAMS {
+    #StructPack 4
 
-    static packingSize => 4
+    SubstreamMask : UInt32[128]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    SubstreamMask {
-        get {
-            if(!this.HasProp("__SubstreamMaskProxyArray"))
-                this.__SubstreamMaskProxyArray := Win32FixedArray(this.ptr + 0, 128, Primitive, "uint")
-            return this.__SubstreamMaskProxyArray
-        }
-    }
 }

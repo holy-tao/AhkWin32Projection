@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ITCallInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\QOS_EVENT.ahk" { QOS_EVENT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITCallInfo.ahk" { ITCallInfo }
 
 /**
  * The ITQOSEvent interface contains methods that retrieve the description of quality of service (QOS) events.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itqosevent
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITQOSEvent extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITQOSEvent extends IDispatch {
     /**
      * The interface identifier for ITQOSEvent
      * @type {Guid}
      */
-    static IID => Guid("{cfa3357c-ad77-11d1-bb68-00c04fb6809f}")
+    static IID := Guid("{cfa3357c-ad77-11d1-bb68-00c04fb6809f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITQOSEvent interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Call      : IntPtr
+        get_Event     : IntPtr
+        get_MediaType : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Call", "get_Event", "get_MediaType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITQOSEvent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ITCallInfo} 
@@ -84,5 +95,29 @@ class ITQOSEvent extends IDispatch {
     get_MediaType() {
         result := ComCall(9, this, "int*", &plMediaType := 0, "HRESULT")
         return plMediaType
+    }
+
+    Query(iid) {
+        if (ITQOSEvent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Call := CallbackCreate(GetMethod(implObj, "get_Call"), flags, 2)
+        this.vtbl.get_Event := CallbackCreate(GetMethod(implObj, "get_Event"), flags, 2)
+        this.vtbl.get_MediaType := CallbackCreate(GetMethod(implObj, "get_MediaType"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Call)
+        CallbackFree(this.vtbl.get_Event)
+        CallbackFree(this.vtbl.get_MediaType)
     }
 }

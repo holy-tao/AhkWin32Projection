@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KS_FRAMING_RANGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KS_FRAMING_RANGE.ahk" { KS_FRAMING_RANGE }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KS_FRAMING_RANGE_WEIGHTED extends Win32Struct {
-    static sizeof => 20
+export default struct KS_FRAMING_RANGE_WEIGHTED {
+    #StructPack 4
 
-    static packingSize => 4
+    Range : KS_FRAMING_RANGE
 
-    /**
-     * @type {KS_FRAMING_RANGE}
-     */
-    Range {
-        get {
-            if(!this.HasProp("__Range"))
-                this.__Range := KS_FRAMING_RANGE(0, this)
-            return this.__Range
-        }
-    }
+    InPlaceWeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InPlaceWeight {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    NotInPlaceWeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NotInPlaceWeight {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

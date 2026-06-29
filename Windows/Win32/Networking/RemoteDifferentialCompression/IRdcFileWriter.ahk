@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IRdcFileReader.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRdcFileReader.ahk" { IRdcFileReader }
 
 /**
  * Abstract interface to read from and write to a file.
  * @see https://learn.microsoft.com/windows/win32/api/msrdc/nn-msrdc-irdcfilewriter
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  */
-class IRdcFileWriter extends IRdcFileReader {
-
-    static sizeof => A_PtrSize
+export default struct IRdcFileWriter extends IRdcFileReader {
     /**
      * The interface identifier for IRdcFileWriter
      * @type {Guid}
      */
-    static IID => Guid("{96236a75-9dbc-11da-9e3f-0011114ae311}")
+    static IID := Guid("{96236a75-9dbc-11da-9e3f-0011114ae311}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRdcFileWriter interfaces
+    */
+    struct Vtbl extends IRdcFileReader.Vtbl {
+        Write         : IntPtr
+        Truncate      : IntPtr
+        DeleteOnClose : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Write", "Truncate", "DeleteOnClose"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRdcFileWriter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Write bytes to a file starting at a given offset.
@@ -59,5 +69,29 @@ class IRdcFileWriter extends IRdcFileReader {
     DeleteOnClose() {
         result := ComCall(8, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRdcFileWriter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Write := CallbackCreate(GetMethod(implObj, "Write"), flags, 4)
+        this.vtbl.Truncate := CallbackCreate(GetMethod(implObj, "Truncate"), flags, 1)
+        this.vtbl.DeleteOnClose := CallbackCreate(GetMethod(implObj, "DeleteOnClose"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Write)
+        CallbackFree(this.vtbl.Truncate)
+        CallbackFree(this.vtbl.DeleteOnClose)
     }
 }

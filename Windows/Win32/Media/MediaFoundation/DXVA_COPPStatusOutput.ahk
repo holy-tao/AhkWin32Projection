@@ -1,38 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVA_COPPStatusOutput extends Win32Struct {
-    static sizeof => 4088
+export default struct DXVA_COPPStatusOutput {
+    #StructPack 4
 
-    static packingSize => 8
+    macKDI : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    macKDI {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    cbSizeData : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbSizeData {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    COPPStatus : Int8[4076]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    COPPStatus {
-        get {
-            if(!this.HasProp("__COPPStatusProxyArray"))
-                this.__COPPStatusProxyArray := Win32FixedArray(this.ptr + 12, 4076, Primitive, "char")
-            return this.__COPPStatusProxyArray
-        }
-    }
 }

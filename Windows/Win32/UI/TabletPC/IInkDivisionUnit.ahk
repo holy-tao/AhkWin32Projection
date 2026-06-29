@@ -1,10 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IInkStrokes.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IInkTransform.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IInkTransform.ahk" { IInkTransform }
+#Import ".\IInkStrokes.ahk" { IInkStrokes }
+#Import ".\InkDivisionType.ahk" { InkDivisionType }
 
 /**
  * Represents a single structural element within an IInkDivisionResult object.
@@ -15,26 +17,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut15/nn-msinkaut15-iinkdivisionunit
  * @namespace Windows.Win32.UI.TabletPC
  */
-class IInkDivisionUnit extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IInkDivisionUnit extends IDispatch {
     /**
      * The interface identifier for IInkDivisionUnit
      * @type {Guid}
      */
-    static IID => Guid("{85aee342-48b0-4244-9dd5-1ed435410fab}")
+    static IID := Guid("{85aee342-48b0-4244-9dd5-1ed435410fab}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IInkDivisionUnit interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Strokes           : IntPtr
+        get_DivisionType      : IntPtr
+        get_RecognizedString  : IntPtr
+        get_RotationTransform : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Strokes", "get_DivisionType", "get_RecognizedString", "get_RotationTransform"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IInkDivisionUnit.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IInkStrokes} 
@@ -94,8 +106,8 @@ class IInkDivisionUnit extends IDispatch {
      * @returns {BSTR} 
      */
     get_RecognizedString() {
-        RecoString := BSTR()
-        result := ComCall(9, this, "ptr", RecoString, "HRESULT")
+        RecoString := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, RecoString, "HRESULT")
         return RecoString
     }
 
@@ -114,5 +126,31 @@ class IInkDivisionUnit extends IDispatch {
     get_RotationTransform() {
         result := ComCall(10, this, "ptr*", &RotationTransform := 0, "HRESULT")
         return IInkTransform(RotationTransform)
+    }
+
+    Query(iid) {
+        if (IInkDivisionUnit.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Strokes := CallbackCreate(GetMethod(implObj, "get_Strokes"), flags, 2)
+        this.vtbl.get_DivisionType := CallbackCreate(GetMethod(implObj, "get_DivisionType"), flags, 2)
+        this.vtbl.get_RecognizedString := CallbackCreate(GetMethod(implObj, "get_RecognizedString"), flags, 2)
+        this.vtbl.get_RotationTransform := CallbackCreate(GetMethod(implObj, "get_RotationTransform"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Strokes)
+        CallbackFree(this.vtbl.get_DivisionType)
+        CallbackFree(this.vtbl.get_RecognizedString)
+        CallbackFree(this.vtbl.get_RotationTransform)
     }
 }

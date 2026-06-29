@@ -1,10 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\TVITEMEXA.ahk
-#Include .\TVITEM_MASK.ahk
-#Include .\TVITEMEXW_CHILDREN.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\TVITEMEXA.ahk" { TVITEMEXA }
+#Import ".\NMHDR.ahk" { NMHDR }
+#Import ".\TVITEMEXW_CHILDREN.ahk" { TVITEMEXW_CHILDREN }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\HTREEITEM.ahk" { HTREEITEM }
+#Import ".\TVITEM_MASK.ahk" { TVITEM_MASK }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains information pertaining to extended TreeView notification information. (ANSI)
@@ -15,37 +17,22 @@
  * @namespace Windows.Win32.UI.Controls
  * @charset ANSI
  */
-class NMTVDISPINFOEXA extends Win32Struct {
-    static sizeof => 104
-
-    static packingSize => 8
+export default struct NMTVDISPINFOEXA {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains information about this notification.
-     * @type {NMHDR}
      */
-    hdr {
-        get {
-            if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(0, this)
-            return this.__hdr
-        }
-    }
+    hdr : NMHDR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-tvitemexa">TVITEMEX</a></b>
      * 
      * Specifies or receives attributes of a TreeView item.
-     * @type {TVITEMEXA}
      */
-    item {
-        get {
-            if(!this.HasProp("__item"))
-                this.__item := TVITEMEXA(24, this)
-            return this.__item
-        }
-    }
+    item : TVITEMEXA
+
 }

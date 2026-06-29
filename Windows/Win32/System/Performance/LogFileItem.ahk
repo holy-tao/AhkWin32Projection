@@ -1,13 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Use this class to retrieve the path of a log file accessed by the System Monitor control. To retrieve this object, call LogFiles.Item.
  * @see https://learn.microsoft.com/windows/win32/SysMon/logfileitem
  * @namespace Windows.Win32.System.Performance
  */
-class LogFileItem extends Win32Struct {
-    static sizeof => 0
+export default struct LogFileItem {
+    #StructPack 1
 
-    static packingSize => 1
 }

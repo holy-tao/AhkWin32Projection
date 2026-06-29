@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SEC_WINNT_AUTH_IDENTITY_A.ahk
-#Include .\RPC_C_HTTP_FLAGS.ahk
-#Include .\RPC_C_HTTP_AUTHN_TARGET.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RPC_C_HTTP_AUTHN_TARGET.ahk" { RPC_C_HTTP_AUTHN_TARGET }
+#Import ".\RPC_C_HTTP_FLAGS.ahk" { RPC_C_HTTP_FLAGS }
+#Import ".\SEC_WINNT_AUTH_IDENTITY_A.ahk" { SEC_WINNT_AUTH_IDENTITY_A }
 
 /**
  * The RPC_HTTP_TRANSPORT_CREDENTIALS structure defines additional credentials to authenticate to an RPC proxy server when using RPC/HTTP. (ANSI)
@@ -19,19 +18,13 @@
  * @namespace Windows.Win32.System.Rpc
  * @charset ANSI
  */
-class RPC_HTTP_TRANSPORT_CREDENTIALS_A extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct RPC_HTTP_TRANSPORT_CREDENTIALS_A {
+    #StructPack 8
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-sec_winnt_auth_identity_a">SEC_WINNT_AUTH_IDENTITY</a> structure that contains the user name, domain, and password for the user.
-     * @type {Pointer<SEC_WINNT_AUTH_IDENTITY_A>}
      */
-    TransportCredentials {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    TransportCredentials : SEC_WINNT_AUTH_IDENTITY_A.Ptr
 
     /**
      * A set of flags that can be combined with the bitwise OR operator. 
@@ -64,45 +57,24 @@ class RPC_HTTP_TRANSPORT_CREDENTIALS_A extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {RPC_C_HTTP_FLAGS}
      */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Flags : RPC_C_HTTP_FLAGS
 
     /**
      * Specifies the authentication target.
-     * @type {RPC_C_HTTP_AUTHN_TARGET}
      */
-    AuthenticationTarget {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    AuthenticationTarget : RPC_C_HTTP_AUTHN_TARGET
 
     /**
      * The number of elements in the <b>AuthnScheme</b> array.
-     * @type {Integer}
      */
-    NumberOfAuthnSchemes {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    NumberOfAuthnSchemes : UInt32
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    AuthnSchemes {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    AuthnSchemes : IntPtr
 
     /**
      * Contains an optional string with the expected server principal name. The principal name is in the same format as that generated for <a href="https://docs.microsoft.com/windows/desktop/api/rpcssl/nf-rpcssl-rpccertgenerateprincipalname">RpcCertGeneratePrincipalName</a> (see <a href="https://docs.microsoft.com/windows/desktop/Rpc/principal-names">Principal Names</a> for more information). This member is used only when SSL is used. In such cases, the server certificate is checked against the generated principal name. If they do not match, an error is returned. This member enables clients to authenticate the RPC Proxy.
-     * @type {Pointer<Integer>}
      */
-    ServerCertificateSubject {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    ServerCertificateSubject : IntPtr
+
 }

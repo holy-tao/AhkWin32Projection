@@ -1,15 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Describes general information about a container.
  * @see https://learn.microsoft.com/windows/win32/api/clfs/ns-clfs-cls_container_information
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class CLS_CONTAINER_INFORMATION extends Win32Struct {
-    static sizeof => 576
-
-    static packingSize => 8
+export default struct CLS_CONTAINER_INFORMATION {
+    #StructPack 8
 
     /**
      * The file system attributes. CLFS uses the following attributes:
@@ -22,77 +20,45 @@ class CLS_CONTAINER_INFORMATION extends Win32Struct {
      * <li>FILE_ATTRIBUTE_READONLY - The file is read-only. Applications can read the file, but cannot write to it or delete it.</li>
      * </ul>
      * CLFS ignores but preserves all other file attribute values. The <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-setfileattributesa">SetFileAttributes</a> topic lists the valid values for attributes.
-     * @type {Integer}
      */
-    FileAttributes {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    FileAttributes : UInt32
 
     /**
      * The time a file is created.
-     * @type {Integer}
      */
-    CreationTime {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    CreationTime : Int64
 
     /**
      * The last time a container is read from or written to.
-     * @type {Integer}
      */
-    LastAccessTime {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    LastAccessTime : Int64
 
     /**
      * The last time a container is written to.
-     * @type {Integer}
      */
-    LastWriteTime {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    LastWriteTime : Int64
 
     /**
      * The size of a container, in bytes.
-     * @type {Integer}
      */
-    ContainerSize {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
+    ContainerSize : Int64
 
     /**
      * The size of the actual file name, in characters. 
      * 
      * This number is  different than  <b>FileNameLength</b>  when the file name of the container  is longer than MAX_PATH_LENGTH.
-     * @type {Integer}
      */
-    FileNameActualLength {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    FileNameActualLength : UInt32
 
     /**
      * The size of the file name in the <i>FileName</i> buffer, in characters.
-     * @type {Integer}
      */
-    FileNameLength {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    FileNameLength : UInt32
 
     /**
      * A pointer to a string that contains the file name for a container.
-     * @type {String}
      */
-    FileName {
-        get => StrGet(this.ptr + 48, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 48, 255, "UTF-16")
-    }
+    FileName : WCHAR[256]
 
     /**
      * The current state of a container.  
@@ -165,28 +131,17 @@ class CLS_CONTAINER_INFORMATION extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    State {
-        get => NumGet(this, 560, "uint")
-        set => NumPut("uint", value, this, 560)
-    }
+    State : UInt32
 
     /**
      * The physical container identifier that  cannot  be changed.
-     * @type {Integer}
      */
-    PhysicalContainerId {
-        get => NumGet(this, 564, "uint")
-        set => NumPut("uint", value, this, 564)
-    }
+    PhysicalContainerId : UInt32
 
     /**
      * The logical container identifier that  changes every time the container is recycled.
-     * @type {Integer}
      */
-    LogicalContainerId {
-        get => NumGet(this, 568, "uint")
-        set => NumPut("uint", value, this, 568)
-    }
+    LogicalContainerId : UInt32
+
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains information about hyphenation in a Microsoft Rich Edit control.
@@ -9,46 +8,28 @@
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @architecture X64, Arm64
  */
-class HYPHENATEINFO extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct HYPHENATEINFO {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SHORT</a></b>
      * 
      * Size of the <b>HYPHENATEINFO</b> structure, in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "short")
-        set => NumPut("short", value, this, 0)
-    }
+    cbSize : Int16 := this.Size
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SHORT</a></b>
      * 
      * Size, in TWIPS (one TWIP is 1/1440 inch), of the area near the margin that excludes hyphenation. If a space character is closer to the margin than this value, do not hyphenate the following word.
-     * @type {Integer}
      */
-    dxHyphenateZone {
-        get => NumGet(this, 2, "short")
-        set => NumPut("short", value, this, 2)
-    }
+    dxHyphenateZone : Int16
 
     /**
      * Type: <b>PFNHYPHENATEPROC</b>
      * 
      * The client-defined <a href="https://docs.microsoft.com/windows/win32/api/richedit/nf-richedit-hyphenateproc">HyphenateProc</a> callback function.
-     * @type {Pointer}
      */
-    pfnHyphenate {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pfnHyphenate : IntPtr
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 16
-    }
 }

@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IAVIStream.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAVIStream.ahk" { IAVIStream }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAVIEditStream interface supports manipulating and modifying editable streams. Uses IUnknown::QueryInterface, IUnknown::AddRef, IUnknown::Release in addition to the following custom methods:\_
  * @see https://learn.microsoft.com/windows/win32/api/vfw/nn-vfw-iavieditstream
  * @namespace Windows.Win32.Media.Multimedia
  */
-class IAVIEditStream extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAVIEditStream extends IUnknown {
     /**
      * The interface identifier for IAVIEditStream
      * @type {Guid}
      */
-    static IID => Guid("{00020024-0000-0000-c000-000000000046}")
+    static IID := Guid("{00020024-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAVIEditStream interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Cut     : IntPtr
+        Copy    : IntPtr
+        Paste   : IntPtr
+        Clone   : IntPtr
+        SetInfo : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Cut", "Copy", "Paste", "Clone", "SetInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAVIEditStream.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Cut method removes a portion of a stream and places it in a temporary stream. Called when an application uses the EditStreamCut function.
@@ -151,5 +163,33 @@ class IAVIEditStream extends IUnknown {
     SetInfo(lpInfo, cbInfo) {
         result := ComCall(7, this, "ptr", lpInfo, "int", cbInfo, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAVIEditStream.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Cut := CallbackCreate(GetMethod(implObj, "Cut"), flags, 4)
+        this.vtbl.Copy := CallbackCreate(GetMethod(implObj, "Copy"), flags, 4)
+        this.vtbl.Paste := CallbackCreate(GetMethod(implObj, "Paste"), flags, 6)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.SetInfo := CallbackCreate(GetMethod(implObj, "SetInfo"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Cut)
+        CallbackFree(this.vtbl.Copy)
+        CallbackFree(this.vtbl.Paste)
+        CallbackFree(this.vtbl.Clone)
+        CallbackFree(this.vtbl.SetInfo)
     }
 }

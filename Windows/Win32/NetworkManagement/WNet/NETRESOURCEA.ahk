@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NET_RESOURCE_SCOPE.ahk
-#Include .\NET_RESOURCE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NET_RESOURCE_TYPE.ahk" { NET_RESOURCE_TYPE }
+#Import ".\NET_RESOURCE_SCOPE.ahk" { NET_RESOURCE_SCOPE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The following structure contains information about a network resource. It is used by several of the network provider functions, including NPOpenEnum and NPAddConnection. (ANSI)
@@ -12,26 +12,12 @@
  * @namespace Windows.Win32.NetworkManagement.WNet
  * @charset ANSI
  */
-class NETRESOURCEA extends Win32Struct {
-    static sizeof => 48
+export default struct NETRESOURCEA {
+    #StructPack 8
 
-    static packingSize => 8
+    dwScope : NET_RESOURCE_SCOPE
 
-    /**
-     * @type {NET_RESOURCE_SCOPE}
-     */
-    dwScope {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {NET_RESOURCE_TYPE}
-     */
-    dwType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwType : NET_RESOURCE_TYPE
 
     /**
      * Set by the provider to indicate what display type a user interface should use to represent this resource. The following types are defined.
@@ -102,12 +88,8 @@ class NETRESOURCEA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwDisplayType {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwDisplayType : UInt32
 
     /**
      * A bitmask that indicates how you can enumerate information about the resource. It is defined only if <b>dwScope</b> is set to RESOURCE_GLOBALNET. The <b>dwUsage</b> field can contain one or more of the following flags.
@@ -149,12 +131,8 @@ class NETRESOURCEA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwUsage {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwUsage : UInt32
 
     /**
      * If <b>dwScope</b> is RESOURCE_CONNECTED, the <b>lpLocalName</b> field contains the name of a redirected device. If the connection is a deviceless connection, this field contains <b>NULL</b>. 
@@ -163,38 +141,23 @@ class NETRESOURCEA extends Win32Struct {
      * 
      * 
      * If <b>dwScope</b> is not set to RESOURCE_CONNECTED, this field is undefined.
-     * @type {PSTR}
      */
-    lpLocalName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpLocalName : PSTR
 
     /**
      * If the enumerated item is a network resource, this field contains a remote network name. This name may be then passed to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-npaddconnection">NPAddConnection</a> to make a network connection if <b>dwUsage</b> is set to RESOURCEUSAGE_CONNECTABLE. If the enumerated item is a current connection, this field will refer to the remote network name that <b>lpLocalName</b> is connected to.
-     * @type {PSTR}
      */
-    lpRemoteName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpRemoteName : PSTR
 
     /**
      * May be any provider-supplied comment associated with the enumerated item.
-     * @type {PSTR}
      */
-    lpComment {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpComment : PSTR
 
     /**
      * Specifies the name of the provider that owns this enumerated item.
-     * @type {PSTR}
      */
-    lpProvider {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lpProvider : PSTR
+
 }

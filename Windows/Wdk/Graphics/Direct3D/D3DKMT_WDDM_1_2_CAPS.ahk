@@ -1,21 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_WDDM_1_2_CAPS extends Win32Struct {
-    static sizeof => 16
+export default struct D3DKMT_WDDM_1_2_CAPS {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {Pointer}
-     */
-    PreemptionCaps {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    PreemptionCaps : IntPtr
 
     /**
      * This bitfield backs the following members:
@@ -30,12 +21,9 @@ class D3DKMT_WDDM_1_2_CAPS extends Win32Struct {
      * - SupportHWVSync
      * - SupportSurpriseRemovalInHibernation
      * - Reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -116,12 +104,8 @@ class D3DKMT_WDDM_1_2_CAPS extends Win32Struct {
         get => (this._bitfield >> 9) & 0x1
         set => this._bitfield := ((value & 0x1) << 9) | (this._bitfield & ~(0x1 << 9))
     }
-
-    /**
-     * @type {Integer}
-     */
-    Value {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'Value', { type: UInt32, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

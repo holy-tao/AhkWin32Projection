@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The SIZE structure defines the width and height of a rectangle.
@@ -8,26 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/windef/ns-windef-size
  * @namespace Windows.Win32.Foundation
  */
-class SIZE extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct SIZE {
+    #StructPack 4
 
     /**
      * Specifies the rectangle's width. The units depend on which function uses this structure.
-     * @type {Integer}
      */
-    cx {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    cx : Int32
 
     /**
      * Specifies the rectangle's height. The units depend on which function uses this structure.
-     * @type {Integer}
      */
-    cy {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    cy : Int32
+
 }

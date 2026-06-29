@@ -1,50 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\LocationCodeSchemeType.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LocationCodeSchemeType.ahk" { LocationCodeSchemeType }
 
 /**
  * The EALocationCodeType structure defines an Emergency Alert (EA) location code, as defined in ANSI/SCTE 28.
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface_enums/ns-bdaiface_enums-ealocationcodetype
  * @namespace Windows.Win32.Media.DirectShow
  */
-class EALocationCodeType extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct EALocationCodeType {
+    #StructPack 4
 
     /**
      * Identifies the standard that shall be used to interpret the other members of this structure. Currently this value must be SCTE_18, meaning SCTE 18, "Emergency Alert Message for Cable."
-     * @type {LocationCodeSchemeType}
      */
-    LocationCodeScheme {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    LocationCodeScheme : LocationCodeSchemeType
 
     /**
      * Contains the state_code field.
-     * @type {Integer}
      */
-    state_code {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    state_code : Int8
 
     /**
      * Contains the county_subdivision field.
-     * @type {Integer}
      */
-    county_subdivision {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    county_subdivision : Int8
 
     /**
      * Contains the county_code field.
-     * @type {Integer}
      */
-    county_code {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    county_code : UInt16
+
 }

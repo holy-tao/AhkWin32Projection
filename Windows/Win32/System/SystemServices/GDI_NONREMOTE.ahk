@@ -1,52 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Com\DWORD_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Com\DWORD_BLOB.ahk" { DWORD_BLOB }
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class GDI_NONREMOTE extends Win32Struct {
-    static sizeof => 24
+export default struct GDI_NONREMOTE {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _u extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _u {
+        hInproc : Int32
 
-        /**
-         * @type {Integer}
-         */
-        hInproc {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<DWORD_BLOB>}
-         */
-        hRemote {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'hRemote', { type: DWORD_BLOB.Ptr, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    fContext {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    fContext : Int32
 
-    /**
-     * @type {_u}
-     */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := GDI_NONREMOTE._u(8, this)
-            return this.__u
-        }
-    }
+    u : GDI_NONREMOTE._u
+
 }

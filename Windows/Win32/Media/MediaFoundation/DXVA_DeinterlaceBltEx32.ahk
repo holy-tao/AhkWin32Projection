@@ -1,96 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXVA_AYUVsample2.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\DXVA_VideoSample32.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DXVA_AYUVsample2.ahk" { DXVA_AYUVsample2 }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\DXVA_VideoSample32.ahk" { DXVA_VideoSample32 }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  * @architecture X64, Arm64
  */
-class DXVA_DeinterlaceBltEx32 extends Win32Struct {
-    static sizeof => 4144
+export default struct DXVA_DeinterlaceBltEx32 {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    BackgroundColor : DXVA_AYUVsample2
 
-    /**
-     * @type {DXVA_AYUVsample2}
-     */
-    BackgroundColor {
-        get {
-            if(!this.HasProp("__BackgroundColor"))
-                this.__BackgroundColor := DXVA_AYUVsample2(4, this)
-            return this.__BackgroundColor
-        }
-    }
+    rcTarget : RECT
 
-    /**
-     * @type {RECT}
-     */
-    rcTarget {
-        get {
-            if(!this.HasProp("__rcTarget"))
-                this.__rcTarget := RECT(8, this)
-            return this.__rcTarget
-        }
-    }
+    rtTarget : Int64
 
-    /**
-     * @type {Integer}
-     */
-    rtTarget {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    NumSourceSurfaces : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumSourceSurfaces {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Alpha : Float32
 
-    /**
-     * @type {Float}
-     */
-    Alpha {
-        get => NumGet(this, 36, "float")
-        set => NumPut("float", value, this, 36)
-    }
+    Source : DXVA_VideoSample32[32]
 
-    /**
-     * @type {DXVA_VideoSample32}
-     */
-    Source {
-        get {
-            if(!this.HasProp("__SourceProxyArray"))
-                this.__SourceProxyArray := Win32FixedArray(this.ptr + 40, 32, DXVA_VideoSample32, "")
-            return this.__SourceProxyArray
-        }
-    }
+    DestinationFormat : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DestinationFormat {
-        get => NumGet(this, 4136, "uint")
-        set => NumPut("uint", value, this, 4136)
-    }
+    DestinationFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DestinationFlags {
-        get => NumGet(this, 4140, "uint")
-        set => NumPut("uint", value, this, 4140)
-    }
 }

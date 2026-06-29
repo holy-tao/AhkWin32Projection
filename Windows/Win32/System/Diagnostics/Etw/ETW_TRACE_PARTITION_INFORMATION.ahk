@@ -1,43 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains partition information pulled from an ETW trace.
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-etw_trace_partition_information
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class ETW_TRACE_PARTITION_INFORMATION extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct ETW_TRACE_PARTITION_INFORMATION {
+    #StructPack 8
 
     /**
      * GUID to identify the machine.
-     * @type {Pointer}
      */
-    PartitionId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    PartitionId : Guid
 
     /**
      * GUID that identifies the partition instance that contains the traced partition.
      * If the traced partition is a host, then **ParentId** will be 0.
-     * @type {Pointer}
      */
-    ParentId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ParentId : Guid
 
     /**
      * Reserved for future use.
-     * @type {Integer}
      */
-    QpcOffsetFromRoot {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    QpcOffsetFromRoot : Int64
 
     /**
      * Enumeration value of the container type. the value may be one of the following:
@@ -52,10 +38,7 @@ class ETW_TRACE_PARTITION_INFORMATION extends Win32Struct {
      * 
      * - **VmDirectUvm** (4): For events originating from applications running with
      *   [Windows Defender Application Guard](/windows/desktop/winmsg/windows).
-     * @type {Integer}
      */
-    PartitionType {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    PartitionType : UInt32
+
 }

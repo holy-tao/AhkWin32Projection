@@ -1,47 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EAP_METHOD_TYPE.ahk
-#Include .\EAP_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EAP_METHOD_TYPE.ahk" { EAP_METHOD_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\EAP_TYPE.ahk" { EAP_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains information about an error that occurred during an EAPHost operation.
  * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eap_error
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  */
-class EAP_ERROR extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct EAP_ERROR {
+    #StructPack 8
 
     /**
      * Error code from winerror.h.
-     * @type {Integer}
      */
-    dwWinError {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwWinError : UInt32
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_method_type">EAP_METHOD_TYPE</a> structure that identifies the EAP method that raised the error.
-     * @type {EAP_METHOD_TYPE}
      */
-    type {
-        get {
-            if(!this.HasProp("__type"))
-                this.__type := EAP_METHOD_TYPE(4, this)
-            return this.__type
-        }
-    }
+    type : EAP_METHOD_TYPE
 
     /**
      * The reason code for the error.
-     * @type {Integer}
      */
-    dwReasonCode {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwReasonCode : UInt32
 
     /**
      * A unique ID that identifies cause of error in EAPHost. An EAP method can define a new GUID and associate the GUID with a specific root cause.
@@ -360,12 +344,8 @@ class EAP_ERROR extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer}
      */
-    rootCauseGuid {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    rootCauseGuid : Guid
 
     /**
      * A  unique ID that maps to a localizable string that identifies the repair action that can be taken to fix the reported error.
@@ -443,12 +423,8 @@ class EAP_ERROR extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer}
      */
-    repairGuid {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    repairGuid : Guid
 
     /**
      * A unique ID that maps to a localizable string that specifies an URL for a page that contains additional information about an error or repair message.  An EAP method can potentially define a new GUID and associate with one specific help link.
@@ -521,28 +497,17 @@ class EAP_ERROR extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer}
      */
-    helpLinkGuid {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    helpLinkGuid : Guid
 
     /**
      * A localized and readable string that describes the root cause of the error.
-     * @type {PWSTR}
      */
-    pRootCauseString {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pRootCauseString : PWSTR
 
     /**
      * A localized and readable string that describes the possible repair action.
-     * @type {PWSTR}
      */
-    pRepairString {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pRepairString : PWSTR
+
 }

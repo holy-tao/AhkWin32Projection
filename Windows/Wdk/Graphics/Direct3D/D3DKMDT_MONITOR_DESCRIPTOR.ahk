@@ -1,53 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMDT_MONITOR_DESCRIPTOR_TYPE.ahk
-#Include .\D3DKMDT_MONITOR_CAPABILITIES_ORIGIN.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DKMDT_MONITOR_CAPABILITIES_ORIGIN.ahk" { D3DKMDT_MONITOR_CAPABILITIES_ORIGIN }
+#Import ".\D3DKMDT_MONITOR_DESCRIPTOR_TYPE.ahk" { D3DKMDT_MONITOR_DESCRIPTOR_TYPE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMDT_MONITOR_DESCRIPTOR extends Win32Struct {
-    static sizeof => 32
+export default struct D3DKMDT_MONITOR_DESCRIPTOR {
+    #StructPack 8
 
-    static packingSize => 8
+    Id : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Id {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Type : D3DKMDT_MONITOR_DESCRIPTOR_TYPE
 
-    /**
-     * @type {D3DKMDT_MONITOR_DESCRIPTOR_TYPE}
-     */
-    Type {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    DataSize : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    DataSize {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pData {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Origin : D3DKMDT_MONITOR_CAPABILITIES_ORIGIN
 
-    /**
-     * @type {D3DKMDT_MONITOR_CAPABILITIES_ORIGIN}
-     */
-    Origin {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
 }

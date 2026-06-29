@@ -1,35 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IADsNameTranslateinterface translates distinguished names (DNs) among various formats as defined in the ADS_NAME_TYPE_ENUM enumeration. The feature is available to objects in Active Directory.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsnametranslate
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IADsNameTranslate extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IADsNameTranslate extends IDispatch {
     /**
      * The interface identifier for IADsNameTranslate
      * @type {Guid}
      */
-    static IID => Guid("{b1b272a3-3625-11d1-a3a4-00c04fb950dc}")
+    static IID := Guid("{b1b272a3-3625-11d1-a3a4-00c04fb950dc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IADsNameTranslate interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_ChaseReferral : IntPtr
+        Init              : IntPtr
+        InitEx            : IntPtr
+        Set               : IntPtr
+        Get               : IntPtr
+        SetEx             : IntPtr
+        GetEx             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_ChaseReferral", "Init", "InitEx", "Set", "Get", "SetEx", "GetEx"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IADsNameTranslate.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -60,7 +74,7 @@ class IADsNameTranslate extends IDispatch {
     Init(lnSetType, bstrADsPath) {
         bstrADsPath := bstrADsPath is String ? BSTR.Alloc(bstrADsPath).Value : bstrADsPath
 
-        result := ComCall(8, this, "int", lnSetType, "ptr", bstrADsPath, "HRESULT")
+        result := ComCall(8, this, "int", lnSetType, BSTR, bstrADsPath, "HRESULT")
         return result
     }
 
@@ -82,7 +96,7 @@ class IADsNameTranslate extends IDispatch {
         bstrDomain := bstrDomain is String ? BSTR.Alloc(bstrDomain).Value : bstrDomain
         bstrPassword := bstrPassword is String ? BSTR.Alloc(bstrPassword).Value : bstrPassword
 
-        result := ComCall(9, this, "int", lnSetType, "ptr", bstrADsPath, "ptr", bstrUserID, "ptr", bstrDomain, "ptr", bstrPassword, "HRESULT")
+        result := ComCall(9, this, "int", lnSetType, BSTR, bstrADsPath, BSTR, bstrUserID, BSTR, bstrDomain, BSTR, bstrPassword, "HRESULT")
         return result
     }
 
@@ -100,7 +114,7 @@ class IADsNameTranslate extends IDispatch {
     Set(lnSetType, bstrADsPath) {
         bstrADsPath := bstrADsPath is String ? BSTR.Alloc(bstrADsPath).Value : bstrADsPath
 
-        result := ComCall(10, this, "int", lnSetType, "ptr", bstrADsPath, "HRESULT")
+        result := ComCall(10, this, "int", lnSetType, BSTR, bstrADsPath, "HRESULT")
         return result
     }
 
@@ -115,8 +129,8 @@ class IADsNameTranslate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsnametranslate-get
      */
     Get(lnFormatType) {
-        pbstrADsPath := BSTR()
-        result := ComCall(11, this, "int", lnFormatType, "ptr", pbstrADsPath, "HRESULT")
+        pbstrADsPath := BSTR.Owned()
+        result := ComCall(11, this, "int", lnFormatType, BSTR.Ptr, pbstrADsPath, "HRESULT")
         return pbstrADsPath
     }
 
@@ -132,7 +146,7 @@ class IADsNameTranslate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsnametranslate-setex
      */
     SetEx(lnFormatType, pvar) {
-        result := ComCall(12, this, "int", lnFormatType, "ptr", pvar, "HRESULT")
+        result := ComCall(12, this, "int", lnFormatType, VARIANT, pvar, "HRESULT")
         return result
     }
 
@@ -148,7 +162,39 @@ class IADsNameTranslate extends IDispatch {
      */
     GetEx(lnFormatType) {
         pvar := VARIANT()
-        result := ComCall(13, this, "int", lnFormatType, "ptr", pvar, "HRESULT")
+        result := ComCall(13, this, "int", lnFormatType, VARIANT.Ptr, pvar, "HRESULT")
         return pvar
+    }
+
+    Query(iid) {
+        if (IADsNameTranslate.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_ChaseReferral := CallbackCreate(GetMethod(implObj, "put_ChaseReferral"), flags, 2)
+        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 3)
+        this.vtbl.InitEx := CallbackCreate(GetMethod(implObj, "InitEx"), flags, 6)
+        this.vtbl.Set := CallbackCreate(GetMethod(implObj, "Set"), flags, 3)
+        this.vtbl.Get := CallbackCreate(GetMethod(implObj, "Get"), flags, 3)
+        this.vtbl.SetEx := CallbackCreate(GetMethod(implObj, "SetEx"), flags, 3)
+        this.vtbl.GetEx := CallbackCreate(GetMethod(implObj, "GetEx"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_ChaseReferral)
+        CallbackFree(this.vtbl.Init)
+        CallbackFree(this.vtbl.InitEx)
+        CallbackFree(this.vtbl.Set)
+        CallbackFree(this.vtbl.Get)
+        CallbackFree(this.vtbl.SetEx)
+        CallbackFree(this.vtbl.GetEx)
     }
 }

@@ -1,54 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_QUERYSTATISTICS_PROCESS_NODE_INFORMATION extends Win32Struct {
-    static sizeof => 96
+export default struct D3DKMT_QUERYSTATISTICS_PROCESS_NODE_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    RunningTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    RunningTime {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    ContextSwitch : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ContextSwitch {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    PreemptionStatistics : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    PreemptionStatistics {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    PacketStatistics : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    PacketStatistics {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Reserved : Int64[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 32, 8, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
-    }
 }

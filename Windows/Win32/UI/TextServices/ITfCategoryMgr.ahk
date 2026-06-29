@@ -1,36 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\IEnumGUID.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IEnumGUID.ahk" { IEnumGUID }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITfCategoryMgr interface manages categories of objects for text services. The TSF manager implements this interface.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcategorymgr
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfCategoryMgr extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfCategoryMgr extends IUnknown {
     /**
      * The interface identifier for ITfCategoryMgr
      * @type {Guid}
      */
-    static IID => Guid("{c3acefb5-f69d-4905-938f-fcadcf4be830}")
+    static IID := Guid("{c3acefb5-f69d-4905-938f-fcadcf4be830}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfCategoryMgr interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RegisterCategory          : IntPtr
+        UnregisterCategory        : IntPtr
+        EnumCategoriesInItem      : IntPtr
+        EnumItemsInCategory       : IntPtr
+        FindClosestCategory       : IntPtr
+        RegisterGUIDDescription   : IntPtr
+        UnregisterGUIDDescription : IntPtr
+        GetGUIDDescription        : IntPtr
+        RegisterGUIDDWORD         : IntPtr
+        UnregisterGUIDDWORD       : IntPtr
+        GetGUIDDWORD              : IntPtr
+        RegisterGUID              : IntPtr
+        GetGUID                   : IntPtr
+        IsEqualTfGuidAtom         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RegisterCategory", "UnregisterCategory", "EnumCategoriesInItem", "EnumItemsInCategory", "FindClosestCategory", "RegisterGUIDDescription", "UnregisterGUIDDescription", "GetGUIDDescription", "RegisterGUIDDWORD", "UnregisterGUIDDWORD", "GetGUIDDWORD", "RegisterGUID", "GetGUID", "IsEqualTfGuidAtom"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfCategoryMgr.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfCategoryMgr::RegisterCategory method
@@ -70,7 +92,7 @@ class ITfCategoryMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-registercategory
      */
     RegisterCategory(rclsid, rcatid, rguid) {
-        result := ComCall(3, this, "ptr", rclsid, "ptr", rcatid, "ptr", rguid, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, rclsid, Guid.Ptr, rcatid, Guid.Ptr, rguid, "HRESULT")
         return result
     }
 
@@ -112,7 +134,7 @@ class ITfCategoryMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-unregistercategory
      */
     UnregisterCategory(rclsid, rcatid, rguid) {
-        result := ComCall(4, this, "ptr", rclsid, "ptr", rcatid, "ptr", rguid, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, rclsid, Guid.Ptr, rcatid, Guid.Ptr, rguid, "HRESULT")
         return result
     }
 
@@ -123,7 +145,7 @@ class ITfCategoryMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-enumcategoriesinitem
      */
     EnumCategoriesInItem(rguid) {
-        result := ComCall(5, this, "ptr", rguid, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, rguid, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumGUID(ppEnum)
     }
 
@@ -134,7 +156,7 @@ class ITfCategoryMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-enumitemsincategory
      */
     EnumItemsInCategory(rcatid) {
-        result := ComCall(6, this, "ptr", rcatid, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, rcatid, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumGUID(ppEnum)
     }
 
@@ -152,7 +174,7 @@ class ITfCategoryMgr extends IUnknown {
         ppcatidListMarshal := ppcatidList is VarRef ? "ptr*" : "ptr"
 
         pcatid := Guid()
-        result := ComCall(7, this, "ptr", rguid, "ptr", pcatid, ppcatidListMarshal, ppcatidList, "uint", ulCount, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, rguid, Guid.Ptr, pcatid, ppcatidListMarshal, ppcatidList, "uint", ulCount, "HRESULT")
         return pcatid
     }
 
@@ -208,7 +230,7 @@ class ITfCategoryMgr extends IUnknown {
     RegisterGUIDDescription(rclsid, rguid, pchDesc, cch) {
         pchDesc := pchDesc is String ? StrPtr(pchDesc) : pchDesc
 
-        result := ComCall(8, this, "ptr", rclsid, "ptr", rguid, "ptr", pchDesc, "uint", cch, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, rclsid, Guid.Ptr, rguid, "ptr", pchDesc, "uint", cch, "HRESULT")
         return result
     }
 
@@ -249,7 +271,7 @@ class ITfCategoryMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-unregisterguiddescription
      */
     UnregisterGUIDDescription(rclsid, rguid) {
-        result := ComCall(9, this, "ptr", rclsid, "ptr", rguid, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, rclsid, Guid.Ptr, rguid, "HRESULT")
         return result
     }
 
@@ -262,8 +284,8 @@ class ITfCategoryMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-getguiddescription
      */
     GetGUIDDescription(rguid) {
-        pbstrDesc := BSTR()
-        result := ComCall(10, this, "ptr", rguid, "ptr", pbstrDesc, "HRESULT")
+        pbstrDesc := BSTR.Owned()
+        result := ComCall(10, this, Guid.Ptr, rguid, BSTR.Ptr, pbstrDesc, "HRESULT")
         return pbstrDesc
     }
 
@@ -305,7 +327,7 @@ class ITfCategoryMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-registerguiddword
      */
     RegisterGUIDDWORD(rclsid, rguid, dw) {
-        result := ComCall(11, this, "ptr", rclsid, "ptr", rguid, "uint", dw, "HRESULT")
+        result := ComCall(11, this, Guid.Ptr, rclsid, Guid.Ptr, rguid, "uint", dw, "HRESULT")
         return result
     }
 
@@ -346,7 +368,7 @@ class ITfCategoryMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-unregisterguiddword
      */
     UnregisterGUIDDWORD(rclsid, rguid) {
-        result := ComCall(12, this, "ptr", rclsid, "ptr", rguid, "HRESULT")
+        result := ComCall(12, this, Guid.Ptr, rclsid, Guid.Ptr, rguid, "HRESULT")
         return result
     }
 
@@ -357,7 +379,7 @@ class ITfCategoryMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-getguiddword
      */
     GetGUIDDWORD(rguid) {
-        result := ComCall(13, this, "ptr", rguid, "uint*", &pdw := 0, "HRESULT")
+        result := ComCall(13, this, Guid.Ptr, rguid, "uint*", &pdw := 0, "HRESULT")
         return pdw
     }
 
@@ -372,7 +394,7 @@ class ITfCategoryMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-registerguid
      */
     RegisterGUID(rguid) {
-        result := ComCall(14, this, "ptr", rguid, "uint*", &pguidatom := 0, "HRESULT")
+        result := ComCall(14, this, Guid.Ptr, rguid, "uint*", &pguidatom := 0, "HRESULT")
         return pguidatom
     }
 
@@ -384,7 +406,7 @@ class ITfCategoryMgr extends IUnknown {
      */
     GetGUID(guidatom) {
         pguid := Guid()
-        result := ComCall(15, this, "uint", guidatom, "ptr", pguid, "HRESULT")
+        result := ComCall(15, this, "uint", guidatom, Guid.Ptr, pguid, "HRESULT")
         return pguid
     }
 
@@ -398,7 +420,53 @@ class ITfCategoryMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-isequaltfguidatom
      */
     IsEqualTfGuidAtom(guidatom, rguid) {
-        result := ComCall(16, this, "uint", guidatom, "ptr", rguid, "int*", &pfEqual := 0, "HRESULT")
+        result := ComCall(16, this, "uint", guidatom, Guid.Ptr, rguid, BOOL.Ptr, &pfEqual := 0, "HRESULT")
         return pfEqual
+    }
+
+    Query(iid) {
+        if (ITfCategoryMgr.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RegisterCategory := CallbackCreate(GetMethod(implObj, "RegisterCategory"), flags, 4)
+        this.vtbl.UnregisterCategory := CallbackCreate(GetMethod(implObj, "UnregisterCategory"), flags, 4)
+        this.vtbl.EnumCategoriesInItem := CallbackCreate(GetMethod(implObj, "EnumCategoriesInItem"), flags, 3)
+        this.vtbl.EnumItemsInCategory := CallbackCreate(GetMethod(implObj, "EnumItemsInCategory"), flags, 3)
+        this.vtbl.FindClosestCategory := CallbackCreate(GetMethod(implObj, "FindClosestCategory"), flags, 5)
+        this.vtbl.RegisterGUIDDescription := CallbackCreate(GetMethod(implObj, "RegisterGUIDDescription"), flags, 5)
+        this.vtbl.UnregisterGUIDDescription := CallbackCreate(GetMethod(implObj, "UnregisterGUIDDescription"), flags, 3)
+        this.vtbl.GetGUIDDescription := CallbackCreate(GetMethod(implObj, "GetGUIDDescription"), flags, 3)
+        this.vtbl.RegisterGUIDDWORD := CallbackCreate(GetMethod(implObj, "RegisterGUIDDWORD"), flags, 4)
+        this.vtbl.UnregisterGUIDDWORD := CallbackCreate(GetMethod(implObj, "UnregisterGUIDDWORD"), flags, 3)
+        this.vtbl.GetGUIDDWORD := CallbackCreate(GetMethod(implObj, "GetGUIDDWORD"), flags, 3)
+        this.vtbl.RegisterGUID := CallbackCreate(GetMethod(implObj, "RegisterGUID"), flags, 3)
+        this.vtbl.GetGUID := CallbackCreate(GetMethod(implObj, "GetGUID"), flags, 3)
+        this.vtbl.IsEqualTfGuidAtom := CallbackCreate(GetMethod(implObj, "IsEqualTfGuidAtom"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RegisterCategory)
+        CallbackFree(this.vtbl.UnregisterCategory)
+        CallbackFree(this.vtbl.EnumCategoriesInItem)
+        CallbackFree(this.vtbl.EnumItemsInCategory)
+        CallbackFree(this.vtbl.FindClosestCategory)
+        CallbackFree(this.vtbl.RegisterGUIDDescription)
+        CallbackFree(this.vtbl.UnregisterGUIDDescription)
+        CallbackFree(this.vtbl.GetGUIDDescription)
+        CallbackFree(this.vtbl.RegisterGUIDDWORD)
+        CallbackFree(this.vtbl.UnregisterGUIDDWORD)
+        CallbackFree(this.vtbl.GetGUIDDWORD)
+        CallbackFree(this.vtbl.RegisterGUID)
+        CallbackFree(this.vtbl.GetGUID)
+        CallbackFree(this.vtbl.IsEqualTfGuidAtom)
     }
 }

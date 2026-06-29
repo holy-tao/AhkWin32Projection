@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_IPMCAST_BOUNDARY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MIB_IPMCAST_BOUNDARY.ahk" { MIB_IPMCAST_BOUNDARY }
 
 /**
  * Contains a list of a router's scoped IPv4 multicast address boundaries.
@@ -11,29 +10,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/iprtrmib/ns-iprtrmib-mib_ipmcast_boundary_table
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_IPMCAST_BOUNDARY_TABLE extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct MIB_IPMCAST_BOUNDARY_TABLE {
+    #StructPack 4
 
     /**
      * The number of <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-mib_ipmcast_boundary">MIB_IPMCAST_BOUNDARY</a> structures listed in <b>table[]</b>.
-     * @type {Integer}
      */
-    dwNumEntries {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwNumEntries : UInt32
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-mib_ipmcast_boundary">MIB_IPMCAST_BOUNDARY</a> structures which collectively define the set of scoped IPv4 multicast address boundaries on a router.
-     * @type {MIB_IPMCAST_BOUNDARY}
      */
-    table {
-        get {
-            if(!this.HasProp("__tableProxyArray"))
-                this.__tableProxyArray := Win32FixedArray(this.ptr + 4, 1, MIB_IPMCAST_BOUNDARY, "")
-            return this.__tableProxyArray
-        }
-    }
+    table : MIB_IPMCAST_BOUNDARY[1]
+
 }

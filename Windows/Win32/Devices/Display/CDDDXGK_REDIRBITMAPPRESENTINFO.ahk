@@ -1,56 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class CDDDXGK_REDIRBITMAPPRESENTINFO extends Win32Struct {
-    static sizeof => 552
+export default struct CDDDXGK_REDIRBITMAPPRESENTINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    NumDirtyRects : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumDirtyRects {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DirtyRect : RECT.Ptr
 
-    /**
-     * @type {Pointer<RECT>}
-     */
-    DirtyRect {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    NumContexts : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumContexts {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    hContext : HANDLE[65]
 
-    /**
-     * @type {Array<HANDLE>}
-     */
-    hContext {
-        get {
-            if(!this.HasProp("__hContextProxyArray"))
-                this.__hContextProxyArray := Win32FixedArray(this.ptr + 24, 65, Primitive, "ptr")
-            return this.__hContextProxyArray
-        }
-    }
+    bDoNotSynchronizeWithDxContent : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bDoNotSynchronizeWithDxContent {
-        get => NumGet(this, 544, "char")
-        set => NumPut("char", value, this, 544)
-    }
 }

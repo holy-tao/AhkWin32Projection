@@ -1,171 +1,66 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PXE_DHCP_OPTION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PXE_DHCP_OPTION.ahk" { PXE_DHCP_OPTION }
 
 /**
  * The PXE_DHCP_MESSAGE structure can be used with the Windows Deployment Services PXE Server API.
  * @see https://learn.microsoft.com/windows/win32/api/wdspxe/ns-wdspxe-pxe_dhcp_message
  * @namespace Windows.Win32.System.DeploymentServices
  */
-class PXE_DHCP_MESSAGE extends Win32Struct {
-    static sizeof => 244
-
-    static packingSize => 4
+export default struct PXE_DHCP_MESSAGE {
+    #StructPack 4
 
     /**
      * Operation (op) field
-     * @type {Integer}
      */
-    Operation {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Operation : Int8
 
     /**
      * Hardware Address Type (htype) field
-     * @type {Integer}
      */
-    HardwareAddressType {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    HardwareAddressType : Int8
 
     /**
      * Hardware Address Length (hlen) field
-     * @type {Integer}
      */
-    HardwareAddressLength {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    HardwareAddressLength : Int8
 
-    /**
-     * @type {Integer}
-     */
-    HopCount {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    HopCount : Int8
 
-    /**
-     * @type {Integer}
-     */
-    TransactionID {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    TransactionID : UInt32
 
     /**
      * Seconds Since Boot (secs) field
-     * @type {Integer}
      */
-    SecondsSinceBoot {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    SecondsSinceBoot : UInt16
 
     /**
      * This parameter is reserved.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    Reserved : UInt16
 
     /**
      * Client IP Address (ciaddr) field
-     * @type {Integer}
      */
-    ClientIpAddress {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ClientIpAddress : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    YourIpAddress {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    YourIpAddress : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BootstrapServerAddress {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    BootstrapServerAddress : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RelayAgentIpAddress {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    RelayAgentIpAddress : UInt32
 
-    /**
-     * @type {Array<Integer>}
-     */
-    HardwareAddress {
-        get {
-            if(!this.HasProp("__HardwareAddressProxyArray"))
-                this.__HardwareAddressProxyArray := Win32FixedArray(this.ptr + 28, 16, Primitive, "char")
-            return this.__HardwareAddressProxyArray
-        }
-    }
+    HardwareAddress : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    HostName {
-        get {
-            if(!this.HasProp("__HostNameProxyArray"))
-                this.__HostNameProxyArray := Win32FixedArray(this.ptr + 44, 64, Primitive, "char")
-            return this.__HostNameProxyArray
-        }
-    }
+    HostName : Int8[64]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    BootFileName {
-        get {
-            if(!this.HasProp("__BootFileNameProxyArray"))
-                this.__BootFileNameProxyArray := Win32FixedArray(this.ptr + 108, 128, Primitive, "char")
-            return this.__BootFileNameProxyArray
-        }
-    }
+    BootFileName : Int8[128]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    bMagicCookie {
-        get {
-            if(!this.HasProp("__bMagicCookieProxyArray"))
-                this.__bMagicCookieProxyArray := Win32FixedArray(this.ptr + 236, 4, Primitive, "char")
-            return this.__bMagicCookieProxyArray
-        }
-    }
+    bMagicCookie : Int8[4]
 
-    /**
-     * @type {Integer}
-     */
-    uMagicCookie {
-        get => NumGet(this, 236, "uint")
-        set => NumPut("uint", value, this, 236)
-    }
+    Option : PXE_DHCP_OPTION
 
-    /**
-     * @type {PXE_DHCP_OPTION}
-     */
-    Option {
-        get {
-            if(!this.HasProp("__Option"))
-                this.__Option := PXE_DHCP_OPTION(240, this)
-            return this.__Option
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'uMagicCookie', { type: UInt32, offset: 236 })
+        this.DeleteProp("__New")
     }
 }

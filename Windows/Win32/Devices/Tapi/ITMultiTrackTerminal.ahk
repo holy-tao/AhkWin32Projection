@@ -1,36 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IEnumTerminal.ahk
-#Include .\ITTerminal.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\TERMINAL_DIRECTION.ahk" { TERMINAL_DIRECTION }
+#Import ".\ITTerminal.ahk" { ITTerminal }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumTerminal.ahk" { IEnumTerminal }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * This ITMultiTrackTerminal interface is exposed on all multitrack terminals. The interface includes methods for enumerating, creating, and removing tracks. The ITMultiTrackTerminal interface is created by calling QueryInterface on ITTerminal.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itmultitrackterminal
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITMultiTrackTerminal extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITMultiTrackTerminal extends IDispatch {
     /**
      * The interface identifier for ITMultiTrackTerminal
      * @type {Guid}
      */
-    static IID => Guid("{fe040091-ade8-4072-95c9-bf7de8c54b44}")
+    static IID := Guid("{fe040091-ade8-4072-95c9-bf7de8c54b44}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITMultiTrackTerminal interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_TrackTerminals      : IntPtr
+        EnumerateTrackTerminals : IntPtr
+        CreateTrackTerminal     : IntPtr
+        get_MediaTypesInUse     : IntPtr
+        get_DirectionsInUse     : IntPtr
+        RemoveTrackTerminal     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_TrackTerminals", "EnumerateTrackTerminals", "CreateTrackTerminal", "get_MediaTypesInUse", "get_DirectionsInUse", "RemoveTrackTerminal"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITMultiTrackTerminal.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT} 
@@ -66,7 +80,7 @@ class ITMultiTrackTerminal extends IDispatch {
      */
     get_TrackTerminals() {
         pVariant := VARIANT()
-        result := ComCall(7, this, "ptr", pVariant, "HRESULT")
+        result := ComCall(7, this, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
     }
 
@@ -100,7 +114,7 @@ class ITMultiTrackTerminal extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmultitrackterminal-createtrackterminal
      */
     CreateTrackTerminal(_MediaType, TerminalDirection) {
-        result := ComCall(9, this, "int", _MediaType, "int", TerminalDirection, "ptr*", &ppTerminal := 0, "HRESULT")
+        result := ComCall(9, this, "int", _MediaType, TERMINAL_DIRECTION, TerminalDirection, "ptr*", &ppTerminal := 0, "HRESULT")
         return ITTerminal(ppTerminal)
     }
 
@@ -181,5 +195,35 @@ class ITMultiTrackTerminal extends IDispatch {
     RemoveTrackTerminal(pTrackTerminalToRemove) {
         result := ComCall(12, this, "ptr", pTrackTerminalToRemove, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITMultiTrackTerminal.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_TrackTerminals := CallbackCreate(GetMethod(implObj, "get_TrackTerminals"), flags, 2)
+        this.vtbl.EnumerateTrackTerminals := CallbackCreate(GetMethod(implObj, "EnumerateTrackTerminals"), flags, 2)
+        this.vtbl.CreateTrackTerminal := CallbackCreate(GetMethod(implObj, "CreateTrackTerminal"), flags, 4)
+        this.vtbl.get_MediaTypesInUse := CallbackCreate(GetMethod(implObj, "get_MediaTypesInUse"), flags, 2)
+        this.vtbl.get_DirectionsInUse := CallbackCreate(GetMethod(implObj, "get_DirectionsInUse"), flags, 2)
+        this.vtbl.RemoveTrackTerminal := CallbackCreate(GetMethod(implObj, "RemoveTrackTerminal"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_TrackTerminals)
+        CallbackFree(this.vtbl.EnumerateTrackTerminals)
+        CallbackFree(this.vtbl.CreateTrackTerminal)
+        CallbackFree(this.vtbl.get_MediaTypesInUse)
+        CallbackFree(this.vtbl.get_DirectionsInUse)
+        CallbackFree(this.vtbl.RemoveTrackTerminal)
     }
 }

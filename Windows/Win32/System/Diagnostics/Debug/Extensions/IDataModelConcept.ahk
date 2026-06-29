@@ -1,46 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include ..\..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IDebugHostTypeSignature.ahk" { IDebugHostTypeSignature }
+#Import ".\IModelObject.ahk" { IModelObject }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDebugHostSymbolEnumerator.ahk" { IDebugHostSymbolEnumerator }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IDataModelConcept extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDataModelConcept extends IUnknown {
     /**
      * The interface identifier for IDataModelConcept
      * @type {Guid}
      */
-    static IID => Guid("{fcb98d1d-1114-4fbf-b24c-effcb5def0d3}")
+    static IID := Guid("{fcb98d1d-1114-4fbf-b24c-effcb5def0d3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDataModelConcept interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        InitializeObject : IntPtr
+        GetName          : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDataModelConcept.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializeObject", "GetName"]
-
-    /**
-     * The InitializeObjectAttributes macro initializes the opaque OBJECT_ATTRIBUTES structure, which specifies the properties of an object handle to routines that open handles.
-     * @remarks
-     * <b>InitializeObjectAttributes</b> initializes an <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wudfwdm/ns-wudfwdm-_object_attributes">OBJECT_ATTRIBUTES</a> structure that specifies the properties of an object handle to be opened. The caller can then pass a pointer to this structure to a routine that actually opens the handle. 
      * 
-     * Driver routines that run in a process context other than that of the system process must set the OBJ_KERNEL_HANDLE flag for the <i>Attributes</i> parameter. This flag restricts the use of a handle opened for that object to processes running only in kernel mode. Otherwise, the handle can be accessed by the process in whose context the driver is running.
-     * 
-     * Note that <b>InitializeObjectAttributes</b> always sets the <b>SecurityQualityOfService</b> member of <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wudfwdm/ns-wudfwdm-_object_attributes">OBJECT_ATTRIBUTES</a> to <b>NULL</b>. Drivers that require a non-<b>NULL</b> value can set <b>SecurityQualityOfService</b> directly.
      * @param {IModelObject} modelObject 
      * @param {IDebugHostTypeSignature} matchingTypeSignature 
      * @param {IDebugHostSymbolEnumerator} wildcardMatches 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ntdef/nf-ntdef-initializeobjectattributes
      */
     InitializeObject(modelObject, matchingTypeSignature, wildcardMatches) {
         result := ComCall(3, this, "ptr", modelObject, "ptr", matchingTypeSignature, "ptr", wildcardMatches, "HRESULT")
@@ -53,8 +58,30 @@ class IDataModelConcept extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getname
      */
     GetName() {
-        modelName := BSTR()
-        result := ComCall(4, this, "ptr", modelName, "HRESULT")
+        modelName := BSTR.Owned()
+        result := ComCall(4, this, BSTR.Ptr, modelName, "HRESULT")
         return modelName
+    }
+
+    Query(iid) {
+        if (IDataModelConcept.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializeObject := CallbackCreate(GetMethod(implObj, "InitializeObject"), flags, 4)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializeObject)
+        CallbackFree(this.vtbl.GetName)
     }
 }

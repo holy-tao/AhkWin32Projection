@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSCAMERA_METADATA_ITEMHEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSCAMERA_METADATA_ITEMHEADER.ahk" { KSCAMERA_METADATA_ITEMHEADER }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSCAMERA_METADATA_PHOTOCONFIRMATION extends Win32Struct {
-    static sizeof => 16
+export default struct KSCAMERA_METADATA_PHOTOCONFIRMATION {
+    #StructPack 4
 
-    static packingSize => 4
+    Header : KSCAMERA_METADATA_ITEMHEADER
 
-    /**
-     * @type {KSCAMERA_METADATA_ITEMHEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := KSCAMERA_METADATA_ITEMHEADER(0, this)
-            return this.__Header
-        }
-    }
+    PhotoConfirmationIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PhotoConfirmationIndex {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

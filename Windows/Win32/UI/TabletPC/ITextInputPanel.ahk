@@ -1,9 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CorrectionMode.ahk" { CorrectionMode }
+#Import ".\InPlaceState.ahk" { InPlaceState }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\InPlaceDirection.ahk" { InPlaceDirection }
+#Import ".\PanelInputArea.ahk" { PanelInputArea }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ITextInputPanelEventSink.ahk" { ITextInputPanelEventSink }
+#Import ".\CorrectionPosition.ahk" { CorrectionPosition }
+#Import ".\InteractionMode.ahk" { InteractionMode }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Provides control of appearance and behavior of the Tablet PC Input Panel.
@@ -23,32 +32,63 @@
  * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nn-peninputpanel-itextinputpanel
  * @namespace Windows.Win32.UI.TabletPC
  */
-class ITextInputPanel extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITextInputPanel extends IUnknown {
     /**
      * The interface identifier for ITextInputPanel
      * @type {Guid}
      */
-    static IID => Guid("{6b6a65a5-6af3-46c2-b6ea-56cd1f80df71}")
+    static IID := Guid("{6b6a65a5-6af3-46c2-b6ea-56cd1f80df71}")
 
     /**
      * The class identifier for TextInputPanel
      * @type {Guid}
      */
-    static CLSID => Guid("{f9b189d7-228b-4f2b-8650-b97f59e02c8c}")
+    static CLSID := Guid("{f9b189d7-228b-4f2b-8650-b97f59e02c8c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITextInputPanel interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_AttachedEditWindow            : IntPtr
+        put_AttachedEditWindow            : IntPtr
+        get_CurrentInteractionMode        : IntPtr
+        get_DefaultInPlaceState           : IntPtr
+        put_DefaultInPlaceState           : IntPtr
+        get_CurrentInPlaceState           : IntPtr
+        get_DefaultInputArea              : IntPtr
+        put_DefaultInputArea              : IntPtr
+        get_CurrentInputArea              : IntPtr
+        get_CurrentCorrectionMode         : IntPtr
+        get_PreferredInPlaceDirection     : IntPtr
+        put_PreferredInPlaceDirection     : IntPtr
+        get_ExpandPostInsertionCorrection : IntPtr
+        put_ExpandPostInsertionCorrection : IntPtr
+        get_InPlaceVisibleOnFocus         : IntPtr
+        put_InPlaceVisibleOnFocus         : IntPtr
+        get_InPlaceBoundingRectangle      : IntPtr
+        get_PopUpCorrectionHeight         : IntPtr
+        get_PopDownCorrectionHeight       : IntPtr
+        CommitPendingInput                : IntPtr
+        SetInPlaceVisibility              : IntPtr
+        SetInPlacePosition                : IntPtr
+        SetInPlaceHoverTargetPosition     : IntPtr
+        Advise                            : IntPtr
+        Unadvise                          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_AttachedEditWindow", "put_AttachedEditWindow", "get_CurrentInteractionMode", "get_DefaultInPlaceState", "put_DefaultInPlaceState", "get_CurrentInPlaceState", "get_DefaultInputArea", "put_DefaultInputArea", "get_CurrentInputArea", "get_CurrentCorrectionMode", "get_PreferredInPlaceDirection", "put_PreferredInPlaceDirection", "get_ExpandPostInsertionCorrection", "put_ExpandPostInsertionCorrection", "get_InPlaceVisibleOnFocus", "put_InPlaceVisibleOnFocus", "get_InPlaceBoundingRectangle", "get_PopUpCorrectionHeight", "get_PopDownCorrectionHeight", "CommitPendingInput", "SetInPlaceVisibility", "SetInPlacePosition", "SetInPlaceHoverTargetPosition", "Advise", "Unadvise"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITextInputPanel.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {HWND} 
@@ -156,7 +196,7 @@ class ITextInputPanel extends IUnknown {
      */
     get_AttachedEditWindow() {
         AttachedEditWindow := HWND()
-        result := ComCall(3, this, "ptr", AttachedEditWindow, "HRESULT")
+        result := ComCall(3, this, HWND.Ptr, AttachedEditWindow, "HRESULT")
         return AttachedEditWindow
     }
 
@@ -169,9 +209,7 @@ class ITextInputPanel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-put_attachededitwindow
      */
     put_AttachedEditWindow(AttachedEditWindow) {
-        AttachedEditWindow := AttachedEditWindow is Win32Handle ? NumGet(AttachedEditWindow, "ptr") : AttachedEditWindow
-
-        result := ComCall(4, this, "ptr", AttachedEditWindow, "HRESULT")
+        result := ComCall(4, this, HWND, AttachedEditWindow, "HRESULT")
         return result
     }
 
@@ -208,7 +246,7 @@ class ITextInputPanel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-put_defaultinplacestate
      */
     put_DefaultInPlaceState(State) {
-        result := ComCall(7, this, "int", State, "HRESULT")
+        result := ComCall(7, this, InPlaceState, State, "HRESULT")
         return result
     }
 
@@ -245,7 +283,7 @@ class ITextInputPanel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-put_defaultinputarea
      */
     put_DefaultInputArea(Area) {
-        result := ComCall(10, this, "int", Area, "HRESULT")
+        result := ComCall(10, this, PanelInputArea, Area, "HRESULT")
         return result
     }
 
@@ -297,7 +335,7 @@ class ITextInputPanel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-put_preferredinplacedirection
      */
     put_PreferredInPlaceDirection(_Direction) {
-        result := ComCall(14, this, "int", _Direction, "HRESULT")
+        result := ComCall(14, this, InPlaceDirection, _Direction, "HRESULT")
         return result
     }
 
@@ -310,7 +348,7 @@ class ITextInputPanel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_expandpostinsertioncorrection
      */
     get_ExpandPostInsertionCorrection() {
-        result := ComCall(15, this, "int*", &Expand := 0, "HRESULT")
+        result := ComCall(15, this, BOOL.Ptr, &Expand := 0, "HRESULT")
         return Expand
     }
 
@@ -324,7 +362,7 @@ class ITextInputPanel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-put_expandpostinsertioncorrection
      */
     put_ExpandPostInsertionCorrection(Expand) {
-        result := ComCall(16, this, "int", Expand, "HRESULT")
+        result := ComCall(16, this, BOOL, Expand, "HRESULT")
         return result
     }
 
@@ -340,7 +378,7 @@ class ITextInputPanel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-get_inplacevisibleonfocus
      */
     get_InPlaceVisibleOnFocus() {
-        result := ComCall(17, this, "int*", &Visible := 0, "HRESULT")
+        result := ComCall(17, this, BOOL.Ptr, &Visible := 0, "HRESULT")
         return Visible
     }
 
@@ -357,7 +395,7 @@ class ITextInputPanel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-put_inplacevisibleonfocus
      */
     put_InPlaceVisibleOnFocus(Visible) {
-        result := ComCall(18, this, "int", Visible, "HRESULT")
+        result := ComCall(18, this, BOOL, Visible, "HRESULT")
         return result
     }
 
@@ -370,7 +408,7 @@ class ITextInputPanel extends IUnknown {
      */
     get_InPlaceBoundingRectangle() {
         BoundingRectangle := RECT()
-        result := ComCall(19, this, "ptr", BoundingRectangle, "HRESULT")
+        result := ComCall(19, this, RECT.Ptr, BoundingRectangle, "HRESULT")
         return BoundingRectangle
     }
 
@@ -507,7 +545,7 @@ class ITextInputPanel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-setinplacevisibility
      */
     SetInPlaceVisibility(Visible) {
-        result := ComCall(23, this, "int", Visible, "HRESULT")
+        result := ComCall(23, this, BOOL, Visible, "HRESULT")
         return result
     }
 
@@ -558,7 +596,7 @@ class ITextInputPanel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-setinplaceposition
      */
     SetInPlacePosition(xPosition, yPosition, position) {
-        result := ComCall(24, this, "int", xPosition, "int", yPosition, "int", position, "HRESULT")
+        result := ComCall(24, this, "int", xPosition, "int", yPosition, CorrectionPosition, position, "HRESULT")
         return result
     }
 
@@ -686,5 +724,73 @@ class ITextInputPanel extends IUnknown {
     Unadvise(EventSink) {
         result := ComCall(27, this, "ptr", EventSink, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITextInputPanel.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_AttachedEditWindow := CallbackCreate(GetMethod(implObj, "get_AttachedEditWindow"), flags, 2)
+        this.vtbl.put_AttachedEditWindow := CallbackCreate(GetMethod(implObj, "put_AttachedEditWindow"), flags, 2)
+        this.vtbl.get_CurrentInteractionMode := CallbackCreate(GetMethod(implObj, "get_CurrentInteractionMode"), flags, 2)
+        this.vtbl.get_DefaultInPlaceState := CallbackCreate(GetMethod(implObj, "get_DefaultInPlaceState"), flags, 2)
+        this.vtbl.put_DefaultInPlaceState := CallbackCreate(GetMethod(implObj, "put_DefaultInPlaceState"), flags, 2)
+        this.vtbl.get_CurrentInPlaceState := CallbackCreate(GetMethod(implObj, "get_CurrentInPlaceState"), flags, 2)
+        this.vtbl.get_DefaultInputArea := CallbackCreate(GetMethod(implObj, "get_DefaultInputArea"), flags, 2)
+        this.vtbl.put_DefaultInputArea := CallbackCreate(GetMethod(implObj, "put_DefaultInputArea"), flags, 2)
+        this.vtbl.get_CurrentInputArea := CallbackCreate(GetMethod(implObj, "get_CurrentInputArea"), flags, 2)
+        this.vtbl.get_CurrentCorrectionMode := CallbackCreate(GetMethod(implObj, "get_CurrentCorrectionMode"), flags, 2)
+        this.vtbl.get_PreferredInPlaceDirection := CallbackCreate(GetMethod(implObj, "get_PreferredInPlaceDirection"), flags, 2)
+        this.vtbl.put_PreferredInPlaceDirection := CallbackCreate(GetMethod(implObj, "put_PreferredInPlaceDirection"), flags, 2)
+        this.vtbl.get_ExpandPostInsertionCorrection := CallbackCreate(GetMethod(implObj, "get_ExpandPostInsertionCorrection"), flags, 2)
+        this.vtbl.put_ExpandPostInsertionCorrection := CallbackCreate(GetMethod(implObj, "put_ExpandPostInsertionCorrection"), flags, 2)
+        this.vtbl.get_InPlaceVisibleOnFocus := CallbackCreate(GetMethod(implObj, "get_InPlaceVisibleOnFocus"), flags, 2)
+        this.vtbl.put_InPlaceVisibleOnFocus := CallbackCreate(GetMethod(implObj, "put_InPlaceVisibleOnFocus"), flags, 2)
+        this.vtbl.get_InPlaceBoundingRectangle := CallbackCreate(GetMethod(implObj, "get_InPlaceBoundingRectangle"), flags, 2)
+        this.vtbl.get_PopUpCorrectionHeight := CallbackCreate(GetMethod(implObj, "get_PopUpCorrectionHeight"), flags, 2)
+        this.vtbl.get_PopDownCorrectionHeight := CallbackCreate(GetMethod(implObj, "get_PopDownCorrectionHeight"), flags, 2)
+        this.vtbl.CommitPendingInput := CallbackCreate(GetMethod(implObj, "CommitPendingInput"), flags, 1)
+        this.vtbl.SetInPlaceVisibility := CallbackCreate(GetMethod(implObj, "SetInPlaceVisibility"), flags, 2)
+        this.vtbl.SetInPlacePosition := CallbackCreate(GetMethod(implObj, "SetInPlacePosition"), flags, 4)
+        this.vtbl.SetInPlaceHoverTargetPosition := CallbackCreate(GetMethod(implObj, "SetInPlaceHoverTargetPosition"), flags, 3)
+        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 3)
+        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_AttachedEditWindow)
+        CallbackFree(this.vtbl.put_AttachedEditWindow)
+        CallbackFree(this.vtbl.get_CurrentInteractionMode)
+        CallbackFree(this.vtbl.get_DefaultInPlaceState)
+        CallbackFree(this.vtbl.put_DefaultInPlaceState)
+        CallbackFree(this.vtbl.get_CurrentInPlaceState)
+        CallbackFree(this.vtbl.get_DefaultInputArea)
+        CallbackFree(this.vtbl.put_DefaultInputArea)
+        CallbackFree(this.vtbl.get_CurrentInputArea)
+        CallbackFree(this.vtbl.get_CurrentCorrectionMode)
+        CallbackFree(this.vtbl.get_PreferredInPlaceDirection)
+        CallbackFree(this.vtbl.put_PreferredInPlaceDirection)
+        CallbackFree(this.vtbl.get_ExpandPostInsertionCorrection)
+        CallbackFree(this.vtbl.put_ExpandPostInsertionCorrection)
+        CallbackFree(this.vtbl.get_InPlaceVisibleOnFocus)
+        CallbackFree(this.vtbl.put_InPlaceVisibleOnFocus)
+        CallbackFree(this.vtbl.get_InPlaceBoundingRectangle)
+        CallbackFree(this.vtbl.get_PopUpCorrectionHeight)
+        CallbackFree(this.vtbl.get_PopDownCorrectionHeight)
+        CallbackFree(this.vtbl.CommitPendingInput)
+        CallbackFree(this.vtbl.SetInPlaceVisibility)
+        CallbackFree(this.vtbl.SetInPlacePosition)
+        CallbackFree(this.vtbl.SetInPlaceHoverTargetPosition)
+        CallbackFree(this.vtbl.Advise)
+        CallbackFree(this.vtbl.Unadvise)
     }
 }

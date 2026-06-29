@@ -1,331 +1,89 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class DMA_OPERATIONS extends Win32Struct {
-    static sizeof => 320
+export default struct DMA_OPERATIONS {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PutDmaAdapter : IntPtr
 
-    /**
-     * @type {Pointer<PPUT_DMA_ADAPTER>}
-     */
-    PutDmaAdapter {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    AllocateCommonBuffer : IntPtr
 
-    /**
-     * @type {Pointer<PALLOCATE_COMMON_BUFFER>}
-     */
-    AllocateCommonBuffer {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    FreeCommonBuffer : IntPtr
 
-    /**
-     * @type {Pointer<PFREE_COMMON_BUFFER>}
-     */
-    FreeCommonBuffer {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    AllocateAdapterChannel : IntPtr
 
-    /**
-     * @type {Pointer<PALLOCATE_ADAPTER_CHANNEL>}
-     */
-    AllocateAdapterChannel {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    FlushAdapterBuffers : IntPtr
 
-    /**
-     * @type {Pointer<PFLUSH_ADAPTER_BUFFERS>}
-     */
-    FlushAdapterBuffers {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    FreeAdapterChannel : IntPtr
 
-    /**
-     * @type {Pointer<PFREE_ADAPTER_CHANNEL>}
-     */
-    FreeAdapterChannel {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    FreeMapRegisters : IntPtr
 
-    /**
-     * @type {Pointer<PFREE_MAP_REGISTERS>}
-     */
-    FreeMapRegisters {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    MapTransfer : IntPtr
 
-    /**
-     * @type {Pointer<PMAP_TRANSFER>}
-     */
-    MapTransfer {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    GetDmaAlignment : IntPtr
 
-    /**
-     * @type {Pointer<PGET_DMA_ALIGNMENT>}
-     */
-    GetDmaAlignment {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    ReadDmaCounter : IntPtr
 
-    /**
-     * @type {Pointer<PREAD_DMA_COUNTER>}
-     */
-    ReadDmaCounter {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    GetScatterGatherList : IntPtr
 
-    /**
-     * @type {Pointer<PGET_SCATTER_GATHER_LIST>}
-     */
-    GetScatterGatherList {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    PutScatterGatherList : IntPtr
 
-    /**
-     * @type {Pointer<PPUT_SCATTER_GATHER_LIST>}
-     */
-    PutScatterGatherList {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    CalculateScatterGatherList : IntPtr
 
-    /**
-     * @type {Pointer<PCALCULATE_SCATTER_GATHER_LIST_SIZE>}
-     */
-    CalculateScatterGatherList {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    BuildScatterGatherList : IntPtr
 
-    /**
-     * @type {Pointer<PBUILD_SCATTER_GATHER_LIST>}
-     */
-    BuildScatterGatherList {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    BuildMdlFromScatterGatherList : IntPtr
 
-    /**
-     * @type {Pointer<PBUILD_MDL_FROM_SCATTER_GATHER_LIST>}
-     */
-    BuildMdlFromScatterGatherList {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    GetDmaAdapterInfo : IntPtr
 
-    /**
-     * @type {Pointer<PGET_DMA_ADAPTER_INFO>}
-     */
-    GetDmaAdapterInfo {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    GetDmaTransferInfo : IntPtr
 
-    /**
-     * @type {Pointer<PGET_DMA_TRANSFER_INFO>}
-     */
-    GetDmaTransferInfo {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
-    }
+    InitializeDmaTransferContext : IntPtr
 
-    /**
-     * @type {Pointer<PINITIALIZE_DMA_TRANSFER_CONTEXT>}
-     */
-    InitializeDmaTransferContext {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
-    }
+    AllocateCommonBufferEx : IntPtr
 
-    /**
-     * @type {Pointer<PALLOCATE_COMMON_BUFFER_EX>}
-     */
-    AllocateCommonBufferEx {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
-    }
+    AllocateAdapterChannelEx : IntPtr
 
-    /**
-     * @type {Pointer<PALLOCATE_ADAPTER_CHANNEL_EX>}
-     */
-    AllocateAdapterChannelEx {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
-    }
+    ConfigureAdapterChannel : IntPtr
 
-    /**
-     * @type {Pointer<PCONFIGURE_ADAPTER_CHANNEL>}
-     */
-    ConfigureAdapterChannel {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
-    }
+    CancelAdapterChannel : IntPtr
 
-    /**
-     * @type {Pointer<PCANCEL_ADAPTER_CHANNEL>}
-     */
-    CancelAdapterChannel {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
-    }
+    MapTransferEx : IntPtr
 
-    /**
-     * @type {Pointer<PMAP_TRANSFER_EX>}
-     */
-    MapTransferEx {
-        get => NumGet(this, 184, "ptr")
-        set => NumPut("ptr", value, this, 184)
-    }
+    GetScatterGatherListEx : IntPtr
 
-    /**
-     * @type {Pointer<PGET_SCATTER_GATHER_LIST_EX>}
-     */
-    GetScatterGatherListEx {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
-    }
+    BuildScatterGatherListEx : IntPtr
 
-    /**
-     * @type {Pointer<PBUILD_SCATTER_GATHER_LIST_EX>}
-     */
-    BuildScatterGatherListEx {
-        get => NumGet(this, 200, "ptr")
-        set => NumPut("ptr", value, this, 200)
-    }
+    FlushAdapterBuffersEx : IntPtr
 
-    /**
-     * @type {Pointer<PFLUSH_ADAPTER_BUFFERS_EX>}
-     */
-    FlushAdapterBuffersEx {
-        get => NumGet(this, 208, "ptr")
-        set => NumPut("ptr", value, this, 208)
-    }
+    FreeAdapterObject : IntPtr
 
-    /**
-     * @type {Pointer<PFREE_ADAPTER_OBJECT>}
-     */
-    FreeAdapterObject {
-        get => NumGet(this, 216, "ptr")
-        set => NumPut("ptr", value, this, 216)
-    }
+    CancelMappedTransfer : IntPtr
 
-    /**
-     * @type {Pointer<PCANCEL_MAPPED_TRANSFER>}
-     */
-    CancelMappedTransfer {
-        get => NumGet(this, 224, "ptr")
-        set => NumPut("ptr", value, this, 224)
-    }
+    AllocateDomainCommonBuffer : IntPtr
 
-    /**
-     * @type {Pointer<PALLOCATE_DOMAIN_COMMON_BUFFER>}
-     */
-    AllocateDomainCommonBuffer {
-        get => NumGet(this, 232, "ptr")
-        set => NumPut("ptr", value, this, 232)
-    }
+    FlushDmaBuffer : IntPtr
 
-    /**
-     * @type {Pointer<PFLUSH_DMA_BUFFER>}
-     */
-    FlushDmaBuffer {
-        get => NumGet(this, 240, "ptr")
-        set => NumPut("ptr", value, this, 240)
-    }
+    JoinDmaDomain : IntPtr
 
-    /**
-     * @type {Pointer<PJOIN_DMA_DOMAIN>}
-     */
-    JoinDmaDomain {
-        get => NumGet(this, 248, "ptr")
-        set => NumPut("ptr", value, this, 248)
-    }
+    LeaveDmaDomain : IntPtr
 
-    /**
-     * @type {Pointer<PLEAVE_DMA_DOMAIN>}
-     */
-    LeaveDmaDomain {
-        get => NumGet(this, 256, "ptr")
-        set => NumPut("ptr", value, this, 256)
-    }
+    GetDmaDomain : IntPtr
 
-    /**
-     * @type {Pointer<PGET_DMA_DOMAIN>}
-     */
-    GetDmaDomain {
-        get => NumGet(this, 264, "ptr")
-        set => NumPut("ptr", value, this, 264)
-    }
+    AllocateCommonBufferWithBounds : IntPtr
 
-    /**
-     * @type {Pointer<PALLOCATE_COMMON_BUFFER_WITH_BOUNDS>}
-     */
-    AllocateCommonBufferWithBounds {
-        get => NumGet(this, 272, "ptr")
-        set => NumPut("ptr", value, this, 272)
-    }
+    AllocateCommonBufferVector : IntPtr
 
-    /**
-     * @type {Pointer<PALLOCATE_COMMON_BUFFER_VECTOR>}
-     */
-    AllocateCommonBufferVector {
-        get => NumGet(this, 280, "ptr")
-        set => NumPut("ptr", value, this, 280)
-    }
+    GetCommonBufferFromVectorByIndex : IntPtr
 
-    /**
-     * @type {Pointer<PGET_COMMON_BUFFER_FROM_VECTOR_BY_INDEX>}
-     */
-    GetCommonBufferFromVectorByIndex {
-        get => NumGet(this, 288, "ptr")
-        set => NumPut("ptr", value, this, 288)
-    }
+    FreeCommonBufferFromVector : IntPtr
 
-    /**
-     * @type {Pointer<PFREE_COMMON_BUFFER_FROM_VECTOR>}
-     */
-    FreeCommonBufferFromVector {
-        get => NumGet(this, 296, "ptr")
-        set => NumPut("ptr", value, this, 296)
-    }
+    FreeCommonBufferVector : IntPtr
 
-    /**
-     * @type {Pointer<PFREE_COMMON_BUFFER_VECTOR>}
-     */
-    FreeCommonBufferVector {
-        get => NumGet(this, 304, "ptr")
-        set => NumPut("ptr", value, this, 304)
-    }
+    CreateCommonBufferFromMdl : IntPtr
 
-    /**
-     * @type {Pointer<PCREATE_COMMON_BUFFER_FROM_MDL>}
-     */
-    CreateCommonBufferFromMdl {
-        get => NumGet(this, 312, "ptr")
-        set => NumPut("ptr", value, this, 312)
-    }
 }

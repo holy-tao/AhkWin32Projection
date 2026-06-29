@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ITfRange.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITfRange.ahk" { ITfRange }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITfComposition interface is implemented by the TSF manager and is used by a text service to obtain data about and terminate a composition. An instance of this interface is provided by the ITfContextComposition::StartComposition method.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcomposition
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfComposition extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfComposition extends IUnknown {
     /**
      * The interface identifier for ITfComposition
      * @type {Guid}
      */
-    static IID => Guid("{20168d64-5a8f-4a5a-b7bd-cfa29f4d0fd9}")
+    static IID := Guid("{20168d64-5a8f-4a5a-b7bd-cfa29f4d0fd9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfComposition interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetRange       : IntPtr
+        ShiftStart     : IntPtr
+        ShiftEnd       : IntPtr
+        EndComposition : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetRange", "ShiftStart", "ShiftEnd", "EndComposition"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfComposition.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfComposition::GetRange method
@@ -252,5 +263,31 @@ class ITfComposition extends IUnknown {
     EndComposition(ecWrite) {
         result := ComCall(6, this, "uint", ecWrite, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITfComposition.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetRange := CallbackCreate(GetMethod(implObj, "GetRange"), flags, 2)
+        this.vtbl.ShiftStart := CallbackCreate(GetMethod(implObj, "ShiftStart"), flags, 3)
+        this.vtbl.ShiftEnd := CallbackCreate(GetMethod(implObj, "ShiftEnd"), flags, 3)
+        this.vtbl.EndComposition := CallbackCreate(GetMethod(implObj, "EndComposition"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetRange)
+        CallbackFree(this.vtbl.ShiftStart)
+        CallbackFree(this.vtbl.ShiftEnd)
+        CallbackFree(this.vtbl.EndComposition)
     }
 }

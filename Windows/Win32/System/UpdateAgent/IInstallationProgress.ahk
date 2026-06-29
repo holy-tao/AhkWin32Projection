@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IUpdateInstallationResult.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUpdateInstallationResult.ahk" { IUpdateInstallationResult }
 
 /**
  * Represents the progress of an asynchronous installation or uninstallation.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iinstallationprogress
  * @namespace Windows.Win32.System.UpdateAgent
  */
-class IInstallationProgress extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IInstallationProgress extends IDispatch {
     /**
      * The interface identifier for IInstallationProgress
      * @type {Guid}
      */
-    static IID => Guid("{345c8244-43a3-4e32-a368-65f073b76f36}")
+    static IID := Guid("{345c8244-43a3-4e32-a368-65f073b76f36}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IInstallationProgress interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_CurrentUpdateIndex           : IntPtr
+        get_CurrentUpdatePercentComplete : IntPtr
+        get_PercentComplete              : IntPtr
+        GetUpdateResult                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_CurrentUpdateIndex", "get_CurrentUpdatePercentComplete", "get_PercentComplete", "GetUpdateResult"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IInstallationProgress.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -93,5 +104,31 @@ class IInstallationProgress extends IDispatch {
     GetUpdateResult(updateIndex) {
         result := ComCall(10, this, "int", updateIndex, "ptr*", &retval := 0, "HRESULT")
         return IUpdateInstallationResult(retval)
+    }
+
+    Query(iid) {
+        if (IInstallationProgress.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_CurrentUpdateIndex := CallbackCreate(GetMethod(implObj, "get_CurrentUpdateIndex"), flags, 2)
+        this.vtbl.get_CurrentUpdatePercentComplete := CallbackCreate(GetMethod(implObj, "get_CurrentUpdatePercentComplete"), flags, 2)
+        this.vtbl.get_PercentComplete := CallbackCreate(GetMethod(implObj, "get_PercentComplete"), flags, 2)
+        this.vtbl.GetUpdateResult := CallbackCreate(GetMethod(implObj, "GetUpdateResult"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_CurrentUpdateIndex)
+        CallbackFree(this.vtbl.get_CurrentUpdatePercentComplete)
+        CallbackFree(this.vtbl.get_PercentComplete)
+        CallbackFree(this.vtbl.GetUpdateResult)
     }
 }

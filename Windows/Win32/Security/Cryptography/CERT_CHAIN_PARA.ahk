@@ -1,9 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_USAGE_MATCH.ahk
-#Include .\CTL_USAGE.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\CERT_STRONG_SIGN_PARA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CTL_USAGE.ahk" { CTL_USAGE }
+#Import ".\CERT_STRONG_SIGN_PARA.ahk" { CERT_STRONG_SIGN_PARA }
+#Import ".\CERT_USAGE_MATCH.ahk" { CERT_USAGE_MATCH }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The CERT_CHAIN_PARA structure establishes the searching and matching criteria to be used in building a certificate chain.
@@ -31,82 +32,50 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_chain_para
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_CHAIN_PARA extends Win32Struct {
-    static sizeof => 96
-
-    static packingSize => 8
+export default struct CERT_CHAIN_PARA {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Structure indicating the kind of matching necessary to find issuer certificates for building a certificate chain. The structure pointed to indicates whether AND or OR logic is to be used in the matching process. The structure also includes an array of OIDs to be matched.
-     * @type {CERT_USAGE_MATCH}
      */
-    RequestedUsage {
-        get {
-            if(!this.HasProp("__RequestedUsage"))
-                this.__RequestedUsage := CERT_USAGE_MATCH(8, this)
-            return this.__RequestedUsage
-        }
-    }
+    RequestedUsage : CERT_USAGE_MATCH
 
     /**
      * Optional structure that indicates the kind of issuance policy constraint matching that applies when building a certificate chain. The structure pointed to indicates whether AND or OR logic is to be used in the matching process. The structure also includes an array of OIDs to be matched.
      * 
      * <div class="alert"><b>Note</b>  This member can be used only if <b>CERT_CHAIN_PARA_HAS_EXTRA_FIELDS</b> is defined by using the <b>#define</b> directive before including Wincrypt.h. If this value is defined, the application must zero all unused fields.</div>
      * <div> </div>
-     * @type {CERT_USAGE_MATCH}
      */
-    RequestedIssuancePolicy {
-        get {
-            if(!this.HasProp("__RequestedIssuancePolicy"))
-                this.__RequestedIssuancePolicy := CERT_USAGE_MATCH(32, this)
-            return this.__RequestedIssuancePolicy
-        }
-    }
+    RequestedIssuancePolicy : CERT_USAGE_MATCH
 
     /**
      * Optional time, in milliseconds, before revocation checking times out. This member is optional.
      * 
      * <div class="alert"><b>Note</b>  This member can be used only if <b>CERT_CHAIN_PARA_HAS_EXTRA_FIELDS</b> is defined by using the <b>#define</b> directive before including Wincrypt.h. If this value is defined, the application must zero all unused fields.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    dwUrlRetrievalTimeout {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    dwUrlRetrievalTimeout : UInt32
 
     /**
      * Optional member. When this flag is <b>TRUE</b>, an attempt is made to retrieve a new CRL if this update is greater than or equal to the current system time minus the <b>dwRevocationFreshnessTime</b> value. If this flag is not set, the CRL's next update time is used.
      * 
      * <div class="alert"><b>Note</b>  This member can be used only if <b>CERT_CHAIN_PARA_HAS_EXTRA_FIELDS</b> is defined by using the <b>#define</b> directive before including Wincrypt.h. If this value is defined, the application must zero all unused fields.</div>
      * <div> </div>
-     * @type {BOOL}
      */
-    fCheckRevocationFreshnessTime {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
-    }
+    fCheckRevocationFreshnessTime : BOOL
 
     /**
      * The current time, in seconds, minus the CRL's update time of all elements checked.
      * 
      * <div class="alert"><b>Note</b>  This member can be used only if <b>CERT_CHAIN_PARA_HAS_EXTRA_FIELDS</b> is defined by using the <b>#define</b> directive before including Wincrypt.h. If this value is defined, the application must zero all unused fields.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    dwRevocationFreshnessTime {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    dwRevocationFreshnessTime : UInt32
 
     /**
      * Optional member. When set to a non-<b>NULL</b>  value, information cached before  the time specified is considered to be not valid and cache resynchronization is performed.
@@ -115,12 +84,8 @@ class CERT_CHAIN_PARA extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  This member can be used only if <b>CERT_CHAIN_PARA_HAS_EXTRA_FIELDS</b> is defined by using the <b>#define</b> directive before including Wincrypt.h. If this value is defined, the application must zero all unused fields.</div>
      * <div> </div>
-     * @type {Pointer<FILETIME>}
      */
-    pftCacheResync {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    pftCacheResync : FILETIME.Ptr
 
     /**
      * Optional. Specify a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_strong_sign_para">CERT_STRONG_SIGN_PARA</a> structure to enable strong signature checking.
@@ -129,12 +94,8 @@ class CERT_CHAIN_PARA extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  This member can be used only if <b>CERT_CHAIN_PARA_HAS_EXTRA_FIELDS</b> is defined by using the <b>#define</b> directive before including Wincrypt.h. If this value is defined, the application must zero all unused fields.</div>
      * <div> </div>
-     * @type {Pointer<CERT_STRONG_SIGN_PARA>}
      */
-    pStrongSignPara {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    pStrongSignPara : CERT_STRONG_SIGN_PARA.Ptr
 
     /**
      * Optional flags that modify chain retrieval behavior. This can be zero or the following value.
@@ -162,15 +123,7 @@ class CERT_CHAIN_PARA extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  This member can be used only if <b>CERT_CHAIN_PARA_HAS_EXTRA_FIELDS</b> is defined by using the <b>#define</b> directive before including Wincrypt.h. If this value is defined, the application must zero all unused fields.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    dwStrongSignFlags {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    dwStrongSignFlags : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 96
-    }
 }

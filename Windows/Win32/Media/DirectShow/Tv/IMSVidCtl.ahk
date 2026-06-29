@@ -1,16 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\HWND.ahk
-#Include .\IMSVidInputDevices.ahk
-#Include .\IMSVidOutputDevices.ahk
-#Include .\IMSVidVideoRendererDevices.ahk
-#Include .\IMSVidAudioRendererDevices.ahk
-#Include .\IMSVidFeatures.ahk
-#Include .\IMSVidInputDevice.ahk
-#Include .\IMSVidVideoRenderer.ahk
-#Include .\IMSVidAudioRenderer.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMSVidAudioRendererDevices.ahk" { IMSVidAudioRendererDevices }
+#Import ".\IMSVidVideoRenderer.ahk" { IMSVidVideoRenderer }
+#Import ".\IMSVidVideoRendererDevices.ahk" { IMSVidVideoRendererDevices }
+#Import ".\MSVidCtlStateList.ahk" { MSVidCtlStateList }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IMSVidAudioRenderer.ahk" { IMSVidAudioRenderer }
+#Import ".\IMSVidOutputDevices.ahk" { IMSVidOutputDevices }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IMSVidFeatures.ahk" { IMSVidFeatures }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\DisplaySizeList.ahk" { DisplaySizeList }
+#Import ".\IMSVidInputDevice.ahk" { IMSVidInputDevice }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IMSVidInputDevices.ahk" { IMSVidInputDevices }
 
 /**
  * The IMSVidCtl interface is the main interface for the Video Control.
@@ -19,32 +25,81 @@
  * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nn-msvidctl-imsvidctl
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSVidCtl extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IMSVidCtl extends IDispatch {
     /**
      * The interface identifier for IMSVidCtl
      * @type {Guid}
      */
-    static IID => Guid("{b0edf162-910a-11d2-b632-00c04f79498e}")
+    static IID := Guid("{b0edf162-910a-11d2-b632-00c04f79498e}")
 
     /**
      * The class identifier for MSVidCtl
      * @type {Guid}
      */
-    static CLSID => Guid("{b0edf163-910a-11d2-b632-00c04f79498e}")
+    static CLSID := Guid("{b0edf163-910a-11d2-b632-00c04f79498e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSVidCtl interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_AutoSize                : IntPtr
+        put_AutoSize                : IntPtr
+        get_BackColor               : IntPtr
+        put_BackColor               : IntPtr
+        get_Enabled                 : IntPtr
+        put_Enabled                 : IntPtr
+        get_TabStop                 : IntPtr
+        put_TabStop                 : IntPtr
+        get_Window                  : IntPtr
+        Refresh                     : IntPtr
+        get_DisplaySize             : IntPtr
+        put_DisplaySize             : IntPtr
+        get_MaintainAspectRatio     : IntPtr
+        put_MaintainAspectRatio     : IntPtr
+        get_ColorKey                : IntPtr
+        put_ColorKey                : IntPtr
+        get_InputsAvailable         : IntPtr
+        get_OutputsAvailable        : IntPtr
+        get__InputsAvailable        : IntPtr
+        get__OutputsAvailable       : IntPtr
+        get_VideoRenderersAvailable : IntPtr
+        get_AudioRenderersAvailable : IntPtr
+        get_FeaturesAvailable       : IntPtr
+        get_InputActive             : IntPtr
+        put_InputActive             : IntPtr
+        get_OutputsActive           : IntPtr
+        put_OutputsActive           : IntPtr
+        get_VideoRendererActive     : IntPtr
+        put_VideoRendererActive     : IntPtr
+        get_AudioRendererActive     : IntPtr
+        put_AudioRendererActive     : IntPtr
+        get_FeaturesActive          : IntPtr
+        put_FeaturesActive          : IntPtr
+        get_State                   : IntPtr
+        View                        : IntPtr
+        Build                       : IntPtr
+        Pause                       : IntPtr
+        Run                         : IntPtr
+        Stop                        : IntPtr
+        Decompose                   : IntPtr
+        DisableVideo                : IntPtr
+        DisableAudio                : IntPtr
+        ViewNext                    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_AutoSize", "put_AutoSize", "get_BackColor", "put_BackColor", "get_Enabled", "put_Enabled", "get_TabStop", "put_TabStop", "get_Window", "Refresh", "get_DisplaySize", "put_DisplaySize", "get_MaintainAspectRatio", "put_MaintainAspectRatio", "get_ColorKey", "put_ColorKey", "get_InputsAvailable", "get_OutputsAvailable", "get__InputsAvailable", "get__OutputsAvailable", "get_VideoRenderersAvailable", "get_AudioRenderersAvailable", "get_FeaturesAvailable", "get_InputActive", "put_InputActive", "get_OutputsActive", "put_OutputsActive", "get_VideoRendererActive", "put_VideoRendererActive", "get_AudioRendererActive", "put_AudioRendererActive", "get_FeaturesActive", "put_FeaturesActive", "get_State", "View", "Build", "Pause", "Run", "Stop", "Decompose", "DisableVideo", "DisableAudio", "ViewNext"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSVidCtl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -183,7 +238,7 @@ class IMSVidCtl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get_autosize
      */
     get_AutoSize() {
-        result := ComCall(7, this, "short*", &pbool := 0, "HRESULT")
+        result := ComCall(7, this, VARIANT_BOOL.Ptr, &pbool := 0, "HRESULT")
         return pbool
     }
 
@@ -194,7 +249,7 @@ class IMSVidCtl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-put_autosize
      */
     put_AutoSize(vbool) {
-        result := ComCall(8, this, "short", vbool, "HRESULT")
+        result := ComCall(8, this, VARIANT_BOOL, vbool, "HRESULT")
         return result
     }
 
@@ -227,7 +282,7 @@ class IMSVidCtl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get_enabled
      */
     get_Enabled() {
-        result := ComCall(11, this, "short*", &pbool := 0, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL.Ptr, &pbool := 0, "HRESULT")
         return pbool
     }
 
@@ -238,7 +293,7 @@ class IMSVidCtl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-put_enabled
      */
     put_Enabled(vbool) {
-        result := ComCall(12, this, "short", vbool, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL, vbool, "HRESULT")
         return result
     }
 
@@ -248,7 +303,7 @@ class IMSVidCtl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get_tabstop
      */
     get_TabStop() {
-        result := ComCall(13, this, "short*", &pbool := 0, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL.Ptr, &pbool := 0, "HRESULT")
         return pbool
     }
 
@@ -259,7 +314,7 @@ class IMSVidCtl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-put_tabstop
      */
     put_TabStop(vbool) {
-        result := ComCall(14, this, "short", vbool, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL, vbool, "HRESULT")
         return result
     }
 
@@ -270,7 +325,7 @@ class IMSVidCtl extends IDispatch {
      */
     get_Window() {
         phwnd := HWND()
-        result := ComCall(15, this, "ptr", phwnd, "HRESULT")
+        result := ComCall(15, this, HWND.Ptr, phwnd, "HRESULT")
         return phwnd
     }
 
@@ -307,7 +362,7 @@ class IMSVidCtl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-put_displaysize
      */
     put_DisplaySize(NewValue) {
-        result := ComCall(18, this, "int", NewValue, "HRESULT")
+        result := ComCall(18, this, DisplaySizeList, NewValue, "HRESULT")
         return result
     }
 
@@ -317,7 +372,7 @@ class IMSVidCtl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get_maintainaspectratio
      */
     get_MaintainAspectRatio() {
-        result := ComCall(19, this, "short*", &CurrentValue := 0, "HRESULT")
+        result := ComCall(19, this, VARIANT_BOOL.Ptr, &CurrentValue := 0, "HRESULT")
         return CurrentValue
     }
 
@@ -328,7 +383,7 @@ class IMSVidCtl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-put_maintainaspectratio
      */
     put_MaintainAspectRatio(NewValue) {
-        result := ComCall(20, this, "short", NewValue, "HRESULT")
+        result := ComCall(20, this, VARIANT_BOOL, NewValue, "HRESULT")
         return result
     }
 
@@ -370,7 +425,7 @@ class IMSVidCtl extends IDispatch {
     get_InputsAvailable(CategoryGuid) {
         CategoryGuid := CategoryGuid is String ? BSTR.Alloc(CategoryGuid).Value : CategoryGuid
 
-        result := ComCall(23, this, "ptr", CategoryGuid, "ptr*", &pVal := 0, "HRESULT")
+        result := ComCall(23, this, BSTR, CategoryGuid, "ptr*", &pVal := 0, "HRESULT")
         return IMSVidInputDevices(pVal)
     }
 
@@ -383,7 +438,7 @@ class IMSVidCtl extends IDispatch {
     get_OutputsAvailable(CategoryGuid) {
         CategoryGuid := CategoryGuid is String ? BSTR.Alloc(CategoryGuid).Value : CategoryGuid
 
-        result := ComCall(24, this, "ptr", CategoryGuid, "ptr*", &pVal := 0, "HRESULT")
+        result := ComCall(24, this, BSTR, CategoryGuid, "ptr*", &pVal := 0, "HRESULT")
         return IMSVidOutputDevices(pVal)
     }
 
@@ -417,7 +472,7 @@ class IMSVidCtl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get__inputsavailable
      */
     get__InputsAvailable(CategoryGuid) {
-        result := ComCall(25, this, "ptr", CategoryGuid, "ptr*", &pVal := 0, "HRESULT")
+        result := ComCall(25, this, Guid.Ptr, CategoryGuid, "ptr*", &pVal := 0, "HRESULT")
         return IMSVidInputDevices(pVal)
     }
 
@@ -430,7 +485,7 @@ class IMSVidCtl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get__outputsavailable
      */
     get__OutputsAvailable(CategoryGuid) {
-        result := ComCall(26, this, "ptr", CategoryGuid, "ptr*", &pVal := 0, "HRESULT")
+        result := ComCall(26, this, Guid.Ptr, CategoryGuid, "ptr*", &pVal := 0, "HRESULT")
         return IMSVidOutputDevices(pVal)
     }
 
@@ -627,7 +682,7 @@ class IMSVidCtl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-view
      */
     View(v) {
-        result := ComCall(41, this, "ptr", v, "HRESULT")
+        result := ComCall(41, this, VARIANT.Ptr, v, "HRESULT")
         return result
     }
 
@@ -722,7 +777,111 @@ class IMSVidCtl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-viewnext
      */
     ViewNext(v) {
-        result := ComCall(49, this, "ptr", v, "HRESULT")
+        result := ComCall(49, this, VARIANT.Ptr, v, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMSVidCtl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_AutoSize := CallbackCreate(GetMethod(implObj, "get_AutoSize"), flags, 2)
+        this.vtbl.put_AutoSize := CallbackCreate(GetMethod(implObj, "put_AutoSize"), flags, 2)
+        this.vtbl.get_BackColor := CallbackCreate(GetMethod(implObj, "get_BackColor"), flags, 2)
+        this.vtbl.put_BackColor := CallbackCreate(GetMethod(implObj, "put_BackColor"), flags, 2)
+        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.put_Enabled := CallbackCreate(GetMethod(implObj, "put_Enabled"), flags, 2)
+        this.vtbl.get_TabStop := CallbackCreate(GetMethod(implObj, "get_TabStop"), flags, 2)
+        this.vtbl.put_TabStop := CallbackCreate(GetMethod(implObj, "put_TabStop"), flags, 2)
+        this.vtbl.get_Window := CallbackCreate(GetMethod(implObj, "get_Window"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.get_DisplaySize := CallbackCreate(GetMethod(implObj, "get_DisplaySize"), flags, 2)
+        this.vtbl.put_DisplaySize := CallbackCreate(GetMethod(implObj, "put_DisplaySize"), flags, 2)
+        this.vtbl.get_MaintainAspectRatio := CallbackCreate(GetMethod(implObj, "get_MaintainAspectRatio"), flags, 2)
+        this.vtbl.put_MaintainAspectRatio := CallbackCreate(GetMethod(implObj, "put_MaintainAspectRatio"), flags, 2)
+        this.vtbl.get_ColorKey := CallbackCreate(GetMethod(implObj, "get_ColorKey"), flags, 2)
+        this.vtbl.put_ColorKey := CallbackCreate(GetMethod(implObj, "put_ColorKey"), flags, 2)
+        this.vtbl.get_InputsAvailable := CallbackCreate(GetMethod(implObj, "get_InputsAvailable"), flags, 3)
+        this.vtbl.get_OutputsAvailable := CallbackCreate(GetMethod(implObj, "get_OutputsAvailable"), flags, 3)
+        this.vtbl.get__InputsAvailable := CallbackCreate(GetMethod(implObj, "get__InputsAvailable"), flags, 3)
+        this.vtbl.get__OutputsAvailable := CallbackCreate(GetMethod(implObj, "get__OutputsAvailable"), flags, 3)
+        this.vtbl.get_VideoRenderersAvailable := CallbackCreate(GetMethod(implObj, "get_VideoRenderersAvailable"), flags, 2)
+        this.vtbl.get_AudioRenderersAvailable := CallbackCreate(GetMethod(implObj, "get_AudioRenderersAvailable"), flags, 2)
+        this.vtbl.get_FeaturesAvailable := CallbackCreate(GetMethod(implObj, "get_FeaturesAvailable"), flags, 2)
+        this.vtbl.get_InputActive := CallbackCreate(GetMethod(implObj, "get_InputActive"), flags, 2)
+        this.vtbl.put_InputActive := CallbackCreate(GetMethod(implObj, "put_InputActive"), flags, 2)
+        this.vtbl.get_OutputsActive := CallbackCreate(GetMethod(implObj, "get_OutputsActive"), flags, 2)
+        this.vtbl.put_OutputsActive := CallbackCreate(GetMethod(implObj, "put_OutputsActive"), flags, 2)
+        this.vtbl.get_VideoRendererActive := CallbackCreate(GetMethod(implObj, "get_VideoRendererActive"), flags, 2)
+        this.vtbl.put_VideoRendererActive := CallbackCreate(GetMethod(implObj, "put_VideoRendererActive"), flags, 2)
+        this.vtbl.get_AudioRendererActive := CallbackCreate(GetMethod(implObj, "get_AudioRendererActive"), flags, 2)
+        this.vtbl.put_AudioRendererActive := CallbackCreate(GetMethod(implObj, "put_AudioRendererActive"), flags, 2)
+        this.vtbl.get_FeaturesActive := CallbackCreate(GetMethod(implObj, "get_FeaturesActive"), flags, 2)
+        this.vtbl.put_FeaturesActive := CallbackCreate(GetMethod(implObj, "put_FeaturesActive"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.View := CallbackCreate(GetMethod(implObj, "View"), flags, 2)
+        this.vtbl.Build := CallbackCreate(GetMethod(implObj, "Build"), flags, 1)
+        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Run := CallbackCreate(GetMethod(implObj, "Run"), flags, 1)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Decompose := CallbackCreate(GetMethod(implObj, "Decompose"), flags, 1)
+        this.vtbl.DisableVideo := CallbackCreate(GetMethod(implObj, "DisableVideo"), flags, 1)
+        this.vtbl.DisableAudio := CallbackCreate(GetMethod(implObj, "DisableAudio"), flags, 1)
+        this.vtbl.ViewNext := CallbackCreate(GetMethod(implObj, "ViewNext"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_AutoSize)
+        CallbackFree(this.vtbl.put_AutoSize)
+        CallbackFree(this.vtbl.get_BackColor)
+        CallbackFree(this.vtbl.put_BackColor)
+        CallbackFree(this.vtbl.get_Enabled)
+        CallbackFree(this.vtbl.put_Enabled)
+        CallbackFree(this.vtbl.get_TabStop)
+        CallbackFree(this.vtbl.put_TabStop)
+        CallbackFree(this.vtbl.get_Window)
+        CallbackFree(this.vtbl.Refresh)
+        CallbackFree(this.vtbl.get_DisplaySize)
+        CallbackFree(this.vtbl.put_DisplaySize)
+        CallbackFree(this.vtbl.get_MaintainAspectRatio)
+        CallbackFree(this.vtbl.put_MaintainAspectRatio)
+        CallbackFree(this.vtbl.get_ColorKey)
+        CallbackFree(this.vtbl.put_ColorKey)
+        CallbackFree(this.vtbl.get_InputsAvailable)
+        CallbackFree(this.vtbl.get_OutputsAvailable)
+        CallbackFree(this.vtbl.get__InputsAvailable)
+        CallbackFree(this.vtbl.get__OutputsAvailable)
+        CallbackFree(this.vtbl.get_VideoRenderersAvailable)
+        CallbackFree(this.vtbl.get_AudioRenderersAvailable)
+        CallbackFree(this.vtbl.get_FeaturesAvailable)
+        CallbackFree(this.vtbl.get_InputActive)
+        CallbackFree(this.vtbl.put_InputActive)
+        CallbackFree(this.vtbl.get_OutputsActive)
+        CallbackFree(this.vtbl.put_OutputsActive)
+        CallbackFree(this.vtbl.get_VideoRendererActive)
+        CallbackFree(this.vtbl.put_VideoRendererActive)
+        CallbackFree(this.vtbl.get_AudioRendererActive)
+        CallbackFree(this.vtbl.put_AudioRendererActive)
+        CallbackFree(this.vtbl.get_FeaturesActive)
+        CallbackFree(this.vtbl.put_FeaturesActive)
+        CallbackFree(this.vtbl.get_State)
+        CallbackFree(this.vtbl.View)
+        CallbackFree(this.vtbl.Build)
+        CallbackFree(this.vtbl.Pause)
+        CallbackFree(this.vtbl.Run)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.Decompose)
+        CallbackFree(this.vtbl.DisableVideo)
+        CallbackFree(this.vtbl.DisableAudio)
+        CallbackFree(this.vtbl.ViewNext)
     }
 }

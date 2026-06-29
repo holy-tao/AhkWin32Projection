@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DD_NONLOCALVIDMEMCAPS structure contains the capabilities for nonlocal display memory.
@@ -10,65 +9,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_nonlocalvidmemcaps
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DD_NONLOCALVIDMEMCAPS extends Win32Struct {
-    static sizeof => 52
-
-    static packingSize => 4
+export default struct DD_NONLOCALVIDMEMCAPS {
+    #StructPack 4
 
     /**
      * Specifies the size in bytes of this DD_NONLOCALVIDMEMCAPS structure.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Contains the driver-specific capabilities for nonlocal-to-local display memory blits. See the Remarks section for more information.
-     * @type {Integer}
      */
-    dwNLVBCaps {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwNLVBCaps : UInt32
 
     /**
      * Contains more of the driver-specific capabilities for nonlocal-to-local display memory blits. See the Remarks section for more information.
-     * @type {Integer}
      */
-    dwNLVBCaps2 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwNLVBCaps2 : UInt32
 
     /**
      * Contains driver color key capabilities for nonlocal-to-local display memory blits. See the Remarks section for more information.
-     * @type {Integer}
      */
-    dwNLVBCKeyCaps {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwNLVBCKeyCaps : UInt32
 
     /**
      * Contains driver FX capabilities for nonlocal-to-local display memory blits. See the Remarks section for more information.
-     * @type {Integer}
      */
-    dwNLVBFXCaps {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwNLVBFXCaps : UInt32
 
     /**
      * Specifies an array of DD_ROP_SPACE DWORDs containing the raster operations supported for nonlocal-to-local blits. The constant DD_ROP_SPACE is defined in <i>ddraw.h</i>. See the Remarks section for more information.
-     * @type {Array<Integer>}
      */
-    dwNLVBRops {
-        get {
-            if(!this.HasProp("__dwNLVBRopsProxyArray"))
-                this.__dwNLVBRopsProxyArray := Win32FixedArray(this.ptr + 20, 8, Primitive, "uint")
-            return this.__dwNLVBRopsProxyArray
-        }
-    }
+    dwNLVBRops : UInt32[8]
+
 }

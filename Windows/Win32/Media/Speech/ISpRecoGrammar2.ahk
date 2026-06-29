@@ -1,31 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\Urlmon\IInternetSecurityManager.ahk" { IInternetSecurityManager }
+#Import ".\SPBINARYGRAMMAR.ahk" { SPBINARYGRAMMAR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SPRULE.ahk" { SPRULE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SPLOADOPTIONS.ahk" { SPLOADOPTIONS }
+#Import ".\ISpeechResourceLoader.ahk" { ISpeechResourceLoader }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpRecoGrammar2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISpRecoGrammar2 extends IUnknown {
     /**
      * The interface identifier for ISpRecoGrammar2
      * @type {Guid}
      */
-    static IID => Guid("{4b37bc9e-9ed6-44a3-93d3-18f022b79ec3}")
+    static IID := Guid("{4b37bc9e-9ed6-44a3-93d3-18f022b79ec3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpRecoGrammar2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetRules              : IntPtr
+        LoadCmdFromFile2      : IntPtr
+        LoadCmdFromMemory2    : IntPtr
+        SetRulePriority       : IntPtr
+        SetRuleWeight         : IntPtr
+        SetDictationWeight    : IntPtr
+        SetGrammarLoader      : IntPtr
+        SetSMLSecurityManager : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetRules", "LoadCmdFromFile2", "LoadCmdFromMemory2", "SetRulePriority", "SetRuleWeight", "SetDictationWeight", "SetGrammarLoader", "SetSMLSecurityManager"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpRecoGrammar2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -54,7 +75,7 @@ class ISpRecoGrammar2 extends IUnknown {
         pszSharingUri := pszSharingUri is String ? StrPtr(pszSharingUri) : pszSharingUri
         pszBaseUri := pszBaseUri is String ? StrPtr(pszBaseUri) : pszBaseUri
 
-        result := ComCall(4, this, "ptr", pszFileName, "int", Options, "ptr", pszSharingUri, "ptr", pszBaseUri, "HRESULT")
+        result := ComCall(4, this, "ptr", pszFileName, SPLOADOPTIONS, Options, "ptr", pszSharingUri, "ptr", pszBaseUri, "HRESULT")
         return result
     }
 
@@ -70,7 +91,7 @@ class ISpRecoGrammar2 extends IUnknown {
         pszSharingUri := pszSharingUri is String ? StrPtr(pszSharingUri) : pszSharingUri
         pszBaseUri := pszBaseUri is String ? StrPtr(pszBaseUri) : pszBaseUri
 
-        result := ComCall(5, this, "ptr", pGrammar, "int", Options, "ptr", pszSharingUri, "ptr", pszBaseUri, "HRESULT")
+        result := ComCall(5, this, SPBINARYGRAMMAR.Ptr, pGrammar, SPLOADOPTIONS, Options, "ptr", pszSharingUri, "ptr", pszBaseUri, "HRESULT")
         return result
     }
 
@@ -130,5 +151,39 @@ class ISpRecoGrammar2 extends IUnknown {
     SetSMLSecurityManager(pSMLSecurityManager) {
         result := ComCall(10, this, "ptr", pSMLSecurityManager, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISpRecoGrammar2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetRules := CallbackCreate(GetMethod(implObj, "GetRules"), flags, 3)
+        this.vtbl.LoadCmdFromFile2 := CallbackCreate(GetMethod(implObj, "LoadCmdFromFile2"), flags, 5)
+        this.vtbl.LoadCmdFromMemory2 := CallbackCreate(GetMethod(implObj, "LoadCmdFromMemory2"), flags, 5)
+        this.vtbl.SetRulePriority := CallbackCreate(GetMethod(implObj, "SetRulePriority"), flags, 4)
+        this.vtbl.SetRuleWeight := CallbackCreate(GetMethod(implObj, "SetRuleWeight"), flags, 4)
+        this.vtbl.SetDictationWeight := CallbackCreate(GetMethod(implObj, "SetDictationWeight"), flags, 2)
+        this.vtbl.SetGrammarLoader := CallbackCreate(GetMethod(implObj, "SetGrammarLoader"), flags, 2)
+        this.vtbl.SetSMLSecurityManager := CallbackCreate(GetMethod(implObj, "SetSMLSecurityManager"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetRules)
+        CallbackFree(this.vtbl.LoadCmdFromFile2)
+        CallbackFree(this.vtbl.LoadCmdFromMemory2)
+        CallbackFree(this.vtbl.SetRulePriority)
+        CallbackFree(this.vtbl.SetRuleWeight)
+        CallbackFree(this.vtbl.SetDictationWeight)
+        CallbackFree(this.vtbl.SetGrammarLoader)
+        CallbackFree(this.vtbl.SetSMLSecurityManager)
     }
 }

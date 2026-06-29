@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Header of an access control list (ACL).
@@ -24,53 +23,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-acl
  * @namespace Windows.Win32.Security
  */
-class ACL extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 2
+export default struct ACL {
+    #StructPack 2
 
     /**
      * Specifies the revision level of the ACL. This value should be ACL_REVISION, unless the ACL contains an object-specific ACE, in which case this value must be ACL_REVISION_DS. All ACEs in an ACL must be at the same revision level.
-     * @type {Integer}
      */
-    AclRevision {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    AclRevision : Int8
 
     /**
      * Specifies a zero byte of <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">padding</a> that aligns the <b>AclRevision</b> member on a 16-bit boundary.
-     * @type {Integer}
      */
-    Sbz1 {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Sbz1 : Int8
 
     /**
      * Specifies the size, in bytes, of the ACL. This value includes both the <b>ACL</b> structure and all the ACEs.
-     * @type {Integer}
      */
-    AclSize {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    AclSize : UInt16
 
     /**
      * Specifies the number of ACEs stored in the ACL.
-     * @type {Integer}
      */
-    AceCount {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    AceCount : UInt16
 
     /**
      * Specifies two zero-bytes of <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">padding</a> that align the <b>ACL</b> structure on a 32-bit boundary.
-     * @type {Integer}
      */
-    Sbz2 {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    Sbz2 : UInt16
+
 }

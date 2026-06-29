@@ -1,32 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Ole
  */
-class IDispError extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDispError extends IUnknown {
     /**
      * The interface identifier for IDispError
      * @type {Guid}
      */
-    static IID => Guid("{a6ef9861-c720-11d0-9337-00a0c90dcaa9}")
+    static IID := Guid("{a6ef9861-c720-11d0-9337-00a0c90dcaa9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDispError interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        QueryErrorInfo : IntPtr
+        GetNext        : IntPtr
+        GetHresult     : IntPtr
+        GetSource      : IntPtr
+        GetHelpInfo    : IntPtr
+        GetDescription : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["QueryErrorInfo", "GetNext", "GetHresult", "GetSource", "GetHelpInfo", "GetDescription"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDispError.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -34,22 +47,13 @@ class IDispError extends IUnknown {
      * @returns {IDispError} 
      */
     QueryErrorInfo(guidErrorType) {
-        result := ComCall(3, this, "ptr", guidErrorType, "ptr*", &ppde := 0, "HRESULT")
+        result := ComCall(3, this, Guid, guidErrorType, "ptr*", &ppde := 0, "HRESULT")
         return IDispError(ppde)
     }
 
     /**
-     * Retrieves a handle to the first control in a group of controls that precedes (or follows) the specified control in a dialog box.
-     * @remarks
-     * The <b>GetNextDlgGroupItem</b> function searches controls in the order (or reverse order) they were created in the dialog box template. The first control in the group must have the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/dlgbox-programming-considerations">WS_GROUP</a> style; all other controls in the group must have been consecutively created and must not have the <b>WS_GROUP</b> style. 
      * 
-     * When searching for the previous control, the function returns the first control it locates that is visible and not disabled. If the control specified by <i>hCtl</i> has the <b>WS_GROUP</b> style, the function temporarily reverses the search to locate the first control having the <b>WS_GROUP</b> style, then resumes the search in the original direction, returning the first control it locates that is visible and not disabled, or returning <i>hCtl</i> if no such control is found. 
-     * 
-     * When searching for the next control, the function returns the first control it locates that is visible, not disabled, and does not have the <b>WS_GROUP</b> style. If it encounters a control having the <b>WS_GROUP</b> style, the function reverses the search, locates the first control having the <b>WS_GROUP</b> style, and returns this control if it is visible and not disabled. Otherwise, the function resumes the search in the original direction and returns the first control it locates that is visible and not disabled, or returns <i>hCtl</i> if no such control is found. 
-     * 
-     * If the search for the next control in the group encounters a window with the <b>WS_EX_CONTROLPARENT</b> style, the system recursively searches the window's children.
      * @returns {IDispError} 
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getnextdlggroupitem
      */
     GetNext() {
         result := ComCall(4, this, "ptr*", &ppde := 0, "HRESULT")
@@ -70,8 +74,8 @@ class IDispError extends IUnknown {
      * @returns {BSTR} 
      */
     GetSource() {
-        pbstrSource := BSTR()
-        result := ComCall(6, this, "ptr", pbstrSource, "HRESULT")
+        pbstrSource := BSTR.Owned()
+        result := ComCall(6, this, BSTR.Ptr, pbstrSource, "HRESULT")
         return pbstrSource
     }
 
@@ -84,7 +88,7 @@ class IDispError extends IUnknown {
     GetHelpInfo(pbstrFileName, pdwContext) {
         pdwContextMarshal := pdwContext is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pbstrFileName, pdwContextMarshal, pdwContext, "HRESULT")
+        result := ComCall(7, this, BSTR.Ptr, pbstrFileName, pdwContextMarshal, pdwContext, "HRESULT")
         return result
     }
 
@@ -94,8 +98,38 @@ class IDispError extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getdescription
      */
     GetDescription() {
-        pbstrDescription := BSTR()
-        result := ComCall(8, this, "ptr", pbstrDescription, "HRESULT")
+        pbstrDescription := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, pbstrDescription, "HRESULT")
         return pbstrDescription
+    }
+
+    Query(iid) {
+        if (IDispError.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.QueryErrorInfo := CallbackCreate(GetMethod(implObj, "QueryErrorInfo"), flags, 3)
+        this.vtbl.GetNext := CallbackCreate(GetMethod(implObj, "GetNext"), flags, 2)
+        this.vtbl.GetHresult := CallbackCreate(GetMethod(implObj, "GetHresult"), flags, 2)
+        this.vtbl.GetSource := CallbackCreate(GetMethod(implObj, "GetSource"), flags, 2)
+        this.vtbl.GetHelpInfo := CallbackCreate(GetMethod(implObj, "GetHelpInfo"), flags, 3)
+        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.QueryErrorInfo)
+        CallbackFree(this.vtbl.GetNext)
+        CallbackFree(this.vtbl.GetHresult)
+        CallbackFree(this.vtbl.GetSource)
+        CallbackFree(this.vtbl.GetHelpInfo)
+        CallbackFree(this.vtbl.GetDescription)
     }
 }

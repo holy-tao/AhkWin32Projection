@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
-#Include .\LSA_UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
 
 /**
  * The LSA_OBJECT_ATTRIBUTES structure is used with the LsaOpenPolicy function to specify the attributes of the connection to the Policy object.
@@ -12,65 +11,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/lsalookup/ns-lsalookup-lsa_object_attributes
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class LSA_OBJECT_ATTRIBUTES extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct LSA_OBJECT_ATTRIBUTES {
+    #StructPack 8
 
     /**
      * Specifies the size, in bytes, of the <b>LSA_OBJECT_ATTRIBUTES</b> structure.
-     * @type {Integer}
      */
-    Length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Length : UInt32
 
     /**
      * Should be <b>NULL</b>.
-     * @type {HANDLE}
      */
-    RootDirectory {
-        get {
-            if(!this.HasProp("__RootDirectory"))
-                this.__RootDirectory := HANDLE(8, this)
-            return this.__RootDirectory
-        }
-    }
+    RootDirectory : HANDLE
 
     /**
      * Should be <b>NULL</b>.
-     * @type {Pointer<LSA_UNICODE_STRING>}
      */
-    ObjectName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ObjectName : LSA_UNICODE_STRING.Ptr
 
     /**
      * Should be zero.
-     * @type {Integer}
      */
-    Attributes {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Attributes : UInt32
 
     /**
      * Should be <b>NULL</b>.
-     * @type {Pointer<Void>}
      */
-    SecurityDescriptor {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    SecurityDescriptor : IntPtr
 
     /**
      * Should be <b>NULL</b>.
-     * @type {Pointer<Void>}
      */
-    SecurityQualityOfService {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    SecurityQualityOfService : IntPtr
+
 }

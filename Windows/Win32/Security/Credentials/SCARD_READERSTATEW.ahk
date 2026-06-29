@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SCARD_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SCARD_STATE.ahk" { SCARD_STATE }
 
 /**
  * Used by functions for tracking smart cards within readers. (Unicode)
@@ -11,65 +11,33 @@
  * @namespace Windows.Win32.Security.Credentials
  * @charset Unicode
  */
-class SCARD_READERSTATEW extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct SCARD_READERSTATEW {
+    #StructPack 8
 
     /**
      * A pointer to the name of the reader being monitored.
      * 
      * Set the value of this member to "\\\\?PnP?\\Notification" and the values of all other members to zero to be notified of the arrival of a new smart card reader.
-     * @type {PWSTR}
      */
-    szReader {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    szReader : PWSTR
 
     /**
      * Not used by the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card subsystem</a>. This member is used by the application.
-     * @type {Pointer<Void>}
      */
-    pvUserData {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pvUserData : IntPtr
 
-    /**
-     * @type {SCARD_STATE}
-     */
-    dwCurrentState {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwCurrentState : SCARD_STATE
 
-    /**
-     * @type {SCARD_STATE}
-     */
-    dwEventState {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwEventState : SCARD_STATE
 
     /**
      * Number of bytes in the returned ATR.
-     * @type {Integer}
      */
-    cbAtr {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    cbAtr : UInt32
 
     /**
      * ATR of the inserted card, with extra alignment bytes.
-     * @type {Array<Integer>}
      */
-    rgbAtr {
-        get {
-            if(!this.HasProp("__rgbAtrProxyArray"))
-                this.__rgbAtrProxyArray := Win32FixedArray(this.ptr + 28, 36, Primitive, "char")
-            return this.__rgbAtrProxyArray
-        }
-    }
+    rgbAtr : Int8[36]
+
 }

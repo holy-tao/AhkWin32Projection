@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
@@ -16,26 +17,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvbcabledeliverysystemdescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IDvbCableDeliverySystemDescriptor extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDvbCableDeliverySystemDescriptor extends IUnknown {
     /**
      * The interface identifier for IDvbCableDeliverySystemDescriptor
      * @type {Guid}
      */
-    static IID => Guid("{dfb98e36-9e1a-4862-9946-993a4e59017b}")
+    static IID := Guid("{dfb98e36-9e1a-4862-9946-993a4e59017b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDvbCableDeliverySystemDescriptor interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetTag        : IntPtr
+        GetLength     : IntPtr
+        GetFrequency  : IntPtr
+        GetFECOuter   : IntPtr
+        GetModulation : IntPtr
+        GetSymbolRate : IntPtr
+        GetFECInner   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetTag", "GetLength", "GetFrequency", "GetFECOuter", "GetModulation", "GetSymbolRate", "GetFECInner"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDvbCableDeliverySystemDescriptor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
@@ -105,5 +119,37 @@ class IDvbCableDeliverySystemDescriptor extends IUnknown {
     GetFECInner() {
         result := ComCall(9, this, "char*", &pbVal := 0, "HRESULT")
         return pbVal
+    }
+
+    Query(iid) {
+        if (IDvbCableDeliverySystemDescriptor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetFrequency := CallbackCreate(GetMethod(implObj, "GetFrequency"), flags, 2)
+        this.vtbl.GetFECOuter := CallbackCreate(GetMethod(implObj, "GetFECOuter"), flags, 2)
+        this.vtbl.GetModulation := CallbackCreate(GetMethod(implObj, "GetModulation"), flags, 2)
+        this.vtbl.GetSymbolRate := CallbackCreate(GetMethod(implObj, "GetSymbolRate"), flags, 2)
+        this.vtbl.GetFECInner := CallbackCreate(GetMethod(implObj, "GetFECInner"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetTag)
+        CallbackFree(this.vtbl.GetLength)
+        CallbackFree(this.vtbl.GetFrequency)
+        CallbackFree(this.vtbl.GetFECOuter)
+        CallbackFree(this.vtbl.GetModulation)
+        CallbackFree(this.vtbl.GetSymbolRate)
+        CallbackFree(this.vtbl.GetFECInner)
     }
 }

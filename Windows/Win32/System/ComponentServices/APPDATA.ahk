@@ -1,47 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\APPSTATISTICS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\APPSTATISTICS.ahk" { APPSTATISTICS }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.ComponentServices
  */
-class APPDATA extends Win32Struct {
-    static sizeof => 104
+export default struct APPDATA {
+    #StructPack 4
 
-    static packingSize => 4
+    m_idApp : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    m_idApp {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    m_szAppGuid : WCHAR[40]
 
-    /**
-     * @type {String}
-     */
-    m_szAppGuid {
-        get => StrGet(this.ptr + 4, 39, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 39, "UTF-16")
-    }
+    m_dwAppProcessId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    m_dwAppProcessId {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    m_AppStatistics : APPSTATISTICS
 
-    /**
-     * @type {APPSTATISTICS}
-     */
-    m_AppStatistics {
-        get {
-            if(!this.HasProp("__m_AppStatistics"))
-                this.__m_AppStatistics := APPSTATISTICS(88, this)
-            return this.__m_AppStatistics
-        }
-    }
 }

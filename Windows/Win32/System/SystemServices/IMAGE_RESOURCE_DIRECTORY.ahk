@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class IMAGE_RESOURCE_DIRECTORY extends Win32Struct {
-    static sizeof => 16
+export default struct IMAGE_RESOURCE_DIRECTORY {
+    #StructPack 4
 
-    static packingSize => 4
+    Characteristics : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Characteristics {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    TimeDateStamp : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TimeDateStamp {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    MajorVersion : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    MajorVersion {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    MinorVersion : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    MinorVersion {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    NumberOfNamedEntries : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfNamedEntries {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    NumberOfIdEntries : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfIdEntries {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
 }

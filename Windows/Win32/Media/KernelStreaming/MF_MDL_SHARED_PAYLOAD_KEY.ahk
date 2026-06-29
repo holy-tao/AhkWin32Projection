@@ -1,59 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class MF_MDL_SHARED_PAYLOAD_KEY extends Win32Struct {
-    static sizeof => 24
+export default struct MF_MDL_SHARED_PAYLOAD_KEY {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _combined extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _combined {
+        pHandle : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        pHandle {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        fHandle : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        fHandle {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
+        uPayload : Int64
 
-        /**
-         * @type {Integer}
-         */
-        uPayload {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
     }
 
-    /**
-     * @type {_combined}
-     */
-    combined {
-        get {
-            if(!this.HasProp("__combined"))
-                this.__combined := MF_MDL_SHARED_PAYLOAD_KEY._combined(0, this)
-            return this.__combined
-        }
-    }
+    combined : MF_MDL_SHARED_PAYLOAD_KEY._combined
 
-    /**
-     * @type {Pointer}
-     */
-    GMDLHandle {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'GMDLHandle', { type: Guid, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

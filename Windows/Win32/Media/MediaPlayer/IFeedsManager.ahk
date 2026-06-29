@@ -1,38 +1,64 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\FEEDS_BACKGROUNDSYNC_STATUS.ahk" { FEEDS_BACKGROUNDSYNC_STATUS }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\FEEDS_BACKGROUNDSYNC_ACTION.ahk" { FEEDS_BACKGROUNDSYNC_ACTION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IFeedsManager extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFeedsManager extends IDispatch {
     /**
      * The interface identifier for IFeedsManager
      * @type {Guid}
      */
-    static IID => Guid("{a74029cc-1f1a-4906-88f0-810638d86591}")
+    static IID := Guid("{a74029cc-1f1a-4906-88f0-810638d86591}")
 
     /**
      * The class identifier for FeedsManager
      * @type {Guid}
      */
-    static CLSID => Guid("{faeb54c4-f66f-4806-83a0-805299f5e3ad}")
+    static CLSID := Guid("{faeb54c4-f66f-4806-83a0-805299f5e3ad}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFeedsManager interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_RootFolder           : IntPtr
+        IsSubscribed             : IntPtr
+        ExistsFeed               : IntPtr
+        GetFeed                  : IntPtr
+        GetFeedByUrl             : IntPtr
+        ExistsFolder             : IntPtr
+        GetFolder                : IntPtr
+        DeleteFeed               : IntPtr
+        DeleteFolder             : IntPtr
+        BackgroundSync           : IntPtr
+        get_BackgroundSyncStatus : IntPtr
+        get_DefaultInterval      : IntPtr
+        put_DefaultInterval      : IntPtr
+        AsyncSyncAll             : IntPtr
+        Normalize                : IntPtr
+        get_ItemCountLimit       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_RootFolder", "IsSubscribed", "ExistsFeed", "GetFeed", "GetFeedByUrl", "ExistsFolder", "GetFolder", "DeleteFeed", "DeleteFolder", "BackgroundSync", "get_BackgroundSyncStatus", "get_DefaultInterval", "put_DefaultInterval", "AsyncSyncAll", "Normalize", "get_ItemCountLimit"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFeedsManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IDispatch} 
@@ -80,7 +106,7 @@ class IFeedsManager extends IDispatch {
     IsSubscribed(feedUrl) {
         feedUrl := feedUrl is String ? BSTR.Alloc(feedUrl).Value : feedUrl
 
-        result := ComCall(8, this, "ptr", feedUrl, "short*", &subscribed := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, feedUrl, VARIANT_BOOL.Ptr, &subscribed := 0, "HRESULT")
         return subscribed
     }
 
@@ -92,7 +118,7 @@ class IFeedsManager extends IDispatch {
     ExistsFeed(feedPath) {
         feedPath := feedPath is String ? BSTR.Alloc(feedPath).Value : feedPath
 
-        result := ComCall(9, this, "ptr", feedPath, "short*", &exists := 0, "HRESULT")
+        result := ComCall(9, this, BSTR, feedPath, VARIANT_BOOL.Ptr, &exists := 0, "HRESULT")
         return exists
     }
 
@@ -104,7 +130,7 @@ class IFeedsManager extends IDispatch {
     GetFeed(feedPath) {
         feedPath := feedPath is String ? BSTR.Alloc(feedPath).Value : feedPath
 
-        result := ComCall(10, this, "ptr", feedPath, "ptr*", &disp := 0, "HRESULT")
+        result := ComCall(10, this, BSTR, feedPath, "ptr*", &disp := 0, "HRESULT")
         return IDispatch(disp)
     }
 
@@ -116,7 +142,7 @@ class IFeedsManager extends IDispatch {
     GetFeedByUrl(feedUrl) {
         feedUrl := feedUrl is String ? BSTR.Alloc(feedUrl).Value : feedUrl
 
-        result := ComCall(11, this, "ptr", feedUrl, "ptr*", &disp := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, feedUrl, "ptr*", &disp := 0, "HRESULT")
         return IDispatch(disp)
     }
 
@@ -128,7 +154,7 @@ class IFeedsManager extends IDispatch {
     ExistsFolder(folderPath) {
         folderPath := folderPath is String ? BSTR.Alloc(folderPath).Value : folderPath
 
-        result := ComCall(12, this, "ptr", folderPath, "short*", &exists := 0, "HRESULT")
+        result := ComCall(12, this, BSTR, folderPath, VARIANT_BOOL.Ptr, &exists := 0, "HRESULT")
         return exists
     }
 
@@ -140,7 +166,7 @@ class IFeedsManager extends IDispatch {
     GetFolder(folderPath) {
         folderPath := folderPath is String ? BSTR.Alloc(folderPath).Value : folderPath
 
-        result := ComCall(13, this, "ptr", folderPath, "ptr*", &disp := 0, "HRESULT")
+        result := ComCall(13, this, BSTR, folderPath, "ptr*", &disp := 0, "HRESULT")
         return IDispatch(disp)
     }
 
@@ -152,7 +178,7 @@ class IFeedsManager extends IDispatch {
     DeleteFeed(feedPath) {
         feedPath := feedPath is String ? BSTR.Alloc(feedPath).Value : feedPath
 
-        result := ComCall(14, this, "ptr", feedPath, "HRESULT")
+        result := ComCall(14, this, BSTR, feedPath, "HRESULT")
         return result
     }
 
@@ -164,7 +190,7 @@ class IFeedsManager extends IDispatch {
     DeleteFolder(folderPath) {
         folderPath := folderPath is String ? BSTR.Alloc(folderPath).Value : folderPath
 
-        result := ComCall(15, this, "ptr", folderPath, "HRESULT")
+        result := ComCall(15, this, BSTR, folderPath, "HRESULT")
         return result
     }
 
@@ -174,7 +200,7 @@ class IFeedsManager extends IDispatch {
      * @returns {HRESULT} 
      */
     BackgroundSync(action) {
-        result := ComCall(16, this, "int", action, "HRESULT")
+        result := ComCall(16, this, FEEDS_BACKGROUNDSYNC_ACTION, action, "HRESULT")
         return result
     }
 
@@ -216,16 +242,15 @@ class IFeedsManager extends IDispatch {
     }
 
     /**
-     * Contains values that specify the behavior of UiaGetUpdatedCache.
+     * 
      * @param {BSTR} feedXmlIn 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/ne-uiautomationcoreapi-normalizestate
      */
     Normalize(feedXmlIn) {
         feedXmlIn := feedXmlIn is String ? BSTR.Alloc(feedXmlIn).Value : feedXmlIn
 
-        feedXmlOut := BSTR()
-        result := ComCall(21, this, "ptr", feedXmlIn, "ptr", feedXmlOut, "HRESULT")
+        feedXmlOut := BSTR.Owned()
+        result := ComCall(21, this, BSTR, feedXmlIn, BSTR.Ptr, feedXmlOut, "HRESULT")
         return feedXmlOut
     }
 
@@ -236,5 +261,55 @@ class IFeedsManager extends IDispatch {
     get_ItemCountLimit() {
         result := ComCall(22, this, "int*", &itemCountLimit := 0, "HRESULT")
         return itemCountLimit
+    }
+
+    Query(iid) {
+        if (IFeedsManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_RootFolder := CallbackCreate(GetMethod(implObj, "get_RootFolder"), flags, 2)
+        this.vtbl.IsSubscribed := CallbackCreate(GetMethod(implObj, "IsSubscribed"), flags, 3)
+        this.vtbl.ExistsFeed := CallbackCreate(GetMethod(implObj, "ExistsFeed"), flags, 3)
+        this.vtbl.GetFeed := CallbackCreate(GetMethod(implObj, "GetFeed"), flags, 3)
+        this.vtbl.GetFeedByUrl := CallbackCreate(GetMethod(implObj, "GetFeedByUrl"), flags, 3)
+        this.vtbl.ExistsFolder := CallbackCreate(GetMethod(implObj, "ExistsFolder"), flags, 3)
+        this.vtbl.GetFolder := CallbackCreate(GetMethod(implObj, "GetFolder"), flags, 3)
+        this.vtbl.DeleteFeed := CallbackCreate(GetMethod(implObj, "DeleteFeed"), flags, 2)
+        this.vtbl.DeleteFolder := CallbackCreate(GetMethod(implObj, "DeleteFolder"), flags, 2)
+        this.vtbl.BackgroundSync := CallbackCreate(GetMethod(implObj, "BackgroundSync"), flags, 2)
+        this.vtbl.get_BackgroundSyncStatus := CallbackCreate(GetMethod(implObj, "get_BackgroundSyncStatus"), flags, 2)
+        this.vtbl.get_DefaultInterval := CallbackCreate(GetMethod(implObj, "get_DefaultInterval"), flags, 2)
+        this.vtbl.put_DefaultInterval := CallbackCreate(GetMethod(implObj, "put_DefaultInterval"), flags, 2)
+        this.vtbl.AsyncSyncAll := CallbackCreate(GetMethod(implObj, "AsyncSyncAll"), flags, 1)
+        this.vtbl.Normalize := CallbackCreate(GetMethod(implObj, "Normalize"), flags, 3)
+        this.vtbl.get_ItemCountLimit := CallbackCreate(GetMethod(implObj, "get_ItemCountLimit"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_RootFolder)
+        CallbackFree(this.vtbl.IsSubscribed)
+        CallbackFree(this.vtbl.ExistsFeed)
+        CallbackFree(this.vtbl.GetFeed)
+        CallbackFree(this.vtbl.GetFeedByUrl)
+        CallbackFree(this.vtbl.ExistsFolder)
+        CallbackFree(this.vtbl.GetFolder)
+        CallbackFree(this.vtbl.DeleteFeed)
+        CallbackFree(this.vtbl.DeleteFolder)
+        CallbackFree(this.vtbl.BackgroundSync)
+        CallbackFree(this.vtbl.get_BackgroundSyncStatus)
+        CallbackFree(this.vtbl.get_DefaultInterval)
+        CallbackFree(this.vtbl.put_DefaultInterval)
+        CallbackFree(this.vtbl.AsyncSyncAll)
+        CallbackFree(this.vtbl.Normalize)
+        CallbackFree(this.vtbl.get_ItemCountLimit)
     }
 }

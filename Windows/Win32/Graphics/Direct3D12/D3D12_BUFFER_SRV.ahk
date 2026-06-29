@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_BUFFER_SRV_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_BUFFER_SRV_FLAGS.ahk" { D3D12_BUFFER_SRV_FLAGS }
 
 /**
  * Describes the elements in a buffer resource to use in a shader-resource view.
@@ -11,44 +10,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_buffer_srv
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_BUFFER_SRV extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct D3D12_BUFFER_SRV {
+    #StructPack 8
 
     /**
      * The index of the first element to be accessed by the view.
-     * @type {Integer}
      */
-    FirstElement {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    FirstElement : Int64
 
     /**
      * The number of elements in the resource.
-     * @type {Integer}
      */
-    NumElements {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NumElements : UInt32
 
     /**
      * The size of each element in the buffer structure (in bytes) when the buffer represents a structured buffer.
-     * @type {Integer}
      */
-    StructureByteStride {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    StructureByteStride : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_buffer_srv_flags">D3D12_BUFFER_SRV_FLAGS</a>-typed value that identifies view options for the buffer. Currently, the only option is to identify a raw view of the buffer. For more info about raw viewing of buffers, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-resources-intro">Raw Views of Buffers</a>.
-     * @type {D3D12_BUFFER_SRV_FLAGS}
      */
-    Flags {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    Flags : D3D12_BUFFER_SRV_FLAGS
+
 }

@@ -1,9 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITfLangBarItem.ahk
-#Include ..\..\Foundation\SIZE.ahk
-#Include .\TF_LBBALLOONINFO.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TF_LBBALLOONINFO.ahk" { TF_LBBALLOONINFO }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\ITfLangBarItem.ahk" { ITfLangBarItem }
+#Import ".\TfLBIClick.ahk" { TfLBIClick }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * The ITfLangBarItemBalloon interface is implemented by an application or text service and is used by the language bar manager to obtain information specific to a balloon item on the language bar.
@@ -12,26 +16,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nn-ctfutb-itflangbaritemballoon
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfLangBarItemBalloon extends ITfLangBarItem {
-
-    static sizeof => A_PtrSize
+export default struct ITfLangBarItemBalloon extends ITfLangBarItem {
     /**
      * The interface identifier for ITfLangBarItemBalloon
      * @type {Guid}
      */
-    static IID => Guid("{01c2d285-d3c7-4b7b-b5b5-d97411d0c283}")
+    static IID := Guid("{01c2d285-d3c7-4b7b-b5b5-d97411d0c283}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfLangBarItemBalloon interfaces
+    */
+    struct Vtbl extends ITfLangBarItem.Vtbl {
+        OnClick          : IntPtr
+        GetPreferredSize : IntPtr
+        GetBalloonInfo   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnClick", "GetPreferredSize", "GetBalloonInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfLangBarItemBalloon.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfLangBarItemBalloon::OnClick method
@@ -71,7 +84,7 @@ class ITfLangBarItemBalloon extends ITfLangBarItem {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritemballoon-onclick
      */
     OnClick(click, pt, prcArea) {
-        result := ComCall(7, this, "int", click, "ptr", pt, "ptr", prcArea, "HRESULT")
+        result := ComCall(7, this, TfLBIClick, click, POINT, pt, RECT.Ptr, prcArea, "HRESULT")
         return result
     }
 
@@ -89,7 +102,7 @@ class ITfLangBarItemBalloon extends ITfLangBarItem {
      */
     GetPreferredSize(pszDefault) {
         psz := SIZE()
-        result := ComCall(8, this, "ptr", pszDefault, "ptr", psz, "HRESULT")
+        result := ComCall(8, this, SIZE.Ptr, pszDefault, SIZE.Ptr, psz, "HRESULT")
         return psz
     }
 
@@ -100,7 +113,31 @@ class ITfLangBarItemBalloon extends ITfLangBarItem {
      */
     GetBalloonInfo() {
         pInfo := TF_LBBALLOONINFO()
-        result := ComCall(9, this, "ptr", pInfo, "HRESULT")
+        result := ComCall(9, this, TF_LBBALLOONINFO.Ptr, pInfo, "HRESULT")
         return pInfo
+    }
+
+    Query(iid) {
+        if (ITfLangBarItemBalloon.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnClick := CallbackCreate(GetMethod(implObj, "OnClick"), flags, 4)
+        this.vtbl.GetPreferredSize := CallbackCreate(GetMethod(implObj, "GetPreferredSize"), flags, 3)
+        this.vtbl.GetBalloonInfo := CallbackCreate(GetMethod(implObj, "GetBalloonInfo"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnClick)
+        CallbackFree(this.vtbl.GetPreferredSize)
+        CallbackFree(this.vtbl.GetBalloonInfo)
     }
 }

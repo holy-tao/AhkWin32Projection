@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IOleInPlaceObject.ahk
-#Include .\IDropTarget.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\IOleInPlaceObject.ahk" { IOleInPlaceObject }
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import ".\IDropTarget.ahk" { IDropTarget }
 
 /**
  * Enables a windowless object to process window messages and participate in drag and drop operations. It is derived from and extends the IOleInPlaceObject interface.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-ioleinplaceobjectwindowless
  * @namespace Windows.Win32.System.Ole
  */
-class IOleInPlaceObjectWindowless extends IOleInPlaceObject {
-
-    static sizeof => A_PtrSize
+export default struct IOleInPlaceObjectWindowless extends IOleInPlaceObject {
     /**
      * The interface identifier for IOleInPlaceObjectWindowless
      * @type {Guid}
      */
-    static IID => Guid("{1c2056cc-5ef4-101b-8bc8-00aa003e3b29}")
+    static IID := Guid("{1c2056cc-5ef4-101b-8bc8-00aa003e3b29}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOleInPlaceObjectWindowless interfaces
+    */
+    struct Vtbl extends IOleInPlaceObject.Vtbl {
+        OnWindowMessage : IntPtr
+        GetDropTarget   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnWindowMessage", "GetDropTarget"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOleInPlaceObjectWindowless.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Dispatches a message from a container to a windowless object that is in-place active.
@@ -97,7 +109,7 @@ class IOleInPlaceObjectWindowless extends IOleInPlaceObject {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleinplaceobjectwindowless-onwindowmessage
      */
     OnWindowMessage(_msg, _wParam, _lParam) {
-        result := ComCall(9, this, "uint", _msg, "ptr", _wParam, "ptr", _lParam, "ptr*", &plResult := 0, "HRESULT")
+        result := ComCall(9, this, "uint", _msg, WPARAM, _wParam, LPARAM, _lParam, LRESULT.Ptr, &plResult := 0, "HRESULT")
         return plResult
     }
 
@@ -129,5 +141,27 @@ class IOleInPlaceObjectWindowless extends IOleInPlaceObject {
     GetDropTarget() {
         result := ComCall(10, this, "ptr*", &ppDropTarget := 0, "HRESULT")
         return IDropTarget(ppDropTarget)
+    }
+
+    Query(iid) {
+        if (IOleInPlaceObjectWindowless.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnWindowMessage := CallbackCreate(GetMethod(implObj, "OnWindowMessage"), flags, 5)
+        this.vtbl.GetDropTarget := CallbackCreate(GetMethod(implObj, "GetDropTarget"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnWindowMessage)
+        CallbackFree(this.vtbl.GetDropTarget)
     }
 }

@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "Common\IObjectArray.ahk" { IObjectArray }
+#Import ".\KNOWNDESTCATEGORY.ahk" { KNOWNDESTCATEGORY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that allow an application to provide a custom Jump List, including destinations and tasks, for display in the taskbar.
@@ -51,26 +55,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-icustomdestinationlist
  * @namespace Windows.Win32.UI.Shell
  */
-class ICustomDestinationList extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICustomDestinationList extends IUnknown {
     /**
      * The interface identifier for ICustomDestinationList
      * @type {Guid}
      */
-    static IID => Guid("{6332debf-87b5-4670-90c0-5e57b408a49e}")
+    static IID := Guid("{6332debf-87b5-4670-90c0-5e57b408a49e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICustomDestinationList interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetAppID               : IntPtr
+        BeginList              : IntPtr
+        AppendCategory         : IntPtr
+        AppendKnownCategory    : IntPtr
+        AddUserTasks           : IntPtr
+        CommitList             : IntPtr
+        GetRemovedDestinations : IntPtr
+        DeleteList             : IntPtr
+        AbortList              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetAppID", "BeginList", "AppendCategory", "AppendKnownCategory", "AddUserTasks", "CommitList", "GetRemovedDestinations", "DeleteList", "AbortList"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICustomDestinationList.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies a unique Application User Model ID (AppUserModelID) for the application whose taskbar button will hold the custom Jump List built through the methods of this interface. This method is optional.
@@ -145,7 +164,7 @@ class ICustomDestinationList extends IUnknown {
         pcMinSlotsMarshal := pcMinSlots is VarRef ? "uint*" : "ptr"
         ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, pcMinSlotsMarshal, pcMinSlots, "ptr", riid, ppvMarshal, ppv, "HRESULT")
+        result := ComCall(4, this, pcMinSlotsMarshal, pcMinSlots, Guid.Ptr, riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -252,7 +271,7 @@ class ICustomDestinationList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icustomdestinationlist-appendknowncategory
      */
     AppendKnownCategory(category) {
-        result := ComCall(6, this, "int", category, "HRESULT")
+        result := ComCall(6, this, KNOWNDESTCATEGORY, category, "HRESULT")
         return result
     }
 
@@ -339,7 +358,7 @@ class ICustomDestinationList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icustomdestinationlist-getremoveddestinations
      */
     GetRemovedDestinations(riid) {
-        result := ComCall(9, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -385,5 +404,41 @@ class ICustomDestinationList extends IUnknown {
     AbortList() {
         result := ComCall(11, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICustomDestinationList.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetAppID := CallbackCreate(GetMethod(implObj, "SetAppID"), flags, 2)
+        this.vtbl.BeginList := CallbackCreate(GetMethod(implObj, "BeginList"), flags, 4)
+        this.vtbl.AppendCategory := CallbackCreate(GetMethod(implObj, "AppendCategory"), flags, 3)
+        this.vtbl.AppendKnownCategory := CallbackCreate(GetMethod(implObj, "AppendKnownCategory"), flags, 2)
+        this.vtbl.AddUserTasks := CallbackCreate(GetMethod(implObj, "AddUserTasks"), flags, 2)
+        this.vtbl.CommitList := CallbackCreate(GetMethod(implObj, "CommitList"), flags, 1)
+        this.vtbl.GetRemovedDestinations := CallbackCreate(GetMethod(implObj, "GetRemovedDestinations"), flags, 3)
+        this.vtbl.DeleteList := CallbackCreate(GetMethod(implObj, "DeleteList"), flags, 2)
+        this.vtbl.AbortList := CallbackCreate(GetMethod(implObj, "AbortList"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetAppID)
+        CallbackFree(this.vtbl.BeginList)
+        CallbackFree(this.vtbl.AppendCategory)
+        CallbackFree(this.vtbl.AppendKnownCategory)
+        CallbackFree(this.vtbl.AddUserTasks)
+        CallbackFree(this.vtbl.CommitList)
+        CallbackFree(this.vtbl.GetRemovedDestinations)
+        CallbackFree(this.vtbl.DeleteList)
+        CallbackFree(this.vtbl.AbortList)
     }
 }

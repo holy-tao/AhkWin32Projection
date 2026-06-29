@@ -1,97 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DIRECTDRAW_LCL.ahk
-#Include .\DDRAWI_DDMOTIONCOMP_LCL.ahk
-#Include .\DDPIXELFORMAT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DDRAWI_DDMOTIONCOMP_LCL.ahk" { DDRAWI_DDMOTIONCOMP_LCL }
+#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
+#Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDHAL_CREATEMOCOMPDATA extends Win32Struct {
-    static sizeof => 88
+export default struct DDHAL_CREATEMOCOMPDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    lpDD : DDRAWI_DIRECTDRAW_LCL.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DIRECTDRAW_LCL>}
-     */
-    lpDD {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpMoComp : DDRAWI_DDMOTIONCOMP_LCL.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DDMOTIONCOMP_LCL>}
-     */
-    lpMoComp {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpGuid : Guid.Ptr
 
-    /**
-     * @type {Pointer<Guid>}
-     */
-    lpGuid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    dwUncompWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwUncompWidth {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwUncompHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwUncompHeight {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    ddUncompPixelFormat : DDPIXELFORMAT
 
-    /**
-     * @type {DDPIXELFORMAT}
-     */
-    ddUncompPixelFormat {
-        get {
-            if(!this.HasProp("__ddUncompPixelFormat"))
-                this.__ddUncompPixelFormat := DDPIXELFORMAT(32, this)
-            return this.__ddUncompPixelFormat
-        }
-    }
+    lpData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpData {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    dwDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDataSize {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    ddRVal : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    ddRVal {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
-    }
+    CreateMoComp : IntPtr
 
-    /**
-     * @type {Pointer<LPDDHALMOCOMPCB_CREATE>}
-     */
-    CreateMoComp {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
 }

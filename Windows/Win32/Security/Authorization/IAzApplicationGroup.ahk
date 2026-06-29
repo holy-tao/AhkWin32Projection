@@ -1,35 +1,75 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Defines a collection of principals.
  * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazapplicationgroup
  * @namespace Windows.Win32.Security.Authorization
  */
-class IAzApplicationGroup extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IAzApplicationGroup extends IDispatch {
     /**
      * The interface identifier for IAzApplicationGroup
      * @type {Guid}
      */
-    static IID => Guid("{f1b744cd-58a6-4e06-9fbf-36f6d779e21e}")
+    static IID := Guid("{f1b744cd-58a6-4e06-9fbf-36f6d779e21e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAzApplicationGroup interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Name            : IntPtr
+        put_Name            : IntPtr
+        get_Type            : IntPtr
+        put_Type            : IntPtr
+        get_LdapQuery       : IntPtr
+        put_LdapQuery       : IntPtr
+        get_AppMembers      : IntPtr
+        get_AppNonMembers   : IntPtr
+        get_Members         : IntPtr
+        get_NonMembers      : IntPtr
+        get_Description     : IntPtr
+        put_Description     : IntPtr
+        AddAppMember        : IntPtr
+        DeleteAppMember     : IntPtr
+        AddAppNonMember     : IntPtr
+        DeleteAppNonMember  : IntPtr
+        AddMember           : IntPtr
+        DeleteMember        : IntPtr
+        AddNonMember        : IntPtr
+        DeleteNonMember     : IntPtr
+        get_Writable        : IntPtr
+        GetProperty         : IntPtr
+        SetProperty         : IntPtr
+        AddPropertyItem     : IntPtr
+        DeletePropertyItem  : IntPtr
+        Submit              : IntPtr
+        AddMemberName       : IntPtr
+        DeleteMemberName    : IntPtr
+        AddNonMemberName    : IntPtr
+        DeleteNonMemberName : IntPtr
+        get_MembersName     : IntPtr
+        get_NonMembersName  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Name", "put_Name", "get_Type", "put_Type", "get_LdapQuery", "put_LdapQuery", "get_AppMembers", "get_AppNonMembers", "get_Members", "get_NonMembers", "get_Description", "put_Description", "AddAppMember", "DeleteAppMember", "AddAppNonMember", "DeleteAppNonMember", "AddMember", "DeleteMember", "AddNonMember", "DeleteNonMember", "get_Writable", "GetProperty", "SetProperty", "AddPropertyItem", "DeletePropertyItem", "Submit", "AddMemberName", "DeleteMemberName", "AddNonMemberName", "DeleteNonMemberName", "get_MembersName", "get_NonMembersName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAzApplicationGroup.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -120,8 +160,8 @@ class IAzApplicationGroup extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-get_name
      */
     get_Name() {
-        pbstrName := BSTR()
-        result := ComCall(7, this, "ptr", pbstrName, "HRESULT")
+        pbstrName := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 
@@ -136,7 +176,7 @@ class IAzApplicationGroup extends IDispatch {
     put_Name(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(8, this, "ptr", bstrName, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrName, "HRESULT")
         return result
     }
 
@@ -171,8 +211,8 @@ class IAzApplicationGroup extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-get_ldapquery
      */
     get_LdapQuery() {
-        pbstrProp := BSTR()
-        result := ComCall(11, this, "ptr", pbstrProp, "HRESULT")
+        pbstrProp := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pbstrProp, "HRESULT")
         return pbstrProp
     }
 
@@ -189,7 +229,7 @@ class IAzApplicationGroup extends IDispatch {
     put_LdapQuery(bstrProp) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
 
-        result := ComCall(12, this, "ptr", bstrProp, "HRESULT")
+        result := ComCall(12, this, BSTR, bstrProp, "HRESULT")
         return result
     }
 
@@ -204,7 +244,7 @@ class IAzApplicationGroup extends IDispatch {
      */
     get_AppMembers() {
         pvarProp := VARIANT()
-        result := ComCall(13, this, "ptr", pvarProp, "HRESULT")
+        result := ComCall(13, this, VARIANT.Ptr, pvarProp, "HRESULT")
         return pvarProp
     }
 
@@ -219,7 +259,7 @@ class IAzApplicationGroup extends IDispatch {
      */
     get_AppNonMembers() {
         pvarProp := VARIANT()
-        result := ComCall(14, this, "ptr", pvarProp, "HRESULT")
+        result := ComCall(14, this, VARIANT.Ptr, pvarProp, "HRESULT")
         return pvarProp
     }
 
@@ -234,7 +274,7 @@ class IAzApplicationGroup extends IDispatch {
      */
     get_Members() {
         pvarProp := VARIANT()
-        result := ComCall(15, this, "ptr", pvarProp, "HRESULT")
+        result := ComCall(15, this, VARIANT.Ptr, pvarProp, "HRESULT")
         return pvarProp
     }
 
@@ -253,7 +293,7 @@ class IAzApplicationGroup extends IDispatch {
      */
     get_NonMembers() {
         pvarProp := VARIANT()
-        result := ComCall(16, this, "ptr", pvarProp, "HRESULT")
+        result := ComCall(16, this, VARIANT.Ptr, pvarProp, "HRESULT")
         return pvarProp
     }
 
@@ -265,8 +305,8 @@ class IAzApplicationGroup extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-get_description
      */
     get_Description() {
-        pbstrDescription := BSTR()
-        result := ComCall(17, this, "ptr", pbstrDescription, "HRESULT")
+        pbstrDescription := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, pbstrDescription, "HRESULT")
         return pbstrDescription
     }
 
@@ -281,7 +321,7 @@ class IAzApplicationGroup extends IDispatch {
     put_Description(bstrDescription) {
         bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
 
-        result := ComCall(18, this, "ptr", bstrDescription, "HRESULT")
+        result := ComCall(18, this, BSTR, bstrDescription, "HRESULT")
         return result
     }
 
@@ -299,7 +339,7 @@ class IAzApplicationGroup extends IDispatch {
     AddAppMember(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
 
-        result := ComCall(19, this, "ptr", bstrProp, "ptr", varReserved, "HRESULT")
+        result := ComCall(19, this, BSTR, bstrProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -315,7 +355,7 @@ class IAzApplicationGroup extends IDispatch {
     DeleteAppMember(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
 
-        result := ComCall(20, this, "ptr", bstrProp, "ptr", varReserved, "HRESULT")
+        result := ComCall(20, this, BSTR, bstrProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -335,7 +375,7 @@ class IAzApplicationGroup extends IDispatch {
     AddAppNonMember(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
 
-        result := ComCall(21, this, "ptr", bstrProp, "ptr", varReserved, "HRESULT")
+        result := ComCall(21, this, BSTR, bstrProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -351,7 +391,7 @@ class IAzApplicationGroup extends IDispatch {
     DeleteAppNonMember(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
 
-        result := ComCall(22, this, "ptr", bstrProp, "ptr", varReserved, "HRESULT")
+        result := ComCall(22, this, BSTR, bstrProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -369,7 +409,7 @@ class IAzApplicationGroup extends IDispatch {
     AddMember(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
 
-        result := ComCall(23, this, "ptr", bstrProp, "ptr", varReserved, "HRESULT")
+        result := ComCall(23, this, BSTR, bstrProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -385,7 +425,7 @@ class IAzApplicationGroup extends IDispatch {
     DeleteMember(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
 
-        result := ComCall(24, this, "ptr", bstrProp, "ptr", varReserved, "HRESULT")
+        result := ComCall(24, this, BSTR, bstrProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -407,7 +447,7 @@ class IAzApplicationGroup extends IDispatch {
     AddNonMember(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
 
-        result := ComCall(25, this, "ptr", bstrProp, "ptr", varReserved, "HRESULT")
+        result := ComCall(25, this, BSTR, bstrProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -423,7 +463,7 @@ class IAzApplicationGroup extends IDispatch {
     DeleteNonMember(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
 
-        result := ComCall(26, this, "ptr", bstrProp, "ptr", varReserved, "HRESULT")
+        result := ComCall(26, this, BSTR, bstrProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -433,7 +473,7 @@ class IAzApplicationGroup extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-get_writable
      */
     get_Writable() {
-        result := ComCall(27, this, "int*", &pfProp := 0, "HRESULT")
+        result := ComCall(27, this, BOOL.Ptr, &pfProp := 0, "HRESULT")
         return pfProp
     }
 
@@ -573,7 +613,7 @@ class IAzApplicationGroup extends IDispatch {
      */
     GetProperty(lPropId, varReserved) {
         pvarProp := VARIANT()
-        result := ComCall(28, this, "int", lPropId, "ptr", varReserved, "ptr", pvarProp, "HRESULT")
+        result := ComCall(28, this, "int", lPropId, VARIANT, varReserved, VARIANT.Ptr, pvarProp, "HRESULT")
         return pvarProp
     }
 
@@ -688,7 +728,7 @@ class IAzApplicationGroup extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-setproperty
      */
     SetProperty(lPropId, varProp, varReserved) {
-        result := ComCall(29, this, "int", lPropId, "ptr", varProp, "ptr", varReserved, "HRESULT")
+        result := ComCall(29, this, "int", lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -714,7 +754,7 @@ class IAzApplicationGroup extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-addpropertyitem
      */
     AddPropertyItem(lPropId, varProp, varReserved) {
-        result := ComCall(30, this, "int", lPropId, "ptr", varProp, "ptr", varReserved, "HRESULT")
+        result := ComCall(30, this, "int", lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -800,7 +840,7 @@ class IAzApplicationGroup extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-deletepropertyitem
      */
     DeletePropertyItem(lPropId, varProp, varReserved) {
-        result := ComCall(31, this, "int", lPropId, "ptr", varProp, "ptr", varReserved, "HRESULT")
+        result := ComCall(31, this, "int", lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -816,7 +856,7 @@ class IAzApplicationGroup extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-submit
      */
     Submit(lFlags, varReserved) {
-        result := ComCall(32, this, "int", lFlags, "ptr", varReserved, "HRESULT")
+        result := ComCall(32, this, "int", lFlags, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -834,7 +874,7 @@ class IAzApplicationGroup extends IDispatch {
     AddMemberName(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
 
-        result := ComCall(33, this, "ptr", bstrProp, "ptr", varReserved, "HRESULT")
+        result := ComCall(33, this, BSTR, bstrProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -850,7 +890,7 @@ class IAzApplicationGroup extends IDispatch {
     DeleteMemberName(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
 
-        result := ComCall(34, this, "ptr", bstrProp, "ptr", varReserved, "HRESULT")
+        result := ComCall(34, this, BSTR, bstrProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -872,7 +912,7 @@ class IAzApplicationGroup extends IDispatch {
     AddNonMemberName(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
 
-        result := ComCall(35, this, "ptr", bstrProp, "ptr", varReserved, "HRESULT")
+        result := ComCall(35, this, BSTR, bstrProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -888,7 +928,7 @@ class IAzApplicationGroup extends IDispatch {
     DeleteNonMemberName(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
 
-        result := ComCall(36, this, "ptr", bstrProp, "ptr", varReserved, "HRESULT")
+        result := ComCall(36, this, BSTR, bstrProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -903,7 +943,7 @@ class IAzApplicationGroup extends IDispatch {
      */
     get_MembersName() {
         pvarProp := VARIANT()
-        result := ComCall(37, this, "ptr", pvarProp, "HRESULT")
+        result := ComCall(37, this, VARIANT.Ptr, pvarProp, "HRESULT")
         return pvarProp
     }
 
@@ -922,7 +962,89 @@ class IAzApplicationGroup extends IDispatch {
      */
     get_NonMembersName() {
         pvarProp := VARIANT()
-        result := ComCall(38, this, "ptr", pvarProp, "HRESULT")
+        result := ComCall(38, this, VARIANT.Ptr, pvarProp, "HRESULT")
         return pvarProp
+    }
+
+    Query(iid) {
+        if (IAzApplicationGroup.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.put_Type := CallbackCreate(GetMethod(implObj, "put_Type"), flags, 2)
+        this.vtbl.get_LdapQuery := CallbackCreate(GetMethod(implObj, "get_LdapQuery"), flags, 2)
+        this.vtbl.put_LdapQuery := CallbackCreate(GetMethod(implObj, "put_LdapQuery"), flags, 2)
+        this.vtbl.get_AppMembers := CallbackCreate(GetMethod(implObj, "get_AppMembers"), flags, 2)
+        this.vtbl.get_AppNonMembers := CallbackCreate(GetMethod(implObj, "get_AppNonMembers"), flags, 2)
+        this.vtbl.get_Members := CallbackCreate(GetMethod(implObj, "get_Members"), flags, 2)
+        this.vtbl.get_NonMembers := CallbackCreate(GetMethod(implObj, "get_NonMembers"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.AddAppMember := CallbackCreate(GetMethod(implObj, "AddAppMember"), flags, 3)
+        this.vtbl.DeleteAppMember := CallbackCreate(GetMethod(implObj, "DeleteAppMember"), flags, 3)
+        this.vtbl.AddAppNonMember := CallbackCreate(GetMethod(implObj, "AddAppNonMember"), flags, 3)
+        this.vtbl.DeleteAppNonMember := CallbackCreate(GetMethod(implObj, "DeleteAppNonMember"), flags, 3)
+        this.vtbl.AddMember := CallbackCreate(GetMethod(implObj, "AddMember"), flags, 3)
+        this.vtbl.DeleteMember := CallbackCreate(GetMethod(implObj, "DeleteMember"), flags, 3)
+        this.vtbl.AddNonMember := CallbackCreate(GetMethod(implObj, "AddNonMember"), flags, 3)
+        this.vtbl.DeleteNonMember := CallbackCreate(GetMethod(implObj, "DeleteNonMember"), flags, 3)
+        this.vtbl.get_Writable := CallbackCreate(GetMethod(implObj, "get_Writable"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 4)
+        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 4)
+        this.vtbl.AddPropertyItem := CallbackCreate(GetMethod(implObj, "AddPropertyItem"), flags, 4)
+        this.vtbl.DeletePropertyItem := CallbackCreate(GetMethod(implObj, "DeletePropertyItem"), flags, 4)
+        this.vtbl.Submit := CallbackCreate(GetMethod(implObj, "Submit"), flags, 3)
+        this.vtbl.AddMemberName := CallbackCreate(GetMethod(implObj, "AddMemberName"), flags, 3)
+        this.vtbl.DeleteMemberName := CallbackCreate(GetMethod(implObj, "DeleteMemberName"), flags, 3)
+        this.vtbl.AddNonMemberName := CallbackCreate(GetMethod(implObj, "AddNonMemberName"), flags, 3)
+        this.vtbl.DeleteNonMemberName := CallbackCreate(GetMethod(implObj, "DeleteNonMemberName"), flags, 3)
+        this.vtbl.get_MembersName := CallbackCreate(GetMethod(implObj, "get_MembersName"), flags, 2)
+        this.vtbl.get_NonMembersName := CallbackCreate(GetMethod(implObj, "get_NonMembersName"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.put_Name)
+        CallbackFree(this.vtbl.get_Type)
+        CallbackFree(this.vtbl.put_Type)
+        CallbackFree(this.vtbl.get_LdapQuery)
+        CallbackFree(this.vtbl.put_LdapQuery)
+        CallbackFree(this.vtbl.get_AppMembers)
+        CallbackFree(this.vtbl.get_AppNonMembers)
+        CallbackFree(this.vtbl.get_Members)
+        CallbackFree(this.vtbl.get_NonMembers)
+        CallbackFree(this.vtbl.get_Description)
+        CallbackFree(this.vtbl.put_Description)
+        CallbackFree(this.vtbl.AddAppMember)
+        CallbackFree(this.vtbl.DeleteAppMember)
+        CallbackFree(this.vtbl.AddAppNonMember)
+        CallbackFree(this.vtbl.DeleteAppNonMember)
+        CallbackFree(this.vtbl.AddMember)
+        CallbackFree(this.vtbl.DeleteMember)
+        CallbackFree(this.vtbl.AddNonMember)
+        CallbackFree(this.vtbl.DeleteNonMember)
+        CallbackFree(this.vtbl.get_Writable)
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.SetProperty)
+        CallbackFree(this.vtbl.AddPropertyItem)
+        CallbackFree(this.vtbl.DeletePropertyItem)
+        CallbackFree(this.vtbl.Submit)
+        CallbackFree(this.vtbl.AddMemberName)
+        CallbackFree(this.vtbl.DeleteMemberName)
+        CallbackFree(this.vtbl.AddNonMemberName)
+        CallbackFree(this.vtbl.DeleteNonMemberName)
+        CallbackFree(this.vtbl.get_MembersName)
+        CallbackFree(this.vtbl.get_NonMembersName)
     }
 }

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The MCI_DGV_RESERVE_PARMSA (ANSI) structure (digitalv.h) contains information for the MCI_RESERVE command for digital-video devices.
@@ -16,35 +16,22 @@
  * @namespace Windows.Win32.Media.Multimedia
  * @charset ANSI
  */
-class MCI_DGV_RESERVE_PARMSA extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct MCI_DGV_RESERVE_PARMSA {
+    #StructPack 8
 
     /**
      * The low-order word specifies a window handle used for the MCI_NOTIFY flag.
-     * @type {Pointer}
      */
-    dwCallback {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwCallback : IntPtr
 
     /**
      * Pointer to a null-terminated string containing the location of a temporary file. The buffer contains only the drive and directory path of the file used to hold recorded data; the filename is specified by the device driver.
-     * @type {PSTR}
      */
-    lpstrPath {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpstrPath : PSTR
 
     /**
      * Size of reserved disk space.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwSize : UInt32
+
 }

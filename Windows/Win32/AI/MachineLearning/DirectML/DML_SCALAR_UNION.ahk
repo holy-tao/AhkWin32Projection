@@ -1,115 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * A union of scalar types.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_scalar_union
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  */
-class DML_SCALAR_UNION extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct DML_SCALAR_UNION {
+    #StructPack 8
 
     /**
      * An 8-byte array.
-     * @type {Array<Integer>}
      */
-    Bytes {
-        get {
-            if(!this.HasProp("__BytesProxyArray"))
-                this.__BytesProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")
-            return this.__BytesProxyArray
-        }
-    }
+    Bytes : Int8[8]
 
-    /**
-     * An 8-bit signed integer.
-     * @type {Integer}
-     */
-    Int8 {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
-
-    /**
-     * An 8-bit unsigned integer.
-     * @type {Integer}
-     */
-    UInt8 {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
-
-    /**
-     * A 16-bit signed integer.
-     * @type {Integer}
-     */
-    Int16 {
-        get => NumGet(this, 0, "short")
-        set => NumPut("short", value, this, 0)
-    }
-
-    /**
-     * A 16-bit unsigned integer.
-     * @type {Integer}
-     */
-    UInt16 {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
-
-    /**
-     * A 32-bit signed integer.
-     * @type {Integer}
-     */
-    Int32 {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
-
-    /**
-     * A 32-bit unsigned integer.
-     * @type {Integer}
-     */
-    UInt32 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * A 64-bit signed integer.
-     * @type {Integer}
-     */
-    Int64 {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
-
-    /**
-     * A 64-bit unsigned integer.
-     * @type {Integer}
-     */
-    UInt64 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * A single precision floating-point number.
-     * @type {Float}
-     */
-    Float32 {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
-
-    /**
-     * A double precision floating-point number.
-     * @type {Float}
-     */
-    Float64 {
-        get => NumGet(this, 0, "double")
-        set => NumPut("double", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'Int8', { type: Int8, offset: 0 })
+        DefineProp(this.Prototype, 'UInt8', { type: Int8, offset: 0 })
+        DefineProp(this.Prototype, 'Int16', { type: Int16, offset: 0 })
+        DefineProp(this.Prototype, 'UInt16', { type: UInt16, offset: 0 })
+        DefineProp(this.Prototype, 'Int32', { type: Int32, offset: 0 })
+        DefineProp(this.Prototype, 'UInt32', { type: UInt32, offset: 0 })
+        DefineProp(this.Prototype, 'Int64', { type: Int64, offset: 0 })
+        DefineProp(this.Prototype, 'UInt64', { type: Int64, offset: 0 })
+        DefineProp(this.Prototype, 'Float32', { type: Float32, offset: 0 })
+        DefineProp(this.Prototype, 'Float64', { type: Float64, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

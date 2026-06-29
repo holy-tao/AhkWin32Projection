@@ -1,31 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Console\COORD.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\System\Console\COORD.ahk" { COORD }
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class FONT_IMAGE_INFO extends Win32Struct {
-    static sizeof => 16
+export default struct FONT_IMAGE_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    FontSize : COORD
 
-    /**
-     * @type {COORD}
-     */
-    FontSize {
-        get {
-            if(!this.HasProp("__FontSize"))
-                this.__FontSize := COORD(0, this)
-            return this.__FontSize
-        }
-    }
+    ImageBits : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    ImageBits {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

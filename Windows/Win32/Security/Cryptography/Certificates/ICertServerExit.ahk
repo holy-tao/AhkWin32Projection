@@ -1,35 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Exported by the server engine and is called by exit modules.
  * @see https://learn.microsoft.com/windows/win32/api/certif/nn-certif-icertserverexit
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICertServerExit extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ICertServerExit extends IDispatch {
     /**
      * The interface identifier for ICertServerExit
      * @type {Guid}
      */
-    static IID => Guid("{4ba9eb90-732c-11d0-8816-00a0c903b83c}")
+    static IID := Guid("{4ba9eb90-732c-11d0-8816-00a0c903b83c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICertServerExit interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        SetContext                   : IntPtr
+        GetRequestProperty           : IntPtr
+        GetRequestAttribute          : IntPtr
+        GetCertificateProperty       : IntPtr
+        GetCertificateExtension      : IntPtr
+        GetCertificateExtensionFlags : IntPtr
+        EnumerateExtensionsSetup     : IntPtr
+        EnumerateExtensions          : IntPtr
+        EnumerateExtensionsClose     : IntPtr
+        EnumerateAttributesSetup     : IntPtr
+        EnumerateAttributes          : IntPtr
+        EnumerateAttributesClose     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetContext", "GetRequestProperty", "GetRequestAttribute", "GetCertificateProperty", "GetCertificateExtension", "GetCertificateExtensionFlags", "EnumerateExtensionsSetup", "EnumerateExtensions", "EnumerateExtensionsClose", "EnumerateAttributesSetup", "EnumerateAttributes", "EnumerateAttributesClose"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICertServerExit.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Causes the current instantiation of the interface to operate on the request referenced by Context.
@@ -244,7 +263,7 @@ class ICertServerExit extends IDispatch {
         strPropertyName := strPropertyName is String ? BSTR.Alloc(strPropertyName).Value : strPropertyName
 
         pvarPropertyValue := VARIANT()
-        result := ComCall(8, this, "ptr", strPropertyName, "int", PropertyType, "ptr", pvarPropertyValue, "HRESULT")
+        result := ComCall(8, this, BSTR, strPropertyName, "int", PropertyType, VARIANT.Ptr, pvarPropertyValue, "HRESULT")
         return pvarPropertyValue
     }
 
@@ -280,8 +299,8 @@ class ICertServerExit extends IDispatch {
     GetRequestAttribute(strAttributeName) {
         strAttributeName := strAttributeName is String ? BSTR.Alloc(strAttributeName).Value : strAttributeName
 
-        pstrAttributeValue := BSTR()
-        result := ComCall(9, this, "ptr", strAttributeName, "ptr", pstrAttributeValue, "HRESULT")
+        pstrAttributeValue := BSTR.Owned()
+        result := ComCall(9, this, BSTR, strAttributeName, BSTR.Ptr, pstrAttributeValue, "HRESULT")
         return pstrAttributeValue
     }
 
@@ -463,7 +482,7 @@ class ICertServerExit extends IDispatch {
         strPropertyName := strPropertyName is String ? BSTR.Alloc(strPropertyName).Value : strPropertyName
 
         pvarPropertyValue := VARIANT()
-        result := ComCall(10, this, "ptr", strPropertyName, "int", PropertyType, "ptr", pvarPropertyValue, "HRESULT")
+        result := ComCall(10, this, BSTR, strPropertyName, "int", PropertyType, VARIANT.Ptr, pvarPropertyValue, "HRESULT")
         return pvarPropertyValue
     }
 
@@ -528,7 +547,7 @@ class ICertServerExit extends IDispatch {
         strExtensionName := strExtensionName is String ? BSTR.Alloc(strExtensionName).Value : strExtensionName
 
         pvarValue := VARIANT()
-        result := ComCall(11, this, "ptr", strExtensionName, "int", Type, "ptr", pvarValue, "HRESULT")
+        result := ComCall(11, this, BSTR, strExtensionName, "int", Type, VARIANT.Ptr, pvarValue, "HRESULT")
         return pvarValue
     }
 
@@ -667,8 +686,8 @@ class ICertServerExit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverexit-enumerateextensions
      */
     EnumerateExtensions() {
-        pstrExtensionName := BSTR()
-        result := ComCall(14, this, "ptr", pstrExtensionName, "HRESULT")
+        pstrExtensionName := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, pstrExtensionName, "HRESULT")
         return pstrExtensionName
     }
 
@@ -705,8 +724,8 @@ class ICertServerExit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverexit-enumerateattributes
      */
     EnumerateAttributes() {
-        pstrAttributeName := BSTR()
-        result := ComCall(17, this, "ptr", pstrAttributeName, "HRESULT")
+        pstrAttributeName := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, pstrAttributeName, "HRESULT")
         return pstrAttributeName
     }
 
@@ -721,5 +740,47 @@ class ICertServerExit extends IDispatch {
     EnumerateAttributesClose() {
         result := ComCall(18, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICertServerExit.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetContext := CallbackCreate(GetMethod(implObj, "SetContext"), flags, 2)
+        this.vtbl.GetRequestProperty := CallbackCreate(GetMethod(implObj, "GetRequestProperty"), flags, 4)
+        this.vtbl.GetRequestAttribute := CallbackCreate(GetMethod(implObj, "GetRequestAttribute"), flags, 3)
+        this.vtbl.GetCertificateProperty := CallbackCreate(GetMethod(implObj, "GetCertificateProperty"), flags, 4)
+        this.vtbl.GetCertificateExtension := CallbackCreate(GetMethod(implObj, "GetCertificateExtension"), flags, 4)
+        this.vtbl.GetCertificateExtensionFlags := CallbackCreate(GetMethod(implObj, "GetCertificateExtensionFlags"), flags, 2)
+        this.vtbl.EnumerateExtensionsSetup := CallbackCreate(GetMethod(implObj, "EnumerateExtensionsSetup"), flags, 2)
+        this.vtbl.EnumerateExtensions := CallbackCreate(GetMethod(implObj, "EnumerateExtensions"), flags, 2)
+        this.vtbl.EnumerateExtensionsClose := CallbackCreate(GetMethod(implObj, "EnumerateExtensionsClose"), flags, 1)
+        this.vtbl.EnumerateAttributesSetup := CallbackCreate(GetMethod(implObj, "EnumerateAttributesSetup"), flags, 2)
+        this.vtbl.EnumerateAttributes := CallbackCreate(GetMethod(implObj, "EnumerateAttributes"), flags, 2)
+        this.vtbl.EnumerateAttributesClose := CallbackCreate(GetMethod(implObj, "EnumerateAttributesClose"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetContext)
+        CallbackFree(this.vtbl.GetRequestProperty)
+        CallbackFree(this.vtbl.GetRequestAttribute)
+        CallbackFree(this.vtbl.GetCertificateProperty)
+        CallbackFree(this.vtbl.GetCertificateExtension)
+        CallbackFree(this.vtbl.GetCertificateExtensionFlags)
+        CallbackFree(this.vtbl.EnumerateExtensionsSetup)
+        CallbackFree(this.vtbl.EnumerateExtensions)
+        CallbackFree(this.vtbl.EnumerateExtensionsClose)
+        CallbackFree(this.vtbl.EnumerateAttributesSetup)
+        CallbackFree(this.vtbl.EnumerateAttributes)
+        CallbackFree(this.vtbl.EnumerateAttributesClose)
     }
 }

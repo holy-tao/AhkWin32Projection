@@ -1,40 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IPhotoAcquireOptionsDialog interface is used to display an options dialog box in which the user can select photo acquisition settings such as file name formats, as well as whether or not to rotate images, to prompt for a tag name, or to erase photos from the camera after importing.
  * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nn-photoacquire-iphotoacquireoptionsdialog
  * @namespace Windows.Win32.Media.PictureAcquisition
  */
-class IPhotoAcquireOptionsDialog extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPhotoAcquireOptionsDialog extends IUnknown {
     /**
      * The interface identifier for IPhotoAcquireOptionsDialog
      * @type {Guid}
      */
-    static IID => Guid("{00f2b3ee-bf64-47ee-89f4-4dedd79643f2}")
+    static IID := Guid("{00f2b3ee-bf64-47ee-89f4-4dedd79643f2}")
 
     /**
      * The class identifier for PhotoAcquireOptionsDialog
      * @type {Guid}
      */
-    static CLSID => Guid("{00f210a1-62f0-438b-9f7e-9618d72a1831}")
+    static CLSID := Guid("{00f210a1-62f0-438b-9f7e-9618d72a1831}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPhotoAcquireOptionsDialog interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize : IntPtr
+        Create     : IntPtr
+        Destroy    : IntPtr
+        DoModal    : IntPtr
+        SaveData   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "Create", "Destroy", "DoModal", "SaveData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPhotoAcquireOptionsDialog.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes the options dialog box and reads any saved options from the registry.
@@ -82,10 +95,8 @@ class IPhotoAcquireOptionsDialog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireoptionsdialog-create
      */
     Create(hWndParent) {
-        hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
-
         phWndDialog := HWND()
-        result := ComCall(4, this, "ptr", hWndParent, "ptr", phWndDialog, "HRESULT")
+        result := ComCall(4, this, HWND, hWndParent, HWND.Ptr, phWndDialog, "HRESULT")
         return phWndDialog
     }
 
@@ -147,11 +158,9 @@ class IPhotoAcquireOptionsDialog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireoptionsdialog-domodal
      */
     DoModal(hWndParent, ppnReturnCode) {
-        hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
-
         ppnReturnCodeMarshal := ppnReturnCode is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", hWndParent, ppnReturnCodeMarshal, ppnReturnCode, "HRESULT")
+        result := ComCall(6, this, HWND, hWndParent, ppnReturnCodeMarshal, ppnReturnCode, "HRESULT")
         return result
     }
 
@@ -181,5 +190,33 @@ class IPhotoAcquireOptionsDialog extends IUnknown {
     SaveData() {
         result := ComCall(7, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPhotoAcquireOptionsDialog.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 3)
+        this.vtbl.Destroy := CallbackCreate(GetMethod(implObj, "Destroy"), flags, 1)
+        this.vtbl.DoModal := CallbackCreate(GetMethod(implObj, "DoModal"), flags, 3)
+        this.vtbl.SaveData := CallbackCreate(GetMethod(implObj, "SaveData"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.Create)
+        CallbackFree(this.vtbl.Destroy)
+        CallbackFree(this.vtbl.DoModal)
+        CallbackFree(this.vtbl.SaveData)
     }
 }

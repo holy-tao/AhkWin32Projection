@@ -1,286 +1,83 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class HIDP_BUTTON_CAPS extends Win32Struct {
-    static sizeof => 72
+export default struct HIDP_BUTTON_CAPS {
+    #StructPack 4
 
-    static packingSize => 4
 
-    /**
-     * @type {Integer}
-     */
-    UsagePage {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
+    struct _Range {
+        UsageMin : UInt16
+
+        UsageMax : UInt16
+
+        StringMin : UInt16
+
+        StringMax : UInt16
+
+        DesignatorMin : UInt16
+
+        DesignatorMax : UInt16
+
+        DataIndexMin : UInt16
+
+        DataIndexMax : UInt16
+
     }
 
-    /**
-     * @type {Integer}
-     */
-    ReportID {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
+    struct _NotRange {
+        Usage : UInt16
+
+        Reserved1 : UInt16
+
+        StringIndex : UInt16
+
+        Reserved2 : UInt16
+
+        DesignatorIndex : UInt16
+
+        Reserved3 : UInt16
+
+        DataIndex : UInt16
+
+        Reserved4 : UInt16
+
     }
 
-    /**
-     * @type {BOOLEAN}
-     */
-    IsAlias {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    UsagePage : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    BitField {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    ReportID : Int8
 
-    /**
-     * @type {Integer}
-     */
-    LinkCollection {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    IsAlias : BOOLEAN
 
-    /**
-     * @type {Integer}
-     */
-    LinkUsage {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    BitField : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    LinkUsagePage {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    LinkCollection : UInt16
 
-    /**
-     * @type {BOOLEAN}
-     */
-    IsRange {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    LinkUsage : UInt16
 
-    /**
-     * @type {BOOLEAN}
-     */
-    IsStringRange {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
-    }
+    LinkUsagePage : UInt16
 
-    /**
-     * @type {BOOLEAN}
-     */
-    IsDesignatorRange {
-        get => NumGet(this, 14, "char")
-        set => NumPut("char", value, this, 14)
-    }
+    IsRange : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    IsAbsolute {
-        get => NumGet(this, 15, "char")
-        set => NumPut("char", value, this, 15)
-    }
+    IsStringRange : BOOLEAN
 
-    /**
-     * @type {Integer}
-     */
-    ReportCount {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    IsDesignatorRange : BOOLEAN
 
-    /**
-     * @type {Integer}
-     */
-    Reserved2 {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    IsAbsolute : BOOLEAN
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 20, 9, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
-    }
+    ReportCount : UInt16
 
-    class _Range extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 2
+    Reserved2 : UInt16
 
-        /**
-         * @type {Integer}
-         */
-        UsageMin {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
+    Reserved : UInt32[9]
 
-        /**
-         * @type {Integer}
-         */
-        UsageMax {
-            get => NumGet(this, 2, "ushort")
-            set => NumPut("ushort", value, this, 2)
-        }
+    Range : HIDP_BUTTON_CAPS._Range
 
-        /**
-         * @type {Integer}
-         */
-        StringMin {
-            get => NumGet(this, 4, "ushort")
-            set => NumPut("ushort", value, this, 4)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        StringMax {
-            get => NumGet(this, 6, "ushort")
-            set => NumPut("ushort", value, this, 6)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        DesignatorMin {
-            get => NumGet(this, 8, "ushort")
-            set => NumPut("ushort", value, this, 8)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        DesignatorMax {
-            get => NumGet(this, 10, "ushort")
-            set => NumPut("ushort", value, this, 10)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        DataIndexMin {
-            get => NumGet(this, 12, "ushort")
-            set => NumPut("ushort", value, this, 12)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        DataIndexMax {
-            get => NumGet(this, 14, "ushort")
-            set => NumPut("ushort", value, this, 14)
-        }
-    }
-
-    class _NotRange extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 2
-
-        /**
-         * @type {Integer}
-         */
-        Usage {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        Reserved1 {
-            get => NumGet(this, 2, "ushort")
-            set => NumPut("ushort", value, this, 2)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        StringIndex {
-            get => NumGet(this, 4, "ushort")
-            set => NumPut("ushort", value, this, 4)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        Reserved2 {
-            get => NumGet(this, 6, "ushort")
-            set => NumPut("ushort", value, this, 6)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        DesignatorIndex {
-            get => NumGet(this, 8, "ushort")
-            set => NumPut("ushort", value, this, 8)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        Reserved3 {
-            get => NumGet(this, 10, "ushort")
-            set => NumPut("ushort", value, this, 10)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        DataIndex {
-            get => NumGet(this, 12, "ushort")
-            set => NumPut("ushort", value, this, 12)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        Reserved4 {
-            get => NumGet(this, 14, "ushort")
-            set => NumPut("ushort", value, this, 14)
-        }
-    }
-
-    /**
-     * @type {_Range}
-     */
-    Range {
-        get {
-            if(!this.HasProp("__Range"))
-                this.__Range := HIDP_BUTTON_CAPS._Range(56, this)
-            return this.__Range
-        }
-    }
-
-    /**
-     * @type {_NotRange}
-     */
-    NotRange {
-        get {
-            if(!this.HasProp("__NotRange"))
-                this.__NotRange := HIDP_BUTTON_CAPS._NotRange(56, this)
-            return this.__NotRange
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'NotRange', { type: HIDP_BUTTON_CAPS._NotRange, offset: 56 })
+        this.DeleteProp("__New")
     }
 }

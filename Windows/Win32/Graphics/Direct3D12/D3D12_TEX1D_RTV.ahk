@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the subresource from a 1D texture to use in a render-target view.
@@ -8,17 +7,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_tex1d_rtv
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_TEX1D_RTV extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct D3D12_TEX1D_RTV {
+    #StructPack 4
 
     /**
      * The index of the mipmap level to use mip slice.
-     * @type {Integer}
      */
-    MipSlice {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    MipSlice : UInt32
+
 }

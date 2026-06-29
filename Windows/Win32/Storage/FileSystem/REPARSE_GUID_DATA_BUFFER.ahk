@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains information about a reparse point.
@@ -11,55 +11,31 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-reparse_guid_data_buffer
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class REPARSE_GUID_DATA_BUFFER extends Win32Struct {
-    static sizeof => 24
+export default struct REPARSE_GUID_DATA_BUFFER {
+    #StructPack 4
 
-    static packingSize => 8
 
-    class _GenericReparseBuffer extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
+    struct _GenericReparseBuffer {
+        DataBuffer : Int8[1]
 
-        /**
-         * @type {Array<Integer>}
-         */
-        DataBuffer {
-            get {
-                if(!this.HasProp("__DataBufferProxyArray"))
-                    this.__DataBufferProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
-                return this.__DataBufferProxyArray
-            }
-        }
     }
 
     /**
      * The reparse point tag. This member identifies the structure of the user-defined reparse data. For more 
      *       information, see <a href="https://docs.microsoft.com/windows/desktop/FileIO/reparse-point-tags">Reparse Point Tags</a>.
-     * @type {Integer}
      */
-    ReparseTag {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ReparseTag : UInt32
 
     /**
      * The size of the reparse data in the <b>DataBuffer</b> member, in bytes. This value may 
      *       vary with different tags and may vary between two uses of the same tag.
-     * @type {Integer}
      */
-    ReparseDataLength {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    ReparseDataLength : UInt16
 
     /**
      * Reserved; do not use.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    Reserved : UInt16
 
     /**
      * A <b>GUID</b> that uniquely identifies the  reparse point. When setting a reparse 
@@ -67,21 +43,9 @@ class REPARSE_GUID_DATA_BUFFER extends Win32Struct {
      *       <b>ReparseGuid</b> member. When retrieving a reparse point from the file system, 
      *       <b>ReparseGuid</b> is the <b>GUID</b> assigned when the reparse point 
      *       was set.
-     * @type {Pointer}
      */
-    ReparseGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ReparseGuid : Guid
 
-    /**
-     * @type {_GenericReparseBuffer}
-     */
-    GenericReparseBuffer {
-        get {
-            if(!this.HasProp("__GenericReparseBuffer"))
-                this.__GenericReparseBuffer := REPARSE_GUID_DATA_BUFFER._GenericReparseBuffer(16, this)
-            return this.__GenericReparseBuffer
-        }
-    }
+    GenericReparseBuffer : REPARSE_GUID_DATA_BUFFER._GenericReparseBuffer
+
 }

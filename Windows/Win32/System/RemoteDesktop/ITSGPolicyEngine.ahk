@@ -1,33 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ITSGAuthorizeConnectionSink.ahk" { ITSGAuthorizeConnectionSink }
+#Import "..\..\Foundation\HANDLE_PTR.ahk" { HANDLE_PTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\AAAuthSchemes.ahk" { AAAuthSchemes }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITSGAuthorizeResourceSink.ahk" { ITSGAuthorizeResourceSink }
 
 /**
  * Exposes methods that authorize connections and resources.
  * @see https://learn.microsoft.com/windows/win32/api/tsgpolicyengine/nn-tsgpolicyengine-itsgpolicyengine
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class ITSGPolicyEngine extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITSGPolicyEngine extends IUnknown {
     /**
      * The interface identifier for ITSGPolicyEngine
      * @type {Guid}
      */
-    static IID => Guid("{8bc24f08-6223-42f4-a5b4-8e37cd135bbd}")
+    static IID := Guid("{8bc24f08-6223-42f4-a5b4-8e37cd135bbd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITSGPolicyEngine interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AuthorizeConnection : IntPtr
+        AuthorizeResource   : IntPtr
+        Refresh             : IntPtr
+        IsQuarantineEnabled : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AuthorizeConnection", "AuthorizeResource", "Refresh", "IsQuarantineEnabled"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITSGPolicyEngine.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Determines whether the specified connection is authorized to connect to Remote Desktop Gateway (RD Gateway).
@@ -63,7 +80,7 @@ class ITSGPolicyEngine extends IUnknown {
         sohDataMarshal := sohData is VarRef ? "char*" : "ptr"
         cookieDataMarshal := cookieData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "ptr", mainSessionId, "ptr", username, "int", authType, "ptr", clientMachineIP, "ptr", clientMachineName, sohDataMarshal, sohData, "uint", numSOHBytes, cookieDataMarshal, cookieData, "uint", numCookieBytes, "ptr", userToken, "ptr", pSink, "HRESULT")
+        result := ComCall(3, this, Guid, mainSessionId, BSTR, username, AAAuthSchemes, authType, BSTR, clientMachineIP, BSTR, clientMachineName, sohDataMarshal, sohData, "uint", numSOHBytes, cookieDataMarshal, cookieData, "uint", numCookieBytes, HANDLE_PTR, userToken, "ptr", pSink, "HRESULT")
         return result
     }
 
@@ -101,7 +118,7 @@ class ITSGPolicyEngine extends IUnknown {
 
         cookieMarshal := cookie is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "ptr", mainSessionId, "int", subSessionId, "ptr", username, "ptr", resourceNames, "uint", numResources, "ptr", alternateResourceNames, "uint", numAlternateResourceName, "uint", portNumber, "ptr", operation, cookieMarshal, cookie, "uint", numBytesInCookie, "ptr", pSink, "HRESULT")
+        result := ComCall(4, this, Guid, mainSessionId, "int", subSessionId, BSTR, username, BSTR.Ptr, resourceNames, "uint", numResources, BSTR.Ptr, alternateResourceNames, "uint", numAlternateResourceName, "uint", portNumber, BSTR, operation, cookieMarshal, cookie, "uint", numBytesInCookie, "ptr", pSink, "HRESULT")
         return result
     }
 
@@ -121,7 +138,33 @@ class ITSGPolicyEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tsgpolicyengine/nf-tsgpolicyengine-itsgpolicyengine-isquarantineenabled
      */
     IsQuarantineEnabled() {
-        result := ComCall(6, this, "int*", &quarantineEnabled := 0, "HRESULT")
+        result := ComCall(6, this, BOOL.Ptr, &quarantineEnabled := 0, "HRESULT")
         return quarantineEnabled
+    }
+
+    Query(iid) {
+        if (ITSGPolicyEngine.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AuthorizeConnection := CallbackCreate(GetMethod(implObj, "AuthorizeConnection"), flags, 12)
+        this.vtbl.AuthorizeResource := CallbackCreate(GetMethod(implObj, "AuthorizeResource"), flags, 13)
+        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.IsQuarantineEnabled := CallbackCreate(GetMethod(implObj, "IsQuarantineEnabled"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AuthorizeConnection)
+        CallbackFree(this.vtbl.AuthorizeResource)
+        CallbackFree(this.vtbl.Refresh)
+        CallbackFree(this.vtbl.IsQuarantineEnabled)
     }
 }

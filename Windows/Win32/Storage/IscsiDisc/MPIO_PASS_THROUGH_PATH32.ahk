@@ -1,64 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SCSI_PASS_THROUGH32.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SCSI_PASS_THROUGH32.ahk" { SCSI_PASS_THROUGH32 }
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
  * @architecture X64, Arm64
  */
-class MPIO_PASS_THROUGH_PATH32 extends Win32Struct {
-    static sizeof => 64
+export default struct MPIO_PASS_THROUGH_PATH32 {
+    #StructPack 8
 
-    static packingSize => 8
+    PassThrough : SCSI_PASS_THROUGH32
 
-    /**
-     * @type {SCSI_PASS_THROUGH32}
-     */
-    PassThrough {
-        get {
-            if(!this.HasProp("__PassThrough"))
-                this.__PassThrough := SCSI_PASS_THROUGH32(0, this)
-            return this.__PassThrough
-        }
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    Length : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 48, "ushort")
-        set => NumPut("ushort", value, this, 48)
-    }
+    Flags : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 50, "char")
-        set => NumPut("char", value, this, 50)
-    }
+    PortNumber : Int8
 
-    /**
-     * @type {Integer}
-     */
-    PortNumber {
-        get => NumGet(this, 51, "char")
-        set => NumPut("char", value, this, 51)
-    }
+    MpioPathId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MpioPathId {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
 }

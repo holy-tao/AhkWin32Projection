@@ -1,44 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DD_DIRECTDRAW_GLOBAL.ahk
-#Include .\DD_SURFACE_LOCAL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DD_DIRECTDRAW_GLOBAL.ahk" { DD_DIRECTDRAW_GLOBAL }
+#Import ".\DD_SURFACE_LOCAL.ahk" { DD_SURFACE_LOCAL }
 
 /**
  * The DD_FLIPDATA structure contains information needed to do a flip.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_flipdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DD_FLIPDATA extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct DD_FLIPDATA {
+    #StructPack 8
 
     /**
      * Points to the <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_directdraw_global">DD_DIRECTDRAW_GLOBAL</a> structure that describes the driver's device.
-     * @type {Pointer<DD_DIRECTDRAW_GLOBAL>}
      */
-    lpDD {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpDD : DD_DIRECTDRAW_GLOBAL.Ptr
 
     /**
      * Points to the <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_surface_local">DD_SURFACE_LOCAL</a> structure describing the current surface.
-     * @type {Pointer<DD_SURFACE_LOCAL>}
      */
-    lpSurfCurr {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpSurfCurr : DD_SURFACE_LOCAL.Ptr
 
     /**
      * Points to the DD_SURFACE_LOCAL structure describing the target surface; that is, the surface to which the driver should flip.
-     * @type {Pointer<DD_SURFACE_LOCAL>}
      */
-    lpSurfTarg {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpSurfTarg : DD_SURFACE_LOCAL.Ptr
 
     /**
      * Indicates a set of flags that provide the driver with details for the flip. This member can be a bitwise OR of the following flags:
@@ -139,46 +125,27 @@ class DD_FLIPDATA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwFlags : UInt32
 
     /**
      * Specifies the location in which the driver writes the return value of the <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_surfcb_flip">DdFlip</a> callback. A return code of DD_OK indicates success. For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/return-values-for-directdraw">Return Values for DirectDraw</a>.
-     * @type {HRESULT}
      */
-    ddRVal {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    ddRVal : HRESULT
 
     /**
      * Used by the Microsoft DirectDraw API and should not be filled in by the driver.
-     * @type {Pointer<Void>}
      */
-    Flip {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Flip : IntPtr
 
     /**
      * Points to the <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_surface_local">DD_SURFACE_LOCAL</a> structure describing the current left surface.
-     * @type {Pointer<DD_SURFACE_LOCAL>}
      */
-    lpSurfCurrLeft {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lpSurfCurrLeft : DD_SURFACE_LOCAL.Ptr
 
     /**
      * Points to the DD_SURFACE_LOCAL structure describing the left target surface to flip to.
-     * @type {Pointer<DD_SURFACE_LOCAL>}
      */
-    lpSurfTargLeft {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    lpSurfTargLeft : DD_SURFACE_LOCAL.Ptr
+
 }

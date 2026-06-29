@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include .\ACE_HEADER.ahk
-#Include .\SYSTEM_AUDIT_OBJECT_ACE_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SYSTEM_AUDIT_OBJECT_ACE_FLAGS.ahk" { SYSTEM_AUDIT_OBJECT_ACE_FLAGS }
+#Import ".\ACE_HEADER.ahk" { ACE_HEADER }
+#Import "..\..\..\Guid.ahk" { Guid }
 
 /**
  * The ACCESS_DENIED_CALLBACK_OBJECT_ACE structure defines an access control entry that controls denied access to an object, a property set, or property.
@@ -18,40 +18,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-access_denied_callback_object_ace
  * @namespace Windows.Win32.Security
  */
-class ACCESS_DENIED_CALLBACK_OBJECT_ACE extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct ACCESS_DENIED_CALLBACK_OBJECT_ACE {
+    #StructPack 4
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure that specifies the size and type of ACE. It contains flags that control inheritance of the ACE by child objects. The <b>AceType</b> member of the <b>ACE_HEADER</b> structure should be set to ACCESS_DENIED_CALLBACK_ACE_TYPE, and the <b>AceSize</b> member should be set to the total number of bytes allocated for the <b>ACCESS_DENIED_CALLBACK_OBJECT_ACE</b> structure.
-     * @type {ACE_HEADER}
      */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := ACE_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    Header : ACE_HEADER
 
     /**
      * An 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> that specifies the access rights the system will deny to the trustee.
-     * @type {Integer}
      */
-    Mask {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Mask : UInt32
 
-    /**
-     * @type {SYSTEM_AUDIT_OBJECT_ACE_FLAGS}
-     */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Flags : SYSTEM_AUDIT_OBJECT_ACE_FLAGS
 
     /**
      * This member exists only if the ACE_OBJECT_TYPE_PRESENT bit is set in the <b>Flags</b> member. Otherwise, the <b>InheritedObjectType</b> member follows immediately after the <b>Flags</b> member. 
@@ -118,12 +99,8 @@ class ACCESS_DENIED_CALLBACK_OBJECT_ACE extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer}
      */
-    ObjectType {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ObjectType : Guid
 
     /**
      * This member exists only if the ACE_INHERITED_OBJECT_TYPE_PRESENT bit is set in the <b>Flags</b> member. 
@@ -136,20 +113,13 @@ class ACCESS_DENIED_CALLBACK_OBJECT_ACE extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a>, as well as by any protection against inheritance placed on the child objects.
      * 
      * The offset of this member can vary. If the <b>Flags</b> member does not contain the ACE_OBJECT_TYPE_PRESENT flag, the <b>InheritedObjectType</b> member starts at the offset specified by the <b>ObjectType</b> member.
-     * @type {Pointer}
      */
-    InheritedObjectType {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    InheritedObjectType : Guid
 
     /**
      * The first <b>DWORD</b> of a trustee's SID. 
      * 					The remaining bytes of the SID  are stored in contiguous memory after the <b>SidStart</b> member. This SID can be appended with application data.
-     * @type {Integer}
      */
-    SidStart {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    SidStart : UInt32
+
 }

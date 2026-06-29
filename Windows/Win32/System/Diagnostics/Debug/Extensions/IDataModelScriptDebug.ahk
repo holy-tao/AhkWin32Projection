@@ -1,57 +1,75 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include ..\..\..\..\Foundation\BSTR.ahk
-#Include .\IDataModelScriptDebugStack.ahk
-#Include .\IDataModelScriptDebugBreakpoint.ahk
-#Include .\IDataModelScriptDebugBreakpointEnumerator.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ScriptDebugEventFilter.ahk" { ScriptDebugEventFilter }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IDataModelScriptDebugBreakpointEnumerator.ahk" { IDataModelScriptDebugBreakpointEnumerator }
+#Import ".\IDataModelScriptDebugClient.ahk" { IDataModelScriptDebugClient }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDataModelScriptDebugBreakpoint.ahk" { IDataModelScriptDebugBreakpoint }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ScriptDebugPosition.ahk" { ScriptDebugPosition }
+#Import ".\IDataModelScriptDebugStack.ahk" { IDataModelScriptDebugStack }
+#Import ".\ScriptDebugState.ahk" { ScriptDebugState }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IDataModelScriptDebug extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDataModelScriptDebug extends IUnknown {
     /**
      * The interface identifier for IDataModelScriptDebug
      * @type {Guid}
      */
-    static IID => Guid("{de8e0945-9750-4471-ab76-a8f79d6ec350}")
+    static IID := Guid("{de8e0945-9750-4471-ab76-a8f79d6ec350}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDataModelScriptDebug interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDebugState        : IntPtr
+        GetCurrentPosition   : IntPtr
+        GetStack             : IntPtr
+        SetBreakpoint        : IntPtr
+        FindBreakpointById   : IntPtr
+        EnumerateBreakpoints : IntPtr
+        GetEventFilter       : IntPtr
+        SetEventFilter       : IntPtr
+        StartDebugging       : IntPtr
+        StopDebugging        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDebugState", "GetCurrentPosition", "GetStack", "SetBreakpoint", "FindBreakpointById", "EnumerateBreakpoints", "GetEventFilter", "SetEventFilter", "StartDebugging", "StopDebugging"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDataModelScriptDebug.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
      * @returns {ScriptDebugState} 
      */
     GetDebugState() {
-        result := ComCall(3, this, "int")
+        result := ComCall(3, this, ScriptDebugState)
         return result
     }
 
     /**
-     * The GetCurrentPositionEx function retrieves the current position in logical coordinates.
+     * 
      * @param {Pointer<ScriptDebugPosition>} currentPosition 
      * @param {Pointer<ScriptDebugPosition>} positionSpanEnd 
      * @param {Pointer<BSTR>} lineText 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcurrentpositionex
+     * @returns {HRESULT} 
      */
     GetCurrentPosition(currentPosition, positionSpanEnd, lineText) {
-        result := ComCall(4, this, "ptr", currentPosition, "ptr", positionSpanEnd, "ptr", lineText, "HRESULT")
+        result := ComCall(4, this, ScriptDebugPosition.Ptr, currentPosition, ScriptDebugPosition.Ptr, positionSpanEnd, BSTR.Ptr, lineText, "HRESULT")
         return result
     }
 
@@ -100,7 +118,7 @@ class IDataModelScriptDebug extends IUnknown {
      * @returns {Boolean} 
      */
     GetEventFilter(eventFilter) {
-        result := ComCall(9, this, "int", eventFilter, "int*", &isBreakEnabled := 0, "HRESULT")
+        result := ComCall(9, this, ScriptDebugEventFilter, eventFilter, "int*", &isBreakEnabled := 0, "HRESULT")
         return isBreakEnabled
     }
 
@@ -111,7 +129,7 @@ class IDataModelScriptDebug extends IUnknown {
      * @returns {HRESULT} 
      */
     SetEventFilter(eventFilter, isBreakEnabled) {
-        result := ComCall(10, this, "int", eventFilter, "char", isBreakEnabled, "HRESULT")
+        result := ComCall(10, this, ScriptDebugEventFilter, eventFilter, "char", isBreakEnabled, "HRESULT")
         return result
     }
 
@@ -133,5 +151,43 @@ class IDataModelScriptDebug extends IUnknown {
     StopDebugging(debugClient) {
         result := ComCall(12, this, "ptr", debugClient, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDataModelScriptDebug.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDebugState := CallbackCreate(GetMethod(implObj, "GetDebugState"), flags, 1)
+        this.vtbl.GetCurrentPosition := CallbackCreate(GetMethod(implObj, "GetCurrentPosition"), flags, 4)
+        this.vtbl.GetStack := CallbackCreate(GetMethod(implObj, "GetStack"), flags, 2)
+        this.vtbl.SetBreakpoint := CallbackCreate(GetMethod(implObj, "SetBreakpoint"), flags, 4)
+        this.vtbl.FindBreakpointById := CallbackCreate(GetMethod(implObj, "FindBreakpointById"), flags, 3)
+        this.vtbl.EnumerateBreakpoints := CallbackCreate(GetMethod(implObj, "EnumerateBreakpoints"), flags, 2)
+        this.vtbl.GetEventFilter := CallbackCreate(GetMethod(implObj, "GetEventFilter"), flags, 3)
+        this.vtbl.SetEventFilter := CallbackCreate(GetMethod(implObj, "SetEventFilter"), flags, 3)
+        this.vtbl.StartDebugging := CallbackCreate(GetMethod(implObj, "StartDebugging"), flags, 2)
+        this.vtbl.StopDebugging := CallbackCreate(GetMethod(implObj, "StopDebugging"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDebugState)
+        CallbackFree(this.vtbl.GetCurrentPosition)
+        CallbackFree(this.vtbl.GetStack)
+        CallbackFree(this.vtbl.SetBreakpoint)
+        CallbackFree(this.vtbl.FindBreakpointById)
+        CallbackFree(this.vtbl.EnumerateBreakpoints)
+        CallbackFree(this.vtbl.GetEventFilter)
+        CallbackFree(this.vtbl.SetEventFilter)
+        CallbackFree(this.vtbl.StartDebugging)
+        CallbackFree(this.vtbl.StopDebugging)
     }
 }

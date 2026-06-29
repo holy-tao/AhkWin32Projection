@@ -1,25 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\LSA_UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\PSID.ahk" { PSID }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The SECPKG_PARAMETERS structure contains information about the computer system. This structure is used by the SpInitialize function.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_parameters
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SECPKG_PARAMETERS extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct SECPKG_PARAMETERS {
+    #StructPack 8
 
     /**
      * The version of the Security Support Provider Interface in use.
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
     /**
      * The state of the machine. The following table lists the valid values.
@@ -80,61 +76,32 @@ class SECPKG_PARAMETERS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    MachineState {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    MachineState : UInt32
 
     /**
      * Contains a nonzero value if setup is running.
-     * @type {Integer}
      */
-    SetupMode {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SetupMode : UInt32
 
     /**
      * The security identifier of the primary domain.
-     * @type {PSID}
      */
-    DomainSid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    DomainSid : PSID
 
     /**
      * The name of the primary domain.
-     * @type {LSA_UNICODE_STRING}
      */
-    DomainName {
-        get {
-            if(!this.HasProp("__DomainName"))
-                this.__DomainName := LSA_UNICODE_STRING(24, this)
-            return this.__DomainName
-        }
-    }
+    DomainName : LSA_UNICODE_STRING
 
     /**
      * The Domain Name System (DNS) name of the primary domain.
-     * @type {LSA_UNICODE_STRING}
      */
-    DnsDomainName {
-        get {
-            if(!this.HasProp("__DnsDomainName"))
-                this.__DnsDomainName := LSA_UNICODE_STRING(40, this)
-            return this.__DnsDomainName
-        }
-    }
+    DnsDomainName : LSA_UNICODE_STRING
 
     /**
      * The GUID of the primary domain.
-     * @type {Pointer}
      */
-    DomainGuid {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    DomainGuid : Guid
+
 }

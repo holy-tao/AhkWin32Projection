@@ -1,39 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\FH_DEVICE_VALIDATION_RESULT.ahk" { FH_DEVICE_VALIDATION_RESULT }
 
 /**
  * This interface allows client applications to reassociate a File History configuration from a File History target with the current user.
  * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nn-fhcfg-ifhreassociation
  * @namespace Windows.Win32.Storage.FileHistory
  */
-class IFhReassociation extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IFhReassociation extends IUnknown {
     /**
      * The interface identifier for IFhReassociation
      * @type {Guid}
      */
-    static IID => Guid("{6544a28a-f68d-47ac-91ef-16b2b36aa3ee}")
+    static IID := Guid("{6544a28a-f68d-47ac-91ef-16b2b36aa3ee}")
 
     /**
      * The class identifier for FhReassociation
      * @type {Guid}
      */
-    static CLSID => Guid("{4d728e35-16fa-4320-9e8b-bfd7100a8846}")
+    static CLSID := Guid("{4d728e35-16fa-4320-9e8b-bfd7100a8846}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFhReassociation interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ValidateTarget              : IntPtr
+        ScanTargetForConfigurations : IntPtr
+        GetConfigurationDetails     : IntPtr
+        SelectConfiguration         : IntPtr
+        PerformReassociation        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ValidateTarget", "ScanTargetForConfigurations", "GetConfigurationDetails", "SelectConfiguration", "PerformReassociation"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFhReassociation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This method checks whether a certain storage device or network share can be used as a File History default target and, thus, whether reassociation is possible at all or not.
@@ -48,7 +64,7 @@ class IFhReassociation extends IUnknown {
     ValidateTarget(TargetUrl) {
         TargetUrl := TargetUrl is String ? BSTR.Alloc(TargetUrl).Value : TargetUrl
 
-        result := ComCall(3, this, "ptr", TargetUrl, "int*", &ValidationResult := 0, "HRESULT")
+        result := ComCall(3, this, BSTR, TargetUrl, "int*", &ValidationResult := 0, "HRESULT")
         return ValidationResult
     }
 
@@ -67,7 +83,7 @@ class IFhReassociation extends IUnknown {
     ScanTargetForConfigurations(TargetUrl) {
         TargetUrl := TargetUrl is String ? BSTR.Alloc(TargetUrl).Value : TargetUrl
 
-        result := ComCall(4, this, "ptr", TargetUrl, "HRESULT")
+        result := ComCall(4, this, BSTR, TargetUrl, "HRESULT")
         return result
     }
 
@@ -87,7 +103,7 @@ class IFhReassociation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhreassociation-getconfigurationdetails
      */
     GetConfigurationDetails(Index, UserName, PcName, BackupTime) {
-        result := ComCall(5, this, "uint", Index, "ptr", UserName, "ptr", PcName, "ptr", BackupTime, "HRESULT")
+        result := ComCall(5, this, "uint", Index, BSTR.Ptr, UserName, BSTR.Ptr, PcName, FILETIME.Ptr, BackupTime, "HRESULT")
         return result
     }
 
@@ -115,7 +131,35 @@ class IFhReassociation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhreassociation-performreassociation
      */
     PerformReassociation(OverwriteIfExists) {
-        result := ComCall(7, this, "int", OverwriteIfExists, "HRESULT")
+        result := ComCall(7, this, BOOL, OverwriteIfExists, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFhReassociation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ValidateTarget := CallbackCreate(GetMethod(implObj, "ValidateTarget"), flags, 3)
+        this.vtbl.ScanTargetForConfigurations := CallbackCreate(GetMethod(implObj, "ScanTargetForConfigurations"), flags, 2)
+        this.vtbl.GetConfigurationDetails := CallbackCreate(GetMethod(implObj, "GetConfigurationDetails"), flags, 5)
+        this.vtbl.SelectConfiguration := CallbackCreate(GetMethod(implObj, "SelectConfiguration"), flags, 2)
+        this.vtbl.PerformReassociation := CallbackCreate(GetMethod(implObj, "PerformReassociation"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ValidateTarget)
+        CallbackFree(this.vtbl.ScanTargetForConfigurations)
+        CallbackFree(this.vtbl.GetConfigurationDetails)
+        CallbackFree(this.vtbl.SelectConfiguration)
+        CallbackFree(this.vtbl.PerformReassociation)
     }
 }

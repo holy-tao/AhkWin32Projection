@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains the various types of callbacks used on placeholder files or folders.
@@ -16,7 +15,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_callback_type
  * @namespace Windows.Win32.Storage.CloudFilters
  */
-class CF_CALLBACK_TYPE extends Win32Enum {
+export default struct CF_CALLBACK_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * This callback is used to ask the sync provider for a range of file data that is required in order to satisfy an I/O request, or an explicit hydration request, on a placeholder. Implementation of this callback is required if the sync provider specifies a hydration policy that is _not_ **ALWAYS_FULL** at the sync root registration time.

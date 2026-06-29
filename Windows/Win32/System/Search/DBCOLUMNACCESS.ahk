@@ -1,88 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Storage\IndexServer\DBID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Storage\IndexServer\DBID.ahk" { DBID }
 
 /**
  * @namespace Windows.Win32.System.Search
  * @architecture X64, Arm64
  */
-class DBCOLUMNACCESS extends Win32Struct {
-    static sizeof => 72
+export default struct DBCOLUMNACCESS {
+    #StructPack 8
 
-    static packingSize => 8
+    pData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pData {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    columnid : DBID
 
-    /**
-     * @type {DBID}
-     */
-    columnid {
-        get {
-            if(!this.HasProp("__columnid"))
-                this.__columnid := DBID(8, this)
-            return this.__columnid
-        }
-    }
+    cbDataLen : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    cbDataLen {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    dwStatus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwStatus {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    cbMaxLen : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    cbMaxLen {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    dwReserved : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwReserved {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    wType : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wType {
-        get => NumGet(this, 64, "ushort")
-        set => NumPut("ushort", value, this, 64)
-    }
+    bPrecision : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bPrecision {
-        get => NumGet(this, 66, "char")
-        set => NumPut("char", value, this, 66)
-    }
+    bScale : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bScale {
-        get => NumGet(this, 67, "char")
-        set => NumPut("char", value, this, 67)
-    }
 }

@@ -1,71 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\GameInputForceFeedbackMagnitude.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GameInputForceFeedbackMagnitude.ahk" { GameInputForceFeedbackMagnitude }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
  */
-class GameInputForceFeedbackConditionParams extends Win32Struct {
-    static sizeof => 52
+export default struct GameInputForceFeedbackConditionParams {
+    #StructPack 4
 
-    static packingSize => 4
+    magnitude : GameInputForceFeedbackMagnitude
 
-    /**
-     * @type {GameInputForceFeedbackMagnitude}
-     */
-    magnitude {
-        get {
-            if(!this.HasProp("__magnitude"))
-                this.__magnitude := GameInputForceFeedbackMagnitude(0, this)
-            return this.__magnitude
-        }
-    }
+    positiveCoefficient : Float32
 
-    /**
-     * @type {Float}
-     */
-    positiveCoefficient {
-        get => NumGet(this, 28, "float")
-        set => NumPut("float", value, this, 28)
-    }
+    negativeCoefficient : Float32
 
-    /**
-     * @type {Float}
-     */
-    negativeCoefficient {
-        get => NumGet(this, 32, "float")
-        set => NumPut("float", value, this, 32)
-    }
+    maxPositiveMagnitude : Float32
 
-    /**
-     * @type {Float}
-     */
-    maxPositiveMagnitude {
-        get => NumGet(this, 36, "float")
-        set => NumPut("float", value, this, 36)
-    }
+    maxNegativeMagnitude : Float32
 
-    /**
-     * @type {Float}
-     */
-    maxNegativeMagnitude {
-        get => NumGet(this, 40, "float")
-        set => NumPut("float", value, this, 40)
-    }
+    deadZone : Float32
 
-    /**
-     * @type {Float}
-     */
-    deadZone {
-        get => NumGet(this, 44, "float")
-        set => NumPut("float", value, this, 44)
-    }
+    bias : Float32
 
-    /**
-     * @type {Float}
-     */
-    bias {
-        get => NumGet(this, 48, "float")
-        set => NumPut("float", value, this, 48)
-    }
 }

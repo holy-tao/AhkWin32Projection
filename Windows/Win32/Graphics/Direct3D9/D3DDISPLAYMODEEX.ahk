@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DFORMAT.ahk
-#Include .\D3DSCANLINEORDERING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DSCANLINEORDERING.ahk" { D3DSCANLINEORDERING }
+#Import ".\D3DFORMAT.ahk" { D3DFORMAT }
 
 /**
  * Information about the properties of a display mode.
@@ -10,80 +9,55 @@
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3ddisplaymodeex
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DDISPLAYMODEEX extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct D3DDISPLAYMODEEX {
+    #StructPack 4
 
     /**
      * Type: **[**UINT**](../winprog/windows-data-types.md)**
      * 
      * 
      * The size of this structure. This should always be set to sizeof(D3DDISPLAYMODEEX).
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
     /**
      * Type: **[**UINT**](../winprog/windows-data-types.md)**
      * 
      * 
      * Width of the display mode.
-     * @type {Integer}
      */
-    Width {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Width : UInt32
 
     /**
      * Type: **[**UINT**](../winprog/windows-data-types.md)**
      * 
      * 
      * Height of the display mode.
-     * @type {Integer}
      */
-    Height {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Height : UInt32
 
     /**
      * Type: **[**UINT**](../winprog/windows-data-types.md)**
      * 
      * 
      * Refresh rate of the display mode.
-     * @type {Integer}
      */
-    RefreshRate {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    RefreshRate : UInt32
 
     /**
      * Type: **[D3DFORMAT](d3dformat.md)**
      * 
      * 
      * Format of the display mode. See [D3DFORMAT](d3dformat.md).
-     * @type {D3DFORMAT}
      */
-    Format {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Format : D3DFORMAT
 
     /**
      * Type: **[**D3DSCANLINEORDERING**](./d3dscanlineordering.md)**
      * 
      * 
      * Indicates whether the scanline order is progressive or interlaced. See [**D3DSCANLINEORDERING**](./d3dscanlineordering.md).
-     * @type {D3DSCANLINEORDERING}
      */
-    ScanLineOrdering {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    ScanLineOrdering : D3DSCANLINEORDERING
+
 }

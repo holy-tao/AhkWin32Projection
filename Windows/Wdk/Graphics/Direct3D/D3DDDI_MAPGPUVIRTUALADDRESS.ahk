@@ -1,115 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DDDI_MAPGPUVIRTUALADDRESS extends Win32Struct {
-    static sizeof => 104
+export default struct D3DDDI_MAPGPUVIRTUALADDRESS {
+    #StructPack 8
 
-    static packingSize => 8
+    hPagingQueue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hPagingQueue {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    BaseAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BaseAddress {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MinimumAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MinimumAddress {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    MaximumAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MaximumAddress {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    hAllocation : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hAllocation {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    OffsetInPages : Int64
 
-    /**
-     * @type {Integer}
-     */
-    OffsetInPages {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    SizeInPages : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SizeInPages {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    Protection : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Protection {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    DriverProtection : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DriverProtection {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    Reserved0 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved0 {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    Reserved1 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    VirtualAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    VirtualAddress {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    PagingFenceValue : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PagingFenceValue {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
 }

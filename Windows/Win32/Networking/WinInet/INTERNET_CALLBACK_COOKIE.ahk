@@ -1,63 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
  */
-class INTERNET_CALLBACK_COOKIE extends Win32Struct {
-    static sizeof => 48
+export default struct INTERNET_CALLBACK_COOKIE {
+    #StructPack 8
 
-    static packingSize => 8
+    pcwszName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pcwszName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pcwszValue : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pcwszValue {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pcwszDomain : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pcwszDomain {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pcwszPath : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pcwszPath {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ftExpires : FILETIME
 
-    /**
-     * @type {FILETIME}
-     */
-    ftExpires {
-        get {
-            if(!this.HasProp("__ftExpires"))
-                this.__ftExpires := FILETIME(32, this)
-            return this.__ftExpires
-        }
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
 }

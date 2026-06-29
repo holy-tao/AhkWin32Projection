@@ -1,85 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EMR.ahk
-#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
-#Include .\EXTLOGPEN32.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EMR.ahk" { EMR }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
+#Import ".\EXTLOGPEN32.ahk" { EXTLOGPEN32 }
 
 /**
  * The EMREXTCREATEPEN structure contains members for the ExtCreatePen enhanced metafile record. If the record contains a BITMAPINFO structure, it is followed by the bitmap bits that form a packed device-independent bitmap (DIB).
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrextcreatepen
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class EMREXTCREATEPEN extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 4
+export default struct EMREXTCREATEPEN {
+    #StructPack 4
 
     /**
      * The base structure for all record types.
-     * @type {EMR}
      */
-    emr {
-        get {
-            if(!this.HasProp("__emr"))
-                this.__emr := EMR(0, this)
-            return this.__emr
-        }
-    }
+    emr : EMR
 
     /**
      * Index to pen in handle table.
-     * @type {Integer}
      */
-    ihPen {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ihPen : UInt32
 
     /**
      * Offset to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure, if any.
-     * @type {Integer}
      */
-    offBmi {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    offBmi : UInt32
 
     /**
      * Size of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure, if any.
-     * @type {Integer}
      */
-    cbBmi {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cbBmi : UInt32
 
     /**
      * Offset to brush bitmap bits, if any.
-     * @type {Integer}
      */
-    offBits {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    offBits : UInt32
 
     /**
      * Size of brush bitmap bits, if any.
-     * @type {Integer}
      */
-    cbBits {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    cbBits : UInt32
 
     /**
      * Extended logical pen, including the <b>elpStyleEntry</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-extlogpen">EXTLOGPEN</a> structure.
-     * @type {EXTLOGPEN32}
      */
-    elp {
-        get {
-            if(!this.HasProp("__elp"))
-                this.__elp := EXTLOGPEN32(28, this)
-            return this.__elp
-        }
-    }
+    elp : EXTLOGPEN32
+
 }

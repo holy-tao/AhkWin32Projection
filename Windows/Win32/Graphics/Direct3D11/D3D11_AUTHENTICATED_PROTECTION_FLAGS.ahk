@@ -1,31 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the protection level for video content.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_authenticated_protection_flags
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_AUTHENTICATED_PROTECTION_FLAGS extends Win32Struct {
-    static sizeof => 8
+export default struct D3D11_AUTHENTICATED_PROTECTION_FLAGS {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _Flags extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
+    struct _Flags {
         /**
          * This bitfield backs the following members:
          * - ProtectionEnabled
          * - OverlayOrFullscreenRequired
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -44,23 +36,10 @@ class D3D11_AUTHENTICATED_PROTECTION_FLAGS extends Win32Struct {
         }
     }
 
-    /**
-     * @type {_Flags}
-     */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := D3D11_AUTHENTICATED_PROTECTION_FLAGS._Flags(0, this)
-            return this.__Flags
-        }
-    }
+    Flags : D3D11_AUTHENTICATED_PROTECTION_FLAGS._Flags
 
-    /**
-     * Use this member to access all of the bits in the union.
-     * @type {Integer}
-     */
-    Value {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'Value', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

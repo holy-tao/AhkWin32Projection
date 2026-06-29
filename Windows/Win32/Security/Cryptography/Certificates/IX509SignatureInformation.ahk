@@ -1,35 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IObjectId.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IObjectId.ahk" { IObjectId }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Represents information used to sign a certificate request.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509signatureinformation
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IX509SignatureInformation extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IX509SignatureInformation extends IDispatch {
     /**
      * The interface identifier for IX509SignatureInformation
      * @type {Guid}
      */
-    static IID => Guid("{728ab33c-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab33c-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IX509SignatureInformation interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_HashAlgorithm                  : IntPtr
+        put_HashAlgorithm                  : IntPtr
+        get_PublicKeyAlgorithm             : IntPtr
+        put_PublicKeyAlgorithm             : IntPtr
+        get_Parameters                     : IntPtr
+        put_Parameters                     : IntPtr
+        get_AlternateSignatureAlgorithm    : IntPtr
+        put_AlternateSignatureAlgorithm    : IntPtr
+        get_AlternateSignatureAlgorithmSet : IntPtr
+        get_NullSigned                     : IntPtr
+        put_NullSigned                     : IntPtr
+        GetSignatureAlgorithm              : IntPtr
+        SetDefaultValues                   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_HashAlgorithm", "put_HashAlgorithm", "get_PublicKeyAlgorithm", "put_PublicKeyAlgorithm", "get_Parameters", "put_Parameters", "get_AlternateSignatureAlgorithm", "put_AlternateSignatureAlgorithm", "get_AlternateSignatureAlgorithmSet", "get_NullSigned", "put_NullSigned", "GetSignatureAlgorithm", "SetDefaultValues"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IX509SignatureInformation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IObjectId} 
@@ -200,8 +222,8 @@ class IX509SignatureInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509signatureinformation-get_parameters
      */
     get_Parameters(Encoding) {
-        pValue := BSTR()
-        result := ComCall(11, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(11, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -280,7 +302,7 @@ class IX509SignatureInformation extends IDispatch {
     put_Parameters(Encoding, Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
 
-        result := ComCall(12, this, "int", Encoding, "ptr", Value, "HRESULT")
+        result := ComCall(12, this, EncodingType, Encoding, BSTR, Value, "HRESULT")
         return result
     }
 
@@ -292,7 +314,7 @@ class IX509SignatureInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509signatureinformation-get_alternatesignaturealgorithm
      */
     get_AlternateSignatureAlgorithm() {
-        result := ComCall(13, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -305,7 +327,7 @@ class IX509SignatureInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509signatureinformation-put_alternatesignaturealgorithm
      */
     put_AlternateSignatureAlgorithm(Value) {
-        result := ComCall(14, this, "short", Value, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL, Value, "HRESULT")
         return result
     }
 
@@ -317,7 +339,7 @@ class IX509SignatureInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509signatureinformation-get_alternatesignaturealgorithmset
      */
     get_AlternateSignatureAlgorithmSet() {
-        result := ComCall(15, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(15, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -329,7 +351,7 @@ class IX509SignatureInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509signatureinformation-get_nullsigned
      */
     get_NullSigned() {
-        result := ComCall(16, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(16, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -342,7 +364,7 @@ class IX509SignatureInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509signatureinformation-put_nullsigned
      */
     put_NullSigned(Value) {
-        result := ComCall(17, this, "short", Value, "HRESULT")
+        result := ComCall(17, this, VARIANT_BOOL, Value, "HRESULT")
         return result
     }
 
@@ -381,7 +403,7 @@ class IX509SignatureInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509signatureinformation-getsignaturealgorithm
      */
     GetSignatureAlgorithm(Pkcs7Signature, SignatureKey) {
-        result := ComCall(18, this, "short", Pkcs7Signature, "short", SignatureKey, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(18, this, VARIANT_BOOL, Pkcs7Signature, VARIANT_BOOL, SignatureKey, "ptr*", &ppValue := 0, "HRESULT")
         return IObjectId(ppValue)
     }
 
@@ -416,5 +438,49 @@ class IX509SignatureInformation extends IDispatch {
     SetDefaultValues() {
         result := ComCall(19, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IX509SignatureInformation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_HashAlgorithm := CallbackCreate(GetMethod(implObj, "get_HashAlgorithm"), flags, 2)
+        this.vtbl.put_HashAlgorithm := CallbackCreate(GetMethod(implObj, "put_HashAlgorithm"), flags, 2)
+        this.vtbl.get_PublicKeyAlgorithm := CallbackCreate(GetMethod(implObj, "get_PublicKeyAlgorithm"), flags, 2)
+        this.vtbl.put_PublicKeyAlgorithm := CallbackCreate(GetMethod(implObj, "put_PublicKeyAlgorithm"), flags, 2)
+        this.vtbl.get_Parameters := CallbackCreate(GetMethod(implObj, "get_Parameters"), flags, 3)
+        this.vtbl.put_Parameters := CallbackCreate(GetMethod(implObj, "put_Parameters"), flags, 3)
+        this.vtbl.get_AlternateSignatureAlgorithm := CallbackCreate(GetMethod(implObj, "get_AlternateSignatureAlgorithm"), flags, 2)
+        this.vtbl.put_AlternateSignatureAlgorithm := CallbackCreate(GetMethod(implObj, "put_AlternateSignatureAlgorithm"), flags, 2)
+        this.vtbl.get_AlternateSignatureAlgorithmSet := CallbackCreate(GetMethod(implObj, "get_AlternateSignatureAlgorithmSet"), flags, 2)
+        this.vtbl.get_NullSigned := CallbackCreate(GetMethod(implObj, "get_NullSigned"), flags, 2)
+        this.vtbl.put_NullSigned := CallbackCreate(GetMethod(implObj, "put_NullSigned"), flags, 2)
+        this.vtbl.GetSignatureAlgorithm := CallbackCreate(GetMethod(implObj, "GetSignatureAlgorithm"), flags, 4)
+        this.vtbl.SetDefaultValues := CallbackCreate(GetMethod(implObj, "SetDefaultValues"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_HashAlgorithm)
+        CallbackFree(this.vtbl.put_HashAlgorithm)
+        CallbackFree(this.vtbl.get_PublicKeyAlgorithm)
+        CallbackFree(this.vtbl.put_PublicKeyAlgorithm)
+        CallbackFree(this.vtbl.get_Parameters)
+        CallbackFree(this.vtbl.put_Parameters)
+        CallbackFree(this.vtbl.get_AlternateSignatureAlgorithm)
+        CallbackFree(this.vtbl.put_AlternateSignatureAlgorithm)
+        CallbackFree(this.vtbl.get_AlternateSignatureAlgorithmSet)
+        CallbackFree(this.vtbl.get_NullSigned)
+        CallbackFree(this.vtbl.put_NullSigned)
+        CallbackFree(this.vtbl.GetSignatureAlgorithm)
+        CallbackFree(this.vtbl.SetDefaultValues)
     }
 }

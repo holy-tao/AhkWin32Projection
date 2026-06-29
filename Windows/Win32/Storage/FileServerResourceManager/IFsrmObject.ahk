@@ -1,35 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Base class for all FSRM objects.
  * @see https://learn.microsoft.com/windows/win32/api/fsrm/nn-fsrm-ifsrmobject
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmObject extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmObject extends IDispatch {
     /**
      * The interface identifier for IFsrmObject
      * @type {Guid}
      */
-    static IID => Guid("{22bcef93-4a3f-4183-89f9-2f8b8a628aee}")
+    static IID := Guid("{22bcef93-4a3f-4183-89f9-2f8b8a628aee}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmObject interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Id          : IntPtr
+        get_Description : IntPtr
+        put_Description : IntPtr
+        Delete          : IntPtr
+        Commit          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Id", "get_Description", "put_Description", "Delete", "Commit"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmObject.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Guid} 
@@ -53,7 +64,7 @@ class IFsrmObject extends IDispatch {
      */
     get_Id() {
         id := Guid()
-        result := ComCall(7, this, "ptr", id, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, id, "HRESULT")
         return id
     }
 
@@ -63,8 +74,8 @@ class IFsrmObject extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmobject-get_description
      */
     get_Description() {
-        description := BSTR()
-        result := ComCall(8, this, "ptr", description, "HRESULT")
+        description := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, description, "HRESULT")
         return description
     }
 
@@ -77,7 +88,7 @@ class IFsrmObject extends IDispatch {
     put_Description(description) {
         description := description is String ? BSTR.Alloc(description).Value : description
 
-        result := ComCall(9, this, "ptr", description, "HRESULT")
+        result := ComCall(9, this, BSTR, description, "HRESULT")
         return result
     }
 
@@ -101,5 +112,33 @@ class IFsrmObject extends IDispatch {
     Commit() {
         result := ComCall(11, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFsrmObject.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Id)
+        CallbackFree(this.vtbl.get_Description)
+        CallbackFree(this.vtbl.put_Description)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.Commit)
     }
 }

@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ICertConfig interface provides functionality for retrieving the public configuration data (specified during client setup) for a Certificate Services server.
  * @see https://learn.microsoft.com/windows/win32/api/certcli/nn-certcli-icertconfig
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICertConfig extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ICertConfig extends IDispatch {
     /**
      * The interface identifier for ICertConfig
      * @type {Guid}
      */
-    static IID => Guid("{372fce34-4324-11d0-8810-00a0c903b83c}")
+    static IID := Guid("{372fce34-4324-11d0-8810-00a0c903b83c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICertConfig interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Reset     : IntPtr
+        Next      : IntPtr
+        GetField  : IntPtr
+        GetConfig : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Reset", "Next", "GetField", "GetConfig"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICertConfig.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Resets the configuration query state to point at the Certificate Services server configuration indexed on the specified configuration point. This method was first defined in the ICertConfig interface.
@@ -246,8 +257,8 @@ class ICertConfig extends IDispatch {
     GetField(strFieldName) {
         strFieldName := strFieldName is String ? BSTR.Alloc(strFieldName).Value : strFieldName
 
-        pstrOut := BSTR()
-        result := ComCall(9, this, "ptr", strFieldName, "ptr", pstrOut, "HRESULT")
+        pstrOut := BSTR.Owned()
+        result := ComCall(9, this, BSTR, strFieldName, BSTR.Ptr, pstrOut, "HRESULT")
         return pstrOut
     }
 
@@ -485,8 +496,34 @@ class ICertConfig extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertconfig-getconfig
      */
     GetConfig(Flags) {
-        pstrOut := BSTR()
-        result := ComCall(10, this, "int", Flags, "ptr", pstrOut, "HRESULT")
+        pstrOut := BSTR.Owned()
+        result := ComCall(10, this, "int", Flags, BSTR.Ptr, pstrOut, "HRESULT")
         return pstrOut
+    }
+
+    Query(iid) {
+        if (ICertConfig.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 3)
+        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 2)
+        this.vtbl.GetField := CallbackCreate(GetMethod(implObj, "GetField"), flags, 3)
+        this.vtbl.GetConfig := CallbackCreate(GetMethod(implObj, "GetConfig"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.Next)
+        CallbackFree(this.vtbl.GetField)
+        CallbackFree(this.vtbl.GetConfig)
     }
 }

@@ -1,83 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EMR.ahk
-#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
-#Include ..\..\Foundation\RECTL.ahk
-#Include ..\..\Foundation\SIZE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import ".\EMR.ahk" { EMR }
+#Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * The EMRFRAMERGN structure contains members for the FrameRgn enhanced metafile record.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrframergn
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class EMRFRAMERGN extends Win32Struct {
-    static sizeof => 44
-
-    static packingSize => 4
+export default struct EMRFRAMERGN {
+    #StructPack 4
 
     /**
      * The base structure for all record types.
-     * @type {EMR}
      */
-    emr {
-        get {
-            if(!this.HasProp("__emr"))
-                this.__emr := EMR(0, this)
-            return this.__emr
-        }
-    }
+    emr : EMR
 
     /**
      * Bounding rectangle, in device units.
-     * @type {RECTL}
      */
-    rclBounds {
-        get {
-            if(!this.HasProp("__rclBounds"))
-                this.__rclBounds := RECTL(8, this)
-            return this.__rclBounds
-        }
-    }
+    rclBounds : RECTL
 
     /**
      * Size of region data, in bytes.
-     * @type {Integer}
      */
-    cbRgnData {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    cbRgnData : UInt32
 
     /**
      * Index of brush, in handle table.
-     * @type {Integer}
      */
-    ihBrush {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    ihBrush : UInt32
 
     /**
      * Width and height of region frame, in logical units.
-     * @type {SIZE}
      */
-    szlStroke {
-        get {
-            if(!this.HasProp("__szlStroke"))
-                this.__szlStroke := SIZE(32, this)
-            return this.__szlStroke
-        }
-    }
+    szlStroke : SIZE
 
     /**
      * Buffer containing <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-rgndata">RGNDATA</a> structure.
-     * @type {Array<Integer>}
      */
-    RgnData {
-        get {
-            if(!this.HasProp("__RgnDataProxyArray"))
-                this.__RgnDataProxyArray := Win32FixedArray(this.ptr + 40, 1, Primitive, "char")
-            return this.__RgnDataProxyArray
-        }
-    }
+    RgnData : Int8[1]
+
 }

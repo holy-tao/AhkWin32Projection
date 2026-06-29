@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ISurfaceImageSourceNative.ahk
-#Include ..\..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IVirtualSurfaceUpdatesCallbackNative.ahk" { IVirtualSurfaceUpdatesCallbackNative }
+#Import "..\..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\ISurfaceImageSourceNative.ahk" { ISurfaceImageSourceNative }
 
 /**
  * Provides the implementation of a large (greater than the screen size) shared surface for DirectX drawing.
@@ -21,26 +23,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.media.dxinterop/nn-windows-ui-xaml-media-dxinterop-ivirtualsurfaceimagesourcenative
  * @namespace Windows.Win32.System.WinRT.Xaml
  */
-class IVirtualSurfaceImageSourceNative extends ISurfaceImageSourceNative {
-
-    static sizeof => A_PtrSize
+export default struct IVirtualSurfaceImageSourceNative extends ISurfaceImageSourceNative {
     /**
      * The interface identifier for IVirtualSurfaceImageSourceNative
      * @type {Guid}
      */
-    static IID => Guid("{e9550983-360b-4f53-b391-afd695078691}")
+    static IID := Guid("{e9550983-360b-4f53-b391-afd695078691}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVirtualSurfaceImageSourceNative interfaces
+    */
+    struct Vtbl extends ISurfaceImageSourceNative.Vtbl {
+        Invalidate               : IntPtr
+        GetUpdateRectCount       : IntPtr
+        GetUpdateRects           : IntPtr
+        GetVisibleBounds         : IntPtr
+        RegisterForUpdatesNeeded : IntPtr
+        Resize                   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Invalidate", "GetUpdateRectCount", "GetUpdateRects", "GetVisibleBounds", "RegisterForUpdatesNeeded", "Resize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVirtualSurfaceImageSourceNative.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Invalidates a specific region of the shared surface for drawing.
@@ -49,7 +63,7 @@ class IVirtualSurfaceImageSourceNative extends ISurfaceImageSourceNative {
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.media.dxinterop/nf-windows-ui-xaml-media-dxinterop-ivirtualsurfaceimagesourcenative-invalidate
      */
     Invalidate(updateRect) {
-        result := ComCall(6, this, "ptr", updateRect, "HRESULT")
+        result := ComCall(6, this, RECT, updateRect, "HRESULT")
         return result
     }
 
@@ -71,7 +85,7 @@ class IVirtualSurfaceImageSourceNative extends ISurfaceImageSourceNative {
      */
     GetUpdateRects(count) {
         updates := RECT()
-        result := ComCall(8, this, "ptr", updates, "uint", count, "HRESULT")
+        result := ComCall(8, this, RECT.Ptr, updates, "uint", count, "HRESULT")
         return updates
     }
 
@@ -82,7 +96,7 @@ class IVirtualSurfaceImageSourceNative extends ISurfaceImageSourceNative {
      */
     GetVisibleBounds() {
         bounds := RECT()
-        result := ComCall(9, this, "ptr", bounds, "HRESULT")
+        result := ComCall(9, this, RECT.Ptr, bounds, "HRESULT")
         return bounds
     }
 
@@ -107,5 +121,35 @@ class IVirtualSurfaceImageSourceNative extends ISurfaceImageSourceNative {
     Resize(newWidth, newHeight) {
         result := ComCall(11, this, "int", newWidth, "int", newHeight, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVirtualSurfaceImageSourceNative.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Invalidate := CallbackCreate(GetMethod(implObj, "Invalidate"), flags, 2)
+        this.vtbl.GetUpdateRectCount := CallbackCreate(GetMethod(implObj, "GetUpdateRectCount"), flags, 2)
+        this.vtbl.GetUpdateRects := CallbackCreate(GetMethod(implObj, "GetUpdateRects"), flags, 3)
+        this.vtbl.GetVisibleBounds := CallbackCreate(GetMethod(implObj, "GetVisibleBounds"), flags, 2)
+        this.vtbl.RegisterForUpdatesNeeded := CallbackCreate(GetMethod(implObj, "RegisterForUpdatesNeeded"), flags, 2)
+        this.vtbl.Resize := CallbackCreate(GetMethod(implObj, "Resize"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Invalidate)
+        CallbackFree(this.vtbl.GetUpdateRectCount)
+        CallbackFree(this.vtbl.GetUpdateRects)
+        CallbackFree(this.vtbl.GetVisibleBounds)
+        CallbackFree(this.vtbl.RegisterForUpdatesNeeded)
+        CallbackFree(this.vtbl.Resize)
     }
 }

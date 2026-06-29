@@ -1,46 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RTM_NET_ADDRESS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RTM_NET_ADDRESS.ahk" { RTM_NET_ADDRESS }
 
 /**
  * The RTM_NEXTHOP_INFO structure is used to exchange next-hop information with the routing table manager.
  * @see https://learn.microsoft.com/windows/win32/api/rtmv2/ns-rtmv2-rtm_nexthop_info
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class RTM_NEXTHOP_INFO extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct RTM_NEXTHOP_INFO {
+    #StructPack 8
 
     /**
      * Specifies the network address for this next hop.
-     * @type {RTM_NET_ADDRESS}
      */
-    NextHopAddress {
-        get {
-            if(!this.HasProp("__NextHopAddress"))
-                this.__NextHopAddress := RTM_NET_ADDRESS(0, this)
-            return this.__NextHopAddress
-        }
-    }
+    NextHopAddress : RTM_NET_ADDRESS
 
     /**
      * Handle to the client that owns this next hop.
-     * @type {Pointer}
      */
-    NextHopOwner {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    NextHopOwner : IntPtr
 
     /**
      * Specifies the outgoing interface index.
-     * @type {Integer}
      */
-    InterfaceIndex {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    InterfaceIndex : UInt32
 
     /**
      * Flags that indicates the state of this next hop. The following flags are used. 
@@ -73,12 +55,8 @@ class RTM_NEXTHOP_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    State {
-        get => NumGet(this, 36, "ushort")
-        set => NumPut("ushort", value, this, 36)
-    }
+    State : UInt16
 
     /**
      * Flags that convey status information for the next hop. The following flags are used. 
@@ -111,28 +89,17 @@ class RTM_NEXTHOP_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 38, "ushort")
-        set => NumPut("ushort", value, this, 38)
-    }
+    Flags : UInt16
 
     /**
      * Contains information specific to the client that owns this next hop.
-     * @type {Pointer<Void>}
      */
-    EntitySpecificInfo {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    EntitySpecificInfo : IntPtr
 
     /**
      * Handle to the destination with the indirect next-hop address. This member is only valid when the <b>Flags</b> member is set to RTM_NEXTHOP_FLAGS_REMOTE. This cached handle can prevent multiple lookups for this indirect next hop.
-     * @type {Pointer}
      */
-    RemoteNextHop {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    RemoteNextHop : IntPtr
+
 }

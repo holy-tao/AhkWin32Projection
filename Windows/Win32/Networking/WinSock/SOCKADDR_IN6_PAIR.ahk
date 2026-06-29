@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOCKADDR_IN6.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SOCKADDR_IN6.ahk" { SOCKADDR_IN6 }
 
 /**
  * Contains pointers to a pair of IP addresses that represent a source and destination address pair.
@@ -15,26 +14,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-sockaddr_in6_pair
  * @namespace Windows.Win32.Networking.WinSock
  */
-class SOCKADDR_IN6_PAIR extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct SOCKADDR_IN6_PAIR {
+    #StructPack 8
 
     /**
      * A pointer to an IP source address represented as a <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">SOCKADDR_IN6</a> structure. The address family is in host byte order and the IPv6 address, port, flow information, and zone ID are  in network byte order.
-     * @type {Pointer<SOCKADDR_IN6>}
      */
-    SourceAddress {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    SourceAddress : SOCKADDR_IN6.Ptr
 
     /**
      * A pointer to an IP source address represented as a <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">SOCKADDR_IN6</a> structure. The address family is in host byte order and the IPv6 address, port, flow information, and zone ID are  in network byte order.
-     * @type {Pointer<SOCKADDR_IN6>}
      */
-    DestinationAddress {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    DestinationAddress : SOCKADDR_IN6.Ptr
+
 }

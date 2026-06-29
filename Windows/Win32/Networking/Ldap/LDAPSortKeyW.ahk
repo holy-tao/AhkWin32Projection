@@ -1,5 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * The LDAPSortKey structure stores sorting criteria for use by sort controls. (Unicode)
@@ -18,35 +19,22 @@
  * @namespace Windows.Win32.Networking.Ldap
  * @charset Unicode
  */
-class LDAPSortKeyW extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct LDAPSortKeyW {
+    #StructPack 8
 
     /**
      * Pointer to a null-terminated string that specifies the name of the attribute to use as a sort key. Use multiple <b>LDAPSortKey</b> structures to specify multiple sort keys. Be aware that Active Directory supports only a single sort key.
-     * @type {PWSTR}
      */
-    sk_attrtype {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    sk_attrtype : PWSTR
 
     /**
      * Pointer to a null-terminated string that specifies the object identifier of the matching rule for the sort. Should be set to <b>NULL</b> if you do not want to explicitly specify a matching rule for the sort. Specifying an explicitly set matching rule is supported only by Windows Server 2003.
-     * @type {PWSTR}
      */
-    sk_matchruleoid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    sk_matchruleoid : PWSTR
 
     /**
      * If <b>TRUE</b>, specifies that the sort be ordered from lowest to highest. If <b>FALSE</b>, the sort order is from highest to lowest.
-     * @type {BOOLEAN}
      */
-    sk_reverseorder {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    sk_reverseorder : BOOLEAN
+
 }

@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods to create a new metadata scope, or open an existing one.
  * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nn-rometadataapi-imetadatadispenser
  * @namespace Windows.Win32.System.WinRT.Metadata
  */
-class IMetaDataDispenser extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMetaDataDispenser extends IUnknown {
     /**
      * The interface identifier for IMetaDataDispenser
      * @type {Guid}
      */
-    static IID => Guid("{809c652e-7396-11d2-9771-00a0c9b4d50c}")
+    static IID := Guid("{809c652e-7396-11d2-9771-00a0c9b4d50c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMetaDataDispenser interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        DefineScope       : IntPtr
+        OpenScope         : IntPtr
+        OpenScopeOnMemory : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["DefineScope", "OpenScope", "OpenScopeOnMemory"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMetaDataDispenser.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a new area in memory in which you can create new metadata.
@@ -42,7 +53,7 @@ class IMetaDataDispenser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatadispenser-definescope
      */
     DefineScope(rclsid, dwCreateFlags, riid) {
-        result := ComCall(3, this, "ptr", rclsid, "uint", dwCreateFlags, "ptr", riid, "ptr*", &ppIUnk := 0, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, rclsid, "uint", dwCreateFlags, Guid.Ptr, riid, "ptr*", &ppIUnk := 0, "HRESULT")
         return IUnknown(ppIUnk)
     }
 
@@ -61,7 +72,7 @@ class IMetaDataDispenser extends IUnknown {
     OpenScope(szScope, dwOpenFlags, riid) {
         szScope := szScope is String ? StrPtr(szScope) : szScope
 
-        result := ComCall(4, this, "ptr", szScope, "uint", dwOpenFlags, "ptr", riid, "ptr*", &ppIUnk := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", szScope, "uint", dwOpenFlags, Guid.Ptr, riid, "ptr*", &ppIUnk := 0, "HRESULT")
         return IUnknown(ppIUnk)
     }
 
@@ -85,7 +96,31 @@ class IMetaDataDispenser extends IUnknown {
     OpenScopeOnMemory(pData, cbData, dwOpenFlags, riid) {
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, pDataMarshal, pData, "uint", cbData, "uint", dwOpenFlags, "ptr", riid, "ptr*", &ppIUnk := 0, "HRESULT")
+        result := ComCall(5, this, pDataMarshal, pData, "uint", cbData, "uint", dwOpenFlags, Guid.Ptr, riid, "ptr*", &ppIUnk := 0, "HRESULT")
         return IUnknown(ppIUnk)
+    }
+
+    Query(iid) {
+        if (IMetaDataDispenser.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.DefineScope := CallbackCreate(GetMethod(implObj, "DefineScope"), flags, 5)
+        this.vtbl.OpenScope := CallbackCreate(GetMethod(implObj, "OpenScope"), flags, 5)
+        this.vtbl.OpenScopeOnMemory := CallbackCreate(GetMethod(implObj, "OpenScopeOnMemory"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.DefineScope)
+        CallbackFree(this.vtbl.OpenScope)
+        CallbackFree(this.vtbl.OpenScopeOnMemory)
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the In-Place state values of the Tablet PC Input Panel.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-inplacestate
  * @namespace Windows.Win32.UI.TabletPC
  */
-class InPlaceState extends Win32Enum {
+export default struct InPlaceState {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The system decides which In-Place state of the Input Panel is the most appropriate.

@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class RASPPPCCP extends Win32Struct {
-    static sizeof => 24
+export default struct RASPPPCCP {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwError : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwError {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwCompressionAlgorithm : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCompressionAlgorithm {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwOptions : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwOptions {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwServerCompressionAlgorithm : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwServerCompressionAlgorithm {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwServerOptions : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwServerOptions {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

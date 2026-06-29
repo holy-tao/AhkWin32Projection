@@ -1,69 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC.ahk
-#Include .\D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC.ahk" { D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC }
+#Import ".\D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC.ahk" { D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_FEATURE_DATA_VIDEO_PROCESSOR_SIZE1 extends Win32Struct {
-    static sizeof => 56
+export default struct D3D12_FEATURE_DATA_VIDEO_PROCESSOR_SIZE1 {
+    #StructPack 8
 
-    static packingSize => 8
+    NodeMask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NodeMask {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pOutputStreamDesc : D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC.Ptr
 
-    /**
-     * @type {Pointer<D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC>}
-     */
-    pOutputStreamDesc {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    NumInputStreamDescs : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumInputStreamDescs {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    pInputStreamDescs : D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC.Ptr
 
-    /**
-     * @type {Pointer<D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC>}
-     */
-    pInputStreamDescs {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Protected : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    Protected {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    MemoryPoolL0Size : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MemoryPoolL0Size {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    MemoryPoolL1Size : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MemoryPoolL1Size {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
 }

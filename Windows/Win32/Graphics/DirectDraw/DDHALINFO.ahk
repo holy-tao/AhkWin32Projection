@@ -1,171 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDHAL_DDCALLBACKS.ahk
-#Include .\DDHAL_DDSURFACECALLBACKS.ahk
-#Include .\DDHAL_DDPALETTECALLBACKS.ahk
-#Include .\VIDMEMINFO.ahk
-#Include .\DDPIXELFORMAT.ahk
-#Include .\VIDMEM.ahk
-#Include .\DDCORECAPS.ahk
-#Include .\DDSCAPS.ahk
-#Include .\DDHALMODEINFO.ahk
-#Include .\DDHAL_DDEXEBUFCALLBACKS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDHAL_DDSURFACECALLBACKS.ahk" { DDHAL_DDSURFACECALLBACKS }
+#Import ".\DDHAL_DDEXEBUFCALLBACKS.ahk" { DDHAL_DDEXEBUFCALLBACKS }
+#Import ".\VIDMEM.ahk" { VIDMEM }
+#Import ".\DDSCAPS.ahk" { DDSCAPS }
+#Import ".\DDCORECAPS.ahk" { DDCORECAPS }
+#Import ".\DDHALMODEINFO.ahk" { DDHALMODEINFO }
+#Import ".\DDHAL_DDCALLBACKS.ahk" { DDHAL_DDCALLBACKS }
+#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
+#Import ".\VIDMEMINFO.ahk" { VIDMEMINFO }
+#Import ".\DDHAL_DDPALETTECALLBACKS.ahk" { DDHAL_DDPALETTECALLBACKS }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDHALINFO extends Win32Struct {
-    static sizeof => 528
+export default struct DDHALINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    lpDDCallbacks : DDHAL_DDCALLBACKS.Ptr
 
-    /**
-     * @type {Pointer<DDHAL_DDCALLBACKS>}
-     */
-    lpDDCallbacks {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpDDSurfaceCallbacks : DDHAL_DDSURFACECALLBACKS.Ptr
 
-    /**
-     * @type {Pointer<DDHAL_DDSURFACECALLBACKS>}
-     */
-    lpDDSurfaceCallbacks {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpDDPaletteCallbacks : DDHAL_DDPALETTECALLBACKS.Ptr
 
-    /**
-     * @type {Pointer<DDHAL_DDPALETTECALLBACKS>}
-     */
-    lpDDPaletteCallbacks {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    vmiData : VIDMEMINFO
 
-    /**
-     * @type {VIDMEMINFO}
-     */
-    vmiData {
-        get {
-            if(!this.HasProp("__vmiData"))
-                this.__vmiData := VIDMEMINFO(32, this)
-            return this.__vmiData
-        }
-    }
+    ddCaps : DDCORECAPS
 
-    /**
-     * @type {DDCORECAPS}
-     */
-    ddCaps {
-        get {
-            if(!this.HasProp("__ddCaps"))
-                this.__ddCaps := DDCORECAPS(120, this)
-            return this.__ddCaps
-        }
-    }
+    dwMonitorFrequency : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMonitorFrequency {
-        get => NumGet(this, 436, "uint")
-        set => NumPut("uint", value, this, 436)
-    }
+    GetDriverInfo : IntPtr
 
-    /**
-     * @type {Pointer<LPDDHAL_GETDRIVERINFO>}
-     */
-    GetDriverInfo {
-        get => NumGet(this, 440, "ptr")
-        set => NumPut("ptr", value, this, 440)
-    }
+    dwModeIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwModeIndex {
-        get => NumGet(this, 448, "uint")
-        set => NumPut("uint", value, this, 448)
-    }
+    lpdwFourCC : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    lpdwFourCC {
-        get => NumGet(this, 456, "ptr")
-        set => NumPut("ptr", value, this, 456)
-    }
+    dwNumModes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNumModes {
-        get => NumGet(this, 464, "uint")
-        set => NumPut("uint", value, this, 464)
-    }
+    lpModeInfo : DDHALMODEINFO.Ptr
 
-    /**
-     * @type {Pointer<DDHALMODEINFO>}
-     */
-    lpModeInfo {
-        get => NumGet(this, 472, "ptr")
-        set => NumPut("ptr", value, this, 472)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 480, "uint")
-        set => NumPut("uint", value, this, 480)
-    }
+    lpPDevice : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpPDevice {
-        get => NumGet(this, 488, "ptr")
-        set => NumPut("ptr", value, this, 488)
-    }
+    hInstance : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hInstance {
-        get => NumGet(this, 496, "uint")
-        set => NumPut("uint", value, this, 496)
-    }
+    lpD3DGlobalDriverData : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    lpD3DGlobalDriverData {
-        get => NumGet(this, 504, "ptr")
-        set => NumPut("ptr", value, this, 504)
-    }
+    lpD3DHALCallbacks : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    lpD3DHALCallbacks {
-        get => NumGet(this, 512, "ptr")
-        set => NumPut("ptr", value, this, 512)
-    }
+    lpDDExeBufCallbacks : DDHAL_DDEXEBUFCALLBACKS.Ptr
 
-    /**
-     * @type {Pointer<DDHAL_DDEXEBUFCALLBACKS>}
-     */
-    lpDDExeBufCallbacks {
-        get => NumGet(this, 520, "ptr")
-        set => NumPut("ptr", value, this, 520)
-    }
 }

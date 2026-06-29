@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EAP_CONFIG_INPUT_FIELD_ARRAY.ahk
-#Include .\EAP_CONFIG_INPUT_FIELD_DATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EAP_CONFIG_INPUT_FIELD_DATA.ahk" { EAP_CONFIG_INPUT_FIELD_DATA }
+#Import ".\EAP_CONFIG_INPUT_FIELD_ARRAY.ahk" { EAP_CONFIG_INPUT_FIELD_ARRAY }
 
 /**
  * Contains both the old and new EAP credentials for credential expiry operations.
@@ -12,32 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eap_cred_expiry_req
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  */
-class EAP_CRED_EXPIRY_REQ extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct EAP_CRED_EXPIRY_REQ {
+    #StructPack 8
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_config_input_field_array">EAP_CONFIG_INPUT_FIELD_ARRAY</a> structure that contains the old EAP credentials.
-     * @type {EAP_CONFIG_INPUT_FIELD_ARRAY}
      */
-    curCreds {
-        get {
-            if(!this.HasProp("__curCreds"))
-                this.__curCreds := EAP_CONFIG_INPUT_FIELD_ARRAY(0, this)
-            return this.__curCreds
-        }
-    }
+    curCreds : EAP_CONFIG_INPUT_FIELD_ARRAY
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_config_input_field_array">EAP_CONFIG_INPUT_FIELD_ARRAY</a> structure that contains the new EAP credentials.
-     * @type {EAP_CONFIG_INPUT_FIELD_ARRAY}
      */
-    newCreds {
-        get {
-            if(!this.HasProp("__newCreds"))
-                this.__newCreds := EAP_CONFIG_INPUT_FIELD_ARRAY(16, this)
-            return this.__newCreds
-        }
-    }
+    newCreds : EAP_CONFIG_INPUT_FIELD_ARRAY
+
 }

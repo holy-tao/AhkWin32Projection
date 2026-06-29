@@ -1,60 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FAULT_INFORMATION_ARM64_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FAULT_INFORMATION_ARM64_TYPE.ahk" { FAULT_INFORMATION_ARM64_TYPE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class FAULT_INFORMATION_X64 extends Win32Struct {
-    static sizeof => 48
+export default struct FAULT_INFORMATION_X64 {
+    #StructPack 8
 
-    static packingSize => 8
+    DomainHandle : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    DomainHandle {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    FaultAddress : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    FaultAddress {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Flags : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Flags {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Type : FAULT_INFORMATION_ARM64_TYPE
 
-    /**
-     * @type {FAULT_INFORMATION_ARM64_TYPE}
-     */
-    Type {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    IommuBaseAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    IommuBaseAddress {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    PciSegment : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PciSegment {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
 }

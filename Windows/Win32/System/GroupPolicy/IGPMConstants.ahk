@@ -1,7 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\GPMSOMType.ahk" { GPMSOMType }
+#Import ".\GPMDestinationOption.ahk" { GPMDestinationOption }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\GPMReportType.ahk" { GPMReportType }
+#Import ".\GPMSearchOperation.ahk" { GPMSearchOperation }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\GPMPermissionType.ahk" { GPMPermissionType }
+#Import ".\GPMRSOPMode.ahk" { GPMRSOPMode }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\GPMEntryType.ahk" { GPMEntryType }
+#Import ".\GPMSearchProperty.ahk" { GPMSearchProperty }
 
 /**
  * The IGPMConstants interface supports methods that retrieve the value of multiple Group Policy Management Console (GPMC) constants. To create a GPMConstants object, call the IGPM::GetConstants method.
@@ -13,32 +23,98 @@
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmconstants
  * @namespace Windows.Win32.System.GroupPolicy
  */
-class IGPMConstants extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IGPMConstants extends IDispatch {
     /**
      * The interface identifier for IGPMConstants
      * @type {Guid}
      */
-    static IID => Guid("{50ef73e6-d35c-4c8d-be63-7ea5d2aac5c4}")
+    static IID := Guid("{50ef73e6-d35c-4c8d-be63-7ea5d2aac5c4}")
 
     /**
      * The class identifier for GPMConstants
      * @type {Guid}
      */
-    static CLSID => Guid("{3855e880-cd9e-4d0c-9eaf-1579283a1888}")
+    static CLSID := Guid("{3855e880-cd9e-4d0c-9eaf-1579283a1888}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGPMConstants interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_PermGPOApply                          : IntPtr
+        get_PermGPORead                           : IntPtr
+        get_PermGPOEdit                           : IntPtr
+        get_PermGPOEditSecurityAndDelete          : IntPtr
+        get_PermGPOCustom                         : IntPtr
+        get_PermWMIFilterEdit                     : IntPtr
+        get_PermWMIFilterFullControl              : IntPtr
+        get_PermWMIFilterCustom                   : IntPtr
+        get_PermSOMLink                           : IntPtr
+        get_PermSOMLogging                        : IntPtr
+        get_PermSOMPlanning                       : IntPtr
+        get_PermSOMGPOCreate                      : IntPtr
+        get_PermSOMWMICreate                      : IntPtr
+        get_PermSOMWMIFullControl                 : IntPtr
+        get_SearchPropertyGPOPermissions          : IntPtr
+        get_SearchPropertyGPOEffectivePermissions : IntPtr
+        get_SearchPropertyGPODisplayName          : IntPtr
+        get_SearchPropertyGPOWMIFilter            : IntPtr
+        get_SearchPropertyGPOID                   : IntPtr
+        get_SearchPropertyGPOComputerExtensions   : IntPtr
+        get_SearchPropertyGPOUserExtensions       : IntPtr
+        get_SearchPropertySOMLinks                : IntPtr
+        get_SearchPropertyGPODomain               : IntPtr
+        get_SearchPropertyBackupMostRecent        : IntPtr
+        get_SearchOpEquals                        : IntPtr
+        get_SearchOpContains                      : IntPtr
+        get_SearchOpNotContains                   : IntPtr
+        get_SearchOpNotEquals                     : IntPtr
+        get_UsePDC                                : IntPtr
+        get_UseAnyDC                              : IntPtr
+        get_DoNotUseW2KDC                         : IntPtr
+        get_SOMSite                               : IntPtr
+        get_SOMDomain                             : IntPtr
+        get_SOMOU                                 : IntPtr
+        get_SecurityFlags                         : IntPtr
+        get_DoNotValidateDC                       : IntPtr
+        get_ReportHTML                            : IntPtr
+        get_ReportXML                             : IntPtr
+        get_RSOPModeUnknown                       : IntPtr
+        get_RSOPModePlanning                      : IntPtr
+        get_RSOPModeLogging                       : IntPtr
+        get_EntryTypeUser                         : IntPtr
+        get_EntryTypeComputer                     : IntPtr
+        get_EntryTypeLocalGroup                   : IntPtr
+        get_EntryTypeGlobalGroup                  : IntPtr
+        get_EntryTypeUniversalGroup               : IntPtr
+        get_EntryTypeUNCPath                      : IntPtr
+        get_EntryTypeUnknown                      : IntPtr
+        get_DestinationOptionSameAsSource         : IntPtr
+        get_DestinationOptionNone                 : IntPtr
+        get_DestinationOptionByRelativeName       : IntPtr
+        get_DestinationOptionSet                  : IntPtr
+        get_MigrationTableOnly                    : IntPtr
+        get_ProcessSecurity                       : IntPtr
+        get_RsopLoggingNoComputer                 : IntPtr
+        get_RsopLoggingNoUser                     : IntPtr
+        get_RsopPlanningAssumeSlowLink            : IntPtr
+        get_RsopPlanningLoopbackOption            : IntPtr
+        get_RsopPlanningAssumeUserWQLFilterTrue   : IntPtr
+        get_RsopPlanningAssumeCompWQLFilterTrue   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_PermGPOApply", "get_PermGPORead", "get_PermGPOEdit", "get_PermGPOEditSecurityAndDelete", "get_PermGPOCustom", "get_PermWMIFilterEdit", "get_PermWMIFilterFullControl", "get_PermWMIFilterCustom", "get_PermSOMLink", "get_PermSOMLogging", "get_PermSOMPlanning", "get_PermSOMGPOCreate", "get_PermSOMWMICreate", "get_PermSOMWMIFullControl", "get_SearchPropertyGPOPermissions", "get_SearchPropertyGPOEffectivePermissions", "get_SearchPropertyGPODisplayName", "get_SearchPropertyGPOWMIFilter", "get_SearchPropertyGPOID", "get_SearchPropertyGPOComputerExtensions", "get_SearchPropertyGPOUserExtensions", "get_SearchPropertySOMLinks", "get_SearchPropertyGPODomain", "get_SearchPropertyBackupMostRecent", "get_SearchOpEquals", "get_SearchOpContains", "get_SearchOpNotContains", "get_SearchOpNotEquals", "get_UsePDC", "get_UseAnyDC", "get_DoNotUseW2KDC", "get_SOMSite", "get_SOMDomain", "get_SOMOU", "get_SecurityFlags", "get_DoNotValidateDC", "get_ReportHTML", "get_ReportXML", "get_RSOPModeUnknown", "get_RSOPModePlanning", "get_RSOPModeLogging", "get_EntryTypeUser", "get_EntryTypeComputer", "get_EntryTypeLocalGroup", "get_EntryTypeGlobalGroup", "get_EntryTypeUniversalGroup", "get_EntryTypeUNCPath", "get_EntryTypeUnknown", "get_DestinationOptionSameAsSource", "get_DestinationOptionNone", "get_DestinationOptionByRelativeName", "get_DestinationOptionSet", "get_MigrationTableOnly", "get_ProcessSecurity", "get_RsopLoggingNoComputer", "get_RsopLoggingNoUser", "get_RsopPlanningAssumeSlowLink", "get_RsopPlanningLoopbackOption", "get_RsopPlanningAssumeUserWQLFilterTrue", "get_RsopPlanningAssumeCompWQLFilterTrue"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGPMConstants.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {GPMPermissionType} 
@@ -764,7 +840,7 @@ class IGPMConstants extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmconstants-get_securityflags
      */
     get_SecurityFlags(vbOwner, vbGroup, vbDACL, vbSACL) {
-        result := ComCall(41, this, "short", vbOwner, "short", vbGroup, "short", vbDACL, "short", vbSACL, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(41, this, VARIANT_BOOL, vbOwner, VARIANT_BOOL, vbGroup, VARIANT_BOOL, vbDACL, VARIANT_BOOL, vbSACL, "int*", &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -972,7 +1048,7 @@ class IGPMConstants extends IDispatch {
      * @returns {Integer} 
      */
     get_RsopPlanningLoopbackOption(vbMerge) {
-        result := ComCall(64, this, "short", vbMerge, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(64, this, VARIANT_BOOL, vbMerge, "int*", &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -992,5 +1068,143 @@ class IGPMConstants extends IDispatch {
     get_RsopPlanningAssumeCompWQLFilterTrue() {
         result := ComCall(66, this, "int*", &pVal := 0, "HRESULT")
         return pVal
+    }
+
+    Query(iid) {
+        if (IGPMConstants.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_PermGPOApply := CallbackCreate(GetMethod(implObj, "get_PermGPOApply"), flags, 2)
+        this.vtbl.get_PermGPORead := CallbackCreate(GetMethod(implObj, "get_PermGPORead"), flags, 2)
+        this.vtbl.get_PermGPOEdit := CallbackCreate(GetMethod(implObj, "get_PermGPOEdit"), flags, 2)
+        this.vtbl.get_PermGPOEditSecurityAndDelete := CallbackCreate(GetMethod(implObj, "get_PermGPOEditSecurityAndDelete"), flags, 2)
+        this.vtbl.get_PermGPOCustom := CallbackCreate(GetMethod(implObj, "get_PermGPOCustom"), flags, 2)
+        this.vtbl.get_PermWMIFilterEdit := CallbackCreate(GetMethod(implObj, "get_PermWMIFilterEdit"), flags, 2)
+        this.vtbl.get_PermWMIFilterFullControl := CallbackCreate(GetMethod(implObj, "get_PermWMIFilterFullControl"), flags, 2)
+        this.vtbl.get_PermWMIFilterCustom := CallbackCreate(GetMethod(implObj, "get_PermWMIFilterCustom"), flags, 2)
+        this.vtbl.get_PermSOMLink := CallbackCreate(GetMethod(implObj, "get_PermSOMLink"), flags, 2)
+        this.vtbl.get_PermSOMLogging := CallbackCreate(GetMethod(implObj, "get_PermSOMLogging"), flags, 2)
+        this.vtbl.get_PermSOMPlanning := CallbackCreate(GetMethod(implObj, "get_PermSOMPlanning"), flags, 2)
+        this.vtbl.get_PermSOMGPOCreate := CallbackCreate(GetMethod(implObj, "get_PermSOMGPOCreate"), flags, 2)
+        this.vtbl.get_PermSOMWMICreate := CallbackCreate(GetMethod(implObj, "get_PermSOMWMICreate"), flags, 2)
+        this.vtbl.get_PermSOMWMIFullControl := CallbackCreate(GetMethod(implObj, "get_PermSOMWMIFullControl"), flags, 2)
+        this.vtbl.get_SearchPropertyGPOPermissions := CallbackCreate(GetMethod(implObj, "get_SearchPropertyGPOPermissions"), flags, 2)
+        this.vtbl.get_SearchPropertyGPOEffectivePermissions := CallbackCreate(GetMethod(implObj, "get_SearchPropertyGPOEffectivePermissions"), flags, 2)
+        this.vtbl.get_SearchPropertyGPODisplayName := CallbackCreate(GetMethod(implObj, "get_SearchPropertyGPODisplayName"), flags, 2)
+        this.vtbl.get_SearchPropertyGPOWMIFilter := CallbackCreate(GetMethod(implObj, "get_SearchPropertyGPOWMIFilter"), flags, 2)
+        this.vtbl.get_SearchPropertyGPOID := CallbackCreate(GetMethod(implObj, "get_SearchPropertyGPOID"), flags, 2)
+        this.vtbl.get_SearchPropertyGPOComputerExtensions := CallbackCreate(GetMethod(implObj, "get_SearchPropertyGPOComputerExtensions"), flags, 2)
+        this.vtbl.get_SearchPropertyGPOUserExtensions := CallbackCreate(GetMethod(implObj, "get_SearchPropertyGPOUserExtensions"), flags, 2)
+        this.vtbl.get_SearchPropertySOMLinks := CallbackCreate(GetMethod(implObj, "get_SearchPropertySOMLinks"), flags, 2)
+        this.vtbl.get_SearchPropertyGPODomain := CallbackCreate(GetMethod(implObj, "get_SearchPropertyGPODomain"), flags, 2)
+        this.vtbl.get_SearchPropertyBackupMostRecent := CallbackCreate(GetMethod(implObj, "get_SearchPropertyBackupMostRecent"), flags, 2)
+        this.vtbl.get_SearchOpEquals := CallbackCreate(GetMethod(implObj, "get_SearchOpEquals"), flags, 2)
+        this.vtbl.get_SearchOpContains := CallbackCreate(GetMethod(implObj, "get_SearchOpContains"), flags, 2)
+        this.vtbl.get_SearchOpNotContains := CallbackCreate(GetMethod(implObj, "get_SearchOpNotContains"), flags, 2)
+        this.vtbl.get_SearchOpNotEquals := CallbackCreate(GetMethod(implObj, "get_SearchOpNotEquals"), flags, 2)
+        this.vtbl.get_UsePDC := CallbackCreate(GetMethod(implObj, "get_UsePDC"), flags, 2)
+        this.vtbl.get_UseAnyDC := CallbackCreate(GetMethod(implObj, "get_UseAnyDC"), flags, 2)
+        this.vtbl.get_DoNotUseW2KDC := CallbackCreate(GetMethod(implObj, "get_DoNotUseW2KDC"), flags, 2)
+        this.vtbl.get_SOMSite := CallbackCreate(GetMethod(implObj, "get_SOMSite"), flags, 2)
+        this.vtbl.get_SOMDomain := CallbackCreate(GetMethod(implObj, "get_SOMDomain"), flags, 2)
+        this.vtbl.get_SOMOU := CallbackCreate(GetMethod(implObj, "get_SOMOU"), flags, 2)
+        this.vtbl.get_SecurityFlags := CallbackCreate(GetMethod(implObj, "get_SecurityFlags"), flags, 6)
+        this.vtbl.get_DoNotValidateDC := CallbackCreate(GetMethod(implObj, "get_DoNotValidateDC"), flags, 2)
+        this.vtbl.get_ReportHTML := CallbackCreate(GetMethod(implObj, "get_ReportHTML"), flags, 2)
+        this.vtbl.get_ReportXML := CallbackCreate(GetMethod(implObj, "get_ReportXML"), flags, 2)
+        this.vtbl.get_RSOPModeUnknown := CallbackCreate(GetMethod(implObj, "get_RSOPModeUnknown"), flags, 2)
+        this.vtbl.get_RSOPModePlanning := CallbackCreate(GetMethod(implObj, "get_RSOPModePlanning"), flags, 2)
+        this.vtbl.get_RSOPModeLogging := CallbackCreate(GetMethod(implObj, "get_RSOPModeLogging"), flags, 2)
+        this.vtbl.get_EntryTypeUser := CallbackCreate(GetMethod(implObj, "get_EntryTypeUser"), flags, 2)
+        this.vtbl.get_EntryTypeComputer := CallbackCreate(GetMethod(implObj, "get_EntryTypeComputer"), flags, 2)
+        this.vtbl.get_EntryTypeLocalGroup := CallbackCreate(GetMethod(implObj, "get_EntryTypeLocalGroup"), flags, 2)
+        this.vtbl.get_EntryTypeGlobalGroup := CallbackCreate(GetMethod(implObj, "get_EntryTypeGlobalGroup"), flags, 2)
+        this.vtbl.get_EntryTypeUniversalGroup := CallbackCreate(GetMethod(implObj, "get_EntryTypeUniversalGroup"), flags, 2)
+        this.vtbl.get_EntryTypeUNCPath := CallbackCreate(GetMethod(implObj, "get_EntryTypeUNCPath"), flags, 2)
+        this.vtbl.get_EntryTypeUnknown := CallbackCreate(GetMethod(implObj, "get_EntryTypeUnknown"), flags, 2)
+        this.vtbl.get_DestinationOptionSameAsSource := CallbackCreate(GetMethod(implObj, "get_DestinationOptionSameAsSource"), flags, 2)
+        this.vtbl.get_DestinationOptionNone := CallbackCreate(GetMethod(implObj, "get_DestinationOptionNone"), flags, 2)
+        this.vtbl.get_DestinationOptionByRelativeName := CallbackCreate(GetMethod(implObj, "get_DestinationOptionByRelativeName"), flags, 2)
+        this.vtbl.get_DestinationOptionSet := CallbackCreate(GetMethod(implObj, "get_DestinationOptionSet"), flags, 2)
+        this.vtbl.get_MigrationTableOnly := CallbackCreate(GetMethod(implObj, "get_MigrationTableOnly"), flags, 2)
+        this.vtbl.get_ProcessSecurity := CallbackCreate(GetMethod(implObj, "get_ProcessSecurity"), flags, 2)
+        this.vtbl.get_RsopLoggingNoComputer := CallbackCreate(GetMethod(implObj, "get_RsopLoggingNoComputer"), flags, 2)
+        this.vtbl.get_RsopLoggingNoUser := CallbackCreate(GetMethod(implObj, "get_RsopLoggingNoUser"), flags, 2)
+        this.vtbl.get_RsopPlanningAssumeSlowLink := CallbackCreate(GetMethod(implObj, "get_RsopPlanningAssumeSlowLink"), flags, 2)
+        this.vtbl.get_RsopPlanningLoopbackOption := CallbackCreate(GetMethod(implObj, "get_RsopPlanningLoopbackOption"), flags, 3)
+        this.vtbl.get_RsopPlanningAssumeUserWQLFilterTrue := CallbackCreate(GetMethod(implObj, "get_RsopPlanningAssumeUserWQLFilterTrue"), flags, 2)
+        this.vtbl.get_RsopPlanningAssumeCompWQLFilterTrue := CallbackCreate(GetMethod(implObj, "get_RsopPlanningAssumeCompWQLFilterTrue"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_PermGPOApply)
+        CallbackFree(this.vtbl.get_PermGPORead)
+        CallbackFree(this.vtbl.get_PermGPOEdit)
+        CallbackFree(this.vtbl.get_PermGPOEditSecurityAndDelete)
+        CallbackFree(this.vtbl.get_PermGPOCustom)
+        CallbackFree(this.vtbl.get_PermWMIFilterEdit)
+        CallbackFree(this.vtbl.get_PermWMIFilterFullControl)
+        CallbackFree(this.vtbl.get_PermWMIFilterCustom)
+        CallbackFree(this.vtbl.get_PermSOMLink)
+        CallbackFree(this.vtbl.get_PermSOMLogging)
+        CallbackFree(this.vtbl.get_PermSOMPlanning)
+        CallbackFree(this.vtbl.get_PermSOMGPOCreate)
+        CallbackFree(this.vtbl.get_PermSOMWMICreate)
+        CallbackFree(this.vtbl.get_PermSOMWMIFullControl)
+        CallbackFree(this.vtbl.get_SearchPropertyGPOPermissions)
+        CallbackFree(this.vtbl.get_SearchPropertyGPOEffectivePermissions)
+        CallbackFree(this.vtbl.get_SearchPropertyGPODisplayName)
+        CallbackFree(this.vtbl.get_SearchPropertyGPOWMIFilter)
+        CallbackFree(this.vtbl.get_SearchPropertyGPOID)
+        CallbackFree(this.vtbl.get_SearchPropertyGPOComputerExtensions)
+        CallbackFree(this.vtbl.get_SearchPropertyGPOUserExtensions)
+        CallbackFree(this.vtbl.get_SearchPropertySOMLinks)
+        CallbackFree(this.vtbl.get_SearchPropertyGPODomain)
+        CallbackFree(this.vtbl.get_SearchPropertyBackupMostRecent)
+        CallbackFree(this.vtbl.get_SearchOpEquals)
+        CallbackFree(this.vtbl.get_SearchOpContains)
+        CallbackFree(this.vtbl.get_SearchOpNotContains)
+        CallbackFree(this.vtbl.get_SearchOpNotEquals)
+        CallbackFree(this.vtbl.get_UsePDC)
+        CallbackFree(this.vtbl.get_UseAnyDC)
+        CallbackFree(this.vtbl.get_DoNotUseW2KDC)
+        CallbackFree(this.vtbl.get_SOMSite)
+        CallbackFree(this.vtbl.get_SOMDomain)
+        CallbackFree(this.vtbl.get_SOMOU)
+        CallbackFree(this.vtbl.get_SecurityFlags)
+        CallbackFree(this.vtbl.get_DoNotValidateDC)
+        CallbackFree(this.vtbl.get_ReportHTML)
+        CallbackFree(this.vtbl.get_ReportXML)
+        CallbackFree(this.vtbl.get_RSOPModeUnknown)
+        CallbackFree(this.vtbl.get_RSOPModePlanning)
+        CallbackFree(this.vtbl.get_RSOPModeLogging)
+        CallbackFree(this.vtbl.get_EntryTypeUser)
+        CallbackFree(this.vtbl.get_EntryTypeComputer)
+        CallbackFree(this.vtbl.get_EntryTypeLocalGroup)
+        CallbackFree(this.vtbl.get_EntryTypeGlobalGroup)
+        CallbackFree(this.vtbl.get_EntryTypeUniversalGroup)
+        CallbackFree(this.vtbl.get_EntryTypeUNCPath)
+        CallbackFree(this.vtbl.get_EntryTypeUnknown)
+        CallbackFree(this.vtbl.get_DestinationOptionSameAsSource)
+        CallbackFree(this.vtbl.get_DestinationOptionNone)
+        CallbackFree(this.vtbl.get_DestinationOptionByRelativeName)
+        CallbackFree(this.vtbl.get_DestinationOptionSet)
+        CallbackFree(this.vtbl.get_MigrationTableOnly)
+        CallbackFree(this.vtbl.get_ProcessSecurity)
+        CallbackFree(this.vtbl.get_RsopLoggingNoComputer)
+        CallbackFree(this.vtbl.get_RsopLoggingNoUser)
+        CallbackFree(this.vtbl.get_RsopPlanningAssumeSlowLink)
+        CallbackFree(this.vtbl.get_RsopPlanningLoopbackOption)
+        CallbackFree(this.vtbl.get_RsopPlanningAssumeUserWQLFilterTrue)
+        CallbackFree(this.vtbl.get_RsopPlanningAssumeCompWQLFilterTrue)
     }
 }

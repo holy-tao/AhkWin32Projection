@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifiers how to create alternates from a best result string.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/rectypes/ne-rectypes-alt_breaks
  * @namespace Windows.Win32.UI.TabletPC
  */
-class ALT_BREAKS extends Win32Enum {
+export default struct ALT_BREAKS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * An alternate must use the same segment breaks as the best result string. For example, if you ask for an alternate list for the best result string of "together", the recognizer may return "Tunisia" but not "to get her". This is because "to get her" involves different segment breaks.

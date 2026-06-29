@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509Attribute.ahk
-#Include .\IX509Extensions.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import ".\IX509Attribute.ahk" { IX509Attribute }
+#Import ".\IX509Extensions.ahk" { IX509Extensions }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Defines methods and properties that initialize and retrieve certificate extensions in a certificate request.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509attributeextensions
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IX509AttributeExtensions extends IX509Attribute {
-
-    static sizeof => A_PtrSize
+export default struct IX509AttributeExtensions extends IX509Attribute {
     /**
      * The interface identifier for IX509AttributeExtensions
      * @type {Guid}
      */
-    static IID => Guid("{728ab324-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab324-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 10
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IX509AttributeExtensions interfaces
+    */
+    struct Vtbl extends IX509Attribute.Vtbl {
+        InitializeEncode   : IntPtr
+        InitializeDecode   : IntPtr
+        get_X509Extensions : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializeEncode", "InitializeDecode", "get_X509Extensions"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IX509AttributeExtensions.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IX509Extensions} 
@@ -72,7 +84,7 @@ class IX509AttributeExtensions extends IX509Attribute {
     InitializeDecode(Encoding, strEncodedData) {
         strEncodedData := strEncodedData is String ? BSTR.Alloc(strEncodedData).Value : strEncodedData
 
-        result := ComCall(11, this, "int", Encoding, "ptr", strEncodedData, "HRESULT")
+        result := ComCall(11, this, EncodingType, Encoding, BSTR, strEncodedData, "HRESULT")
         return result
     }
 
@@ -86,5 +98,29 @@ class IX509AttributeExtensions extends IX509Attribute {
     get_X509Extensions() {
         result := ComCall(12, this, "ptr*", &ppValue := 0, "HRESULT")
         return IX509Extensions(ppValue)
+    }
+
+    Query(iid) {
+        if (IX509AttributeExtensions.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializeEncode := CallbackCreate(GetMethod(implObj, "InitializeEncode"), flags, 2)
+        this.vtbl.InitializeDecode := CallbackCreate(GetMethod(implObj, "InitializeDecode"), flags, 3)
+        this.vtbl.get_X509Extensions := CallbackCreate(GetMethod(implObj, "get_X509Extensions"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializeEncode)
+        CallbackFree(this.vtbl.InitializeDecode)
+        CallbackFree(this.vtbl.get_X509Extensions)
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the securable objects used by Native Wifi Functions.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_securable_object
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WLAN_SECURABLE_OBJECT extends Win32Enum {
+export default struct WLAN_SECURABLE_OBJECT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The permissions for modifying the permit list for user profiles.

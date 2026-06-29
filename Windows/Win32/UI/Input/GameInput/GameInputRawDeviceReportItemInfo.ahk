@@ -1,128 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\GameInputRawDevicePhysicalUnitKind.ahk
-#Include .\GameInputRawDeviceReportItemFlags.ahk
-#Include .\GameInputUsage.ahk
-#Include .\GameInputRawDeviceItemCollectionInfo.ahk
-#Include .\GameInputString.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GameInputRawDeviceItemCollectionInfo.ahk" { GameInputRawDeviceItemCollectionInfo }
+#Import ".\GameInputRawDevicePhysicalUnitKind.ahk" { GameInputRawDevicePhysicalUnitKind }
+#Import ".\GameInputString.ahk" { GameInputString }
+#Import ".\GameInputUsage.ahk" { GameInputUsage }
+#Import ".\GameInputRawDeviceReportItemFlags.ahk" { GameInputRawDeviceReportItemFlags }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
  */
-class GameInputRawDeviceReportItemInfo extends Win32Struct {
-    static sizeof => 88
+export default struct GameInputRawDeviceReportItemInfo {
+    #StructPack 8
 
-    static packingSize => 8
+    bitOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    bitOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    bitSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    bitSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    logicalMin : Int64
 
-    /**
-     * @type {Integer}
-     */
-    logicalMin {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    logicalMax : Int64
 
-    /**
-     * @type {Integer}
-     */
-    logicalMax {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    physicalMin : Float64
 
-    /**
-     * @type {Float}
-     */
-    physicalMin {
-        get => NumGet(this, 24, "double")
-        set => NumPut("double", value, this, 24)
-    }
+    physicalMax : Float64
 
-    /**
-     * @type {Float}
-     */
-    physicalMax {
-        get => NumGet(this, 32, "double")
-        set => NumPut("double", value, this, 32)
-    }
+    physicalUnits : GameInputRawDevicePhysicalUnitKind
 
-    /**
-     * @type {GameInputRawDevicePhysicalUnitKind}
-     */
-    physicalUnits {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    rawPhysicalUnits : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    rawPhysicalUnits {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    rawPhysicalUnitsExponent : Int32
 
-    /**
-     * @type {Integer}
-     */
-    rawPhysicalUnitsExponent {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    flags : GameInputRawDeviceReportItemFlags
 
-    /**
-     * @type {GameInputRawDeviceReportItemFlags}
-     */
-    flags {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    usageCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    usageCount {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    usages : GameInputUsage.Ptr
 
-    /**
-     * @type {Pointer<GameInputUsage>}
-     */
-    usages {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    collection : GameInputRawDeviceItemCollectionInfo.Ptr
 
-    /**
-     * @type {Pointer<GameInputRawDeviceItemCollectionInfo>}
-     */
-    collection {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    itemString : GameInputString.Ptr
 
-    /**
-     * @type {Pointer<GameInputString>}
-     */
-    itemString {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
 }

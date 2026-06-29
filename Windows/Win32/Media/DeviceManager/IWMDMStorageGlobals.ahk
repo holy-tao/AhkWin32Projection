@@ -1,34 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\WMDMID.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WMDMID.ahk" { WMDMID }
+#Import ".\IWMDMProgress.ahk" { IWMDMProgress }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMDMStorageGlobals interface provides methods for retrieving global information about a storage medium (such as a flash ROM card) on a device.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmstorageglobals
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class IWMDMStorageGlobals extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMDMStorageGlobals extends IUnknown {
     /**
      * The interface identifier for IWMDMStorageGlobals
      * @type {Guid}
      */
-    static IID => Guid("{1dcb3a07-33ed-11d3-8470-00c04f79dbc0}")
+    static IID := Guid("{1dcb3a07-33ed-11d3-8470-00c04f79dbc0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMDMStorageGlobals interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCapabilities : IntPtr
+        GetSerialNumber : IntPtr
+        GetTotalSize    : IntPtr
+        GetTotalFree    : IntPtr
+        GetTotalBad     : IntPtr
+        GetStatus       : IntPtr
+        Initialize      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCapabilities", "GetSerialNumber", "GetTotalSize", "GetTotalFree", "GetTotalBad", "GetStatus", "Initialize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMDMStorageGlobals.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetCapabilities method retrieves the capabilities of the root storage medium.
@@ -52,7 +67,7 @@ class IWMDMStorageGlobals extends IUnknown {
         abMacMarshal := abMac is VarRef ? "char*" : "ptr"
 
         pSerialNum := WMDMID()
-        result := ComCall(4, this, "ptr", pSerialNum, abMacMarshal, abMac, "HRESULT")
+        result := ComCall(4, this, WMDMID.Ptr, pSerialNum, abMacMarshal, abMac, "HRESULT")
         return pSerialNum
     }
 
@@ -211,5 +226,37 @@ class IWMDMStorageGlobals extends IUnknown {
     Initialize(fuMode, pProgress) {
         result := ComCall(9, this, "uint", fuMode, "ptr", pProgress, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMDMStorageGlobals.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCapabilities := CallbackCreate(GetMethod(implObj, "GetCapabilities"), flags, 2)
+        this.vtbl.GetSerialNumber := CallbackCreate(GetMethod(implObj, "GetSerialNumber"), flags, 3)
+        this.vtbl.GetTotalSize := CallbackCreate(GetMethod(implObj, "GetTotalSize"), flags, 3)
+        this.vtbl.GetTotalFree := CallbackCreate(GetMethod(implObj, "GetTotalFree"), flags, 3)
+        this.vtbl.GetTotalBad := CallbackCreate(GetMethod(implObj, "GetTotalBad"), flags, 3)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCapabilities)
+        CallbackFree(this.vtbl.GetSerialNumber)
+        CallbackFree(this.vtbl.GetTotalSize)
+        CallbackFree(this.vtbl.GetTotalFree)
+        CallbackFree(this.vtbl.GetTotalBad)
+        CallbackFree(this.vtbl.GetStatus)
+        CallbackFree(this.vtbl.Initialize)
     }
 }

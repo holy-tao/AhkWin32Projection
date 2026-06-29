@@ -1,67 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class QUERY_ON_CREATE_FILE_LX_INFORMATION extends Win32Struct {
-    static sizeof => 28
+export default struct QUERY_ON_CREATE_FILE_LX_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
+    EffectiveAccess : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EffectiveAccess {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    LxFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LxFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    LxUid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LxUid {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    LxGid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LxGid {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    LxMode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LxMode {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    LxDeviceIdMajor : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LxDeviceIdMajor {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    LxDeviceIdMinor : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LxDeviceIdMinor {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

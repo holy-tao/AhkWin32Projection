@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The XLATEOBJ structure is used to translate color indexes from one palette to another.
@@ -10,61 +9,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-xlateobj
  * @namespace Windows.Win32.Devices.Display
  */
-class XLATEOBJ extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct XLATEOBJ {
+    #StructPack 8
 
     /**
      * A cache identifier that enables the driver to recognize an XLATEOBJ structure that it has previously cached. If this member is zero, the driver should not cache the XLATEOBJ structure.
-     * @type {Integer}
      */
-    iUniq {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    iUniq : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    flXlate {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    flXlate : UInt32
 
     /**
      * Is obsolete. Use <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-xlateobj_cgetpalette">XLATEOBJ_cGetPalette</a> to query the source format.
-     * @type {Integer}
      */
-    iSrcType {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    iSrcType : UInt16
 
     /**
      * Is obsolete. Use <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-xlateobj_cgetpalette">XLATEOBJ_cGetPalette</a> to query the destination format.
-     * @type {Integer}
      */
-    iDstType {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    iDstType : UInt16
 
     /**
      * Specifies the number of entries in the array pointed to by the <b>pulXlate</b> member. Indexing into <b>pulXlate</b> with a value greater than <b>cEntries</b> results in a memory access violation.
-     * @type {Integer}
      */
-    cEntries {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    cEntries : UInt32
 
     /**
      * Pointer to an array of translation entries.
-     * @type {Pointer<Integer>}
      */
-    pulXlate {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pulXlate : IntPtr
+
 }

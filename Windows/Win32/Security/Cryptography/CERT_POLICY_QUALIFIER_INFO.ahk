@@ -1,35 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The CERT_POLICY_QUALIFIER_INFO structure contains an object identifier (OID) specifying the qualifier and qualifier-specific supplemental information.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_policy_qualifier_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_POLICY_QUALIFIER_INFO extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct CERT_POLICY_QUALIFIER_INFO {
+    #StructPack 8
 
     /**
      * OID specifying the qualifier.
-     * @type {PSTR}
      */
-    pszPolicyQualifierId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pszPolicyQualifierId : PSTR
 
     /**
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_OBJID_BLOB</a> structure that contains qualifier specific supplemental information.
-     * @type {CRYPT_INTEGER_BLOB}
      */
-    Qualifier {
-        get {
-            if(!this.HasProp("__Qualifier"))
-                this.__Qualifier := CRYPT_INTEGER_BLOB(8, this)
-            return this.__Qualifier
-        }
-    }
+    Qualifier : CRYPT_INTEGER_BLOB
+
 }

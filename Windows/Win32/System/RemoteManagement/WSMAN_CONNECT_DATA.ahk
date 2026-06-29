@@ -1,26 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSMAN_DATA.ahk
-#Include .\WSManDataType.ahk
-#Include .\WSMAN_DATA_TEXT.ahk
-#Include .\WSMAN_DATA_BINARY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WSMAN_DATA.ahk" { WSMAN_DATA }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WSMAN_DATA_BINARY.ahk" { WSMAN_DATA_BINARY }
+#Import ".\WSManDataType.ahk" { WSManDataType }
+#Import ".\WSMAN_DATA_TEXT.ahk" { WSMAN_DATA_TEXT }
 
 /**
  * @namespace Windows.Win32.System.RemoteManagement
  */
-class WSMAN_CONNECT_DATA extends Win32Struct {
-    static sizeof => 24
+export default struct WSMAN_CONNECT_DATA {
+    #StructPack 8
 
-    static packingSize => 8
+    data : WSMAN_DATA
 
-    /**
-     * @type {WSMAN_DATA}
-     */
-    data {
-        get {
-            if(!this.HasProp("__data"))
-                this.__data := WSMAN_DATA(0, this)
-            return this.__data
-        }
-    }
 }

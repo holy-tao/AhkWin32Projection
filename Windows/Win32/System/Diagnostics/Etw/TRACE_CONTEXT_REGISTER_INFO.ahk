@@ -1,28 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\ETW_CONTEXT_REGISTER_TYPES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ETW_CONTEXT_REGISTER_TYPES.ahk" { ETW_CONTEXT_REGISTER_TYPES }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class TRACE_CONTEXT_REGISTER_INFO extends Win32Struct {
-    static sizeof => 8
+export default struct TRACE_CONTEXT_REGISTER_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    RegisterTypes : ETW_CONTEXT_REGISTER_TYPES
 
-    /**
-     * @type {ETW_CONTEXT_REGISTER_TYPES}
-     */
-    RegisterTypes {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
 }

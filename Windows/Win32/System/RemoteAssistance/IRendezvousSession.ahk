@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\RENDEZVOUS_SESSION_STATE.ahk" { RENDEZVOUS_SESSION_STATE }
 
 /**
  * Exposes methods that send data about the session and that can terminate it.
@@ -15,26 +17,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/rendezvoussession/nn-rendezvoussession-irendezvoussession
  * @namespace Windows.Win32.System.RemoteAssistance
  */
-class IRendezvousSession extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRendezvousSession extends IUnknown {
     /**
      * The interface identifier for IRendezvousSession
      * @type {Guid}
      */
-    static IID => Guid("{9ba4b1dd-8b0c-48b7-9e7c-2f25857c8df5}")
+    static IID := Guid("{9ba4b1dd-8b0c-48b7-9e7c-2f25857c8df5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRendezvousSession interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_State       : IntPtr
+        get_RemoteUser  : IntPtr
+        get_Flags       : IntPtr
+        SendContextData : IntPtr
+        Terminate       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_State", "get_RemoteUser", "get_Flags", "SendContextData", "Terminate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRendezvousSession.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {RENDEZVOUS_SESSION_STATE} 
@@ -73,8 +86,8 @@ class IRendezvousSession extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rendezvoussession/nf-rendezvoussession-irendezvoussession-get_remoteuser
      */
     get_RemoteUser() {
-        bstrUserName := BSTR()
-        result := ComCall(4, this, "ptr", bstrUserName, "HRESULT")
+        bstrUserName := BSTR.Owned()
+        result := ComCall(4, this, BSTR.Ptr, bstrUserName, "HRESULT")
         return bstrUserName
     }
 
@@ -137,7 +150,7 @@ class IRendezvousSession extends IUnknown {
     SendContextData(bstrData) {
         bstrData := bstrData is String ? BSTR.Alloc(bstrData).Value : bstrData
 
-        result := ComCall(6, this, "ptr", bstrData, "HRESULT")
+        result := ComCall(6, this, BSTR, bstrData, "HRESULT")
         return result
     }
 
@@ -151,7 +164,35 @@ class IRendezvousSession extends IUnknown {
     Terminate(hr, bstrAppData) {
         bstrAppData := bstrAppData is String ? BSTR.Alloc(bstrAppData).Value : bstrAppData
 
-        result := ComCall(7, this, "int", hr, "ptr", bstrAppData, "HRESULT")
+        result := ComCall(7, this, "int", hr, BSTR, bstrAppData, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRendezvousSession.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.get_RemoteUser := CallbackCreate(GetMethod(implObj, "get_RemoteUser"), flags, 2)
+        this.vtbl.get_Flags := CallbackCreate(GetMethod(implObj, "get_Flags"), flags, 2)
+        this.vtbl.SendContextData := CallbackCreate(GetMethod(implObj, "SendContextData"), flags, 2)
+        this.vtbl.Terminate := CallbackCreate(GetMethod(implObj, "Terminate"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_State)
+        CallbackFree(this.vtbl.get_RemoteUser)
+        CallbackFree(this.vtbl.get_Flags)
+        CallbackFree(this.vtbl.SendContextData)
+        CallbackFree(this.vtbl.Terminate)
     }
 }

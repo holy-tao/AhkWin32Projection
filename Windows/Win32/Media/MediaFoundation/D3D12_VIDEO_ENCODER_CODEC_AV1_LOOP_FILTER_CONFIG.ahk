@@ -1,92 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_CONFIG extends Win32Struct {
-    static sizeof => 144
+export default struct D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_CONFIG {
+    #StructPack 8
 
-    static packingSize => 8
+    LoopFilterLevel : Int64[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    LoopFilterLevel {
-        get {
-            if(!this.HasProp("__LoopFilterLevelProxyArray"))
-                this.__LoopFilterLevelProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "uint")
-            return this.__LoopFilterLevelProxyArray
-        }
-    }
+    LoopFilterLevelU : Int64
 
-    /**
-     * @type {Integer}
-     */
-    LoopFilterLevelU {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    LoopFilterLevelV : Int64
 
-    /**
-     * @type {Integer}
-     */
-    LoopFilterLevelV {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    LoopFilterSharpnessLevel : Int64
 
-    /**
-     * @type {Integer}
-     */
-    LoopFilterSharpnessLevel {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    LoopFilterDeltaEnabled : Int64
 
-    /**
-     * @type {Integer}
-     */
-    LoopFilterDeltaEnabled {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    UpdateRefDelta : Int64
 
-    /**
-     * @type {Integer}
-     */
-    UpdateRefDelta {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    RefDeltas : Int64[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    RefDeltas {
-        get {
-            if(!this.HasProp("__RefDeltasProxyArray"))
-                this.__RefDeltasProxyArray := Win32FixedArray(this.ptr + 56, 8, Primitive, "int64")
-            return this.__RefDeltasProxyArray
-        }
-    }
+    UpdateModeDelta : Int64
 
-    /**
-     * @type {Integer}
-     */
-    UpdateModeDelta {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    ModeDeltas : Int64[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ModeDeltas {
-        get {
-            if(!this.HasProp("__ModeDeltasProxyArray"))
-                this.__ModeDeltasProxyArray := Win32FixedArray(this.ptr + 128, 2, Primitive, "int64")
-            return this.__ModeDeltasProxyArray
-        }
-    }
 }

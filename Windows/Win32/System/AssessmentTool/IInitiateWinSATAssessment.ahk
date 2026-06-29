@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWinSATInitiateEvents.ahk" { IWinSATInitiateEvents }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Initiates an assessment.
  * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nn-winsatcominterfacei-iinitiatewinsatassessment
  * @namespace Windows.Win32.System.AssessmentTool
  */
-class IInitiateWinSATAssessment extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IInitiateWinSATAssessment extends IUnknown {
     /**
      * The interface identifier for IInitiateWinSATAssessment
      * @type {Guid}
      */
-    static IID => Guid("{d983fc50-f5bf-49d5-b5ed-cccb18aa7fc1}")
+    static IID := Guid("{d983fc50-f5bf-49d5-b5ed-cccb18aa7fc1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IInitiateWinSATAssessment interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        InitiateAssessment       : IntPtr
+        InitiateFormalAssessment : IntPtr
+        CancelAssessment         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitiateAssessment", "InitiateFormalAssessment", "CancelAssessment"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IInitiateWinSATAssessment.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initiates an ad hoc assessment.
@@ -106,9 +119,8 @@ class IInitiateWinSATAssessment extends IUnknown {
      */
     InitiateAssessment(cmdLine, pCallbacks, callerHwnd) {
         cmdLine := cmdLine is String ? StrPtr(cmdLine) : cmdLine
-        callerHwnd := callerHwnd is Win32Handle ? NumGet(callerHwnd, "ptr") : callerHwnd
 
-        result := ComCall(3, this, "ptr", cmdLine, "ptr", pCallbacks, "ptr", callerHwnd, "HRESULT")
+        result := ComCall(3, this, "ptr", cmdLine, "ptr", pCallbacks, HWND, callerHwnd, "HRESULT")
         return result
     }
 
@@ -165,9 +177,7 @@ class IInitiateWinSATAssessment extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iinitiatewinsatassessment-initiateformalassessment
      */
     InitiateFormalAssessment(pCallbacks, callerHwnd) {
-        callerHwnd := callerHwnd is Win32Handle ? NumGet(callerHwnd, "ptr") : callerHwnd
-
-        result := ComCall(4, this, "ptr", pCallbacks, "ptr", callerHwnd, "HRESULT")
+        result := ComCall(4, this, "ptr", pCallbacks, HWND, callerHwnd, "HRESULT")
         return result
     }
 
@@ -200,5 +210,29 @@ class IInitiateWinSATAssessment extends IUnknown {
     CancelAssessment() {
         result := ComCall(5, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IInitiateWinSATAssessment.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitiateAssessment := CallbackCreate(GetMethod(implObj, "InitiateAssessment"), flags, 4)
+        this.vtbl.InitiateFormalAssessment := CallbackCreate(GetMethod(implObj, "InitiateFormalAssessment"), flags, 3)
+        this.vtbl.CancelAssessment := CallbackCreate(GetMethod(implObj, "CancelAssessment"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitiateAssessment)
+        CallbackFree(this.vtbl.InitiateFormalAssessment)
+        CallbackFree(this.vtbl.CancelAssessment)
     }
 }

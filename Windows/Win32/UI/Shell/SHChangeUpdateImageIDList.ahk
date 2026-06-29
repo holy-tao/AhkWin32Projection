@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * SHChangeUpdateImageIDList may be altered or unavailable.
@@ -57,80 +57,49 @@
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-shchangeupdateimageidlist
  * @namespace Windows.Win32.UI.Shell
  */
-class SHChangeUpdateImageIDList extends Win32Struct {
-    static sizeof => 544
-
-    static packingSize => 4
+export default struct SHChangeUpdateImageIDList {
+    #StructPack 4
 
     /**
      * Type: <b>USHORT</b>
      * 
      * The size of the structure, in bytes.
-     * @type {Integer}
      */
-    cb {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    cb : UInt16
 
     /**
      * Type: <b>int</b>
      * 
      * The zero-based index of the icon in the file specified by <b>szName</b>. Obtain this value by calling <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-iextracticona-geticonlocation">IExtractIcon::GetIconLocation</a> and retrieving the value pointed to by <i>piIndex</i>.
-     * @type {Integer}
      */
-    iIconIndex {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    iIconIndex : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * The zero-based index in the system image list of the icon being updated.
-     * @type {Integer}
      */
-    iCurIndex {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    iCurIndex : Int32
 
     /**
      * Type: <b>UINT</b>
      * 
      * Flags that determine the icon attributes. Obtain this value by calling <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-iextracticona-geticonlocation">IExtractIcon::GetIconLocation</a> and retrieving the value pointed to by <i>pwFlags</i>. These two flags are relevant to <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shupdateimagea">SHUpdateImage</a>.
-     * @type {Integer}
      */
-    uFlags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    uFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwProcessID {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwProcessID : UInt32
 
     /**
      * Type: <b>WCHAR[MAX_PATH]</b>
      * 
      * A null-terminated Unicode string that specifies the fully qualified path of the file that contains the icon. Obtain this value by calling <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-iextracticona-geticonlocation">IExtractIcon::GetIconLocation</a> and retrieving the value pointed to by <i>szIconFile</i>.
-     * @type {String}
      */
-    szName {
-        get => StrGet(this.ptr + 20, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 20, 259, "UTF-16")
-    }
+    szName : WCHAR[260]
 
     /**
      * Type: <b>USHORT</b>
-     * @type {Integer}
      */
-    cbZero {
-        get => NumGet(this, 540, "ushort")
-        set => NumPut("ushort", value, this, 540)
-    }
+    cbZero : UInt16
+
 }

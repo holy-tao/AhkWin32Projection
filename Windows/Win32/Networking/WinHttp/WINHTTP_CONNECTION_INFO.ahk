@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\WinSock\SOCKADDR_STORAGE.ahk
-#Include ..\WinSock\ADDRESS_FAMILY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\WinSock\SOCKADDR_STORAGE.ahk" { SOCKADDR_STORAGE }
+#Import "..\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * The WINHTTP_CONNECTION_INFO structure contains the source and destination IP address of the request that generated the response.
@@ -11,46 +11,22 @@
  * @namespace Windows.Win32.Networking.WinHttp
  * @architecture X64, Arm64
  */
-class WINHTTP_CONNECTION_INFO extends Win32Struct {
-    static sizeof => 264
-
-    static packingSize => 8
+export default struct WINHTTP_CONNECTION_INFO {
+    #StructPack 8
 
     /**
      * The size, in bytes, of the <b>WINHTTP_CONNECTION_INFO</b> structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms740504(v=vs.85)">SOCKADDR_STORAGE</a> structure that contains the local IP address and port of the original request.
-     * @type {SOCKADDR_STORAGE}
      */
-    LocalAddress {
-        get {
-            if(!this.HasProp("__LocalAddress"))
-                this.__LocalAddress := SOCKADDR_STORAGE(8, this)
-            return this.__LocalAddress
-        }
-    }
+    LocalAddress : SOCKADDR_STORAGE
 
     /**
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms740504(v=vs.85)">SOCKADDR_STORAGE</a> structure that contains the remote IP address and port of the original request.
-     * @type {SOCKADDR_STORAGE}
      */
-    RemoteAddress {
-        get {
-            if(!this.HasProp("__RemoteAddress"))
-                this.__RemoteAddress := SOCKADDR_STORAGE(136, this)
-            return this.__RemoteAddress
-        }
-    }
+    RemoteAddress : SOCKADDR_STORAGE
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 264
-    }
 }

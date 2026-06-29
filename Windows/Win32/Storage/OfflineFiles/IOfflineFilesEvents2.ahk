@@ -1,33 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IOfflineFilesEvents.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOfflineFilesEvents.ahk" { IOfflineFilesEvents }
 
 /**
  * Used to report additional events associated with Offline Files.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilesevents2
  * @namespace Windows.Win32.Storage.OfflineFiles
  */
-class IOfflineFilesEvents2 extends IOfflineFilesEvents {
-
-    static sizeof => A_PtrSize
+export default struct IOfflineFilesEvents2 extends IOfflineFilesEvents {
     /**
      * The interface identifier for IOfflineFilesEvents2
      * @type {Guid}
      */
-    static IID => Guid("{1ead8f56-ff76-4faa-a795-6f6ef792498b}")
+    static IID := Guid("{1ead8f56-ff76-4faa-a795-6f6ef792498b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 28
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOfflineFilesEvents2 interfaces
+    */
+    struct Vtbl extends IOfflineFilesEvents.Vtbl {
+        ItemReconnectBegin       : IntPtr
+        ItemReconnectEnd         : IntPtr
+        CacheEvictBegin          : IntPtr
+        CacheEvictEnd            : IntPtr
+        BackgroundSyncBegin      : IntPtr
+        BackgroundSyncEnd        : IntPtr
+        PolicyChangeDetected     : IntPtr
+        PreferenceChangeDetected : IntPtr
+        SettingsChangesApplied   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ItemReconnectBegin", "ItemReconnectEnd", "CacheEvictBegin", "CacheEvictEnd", "BackgroundSyncBegin", "BackgroundSyncEnd", "PolicyChangeDetected", "PreferenceChangeDetected", "SettingsChangesApplied"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOfflineFilesEvents2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Reports that the Offline Files service is beginning to attempt to reconnect all offline scopes.
@@ -121,5 +137,41 @@ class IOfflineFilesEvents2 extends IOfflineFilesEvents {
     SettingsChangesApplied() {
         result := ComCall(36, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOfflineFilesEvents2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ItemReconnectBegin := CallbackCreate(GetMethod(implObj, "ItemReconnectBegin"), flags, 1)
+        this.vtbl.ItemReconnectEnd := CallbackCreate(GetMethod(implObj, "ItemReconnectEnd"), flags, 1)
+        this.vtbl.CacheEvictBegin := CallbackCreate(GetMethod(implObj, "CacheEvictBegin"), flags, 1)
+        this.vtbl.CacheEvictEnd := CallbackCreate(GetMethod(implObj, "CacheEvictEnd"), flags, 1)
+        this.vtbl.BackgroundSyncBegin := CallbackCreate(GetMethod(implObj, "BackgroundSyncBegin"), flags, 2)
+        this.vtbl.BackgroundSyncEnd := CallbackCreate(GetMethod(implObj, "BackgroundSyncEnd"), flags, 2)
+        this.vtbl.PolicyChangeDetected := CallbackCreate(GetMethod(implObj, "PolicyChangeDetected"), flags, 1)
+        this.vtbl.PreferenceChangeDetected := CallbackCreate(GetMethod(implObj, "PreferenceChangeDetected"), flags, 1)
+        this.vtbl.SettingsChangesApplied := CallbackCreate(GetMethod(implObj, "SettingsChangesApplied"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ItemReconnectBegin)
+        CallbackFree(this.vtbl.ItemReconnectEnd)
+        CallbackFree(this.vtbl.CacheEvictBegin)
+        CallbackFree(this.vtbl.CacheEvictEnd)
+        CallbackFree(this.vtbl.BackgroundSyncBegin)
+        CallbackFree(this.vtbl.BackgroundSyncEnd)
+        CallbackFree(this.vtbl.PolicyChangeDetected)
+        CallbackFree(this.vtbl.PreferenceChangeDetected)
+        CallbackFree(this.vtbl.SettingsChangesApplied)
     }
 }

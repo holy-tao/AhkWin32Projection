@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Notifies the subscriber of events that relate to COM+ transactions.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomltxevents
  * @namespace Windows.Win32.System.ComponentServices
  */
-class IComLTxEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IComLTxEvents extends IUnknown {
     /**
      * The interface identifier for IComLTxEvents
      * @type {Guid}
      */
-    static IID => Guid("{605cf82c-578e-4298-975d-82babcd9e053}")
+    static IID := Guid("{605cf82c-578e-4298-975d-82babcd9e053}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IComLTxEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnLtxTransactionStart   : IntPtr
+        OnLtxTransactionPrepare : IntPtr
+        OnLtxTransactionAbort   : IntPtr
+        OnLtxTransactionCommit  : IntPtr
+        OnLtxTransactionPromote : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnLtxTransactionStart", "OnLtxTransactionPrepare", "OnLtxTransactionAbort", "OnLtxTransactionCommit", "OnLtxTransactionPromote"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IComLTxEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Generated when a transaction is started.
@@ -40,7 +54,7 @@ class IComLTxEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomltxevents-onltxtransactionstart
      */
     OnLtxTransactionStart(pInfo, guidLtx, tsid, fRoot, nIsolationLevel) {
-        result := ComCall(3, this, "ptr", pInfo, "ptr", guidLtx, "ptr", tsid, "int", fRoot, "int", nIsolationLevel, "HRESULT")
+        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid, guidLtx, Guid, tsid, BOOL, fRoot, "int", nIsolationLevel, "HRESULT")
         return result
     }
 
@@ -53,7 +67,7 @@ class IComLTxEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomltxevents-onltxtransactionprepare
      */
     OnLtxTransactionPrepare(pInfo, guidLtx, fVote) {
-        result := ComCall(4, this, "ptr", pInfo, "ptr", guidLtx, "int", fVote, "HRESULT")
+        result := ComCall(4, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid, guidLtx, BOOL, fVote, "HRESULT")
         return result
     }
 
@@ -65,7 +79,7 @@ class IComLTxEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomltxevents-onltxtransactionabort
      */
     OnLtxTransactionAbort(pInfo, guidLtx) {
-        result := ComCall(5, this, "ptr", pInfo, "ptr", guidLtx, "HRESULT")
+        result := ComCall(5, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid, guidLtx, "HRESULT")
         return result
     }
 
@@ -77,7 +91,7 @@ class IComLTxEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomltxevents-onltxtransactioncommit
      */
     OnLtxTransactionCommit(pInfo, guidLtx) {
-        result := ComCall(6, this, "ptr", pInfo, "ptr", guidLtx, "HRESULT")
+        result := ComCall(6, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid, guidLtx, "HRESULT")
         return result
     }
 
@@ -90,7 +104,35 @@ class IComLTxEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomltxevents-onltxtransactionpromote
      */
     OnLtxTransactionPromote(pInfo, guidLtx, txnId) {
-        result := ComCall(7, this, "ptr", pInfo, "ptr", guidLtx, "ptr", txnId, "HRESULT")
+        result := ComCall(7, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid, guidLtx, Guid, txnId, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IComLTxEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnLtxTransactionStart := CallbackCreate(GetMethod(implObj, "OnLtxTransactionStart"), flags, 6)
+        this.vtbl.OnLtxTransactionPrepare := CallbackCreate(GetMethod(implObj, "OnLtxTransactionPrepare"), flags, 4)
+        this.vtbl.OnLtxTransactionAbort := CallbackCreate(GetMethod(implObj, "OnLtxTransactionAbort"), flags, 3)
+        this.vtbl.OnLtxTransactionCommit := CallbackCreate(GetMethod(implObj, "OnLtxTransactionCommit"), flags, 3)
+        this.vtbl.OnLtxTransactionPromote := CallbackCreate(GetMethod(implObj, "OnLtxTransactionPromote"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnLtxTransactionStart)
+        CallbackFree(this.vtbl.OnLtxTransactionPrepare)
+        CallbackFree(this.vtbl.OnLtxTransactionAbort)
+        CallbackFree(this.vtbl.OnLtxTransactionCommit)
+        CallbackFree(this.vtbl.OnLtxTransactionPromote)
     }
 }

@@ -1,39 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class IMAGE_INFO extends Win32Struct {
-    static sizeof => 40
+export default struct IMAGE_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    Properties : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Properties {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - ImageAddressingMode
-     * - SystemModeImage
-     * - ImageMappedToAllPids
-     * - ExtendedInfoPresent
-     * - MachineTypeMismatch
-     * - ImageSignatureLevel
-     * - ImageSignatureType
-     * - ImagePartialMap
-     * - Reserved
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
 
     /**
      * @type {Integer}
@@ -98,36 +72,16 @@ class IMAGE_INFO extends Win32Struct {
         get => (this._bitfield >> 19) & 0x1
         set => this._bitfield := ((value & 0x1) << 19) | (this._bitfield & ~(0x1 << 19))
     }
+    ImageBase : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    ImageBase {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ImageSelector : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ImageSelector {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ImageSize : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ImageSize {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ImageSectionNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ImageSectionNumber {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

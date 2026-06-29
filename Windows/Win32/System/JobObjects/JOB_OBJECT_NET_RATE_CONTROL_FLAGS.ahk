@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies types of scheduling policies for network rate control.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-job_object_net_rate_control_flags
  * @namespace Windows.Win32.System.JobObjects
  */
-class JOB_OBJECT_NET_RATE_CONTROL_FLAGS extends Win32BitflagEnum {
+export default struct JOB_OBJECT_NET_RATE_CONTROL_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Turns on the control of the network traffic. You must set this value if you also set either <b>JOB_OBJECT_NET_RATE_CONTROL_MAX_BANDWIDTH</b> or <b>JOB_OBJECT_NET_RATE_CONTROL_DSCP_TAG</b>.

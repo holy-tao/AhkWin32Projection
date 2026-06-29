@@ -1,5 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The FAX_SEND structure contains information about an outbound fax document.
@@ -10,65 +11,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxdev/ns-faxdev-fax_send
  * @namespace Windows.Win32.Devices.Fax
  */
-class FAX_SEND extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct FAX_SEND {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Specifies, in bytes, the size of the <b>FAX_SEND</b> structure. Before calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxdev/nf-faxdev-faxdevsend">FaxDevSend</a> function, the fax service sets this member to <b>sizeof</b>(<b>FAX_SEND</b>).
-     * @type {Integer}
      */
-    SizeOfStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SizeOfStruct : UInt32
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * Pointer to a null-terminated Unicode character string that specifies the full path to the file that contains the data stream for an outbound fax document. The data stream is a TIFF Class F file. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-fax-image-format">Fax Image Format</a>.
-     * @type {PWSTR}
      */
-    FileName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    FileName : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * Pointer to a null-terminated Unicode character string that specifies the name of the calling device. The FSP will send this name to the remote receiving device when the FSP sends the fax. For more information, see the following Remarks section.
-     * @type {PWSTR}
      */
-    CallerName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    CallerName : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * Pointer to a null-terminated Unicode character string that specifies the telephone number of the calling device. (This number is also the TSID.) The FSP will send this number to the remote receiving device when the FSP sends the fax. For more information, see the following Remarks section.
-     * @type {PWSTR}
      */
-    CallerNumber {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    CallerNumber : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * Pointer to a null-terminated Unicode character string that specifies the name of the device that will receive the outbound fax document.
-     * @type {PWSTR}
      */
-    ReceiverName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    ReceiverName : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
@@ -76,46 +55,28 @@ class FAX_SEND extends Win32Struct {
      * Pointer to a null-terminated Unicode character string that specifies the telephone number of the device that will receive the outbound fax document. This is the telephone number that the FSP will dial.
      * 
      * If you specify the <b>CallHandle</b> member, the <b>ReceiverNumber</b> member must be <b>NULL</b>.
-     * @type {PWSTR}
      */
-    ReceiverNumber {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    ReceiverNumber : PWSTR
 
     /**
      * Type: <b>BOOL</b>
      * 
      * Reserved.
-     * @type {BOOL}
      */
-    Branding {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    Branding : BOOL
 
     /**
      * Type: <b>HCALL</b>
      * 
      * Reserved; must be set to <b>NULL</b>.
-     * @type {Integer}
      */
-    CallHandle {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    CallHandle : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * This member is reserved  by Microsoft. It must be set to zero.
-     * @type {Array<Integer>}
      */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 56, 3, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
-    }
+    Reserved : UInt32[3]
+
 }

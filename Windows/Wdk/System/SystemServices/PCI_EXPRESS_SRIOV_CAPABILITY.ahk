@@ -1,150 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCI_EXPRESS_SRIOV_CAPABILITY extends Win32Struct {
-    static sizeof => 88
+export default struct PCI_EXPRESS_SRIOV_CAPABILITY {
+    #StructPack 8
 
-    static packingSize => 8
+    Header : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Header {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    SRIOVCapabilities : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    SRIOVCapabilities {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    SRIOVControl : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    SRIOVControl {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    SRIOVStatus : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    SRIOVStatus {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    InitialVFs : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    InitialVFs {
-        get => NumGet(this, 32, "ushort")
-        set => NumPut("ushort", value, this, 32)
-    }
+    TotalVFs : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    TotalVFs {
-        get => NumGet(this, 34, "ushort")
-        set => NumPut("ushort", value, this, 34)
-    }
+    NumVFs : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NumVFs {
-        get => NumGet(this, 36, "ushort")
-        set => NumPut("ushort", value, this, 36)
-    }
+    FunctionDependencyLink : Int8
 
-    /**
-     * @type {Integer}
-     */
-    FunctionDependencyLink {
-        get => NumGet(this, 38, "char")
-        set => NumPut("char", value, this, 38)
-    }
+    RsvdP1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    RsvdP1 {
-        get => NumGet(this, 39, "char")
-        set => NumPut("char", value, this, 39)
-    }
+    FirstVFOffset : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    FirstVFOffset {
-        get => NumGet(this, 40, "ushort")
-        set => NumPut("ushort", value, this, 40)
-    }
+    VFStride : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    VFStride {
-        get => NumGet(this, 42, "ushort")
-        set => NumPut("ushort", value, this, 42)
-    }
+    RsvdP2 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    RsvdP2 {
-        get => NumGet(this, 44, "ushort")
-        set => NumPut("ushort", value, this, 44)
-    }
+    VFDeviceId : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    VFDeviceId {
-        get => NumGet(this, 46, "ushort")
-        set => NumPut("ushort", value, this, 46)
-    }
+    SupportedPageSizes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SupportedPageSizes {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    SystemPageSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SystemPageSize {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    BaseAddresses : UInt32[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    BaseAddresses {
-        get {
-            if(!this.HasProp("__BaseAddressesProxyArray"))
-                this.__BaseAddressesProxyArray := Win32FixedArray(this.ptr + 56, 6, Primitive, "uint")
-            return this.__BaseAddressesProxyArray
-        }
-    }
+    VFMigrationStateArrayOffset : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    VFMigrationStateArrayOffset {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
 }

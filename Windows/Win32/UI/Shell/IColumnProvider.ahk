@@ -1,9 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\SHCOLUMNINFO.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SHCOLUMNINFO.ahk" { SHCOLUMNINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SHCOLUMNDATA.ahk" { SHCOLUMNDATA }
+#Import ".\SHCOLUMNINIT.ahk" { SHCOLUMNINIT }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Exposes methods that enable the addition of custom columns in the Windows Explorer Details view.
@@ -37,26 +41,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/shlobj/nn-shlobj-icolumnprovider
  * @namespace Windows.Win32.UI.Shell
  */
-class IColumnProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IColumnProvider extends IUnknown {
     /**
      * The interface identifier for IColumnProvider
      * @type {Guid}
      */
-    static IID => Guid("{e8025004-1c42-11d2-be2c-00a0c9a83da1}")
+    static IID := Guid("{e8025004-1c42-11d2-be2c-00a0c9a83da1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IColumnProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize    : IntPtr
+        GetColumnInfo : IntPtr
+        GetItemData   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetColumnInfo", "GetItemData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IColumnProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes an IColumnProvider interface.
@@ -69,7 +82,7 @@ class IColumnProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-icolumnprovider-initialize
      */
     Initialize(psci) {
-        result := ComCall(3, this, "ptr", psci, "HRESULT")
+        result := ComCall(3, this, SHCOLUMNINIT.Ptr, psci, "HRESULT")
         return result
     }
 
@@ -87,7 +100,7 @@ class IColumnProvider extends IUnknown {
      */
     GetColumnInfo(dwIndex) {
         psci := SHCOLUMNINFO()
-        result := ComCall(4, this, "uint", dwIndex, "ptr", psci, "HRESULT")
+        result := ComCall(4, this, "uint", dwIndex, SHCOLUMNINFO.Ptr, psci, "HRESULT")
         return psci
     }
 
@@ -110,7 +123,31 @@ class IColumnProvider extends IUnknown {
      */
     GetItemData(pscid, pscd) {
         pvarData := VARIANT()
-        result := ComCall(5, this, "ptr", pscid, "ptr", pscd, "ptr", pvarData, "HRESULT")
+        result := ComCall(5, this, PROPERTYKEY.Ptr, pscid, SHCOLUMNDATA.Ptr, pscd, VARIANT.Ptr, pvarData, "HRESULT")
         return pvarData
+    }
+
+    Query(iid) {
+        if (IColumnProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.GetColumnInfo := CallbackCreate(GetMethod(implObj, "GetColumnInfo"), flags, 3)
+        this.vtbl.GetItemData := CallbackCreate(GetMethod(implObj, "GetItemData"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetColumnInfo)
+        CallbackFree(this.vtbl.GetItemData)
     }
 }

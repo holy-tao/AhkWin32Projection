@@ -1,35 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\MPEG_DATE_AND_TIME.ahk
-#Include .\IGenericDescriptor.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISectionList.ahk" { ISectionList }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MPEG_DATE_AND_TIME.ahk" { MPEG_DATE_AND_TIME }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvb_tot
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IDVB_TOT extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDVB_TOT extends IUnknown {
     /**
      * The interface identifier for IDVB_TOT
      * @type {Guid}
      */
-    static IID => Guid("{83295d6a-faba-4ee1-9b15-8067696910ae}")
+    static IID := Guid("{83295d6a-faba-4ee1-9b15-8067696910ae}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDVB_TOT interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize                 : IntPtr
+        GetUTCTime                 : IntPtr
+        GetCountOfTableDescriptors : IntPtr
+        GetTableDescriptorByIndex  : IntPtr
+        GetTableDescriptorByTag    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetUTCTime", "GetCountOfTableDescriptors", "GetTableDescriptorByIndex", "GetTableDescriptorByTag"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDVB_TOT.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
@@ -100,7 +113,7 @@ class IDVB_TOT extends IUnknown {
      */
     GetUTCTime() {
         pmdtVal := MPEG_DATE_AND_TIME()
-        result := ComCall(4, this, "ptr", pmdtVal, "HRESULT")
+        result := ComCall(4, this, MPEG_DATE_AND_TIME.Ptr, pmdtVal, "HRESULT")
         return pmdtVal
     }
 
@@ -139,5 +152,33 @@ class IDVB_TOT extends IUnknown {
 
         result := ComCall(7, this, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
+    }
+
+    Query(iid) {
+        if (IDVB_TOT.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.GetUTCTime := CallbackCreate(GetMethod(implObj, "GetUTCTime"), flags, 2)
+        this.vtbl.GetCountOfTableDescriptors := CallbackCreate(GetMethod(implObj, "GetCountOfTableDescriptors"), flags, 2)
+        this.vtbl.GetTableDescriptorByIndex := CallbackCreate(GetMethod(implObj, "GetTableDescriptorByIndex"), flags, 3)
+        this.vtbl.GetTableDescriptorByTag := CallbackCreate(GetMethod(implObj, "GetTableDescriptorByTag"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetUTCTime)
+        CallbackFree(this.vtbl.GetCountOfTableDescriptors)
+        CallbackFree(this.vtbl.GetTableDescriptorByIndex)
+        CallbackFree(this.vtbl.GetTableDescriptorByTag)
     }
 }

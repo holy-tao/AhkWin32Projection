@@ -1,31 +1,96 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\COR_FIELD_OFFSET.ahk" { COR_FIELD_OFFSET }
+#Import "..\..\Com\IStream.ahk" { IStream }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMetaDataAssemblyEmit.ahk" { IMetaDataAssemblyEmit }
+#Import ".\IMapToken.ahk" { IMapToken }
+#Import ".\CorSaveSize.ahk" { CorSaveSize }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\COR_SECATTR.ahk" { COR_SECATTR }
+#Import ".\IMetaDataAssemblyImport.ahk" { IMetaDataAssemblyImport }
+#Import ".\IMetaDataImport.ahk" { IMetaDataImport }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
  */
-class IMetaDataEmit extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMetaDataEmit extends IUnknown {
     /**
      * The interface identifier for IMetaDataEmit
      * @type {Guid}
      */
-    static IID => Guid("{ba3fee4c-ecb9-4e41-83b7-183fa41cd859}")
+    static IID := Guid("{ba3fee4c-ecb9-4e41-83b7-183fa41cd859}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMetaDataEmit interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetModuleProps             : IntPtr
+        Save                       : IntPtr
+        SaveToStream               : IntPtr
+        GetSaveSize                : IntPtr
+        DefineTypeDef              : IntPtr
+        DefineNestedType           : IntPtr
+        SetHandler                 : IntPtr
+        DefineMethod               : IntPtr
+        DefineMethodImpl           : IntPtr
+        DefineTypeRefByName        : IntPtr
+        DefineImportType           : IntPtr
+        DefineMemberRef            : IntPtr
+        DefineImportMember         : IntPtr
+        DefineEvent                : IntPtr
+        SetClassLayout             : IntPtr
+        DeleteClassLayout          : IntPtr
+        SetFieldMarshal            : IntPtr
+        DeleteFieldMarshal         : IntPtr
+        DefinePermissionSet        : IntPtr
+        SetRVA                     : IntPtr
+        GetTokenFromSig            : IntPtr
+        DefineModuleRef            : IntPtr
+        SetParent                  : IntPtr
+        GetTokenFromTypeSpec       : IntPtr
+        SaveToMemory               : IntPtr
+        DefineUserString           : IntPtr
+        DeleteToken                : IntPtr
+        SetMethodProps             : IntPtr
+        SetTypeDefProps            : IntPtr
+        SetEventProps              : IntPtr
+        SetPermissionSetProps      : IntPtr
+        DefinePinvokeMap           : IntPtr
+        SetPinvokeMap              : IntPtr
+        DeletePinvokeMap           : IntPtr
+        DefineCustomAttribute      : IntPtr
+        SetCustomAttributeValue    : IntPtr
+        DefineField                : IntPtr
+        DefineProperty             : IntPtr
+        DefineParam                : IntPtr
+        SetFieldProps              : IntPtr
+        SetPropertyProps           : IntPtr
+        SetParamProps              : IntPtr
+        DefineSecurityAttributeSet : IntPtr
+        ApplyEditAndContinue       : IntPtr
+        TranslateSigWithScope      : IntPtr
+        SetMethodImplFlags         : IntPtr
+        SetFieldRVA                : IntPtr
+        Merge                      : IntPtr
+        MergeEnd                   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetModuleProps", "Save", "SaveToStream", "GetSaveSize", "DefineTypeDef", "DefineNestedType", "SetHandler", "DefineMethod", "DefineMethodImpl", "DefineTypeRefByName", "DefineImportType", "DefineMemberRef", "DefineImportMember", "DefineEvent", "SetClassLayout", "DeleteClassLayout", "SetFieldMarshal", "DeleteFieldMarshal", "DefinePermissionSet", "SetRVA", "GetTokenFromSig", "DefineModuleRef", "SetParent", "GetTokenFromTypeSpec", "SaveToMemory", "DefineUserString", "DeleteToken", "SetMethodProps", "SetTypeDefProps", "SetEventProps", "SetPermissionSetProps", "DefinePinvokeMap", "SetPinvokeMap", "DeletePinvokeMap", "DefineCustomAttribute", "SetCustomAttributeValue", "DefineField", "DefineProperty", "DefineParam", "SetFieldProps", "SetPropertyProps", "SetParamProps", "DefineSecurityAttributeSet", "ApplyEditAndContinue", "TranslateSigWithScope", "SetMethodImplFlags", "SetFieldRVA", "Merge", "MergeEnd"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMetaDataEmit.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -40,13 +105,10 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * The SaveBookmark method saves the current disc position and state of the MSWebDVD object so the user can return to the same place later.
-     * @remarks
-     * A bookmark is a snapshot of the DVD Navigator's current state. This includes information such as where it is playing on the disc, and which audio and subpictures streams are selected. By saving a bookmark, the user can close the application, shut down the computer, and come back later to continue viewing the disc right where he or she left off, with all settings just as they were before. Only one bookmark can be saved at any given time. When you call `SaveBookmark`, the old bookmark is overwritten.
+     * 
      * @param {PWSTR} szFile 
      * @param {Integer} dwSaveFlags 
-     * @returns {HRESULT} No return value.
-     * @see https://learn.microsoft.com/windows/win32/DirectShow/savebookmark-method
+     * @returns {HRESULT} 
      */
     Save(szFile, dwSaveFlags) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
@@ -75,7 +137,7 @@ class IMetaDataEmit extends IUnknown {
     GetSaveSize(fSave, pdwSaveSize) {
         pdwSaveSizeMarshal := pdwSaveSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "int", fSave, pdwSaveSizeMarshal, pdwSaveSize, "HRESULT")
+        result := ComCall(6, this, CorSaveSize, fSave, pdwSaveSizeMarshal, pdwSaveSize, "HRESULT")
         return result
     }
 
@@ -268,7 +330,7 @@ class IMetaDataEmit extends IUnknown {
      * @returns {HRESULT} 
      */
     SetClassLayout(td, dwPackSize, rFieldOffsets, ulClassSize) {
-        result := ComCall(17, this, "uint", td, "uint", dwPackSize, "ptr", rFieldOffsets, "uint", ulClassSize, "HRESULT")
+        result := ComCall(17, this, "uint", td, "uint", dwPackSize, COR_FIELD_OFFSET.Ptr, rFieldOffsets, "uint", ulClassSize, "HRESULT")
         return result
     }
 
@@ -747,7 +809,7 @@ class IMetaDataEmit extends IUnknown {
     DefineSecurityAttributeSet(tkObj, rSecAttrs, cSecAttrs, pulErrorAttr) {
         pulErrorAttrMarshal := pulErrorAttr is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(45, this, "uint", tkObj, "ptr", rSecAttrs, "uint", cSecAttrs, pulErrorAttrMarshal, pulErrorAttr, "HRESULT")
+        result := ComCall(45, this, "uint", tkObj, COR_SECATTR.Ptr, rSecAttrs, "uint", cSecAttrs, pulErrorAttrMarshal, pulErrorAttr, "HRESULT")
         return result
     }
 
@@ -809,14 +871,11 @@ class IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * The CloseDatabase method of the Merge object closes the currently open Windows Installer database.
-     * @remarks
-     * Closing a database clears all dependency information but does not affect any errors that have not been retrieved.
+     * 
      * @param {IMetaDataImport} pImport 
      * @param {IMapToken} pHostMapToken 
      * @param {IUnknown} pHandler 
-     * @returns {HRESULT} This method does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/Msi/merge-closedatabase
+     * @returns {HRESULT} 
      */
     Merge(pImport, pHostMapToken, pHandler) {
         result := ComCall(50, this, "ptr", pImport, "ptr", pHostMapToken, "ptr", pHandler, "HRESULT")
@@ -830,5 +889,121 @@ class IMetaDataEmit extends IUnknown {
     MergeEnd() {
         result := ComCall(51, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMetaDataEmit.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetModuleProps := CallbackCreate(GetMethod(implObj, "SetModuleProps"), flags, 2)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 3)
+        this.vtbl.SaveToStream := CallbackCreate(GetMethod(implObj, "SaveToStream"), flags, 3)
+        this.vtbl.GetSaveSize := CallbackCreate(GetMethod(implObj, "GetSaveSize"), flags, 3)
+        this.vtbl.DefineTypeDef := CallbackCreate(GetMethod(implObj, "DefineTypeDef"), flags, 6)
+        this.vtbl.DefineNestedType := CallbackCreate(GetMethod(implObj, "DefineNestedType"), flags, 7)
+        this.vtbl.SetHandler := CallbackCreate(GetMethod(implObj, "SetHandler"), flags, 2)
+        this.vtbl.DefineMethod := CallbackCreate(GetMethod(implObj, "DefineMethod"), flags, 9)
+        this.vtbl.DefineMethodImpl := CallbackCreate(GetMethod(implObj, "DefineMethodImpl"), flags, 4)
+        this.vtbl.DefineTypeRefByName := CallbackCreate(GetMethod(implObj, "DefineTypeRefByName"), flags, 4)
+        this.vtbl.DefineImportType := CallbackCreate(GetMethod(implObj, "DefineImportType"), flags, 8)
+        this.vtbl.DefineMemberRef := CallbackCreate(GetMethod(implObj, "DefineMemberRef"), flags, 6)
+        this.vtbl.DefineImportMember := CallbackCreate(GetMethod(implObj, "DefineImportMember"), flags, 9)
+        this.vtbl.DefineEvent := CallbackCreate(GetMethod(implObj, "DefineEvent"), flags, 10)
+        this.vtbl.SetClassLayout := CallbackCreate(GetMethod(implObj, "SetClassLayout"), flags, 5)
+        this.vtbl.DeleteClassLayout := CallbackCreate(GetMethod(implObj, "DeleteClassLayout"), flags, 2)
+        this.vtbl.SetFieldMarshal := CallbackCreate(GetMethod(implObj, "SetFieldMarshal"), flags, 4)
+        this.vtbl.DeleteFieldMarshal := CallbackCreate(GetMethod(implObj, "DeleteFieldMarshal"), flags, 2)
+        this.vtbl.DefinePermissionSet := CallbackCreate(GetMethod(implObj, "DefinePermissionSet"), flags, 6)
+        this.vtbl.SetRVA := CallbackCreate(GetMethod(implObj, "SetRVA"), flags, 3)
+        this.vtbl.GetTokenFromSig := CallbackCreate(GetMethod(implObj, "GetTokenFromSig"), flags, 4)
+        this.vtbl.DefineModuleRef := CallbackCreate(GetMethod(implObj, "DefineModuleRef"), flags, 3)
+        this.vtbl.SetParent := CallbackCreate(GetMethod(implObj, "SetParent"), flags, 3)
+        this.vtbl.GetTokenFromTypeSpec := CallbackCreate(GetMethod(implObj, "GetTokenFromTypeSpec"), flags, 4)
+        this.vtbl.SaveToMemory := CallbackCreate(GetMethod(implObj, "SaveToMemory"), flags, 3)
+        this.vtbl.DefineUserString := CallbackCreate(GetMethod(implObj, "DefineUserString"), flags, 4)
+        this.vtbl.DeleteToken := CallbackCreate(GetMethod(implObj, "DeleteToken"), flags, 2)
+        this.vtbl.SetMethodProps := CallbackCreate(GetMethod(implObj, "SetMethodProps"), flags, 5)
+        this.vtbl.SetTypeDefProps := CallbackCreate(GetMethod(implObj, "SetTypeDefProps"), flags, 5)
+        this.vtbl.SetEventProps := CallbackCreate(GetMethod(implObj, "SetEventProps"), flags, 8)
+        this.vtbl.SetPermissionSetProps := CallbackCreate(GetMethod(implObj, "SetPermissionSetProps"), flags, 6)
+        this.vtbl.DefinePinvokeMap := CallbackCreate(GetMethod(implObj, "DefinePinvokeMap"), flags, 5)
+        this.vtbl.SetPinvokeMap := CallbackCreate(GetMethod(implObj, "SetPinvokeMap"), flags, 5)
+        this.vtbl.DeletePinvokeMap := CallbackCreate(GetMethod(implObj, "DeletePinvokeMap"), flags, 2)
+        this.vtbl.DefineCustomAttribute := CallbackCreate(GetMethod(implObj, "DefineCustomAttribute"), flags, 6)
+        this.vtbl.SetCustomAttributeValue := CallbackCreate(GetMethod(implObj, "SetCustomAttributeValue"), flags, 4)
+        this.vtbl.DefineField := CallbackCreate(GetMethod(implObj, "DefineField"), flags, 10)
+        this.vtbl.DefineProperty := CallbackCreate(GetMethod(implObj, "DefineProperty"), flags, 13)
+        this.vtbl.DefineParam := CallbackCreate(GetMethod(implObj, "DefineParam"), flags, 9)
+        this.vtbl.SetFieldProps := CallbackCreate(GetMethod(implObj, "SetFieldProps"), flags, 6)
+        this.vtbl.SetPropertyProps := CallbackCreate(GetMethod(implObj, "SetPropertyProps"), flags, 9)
+        this.vtbl.SetParamProps := CallbackCreate(GetMethod(implObj, "SetParamProps"), flags, 7)
+        this.vtbl.DefineSecurityAttributeSet := CallbackCreate(GetMethod(implObj, "DefineSecurityAttributeSet"), flags, 5)
+        this.vtbl.ApplyEditAndContinue := CallbackCreate(GetMethod(implObj, "ApplyEditAndContinue"), flags, 2)
+        this.vtbl.TranslateSigWithScope := CallbackCreate(GetMethod(implObj, "TranslateSigWithScope"), flags, 12)
+        this.vtbl.SetMethodImplFlags := CallbackCreate(GetMethod(implObj, "SetMethodImplFlags"), flags, 3)
+        this.vtbl.SetFieldRVA := CallbackCreate(GetMethod(implObj, "SetFieldRVA"), flags, 3)
+        this.vtbl.Merge := CallbackCreate(GetMethod(implObj, "Merge"), flags, 4)
+        this.vtbl.MergeEnd := CallbackCreate(GetMethod(implObj, "MergeEnd"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetModuleProps)
+        CallbackFree(this.vtbl.Save)
+        CallbackFree(this.vtbl.SaveToStream)
+        CallbackFree(this.vtbl.GetSaveSize)
+        CallbackFree(this.vtbl.DefineTypeDef)
+        CallbackFree(this.vtbl.DefineNestedType)
+        CallbackFree(this.vtbl.SetHandler)
+        CallbackFree(this.vtbl.DefineMethod)
+        CallbackFree(this.vtbl.DefineMethodImpl)
+        CallbackFree(this.vtbl.DefineTypeRefByName)
+        CallbackFree(this.vtbl.DefineImportType)
+        CallbackFree(this.vtbl.DefineMemberRef)
+        CallbackFree(this.vtbl.DefineImportMember)
+        CallbackFree(this.vtbl.DefineEvent)
+        CallbackFree(this.vtbl.SetClassLayout)
+        CallbackFree(this.vtbl.DeleteClassLayout)
+        CallbackFree(this.vtbl.SetFieldMarshal)
+        CallbackFree(this.vtbl.DeleteFieldMarshal)
+        CallbackFree(this.vtbl.DefinePermissionSet)
+        CallbackFree(this.vtbl.SetRVA)
+        CallbackFree(this.vtbl.GetTokenFromSig)
+        CallbackFree(this.vtbl.DefineModuleRef)
+        CallbackFree(this.vtbl.SetParent)
+        CallbackFree(this.vtbl.GetTokenFromTypeSpec)
+        CallbackFree(this.vtbl.SaveToMemory)
+        CallbackFree(this.vtbl.DefineUserString)
+        CallbackFree(this.vtbl.DeleteToken)
+        CallbackFree(this.vtbl.SetMethodProps)
+        CallbackFree(this.vtbl.SetTypeDefProps)
+        CallbackFree(this.vtbl.SetEventProps)
+        CallbackFree(this.vtbl.SetPermissionSetProps)
+        CallbackFree(this.vtbl.DefinePinvokeMap)
+        CallbackFree(this.vtbl.SetPinvokeMap)
+        CallbackFree(this.vtbl.DeletePinvokeMap)
+        CallbackFree(this.vtbl.DefineCustomAttribute)
+        CallbackFree(this.vtbl.SetCustomAttributeValue)
+        CallbackFree(this.vtbl.DefineField)
+        CallbackFree(this.vtbl.DefineProperty)
+        CallbackFree(this.vtbl.DefineParam)
+        CallbackFree(this.vtbl.SetFieldProps)
+        CallbackFree(this.vtbl.SetPropertyProps)
+        CallbackFree(this.vtbl.SetParamProps)
+        CallbackFree(this.vtbl.DefineSecurityAttributeSet)
+        CallbackFree(this.vtbl.ApplyEditAndContinue)
+        CallbackFree(this.vtbl.TranslateSigWithScope)
+        CallbackFree(this.vtbl.SetMethodImplFlags)
+        CallbackFree(this.vtbl.SetFieldRVA)
+        CallbackFree(this.vtbl.Merge)
+        CallbackFree(this.vtbl.MergeEnd)
     }
 }

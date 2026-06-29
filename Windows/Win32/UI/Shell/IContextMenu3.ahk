@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IContextMenu2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IContextMenu2.ahk" { IContextMenu2 }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
 
 /**
  * Exposes methods that either create or merge a shortcut menu associated with a Shell object. Allows client objects to handle messages associated with owner-drawn menu items and extends IContextMenu2 by accepting a return value from that message handling.
@@ -23,26 +27,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-icontextmenu3
  * @namespace Windows.Win32.UI.Shell
  */
-class IContextMenu3 extends IContextMenu2 {
-
-    static sizeof => A_PtrSize
+export default struct IContextMenu3 extends IContextMenu2 {
     /**
      * The interface identifier for IContextMenu3
      * @type {Guid}
      */
-    static IID => Guid("{bcfce0a0-ec17-11d0-8d10-00a0c90f2719}")
+    static IID := Guid("{bcfce0a0-ec17-11d0-8d10-00a0c90f2719}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IContextMenu3 interfaces
+    */
+    struct Vtbl extends IContextMenu2.Vtbl {
+        HandleMenuMsg2 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["HandleMenuMsg2"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IContextMenu3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Allows client objects of the IContextMenu3 interface to handle messages associated with owner-drawn menu items.
@@ -66,7 +77,27 @@ class IContextMenu3 extends IContextMenu2 {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icontextmenu3-handlemenumsg2
      */
     HandleMenuMsg2(uMsg, _wParam, _lParam) {
-        result := ComCall(7, this, "uint", uMsg, "ptr", _wParam, "ptr", _lParam, "ptr*", &plResult := 0, "HRESULT")
+        result := ComCall(7, this, "uint", uMsg, WPARAM, _wParam, LPARAM, _lParam, LRESULT.Ptr, &plResult := 0, "HRESULT")
         return plResult
+    }
+
+    Query(iid) {
+        if (IContextMenu3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.HandleMenuMsg2 := CallbackCreate(GetMethod(implObj, "HandleMenuMsg2"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.HandleMenuMsg2)
     }
 }

@@ -1,34 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ITravelEntry.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ITravelEntry.ahk" { ITravelEntry }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\WindowsAndMessaging\HMENU.ahk" { HMENU }
 
 /**
  * Deprecated. Exposes methods that maintain and manipulate a record of travel in the browser.
  * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nn-shdeprecated-itravellog
  * @namespace Windows.Win32.UI.Shell
  */
-class ITravelLog extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITravelLog extends IUnknown {
     /**
      * The interface identifier for ITravelLog
      * @type {Guid}
      */
-    static IID => Guid("{66a9cb08-4802-11d2-a561-00a0c92dbfe8}")
+    static IID := Guid("{66a9cb08-4802-11d2-a561-00a0c92dbfe8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITravelLog interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddEntry          : IntPtr
+        UpdateEntry       : IntPtr
+        UpdateExternal    : IntPtr
+        Travel            : IntPtr
+        GetTravelEntry    : IntPtr
+        FindTravelEntry   : IntPtr
+        GetToolTipText    : IntPtr
+        InsertMenuEntries : IntPtr
+        Clone             : IntPtr
+        CountEntries      : IntPtr
+        Revert            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddEntry", "UpdateEntry", "UpdateExternal", "Travel", "GetTravelEntry", "FindTravelEntry", "GetToolTipText", "InsertMenuEntries", "Clone", "CountEntries", "Revert"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITravelLog.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Deprecated. Adds a new entry for a pending navigation to the travel log.
@@ -44,7 +66,7 @@ class ITravelLog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravellog-addentry
      */
     AddEntry(punk, fIsLocalAnchor) {
-        result := ComCall(3, this, "ptr", punk, "int", fIsLocalAnchor, "HRESULT")
+        result := ComCall(3, this, "ptr", punk, BOOL, fIsLocalAnchor, "HRESULT")
         return result
     }
 
@@ -62,7 +84,7 @@ class ITravelLog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravellog-updateentry
      */
     UpdateEntry(punk, fIsLocalAnchor) {
-        result := ComCall(4, this, "ptr", punk, "int", fIsLocalAnchor, "HRESULT")
+        result := ComCall(4, this, "ptr", punk, BOOL, fIsLocalAnchor, "HRESULT")
         return result
     }
 
@@ -138,7 +160,7 @@ class ITravelLog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravellog-findtravelentry
      */
     FindTravelEntry(punk, pidl) {
-        result := ComCall(8, this, "ptr", punk, "ptr", pidl, "ptr*", &ppte := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", punk, ITEMIDLIST.Ptr, pidl, "ptr*", &ppte := 0, "HRESULT")
         return ITravelEntry(ppte)
     }
 
@@ -197,9 +219,7 @@ class ITravelLog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravellog-insertmenuentries
      */
     InsertMenuEntries(punk, _hmenu, nPos, idFirst, idLast, dwFlags) {
-        _hmenu := _hmenu is Win32Handle ? NumGet(_hmenu, "ptr") : _hmenu
-
-        result := ComCall(10, this, "ptr", punk, "ptr", _hmenu, "int", nPos, "int", idFirst, "int", idLast, "uint", dwFlags, "HRESULT")
+        result := ComCall(10, this, "ptr", punk, HMENU, _hmenu, "int", nPos, "int", idFirst, "int", idLast, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -226,7 +246,7 @@ class ITravelLog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravellog-countentries
      */
     CountEntries(punk) {
-        result := ComCall(12, this, "ptr", punk, "uint")
+        result := ComCall(12, this, "ptr", punk, UInt32)
         return result
     }
 
@@ -240,5 +260,45 @@ class ITravelLog extends IUnknown {
     Revert() {
         result := ComCall(13, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITravelLog.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddEntry := CallbackCreate(GetMethod(implObj, "AddEntry"), flags, 3)
+        this.vtbl.UpdateEntry := CallbackCreate(GetMethod(implObj, "UpdateEntry"), flags, 3)
+        this.vtbl.UpdateExternal := CallbackCreate(GetMethod(implObj, "UpdateExternal"), flags, 3)
+        this.vtbl.Travel := CallbackCreate(GetMethod(implObj, "Travel"), flags, 3)
+        this.vtbl.GetTravelEntry := CallbackCreate(GetMethod(implObj, "GetTravelEntry"), flags, 4)
+        this.vtbl.FindTravelEntry := CallbackCreate(GetMethod(implObj, "FindTravelEntry"), flags, 4)
+        this.vtbl.GetToolTipText := CallbackCreate(GetMethod(implObj, "GetToolTipText"), flags, 6)
+        this.vtbl.InsertMenuEntries := CallbackCreate(GetMethod(implObj, "InsertMenuEntries"), flags, 7)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.CountEntries := CallbackCreate(GetMethod(implObj, "CountEntries"), flags, 2)
+        this.vtbl.Revert := CallbackCreate(GetMethod(implObj, "Revert"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddEntry)
+        CallbackFree(this.vtbl.UpdateEntry)
+        CallbackFree(this.vtbl.UpdateExternal)
+        CallbackFree(this.vtbl.Travel)
+        CallbackFree(this.vtbl.GetTravelEntry)
+        CallbackFree(this.vtbl.FindTravelEntry)
+        CallbackFree(this.vtbl.GetToolTipText)
+        CallbackFree(this.vtbl.InsertMenuEntries)
+        CallbackFree(this.vtbl.Clone)
+        CallbackFree(this.vtbl.CountEntries)
+        CallbackFree(this.vtbl.Revert)
     }
 }

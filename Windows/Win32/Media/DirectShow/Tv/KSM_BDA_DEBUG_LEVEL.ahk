@@ -1,50 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\KernelStreaming\KSIDENTIFIER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\KernelStreaming\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class KSM_BDA_DEBUG_LEVEL extends Win32Struct {
-    static sizeof => 32
+export default struct KSM_BDA_DEBUG_LEVEL {
+    #StructPack 8
 
-    static packingSize => 8
+    Method : KSIDENTIFIER
 
-    /**
-     * @type {KSIDENTIFIER}
-     */
-    Method {
-        get {
-            if(!this.HasProp("__Method"))
-                this.__Method := KSIDENTIFIER(0, this)
-            return this.__Method
-        }
-    }
+    ucDebugLevel : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ucDebugLevel {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    ulDebugStringSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulDebugStringSize {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    argbDebugString : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    argbDebugString {
-        get {
-            if(!this.HasProp("__argbDebugStringProxyArray"))
-                this.__argbDebugStringProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
-            return this.__argbDebugStringProxyArray
-        }
-    }
 }

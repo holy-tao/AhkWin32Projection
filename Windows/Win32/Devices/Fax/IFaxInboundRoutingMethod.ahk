@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IFaxInboundRoutingMethod interface defines a configuration object used by a fax client application to retrieve information about an individual fax inbound routing method on a connected fax server.
@@ -11,32 +12,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxinboundroutingmethod
  * @namespace Windows.Win32.Devices.Fax
  */
-class IFaxInboundRoutingMethod extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFaxInboundRoutingMethod extends IDispatch {
     /**
      * The interface identifier for IFaxInboundRoutingMethod
      * @type {Guid}
      */
-    static IID => Guid("{45700061-ad9d-4776-a8c4-64065492cf4b}")
+    static IID := Guid("{45700061-ad9d-4776-a8c4-64065492cf4b}")
 
     /**
      * The class identifier for FaxInboundRoutingMethod
      * @type {Guid}
      */
-    static CLSID => Guid("{4b9fd75c-0194-4b72-9ce5-02a8205ac7d4}")
+    static CLSID := Guid("{4b9fd75c-0194-4b72-9ce5-02a8205ac7d4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFaxInboundRoutingMethod interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Name                  : IntPtr
+        get_GUID                  : IntPtr
+        get_FunctionName          : IntPtr
+        get_ExtensionFriendlyName : IntPtr
+        get_ExtensionImageName    : IntPtr
+        get_Priority              : IntPtr
+        put_Priority              : IntPtr
+        Refresh                   : IntPtr
+        Save                      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Name", "get_GUID", "get_FunctionName", "get_ExtensionFriendlyName", "get_ExtensionImageName", "get_Priority", "put_Priority", "Refresh", "Save"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFaxInboundRoutingMethod.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -87,8 +103,8 @@ class IFaxInboundRoutingMethod extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingmethod-get_name
      */
     get_Name() {
-        pbstrName := BSTR()
-        result := ComCall(7, this, "ptr", pbstrName, "HRESULT")
+        pbstrName := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 
@@ -98,8 +114,8 @@ class IFaxInboundRoutingMethod extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingmethod-get_guid
      */
     get_GUID() {
-        pbstrGUID := BSTR()
-        result := ComCall(8, this, "ptr", pbstrGUID, "HRESULT")
+        pbstrGUID := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, pbstrGUID, "HRESULT")
         return pbstrGUID
     }
 
@@ -111,8 +127,8 @@ class IFaxInboundRoutingMethod extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingmethod-get_functionname
      */
     get_FunctionName() {
-        pbstrFunctionName := BSTR()
-        result := ComCall(9, this, "ptr", pbstrFunctionName, "HRESULT")
+        pbstrFunctionName := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pbstrFunctionName, "HRESULT")
         return pbstrFunctionName
     }
 
@@ -122,8 +138,8 @@ class IFaxInboundRoutingMethod extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingmethod-get_extensionfriendlyname
      */
     get_ExtensionFriendlyName() {
-        pbstrExtensionFriendlyName := BSTR()
-        result := ComCall(10, this, "ptr", pbstrExtensionFriendlyName, "HRESULT")
+        pbstrExtensionFriendlyName := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, pbstrExtensionFriendlyName, "HRESULT")
         return pbstrExtensionFriendlyName
     }
 
@@ -135,8 +151,8 @@ class IFaxInboundRoutingMethod extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingmethod-get_extensionimagename
      */
     get_ExtensionImageName() {
-        pbstrExtensionImageName := BSTR()
-        result := ComCall(11, this, "ptr", pbstrExtensionImageName, "HRESULT")
+        pbstrExtensionImageName := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pbstrExtensionImageName, "HRESULT")
         return pbstrExtensionImageName
     }
 
@@ -205,5 +221,41 @@ class IFaxInboundRoutingMethod extends IDispatch {
     Save() {
         result := ComCall(15, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFaxInboundRoutingMethod.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_GUID := CallbackCreate(GetMethod(implObj, "get_GUID"), flags, 2)
+        this.vtbl.get_FunctionName := CallbackCreate(GetMethod(implObj, "get_FunctionName"), flags, 2)
+        this.vtbl.get_ExtensionFriendlyName := CallbackCreate(GetMethod(implObj, "get_ExtensionFriendlyName"), flags, 2)
+        this.vtbl.get_ExtensionImageName := CallbackCreate(GetMethod(implObj, "get_ExtensionImageName"), flags, 2)
+        this.vtbl.get_Priority := CallbackCreate(GetMethod(implObj, "get_Priority"), flags, 2)
+        this.vtbl.put_Priority := CallbackCreate(GetMethod(implObj, "put_Priority"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.get_GUID)
+        CallbackFree(this.vtbl.get_FunctionName)
+        CallbackFree(this.vtbl.get_ExtensionFriendlyName)
+        CallbackFree(this.vtbl.get_ExtensionImageName)
+        CallbackFree(this.vtbl.get_Priority)
+        CallbackFree(this.vtbl.put_Priority)
+        CallbackFree(this.vtbl.Refresh)
+        CallbackFree(this.vtbl.Save)
     }
 }

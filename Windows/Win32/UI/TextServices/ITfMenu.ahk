@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITfMenu interface is implemented by the language bar and used by a language bar button provider to add items to the menu that the language bar will display for the button.
  * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nn-ctfutb-itfmenu
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfMenu extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfMenu extends IUnknown {
     /**
      * The interface identifier for ITfMenu
      * @type {Guid}
      */
-    static IID => Guid("{6f8a98e4-aaa0-4f15-8c5b-07e0df0a3dd8}")
+    static IID := Guid("{6f8a98e4-aaa0-4f15-8c5b-07e0df0a3dd8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfMenu interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddMenuItem : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddMenuItem"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfMenu.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfMenu::AddMenuItem method
@@ -90,11 +100,29 @@ class ITfMenu extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itfmenu-addmenuitem
      */
     AddMenuItem(uId, dwFlags, hbmp, hbmpMask, pch, cch, ppMenu) {
-        hbmp := hbmp is Win32Handle ? NumGet(hbmp, "ptr") : hbmp
-        hbmpMask := hbmpMask is Win32Handle ? NumGet(hbmpMask, "ptr") : hbmpMask
         pch := pch is String ? StrPtr(pch) : pch
 
-        result := ComCall(3, this, "uint", uId, "uint", dwFlags, "ptr", hbmp, "ptr", hbmpMask, "ptr", pch, "uint", cch, "ptr*", ppMenu, "HRESULT")
+        result := ComCall(3, this, "uint", uId, "uint", dwFlags, HBITMAP, hbmp, HBITMAP, hbmpMask, "ptr", pch, "uint", cch, ITfMenu.Ptr, ppMenu, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITfMenu.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddMenuItem := CallbackCreate(GetMethod(implObj, "AddMenuItem"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddMenuItem)
     }
 }

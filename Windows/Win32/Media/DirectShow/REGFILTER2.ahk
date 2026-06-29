@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\REGFILTERPINS.ahk
-#Include .\REGFILTERPINS2.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\REGFILTERPINS.ahk" { REGFILTERPINS }
+#Import ".\REGFILTERPINS2.ahk" { REGFILTERPINS2 }
 
 /**
  * The REGFILTER2 structure contains information for registering a filter.
@@ -12,58 +11,26 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-regfilter2
  * @namespace Windows.Win32.Media.DirectShow
  */
-class REGFILTER2 extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct REGFILTER2 {
+    #StructPack 8
 
     /**
      * Filter registration format. If the value is 1, the union contains the first unnamed structure. If the value is 2, the union contains the second unnamed structure.
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
     /**
      * Filter merit. Filters with higher merit are enumerated first. See <a href="https://docs.microsoft.com/windows/desktop/DirectShow/merit">Merit</a>.
-     * @type {Integer}
      */
-    dwMerit {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwMerit : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cPins {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cPins : UInt32
 
-    /**
-     * @type {Pointer<REGFILTERPINS>}
-     */
-    rgPins {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    rgPins : REGFILTERPINS.Ptr
 
-    /**
-     * @type {Integer}
-     */
-    cPins2 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<REGFILTERPINS2>}
-     */
-    rgPins2 {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    static __New() {
+        DefineProp(this.Prototype, 'cPins2', { type: UInt32, offset: 8 })
+        DefineProp(this.Prototype, 'rgPins2', { type: REGFILTERPINS2.Ptr, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

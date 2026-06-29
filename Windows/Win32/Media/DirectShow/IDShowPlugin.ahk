@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDShowPlugin interface enables the Windows Media Source filter to communicate with the Windows Media Player 6.4 Plug-in for Netscape Navigator.
@@ -12,26 +14,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nn-qnetwork-idshowplugin
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IDShowPlugin extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDShowPlugin extends IUnknown {
     /**
      * The interface identifier for IDShowPlugin
      * @type {Guid}
      */
-    static IID => Guid("{4746b7c8-700e-11d1-becc-00c04fb6e937}")
+    static IID := Guid("{4746b7c8-700e-11d1-becc-00c04fb6e937}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDShowPlugin interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_URL       : IntPtr
+        get_UserAgent : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_URL", "get_UserAgent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDShowPlugin.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      */
@@ -54,7 +64,7 @@ class IDShowPlugin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-idshowplugin-get_url
      */
     get_URL(pURL) {
-        result := ComCall(3, this, "ptr", pURL, "HRESULT")
+        result := ComCall(3, this, BSTR.Ptr, pURL, "HRESULT")
         return result
     }
 
@@ -67,7 +77,29 @@ class IDShowPlugin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-idshowplugin-get_useragent
      */
     get_UserAgent(pUserAgent) {
-        result := ComCall(4, this, "ptr", pUserAgent, "HRESULT")
+        result := ComCall(4, this, BSTR.Ptr, pUserAgent, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDShowPlugin.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_URL := CallbackCreate(GetMethod(implObj, "get_URL"), flags, 2)
+        this.vtbl.get_UserAgent := CallbackCreate(GetMethod(implObj, "get_UserAgent"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_URL)
+        CallbackFree(this.vtbl.get_UserAgent)
     }
 }

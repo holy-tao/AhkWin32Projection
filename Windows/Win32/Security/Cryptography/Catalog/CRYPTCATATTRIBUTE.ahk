@@ -1,34 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\CRYPTCATATTRIBUTE_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CRYPTCATATTRIBUTE_FLAGS.ahk" { CRYPTCATATTRIBUTE_FLAGS }
 
 /**
  * The CRYPTCATATTRIBUTE structure defines a catalog attribute. This structure is used by the CryptCATEnumerateAttr and CryptCATEnumerateCatAttr functions.
  * @see https://learn.microsoft.com/windows/win32/api/mscat/ns-mscat-cryptcatattribute
  * @namespace Windows.Win32.Security.Cryptography.Catalog
  */
-class CRYPTCATATTRIBUTE extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct CRYPTCATATTRIBUTE {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbStruct : UInt32
 
     /**
      * A pointer to a null-terminated string that contains the reference tag value.
-     * @type {PWSTR}
      */
-    pwszReferenceTag {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwszReferenceTag : PWSTR
 
     /**
      * Bitwise combination of the following flags.
@@ -116,37 +106,22 @@ class CRYPTCATATTRIBUTE extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {CRYPTCATATTRIBUTE_FLAGS}
      */
-    dwAttrTypeAndAction {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwAttrTypeAndAction : CRYPTCATATTRIBUTE_FLAGS
 
     /**
      * Number of bytes used by <b>pbValue</b>.
-     * @type {Integer}
      */
-    cbValue {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    cbValue : UInt32
 
     /**
      * A pointer to the encoded bytes.
-     * @type {Pointer<Integer>}
      */
-    pbValue {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pbValue : IntPtr
 
     /**
      * Reserved; do not use.
-     * @type {Integer}
      */
-    dwReserved {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwReserved : UInt32
+
 }

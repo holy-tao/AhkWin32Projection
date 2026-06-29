@@ -1,13 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_XPF_BUS_CHECK extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 1
+export default struct WHEA_XPF_BUS_CHECK {
+    #StructPack 1
 
     /**
      * This bitfield backs the following members:
@@ -35,12 +32,9 @@ class WHEA_XPF_BUS_CHECK extends Win32Struct {
      * - Timeout
      * - AddressSpace
      * - Reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int64
+
 
     /**
      * @type {Integer}
@@ -225,12 +219,8 @@ class WHEA_XPF_BUS_CHECK extends Win32Struct {
         get => (this._bitfield >> 33) & 0x3
         set => this._bitfield := ((value & 0x3) << 33) | (this._bitfield & ~(0x3 << 33))
     }
-
-    /**
-     * @type {Integer}
-     */
-    XpfBusCheck {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'XpfBusCheck', { type: Int64, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

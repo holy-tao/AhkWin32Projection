@@ -1,56 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_SSID.ahk
-#Include .\DOT11_BSS_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_BSS_TYPE.ahk" { DOT11_BSS_TYPE }
+#Import ".\DOT11_SSID.ahk" { DOT11_SSID }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WDIAG_IHV_WLAN_ID extends Win32Struct {
-    static sizeof => 560
+export default struct WDIAG_IHV_WLAN_ID {
+    #StructPack 4
 
-    static packingSize => 4
+    strProfileName : WCHAR[256]
 
-    /**
-     * @type {String}
-     */
-    strProfileName {
-        get => StrGet(this.ptr + 0, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 255, "UTF-16")
-    }
+    Ssid : DOT11_SSID
 
-    /**
-     * @type {DOT11_SSID}
-     */
-    Ssid {
-        get {
-            if(!this.HasProp("__Ssid"))
-                this.__Ssid := DOT11_SSID(512, this)
-            return this.__Ssid
-        }
-    }
+    BssType : DOT11_BSS_TYPE
 
-    /**
-     * @type {DOT11_BSS_TYPE}
-     */
-    BssType {
-        get => NumGet(this, 548, "int")
-        set => NumPut("int", value, this, 548)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 552, "uint")
-        set => NumPut("uint", value, this, 552)
-    }
+    dwReasonCode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReasonCode {
-        get => NumGet(this, 556, "uint")
-        set => NumPut("uint", value, this, 556)
-    }
 }

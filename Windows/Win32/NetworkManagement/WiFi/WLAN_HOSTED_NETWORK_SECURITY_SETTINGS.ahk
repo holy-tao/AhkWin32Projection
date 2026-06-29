@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_AUTH_ALGORITHM.ahk
-#Include .\DOT11_CIPHER_ALGORITHM.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_CIPHER_ALGORITHM.ahk" { DOT11_CIPHER_ALGORITHM }
+#Import ".\DOT11_AUTH_ALGORITHM.ahk" { DOT11_AUTH_ALGORITHM }
 
 /**
  * Contains information about the security settings on the wireless Hosted Network.
@@ -10,26 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_hosted_network_security_settings
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WLAN_HOSTED_NETWORK_SECURITY_SETTINGS extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct WLAN_HOSTED_NETWORK_SECURITY_SETTINGS {
+    #StructPack 4
 
     /**
      * The authentication algorithm used by the wireless Hosted Network.
-     * @type {DOT11_AUTH_ALGORITHM}
      */
-    dot11AuthAlgo {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    dot11AuthAlgo : DOT11_AUTH_ALGORITHM
 
     /**
      * The cipher algorithm used by the wireless Hosted Network.
-     * @type {DOT11_CIPHER_ALGORITHM}
      */
-    dot11CipherAlgo {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    dot11CipherAlgo : DOT11_CIPHER_ALGORITHM
+
 }

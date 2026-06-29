@@ -1,9 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
-#Include .\CONTEXT.ahk
-#Include .\CONTEXT_FLAGS.ahk
-#Include .\ARM64_NT_NEON128.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CONTEXT_FLAGS.ahk" { CONTEXT_FLAGS }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\CONTEXT.ahk" { CONTEXT }
+#Import ".\ARM64_NT_NEON128.ahk" { ARM64_NT_NEON128 }
 
 /**
  * Contains thread information for the MiniDumpCallback function when the callback type is ThreadCallback.
@@ -11,69 +10,38 @@
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @architecture X86, X64
  */
-class MINIDUMP_THREAD_CALLBACK extends Win32Struct {
-    static sizeof => 3000
-
-    static packingSize => 8
+export default struct MINIDUMP_THREAD_CALLBACK {
+    #StructPack 8
 
     /**
      * The identifier of the thread.
-     * @type {Integer}
      */
-    ThreadId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ThreadId : UInt32
 
     /**
      * A handle to the thread
-     * @type {HANDLE}
      */
-    ThreadHandle {
-        get {
-            if(!this.HasProp("__ThreadHandle"))
-                this.__ThreadHandle := HANDLE(8, this)
-            return this.__ThreadHandle
-        }
-    }
+    ThreadHandle : HANDLE
 
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-arm64_nt_context">CONTEXT</a> structure that contains the processor-specific data.
-     * @type {CONTEXT}
      */
-    Context {
-        get {
-            if(!this.HasProp("__Context"))
-                this.__Context := CONTEXT(16, this)
-            return this.__Context
-        }
-    }
+    Context : CONTEXT
 
     /**
      * The size of the returned processor-specific data in the <b>Context</b> member, in bytes.
-     * @type {Integer}
      */
-    SizeOfContext {
-        get => NumGet(this, 2976, "uint")
-        set => NumPut("uint", value, this, 2976)
-    }
+    SizeOfContext : UInt32
 
     /**
      * The base address of the thread stack.
-     * @type {Integer}
      */
-    StackBase {
-        get => NumGet(this, 2984, "uint")
-        set => NumPut("uint", value, this, 2984)
-    }
+    StackBase : Int64
 
     /**
      * The ending address of the thread stack.
-     * @type {Integer}
      */
-    StackEnd {
-        get => NumGet(this, 2992, "uint")
-        set => NumPut("uint", value, this, 2992)
-    }
+    StackEnd : Int64
+
 }

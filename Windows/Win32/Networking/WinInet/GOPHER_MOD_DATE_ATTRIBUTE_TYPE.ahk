@@ -1,23 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
  */
-class GOPHER_MOD_DATE_ATTRIBUTE_TYPE extends Win32Struct {
-    static sizeof => 8
+export default struct GOPHER_MOD_DATE_ATTRIBUTE_TYPE {
+    #StructPack 4
 
-    static packingSize => 4
+    DateAndTime : FILETIME
 
-    /**
-     * @type {FILETIME}
-     */
-    DateAndTime {
-        get {
-            if(!this.HasProp("__DateAndTime"))
-                this.__DateAndTime := FILETIME(0, this)
-            return this.__DateAndTime
-        }
-    }
 }

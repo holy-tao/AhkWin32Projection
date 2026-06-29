@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\EnTvRat_GenericLevel.ahk" { EnTvRat_GenericLevel }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\EnTvRat_System.ahk" { EnTvRat_System }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDTFilter interface is exposed by the Decrypter/Detagger filter. Applications can use this interface to set the ratings permissions.
@@ -10,32 +14,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/encdec/nn-encdec-idtfilter
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IDTFilter extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDTFilter extends IUnknown {
     /**
      * The interface identifier for IDTFilter
      * @type {Guid}
      */
-    static IID => Guid("{c4c4c4b2-0049-4e2b-98fb-9537f6ce516d}")
+    static IID := Guid("{c4c4c4b2-0049-4e2b-98fb-9537f6ce516d}")
 
     /**
      * The class identifier for DTFilter
      * @type {Guid}
      */
-    static CLSID => Guid("{c4c4c4f2-0049-4e2b-98fb-9537f6ce516d}")
+    static CLSID := Guid("{c4c4c4f2-0049-4e2b-98fb-9537f6ce516d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDTFilter interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_EvalRatObjOK            : IntPtr
+        GetCurrRating               : IntPtr
+        get_BlockedRatingAttributes : IntPtr
+        put_BlockedRatingAttributes : IntPtr
+        get_BlockUnRated            : IntPtr
+        put_BlockUnRated            : IntPtr
+        get_BlockUnRatedDelay       : IntPtr
+        put_BlockUnRatedDelay       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_EvalRatObjOK", "GetCurrRating", "get_BlockedRatingAttributes", "put_BlockedRatingAttributes", "get_BlockUnRated", "put_BlockUnRated", "get_BlockUnRatedDelay", "put_BlockUnRatedDelay"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDTFilter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {HRESULT} 
@@ -97,7 +115,7 @@ class IDTFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter-get_blockedratingattributes
      */
     get_BlockedRatingAttributes(enSystem, enLevel) {
-        result := ComCall(5, this, "int", enSystem, "int", enLevel, "int*", &plbfEnAttr := 0, "HRESULT")
+        result := ComCall(5, this, EnTvRat_System, enSystem, EnTvRat_GenericLevel, enLevel, "int*", &plbfEnAttr := 0, "HRESULT")
         return plbfEnAttr
     }
 
@@ -141,7 +159,7 @@ class IDTFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter-put_blockedratingattributes
      */
     put_BlockedRatingAttributes(enSystem, enLevel, lbfAttrs) {
-        result := ComCall(6, this, "int", enSystem, "int", enLevel, "int", lbfAttrs, "HRESULT")
+        result := ComCall(6, this, EnTvRat_System, enSystem, EnTvRat_GenericLevel, enLevel, "int", lbfAttrs, "HRESULT")
         return result
     }
 
@@ -153,7 +171,7 @@ class IDTFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter-get_blockunrated
      */
     get_BlockUnRated() {
-        result := ComCall(7, this, "int*", &pfBlockUnRatedShows := 0, "HRESULT")
+        result := ComCall(7, this, BOOL.Ptr, &pfBlockUnRatedShows := 0, "HRESULT")
         return pfBlockUnRatedShows
     }
 
@@ -195,7 +213,7 @@ class IDTFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter-put_blockunrated
      */
     put_BlockUnRated(fBlockUnRatedShows) {
-        result := ComCall(8, this, "int", fBlockUnRatedShows, "HRESULT")
+        result := ComCall(8, this, BOOL, fBlockUnRatedShows, "HRESULT")
         return result
     }
 
@@ -251,5 +269,39 @@ class IDTFilter extends IUnknown {
     put_BlockUnRatedDelay(msecsDelayBeforeBlock) {
         result := ComCall(10, this, "int", msecsDelayBeforeBlock, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDTFilter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_EvalRatObjOK := CallbackCreate(GetMethod(implObj, "get_EvalRatObjOK"), flags, 2)
+        this.vtbl.GetCurrRating := CallbackCreate(GetMethod(implObj, "GetCurrRating"), flags, 4)
+        this.vtbl.get_BlockedRatingAttributes := CallbackCreate(GetMethod(implObj, "get_BlockedRatingAttributes"), flags, 4)
+        this.vtbl.put_BlockedRatingAttributes := CallbackCreate(GetMethod(implObj, "put_BlockedRatingAttributes"), flags, 4)
+        this.vtbl.get_BlockUnRated := CallbackCreate(GetMethod(implObj, "get_BlockUnRated"), flags, 2)
+        this.vtbl.put_BlockUnRated := CallbackCreate(GetMethod(implObj, "put_BlockUnRated"), flags, 2)
+        this.vtbl.get_BlockUnRatedDelay := CallbackCreate(GetMethod(implObj, "get_BlockUnRatedDelay"), flags, 2)
+        this.vtbl.put_BlockUnRatedDelay := CallbackCreate(GetMethod(implObj, "put_BlockUnRatedDelay"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_EvalRatObjOK)
+        CallbackFree(this.vtbl.GetCurrRating)
+        CallbackFree(this.vtbl.get_BlockedRatingAttributes)
+        CallbackFree(this.vtbl.put_BlockedRatingAttributes)
+        CallbackFree(this.vtbl.get_BlockUnRated)
+        CallbackFree(this.vtbl.put_BlockUnRated)
+        CallbackFree(this.vtbl.get_BlockUnRatedDelay)
+        CallbackFree(this.vtbl.put_BlockUnRatedDelay)
     }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The values of the IASPROPERTIES enumeration type enumerate properties related to NPS.
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-iasproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  */
-class IASPROPERTIES extends Win32Enum {
+export default struct IASPROPERTIES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The collection of RADIUS server groups.

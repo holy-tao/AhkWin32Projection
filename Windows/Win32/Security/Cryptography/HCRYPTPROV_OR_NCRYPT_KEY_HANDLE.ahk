@@ -1,16 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\..\Win32Handle.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Is used as a handle to a CryptoAPI cryptographic service provider (CSP) or CNG CSP.
  * @see https://learn.microsoft.com/windows/win32/SecCrypto/hcryptprov-or-ncrypt-key-handle
  * @namespace Windows.Win32.Security.Cryptography
  */
-class HCRYPTPROV_OR_NCRYPT_KEY_HANDLE extends Win32Handle {
-    static sizeof => 8
+export default struct HCRYPTPROV_OR_NCRYPT_KEY_HANDLE {
+    Value : IntPtr
 
-    static packingSize => 8
+    __value {
+        set {
+            if (value is HCRYPTPROV_OR_NCRYPT_KEY_HANDLE) {
+                this.Value := value.Value
+            }
+            else {
+                this.Value := value
+            }
+        }
+    }
 
     /**
      * The list of values which indicate that the handle is invalid
@@ -18,11 +25,7 @@ class HCRYPTPROV_OR_NCRYPT_KEY_HANDLE extends Win32Handle {
      */
     static invalidValues => [0]
 
-    /**
-     * @type {Pointer}
-     */
-    Value {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    __New(Value := 0) {
+        this.Value := Value
     }
 }

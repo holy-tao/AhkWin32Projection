@@ -1,12 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * The initial state of the event object is signaled; otherwise, it is nonsignaled.
- * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-createeventexa
  * @namespace Windows.Win32.System.Threading
  */
-class CREATE_EVENT extends Win32BitflagEnum {
+export default struct CREATE_EVENT {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

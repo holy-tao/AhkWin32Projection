@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITfUIElement.ahk" { ITfUIElement }
 
 /**
  * The IEnumTfUIElements interface is implemented by TSF manager and used by applications or textservices. This interface can be retrieved by ITfUIElementMgr::EnumUIElements and enumerates the registered UI elements.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-ienumtfuielements
  * @namespace Windows.Win32.UI.TextServices
  */
-class IEnumTfUIElements extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IEnumTfUIElements extends IUnknown {
     /**
      * The interface identifier for IEnumTfUIElements
      * @type {Guid}
      */
-    static IID => Guid("{887aa91e-acba-4931-84da-3c5208cf543f}")
+    static IID := Guid("{887aa91e-acba-4931-84da-3c5208cf543f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IEnumTfUIElements interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Clone : IntPtr
+        Next  : IntPtr
+        Reset : IntPtr
+        Skip  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Clone", "Next", "Reset", "Skip"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IEnumTfUIElements.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IEnumTfUIElements::Clone method creates a copy of the enumerator object.
@@ -90,7 +102,7 @@ class IEnumTfUIElements extends IUnknown {
     Next(ulCount, ppElement, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulCount, "ptr*", ppElement, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(4, this, "uint", ulCount, ITfUIElement.Ptr, ppElement, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
@@ -160,5 +172,31 @@ class IEnumTfUIElements extends IUnknown {
     Skip(ulCount) {
         result := ComCall(6, this, "uint", ulCount, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IEnumTfUIElements.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 4)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Clone)
+        CallbackFree(this.vtbl.Next)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.Skip)
     }
 }

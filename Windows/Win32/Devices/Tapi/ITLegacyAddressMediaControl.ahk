@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITLegacyAddressMediaControl interface is provided to support legacy applications that require direct access to a device and its configuration. It is exposed by the Address Object and can be created by calling QueryInterface on ITAddress.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itlegacyaddressmediacontrol
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITLegacyAddressMediaControl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITLegacyAddressMediaControl extends IUnknown {
     /**
      * The interface identifier for ITLegacyAddressMediaControl
      * @type {Guid}
      */
-    static IID => Guid("{ab493640-4c0b-11d2-a046-00c04fb6809f}")
+    static IID := Guid("{ab493640-4c0b-11d2-a046-00c04fb6809f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITLegacyAddressMediaControl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetID        : IntPtr
+        GetDevConfig : IntPtr
+        SetDevConfig : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetID", "GetDevConfig", "SetDevConfig"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITLegacyAddressMediaControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetID method returns a device identifier for the specified device class associated with the current address.
@@ -96,7 +107,7 @@ class ITLegacyAddressMediaControl extends IUnknown {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
         ppDeviceIDMarshal := ppDeviceID is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pDeviceClass, pdwSizeMarshal, pdwSize, ppDeviceIDMarshal, ppDeviceID, "HRESULT")
+        result := ComCall(3, this, BSTR, pDeviceClass, pdwSizeMarshal, pdwSize, ppDeviceIDMarshal, ppDeviceID, "HRESULT")
         return result
     }
 
@@ -170,7 +181,7 @@ class ITLegacyAddressMediaControl extends IUnknown {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
         ppDeviceConfigMarshal := ppDeviceConfig is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pDeviceClass, pdwSizeMarshal, pdwSize, ppDeviceConfigMarshal, ppDeviceConfig, "HRESULT")
+        result := ComCall(4, this, BSTR, pDeviceClass, pdwSizeMarshal, pdwSize, ppDeviceConfigMarshal, ppDeviceConfig, "HRESULT")
         return result
     }
 
@@ -252,7 +263,31 @@ class ITLegacyAddressMediaControl extends IUnknown {
 
         pDeviceConfigMarshal := pDeviceConfig is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pDeviceClass, "uint", dwSize, pDeviceConfigMarshal, pDeviceConfig, "HRESULT")
+        result := ComCall(5, this, BSTR, pDeviceClass, "uint", dwSize, pDeviceConfigMarshal, pDeviceConfig, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITLegacyAddressMediaControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetID := CallbackCreate(GetMethod(implObj, "GetID"), flags, 4)
+        this.vtbl.GetDevConfig := CallbackCreate(GetMethod(implObj, "GetDevConfig"), flags, 4)
+        this.vtbl.SetDevConfig := CallbackCreate(GetMethod(implObj, "SetDevConfig"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetID)
+        CallbackFree(this.vtbl.GetDevConfig)
+        CallbackFree(this.vtbl.SetDevConfig)
     }
 }

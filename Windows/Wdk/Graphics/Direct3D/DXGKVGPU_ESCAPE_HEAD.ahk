@@ -1,28 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXGKVGPU_ESCAPE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DXGKVGPU_ESCAPE_TYPE.ahk" { DXGKVGPU_ESCAPE_TYPE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class DXGKVGPU_ESCAPE_HEAD extends Win32Struct {
-    static sizeof => 16
+export default struct DXGKVGPU_ESCAPE_HEAD {
+    #StructPack 8
 
-    static packingSize => 8
+    Luid : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Luid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Type : DXGKVGPU_ESCAPE_TYPE
 
-    /**
-     * @type {DXGKVGPU_ESCAPE_TYPE}
-     */
-    Type {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
 }

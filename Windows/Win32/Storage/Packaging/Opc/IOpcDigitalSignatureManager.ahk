@@ -1,11 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IOpcPartUri.ahk
-#Include .\IOpcDigitalSignatureEnumerator.ahk
-#Include .\IOpcSigningOptions.ahk
-#Include .\IOpcDigitalSignature.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\OPC_SIGNATURE_VALIDATION_RESULT.ahk" { OPC_SIGNATURE_VALIDATION_RESULT }
+#Import ".\IOpcDigitalSignature.ahk" { IOpcDigitalSignature }
+#Import ".\IOpcSigningOptions.ahk" { IOpcSigningOptions }
+#Import ".\IOpcPartUri.ahk" { IOpcPartUri }
+#Import "..\..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IOpcDigitalSignatureEnumerator.ahk" { IOpcDigitalSignatureEnumerator }
 
 /**
  * Provides access to Packaging Digital Signature Interfaces for a package that is represented by Packaging API objects.
@@ -21,26 +24,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcdigitalsignaturemanager
  * @namespace Windows.Win32.Storage.Packaging.Opc
  */
-class IOpcDigitalSignatureManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOpcDigitalSignatureManager extends IUnknown {
     /**
      * The interface identifier for IOpcDigitalSignatureManager
      * @type {Guid}
      */
-    static IID => Guid("{d5e62a0b-696d-462f-94df-72e33cef2659}")
+    static IID := Guid("{d5e62a0b-696d-462f-94df-72e33cef2659}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOpcDigitalSignatureManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetSignatureOriginPartName : IntPtr
+        SetSignatureOriginPartName : IntPtr
+        GetSignatureEnumerator     : IntPtr
+        RemoveSignature            : IntPtr
+        CreateSigningOptions       : IntPtr
+        Validate                   : IntPtr
+        Sign                       : IntPtr
+        ReplaceSignatureXml        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSignatureOriginPartName", "SetSignatureOriginPartName", "GetSignatureEnumerator", "RemoveSignature", "CreateSigningOptions", "Validate", "Sign", "ReplaceSignatureXml"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOpcDigitalSignatureManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets an IOpcPartUri interface pointer that represents the part name of the Digital Signature Origin part.
@@ -207,7 +224,7 @@ class IOpcDigitalSignatureManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignaturemanager-validate
      */
     Validate(signature, certificate) {
-        result := ComCall(8, this, "ptr", signature, "ptr", certificate, "int*", &validationResult := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", signature, CERT_CONTEXT.Ptr, certificate, "int*", &validationResult := 0, "HRESULT")
         return validationResult
     }
 
@@ -243,7 +260,7 @@ class IOpcDigitalSignatureManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignaturemanager-sign
      */
     Sign(certificate, signingOptions) {
-        result := ComCall(9, this, "ptr", certificate, "ptr", signingOptions, "ptr*", &digitalSignature := 0, "HRESULT")
+        result := ComCall(9, this, CERT_CONTEXT.Ptr, certificate, "ptr", signingOptions, "ptr*", &digitalSignature := 0, "HRESULT")
         return IOpcDigitalSignature(digitalSignature)
     }
 
@@ -269,5 +286,39 @@ class IOpcDigitalSignatureManager extends IUnknown {
 
         result := ComCall(10, this, "ptr", signaturePartName, newSignatureXmlMarshal, newSignatureXml, "uint", count, "ptr*", &digitalSignature := 0, "HRESULT")
         return IOpcDigitalSignature(digitalSignature)
+    }
+
+    Query(iid) {
+        if (IOpcDigitalSignatureManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSignatureOriginPartName := CallbackCreate(GetMethod(implObj, "GetSignatureOriginPartName"), flags, 2)
+        this.vtbl.SetSignatureOriginPartName := CallbackCreate(GetMethod(implObj, "SetSignatureOriginPartName"), flags, 2)
+        this.vtbl.GetSignatureEnumerator := CallbackCreate(GetMethod(implObj, "GetSignatureEnumerator"), flags, 2)
+        this.vtbl.RemoveSignature := CallbackCreate(GetMethod(implObj, "RemoveSignature"), flags, 2)
+        this.vtbl.CreateSigningOptions := CallbackCreate(GetMethod(implObj, "CreateSigningOptions"), flags, 2)
+        this.vtbl.Validate := CallbackCreate(GetMethod(implObj, "Validate"), flags, 4)
+        this.vtbl.Sign := CallbackCreate(GetMethod(implObj, "Sign"), flags, 4)
+        this.vtbl.ReplaceSignatureXml := CallbackCreate(GetMethod(implObj, "ReplaceSignatureXml"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSignatureOriginPartName)
+        CallbackFree(this.vtbl.SetSignatureOriginPartName)
+        CallbackFree(this.vtbl.GetSignatureEnumerator)
+        CallbackFree(this.vtbl.RemoveSignature)
+        CallbackFree(this.vtbl.CreateSigningOptions)
+        CallbackFree(this.vtbl.Validate)
+        CallbackFree(this.vtbl.Sign)
+        CallbackFree(this.vtbl.ReplaceSignatureXml)
     }
 }

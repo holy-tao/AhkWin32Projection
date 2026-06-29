@@ -1,138 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_DEVICE_STATE.ahk
-#Include .\USB_DEVICE_DESCRIPTOR.ahk
-#Include .\USB_DEVICE_SPEED.ahk
-#Include .\USB_CONNECTION_STATUS.ahk
-#Include .\USB_PIPE_INFO.ahk
-#Include .\USB_ENDPOINT_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USB_ENDPOINT_DESCRIPTOR.ahk" { USB_ENDPOINT_DESCRIPTOR }
+#Import ".\USB_DEVICE_STATE.ahk" { USB_DEVICE_STATE }
+#Import ".\USB_CONNECTION_STATUS.ahk" { USB_CONNECTION_STATUS }
+#Import ".\USB_DEVICE_DESCRIPTOR.ahk" { USB_DEVICE_DESCRIPTOR }
+#Import ".\USB_DEVICE_SPEED.ahk" { USB_DEVICE_SPEED }
+#Import ".\USB_PIPE_INFO.ahk" { USB_PIPE_INFO }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_DEVICE_INFO extends Win32Struct {
-    static sizeof => 1084
+export default struct USB_DEVICE_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    DeviceState : USB_DEVICE_STATE
 
-    /**
-     * @type {USB_DEVICE_STATE}
-     */
-    DeviceState {
-        get {
-            if(!this.HasProp("__DeviceState"))
-                this.__DeviceState := USB_DEVICE_STATE(0, this)
-            return this.__DeviceState
-        }
-    }
+    PortNumber : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    PortNumber {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    DeviceDescriptor : USB_DEVICE_DESCRIPTOR
 
-    /**
-     * @type {USB_DEVICE_DESCRIPTOR}
-     */
-    DeviceDescriptor {
-        get {
-            if(!this.HasProp("__DeviceDescriptor"))
-                this.__DeviceDescriptor := USB_DEVICE_DESCRIPTOR(6, this)
-            return this.__DeviceDescriptor
-        }
-    }
+    CurrentConfigurationValue : Int8
 
-    /**
-     * @type {Integer}
-     */
-    CurrentConfigurationValue {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
-    }
+    Speed : USB_DEVICE_SPEED
 
-    /**
-     * @type {USB_DEVICE_SPEED}
-     */
-    Speed {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    DeviceAddress : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DeviceAddress {
-        get => NumGet(this, 32, "ushort")
-        set => NumPut("ushort", value, this, 32)
-    }
+    ConnectionIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ConnectionIndex {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    ConnectionStatus : USB_CONNECTION_STATUS
 
-    /**
-     * @type {USB_CONNECTION_STATUS}
-     */
-    ConnectionStatus {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    PnpHardwareId : WCHAR[128]
 
-    /**
-     * @type {String}
-     */
-    PnpHardwareId {
-        get => StrGet(this.ptr + 44, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 44, 127, "UTF-16")
-    }
+    PnpCompatibleId : WCHAR[128]
 
-    /**
-     * @type {String}
-     */
-    PnpCompatibleId {
-        get => StrGet(this.ptr + 300, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 300, 127, "UTF-16")
-    }
+    SerialNumberId : WCHAR[128]
 
-    /**
-     * @type {String}
-     */
-    SerialNumberId {
-        get => StrGet(this.ptr + 556, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 556, 127, "UTF-16")
-    }
+    PnpDeviceDescription : WCHAR[128]
 
-    /**
-     * @type {String}
-     */
-    PnpDeviceDescription {
-        get => StrGet(this.ptr + 812, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 812, 127, "UTF-16")
-    }
+    NumberOfOpenPipes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfOpenPipes {
-        get => NumGet(this, 1068, "uint")
-        set => NumPut("uint", value, this, 1068)
-    }
+    PipeList : USB_PIPE_INFO[1]
 
-    /**
-     * @type {USB_PIPE_INFO}
-     */
-    PipeList {
-        get {
-            if(!this.HasProp("__PipeListProxyArray"))
-                this.__PipeListProxyArray := Win32FixedArray(this.ptr + 1072, 1, USB_PIPE_INFO, "")
-            return this.__PipeListProxyArray
-        }
-    }
 }

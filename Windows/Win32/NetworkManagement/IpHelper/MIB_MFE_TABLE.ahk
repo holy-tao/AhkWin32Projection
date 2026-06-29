@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_IPMCAST_MFE.ahk
-#Include .\MIB_IPMCAST_OIF_XP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MIB_IPMCAST_OIF_XP.ahk" { MIB_IPMCAST_OIF_XP }
+#Import ".\MIB_IPMCAST_MFE.ahk" { MIB_IPMCAST_MFE }
 
 /**
  * Contains a table of Multicast Forwarding Entries (MFEs).
@@ -10,30 +9,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipmib/ns-ipmib-mib_mfe_table
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_MFE_TABLE extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 4
+export default struct MIB_MFE_TABLE {
+    #StructPack 4
 
     /**
      * The number of MFEs in the table.
-     * @type {Integer}
      */
-    dwNumEntries {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwNumEntries : UInt32
 
     /**
      * A pointer to a table of MFEs implemented as an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipmcast_mfe">MIB_IPMCAST_MFE</a> structures.
-     * @type {MIB_IPMCAST_MFE}
      */
-    table {
-        get {
-            if(!this.HasProp("__tableProxyArray"))
-                this.__tableProxyArray := Win32FixedArray(this.ptr + 4, 1, MIB_IPMCAST_MFE, "")
-            return this.__tableProxyArray
-        }
-    }
+    table : MIB_IPMCAST_MFE[1]
+
 }

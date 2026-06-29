@@ -1,33 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMPCore.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IWMPCore.ahk" { IWMPCore }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IWMPPlayer interface provides methods for modifying the basic behavior of the Windows Media Player control user interface. These methods supplement the IWMPCore interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpplayer
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPPlayer extends IWMPCore {
-
-    static sizeof => A_PtrSize
+export default struct IWMPPlayer extends IWMPCore {
     /**
      * The interface identifier for IWMPPlayer
      * @type {Guid}
      */
-    static IID => Guid("{6bf52a4f-394a-11d3-b153-00c04f79faa6}")
+    static IID := Guid("{6bf52a4f-394a-11d3-b153-00c04f79faa6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 28
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPPlayer interfaces
+    */
+    struct Vtbl extends IWMPCore.Vtbl {
+        get_enabled           : IntPtr
+        put_enabled           : IntPtr
+        get_fullScreen        : IntPtr
+        put_fullScreen        : IntPtr
+        get_enableContextMenu : IntPtr
+        put_enableContextMenu : IntPtr
+        put_uiMode            : IntPtr
+        get_uiMode            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_enabled", "put_enabled", "get_fullScreen", "put_fullScreen", "get_enableContextMenu", "put_enableContextMenu", "put_uiMode", "get_uiMode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPPlayer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -121,7 +138,7 @@ class IWMPPlayer extends IWMPCore {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer-put_enabled
      */
     put_enabled(bEnabled) {
-        result := ComCall(29, this, "short", bEnabled, "HRESULT")
+        result := ComCall(29, this, VARIANT_BOOL, bEnabled, "HRESULT")
         return result
     }
 
@@ -211,7 +228,7 @@ class IWMPPlayer extends IWMPCore {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer-put_fullscreen
      */
     put_fullScreen(bFullScreen) {
-        result := ComCall(31, this, "short", bFullScreen, "HRESULT")
+        result := ComCall(31, this, VARIANT_BOOL, bFullScreen, "HRESULT")
         return result
     }
 
@@ -279,7 +296,7 @@ class IWMPPlayer extends IWMPCore {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer-put_enablecontextmenu
      */
     put_enableContextMenu(bEnableContextMenu) {
-        result := ComCall(33, this, "short", bEnableContextMenu, "HRESULT")
+        result := ComCall(33, this, VARIANT_BOOL, bEnableContextMenu, "HRESULT")
         return result
     }
 
@@ -324,7 +341,7 @@ class IWMPPlayer extends IWMPCore {
     put_uiMode(bstrMode) {
         bstrMode := bstrMode is String ? BSTR.Alloc(bstrMode).Value : bstrMode
 
-        result := ComCall(34, this, "ptr", bstrMode, "HRESULT")
+        result := ComCall(34, this, BSTR, bstrMode, "HRESULT")
         return result
     }
 
@@ -367,7 +384,41 @@ class IWMPPlayer extends IWMPCore {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer-get_uimode
      */
     get_uiMode(pbstrMode) {
-        result := ComCall(35, this, "ptr", pbstrMode, "HRESULT")
+        result := ComCall(35, this, BSTR.Ptr, pbstrMode, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPPlayer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_enabled := CallbackCreate(GetMethod(implObj, "get_enabled"), flags, 2)
+        this.vtbl.put_enabled := CallbackCreate(GetMethod(implObj, "put_enabled"), flags, 2)
+        this.vtbl.get_fullScreen := CallbackCreate(GetMethod(implObj, "get_fullScreen"), flags, 2)
+        this.vtbl.put_fullScreen := CallbackCreate(GetMethod(implObj, "put_fullScreen"), flags, 2)
+        this.vtbl.get_enableContextMenu := CallbackCreate(GetMethod(implObj, "get_enableContextMenu"), flags, 2)
+        this.vtbl.put_enableContextMenu := CallbackCreate(GetMethod(implObj, "put_enableContextMenu"), flags, 2)
+        this.vtbl.put_uiMode := CallbackCreate(GetMethod(implObj, "put_uiMode"), flags, 2)
+        this.vtbl.get_uiMode := CallbackCreate(GetMethod(implObj, "get_uiMode"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_enabled)
+        CallbackFree(this.vtbl.put_enabled)
+        CallbackFree(this.vtbl.get_fullScreen)
+        CallbackFree(this.vtbl.put_fullScreen)
+        CallbackFree(this.vtbl.get_enableContextMenu)
+        CallbackFree(this.vtbl.put_enableContextMenu)
+        CallbackFree(this.vtbl.put_uiMode)
+        CallbackFree(this.vtbl.get_uiMode)
     }
 }

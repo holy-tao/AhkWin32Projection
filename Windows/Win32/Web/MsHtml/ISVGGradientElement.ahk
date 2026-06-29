@@ -1,39 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISVGAnimatedEnumeration.ahk
-#Include .\ISVGAnimatedTransformList.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISVGAnimatedEnumeration.ahk" { ISVGAnimatedEnumeration }
+#Import ".\ISVGAnimatedTransformList.ahk" { ISVGAnimatedTransformList }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class ISVGGradientElement extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISVGGradientElement extends IDispatch {
     /**
      * The interface identifier for ISVGGradientElement
      * @type {Guid}
      */
-    static IID => Guid("{30510528-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{30510528-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for SVGGradientElement
      * @type {Guid}
      */
-    static CLSID => Guid("{305105d6-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{305105d6-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISVGGradientElement interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        putref_gradientUnits     : IntPtr
+        get_gradientUnits        : IntPtr
+        putref_gradientTransform : IntPtr
+        get_gradientTransform    : IntPtr
+        putref_spreadMethod      : IntPtr
+        get_spreadMethod         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["putref_gradientUnits", "get_gradientUnits", "putref_gradientTransform", "get_gradientTransform", "putref_spreadMethod", "get_spreadMethod"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISVGGradientElement.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ISVGAnimatedEnumeration} 
@@ -111,5 +124,35 @@ class ISVGGradientElement extends IDispatch {
     get_spreadMethod() {
         result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
         return ISVGAnimatedEnumeration(p)
+    }
+
+    Query(iid) {
+        if (ISVGGradientElement.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.putref_gradientUnits := CallbackCreate(GetMethod(implObj, "putref_gradientUnits"), flags, 2)
+        this.vtbl.get_gradientUnits := CallbackCreate(GetMethod(implObj, "get_gradientUnits"), flags, 2)
+        this.vtbl.putref_gradientTransform := CallbackCreate(GetMethod(implObj, "putref_gradientTransform"), flags, 2)
+        this.vtbl.get_gradientTransform := CallbackCreate(GetMethod(implObj, "get_gradientTransform"), flags, 2)
+        this.vtbl.putref_spreadMethod := CallbackCreate(GetMethod(implObj, "putref_spreadMethod"), flags, 2)
+        this.vtbl.get_spreadMethod := CallbackCreate(GetMethod(implObj, "get_spreadMethod"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.putref_gradientUnits)
+        CallbackFree(this.vtbl.get_gradientUnits)
+        CallbackFree(this.vtbl.putref_gradientTransform)
+        CallbackFree(this.vtbl.get_gradientTransform)
+        CallbackFree(this.vtbl.putref_spreadMethod)
+        CallbackFree(this.vtbl.get_spreadMethod)
     }
 }

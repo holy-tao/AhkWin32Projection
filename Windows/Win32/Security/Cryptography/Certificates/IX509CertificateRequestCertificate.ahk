@@ -1,36 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509CertificateRequestPkcs10.ahk
-#Include .\IX500DistinguishedName.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\ISignerCertificate.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISignerCertificate.ahk" { ISignerCertificate }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IX509CertificateRequestPkcs10.ahk" { IX509CertificateRequestPkcs10 }
+#Import ".\IX500DistinguishedName.ahk" { IX500DistinguishedName }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import ".\IX509PublicKey.ahk" { IX509PublicKey }
 
 /**
  * The IX509CertificateRequestCertificate interface represents a request object for a self-generated certificate, enabling you to create a certificate directly without going through a registration or certification authority.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509certificaterequestcertificate
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IX509CertificateRequestCertificate extends IX509CertificateRequestPkcs10 {
-
-    static sizeof => A_PtrSize
+export default struct IX509CertificateRequestCertificate extends IX509CertificateRequestPkcs10 {
     /**
      * The interface identifier for IX509CertificateRequestCertificate
      * @type {Guid}
      */
-    static IID => Guid("{728ab343-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab343-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 60
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IX509CertificateRequestCertificate interfaces
+    */
+    struct Vtbl extends IX509CertificateRequestPkcs10.Vtbl {
+        CheckPublicKeySignature : IntPtr
+        get_Issuer              : IntPtr
+        put_Issuer              : IntPtr
+        get_NotBefore           : IntPtr
+        put_NotBefore           : IntPtr
+        get_NotAfter            : IntPtr
+        put_NotAfter            : IntPtr
+        get_SerialNumber        : IntPtr
+        put_SerialNumber        : IntPtr
+        get_SignerCertificate   : IntPtr
+        put_SignerCertificate   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CheckPublicKeySignature", "get_Issuer", "put_Issuer", "get_NotBefore", "put_NotBefore", "get_NotAfter", "put_NotAfter", "get_SerialNumber", "put_SerialNumber", "get_SignerCertificate", "put_SignerCertificate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IX509CertificateRequestCertificate.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IX500DistinguishedName} 
@@ -388,8 +408,8 @@ class IX509CertificateRequestCertificate extends IX509CertificateRequestPkcs10 {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcertificate-get_serialnumber
      */
     get_SerialNumber(Encoding) {
-        pValue := BSTR()
-        result := ComCall(67, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(67, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -424,7 +444,7 @@ class IX509CertificateRequestCertificate extends IX509CertificateRequestPkcs10 {
     put_SerialNumber(Encoding, Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
 
-        result := ComCall(68, this, "int", Encoding, "ptr", Value, "HRESULT")
+        result := ComCall(68, this, EncodingType, Encoding, BSTR, Value, "HRESULT")
         return result
     }
 
@@ -493,5 +513,45 @@ class IX509CertificateRequestCertificate extends IX509CertificateRequestPkcs10 {
     put_SignerCertificate(pValue) {
         result := ComCall(70, this, "ptr", pValue, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IX509CertificateRequestCertificate.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CheckPublicKeySignature := CallbackCreate(GetMethod(implObj, "CheckPublicKeySignature"), flags, 2)
+        this.vtbl.get_Issuer := CallbackCreate(GetMethod(implObj, "get_Issuer"), flags, 2)
+        this.vtbl.put_Issuer := CallbackCreate(GetMethod(implObj, "put_Issuer"), flags, 2)
+        this.vtbl.get_NotBefore := CallbackCreate(GetMethod(implObj, "get_NotBefore"), flags, 2)
+        this.vtbl.put_NotBefore := CallbackCreate(GetMethod(implObj, "put_NotBefore"), flags, 2)
+        this.vtbl.get_NotAfter := CallbackCreate(GetMethod(implObj, "get_NotAfter"), flags, 2)
+        this.vtbl.put_NotAfter := CallbackCreate(GetMethod(implObj, "put_NotAfter"), flags, 2)
+        this.vtbl.get_SerialNumber := CallbackCreate(GetMethod(implObj, "get_SerialNumber"), flags, 3)
+        this.vtbl.put_SerialNumber := CallbackCreate(GetMethod(implObj, "put_SerialNumber"), flags, 3)
+        this.vtbl.get_SignerCertificate := CallbackCreate(GetMethod(implObj, "get_SignerCertificate"), flags, 2)
+        this.vtbl.put_SignerCertificate := CallbackCreate(GetMethod(implObj, "put_SignerCertificate"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CheckPublicKeySignature)
+        CallbackFree(this.vtbl.get_Issuer)
+        CallbackFree(this.vtbl.put_Issuer)
+        CallbackFree(this.vtbl.get_NotBefore)
+        CallbackFree(this.vtbl.put_NotBefore)
+        CallbackFree(this.vtbl.get_NotAfter)
+        CallbackFree(this.vtbl.put_NotAfter)
+        CallbackFree(this.vtbl.get_SerialNumber)
+        CallbackFree(this.vtbl.put_SerialNumber)
+        CallbackFree(this.vtbl.get_SignerCertificate)
+        CallbackFree(this.vtbl.put_SignerCertificate)
     }
 }

@@ -1,19 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class FILE_FS_DATA_COPY_INFORMATION extends Win32Struct {
-    static sizeof => 4
+export default struct FILE_FS_DATA_COPY_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
+    NumberOfCopies : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfCopies {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
 }

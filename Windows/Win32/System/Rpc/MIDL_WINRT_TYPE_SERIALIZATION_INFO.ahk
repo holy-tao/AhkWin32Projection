@@ -1,52 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIDL_STUB_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MIDL_STUB_DESC.ahk" { MIDL_STUB_DESC }
 
 /**
  * @namespace Windows.Win32.System.Rpc
  */
-class MIDL_WINRT_TYPE_SERIALIZATION_INFO extends Win32Struct {
-    static sizeof => 32
+export default struct MIDL_WINRT_TYPE_SERIALIZATION_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    TypeFormatString : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    TypeFormatString {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    FormatStringSize : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    FormatStringSize {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    TypeOffset : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    TypeOffset {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    StubDesc : MIDL_STUB_DESC.Ptr
 
-    /**
-     * @type {Pointer<MIDL_STUB_DESC>}
-     */
-    StubDesc {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

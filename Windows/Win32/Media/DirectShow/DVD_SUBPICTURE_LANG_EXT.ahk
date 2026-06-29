@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the possible language extensions in a specified subpicture stream.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_subpicture_lang_ext
  * @namespace Windows.Win32.Media.DirectShow
  */
-class DVD_SUBPICTURE_LANG_EXT extends Win32Enum {
+export default struct DVD_SUBPICTURE_LANG_EXT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates that no language extensions are present.

@@ -1,44 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\PALETTEENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\Gdi\PALETTEENTRY.ahk" { PALETTEENTRY }
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
  */
-class ICPALETTE extends Win32Struct {
-    static sizeof => 24
+export default struct ICPALETTE {
+    #StructPack 8
 
-    static packingSize => 8
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    iStart : Int32
 
-    /**
-     * @type {Integer}
-     */
-    iStart {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    iLen : Int32
 
-    /**
-     * @type {Integer}
-     */
-    iLen {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    lppe : PALETTEENTRY.Ptr
 
-    /**
-     * @type {Pointer<PALETTEENTRY>}
-     */
-    lppe {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

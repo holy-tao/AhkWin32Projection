@@ -1,95 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHV_UINT128.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WHV_UINT128.ahk" { WHV_UINT128 }
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_X64_FP_CONTROL_STATUS_REGISTER extends Win32Struct {
-    static sizeof => 48
+export default struct WHV_X64_FP_CONTROL_STATUS_REGISTER {
+    #StructPack 8
 
-    static packingSize => 8
+    FpControl : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    FpControl {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    FpStatus : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    FpStatus {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    FpTag : Int8
 
-    /**
-     * @type {Integer}
-     */
-    FpTag {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    Reserved : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    LastFpOp : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    LastFpOp {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    LastFpRip : Int64
 
-    /**
-     * @type {Integer}
-     */
-    LastFpRip {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    LastFpEip {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    LastFpCs {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved2 {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
-
-    /**
-     * @type {WHV_UINT128}
-     */
-    AsUINT128 {
-        get {
-            if(!this.HasProp("__AsUINT128"))
-                this.__AsUINT128 := WHV_UINT128(0, this)
-            return this.__AsUINT128
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'LastFpEip', { type: UInt32, offset: 8 })
+        DefineProp(this.Prototype, 'LastFpCs', { type: UInt16, offset: 12 })
+        DefineProp(this.Prototype, 'Reserved2', { type: UInt16, offset: 14 })
+        DefineProp(this.Prototype, 'AsUINT128', { type: WHV_UINT128, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

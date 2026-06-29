@@ -1,35 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IObjectId.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IObjectId.ahk" { IObjectId }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Can be used to define an extension for a certificate request.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509extension
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IX509Extension extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IX509Extension extends IDispatch {
     /**
      * The interface identifier for IX509Extension
      * @type {Guid}
      */
-    static IID => Guid("{728ab30d-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab30d-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IX509Extension interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Initialize   : IntPtr
+        get_ObjectId : IntPtr
+        get_RawData  : IntPtr
+        get_Critical : IntPtr
+        put_Critical : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "get_ObjectId", "get_RawData", "get_Critical", "put_Critical"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IX509Extension.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IObjectId} 
@@ -80,7 +94,7 @@ class IX509Extension extends IDispatch {
     Initialize(pObjectId, Encoding, strEncodedData) {
         strEncodedData := strEncodedData is String ? BSTR.Alloc(strEncodedData).Value : strEncodedData
 
-        result := ComCall(7, this, "ptr", pObjectId, "int", Encoding, "ptr", strEncodedData, "HRESULT")
+        result := ComCall(7, this, "ptr", pObjectId, EncodingType, Encoding, BSTR, strEncodedData, "HRESULT")
         return result
     }
 
@@ -105,8 +119,8 @@ class IX509Extension extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extension-get_rawdata
      */
     get_RawData(Encoding) {
-        pValue := BSTR()
-        result := ComCall(9, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(9, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -118,7 +132,7 @@ class IX509Extension extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extension-get_critical
      */
     get_Critical() {
-        result := ComCall(10, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -131,7 +145,35 @@ class IX509Extension extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extension-put_critical
      */
     put_Critical(Value) {
-        result := ComCall(11, this, "short", Value, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL, Value, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IX509Extension.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.get_ObjectId := CallbackCreate(GetMethod(implObj, "get_ObjectId"), flags, 2)
+        this.vtbl.get_RawData := CallbackCreate(GetMethod(implObj, "get_RawData"), flags, 3)
+        this.vtbl.get_Critical := CallbackCreate(GetMethod(implObj, "get_Critical"), flags, 2)
+        this.vtbl.put_Critical := CallbackCreate(GetMethod(implObj, "put_Critical"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.get_ObjectId)
+        CallbackFree(this.vtbl.get_RawData)
+        CallbackFree(this.vtbl.get_Critical)
+        CallbackFree(this.vtbl.put_Critical)
     }
 }

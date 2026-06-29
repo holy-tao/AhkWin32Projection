@@ -1,33 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IPresentationContent.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk" { DXGI_COLOR_SPACE_TYPE }
+#Import ".\IPresentationBuffer.ahk" { IPresentationBuffer }
+#Import ".\IPresentationContent.ahk" { IPresentationContent }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Dxgi\Common\DXGI_ALPHA_MODE.ahk" { DXGI_ALPHA_MODE }
+#Import ".\PresentationTransform.ahk" { PresentationTransform }
 
 /**
  * Describes an `IPresentationContent` with a single bound buffer, that can be shared with the system compositor and displayed as content in the global visual tree.
  * @see https://learn.microsoft.com/windows/win32/api/presentation/nn-presentation-ipresentationsurface
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
  */
-class IPresentationSurface extends IPresentationContent {
-
-    static sizeof => A_PtrSize
+export default struct IPresentationSurface extends IPresentationContent {
     /**
      * The interface identifier for IPresentationSurface
      * @type {Guid}
      */
-    static IID => Guid("{956710fb-ea40-4eba-a3eb-4375a0eb4edc}")
+    static IID := Guid("{956710fb-ea40-4eba-a3eb-4375a0eb4edc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPresentationSurface interfaces
+    */
+    struct Vtbl extends IPresentationContent.Vtbl {
+        SetBuffer              : IntPtr
+        SetColorSpace          : IntPtr
+        SetAlphaMode           : IntPtr
+        SetSourceRect          : IntPtr
+        SetTransform           : IntPtr
+        RestrictToOutput       : IntPtr
+        SetDisableReadback     : IntPtr
+        SetLetterboxingMargins : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetBuffer", "SetColorSpace", "SetAlphaMode", "SetSourceRect", "SetTransform", "RestrictToOutput", "SetDisableReadback", "SetLetterboxingMargins"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPresentationSurface.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the presentation buffer associated with this presentation surface.
@@ -55,7 +76,7 @@ class IPresentationSurface extends IPresentationContent {
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationsurface-setcolorspace
      */
     SetColorSpace(colorSpace) {
-        result := ComCall(5, this, "int", colorSpace, "HRESULT")
+        result := ComCall(5, this, DXGI_COLOR_SPACE_TYPE, colorSpace, "HRESULT")
         return result
     }
 
@@ -70,7 +91,7 @@ class IPresentationSurface extends IPresentationContent {
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationsurface-setalphamode
      */
     SetAlphaMode(alphaMode) {
-        result := ComCall(6, this, "int", alphaMode, "HRESULT")
+        result := ComCall(6, this, DXGI_ALPHA_MODE, alphaMode, "HRESULT")
         return result
     }
 
@@ -85,7 +106,7 @@ class IPresentationSurface extends IPresentationContent {
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationsurface-setsourcerect
      */
     SetSourceRect(sourceRect) {
-        result := ComCall(7, this, "ptr", sourceRect, "HRESULT")
+        result := ComCall(7, this, RECT.Ptr, sourceRect, "HRESULT")
         return result
     }
 
@@ -100,7 +121,7 @@ class IPresentationSurface extends IPresentationContent {
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationsurface-settransform
      */
     SetTransform(transform) {
-        result := ComCall(8, this, "ptr", transform, "HRESULT")
+        result := ComCall(8, this, PresentationTransform.Ptr, transform, "HRESULT")
         return result
     }
 
@@ -160,5 +181,39 @@ class IPresentationSurface extends IPresentationContent {
     SetLetterboxingMargins(leftLetterboxSize, topLetterboxSize, rightLetterboxSize, bottomLetterboxSize) {
         result := ComCall(11, this, "float", leftLetterboxSize, "float", topLetterboxSize, "float", rightLetterboxSize, "float", bottomLetterboxSize, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPresentationSurface.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetBuffer := CallbackCreate(GetMethod(implObj, "SetBuffer"), flags, 2)
+        this.vtbl.SetColorSpace := CallbackCreate(GetMethod(implObj, "SetColorSpace"), flags, 2)
+        this.vtbl.SetAlphaMode := CallbackCreate(GetMethod(implObj, "SetAlphaMode"), flags, 2)
+        this.vtbl.SetSourceRect := CallbackCreate(GetMethod(implObj, "SetSourceRect"), flags, 2)
+        this.vtbl.SetTransform := CallbackCreate(GetMethod(implObj, "SetTransform"), flags, 2)
+        this.vtbl.RestrictToOutput := CallbackCreate(GetMethod(implObj, "RestrictToOutput"), flags, 2)
+        this.vtbl.SetDisableReadback := CallbackCreate(GetMethod(implObj, "SetDisableReadback"), flags, 2)
+        this.vtbl.SetLetterboxingMargins := CallbackCreate(GetMethod(implObj, "SetLetterboxingMargins"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetBuffer)
+        CallbackFree(this.vtbl.SetColorSpace)
+        CallbackFree(this.vtbl.SetAlphaMode)
+        CallbackFree(this.vtbl.SetSourceRect)
+        CallbackFree(this.vtbl.SetTransform)
+        CallbackFree(this.vtbl.RestrictToOutput)
+        CallbackFree(this.vtbl.SetDisableReadback)
+        CallbackFree(this.vtbl.SetLetterboxingMargins)
     }
 }

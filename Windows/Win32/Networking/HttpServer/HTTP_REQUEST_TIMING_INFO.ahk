@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_REQUEST_TIMING_INFO extends Win32Struct {
-    static sizeof => 248
+export default struct HTTP_REQUEST_TIMING_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    RequestTimingCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RequestTimingCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    RequestTiming : Int64[30]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    RequestTiming {
-        get {
-            if(!this.HasProp("__RequestTimingProxyArray"))
-                this.__RequestTimingProxyArray := Win32FixedArray(this.ptr + 8, 30, Primitive, "uint")
-            return this.__RequestTimingProxyArray
-        }
-    }
 }

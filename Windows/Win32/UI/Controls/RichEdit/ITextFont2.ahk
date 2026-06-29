@@ -1,33 +1,86 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ITextFont.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITextFont.ahk" { ITextFont }
 
 /**
  * In the Text Object Model (TOM), applications access text-range attributes by using a pair of dual interfaces, ITextFont and ITextPara.
  * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextfont2
  * @namespace Windows.Win32.UI.Controls.RichEdit
  */
-class ITextFont2 extends ITextFont {
-
-    static sizeof => A_PtrSize
+export default struct ITextFont2 extends ITextFont {
     /**
      * The interface identifier for ITextFont2
      * @type {Guid}
      */
-    static IID => Guid("{c241f5e3-7206-11d8-a2c7-00a0d1d6c6b3}")
+    static IID := Guid("{c241f5e3-7206-11d8-a2c7-00a0d1d6c6b3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 62
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITextFont2 interfaces
+    */
+    struct Vtbl extends ITextFont.Vtbl {
+        GetCount                 : IntPtr
+        GetAutoLigatures         : IntPtr
+        SetAutoLigatures         : IntPtr
+        GetAutospaceAlpha        : IntPtr
+        SetAutospaceAlpha        : IntPtr
+        GetAutospaceNumeric      : IntPtr
+        SetAutospaceNumeric      : IntPtr
+        GetAutospaceParens       : IntPtr
+        SetAutospaceParens       : IntPtr
+        GetCharRep               : IntPtr
+        SetCharRep               : IntPtr
+        GetCompressionMode       : IntPtr
+        SetCompressionMode       : IntPtr
+        GetCookie                : IntPtr
+        SetCookie                : IntPtr
+        GetDoubleStrike          : IntPtr
+        SetDoubleStrike          : IntPtr
+        GetDuplicate2            : IntPtr
+        SetDuplicate2            : IntPtr
+        GetLinkType              : IntPtr
+        GetMathZone              : IntPtr
+        SetMathZone              : IntPtr
+        GetModWidthPairs         : IntPtr
+        SetModWidthPairs         : IntPtr
+        GetModWidthSpace         : IntPtr
+        SetModWidthSpace         : IntPtr
+        GetOldNumbers            : IntPtr
+        SetOldNumbers            : IntPtr
+        GetOverlapping           : IntPtr
+        SetOverlapping           : IntPtr
+        GetPositionSubSuper      : IntPtr
+        SetPositionSubSuper      : IntPtr
+        GetScaling               : IntPtr
+        SetScaling               : IntPtr
+        GetSpaceExtension        : IntPtr
+        SetSpaceExtension        : IntPtr
+        GetUnderlinePositionMode : IntPtr
+        SetUnderlinePositionMode : IntPtr
+        GetEffects               : IntPtr
+        GetEffects2              : IntPtr
+        GetProperty              : IntPtr
+        GetPropertyInfo          : IntPtr
+        IsEqual2                 : IntPtr
+        SetEffects               : IntPtr
+        SetEffects2              : IntPtr
+        SetProperty              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCount", "GetAutoLigatures", "SetAutoLigatures", "GetAutospaceAlpha", "SetAutospaceAlpha", "GetAutospaceNumeric", "SetAutospaceNumeric", "GetAutospaceParens", "SetAutospaceParens", "GetCharRep", "SetCharRep", "GetCompressionMode", "SetCompressionMode", "GetCookie", "SetCookie", "GetDoubleStrike", "SetDoubleStrike", "GetDuplicate2", "SetDuplicate2", "GetLinkType", "GetMathZone", "SetMathZone", "GetModWidthPairs", "SetModWidthPairs", "GetModWidthSpace", "SetModWidthSpace", "GetOldNumbers", "SetOldNumbers", "GetOverlapping", "SetOverlapping", "GetPositionSubSuper", "SetPositionSubSuper", "GetScaling", "SetScaling", "GetSpaceExtension", "SetSpaceExtension", "GetUnderlinePositionMode", "SetUnderlinePositionMode", "GetEffects", "GetEffects2", "GetProperty", "GetPropertyInfo", "IsEqual2", "SetEffects", "SetEffects2", "SetProperty"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITextFont2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the count of extra properties in this character formatting collection.
@@ -1183,5 +1236,115 @@ class ITextFont2 extends ITextFont {
     SetProperty(Type, Value) {
         result := ComCall(107, this, "int", Type, "int", Value, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITextFont2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetAutoLigatures := CallbackCreate(GetMethod(implObj, "GetAutoLigatures"), flags, 2)
+        this.vtbl.SetAutoLigatures := CallbackCreate(GetMethod(implObj, "SetAutoLigatures"), flags, 2)
+        this.vtbl.GetAutospaceAlpha := CallbackCreate(GetMethod(implObj, "GetAutospaceAlpha"), flags, 2)
+        this.vtbl.SetAutospaceAlpha := CallbackCreate(GetMethod(implObj, "SetAutospaceAlpha"), flags, 2)
+        this.vtbl.GetAutospaceNumeric := CallbackCreate(GetMethod(implObj, "GetAutospaceNumeric"), flags, 2)
+        this.vtbl.SetAutospaceNumeric := CallbackCreate(GetMethod(implObj, "SetAutospaceNumeric"), flags, 2)
+        this.vtbl.GetAutospaceParens := CallbackCreate(GetMethod(implObj, "GetAutospaceParens"), flags, 2)
+        this.vtbl.SetAutospaceParens := CallbackCreate(GetMethod(implObj, "SetAutospaceParens"), flags, 2)
+        this.vtbl.GetCharRep := CallbackCreate(GetMethod(implObj, "GetCharRep"), flags, 2)
+        this.vtbl.SetCharRep := CallbackCreate(GetMethod(implObj, "SetCharRep"), flags, 2)
+        this.vtbl.GetCompressionMode := CallbackCreate(GetMethod(implObj, "GetCompressionMode"), flags, 2)
+        this.vtbl.SetCompressionMode := CallbackCreate(GetMethod(implObj, "SetCompressionMode"), flags, 2)
+        this.vtbl.GetCookie := CallbackCreate(GetMethod(implObj, "GetCookie"), flags, 2)
+        this.vtbl.SetCookie := CallbackCreate(GetMethod(implObj, "SetCookie"), flags, 2)
+        this.vtbl.GetDoubleStrike := CallbackCreate(GetMethod(implObj, "GetDoubleStrike"), flags, 2)
+        this.vtbl.SetDoubleStrike := CallbackCreate(GetMethod(implObj, "SetDoubleStrike"), flags, 2)
+        this.vtbl.GetDuplicate2 := CallbackCreate(GetMethod(implObj, "GetDuplicate2"), flags, 2)
+        this.vtbl.SetDuplicate2 := CallbackCreate(GetMethod(implObj, "SetDuplicate2"), flags, 2)
+        this.vtbl.GetLinkType := CallbackCreate(GetMethod(implObj, "GetLinkType"), flags, 2)
+        this.vtbl.GetMathZone := CallbackCreate(GetMethod(implObj, "GetMathZone"), flags, 2)
+        this.vtbl.SetMathZone := CallbackCreate(GetMethod(implObj, "SetMathZone"), flags, 2)
+        this.vtbl.GetModWidthPairs := CallbackCreate(GetMethod(implObj, "GetModWidthPairs"), flags, 2)
+        this.vtbl.SetModWidthPairs := CallbackCreate(GetMethod(implObj, "SetModWidthPairs"), flags, 2)
+        this.vtbl.GetModWidthSpace := CallbackCreate(GetMethod(implObj, "GetModWidthSpace"), flags, 2)
+        this.vtbl.SetModWidthSpace := CallbackCreate(GetMethod(implObj, "SetModWidthSpace"), flags, 2)
+        this.vtbl.GetOldNumbers := CallbackCreate(GetMethod(implObj, "GetOldNumbers"), flags, 2)
+        this.vtbl.SetOldNumbers := CallbackCreate(GetMethod(implObj, "SetOldNumbers"), flags, 2)
+        this.vtbl.GetOverlapping := CallbackCreate(GetMethod(implObj, "GetOverlapping"), flags, 2)
+        this.vtbl.SetOverlapping := CallbackCreate(GetMethod(implObj, "SetOverlapping"), flags, 2)
+        this.vtbl.GetPositionSubSuper := CallbackCreate(GetMethod(implObj, "GetPositionSubSuper"), flags, 2)
+        this.vtbl.SetPositionSubSuper := CallbackCreate(GetMethod(implObj, "SetPositionSubSuper"), flags, 2)
+        this.vtbl.GetScaling := CallbackCreate(GetMethod(implObj, "GetScaling"), flags, 2)
+        this.vtbl.SetScaling := CallbackCreate(GetMethod(implObj, "SetScaling"), flags, 2)
+        this.vtbl.GetSpaceExtension := CallbackCreate(GetMethod(implObj, "GetSpaceExtension"), flags, 2)
+        this.vtbl.SetSpaceExtension := CallbackCreate(GetMethod(implObj, "SetSpaceExtension"), flags, 2)
+        this.vtbl.GetUnderlinePositionMode := CallbackCreate(GetMethod(implObj, "GetUnderlinePositionMode"), flags, 2)
+        this.vtbl.SetUnderlinePositionMode := CallbackCreate(GetMethod(implObj, "SetUnderlinePositionMode"), flags, 2)
+        this.vtbl.GetEffects := CallbackCreate(GetMethod(implObj, "GetEffects"), flags, 3)
+        this.vtbl.GetEffects2 := CallbackCreate(GetMethod(implObj, "GetEffects2"), flags, 3)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.GetPropertyInfo := CallbackCreate(GetMethod(implObj, "GetPropertyInfo"), flags, 4)
+        this.vtbl.IsEqual2 := CallbackCreate(GetMethod(implObj, "IsEqual2"), flags, 3)
+        this.vtbl.SetEffects := CallbackCreate(GetMethod(implObj, "SetEffects"), flags, 3)
+        this.vtbl.SetEffects2 := CallbackCreate(GetMethod(implObj, "SetEffects2"), flags, 3)
+        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCount)
+        CallbackFree(this.vtbl.GetAutoLigatures)
+        CallbackFree(this.vtbl.SetAutoLigatures)
+        CallbackFree(this.vtbl.GetAutospaceAlpha)
+        CallbackFree(this.vtbl.SetAutospaceAlpha)
+        CallbackFree(this.vtbl.GetAutospaceNumeric)
+        CallbackFree(this.vtbl.SetAutospaceNumeric)
+        CallbackFree(this.vtbl.GetAutospaceParens)
+        CallbackFree(this.vtbl.SetAutospaceParens)
+        CallbackFree(this.vtbl.GetCharRep)
+        CallbackFree(this.vtbl.SetCharRep)
+        CallbackFree(this.vtbl.GetCompressionMode)
+        CallbackFree(this.vtbl.SetCompressionMode)
+        CallbackFree(this.vtbl.GetCookie)
+        CallbackFree(this.vtbl.SetCookie)
+        CallbackFree(this.vtbl.GetDoubleStrike)
+        CallbackFree(this.vtbl.SetDoubleStrike)
+        CallbackFree(this.vtbl.GetDuplicate2)
+        CallbackFree(this.vtbl.SetDuplicate2)
+        CallbackFree(this.vtbl.GetLinkType)
+        CallbackFree(this.vtbl.GetMathZone)
+        CallbackFree(this.vtbl.SetMathZone)
+        CallbackFree(this.vtbl.GetModWidthPairs)
+        CallbackFree(this.vtbl.SetModWidthPairs)
+        CallbackFree(this.vtbl.GetModWidthSpace)
+        CallbackFree(this.vtbl.SetModWidthSpace)
+        CallbackFree(this.vtbl.GetOldNumbers)
+        CallbackFree(this.vtbl.SetOldNumbers)
+        CallbackFree(this.vtbl.GetOverlapping)
+        CallbackFree(this.vtbl.SetOverlapping)
+        CallbackFree(this.vtbl.GetPositionSubSuper)
+        CallbackFree(this.vtbl.SetPositionSubSuper)
+        CallbackFree(this.vtbl.GetScaling)
+        CallbackFree(this.vtbl.SetScaling)
+        CallbackFree(this.vtbl.GetSpaceExtension)
+        CallbackFree(this.vtbl.SetSpaceExtension)
+        CallbackFree(this.vtbl.GetUnderlinePositionMode)
+        CallbackFree(this.vtbl.SetUnderlinePositionMode)
+        CallbackFree(this.vtbl.GetEffects)
+        CallbackFree(this.vtbl.GetEffects2)
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.GetPropertyInfo)
+        CallbackFree(this.vtbl.IsEqual2)
+        CallbackFree(this.vtbl.SetEffects)
+        CallbackFree(this.vtbl.SetEffects2)
+        CallbackFree(this.vtbl.SetProperty)
     }
 }

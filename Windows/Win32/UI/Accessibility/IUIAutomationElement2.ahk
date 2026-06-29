@@ -1,34 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomationElement.ahk
-#Include .\IUIAutomationElementArray.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUIAutomationElementArray.ahk" { IUIAutomationElementArray }
+#Import ".\LiveSetting.ahk" { LiveSetting }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
 
 /**
  * Extends the IUIAutomationElement interface.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement2
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IUIAutomationElement2 extends IUIAutomationElement {
-
-    static sizeof => A_PtrSize
+export default struct IUIAutomationElement2 extends IUIAutomationElement {
     /**
      * The interface identifier for IUIAutomationElement2
      * @type {Guid}
      */
-    static IID => Guid("{6749c683-f70d-4487-a698-5f79d55290d6}")
+    static IID := Guid("{6749c683-f70d-4487-a698-5f79d55290d6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 85
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAutomationElement2 interfaces
+    */
+    struct Vtbl extends IUIAutomationElement.Vtbl {
+        get_CurrentOptimizeForVisualContent : IntPtr
+        get_CachedOptimizeForVisualContent  : IntPtr
+        get_CurrentLiveSetting              : IntPtr
+        get_CachedLiveSetting               : IntPtr
+        get_CurrentFlowsFrom                : IntPtr
+        get_CachedFlowsFrom                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_CurrentOptimizeForVisualContent", "get_CachedOptimizeForVisualContent", "get_CurrentLiveSetting", "get_CachedLiveSetting", "get_CurrentFlowsFrom", "get_CachedFlowsFrom"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAutomationElement2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BOOL} 
@@ -80,7 +95,7 @@ class IUIAutomationElement2 extends IUIAutomationElement {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement2-get_currentoptimizeforvisualcontent
      */
     get_CurrentOptimizeForVisualContent() {
-        result := ComCall(85, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(85, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -92,7 +107,7 @@ class IUIAutomationElement2 extends IUIAutomationElement {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement2-get_cachedoptimizeforvisualcontent
      */
     get_CachedOptimizeForVisualContent() {
-        result := ComCall(86, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(86, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -146,5 +161,35 @@ class IUIAutomationElement2 extends IUIAutomationElement {
     get_CachedFlowsFrom() {
         result := ComCall(90, this, "ptr*", &retVal := 0, "HRESULT")
         return IUIAutomationElementArray(retVal)
+    }
+
+    Query(iid) {
+        if (IUIAutomationElement2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_CurrentOptimizeForVisualContent := CallbackCreate(GetMethod(implObj, "get_CurrentOptimizeForVisualContent"), flags, 2)
+        this.vtbl.get_CachedOptimizeForVisualContent := CallbackCreate(GetMethod(implObj, "get_CachedOptimizeForVisualContent"), flags, 2)
+        this.vtbl.get_CurrentLiveSetting := CallbackCreate(GetMethod(implObj, "get_CurrentLiveSetting"), flags, 2)
+        this.vtbl.get_CachedLiveSetting := CallbackCreate(GetMethod(implObj, "get_CachedLiveSetting"), flags, 2)
+        this.vtbl.get_CurrentFlowsFrom := CallbackCreate(GetMethod(implObj, "get_CurrentFlowsFrom"), flags, 2)
+        this.vtbl.get_CachedFlowsFrom := CallbackCreate(GetMethod(implObj, "get_CachedFlowsFrom"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_CurrentOptimizeForVisualContent)
+        CallbackFree(this.vtbl.get_CachedOptimizeForVisualContent)
+        CallbackFree(this.vtbl.get_CurrentLiveSetting)
+        CallbackFree(this.vtbl.get_CachedLiveSetting)
+        CallbackFree(this.vtbl.get_CurrentFlowsFrom)
+        CallbackFree(this.vtbl.get_CachedFlowsFrom)
     }
 }

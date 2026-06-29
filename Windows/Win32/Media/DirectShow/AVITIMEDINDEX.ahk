@@ -1,106 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\AVITIMEDINDEX_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\AVITIMEDINDEX_ENTRY.ahk" { AVITIMEDINDEX_ENTRY }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class AVITIMEDINDEX extends Win32Struct {
-    static sizeof => 27320
+export default struct AVITIMEDINDEX {
+    #StructPack 8
 
-    static packingSize => 8
+    fcc : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fcc {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cb : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cb {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    wLongsPerEntry : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wLongsPerEntry {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    bIndexSubType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bIndexSubType {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    bIndexType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bIndexType {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
-    }
+    nEntriesInUse : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nEntriesInUse {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwChunkId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwChunkId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    qwBaseOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    qwBaseOffset {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwReserved_3 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved_3 {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    aIndex : AVITIMEDINDEX_ENTRY[1362]
 
-    /**
-     * @type {AVITIMEDINDEX_ENTRY}
-     */
-    aIndex {
-        get {
-            if(!this.HasProp("__aIndexProxyArray"))
-                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 36, 1362, AVITIMEDINDEX_ENTRY, "")
-            return this.__aIndexProxyArray
-        }
-    }
+    adwTrailingFill : UInt32[2734]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    adwTrailingFill {
-        get {
-            if(!this.HasProp("__adwTrailingFillProxyArray"))
-                this.__adwTrailingFillProxyArray := Win32FixedArray(this.ptr + 16380, 2734, Primitive, "uint")
-            return this.__adwTrailingFillProxyArray
-        }
-    }
 }

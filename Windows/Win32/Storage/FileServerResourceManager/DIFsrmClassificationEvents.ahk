@@ -1,37 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * Handles events that are received while processing a ClassifyFiles call.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmtlb/nn-fsrmtlb-difsrmclassificationevents
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class DIFsrmClassificationEvents extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct DIFsrmClassificationEvents extends IDispatch {
     /**
      * The interface identifier for DIFsrmClassificationEvents
      * @type {Guid}
      */
-    static IID => Guid("{26942db0-dabf-41d8-bbdd-b129a9f70424}")
+    static IID := Guid("{26942db0-dabf-41d8-bbdd-b129a9f70424}")
 
     /**
      * The class identifier for DIFsrmClassificationEvents
      * @type {Guid}
      */
-    static CLSID => Guid("{26942db0-dabf-41d8-bbdd-b129a9f70424}")
+    static CLSID := Guid("{26942db0-dabf-41d8-bbdd-b129a9f70424}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for DIFsrmClassificationEvents interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => []
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := DIFsrmClassificationEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
+
+    Query(iid) {
+        if (DIFsrmClassificationEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+    }
 }

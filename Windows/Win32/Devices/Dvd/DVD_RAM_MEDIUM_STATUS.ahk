@@ -1,13 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
  */
-class DVD_RAM_MEDIUM_STATUS extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 1
+export default struct DVD_RAM_MEDIUM_STATUS {
+    #StructPack 1
 
     /**
      * This bitfield backs the following members:
@@ -18,12 +15,9 @@ class DVD_RAM_MEDIUM_STATUS extends Win32Struct {
      * - Reserved1
      * - CartridgeNotSealed
      * - MediaInCartridge
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    _bitfield : Int8
+
 
     /**
      * @type {Integer}
@@ -80,28 +74,10 @@ class DVD_RAM_MEDIUM_STATUS extends Win32Struct {
         get => (this._bitfield >> 7) & 0x1
         set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
     }
+    DiscTypeIdentification : Int8
 
-    /**
-     * @type {Integer}
-     */
-    DiscTypeIdentification {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Reserved2 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved2 {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    MediaSpecificWriteInhibitInformation : Int8
 
-    /**
-     * @type {Integer}
-     */
-    MediaSpecificWriteInhibitInformation {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
 }

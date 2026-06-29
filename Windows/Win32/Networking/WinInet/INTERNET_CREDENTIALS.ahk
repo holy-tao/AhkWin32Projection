@@ -1,83 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
  */
-class INTERNET_CREDENTIALS extends Win32Struct {
-    static sizeof => 56
+export default struct INTERNET_CREDENTIALS {
+    #StructPack 8
 
-    static packingSize => 8
+    lpcwszHostName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    lpcwszHostName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwPort : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwPort {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwScheme : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwScheme {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    lpcwszUrl : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    lpcwszUrl {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpcwszRealm : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    lpcwszRealm {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    fAuthIdentity : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    fAuthIdentity {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    lpcwszUserName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    lpcwszUserName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lpcwszPassword : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    lpcwszPassword {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    pAuthIdentityOpaque {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    static __New() {
+        DefineProp(this.Prototype, 'pAuthIdentityOpaque', { type: IntPtr, offset: 40 })
+        this.DeleteProp("__New")
     }
 }

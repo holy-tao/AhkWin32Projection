@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IFaxJobStatus.ahk" { IFaxJobStatus }
+#Import ".\IFaxServer2.ahk" { IFaxServer2 }
 
 /**
  * The IFaxServerNotify2 interface is used for fax notifications. (IIFaxServerNotify2)
@@ -28,26 +33,58 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxservernotify2
  * @namespace Windows.Win32.Devices.Fax
  */
-class IFaxServerNotify2 extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFaxServerNotify2 extends IDispatch {
     /**
      * The interface identifier for IFaxServerNotify2
      * @type {Guid}
      */
-    static IID => Guid("{ec9c69b9-5fe7-4805-9467-82fcd96af903}")
+    static IID := Guid("{ec9c69b9-5fe7-4805-9467-82fcd96af903}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFaxServerNotify2 interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        OnIncomingJobAdded                  : IntPtr
+        OnIncomingJobRemoved                : IntPtr
+        OnIncomingJobChanged                : IntPtr
+        OnOutgoingJobAdded                  : IntPtr
+        OnOutgoingJobRemoved                : IntPtr
+        OnOutgoingJobChanged                : IntPtr
+        OnIncomingMessageAdded              : IntPtr
+        OnIncomingMessageRemoved            : IntPtr
+        OnOutgoingMessageAdded              : IntPtr
+        OnOutgoingMessageRemoved            : IntPtr
+        OnReceiptOptionsChange              : IntPtr
+        OnActivityLoggingConfigChange       : IntPtr
+        OnSecurityConfigChange              : IntPtr
+        OnEventLoggingConfigChange          : IntPtr
+        OnOutgoingQueueConfigChange         : IntPtr
+        OnOutgoingArchiveConfigChange       : IntPtr
+        OnIncomingArchiveConfigChange       : IntPtr
+        OnDevicesConfigChange               : IntPtr
+        OnOutboundRoutingGroupsConfigChange : IntPtr
+        OnOutboundRoutingRulesConfigChange  : IntPtr
+        OnServerActivityChange              : IntPtr
+        OnQueuesStatusChange                : IntPtr
+        OnNewCall                           : IntPtr
+        OnServerShutDown                    : IntPtr
+        OnDeviceStatusChange                : IntPtr
+        OnGeneralServerConfigChanged        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnIncomingJobAdded", "OnIncomingJobRemoved", "OnIncomingJobChanged", "OnOutgoingJobAdded", "OnOutgoingJobRemoved", "OnOutgoingJobChanged", "OnIncomingMessageAdded", "OnIncomingMessageRemoved", "OnOutgoingMessageAdded", "OnOutgoingMessageRemoved", "OnReceiptOptionsChange", "OnActivityLoggingConfigChange", "OnSecurityConfigChange", "OnEventLoggingConfigChange", "OnOutgoingQueueConfigChange", "OnOutgoingArchiveConfigChange", "OnIncomingArchiveConfigChange", "OnDevicesConfigChange", "OnOutboundRoutingGroupsConfigChange", "OnOutboundRoutingRulesConfigChange", "OnServerActivityChange", "OnQueuesStatusChange", "OnNewCall", "OnServerShutDown", "OnDeviceStatusChange", "OnGeneralServerConfigChanged"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFaxServerNotify2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -58,7 +95,7 @@ class IFaxServerNotify2 extends IDispatch {
     OnIncomingJobAdded(pFaxServer, bstrJobId) {
         bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId
 
-        result := ComCall(7, this, "ptr", pFaxServer, "ptr", bstrJobId, "HRESULT")
+        result := ComCall(7, this, "ptr", pFaxServer, BSTR, bstrJobId, "HRESULT")
         return result
     }
 
@@ -71,7 +108,7 @@ class IFaxServerNotify2 extends IDispatch {
     OnIncomingJobRemoved(pFaxServer, bstrJobId) {
         bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId
 
-        result := ComCall(8, this, "ptr", pFaxServer, "ptr", bstrJobId, "HRESULT")
+        result := ComCall(8, this, "ptr", pFaxServer, BSTR, bstrJobId, "HRESULT")
         return result
     }
 
@@ -85,7 +122,7 @@ class IFaxServerNotify2 extends IDispatch {
     OnIncomingJobChanged(pFaxServer, bstrJobId, pJobStatus) {
         bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId
 
-        result := ComCall(9, this, "ptr", pFaxServer, "ptr", bstrJobId, "ptr", pJobStatus, "HRESULT")
+        result := ComCall(9, this, "ptr", pFaxServer, BSTR, bstrJobId, "ptr", pJobStatus, "HRESULT")
         return result
     }
 
@@ -98,7 +135,7 @@ class IFaxServerNotify2 extends IDispatch {
     OnOutgoingJobAdded(pFaxServer, bstrJobId) {
         bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId
 
-        result := ComCall(10, this, "ptr", pFaxServer, "ptr", bstrJobId, "HRESULT")
+        result := ComCall(10, this, "ptr", pFaxServer, BSTR, bstrJobId, "HRESULT")
         return result
     }
 
@@ -111,7 +148,7 @@ class IFaxServerNotify2 extends IDispatch {
     OnOutgoingJobRemoved(pFaxServer, bstrJobId) {
         bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId
 
-        result := ComCall(11, this, "ptr", pFaxServer, "ptr", bstrJobId, "HRESULT")
+        result := ComCall(11, this, "ptr", pFaxServer, BSTR, bstrJobId, "HRESULT")
         return result
     }
 
@@ -125,7 +162,7 @@ class IFaxServerNotify2 extends IDispatch {
     OnOutgoingJobChanged(pFaxServer, bstrJobId, pJobStatus) {
         bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId
 
-        result := ComCall(12, this, "ptr", pFaxServer, "ptr", bstrJobId, "ptr", pJobStatus, "HRESULT")
+        result := ComCall(12, this, "ptr", pFaxServer, BSTR, bstrJobId, "ptr", pJobStatus, "HRESULT")
         return result
     }
 
@@ -138,7 +175,7 @@ class IFaxServerNotify2 extends IDispatch {
     OnIncomingMessageAdded(pFaxServer, bstrMessageId) {
         bstrMessageId := bstrMessageId is String ? BSTR.Alloc(bstrMessageId).Value : bstrMessageId
 
-        result := ComCall(13, this, "ptr", pFaxServer, "ptr", bstrMessageId, "HRESULT")
+        result := ComCall(13, this, "ptr", pFaxServer, BSTR, bstrMessageId, "HRESULT")
         return result
     }
 
@@ -151,7 +188,7 @@ class IFaxServerNotify2 extends IDispatch {
     OnIncomingMessageRemoved(pFaxServer, bstrMessageId) {
         bstrMessageId := bstrMessageId is String ? BSTR.Alloc(bstrMessageId).Value : bstrMessageId
 
-        result := ComCall(14, this, "ptr", pFaxServer, "ptr", bstrMessageId, "HRESULT")
+        result := ComCall(14, this, "ptr", pFaxServer, BSTR, bstrMessageId, "HRESULT")
         return result
     }
 
@@ -164,7 +201,7 @@ class IFaxServerNotify2 extends IDispatch {
     OnOutgoingMessageAdded(pFaxServer, bstrMessageId) {
         bstrMessageId := bstrMessageId is String ? BSTR.Alloc(bstrMessageId).Value : bstrMessageId
 
-        result := ComCall(15, this, "ptr", pFaxServer, "ptr", bstrMessageId, "HRESULT")
+        result := ComCall(15, this, "ptr", pFaxServer, BSTR, bstrMessageId, "HRESULT")
         return result
     }
 
@@ -177,7 +214,7 @@ class IFaxServerNotify2 extends IDispatch {
     OnOutgoingMessageRemoved(pFaxServer, bstrMessageId) {
         bstrMessageId := bstrMessageId is String ? BSTR.Alloc(bstrMessageId).Value : bstrMessageId
 
-        result := ComCall(16, this, "ptr", pFaxServer, "ptr", bstrMessageId, "HRESULT")
+        result := ComCall(16, this, "ptr", pFaxServer, BSTR, bstrMessageId, "HRESULT")
         return result
     }
 
@@ -304,7 +341,7 @@ class IFaxServerNotify2 extends IDispatch {
      * @returns {HRESULT} 
      */
     OnQueuesStatusChange(pFaxServer, bOutgoingQueueBlocked, bOutgoingQueuePaused, bIncomingQueueBlocked) {
-        result := ComCall(28, this, "ptr", pFaxServer, "short", bOutgoingQueueBlocked, "short", bOutgoingQueuePaused, "short", bIncomingQueueBlocked, "HRESULT")
+        result := ComCall(28, this, "ptr", pFaxServer, VARIANT_BOOL, bOutgoingQueueBlocked, VARIANT_BOOL, bOutgoingQueuePaused, VARIANT_BOOL, bIncomingQueueBlocked, "HRESULT")
         return result
     }
 
@@ -319,7 +356,7 @@ class IFaxServerNotify2 extends IDispatch {
     OnNewCall(pFaxServer, lCallId, lDeviceId, bstrCallerId) {
         bstrCallerId := bstrCallerId is String ? BSTR.Alloc(bstrCallerId).Value : bstrCallerId
 
-        result := ComCall(29, this, "ptr", pFaxServer, "int", lCallId, "int", lDeviceId, "ptr", bstrCallerId, "HRESULT")
+        result := ComCall(29, this, "ptr", pFaxServer, "int", lCallId, "int", lDeviceId, BSTR, bstrCallerId, "HRESULT")
         return result
     }
 
@@ -344,7 +381,7 @@ class IFaxServerNotify2 extends IDispatch {
      * @returns {HRESULT} 
      */
     OnDeviceStatusChange(pFaxServer, lDeviceId, bPoweredOff, bSending, bReceiving, bRinging) {
-        result := ComCall(31, this, "ptr", pFaxServer, "int", lDeviceId, "short", bPoweredOff, "short", bSending, "short", bReceiving, "short", bRinging, "HRESULT")
+        result := ComCall(31, this, "ptr", pFaxServer, "int", lDeviceId, VARIANT_BOOL, bPoweredOff, VARIANT_BOOL, bSending, VARIANT_BOOL, bReceiving, VARIANT_BOOL, bRinging, "HRESULT")
         return result
     }
 
@@ -356,5 +393,75 @@ class IFaxServerNotify2 extends IDispatch {
     OnGeneralServerConfigChanged(pFaxServer) {
         result := ComCall(32, this, "ptr", pFaxServer, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFaxServerNotify2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnIncomingJobAdded := CallbackCreate(GetMethod(implObj, "OnIncomingJobAdded"), flags, 3)
+        this.vtbl.OnIncomingJobRemoved := CallbackCreate(GetMethod(implObj, "OnIncomingJobRemoved"), flags, 3)
+        this.vtbl.OnIncomingJobChanged := CallbackCreate(GetMethod(implObj, "OnIncomingJobChanged"), flags, 4)
+        this.vtbl.OnOutgoingJobAdded := CallbackCreate(GetMethod(implObj, "OnOutgoingJobAdded"), flags, 3)
+        this.vtbl.OnOutgoingJobRemoved := CallbackCreate(GetMethod(implObj, "OnOutgoingJobRemoved"), flags, 3)
+        this.vtbl.OnOutgoingJobChanged := CallbackCreate(GetMethod(implObj, "OnOutgoingJobChanged"), flags, 4)
+        this.vtbl.OnIncomingMessageAdded := CallbackCreate(GetMethod(implObj, "OnIncomingMessageAdded"), flags, 3)
+        this.vtbl.OnIncomingMessageRemoved := CallbackCreate(GetMethod(implObj, "OnIncomingMessageRemoved"), flags, 3)
+        this.vtbl.OnOutgoingMessageAdded := CallbackCreate(GetMethod(implObj, "OnOutgoingMessageAdded"), flags, 3)
+        this.vtbl.OnOutgoingMessageRemoved := CallbackCreate(GetMethod(implObj, "OnOutgoingMessageRemoved"), flags, 3)
+        this.vtbl.OnReceiptOptionsChange := CallbackCreate(GetMethod(implObj, "OnReceiptOptionsChange"), flags, 2)
+        this.vtbl.OnActivityLoggingConfigChange := CallbackCreate(GetMethod(implObj, "OnActivityLoggingConfigChange"), flags, 2)
+        this.vtbl.OnSecurityConfigChange := CallbackCreate(GetMethod(implObj, "OnSecurityConfigChange"), flags, 2)
+        this.vtbl.OnEventLoggingConfigChange := CallbackCreate(GetMethod(implObj, "OnEventLoggingConfigChange"), flags, 2)
+        this.vtbl.OnOutgoingQueueConfigChange := CallbackCreate(GetMethod(implObj, "OnOutgoingQueueConfigChange"), flags, 2)
+        this.vtbl.OnOutgoingArchiveConfigChange := CallbackCreate(GetMethod(implObj, "OnOutgoingArchiveConfigChange"), flags, 2)
+        this.vtbl.OnIncomingArchiveConfigChange := CallbackCreate(GetMethod(implObj, "OnIncomingArchiveConfigChange"), flags, 2)
+        this.vtbl.OnDevicesConfigChange := CallbackCreate(GetMethod(implObj, "OnDevicesConfigChange"), flags, 2)
+        this.vtbl.OnOutboundRoutingGroupsConfigChange := CallbackCreate(GetMethod(implObj, "OnOutboundRoutingGroupsConfigChange"), flags, 2)
+        this.vtbl.OnOutboundRoutingRulesConfigChange := CallbackCreate(GetMethod(implObj, "OnOutboundRoutingRulesConfigChange"), flags, 2)
+        this.vtbl.OnServerActivityChange := CallbackCreate(GetMethod(implObj, "OnServerActivityChange"), flags, 6)
+        this.vtbl.OnQueuesStatusChange := CallbackCreate(GetMethod(implObj, "OnQueuesStatusChange"), flags, 5)
+        this.vtbl.OnNewCall := CallbackCreate(GetMethod(implObj, "OnNewCall"), flags, 5)
+        this.vtbl.OnServerShutDown := CallbackCreate(GetMethod(implObj, "OnServerShutDown"), flags, 2)
+        this.vtbl.OnDeviceStatusChange := CallbackCreate(GetMethod(implObj, "OnDeviceStatusChange"), flags, 7)
+        this.vtbl.OnGeneralServerConfigChanged := CallbackCreate(GetMethod(implObj, "OnGeneralServerConfigChanged"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnIncomingJobAdded)
+        CallbackFree(this.vtbl.OnIncomingJobRemoved)
+        CallbackFree(this.vtbl.OnIncomingJobChanged)
+        CallbackFree(this.vtbl.OnOutgoingJobAdded)
+        CallbackFree(this.vtbl.OnOutgoingJobRemoved)
+        CallbackFree(this.vtbl.OnOutgoingJobChanged)
+        CallbackFree(this.vtbl.OnIncomingMessageAdded)
+        CallbackFree(this.vtbl.OnIncomingMessageRemoved)
+        CallbackFree(this.vtbl.OnOutgoingMessageAdded)
+        CallbackFree(this.vtbl.OnOutgoingMessageRemoved)
+        CallbackFree(this.vtbl.OnReceiptOptionsChange)
+        CallbackFree(this.vtbl.OnActivityLoggingConfigChange)
+        CallbackFree(this.vtbl.OnSecurityConfigChange)
+        CallbackFree(this.vtbl.OnEventLoggingConfigChange)
+        CallbackFree(this.vtbl.OnOutgoingQueueConfigChange)
+        CallbackFree(this.vtbl.OnOutgoingArchiveConfigChange)
+        CallbackFree(this.vtbl.OnIncomingArchiveConfigChange)
+        CallbackFree(this.vtbl.OnDevicesConfigChange)
+        CallbackFree(this.vtbl.OnOutboundRoutingGroupsConfigChange)
+        CallbackFree(this.vtbl.OnOutboundRoutingRulesConfigChange)
+        CallbackFree(this.vtbl.OnServerActivityChange)
+        CallbackFree(this.vtbl.OnQueuesStatusChange)
+        CallbackFree(this.vtbl.OnNewCall)
+        CallbackFree(this.vtbl.OnServerShutDown)
+        CallbackFree(this.vtbl.OnDeviceStatusChange)
+        CallbackFree(this.vtbl.OnGeneralServerConfigChanged)
     }
 }

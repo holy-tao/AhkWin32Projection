@@ -1,12 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Specifies that the style of the INF file is unrecognized or nonexistent.
- * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_inf_information
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  */
-class INF_STYLE extends Win32BitflagEnum {
+export default struct INF_STYLE {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

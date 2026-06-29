@@ -1,38 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISVGPoint.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISVGPoint.ahk" { ISVGPoint }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class ISVGPointList extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISVGPointList extends IDispatch {
     /**
      * The interface identifier for ISVGPointList
      * @type {Guid}
      */
-    static IID => Guid("{305104f5-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{305104f5-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for SVGPointList
      * @type {Guid}
      */
-    static CLSID => Guid("{305105b9-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{305105b9-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISVGPointList interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_numberOfItems : IntPtr
+        get_numberOfItems : IntPtr
+        clear             : IntPtr
+        initialize        : IntPtr
+        getItem           : IntPtr
+        insertItemBefore  : IntPtr
+        replaceItem       : IntPtr
+        removeItem        : IntPtr
+        appendItem        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_numberOfItems", "get_numberOfItems", "clear", "initialize", "getItem", "insertItemBefore", "replaceItem", "removeItem", "appendItem"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISVGPointList.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -130,5 +146,41 @@ class ISVGPointList extends IDispatch {
     appendItem(pNewItem) {
         result := ComCall(15, this, "ptr", pNewItem, "ptr*", &ppResult := 0, "HRESULT")
         return ISVGPoint(ppResult)
+    }
+
+    Query(iid) {
+        if (ISVGPointList.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_numberOfItems := CallbackCreate(GetMethod(implObj, "put_numberOfItems"), flags, 2)
+        this.vtbl.get_numberOfItems := CallbackCreate(GetMethod(implObj, "get_numberOfItems"), flags, 2)
+        this.vtbl.clear := CallbackCreate(GetMethod(implObj, "clear"), flags, 1)
+        this.vtbl.initialize := CallbackCreate(GetMethod(implObj, "initialize"), flags, 3)
+        this.vtbl.getItem := CallbackCreate(GetMethod(implObj, "getItem"), flags, 3)
+        this.vtbl.insertItemBefore := CallbackCreate(GetMethod(implObj, "insertItemBefore"), flags, 4)
+        this.vtbl.replaceItem := CallbackCreate(GetMethod(implObj, "replaceItem"), flags, 4)
+        this.vtbl.removeItem := CallbackCreate(GetMethod(implObj, "removeItem"), flags, 3)
+        this.vtbl.appendItem := CallbackCreate(GetMethod(implObj, "appendItem"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_numberOfItems)
+        CallbackFree(this.vtbl.get_numberOfItems)
+        CallbackFree(this.vtbl.clear)
+        CallbackFree(this.vtbl.initialize)
+        CallbackFree(this.vtbl.getItem)
+        CallbackFree(this.vtbl.insertItemBefore)
+        CallbackFree(this.vtbl.replaceItem)
+        CallbackFree(this.vtbl.removeItem)
+        CallbackFree(this.vtbl.appendItem)
     }
 }

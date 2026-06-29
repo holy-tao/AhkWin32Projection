@@ -1,112 +1,75 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Describes the region obtained by a hit test.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_hit_test_metrics
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class DWRITE_HIT_TEST_METRICS extends Win32Struct {
-    static sizeof => 36
-
-    static packingSize => 4
+export default struct DWRITE_HIT_TEST_METRICS {
+    #StructPack 4
 
     /**
      * Type: <b>UINT32</b>
      * 
      * The first text position within the hit region.
-     * @type {Integer}
      */
-    textPosition {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    textPosition : UInt32
 
     /**
      * Type: <b>UINT32</b>
      * 
      * The number of text positions within the hit region.
-     * @type {Integer}
      */
-    length {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    length : UInt32
 
     /**
      * Type: <b>FLOAT</b>
      * 
      * The x-coordinate of the upper-left corner of the hit region.
-     * @type {Float}
      */
-    left {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    left : Float32
 
     /**
      * Type: <b>FLOAT</b>
      * 
      * The y-coordinate of the upper-left corner of the hit region.
-     * @type {Float}
      */
-    top {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    top : Float32
 
     /**
      * Type: <b>FLOAT</b>
      * 
      * The width of the hit region.
-     * @type {Float}
      */
-    width {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
+    width : Float32
 
     /**
      * Type: <b>FLOAT</b>
      * 
      * The height of the hit region.
-     * @type {Float}
      */
-    height {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
-    }
+    height : Float32
 
     /**
      * Type: <b>UINT32</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalyzer-analyzebidi">BIDI level</a> of the text positions within the hit region.
-     * @type {Integer}
      */
-    bidiLevel {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    bidiLevel : UInt32
 
     /**
      * Type: <b>BOOL</b>
      * 
      * true if the hit region contains text; otherwise, false.
-     * @type {BOOL}
      */
-    isText {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    isText : BOOL
 
     /**
      * Type: <b>BOOL</b>
      * 
      * true if the text range is trimmed; otherwise, false.
-     * @type {BOOL}
      */
-    isTrimmed {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    isTrimmed : BOOL
+
 }

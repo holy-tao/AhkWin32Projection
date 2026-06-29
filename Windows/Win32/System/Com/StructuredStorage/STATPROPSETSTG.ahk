@@ -1,87 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The STATPROPSETSTG structure contains information about a property set. (STATPROPSETSTG structure)
  * @see https://learn.microsoft.com/windows/win32/api/propidlbase/ns-propidlbase-statpropsetstg
  * @namespace Windows.Win32.System.Com.StructuredStorage
  */
-class STATPROPSETSTG extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct STATPROPSETSTG {
+    #StructPack 4
 
     /**
      * FMTID of the current property set, specified when the property set was initially created.
-     * @type {Pointer}
      */
-    fmtid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    fmtid : Guid
 
     /**
      * <b>CLSID</b> associated with this property set, specified when the property set was initially created and possibly modified thereafter with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nf-propidl-ipropertystorage-setclass">IPropertyStorage::SetClass</a>. If not set, the value will be <b>CLSID_NULL</b>.
-     * @type {Pointer}
      */
-    clsid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    clsid : Guid
 
     /**
      * Flag values of the property set, as specified in 
      * <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nf-propidl-ipropertysetstorage-create">IPropertySetStorage::Create</a>.
-     * @type {Integer}
      */
-    grfFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    grfFlags : UInt32
 
     /**
      * Time in Universal Coordinated Time (UTC) when the property set was last modified.
-     * @type {FILETIME}
      */
-    mtime {
-        get {
-            if(!this.HasProp("__mtime"))
-                this.__mtime := FILETIME(20, this)
-            return this.__mtime
-        }
-    }
+    mtime : FILETIME
 
     /**
      * Time in UTC when this property set was created.
-     * @type {FILETIME}
      */
-    ctime {
-        get {
-            if(!this.HasProp("__ctime"))
-                this.__ctime := FILETIME(28, this)
-            return this.__ctime
-        }
-    }
+    ctime : FILETIME
 
     /**
      * Time in UTC when this property set was last accessed.
-     * @type {FILETIME}
      */
-    atime {
-        get {
-            if(!this.HasProp("__atime"))
-                this.__atime := FILETIME(36, this)
-            return this.__atime
-        }
-    }
+    atime : FILETIME
 
-    /**
-     * @type {Integer}
-     */
-    dwOSVersion {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    dwOSVersion : UInt32
+
 }

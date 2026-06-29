@@ -1,40 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The HistogramDataHeader structure describes the blob format for the MF_CAPTURE_METADATA_HISTOGRAM attribute.
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-histogramdataheader
  * @namespace Windows.Win32.Media.Streaming
  */
-class HistogramDataHeader extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct HistogramDataHeader {
+    #StructPack 4
 
     /**
      * Size in bytes of this header + all following histogram data.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
     /**
      * Mask of the color channel for the histogram data.
-     * @type {Integer}
      */
-    ChannelMask {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ChannelMask : UInt32
 
     /**
      * 1 if linear, 0 if nonlinear.
-     * @type {Integer}
      */
-    Linear {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Linear : UInt32
+
 }

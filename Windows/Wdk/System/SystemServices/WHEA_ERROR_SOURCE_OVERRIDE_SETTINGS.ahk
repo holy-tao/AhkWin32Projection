@@ -1,44 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\System\Diagnostics\Debug\WHEA_ERROR_SOURCE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\System\Diagnostics\Debug\WHEA_ERROR_SOURCE_TYPE.ahk" { WHEA_ERROR_SOURCE_TYPE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_ERROR_SOURCE_OVERRIDE_SETTINGS extends Win32Struct {
-    static sizeof => 16
+export default struct WHEA_ERROR_SOURCE_OVERRIDE_SETTINGS {
+    #StructPack 4
 
-    static packingSize => 4
+    Type : WHEA_ERROR_SOURCE_TYPE
 
-    /**
-     * @type {WHEA_ERROR_SOURCE_TYPE}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    MaxRawDataLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxRawDataLength {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NumRecordsToPreallocate : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumRecordsToPreallocate {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MaxSectionsPerRecord : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxSectionsPerRecord {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

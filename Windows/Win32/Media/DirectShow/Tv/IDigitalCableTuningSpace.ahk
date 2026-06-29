@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IATSCTuningSpace.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IATSCTuningSpace.ahk" { IATSCTuningSpace }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IDigitalCableTuningSpace interface is implemented on the DigitalTuningSpace object and provides methods for working with tuning spaces that have a digital cable network type.
@@ -16,32 +17,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-idigitalcabletuningspace
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IDigitalCableTuningSpace extends IATSCTuningSpace {
-
-    static sizeof => A_PtrSize
+export default struct IDigitalCableTuningSpace extends IATSCTuningSpace {
     /**
      * The interface identifier for IDigitalCableTuningSpace
      * @type {Guid}
      */
-    static IID => Guid("{013f9f9c-b449-4ec7-a6d2-9d4f2fc70ae5}")
+    static IID := Guid("{013f9f9c-b449-4ec7-a6d2-9d4f2fc70ae5}")
 
     /**
      * The class identifier for DigitalCableTuningSpace
      * @type {Guid}
      */
-    static CLSID => Guid("{d9bb4cee-b87a-47f1-ac92-b08d9c7813fc}")
+    static CLSID := Guid("{d9bb4cee-b87a-47f1-ac92-b08d9c7813fc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 42
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDigitalCableTuningSpace interfaces
+    */
+    struct Vtbl extends IATSCTuningSpace.Vtbl {
+        get_MinMajorChannel : IntPtr
+        put_MinMajorChannel : IntPtr
+        get_MaxMajorChannel : IntPtr
+        put_MaxMajorChannel : IntPtr
+        get_MinSourceID     : IntPtr
+        put_MinSourceID     : IntPtr
+        get_MaxSourceID     : IntPtr
+        put_MaxSourceID     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_MinMajorChannel", "put_MinMajorChannel", "get_MaxMajorChannel", "put_MaxMajorChannel", "get_MinSourceID", "put_MinSourceID", "get_MaxSourceID", "put_MaxSourceID"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDigitalCableTuningSpace.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -157,5 +172,39 @@ class IDigitalCableTuningSpace extends IATSCTuningSpace {
     put_MaxSourceID(NewMaxSourceIDVal) {
         result := ComCall(49, this, "int", NewMaxSourceIDVal, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDigitalCableTuningSpace.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_MinMajorChannel := CallbackCreate(GetMethod(implObj, "get_MinMajorChannel"), flags, 2)
+        this.vtbl.put_MinMajorChannel := CallbackCreate(GetMethod(implObj, "put_MinMajorChannel"), flags, 2)
+        this.vtbl.get_MaxMajorChannel := CallbackCreate(GetMethod(implObj, "get_MaxMajorChannel"), flags, 2)
+        this.vtbl.put_MaxMajorChannel := CallbackCreate(GetMethod(implObj, "put_MaxMajorChannel"), flags, 2)
+        this.vtbl.get_MinSourceID := CallbackCreate(GetMethod(implObj, "get_MinSourceID"), flags, 2)
+        this.vtbl.put_MinSourceID := CallbackCreate(GetMethod(implObj, "put_MinSourceID"), flags, 2)
+        this.vtbl.get_MaxSourceID := CallbackCreate(GetMethod(implObj, "get_MaxSourceID"), flags, 2)
+        this.vtbl.put_MaxSourceID := CallbackCreate(GetMethod(implObj, "put_MaxSourceID"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_MinMajorChannel)
+        CallbackFree(this.vtbl.put_MinMajorChannel)
+        CallbackFree(this.vtbl.get_MaxMajorChannel)
+        CallbackFree(this.vtbl.put_MaxMajorChannel)
+        CallbackFree(this.vtbl.get_MinSourceID)
+        CallbackFree(this.vtbl.put_MinSourceID)
+        CallbackFree(this.vtbl.get_MaxSourceID)
+        CallbackFree(this.vtbl.put_MaxSourceID)
     }
 }

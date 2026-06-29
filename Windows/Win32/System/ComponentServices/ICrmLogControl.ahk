@@ -1,8 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\BLOB.ahk" { BLOB }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Is the means by which the CRM Worker and CRM Compensator write records to the log and make them durable.
@@ -13,26 +17,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icrmlogcontrol
  * @namespace Windows.Win32.System.ComponentServices
  */
-class ICrmLogControl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICrmLogControl extends IUnknown {
     /**
      * The interface identifier for ICrmLogControl
      * @type {Guid}
      */
-    static IID => Guid("{a0e174b3-d26e-11d2-8f84-00805fc7bcd9}")
+    static IID := Guid("{a0e174b3-d26e-11d2-8f84-00805fc7bcd9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICrmLogControl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_TransactionUOW      : IntPtr
+        RegisterCompensator     : IntPtr
+        WriteLogRecordVariants  : IntPtr
+        ForceLog                : IntPtr
+        ForgetLogRecord         : IntPtr
+        ForceTransactionToAbort : IntPtr
+        WriteLogRecord          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_TransactionUOW", "RegisterCompensator", "WriteLogRecordVariants", "ForceLog", "ForgetLogRecord", "ForceTransactionToAbort", "WriteLogRecord"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICrmLogControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -47,8 +64,8 @@ class ICrmLogControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmlogcontrol-get_transactionuow
      */
     get_TransactionUOW() {
-        pVal := BSTR()
-        result := ComCall(3, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(3, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -252,7 +269,7 @@ class ICrmLogControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmlogcontrol-writelogrecordvariants
      */
     WriteLogRecordVariants(pLogRecord) {
-        result := ComCall(5, this, "ptr", pLogRecord, "HRESULT")
+        result := ComCall(5, this, VARIANT.Ptr, pLogRecord, "HRESULT")
         return result
     }
 
@@ -497,7 +514,39 @@ class ICrmLogControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmlogcontrol-writelogrecord
      */
     WriteLogRecord(rgBlob, cBlob) {
-        result := ComCall(9, this, "ptr", rgBlob, "uint", cBlob, "HRESULT")
+        result := ComCall(9, this, BLOB.Ptr, rgBlob, "uint", cBlob, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICrmLogControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_TransactionUOW := CallbackCreate(GetMethod(implObj, "get_TransactionUOW"), flags, 2)
+        this.vtbl.RegisterCompensator := CallbackCreate(GetMethod(implObj, "RegisterCompensator"), flags, 4)
+        this.vtbl.WriteLogRecordVariants := CallbackCreate(GetMethod(implObj, "WriteLogRecordVariants"), flags, 2)
+        this.vtbl.ForceLog := CallbackCreate(GetMethod(implObj, "ForceLog"), flags, 1)
+        this.vtbl.ForgetLogRecord := CallbackCreate(GetMethod(implObj, "ForgetLogRecord"), flags, 1)
+        this.vtbl.ForceTransactionToAbort := CallbackCreate(GetMethod(implObj, "ForceTransactionToAbort"), flags, 1)
+        this.vtbl.WriteLogRecord := CallbackCreate(GetMethod(implObj, "WriteLogRecord"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_TransactionUOW)
+        CallbackFree(this.vtbl.RegisterCompensator)
+        CallbackFree(this.vtbl.WriteLogRecordVariants)
+        CallbackFree(this.vtbl.ForceLog)
+        CallbackFree(this.vtbl.ForgetLogRecord)
+        CallbackFree(this.vtbl.ForceTransactionToAbort)
+        CallbackFree(this.vtbl.WriteLogRecord)
     }
 }

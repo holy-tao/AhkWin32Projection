@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The NTMS_OPREQUESTINFORMATION structure defines the properties specific to operator-request system control for RSM. (Unicode)
@@ -19,106 +20,50 @@
  * @namespace Windows.Win32.Storage.FileSystem
  * @charset Unicode
  */
-class NTMS_OPREQUESTINFORMATIONW extends Win32Struct {
-    static sizeof => 952
+export default struct NTMS_OPREQUESTINFORMATIONW {
+    #StructPack 4
 
-    static packingSize => 8
-
-    /**
-     * @type {Integer}
-     */
-    Request {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Request : UInt32
 
     /**
      * System time when the operator request was submitted.
-     * @type {SYSTEMTIME}
      */
-    Submitted {
-        get {
-            if(!this.HasProp("__Submitted"))
-                this.__Submitted := SYSTEMTIME(4, this)
-            return this.__Submitted
-        }
-    }
+    Submitted : SYSTEMTIME
 
-    /**
-     * @type {Integer}
-     */
-    State {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    State : UInt32
 
     /**
      * Operator message text.
-     * @type {String}
      */
-    szMessage {
-        get => StrGet(this.ptr + 24, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 255, "UTF-16")
-    }
+    szMessage : WCHAR[256]
 
-    /**
-     * @type {Integer}
-     */
-    Arg1Type {
-        get => NumGet(this, 536, "uint")
-        set => NumPut("uint", value, this, 536)
-    }
+    Arg1Type : UInt32
 
     /**
      * <b>Arg1</b> object ID used for move requests or other operator requests that require a reference object. The purpose of this object varies based on the type of operator request. For appropriate uses of <b>Arg1</b>, see the <b>Request</b> description.
-     * @type {Pointer}
      */
-    Arg1 {
-        get => NumGet(this, 544, "ptr")
-        set => NumPut("ptr", value, this, 544)
-    }
+    Arg1 : Guid
 
-    /**
-     * @type {Integer}
-     */
-    Arg2Type {
-        get => NumGet(this, 552, "uint")
-        set => NumPut("uint", value, this, 552)
-    }
+    Arg2Type : UInt32
 
     /**
      * <b>Arg2</b> object ID used for operator requests that require a second reference object. The purpose of this object varies based on the type of operator request. For appropriate uses of <b>Arg2</b>, see the <b>Request</b> description.
-     * @type {Pointer}
      */
-    Arg2 {
-        get => NumGet(this, 560, "ptr")
-        set => NumPut("ptr", value, this, 560)
-    }
+    Arg2 : Guid
 
     /**
      * Application that submitted the operator request.
-     * @type {String}
      */
-    szApplication {
-        get => StrGet(this.ptr + 568, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 568, 63, "UTF-16")
-    }
+    szApplication : WCHAR[64]
 
     /**
      * Interactive user logged on to the computer that submitted the operator request.
-     * @type {String}
      */
-    szUser {
-        get => StrGet(this.ptr + 696, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 696, 63, "UTF-16")
-    }
+    szUser : WCHAR[64]
 
     /**
      * Computer that submitted the operator request.
-     * @type {String}
      */
-    szComputer {
-        get => StrGet(this.ptr + 824, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 824, 63, "UTF-16")
-    }
+    szComputer : WCHAR[64]
+
 }

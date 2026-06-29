@@ -1,33 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IOleWindow.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IOleInPlaceUIWindow.ahk" { IOleInPlaceUIWindow }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOleWindow.ahk" { IOleWindow }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\UI\WindowsAndMessaging\MSG.ahk" { MSG }
 
 /**
  * Provides a direct channel of communication between an in-place object and the associated application's outer-most frame window and the document window within the application that contains the embedded object.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-ioleinplaceactiveobject
  * @namespace Windows.Win32.System.Ole
  */
-class IOleInPlaceActiveObject extends IOleWindow {
-
-    static sizeof => A_PtrSize
+export default struct IOleInPlaceActiveObject extends IOleWindow {
     /**
      * The interface identifier for IOleInPlaceActiveObject
      * @type {Guid}
      */
-    static IID => Guid("{00000117-0000-0000-c000-000000000046}")
+    static IID := Guid("{00000117-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOleInPlaceActiveObject interfaces
+    */
+    struct Vtbl extends IOleWindow.Vtbl {
+        TranslateAccelerator  : IntPtr
+        OnFrameWindowActivate : IntPtr
+        OnDocWindowActivate   : IntPtr
+        ResizeBorder          : IntPtr
+        EnableModeless        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["TranslateAccelerator", "OnFrameWindowActivate", "OnDocWindowActivate", "ResizeBorder", "EnableModeless"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOleInPlaceActiveObject.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Processes menu accelerator-key messages from the container's message queue. This method should only be used for objects created by a DLL object application.
@@ -97,7 +113,7 @@ class IOleInPlaceActiveObject extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleinplaceactiveobject-translateaccelerator
      */
     TranslateAccelerator(lpmsg) {
-        result := ComCall(5, this, "ptr", lpmsg, "HRESULT")
+        result := ComCall(5, this, MSG.Ptr, lpmsg, "HRESULT")
         return result
     }
 
@@ -108,7 +124,7 @@ class IOleInPlaceActiveObject extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleinplaceactiveobject-onframewindowactivate
      */
     OnFrameWindowActivate(fActivate) {
-        result := ComCall(6, this, "int", fActivate, "HRESULT")
+        result := ComCall(6, this, BOOL, fActivate, "HRESULT")
         return result
     }
 
@@ -127,7 +143,7 @@ class IOleInPlaceActiveObject extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleinplaceactiveobject-ondocwindowactivate
      */
     OnDocWindowActivate(fActivate) {
-        result := ComCall(7, this, "int", fActivate, "HRESULT")
+        result := ComCall(7, this, BOOL, fActivate, "HRESULT")
         return result
     }
 
@@ -190,7 +206,7 @@ class IOleInPlaceActiveObject extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleinplaceactiveobject-resizeborder
      */
     ResizeBorder(prcBorder, pUIWindow, fFrameWindow) {
-        result := ComCall(8, this, "ptr", prcBorder, "ptr", pUIWindow, "int", fFrameWindow, "HRESULT")
+        result := ComCall(8, this, RECT.Ptr, prcBorder, "ptr", pUIWindow, BOOL, fFrameWindow, "HRESULT")
         return result
     }
 
@@ -201,7 +217,35 @@ class IOleInPlaceActiveObject extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleinplaceactiveobject-enablemodeless
      */
     EnableModeless(fEnable) {
-        result := ComCall(9, this, "int", fEnable, "HRESULT")
+        result := ComCall(9, this, BOOL, fEnable, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOleInPlaceActiveObject.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.TranslateAccelerator := CallbackCreate(GetMethod(implObj, "TranslateAccelerator"), flags, 2)
+        this.vtbl.OnFrameWindowActivate := CallbackCreate(GetMethod(implObj, "OnFrameWindowActivate"), flags, 2)
+        this.vtbl.OnDocWindowActivate := CallbackCreate(GetMethod(implObj, "OnDocWindowActivate"), flags, 2)
+        this.vtbl.ResizeBorder := CallbackCreate(GetMethod(implObj, "ResizeBorder"), flags, 4)
+        this.vtbl.EnableModeless := CallbackCreate(GetMethod(implObj, "EnableModeless"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.TranslateAccelerator)
+        CallbackFree(this.vtbl.OnFrameWindowActivate)
+        CallbackFree(this.vtbl.OnDocWindowActivate)
+        CallbackFree(this.vtbl.ResizeBorder)
+        CallbackFree(this.vtbl.EnableModeless)
     }
 }

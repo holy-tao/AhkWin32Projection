@@ -1,17 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_DECODE_CONFIGURATION.ahk
-#Include .\D3D12_BITSTREAM_ENCRYPTION_TYPE.ahk
-#Include .\D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE.ahk
-#Include .\D3D12_VIDEO_SAMPLE.ahk
-#Include .\D3D12_VIDEO_FORMAT.ahk
-#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
-#Include ..\..\Graphics\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk
-#Include ..\..\Graphics\Dxgi\Common\DXGI_RATIONAL.ahk
-#Include .\D3D12_VIDEO_DECODE_CONVERSION_SUPPORT_FLAGS.ahk
-#Include .\D3D12_VIDEO_SCALE_SUPPORT.ahk
-#Include .\D3D12_VIDEO_SIZE_RANGE.ahk
-#Include .\D3D12_VIDEO_SCALE_SUPPORT_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\Dxgi\Common\DXGI_RATIONAL.ahk" { DXGI_RATIONAL }
+#Import ".\D3D12_VIDEO_SCALE_SUPPORT.ahk" { D3D12_VIDEO_SCALE_SUPPORT }
+#Import "..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE.ahk" { D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE }
+#Import ".\D3D12_VIDEO_DECODE_CONVERSION_SUPPORT_FLAGS.ahk" { D3D12_VIDEO_DECODE_CONVERSION_SUPPORT_FLAGS }
+#Import ".\D3D12_VIDEO_SIZE_RANGE.ahk" { D3D12_VIDEO_SIZE_RANGE }
+#Import ".\D3D12_VIDEO_DECODE_CONFIGURATION.ahk" { D3D12_VIDEO_DECODE_CONFIGURATION }
+#Import ".\D3D12_VIDEO_SCALE_SUPPORT_FLAGS.ahk" { D3D12_VIDEO_SCALE_SUPPORT_FLAGS }
+#Import ".\D3D12_VIDEO_SAMPLE.ahk" { D3D12_VIDEO_SAMPLE }
+#Import "..\..\Graphics\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk" { DXGI_COLOR_SPACE_TYPE }
+#Import ".\D3D12_VIDEO_FORMAT.ahk" { D3D12_VIDEO_FORMAT }
+#Import ".\D3D12_BITSTREAM_ENCRYPTION_TYPE.ahk" { D3D12_BITSTREAM_ENCRYPTION_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Retrieves the list of supported profiles. (D3D12_FEATURE_DATA_VIDEO_DECODE_CONVERSION_SUPPORT)
@@ -20,95 +20,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_decode_conversion_support
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_FEATURE_DATA_VIDEO_DECODE_CONVERSION_SUPPORT extends Win32Struct {
-    static sizeof => 88
-
-    static packingSize => 8
+export default struct D3D12_FEATURE_DATA_VIDEO_DECODE_CONVERSION_SUPPORT {
+    #StructPack 4
 
     /**
      * For single GPU operation, set this to zero. If there are multiple GPU nodes, set a bit to identify the node (the device's physical adapter) to which the command queue applies. Each bit in the mask corresponds to a single node. Only 1 bit may be set.
-     * @type {Integer}
      */
-    NodeIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NodeIndex : UInt32
 
     /**
      * A [D3D12\_VIDEO\_DECODE\_CONFIGURATION](ns-d3d12video-d3d12_video_decode_configuration.md) structure describing the decode configuration.
-     * @type {D3D12_VIDEO_DECODE_CONFIGURATION}
      */
-    Configuration {
-        get {
-            if(!this.HasProp("__Configuration"))
-                this.__Configuration := D3D12_VIDEO_DECODE_CONFIGURATION(8, this)
-            return this.__Configuration
-        }
-    }
+    Configuration : D3D12_VIDEO_DECODE_CONFIGURATION
 
     /**
      * A [D3D12\_VIDEO\_SAMPLE](ns-d3d12video-d3d12_video_sample.md) structure representing the source decoded as sample description.
-     * @type {D3D12_VIDEO_SAMPLE}
      */
-    DecodeSample {
-        get {
-            if(!this.HasProp("__DecodeSample"))
-                this.__DecodeSample := D3D12_VIDEO_SAMPLE(24, this)
-            return this.__DecodeSample
-        }
-    }
+    DecodeSample : D3D12_VIDEO_SAMPLE
 
     /**
      * A [D3D12\_VIDEO\_FORMAT](ns-d3d12video-d3d12_video_format.md) structure containing the output sample description.
-     * @type {D3D12_VIDEO_FORMAT}
      */
-    OutputFormat {
-        get {
-            if(!this.HasProp("__OutputFormat"))
-                this.__OutputFormat := D3D12_VIDEO_FORMAT(40, this)
-            return this.__OutputFormat
-        }
-    }
+    OutputFormat : D3D12_VIDEO_FORMAT
 
     /**
      * The frame rate of the video content. This is used by the driver to determine whether the video can be decoded in real-time.
-     * @type {DXGI_RATIONAL}
      */
-    FrameRate {
-        get {
-            if(!this.HasProp("__FrameRate"))
-                this.__FrameRate := DXGI_RATIONAL(48, this)
-            return this.__FrameRate
-        }
-    }
+    FrameRate : DXGI_RATIONAL
 
     /**
      * The average bits per second data compression rate for the compressed video stream.  This is used by the driver to determine whether the video can be decoded in real-time.
-     * @type {Integer}
      */
-    BitRate {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    BitRate : UInt32
 
     /**
      * A combination of values from the [D3D12\_VIDEO\_DECODE\_CONVERSION\_SUPPORT\_FLAGS](ne-d3d12video-d3d12_video_decode_conversion_support_flags.md) indicating the support for the specified conversion.
-     * @type {D3D12_VIDEO_DECODE_CONVERSION_SUPPORT_FLAGS}
      */
-    SupportFlags {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
-    }
+    SupportFlags : D3D12_VIDEO_DECODE_CONVERSION_SUPPORT_FLAGS
 
     /**
      * A [D3D12\_VIDEO\_SCALE\_SUPPORT](ns-d3d12video-d3d12_video_scale_support.md) structure representing the output size range for decode conversion.
-     * @type {D3D12_VIDEO_SCALE_SUPPORT}
      */
-    ScaleSupport {
-        get {
-            if(!this.HasProp("__ScaleSupport"))
-                this.__ScaleSupport := D3D12_VIDEO_SCALE_SUPPORT(64, this)
-            return this.__ScaleSupport
-        }
-    }
+    ScaleSupport : D3D12_VIDEO_SCALE_SUPPORT
+
 }

@@ -1,13 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_TIMESTAMP extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 1
+export default struct WHEA_TIMESTAMP {
+    #StructPack 1
 
     /**
      * This bitfield backs the following members:
@@ -20,12 +17,9 @@ class WHEA_TIMESTAMP extends Win32Struct {
      * - Month
      * - Year
      * - Century
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int64
+
 
     /**
      * @type {Integer}
@@ -90,12 +84,8 @@ class WHEA_TIMESTAMP extends Win32Struct {
         get => (this._bitfield >> 56) & 0xFF
         set => this._bitfield := ((value & 0xFF) << 56) | (this._bitfield & ~(0xFF << 56))
     }
-
-    /**
-     * @type {Integer}
-     */
-    AsLARGE_INTEGER {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'AsLARGE_INTEGER', { type: Int64, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

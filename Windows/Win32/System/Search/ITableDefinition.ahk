@@ -1,31 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DBPROPSET.ahk" { DBPROPSET }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DBCOLUMNDESC.ahk" { DBCOLUMNDESC }
+#Import "..\..\Storage\IndexServer\DBID.ahk" { DBID }
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class ITableDefinition extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITableDefinition extends IUnknown {
     /**
      * The interface identifier for ITableDefinition
      * @type {Guid}
      */
-    static IID => Guid("{0c733a86-2a1c-11ce-ade5-00aa0044773d}")
+    static IID := Guid("{0c733a86-2a1c-11ce-ade5-00aa0044773d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITableDefinition interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateTable : IntPtr
+        DropTable   : IntPtr
+        AddColumn   : IntPtr
+        DropColumn  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateTable", "DropTable", "AddColumn", "DropColumn"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITableDefinition.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * CreateTable creates structures and an object handle for an ITableData object which can be used to create table contents.
@@ -48,7 +62,7 @@ class ITableDefinition extends IUnknown {
     CreateTable(pUnkOuter, pTableID, cColumnDescs, rgColumnDescs, riid, cPropertySets, rgPropertySets, ppTableID, ppRowset) {
         ppTableIDMarshal := ppTableID is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", pTableID, "ptr", cColumnDescs, "ptr", rgColumnDescs, "ptr", riid, "uint", cPropertySets, "ptr", rgPropertySets, ppTableIDMarshal, ppTableID, "ptr*", ppRowset, "HRESULT")
+        result := ComCall(3, this, "ptr", pUnkOuter, DBID.Ptr, pTableID, "ptr", cColumnDescs, DBCOLUMNDESC.Ptr, rgColumnDescs, Guid.Ptr, riid, "uint", cPropertySets, DBPROPSET.Ptr, rgPropertySets, ppTableIDMarshal, ppTableID, IUnknown.Ptr, ppRowset, "HRESULT")
         return result
     }
 
@@ -58,7 +72,7 @@ class ITableDefinition extends IUnknown {
      * @returns {HRESULT} 
      */
     DropTable(pTableID) {
-        result := ComCall(4, this, "ptr", pTableID, "HRESULT")
+        result := ComCall(4, this, DBID.Ptr, pTableID, "HRESULT")
         return result
     }
 
@@ -69,7 +83,7 @@ class ITableDefinition extends IUnknown {
      * @returns {Pointer<DBID>} 
      */
     AddColumn(pTableID, pColumnDesc) {
-        result := ComCall(5, this, "ptr", pTableID, "ptr", pColumnDesc, "ptr*", &ppColumnID := 0, "HRESULT")
+        result := ComCall(5, this, DBID.Ptr, pTableID, DBCOLUMNDESC.Ptr, pColumnDesc, "ptr*", &ppColumnID := 0, "HRESULT")
         return ppColumnID
     }
 
@@ -80,7 +94,33 @@ class ITableDefinition extends IUnknown {
      * @returns {HRESULT} 
      */
     DropColumn(pTableID, pColumnID) {
-        result := ComCall(6, this, "ptr", pTableID, "ptr", pColumnID, "HRESULT")
+        result := ComCall(6, this, DBID.Ptr, pTableID, DBID.Ptr, pColumnID, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITableDefinition.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateTable := CallbackCreate(GetMethod(implObj, "CreateTable"), flags, 10)
+        this.vtbl.DropTable := CallbackCreate(GetMethod(implObj, "DropTable"), flags, 2)
+        this.vtbl.AddColumn := CallbackCreate(GetMethod(implObj, "AddColumn"), flags, 4)
+        this.vtbl.DropColumn := CallbackCreate(GetMethod(implObj, "DropColumn"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateTable)
+        CallbackFree(this.vtbl.DropTable)
+        CallbackFree(this.vtbl.AddColumn)
+        CallbackFree(this.vtbl.DropColumn)
     }
 }

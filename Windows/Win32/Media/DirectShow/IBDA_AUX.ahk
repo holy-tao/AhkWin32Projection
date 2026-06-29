@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Gets the capabilities of a device's auxiliary input connectors. This interface provides access to a device's Aux Service.
@@ -10,26 +11,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_aux
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IBDA_AUX extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBDA_AUX extends IUnknown {
     /**
      * The interface identifier for IBDA_AUX
      * @type {Guid}
      */
-    static IID => Guid("{7def4c09-6e66-4567-a819-f0e17f4a81ab}")
+    static IID := Guid("{7def4c09-6e66-4567-a819-f0e17f4a81ab}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBDA_AUX interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        QueryCapabilities : IntPtr
+        EnumCapability    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["QueryCapabilities", "EnumCapability"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBDA_AUX.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the number of auxiliary connectors on the device.
@@ -87,7 +96,29 @@ class IBDA_AUX extends IUnknown {
         NumVideoStdsMarshal := NumVideoStds is VarRef ? "uint*" : "ptr"
         AnalogStdsMarshal := AnalogStds is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwIndex, dwInputIDMarshal, dwInputID, "ptr", pConnectorType, ConnTypeNumMarshal, ConnTypeNum, NumVideoStdsMarshal, NumVideoStds, AnalogStdsMarshal, AnalogStds, "HRESULT")
+        result := ComCall(4, this, "uint", dwIndex, dwInputIDMarshal, dwInputID, Guid.Ptr, pConnectorType, ConnTypeNumMarshal, ConnTypeNum, NumVideoStdsMarshal, NumVideoStds, AnalogStdsMarshal, AnalogStds, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBDA_AUX.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.QueryCapabilities := CallbackCreate(GetMethod(implObj, "QueryCapabilities"), flags, 2)
+        this.vtbl.EnumCapability := CallbackCreate(GetMethod(implObj, "EnumCapability"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.QueryCapabilities)
+        CallbackFree(this.vtbl.EnumCapability)
     }
 }

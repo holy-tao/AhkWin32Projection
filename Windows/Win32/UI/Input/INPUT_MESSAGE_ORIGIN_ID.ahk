@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The ID of the input message source.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ne-winuser-input_message_origin_id
  * @namespace Windows.Win32.UI.Input
  */
-class INPUT_MESSAGE_ORIGIN_ID extends Win32Enum {
+export default struct INPUT_MESSAGE_ORIGIN_ID {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The source isn't identified.

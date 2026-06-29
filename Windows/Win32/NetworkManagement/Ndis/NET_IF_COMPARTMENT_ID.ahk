@@ -1,19 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NET_IF_COMPARTMENT_ID extends Win32Struct {
-    static sizeof => 4
+export default struct NET_IF_COMPARTMENT_ID {
+    value : UInt32
 
-    static packingSize => 4
+    __value {
+        set {
+            if (value is NET_IF_COMPARTMENT_ID) {
+                this.value := value.value
+            }
+            else {
+                this.value := value
+            }
+        }
+    }
 
-    /**
-     * @type {Integer}
-     */
-    Value {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    __New(value := 0) {
+        this.value := value
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the subresource from a multi sampled 2D texture to use in a render-target view.
@@ -10,17 +9,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_tex2dms_rtv
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_TEX2DMS_RTV extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct D3D12_TEX2DMS_RTV {
+    #StructPack 4
 
     /**
      * Integer of any value. See remarks.
-     * @type {Integer}
      */
-    UnusedField_NothingToDefine {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    UnusedField_NothingToDefine : UInt32
+
 }

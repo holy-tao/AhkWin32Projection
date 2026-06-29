@@ -1,138 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DDDI_ROTATION.ahk
-#Include .\D3DKMT_MULTIPLANE_OVERLAY_BLEND.ahk
-#Include ..\..\..\Win32\Foundation\RECT.ahk
-#Include .\D3DKMT_MULTIPLANE_OVERLAY_VIDEO_FRAME_FORMAT.ahk
-#Include .\D3DKMT_MULTIPLANE_OVERLAY_STEREO_FORMAT.ahk
-#Include .\DXGKMT_MULTIPLANE_OVERLAY_STEREO_FLIP_MODE.ahk
-#Include .\DXGKMT_MULTIPLANE_OVERLAY_STRETCH_QUALITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DDDI_ROTATION.ahk" { D3DDDI_ROTATION }
+#Import ".\DXGKMT_MULTIPLANE_OVERLAY_STEREO_FLIP_MODE.ahk" { DXGKMT_MULTIPLANE_OVERLAY_STEREO_FLIP_MODE }
+#Import ".\D3DKMT_MULTIPLANE_OVERLAY_STEREO_FORMAT.ahk" { D3DKMT_MULTIPLANE_OVERLAY_STEREO_FORMAT }
+#Import ".\D3DKMT_MULTIPLANE_OVERLAY_BLEND.ahk" { D3DKMT_MULTIPLANE_OVERLAY_BLEND }
+#Import "..\..\..\Win32\Foundation\RECT.ahk" { RECT }
+#Import "..\..\..\Win32\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DXGKMT_MULTIPLANE_OVERLAY_STRETCH_QUALITY.ahk" { DXGKMT_MULTIPLANE_OVERLAY_STRETCH_QUALITY }
+#Import ".\D3DKMT_MULTIPLANE_OVERLAY_VIDEO_FRAME_FORMAT.ahk" { D3DKMT_MULTIPLANE_OVERLAY_VIDEO_FRAME_FORMAT }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_MULTIPLANE_OVERLAY_ATTRIBUTES extends Win32Struct {
-    static sizeof => 88
+export default struct D3DKMT_MULTIPLANE_OVERLAY_ATTRIBUTES {
+    #StructPack 8
 
-    static packingSize => 8
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SrcRect : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    SrcRect {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    DstRect : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    DstRect {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ClipRect : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ClipRect {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Rotation : D3DDDI_ROTATION
 
-    /**
-     * @type {D3DDDI_ROTATION}
-     */
-    Rotation {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    Blend : D3DKMT_MULTIPLANE_OVERLAY_BLEND
 
-    /**
-     * @type {D3DKMT_MULTIPLANE_OVERLAY_BLEND}
-     */
-    Blend {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    DirtyRectCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DirtyRectCount {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    pDirtyRects : RECT.Ptr
 
-    /**
-     * @type {Pointer<RECT>}
-     */
-    pDirtyRects {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    VideoFrameFormat : D3DKMT_MULTIPLANE_OVERLAY_VIDEO_FRAME_FORMAT
 
-    /**
-     * @type {D3DKMT_MULTIPLANE_OVERLAY_VIDEO_FRAME_FORMAT}
-     */
-    VideoFrameFormat {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    YCbCrFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    YCbCrFlags {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    StereoFormat : D3DKMT_MULTIPLANE_OVERLAY_STEREO_FORMAT
 
-    /**
-     * @type {D3DKMT_MULTIPLANE_OVERLAY_STEREO_FORMAT}
-     */
-    StereoFormat {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
-    }
+    StereoLeftViewFrame0 : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    StereoLeftViewFrame0 {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
-    }
+    StereoBaseViewFrame0 : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    StereoBaseViewFrame0 {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
-    }
+    StereoFlipMode : DXGKMT_MULTIPLANE_OVERLAY_STEREO_FLIP_MODE
 
-    /**
-     * @type {DXGKMT_MULTIPLANE_OVERLAY_STEREO_FLIP_MODE}
-     */
-    StereoFlipMode {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
-    }
+    StretchQuality : DXGKMT_MULTIPLANE_OVERLAY_STRETCH_QUALITY
 
-    /**
-     * @type {DXGKMT_MULTIPLANE_OVERLAY_STRETCH_QUALITY}
-     */
-    StretchQuality {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
-    }
 }

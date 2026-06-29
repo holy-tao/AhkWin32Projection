@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines constants that specify the location of the certificate store.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/bits2_5/ne-bits2_5-bg_cert_store_location
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class BG_CERT_STORE_LOCATION extends Win32Enum {
+export default struct BG_CERT_STORE_LOCATION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Use the current user's certificate store.

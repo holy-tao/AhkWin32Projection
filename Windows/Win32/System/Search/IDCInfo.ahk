@@ -1,31 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DCINFO.ahk" { DCINFO }
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class IDCInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDCInfo extends IUnknown {
     /**
      * The interface identifier for IDCInfo
      * @type {Guid}
      */
-    static IID => Guid("{0c733a9c-2a1c-11ce-ade5-00aa0044773d}")
+    static IID := Guid("{0c733a9c-2a1c-11ce-ade5-00aa0044773d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDCInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetInfo : IntPtr
+        SetInfo : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetInfo", "SetInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDCInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -41,35 +51,35 @@ class IDCInfo extends IUnknown {
     }
 
     /**
-     * Sets limits for a job object.
-     * @remarks
-     * Use the <b>SetInformationJobObject</b> 
-     *     function to set several limits in a single call. To establish the limits one at a time or change a 
-     *     subset of the limits, call the 
-     *     <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/nf-jobapi2-queryinformationjobobject">QueryInformationJobObject</a> function to obtain 
-     *     the current limits, modify these limits, and then call 
-     *     <b>SetInformationJobObject</b>.
      * 
-     * You must set security limits individually for each process associated with a job object, rather than setting 
-     *     them for the job object itself. For information, see 
-     *     <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * 
-     * <b>Windows Server 2003 and Windows XP:  </b>Use the <b>SetInformationJobObject</b> 
-     *       function to set security limits for the job object.
-     * 
-     * To compile an application that uses this function, define _WIN32_WINNT as 0x0500 or later. For more 
-     *     information, see 
-     *     <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Integer} cInfo 
      * @param {Pointer<DCINFO>} rgInfo 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/jobapi2/nf-jobapi2-setinformationjobobject
+     * @returns {HRESULT} 
      */
     SetInfo(cInfo, rgInfo) {
-        result := ComCall(4, this, "uint", cInfo, "ptr", rgInfo, "HRESULT")
+        result := ComCall(4, this, "uint", cInfo, DCINFO.Ptr, rgInfo, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDCInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetInfo := CallbackCreate(GetMethod(implObj, "GetInfo"), flags, 4)
+        this.vtbl.SetInfo := CallbackCreate(GetMethod(implObj, "SetInfo"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetInfo)
+        CallbackFree(this.vtbl.SetInfo)
     }
 }

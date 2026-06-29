@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\WindowsAndMessaging\MSG.ahk" { MSG }
 
 /**
  * Exposes methods that allow a Component Object Model (COM) object to receive and translate appropriate messages.
@@ -34,26 +37,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-imenuband
  * @namespace Windows.Win32.UI.Shell
  */
-class IMenuBand extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMenuBand extends IUnknown {
     /**
      * The interface identifier for IMenuBand
      * @type {Guid}
      */
-    static IID => Guid("{568804cd-cbd7-11d0-9816-00c04fd91972}")
+    static IID := Guid("{568804cd-cbd7-11d0-9816-00c04fd91972}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMenuBand interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        IsMenuMessage        : IntPtr
+        TranslateMenuMessage : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsMenuMessage", "TranslateMenuMessage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMenuBand.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * A message pump calls this method to see if any messages should be redirected to the Component Object Model (COM) object.
@@ -97,7 +108,7 @@ class IMenuBand extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-imenuband-ismenumessage
      */
     IsMenuMessage(pmsg) {
-        result := ComCall(3, this, "ptr", pmsg, "HRESULT")
+        result := ComCall(3, this, MSG.Ptr, pmsg, "HRESULT")
         return result
     }
 
@@ -118,7 +129,29 @@ class IMenuBand extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-imenuband-translatemenumessage
      */
     TranslateMenuMessage(pmsg) {
-        result := ComCall(4, this, "ptr", pmsg, "ptr*", &plRet := 0, "HRESULT")
+        result := ComCall(4, this, MSG.Ptr, pmsg, LRESULT.Ptr, &plRet := 0, "HRESULT")
         return plRet
+    }
+
+    Query(iid) {
+        if (IMenuBand.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsMenuMessage := CallbackCreate(GetMethod(implObj, "IsMenuMessage"), flags, 2)
+        this.vtbl.TranslateMenuMessage := CallbackCreate(GetMethod(implObj, "TranslateMenuMessage"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsMenuMessage)
+        CallbackFree(this.vtbl.TranslateMenuMessage)
     }
 }

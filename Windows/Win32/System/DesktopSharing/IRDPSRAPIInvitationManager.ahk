@@ -1,41 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IRDPSRAPIInvitation.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRDPSRAPIInvitation.ahk" { IRDPSRAPIInvitation }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Manages invitation objects.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapiinvitationmanager
  * @namespace Windows.Win32.System.DesktopSharing
  */
-class IRDPSRAPIInvitationManager extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IRDPSRAPIInvitationManager extends IDispatch {
     /**
      * The interface identifier for IRDPSRAPIInvitationManager
      * @type {Guid}
      */
-    static IID => Guid("{4722b049-92c3-4c2d-8a65-f7348f644dcf}")
+    static IID := Guid("{4722b049-92c3-4c2d-8a65-f7348f644dcf}")
 
     /**
      * The class identifier for RDPSRAPIInvitationManager
      * @type {Guid}
      */
-    static CLSID => Guid("{53d9c9db-75ab-4271-948a-4c4eb36a8f2b}")
+    static CLSID := Guid("{53d9c9db-75ab-4271-948a-4c4eb36a8f2b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRDPSRAPIInvitationManager interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get__NewEnum     : IntPtr
+        get_Item         : IntPtr
+        get_Count        : IntPtr
+        CreateInvitation : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get__NewEnum", "get_Item", "get_Count", "CreateInvitation"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRDPSRAPIInvitationManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IUnknown} 
@@ -68,7 +81,7 @@ class IRDPSRAPIInvitationManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitationmanager-get_item
      */
     get_Item(item) {
-        result := ComCall(8, this, "ptr", item, "ptr*", &ppInvitation := 0, "HRESULT")
+        result := ComCall(8, this, VARIANT, item, "ptr*", &ppInvitation := 0, "HRESULT")
         return IRDPSRAPIInvitation(ppInvitation)
     }
 
@@ -106,7 +119,33 @@ class IRDPSRAPIInvitationManager extends IDispatch {
         bstrGroupName := bstrGroupName is String ? BSTR.Alloc(bstrGroupName).Value : bstrGroupName
         bstrPassword := bstrPassword is String ? BSTR.Alloc(bstrPassword).Value : bstrPassword
 
-        result := ComCall(10, this, "ptr", bstrAuthString, "ptr", bstrGroupName, "ptr", bstrPassword, "int", AttendeeLimit, "ptr*", &ppInvitation := 0, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrAuthString, BSTR, bstrGroupName, BSTR, bstrPassword, "int", AttendeeLimit, "ptr*", &ppInvitation := 0, "HRESULT")
         return IRDPSRAPIInvitation(ppInvitation)
+    }
+
+    Query(iid) {
+        if (IRDPSRAPIInvitationManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.CreateInvitation := CallbackCreate(GetMethod(implObj, "CreateInvitation"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.get_Item)
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.CreateInvitation)
     }
 }

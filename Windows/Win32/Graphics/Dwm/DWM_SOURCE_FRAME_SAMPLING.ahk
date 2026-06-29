@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Flags used by the DwmSetPresentParameters function to specify the frame sampling type.
  * @see https://learn.microsoft.com/windows/win32/api/dwmapi/ne-dwmapi-dwm_source_frame_sampling
  * @namespace Windows.Win32.Graphics.Dwm
  */
-class DWM_SOURCE_FRAME_SAMPLING extends Win32Enum {
+export default struct DWM_SOURCE_FRAME_SAMPLING {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Use the first source frame that includes the first refresh of the output frame.

@@ -1,34 +1,63 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\MFVideoNormalizedRect.ahk" { MFVideoNormalizedRect }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Controls how the Enhanced Video Renderer (EVR) displays video.
  * @see https://learn.microsoft.com/windows/win32/api/evr/nn-evr-imfvideodisplaycontrol
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFVideoDisplayControl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFVideoDisplayControl extends IUnknown {
     /**
      * The interface identifier for IMFVideoDisplayControl
      * @type {Guid}
      */
-    static IID => Guid("{a490b1e4-ab84-4d31-a1b2-181e03b1077a}")
+    static IID := Guid("{a490b1e4-ab84-4d31-a1b2-181e03b1077a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFVideoDisplayControl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetNativeVideoSize : IntPtr
+        GetIdealVideoSize  : IntPtr
+        SetVideoPosition   : IntPtr
+        GetVideoPosition   : IntPtr
+        SetAspectRatioMode : IntPtr
+        GetAspectRatioMode : IntPtr
+        SetVideoWindow     : IntPtr
+        GetVideoWindow     : IntPtr
+        RepaintVideo       : IntPtr
+        GetCurrentImage    : IntPtr
+        SetBorderColor     : IntPtr
+        GetBorderColor     : IntPtr
+        SetRenderingPrefs  : IntPtr
+        GetRenderingPrefs  : IntPtr
+        SetFullscreen      : IntPtr
+        GetFullscreen      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetNativeVideoSize", "GetIdealVideoSize", "SetVideoPosition", "GetVideoPosition", "SetAspectRatioMode", "GetAspectRatioMode", "SetVideoWindow", "GetVideoWindow", "RepaintVideo", "GetCurrentImage", "SetBorderColor", "GetBorderColor", "SetRenderingPrefs", "GetRenderingPrefs", "SetFullscreen", "GetFullscreen"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFVideoDisplayControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the size and aspect ratio of the video, prior to any stretching by the video renderer.
@@ -82,7 +111,7 @@ class IMFVideoDisplayControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideodisplaycontrol-getnativevideosize
      */
     GetNativeVideoSize(pszVideo, pszARVideo) {
-        result := ComCall(3, this, "ptr", pszVideo, "ptr", pszARVideo, "HRESULT")
+        result := ComCall(3, this, SIZE.Ptr, pszVideo, SIZE.Ptr, pszARVideo, "HRESULT")
         return result
     }
 
@@ -136,7 +165,7 @@ class IMFVideoDisplayControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideodisplaycontrol-getidealvideosize
      */
     GetIdealVideoSize(pszMin, pszMax) {
-        result := ComCall(4, this, "ptr", pszMin, "ptr", pszMax, "HRESULT")
+        result := ComCall(4, this, SIZE.Ptr, pszMin, SIZE.Ptr, pszMax, "HRESULT")
         return result
     }
 
@@ -196,7 +225,7 @@ class IMFVideoDisplayControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideodisplaycontrol-setvideoposition
      */
     SetVideoPosition(pnrcSource, prcDest) {
-        result := ComCall(5, this, "ptr", pnrcSource, "ptr", prcDest, "HRESULT")
+        result := ComCall(5, this, MFVideoNormalizedRect.Ptr, pnrcSource, RECT.Ptr, prcDest, "HRESULT")
         return result
     }
 
@@ -248,7 +277,7 @@ class IMFVideoDisplayControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideodisplaycontrol-getvideoposition
      */
     GetVideoPosition(pnrcSource, prcDest) {
-        result := ComCall(6, this, "ptr", pnrcSource, "ptr", prcDest, "HRESULT")
+        result := ComCall(6, this, MFVideoNormalizedRect.Ptr, pnrcSource, RECT.Ptr, prcDest, "HRESULT")
         return result
     }
 
@@ -364,9 +393,7 @@ class IMFVideoDisplayControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideodisplaycontrol-setvideowindow
      */
     SetVideoWindow(hwndVideo) {
-        hwndVideo := hwndVideo is Win32Handle ? NumGet(hwndVideo, "ptr") : hwndVideo
-
-        result := ComCall(9, this, "ptr", hwndVideo, "HRESULT")
+        result := ComCall(9, this, HWND, hwndVideo, "HRESULT")
         return result
     }
 
@@ -379,7 +406,7 @@ class IMFVideoDisplayControl extends IUnknown {
      */
     GetVideoWindow() {
         phwndVideo := HWND()
-        result := ComCall(10, this, "ptr", phwndVideo, "HRESULT")
+        result := ComCall(10, this, HWND.Ptr, phwndVideo, "HRESULT")
         return phwndVideo
     }
 
@@ -493,7 +520,7 @@ class IMFVideoDisplayControl extends IUnknown {
         pcbDibMarshal := pcbDib is VarRef ? "uint*" : "ptr"
         pTimeStampMarshal := pTimeStamp is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(12, this, "ptr", pBih, pDibMarshal, pDib, pcbDibMarshal, pcbDib, pTimeStampMarshal, pTimeStamp, "HRESULT")
+        result := ComCall(12, this, BITMAPINFOHEADER.Ptr, pBih, pDibMarshal, pDib, pcbDibMarshal, pcbDib, pTimeStampMarshal, pTimeStamp, "HRESULT")
         return result
     }
 
@@ -537,7 +564,7 @@ class IMFVideoDisplayControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideodisplaycontrol-setbordercolor
      */
     SetBorderColor(Clr) {
-        result := ComCall(13, this, "uint", Clr, "HRESULT")
+        result := ComCall(13, this, COLORREF, Clr, "HRESULT")
         return result
     }
 
@@ -551,7 +578,7 @@ class IMFVideoDisplayControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideodisplaycontrol-getbordercolor
      */
     GetBorderColor() {
-        result := ComCall(14, this, "uint*", &pClr := 0, "HRESULT")
+        result := ComCall(14, this, COLORREF.Ptr, &pClr := 0, "HRESULT")
         return pClr
     }
 
@@ -665,7 +692,7 @@ class IMFVideoDisplayControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideodisplaycontrol-setfullscreen
      */
     SetFullscreen(fFullscreen) {
-        result := ComCall(17, this, "int", fFullscreen, "HRESULT")
+        result := ComCall(17, this, BOOL, fFullscreen, "HRESULT")
         return result
     }
 
@@ -675,7 +702,57 @@ class IMFVideoDisplayControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideodisplaycontrol-getfullscreen
      */
     GetFullscreen() {
-        result := ComCall(18, this, "int*", &pfFullscreen := 0, "HRESULT")
+        result := ComCall(18, this, BOOL.Ptr, &pfFullscreen := 0, "HRESULT")
         return pfFullscreen
+    }
+
+    Query(iid) {
+        if (IMFVideoDisplayControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetNativeVideoSize := CallbackCreate(GetMethod(implObj, "GetNativeVideoSize"), flags, 3)
+        this.vtbl.GetIdealVideoSize := CallbackCreate(GetMethod(implObj, "GetIdealVideoSize"), flags, 3)
+        this.vtbl.SetVideoPosition := CallbackCreate(GetMethod(implObj, "SetVideoPosition"), flags, 3)
+        this.vtbl.GetVideoPosition := CallbackCreate(GetMethod(implObj, "GetVideoPosition"), flags, 3)
+        this.vtbl.SetAspectRatioMode := CallbackCreate(GetMethod(implObj, "SetAspectRatioMode"), flags, 2)
+        this.vtbl.GetAspectRatioMode := CallbackCreate(GetMethod(implObj, "GetAspectRatioMode"), flags, 2)
+        this.vtbl.SetVideoWindow := CallbackCreate(GetMethod(implObj, "SetVideoWindow"), flags, 2)
+        this.vtbl.GetVideoWindow := CallbackCreate(GetMethod(implObj, "GetVideoWindow"), flags, 2)
+        this.vtbl.RepaintVideo := CallbackCreate(GetMethod(implObj, "RepaintVideo"), flags, 1)
+        this.vtbl.GetCurrentImage := CallbackCreate(GetMethod(implObj, "GetCurrentImage"), flags, 5)
+        this.vtbl.SetBorderColor := CallbackCreate(GetMethod(implObj, "SetBorderColor"), flags, 2)
+        this.vtbl.GetBorderColor := CallbackCreate(GetMethod(implObj, "GetBorderColor"), flags, 2)
+        this.vtbl.SetRenderingPrefs := CallbackCreate(GetMethod(implObj, "SetRenderingPrefs"), flags, 2)
+        this.vtbl.GetRenderingPrefs := CallbackCreate(GetMethod(implObj, "GetRenderingPrefs"), flags, 2)
+        this.vtbl.SetFullscreen := CallbackCreate(GetMethod(implObj, "SetFullscreen"), flags, 2)
+        this.vtbl.GetFullscreen := CallbackCreate(GetMethod(implObj, "GetFullscreen"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetNativeVideoSize)
+        CallbackFree(this.vtbl.GetIdealVideoSize)
+        CallbackFree(this.vtbl.SetVideoPosition)
+        CallbackFree(this.vtbl.GetVideoPosition)
+        CallbackFree(this.vtbl.SetAspectRatioMode)
+        CallbackFree(this.vtbl.GetAspectRatioMode)
+        CallbackFree(this.vtbl.SetVideoWindow)
+        CallbackFree(this.vtbl.GetVideoWindow)
+        CallbackFree(this.vtbl.RepaintVideo)
+        CallbackFree(this.vtbl.GetCurrentImage)
+        CallbackFree(this.vtbl.SetBorderColor)
+        CallbackFree(this.vtbl.GetBorderColor)
+        CallbackFree(this.vtbl.SetRenderingPrefs)
+        CallbackFree(this.vtbl.GetRenderingPrefs)
+        CallbackFree(this.vtbl.SetFullscreen)
+        CallbackFree(this.vtbl.GetFullscreen)
     }
 }

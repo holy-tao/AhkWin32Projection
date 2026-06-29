@@ -1,37 +1,88 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IEnumAddress.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IEnumTerminal.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PHONECAPS_BUFFER.ahk" { PHONECAPS_BUFFER }
+#Import ".\ITAddress.ahk" { ITAddress }
+#Import ".\PHONE_HOOK_SWITCH_STATE.ahk" { PHONE_HOOK_SWITCH_STATE }
+#Import ".\IEnumTerminal.ahk" { IEnumTerminal }
+#Import ".\PHONE_PRIVILEGE.ahk" { PHONE_PRIVILEGE }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\PHONE_LAMP_MODE.ahk" { PHONE_LAMP_MODE }
+#Import ".\IEnumAddress.ahk" { IEnumAddress }
+#Import ".\PHONECAPS_LONG.ahk" { PHONECAPS_LONG }
+#Import ".\PHONE_BUTTON_MODE.ahk" { PHONE_BUTTON_MODE }
+#Import ".\PHONE_BUTTON_FUNCTION.ahk" { PHONE_BUTTON_FUNCTION }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\PHONE_HOOK_SWITCH_DEVICE.ahk" { PHONE_HOOK_SWITCH_DEVICE }
+#Import ".\PHONE_BUTTON_STATE.ahk" { PHONE_BUTTON_STATE }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\PHONECAPS_STRING.ahk" { PHONECAPS_STRING }
 
 /**
  * The ITPhone interface is the main interface for the new Phone objects in the TAPI 3.1 object model.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itphone
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITPhone extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITPhone extends IDispatch {
     /**
      * The interface identifier for ITPhone
      * @type {Guid}
      */
-    static IID => Guid("{09d48db4-10cc-4388-9de7-a8465618975a}")
+    static IID := Guid("{09d48db4-10cc-4388-9de7-a8465618975a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITPhone interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Open                        : IntPtr
+        Close                       : IntPtr
+        get_Addresses               : IntPtr
+        EnumerateAddresses          : IntPtr
+        get_PhoneCapsLong           : IntPtr
+        get_PhoneCapsString         : IntPtr
+        get_Terminals               : IntPtr
+        EnumerateTerminals          : IntPtr
+        get_ButtonMode              : IntPtr
+        put_ButtonMode              : IntPtr
+        get_ButtonFunction          : IntPtr
+        put_ButtonFunction          : IntPtr
+        get_ButtonText              : IntPtr
+        put_ButtonText              : IntPtr
+        get_ButtonState             : IntPtr
+        get_HookSwitchState         : IntPtr
+        put_HookSwitchState         : IntPtr
+        put_RingMode                : IntPtr
+        get_RingMode                : IntPtr
+        put_RingVolume              : IntPtr
+        get_RingVolume              : IntPtr
+        get_Privilege               : IntPtr
+        GetPhoneCapsBuffer          : IntPtr
+        get_PhoneCapsBuffer         : IntPtr
+        get_LampMode                : IntPtr
+        put_LampMode                : IntPtr
+        get_Display                 : IntPtr
+        SetDisplay                  : IntPtr
+        get_PreferredAddresses      : IntPtr
+        EnumeratePreferredAddresses : IntPtr
+        DeviceSpecific              : IntPtr
+        DeviceSpecificVariant       : IntPtr
+        NegotiateExtVersion         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Open", "Close", "get_Addresses", "EnumerateAddresses", "get_PhoneCapsLong", "get_PhoneCapsString", "get_Terminals", "EnumerateTerminals", "get_ButtonMode", "put_ButtonMode", "get_ButtonFunction", "put_ButtonFunction", "get_ButtonText", "put_ButtonText", "get_ButtonState", "get_HookSwitchState", "put_HookSwitchState", "put_RingMode", "get_RingMode", "put_RingVolume", "get_RingVolume", "get_Privilege", "GetPhoneCapsBuffer", "get_PhoneCapsBuffer", "get_LampMode", "put_LampMode", "get_Display", "SetDisplay", "get_PreferredAddresses", "EnumeratePreferredAddresses", "DeviceSpecific", "DeviceSpecificVariant", "NegotiateExtVersion"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITPhone.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT} 
@@ -90,7 +141,7 @@ class ITPhone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-open
      */
     Open(Privilege) {
-        result := ComCall(7, this, "int", Privilege, "HRESULT")
+        result := ComCall(7, this, PHONE_PRIVILEGE, Privilege, "HRESULT")
         return result
     }
 
@@ -138,7 +189,7 @@ class ITPhone extends IDispatch {
      */
     get_Addresses() {
         pAddresses := VARIANT()
-        result := ComCall(9, this, "ptr", pAddresses, "HRESULT")
+        result := ComCall(9, this, VARIANT.Ptr, pAddresses, "HRESULT")
         return pAddresses
     }
 
@@ -182,7 +233,7 @@ class ITPhone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_phonecapslong
      */
     get_PhoneCapsLong(pclCap) {
-        result := ComCall(11, this, "int", pclCap, "int*", &plCapability := 0, "HRESULT")
+        result := ComCall(11, this, PHONECAPS_LONG, pclCap, "int*", &plCapability := 0, "HRESULT")
         return plCapability
     }
 
@@ -195,8 +246,8 @@ class ITPhone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_phonecapsstring
      */
     get_PhoneCapsString(pcsCap) {
-        ppCapability := BSTR()
-        result := ComCall(12, this, "int", pcsCap, "ptr", ppCapability, "HRESULT")
+        ppCapability := BSTR.Owned()
+        result := ComCall(12, this, PHONECAPS_STRING, pcsCap, BSTR.Ptr, ppCapability, "HRESULT")
         return ppCapability
     }
 
@@ -222,7 +273,7 @@ class ITPhone extends IDispatch {
      */
     get_Terminals(pAddress) {
         pTerminals := VARIANT()
-        result := ComCall(13, this, "ptr", pAddress, "ptr", pTerminals, "HRESULT")
+        result := ComCall(13, this, "ptr", pAddress, VARIANT.Ptr, pTerminals, "HRESULT")
         return pTerminals
     }
 
@@ -286,7 +337,7 @@ class ITPhone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-put_buttonmode
      */
     put_ButtonMode(lButtonID, ButtonMode) {
-        result := ComCall(16, this, "int", lButtonID, "int", ButtonMode, "HRESULT")
+        result := ComCall(16, this, "int", lButtonID, PHONE_BUTTON_MODE, ButtonMode, "HRESULT")
         return result
     }
 
@@ -314,7 +365,7 @@ class ITPhone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-put_buttonfunction
      */
     put_ButtonFunction(lButtonID, ButtonFunction) {
-        result := ComCall(18, this, "int", lButtonID, "int", ButtonFunction, "HRESULT")
+        result := ComCall(18, this, "int", lButtonID, PHONE_BUTTON_FUNCTION, ButtonFunction, "HRESULT")
         return result
     }
 
@@ -326,8 +377,8 @@ class ITPhone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_buttontext
      */
     get_ButtonText(lButtonID) {
-        ppButtonText := BSTR()
-        result := ComCall(19, this, "int", lButtonID, "ptr", ppButtonText, "HRESULT")
+        ppButtonText := BSTR.Owned()
+        result := ComCall(19, this, "int", lButtonID, BSTR.Ptr, ppButtonText, "HRESULT")
         return ppButtonText
     }
 
@@ -341,7 +392,7 @@ class ITPhone extends IDispatch {
     put_ButtonText(lButtonID, bstrButtonText) {
         bstrButtonText := bstrButtonText is String ? BSTR.Alloc(bstrButtonText).Value : bstrButtonText
 
-        result := ComCall(20, this, "int", lButtonID, "ptr", bstrButtonText, "HRESULT")
+        result := ComCall(20, this, "int", lButtonID, BSTR, bstrButtonText, "HRESULT")
         return result
     }
 
@@ -366,7 +417,7 @@ class ITPhone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_hookswitchstate
      */
     get_HookSwitchState(HookSwitchDevice) {
-        result := ComCall(22, this, "int", HookSwitchDevice, "int*", &pHookSwitchState := 0, "HRESULT")
+        result := ComCall(22, this, PHONE_HOOK_SWITCH_DEVICE, HookSwitchDevice, "int*", &pHookSwitchState := 0, "HRESULT")
         return pHookSwitchState
     }
 
@@ -382,7 +433,7 @@ class ITPhone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-put_hookswitchstate
      */
     put_HookSwitchState(HookSwitchDevice, HookSwitchState) {
-        result := ComCall(23, this, "int", HookSwitchDevice, "int", HookSwitchState, "HRESULT")
+        result := ComCall(23, this, PHONE_HOOK_SWITCH_DEVICE, HookSwitchDevice, PHONE_HOOK_SWITCH_STATE, HookSwitchState, "HRESULT")
         return result
     }
 
@@ -454,7 +505,7 @@ class ITPhone extends IDispatch {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
         ppPhoneCapsBufferMarshal := ppPhoneCapsBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(29, this, "int", pcbCaps, pdwSizeMarshal, pdwSize, ppPhoneCapsBufferMarshal, ppPhoneCapsBuffer, "HRESULT")
+        result := ComCall(29, this, PHONECAPS_BUFFER, pcbCaps, pdwSizeMarshal, pdwSize, ppPhoneCapsBufferMarshal, ppPhoneCapsBuffer, "HRESULT")
         return result
     }
 
@@ -467,7 +518,7 @@ class ITPhone extends IDispatch {
      */
     get_PhoneCapsBuffer(pcbCaps) {
         pVarBuffer := VARIANT()
-        result := ComCall(30, this, "int", pcbCaps, "ptr", pVarBuffer, "HRESULT")
+        result := ComCall(30, this, PHONECAPS_BUFFER, pcbCaps, VARIANT.Ptr, pVarBuffer, "HRESULT")
         return pVarBuffer
     }
 
@@ -492,7 +543,7 @@ class ITPhone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-put_lampmode
      */
     put_LampMode(lLampID, LampMode) {
-        result := ComCall(32, this, "int", lLampID, "int", LampMode, "HRESULT")
+        result := ComCall(32, this, "int", lLampID, PHONE_LAMP_MODE, LampMode, "HRESULT")
         return result
     }
 
@@ -503,8 +554,8 @@ class ITPhone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_display
      */
     get_Display() {
-        pbstrDisplay := BSTR()
-        result := ComCall(33, this, "ptr", pbstrDisplay, "HRESULT")
+        pbstrDisplay := BSTR.Owned()
+        result := ComCall(33, this, BSTR.Ptr, pbstrDisplay, "HRESULT")
         return pbstrDisplay
     }
 
@@ -519,7 +570,7 @@ class ITPhone extends IDispatch {
     SetDisplay(lRow, lColumn, bstrDisplay) {
         bstrDisplay := bstrDisplay is String ? BSTR.Alloc(bstrDisplay).Value : bstrDisplay
 
-        result := ComCall(34, this, "int", lRow, "int", lColumn, "ptr", bstrDisplay, "HRESULT")
+        result := ComCall(34, this, "int", lRow, "int", lColumn, BSTR, bstrDisplay, "HRESULT")
         return result
     }
 
@@ -547,7 +598,7 @@ class ITPhone extends IDispatch {
      */
     get_PreferredAddresses() {
         pAddresses := VARIANT()
-        result := ComCall(35, this, "ptr", pAddresses, "HRESULT")
+        result := ComCall(35, this, VARIANT.Ptr, pAddresses, "HRESULT")
         return pAddresses
     }
 
@@ -666,7 +717,7 @@ class ITPhone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-devicespecificvariant
      */
     DeviceSpecificVariant(varDevSpecificByteArray) {
-        result := ComCall(38, this, "ptr", varDevSpecificByteArray, "HRESULT")
+        result := ComCall(38, this, VARIANT, varDevSpecificByteArray, "HRESULT")
         return result
     }
 
@@ -682,5 +733,89 @@ class ITPhone extends IDispatch {
     NegotiateExtVersion(lLowVersion, lHighVersion) {
         result := ComCall(39, this, "int", lLowVersion, "int", lHighVersion, "int*", &plExtVersion := 0, "HRESULT")
         return plExtVersion
+    }
+
+    Query(iid) {
+        if (ITPhone.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 2)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.get_Addresses := CallbackCreate(GetMethod(implObj, "get_Addresses"), flags, 2)
+        this.vtbl.EnumerateAddresses := CallbackCreate(GetMethod(implObj, "EnumerateAddresses"), flags, 2)
+        this.vtbl.get_PhoneCapsLong := CallbackCreate(GetMethod(implObj, "get_PhoneCapsLong"), flags, 3)
+        this.vtbl.get_PhoneCapsString := CallbackCreate(GetMethod(implObj, "get_PhoneCapsString"), flags, 3)
+        this.vtbl.get_Terminals := CallbackCreate(GetMethod(implObj, "get_Terminals"), flags, 3)
+        this.vtbl.EnumerateTerminals := CallbackCreate(GetMethod(implObj, "EnumerateTerminals"), flags, 3)
+        this.vtbl.get_ButtonMode := CallbackCreate(GetMethod(implObj, "get_ButtonMode"), flags, 3)
+        this.vtbl.put_ButtonMode := CallbackCreate(GetMethod(implObj, "put_ButtonMode"), flags, 3)
+        this.vtbl.get_ButtonFunction := CallbackCreate(GetMethod(implObj, "get_ButtonFunction"), flags, 3)
+        this.vtbl.put_ButtonFunction := CallbackCreate(GetMethod(implObj, "put_ButtonFunction"), flags, 3)
+        this.vtbl.get_ButtonText := CallbackCreate(GetMethod(implObj, "get_ButtonText"), flags, 3)
+        this.vtbl.put_ButtonText := CallbackCreate(GetMethod(implObj, "put_ButtonText"), flags, 3)
+        this.vtbl.get_ButtonState := CallbackCreate(GetMethod(implObj, "get_ButtonState"), flags, 3)
+        this.vtbl.get_HookSwitchState := CallbackCreate(GetMethod(implObj, "get_HookSwitchState"), flags, 3)
+        this.vtbl.put_HookSwitchState := CallbackCreate(GetMethod(implObj, "put_HookSwitchState"), flags, 3)
+        this.vtbl.put_RingMode := CallbackCreate(GetMethod(implObj, "put_RingMode"), flags, 2)
+        this.vtbl.get_RingMode := CallbackCreate(GetMethod(implObj, "get_RingMode"), flags, 2)
+        this.vtbl.put_RingVolume := CallbackCreate(GetMethod(implObj, "put_RingVolume"), flags, 2)
+        this.vtbl.get_RingVolume := CallbackCreate(GetMethod(implObj, "get_RingVolume"), flags, 2)
+        this.vtbl.get_Privilege := CallbackCreate(GetMethod(implObj, "get_Privilege"), flags, 2)
+        this.vtbl.GetPhoneCapsBuffer := CallbackCreate(GetMethod(implObj, "GetPhoneCapsBuffer"), flags, 4)
+        this.vtbl.get_PhoneCapsBuffer := CallbackCreate(GetMethod(implObj, "get_PhoneCapsBuffer"), flags, 3)
+        this.vtbl.get_LampMode := CallbackCreate(GetMethod(implObj, "get_LampMode"), flags, 3)
+        this.vtbl.put_LampMode := CallbackCreate(GetMethod(implObj, "put_LampMode"), flags, 3)
+        this.vtbl.get_Display := CallbackCreate(GetMethod(implObj, "get_Display"), flags, 2)
+        this.vtbl.SetDisplay := CallbackCreate(GetMethod(implObj, "SetDisplay"), flags, 4)
+        this.vtbl.get_PreferredAddresses := CallbackCreate(GetMethod(implObj, "get_PreferredAddresses"), flags, 2)
+        this.vtbl.EnumeratePreferredAddresses := CallbackCreate(GetMethod(implObj, "EnumeratePreferredAddresses"), flags, 2)
+        this.vtbl.DeviceSpecific := CallbackCreate(GetMethod(implObj, "DeviceSpecific"), flags, 3)
+        this.vtbl.DeviceSpecificVariant := CallbackCreate(GetMethod(implObj, "DeviceSpecificVariant"), flags, 2)
+        this.vtbl.NegotiateExtVersion := CallbackCreate(GetMethod(implObj, "NegotiateExtVersion"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Open)
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.get_Addresses)
+        CallbackFree(this.vtbl.EnumerateAddresses)
+        CallbackFree(this.vtbl.get_PhoneCapsLong)
+        CallbackFree(this.vtbl.get_PhoneCapsString)
+        CallbackFree(this.vtbl.get_Terminals)
+        CallbackFree(this.vtbl.EnumerateTerminals)
+        CallbackFree(this.vtbl.get_ButtonMode)
+        CallbackFree(this.vtbl.put_ButtonMode)
+        CallbackFree(this.vtbl.get_ButtonFunction)
+        CallbackFree(this.vtbl.put_ButtonFunction)
+        CallbackFree(this.vtbl.get_ButtonText)
+        CallbackFree(this.vtbl.put_ButtonText)
+        CallbackFree(this.vtbl.get_ButtonState)
+        CallbackFree(this.vtbl.get_HookSwitchState)
+        CallbackFree(this.vtbl.put_HookSwitchState)
+        CallbackFree(this.vtbl.put_RingMode)
+        CallbackFree(this.vtbl.get_RingMode)
+        CallbackFree(this.vtbl.put_RingVolume)
+        CallbackFree(this.vtbl.get_RingVolume)
+        CallbackFree(this.vtbl.get_Privilege)
+        CallbackFree(this.vtbl.GetPhoneCapsBuffer)
+        CallbackFree(this.vtbl.get_PhoneCapsBuffer)
+        CallbackFree(this.vtbl.get_LampMode)
+        CallbackFree(this.vtbl.put_LampMode)
+        CallbackFree(this.vtbl.get_Display)
+        CallbackFree(this.vtbl.SetDisplay)
+        CallbackFree(this.vtbl.get_PreferredAddresses)
+        CallbackFree(this.vtbl.EnumeratePreferredAddresses)
+        CallbackFree(this.vtbl.DeviceSpecific)
+        CallbackFree(this.vtbl.DeviceSpecificVariant)
+        CallbackFree(this.vtbl.NegotiateExtVersion)
     }
 }

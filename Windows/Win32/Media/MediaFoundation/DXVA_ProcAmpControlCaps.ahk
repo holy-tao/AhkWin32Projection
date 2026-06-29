@@ -1,52 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Direct3D9\D3DFORMAT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVA_ProcAmpControlCaps extends Win32Struct {
-    static sizeof => 20
+export default struct DXVA_ProcAmpControlCaps {
+    #StructPack 4
 
-    static packingSize => 4
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    InputPool : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InputPool {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    d3dOutputFormat : D3DFORMAT
 
-    /**
-     * @type {D3DFORMAT}
-     */
-    d3dOutputFormat {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ProcAmpControlProps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProcAmpControlProps {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    VideoProcessingCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VideoProcessingCaps {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

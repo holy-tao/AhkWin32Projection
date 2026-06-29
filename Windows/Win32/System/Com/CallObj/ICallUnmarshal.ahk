@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ICallFrame.ahk" { ICallFrame }
+#Import ".\CALLFRAME_MARSHALCONTEXT.ahk" { CALLFRAME_MARSHALCONTEXT }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\IUnknown.ahk" { IUnknown }
 
 /**
  * Is used on the server (receiving) side of a remote invocation.
  * @see https://learn.microsoft.com/windows/win32/api/callobj/nn-callobj-icallunmarshal
  * @namespace Windows.Win32.System.Com.CallObj
  */
-class ICallUnmarshal extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICallUnmarshal extends IUnknown {
     /**
      * The interface identifier for ICallUnmarshal
      * @type {Guid}
      */
-    static IID => Guid("{5333b003-2e42-11d2-b89d-00c04fb9618a}")
+    static IID := Guid("{5333b003-2e42-11d2-b89d-00c04fb9618a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICallUnmarshal interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Unmarshal          : IntPtr
+        ReleaseMarshalData : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Unmarshal", "ReleaseMarshalData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICallUnmarshal.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Turns a marshaled packet of data back into an activation record that can then be invoked or manipulated in some other way.
@@ -75,7 +87,7 @@ class ICallUnmarshal extends IUnknown {
         pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
         pcbUnmarshalledMarshal := pcbUnmarshalled is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", iMethod, pBufferMarshal, pBuffer, "uint", cbBuffer, "int", fForceBufferCopy, "uint", dataRep, "ptr", pcontext, pcbUnmarshalledMarshal, pcbUnmarshalled, "ptr*", ppFrame, "HRESULT")
+        result := ComCall(3, this, "uint", iMethod, pBufferMarshal, pBuffer, "uint", cbBuffer, BOOL, fForceBufferCopy, "uint", dataRep, CALLFRAME_MARSHALCONTEXT.Ptr, pcontext, pcbUnmarshalledMarshal, pcbUnmarshalled, ICallFrame.Ptr, ppFrame, "HRESULT")
         return result
     }
 
@@ -126,7 +138,29 @@ class ICallUnmarshal extends IUnknown {
     ReleaseMarshalData(iMethod, pBuffer, cbBuffer, ibFirstRelease, dataRep, pcontext) {
         pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "uint", iMethod, pBufferMarshal, pBuffer, "uint", cbBuffer, "uint", ibFirstRelease, "uint", dataRep, "ptr", pcontext, "HRESULT")
+        result := ComCall(4, this, "uint", iMethod, pBufferMarshal, pBuffer, "uint", cbBuffer, "uint", ibFirstRelease, "uint", dataRep, CALLFRAME_MARSHALCONTEXT.Ptr, pcontext, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICallUnmarshal.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Unmarshal := CallbackCreate(GetMethod(implObj, "Unmarshal"), flags, 9)
+        this.vtbl.ReleaseMarshalData := CallbackCreate(GetMethod(implObj, "ReleaseMarshalData"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Unmarshal)
+        CallbackFree(this.vtbl.ReleaseMarshalData)
     }
 }

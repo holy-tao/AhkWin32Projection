@@ -1,32 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SECURE_ELEMENT_ENDPOINT_INFO.ahk
-#Include .\SECURE_ELEMENT_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SECURE_ELEMENT_ENDPOINT_INFO.ahk" { SECURE_ELEMENT_ENDPOINT_INFO }
+#Import ".\SECURE_ELEMENT_TYPE.ahk" { SECURE_ELEMENT_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
  */
-class SECURE_ELEMENT_ENDPOINT_LIST extends Win32Struct {
-    static sizeof => 24
+export default struct SECURE_ELEMENT_ENDPOINT_LIST {
+    #StructPack 4
 
-    static packingSize => 8
+    NumberOfEndpoints : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfEndpoints {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    EndpointList : SECURE_ELEMENT_ENDPOINT_INFO[1]
 
-    /**
-     * @type {SECURE_ELEMENT_ENDPOINT_INFO}
-     */
-    EndpointList {
-        get {
-            if(!this.HasProp("__EndpointListProxyArray"))
-                this.__EndpointListProxyArray := Win32FixedArray(this.ptr + 8, 1, SECURE_ELEMENT_ENDPOINT_INFO, "")
-            return this.__EndpointListProxyArray
-        }
-    }
 }

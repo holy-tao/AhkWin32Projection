@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class DEBUG_SYMBOL_PARAMETERS extends Win32Struct {
-    static sizeof => 32
+export default struct DEBUG_SYMBOL_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
+    Module : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Module {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    TypeId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TypeId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ParentSymbol : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ParentSymbol {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    SubElements : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SubElements {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    Reserved : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

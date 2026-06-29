@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\INetFwProfile.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\NET_FW_PROFILE_TYPE.ahk" { NET_FW_PROFILE_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\INetFwProfile.ahk" { INetFwProfile }
 
 /**
  * The INetFwPolicy interface provides access to a firewall policy.
@@ -17,26 +19,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwpolicy
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  */
-class INetFwPolicy extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct INetFwPolicy extends IDispatch {
     /**
      * The interface identifier for INetFwPolicy
      * @type {Guid}
      */
-    static IID => Guid("{d46d2478-9ac9-4008-9dc7-5563ce5536cc}")
+    static IID := Guid("{d46d2478-9ac9-4008-9dc7-5563ce5536cc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INetFwPolicy interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_CurrentProfile : IntPtr
+        GetProfileByType   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_CurrentProfile", "GetProfileByType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INetFwPolicy.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {INetFwProfile} 
@@ -70,7 +80,29 @@ class INetFwPolicy extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy-getprofilebytype
      */
     GetProfileByType(profileType) {
-        result := ComCall(8, this, "int", profileType, "ptr*", &_profile := 0, "HRESULT")
+        result := ComCall(8, this, NET_FW_PROFILE_TYPE, profileType, "ptr*", &_profile := 0, "HRESULT")
         return INetFwProfile(_profile)
+    }
+
+    Query(iid) {
+        if (INetFwPolicy.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_CurrentProfile := CallbackCreate(GetMethod(implObj, "get_CurrentProfile"), flags, 2)
+        this.vtbl.GetProfileByType := CallbackCreate(GetMethod(implObj, "GetProfileByType"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_CurrentProfile)
+        CallbackFree(this.vtbl.GetProfileByType)
     }
 }

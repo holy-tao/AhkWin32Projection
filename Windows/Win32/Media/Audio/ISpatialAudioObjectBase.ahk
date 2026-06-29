@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\AudioObjectType.ahk" { AudioObjectType }
 
 /**
  * Base interface that represents an object that provides audio data to be rendered from a position in 3D space, relative to the user.
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nn-spatialaudioclient-ispatialaudioobjectbase
  * @namespace Windows.Win32.Media.Audio
  */
-class ISpatialAudioObjectBase extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISpatialAudioObjectBase extends IUnknown {
     /**
      * The interface identifier for ISpatialAudioObjectBase
      * @type {Guid}
      */
-    static IID => Guid("{cce0b8f2-8d4d-4efb-a8cf-3d6ecf1c30e0}")
+    static IID := Guid("{cce0b8f2-8d4d-4efb-a8cf-3d6ecf1c30e0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpatialAudioObjectBase interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetBuffer          : IntPtr
+        SetEndOfStream     : IntPtr
+        IsActive           : IntPtr
+        GetAudioObjectType : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetBuffer", "SetEndOfStream", "IsActive", "GetAudioObjectType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpatialAudioObjectBase.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a buffer that is used to supply the audio data for the ISpatialAudioObject.
@@ -139,7 +152,7 @@ class ISpatialAudioObjectBase extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioobjectbase-isactive
      */
     IsActive() {
-        result := ComCall(5, this, "int*", &isActive := 0, "HRESULT")
+        result := ComCall(5, this, BOOL.Ptr, &isActive := 0, "HRESULT")
         return isActive
     }
 
@@ -153,5 +166,31 @@ class ISpatialAudioObjectBase extends IUnknown {
     GetAudioObjectType() {
         result := ComCall(6, this, "int*", &_audioObjectType := 0, "HRESULT")
         return _audioObjectType
+    }
+
+    Query(iid) {
+        if (ISpatialAudioObjectBase.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetBuffer := CallbackCreate(GetMethod(implObj, "GetBuffer"), flags, 3)
+        this.vtbl.SetEndOfStream := CallbackCreate(GetMethod(implObj, "SetEndOfStream"), flags, 2)
+        this.vtbl.IsActive := CallbackCreate(GetMethod(implObj, "IsActive"), flags, 2)
+        this.vtbl.GetAudioObjectType := CallbackCreate(GetMethod(implObj, "GetAudioObjectType"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetBuffer)
+        CallbackFree(this.vtbl.SetEndOfStream)
+        CallbackFree(this.vtbl.IsActive)
+        CallbackFree(this.vtbl.GetAudioObjectType)
     }
 }

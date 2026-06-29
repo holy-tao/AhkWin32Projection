@@ -1,59 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MI_Qualifier.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MI_Qualifier.ahk" { MI_Qualifier }
 
 /**
  * Contains properties that are common to the MI_PropertyDeclMI_ParameterDecland MI_MethodDecl structures.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_featuredecl
  * @namespace Windows.Win32.System.Wmi
  */
-class MI_FeatureDecl extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct MI_FeatureDecl {
+    #StructPack 8
 
     /**
      * Flags.
-     * @type {Integer}
      */
-    flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    flags : UInt32
 
     /**
      * Hash code: <c>(name[0] &lt;&lt; 16) | (name[len-1] &lt;&lt; 8) | len </c>
-     * @type {Integer}
      */
-    code {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    code : UInt32
 
     /**
      * Name of this feature.
-     * @type {Pointer<Integer>}
      */
-    name {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    name : IntPtr
 
     /**
      * Describes metadata for classes, properties, methods, and parameters.
-     * @type {Pointer<Pointer<MI_Qualifier>>}
      */
-    qualifiers {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    qualifiers : IntPtr
 
     /**
      * Length of <b>qualifiers</b> array.
-     * @type {Integer}
      */
-    numQualifiers {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    numQualifiers : UInt32
+
 }

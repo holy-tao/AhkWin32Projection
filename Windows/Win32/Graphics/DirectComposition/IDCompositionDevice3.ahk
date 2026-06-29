@@ -1,46 +1,66 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionDevice2.ahk
-#Include .\IDCompositionGaussianBlurEffect.ahk
-#Include .\IDCompositionBrightnessEffect.ahk
-#Include .\IDCompositionColorMatrixEffect.ahk
-#Include .\IDCompositionShadowEffect.ahk
-#Include .\IDCompositionHueRotationEffect.ahk
-#Include .\IDCompositionSaturationEffect.ahk
-#Include .\IDCompositionTurbulenceEffect.ahk
-#Include .\IDCompositionLinearTransferEffect.ahk
-#Include .\IDCompositionTableTransferEffect.ahk
-#Include .\IDCompositionCompositeEffect.ahk
-#Include .\IDCompositionBlendEffect.ahk
-#Include .\IDCompositionArithmeticCompositeEffect.ahk
-#Include .\IDCompositionAffineTransform2DEffect.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDCompositionTurbulenceEffect.ahk" { IDCompositionTurbulenceEffect }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDCompositionGaussianBlurEffect.ahk" { IDCompositionGaussianBlurEffect }
+#Import ".\IDCompositionDevice2.ahk" { IDCompositionDevice2 }
+#Import ".\IDCompositionArithmeticCompositeEffect.ahk" { IDCompositionArithmeticCompositeEffect }
+#Import ".\IDCompositionCompositeEffect.ahk" { IDCompositionCompositeEffect }
+#Import ".\IDCompositionSaturationEffect.ahk" { IDCompositionSaturationEffect }
+#Import ".\IDCompositionTableTransferEffect.ahk" { IDCompositionTableTransferEffect }
+#Import ".\IDCompositionAffineTransform2DEffect.ahk" { IDCompositionAffineTransform2DEffect }
+#Import ".\IDCompositionLinearTransferEffect.ahk" { IDCompositionLinearTransferEffect }
+#Import ".\IDCompositionHueRotationEffect.ahk" { IDCompositionHueRotationEffect }
+#Import ".\IDCompositionBrightnessEffect.ahk" { IDCompositionBrightnessEffect }
+#Import ".\IDCompositionColorMatrixEffect.ahk" { IDCompositionColorMatrixEffect }
+#Import ".\IDCompositionBlendEffect.ahk" { IDCompositionBlendEffect }
+#Import ".\IDCompositionShadowEffect.ahk" { IDCompositionShadowEffect }
 
 /**
  * Serves as a factory for all other Microsoft DirectComposition objects and provides methods to control transactional composition. (IDCompositionDevice3)
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositiondevice3
  * @namespace Windows.Win32.Graphics.DirectComposition
  */
-class IDCompositionDevice3 extends IDCompositionDevice2 {
-
-    static sizeof => A_PtrSize
+export default struct IDCompositionDevice3 extends IDCompositionDevice2 {
     /**
      * The interface identifier for IDCompositionDevice3
      * @type {Guid}
      */
-    static IID => Guid("{0987cb06-f916-48bf-8d35-ce7641781bd9}")
+    static IID := Guid("{0987cb06-f916-48bf-8d35-ce7641781bd9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 24
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDCompositionDevice3 interfaces
+    */
+    struct Vtbl extends IDCompositionDevice2.Vtbl {
+        CreateGaussianBlurEffect        : IntPtr
+        CreateBrightnessEffect          : IntPtr
+        CreateColorMatrixEffect         : IntPtr
+        CreateShadowEffect              : IntPtr
+        CreateHueRotationEffect         : IntPtr
+        CreateSaturationEffect          : IntPtr
+        CreateTurbulenceEffect          : IntPtr
+        CreateLinearTransferEffect      : IntPtr
+        CreateTableTransferEffect       : IntPtr
+        CreateCompositeEffect           : IntPtr
+        CreateBlendEffect               : IntPtr
+        CreateArithmeticCompositeEffect : IntPtr
+        CreateAffineTransform2DEffect   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateGaussianBlurEffect", "CreateBrightnessEffect", "CreateColorMatrixEffect", "CreateShadowEffect", "CreateHueRotationEffect", "CreateSaturationEffect", "CreateTurbulenceEffect", "CreateLinearTransferEffect", "CreateTableTransferEffect", "CreateCompositeEffect", "CreateBlendEffect", "CreateArithmeticCompositeEffect", "CreateAffineTransform2DEffect"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDCompositionDevice3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates an instance of IDCompositionGaussianBlurEffect.
@@ -196,5 +216,49 @@ class IDCompositionDevice3 extends IDCompositionDevice2 {
     CreateAffineTransform2DEffect() {
         result := ComCall(36, this, "ptr*", &affineTransform2dEffect := 0, "HRESULT")
         return IDCompositionAffineTransform2DEffect(affineTransform2dEffect)
+    }
+
+    Query(iid) {
+        if (IDCompositionDevice3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateGaussianBlurEffect := CallbackCreate(GetMethod(implObj, "CreateGaussianBlurEffect"), flags, 2)
+        this.vtbl.CreateBrightnessEffect := CallbackCreate(GetMethod(implObj, "CreateBrightnessEffect"), flags, 2)
+        this.vtbl.CreateColorMatrixEffect := CallbackCreate(GetMethod(implObj, "CreateColorMatrixEffect"), flags, 2)
+        this.vtbl.CreateShadowEffect := CallbackCreate(GetMethod(implObj, "CreateShadowEffect"), flags, 2)
+        this.vtbl.CreateHueRotationEffect := CallbackCreate(GetMethod(implObj, "CreateHueRotationEffect"), flags, 2)
+        this.vtbl.CreateSaturationEffect := CallbackCreate(GetMethod(implObj, "CreateSaturationEffect"), flags, 2)
+        this.vtbl.CreateTurbulenceEffect := CallbackCreate(GetMethod(implObj, "CreateTurbulenceEffect"), flags, 2)
+        this.vtbl.CreateLinearTransferEffect := CallbackCreate(GetMethod(implObj, "CreateLinearTransferEffect"), flags, 2)
+        this.vtbl.CreateTableTransferEffect := CallbackCreate(GetMethod(implObj, "CreateTableTransferEffect"), flags, 2)
+        this.vtbl.CreateCompositeEffect := CallbackCreate(GetMethod(implObj, "CreateCompositeEffect"), flags, 2)
+        this.vtbl.CreateBlendEffect := CallbackCreate(GetMethod(implObj, "CreateBlendEffect"), flags, 2)
+        this.vtbl.CreateArithmeticCompositeEffect := CallbackCreate(GetMethod(implObj, "CreateArithmeticCompositeEffect"), flags, 2)
+        this.vtbl.CreateAffineTransform2DEffect := CallbackCreate(GetMethod(implObj, "CreateAffineTransform2DEffect"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateGaussianBlurEffect)
+        CallbackFree(this.vtbl.CreateBrightnessEffect)
+        CallbackFree(this.vtbl.CreateColorMatrixEffect)
+        CallbackFree(this.vtbl.CreateShadowEffect)
+        CallbackFree(this.vtbl.CreateHueRotationEffect)
+        CallbackFree(this.vtbl.CreateSaturationEffect)
+        CallbackFree(this.vtbl.CreateTurbulenceEffect)
+        CallbackFree(this.vtbl.CreateLinearTransferEffect)
+        CallbackFree(this.vtbl.CreateTableTransferEffect)
+        CallbackFree(this.vtbl.CreateCompositeEffect)
+        CallbackFree(this.vtbl.CreateBlendEffect)
+        CallbackFree(this.vtbl.CreateArithmeticCompositeEffect)
+        CallbackFree(this.vtbl.CreateAffineTransform2DEffect)
     }
 }

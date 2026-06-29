@@ -1,9 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDiscFormat2.ahk
-#Include .\IDiscRecorder2.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDiscFormat2.ahk" { IDiscFormat2 }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IMAPI_MEDIA_PHYSICAL_TYPE.ahk" { IMAPI_MEDIA_PHYSICAL_TYPE }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import ".\IDiscRecorder2.ahk" { IDiscRecorder2 }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Use this interface to write audio to blank CD-R or CD-RW media in Track-At-Once mode.
@@ -14,26 +19,57 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-idiscformat2trackatonce
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IDiscFormat2TrackAtOnce extends IDiscFormat2 {
-
-    static sizeof => A_PtrSize
+export default struct IDiscFormat2TrackAtOnce extends IDiscFormat2 {
     /**
      * The interface identifier for IDiscFormat2TrackAtOnce
      * @type {Guid}
      */
-    static IID => Guid("{27354154-8f64-5b0f-8f00-5d77afbe261e}")
+    static IID := Guid("{27354154-8f64-5b0f-8f00-5d77afbe261e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 12
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDiscFormat2TrackAtOnce interfaces
+    */
+    struct Vtbl extends IDiscFormat2.Vtbl {
+        PrepareMedia                       : IntPtr
+        AddAudioTrack                      : IntPtr
+        CancelAddTrack                     : IntPtr
+        ReleaseMedia                       : IntPtr
+        SetWriteSpeed                      : IntPtr
+        put_Recorder                       : IntPtr
+        get_Recorder                       : IntPtr
+        put_BufferUnderrunFreeDisabled     : IntPtr
+        get_BufferUnderrunFreeDisabled     : IntPtr
+        get_NumberOfExistingTracks         : IntPtr
+        get_TotalSectorsOnMedia            : IntPtr
+        get_FreeSectorsOnMedia             : IntPtr
+        get_UsedSectorsOnMedia             : IntPtr
+        put_DoNotFinalizeMedia             : IntPtr
+        get_DoNotFinalizeMedia             : IntPtr
+        get_ExpectedTableOfContents        : IntPtr
+        get_CurrentPhysicalMediaType       : IntPtr
+        put_ClientName                     : IntPtr
+        get_ClientName                     : IntPtr
+        get_RequestedWriteSpeed            : IntPtr
+        get_RequestedRotationTypeIsPureCAV : IntPtr
+        get_CurrentWriteSpeed              : IntPtr
+        get_CurrentRotationTypeIsPureCAV   : IntPtr
+        get_SupportedWriteSpeeds           : IntPtr
+        get_SupportedWriteSpeedDescriptors : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["PrepareMedia", "AddAudioTrack", "CancelAddTrack", "ReleaseMedia", "SetWriteSpeed", "put_Recorder", "get_Recorder", "put_BufferUnderrunFreeDisabled", "get_BufferUnderrunFreeDisabled", "get_NumberOfExistingTracks", "get_TotalSectorsOnMedia", "get_FreeSectorsOnMedia", "get_UsedSectorsOnMedia", "put_DoNotFinalizeMedia", "get_DoNotFinalizeMedia", "get_ExpectedTableOfContents", "get_CurrentPhysicalMediaType", "put_ClientName", "get_ClientName", "get_RequestedWriteSpeed", "get_RequestedRotationTypeIsPureCAV", "get_CurrentWriteSpeed", "get_CurrentRotationTypeIsPureCAV", "get_SupportedWriteSpeeds", "get_SupportedWriteSpeedDescriptors"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDiscFormat2TrackAtOnce.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IDiscRecorder2} 
@@ -1645,7 +1681,7 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-setwritespeed
      */
     SetWriteSpeed(RequestedSectorsPerSecond, RotationTypeIsPureCAV) {
-        result := ComCall(16, this, "int", RequestedSectorsPerSecond, "short", RotationTypeIsPureCAV, "HRESULT")
+        result := ComCall(16, this, "int", RequestedSectorsPerSecond, VARIANT_BOOL, RotationTypeIsPureCAV, "HRESULT")
         return result
     }
 
@@ -1760,7 +1796,7 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-put_bufferunderrunfreedisabled
      */
     put_BufferUnderrunFreeDisabled(value) {
-        result := ComCall(19, this, "short", value, "HRESULT")
+        result := ComCall(19, this, VARIANT_BOOL, value, "HRESULT")
         return result
     }
 
@@ -1770,7 +1806,7 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_bufferunderrunfreedisabled
      */
     get_BufferUnderrunFreeDisabled() {
-        result := ComCall(20, this, "short*", &value := 0, "HRESULT")
+        result := ComCall(20, this, VARIANT_BOOL.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -1884,7 +1920,7 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-put_donotfinalizemedia
      */
     put_DoNotFinalizeMedia(value) {
-        result := ComCall(25, this, "short", value, "HRESULT")
+        result := ComCall(25, this, VARIANT_BOOL, value, "HRESULT")
         return result
     }
 
@@ -1894,7 +1930,7 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_donotfinalizemedia
      */
     get_DoNotFinalizeMedia() {
-        result := ComCall(26, this, "short*", &value := 0, "HRESULT")
+        result := ComCall(26, this, VARIANT_BOOL.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -1992,7 +2028,7 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2 {
     put_ClientName(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        result := ComCall(29, this, "ptr", value, "HRESULT")
+        result := ComCall(29, this, BSTR, value, "HRESULT")
         return result
     }
 
@@ -2002,8 +2038,8 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_clientname
      */
     get_ClientName() {
-        value := BSTR()
-        result := ComCall(30, this, "ptr", value, "HRESULT")
+        value := BSTR.Owned()
+        result := ComCall(30, this, BSTR.Ptr, value, "HRESULT")
         return value
     }
 
@@ -2029,7 +2065,7 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_requestedrotationtypeispurecav
      */
     get_RequestedRotationTypeIsPureCAV() {
-        result := ComCall(32, this, "short*", &value := 0, "HRESULT")
+        result := ComCall(32, this, VARIANT_BOOL.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -2066,7 +2102,7 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2 {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_currentrotationtypeispurecav
      */
     get_CurrentRotationTypeIsPureCAV() {
-        result := ComCall(34, this, "short*", &value := 0, "HRESULT")
+        result := ComCall(34, this, VARIANT_BOOL.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -2094,5 +2130,73 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2 {
     get_SupportedWriteSpeedDescriptors() {
         result := ComCall(36, this, "ptr*", &supportedSpeedDescriptors := 0, "HRESULT")
         return supportedSpeedDescriptors
+    }
+
+    Query(iid) {
+        if (IDiscFormat2TrackAtOnce.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.PrepareMedia := CallbackCreate(GetMethod(implObj, "PrepareMedia"), flags, 1)
+        this.vtbl.AddAudioTrack := CallbackCreate(GetMethod(implObj, "AddAudioTrack"), flags, 2)
+        this.vtbl.CancelAddTrack := CallbackCreate(GetMethod(implObj, "CancelAddTrack"), flags, 1)
+        this.vtbl.ReleaseMedia := CallbackCreate(GetMethod(implObj, "ReleaseMedia"), flags, 1)
+        this.vtbl.SetWriteSpeed := CallbackCreate(GetMethod(implObj, "SetWriteSpeed"), flags, 3)
+        this.vtbl.put_Recorder := CallbackCreate(GetMethod(implObj, "put_Recorder"), flags, 2)
+        this.vtbl.get_Recorder := CallbackCreate(GetMethod(implObj, "get_Recorder"), flags, 2)
+        this.vtbl.put_BufferUnderrunFreeDisabled := CallbackCreate(GetMethod(implObj, "put_BufferUnderrunFreeDisabled"), flags, 2)
+        this.vtbl.get_BufferUnderrunFreeDisabled := CallbackCreate(GetMethod(implObj, "get_BufferUnderrunFreeDisabled"), flags, 2)
+        this.vtbl.get_NumberOfExistingTracks := CallbackCreate(GetMethod(implObj, "get_NumberOfExistingTracks"), flags, 2)
+        this.vtbl.get_TotalSectorsOnMedia := CallbackCreate(GetMethod(implObj, "get_TotalSectorsOnMedia"), flags, 2)
+        this.vtbl.get_FreeSectorsOnMedia := CallbackCreate(GetMethod(implObj, "get_FreeSectorsOnMedia"), flags, 2)
+        this.vtbl.get_UsedSectorsOnMedia := CallbackCreate(GetMethod(implObj, "get_UsedSectorsOnMedia"), flags, 2)
+        this.vtbl.put_DoNotFinalizeMedia := CallbackCreate(GetMethod(implObj, "put_DoNotFinalizeMedia"), flags, 2)
+        this.vtbl.get_DoNotFinalizeMedia := CallbackCreate(GetMethod(implObj, "get_DoNotFinalizeMedia"), flags, 2)
+        this.vtbl.get_ExpectedTableOfContents := CallbackCreate(GetMethod(implObj, "get_ExpectedTableOfContents"), flags, 2)
+        this.vtbl.get_CurrentPhysicalMediaType := CallbackCreate(GetMethod(implObj, "get_CurrentPhysicalMediaType"), flags, 2)
+        this.vtbl.put_ClientName := CallbackCreate(GetMethod(implObj, "put_ClientName"), flags, 2)
+        this.vtbl.get_ClientName := CallbackCreate(GetMethod(implObj, "get_ClientName"), flags, 2)
+        this.vtbl.get_RequestedWriteSpeed := CallbackCreate(GetMethod(implObj, "get_RequestedWriteSpeed"), flags, 2)
+        this.vtbl.get_RequestedRotationTypeIsPureCAV := CallbackCreate(GetMethod(implObj, "get_RequestedRotationTypeIsPureCAV"), flags, 2)
+        this.vtbl.get_CurrentWriteSpeed := CallbackCreate(GetMethod(implObj, "get_CurrentWriteSpeed"), flags, 2)
+        this.vtbl.get_CurrentRotationTypeIsPureCAV := CallbackCreate(GetMethod(implObj, "get_CurrentRotationTypeIsPureCAV"), flags, 2)
+        this.vtbl.get_SupportedWriteSpeeds := CallbackCreate(GetMethod(implObj, "get_SupportedWriteSpeeds"), flags, 2)
+        this.vtbl.get_SupportedWriteSpeedDescriptors := CallbackCreate(GetMethod(implObj, "get_SupportedWriteSpeedDescriptors"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.PrepareMedia)
+        CallbackFree(this.vtbl.AddAudioTrack)
+        CallbackFree(this.vtbl.CancelAddTrack)
+        CallbackFree(this.vtbl.ReleaseMedia)
+        CallbackFree(this.vtbl.SetWriteSpeed)
+        CallbackFree(this.vtbl.put_Recorder)
+        CallbackFree(this.vtbl.get_Recorder)
+        CallbackFree(this.vtbl.put_BufferUnderrunFreeDisabled)
+        CallbackFree(this.vtbl.get_BufferUnderrunFreeDisabled)
+        CallbackFree(this.vtbl.get_NumberOfExistingTracks)
+        CallbackFree(this.vtbl.get_TotalSectorsOnMedia)
+        CallbackFree(this.vtbl.get_FreeSectorsOnMedia)
+        CallbackFree(this.vtbl.get_UsedSectorsOnMedia)
+        CallbackFree(this.vtbl.put_DoNotFinalizeMedia)
+        CallbackFree(this.vtbl.get_DoNotFinalizeMedia)
+        CallbackFree(this.vtbl.get_ExpectedTableOfContents)
+        CallbackFree(this.vtbl.get_CurrentPhysicalMediaType)
+        CallbackFree(this.vtbl.put_ClientName)
+        CallbackFree(this.vtbl.get_ClientName)
+        CallbackFree(this.vtbl.get_RequestedWriteSpeed)
+        CallbackFree(this.vtbl.get_RequestedRotationTypeIsPureCAV)
+        CallbackFree(this.vtbl.get_CurrentWriteSpeed)
+        CallbackFree(this.vtbl.get_CurrentRotationTypeIsPureCAV)
+        CallbackFree(this.vtbl.get_SupportedWriteSpeeds)
+        CallbackFree(this.vtbl.get_SupportedWriteSpeedDescriptors)
     }
 }

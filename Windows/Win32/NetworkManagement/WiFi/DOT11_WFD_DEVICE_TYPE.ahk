@@ -1,38 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_WFD_DEVICE_TYPE extends Win32Struct {
-    static sizeof => 8
+export default struct DOT11_WFD_DEVICE_TYPE {
+    #StructPack 2
 
-    static packingSize => 2
+    CategoryID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    CategoryID {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    SubCategoryID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    SubCategoryID {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    OUI : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    OUI {
-        get {
-            if(!this.HasProp("__OUIProxyArray"))
-                this.__OUIProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")
-            return this.__OUIProxyArray
-        }
-    }
 }

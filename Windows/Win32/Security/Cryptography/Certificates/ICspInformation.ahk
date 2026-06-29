@@ -1,36 +1,65 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\ICspAlgorithms.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\ICspStatus.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\X509KeySpec.ahk" { X509KeySpec }
+#Import ".\AlgorithmOperationFlags.ahk" { AlgorithmOperationFlags }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IObjectId.ahk" { IObjectId }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\X509ProviderType.ahk" { X509ProviderType }
+#Import ".\ICspAlgorithms.ahk" { ICspAlgorithms }
+#Import ".\ICspStatus.ahk" { ICspStatus }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Provides access to general information about a cryptographic provider.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icspinformation
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICspInformation extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ICspInformation extends IDispatch {
     /**
      * The interface identifier for ICspInformation
      * @type {Guid}
      */
-    static IID => Guid("{728ab307-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab307-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICspInformation interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        InitializeFromName                   : IntPtr
+        InitializeFromType                   : IntPtr
+        get_CspAlgorithms                    : IntPtr
+        get_HasHardwareRandomNumberGenerator : IntPtr
+        get_IsHardwareDevice                 : IntPtr
+        get_IsRemovable                      : IntPtr
+        get_IsSoftwareDevice                 : IntPtr
+        get_Valid                            : IntPtr
+        get_MaxKeyContainerNameLength        : IntPtr
+        get_Name                             : IntPtr
+        get_Type                             : IntPtr
+        get_Version                          : IntPtr
+        get_KeySpec                          : IntPtr
+        get_IsSmartCard                      : IntPtr
+        GetDefaultSecurityDescriptor         : IntPtr
+        get_LegacyCsp                        : IntPtr
+        GetCspStatusFromOperations           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializeFromName", "InitializeFromType", "get_CspAlgorithms", "get_HasHardwareRandomNumberGenerator", "get_IsHardwareDevice", "get_IsRemovable", "get_IsSoftwareDevice", "get_Valid", "get_MaxKeyContainerNameLength", "get_Name", "get_Type", "get_Version", "get_KeySpec", "get_IsSmartCard", "GetDefaultSecurityDescriptor", "get_LegacyCsp", "GetCspStatusFromOperations"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICspInformation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ICspAlgorithms} 
@@ -198,7 +227,7 @@ class ICspInformation extends IDispatch {
     InitializeFromName(strName) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(7, this, "ptr", strName, "HRESULT")
+        result := ComCall(7, this, BSTR, strName, "HRESULT")
         return result
     }
 
@@ -279,7 +308,7 @@ class ICspInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-initializefromtype
      */
     InitializeFromType(Type, pAlgorithm, MachineContext) {
-        result := ComCall(8, this, "int", Type, "ptr", pAlgorithm, "short", MachineContext, "HRESULT")
+        result := ComCall(8, this, X509ProviderType, Type, "ptr", pAlgorithm, VARIANT_BOOL, MachineContext, "HRESULT")
         return result
     }
 
@@ -303,7 +332,7 @@ class ICspInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_hashardwarerandomnumbergenerator
      */
     get_HasHardwareRandomNumberGenerator() {
-        result := ComCall(10, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -321,7 +350,7 @@ class ICspInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_ishardwaredevice
      */
     get_IsHardwareDevice() {
-        result := ComCall(11, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -339,7 +368,7 @@ class ICspInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_isremovable
      */
     get_IsRemovable() {
-        result := ComCall(12, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -367,7 +396,7 @@ class ICspInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_issoftwaredevice
      */
     get_IsSoftwareDevice() {
-        result := ComCall(13, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -379,7 +408,7 @@ class ICspInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_valid
      */
     get_Valid() {
-        result := ComCall(14, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -471,8 +500,8 @@ class ICspInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_name
      */
     get_Name() {
-        pValue := BSTR()
-        result := ComCall(16, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(16, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -698,7 +727,7 @@ class ICspInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_issmartcard
      */
     get_IsSmartCard() {
-        result := ComCall(20, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(20, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -721,8 +750,8 @@ class ICspInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-getdefaultsecuritydescriptor
      */
     GetDefaultSecurityDescriptor(MachineContext) {
-        pValue := BSTR()
-        result := ComCall(21, this, "short", MachineContext, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(21, this, VARIANT_BOOL, MachineContext, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -732,7 +761,7 @@ class ICspInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_legacycsp
      */
     get_LegacyCsp() {
-        result := ComCall(22, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(22, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -752,7 +781,59 @@ class ICspInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-getcspstatusfromoperations
      */
     GetCspStatusFromOperations(pAlgorithm, Operations) {
-        result := ComCall(23, this, "ptr", pAlgorithm, "int", Operations, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(23, this, "ptr", pAlgorithm, AlgorithmOperationFlags, Operations, "ptr*", &ppValue := 0, "HRESULT")
         return ICspStatus(ppValue)
+    }
+
+    Query(iid) {
+        if (ICspInformation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializeFromName := CallbackCreate(GetMethod(implObj, "InitializeFromName"), flags, 2)
+        this.vtbl.InitializeFromType := CallbackCreate(GetMethod(implObj, "InitializeFromType"), flags, 4)
+        this.vtbl.get_CspAlgorithms := CallbackCreate(GetMethod(implObj, "get_CspAlgorithms"), flags, 2)
+        this.vtbl.get_HasHardwareRandomNumberGenerator := CallbackCreate(GetMethod(implObj, "get_HasHardwareRandomNumberGenerator"), flags, 2)
+        this.vtbl.get_IsHardwareDevice := CallbackCreate(GetMethod(implObj, "get_IsHardwareDevice"), flags, 2)
+        this.vtbl.get_IsRemovable := CallbackCreate(GetMethod(implObj, "get_IsRemovable"), flags, 2)
+        this.vtbl.get_IsSoftwareDevice := CallbackCreate(GetMethod(implObj, "get_IsSoftwareDevice"), flags, 2)
+        this.vtbl.get_Valid := CallbackCreate(GetMethod(implObj, "get_Valid"), flags, 2)
+        this.vtbl.get_MaxKeyContainerNameLength := CallbackCreate(GetMethod(implObj, "get_MaxKeyContainerNameLength"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_Version := CallbackCreate(GetMethod(implObj, "get_Version"), flags, 2)
+        this.vtbl.get_KeySpec := CallbackCreate(GetMethod(implObj, "get_KeySpec"), flags, 2)
+        this.vtbl.get_IsSmartCard := CallbackCreate(GetMethod(implObj, "get_IsSmartCard"), flags, 2)
+        this.vtbl.GetDefaultSecurityDescriptor := CallbackCreate(GetMethod(implObj, "GetDefaultSecurityDescriptor"), flags, 3)
+        this.vtbl.get_LegacyCsp := CallbackCreate(GetMethod(implObj, "get_LegacyCsp"), flags, 2)
+        this.vtbl.GetCspStatusFromOperations := CallbackCreate(GetMethod(implObj, "GetCspStatusFromOperations"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializeFromName)
+        CallbackFree(this.vtbl.InitializeFromType)
+        CallbackFree(this.vtbl.get_CspAlgorithms)
+        CallbackFree(this.vtbl.get_HasHardwareRandomNumberGenerator)
+        CallbackFree(this.vtbl.get_IsHardwareDevice)
+        CallbackFree(this.vtbl.get_IsRemovable)
+        CallbackFree(this.vtbl.get_IsSoftwareDevice)
+        CallbackFree(this.vtbl.get_Valid)
+        CallbackFree(this.vtbl.get_MaxKeyContainerNameLength)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.get_Type)
+        CallbackFree(this.vtbl.get_Version)
+        CallbackFree(this.vtbl.get_KeySpec)
+        CallbackFree(this.vtbl.get_IsSmartCard)
+        CallbackFree(this.vtbl.GetDefaultSecurityDescriptor)
+        CallbackFree(this.vtbl.get_LegacyCsp)
+        CallbackFree(this.vtbl.GetCspStatusFromOperations)
     }
 }

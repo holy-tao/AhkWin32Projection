@@ -1,33 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLEmbedElement extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLEmbedElement extends IDispatch {
     /**
      * The interface identifier for IHTMLEmbedElement
      * @type {Guid}
      */
-    static IID => Guid("{3050f25f-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f25f-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLEmbedElement interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_hidden      : IntPtr
+        get_hidden      : IntPtr
+        get_palette     : IntPtr
+        get_pluginspage : IntPtr
+        put_src         : IntPtr
+        get_src         : IntPtr
+        put_units       : IntPtr
+        get_units       : IntPtr
+        put_name        : IntPtr
+        get_name        : IntPtr
+        put_width       : IntPtr
+        get_width       : IntPtr
+        put_height      : IntPtr
+        get_height      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_hidden", "get_hidden", "get_palette", "get_pluginspage", "put_src", "get_src", "put_units", "get_units", "put_name", "get_name", "put_width", "get_width", "put_height", "get_height"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLEmbedElement.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -99,7 +120,7 @@ class IHTMLEmbedElement extends IDispatch {
     put_hidden(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -108,8 +129,8 @@ class IHTMLEmbedElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_hidden() {
-        p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -118,8 +139,8 @@ class IHTMLEmbedElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_palette() {
-        p := BSTR()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -128,8 +149,8 @@ class IHTMLEmbedElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_pluginspage() {
-        p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -141,7 +162,7 @@ class IHTMLEmbedElement extends IDispatch {
     put_src(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -150,8 +171,8 @@ class IHTMLEmbedElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_src() {
-        p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -163,7 +184,7 @@ class IHTMLEmbedElement extends IDispatch {
     put_units(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -172,8 +193,8 @@ class IHTMLEmbedElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_units() {
-        p := BSTR()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -185,7 +206,7 @@ class IHTMLEmbedElement extends IDispatch {
     put_name(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -194,8 +215,8 @@ class IHTMLEmbedElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_name() {
-        p := BSTR()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(16, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -205,7 +226,7 @@ class IHTMLEmbedElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_width(v) {
-        result := ComCall(17, this, "ptr", v, "HRESULT")
+        result := ComCall(17, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -215,7 +236,7 @@ class IHTMLEmbedElement extends IDispatch {
      */
     get_width() {
         p := VARIANT()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        result := ComCall(18, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -225,7 +246,7 @@ class IHTMLEmbedElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_height(v) {
-        result := ComCall(19, this, "ptr", v, "HRESULT")
+        result := ComCall(19, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -235,7 +256,53 @@ class IHTMLEmbedElement extends IDispatch {
      */
     get_height() {
         p := VARIANT()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        result := ComCall(20, this, VARIANT.Ptr, p, "HRESULT")
         return p
+    }
+
+    Query(iid) {
+        if (IHTMLEmbedElement.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_hidden := CallbackCreate(GetMethod(implObj, "put_hidden"), flags, 2)
+        this.vtbl.get_hidden := CallbackCreate(GetMethod(implObj, "get_hidden"), flags, 2)
+        this.vtbl.get_palette := CallbackCreate(GetMethod(implObj, "get_palette"), flags, 2)
+        this.vtbl.get_pluginspage := CallbackCreate(GetMethod(implObj, "get_pluginspage"), flags, 2)
+        this.vtbl.put_src := CallbackCreate(GetMethod(implObj, "put_src"), flags, 2)
+        this.vtbl.get_src := CallbackCreate(GetMethod(implObj, "get_src"), flags, 2)
+        this.vtbl.put_units := CallbackCreate(GetMethod(implObj, "put_units"), flags, 2)
+        this.vtbl.get_units := CallbackCreate(GetMethod(implObj, "get_units"), flags, 2)
+        this.vtbl.put_name := CallbackCreate(GetMethod(implObj, "put_name"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.put_width := CallbackCreate(GetMethod(implObj, "put_width"), flags, 2)
+        this.vtbl.get_width := CallbackCreate(GetMethod(implObj, "get_width"), flags, 2)
+        this.vtbl.put_height := CallbackCreate(GetMethod(implObj, "put_height"), flags, 2)
+        this.vtbl.get_height := CallbackCreate(GetMethod(implObj, "get_height"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_hidden)
+        CallbackFree(this.vtbl.get_hidden)
+        CallbackFree(this.vtbl.get_palette)
+        CallbackFree(this.vtbl.get_pluginspage)
+        CallbackFree(this.vtbl.put_src)
+        CallbackFree(this.vtbl.get_src)
+        CallbackFree(this.vtbl.put_units)
+        CallbackFree(this.vtbl.get_units)
+        CallbackFree(this.vtbl.put_name)
+        CallbackFree(this.vtbl.get_name)
+        CallbackFree(this.vtbl.put_width)
+        CallbackFree(this.vtbl.get_width)
+        CallbackFree(this.vtbl.put_height)
+        CallbackFree(this.vtbl.get_height)
     }
 }

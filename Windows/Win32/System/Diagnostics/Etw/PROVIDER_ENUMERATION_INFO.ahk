@@ -1,43 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\TRACE_PROVIDER_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TRACE_PROVIDER_INFO.ahk" { TRACE_PROVIDER_INFO }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Defines the array of providers that have registered a MOF or manifest on the computer.
  * @see https://learn.microsoft.com/windows/win32/api/tdh/ns-tdh-provider_enumeration_info
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class PROVIDER_ENUMERATION_INFO extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct PROVIDER_ENUMERATION_INFO {
+    #StructPack 4
 
     /**
      * Number of elements in the <b>TraceProviderInfoArray</b> array.
-     * @type {Integer}
      */
-    NumberOfProviders {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumberOfProviders : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Reserved : UInt32
 
     /**
      * Array of <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-trace_provider_info">TRACE_PROVIDER_INFO</a> structures that contain information about each provider such as its name and unique identifier.
-     * @type {TRACE_PROVIDER_INFO}
      */
-    TraceProviderInfoArray {
-        get {
-            if(!this.HasProp("__TraceProviderInfoArrayProxyArray"))
-                this.__TraceProviderInfoArrayProxyArray := Win32FixedArray(this.ptr + 8, 1, TRACE_PROVIDER_INFO, "")
-            return this.__TraceProviderInfoArrayProxyArray
-        }
-    }
+    TraceProviderInfoArray : TRACE_PROVIDER_INFO[1]
+
 }

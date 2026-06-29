@@ -1,46 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DL_OUI.ahk
-#Include .\DL_EI48.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DL_OUI.ahk" { DL_OUI }
+#Import ".\DL_EI48.ahk" { DL_EI48 }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class DL_EUI48 extends Win32Struct {
-    static sizeof => 13
+export default struct DL_EUI48 {
+    #StructPack 1
 
-    static packingSize => 1
+    Byte : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Byte {
-        get {
-            if(!this.HasProp("__ByteProxyArray"))
-                this.__ByteProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
-            return this.__ByteProxyArray
-        }
-    }
-
-    /**
-     * @type {DL_OUI}
-     */
-    Oui {
-        get {
-            if(!this.HasProp("__Oui"))
-                this.__Oui := DL_OUI(0, this)
-            return this.__Oui
-        }
-    }
-
-    /**
-     * @type {DL_EI48}
-     */
-    Ei48 {
-        get {
-            if(!this.HasProp("__Ei48"))
-                this.__Ei48 := DL_EI48(4, this)
-            return this.__Ei48
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Oui', { type: DL_OUI, offset: 0 })
+        DefineProp(this.Prototype, 'Ei48', { type: DL_EI48, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

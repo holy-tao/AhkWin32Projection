@@ -1,130 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include .\CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE.ahk
-#Include .\CLAIM_SECURITY_ATTRIBUTE_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE.ahk" { CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE }
+#Import ".\CLAIM_SECURITY_ATTRIBUTE_FLAGS.ahk" { CLAIM_SECURITY_ATTRIBUTE_FLAGS }
 
 /**
  * Defines a resource attribute that is defined in continuous memory for persistence within a serialized security descriptor.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-claim_security_attribute_relative_v1
  * @namespace Windows.Win32.Security
  */
-class CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 extends Win32Struct {
-    static sizeof => 20
+export default struct CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _Values_e__Union extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
+    struct _Values {
+        pInt64 : UInt32[1]
 
-        /**
-         * @type {Array<Integer>}
-         */
-        pInt64 {
-            get {
-                if(!this.HasProp("__pInt64ProxyArray"))
-                    this.__pInt64ProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "uint")
-                return this.__pInt64ProxyArray
-            }
-        }
-
-        /**
-         * @type {Array<Integer>}
-         */
-        pUint64 {
-            get {
-                if(!this.HasProp("__pUint64ProxyArray"))
-                    this.__pUint64ProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "uint")
-                return this.__pUint64ProxyArray
-            }
-        }
-
-        /**
-         * @type {Array<Integer>}
-         */
-        ppString {
-            get {
-                if(!this.HasProp("__ppStringProxyArray"))
-                    this.__ppStringProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "uint")
-                return this.__ppStringProxyArray
-            }
-        }
-
-        /**
-         * @type {Array<Integer>}
-         */
-        pFqbn {
-            get {
-                if(!this.HasProp("__pFqbnProxyArray"))
-                    this.__pFqbnProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "uint")
-                return this.__pFqbnProxyArray
-            }
-        }
-
-        /**
-         * @type {Array<Integer>}
-         */
-        pOctetString {
-            get {
-                if(!this.HasProp("__pOctetStringProxyArray"))
-                    this.__pOctetStringProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "uint")
-                return this.__pOctetStringProxyArray
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'pUint64', { type: UInt32[1], offset: 0 })
+            DefineProp(this.Prototype, 'ppString', { type: UInt32[1], offset: 0 })
+            DefineProp(this.Prototype, 'pFqbn', { type: UInt32[1], offset: 0 })
+            DefineProp(this.Prototype, 'pOctetString', { type: UInt32[1], offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
     /**
      * A value that indicates an offset from the beginning of the <b>CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1</b> structure to a string of Unicode characters that contain the name of the claim security attribute. The string must be at least 4 bytes in length.
-     * @type {Integer}
      */
-    Name {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Name : UInt32
 
-    /**
-     * @type {CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE}
-     */
-    ValueType {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    ValueType : CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE
 
     /**
      * This member is currently reserved and must be set to zero when sent and must be ignored when received.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    Reserved : UInt16
 
-    /**
-     * @type {CLAIM_SECURITY_ATTRIBUTE_FLAGS}
-     */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Flags : CLAIM_SECURITY_ATTRIBUTE_FLAGS
 
     /**
      * The number of values contained in the <b>Values</b> member.
-     * @type {Integer}
      */
-    ValueCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ValueCount : UInt32
 
     /**
      * An array of offsets from the beginning of the CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 structure. Each offset indicates the location of a claim security attribute value of the type specified in the <b>ValueType</b> member.
-     * @type {_Values_e__Union}
      */
-    Values {
-        get {
-            if(!this.HasProp("__Values"))
-                this.__Values := CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1._Values_e__Union(16, this)
-            return this.__Values
-        }
-    }
+    Values : CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1._Values
+
 }

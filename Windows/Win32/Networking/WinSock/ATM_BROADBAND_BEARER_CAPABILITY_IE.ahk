@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class ATM_BROADBAND_BEARER_CAPABILITY_IE extends Win32Struct {
-    static sizeof => 5
+export default struct ATM_BROADBAND_BEARER_CAPABILITY_IE {
+    #StructPack 1
 
-    static packingSize => 1
+    BearerClass : Int8
 
-    /**
-     * @type {Integer}
-     */
-    BearerClass {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    TrafficType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    TrafficType {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    TimingRequirements : Int8
 
-    /**
-     * @type {Integer}
-     */
-    TimingRequirements {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    ClippingSusceptability : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ClippingSusceptability {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    UserPlaneConnectionConfig : Int8
 
-    /**
-     * @type {Integer}
-     */
-    UserPlaneConnectionConfig {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
 }

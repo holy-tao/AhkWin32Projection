@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the selection options for an ASF stream.
  * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/ne-wmcontainer-asf_selection_status
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class ASF_SELECTION_STATUS extends Win32Enum {
+export default struct ASF_SELECTION_STATUS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No samples from the stream are delivered.

@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\AE_CURRENT_POSITION.ahk" { AE_CURRENT_POSITION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Gets the difference between the current read and write positions in the endpoint buffer.
@@ -11,26 +13,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nn-audioengineendpoint-iaudioendpointrt
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class IAudioEndpointRT extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAudioEndpointRT extends IUnknown {
     /**
      * The interface identifier for IAudioEndpointRT
      * @type {Guid}
      */
-    static IID => Guid("{dfd2005f-a6e5-4d39-a265-939ada9fbb4d}")
+    static IID := Guid("{dfd2005f-a6e5-4d39-a265-939ada9fbb4d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAudioEndpointRT interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCurrentPadding  : IntPtr
+        ProcessingComplete : IntPtr
+        SetPinInactive     : IntPtr
+        SetPinActive       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCurrentPadding", "ProcessingComplete", "SetPinInactive", "SetPinActive"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAudioEndpointRT.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the amount, in 100-nanosecond units, of data that is queued up in the endpoint.
@@ -52,7 +64,7 @@ class IAudioEndpointRT extends IUnknown {
     GetCurrentPadding(pPadding, pAeCurrentPosition) {
         pPaddingMarshal := pPadding is VarRef ? "int64*" : "ptr"
 
-        ComCall(3, this, pPaddingMarshal, pPadding, "ptr", pAeCurrentPosition)
+        ComCall(3, this, pPaddingMarshal, pPadding, AE_CURRENT_POSITION.Ptr, pAeCurrentPosition)
     }
 
     /**
@@ -108,5 +120,31 @@ class IAudioEndpointRT extends IUnknown {
     SetPinActive() {
         result := ComCall(6, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAudioEndpointRT.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCurrentPadding := CallbackCreate(GetMethod(implObj, "GetCurrentPadding"), flags, 3)
+        this.vtbl.ProcessingComplete := CallbackCreate(GetMethod(implObj, "ProcessingComplete"), flags, 1)
+        this.vtbl.SetPinInactive := CallbackCreate(GetMethod(implObj, "SetPinInactive"), flags, 1)
+        this.vtbl.SetPinActive := CallbackCreate(GetMethod(implObj, "SetPinActive"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCurrentPadding)
+        CallbackFree(this.vtbl.ProcessingComplete)
+        CallbackFree(this.vtbl.SetPinInactive)
+        CallbackFree(this.vtbl.SetPinActive)
     }
 }

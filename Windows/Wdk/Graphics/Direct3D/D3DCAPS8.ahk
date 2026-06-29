@@ -1,436 +1,116 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Graphics\Direct3D9\D3DDEVTYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Graphics\Direct3D9\D3DDEVTYPE.ahk" { D3DDEVTYPE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DCAPS8 extends Win32Struct {
-    static sizeof => 212
+export default struct D3DCAPS8 {
+    #StructPack 4
 
-    static packingSize => 4
+    DeviceType : D3DDEVTYPE
 
-    /**
-     * @type {D3DDEVTYPE}
-     */
-    DeviceType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    AdapterOrdinal : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AdapterOrdinal {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Caps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Caps {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Caps2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Caps2 {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Caps3 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Caps3 {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    PresentationIntervals : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PresentationIntervals {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    CursorCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CursorCaps {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    DevCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DevCaps {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    PrimitiveMiscCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PrimitiveMiscCaps {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    RasterCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RasterCaps {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    ZCmpCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ZCmpCaps {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    SrcBlendCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SrcBlendCaps {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    DestBlendCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DestBlendCaps {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    AlphaCmpCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AlphaCmpCaps {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    ShadeCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ShadeCaps {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    TextureCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TextureCaps {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    TextureFilterCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TextureFilterCaps {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    CubeTextureFilterCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CubeTextureFilterCaps {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    VolumeTextureFilterCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VolumeTextureFilterCaps {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    TextureAddressCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TextureAddressCaps {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    VolumeTextureAddressCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VolumeTextureAddressCaps {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    LineCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LineCaps {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    MaxTextureWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxTextureWidth {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    MaxTextureHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxTextureHeight {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    MaxVolumeExtent : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxVolumeExtent {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    MaxTextureRepeat : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxTextureRepeat {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
+    MaxTextureAspectRatio : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxTextureAspectRatio {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    MaxAnisotropy : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxAnisotropy {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
+    MaxVertexW : Float32
 
-    /**
-     * @type {Float}
-     */
-    MaxVertexW {
-        get => NumGet(this, 112, "float")
-        set => NumPut("float", value, this, 112)
-    }
+    GuardBandLeft : Float32
 
-    /**
-     * @type {Float}
-     */
-    GuardBandLeft {
-        get => NumGet(this, 116, "float")
-        set => NumPut("float", value, this, 116)
-    }
+    GuardBandTop : Float32
 
-    /**
-     * @type {Float}
-     */
-    GuardBandTop {
-        get => NumGet(this, 120, "float")
-        set => NumPut("float", value, this, 120)
-    }
+    GuardBandRight : Float32
 
-    /**
-     * @type {Float}
-     */
-    GuardBandRight {
-        get => NumGet(this, 124, "float")
-        set => NumPut("float", value, this, 124)
-    }
+    GuardBandBottom : Float32
 
-    /**
-     * @type {Float}
-     */
-    GuardBandBottom {
-        get => NumGet(this, 128, "float")
-        set => NumPut("float", value, this, 128)
-    }
+    ExtentsAdjust : Float32
 
-    /**
-     * @type {Float}
-     */
-    ExtentsAdjust {
-        get => NumGet(this, 132, "float")
-        set => NumPut("float", value, this, 132)
-    }
+    StencilCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StencilCaps {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    FVFCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FVFCaps {
-        get => NumGet(this, 140, "uint")
-        set => NumPut("uint", value, this, 140)
-    }
+    TextureOpCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TextureOpCaps {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
-    }
+    MaxTextureBlendStages : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxTextureBlendStages {
-        get => NumGet(this, 148, "uint")
-        set => NumPut("uint", value, this, 148)
-    }
+    MaxSimultaneousTextures : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxSimultaneousTextures {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
-    }
+    VertexProcessingCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VertexProcessingCaps {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
-    }
+    MaxActiveLights : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxActiveLights {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
-    }
+    MaxUserClipPlanes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxUserClipPlanes {
-        get => NumGet(this, 164, "uint")
-        set => NumPut("uint", value, this, 164)
-    }
+    MaxVertexBlendMatrices : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxVertexBlendMatrices {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
-    }
+    MaxVertexBlendMatrixIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxVertexBlendMatrixIndex {
-        get => NumGet(this, 172, "uint")
-        set => NumPut("uint", value, this, 172)
-    }
+    MaxPointSize : Float32
 
-    /**
-     * @type {Float}
-     */
-    MaxPointSize {
-        get => NumGet(this, 176, "float")
-        set => NumPut("float", value, this, 176)
-    }
+    MaxPrimitiveCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxPrimitiveCount {
-        get => NumGet(this, 180, "uint")
-        set => NumPut("uint", value, this, 180)
-    }
+    MaxVertexIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxVertexIndex {
-        get => NumGet(this, 184, "uint")
-        set => NumPut("uint", value, this, 184)
-    }
+    MaxStreams : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxStreams {
-        get => NumGet(this, 188, "uint")
-        set => NumPut("uint", value, this, 188)
-    }
+    MaxStreamStride : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxStreamStride {
-        get => NumGet(this, 192, "uint")
-        set => NumPut("uint", value, this, 192)
-    }
+    VertexShaderVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VertexShaderVersion {
-        get => NumGet(this, 196, "uint")
-        set => NumPut("uint", value, this, 196)
-    }
+    MaxVertexShaderConst : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxVertexShaderConst {
-        get => NumGet(this, 200, "uint")
-        set => NumPut("uint", value, this, 200)
-    }
+    PixelShaderVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PixelShaderVersion {
-        get => NumGet(this, 204, "uint")
-        set => NumPut("uint", value, this, 204)
-    }
+    MaxPixelShaderValue : Float32
 
-    /**
-     * @type {Float}
-     */
-    MaxPixelShaderValue {
-        get => NumGet(this, 208, "float")
-        set => NumPut("float", value, this, 208)
-    }
 }

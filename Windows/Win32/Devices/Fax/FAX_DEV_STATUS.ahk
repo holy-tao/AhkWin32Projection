@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The FAX_DEV_STATUS structure contains status and identification information about an individual active fax operation.
@@ -10,21 +10,15 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxdev/ns-faxdev-fax_dev_status
  * @namespace Windows.Win32.Devices.Fax
  */
-class FAX_DEV_STATUS extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct FAX_DEV_STATUS {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Specifies the size, in bytes, of the <b>FAX_DEV_STATUS</b> structure. Before responding to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxdev/nf-faxdev-faxdevreportstatus">FaxDevReportStatus</a> function, the FSP must set this member to <b>sizeof</b>(<b>FAX_DEV_STATUS</b>).
-     * @type {Integer}
      */
-    SizeOfStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SizeOfStruct : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -107,34 +101,22 @@ class FAX_DEV_STATUS extends Win32Struct {
      * </table>
      * 
      * The fax status codes FS_BAD_ADDRESS, FS_CALL_BLACKLISTED and FS_USER_ABORT will result in no retry attempts. The fax status code FS_LINE_UNAVAILABLE will result in an immediate retry attempt in the case when the line is unavailable because the service lost the connection to the device (TAPI sent LINE_CLOSE, and the FSP reported FS_LINE_UNAVAILABLE). The retry depends on whether the device is detected back online.  All other fax status codes will result in allowing the fax service to manage retry attempts.
-     * @type {Integer}
      */
-    StatusId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    StatusId : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Specifies a string resource identifier for the <b>StatusId</b> member if the <b>StatusId</b> is provider-defined. The fax service loads the string from the FSP's image. If <b>StatusId</b> contains a provider-defined status code or value, this member is required. If <b>StatusId</b> contains a predefined status code or value, this member is ignored.
-     * @type {Integer}
      */
-    StringId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    StringId : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Specifies the number of the page in the fax transmission that the FSP is receiving. The page count is relative to one.
-     * @type {Integer}
      */
-    PageCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    PageCount : UInt32
 
     /**
      * Type: <b>LPWSTR</b>
@@ -143,23 +125,15 @@ class FAX_DEV_STATUS extends Win32Struct {
      * 				
      * 
      * If the operation is sending a fax, the identifier specifies the CSID of the remote device; if the operation is receiving a fax, the identifier specifies the TSID of the remote device.
-     * @type {PWSTR}
      */
-    CSI {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    CSI : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * Pointer to a null-terminated Unicode character string that identifies the calling device that sent the received fax document. This string can include the telephone number of the calling device.
-     * @type {PWSTR}
      */
-    CallerId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    CallerId : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
@@ -175,35 +149,21 @@ class FAX_DEV_STATUS extends Win32Struct {
      * If there is additional routing information, for example, subaddressing or DTMF tones, separate it from the canonical telephone number by a vertical bar character as indicated in the TAPI specification. You can specify multiple recipients.
      * 
      * For more information, see the Dialable Address and Canonical Address subheadings in the Address topic of the TAPI documentation.
-     * @type {PWSTR}
      */
-    RoutingInfo {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    RoutingInfo : PWSTR
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Specifies one of the Win32 <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes [Base]</a> that the FSP should use to report an error that occurs. The FSP should set this value to NO_ERROR when it is running and after a fax job completes normally.
-     * @type {Integer}
      */
-    ErrorCode {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ErrorCode : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * This member is reserved  by Microsoft. It must be set to zero.
-     * @type {Array<Integer>}
      */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 44, 3, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
-    }
+    Reserved : UInt32[3]
+
 }

@@ -1,70 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class COMPRESSED_DATA_INFO extends Win32Struct {
-    static sizeof => 12
+export default struct COMPRESSED_DATA_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    CompressionFormatAndEngine : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    CompressionFormatAndEngine {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    CompressionUnitShift : Int8
 
-    /**
-     * @type {Integer}
-     */
-    CompressionUnitShift {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    ChunkShift : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ChunkShift {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    ClusterShift : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ClusterShift {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    Reserved : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    NumberOfChunks : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfChunks {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    CompressedChunkSizes : UInt32[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    CompressedChunkSizes {
-        get {
-            if(!this.HasProp("__CompressedChunkSizesProxyArray"))
-                this.__CompressedChunkSizesProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")
-            return this.__CompressedChunkSizesProxyArray
-        }
-    }
 }

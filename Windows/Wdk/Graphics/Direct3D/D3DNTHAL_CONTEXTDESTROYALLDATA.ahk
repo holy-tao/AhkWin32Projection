@@ -1,27 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DNTHAL_CONTEXTDESTROYALLDATA extends Win32Struct {
-    static sizeof => 8
+export default struct D3DNTHAL_CONTEXTDESTROYALLDATA {
+    #StructPack 4
 
-    static packingSize => 4
+    dwPID : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwPID {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ddrval : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    ddrval {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
 }

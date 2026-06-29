@@ -1,33 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMarkupContainer.ahk
-#Include .\IHTMLChangeLog.ahk
-#Include .\IHTMLElement.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMarkupPointer.ahk" { IMarkupPointer }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IHTMLChangeLog.ahk" { IHTMLChangeLog }
+#Import ".\IHTMLChangeSink.ahk" { IHTMLChangeSink }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import ".\IMarkupContainer.ahk" { IMarkupContainer }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IMarkupContainer2 extends IMarkupContainer {
-
-    static sizeof => A_PtrSize
+export default struct IMarkupContainer2 extends IMarkupContainer {
     /**
      * The interface identifier for IMarkupContainer2
      * @type {Guid}
      */
-    static IID => Guid("{3050f648-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f648-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMarkupContainer2 interfaces
+    */
+    struct Vtbl extends IMarkupContainer.Vtbl {
+        CreateChangeLog         : IntPtr
+        RegisterForDirtyRange   : IntPtr
+        UnRegisterForDirtyRange : IntPtr
+        GetAndClearDirtyRange   : IntPtr
+        GetVersionNumber        : IntPtr
+        GetMasterElement        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateChangeLog", "RegisterForDirtyRange", "UnRegisterForDirtyRange", "GetAndClearDirtyRange", "GetVersionNumber", "GetMasterElement"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMarkupContainer2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -37,7 +53,7 @@ class IMarkupContainer2 extends IMarkupContainer {
      * @returns {IHTMLChangeLog} 
      */
     CreateChangeLog(pChangeSink, fForward, fBackward) {
-        result := ComCall(4, this, "ptr", pChangeSink, "ptr*", &ppChangeLog := 0, "int", fForward, "int", fBackward, "HRESULT")
+        result := ComCall(4, this, "ptr", pChangeSink, "ptr*", &ppChangeLog := 0, BOOL, fForward, BOOL, fBackward, "HRESULT")
         return IHTMLChangeLog(ppChangeLog)
     }
 
@@ -78,7 +94,7 @@ class IMarkupContainer2 extends IMarkupContainer {
      * @returns {Integer} 
      */
     GetVersionNumber() {
-        result := ComCall(8, this, "int")
+        result := ComCall(8, this, Int32)
         return result
     }
 
@@ -89,5 +105,35 @@ class IMarkupContainer2 extends IMarkupContainer {
     GetMasterElement() {
         result := ComCall(9, this, "ptr*", &ppElementMaster := 0, "HRESULT")
         return IHTMLElement(ppElementMaster)
+    }
+
+    Query(iid) {
+        if (IMarkupContainer2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateChangeLog := CallbackCreate(GetMethod(implObj, "CreateChangeLog"), flags, 5)
+        this.vtbl.RegisterForDirtyRange := CallbackCreate(GetMethod(implObj, "RegisterForDirtyRange"), flags, 3)
+        this.vtbl.UnRegisterForDirtyRange := CallbackCreate(GetMethod(implObj, "UnRegisterForDirtyRange"), flags, 2)
+        this.vtbl.GetAndClearDirtyRange := CallbackCreate(GetMethod(implObj, "GetAndClearDirtyRange"), flags, 4)
+        this.vtbl.GetVersionNumber := CallbackCreate(GetMethod(implObj, "GetVersionNumber"), flags, 1)
+        this.vtbl.GetMasterElement := CallbackCreate(GetMethod(implObj, "GetMasterElement"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateChangeLog)
+        CallbackFree(this.vtbl.RegisterForDirtyRange)
+        CallbackFree(this.vtbl.UnRegisterForDirtyRange)
+        CallbackFree(this.vtbl.GetAndClearDirtyRange)
+        CallbackFree(this.vtbl.GetVersionNumber)
+        CallbackFree(this.vtbl.GetMasterElement)
     }
 }

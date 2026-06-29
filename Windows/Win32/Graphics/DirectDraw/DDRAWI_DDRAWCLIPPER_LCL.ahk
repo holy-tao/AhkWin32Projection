@@ -1,79 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DDRAWCLIPPER_GBL.ahk
-#Include .\DDRAWI_DIRECTDRAW_LCL.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\DDRAWI_DIRECTDRAW_INT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDRAWI_DDRAWCLIPPER_GBL.ahk" { DDRAWI_DDRAWCLIPPER_GBL }
+#Import ".\DDRAWI_DIRECTDRAW_INT.ahk" { DDRAWI_DIRECTDRAW_INT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDRAWI_DDRAWCLIPPER_LCL extends Win32Struct {
-    static sizeof => 64
+export default struct DDRAWI_DDRAWCLIPPER_LCL {
+    #StructPack 8
 
-    static packingSize => 8
+    lpClipMore : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    lpClipMore {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Pointer<DDRAWI_DDRAWCLIPPER_GBL>}
-     */
+    __lpGbl_ptr : IntPtr
     lpGbl {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => (addr := this.__lpGbl_ptr) ? DDRAWI_DDRAWCLIPPER_GBL.At(addr) : unset
+        set => this.__lpGbl_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer<DDRAWI_DIRECTDRAW_LCL>}
-     */
+    __lpDD_lcl_ptr : IntPtr
     lpDD_lcl {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => (addr := this.__lpDD_lcl_ptr) ? DDRAWI_DIRECTDRAW_LCL.At(addr) : unset
+        set => this.__lpDD_lcl_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Integer}
-     */
-    dwLocalRefCnt {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwLocalRefCnt : UInt32
 
-    /**
-     * @type {IUnknown}
-     */
-    pUnkOuter {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pUnkOuter : IUnknown
 
-    /**
-     * @type {Pointer<DDRAWI_DIRECTDRAW_INT>}
-     */
+    __lpDD_int_ptr : IntPtr
     lpDD_int {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => (addr := this.__lpDD_int_ptr) ? DDRAWI_DIRECTDRAW_INT.At(addr) : unset
+        set => this.__lpDD_int_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer}
-     */
-    dwReserved1 {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    dwReserved1 : IntPtr
 
-    /**
-     * @type {IUnknown}
-     */
-    pAddrefedThisOwner {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pAddrefedThisOwner : IUnknown
+
 }

@@ -1,35 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontFace4.ahk
-#Include .\DWRITE_FONT_AXIS_VALUE.ahk
-#Include .\IDWriteFontResource.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDWriteFontResource.ahk" { IDWriteFontResource }
+#Import ".\IDWriteFontFace4.ahk" { IDWriteFontFace4 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
+#Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains font face type, appropriate file references, and face identification data. (IDWriteFontFace5)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontface5
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteFontFace5 extends IDWriteFontFace4 {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteFontFace5 extends IDWriteFontFace4 {
     /**
      * The interface identifier for IDWriteFontFace5
      * @type {Guid}
      */
-    static IID => Guid("{98eff3a5-b667-479a-b145-e2fa5b9fdc29}")
+    static IID := Guid("{98eff3a5-b667-479a-b145-e2fa5b9fdc29}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 53
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteFontFace5 interfaces
+    */
+    struct Vtbl extends IDWriteFontFace4.Vtbl {
+        GetFontAxisValueCount : IntPtr
+        GetFontAxisValues     : IntPtr
+        HasVariations         : IntPtr
+        GetFontResource       : IntPtr
+        Equals                : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFontAxisValueCount", "GetFontAxisValues", "HasVariations", "GetFontResource", "Equals"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteFontFace5.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the number of axes defined by the font. This includes both static and variable axes.
@@ -39,7 +53,7 @@ class IDWriteFontFace5 extends IDWriteFontFace4 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface5-getfontaxisvaluecount
      */
     GetFontAxisValueCount() {
-        result := ComCall(53, this, "uint")
+        result := ComCall(53, this, UInt32)
         return result
     }
 
@@ -57,7 +71,7 @@ class IDWriteFontFace5 extends IDWriteFontFace4 {
      */
     GetFontAxisValues(fontAxisValueCount) {
         fontAxisValues := DWRITE_FONT_AXIS_VALUE()
-        result := ComCall(54, this, "ptr", fontAxisValues, "uint", fontAxisValueCount, "HRESULT")
+        result := ComCall(54, this, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, "uint", fontAxisValueCount, "HRESULT")
         return fontAxisValues
     }
 
@@ -69,7 +83,7 @@ class IDWriteFontFace5 extends IDWriteFontFace4 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface5-hasvariations
      */
     HasVariations() {
-        result := ComCall(55, this, "int")
+        result := ComCall(55, this, BOOL)
         return result
     }
 
@@ -96,7 +110,35 @@ class IDWriteFontFace5 extends IDWriteFontFace4 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface5-equals
      */
     Equals(fontFace) {
-        result := ComCall(57, this, "ptr", fontFace, "int")
+        result := ComCall(57, this, "ptr", fontFace, BOOL)
         return result
+    }
+
+    Query(iid) {
+        if (IDWriteFontFace5.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFontAxisValueCount := CallbackCreate(GetMethod(implObj, "GetFontAxisValueCount"), flags, 1)
+        this.vtbl.GetFontAxisValues := CallbackCreate(GetMethod(implObj, "GetFontAxisValues"), flags, 3)
+        this.vtbl.HasVariations := CallbackCreate(GetMethod(implObj, "HasVariations"), flags, 1)
+        this.vtbl.GetFontResource := CallbackCreate(GetMethod(implObj, "GetFontResource"), flags, 2)
+        this.vtbl.Equals := CallbackCreate(GetMethod(implObj, "Equals"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFontAxisValueCount)
+        CallbackFree(this.vtbl.GetFontAxisValues)
+        CallbackFree(this.vtbl.HasVariations)
+        CallbackFree(this.vtbl.GetFontResource)
+        CallbackFree(this.vtbl.Equals)
     }
 }

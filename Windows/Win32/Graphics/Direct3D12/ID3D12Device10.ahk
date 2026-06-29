@@ -1,33 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12Device9.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\D3D12_BARRIER_LAYOUT.ahk" { D3D12_BARRIER_LAYOUT }
+#Import ".\D3D12_RESOURCE_DESC.ahk" { D3D12_RESOURCE_DESC }
+#Import ".\ID3D12ProtectedResourceSession.ahk" { ID3D12ProtectedResourceSession }
+#Import ".\D3D12_HEAP_PROPERTIES.ahk" { D3D12_HEAP_PROPERTIES }
+#Import ".\ID3D12Heap.ahk" { ID3D12Heap }
+#Import ".\ID3D12Device9.ahk" { ID3D12Device9 }
+#Import ".\D3D12_HEAP_FLAGS.ahk" { D3D12_HEAP_FLAGS }
+#Import ".\D3D12_RESOURCE_DESC1.ahk" { D3D12_RESOURCE_DESC1 }
+#Import ".\D3D12_CLEAR_VALUE.ahk" { D3D12_CLEAR_VALUE }
 
 /**
  * TBD
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12device10
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class ID3D12Device10 extends ID3D12Device9 {
-
-    static sizeof => A_PtrSize
+export default struct ID3D12Device10 extends ID3D12Device9 {
     /**
      * The interface identifier for ID3D12Device10
      * @type {Guid}
      */
-    static IID => Guid("{517f8718-aa66-49f9-b02b-a7ab89c06031}")
+    static IID := Guid("{517f8718-aa66-49f9-b02b-a7ab89c06031}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 76
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D12Device10 interfaces
+    */
+    struct Vtbl extends ID3D12Device9.Vtbl {
+        CreateCommittedResource3 : IntPtr
+        CreatePlacedResource2    : IntPtr
+        CreateReservedResource2  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateCommittedResource3", "CreatePlacedResource2", "CreateReservedResource2"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D12Device10.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a committed resource with an initial layout rather than an initial state.
@@ -68,7 +87,7 @@ class ID3D12Device10 extends ID3D12Device9 {
     CreateCommittedResource3(pHeapProperties, HeapFlags, pDesc, InitialLayout, pOptimizedClearValue, pProtectedSession, NumCastableFormats, pCastableFormats, riidResource) {
         pCastableFormatsMarshal := pCastableFormats is VarRef ? "int*" : "ptr"
 
-        result := ComCall(76, this, "ptr", pHeapProperties, "int", HeapFlags, "ptr", pDesc, "int", InitialLayout, "ptr", pOptimizedClearValue, "ptr", pProtectedSession, "uint", NumCastableFormats, pCastableFormatsMarshal, pCastableFormats, "ptr", riidResource, "ptr*", &ppvResource := 0, "HRESULT")
+        result := ComCall(76, this, D3D12_HEAP_PROPERTIES.Ptr, pHeapProperties, D3D12_HEAP_FLAGS, HeapFlags, D3D12_RESOURCE_DESC1.Ptr, pDesc, D3D12_BARRIER_LAYOUT, InitialLayout, D3D12_CLEAR_VALUE.Ptr, pOptimizedClearValue, "ptr", pProtectedSession, "uint", NumCastableFormats, pCastableFormatsMarshal, pCastableFormats, Guid.Ptr, riidResource, "ptr*", &ppvResource := 0, "HRESULT")
         return ppvResource
     }
 
@@ -110,7 +129,7 @@ class ID3D12Device10 extends ID3D12Device9 {
     CreatePlacedResource2(pHeap, HeapOffset, pDesc, InitialLayout, pOptimizedClearValue, NumCastableFormats, pCastableFormats, riid) {
         pCastableFormatsMarshal := pCastableFormats is VarRef ? "int*" : "ptr"
 
-        result := ComCall(77, this, "ptr", pHeap, "uint", HeapOffset, "ptr", pDesc, "int", InitialLayout, "ptr", pOptimizedClearValue, "uint", NumCastableFormats, pCastableFormatsMarshal, pCastableFormats, "ptr", riid, "ptr*", &ppvResource := 0, "HRESULT")
+        result := ComCall(77, this, "ptr", pHeap, "uint", HeapOffset, D3D12_RESOURCE_DESC1.Ptr, pDesc, D3D12_BARRIER_LAYOUT, InitialLayout, D3D12_CLEAR_VALUE.Ptr, pOptimizedClearValue, "uint", NumCastableFormats, pCastableFormatsMarshal, pCastableFormats, Guid.Ptr, riid, "ptr*", &ppvResource := 0, "HRESULT")
         return ppvResource
     }
 
@@ -149,7 +168,31 @@ class ID3D12Device10 extends ID3D12Device9 {
     CreateReservedResource2(pDesc, InitialLayout, pOptimizedClearValue, pProtectedSession, NumCastableFormats, pCastableFormats, riid) {
         pCastableFormatsMarshal := pCastableFormats is VarRef ? "int*" : "ptr"
 
-        result := ComCall(78, this, "ptr", pDesc, "int", InitialLayout, "ptr", pOptimizedClearValue, "ptr", pProtectedSession, "uint", NumCastableFormats, pCastableFormatsMarshal, pCastableFormats, "ptr", riid, "ptr*", &ppvResource := 0, "HRESULT")
+        result := ComCall(78, this, D3D12_RESOURCE_DESC.Ptr, pDesc, D3D12_BARRIER_LAYOUT, InitialLayout, D3D12_CLEAR_VALUE.Ptr, pOptimizedClearValue, "ptr", pProtectedSession, "uint", NumCastableFormats, pCastableFormatsMarshal, pCastableFormats, Guid.Ptr, riid, "ptr*", &ppvResource := 0, "HRESULT")
         return ppvResource
+    }
+
+    Query(iid) {
+        if (ID3D12Device10.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateCommittedResource3 := CallbackCreate(GetMethod(implObj, "CreateCommittedResource3"), flags, 11)
+        this.vtbl.CreatePlacedResource2 := CallbackCreate(GetMethod(implObj, "CreatePlacedResource2"), flags, 10)
+        this.vtbl.CreateReservedResource2 := CallbackCreate(GetMethod(implObj, "CreateReservedResource2"), flags, 9)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateCommittedResource3)
+        CallbackFree(this.vtbl.CreatePlacedResource2)
+        CallbackFree(this.vtbl.CreateReservedResource2)
     }
 }

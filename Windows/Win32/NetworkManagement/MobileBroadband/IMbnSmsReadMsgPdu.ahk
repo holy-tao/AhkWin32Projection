@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MBN_MSG_STATUS.ahk" { MBN_MSG_STATUS }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * A collection of properties that represent an SMS message read from the device memory.
@@ -14,26 +17,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnsmsreadmsgpdu
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  */
-class IMbnSmsReadMsgPdu extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMbnSmsReadMsgPdu extends IUnknown {
     /**
      * The interface identifier for IMbnSmsReadMsgPdu
      * @type {Guid}
      */
-    static IID => Guid("{dcbbbab6-2013-4bbb-aaee-338e368af6fa}")
+    static IID := Guid("{dcbbbab6-2013-4bbb-aaee-338e368af6fa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMbnSmsReadMsgPdu interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_Index   : IntPtr
+        get_Status  : IntPtr
+        get_PduData : IntPtr
+        get_Message : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Index", "get_Status", "get_PduData", "get_Message"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMbnSmsReadMsgPdu.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -120,8 +133,8 @@ class IMbnSmsReadMsgPdu extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgpdu-get_pdudata
      */
     get_PduData() {
-        PduData := BSTR()
-        result := ComCall(5, this, "ptr", PduData, "HRESULT")
+        PduData := BSTR.Owned()
+        result := ComCall(5, this, BSTR.Ptr, PduData, "HRESULT")
         return PduData
     }
 
@@ -135,5 +148,31 @@ class IMbnSmsReadMsgPdu extends IUnknown {
     get_Message() {
         result := ComCall(6, this, "ptr*", &Message := 0, "HRESULT")
         return Message
+    }
+
+    Query(iid) {
+        if (IMbnSmsReadMsgPdu.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Index := CallbackCreate(GetMethod(implObj, "get_Index"), flags, 2)
+        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.get_PduData := CallbackCreate(GetMethod(implObj, "get_PduData"), flags, 2)
+        this.vtbl.get_Message := CallbackCreate(GetMethod(implObj, "get_Message"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Index)
+        CallbackFree(this.vtbl.get_Status)
+        CallbackFree(this.vtbl.get_PduData)
+        CallbackFree(this.vtbl.get_Message)
     }
 }

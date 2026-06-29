@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IAzApplication.ahk
-#Include .\IAzClientContext2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IAzApplication.ahk" { IAzApplication }
+#Import ".\IAzClientContext2.ahk" { IAzClientContext2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Inherits from the IAzApplication interface and implements additional methods to initialize IAzClientContext2 objects.
  * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazapplication2
  * @namespace Windows.Win32.Security.Authorization
  */
-class IAzApplication2 extends IAzApplication {
-
-    static sizeof => A_PtrSize
+export default struct IAzApplication2 extends IAzApplication {
     /**
      * The interface identifier for IAzApplication2
      * @type {Guid}
      */
-    static IID => Guid("{086a68af-a249-437c-b18d-d4d86d6a9660}")
+    static IID := Guid("{086a68af-a249-437c-b18d-d4d86d6a9660}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 68
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAzApplication2 interfaces
+    */
+    struct Vtbl extends IAzApplication.Vtbl {
+        InitializeClientContextFromToken2 : IntPtr
+        InitializeClientContext2          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializeClientContextFromToken2", "InitializeClientContext2"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAzApplication2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves an IAzClientContext2 object pointer from the specified client token.
@@ -39,7 +50,7 @@ class IAzApplication2 extends IAzApplication {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication2-initializeclientcontextfromtoken2
      */
     InitializeClientContextFromToken2(ulTokenHandleLowPart, ulTokenHandleHighPart, varReserved) {
-        result := ComCall(68, this, "uint", ulTokenHandleLowPart, "uint", ulTokenHandleHighPart, "ptr", varReserved, "ptr*", &ppClientContext := 0, "HRESULT")
+        result := ComCall(68, this, "uint", ulTokenHandleLowPart, "uint", ulTokenHandleHighPart, VARIANT, varReserved, "ptr*", &ppClientContext := 0, "HRESULT")
         return IAzClientContext2(ppClientContext)
     }
 
@@ -53,7 +64,29 @@ class IAzApplication2 extends IAzApplication {
     InitializeClientContext2(IdentifyingString, varReserved) {
         IdentifyingString := IdentifyingString is String ? BSTR.Alloc(IdentifyingString).Value : IdentifyingString
 
-        result := ComCall(69, this, "ptr", IdentifyingString, "ptr", varReserved, "ptr*", &ppClientContext := 0, "HRESULT")
+        result := ComCall(69, this, BSTR, IdentifyingString, VARIANT, varReserved, "ptr*", &ppClientContext := 0, "HRESULT")
         return IAzClientContext2(ppClientContext)
+    }
+
+    Query(iid) {
+        if (IAzApplication2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializeClientContextFromToken2 := CallbackCreate(GetMethod(implObj, "InitializeClientContextFromToken2"), flags, 5)
+        this.vtbl.InitializeClientContext2 := CallbackCreate(GetMethod(implObj, "InitializeClientContext2"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializeClientContextFromToken2)
+        CallbackFree(this.vtbl.InitializeClientContext2)
     }
 }

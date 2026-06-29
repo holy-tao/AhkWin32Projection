@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG enumeration (vdshwprv.h) defines the set of RAID levels that can be supported by subsystems.
@@ -11,7 +10,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_sub_system_supported_raid_type_flag
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG extends Win32Enum {
+export default struct VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Supports RAID level 2.

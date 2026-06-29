@@ -1,34 +1,73 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IUIAnimationStoryboard2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IUIAnimationVariableChangeHandler2.ahk" { IUIAnimationVariableChangeHandler2 }
+#Import ".\IUIAnimationStoryboard2.ahk" { IUIAnimationStoryboard2 }
+#Import ".\IUIAnimationVariableCurveChangeHandler2.ahk" { IUIAnimationVariableCurveChangeHandler2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\UI_ANIMATION_ROUNDING_MODE.ahk" { UI_ANIMATION_ROUNDING_MODE }
+#Import ".\IUIAnimationVariableIntegerChangeHandler2.ahk" { IUIAnimationVariableIntegerChangeHandler2 }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Graphics\DirectComposition\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 
 /**
  * Defines an animation variable, which represents a visual element that can be animated in multiple dimensions.
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationvariable2
  * @namespace Windows.Win32.UI.Animation
  */
-class IUIAnimationVariable2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIAnimationVariable2 extends IUnknown {
     /**
      * The interface identifier for IUIAnimationVariable2
      * @type {Guid}
      */
-    static IID => Guid("{4914b304-96ab-44d9-9e77-d5109b7e7466}")
+    static IID := Guid("{4914b304-96ab-44d9-9e77-d5109b7e7466}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAnimationVariable2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDimension                    : IntPtr
+        GetValue                        : IntPtr
+        GetVectorValue                  : IntPtr
+        GetCurve                        : IntPtr
+        GetVectorCurve                  : IntPtr
+        GetFinalValue                   : IntPtr
+        GetFinalVectorValue             : IntPtr
+        GetPreviousValue                : IntPtr
+        GetPreviousVectorValue          : IntPtr
+        GetIntegerValue                 : IntPtr
+        GetIntegerVectorValue           : IntPtr
+        GetFinalIntegerValue            : IntPtr
+        GetFinalIntegerVectorValue      : IntPtr
+        GetPreviousIntegerValue         : IntPtr
+        GetPreviousIntegerVectorValue   : IntPtr
+        GetCurrentStoryboard            : IntPtr
+        SetLowerBound                   : IntPtr
+        SetLowerBoundVector             : IntPtr
+        SetUpperBound                   : IntPtr
+        SetUpperBoundVector             : IntPtr
+        SetRoundingMode                 : IntPtr
+        SetTag                          : IntPtr
+        GetTag                          : IntPtr
+        SetVariableChangeHandler        : IntPtr
+        SetVariableIntegerChangeHandler : IntPtr
+        SetVariableCurveChangeHandler   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDimension", "GetValue", "GetVectorValue", "GetCurve", "GetVectorCurve", "GetFinalValue", "GetFinalVectorValue", "GetPreviousValue", "GetPreviousVectorValue", "GetIntegerValue", "GetIntegerVectorValue", "GetFinalIntegerValue", "GetFinalIntegerVectorValue", "GetPreviousIntegerValue", "GetPreviousIntegerVectorValue", "GetCurrentStoryboard", "SetLowerBound", "SetLowerBoundVector", "SetUpperBound", "SetUpperBoundVector", "SetRoundingMode", "SetTag", "GetTag", "SetVariableChangeHandler", "SetVariableIntegerChangeHandler", "SetVariableCurveChangeHandler"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAnimationVariable2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the number of dimensions that the animation variable is to be animated in.
@@ -84,7 +123,7 @@ class IUIAnimationVariable2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getvectorcurve
      */
     GetVectorCurve(animation, cDimension) {
-        result := ComCall(7, this, "ptr*", animation, "uint", cDimension, "HRESULT")
+        result := ComCall(7, this, IDCompositionAnimation.Ptr, animation, "uint", cDimension, "HRESULT")
         return result
     }
 
@@ -263,7 +302,7 @@ class IUIAnimationVariable2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-setroundingmode
      */
     SetRoundingMode(_mode) {
-        result := ComCall(23, this, "int", _mode, "HRESULT")
+        result := ComCall(23, this, UI_ANIMATION_ROUNDING_MODE, _mode, "HRESULT")
         return result
     }
 
@@ -296,7 +335,7 @@ class IUIAnimationVariable2 extends IUnknown {
     GetTag(_object, id) {
         idMarshal := id is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(25, this, "ptr*", _object, idMarshal, id, "HRESULT")
+        result := ComCall(25, this, IUnknown.Ptr, _object, idMarshal, id, "HRESULT")
         return result
     }
 
@@ -310,7 +349,7 @@ class IUIAnimationVariable2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-setvariablechangehandler
      */
     SetVariableChangeHandler(handler, fRegisterForNextAnimationEvent) {
-        result := ComCall(26, this, "ptr", handler, "int", fRegisterForNextAnimationEvent, "HRESULT")
+        result := ComCall(26, this, "ptr", handler, BOOL, fRegisterForNextAnimationEvent, "HRESULT")
         return result
     }
 
@@ -327,7 +366,7 @@ class IUIAnimationVariable2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-setvariableintegerchangehandler
      */
     SetVariableIntegerChangeHandler(handler, fRegisterForNextAnimationEvent) {
-        result := ComCall(27, this, "ptr", handler, "int", fRegisterForNextAnimationEvent, "HRESULT")
+        result := ComCall(27, this, "ptr", handler, BOOL, fRegisterForNextAnimationEvent, "HRESULT")
         return result
     }
 
@@ -340,5 +379,75 @@ class IUIAnimationVariable2 extends IUnknown {
     SetVariableCurveChangeHandler(handler) {
         result := ComCall(28, this, "ptr", handler, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUIAnimationVariable2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDimension := CallbackCreate(GetMethod(implObj, "GetDimension"), flags, 2)
+        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 2)
+        this.vtbl.GetVectorValue := CallbackCreate(GetMethod(implObj, "GetVectorValue"), flags, 3)
+        this.vtbl.GetCurve := CallbackCreate(GetMethod(implObj, "GetCurve"), flags, 2)
+        this.vtbl.GetVectorCurve := CallbackCreate(GetMethod(implObj, "GetVectorCurve"), flags, 3)
+        this.vtbl.GetFinalValue := CallbackCreate(GetMethod(implObj, "GetFinalValue"), flags, 2)
+        this.vtbl.GetFinalVectorValue := CallbackCreate(GetMethod(implObj, "GetFinalVectorValue"), flags, 3)
+        this.vtbl.GetPreviousValue := CallbackCreate(GetMethod(implObj, "GetPreviousValue"), flags, 2)
+        this.vtbl.GetPreviousVectorValue := CallbackCreate(GetMethod(implObj, "GetPreviousVectorValue"), flags, 3)
+        this.vtbl.GetIntegerValue := CallbackCreate(GetMethod(implObj, "GetIntegerValue"), flags, 2)
+        this.vtbl.GetIntegerVectorValue := CallbackCreate(GetMethod(implObj, "GetIntegerVectorValue"), flags, 3)
+        this.vtbl.GetFinalIntegerValue := CallbackCreate(GetMethod(implObj, "GetFinalIntegerValue"), flags, 2)
+        this.vtbl.GetFinalIntegerVectorValue := CallbackCreate(GetMethod(implObj, "GetFinalIntegerVectorValue"), flags, 3)
+        this.vtbl.GetPreviousIntegerValue := CallbackCreate(GetMethod(implObj, "GetPreviousIntegerValue"), flags, 2)
+        this.vtbl.GetPreviousIntegerVectorValue := CallbackCreate(GetMethod(implObj, "GetPreviousIntegerVectorValue"), flags, 3)
+        this.vtbl.GetCurrentStoryboard := CallbackCreate(GetMethod(implObj, "GetCurrentStoryboard"), flags, 2)
+        this.vtbl.SetLowerBound := CallbackCreate(GetMethod(implObj, "SetLowerBound"), flags, 2)
+        this.vtbl.SetLowerBoundVector := CallbackCreate(GetMethod(implObj, "SetLowerBoundVector"), flags, 3)
+        this.vtbl.SetUpperBound := CallbackCreate(GetMethod(implObj, "SetUpperBound"), flags, 2)
+        this.vtbl.SetUpperBoundVector := CallbackCreate(GetMethod(implObj, "SetUpperBoundVector"), flags, 3)
+        this.vtbl.SetRoundingMode := CallbackCreate(GetMethod(implObj, "SetRoundingMode"), flags, 2)
+        this.vtbl.SetTag := CallbackCreate(GetMethod(implObj, "SetTag"), flags, 3)
+        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 3)
+        this.vtbl.SetVariableChangeHandler := CallbackCreate(GetMethod(implObj, "SetVariableChangeHandler"), flags, 3)
+        this.vtbl.SetVariableIntegerChangeHandler := CallbackCreate(GetMethod(implObj, "SetVariableIntegerChangeHandler"), flags, 3)
+        this.vtbl.SetVariableCurveChangeHandler := CallbackCreate(GetMethod(implObj, "SetVariableCurveChangeHandler"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDimension)
+        CallbackFree(this.vtbl.GetValue)
+        CallbackFree(this.vtbl.GetVectorValue)
+        CallbackFree(this.vtbl.GetCurve)
+        CallbackFree(this.vtbl.GetVectorCurve)
+        CallbackFree(this.vtbl.GetFinalValue)
+        CallbackFree(this.vtbl.GetFinalVectorValue)
+        CallbackFree(this.vtbl.GetPreviousValue)
+        CallbackFree(this.vtbl.GetPreviousVectorValue)
+        CallbackFree(this.vtbl.GetIntegerValue)
+        CallbackFree(this.vtbl.GetIntegerVectorValue)
+        CallbackFree(this.vtbl.GetFinalIntegerValue)
+        CallbackFree(this.vtbl.GetFinalIntegerVectorValue)
+        CallbackFree(this.vtbl.GetPreviousIntegerValue)
+        CallbackFree(this.vtbl.GetPreviousIntegerVectorValue)
+        CallbackFree(this.vtbl.GetCurrentStoryboard)
+        CallbackFree(this.vtbl.SetLowerBound)
+        CallbackFree(this.vtbl.SetLowerBoundVector)
+        CallbackFree(this.vtbl.SetUpperBound)
+        CallbackFree(this.vtbl.SetUpperBoundVector)
+        CallbackFree(this.vtbl.SetRoundingMode)
+        CallbackFree(this.vtbl.SetTag)
+        CallbackFree(this.vtbl.GetTag)
+        CallbackFree(this.vtbl.SetVariableChangeHandler)
+        CallbackFree(this.vtbl.SetVariableIntegerChangeHandler)
+        CallbackFree(this.vtbl.SetVariableCurveChangeHandler)
     }
 }

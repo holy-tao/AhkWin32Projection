@@ -1,11 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IAppxBlockMapFile.ahk
-#Include .\IAppxBlockMapFilesEnumerator.ahk
-#Include ..\..\..\System\Com\IUri.ahk
-#Include ..\..\..\System\Com\IStream.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IAppxBlockMapFilesEnumerator.ahk" { IAppxBlockMapFilesEnumerator }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUri.ahk" { IUri }
+#Import ".\IAppxBlockMapFile.ahk" { IAppxBlockMapFile }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a read-only object model for block maps that provides access to the file attributes and block hashes.
@@ -20,26 +22,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxblockmapreader
  * @namespace Windows.Win32.Storage.Packaging.Appx
  */
-class IAppxBlockMapReader extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAppxBlockMapReader extends IUnknown {
     /**
      * The interface identifier for IAppxBlockMapReader
      * @type {Guid}
      */
-    static IID => Guid("{5efec991-bca3-42d1-9ec2-e92d609ec22a}")
+    static IID := Guid("{5efec991-bca3-42d1-9ec2-e92d609ec22a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAppxBlockMapReader interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetFile       : IntPtr
+        GetFiles      : IntPtr
+        GetHashMethod : IntPtr
+        GetStream     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFile", "GetFiles", "GetHashMethod", "GetStream"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAppxBlockMapReader.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves data corresponding to a file in the block map with the specified file name.
@@ -96,5 +108,31 @@ class IAppxBlockMapReader extends IUnknown {
     GetStream() {
         result := ComCall(6, this, "ptr*", &blockMapStream := 0, "HRESULT")
         return IStream(blockMapStream)
+    }
+
+    Query(iid) {
+        if (IAppxBlockMapReader.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFile := CallbackCreate(GetMethod(implObj, "GetFile"), flags, 3)
+        this.vtbl.GetFiles := CallbackCreate(GetMethod(implObj, "GetFiles"), flags, 2)
+        this.vtbl.GetHashMethod := CallbackCreate(GetMethod(implObj, "GetHashMethod"), flags, 2)
+        this.vtbl.GetStream := CallbackCreate(GetMethod(implObj, "GetStream"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFile)
+        CallbackFree(this.vtbl.GetFiles)
+        CallbackFree(this.vtbl.GetHashMethod)
+        CallbackFree(this.vtbl.GetStream)
     }
 }

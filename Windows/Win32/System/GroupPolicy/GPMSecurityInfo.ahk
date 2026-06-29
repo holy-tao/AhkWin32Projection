@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The IGPMSecurityInfo interface defines the methods of the GPMSecurityInfo collection. This collection represents a set of policy-related permissions that can be set on a particular object, such as a scope of management (SOM), a GPO, or a WMI filter.
@@ -121,8 +120,7 @@
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmsecurityinfo
  * @namespace Windows.Win32.System.GroupPolicy
  */
-class GPMSecurityInfo extends Win32Struct {
-    static sizeof => 0
+export default struct GPMSecurityInfo {
+    #StructPack 1
 
-    static packingSize => 1
 }

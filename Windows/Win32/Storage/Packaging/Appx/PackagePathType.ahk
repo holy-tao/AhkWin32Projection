@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the type of package folder to retrieve.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/appmodel/ne-appmodel-packagepathtype
  * @namespace Windows.Win32.Storage.Packaging.Appx
  */
-class PackagePathType extends Win32Enum {
+export default struct PackagePathType {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Retrieve the package path in the original install folder for the application.

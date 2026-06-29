@@ -1,98 +1,63 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D10_SHADER_DEBUG_REGTYPE.ahk
-#Include .\D3D10_SHADER_DEBUG_OUTPUTVAR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D10_SHADER_DEBUG_REGTYPE.ahk" { D3D10_SHADER_DEBUG_REGTYPE }
+#Import ".\D3D10_SHADER_DEBUG_OUTPUTVAR.ahk" { D3D10_SHADER_DEBUG_OUTPUTVAR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Describes a shader output register.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/ns-d3d10_1shader-d3d10_shader_debug_outputreg_info
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class D3D10_SHADER_DEBUG_OUTPUTREG_INFO extends Win32Struct {
-    static sizeof => 180
-
-    static packingSize => 4
+export default struct D3D10_SHADER_DEBUG_OUTPUTREG_INFO {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d10_1shader/ne-d3d10_1shader-d3d10_shader_debug_regtype">D3D10_SHADER_DEBUG_REGTYPE</a></b>
      * 
      * Must be D3D10_SHADER_DEBUG_REG_TEMP, D3D10_SHADER_DEBUG_REG_TEMPARRAY or D3D10_SHADER_DEBUG_REG_OUTPUT.
-     * @type {D3D10_SHADER_DEBUG_REGTYPE}
      */
-    OutputRegisterSet {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    OutputRegisterSet : D3D10_SHADER_DEBUG_REGTYPE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * A value of -1 indicates no output.
-     * @type {Integer}
      */
-    OutputReg {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    OutputReg : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * If <b>OutputRegisterSet</b> is D3D10_SHADER_DEBUG_REG_TEMPARRAY this indicates which temp array.
-     * @type {Integer}
      */
-    TempArrayReg {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    TempArrayReg : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * A value of -1 means the component is masked out.
-     * @type {Array<Integer>}
      */
-    OutputComponents {
-        get {
-            if(!this.HasProp("__OutputComponentsProxyArray"))
-                this.__OutputComponentsProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "uint")
-            return this.__OutputComponentsProxyArray
-        }
-    }
+    OutputComponents : UInt32[4]
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d10_1shader/ns-d3d10_1shader-d3d10_shader_debug_outputvar">D3D10_SHADER_DEBUG_OUTPUTVAR</a></b>
      * 
      * Indicates which variable the instruction is writing per-component.
-     * @type {D3D10_SHADER_DEBUG_OUTPUTVAR}
      */
-    OutputVars {
-        get {
-            if(!this.HasProp("__OutputVarsProxyArray"))
-                this.__OutputVarsProxyArray := Win32FixedArray(this.ptr + 28, 4, D3D10_SHADER_DEBUG_OUTPUTVAR, "")
-            return this.__OutputVarsProxyArray
-        }
-    }
+    OutputVars : D3D10_SHADER_DEBUG_OUTPUTVAR[4]
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Offset from OutputReg of the element being written to. Used when writing to an indexable temp array or an output.
-     * @type {Integer}
      */
-    IndexReg {
-        get => NumGet(this, 172, "uint")
-        set => NumPut("uint", value, this, 172)
-    }
+    IndexReg : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Offset from OutputReg of the element being written to. Used when writing to an indexable temp array or an output.
-     * @type {Integer}
      */
-    IndexComp {
-        get => NumGet(this, 176, "uint")
-        set => NumPut("uint", value, this, 176)
-    }
+    IndexComp : UInt32
+
 }

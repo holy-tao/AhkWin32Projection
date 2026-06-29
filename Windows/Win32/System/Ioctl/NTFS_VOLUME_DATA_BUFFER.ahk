@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents volume data. (NTFS_VOLUME_DATA_BUFFER)
@@ -27,134 +26,77 @@
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-ntfs_volume_data_buffer
  * @namespace Windows.Win32.System.Ioctl
  */
-class NTFS_VOLUME_DATA_BUFFER extends Win32Struct {
-    static sizeof => 96
-
-    static packingSize => 8
+export default struct NTFS_VOLUME_DATA_BUFFER {
+    #StructPack 8
 
     /**
      * The serial number of the volume. This is a unique number assigned to the volume media by the operating system.
-     * @type {Integer}
      */
-    VolumeSerialNumber {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    VolumeSerialNumber : Int64
 
     /**
      * The number of sectors in the specified volume.
-     * @type {Integer}
      */
-    NumberSectors {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    NumberSectors : Int64
 
     /**
      * The number of used and free clusters in the specified volume.
-     * @type {Integer}
      */
-    TotalClusters {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    TotalClusters : Int64
 
     /**
      * The number of free clusters in the specified volume.
-     * @type {Integer}
      */
-    FreeClusters {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    FreeClusters : Int64
 
     /**
      * The number of reserved clusters in the specified volume.
-     * @type {Integer}
      */
-    TotalReserved {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
+    TotalReserved : Int64
 
     /**
      * The number of bytes in a sector on the specified volume.
-     * @type {Integer}
      */
-    BytesPerSector {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    BytesPerSector : UInt32
 
     /**
      * The number of bytes in a cluster on the specified volume. This value is also known as the cluster factor.
-     * @type {Integer}
      */
-    BytesPerCluster {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    BytesPerCluster : UInt32
 
     /**
      * The number of bytes in a file record segment.
-     * @type {Integer}
      */
-    BytesPerFileRecordSegment {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    BytesPerFileRecordSegment : UInt32
 
     /**
      * The number of clusters in a file record segment.
-     * @type {Integer}
      */
-    ClustersPerFileRecordSegment {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    ClustersPerFileRecordSegment : UInt32
 
     /**
      * The length of the master file table, in bytes.
-     * @type {Integer}
      */
-    MftValidDataLength {
-        get => NumGet(this, 56, "int64")
-        set => NumPut("int64", value, this, 56)
-    }
+    MftValidDataLength : Int64
 
     /**
      * The starting logical cluster number of the master file table.
-     * @type {Integer}
      */
-    MftStartLcn {
-        get => NumGet(this, 64, "int64")
-        set => NumPut("int64", value, this, 64)
-    }
+    MftStartLcn : Int64
 
     /**
      * The starting logical cluster number of the master file table mirror.
-     * @type {Integer}
      */
-    Mft2StartLcn {
-        get => NumGet(this, 72, "int64")
-        set => NumPut("int64", value, this, 72)
-    }
+    Mft2StartLcn : Int64
 
     /**
      * The starting logical cluster number of the master file table zone.
-     * @type {Integer}
      */
-    MftZoneStart {
-        get => NumGet(this, 80, "int64")
-        set => NumPut("int64", value, this, 80)
-    }
+    MftZoneStart : Int64
 
     /**
      * The ending logical cluster number of the master file table zone.
-     * @type {Integer}
      */
-    MftZoneEnd {
-        get => NumGet(this, 88, "int64")
-        set => NumPut("int64", value, this, 88)
-    }
+    MftZoneEnd : Int64
+
 }

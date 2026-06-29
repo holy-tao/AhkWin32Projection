@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates information about a user-defined event that is not covered by the general events.
  * @see https://learn.microsoft.com/windows/win32/api/wpcevent/ne-wpcevent-wpc_args_customevent
  * @namespace Windows.Win32.System.ParentalControls
  */
-class WPC_ARGS_CUSTOMEVENT extends Win32Enum {
+export default struct WPC_ARGS_CUSTOMEVENT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The publisher of the custom event.

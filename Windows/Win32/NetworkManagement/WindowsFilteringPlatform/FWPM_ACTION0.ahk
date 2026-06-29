@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWP_ACTION_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FWP_ACTION_TYPE.ahk" { FWP_ACTION_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Specifies the action taken if all the filter conditions are true.
@@ -9,10 +9,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_action0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class FWPM_ACTION0 extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct FWPM_ACTION0 {
+    #StructPack 4
 
     /**
      * Action type as specified by <b>FWP_ACTION_TYPE</b> which maps to a <b>UINT32</b>.
@@ -85,26 +83,13 @@ class FWPM_ACTION0 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {FWP_ACTION_TYPE}
      */
-    type {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    type : FWP_ACTION_TYPE
 
-    /**
-     * @type {Pointer}
-     */
-    filterType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    filterType : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    calloutKey {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'calloutKey', { type: Guid, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IDVBSLocator.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\LNB_Source.ahk" { LNB_Source }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Pilot.ahk" { Pilot }
+#Import "..\SpectralInversion.ahk" { SpectralInversion }
+#Import ".\IDVBSLocator.ahk" { IDVBSLocator }
+#Import "..\RollOff.ahk" { RollOff }
 
 /**
  * Provides information to enable a tuner to acquire a Digital Video Broadcasting-Satellite (DVB-S) transmission.
@@ -10,26 +15,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-idvbslocator2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IDVBSLocator2 extends IDVBSLocator {
-
-    static sizeof => A_PtrSize
+export default struct IDVBSLocator2 extends IDVBSLocator {
     /**
      * The interface identifier for IDVBSLocator2
      * @type {Guid}
      */
-    static IID => Guid("{6044634a-1733-4f99-b982-5fb12afce4f0}")
+    static IID := Guid("{6044634a-1733-4f99-b982-5fb12afce4f0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 32
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDVBSLocator2 interfaces
+    */
+    struct Vtbl extends IDVBSLocator.Vtbl {
+        get_DiseqLNBSource                 : IntPtr
+        put_DiseqLNBSource                 : IntPtr
+        get_LocalOscillatorOverrideLow     : IntPtr
+        put_LocalOscillatorOverrideLow     : IntPtr
+        get_LocalOscillatorOverrideHigh    : IntPtr
+        put_LocalOscillatorOverrideHigh    : IntPtr
+        get_LocalLNBSwitchOverride         : IntPtr
+        put_LocalLNBSwitchOverride         : IntPtr
+        get_LocalSpectralInversionOverride : IntPtr
+        put_LocalSpectralInversionOverride : IntPtr
+        get_SignalRollOff                  : IntPtr
+        put_SignalRollOff                  : IntPtr
+        get_SignalPilot                    : IntPtr
+        put_SignalPilot                    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_DiseqLNBSource", "put_DiseqLNBSource", "get_LocalOscillatorOverrideLow", "put_LocalOscillatorOverrideLow", "get_LocalOscillatorOverrideHigh", "put_LocalOscillatorOverrideHigh", "get_LocalLNBSwitchOverride", "put_LocalLNBSwitchOverride", "get_LocalSpectralInversionOverride", "put_LocalSpectralInversionOverride", "get_SignalRollOff", "put_SignalRollOff", "get_SignalPilot", "put_SignalPilot"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDVBSLocator2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {LNB_Source} 
@@ -104,7 +129,7 @@ class IDVBSLocator2 extends IDVBSLocator {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator2-put_diseqlnbsource
      */
     put_DiseqLNBSource(DiseqLNBSourceVal) {
-        result := ComCall(33, this, "int", DiseqLNBSourceVal, "HRESULT")
+        result := ComCall(33, this, LNB_Source, DiseqLNBSourceVal, "HRESULT")
         return result
     }
 
@@ -188,7 +213,7 @@ class IDVBSLocator2 extends IDVBSLocator {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator2-put_localspectralinversionoverride
      */
     put_LocalSpectralInversionOverride(LocalSpectralInversionOverrideVal) {
-        result := ComCall(41, this, "int", LocalSpectralInversionOverrideVal, "HRESULT")
+        result := ComCall(41, this, SpectralInversion, LocalSpectralInversionOverrideVal, "HRESULT")
         return result
     }
 
@@ -209,7 +234,7 @@ class IDVBSLocator2 extends IDVBSLocator {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator2-put_signalrolloff
      */
     put_SignalRollOff(RollOffVal) {
-        result := ComCall(43, this, "int", RollOffVal, "HRESULT")
+        result := ComCall(43, this, RollOff, RollOffVal, "HRESULT")
         return result
     }
 
@@ -230,7 +255,53 @@ class IDVBSLocator2 extends IDVBSLocator {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator2-put_signalpilot
      */
     put_SignalPilot(PilotVal) {
-        result := ComCall(45, this, "int", PilotVal, "HRESULT")
+        result := ComCall(45, this, Pilot, PilotVal, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDVBSLocator2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_DiseqLNBSource := CallbackCreate(GetMethod(implObj, "get_DiseqLNBSource"), flags, 2)
+        this.vtbl.put_DiseqLNBSource := CallbackCreate(GetMethod(implObj, "put_DiseqLNBSource"), flags, 2)
+        this.vtbl.get_LocalOscillatorOverrideLow := CallbackCreate(GetMethod(implObj, "get_LocalOscillatorOverrideLow"), flags, 2)
+        this.vtbl.put_LocalOscillatorOverrideLow := CallbackCreate(GetMethod(implObj, "put_LocalOscillatorOverrideLow"), flags, 2)
+        this.vtbl.get_LocalOscillatorOverrideHigh := CallbackCreate(GetMethod(implObj, "get_LocalOscillatorOverrideHigh"), flags, 2)
+        this.vtbl.put_LocalOscillatorOverrideHigh := CallbackCreate(GetMethod(implObj, "put_LocalOscillatorOverrideHigh"), flags, 2)
+        this.vtbl.get_LocalLNBSwitchOverride := CallbackCreate(GetMethod(implObj, "get_LocalLNBSwitchOverride"), flags, 2)
+        this.vtbl.put_LocalLNBSwitchOverride := CallbackCreate(GetMethod(implObj, "put_LocalLNBSwitchOverride"), flags, 2)
+        this.vtbl.get_LocalSpectralInversionOverride := CallbackCreate(GetMethod(implObj, "get_LocalSpectralInversionOverride"), flags, 2)
+        this.vtbl.put_LocalSpectralInversionOverride := CallbackCreate(GetMethod(implObj, "put_LocalSpectralInversionOverride"), flags, 2)
+        this.vtbl.get_SignalRollOff := CallbackCreate(GetMethod(implObj, "get_SignalRollOff"), flags, 2)
+        this.vtbl.put_SignalRollOff := CallbackCreate(GetMethod(implObj, "put_SignalRollOff"), flags, 2)
+        this.vtbl.get_SignalPilot := CallbackCreate(GetMethod(implObj, "get_SignalPilot"), flags, 2)
+        this.vtbl.put_SignalPilot := CallbackCreate(GetMethod(implObj, "put_SignalPilot"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_DiseqLNBSource)
+        CallbackFree(this.vtbl.put_DiseqLNBSource)
+        CallbackFree(this.vtbl.get_LocalOscillatorOverrideLow)
+        CallbackFree(this.vtbl.put_LocalOscillatorOverrideLow)
+        CallbackFree(this.vtbl.get_LocalOscillatorOverrideHigh)
+        CallbackFree(this.vtbl.put_LocalOscillatorOverrideHigh)
+        CallbackFree(this.vtbl.get_LocalLNBSwitchOverride)
+        CallbackFree(this.vtbl.put_LocalLNBSwitchOverride)
+        CallbackFree(this.vtbl.get_LocalSpectralInversionOverride)
+        CallbackFree(this.vtbl.put_LocalSpectralInversionOverride)
+        CallbackFree(this.vtbl.get_SignalRollOff)
+        CallbackFree(this.vtbl.put_SignalRollOff)
+        CallbackFree(this.vtbl.get_SignalPilot)
+        CallbackFree(this.vtbl.put_SignalPilot)
     }
 }

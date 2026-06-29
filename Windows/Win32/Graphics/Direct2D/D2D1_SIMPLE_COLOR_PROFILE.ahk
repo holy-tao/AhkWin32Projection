@@ -1,72 +1,38 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include Common\D2D_POINT_2F.ahk
-#Include .\D2D1_GAMMA1.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D2D1_GAMMA1.ahk" { D2D1_GAMMA1 }
+#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
 
 /**
  * Simple description of a color space.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/ns-d2d1_3-d2d1_simple_color_profile
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_SIMPLE_COLOR_PROFILE extends Win32Struct {
-    static sizeof => 36
-
-    static packingSize => 4
+export default struct D2D1_SIMPLE_COLOR_PROFILE {
+    #StructPack 4
 
     /**
      * The xy coordinates of the red primary in the CIExyY color space.
-     * @type {D2D_POINT_2F}
      */
-    redPrimary {
-        get {
-            if(!this.HasProp("__redPrimary"))
-                this.__redPrimary := D2D_POINT_2F(0, this)
-            return this.__redPrimary
-        }
-    }
+    redPrimary : D2D_POINT_2F
 
     /**
      * The xy coordinates of the green primary in the CIExyY color space.
-     * @type {D2D_POINT_2F}
      */
-    greenPrimary {
-        get {
-            if(!this.HasProp("__greenPrimary"))
-                this.__greenPrimary := D2D_POINT_2F(8, this)
-            return this.__greenPrimary
-        }
-    }
+    greenPrimary : D2D_POINT_2F
 
     /**
      * The xy coordinates of the blue primary in the CIExyY color space.
-     * @type {D2D_POINT_2F}
      */
-    bluePrimary {
-        get {
-            if(!this.HasProp("__bluePrimary"))
-                this.__bluePrimary := D2D_POINT_2F(16, this)
-            return this.__bluePrimary
-        }
-    }
+    bluePrimary : D2D_POINT_2F
 
     /**
      * The XZ tristimulus values for the whitepoint in the CIEXYZ color space, normalized to luminance (Y) of 1.
-     * @type {D2D_POINT_2F}
      */
-    whitePointXZ {
-        get {
-            if(!this.HasProp("__whitePointXZ"))
-                this.__whitePointXZ := D2D_POINT_2F(24, this)
-            return this.__whitePointXZ
-        }
-    }
+    whitePointXZ : D2D_POINT_2F
 
     /**
      * The gamma encoding to use for this color space.
-     * @type {D2D1_GAMMA1}
      */
-    gamma {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    gamma : D2D1_GAMMA1
+
 }

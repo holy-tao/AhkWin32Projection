@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IXAudio2Voice.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\XAUDIO2_VOICE_STATE.ahk" { XAUDIO2_VOICE_STATE }
+#Import ".\XAUDIO2_BUFFER_WMA.ahk" { XAUDIO2_BUFFER_WMA }
+#Import ".\XAUDIO2_BUFFER.ahk" { XAUDIO2_BUFFER }
+#Import ".\IXAudio2Voice.ahk" { IXAudio2Voice }
 
 /**
  * Use a source voice to submit audio data to the XAudio2 processing pipeline.
@@ -11,21 +15,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nn-xaudio2-ixaudio2sourcevoice
  * @namespace Windows.Win32.Media.Audio.XAudio2
  */
-class IXAudio2SourceVoice extends IXAudio2Voice {
+export default struct IXAudio2SourceVoice extends IXAudio2Voice {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 19
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Start", "Stop", "SubmitSourceBuffer", "FlushSourceBuffers", "Discontinuity", "ExitLoop", "GetState", "SetFrequencyRatio", "GetFrequencyRatio", "SetSourceSampleRate"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXAudio2SourceVoice interfaces
+    */
+    struct Vtbl extends IXAudio2Voice.Vtbl {
+        Start               : IntPtr
+        Stop                : IntPtr
+        SubmitSourceBuffer  : IntPtr
+        FlushSourceBuffers  : IntPtr
+        Discontinuity       : IntPtr
+        ExitLoop            : IntPtr
+        GetState            : IntPtr
+        SetFrequencyRatio   : IntPtr
+        GetFrequencyRatio   : IntPtr
+        SetSourceSampleRate : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXAudio2SourceVoice.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Starts consumption and processing of audio by the voice. Delivers the result to any connected submix or mastering voices, or to the output device.
@@ -164,7 +184,7 @@ class IXAudio2SourceVoice extends IXAudio2Voice {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2sourcevoice-submitsourcebuffer
      */
     SubmitSourceBuffer(pBuffer, pBufferWMA) {
-        result := ComCall(21, this, "ptr", pBuffer, "ptr", pBufferWMA, "HRESULT")
+        result := ComCall(21, this, XAUDIO2_BUFFER.Ptr, pBuffer, XAUDIO2_BUFFER_WMA.Ptr, pBufferWMA, "HRESULT")
         return result
     }
 
@@ -267,7 +287,7 @@ class IXAudio2SourceVoice extends IXAudio2Voice {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2sourcevoice-getstate
      */
     GetState(pVoiceState, Flags) {
-        ComCall(25, this, "ptr", pVoiceState, "uint", Flags)
+        ComCall(25, this, XAUDIO2_VOICE_STATE.Ptr, pVoiceState, "uint", Flags)
     }
 
     /**
@@ -336,5 +356,43 @@ class IXAudio2SourceVoice extends IXAudio2Voice {
     SetSourceSampleRate(NewSourceSampleRate) {
         result := ComCall(28, this, "uint", NewSourceSampleRate, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IXAudio2SourceVoice.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 3)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 3)
+        this.vtbl.SubmitSourceBuffer := CallbackCreate(GetMethod(implObj, "SubmitSourceBuffer"), flags, 3)
+        this.vtbl.FlushSourceBuffers := CallbackCreate(GetMethod(implObj, "FlushSourceBuffers"), flags, 1)
+        this.vtbl.Discontinuity := CallbackCreate(GetMethod(implObj, "Discontinuity"), flags, 1)
+        this.vtbl.ExitLoop := CallbackCreate(GetMethod(implObj, "ExitLoop"), flags, 2)
+        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 3)
+        this.vtbl.SetFrequencyRatio := CallbackCreate(GetMethod(implObj, "SetFrequencyRatio"), flags, 3)
+        this.vtbl.GetFrequencyRatio := CallbackCreate(GetMethod(implObj, "GetFrequencyRatio"), flags, 2)
+        this.vtbl.SetSourceSampleRate := CallbackCreate(GetMethod(implObj, "SetSourceSampleRate"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Start)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.SubmitSourceBuffer)
+        CallbackFree(this.vtbl.FlushSourceBuffers)
+        CallbackFree(this.vtbl.Discontinuity)
+        CallbackFree(this.vtbl.ExitLoop)
+        CallbackFree(this.vtbl.GetState)
+        CallbackFree(this.vtbl.SetFrequencyRatio)
+        CallbackFree(this.vtbl.GetFrequencyRatio)
+        CallbackFree(this.vtbl.SetSourceSampleRate)
     }
 }

@@ -1,81 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NDIS_TCP_LARGE_SEND_OFFLOAD_V2 extends Win32Struct {
-    static sizeof => 28
+export default struct NDIS_TCP_LARGE_SEND_OFFLOAD_V2 {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _IPv4 extends Win32Struct {
-        static sizeof => 12
-        static packingSize => 4
+    struct _IPv4 {
+        Encapsulation : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Encapsulation {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        MaxOffLoadSize : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        MaxOffLoadSize {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
+        MinSegmentCount : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        MinSegmentCount {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
     }
 
-    class _IPv6 extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 4
+    struct _IPv6 {
+        Encapsulation : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Encapsulation {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        MaxOffLoadSize : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        MaxOffLoadSize {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        MinSegmentCount {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
+        MinSegmentCount : UInt32
 
         /**
          * This bitfield backs the following members:
          * - IpExtensionHeadersSupported
          * - TcpOptionsSupported
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 12, "uint")
-            set => NumPut("uint", value, this, 12)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -94,25 +48,8 @@ class NDIS_TCP_LARGE_SEND_OFFLOAD_V2 extends Win32Struct {
         }
     }
 
-    /**
-     * @type {_IPv4}
-     */
-    IPv4 {
-        get {
-            if(!this.HasProp("__IPv4"))
-                this.__IPv4 := NDIS_TCP_LARGE_SEND_OFFLOAD_V2._IPv4(0, this)
-            return this.__IPv4
-        }
-    }
+    IPv4 : NDIS_TCP_LARGE_SEND_OFFLOAD_V2._IPv4
 
-    /**
-     * @type {_IPv6}
-     */
-    IPv6 {
-        get {
-            if(!this.HasProp("__IPv6"))
-                this.__IPv6 := NDIS_TCP_LARGE_SEND_OFFLOAD_V2._IPv6(12, this)
-            return this.__IPv6
-        }
-    }
+    IPv6 : NDIS_TCP_LARGE_SEND_OFFLOAD_V2._IPv6
+
 }

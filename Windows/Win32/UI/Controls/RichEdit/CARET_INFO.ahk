@@ -1,32 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Graphics\Gdi\HBITMAP.ahk
-#Include .\CARET_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CARET_FLAGS.ahk" { CARET_FLAGS }
+#Import "..\..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
 
 /**
  * @namespace Windows.Win32.UI.Controls.RichEdit
  */
-class CARET_INFO extends Win32Struct {
-    static sizeof => 16
+export default struct CARET_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    hbitmap : HBITMAP
 
-    /**
-     * @type {HBITMAP}
-     */
-    hbitmap {
-        get {
-            if(!this.HasProp("__hbitmap"))
-                this.__hbitmap := HBITMAP(0, this)
-            return this.__hbitmap
-        }
-    }
-
-    /**
-     * @type {CARET_FLAGS}
-     */
-    caretFlags {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'caretFlags', { type: CARET_FLAGS, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

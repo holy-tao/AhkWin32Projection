@@ -1,13 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\IStylusSyncPlugin.ahk
-#Include .\IStylusAsyncPlugin.ahk
-#Include .\IInkTablet.ahk
-#Include .\IInkCursors.ahk
-#Include .\IInkCursor.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IInkCursors.ahk" { IInkCursors }
+#Import ".\PACKET_PROPERTY.ahk" { PACKET_PROPERTY }
+#Import ".\IInkCursor.ahk" { IInkCursor }
+#Import ".\IStylusSyncPlugin.ahk" { IStylusSyncPlugin }
+#Import ".\StylusQueue.ahk" { StylusQueue }
+#Import "..\..\Foundation\HANDLE_PTR.ahk" { HANDLE_PTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IStylusAsyncPlugin.ahk" { IStylusAsyncPlugin }
+#Import ".\IInkTablet.ahk" { IInkTablet }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Handles the stylus packet data from a digitizer in real time.
@@ -23,32 +28,69 @@
  * @see https://learn.microsoft.com/windows/win32/api/rtscom/nn-rtscom-irealtimestylus
  * @namespace Windows.Win32.UI.TabletPC
  */
-class IRealTimeStylus extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRealTimeStylus extends IUnknown {
     /**
      * The interface identifier for IRealTimeStylus
      * @type {Guid}
      */
-    static IID => Guid("{a8bb5d22-3144-4a7b-93cd-f34a16be513a}")
+    static IID := Guid("{a8bb5d22-3144-4a7b-93cd-f34a16be513a}")
 
     /**
      * The class identifier for RealTimeStylus
      * @type {Guid}
      */
-    static CLSID => Guid("{e26b366d-f998-43ce-836f-cb6d904432b0}")
+    static CLSID := Guid("{e26b366d-f998-43ce-836f-cb6d904432b0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRealTimeStylus interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_Enabled                      : IntPtr
+        put_Enabled                      : IntPtr
+        get_HWND                         : IntPtr
+        put_HWND                         : IntPtr
+        get_WindowInputRectangle         : IntPtr
+        put_WindowInputRectangle         : IntPtr
+        AddStylusSyncPlugin              : IntPtr
+        RemoveStylusSyncPlugin           : IntPtr
+        RemoveAllStylusSyncPlugins       : IntPtr
+        GetStylusSyncPlugin              : IntPtr
+        GetStylusSyncPluginCount         : IntPtr
+        AddStylusAsyncPlugin             : IntPtr
+        RemoveStylusAsyncPlugin          : IntPtr
+        RemoveAllStylusAsyncPlugins      : IntPtr
+        GetStylusAsyncPlugin             : IntPtr
+        GetStylusAsyncPluginCount        : IntPtr
+        get_ChildRealTimeStylusPlugin    : IntPtr
+        putref_ChildRealTimeStylusPlugin : IntPtr
+        AddCustomStylusDataToQueue       : IntPtr
+        ClearStylusQueues                : IntPtr
+        SetAllTabletsMode                : IntPtr
+        SetSingleTabletMode              : IntPtr
+        GetTablet                        : IntPtr
+        GetTabletContextIdFromTablet     : IntPtr
+        GetTabletFromTabletContextId     : IntPtr
+        GetAllTabletContextIds           : IntPtr
+        GetStyluses                      : IntPtr
+        GetStylusForId                   : IntPtr
+        SetDesiredPacketDescription      : IntPtr
+        GetDesiredPacketDescription      : IntPtr
+        GetPacketDescriptionData         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Enabled", "put_Enabled", "get_HWND", "put_HWND", "get_WindowInputRectangle", "put_WindowInputRectangle", "AddStylusSyncPlugin", "RemoveStylusSyncPlugin", "RemoveAllStylusSyncPlugins", "GetStylusSyncPlugin", "GetStylusSyncPluginCount", "AddStylusAsyncPlugin", "RemoveStylusAsyncPlugin", "RemoveAllStylusAsyncPlugins", "GetStylusAsyncPlugin", "GetStylusAsyncPluginCount", "get_ChildRealTimeStylusPlugin", "putref_ChildRealTimeStylusPlugin", "AddCustomStylusDataToQueue", "ClearStylusQueues", "SetAllTabletsMode", "SetSingleTabletMode", "GetTablet", "GetTabletContextIdFromTablet", "GetTabletFromTabletContextId", "GetAllTabletContextIds", "GetStyluses", "GetStylusForId", "SetDesiredPacketDescription", "GetDesiredPacketDescription", "GetPacketDescriptionData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRealTimeStylus.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BOOL} 
@@ -99,7 +141,7 @@ class IRealTimeStylus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-get_enabled
      */
     get_Enabled() {
-        result := ComCall(3, this, "int*", &pfEnable := 0, "HRESULT")
+        result := ComCall(3, this, BOOL.Ptr, &pfEnable := 0, "HRESULT")
         return pfEnable
     }
 
@@ -122,7 +164,7 @@ class IRealTimeStylus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-put_enabled
      */
     put_Enabled(fEnable) {
-        result := ComCall(4, this, "int", fEnable, "HRESULT")
+        result := ComCall(4, this, BOOL, fEnable, "HRESULT")
         return result
     }
 
@@ -136,7 +178,7 @@ class IRealTimeStylus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-get_hwnd
      */
     get_HWND() {
-        result := ComCall(5, this, "ptr*", &phwnd := 0, "HRESULT")
+        result := ComCall(5, this, HANDLE_PTR.Ptr, &phwnd := 0, "HRESULT")
         return phwnd
     }
 
@@ -151,7 +193,7 @@ class IRealTimeStylus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-put_hwnd
      */
     put_HWND(_hwnd) {
-        result := ComCall(6, this, "ptr", _hwnd, "HRESULT")
+        result := ComCall(6, this, HANDLE_PTR, _hwnd, "HRESULT")
         return result
     }
 
@@ -172,7 +214,7 @@ class IRealTimeStylus extends IUnknown {
      */
     get_WindowInputRectangle() {
         prcWndInputRect := RECT()
-        result := ComCall(7, this, "ptr", prcWndInputRect, "HRESULT")
+        result := ComCall(7, this, RECT.Ptr, prcWndInputRect, "HRESULT")
         return prcWndInputRect
     }
 
@@ -193,7 +235,7 @@ class IRealTimeStylus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-put_windowinputrectangle
      */
     put_WindowInputRectangle(prcWndInputRect) {
-        result := ComCall(8, this, "ptr", prcWndInputRect, "HRESULT")
+        result := ComCall(8, this, RECT.Ptr, prcWndInputRect, "HRESULT")
         return result
     }
 
@@ -227,7 +269,7 @@ class IRealTimeStylus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-removestylussyncplugin
      */
     RemoveStylusSyncPlugin(iIndex, ppiPlugin) {
-        result := ComCall(10, this, "uint", iIndex, "ptr*", ppiPlugin, "HRESULT")
+        result := ComCall(10, this, "uint", iIndex, IStylusSyncPlugin.Ptr, ppiPlugin, "HRESULT")
         return result
     }
 
@@ -284,7 +326,7 @@ class IRealTimeStylus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-removestylusasyncplugin
      */
     RemoveStylusAsyncPlugin(iIndex, ppiPlugin) {
-        result := ComCall(15, this, "uint", iIndex, "ptr*", ppiPlugin, "HRESULT")
+        result := ComCall(15, this, "uint", iIndex, IStylusAsyncPlugin.Ptr, ppiPlugin, "HRESULT")
         return result
     }
 
@@ -380,7 +422,7 @@ class IRealTimeStylus extends IUnknown {
     AddCustomStylusDataToQueue(sq, pGuidId, cbData, pbData) {
         pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(21, this, "int", sq, "ptr", pGuidId, "uint", cbData, pbDataMarshal, pbData, "HRESULT")
+        result := ComCall(21, this, StylusQueue, sq, Guid.Ptr, pGuidId, "uint", cbData, pbDataMarshal, pbData, "HRESULT")
         return result
     }
 
@@ -410,7 +452,7 @@ class IRealTimeStylus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-setalltabletsmode
      */
     SetAllTabletsMode(fUseMouseForInput) {
-        result := ComCall(23, this, "int", fUseMouseForInput, "HRESULT")
+        result := ComCall(23, this, BOOL, fUseMouseForInput, "HRESULT")
         return result
     }
 
@@ -578,7 +620,7 @@ class IRealTimeStylus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-setdesiredpacketdescription
      */
     SetDesiredPacketDescription(cProperties, pPropertyGuids) {
-        result := ComCall(31, this, "uint", cProperties, "ptr", pPropertyGuids, "HRESULT")
+        result := ComCall(31, this, "uint", cProperties, Guid.Ptr, pPropertyGuids, "HRESULT")
         return result
     }
 
@@ -634,5 +676,85 @@ class IRealTimeStylus extends IUnknown {
 
         result := ComCall(33, this, "uint", tcid, pfInkToDeviceScaleXMarshal, pfInkToDeviceScaleX, pfInkToDeviceScaleYMarshal, pfInkToDeviceScaleY, pcPacketPropertiesMarshal, pcPacketProperties, "ptr*", &ppPacketProperties := 0, "HRESULT")
         return ppPacketProperties
+    }
+
+    Query(iid) {
+        if (IRealTimeStylus.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.put_Enabled := CallbackCreate(GetMethod(implObj, "put_Enabled"), flags, 2)
+        this.vtbl.get_HWND := CallbackCreate(GetMethod(implObj, "get_HWND"), flags, 2)
+        this.vtbl.put_HWND := CallbackCreate(GetMethod(implObj, "put_HWND"), flags, 2)
+        this.vtbl.get_WindowInputRectangle := CallbackCreate(GetMethod(implObj, "get_WindowInputRectangle"), flags, 2)
+        this.vtbl.put_WindowInputRectangle := CallbackCreate(GetMethod(implObj, "put_WindowInputRectangle"), flags, 2)
+        this.vtbl.AddStylusSyncPlugin := CallbackCreate(GetMethod(implObj, "AddStylusSyncPlugin"), flags, 3)
+        this.vtbl.RemoveStylusSyncPlugin := CallbackCreate(GetMethod(implObj, "RemoveStylusSyncPlugin"), flags, 3)
+        this.vtbl.RemoveAllStylusSyncPlugins := CallbackCreate(GetMethod(implObj, "RemoveAllStylusSyncPlugins"), flags, 1)
+        this.vtbl.GetStylusSyncPlugin := CallbackCreate(GetMethod(implObj, "GetStylusSyncPlugin"), flags, 3)
+        this.vtbl.GetStylusSyncPluginCount := CallbackCreate(GetMethod(implObj, "GetStylusSyncPluginCount"), flags, 2)
+        this.vtbl.AddStylusAsyncPlugin := CallbackCreate(GetMethod(implObj, "AddStylusAsyncPlugin"), flags, 3)
+        this.vtbl.RemoveStylusAsyncPlugin := CallbackCreate(GetMethod(implObj, "RemoveStylusAsyncPlugin"), flags, 3)
+        this.vtbl.RemoveAllStylusAsyncPlugins := CallbackCreate(GetMethod(implObj, "RemoveAllStylusAsyncPlugins"), flags, 1)
+        this.vtbl.GetStylusAsyncPlugin := CallbackCreate(GetMethod(implObj, "GetStylusAsyncPlugin"), flags, 3)
+        this.vtbl.GetStylusAsyncPluginCount := CallbackCreate(GetMethod(implObj, "GetStylusAsyncPluginCount"), flags, 2)
+        this.vtbl.get_ChildRealTimeStylusPlugin := CallbackCreate(GetMethod(implObj, "get_ChildRealTimeStylusPlugin"), flags, 2)
+        this.vtbl.putref_ChildRealTimeStylusPlugin := CallbackCreate(GetMethod(implObj, "putref_ChildRealTimeStylusPlugin"), flags, 2)
+        this.vtbl.AddCustomStylusDataToQueue := CallbackCreate(GetMethod(implObj, "AddCustomStylusDataToQueue"), flags, 5)
+        this.vtbl.ClearStylusQueues := CallbackCreate(GetMethod(implObj, "ClearStylusQueues"), flags, 1)
+        this.vtbl.SetAllTabletsMode := CallbackCreate(GetMethod(implObj, "SetAllTabletsMode"), flags, 2)
+        this.vtbl.SetSingleTabletMode := CallbackCreate(GetMethod(implObj, "SetSingleTabletMode"), flags, 2)
+        this.vtbl.GetTablet := CallbackCreate(GetMethod(implObj, "GetTablet"), flags, 2)
+        this.vtbl.GetTabletContextIdFromTablet := CallbackCreate(GetMethod(implObj, "GetTabletContextIdFromTablet"), flags, 3)
+        this.vtbl.GetTabletFromTabletContextId := CallbackCreate(GetMethod(implObj, "GetTabletFromTabletContextId"), flags, 3)
+        this.vtbl.GetAllTabletContextIds := CallbackCreate(GetMethod(implObj, "GetAllTabletContextIds"), flags, 3)
+        this.vtbl.GetStyluses := CallbackCreate(GetMethod(implObj, "GetStyluses"), flags, 2)
+        this.vtbl.GetStylusForId := CallbackCreate(GetMethod(implObj, "GetStylusForId"), flags, 3)
+        this.vtbl.SetDesiredPacketDescription := CallbackCreate(GetMethod(implObj, "SetDesiredPacketDescription"), flags, 3)
+        this.vtbl.GetDesiredPacketDescription := CallbackCreate(GetMethod(implObj, "GetDesiredPacketDescription"), flags, 3)
+        this.vtbl.GetPacketDescriptionData := CallbackCreate(GetMethod(implObj, "GetPacketDescriptionData"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Enabled)
+        CallbackFree(this.vtbl.put_Enabled)
+        CallbackFree(this.vtbl.get_HWND)
+        CallbackFree(this.vtbl.put_HWND)
+        CallbackFree(this.vtbl.get_WindowInputRectangle)
+        CallbackFree(this.vtbl.put_WindowInputRectangle)
+        CallbackFree(this.vtbl.AddStylusSyncPlugin)
+        CallbackFree(this.vtbl.RemoveStylusSyncPlugin)
+        CallbackFree(this.vtbl.RemoveAllStylusSyncPlugins)
+        CallbackFree(this.vtbl.GetStylusSyncPlugin)
+        CallbackFree(this.vtbl.GetStylusSyncPluginCount)
+        CallbackFree(this.vtbl.AddStylusAsyncPlugin)
+        CallbackFree(this.vtbl.RemoveStylusAsyncPlugin)
+        CallbackFree(this.vtbl.RemoveAllStylusAsyncPlugins)
+        CallbackFree(this.vtbl.GetStylusAsyncPlugin)
+        CallbackFree(this.vtbl.GetStylusAsyncPluginCount)
+        CallbackFree(this.vtbl.get_ChildRealTimeStylusPlugin)
+        CallbackFree(this.vtbl.putref_ChildRealTimeStylusPlugin)
+        CallbackFree(this.vtbl.AddCustomStylusDataToQueue)
+        CallbackFree(this.vtbl.ClearStylusQueues)
+        CallbackFree(this.vtbl.SetAllTabletsMode)
+        CallbackFree(this.vtbl.SetSingleTabletMode)
+        CallbackFree(this.vtbl.GetTablet)
+        CallbackFree(this.vtbl.GetTabletContextIdFromTablet)
+        CallbackFree(this.vtbl.GetTabletFromTabletContextId)
+        CallbackFree(this.vtbl.GetAllTabletContextIds)
+        CallbackFree(this.vtbl.GetStyluses)
+        CallbackFree(this.vtbl.GetStylusForId)
+        CallbackFree(this.vtbl.SetDesiredPacketDescription)
+        CallbackFree(this.vtbl.GetDesiredPacketDescription)
+        CallbackFree(this.vtbl.GetPacketDescriptionData)
     }
 }

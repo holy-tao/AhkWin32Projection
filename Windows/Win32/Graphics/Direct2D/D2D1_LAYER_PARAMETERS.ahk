@@ -1,103 +1,67 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include Common\D2D_RECT_F.ahk
-#Include .\ID2D1Geometry.ahk
-#Include .\D2D1_ANTIALIAS_MODE.ahk
-#Include Common\D2D_MATRIX_3X2_F.ahk
-#Include .\ID2D1Brush.ahk
-#Include .\D2D1_LAYER_OPTIONS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ID2D1Geometry.ahk" { ID2D1Geometry }
+#Import ".\D2D1_LAYER_OPTIONS.ahk" { D2D1_LAYER_OPTIONS }
+#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
+#Import ".\D2D1_ANTIALIAS_MODE.ahk" { D2D1_ANTIALIAS_MODE }
+#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
+#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
 
 /**
  * Contains the content bounds, mask information, opacity settings, and other options for a layer resource. (D2D1_LAYER_PARAMETERS)
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_layer_parameters
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_LAYER_PARAMETERS extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct D2D1_LAYER_PARAMETERS {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-rect-f">D2D1_RECT_F</a></b>
      * 
      * The content bounds of the layer. Content won't render outside these bounds.
-     * @type {D2D_RECT_F}
      */
-    contentBounds {
-        get {
-            if(!this.HasProp("__contentBounds"))
-                this.__contentBounds := D2D_RECT_F(0, this)
-            return this.__contentBounds
-        }
-    }
+    contentBounds : D2D_RECT_F
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1geometry">ID2D1Geometry</a>*</b>
      * 
      * The geometric mask specifies the area of the layer that is composited into the render target.
-     * @type {ID2D1Geometry}
      */
-    geometricMask {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    geometricMask : ID2D1Geometry
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_antialias_mode">D2D1_ANTIALIAS_MODE</a></b>
      * 
      * A value that specifies the antialiasing mode for the geometricMask.
-     * @type {D2D1_ANTIALIAS_MODE}
      */
-    maskAntialiasMode {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    maskAntialiasMode : D2D1_ANTIALIAS_MODE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a></b>
      * 
      * A value that specifies the transform that is applied to the geometric mask when composing the layer.
-     * @type {D2D_MATRIX_3X2_F}
      */
-    maskTransform {
-        get {
-            if(!this.HasProp("__maskTransform"))
-                this.__maskTransform := D2D_MATRIX_3X2_F(28, this)
-            return this.__maskTransform
-        }
-    }
+    maskTransform : D2D_MATRIX_3X2_F
 
     /**
      * Type: <b>FLOAT</b>
      * 
      * An opacity value that is applied uniformly to all resources in the layer when compositing to the target.
-     * @type {Float}
      */
-    opacity {
-        get => NumGet(this, 52, "float")
-        set => NumPut("float", value, this, 52)
-    }
+    opacity : Float32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1brush">ID2D1Brush</a>*</b>
      * 
      * A brush that is used to modify the opacity of the layer. The brush 
      * is mapped to the layer, and the alpha channel of each mapped brush pixel is multiplied against the corresponding layer pixel.
-     * @type {ID2D1Brush}
      */
-    opacityBrush {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    opacityBrush : ID2D1Brush
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_layer_options">D2D1_LAYER_OPTIONS</a></b>
      * 
      * A value that specifies whether the layer intends to render text with ClearType antialiasing.
-     * @type {D2D1_LAYER_OPTIONS}
      */
-    layerOptions {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
-    }
+    layerOptions : D2D1_LAYER_OPTIONS
+
 }

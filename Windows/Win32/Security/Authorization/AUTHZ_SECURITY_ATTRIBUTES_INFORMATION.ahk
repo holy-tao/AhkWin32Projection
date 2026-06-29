@@ -1,65 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\AUTHZ_SECURITY_ATTRIBUTE_V1.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\AUTHZ_SECURITY_ATTRIBUTE_V1.ahk" { AUTHZ_SECURITY_ATTRIBUTE_V1 }
 
 /**
  * Specifies one or more security attributes and values.
  * @see https://learn.microsoft.com/windows/win32/api/authz/ns-authz-authz_security_attributes_information
  * @namespace Windows.Win32.Security.Authorization
  */
-class AUTHZ_SECURITY_ATTRIBUTES_INFORMATION extends Win32Struct {
-    static sizeof => 16
+export default struct AUTHZ_SECURITY_ATTRIBUTES_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Attribute_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _Attribute {
+        pAttributeV1 : AUTHZ_SECURITY_ATTRIBUTE_V1.Ptr
 
-        /**
-         * @type {Pointer<AUTHZ_SECURITY_ATTRIBUTE_V1>}
-         */
-        pAttributeV1 {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
     }
 
     /**
      * The  version of this structure. Currently the only value supported is 1.
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Version : UInt16
 
     /**
      * Reserved. Do not use.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Reserved : UInt16
 
     /**
      * The number of attributes specified by the <b>Attribute</b> member.
-     * @type {Integer}
      */
-    AttributeCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    AttributeCount : UInt32
 
-    /**
-     * @type {_Attribute_e__Union}
-     */
-    Attribute {
-        get {
-            if(!this.HasProp("__Attribute"))
-                this.__Attribute := AUTHZ_SECURITY_ATTRIBUTES_INFORMATION._Attribute_e__Union(8, this)
-            return this.__Attribute
-        }
-    }
+    Attribute : AUTHZ_SECURITY_ATTRIBUTES_INFORMATION._Attribute
+
 }

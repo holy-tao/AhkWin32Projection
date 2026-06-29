@@ -1,34 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Defines operations and session settings.
  * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nn-wsmandisp-iwsmansession
  * @namespace Windows.Win32.System.RemoteManagement
  */
-class IWSManSession extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWSManSession extends IDispatch {
     /**
      * The interface identifier for IWSManSession
      * @type {Guid}
      */
-    static IID => Guid("{fc84fc58-1286-40c4-9da0-c8ef6ec241e0}")
+    static IID := Guid("{fc84fc58-1286-40c4-9da0-c8ef6ec241e0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWSManSession interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Get            : IntPtr
+        Put            : IntPtr
+        Create         : IntPtr
+        Delete         : IntPtr
+        Invoke         : IntPtr
+        Enumerate      : IntPtr
+        Identify       : IntPtr
+        get_Error      : IntPtr
+        get_BatchItems : IntPtr
+        put_BatchItems : IntPtr
+        get_Timeout    : IntPtr
+        put_Timeout    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Get", "Put", "Create", "Delete", "Invoke", "Enumerate", "Identify", "get_Error", "get_BatchItems", "put_BatchItems", "get_Timeout", "put_Timeout"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWSManSession.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -70,8 +90,8 @@ class IWSManSession extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmansession-get
      */
     Get(resourceUri, flags) {
-        resource := BSTR()
-        result := ComCall(7, this, "ptr", resourceUri, "int", flags, "ptr", resource, "HRESULT")
+        resource := BSTR.Owned()
+        result := ComCall(7, this, VARIANT, resourceUri, "int", flags, BSTR.Ptr, resource, "HRESULT")
         return resource
     }
 
@@ -95,8 +115,8 @@ class IWSManSession extends IDispatch {
     Put(resourceUri, resource, flags) {
         resource := resource is String ? BSTR.Alloc(resource).Value : resource
 
-        resultResource := BSTR()
-        result := ComCall(8, this, "ptr", resourceUri, "ptr", resource, "int", flags, "ptr", resultResource, "HRESULT")
+        resultResource := BSTR.Owned()
+        result := ComCall(8, this, VARIANT, resourceUri, BSTR, resource, "int", flags, BSTR.Ptr, resultResource, "HRESULT")
         return resultResource
     }
 
@@ -127,8 +147,8 @@ class IWSManSession extends IDispatch {
     Create(resourceUri, resource, flags) {
         resource := resource is String ? BSTR.Alloc(resource).Value : resource
 
-        newUri := BSTR()
-        result := ComCall(9, this, "ptr", resourceUri, "ptr", resource, "int", flags, "ptr", newUri, "HRESULT")
+        newUri := BSTR.Owned()
+        result := ComCall(9, this, VARIANT, resourceUri, BSTR, resource, "int", flags, BSTR.Ptr, newUri, "HRESULT")
         return newUri
     }
 
@@ -140,7 +160,7 @@ class IWSManSession extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmansession-delete
      */
     Delete(resourceUri, flags) {
-        result := ComCall(10, this, "ptr", resourceUri, "int", flags, "HRESULT")
+        result := ComCall(10, this, VARIANT, resourceUri, "int", flags, "HRESULT")
         return result
     }
 
@@ -166,8 +186,8 @@ class IWSManSession extends IDispatch {
         actionUri := actionUri is String ? BSTR.Alloc(actionUri).Value : actionUri
         parameters := parameters is String ? BSTR.Alloc(parameters).Value : parameters
 
-        result := BSTR()
-        result := ComCall(11, this, "ptr", actionUri, "ptr", resourceUri, "ptr", parameters, "int", flags, "ptr", result, "HRESULT")
+        result := BSTR.Owned()
+        result := ComCall(11, this, BSTR, actionUri, VARIANT, resourceUri, BSTR, parameters, "int", flags, BSTR.Ptr, result, "HRESULT")
         return result
     }
 
@@ -206,7 +226,7 @@ class IWSManSession extends IDispatch {
         filter := filter is String ? BSTR.Alloc(filter).Value : filter
         dialect := dialect is String ? BSTR.Alloc(dialect).Value : dialect
 
-        result := ComCall(12, this, "ptr", resourceUri, "ptr", filter, "ptr", dialect, "int", flags, "ptr*", &resultSet := 0, "HRESULT")
+        result := ComCall(12, this, VARIANT, resourceUri, BSTR, filter, BSTR, dialect, "int", flags, "ptr*", &resultSet := 0, "HRESULT")
         return IDispatch(resultSet)
     }
 
@@ -217,8 +237,8 @@ class IWSManSession extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmansession-identify
      */
     Identify(flags) {
-        result := BSTR()
-        result := ComCall(13, this, "int", flags, "ptr", result, "HRESULT")
+        result := BSTR.Owned()
+        result := ComCall(13, this, "int", flags, BSTR.Ptr, result, "HRESULT")
         return result
     }
 
@@ -228,8 +248,8 @@ class IWSManSession extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmansession-get_error
      */
     get_Error() {
-        value := BSTR()
-        result := ComCall(14, this, "ptr", value, "HRESULT")
+        value := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, value, "HRESULT")
         return value
     }
 
@@ -277,5 +297,47 @@ class IWSManSession extends IDispatch {
     put_Timeout(value) {
         result := ComCall(18, this, "int", value, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWSManSession.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Get := CallbackCreate(GetMethod(implObj, "Get"), flags, 4)
+        this.vtbl.Put := CallbackCreate(GetMethod(implObj, "Put"), flags, 5)
+        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 5)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 3)
+        this.vtbl.Invoke := CallbackCreate(GetMethod(implObj, "Invoke"), flags, 6)
+        this.vtbl.Enumerate := CallbackCreate(GetMethod(implObj, "Enumerate"), flags, 6)
+        this.vtbl.Identify := CallbackCreate(GetMethod(implObj, "Identify"), flags, 3)
+        this.vtbl.get_Error := CallbackCreate(GetMethod(implObj, "get_Error"), flags, 2)
+        this.vtbl.get_BatchItems := CallbackCreate(GetMethod(implObj, "get_BatchItems"), flags, 2)
+        this.vtbl.put_BatchItems := CallbackCreate(GetMethod(implObj, "put_BatchItems"), flags, 2)
+        this.vtbl.get_Timeout := CallbackCreate(GetMethod(implObj, "get_Timeout"), flags, 2)
+        this.vtbl.put_Timeout := CallbackCreate(GetMethod(implObj, "put_Timeout"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Get)
+        CallbackFree(this.vtbl.Put)
+        CallbackFree(this.vtbl.Create)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.Invoke)
+        CallbackFree(this.vtbl.Enumerate)
+        CallbackFree(this.vtbl.Identify)
+        CallbackFree(this.vtbl.get_Error)
+        CallbackFree(this.vtbl.get_BatchItems)
+        CallbackFree(this.vtbl.put_BatchItems)
+        CallbackFree(this.vtbl.get_Timeout)
+        CallbackFree(this.vtbl.put_Timeout)
     }
 }

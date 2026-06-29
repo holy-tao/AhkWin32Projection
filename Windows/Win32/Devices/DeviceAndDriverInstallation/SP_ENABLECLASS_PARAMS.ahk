@@ -1,41 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SP_CLASSINSTALL_HEADER.ahk
-#Include .\DI_FUNCTION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SP_CLASSINSTALL_HEADER.ahk" { SP_CLASSINSTALL_HEADER }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DI_FUNCTION.ahk" { DI_FUNCTION }
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @architecture X64, Arm64
  */
-class SP_ENABLECLASS_PARAMS extends Win32Struct {
-    static sizeof => 24
+export default struct SP_ENABLECLASS_PARAMS {
+    #StructPack 4
 
-    static packingSize => 8
+    ClassInstallHeader : SP_CLASSINSTALL_HEADER
 
-    /**
-     * @type {SP_CLASSINSTALL_HEADER}
-     */
-    ClassInstallHeader {
-        get {
-            if(!this.HasProp("__ClassInstallHeader"))
-                this.__ClassInstallHeader := SP_CLASSINSTALL_HEADER(0, this)
-            return this.__ClassInstallHeader
-        }
-    }
+    ClassGuid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    ClassGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    EnableMessage : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EnableMessage {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

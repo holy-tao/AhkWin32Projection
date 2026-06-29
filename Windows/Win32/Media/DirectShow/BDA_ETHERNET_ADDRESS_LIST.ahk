@@ -1,31 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BDA_ETHERNET_ADDRESS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BDA_ETHERNET_ADDRESS.ahk" { BDA_ETHERNET_ADDRESS }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class BDA_ETHERNET_ADDRESS_LIST extends Win32Struct {
-    static sizeof => 12
+export default struct BDA_ETHERNET_ADDRESS_LIST {
+    #StructPack 4
 
-    static packingSize => 4
+    ulcAddresses : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulcAddresses {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    rgAddressl : BDA_ETHERNET_ADDRESS[1]
 
-    /**
-     * @type {BDA_ETHERNET_ADDRESS}
-     */
-    rgAddressl {
-        get {
-            if(!this.HasProp("__rgAddresslProxyArray"))
-                this.__rgAddresslProxyArray := Win32FixedArray(this.ptr + 4, 1, BDA_ETHERNET_ADDRESS, "")
-            return this.__rgAddresslProxyArray
-        }
-    }
 }

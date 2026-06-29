@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Storage\FileSystem\WIN32_FIND_DATAW.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Storage\FileSystem\WIN32_FIND_DATAW.ahk" { WIN32_FIND_DATAW }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that store file system information for optimizing calls to IShellFolder::ParseDisplayName.
@@ -25,26 +26,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ifilesystembinddata
  * @namespace Windows.Win32.UI.Shell
  */
-class IFileSystemBindData extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IFileSystemBindData extends IUnknown {
     /**
      * The interface identifier for IFileSystemBindData
      * @type {Guid}
      */
-    static IID => Guid("{01e18d10-4d8b-11d2-855d-006008059367}")
+    static IID := Guid("{01e18d10-4d8b-11d2-855d-006008059367}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFileSystemBindData interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetFindData : IntPtr
+        GetFindData : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetFindData", "GetFindData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFileSystemBindData.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Stores file system information in a WIN32_FIND_DATA structure. This information is used by ParseDisplayName.
@@ -59,7 +68,7 @@ class IFileSystemBindData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifilesystembinddata-setfinddata
      */
     SetFindData(pfd) {
-        result := ComCall(3, this, "ptr", pfd, "HRESULT")
+        result := ComCall(3, this, WIN32_FIND_DATAW.Ptr, pfd, "HRESULT")
         return result
     }
 
@@ -74,7 +83,29 @@ class IFileSystemBindData extends IUnknown {
      */
     GetFindData() {
         pfd := WIN32_FIND_DATAW()
-        result := ComCall(4, this, "ptr", pfd, "HRESULT")
+        result := ComCall(4, this, WIN32_FIND_DATAW.Ptr, pfd, "HRESULT")
         return pfd
+    }
+
+    Query(iid) {
+        if (IFileSystemBindData.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetFindData := CallbackCreate(GetMethod(implObj, "SetFindData"), flags, 2)
+        this.vtbl.GetFindData := CallbackCreate(GetMethod(implObj, "GetFindData"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetFindData)
+        CallbackFree(this.vtbl.GetFindData)
     }
 }

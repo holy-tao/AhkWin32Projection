@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SIIGBF.ahk" { SIIGBF }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * Exposes a method to return either icons or thumbnails for Shell items. If no thumbnail or icon is available for the requested item, a per-class icon may be provided from the Shell.
@@ -32,26 +35,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishellitemimagefactory
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellItemImageFactory extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IShellItemImageFactory extends IUnknown {
     /**
      * The interface identifier for IShellItemImageFactory
      * @type {Guid}
      */
-    static IID => Guid("{bcc18b79-ba16-442f-80c4-8a59c30c463b}")
+    static IID := Guid("{bcc18b79-ba16-442f-80c4-8a59c30c463b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellItemImageFactory interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetImage : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetImage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellItemImageFactory.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets an HBITMAP that represents an IShellItem.
@@ -71,8 +81,28 @@ class IShellItemImageFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemimagefactory-getimage
      */
     GetImage(_size, flags) {
-        phbm := HBITMAP()
-        result := ComCall(3, this, "ptr", _size, "int", flags, "ptr", phbm, "HRESULT")
+        phbm := HBITMAP.Owned()
+        result := ComCall(3, this, SIZE, _size, SIIGBF, flags, HBITMAP.Ptr, phbm, "HRESULT")
         return phbm
+    }
+
+    Query(iid) {
+        if (IShellItemImageFactory.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetImage := CallbackCreate(GetMethod(implObj, "GetImage"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetImage)
     }
 }

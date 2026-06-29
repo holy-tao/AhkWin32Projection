@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Direct2D\Common\D2D1_PIXEL_FORMAT.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
-#Include ..\Direct2D\Common\D2D1_ALPHA_MODE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Direct2D\Common\D2D1_ALPHA_MODE.ahk" { D2D1_ALPHA_MODE }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import "..\Direct2D\Common\D2D1_PIXEL_FORMAT.ahk" { D2D1_PIXEL_FORMAT }
 
 /**
  * This defines parameters that you can use to override the default parameters normally used when encoding an image.
@@ -19,74 +18,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ns-wincodec-wicimageparameters
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class WICImageParameters extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 4
+export default struct WICImageParameters {
+    #StructPack 4
 
     /**
      * The pixel format to which the image is processed before it is written to the encoder.
-     * @type {D2D1_PIXEL_FORMAT}
      */
-    PixelFormat {
-        get {
-            if(!this.HasProp("__PixelFormat"))
-                this.__PixelFormat := D2D1_PIXEL_FORMAT(0, this)
-            return this.__PixelFormat
-        }
-    }
+    PixelFormat : D2D1_PIXEL_FORMAT
 
     /**
      * The DPI in the x dimension.
-     * @type {Float}
      */
-    DpiX {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    DpiX : Float32
 
     /**
      * The DPI in the y dimension.
-     * @type {Float}
      */
-    DpiY {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    DpiY : Float32
 
     /**
      * The top corner in pixels of the image space to be encoded to the destination.
-     * @type {Float}
      */
-    Top {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
+    Top : Float32
 
     /**
      * The left corner in pixels of the image space to be encoded to the destination.
-     * @type {Float}
      */
-    Left {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
-    }
+    Left : Float32
 
     /**
      * The width in pixels of the part of the image to write.
-     * @type {Integer}
      */
-    PixelWidth {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    PixelWidth : UInt32
 
     /**
      * The height in pixels of the part of the image to write.
-     * @type {Integer}
      */
-    PixelHeight {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    PixelHeight : UInt32
+
 }

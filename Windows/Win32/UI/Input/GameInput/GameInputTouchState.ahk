@@ -1,91 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
  */
-class GameInputTouchState extends Win32Struct {
-    static sizeof => 48
+export default struct GameInputTouchState {
+    #StructPack 8
 
-    static packingSize => 8
+    touchId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    touchId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    sensorIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sensorIndex {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    positionX : Float32
 
-    /**
-     * @type {Float}
-     */
-    positionX {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    positionY : Float32
 
-    /**
-     * @type {Float}
-     */
-    positionY {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
+    pressure : Float32
 
-    /**
-     * @type {Float}
-     */
-    pressure {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
-    }
+    proximity : Float32
 
-    /**
-     * @type {Float}
-     */
-    proximity {
-        get => NumGet(this, 24, "float")
-        set => NumPut("float", value, this, 24)
-    }
+    contactRectTop : Float32
 
-    /**
-     * @type {Float}
-     */
-    contactRectTop {
-        get => NumGet(this, 28, "float")
-        set => NumPut("float", value, this, 28)
-    }
+    contactRectLeft : Float32
 
-    /**
-     * @type {Float}
-     */
-    contactRectLeft {
-        get => NumGet(this, 32, "float")
-        set => NumPut("float", value, this, 32)
-    }
+    contactRectRight : Float32
 
-    /**
-     * @type {Float}
-     */
-    contactRectRight {
-        get => NumGet(this, 36, "float")
-        set => NumPut("float", value, this, 36)
-    }
+    contactRectBottom : Float32
 
-    /**
-     * @type {Float}
-     */
-    contactRectBottom {
-        get => NumGet(this, 40, "float")
-        set => NumPut("float", value, this, 40)
-    }
 }

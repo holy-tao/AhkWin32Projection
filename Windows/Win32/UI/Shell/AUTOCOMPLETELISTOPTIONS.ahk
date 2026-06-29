@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies which objects are enumerated for autocompletion lists.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ne-shlobj_core-autocompletelistoptions
  * @namespace Windows.Win32.UI.Shell
  */
-class AUTOCOMPLETELISTOPTIONS extends Win32Enum {
+export default struct AUTOCOMPLETELISTOPTIONS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No enumeration should take place.

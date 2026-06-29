@@ -1,22 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCI_X_CAPABILITY extends Win32Struct {
-    static sizeof => 16
+export default struct PCI_X_CAPABILITY {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Command_e__Union extends Win32Struct {
-        static sizeof => 2
-        static packingSize => 2
+    struct _Command {
 
-        class _bits extends Win32Struct {
-            static sizeof => 2
-            static packingSize => 2
-
+        struct _bits {
             /**
              * This bitfield backs the following members:
              * - DataParityErrorRecoveryEnable
@@ -24,12 +17,9 @@ class PCI_X_CAPABILITY extends Win32Struct {
              * - MaxMemoryReadByteCount
              * - MaxOutstandingSplitTransactions
              * - Reserved
-             * @type {Integer}
              */
-            _bitfield {
-                get => NumGet(this, 0, "ushort")
-                set => NumPut("ushort", value, this, 0)
-            }
+            _bitfield : Int16
+
 
             /**
              * @type {Integer}
@@ -64,34 +54,17 @@ class PCI_X_CAPABILITY extends Win32Struct {
             }
         }
 
-        /**
-         * @type {_bits}
-         */
-        bits {
-            get {
-                if(!this.HasProp("__bits"))
-                    this.__bits := PCI_X_CAPABILITY._Command_e__Union._bits(0, this)
-                return this.__bits
-            }
-        }
+        bits : PCI_X_CAPABILITY._Command._bits
 
-        /**
-         * @type {Integer}
-         */
-        AsUSHORT {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUSHORT', { type: UInt16, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    class _Status_e__Union extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
+    struct _Status {
 
-        class _bits extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 4
-
+        struct _bits {
             /**
              * This bitfield backs the following members:
              * - FunctionNumber
@@ -108,12 +81,9 @@ class PCI_X_CAPABILITY extends Win32Struct {
              * - ReceivedSplitCompletionErrorMessage
              * - CapablePCIX266
              * - CapablePCIX533
-             * @type {Integer}
              */
-            _bitfield {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            _bitfield : Int32
+
 
             /**
              * @type {Integer}
@@ -228,53 +198,18 @@ class PCI_X_CAPABILITY extends Win32Struct {
             }
         }
 
-        /**
-         * @type {_bits}
-         */
-        bits {
-            get {
-                if(!this.HasProp("__bits"))
-                    this.__bits := PCI_X_CAPABILITY._Status_e__Union._bits(0, this)
-                return this.__bits
-            }
-        }
+        bits : PCI_X_CAPABILITY._Status._bits
 
-        /**
-         * @type {Integer}
-         */
-        AsULONG {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsULONG', { type: UInt32, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Pointer}
-     */
-    Header {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Header : IntPtr
 
-    /**
-     * @type {_Command_e__Union}
-     */
-    Command {
-        get {
-            if(!this.HasProp("__Command"))
-                this.__Command := PCI_X_CAPABILITY._Command_e__Union(8, this)
-            return this.__Command
-        }
-    }
+    Command : PCI_X_CAPABILITY._Command
 
-    /**
-     * @type {_Status_e__Union}
-     */
-    Status {
-        get {
-            if(!this.HasProp("__Status"))
-                this.__Status := PCI_X_CAPABILITY._Status_e__Union(12, this)
-            return this.__Status
-        }
-    }
+    Status : PCI_X_CAPABILITY._Status
+
 }

@@ -1,62 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PXE_DHCPV6_OPTION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PXE_DHCPV6_OPTION.ahk" { PXE_DHCPV6_OPTION }
 
 /**
  * A DHCPV6 message.
  * @see https://learn.microsoft.com/windows/win32/api/wdspxe/ns-wdspxe-pxe_dhcpv6_message
  * @namespace Windows.Win32.System.DeploymentServices
  */
-class PXE_DHCPV6_MESSAGE extends Win32Struct {
-    static sizeof => 10
-
-    static packingSize => 2
+export default struct PXE_DHCPV6_MESSAGE {
+    #StructPack 2
 
     /**
      * The DHCPv6 message type.
-     * @type {Integer}
      */
-    MessageType {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    MessageType : Int8
 
     /**
      * Byte 1  of the transaction-id in the DHCPv6 message.
-     * @type {Integer}
      */
-    TransactionIDByte1 {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    TransactionIDByte1 : Int8
 
     /**
      * Byte 2  of the transaction-id  the DHCPv6 message.
-     * @type {Integer}
      */
-    TransactionIDByte2 {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    TransactionIDByte2 : Int8
 
     /**
      * Byte 3  of the transaction-id DHCPv6 message.
-     * @type {Integer}
      */
-    TransactionIDByte3 {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    TransactionIDByte3 : Int8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/ns-wdspxe-pxe_dhcpv6_option">PXE_DHCPV6_OPTION</a> structure that specifies the DHCPV6 option.
-     * @type {PXE_DHCPV6_OPTION}
      */
-    Options {
-        get {
-            if(!this.HasProp("__OptionsProxyArray"))
-                this.__OptionsProxyArray := Win32FixedArray(this.ptr + 4, 1, PXE_DHCPV6_OPTION, "")
-            return this.__OptionsProxyArray
-        }
-    }
+    Options : PXE_DHCPV6_OPTION[1]
+
 }

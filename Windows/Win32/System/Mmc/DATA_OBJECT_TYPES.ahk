@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DATA_OBJECT_TYPES enumeration is used by the type parameter of IComponentData::QueryDataObject and IComponent::QueryDataObject to obtain context information about a specified cookie.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ne-mmc-data_object_types
  * @namespace Windows.Win32.System.Mmc
  */
-class DATA_OBJECT_TYPES extends Win32Enum {
+export default struct DATA_OBJECT_TYPES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Data object for scope pane context.

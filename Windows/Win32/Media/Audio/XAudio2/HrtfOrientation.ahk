@@ -1,25 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the orientation of an HRTF directivity object.
  * @see https://learn.microsoft.com/windows/win32/api/hrtfapoapi/ns-hrtfapoapi-hrtforientation
  * @namespace Windows.Win32.Media.Audio.XAudio2
  */
-class HrtfOrientation extends Win32Struct {
-    static sizeof => 36
-
-    static packingSize => 4
+export default struct HrtfOrientation {
+    #StructPack 4
 
     /**
      * The orientation. This is a row-major 3x3 rotation matrix.
-     * @type {Array<Float>}
      */
-    element {
-        get {
-            if(!this.HasProp("__elementProxyArray"))
-                this.__elementProxyArray := Win32FixedArray(this.ptr + 0, 9, Primitive, "float")
-            return this.__elementProxyArray
-        }
-    }
+    element : Float32[9]
+
 }

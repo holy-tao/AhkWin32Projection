@@ -1,32 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\PROPERTYKEY.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.UI.Shell
  */
-class IPropertyKeyStore extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPropertyKeyStore extends IUnknown {
     /**
      * The interface identifier for IPropertyKeyStore
      * @type {Guid}
      */
-    static IID => Guid("{75bd59aa-f23b-4963-aba4-0b355752a91b}")
+    static IID := Guid("{75bd59aa-f23b-4963-aba4-0b355752a91b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPropertyKeyStore interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetKeyCount  : IntPtr
+        GetKeyAt     : IntPtr
+        AppendKey    : IntPtr
+        DeleteKey    : IntPtr
+        IsKeyInStore : IntPtr
+        RemoveKey    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetKeyCount", "GetKeyAt", "AppendKey", "DeleteKey", "IsKeyInStore", "RemoveKey"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPropertyKeyStore.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -44,7 +57,7 @@ class IPropertyKeyStore extends IUnknown {
      */
     GetKeyAt(index) {
         pkey := PROPERTYKEY()
-        result := ComCall(4, this, "int", index, "ptr", pkey, "HRESULT")
+        result := ComCall(4, this, "int", index, PROPERTYKEY.Ptr, pkey, "HRESULT")
         return pkey
     }
 
@@ -54,30 +67,14 @@ class IPropertyKeyStore extends IUnknown {
      * @returns {HRESULT} 
      */
     AppendKey(key) {
-        result := ComCall(5, this, "ptr", key, "HRESULT")
+        result := ComCall(5, this, PROPERTYKEY.Ptr, key, "HRESULT")
         return result
     }
 
     /**
-     * Deletes a given key protector for the volume.
-     * @remarks
-     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
+     * 
      * @param {Integer} index 
-     * @returns {HRESULT} Type: **uint32**
-     * 
-     * This method returns one of the following codes or another error code if it fails.
-     * 
-     * 
-     * 
-     * | Return code/value                                                                                                                                                                          | Description                                                                                                                                                                                                                                                                                                               |
-     * |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl>                                          | The method was successful.<br/>                                                                                                                                                                                                                                                                                     |
-     * | <dl> <dt>**FVE\_E\_LOCKED\_VOLUME**</dt> <dt>2150694912 (0x80310000)</dt> </dl>         | The volume is locked.<br/>                                                                                                                                                                                                                                                                                          |
-     * | <dl> <dt>**FVE\_E\_NOT\_ACTIVATED**</dt> <dt>2150694920 (0x80310008)</dt> </dl>         | BitLocker is not enabled on the volume. Add a key protector to enable BitLocker. <br/>                                                                                                                                                                                                                              |
-     * | <dl> <dt>**E\_INVALIDARG**</dt> <dt>2147942487 (0x80070057)</dt> </dl>                  | The *VolumeKeyProtectorID* parameter does not refer to a valid key protector.<br/>                                                                                                                                                                                                                                  |
-     * | <dl> <dt>**FVE\_E\_KEY\_REQUIRED**</dt> <dt>2150694941 (0x8031001D)</dt> </dl>          | The last key protector for a partially or fully encrypted volume cannot be removed if key protectors are enabled. Use [**DisableKeyProtectors**](disablekeyprotectors-win32-encryptablevolume.md) before removing this last key protector to ensure that encrypted portions of the volume remain accessible. <br/> |
-     * | <dl> <dt>**FVE\_E\_VOLUME\_BOUND\_ALREADY**</dt> <dt>2150694943 (0x8031001F)</dt> </dl> | This key protector cannot be deleted because it is being used to automatically unlock the volume. <br/> Use [**DisableAutoUnlock**](disableautounlock-win32-encryptablevolume.md) to disable automatic unlocking before deleting this key protector.<br/>                                                    |
-     * @see https://learn.microsoft.com/windows/win32/SecProv/deletekeyprotector-win32-encryptablevolume
+     * @returns {HRESULT} 
      */
     DeleteKey(index) {
         result := ComCall(6, this, "int", index, "HRESULT")
@@ -90,7 +87,7 @@ class IPropertyKeyStore extends IUnknown {
      * @returns {HRESULT} 
      */
     IsKeyInStore(key) {
-        result := ComCall(7, this, "ptr", key, "HRESULT")
+        result := ComCall(7, this, PROPERTYKEY.Ptr, key, "HRESULT")
         return result
     }
 
@@ -100,7 +97,37 @@ class IPropertyKeyStore extends IUnknown {
      * @returns {HRESULT} 
      */
     RemoveKey(key) {
-        result := ComCall(8, this, "ptr", key, "HRESULT")
+        result := ComCall(8, this, PROPERTYKEY.Ptr, key, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPropertyKeyStore.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetKeyCount := CallbackCreate(GetMethod(implObj, "GetKeyCount"), flags, 2)
+        this.vtbl.GetKeyAt := CallbackCreate(GetMethod(implObj, "GetKeyAt"), flags, 3)
+        this.vtbl.AppendKey := CallbackCreate(GetMethod(implObj, "AppendKey"), flags, 2)
+        this.vtbl.DeleteKey := CallbackCreate(GetMethod(implObj, "DeleteKey"), flags, 2)
+        this.vtbl.IsKeyInStore := CallbackCreate(GetMethod(implObj, "IsKeyInStore"), flags, 2)
+        this.vtbl.RemoveKey := CallbackCreate(GetMethod(implObj, "RemoveKey"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetKeyCount)
+        CallbackFree(this.vtbl.GetKeyAt)
+        CallbackFree(this.vtbl.AppendKey)
+        CallbackFree(this.vtbl.DeleteKey)
+        CallbackFree(this.vtbl.IsKeyInStore)
+        CallbackFree(this.vtbl.RemoveKey)
     }
 }

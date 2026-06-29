@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the types of process security identifier (SID) that can be used by tasks.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/ne-taskschd-task_processtokensid_type
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class TASK_PROCESSTOKENSID_TYPE extends Win32Enum {
+export default struct TASK_PROCESSTOKENSID_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No changes will be made to the process token groups list.

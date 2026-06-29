@@ -1,75 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class NDIS_WMI_TCP_CONNECTION_OFFLOAD extends Win32Struct {
-    static sizeof => 40
+export default struct NDIS_WMI_TCP_CONNECTION_OFFLOAD {
+    #StructPack 8
 
-    static packingSize => 8
+    Header : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Header {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Encapsulation : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Encapsulation {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SupportIPv4 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SupportIPv4 {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    SupportIPv6 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SupportIPv6 {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    SupportIPv6ExtensionHeaders : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SupportIPv6ExtensionHeaders {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    SupportSack : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SupportSack {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    TcpConnectionOffloadCapacity : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TcpConnectionOffloadCapacity {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

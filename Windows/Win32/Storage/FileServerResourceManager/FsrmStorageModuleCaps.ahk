@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Flags that define the capabilities of the storage module.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmstoragemodulecaps
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class FsrmStorageModuleCaps extends Win32Enum {
+export default struct FsrmStorageModuleCaps {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The storage module's capabilities are unknown. Do not use this value.

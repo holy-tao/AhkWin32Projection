@@ -1,9 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DEVICEDIALOGDATA.ahk" { DEVICEDIALOGDATA }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWiaUIExtension interface provides methods that replace the default system user interface, provide a custom device bitmap logo, and provide a custom device icon.
@@ -23,26 +26,35 @@
  * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiauiextension
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
-class IWiaUIExtension extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWiaUIExtension extends IUnknown {
     /**
      * The interface identifier for IWiaUIExtension
      * @type {Guid}
      */
-    static IID => Guid("{da319113-50ee-4c80-b460-57d005d44a2c}")
+    static IID := Guid("{da319113-50ee-4c80-b460-57d005d44a2c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWiaUIExtension interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        DeviceDialog        : IntPtr
+        GetDeviceIcon       : IntPtr
+        GetDeviceBitmapLogo : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["DeviceDialog", "GetDeviceIcon", "GetDeviceBitmapLogo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWiaUIExtension.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * IWiaUIExtension::DeviceDialog method - Provides a custom user interface that replaces the default system user interface.
@@ -57,7 +69,7 @@ class IWiaUIExtension extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiauiextension-devicedialog
      */
     DeviceDialog(pDeviceDialogData) {
-        result := ComCall(3, this, "ptr", pDeviceDialogData, "HRESULT")
+        result := ComCall(3, this, DEVICEDIALOGDATA.Ptr, pDeviceDialogData, "HRESULT")
         return result
     }
 
@@ -77,8 +89,8 @@ class IWiaUIExtension extends IUnknown {
     GetDeviceIcon(bstrDeviceId, nSize) {
         bstrDeviceId := bstrDeviceId is String ? BSTR.Alloc(bstrDeviceId).Value : bstrDeviceId
 
-        phIcon := HICON()
-        result := ComCall(4, this, "ptr", bstrDeviceId, "ptr", phIcon, "uint", nSize, "HRESULT")
+        phIcon := HICON.Owned()
+        result := ComCall(4, this, BSTR, bstrDeviceId, HICON.Ptr, phIcon, "uint", nSize, "HRESULT")
         return phIcon
     }
 
@@ -101,8 +113,32 @@ class IWiaUIExtension extends IUnknown {
     GetDeviceBitmapLogo(bstrDeviceId, nMaxWidth, nMaxHeight) {
         bstrDeviceId := bstrDeviceId is String ? BSTR.Alloc(bstrDeviceId).Value : bstrDeviceId
 
-        phBitmap := HBITMAP()
-        result := ComCall(5, this, "ptr", bstrDeviceId, "ptr", phBitmap, "uint", nMaxWidth, "uint", nMaxHeight, "HRESULT")
+        phBitmap := HBITMAP.Owned()
+        result := ComCall(5, this, BSTR, bstrDeviceId, HBITMAP.Ptr, phBitmap, "uint", nMaxWidth, "uint", nMaxHeight, "HRESULT")
         return phBitmap
+    }
+
+    Query(iid) {
+        if (IWiaUIExtension.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.DeviceDialog := CallbackCreate(GetMethod(implObj, "DeviceDialog"), flags, 2)
+        this.vtbl.GetDeviceIcon := CallbackCreate(GetMethod(implObj, "GetDeviceIcon"), flags, 4)
+        this.vtbl.GetDeviceBitmapLogo := CallbackCreate(GetMethod(implObj, "GetDeviceBitmapLogo"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.DeviceDialog)
+        CallbackFree(this.vtbl.GetDeviceIcon)
+        CallbackFree(this.vtbl.GetDeviceBitmapLogo)
     }
 }

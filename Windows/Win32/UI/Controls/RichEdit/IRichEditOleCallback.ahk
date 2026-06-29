@@ -1,35 +1,64 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\System\Com\StructuredStorage\IStorage.ahk
-#Include ..\..\..\System\Com\IDataObject.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Ole\IOleInPlaceFrame.ahk" { IOleInPlaceFrame }
+#Import "..\..\..\System\Ole\IOleInPlaceUIWindow.ahk" { IOleInPlaceUIWindow }
+#Import ".\CHARRANGE.ahk" { CHARRANGE }
+#Import "..\..\..\System\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\..\System\Ole\IOleObject.ahk" { IOleObject }
+#Import "..\..\..\System\SystemServices\MODIFIERKEYS_FLAGS.ahk" { MODIFIERKEYS_FLAGS }
+#Import ".\RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE.ahk" { RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
+#Import "..\..\..\System\Ole\OLEINPLACEFRAMEINFO.ahk" { OLEINPLACEFRAMEINFO }
+#Import "..\..\..\System\SystemServices\RECO_FLAGS.ahk" { RECO_FLAGS }
+#Import "..\..\WindowsAndMessaging\HMENU.ahk" { HMENU }
+#Import "..\..\..\System\Ole\DROPEFFECT.ahk" { DROPEFFECT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\System\Com\StructuredStorage\IStorage.ahk" { IStorage }
 
 /**
  * The IRichEditOleCallback interface is used by a rich text edit control to retrieve OLE-related information from its client.
  * @see https://learn.microsoft.com/windows/win32/api/richole/nn-richole-iricheditolecallback
  * @namespace Windows.Win32.UI.Controls.RichEdit
  */
-class IRichEditOleCallback extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRichEditOleCallback extends IUnknown {
     /**
      * The interface identifier for IRichEditOleCallback
      * @type {Guid}
      */
-    static IID => Guid("{00020d03-0000-0000-c000-000000000046}")
+    static IID := Guid("{00020d03-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRichEditOleCallback interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetNewStorage        : IntPtr
+        GetInPlaceContext    : IntPtr
+        ShowContainerUI      : IntPtr
+        QueryInsertObject    : IntPtr
+        DeleteObject         : IntPtr
+        QueryAcceptData      : IntPtr
+        ContextSensitiveHelp : IntPtr
+        GetClipboardData     : IntPtr
+        GetDragDropEffect    : IntPtr
+        GetContextMenu       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetNewStorage", "GetInPlaceContext", "ShowContainerUI", "QueryInsertObject", "DeleteObject", "QueryAcceptData", "ContextSensitiveHelp", "GetClipboardData", "GetDragDropEffect", "GetContextMenu"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRichEditOleCallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Provides storage for a new object pasted from the clipboard or read in from an Rich Text Format (RTF) stream.
@@ -80,7 +109,7 @@ class IRichEditOleCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditolecallback-getinplacecontext
      */
     GetInPlaceContext(lplpFrame, lplpDoc, lpFrameInfo) {
-        result := ComCall(4, this, "ptr*", lplpFrame, "ptr*", lplpDoc, "ptr", lpFrameInfo, "HRESULT")
+        result := ComCall(4, this, IOleInPlaceFrame.Ptr, lplpFrame, IOleInPlaceUIWindow.Ptr, lplpDoc, OLEINPLACEFRAMEINFO.Ptr, lpFrameInfo, "HRESULT")
         return result
     }
 
@@ -116,7 +145,7 @@ class IRichEditOleCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditolecallback-showcontainerui
      */
     ShowContainerUI(fShow) {
-        result := ComCall(5, this, "int", fShow, "HRESULT")
+        result := ComCall(5, this, BOOL, fShow, "HRESULT")
         return result
     }
 
@@ -155,7 +184,7 @@ class IRichEditOleCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditolecallback-queryinsertobject
      */
     QueryInsertObject(lpclsid, lpstg, cp) {
-        result := ComCall(6, this, "ptr", lpclsid, "ptr", lpstg, "int", cp, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, lpclsid, "ptr", lpstg, "int", cp, "HRESULT")
         return result
     }
 
@@ -229,11 +258,9 @@ class IRichEditOleCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditolecallback-queryacceptdata
      */
     QueryAcceptData(lpdataobj, lpcfFormat, reco, fReally, hMetaPict) {
-        hMetaPict := hMetaPict is Win32Handle ? NumGet(hMetaPict, "ptr") : hMetaPict
-
         lpcfFormatMarshal := lpcfFormat is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(8, this, "ptr", lpdataobj, lpcfFormatMarshal, lpcfFormat, "uint", reco, "int", fReally, "ptr", hMetaPict, "HRESULT")
+        result := ComCall(8, this, "ptr", lpdataobj, lpcfFormatMarshal, lpcfFormat, RECO_FLAGS, reco, BOOL, fReally, HGLOBAL, hMetaPict, "HRESULT")
         return result
     }
 
@@ -266,7 +293,7 @@ class IRichEditOleCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditolecallback-contextsensitivehelp
      */
     ContextSensitiveHelp(fEnterMode) {
-        result := ComCall(9, this, "int", fEnterMode, "HRESULT")
+        result := ComCall(9, this, BOOL, fEnterMode, "HRESULT")
         return result
     }
 
@@ -314,7 +341,7 @@ class IRichEditOleCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditolecallback-getclipboarddata
      */
     GetClipboardData(lpchrg, reco) {
-        result := ComCall(10, this, "ptr", lpchrg, "uint", reco, "ptr*", &lplpdataobj := 0, "HRESULT")
+        result := ComCall(10, this, CHARRANGE.Ptr, lpchrg, "uint", reco, "ptr*", &lplpdataobj := 0, "HRESULT")
         return IDataObject(lplpdataobj)
     }
 
@@ -339,7 +366,7 @@ class IRichEditOleCallback extends IUnknown {
     GetDragDropEffect(fDrag, grfKeyState, pdwEffect) {
         pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "int", fDrag, "uint", grfKeyState, pdwEffectMarshal, pdwEffect, "HRESULT")
+        result := ComCall(11, this, BOOL, fDrag, MODIFIERKEYS_FLAGS, grfKeyState, pdwEffectMarshal, pdwEffect, "HRESULT")
         return result
     }
 
@@ -388,7 +415,45 @@ class IRichEditOleCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditolecallback-getcontextmenu
      */
     GetContextMenu(seltype, lpoleobj, lpchrg, lphmenu) {
-        result := ComCall(12, this, "ushort", seltype, "ptr", lpoleobj, "ptr", lpchrg, "ptr", lphmenu, "HRESULT")
+        result := ComCall(12, this, RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE, seltype, "ptr", lpoleobj, CHARRANGE.Ptr, lpchrg, HMENU.Ptr, lphmenu, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRichEditOleCallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetNewStorage := CallbackCreate(GetMethod(implObj, "GetNewStorage"), flags, 2)
+        this.vtbl.GetInPlaceContext := CallbackCreate(GetMethod(implObj, "GetInPlaceContext"), flags, 4)
+        this.vtbl.ShowContainerUI := CallbackCreate(GetMethod(implObj, "ShowContainerUI"), flags, 2)
+        this.vtbl.QueryInsertObject := CallbackCreate(GetMethod(implObj, "QueryInsertObject"), flags, 4)
+        this.vtbl.DeleteObject := CallbackCreate(GetMethod(implObj, "DeleteObject"), flags, 2)
+        this.vtbl.QueryAcceptData := CallbackCreate(GetMethod(implObj, "QueryAcceptData"), flags, 6)
+        this.vtbl.ContextSensitiveHelp := CallbackCreate(GetMethod(implObj, "ContextSensitiveHelp"), flags, 2)
+        this.vtbl.GetClipboardData := CallbackCreate(GetMethod(implObj, "GetClipboardData"), flags, 4)
+        this.vtbl.GetDragDropEffect := CallbackCreate(GetMethod(implObj, "GetDragDropEffect"), flags, 4)
+        this.vtbl.GetContextMenu := CallbackCreate(GetMethod(implObj, "GetContextMenu"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetNewStorage)
+        CallbackFree(this.vtbl.GetInPlaceContext)
+        CallbackFree(this.vtbl.ShowContainerUI)
+        CallbackFree(this.vtbl.QueryInsertObject)
+        CallbackFree(this.vtbl.DeleteObject)
+        CallbackFree(this.vtbl.QueryAcceptData)
+        CallbackFree(this.vtbl.ContextSensitiveHelp)
+        CallbackFree(this.vtbl.GetClipboardData)
+        CallbackFree(this.vtbl.GetDragDropEffect)
+        CallbackFree(this.vtbl.GetContextMenu)
     }
 }

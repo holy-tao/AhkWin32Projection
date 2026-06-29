@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The PHONE_BUTTON_FUNCTION enum provides detailed information on a button's function.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-phone_button_function
  * @namespace Windows.Win32.Devices.Tapi
  */
-class PHONE_BUTTON_FUNCTION extends Win32Enum {
+export default struct PHONE_BUTTON_FUNCTION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * A "dummy" function assignment that indicates that the exact function of the button is unknown or has not been assigned.

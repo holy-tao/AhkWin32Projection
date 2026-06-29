@@ -1,33 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\WMPFolderScanState.ahk" { WMPFolderScanState }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMPFolderMonitorServices interface is deprecated.The IWMPFolderMonitorServices interface provides methods to enumerate, scan, and modify file folders that Windows Media Player monitors for digital media content.To use this interface, you must create a remoted instance of the Windows Media Player 11 control. For more information about remoting, see Remoting the Windows Media Player Control.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpfoldermonitorservices
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPFolderMonitorServices extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMPFolderMonitorServices extends IUnknown {
     /**
      * The interface identifier for IWMPFolderMonitorServices
      * @type {Guid}
      */
-    static IID => Guid("{788c8743-e57f-439d-a468-5bc77f2e59c6}")
+    static IID := Guid("{788c8743-e57f-439d-a468-5bc77f2e59c6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPFolderMonitorServices interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_count             : IntPtr
+        item                  : IntPtr
+        add                   : IntPtr
+        remove                : IntPtr
+        get_scanState         : IntPtr
+        get_currentFolder     : IntPtr
+        get_scannedFilesCount : IntPtr
+        get_addedFilesCount   : IntPtr
+        get_updateProgress    : IntPtr
+        startScan             : IntPtr
+        stopScan              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_count", "item", "add", "remove", "get_scanState", "get_currentFolder", "get_scannedFilesCount", "get_addedFilesCount", "get_updateProgress", "startScan", "stopScan"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPFolderMonitorServices.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      */
@@ -126,7 +146,7 @@ class IWMPFolderMonitorServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpfoldermonitorservices-item
      */
     item(lIndex, pbstrFolder) {
-        result := ComCall(4, this, "int", lIndex, "ptr", pbstrFolder, "HRESULT")
+        result := ComCall(4, this, "int", lIndex, BSTR.Ptr, pbstrFolder, "HRESULT")
         return result
     }
 
@@ -159,7 +179,7 @@ class IWMPFolderMonitorServices extends IUnknown {
     add(bstrFolder) {
         bstrFolder := bstrFolder is String ? BSTR.Alloc(bstrFolder).Value : bstrFolder
 
-        result := ComCall(5, this, "ptr", bstrFolder, "HRESULT")
+        result := ComCall(5, this, BSTR, bstrFolder, "HRESULT")
         return result
     }
 
@@ -256,7 +276,7 @@ class IWMPFolderMonitorServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpfoldermonitorservices-get_currentfolder
      */
     get_currentFolder(pbstrFolder) {
-        result := ComCall(8, this, "ptr", pbstrFolder, "HRESULT")
+        result := ComCall(8, this, BSTR.Ptr, pbstrFolder, "HRESULT")
         return result
     }
 
@@ -427,5 +447,45 @@ class IWMPFolderMonitorServices extends IUnknown {
     stopScan() {
         result := ComCall(13, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPFolderMonitorServices.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_count := CallbackCreate(GetMethod(implObj, "get_count"), flags, 2)
+        this.vtbl.item := CallbackCreate(GetMethod(implObj, "item"), flags, 3)
+        this.vtbl.add := CallbackCreate(GetMethod(implObj, "add"), flags, 2)
+        this.vtbl.remove := CallbackCreate(GetMethod(implObj, "remove"), flags, 2)
+        this.vtbl.get_scanState := CallbackCreate(GetMethod(implObj, "get_scanState"), flags, 2)
+        this.vtbl.get_currentFolder := CallbackCreate(GetMethod(implObj, "get_currentFolder"), flags, 2)
+        this.vtbl.get_scannedFilesCount := CallbackCreate(GetMethod(implObj, "get_scannedFilesCount"), flags, 2)
+        this.vtbl.get_addedFilesCount := CallbackCreate(GetMethod(implObj, "get_addedFilesCount"), flags, 2)
+        this.vtbl.get_updateProgress := CallbackCreate(GetMethod(implObj, "get_updateProgress"), flags, 2)
+        this.vtbl.startScan := CallbackCreate(GetMethod(implObj, "startScan"), flags, 1)
+        this.vtbl.stopScan := CallbackCreate(GetMethod(implObj, "stopScan"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_count)
+        CallbackFree(this.vtbl.item)
+        CallbackFree(this.vtbl.add)
+        CallbackFree(this.vtbl.remove)
+        CallbackFree(this.vtbl.get_scanState)
+        CallbackFree(this.vtbl.get_currentFolder)
+        CallbackFree(this.vtbl.get_scannedFilesCount)
+        CallbackFree(this.vtbl.get_addedFilesCount)
+        CallbackFree(this.vtbl.get_updateProgress)
+        CallbackFree(this.vtbl.startScan)
+        CallbackFree(this.vtbl.stopScan)
     }
 }

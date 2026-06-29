@@ -1,13 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_X64_DELIVERABILITY_NOTIFICATIONS_REGISTER extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct WHV_X64_DELIVERABILITY_NOTIFICATIONS_REGISTER {
+    #StructPack 8
 
     /**
      * This bitfield backs the following members:
@@ -16,12 +13,9 @@ class WHV_X64_DELIVERABILITY_NOTIFICATIONS_REGISTER extends Win32Struct {
      * - InterruptPriority
      * - Reserved
      * - Sint
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int64
+
 
     /**
      * @type {Integer}
@@ -54,12 +48,8 @@ class WHV_X64_DELIVERABILITY_NOTIFICATIONS_REGISTER extends Win32Struct {
         get => (this._bitfield >> 48) & 0xFFFF
         set => this._bitfield := ((value & 0xFFFF) << 48) | (this._bitfield & ~(0xFFFF << 48))
     }
-
-    /**
-     * @type {Integer}
-     */
-    AsUINT64 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'AsUINT64', { type: Int64, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

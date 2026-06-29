@@ -1,27 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PCCARD_DES.ahk
-#Include .\PCD_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PCD_FLAGS.ahk" { PCD_FLAGS }
+#Import ".\PCCARD_DES.ahk" { PCCARD_DES }
 
 /**
  * The PCCARD_RESOURCE structure is used for specifying either a resource list or a resource requirements list that describes resource usage by a PC Card instance.
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-pccard_resource
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  */
-class PCCARD_RESOURCE extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 4
+export default struct PCCARD_RESOURCE {
+    #StructPack 4
 
     /**
      * A [PCCARD_DES](/windows/desktop/api/cfgmgr32/ns-cfgmgr32-pccard_des) structure.
-     * @type {PCCARD_DES}
      */
-    PcCard_Header {
-        get {
-            if(!this.HasProp("__PcCard_Header"))
-                this.__PcCard_Header := PCCARD_DES(0, this)
-            return this.__PcCard_Header
-        }
-    }
+    PcCard_Header : PCCARD_DES
+
 }

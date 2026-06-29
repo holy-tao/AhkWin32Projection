@@ -1,63 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPWORDHANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SPWORDHANDLE.ahk" { SPWORDHANDLE }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class SPWORDENTRY extends Win32Struct {
-    static sizeof => 48
+export default struct SPWORDENTRY {
+    #StructPack 8
 
-    static packingSize => 8
+    hWord : SPWORDHANDLE
 
-    /**
-     * @type {SPWORDHANDLE}
-     */
-    hWord {
-        get {
-            if(!this.HasProp("__hWord"))
-                this.__hWord := SPWORDHANDLE(0, this)
-            return this.__hWord
-        }
-    }
+    LangID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    LangID {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    pszDisplayText : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszDisplayText {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszLexicalForm : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszLexicalForm {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    aPhoneId : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    aPhoneId {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pvClientContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pvClientContext {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DCOLORVALUE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DCOLORVALUE.ahk" { D3DCOLORVALUE }
 
 /**
  * Specifies material properties.
@@ -11,80 +10,47 @@
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dmaterial9
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DMATERIAL9 extends Win32Struct {
-    static sizeof => 68
-
-    static packingSize => 4
+export default struct D3DMATERIAL9 {
+    #StructPack 4
 
     /**
      * Type: **[**D3DCOLORVALUE**](d3dcolorvalue.md)**
      * 
      * 
      * Value specifying the diffuse color of the material. See [**D3DCOLORVALUE**](d3dcolorvalue.md).
-     * @type {D3DCOLORVALUE}
      */
-    Diffuse {
-        get {
-            if(!this.HasProp("__Diffuse"))
-                this.__Diffuse := D3DCOLORVALUE(0, this)
-            return this.__Diffuse
-        }
-    }
+    Diffuse : D3DCOLORVALUE
 
     /**
      * Type: **[**D3DCOLORVALUE**](d3dcolorvalue.md)**
      * 
      * 
      * Value specifying the ambient color of the material. See [**D3DCOLORVALUE**](d3dcolorvalue.md).
-     * @type {D3DCOLORVALUE}
      */
-    Ambient {
-        get {
-            if(!this.HasProp("__Ambient"))
-                this.__Ambient := D3DCOLORVALUE(16, this)
-            return this.__Ambient
-        }
-    }
+    Ambient : D3DCOLORVALUE
 
     /**
      * Type: **[**D3DCOLORVALUE**](d3dcolorvalue.md)**
      * 
      * 
      * Value specifying the specular color of the material. See [**D3DCOLORVALUE**](d3dcolorvalue.md).
-     * @type {D3DCOLORVALUE}
      */
-    Specular {
-        get {
-            if(!this.HasProp("__Specular"))
-                this.__Specular := D3DCOLORVALUE(32, this)
-            return this.__Specular
-        }
-    }
+    Specular : D3DCOLORVALUE
 
     /**
      * Type: **[**D3DCOLORVALUE**](d3dcolorvalue.md)**
      * 
      * 
      * Value specifying the emissive color of the material. See [**D3DCOLORVALUE**](d3dcolorvalue.md).
-     * @type {D3DCOLORVALUE}
      */
-    Emissive {
-        get {
-            if(!this.HasProp("__Emissive"))
-                this.__Emissive := D3DCOLORVALUE(48, this)
-            return this.__Emissive
-        }
-    }
+    Emissive : D3DCOLORVALUE
 
     /**
      * Type: **float**
      * 
      * 
      * Floating-point value specifying the sharpness of specular highlights. The higher the value, the sharper the highlight.
-     * @type {Float}
      */
-    Power {
-        get => NumGet(this, 64, "float")
-        set => NumPut("float", value, this, 64)
-    }
+    Power : Float32
+
 }

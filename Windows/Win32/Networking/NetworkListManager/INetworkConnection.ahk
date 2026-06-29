@@ -1,35 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\INetwork.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\INetwork.ahk" { INetwork }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\NLM_CONNECTIVITY.ahk" { NLM_CONNECTIVITY }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\NLM_DOMAIN_TYPE.ahk" { NLM_DOMAIN_TYPE }
 
 /**
  * The INetworkConnection interface represents a single network connection.
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nn-netlistmgr-inetworkconnection
  * @namespace Windows.Win32.Networking.NetworkListManager
  */
-class INetworkConnection extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct INetworkConnection extends IDispatch {
     /**
      * The interface identifier for INetworkConnection
      * @type {Guid}
      */
-    static IID => Guid("{dcb00005-570f-4a9b-8d69-199fdba5723b}")
+    static IID := Guid("{dcb00005-570f-4a9b-8d69-199fdba5723b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INetworkConnection interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        GetNetwork                : IntPtr
+        get_IsConnectedToInternet : IntPtr
+        get_IsConnected           : IntPtr
+        GetConnectivity           : IntPtr
+        GetConnectionId           : IntPtr
+        GetAdapterId              : IntPtr
+        GetDomainType             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetNetwork", "get_IsConnectedToInternet", "get_IsConnected", "GetConnectivity", "GetConnectionId", "GetAdapterId", "GetDomainType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INetworkConnection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -61,7 +77,7 @@ class INetworkConnection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnection-get_isconnectedtointernet
      */
     get_IsConnectedToInternet() {
-        result := ComCall(8, this, "short*", &pbIsConnected := 0, "HRESULT")
+        result := ComCall(8, this, VARIANT_BOOL.Ptr, &pbIsConnected := 0, "HRESULT")
         return pbIsConnected
     }
 
@@ -71,7 +87,7 @@ class INetworkConnection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnection-get_isconnected
      */
     get_IsConnected() {
-        result := ComCall(9, this, "short*", &pbIsConnected := 0, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL.Ptr, &pbIsConnected := 0, "HRESULT")
         return pbIsConnected
     }
 
@@ -92,7 +108,7 @@ class INetworkConnection extends IDispatch {
      */
     GetConnectionId() {
         pgdConnectionId := Guid()
-        result := ComCall(11, this, "ptr", pgdConnectionId, "HRESULT")
+        result := ComCall(11, this, Guid.Ptr, pgdConnectionId, "HRESULT")
         return pgdConnectionId
     }
 
@@ -105,7 +121,7 @@ class INetworkConnection extends IDispatch {
      */
     GetAdapterId() {
         pgdAdapterId := Guid()
-        result := ComCall(12, this, "ptr", pgdAdapterId, "HRESULT")
+        result := ComCall(12, this, Guid.Ptr, pgdAdapterId, "HRESULT")
         return pgdAdapterId
     }
 
@@ -117,5 +133,37 @@ class INetworkConnection extends IDispatch {
     GetDomainType() {
         result := ComCall(13, this, "int*", &pDomainType := 0, "HRESULT")
         return pDomainType
+    }
+
+    Query(iid) {
+        if (INetworkConnection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetNetwork := CallbackCreate(GetMethod(implObj, "GetNetwork"), flags, 2)
+        this.vtbl.get_IsConnectedToInternet := CallbackCreate(GetMethod(implObj, "get_IsConnectedToInternet"), flags, 2)
+        this.vtbl.get_IsConnected := CallbackCreate(GetMethod(implObj, "get_IsConnected"), flags, 2)
+        this.vtbl.GetConnectivity := CallbackCreate(GetMethod(implObj, "GetConnectivity"), flags, 2)
+        this.vtbl.GetConnectionId := CallbackCreate(GetMethod(implObj, "GetConnectionId"), flags, 2)
+        this.vtbl.GetAdapterId := CallbackCreate(GetMethod(implObj, "GetAdapterId"), flags, 2)
+        this.vtbl.GetDomainType := CallbackCreate(GetMethod(implObj, "GetDomainType"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetNetwork)
+        CallbackFree(this.vtbl.get_IsConnectedToInternet)
+        CallbackFree(this.vtbl.get_IsConnected)
+        CallbackFree(this.vtbl.GetConnectivity)
+        CallbackFree(this.vtbl.GetConnectionId)
+        CallbackFree(this.vtbl.GetAdapterId)
+        CallbackFree(this.vtbl.GetDomainType)
     }
 }

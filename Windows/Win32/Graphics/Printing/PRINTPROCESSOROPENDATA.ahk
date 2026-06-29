@@ -1,68 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Gdi\DEVMODEA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Gdi\DEVMODEA.ahk" { DEVMODEA }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class PRINTPROCESSOROPENDATA extends Win32Struct {
-    static sizeof => 56
+export default struct PRINTPROCESSOROPENDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    pDevMode : DEVMODEA.Ptr
 
-    /**
-     * @type {Pointer<DEVMODEA>}
-     */
-    pDevMode {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pDatatype : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pDatatype {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pParameters : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pParameters {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pDocumentName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pDocumentName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    JobId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    JobId {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    pOutputFile : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pOutputFile {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pPrinterName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pPrinterName {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
 }

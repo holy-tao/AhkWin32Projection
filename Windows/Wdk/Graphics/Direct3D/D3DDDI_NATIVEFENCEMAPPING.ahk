@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DDDI_NATIVEFENCEMAPPING extends Win32Struct {
-    static sizeof => 24
+export default struct D3DDDI_NATIVEFENCEMAPPING {
+    #StructPack 8
 
-    static packingSize => 8
+    CurrentValueCpuVa : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    CurrentValueCpuVa {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    CurrentValueGpuVa : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CurrentValueGpuVa {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MonitoredValueGpuVa : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MonitoredValueGpuVa {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

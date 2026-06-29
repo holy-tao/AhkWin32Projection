@@ -1,32 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IHostMalloc.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICLRMemoryNotificationCallback.ahk" { ICLRMemoryNotificationCallback }
+#Import ".\EMemoryCriticalLevel.ahk" { EMemoryCriticalLevel }
+#Import ".\IHostMalloc.ahk" { IHostMalloc }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
  */
-class IHostMemoryManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IHostMemoryManager extends IUnknown {
     /**
      * The interface identifier for IHostMemoryManager
      * @type {Guid}
      */
-    static IID => Guid("{7bc698d1-f9e3-4460-9cde-d04248e9fa25}")
+    static IID := Guid("{7bc698d1-f9e3-4460-9cde-d04248e9fa25}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHostMemoryManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateMalloc                       : IntPtr
+        VirtualAlloc                       : IntPtr
+        VirtualFree                        : IntPtr
+        VirtualQuery                       : IntPtr
+        VirtualProtect                     : IntPtr
+        GetMemoryLoad                      : IntPtr
+        RegisterMemoryNotificationCallback : IntPtr
+        NeedsVirtualAddressSpace           : IntPtr
+        AcquiredVirtualAddressSpace        : IntPtr
+        ReleasedVirtualAddressSpace        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateMalloc", "VirtualAlloc", "VirtualFree", "VirtualQuery", "VirtualProtect", "GetMemoryLoad", "RegisterMemoryNotificationCallback", "NeedsVirtualAddressSpace", "AcquiredVirtualAddressSpace", "ReleasedVirtualAddressSpace"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHostMemoryManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -71,7 +90,7 @@ class IHostMemoryManager extends IUnknown {
     VirtualAlloc(pAddress, dwSize, flAllocationType, flProtect, eCriticalLevel) {
         pAddressMarshal := pAddress is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, pAddressMarshal, pAddress, "ptr", dwSize, "uint", flAllocationType, "uint", flProtect, "int", eCriticalLevel, "ptr*", &ppMem := 0, "HRESULT")
+        result := ComCall(4, this, pAddressMarshal, pAddress, "ptr", dwSize, "uint", flAllocationType, "uint", flProtect, EMemoryCriticalLevel, eCriticalLevel, "ptr*", &ppMem := 0, "HRESULT")
         return ppMem
     }
 
@@ -242,5 +261,43 @@ class IHostMemoryManager extends IUnknown {
 
         result := ComCall(12, this, startAddressMarshal, startAddress, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IHostMemoryManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateMalloc := CallbackCreate(GetMethod(implObj, "CreateMalloc"), flags, 3)
+        this.vtbl.VirtualAlloc := CallbackCreate(GetMethod(implObj, "VirtualAlloc"), flags, 7)
+        this.vtbl.VirtualFree := CallbackCreate(GetMethod(implObj, "VirtualFree"), flags, 4)
+        this.vtbl.VirtualQuery := CallbackCreate(GetMethod(implObj, "VirtualQuery"), flags, 5)
+        this.vtbl.VirtualProtect := CallbackCreate(GetMethod(implObj, "VirtualProtect"), flags, 5)
+        this.vtbl.GetMemoryLoad := CallbackCreate(GetMethod(implObj, "GetMemoryLoad"), flags, 3)
+        this.vtbl.RegisterMemoryNotificationCallback := CallbackCreate(GetMethod(implObj, "RegisterMemoryNotificationCallback"), flags, 2)
+        this.vtbl.NeedsVirtualAddressSpace := CallbackCreate(GetMethod(implObj, "NeedsVirtualAddressSpace"), flags, 3)
+        this.vtbl.AcquiredVirtualAddressSpace := CallbackCreate(GetMethod(implObj, "AcquiredVirtualAddressSpace"), flags, 3)
+        this.vtbl.ReleasedVirtualAddressSpace := CallbackCreate(GetMethod(implObj, "ReleasedVirtualAddressSpace"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateMalloc)
+        CallbackFree(this.vtbl.VirtualAlloc)
+        CallbackFree(this.vtbl.VirtualFree)
+        CallbackFree(this.vtbl.VirtualQuery)
+        CallbackFree(this.vtbl.VirtualProtect)
+        CallbackFree(this.vtbl.GetMemoryLoad)
+        CallbackFree(this.vtbl.RegisterMemoryNotificationCallback)
+        CallbackFree(this.vtbl.NeedsVirtualAddressSpace)
+        CallbackFree(this.vtbl.AcquiredVirtualAddressSpace)
+        CallbackFree(this.vtbl.ReleasedVirtualAddressSpace)
     }
 }

@@ -1,31 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The blob extension data for a credential.
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_cred_blob_extension
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
  */
-class WEBAUTHN_CRED_BLOB_EXTENSION extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct WEBAUTHN_CRED_BLOB_EXTENSION {
+    #StructPack 8
 
     /**
      * Size of **pbCredBlob**.
-     * @type {Integer}
      */
-    cbCredBlob {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbCredBlob : UInt32
 
     /**
      * The credential blob.
-     * @type {Pointer<Integer>}
      */
-    pbCredBlob {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pbCredBlob : IntPtr
+
 }

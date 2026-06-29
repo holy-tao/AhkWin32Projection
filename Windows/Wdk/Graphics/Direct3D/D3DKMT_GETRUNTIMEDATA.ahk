@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_GETRUNTIMEDATA extends Win32Struct {
-    static sizeof => 24
+export default struct D3DKMT_GETRUNTIMEDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    hAdapter : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hAdapter {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hGlobalShare : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hGlobalShare {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    pRuntimeData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pRuntimeData {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    RuntimeDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RuntimeDataSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

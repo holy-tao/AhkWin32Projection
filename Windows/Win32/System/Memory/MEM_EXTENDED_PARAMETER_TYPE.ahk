@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines values for extended parameters used for file mapping into an address space.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-mem_extended_parameter_type
  * @namespace Windows.Win32.System.Memory
  */
-class MEM_EXTENDED_PARAMETER_TYPE extends Win32Enum {
+export default struct MEM_EXTENDED_PARAMETER_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

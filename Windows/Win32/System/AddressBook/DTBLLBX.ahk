@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes a list that will be used in a dialog box that is built from a display table. It shows multiple items and lets a user select one or more of the items.
@@ -28,10 +27,8 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/dtbllbx
  * @namespace Windows.Win32.System.AddressBook
  */
-class DTBLLBX extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct DTBLLBX {
+    #StructPack 4
 
     /**
      * > Bitmask of flags used to eliminate a horizontal or vertical scroll bar from the list. The following flags can be set:
@@ -43,28 +40,17 @@ class DTBLLBX extends Win32Struct {
      * MAPI_NO_VBAR 
      *   
      * > No vertical scroll bar should be shown with the list.
-     * @type {Integer}
      */
-    ulFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulFlags : UInt32
 
     /**
      * > Property tag for a property of any type. This property is one of the columns in the table identified by the **ulPRTableTable** member.
-     * @type {Integer}
      */
-    ulPRSetProperty {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulPRSetProperty : UInt32
 
     /**
      * > Property tag for a table property of type PT_OBJECT that can be opened by using an **OpenProperty** call. The number of columns that the table should have depends on whether the list is a single or multiple selection list. If the **ulPRSetProperty** member is set to **PR_NULL** ([PidTagNull](pidtagnull-canonical-property.md)), the list allows for multiple selection.
-     * @type {Integer}
      */
-    ulPRTableName {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulPRTableName : UInt32
+
 }

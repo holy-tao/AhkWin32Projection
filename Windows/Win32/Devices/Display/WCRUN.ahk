@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The WCRUN structure describes a run of Unicode characters.
@@ -10,28 +9,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-wcrun
  * @namespace Windows.Win32.Devices.Display
  */
-class WCRUN extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct WCRUN {
+    #StructPack 8
 
     /**
      * Specifies the first character in the run.
-     * @type {Integer}
      */
-    wcLow {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    wcLow : Int8
 
     /**
      * Specifies the count of characters in the run.
-     * @type {Integer}
      */
-    cGlyphs {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    cGlyphs : UInt16
 
     /**
      * Pointer to an array of glyph handles that correspond to this run. If this member is <b>NULL</b>, then each character in this run can be converted to a glyph handle by a cast, as in the following example:
@@ -40,10 +29,7 @@ class WCRUN extends Win32Struct {
      * ```
      * HGLYPH hg = (HGLYPH) wc;
      * ```
-     * @type {Pointer<Integer>}
      */
-    phg {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    phg : IntPtr
+
 }

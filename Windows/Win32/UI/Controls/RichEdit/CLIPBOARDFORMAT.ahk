@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\NMHDR.ahk
-#Include ..\..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\NMHDR.ahk" { NMHDR }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * Specifies the clipboard format. This structure included with the EN_CLIPFORMAT notification.
@@ -9,33 +8,21 @@
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @architecture X64, Arm64
  */
-class CLIPBOARDFORMAT extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct CLIPBOARDFORMAT {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/richedit/ns-richedit-nmhdr">NMHDR</a></b>
      * 
      * Structure that contains information about this notification message.
-     * @type {NMHDR}
      */
-    nmhdr {
-        get {
-            if(!this.HasProp("__nmhdr"))
-                this.__nmhdr := NMHDR(0, this)
-            return this.__nmhdr
-        }
-    }
+    nmhdr : NMHDR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * A clipboard format registered by a call to the <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-registerclipboardformata">RegisterClipboardFormat</a> function.
-     * @type {Integer}
      */
-    cf {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
-    }
+    cf : UInt16
+
 }

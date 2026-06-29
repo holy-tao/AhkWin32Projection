@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IRSOPInformation interface provides methods for Microsoft Management Console (MMC) extension snap-ins to communicate with the main Resultant Set of Policy (RSoP) snap-in. For more information about MMC, see the Microsoft Management Console.
  * @see https://learn.microsoft.com/windows/win32/api/gpedit/nn-gpedit-irsopinformation
  * @namespace Windows.Win32.System.GroupPolicy
  */
-class IRSOPInformation extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRSOPInformation extends IUnknown {
     /**
      * The interface identifier for IRSOPInformation
      * @type {Guid}
      */
-    static IID => Guid("{9a5a81b5-d9c7-49ef-9d11-ddf50968c48d}")
+    static IID := Guid("{9a5a81b5-d9c7-49ef-9d11-ddf50968c48d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRSOPInformation interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetNamespace         : IntPtr
+        GetFlags             : IntPtr
+        GetEventLogEntryText : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetNamespace", "GetFlags", "GetEventLogEntryText"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRSOPInformation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetNameSpace method retrieves the namespace from which the RSoP data is being displayed.
@@ -73,7 +84,31 @@ class IRSOPInformation extends IUnknown {
         pszEventLogName := pszEventLogName is String ? StrPtr(pszEventLogName) : pszEventLogName
         pszEventTime := pszEventTime is String ? StrPtr(pszEventTime) : pszEventTime
 
-        result := ComCall(5, this, "ptr", pszEventSource, "ptr", pszEventLogName, "ptr", pszEventTime, "uint", dwEventID, "ptr*", &ppszText := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pszEventSource, "ptr", pszEventLogName, "ptr", pszEventTime, "uint", dwEventID, PWSTR.Ptr, &ppszText := 0, "HRESULT")
         return ppszText
+    }
+
+    Query(iid) {
+        if (IRSOPInformation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetNamespace := CallbackCreate(GetMethod(implObj, "GetNamespace"), flags, 4)
+        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.GetEventLogEntryText := CallbackCreate(GetMethod(implObj, "GetEventLogEntryText"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetNamespace)
+        CallbackFree(this.vtbl.GetFlags)
+        CallbackFree(this.vtbl.GetEventLogEntryText)
     }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * This enum is used to specify whether a header is expected to appear more than once in a message.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_repeating_header_option
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_REPEATING_HEADER_OPTION extends Win32Enum {
+export default struct WS_REPEATING_HEADER_OPTION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The header may appear more than once in the message.

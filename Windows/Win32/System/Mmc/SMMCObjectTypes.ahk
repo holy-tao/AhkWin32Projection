@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The SMMCDynamicExtensions structure is introduced in MMC 1.1.
@@ -19,29 +18,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-smmcobjecttypes
  * @namespace Windows.Win32.System.Mmc
  */
-class SMMCObjectTypes extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct SMMCObjectTypes {
+    #StructPack 8
 
     /**
      * The count of GUIDs in the array specified by <b>guid</b>.
-     * @type {Integer}
      */
-    count {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    count : UInt32
 
     /**
      * An array of GUIDs that represent the CLSIDs of the snap-ins that you want to extend the item represented by an <b>IDataObject</b> object.
-     * @type {Array<Pointer>}
      */
-    guid {
-        get {
-            if(!this.HasProp("__guidProxyArray"))
-                this.__guidProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")
-            return this.__guidProxyArray
-        }
-    }
+    guid : IntPtr[1]
+
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * You may use the MOF_FIELD structures to append event data to the EVENT_TRACE_HEADER or EVENT_INSTANCE_HEADER structures.
@@ -20,35 +19,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-mof_field
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class MOF_FIELD extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct MOF_FIELD {
+    #StructPack 8
 
     /**
      * Pointer to a event data item.
-     * @type {Integer}
      */
-    DataPtr {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DataPtr : Int64
 
     /**
      * Length of the item pointed to by **DataPtr**, in bytes.
-     * @type {Integer}
      */
-    Length {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Length : UInt32
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    DataType {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    DataType : UInt32
+
 }

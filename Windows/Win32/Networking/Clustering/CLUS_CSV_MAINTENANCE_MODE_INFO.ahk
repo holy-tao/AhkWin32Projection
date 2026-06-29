@@ -1,32 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Enables or disables the maintenance mode on a cluster shared volume (CSV).
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_csv_maintenance_mode_info
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUS_CSV_MAINTENANCE_MODE_INFO extends Win32Struct {
-    static sizeof => 524
-
-    static packingSize => 4
+export default struct CLUS_CSV_MAINTENANCE_MODE_INFO {
+    #StructPack 4
 
     /**
      * Specifies the maintenance mode for the CSV. <b>TRUE</b> enables maintenance mode, 
      *       <b>FALSE</b> disables it.
-     * @type {BOOL}
      */
-    InMaintenance {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    InMaintenance : BOOL
 
     /**
      * The volume <b>GUID</b> path of the CSV.
-     * @type {String}
      */
-    VolumeName {
-        get => StrGet(this.ptr + 4, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 259, "UTF-16")
-    }
+    VolumeName : WCHAR[260]
+
 }

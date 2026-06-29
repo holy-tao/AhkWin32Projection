@@ -1,222 +1,65 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC_FLAGS.ahk
-#Include .\D3D12_VIDEO_ENCODER_FRAME_TYPE_HEVC.ahk
-#Include .\D3D12_VIDEO_ENCODER_REFERENCE_PICTURE_DESCRIPTOR_HEVC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_VIDEO_ENCODER_FRAME_TYPE_HEVC.ahk" { D3D12_VIDEO_ENCODER_FRAME_TYPE_HEVC }
+#Import ".\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC_FLAGS.ahk" { D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC_FLAGS }
+#Import ".\D3D12_VIDEO_ENCODER_REFERENCE_PICTURE_DESCRIPTOR_HEVC.ahk" { D3D12_VIDEO_ENCODER_REFERENCE_PICTURE_DESCRIPTOR_HEVC }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC2 extends Win32Struct {
-    static sizeof => 144
+export default struct D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC2 {
+    #StructPack 8
 
-    static packingSize => 8
+    Flags : D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC_FLAGS
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC_FLAGS}
-     */
-    Flags {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    FrameType : D3D12_VIDEO_ENCODER_FRAME_TYPE_HEVC
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_FRAME_TYPE_HEVC}
-     */
-    FrameType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    slice_pic_parameter_set_id : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    slice_pic_parameter_set_id {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    PictureOrderCountNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PictureOrderCountNumber {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    TemporalLayerIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TemporalLayerIndex {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    List0ReferenceFramesCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    List0ReferenceFramesCount {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    pList0ReferenceFrames : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pList0ReferenceFrames {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    List1ReferenceFramesCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    List1ReferenceFramesCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    pList1ReferenceFrames : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pList1ReferenceFrames {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    ReferenceFramesReconPictureDescriptorsCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ReferenceFramesReconPictureDescriptorsCount {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    pReferenceFramesReconPictureDescriptors : D3D12_VIDEO_ENCODER_REFERENCE_PICTURE_DESCRIPTOR_HEVC.Ptr
 
-    /**
-     * @type {Pointer<D3D12_VIDEO_ENCODER_REFERENCE_PICTURE_DESCRIPTOR_HEVC>}
-     */
-    pReferenceFramesReconPictureDescriptors {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    List0RefPicModificationsCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    List0RefPicModificationsCount {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    pList0RefPicModifications : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pList0RefPicModifications {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    List1RefPicModificationsCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    List1RefPicModificationsCount {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    pList1RefPicModifications : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pList1RefPicModifications {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    QPMapValuesCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    QPMapValuesCount {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    pRateControlQPMap : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pRateControlQPMap {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    diff_cu_chroma_qp_offset_depth : Int8
 
-    /**
-     * @type {Integer}
-     */
-    diff_cu_chroma_qp_offset_depth {
-        get => NumGet(this, 112, "char")
-        set => NumPut("char", value, this, 112)
-    }
+    log2_sao_offset_scale_luma : Int8
 
-    /**
-     * @type {Integer}
-     */
-    log2_sao_offset_scale_luma {
-        get => NumGet(this, 113, "char")
-        set => NumPut("char", value, this, 113)
-    }
+    log2_sao_offset_scale_chroma : Int8
 
-    /**
-     * @type {Integer}
-     */
-    log2_sao_offset_scale_chroma {
-        get => NumGet(this, 114, "char")
-        set => NumPut("char", value, this, 114)
-    }
+    log2_max_transform_skip_block_size_minus2 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    log2_max_transform_skip_block_size_minus2 {
-        get => NumGet(this, 115, "char")
-        set => NumPut("char", value, this, 115)
-    }
+    chroma_qp_offset_list_len_minus1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    chroma_qp_offset_list_len_minus1 {
-        get => NumGet(this, 116, "char")
-        set => NumPut("char", value, this, 116)
-    }
+    cb_qp_offset_list : CHAR[6]
 
-    /**
-     * @type {String}
-     */
-    cb_qp_offset_list {
-        get => StrGet(this.ptr + 118, 5, "UTF-8")
-        set => StrPut(value, this.ptr + 118, 5, "UTF-8")
-    }
+    cr_qp_offset_list : CHAR[6]
 
-    /**
-     * @type {String}
-     */
-    cr_qp_offset_list {
-        get => StrGet(this.ptr + 124, 5, "UTF-8")
-        set => StrPut(value, this.ptr + 124, 5, "UTF-8")
-    }
+    num_ref_idx_l0_active_minus1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    num_ref_idx_l0_active_minus1 {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
-    }
+    num_ref_idx_l1_active_minus1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    num_ref_idx_l1_active_minus1 {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
 }

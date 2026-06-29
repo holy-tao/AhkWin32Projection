@@ -1,46 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class XSAVE_ARM64_SVE_HEADER extends Win32Struct {
-    static sizeof => 32
+export default struct XSAVE_ARM64_SVE_HEADER {
+    #StructPack 4
 
-    static packingSize => 4
+    VectorLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VectorLength {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    VectorRegisterOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VectorRegisterOffset {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    PredicateRegisterOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PredicateRegisterOffset {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Reserved : UInt32[5]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 12, 5, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
-    }
 }

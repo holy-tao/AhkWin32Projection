@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\XAPO_BUFFER_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\XAPO_BUFFER_FLAGS.ahk" { XAPO_BUFFER_FLAGS }
 
 /**
  * Defines stream buffer parameters that may change from one call to the next. Used with the Process method.
@@ -16,35 +15,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/xapo/ns-xapo-xapo_process_buffer_parameters
  * @namespace Windows.Win32.Media.Audio.XAudio2
  */
-class XAPO_PROCESS_BUFFER_PARAMETERS extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct XAPO_PROCESS_BUFFER_PARAMETERS {
+    #StructPack 8
 
     /**
      * Pointer to a stream buffer that contains audio data. The buffer must be 16-byte aligned, non-NULL, and must be at least <a href="https://docs.microsoft.com/windows/win32/api/xapo/ns-xapo-xapo_lockforprocess_parameters">XAPO_LOCKFORPROCESS_BUFFER_PARAMETERS</a>.MaxFrameCount frames in size.
-     * @type {Pointer<Void>}
      */
-    pBuffer {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pBuffer : IntPtr
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/xapo/ne-xapo-xapo_buffer_flags">XAPO_BUFFER_FLAGS</a> enumeration describing the contents of the stream buffer.
-     * @type {XAPO_BUFFER_FLAGS}
      */
-    BufferFlags {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    BufferFlags : XAPO_BUFFER_FLAGS
 
     /**
      * Number of frames to process; this value must be within the range 0 to <a href="https://docs.microsoft.com/windows/win32/api/xapo/ns-xapo-xapo_lockforprocess_parameters">XAPO_LOCKFORPROCESS_BUFFER_PARAMETERS</a>.MaxFrameCount.
-     * @type {Integer}
      */
-    ValidFrameCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ValidFrameCount : UInt32
+
 }

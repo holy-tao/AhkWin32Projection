@@ -1,104 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.System.Iis
  */
-class HTTP_FILTER_CONTEXT extends Win32Struct {
-    static sizeof => 72
+export default struct HTTP_FILTER_CONTEXT {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Revision : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Revision {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ServerContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    ServerContext {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ulReserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulReserved {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    fIsSecurePort : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    fIsSecurePort {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    pFilterContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pFilterContext {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    GetServerVariable : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    GetServerVariable {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    AddResponseHeaders : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    AddResponseHeaders {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    WriteClient : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    WriteClient {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    AllocMem : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    AllocMem {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    ServerSupportFunction : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ServerSupportFunction {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 72
-    }
 }

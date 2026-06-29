@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Pin states of a placeholder file or directory.
@@ -81,7 +80,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_pin_state
  * @namespace Windows.Win32.Storage.CloudFilters
  */
-class CF_PIN_STATE extends Win32Enum {
+export default struct CF_PIN_STATE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The platform can decide freely when the placeholder’s content needs to present or absent locally on the disk.

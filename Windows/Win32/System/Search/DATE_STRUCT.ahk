@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class DATE_STRUCT extends Win32Struct {
-    static sizeof => 6
+export default struct DATE_STRUCT {
+    #StructPack 2
 
-    static packingSize => 2
+    year : Int16
 
-    /**
-     * @type {Integer}
-     */
-    year {
-        get => NumGet(this, 0, "short")
-        set => NumPut("short", value, this, 0)
-    }
+    month : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    month {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    day : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    day {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
 }

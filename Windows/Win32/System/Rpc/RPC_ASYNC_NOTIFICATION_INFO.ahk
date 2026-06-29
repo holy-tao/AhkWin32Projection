@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\IO\OVERLAPPED.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\IO\OVERLAPPED.ahk" { OVERLAPPED }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * Contains notification information for asynchronous remote procedure calls. This notification information can be configured for I/O completion ports (IOC), Windows asynchronous procedure calls (APC), Windows messaging, and Windows event notification.
@@ -11,152 +10,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/rpcasync/ns-rpcasync-rpc_async_notification_info
  * @namespace Windows.Win32.System.Rpc
  */
-class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct {
-    static sizeof => 80
+export default struct RPC_ASYNC_NOTIFICATION_INFO {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _APC extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _APC {
+        NotificationRoutine : IntPtr
 
-        /**
-         * @type {Pointer<PFN_RPCNOTIFICATION_ROUTINE>}
-         */
-        NotificationRoutine {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
+        hThread : HANDLE
 
-        /**
-         * @type {HANDLE}
-         */
-        hThread {
-            get {
-                if(!this.HasProp("__hThread"))
-                    this.__hThread := HANDLE(8, this)
-                return this.__hThread
-            }
-        }
     }
 
-    class _IOC extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
+    struct _IOC {
+        hIOPort : HANDLE
 
-        /**
-         * @type {HANDLE}
-         */
-        hIOPort {
-            get {
-                if(!this.HasProp("__hIOPort"))
-                    this.__hIOPort := HANDLE(0, this)
-                return this.__hIOPort
-            }
-        }
+        dwNumberOfBytesTransferred : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        dwNumberOfBytesTransferred {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
+        dwCompletionKey : IntPtr
 
-        /**
-         * @type {Pointer}
-         */
-        dwCompletionKey {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
-        }
+        lpOverlapped : OVERLAPPED.Ptr
 
-        /**
-         * @type {Pointer<OVERLAPPED>}
-         */
-        lpOverlapped {
-            get => NumGet(this, 24, "ptr")
-            set => NumPut("ptr", value, this, 24)
-        }
     }
 
-    class _IntPtr extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _IntPtr {
+        hWnd : HWND
 
-        /**
-         * @type {HWND}
-         */
-        hWnd {
-            get {
-                if(!this.HasProp("__hWnd"))
-                    this.__hWnd := HWND(0, this)
-                return this.__hWnd
-            }
-        }
+        Msg : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Msg {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
     }
 
     /**
      * Structure used for Windows asynchronous procedure call (APC) notifications.
-     * @type {_APC}
      */
-    APC {
-        get {
-            if(!this.HasProp("__APC"))
-                this.__APC := RPC_ASYNC_NOTIFICATION_INFO._APC(0, this)
-            return this.__APC
-        }
-    }
+    APC : RPC_ASYNC_NOTIFICATION_INFO._APC
 
-    /**
-     * Structure used for notification on an I/O completion port.
-     * @type {_IOC}
-     */
-    IOC {
-        get {
-            if(!this.HasProp("__IOC"))
-                this.__IOC := RPC_ASYNC_NOTIFICATION_INFO._IOC(0, this)
-            return this.__IOC
-        }
-    }
-
-    /**
-     * @type {_IntPtr}
-     */
-    IntPtr {
-        get {
-            if(!this.HasProp("__IntPtr"))
-                this.__IntPtr := RPC_ASYNC_NOTIFICATION_INFO._IntPtr(0, this)
-            return this.__IntPtr
-        }
-    }
-
-    /**
-     * Handle used for notification by an event.
-     * @type {HANDLE}
-     */
-    hEvent {
-        get {
-            if(!this.HasProp("__hEvent"))
-                this.__hEvent := HANDLE(0, this)
-            return this.__hEvent
-        }
-    }
-
-    /**
-     * Calls the user-defined APC notification routine.
-     * @type {Pointer<PFN_RPCNOTIFICATION_ROUTINE>}
-     */
-    NotificationRoutine {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'IOC', { type: RPC_ASYNC_NOTIFICATION_INFO._IOC, offset: 0 })
+        DefineProp(this.Prototype, 'IntPtr', { type: RPC_ASYNC_NOTIFICATION_INFO._IntPtr, offset: 0 })
+        DefineProp(this.Prototype, 'hEvent', { type: HANDLE, offset: 0 })
+        DefineProp(this.Prototype, 'NotificationRoutine', { type: IntPtr, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

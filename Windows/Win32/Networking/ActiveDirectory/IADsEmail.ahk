@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IADsEmail interface provides methods for an ADSI client to access the Email Address attribute.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsemail
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IADsEmail extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IADsEmail extends IDispatch {
     /**
      * The interface identifier for IADsEmail
      * @type {Guid}
      */
-    static IID => Guid("{97af011a-478e-11d1-a3b4-00c04fb950dc}")
+    static IID := Guid("{97af011a-478e-11d1-a3b4-00c04fb950dc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IADsEmail interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Type    : IntPtr
+        put_Type    : IntPtr
+        get_Address : IntPtr
+        put_Address : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Type", "put_Type", "get_Address", "put_Address"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IADsEmail.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -70,8 +81,8 @@ class IADsEmail extends IDispatch {
      * @returns {BSTR} 
      */
     get_Address() {
-        retval := BSTR()
-        result := ComCall(9, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -83,7 +94,33 @@ class IADsEmail extends IDispatch {
     put_Address(bstrAddress) {
         bstrAddress := bstrAddress is String ? BSTR.Alloc(bstrAddress).Value : bstrAddress
 
-        result := ComCall(10, this, "ptr", bstrAddress, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrAddress, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IADsEmail.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.put_Type := CallbackCreate(GetMethod(implObj, "put_Type"), flags, 2)
+        this.vtbl.get_Address := CallbackCreate(GetMethod(implObj, "get_Address"), flags, 2)
+        this.vtbl.put_Address := CallbackCreate(GetMethod(implObj, "put_Address"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Type)
+        CallbackFree(this.vtbl.put_Type)
+        CallbackFree(this.vtbl.get_Address)
+        CallbackFree(this.vtbl.put_Address)
     }
 }

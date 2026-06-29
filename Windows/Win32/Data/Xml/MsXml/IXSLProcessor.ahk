@@ -1,35 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
-#Include .\IXSLTemplate.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IXMLDOMNode.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXMLDOMNode.ahk" { IXMLDOMNode }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IXSLTemplate.ahk" { IXSLTemplate }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
  */
-class IXSLProcessor extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IXSLProcessor extends IDispatch {
     /**
      * The interface identifier for IXSLProcessor
      * @type {Guid}
      */
-    static IID => Guid("{2933bf92-7b36-11d2-b20e-00c04f983e60}")
+    static IID := Guid("{2933bf92-7b36-11d2-b20e-00c04f983e60}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXSLProcessor interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_input         : IntPtr
+        get_input         : IntPtr
+        get_ownerTemplate : IntPtr
+        setStartMode      : IntPtr
+        get_startMode     : IntPtr
+        get_startModeURI  : IntPtr
+        put_output        : IntPtr
+        get_output        : IntPtr
+        transform         : IntPtr
+        reset             : IntPtr
+        get_readyState    : IntPtr
+        addParameter      : IntPtr
+        addObject         : IntPtr
+        get_stylesheet    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_input", "get_input", "get_ownerTemplate", "setStartMode", "get_startMode", "get_startModeURI", "put_output", "get_output", "transform", "reset", "get_readyState", "addParameter", "addObject", "get_stylesheet"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXSLProcessor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT} 
@@ -88,7 +110,7 @@ class IXSLProcessor extends IDispatch {
      * @returns {HRESULT} 
      */
     put_input(var) {
-        result := ComCall(7, this, "ptr", var, "HRESULT")
+        result := ComCall(7, this, VARIANT, var, "HRESULT")
         return result
     }
 
@@ -98,7 +120,7 @@ class IXSLProcessor extends IDispatch {
      */
     get_input() {
         pVar := VARIANT()
-        result := ComCall(8, this, "ptr", pVar, "HRESULT")
+        result := ComCall(8, this, VARIANT.Ptr, pVar, "HRESULT")
         return pVar
     }
 
@@ -121,7 +143,7 @@ class IXSLProcessor extends IDispatch {
         _mode := _mode is String ? BSTR.Alloc(_mode).Value : _mode
         namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
 
-        result := ComCall(10, this, "ptr", _mode, "ptr", namespaceURI, "HRESULT")
+        result := ComCall(10, this, BSTR, _mode, BSTR, namespaceURI, "HRESULT")
         return result
     }
 
@@ -130,8 +152,8 @@ class IXSLProcessor extends IDispatch {
      * @returns {BSTR} 
      */
     get_startMode() {
-        _mode := BSTR()
-        result := ComCall(11, this, "ptr", _mode, "HRESULT")
+        _mode := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, _mode, "HRESULT")
         return _mode
     }
 
@@ -140,8 +162,8 @@ class IXSLProcessor extends IDispatch {
      * @returns {BSTR} 
      */
     get_startModeURI() {
-        namespaceURI := BSTR()
-        result := ComCall(12, this, "ptr", namespaceURI, "HRESULT")
+        namespaceURI := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, namespaceURI, "HRESULT")
         return namespaceURI
     }
 
@@ -151,7 +173,7 @@ class IXSLProcessor extends IDispatch {
      * @returns {HRESULT} 
      */
     put_output(output) {
-        result := ComCall(13, this, "ptr", output, "HRESULT")
+        result := ComCall(13, this, VARIANT, output, "HRESULT")
         return result
     }
 
@@ -161,7 +183,7 @@ class IXSLProcessor extends IDispatch {
      */
     get_output() {
         pOutput := VARIANT()
-        result := ComCall(14, this, "ptr", pOutput, "HRESULT")
+        result := ComCall(14, this, VARIANT.Ptr, pOutput, "HRESULT")
         return pOutput
     }
 
@@ -170,7 +192,7 @@ class IXSLProcessor extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     transform() {
-        result := ComCall(15, this, "short*", &pDone := 0, "HRESULT")
+        result := ComCall(15, this, VARIANT_BOOL.Ptr, &pDone := 0, "HRESULT")
         return pDone
     }
 
@@ -203,7 +225,7 @@ class IXSLProcessor extends IDispatch {
         baseName := baseName is String ? BSTR.Alloc(baseName).Value : baseName
         namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
 
-        result := ComCall(18, this, "ptr", baseName, "ptr", parameter, "ptr", namespaceURI, "HRESULT")
+        result := ComCall(18, this, BSTR, baseName, VARIANT, parameter, BSTR, namespaceURI, "HRESULT")
         return result
     }
 
@@ -216,7 +238,7 @@ class IXSLProcessor extends IDispatch {
     addObject(obj, namespaceURI) {
         namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
 
-        result := ComCall(19, this, "ptr", obj, "ptr", namespaceURI, "HRESULT")
+        result := ComCall(19, this, "ptr", obj, BSTR, namespaceURI, "HRESULT")
         return result
     }
 
@@ -227,5 +249,51 @@ class IXSLProcessor extends IDispatch {
     get_stylesheet() {
         result := ComCall(20, this, "ptr*", &stylesheet := 0, "HRESULT")
         return IXMLDOMNode(stylesheet)
+    }
+
+    Query(iid) {
+        if (IXSLProcessor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_input := CallbackCreate(GetMethod(implObj, "put_input"), flags, 2)
+        this.vtbl.get_input := CallbackCreate(GetMethod(implObj, "get_input"), flags, 2)
+        this.vtbl.get_ownerTemplate := CallbackCreate(GetMethod(implObj, "get_ownerTemplate"), flags, 2)
+        this.vtbl.setStartMode := CallbackCreate(GetMethod(implObj, "setStartMode"), flags, 3)
+        this.vtbl.get_startMode := CallbackCreate(GetMethod(implObj, "get_startMode"), flags, 2)
+        this.vtbl.get_startModeURI := CallbackCreate(GetMethod(implObj, "get_startModeURI"), flags, 2)
+        this.vtbl.put_output := CallbackCreate(GetMethod(implObj, "put_output"), flags, 2)
+        this.vtbl.get_output := CallbackCreate(GetMethod(implObj, "get_output"), flags, 2)
+        this.vtbl.transform := CallbackCreate(GetMethod(implObj, "transform"), flags, 2)
+        this.vtbl.reset := CallbackCreate(GetMethod(implObj, "reset"), flags, 1)
+        this.vtbl.get_readyState := CallbackCreate(GetMethod(implObj, "get_readyState"), flags, 2)
+        this.vtbl.addParameter := CallbackCreate(GetMethod(implObj, "addParameter"), flags, 4)
+        this.vtbl.addObject := CallbackCreate(GetMethod(implObj, "addObject"), flags, 3)
+        this.vtbl.get_stylesheet := CallbackCreate(GetMethod(implObj, "get_stylesheet"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_input)
+        CallbackFree(this.vtbl.get_input)
+        CallbackFree(this.vtbl.get_ownerTemplate)
+        CallbackFree(this.vtbl.setStartMode)
+        CallbackFree(this.vtbl.get_startMode)
+        CallbackFree(this.vtbl.get_startModeURI)
+        CallbackFree(this.vtbl.put_output)
+        CallbackFree(this.vtbl.get_output)
+        CallbackFree(this.vtbl.transform)
+        CallbackFree(this.vtbl.reset)
+        CallbackFree(this.vtbl.get_readyState)
+        CallbackFree(this.vtbl.addParameter)
+        CallbackFree(this.vtbl.addObject)
+        CallbackFree(this.vtbl.get_stylesheet)
     }
 }

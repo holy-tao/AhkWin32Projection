@@ -1,38 +1,70 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLAppBehavior extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLAppBehavior extends IDispatch {
     /**
      * The interface identifier for IHTMLAppBehavior
      * @type {Guid}
      */
-    static IID => Guid("{3050f5ca-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f5ca-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for HTMLAppBehavior
      * @type {Guid}
      */
-    static CLSID => Guid("{3050f5cb-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{3050f5cb-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLAppBehavior interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_applicationName : IntPtr
+        get_applicationName : IntPtr
+        put_version         : IntPtr
+        get_version         : IntPtr
+        put_icon            : IntPtr
+        get_icon            : IntPtr
+        put_singleInstance  : IntPtr
+        get_singleInstance  : IntPtr
+        put_minimizeButton  : IntPtr
+        get_minimizeButton  : IntPtr
+        put_maximizeButton  : IntPtr
+        get_maximizeButton  : IntPtr
+        put_border          : IntPtr
+        get_border          : IntPtr
+        put_borderStyle     : IntPtr
+        get_borderStyle     : IntPtr
+        put_sysMenu         : IntPtr
+        get_sysMenu         : IntPtr
+        put_caption         : IntPtr
+        get_caption         : IntPtr
+        put_windowState     : IntPtr
+        get_windowState     : IntPtr
+        put_showInTaskBar   : IntPtr
+        get_showInTaskBar   : IntPtr
+        get_commandLine     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_applicationName", "get_applicationName", "put_version", "get_version", "put_icon", "get_icon", "put_singleInstance", "get_singleInstance", "put_minimizeButton", "get_minimizeButton", "put_maximizeButton", "get_maximizeButton", "put_border", "get_border", "put_borderStyle", "get_borderStyle", "put_sysMenu", "get_sysMenu", "put_caption", "get_caption", "put_windowState", "get_windowState", "put_showInTaskBar", "get_showInTaskBar", "get_commandLine"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLAppBehavior.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -145,7 +177,7 @@ class IHTMLAppBehavior extends IDispatch {
     put_applicationName(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -154,8 +186,8 @@ class IHTMLAppBehavior extends IDispatch {
      * @returns {BSTR} 
      */
     get_applicationName() {
-        p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -167,7 +199,7 @@ class IHTMLAppBehavior extends IDispatch {
     put_version(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -176,8 +208,8 @@ class IHTMLAppBehavior extends IDispatch {
      * @returns {BSTR} 
      */
     get_version() {
-        p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -189,7 +221,7 @@ class IHTMLAppBehavior extends IDispatch {
     put_icon(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -198,8 +230,8 @@ class IHTMLAppBehavior extends IDispatch {
      * @returns {BSTR} 
      */
     get_icon() {
-        p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -211,7 +243,7 @@ class IHTMLAppBehavior extends IDispatch {
     put_singleInstance(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -220,8 +252,8 @@ class IHTMLAppBehavior extends IDispatch {
      * @returns {BSTR} 
      */
     get_singleInstance() {
-        p := BSTR()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -233,7 +265,7 @@ class IHTMLAppBehavior extends IDispatch {
     put_minimizeButton(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -242,8 +274,8 @@ class IHTMLAppBehavior extends IDispatch {
      * @returns {BSTR} 
      */
     get_minimizeButton() {
-        p := BSTR()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(16, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -255,7 +287,7 @@ class IHTMLAppBehavior extends IDispatch {
     put_maximizeButton(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(17, this, "ptr", v, "HRESULT")
+        result := ComCall(17, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -264,8 +296,8 @@ class IHTMLAppBehavior extends IDispatch {
      * @returns {BSTR} 
      */
     get_maximizeButton() {
-        p := BSTR()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -277,7 +309,7 @@ class IHTMLAppBehavior extends IDispatch {
     put_border(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(19, this, "ptr", v, "HRESULT")
+        result := ComCall(19, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -286,8 +318,8 @@ class IHTMLAppBehavior extends IDispatch {
      * @returns {BSTR} 
      */
     get_border() {
-        p := BSTR()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(20, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -299,7 +331,7 @@ class IHTMLAppBehavior extends IDispatch {
     put_borderStyle(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(21, this, "ptr", v, "HRESULT")
+        result := ComCall(21, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -308,8 +340,8 @@ class IHTMLAppBehavior extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderStyle() {
-        p := BSTR()
-        result := ComCall(22, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(22, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -321,7 +353,7 @@ class IHTMLAppBehavior extends IDispatch {
     put_sysMenu(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(23, this, "ptr", v, "HRESULT")
+        result := ComCall(23, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -330,8 +362,8 @@ class IHTMLAppBehavior extends IDispatch {
      * @returns {BSTR} 
      */
     get_sysMenu() {
-        p := BSTR()
-        result := ComCall(24, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(24, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -343,7 +375,7 @@ class IHTMLAppBehavior extends IDispatch {
     put_caption(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(25, this, "ptr", v, "HRESULT")
+        result := ComCall(25, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -352,8 +384,8 @@ class IHTMLAppBehavior extends IDispatch {
      * @returns {BSTR} 
      */
     get_caption() {
-        p := BSTR()
-        result := ComCall(26, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(26, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -365,7 +397,7 @@ class IHTMLAppBehavior extends IDispatch {
     put_windowState(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(27, this, "ptr", v, "HRESULT")
+        result := ComCall(27, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -374,8 +406,8 @@ class IHTMLAppBehavior extends IDispatch {
      * @returns {BSTR} 
      */
     get_windowState() {
-        p := BSTR()
-        result := ComCall(28, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(28, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -387,7 +419,7 @@ class IHTMLAppBehavior extends IDispatch {
     put_showInTaskBar(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(29, this, "ptr", v, "HRESULT")
+        result := ComCall(29, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -396,8 +428,8 @@ class IHTMLAppBehavior extends IDispatch {
      * @returns {BSTR} 
      */
     get_showInTaskBar() {
-        p := BSTR()
-        result := ComCall(30, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(30, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -406,8 +438,76 @@ class IHTMLAppBehavior extends IDispatch {
      * @returns {BSTR} 
      */
     get_commandLine() {
-        p := BSTR()
-        result := ComCall(31, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(31, this, BSTR.Ptr, p, "HRESULT")
         return p
+    }
+
+    Query(iid) {
+        if (IHTMLAppBehavior.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_applicationName := CallbackCreate(GetMethod(implObj, "put_applicationName"), flags, 2)
+        this.vtbl.get_applicationName := CallbackCreate(GetMethod(implObj, "get_applicationName"), flags, 2)
+        this.vtbl.put_version := CallbackCreate(GetMethod(implObj, "put_version"), flags, 2)
+        this.vtbl.get_version := CallbackCreate(GetMethod(implObj, "get_version"), flags, 2)
+        this.vtbl.put_icon := CallbackCreate(GetMethod(implObj, "put_icon"), flags, 2)
+        this.vtbl.get_icon := CallbackCreate(GetMethod(implObj, "get_icon"), flags, 2)
+        this.vtbl.put_singleInstance := CallbackCreate(GetMethod(implObj, "put_singleInstance"), flags, 2)
+        this.vtbl.get_singleInstance := CallbackCreate(GetMethod(implObj, "get_singleInstance"), flags, 2)
+        this.vtbl.put_minimizeButton := CallbackCreate(GetMethod(implObj, "put_minimizeButton"), flags, 2)
+        this.vtbl.get_minimizeButton := CallbackCreate(GetMethod(implObj, "get_minimizeButton"), flags, 2)
+        this.vtbl.put_maximizeButton := CallbackCreate(GetMethod(implObj, "put_maximizeButton"), flags, 2)
+        this.vtbl.get_maximizeButton := CallbackCreate(GetMethod(implObj, "get_maximizeButton"), flags, 2)
+        this.vtbl.put_border := CallbackCreate(GetMethod(implObj, "put_border"), flags, 2)
+        this.vtbl.get_border := CallbackCreate(GetMethod(implObj, "get_border"), flags, 2)
+        this.vtbl.put_borderStyle := CallbackCreate(GetMethod(implObj, "put_borderStyle"), flags, 2)
+        this.vtbl.get_borderStyle := CallbackCreate(GetMethod(implObj, "get_borderStyle"), flags, 2)
+        this.vtbl.put_sysMenu := CallbackCreate(GetMethod(implObj, "put_sysMenu"), flags, 2)
+        this.vtbl.get_sysMenu := CallbackCreate(GetMethod(implObj, "get_sysMenu"), flags, 2)
+        this.vtbl.put_caption := CallbackCreate(GetMethod(implObj, "put_caption"), flags, 2)
+        this.vtbl.get_caption := CallbackCreate(GetMethod(implObj, "get_caption"), flags, 2)
+        this.vtbl.put_windowState := CallbackCreate(GetMethod(implObj, "put_windowState"), flags, 2)
+        this.vtbl.get_windowState := CallbackCreate(GetMethod(implObj, "get_windowState"), flags, 2)
+        this.vtbl.put_showInTaskBar := CallbackCreate(GetMethod(implObj, "put_showInTaskBar"), flags, 2)
+        this.vtbl.get_showInTaskBar := CallbackCreate(GetMethod(implObj, "get_showInTaskBar"), flags, 2)
+        this.vtbl.get_commandLine := CallbackCreate(GetMethod(implObj, "get_commandLine"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_applicationName)
+        CallbackFree(this.vtbl.get_applicationName)
+        CallbackFree(this.vtbl.put_version)
+        CallbackFree(this.vtbl.get_version)
+        CallbackFree(this.vtbl.put_icon)
+        CallbackFree(this.vtbl.get_icon)
+        CallbackFree(this.vtbl.put_singleInstance)
+        CallbackFree(this.vtbl.get_singleInstance)
+        CallbackFree(this.vtbl.put_minimizeButton)
+        CallbackFree(this.vtbl.get_minimizeButton)
+        CallbackFree(this.vtbl.put_maximizeButton)
+        CallbackFree(this.vtbl.get_maximizeButton)
+        CallbackFree(this.vtbl.put_border)
+        CallbackFree(this.vtbl.get_border)
+        CallbackFree(this.vtbl.put_borderStyle)
+        CallbackFree(this.vtbl.get_borderStyle)
+        CallbackFree(this.vtbl.put_sysMenu)
+        CallbackFree(this.vtbl.get_sysMenu)
+        CallbackFree(this.vtbl.put_caption)
+        CallbackFree(this.vtbl.get_caption)
+        CallbackFree(this.vtbl.put_windowState)
+        CallbackFree(this.vtbl.get_windowState)
+        CallbackFree(this.vtbl.put_showInTaskBar)
+        CallbackFree(this.vtbl.get_showInTaskBar)
+        CallbackFree(this.vtbl.get_commandLine)
     }
 }

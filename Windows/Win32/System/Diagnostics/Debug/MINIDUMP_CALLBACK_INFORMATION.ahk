@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains a pointer to an optional callback function that can be used by the MiniDumpWriteDump function.
@@ -7,27 +6,18 @@
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @architecture X64, Arm64
  */
-class MINIDUMP_CALLBACK_INFORMATION extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct MINIDUMP_CALLBACK_INFORMATION {
+    #StructPack 8
 
     /**
      * A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minidumpapiset/nc-minidumpapiset-minidump_callback_routine">MiniDumpCallback</a> callback function.
-     * @type {Pointer<MINIDUMP_CALLBACK_ROUTINE>}
      */
-    CallbackRoutine {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    CallbackRoutine : IntPtr
 
     /**
      * The application-defined data for <b>CallbackRoutine</b>.
-     * @type {Pointer<Void>}
      */
-    CallbackParam {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    CallbackParam : IntPtr
+
 }

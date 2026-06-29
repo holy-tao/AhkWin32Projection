@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IInspectable.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\IInspectable.ahk" { IInspectable }
 
 /**
  * Enables access to PrintManager methods in a Windows Store app that manages multiple windows.
  * @see https://learn.microsoft.com/windows/win32/api/printmanagerinterop/nn-printmanagerinterop-iprintmanagerinterop
  * @namespace Windows.Win32.System.WinRT.Printing
  */
-class IPrintManagerInterop extends IInspectable {
-
-    static sizeof => A_PtrSize
+export default struct IPrintManagerInterop extends IInspectable {
     /**
      * The interface identifier for IPrintManagerInterop
      * @type {Guid}
      */
-    static IID => Guid("{c5435a42-8d43-4e7b-a68a-ef311e392087}")
+    static IID := Guid("{c5435a42-8d43-4e7b-a68a-ef311e392087}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPrintManagerInterop interfaces
+    */
+    struct Vtbl extends IInspectable.Vtbl {
+        GetForWindow              : IntPtr
+        ShowPrintUIForWindowAsync : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetForWindow", "ShowPrintUIForWindowAsync"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPrintManagerInterop.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the PrintManager instance for the specified window.
@@ -39,9 +49,7 @@ class IPrintManagerInterop extends IInspectable {
      * @see https://learn.microsoft.com/windows/win32/api/printmanagerinterop/nf-printmanagerinterop-iprintmanagerinterop-getforwindow
      */
     GetForWindow(appWindow, riid) {
-        appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
-
-        result := ComCall(6, this, "ptr", appWindow, "ptr", riid, "ptr*", &printManager := 0, "HRESULT")
+        result := ComCall(6, this, HWND, appWindow, Guid.Ptr, riid, "ptr*", &printManager := 0, "HRESULT")
         return printManager
     }
 
@@ -55,9 +63,29 @@ class IPrintManagerInterop extends IInspectable {
      * @see https://learn.microsoft.com/windows/win32/api/printmanagerinterop/nf-printmanagerinterop-iprintmanagerinterop-showprintuiforwindowasync
      */
     ShowPrintUIForWindowAsync(appWindow, riid) {
-        appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
-
-        result := ComCall(7, this, "ptr", appWindow, "ptr", riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        result := ComCall(7, this, HWND, appWindow, Guid.Ptr, riid, "ptr*", &asyncOperation := 0, "HRESULT")
         return asyncOperation
+    }
+
+    Query(iid) {
+        if (IPrintManagerInterop.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetForWindow := CallbackCreate(GetMethod(implObj, "GetForWindow"), flags, 4)
+        this.vtbl.ShowPrintUIForWindowAsync := CallbackCreate(GetMethod(implObj, "ShowPrintUIForWindowAsync"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetForWindow)
+        CallbackFree(this.vtbl.ShowPrintUIForWindowAsync)
     }
 }

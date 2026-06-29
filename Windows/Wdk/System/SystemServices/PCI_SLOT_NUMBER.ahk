@@ -1,33 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCI_SLOT_NUMBER extends Win32Struct {
-    static sizeof => 4
+export default struct PCI_SLOT_NUMBER {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _u_e__Union extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
+    struct _u {
 
-        class _bits extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 4
-
+        struct _bits {
             /**
              * This bitfield backs the following members:
              * - DeviceNumber
              * - FunctionNumber
              * - Reserved
-             * @type {Integer}
              */
-            _bitfield {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            _bitfield : Int32
+
 
             /**
              * @type {Integer}
@@ -46,34 +36,14 @@ class PCI_SLOT_NUMBER extends Win32Struct {
             }
         }
 
-        /**
-         * @type {_bits}
-         */
-        bits {
-            get {
-                if(!this.HasProp("__bits"))
-                    this.__bits := PCI_SLOT_NUMBER._u_e__Union._bits(0, this)
-                return this.__bits
-            }
-        }
+        bits : PCI_SLOT_NUMBER._u._bits
 
-        /**
-         * @type {Integer}
-         */
-        AsULONG {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsULONG', { type: UInt32, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {_u_e__Union}
-     */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := PCI_SLOT_NUMBER._u_e__Union(0, this)
-            return this.__u
-        }
-    }
+    u : PCI_SLOT_NUMBER._u
+
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DocumentMode enumeration is used by the Document.Mode property and specifies how the document is opened. This enumeration applies to the MMC 2.0 Automation Object Model.
  * @see https://learn.microsoft.com/windows/win32/api/mmcobj/ne-mmcobj-_documentmode
  * @namespace Windows.Win32.System.Mmc
  */
-class _DocumentMode extends Win32Enum {
+export default struct _DocumentMode {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The document is opened in Author Mode.

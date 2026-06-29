@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Represents a registry string replacement. (Unicode)
@@ -10,26 +10,17 @@
  * @namespace Windows.Win32.System.WindowsProgramming
  * @charset Unicode
  */
-class STRENTRYW extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct STRENTRYW {
+    #StructPack 8
 
     /**
      * The name of the string to substitute.
-     * @type {PWSTR}
      */
-    pszName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pszName : PWSTR
 
     /**
      * The replacement string.
-     * @type {PWSTR}
      */
-    pszValue {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszValue : PWSTR
+
 }

@@ -1,354 +1,88 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\JET_SIGNATURE.ahk
-#Include .\JET_LOGTIME.ahk
-#Include .\JET_LGPOS.ahk
-#Include .\JET_BKINFO.ahk
-#Include .\JET_BKLOGTIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\JET_LOGTIME.ahk" { JET_LOGTIME }
+#Import ".\JET_BKLOGTIME.ahk" { JET_BKLOGTIME }
+#Import ".\JET_SIGNATURE.ahk" { JET_SIGNATURE }
+#Import ".\JET_BKINFO.ahk" { JET_BKINFO }
+#Import ".\JET_LGPOS.ahk" { JET_LGPOS }
 
 /**
  * Learn more about: JET_DBINFOMISC2 Structure
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-dbinfomisc2-structure
  * @namespace Windows.Win32.Storage.Jet
  */
-class JET_DBINFOMISC2 extends Win32Struct {
-    static sizeof => 296
+export default struct JET_DBINFOMISC2 {
+    #StructPack 4
 
-    static packingSize => 4
+    ulVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulUpdate : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulUpdate {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    signDb : JET_SIGNATURE
 
-    /**
-     * @type {JET_SIGNATURE}
-     */
-    signDb {
-        get {
-            if(!this.HasProp("__signDb"))
-                this.__signDb := JET_SIGNATURE(8, this)
-            return this.__signDb
-        }
-    }
+    dbstate : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dbstate {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    lgposConsistent : JET_LGPOS
 
-    /**
-     * @type {JET_LGPOS}
-     */
-    lgposConsistent {
-        get {
-            if(!this.HasProp("__lgposConsistent"))
-                this.__lgposConsistent := JET_LGPOS(40, this)
-            return this.__lgposConsistent
-        }
-    }
+    logtimeConsistent : JET_LOGTIME
 
-    /**
-     * @type {JET_LOGTIME}
-     */
-    logtimeConsistent {
-        get {
-            if(!this.HasProp("__logtimeConsistent"))
-                this.__logtimeConsistent := JET_LOGTIME(48, this)
-            return this.__logtimeConsistent
-        }
-    }
+    logtimeAttach : JET_LOGTIME
 
-    /**
-     * @type {JET_LOGTIME}
-     */
-    logtimeAttach {
-        get {
-            if(!this.HasProp("__logtimeAttach"))
-                this.__logtimeAttach := JET_LOGTIME(56, this)
-            return this.__logtimeAttach
-        }
-    }
+    lgposAttach : JET_LGPOS
 
-    /**
-     * @type {JET_LGPOS}
-     */
-    lgposAttach {
-        get {
-            if(!this.HasProp("__lgposAttach"))
-                this.__lgposAttach := JET_LGPOS(64, this)
-            return this.__lgposAttach
-        }
-    }
+    logtimeDetach : JET_LOGTIME
 
-    /**
-     * @type {JET_LOGTIME}
-     */
-    logtimeDetach {
-        get {
-            if(!this.HasProp("__logtimeDetach"))
-                this.__logtimeDetach := JET_LOGTIME(72, this)
-            return this.__logtimeDetach
-        }
-    }
+    lgposDetach : JET_LGPOS
 
-    /**
-     * @type {JET_LGPOS}
-     */
-    lgposDetach {
-        get {
-            if(!this.HasProp("__lgposDetach"))
-                this.__lgposDetach := JET_LGPOS(80, this)
-            return this.__lgposDetach
-        }
-    }
+    signLog : JET_SIGNATURE
 
-    /**
-     * @type {JET_SIGNATURE}
-     */
-    signLog {
-        get {
-            if(!this.HasProp("__signLog"))
-                this.__signLog := JET_SIGNATURE(88, this)
-            return this.__signLog
-        }
-    }
+    bkinfoFullPrev : JET_BKINFO
 
-    /**
-     * @type {JET_BKINFO}
-     */
-    bkinfoFullPrev {
-        get {
-            if(!this.HasProp("__bkinfoFullPrev"))
-                this.__bkinfoFullPrev := JET_BKINFO(116, this)
-            return this.__bkinfoFullPrev
-        }
-    }
+    bkinfoIncPrev : JET_BKINFO
 
-    /**
-     * @type {JET_BKINFO}
-     */
-    bkinfoIncPrev {
-        get {
-            if(!this.HasProp("__bkinfoIncPrev"))
-                this.__bkinfoIncPrev := JET_BKINFO(140, this)
-            return this.__bkinfoIncPrev
-        }
-    }
+    bkinfoFullCur : JET_BKINFO
 
-    /**
-     * @type {JET_BKINFO}
-     */
-    bkinfoFullCur {
-        get {
-            if(!this.HasProp("__bkinfoFullCur"))
-                this.__bkinfoFullCur := JET_BKINFO(164, this)
-            return this.__bkinfoFullCur
-        }
-    }
+    fShadowingDisabled : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fShadowingDisabled {
-        get => NumGet(this, 188, "uint")
-        set => NumPut("uint", value, this, 188)
-    }
+    fUpgradeDb : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fUpgradeDb {
-        get => NumGet(this, 192, "uint")
-        set => NumPut("uint", value, this, 192)
-    }
+    dwMajorVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMajorVersion {
-        get => NumGet(this, 196, "uint")
-        set => NumPut("uint", value, this, 196)
-    }
+    dwMinorVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMinorVersion {
-        get => NumGet(this, 200, "uint")
-        set => NumPut("uint", value, this, 200)
-    }
+    dwBuildNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwBuildNumber {
-        get => NumGet(this, 204, "uint")
-        set => NumPut("uint", value, this, 204)
-    }
+    lSPNumber : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lSPNumber {
-        get => NumGet(this, 208, "int")
-        set => NumPut("int", value, this, 208)
-    }
+    cbPageSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbPageSize {
-        get => NumGet(this, 212, "uint")
-        set => NumPut("uint", value, this, 212)
-    }
+    genMinRequired : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    genMinRequired {
-        get => NumGet(this, 216, "uint")
-        set => NumPut("uint", value, this, 216)
-    }
+    genMaxRequired : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    genMaxRequired {
-        get => NumGet(this, 220, "uint")
-        set => NumPut("uint", value, this, 220)
-    }
+    logtimeGenMaxCreate : JET_LOGTIME
 
-    /**
-     * @type {JET_LOGTIME}
-     */
-    logtimeGenMaxCreate {
-        get {
-            if(!this.HasProp("__logtimeGenMaxCreate"))
-                this.__logtimeGenMaxCreate := JET_LOGTIME(224, this)
-            return this.__logtimeGenMaxCreate
-        }
-    }
+    ulRepairCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulRepairCount {
-        get => NumGet(this, 232, "uint")
-        set => NumPut("uint", value, this, 232)
-    }
+    logtimeRepair : JET_LOGTIME
 
-    /**
-     * @type {JET_LOGTIME}
-     */
-    logtimeRepair {
-        get {
-            if(!this.HasProp("__logtimeRepair"))
-                this.__logtimeRepair := JET_LOGTIME(236, this)
-            return this.__logtimeRepair
-        }
-    }
+    ulRepairCountOld : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulRepairCountOld {
-        get => NumGet(this, 244, "uint")
-        set => NumPut("uint", value, this, 244)
-    }
+    ulECCFixSuccess : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulECCFixSuccess {
-        get => NumGet(this, 248, "uint")
-        set => NumPut("uint", value, this, 248)
-    }
+    logtimeECCFixSuccess : JET_LOGTIME
 
-    /**
-     * @type {JET_LOGTIME}
-     */
-    logtimeECCFixSuccess {
-        get {
-            if(!this.HasProp("__logtimeECCFixSuccess"))
-                this.__logtimeECCFixSuccess := JET_LOGTIME(252, this)
-            return this.__logtimeECCFixSuccess
-        }
-    }
+    ulECCFixSuccessOld : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulECCFixSuccessOld {
-        get => NumGet(this, 260, "uint")
-        set => NumPut("uint", value, this, 260)
-    }
+    ulECCFixFail : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulECCFixFail {
-        get => NumGet(this, 264, "uint")
-        set => NumPut("uint", value, this, 264)
-    }
+    logtimeECCFixFail : JET_LOGTIME
 
-    /**
-     * @type {JET_LOGTIME}
-     */
-    logtimeECCFixFail {
-        get {
-            if(!this.HasProp("__logtimeECCFixFail"))
-                this.__logtimeECCFixFail := JET_LOGTIME(268, this)
-            return this.__logtimeECCFixFail
-        }
-    }
+    ulECCFixFailOld : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulECCFixFailOld {
-        get => NumGet(this, 276, "uint")
-        set => NumPut("uint", value, this, 276)
-    }
+    ulBadChecksum : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulBadChecksum {
-        get => NumGet(this, 280, "uint")
-        set => NumPut("uint", value, this, 280)
-    }
+    logtimeBadChecksum : JET_LOGTIME
 
-    /**
-     * @type {JET_LOGTIME}
-     */
-    logtimeBadChecksum {
-        get {
-            if(!this.HasProp("__logtimeBadChecksum"))
-                this.__logtimeBadChecksum := JET_LOGTIME(284, this)
-            return this.__logtimeBadChecksum
-        }
-    }
+    ulBadChecksumOld : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulBadChecksumOld {
-        get => NumGet(this, 292, "uint")
-        set => NumPut("uint", value, this, 292)
-    }
 }

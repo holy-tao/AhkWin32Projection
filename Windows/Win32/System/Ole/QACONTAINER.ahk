@@ -1,15 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IOleClientSite.ahk
-#Include .\IAdviseSinkEx.ahk
-#Include .\IPropertyNotifySink.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IFont.ahk
-#Include .\IOleUndoManager.ahk
-#Include ..\..\Graphics\Gdi\HPALETTE.ahk
-#Include ..\Com\IBindHost.ahk
-#Include .\IOleControlSite.ahk
-#Include ..\Com\IServiceProvider.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IOleUndoManager.ahk" { IOleUndoManager }
+#Import ".\IOleClientSite.ahk" { IOleClientSite }
+#Import ".\IFont.ahk" { IFont }
+#Import ".\IPropertyNotifySink.ahk" { IPropertyNotifySink }
+#Import ".\IOleControlSite.ahk" { IOleControlSite }
+#Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
+#Import "..\Com\IServiceProvider.ahk" { IServiceProvider }
+#Import "..\Com\IBindHost.ahk" { IBindHost }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IAdviseSinkEx.ahk" { IAdviseSinkEx }
 
 /**
  * Specifies container information for IQuickActivate::QuickActivate.
@@ -18,160 +17,87 @@
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/ns-ocidl-qacontainer
  * @namespace Windows.Win32.System.Ole
  */
-class QACONTAINER extends Win32Struct {
-    static sizeof => 112
-
-    static packingSize => 8
+export default struct QACONTAINER {
+    #StructPack 8
 
     /**
      * The size of the structure, in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleclientsite">IOleClientSite</a> interface in the container.
-     * @type {IOleClientSite}
      */
-    pClientSite {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pClientSite : IOleClientSite
 
     /**
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-iadvisesinkex">IAdviseSinkEx</a> interface in the container.
-     * @type {IAdviseSinkEx}
      */
-    pAdviseSink {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pAdviseSink : IAdviseSinkEx
 
     /**
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ipropertynotifysink">IPropertyNotifySink</a> interface in the container.
-     * @type {IPropertyNotifySink}
      */
-    pPropertyNotifySink {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pPropertyNotifySink : IPropertyNotifySink
 
     /**
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the container's sink object.
-     * @type {IUnknown}
      */
-    pUnkEventSink {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pUnkEventSink : IUnknown
 
     /**
      * The number of ambient properties supplied by the container using values from the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/ne-ocidl-qacontainerflags">QACONTAINERFLAGS</a> enumeration.
-     * @type {Integer}
      */
-    dwAmbientFlags {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwAmbientFlags : UInt32
 
     /**
      * Specifies ForeColor, an ambient property supplied by the container with a DISPID = -704.
-     * @type {Integer}
      */
-    colorFore {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    colorFore : UInt32
 
     /**
      * Specifies BackColor, an ambient property supplied by the container with a DISPID = -701.
-     * @type {Integer}
      */
-    colorBack {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    colorBack : UInt32
 
     /**
      * Specifies Font, an ambient property supplied by the container with a DISPID = -703.
-     * @type {IFont}
      */
-    pFont {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pFont : IFont
 
     /**
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ioleundomanager">IOleUndoManager</a> interface in the container.
-     * @type {IOleUndoManager}
      */
-    pUndoMgr {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    pUndoMgr : IOleUndoManager
 
     /**
      * Specifies Appearance, an ambient property supplied by the container with a DISPID = -716.
-     * @type {Integer}
      */
-    dwAppearance {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    dwAppearance : UInt32
 
     /**
      * Specifies LocaleIdentifier, an ambient property supplied by the container with a DISPID = -705.
-     * @type {Integer}
      */
-    lcid {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
-    }
+    lcid : Int32
 
     /**
      * Specifies Palette, an ambient property supplied by the container with a DISPID = -726.
-     * @type {HPALETTE}
      */
-    hpal {
-        get {
-            if(!this.HasProp("__hpal"))
-                this.__hpal := HPALETTE(80, this)
-            return this.__hpal
-        }
-    }
+    hpal : HPALETTE
 
     /**
      * A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/ms775076(v=vs.85)">IBindHost</a> interface in the container.
-     * @type {IBindHost}
      */
-    pBindHost {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    pBindHost : IBindHost
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-iolecontrolsite">IOleControlSite</a> interface in the container's site object.
-     * @type {IOleControlSite}
      */
-    pOleControlSite {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    pOleControlSite : IOleControlSite
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/cc678965(v=vs.85)">IServiceProvider</a> interface in the container.
-     * @type {IServiceProvider}
      */
-    pServiceProvider {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    pServiceProvider : IServiceProvider
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 112
-    }
 }

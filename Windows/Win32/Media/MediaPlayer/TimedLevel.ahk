@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The TimedLevel structure holds data returned from the spectrum filter.
@@ -12,50 +11,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/effects/ns-effects-timedlevel
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class TimedLevel extends Win32Struct {
-    static sizeof => 4112
-
-    static packingSize => 8
+export default struct TimedLevel {
+    #StructPack 8
 
     /**
      * A stereo snapshot of the frequency spectrum of the audio data at a time specified by the Plug-in Manager. It can be used for frequency spectrum effects such as real-time analyzers. The frequency value of the first cell is 20 Hz, and the frequency value of the last cell is 22050 Hz.
-     * @type {Array<Integer>}
      */
-    frequency {
-        get {
-            if(!this.HasProp("__frequencyProxyArray"))
-                this.__frequencyProxyArray := Win32FixedArray(this.ptr + 0, 2048, Primitive, "char")
-            return this.__frequencyProxyArray
-        }
-    }
+    frequency : Int8[2048]
 
     /**
      * A stereo snapshot of the power value of the audio data at a time specified by the Plug-in Manager as the first element; the next 1024 stereo power values fill out the rest of the array. It can be used for oscilloscope-type effects.
-     * @type {Array<Integer>}
      */
-    waveform {
-        get {
-            if(!this.HasProp("__waveformProxyArray"))
-                this.__waveformProxyArray := Win32FixedArray(this.ptr + 2048, 2048, Primitive, "char")
-            return this.__waveformProxyArray
-        }
-    }
+    waveform : Int8[2048]
 
     /**
      * One member of the <a href="https://docs.microsoft.com/windows/desktop/api/effects/ne-effects-playerstate">PlayerState</a> enumeration type.
-     * @type {Integer}
      */
-    state {
-        get => NumGet(this, 4096, "int")
-        set => NumPut("int", value, this, 4096)
-    }
+    state : Int32
 
     /**
      * The time the snapshot took place, in a 64-bit integer. The time value is provided in 100-nanosecond units.
-     * @type {Integer}
      */
-    timeStamp {
-        get => NumGet(this, 4104, "int64")
-        set => NumPut("int64", value, this, 4104)
-    }
+    timeStamp : Int64
+
 }

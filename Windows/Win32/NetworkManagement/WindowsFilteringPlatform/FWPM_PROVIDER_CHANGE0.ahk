@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWPM_CHANGE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FWPM_CHANGE_TYPE.ahk" { FWPM_CHANGE_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Change notification dispatched to subscribers. (FWPM_PROVIDER_CHANGE0)
@@ -9,28 +9,19 @@
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_provider_change0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class FWPM_PROVIDER_CHANGE0 extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct FWPM_PROVIDER_CHANGE0 {
+    #StructPack 4
 
     /**
      * Type of change.
      * 
      * See [FWPM_CHANGE_TYPE](/windows/desktop/api/fwpmtypes/ne-fwpmtypes-fwpm_change_type) for more information.
-     * @type {FWPM_CHANGE_TYPE}
      */
-    changeType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    changeType : FWPM_CHANGE_TYPE
 
     /**
      * GUID of the provider that changed.
-     * @type {Pointer}
      */
-    providerKey {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    providerKey : Guid
+
 }

@@ -1,153 +1,38 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
- * Contains the information for an update sequence number (USN) common header which is common through USN_RECORD_V2, USN_RECORD_V3 and USN_RECORD_V4.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-usn_record_common_header
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class USN_RECORD extends Win32Struct {
-    static sizeof => 64
+export default struct USN_RECORD {
+    #StructPack 8
 
-    static packingSize => 8
+    RecordLength : UInt32
 
-    /**
-     * The total length of a record, in bytes.
-     * 
-     * Because USN record is a variable size, the <b>RecordLength</b> member should be used when calculating the address of the next record in an output buffer, for example, a buffer that is returned from operations for the <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-deviceiocontrol">DeviceIoControl</a> function that work with different USN record types.
-     * 
-     * For [USN_RECORD_V4 structure](ns-winioctl-usn_record_v4.md), the size in bytes of any change journal record is at most the size of the structure, plus (NumberOfExtents-1) times size of the <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-usn_record_extent">USN_RECORD_EXTENT</a>.
-     * @type {Integer}
-     */
-    RecordLength {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    MajorVersion : UInt16
 
-    /**
-     * The major version number of the change journal software for this record.
-     * 
-     * For example, if the change journal software is version 4.0, the major version number is 4.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td>2</td>
-     * <td>The structure is a <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-usn_record_v2">USN_RECORD_V2</a> structure and the remainder of the structure should be parsed using that layout.</td>
-     * </tr>
-     * <tr>
-     * <td>3</td>
-     * <td>The structure is a <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-usn_record_v3">USN_RECORD_V3</a> structure and the remainder of the structure should be parsed using that layout.</td>
-     * </tr>
-     * <tr>
-     * <td>4</td>
-     * <td>The structure is a [USN_RECORD_V4 structure](ns-winioctl-usn_record_v4.md) and the remainder of the structure should be parsed using that layout.</td>
-     * </tr>
-     * </table>
-     * @type {Integer}
-     */
-    MajorVersion {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    MinorVersion : UInt16
 
-    /**
-     * The minor version number of the change journal software for this record. For example, if the change journal software is version 4.0, the minor version number is zero.
-     * @type {Integer}
-     */
-    MinorVersion {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    FileReferenceNumber : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FileReferenceNumber {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ParentFileReferenceNumber : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ParentFileReferenceNumber {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Usn : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Usn {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    TimeStamp : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TimeStamp {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
+    Reason : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reason {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    SourceInfo : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SourceInfo {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    SecurityId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SecurityId {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    FileAttributes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FileAttributes {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    FileNameLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    FileNameLength {
-        get => NumGet(this, 56, "ushort")
-        set => NumPut("ushort", value, this, 56)
-    }
+    FileNameOffset : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    FileNameOffset {
-        get => NumGet(this, 58, "ushort")
-        set => NumPut("ushort", value, this, 58)
-    }
+    FileName : WCHAR[1]
 
-    /**
-     * @type {String}
-     */
-    FileName {
-        get => StrGet(this.ptr + 60, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 60, 0, "UTF-16")
-    }
 }

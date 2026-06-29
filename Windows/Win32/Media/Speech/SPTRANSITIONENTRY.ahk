@@ -1,126 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPTRANSITIONID.ahk
-#Include .\SPSTATEHANDLE.ahk
-#Include .\SPRULEHANDLE.ahk
-#Include .\SPWORDHANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SPTRANSITIONID.ahk" { SPTRANSITIONID }
+#Import ".\SPRULEHANDLE.ahk" { SPRULEHANDLE }
+#Import ".\SPWORDHANDLE.ahk" { SPWORDHANDLE }
+#Import ".\SPSTATEHANDLE.ahk" { SPSTATEHANDLE }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class SPTRANSITIONENTRY extends Win32Struct {
-    static sizeof => 56
+export default struct SPTRANSITIONENTRY {
+    #StructPack 8
 
-    static packingSize => 8
+    ID : SPTRANSITIONID
 
-    /**
-     * @type {SPTRANSITIONID}
-     */
-    ID {
-        get {
-            if(!this.HasProp("__ID"))
-                this.__ID := SPTRANSITIONID(0, this)
-            return this.__ID
-        }
-    }
+    hNextState : SPSTATEHANDLE
 
-    /**
-     * @type {SPSTATEHANDLE}
-     */
-    hNextState {
-        get {
-            if(!this.HasProp("__hNextState"))
-                this.__hNextState := SPSTATEHANDLE(8, this)
-            return this.__hNextState
-        }
-    }
+    Type : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    RequiredConfidence : Int8
 
-    /**
-     * @type {Integer}
-     */
-    RequiredConfidence {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
+    fHasProperty : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fHasProperty {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    Weight : Float32
 
-    /**
-     * @type {Float}
-     */
-    Weight {
-        get => NumGet(this, 24, "float")
-        set => NumPut("float", value, this, 24)
-    }
+    hRuleInitialState : SPSTATEHANDLE
 
-    /**
-     * @type {SPSTATEHANDLE}
-     */
-    hRuleInitialState {
-        get {
-            if(!this.HasProp("__hRuleInitialState"))
-                this.__hRuleInitialState := SPSTATEHANDLE(32, this)
-            return this.__hRuleInitialState
-        }
-    }
+    hRule : SPRULEHANDLE
 
-    /**
-     * @type {SPRULEHANDLE}
-     */
-    hRule {
-        get {
-            if(!this.HasProp("__hRule"))
-                this.__hRule := SPRULEHANDLE(40, this)
-            return this.__hRule
-        }
-    }
+    pvClientRuleContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pvClientRuleContext {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
-
-    /**
-     * @type {SPWORDHANDLE}
-     */
-    hWord {
-        get {
-            if(!this.HasProp("__hWord"))
-                this.__hWord := SPWORDHANDLE(32, this)
-            return this.__hWord
-        }
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    pvClientWordContext {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    pvGrammarCookie {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    static __New() {
+        DefineProp(this.Prototype, 'hWord', { type: SPWORDHANDLE, offset: 32 })
+        DefineProp(this.Prototype, 'pvClientWordContext', { type: IntPtr, offset: 40 })
+        DefineProp(this.Prototype, 'pvGrammarCookie', { type: IntPtr, offset: 32 })
+        this.DeleteProp("__New")
     }
 }

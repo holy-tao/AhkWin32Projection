@@ -1,32 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
  */
-class IXMLDOMParseError extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IXMLDOMParseError extends IDispatch {
     /**
      * The interface identifier for IXMLDOMParseError
      * @type {Guid}
      */
-    static IID => Guid("{3efaa426-272f-11d2-836f-0000f87a7782}")
+    static IID := Guid("{3efaa426-272f-11d2-836f-0000f87a7782}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXMLDOMParseError interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_errorCode : IntPtr
+        get_url       : IntPtr
+        get_reason    : IntPtr
+        get_srcText   : IntPtr
+        get_line      : IntPtr
+        get_linepos   : IntPtr
+        get_filepos   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_errorCode", "get_url", "get_reason", "get_srcText", "get_line", "get_linepos", "get_filepos"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXMLDOMParseError.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -91,8 +105,8 @@ class IXMLDOMParseError extends IDispatch {
      * @returns {BSTR} 
      */
     get_url() {
-        urlString := BSTR()
-        result := ComCall(8, this, "ptr", urlString, "HRESULT")
+        urlString := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, urlString, "HRESULT")
         return urlString
     }
 
@@ -101,8 +115,8 @@ class IXMLDOMParseError extends IDispatch {
      * @returns {BSTR} 
      */
     get_reason() {
-        reasonString := BSTR()
-        result := ComCall(9, this, "ptr", reasonString, "HRESULT")
+        reasonString := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, reasonString, "HRESULT")
         return reasonString
     }
 
@@ -111,8 +125,8 @@ class IXMLDOMParseError extends IDispatch {
      * @returns {BSTR} 
      */
     get_srcText() {
-        sourceString := BSTR()
-        result := ComCall(10, this, "ptr", sourceString, "HRESULT")
+        sourceString := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, sourceString, "HRESULT")
         return sourceString
     }
 
@@ -141,5 +155,37 @@ class IXMLDOMParseError extends IDispatch {
     get_filepos() {
         result := ComCall(13, this, "int*", &filePosition := 0, "HRESULT")
         return filePosition
+    }
+
+    Query(iid) {
+        if (IXMLDOMParseError.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_errorCode := CallbackCreate(GetMethod(implObj, "get_errorCode"), flags, 2)
+        this.vtbl.get_url := CallbackCreate(GetMethod(implObj, "get_url"), flags, 2)
+        this.vtbl.get_reason := CallbackCreate(GetMethod(implObj, "get_reason"), flags, 2)
+        this.vtbl.get_srcText := CallbackCreate(GetMethod(implObj, "get_srcText"), flags, 2)
+        this.vtbl.get_line := CallbackCreate(GetMethod(implObj, "get_line"), flags, 2)
+        this.vtbl.get_linepos := CallbackCreate(GetMethod(implObj, "get_linepos"), flags, 2)
+        this.vtbl.get_filepos := CallbackCreate(GetMethod(implObj, "get_filepos"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_errorCode)
+        CallbackFree(this.vtbl.get_url)
+        CallbackFree(this.vtbl.get_reason)
+        CallbackFree(this.vtbl.get_srcText)
+        CallbackFree(this.vtbl.get_line)
+        CallbackFree(this.vtbl.get_linepos)
+        CallbackFree(this.vtbl.get_filepos)
     }
 }

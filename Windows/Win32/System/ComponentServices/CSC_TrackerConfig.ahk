@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates whether the tracker property is added to the context in which the enclosed code runs.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ne-comsvcs-csc_trackerconfig
  * @namespace Windows.Win32.System.ComponentServices
  */
-class CSC_TrackerConfig extends Win32Enum {
+export default struct CSC_TrackerConfig {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The tracker property is not added to the context in which the enclosed code runs.

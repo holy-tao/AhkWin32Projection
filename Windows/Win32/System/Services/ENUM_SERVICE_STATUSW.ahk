@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SERVICE_STATUS.ahk
-#Include .\ENUM_SERVICE_TYPE.ahk
-#Include .\SERVICE_STATUS_CURRENT_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SERVICE_STATUS.ahk" { SERVICE_STATUS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ENUM_SERVICE_TYPE.ahk" { ENUM_SERVICE_TYPE }
+#Import ".\SERVICE_STATUS_CURRENT_STATE.ahk" { SERVICE_STATUS_CURRENT_STATE }
 
 /**
  * Contains the name of a service in a service control manager database and information about that service. It is used by the EnumDependentServices and EnumServicesStatus functions. (Unicode)
@@ -13,39 +13,23 @@
  * @namespace Windows.Win32.System.Services
  * @charset Unicode
  */
-class ENUM_SERVICE_STATUSW extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct ENUM_SERVICE_STATUSW {
+    #StructPack 8
 
     /**
      * The name of a service in the service control manager database. The maximum string length is 256 characters. The service control manager database preserves the case of the characters, but service name comparisons are always case insensitive. A slash (/), backslash (\\), comma, and space are invalid service name characters.
-     * @type {PWSTR}
      */
-    lpServiceName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpServiceName : PWSTR
 
     /**
      * A display name that can be used by service control programs, such as Services in Control Panel, to identify the service. This string has a maximum length of 256 characters. The name is case-preserved in the service control manager. Display name comparisons are always case-insensitive.
-     * @type {PWSTR}
      */
-    lpDisplayName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpDisplayName : PWSTR
 
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-service_status">SERVICE_STATUS</a> structure that contains status information for the <b>lpServiceName</b> service.
-     * @type {SERVICE_STATUS}
      */
-    ServiceStatus {
-        get {
-            if(!this.HasProp("__ServiceStatus"))
-                this.__ServiceStatus := SERVICE_STATUS(16, this)
-            return this.__ServiceStatus
-        }
-    }
+    ServiceStatus : SERVICE_STATUS
+
 }

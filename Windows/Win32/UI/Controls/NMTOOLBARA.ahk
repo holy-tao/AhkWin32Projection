@@ -1,9 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\TBBUTTON.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NMHDR.ahk" { NMHDR }
+#Import ".\TBBUTTON.ahk" { TBBUTTON }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains information used to process toolbar notification codes. This structure supersedes the TBNOTIFY structure. (ANSI)
@@ -14,86 +14,52 @@
  * @namespace Windows.Win32.UI.Controls
  * @charset ANSI
  */
-class NMTOOLBARA extends Win32Struct {
-    static sizeof => 96
-
-    static packingSize => 8
+export default struct NMTOOLBARA {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains additional information about the notification.
-     * @type {NMHDR}
      */
-    hdr {
-        get {
-            if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(0, this)
-            return this.__hdr
-        }
-    }
+    hdr : NMHDR
 
     /**
      * Type: <b>int</b>
      * 
      * Command identifier of the button associated with the notification code.
-     * @type {Integer}
      */
-    iItem {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    iItem : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-tbbutton">TBBUTTON</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-tbbutton">TBBUTTON</a> structure that contains information about the toolbar button associated with the notification code. This member only contains valid information with the <a href="https://docs.microsoft.com/windows/desktop/Controls/tbn-queryinsert">TBN_QUERYINSERT</a> and <a href="https://docs.microsoft.com/windows/desktop/Controls/tbn-querydelete">TBN_QUERYDELETE</a> notification codes.
-     * @type {TBBUTTON}
      */
-    tbButton {
-        get {
-            if(!this.HasProp("__tbButton"))
-                this.__tbButton := TBBUTTON(32, this)
-            return this.__tbButton
-        }
-    }
+    tbButton : TBBUTTON
 
     /**
      * Type: <b>int</b>
      * 
      * Count of characters in the button text.
-     * @type {Integer}
      */
-    cchText {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
-    }
+    cchText : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * Address of a character buffer that contains the button text.
-     * @type {PSTR}
      */
-    pszText {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    pszText : PSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 5.80.</a> A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that defines the area covered by the button.
-     * @type {RECT}
      */
-    rcButton {
-        get {
-            if(!this.HasProp("__rcButton"))
-                this.__rcButton := RECT(80, this)
-            return this.__rcButton
-        }
-    }
+    rcButton : RECT
+
 }

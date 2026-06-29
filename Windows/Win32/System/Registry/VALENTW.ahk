@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\REG_VALUE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\REG_VALUE_TYPE.ahk" { REG_VALUE_TYPE }
 
 /**
  * Contains information about a registry value. The RegQueryMultipleValues function uses this structure. (Unicode)
@@ -11,47 +11,30 @@
  * @namespace Windows.Win32.System.Registry
  * @charset Unicode
  */
-class VALENTW extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct VALENTW {
+    #StructPack 8
 
     /**
      * The name of the value to be retrieved. Be sure to set this member before calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regquerymultiplevaluesa">RegQueryMultipleValues</a>.
-     * @type {PWSTR}
      */
-    ve_valuename {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ve_valuename : PWSTR
 
     /**
      * The size of the data pointed to by <b>ve_valueptr</b>, in bytes.
-     * @type {Integer}
      */
-    ve_valuelen {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ve_valuelen : UInt32
 
     /**
      * A pointer to the data for the value entry. This is a pointer to the value's data returned in the <b>lpValueBuf</b> buffer filled in by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regquerymultiplevaluesa">RegQueryMultipleValues</a>.
-     * @type {Pointer}
      */
-    ve_valueptr {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ve_valueptr : IntPtr
 
     /**
      * The type of data pointed to by <b>ve_valueptr</b>. For a list of the possible types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-value-types">Registry Value Types</a>.
-     * @type {REG_VALUE_TYPE}
      */
-    ve_type {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ve_type : REG_VALUE_TYPE
+
 }

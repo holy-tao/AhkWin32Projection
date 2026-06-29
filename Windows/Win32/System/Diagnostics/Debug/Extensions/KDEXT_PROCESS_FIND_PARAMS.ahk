@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class KDEXT_PROCESS_FIND_PARAMS extends Win32Struct {
-    static sizeof => 24
+export default struct KDEXT_PROCESS_FIND_PARAMS {
+    #StructPack 8
 
-    static packingSize => 8
+    SizeofStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SizeofStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Pid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Pid {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Session : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Session {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ImageName : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    ImageName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

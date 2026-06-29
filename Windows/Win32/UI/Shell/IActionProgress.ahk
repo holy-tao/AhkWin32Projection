@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SPTEXT.ahk" { SPTEXT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SPACTION.ahk" { SPACTION }
 
 /**
  * Represents the abstract base class from which progress-driven operations can inherit.
@@ -14,26 +19,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iactionprogress
  * @namespace Windows.Win32.UI.Shell
  */
-class IActionProgress extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IActionProgress extends IUnknown {
     /**
      * The interface identifier for IActionProgress
      * @type {Guid}
      */
-    static IID => Guid("{49ff1173-eadc-446d-9285-156453a6431c}")
+    static IID := Guid("{49ff1173-eadc-446d-9285-156453a6431c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IActionProgress interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Begin          : IntPtr
+        UpdateProgress : IntPtr
+        UpdateText     : IntPtr
+        QueryCancel    : IntPtr
+        ResetCancel    : IntPtr
+        End            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Begin", "UpdateProgress", "UpdateText", "QueryCancel", "ResetCancel", "End"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IActionProgress.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called when an action has begun that requires its progress be displayed to the user.
@@ -51,7 +68,7 @@ class IActionProgress extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iactionprogress-begin
      */
     Begin(action, flags) {
-        result := ComCall(3, this, "int", action, "uint", flags, "HRESULT")
+        result := ComCall(3, this, SPACTION, action, "uint", flags, "HRESULT")
         return result
     }
 
@@ -96,7 +113,7 @@ class IActionProgress extends IUnknown {
     UpdateText(_sptext, pszText, fMayCompact) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
-        result := ComCall(5, this, "int", _sptext, "ptr", pszText, "int", fMayCompact, "HRESULT")
+        result := ComCall(5, this, SPTEXT, _sptext, "ptr", pszText, BOOL, fMayCompact, "HRESULT")
         return result
     }
 
@@ -110,7 +127,7 @@ class IActionProgress extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iactionprogress-querycancel
      */
     QueryCancel() {
-        result := ComCall(6, this, "int*", &pfCancelled := 0, "HRESULT")
+        result := ComCall(6, this, BOOL.Ptr, &pfCancelled := 0, "HRESULT")
         return pfCancelled
     }
 
@@ -140,5 +157,35 @@ class IActionProgress extends IUnknown {
     End() {
         result := ComCall(8, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IActionProgress.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Begin := CallbackCreate(GetMethod(implObj, "Begin"), flags, 3)
+        this.vtbl.UpdateProgress := CallbackCreate(GetMethod(implObj, "UpdateProgress"), flags, 3)
+        this.vtbl.UpdateText := CallbackCreate(GetMethod(implObj, "UpdateText"), flags, 4)
+        this.vtbl.QueryCancel := CallbackCreate(GetMethod(implObj, "QueryCancel"), flags, 2)
+        this.vtbl.ResetCancel := CallbackCreate(GetMethod(implObj, "ResetCancel"), flags, 1)
+        this.vtbl.End := CallbackCreate(GetMethod(implObj, "End"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Begin)
+        CallbackFree(this.vtbl.UpdateProgress)
+        CallbackFree(this.vtbl.UpdateText)
+        CallbackFree(this.vtbl.QueryCancel)
+        CallbackFree(this.vtbl.ResetCancel)
+        CallbackFree(this.vtbl.End)
     }
 }

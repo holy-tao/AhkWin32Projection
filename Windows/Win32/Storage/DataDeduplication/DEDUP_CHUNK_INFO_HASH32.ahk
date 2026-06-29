@@ -1,46 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.DataDeduplication
  */
-class DEDUP_CHUNK_INFO_HASH32 extends Win32Struct {
-    static sizeof => 56
+export default struct DEDUP_CHUNK_INFO_HASH32 {
+    #StructPack 8
 
-    static packingSize => 8
+    ChunkFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ChunkFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ChunkOffsetInStream : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ChunkOffsetInStream {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ChunkSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ChunkSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    HashVal : Int8[32]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    HashVal {
-        get {
-            if(!this.HasProp("__HashValProxyArray"))
-                this.__HashValProxyArray := Win32FixedArray(this.ptr + 24, 32, Primitive, "char")
-            return this.__HashValProxyArray
-        }
-    }
 }

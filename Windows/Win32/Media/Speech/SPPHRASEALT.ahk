@@ -1,60 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ISpPhraseBuilder.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ISpPhraseBuilder.ahk" { ISpPhraseBuilder }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class SPPHRASEALT extends Win32Struct {
-    static sizeof => 40
+export default struct SPPHRASEALT {
+    #StructPack 8
 
-    static packingSize => 8
+    pPhrase : ISpPhraseBuilder
 
-    /**
-     * @type {ISpPhraseBuilder}
-     */
-    pPhrase {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ulStartElementInParent : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulStartElementInParent {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cElementsInParent : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cElementsInParent {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    cElementsInAlternate : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cElementsInAlternate {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    pvAltExtra : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pvAltExtra {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    cbAltExtra : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbAltExtra {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

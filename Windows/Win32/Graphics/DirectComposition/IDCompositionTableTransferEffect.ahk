@@ -1,33 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionFilterEffect.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDCompositionFilterEffect.ahk" { IDCompositionFilterEffect }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 
 /**
  * The table transfer effect is used to map the color intensities of an image using a transfer function created from interpolating a list of values you provide.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositiontabletransfereffect
  * @namespace Windows.Win32.Graphics.DirectComposition
  */
-class IDCompositionTableTransferEffect extends IDCompositionFilterEffect {
-
-    static sizeof => A_PtrSize
+export default struct IDCompositionTableTransferEffect extends IDCompositionFilterEffect {
     /**
      * The interface identifier for IDCompositionTableTransferEffect
      * @type {Guid}
      */
-    static IID => Guid("{9b7e82e2-69c5-4eb4-a5f5-a7033f5132cd}")
+    static IID := Guid("{9b7e82e2-69c5-4eb4-a5f5-a7033f5132cd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDCompositionTableTransferEffect interfaces
+    */
+    struct Vtbl extends IDCompositionFilterEffect.Vtbl {
+        SetRedTable         : IntPtr
+        SetGreenTable       : IntPtr
+        SetBlueTable        : IntPtr
+        SetAlphaTable       : IntPtr
+        SetRedDisable       : IntPtr
+        SetGreenDisable     : IntPtr
+        SetBlueDisable      : IntPtr
+        SetAlphaDisable     : IntPtr
+        SetClampOutput      : IntPtr
+        SetRedTableValue    : IntPtr
+        SetRedTableValue1   : IntPtr
+        SetGreenTableValue  : IntPtr
+        SetGreenTableValue1 : IntPtr
+        SetBlueTableValue   : IntPtr
+        SetBlueTableValue1  : IntPtr
+        SetAlphaTableValue  : IntPtr
+        SetAlphaTableValue1 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetRedTable", "SetGreenTable", "SetBlueTable", "SetAlphaTable", "SetRedDisable", "SetGreenDisable", "SetBlueDisable", "SetAlphaDisable", "SetClampOutput", "SetRedTableValue", "SetRedTableValue1", "SetGreenTableValue", "SetGreenTableValue1", "SetBlueTableValue", "SetBlueTableValue1", "SetAlphaTableValue", "SetAlphaTableValue1"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDCompositionTableTransferEffect.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the list of values used to define the transfer function for the red channel.
@@ -121,7 +147,7 @@ class IDCompositionTableTransferEffect extends IDCompositionFilterEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontabletransfereffect-setreddisable
      */
     SetRedDisable(redDisable) {
-        result := ComCall(8, this, "int", redDisable, "HRESULT")
+        result := ComCall(8, this, BOOL, redDisable, "HRESULT")
         return result
     }
 
@@ -137,7 +163,7 @@ class IDCompositionTableTransferEffect extends IDCompositionFilterEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontabletransfereffect-setgreendisable
      */
     SetGreenDisable(greenDisable) {
-        result := ComCall(9, this, "int", greenDisable, "HRESULT")
+        result := ComCall(9, this, BOOL, greenDisable, "HRESULT")
         return result
     }
 
@@ -153,7 +179,7 @@ class IDCompositionTableTransferEffect extends IDCompositionFilterEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontabletransfereffect-setbluedisable
      */
     SetBlueDisable(blueDisable) {
-        result := ComCall(10, this, "int", blueDisable, "HRESULT")
+        result := ComCall(10, this, BOOL, blueDisable, "HRESULT")
         return result
     }
 
@@ -169,7 +195,7 @@ class IDCompositionTableTransferEffect extends IDCompositionFilterEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontabletransfereffect-setalphadisable
      */
     SetAlphaDisable(alphaDisable) {
-        result := ComCall(11, this, "int", alphaDisable, "HRESULT")
+        result := ComCall(11, this, BOOL, alphaDisable, "HRESULT")
         return result
     }
 
@@ -187,7 +213,7 @@ class IDCompositionTableTransferEffect extends IDCompositionFilterEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontabletransfereffect-setclampoutput
      */
     SetClampOutput(clampOutput) {
-        result := ComCall(12, this, "int", clampOutput, "HRESULT")
+        result := ComCall(12, this, BOOL, clampOutput, "HRESULT")
         return result
     }
 
@@ -325,5 +351,57 @@ class IDCompositionTableTransferEffect extends IDCompositionFilterEffect {
     SetAlphaTableValue1(index, value) {
         result := ComCall(20, this, "uint", index, "float", value, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDCompositionTableTransferEffect.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetRedTable := CallbackCreate(GetMethod(implObj, "SetRedTable"), flags, 3)
+        this.vtbl.SetGreenTable := CallbackCreate(GetMethod(implObj, "SetGreenTable"), flags, 3)
+        this.vtbl.SetBlueTable := CallbackCreate(GetMethod(implObj, "SetBlueTable"), flags, 3)
+        this.vtbl.SetAlphaTable := CallbackCreate(GetMethod(implObj, "SetAlphaTable"), flags, 3)
+        this.vtbl.SetRedDisable := CallbackCreate(GetMethod(implObj, "SetRedDisable"), flags, 2)
+        this.vtbl.SetGreenDisable := CallbackCreate(GetMethod(implObj, "SetGreenDisable"), flags, 2)
+        this.vtbl.SetBlueDisable := CallbackCreate(GetMethod(implObj, "SetBlueDisable"), flags, 2)
+        this.vtbl.SetAlphaDisable := CallbackCreate(GetMethod(implObj, "SetAlphaDisable"), flags, 2)
+        this.vtbl.SetClampOutput := CallbackCreate(GetMethod(implObj, "SetClampOutput"), flags, 2)
+        this.vtbl.SetRedTableValue := CallbackCreate(GetMethod(implObj, "SetRedTableValue"), flags, 3)
+        this.vtbl.SetRedTableValue1 := CallbackCreate(GetMethod(implObj, "SetRedTableValue1"), flags, 3)
+        this.vtbl.SetGreenTableValue := CallbackCreate(GetMethod(implObj, "SetGreenTableValue"), flags, 3)
+        this.vtbl.SetGreenTableValue1 := CallbackCreate(GetMethod(implObj, "SetGreenTableValue1"), flags, 3)
+        this.vtbl.SetBlueTableValue := CallbackCreate(GetMethod(implObj, "SetBlueTableValue"), flags, 3)
+        this.vtbl.SetBlueTableValue1 := CallbackCreate(GetMethod(implObj, "SetBlueTableValue1"), flags, 3)
+        this.vtbl.SetAlphaTableValue := CallbackCreate(GetMethod(implObj, "SetAlphaTableValue"), flags, 3)
+        this.vtbl.SetAlphaTableValue1 := CallbackCreate(GetMethod(implObj, "SetAlphaTableValue1"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetRedTable)
+        CallbackFree(this.vtbl.SetGreenTable)
+        CallbackFree(this.vtbl.SetBlueTable)
+        CallbackFree(this.vtbl.SetAlphaTable)
+        CallbackFree(this.vtbl.SetRedDisable)
+        CallbackFree(this.vtbl.SetGreenDisable)
+        CallbackFree(this.vtbl.SetBlueDisable)
+        CallbackFree(this.vtbl.SetAlphaDisable)
+        CallbackFree(this.vtbl.SetClampOutput)
+        CallbackFree(this.vtbl.SetRedTableValue)
+        CallbackFree(this.vtbl.SetRedTableValue1)
+        CallbackFree(this.vtbl.SetGreenTableValue)
+        CallbackFree(this.vtbl.SetGreenTableValue1)
+        CallbackFree(this.vtbl.SetBlueTableValue)
+        CallbackFree(this.vtbl.SetBlueTableValue1)
+        CallbackFree(this.vtbl.SetAlphaTableValue)
+        CallbackFree(this.vtbl.SetAlphaTableValue1)
     }
 }

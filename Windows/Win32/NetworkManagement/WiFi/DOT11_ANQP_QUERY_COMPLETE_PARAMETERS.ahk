@@ -1,52 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
-#Include .\DOT11_ANQP_QUERY_RESULT.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\Ndis\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
+#Import ".\DOT11_ANQP_QUERY_RESULT.ahk" { DOT11_ANQP_QUERY_RESULT }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_ANQP_QUERY_COMPLETE_PARAMETERS extends Win32Struct {
-    static sizeof => 24
+export default struct DOT11_ANQP_QUERY_COMPLETE_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
+    Header : NDIS_OBJECT_HEADER
 
-    /**
-     * @type {NDIS_OBJECT_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    Status : DOT11_ANQP_QUERY_RESULT
 
-    /**
-     * @type {DOT11_ANQP_QUERY_RESULT}
-     */
-    Status {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    hContext : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hContext {
-        get {
-            if(!this.HasProp("__hContext"))
-                this.__hContext := HANDLE(8, this)
-            return this.__hContext
-        }
-    }
+    uResponseLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uResponseLength {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

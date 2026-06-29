@@ -1,102 +1,62 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSD_HEADER_RELATESTO.ahk
-#Include .\WSDXML_NAME.ahk
-#Include .\WSD_ENDPOINT_REFERENCE.ahk
-#Include .\WSD_APP_SEQUENCE.ahk
-#Include .\WSDXML_ELEMENT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WSD_HEADER_RELATESTO.ahk" { WSD_HEADER_RELATESTO }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
+#Import ".\WSDXML_NAME.ahk" { WSDXML_NAME }
+#Import ".\WSD_APP_SEQUENCE.ahk" { WSD_APP_SEQUENCE }
+#Import ".\WSD_ENDPOINT_REFERENCE.ahk" { WSD_ENDPOINT_REFERENCE }
 
 /**
  * Provides SOAP header data for the WSD_SOAP_MESSAGE structure.
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_soap_header
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class WSD_SOAP_HEADER extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct WSD_SOAP_HEADER {
+    #StructPack 8
 
     /**
      * The URI to which the SOAP message is addressed.
-     * @type {PWSTR}
      */
-    To {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    To : PWSTR
 
     /**
      * The action encoded by the SOAP message.
-     * @type {PWSTR}
      */
-    Action {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Action : PWSTR
 
     /**
      * An identifier that distinguishes the message from others from the same sender.
-     * @type {PWSTR}
      */
-    MessageID {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    MessageID : PWSTR
 
     /**
      * In response messages, specifies the message ID of the matching request message.
-     * @type {WSD_HEADER_RELATESTO}
      */
-    RelatesTo {
-        get {
-            if(!this.HasProp("__RelatesTo"))
-                this.__RelatesTo := WSD_HEADER_RELATESTO(24, this)
-            return this.__RelatesTo
-        }
-    }
+    RelatesTo : WSD_HEADER_RELATESTO
 
     /**
      * In request messages, a reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_endpoint_reference">WSD_ENDPOINT_REFERENCE</a> structure that specifies to the endpoint to which responses should be sent.
-     * @type {Pointer<WSD_ENDPOINT_REFERENCE>}
      */
-    ReplyTo {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    ReplyTo : WSD_ENDPOINT_REFERENCE.Ptr
 
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_endpoint_reference">WSD_ENDPOINT_REFERENCE</a> structure that specifies the endpoint from which the SOAP message was sent.
-     * @type {Pointer<WSD_ENDPOINT_REFERENCE>}
      */
-    From {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    From : WSD_ENDPOINT_REFERENCE.Ptr
 
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_endpoint_reference">WSD_ENDPOINT_REFERENCE</a> structure that specifies to the endpoint to which fault messages should be sent.
-     * @type {Pointer<WSD_ENDPOINT_REFERENCE>}
      */
-    FaultTo {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    FaultTo : WSD_ENDPOINT_REFERENCE.Ptr
 
     /**
      * In discovery messages, a reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_app_sequence">WSD_APP_SEQUENCE</a> structure that helps the recipient determine the order in which messages were issued by the sender.
-     * @type {Pointer<WSD_APP_SEQUENCE>}
      */
-    AppSequence {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    AppSequence : WSD_APP_SEQUENCE.Ptr
 
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_element">WSDXML_ELEMENT</a> structure that specifies additional headers not encoded by the other members.
-     * @type {Pointer<WSDXML_ELEMENT>}
      */
-    AnyHeaders {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    AnyHeaders : WSDXML_ELEMENT.Ptr
+
 }

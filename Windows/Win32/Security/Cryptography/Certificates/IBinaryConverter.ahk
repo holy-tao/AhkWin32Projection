@@ -1,35 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Contains general methods that enable you to create a Unicode-encoded string from a byte array, create a byte array from a Unicode-encoded string, and modify the type of Unicode encoding applied to a string.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ibinaryconverter
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IBinaryConverter extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IBinaryConverter extends IDispatch {
     /**
      * The interface identifier for IBinaryConverter
      * @type {Guid}
      */
-    static IID => Guid("{728ab302-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab302-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBinaryConverter interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        StringToString           : IntPtr
+        VariantByteArrayToString : IntPtr
+        StringToVariantByteArray : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["StringToString", "VariantByteArrayToString", "StringToVariantByteArray"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBinaryConverter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Modifies the type of Unicode encoding applied to a string.
@@ -42,8 +53,8 @@ class IBinaryConverter extends IDispatch {
     StringToString(strEncodedIn, EncodingIn, Encoding) {
         strEncodedIn := strEncodedIn is String ? BSTR.Alloc(strEncodedIn).Value : strEncodedIn
 
-        pstrEncoded := BSTR()
-        result := ComCall(7, this, "ptr", strEncodedIn, "int", EncodingIn, "int", Encoding, "ptr", pstrEncoded, "HRESULT")
+        pstrEncoded := BSTR.Owned()
+        result := ComCall(7, this, BSTR, strEncodedIn, EncodingType, EncodingIn, EncodingType, Encoding, BSTR.Ptr, pstrEncoded, "HRESULT")
         return pstrEncoded
     }
 
@@ -55,8 +66,8 @@ class IBinaryConverter extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ibinaryconverter-variantbytearraytostring
      */
     VariantByteArrayToString(pvarByteArray, Encoding) {
-        pstrEncoded := BSTR()
-        result := ComCall(8, this, "ptr", pvarByteArray, "int", Encoding, "ptr", pstrEncoded, "HRESULT")
+        pstrEncoded := BSTR.Owned()
+        result := ComCall(8, this, VARIANT.Ptr, pvarByteArray, EncodingType, Encoding, BSTR.Ptr, pstrEncoded, "HRESULT")
         return pstrEncoded
     }
 
@@ -71,7 +82,31 @@ class IBinaryConverter extends IDispatch {
         strEncoded := strEncoded is String ? BSTR.Alloc(strEncoded).Value : strEncoded
 
         pvarByteArray := VARIANT()
-        result := ComCall(9, this, "ptr", strEncoded, "int", Encoding, "ptr", pvarByteArray, "HRESULT")
+        result := ComCall(9, this, BSTR, strEncoded, EncodingType, Encoding, VARIANT.Ptr, pvarByteArray, "HRESULT")
         return pvarByteArray
+    }
+
+    Query(iid) {
+        if (IBinaryConverter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.StringToString := CallbackCreate(GetMethod(implObj, "StringToString"), flags, 5)
+        this.vtbl.VariantByteArrayToString := CallbackCreate(GetMethod(implObj, "VariantByteArrayToString"), flags, 4)
+        this.vtbl.StringToVariantByteArray := CallbackCreate(GetMethod(implObj, "StringToVariantByteArray"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.StringToString)
+        CallbackFree(this.vtbl.VariantByteArrayToString)
+        CallbackFree(this.vtbl.StringToVariantByteArray)
     }
 }

@@ -1,69 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\WAVEFORMATEX.ahk
-#Include .\DSCEFFECTDESC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\DSCEFFECTDESC.ahk" { DSCEFFECTDESC }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
  */
-class DSCBUFFERDESC extends Win32Struct {
-    static sizeof => 40
+export default struct DSCBUFFERDESC {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwBufferBytes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwBufferBytes {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwReserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    lpwfxFormat : WAVEFORMATEX.Ptr
 
-    /**
-     * @type {Pointer<WAVEFORMATEX>}
-     */
-    lpwfxFormat {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    dwFXCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFXCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    lpDSCFXDesc : DSCEFFECTDESC.Ptr
 
-    /**
-     * @type {Pointer<DSCEFFECTDESC>}
-     */
-    lpDSCFXDesc {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
 }

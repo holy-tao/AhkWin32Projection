@@ -1,31 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.UI.TabletPC
  */
-class ITipAutoCompleteProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITipAutoCompleteProvider extends IUnknown {
     /**
      * The interface identifier for ITipAutoCompleteProvider
      * @type {Guid}
      */
-    static IID => Guid("{7c6cf46d-8404-46b9-ad33-f5b6036d4007}")
+    static IID := Guid("{7c6cf46d-8404-46b9-ad33-f5b6036d4007}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITipAutoCompleteProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        UpdatePendingText : IntPtr
+        Show              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["UpdatePendingText", "Show"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITipAutoCompleteProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -35,28 +46,39 @@ class ITipAutoCompleteProvider extends IUnknown {
     UpdatePendingText(bstrPendingText) {
         bstrPendingText := bstrPendingText is String ? BSTR.Alloc(bstrPendingText).Value : bstrPendingText
 
-        result := ComCall(3, this, "ptr", bstrPendingText, "HRESULT")
+        result := ComCall(3, this, BSTR, bstrPendingText, "HRESULT")
         return result
     }
 
     /**
-     * Makes the caret visible on the screen at the caret's current position. When the caret becomes visible, it begins flashing automatically.
-     * @remarks
-     * <b>ShowCaret</b> shows the caret only if the specified window owns the caret, the caret has a shape, and the caret has not been hidden two or more times in a row. If one or more of these conditions is not met, <b>ShowCaret</b> does nothing and returns <b>FALSE</b>. 
      * 
-     * Hiding is cumulative. If your application calls <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-hidecaret">HideCaret</a> five times in a row, it must also call <b>ShowCaret</b> five times before the caret reappears. 
-     * 
-     * The system provides one caret per queue. A window should create a caret only when it has the keyboard focus or is active. The window should destroy the caret before losing the keyboard focus or becoming inactive.
      * @param {BOOL} fShow 
-     * @returns {HRESULT} Type: <b>BOOL</b>
-     * 
-     * If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-showcaret
+     * @returns {HRESULT} 
      */
     Show(fShow) {
-        result := ComCall(4, this, "int", fShow, "HRESULT")
+        result := ComCall(4, this, BOOL, fShow, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITipAutoCompleteProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.UpdatePendingText := CallbackCreate(GetMethod(implObj, "UpdatePendingText"), flags, 2)
+        this.vtbl.Show := CallbackCreate(GetMethod(implObj, "Show"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.UpdatePendingText)
+        CallbackFree(this.vtbl.Show)
     }
 }

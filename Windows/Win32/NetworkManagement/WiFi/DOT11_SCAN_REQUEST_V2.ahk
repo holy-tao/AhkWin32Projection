@@ -1,131 +1,40 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_BSS_TYPE.ahk
-#Include .\DOT11_SCAN_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_SCAN_TYPE.ahk" { DOT11_SCAN_TYPE }
+#Import ".\DOT11_BSS_TYPE.ahk" { DOT11_BSS_TYPE }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_SCAN_REQUEST_V2 extends Win32Struct {
-    static sizeof => 60
+export default struct DOT11_SCAN_REQUEST_V2 {
+    #StructPack 4
 
-    static packingSize => 4
+    dot11BSSType : DOT11_BSS_TYPE
 
-    /**
-     * @type {DOT11_BSS_TYPE}
-     */
-    dot11BSSType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    dot11BSSID : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    dot11BSSID {
-        get {
-            if(!this.HasProp("__dot11BSSIDProxyArray"))
-                this.__dot11BSSIDProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
-            return this.__dot11BSSIDProxyArray
-        }
-    }
+    dot11ScanType : DOT11_SCAN_TYPE
 
-    /**
-     * @type {DOT11_SCAN_TYPE}
-     */
-    dot11ScanType {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    bRestrictedScan : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bRestrictedScan {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    udot11SSIDsOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    udot11SSIDsOffset {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    uNumOfdot11SSIDs : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uNumOfdot11SSIDs {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    bUseRequestIE : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bUseRequestIE {
-        get => NumGet(this, 28, "char")
-        set => NumPut("char", value, this, 28)
-    }
+    uRequestIDsOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uRequestIDsOffset {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    uNumOfRequestIDs : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uNumOfRequestIDs {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    uPhyTypeInfosOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uPhyTypeInfosOffset {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    uNumOfPhyTypeInfos : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uNumOfPhyTypeInfos {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    uIEsOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uIEsOffset {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    uIEsLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uIEsLength {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    ucBuffer : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ucBuffer {
-        get {
-            if(!this.HasProp("__ucBufferProxyArray"))
-                this.__ucBufferProxyArray := Win32FixedArray(this.ptr + 56, 1, Primitive, "char")
-            return this.__ucBufferProxyArray
-        }
-    }
 }

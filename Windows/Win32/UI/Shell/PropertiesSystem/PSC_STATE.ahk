@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the state of a property. They are set manually by the code that is hosting the in-memory property store cache.
  * @see https://learn.microsoft.com/windows/win32/api/propsys/ne-propsys-psc_state
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  */
-class PSC_STATE extends Win32Enum {
+export default struct PSC_STATE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The property has not been altered.

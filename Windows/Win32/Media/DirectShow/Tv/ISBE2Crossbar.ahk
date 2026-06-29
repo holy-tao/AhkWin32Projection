@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\ISBE2MediaTypeProfile.ahk
-#Include .\ISBE2EnumStream.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISBE2EnumStream.ahk" { ISBE2EnumStream }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\IPin.ahk" { IPin }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ISBE2MediaTypeProfile.ahk" { ISBE2MediaTypeProfile }
 
 /**
  * Defines crossbar functionality for a Stream Buffer Engine (SBE) version 2 (SBE2) Stream Buffer Source filter.
@@ -12,26 +14,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/sbe/nn-sbe-isbe2crossbar
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class ISBE2Crossbar extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISBE2Crossbar extends IUnknown {
     /**
      * The interface identifier for ISBE2Crossbar
      * @type {Guid}
      */
-    static IID => Guid("{547b6d26-3226-487e-8253-8aa168749434}")
+    static IID := Guid("{547b6d26-3226-487e-8253-8aa168749434}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISBE2Crossbar interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        EnableDefaultMode : IntPtr
+        GetInitialProfile : IntPtr
+        SetOutputProfile  : IntPtr
+        EnumStreams       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EnableDefaultMode", "GetInitialProfile", "SetOutputProfile", "EnumStreams"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISBE2Crossbar.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Enables or disables the profile default mode and stream default mode for a crossbar in a Stream Buffer Source filter.
@@ -131,7 +143,7 @@ class ISBE2Crossbar extends IUnknown {
     SetOutputProfile(pProfile, pcOutputPins, ppOutputPins) {
         pcOutputPinsMarshal := pcOutputPins is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pProfile, pcOutputPinsMarshal, pcOutputPins, "ptr*", ppOutputPins, "HRESULT")
+        result := ComCall(5, this, "ptr", pProfile, pcOutputPinsMarshal, pcOutputPins, IPin.Ptr, ppOutputPins, "HRESULT")
         return result
     }
 
@@ -144,5 +156,31 @@ class ISBE2Crossbar extends IUnknown {
     EnumStreams() {
         result := ComCall(6, this, "ptr*", &ppStreams := 0, "HRESULT")
         return ISBE2EnumStream(ppStreams)
+    }
+
+    Query(iid) {
+        if (ISBE2Crossbar.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EnableDefaultMode := CallbackCreate(GetMethod(implObj, "EnableDefaultMode"), flags, 2)
+        this.vtbl.GetInitialProfile := CallbackCreate(GetMethod(implObj, "GetInitialProfile"), flags, 2)
+        this.vtbl.SetOutputProfile := CallbackCreate(GetMethod(implObj, "SetOutputProfile"), flags, 4)
+        this.vtbl.EnumStreams := CallbackCreate(GetMethod(implObj, "EnumStreams"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EnableDefaultMode)
+        CallbackFree(this.vtbl.GetInitialProfile)
+        CallbackFree(this.vtbl.SetOutputProfile)
+        CallbackFree(this.vtbl.EnumStreams)
     }
 }

@@ -1,49 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * A structure containing the client data that is sent to the authenticator.
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_client_data
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
  */
-class WEBAUTHN_CLIENT_DATA extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct WEBAUTHN_CLIENT_DATA {
+    #StructPack 8
 
     /**
      * Version of this structure, to allow for modifications in the future. This field is required and should be set to **CURRENT_VERSION**.
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
     /**
      * The size of the **pbClientDataJSON** field.
-     * @type {Integer}
      */
-    cbClientDataJSON {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cbClientDataJSON : UInt32
 
     /**
      * UTF-8 encoded JSON serialization of the client data.
-     * @type {Pointer<Integer>}
      */
-    pbClientDataJSON {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pbClientDataJSON : IntPtr
 
     /**
      * Hash algorithm ID used to hash the **pbClientDataJSON** field.
-     * @type {PWSTR}
      */
-    pwszHashAlgId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pwszHashAlgId : PWSTR
+
 }

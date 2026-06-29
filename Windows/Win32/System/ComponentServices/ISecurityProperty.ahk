@@ -1,39 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Security\PSID.ahk" { PSID }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Determines the security identifier of the current object's original caller or direct caller. However, the preferred way to get information about an object's callers is to use the ISecurityCallContext interface.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-isecurityproperty
  * @namespace Windows.Win32.System.ComponentServices
  */
-class ISecurityProperty extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISecurityProperty extends IUnknown {
     /**
      * The interface identifier for ISecurityProperty
      * @type {Guid}
      */
-    static IID => Guid("{51372aea-cae7-11cf-be81-00aa00a2fa25}")
+    static IID := Guid("{51372aea-cae7-11cf-be81-00aa00a2fa25}")
 
     /**
      * The class identifier for SecurityProperty
      * @type {Guid}
      */
-    static CLSID => Guid("{e74a7215-014d-11d1-a63c-00a0c911b4e0}")
+    static CLSID := Guid("{e74a7215-014d-11d1-a63c-00a0c911b4e0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISecurityProperty interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDirectCreatorSID   : IntPtr
+        GetOriginalCreatorSID : IntPtr
+        GetDirectCallerSID    : IntPtr
+        GetOriginalCallerSID  : IntPtr
+        ReleaseSID            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDirectCreatorSID", "GetOriginalCreatorSID", "GetDirectCallerSID", "GetOriginalCallerSID", "ReleaseSID"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISecurityProperty.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * In MTS 2.0, this method retrieves the security identifier of the external process that directly created the current object. Do not use this method in COM+.
@@ -298,7 +311,35 @@ class ISecurityProperty extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecurityproperty-releasesid
      */
     ReleaseSID(_pSID) {
-        result := ComCall(7, this, "ptr", _pSID, "HRESULT")
+        result := ComCall(7, this, PSID, _pSID, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISecurityProperty.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDirectCreatorSID := CallbackCreate(GetMethod(implObj, "GetDirectCreatorSID"), flags, 2)
+        this.vtbl.GetOriginalCreatorSID := CallbackCreate(GetMethod(implObj, "GetOriginalCreatorSID"), flags, 2)
+        this.vtbl.GetDirectCallerSID := CallbackCreate(GetMethod(implObj, "GetDirectCallerSID"), flags, 2)
+        this.vtbl.GetOriginalCallerSID := CallbackCreate(GetMethod(implObj, "GetOriginalCallerSID"), flags, 2)
+        this.vtbl.ReleaseSID := CallbackCreate(GetMethod(implObj, "ReleaseSID"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDirectCreatorSID)
+        CallbackFree(this.vtbl.GetOriginalCreatorSID)
+        CallbackFree(this.vtbl.GetDirectCallerSID)
+        CallbackFree(this.vtbl.GetOriginalCallerSID)
+        CallbackFree(this.vtbl.ReleaseSID)
     }
 }

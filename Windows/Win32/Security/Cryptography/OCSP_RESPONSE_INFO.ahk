@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Indicates the success or failure of the corresponding online certificate status protocol (OCSP) request. For successful requests, it contains the type and value of response information.
@@ -9,10 +9,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ocsp_response_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class OCSP_RESPONSE_INFO extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct OCSP_RESPONSE_INFO {
+    #StructPack 8
 
     /**
      * A value that indicates the processing status of the corresponding request. If the status is anything other than <b>OCSP_SUCCESSFUL_RESPONSE</b>, <b>pszObjId</b> and <b>Value</b> are not set.
@@ -105,12 +103,8 @@ class OCSP_RESPONSE_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwStatus {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwStatus : UInt32
 
     /**
      * A pointer to a string that identifies the type of data in <b>Value</b>.
@@ -136,22 +130,12 @@ class OCSP_RESPONSE_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {PSTR}
      */
-    pszObjId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszObjId : PSTR
 
     /**
      * An array of bytes that contain data encoded by using <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">Distinguished Encoding Rules</a> (DER), as specified by <b>pszObjId</b>.
-     * @type {CRYPT_INTEGER_BLOB}
      */
-    Value {
-        get {
-            if(!this.HasProp("__Value"))
-                this.__Value := CRYPT_INTEGER_BLOB(16, this)
-            return this.__Value
-        }
-    }
+    Value : CRYPT_INTEGER_BLOB
+
 }

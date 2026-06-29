@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BCRYPT_DSA_MAGIC.ahk
-#Include .\HASHALGORITHM_ENUM.ahk
-#Include .\DSAFIPSVERSION_ENUM.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DSAFIPSVERSION_ENUM.ahk" { DSAFIPSVERSION_ENUM }
+#Import ".\HASHALGORITHM_ENUM.ahk" { HASHALGORITHM_ENUM }
+#Import ".\BCRYPT_DSA_MAGIC.ahk" { BCRYPT_DSA_MAGIC }
 
 /**
  * Used as a header for a Digital Signature Algorithm (DSA) public key or private key BLOB in memory. (BCRYPT_DSA_KEY_BLOB_V2)
@@ -40,73 +39,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_dsa_key_blob_v2
  * @namespace Windows.Win32.Security.Cryptography
  */
-class BCRYPT_DSA_KEY_BLOB_V2 extends Win32Struct {
-    static sizeof => 28
+export default struct BCRYPT_DSA_KEY_BLOB_V2 {
+    #StructPack 4
 
-    static packingSize => 4
-
-    /**
-     * @type {BCRYPT_DSA_MAGIC}
-     */
-    dwMagic {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwMagic : BCRYPT_DSA_MAGIC
 
     /**
      * The length, in bytes, of the key.
-     * @type {Integer}
      */
-    cbKey {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cbKey : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/ne-bcrypt-hashalgorithm_enum">HASHALGORITHM_ENUM</a> enumeration value that specifies the hashing algorithm to use.
-     * @type {HASHALGORITHM_ENUM}
      */
-    hashAlgorithm {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    hashAlgorithm : HASHALGORITHM_ENUM
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/ne-bcrypt-dsafipsversion_enum">DSAFIPSVERSION_ENUM</a> enumeration value that specifies the Federal Information Processing Standard (FIPS) to apply.
-     * @type {DSAFIPSVERSION_ENUM}
      */
-    standardVersion {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    standardVersion : DSAFIPSVERSION_ENUM
 
     /**
      * Length of the seed used to generate the prime number <i>q</i> in bytes.
-     * @type {Integer}
      */
-    cbSeedLength {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cbSeedLength : UInt32
 
     /**
      * Size of the prime number <i>q</i> in bytes. Currently, when the key exceeds 1024 bits in length, <i>q</i> is 32 bytes long.
-     * @type {Integer}
      */
-    cbGroupSize {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    cbGroupSize : UInt32
 
     /**
      * The number of iterations performed to generate the prime number <i>q</i> from the seed. For more information, see NIST standard FIPS186-3.
-     * @type {Array<Integer>}
      */
-    Count {
-        get {
-            if(!this.HasProp("__CountProxyArray"))
-                this.__CountProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "char")
-            return this.__CountProxyArray
-        }
-    }
+    Count : Int8[4]
+
 }

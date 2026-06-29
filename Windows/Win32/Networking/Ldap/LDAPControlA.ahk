@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\LDAP_BERVAL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\LDAP_BERVAL.ahk" { LDAP_BERVAL }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Represents both client-side and server controls. (ANSI)
@@ -23,38 +24,22 @@
  * @namespace Windows.Win32.Networking.Ldap
  * @charset ANSI
  */
-class LDAPControlA extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct LDAPControlA {
+    #StructPack 8
 
     /**
      * Pointer to a wide, null-terminated string that indicates  control type, such as "1.2.840.113556.1.4.805".
-     * @type {PSTR}
      */
-    ldctl_oid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ldctl_oid : PSTR
 
     /**
      * The data associated with the control, if any. If no data is associated with the control, set this member to <b>NULL</b>.
-     * @type {LDAP_BERVAL}
      */
-    ldctl_value {
-        get {
-            if(!this.HasProp("__ldctl_value"))
-                this.__ldctl_value := LDAP_BERVAL(8, this)
-            return this.__ldctl_value
-        }
-    }
+    ldctl_value : LDAP_BERVAL
 
     /**
      * Indicates whether the control is critical, called the Criticality field.
-     * @type {BOOLEAN}
      */
-    ldctl_iscritical {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
-    }
+    ldctl_iscritical : BOOLEAN
+
 }

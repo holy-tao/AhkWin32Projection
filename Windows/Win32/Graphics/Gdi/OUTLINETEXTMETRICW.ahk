@@ -1,20 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TEXTMETRICW.ahk
-#Include .\TMPF_FLAGS.ahk
-#Include .\PANOSE.ahk
-#Include .\PAN_FAMILY_TYPE.ahk
-#Include .\PAN_SERIF_STYLE.ahk
-#Include .\PAN_WEIGHT.ahk
-#Include .\PAN_PROPORTION.ahk
-#Include .\PAN_CONTRAST.ahk
-#Include .\PAN_STROKE_VARIATION.ahk
-#Include .\PAN_ARM_STYLE.ahk
-#Include .\PAN_LETT_FORM.ahk
-#Include .\PAN_MIDLINE.ahk
-#Include .\PAN_XHEIGHT.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\POINT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PAN_LETT_FORM.ahk" { PAN_LETT_FORM }
+#Import ".\TEXTMETRICW.ahk" { TEXTMETRICW }
+#Import ".\PAN_MIDLINE.ahk" { PAN_MIDLINE }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\PAN_PROPORTION.ahk" { PAN_PROPORTION }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\PANOSE.ahk" { PANOSE }
+#Import ".\TMPF_FLAGS.ahk" { TMPF_FLAGS }
+#Import ".\PAN_FAMILY_TYPE.ahk" { PAN_FAMILY_TYPE }
+#Import ".\PAN_XHEIGHT.ahk" { PAN_XHEIGHT }
+#Import ".\PAN_SERIF_STYLE.ahk" { PAN_SERIF_STYLE }
+#Import ".\PAN_CONTRAST.ahk" { PAN_CONTRAST }
+#Import ".\PAN_STROKE_VARIATION.ahk" { PAN_STROKE_VARIATION }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\PAN_ARM_STYLE.ahk" { PAN_ARM_STYLE }
+#Import ".\PAN_WEIGHT.ahk" { PAN_WEIGHT }
 
 /**
  * The OUTLINETEXTMETRIC structure contains metrics describing a TrueType font. (Unicode)
@@ -33,52 +33,28 @@
  * @namespace Windows.Win32.Graphics.Gdi
  * @charset Unicode
  */
-class OUTLINETEXTMETRICW extends Win32Struct {
-    static sizeof => 232
-
-    static packingSize => 8
+export default struct OUTLINETEXTMETRICW {
+    #StructPack 8
 
     /**
      * The size, in bytes, of the <b>OUTLINETEXTMETRIC</b> structure.
-     * @type {Integer}
      */
-    otmSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    otmSize : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-textmetrica">TEXTMETRIC</a> structure containing further information about the font.
-     * @type {TEXTMETRICW}
      */
-    otmTextMetrics {
-        get {
-            if(!this.HasProp("__otmTextMetrics"))
-                this.__otmTextMetrics := TEXTMETRICW(4, this)
-            return this.__otmTextMetrics
-        }
-    }
+    otmTextMetrics : TEXTMETRICW
 
     /**
      * A value that causes the structure to be byte-aligned.
-     * @type {Integer}
      */
-    otmFiller {
-        get => NumGet(this, 64, "char")
-        set => NumPut("char", value, this, 64)
-    }
+    otmFiller : Int8
 
     /**
      * The PANOSE number for this font.
-     * @type {PANOSE}
      */
-    otmPanoseNumber {
-        get {
-            if(!this.HasProp("__otmPanoseNumber"))
-                this.__otmPanoseNumber := PANOSE(65, this)
-            return this.__otmPanoseNumber
-        }
-    }
+    otmPanoseNumber : PANOSE
 
     /**
      * The nature of the font pattern. This member can be a combination of the following bits.
@@ -113,268 +89,142 @@ class OUTLINETEXTMETRICW extends Win32Struct {
      * <td>Bold</td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    otmfsSelection {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    otmfsSelection : UInt32
 
     /**
      * Indicates whether the font is licensed. Licensed fonts must not be modified or exchanged. If bit 1 is set, the font may not be embedded in a document. If bit 1 is clear, the font can be embedded. If bit 2 is set, the embedding is read-only.
-     * @type {Integer}
      */
-    otmfsType {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    otmfsType : UInt32
 
     /**
      * The slope of the cursor. This value is 1 if the slope is vertical. Applications can use this value and the value of the <b>otmsCharSlopeRun</b> member to create an italic cursor that has the same slope as the main italic angle (specified by the <b>otmItalicAngle</b> member).
-     * @type {Integer}
      */
-    otmsCharSlopeRise {
-        get => NumGet(this, 84, "int")
-        set => NumPut("int", value, this, 84)
-    }
+    otmsCharSlopeRise : Int32
 
     /**
      * The slope of the cursor. This value is zero if the slope is vertical. Applications can use this value and the value of the <b>otmsCharSlopeRise</b> member to create an italic cursor that has the same slope as the main italic angle (specified by the <b>otmItalicAngle</b> member).
-     * @type {Integer}
      */
-    otmsCharSlopeRun {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
-    }
+    otmsCharSlopeRun : Int32
 
     /**
      * The main italic angle of the font, in tenths of a degree counterclockwise from vertical. Regular (roman) fonts have a value of zero. Italic fonts typically have a negative italic angle (that is, they lean to the right).
-     * @type {Integer}
      */
-    otmItalicAngle {
-        get => NumGet(this, 92, "int")
-        set => NumPut("int", value, this, 92)
-    }
+    otmItalicAngle : Int32
 
     /**
      * The number of logical units defining the x- or y-dimension of the em square for this font. (The number of units in the x- and y-directions are always the same for an em square.)
-     * @type {Integer}
      */
-    otmEMSquare {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    otmEMSquare : UInt32
 
     /**
      * The maximum distance characters in this font extend above the base line. This is the typographic ascent for the font.
-     * @type {Integer}
      */
-    otmAscent {
-        get => NumGet(this, 100, "int")
-        set => NumPut("int", value, this, 100)
-    }
+    otmAscent : Int32
 
     /**
      * The maximum distance characters in this font extend below the base line. This is the typographic descent for the font.
-     * @type {Integer}
      */
-    otmDescent {
-        get => NumGet(this, 104, "int")
-        set => NumPut("int", value, this, 104)
-    }
+    otmDescent : Int32
 
     /**
      * The typographic line spacing.
-     * @type {Integer}
      */
-    otmLineGap {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
+    otmLineGap : UInt32
 
     /**
      * Not supported.
-     * @type {Integer}
      */
-    otmsCapEmHeight {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    otmsCapEmHeight : UInt32
 
     /**
      * Not supported.
-     * @type {Integer}
      */
-    otmsXHeight {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
-    }
+    otmsXHeight : UInt32
 
     /**
      * The bounding box for the font.
-     * @type {RECT}
      */
-    otmrcFontBox {
-        get {
-            if(!this.HasProp("__otmrcFontBox"))
-                this.__otmrcFontBox := RECT(120, this)
-            return this.__otmrcFontBox
-        }
-    }
+    otmrcFontBox : RECT
 
     /**
      * The maximum distance characters in this font extend above the base line for the Macintosh computer.
-     * @type {Integer}
      */
-    otmMacAscent {
-        get => NumGet(this, 136, "int")
-        set => NumPut("int", value, this, 136)
-    }
+    otmMacAscent : Int32
 
     /**
      * The maximum distance characters in this font extend below the base line for the Macintosh computer.
-     * @type {Integer}
      */
-    otmMacDescent {
-        get => NumGet(this, 140, "int")
-        set => NumPut("int", value, this, 140)
-    }
+    otmMacDescent : Int32
 
     /**
      * The line-spacing information for the Macintosh computer.
-     * @type {Integer}
      */
-    otmMacLineGap {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
-    }
+    otmMacLineGap : UInt32
 
     /**
      * The smallest recommended size for this font, in pixels per em-square.
-     * @type {Integer}
      */
-    otmusMinimumPPEM {
-        get => NumGet(this, 148, "uint")
-        set => NumPut("uint", value, this, 148)
-    }
+    otmusMinimumPPEM : UInt32
 
     /**
      * The recommended horizontal and vertical size for subscripts in this font.
-     * @type {POINT}
      */
-    otmptSubscriptSize {
-        get {
-            if(!this.HasProp("__otmptSubscriptSize"))
-                this.__otmptSubscriptSize := POINT(152, this)
-            return this.__otmptSubscriptSize
-        }
-    }
+    otmptSubscriptSize : POINT
 
     /**
      * The recommended horizontal and vertical offset for subscripts in this font. The subscript offset is measured from the character origin to the origin of the subscript character.
-     * @type {POINT}
      */
-    otmptSubscriptOffset {
-        get {
-            if(!this.HasProp("__otmptSubscriptOffset"))
-                this.__otmptSubscriptOffset := POINT(160, this)
-            return this.__otmptSubscriptOffset
-        }
-    }
+    otmptSubscriptOffset : POINT
 
     /**
      * The recommended horizontal and vertical size for superscripts in this font.
-     * @type {POINT}
      */
-    otmptSuperscriptSize {
-        get {
-            if(!this.HasProp("__otmptSuperscriptSize"))
-                this.__otmptSuperscriptSize := POINT(168, this)
-            return this.__otmptSuperscriptSize
-        }
-    }
+    otmptSuperscriptSize : POINT
 
     /**
      * The recommended horizontal and vertical offset for superscripts in this font. The superscript offset is measured from the character base line to the base line of the superscript character.
-     * @type {POINT}
      */
-    otmptSuperscriptOffset {
-        get {
-            if(!this.HasProp("__otmptSuperscriptOffset"))
-                this.__otmptSuperscriptOffset := POINT(176, this)
-            return this.__otmptSuperscriptOffset
-        }
-    }
+    otmptSuperscriptOffset : POINT
 
     /**
      * The width of the strikeout stroke for this font. Typically, this is the width of the em dash for the font.
-     * @type {Integer}
      */
-    otmsStrikeoutSize {
-        get => NumGet(this, 184, "uint")
-        set => NumPut("uint", value, this, 184)
-    }
+    otmsStrikeoutSize : UInt32
 
     /**
      * The position of the strikeout stroke relative to the base line for this font. Positive values are above the base line and negative values are below.
-     * @type {Integer}
      */
-    otmsStrikeoutPosition {
-        get => NumGet(this, 188, "int")
-        set => NumPut("int", value, this, 188)
-    }
+    otmsStrikeoutPosition : Int32
 
     /**
      * The thickness of the underscore character for this font.
-     * @type {Integer}
      */
-    otmsUnderscoreSize {
-        get => NumGet(this, 192, "int")
-        set => NumPut("int", value, this, 192)
-    }
+    otmsUnderscoreSize : Int32
 
     /**
      * The position of the underscore character for this font.
-     * @type {Integer}
      */
-    otmsUnderscorePosition {
-        get => NumGet(this, 196, "int")
-        set => NumPut("int", value, this, 196)
-    }
+    otmsUnderscorePosition : Int32
 
     /**
      * The offset from the beginning of the structure to a string specifying the family name for the font.
-     * @type {PSTR}
      */
-    otmpFamilyName {
-        get => NumGet(this, 200, "ptr")
-        set => NumPut("ptr", value, this, 200)
-    }
+    otmpFamilyName : PSTR
 
     /**
      * The offset from the beginning of the structure to a string specifying the typeface name for the font. (This typeface name corresponds to the name specified in the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure.)
-     * @type {PSTR}
      */
-    otmpFaceName {
-        get => NumGet(this, 208, "ptr")
-        set => NumPut("ptr", value, this, 208)
-    }
+    otmpFaceName : PSTR
 
     /**
      * The offset from the beginning of the structure to a string specifying the style name for the font.
-     * @type {PSTR}
      */
-    otmpStyleName {
-        get => NumGet(this, 216, "ptr")
-        set => NumPut("ptr", value, this, 216)
-    }
+    otmpStyleName : PSTR
 
     /**
      * The offset from the beginning of the structure to a string specifying the full name for the font. This name is unique for the font and often contains a version number or other identifying information.
-     * @type {PSTR}
      */
-    otmpFullName {
-        get => NumGet(this, 224, "ptr")
-        set => NumPut("ptr", value, this, 224)
-    }
+    otmpFullName : PSTR
+
 }

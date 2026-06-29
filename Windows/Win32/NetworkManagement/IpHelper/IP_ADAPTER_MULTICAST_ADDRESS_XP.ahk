@@ -1,8 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IP_ADAPTER_MULTICAST_ADDRESS_XP.ahk
-#Include ..\..\Networking\WinSock\SOCKET_ADDRESS.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Networking\WinSock\SOCKADDR.ahk" { SOCKADDR }
+#Import "..\..\Networking\WinSock\SOCKET_ADDRESS.ahk" { SOCKET_ADDRESS }
 
 /**
  * The IP_ADAPTER_MULTICAST_ADDRESS structure stores a single multicast address in a linked-list of addresses for a particular adapter.
@@ -13,57 +11,28 @@
  * @see https://learn.microsoft.com/windows/win32/api/iptypes/ns-iptypes-ip_adapter_multicast_address_xp
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class IP_ADAPTER_MULTICAST_ADDRESS_XP extends Win32Struct {
-    static sizeof => 32
+export default struct IP_ADAPTER_MULTICAST_ADDRESS_XP {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {Integer}
-     */
-    Alignment {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Alignment : Int64
 
     /**
      * Type: <b>struct _IP_ADAPTER_MULTICAST_ADDRESS*</b>
      * 
      * A pointer to the next multicast IP address structure in the list.
-     * @type {Pointer<IP_ADAPTER_MULTICAST_ADDRESS_XP>}
      */
-    Next {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Next : IP_ADAPTER_MULTICAST_ADDRESS_XP.Ptr
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-socket_address">SOCKET_ADDRESS</a></b>
      * 
      * The IP address for this multicast IP address entry. This member can be an IPv6 address or an IPv4 address.
-     * @type {SOCKET_ADDRESS}
      */
-    Address {
-        get {
-            if(!this.HasProp("__Address"))
-                this.__Address := SOCKET_ADDRESS(16, this)
-            return this.__Address
-        }
+    Address : SOCKET_ADDRESS
+
+    static __New() {
+        DefineProp(this.Prototype, 'Length', { type: UInt32, offset: 0 })
+        DefineProp(this.Prototype, 'Flags', { type: UInt32, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

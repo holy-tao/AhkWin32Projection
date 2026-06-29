@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFTopology.ahk" { IMFTopology }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Modifies a topology for use in a Terminal Services environment. (IMFRemoteDesktopPlugin)
@@ -20,26 +22,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfremotedesktopplugin
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFRemoteDesktopPlugin extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFRemoteDesktopPlugin extends IUnknown {
     /**
      * The interface identifier for IMFRemoteDesktopPlugin
      * @type {Guid}
      */
-    static IID => Guid("{1cde6309-cae0-4940-907e-c1ec9c3d1d4a}")
+    static IID := Guid("{1cde6309-cae0-4940-907e-c1ec9c3d1d4a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFRemoteDesktopPlugin interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        UpdateTopology : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["UpdateTopology"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFRemoteDesktopPlugin.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Modifies a topology for use in a Terminal Services environment. (IMFRemoteDesktopPlugin.UpdateTopology)
@@ -70,5 +79,25 @@ class IMFRemoteDesktopPlugin extends IUnknown {
     UpdateTopology(pTopology) {
         result := ComCall(3, this, "ptr", pTopology, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFRemoteDesktopPlugin.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.UpdateTopology := CallbackCreate(GetMethod(implObj, "UpdateTopology"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.UpdateTopology)
     }
 }

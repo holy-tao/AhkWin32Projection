@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IFaxIncomingMessage.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFaxIncomingMessage.ahk" { IFaxIncomingMessage }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IFaxIncomingMessageIterator interface is used by a fax client application to move through the archive of inbound fax messages that the fax service has successfully received.
@@ -11,32 +13,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxincomingmessageiterator
  * @namespace Windows.Win32.Devices.Fax
  */
-class IFaxIncomingMessageIterator extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFaxIncomingMessageIterator extends IDispatch {
     /**
      * The interface identifier for IFaxIncomingMessageIterator
      * @type {Guid}
      */
-    static IID => Guid("{fd73ecc4-6f06-4f52-82a8-f7ba06ae3108}")
+    static IID := Guid("{fd73ecc4-6f06-4f52-82a8-f7ba06ae3108}")
 
     /**
      * The class identifier for FaxIncomingMessageIterator
      * @type {Guid}
      */
-    static CLSID => Guid("{6088e1d8-3fc8-45c2-87b1-909a29607ea9}")
+    static CLSID := Guid("{6088e1d8-3fc8-45c2-87b1-909a29607ea9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFaxIncomingMessageIterator interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Message      : IntPtr
+        get_PrefetchSize : IntPtr
+        put_PrefetchSize : IntPtr
+        get_AtEOF        : IntPtr
+        MoveFirst        : IntPtr
+        MoveNext         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Message", "get_PrefetchSize", "put_PrefetchSize", "get_AtEOF", "MoveFirst", "MoveNext"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFaxIncomingMessageIterator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IFaxIncomingMessage} 
@@ -117,7 +131,7 @@ class IFaxIncomingMessageIterator extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessageiterator-get_ateof
      */
     get_AtEOF() {
-        result := ComCall(10, this, "short*", &pbEOF := 0, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL.Ptr, &pbEOF := 0, "HRESULT")
         return pbEOF
     }
 
@@ -149,5 +163,35 @@ class IFaxIncomingMessageIterator extends IDispatch {
     MoveNext() {
         result := ComCall(12, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFaxIncomingMessageIterator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Message := CallbackCreate(GetMethod(implObj, "get_Message"), flags, 2)
+        this.vtbl.get_PrefetchSize := CallbackCreate(GetMethod(implObj, "get_PrefetchSize"), flags, 2)
+        this.vtbl.put_PrefetchSize := CallbackCreate(GetMethod(implObj, "put_PrefetchSize"), flags, 2)
+        this.vtbl.get_AtEOF := CallbackCreate(GetMethod(implObj, "get_AtEOF"), flags, 2)
+        this.vtbl.MoveFirst := CallbackCreate(GetMethod(implObj, "MoveFirst"), flags, 1)
+        this.vtbl.MoveNext := CallbackCreate(GetMethod(implObj, "MoveNext"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Message)
+        CallbackFree(this.vtbl.get_PrefetchSize)
+        CallbackFree(this.vtbl.put_PrefetchSize)
+        CallbackFree(this.vtbl.get_AtEOF)
+        CallbackFree(this.vtbl.MoveFirst)
+        CallbackFree(this.vtbl.MoveNext)
     }
 }

@@ -1,35 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\WindowsMediaFormat\IWMProfile.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\WindowsMediaFormat\IWMProfile.ahk" { IWMProfile }
 
 /**
  * The IConfigAsfWriter interface configures the WM ASF Writer filter.
  * @see https://learn.microsoft.com/windows/win32/api/dshowasf/nn-dshowasf-iconfigasfwriter
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IConfigAsfWriter extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IConfigAsfWriter extends IUnknown {
     /**
      * The interface identifier for IConfigAsfWriter
      * @type {Guid}
      */
-    static IID => Guid("{45086030-f7e4-486a-b504-826bb5792a3b}")
+    static IID := Guid("{45086030-f7e4-486a-b504-826bb5792a3b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IConfigAsfWriter interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ConfigureFilterUsingProfileId   : IntPtr
+        GetCurrentProfileId             : IntPtr
+        ConfigureFilterUsingProfileGuid : IntPtr
+        GetCurrentProfileGuid           : IntPtr
+        ConfigureFilterUsingProfile     : IntPtr
+        GetCurrentProfile               : IntPtr
+        SetIndexMode                    : IntPtr
+        GetIndexMode                    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ConfigureFilterUsingProfileId", "GetCurrentProfileId", "ConfigureFilterUsingProfileGuid", "GetCurrentProfileGuid", "ConfigureFilterUsingProfile", "GetCurrentProfile", "SetIndexMode", "GetIndexMode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IConfigAsfWriter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The ConfigureFilterUsingProfileId method sets a Windows Media Format 4.0 profile on the WM ASF Writer filter. This method is deprecated. Applications should use the IConfigAsfWriter::ConfigureFilterUsingProfile method to set the profile.
@@ -145,7 +160,7 @@ class IConfigAsfWriter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dshowasf/nf-dshowasf-iconfigasfwriter-configurefilterusingprofileguid
      */
     ConfigureFilterUsingProfileGuid(guidProfile) {
-        result := ComCall(5, this, "ptr", guidProfile, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, guidProfile, "HRESULT")
         return result
     }
 
@@ -158,7 +173,7 @@ class IConfigAsfWriter extends IUnknown {
      */
     GetCurrentProfileGuid() {
         pProfileGuid := Guid()
-        result := ComCall(6, this, "ptr", pProfileGuid, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, pProfileGuid, "HRESULT")
         return pProfileGuid
     }
 
@@ -236,7 +251,7 @@ class IConfigAsfWriter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dshowasf/nf-dshowasf-iconfigasfwriter-setindexmode
      */
     SetIndexMode(bIndexFile) {
-        result := ComCall(9, this, "int", bIndexFile, "HRESULT")
+        result := ComCall(9, this, BOOL, bIndexFile, "HRESULT")
         return result
     }
 
@@ -248,7 +263,41 @@ class IConfigAsfWriter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dshowasf/nf-dshowasf-iconfigasfwriter-getindexmode
      */
     GetIndexMode() {
-        result := ComCall(10, this, "int*", &pbIndexFile := 0, "HRESULT")
+        result := ComCall(10, this, BOOL.Ptr, &pbIndexFile := 0, "HRESULT")
         return pbIndexFile
+    }
+
+    Query(iid) {
+        if (IConfigAsfWriter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ConfigureFilterUsingProfileId := CallbackCreate(GetMethod(implObj, "ConfigureFilterUsingProfileId"), flags, 2)
+        this.vtbl.GetCurrentProfileId := CallbackCreate(GetMethod(implObj, "GetCurrentProfileId"), flags, 2)
+        this.vtbl.ConfigureFilterUsingProfileGuid := CallbackCreate(GetMethod(implObj, "ConfigureFilterUsingProfileGuid"), flags, 2)
+        this.vtbl.GetCurrentProfileGuid := CallbackCreate(GetMethod(implObj, "GetCurrentProfileGuid"), flags, 2)
+        this.vtbl.ConfigureFilterUsingProfile := CallbackCreate(GetMethod(implObj, "ConfigureFilterUsingProfile"), flags, 2)
+        this.vtbl.GetCurrentProfile := CallbackCreate(GetMethod(implObj, "GetCurrentProfile"), flags, 2)
+        this.vtbl.SetIndexMode := CallbackCreate(GetMethod(implObj, "SetIndexMode"), flags, 2)
+        this.vtbl.GetIndexMode := CallbackCreate(GetMethod(implObj, "GetIndexMode"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ConfigureFilterUsingProfileId)
+        CallbackFree(this.vtbl.GetCurrentProfileId)
+        CallbackFree(this.vtbl.ConfigureFilterUsingProfileGuid)
+        CallbackFree(this.vtbl.GetCurrentProfileGuid)
+        CallbackFree(this.vtbl.ConfigureFilterUsingProfile)
+        CallbackFree(this.vtbl.GetCurrentProfile)
+        CallbackFree(this.vtbl.SetIndexMode)
+        CallbackFree(this.vtbl.GetIndexMode)
     }
 }

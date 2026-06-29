@@ -1,39 +1,73 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDirectDrawClipper.ahk
-#Include .\IDirectDrawPalette.ahk
-#Include .\IDirectDrawSurface.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DDSCAPS.ahk" { DDSCAPS }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\Gdi\PALETTEENTRY.ahk" { PALETTEENTRY }
+#Import ".\IDirectDrawPalette.ahk" { IDirectDrawPalette }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDirectDrawSurface.ahk" { IDirectDrawSurface }
+#Import ".\DDSURFACEDESC.ahk" { DDSURFACEDESC }
+#Import ".\DDCAPS_DX7.ahk" { DDCAPS_DX7 }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDirectDrawClipper.ahk" { IDirectDrawClipper }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class IDirectDraw2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectDraw2 extends IUnknown {
     /**
      * The interface identifier for IDirectDraw2
      * @type {Guid}
      */
-    static IID => Guid("{b3a6f3e0-2b43-11cf-a2de-00aa00b93356}")
+    static IID := Guid("{b3a6f3e0-2b43-11cf-a2de-00aa00b93356}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectDraw2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Compact                : IntPtr
+        CreateClipper          : IntPtr
+        CreatePalette          : IntPtr
+        CreateSurface          : IntPtr
+        DuplicateSurface       : IntPtr
+        EnumDisplayModes       : IntPtr
+        EnumSurfaces           : IntPtr
+        FlipToGDISurface       : IntPtr
+        GetCaps                : IntPtr
+        GetDisplayMode         : IntPtr
+        GetFourCCCodes         : IntPtr
+        GetGDISurface          : IntPtr
+        GetMonitorFrequency    : IntPtr
+        GetScanLine            : IntPtr
+        GetVerticalBlankStatus : IntPtr
+        Initialize             : IntPtr
+        RestoreDisplayMode     : IntPtr
+        SetCooperativeLevel    : IntPtr
+        SetDisplayMode         : IntPtr
+        WaitForVerticalBlank   : IntPtr
+        GetAvailableVidMem     : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectDraw2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Compact", "CreateClipper", "CreatePalette", "CreateSurface", "DuplicateSurface", "EnumDisplayModes", "EnumSurfaces", "FlipToGDISurface", "GetCaps", "GetDisplayMode", "GetFourCCCodes", "GetGDISurface", "GetMonitorFrequency", "GetScanLine", "GetVerticalBlankStatus", "Initialize", "RestoreDisplayMode", "SetCooperativeLevel", "SetDisplayMode", "WaitForVerticalBlank", "GetAvailableVidMem"]
-
-    /**
-     * Learn more about: CompactGrbit enumeration
+     * 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/compactgrbit-enumeration
      */
     Compact() {
         result := ComCall(3, this, "HRESULT")
@@ -66,7 +100,7 @@ class IDirectDraw2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createpalette
      */
     CreatePalette(param0, param1, param3) {
-        result := ComCall(5, this, "uint", param0, "ptr", param1, "ptr*", &param2 := 0, "ptr", param3, "HRESULT")
+        result := ComCall(5, this, "uint", param0, PALETTEENTRY.Ptr, param1, "ptr*", &param2 := 0, "ptr", param3, "HRESULT")
         return IDirectDrawPalette(param2)
     }
 
@@ -77,7 +111,7 @@ class IDirectDraw2 extends IUnknown {
      * @returns {IDirectDrawSurface} 
      */
     CreateSurface(param0, param2) {
-        result := ComCall(6, this, "ptr", param0, "ptr*", &param1 := 0, "ptr", param2, "HRESULT")
+        result := ComCall(6, this, DDSURFACEDESC.Ptr, param0, "ptr*", &param1 := 0, "ptr", param2, "HRESULT")
         return IDirectDrawSurface(param1)
     }
 
@@ -102,7 +136,7 @@ class IDirectDraw2 extends IUnknown {
     EnumDisplayModes(param0, param1, param2, param3) {
         param2Marshal := param2 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(8, this, "uint", param0, "ptr", param1, param2Marshal, param2, "ptr", param3, "HRESULT")
+        result := ComCall(8, this, "uint", param0, DDSURFACEDESC.Ptr, param1, param2Marshal, param2, "ptr", param3, "HRESULT")
         return result
     }
 
@@ -117,7 +151,7 @@ class IDirectDraw2 extends IUnknown {
     EnumSurfaces(param0, param1, param2, param3) {
         param2Marshal := param2 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, "uint", param0, "ptr", param1, param2Marshal, param2, "ptr", param3, "HRESULT")
+        result := ComCall(9, this, "uint", param0, DDSURFACEDESC.Ptr, param1, param2Marshal, param2, "ptr", param3, "HRESULT")
         return result
     }
 
@@ -137,7 +171,7 @@ class IDirectDraw2 extends IUnknown {
      * @returns {HRESULT} 
      */
     GetCaps(param0, param1) {
-        result := ComCall(11, this, "ptr", param0, "ptr", param1, "HRESULT")
+        result := ComCall(11, this, DDCAPS_DX7.Ptr, param0, DDCAPS_DX7.Ptr, param1, "HRESULT")
         return result
     }
 
@@ -147,7 +181,7 @@ class IDirectDraw2 extends IUnknown {
      * @returns {HRESULT} 
      */
     GetDisplayMode(param0) {
-        result := ComCall(12, this, "ptr", param0, "HRESULT")
+        result := ComCall(12, this, DDSURFACEDESC.Ptr, param0, "HRESULT")
         return result
     }
 
@@ -240,7 +274,7 @@ class IDirectDraw2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(param0) {
-        result := ComCall(18, this, "ptr", param0, "HRESULT")
+        result := ComCall(18, this, Guid.Ptr, param0, "HRESULT")
         return result
     }
 
@@ -260,9 +294,7 @@ class IDirectDraw2 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetCooperativeLevel(param0, param1) {
-        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
-
-        result := ComCall(20, this, "ptr", param0, "uint", param1, "HRESULT")
+        result := ComCall(20, this, HWND, param0, "uint", param1, "HRESULT")
         return result
     }
 
@@ -287,9 +319,7 @@ class IDirectDraw2 extends IUnknown {
      * @returns {HRESULT} 
      */
     WaitForVerticalBlank(param0, param1) {
-        param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
-
-        result := ComCall(22, this, "uint", param0, "ptr", param1, "HRESULT")
+        result := ComCall(22, this, "uint", param0, HANDLE, param1, "HRESULT")
         return result
     }
 
@@ -304,7 +334,67 @@ class IDirectDraw2 extends IUnknown {
         param1Marshal := param1 is VarRef ? "uint*" : "ptr"
         param2Marshal := param2 is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(23, this, "ptr", param0, param1Marshal, param1, param2Marshal, param2, "HRESULT")
+        result := ComCall(23, this, DDSCAPS.Ptr, param0, param1Marshal, param1, param2Marshal, param2, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectDraw2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Compact := CallbackCreate(GetMethod(implObj, "Compact"), flags, 1)
+        this.vtbl.CreateClipper := CallbackCreate(GetMethod(implObj, "CreateClipper"), flags, 4)
+        this.vtbl.CreatePalette := CallbackCreate(GetMethod(implObj, "CreatePalette"), flags, 5)
+        this.vtbl.CreateSurface := CallbackCreate(GetMethod(implObj, "CreateSurface"), flags, 4)
+        this.vtbl.DuplicateSurface := CallbackCreate(GetMethod(implObj, "DuplicateSurface"), flags, 3)
+        this.vtbl.EnumDisplayModes := CallbackCreate(GetMethod(implObj, "EnumDisplayModes"), flags, 5)
+        this.vtbl.EnumSurfaces := CallbackCreate(GetMethod(implObj, "EnumSurfaces"), flags, 5)
+        this.vtbl.FlipToGDISurface := CallbackCreate(GetMethod(implObj, "FlipToGDISurface"), flags, 1)
+        this.vtbl.GetCaps := CallbackCreate(GetMethod(implObj, "GetCaps"), flags, 3)
+        this.vtbl.GetDisplayMode := CallbackCreate(GetMethod(implObj, "GetDisplayMode"), flags, 2)
+        this.vtbl.GetFourCCCodes := CallbackCreate(GetMethod(implObj, "GetFourCCCodes"), flags, 3)
+        this.vtbl.GetGDISurface := CallbackCreate(GetMethod(implObj, "GetGDISurface"), flags, 2)
+        this.vtbl.GetMonitorFrequency := CallbackCreate(GetMethod(implObj, "GetMonitorFrequency"), flags, 2)
+        this.vtbl.GetScanLine := CallbackCreate(GetMethod(implObj, "GetScanLine"), flags, 2)
+        this.vtbl.GetVerticalBlankStatus := CallbackCreate(GetMethod(implObj, "GetVerticalBlankStatus"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.RestoreDisplayMode := CallbackCreate(GetMethod(implObj, "RestoreDisplayMode"), flags, 1)
+        this.vtbl.SetCooperativeLevel := CallbackCreate(GetMethod(implObj, "SetCooperativeLevel"), flags, 3)
+        this.vtbl.SetDisplayMode := CallbackCreate(GetMethod(implObj, "SetDisplayMode"), flags, 6)
+        this.vtbl.WaitForVerticalBlank := CallbackCreate(GetMethod(implObj, "WaitForVerticalBlank"), flags, 3)
+        this.vtbl.GetAvailableVidMem := CallbackCreate(GetMethod(implObj, "GetAvailableVidMem"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Compact)
+        CallbackFree(this.vtbl.CreateClipper)
+        CallbackFree(this.vtbl.CreatePalette)
+        CallbackFree(this.vtbl.CreateSurface)
+        CallbackFree(this.vtbl.DuplicateSurface)
+        CallbackFree(this.vtbl.EnumDisplayModes)
+        CallbackFree(this.vtbl.EnumSurfaces)
+        CallbackFree(this.vtbl.FlipToGDISurface)
+        CallbackFree(this.vtbl.GetCaps)
+        CallbackFree(this.vtbl.GetDisplayMode)
+        CallbackFree(this.vtbl.GetFourCCCodes)
+        CallbackFree(this.vtbl.GetGDISurface)
+        CallbackFree(this.vtbl.GetMonitorFrequency)
+        CallbackFree(this.vtbl.GetScanLine)
+        CallbackFree(this.vtbl.GetVerticalBlankStatus)
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.RestoreDisplayMode)
+        CallbackFree(this.vtbl.SetCooperativeLevel)
+        CallbackFree(this.vtbl.SetDisplayMode)
+        CallbackFree(this.vtbl.WaitForVerticalBlank)
+        CallbackFree(this.vtbl.GetAvailableVidMem)
     }
 }

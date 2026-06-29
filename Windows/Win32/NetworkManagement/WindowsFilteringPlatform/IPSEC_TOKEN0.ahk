@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPSEC_TOKEN_TYPE.ahk
-#Include .\IPSEC_TOKEN_PRINCIPAL.ahk
-#Include .\IPSEC_TOKEN_MODE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IPSEC_TOKEN_PRINCIPAL.ahk" { IPSEC_TOKEN_PRINCIPAL }
+#Import ".\IPSEC_TOKEN_TYPE.ahk" { IPSEC_TOKEN_TYPE }
+#Import ".\IPSEC_TOKEN_MODE.ahk" { IPSEC_TOKEN_MODE }
 
 /**
  * Various information about an IPsec-specific access token.
@@ -11,44 +10,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_token0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IPSEC_TOKEN0 extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct IPSEC_TOKEN0 {
+    #StructPack 8
 
     /**
      * An [IPSEC_TOKEN_TYPE](/windows/desktop/api/ipsectypes/ne-ipsectypes-ipsec_token_type) value that specifies the type of token.
-     * @type {IPSEC_TOKEN_TYPE}
      */
-    type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    type : IPSEC_TOKEN_TYPE
 
     /**
      * An [IPSEC_TOKEN_PRINCIPAL](/windows/desktop/api/ipsectypes/ne-ipsectypes-ipsec_token_principal) value that specifies the token principal.
-     * @type {IPSEC_TOKEN_PRINCIPAL}
      */
-    principal {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    principal : IPSEC_TOKEN_PRINCIPAL
 
     /**
      * An [IPSEC_TOKEN_MODE](/windows/desktop/api/ipsectypes/ne-ipsectypes-ipsec_token_mode) value that indicates in which mode the token was obtained.
-     * @type {IPSEC_TOKEN_MODE}
      */
-    mode {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    mode : IPSEC_TOKEN_MODE
 
     /**
      * Handle to the access token.  An <b>IPSEC_TOKEN_HANDLE</b> is of type <b>UINT64</b>.
-     * @type {Integer}
      */
-    token {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    token : Int64
+
 }

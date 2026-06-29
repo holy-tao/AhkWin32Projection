@@ -1,34 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Note  This section describes functionality designed for use by online stores.
  * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nn-contentpartner-iwmpcontentcontainer
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPContentContainer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMPContentContainer extends IUnknown {
     /**
      * The interface identifier for IWMPContentContainer
      * @type {Guid}
      */
-    static IID => Guid("{ad7f4d9c-1a9f-4ed2-9815-ecc0b58cb616}")
+    static IID := Guid("{ad7f4d9c-1a9f-4ed2-9815-ecc0b58cb616}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPContentContainer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetID           : IntPtr
+        GetPrice        : IntPtr
+        GetType         : IntPtr
+        GetContentCount : IntPtr
+        GetContentPrice : IntPtr
+        GetContentID    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetID", "GetPrice", "GetType", "GetContentCount", "GetContentPrice", "GetContentID"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPContentContainer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Note  This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The GetID method retrieves the ID of the album or list represented by the content container.
@@ -77,8 +90,8 @@ class IWMPContentContainer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainer-getprice
      */
     GetPrice() {
-        pbstrPrice := BSTR()
-        result := ComCall(4, this, "ptr", pbstrPrice, "HRESULT")
+        pbstrPrice := BSTR.Owned()
+        result := ComCall(4, this, BSTR.Ptr, pbstrPrice, "HRESULT")
         return pbstrPrice
     }
 
@@ -88,8 +101,8 @@ class IWMPContentContainer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainer-gettype
      */
     GetType() {
-        pbstrType := BSTR()
-        result := ComCall(5, this, "ptr", pbstrType, "HRESULT")
+        pbstrType := BSTR.Owned()
+        result := ComCall(5, this, BSTR.Ptr, pbstrType, "HRESULT")
         return pbstrType
     }
 
@@ -133,8 +146,8 @@ class IWMPContentContainer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainer-getcontentprice
      */
     GetContentPrice(idxContent) {
-        pbstrPrice := BSTR()
-        result := ComCall(7, this, "uint", idxContent, "ptr", pbstrPrice, "HRESULT")
+        pbstrPrice := BSTR.Owned()
+        result := ComCall(7, this, "uint", idxContent, BSTR.Ptr, pbstrPrice, "HRESULT")
         return pbstrPrice
     }
 
@@ -147,5 +160,35 @@ class IWMPContentContainer extends IUnknown {
     GetContentID(idxContent) {
         result := ComCall(8, this, "uint", idxContent, "uint*", &pContentID := 0, "HRESULT")
         return pContentID
+    }
+
+    Query(iid) {
+        if (IWMPContentContainer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetID := CallbackCreate(GetMethod(implObj, "GetID"), flags, 2)
+        this.vtbl.GetPrice := CallbackCreate(GetMethod(implObj, "GetPrice"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetContentCount := CallbackCreate(GetMethod(implObj, "GetContentCount"), flags, 2)
+        this.vtbl.GetContentPrice := CallbackCreate(GetMethod(implObj, "GetContentPrice"), flags, 3)
+        this.vtbl.GetContentID := CallbackCreate(GetMethod(implObj, "GetContentID"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetID)
+        CallbackFree(this.vtbl.GetPrice)
+        CallbackFree(this.vtbl.GetType)
+        CallbackFree(this.vtbl.GetContentCount)
+        CallbackFree(this.vtbl.GetContentPrice)
+        CallbackFree(this.vtbl.GetContentID)
     }
 }

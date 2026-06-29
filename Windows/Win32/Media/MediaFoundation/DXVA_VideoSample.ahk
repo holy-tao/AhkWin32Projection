@@ -1,44 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXVA_SampleFormat.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DXVA_SampleFormat.ahk" { DXVA_SampleFormat }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVA_VideoSample extends Win32Struct {
-    static sizeof => 32
+export default struct DXVA_VideoSample {
+    #StructPack 8
 
-    static packingSize => 8
+    rtStart : Int64
 
-    /**
-     * @type {Integer}
-     */
-    rtStart {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    rtEnd : Int64
 
-    /**
-     * @type {Integer}
-     */
-    rtEnd {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    SampleFormat : DXVA_SampleFormat
 
-    /**
-     * @type {DXVA_SampleFormat}
-     */
-    SampleFormat {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    lpDDSSrcSurface : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpDDSSrcSurface {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

@@ -1,38 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class NDIS_802_11_FIXED_IEs extends Win32Struct {
-    static sizeof => 12
+export default struct NDIS_802_11_FIXED_IEs {
+    #StructPack 2
 
-    static packingSize => 2
+    Timestamp : Int8[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Timestamp {
-        get {
-            if(!this.HasProp("__TimestampProxyArray"))
-                this.__TimestampProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")
-            return this.__TimestampProxyArray
-        }
-    }
+    BeaconInterval : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    BeaconInterval {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    Capabilities : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Capabilities {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
 }

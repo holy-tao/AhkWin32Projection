@@ -1,53 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PROTOCOLDATA.ahk" { PROTOCOLDATA }
+#Import "..\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
  */
-class IInternetProtocolSink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IInternetProtocolSink extends IUnknown {
     /**
      * The interface identifier for IInternetProtocolSink
      * @type {Guid}
      */
-    static IID => Guid("{79eac9e5-baf9-11ce-8c82-00aa004ba90b}")
+    static IID := Guid("{79eac9e5-baf9-11ce-8c82-00aa004ba90b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IInternetProtocolSink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Switch         : IntPtr
+        ReportProgress : IntPtr
+        ReportData     : IntPtr
+        ReportResult   : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IInternetProtocolSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Switch", "ReportProgress", "ReportData", "ReportResult"]
-
-    /**
-     * Makes the specified desktop visible and activates it. This enables the desktop to receive input from the user.
-     * @remarks
-     * The 
-     * <b>SwitchDesktop</b> function fails if the desktop belongs to an invisible window station. 
-     * <b>SwitchDesktop</b> also fails when called from a process that is associated with a secured desktop such as the WinLogon and ScreenSaver desktops. Processes that are associated with a secured desktop include custom UserInit processes. Such calls typically fail with an "access denied" error.
+     * 
      * @param {Pointer<PROTOCOLDATA>} pProtocolData 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. However, 
-     * <b>SwitchDesktop</b> only sets the last error for the following cases:
-     * 
-     * <ul>
-     * <li>When the desktop belongs to an invisible window station</li>
-     * <li>When <i>hDesktop</i> is an invalid handle, refers to a destroyed desktop, or belongs to a different session than that of the calling process</li>
-     * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-switchdesktop
+     * @returns {HRESULT} 
      */
     Switch(pProtocolData) {
-        result := ComCall(3, this, "ptr", pProtocolData, "HRESULT")
+        result := ComCall(3, this, PROTOCOLDATA.Ptr, pProtocolData, "HRESULT")
         return result
     }
 
@@ -88,5 +87,31 @@ class IInternetProtocolSink extends IUnknown {
 
         result := ComCall(6, this, "int", hrResult, "uint", dwError, "ptr", szResult, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IInternetProtocolSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Switch := CallbackCreate(GetMethod(implObj, "Switch"), flags, 2)
+        this.vtbl.ReportProgress := CallbackCreate(GetMethod(implObj, "ReportProgress"), flags, 3)
+        this.vtbl.ReportData := CallbackCreate(GetMethod(implObj, "ReportData"), flags, 4)
+        this.vtbl.ReportResult := CallbackCreate(GetMethod(implObj, "ReportResult"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Switch)
+        CallbackFree(this.vtbl.ReportProgress)
+        CallbackFree(this.vtbl.ReportData)
+        CallbackFree(this.vtbl.ReportResult)
     }
 }

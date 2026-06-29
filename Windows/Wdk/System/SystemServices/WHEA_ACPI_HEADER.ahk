@@ -1,86 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_ACPI_HEADER extends Win32Struct {
-    static sizeof => 40
+export default struct WHEA_ACPI_HEADER {
+    #StructPack 8
 
-    static packingSize => 8
+    Signature : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Signature {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Revision : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Revision {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    Checksum : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Checksum {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    OemId : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    OemId {
-        get {
-            if(!this.HasProp("__OemIdProxyArray"))
-                this.__OemIdProxyArray := Win32FixedArray(this.ptr + 10, 6, Primitive, "char")
-            return this.__OemIdProxyArray
-        }
-    }
+    OemTableId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    OemTableId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    OemRevision : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OemRevision {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    CreatorId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CreatorId {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    CreatorRevision : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CreatorRevision {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
  */
-class NFC_LLCP_SOCKET_OPTION extends Win32Struct {
-    static sizeof => 4
+export default struct NFC_LLCP_SOCKET_OPTION {
+    #StructPack 2
 
-    static packingSize => 2
+    uMIUX : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    uMIUX {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    bRW : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bRW {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
 }

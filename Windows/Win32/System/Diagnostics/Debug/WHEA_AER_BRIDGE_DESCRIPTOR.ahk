@@ -1,131 +1,40 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WHEA_PCI_SLOT_NUMBER.ahk
-#Include .\AER_BRIDGE_DESCRIPTOR_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\AER_BRIDGE_DESCRIPTOR_FLAGS.ahk" { AER_BRIDGE_DESCRIPTOR_FLAGS }
+#Import ".\WHEA_PCI_SLOT_NUMBER.ahk" { WHEA_PCI_SLOT_NUMBER }
+#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class WHEA_AER_BRIDGE_DESCRIPTOR extends Win32Struct {
-    static sizeof => 48
+export default struct WHEA_AER_BRIDGE_DESCRIPTOR {
+    #StructPack 4
 
-    static packingSize => 4
+    Type : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Enabled : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Enabled {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    Reserved : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    BusNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BusNumber {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Slot : WHEA_PCI_SLOT_NUMBER
 
-    /**
-     * @type {WHEA_PCI_SLOT_NUMBER}
-     */
-    Slot {
-        get {
-            if(!this.HasProp("__Slot"))
-                this.__Slot := WHEA_PCI_SLOT_NUMBER(8, this)
-            return this.__Slot
-        }
-    }
+    DeviceControl : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DeviceControl {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    Flags : AER_BRIDGE_DESCRIPTOR_FLAGS
 
-    /**
-     * @type {AER_BRIDGE_DESCRIPTOR_FLAGS}
-     */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := AER_BRIDGE_DESCRIPTOR_FLAGS(14, this)
-            return this.__Flags
-        }
-    }
+    UncorrectableErrorMask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    UncorrectableErrorMask {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    UncorrectableErrorSeverity : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    UncorrectableErrorSeverity {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    CorrectableErrorMask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CorrectableErrorMask {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    AdvancedCapsAndControl : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AdvancedCapsAndControl {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    SecondaryUncorrectableErrorMask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SecondaryUncorrectableErrorMask {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    SecondaryUncorrectableErrorSev : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SecondaryUncorrectableErrorSev {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    SecondaryCapsAndControl : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SecondaryCapsAndControl {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
 }

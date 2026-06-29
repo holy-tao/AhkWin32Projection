@@ -1,36 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
  */
-class IMAGE_DELAYLOAD_DESCRIPTOR extends Win32Struct {
-    static sizeof => 32
+export default struct IMAGE_DELAYLOAD_DESCRIPTOR {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _Attributes_e__Union extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
+    struct _Attributes {
+        AllAttributes : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        AllAttributes {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * This bitfield backs the following members:
-         * - RvaBased
-         * - ReservedAttributes
-         * @type {Integer}
-         */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
 
         /**
          * @type {Integer}
@@ -47,72 +26,26 @@ class IMAGE_DELAYLOAD_DESCRIPTOR extends Win32Struct {
             get => (this._bitfield >> 1) & 0x7FFFFFFF
             set => this._bitfield := ((value & 0x7FFFFFFF) << 1) | (this._bitfield & ~(0x7FFFFFFF << 1))
         }
-    }
-
-    /**
-     * @type {_Attributes_e__Union}
-     */
-    Attributes {
-        get {
-            if(!this.HasProp("__Attributes"))
-                this.__Attributes := IMAGE_DELAYLOAD_DESCRIPTOR._Attributes_e__Union(0, this)
-            return this.__Attributes
+        static __New() {
+            DefineProp(this.Prototype, '_bitfield', { type: Int32, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    DllNameRVA {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Attributes : IMAGE_DELAYLOAD_DESCRIPTOR._Attributes
 
-    /**
-     * @type {Integer}
-     */
-    ModuleHandleRVA {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    DllNameRVA : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ImportAddressTableRVA {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ModuleHandleRVA : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ImportNameTableRVA {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ImportAddressTableRVA : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BoundImportAddressTableRVA {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ImportNameTableRVA : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    UnloadInformationTableRVA {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    BoundImportAddressTableRVA : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TimeDateStamp {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    UnloadInformationTableRVA : UInt32
+
+    TimeDateStamp : UInt32
+
 }

@@ -1,42 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSD_ENDPOINT_REFERENCE.ahk
-#Include .\WSD_EVENTING_EXPIRES.ahk
-#Include .\WSDXML_ELEMENT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
+#Import ".\WSD_EVENTING_EXPIRES.ahk" { WSD_EVENTING_EXPIRES }
+#Import ".\WSD_ENDPOINT_REFERENCE.ahk" { WSD_ENDPOINT_REFERENCE }
 
 /**
  * Represents a WS-Eventing Subscribe response message.
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-responsebody_subscribe
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class RESPONSEBODY_Subscribe extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct RESPONSEBODY_Subscribe {
+    #StructPack 8
 
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_endpoint_reference">WSD_ENDPOINT_REFERENCE</a> structure that represents the endpoint reference of the subscription manager.
-     * @type {Pointer<WSD_ENDPOINT_REFERENCE>}
      */
-    SubscriptionManager {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    SubscriptionManager : WSD_ENDPOINT_REFERENCE.Ptr
 
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_eventing_expires">WSD_EVENTING_EXPIRES</a> structure that specifies when the subscription expires.
-     * @type {Pointer<WSD_EVENTING_EXPIRES>}
      */
-    expires {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    expires : WSD_EVENTING_EXPIRES.Ptr
 
-    /**
-     * @type {Pointer<WSDXML_ELEMENT>}
-     */
-    any {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    any : WSDXML_ELEMENT.Ptr
+
 }

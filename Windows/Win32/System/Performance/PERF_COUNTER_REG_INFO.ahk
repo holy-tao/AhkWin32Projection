@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PERF_COUNTER_AGGREGATE_FUNC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PERF_COUNTER_AGGREGATE_FUNC.ahk" { PERF_COUNTER_AGGREGATE_FUNC }
 
 /**
  * Provides registration information about a performance counter.
@@ -15,19 +14,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_counter_reg_info
  * @namespace Windows.Win32.System.Performance
  */
-class PERF_COUNTER_REG_INFO extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct PERF_COUNTER_REG_INFO {
+    #StructPack 8
 
     /**
      * A unique identifier for the performance counter within the counter set. A counter set can contain a maximum of 64,000 performance counters.
-     * @type {Integer}
      */
-    CounterId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    CounterId : UInt32
 
     /**
      * The type of the performance counter. For information about the predefined counter types, see the Counter Types section of the <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2003/cc776490(v=ws.10)">Windows Server 2003 Deployment Kit</a>. Consumers use the counter type to determine how to calculate and display the counter value. Providers should limit their choice of counter types to the predefined list. 
@@ -40,12 +33,8 @@ class PERF_COUNTER_REG_INFO extends Win32Struct {
      * 
      * <a id="PERF_100NSEC_MULTI_TIMER"></a>
      * <a id="perf_100nsec_multi_timer"></a>
-     * @type {Integer}
      */
-    Type {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Type : UInt32
 
     /**
      * One or more attributes that indicate how to display this counter.
@@ -114,12 +103,8 @@ class PERF_COUNTER_REG_INFO extends Win32Struct {
      *  
      * 
      * The attributes <b>PERF_ATTRIB_NO_GROUP_SEPARATOR</b>, <b>PERF_ATTRIB_DISPLAY_AS_REAL</b>, and <b>PERF_ATTRIB_DISPLAY_AS_HEX</b> are not mutually exclusive. If you specify all three attributes, precedence is given to the attributes in the order given.
-     * @type {Integer}
      */
-    Attrib {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Attrib : Int64
 
     /**
      * The target audience for the counter. 
@@ -155,57 +140,33 @@ class PERF_COUNTER_REG_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    DetailLevel {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    DetailLevel : UInt32
 
     /**
      * The scaling factor to apply to the raw performance counter value. Valid values range from –10 through 10. Zero if no scale is applied. If this value is zero, the scale value is 1; if this value is 1, the scale value is 10; if this value is –1, the scale value is .10; and so on. The scaled value of the performance counter is equal to the raw value of the performance counter multiplied by  10 raised to the power that the <b>DefaultScale</b> member specifies.
-     * @type {Integer}
      */
-    DefaultScale {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    DefaultScale : Int32
 
     /**
      * The counter identifier of the base counter. 0xFFFFFFFF indicates that there is no base counter.
-     * @type {Integer}
      */
-    BaseCounterId {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    BaseCounterId : UInt32
 
     /**
      * The counter identifier of the performance counter. 0xFFFFFFFF indicates that there is no performance counter.
-     * @type {Integer}
      */
-    PerfTimeId {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    PerfTimeId : UInt32
 
     /**
      * The counter identifier of the frequency counter. 0xFFFFFFFF indicates that there is no frequency counter.
-     * @type {Integer}
      */
-    PerfFreqId {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    PerfFreqId : UInt32
 
     /**
      * The counter identifier of the multi-counter. 0xFFFFFFFF indicates that there is no multi-counter.
-     * @type {Integer}
      */
-    MultiId {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    MultiId : UInt32
 
     /**
      * The aggregation function the client should apply to the counter if the  
@@ -215,19 +176,12 @@ class PERF_COUNTER_REG_INFO extends Win32Struct {
      * Instance Aggregate, or Global Aggregate History. The client specifies the  counter instances across which the aggregation is performed if the counter set type  
      * 
      * is Multiple Instance Aggregate; otherwise, the client must aggregate values
-     * @type {PERF_COUNTER_AGGREGATE_FUNC}
      */
-    AggregateFunc {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    AggregateFunc : PERF_COUNTER_AGGREGATE_FUNC
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    Reserved : UInt32
+
 }

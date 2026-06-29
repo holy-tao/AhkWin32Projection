@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMF2DBuffer.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMF2DBuffer.ahk" { IMF2DBuffer }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MF2DBuffer_LockFlags.ahk" { MF2DBuffer_LockFlags }
 
 /**
  * Represents a buffer that contains a two-dimensional surface, such as a video frame. (IMF2DBuffer2)
@@ -10,26 +12,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imf2dbuffer2
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMF2DBuffer2 extends IMF2DBuffer {
-
-    static sizeof => A_PtrSize
+export default struct IMF2DBuffer2 extends IMF2DBuffer {
     /**
      * The interface identifier for IMF2DBuffer2
      * @type {Guid}
      */
-    static IID => Guid("{33ae5ea6-4316-436f-8ddd-d73d22f829ec}")
+    static IID := Guid("{33ae5ea6-4316-436f-8ddd-d73d22f829ec}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 10
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMF2DBuffer2 interfaces
+    */
+    struct Vtbl extends IMF2DBuffer.Vtbl {
+        Lock2DSize : IntPtr
+        Copy2DTo   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Lock2DSize", "Copy2DTo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMF2DBuffer2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gives the caller access to the memory in the buffer. (IMF2DBuffer2.Lock2DSize)
@@ -111,7 +121,7 @@ class IMF2DBuffer2 extends IMF2DBuffer {
         ppbBufferStartMarshal := ppbBufferStart is VarRef ? "ptr*" : "ptr"
         pcbBufferLengthMarshal := pcbBufferLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "int", lockFlags, ppbScanline0Marshal, ppbScanline0, plPitchMarshal, plPitch, ppbBufferStartMarshal, ppbBufferStart, pcbBufferLengthMarshal, pcbBufferLength, "HRESULT")
+        result := ComCall(10, this, MF2DBuffer_LockFlags, lockFlags, ppbScanline0Marshal, ppbScanline0, plPitchMarshal, plPitch, ppbBufferStartMarshal, ppbBufferStart, pcbBufferLengthMarshal, pcbBufferLength, "HRESULT")
         return result
     }
 
@@ -126,5 +136,27 @@ class IMF2DBuffer2 extends IMF2DBuffer {
     Copy2DTo(pDestBuffer) {
         result := ComCall(11, this, "ptr", pDestBuffer, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMF2DBuffer2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Lock2DSize := CallbackCreate(GetMethod(implObj, "Lock2DSize"), flags, 6)
+        this.vtbl.Copy2DTo := CallbackCreate(GetMethod(implObj, "Copy2DTo"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Lock2DSize)
+        CallbackFree(this.vtbl.Copy2DTo)
     }
 }

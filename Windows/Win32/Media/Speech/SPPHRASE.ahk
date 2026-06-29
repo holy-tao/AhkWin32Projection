@@ -1,44 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPPHRASE_50.ahk
-#Include .\SPPHRASERULE.ahk
-#Include .\SPPHRASEPROPERTY.ahk
-#Include .\SPPHRASEELEMENT.ahk
-#Include .\SPPHRASEREPLACEMENT.ahk
-#Include .\SPSEMANTICERRORINFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SPPHRASEELEMENT.ahk" { SPPHRASEELEMENT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SPPHRASERULE.ahk" { SPPHRASERULE }
+#Import ".\SPSEMANTICERRORINFO.ahk" { SPSEMANTICERRORINFO }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SPPHRASE_50.ahk" { SPPHRASE_50 }
+#Import ".\SPPHRASEREPLACEMENT.ahk" { SPPHRASEREPLACEMENT }
+#Import ".\SPPHRASEPROPERTY.ahk" { SPPHRASEPROPERTY }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class SPPHRASE extends Win32Struct {
-    static sizeof => 168
+export default struct SPPHRASE {
+    #StructPack 8
 
-    static packingSize => 8
+    Base : SPPHRASE_50
 
-    /**
-     * @type {SPPHRASE_50}
-     */
-    Base {
-        get {
-            if(!this.HasProp("__Base"))
-                this.__Base := SPPHRASE_50(0, this)
-            return this.__Base
-        }
-    }
+    pSML : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pSML {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
-    }
+    pSemanticErrorInfo : SPSEMANTICERRORINFO.Ptr
 
-    /**
-     * @type {Pointer<SPSEMANTICERRORINFO>}
-     */
-    pSemanticErrorInfo {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
-    }
 }

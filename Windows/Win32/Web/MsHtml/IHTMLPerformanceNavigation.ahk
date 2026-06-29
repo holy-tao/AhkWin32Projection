@@ -1,39 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLPerformanceNavigation extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLPerformanceNavigation extends IDispatch {
     /**
      * The interface identifier for IHTMLPerformanceNavigation
      * @type {Guid}
      */
-    static IID => Guid("{30510750-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{30510750-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for HTMLPerformanceNavigation
      * @type {Guid}
      */
-    static CLSID => Guid("{30510751-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{30510751-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLPerformanceNavigation interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_type          : IntPtr
+        get_redirectCount : IntPtr
+        toString          : IntPtr
+        toJSON            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_type", "get_redirectCount", "toString", "toJSON"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLPerformanceNavigation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -72,8 +83,8 @@ class IHTMLPerformanceNavigation extends IDispatch {
      * @returns {BSTR} 
      */
     toString() {
-        _string := BSTR()
-        result := ComCall(9, this, "ptr", _string, "HRESULT")
+        _string := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, _string, "HRESULT")
         return _string
     }
 
@@ -83,7 +94,33 @@ class IHTMLPerformanceNavigation extends IDispatch {
      */
     toJSON() {
         pVar := VARIANT()
-        result := ComCall(10, this, "ptr", pVar, "HRESULT")
+        result := ComCall(10, this, VARIANT.Ptr, pVar, "HRESULT")
         return pVar
+    }
+
+    Query(iid) {
+        if (IHTMLPerformanceNavigation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.get_redirectCount := CallbackCreate(GetMethod(implObj, "get_redirectCount"), flags, 2)
+        this.vtbl.toString := CallbackCreate(GetMethod(implObj, "toString"), flags, 2)
+        this.vtbl.toJSON := CallbackCreate(GetMethod(implObj, "toJSON"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_type)
+        CallbackFree(this.vtbl.get_redirectCount)
+        CallbackFree(this.vtbl.toString)
+        CallbackFree(this.vtbl.toJSON)
     }
 }

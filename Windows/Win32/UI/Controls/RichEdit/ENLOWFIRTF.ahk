@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\NMHDR.ahk
-#Include ..\..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\NMHDR.ahk" { NMHDR }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains information about an unsupported Rich Text Format (RTF) keyword in a Microsoft Rich Edit control.
@@ -11,33 +11,21 @@
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @architecture X64, Arm64
  */
-class ENLOWFIRTF extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct ENLOWFIRTF {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/richedit/ns-richedit-nmhdr">NMHDR</a></b>
      * 
      * Specifies an <a href="https://docs.microsoft.com/windows/win32/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure.
-     * @type {NMHDR}
      */
-    nmhdr {
-        get {
-            if(!this.HasProp("__nmhdr"))
-                this.__nmhdr := NMHDR(0, this)
-            return this.__nmhdr
-        }
-    }
+    nmhdr : NMHDR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">CHAR</a>*</b>
      * 
      * The unsupported RTF keyword.
-     * @type {PSTR}
      */
-    szControl {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    szControl : PSTR
+
 }

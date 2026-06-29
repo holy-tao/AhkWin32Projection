@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The TreeScope (uiautomationclient.h) enumeration contains values that specify the scope of various operations in the Microsoft UI Automation tree.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/ne-uiautomationclient-treescope
  * @namespace Windows.Win32.UI.Accessibility
  */
-class TreeScope extends Win32Enum {
+export default struct TreeScope {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The scope excludes the subtree from the search.

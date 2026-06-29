@@ -1,13 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IAzApplications.ahk
-#Include .\IAzApplication.ahk
-#Include .\IAzApplicationGroups.ahk
-#Include .\IAzApplicationGroup.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IAzApplicationGroup.ahk" { IAzApplicationGroup }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\AZ_PROP_CONSTANTS.ahk" { AZ_PROP_CONSTANTS }
+#Import ".\IAzApplication.ahk" { IAzApplication }
+#Import ".\IAzApplications.ahk" { IAzApplications }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IAzApplicationGroups.ahk" { IAzApplicationGroups }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
 
 /**
  * Defines the container that is the root of the authorization policy store.
@@ -21,32 +24,89 @@
  * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazauthorizationstore
  * @namespace Windows.Win32.Security.Authorization
  */
-class IAzAuthorizationStore extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IAzAuthorizationStore extends IDispatch {
     /**
      * The interface identifier for IAzAuthorizationStore
      * @type {Guid}
      */
-    static IID => Guid("{edbd9ca9-9b82-4f6a-9e8b-98301e450f14}")
+    static IID := Guid("{edbd9ca9-9b82-4f6a-9e8b-98301e450f14}")
 
     /**
      * The class identifier for AzAuthorizationStore
      * @type {Guid}
      */
-    static CLSID => Guid("{b2bcff59-a757-4b0b-a1bc-ea69981da69e}")
+    static CLSID := Guid("{b2bcff59-a757-4b0b-a1bc-ea69981da69e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAzAuthorizationStore interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Description               : IntPtr
+        put_Description               : IntPtr
+        get_ApplicationData           : IntPtr
+        put_ApplicationData           : IntPtr
+        get_DomainTimeout             : IntPtr
+        put_DomainTimeout             : IntPtr
+        get_ScriptEngineTimeout       : IntPtr
+        put_ScriptEngineTimeout       : IntPtr
+        get_MaxScriptEngines          : IntPtr
+        put_MaxScriptEngines          : IntPtr
+        get_GenerateAudits            : IntPtr
+        put_GenerateAudits            : IntPtr
+        get_Writable                  : IntPtr
+        GetProperty                   : IntPtr
+        SetProperty                   : IntPtr
+        AddPropertyItem               : IntPtr
+        DeletePropertyItem            : IntPtr
+        get_PolicyAdministrators      : IntPtr
+        get_PolicyReaders             : IntPtr
+        AddPolicyAdministrator        : IntPtr
+        DeletePolicyAdministrator     : IntPtr
+        AddPolicyReader               : IntPtr
+        DeletePolicyReader            : IntPtr
+        Initialize                    : IntPtr
+        UpdateCache                   : IntPtr
+        Delete                        : IntPtr
+        get_Applications              : IntPtr
+        OpenApplication               : IntPtr
+        CreateApplication             : IntPtr
+        DeleteApplication             : IntPtr
+        get_ApplicationGroups         : IntPtr
+        CreateApplicationGroup        : IntPtr
+        OpenApplicationGroup          : IntPtr
+        DeleteApplicationGroup        : IntPtr
+        Submit                        : IntPtr
+        get_DelegatedPolicyUsers      : IntPtr
+        AddDelegatedPolicyUser        : IntPtr
+        DeleteDelegatedPolicyUser     : IntPtr
+        get_TargetMachine             : IntPtr
+        get_ApplyStoreSacl            : IntPtr
+        put_ApplyStoreSacl            : IntPtr
+        get_PolicyAdministratorsName  : IntPtr
+        get_PolicyReadersName         : IntPtr
+        AddPolicyAdministratorName    : IntPtr
+        DeletePolicyAdministratorName : IntPtr
+        AddPolicyReaderName           : IntPtr
+        DeletePolicyReaderName        : IntPtr
+        get_DelegatedPolicyUsersName  : IntPtr
+        AddDelegatedPolicyUserName    : IntPtr
+        DeleteDelegatedPolicyUserName : IntPtr
+        CloseApplication              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Description", "put_Description", "get_ApplicationData", "put_ApplicationData", "get_DomainTimeout", "put_DomainTimeout", "get_ScriptEngineTimeout", "put_ScriptEngineTimeout", "get_MaxScriptEngines", "put_MaxScriptEngines", "get_GenerateAudits", "put_GenerateAudits", "get_Writable", "GetProperty", "SetProperty", "AddPropertyItem", "DeletePropertyItem", "get_PolicyAdministrators", "get_PolicyReaders", "AddPolicyAdministrator", "DeletePolicyAdministrator", "AddPolicyReader", "DeletePolicyReader", "Initialize", "UpdateCache", "Delete", "get_Applications", "OpenApplication", "CreateApplication", "DeleteApplication", "get_ApplicationGroups", "CreateApplicationGroup", "OpenApplicationGroup", "DeleteApplicationGroup", "Submit", "get_DelegatedPolicyUsers", "AddDelegatedPolicyUser", "DeleteDelegatedPolicyUser", "get_TargetMachine", "get_ApplyStoreSacl", "put_ApplyStoreSacl", "get_PolicyAdministratorsName", "get_PolicyReadersName", "AddPolicyAdministratorName", "DeletePolicyAdministratorName", "AddPolicyReaderName", "DeletePolicyReaderName", "get_DelegatedPolicyUsersName", "AddDelegatedPolicyUserName", "DeleteDelegatedPolicyUserName", "CloseApplication"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAzAuthorizationStore.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -182,8 +242,8 @@ class IAzAuthorizationStore extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-get_description
      */
     get_Description() {
-        pbstrDescription := BSTR()
-        result := ComCall(7, this, "ptr", pbstrDescription, "HRESULT")
+        pbstrDescription := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pbstrDescription, "HRESULT")
         return pbstrDescription
     }
 
@@ -198,7 +258,7 @@ class IAzAuthorizationStore extends IDispatch {
     put_Description(bstrDescription) {
         bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
 
-        result := ComCall(8, this, "ptr", bstrDescription, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrDescription, "HRESULT")
         return result
     }
 
@@ -211,8 +271,8 @@ class IAzAuthorizationStore extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-get_applicationdata
      */
     get_ApplicationData() {
-        pbstrApplicationData := BSTR()
-        result := ComCall(9, this, "ptr", pbstrApplicationData, "HRESULT")
+        pbstrApplicationData := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pbstrApplicationData, "HRESULT")
         return pbstrApplicationData
     }
 
@@ -228,7 +288,7 @@ class IAzAuthorizationStore extends IDispatch {
     put_ApplicationData(bstrApplicationData) {
         bstrApplicationData := bstrApplicationData is String ? BSTR.Alloc(bstrApplicationData).Value : bstrApplicationData
 
-        result := ComCall(10, this, "ptr", bstrApplicationData, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrApplicationData, "HRESULT")
         return result
     }
 
@@ -307,7 +367,7 @@ class IAzAuthorizationStore extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-get_generateaudits
      */
     get_GenerateAudits() {
-        result := ComCall(17, this, "int*", &pbProp := 0, "HRESULT")
+        result := ComCall(17, this, BOOL.Ptr, &pbProp := 0, "HRESULT")
         return pbProp
     }
 
@@ -320,7 +380,7 @@ class IAzAuthorizationStore extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-put_generateaudits
      */
     put_GenerateAudits(bProp) {
-        result := ComCall(18, this, "int", bProp, "HRESULT")
+        result := ComCall(18, this, BOOL, bProp, "HRESULT")
         return result
     }
 
@@ -330,7 +390,7 @@ class IAzAuthorizationStore extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-get_writable
      */
     get_Writable() {
-        result := ComCall(19, this, "int*", &pfProp := 0, "HRESULT")
+        result := ComCall(19, this, BOOL.Ptr, &pfProp := 0, "HRESULT")
         return pfProp
     }
 
@@ -450,7 +510,7 @@ class IAzAuthorizationStore extends IDispatch {
      */
     GetProperty(lPropId, varReserved) {
         pvarProp := VARIANT()
-        result := ComCall(20, this, "int", lPropId, "ptr", varReserved, "ptr", pvarProp, "HRESULT")
+        result := ComCall(20, this, "int", lPropId, VARIANT, varReserved, VARIANT.Ptr, pvarProp, "HRESULT")
         return pvarProp
     }
 
@@ -628,7 +688,7 @@ class IAzAuthorizationStore extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-setproperty
      */
     SetProperty(lPropId, varProp, varReserved) {
-        result := ComCall(21, this, "int", lPropId, "ptr", varProp, "ptr", varReserved, "HRESULT")
+        result := ComCall(21, this, "int", lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -649,7 +709,7 @@ class IAzAuthorizationStore extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-addpropertyitem
      */
     AddPropertyItem(lPropId, varProp, varReserved) {
-        result := ComCall(22, this, "int", lPropId, "ptr", varProp, "ptr", varReserved, "HRESULT")
+        result := ComCall(22, this, AZ_PROP_CONSTANTS, lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -737,7 +797,7 @@ class IAzAuthorizationStore extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-deletepropertyitem
      */
     DeletePropertyItem(lPropId, varProp, varReserved) {
-        result := ComCall(23, this, "int", lPropId, "ptr", varProp, "ptr", varReserved, "HRESULT")
+        result := ComCall(23, this, "int", lPropId, VARIANT, varProp, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -761,7 +821,7 @@ class IAzAuthorizationStore extends IDispatch {
      */
     get_PolicyAdministrators() {
         pvarAdmins := VARIANT()
-        result := ComCall(24, this, "ptr", pvarAdmins, "HRESULT")
+        result := ComCall(24, this, VARIANT.Ptr, pvarAdmins, "HRESULT")
         return pvarAdmins
     }
 
@@ -776,7 +836,7 @@ class IAzAuthorizationStore extends IDispatch {
      */
     get_PolicyReaders() {
         pvarReaders := VARIANT()
-        result := ComCall(25, this, "ptr", pvarReaders, "HRESULT")
+        result := ComCall(25, this, VARIANT.Ptr, pvarReaders, "HRESULT")
         return pvarReaders
     }
 
@@ -804,7 +864,7 @@ class IAzAuthorizationStore extends IDispatch {
     AddPolicyAdministrator(bstrAdmin, varReserved) {
         bstrAdmin := bstrAdmin is String ? BSTR.Alloc(bstrAdmin).Value : bstrAdmin
 
-        result := ComCall(26, this, "ptr", bstrAdmin, "ptr", varReserved, "HRESULT")
+        result := ComCall(26, this, BSTR, bstrAdmin, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -830,7 +890,7 @@ class IAzAuthorizationStore extends IDispatch {
     DeletePolicyAdministrator(bstrAdmin, varReserved) {
         bstrAdmin := bstrAdmin is String ? BSTR.Alloc(bstrAdmin).Value : bstrAdmin
 
-        result := ComCall(27, this, "ptr", bstrAdmin, "ptr", varReserved, "HRESULT")
+        result := ComCall(27, this, BSTR, bstrAdmin, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -850,7 +910,7 @@ class IAzAuthorizationStore extends IDispatch {
     AddPolicyReader(bstrReader, varReserved) {
         bstrReader := bstrReader is String ? BSTR.Alloc(bstrReader).Value : bstrReader
 
-        result := ComCall(28, this, "ptr", bstrReader, "ptr", varReserved, "HRESULT")
+        result := ComCall(28, this, BSTR, bstrReader, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -868,7 +928,7 @@ class IAzAuthorizationStore extends IDispatch {
     DeletePolicyReader(bstrReader, varReserved) {
         bstrReader := bstrReader is String ? BSTR.Alloc(bstrReader).Value : bstrReader
 
-        result := ComCall(29, this, "ptr", bstrReader, "ptr", varReserved, "HRESULT")
+        result := ComCall(29, this, BSTR, bstrReader, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -913,7 +973,7 @@ class IAzAuthorizationStore extends IDispatch {
     Initialize(lFlags, bstrPolicyURL, varReserved) {
         bstrPolicyURL := bstrPolicyURL is String ? BSTR.Alloc(bstrPolicyURL).Value : bstrPolicyURL
 
-        result := ComCall(30, this, "int", lFlags, "ptr", bstrPolicyURL, "ptr", varReserved, "HRESULT")
+        result := ComCall(30, this, AZ_PROP_CONSTANTS, lFlags, BSTR, bstrPolicyURL, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -928,7 +988,7 @@ class IAzAuthorizationStore extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-updatecache
      */
     UpdateCache(varReserved) {
-        result := ComCall(31, this, "ptr", varReserved, "HRESULT")
+        result := ComCall(31, this, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -944,7 +1004,7 @@ class IAzAuthorizationStore extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-delete
      */
     Delete(varReserved) {
-        result := ComCall(32, this, "ptr", varReserved, "HRESULT")
+        result := ComCall(32, this, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -970,7 +1030,7 @@ class IAzAuthorizationStore extends IDispatch {
     OpenApplication(bstrApplicationName, varReserved) {
         bstrApplicationName := bstrApplicationName is String ? BSTR.Alloc(bstrApplicationName).Value : bstrApplicationName
 
-        result := ComCall(34, this, "ptr", bstrApplicationName, "ptr", varReserved, "ptr*", &ppApplication := 0, "HRESULT")
+        result := ComCall(34, this, BSTR, bstrApplicationName, VARIANT, varReserved, "ptr*", &ppApplication := 0, "HRESULT")
         return IAzApplication(ppApplication)
     }
 
@@ -988,7 +1048,7 @@ class IAzAuthorizationStore extends IDispatch {
     CreateApplication(bstrApplicationName, varReserved) {
         bstrApplicationName := bstrApplicationName is String ? BSTR.Alloc(bstrApplicationName).Value : bstrApplicationName
 
-        result := ComCall(35, this, "ptr", bstrApplicationName, "ptr", varReserved, "ptr*", &ppApplication := 0, "HRESULT")
+        result := ComCall(35, this, BSTR, bstrApplicationName, VARIANT, varReserved, "ptr*", &ppApplication := 0, "HRESULT")
         return IAzApplication(ppApplication)
     }
 
@@ -1004,7 +1064,7 @@ class IAzAuthorizationStore extends IDispatch {
     DeleteApplication(bstrApplicationName, varReserved) {
         bstrApplicationName := bstrApplicationName is String ? BSTR.Alloc(bstrApplicationName).Value : bstrApplicationName
 
-        result := ComCall(36, this, "ptr", bstrApplicationName, "ptr", varReserved, "HRESULT")
+        result := ComCall(36, this, BSTR, bstrApplicationName, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -1034,7 +1094,7 @@ class IAzAuthorizationStore extends IDispatch {
     CreateApplicationGroup(bstrGroupName, varReserved) {
         bstrGroupName := bstrGroupName is String ? BSTR.Alloc(bstrGroupName).Value : bstrGroupName
 
-        result := ComCall(38, this, "ptr", bstrGroupName, "ptr", varReserved, "ptr*", &ppGroup := 0, "HRESULT")
+        result := ComCall(38, this, BSTR, bstrGroupName, VARIANT, varReserved, "ptr*", &ppGroup := 0, "HRESULT")
         return IAzApplicationGroup(ppGroup)
     }
 
@@ -1048,7 +1108,7 @@ class IAzAuthorizationStore extends IDispatch {
     OpenApplicationGroup(bstrGroupName, varReserved) {
         bstrGroupName := bstrGroupName is String ? BSTR.Alloc(bstrGroupName).Value : bstrGroupName
 
-        result := ComCall(39, this, "ptr", bstrGroupName, "ptr", varReserved, "ptr*", &ppGroup := 0, "HRESULT")
+        result := ComCall(39, this, BSTR, bstrGroupName, VARIANT, varReserved, "ptr*", &ppGroup := 0, "HRESULT")
         return IAzApplicationGroup(ppGroup)
     }
 
@@ -1064,7 +1124,7 @@ class IAzAuthorizationStore extends IDispatch {
     DeleteApplicationGroup(bstrGroupName, varReserved) {
         bstrGroupName := bstrGroupName is String ? BSTR.Alloc(bstrGroupName).Value : bstrGroupName
 
-        result := ComCall(40, this, "ptr", bstrGroupName, "ptr", varReserved, "HRESULT")
+        result := ComCall(40, this, BSTR, bstrGroupName, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -1080,7 +1140,7 @@ class IAzAuthorizationStore extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-submit
      */
     Submit(lFlags, varReserved) {
-        result := ComCall(41, this, "int", lFlags, "ptr", varReserved, "HRESULT")
+        result := ComCall(41, this, "int", lFlags, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -1097,7 +1157,7 @@ class IAzAuthorizationStore extends IDispatch {
      */
     get_DelegatedPolicyUsers() {
         pvarDelegatedPolicyUsers := VARIANT()
-        result := ComCall(42, this, "ptr", pvarDelegatedPolicyUsers, "HRESULT")
+        result := ComCall(42, this, VARIANT.Ptr, pvarDelegatedPolicyUsers, "HRESULT")
         return pvarDelegatedPolicyUsers
     }
 
@@ -1120,7 +1180,7 @@ class IAzAuthorizationStore extends IDispatch {
     AddDelegatedPolicyUser(bstrDelegatedPolicyUser, varReserved) {
         bstrDelegatedPolicyUser := bstrDelegatedPolicyUser is String ? BSTR.Alloc(bstrDelegatedPolicyUser).Value : bstrDelegatedPolicyUser
 
-        result := ComCall(43, this, "ptr", bstrDelegatedPolicyUser, "ptr", varReserved, "HRESULT")
+        result := ComCall(43, this, BSTR, bstrDelegatedPolicyUser, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -1141,7 +1201,7 @@ class IAzAuthorizationStore extends IDispatch {
     DeleteDelegatedPolicyUser(bstrDelegatedPolicyUser, varReserved) {
         bstrDelegatedPolicyUser := bstrDelegatedPolicyUser is String ? BSTR.Alloc(bstrDelegatedPolicyUser).Value : bstrDelegatedPolicyUser
 
-        result := ComCall(44, this, "ptr", bstrDelegatedPolicyUser, "ptr", varReserved, "HRESULT")
+        result := ComCall(44, this, BSTR, bstrDelegatedPolicyUser, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -1153,8 +1213,8 @@ class IAzAuthorizationStore extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-get_targetmachine
      */
     get_TargetMachine() {
-        pbstrTargetMachine := BSTR()
-        result := ComCall(45, this, "ptr", pbstrTargetMachine, "HRESULT")
+        pbstrTargetMachine := BSTR.Owned()
+        result := ComCall(45, this, BSTR.Ptr, pbstrTargetMachine, "HRESULT")
         return pbstrTargetMachine
     }
 
@@ -1166,7 +1226,7 @@ class IAzAuthorizationStore extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-get_applystoresacl
      */
     get_ApplyStoreSacl() {
-        result := ComCall(46, this, "int*", &pbApplyStoreSacl := 0, "HRESULT")
+        result := ComCall(46, this, BOOL.Ptr, &pbApplyStoreSacl := 0, "HRESULT")
         return pbApplyStoreSacl
     }
 
@@ -1179,7 +1239,7 @@ class IAzAuthorizationStore extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-put_applystoresacl
      */
     put_ApplyStoreSacl(bApplyStoreSacl) {
-        result := ComCall(47, this, "int", bApplyStoreSacl, "HRESULT")
+        result := ComCall(47, this, BOOL, bApplyStoreSacl, "HRESULT")
         return result
     }
 
@@ -1203,7 +1263,7 @@ class IAzAuthorizationStore extends IDispatch {
      */
     get_PolicyAdministratorsName() {
         pvarAdmins := VARIANT()
-        result := ComCall(48, this, "ptr", pvarAdmins, "HRESULT")
+        result := ComCall(48, this, VARIANT.Ptr, pvarAdmins, "HRESULT")
         return pvarAdmins
     }
 
@@ -1218,7 +1278,7 @@ class IAzAuthorizationStore extends IDispatch {
      */
     get_PolicyReadersName() {
         pvarReaders := VARIANT()
-        result := ComCall(49, this, "ptr", pvarReaders, "HRESULT")
+        result := ComCall(49, this, VARIANT.Ptr, pvarReaders, "HRESULT")
         return pvarReaders
     }
 
@@ -1249,7 +1309,7 @@ class IAzAuthorizationStore extends IDispatch {
     AddPolicyAdministratorName(bstrAdmin, varReserved) {
         bstrAdmin := bstrAdmin is String ? BSTR.Alloc(bstrAdmin).Value : bstrAdmin
 
-        result := ComCall(50, this, "ptr", bstrAdmin, "ptr", varReserved, "HRESULT")
+        result := ComCall(50, this, BSTR, bstrAdmin, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -1278,7 +1338,7 @@ class IAzAuthorizationStore extends IDispatch {
     DeletePolicyAdministratorName(bstrAdmin, varReserved) {
         bstrAdmin := bstrAdmin is String ? BSTR.Alloc(bstrAdmin).Value : bstrAdmin
 
-        result := ComCall(51, this, "ptr", bstrAdmin, "ptr", varReserved, "HRESULT")
+        result := ComCall(51, this, BSTR, bstrAdmin, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -1300,7 +1360,7 @@ class IAzAuthorizationStore extends IDispatch {
     AddPolicyReaderName(bstrReader, varReserved) {
         bstrReader := bstrReader is String ? BSTR.Alloc(bstrReader).Value : bstrReader
 
-        result := ComCall(52, this, "ptr", bstrReader, "ptr", varReserved, "HRESULT")
+        result := ComCall(52, this, BSTR, bstrReader, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -1320,7 +1380,7 @@ class IAzAuthorizationStore extends IDispatch {
     DeletePolicyReaderName(bstrReader, varReserved) {
         bstrReader := bstrReader is String ? BSTR.Alloc(bstrReader).Value : bstrReader
 
-        result := ComCall(53, this, "ptr", bstrReader, "ptr", varReserved, "HRESULT")
+        result := ComCall(53, this, BSTR, bstrReader, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -1337,7 +1397,7 @@ class IAzAuthorizationStore extends IDispatch {
      */
     get_DelegatedPolicyUsersName() {
         pvarDelegatedPolicyUsers := VARIANT()
-        result := ComCall(54, this, "ptr", pvarDelegatedPolicyUsers, "HRESULT")
+        result := ComCall(54, this, VARIANT.Ptr, pvarDelegatedPolicyUsers, "HRESULT")
         return pvarDelegatedPolicyUsers
     }
 
@@ -1363,7 +1423,7 @@ class IAzAuthorizationStore extends IDispatch {
     AddDelegatedPolicyUserName(bstrDelegatedPolicyUser, varReserved) {
         bstrDelegatedPolicyUser := bstrDelegatedPolicyUser is String ? BSTR.Alloc(bstrDelegatedPolicyUser).Value : bstrDelegatedPolicyUser
 
-        result := ComCall(55, this, "ptr", bstrDelegatedPolicyUser, "ptr", varReserved, "HRESULT")
+        result := ComCall(55, this, BSTR, bstrDelegatedPolicyUser, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -1387,7 +1447,7 @@ class IAzAuthorizationStore extends IDispatch {
     DeleteDelegatedPolicyUserName(bstrDelegatedPolicyUser, varReserved) {
         bstrDelegatedPolicyUser := bstrDelegatedPolicyUser is String ? BSTR.Alloc(bstrDelegatedPolicyUser).Value : bstrDelegatedPolicyUser
 
-        result := ComCall(56, this, "ptr", bstrDelegatedPolicyUser, "ptr", varReserved, "HRESULT")
+        result := ComCall(56, this, BSTR, bstrDelegatedPolicyUser, VARIANT, varReserved, "HRESULT")
         return result
     }
 
@@ -1406,7 +1466,127 @@ class IAzAuthorizationStore extends IDispatch {
     CloseApplication(bstrApplicationName, lFlag) {
         bstrApplicationName := bstrApplicationName is String ? BSTR.Alloc(bstrApplicationName).Value : bstrApplicationName
 
-        result := ComCall(57, this, "ptr", bstrApplicationName, "int", lFlag, "HRESULT")
+        result := ComCall(57, this, BSTR, bstrApplicationName, "int", lFlag, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAzAuthorizationStore.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.get_ApplicationData := CallbackCreate(GetMethod(implObj, "get_ApplicationData"), flags, 2)
+        this.vtbl.put_ApplicationData := CallbackCreate(GetMethod(implObj, "put_ApplicationData"), flags, 2)
+        this.vtbl.get_DomainTimeout := CallbackCreate(GetMethod(implObj, "get_DomainTimeout"), flags, 2)
+        this.vtbl.put_DomainTimeout := CallbackCreate(GetMethod(implObj, "put_DomainTimeout"), flags, 2)
+        this.vtbl.get_ScriptEngineTimeout := CallbackCreate(GetMethod(implObj, "get_ScriptEngineTimeout"), flags, 2)
+        this.vtbl.put_ScriptEngineTimeout := CallbackCreate(GetMethod(implObj, "put_ScriptEngineTimeout"), flags, 2)
+        this.vtbl.get_MaxScriptEngines := CallbackCreate(GetMethod(implObj, "get_MaxScriptEngines"), flags, 2)
+        this.vtbl.put_MaxScriptEngines := CallbackCreate(GetMethod(implObj, "put_MaxScriptEngines"), flags, 2)
+        this.vtbl.get_GenerateAudits := CallbackCreate(GetMethod(implObj, "get_GenerateAudits"), flags, 2)
+        this.vtbl.put_GenerateAudits := CallbackCreate(GetMethod(implObj, "put_GenerateAudits"), flags, 2)
+        this.vtbl.get_Writable := CallbackCreate(GetMethod(implObj, "get_Writable"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 4)
+        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 4)
+        this.vtbl.AddPropertyItem := CallbackCreate(GetMethod(implObj, "AddPropertyItem"), flags, 4)
+        this.vtbl.DeletePropertyItem := CallbackCreate(GetMethod(implObj, "DeletePropertyItem"), flags, 4)
+        this.vtbl.get_PolicyAdministrators := CallbackCreate(GetMethod(implObj, "get_PolicyAdministrators"), flags, 2)
+        this.vtbl.get_PolicyReaders := CallbackCreate(GetMethod(implObj, "get_PolicyReaders"), flags, 2)
+        this.vtbl.AddPolicyAdministrator := CallbackCreate(GetMethod(implObj, "AddPolicyAdministrator"), flags, 3)
+        this.vtbl.DeletePolicyAdministrator := CallbackCreate(GetMethod(implObj, "DeletePolicyAdministrator"), flags, 3)
+        this.vtbl.AddPolicyReader := CallbackCreate(GetMethod(implObj, "AddPolicyReader"), flags, 3)
+        this.vtbl.DeletePolicyReader := CallbackCreate(GetMethod(implObj, "DeletePolicyReader"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.UpdateCache := CallbackCreate(GetMethod(implObj, "UpdateCache"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 2)
+        this.vtbl.get_Applications := CallbackCreate(GetMethod(implObj, "get_Applications"), flags, 2)
+        this.vtbl.OpenApplication := CallbackCreate(GetMethod(implObj, "OpenApplication"), flags, 4)
+        this.vtbl.CreateApplication := CallbackCreate(GetMethod(implObj, "CreateApplication"), flags, 4)
+        this.vtbl.DeleteApplication := CallbackCreate(GetMethod(implObj, "DeleteApplication"), flags, 3)
+        this.vtbl.get_ApplicationGroups := CallbackCreate(GetMethod(implObj, "get_ApplicationGroups"), flags, 2)
+        this.vtbl.CreateApplicationGroup := CallbackCreate(GetMethod(implObj, "CreateApplicationGroup"), flags, 4)
+        this.vtbl.OpenApplicationGroup := CallbackCreate(GetMethod(implObj, "OpenApplicationGroup"), flags, 4)
+        this.vtbl.DeleteApplicationGroup := CallbackCreate(GetMethod(implObj, "DeleteApplicationGroup"), flags, 3)
+        this.vtbl.Submit := CallbackCreate(GetMethod(implObj, "Submit"), flags, 3)
+        this.vtbl.get_DelegatedPolicyUsers := CallbackCreate(GetMethod(implObj, "get_DelegatedPolicyUsers"), flags, 2)
+        this.vtbl.AddDelegatedPolicyUser := CallbackCreate(GetMethod(implObj, "AddDelegatedPolicyUser"), flags, 3)
+        this.vtbl.DeleteDelegatedPolicyUser := CallbackCreate(GetMethod(implObj, "DeleteDelegatedPolicyUser"), flags, 3)
+        this.vtbl.get_TargetMachine := CallbackCreate(GetMethod(implObj, "get_TargetMachine"), flags, 2)
+        this.vtbl.get_ApplyStoreSacl := CallbackCreate(GetMethod(implObj, "get_ApplyStoreSacl"), flags, 2)
+        this.vtbl.put_ApplyStoreSacl := CallbackCreate(GetMethod(implObj, "put_ApplyStoreSacl"), flags, 2)
+        this.vtbl.get_PolicyAdministratorsName := CallbackCreate(GetMethod(implObj, "get_PolicyAdministratorsName"), flags, 2)
+        this.vtbl.get_PolicyReadersName := CallbackCreate(GetMethod(implObj, "get_PolicyReadersName"), flags, 2)
+        this.vtbl.AddPolicyAdministratorName := CallbackCreate(GetMethod(implObj, "AddPolicyAdministratorName"), flags, 3)
+        this.vtbl.DeletePolicyAdministratorName := CallbackCreate(GetMethod(implObj, "DeletePolicyAdministratorName"), flags, 3)
+        this.vtbl.AddPolicyReaderName := CallbackCreate(GetMethod(implObj, "AddPolicyReaderName"), flags, 3)
+        this.vtbl.DeletePolicyReaderName := CallbackCreate(GetMethod(implObj, "DeletePolicyReaderName"), flags, 3)
+        this.vtbl.get_DelegatedPolicyUsersName := CallbackCreate(GetMethod(implObj, "get_DelegatedPolicyUsersName"), flags, 2)
+        this.vtbl.AddDelegatedPolicyUserName := CallbackCreate(GetMethod(implObj, "AddDelegatedPolicyUserName"), flags, 3)
+        this.vtbl.DeleteDelegatedPolicyUserName := CallbackCreate(GetMethod(implObj, "DeleteDelegatedPolicyUserName"), flags, 3)
+        this.vtbl.CloseApplication := CallbackCreate(GetMethod(implObj, "CloseApplication"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Description)
+        CallbackFree(this.vtbl.put_Description)
+        CallbackFree(this.vtbl.get_ApplicationData)
+        CallbackFree(this.vtbl.put_ApplicationData)
+        CallbackFree(this.vtbl.get_DomainTimeout)
+        CallbackFree(this.vtbl.put_DomainTimeout)
+        CallbackFree(this.vtbl.get_ScriptEngineTimeout)
+        CallbackFree(this.vtbl.put_ScriptEngineTimeout)
+        CallbackFree(this.vtbl.get_MaxScriptEngines)
+        CallbackFree(this.vtbl.put_MaxScriptEngines)
+        CallbackFree(this.vtbl.get_GenerateAudits)
+        CallbackFree(this.vtbl.put_GenerateAudits)
+        CallbackFree(this.vtbl.get_Writable)
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.SetProperty)
+        CallbackFree(this.vtbl.AddPropertyItem)
+        CallbackFree(this.vtbl.DeletePropertyItem)
+        CallbackFree(this.vtbl.get_PolicyAdministrators)
+        CallbackFree(this.vtbl.get_PolicyReaders)
+        CallbackFree(this.vtbl.AddPolicyAdministrator)
+        CallbackFree(this.vtbl.DeletePolicyAdministrator)
+        CallbackFree(this.vtbl.AddPolicyReader)
+        CallbackFree(this.vtbl.DeletePolicyReader)
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.UpdateCache)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.get_Applications)
+        CallbackFree(this.vtbl.OpenApplication)
+        CallbackFree(this.vtbl.CreateApplication)
+        CallbackFree(this.vtbl.DeleteApplication)
+        CallbackFree(this.vtbl.get_ApplicationGroups)
+        CallbackFree(this.vtbl.CreateApplicationGroup)
+        CallbackFree(this.vtbl.OpenApplicationGroup)
+        CallbackFree(this.vtbl.DeleteApplicationGroup)
+        CallbackFree(this.vtbl.Submit)
+        CallbackFree(this.vtbl.get_DelegatedPolicyUsers)
+        CallbackFree(this.vtbl.AddDelegatedPolicyUser)
+        CallbackFree(this.vtbl.DeleteDelegatedPolicyUser)
+        CallbackFree(this.vtbl.get_TargetMachine)
+        CallbackFree(this.vtbl.get_ApplyStoreSacl)
+        CallbackFree(this.vtbl.put_ApplyStoreSacl)
+        CallbackFree(this.vtbl.get_PolicyAdministratorsName)
+        CallbackFree(this.vtbl.get_PolicyReadersName)
+        CallbackFree(this.vtbl.AddPolicyAdministratorName)
+        CallbackFree(this.vtbl.DeletePolicyAdministratorName)
+        CallbackFree(this.vtbl.AddPolicyReaderName)
+        CallbackFree(this.vtbl.DeletePolicyReaderName)
+        CallbackFree(this.vtbl.get_DelegatedPolicyUsersName)
+        CallbackFree(this.vtbl.AddDelegatedPolicyUserName)
+        CallbackFree(this.vtbl.DeleteDelegatedPolicyUserName)
+        CallbackFree(this.vtbl.CloseApplication)
     }
 }

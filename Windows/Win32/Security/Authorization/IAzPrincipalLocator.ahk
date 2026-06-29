@@ -1,9 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IAzNameResolver.ahk
-#Include .\IAzObjectPicker.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IAzNameResolver.ahk" { IAzNameResolver }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAzObjectPicker.ahk" { IAzObjectPicker }
 
 /**
  * Locates and chooses ADAM principals in Authorization Manager.
@@ -14,32 +15,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazprincipallocator
  * @namespace Windows.Win32.Security.Authorization
  */
-class IAzPrincipalLocator extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IAzPrincipalLocator extends IDispatch {
     /**
      * The interface identifier for IAzPrincipalLocator
      * @type {Guid}
      */
-    static IID => Guid("{e5c3507d-ad6a-4992-9c7f-74ab480b44cc}")
+    static IID := Guid("{e5c3507d-ad6a-4992-9c7f-74ab480b44cc}")
 
     /**
      * The class identifier for AzPrincipalLocator
      * @type {Guid}
      */
-    static CLSID => Guid("{483afb5d-70df-4e16-abdc-a1de4d015a3e}")
+    static CLSID := Guid("{483afb5d-70df-4e16-abdc-a1de4d015a3e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAzPrincipalLocator interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_NameResolver : IntPtr
+        get_ObjectPicker : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_NameResolver", "get_ObjectPicker"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAzPrincipalLocator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IAzNameResolver} 
@@ -73,5 +82,27 @@ class IAzPrincipalLocator extends IDispatch {
     get_ObjectPicker() {
         result := ComCall(8, this, "ptr*", &ppObjectPicker := 0, "HRESULT")
         return IAzObjectPicker(ppObjectPicker)
+    }
+
+    Query(iid) {
+        if (IAzPrincipalLocator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_NameResolver := CallbackCreate(GetMethod(implObj, "get_NameResolver"), flags, 2)
+        this.vtbl.get_ObjectPicker := CallbackCreate(GetMethod(implObj, "get_ObjectPicker"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_NameResolver)
+        CallbackFree(this.vtbl.get_ObjectPicker)
     }
 }

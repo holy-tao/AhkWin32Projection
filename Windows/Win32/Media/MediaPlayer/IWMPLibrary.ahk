@@ -1,34 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IWMPMediaCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WMPLibraryType.ahk" { WMPLibraryType }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IWMPMediaCollection.ahk" { IWMPMediaCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMPLibrary interface represents a library.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmplibrary
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPLibrary extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMPLibrary extends IUnknown {
     /**
      * The interface identifier for IWMPLibrary
      * @type {Guid}
      */
-    static IID => Guid("{3df47861-7df1-4c1f-a81b-4c26f0f7a7c6}")
+    static IID := Guid("{3df47861-7df1-4c1f-a81b-4c26f0f7a7c6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPLibrary interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_name            : IntPtr
+        get_type            : IntPtr
+        get_mediaCollection : IntPtr
+        isIdentical         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_name", "get_type", "get_mediaCollection", "isIdentical"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPLibrary.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      */
@@ -76,7 +90,7 @@ class IWMPLibrary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmplibrary-get_name
      */
     get_name(pbstrName) {
-        result := ComCall(3, this, "ptr", pbstrName, "HRESULT")
+        result := ComCall(3, this, BSTR.Ptr, pbstrName, "HRESULT")
         return result
     }
 
@@ -157,5 +171,31 @@ class IWMPLibrary extends IUnknown {
 
         result := ComCall(6, this, "ptr", pIWMPLibrary, pvboolMarshal, pvbool, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPLibrary.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.get_mediaCollection := CallbackCreate(GetMethod(implObj, "get_mediaCollection"), flags, 2)
+        this.vtbl.isIdentical := CallbackCreate(GetMethod(implObj, "isIdentical"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_name)
+        CallbackFree(this.vtbl.get_type)
+        CallbackFree(this.vtbl.get_mediaCollection)
+        CallbackFree(this.vtbl.isIdentical)
     }
 }

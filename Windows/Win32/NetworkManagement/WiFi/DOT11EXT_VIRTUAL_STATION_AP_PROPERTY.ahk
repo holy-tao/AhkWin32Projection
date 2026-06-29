@@ -1,68 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_SSID.ahk
-#Include .\DOT11_AUTH_ALGORITHM.ahk
-#Include .\DOT11_CIPHER_ALGORITHM.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_CIPHER_ALGORITHM.ahk" { DOT11_CIPHER_ALGORITHM }
+#Import ".\DOT11_AUTH_ALGORITHM.ahk" { DOT11_AUTH_ALGORITHM }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DOT11_SSID.ahk" { DOT11_SSID }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11EXT_VIRTUAL_STATION_AP_PROPERTY extends Win32Struct {
-    static sizeof => 116
+export default struct DOT11EXT_VIRTUAL_STATION_AP_PROPERTY {
+    #StructPack 4
 
-    static packingSize => 4
+    dot11SSID : DOT11_SSID
 
-    /**
-     * @type {DOT11_SSID}
-     */
-    dot11SSID {
-        get {
-            if(!this.HasProp("__dot11SSID"))
-                this.__dot11SSID := DOT11_SSID(0, this)
-            return this.__dot11SSID
-        }
-    }
+    dot11AuthAlgo : DOT11_AUTH_ALGORITHM
 
-    /**
-     * @type {DOT11_AUTH_ALGORITHM}
-     */
-    dot11AuthAlgo {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    dot11CipherAlgo : DOT11_CIPHER_ALGORITHM
 
-    /**
-     * @type {DOT11_CIPHER_ALGORITHM}
-     */
-    dot11CipherAlgo {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    bIsPassPhrase : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    bIsPassPhrase {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    dwKeyLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwKeyLength {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    ucKeyData : Int8[64]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ucKeyData {
-        get {
-            if(!this.HasProp("__ucKeyDataProxyArray"))
-                this.__ucKeyDataProxyArray := Win32FixedArray(this.ptr + 52, 64, Primitive, "char")
-            return this.__ucKeyDataProxyArray
-        }
-    }
 }

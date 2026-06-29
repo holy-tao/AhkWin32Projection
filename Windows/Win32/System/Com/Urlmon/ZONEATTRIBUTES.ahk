@@ -1,80 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
  */
-class ZONEATTRIBUTES extends Win32Struct {
-    static sizeof => 1460
+export default struct ZONEATTRIBUTES {
+    #StructPack 4
 
-    static packingSize => 4
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    szDisplayName : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    szDisplayName {
-        get => StrGet(this.ptr + 4, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 259, "UTF-16")
-    }
+    szDescription : WCHAR[200]
 
-    /**
-     * @type {String}
-     */
-    szDescription {
-        get => StrGet(this.ptr + 524, 199, "UTF-16")
-        set => StrPut(value, this.ptr + 524, 199, "UTF-16")
-    }
+    szIconPath : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    szIconPath {
-        get => StrGet(this.ptr + 924, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 924, 259, "UTF-16")
-    }
+    dwTemplateMinLevel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwTemplateMinLevel {
-        get => NumGet(this, 1444, "uint")
-        set => NumPut("uint", value, this, 1444)
-    }
+    dwTemplateRecommended : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwTemplateRecommended {
-        get => NumGet(this, 1448, "uint")
-        set => NumPut("uint", value, this, 1448)
-    }
+    dwTemplateCurrentLevel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwTemplateCurrentLevel {
-        get => NumGet(this, 1452, "uint")
-        set => NumPut("uint", value, this, 1452)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 1456, "uint")
-        set => NumPut("uint", value, this, 1456)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 1460
-    }
 }

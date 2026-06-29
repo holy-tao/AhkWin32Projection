@@ -1,80 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Input structure for the FSCTL_REPAIR_COPIES control code.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-repair_copies_input
  * @namespace Windows.Win32.System.Ioctl
  */
-class REPAIR_COPIES_INPUT extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct REPAIR_COPIES_INPUT {
+    #StructPack 8
 
     /**
      * Set to <c>sizeof(REPAIR_COPIES_INPUT)</c>.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
     /**
      * Reserved (must be zero)
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : UInt32
 
     /**
      * The file position to start the repair operation.
-     * @type {Integer}
      */
-    FileOffset {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    FileOffset : Int64
 
     /**
      * The number of bytes to be repaired.
-     * @type {Integer}
      */
-    Length {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Length : UInt32
 
     /**
      * The zero-based copy number of the source copy.
-     * @type {Integer}
      */
-    SourceCopy {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    SourceCopy : UInt32
 
     /**
      * The number of copies that will be repaired. This is the size of the <b>RepairCopies</b> 
      *       array.
-     * @type {Integer}
      */
-    NumberOfRepairCopies {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    NumberOfRepairCopies : UInt32
 
     /**
      * The zero-based copy numbers of the copies that will be repaired.
-     * @type {Array<Integer>}
      */
-    RepairCopies {
-        get {
-            if(!this.HasProp("__RepairCopiesProxyArray"))
-                this.__RepairCopiesProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "uint")
-            return this.__RepairCopiesProxyArray
-        }
-    }
+    RepairCopies : UInt32[1]
+
 }

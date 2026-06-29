@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFullScreenVideo.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFullScreenVideo.ahk" { IFullScreenVideo }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\UI\WindowsAndMessaging\HACCEL.ahk" { HACCEL }
 
 /**
  * The IFullScreenVideoEx interface is implemented on the Full Screen Renderer filter, which provides full-screen video rendering on older hardware.
  * @see https://learn.microsoft.com/windows/win32/api/amvideo/nn-amvideo-ifullscreenvideoex
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IFullScreenVideoEx extends IFullScreenVideo {
-
-    static sizeof => A_PtrSize
+export default struct IFullScreenVideoEx extends IFullScreenVideo {
     /**
      * The interface identifier for IFullScreenVideoEx
      * @type {Guid}
      */
-    static IID => Guid("{53479470-f1dd-11cf-bc42-00aa00ac74f6}")
+    static IID := Guid("{53479470-f1dd-11cf-bc42-00aa00ac74f6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 20
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFullScreenVideoEx interfaces
+    */
+    struct Vtbl extends IFullScreenVideo.Vtbl {
+        SetAcceleratorTable    : IntPtr
+        GetAcceleratorTable    : IntPtr
+        KeepPixelAspectRatio   : IntPtr
+        IsKeepPixelAspectRatio : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetAcceleratorTable", "GetAcceleratorTable", "KeepPixelAspectRatio", "IsKeepPixelAspectRatio"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFullScreenVideoEx.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetAcceleratorTable method specifies an accelerator table that will be used to translate keyboard messages. The Full Screen Renderer filter does not support this method.
@@ -38,10 +50,7 @@ class IFullScreenVideoEx extends IFullScreenVideo {
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-ifullscreenvideoex-setacceleratortable
      */
     SetAcceleratorTable(_hwnd, _hAccel) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-        _hAccel := _hAccel is Win32Handle ? NumGet(_hAccel, "ptr") : _hAccel
-
-        result := ComCall(20, this, "ptr", _hwnd, "ptr", _hAccel, "HRESULT")
+        result := ComCall(20, this, HWND, _hwnd, HACCEL, _hAccel, "HRESULT")
         return result
     }
 
@@ -53,7 +62,7 @@ class IFullScreenVideoEx extends IFullScreenVideo {
      */
     GetAcceleratorTable(phAccel) {
         phwnd := HWND()
-        result := ComCall(21, this, "ptr", phwnd, "ptr", phAccel, "HRESULT")
+        result := ComCall(21, this, HWND.Ptr, phwnd, HACCEL.Ptr, phAccel, "HRESULT")
         return phwnd
     }
 
@@ -76,5 +85,31 @@ class IFullScreenVideoEx extends IFullScreenVideo {
     IsKeepPixelAspectRatio() {
         result := ComCall(23, this, "int*", &pKeepAspect := 0, "HRESULT")
         return pKeepAspect
+    }
+
+    Query(iid) {
+        if (IFullScreenVideoEx.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetAcceleratorTable := CallbackCreate(GetMethod(implObj, "SetAcceleratorTable"), flags, 3)
+        this.vtbl.GetAcceleratorTable := CallbackCreate(GetMethod(implObj, "GetAcceleratorTable"), flags, 3)
+        this.vtbl.KeepPixelAspectRatio := CallbackCreate(GetMethod(implObj, "KeepPixelAspectRatio"), flags, 2)
+        this.vtbl.IsKeepPixelAspectRatio := CallbackCreate(GetMethod(implObj, "IsKeepPixelAspectRatio"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetAcceleratorTable)
+        CallbackFree(this.vtbl.GetAcceleratorTable)
+        CallbackFree(this.vtbl.KeepPixelAspectRatio)
+        CallbackFree(this.vtbl.IsKeepPixelAspectRatio)
     }
 }

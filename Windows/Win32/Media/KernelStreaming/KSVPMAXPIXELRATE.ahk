@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KS_AMVPSIZE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KS_AMVPSIZE.ahk" { KS_AMVPSIZE }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSVPMAXPIXELRATE extends Win32Struct {
-    static sizeof => 16
+export default struct KSVPMAXPIXELRATE {
+    #StructPack 4
 
-    static packingSize => 4
+    Size : KS_AMVPSIZE
 
-    /**
-     * @type {KS_AMVPSIZE}
-     */
-    Size {
-        get {
-            if(!this.HasProp("__Size"))
-                this.__Size := KS_AMVPSIZE(0, this)
-            return this.__Size
-        }
-    }
+    MaxPixelsPerSecond : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxPixelsPerSecond {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

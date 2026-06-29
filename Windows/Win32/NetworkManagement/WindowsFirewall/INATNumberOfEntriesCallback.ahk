@@ -1,33 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The INATNumberOfEntriesCallback interface provides a method that the system calls if the number of port mappings changes.
  * @see https://learn.microsoft.com/windows/win32/api/natupnp/nn-natupnp-inatnumberofentriescallback
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  */
-class INATNumberOfEntriesCallback extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct INATNumberOfEntriesCallback extends IUnknown {
     /**
      * The interface identifier for INATNumberOfEntriesCallback
      * @type {Guid}
      */
-    static IID => Guid("{c83a0a74-91ee-41b6-b67a-67e0f00bbd78}")
+    static IID := Guid("{c83a0a74-91ee-41b6-b67a-67e0f00bbd78}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INATNumberOfEntriesCallback interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        NewNumberOfEntries : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["NewNumberOfEntries"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INATNumberOfEntriesCallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The system calls the NewNumberOfEntries method if the total number of NAT port mappings changes.
@@ -137,5 +145,25 @@ class INATNumberOfEntriesCallback extends IUnknown {
     NewNumberOfEntries(lNewNumberOfEntries) {
         result := ComCall(3, this, "int", lNewNumberOfEntries, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (INATNumberOfEntriesCallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.NewNumberOfEntries := CallbackCreate(GetMethod(implObj, "NewNumberOfEntries"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.NewNumberOfEntries)
     }
 }

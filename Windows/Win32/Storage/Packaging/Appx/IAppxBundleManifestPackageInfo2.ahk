@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides a read-only object model for a &lt;Package&gt; element in a bundle package manifest. (IAppxBundleManifestPackageInfo2)
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxbundlemanifestpackageinfo2
  * @namespace Windows.Win32.Storage.Packaging.Appx
  */
-class IAppxBundleManifestPackageInfo2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAppxBundleManifestPackageInfo2 extends IUnknown {
     /**
      * The interface identifier for IAppxBundleManifestPackageInfo2
      * @type {Guid}
      */
-    static IID => Guid("{44c2acbc-b2cf-4ccb-bbdb-9c6da8c3bc9e}")
+    static IID := Guid("{44c2acbc-b2cf-4ccb-bbdb-9c6da8c3bc9e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAppxBundleManifestPackageInfo2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetIsPackageReference            : IntPtr
+        GetIsNonQualifiedResourcePackage : IntPtr
+        GetIsDefaultApplicablePackage    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetIsPackageReference", "GetIsNonQualifiedResourcePackage", "GetIsDefaultApplicablePackage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAppxBundleManifestPackageInfo2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Determines whether a package is stored inside an app bundle, or if it's a reference to a package.
@@ -35,7 +46,7 @@ class IAppxBundleManifestPackageInfo2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo2-getispackagereference
      */
     GetIsPackageReference() {
-        result := ComCall(3, this, "int*", &isPackageReference := 0, "HRESULT")
+        result := ComCall(3, this, BOOL.Ptr, &isPackageReference := 0, "HRESULT")
         return isPackageReference
     }
 
@@ -49,7 +60,7 @@ class IAppxBundleManifestPackageInfo2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo2-getisnonqualifiedresourcepackage
      */
     GetIsNonQualifiedResourcePackage() {
-        result := ComCall(4, this, "int*", &isNonQualifiedResourcePackage := 0, "HRESULT")
+        result := ComCall(4, this, BOOL.Ptr, &isNonQualifiedResourcePackage := 0, "HRESULT")
         return isNonQualifiedResourcePackage
     }
 
@@ -63,7 +74,31 @@ class IAppxBundleManifestPackageInfo2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo2-getisdefaultapplicablepackage
      */
     GetIsDefaultApplicablePackage() {
-        result := ComCall(5, this, "int*", &isDefaultApplicablePackage := 0, "HRESULT")
+        result := ComCall(5, this, BOOL.Ptr, &isDefaultApplicablePackage := 0, "HRESULT")
         return isDefaultApplicablePackage
+    }
+
+    Query(iid) {
+        if (IAppxBundleManifestPackageInfo2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetIsPackageReference := CallbackCreate(GetMethod(implObj, "GetIsPackageReference"), flags, 2)
+        this.vtbl.GetIsNonQualifiedResourcePackage := CallbackCreate(GetMethod(implObj, "GetIsNonQualifiedResourcePackage"), flags, 2)
+        this.vtbl.GetIsDefaultApplicablePackage := CallbackCreate(GetMethod(implObj, "GetIsDefaultApplicablePackage"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetIsPackageReference)
+        CallbackFree(this.vtbl.GetIsNonQualifiedResourcePackage)
+        CallbackFree(this.vtbl.GetIsDefaultApplicablePackage)
     }
 }

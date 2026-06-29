@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWPM_DISPLAY_DATA0.ahk
-#Include ..\..\Security\SID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Security\SID.ahk" { SID }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\FWPM_DISPLAY_DATA0.ahk" { FWPM_DISPLAY_DATA0 }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Stores the state associated with a client session.
@@ -14,36 +16,23 @@
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_session0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class FWPM_SESSION0 extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct FWPM_SESSION0 {
+    #StructPack 8
 
     /**
      * Uniquely identifies the session. 
      * 
      * If this member is zero in the
      *    call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a>, Base Filtering Engine (BFE) will generate a GUID.
-     * @type {Pointer}
      */
-    sessionKey {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    sessionKey : Guid
 
     /**
      * Allows sessions to be annotated in a human-readable form.
      * 
      * See [FWPM_DISPLAY_DATA0](/windows/desktop/api/fwptypes/ns-fwptypes-fwpm_display_data0) for more information.
-     * @type {FWPM_DISPLAY_DATA0}
      */
-    displayData {
-        get {
-            if(!this.HasProp("__displayData"))
-                this.__displayData := FWPM_DISPLAY_DATA0(8, this)
-            return this.__displayData
-        }
-    }
+    displayData : FWPM_DISPLAY_DATA0
 
     /**
      * Settings to control session behavior.
@@ -75,58 +64,35 @@ class FWPM_SESSION0 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    flags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    flags : UInt32
 
     /**
      * Time in milli-seconds that a client will wait to begin a transaction. 
      * 
      * If this member is zero, BFE will use a
      *    default timeout.
-     * @type {Integer}
      */
-    txnWaitTimeoutInMSec {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    txnWaitTimeoutInMSec : UInt32
 
     /**
      * Process ID of the client.
-     * @type {Integer}
      */
-    processId {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    processId : UInt32
 
     /**
      * SID of the client.
-     * @type {Pointer<SID>}
      */
-    sid {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    sid : SID.Ptr
 
     /**
      * User name of the client.
-     * @type {PWSTR}
      */
-    username {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    username : PWSTR
 
     /**
      * TRUE if this is a kernel-mode client.
-     * @type {BOOL}
      */
-    kernelMode {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    kernelMode : BOOL
+
 }

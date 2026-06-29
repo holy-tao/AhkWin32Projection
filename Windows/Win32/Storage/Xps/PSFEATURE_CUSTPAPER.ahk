@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The PSFEATURE_CUSTPAPER structure contains information about a custom paper size for a PostScript driver. This structure is used with the GET_PS_FEATURESETTING printer escape function.
@@ -8,53 +7,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-psfeature_custpaper
  * @namespace Windows.Win32.Storage.Xps
  */
-class PSFEATURE_CUSTPAPER extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct PSFEATURE_CUSTPAPER {
+    #StructPack 4
 
     /**
      * Indicates the custom paper orientation. This member can be 0 to 3 if custom page size is selected. Otherwise, it is 1 and all other structure members are zero
-     * @type {Integer}
      */
-    lOrientation {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    lOrientation : Int32
 
     /**
      * Custom page width, in points.
-     * @type {Integer}
      */
-    lWidth {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    lWidth : Int32
 
     /**
      * Custom page height, in points.
-     * @type {Integer}
      */
-    lHeight {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    lHeight : Int32
 
     /**
      * Custom page width offset, in points.
-     * @type {Integer}
      */
-    lWidthOffset {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    lWidthOffset : Int32
 
     /**
      * Custom page height offset, in points.
-     * @type {Integer}
      */
-    lHeightOffset {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    lHeightOffset : Int32
+
 }

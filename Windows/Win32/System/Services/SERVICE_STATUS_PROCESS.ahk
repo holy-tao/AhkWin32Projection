@@ -1,34 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ENUM_SERVICE_TYPE.ahk
-#Include .\SERVICE_STATUS_CURRENT_STATE.ahk
-#Include .\SERVICE_RUNS_IN_PROCESS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SERVICE_RUNS_IN_PROCESS.ahk" { SERVICE_RUNS_IN_PROCESS }
+#Import ".\ENUM_SERVICE_TYPE.ahk" { ENUM_SERVICE_TYPE }
+#Import ".\SERVICE_STATUS_CURRENT_STATE.ahk" { SERVICE_STATUS_CURRENT_STATE }
 
 /**
  * Contains process status information for a service. The ControlServiceEx, EnumServicesStatusEx, NotifyServiceStatusChange, and QueryServiceStatusEx functions use this structure.
  * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_status_process
  * @namespace Windows.Win32.System.Services
  */
-class SERVICE_STATUS_PROCESS extends Win32Struct {
-    static sizeof => 36
+export default struct SERVICE_STATUS_PROCESS {
+    #StructPack 4
 
-    static packingSize => 4
+    dwServiceType : ENUM_SERVICE_TYPE
 
-    /**
-     * @type {ENUM_SERVICE_TYPE}
-     */
-    dwServiceType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {SERVICE_STATUS_CURRENT_STATE}
-     */
-    dwCurrentState {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwCurrentState : SERVICE_STATUS_CURRENT_STATE
 
     /**
      * The control codes the service accepts and processes in its handler function (see 
@@ -189,64 +174,35 @@ class SERVICE_STATUS_PROCESS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwControlsAccepted {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwControlsAccepted : UInt32
 
     /**
      * The error code that the service uses to report an error that occurs when it is starting or stopping. To return an error code specific to the service, the service must set this value to <b>ERROR_SERVICE_SPECIFIC_ERROR</b> to indicate that the <b>dwServiceSpecificExitCode</b> member contains the error code. The service should set this value to <b>NO_ERROR</b> when it is running and when it terminates normally.
-     * @type {Integer}
      */
-    dwWin32ExitCode {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwWin32ExitCode : UInt32
 
     /**
      * The service-specific error code that the service returns when an error occurs while the service is starting or stopping. This value is ignored unless the <b>dwWin32ExitCode</b> member is set to <b>ERROR_SERVICE_SPECIFIC_ERROR</b>.
-     * @type {Integer}
      */
-    dwServiceSpecificExitCode {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwServiceSpecificExitCode : UInt32
 
     /**
      * The check-point value that the service increments periodically to report its progress during a lengthy start, stop, pause, or continue operation. For example, the service should increment this value as it completes each step of its initialization when it is starting up. The user interface program that invoked the operation on the service uses this value to track the progress of the service during a lengthy operation. This value is not valid and should be zero when the service does not have a start, stop, pause, or continue operation pending.
-     * @type {Integer}
      */
-    dwCheckPoint {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwCheckPoint : UInt32
 
     /**
      * The estimated time required for a pending start, stop, pause, or continue operation, in milliseconds. Before the specified amount of time has elapsed, the service should make its next call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-setservicestatus">SetServiceStatus</a> function with either an incremented <b>dwCheckPoint</b> value or a change in <b>dwCurrentState</b>. If the amount of time specified by <b>dwWaitHint</b> passes, and <b>dwCheckPoint</b> has not been incremented or <b>dwCurrentState</b> has not changed, the service control manager or service control program can assume that an error has occurred and the service should be stopped. However, if the service shares a process with other services, the service control manager cannot terminate the service application because it would have to terminate the other services sharing the process as well.
-     * @type {Integer}
      */
-    dwWaitHint {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwWaitHint : UInt32
 
     /**
      * The process identifier of the service.
-     * @type {Integer}
      */
-    dwProcessId {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwProcessId : UInt32
 
-    /**
-     * @type {SERVICE_RUNS_IN_PROCESS}
-     */
-    dwServiceFlags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwServiceFlags : SERVICE_RUNS_IN_PROCESS
+
 }

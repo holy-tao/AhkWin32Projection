@@ -1,35 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\ITfRange.ahk" { ITfRange }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ITfPropertyStore interface is implemented by a text service and used by the TSF manager to provide non-static property values. An instance of this interface is passed to ITfProperty::SetValueStore.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfpropertystore
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfPropertyStore extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfPropertyStore extends IUnknown {
     /**
      * The interface identifier for ITfPropertyStore
      * @type {Guid}
      */
-    static IID => Guid("{6834b120-88cb-11d2-bf45-00105a2799b5}")
+    static IID := Guid("{6834b120-88cb-11d2-bf45-00105a2799b5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfPropertyStore interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetType                 : IntPtr
+        GetDataType             : IntPtr
+        GetData                 : IntPtr
+        OnTextUpdated           : IntPtr
+        Shrink                  : IntPtr
+        Divide                  : IntPtr
+        Clone                   : IntPtr
+        GetPropertyRangeCreator : IntPtr
+        Serialize               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetType", "GetDataType", "GetData", "OnTextUpdated", "Shrink", "Divide", "Clone", "GetPropertyRangeCreator", "Serialize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfPropertyStore.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfPropertyStore::GetType method
@@ -38,7 +56,7 @@ class ITfPropertyStore extends IUnknown {
      */
     GetType() {
         pguid := Guid()
-        result := ComCall(3, this, "ptr", pguid, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pguid, "HRESULT")
         return pguid
     }
 
@@ -59,7 +77,7 @@ class ITfPropertyStore extends IUnknown {
      */
     GetData() {
         pvarValue := VARIANT()
-        result := ComCall(5, this, "ptr", pvarValue, "HRESULT")
+        result := ComCall(5, this, VARIANT.Ptr, pvarValue, "HRESULT")
         return pvarValue
     }
 
@@ -90,7 +108,7 @@ class ITfPropertyStore extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfpropertystore-ontextupdated
      */
     OnTextUpdated(dwFlags, pRangeNew) {
-        result := ComCall(6, this, "uint", dwFlags, "ptr", pRangeNew, "int*", &pfAccept := 0, "HRESULT")
+        result := ComCall(6, this, "uint", dwFlags, "ptr", pRangeNew, BOOL.Ptr, &pfAccept := 0, "HRESULT")
         return pfAccept
     }
 
@@ -103,7 +121,7 @@ class ITfPropertyStore extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfpropertystore-shrink
      */
     Shrink(pRangeNew) {
-        result := ComCall(7, this, "ptr", pRangeNew, "int*", &pfFree := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pRangeNew, BOOL.Ptr, &pfFree := 0, "HRESULT")
         return pfFree
     }
 
@@ -144,7 +162,7 @@ class ITfPropertyStore extends IUnknown {
      */
     GetPropertyRangeCreator() {
         pclsid := Guid()
-        result := ComCall(10, this, "ptr", pclsid, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, pclsid, "HRESULT")
         return pclsid
     }
 
@@ -159,5 +177,41 @@ class ITfPropertyStore extends IUnknown {
     Serialize(pStream) {
         result := ComCall(11, this, "ptr", pStream, "uint*", &pcb := 0, "HRESULT")
         return pcb
+    }
+
+    Query(iid) {
+        if (ITfPropertyStore.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetDataType := CallbackCreate(GetMethod(implObj, "GetDataType"), flags, 2)
+        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 2)
+        this.vtbl.OnTextUpdated := CallbackCreate(GetMethod(implObj, "OnTextUpdated"), flags, 4)
+        this.vtbl.Shrink := CallbackCreate(GetMethod(implObj, "Shrink"), flags, 3)
+        this.vtbl.Divide := CallbackCreate(GetMethod(implObj, "Divide"), flags, 4)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetPropertyRangeCreator := CallbackCreate(GetMethod(implObj, "GetPropertyRangeCreator"), flags, 2)
+        this.vtbl.Serialize := CallbackCreate(GetMethod(implObj, "Serialize"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetType)
+        CallbackFree(this.vtbl.GetDataType)
+        CallbackFree(this.vtbl.GetData)
+        CallbackFree(this.vtbl.OnTextUpdated)
+        CallbackFree(this.vtbl.Shrink)
+        CallbackFree(this.vtbl.Divide)
+        CallbackFree(this.vtbl.Clone)
+        CallbackFree(this.vtbl.GetPropertyRangeCreator)
+        CallbackFree(this.vtbl.Serialize)
     }
 }

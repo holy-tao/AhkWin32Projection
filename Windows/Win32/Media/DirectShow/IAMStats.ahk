@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAMStats interface retrieves performance data from the Filter Graph Manager.
@@ -38,26 +40,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/control/nn-control-iamstats
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAMStats extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IAMStats extends IDispatch {
     /**
      * The interface identifier for IAMStats
      * @type {Guid}
      */
-    static IID => Guid("{bc9bcf80-dcd2-11d2-abf6-00a0c905f375}")
+    static IID := Guid("{bc9bcf80-dcd2-11d2-abf6-00a0c905f375}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAMStats interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Reset           : IntPtr
+        get_Count       : IntPtr
+        GetValueByIndex : IntPtr
+        GetValueByName  : IntPtr
+        GetIndex        : IntPtr
+        AddValue        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Reset", "get_Count", "GetValueByIndex", "GetValueByName", "GetIndex", "AddValue"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAMStats.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -162,7 +176,7 @@ class IAMStats extends IDispatch {
         dMinMarshal := dMin is VarRef ? "double*" : "ptr"
         dMaxMarshal := dMax is VarRef ? "double*" : "ptr"
 
-        result := ComCall(9, this, "int", lIndex, "ptr", szName, lCountMarshal, lCount, dLastMarshal, dLast, dAverageMarshal, dAverage, dStdDevMarshal, dStdDev, dMinMarshal, dMin, dMaxMarshal, dMax, "HRESULT")
+        result := ComCall(9, this, "int", lIndex, BSTR.Ptr, szName, lCountMarshal, lCount, dLastMarshal, dLast, dAverageMarshal, dAverage, dStdDevMarshal, dStdDev, dMinMarshal, dMin, dMaxMarshal, dMax, "HRESULT")
         return result
     }
 
@@ -230,7 +244,7 @@ class IAMStats extends IDispatch {
         dMinMarshal := dMin is VarRef ? "double*" : "ptr"
         dMaxMarshal := dMax is VarRef ? "double*" : "ptr"
 
-        result := ComCall(10, this, "ptr", szName, lIndexMarshal, lIndex, lCountMarshal, lCount, dLastMarshal, dLast, dAverageMarshal, dAverage, dStdDevMarshal, dStdDev, dMinMarshal, dMin, dMaxMarshal, dMax, "HRESULT")
+        result := ComCall(10, this, BSTR, szName, lIndexMarshal, lIndex, lCountMarshal, lCount, dLastMarshal, dLast, dAverageMarshal, dAverage, dStdDevMarshal, dStdDev, dMinMarshal, dMin, dMaxMarshal, dMax, "HRESULT")
         return result
     }
 
@@ -244,7 +258,7 @@ class IAMStats extends IDispatch {
     GetIndex(szName, lCreate) {
         szName := szName is String ? BSTR.Alloc(szName).Value : szName
 
-        result := ComCall(11, this, "ptr", szName, "int", lCreate, "int*", &plIndex := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, szName, "int", lCreate, "int*", &plIndex := 0, "HRESULT")
         return plIndex
     }
 
@@ -287,5 +301,35 @@ class IAMStats extends IDispatch {
     AddValue(lIndex, dValue) {
         result := ComCall(12, this, "int", lIndex, "double", dValue, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAMStats.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.GetValueByIndex := CallbackCreate(GetMethod(implObj, "GetValueByIndex"), flags, 9)
+        this.vtbl.GetValueByName := CallbackCreate(GetMethod(implObj, "GetValueByName"), flags, 9)
+        this.vtbl.GetIndex := CallbackCreate(GetMethod(implObj, "GetIndex"), flags, 4)
+        this.vtbl.AddValue := CallbackCreate(GetMethod(implObj, "AddValue"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.GetValueByIndex)
+        CallbackFree(this.vtbl.GetValueByName)
+        CallbackFree(this.vtbl.GetIndex)
+        CallbackFree(this.vtbl.AddValue)
     }
 }

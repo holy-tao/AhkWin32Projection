@@ -1,32 +1,60 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\DSBCAPS.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDirectSound.ahk" { IDirectSound }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\DSBUFFERDESC.ahk" { DSBUFFERDESC }
+#Import ".\DSBCAPS.ahk" { DSBCAPS }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
  */
-class IDirectSoundBuffer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectSoundBuffer extends IUnknown {
     /**
      * The interface identifier for IDirectSoundBuffer
      * @type {Guid}
      */
-    static IID => Guid("{279afa85-4981-11ce-a521-0020af0be560}")
+    static IID := Guid("{279afa85-4981-11ce-a521-0020af0be560}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectSoundBuffer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCaps            : IntPtr
+        GetCurrentPosition : IntPtr
+        GetFormat          : IntPtr
+        GetVolume          : IntPtr
+        GetPan             : IntPtr
+        GetFrequency       : IntPtr
+        GetStatus          : IntPtr
+        Initialize         : IntPtr
+        Lock               : IntPtr
+        Play               : IntPtr
+        SetCurrentPosition : IntPtr
+        SetFormat          : IntPtr
+        SetVolume          : IntPtr
+        SetPan             : IntPtr
+        SetFrequency       : IntPtr
+        Stop               : IntPtr
+        Unlock             : IntPtr
+        Restore            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCaps", "GetCurrentPosition", "GetFormat", "GetVolume", "GetPan", "GetFrequency", "GetStatus", "Initialize", "Lock", "Play", "SetCurrentPosition", "SetFormat", "SetVolume", "SetPan", "SetFrequency", "Stop", "Unlock", "Restore"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectSoundBuffer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -34,18 +62,15 @@ class IDirectSoundBuffer extends IUnknown {
      */
     GetCaps() {
         pDSBufferCaps := DSBCAPS()
-        result := ComCall(3, this, "ptr", pDSBufferCaps, "HRESULT")
+        result := ComCall(3, this, DSBCAPS.Ptr, pDSBufferCaps, "HRESULT")
         return pDSBufferCaps
     }
 
     /**
-     * The GetCurrentPositionEx function retrieves the current position in logical coordinates.
+     * 
      * @param {Pointer<Integer>} pdwCurrentPlayCursor 
      * @param {Pointer<Integer>} pdwCurrentWriteCursor 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcurrentpositionex
+     * @returns {HRESULT} 
      */
     GetCurrentPosition(pdwCurrentPlayCursor, pdwCurrentWriteCursor) {
         pdwCurrentPlayCursorMarshal := pdwCurrentPlayCursor is VarRef ? "uint*" : "ptr"
@@ -56,11 +81,10 @@ class IDirectSoundBuffer extends IUnknown {
     }
 
     /**
-     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetFormatProp
+     * 
      * @param {Integer} pwfxFormat 
      * @param {Integer} dwSizeAllocated 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecprops-getformatprop
      */
     GetFormat(pwfxFormat, dwSizeAllocated) {
         result := ComCall(5, this, "ptr", pwfxFormat, "uint", dwSizeAllocated, "uint*", &pdwSizeWritten := 0, "HRESULT")
@@ -68,110 +92,8 @@ class IDirectSoundBuffer extends IUnknown {
     }
 
     /**
-     * Retrieves information about the file system and volume associated with the specified root directory. (ANSI)
-     * @remarks
-     * When a user attempts to get information about a floppy drive that does not have a floppy disk, or a CD-ROM
-     *      drive that does not have a compact disc, the system displays a message box for the user to insert a floppy disk
-     *      or a compact disc, respectively. To prevent the system from displaying this message box, call the
-     *      <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-seterrormode">SetErrorMode</a> function with
-     *      <b>SEM_FAILCRITICALERRORS</b>.
      * 
-     * The <b>FILE_VOL_IS_COMPRESSED</b> flag is the only indicator of volume-based compression. The
-     *      file system name is not altered to indicate compression, for example, this flag is returned set on a DoubleSpace
-     *      volume. When compression is volume-based, an entire volume is  compressed or not compressed.
-     * 
-     * The <b>FILE_FILE_COMPRESSION</b> flag indicates whether a file system supports file-based
-     *      compression. When compression is file-based, individual files can be compressed or not compressed.
-     * 
-     * The <b>FILE_FILE_COMPRESSION</b> and <b>FILE_VOL_IS_COMPRESSED</b> flags are
-     *      mutually exclusive. Both bits cannot be returned set.
-     * 
-     * The maximum component length value that is stored in <i>lpMaximumComponentLength</i> is the
-     *      only indicator that a volume supports longer-than-normal FAT file system (or other file system) file names. The
-     *      file system name is not altered to indicate support for long file names.
-     * 
-     * The <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getcompressedfilesizea">GetCompressedFileSize</a> function obtains the
-     *      compressed size of a file. The <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getfileattributesa">GetFileAttributes</a>
-     *      function can determine whether an individual file is compressed.
-     * 
-     * Symbolic link behavior—
-     * 
-     * If the path points to a symbolic link, the function returns volume information for the target.
-     * 
-     * Starting with Windows 8 and Windows Server 2012, this function is supported by the following technologies.
-     * 
-     * <table>
-     * <tr>
-     * <th>Technology</th>
-     * <th>Supported</th>
-     * </tr>
-     * <tr>
-     * <td>
-     * Server Message Block (SMB) 3.0 protocol
-     * 
-     * </td>
-     * <td>
-     * No
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * SMB 3.0 Transparent Failover (TFO)
-     * 
-     * </td>
-     * <td>
-     * No
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * SMB 3.0 with Scale-out File Shares (SO)
-     * 
-     * </td>
-     * <td>
-     * No
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * Cluster Shared Volume File System (CsvFS)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * Resilient File System (ReFS)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * SMB does not support volume management functions.
-     * 
-     * <h3><a id="Transacted_Operations"></a><a id="transacted_operations"></a><a id="TRANSACTED_OPERATIONS"></a>Transacted Operations</h3>
-     * If the volume supports file system transactions, the function returns
-     *       <b>FILE_SUPPORTS_TRANSACTIONS</b> in <i>lpFileSystemFlags</i>.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The fileapi.h header defines GetVolumeInformation as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getvolumeinformationa
      */
     GetVolume() {
         result := ComCall(6, this, "int*", &plVolume := 0, "HRESULT")
@@ -236,7 +158,7 @@ class IDirectSoundBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(pDirectSound, pcDSBufferDesc) {
-        result := ComCall(10, this, "ptr", pDirectSound, "ptr", pcDSBufferDesc, "HRESULT")
+        result := ComCall(10, this, "ptr", pDirectSound, DSBUFFERDESC.Ptr, pcDSBufferDesc, "HRESULT")
         return result
     }
 
@@ -307,95 +229,14 @@ class IDirectSoundBuffer extends IUnknown {
      * @returns {HRESULT} 
      */
     SetFormat(pcfxFormat) {
-        result := ComCall(14, this, "ptr", pcfxFormat, "HRESULT")
+        result := ComCall(14, this, WAVEFORMATEX.Ptr, pcfxFormat, "HRESULT")
         return result
     }
 
     /**
-     * Sets the label of a file system volume. (ANSI)
-     * @remarks
-     * The maximum volume label length is 32 characters.
      * 
-     * <b>FAT filesystems:  </b>The maximum volume label length is 11 characters.
-     * 
-     * A label is a user-friendly name that a user assigns to a volume to make it easier to recognize. A volume can 
-     *     have a label, a drive letter, both, or neither. For more information, see 
-     *     <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-volume">Naming a Volume</a>.
-     * 
-     * In Windows 8 and Windows Server 2012, this function is supported by the following technologies.
-     * 
-     * <table>
-     * <tr>
-     * <th>Technology</th>
-     * <th>Supported</th>
-     * </tr>
-     * <tr>
-     * <td>
-     * Server Message Block (SMB) 3.0 protocol
-     * 
-     * </td>
-     * <td>
-     * No
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * SMB 3.0 Transparent Failover (TFO)
-     * 
-     * </td>
-     * <td>
-     * No
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * SMB 3.0 with Scale-out File Shares (SO)
-     * 
-     * </td>
-     * <td>
-     * No
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * Cluster Shared Volume File System (CsvFS)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * Resilient File System (ReFS)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * SMB does not support volume management functions.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines SetVolumeLabel as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} lVolume 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setvolumelabela
+     * @returns {HRESULT} 
      */
     SetVolume(lVolume) {
         result := ComCall(15, this, "int", lVolume, "HRESULT")
@@ -423,13 +264,8 @@ class IDirectSoundBuffer extends IUnknown {
     }
 
     /**
-     * Specifies that a running instances of the task is stopped at the end of the repetition pattern duration.
-     * @remarks
-     * For scripting development, this setting is specified using the [**RepetitionPattern.StopAtDurationEnd**](repetitionpattern-stopatdurationend.md) property.
      * 
-     * For C++ development, this setting is specified using the [**IRepetitionPattern::StopAtDurationEnd**](/windows/win32/api/taskschd/nf-taskschd-irepetitionpattern-get_stopatdurationend) property.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-stopatdurationend-repetitiontype-element
      */
     Stop() {
         result := ComCall(18, this, "HRESULT")
@@ -437,81 +273,12 @@ class IDirectSoundBuffer extends IUnknown {
     }
 
     /**
-     * Unlocks a region in an open file.
-     * @remarks
-     * This function always operates synchronously, but may not queue a completion entry when a completion port is associated with the file handle.
      * 
-     * Unlocking a region of a file releases a previously acquired lock on the file. The region to unlock must correspond exactly to an existing locked region. Two adjacent regions of a file cannot be locked separately and then unlocked using a single region that spans both locked regions.
-     * 
-     * If a process terminates with a portion of a file locked or closes a file that has outstanding locks, the locks are unlocked by the operating system. However, the time it takes for the operating system to unlock these locks depends upon available system resources. Therefore, it is recommended that your process explicitly unlock all files it has locked when it terminates. If this is not done, access to these files may be denied if the operating system has not yet unlocked them.
-     * 
-     * In Windows 8 and Windows Server 2012, this function is supported by the following technologies.
-     * 
-     * <table>
-     * <tr>
-     * <th>Technology</th>
-     * <th>Supported</th>
-     * </tr>
-     * <tr>
-     * <td>
-     * Server Message Block (SMB) 3.0 protocol
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * SMB 3.0 Transparent Failover (TFO)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * SMB 3.0 with Scale-out File Shares (SO)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * Cluster Shared Volume File System (CsvFS)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * Resilient File System (ReFS)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @param {Integer} pvAudioPtr1 
      * @param {Integer} dwAudioBytes1 
      * @param {Integer} pvAudioPtr2 
      * @param {Integer} dwAudioBytes2 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-unlockfile
+     * @returns {HRESULT} 
      */
     Unlock(pvAudioPtr1, dwAudioBytes1, pvAudioPtr2, dwAudioBytes2) {
         result := ComCall(19, this, "ptr", pvAudioPtr1, "uint", dwAudioBytes1, "ptr", pvAudioPtr2, "uint", dwAudioBytes2, "HRESULT")
@@ -526,5 +293,59 @@ class IDirectSoundBuffer extends IUnknown {
     Restore() {
         result := ComCall(20, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectSoundBuffer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCaps := CallbackCreate(GetMethod(implObj, "GetCaps"), flags, 2)
+        this.vtbl.GetCurrentPosition := CallbackCreate(GetMethod(implObj, "GetCurrentPosition"), flags, 3)
+        this.vtbl.GetFormat := CallbackCreate(GetMethod(implObj, "GetFormat"), flags, 4)
+        this.vtbl.GetVolume := CallbackCreate(GetMethod(implObj, "GetVolume"), flags, 2)
+        this.vtbl.GetPan := CallbackCreate(GetMethod(implObj, "GetPan"), flags, 2)
+        this.vtbl.GetFrequency := CallbackCreate(GetMethod(implObj, "GetFrequency"), flags, 2)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.Lock := CallbackCreate(GetMethod(implObj, "Lock"), flags, 8)
+        this.vtbl.Play := CallbackCreate(GetMethod(implObj, "Play"), flags, 4)
+        this.vtbl.SetCurrentPosition := CallbackCreate(GetMethod(implObj, "SetCurrentPosition"), flags, 2)
+        this.vtbl.SetFormat := CallbackCreate(GetMethod(implObj, "SetFormat"), flags, 2)
+        this.vtbl.SetVolume := CallbackCreate(GetMethod(implObj, "SetVolume"), flags, 2)
+        this.vtbl.SetPan := CallbackCreate(GetMethod(implObj, "SetPan"), flags, 2)
+        this.vtbl.SetFrequency := CallbackCreate(GetMethod(implObj, "SetFrequency"), flags, 2)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Unlock := CallbackCreate(GetMethod(implObj, "Unlock"), flags, 5)
+        this.vtbl.Restore := CallbackCreate(GetMethod(implObj, "Restore"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCaps)
+        CallbackFree(this.vtbl.GetCurrentPosition)
+        CallbackFree(this.vtbl.GetFormat)
+        CallbackFree(this.vtbl.GetVolume)
+        CallbackFree(this.vtbl.GetPan)
+        CallbackFree(this.vtbl.GetFrequency)
+        CallbackFree(this.vtbl.GetStatus)
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.Lock)
+        CallbackFree(this.vtbl.Play)
+        CallbackFree(this.vtbl.SetCurrentPosition)
+        CallbackFree(this.vtbl.SetFormat)
+        CallbackFree(this.vtbl.SetVolume)
+        CallbackFree(this.vtbl.SetPan)
+        CallbackFree(this.vtbl.SetFrequency)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.Unlock)
+        CallbackFree(this.vtbl.Restore)
     }
 }

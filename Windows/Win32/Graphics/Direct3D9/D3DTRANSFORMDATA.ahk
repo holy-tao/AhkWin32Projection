@@ -1,96 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DHVERTEX.ahk
-#Include .\D3DRECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DRECT.ahk" { D3DRECT }
+#Import ".\D3DHVERTEX.ahk" { D3DHVERTEX }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DTRANSFORMDATA extends Win32Struct {
-    static sizeof => 80
+export default struct D3DTRANSFORMDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    lpIn : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpIn {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    dwInSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwInSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    lpOut : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpOut {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    dwOutSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwOutSize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    lpHOut : D3DHVERTEX.Ptr
 
-    /**
-     * @type {Pointer<D3DHVERTEX>}
-     */
-    lpHOut {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    dwClip : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwClip {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwClipIntersection : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwClipIntersection {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwClipUnion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwClipUnion {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    drExtent : D3DRECT
 
-    /**
-     * @type {D3DRECT}
-     */
-    drExtent {
-        get {
-            if(!this.HasProp("__drExtent"))
-                this.__drExtent := D3DRECT(60, this)
-            return this.__drExtent
-        }
-    }
 }

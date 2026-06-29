@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class VIDEO_CLUTDATA extends Win32Struct {
-    static sizeof => 4
+export default struct VIDEO_CLUTDATA {
+    #StructPack 1
 
-    static packingSize => 1
+    Red : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Red {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Green : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Green {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Blue : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Blue {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    Unused : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Unused {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
 }

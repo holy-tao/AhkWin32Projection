@@ -1,40 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ACT_AUTHORIZATION_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ACT_AUTHORIZATION_STATE.ahk" { ACT_AUTHORIZATION_STATE }
+#Import ".\IEnhancedStorageSilo.ahk" { IEnhancedStorageSilo }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This interface to obtain information and perform operations for a 1667 Addressable Contact Target (ACT).
  * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nn-ehstorapi-ienhancedstorageact
  * @namespace Windows.Win32.Storage.EnhancedStorage
  */
-class IEnhancedStorageACT extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IEnhancedStorageACT extends IUnknown {
     /**
      * The interface identifier for IEnhancedStorageACT
      * @type {Guid}
      */
-    static IID => Guid("{6e7781f4-e0f2-4239-b976-a01abab52930}")
+    static IID := Guid("{6e7781f4-e0f2-4239-b976-a01abab52930}")
 
     /**
      * The class identifier for EnhancedStorageACT
      * @type {Guid}
      */
-    static CLSID => Guid("{af076a15-2ece-4ad4-bb21-29f040e176d8}")
+    static CLSID := Guid("{af076a15-2ece-4ad4-bb21-29f040e176d8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IEnhancedStorageACT interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Authorize             : IntPtr
+        Unauthorize           : IntPtr
+        GetAuthorizationState : IntPtr
+        GetMatchingVolume     : IntPtr
+        GetUniqueIdentity     : IntPtr
+        GetSilos              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Authorize", "Unauthorize", "GetAuthorizationState", "GetMatchingVolume", "GetUniqueIdentity", "GetSilos"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IEnhancedStorageACT.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Associates the Addressable Command Target (ACT) with the Authorized state defined by ACT_AUTHORIZATION_STATE, and ensures the authentication of each individual silo according to the required sequence and logical combination necessary to authorize access to the ACT.
@@ -114,7 +129,7 @@ class IEnhancedStorageACT extends IUnknown {
      */
     GetAuthorizationState() {
         pState := ACT_AUTHORIZATION_STATE()
-        result := ComCall(5, this, "ptr", pState, "HRESULT")
+        result := ComCall(5, this, ACT_AUTHORIZATION_STATE.Ptr, pState, "HRESULT")
         return pState
     }
 
@@ -124,7 +139,7 @@ class IEnhancedStorageACT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstorageact-getmatchingvolume
      */
     GetMatchingVolume() {
-        result := ComCall(6, this, "ptr*", &ppwszVolume := 0, "HRESULT")
+        result := ComCall(6, this, PWSTR.Ptr, &ppwszVolume := 0, "HRESULT")
         return ppwszVolume
     }
 
@@ -136,7 +151,7 @@ class IEnhancedStorageACT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstorageact-getuniqueidentity
      */
     GetUniqueIdentity() {
-        result := ComCall(7, this, "ptr*", &ppwszIdentity := 0, "HRESULT")
+        result := ComCall(7, this, PWSTR.Ptr, &ppwszIdentity := 0, "HRESULT")
         return ppwszIdentity
     }
 
@@ -195,5 +210,35 @@ class IEnhancedStorageACT extends IUnknown {
 
         result := ComCall(8, this, pppIEnhancedStorageSilosMarshal, pppIEnhancedStorageSilos, pcEnhancedStorageSilosMarshal, pcEnhancedStorageSilos, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IEnhancedStorageACT.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Authorize := CallbackCreate(GetMethod(implObj, "Authorize"), flags, 3)
+        this.vtbl.Unauthorize := CallbackCreate(GetMethod(implObj, "Unauthorize"), flags, 1)
+        this.vtbl.GetAuthorizationState := CallbackCreate(GetMethod(implObj, "GetAuthorizationState"), flags, 2)
+        this.vtbl.GetMatchingVolume := CallbackCreate(GetMethod(implObj, "GetMatchingVolume"), flags, 2)
+        this.vtbl.GetUniqueIdentity := CallbackCreate(GetMethod(implObj, "GetUniqueIdentity"), flags, 2)
+        this.vtbl.GetSilos := CallbackCreate(GetMethod(implObj, "GetSilos"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Authorize)
+        CallbackFree(this.vtbl.Unauthorize)
+        CallbackFree(this.vtbl.GetAuthorizationState)
+        CallbackFree(this.vtbl.GetMatchingVolume)
+        CallbackFree(this.vtbl.GetUniqueIdentity)
+        CallbackFree(this.vtbl.GetSilos)
     }
 }

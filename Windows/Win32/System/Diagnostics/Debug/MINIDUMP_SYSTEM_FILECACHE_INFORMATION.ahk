@@ -1,83 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class MINIDUMP_SYSTEM_FILECACHE_INFORMATION extends Win32Struct {
-    static sizeof => 64
+export default struct MINIDUMP_SYSTEM_FILECACHE_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    CurrentSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CurrentSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PeakSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PeakSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    PageFaultCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PageFaultCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    MinimumWorkingSet : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MinimumWorkingSet {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    MaximumWorkingSet : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MaximumWorkingSet {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    CurrentSizeIncludingTransitionInPages : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CurrentSizeIncludingTransitionInPages {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    PeakSizeIncludingTransitionInPages : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PeakSizeIncludingTransitionInPages {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    TransitionRePurposeCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TransitionRePurposeCount {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
 }

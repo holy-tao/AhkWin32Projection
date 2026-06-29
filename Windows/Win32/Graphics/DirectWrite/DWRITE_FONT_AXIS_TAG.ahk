@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines constants that specify a four-character identifier for a font axis.
@@ -12,7 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_font_axis_tag
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class DWRITE_FONT_AXIS_TAG extends Win32Enum {
+export default struct DWRITE_FONT_AXIS_TAG {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies the weight axis, using the identifier 'w','g','h','t'.

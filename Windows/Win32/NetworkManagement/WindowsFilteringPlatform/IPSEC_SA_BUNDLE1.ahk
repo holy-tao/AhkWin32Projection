@@ -1,99 +1,60 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPSEC_SA_BUNDLE_FLAGS.ahk
-#Include .\IPSEC_SA_LIFETIME0.ahk
-#Include .\IPSEC_ID0.ahk
-#Include .\IPSEC_SA0.ahk
-#Include .\IPSEC_KEYMODULE_STATE0.ahk
-#Include .\FWP_IP_VERSION.ahk
-#Include .\IPSEC_PFS_GROUP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IPSEC_SA_LIFETIME0.ahk" { IPSEC_SA_LIFETIME0 }
+#Import ".\IPSEC_KEYMODULE_STATE0.ahk" { IPSEC_KEYMODULE_STATE0 }
+#Import ".\IPSEC_SA_BUNDLE_FLAGS.ahk" { IPSEC_SA_BUNDLE_FLAGS }
+#Import ".\IPSEC_PFS_GROUP.ahk" { IPSEC_PFS_GROUP }
+#Import ".\IPSEC_ID0.ahk" { IPSEC_ID0 }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FWP_IP_VERSION.ahk" { FWP_IP_VERSION }
+#Import ".\IPSEC_SA0.ahk" { IPSEC_SA0 }
 
 /**
  * Is used to store information about an IPsec security association (SA) bundle. (IPSEC_SA_BUNDLE1)
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_sa_bundle1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IPSEC_SA_BUNDLE1 extends Win32Struct {
-    static sizeof => 104
+export default struct IPSEC_SA_BUNDLE1 {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {IPSEC_SA_BUNDLE_FLAGS}
-     */
-    flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    flags : IPSEC_SA_BUNDLE_FLAGS
 
     /**
      * Lifetime of all the SAs in the bundle as specified by [IPSEC_SA_LIFETIME0](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_sa_lifetime0).
-     * @type {IPSEC_SA_LIFETIME0}
      */
-    lifetime {
-        get {
-            if(!this.HasProp("__lifetime"))
-                this.__lifetime := IPSEC_SA_LIFETIME0(4, this)
-            return this.__lifetime
-        }
-    }
+    lifetime : IPSEC_SA_LIFETIME0
 
     /**
      * Timeout in seconds after which the SAs in the bundle will idle out (due to traffic inactivity) and expire.
-     * @type {Integer}
      */
-    idleTimeoutSeconds {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    idleTimeoutSeconds : UInt32
 
     /**
      * Timeout in seconds, after which the IPsec SA should stop accepting
      *    packets coming in the clear. 
      * 
      * Used for negotiation discovery.
-     * @type {Integer}
      */
-    ndAllowClearTimeoutSeconds {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ndAllowClearTimeoutSeconds : UInt32
 
     /**
      * Pointer to an [IPSEC_ID0](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_id0) structure that contains optional IPsec identity info.
-     * @type {Pointer<IPSEC_ID0>}
      */
-    ipsecId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ipsecId : IPSEC_ID0.Ptr
 
     /**
      * Network Access Point (NAP) peer credentials information.
-     * @type {Integer}
      */
-    napContext {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    napContext : UInt32
 
     /**
      * SA identifier used by IPsec when choosing the SA to expire.  For an IPsec SA pair, the <b>qmSaId</b> must be the same between the initiating and responding machines and across inbound and outbound SA bundles.  For different IPsec pairs, the <b>qmSaId</b> must be different.
-     * @type {Integer}
      */
-    qmSaId {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    qmSaId : UInt32
 
     /**
      * Number of SAs in the bundle. The only possible values are 1 and 2. Use 2 only when specifying AH and ESP SAs.
-     * @type {Integer}
      */
-    numSAs {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    numSAs : UInt32
 
     /**
      * Array of IPsec SAs in the bundle. For AH and ESP SAs, use index 0 for ESP SA and index 1 for AH SA.
@@ -101,47 +62,25 @@ class IPSEC_SA_BUNDLE1 extends Win32Struct {
      * 
      * 
      * See [IPSEC_SA0](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_sa0) for more information.
-     * @type {Pointer<IPSEC_SA0>}
      */
-    saList {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    saList : IPSEC_SA0.Ptr
 
     /**
      * Optional keying module specific information as specified by [IPSEC_KEYMODULE_STATE0](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_keymodule_state0).
-     * @type {Pointer<IPSEC_KEYMODULE_STATE0>}
      */
-    keyModuleState {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    keyModuleState : IPSEC_KEYMODULE_STATE0.Ptr
 
     /**
      * IP version as specified by [FWP_IP_VERSION](/windows/desktop/api/fwptypes/ne-fwptypes-fwp_ip_version).
-     * @type {FWP_IP_VERSION}
      */
-    ipVersion {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
-    }
+    ipVersion : FWP_IP_VERSION
 
-    /**
-     * @type {Integer}
-     */
-    peerV4PrivateAddress {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    peerV4PrivateAddress : UInt32
 
     /**
      * Use this ID to correlate this IPsec SA with the IKE SA that generated it.
-     * @type {Integer}
      */
-    mmSaId {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    mmSaId : Int64
 
     /**
      * Specifies whether Quick Mode perfect forward secrecy (PFS) was enabled for
@@ -149,27 +88,14 @@ class IPSEC_SA_BUNDLE1 extends Win32Struct {
      *    PFS.
      * 
      * See [IPSEC_PFS_GROUP](/windows/desktop/api/ipsectypes/ne-ipsectypes-ipsec_pfs_group) for more information.
-     * @type {IPSEC_PFS_GROUP}
      */
-    pfsGroup {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
-    }
+    pfsGroup : IPSEC_PFS_GROUP
 
     /**
      * SA lookup context which is propagated from the SA to data connections flowing over that SA. It is made available to any application that queries socket security properties using the Winsock API <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-wsaquerysocketsecurity">WSAQuerySocketSecurity</a> function, allowing the application to obtain detailed IPsec authentication information for its connection.
-     * @type {Pointer}
      */
-    saLookupContext {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    saLookupContext : Guid
 
-    /**
-     * @type {Integer}
-     */
-    qmFilterId {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    qmFilterId : Int64
+
 }

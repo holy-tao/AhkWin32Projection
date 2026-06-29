@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\STRENTRYA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\STRENTRYA.ahk" { STRENTRYA }
 
 /**
  * Represents a table of registry string replacements. (ANSI)
@@ -11,26 +10,17 @@
  * @namespace Windows.Win32.System.WindowsProgramming
  * @charset ANSI
  */
-class STRTABLEA extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct STRTABLEA {
+    #StructPack 8
 
     /**
      * The number of entries in the table.
-     * @type {Integer}
      */
-    cEntries {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cEntries : UInt32
 
     /**
      * And array of entries.
-     * @type {Pointer<STRENTRYA>}
      */
-    pse {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pse : STRENTRYA.Ptr
+
 }

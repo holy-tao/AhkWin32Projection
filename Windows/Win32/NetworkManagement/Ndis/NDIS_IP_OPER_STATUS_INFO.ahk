@@ -1,52 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_OBJECT_HEADER.ahk
-#Include .\NDIS_IP_OPER_STATUS.ahk
-#Include .\NET_IF_OPER_STATUS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
+#Import ".\NDIS_IP_OPER_STATUS.ahk" { NDIS_IP_OPER_STATUS }
+#Import ".\NET_IF_OPER_STATUS.ahk" { NET_IF_OPER_STATUS }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NDIS_IP_OPER_STATUS_INFO extends Win32Struct {
-    static sizeof => 396
+export default struct NDIS_IP_OPER_STATUS_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    Header : NDIS_OBJECT_HEADER
 
-    /**
-     * @type {NDIS_OBJECT_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NumberofAddressFamiliesReturned : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberofAddressFamiliesReturned {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    IpOperationalStatus : NDIS_IP_OPER_STATUS[32]
 
-    /**
-     * @type {NDIS_IP_OPER_STATUS}
-     */
-    IpOperationalStatus {
-        get {
-            if(!this.HasProp("__IpOperationalStatusProxyArray"))
-                this.__IpOperationalStatusProxyArray := Win32FixedArray(this.ptr + 12, 32, NDIS_IP_OPER_STATUS, "")
-            return this.__IpOperationalStatusProxyArray
-        }
-    }
 }

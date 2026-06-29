@@ -1,35 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IStaticPortMapping.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IStaticPortMapping.ahk" { IStaticPortMapping }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IStaticPortMappingCollection interface provides methods to manage the collection of static port mappings.
  * @see https://learn.microsoft.com/windows/win32/api/natupnp/nn-natupnp-istaticportmappingcollection
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  */
-class IStaticPortMappingCollection extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IStaticPortMappingCollection extends IDispatch {
     /**
      * The interface identifier for IStaticPortMappingCollection
      * @type {Guid}
      */
-    static IID => Guid("{cd1f3e77-66d6-4664-82c7-36dbb641d0f1}")
+    static IID := Guid("{cd1f3e77-66d6-4664-82c7-36dbb641d0f1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IStaticPortMappingCollection interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get__NewEnum : IntPtr
+        get_Item     : IntPtr
+        get_Count    : IntPtr
+        Remove       : IntPtr
+        Add          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get__NewEnum", "get_Item", "get_Count", "Remove", "Add"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IStaticPortMappingCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IUnknown} 
@@ -68,7 +82,7 @@ class IStaticPortMappingCollection extends IDispatch {
     get_Item(lExternalPort, bstrProtocol) {
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
 
-        result := ComCall(8, this, "int", lExternalPort, "ptr", bstrProtocol, "ptr*", &ppSPM := 0, "HRESULT")
+        result := ComCall(8, this, "int", lExternalPort, BSTR, bstrProtocol, "ptr*", &ppSPM := 0, "HRESULT")
         return IStaticPortMapping(ppSPM)
     }
 
@@ -191,7 +205,7 @@ class IStaticPortMappingCollection extends IDispatch {
     Remove(lExternalPort, bstrProtocol) {
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
 
-        result := ComCall(10, this, "int", lExternalPort, "ptr", bstrProtocol, "HRESULT")
+        result := ComCall(10, this, "int", lExternalPort, BSTR, bstrProtocol, "HRESULT")
         return result
     }
 
@@ -215,7 +229,35 @@ class IStaticPortMappingCollection extends IDispatch {
         bstrInternalClient := bstrInternalClient is String ? BSTR.Alloc(bstrInternalClient).Value : bstrInternalClient
         bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
 
-        result := ComCall(11, this, "int", lExternalPort, "ptr", bstrProtocol, "int", lInternalPort, "ptr", bstrInternalClient, "short", bEnabled, "ptr", bstrDescription, "ptr*", &ppSPM := 0, "HRESULT")
+        result := ComCall(11, this, "int", lExternalPort, BSTR, bstrProtocol, "int", lInternalPort, BSTR, bstrInternalClient, VARIANT_BOOL, bEnabled, BSTR, bstrDescription, "ptr*", &ppSPM := 0, "HRESULT")
         return IStaticPortMapping(ppSPM)
+    }
+
+    Query(iid) {
+        if (IStaticPortMappingCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 4)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 3)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.get_Item)
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.Remove)
+        CallbackFree(this.vtbl.Add)
     }
 }

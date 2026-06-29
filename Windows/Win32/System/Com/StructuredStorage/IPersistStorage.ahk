@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IPersist.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IStorage.ahk" { IStorage }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\IPersist.ahk" { IPersist }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Enables a container application to pass a storage object to one of its contained objects and to load and save the storage object.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-ipersiststorage
  * @namespace Windows.Win32.System.Com.StructuredStorage
  */
-class IPersistStorage extends IPersist {
-
-    static sizeof => A_PtrSize
+export default struct IPersistStorage extends IPersist {
     /**
      * The interface identifier for IPersistStorage
      * @type {Guid}
      */
-    static IID => Guid("{0000010a-0000-0000-c000-000000000046}")
+    static IID := Guid("{0000010a-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPersistStorage interfaces
+    */
+    struct Vtbl extends IPersist.Vtbl {
+        IsDirty         : IntPtr
+        InitNew         : IntPtr
+        Load            : IntPtr
+        Save            : IntPtr
+        SaveCompleted   : IntPtr
+        HandsOffStorage : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsDirty", "InitNew", "Load", "Save", "SaveCompleted", "HandsOffStorage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPersistStorage.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Determines whether an object has changed since it was last saved to its current storage.
@@ -47,7 +62,7 @@ class IPersistStorage extends IPersist {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ipersiststorage-isdirty
      */
     IsDirty() {
-        result := ComCall(4, this, "int")
+        result := ComCall(4, this, Int32)
         return result
     }
 
@@ -308,7 +323,7 @@ class IPersistStorage extends IPersist {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ipersiststorage-save
      */
     Save(pStgSave, fSameAsLoad) {
-        result := ComCall(7, this, "ptr", pStgSave, "int", fSameAsLoad, "HRESULT")
+        result := ComCall(7, this, "ptr", pStgSave, BOOL, fSameAsLoad, "HRESULT")
         return result
     }
 
@@ -404,5 +419,35 @@ class IPersistStorage extends IPersist {
     HandsOffStorage() {
         result := ComCall(9, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPersistStorage.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsDirty := CallbackCreate(GetMethod(implObj, "IsDirty"), flags, 1)
+        this.vtbl.InitNew := CallbackCreate(GetMethod(implObj, "InitNew"), flags, 2)
+        this.vtbl.Load := CallbackCreate(GetMethod(implObj, "Load"), flags, 2)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 3)
+        this.vtbl.SaveCompleted := CallbackCreate(GetMethod(implObj, "SaveCompleted"), flags, 2)
+        this.vtbl.HandsOffStorage := CallbackCreate(GetMethod(implObj, "HandsOffStorage"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsDirty)
+        CallbackFree(this.vtbl.InitNew)
+        CallbackFree(this.vtbl.Load)
+        CallbackFree(this.vtbl.Save)
+        CallbackFree(this.vtbl.SaveCompleted)
+        CallbackFree(this.vtbl.HandsOffStorage)
     }
 }

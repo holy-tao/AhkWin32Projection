@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CLMD_PIV_GENERATE_ASYMMETRIC_KEY extends Win32Struct {
-    static sizeof => 24
+export default struct CLMD_PIV_GENERATE_ASYMMETRIC_KEY {
+    #StructPack 8
 
-    static packingSize => 8
+    dwVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    bAlgorithmId : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bAlgorithmId {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    bKeyId : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bKeyId {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    pbKey : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbKey {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    cbKey : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbKey {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

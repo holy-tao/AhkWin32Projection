@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * The **COLORMATCHSETUP** structure contains information that the [**SetupColorMatchingW**](/windows/win32/api/icm/nf-icm-setupcolormatchingw) function uses to initialize the **ColorManagement** dialog box. (Unicode)
@@ -8,28 +9,18 @@
  * @namespace Windows.Win32.UI.ColorSystem
  * @charset Unicode
  */
-class COLORMATCHSETUPW extends Win32Struct {
-    static sizeof => 136
-
-    static packingSize => 8
+export default struct COLORMATCHSETUPW {
+    #StructPack 8
 
     /**
      * Size of the structure. Should be set to **sizeof** ( **COLORMATCHSETUP** ).
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Version of the **COLORMATCHSETUP** structure. This should be set to COLOR\_MATCH\_VERSION.
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwVersion : UInt32
 
     /**
      * A set of bit flags used to initialize the dialog box. If set to 0 on entry, all controls assume their default states.
@@ -53,51 +44,28 @@ class COLORMATCHSETUPW extends Win32Struct {
      * | CMS\_TARGETOVERFLOW | This flag is set on exit if proofing is to be enabled and the buffer size given in **ccTargetProfile** is insufficient for the selected profile name. **GetLastError** returns ERROR\_INSUFFICIENT\_BUFFER in such a case. |
      * | CMS\_USEAPPLYCALLBACK | If set on entry, this flag indicates that the **SetupColorMatching** function should call the function [**PCMSCALLBACKW**](/windows/win32/api/icm/nc-icm-pcmscallbackw). The address of the callback function is contained in *lpfnApplyCallback*. |
      * | CMS\_USEDESCRIPTION | If set on entry, this flag instructs the **SetupColorMatching** function to retrieve the profile description contained in the profile description tags (See ICC Profile Format Specification v3.4). It will insert them into the **Monitor Profile**, **Printer Profile**, **Emulated Device Profile** edit boxes in the **Color Management** common dialog box. |
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwFlags : UInt32
 
     /**
      * The window handle to the owner of the dialog box, or **NULL** if the dialog box has no owner.
-     * @type {HWND}
      */
-    hwndOwner {
-        get {
-            if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(16, this)
-            return this.__hwndOwner
-        }
-    }
+    hwndOwner : HWND
 
     /**
      * Pointer to an application-specified string which describes the source profile of the item for which color management is to be performed. If this is **NULL**, the Image Source control displays the name of the Windows default color profile.
-     * @type {PWSTR}
      */
-    pSourceName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pSourceName : PWSTR
 
     /**
      * Points to a string naming the monitor to be used for color management. If this is not the name of a valid monitor, the first enumerated monitor is used.
-     * @type {PWSTR}
      */
-    pDisplayName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pDisplayName : PWSTR
 
     /**
      * Points to a string naming the printer on which the image is to be rendered. If this is not a valid printer name, the default printer is used and named in the dialog.
-     * @type {PWSTR}
      */
-    pPrinterName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pPrinterName : PWSTR
 
     /**
      * The type of color management desired. Valid values are:
@@ -111,12 +79,8 @@ class COLORMATCHSETUPW extends Win32Struct {
      * INTENT\_ABSOLUTE\_COLORIMETRIC
      * 
      * For more information, see [Rendering intents](/windows/win32/wcs/rendering-intents).
-     * @type {Integer}
      */
-    dwRenderIntent {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwRenderIntent : UInt32
 
     /**
      * The type of color management desired for the proofed image. Valid values are:
@@ -130,102 +94,59 @@ class COLORMATCHSETUPW extends Win32Struct {
      * INTENT\_ABSOLUTE\_COLORIMETRIC
      * 
      * For more information, see [Rendering intents](/windows/win32/wcs/rendering-intents).
-     * @type {Integer}
      */
-    dwProofingIntent {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwProofingIntent : UInt32
 
     /**
      * Pointer to a buffer in which to place the name of the user-selected monitor profile. If the CMS\_SETMONITORPROFILE flag is used, this flag can also be used to select a profile other than the monitor default when the dialog is first displayed.
-     * @type {PWSTR}
      */
-    pMonitorProfile {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pMonitorProfile : PWSTR
 
     /**
      * The size of the buffer pointed to by the **pMonitorProfile** member, in characters. If the buffer is not large enough to hold the selected name, the name is truncated to this size, and ERROR\_INSUFFICIENT\_BUFFER is returned. A buffer of MAX\_PATH size always works.
-     * @type {Integer}
      */
-    ccMonitorProfile {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    ccMonitorProfile : UInt32
 
     /**
      * Points to a buffer in which to place the name of the user-selected printer profile. If the CMS\_SETPRINTERPROFILE flag is used, this flag can also be used to select a profile other than the printer default when the dialog is first displayed.
-     * @type {PWSTR}
      */
-    pPrinterProfile {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    pPrinterProfile : PWSTR
 
     /**
      * The size of the buffer pointed to by the **pPrinterProfile** member, in characters. If the buffer is not large enough to hold the selected name, the name is truncated to this size, and ERROR\_INSUFFICIENT\_BUFFER is returned. A buffer of MAX\_PATH size always works.
-     * @type {Integer}
      */
-    ccPrinterProfile {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    ccPrinterProfile : UInt32
 
     /**
      * Points to a buffer in which to place the name of the user-selected target profile for proofing. If the CMS\_SETTARGETPROFILE flag is used, this flag can also be used to select a profile other than the printer default when the dialog is first displayed.
-     * @type {PWSTR}
      */
-    pTargetProfile {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    pTargetProfile : PWSTR
 
     /**
      * The size of the buffer pointed to by the **pTargetProfile** member, in characters. If the buffer is not large enough to hold the selected name, the name is truncated to this size, and ERROR\_INSUFFICIENT\_BUFFER is returned. A buffer of MAX\_PATH size always works.
-     * @type {Integer}
      */
-    ccTargetProfile {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    ccTargetProfile : UInt32
 
     /**
      * If the CMS\_USEHOOK flag is set, this member is the address of a dialog procedure (see [DialogProc](https://msdn.microsoft.com/windows/desktop/37c1b0b2-cf81-45d9-9a4e-9e5f7fa58dfd) ) that can filter or handle messages for the dialog. The hook procedure receives no messages issued before WM\_INITDIALOG. It is called on the WM\_INITDIALOG message after the system-provided dialog procedure has processed the message. On all other messages, the hook procedure receives the message before the system-provided procedure. If the hook procedure returns **TRUE** to these messages, the system-provided procedure is not called.
      * 
      * The hook procedure may call the [EndDialog](https://msdn.microsoft.com/windows/desktop/925e8aa8-9d8d-4bec-a19e-ba24e78b2d10) function.
-     * @type {Pointer<DLGPROC>}
      */
-    lpfnHook {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    lpfnHook : IntPtr
 
     /**
      * If the CMS\_USEHOOK flag is set, this member is passed to the application-provided hook procedure as the *lParam* parameter when the WM\_INITDIALOG message is processed.
-     * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    lParam : LPARAM
 
     /**
      * Contains a pointer to a callback function that is invoked when the **Apply** button of the Color Management dialog box is selected. If no callback function is provided, this member should be set to **NULL**. See [**PCMSCALLBACKW**](/windows/win32/api/icm/nc-icm-pcmscallbackw).
-     * @type {Pointer<PCMSCALLBACKW>}
      */
-    lpfnApplyCallback {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    lpfnApplyCallback : IntPtr
 
     /**
      * Contains a value that will be passed to the function **ApplyCallbackFunction** through its *lParam* parameter. The meaning and content of the value is specified by the application.
-     * @type {LPARAM}
      */
-    lParamApplyCallback {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    lParamApplyCallback : LPARAM
+
 }

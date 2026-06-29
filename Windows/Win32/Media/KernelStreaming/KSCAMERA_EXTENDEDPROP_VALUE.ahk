@@ -1,75 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSCAMERA_EXTENDEDPROP_VALUE extends Win32Struct {
-    static sizeof => 8
+export default struct KSCAMERA_EXTENDEDPROP_VALUE {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Value_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _Value {
+        dbl : Float64
 
-        /**
-         * @type {Float}
-         */
-        dbl {
-            get => NumGet(this, 0, "double")
-            set => NumPut("double", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        ull {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        ul {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        ratio {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        l {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        ll {
-            get => NumGet(this, 0, "int64")
-            set => NumPut("int64", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'ull', { type: Int64, offset: 0 })
+            DefineProp(this.Prototype, 'ul', { type: UInt32, offset: 0 })
+            DefineProp(this.Prototype, 'ratio', { type: Int64, offset: 0 })
+            DefineProp(this.Prototype, 'l', { type: Int32, offset: 0 })
+            DefineProp(this.Prototype, 'll', { type: Int64, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {_Value_e__Union}
-     */
-    Value {
-        get {
-            if(!this.HasProp("__Value"))
-                this.__Value := KSCAMERA_EXTENDEDPROP_VALUE._Value_e__Union(0, this)
-            return this.__Value
-        }
-    }
+    Value : KSCAMERA_EXTENDEDPROP_VALUE._Value
+
 }

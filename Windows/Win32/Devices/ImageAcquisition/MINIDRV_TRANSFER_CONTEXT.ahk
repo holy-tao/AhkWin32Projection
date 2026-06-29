@@ -1,228 +1,66 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IWiaMiniDrvCallBack.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWiaMiniDrvCallBack.ahk" { IWiaMiniDrvCallBack }
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
-class MINIDRV_TRANSFER_CONTEXT extends Win32Struct {
-    static sizeof => 144
+export default struct MINIDRV_TRANSFER_CONTEXT {
+    #StructPack 8
 
-    static packingSize => 8
+    lSize : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lSize {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    lWidthInPixels : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lWidthInPixels {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    lLines : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lLines {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    lDepth : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lDepth {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    lXRes : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lXRes {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    lYRes : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lYRes {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    lCompression : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lCompression {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    guidFormatID : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    guidFormatID {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    tymed : Int32
 
-    /**
-     * @type {Integer}
-     */
-    tymed {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    hFile : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    hFile {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    cbOffset : Int32
 
-    /**
-     * @type {Integer}
-     */
-    cbOffset {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    lBufferSize : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lBufferSize {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
-    }
+    lActiveBuffer : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lActiveBuffer {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
-    }
+    lNumBuffers : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lNumBuffers {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
-    }
+    pBaseBuffer : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pBaseBuffer {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    pTransferBuffer : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pTransferBuffer {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    bTransferDataCB : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    bTransferDataCB {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
-    }
+    bClassDrvAllocBuf : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    bClassDrvAllocBuf {
-        get => NumGet(this, 92, "int")
-        set => NumPut("int", value, this, 92)
-    }
+    lClientAddress : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    lClientAddress {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    pIWiaMiniDrvCallBack : IWiaMiniDrvCallBack
 
-    /**
-     * @type {IWiaMiniDrvCallBack}
-     */
-    pIWiaMiniDrvCallBack {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    lImageSize : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lImageSize {
-        get => NumGet(this, 112, "int")
-        set => NumPut("int", value, this, 112)
-    }
+    lHeaderSize : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lHeaderSize {
-        get => NumGet(this, 116, "int")
-        set => NumPut("int", value, this, 116)
-    }
+    lItemSize : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lItemSize {
-        get => NumGet(this, 120, "int")
-        set => NumPut("int", value, this, 120)
-    }
+    cbWidthInBytes : Int32
 
-    /**
-     * @type {Integer}
-     */
-    cbWidthInBytes {
-        get => NumGet(this, 124, "int")
-        set => NumPut("int", value, this, 124)
-    }
+    lPage : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lPage {
-        get => NumGet(this, 128, "int")
-        set => NumPut("int", value, this, 128)
-    }
+    lCurIfdOffset : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lCurIfdOffset {
-        get => NumGet(this, 132, "int")
-        set => NumPut("int", value, this, 132)
-    }
+    lPrevIfdOffset : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lPrevIfdOffset {
-        get => NumGet(this, 136, "int")
-        set => NumPut("int", value, this, 136)
-    }
 }

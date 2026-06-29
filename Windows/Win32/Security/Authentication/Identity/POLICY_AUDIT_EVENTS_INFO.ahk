@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * The POLICY_AUDIT_EVENTS_INFO structure is used to set and query the system's auditing rules.
@@ -8,10 +8,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-policy_audit_events_info
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class POLICY_AUDIT_EVENTS_INFO extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct POLICY_AUDIT_EVENTS_INFO {
+    #StructPack 8
 
     /**
      * Indicates whether auditing is enabled. 
@@ -22,12 +20,8 @@ class POLICY_AUDIT_EVENTS_INFO extends Win32Struct {
      * If this flag is <b>TRUE</b>, the system generates audit records according to the event auditing options specified in the <b>EventAuditingOptions</b> member.
      * 
      * If this flag is <b>FALSE</b>, the system does not generate audit records. However, note that set operations update the event auditing options as specified in the <b>EventAuditingOptions</b> member even when <b>AuditingMode</b> is <b>FALSE</b>.
-     * @type {BOOLEAN}
      */
-    AuditingMode {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    AuditingMode : BOOLEAN
 
     /**
      * Pointer to an array of POLICY_AUDIT_EVENT_OPTIONS variables. Each element in this array specifies the auditing options for an audit event type. The index of each array element corresponds to an audit event type value in the 
@@ -86,19 +80,12 @@ class POLICY_AUDIT_EVENTS_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Integer>}
      */
-    EventAuditingOptions {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    EventAuditingOptions : IntPtr
 
     /**
      * Specifies the number of elements in the <b>EventAuditingOptions</b> array. For set operations, if this value is less than the number of audit event types supported by the system, the system does not change the auditing options for event types with indexes equal to or higher than the value specified in <b>MaximumAuditEventCount</b>.
-     * @type {Integer}
      */
-    MaximumAuditEventCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    MaximumAuditEventCount : UInt32
+
 }

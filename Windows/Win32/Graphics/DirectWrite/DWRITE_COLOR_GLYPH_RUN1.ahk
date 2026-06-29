@@ -1,50 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DWRITE_COLOR_GLYPH_RUN.ahk
-#Include .\DWRITE_GLYPH_RUN.ahk
-#Include .\IDWriteFontFace.ahk
-#Include .\DWRITE_GLYPH_OFFSET.ahk
-#Include .\DWRITE_GLYPH_RUN_DESCRIPTION.ahk
-#Include .\DWRITE_COLOR_F.ahk
-#Include .\DWRITE_GLYPH_IMAGE_FORMATS.ahk
-#Include .\DWRITE_MEASURING_MODE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
+#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import ".\DWRITE_COLOR_F.ahk" { DWRITE_COLOR_F }
+#Import ".\DWRITE_GLYPH_RUN_DESCRIPTION.ahk" { DWRITE_GLYPH_RUN_DESCRIPTION }
+#Import ".\DWRITE_GLYPH_OFFSET.ahk" { DWRITE_GLYPH_OFFSET }
+#Import ".\DWRITE_GLYPH_IMAGE_FORMATS.ahk" { DWRITE_GLYPH_IMAGE_FORMATS }
+#Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DWRITE_COLOR_GLYPH_RUN.ahk" { DWRITE_COLOR_GLYPH_RUN }
 
 /**
  * Represents a color glyph run. The IDWriteFactory4::TranslateColorGlyphRun method returns an ordered collection of color glyph runs of varying types depending on what the font supports.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/ns-dwrite_3-dwrite_color_glyph_run1
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class DWRITE_COLOR_GLYPH_RUN1 extends Win32Struct {
-    static sizeof => 96
+export default struct DWRITE_COLOR_GLYPH_RUN1 {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {DWRITE_COLOR_GLYPH_RUN}
-     */
-    Base {
-        get {
-            if(!this.HasProp("__Base"))
-                this.__Base := DWRITE_COLOR_GLYPH_RUN(0, this)
-            return this.__Base
-        }
-    }
+    Base : DWRITE_COLOR_GLYPH_RUN
 
     /**
      * Type of glyph image format for this color run. Exactly one type will be set since TranslateColorGlyphRun has already broken down the run into separate parts.
-     * @type {DWRITE_GLYPH_IMAGE_FORMATS}
      */
-    glyphImageFormat {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
-    }
+    glyphImageFormat : DWRITE_GLYPH_IMAGE_FORMATS
 
     /**
      * Measuring mode to use for this glyph run.
-     * @type {DWRITE_MEASURING_MODE}
      */
-    measuringMode {
-        get => NumGet(this, 92, "int")
-        set => NumPut("int", value, this, 92)
-    }
+    measuringMode : DWRITE_MEASURING_MODE
+
 }

@@ -1,51 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.Data.HtmlHelp
  */
-class HH_ENUM_IT extends Win32Struct {
-    static sizeof => 32
+export default struct HH_ENUM_IT {
+    #StructPack 8
 
-    static packingSize => 8
+    cbStruct : Int32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    iType : Int32
 
-    /**
-     * @type {Integer}
-     */
-    iType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    pszCatName : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    pszCatName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszITName : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    pszITName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszITDescription : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    pszITDescription {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

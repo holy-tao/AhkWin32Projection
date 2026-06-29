@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class SPEVENTSOURCEINFO extends Win32Struct {
-    static sizeof => 24
+export default struct SPEVENTSOURCEINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    ullEventInterest : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullEventInterest {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ullQueuedInterest : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullQueuedInterest {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

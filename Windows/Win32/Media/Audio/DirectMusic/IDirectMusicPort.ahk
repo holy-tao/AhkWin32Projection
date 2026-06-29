@@ -1,33 +1,68 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IDirectMusicDownloadedInstrument.ahk
-#Include ..\..\IReferenceClock.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DMUS_PORTCAPS.ahk" { DMUS_PORTCAPS }
+#Import "..\..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
+#Import "..\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\IDirectMusicBuffer.ahk" { IDirectMusicBuffer }
+#Import ".\DMUS_SYNTHSTATS.ahk" { DMUS_SYNTHSTATS }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\IReferenceClock.ahk" { IReferenceClock }
+#Import ".\DMUS_NOTERANGE.ahk" { DMUS_NOTERANGE }
+#Import ".\IDirectMusicDownloadedInstrument.ahk" { IDirectMusicDownloadedInstrument }
+#Import "..\DirectSound\IDirectSoundBuffer.ahk" { IDirectSoundBuffer }
+#Import "..\DirectSound\IDirectSound.ahk" { IDirectSound }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDirectMusicInstrument.ahk" { IDirectMusicInstrument }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
-class IDirectMusicPort extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectMusicPort extends IUnknown {
     /**
      * The interface identifier for IDirectMusicPort
      * @type {Guid}
      */
-    static IID => Guid("{08f2d8c9-37c2-11d2-b9f9-0000f875ac12}")
+    static IID := Guid("{08f2d8c9-37c2-11d2-b9f9-0000f875ac12}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectMusicPort interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        PlayBuffer                : IntPtr
+        SetReadNotificationHandle : IntPtr
+        Read                      : IntPtr
+        DownloadInstrument        : IntPtr
+        UnloadInstrument          : IntPtr
+        GetLatencyClock           : IntPtr
+        GetRunningStats           : IntPtr
+        Compact                   : IntPtr
+        GetCaps                   : IntPtr
+        DeviceIoControl           : IntPtr
+        SetNumChannelGroups       : IntPtr
+        GetNumChannelGroups       : IntPtr
+        Activate                  : IntPtr
+        SetChannelPriority        : IntPtr
+        GetChannelPriority        : IntPtr
+        SetDirectSound            : IntPtr
+        GetFormat                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["PlayBuffer", "SetReadNotificationHandle", "Read", "DownloadInstrument", "UnloadInstrument", "GetLatencyClock", "GetRunningStats", "Compact", "GetCaps", "DeviceIoControl", "SetNumChannelGroups", "GetNumChannelGroups", "Activate", "SetChannelPriority", "GetChannelPriority", "SetDirectSound", "GetFormat"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectMusicPort.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -45,19 +80,14 @@ class IDirectMusicPort extends IUnknown {
      * @returns {HRESULT} 
      */
     SetReadNotificationHandle(hEvent) {
-        hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
-
-        result := ComCall(4, this, "ptr", hEvent, "HRESULT")
+        result := ComCall(4, this, HANDLE, hEvent, "HRESULT")
         return result
     }
 
     /**
-     * The ReadBlobFromFile function reads a BLOB in a file.
-     * @param {IDirectMusicBuffer} pBuffer 
-     * @returns {HRESULT} If the function is successful, the return value is NMERR\_SUCCESS.
      * 
-     * If the function is unsuccessful, the return value is a NMERR value that indicates the error.
-     * @see https://learn.microsoft.com/windows/win32/NetMon2/readblobfromfile
+     * @param {IDirectMusicBuffer} pBuffer 
+     * @returns {HRESULT} 
      */
     Read(pBuffer) {
         result := ComCall(5, this, "ptr", pBuffer, "HRESULT")
@@ -72,7 +102,7 @@ class IDirectMusicPort extends IUnknown {
      * @returns {IDirectMusicDownloadedInstrument} 
      */
     DownloadInstrument(pInstrument, pNoteRanges, dwNumNoteRanges) {
-        result := ComCall(6, this, "ptr", pInstrument, "ptr*", &ppDownloadedInstrument := 0, "ptr", pNoteRanges, "uint", dwNumNoteRanges, "HRESULT")
+        result := ComCall(6, this, "ptr", pInstrument, "ptr*", &ppDownloadedInstrument := 0, DMUS_NOTERANGE.Ptr, pNoteRanges, "uint", dwNumNoteRanges, "HRESULT")
         return IDirectMusicDownloadedInstrument(ppDownloadedInstrument)
     }
 
@@ -101,14 +131,13 @@ class IDirectMusicPort extends IUnknown {
      * @returns {HRESULT} 
      */
     GetRunningStats(pStats) {
-        result := ComCall(9, this, "ptr", pStats, "HRESULT")
+        result := ComCall(9, this, DMUS_SYNTHSTATS.Ptr, pStats, "HRESULT")
         return result
     }
 
     /**
-     * Learn more about: CompactGrbit enumeration
+     * 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/compactgrbit-enumeration
      */
     Compact() {
         result := ComCall(10, this, "HRESULT")
@@ -121,7 +150,7 @@ class IDirectMusicPort extends IUnknown {
      * @returns {HRESULT} 
      */
     GetCaps(pPortCaps) {
-        result := ComCall(11, this, "ptr", pPortCaps, "HRESULT")
+        result := ComCall(11, this, DMUS_PORTCAPS.Ptr, pPortCaps, "HRESULT")
         return result
     }
 
@@ -255,7 +284,7 @@ class IDirectMusicPort extends IUnknown {
         lpOutBufferMarshal := lpOutBuffer is VarRef ? "ptr" : "ptr"
         lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "uint", dwIoControlCode, lpInBufferMarshal, lpInBuffer, "uint", nInBufferSize, lpOutBufferMarshal, lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpOverlapped, "HRESULT")
+        result := ComCall(12, this, "uint", dwIoControlCode, lpInBufferMarshal, lpInBuffer, "uint", nInBufferSize, lpOutBufferMarshal, lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return result
     }
 
@@ -282,27 +311,12 @@ class IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * The ActivateActCtx function activates the specified activation context.
-     * @remarks
-     * The <i>lpCookie</i> parameter is later passed to 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-deactivateactctx">DeactivateActCtx</a>, which verifies the pairing of calls to 
-     * <b>ActivateActCtx</b> and 
-     * <b>DeactivateActCtx</b> and ensures that the appropriate activation context is being deactivated. This is done because the deactivation of activation contexts must occur in the reverse order of activation.
      * 
-     * The activation of activation contexts can be understood as pushing an activation context onto a stack of activation contexts. The activation context you activate through this function  redirects any binding to DLLs, window classes, COM servers, type libraries, and mutexes for any side-by-side APIs you call.
-     * 
-     * The top item of an activation context stack is the active, default-activation context of the current thread. If a null activation context handle is pushed onto the stack, thereby activating it, the default settings in the original manifest override all activation contexts that are lower on the stack.
      * @param {BOOL} fActive 
-     * @returns {HRESULT} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
-     * 
-     * This function sets errors that can be retrieved by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-activateactctx
+     * @returns {HRESULT} 
      */
     Activate(fActive) {
-        result := ComCall(15, this, "int", fActive, "HRESULT")
+        result := ComCall(15, this, BOOL, fActive, "HRESULT")
         return result
     }
 
@@ -344,18 +358,69 @@ class IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetFormatProp
+     * 
      * @param {Pointer<WAVEFORMATEX>} pWaveFormatEx 
      * @param {Pointer<Integer>} pdwWaveFormatExSize 
      * @param {Pointer<Integer>} pdwBufferSize 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecprops-getformatprop
      */
     GetFormat(pWaveFormatEx, pdwWaveFormatExSize, pdwBufferSize) {
         pdwWaveFormatExSizeMarshal := pdwWaveFormatExSize is VarRef ? "uint*" : "ptr"
         pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(19, this, "ptr", pWaveFormatEx, pdwWaveFormatExSizeMarshal, pdwWaveFormatExSize, pdwBufferSizeMarshal, pdwBufferSize, "HRESULT")
+        result := ComCall(19, this, WAVEFORMATEX.Ptr, pWaveFormatEx, pdwWaveFormatExSizeMarshal, pdwWaveFormatExSize, pdwBufferSizeMarshal, pdwBufferSize, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectMusicPort.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.PlayBuffer := CallbackCreate(GetMethod(implObj, "PlayBuffer"), flags, 2)
+        this.vtbl.SetReadNotificationHandle := CallbackCreate(GetMethod(implObj, "SetReadNotificationHandle"), flags, 2)
+        this.vtbl.Read := CallbackCreate(GetMethod(implObj, "Read"), flags, 2)
+        this.vtbl.DownloadInstrument := CallbackCreate(GetMethod(implObj, "DownloadInstrument"), flags, 5)
+        this.vtbl.UnloadInstrument := CallbackCreate(GetMethod(implObj, "UnloadInstrument"), flags, 2)
+        this.vtbl.GetLatencyClock := CallbackCreate(GetMethod(implObj, "GetLatencyClock"), flags, 2)
+        this.vtbl.GetRunningStats := CallbackCreate(GetMethod(implObj, "GetRunningStats"), flags, 2)
+        this.vtbl.Compact := CallbackCreate(GetMethod(implObj, "Compact"), flags, 1)
+        this.vtbl.GetCaps := CallbackCreate(GetMethod(implObj, "GetCaps"), flags, 2)
+        this.vtbl.DeviceIoControl := CallbackCreate(GetMethod(implObj, "DeviceIoControl"), flags, 8)
+        this.vtbl.SetNumChannelGroups := CallbackCreate(GetMethod(implObj, "SetNumChannelGroups"), flags, 2)
+        this.vtbl.GetNumChannelGroups := CallbackCreate(GetMethod(implObj, "GetNumChannelGroups"), flags, 2)
+        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 2)
+        this.vtbl.SetChannelPriority := CallbackCreate(GetMethod(implObj, "SetChannelPriority"), flags, 4)
+        this.vtbl.GetChannelPriority := CallbackCreate(GetMethod(implObj, "GetChannelPriority"), flags, 4)
+        this.vtbl.SetDirectSound := CallbackCreate(GetMethod(implObj, "SetDirectSound"), flags, 3)
+        this.vtbl.GetFormat := CallbackCreate(GetMethod(implObj, "GetFormat"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.PlayBuffer)
+        CallbackFree(this.vtbl.SetReadNotificationHandle)
+        CallbackFree(this.vtbl.Read)
+        CallbackFree(this.vtbl.DownloadInstrument)
+        CallbackFree(this.vtbl.UnloadInstrument)
+        CallbackFree(this.vtbl.GetLatencyClock)
+        CallbackFree(this.vtbl.GetRunningStats)
+        CallbackFree(this.vtbl.Compact)
+        CallbackFree(this.vtbl.GetCaps)
+        CallbackFree(this.vtbl.DeviceIoControl)
+        CallbackFree(this.vtbl.SetNumChannelGroups)
+        CallbackFree(this.vtbl.GetNumChannelGroups)
+        CallbackFree(this.vtbl.Activate)
+        CallbackFree(this.vtbl.SetChannelPriority)
+        CallbackFree(this.vtbl.GetChannelPriority)
+        CallbackFree(this.vtbl.SetDirectSound)
+        CallbackFree(this.vtbl.GetFormat)
     }
 }

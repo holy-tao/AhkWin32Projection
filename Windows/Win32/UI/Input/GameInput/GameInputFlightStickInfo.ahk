@@ -1,53 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\GameInputLabel.ahk
-#Include .\GameInputSwitchKind.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GameInputSwitchKind.ahk" { GameInputSwitchKind }
+#Import ".\GameInputLabel.ahk" { GameInputLabel }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
  */
-class GameInputFlightStickInfo extends Win32Struct {
-    static sizeof => 20
+export default struct GameInputFlightStickInfo {
+    #StructPack 4
 
-    static packingSize => 4
+    menuButtonLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    menuButtonLabel {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    viewButtonLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    viewButtonLabel {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    firePrimaryButtonLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    firePrimaryButtonLabel {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    fireSecondaryButtonLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    fireSecondaryButtonLabel {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    hatSwitchKind : GameInputSwitchKind
 
-    /**
-     * @type {GameInputSwitchKind}
-     */
-    hatSwitchKind {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
 }

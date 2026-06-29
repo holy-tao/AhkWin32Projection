@@ -1,34 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ISCPSecureExchange.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WMDMRIGHTS.ahk" { WMDMRIGHTS }
+#Import ".\IMDSPStorageGlobals.ahk" { IMDSPStorageGlobals }
+#Import ".\ISCPSecureExchange.ahk" { ISCPSecureExchange }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ISCPSecureQuery interface is queried by Windows Media Device Manager to determine ownership of secured content.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iscpsecurequery
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class ISCPSecureQuery extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISCPSecureQuery extends IUnknown {
     /**
      * The interface identifier for ISCPSecureQuery
      * @type {Guid}
      */
-    static IID => Guid("{1dcb3a0d-33ed-11d3-8470-00c04f79dbc0}")
+    static IID := Guid("{1dcb3a0d-33ed-11d3-8470-00c04f79dbc0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISCPSecureQuery interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDataDemands : IntPtr
+        ExamineData    : IntPtr
+        MakeDecision   : IntPtr
+        GetRights      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDataDemands", "ExamineData", "MakeDecision", "GetRights"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISCPSecureQuery.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetDataDemands method reports which data the secure content provider needs to determine the rights and responsibility for a specified piece of content.
@@ -392,5 +406,31 @@ class ISCPSecureQuery extends IUnknown {
 
         result := ComCall(6, this, pDataMarshal, pData, "uint", dwSize, pbSPSessionKeyMarshal, pbSPSessionKey, "uint", dwSessionKeyLen, "ptr", pStgGlobals, ppRightsMarshal, ppRights, pnRightsCountMarshal, pnRightsCount, abMacMarshal, abMac, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISCPSecureQuery.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDataDemands := CallbackCreate(GetMethod(implObj, "GetDataDemands"), flags, 6)
+        this.vtbl.ExamineData := CallbackCreate(GetMethod(implObj, "ExamineData"), flags, 6)
+        this.vtbl.MakeDecision := CallbackCreate(GetMethod(implObj, "MakeDecision"), flags, 10)
+        this.vtbl.GetRights := CallbackCreate(GetMethod(implObj, "GetRights"), flags, 9)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDataDemands)
+        CallbackFree(this.vtbl.ExamineData)
+        CallbackFree(this.vtbl.MakeDecision)
+        CallbackFree(this.vtbl.GetRights)
     }
 }

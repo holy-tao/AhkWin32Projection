@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Note  This interface has been deprecated. Note  Microsoft does not provide an implementation of this interface.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamanalogvideoencoder
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAMAnalogVideoEncoder extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAMAnalogVideoEncoder extends IUnknown {
     /**
      * The interface identifier for IAMAnalogVideoEncoder
      * @type {Guid}
      */
-    static IID => Guid("{c6e133b0-30ac-11d0-a18c-00a0c9118956}")
+    static IID := Guid("{c6e133b0-30ac-11d0-a18c-00a0c9118956}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAMAnalogVideoEncoder interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_AvailableTVFormats : IntPtr
+        put_TVFormat           : IntPtr
+        get_TVFormat           : IntPtr
+        put_CopyProtection     : IntPtr
+        get_CopyProtection     : IntPtr
+        put_CCEnable           : IntPtr
+        get_CCEnable           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_AvailableTVFormats", "put_TVFormat", "get_TVFormat", "put_CopyProtection", "get_CopyProtection", "put_CCEnable", "get_CCEnable"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAMAnalogVideoEncoder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -167,5 +181,37 @@ class IAMAnalogVideoEncoder extends IUnknown {
     get_CCEnable() {
         result := ComCall(9, this, "int*", &lCCEnable := 0, "HRESULT")
         return lCCEnable
+    }
+
+    Query(iid) {
+        if (IAMAnalogVideoEncoder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_AvailableTVFormats := CallbackCreate(GetMethod(implObj, "get_AvailableTVFormats"), flags, 2)
+        this.vtbl.put_TVFormat := CallbackCreate(GetMethod(implObj, "put_TVFormat"), flags, 2)
+        this.vtbl.get_TVFormat := CallbackCreate(GetMethod(implObj, "get_TVFormat"), flags, 2)
+        this.vtbl.put_CopyProtection := CallbackCreate(GetMethod(implObj, "put_CopyProtection"), flags, 2)
+        this.vtbl.get_CopyProtection := CallbackCreate(GetMethod(implObj, "get_CopyProtection"), flags, 2)
+        this.vtbl.put_CCEnable := CallbackCreate(GetMethod(implObj, "put_CCEnable"), flags, 2)
+        this.vtbl.get_CCEnable := CallbackCreate(GetMethod(implObj, "get_CCEnable"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_AvailableTVFormats)
+        CallbackFree(this.vtbl.put_TVFormat)
+        CallbackFree(this.vtbl.get_TVFormat)
+        CallbackFree(this.vtbl.put_CopyProtection)
+        CallbackFree(this.vtbl.get_CopyProtection)
+        CallbackFree(this.vtbl.put_CCEnable)
+        CallbackFree(this.vtbl.get_CCEnable)
     }
 }

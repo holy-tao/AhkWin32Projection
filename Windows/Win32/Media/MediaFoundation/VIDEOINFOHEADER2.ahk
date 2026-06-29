@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk" { BITMAPINFOHEADER }
 
 /**
  * The VIDEOINFOHEADER2 structure describes the bitmap and color information for a video image, including interlace, copy protection, and pixel aspect ratio information.
@@ -186,61 +185,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ns-dvdmedia-videoinfoheader2
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class VIDEOINFOHEADER2 extends Win32Struct {
-    static sizeof => 112
-
-    static packingSize => 8
+export default struct VIDEOINFOHEADER2 {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that specifies what part of the source stream should be used to fill the destination buffer. Renderers can use this field to ask the decoders to stretch or clip. For more information, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/source-and-target-rectangles-in-video-renderers">Source and Target Rectangles in Video Renderers</a>.
-     * @type {RECT}
      */
-    rcSource {
-        get {
-            if(!this.HasProp("__rcSource"))
-                this.__rcSource := RECT(0, this)
-            return this.__rcSource
-        }
-    }
+    rcSource : RECT
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that specifies that specifies what part of the destination buffer should be used
-     * @type {RECT}
      */
-    rcTarget {
-        get {
-            if(!this.HasProp("__rcTarget"))
-                this.__rcTarget := RECT(16, this)
-            return this.__rcTarget
-        }
-    }
+    rcTarget : RECT
 
     /**
      * The approximate data rate of the video stream, in bits per second.
-     * @type {Integer}
      */
-    dwBitRate {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwBitRate : UInt32
 
     /**
      * The data error rate of the video stream, in bits per second.
-     * @type {Integer}
      */
-    dwBitErrorRate {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwBitErrorRate : UInt32
 
     /**
      * The video frame's average display time, in 100-nanosecond units. For more information, see the Remarks section for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/amvideo/ns-amvideo-videoinfoheader">VIDEOINFOHEADER</a> structure.
-     * @type {Integer}
      */
-    AvgTimePerFrame {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
-    }
+    AvgTimePerFrame : Int64
 
     /**
      * Flags that specify how the video is interlaced. This member is a bit-wise combination of zero or more of the following flags. The flags in Group 2 are mutually exclusive, and so are the flags in Group 3. (The flags in Group 2 are not recommended.) The flags in Group 1 may be combined with each other, and with one flag each from Group 2 and Group 3. See the table at the bottom of this page for more information about flag combinations.
@@ -370,76 +341,40 @@ class VIDEOINFOHEADER2 extends Win32Struct {
      *  
      * 
      * Set undefined flags to zero, or the connection will be rejected.
-     * @type {Integer}
      */
-    dwInterlaceFlags {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwInterlaceFlags : UInt32
 
     /**
      * Flag set with the AMCOPYPROTECT_RestrictDuplication value (0x00000001) to indicate that the duplication of the stream should be restricted. If undefined, specify zero or else the connection will be rejected.
-     * @type {Integer}
      */
-    dwCopyProtectFlags {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwCopyProtectFlags : UInt32
 
     /**
      * The X dimension of picture aspect ratio. For example, 16 for a 16-inch x 9-inch display.
-     * @type {Integer}
      */
-    dwPictAspectRatioX {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    dwPictAspectRatioX : UInt32
 
     /**
      * The Y dimension of picture aspect ratio. For example, 9 for a 16-inch x 9-inch display.
-     * @type {Integer}
      */
-    dwPictAspectRatioY {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    dwPictAspectRatioY : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwControlFlags {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwReserved1 {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    dwControlFlags : UInt32
 
     /**
      * Reserved for future use. Must be zero.
-     * @type {Integer}
      */
-    dwReserved2 {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    dwReserved2 : UInt32
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure that contains color and dimension information for the video image bitmap.
      * 
      * When used inside a <b>VIDEOINFOHEADER2</b> structure, the semantics of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure differ slightly from how the structure is used in GDI. For more information, refer to the topic <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a>.
-     * @type {BITMAPINFOHEADER}
      */
-    bmiHeader {
-        get {
-            if(!this.HasProp("__bmiHeader"))
-                this.__bmiHeader := BITMAPINFOHEADER(72, this)
-            return this.__bmiHeader
-        }
+    bmiHeader : BITMAPINFOHEADER
+
+    static __New() {
+        DefineProp(this.Prototype, 'dwReserved1', { type: UInt32, offset: 64 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the possible states that a storage class resource can be placed in when marked for maintenance.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ne-clusapi-maintenance_mode_type_enum
  * @namespace Windows.Win32.Networking.Clustering
  */
-class MAINTENANCE_MODE_TYPE_ENUM extends Win32Enum {
+export default struct MAINTENANCE_MODE_TYPE_ENUM {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates that the server is ignoring the result of the resource's health check.

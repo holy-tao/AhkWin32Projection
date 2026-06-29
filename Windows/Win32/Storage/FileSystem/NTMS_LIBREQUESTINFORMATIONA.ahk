@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * The NTMS_LIBREQUESTINFORMATION structure defines the properties specific to a work request, which are queued to RSM. (ANSI)
@@ -21,157 +22,82 @@
  * @namespace Windows.Win32.Storage.FileSystem
  * @charset ANSI
  */
-class NTMS_LIBREQUESTINFORMATIONA extends Win32Struct {
-    static sizeof => 304
+export default struct NTMS_LIBREQUESTINFORMATIONA {
+    #StructPack 4
 
-    static packingSize => 8
-
-    /**
-     * @type {Integer}
-     */
-    OperationCode {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    OperationCode : UInt32
 
     /**
      * Work item options (command specific).
-     * @type {Integer}
      */
-    OperationOption {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    OperationOption : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    State {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    State : UInt32
 
     /**
      * Unique identifier of a side being serviced.
-     * @type {Pointer}
      */
-    PartitionId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    PartitionId : Guid
 
     /**
      * Unique identifier of a drive being serviced.
-     * @type {Pointer}
      */
-    DriveId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    DriveId : Guid
 
     /**
      * Unique identifier of a piece of physical media being serviced.
-     * @type {Pointer}
      */
-    PhysMediaId {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    PhysMediaId : Guid
 
     /**
      * Library for this request.
-     * @type {Pointer}
      */
-    Library {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    Library : Guid
 
     /**
      * Unique identifier of a slot of the piece of physical media being serviced.
-     * @type {Pointer}
      */
-    SlotId {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    SlotId : Guid
 
     /**
      * System time that this request was queued to RSM.
-     * @type {SYSTEMTIME}
      */
-    TimeQueued {
-        get {
-            if(!this.HasProp("__TimeQueued"))
-                this.__TimeQueued := SYSTEMTIME(56, this)
-            return this.__TimeQueued
-        }
-    }
+    TimeQueued : SYSTEMTIME
 
     /**
      * System time that this request was completed by RSM.
-     * @type {SYSTEMTIME}
      */
-    TimeCompleted {
-        get {
-            if(!this.HasProp("__TimeCompleted"))
-                this.__TimeCompleted := SYSTEMTIME(72, this)
-            return this.__TimeCompleted
-        }
-    }
+    TimeCompleted : SYSTEMTIME
 
     /**
      * Application that submitted the operator request.
-     * @type {String}
      */
-    szApplication {
-        get => StrGet(this.ptr + 88, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 88, 63, "UTF-8")
-    }
+    szApplication : CHAR[64]
 
     /**
      * Interactive user logged on to the computer that submitted the operator request.
-     * @type {String}
      */
-    szUser {
-        get => StrGet(this.ptr + 152, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 152, 63, "UTF-8")
-    }
+    szUser : CHAR[64]
 
     /**
      * Computer that submitted the operator request.
-     * @type {String}
      */
-    szComputer {
-        get => StrGet(this.ptr + 216, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 216, 63, "UTF-8")
-    }
+    szComputer : CHAR[64]
 
     /**
      * Error return for requests that return with state NTMS_LM_FAILED. This is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @type {Integer}
      */
-    dwErrorCode {
-        get => NumGet(this, 280, "uint")
-        set => NumPut("uint", value, this, 280)
-    }
+    dwErrorCode : UInt32
 
     /**
      * Associated work item ID for this request. This is currently used to contain the work item ID to be canceled on an NTMS_LM_REMOVE request.
-     * @type {Pointer}
      */
-    WorkItemId {
-        get => NumGet(this, 288, "ptr")
-        set => NumPut("ptr", value, this, 288)
-    }
+    WorkItemId : Guid
 
     /**
      * Priority of the work item.
-     * @type {Integer}
      */
-    dwPriority {
-        get => NumGet(this, 296, "uint")
-        set => NumPut("uint", value, this, 296)
-    }
+    dwPriority : UInt32
+
 }

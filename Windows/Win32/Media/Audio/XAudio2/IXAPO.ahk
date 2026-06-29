@@ -1,7 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\XAPO_LOCKFORPROCESS_PARAMETERS.ahk" { XAPO_LOCKFORPROCESS_PARAMETERS }
+#Import ".\XAPO_PROCESS_BUFFER_PARAMETERS.ahk" { XAPO_PROCESS_BUFFER_PARAMETERS }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\XAPO_REGISTRATION_PROPERTIES.ahk" { XAPO_REGISTRATION_PROPERTIES }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The interface for an Audio Processing Object which be used in an XAudio2 effect chain.
@@ -11,26 +17,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/xapo/nn-xapo-ixapo
  * @namespace Windows.Win32.Media.Audio.XAudio2
  */
-class IXAPO extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IXAPO extends IUnknown {
     /**
      * The interface identifier for IXAPO
      * @type {Guid}
      */
-    static IID => Guid("{a410b984-9839-4819-a0be-2856ae6b3adb}")
+    static IID := Guid("{a410b984-9839-4819-a0be-2856ae6b3adb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXAPO interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetRegistrationProperties : IntPtr
+        IsInputFormatSupported    : IntPtr
+        IsOutputFormatSupported   : IntPtr
+        Initialize                : IntPtr
+        Reset                     : IntPtr
+        LockForProcess            : IntPtr
+        UnlockForProcess          : IntPtr
+        Process                   : IntPtr
+        CalcInputFrames           : IntPtr
+        CalcOutputFrames          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetRegistrationProperties", "IsInputFormatSupported", "IsOutputFormatSupported", "Initialize", "Reset", "LockForProcess", "UnlockForProcess", "Process", "CalcInputFrames", "CalcOutputFrames"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXAPO.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns the registration properties of an XAPO.
@@ -60,7 +82,7 @@ class IXAPO extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xapo/nf-xapo-ixapo-isinputformatsupported
      */
     IsInputFormatSupported(pOutputFormat, pRequestedInputFormat) {
-        result := ComCall(4, this, "ptr", pOutputFormat, "ptr", pRequestedInputFormat, "ptr*", &ppSupportedInputFormat := 0, "HRESULT")
+        result := ComCall(4, this, WAVEFORMATEX.Ptr, pOutputFormat, WAVEFORMATEX.Ptr, pRequestedInputFormat, "ptr*", &ppSupportedInputFormat := 0, "HRESULT")
         return ppSupportedInputFormat
     }
 
@@ -77,7 +99,7 @@ class IXAPO extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xapo/nf-xapo-ixapo-isoutputformatsupported
      */
     IsOutputFormatSupported(pInputFormat, pRequestedOutputFormat) {
-        result := ComCall(5, this, "ptr", pInputFormat, "ptr", pRequestedOutputFormat, "ptr*", &ppSupportedOutputFormat := 0, "HRESULT")
+        result := ComCall(5, this, WAVEFORMATEX.Ptr, pInputFormat, WAVEFORMATEX.Ptr, pRequestedOutputFormat, "ptr*", &ppSupportedOutputFormat := 0, "HRESULT")
         return ppSupportedOutputFormat
     }
 
@@ -163,7 +185,7 @@ class IXAPO extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xapo/nf-xapo-ixapo-lockforprocess
      */
     LockForProcess(InputLockedParameterCount, pInputLockedParameters, OutputLockedParameterCount, pOutputLockedParameters) {
-        result := ComCall(8, this, "uint", InputLockedParameterCount, "ptr", pInputLockedParameters, "uint", OutputLockedParameterCount, "ptr", pOutputLockedParameters, "HRESULT")
+        result := ComCall(8, this, "uint", InputLockedParameterCount, XAPO_LOCKFORPROCESS_PARAMETERS.Ptr, pInputLockedParameters, "uint", OutputLockedParameterCount, XAPO_LOCKFORPROCESS_PARAMETERS.Ptr, pOutputLockedParameters, "HRESULT")
         return result
     }
 
@@ -228,7 +250,7 @@ class IXAPO extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xapo/nf-xapo-ixapo-process
      */
     Process(InputProcessParameterCount, pInputProcessParameters, OutputProcessParameterCount, pOutputProcessParameters, IsEnabled) {
-        ComCall(10, this, "uint", InputProcessParameterCount, "ptr", pInputProcessParameters, "uint", OutputProcessParameterCount, "ptr", pOutputProcessParameters, "int", IsEnabled)
+        ComCall(10, this, "uint", InputProcessParameterCount, XAPO_PROCESS_BUFFER_PARAMETERS.Ptr, pInputProcessParameters, "uint", OutputProcessParameterCount, XAPO_PROCESS_BUFFER_PARAMETERS.Ptr, pOutputProcessParameters, BOOL, IsEnabled)
     }
 
     /**
@@ -249,7 +271,7 @@ class IXAPO extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xapo/nf-xapo-ixapo-calcinputframes
      */
     CalcInputFrames(OutputFrameCount) {
-        result := ComCall(11, this, "uint", OutputFrameCount, "uint")
+        result := ComCall(11, this, "uint", OutputFrameCount, UInt32)
         return result
     }
 
@@ -271,7 +293,45 @@ class IXAPO extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xapo/nf-xapo-ixapo-calcoutputframes
      */
     CalcOutputFrames(InputFrameCount) {
-        result := ComCall(12, this, "uint", InputFrameCount, "uint")
+        result := ComCall(12, this, "uint", InputFrameCount, UInt32)
         return result
+    }
+
+    Query(iid) {
+        if (IXAPO.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetRegistrationProperties := CallbackCreate(GetMethod(implObj, "GetRegistrationProperties"), flags, 2)
+        this.vtbl.IsInputFormatSupported := CallbackCreate(GetMethod(implObj, "IsInputFormatSupported"), flags, 4)
+        this.vtbl.IsOutputFormatSupported := CallbackCreate(GetMethod(implObj, "IsOutputFormatSupported"), flags, 4)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.LockForProcess := CallbackCreate(GetMethod(implObj, "LockForProcess"), flags, 5)
+        this.vtbl.UnlockForProcess := CallbackCreate(GetMethod(implObj, "UnlockForProcess"), flags, 1)
+        this.vtbl.Process := CallbackCreate(GetMethod(implObj, "Process"), flags, 6)
+        this.vtbl.CalcInputFrames := CallbackCreate(GetMethod(implObj, "CalcInputFrames"), flags, 2)
+        this.vtbl.CalcOutputFrames := CallbackCreate(GetMethod(implObj, "CalcOutputFrames"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetRegistrationProperties)
+        CallbackFree(this.vtbl.IsInputFormatSupported)
+        CallbackFree(this.vtbl.IsOutputFormatSupported)
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.LockForProcess)
+        CallbackFree(this.vtbl.UnlockForProcess)
+        CallbackFree(this.vtbl.Process)
+        CallbackFree(this.vtbl.CalcInputFrames)
+        CallbackFree(this.vtbl.CalcOutputFrames)
     }
 }

@@ -1,35 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Represents a name-value pair for OCSPServiceProperties or ProviderProperties.
  * @see https://learn.microsoft.com/windows/win32/api/certadm/nn-certadm-iocspproperty
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IOCSPProperty extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IOCSPProperty extends IDispatch {
     /**
      * The interface identifier for IOCSPProperty
      * @type {Guid}
      */
-    static IID => Guid("{66fb7839-5f04-4c25-ad18-9ff1a8376ee0}")
+    static IID := Guid("{66fb7839-5f04-4c25-ad18-9ff1a8376ee0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOCSPProperty interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Name     : IntPtr
+        get_Value    : IntPtr
+        put_Value    : IntPtr
+        get_Modified : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Name", "get_Value", "put_Value", "get_Modified"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOCSPProperty.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -61,8 +73,8 @@ class IOCSPProperty extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspproperty-get_name
      */
     get_Name() {
-        pVal := BSTR()
-        result := ComCall(7, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -75,7 +87,7 @@ class IOCSPProperty extends IDispatch {
      */
     get_Value() {
         pVal := VARIANT()
-        result := ComCall(8, this, "ptr", pVal, "HRESULT")
+        result := ComCall(8, this, VARIANT.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -88,7 +100,7 @@ class IOCSPProperty extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspproperty-put_value
      */
     put_Value(newVal) {
-        result := ComCall(9, this, "ptr", newVal, "HRESULT")
+        result := ComCall(9, this, VARIANT, newVal, "HRESULT")
         return result
     }
 
@@ -98,7 +110,33 @@ class IOCSPProperty extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspproperty-get_modified
      */
     get_Modified() {
-        result := ComCall(10, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL.Ptr, &pVal := 0, "HRESULT")
         return pVal
+    }
+
+    Query(iid) {
+        if (IOCSPProperty.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 2)
+        this.vtbl.put_Value := CallbackCreate(GetMethod(implObj, "put_Value"), flags, 2)
+        this.vtbl.get_Modified := CallbackCreate(GetMethod(implObj, "get_Modified"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.get_Value)
+        CallbackFree(this.vtbl.put_Value)
+        CallbackFree(this.vtbl.get_Modified)
     }
 }

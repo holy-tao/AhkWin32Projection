@@ -1,142 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
  */
-class SCSI_PASS_THROUGH_EX extends Win32Struct {
-    static sizeof => 64
+export default struct SCSI_PASS_THROUGH_EX {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    CdbLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CdbLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    StorAddressLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StorAddressLength {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ScsiStatus : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ScsiStatus {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    SenseInfoLength : Int8
 
-    /**
-     * @type {Integer}
-     */
-    SenseInfoLength {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
+    DataDirection : Int8
 
-    /**
-     * @type {Integer}
-     */
-    DataDirection {
-        get => NumGet(this, 18, "char")
-        set => NumPut("char", value, this, 18)
-    }
+    Reserved : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 19, "char")
-        set => NumPut("char", value, this, 19)
-    }
+    TimeOutValue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TimeOutValue {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    StorAddressOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StorAddressOffset {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    SenseInfoOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SenseInfoOffset {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    DataOutTransferLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataOutTransferLength {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    DataInTransferLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataInTransferLength {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    DataOutBufferOffset : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    DataOutBufferOffset {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    DataInBufferOffset : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    DataInBufferOffset {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    Cdb : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Cdb {
-        get {
-            if(!this.HasProp("__CdbProxyArray"))
-                this.__CdbProxyArray := Win32FixedArray(this.ptr + 56, 1, Primitive, "char")
-            return this.__CdbProxyArray
-        }
-    }
 }

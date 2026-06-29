@@ -1,8 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\MBN_ACTIVATION_STATE.ahk" { MBN_ACTIVATION_STATE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MBN_VOICE_CALL_STATE.ahk" { MBN_VOICE_CALL_STATE }
+#Import ".\MBN_CONNECTION_MODE.ahk" { MBN_CONNECTION_MODE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents the network connectivity of a device.
@@ -13,26 +18,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnconnection
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  */
-class IMbnConnection extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMbnConnection extends IUnknown {
     /**
      * The interface identifier for IMbnConnection
      * @type {Guid}
      */
-    static IID => Guid("{dcbbbab6-200d-4bbb-aaee-338e368af6fa}")
+    static IID := Guid("{dcbbbab6-200d-4bbb-aaee-338e368af6fa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMbnConnection interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_ConnectionID          : IntPtr
+        get_InterfaceID           : IntPtr
+        Connect                   : IntPtr
+        Disconnect                : IntPtr
+        GetConnectionState        : IntPtr
+        GetVoiceCallState         : IntPtr
+        GetActivationNetworkError : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ConnectionID", "get_InterfaceID", "Connect", "Disconnect", "GetConnectionState", "GetVoiceCallState", "GetActivationNetworkError"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMbnConnection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -54,8 +72,8 @@ class IMbnConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnection-get_connectionid
      */
     get_ConnectionID() {
-        ConnectionID := BSTR()
-        result := ComCall(3, this, "ptr", ConnectionID, "HRESULT")
+        ConnectionID := BSTR.Owned()
+        result := ComCall(3, this, BSTR.Ptr, ConnectionID, "HRESULT")
         return ConnectionID
     }
 
@@ -65,8 +83,8 @@ class IMbnConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnection-get_interfaceid
      */
     get_InterfaceID() {
-        InterfaceID := BSTR()
-        result := ComCall(4, this, "ptr", InterfaceID, "HRESULT")
+        InterfaceID := BSTR.Owned()
+        result := ComCall(4, this, BSTR.Ptr, InterfaceID, "HRESULT")
         return InterfaceID
     }
 
@@ -92,7 +110,7 @@ class IMbnConnection extends IUnknown {
     Connect(connectionMode, strProfile) {
         strProfile := strProfile is String ? StrPtr(strProfile) : strProfile
 
-        result := ComCall(5, this, "int", connectionMode, "ptr", strProfile, "uint*", &requestID := 0, "HRESULT")
+        result := ComCall(5, this, MBN_CONNECTION_MODE, connectionMode, "ptr", strProfile, "uint*", &requestID := 0, "HRESULT")
         return requestID
     }
 
@@ -188,7 +206,7 @@ class IMbnConnection extends IUnknown {
     GetConnectionState(ConnectionState, ProfileName) {
         ConnectionStateMarshal := ConnectionState is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, ConnectionStateMarshal, ConnectionState, "ptr", ProfileName, "HRESULT")
+        result := ComCall(7, this, ConnectionStateMarshal, ConnectionState, BSTR.Ptr, ProfileName, "HRESULT")
         return result
     }
 
@@ -218,5 +236,37 @@ class IMbnConnection extends IUnknown {
     GetActivationNetworkError() {
         result := ComCall(9, this, "uint*", &networkError := 0, "HRESULT")
         return networkError
+    }
+
+    Query(iid) {
+        if (IMbnConnection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ConnectionID := CallbackCreate(GetMethod(implObj, "get_ConnectionID"), flags, 2)
+        this.vtbl.get_InterfaceID := CallbackCreate(GetMethod(implObj, "get_InterfaceID"), flags, 2)
+        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 4)
+        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 2)
+        this.vtbl.GetConnectionState := CallbackCreate(GetMethod(implObj, "GetConnectionState"), flags, 3)
+        this.vtbl.GetVoiceCallState := CallbackCreate(GetMethod(implObj, "GetVoiceCallState"), flags, 2)
+        this.vtbl.GetActivationNetworkError := CallbackCreate(GetMethod(implObj, "GetActivationNetworkError"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ConnectionID)
+        CallbackFree(this.vtbl.get_InterfaceID)
+        CallbackFree(this.vtbl.Connect)
+        CallbackFree(this.vtbl.Disconnect)
+        CallbackFree(this.vtbl.GetConnectionState)
+        CallbackFree(this.vtbl.GetVoiceCallState)
+        CallbackFree(this.vtbl.GetActivationNetworkError)
     }
 }

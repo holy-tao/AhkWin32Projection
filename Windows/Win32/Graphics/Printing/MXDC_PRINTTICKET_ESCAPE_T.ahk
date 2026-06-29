@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MXDC_ESCAPE_HEADER_T.ahk
-#Include .\MXDC_PRINTTICKET_DATA_T.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MXDC_PRINTTICKET_DATA_T.ahk" { MXDC_PRINTTICKET_DATA_T }
+#Import ".\MXDC_ESCAPE_HEADER_T.ahk" { MXDC_ESCAPE_HEADER_T }
 
 /**
  * The MXDC\_PRINTTICKET\_ESCAPE\_T structure is a MXDC\_ESCAPE\_HEADER\_T structure concatenated with a MXDC\_PRINTTICKET\_DATA\_T structure.
@@ -32,32 +31,17 @@
  * @see https://learn.microsoft.com/windows/win32/printdocs/mxdcprintticketescape
  * @namespace Windows.Win32.Graphics.Printing
  */
-class MXDC_PRINTTICKET_ESCAPE_T extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct MXDC_PRINTTICKET_ESCAPE_T {
+    #StructPack 4
 
     /**
      * A [**MXDC\_ESCAPE\_HEADER\_T**](mxdcescapeheader.md) structure with its **opCode** member set to MXDCOP\_PRINTTICKET\_FIXED\_PAGE, MXDCOP\_PRINTTICKET\_FIXED\_DOC, or MXDCOP\_PRINTTICKET\_FIXED\_DOC\_SEQ.
-     * @type {MXDC_ESCAPE_HEADER_T}
      */
-    mxdcEscape {
-        get {
-            if(!this.HasProp("__mxdcEscape"))
-                this.__mxdcEscape := MXDC_ESCAPE_HEADER_T(0, this)
-            return this.__mxdcEscape
-        }
-    }
+    mxdcEscape : MXDC_ESCAPE_HEADER_T
 
     /**
      * A [**MXDC\_PRINTTICKET\_DATA\_T**](mxdcprintticketpassthrough.md) structure containing the print ticket.
-     * @type {MXDC_PRINTTICKET_DATA_T}
      */
-    printTicketData {
-        get {
-            if(!this.HasProp("__printTicketData"))
-                this.__printTicketData := MXDC_PRINTTICKET_DATA_T(12, this)
-            return this.__printTicketData
-        }
-    }
+    printTicketData : MXDC_PRINTTICKET_DATA_T
+
 }

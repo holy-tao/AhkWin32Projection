@@ -1,58 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SERVICE_STATUS_PROCESS.ahk
-#Include .\ENUM_SERVICE_TYPE.ahk
-#Include .\SERVICE_STATUS_CURRENT_STATE.ahk
-#Include .\SERVICE_RUNS_IN_PROCESS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SERVICE_RUNS_IN_PROCESS.ahk" { SERVICE_RUNS_IN_PROCESS }
+#Import ".\SERVICE_STATUS_PROCESS.ahk" { SERVICE_STATUS_PROCESS }
+#Import ".\ENUM_SERVICE_TYPE.ahk" { ENUM_SERVICE_TYPE }
+#Import ".\SERVICE_STATUS_CURRENT_STATE.ahk" { SERVICE_STATUS_CURRENT_STATE }
 
 /**
  * @namespace Windows.Win32.System.Services
  */
-class SERVICE_NOTIFY_1 extends Win32Struct {
-    static sizeof => 64
+export default struct SERVICE_NOTIFY_1 {
+    #StructPack 8
 
-    static packingSize => 8
+    dwVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pfnNotifyCallback : IntPtr
 
-    /**
-     * @type {Pointer<PFN_SC_NOTIFY_CALLBACK>}
-     */
-    pfnNotifyCallback {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pContext {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    dwNotificationStatus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNotificationStatus {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ServiceStatus : SERVICE_STATUS_PROCESS
 
-    /**
-     * @type {SERVICE_STATUS_PROCESS}
-     */
-    ServiceStatus {
-        get {
-            if(!this.HasProp("__ServiceStatus"))
-                this.__ServiceStatus := SERVICE_STATUS_PROCESS(28, this)
-            return this.__ServiceStatus
-        }
-    }
 }

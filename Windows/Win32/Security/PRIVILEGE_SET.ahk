@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include .\LUID_AND_ATTRIBUTES.ahk
-#Include ..\Foundation\LUID.ahk
-#Include .\TOKEN_PRIVILEGES_ATTRIBUTES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LUID_AND_ATTRIBUTES.ahk" { LUID_AND_ATTRIBUTES }
+#Import ".\TOKEN_PRIVILEGES_ATTRIBUTES.ahk" { TOKEN_PRIVILEGES_ATTRIBUTES }
+#Import "..\Foundation\LUID.ahk" { LUID }
 
 /**
  * Specifies a set of privileges.
@@ -11,28 +10,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-privilege_set
  * @namespace Windows.Win32.Security
  */
-class PRIVILEGE_SET extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct PRIVILEGE_SET {
+    #StructPack 4
 
     /**
      * Specifies the number of privileges in the privilege set.
-     * @type {Integer}
      */
-    PrivilegeCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PrivilegeCount : UInt32
 
     /**
      * Specifies a control flag related to the privileges. The PRIVILEGE_SET_ALL_NECESSARY control flag is currently defined. It indicates that all of the specified privileges must be held by the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> requesting access. If this flag is not set, the presence of any privileges in the user's <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access token</a> grants the access.
-     * @type {Integer}
      */
-    Control {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Control : UInt32
 
     /**
      * Specifies an array of 
@@ -79,13 +68,7 @@ class PRIVILEGE_SET extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {LUID_AND_ATTRIBUTES}
      */
-    Privilege {
-        get {
-            if(!this.HasProp("__PrivilegeProxyArray"))
-                this.__PrivilegeProxyArray := Win32FixedArray(this.ptr + 8, 1, LUID_AND_ATTRIBUTES, "")
-            return this.__PrivilegeProxyArray
-        }
-    }
+    Privilege : LUID_AND_ATTRIBUTES[1]
+
 }

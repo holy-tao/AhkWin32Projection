@@ -1,39 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IPrintAsyncNotifyChannel.ahk
-#Include .\IPrintAsyncNotifyRegistration.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\PrintAsyncNotifyConversationStyle.ahk" { PrintAsyncNotifyConversationStyle }
+#Import ".\IPrintAsyncNotifyRegistration.ahk" { IPrintAsyncNotifyRegistration }
+#Import ".\IPrintAsyncNotifyChannel.ahk" { IPrintAsyncNotifyChannel }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PrintAsyncNotifyUserFilter.ahk" { PrintAsyncNotifyUserFilter }
+#Import ".\IPrintAsyncNotifyCallback.ahk" { IPrintAsyncNotifyCallback }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
- * Creates and manages a communication channel used by applications and components that are hosted by the print spooler.
- * @remarks
- * For an application to receive notifications from a Print Spooler-hosted component, it must provide an <b>IPrintAsyncNotifyCallback</b> object when it registers for notifications.
- * 
- * A Print Spooler-hosted component that opens a bidirectional communication channel with a listening application must provide an <b>IPrintAsyncNotifyCallback</b> object.
- * @see https://learn.microsoft.com/windows/win32/api/prnasnot/nn-prnasnot-iprintasyncnotifycallback
  * @namespace Windows.Win32.Graphics.Printing
  */
-class IPrintAsyncNotify extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPrintAsyncNotify extends IUnknown {
     /**
      * The interface identifier for IPrintAsyncNotify
      * @type {Guid}
      */
-    static IID => Guid("{532818f7-921b-4fb2-bff8-2f4fd52ebebf}")
+    static IID := Guid("{532818f7-921b-4fb2-bff8-2f4fd52ebebf}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPrintAsyncNotify interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreatePrintAsyncNotifyChannel      : IntPtr
+        CreatePrintAsyncNotifyRegistration : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreatePrintAsyncNotifyChannel", "CreatePrintAsyncNotifyRegistration"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPrintAsyncNotify.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a communication channel between a Print Spooler-hosted printing component, such as a print driver or port monitor, and an application that receives notifications from the component.
@@ -66,7 +72,7 @@ class IPrintAsyncNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/prnasnot/nf-prnasnot-createprintasyncnotifychannel
      */
     CreatePrintAsyncNotifyChannel(param0, param1, param2, param3, param4) {
-        result := ComCall(3, this, "uint", param0, "ptr", param1, "int", param2, "int", param3, "ptr", param4, "ptr*", &param5 := 0, "HRESULT")
+        result := ComCall(3, this, "uint", param0, Guid.Ptr, param1, PrintAsyncNotifyUserFilter, param2, PrintAsyncNotifyConversationStyle, param3, "ptr", param4, "ptr*", &param5 := 0, "HRESULT")
         return IPrintAsyncNotifyChannel(param5)
     }
 
@@ -79,7 +85,29 @@ class IPrintAsyncNotify extends IUnknown {
      * @returns {IPrintAsyncNotifyRegistration} 
      */
     CreatePrintAsyncNotifyRegistration(param0, param1, param2, param3) {
-        result := ComCall(4, this, "ptr", param0, "int", param1, "int", param2, "ptr", param3, "ptr*", &param4 := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, param0, PrintAsyncNotifyUserFilter, param1, PrintAsyncNotifyConversationStyle, param2, "ptr", param3, "ptr*", &param4 := 0, "HRESULT")
         return IPrintAsyncNotifyRegistration(param4)
+    }
+
+    Query(iid) {
+        if (IPrintAsyncNotify.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreatePrintAsyncNotifyChannel := CallbackCreate(GetMethod(implObj, "CreatePrintAsyncNotifyChannel"), flags, 7)
+        this.vtbl.CreatePrintAsyncNotifyRegistration := CallbackCreate(GetMethod(implObj, "CreatePrintAsyncNotifyRegistration"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreatePrintAsyncNotifyChannel)
+        CallbackFree(this.vtbl.CreatePrintAsyncNotifyRegistration)
     }
 }

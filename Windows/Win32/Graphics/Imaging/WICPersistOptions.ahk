@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies Windows Imaging Component (WIC) options that are used when initializing a component with a stream.
  * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/ne-wincodecsdk-wicpersistoptions
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class WICPersistOptions extends Win32Enum {
+export default struct WICPersistOptions {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The default persist options. The default is <b>WICPersistOptionLittleEndian</b>.

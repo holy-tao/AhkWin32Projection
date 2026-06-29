@@ -1,240 +1,76 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\ERESOURCE.ahk
-#Include .\FS_FILTER_SECTION_SYNC_TYPE.ahk
-#Include .\FS_FILTER_SECTION_SYNC_OUTPUT.ahk
-#Include ..\..\Foundation\IRP.ahk
-#Include .\FILE_INFORMATION_CLASS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FS_FILTER_SECTION_SYNC_TYPE.ahk" { FS_FILTER_SECTION_SYNC_TYPE }
+#Import "..\..\Foundation\ERESOURCE.ahk" { ERESOURCE }
+#Import "..\..\Foundation\IRP.ahk" { IRP }
+#Import "..\..\..\Win32\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\FILE_INFORMATION_CLASS.ahk" { FILE_INFORMATION_CLASS }
+#Import ".\FS_FILTER_SECTION_SYNC_OUTPUT.ahk" { FS_FILTER_SECTION_SYNC_OUTPUT }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class FS_FILTER_PARAMETERS extends Win32Struct {
-    static sizeof => 120
+export default struct FS_FILTER_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _AcquireForModifiedPageWriter extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _AcquireForModifiedPageWriter {
+        EndingOffset : IntPtr
 
-        /**
-         * @type {Pointer<Integer>}
-         */
-        EndingOffset {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
+        ResourceToRelease : IntPtr
 
-        /**
-         * @type {Pointer<Pointer<ERESOURCE>>}
-         */
-        ResourceToRelease {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
     }
 
-    class _ReleaseForModifiedPageWriter extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _ReleaseForModifiedPageWriter {
+        ResourceToRelease : ERESOURCE.Ptr
 
-        /**
-         * @type {Pointer<ERESOURCE>}
-         */
-        ResourceToRelease {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
     }
 
-    class _AcquireForSectionSynchronization extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
+    struct _AcquireForSectionSynchronization {
+        SyncType : FS_FILTER_SECTION_SYNC_TYPE
 
-        /**
-         * @type {FS_FILTER_SECTION_SYNC_TYPE}
-         */
-        SyncType {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
+        PageProtection : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        PageProtection {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
+        OutputInformation : FS_FILTER_SECTION_SYNC_OUTPUT.Ptr
 
-        /**
-         * @type {Pointer<FS_FILTER_SECTION_SYNC_OUTPUT>}
-         */
-        OutputInformation {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
+        Flags : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Flags {
-            get => NumGet(this, 16, "uint")
-            set => NumPut("uint", value, this, 16)
-        }
+        AllocationAttributes : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        AllocationAttributes {
-            get => NumGet(this, 20, "uint")
-            set => NumPut("uint", value, this, 20)
-        }
     }
 
-    class _QueryOpen extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
+    struct _QueryOpen {
+        Irp : IRP.Ptr
 
-        /**
-         * @type {Pointer<IRP>}
-         */
-        Irp {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
+        FileInformation : IntPtr
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        FileInformation {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
+        Length : IntPtr
 
-        /**
-         * @type {Pointer<Integer>}
-         */
-        Length {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
-        }
+        FileInformationClass : FILE_INFORMATION_CLASS
 
-        /**
-         * @type {FILE_INFORMATION_CLASS}
-         */
-        FileInformationClass {
-            get => NumGet(this, 24, "int")
-            set => NumPut("int", value, this, 24)
-        }
+        CompletionStatus : NTSTATUS
 
-        /**
-         * @type {NTSTATUS}
-         */
-        CompletionStatus {
-            get => NumGet(this, 28, "int")
-            set => NumPut("int", value, this, 28)
-        }
     }
 
-    class _Others extends Win32Struct {
-        static sizeof => 40
-        static packingSize => 8
+    struct _Others {
+        Argument1 : IntPtr
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        Argument1 {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
+        Argument2 : IntPtr
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        Argument2 {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
+        Argument3 : IntPtr
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        Argument3 {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
-        }
+        Argument4 : IntPtr
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        Argument4 {
-            get => NumGet(this, 24, "ptr")
-            set => NumPut("ptr", value, this, 24)
-        }
+        Argument5 : IntPtr
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        Argument5 {
-            get => NumGet(this, 32, "ptr")
-            set => NumPut("ptr", value, this, 32)
-        }
     }
 
-    /**
-     * @type {_AcquireForModifiedPageWriter}
-     */
-    AcquireForModifiedPageWriter {
-        get {
-            if(!this.HasProp("__AcquireForModifiedPageWriter"))
-                this.__AcquireForModifiedPageWriter := FS_FILTER_PARAMETERS._AcquireForModifiedPageWriter(0, this)
-            return this.__AcquireForModifiedPageWriter
-        }
-    }
+    AcquireForModifiedPageWriter : FS_FILTER_PARAMETERS._AcquireForModifiedPageWriter
 
-    /**
-     * @type {_ReleaseForModifiedPageWriter}
-     */
-    ReleaseForModifiedPageWriter {
-        get {
-            if(!this.HasProp("__ReleaseForModifiedPageWriter"))
-                this.__ReleaseForModifiedPageWriter := FS_FILTER_PARAMETERS._ReleaseForModifiedPageWriter(0, this)
-            return this.__ReleaseForModifiedPageWriter
-        }
-    }
-
-    /**
-     * @type {_AcquireForSectionSynchronization}
-     */
-    AcquireForSectionSynchronization {
-        get {
-            if(!this.HasProp("__AcquireForSectionSynchronization"))
-                this.__AcquireForSectionSynchronization := FS_FILTER_PARAMETERS._AcquireForSectionSynchronization(0, this)
-            return this.__AcquireForSectionSynchronization
-        }
-    }
-
-    /**
-     * @type {_QueryOpen}
-     */
-    QueryOpen {
-        get {
-            if(!this.HasProp("__QueryOpen"))
-                this.__QueryOpen := FS_FILTER_PARAMETERS._QueryOpen(0, this)
-            return this.__QueryOpen
-        }
-    }
-
-    /**
-     * @type {_Others}
-     */
-    Others {
-        get {
-            if(!this.HasProp("__Others"))
-                this.__Others := FS_FILTER_PARAMETERS._Others(0, this)
-            return this.__Others
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'ReleaseForModifiedPageWriter', { type: FS_FILTER_PARAMETERS._ReleaseForModifiedPageWriter, offset: 0 })
+        DefineProp(this.Prototype, 'AcquireForSectionSynchronization', { type: FS_FILTER_PARAMETERS._AcquireForSectionSynchronization, offset: 0 })
+        DefineProp(this.Prototype, 'QueryOpen', { type: FS_FILTER_PARAMETERS._QueryOpen, offset: 0 })
+        DefineProp(this.Prototype, 'Others', { type: FS_FILTER_PARAMETERS._Others, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

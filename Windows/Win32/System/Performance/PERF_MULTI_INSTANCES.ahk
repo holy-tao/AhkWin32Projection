@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Provides information about the PERF_MULTI_INSTANCES block that contains the structure.
@@ -9,26 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_multi_instances
  * @namespace Windows.Win32.System.Performance
  */
-class PERF_MULTI_INSTANCES extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct PERF_MULTI_INSTANCES {
+    #StructPack 4
 
     /**
      * The total size of the <b>PERF_MULTI_INSTANCES</b> block, in bytes. This total size is the sum of the sizes of the <b>PERF_MULTI_INSTANCES</b> structure and the instance data blocks.
-     * @type {Integer}
      */
-    dwTotalSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwTotalSize : UInt32
 
     /**
      * The number of instance data blocks in the <b>PERF_MULTI_INSTANCES</b> block.
-     * @type {Integer}
      */
-    dwInstances {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwInstances : UInt32
+
 }

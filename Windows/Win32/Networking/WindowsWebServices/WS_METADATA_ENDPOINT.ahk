@@ -1,103 +1,65 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_ENDPOINT_ADDRESS.ahk
-#Include .\WS_STRING.ahk
-#Include .\WS_ENDPOINT_IDENTITY.ahk
-#Include .\WS_XML_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
+#Import ".\WS_STRING.ahk" { WS_STRING }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WS_ENDPOINT_ADDRESS.ahk" { WS_ENDPOINT_ADDRESS }
+#Import ".\WS_ENDPOINT_IDENTITY.ahk" { WS_ENDPOINT_IDENTITY }
+#Import ".\WS_XML_BUFFER.ahk" { WS_XML_BUFFER }
+#Import ".\WS_POLICY.ahk" { WS_POLICY }
 
 /**
  * Information about a single endpoint that was read from metadata documents.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_metadata_endpoint
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_METADATA_ENDPOINT extends Win32Struct {
-    static sizeof => 104
-
-    static packingSize => 8
+export default struct WS_METADATA_ENDPOINT {
+    #StructPack 8
 
     /**
      * The address of the endpoint.
-     * @type {WS_ENDPOINT_ADDRESS}
      */
-    endpointAddress {
-        get {
-            if(!this.HasProp("__endpointAddress"))
-                this.__endpointAddress := WS_ENDPOINT_ADDRESS(0, this)
-            return this.__endpointAddress
-        }
-    }
+    endpointAddress : WS_ENDPOINT_ADDRESS
 
     /**
      * An opaque handle representing the policy of the endpoint.  
      *                     This handle is good until the metadata object
      *                     is freed or reset.
-     * @type {Pointer<WS_POLICY>}
      */
-    endpointPolicy {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    endpointPolicy : WS_POLICY.Ptr
 
     /**
      * The WSDL port name of the endpoint, if available.
-     * @type {Pointer<WS_XML_STRING>}
      */
-    portName {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    portName : WS_XML_STRING.Ptr
 
     /**
      * The WSDL service name of the endpoint, if available.
-     * @type {Pointer<WS_XML_STRING>}
      */
-    serviceName {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    serviceName : WS_XML_STRING.Ptr
 
     /**
      * The WSDL service namespace of the endpoint, if available.
-     * @type {Pointer<WS_XML_STRING>}
      */
-    serviceNs {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    serviceNs : WS_XML_STRING.Ptr
 
     /**
      * The WSDL binding name of the endpoint, if available.
-     * @type {Pointer<WS_XML_STRING>}
      */
-    bindingName {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    bindingName : WS_XML_STRING.Ptr
 
     /**
      * The WSDL binding namespace of the endpoint, if available.
-     * @type {Pointer<WS_XML_STRING>}
      */
-    bindingNs {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    bindingNs : WS_XML_STRING.Ptr
 
     /**
      * The WSDL portType name of the endpoint, if available.
-     * @type {Pointer<WS_XML_STRING>}
      */
-    portTypeName {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    portTypeName : WS_XML_STRING.Ptr
 
     /**
      * The WSDL portType namespace of the endpoint, if available.
-     * @type {Pointer<WS_XML_STRING>}
      */
-    portTypeNs {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    portTypeNs : WS_XML_STRING.Ptr
+
 }

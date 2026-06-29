@@ -1,79 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The LINEAGENTGROUPENTRY structure provides information on ACD agent groups. The LINEAGENTGROUPLIST structure can contain an array of LINEAGENTGROUPENTRY structures.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineagentgroupentry
  * @namespace Windows.Win32.Devices.Tapi
  */
-class LINEAGENTGROUPENTRY extends Win32Struct {
-    static sizeof => 24
+export default struct LINEAGENTGROUPENTRY {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _GroupID extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 4
+    struct _GroupID {
+        dwGroupID1 : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        dwGroupID1 {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        dwGroupID2 : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        dwGroupID2 {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
+        dwGroupID3 : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        dwGroupID3 {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
+        dwGroupID4 : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        dwGroupID4 {
-            get => NumGet(this, 12, "uint")
-            set => NumPut("uint", value, this, 12)
-        }
     }
 
-    /**
-     * @type {_GroupID}
-     */
-    GroupID {
-        get {
-            if(!this.HasProp("__GroupID"))
-                this.__GroupID := LINEAGENTGROUPENTRY._GroupID(0, this)
-            return this.__GroupID
-        }
-    }
+    GroupID : LINEAGENTGROUPENTRY._GroupID
 
     /**
      * Size of the ACD group or queue name including the <b>null</b> terminator, in bytes.
-     * @type {Integer}
      */
-    dwNameSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwNameSize : UInt32
 
     /**
      * Offset from the beginning of the structure to a <b>null</b>-terminated string specifying the name and other identifying information of an ACD group or queue into which the agent can log in. This string can contain such information as supervisor and skill level, to assist the agent in selecting the correct group from a list displayed on their workstation screen. The size of the field is specified by <b>dwNameSize</b>.
-     * @type {Integer}
      */
-    dwNameOffset {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwNameOffset : UInt32
+
 }

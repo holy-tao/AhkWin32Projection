@@ -1,37 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IEnumTerminal.ahk
-#Include .\IEnumTerminalClass.ahk
-#Include .\ITTerminal.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\TERMINAL_DIRECTION.ahk" { TERMINAL_DIRECTION }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ITTerminal.ahk" { ITTerminal }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IEnumTerminalClass.ahk" { IEnumTerminalClass }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumTerminal.ahk" { IEnumTerminal }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ITTerminalSupport interface is exposed on an Address object only if an MSP exists. The methods of this interface allow an application to discover available terminals and/or create one, and get pointers to required Terminal objects.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itterminalsupport
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITTerminalSupport extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITTerminalSupport extends IDispatch {
     /**
      * The interface identifier for ITTerminalSupport
      * @type {Guid}
      */
-    static IID => Guid("{b1efc385-9355-11d0-835c-00aa003ccabd}")
+    static IID := Guid("{b1efc385-9355-11d0-835c-00aa003ccabd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITTerminalSupport interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_StaticTerminals             : IntPtr
+        EnumerateStaticTerminals        : IntPtr
+        get_DynamicTerminalClasses      : IntPtr
+        EnumerateDynamicTerminalClasses : IntPtr
+        CreateTerminal                  : IntPtr
+        GetDefaultStaticTerminal        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_StaticTerminals", "EnumerateStaticTerminals", "get_DynamicTerminalClasses", "EnumerateDynamicTerminalClasses", "CreateTerminal", "GetDefaultStaticTerminal"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITTerminalSupport.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT} 
@@ -60,7 +75,7 @@ class ITTerminalSupport extends IDispatch {
      */
     get_StaticTerminals() {
         pVariant := VARIANT()
-        result := ComCall(7, this, "ptr", pVariant, "HRESULT")
+        result := ComCall(7, this, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
     }
 
@@ -91,7 +106,7 @@ class ITTerminalSupport extends IDispatch {
      */
     get_DynamicTerminalClasses() {
         pVariant := VARIANT()
-        result := ComCall(9, this, "ptr", pVariant, "HRESULT")
+        result := ComCall(9, this, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
     }
 
@@ -137,7 +152,7 @@ class ITTerminalSupport extends IDispatch {
     CreateTerminal(pTerminalClass, lMediaType, _Direction) {
         pTerminalClass := pTerminalClass is String ? BSTR.Alloc(pTerminalClass).Value : pTerminalClass
 
-        result := ComCall(11, this, "ptr", pTerminalClass, "int", lMediaType, "int", _Direction, "ptr*", &ppTerminal := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, pTerminalClass, "int", lMediaType, TERMINAL_DIRECTION, _Direction, "ptr*", &ppTerminal := 0, "HRESULT")
         return ITTerminal(ppTerminal)
     }
 
@@ -160,7 +175,37 @@ class ITTerminalSupport extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminalsupport-getdefaultstaticterminal
      */
     GetDefaultStaticTerminal(lMediaType, _Direction) {
-        result := ComCall(12, this, "int", lMediaType, "int", _Direction, "ptr*", &ppTerminal := 0, "HRESULT")
+        result := ComCall(12, this, "int", lMediaType, TERMINAL_DIRECTION, _Direction, "ptr*", &ppTerminal := 0, "HRESULT")
         return ITTerminal(ppTerminal)
+    }
+
+    Query(iid) {
+        if (ITTerminalSupport.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_StaticTerminals := CallbackCreate(GetMethod(implObj, "get_StaticTerminals"), flags, 2)
+        this.vtbl.EnumerateStaticTerminals := CallbackCreate(GetMethod(implObj, "EnumerateStaticTerminals"), flags, 2)
+        this.vtbl.get_DynamicTerminalClasses := CallbackCreate(GetMethod(implObj, "get_DynamicTerminalClasses"), flags, 2)
+        this.vtbl.EnumerateDynamicTerminalClasses := CallbackCreate(GetMethod(implObj, "EnumerateDynamicTerminalClasses"), flags, 2)
+        this.vtbl.CreateTerminal := CallbackCreate(GetMethod(implObj, "CreateTerminal"), flags, 5)
+        this.vtbl.GetDefaultStaticTerminal := CallbackCreate(GetMethod(implObj, "GetDefaultStaticTerminal"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_StaticTerminals)
+        CallbackFree(this.vtbl.EnumerateStaticTerminals)
+        CallbackFree(this.vtbl.get_DynamicTerminalClasses)
+        CallbackFree(this.vtbl.EnumerateDynamicTerminalClasses)
+        CallbackFree(this.vtbl.CreateTerminal)
+        CallbackFree(this.vtbl.GetDefaultStaticTerminal)
     }
 }

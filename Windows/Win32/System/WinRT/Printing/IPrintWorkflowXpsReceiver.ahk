@@ -1,31 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Com\IStream.ahk" { IStream }
+#Import "..\..\..\Storage\Xps\IXpsOMPageReference.ahk" { IXpsOMPageReference }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Printing
  */
-class IPrintWorkflowXpsReceiver extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPrintWorkflowXpsReceiver extends IUnknown {
     /**
      * The interface identifier for IPrintWorkflowXpsReceiver
      * @type {Guid}
      */
-    static IID => Guid("{04097374-77b8-47f6-8167-aae29d4cf84b}")
+    static IID := Guid("{04097374-77b8-47f6-8167-aae29d4cf84b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPrintWorkflowXpsReceiver interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetDocumentSequencePrintTicket : IntPtr
+        SetDocumentSequenceUri         : IntPtr
+        AddDocumentData                : IntPtr
+        AddPage                        : IntPtr
+        Close                          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetDocumentSequencePrintTicket", "SetDocumentSequenceUri", "AddDocumentData", "AddPage", "Close"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPrintWorkflowXpsReceiver.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -79,18 +94,39 @@ class IPrintWorkflowXpsReceiver extends IUnknown {
     }
 
     /**
-     * Use the Close-Session packet to tell the BITS server that file upload is complete and to end the session.
-     * @remarks
-     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
      * 
-     * For upload-reply jobs, you must download the reply before sending **Close-Session**. Otherwise, the reply is lost.
-     * 
-     * If you send this packet before uploading all fragments, the upload file is deleted; you cannot upload a partial file.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Bits/close-session
      */
     Close() {
         result := ComCall(7, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPrintWorkflowXpsReceiver.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetDocumentSequencePrintTicket := CallbackCreate(GetMethod(implObj, "SetDocumentSequencePrintTicket"), flags, 2)
+        this.vtbl.SetDocumentSequenceUri := CallbackCreate(GetMethod(implObj, "SetDocumentSequenceUri"), flags, 2)
+        this.vtbl.AddDocumentData := CallbackCreate(GetMethod(implObj, "AddDocumentData"), flags, 4)
+        this.vtbl.AddPage := CallbackCreate(GetMethod(implObj, "AddPage"), flags, 5)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetDocumentSequencePrintTicket)
+        CallbackFree(this.vtbl.SetDocumentSequenceUri)
+        CallbackFree(this.vtbl.AddDocumentData)
+        CallbackFree(this.vtbl.AddPage)
+        CallbackFree(this.vtbl.Close)
     }
 }

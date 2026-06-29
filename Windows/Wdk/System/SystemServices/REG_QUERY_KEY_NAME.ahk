@@ -1,68 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\OBJECT_NAME_INFORMATION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\OBJECT_NAME_INFORMATION.ahk" { OBJECT_NAME_INFORMATION }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class REG_QUERY_KEY_NAME extends Win32Struct {
-    static sizeof => 56
+export default struct REG_QUERY_KEY_NAME {
+    #StructPack 8
 
-    static packingSize => 8
+    Object : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Object {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ObjectNameInfo : OBJECT_NAME_INFORMATION.Ptr
 
-    /**
-     * @type {Pointer<OBJECT_NAME_INFORMATION>}
-     */
-    ObjectNameInfo {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ReturnLength : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    ReturnLength {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    CallContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    CallContext {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    ObjectContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    ObjectContext {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    Reserved : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Reserved {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
 }

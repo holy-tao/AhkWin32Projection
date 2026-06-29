@@ -1,45 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\_URB_HEADER.ahk
-#Include .\USBD_INTERFACE_INFORMATION.ahk
-#Include .\USBD_PIPE_INFORMATION.ahk
-#Include .\USBD_PIPE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USBD_PIPE_INFORMATION.ahk" { USBD_PIPE_INFORMATION }
+#Import ".\USBD_INTERFACE_INFORMATION.ahk" { USBD_INTERFACE_INFORMATION }
+#Import ".\USBD_PIPE_TYPE.ahk" { USBD_PIPE_TYPE }
+#Import ".\_URB_HEADER.ahk" { _URB_HEADER }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class _URB_SELECT_INTERFACE extends Win32Struct {
-    static sizeof => 80
+export default struct _URB_SELECT_INTERFACE {
+    #StructPack 8
 
-    static packingSize => 8
+    Hdr : _URB_HEADER
 
-    /**
-     * @type {_URB_HEADER}
-     */
-    Hdr {
-        get {
-            if(!this.HasProp("__Hdr"))
-                this.__Hdr := _URB_HEADER(0, this)
-            return this.__Hdr
-        }
-    }
+    ConfigurationHandle : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    ConfigurationHandle {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Interface : USBD_INTERFACE_INFORMATION
 
-    /**
-     * @type {USBD_INTERFACE_INFORMATION}
-     */
-    Interface {
-        get {
-            if(!this.HasProp("__Interface"))
-                this.__Interface := USBD_INTERFACE_INFORMATION(32, this)
-            return this.__Interface
-        }
-    }
 }

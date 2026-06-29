@@ -1,126 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include .\FIELD_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FIELD_INFO.ahk" { FIELD_INFO }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class SYM_DUMP_PARAM extends Win32Struct {
-    static sizeof => 96
+export default struct SYM_DUMP_PARAM {
+    #StructPack 8
 
-    static packingSize => 8
+    size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    sName : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    sName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Options : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Options {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    addr : Int64
 
-    /**
-     * @type {Integer}
-     */
-    addr {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    listLink : FIELD_INFO.Ptr
 
-    /**
-     * @type {Pointer<FIELD_INFO>}
-     */
-    listLink {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Context : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Context {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    CallbackRoutine : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pBuffer {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    nFields : UInt32
 
-    /**
-     * @type {Pointer<PSYM_DUMP_FIELD_CALLBACK>}
-     */
-    CallbackRoutine {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    Fields : FIELD_INFO.Ptr
 
-    /**
-     * @type {Integer}
-     */
-    nFields {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    ModBase : Int64
 
-    /**
-     * @type {Pointer<FIELD_INFO>}
-     */
-    Fields {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    TypeId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ModBase {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    TypeSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TypeId {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    TypeSize {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    BufferSize {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    BufferSize : UInt32
 
     /**
      * This bitfield backs the following members:
@@ -129,12 +40,9 @@ class SYM_DUMP_PARAM extends Win32Struct {
      * - fStruct
      * - fConstant
      * - Reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -166,5 +74,9 @@ class SYM_DUMP_PARAM extends Win32Struct {
     fConstant {
         get => (this._bitfield >> 4) & 0x1
         set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
+    }
+    static __New() {
+        DefineProp(this.Prototype, 'pBuffer', { type: IntPtr, offset: 40 })
+        this.DeleteProp("__New")
     }
 }

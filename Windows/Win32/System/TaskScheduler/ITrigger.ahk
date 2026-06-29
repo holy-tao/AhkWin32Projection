@@ -1,8 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IRepetitionPattern.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\TASK_TRIGGER_TYPE2.ahk" { TASK_TRIGGER_TYPE2 }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IRepetitionPattern.ahk" { IRepetitionPattern }
 
 /**
  * Provides the common properties that are inherited by all trigger objects.
@@ -50,26 +54,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-itrigger
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class ITrigger extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITrigger extends IDispatch {
     /**
      * The interface identifier for ITrigger
      * @type {Guid}
      */
-    static IID => Guid("{09941815-ea89-4b5b-89e0-2a773801fac3}")
+    static IID := Guid("{09941815-ea89-4b5b-89e0-2a773801fac3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITrigger interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Type               : IntPtr
+        get_Id                 : IntPtr
+        put_Id                 : IntPtr
+        get_Repetition         : IntPtr
+        put_Repetition         : IntPtr
+        get_ExecutionTimeLimit : IntPtr
+        put_ExecutionTimeLimit : IntPtr
+        get_StartBoundary      : IntPtr
+        put_StartBoundary      : IntPtr
+        get_EndBoundary        : IntPtr
+        put_EndBoundary        : IntPtr
+        get_Enabled            : IntPtr
+        put_Enabled            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Type", "get_Id", "put_Id", "get_Repetition", "put_Repetition", "get_ExecutionTimeLimit", "put_ExecutionTimeLimit", "get_StartBoundary", "put_StartBoundary", "get_EndBoundary", "put_EndBoundary", "get_Enabled", "put_Enabled"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITrigger.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      */
@@ -147,7 +170,7 @@ class ITrigger extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itrigger-get_id
      */
     get_Id(pId) {
-        result := ComCall(8, this, "ptr", pId, "HRESULT")
+        result := ComCall(8, this, BSTR.Ptr, pId, "HRESULT")
         return result
     }
 
@@ -162,7 +185,7 @@ class ITrigger extends IDispatch {
     put_Id(id) {
         id := id is String ? BSTR.Alloc(id).Value : id
 
-        result := ComCall(9, this, "ptr", id, "HRESULT")
+        result := ComCall(9, this, BSTR, id, "HRESULT")
         return result
     }
 
@@ -202,7 +225,7 @@ class ITrigger extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itrigger-get_executiontimelimit
      */
     get_ExecutionTimeLimit(pTimeLimit) {
-        result := ComCall(12, this, "ptr", pTimeLimit, "HRESULT")
+        result := ComCall(12, this, BSTR.Ptr, pTimeLimit, "HRESULT")
         return result
     }
 
@@ -219,7 +242,7 @@ class ITrigger extends IDispatch {
     put_ExecutionTimeLimit(timelimit) {
         timelimit := timelimit is String ? BSTR.Alloc(timelimit).Value : timelimit
 
-        result := ComCall(13, this, "ptr", timelimit, "HRESULT")
+        result := ComCall(13, this, BSTR, timelimit, "HRESULT")
         return result
     }
 
@@ -234,7 +257,7 @@ class ITrigger extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itrigger-get_startboundary
      */
     get_StartBoundary(pStart) {
-        result := ComCall(14, this, "ptr", pStart, "HRESULT")
+        result := ComCall(14, this, BSTR.Ptr, pStart, "HRESULT")
         return result
     }
 
@@ -251,7 +274,7 @@ class ITrigger extends IDispatch {
     put_StartBoundary(start) {
         start := start is String ? BSTR.Alloc(start).Value : start
 
-        result := ComCall(15, this, "ptr", start, "HRESULT")
+        result := ComCall(15, this, BSTR, start, "HRESULT")
         return result
     }
 
@@ -266,7 +289,7 @@ class ITrigger extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itrigger-get_endboundary
      */
     get_EndBoundary(pEnd) {
-        result := ComCall(16, this, "ptr", pEnd, "HRESULT")
+        result := ComCall(16, this, BSTR.Ptr, pEnd, "HRESULT")
         return result
     }
 
@@ -283,7 +306,7 @@ class ITrigger extends IDispatch {
     put_EndBoundary(end) {
         end := end is String ? BSTR.Alloc(end).Value : end
 
-        result := ComCall(17, this, "ptr", end, "HRESULT")
+        result := ComCall(17, this, BSTR, end, "HRESULT")
         return result
     }
 
@@ -311,7 +334,51 @@ class ITrigger extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itrigger-put_enabled
      */
     put_Enabled(enabled) {
-        result := ComCall(19, this, "short", enabled, "HRESULT")
+        result := ComCall(19, this, VARIANT_BOOL, enabled, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITrigger.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.put_Id := CallbackCreate(GetMethod(implObj, "put_Id"), flags, 2)
+        this.vtbl.get_Repetition := CallbackCreate(GetMethod(implObj, "get_Repetition"), flags, 2)
+        this.vtbl.put_Repetition := CallbackCreate(GetMethod(implObj, "put_Repetition"), flags, 2)
+        this.vtbl.get_ExecutionTimeLimit := CallbackCreate(GetMethod(implObj, "get_ExecutionTimeLimit"), flags, 2)
+        this.vtbl.put_ExecutionTimeLimit := CallbackCreate(GetMethod(implObj, "put_ExecutionTimeLimit"), flags, 2)
+        this.vtbl.get_StartBoundary := CallbackCreate(GetMethod(implObj, "get_StartBoundary"), flags, 2)
+        this.vtbl.put_StartBoundary := CallbackCreate(GetMethod(implObj, "put_StartBoundary"), flags, 2)
+        this.vtbl.get_EndBoundary := CallbackCreate(GetMethod(implObj, "get_EndBoundary"), flags, 2)
+        this.vtbl.put_EndBoundary := CallbackCreate(GetMethod(implObj, "put_EndBoundary"), flags, 2)
+        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.put_Enabled := CallbackCreate(GetMethod(implObj, "put_Enabled"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Type)
+        CallbackFree(this.vtbl.get_Id)
+        CallbackFree(this.vtbl.put_Id)
+        CallbackFree(this.vtbl.get_Repetition)
+        CallbackFree(this.vtbl.put_Repetition)
+        CallbackFree(this.vtbl.get_ExecutionTimeLimit)
+        CallbackFree(this.vtbl.put_ExecutionTimeLimit)
+        CallbackFree(this.vtbl.get_StartBoundary)
+        CallbackFree(this.vtbl.put_StartBoundary)
+        CallbackFree(this.vtbl.get_EndBoundary)
+        CallbackFree(this.vtbl.put_EndBoundary)
+        CallbackFree(this.vtbl.get_Enabled)
+        CallbackFree(this.vtbl.put_Enabled)
     }
 }

@@ -1,35 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\FsrmReportFilter.ahk" { FsrmReportFilter }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FsrmReportType.ahk" { FsrmReportType }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Used to configure the description and filters for a single report.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nn-fsrmreports-ifsrmreport
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmReport extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmReport extends IDispatch {
     /**
      * The interface identifier for IFsrmReport
      * @type {Guid}
      */
-    static IID => Guid("{d8cc81d9-46b8-4fa4-bfa5-4aa9dec9b638}")
+    static IID := Guid("{d8cc81d9-46b8-4fa4-bfa5-4aa9dec9b638}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmReport interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Type                        : IntPtr
+        get_Name                        : IntPtr
+        put_Name                        : IntPtr
+        get_Description                 : IntPtr
+        put_Description                 : IntPtr
+        get_LastGeneratedFileNamePrefix : IntPtr
+        GetFilter                       : IntPtr
+        SetFilter                       : IntPtr
+        Delete                          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Type", "get_Name", "put_Name", "get_Description", "put_Description", "get_LastGeneratedFileNamePrefix", "GetFilter", "SetFilter", "Delete"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmReport.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {FsrmReportType} 
@@ -81,8 +99,8 @@ class IFsrmReport extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreport-get_name
      */
     get_Name() {
-        name := BSTR()
-        result := ComCall(8, this, "ptr", name, "HRESULT")
+        name := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, name, "HRESULT")
         return name
     }
 
@@ -99,7 +117,7 @@ class IFsrmReport extends IDispatch {
     put_Name(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(9, this, "ptr", name, "HRESULT")
+        result := ComCall(9, this, BSTR, name, "HRESULT")
         return result
     }
 
@@ -111,8 +129,8 @@ class IFsrmReport extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreport-get_description
      */
     get_Description() {
-        description := BSTR()
-        result := ComCall(10, this, "ptr", description, "HRESULT")
+        description := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, description, "HRESULT")
         return description
     }
 
@@ -127,7 +145,7 @@ class IFsrmReport extends IDispatch {
     put_Description(description) {
         description := description is String ? BSTR.Alloc(description).Value : description
 
-        result := ComCall(11, this, "ptr", description, "HRESULT")
+        result := ComCall(11, this, BSTR, description, "HRESULT")
         return result
     }
 
@@ -141,8 +159,8 @@ class IFsrmReport extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreport-get_lastgeneratedfilenameprefix
      */
     get_LastGeneratedFileNamePrefix() {
-        prefix := BSTR()
-        result := ComCall(12, this, "ptr", prefix, "HRESULT")
+        prefix := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, prefix, "HRESULT")
         return prefix
     }
 
@@ -154,7 +172,7 @@ class IFsrmReport extends IDispatch {
      */
     GetFilter(filter) {
         filterValue := VARIANT()
-        result := ComCall(13, this, "int", filter, "ptr", filterValue, "HRESULT")
+        result := ComCall(13, this, FsrmReportFilter, filter, VARIANT.Ptr, filterValue, "HRESULT")
         return filterValue
     }
 
@@ -247,7 +265,7 @@ class IFsrmReport extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreport-setfilter
      */
     SetFilter(filter, filterValue) {
-        result := ComCall(14, this, "int", filter, "ptr", filterValue, "HRESULT")
+        result := ComCall(14, this, FsrmReportFilter, filter, VARIANT, filterValue, "HRESULT")
         return result
     }
 
@@ -261,5 +279,41 @@ class IFsrmReport extends IDispatch {
     Delete() {
         result := ComCall(15, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFsrmReport.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.get_LastGeneratedFileNamePrefix := CallbackCreate(GetMethod(implObj, "get_LastGeneratedFileNamePrefix"), flags, 2)
+        this.vtbl.GetFilter := CallbackCreate(GetMethod(implObj, "GetFilter"), flags, 3)
+        this.vtbl.SetFilter := CallbackCreate(GetMethod(implObj, "SetFilter"), flags, 3)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Type)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.put_Name)
+        CallbackFree(this.vtbl.get_Description)
+        CallbackFree(this.vtbl.put_Description)
+        CallbackFree(this.vtbl.get_LastGeneratedFileNamePrefix)
+        CallbackFree(this.vtbl.GetFilter)
+        CallbackFree(this.vtbl.SetFilter)
+        CallbackFree(this.vtbl.Delete)
     }
 }

@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMemAllocator.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMemAllocator.ahk" { IMemAllocator }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMemAllocatorNotifyCallbackTemp.ahk" { IMemAllocatorNotifyCallbackTemp }
 
 /**
  * The IMemAllocatorCallbackTemp interface enables a filter to receive a callback notification from an allocator whenever a sample is returned to the allocator's free list.The use of this interface is deprecated.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-imemallocatorcallbacktemp
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IMemAllocatorCallbackTemp extends IMemAllocator {
-
-    static sizeof => A_PtrSize
+export default struct IMemAllocatorCallbackTemp extends IMemAllocator {
     /**
      * The interface identifier for IMemAllocatorCallbackTemp
      * @type {Guid}
      */
-    static IID => Guid("{379a0cf0-c1de-11d2-abf5-00a0c905f375}")
+    static IID := Guid("{379a0cf0-c1de-11d2-abf5-00a0c905f375}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMemAllocatorCallbackTemp interfaces
+    */
+    struct Vtbl extends IMemAllocator.Vtbl {
+        SetNotify    : IntPtr
+        GetFreeCount : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetNotify", "GetFreeCount"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMemAllocatorCallbackTemp.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetNotify method sets or removes a callback on the allocator. The allocator calls the callback method whenever the allocator's IMemAllocator::ReleaseBuffer method is called.
@@ -56,5 +66,27 @@ class IMemAllocatorCallbackTemp extends IMemAllocator {
     GetFreeCount() {
         result := ComCall(10, this, "int*", &plBuffersFree := 0, "HRESULT")
         return plBuffersFree
+    }
+
+    Query(iid) {
+        if (IMemAllocatorCallbackTemp.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetNotify := CallbackCreate(GetMethod(implObj, "SetNotify"), flags, 2)
+        this.vtbl.GetFreeCount := CallbackCreate(GetMethod(implObj, "GetFreeCount"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetNotify)
+        CallbackFree(this.vtbl.GetFreeCount)
     }
 }

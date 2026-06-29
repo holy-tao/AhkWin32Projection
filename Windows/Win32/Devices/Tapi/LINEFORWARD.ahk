@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The LINEFORWARD structure describes an entry of the forwarding instructions. The LINEFORWARDLIST and the LINEADDRESSSTATUS structures can contain an array of LINEFORWARD structures.
@@ -11,62 +10,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineforward
  * @namespace Windows.Win32.Devices.Tapi
  */
-class LINEFORWARD extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct LINEFORWARD {
+    #StructPack 4
 
     /**
      * Types of forwarding. This member uses one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineforwardmode--constants">LINEFORWARDMODE_ Constants</a>.
-     * @type {Integer}
      */
-    dwForwardMode {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwForwardMode : UInt32
 
     /**
      * Size of the variably sized field containing the address of a caller to be forwarded, in bytes.
-     * @type {Integer}
      */
-    dwCallerAddressSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwCallerAddressSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCallerAddressOffset {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwCallerAddressOffset : UInt32
 
     /**
      * Country or region code of the destination address to which the call is to be forwarded.
-     * @type {Integer}
      */
-    dwDestCountryCode {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwDestCountryCode : UInt32
 
     /**
      * Size of the variably sized field containing the address of the address where calls are to be forwarded, in bytes.
-     * @type {Integer}
      */
-    dwDestAddressSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwDestAddressSize : UInt32
 
     /**
      * Offset from the beginning of this structure to the variably sized field containing the address of the address where calls are to be forwarded. The size of the field is specified by <b>dwDestAddressSize</b>.
-     * @type {Integer}
      */
-    dwDestAddressOffset {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwDestAddressOffset : UInt32
+
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies and configures the services that are to be active in the service domain entered when calling either CoCreateActivity or CoEnterServiceDomain.
@@ -12,8 +11,7 @@
  * @see https://learn.microsoft.com/windows/win32/cossdk/cserviceconfig
  * @namespace Windows.Win32.System.ComponentServices
  */
-class CServiceConfig extends Win32Struct {
-    static sizeof => 0
+export default struct CServiceConfig {
+    #StructPack 1
 
-    static packingSize => 1
 }

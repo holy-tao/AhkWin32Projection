@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Defines information about a counter set that a provider uses. The CTRPP tool automatically generates this structure based on the schema you specify.
@@ -8,37 +8,23 @@
  * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_counterset_info
  * @namespace Windows.Win32.System.Performance
  */
-class PERF_COUNTERSET_INFO extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct PERF_COUNTERSET_INFO {
+    #StructPack 4
 
     /**
      * GUID that uniquely identifies the counter set. The <b>guid</b> attribute of the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/performance-counters-counterset--provider--element">counterSet</a> element contains the GUID.
-     * @type {Pointer}
      */
-    CounterSetGuid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    CounterSetGuid : Guid
 
     /**
      * GUID that uniquely identifies the provider that supports the counter set. The <b>providerGuid</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element contains the GUID.
-     * @type {Pointer}
      */
-    ProviderGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ProviderGuid : Guid
 
     /**
      * Number of counters in the counter set. See Remarks.
-     * @type {Integer}
      */
-    NumCounters {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    NumCounters : UInt32
 
     /**
      * Specifies whether the counter set allows multiple instances such as processes and physical disks, or    a single instance such as memory. 
@@ -123,10 +109,7 @@ class PERF_COUNTERSET_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    InstanceType {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    InstanceType : UInt32
+
 }

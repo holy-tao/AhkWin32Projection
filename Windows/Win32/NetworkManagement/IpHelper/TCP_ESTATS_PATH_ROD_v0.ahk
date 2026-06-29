@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains read-only dynamic information for extended TCP statistics on network path measurement for a TCP connection.
@@ -447,33 +446,23 @@
  * @see https://learn.microsoft.com/windows/win32/api/tcpestats/ns-tcpestats-tcp_estats_path_rod_v0
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class TCP_ESTATS_PATH_ROD_v0 extends Win32Struct {
-    static sizeof => 160
-
-    static packingSize => 4
+export default struct TCP_ESTATS_PATH_ROD_v0 {
+    #StructPack 4
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The number of invocations of the Fast Retransmit algorithm.
-     * @type {Integer}
      */
-    FastRetran {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    FastRetran : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The number of times the retransmit timeout has expired when
      *            the retransmission timer backoff multiplier is equal to one.
-     * @type {Integer}
      */
-    Timeouts {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Timeouts : UInt32
 
     /**
      * Type: <b>ULONG</b>
@@ -482,12 +471,8 @@ class TCP_ESTATS_PATH_ROD_v0 extends Win32Struct {
      *            the retransmission timer has been doubled. 
      * 
      * For more information, see section 5.5 of RFC 2988 discussed in the Remarks below.
-     * @type {Integer}
      */
-    SubsequentTimeouts {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SubsequentTimeouts : UInt32
 
     /**
      * Type: <b>ULONG</b>
@@ -499,12 +484,8 @@ class TCP_ESTATS_PATH_ROD_v0 extends Win32Struct {
      * The <b>CurTimeoutCount</b> member is reset to zero when new
      *            data is acknowledged and incremented for each invocation of
      *            Section 5.5 of RFC 2988.
-     * @type {Integer}
      */
-    CurTimeoutCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    CurTimeoutCount : UInt32
 
     /**
      * Type: <b>ULONG</b>
@@ -518,68 +499,44 @@ class TCP_ESTATS_PATH_ROD_v0 extends Win32Struct {
      *            other congestion signals (Explicit Congestion Notification, for example) are not counted as
      *            abrupt, and might have been avoided by a more sophisticated
      *            Fast Retransmit algorithm.
-     * @type {Integer}
      */
-    AbruptTimeouts {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    AbruptTimeouts : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The number of segments transmitted containing at least some
      *            retransmitted data.
-     * @type {Integer}
      */
-    PktsRetrans {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    PktsRetrans : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The number of bytes retransmitted.
-     * @type {Integer}
      */
-    BytesRetrans {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    BytesRetrans : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The number of duplicate ACKs received.
-     * @type {Integer}
      */
-    DupAcksIn {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    DupAcksIn : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The number of Selective Acknowledgment (SACK)  options received.
-     * @type {Integer}
      */
-    SacksRcvd {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    SacksRcvd : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The number of SACK blocks received (within SACK options).
-     * @type {Integer}
      */
-    SackBlocksRcvd {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    SackBlocksRcvd : UInt32
 
     /**
      * Type: <b>ULONG</b>
@@ -600,12 +557,8 @@ class TCP_ESTATS_PATH_ROD_v0 extends Win32Struct {
      *            spurious congestion indications due to out-of-order
      *            segments, the <b>CongSignals</b> member is incremented in
      *            association with the Fast Retransmit algorithm.
-     * @type {Integer}
      */
-    CongSignals {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    CongSignals : UInt32
 
     /**
      * Type: <b>ULONG</b>
@@ -619,12 +572,8 @@ class TCP_ESTATS_PATH_ROD_v0 extends Win32Struct {
      *            the <b>PreCongSumCwnd</b> member divided by the change in
      *            the <b>CongSignals</b> member is the average window (over some
      *            interval) just prior to a congestion signal.
-     * @type {Integer}
      */
-    PreCongSumCwnd {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    PreCongSumCwnd : UInt32
 
     /**
      * Type: <b>ULONG</b>
@@ -636,12 +585,8 @@ class TCP_ESTATS_PATH_ROD_v0 extends Win32Struct {
      *            such that the change in the <b>PreCongSumRtt</b>  divided by
      *            the change in the <b>CongSignals</b> member is the average RTT
      *            (over some interval) just prior to a congestion signal.
-     * @type {Integer}
      */
-    PreCongSumRtt {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    PreCongSumRtt : UInt32
 
     /**
      * Type: <b>ULONG</b>
@@ -653,12 +598,8 @@ class TCP_ESTATS_PATH_ROD_v0 extends Win32Struct {
      *            the <b>PostCongSumRtt</b> member divided by the change in
      *            the <b>PostCongCountRtt</b> member is the average RTT (over some
      *            interval) just after a congestion signal.
-     * @type {Integer}
      */
-    PostCongSumRtt {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    PostCongSumRtt : UInt32
 
     /**
      * Type: <b>ULONG</b>
@@ -670,12 +611,8 @@ class TCP_ESTATS_PATH_ROD_v0 extends Win32Struct {
      *            the <b>PostCongSumRtt</b> member divided by the change in
      *            the <b>PostCongCountRtt</b> member is the average RTT (over some
      *            interval) just after a congestion signal.
-     * @type {Integer}
      */
-    PostCongCountRtt {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    PostCongCountRtt : UInt32
 
     /**
      * Type: <b>ULONG</b>
@@ -691,24 +628,16 @@ class TCP_ESTATS_PATH_ROD_v0 extends Win32Struct {
      * Experienced (ECE) bits, but
      *            also includes segments failing the ECN nonce check or
      *            other explicit congestion signals.
-     * @type {Integer}
      */
-    EcnSignals {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    EcnSignals : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The number of segments received with IP headers bearing
      *            Congestion Experienced (CE) markings.
-     * @type {Integer}
      */
-    EceRcvd {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    EceRcvd : UInt32
 
     /**
      * Type: <b>ULONG</b>
@@ -716,23 +645,15 @@ class TCP_ESTATS_PATH_ROD_v0 extends Win32Struct {
      * The number of interface stalls or other sender local
      *            resource limitations that are treated as congestion
      *            signals.
-     * @type {Integer}
      */
-    SendStall {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    SendStall : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * Reserved for future use. This member is always set to zero.
-     * @type {Integer}
      */
-    QuenchRcvd {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    QuenchRcvd : UInt32
 
     /**
      * Type: <b>ULONG</b>
@@ -743,12 +664,8 @@ class TCP_ESTATS_PATH_ROD_v0 extends Win32Struct {
      * Note that although this is constant in
      *            traditional Reno TCP implementations, it is adaptive in
      *            many newer TCP implementations.
-     * @type {Integer}
      */
-    RetranThresh {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    RetranThresh : UInt32
 
     /**
      * Type: <b>ULONG</b>
@@ -760,12 +677,8 @@ class TCP_ESTATS_PATH_ROD_v0 extends Win32Struct {
      * This is an indication of the number of data segments lost
      *            or reordered on the path from the remote TCP endpoint to
      *            the near TCP endpoint.
-     * @type {Integer}
      */
-    SndDupAckEpisodes {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    SndDupAckEpisodes : UInt32
 
     /**
      * Type: <b>ULONG</b>
@@ -778,12 +691,8 @@ class TCP_ESTATS_PATH_ROD_v0 extends Win32Struct {
      *            by the change in the <b>NonRecovDaEpisodes</b> member is an
      *            estimate of the average reordering distance, over some
      *            interval.
-     * @type {Integer}
      */
-    SumBytesReordered {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    SumBytesReordered : UInt32
 
     /**
      * Type: <b>ULONG</b>
@@ -798,12 +707,8 @@ class TCP_ESTATS_PATH_ROD_v0 extends Win32Struct {
      *            the change in the <b>NonRecovDaEpisodes</b> member is an
      *            estimate of the average reordering distance in segments
      *            over some interval.
-     * @type {Integer}
      */
-    NonRecovDa {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    NonRecovDa : UInt32
 
     /**
      * Type: <b>ULONG</b>
@@ -812,93 +717,61 @@ class TCP_ESTATS_PATH_ROD_v0 extends Win32Struct {
      *            not trigger a Fast Retransmit because ACK advanced prior to
      *            the number of duplicate acknowledgments reaching
      *            the <b>RetranThresh</b>.
-     * @type {Integer}
      */
-    NonRecovDaEpisodes {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    NonRecovDaEpisodes : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * Reserved for future use. This member is always set to zero.
-     * @type {Integer}
      */
-    AckAfterFr {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    AckAfterFr : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The number of duplicate segments reported to the local host
      *            by D-SACK blocks.
-     * @type {Integer}
      */
-    DsackDups {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
+    DsackDups : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The most recent raw network round trip time measurement, in milliseconds, used in
      *            calculation of the retransmission timer (RTO).
-     * @type {Integer}
      */
-    SampleRtt {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    SampleRtt : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The smoothed round trip time, in milliseconds, used in calculation of the
      *            RTO.
-     * @type {Integer}
      */
-    SmoothedRtt {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
+    SmoothedRtt : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The round trip time variation, in milliseconds, used in calculation of the
      *            RTO.
-     * @type {Integer}
      */
-    RttVar {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    RttVar : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The maximum sampled round trip time in milliseconds.
-     * @type {Integer}
      */
-    MaxRtt {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
-    }
+    MaxRtt : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The minimum sampled round trip time in milliseconds.
-     * @type {Integer}
      */
-    MinRtt {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    MinRtt : UInt32
 
     /**
      * Type: <b>ULONG</b>
@@ -908,100 +781,65 @@ class TCP_ESTATS_PATH_ROD_v0 extends Win32Struct {
      * Note that the change in the <b>SumRtt</b> member divided by the
      *            change in the <b>CountRtt</b> member is the mean RTT, uniformly
      *            averaged over an enter interval.
-     * @type {Integer}
      */
-    SumRtt {
-        get => NumGet(this, 124, "uint")
-        set => NumPut("uint", value, this, 124)
-    }
+    SumRtt : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The number of round trip time samples included in
      *            the <b>SumRtt</b> member.
-     * @type {Integer}
      */
-    CountRtt {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    CountRtt : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The current value, in milliseconds, of the retransmit timer.
-     * @type {Integer}
      */
-    CurRto {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
-    }
+    CurRto : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The maximum value, in milliseconds, of the retransmit timer.
-     * @type {Integer}
      */
-    MaxRto {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    MaxRto : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The minimum value, in milliseconds, of the retransmit timer.
-     * @type {Integer}
      */
-    MinRto {
-        get => NumGet(this, 140, "uint")
-        set => NumPut("uint", value, this, 140)
-    }
+    MinRto : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The current maximum segment size (MSS), in bytes.
-     * @type {Integer}
      */
-    CurMss {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
-    }
+    CurMss : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The maximum MSS, in bytes.
-     * @type {Integer}
      */
-    MaxMss {
-        get => NumGet(this, 148, "uint")
-        set => NumPut("uint", value, this, 148)
-    }
+    MaxMss : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The minimum MSS, in bytes.
-     * @type {Integer}
      */
-    MinMss {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
-    }
+    MinMss : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The number of acknowledgments reporting segments that have
      *            already been retransmitted due to a Retransmission Timeout.
-     * @type {Integer}
      */
-    SpuriousRtoDetections {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
-    }
+    SpuriousRtoDetections : UInt32
+
 }

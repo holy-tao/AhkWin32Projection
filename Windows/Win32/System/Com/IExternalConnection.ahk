@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * The IExternalConnection (objidlbase.h) interface manages a server object's count of marshaled, or external, connections.
@@ -18,26 +19,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-iexternalconnection
  * @namespace Windows.Win32.System.Com
  */
-class IExternalConnection extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IExternalConnection extends IUnknown {
     /**
      * The interface identifier for IExternalConnection
      * @type {Guid}
      */
-    static IID => Guid("{00000019-0000-0000-c000-000000000046}")
+    static IID := Guid("{00000019-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IExternalConnection interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddConnection     : IntPtr
+        ReleaseConnection : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddConnection", "ReleaseConnection"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IExternalConnection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IExternalConnection::AddConnection (objidlbase.h) method increments the count of an object's strong external connections.
@@ -62,7 +71,7 @@ class IExternalConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iexternalconnection-addconnection
      */
     AddConnection(_extconn, reserved) {
-        result := ComCall(3, this, "uint", _extconn, "uint", reserved, "uint")
+        result := ComCall(3, this, "uint", _extconn, "uint", reserved, UInt32)
         return result
     }
 
@@ -77,7 +86,29 @@ class IExternalConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iexternalconnection-releaseconnection
      */
     ReleaseConnection(_extconn, reserved, fLastReleaseCloses) {
-        result := ComCall(4, this, "uint", _extconn, "uint", reserved, "int", fLastReleaseCloses, "uint")
+        result := ComCall(4, this, "uint", _extconn, "uint", reserved, BOOL, fLastReleaseCloses, UInt32)
         return result
+    }
+
+    Query(iid) {
+        if (IExternalConnection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddConnection := CallbackCreate(GetMethod(implObj, "AddConnection"), flags, 3)
+        this.vtbl.ReleaseConnection := CallbackCreate(GetMethod(implObj, "ReleaseConnection"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddConnection)
+        CallbackFree(this.vtbl.ReleaseConnection)
     }
 }

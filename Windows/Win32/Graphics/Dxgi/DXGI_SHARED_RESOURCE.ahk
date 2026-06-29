@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * Represents a handle to a shared resource.
@@ -9,22 +8,14 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/ns-dxgi-dxgi_shared_resource
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class DXGI_SHARED_RESOURCE extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 8
+export default struct DXGI_SHARED_RESOURCE {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HANDLE</a></b>
      * 
      * A handle to a shared resource.
-     * @type {HANDLE}
      */
-    Handle {
-        get {
-            if(!this.HasProp("__Handle"))
-                this.__Handle := HANDLE(0, this)
-            return this.__Handle
-        }
-    }
+    Handle : HANDLE
+
 }

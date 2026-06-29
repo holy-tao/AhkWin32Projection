@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MF_MEDIA_ENGINE_ERR.ahk" { MF_MEDIA_ENGINE_ERR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides the current error status for the Media Engine.
@@ -12,26 +14,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfmediaerror
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFMediaError extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFMediaError extends IUnknown {
     /**
      * The interface identifier for IMFMediaError
      * @type {Guid}
      */
-    static IID => Guid("{fc0e10d2-ab2a-4501-a951-06bb1075184c}")
+    static IID := Guid("{fc0e10d2-ab2a-4501-a951-06bb1075184c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFMediaError interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetErrorCode         : IntPtr
+        GetExtendedErrorCode : IntPtr
+        SetErrorCode         : IntPtr
+        SetExtendedErrorCode : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetErrorCode", "GetExtendedErrorCode", "SetErrorCode", "SetExtendedErrorCode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFMediaError.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the error code.
@@ -39,7 +51,7 @@ class IMFMediaError extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaerror-geterrorcode
      */
     GetErrorCode() {
-        result := ComCall(3, this, "ushort")
+        result := ComCall(3, this, UInt16)
         return result
     }
 
@@ -60,7 +72,7 @@ class IMFMediaError extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaerror-seterrorcode
      */
     SetErrorCode(_error) {
-        result := ComCall(5, this, "int", _error, "HRESULT")
+        result := ComCall(5, this, MF_MEDIA_ENGINE_ERR, _error, "HRESULT")
         return result
     }
 
@@ -73,5 +85,31 @@ class IMFMediaError extends IUnknown {
     SetExtendedErrorCode(_error) {
         result := ComCall(6, this, "int", _error, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFMediaError.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetErrorCode := CallbackCreate(GetMethod(implObj, "GetErrorCode"), flags, 1)
+        this.vtbl.GetExtendedErrorCode := CallbackCreate(GetMethod(implObj, "GetExtendedErrorCode"), flags, 1)
+        this.vtbl.SetErrorCode := CallbackCreate(GetMethod(implObj, "SetErrorCode"), flags, 2)
+        this.vtbl.SetExtendedErrorCode := CallbackCreate(GetMethod(implObj, "SetExtendedErrorCode"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetErrorCode)
+        CallbackFree(this.vtbl.GetExtendedErrorCode)
+        CallbackFree(this.vtbl.SetErrorCode)
+        CallbackFree(this.vtbl.SetExtendedErrorCode)
     }
 }

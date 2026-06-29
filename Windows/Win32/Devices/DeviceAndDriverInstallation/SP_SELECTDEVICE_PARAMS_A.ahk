@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SP_CLASSINSTALL_HEADER.ahk
-#Include .\DI_FUNCTION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SP_CLASSINSTALL_HEADER.ahk" { SP_CLASSINSTALL_HEADER }
+#Import ".\DI_FUNCTION.ahk" { DI_FUNCTION }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * An SP_SELECTDEVICE_PARAMS structure corresponds to a DIF_SELECTDEVICE installation request. (ANSI)
@@ -21,68 +21,37 @@
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @charset ANSI
  */
-class SP_SELECTDEVICE_PARAMS_A extends Win32Struct {
-    static sizeof => 612
-
-    static packingSize => 4
+export default struct SP_SELECTDEVICE_PARAMS_A {
+    #StructPack 4
 
     /**
      * An install request header that contains the header size and the DIF code for the request. See <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/ns-setupapi-sp_classinstall_header">SP_CLASSINSTALL_HEADER</a>.
-     * @type {SP_CLASSINSTALL_HEADER}
      */
-    ClassInstallHeader {
-        get {
-            if(!this.HasProp("__ClassInstallHeader"))
-                this.__ClassInstallHeader := SP_CLASSINSTALL_HEADER(0, this)
-            return this.__ClassInstallHeader
-        }
-    }
+    ClassInstallHeader : SP_CLASSINSTALL_HEADER
 
     /**
      * Buffer that contains an installer-provided window title for driver-selection windows. Windows uses this title for the window title for the Select Device dialogs.
-     * @type {String}
      */
-    Title {
-        get => StrGet(this.ptr + 8, 59, "UTF-8")
-        set => StrPut(value, this.ptr + 8, 59, "UTF-8")
-    }
+    Title : CHAR[60]
 
     /**
      * Buffer that contains an installer-provided select-device instructions.
-     * @type {String}
      */
-    Instructions {
-        get => StrGet(this.ptr + 68, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 68, 255, "UTF-8")
-    }
+    Instructions : CHAR[256]
 
     /**
      * Buffer that contains an installer-provided label for the list of drivers from which the user can select.
-     * @type {String}
      */
-    ListLabel {
-        get => StrGet(this.ptr + 324, 29, "UTF-8")
-        set => StrPut(value, this.ptr + 324, 29, "UTF-8")
-    }
+    ListLabel : CHAR[30]
 
     /**
      * Buffer that contains an installer-provided subtitle used in select-device wizards. This string is not used in select dialogs.
-     * @type {String}
      */
-    SubTitle {
-        get => StrGet(this.ptr + 354, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 354, 255, "UTF-8")
-    }
+    SubTitle : CHAR[256]
 
     /**
      * Reserved. For internal use only.
-     * @type {Array<Integer>}
      */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 610, 2, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    Reserved : Int8[2]
+
 }

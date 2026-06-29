@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The EVENT_DESCRIPTOR structure contains information (metadata) about an ETW event.
@@ -38,10 +37,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/evntprov/ns-evntprov-event_descriptor
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class EVENT_DESCRIPTOR extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct EVENT_DESCRIPTOR {
+    #StructPack 8
 
     /**
      * A 16-bit number used to identify manifest-based events.
@@ -54,12 +51,8 @@ class EVENT_DESCRIPTOR extends Win32Struct {
      * For manifest-free ETW (i.e. TraceLogging), the Id field is usually not
      * meaningful and will normally be set to 0. TraceLogging events are generally
      * identified by their event name, not the event ID.
-     * @type {Integer}
      */
-    Id {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Id : UInt16
 
     /**
      * An 8-bit number used to specify the version of a manifest-based event.
@@ -68,12 +61,8 @@ class EVENT_DESCRIPTOR extends Win32Struct {
      * Id. All events with a given Id should have similar semantics, but a change in
      * version can be used to indicate a minor modification of the event details, e.g.
      * a change to the type of a field or the addition of a new field.
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    Version : Int8
 
     /**
      * An 8-bit number used to enable special event processing.
@@ -87,12 +76,8 @@ class EVENT_DESCRIPTOR extends Win32Struct {
      * treatment by the ETW runtime. Channel values 16 and above will be ignored by the
      * ETW runtime (treated the same as channel 0) and can be given user-defined
      * semantics.
-     * @type {Integer}
      */
-    Channel {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    Channel : Int8
 
     /**
      * An 8-bit number used to describe an event's severity or importance.
@@ -117,12 +102,8 @@ class EVENT_DESCRIPTOR extends Win32Struct {
      * Event collection sessions can set a level filter, meaning that the session will
      * only accept events where `eventDescriptor.Level <= session.LevelFilter`. Note
      * that events with a level of 0 will bypass level-based filtering.
-     * @type {Integer}
      */
-    Level {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    Level : Int8
 
     /**
      * An 8-bit number used to mark events with special semantics. This value can be
@@ -144,12 +125,8 @@ class EVENT_DESCRIPTOR extends Win32Struct {
      * 
      * Trace decoding tools can then organize these events into groups based on their
      * activity IDs.
-     * @type {Integer}
      */
-    Opcode {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    Opcode : Int8
 
     /**
      * A 16-bit number used to annotate an event or related group of events.
@@ -159,12 +136,8 @@ class EVENT_DESCRIPTOR extends Win32Struct {
      * assigned to the event. The ETW manifest supports assigning localized strings to
      * each task code. The task code might be used to group events into categories or
      * to simply associate a localized "task" string with each event.
-     * @type {Integer}
      */
-    Task {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    Task : UInt16
 
     /**
      * A 64-bit bitmask used to indicate an event's membership in a set of event
@@ -205,10 +178,7 @@ class EVENT_DESCRIPTOR extends Win32Struct {
      * > structure that is passed to
      * > [EnableTraceEx2](/windows/win32/api/evntrace/nf-evntrace-enabletraceex2) when
      * > configuring the provider.
-     * @type {Integer}
      */
-    Keyword {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Keyword : Int64
+
 }

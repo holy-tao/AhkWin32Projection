@@ -1,69 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DIRECTDRAW_GBL.ahk
-#Include ..\Gdi\RGNDATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Gdi\RGNDATA.ahk" { RGNDATA }
+#Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDRAWI_DDRAWCLIPPER_GBL extends Win32Struct {
-    static sizeof => 48
+export default struct DDRAWI_DDRAWCLIPPER_GBL {
+    #StructPack 8
 
-    static packingSize => 8
+    dwRefCnt : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwRefCnt {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {Pointer<DDRAWI_DIRECTDRAW_GBL>}
-     */
+    __lpDD_ptr : IntPtr
     lpDD {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => (addr := this.__lpDD_ptr) ? DDRAWI_DIRECTDRAW_GBL.At(addr) : unset
+        set => this.__lpDD_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Integer}
-     */
-    dwProcessId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwProcessId : UInt32
 
-    /**
-     * @type {Pointer}
-     */
-    dwReserved1 {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    dwReserved1 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    hWnd {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    hWnd : IntPtr
 
-    /**
-     * @type {Pointer<RGNDATA>}
-     */
-    lpStaticClipList {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lpStaticClipList : RGNDATA.Ptr
+
 }

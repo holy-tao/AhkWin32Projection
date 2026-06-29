@@ -1,33 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class MIPI_DSI_RESET extends Win32Struct {
-    static sizeof => 8
+export default struct MIPI_DSI_RESET {
+    #StructPack 4
 
-    static packingSize => 4
-
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : UInt32
 
     /**
      * This bitfield backs the following members:
      * - MipiErrors
      * - ResetFailed
      * - NeedModeSet
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -52,12 +40,8 @@ class MIPI_DSI_RESET extends Win32Struct {
         get => (this._bitfield >> 17) & 0x1
         set => this._bitfield := ((value & 0x1) << 17) | (this._bitfield & ~(0x1 << 17))
     }
-
-    /**
-     * @type {Integer}
-     */
-    Results {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+    static __New() {
+        DefineProp(this.Prototype, 'Results', { type: UInt32, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

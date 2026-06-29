@@ -1,33 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include ..\..\..\..\Foundation\BSTR.ahk
-#Include .\IEnumJsStackFrames.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumJsStackFrames.ahk" { IEnumJsStackFrames }
+#Import ".\JsDebugReadMemoryFlags.ahk" { JsDebugReadMemoryFlags }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
  */
-class IJsDebugDataTarget extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IJsDebugDataTarget extends IUnknown {
     /**
      * The interface identifier for IJsDebugDataTarget
      * @type {Guid}
      */
-    static IID => Guid("{53b28977-53a1-48e5-9000-5d0dfa893931}")
+    static IID := Guid("{53b28977-53a1-48e5-9000-5d0dfa893931}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IJsDebugDataTarget interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ReadMemory                 : IntPtr
+        WriteMemory                : IntPtr
+        AllocateVirtualMemory      : IntPtr
+        FreeVirtualMemory          : IntPtr
+        GetTlsValue                : IntPtr
+        ReadBSTR                   : IntPtr
+        ReadNullTerminatedString   : IntPtr
+        CreateStackFrameEnumerator : IntPtr
+        GetThreadContext           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ReadMemory", "WriteMemory", "AllocateVirtualMemory", "FreeVirtualMemory", "GetTlsValue", "ReadBSTR", "ReadNullTerminatedString", "CreateStackFrameEnumerator", "GetThreadContext"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IJsDebugDataTarget.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -42,7 +59,7 @@ class IJsDebugDataTarget extends IUnknown {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
         pBytesReadMarshal := pBytesRead is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", _address, "int", flags, pBufferMarshal, pBuffer, "uint", _size, pBytesReadMarshal, pBytesRead, "HRESULT")
+        result := ComCall(3, this, "uint", _address, JsDebugReadMemoryFlags, flags, pBufferMarshal, pBuffer, "uint", _size, pBytesReadMarshal, pBytesRead, "HRESULT")
         return result
     }
 
@@ -102,8 +119,8 @@ class IJsDebugDataTarget extends IUnknown {
      * @returns {BSTR} 
      */
     ReadBSTR(_address) {
-        pString := BSTR()
-        result := ComCall(8, this, "uint", _address, "ptr", pString, "HRESULT")
+        pString := BSTR.Owned()
+        result := ComCall(8, this, "uint", _address, BSTR.Ptr, pString, "HRESULT")
         return pString
     }
 
@@ -115,8 +132,8 @@ class IJsDebugDataTarget extends IUnknown {
      * @returns {BSTR} 
      */
     ReadNullTerminatedString(_address, characterSize, maxCharacters) {
-        pString := BSTR()
-        result := ComCall(9, this, "uint", _address, "ushort", characterSize, "uint", maxCharacters, "ptr", pString, "HRESULT")
+        pString := BSTR.Owned()
+        result := ComCall(9, this, "uint", _address, "ushort", characterSize, "uint", maxCharacters, BSTR.Ptr, pString, "HRESULT")
         return pString
     }
 
@@ -147,5 +164,41 @@ class IJsDebugDataTarget extends IUnknown {
     GetThreadContext(threadId, contextFlags, contextSize) {
         result := ComCall(11, this, "uint", threadId, "uint", contextFlags, "uint", contextSize, "ptr", &pContext := 0, "HRESULT")
         return pContext
+    }
+
+    Query(iid) {
+        if (IJsDebugDataTarget.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ReadMemory := CallbackCreate(GetMethod(implObj, "ReadMemory"), flags, 6)
+        this.vtbl.WriteMemory := CallbackCreate(GetMethod(implObj, "WriteMemory"), flags, 4)
+        this.vtbl.AllocateVirtualMemory := CallbackCreate(GetMethod(implObj, "AllocateVirtualMemory"), flags, 6)
+        this.vtbl.FreeVirtualMemory := CallbackCreate(GetMethod(implObj, "FreeVirtualMemory"), flags, 4)
+        this.vtbl.GetTlsValue := CallbackCreate(GetMethod(implObj, "GetTlsValue"), flags, 4)
+        this.vtbl.ReadBSTR := CallbackCreate(GetMethod(implObj, "ReadBSTR"), flags, 3)
+        this.vtbl.ReadNullTerminatedString := CallbackCreate(GetMethod(implObj, "ReadNullTerminatedString"), flags, 5)
+        this.vtbl.CreateStackFrameEnumerator := CallbackCreate(GetMethod(implObj, "CreateStackFrameEnumerator"), flags, 3)
+        this.vtbl.GetThreadContext := CallbackCreate(GetMethod(implObj, "GetThreadContext"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ReadMemory)
+        CallbackFree(this.vtbl.WriteMemory)
+        CallbackFree(this.vtbl.AllocateVirtualMemory)
+        CallbackFree(this.vtbl.FreeVirtualMemory)
+        CallbackFree(this.vtbl.GetTlsValue)
+        CallbackFree(this.vtbl.ReadBSTR)
+        CallbackFree(this.vtbl.ReadNullTerminatedString)
+        CallbackFree(this.vtbl.CreateStackFrameEnumerator)
+        CallbackFree(this.vtbl.GetThreadContext)
     }
 }

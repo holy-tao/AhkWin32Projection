@@ -1,136 +1,82 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MI_Qualifier.ahk
-#Include .\MI_ParameterDecl.ahk
-#Include .\MI_SchemaDecl.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MI_ParameterDecl.ahk" { MI_ParameterDecl }
+#Import ".\MI_SchemaDecl.ahk" { MI_SchemaDecl }
+#Import ".\MI_Qualifier.ahk" { MI_Qualifier }
 
 /**
  * Represents a CIM method.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_methoddecl
  * @namespace Windows.Win32.System.Wmi
  */
-class MI_MethodDecl extends Win32Struct {
-    static sizeof => 88
-
-    static packingSize => 8
+export default struct MI_MethodDecl {
+    #StructPack 8
 
     /**
      * Flags:
      * 
      * <a id="MI_FLAG_METHOD"></a>
      * <a id="mi_flag_method"></a>
-     * @type {Integer}
      */
-    flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    flags : UInt32
 
     /**
      * Hash code: <c>(name[0] &lt;&lt; 16) | (name[len-1] &lt;&lt; 8) | len</c>
-     * @type {Integer}
      */
-    code {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    code : UInt32
 
     /**
      * The method name.
-     * @type {Pointer<Integer>}
      */
-    name {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    name : IntPtr
 
     /**
      * The qualifiers of the method.
-     * @type {Pointer<Pointer<MI_Qualifier>>}
      */
-    qualifiers {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    qualifiers : IntPtr
 
     /**
      * The number of qualifiers.
-     * @type {Integer}
      */
-    numQualifiers {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    numQualifiers : UInt32
 
     /**
      * The parameters of the method.
-     * @type {Pointer<Pointer<MI_ParameterDecl>>}
      */
-    parameters {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    parameters : IntPtr
 
     /**
      * The number of parameters.
-     * @type {Integer}
      */
-    numParameters {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    numParameters : UInt32
 
     /**
      * The size of the structure.
-     * @type {Integer}
      */
-    size {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    size : UInt32
 
     /**
      * The post result type of this method.
-     * @type {Integer}
      */
-    returnType {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    returnType : UInt32
 
     /**
      * The ancestor class that first defined a method with this name.
-     * @type {Pointer<Integer>}
      */
-    origin {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    origin : IntPtr
 
     /**
      * The ancestor class that last defined a method with this name.
-     * @type {Pointer<Integer>}
      */
-    propagator {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    propagator : IntPtr
 
     /**
      * The schema this class belongs to.
-     * @type {Pointer<MI_SchemaDecl>}
      */
-    schema {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    schema : MI_SchemaDecl.Ptr
 
     /**
      * The extrinsic function that implements this method.
-     * @type {Pointer<MI_MethodDecl_Invoke>}
      */
-    function {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    function : IntPtr
+
 }

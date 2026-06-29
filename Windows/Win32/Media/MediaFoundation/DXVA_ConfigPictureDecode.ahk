@@ -1,150 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVA_ConfigPictureDecode extends Win32Struct {
-    static sizeof => 56
+export default struct DXVA_ConfigPictureDecode {
+    #StructPack 4
 
-    static packingSize => 8
+    dwFunction : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFunction {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwReservedBits : UInt32[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    dwReservedBits {
-        get {
-            if(!this.HasProp("__dwReservedBitsProxyArray"))
-                this.__dwReservedBitsProxyArray := Win32FixedArray(this.ptr + 4, 3, Primitive, "uint")
-            return this.__dwReservedBitsProxyArray
-        }
-    }
+    guidConfigBitstreamEncryption : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    guidConfigBitstreamEncryption {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    guidConfigMBcontrolEncryption : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    guidConfigMBcontrolEncryption {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    guidConfigResidDiffEncryption : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    guidConfigResidDiffEncryption {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    bConfigBitstreamRaw : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bConfigBitstreamRaw {
-        get => NumGet(this, 40, "char")
-        set => NumPut("char", value, this, 40)
-    }
+    bConfigMBcontrolRasterOrder : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bConfigMBcontrolRasterOrder {
-        get => NumGet(this, 41, "char")
-        set => NumPut("char", value, this, 41)
-    }
+    bConfigResidDiffHost : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bConfigResidDiffHost {
-        get => NumGet(this, 42, "char")
-        set => NumPut("char", value, this, 42)
-    }
+    bConfigSpatialResid8 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bConfigSpatialResid8 {
-        get => NumGet(this, 43, "char")
-        set => NumPut("char", value, this, 43)
-    }
+    bConfigResid8Subtraction : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bConfigResid8Subtraction {
-        get => NumGet(this, 44, "char")
-        set => NumPut("char", value, this, 44)
-    }
+    bConfigSpatialHost8or9Clipping : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bConfigSpatialHost8or9Clipping {
-        get => NumGet(this, 45, "char")
-        set => NumPut("char", value, this, 45)
-    }
+    bConfigSpatialResidInterleaved : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bConfigSpatialResidInterleaved {
-        get => NumGet(this, 46, "char")
-        set => NumPut("char", value, this, 46)
-    }
+    bConfigIntraResidUnsigned : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bConfigIntraResidUnsigned {
-        get => NumGet(this, 47, "char")
-        set => NumPut("char", value, this, 47)
-    }
+    bConfigResidDiffAccelerator : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bConfigResidDiffAccelerator {
-        get => NumGet(this, 48, "char")
-        set => NumPut("char", value, this, 48)
-    }
+    bConfigHostInverseScan : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bConfigHostInverseScan {
-        get => NumGet(this, 49, "char")
-        set => NumPut("char", value, this, 49)
-    }
+    bConfigSpecificIDCT : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bConfigSpecificIDCT {
-        get => NumGet(this, 50, "char")
-        set => NumPut("char", value, this, 50)
-    }
+    bConfig4GroupedCoefs : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bConfig4GroupedCoefs {
-        get => NumGet(this, 51, "char")
-        set => NumPut("char", value, this, 51)
-    }
 }

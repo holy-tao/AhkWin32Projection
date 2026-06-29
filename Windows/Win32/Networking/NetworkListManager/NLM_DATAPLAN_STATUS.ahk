@@ -1,95 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NLM_USAGE_DATA.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NLM_USAGE_DATA.ahk" { NLM_USAGE_DATA }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * NLM_DATAPLAN_STATUS structure stores the current data plan status information supplied by the carrier.
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/ns-netlistmgr-nlm_dataplan_status
  * @namespace Windows.Win32.Networking.NetworkListManager
  */
-class NLM_DATAPLAN_STATUS extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct NLM_DATAPLAN_STATUS {
+    #StructPack 4
 
     /**
      * The unique ID of the interface associated with the data plan. This GUID is determined by the system when a data plan is first used by a system connection.
-     * @type {Pointer}
      */
-    InterfaceGuid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    InterfaceGuid : Guid
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ns-netlistmgr-nlm_usage_data">NLM_USAGE_DATA</a> structure containing  current data usage value expressed in megabytes, as well as the  system time at the moment this value was last synced. 
      * 
      * If this value is not supplied, <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ns-netlistmgr-nlm_usage_data">NLM_USAGE_DATA</a> will indicate <b>NLM_UNKNOWN_DATAPLAN_STATUS</b> for <b>UsageInMegabytes</b> and a value of '0' will be set for <b>LastSyncTime.</b>
-     * @type {NLM_USAGE_DATA}
      */
-    UsageData {
-        get {
-            if(!this.HasProp("__UsageData"))
-                this.__UsageData := NLM_USAGE_DATA(8, this)
-            return this.__UsageData
-        }
-    }
+    UsageData : NLM_USAGE_DATA
 
     /**
      * The data plan usage limit expressed in megabytes. If this value is not supplied, a default value of <b>NLM_UNKNOWN_DATAPLAN_STATUS</b> is set.
-     * @type {Integer}
      */
-    DataLimitInMegabytes {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    DataLimitInMegabytes : UInt32
 
     /**
      * The maximum inbound connection bandwidth expressed in kbps. If this value is not supplied, a default value of <b>NLM_UNKNOWN_DATAPLAN_STATUS</b> is set.
-     * @type {Integer}
      */
-    InboundBandwidthInKbps {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    InboundBandwidthInKbps : UInt32
 
     /**
      * The maximum outbound connection bandwidth expressed in kbps. If this value is not supplied, a default value of <b>NLM_UNKNOWN_DATAPLAN_STATUS</b> is set.
-     * @type {Integer}
      */
-    OutboundBandwidthInKbps {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    OutboundBandwidthInKbps : UInt32
 
     /**
      * The start time of the next billing cycle. If this value is not supplied, a default value of '0' is set.
-     * @type {FILETIME}
      */
-    NextBillingCycle {
-        get {
-            if(!this.HasProp("__NextBillingCycle"))
-                this.__NextBillingCycle := FILETIME(32, this)
-            return this.__NextBillingCycle
-        }
-    }
+    NextBillingCycle : FILETIME
 
     /**
      * The maximum suggested transfer size for this network expressed in megabytes. If this value is not supplied, a default value of <b>NLM_UNKNOWN_DATAPLAN_STATUS</b> is set.
-     * @type {Integer}
      */
-    MaxTransferSizeInMegabytes {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    MaxTransferSizeInMegabytes : UInt32
 
     /**
      * Reserved for future use.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    Reserved : UInt32
+
 }

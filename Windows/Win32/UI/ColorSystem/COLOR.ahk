@@ -1,14 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\GRAYCOLOR.ahk
-#Include .\RGBCOLOR.ahk
-#Include .\CMYKCOLOR.ahk
-#Include .\XYZCOLOR.ahk
-#Include .\YxyCOLOR.ahk
-#Include .\LabCOLOR.ahk
-#Include .\GENERIC3CHANNEL.ahk
-#Include .\NAMEDCOLOR.ahk
-#Include .\HiFiCOLOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RGBCOLOR.ahk" { RGBCOLOR }
+#Import ".\CMYKCOLOR.ahk" { CMYKCOLOR }
+#Import ".\GRAYCOLOR.ahk" { GRAYCOLOR }
+#Import ".\XYZCOLOR.ahk" { XYZCOLOR }
+#Import ".\YxyCOLOR.ahk" { YxyCOLOR }
+#Import ".\HiFiCOLOR.ahk" { HiFiCOLOR }
+#Import ".\GENERIC3CHANNEL.ahk" { GENERIC3CHANNEL }
+#Import ".\NAMEDCOLOR.ahk" { NAMEDCOLOR }
+#Import ".\LabCOLOR.ahk" { LabCOLOR }
 
 /**
  * Description of the COLOR union.
@@ -27,132 +26,26 @@
  * @see https://learn.microsoft.com/windows/win32/api/icm/ns-icm-color
  * @namespace Windows.Win32.UI.ColorSystem
  */
-class COLOR extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct COLOR {
+    #StructPack 8
 
     /**
      * TBD
-     * @type {GRAYCOLOR}
      */
-    gray {
-        get {
-            if(!this.HasProp("__gray"))
-                this.__gray := GRAYCOLOR(0, this)
-            return this.__gray
-        }
-    }
+    gray : GRAYCOLOR
 
-    /**
-     * TBD
-     * @type {RGBCOLOR}
-     */
-    rgb {
-        get {
-            if(!this.HasProp("__rgb"))
-                this.__rgb := RGBCOLOR(0, this)
-            return this.__rgb
-        }
-    }
+    reserved2 : IntPtr
 
-    /**
-     * TBD
-     * @type {CMYKCOLOR}
-     */
-    cmyk {
-        get {
-            if(!this.HasProp("__cmyk"))
-                this.__cmyk := CMYKCOLOR(0, this)
-            return this.__cmyk
-        }
-    }
-
-    /**
-     * TBD
-     * @type {XYZCOLOR}
-     */
-    XYZ {
-        get {
-            if(!this.HasProp("__XYZ"))
-                this.__XYZ := XYZCOLOR(0, this)
-            return this.__XYZ
-        }
-    }
-
-    /**
-     * TBD
-     * @type {YxyCOLOR}
-     */
-    Yxy {
-        get {
-            if(!this.HasProp("__Yxy"))
-                this.__Yxy := YxyCOLOR(0, this)
-            return this.__Yxy
-        }
-    }
-
-    /**
-     * TBD
-     * @type {LabCOLOR}
-     */
-    Lab {
-        get {
-            if(!this.HasProp("__Lab"))
-                this.__Lab := LabCOLOR(0, this)
-            return this.__Lab
-        }
-    }
-
-    /**
-     * TBD
-     * @type {GENERIC3CHANNEL}
-     */
-    gen3ch {
-        get {
-            if(!this.HasProp("__gen3ch"))
-                this.__gen3ch := GENERIC3CHANNEL(0, this)
-            return this.__gen3ch
-        }
-    }
-
-    /**
-     * TBD
-     * @type {NAMEDCOLOR}
-     */
-    named {
-        get {
-            if(!this.HasProp("__named"))
-                this.__named := NAMEDCOLOR(0, this)
-            return this.__named
-        }
-    }
-
-    /**
-     * TBD
-     * @type {HiFiCOLOR}
-     */
-    hifi {
-        get {
-            if(!this.HasProp("__hifi"))
-                this.__hifi := HiFiCOLOR(0, this)
-            return this.__hifi
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    reserved1 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    reserved2 {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'rgb', { type: RGBCOLOR, offset: 0 })
+        DefineProp(this.Prototype, 'cmyk', { type: CMYKCOLOR, offset: 0 })
+        DefineProp(this.Prototype, 'XYZ', { type: XYZCOLOR, offset: 0 })
+        DefineProp(this.Prototype, 'Yxy', { type: YxyCOLOR, offset: 0 })
+        DefineProp(this.Prototype, 'Lab', { type: LabCOLOR, offset: 0 })
+        DefineProp(this.Prototype, 'gen3ch', { type: GENERIC3CHANNEL, offset: 0 })
+        DefineProp(this.Prototype, 'named', { type: NAMEDCOLOR, offset: 0 })
+        DefineProp(this.Prototype, 'hifi', { type: HiFiCOLOR, offset: 0 })
+        DefineProp(this.Prototype, 'reserved1', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The type of a font represented by a single font file. Font formats that consist of multiple files, for example Type 1 .PFM and .PFB, have separate enum values for each of the file types.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_file_type
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class DWRITE_FONT_FILE_TYPE extends Win32Enum {
+export default struct DWRITE_FONT_FILE_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Font type is not recognized by the DirectWrite font system.

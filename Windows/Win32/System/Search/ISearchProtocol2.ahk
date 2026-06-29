@@ -1,34 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISearchProtocol.ahk
-#Include .\IUrlAccessor.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\AUTHENTICATION_INFO.ahk" { AUTHENTICATION_INFO }
+#Import "..\Com\BLOB.ahk" { BLOB }
+#Import ".\INCREMENTAL_ACCESS_INFO.ahk" { INCREMENTAL_ACCESS_INFO }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IUrlAccessor.ahk" { IUrlAccessor }
+#Import ".\ISearchProtocol.ahk" { ISearchProtocol }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITEM_INFO.ahk" { ITEM_INFO }
 
 /**
  * Provides methods for invoking, initializing, and managing IUrlAccessor objects. (ISearchProtocol2)
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-isearchprotocol2
  * @namespace Windows.Win32.System.Search
  */
-class ISearchProtocol2 extends ISearchProtocol {
-
-    static sizeof => A_PtrSize
+export default struct ISearchProtocol2 extends ISearchProtocol {
     /**
      * The interface identifier for ISearchProtocol2
      * @type {Guid}
      */
-    static IID => Guid("{7789f0b2-b5b2-4722-8b65-5dbd150697a9}")
+    static IID := Guid("{7789f0b2-b5b2-4722-8b65-5dbd150697a9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISearchProtocol2 interfaces
+    */
+    struct Vtbl extends ISearchProtocol.Vtbl {
+        CreateAccessorEx : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateAccessorEx"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISearchProtocol2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates and initializes an IUrlAccessor object. This method has the same basic functionality as the ISearchProtocol::CreateAccessor method, but it includes an additional pUserData parameter to supply additional data to the protocol handler.
@@ -57,7 +70,27 @@ class ISearchProtocol2 extends ISearchProtocol {
     CreateAccessorEx(pcwszURL, pAuthenticationInfo, pIncrementalAccessInfo, pItemInfo, pUserData) {
         pcwszURL := pcwszURL is String ? StrPtr(pcwszURL) : pcwszURL
 
-        result := ComCall(7, this, "ptr", pcwszURL, "ptr", pAuthenticationInfo, "ptr", pIncrementalAccessInfo, "ptr", pItemInfo, "ptr", pUserData, "ptr*", &ppAccessor := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pcwszURL, AUTHENTICATION_INFO.Ptr, pAuthenticationInfo, INCREMENTAL_ACCESS_INFO.Ptr, pIncrementalAccessInfo, ITEM_INFO.Ptr, pItemInfo, BLOB.Ptr, pUserData, "ptr*", &ppAccessor := 0, "HRESULT")
         return IUrlAccessor(ppAccessor)
+    }
+
+    Query(iid) {
+        if (ISearchProtocol2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateAccessorEx := CallbackCreate(GetMethod(implObj, "CreateAccessorEx"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateAccessorEx)
     }
 }

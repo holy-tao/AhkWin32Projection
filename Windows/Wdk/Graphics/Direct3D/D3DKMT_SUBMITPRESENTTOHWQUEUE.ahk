@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_SUBMITPRESENTTOHWQUEUE extends Win32Struct {
-    static sizeof => 16
+export default struct D3DKMT_SUBMITPRESENTTOHWQUEUE {
+    #StructPack 8
 
-    static packingSize => 8
+    hHwQueues : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    hHwQueues {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    PrivatePresentData : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    PrivatePresentData {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

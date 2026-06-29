@@ -1,7 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFCaptureSink.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFCaptureSink.ahk" { IMFCaptureSink }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\MFVideoNormalizedRect.ahk" { MFVideoNormalizedRect }
+#Import ".\IMFCaptureEngineOnSampleCallback.ahk" { IMFCaptureEngineOnSampleCallback }
+#Import ".\IMFMediaSink.ahk" { IMFMediaSink }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Controls the preview sink.
@@ -10,26 +19,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nn-mfcaptureengine-imfcapturepreviewsink
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFCapturePreviewSink extends IMFCaptureSink {
-
-    static sizeof => A_PtrSize
+export default struct IMFCapturePreviewSink extends IMFCaptureSink {
     /**
      * The interface identifier for IMFCapturePreviewSink
      * @type {Guid}
      */
-    static IID => Guid("{77346cfd-5b49-4d73-ace0-5b52a859f2e0}")
+    static IID := Guid("{77346cfd-5b49-4d73-ace0-5b52a859f2e0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFCapturePreviewSink interfaces
+    */
+    struct Vtbl extends IMFCaptureSink.Vtbl {
+        SetRenderHandle   : IntPtr
+        SetRenderSurface  : IntPtr
+        UpdateVideo       : IntPtr
+        SetSampleCallback : IntPtr
+        GetMirrorState    : IntPtr
+        SetMirrorState    : IntPtr
+        GetRotation       : IntPtr
+        SetRotation       : IntPtr
+        SetCustomSink     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetRenderHandle", "SetRenderSurface", "UpdateVideo", "SetSampleCallback", "GetMirrorState", "SetMirrorState", "GetRotation", "SetRotation", "SetCustomSink"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFCapturePreviewSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies a window for preview.
@@ -40,9 +64,7 @@ class IMFCapturePreviewSink extends IMFCaptureSink {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturepreviewsink-setrenderhandle
      */
     SetRenderHandle(_handle) {
-        _handle := _handle is Win32Handle ? NumGet(_handle, "ptr") : _handle
-
-        result := ComCall(8, this, "ptr", _handle, "HRESULT")
+        result := ComCall(8, this, HANDLE, _handle, "HRESULT")
         return result
     }
 
@@ -68,7 +90,7 @@ class IMFCapturePreviewSink extends IMFCaptureSink {
     UpdateVideo(pSrc, pDst, pBorderClr) {
         pBorderClrMarshal := pBorderClr is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "ptr", pSrc, "ptr", pDst, pBorderClrMarshal, pBorderClr, "HRESULT")
+        result := ComCall(10, this, MFVideoNormalizedRect.Ptr, pSrc, RECT.Ptr, pDst, pBorderClrMarshal, pBorderClr, "HRESULT")
         return result
     }
 
@@ -92,7 +114,7 @@ class IMFCapturePreviewSink extends IMFCaptureSink {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturepreviewsink-getmirrorstate
      */
     GetMirrorState() {
-        result := ComCall(12, this, "int*", &pfMirrorState := 0, "HRESULT")
+        result := ComCall(12, this, BOOL.Ptr, &pfMirrorState := 0, "HRESULT")
         return pfMirrorState
     }
 
@@ -103,7 +125,7 @@ class IMFCapturePreviewSink extends IMFCaptureSink {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturepreviewsink-setmirrorstate
      */
     SetMirrorState(fMirrorState) {
-        result := ComCall(13, this, "int", fMirrorState, "HRESULT")
+        result := ComCall(13, this, BOOL, fMirrorState, "HRESULT")
         return result
     }
 
@@ -141,5 +163,41 @@ class IMFCapturePreviewSink extends IMFCaptureSink {
     SetCustomSink(pMediaSink) {
         result := ComCall(16, this, "ptr", pMediaSink, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFCapturePreviewSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetRenderHandle := CallbackCreate(GetMethod(implObj, "SetRenderHandle"), flags, 2)
+        this.vtbl.SetRenderSurface := CallbackCreate(GetMethod(implObj, "SetRenderSurface"), flags, 2)
+        this.vtbl.UpdateVideo := CallbackCreate(GetMethod(implObj, "UpdateVideo"), flags, 4)
+        this.vtbl.SetSampleCallback := CallbackCreate(GetMethod(implObj, "SetSampleCallback"), flags, 3)
+        this.vtbl.GetMirrorState := CallbackCreate(GetMethod(implObj, "GetMirrorState"), flags, 2)
+        this.vtbl.SetMirrorState := CallbackCreate(GetMethod(implObj, "SetMirrorState"), flags, 2)
+        this.vtbl.GetRotation := CallbackCreate(GetMethod(implObj, "GetRotation"), flags, 3)
+        this.vtbl.SetRotation := CallbackCreate(GetMethod(implObj, "SetRotation"), flags, 3)
+        this.vtbl.SetCustomSink := CallbackCreate(GetMethod(implObj, "SetCustomSink"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetRenderHandle)
+        CallbackFree(this.vtbl.SetRenderSurface)
+        CallbackFree(this.vtbl.UpdateVideo)
+        CallbackFree(this.vtbl.SetSampleCallback)
+        CallbackFree(this.vtbl.GetMirrorState)
+        CallbackFree(this.vtbl.SetMirrorState)
+        CallbackFree(this.vtbl.GetRotation)
+        CallbackFree(this.vtbl.SetRotation)
+        CallbackFree(this.vtbl.SetCustomSink)
     }
 }

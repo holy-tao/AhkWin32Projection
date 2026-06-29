@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\OPEN_AS_INFO_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\OPEN_AS_INFO_FLAGS.ahk" { OPEN_AS_INFO_FLAGS }
 
 /**
  * Stores information for the SHOpenWithDialog function.
@@ -9,39 +9,26 @@
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-openasinfo
  * @namespace Windows.Win32.UI.Shell
  */
-class OPENASINFO extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct OPENASINFO {
+    #StructPack 8
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * A pointer to the file name.
-     * @type {PWSTR}
      */
-    pcszFile {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pcszFile : PWSTR
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * A pointer to the file type description. Set this parameter to <b>NULL</b> to use the file name extension of <b>pcszFile</b>.
-     * @type {PWSTR}
      */
-    pcszClass {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pcszClass : PWSTR
 
     /**
      * Type: <b>OPEN_AS_INFO_FLAGS</b>
-     * @type {OPEN_AS_INFO_FLAGS}
      */
-    oaifInFlags {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    oaifInFlags : OPEN_AS_INFO_FLAGS
+
 }

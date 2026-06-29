@@ -1,33 +1,62 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IEnroll.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\HCERTSTORE.ahk" { HCERTSTORE }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IEnroll.ahk" { IEnroll }
 
 /**
  * Represents the Certificate Enrollment Control and is used primarily to generate certificate requests. (IEnroll2)
  * @see https://learn.microsoft.com/windows/win32/api/xenroll/nn-xenroll-ienroll2
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IEnroll2 extends IEnroll {
-
-    static sizeof => A_PtrSize
+export default struct IEnroll2 extends IEnroll {
     /**
      * The interface identifier for IEnroll2
      * @type {Guid}
      */
-    static IID => Guid("{c080e199-b7df-11d2-a421-00c04f79fe8e}")
+    static IID := Guid("{c080e199-b7df-11d2-a421-00c04f79fe8e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 73
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IEnroll2 interfaces
+    */
+    struct Vtbl extends IEnroll.Vtbl {
+        InstallPKCS7Blob                     : IntPtr
+        Reset                                : IntPtr
+        GetSupportedKeySpec                  : IntPtr
+        GetKeyLen                            : IntPtr
+        EnumAlgs                             : IntPtr
+        GetAlgNameWStr                       : IntPtr
+        put_ReuseHardwareKeyIfUnableToGenNew : IntPtr
+        get_ReuseHardwareKeyIfUnableToGenNew : IntPtr
+        put_HashAlgID                        : IntPtr
+        get_HashAlgID                        : IntPtr
+        SetHStoreMy                          : IntPtr
+        SetHStoreCA                          : IntPtr
+        SetHStoreROOT                        : IntPtr
+        SetHStoreRequest                     : IntPtr
+        put_LimitExchangeKeyToEncipherment   : IntPtr
+        get_LimitExchangeKeyToEncipherment   : IntPtr
+        put_EnableSMIMECapabilities          : IntPtr
+        get_EnableSMIMECapabilities          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InstallPKCS7Blob", "Reset", "GetSupportedKeySpec", "GetKeyLen", "EnumAlgs", "GetAlgNameWStr", "put_ReuseHardwareKeyIfUnableToGenNew", "get_ReuseHardwareKeyIfUnableToGenNew", "put_HashAlgID", "get_HashAlgID", "SetHStoreMy", "SetHStoreCA", "SetHStoreROOT", "SetHStoreRequest", "put_LimitExchangeKeyToEncipherment", "get_LimitExchangeKeyToEncipherment", "put_EnableSMIMECapabilities", "get_EnableSMIMECapabilities"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IEnroll2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BOOL} 
@@ -68,7 +97,7 @@ class IEnroll2 extends IEnroll {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll2-installpkcs7blob
      */
     InstallPKCS7Blob(pBlobPKCS7) {
-        result := ComCall(73, this, "ptr", pBlobPKCS7, "HRESULT")
+        result := ComCall(73, this, CRYPT_INTEGER_BLOB.Ptr, pBlobPKCS7, "HRESULT")
         return result
     }
 
@@ -115,7 +144,7 @@ class IEnroll2 extends IEnroll {
     GetKeyLen(fMin, fExchange, pdwKeySize) {
         pdwKeySizeMarshal := pdwKeySize is VarRef ? "int*" : "ptr"
 
-        result := ComCall(76, this, "int", fMin, "int", fExchange, pdwKeySizeMarshal, pdwKeySize, "HRESULT")
+        result := ComCall(76, this, BOOL, fMin, BOOL, fExchange, pdwKeySizeMarshal, pdwKeySize, "HRESULT")
         return result
     }
 
@@ -172,7 +201,7 @@ class IEnroll2 extends IEnroll {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll2-put_reusehardwarekeyifunabletogennew
      */
     put_ReuseHardwareKeyIfUnableToGenNew(fReuseHardwareKeyIfUnableToGenNew) {
-        result := ComCall(79, this, "int", fReuseHardwareKeyIfUnableToGenNew, "HRESULT")
+        result := ComCall(79, this, BOOL, fReuseHardwareKeyIfUnableToGenNew, "HRESULT")
         return result
     }
 
@@ -230,9 +259,7 @@ class IEnroll2 extends IEnroll {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll2-sethstoremy
      */
     SetHStoreMy(hStore) {
-        hStore := hStore is Win32Handle ? NumGet(hStore, "ptr") : hStore
-
-        result := ComCall(83, this, "ptr", hStore, "HRESULT")
+        result := ComCall(83, this, HCERTSTORE, hStore, "HRESULT")
         return result
     }
 
@@ -243,9 +270,7 @@ class IEnroll2 extends IEnroll {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll2-sethstoreca
      */
     SetHStoreCA(hStore) {
-        hStore := hStore is Win32Handle ? NumGet(hStore, "ptr") : hStore
-
-        result := ComCall(84, this, "ptr", hStore, "HRESULT")
+        result := ComCall(84, this, HCERTSTORE, hStore, "HRESULT")
         return result
     }
 
@@ -256,9 +281,7 @@ class IEnroll2 extends IEnroll {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll2-sethstoreroot
      */
     SetHStoreROOT(hStore) {
-        hStore := hStore is Win32Handle ? NumGet(hStore, "ptr") : hStore
-
-        result := ComCall(85, this, "ptr", hStore, "HRESULT")
+        result := ComCall(85, this, HCERTSTORE, hStore, "HRESULT")
         return result
     }
 
@@ -269,9 +292,7 @@ class IEnroll2 extends IEnroll {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll2-sethstorerequest
      */
     SetHStoreRequest(hStore) {
-        hStore := hStore is Win32Handle ? NumGet(hStore, "ptr") : hStore
-
-        result := ComCall(86, this, "ptr", hStore, "HRESULT")
+        result := ComCall(86, this, HCERTSTORE, hStore, "HRESULT")
         return result
     }
 
@@ -303,7 +324,7 @@ class IEnroll2 extends IEnroll {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll2-put_limitexchangekeytoencipherment
      */
     put_LimitExchangeKeyToEncipherment(fLimitExchangeKeyToEncipherment) {
-        result := ComCall(87, this, "int", fLimitExchangeKeyToEncipherment, "HRESULT")
+        result := ComCall(87, this, BOOL, fLimitExchangeKeyToEncipherment, "HRESULT")
         return result
     }
 
@@ -348,7 +369,7 @@ class IEnroll2 extends IEnroll {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll2-put_enablesmimecapabilities
      */
     put_EnableSMIMECapabilities(fEnableSMIMECapabilities) {
-        result := ComCall(89, this, "int", fEnableSMIMECapabilities, "HRESULT")
+        result := ComCall(89, this, BOOL, fEnableSMIMECapabilities, "HRESULT")
         return result
     }
 
@@ -363,5 +384,59 @@ class IEnroll2 extends IEnroll {
 
         result := ComCall(90, this, fEnableSMIMECapabilitiesMarshal, fEnableSMIMECapabilities, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IEnroll2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InstallPKCS7Blob := CallbackCreate(GetMethod(implObj, "InstallPKCS7Blob"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.GetSupportedKeySpec := CallbackCreate(GetMethod(implObj, "GetSupportedKeySpec"), flags, 2)
+        this.vtbl.GetKeyLen := CallbackCreate(GetMethod(implObj, "GetKeyLen"), flags, 4)
+        this.vtbl.EnumAlgs := CallbackCreate(GetMethod(implObj, "EnumAlgs"), flags, 4)
+        this.vtbl.GetAlgNameWStr := CallbackCreate(GetMethod(implObj, "GetAlgNameWStr"), flags, 3)
+        this.vtbl.put_ReuseHardwareKeyIfUnableToGenNew := CallbackCreate(GetMethod(implObj, "put_ReuseHardwareKeyIfUnableToGenNew"), flags, 2)
+        this.vtbl.get_ReuseHardwareKeyIfUnableToGenNew := CallbackCreate(GetMethod(implObj, "get_ReuseHardwareKeyIfUnableToGenNew"), flags, 2)
+        this.vtbl.put_HashAlgID := CallbackCreate(GetMethod(implObj, "put_HashAlgID"), flags, 2)
+        this.vtbl.get_HashAlgID := CallbackCreate(GetMethod(implObj, "get_HashAlgID"), flags, 2)
+        this.vtbl.SetHStoreMy := CallbackCreate(GetMethod(implObj, "SetHStoreMy"), flags, 2)
+        this.vtbl.SetHStoreCA := CallbackCreate(GetMethod(implObj, "SetHStoreCA"), flags, 2)
+        this.vtbl.SetHStoreROOT := CallbackCreate(GetMethod(implObj, "SetHStoreROOT"), flags, 2)
+        this.vtbl.SetHStoreRequest := CallbackCreate(GetMethod(implObj, "SetHStoreRequest"), flags, 2)
+        this.vtbl.put_LimitExchangeKeyToEncipherment := CallbackCreate(GetMethod(implObj, "put_LimitExchangeKeyToEncipherment"), flags, 2)
+        this.vtbl.get_LimitExchangeKeyToEncipherment := CallbackCreate(GetMethod(implObj, "get_LimitExchangeKeyToEncipherment"), flags, 2)
+        this.vtbl.put_EnableSMIMECapabilities := CallbackCreate(GetMethod(implObj, "put_EnableSMIMECapabilities"), flags, 2)
+        this.vtbl.get_EnableSMIMECapabilities := CallbackCreate(GetMethod(implObj, "get_EnableSMIMECapabilities"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InstallPKCS7Blob)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.GetSupportedKeySpec)
+        CallbackFree(this.vtbl.GetKeyLen)
+        CallbackFree(this.vtbl.EnumAlgs)
+        CallbackFree(this.vtbl.GetAlgNameWStr)
+        CallbackFree(this.vtbl.put_ReuseHardwareKeyIfUnableToGenNew)
+        CallbackFree(this.vtbl.get_ReuseHardwareKeyIfUnableToGenNew)
+        CallbackFree(this.vtbl.put_HashAlgID)
+        CallbackFree(this.vtbl.get_HashAlgID)
+        CallbackFree(this.vtbl.SetHStoreMy)
+        CallbackFree(this.vtbl.SetHStoreCA)
+        CallbackFree(this.vtbl.SetHStoreROOT)
+        CallbackFree(this.vtbl.SetHStoreRequest)
+        CallbackFree(this.vtbl.put_LimitExchangeKeyToEncipherment)
+        CallbackFree(this.vtbl.get_LimitExchangeKeyToEncipherment)
+        CallbackFree(this.vtbl.put_EnableSMIMECapabilities)
+        CallbackFree(this.vtbl.get_EnableSMIMECapabilities)
     }
 }

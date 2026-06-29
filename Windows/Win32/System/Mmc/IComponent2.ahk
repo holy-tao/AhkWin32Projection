@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IComponent.ahk
-#Include ..\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DATA_OBJECT_TYPES.ahk" { DATA_OBJECT_TYPES }
+#Import ".\RESULT_VIEW_TYPE_INFO.ahk" { RESULT_VIEW_TYPE_INFO }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IComponent.ahk" { IComponent }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IComponent2 interface, implemented by snap-ins, is introduced in MMC 2.0 and supersedes the IComponent interface.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-icomponent2
  * @namespace Windows.Win32.System.Mmc
  */
-class IComponent2 extends IComponent {
-
-    static sizeof => A_PtrSize
+export default struct IComponent2 extends IComponent {
     /**
      * The interface identifier for IComponent2
      * @type {Guid}
      */
-    static IID => Guid("{79a2d615-4a10-4ed4-8c65-8633f9335095}")
+    static IID := Guid("{79a2d615-4a10-4ed4-8c65-8633f9335095}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 10
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IComponent2 interfaces
+    */
+    struct Vtbl extends IComponent.Vtbl {
+        QueryDispatch      : IntPtr
+        GetResultViewType2 : IntPtr
+        RestoreResultView  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["QueryDispatch", "GetResultViewType2", "RestoreResultView"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IComponent2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The QueryDispatch method returns the snap-in IDispatch interface for a specified item.
@@ -39,7 +51,7 @@ class IComponent2 extends IComponent {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponent2-querydispatch
      */
     QueryDispatch(cookie, type) {
-        result := ComCall(10, this, "ptr", cookie, "int", type, "ptr*", &ppDispatch := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", cookie, DATA_OBJECT_TYPES, type, "ptr*", &ppDispatch := 0, "HRESULT")
         return IDispatch(ppDispatch)
     }
 
@@ -62,7 +74,7 @@ class IComponent2 extends IComponent {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponent2-getresultviewtype2
      */
     GetResultViewType2(cookie, pResultViewType) {
-        result := ComCall(11, this, "ptr", cookie, "ptr", pResultViewType, "HRESULT")
+        result := ComCall(11, this, "ptr", cookie, RESULT_VIEW_TYPE_INFO.Ptr, pResultViewType, "HRESULT")
         return result
     }
 
@@ -82,7 +94,31 @@ class IComponent2 extends IComponent {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponent2-restoreresultview
      */
     RestoreResultView(cookie, pResultViewType) {
-        result := ComCall(12, this, "ptr", cookie, "ptr", pResultViewType, "HRESULT")
+        result := ComCall(12, this, "ptr", cookie, RESULT_VIEW_TYPE_INFO.Ptr, pResultViewType, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IComponent2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.QueryDispatch := CallbackCreate(GetMethod(implObj, "QueryDispatch"), flags, 4)
+        this.vtbl.GetResultViewType2 := CallbackCreate(GetMethod(implObj, "GetResultViewType2"), flags, 3)
+        this.vtbl.RestoreResultView := CallbackCreate(GetMethod(implObj, "RestoreResultView"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.QueryDispatch)
+        CallbackFree(this.vtbl.GetResultViewType2)
+        CallbackFree(this.vtbl.RestoreResultView)
     }
 }

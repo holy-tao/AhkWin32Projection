@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Power
  */
-class PPM_WMI_LEGACY_PERFSTATE extends Win32Struct {
-    static sizeof => 12
+export default struct PPM_WMI_LEGACY_PERFSTATE {
+    #StructPack 4
 
-    static packingSize => 4
+    Frequency : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Frequency {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    PercentFrequency : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PercentFrequency {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

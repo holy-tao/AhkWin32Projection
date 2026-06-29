@@ -1,41 +1,114 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IHTMLFormElement.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IHTMLTxtRange.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IHTMLFormElement.ahk" { IHTMLFormElement }
+#Import ".\IHTMLTxtRange.ahk" { IHTMLTxtRange }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLInputElement extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLInputElement extends IDispatch {
     /**
      * The interface identifier for IHTMLInputElement
      * @type {Guid}
      */
-    static IID => Guid("{3050f5d2-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f5d2-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for HTMLInputElement
      * @type {Guid}
      */
-    static CLSID => Guid("{3050f5d8-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{3050f5d8-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLInputElement interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_type           : IntPtr
+        get_type           : IntPtr
+        put_value          : IntPtr
+        get_value          : IntPtr
+        put_name           : IntPtr
+        get_name           : IntPtr
+        put_status         : IntPtr
+        get_status         : IntPtr
+        put_disabled       : IntPtr
+        get_disabled       : IntPtr
+        get_form           : IntPtr
+        put_size           : IntPtr
+        get_size           : IntPtr
+        put_maxLength      : IntPtr
+        get_maxLength      : IntPtr
+        select             : IntPtr
+        put_onchange       : IntPtr
+        get_onchange       : IntPtr
+        put_onselect       : IntPtr
+        get_onselect       : IntPtr
+        put_defaultValue   : IntPtr
+        get_defaultValue   : IntPtr
+        put_readOnly       : IntPtr
+        get_readOnly       : IntPtr
+        createTextRange    : IntPtr
+        put_indeterminate  : IntPtr
+        get_indeterminate  : IntPtr
+        put_defaultChecked : IntPtr
+        get_defaultChecked : IntPtr
+        put_checked        : IntPtr
+        get_checked        : IntPtr
+        put_border         : IntPtr
+        get_border         : IntPtr
+        put_vspace         : IntPtr
+        get_vspace         : IntPtr
+        put_hspace         : IntPtr
+        get_hspace         : IntPtr
+        put_alt            : IntPtr
+        get_alt            : IntPtr
+        put_src            : IntPtr
+        get_src            : IntPtr
+        put_lowsrc         : IntPtr
+        get_lowsrc         : IntPtr
+        put_vrml           : IntPtr
+        get_vrml           : IntPtr
+        put_dynsrc         : IntPtr
+        get_dynsrc         : IntPtr
+        get_readyState     : IntPtr
+        get_complete       : IntPtr
+        put_loop           : IntPtr
+        get_loop           : IntPtr
+        put_align          : IntPtr
+        get_align          : IntPtr
+        put_onload         : IntPtr
+        get_onload         : IntPtr
+        put_onerror        : IntPtr
+        get_onerror        : IntPtr
+        put_onabort        : IntPtr
+        get_onabort        : IntPtr
+        put_width          : IntPtr
+        get_width          : IntPtr
+        put_height         : IntPtr
+        get_height         : IntPtr
+        put_start          : IntPtr
+        get_start          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_type", "get_type", "put_value", "get_value", "put_name", "get_name", "put_status", "get_status", "put_disabled", "get_disabled", "get_form", "put_size", "get_size", "put_maxLength", "get_maxLength", "select", "put_onchange", "get_onchange", "put_onselect", "get_onselect", "put_defaultValue", "get_defaultValue", "put_readOnly", "get_readOnly", "createTextRange", "put_indeterminate", "get_indeterminate", "put_defaultChecked", "get_defaultChecked", "put_checked", "get_checked", "put_border", "get_border", "put_vspace", "get_vspace", "put_hspace", "get_hspace", "put_alt", "get_alt", "put_src", "get_src", "put_lowsrc", "get_lowsrc", "put_vrml", "get_vrml", "put_dynsrc", "get_dynsrc", "get_readyState", "get_complete", "put_loop", "get_loop", "put_align", "get_align", "put_onload", "get_onload", "put_onerror", "get_onerror", "put_onabort", "get_onabort", "put_width", "get_width", "put_height", "get_height", "put_start", "get_start"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLInputElement.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -306,7 +379,7 @@ class IHTMLInputElement extends IDispatch {
     put_type(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -315,8 +388,8 @@ class IHTMLInputElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_type() {
-        p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -328,7 +401,7 @@ class IHTMLInputElement extends IDispatch {
     put_value(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -337,8 +410,8 @@ class IHTMLInputElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_value() {
-        p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -350,7 +423,7 @@ class IHTMLInputElement extends IDispatch {
     put_name(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -359,8 +432,8 @@ class IHTMLInputElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_name() {
-        p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -370,7 +443,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_status(v) {
-        result := ComCall(13, this, "short", v, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -379,7 +452,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_status() {
-        result := ComCall(14, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -389,7 +462,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_disabled(v) {
-        result := ComCall(15, this, "short", v, "HRESULT")
+        result := ComCall(15, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -398,7 +471,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
-        result := ComCall(16, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(16, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -649,7 +722,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onchange(v) {
-        result := ComCall(23, this, "ptr", v, "HRESULT")
+        result := ComCall(23, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -659,7 +732,7 @@ class IHTMLInputElement extends IDispatch {
      */
     get_onchange() {
         p := VARIANT()
-        result := ComCall(24, this, "ptr", p, "HRESULT")
+        result := ComCall(24, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -669,7 +742,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onselect(v) {
-        result := ComCall(25, this, "ptr", v, "HRESULT")
+        result := ComCall(25, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -679,7 +752,7 @@ class IHTMLInputElement extends IDispatch {
      */
     get_onselect() {
         p := VARIANT()
-        result := ComCall(26, this, "ptr", p, "HRESULT")
+        result := ComCall(26, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -691,7 +764,7 @@ class IHTMLInputElement extends IDispatch {
     put_defaultValue(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(27, this, "ptr", v, "HRESULT")
+        result := ComCall(27, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -700,8 +773,8 @@ class IHTMLInputElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_defaultValue() {
-        p := BSTR()
-        result := ComCall(28, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(28, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -711,7 +784,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_readOnly(v) {
-        result := ComCall(29, this, "short", v, "HRESULT")
+        result := ComCall(29, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -720,7 +793,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_readOnly() {
-        result := ComCall(30, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(30, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -739,7 +812,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_indeterminate(v) {
-        result := ComCall(32, this, "short", v, "HRESULT")
+        result := ComCall(32, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -748,7 +821,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_indeterminate() {
-        result := ComCall(33, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(33, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -758,7 +831,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_defaultChecked(v) {
-        result := ComCall(34, this, "short", v, "HRESULT")
+        result := ComCall(34, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -767,7 +840,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_defaultChecked() {
-        result := ComCall(35, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(35, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -777,7 +850,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_checked(v) {
-        result := ComCall(36, this, "short", v, "HRESULT")
+        result := ComCall(36, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -786,7 +859,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_checked() {
-        result := ComCall(37, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(37, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -796,7 +869,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_border(v) {
-        result := ComCall(38, this, "ptr", v, "HRESULT")
+        result := ComCall(38, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -806,7 +879,7 @@ class IHTMLInputElement extends IDispatch {
      */
     get_border() {
         p := VARIANT()
-        result := ComCall(39, this, "ptr", p, "HRESULT")
+        result := ComCall(39, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -856,7 +929,7 @@ class IHTMLInputElement extends IDispatch {
     put_alt(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(44, this, "ptr", v, "HRESULT")
+        result := ComCall(44, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -865,8 +938,8 @@ class IHTMLInputElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_alt() {
-        p := BSTR()
-        result := ComCall(45, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(45, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -878,7 +951,7 @@ class IHTMLInputElement extends IDispatch {
     put_src(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(46, this, "ptr", v, "HRESULT")
+        result := ComCall(46, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -887,8 +960,8 @@ class IHTMLInputElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_src() {
-        p := BSTR()
-        result := ComCall(47, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(47, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -900,7 +973,7 @@ class IHTMLInputElement extends IDispatch {
     put_lowsrc(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(48, this, "ptr", v, "HRESULT")
+        result := ComCall(48, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -909,8 +982,8 @@ class IHTMLInputElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_lowsrc() {
-        p := BSTR()
-        result := ComCall(49, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(49, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -922,7 +995,7 @@ class IHTMLInputElement extends IDispatch {
     put_vrml(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(50, this, "ptr", v, "HRESULT")
+        result := ComCall(50, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -931,8 +1004,8 @@ class IHTMLInputElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_vrml() {
-        p := BSTR()
-        result := ComCall(51, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(51, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -944,7 +1017,7 @@ class IHTMLInputElement extends IDispatch {
     put_dynsrc(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(52, this, "ptr", v, "HRESULT")
+        result := ComCall(52, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -953,8 +1026,8 @@ class IHTMLInputElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_dynsrc() {
-        p := BSTR()
-        result := ComCall(53, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(53, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -963,8 +1036,8 @@ class IHTMLInputElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_readyState() {
-        p := BSTR()
-        result := ComCall(54, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(54, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -973,7 +1046,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_complete() {
-        result := ComCall(55, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(55, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -983,7 +1056,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_loop(v) {
-        result := ComCall(56, this, "ptr", v, "HRESULT")
+        result := ComCall(56, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -993,7 +1066,7 @@ class IHTMLInputElement extends IDispatch {
      */
     get_loop() {
         p := VARIANT()
-        result := ComCall(57, this, "ptr", p, "HRESULT")
+        result := ComCall(57, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1005,7 +1078,7 @@ class IHTMLInputElement extends IDispatch {
     put_align(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(58, this, "ptr", v, "HRESULT")
+        result := ComCall(58, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -1014,8 +1087,8 @@ class IHTMLInputElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_align() {
-        p := BSTR()
-        result := ComCall(59, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(59, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1025,7 +1098,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onload(v) {
-        result := ComCall(60, this, "ptr", v, "HRESULT")
+        result := ComCall(60, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1035,7 +1108,7 @@ class IHTMLInputElement extends IDispatch {
      */
     get_onload() {
         p := VARIANT()
-        result := ComCall(61, this, "ptr", p, "HRESULT")
+        result := ComCall(61, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1045,7 +1118,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onerror(v) {
-        result := ComCall(62, this, "ptr", v, "HRESULT")
+        result := ComCall(62, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1055,7 +1128,7 @@ class IHTMLInputElement extends IDispatch {
      */
     get_onerror() {
         p := VARIANT()
-        result := ComCall(63, this, "ptr", p, "HRESULT")
+        result := ComCall(63, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1065,7 +1138,7 @@ class IHTMLInputElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onabort(v) {
-        result := ComCall(64, this, "ptr", v, "HRESULT")
+        result := ComCall(64, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -1075,7 +1148,7 @@ class IHTMLInputElement extends IDispatch {
      */
     get_onabort() {
         p := VARIANT()
-        result := ComCall(65, this, "ptr", p, "HRESULT")
+        result := ComCall(65, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -1125,7 +1198,7 @@ class IHTMLInputElement extends IDispatch {
     put_start(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(70, this, "ptr", v, "HRESULT")
+        result := ComCall(70, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -1134,8 +1207,156 @@ class IHTMLInputElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_start() {
-        p := BSTR()
-        result := ComCall(71, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(71, this, BSTR.Ptr, p, "HRESULT")
         return p
+    }
+
+    Query(iid) {
+        if (IHTMLInputElement.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_type := CallbackCreate(GetMethod(implObj, "put_type"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.put_value := CallbackCreate(GetMethod(implObj, "put_value"), flags, 2)
+        this.vtbl.get_value := CallbackCreate(GetMethod(implObj, "get_value"), flags, 2)
+        this.vtbl.put_name := CallbackCreate(GetMethod(implObj, "put_name"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.put_status := CallbackCreate(GetMethod(implObj, "put_status"), flags, 2)
+        this.vtbl.get_status := CallbackCreate(GetMethod(implObj, "get_status"), flags, 2)
+        this.vtbl.put_disabled := CallbackCreate(GetMethod(implObj, "put_disabled"), flags, 2)
+        this.vtbl.get_disabled := CallbackCreate(GetMethod(implObj, "get_disabled"), flags, 2)
+        this.vtbl.get_form := CallbackCreate(GetMethod(implObj, "get_form"), flags, 2)
+        this.vtbl.put_size := CallbackCreate(GetMethod(implObj, "put_size"), flags, 2)
+        this.vtbl.get_size := CallbackCreate(GetMethod(implObj, "get_size"), flags, 2)
+        this.vtbl.put_maxLength := CallbackCreate(GetMethod(implObj, "put_maxLength"), flags, 2)
+        this.vtbl.get_maxLength := CallbackCreate(GetMethod(implObj, "get_maxLength"), flags, 2)
+        this.vtbl.select := CallbackCreate(GetMethod(implObj, "select"), flags, 1)
+        this.vtbl.put_onchange := CallbackCreate(GetMethod(implObj, "put_onchange"), flags, 2)
+        this.vtbl.get_onchange := CallbackCreate(GetMethod(implObj, "get_onchange"), flags, 2)
+        this.vtbl.put_onselect := CallbackCreate(GetMethod(implObj, "put_onselect"), flags, 2)
+        this.vtbl.get_onselect := CallbackCreate(GetMethod(implObj, "get_onselect"), flags, 2)
+        this.vtbl.put_defaultValue := CallbackCreate(GetMethod(implObj, "put_defaultValue"), flags, 2)
+        this.vtbl.get_defaultValue := CallbackCreate(GetMethod(implObj, "get_defaultValue"), flags, 2)
+        this.vtbl.put_readOnly := CallbackCreate(GetMethod(implObj, "put_readOnly"), flags, 2)
+        this.vtbl.get_readOnly := CallbackCreate(GetMethod(implObj, "get_readOnly"), flags, 2)
+        this.vtbl.createTextRange := CallbackCreate(GetMethod(implObj, "createTextRange"), flags, 2)
+        this.vtbl.put_indeterminate := CallbackCreate(GetMethod(implObj, "put_indeterminate"), flags, 2)
+        this.vtbl.get_indeterminate := CallbackCreate(GetMethod(implObj, "get_indeterminate"), flags, 2)
+        this.vtbl.put_defaultChecked := CallbackCreate(GetMethod(implObj, "put_defaultChecked"), flags, 2)
+        this.vtbl.get_defaultChecked := CallbackCreate(GetMethod(implObj, "get_defaultChecked"), flags, 2)
+        this.vtbl.put_checked := CallbackCreate(GetMethod(implObj, "put_checked"), flags, 2)
+        this.vtbl.get_checked := CallbackCreate(GetMethod(implObj, "get_checked"), flags, 2)
+        this.vtbl.put_border := CallbackCreate(GetMethod(implObj, "put_border"), flags, 2)
+        this.vtbl.get_border := CallbackCreate(GetMethod(implObj, "get_border"), flags, 2)
+        this.vtbl.put_vspace := CallbackCreate(GetMethod(implObj, "put_vspace"), flags, 2)
+        this.vtbl.get_vspace := CallbackCreate(GetMethod(implObj, "get_vspace"), flags, 2)
+        this.vtbl.put_hspace := CallbackCreate(GetMethod(implObj, "put_hspace"), flags, 2)
+        this.vtbl.get_hspace := CallbackCreate(GetMethod(implObj, "get_hspace"), flags, 2)
+        this.vtbl.put_alt := CallbackCreate(GetMethod(implObj, "put_alt"), flags, 2)
+        this.vtbl.get_alt := CallbackCreate(GetMethod(implObj, "get_alt"), flags, 2)
+        this.vtbl.put_src := CallbackCreate(GetMethod(implObj, "put_src"), flags, 2)
+        this.vtbl.get_src := CallbackCreate(GetMethod(implObj, "get_src"), flags, 2)
+        this.vtbl.put_lowsrc := CallbackCreate(GetMethod(implObj, "put_lowsrc"), flags, 2)
+        this.vtbl.get_lowsrc := CallbackCreate(GetMethod(implObj, "get_lowsrc"), flags, 2)
+        this.vtbl.put_vrml := CallbackCreate(GetMethod(implObj, "put_vrml"), flags, 2)
+        this.vtbl.get_vrml := CallbackCreate(GetMethod(implObj, "get_vrml"), flags, 2)
+        this.vtbl.put_dynsrc := CallbackCreate(GetMethod(implObj, "put_dynsrc"), flags, 2)
+        this.vtbl.get_dynsrc := CallbackCreate(GetMethod(implObj, "get_dynsrc"), flags, 2)
+        this.vtbl.get_readyState := CallbackCreate(GetMethod(implObj, "get_readyState"), flags, 2)
+        this.vtbl.get_complete := CallbackCreate(GetMethod(implObj, "get_complete"), flags, 2)
+        this.vtbl.put_loop := CallbackCreate(GetMethod(implObj, "put_loop"), flags, 2)
+        this.vtbl.get_loop := CallbackCreate(GetMethod(implObj, "get_loop"), flags, 2)
+        this.vtbl.put_align := CallbackCreate(GetMethod(implObj, "put_align"), flags, 2)
+        this.vtbl.get_align := CallbackCreate(GetMethod(implObj, "get_align"), flags, 2)
+        this.vtbl.put_onload := CallbackCreate(GetMethod(implObj, "put_onload"), flags, 2)
+        this.vtbl.get_onload := CallbackCreate(GetMethod(implObj, "get_onload"), flags, 2)
+        this.vtbl.put_onerror := CallbackCreate(GetMethod(implObj, "put_onerror"), flags, 2)
+        this.vtbl.get_onerror := CallbackCreate(GetMethod(implObj, "get_onerror"), flags, 2)
+        this.vtbl.put_onabort := CallbackCreate(GetMethod(implObj, "put_onabort"), flags, 2)
+        this.vtbl.get_onabort := CallbackCreate(GetMethod(implObj, "get_onabort"), flags, 2)
+        this.vtbl.put_width := CallbackCreate(GetMethod(implObj, "put_width"), flags, 2)
+        this.vtbl.get_width := CallbackCreate(GetMethod(implObj, "get_width"), flags, 2)
+        this.vtbl.put_height := CallbackCreate(GetMethod(implObj, "put_height"), flags, 2)
+        this.vtbl.get_height := CallbackCreate(GetMethod(implObj, "get_height"), flags, 2)
+        this.vtbl.put_start := CallbackCreate(GetMethod(implObj, "put_start"), flags, 2)
+        this.vtbl.get_start := CallbackCreate(GetMethod(implObj, "get_start"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_type)
+        CallbackFree(this.vtbl.get_type)
+        CallbackFree(this.vtbl.put_value)
+        CallbackFree(this.vtbl.get_value)
+        CallbackFree(this.vtbl.put_name)
+        CallbackFree(this.vtbl.get_name)
+        CallbackFree(this.vtbl.put_status)
+        CallbackFree(this.vtbl.get_status)
+        CallbackFree(this.vtbl.put_disabled)
+        CallbackFree(this.vtbl.get_disabled)
+        CallbackFree(this.vtbl.get_form)
+        CallbackFree(this.vtbl.put_size)
+        CallbackFree(this.vtbl.get_size)
+        CallbackFree(this.vtbl.put_maxLength)
+        CallbackFree(this.vtbl.get_maxLength)
+        CallbackFree(this.vtbl.select)
+        CallbackFree(this.vtbl.put_onchange)
+        CallbackFree(this.vtbl.get_onchange)
+        CallbackFree(this.vtbl.put_onselect)
+        CallbackFree(this.vtbl.get_onselect)
+        CallbackFree(this.vtbl.put_defaultValue)
+        CallbackFree(this.vtbl.get_defaultValue)
+        CallbackFree(this.vtbl.put_readOnly)
+        CallbackFree(this.vtbl.get_readOnly)
+        CallbackFree(this.vtbl.createTextRange)
+        CallbackFree(this.vtbl.put_indeterminate)
+        CallbackFree(this.vtbl.get_indeterminate)
+        CallbackFree(this.vtbl.put_defaultChecked)
+        CallbackFree(this.vtbl.get_defaultChecked)
+        CallbackFree(this.vtbl.put_checked)
+        CallbackFree(this.vtbl.get_checked)
+        CallbackFree(this.vtbl.put_border)
+        CallbackFree(this.vtbl.get_border)
+        CallbackFree(this.vtbl.put_vspace)
+        CallbackFree(this.vtbl.get_vspace)
+        CallbackFree(this.vtbl.put_hspace)
+        CallbackFree(this.vtbl.get_hspace)
+        CallbackFree(this.vtbl.put_alt)
+        CallbackFree(this.vtbl.get_alt)
+        CallbackFree(this.vtbl.put_src)
+        CallbackFree(this.vtbl.get_src)
+        CallbackFree(this.vtbl.put_lowsrc)
+        CallbackFree(this.vtbl.get_lowsrc)
+        CallbackFree(this.vtbl.put_vrml)
+        CallbackFree(this.vtbl.get_vrml)
+        CallbackFree(this.vtbl.put_dynsrc)
+        CallbackFree(this.vtbl.get_dynsrc)
+        CallbackFree(this.vtbl.get_readyState)
+        CallbackFree(this.vtbl.get_complete)
+        CallbackFree(this.vtbl.put_loop)
+        CallbackFree(this.vtbl.get_loop)
+        CallbackFree(this.vtbl.put_align)
+        CallbackFree(this.vtbl.get_align)
+        CallbackFree(this.vtbl.put_onload)
+        CallbackFree(this.vtbl.get_onload)
+        CallbackFree(this.vtbl.put_onerror)
+        CallbackFree(this.vtbl.get_onerror)
+        CallbackFree(this.vtbl.put_onabort)
+        CallbackFree(this.vtbl.get_onabort)
+        CallbackFree(this.vtbl.put_width)
+        CallbackFree(this.vtbl.get_width)
+        CallbackFree(this.vtbl.put_height)
+        CallbackFree(this.vtbl.get_height)
+        CallbackFree(this.vtbl.put_start)
+        CallbackFree(this.vtbl.get_start)
     }
 }

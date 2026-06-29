@@ -1,68 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\JET_INSTANCE.ahk
-#Include ..\StructuredStorage\JET_API_PTR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\JET_INSTANCE.ahk" { JET_INSTANCE }
+#Import "..\StructuredStorage\JET_API_PTR.ahk" { JET_API_PTR }
 
 /**
  * @namespace Windows.Win32.Storage.Jet
  * @charset ANSI
  */
-class JET_INSTANCE_INFO_A extends Win32Struct {
-    static sizeof => 48
+export default struct JET_INSTANCE_INFO_A {
+    #StructPack 8
 
-    static packingSize => 8
+    hInstanceId : JET_INSTANCE
 
-    /**
-     * @type {JET_INSTANCE}
-     */
-    hInstanceId {
-        get {
-            if(!this.HasProp("__hInstanceId"))
-                this.__hInstanceId := JET_INSTANCE(0, this)
-            return this.__hInstanceId
-        }
-    }
+    szInstanceName : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    szInstanceName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    cDatabases : JET_API_PTR
 
-    /**
-     * @type {JET_API_PTR}
-     */
-    cDatabases {
-        get {
-            if(!this.HasProp("__cDatabases"))
-                this.__cDatabases := JET_API_PTR(16, this)
-            return this.__cDatabases
-        }
-    }
+    szDatabaseFileName : IntPtr
 
-    /**
-     * @type {Pointer<Pointer<Integer>>}
-     */
-    szDatabaseFileName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    szDatabaseDisplayName : IntPtr
 
-    /**
-     * @type {Pointer<Pointer<Integer>>}
-     */
-    szDatabaseDisplayName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    szDatabaseSLVFileName_Obsolete : IntPtr
 
-    /**
-     * @type {Pointer<Pointer<Integer>>}
-     */
-    szDatabaseSLVFileName_Obsolete {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

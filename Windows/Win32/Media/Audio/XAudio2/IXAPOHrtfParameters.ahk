@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\HrtfEnvironment.ahk" { HrtfEnvironment }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\HrtfOrientation.ahk" { HrtfOrientation }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\HrtfPosition.ahk" { HrtfPosition }
 
 /**
  * The interface used to set parameters that control how head-related transfer function (HRTF) is applied to a sound.
@@ -10,26 +14,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/hrtfapoapi/nn-hrtfapoapi-ixapohrtfparameters
  * @namespace Windows.Win32.Media.Audio.XAudio2
  */
-class IXAPOHrtfParameters extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IXAPOHrtfParameters extends IUnknown {
     /**
      * The interface identifier for IXAPOHrtfParameters
      * @type {Guid}
      */
-    static IID => Guid("{15b3cd66-e9de-4464-b6e6-2bc3cf63d455}")
+    static IID := Guid("{15b3cd66-e9de-4464-b6e6-2bc3cf63d455}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXAPOHrtfParameters interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetSourcePosition    : IntPtr
+        SetSourceOrientation : IntPtr
+        SetSourceGain        : IntPtr
+        SetEnvironment       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetSourcePosition", "SetSourceOrientation", "SetSourceGain", "SetEnvironment"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXAPOHrtfParameters.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the position of the sound relative to the listener.
@@ -38,7 +52,7 @@ class IXAPOHrtfParameters extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/hrtfapoapi/nf-hrtfapoapi-ixapohrtfparameters-setsourceposition
      */
     SetSourcePosition(position) {
-        result := ComCall(3, this, "ptr", position, "HRESULT")
+        result := ComCall(3, this, HrtfPosition.Ptr, position, "HRESULT")
         return result
     }
 
@@ -49,7 +63,7 @@ class IXAPOHrtfParameters extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/hrtfapoapi/nf-hrtfapoapi-ixapohrtfparameters-setsourceorientation
      */
     SetSourceOrientation(orientation) {
-        result := ComCall(4, this, "ptr", orientation, "HRESULT")
+        result := ComCall(4, this, HrtfOrientation.Ptr, orientation, "HRESULT")
         return result
     }
 
@@ -73,7 +87,33 @@ class IXAPOHrtfParameters extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/hrtfapoapi/nf-hrtfapoapi-ixapohrtfparameters-setenvironment
      */
     SetEnvironment(environment) {
-        result := ComCall(6, this, "int", environment, "HRESULT")
+        result := ComCall(6, this, HrtfEnvironment, environment, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IXAPOHrtfParameters.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetSourcePosition := CallbackCreate(GetMethod(implObj, "SetSourcePosition"), flags, 2)
+        this.vtbl.SetSourceOrientation := CallbackCreate(GetMethod(implObj, "SetSourceOrientation"), flags, 2)
+        this.vtbl.SetSourceGain := CallbackCreate(GetMethod(implObj, "SetSourceGain"), flags, 2)
+        this.vtbl.SetEnvironment := CallbackCreate(GetMethod(implObj, "SetEnvironment"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetSourcePosition)
+        CallbackFree(this.vtbl.SetSourceOrientation)
+        CallbackFree(this.vtbl.SetSourceGain)
+        CallbackFree(this.vtbl.SetEnvironment)
     }
 }

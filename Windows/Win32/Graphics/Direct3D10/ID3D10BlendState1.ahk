@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D10BlendState.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3D10_BLEND_DESC1.ahk" { D3D10_BLEND_DESC1 }
+#Import ".\ID3D10BlendState.ahk" { ID3D10BlendState }
 
 /**
  * This blend-state interface accesses blending state for a Direct3D 10.1 device for the output-merger stage.
@@ -14,26 +15,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10_1/nn-d3d10_1-id3d10blendstate1
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class ID3D10BlendState1 extends ID3D10BlendState {
-
-    static sizeof => A_PtrSize
+export default struct ID3D10BlendState1 extends ID3D10BlendState {
     /**
      * The interface identifier for ID3D10BlendState1
      * @type {Guid}
      */
-    static IID => Guid("{edad8d99-8a35-4d6d-8566-2ea276cde161}")
+    static IID := Guid("{edad8d99-8a35-4d6d-8566-2ea276cde161}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D10BlendState1 interfaces
+    */
+    struct Vtbl extends ID3D10BlendState.Vtbl {
+        GetDesc1 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDesc1"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D10BlendState1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Get the blend state. (ID3D10BlendState1.GetDesc1)
@@ -46,6 +54,26 @@ class ID3D10BlendState1 extends ID3D10BlendState {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10_1/nf-d3d10_1-id3d10blendstate1-getdesc1
      */
     GetDesc1(pDesc) {
-        ComCall(8, this, "ptr", pDesc)
+        ComCall(8, this, D3D10_BLEND_DESC1.Ptr, pDesc)
+    }
+
+    Query(iid) {
+        if (ID3D10BlendState1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDesc1 := CallbackCreate(GetMethod(implObj, "GetDesc1"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDesc1)
     }
 }

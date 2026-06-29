@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The AutomationElementMode (uiautomationclient.h) enumeration contains values that specify the type of reference to use when returning UI Automation elements.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/ne-uiautomationclient-automationelementmode
  * @namespace Windows.Win32.UI.Accessibility
  */
-class AutomationElementMode extends Win32Enum {
+export default struct AutomationElementMode {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies that returned elements have no reference to the underlying UI and contain only cached information.

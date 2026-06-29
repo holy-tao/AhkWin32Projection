@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSD_LOCALIZED_STRING_LIST.ahk
-#Include .\WSDXML_ELEMENT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
+#Import ".\WSD_LOCALIZED_STRING_LIST.ahk" { WSD_LOCALIZED_STRING_LIST }
 
 /**
  * Provides model-specific information relating to the device.
@@ -43,71 +43,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_this_model_metadata
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class WSD_THIS_MODEL_METADATA extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct WSD_THIS_MODEL_METADATA {
+    #StructPack 8
 
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_localized_string_list">WSD_LOCALIZED_STRING_LIST</a> structure that contains the manufacturer name. The name should be set to fewer than 2048 characters.
-     * @type {Pointer<WSD_LOCALIZED_STRING_LIST>}
      */
-    Manufacturer {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Manufacturer : WSD_LOCALIZED_STRING_LIST.Ptr
 
     /**
      * The URL to a Web site for the device manufacturer. The URL should have fewer than 2048 characters.
-     * @type {PWSTR}
      */
-    ManufacturerUrl {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ManufacturerUrl : PWSTR
 
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_localized_string_list">WSD_LOCALIZED_STRING_LIST</a> structure that specifies model names. This is a list of localized friendly names that should be set to fewer than 256 characters.
-     * @type {Pointer<WSD_LOCALIZED_STRING_LIST>}
      */
-    ModelName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ModelName : WSD_LOCALIZED_STRING_LIST.Ptr
 
     /**
      * The model number. This should be set to fewer than 256 characters.
-     * @type {PWSTR}
      */
-    ModelNumber {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ModelNumber : PWSTR
 
     /**
      * The URL to a Web site for this device model. The URL should have fewer than 2048 characters.
-     * @type {PWSTR}
      */
-    ModelUrl {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    ModelUrl : PWSTR
 
     /**
      * An HTML page for this device. This can be relative to a base URL set by XML Base. The URL should have fewer than 2048 characters.
-     * @type {PWSTR}
      */
-    PresentationUrl {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    PresentationUrl : PWSTR
 
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_element">WSDXML_ELEMENT</a> structure that specifies extension content allowed by the XML <b>ANY</b> keyword.
-     * @type {Pointer<WSDXML_ELEMENT>}
      */
-    Any {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    Any : WSDXML_ELEMENT.Ptr
+
 }

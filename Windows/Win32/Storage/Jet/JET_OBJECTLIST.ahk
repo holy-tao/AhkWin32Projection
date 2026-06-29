@@ -1,113 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\StructuredStorage\JET_TABLEID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\StructuredStorage\JET_TABLEID.ahk" { JET_TABLEID }
 
 /**
  * Learn more about: JET_OBJECTLIST class
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-objectlist-class
  * @namespace Windows.Win32.Storage.Jet
  */
-class JET_OBJECTLIST extends Win32Struct {
-    static sizeof => 56
+export default struct JET_OBJECTLIST {
+    #StructPack 8
 
-    static packingSize => 8
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    tableid : JET_TABLEID
 
-    /**
-     * @type {JET_TABLEID}
-     */
-    tableid {
-        get {
-            if(!this.HasProp("__tableid"))
-                this.__tableid := JET_TABLEID(8, this)
-            return this.__tableid
-        }
-    }
+    cRecord : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cRecord {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    columnidcontainername : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    columnidcontainername {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    columnidobjectname : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    columnidobjectname {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    columnidobjtyp : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    columnidobjtyp {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    columniddtCreate : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    columniddtCreate {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    columniddtUpdate : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    columniddtUpdate {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    columnidgrbit : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    columnidgrbit {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    columnidflags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    columnidflags {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    columnidcRecord : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    columnidcRecord {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    columnidcPage : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    columnidcPage {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
 }

@@ -1,53 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The DS_REPL_CURSOR_3 structure contains inbound replication state data with respect to all replicas of a given naming context, as returned by the DsReplicaGetInfo2 function.
  * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_cursor_3w
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class DS_REPL_CURSOR_3W extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct DS_REPL_CURSOR_3W {
+    #StructPack 8
 
     /**
      * Contains the invocation identifier of the originating server to which the <b>usnAttributeFilter</b> corresponds.
-     * @type {Pointer}
      */
-    uuidSourceDsaInvocationID {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    uuidSourceDsaInvocationID : Guid
 
     /**
      * Contains the maximum update sequence number to which the destination server can indicate that it has recorded all changes originated by the given server at update sequence numbers less than, or equal to, this update sequence number. This is used to filter changes at replication source servers that the destination server has already applied.
-     * @type {Integer}
      */
-    usnAttributeFilter {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    usnAttributeFilter : Int64
 
     /**
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the date and time of the last successful synchronization operation.
-     * @type {FILETIME}
      */
-    ftimeLastSyncSuccess {
-        get {
-            if(!this.HasProp("__ftimeLastSyncSuccess"))
-                this.__ftimeLastSyncSuccess := FILETIME(16, this)
-            return this.__ftimeLastSyncSuccess
-        }
-    }
+    ftimeLastSyncSuccess : FILETIME
 
     /**
      * Pointer to  a null-terminated string that contains the distinguished name of the directory service agent that corresponds to the source server to which this replication state data applies.
-     * @type {PWSTR}
      */
-    pszSourceDsaDN {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pszSourceDsaDN : PWSTR
+
 }

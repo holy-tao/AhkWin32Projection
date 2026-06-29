@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DVIEWPORT7 extends Win32Struct {
-    static sizeof => 24
+export default struct D3DVIEWPORT7 {
+    #StructPack 4
 
-    static packingSize => 4
+    dwX : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwX {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwY : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwY {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwWidth {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwHeight {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dvMinZ : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvMinZ {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
+    dvMaxZ : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvMaxZ {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
-    }
 }

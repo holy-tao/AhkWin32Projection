@@ -1,33 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMReaderAdvanced.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWMReaderAdvanced.ahk" { IWMReaderAdvanced }
+#Import ".\WMT_PLAY_MODE.ahk" { WMT_PLAY_MODE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WMT_ATTR_DATATYPE.ahk" { WMT_ATTR_DATATYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IWMReaderCallback.ahk" { IWMReaderCallback }
 
 /**
  * The IWMReaderAdvanced2 interface provides additional advanced methods for a reader object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreaderadvanced2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMReaderAdvanced2 extends IWMReaderAdvanced {
-
-    static sizeof => A_PtrSize
+export default struct IWMReaderAdvanced2 extends IWMReaderAdvanced {
     /**
      * The interface identifier for IWMReaderAdvanced2
      * @type {Guid}
      */
-    static IID => Guid("{ae14a945-b90c-4d0d-9127-80d665f7d73e}")
+    static IID := Guid("{ae14a945-b90c-4d0d-9127-80d665f7d73e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 23
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMReaderAdvanced2 interfaces
+    */
+    struct Vtbl extends IWMReaderAdvanced.Vtbl {
+        SetPlayMode         : IntPtr
+        GetPlayMode         : IntPtr
+        GetBufferProgress   : IntPtr
+        GetDownloadProgress : IntPtr
+        GetSaveAsProgress   : IntPtr
+        SaveFileAs          : IntPtr
+        GetProtocolName     : IntPtr
+        StartAtMarker       : IntPtr
+        GetOutputSetting    : IntPtr
+        SetOutputSetting    : IntPtr
+        Preroll             : IntPtr
+        SetLogClientID      : IntPtr
+        GetLogClientID      : IntPtr
+        StopBuffering       : IntPtr
+        OpenStream          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetPlayMode", "GetPlayMode", "GetBufferProgress", "GetDownloadProgress", "GetSaveAsProgress", "SaveFileAs", "GetProtocolName", "StartAtMarker", "GetOutputSetting", "SetOutputSetting", "Preroll", "SetLogClientID", "GetLogClientID", "StopBuffering", "OpenStream"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMReaderAdvanced2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetPlayMode method specifies the play mode.
@@ -38,7 +66,7 @@ class IWMReaderAdvanced2 extends IWMReaderAdvanced {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced2-setplaymode
      */
     SetPlayMode(_Mode) {
-        result := ComCall(23, this, "int", _Mode, "HRESULT")
+        result := ComCall(23, this, WMT_PLAY_MODE, _Mode, "HRESULT")
         return result
     }
 
@@ -389,7 +417,7 @@ class IWMReaderAdvanced2 extends IWMReaderAdvanced {
 
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
 
-        result := ComCall(32, this, "uint", dwOutputNum, "ptr", pszName, "int", Type, pValueMarshal, pValue, "ushort", cbLength, "HRESULT")
+        result := ComCall(32, this, "uint", dwOutputNum, "ptr", pszName, WMT_ATTR_DATATYPE, Type, pValueMarshal, pValue, "ushort", cbLength, "HRESULT")
         return result
     }
 
@@ -426,7 +454,7 @@ class IWMReaderAdvanced2 extends IWMReaderAdvanced {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced2-setlogclientid
      */
     SetLogClientID(fLogClientID) {
-        result := ComCall(34, this, "int", fLogClientID, "HRESULT")
+        result := ComCall(34, this, BOOL, fLogClientID, "HRESULT")
         return result
     }
 
@@ -438,7 +466,7 @@ class IWMReaderAdvanced2 extends IWMReaderAdvanced {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced2-getlogclientid
      */
     GetLogClientID() {
-        result := ComCall(35, this, "int*", &pfLogClientID := 0, "HRESULT")
+        result := ComCall(35, this, BOOL.Ptr, &pfLogClientID := 0, "HRESULT")
         return pfLogClientID
     }
 
@@ -522,5 +550,53 @@ class IWMReaderAdvanced2 extends IWMReaderAdvanced {
 
         result := ComCall(37, this, "ptr", pStream, "ptr", pCallback, pvContextMarshal, pvContext, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMReaderAdvanced2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetPlayMode := CallbackCreate(GetMethod(implObj, "SetPlayMode"), flags, 2)
+        this.vtbl.GetPlayMode := CallbackCreate(GetMethod(implObj, "GetPlayMode"), flags, 2)
+        this.vtbl.GetBufferProgress := CallbackCreate(GetMethod(implObj, "GetBufferProgress"), flags, 3)
+        this.vtbl.GetDownloadProgress := CallbackCreate(GetMethod(implObj, "GetDownloadProgress"), flags, 4)
+        this.vtbl.GetSaveAsProgress := CallbackCreate(GetMethod(implObj, "GetSaveAsProgress"), flags, 2)
+        this.vtbl.SaveFileAs := CallbackCreate(GetMethod(implObj, "SaveFileAs"), flags, 2)
+        this.vtbl.GetProtocolName := CallbackCreate(GetMethod(implObj, "GetProtocolName"), flags, 3)
+        this.vtbl.StartAtMarker := CallbackCreate(GetMethod(implObj, "StartAtMarker"), flags, 5)
+        this.vtbl.GetOutputSetting := CallbackCreate(GetMethod(implObj, "GetOutputSetting"), flags, 6)
+        this.vtbl.SetOutputSetting := CallbackCreate(GetMethod(implObj, "SetOutputSetting"), flags, 6)
+        this.vtbl.Preroll := CallbackCreate(GetMethod(implObj, "Preroll"), flags, 4)
+        this.vtbl.SetLogClientID := CallbackCreate(GetMethod(implObj, "SetLogClientID"), flags, 2)
+        this.vtbl.GetLogClientID := CallbackCreate(GetMethod(implObj, "GetLogClientID"), flags, 2)
+        this.vtbl.StopBuffering := CallbackCreate(GetMethod(implObj, "StopBuffering"), flags, 1)
+        this.vtbl.OpenStream := CallbackCreate(GetMethod(implObj, "OpenStream"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetPlayMode)
+        CallbackFree(this.vtbl.GetPlayMode)
+        CallbackFree(this.vtbl.GetBufferProgress)
+        CallbackFree(this.vtbl.GetDownloadProgress)
+        CallbackFree(this.vtbl.GetSaveAsProgress)
+        CallbackFree(this.vtbl.SaveFileAs)
+        CallbackFree(this.vtbl.GetProtocolName)
+        CallbackFree(this.vtbl.StartAtMarker)
+        CallbackFree(this.vtbl.GetOutputSetting)
+        CallbackFree(this.vtbl.SetOutputSetting)
+        CallbackFree(this.vtbl.Preroll)
+        CallbackFree(this.vtbl.SetLogClientID)
+        CallbackFree(this.vtbl.GetLogClientID)
+        CallbackFree(this.vtbl.StopBuffering)
+        CallbackFree(this.vtbl.OpenStream)
     }
 }

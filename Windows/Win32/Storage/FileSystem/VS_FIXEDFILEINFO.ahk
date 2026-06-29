@@ -1,127 +1,84 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VS_FIXEDFILEINFO_FILE_FLAGS.ahk
-#Include .\VS_FIXEDFILEINFO_FILE_OS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VS_FIXEDFILEINFO_FILE_OS.ahk" { VS_FIXEDFILEINFO_FILE_OS }
+#Import ".\VS_FIXEDFILEINFO_FILE_FLAGS.ahk" { VS_FIXEDFILEINFO_FILE_FLAGS }
 
 /**
  * Contains version information for a file. This information is language and code page independent.
  * @see https://learn.microsoft.com/windows/win32/api/verrsrc/ns-verrsrc-vs_fixedfileinfo
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class VS_FIXEDFILEINFO extends Win32Struct {
-    static sizeof => 52
-
-    static packingSize => 4
+export default struct VS_FIXEDFILEINFO {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Contains the value 0xFEEF04BD. This is used with the 
      * 					<b>szKey</b> member of the <a href="https://docs.microsoft.com/windows/desktop/menurc/vs-versioninfo">VS_VERSIONINFO</a> structure when searching a file for the <b>VS_FIXEDFILEINFO</b> structure.
-     * @type {Integer}
      */
-    dwSignature {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSignature : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The binary version number of this structure. The high-order word of this member contains the major version number, and the low-order word contains the minor version number.
-     * @type {Integer}
      */
-    dwStrucVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwStrucVersion : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The most significant 32 bits of the file's binary version number. This member is used with 
      * 					<b>dwFileVersionLS</b> to form a 64-bit value used for numeric comparisons.
-     * @type {Integer}
      */
-    dwFileVersionMS {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwFileVersionMS : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The least significant 32 bits of the file's binary version number. This member is used with 
      * 					<b>dwFileVersionMS</b> to form a 64-bit value used for numeric comparisons.
-     * @type {Integer}
      */
-    dwFileVersionLS {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwFileVersionLS : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The most significant 32 bits of the binary version number of the product with which this file was distributed. This member is used with 
      * 					<b>dwProductVersionLS</b> to form a 64-bit value used for numeric comparisons.
-     * @type {Integer}
      */
-    dwProductVersionMS {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwProductVersionMS : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The least significant 32 bits of the binary version number of the product with which this file was distributed. This member is used with 
      * 					<b>dwProductVersionMS</b> to form a 64-bit value used for numeric comparisons.
-     * @type {Integer}
      */
-    dwProductVersionLS {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwProductVersionLS : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Contains a bitmask that specifies the valid bits in 
      * 					<b>dwFileFlags</b>. A bit is valid only if it was defined when the file was created.
-     * @type {Integer}
      */
-    dwFileFlagsMask {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwFileFlagsMask : UInt32
 
     /**
      * Type: <b>DWORD</b>
-     * @type {VS_FIXEDFILEINFO_FILE_FLAGS}
      */
-    dwFileFlags {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwFileFlags : VS_FIXEDFILEINFO_FILE_FLAGS
 
     /**
      * Type: <b>DWORD</b>
-     * @type {VS_FIXEDFILEINFO_FILE_OS}
      */
-    dwFileOS {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwFileOS : VS_FIXEDFILEINFO_FILE_OS
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
      */
-    dwFileType {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwFileType : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -134,32 +91,21 @@ class VS_FIXEDFILEINFO extends Win32Struct {
      * 
      * If 
      * 						<b>dwFileType</b> is <b>VFT_DRV</b>,
-     * @type {Integer}
      */
-    dwFileSubtype {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwFileSubtype : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The most significant 32 bits of the file's 64-bit binary creation date and time stamp.
-     * @type {Integer}
      */
-    dwFileDateMS {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    dwFileDateMS : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The least significant 32 bits of the file's 64-bit binary creation date and time stamp.
-     * @type {Integer}
      */
-    dwFileDateLS {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwFileDateLS : UInt32
+
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes an instance of a performance object.
@@ -14,66 +13,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/winperf/ns-winperf-perf_instance_definition
  * @namespace Windows.Win32.System.Performance
  */
-class PERF_INSTANCE_DEFINITION extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct PERF_INSTANCE_DEFINITION {
+    #StructPack 4
 
     /**
      * Size of this structure, including the instance name that follows, in bytes. This value must be an 8-byte multiple.
-     * @type {Integer}
      */
-    ByteLength {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ByteLength : UInt32
 
     /**
      * Index of the name of the parent object in the title database. For example, if the object is a thread, the parent object is a process, or if the object is a logical drive, the parent is a physical drive.
-     * @type {Integer}
      */
-    ParentObjectTitleIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ParentObjectTitleIndex : UInt32
 
     /**
      * Position of the instance within the parent object that is associated with this instance. The position is zero-based.
-     * @type {Integer}
      */
-    ParentObjectInstance {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ParentObjectInstance : UInt32
 
     /**
      * A unique identifier that you can use to identify the instance instead of
      *                                         using the name to identify
      *                                         the instance. If you do not use unique identifiers to distinguish the counter instances, set this member to PERF_NO_UNIQUE_ID.
-     * @type {Integer}
      */
-    UniqueID {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    UniqueID : Int32
 
     /**
      * Offset from the beginning of this structure to the Unicode name of this instance.
-     * @type {Integer}
      */
-    NameOffset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    NameOffset : UInt32
 
     /**
      * Length of the instance name, including the null-terminator, in bytes. This member is zero if the instance does not have a name. 
      * 
      * Do not include in the length any padding that you added to the instance name to ensure that <b>ByteLength</b> is aligned to an 8-byte boundary.
-     * @type {Integer}
      */
-    NameLength {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    NameLength : UInt32
+
 }

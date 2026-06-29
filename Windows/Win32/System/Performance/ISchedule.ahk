@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WeekDays.ahk" { WeekDays }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Specifies when the data collector set runs.To get this interface, call the IScheduleCollection::CreateSchedule method.
@@ -15,26 +17,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-ischedule
  * @namespace Windows.Win32.System.Performance
  */
-class ISchedule extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISchedule extends IDispatch {
     /**
      * The interface identifier for ISchedule
      * @type {Guid}
      */
-    static IID => Guid("{0383753a-098b-11d8-9414-505054503030}")
+    static IID := Guid("{0383753a-098b-11d8-9414-505054503030}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISchedule interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_StartDate : IntPtr
+        put_StartDate : IntPtr
+        get_EndDate   : IntPtr
+        put_EndDate   : IntPtr
+        get_StartTime : IntPtr
+        put_StartTime : IntPtr
+        get_Days      : IntPtr
+        put_Days      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_StartDate", "put_StartDate", "get_EndDate", "put_EndDate", "get_StartTime", "put_StartTime", "get_Days", "put_Days"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISchedule.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT} 
@@ -77,7 +93,7 @@ class ISchedule extends IDispatch {
      */
     get_StartDate() {
         start := VARIANT()
-        result := ComCall(7, this, "ptr", start, "HRESULT")
+        result := ComCall(7, this, VARIANT.Ptr, start, "HRESULT")
         return start
     }
 
@@ -90,7 +106,7 @@ class ISchedule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ischedule-put_startdate
      */
     put_StartDate(start) {
-        result := ComCall(8, this, "ptr", start, "HRESULT")
+        result := ComCall(8, this, VARIANT, start, "HRESULT")
         return result
     }
 
@@ -105,7 +121,7 @@ class ISchedule extends IDispatch {
      */
     get_EndDate() {
         end := VARIANT()
-        result := ComCall(9, this, "ptr", end, "HRESULT")
+        result := ComCall(9, this, VARIANT.Ptr, end, "HRESULT")
         return end
     }
 
@@ -120,7 +136,7 @@ class ISchedule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ischedule-put_enddate
      */
     put_EndDate(end) {
-        result := ComCall(10, this, "ptr", end, "HRESULT")
+        result := ComCall(10, this, VARIANT, end, "HRESULT")
         return result
     }
 
@@ -131,7 +147,7 @@ class ISchedule extends IDispatch {
      */
     get_StartTime() {
         start := VARIANT()
-        result := ComCall(11, this, "ptr", start, "HRESULT")
+        result := ComCall(11, this, VARIANT.Ptr, start, "HRESULT")
         return start
     }
 
@@ -142,7 +158,7 @@ class ISchedule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ischedule-put_starttime
      */
     put_StartTime(start) {
-        result := ComCall(12, this, "ptr", start, "HRESULT")
+        result := ComCall(12, this, VARIANT, start, "HRESULT")
         return result
     }
 
@@ -163,7 +179,41 @@ class ISchedule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ischedule-put_days
      */
     put_Days(days) {
-        result := ComCall(14, this, "int", days, "HRESULT")
+        result := ComCall(14, this, WeekDays, days, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISchedule.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_StartDate := CallbackCreate(GetMethod(implObj, "get_StartDate"), flags, 2)
+        this.vtbl.put_StartDate := CallbackCreate(GetMethod(implObj, "put_StartDate"), flags, 2)
+        this.vtbl.get_EndDate := CallbackCreate(GetMethod(implObj, "get_EndDate"), flags, 2)
+        this.vtbl.put_EndDate := CallbackCreate(GetMethod(implObj, "put_EndDate"), flags, 2)
+        this.vtbl.get_StartTime := CallbackCreate(GetMethod(implObj, "get_StartTime"), flags, 2)
+        this.vtbl.put_StartTime := CallbackCreate(GetMethod(implObj, "put_StartTime"), flags, 2)
+        this.vtbl.get_Days := CallbackCreate(GetMethod(implObj, "get_Days"), flags, 2)
+        this.vtbl.put_Days := CallbackCreate(GetMethod(implObj, "put_Days"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_StartDate)
+        CallbackFree(this.vtbl.put_StartDate)
+        CallbackFree(this.vtbl.get_EndDate)
+        CallbackFree(this.vtbl.put_EndDate)
+        CallbackFree(this.vtbl.get_StartTime)
+        CallbackFree(this.vtbl.put_StartTime)
+        CallbackFree(this.vtbl.get_Days)
+        CallbackFree(this.vtbl.put_Days)
     }
 }

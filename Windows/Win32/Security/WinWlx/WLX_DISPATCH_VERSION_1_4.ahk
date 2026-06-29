@@ -1,256 +1,146 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the format of the Winlogon version 1.4 function dispatch table passed to the GINA DLL in the WlxInitialize call.
  * @see https://learn.microsoft.com/windows/win32/api/winwlx/ns-winwlx-wlx_dispatch_version_1_4
  * @namespace Windows.Win32.Security.WinWlx
  */
-class WLX_DISPATCH_VERSION_1_4 extends Win32Struct {
-    static sizeof => 216
-
-    static packingSize => 8
+export default struct WLX_DISPATCH_VERSION_1_4 {
+    #StructPack 8
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_use_ctrl_alt_del">WlxUseCtrlAltDel</a> function.
-     * @type {Pointer<PWLX_USE_CTRL_ALT_DEL>}
      */
-    WlxUseCtrlAltDel {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    WlxUseCtrlAltDel : IntPtr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_set_context_pointer">WlxSetContextPointer</a> function.
-     * @type {Pointer<PWLX_SET_CONTEXT_POINTER>}
      */
-    WlxSetContextPointer {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    WlxSetContextPointer : IntPtr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_sas_notify">WlxSasNotify</a> function.
-     * @type {Pointer<PWLX_SAS_NOTIFY>}
      */
-    WlxSasNotify {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    WlxSasNotify : IntPtr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_set_timeout">WlxSetTimeout</a> function.
-     * @type {Pointer<PWLX_SET_TIMEOUT>}
      */
-    WlxSetTimeout {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    WlxSetTimeout : IntPtr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_assign_shell_protection">WlxAssignShellProtection</a> function.
-     * @type {Pointer<PWLX_ASSIGN_SHELL_PROTECTION>}
      */
-    WlxAssignShellProtection {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    WlxAssignShellProtection : IntPtr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_message_box">WlxMessageBox</a> function.
-     * @type {Pointer<PWLX_MESSAGE_BOX>}
      */
-    WlxMessageBox {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    WlxMessageBox : IntPtr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_dialog_box">WlxDialogBox</a> function.
-     * @type {Pointer<PWLX_DIALOG_BOX>}
      */
-    WlxDialogBox {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    WlxDialogBox : IntPtr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_dialog_box_param">WlxDialogBoxParam</a> function.
-     * @type {Pointer<PWLX_DIALOG_BOX_PARAM>}
      */
-    WlxDialogBoxParam {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    WlxDialogBoxParam : IntPtr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_dialog_box_indirect">WlxDialogBoxIndirect</a> function.
-     * @type {Pointer<PWLX_DIALOG_BOX_INDIRECT>}
      */
-    WlxDialogBoxIndirect {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    WlxDialogBoxIndirect : IntPtr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_dialog_box_indirect_param">WlxDialogBoxIndirectParam</a> function.
-     * @type {Pointer<PWLX_DIALOG_BOX_INDIRECT_PARAM>}
      */
-    WlxDialogBoxIndirectParam {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    WlxDialogBoxIndirectParam : IntPtr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_switch_desktop_to_user">WlxSwitchDesktopToUser</a> function.
-     * @type {Pointer<PWLX_SWITCH_DESKTOP_TO_USER>}
      */
-    WlxSwitchDesktopToUser {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    WlxSwitchDesktopToUser : IntPtr
 
     /**
      * Pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_switch_desktop_to_winlogon">WlxSwitchDesktopToWinlogon</a> function.
-     * @type {Pointer<PWLX_SWITCH_DESKTOP_TO_WINLOGON>}
      */
-    WlxSwitchDesktopToWinlogon {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    WlxSwitchDesktopToWinlogon : IntPtr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_change_password_notify">WlxChangePasswordNotify</a> function.
-     * @type {Pointer<PWLX_CHANGE_PASSWORD_NOTIFY>}
      */
-    WlxChangePasswordNotify {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    WlxChangePasswordNotify : IntPtr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_get_source_desktop">WlxGetSourceDesktop</a> function.
-     * @type {Pointer<PWLX_GET_SOURCE_DESKTOP>}
      */
-    WlxGetSourceDesktop {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    WlxGetSourceDesktop : IntPtr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_set_return_desktop">WlxSetReturnDesktop</a> function.
-     * @type {Pointer<PWLX_SET_RETURN_DESKTOP>}
      */
-    WlxSetReturnDesktop {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    WlxSetReturnDesktop : IntPtr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_create_user_desktop">WlxCreateUserDesktop</a> function.
-     * @type {Pointer<PWLX_CREATE_USER_DESKTOP>}
      */
-    WlxCreateUserDesktop {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    WlxCreateUserDesktop : IntPtr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_change_password_notify_ex">WlxChangePasswordNotifyEx</a> function.
-     * @type {Pointer<PWLX_CHANGE_PASSWORD_NOTIFY_EX>}
      */
-    WlxChangePasswordNotifyEx {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    WlxChangePasswordNotifyEx : IntPtr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_close_user_desktop">WlxCloseUserDesktop</a> function.
-     * @type {Pointer<PWLX_CLOSE_USER_DESKTOP>}
      */
-    WlxCloseUserDesktop {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
-    }
+    WlxCloseUserDesktop : IntPtr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_set_option">WlxSetOption</a> function.
-     * @type {Pointer<PWLX_SET_OPTION>}
      */
-    WlxSetOption {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
-    }
+    WlxSetOption : IntPtr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_get_option">WlxGetOption</a> function.
-     * @type {Pointer<PWLX_GET_OPTION>}
      */
-    WlxGetOption {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
-    }
+    WlxGetOption : IntPtr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_win31_migrate">WlxWin31Migrate</a> function.
-     * @type {Pointer<PWLX_WIN31_MIGRATE>}
      */
-    WlxWin31Migrate {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
-    }
+    WlxWin31Migrate : IntPtr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_query_client_credentials">WlxQueryClientCredentials</a> function.
-     * @type {Pointer<PWLX_QUERY_CLIENT_CREDENTIALS>}
      */
-    WlxQueryClientCredentials {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
-    }
+    WlxQueryClientCredentials : IntPtr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_query_ic_credentials">WlxQueryInetConnectorCredentials</a> function.
-     * @type {Pointer<PWLX_QUERY_IC_CREDENTIALS>}
      */
-    WlxQueryInetConnectorCredentials {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
-    }
+    WlxQueryInetConnectorCredentials : IntPtr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_disconnect">WlxDisconnect</a> function.
-     * @type {Pointer<PWLX_DISCONNECT>}
      */
-    WlxDisconnect {
-        get => NumGet(this, 184, "ptr")
-        set => NumPut("ptr", value, this, 184)
-    }
+    WlxDisconnect : IntPtr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_query_terminal_services_data">WlxQueryTerminalServicesData</a> function.
-     * @type {Pointer<PWLX_QUERY_TERMINAL_SERVICES_DATA>}
      */
-    WlxQueryTerminalServicesData {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
-    }
+    WlxQueryTerminalServicesData : IntPtr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_query_consoleswitch_credentials">WlxQueryConsoleSwitchCredentials</a> function.
-     * @type {Pointer<PWLX_QUERY_CONSOLESWITCH_CREDENTIALS>}
      */
-    WlxQueryConsoleSwitchCredentials {
-        get => NumGet(this, 200, "ptr")
-        set => NumPut("ptr", value, this, 200)
-    }
+    WlxQueryConsoleSwitchCredentials : IntPtr
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nc-winwlx-pwlx_query_ts_logon_credentials">WlxQueryTsLogonCredentials</a> function.
-     * @type {Pointer<PWLX_QUERY_TS_LOGON_CREDENTIALS>}
      */
-    WlxQueryTsLogonCredentials {
-        get => NumGet(this, 208, "ptr")
-        set => NumPut("ptr", value, this, 208)
-    }
+    WlxQueryTsLogonCredentials : IntPtr
+
 }

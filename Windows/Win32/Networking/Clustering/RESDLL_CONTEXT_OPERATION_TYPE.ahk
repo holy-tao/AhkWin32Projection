@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the various types of context operations for the GET_OPERATION_CONTEXT_PARAMS structure.
  * @see https://learn.microsoft.com/windows/win32/api/resapi/ne-resapi-resdll_context_operation_type
  * @namespace Windows.Win32.Networking.Clustering
  */
-class RESDLL_CONTEXT_OPERATION_TYPE extends Win32Enum {
+export default struct RESDLL_CONTEXT_OPERATION_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * A group fail back.

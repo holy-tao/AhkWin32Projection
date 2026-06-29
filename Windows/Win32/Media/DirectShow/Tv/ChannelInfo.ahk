@@ -1,107 +1,38 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class ChannelInfo extends Win32Struct {
-    static sizeof => 16
+export default struct ChannelInfo {
+    #StructPack 4
 
-    static packingSize => 4
 
-    /**
-     * @type {Integer}
-     */
-    lFrequency {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    struct _DVB {
+        lONID : Int32
+
+        lTSID : Int32
+
+        lSID : Int32
+
     }
 
-    class _DVB extends Win32Struct {
-        static sizeof => 12
-        static packingSize => 4
+    struct _DC {
+        lProgNumber : Int32
 
-        /**
-         * @type {Integer}
-         */
-        lONID {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        lTSID {
-            get => NumGet(this, 4, "int")
-            set => NumPut("int", value, this, 4)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        lSID {
-            get => NumGet(this, 8, "int")
-            set => NumPut("int", value, this, 8)
-        }
     }
 
-    class _DC extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
+    struct _ATSC {
+        lProgNumber : Int32
 
-        /**
-         * @type {Integer}
-         */
-        lProgNumber {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
     }
 
-    class _ATSC extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
+    lFrequency : Int32
 
-        /**
-         * @type {Integer}
-         */
-        lProgNumber {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
-    }
+    DVB : ChannelInfo._DVB
 
-    /**
-     * @type {_DVB}
-     */
-    DVB {
-        get {
-            if(!this.HasProp("__DVB"))
-                this.__DVB := ChannelInfo._DVB(4, this)
-            return this.__DVB
-        }
-    }
-
-    /**
-     * @type {_DC}
-     */
-    DC {
-        get {
-            if(!this.HasProp("__DC"))
-                this.__DC := ChannelInfo._DC(4, this)
-            return this.__DC
-        }
-    }
-
-    /**
-     * @type {_ATSC}
-     */
-    ATSC {
-        get {
-            if(!this.HasProp("__ATSC"))
-                this.__ATSC := ChannelInfo._ATSC(4, this)
-            return this.__ATSC
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'DC', { type: ChannelInfo._DC, offset: 4 })
+        DefineProp(this.Prototype, 'ATSC', { type: ChannelInfo._ATSC, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

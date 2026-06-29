@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVMRImagePresenterConfig interface provides methods for setting the rendering preferences on the allocator-presenter used by the Video Mixing Renderer Filter 9 (VMR-9).Applications should not use this interface directly.
@@ -10,26 +11,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/nn-vmr9-ivmrimagepresenterconfig9
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IVMRImagePresenterConfig9 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVMRImagePresenterConfig9 extends IUnknown {
     /**
      * The interface identifier for IVMRImagePresenterConfig9
      * @type {Guid}
      */
-    static IID => Guid("{45c15cab-6e22-420a-8043-ae1f0ac02c7d}")
+    static IID := Guid("{45c15cab-6e22-420a-8043-ae1f0ac02c7d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVMRImagePresenterConfig9 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetRenderingPrefs : IntPtr
+        GetRenderingPrefs : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetRenderingPrefs", "GetRenderingPrefs"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVMRImagePresenterConfig9.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetRenderingPrefs method sets the rendering preferences on the VMR-9 filter's allocator-presenter.
@@ -72,5 +81,27 @@ class IVMRImagePresenterConfig9 extends IUnknown {
     GetRenderingPrefs() {
         result := ComCall(4, this, "uint*", &dwRenderFlags := 0, "HRESULT")
         return dwRenderFlags
+    }
+
+    Query(iid) {
+        if (IVMRImagePresenterConfig9.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetRenderingPrefs := CallbackCreate(GetMethod(implObj, "SetRenderingPrefs"), flags, 2)
+        this.vtbl.GetRenderingPrefs := CallbackCreate(GetMethod(implObj, "GetRenderingPrefs"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetRenderingPrefs)
+        CallbackFree(this.vtbl.GetRenderingPrefs)
     }
 }

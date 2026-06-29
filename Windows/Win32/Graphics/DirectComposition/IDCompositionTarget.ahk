@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDCompositionVisual.ahk" { IDCompositionVisual }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a binding between a Microsoft DirectComposition visual tree and a destination on top of which the visual tree should be composed.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositiontarget
  * @namespace Windows.Win32.Graphics.DirectComposition
  */
-class IDCompositionTarget extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDCompositionTarget extends IUnknown {
     /**
      * The interface identifier for IDCompositionTarget
      * @type {Guid}
      */
-    static IID => Guid("{eacdd04c-117e-4e17-88f4-d1b12b0e3d89}")
+    static IID := Guid("{eacdd04c-117e-4e17-88f4-d1b12b0e3d89}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDCompositionTarget interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetRoot : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetRoot"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDCompositionTarget.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets a visual object as the new root object of a visual tree.
@@ -46,5 +55,25 @@ class IDCompositionTarget extends IUnknown {
     SetRoot(visual) {
         result := ComCall(3, this, "ptr", visual, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDCompositionTarget.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetRoot := CallbackCreate(GetMethod(implObj, "SetRoot"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetRoot)
     }
 }

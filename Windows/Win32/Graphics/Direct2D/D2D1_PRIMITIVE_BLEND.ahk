@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used to specify the geometric blend mode for all Direct2D primitives.
@@ -62,7 +61,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ne-d2d1_1-d2d1_primitive_blend
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_PRIMITIVE_BLEND extends Win32Enum {
+export default struct D2D1_PRIMITIVE_BLEND {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The standard source-over-destination blend mode.

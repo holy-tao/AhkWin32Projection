@@ -1,34 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides access to a control that contains a value that does not span a range and that can be represented as a string.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationvaluepattern
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IUIAutomationValuePattern extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIAutomationValuePattern extends IUnknown {
     /**
      * The interface identifier for IUIAutomationValuePattern
      * @type {Guid}
      */
-    static IID => Guid("{a94cd8b1-0844-4cd6-9d2d-640537ab39e9}")
+    static IID := Guid("{a94cd8b1-0844-4cd6-9d2d-640537ab39e9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAutomationValuePattern interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetValue              : IntPtr
+        get_CurrentValue      : IntPtr
+        get_CurrentIsReadOnly : IntPtr
+        get_CachedValue       : IntPtr
+        get_CachedIsReadOnly  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetValue", "get_CurrentValue", "get_CurrentIsReadOnly", "get_CachedValue", "get_CachedIsReadOnly"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAutomationValuePattern.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -73,7 +86,7 @@ class IUIAutomationValuePattern extends IUnknown {
     SetValue(_val) {
         _val := _val is String ? BSTR.Alloc(_val).Value : _val
 
-        result := ComCall(3, this, "ptr", _val, "HRESULT")
+        result := ComCall(3, this, BSTR, _val, "HRESULT")
         return result
     }
 
@@ -87,8 +100,8 @@ class IUIAutomationValuePattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationvaluepattern-get_currentvalue
      */
     get_CurrentValue() {
-        retVal := BSTR()
-        result := ComCall(4, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(4, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -100,7 +113,7 @@ class IUIAutomationValuePattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationvaluepattern-get_currentisreadonly
      */
     get_CurrentIsReadOnly() {
-        result := ComCall(5, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(5, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -114,8 +127,8 @@ class IUIAutomationValuePattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationvaluepattern-get_cachedvalue
      */
     get_CachedValue() {
-        retVal := BSTR()
-        result := ComCall(6, this, "ptr", retVal, "HRESULT")
+        retVal := BSTR.Owned()
+        result := ComCall(6, this, BSTR.Ptr, retVal, "HRESULT")
         return retVal
     }
 
@@ -127,7 +140,35 @@ class IUIAutomationValuePattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationvaluepattern-get_cachedisreadonly
      */
     get_CachedIsReadOnly() {
-        result := ComCall(7, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(7, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
+    }
+
+    Query(iid) {
+        if (IUIAutomationValuePattern.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 2)
+        this.vtbl.get_CurrentValue := CallbackCreate(GetMethod(implObj, "get_CurrentValue"), flags, 2)
+        this.vtbl.get_CurrentIsReadOnly := CallbackCreate(GetMethod(implObj, "get_CurrentIsReadOnly"), flags, 2)
+        this.vtbl.get_CachedValue := CallbackCreate(GetMethod(implObj, "get_CachedValue"), flags, 2)
+        this.vtbl.get_CachedIsReadOnly := CallbackCreate(GetMethod(implObj, "get_CachedIsReadOnly"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetValue)
+        CallbackFree(this.vtbl.get_CurrentValue)
+        CallbackFree(this.vtbl.get_CurrentIsReadOnly)
+        CallbackFree(this.vtbl.get_CachedValue)
+        CallbackFree(this.vtbl.get_CachedIsReadOnly)
     }
 }

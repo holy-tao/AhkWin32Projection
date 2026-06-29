@@ -1,36 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Jet
  * @charset Unicode
  */
-class JET_CONDITIONALCOLUMN_W extends Win32Struct {
-    static sizeof => 24
+export default struct JET_CONDITIONALCOLUMN_W {
+    #StructPack 8
 
-    static packingSize => 8
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    szColumnName : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    szColumnName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    grbit : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    grbit {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

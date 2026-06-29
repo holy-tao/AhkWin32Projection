@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the state of an audio effect.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/audioclient/ne-audioclient-audio_effect_state
  * @namespace Windows.Win32.Media.Audio
  */
-class AUDIO_EFFECT_STATE extends Win32Enum {
+export default struct AUDIO_EFFECT_STATE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The audio effect is off.

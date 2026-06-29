@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The AVIOLDINDEX structure describes an AVI 1.0 index ('idx1' format). New AVI files should use an AVI 2.0 index ('indx' format).
@@ -8,75 +7,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/aviriff/ns-aviriff-avioldindex
  * @namespace Windows.Win32.Media.DirectShow
  */
-class AVIOLDINDEX extends Win32Struct {
-    static sizeof => 24
+export default struct AVIOLDINDEX {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _avioldindex_entry extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 4
+    struct _avioldindex_entry {
+        dwChunkId : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        dwChunkId {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        dwFlags : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        dwFlags {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
+        dwOffset : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        dwOffset {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
+        dwSize : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        dwSize {
-            get => NumGet(this, 12, "uint")
-            set => NumPut("uint", value, this, 12)
-        }
     }
 
     /**
      * Specifies a FOURCC code. The value must be 'idx1'.
-     * @type {Integer}
      */
-    fcc {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    fcc : UInt32
 
     /**
      * Specifies the size of the structure, not including the initial 8 bytes.
-     * @type {Integer}
      */
-    cb {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cb : UInt32
 
     /**
      * Array of structures that contain the following members.
-     * @type {_avioldindex_entry}
      */
-    aIndex {
-        get {
-            if(!this.HasProp("__aIndexProxyArray"))
-                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 8, 1, AVIOLDINDEX._avioldindex_entry, "")
-            return this.__aIndexProxyArray
-        }
-    }
+    aIndex : AVIOLDINDEX._avioldindex_entry[1]
+
 }

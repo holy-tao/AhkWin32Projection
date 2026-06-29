@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The WPD\_SMS\_ENCODING\_TYPES enumeration type describes the encoding type of a short message service (SMS) message.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-sms-encoding-types
  * @namespace Windows.Win32.Devices.PortableDevices
  */
-class WPD_SMS_ENCODING_TYPES extends Win32Enum {
+export default struct WPD_SMS_ENCODING_TYPES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

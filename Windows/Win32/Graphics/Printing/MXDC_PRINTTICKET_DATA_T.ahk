@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MXDC\_PRINTTICKET\_DATA\_T structure holds an XPS document print ticket, which contains printer and print job settings, to pass to the Microsoft XPS Document Converter (MXDC) output file without any processing.
@@ -10,29 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/printdocs/mxdcprintticketpassthrough
  * @namespace Windows.Win32.Graphics.Printing
  */
-class MXDC_PRINTTICKET_DATA_T extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct MXDC_PRINTTICKET_DATA_T {
+    #StructPack 4
 
     /**
      * The size of the print ticket in bytes.
-     * @type {Integer}
      */
-    dwDataSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwDataSize : UInt32
 
     /**
      * The XPS document print ticket.
-     * @type {Array<Integer>}
      */
-    bData {
-        get {
-            if(!this.HasProp("__bDataProxyArray"))
-                this.__bDataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
-            return this.__bDataProxyArray
-        }
-    }
+    bData : Int8[1]
+
 }

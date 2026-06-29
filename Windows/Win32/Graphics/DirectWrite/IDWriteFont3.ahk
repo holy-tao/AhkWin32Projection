@@ -1,35 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFont2.ahk
-#Include .\IDWriteFontFace3.ahk
-#Include .\IDWriteFontFaceReference.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDWriteFontFaceReference.ahk" { IDWriteFontFaceReference }
+#Import ".\DWRITE_LOCALITY.ahk" { DWRITE_LOCALITY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteFontFace3.ahk" { IDWriteFontFace3 }
+#Import ".\IDWriteFont.ahk" { IDWriteFont }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDWriteFont2.ahk" { IDWriteFont2 }
 
 /**
  * Represents a font in a font collection.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefont3
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteFont3 extends IDWriteFont2 {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteFont3 extends IDWriteFont2 {
     /**
      * The interface identifier for IDWriteFont3
      * @type {Guid}
      */
-    static IID => Guid("{29748ed6-8c9c-4a6a-be0b-d912e8538944}")
+    static IID := Guid("{29748ed6-8c9c-4a6a-be0b-d912e8538944}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 19
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteFont3 interfaces
+    */
+    struct Vtbl extends IDWriteFont2.Vtbl {
+        CreateFontFace       : IntPtr
+        Equals               : IntPtr
+        GetFontFaceReference : IntPtr
+        HasCharacter         : IntPtr
+        GetLocality          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateFontFace", "Equals", "GetFontFaceReference", "HasCharacter", "GetLocality"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteFont3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a font face object for the font. (IDWriteFont3.CreateFontFace)
@@ -54,7 +69,7 @@ class IDWriteFont3 extends IDWriteFont2 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefont3-equals
      */
     Equals(_font) {
-        result := ComCall(20, this, "ptr", _font, "int")
+        result := ComCall(20, this, "ptr", _font, BOOL)
         return result
     }
 
@@ -76,7 +91,7 @@ class IDWriteFont3 extends IDWriteFont2 {
      * @returns {BOOL} 
      */
     HasCharacter(unicodeValue) {
-        result := ComCall(22, this, "uint", unicodeValue, "int")
+        result := ComCall(22, this, "uint", unicodeValue, BOOL)
         return result
     }
 
@@ -90,7 +105,35 @@ class IDWriteFont3 extends IDWriteFont2 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefont3-getlocality
      */
     GetLocality() {
-        result := ComCall(23, this, "int")
+        result := ComCall(23, this, DWRITE_LOCALITY)
         return result
+    }
+
+    Query(iid) {
+        if (IDWriteFont3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateFontFace := CallbackCreate(GetMethod(implObj, "CreateFontFace"), flags, 2)
+        this.vtbl.Equals := CallbackCreate(GetMethod(implObj, "Equals"), flags, 2)
+        this.vtbl.GetFontFaceReference := CallbackCreate(GetMethod(implObj, "GetFontFaceReference"), flags, 2)
+        this.vtbl.HasCharacter := CallbackCreate(GetMethod(implObj, "HasCharacter"), flags, 2)
+        this.vtbl.GetLocality := CallbackCreate(GetMethod(implObj, "GetLocality"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateFontFace)
+        CallbackFree(this.vtbl.Equals)
+        CallbackFree(this.vtbl.GetFontFaceReference)
+        CallbackFree(this.vtbl.HasCharacter)
+        CallbackFree(this.vtbl.GetLocality)
     }
 }

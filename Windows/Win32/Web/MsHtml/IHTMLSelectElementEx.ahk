@@ -1,31 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLSelectElementEx extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLSelectElementEx extends IUnknown {
     /**
      * The interface identifier for IHTMLSelectElementEx
      * @type {Guid}
      */
-    static IID => Guid("{3050f2d1-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f2d1-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLSelectElementEx interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ShowDropdown     : IntPtr
+        SetSelectExFlags : IntPtr
+        GetSelectExFlags : IntPtr
+        GetDropdownOpen  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ShowDropdown", "SetSelectExFlags", "GetSelectExFlags", "GetDropdownOpen"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLSelectElementEx.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -33,7 +45,7 @@ class IHTMLSelectElementEx extends IUnknown {
      * @returns {HRESULT} 
      */
     ShowDropdown(fShow) {
-        result := ComCall(3, this, "int", fShow, "HRESULT")
+        result := ComCall(3, this, BOOL, fShow, "HRESULT")
         return result
     }
 
@@ -61,7 +73,33 @@ class IHTMLSelectElementEx extends IUnknown {
      * @returns {BOOL} 
      */
     GetDropdownOpen() {
-        result := ComCall(6, this, "int*", &pfOpen := 0, "HRESULT")
+        result := ComCall(6, this, BOOL.Ptr, &pfOpen := 0, "HRESULT")
         return pfOpen
+    }
+
+    Query(iid) {
+        if (IHTMLSelectElementEx.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ShowDropdown := CallbackCreate(GetMethod(implObj, "ShowDropdown"), flags, 2)
+        this.vtbl.SetSelectExFlags := CallbackCreate(GetMethod(implObj, "SetSelectExFlags"), flags, 2)
+        this.vtbl.GetSelectExFlags := CallbackCreate(GetMethod(implObj, "GetSelectExFlags"), flags, 2)
+        this.vtbl.GetDropdownOpen := CallbackCreate(GetMethod(implObj, "GetDropdownOpen"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ShowDropdown)
+        CallbackFree(this.vtbl.SetSelectExFlags)
+        CallbackFree(this.vtbl.GetSelectExFlags)
+        CallbackFree(this.vtbl.GetDropdownOpen)
     }
 }

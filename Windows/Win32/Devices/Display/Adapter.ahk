@@ -1,44 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\Sources.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\Sources.ahk" { Sources }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The Adapter structure describes a graphics adapter.
  * @see https://learn.microsoft.com/windows/win32/api/cloneviewhelper/ns-cloneviewhelper-adapter
  * @namespace Windows.Win32.Devices.Display
  */
-class Adapter extends Win32Struct {
-    static sizeof => 272
-
-    static packingSize => 4
+export default struct Adapter {
+    #StructPack 4
 
     /**
      * A single wide-character string that holds the name of the graphics adapter.
-     * @type {String}
      */
-    AdapterName {
-        get => StrGet(this.ptr + 0, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 127, "UTF-16")
-    }
+    AdapterName : WCHAR[128]
 
     /**
      * The number of video present sources in the array that the <b>sources</b> member specifies.
-     * @type {Integer}
      */
-    numSources {
-        get => NumGet(this, 256, "int")
-        set => NumPut("int", value, this, 256)
-    }
+    numSources : Int32
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/cloneviewhelper/ns-cloneviewhelper-sources">Sources</a> structures that specify a list of Video Present Network (VidPN) topologies.
-     * @type {Sources}
      */
-    sources {
-        get {
-            if(!this.HasProp("__sourcesProxyArray"))
-                this.__sourcesProxyArray := Win32FixedArray(this.ptr + 260, 1, Sources, "")
-            return this.__sourcesProxyArray
-        }
-    }
+    sources : Sources[1]
+
 }

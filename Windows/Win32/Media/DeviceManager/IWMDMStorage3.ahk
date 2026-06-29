@@ -1,34 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMDMStorage2.ahk
-#Include .\IWMDMMetaData.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWMDMMetaData.ahk" { IWMDMMetaData }
+#Import ".\WMDMMetadataView.ahk" { WMDMMetadataView }
+#Import ".\WMDM_STORAGE_ENUM_MODE.ahk" { WMDM_STORAGE_ENUM_MODE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMDMStorage2.ahk" { IWMDMStorage2 }
 
 /**
  * The IWMDMStorage3 interface extends IWMDMStorage2 by exposing metadata.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmstorage3
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class IWMDMStorage3 extends IWMDMStorage2 {
-
-    static sizeof => A_PtrSize
+export default struct IWMDMStorage3 extends IWMDMStorage2 {
     /**
      * The interface identifier for IWMDMStorage3
      * @type {Guid}
      */
-    static IID => Guid("{97717eea-926a-464e-96a4-247b0216026e}")
+    static IID := Guid("{97717eea-926a-464e-96a4-247b0216026e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 15
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMDMStorage3 interfaces
+    */
+    struct Vtbl extends IWMDMStorage2.Vtbl {
+        GetMetadata               : IntPtr
+        SetMetadata               : IntPtr
+        CreateEmptyMetadataObject : IntPtr
+        SetEnumPreference         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetMetadata", "SetMetadata", "CreateEmptyMetadataObject", "SetEnumPreference"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMDMStorage3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetMetadata method retrieves the metadata associated with the storage.
@@ -184,7 +197,33 @@ class IWMDMStorage3 extends IWMDMStorage2 {
     SetEnumPreference(pMode, nViews, pViews) {
         pModeMarshal := pMode is VarRef ? "int*" : "ptr"
 
-        result := ComCall(18, this, pModeMarshal, pMode, "uint", nViews, "ptr", pViews, "HRESULT")
+        result := ComCall(18, this, pModeMarshal, pMode, "uint", nViews, WMDMMetadataView.Ptr, pViews, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMDMStorage3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetMetadata := CallbackCreate(GetMethod(implObj, "GetMetadata"), flags, 2)
+        this.vtbl.SetMetadata := CallbackCreate(GetMethod(implObj, "SetMetadata"), flags, 2)
+        this.vtbl.CreateEmptyMetadataObject := CallbackCreate(GetMethod(implObj, "CreateEmptyMetadataObject"), flags, 2)
+        this.vtbl.SetEnumPreference := CallbackCreate(GetMethod(implObj, "SetEnumPreference"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetMetadata)
+        CallbackFree(this.vtbl.SetMetadata)
+        CallbackFree(this.vtbl.CreateEmptyMetadataObject)
+        CallbackFree(this.vtbl.SetEnumPreference)
     }
 }

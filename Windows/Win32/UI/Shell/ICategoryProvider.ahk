@@ -1,35 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IEnumGUID.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IEnumGUID.ahk" { IEnumGUID }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes a list of categorizers registered on an IShellFolder.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-icategoryprovider
  * @namespace Windows.Win32.UI.Shell
  */
-class ICategoryProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICategoryProvider extends IUnknown {
     /**
      * The interface identifier for ICategoryProvider
      * @type {Guid}
      */
-    static IID => Guid("{9af64809-5864-4c26-a720-c1f78c086ee3}")
+    static IID := Guid("{9af64809-5864-4c26-a720-c1f78c086ee3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICategoryProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CanCategorizeOnSCID : IntPtr
+        GetDefaultCategory  : IntPtr
+        GetCategoryForSCID  : IntPtr
+        EnumCategories      : IntPtr
+        GetCategoryName     : IntPtr
+        CreateCategory      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CanCategorizeOnSCID", "GetDefaultCategory", "GetCategoryForSCID", "EnumCategories", "GetCategoryName", "CreateCategory"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICategoryProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Determines whether a column can be used as a category.
@@ -44,7 +58,7 @@ class ICategoryProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icategoryprovider-cancategorizeonscid
      */
     CanCategorizeOnSCID(pscid) {
-        result := ComCall(3, this, "ptr", pscid, "HRESULT")
+        result := ComCall(3, this, PROPERTYKEY.Ptr, pscid, "HRESULT")
         return result
     }
 
@@ -91,7 +105,7 @@ class ICategoryProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icategoryprovider-getdefaultcategory
      */
     GetDefaultCategory(pguid, pscid) {
-        result := ComCall(4, this, "ptr", pguid, "ptr", pscid, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, pguid, PROPERTYKEY.Ptr, pscid, "HRESULT")
         return result
     }
 
@@ -107,7 +121,7 @@ class ICategoryProvider extends IUnknown {
      */
     GetCategoryForSCID(pscid) {
         pguid := Guid()
-        result := ComCall(5, this, "ptr", pscid, "ptr", pguid, "HRESULT")
+        result := ComCall(5, this, PROPERTYKEY.Ptr, pscid, Guid.Ptr, pguid, "HRESULT")
         return pguid
     }
 
@@ -144,7 +158,7 @@ class ICategoryProvider extends IUnknown {
     GetCategoryName(pguid, pszName, cch) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(7, this, "ptr", pguid, "ptr", pszName, "uint", cch, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, pguid, "ptr", pszName, "uint", cch, "HRESULT")
         return result
     }
 
@@ -162,7 +176,37 @@ class ICategoryProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icategoryprovider-createcategory
      */
     CreateCategory(pguid, riid) {
-        result := ComCall(8, this, "ptr", pguid, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, pguid, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
+    }
+
+    Query(iid) {
+        if (ICategoryProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CanCategorizeOnSCID := CallbackCreate(GetMethod(implObj, "CanCategorizeOnSCID"), flags, 2)
+        this.vtbl.GetDefaultCategory := CallbackCreate(GetMethod(implObj, "GetDefaultCategory"), flags, 3)
+        this.vtbl.GetCategoryForSCID := CallbackCreate(GetMethod(implObj, "GetCategoryForSCID"), flags, 3)
+        this.vtbl.EnumCategories := CallbackCreate(GetMethod(implObj, "EnumCategories"), flags, 2)
+        this.vtbl.GetCategoryName := CallbackCreate(GetMethod(implObj, "GetCategoryName"), flags, 4)
+        this.vtbl.CreateCategory := CallbackCreate(GetMethod(implObj, "CreateCategory"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CanCategorizeOnSCID)
+        CallbackFree(this.vtbl.GetDefaultCategory)
+        CallbackFree(this.vtbl.GetCategoryForSCID)
+        CallbackFree(this.vtbl.EnumCategories)
+        CallbackFree(this.vtbl.GetCategoryName)
+        CallbackFree(this.vtbl.CreateCategory)
     }
 }

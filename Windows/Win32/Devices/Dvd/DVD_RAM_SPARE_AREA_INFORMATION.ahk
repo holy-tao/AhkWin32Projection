@@ -1,44 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
  */
-class DVD_RAM_SPARE_AREA_INFORMATION extends Win32Struct {
-    static sizeof => 12
+export default struct DVD_RAM_SPARE_AREA_INFORMATION {
+    #StructPack 1
 
-    static packingSize => 1
+    FreePrimarySpareSectors : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    FreePrimarySpareSectors {
-        get {
-            if(!this.HasProp("__FreePrimarySpareSectorsProxyArray"))
-                this.__FreePrimarySpareSectorsProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
-            return this.__FreePrimarySpareSectorsProxyArray
-        }
-    }
+    FreeSupplementalSpareSectors : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    FreeSupplementalSpareSectors {
-        get {
-            if(!this.HasProp("__FreeSupplementalSpareSectorsProxyArray"))
-                this.__FreeSupplementalSpareSectorsProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")
-            return this.__FreeSupplementalSpareSectorsProxyArray
-        }
-    }
+    AllocatedSupplementalSpareSectors : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    AllocatedSupplementalSpareSectors {
-        get {
-            if(!this.HasProp("__AllocatedSupplementalSpareSectorsProxyArray"))
-                this.__AllocatedSupplementalSpareSectorsProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "char")
-            return this.__AllocatedSupplementalSpareSectorsProxyArray
-        }
-    }
 }

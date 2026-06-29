@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Value to pass to an operation cancel request to notify the system of the reason the operation is being canceled. If the service is being shutdown, it may pass one of these values to the provider as well.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ne-mi-mi_cancellationreason
  * @namespace Windows.Win32.System.Wmi
  */
-class MI_CancellationReason extends Win32Enum {
+export default struct MI_CancellationReason {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No reason for cancellation.

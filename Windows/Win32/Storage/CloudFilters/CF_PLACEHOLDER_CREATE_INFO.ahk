@@ -1,84 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CF_FS_METADATA.ahk
-#Include ..\FileSystem\FILE_BASIC_INFO.ahk
-#Include .\CF_PLACEHOLDER_CREATE_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CF_FS_METADATA.ahk" { CF_FS_METADATA }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\FileSystem\FILE_BASIC_INFO.ahk" { FILE_BASIC_INFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CF_PLACEHOLDER_CREATE_FLAGS.ahk" { CF_PLACEHOLDER_CREATE_FLAGS }
 
 /**
  * Contains placeholder information for creating new placeholder files or directories.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_placeholder_create_info
  * @namespace Windows.Win32.Storage.CloudFilters
  */
-class CF_PLACEHOLDER_CREATE_INFO extends Win32Struct {
-    static sizeof => 88
-
-    static packingSize => 8
+export default struct CF_PLACEHOLDER_CREATE_INFO {
+    #StructPack 8
 
     /**
      * The name of the child placeholder file or directory to be created. It should consist only of the file or directory name.
      * 
      * For example, if the sync root of the provider is C:\SyncRoot then to create a placeholder named placeholder.txt in a subdirectory of the sync root, call the [CfCreatePlaceholders](nf-cfapi-cfcreateplaceholders.md) function with *BaseDirectoryPath* equal to `C:\SyncRoot\SubDirectory` and set the *RelativePathName* field of the **CF_PLACEHOLDER_CREATE_INFO** to `placeholder.txt`.
-     * @type {PWSTR}
      */
-    RelativeFileName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    RelativeFileName : PWSTR
 
     /**
      * File system metadata to be created with the placeholder, including all timestamps, file attributes and file size (optional for directories).
-     * @type {CF_FS_METADATA}
      */
-    FsMetadata {
-        get {
-            if(!this.HasProp("__FsMetadata"))
-                this.__FsMetadata := CF_FS_METADATA(8, this)
-            return this.__FsMetadata
-        }
-    }
+    FsMetadata : CF_FS_METADATA
 
     /**
      * A user mode buffer containing file information supplied by the sync provider. The *FileIdentity* blob should not exceed **CF_PLACEHOLDER_MAX_FILE_IDENTITY_LENGTH** (defined to 4KB) in size. *FileIdentity* gets passed back to the sync provider in all callbacks. This is required for files (not for directories).
-     * @type {Pointer<Void>}
      */
-    FileIdentity {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    FileIdentity : IntPtr
 
     /**
      * Length, in bytes, of the *FileIdentity*.
-     * @type {Integer}
      */
-    FileIdentityLength {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    FileIdentityLength : UInt32
 
     /**
      * Flags for specifying placeholder creation behavior. See [CF_PLACEHOLDER_CREATE_FLAGS](ne-cfapi-cf_placeholder_create_flags.md) for more information.
-     * @type {CF_PLACEHOLDER_CREATE_FLAGS}
      */
-    Flags {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
-    }
+    Flags : CF_PLACEHOLDER_CREATE_FLAGS
 
     /**
      * The result of placeholder creation. On successful creation, the value is **STATUS_OK**.
-     * @type {HRESULT}
      */
-    Result {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
-    }
+    Result : HRESULT
 
     /**
      * The final USN value after create actions are performed.
-     * @type {Integer}
      */
-    CreateUsn {
-        get => NumGet(this, 80, "int64")
-        set => NumPut("int64", value, this, 80)
-    }
+    CreateUsn : Int64
+
 }

@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ICertProperty.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\ICertProperty.ahk" { ICertProperty }
 
 /**
  * Represents a certificate property that contains a SHA-1 hash of the new certificate created when an existing certificate is renewed.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icertpropertyrenewal
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICertPropertyRenewal extends ICertProperty {
-
-    static sizeof => A_PtrSize
+export default struct ICertPropertyRenewal extends ICertProperty {
     /**
      * The interface identifier for ICertPropertyRenewal
      * @type {Guid}
      */
-    static IID => Guid("{728ab33a-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab33a-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICertPropertyRenewal interfaces
+    */
+    struct Vtbl extends ICertProperty.Vtbl {
+        Initialize                    : IntPtr
+        InitializeFromCertificateHash : IntPtr
+        get_Renewal                   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "InitializeFromCertificateHash", "get_Renewal"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICertPropertyRenewal.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes the object from a SHA-1 hash of the new certificate.
@@ -65,7 +77,7 @@ class ICertPropertyRenewal extends ICertProperty {
     Initialize(Encoding, strRenewalValue) {
         strRenewalValue := strRenewalValue is String ? BSTR.Alloc(strRenewalValue).Value : strRenewalValue
 
-        result := ComCall(14, this, "int", Encoding, "ptr", strRenewalValue, "HRESULT")
+        result := ComCall(14, this, EncodingType, Encoding, BSTR, strRenewalValue, "HRESULT")
         return result
     }
 
@@ -118,7 +130,7 @@ class ICertPropertyRenewal extends ICertProperty {
     InitializeFromCertificateHash(MachineContext, Encoding, strCertificate) {
         strCertificate := strCertificate is String ? BSTR.Alloc(strCertificate).Value : strCertificate
 
-        result := ComCall(15, this, "short", MachineContext, "int", Encoding, "ptr", strCertificate, "HRESULT")
+        result := ComCall(15, this, VARIANT_BOOL, MachineContext, EncodingType, Encoding, BSTR, strCertificate, "HRESULT")
         return result
     }
 
@@ -131,8 +143,32 @@ class ICertPropertyRenewal extends ICertProperty {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyrenewal-get_renewal
      */
     get_Renewal(Encoding) {
-        pValue := BSTR()
-        result := ComCall(16, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(16, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
+    }
+
+    Query(iid) {
+        if (ICertPropertyRenewal.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.InitializeFromCertificateHash := CallbackCreate(GetMethod(implObj, "InitializeFromCertificateHash"), flags, 4)
+        this.vtbl.get_Renewal := CallbackCreate(GetMethod(implObj, "get_Renewal"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.InitializeFromCertificateHash)
+        CallbackFree(this.vtbl.get_Renewal)
     }
 }

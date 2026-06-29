@@ -1,9 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFMediaEngineClassFactory.ahk
-#Include .\IMFMediaSourceExtension.ahk
-#Include .\IMFMediaKeys.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IMFMediaEngineClassFactory.ahk" { IMFMediaEngineClassFactory }
+#Import ".\IMFMediaKeys.ahk" { IMFMediaKeys }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import ".\IMFMediaSourceExtension.ahk" { IMFMediaSourceExtension }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Extension for the IMFMediaEngineClassFactory interface.
@@ -12,26 +16,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfmediaengineclassfactoryex
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFMediaEngineClassFactoryEx extends IMFMediaEngineClassFactory {
-
-    static sizeof => A_PtrSize
+export default struct IMFMediaEngineClassFactoryEx extends IMFMediaEngineClassFactory {
     /**
      * The interface identifier for IMFMediaEngineClassFactoryEx
      * @type {Guid}
      */
-    static IID => Guid("{c56156c6-ea5b-48a5-9df8-fbe035d0929e}")
+    static IID := Guid("{c56156c6-ea5b-48a5-9df8-fbe035d0929e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFMediaEngineClassFactoryEx interfaces
+    */
+    struct Vtbl extends IMFMediaEngineClassFactory.Vtbl {
+        CreateMediaSourceExtension : IntPtr
+        CreateMediaKeys            : IntPtr
+        IsTypeSupported            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateMediaSourceExtension", "CreateMediaKeys", "IsTypeSupported"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFMediaEngineClassFactoryEx.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates an instance of IMFMediaSourceExtension.
@@ -70,7 +83,7 @@ class IMFMediaEngineClassFactoryEx extends IMFMediaEngineClassFactory {
         keySystem := keySystem is String ? BSTR.Alloc(keySystem).Value : keySystem
         cdmStorePath := cdmStorePath is String ? BSTR.Alloc(cdmStorePath).Value : cdmStorePath
 
-        result := ComCall(7, this, "ptr", keySystem, "ptr", cdmStorePath, "ptr*", &ppKeys := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, keySystem, BSTR, cdmStorePath, "ptr*", &ppKeys := 0, "HRESULT")
         return IMFMediaKeys(ppKeys)
     }
 
@@ -85,7 +98,31 @@ class IMFMediaEngineClassFactoryEx extends IMFMediaEngineClassFactory {
         type := type is String ? BSTR.Alloc(type).Value : type
         keySystem := keySystem is String ? BSTR.Alloc(keySystem).Value : keySystem
 
-        result := ComCall(8, this, "ptr", type, "ptr", keySystem, "int*", &isSupported := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, type, BSTR, keySystem, BOOL.Ptr, &isSupported := 0, "HRESULT")
         return isSupported
+    }
+
+    Query(iid) {
+        if (IMFMediaEngineClassFactoryEx.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateMediaSourceExtension := CallbackCreate(GetMethod(implObj, "CreateMediaSourceExtension"), flags, 4)
+        this.vtbl.CreateMediaKeys := CallbackCreate(GetMethod(implObj, "CreateMediaKeys"), flags, 4)
+        this.vtbl.IsTypeSupported := CallbackCreate(GetMethod(implObj, "IsTypeSupported"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateMediaSourceExtension)
+        CallbackFree(this.vtbl.CreateMediaKeys)
+        CallbackFree(this.vtbl.IsTypeSupported)
     }
 }

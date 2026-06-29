@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used by a writer at restore time to indicate how all the files included in a selected component, and all the files in any component set it defines, are to be restored.
@@ -45,7 +44,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/vswriter/ne-vswriter-vss_restore_target
  * @namespace Windows.Win32.Storage.Vss
  */
-class VSS_RESTORE_TARGET extends Win32Enum {
+export default struct VSS_RESTORE_TARGET {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No target is defined. 

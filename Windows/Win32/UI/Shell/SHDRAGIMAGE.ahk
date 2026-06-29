@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\SIZE.ahk
-#Include ..\..\Foundation\POINT.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * Contains the information needed to create a drag image.
@@ -23,61 +23,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-shdragimage
  * @namespace Windows.Win32.UI.Shell
  */
-class SHDRAGIMAGE extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct SHDRAGIMAGE {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure with the length and width of the drag image.
-     * @type {SIZE}
      */
-    sizeDragImage {
-        get {
-            if(!this.HasProp("__sizeDragImage"))
-                this.__sizeDragImage := SIZE(0, this)
-            return this.__sizeDragImage
-        }
-    }
+    sizeDragImage : SIZE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that specifies the location of the cursor within the drag image. The structure should contain the offset from the upper-left corner of the drag image to the location of the cursor.
-     * @type {POINT}
      */
-    ptOffset {
-        get {
-            if(!this.HasProp("__ptOffset"))
-                this.__ptOffset := POINT(8, this)
-            return this.__ptOffset
-        }
-    }
+    ptOffset : POINT
 
     /**
      * Type: <b>HBITMAP</b>
      * 
      * The drag image's bitmap handle.
-     * @type {HBITMAP}
      */
-    hbmpDragImage {
-        get {
-            if(!this.HasProp("__hbmpDragImage"))
-                this.__hbmpDragImage := HBITMAP(16, this)
-            return this.__hbmpDragImage
-        }
-    }
+    hbmpDragImage : HBITMAP
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * The color used by the control to fill the background of the drag image.
-     * @type {COLORREF}
      */
-    crColorKey {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    crColorKey : COLORREF
+
 }

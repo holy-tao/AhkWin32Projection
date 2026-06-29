@@ -1,52 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents the number and affinity of processors in a processor group.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-processor_group_info
  * @namespace Windows.Win32.System.SystemInformation
  */
-class PROCESSOR_GROUP_INFO extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct PROCESSOR_GROUP_INFO {
+    #StructPack 8
 
     /**
      * The maximum number of processors in the group.
-     * @type {Integer}
      */
-    MaximumProcessorCount {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    MaximumProcessorCount : Int8
 
     /**
      * The number of active processors in the group.
-     * @type {Integer}
      */
-    ActiveProcessorCount {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    ActiveProcessorCount : Int8
 
     /**
      * This member is reserved.
-     * @type {Array<Integer>}
      */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 2, 38, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    Reserved : Int8[38]
 
     /**
      * A bitmap that specifies the affinity for zero or more active processors within the group.
-     * @type {Pointer}
      */
-    ActiveProcessorMask {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    ActiveProcessorMask : IntPtr
+
 }

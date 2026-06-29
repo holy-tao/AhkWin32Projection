@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IPortableDeviceValues.ahk" { IPortableDeviceValues }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IPortableDeviceEventCallback interface implemented by the application to receive asynchronous callbacks if an application has registered to receive them by calling IPortableDevice::Advise.
  * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nn-portabledeviceapi-iportabledeviceeventcallback
  * @namespace Windows.Win32.Devices.PortableDevices
  */
-class IPortableDeviceEventCallback extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPortableDeviceEventCallback extends IUnknown {
     /**
      * The interface identifier for IPortableDeviceEventCallback
      * @type {Guid}
      */
-    static IID => Guid("{a8792a31-f385-493c-a893-40f64eb45f6e}")
+    static IID := Guid("{a8792a31-f385-493c-a893-40f64eb45f6e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPortableDeviceEventCallback interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnEvent : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnEvent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPortableDeviceEventCallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The OnEvent method is called by the SDK to notify the application about asynchronous events.
@@ -40,5 +49,25 @@ class IPortableDeviceEventCallback extends IUnknown {
     OnEvent(pEventParameters) {
         result := ComCall(3, this, "ptr", pEventParameters, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPortableDeviceEventCallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnEvent := CallbackCreate(GetMethod(implObj, "OnEvent"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnEvent)
     }
 }

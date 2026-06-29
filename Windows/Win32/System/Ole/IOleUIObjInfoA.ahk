@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Implemented by containers and used by the container's Object Properties dialog box and by the Convert dialog box. (ANSI)
@@ -12,21 +16,32 @@
  * @namespace Windows.Win32.System.Ole
  * @charset ANSI
  */
-class IOleUIObjInfoA extends IUnknown {
+export default struct IOleUIObjInfoA extends IUnknown {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetObjectInfo", "GetConvertInfo", "ConvertObject", "GetViewInfo", "SetViewInfo"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOleUIObjInfoA interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetObjectInfo  : IntPtr
+        GetConvertInfo : IntPtr
+        ConvertObject  : IntPtr
+        GetViewInfo    : IntPtr
+        SetViewInfo    : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOleUIObjInfoA.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the size, type, name, and location information for an object. (ANSI)
@@ -166,7 +181,7 @@ class IOleUIObjInfoA extends IUnknown {
         lplpClsidExcludeMarshal := lplpClsidExclude is VarRef ? "ptr*" : "ptr"
         lpcClsidExcludeMarshal := lpcClsidExclude is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwObject, "ptr", lpClassID, lpwFormatMarshal, lpwFormat, "ptr", lpConvertDefaultClassID, lplpClsidExcludeMarshal, lplpClsidExclude, lpcClsidExcludeMarshal, lpcClsidExclude, "HRESULT")
+        result := ComCall(4, this, "uint", dwObject, Guid.Ptr, lpClassID, lpwFormatMarshal, lpwFormat, Guid.Ptr, lpConvertDefaultClassID, lplpClsidExcludeMarshal, lplpClsidExclude, lpcClsidExcludeMarshal, lpcClsidExclude, "HRESULT")
         return result
     }
 
@@ -232,7 +247,7 @@ class IOleUIObjInfoA extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-ioleuiobjinfoa-convertobject
      */
     ConvertObject(dwObject, clsidNew) {
-        result := ComCall(5, this, "uint", dwObject, "ptr", clsidNew, "HRESULT")
+        result := ComCall(5, this, "uint", dwObject, Guid.Ptr, clsidNew, "HRESULT")
         return result
     }
 
@@ -303,7 +318,7 @@ class IOleUIObjInfoA extends IUnknown {
         pdvAspectMarshal := pdvAspect is VarRef ? "uint*" : "ptr"
         pnCurrentScaleMarshal := pnCurrentScale is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwObject, "ptr", phMetaPict, pdvAspectMarshal, pdvAspect, pnCurrentScaleMarshal, pnCurrentScale, "HRESULT")
+        result := ComCall(6, this, "uint", dwObject, HGLOBAL.Ptr, phMetaPict, pdvAspectMarshal, pdvAspect, pnCurrentScaleMarshal, pnCurrentScale, "HRESULT")
         return result
     }
 
@@ -372,9 +387,35 @@ class IOleUIObjInfoA extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-ioleuiobjinfoa-setviewinfo
      */
     SetViewInfo(dwObject, hMetaPict, _dvAspect, nCurrentScale, bRelativeToOrig) {
-        hMetaPict := hMetaPict is Win32Handle ? NumGet(hMetaPict, "ptr") : hMetaPict
-
-        result := ComCall(7, this, "uint", dwObject, "ptr", hMetaPict, "uint", _dvAspect, "int", nCurrentScale, "int", bRelativeToOrig, "HRESULT")
+        result := ComCall(7, this, "uint", dwObject, HGLOBAL, hMetaPict, "uint", _dvAspect, "int", nCurrentScale, BOOL, bRelativeToOrig, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOleUIObjInfoA.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetObjectInfo := CallbackCreate(GetMethod(implObj, "GetObjectInfo"), flags, 7)
+        this.vtbl.GetConvertInfo := CallbackCreate(GetMethod(implObj, "GetConvertInfo"), flags, 7)
+        this.vtbl.ConvertObject := CallbackCreate(GetMethod(implObj, "ConvertObject"), flags, 3)
+        this.vtbl.GetViewInfo := CallbackCreate(GetMethod(implObj, "GetViewInfo"), flags, 5)
+        this.vtbl.SetViewInfo := CallbackCreate(GetMethod(implObj, "SetViewInfo"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetObjectInfo)
+        CallbackFree(this.vtbl.GetConvertInfo)
+        CallbackFree(this.vtbl.ConvertObject)
+        CallbackFree(this.vtbl.GetViewInfo)
+        CallbackFree(this.vtbl.SetViewInfo)
     }
 }

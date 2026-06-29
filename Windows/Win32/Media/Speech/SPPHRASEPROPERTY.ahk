@@ -1,128 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Variant\VARENUM.ahk
-#Include ..\..\System\Com\CY.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Com\SAFEARRAY.ahk
-#Include ..\..\Foundation\DECIMAL.ahk
-#Include ..\..\System\Ole\IRecordInfo.ahk
-#Include .\SPPHRASEPROPERTY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Ole\IRecordInfo.ahk" { IRecordInfo }
+#Import "..\..\Foundation\DECIMAL.ahk" { DECIMAL }
+#Import "..\..\System\Variant\VARENUM.ahk" { VARENUM }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\CY.ahk" { CY }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class SPPHRASEPROPERTY extends Win32Struct {
-    static sizeof => 80
+export default struct SPPHRASEPROPERTY {
+    #StructPack 8
 
-    static packingSize => 8
+    pszName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ulId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    pszValue : PWSTR
 
-    /**
-     * @type {Integer}
-     */
-    bType {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    vValue : VARIANT
 
-    /**
-     * @type {Integer}
-     */
-    bReserved {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    ulFirstElement : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    usArrayIndex {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    ulCountOfElements : UInt32
 
-    /**
-     * @type {PWSTR}
-     */
-    pszValue {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pNextSibling : SPPHRASEPROPERTY.Ptr
 
-    /**
-     * @type {VARIANT}
-     */
-    vValue {
-        get {
-            if(!this.HasProp("__vValue"))
-                this.__vValue := VARIANT(24, this)
-            return this.__vValue
-        }
-    }
+    pFirstChild : SPPHRASEPROPERTY.Ptr
 
-    /**
-     * @type {Integer}
-     */
-    ulFirstElement {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    SREngineConfidence : Float32
 
-    /**
-     * @type {Integer}
-     */
-    ulCountOfElements {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    Confidence : Int8
 
-    /**
-     * @type {Pointer<SPPHRASEPROPERTY>}
-     */
-    pNextSibling {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
-
-    /**
-     * @type {Pointer<SPPHRASEPROPERTY>}
-     */
-    pFirstChild {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Float}
-     */
-    SREngineConfidence {
-        get => NumGet(this, 72, "float")
-        set => NumPut("float", value, this, 72)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Confidence {
-        get => NumGet(this, 76, "char")
-        set => NumPut("char", value, this, 76)
+    static __New() {
+        DefineProp(this.Prototype, 'bType', { type: Int8, offset: 8 })
+        DefineProp(this.Prototype, 'bReserved', { type: Int8, offset: 9 })
+        DefineProp(this.Prototype, 'usArrayIndex', { type: UInt16, offset: 10 })
+        this.DeleteProp("__New")
     }
 }

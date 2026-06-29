@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The values of the AUTHENTICATION_TYPE enumerated type are used to specify the authentication method.
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-authentication_type
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  */
-class AUTHENTICATION_TYPE extends Win32Enum {
+export default struct AUTHENTICATION_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies the authorization type as invalid.

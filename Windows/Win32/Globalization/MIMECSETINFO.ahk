@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Globalization
  */
-class MIMECSETINFO extends Win32Struct {
-    static sizeof => 108
+export default struct MIMECSETINFO {
+    #StructPack 4
 
-    static packingSize => 4
+    uiCodePage : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uiCodePage {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    uiInternetEncoding : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uiInternetEncoding {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    wszCharset : WCHAR[50]
 
-    /**
-     * @type {String}
-     */
-    wszCharset {
-        get => StrGet(this.ptr + 8, 49, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 49, "UTF-16")
-    }
 }

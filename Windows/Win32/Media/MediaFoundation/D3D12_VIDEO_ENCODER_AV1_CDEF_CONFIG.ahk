@@ -1,71 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_ENCODER_AV1_CDEF_CONFIG extends Win32Struct {
-    static sizeof => 272
+export default struct D3D12_VIDEO_ENCODER_AV1_CDEF_CONFIG {
+    #StructPack 8
 
-    static packingSize => 8
+    CdefBits : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CdefBits {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    CdefDampingMinus3 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CdefDampingMinus3 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    CdefYPriStrength : Int64[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    CdefYPriStrength {
-        get {
-            if(!this.HasProp("__CdefYPriStrengthProxyArray"))
-                this.__CdefYPriStrengthProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "uint")
-            return this.__CdefYPriStrengthProxyArray
-        }
-    }
+    CdefUVPriStrength : Int64[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    CdefUVPriStrength {
-        get {
-            if(!this.HasProp("__CdefUVPriStrengthProxyArray"))
-                this.__CdefUVPriStrengthProxyArray := Win32FixedArray(this.ptr + 80, 8, Primitive, "uint")
-            return this.__CdefUVPriStrengthProxyArray
-        }
-    }
+    CdefYSecStrength : Int64[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    CdefYSecStrength {
-        get {
-            if(!this.HasProp("__CdefYSecStrengthProxyArray"))
-                this.__CdefYSecStrengthProxyArray := Win32FixedArray(this.ptr + 144, 8, Primitive, "uint")
-            return this.__CdefYSecStrengthProxyArray
-        }
-    }
+    CdefUVSecStrength : Int64[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    CdefUVSecStrength {
-        get {
-            if(!this.HasProp("__CdefUVSecStrengthProxyArray"))
-                this.__CdefUVSecStrengthProxyArray := Win32FixedArray(this.ptr + 208, 8, Primitive, "uint")
-            return this.__CdefUVSecStrengthProxyArray
-        }
-    }
 }

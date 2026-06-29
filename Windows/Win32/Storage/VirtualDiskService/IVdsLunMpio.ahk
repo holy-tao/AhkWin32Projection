@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VDS_PATH_INFO.ahk" { VDS_PATH_INFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VDS_PATH_POLICY.ahk" { VDS_PATH_POLICY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\VDS_LOADBALANCE_POLICY_ENUM.ahk" { VDS_LOADBALANCE_POLICY_ENUM }
 
 /**
  * The IVdsLunMpio interface (vdshwprv.h) provides methods for performing query and configuration operations on a LUN with MPIO extensions.
@@ -10,26 +14,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdslunmpio
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsLunMpio extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsLunMpio extends IUnknown {
     /**
      * The interface identifier for IVdsLunMpio
      * @type {Guid}
      */
-    static IID => Guid("{7c5fbae3-333a-48a1-a982-33c15788cde3}")
+    static IID := Guid("{7c5fbae3-333a-48a1-a982-33c15788cde3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsLunMpio interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetPathInfo            : IntPtr
+        GetLoadBalancePolicy   : IntPtr
+        SetLoadBalancePolicy   : IntPtr
+        GetSupportedLbPolicies : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPathInfo", "GetLoadBalancePolicy", "SetLoadBalancePolicy", "GetSupportedLbPolicies"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsLunMpio.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IVdsLunMpio::GetPathInfo (vdshwprv.h) method returns an array of VDS_PATH_INFO structures, one for each path to the LUN.
@@ -308,7 +322,7 @@ class IVdsLunMpio extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslunmpio-setloadbalancepolicy
      */
     SetLoadBalancePolicy(policy, pPaths, lNumberOfPaths) {
-        result := ComCall(5, this, "int", policy, "ptr", pPaths, "int", lNumberOfPaths, "HRESULT")
+        result := ComCall(5, this, VDS_LOADBALANCE_POLICY_ENUM, policy, VDS_PATH_POLICY.Ptr, pPaths, "int", lNumberOfPaths, "HRESULT")
         return result
     }
 
@@ -321,5 +335,31 @@ class IVdsLunMpio extends IUnknown {
     GetSupportedLbPolicies() {
         result := ComCall(6, this, "uint*", &pulLbFlags := 0, "HRESULT")
         return pulLbFlags
+    }
+
+    Query(iid) {
+        if (IVdsLunMpio.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPathInfo := CallbackCreate(GetMethod(implObj, "GetPathInfo"), flags, 3)
+        this.vtbl.GetLoadBalancePolicy := CallbackCreate(GetMethod(implObj, "GetLoadBalancePolicy"), flags, 4)
+        this.vtbl.SetLoadBalancePolicy := CallbackCreate(GetMethod(implObj, "SetLoadBalancePolicy"), flags, 4)
+        this.vtbl.GetSupportedLbPolicies := CallbackCreate(GetMethod(implObj, "GetSupportedLbPolicies"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPathInfo)
+        CallbackFree(this.vtbl.GetLoadBalancePolicy)
+        CallbackFree(this.vtbl.SetLoadBalancePolicy)
+        CallbackFree(this.vtbl.GetSupportedLbPolicies)
     }
 }

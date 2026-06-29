@@ -1,24 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains dynamic exception handling continuation targets.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-process_dynamic_eh_continuation_target
  * @namespace Windows.Win32.System.Threading
  */
-class PROCESS_DYNAMIC_EH_CONTINUATION_TARGET extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct PROCESS_DYNAMIC_EH_CONTINUATION_TARGET {
+    #StructPack 8
 
     /**
      * The address of a dynamic exception handling continuation target.
-     * @type {Pointer}
      */
-    TargetAddress {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    TargetAddress : IntPtr
 
     /**
      * Flags that apply to the dynamic exception handling continuation target in <i>TargetAddress</i>.
@@ -52,10 +45,7 @@ class PROCESS_DYNAMIC_EH_CONTINUATION_TARGET extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer}
      */
-    Flags {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Flags : IntPtr
+
 }

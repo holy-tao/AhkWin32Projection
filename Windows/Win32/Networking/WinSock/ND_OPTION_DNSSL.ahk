@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class ND_OPTION_DNSSL extends Win32Struct {
-    static sizeof => 8
+export default struct ND_OPTION_DNSSL {
+    #StructPack 4
 
-    static packingSize => 4
+    nd_opt_dnssl_type : Int8
 
-    /**
-     * @type {Integer}
-     */
-    nd_opt_dnssl_type {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    nd_opt_dnssl_len : Int8
 
-    /**
-     * @type {Integer}
-     */
-    nd_opt_dnssl_len {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    nd_opt_dnssl_reserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    nd_opt_dnssl_reserved {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    nd_opt_dnssl_lifetime : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nd_opt_dnssl_lifetime {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
 }

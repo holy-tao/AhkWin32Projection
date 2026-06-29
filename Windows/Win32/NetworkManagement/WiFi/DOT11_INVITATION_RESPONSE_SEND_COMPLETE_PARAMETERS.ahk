@@ -1,66 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Ndis\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_INVITATION_RESPONSE_SEND_COMPLETE_PARAMETERS extends Win32Struct {
-    static sizeof => 24
+export default struct DOT11_INVITATION_RESPONSE_SEND_COMPLETE_PARAMETERS {
+    #StructPack 4
 
-    static packingSize => 4
+    Header : NDIS_OBJECT_HEADER
 
-    /**
-     * @type {NDIS_OBJECT_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    ReceiverDeviceAddress : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ReceiverDeviceAddress {
-        get {
-            if(!this.HasProp("__ReceiverDeviceAddressProxyArray"))
-                this.__ReceiverDeviceAddressProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
-            return this.__ReceiverDeviceAddressProxyArray
-        }
-    }
+    DialogToken : Int8
 
-    /**
-     * @type {Integer}
-     */
-    DialogToken {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    Status : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Status {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    uIEsOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uIEsOffset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    uIEsLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uIEsLength {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

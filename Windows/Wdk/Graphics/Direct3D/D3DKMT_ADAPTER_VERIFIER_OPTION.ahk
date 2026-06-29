@@ -1,37 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMT_ADAPTER_VERIFIER_OPTION_TYPE.ahk
-#Include .\D3DKMT_VERIFIER_OPTION_MODE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DKMT_VERIFIER_OPTION_MODE.ahk" { D3DKMT_VERIFIER_OPTION_MODE }
+#Import ".\D3DKMT_ADAPTER_VERIFIER_OPTION_TYPE.ahk" { D3DKMT_ADAPTER_VERIFIER_OPTION_TYPE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_ADAPTER_VERIFIER_OPTION extends Win32Struct {
-    static sizeof => 16
+export default struct D3DKMT_ADAPTER_VERIFIER_OPTION {
+    #StructPack 8
 
-    static packingSize => 8
+    Type : D3DKMT_ADAPTER_VERIFIER_OPTION_TYPE
 
-    /**
-     * @type {D3DKMT_ADAPTER_VERIFIER_OPTION_TYPE}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Mode : D3DKMT_VERIFIER_OPTION_MODE
 
-    /**
-     * @type {D3DKMT_VERIFIER_OPTION_MODE}
-     */
-    Mode {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Data : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Data {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

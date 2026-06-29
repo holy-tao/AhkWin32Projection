@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines constants that indicate how the content was used in a composition frame.
  * @see https://learn.microsoft.com/windows/win32/api/presentation/ne-presentation-compositionframeinstancekind
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
  */
-class CompositionFrameInstanceKind extends Win32Enum {
+export default struct CompositionFrameInstanceKind {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Content was composed directly to the Desktop Window Manager (DWM) backbuffer.

@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAMMediaContent2 interface retrieves custom parameters and playlists from ASX files. This interface is not implemented by any default components in DirectShow.
@@ -12,26 +14,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nn-qnetwork-iammediacontent2
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAMMediaContent2 extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IAMMediaContent2 extends IDispatch {
     /**
      * The interface identifier for IAMMediaContent2
      * @type {Guid}
      */
-    static IID => Guid("{ce8f78c1-74d9-11d2-b09d-00a0c9a81117}")
+    static IID := Guid("{ce8f78c1-74d9-11d2-b09d-00a0c9a81117}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAMMediaContent2 interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_MediaParameter     : IntPtr
+        get_MediaParameterName : IntPtr
+        get_PlaylistCount      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_MediaParameter", "get_MediaParameterName", "get_PlaylistCount"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAMMediaContent2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      */
@@ -69,7 +80,7 @@ class IAMMediaContent2 extends IDispatch {
     get_MediaParameter(EntryNum, bstrName, pbstrValue) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(7, this, "int", EntryNum, "ptr", bstrName, "ptr", pbstrValue, "HRESULT")
+        result := ComCall(7, this, "int", EntryNum, BSTR, bstrName, BSTR.Ptr, pbstrValue, "HRESULT")
         return result
     }
 
@@ -101,7 +112,7 @@ class IAMMediaContent2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iammediacontent2-get_mediaparametername
      */
     get_MediaParameterName(EntryNum, Index, pbstrName) {
-        result := ComCall(8, this, "int", EntryNum, "int", Index, "ptr", pbstrName, "HRESULT")
+        result := ComCall(8, this, "int", EntryNum, "int", Index, BSTR.Ptr, pbstrName, "HRESULT")
         return result
     }
 
@@ -116,5 +127,29 @@ class IAMMediaContent2 extends IDispatch {
 
         result := ComCall(9, this, pNumberEntriesMarshal, pNumberEntries, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAMMediaContent2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_MediaParameter := CallbackCreate(GetMethod(implObj, "get_MediaParameter"), flags, 4)
+        this.vtbl.get_MediaParameterName := CallbackCreate(GetMethod(implObj, "get_MediaParameterName"), flags, 4)
+        this.vtbl.get_PlaylistCount := CallbackCreate(GetMethod(implObj, "get_PlaylistCount"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_MediaParameter)
+        CallbackFree(this.vtbl.get_MediaParameterName)
+        CallbackFree(this.vtbl.get_PlaylistCount)
     }
 }

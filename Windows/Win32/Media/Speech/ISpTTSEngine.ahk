@@ -1,31 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISpTTSEngineSite.ahk" { ISpTTSEngineSite }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\SPVTEXTFRAG.ahk" { SPVTEXTFRAG }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpTTSEngine extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISpTTSEngine extends IUnknown {
     /**
      * The interface identifier for ISpTTSEngine
      * @type {Guid}
      */
-    static IID => Guid("{a74d7c8e-4cc5-4f2f-a6eb-804dee18500e}")
+    static IID := Guid("{a74d7c8e-4cc5-4f2f-a6eb-804dee18500e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpTTSEngine interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Speak           : IntPtr
+        GetOutputFormat : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Speak", "GetOutputFormat"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpTTSEngine.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -37,7 +49,7 @@ class ISpTTSEngine extends IUnknown {
      * @returns {HRESULT} 
      */
     Speak(dwSpeakFlags, rguidFormatId, pWaveFormatEx, pTextFragList, pOutputSite) {
-        result := ComCall(3, this, "uint", dwSpeakFlags, "ptr", rguidFormatId, "ptr", pWaveFormatEx, "ptr", pTextFragList, "ptr", pOutputSite, "HRESULT")
+        result := ComCall(3, this, "uint", dwSpeakFlags, Guid.Ptr, rguidFormatId, WAVEFORMATEX.Ptr, pWaveFormatEx, SPVTEXTFRAG.Ptr, pTextFragList, "ptr", pOutputSite, "HRESULT")
         return result
     }
 
@@ -52,7 +64,29 @@ class ISpTTSEngine extends IUnknown {
     GetOutputFormat(pTargetFmtId, pTargetWaveFormatEx, pOutputFormatId, ppCoMemOutputWaveFormatEx) {
         ppCoMemOutputWaveFormatExMarshal := ppCoMemOutputWaveFormatEx is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pTargetFmtId, "ptr", pTargetWaveFormatEx, "ptr", pOutputFormatId, ppCoMemOutputWaveFormatExMarshal, ppCoMemOutputWaveFormatEx, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, pTargetFmtId, WAVEFORMATEX.Ptr, pTargetWaveFormatEx, Guid.Ptr, pOutputFormatId, ppCoMemOutputWaveFormatExMarshal, ppCoMemOutputWaveFormatEx, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISpTTSEngine.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Speak := CallbackCreate(GetMethod(implObj, "Speak"), flags, 6)
+        this.vtbl.GetOutputFormat := CallbackCreate(GetMethod(implObj, "GetOutputFormat"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Speak)
+        CallbackFree(this.vtbl.GetOutputFormat)
     }
 }

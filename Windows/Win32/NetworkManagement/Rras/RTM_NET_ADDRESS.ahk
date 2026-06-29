@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The RTM_NET_ADDRESS structure is used to communicate address information to the routing table manager for any address family. The address family must use only with contiguous address masks that are less than 8 bytes.
@@ -9,38 +8,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/rtmv2/ns-rtmv2-rtm_net_address
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class RTM_NET_ADDRESS extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 2
+export default struct RTM_NET_ADDRESS {
+    #StructPack 2
 
     /**
      * Specifies the type of network address for this address (such as IPv4).
-     * @type {Integer}
      */
-    AddressFamily {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    AddressFamily : UInt16
 
     /**
      * Specifies the number of bits in the network part of the <b>AddrBits</b> bit array (for example, 192.168.0.0 has 8 bits).
-     * @type {Integer}
      */
-    NumBits {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    NumBits : UInt16
 
     /**
      * Specifies an array of bits that form the address prefix.
-     * @type {Array<Integer>}
      */
-    AddrBits {
-        get {
-            if(!this.HasProp("__AddrBitsProxyArray"))
-                this.__AddrBitsProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
-            return this.__AddrBitsProxyArray
-        }
-    }
+    AddrBits : Int8[16]
+
 }

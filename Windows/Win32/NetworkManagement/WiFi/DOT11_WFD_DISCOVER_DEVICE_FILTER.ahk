@@ -1,42 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_SSID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_SSID.ahk" { DOT11_SSID }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_WFD_DISCOVER_DEVICE_FILTER extends Win32Struct {
-    static sizeof => 44
+export default struct DOT11_WFD_DISCOVER_DEVICE_FILTER {
+    #StructPack 4
 
-    static packingSize => 4
+    DeviceID : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    DeviceID {
-        get {
-            if(!this.HasProp("__DeviceIDProxyArray"))
-                this.__DeviceIDProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
-            return this.__DeviceIDProxyArray
-        }
-    }
+    ucBitmask : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ucBitmask {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    GroupSSID : DOT11_SSID
 
-    /**
-     * @type {DOT11_SSID}
-     */
-    GroupSSID {
-        get {
-            if(!this.HasProp("__GroupSSID"))
-                this.__GroupSSID := DOT11_SSID(8, this)
-            return this.__GroupSSID
-        }
-    }
 }

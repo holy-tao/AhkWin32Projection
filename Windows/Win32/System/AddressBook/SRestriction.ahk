@@ -1,18 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SComparePropsRestriction.ahk
-#Include .\SAndRestriction.ahk
-#Include .\SRestriction.ahk
-#Include .\SOrRestriction.ahk
-#Include .\SNotRestriction.ahk
-#Include .\SContentRestriction.ahk
-#Include .\SPropValue.ahk
-#Include .\SPropertyRestriction.ahk
-#Include .\SBitMaskRestriction.ahk
-#Include .\SSizeRestriction.ahk
-#Include .\SExistRestriction.ahk
-#Include .\SSubRestriction.ahk
-#Include .\SCommentRestriction.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SContentRestriction.ahk" { SContentRestriction }
+#Import ".\SAndRestriction.ahk" { SAndRestriction }
+#Import ".\SExistRestriction.ahk" { SExistRestriction }
+#Import ".\SNotRestriction.ahk" { SNotRestriction }
+#Import ".\SComparePropsRestriction.ahk" { SComparePropsRestriction }
+#Import ".\SPropValue.ahk" { SPropValue }
+#Import ".\SSubRestriction.ahk" { SSubRestriction }
+#Import ".\SSizeRestriction.ahk" { SSizeRestriction }
+#Import ".\SPropertyRestriction.ahk" { SPropertyRestriction }
+#Import ".\SBitMaskRestriction.ahk" { SBitMaskRestriction }
+#Import ".\SOrRestriction.ahk" { SOrRestriction }
+#Import ".\SCommentRestriction.ahk" { SCommentRestriction }
 
 /**
  * Describes a filter for limiting the view of a table to particular rows for Outlook 2013 and Outlook 2016.
@@ -23,134 +21,25 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/srestriction
  * @namespace Windows.Win32.System.AddressBook
  */
-class SRestriction extends Win32Struct {
-    static sizeof => 32
+export default struct SRestriction {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _res_e__Union extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
+    struct _res {
+        resCompareProps : SComparePropsRestriction
 
-        /**
-         * @type {SComparePropsRestriction}
-         */
-        resCompareProps {
-            get {
-                if(!this.HasProp("__resCompareProps"))
-                    this.__resCompareProps := SComparePropsRestriction(0, this)
-                return this.__resCompareProps
-            }
-        }
-
-        /**
-         * @type {SAndRestriction}
-         */
-        resAnd {
-            get {
-                if(!this.HasProp("__resAnd"))
-                    this.__resAnd := SAndRestriction(0, this)
-                return this.__resAnd
-            }
-        }
-
-        /**
-         * @type {SOrRestriction}
-         */
-        resOr {
-            get {
-                if(!this.HasProp("__resOr"))
-                    this.__resOr := SOrRestriction(0, this)
-                return this.__resOr
-            }
-        }
-
-        /**
-         * @type {SNotRestriction}
-         */
-        resNot {
-            get {
-                if(!this.HasProp("__resNot"))
-                    this.__resNot := SNotRestriction(0, this)
-                return this.__resNot
-            }
-        }
-
-        /**
-         * @type {SContentRestriction}
-         */
-        resContent {
-            get {
-                if(!this.HasProp("__resContent"))
-                    this.__resContent := SContentRestriction(0, this)
-                return this.__resContent
-            }
-        }
-
-        /**
-         * @type {SPropertyRestriction}
-         */
-        resProperty {
-            get {
-                if(!this.HasProp("__resProperty"))
-                    this.__resProperty := SPropertyRestriction(0, this)
-                return this.__resProperty
-            }
-        }
-
-        /**
-         * @type {SBitMaskRestriction}
-         */
-        resBitMask {
-            get {
-                if(!this.HasProp("__resBitMask"))
-                    this.__resBitMask := SBitMaskRestriction(0, this)
-                return this.__resBitMask
-            }
-        }
-
-        /**
-         * @type {SSizeRestriction}
-         */
-        resSize {
-            get {
-                if(!this.HasProp("__resSize"))
-                    this.__resSize := SSizeRestriction(0, this)
-                return this.__resSize
-            }
-        }
-
-        /**
-         * @type {SExistRestriction}
-         */
-        resExist {
-            get {
-                if(!this.HasProp("__resExist"))
-                    this.__resExist := SExistRestriction(0, this)
-                return this.__resExist
-            }
-        }
-
-        /**
-         * @type {SSubRestriction}
-         */
-        resSub {
-            get {
-                if(!this.HasProp("__resSub"))
-                    this.__resSub := SSubRestriction(0, this)
-                return this.__resSub
-            }
-        }
-
-        /**
-         * @type {SCommentRestriction}
-         */
-        resComment {
-            get {
-                if(!this.HasProp("__resComment"))
-                    this.__resComment := SCommentRestriction(0, this)
-                return this.__resComment
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'resAnd', { type: SAndRestriction, offset: 0 })
+            DefineProp(this.Prototype, 'resOr', { type: SOrRestriction, offset: 0 })
+            DefineProp(this.Prototype, 'resNot', { type: SNotRestriction, offset: 0 })
+            DefineProp(this.Prototype, 'resContent', { type: SContentRestriction, offset: 0 })
+            DefineProp(this.Prototype, 'resProperty', { type: SPropertyRestriction, offset: 0 })
+            DefineProp(this.Prototype, 'resBitMask', { type: SBitMaskRestriction, offset: 0 })
+            DefineProp(this.Prototype, 'resSize', { type: SSizeRestriction, offset: 0 })
+            DefineProp(this.Prototype, 'resExist', { type: SExistRestriction, offset: 0 })
+            DefineProp(this.Prototype, 'resSub', { type: SSubRestriction, offset: 0 })
+            DefineProp(this.Prototype, 'resComment', { type: SCommentRestriction, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
@@ -200,12 +89,8 @@ class SRestriction extends Win32Struct {
      * RES_SUBRESTRICTION 
      *   
      * > A sub-object restriction, which applies a restriction to a message's attachments or recipients.
-     * @type {Integer}
      */
-    rt {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    rt : UInt32
 
     /**
      * > Union of restriction structures describing the filter to be applied. The specific structure included in the **res** member depends on the value of the **rt** member. The mapping between restriction type and structure is listed in the following table. 
@@ -224,13 +109,7 @@ class SRestriction extends Win32Struct {
      * |RES_PROPERTY  <br/> |[SPropertyRestriction](spropertyrestriction.md) <br/> |
      * |RES_SIZE  <br/> |[SSizeRestriction](ssizerestriction.md) <br/> |
      * |RES_SUBRESTRICTION  <br/> |[SSubRestriction](ssubrestriction.md) <br/> |
-     * @type {_res_e__Union}
      */
-    res {
-        get {
-            if(!this.HasProp("__res"))
-                this.__res := SRestriction._res_e__Union(8, this)
-            return this.__res
-        }
-    }
+    res : SRestriction._res
+
 }

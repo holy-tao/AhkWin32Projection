@@ -1,43 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_PROTOCOL_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\STORAGE_PROTOCOL_TYPE.ahk" { STORAGE_PROTOCOL_TYPE }
 
 /**
  * This structure is used as an input buffer when using the pass-through mechanism to issue a vendor-specific command to a storage device (via IOCTL_STORAGE_PROTOCOL_COMMAND).
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_protocol_command
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_PROTOCOL_COMMAND extends Win32Struct {
-    static sizeof => 84
-
-    static packingSize => 4
+export default struct STORAGE_PROTOCOL_COMMAND {
+    #StructPack 4
 
     /**
      * The version of this structure. This should be set to <b>STORAGE_PROTOCOL_STRUCTURE_VERSION</b>.
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
     /**
      * The size of this structure. This should be set to sizeof(<b>STORAGE_PROTOCOL_COMMAND</b>).
-     * @type {Integer}
      */
-    Length {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Length : UInt32
 
     /**
      * The protocol type, of type <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ne-winioctl-storage_protocol_type">STORAGE_PROTOCOL_TYPE</a>.
-     * @type {STORAGE_PROTOCOL_TYPE}
      */
-    ProtocolType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    ProtocolType : STORAGE_PROTOCOL_TYPE
 
     /**
      * Flags set for this request. The following are valid flags.
@@ -52,12 +37,8 @@ class STORAGE_PROTOCOL_COMMAND extends Win32Struct {
      * <td>This flag indicates the request to target an adapter instead of device.</td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Flags : UInt32
 
     /**
      * The status of the request made to the storage device. In Windows 10, possible values include: 
@@ -104,150 +85,79 @@ class STORAGE_PROTOCOL_COMMAND extends Win32Struct {
      * <td>The request is not supported.</td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ReturnStatus {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ReturnStatus : UInt32
 
     /**
      * The error code for this request. This is optionally set.
-     * @type {Integer}
      */
-    ErrorCode {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ErrorCode : UInt32
 
     /**
      * The length of the command. A non-zero value must be set by the caller.
-     * @type {Integer}
      */
-    CommandLength {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    CommandLength : UInt32
 
     /**
      * The length of the error buffer. This is optionally set and can be set to 0.
-     * @type {Integer}
      */
-    ErrorInfoLength {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    ErrorInfoLength : UInt32
 
     /**
      * The size of the buffer that is to be transferred to the device. This is only used with a WRITE request.
-     * @type {Integer}
      */
-    DataToDeviceTransferLength {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    DataToDeviceTransferLength : UInt32
 
     /**
      * The size of the buffer this is to be transferred from the device. This is only used with a READ request.
-     * @type {Integer}
      */
-    DataFromDeviceTransferLength {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    DataFromDeviceTransferLength : UInt32
 
     /**
      * How long to wait for the device until timing out. This is set in units of seconds.
-     * @type {Integer}
      */
-    TimeOutValue {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    TimeOutValue : UInt32
 
     /**
      * The offset of the error buffer. This must be pointer-aligned.
-     * @type {Integer}
      */
-    ErrorInfoOffset {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    ErrorInfoOffset : UInt32
 
     /**
      * The offset of the buffer that is to be transferred to the device. This must be pointer-aligned and is only used with a WRITE request.
-     * @type {Integer}
      */
-    DataToDeviceBufferOffset {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    DataToDeviceBufferOffset : UInt32
 
     /**
      * The offset of the buffer that is to be transferred from the device. This must be pointer-aligned and is only used with a READ request.
-     * @type {Integer}
      */
-    DataFromDeviceBufferOffset {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    DataFromDeviceBufferOffset : UInt32
 
     /**
      * Command-specific data passed along with the command. This depends on the command from the driver, and is optionally set.
-     * @type {Integer}
      */
-    CommandSpecific {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    CommandSpecific : UInt32
 
     /**
      * Reserved for future use.
-     * @type {Integer}
      */
-    Reserved0 {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    Reserved0 : UInt32
 
     /**
      * The return data. This is optionally set. Some protocols such as NVMe, may return a small amount of data (DWORD0 from completion queue entry) without the need of a separate device data transfer.
-     * @type {Integer}
      */
-    FixedProtocolReturnData {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    FixedProtocolReturnData : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FixedProtocolReturnData2 {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    FixedProtocolReturnData2 : UInt32
 
     /**
      * Reserved for future use.
-     * @type {Array<Integer>}
      */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 72, 2, Primitive, "uint")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    Reserved1 : UInt32[2]
 
     /**
      * The vendor-specific command that is to be passed-through to the device.
-     * @type {Array<Integer>}
      */
-    Command {
-        get {
-            if(!this.HasProp("__CommandProxyArray"))
-                this.__CommandProxyArray := Win32FixedArray(this.ptr + 80, 1, Primitive, "char")
-            return this.__CommandProxyArray
-        }
-    }
+    Command : Int8[1]
+
 }

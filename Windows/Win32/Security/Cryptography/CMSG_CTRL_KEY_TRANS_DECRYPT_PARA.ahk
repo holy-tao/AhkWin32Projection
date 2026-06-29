@@ -1,76 +1,40 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NCRYPT_KEY_HANDLE.ahk
-#Include .\CMSG_KEY_TRANS_RECIPIENT_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CMSG_KEY_TRANS_RECIPIENT_INFO.ahk" { CMSG_KEY_TRANS_RECIPIENT_INFO }
+#Import ".\NCRYPT_KEY_HANDLE.ahk" { NCRYPT_KEY_HANDLE }
 
 /**
  * Contains information about a key transport message recipient.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_ctrl_key_trans_decrypt_para
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CMSG_CTRL_KEY_TRANS_DECRYPT_PARA extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct CMSG_CTRL_KEY_TRANS_DECRYPT_PARA {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this data structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Pointer}
-     */
-    hCryptProv {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {NCRYPT_KEY_HANDLE}
-     */
-    hNCryptKey {
-        get {
-            if(!this.HasProp("__hNCryptKey"))
-                this.__hNCryptKey := NCRYPT_KEY_HANDLE(8, this)
-            return this.__hNCryptKey
-        }
-    }
+    hCryptProv : IntPtr
 
     /**
      * Specifies the encrypted key. The encrypted key is the result of encrypting the content-encryption key for a specific recipient by using that recipient's public key. This member is not used when the <i>hNCryptKey</i> member is used.
-     * @type {Integer}
      */
-    dwKeySpec {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwKeySpec : UInt32
 
     /**
      * A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmsg_key_trans_recipient_info">CMSG_KEY_TRANS_RECIPIENT_INFO</a> structure.
-     * @type {Pointer<CMSG_KEY_TRANS_RECIPIENT_INFO>}
      */
-    pKeyTrans {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pKeyTrans : CMSG_KEY_TRANS_RECIPIENT_INFO.Ptr
 
     /**
      * Indicates a specific recipient in any array of recipients.
-     * @type {Integer}
      */
-    dwRecipientIndex {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwRecipientIndex : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 40
+    static __New() {
+        DefineProp(this.Prototype, 'hNCryptKey', { type: NCRYPT_KEY_HANDLE, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

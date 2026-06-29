@@ -1,110 +1,66 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO.ahk
-#Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO_FILE_FLAGS.ahk
-#Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO_FILE_OS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO_FILE_OS.ahk" { VS_FIXEDFILEINFO_FILE_OS }
+#Import "..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO_FILE_FLAGS.ahk" { VS_FIXEDFILEINFO_FILE_FLAGS }
+#Import "..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO.ahk" { VS_FIXEDFILEINFO }
 
 /**
  * Contains module information for the MiniDumpCallback function when the callback type is ModuleCallback.
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_module_callback
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class MINIDUMP_MODULE_CALLBACK extends Win32Struct {
-    static sizeof => 112
-
-    static packingSize => 8
+export default struct MINIDUMP_MODULE_CALLBACK {
+    #StructPack 8
 
     /**
      * The fully qualified path of the module executable.
-     * @type {PWSTR}
      */
-    FullPath {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    FullPath : PWSTR
 
     /**
      * The base address of the module executable image in memory.
-     * @type {Integer}
      */
-    BaseOfImage {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    BaseOfImage : Int64
 
     /**
      * The size of the module executable image in memory, in bytes.
-     * @type {Integer}
      */
-    SizeOfImage {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    SizeOfImage : UInt32
 
     /**
      * The checksum value of the module executable image.
-     * @type {Integer}
      */
-    CheckSum {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    CheckSum : UInt32
 
     /**
      * The timestamp value of the module executable image, in <b>time_t</b> format.
-     * @type {Integer}
      */
-    TimeDateStamp {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    TimeDateStamp : UInt32
 
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/verrsrc/ns-verrsrc-vs_fixedfileinfo">VS_FIXEDFILEINFO</a> structure that specifies the version of the module.
-     * @type {VS_FIXEDFILEINFO}
      */
-    VersionInfo {
-        get {
-            if(!this.HasProp("__VersionInfo"))
-                this.__VersionInfo := VS_FIXEDFILEINFO(28, this)
-            return this.__VersionInfo
-        }
-    }
+    VersionInfo : VS_FIXEDFILEINFO
 
     /**
      * A pointer to a string containing the CodeView record of the module.
-     * @type {Pointer<Void>}
      */
-    CvRecord {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    CvRecord : IntPtr
 
     /**
      * The size of the Codeview record of the module in the <b>CvRecord</b> member, in bytes.
-     * @type {Integer}
      */
-    SizeOfCvRecord {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    SizeOfCvRecord : UInt32
 
     /**
      * A pointer to a string that specifies the miscellaneous record of the module.
-     * @type {Pointer<Void>}
      */
-    MiscRecord {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    MiscRecord : IntPtr
 
     /**
      * The size of the miscellaneous record of the module in the <b>MiscRecord</b> member, in bytes.
-     * @type {Integer}
      */
-    SizeOfMiscRecord {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    SizeOfMiscRecord : UInt32
+
 }

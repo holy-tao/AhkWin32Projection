@@ -1,19 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\APO_NOTIFICATION_TYPE.ahk
-#Include .\AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION.ahk
-#Include ..\IMMDevice.ahk
-#Include ..\AUDIO_VOLUME_NOTIFICATION_DATA.ahk
-#Include .\AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION.ahk
-#Include ..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
-#Include ..\..\..\Foundation\PROPERTYKEY.ahk
-#Include .\AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION.ahk
-#Include ..\AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE.ahk
-#Include .\AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2.ahk
-#Include .\AUDIO_VOLUME_NOTIFICATION_DATA2.ahk
-#Include .\DEVICE_ORIENTATION_TYPE.ahk
-#Include .\AUDIO_MICROPHONE_BOOST_NOTIFICATION.ahk
-#Include .\AUDIO_ENVIRONMENT_STATE_CHANGE_NOTIFICATION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION.ahk" { AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\AUDIO_VOLUME_NOTIFICATION_DATA.ahk" { AUDIO_VOLUME_NOTIFICATION_DATA }
+#Import ".\AUDIO_VOLUME_NOTIFICATION_DATA2.ahk" { AUDIO_VOLUME_NOTIFICATION_DATA2 }
+#Import "..\IMMDevice.ahk" { IMMDevice }
+#Import "..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
+#Import "..\..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import ".\AUDIO_ENVIRONMENT_STATE_CHANGE_NOTIFICATION.ahk" { AUDIO_ENVIRONMENT_STATE_CHANGE_NOTIFICATION }
+#Import ".\AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION.ahk" { AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION }
+#Import ".\AUDIO_MICROPHONE_BOOST_NOTIFICATION.ahk" { AUDIO_MICROPHONE_BOOST_NOTIFICATION }
+#Import ".\DEVICE_ORIENTATION_TYPE.ahk" { DEVICE_ORIENTATION_TYPE }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE.ahk" { AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE }
+#Import ".\AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2.ahk" { AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2 }
+#Import ".\AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION.ahk" { AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION }
+#Import ".\APO_NOTIFICATION_TYPE.ahk" { APO_NOTIFICATION_TYPE }
 
 /**
  * Represents a notification for a change to an APO endpoint or system effects.
@@ -25,91 +26,23 @@
  * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/ns-audioengineextensionapo-apo_notification
  * @namespace Windows.Win32.Media.Audio.Apo
  */
-class APO_NOTIFICATION extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct APO_NOTIFICATION {
+    #StructPack 8
 
     /**
      * A value from the [APO_NOTIFICATION_TYPE](ne-audioengineextensionapo-apo_notification_type.md) enumeration specifying the type of change the notification represents.
-     * @type {APO_NOTIFICATION_TYPE}
      */
-    type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    type : APO_NOTIFICATION_TYPE
 
-    /**
-     * @type {AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION}
-     */
-    audioEndpointVolumeChange {
-        get {
-            if(!this.HasProp("__audioEndpointVolumeChange"))
-                this.__audioEndpointVolumeChange := AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION(8, this)
-            return this.__audioEndpointVolumeChange
-        }
-    }
+    audioEndpointVolumeChange : AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION
 
-    /**
-     * @type {AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION}
-     */
-    audioEndpointPropertyChange {
-        get {
-            if(!this.HasProp("__audioEndpointPropertyChange"))
-                this.__audioEndpointPropertyChange := AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION(8, this)
-            return this.__audioEndpointPropertyChange
-        }
-    }
-
-    /**
-     * @type {AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION}
-     */
-    audioSystemEffectsPropertyChange {
-        get {
-            if(!this.HasProp("__audioSystemEffectsPropertyChange"))
-                this.__audioSystemEffectsPropertyChange := AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION(8, this)
-            return this.__audioSystemEffectsPropertyChange
-        }
-    }
-
-    /**
-     * @type {AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2}
-     */
-    audioEndpointVolumeChange2 {
-        get {
-            if(!this.HasProp("__audioEndpointVolumeChange2"))
-                this.__audioEndpointVolumeChange2 := AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2(8, this)
-            return this.__audioEndpointVolumeChange2
-        }
-    }
-
-    /**
-     * @type {DEVICE_ORIENTATION_TYPE}
-     */
-    deviceOrientation {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {AUDIO_MICROPHONE_BOOST_NOTIFICATION}
-     */
-    audioMicrophoneBoostChange {
-        get {
-            if(!this.HasProp("__audioMicrophoneBoostChange"))
-                this.__audioMicrophoneBoostChange := AUDIO_MICROPHONE_BOOST_NOTIFICATION(8, this)
-            return this.__audioMicrophoneBoostChange
-        }
-    }
-
-    /**
-     * @type {AUDIO_ENVIRONMENT_STATE_CHANGE_NOTIFICATION}
-     */
-    audioEnvironmentChange {
-        get {
-            if(!this.HasProp("__audioEnvironmentChange"))
-                this.__audioEnvironmentChange := AUDIO_ENVIRONMENT_STATE_CHANGE_NOTIFICATION(8, this)
-            return this.__audioEnvironmentChange
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'audioEndpointPropertyChange', { type: AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION, offset: 8 })
+        DefineProp(this.Prototype, 'audioSystemEffectsPropertyChange', { type: AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION, offset: 8 })
+        DefineProp(this.Prototype, 'audioEndpointVolumeChange2', { type: AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2, offset: 8 })
+        DefineProp(this.Prototype, 'deviceOrientation', { type: DEVICE_ORIENTATION_TYPE, offset: 8 })
+        DefineProp(this.Prototype, 'audioMicrophoneBoostChange', { type: AUDIO_MICROPHONE_BOOST_NOTIFICATION, offset: 8 })
+        DefineProp(this.Prototype, 'audioEnvironmentChange', { type: AUDIO_ENVIRONMENT_STATE_CHANGE_NOTIFICATION, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomationCondition.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IUIAutomationCondition.ahk" { IUIAutomationCondition }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Represents a condition made up of multiple conditions, at least one of which must be true.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationorcondition
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IUIAutomationOrCondition extends IUIAutomationCondition {
-
-    static sizeof => A_PtrSize
+export default struct IUIAutomationOrCondition extends IUIAutomationCondition {
     /**
      * The interface identifier for IUIAutomationOrCondition
      * @type {Guid}
      */
-    static IID => Guid("{8753f032-3db1-47b5-a1fc-6e34a266c712}")
+    static IID := Guid("{8753f032-3db1-47b5-a1fc-6e34a266c712}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAutomationOrCondition interfaces
+    */
+    struct Vtbl extends IUIAutomationCondition.Vtbl {
+        get_ChildCount           : IntPtr
+        GetChildrenAsNativeArray : IntPtr
+        GetChildren              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ChildCount", "GetChildrenAsNativeArray", "GetChildren"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAutomationOrCondition.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -77,5 +88,29 @@ class IUIAutomationOrCondition extends IUIAutomationCondition {
     GetChildren() {
         result := ComCall(5, this, "ptr*", &childArray := 0, "HRESULT")
         return childArray
+    }
+
+    Query(iid) {
+        if (IUIAutomationOrCondition.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ChildCount := CallbackCreate(GetMethod(implObj, "get_ChildCount"), flags, 2)
+        this.vtbl.GetChildrenAsNativeArray := CallbackCreate(GetMethod(implObj, "GetChildrenAsNativeArray"), flags, 3)
+        this.vtbl.GetChildren := CallbackCreate(GetMethod(implObj, "GetChildren"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ChildCount)
+        CallbackFree(this.vtbl.GetChildrenAsNativeArray)
+        CallbackFree(this.vtbl.GetChildren)
     }
 }

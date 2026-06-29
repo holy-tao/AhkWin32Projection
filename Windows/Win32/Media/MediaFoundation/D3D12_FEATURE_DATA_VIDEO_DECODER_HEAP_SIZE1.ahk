@@ -1,52 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_DECODER_HEAP_DESC.ahk
-#Include .\D3D12_VIDEO_DECODE_CONFIGURATION.ahk
-#Include .\D3D12_BITSTREAM_ENCRYPTION_TYPE.ahk
-#Include .\D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE.ahk
-#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
-#Include ..\..\Graphics\Dxgi\Common\DXGI_RATIONAL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\Dxgi\Common\DXGI_RATIONAL.ahk" { DXGI_RATIONAL }
+#Import "..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE.ahk" { D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE }
+#Import ".\D3D12_VIDEO_DECODE_CONFIGURATION.ahk" { D3D12_VIDEO_DECODE_CONFIGURATION }
+#Import ".\D3D12_VIDEO_DECODER_HEAP_DESC.ahk" { D3D12_VIDEO_DECODER_HEAP_DESC }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D12_BITSTREAM_ENCRYPTION_TYPE.ahk" { D3D12_BITSTREAM_ENCRYPTION_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_FEATURE_DATA_VIDEO_DECODER_HEAP_SIZE1 extends Win32Struct {
-    static sizeof => 80
+export default struct D3D12_FEATURE_DATA_VIDEO_DECODER_HEAP_SIZE1 {
+    #StructPack 8
 
-    static packingSize => 8
+    VideoDecoderHeapDesc : D3D12_VIDEO_DECODER_HEAP_DESC
 
-    /**
-     * @type {D3D12_VIDEO_DECODER_HEAP_DESC}
-     */
-    VideoDecoderHeapDesc {
-        get {
-            if(!this.HasProp("__VideoDecoderHeapDesc"))
-                this.__VideoDecoderHeapDesc := D3D12_VIDEO_DECODER_HEAP_DESC(0, this)
-            return this.__VideoDecoderHeapDesc
-        }
-    }
+    Protected : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    Protected {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    MemoryPoolL0Size : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MemoryPoolL0Size {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    MemoryPoolL1Size : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MemoryPoolL1Size {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
 }

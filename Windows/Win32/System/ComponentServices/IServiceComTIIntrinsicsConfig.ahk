@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CSC_COMTIIntrinsicsConfig.ahk" { CSC_COMTIIntrinsicsConfig }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Configures the COM Transaction Integrator (COMTI) intrinsics for the work that is done when calling the CoCreateActivity or CoEnterServiceDomain function.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iservicecomtiintrinsicsconfig
  * @namespace Windows.Win32.System.ComponentServices
  */
-class IServiceComTIIntrinsicsConfig extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IServiceComTIIntrinsicsConfig extends IUnknown {
     /**
      * The interface identifier for IServiceComTIIntrinsicsConfig
      * @type {Guid}
      */
-    static IID => Guid("{09e6831e-04e1-4ed4-9d0f-e8b168bafeaf}")
+    static IID := Guid("{09e6831e-04e1-4ed4-9d0f-e8b168bafeaf}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IServiceComTIIntrinsicsConfig interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ComTIIntrinsicsConfig : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ComTIIntrinsicsConfig"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IServiceComTIIntrinsicsConfig.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Configures the COMTI intrinsics for the enclosed work.
@@ -36,7 +45,27 @@ class IServiceComTIIntrinsicsConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicecomtiintrinsicsconfig-comtiintrinsicsconfig
      */
     ComTIIntrinsicsConfig(comtiIntrinsicsConfig) {
-        result := ComCall(3, this, "int", comtiIntrinsicsConfig, "HRESULT")
+        result := ComCall(3, this, CSC_COMTIIntrinsicsConfig, comtiIntrinsicsConfig, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IServiceComTIIntrinsicsConfig.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ComTIIntrinsicsConfig := CallbackCreate(GetMethod(implObj, "ComTIIntrinsicsConfig"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ComTIIntrinsicsConfig)
     }
 }

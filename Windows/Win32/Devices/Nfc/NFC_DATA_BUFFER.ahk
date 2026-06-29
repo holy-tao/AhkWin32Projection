@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
  */
-class NFC_DATA_BUFFER extends Win32Struct {
-    static sizeof => 4
+export default struct NFC_DATA_BUFFER {
+    #StructPack 2
 
-    static packingSize => 2
+    cbBuffer : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    cbBuffer {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    pbBuffer : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    pbBuffer {
-        get {
-            if(!this.HasProp("__pbBufferProxyArray"))
-                this.__pbBufferProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
-            return this.__pbBufferProxyArray
-        }
-    }
 }

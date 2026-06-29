@@ -1,15 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Defines the data used to configure the DHCP server.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_server_config_info_v4
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  */
-class DHCP_SERVER_CONFIG_INFO_V4 extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct DHCP_SERVER_CONFIG_INFO_V4 {
+    #StructPack 8
 
     /**
      * Specifies a set of bit flags that contain the RPC protocols supported by the DHCP server.
@@ -53,48 +52,28 @@ class DHCP_SERVER_CONFIG_INFO_V4 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    APIProtocolSupport {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    APIProtocolSupport : UInt32
 
     /**
      * Unicode string that specifies the  file name of the client lease JET database.
-     * @type {PWSTR}
      */
-    DatabaseName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    DatabaseName : PWSTR
 
     /**
      * Unicode string that specifies the absolute path to <b>DatabaseName</b>.
-     * @type {PWSTR}
      */
-    DatabasePath {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    DatabasePath : PWSTR
 
     /**
      * Unicode string that specifies the absolute path and file name of the backup client lease JET database.
-     * @type {PWSTR}
      */
-    BackupPath {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    BackupPath : PWSTR
 
     /**
      * Specifies the interval, in minutes,  between backups of the client lease database.
-     * @type {Integer}
      */
-    BackupInterval {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    BackupInterval : UInt32
 
     /**
      * Specifies a bit flag that indicates whether or not database actions should be logged.
@@ -116,12 +95,8 @@ class DHCP_SERVER_CONFIG_INFO_V4 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    DatabaseLoggingFlag {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    DatabaseLoggingFlag : UInt32
 
     /**
      * Specifies a bit flag that indicates whether or not a database restore operation should be performed.
@@ -143,64 +118,37 @@ class DHCP_SERVER_CONFIG_INFO_V4 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    RestoreFlag {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    RestoreFlag : UInt32
 
     /**
      * Specifies the interval, in minutes,  between cleanup operations  performed on the client lease database.
-     * @type {Integer}
      */
-    DatabaseCleanupInterval {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    DatabaseCleanupInterval : UInt32
 
     /**
      * Reserved. This field should be set to 0x00000000.
-     * @type {Integer}
      */
-    DebugFlag {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    DebugFlag : UInt32
 
     /**
      * Specifies a value equal to or greater than 0 or less than 6 that indicates the number of times to ping an unresponsive client before determining unavailability.
-     * @type {Integer}
      */
-    dwPingRetries {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwPingRetries : UInt32
 
     /**
      * Specifies the size of <b>wszBootTableString</b>, in bytes.
-     * @type {Integer}
      */
-    cbBootTableString {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    cbBootTableString : UInt32
 
     /**
      * Unicode string that contains the boot table string for the DHCP server. ?? More information needed. ??
-     * @type {PWSTR}
      */
-    wszBootTableString {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    wszBootTableString : PWSTR
 
     /**
      * Specifies whether or not to enable audit logging on the DHCP server. A value of <b>TRUE</b> indicates that an audit log is generated; <b>FALSE</b> indicates that audit logging is not performed.
-     * @type {BOOL}
      */
-    fAuditLog {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
-    }
+    fAuditLog : BOOL
+
 }

@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CREDENTIAL_PROVIDER_FIELD_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CREDENTIAL_PROVIDER_FIELD_TYPE.ahk" { CREDENTIAL_PROVIDER_FIELD_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Describes a single field in a credential. For example, a string or a user image.
@@ -9,43 +10,29 @@
  * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/ns-credentialprovider-credential_provider_field_descriptor
  * @namespace Windows.Win32.UI.Shell
  */
-class CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The unique ID of the field. Fields should have a unique identifier compared to all other fields on a given credential provider. This is true regardless of whether the fields are displayed or hidden.
-     * @type {Integer}
      */
-    dwFieldID {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFieldID : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_field_type">CREDENTIAL_PROVIDER_FIELD_TYPE</a></b>
      * 
      * The field type.
-     * @type {CREDENTIAL_PROVIDER_FIELD_TYPE}
      */
-    cpft {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    cpft : CREDENTIAL_PROVIDER_FIELD_TYPE
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a buffer containing the friendly name of the field as a null-terminated Unicode string. This is used for accessibility and queuing purposes. For example, some standard fields would have friend names of "Username", "Password", and "Log On To".
-     * @type {PWSTR}
      */
-    pszLabel {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszLabel : PWSTR
 
     /**
      * Type: <b>GUID</b>
@@ -126,10 +113,7 @@ class CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer}
      */
-    guidFieldType {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    guidFieldType : Guid
+
 }

@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IMSVidRect interface represents a rectangle with an associated window handle.
@@ -11,32 +12,49 @@
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidrect
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSVidRect extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IMSVidRect extends IDispatch {
     /**
      * The interface identifier for IMSVidRect
      * @type {Guid}
      */
-    static IID => Guid("{7f5000a6-a440-47ca-8acc-c0e75531a2c2}")
+    static IID := Guid("{7f5000a6-a440-47ca-8acc-c0e75531a2c2}")
 
     /**
      * The class identifier for MSVidRect
      * @type {Guid}
      */
-    static CLSID => Guid("{cb4276e6-7d5f-4cf1-9727-629c5e6db6ae}")
+    static CLSID := Guid("{cb4276e6-7d5f-4cf1-9727-629c5e6db6ae}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSVidRect interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Top    : IntPtr
+        put_Top    : IntPtr
+        get_Left   : IntPtr
+        put_Left   : IntPtr
+        get_Width  : IntPtr
+        put_Width  : IntPtr
+        get_Height : IntPtr
+        put_Height : IntPtr
+        get_HWnd   : IntPtr
+        put_HWnd   : IntPtr
+        put_Rect   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Top", "put_Top", "get_Left", "put_Left", "get_Width", "put_Width", "get_Height", "put_Height", "get_HWnd", "put_HWnd", "put_Rect"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSVidRect.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -184,7 +202,7 @@ class IMSVidRect extends IDispatch {
      */
     get_HWnd() {
         HWndVal := HWND()
-        result := ComCall(15, this, "ptr", HWndVal, "HRESULT")
+        result := ComCall(15, this, HWND.Ptr, HWndVal, "HRESULT")
         return HWndVal
     }
 
@@ -195,9 +213,7 @@ class IMSVidRect extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidrect-put_hwnd
      */
     put_HWnd(HWndVal) {
-        HWndVal := HWndVal is Win32Handle ? NumGet(HWndVal, "ptr") : HWndVal
-
-        result := ComCall(16, this, "ptr", HWndVal, "HRESULT")
+        result := ComCall(16, this, HWND, HWndVal, "HRESULT")
         return result
     }
 
@@ -210,5 +226,45 @@ class IMSVidRect extends IDispatch {
     put_Rect(RectVal) {
         result := ComCall(17, this, "ptr", RectVal, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMSVidRect.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Top := CallbackCreate(GetMethod(implObj, "get_Top"), flags, 2)
+        this.vtbl.put_Top := CallbackCreate(GetMethod(implObj, "put_Top"), flags, 2)
+        this.vtbl.get_Left := CallbackCreate(GetMethod(implObj, "get_Left"), flags, 2)
+        this.vtbl.put_Left := CallbackCreate(GetMethod(implObj, "put_Left"), flags, 2)
+        this.vtbl.get_Width := CallbackCreate(GetMethod(implObj, "get_Width"), flags, 2)
+        this.vtbl.put_Width := CallbackCreate(GetMethod(implObj, "put_Width"), flags, 2)
+        this.vtbl.get_Height := CallbackCreate(GetMethod(implObj, "get_Height"), flags, 2)
+        this.vtbl.put_Height := CallbackCreate(GetMethod(implObj, "put_Height"), flags, 2)
+        this.vtbl.get_HWnd := CallbackCreate(GetMethod(implObj, "get_HWnd"), flags, 2)
+        this.vtbl.put_HWnd := CallbackCreate(GetMethod(implObj, "put_HWnd"), flags, 2)
+        this.vtbl.put_Rect := CallbackCreate(GetMethod(implObj, "put_Rect"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Top)
+        CallbackFree(this.vtbl.put_Top)
+        CallbackFree(this.vtbl.get_Left)
+        CallbackFree(this.vtbl.put_Left)
+        CallbackFree(this.vtbl.get_Width)
+        CallbackFree(this.vtbl.put_Width)
+        CallbackFree(this.vtbl.get_Height)
+        CallbackFree(this.vtbl.put_Height)
+        CallbackFree(this.vtbl.get_HWnd)
+        CallbackFree(this.vtbl.put_HWnd)
+        CallbackFree(this.vtbl.put_Rect)
     }
 }

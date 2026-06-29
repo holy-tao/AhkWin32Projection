@@ -1,60 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_NOTIFICATION_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USB_NOTIFICATION_TYPE.ahk" { USB_NOTIFICATION_TYPE }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_CONNECTION_NOTIFICATION extends Win32Struct {
-    static sizeof => 24
+export default struct USB_CONNECTION_NOTIFICATION {
+    #StructPack 4
 
-    static packingSize => 4
+    NotificationType : USB_NOTIFICATION_TYPE
 
-    /**
-     * @type {USB_NOTIFICATION_TYPE}
-     */
-    NotificationType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ConnectionNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ConnectionNumber {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    RequestedBandwidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RequestedBandwidth {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    EnumerationFailReason : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EnumerationFailReason {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    PowerRequested : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PowerRequested {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    HubNameLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HubNameLength {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

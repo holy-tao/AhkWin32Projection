@@ -1,28 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DNS_CONNECTION_IFINDEX_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DNS_CONNECTION_IFINDEX_ENTRY.ahk" { DNS_CONNECTION_IFINDEX_ENTRY }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
  */
-class DNS_CONNECTION_IFINDEX_LIST extends Win32Struct {
-    static sizeof => 16
+export default struct DNS_CONNECTION_IFINDEX_LIST {
+    #StructPack 8
 
-    static packingSize => 8
+    pConnectionIfIndexEntries : DNS_CONNECTION_IFINDEX_ENTRY.Ptr
 
-    /**
-     * @type {Pointer<DNS_CONNECTION_IFINDEX_ENTRY>}
-     */
-    pConnectionIfIndexEntries {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    nEntries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nEntries {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

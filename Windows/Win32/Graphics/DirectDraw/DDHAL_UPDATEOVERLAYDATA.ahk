@@ -1,98 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DIRECTDRAW_GBL.ahk
-#Include .\DDRAWI_DDRAWSURFACE_LCL.ahk
-#Include ..\..\Foundation\RECTL.ahk
-#Include .\DDOVERLAYFX.ahk
-#Include .\IDirectDrawSurface.ahk
-#Include .\DDCOLORKEY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IDirectDrawSurface.ahk" { IDirectDrawSurface }
+#Import ".\DDOVERLAYFX.ahk" { DDOVERLAYFX }
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
+#Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDHAL_UPDATEOVERLAYDATA extends Win32Struct {
-    static sizeof => 152
+export default struct DDHAL_UPDATEOVERLAYDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    lpDD : DDRAWI_DIRECTDRAW_GBL.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DIRECTDRAW_GBL>}
-     */
-    lpDD {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpDDDestSurface : DDRAWI_DDRAWSURFACE_LCL.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DDRAWSURFACE_LCL>}
-     */
-    lpDDDestSurface {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    rDest : RECTL
 
-    /**
-     * @type {RECTL}
-     */
-    rDest {
-        get {
-            if(!this.HasProp("__rDest"))
-                this.__rDest := RECTL(16, this)
-            return this.__rDest
-        }
-    }
+    lpDDSrcSurface : DDRAWI_DDRAWSURFACE_LCL.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DDRAWSURFACE_LCL>}
-     */
-    lpDDSrcSurface {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    rSrc : RECTL
 
-    /**
-     * @type {RECTL}
-     */
-    rSrc {
-        get {
-            if(!this.HasProp("__rSrc"))
-                this.__rSrc := RECTL(40, this)
-            return this.__rSrc
-        }
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    overlayFX : DDOVERLAYFX
 
-    /**
-     * @type {DDOVERLAYFX}
-     */
-    overlayFX {
-        get {
-            if(!this.HasProp("__overlayFX"))
-                this.__overlayFX := DDOVERLAYFX(64, this)
-            return this.__overlayFX
-        }
-    }
+    ddRVal : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    ddRVal {
-        get => NumGet(this, 136, "int")
-        set => NumPut("int", value, this, 136)
-    }
+    UpdateOverlay : IntPtr
 
-    /**
-     * @type {Pointer<LPDDHALSURFCB_UPDATEOVERLAY>}
-     */
-    UpdateOverlay {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
-    }
 }

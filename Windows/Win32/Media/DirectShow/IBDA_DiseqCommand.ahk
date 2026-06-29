@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Controls cable television satellite equipment, using Digital Satellite Equipment Control (DiSEqC) commands.
@@ -13,26 +15,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_diseqcommand
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IBDA_DiseqCommand extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBDA_DiseqCommand extends IUnknown {
     /**
      * The interface identifier for IBDA_DiseqCommand
      * @type {Guid}
      */
-    static IID => Guid("{f84e2ab0-3c6b-45e3-a0fc-8669d4b81f11}")
+    static IID := Guid("{f84e2ab0-3c6b-45e3-a0fc-8669d4b81f11}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBDA_DiseqCommand interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        put_EnableDiseqCommands : IntPtr
+        put_DiseqLNBSource      : IntPtr
+        put_DiseqUseToneBurst   : IntPtr
+        put_DiseqRepeats        : IntPtr
+        put_DiseqSendCommand    : IntPtr
+        get_DiseqResponse       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_EnableDiseqCommands", "put_DiseqLNBSource", "put_DiseqUseToneBurst", "put_DiseqRepeats", "put_DiseqSendCommand", "get_DiseqResponse"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBDA_DiseqCommand.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BOOLEAN} 
@@ -71,7 +85,7 @@ class IBDA_DiseqCommand extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_diseqcommand-put_enablediseqcommands
      */
     put_EnableDiseqCommands(bEnable) {
-        result := ComCall(3, this, "char", bEnable, "HRESULT")
+        result := ComCall(3, this, BOOLEAN, bEnable, "HRESULT")
         return result
     }
 
@@ -144,7 +158,7 @@ class IBDA_DiseqCommand extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_diseqcommand-put_disequsetoneburst
      */
     put_DiseqUseToneBurst(bUseToneBurst) {
-        result := ComCall(5, this, "char", bUseToneBurst, "HRESULT")
+        result := ComCall(5, this, BOOLEAN, bUseToneBurst, "HRESULT")
         return result
     }
 
@@ -224,5 +238,35 @@ class IBDA_DiseqCommand extends IUnknown {
 
         result := ComCall(8, this, "uint", ulRequestId, pulcbResponseLenMarshal, pulcbResponseLen, pbResponseMarshal, pbResponse, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBDA_DiseqCommand.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_EnableDiseqCommands := CallbackCreate(GetMethod(implObj, "put_EnableDiseqCommands"), flags, 2)
+        this.vtbl.put_DiseqLNBSource := CallbackCreate(GetMethod(implObj, "put_DiseqLNBSource"), flags, 2)
+        this.vtbl.put_DiseqUseToneBurst := CallbackCreate(GetMethod(implObj, "put_DiseqUseToneBurst"), flags, 2)
+        this.vtbl.put_DiseqRepeats := CallbackCreate(GetMethod(implObj, "put_DiseqRepeats"), flags, 2)
+        this.vtbl.put_DiseqSendCommand := CallbackCreate(GetMethod(implObj, "put_DiseqSendCommand"), flags, 4)
+        this.vtbl.get_DiseqResponse := CallbackCreate(GetMethod(implObj, "get_DiseqResponse"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_EnableDiseqCommands)
+        CallbackFree(this.vtbl.put_DiseqLNBSource)
+        CallbackFree(this.vtbl.put_DiseqUseToneBurst)
+        CallbackFree(this.vtbl.put_DiseqRepeats)
+        CallbackFree(this.vtbl.put_DiseqSendCommand)
+        CallbackFree(this.vtbl.get_DiseqResponse)
     }
 }

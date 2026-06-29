@@ -1,41 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IWdsTransportNamespace.ahk
-#Include .\IWdsTransportCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\WDSTRANSPORT_NAMESPACE_TYPE.ahk" { WDSTRANSPORT_NAMESPACE_TYPE }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWdsTransportNamespace.ahk" { IWdsTransportNamespace }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IWdsTransportCollection.ahk" { IWdsTransportCollection }
 
 /**
  * Manages namespaces on a WDS transport server.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportnamespacemanager
  * @namespace Windows.Win32.System.DeploymentServices
  */
-class IWdsTransportNamespaceManager extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWdsTransportNamespaceManager extends IDispatch {
     /**
      * The interface identifier for IWdsTransportNamespaceManager
      * @type {Guid}
      */
-    static IID => Guid("{3e22d9f6-3777-4d98-83e1-f98696717ba3}")
+    static IID := Guid("{3e22d9f6-3777-4d98-83e1-f98696717ba3}")
 
     /**
      * The class identifier for WdsTransportNamespaceManager
      * @type {Guid}
      */
-    static CLSID => Guid("{f08cdb63-85de-4a28-a1a9-5ca3e7efda73}")
+    static CLSID := Guid("{f08cdb63-85de-4a28-a1a9-5ca3e7efda73}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWdsTransportNamespaceManager interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        CreateNamespace    : IntPtr
+        RetrieveNamespace  : IntPtr
+        RetrieveNamespaces : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateNamespace", "RetrieveNamespace", "RetrieveNamespaces"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWdsTransportNamespaceManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates an object of an IWdsTransportNamespace interface that can be registered on the current WDS transport server.
@@ -51,7 +64,7 @@ class IWdsTransportNamespaceManager extends IDispatch {
         bszContentProvider := bszContentProvider is String ? BSTR.Alloc(bszContentProvider).Value : bszContentProvider
         bszConfiguration := bszConfiguration is String ? BSTR.Alloc(bszConfiguration).Value : bszConfiguration
 
-        result := ComCall(7, this, "int", NamespaceType, "ptr", bszNamespaceName, "ptr", bszContentProvider, "ptr", bszConfiguration, "ptr*", &ppWdsTransportNamespace := 0, "HRESULT")
+        result := ComCall(7, this, WDSTRANSPORT_NAMESPACE_TYPE, NamespaceType, BSTR, bszNamespaceName, BSTR, bszContentProvider, BSTR, bszConfiguration, "ptr*", &ppWdsTransportNamespace := 0, "HRESULT")
         return IWdsTransportNamespace(ppWdsTransportNamespace)
     }
 
@@ -64,7 +77,7 @@ class IWdsTransportNamespaceManager extends IDispatch {
     RetrieveNamespace(bszNamespaceName) {
         bszNamespaceName := bszNamespaceName is String ? BSTR.Alloc(bszNamespaceName).Value : bszNamespaceName
 
-        result := ComCall(8, this, "ptr", bszNamespaceName, "ptr*", &ppWdsTransportNamespace := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, bszNamespaceName, "ptr*", &ppWdsTransportNamespace := 0, "HRESULT")
         return IWdsTransportNamespace(ppWdsTransportNamespace)
     }
 
@@ -80,7 +93,31 @@ class IWdsTransportNamespaceManager extends IDispatch {
         bszContentProvider := bszContentProvider is String ? BSTR.Alloc(bszContentProvider).Value : bszContentProvider
         bszNamespaceName := bszNamespaceName is String ? BSTR.Alloc(bszNamespaceName).Value : bszNamespaceName
 
-        result := ComCall(9, this, "ptr", bszContentProvider, "ptr", bszNamespaceName, "short", bIncludeTombstones, "ptr*", &ppWdsTransportNamespaces := 0, "HRESULT")
+        result := ComCall(9, this, BSTR, bszContentProvider, BSTR, bszNamespaceName, VARIANT_BOOL, bIncludeTombstones, "ptr*", &ppWdsTransportNamespaces := 0, "HRESULT")
         return IWdsTransportCollection(ppWdsTransportNamespaces)
+    }
+
+    Query(iid) {
+        if (IWdsTransportNamespaceManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateNamespace := CallbackCreate(GetMethod(implObj, "CreateNamespace"), flags, 6)
+        this.vtbl.RetrieveNamespace := CallbackCreate(GetMethod(implObj, "RetrieveNamespace"), flags, 3)
+        this.vtbl.RetrieveNamespaces := CallbackCreate(GetMethod(implObj, "RetrieveNamespaces"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateNamespace)
+        CallbackFree(this.vtbl.RetrieveNamespace)
+        CallbackFree(this.vtbl.RetrieveNamespaces)
     }
 }

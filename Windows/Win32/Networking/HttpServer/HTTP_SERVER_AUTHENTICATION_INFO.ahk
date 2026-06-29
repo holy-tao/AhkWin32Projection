@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_PROPERTY_FLAGS.ahk
-#Include .\HTTP_SERVER_AUTHENTICATION_DIGEST_PARAMS.ahk
-#Include .\HTTP_SERVER_AUTHENTICATION_BASIC_PARAMS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HTTP_SERVER_AUTHENTICATION_DIGEST_PARAMS.ahk" { HTTP_SERVER_AUTHENTICATION_DIGEST_PARAMS }
+#Import ".\HTTP_PROPERTY_FLAGS.ahk" { HTTP_PROPERTY_FLAGS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\HTTP_SERVER_AUTHENTICATION_BASIC_PARAMS.ahk" { HTTP_SERVER_AUTHENTICATION_BASIC_PARAMS }
 
 /**
  * Used to enable server-side authentication on a URL group or server session.
@@ -11,22 +12,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_server_authentication_info
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_SERVER_AUTHENTICATION_INFO extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct HTTP_SERVER_AUTHENTICATION_INFO {
+    #StructPack 8
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_property_flags">HTTP_PROPERTY_FLAGS</a> structure that specifies if the property is present.
-     * @type {HTTP_PROPERTY_FLAGS}
      */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := HTTP_PROPERTY_FLAGS(0, this)
-            return this.__Flags
-        }
-    }
+    Flags : HTTP_PROPERTY_FLAGS
 
     /**
      * The supported authentication schemes. This can be one or more of the following:
@@ -97,43 +89,27 @@ class HTTP_SERVER_AUTHENTICATION_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    AuthSchemes {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    AuthSchemes : UInt32
 
     /**
      * A Boolean value that indicates, if <b>True</b>, that the client application receives the server credentials for mutual authentication with the authenticated request. If <b>False</b>, the client application does not receive the credentials.
      * 
      * Be aware that this option is set for all  requests served by the associated request queue.
-     * @type {BOOLEAN}
      */
-    ReceiveMutualAuth {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    ReceiveMutualAuth : BOOLEAN
 
     /**
      * A Boolean value that indicates, if <b>True</b>, that the finalized client context is serialized and passed to the application with the request. If <b>False</b>, the application does not receive the context. This handle can be used to query context attributes.
-     * @type {BOOLEAN}
      */
-    ReceiveContextHandle {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    ReceiveContextHandle : BOOLEAN
 
     /**
      * A Boolean value that indicates, if <b>True</b>, that the NTLM credentials are not cached. If <b>False</b>, the default behavior is preserved.
      * 
      * By default,  HTTP caches the client context for Keep Alive (KA) connections for the NTLM scheme if the request did not originate from a proxy.
-     * @type {BOOLEAN}
      */
-    DisableNTLMCredentialCaching {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    DisableNTLMCredentialCaching : BOOLEAN
 
     /**
      * Optional authentication flags. Can be one or more of the following possible values:
@@ -164,34 +140,17 @@ class HTTP_SERVER_AUTHENTICATION_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ExFlags {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
-    }
+    ExFlags : Int8
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_server_authentication_digest_params">HTTP_SERVER_AUTHENTICATION_DIGEST_PARAMS</a> structure that provides the domain and realm for the digest challenge.
-     * @type {HTTP_SERVER_AUTHENTICATION_DIGEST_PARAMS}
      */
-    DigestParams {
-        get {
-            if(!this.HasProp("__DigestParams"))
-                this.__DigestParams := HTTP_SERVER_AUTHENTICATION_DIGEST_PARAMS(16, this)
-            return this.__DigestParams
-        }
-    }
+    DigestParams : HTTP_SERVER_AUTHENTICATION_DIGEST_PARAMS
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_server_authentication_basic_params">HTTP_SERVER_AUTHENTICATION_BASIC_PARAMS</a> structure that provides the realm for the basic challenge.
-     * @type {HTTP_SERVER_AUTHENTICATION_BASIC_PARAMS}
      */
-    BasicParams {
-        get {
-            if(!this.HasProp("__BasicParams"))
-                this.__BasicParams := HTTP_SERVER_AUTHENTICATION_BASIC_PARAMS(48, this)
-            return this.__BasicParams
-        }
-    }
+    BasicParams : HTTP_SERVER_AUTHENTICATION_BASIC_PARAMS
+
 }

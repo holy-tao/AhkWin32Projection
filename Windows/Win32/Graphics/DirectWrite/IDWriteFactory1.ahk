@@ -1,35 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFactory.ahk
-#Include .\IDWriteFontCollection.ahk
-#Include .\IDWriteRenderingParams1.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DWRITE_PIXEL_GEOMETRY.ahk" { DWRITE_PIXEL_GEOMETRY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteFactory.ahk" { IDWriteFactory }
+#Import ".\IDWriteRenderingParams1.ahk" { IDWriteRenderingParams1 }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDWriteFontCollection.ahk" { IDWriteFontCollection }
+#Import ".\DWRITE_RENDERING_MODE.ahk" { DWRITE_RENDERING_MODE }
 
 /**
  * The root factory interface for all DirectWrite objects. (IDWriteFactory1)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nn-dwrite_1-idwritefactory1
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteFactory1 extends IDWriteFactory {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteFactory1 extends IDWriteFactory {
     /**
      * The interface identifier for IDWriteFactory1
      * @type {Guid}
      */
-    static IID => Guid("{30572f99-dac6-41db-a16e-0486307e606a}")
+    static IID := Guid("{30572f99-dac6-41db-a16e-0486307e606a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 24
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteFactory1 interfaces
+    */
+    struct Vtbl extends IDWriteFactory.Vtbl {
+        GetEudcFontCollection       : IntPtr
+        CreateCustomRenderingParams : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetEudcFontCollection", "CreateCustomRenderingParams"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteFactory1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a font collection representing the set of EUDC (end-user defined characters) fonts.
@@ -46,7 +58,7 @@ class IDWriteFactory1 extends IDWriteFactory {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefactory1-geteudcfontcollection
      */
     GetEudcFontCollection(checkForUpdates) {
-        result := ComCall(24, this, "ptr*", &_fontCollection := 0, "int", checkForUpdates, "HRESULT")
+        result := ComCall(24, this, "ptr*", &_fontCollection := 0, BOOL, checkForUpdates, "HRESULT")
         return IDWriteFontCollection(_fontCollection)
     }
 
@@ -76,7 +88,29 @@ class IDWriteFactory1 extends IDWriteFactory {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefactory1-createcustomrenderingparams
      */
     CreateCustomRenderingParams(gamma, enhancedContrast, enhancedContrastGrayscale, clearTypeLevel, pixelGeometry, renderingMode) {
-        result := ComCall(25, this, "float", gamma, "float", enhancedContrast, "float", enhancedContrastGrayscale, "float", clearTypeLevel, "int", pixelGeometry, "int", renderingMode, "ptr*", &renderingParams := 0, "HRESULT")
+        result := ComCall(25, this, "float", gamma, "float", enhancedContrast, "float", enhancedContrastGrayscale, "float", clearTypeLevel, DWRITE_PIXEL_GEOMETRY, pixelGeometry, DWRITE_RENDERING_MODE, renderingMode, "ptr*", &renderingParams := 0, "HRESULT")
         return IDWriteRenderingParams1(renderingParams)
+    }
+
+    Query(iid) {
+        if (IDWriteFactory1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetEudcFontCollection := CallbackCreate(GetMethod(implObj, "GetEudcFontCollection"), flags, 3)
+        this.vtbl.CreateCustomRenderingParams := CallbackCreate(GetMethod(implObj, "CreateCustomRenderingParams"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetEudcFontCollection)
+        CallbackFree(this.vtbl.CreateCustomRenderingParams)
     }
 }

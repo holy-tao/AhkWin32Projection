@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains flags for the IMFMediaEngineClassFactory::CreateInstance method.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_createflags
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MF_MEDIA_ENGINE_CREATEFLAGS extends Win32Enum {
+export default struct MF_MEDIA_ENGINE_CREATEFLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The Media Engine will play audio only. It will not play video.

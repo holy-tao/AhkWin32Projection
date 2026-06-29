@@ -1,38 +1,66 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include .\IDebugClient.ahk
-#Include .\DEBUG_BREAKPOINT_PARAMETERS.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DEBUG_BREAKPOINT_PARAMETERS.ahk" { DEBUG_BREAKPOINT_PARAMETERS }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDebugClient.ahk" { IDebugClient }
+#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IDebugBreakpoint extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDebugBreakpoint extends IUnknown {
     /**
      * The interface identifier for IDebugBreakpoint
      * @type {Guid}
      */
-    static IID => Guid("{5bd9d474-5975-423a-b88b-65a8e7110e65}")
+    static IID := Guid("{5bd9d474-5975-423a-b88b-65a8e7110e65}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDebugBreakpoint interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetId               : IntPtr
+        GetType             : IntPtr
+        GetAdder            : IntPtr
+        GetFlags            : IntPtr
+        AddFlags            : IntPtr
+        RemoveFlags         : IntPtr
+        SetFlags            : IntPtr
+        GetOffset           : IntPtr
+        SetOffset           : IntPtr
+        GetDataParameters   : IntPtr
+        SetDataParameters   : IntPtr
+        GetPassCount        : IntPtr
+        SetPassCount        : IntPtr
+        GetCurrentPassCount : IntPtr
+        GetMatchThreadId    : IntPtr
+        SetMatchThreadId    : IntPtr
+        GetCommand          : IntPtr
+        SetCommand          : IntPtr
+        GetOffsetExpression : IntPtr
+        SetOffsetExpression : IntPtr
+        GetParameters       : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDebugBreakpoint.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetId", "GetType", "GetAdder", "GetFlags", "AddFlags", "RemoveFlags", "SetFlags", "GetOffset", "SetOffset", "GetDataParameters", "SetDataParameters", "GetPassCount", "SetPassCount", "GetCurrentPassCount", "GetMatchThreadId", "SetMatchThreadId", "GetCommand", "SetCommand", "GetOffsetExpression", "SetOffsetExpression", "GetParameters"]
-
-    /**
-     * Returns the identifier string available in the volume's metadata.
+     * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/SecProv/getidentificationfield-win32-encryptablevolume
      */
     GetId() {
         result := ComCall(3, this, "uint*", &Id := 0, "HRESULT")
@@ -40,35 +68,10 @@ class IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * The GetTypeByName function retrieves a service type GUID for a network service specified by name. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The nspapi.h header defines GetTypeByName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * 
      * @param {Pointer<Integer>} BreakType 
      * @param {Pointer<Integer>} ProcType 
-     * @returns {HRESULT} If the function succeeds, the return value is zero.
-     * 
-     * If the function fails, the return value is SOCKET_ERROR( – 1). To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which returns the following extended error value.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_SERVICE_DOES_NOT_EXIST</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The specified service type is unknown.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/nspapi/nf-nspapi-gettypebynamea
+     * @returns {HRESULT} 
      */
     GetType(BreakType, ProcType) {
         BreakTypeMarshal := BreakType is VarRef ? "uint*" : "ptr"
@@ -300,26 +303,10 @@ class IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * Retrieves the command-line string for the current process. (ANSI)
-     * @remarks
-     * The lifetime of the returned value is managed by the system, applications should not free or modify this value.
      * 
-     * Console processes can use the <i>argc</i> and <i>argv</i> arguments of the <b>main</b> or <b>wmain</b> functions by implementing those as the program entry point.
-     * GUI processes can use the <i>lpCmdLine</i> argument of the <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-winmain">WinMain</a> or wWinMain functions by implementing those as the program entry point.
-     * 
-     * To convert the command line to an <i>argv</i> style array of strings, pass the result from GetCommandLineA to
-     * <a href="https://docs.microsoft.com/windows/win32/api/shellapi/nf-shellapi-commandlinetoargvw">CommandLineToArgW</a>.
-     * 
-     * <div class="alert"><b>Note</b>  The name of the executable in the command line that the operating system provides to a process is not necessarily identical to that in the command line that the calling process gives to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessa">CreateProcess</a> function. The operating system may prepend a fully qualified path to an executable name that is provided without a fully qualified path.</div>
-     * <div> </div>
-     * 
-     * > [!NOTE]
-     * > The processenv.h header defines GetCommandLine as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-getcommandlinea
      */
     GetCommand(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
@@ -371,7 +358,67 @@ class IDebugBreakpoint extends IUnknown {
      */
     GetParameters() {
         Params := DEBUG_BREAKPOINT_PARAMETERS()
-        result := ComCall(23, this, "ptr", Params, "HRESULT")
+        result := ComCall(23, this, DEBUG_BREAKPOINT_PARAMETERS.Ptr, Params, "HRESULT")
         return Params
+    }
+
+    Query(iid) {
+        if (IDebugBreakpoint.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetId := CallbackCreate(GetMethod(implObj, "GetId"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 3)
+        this.vtbl.GetAdder := CallbackCreate(GetMethod(implObj, "GetAdder"), flags, 2)
+        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.AddFlags := CallbackCreate(GetMethod(implObj, "AddFlags"), flags, 2)
+        this.vtbl.RemoveFlags := CallbackCreate(GetMethod(implObj, "RemoveFlags"), flags, 2)
+        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 2)
+        this.vtbl.GetOffset := CallbackCreate(GetMethod(implObj, "GetOffset"), flags, 2)
+        this.vtbl.SetOffset := CallbackCreate(GetMethod(implObj, "SetOffset"), flags, 2)
+        this.vtbl.GetDataParameters := CallbackCreate(GetMethod(implObj, "GetDataParameters"), flags, 3)
+        this.vtbl.SetDataParameters := CallbackCreate(GetMethod(implObj, "SetDataParameters"), flags, 3)
+        this.vtbl.GetPassCount := CallbackCreate(GetMethod(implObj, "GetPassCount"), flags, 2)
+        this.vtbl.SetPassCount := CallbackCreate(GetMethod(implObj, "SetPassCount"), flags, 2)
+        this.vtbl.GetCurrentPassCount := CallbackCreate(GetMethod(implObj, "GetCurrentPassCount"), flags, 2)
+        this.vtbl.GetMatchThreadId := CallbackCreate(GetMethod(implObj, "GetMatchThreadId"), flags, 2)
+        this.vtbl.SetMatchThreadId := CallbackCreate(GetMethod(implObj, "SetMatchThreadId"), flags, 2)
+        this.vtbl.GetCommand := CallbackCreate(GetMethod(implObj, "GetCommand"), flags, 4)
+        this.vtbl.SetCommand := CallbackCreate(GetMethod(implObj, "SetCommand"), flags, 2)
+        this.vtbl.GetOffsetExpression := CallbackCreate(GetMethod(implObj, "GetOffsetExpression"), flags, 4)
+        this.vtbl.SetOffsetExpression := CallbackCreate(GetMethod(implObj, "SetOffsetExpression"), flags, 2)
+        this.vtbl.GetParameters := CallbackCreate(GetMethod(implObj, "GetParameters"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetId)
+        CallbackFree(this.vtbl.GetType)
+        CallbackFree(this.vtbl.GetAdder)
+        CallbackFree(this.vtbl.GetFlags)
+        CallbackFree(this.vtbl.AddFlags)
+        CallbackFree(this.vtbl.RemoveFlags)
+        CallbackFree(this.vtbl.SetFlags)
+        CallbackFree(this.vtbl.GetOffset)
+        CallbackFree(this.vtbl.SetOffset)
+        CallbackFree(this.vtbl.GetDataParameters)
+        CallbackFree(this.vtbl.SetDataParameters)
+        CallbackFree(this.vtbl.GetPassCount)
+        CallbackFree(this.vtbl.SetPassCount)
+        CallbackFree(this.vtbl.GetCurrentPassCount)
+        CallbackFree(this.vtbl.GetMatchThreadId)
+        CallbackFree(this.vtbl.SetMatchThreadId)
+        CallbackFree(this.vtbl.GetCommand)
+        CallbackFree(this.vtbl.SetCommand)
+        CallbackFree(this.vtbl.GetOffsetExpression)
+        CallbackFree(this.vtbl.SetOffsetExpression)
+        CallbackFree(this.vtbl.GetParameters)
     }
 }

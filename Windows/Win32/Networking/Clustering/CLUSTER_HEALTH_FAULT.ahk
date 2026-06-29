@@ -1,69 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
- * The CLUSTER_HEALTH_FAULT_ARRAY structure is part of the resapi.h header used by Windows Clustering.
- * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-cluster_health_fault_array
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUSTER_HEALTH_FAULT extends Win32Struct {
-    static sizeof => 40
+export default struct CLUSTER_HEALTH_FAULT {
+    #StructPack 8
 
-    static packingSize => 8
+    Id : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    Id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ErrorType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ErrorType {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ErrorCode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ErrorCode {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Description : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    Description {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Provider : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    Provider {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
 }

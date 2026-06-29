@@ -1,31 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IHTMLEventObj.ahk" { IHTMLEventObj }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLEditDesigner extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLEditDesigner extends IUnknown {
     /**
      * The interface identifier for IHTMLEditDesigner
      * @type {Guid}
      */
-    static IID => Guid("{3050f662-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f662-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLEditDesigner interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        PreHandleEvent        : IntPtr
+        PostHandleEvent       : IntPtr
+        TranslateAccelerator  : IntPtr
+        PostEditorEventNotify : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["PreHandleEvent", "PostHandleEvent", "TranslateAccelerator", "PostEditorEventNotify"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLEditDesigner.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -98,5 +110,31 @@ class IHTMLEditDesigner extends IUnknown {
     PostEditorEventNotify(inEvtDispId, pIEventObj) {
         result := ComCall(6, this, "int", inEvtDispId, "ptr", pIEventObj, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IHTMLEditDesigner.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.PreHandleEvent := CallbackCreate(GetMethod(implObj, "PreHandleEvent"), flags, 3)
+        this.vtbl.PostHandleEvent := CallbackCreate(GetMethod(implObj, "PostHandleEvent"), flags, 3)
+        this.vtbl.TranslateAccelerator := CallbackCreate(GetMethod(implObj, "TranslateAccelerator"), flags, 3)
+        this.vtbl.PostEditorEventNotify := CallbackCreate(GetMethod(implObj, "PostEditorEventNotify"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.PreHandleEvent)
+        CallbackFree(this.vtbl.PostHandleEvent)
+        CallbackFree(this.vtbl.TranslateAccelerator)
+        CallbackFree(this.vtbl.PostEditorEventNotify)
     }
 }

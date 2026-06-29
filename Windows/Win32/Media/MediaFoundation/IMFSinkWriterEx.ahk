@@ -1,34 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFSinkWriter.ahk
-#Include .\IMFTransform.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFTransform.ahk" { IMFTransform }
+#Import ".\IMFSinkWriter.ahk" { IMFSinkWriter }
 
 /**
  * Extends the IMFSinkWriter interface.
  * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nn-mfreadwrite-imfsinkwriterex
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFSinkWriterEx extends IMFSinkWriter {
-
-    static sizeof => A_PtrSize
+export default struct IMFSinkWriterEx extends IMFSinkWriter {
     /**
      * The interface identifier for IMFSinkWriterEx
      * @type {Guid}
      */
-    static IID => Guid("{588d72ab-5bc1-496a-8714-b70617141b25}")
+    static IID := Guid("{588d72ab-5bc1-496a-8714-b70617141b25}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFSinkWriterEx interfaces
+    */
+    struct Vtbl extends IMFSinkWriter.Vtbl {
+        GetTransformForStream : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetTransformForStream"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFSinkWriterEx.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a pointer to a Media Foundation transform (MFT) for a specified stream. (IMFSinkWriterEx.GetTransformForStream)
@@ -40,7 +48,27 @@ class IMFSinkWriterEx extends IMFSinkWriter {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsinkwriterex-gettransformforstream
      */
     GetTransformForStream(dwStreamIndex, dwTransformIndex, pGuidCategory, ppTransform) {
-        result := ComCall(14, this, "uint", dwStreamIndex, "uint", dwTransformIndex, "ptr", pGuidCategory, "ptr*", ppTransform, "HRESULT")
+        result := ComCall(14, this, "uint", dwStreamIndex, "uint", dwTransformIndex, Guid.Ptr, pGuidCategory, IMFTransform.Ptr, ppTransform, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFSinkWriterEx.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetTransformForStream := CallbackCreate(GetMethod(implObj, "GetTransformForStream"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetTransformForStream)
     }
 }

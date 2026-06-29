@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * A module-instance interface is used for resource rebinding.
@@ -15,26 +17,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nn-d3d11shader-id3d11moduleinstance
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3D11ModuleInstance extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11ModuleInstance extends IUnknown {
     /**
      * The interface identifier for ID3D11ModuleInstance
      * @type {Guid}
      */
-    static IID => Guid("{469e07f7-045a-48d5-aa12-68a478cdf75d}")
+    static IID := Guid("{469e07f7-045a-48d5-aa12-68a478cdf75d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11ModuleInstance interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        BindConstantBuffer                      : IntPtr
+        BindConstantBufferByName                : IntPtr
+        BindResource                            : IntPtr
+        BindResourceByName                      : IntPtr
+        BindSampler                             : IntPtr
+        BindSamplerByName                       : IntPtr
+        BindUnorderedAccessView                 : IntPtr
+        BindUnorderedAccessViewByName           : IntPtr
+        BindResourceAsUnorderedAccessView       : IntPtr
+        BindResourceAsUnorderedAccessViewByName : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["BindConstantBuffer", "BindConstantBufferByName", "BindResource", "BindResourceByName", "BindSampler", "BindSamplerByName", "BindUnorderedAccessView", "BindUnorderedAccessViewByName", "BindResourceAsUnorderedAccessView", "BindResourceAsUnorderedAccessViewByName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11ModuleInstance.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Rebinds a constant buffer from a source slot to a destination slot.
@@ -340,5 +358,43 @@ class ID3D11ModuleInstance extends IUnknown {
 
         result := ComCall(12, this, "ptr", pSrvName, "uint", uDstUavSlot, "uint", uCount, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID3D11ModuleInstance.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.BindConstantBuffer := CallbackCreate(GetMethod(implObj, "BindConstantBuffer"), flags, 4)
+        this.vtbl.BindConstantBufferByName := CallbackCreate(GetMethod(implObj, "BindConstantBufferByName"), flags, 4)
+        this.vtbl.BindResource := CallbackCreate(GetMethod(implObj, "BindResource"), flags, 4)
+        this.vtbl.BindResourceByName := CallbackCreate(GetMethod(implObj, "BindResourceByName"), flags, 4)
+        this.vtbl.BindSampler := CallbackCreate(GetMethod(implObj, "BindSampler"), flags, 4)
+        this.vtbl.BindSamplerByName := CallbackCreate(GetMethod(implObj, "BindSamplerByName"), flags, 4)
+        this.vtbl.BindUnorderedAccessView := CallbackCreate(GetMethod(implObj, "BindUnorderedAccessView"), flags, 4)
+        this.vtbl.BindUnorderedAccessViewByName := CallbackCreate(GetMethod(implObj, "BindUnorderedAccessViewByName"), flags, 4)
+        this.vtbl.BindResourceAsUnorderedAccessView := CallbackCreate(GetMethod(implObj, "BindResourceAsUnorderedAccessView"), flags, 4)
+        this.vtbl.BindResourceAsUnorderedAccessViewByName := CallbackCreate(GetMethod(implObj, "BindResourceAsUnorderedAccessViewByName"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.BindConstantBuffer)
+        CallbackFree(this.vtbl.BindConstantBufferByName)
+        CallbackFree(this.vtbl.BindResource)
+        CallbackFree(this.vtbl.BindResourceByName)
+        CallbackFree(this.vtbl.BindSampler)
+        CallbackFree(this.vtbl.BindSamplerByName)
+        CallbackFree(this.vtbl.BindUnorderedAccessView)
+        CallbackFree(this.vtbl.BindUnorderedAccessViewByName)
+        CallbackFree(this.vtbl.BindResourceAsUnorderedAccessView)
+        CallbackFree(this.vtbl.BindResourceAsUnorderedAccessViewByName)
     }
 }

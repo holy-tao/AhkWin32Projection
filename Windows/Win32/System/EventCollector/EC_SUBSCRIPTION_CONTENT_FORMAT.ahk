@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies how events will be rendered on the computer that sends the events before the events are sent to the event collector computer.
  * @see https://learn.microsoft.com/windows/win32/api/evcoll/ne-evcoll-ec_subscription_content_format
  * @namespace Windows.Win32.System.EventCollector
  */
-class EC_SUBSCRIPTION_CONTENT_FORMAT extends Win32Enum {
+export default struct EC_SUBSCRIPTION_CONTENT_FORMAT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * When an event is received, the Event Collector service sends an event as the received event to an event log. The service sends the raw event data only, and not any localized event data.

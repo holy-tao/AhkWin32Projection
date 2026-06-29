@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\IDispatch.ahk" { IDispatch }
+#Import ".\IEventSubscription.ahk" { IEventSubscription }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Fires an event to a single subscription.
  * @see https://learn.microsoft.com/windows/win32/api/eventsys/nn-eventsys-ifiringcontrol
  * @namespace Windows.Win32.System.Com.Events
  */
-class IFiringControl extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFiringControl extends IDispatch {
     /**
      * The interface identifier for IFiringControl
      * @type {Guid}
      */
-    static IID => Guid("{e0498c93-4efe-11d1-9971-00c04fbbb345}")
+    static IID := Guid("{e0498c93-4efe-11d1-9971-00c04fbbb345}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFiringControl interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        FireSubscription : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["FireSubscription"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFiringControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Fires an event to a single subscriber.
@@ -51,5 +60,25 @@ class IFiringControl extends IDispatch {
     FireSubscription(subscription) {
         result := ComCall(7, this, "ptr", subscription, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFiringControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.FireSubscription := CallbackCreate(GetMethod(implObj, "FireSubscription"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.FireSubscription)
     }
 }

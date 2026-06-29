@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the values that specify how to return the query results and whether you are query against a channel or log file.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_query_flags
  * @namespace Windows.Win32.System.EventLog
  */
-class EVT_QUERY_FLAGS extends Win32Enum {
+export default struct EVT_QUERY_FLAGS {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies that the query is against one or more channels. The <i>Path</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtquery">EvtQuery</a> function must specify the name of a  channel or <b>NULL</b>.

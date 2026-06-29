@@ -1,15 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IXpsOMDocument.ahk
-#Include .\IXpsOMPage.ahk
-#Include .\XPS_SIZE.ahk
-#Include .\IXpsOMStoryFragmentsResource.ahk
-#Include .\IXpsOMPrintTicketResource.ahk
-#Include .\IXpsOMImageResource.ahk
-#Include .\IXpsOMNameCollection.ahk
-#Include .\IXpsOMPartResources.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsOMDocument.ahk" { IXpsOMDocument }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\XPS_SIZE.ahk" { XPS_SIZE }
+#Import ".\IXpsOMPage.ahk" { IXpsOMPage }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IXpsOMPrintTicketResource.ahk" { IXpsOMPrintTicketResource }
+#Import ".\IXpsOMImageResource.ahk" { IXpsOMImageResource }
+#Import ".\IXpsOMNameCollection.ahk" { IXpsOMNameCollection }
+#Import ".\IXpsOMStoryFragmentsResource.ahk" { IXpsOMStoryFragmentsResource }
+#Import ".\IXpsOMPartResources.ahk" { IXpsOMPartResources }
 
 /**
  * Enables virtualization of pages in an XPS document.
@@ -61,26 +63,49 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompagereference
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMPageReference extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMPageReference extends IUnknown {
     /**
      * The interface identifier for IXpsOMPageReference
      * @type {Guid}
      */
-    static IID => Guid("{ed360180-6f92-4998-890d-2f208531a0a0}")
+    static IID := Guid("{ed360180-6f92-4998-890d-2f208531a0a0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMPageReference interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetOwner                  : IntPtr
+        GetPage                   : IntPtr
+        SetPage                   : IntPtr
+        DiscardPage               : IntPtr
+        IsPageLoaded              : IntPtr
+        GetAdvisoryPageDimensions : IntPtr
+        SetAdvisoryPageDimensions : IntPtr
+        GetStoryFragmentsResource : IntPtr
+        SetStoryFragmentsResource : IntPtr
+        GetPrintTicketResource    : IntPtr
+        SetPrintTicketResource    : IntPtr
+        GetThumbnailResource      : IntPtr
+        SetThumbnailResource      : IntPtr
+        CollectLinkTargets        : IntPtr
+        CollectPartResources      : IntPtr
+        HasRestrictedFonts        : IntPtr
+        Clone                     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetOwner", "GetPage", "SetPage", "DiscardPage", "IsPageLoaded", "GetAdvisoryPageDimensions", "SetAdvisoryPageDimensions", "GetStoryFragmentsResource", "SetStoryFragmentsResource", "GetPrintTicketResource", "SetPrintTicketResource", "GetThumbnailResource", "SetThumbnailResource", "CollectLinkTargets", "CollectPartResources", "HasRestrictedFonts", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMPageReference.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a pointer to the IXpsOMDocument interface that contains the page reference.
@@ -243,7 +268,7 @@ class IXpsOMPageReference extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereference-ispageloaded
      */
     IsPageLoaded() {
-        result := ComCall(7, this, "int*", &isPageLoaded := 0, "HRESULT")
+        result := ComCall(7, this, BOOL.Ptr, &isPageLoaded := 0, "HRESULT")
         return isPageLoaded
     }
 
@@ -259,7 +284,7 @@ class IXpsOMPageReference extends IUnknown {
      */
     GetAdvisoryPageDimensions() {
         pageDimensions := XPS_SIZE()
-        result := ComCall(8, this, "ptr", pageDimensions, "HRESULT")
+        result := ComCall(8, this, XPS_SIZE.Ptr, pageDimensions, "HRESULT")
         return pageDimensions
     }
 
@@ -316,7 +341,7 @@ class IXpsOMPageReference extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereference-setadvisorypagedimensions
      */
     SetAdvisoryPageDimensions(pageDimensions) {
-        result := ComCall(9, this, "ptr", pageDimensions, "HRESULT")
+        result := ComCall(9, this, XPS_SIZE.Ptr, pageDimensions, "HRESULT")
         return result
     }
 
@@ -621,7 +646,7 @@ class IXpsOMPageReference extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereference-hasrestrictedfonts
      */
     HasRestrictedFonts() {
-        result := ComCall(18, this, "int*", &restrictedFonts := 0, "HRESULT")
+        result := ComCall(18, this, BOOL.Ptr, &restrictedFonts := 0, "HRESULT")
         return restrictedFonts
     }
 
@@ -635,5 +660,57 @@ class IXpsOMPageReference extends IUnknown {
     Clone() {
         result := ComCall(19, this, "ptr*", &pageReference := 0, "HRESULT")
         return IXpsOMPageReference(pageReference)
+    }
+
+    Query(iid) {
+        if (IXpsOMPageReference.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetOwner := CallbackCreate(GetMethod(implObj, "GetOwner"), flags, 2)
+        this.vtbl.GetPage := CallbackCreate(GetMethod(implObj, "GetPage"), flags, 2)
+        this.vtbl.SetPage := CallbackCreate(GetMethod(implObj, "SetPage"), flags, 2)
+        this.vtbl.DiscardPage := CallbackCreate(GetMethod(implObj, "DiscardPage"), flags, 1)
+        this.vtbl.IsPageLoaded := CallbackCreate(GetMethod(implObj, "IsPageLoaded"), flags, 2)
+        this.vtbl.GetAdvisoryPageDimensions := CallbackCreate(GetMethod(implObj, "GetAdvisoryPageDimensions"), flags, 2)
+        this.vtbl.SetAdvisoryPageDimensions := CallbackCreate(GetMethod(implObj, "SetAdvisoryPageDimensions"), flags, 2)
+        this.vtbl.GetStoryFragmentsResource := CallbackCreate(GetMethod(implObj, "GetStoryFragmentsResource"), flags, 2)
+        this.vtbl.SetStoryFragmentsResource := CallbackCreate(GetMethod(implObj, "SetStoryFragmentsResource"), flags, 2)
+        this.vtbl.GetPrintTicketResource := CallbackCreate(GetMethod(implObj, "GetPrintTicketResource"), flags, 2)
+        this.vtbl.SetPrintTicketResource := CallbackCreate(GetMethod(implObj, "SetPrintTicketResource"), flags, 2)
+        this.vtbl.GetThumbnailResource := CallbackCreate(GetMethod(implObj, "GetThumbnailResource"), flags, 2)
+        this.vtbl.SetThumbnailResource := CallbackCreate(GetMethod(implObj, "SetThumbnailResource"), flags, 2)
+        this.vtbl.CollectLinkTargets := CallbackCreate(GetMethod(implObj, "CollectLinkTargets"), flags, 2)
+        this.vtbl.CollectPartResources := CallbackCreate(GetMethod(implObj, "CollectPartResources"), flags, 2)
+        this.vtbl.HasRestrictedFonts := CallbackCreate(GetMethod(implObj, "HasRestrictedFonts"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetOwner)
+        CallbackFree(this.vtbl.GetPage)
+        CallbackFree(this.vtbl.SetPage)
+        CallbackFree(this.vtbl.DiscardPage)
+        CallbackFree(this.vtbl.IsPageLoaded)
+        CallbackFree(this.vtbl.GetAdvisoryPageDimensions)
+        CallbackFree(this.vtbl.SetAdvisoryPageDimensions)
+        CallbackFree(this.vtbl.GetStoryFragmentsResource)
+        CallbackFree(this.vtbl.SetStoryFragmentsResource)
+        CallbackFree(this.vtbl.GetPrintTicketResource)
+        CallbackFree(this.vtbl.SetPrintTicketResource)
+        CallbackFree(this.vtbl.GetThumbnailResource)
+        CallbackFree(this.vtbl.SetThumbnailResource)
+        CallbackFree(this.vtbl.CollectLinkTargets)
+        CallbackFree(this.vtbl.CollectPartResources)
+        CallbackFree(this.vtbl.HasRestrictedFonts)
+        CallbackFree(this.vtbl.Clone)
     }
 }

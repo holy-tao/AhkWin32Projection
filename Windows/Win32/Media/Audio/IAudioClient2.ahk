@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IAudioClient.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\AudioClientProperties.ahk" { AudioClientProperties }
+#Import ".\IAudioClient.ahk" { IAudioClient }
+#Import ".\AUDIO_STREAM_CATEGORY.ahk" { AUDIO_STREAM_CATEGORY }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The IAudioClient2 interface is derived from the IAudioClient interface, with a set of additional methods that enable a Windows Audio Session API (WASAPI) audio client to do the following:\_opt in for offloading, query stream properties, and get information from the hardware that handles offloading.The audio client can be successful in creating an offloaded stream if the underlying endpoint supports the hardware audio engine, the endpoint has been enumerated and discovered by the audio system, and there are still offload pin instances available on the endpoint.
  * @see https://learn.microsoft.com/windows/win32/api/audioclient/nn-audioclient-iaudioclient2
  * @namespace Windows.Win32.Media.Audio
  */
-class IAudioClient2 extends IAudioClient {
-
-    static sizeof => A_PtrSize
+export default struct IAudioClient2 extends IAudioClient {
     /**
      * The interface identifier for IAudioClient2
      * @type {Guid}
      */
-    static IID => Guid("{726778cd-f60a-4eda-82de-e47610cd78aa}")
+    static IID := Guid("{726778cd-f60a-4eda-82de-e47610cd78aa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 15
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAudioClient2 interfaces
+    */
+    struct Vtbl extends IAudioClient.Vtbl {
+        IsOffloadCapable    : IntPtr
+        SetClientProperties : IntPtr
+        GetBufferSizeLimits : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsOffloadCapable", "SetClientProperties", "GetBufferSizeLimits"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAudioClient2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IsOffloadCapable method retrieves information about whether or not the endpoint on which a stream is created is capable of supporting an offloaded audio stream.
@@ -36,7 +50,7 @@ class IAudioClient2 extends IAudioClient {
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient2-isoffloadcapable
      */
     IsOffloadCapable(Category) {
-        result := ComCall(15, this, "int", Category, "int*", &pbOffloadCapable := 0, "HRESULT")
+        result := ComCall(15, this, AUDIO_STREAM_CATEGORY, Category, BOOL.Ptr, &pbOffloadCapable := 0, "HRESULT")
         return pbOffloadCapable
     }
 
@@ -49,7 +63,7 @@ class IAudioClient2 extends IAudioClient {
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient2-setclientproperties
      */
     SetClientProperties(pProperties) {
-        result := ComCall(16, this, "ptr", pProperties, "HRESULT")
+        result := ComCall(16, this, AudioClientProperties.Ptr, pProperties, "HRESULT")
         return result
     }
 
@@ -71,7 +85,31 @@ class IAudioClient2 extends IAudioClient {
         phnsMinBufferDurationMarshal := phnsMinBufferDuration is VarRef ? "int64*" : "ptr"
         phnsMaxBufferDurationMarshal := phnsMaxBufferDuration is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(17, this, "ptr", pFormat, "int", bEventDriven, phnsMinBufferDurationMarshal, phnsMinBufferDuration, phnsMaxBufferDurationMarshal, phnsMaxBufferDuration, "HRESULT")
+        result := ComCall(17, this, WAVEFORMATEX.Ptr, pFormat, BOOL, bEventDriven, phnsMinBufferDurationMarshal, phnsMinBufferDuration, phnsMaxBufferDurationMarshal, phnsMaxBufferDuration, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAudioClient2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsOffloadCapable := CallbackCreate(GetMethod(implObj, "IsOffloadCapable"), flags, 3)
+        this.vtbl.SetClientProperties := CallbackCreate(GetMethod(implObj, "SetClientProperties"), flags, 2)
+        this.vtbl.GetBufferSizeLimits := CallbackCreate(GetMethod(implObj, "GetBufferSizeLimits"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsOffloadCapable)
+        CallbackFree(this.vtbl.SetClientProperties)
+        CallbackFree(this.vtbl.GetBufferSizeLimits)
     }
 }

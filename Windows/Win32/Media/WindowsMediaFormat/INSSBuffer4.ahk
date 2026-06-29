@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\INSSBuffer3.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\INSSBuffer3.ahk" { INSSBuffer3 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The INSSBuffer4 interface provides methods to enumerate buffer properties.
  * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nn-wmsbuffer-inssbuffer4
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class INSSBuffer4 extends INSSBuffer3 {
-
-    static sizeof => A_PtrSize
+export default struct INSSBuffer4 extends INSSBuffer3 {
     /**
      * The interface identifier for INSSBuffer4
      * @type {Guid}
      */
-    static IID => Guid("{b6b8fd5a-32e2-49d4-a910-c26cc85465ed}")
+    static IID := Guid("{b6b8fd5a-32e2-49d4-a910-c26cc85465ed}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 12
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INSSBuffer4 interfaces
+    */
+    struct Vtbl extends INSSBuffer3.Vtbl {
+        GetPropertyCount   : IntPtr
+        GetPropertyByIndex : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPropertyCount", "GetPropertyByIndex"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INSSBuffer4.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetPropertyCount method retrieves the total number of buffer properties, also called data unit extensions, associated with the sample contained in the buffer object.
@@ -52,7 +61,29 @@ class INSSBuffer4 extends INSSBuffer3 {
         pvBufferPropertyMarshal := pvBufferProperty is VarRef ? "ptr" : "ptr"
         pdwBufferPropertySizeMarshal := pdwBufferPropertySize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "uint", dwBufferPropertyIndex, "ptr", pguidBufferProperty, pvBufferPropertyMarshal, pvBufferProperty, pdwBufferPropertySizeMarshal, pdwBufferPropertySize, "HRESULT")
+        result := ComCall(13, this, "uint", dwBufferPropertyIndex, Guid.Ptr, pguidBufferProperty, pvBufferPropertyMarshal, pvBufferProperty, pdwBufferPropertySizeMarshal, pdwBufferPropertySize, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (INSSBuffer4.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPropertyCount := CallbackCreate(GetMethod(implObj, "GetPropertyCount"), flags, 2)
+        this.vtbl.GetPropertyByIndex := CallbackCreate(GetMethod(implObj, "GetPropertyByIndex"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPropertyCount)
+        CallbackFree(this.vtbl.GetPropertyByIndex)
     }
 }

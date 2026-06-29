@@ -1,16 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IUIAutomationElement.ahk
-#Include .\IUIAutomationTreeWalker.ahk
-#Include .\IUIAutomationCondition.ahk
-#Include .\IUIAutomationCacheRequest.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\IUIAutomationProxyFactoryEntry.ahk
-#Include .\IUIAutomationProxyFactoryMapping.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IUIAutomationProxyFactoryEntry.ahk" { IUIAutomationProxyFactoryEntry }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IAccessible.ahk" { IAccessible }
+#Import ".\IUIAutomationCondition.ahk" { IUIAutomationCondition }
+#Import ".\IUIAutomationEventHandler.ahk" { IUIAutomationEventHandler }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUIAutomationFocusChangedEventHandler.ahk" { IUIAutomationFocusChangedEventHandler }
+#Import ".\IUIAutomationPropertyChangedEventHandler.ahk" { IUIAutomationPropertyChangedEventHandler }
+#Import ".\IUIAutomationStructureChangedEventHandler.ahk" { IUIAutomationStructureChangedEventHandler }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\UIA_EVENT_ID.ahk" { UIA_EVENT_ID }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
+#Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
+#Import ".\IUIAutomationTreeWalker.ahk" { IUIAutomationTreeWalker }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\TreeScope.ahk" { TreeScope }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IUIAutomationCacheRequest.ahk" { IUIAutomationCacheRequest }
+#Import ".\IUIAutomationProxyFactoryMapping.ahk" { IUIAutomationProxyFactoryMapping }
+#Import ".\PropertyConditionFlags.ahk" { PropertyConditionFlags }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\UIA_PATTERN_ID.ahk" { UIA_PATTERN_ID }
+#Import ".\IUIAutomationElement.ahk" { IUIAutomationElement }
+#Import ".\IUIAutomationProxyFactory.ahk" { IUIAutomationProxyFactory }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Exposes methods that enable Microsoft UI Automation client applications to discover, access, and filter UI Automation elements.
@@ -36,26 +52,87 @@
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomation
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IUIAutomation extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIAutomation extends IUnknown {
     /**
      * The interface identifier for IUIAutomation
      * @type {Guid}
      */
-    static IID => Guid("{30cbe57d-d9d0-452a-ab13-7ac5ac4825ee}")
+    static IID := Guid("{30cbe57d-d9d0-452a-ab13-7ac5ac4825ee}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAutomation interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CompareElements                           : IntPtr
+        CompareRuntimeIds                         : IntPtr
+        GetRootElement                            : IntPtr
+        ElementFromHandle                         : IntPtr
+        ElementFromPoint                          : IntPtr
+        GetFocusedElement                         : IntPtr
+        GetRootElementBuildCache                  : IntPtr
+        ElementFromHandleBuildCache               : IntPtr
+        ElementFromPointBuildCache                : IntPtr
+        GetFocusedElementBuildCache               : IntPtr
+        CreateTreeWalker                          : IntPtr
+        get_ControlViewWalker                     : IntPtr
+        get_ContentViewWalker                     : IntPtr
+        get_RawViewWalker                         : IntPtr
+        get_RawViewCondition                      : IntPtr
+        get_ControlViewCondition                  : IntPtr
+        get_ContentViewCondition                  : IntPtr
+        CreateCacheRequest                        : IntPtr
+        CreateTrueCondition                       : IntPtr
+        CreateFalseCondition                      : IntPtr
+        CreatePropertyCondition                   : IntPtr
+        CreatePropertyConditionEx                 : IntPtr
+        CreateAndCondition                        : IntPtr
+        CreateAndConditionFromArray               : IntPtr
+        CreateAndConditionFromNativeArray         : IntPtr
+        CreateOrCondition                         : IntPtr
+        CreateOrConditionFromArray                : IntPtr
+        CreateOrConditionFromNativeArray          : IntPtr
+        CreateNotCondition                        : IntPtr
+        AddAutomationEventHandler                 : IntPtr
+        RemoveAutomationEventHandler              : IntPtr
+        AddPropertyChangedEventHandlerNativeArray : IntPtr
+        AddPropertyChangedEventHandler            : IntPtr
+        RemovePropertyChangedEventHandler         : IntPtr
+        AddStructureChangedEventHandler           : IntPtr
+        RemoveStructureChangedEventHandler        : IntPtr
+        AddFocusChangedEventHandler               : IntPtr
+        RemoveFocusChangedEventHandler            : IntPtr
+        RemoveAllEventHandlers                    : IntPtr
+        IntNativeArrayToSafeArray                 : IntPtr
+        IntSafeArrayToNativeArray                 : IntPtr
+        RectToVariant                             : IntPtr
+        VariantToRect                             : IntPtr
+        SafeArrayToRectNativeArray                : IntPtr
+        CreateProxyFactoryEntry                   : IntPtr
+        get_ProxyFactoryMapping                   : IntPtr
+        GetPropertyProgrammaticName               : IntPtr
+        GetPatternProgrammaticName                : IntPtr
+        PollForPotentialSupportedPatterns         : IntPtr
+        PollForPotentialSupportedProperties       : IntPtr
+        CheckNotSupported                         : IntPtr
+        get_ReservedNotSupportedValue             : IntPtr
+        get_ReservedMixedAttributeValue           : IntPtr
+        ElementFromIAccessible                    : IntPtr
+        ElementFromIAccessibleBuildCache          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CompareElements", "CompareRuntimeIds", "GetRootElement", "ElementFromHandle", "ElementFromPoint", "GetFocusedElement", "GetRootElementBuildCache", "ElementFromHandleBuildCache", "ElementFromPointBuildCache", "GetFocusedElementBuildCache", "CreateTreeWalker", "get_ControlViewWalker", "get_ContentViewWalker", "get_RawViewWalker", "get_RawViewCondition", "get_ControlViewCondition", "get_ContentViewCondition", "CreateCacheRequest", "CreateTrueCondition", "CreateFalseCondition", "CreatePropertyCondition", "CreatePropertyConditionEx", "CreateAndCondition", "CreateAndConditionFromArray", "CreateAndConditionFromNativeArray", "CreateOrCondition", "CreateOrConditionFromArray", "CreateOrConditionFromNativeArray", "CreateNotCondition", "AddAutomationEventHandler", "RemoveAutomationEventHandler", "AddPropertyChangedEventHandlerNativeArray", "AddPropertyChangedEventHandler", "RemovePropertyChangedEventHandler", "AddStructureChangedEventHandler", "RemoveStructureChangedEventHandler", "AddFocusChangedEventHandler", "RemoveFocusChangedEventHandler", "RemoveAllEventHandlers", "IntNativeArrayToSafeArray", "IntSafeArrayToNativeArray", "RectToVariant", "VariantToRect", "SafeArrayToRectNativeArray", "CreateProxyFactoryEntry", "get_ProxyFactoryMapping", "GetPropertyProgrammaticName", "GetPatternProgrammaticName", "PollForPotentialSupportedPatterns", "PollForPotentialSupportedProperties", "CheckNotSupported", "get_ReservedNotSupportedValue", "get_ReservedMixedAttributeValue", "ElementFromIAccessible", "ElementFromIAccessibleBuildCache"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAutomation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IUIAutomationTreeWalker} 
@@ -134,7 +211,7 @@ class IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-compareelements
      */
     CompareElements(el1, el2) {
-        result := ComCall(3, this, "ptr", el1, "ptr", el2, "int*", &areSame := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", el1, "ptr", el2, BOOL.Ptr, &areSame := 0, "HRESULT")
         return areSame
     }
 
@@ -152,7 +229,7 @@ class IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-compareruntimeids
      */
     CompareRuntimeIds(runtimeId1, runtimeId2) {
-        result := ComCall(4, this, "ptr", runtimeId1, "ptr", runtimeId2, "int*", &areSame := 0, "HRESULT")
+        result := ComCall(4, this, SAFEARRAY.Ptr, runtimeId1, SAFEARRAY.Ptr, runtimeId2, BOOL.Ptr, &areSame := 0, "HRESULT")
         return areSame
     }
 
@@ -183,9 +260,7 @@ class IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-elementfromhandle
      */
     ElementFromHandle(_hwnd) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(6, this, "ptr", _hwnd, "ptr*", &element := 0, "HRESULT")
+        result := ComCall(6, this, HWND, _hwnd, "ptr*", &element := 0, "HRESULT")
         return IUIAutomationElement(element)
     }
 
@@ -202,7 +277,7 @@ class IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-elementfrompoint
      */
     ElementFromPoint(pt) {
-        result := ComCall(7, this, "ptr", pt, "ptr*", &element := 0, "HRESULT")
+        result := ComCall(7, this, POINT, pt, "ptr*", &element := 0, "HRESULT")
         return IUIAutomationElement(element)
     }
 
@@ -253,9 +328,7 @@ class IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-elementfromhandlebuildcache
      */
     ElementFromHandleBuildCache(_hwnd, cacheRequest) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(10, this, "ptr", _hwnd, "ptr", cacheRequest, "ptr*", &element := 0, "HRESULT")
+        result := ComCall(10, this, HWND, _hwnd, "ptr", cacheRequest, "ptr*", &element := 0, "HRESULT")
         return IUIAutomationElement(element)
     }
 
@@ -273,7 +346,7 @@ class IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-elementfrompointbuildcache
      */
     ElementFromPointBuildCache(pt, cacheRequest) {
-        result := ComCall(11, this, "ptr", pt, "ptr", cacheRequest, "ptr*", &element := 0, "HRESULT")
+        result := ComCall(11, this, POINT, pt, "ptr", cacheRequest, "ptr*", &element := 0, "HRESULT")
         return IUIAutomationElement(element)
     }
 
@@ -423,7 +496,7 @@ class IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-createpropertycondition
      */
     CreatePropertyCondition(propertyId, value) {
-        result := ComCall(23, this, "int", propertyId, "ptr", value, "ptr*", &newCondition := 0, "HRESULT")
+        result := ComCall(23, this, UIA_PROPERTY_ID, propertyId, VARIANT, value, "ptr*", &newCondition := 0, "HRESULT")
         return IUIAutomationCondition(newCondition)
     }
 
@@ -442,7 +515,7 @@ class IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-createpropertyconditionex
      */
     CreatePropertyConditionEx(propertyId, value, flags) {
-        result := ComCall(24, this, "int", propertyId, "ptr", value, "int", flags, "ptr*", &newCondition := 0, "HRESULT")
+        result := ComCall(24, this, UIA_PROPERTY_ID, propertyId, VARIANT, value, PropertyConditionFlags, flags, "ptr*", &newCondition := 0, "HRESULT")
         return IUIAutomationCondition(newCondition)
     }
 
@@ -482,7 +555,7 @@ class IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-createandconditionfromarray
      */
     CreateAndConditionFromArray(conditions) {
-        result := ComCall(26, this, "ptr", conditions, "ptr*", &newCondition := 0, "HRESULT")
+        result := ComCall(26, this, SAFEARRAY.Ptr, conditions, "ptr*", &newCondition := 0, "HRESULT")
         return IUIAutomationCondition(newCondition)
     }
 
@@ -502,7 +575,7 @@ class IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-createandconditionfromnativearray
      */
     CreateAndConditionFromNativeArray(conditions, conditionCount) {
-        result := ComCall(27, this, "ptr*", conditions, "int", conditionCount, "ptr*", &newCondition := 0, "HRESULT")
+        result := ComCall(27, this, IUIAutomationCondition.Ptr, conditions, "int", conditionCount, "ptr*", &newCondition := 0, "HRESULT")
         return IUIAutomationCondition(newCondition)
     }
 
@@ -539,7 +612,7 @@ class IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-createorconditionfromarray
      */
     CreateOrConditionFromArray(conditions) {
-        result := ComCall(29, this, "ptr", conditions, "ptr*", &newCondition := 0, "HRESULT")
+        result := ComCall(29, this, SAFEARRAY.Ptr, conditions, "ptr*", &newCondition := 0, "HRESULT")
         return IUIAutomationCondition(newCondition)
     }
 
@@ -559,7 +632,7 @@ class IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-createorconditionfromnativearray
      */
     CreateOrConditionFromNativeArray(conditions, conditionCount) {
-        result := ComCall(30, this, "ptr*", conditions, "int", conditionCount, "ptr*", &newCondition := 0, "HRESULT")
+        result := ComCall(30, this, IUIAutomationCondition.Ptr, conditions, "int", conditionCount, "ptr*", &newCondition := 0, "HRESULT")
         return IUIAutomationCondition(newCondition)
     }
 
@@ -603,7 +676,7 @@ class IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-addautomationeventhandler
      */
     AddAutomationEventHandler(eventId, element, scope, cacheRequest, handler) {
-        result := ComCall(32, this, "int", eventId, "ptr", element, "int", scope, "ptr", cacheRequest, "ptr", handler, "HRESULT")
+        result := ComCall(32, this, UIA_EVENT_ID, eventId, "ptr", element, TreeScope, scope, "ptr", cacheRequest, "ptr", handler, "HRESULT")
         return result
     }
 
@@ -632,7 +705,7 @@ class IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-removeautomationeventhandler
      */
     RemoveAutomationEventHandler(eventId, element, handler) {
-        result := ComCall(33, this, "int", eventId, "ptr", element, "ptr", handler, "HRESULT")
+        result := ComCall(33, this, UIA_EVENT_ID, eventId, "ptr", element, "ptr", handler, "HRESULT")
         return result
     }
 
@@ -669,7 +742,7 @@ class IUIAutomation extends IUnknown {
     AddPropertyChangedEventHandlerNativeArray(element, scope, cacheRequest, handler, propertyArray, propertyCount) {
         propertyArrayMarshal := propertyArray is VarRef ? "int*" : "ptr"
 
-        result := ComCall(34, this, "ptr", element, "int", scope, "ptr", cacheRequest, "ptr", handler, propertyArrayMarshal, propertyArray, "int", propertyCount, "HRESULT")
+        result := ComCall(34, this, "ptr", element, TreeScope, scope, "ptr", cacheRequest, "ptr", handler, propertyArrayMarshal, propertyArray, "int", propertyCount, "HRESULT")
         return result
     }
 
@@ -699,7 +772,7 @@ class IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-addpropertychangedeventhandler
      */
     AddPropertyChangedEventHandler(element, scope, cacheRequest, handler, propertyArray) {
-        result := ComCall(35, this, "ptr", element, "int", scope, "ptr", cacheRequest, "ptr", handler, "ptr", propertyArray, "HRESULT")
+        result := ComCall(35, this, "ptr", element, TreeScope, scope, "ptr", cacheRequest, "ptr", handler, SAFEARRAY.Ptr, propertyArray, "HRESULT")
         return result
     }
 
@@ -749,7 +822,7 @@ class IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-addstructurechangedeventhandler
      */
     AddStructureChangedEventHandler(element, scope, cacheRequest, handler) {
-        result := ComCall(37, this, "ptr", element, "int", scope, "ptr", cacheRequest, "ptr", handler, "HRESULT")
+        result := ComCall(37, this, "ptr", element, TreeScope, scope, "ptr", cacheRequest, "ptr", handler, "HRESULT")
         return result
     }
 
@@ -880,7 +953,7 @@ class IUIAutomation extends IUnknown {
     IntSafeArrayToNativeArray(intArray, _array) {
         _arrayMarshal := _array is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(43, this, "ptr", intArray, _arrayMarshal, _array, "int*", &arrayCount := 0, "HRESULT")
+        result := ComCall(43, this, SAFEARRAY.Ptr, intArray, _arrayMarshal, _array, "int*", &arrayCount := 0, "HRESULT")
         return arrayCount
     }
 
@@ -898,7 +971,7 @@ class IUIAutomation extends IUnknown {
      */
     RectToVariant(rc) {
         var := VARIANT()
-        result := ComCall(44, this, "ptr", rc, "ptr", var, "HRESULT")
+        result := ComCall(44, this, RECT, rc, VARIANT.Ptr, var, "HRESULT")
         return var
     }
 
@@ -914,7 +987,7 @@ class IUIAutomation extends IUnknown {
      */
     VariantToRect(var) {
         rc := RECT()
-        result := ComCall(45, this, "ptr", var, "ptr", rc, "HRESULT")
+        result := ComCall(45, this, VARIANT, var, RECT.Ptr, rc, "HRESULT")
         return rc
     }
 
@@ -934,7 +1007,7 @@ class IUIAutomation extends IUnknown {
     SafeArrayToRectNativeArray(rects, rectArray) {
         rectArrayMarshal := rectArray is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(46, this, "ptr", rects, rectArrayMarshal, rectArray, "int*", &rectArrayCount := 0, "HRESULT")
+        result := ComCall(46, this, SAFEARRAY.Ptr, rects, rectArrayMarshal, rectArray, "int*", &rectArrayCount := 0, "HRESULT")
         return rectArrayCount
     }
 
@@ -980,8 +1053,8 @@ class IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-getpropertyprogrammaticname
      */
     GetPropertyProgrammaticName(_property) {
-        name := BSTR()
-        result := ComCall(49, this, "int", _property, "ptr", name, "HRESULT")
+        name := BSTR.Owned()
+        result := ComCall(49, this, UIA_PROPERTY_ID, _property, BSTR.Ptr, name, "HRESULT")
         return name
     }
 
@@ -1000,8 +1073,8 @@ class IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-getpatternprogrammaticname
      */
     GetPatternProgrammaticName(pattern) {
-        name := BSTR()
-        result := ComCall(50, this, "int", pattern, "ptr", name, "HRESULT")
+        name := BSTR.Owned()
+        result := ComCall(50, this, UIA_PATTERN_ID, pattern, BSTR.Ptr, name, "HRESULT")
         return name
     }
 
@@ -1074,7 +1147,7 @@ class IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-checknotsupported
      */
     CheckNotSupported(value) {
-        result := ComCall(53, this, "ptr", value, "int*", &isNotSupported := 0, "HRESULT")
+        result := ComCall(53, this, VARIANT, value, BOOL.Ptr, &isNotSupported := 0, "HRESULT")
         return isNotSupported
     }
 
@@ -1151,5 +1224,133 @@ class IUIAutomation extends IUnknown {
     ElementFromIAccessibleBuildCache(accessible, childId, cacheRequest) {
         result := ComCall(57, this, "ptr", accessible, "int", childId, "ptr", cacheRequest, "ptr*", &element := 0, "HRESULT")
         return IUIAutomationElement(element)
+    }
+
+    Query(iid) {
+        if (IUIAutomation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CompareElements := CallbackCreate(GetMethod(implObj, "CompareElements"), flags, 4)
+        this.vtbl.CompareRuntimeIds := CallbackCreate(GetMethod(implObj, "CompareRuntimeIds"), flags, 4)
+        this.vtbl.GetRootElement := CallbackCreate(GetMethod(implObj, "GetRootElement"), flags, 2)
+        this.vtbl.ElementFromHandle := CallbackCreate(GetMethod(implObj, "ElementFromHandle"), flags, 3)
+        this.vtbl.ElementFromPoint := CallbackCreate(GetMethod(implObj, "ElementFromPoint"), flags, 3)
+        this.vtbl.GetFocusedElement := CallbackCreate(GetMethod(implObj, "GetFocusedElement"), flags, 2)
+        this.vtbl.GetRootElementBuildCache := CallbackCreate(GetMethod(implObj, "GetRootElementBuildCache"), flags, 3)
+        this.vtbl.ElementFromHandleBuildCache := CallbackCreate(GetMethod(implObj, "ElementFromHandleBuildCache"), flags, 4)
+        this.vtbl.ElementFromPointBuildCache := CallbackCreate(GetMethod(implObj, "ElementFromPointBuildCache"), flags, 4)
+        this.vtbl.GetFocusedElementBuildCache := CallbackCreate(GetMethod(implObj, "GetFocusedElementBuildCache"), flags, 3)
+        this.vtbl.CreateTreeWalker := CallbackCreate(GetMethod(implObj, "CreateTreeWalker"), flags, 3)
+        this.vtbl.get_ControlViewWalker := CallbackCreate(GetMethod(implObj, "get_ControlViewWalker"), flags, 2)
+        this.vtbl.get_ContentViewWalker := CallbackCreate(GetMethod(implObj, "get_ContentViewWalker"), flags, 2)
+        this.vtbl.get_RawViewWalker := CallbackCreate(GetMethod(implObj, "get_RawViewWalker"), flags, 2)
+        this.vtbl.get_RawViewCondition := CallbackCreate(GetMethod(implObj, "get_RawViewCondition"), flags, 2)
+        this.vtbl.get_ControlViewCondition := CallbackCreate(GetMethod(implObj, "get_ControlViewCondition"), flags, 2)
+        this.vtbl.get_ContentViewCondition := CallbackCreate(GetMethod(implObj, "get_ContentViewCondition"), flags, 2)
+        this.vtbl.CreateCacheRequest := CallbackCreate(GetMethod(implObj, "CreateCacheRequest"), flags, 2)
+        this.vtbl.CreateTrueCondition := CallbackCreate(GetMethod(implObj, "CreateTrueCondition"), flags, 2)
+        this.vtbl.CreateFalseCondition := CallbackCreate(GetMethod(implObj, "CreateFalseCondition"), flags, 2)
+        this.vtbl.CreatePropertyCondition := CallbackCreate(GetMethod(implObj, "CreatePropertyCondition"), flags, 4)
+        this.vtbl.CreatePropertyConditionEx := CallbackCreate(GetMethod(implObj, "CreatePropertyConditionEx"), flags, 5)
+        this.vtbl.CreateAndCondition := CallbackCreate(GetMethod(implObj, "CreateAndCondition"), flags, 4)
+        this.vtbl.CreateAndConditionFromArray := CallbackCreate(GetMethod(implObj, "CreateAndConditionFromArray"), flags, 3)
+        this.vtbl.CreateAndConditionFromNativeArray := CallbackCreate(GetMethod(implObj, "CreateAndConditionFromNativeArray"), flags, 4)
+        this.vtbl.CreateOrCondition := CallbackCreate(GetMethod(implObj, "CreateOrCondition"), flags, 4)
+        this.vtbl.CreateOrConditionFromArray := CallbackCreate(GetMethod(implObj, "CreateOrConditionFromArray"), flags, 3)
+        this.vtbl.CreateOrConditionFromNativeArray := CallbackCreate(GetMethod(implObj, "CreateOrConditionFromNativeArray"), flags, 4)
+        this.vtbl.CreateNotCondition := CallbackCreate(GetMethod(implObj, "CreateNotCondition"), flags, 3)
+        this.vtbl.AddAutomationEventHandler := CallbackCreate(GetMethod(implObj, "AddAutomationEventHandler"), flags, 6)
+        this.vtbl.RemoveAutomationEventHandler := CallbackCreate(GetMethod(implObj, "RemoveAutomationEventHandler"), flags, 4)
+        this.vtbl.AddPropertyChangedEventHandlerNativeArray := CallbackCreate(GetMethod(implObj, "AddPropertyChangedEventHandlerNativeArray"), flags, 7)
+        this.vtbl.AddPropertyChangedEventHandler := CallbackCreate(GetMethod(implObj, "AddPropertyChangedEventHandler"), flags, 6)
+        this.vtbl.RemovePropertyChangedEventHandler := CallbackCreate(GetMethod(implObj, "RemovePropertyChangedEventHandler"), flags, 3)
+        this.vtbl.AddStructureChangedEventHandler := CallbackCreate(GetMethod(implObj, "AddStructureChangedEventHandler"), flags, 5)
+        this.vtbl.RemoveStructureChangedEventHandler := CallbackCreate(GetMethod(implObj, "RemoveStructureChangedEventHandler"), flags, 3)
+        this.vtbl.AddFocusChangedEventHandler := CallbackCreate(GetMethod(implObj, "AddFocusChangedEventHandler"), flags, 3)
+        this.vtbl.RemoveFocusChangedEventHandler := CallbackCreate(GetMethod(implObj, "RemoveFocusChangedEventHandler"), flags, 2)
+        this.vtbl.RemoveAllEventHandlers := CallbackCreate(GetMethod(implObj, "RemoveAllEventHandlers"), flags, 1)
+        this.vtbl.IntNativeArrayToSafeArray := CallbackCreate(GetMethod(implObj, "IntNativeArrayToSafeArray"), flags, 4)
+        this.vtbl.IntSafeArrayToNativeArray := CallbackCreate(GetMethod(implObj, "IntSafeArrayToNativeArray"), flags, 4)
+        this.vtbl.RectToVariant := CallbackCreate(GetMethod(implObj, "RectToVariant"), flags, 3)
+        this.vtbl.VariantToRect := CallbackCreate(GetMethod(implObj, "VariantToRect"), flags, 3)
+        this.vtbl.SafeArrayToRectNativeArray := CallbackCreate(GetMethod(implObj, "SafeArrayToRectNativeArray"), flags, 4)
+        this.vtbl.CreateProxyFactoryEntry := CallbackCreate(GetMethod(implObj, "CreateProxyFactoryEntry"), flags, 3)
+        this.vtbl.get_ProxyFactoryMapping := CallbackCreate(GetMethod(implObj, "get_ProxyFactoryMapping"), flags, 2)
+        this.vtbl.GetPropertyProgrammaticName := CallbackCreate(GetMethod(implObj, "GetPropertyProgrammaticName"), flags, 3)
+        this.vtbl.GetPatternProgrammaticName := CallbackCreate(GetMethod(implObj, "GetPatternProgrammaticName"), flags, 3)
+        this.vtbl.PollForPotentialSupportedPatterns := CallbackCreate(GetMethod(implObj, "PollForPotentialSupportedPatterns"), flags, 4)
+        this.vtbl.PollForPotentialSupportedProperties := CallbackCreate(GetMethod(implObj, "PollForPotentialSupportedProperties"), flags, 4)
+        this.vtbl.CheckNotSupported := CallbackCreate(GetMethod(implObj, "CheckNotSupported"), flags, 3)
+        this.vtbl.get_ReservedNotSupportedValue := CallbackCreate(GetMethod(implObj, "get_ReservedNotSupportedValue"), flags, 2)
+        this.vtbl.get_ReservedMixedAttributeValue := CallbackCreate(GetMethod(implObj, "get_ReservedMixedAttributeValue"), flags, 2)
+        this.vtbl.ElementFromIAccessible := CallbackCreate(GetMethod(implObj, "ElementFromIAccessible"), flags, 4)
+        this.vtbl.ElementFromIAccessibleBuildCache := CallbackCreate(GetMethod(implObj, "ElementFromIAccessibleBuildCache"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CompareElements)
+        CallbackFree(this.vtbl.CompareRuntimeIds)
+        CallbackFree(this.vtbl.GetRootElement)
+        CallbackFree(this.vtbl.ElementFromHandle)
+        CallbackFree(this.vtbl.ElementFromPoint)
+        CallbackFree(this.vtbl.GetFocusedElement)
+        CallbackFree(this.vtbl.GetRootElementBuildCache)
+        CallbackFree(this.vtbl.ElementFromHandleBuildCache)
+        CallbackFree(this.vtbl.ElementFromPointBuildCache)
+        CallbackFree(this.vtbl.GetFocusedElementBuildCache)
+        CallbackFree(this.vtbl.CreateTreeWalker)
+        CallbackFree(this.vtbl.get_ControlViewWalker)
+        CallbackFree(this.vtbl.get_ContentViewWalker)
+        CallbackFree(this.vtbl.get_RawViewWalker)
+        CallbackFree(this.vtbl.get_RawViewCondition)
+        CallbackFree(this.vtbl.get_ControlViewCondition)
+        CallbackFree(this.vtbl.get_ContentViewCondition)
+        CallbackFree(this.vtbl.CreateCacheRequest)
+        CallbackFree(this.vtbl.CreateTrueCondition)
+        CallbackFree(this.vtbl.CreateFalseCondition)
+        CallbackFree(this.vtbl.CreatePropertyCondition)
+        CallbackFree(this.vtbl.CreatePropertyConditionEx)
+        CallbackFree(this.vtbl.CreateAndCondition)
+        CallbackFree(this.vtbl.CreateAndConditionFromArray)
+        CallbackFree(this.vtbl.CreateAndConditionFromNativeArray)
+        CallbackFree(this.vtbl.CreateOrCondition)
+        CallbackFree(this.vtbl.CreateOrConditionFromArray)
+        CallbackFree(this.vtbl.CreateOrConditionFromNativeArray)
+        CallbackFree(this.vtbl.CreateNotCondition)
+        CallbackFree(this.vtbl.AddAutomationEventHandler)
+        CallbackFree(this.vtbl.RemoveAutomationEventHandler)
+        CallbackFree(this.vtbl.AddPropertyChangedEventHandlerNativeArray)
+        CallbackFree(this.vtbl.AddPropertyChangedEventHandler)
+        CallbackFree(this.vtbl.RemovePropertyChangedEventHandler)
+        CallbackFree(this.vtbl.AddStructureChangedEventHandler)
+        CallbackFree(this.vtbl.RemoveStructureChangedEventHandler)
+        CallbackFree(this.vtbl.AddFocusChangedEventHandler)
+        CallbackFree(this.vtbl.RemoveFocusChangedEventHandler)
+        CallbackFree(this.vtbl.RemoveAllEventHandlers)
+        CallbackFree(this.vtbl.IntNativeArrayToSafeArray)
+        CallbackFree(this.vtbl.IntSafeArrayToNativeArray)
+        CallbackFree(this.vtbl.RectToVariant)
+        CallbackFree(this.vtbl.VariantToRect)
+        CallbackFree(this.vtbl.SafeArrayToRectNativeArray)
+        CallbackFree(this.vtbl.CreateProxyFactoryEntry)
+        CallbackFree(this.vtbl.get_ProxyFactoryMapping)
+        CallbackFree(this.vtbl.GetPropertyProgrammaticName)
+        CallbackFree(this.vtbl.GetPatternProgrammaticName)
+        CallbackFree(this.vtbl.PollForPotentialSupportedPatterns)
+        CallbackFree(this.vtbl.PollForPotentialSupportedProperties)
+        CallbackFree(this.vtbl.CheckNotSupported)
+        CallbackFree(this.vtbl.get_ReservedNotSupportedValue)
+        CallbackFree(this.vtbl.get_ReservedMixedAttributeValue)
+        CallbackFree(this.vtbl.ElementFromIAccessible)
+        CallbackFree(this.vtbl.ElementFromIAccessibleBuildCache)
     }
 }

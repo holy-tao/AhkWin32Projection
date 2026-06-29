@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the types of event notifications, on a particular account, that the server sends to listening clients.
@@ -40,7 +39,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/ne-faxcomex-fax_account_events_type_enum
  * @namespace Windows.Win32.Devices.Fax
  */
-class FAX_ACCOUNT_EVENTS_TYPE_ENUM extends Win32Enum {
+export default struct FAX_ACCOUNT_EVENTS_TYPE_ENUM {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No notifications are sent.

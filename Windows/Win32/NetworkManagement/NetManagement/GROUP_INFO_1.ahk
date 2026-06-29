@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The GROUP_INFO_1 structure contains a global group name and a comment to associate with the group.
@@ -8,10 +8,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-group_info_1
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class GROUP_INFO_1 extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct GROUP_INFO_1 {
+    #StructPack 8
 
     /**
      * Pointer to a null-terminated Unicode character string that specifies the name of the global group. For more information, see the following Remarks section. 
@@ -21,19 +19,12 @@ class GROUP_INFO_1 extends Win32Struct {
      * 
      * When you call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netgroupsetinfo">NetGroupSetInfo</a> function this member is ignored.
-     * @type {PWSTR}
      */
-    grpi1_name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    grpi1_name : PWSTR
 
     /**
      * Pointer to a null-terminated Unicode character string that specifies a remark associated with the global group. This member can be a null string. The comment can contain MAXCOMMENTSZ characters.
-     * @type {PWSTR}
      */
-    grpi1_comment {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    grpi1_comment : PWSTR
+
 }

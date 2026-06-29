@@ -1,40 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TAPEMARK_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\TAPEMARK_TYPE.ahk" { TAPEMARK_TYPE }
 
 /**
  * Describes the type and number of tapemarks to write.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-tape_write_marks
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class TAPE_WRITE_MARKS extends Win32Struct {
-    static sizeof => 12
+export default struct TAPE_WRITE_MARKS {
+    #StructPack 4
 
-    static packingSize => 4
-
-    /**
-     * @type {TAPEMARK_TYPE}
-     */
-    Type {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Type : TAPEMARK_TYPE
 
     /**
      * Number of tapemarks to write.
-     * @type {Integer}
      */
-    Count {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Count : UInt32
 
     /**
      * If this member is <b>TRUE</b>, return as soon as the operation begins. Otherwise, return after the operation has completed.
-     * @type {BOOLEAN}
      */
-    Immediate {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    Immediate : BOOLEAN
+
 }

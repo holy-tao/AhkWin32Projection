@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines constants that specify special retrieval options for known folders. These values supersede CSIDL values, which have parallel meanings.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ne-shlobj_core-known_folder_flag
  * @namespace Windows.Win32.UI.Shell
  */
-class KNOWN_FOLDER_FLAG extends Win32BitflagEnum {
+export default struct KNOWN_FOLDER_FLAG {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies no special retrieval options.

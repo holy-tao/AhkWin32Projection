@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The REGPINTYPES structure contains media type information for registering a filter.
@@ -12,26 +12,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-regpintypes
  * @namespace Windows.Win32.Media.DirectShow
  */
-class REGPINTYPES extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct REGPINTYPES {
+    #StructPack 8
 
     /**
      * Major type GUID of the media type.
-     * @type {Pointer<Guid>}
      */
-    clsMajorType {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    clsMajorType : Guid.Ptr
 
     /**
      * Sub type GUID of the media type. Can be MEDIASUBTYPE_NULL.
-     * @type {Pointer<Guid>}
      */
-    clsMinorType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    clsMinorType : Guid.Ptr
+
 }

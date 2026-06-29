@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies watermark flags. Used by IVisualProperties::SetWatermark.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/ne-shobjidl-vpwatermarkflags
  * @namespace Windows.Win32.UI.Shell
  */
-class VPWATERMARKFLAGS extends Win32BitflagEnum {
+export default struct VPWATERMARKFLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Default Windows XP behavior.

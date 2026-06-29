@@ -1,37 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USBUSER_REQUEST_HEADER.ahk
-#Include .\USB_USER_ERROR_CODE.ahk
-#Include .\USB_CONTROLLER_INFO_0.ahk
-#Include .\USB_CONTROLLER_FLAVOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USB_CONTROLLER_INFO_0.ahk" { USB_CONTROLLER_INFO_0 }
+#Import ".\USB_CONTROLLER_FLAVOR.ahk" { USB_CONTROLLER_FLAVOR }
+#Import ".\USB_USER_ERROR_CODE.ahk" { USB_USER_ERROR_CODE }
+#Import ".\USBUSER_REQUEST_HEADER.ahk" { USBUSER_REQUEST_HEADER }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USBUSER_CONTROLLER_INFO_0 extends Win32Struct {
-    static sizeof => 40
+export default struct USBUSER_CONTROLLER_INFO_0 {
+    #StructPack 4
 
-    static packingSize => 4
+    Header : USBUSER_REQUEST_HEADER
 
-    /**
-     * @type {USBUSER_REQUEST_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := USBUSER_REQUEST_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    Info0 : USB_CONTROLLER_INFO_0
 
-    /**
-     * @type {USB_CONTROLLER_INFO_0}
-     */
-    Info0 {
-        get {
-            if(!this.HasProp("__Info0"))
-                this.__Info0 := USB_CONTROLLER_INFO_0(16, this)
-            return this.__Info0
-        }
-    }
 }

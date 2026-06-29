@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains a set of flags that indicate the current Shell settings. This structure is used with the SHGetSettings function.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-shellflagstate
  * @namespace Windows.Win32.UI.Shell
  */
-class SHELLFLAGSTATE extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct SHELLFLAGSTATE {
+    #StructPack 4
 
     /**
      * This bitfield backs the following members:
@@ -29,12 +26,9 @@ class SHELLFLAGSTATE extends Win32Struct {
      * - fAutoCheckSelect
      * - fIconsOnly
      * - fRestFlags
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}

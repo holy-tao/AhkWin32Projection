@@ -1,30 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\QOS_OBJECT_HDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\QOS_OBJECT_HDR.ahk" { QOS_OBJECT_HDR }
 
 /**
  * The traffic control object QOS_DS_CLASS enables application developers to override the default Diffserv code point (DSCP) value for the IP packets associated with a given flow. By default, the DSCP value is derived from the flow's ServiceType.
  * @see https://learn.microsoft.com/windows/win32/api/qosobjs/ns-qosobjs-qos_ds_class
  * @namespace Windows.Win32.NetworkManagement.QoS
  */
-class QOS_DS_CLASS extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct QOS_DS_CLASS {
+    #StructPack 4
 
     /**
      * The QOS object 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos/ns-qos-qos_object_hdr">QOS_OBJECT_HDR</a>. The object type for this traffic control object should be 
      * <b>QOS_OBJECT_DS_CLASS</b>.
-     * @type {QOS_OBJECT_HDR}
      */
-    ObjectHdr {
-        get {
-            if(!this.HasProp("__ObjectHdr"))
-                this.__ObjectHdr := QOS_OBJECT_HDR(0, this)
-            return this.__ObjectHdr
-        }
-    }
+    ObjectHdr : QOS_OBJECT_HDR
 
     /**
      * User priority value for the flow. The valid range is 0x00 through 0x3F. The following settings are chosen (by default) when the 
@@ -93,10 +83,7 @@ class QOS_DS_CLASS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    DSField {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    DSField : UInt32
+
 }

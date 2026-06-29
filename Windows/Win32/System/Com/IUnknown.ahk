@@ -1,32 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Enables clients to get pointers to other interfaces on a given object through the QueryInterface method, and manage the existence of the object through the AddRef and Release methods.
  * @see https://learn.microsoft.com/windows/win32/api/unknwn/nn-unknwn-iunknown
  * @namespace Windows.Win32.System.Com
  */
-class IUnknown extends Win32ComInterface {
-
-    static sizeof => A_PtrSize
+export default struct IUnknown extends Win32ComInterface {
     /**
      * The interface identifier for IUnknown
      * @type {Guid}
      */
-    static IID => Guid("{00000000-0000-0000-c000-000000000046}")
+    static IID := Guid("{00000000-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 0
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUnknown interfaces
+    */
+    struct Vtbl {
+        QueryInterface : IntPtr
+        AddRef         : IntPtr
+        Release        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["QueryInterface", "AddRef", "Release"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUnknown.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves pointers to the supported interfaces on an object.
@@ -51,7 +61,7 @@ class IUnknown extends Win32ComInterface {
     QueryInterface(riid, ppvObject) {
         ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(0, this, "ptr", riid, ppvObjectMarshal, ppvObject, "int")
+        result := ComCall(0, this, Guid.Ptr, riid, ppvObjectMarshal, ppvObject, Int32)
         return result
     }
 
@@ -65,7 +75,7 @@ class IUnknown extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/unknwn/nf-unknwn-iunknown-addref
      */
     AddRef() {
-        result := ComCall(1, this, "uint")
+        result := ComCall(1, this, UInt32)
         return result
     }
 
@@ -79,43 +89,68 @@ class IUnknown extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/unknwn/nf-unknwn-iunknown-release
      */
     Release() {
-        result := ComCall(2, this, "uint")
+        result := ComCall(2, this, UInt32)
         return result
     }
+
+    Query(iid) {
+        if (IUnknown.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    /**
+     * Install the QueryInterface / AddRef / Release callbacks. Each slot honors a
+     * user-supplied override on `implObj` if present, otherwise falls back to the
+     * built-in `__Default*` implementation. The CallbackCreate paramCount is the
+     * COM-ABI count (declared parameters + 1 for the C++ this pointer).
+     */
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+    
+        qi := GetMethod(implObj, "QueryInterface") ?? ObjBindMethod(this, "_DefaultQueryInterface")
+        this.vtbl.QueryInterface := CallbackCreate(qi, flags, 3)
+    
+        addRef := GetMethod(implObj, "AddRef") ?? ObjBindMethod(this, "_DefaultAddRef")            
+        this.vtbl.AddRef := CallbackCreate(addRef, flags, 1)
+    
+        release := GetMethod(implObj, "Release") ?? ObjBindMethod(this, "_DefaultRelease")
+        this.vtbl.Release := CallbackCreate(release, flags, 1)
+    }
+    
+    /**
+     * Free the three IUnknown callback slots, then chain to super.
+     */
+    Dispose() {
+        super.Dispose()
+        CallbackFree(this.vtbl.QueryInterface)
+        CallbackFree(this.vtbl.AddRef)
+        CallbackFree(this.vtbl.Release)
+    }
+    
     /**
      * Determines whether or not this interface and some other interface refer to the
-     * same underlying object by comparing the pointers retrieved from QueryInterface
-     * @param {IUnknown | ComObject} other the interface to compare this one to. If 
-     *          other is a native AHK ComObject, its IUnknown pointer is retrieved via
-     *          `ComObjQuery`
-     * @returns 1 if this and other refer to the same object, 0 if they don't
+     * same underlying object by comparing pointers retrieved from QueryInterface.
+     * @param {IUnknown | ComObject} other the interface to compare this one to
      */
-    Equals(other){
-        if(!(other is IUnknown || other is ComObject)){
-            throw TypeError("Expected a Win32ComInterface extending IUnknown or a ComObject, but got a(n) " . type(other))
-        }
+    Equals(other) {
+        if (!(other is IUnknown || other is ComObject))
+            throw TypeError("Expected a Win32ComInterface extending IUnknown or a ComObject, but got a(n) " . Type(other))
     
         thisPtrBuf := Buffer(A_PtrSize)
         this.QueryInterface(IUnknown.IID, thisPtrBuf)
         thisPtr := NumGet(thisPtrBuf, "ptr")
-        
-        otherPtr := 0
     
-        if(other is IUnknown){
+        otherPtr := 0
+        if (other is IUnknown) {
             other.QueryInterface(IUnknown.IID, &otherPtr)
-            otherInterface := IUnknown(otherPtr)  ; This object will release the pointer when it falls out of scope
-        }
-        else{
-            ;Native AHK ComObject, use ComObjQuery
+            otherInterface := IUnknown(otherPtr)  ; auto-released on scope exit
+        } else {
             otherPtr := ComObjQuery(other, String(IUnknown.IID)).ptr
         }
     
         return thisPtr == otherPtr
     }
     
-    __Delete(){
-        if(!this.owned){
-            this.Release()
-        }
-    }
 }

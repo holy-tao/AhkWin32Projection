@@ -1,36 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CARD_FILE_ACCESS_CONDITION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CARD_FILE_ACCESS_CONDITION.ahk" { CARD_FILE_ACCESS_CONDITION }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CARD_FILE_INFO extends Win32Struct {
-    static sizeof => 12
+export default struct CARD_FILE_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    dwVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbFileSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbFileSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    AccessCondition : CARD_FILE_ACCESS_CONDITION
 
-    /**
-     * @type {CARD_FILE_ACCESS_CONDITION}
-     */
-    AccessCondition {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
 }

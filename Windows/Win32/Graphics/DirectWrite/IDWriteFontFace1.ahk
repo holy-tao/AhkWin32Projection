@@ -1,34 +1,60 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontFace.ahk
-#Include .\DWRITE_FONT_METRICS1.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_CARET_METRICS.ahk" { DWRITE_CARET_METRICS }
+#Import ".\DWRITE_UNICODE_RANGE.ahk" { DWRITE_UNICODE_RANGE }
+#Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DWRITE_OUTLINE_THRESHOLD.ahk" { DWRITE_OUTLINE_THRESHOLD }
+#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import ".\DWRITE_RENDERING_MODE.ahk" { DWRITE_RENDERING_MODE }
+#Import ".\DWRITE_FONT_METRICS1.ahk" { DWRITE_FONT_METRICS1 }
+#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
 
 /**
  * Contains font face type, appropriate file references, and face identification data. (IDWriteFontFace1)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nn-dwrite_1-idwritefontface1
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteFontFace1 extends IDWriteFontFace {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteFontFace1 extends IDWriteFontFace {
     /**
      * The interface identifier for IDWriteFontFace1
      * @type {Guid}
      */
-    static IID => Guid("{a71efdb4-9fdb-4838-ad90-cfc3be8c3daf}")
+    static IID := Guid("{a71efdb4-9fdb-4838-ad90-cfc3be8c3daf}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 18
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteFontFace1 interfaces
+    */
+    struct Vtbl extends IDWriteFontFace.Vtbl {
+        GetMetrics                    : IntPtr
+        GetGdiCompatibleMetrics       : IntPtr
+        GetCaretMetrics               : IntPtr
+        GetUnicodeRanges              : IntPtr
+        IsMonospacedFont              : IntPtr
+        GetDesignGlyphAdvances        : IntPtr
+        GetGdiCompatibleGlyphAdvances : IntPtr
+        GetKerningPairAdjustments     : IntPtr
+        HasKerningPairs               : IntPtr
+        GetRecommendedRenderingMode   : IntPtr
+        GetVerticalGlyphVariants      : IntPtr
+        HasVerticalGlyphVariants      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetMetrics", "GetGdiCompatibleMetrics", "GetCaretMetrics", "GetUnicodeRanges", "IsMonospacedFont", "GetDesignGlyphAdvances", "GetGdiCompatibleGlyphAdvances", "GetKerningPairAdjustments", "HasKerningPairs", "GetRecommendedRenderingMode", "GetVerticalGlyphVariants", "HasVerticalGlyphVariants"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteFontFace1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Obtains design units and common metrics for the font face. These metrics are applicable to all the glyphs within a font face and are used by applications for layout calculations. (IDWriteFontFace1.GetMetrics)
@@ -40,7 +66,7 @@ class IDWriteFontFace1 extends IDWriteFontFace {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getmetrics
      */
     GetMetrics(fontMetrics) {
-        ComCall(18, this, "ptr", fontMetrics)
+        ComCall(18, this, DWRITE_FONT_METRICS1.Ptr, fontMetrics)
     }
 
     /**
@@ -61,7 +87,7 @@ class IDWriteFontFace1 extends IDWriteFontFace {
      */
     GetGdiCompatibleMetrics(emSize, pixelsPerDip, transform) {
         fontMetrics := DWRITE_FONT_METRICS1()
-        result := ComCall(19, this, "float", emSize, "float", pixelsPerDip, "ptr", transform, "ptr", fontMetrics, "HRESULT")
+        result := ComCall(19, this, "float", emSize, "float", pixelsPerDip, DWRITE_MATRIX.Ptr, transform, DWRITE_FONT_METRICS1.Ptr, fontMetrics, "HRESULT")
         return fontMetrics
     }
 
@@ -77,7 +103,7 @@ class IDWriteFontFace1 extends IDWriteFontFace {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getcaretmetrics
      */
     GetCaretMetrics(caretMetrics) {
-        ComCall(20, this, "ptr", caretMetrics)
+        ComCall(20, this, DWRITE_CARET_METRICS.Ptr, caretMetrics)
     }
 
     /**
@@ -143,7 +169,7 @@ class IDWriteFontFace1 extends IDWriteFontFace {
     GetUnicodeRanges(maxRangeCount, unicodeRanges, actualRangeCount) {
         actualRangeCountMarshal := actualRangeCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(21, this, "uint", maxRangeCount, "ptr", unicodeRanges, actualRangeCountMarshal, actualRangeCount, "HRESULT")
+        result := ComCall(21, this, "uint", maxRangeCount, DWRITE_UNICODE_RANGE.Ptr, unicodeRanges, actualRangeCountMarshal, actualRangeCount, "HRESULT")
         return result
     }
 
@@ -155,7 +181,7 @@ class IDWriteFontFace1 extends IDWriteFontFace {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-ismonospacedfont
      */
     IsMonospacedFont() {
-        result := ComCall(22, this, "int")
+        result := ComCall(22, this, BOOL)
         return result
     }
 
@@ -183,7 +209,7 @@ class IDWriteFontFace1 extends IDWriteFontFace {
     GetDesignGlyphAdvances(glyphCount, glyphIndices, isSideways) {
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(23, this, "uint", glyphCount, glyphIndicesMarshal, glyphIndices, "int*", &glyphAdvances := 0, "int", isSideways, "HRESULT")
+        result := ComCall(23, this, "uint", glyphCount, glyphIndicesMarshal, glyphIndices, "int*", &glyphAdvances := 0, BOOL, isSideways, "HRESULT")
         return glyphAdvances
     }
 
@@ -234,7 +260,7 @@ class IDWriteFontFace1 extends IDWriteFontFace {
     GetGdiCompatibleGlyphAdvances(emSize, pixelsPerDip, transform, useGdiNatural, isSideways, glyphCount, glyphIndices) {
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(24, this, "float", emSize, "float", pixelsPerDip, "ptr", transform, "int", useGdiNatural, "int", isSideways, "uint", glyphCount, glyphIndicesMarshal, glyphIndices, "int*", &glyphAdvances := 0, "HRESULT")
+        result := ComCall(24, this, "float", emSize, "float", pixelsPerDip, DWRITE_MATRIX.Ptr, transform, BOOL, useGdiNatural, BOOL, isSideways, "uint", glyphCount, glyphIndicesMarshal, glyphIndices, "int*", &glyphAdvances := 0, "HRESULT")
         return glyphAdvances
     }
 
@@ -282,7 +308,7 @@ class IDWriteFontFace1 extends IDWriteFontFace {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-haskerningpairs
      */
     HasKerningPairs() {
-        result := ComCall(26, this, "int")
+        result := ComCall(26, this, BOOL)
         return result
     }
 
@@ -332,7 +358,7 @@ class IDWriteFontFace1 extends IDWriteFontFace {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getrecommendedrenderingmode
      */
     GetRecommendedRenderingMode(fontEmSize, dpiX, dpiY, transform, isSideways, outlineThreshold, measuringMode) {
-        result := ComCall(27, this, "float", fontEmSize, "float", dpiX, "float", dpiY, "ptr", transform, "int", isSideways, "int", outlineThreshold, "int", measuringMode, "int*", &renderingMode := 0, "HRESULT")
+        result := ComCall(27, this, "float", fontEmSize, "float", dpiX, "float", dpiY, DWRITE_MATRIX.Ptr, transform, BOOL, isSideways, DWRITE_OUTLINE_THRESHOLD, outlineThreshold, DWRITE_MEASURING_MODE, measuringMode, "int*", &renderingMode := 0, "HRESULT")
         return renderingMode
     }
 
@@ -374,7 +400,49 @@ class IDWriteFontFace1 extends IDWriteFontFace {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-hasverticalglyphvariants
      */
     HasVerticalGlyphVariants() {
-        result := ComCall(29, this, "int")
+        result := ComCall(29, this, BOOL)
         return result
+    }
+
+    Query(iid) {
+        if (IDWriteFontFace1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetMetrics := CallbackCreate(GetMethod(implObj, "GetMetrics"), flags, 2)
+        this.vtbl.GetGdiCompatibleMetrics := CallbackCreate(GetMethod(implObj, "GetGdiCompatibleMetrics"), flags, 5)
+        this.vtbl.GetCaretMetrics := CallbackCreate(GetMethod(implObj, "GetCaretMetrics"), flags, 2)
+        this.vtbl.GetUnicodeRanges := CallbackCreate(GetMethod(implObj, "GetUnicodeRanges"), flags, 4)
+        this.vtbl.IsMonospacedFont := CallbackCreate(GetMethod(implObj, "IsMonospacedFont"), flags, 1)
+        this.vtbl.GetDesignGlyphAdvances := CallbackCreate(GetMethod(implObj, "GetDesignGlyphAdvances"), flags, 5)
+        this.vtbl.GetGdiCompatibleGlyphAdvances := CallbackCreate(GetMethod(implObj, "GetGdiCompatibleGlyphAdvances"), flags, 9)
+        this.vtbl.GetKerningPairAdjustments := CallbackCreate(GetMethod(implObj, "GetKerningPairAdjustments"), flags, 4)
+        this.vtbl.HasKerningPairs := CallbackCreate(GetMethod(implObj, "HasKerningPairs"), flags, 1)
+        this.vtbl.GetRecommendedRenderingMode := CallbackCreate(GetMethod(implObj, "GetRecommendedRenderingMode"), flags, 9)
+        this.vtbl.GetVerticalGlyphVariants := CallbackCreate(GetMethod(implObj, "GetVerticalGlyphVariants"), flags, 4)
+        this.vtbl.HasVerticalGlyphVariants := CallbackCreate(GetMethod(implObj, "HasVerticalGlyphVariants"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetMetrics)
+        CallbackFree(this.vtbl.GetGdiCompatibleMetrics)
+        CallbackFree(this.vtbl.GetCaretMetrics)
+        CallbackFree(this.vtbl.GetUnicodeRanges)
+        CallbackFree(this.vtbl.IsMonospacedFont)
+        CallbackFree(this.vtbl.GetDesignGlyphAdvances)
+        CallbackFree(this.vtbl.GetGdiCompatibleGlyphAdvances)
+        CallbackFree(this.vtbl.GetKerningPairAdjustments)
+        CallbackFree(this.vtbl.HasKerningPairs)
+        CallbackFree(this.vtbl.GetRecommendedRenderingMode)
+        CallbackFree(this.vtbl.GetVerticalGlyphVariants)
+        CallbackFree(this.vtbl.HasVerticalGlyphVariants)
     }
 }

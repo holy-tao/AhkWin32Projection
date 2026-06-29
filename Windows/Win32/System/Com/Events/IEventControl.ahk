@@ -1,34 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IDispatch.ahk
-#Include .\IEventObjectCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IPublisherFilter.ahk" { IPublisherFilter }
+#Import "..\IDispatch.ahk" { IDispatch }
+#Import ".\IEventObjectCollection.ahk" { IEventObjectCollection }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Controls the behavior of an event object, the object that fires an event to its subscribers. (IEventControl)
  * @see https://learn.microsoft.com/windows/win32/api/eventsys/nn-eventsys-ieventcontrol
  * @namespace Windows.Win32.System.Com.Events
  */
-class IEventControl extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IEventControl extends IDispatch {
     /**
      * The interface identifier for IEventControl
      * @type {Guid}
      */
-    static IID => Guid("{0343e2f4-86f6-11d1-b760-00c04fb926af}")
+    static IID := Guid("{0343e2f4-86f6-11d1-b760-00c04fb926af}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IEventControl interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        SetPublisherFilter        : IntPtr
+        get_AllowInprocActivation : IntPtr
+        put_AllowInprocActivation : IntPtr
+        GetSubscriptions          : IntPtr
+        SetDefaultQuery           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetPublisherFilter", "get_AllowInprocActivation", "put_AllowInprocActivation", "GetSubscriptions", "SetDefaultQuery"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IEventControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BOOL} 
@@ -50,7 +65,7 @@ class IEventControl extends IDispatch {
     SetPublisherFilter(methodName, pPublisherFilter) {
         methodName := methodName is String ? BSTR.Alloc(methodName).Value : methodName
 
-        result := ComCall(7, this, "ptr", methodName, "ptr", pPublisherFilter, "HRESULT")
+        result := ComCall(7, this, BSTR, methodName, "ptr", pPublisherFilter, "HRESULT")
         return result
     }
 
@@ -60,7 +75,7 @@ class IEventControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventcontrol-get_allowinprocactivation
      */
     get_AllowInprocActivation() {
-        result := ComCall(8, this, "int*", &pfAllowInprocActivation := 0, "HRESULT")
+        result := ComCall(8, this, BOOL.Ptr, &pfAllowInprocActivation := 0, "HRESULT")
         return pfAllowInprocActivation
     }
 
@@ -71,7 +86,7 @@ class IEventControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventcontrol-put_allowinprocactivation
      */
     put_AllowInprocActivation(fAllowInprocActivation) {
-        result := ComCall(9, this, "int", fAllowInprocActivation, "HRESULT")
+        result := ComCall(9, this, BOOL, fAllowInprocActivation, "HRESULT")
         return result
     }
 
@@ -105,7 +120,7 @@ class IEventControl extends IDispatch {
 
         optionalErrorIndexMarshal := optionalErrorIndex is VarRef ? "int*" : "ptr"
 
-        result := ComCall(10, this, "ptr", methodName, "ptr", optionalCriteria, optionalErrorIndexMarshal, optionalErrorIndex, "ptr*", &ppCollection := 0, "HRESULT")
+        result := ComCall(10, this, BSTR, methodName, BSTR, optionalCriteria, optionalErrorIndexMarshal, optionalErrorIndex, "ptr*", &ppCollection := 0, "HRESULT")
         return IEventObjectCollection(ppCollection)
     }
 
@@ -134,7 +149,35 @@ class IEventControl extends IDispatch {
         methodName := methodName is String ? BSTR.Alloc(methodName).Value : methodName
         criteria := criteria is String ? BSTR.Alloc(criteria).Value : criteria
 
-        result := ComCall(11, this, "ptr", methodName, "ptr", criteria, "int*", &errorIndex := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, methodName, BSTR, criteria, "int*", &errorIndex := 0, "HRESULT")
         return errorIndex
+    }
+
+    Query(iid) {
+        if (IEventControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetPublisherFilter := CallbackCreate(GetMethod(implObj, "SetPublisherFilter"), flags, 3)
+        this.vtbl.get_AllowInprocActivation := CallbackCreate(GetMethod(implObj, "get_AllowInprocActivation"), flags, 2)
+        this.vtbl.put_AllowInprocActivation := CallbackCreate(GetMethod(implObj, "put_AllowInprocActivation"), flags, 2)
+        this.vtbl.GetSubscriptions := CallbackCreate(GetMethod(implObj, "GetSubscriptions"), flags, 5)
+        this.vtbl.SetDefaultQuery := CallbackCreate(GetMethod(implObj, "SetDefaultQuery"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetPublisherFilter)
+        CallbackFree(this.vtbl.get_AllowInprocActivation)
+        CallbackFree(this.vtbl.put_AllowInprocActivation)
+        CallbackFree(this.vtbl.GetSubscriptions)
+        CallbackFree(this.vtbl.SetDefaultQuery)
     }
 }

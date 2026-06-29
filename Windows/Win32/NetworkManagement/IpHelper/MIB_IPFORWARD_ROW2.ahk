@@ -1,16 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Ndis\NET_LUID_LH.ahk
-#Include .\IP_ADDRESS_PREFIX.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_INET.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_IN.ahk
-#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
-#Include ..\..\Networking\WinSock\IN_ADDR.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
-#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
-#Include ..\..\Networking\WinSock\SCOPE_ID.ahk
-#Include ..\..\Networking\WinSock\NL_ROUTE_PROTOCOL.ahk
-#Include ..\..\Networking\WinSock\NL_ROUTE_ORIGIN.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
+#Import "..\..\Networking\WinSock\SOCKADDR_INET.ahk" { SOCKADDR_INET }
+#Import "..\..\Networking\WinSock\SOCKADDR_IN.ahk" { SOCKADDR_IN }
+#Import ".\IP_ADDRESS_PREFIX.ahk" { IP_ADDRESS_PREFIX }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Networking\WinSock\NL_ROUTE_ORIGIN.ahk" { NL_ROUTE_ORIGIN }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
+#Import "..\..\Networking\WinSock\NL_ROUTE_PROTOCOL.ahk" { NL_ROUTE_PROTOCOL }
+#Import "..\..\Networking\WinSock\SOCKADDR_IN6.ahk" { SOCKADDR_IN6 }
+#Import "..\..\Networking\WinSock\SCOPE_ID.ahk" { SCOPE_ID }
+#Import "..\Ndis\NET_LUID_LH.ahk" { NET_LUID_LH }
+#Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Stores information about an IP route entry.
@@ -37,109 +38,66 @@
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_ipforward_row2
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_IPFORWARD_ROW2 extends Win32Struct {
-    static sizeof => 152
-
-    static packingSize => 8
+export default struct MIB_IPFORWARD_ROW2 {
+    #StructPack 8
 
     /**
      * Type: <b>NET_LUID</b>
      * 
      * The locally unique identifier (LUID) for the network interface associated with this IP route entry.
-     * @type {NET_LUID_LH}
      */
-    InterfaceLuid {
-        get {
-            if(!this.HasProp("__InterfaceLuid"))
-                this.__InterfaceLuid := NET_LUID_LH(0, this)
-            return this.__InterfaceLuid
-        }
-    }
+    InterfaceLuid : NET_LUID_LH
 
     /**
      * Type: <b>NET_IFINDEX</b>
      * 
      * The local index value for the network interface associated with this IP route entry. This index value may change when a network adapter is disabled and then enabled, or under other circumstances, and should not be considered persistent.
-     * @type {Integer}
      */
-    InterfaceIndex {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    InterfaceIndex : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-ip_address_prefix">IP_ADDRESS_PREFIX</a></b>
      * 
      * The IP address prefix for the destination IP address for this route.
-     * @type {IP_ADDRESS_PREFIX}
      */
-    DestinationPrefix {
-        get {
-            if(!this.HasProp("__DestinationPrefix"))
-                this.__DestinationPrefix := IP_ADDRESS_PREFIX(20, this)
-            return this.__DestinationPrefix
-        }
-    }
+    DestinationPrefix : IP_ADDRESS_PREFIX
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/ws2ipdef/ns-ws2ipdef-sockaddr_inet">SOCKADDR_INET</a></b>
      * 
      * For a remote route, the IP address of the next system or gateway en route. If the route is to a local loopback address or an IP address on the local link, the next hop is unspecified (all zeros). For a local loopback route, this member should be an IPv4 address of 0.0.0.0 for an IPv4 route entry or an IPv6 address address of 0::0  for an IPv6 route entry.
-     * @type {SOCKADDR_INET}
      */
-    NextHop {
-        get {
-            if(!this.HasProp("__NextHop"))
-                this.__NextHop := SOCKADDR_INET(72, this)
-            return this.__NextHop
-        }
-    }
+    NextHop : SOCKADDR_INET
 
     /**
      * Type: <b>UCHAR</b>
      * 
      * The length, in bits, of the site prefix or network part of the IP address for this route. For an IPv4 route entry, any value greater than 32 is an illegal value. For an IPv6 route entry, any value greater than 128 is an illegal value. 
      * A value of 255 is commonly used to represent an illegal value.
-     * @type {Integer}
      */
-    SitePrefixLength {
-        get => NumGet(this, 120, "char")
-        set => NumPut("char", value, this, 120)
-    }
+    SitePrefixLength : Int8
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The maximum time, in seconds, that the IP route entry is valid. A value of 0xffffffff  is considered to be infinite.
-     * @type {Integer}
      */
-    ValidLifetime {
-        get => NumGet(this, 124, "uint")
-        set => NumPut("uint", value, this, 124)
-    }
+    ValidLifetime : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The preferred time, in seconds, that the IP route entry is valid. A value of 0xffffffff is considered to be infinite.
-     * @type {Integer}
      */
-    PreferredLifetime {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    PreferredLifetime : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The route metric offset value for this IP route entry. Note the actual route metric used to compute the route preference is the summation of interface metric specified in the <b>Metric</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipinterface_row">MIB_IPINTERFACE_ROW</a> structure and the route metric offset specified in this member. The semantics of this metric are determined by the routing protocol specified in the <b>Protocol</b> member. If this metric is not used, its value should be set to -1. This value is documented in RFC 4292. 
      * For more information, see <a href="https://www.ietf.org/rfc/rfc4292.txt">http://www.ietf.org/rfc/rfc4292.txt</a>.
-     * @type {Integer}
      */
-    Metric {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
-    }
+    Metric : UInt32
 
     /**
      * Type: <b>NL_ROUTE_PROTOCOL</b>
@@ -346,68 +304,44 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {NL_ROUTE_PROTOCOL}
      */
-    Protocol {
-        get => NumGet(this, 136, "int")
-        set => NumPut("int", value, this, 136)
-    }
+    Protocol : NL_ROUTE_PROTOCOL
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that specifies if the route is a loopback route (the gateway is on the local host).
-     * @type {BOOLEAN}
      */
-    Loopback {
-        get => NumGet(this, 140, "char")
-        set => NumPut("char", value, this, 140)
-    }
+    Loopback : BOOLEAN
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that specifies if the IP address is autoconfigured.
-     * @type {BOOLEAN}
      */
-    AutoconfigureAddress {
-        get => NumGet(this, 141, "char")
-        set => NumPut("char", value, this, 141)
-    }
+    AutoconfigureAddress : BOOLEAN
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that specifies if the route is published.
-     * @type {BOOLEAN}
      */
-    Publish {
-        get => NumGet(this, 142, "char")
-        set => NumPut("char", value, this, 142)
-    }
+    Publish : BOOLEAN
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that specifies if the route is immortal.
-     * @type {BOOLEAN}
      */
-    Immortal {
-        get => NumGet(this, 143, "char")
-        set => NumPut("char", value, this, 143)
-    }
+    Immortal : BOOLEAN
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The number of seconds  since  the  route  was
      *                 added or modified in the network routing table.
-     * @type {Integer}
      */
-    Age {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
-    }
+    Age : UInt32
 
     /**
      * Type: <b>NL_ROUTE_ORIGIN</b>
@@ -475,10 +409,7 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {NL_ROUTE_ORIGIN}
      */
-    Origin {
-        get => NumGet(this, 148, "int")
-        set => NumPut("int", value, this, 148)
-    }
+    Origin : NL_ROUTE_ORIGIN
+
 }

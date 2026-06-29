@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * WCN_VALUE_TYPE_CONFIGURATION_ERROR enumeration defines possible error values returned to a device while attempting to configure to, and associate with, the WLAN.
  * @see https://learn.microsoft.com/windows/win32/api/wcntypes/ne-wcntypes-wcn_value_type_configuration_error
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectNow
  */
-class WCN_VALUE_TYPE_CONFIGURATION_ERROR extends Win32Enum {
+export default struct WCN_VALUE_TYPE_CONFIGURATION_ERROR {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No error. An application must be prepared to handle devices that signal 'No Error' even if the device detected an error.

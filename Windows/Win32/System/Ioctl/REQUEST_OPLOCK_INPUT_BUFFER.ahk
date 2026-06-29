@@ -1,36 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains the information to request an opportunistic lock (oplock) or to acknowledge an oplock break with the FSCTL_REQUEST_OPLOCK control code.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-request_oplock_input_buffer
  * @namespace Windows.Win32.System.Ioctl
  */
-class REQUEST_OPLOCK_INPUT_BUFFER extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct REQUEST_OPLOCK_INPUT_BUFFER {
+    #StructPack 4
 
     /**
      * The version of the 
      *       <b>REQUEST_OPLOCK_INPUT_BUFFER</b> structure that 
      *       is being used. Set this member to <b>REQUEST_OPLOCK_CURRENT_VERSION</b>.
-     * @type {Integer}
      */
-    StructureVersion {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    StructureVersion : UInt16
 
     /**
      * The length of this structure, in bytes. Must be set to 
      *       <c>sizeof(REQUEST_OPLOCK_INPUT_BUFFER)</c>.
-     * @type {Integer}
      */
-    StructureLength {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    StructureLength : UInt16
 
     /**
      * A valid combination of the following oplock level values.
@@ -83,12 +72,8 @@ class REQUEST_OPLOCK_INPUT_BUFFER extends Win32Struct {
      * </ul>
      * For more information about these value combinations, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-fsctl_request_oplock">FSCTL_REQUEST_OPLOCK</a>.
-     * @type {Integer}
      */
-    RequestedOplockLevel {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    RequestedOplockLevel : UInt32
 
     /**
      * A valid combination of the following request flag values.
@@ -123,10 +108,7 @@ class REQUEST_OPLOCK_INPUT_BUFFER extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Flags : UInt32
+
 }

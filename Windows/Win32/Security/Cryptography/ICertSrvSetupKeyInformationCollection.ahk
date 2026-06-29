@@ -1,35 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ICertSrvSetupKeyInformation.ahk" { ICertSrvSetupKeyInformation }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Defines functionality to populate and enumerate a collection of ICertSrvSetupKeyInformation objects.
  * @see https://learn.microsoft.com/windows/win32/api/casetup/nn-casetup-icertsrvsetupkeyinformationcollection
  * @namespace Windows.Win32.Security.Cryptography
  */
-class ICertSrvSetupKeyInformationCollection extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ICertSrvSetupKeyInformationCollection extends IDispatch {
     /**
      * The interface identifier for ICertSrvSetupKeyInformationCollection
      * @type {Guid}
      */
-    static IID => Guid("{e65c8b00-e58f-41f9-a9ec-a28d7427c844}")
+    static IID := Guid("{e65c8b00-e58f-41f9-a9ec-a28d7427c844}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICertSrvSetupKeyInformationCollection interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get__NewEnum : IntPtr
+        get_Item     : IntPtr
+        get_Count    : IntPtr
+        Add          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get__NewEnum", "get_Item", "get_Count", "Add"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICertSrvSetupKeyInformationCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IUnknown} 
@@ -65,7 +77,7 @@ class ICertSrvSetupKeyInformationCollection extends IDispatch {
      */
     get_Item(Index) {
         pVal := VARIANT()
-        result := ComCall(8, this, "int", Index, "ptr", pVal, "HRESULT")
+        result := ComCall(8, this, "int", Index, VARIANT.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -88,5 +100,31 @@ class ICertSrvSetupKeyInformationCollection extends IDispatch {
     Add(pIKeyInformation) {
         result := ComCall(10, this, "ptr", pIKeyInformation, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICertSrvSetupKeyInformationCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.get_Item)
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.Add)
     }
 }

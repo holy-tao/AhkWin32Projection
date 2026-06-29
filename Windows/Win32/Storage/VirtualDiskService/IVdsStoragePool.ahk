@@ -1,37 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IVdsProvider.ahk
-#Include .\VDS_STORAGE_POOL_PROP.ahk
-#Include .\VDS_POOL_ATTRIBUTES.ahk
-#Include .\IEnumVdsObject.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VDS_STORAGE_POOL_DRIVE_EXTENT.ahk" { VDS_STORAGE_POOL_DRIVE_EXTENT }
+#Import ".\VDS_STORAGE_POOL_PROP.ahk" { VDS_STORAGE_POOL_PROP }
+#Import ".\IVdsProvider.ahk" { IVdsProvider }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VDS_POOL_ATTRIBUTES.ahk" { VDS_POOL_ATTRIBUTES }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
 
 /**
  * The IVdsStoragePool interface (vdshwprv.h) provides methods to query information and enumerate related objects for a storage pool.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdsstoragepool
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsStoragePool extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsStoragePool extends IUnknown {
     /**
      * The interface identifier for IVdsStoragePool
      * @type {Guid}
      */
-    static IID => Guid("{932ca8cf-0eb3-4ba8-9620-22665d7f8450}")
+    static IID := Guid("{932ca8cf-0eb3-4ba8-9620-22665d7f8450}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsStoragePool interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetProvider                : IntPtr
+        GetProperties              : IntPtr
+        GetAttributes              : IntPtr
+        QueryDriveExtents          : IntPtr
+        QueryAllocatedLuns         : IntPtr
+        QueryAllocatedStoragePools : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetProvider", "GetProperties", "GetAttributes", "QueryDriveExtents", "QueryAllocatedLuns", "QueryAllocatedStoragePools"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsStoragePool.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IVdsStoragePool::GetProvider (vdshwprv.h) method returns the hardware provider that manages the storage pool.
@@ -50,7 +64,7 @@ class IVdsStoragePool extends IUnknown {
      */
     GetProperties() {
         pStoragePoolProp := VDS_STORAGE_POOL_PROP()
-        result := ComCall(4, this, "ptr", pStoragePoolProp, "HRESULT")
+        result := ComCall(4, this, VDS_STORAGE_POOL_PROP.Ptr, pStoragePoolProp, "HRESULT")
         return pStoragePoolProp
     }
 
@@ -61,7 +75,7 @@ class IVdsStoragePool extends IUnknown {
      */
     GetAttributes() {
         pStoragePoolAttributes := VDS_POOL_ATTRIBUTES()
-        result := ComCall(5, this, "ptr", pStoragePoolAttributes, "HRESULT")
+        result := ComCall(5, this, VDS_POOL_ATTRIBUTES.Ptr, pStoragePoolAttributes, "HRESULT")
         return pStoragePoolAttributes
     }
 
@@ -118,5 +132,35 @@ class IVdsStoragePool extends IUnknown {
     QueryAllocatedStoragePools() {
         result := ComCall(8, this, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumVdsObject(ppEnum)
+    }
+
+    Query(iid) {
+        if (IVdsStoragePool.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetProvider := CallbackCreate(GetMethod(implObj, "GetProvider"), flags, 2)
+        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetAttributes := CallbackCreate(GetMethod(implObj, "GetAttributes"), flags, 2)
+        this.vtbl.QueryDriveExtents := CallbackCreate(GetMethod(implObj, "QueryDriveExtents"), flags, 3)
+        this.vtbl.QueryAllocatedLuns := CallbackCreate(GetMethod(implObj, "QueryAllocatedLuns"), flags, 2)
+        this.vtbl.QueryAllocatedStoragePools := CallbackCreate(GetMethod(implObj, "QueryAllocatedStoragePools"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetProvider)
+        CallbackFree(this.vtbl.GetProperties)
+        CallbackFree(this.vtbl.GetAttributes)
+        CallbackFree(this.vtbl.QueryDriveExtents)
+        CallbackFree(this.vtbl.QueryAllocatedLuns)
+        CallbackFree(this.vtbl.QueryAllocatedStoragePools)
     }
 }

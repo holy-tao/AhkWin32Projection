@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_POLICY_EXTENSION.ahk
-#Include .\WS_POLICY_EXTENSION_TYPE.ahk
-#Include .\WS_XML_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_POLICY_EXTENSION_TYPE.ahk" { WS_POLICY_EXTENSION_TYPE }
+#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
+#Import ".\WS_XML_BUFFER.ahk" { WS_XML_BUFFER }
+#Import ".\WS_POLICY_EXTENSION.ahk" { WS_POLICY_EXTENSION }
 
 /**
  * This structure is used to specify an endpoint policy extension.
@@ -29,64 +29,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_endpoint_policy_extension
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_ENDPOINT_POLICY_EXTENSION extends Win32Struct {
-    static sizeof => 32
+export default struct WS_ENDPOINT_POLICY_EXTENSION {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _out extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _out {
+        assertionValue : WS_XML_BUFFER.Ptr
 
-        /**
-         * @type {Pointer<WS_XML_BUFFER>}
-         */
-        assertionValue {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
     }
 
     /**
      * The base policy extension that this policy extension derives from.
-     * @type {WS_POLICY_EXTENSION}
      */
-    policyExtension {
-        get {
-            if(!this.HasProp("__policyExtension"))
-                this.__policyExtension := WS_POLICY_EXTENSION(0, this)
-            return this.__policyExtension
-        }
-    }
+    policyExtension : WS_POLICY_EXTENSION
 
     /**
      * Name of the assertion to be retrieved as an extension.
-     * @type {Pointer<WS_XML_STRING>}
      */
-    assertionName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    assertionName : WS_XML_STRING.Ptr
 
     /**
      * Namespace of the assertion to be retrieved as an extension.
-     * @type {Pointer<WS_XML_STRING>}
      */
-    assertionNs {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    assertionNs : WS_XML_STRING.Ptr
 
     /**
      * When <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsmatchpolicyalternative">WsMatchPolicyAlternative</a> returns NOERROR, the
      *                     fields of this structure will be filled out as follows:
-     * @type {_out}
      */
-    out {
-        get {
-            if(!this.HasProp("__out"))
-                this.__out := WS_ENDPOINT_POLICY_EXTENSION._out(24, this)
-            return this.__out
-        }
-    }
+    out : WS_ENDPOINT_POLICY_EXTENSION._out
+
 }

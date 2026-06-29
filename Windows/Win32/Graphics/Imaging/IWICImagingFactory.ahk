@@ -1,48 +1,92 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IWICBitmapDecoder.ahk
-#Include .\IWICComponentInfo.ahk
-#Include .\IWICBitmapEncoder.ahk
-#Include .\IWICPalette.ahk
-#Include .\IWICFormatConverter.ahk
-#Include .\IWICBitmapScaler.ahk
-#Include .\IWICBitmapClipper.ahk
-#Include .\IWICBitmapFlipRotator.ahk
-#Include .\IWICStream.ahk
-#Include .\IWICColorContext.ahk
-#Include .\IWICColorTransform.ahk
-#Include .\IWICBitmap.ahk
-#Include ..\..\System\Com\IEnumUnknown.ahk
-#Include .\IWICFastMetadataEncoder.ahk
-#Include .\IWICMetadataQueryWriter.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\System\Com\IEnumUnknown.ahk" { IEnumUnknown }
+#Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
+#Import ".\IWICBitmapFlipRotator.ahk" { IWICBitmapFlipRotator }
+#Import ".\IWICBitmapScaler.ahk" { IWICBitmapScaler }
+#Import ".\IWICBitmapDecoder.ahk" { IWICBitmapDecoder }
+#Import ".\IWICColorTransform.ahk" { IWICColorTransform }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WICBitmapAlphaChannelOption.ahk" { WICBitmapAlphaChannelOption }
+#Import ".\IWICPalette.ahk" { IWICPalette }
+#Import ".\IWICBitmapEncoder.ahk" { IWICBitmapEncoder }
+#Import "..\..\UI\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import ".\IWICMetadataQueryReader.ahk" { IWICMetadataQueryReader }
+#Import ".\IWICFormatConverter.ahk" { IWICFormatConverter }
+#Import ".\IWICStream.ahk" { IWICStream }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WICBitmapCreateCacheOption.ahk" { WICBitmapCreateCacheOption }
+#Import ".\IWICColorContext.ahk" { IWICColorContext }
+#Import ".\IWICBitmap.ahk" { IWICBitmap }
+#Import "..\..\Foundation\GENERIC_ACCESS_RIGHTS.ahk" { GENERIC_ACCESS_RIGHTS }
+#Import ".\IWICMetadataQueryWriter.ahk" { IWICMetadataQueryWriter }
+#Import ".\IWICBitmapClipper.ahk" { IWICBitmapClipper }
+#Import "..\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\Gdi\HPALETTE.ahk" { HPALETTE }
+#Import ".\IWICBitmapFrameDecode.ahk" { IWICBitmapFrameDecode }
+#Import ".\IWICComponentInfo.ahk" { IWICComponentInfo }
+#Import ".\IWICFastMetadataEncoder.ahk" { IWICFastMetadataEncoder }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WICDecodeOptions.ahk" { WICDecodeOptions }
 
 /**
  * Exposes methods used to create components for the Windows Imaging Component (WIC) such as decoders, encoders and pixel format converters.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicimagingfactory
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class IWICImagingFactory extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWICImagingFactory extends IUnknown {
     /**
      * The interface identifier for IWICImagingFactory
      * @type {Guid}
      */
-    static IID => Guid("{ec5ec8a9-c395-4314-9c77-54d7a935ff70}")
+    static IID := Guid("{ec5ec8a9-c395-4314-9c77-54d7a935ff70}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWICImagingFactory interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateDecoderFromFilename                : IntPtr
+        CreateDecoderFromStream                  : IntPtr
+        CreateDecoderFromFileHandle              : IntPtr
+        CreateComponentInfo                      : IntPtr
+        CreateDecoder                            : IntPtr
+        CreateEncoder                            : IntPtr
+        CreatePalette                            : IntPtr
+        CreateFormatConverter                    : IntPtr
+        CreateBitmapScaler                       : IntPtr
+        CreateBitmapClipper                      : IntPtr
+        CreateBitmapFlipRotator                  : IntPtr
+        CreateStream                             : IntPtr
+        CreateColorContext                       : IntPtr
+        CreateColorTransformer                   : IntPtr
+        CreateBitmap                             : IntPtr
+        CreateBitmapFromSource                   : IntPtr
+        CreateBitmapFromSourceRect               : IntPtr
+        CreateBitmapFromMemory                   : IntPtr
+        CreateBitmapFromHBITMAP                  : IntPtr
+        CreateBitmapFromHICON                    : IntPtr
+        CreateComponentEnumerator                : IntPtr
+        CreateFastMetadataEncoderFromDecoder     : IntPtr
+        CreateFastMetadataEncoderFromFrameDecode : IntPtr
+        CreateQueryWriter                        : IntPtr
+        CreateQueryWriterFromReader              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateDecoderFromFilename", "CreateDecoderFromStream", "CreateDecoderFromFileHandle", "CreateComponentInfo", "CreateDecoder", "CreateEncoder", "CreatePalette", "CreateFormatConverter", "CreateBitmapScaler", "CreateBitmapClipper", "CreateBitmapFlipRotator", "CreateStream", "CreateColorContext", "CreateColorTransformer", "CreateBitmap", "CreateBitmapFromSource", "CreateBitmapFromSourceRect", "CreateBitmapFromMemory", "CreateBitmapFromHBITMAP", "CreateBitmapFromHICON", "CreateComponentEnumerator", "CreateFastMetadataEncoderFromDecoder", "CreateFastMetadataEncoderFromFrameDecode", "CreateQueryWriter", "CreateQueryWriterFromReader"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWICImagingFactory.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a new instance of the IWICBitmapDecoder class based on the given file.
@@ -99,7 +143,7 @@ class IWICImagingFactory extends IUnknown {
     CreateDecoderFromFilename(wzFilename, pguidVendor, dwDesiredAccess, metadataOptions) {
         wzFilename := wzFilename is String ? StrPtr(wzFilename) : wzFilename
 
-        result := ComCall(3, this, "ptr", wzFilename, "ptr", pguidVendor, "uint", dwDesiredAccess, "int", metadataOptions, "ptr*", &ppIDecoder := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", wzFilename, Guid.Ptr, pguidVendor, GENERIC_ACCESS_RIGHTS, dwDesiredAccess, WICDecodeOptions, metadataOptions, "ptr*", &ppIDecoder := 0, "HRESULT")
         return IWICBitmapDecoder(ppIDecoder)
     }
 
@@ -120,7 +164,7 @@ class IWICImagingFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createdecoderfromstream
      */
     CreateDecoderFromStream(pIStream, pguidVendor, metadataOptions) {
-        result := ComCall(4, this, "ptr", pIStream, "ptr", pguidVendor, "int", metadataOptions, "ptr*", &ppIDecoder := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pIStream, Guid.Ptr, pguidVendor, WICDecodeOptions, metadataOptions, "ptr*", &ppIDecoder := 0, "HRESULT")
         return IWICBitmapDecoder(ppIDecoder)
     }
 
@@ -143,7 +187,7 @@ class IWICImagingFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createdecoderfromfilehandle
      */
     CreateDecoderFromFileHandle(hFile, pguidVendor, metadataOptions) {
-        result := ComCall(5, this, "ptr", hFile, "ptr", pguidVendor, "int", metadataOptions, "ptr*", &ppIDecoder := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", hFile, Guid.Ptr, pguidVendor, WICDecodeOptions, metadataOptions, "ptr*", &ppIDecoder := 0, "HRESULT")
         return IWICBitmapDecoder(ppIDecoder)
     }
 
@@ -158,7 +202,7 @@ class IWICImagingFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createcomponentinfo
      */
     CreateComponentInfo(clsidComponent) {
-        result := ComCall(6, this, "ptr", clsidComponent, "ptr*", &ppIInfo := 0, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, clsidComponent, "ptr*", &ppIInfo := 0, "HRESULT")
         return IWICComponentInfo(ppIInfo)
     }
 
@@ -303,7 +347,7 @@ class IWICImagingFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createdecoder
      */
     CreateDecoder(guidContainerFormat, pguidVendor) {
-        result := ComCall(7, this, "ptr", guidContainerFormat, "ptr", pguidVendor, "ptr*", &ppIDecoder := 0, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, guidContainerFormat, Guid.Ptr, pguidVendor, "ptr*", &ppIDecoder := 0, "HRESULT")
         return IWICBitmapDecoder(ppIDecoder)
     }
 
@@ -448,7 +492,7 @@ class IWICImagingFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createencoder
      */
     CreateEncoder(guidContainerFormat, pguidVendor) {
-        result := ComCall(8, this, "ptr", guidContainerFormat, "ptr", pguidVendor, "ptr*", &ppIEncoder := 0, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, guidContainerFormat, Guid.Ptr, pguidVendor, "ptr*", &ppIEncoder := 0, "HRESULT")
         return IWICBitmapEncoder(ppIEncoder)
     }
 
@@ -605,7 +649,7 @@ class IWICImagingFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createbitmap
      */
     CreateBitmap(uiWidth, uiHeight, pixelFormat, option) {
-        result := ComCall(17, this, "uint", uiWidth, "uint", uiHeight, "ptr", pixelFormat, "int", option, "ptr*", &ppIBitmap := 0, "HRESULT")
+        result := ComCall(17, this, "uint", uiWidth, "uint", uiHeight, Guid.Ptr, pixelFormat, WICBitmapCreateCacheOption, option, "ptr*", &ppIBitmap := 0, "HRESULT")
         return IWICBitmap(ppIBitmap)
     }
 
@@ -663,7 +707,7 @@ class IWICImagingFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createbitmapfromsource
      */
     CreateBitmapFromSource(pIBitmapSource, option) {
-        result := ComCall(18, this, "ptr", pIBitmapSource, "int", option, "ptr*", &ppIBitmap := 0, "HRESULT")
+        result := ComCall(18, this, "ptr", pIBitmapSource, WICBitmapCreateCacheOption, option, "ptr*", &ppIBitmap := 0, "HRESULT")
         return IWICBitmap(ppIBitmap)
     }
 
@@ -732,7 +776,7 @@ class IWICImagingFactory extends IUnknown {
     CreateBitmapFromMemory(uiWidth, uiHeight, pixelFormat, cbStride, cbBufferSize, pbBuffer) {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(20, this, "uint", uiWidth, "uint", uiHeight, "ptr", pixelFormat, "uint", cbStride, "uint", cbBufferSize, pbBufferMarshal, pbBuffer, "ptr*", &ppIBitmap := 0, "HRESULT")
+        result := ComCall(20, this, "uint", uiWidth, "uint", uiHeight, Guid.Ptr, pixelFormat, "uint", cbStride, "uint", cbBufferSize, pbBufferMarshal, pbBuffer, "ptr*", &ppIBitmap := 0, "HRESULT")
         return IWICBitmap(ppIBitmap)
     }
 
@@ -755,10 +799,7 @@ class IWICImagingFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createbitmapfromhbitmap
      */
     CreateBitmapFromHBITMAP(_hBitmap, _hPalette, options) {
-        _hBitmap := _hBitmap is Win32Handle ? NumGet(_hBitmap, "ptr") : _hBitmap
-        _hPalette := _hPalette is Win32Handle ? NumGet(_hPalette, "ptr") : _hPalette
-
-        result := ComCall(21, this, "ptr", _hBitmap, "ptr", _hPalette, "int", options, "ptr*", &ppIBitmap := 0, "HRESULT")
+        result := ComCall(21, this, HBITMAP, _hBitmap, HPALETTE, _hPalette, WICBitmapAlphaChannelOption, options, "ptr*", &ppIBitmap := 0, "HRESULT")
         return IWICBitmap(ppIBitmap)
     }
 
@@ -773,9 +814,7 @@ class IWICImagingFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createbitmapfromhicon
      */
     CreateBitmapFromHICON(_hIcon) {
-        _hIcon := _hIcon is Win32Handle ? NumGet(_hIcon, "ptr") : _hIcon
-
-        result := ComCall(22, this, "ptr", _hIcon, "ptr*", &ppIBitmap := 0, "HRESULT")
+        result := ComCall(22, this, HICON, _hIcon, "ptr*", &ppIBitmap := 0, "HRESULT")
         return IWICBitmap(ppIBitmap)
     }
 
@@ -847,7 +886,7 @@ class IWICImagingFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createquerywriter
      */
     CreateQueryWriter(guidMetadataFormat, pguidVendor) {
-        result := ComCall(26, this, "ptr", guidMetadataFormat, "ptr", pguidVendor, "ptr*", &ppIQueryWriter := 0, "HRESULT")
+        result := ComCall(26, this, Guid.Ptr, guidMetadataFormat, Guid.Ptr, pguidVendor, "ptr*", &ppIQueryWriter := 0, "HRESULT")
         return IWICMetadataQueryWriter(ppIQueryWriter)
     }
 
@@ -865,7 +904,75 @@ class IWICImagingFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createquerywriterfromreader
      */
     CreateQueryWriterFromReader(pIQueryReader, pguidVendor) {
-        result := ComCall(27, this, "ptr", pIQueryReader, "ptr", pguidVendor, "ptr*", &ppIQueryWriter := 0, "HRESULT")
+        result := ComCall(27, this, "ptr", pIQueryReader, Guid.Ptr, pguidVendor, "ptr*", &ppIQueryWriter := 0, "HRESULT")
         return IWICMetadataQueryWriter(ppIQueryWriter)
+    }
+
+    Query(iid) {
+        if (IWICImagingFactory.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateDecoderFromFilename := CallbackCreate(GetMethod(implObj, "CreateDecoderFromFilename"), flags, 6)
+        this.vtbl.CreateDecoderFromStream := CallbackCreate(GetMethod(implObj, "CreateDecoderFromStream"), flags, 5)
+        this.vtbl.CreateDecoderFromFileHandle := CallbackCreate(GetMethod(implObj, "CreateDecoderFromFileHandle"), flags, 5)
+        this.vtbl.CreateComponentInfo := CallbackCreate(GetMethod(implObj, "CreateComponentInfo"), flags, 3)
+        this.vtbl.CreateDecoder := CallbackCreate(GetMethod(implObj, "CreateDecoder"), flags, 4)
+        this.vtbl.CreateEncoder := CallbackCreate(GetMethod(implObj, "CreateEncoder"), flags, 4)
+        this.vtbl.CreatePalette := CallbackCreate(GetMethod(implObj, "CreatePalette"), flags, 2)
+        this.vtbl.CreateFormatConverter := CallbackCreate(GetMethod(implObj, "CreateFormatConverter"), flags, 2)
+        this.vtbl.CreateBitmapScaler := CallbackCreate(GetMethod(implObj, "CreateBitmapScaler"), flags, 2)
+        this.vtbl.CreateBitmapClipper := CallbackCreate(GetMethod(implObj, "CreateBitmapClipper"), flags, 2)
+        this.vtbl.CreateBitmapFlipRotator := CallbackCreate(GetMethod(implObj, "CreateBitmapFlipRotator"), flags, 2)
+        this.vtbl.CreateStream := CallbackCreate(GetMethod(implObj, "CreateStream"), flags, 2)
+        this.vtbl.CreateColorContext := CallbackCreate(GetMethod(implObj, "CreateColorContext"), flags, 2)
+        this.vtbl.CreateColorTransformer := CallbackCreate(GetMethod(implObj, "CreateColorTransformer"), flags, 2)
+        this.vtbl.CreateBitmap := CallbackCreate(GetMethod(implObj, "CreateBitmap"), flags, 6)
+        this.vtbl.CreateBitmapFromSource := CallbackCreate(GetMethod(implObj, "CreateBitmapFromSource"), flags, 4)
+        this.vtbl.CreateBitmapFromSourceRect := CallbackCreate(GetMethod(implObj, "CreateBitmapFromSourceRect"), flags, 7)
+        this.vtbl.CreateBitmapFromMemory := CallbackCreate(GetMethod(implObj, "CreateBitmapFromMemory"), flags, 8)
+        this.vtbl.CreateBitmapFromHBITMAP := CallbackCreate(GetMethod(implObj, "CreateBitmapFromHBITMAP"), flags, 5)
+        this.vtbl.CreateBitmapFromHICON := CallbackCreate(GetMethod(implObj, "CreateBitmapFromHICON"), flags, 3)
+        this.vtbl.CreateComponentEnumerator := CallbackCreate(GetMethod(implObj, "CreateComponentEnumerator"), flags, 4)
+        this.vtbl.CreateFastMetadataEncoderFromDecoder := CallbackCreate(GetMethod(implObj, "CreateFastMetadataEncoderFromDecoder"), flags, 3)
+        this.vtbl.CreateFastMetadataEncoderFromFrameDecode := CallbackCreate(GetMethod(implObj, "CreateFastMetadataEncoderFromFrameDecode"), flags, 3)
+        this.vtbl.CreateQueryWriter := CallbackCreate(GetMethod(implObj, "CreateQueryWriter"), flags, 4)
+        this.vtbl.CreateQueryWriterFromReader := CallbackCreate(GetMethod(implObj, "CreateQueryWriterFromReader"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateDecoderFromFilename)
+        CallbackFree(this.vtbl.CreateDecoderFromStream)
+        CallbackFree(this.vtbl.CreateDecoderFromFileHandle)
+        CallbackFree(this.vtbl.CreateComponentInfo)
+        CallbackFree(this.vtbl.CreateDecoder)
+        CallbackFree(this.vtbl.CreateEncoder)
+        CallbackFree(this.vtbl.CreatePalette)
+        CallbackFree(this.vtbl.CreateFormatConverter)
+        CallbackFree(this.vtbl.CreateBitmapScaler)
+        CallbackFree(this.vtbl.CreateBitmapClipper)
+        CallbackFree(this.vtbl.CreateBitmapFlipRotator)
+        CallbackFree(this.vtbl.CreateStream)
+        CallbackFree(this.vtbl.CreateColorContext)
+        CallbackFree(this.vtbl.CreateColorTransformer)
+        CallbackFree(this.vtbl.CreateBitmap)
+        CallbackFree(this.vtbl.CreateBitmapFromSource)
+        CallbackFree(this.vtbl.CreateBitmapFromSourceRect)
+        CallbackFree(this.vtbl.CreateBitmapFromMemory)
+        CallbackFree(this.vtbl.CreateBitmapFromHBITMAP)
+        CallbackFree(this.vtbl.CreateBitmapFromHICON)
+        CallbackFree(this.vtbl.CreateComponentEnumerator)
+        CallbackFree(this.vtbl.CreateFastMetadataEncoderFromDecoder)
+        CallbackFree(this.vtbl.CreateFastMetadataEncoderFromFrameDecode)
+        CallbackFree(this.vtbl.CreateQueryWriter)
+        CallbackFree(this.vtbl.CreateQueryWriterFromReader)
     }
 }

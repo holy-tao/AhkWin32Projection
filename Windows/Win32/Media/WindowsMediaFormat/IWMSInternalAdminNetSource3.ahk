@@ -1,34 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMSInternalAdminNetSource2.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IWMSInternalAdminNetSource2.ahk" { IWMSInternalAdminNetSource2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\NETSOURCE_URLCREDPOLICY_SETTINGS.ahk" { NETSOURCE_URLCREDPOLICY_SETTINGS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMSInternalAdminNetSource3 interface provides improved methods to find proxy servers.To obtain a pointer to an instance of this interface, call the QueryInterface method of the IDispatch method retrieved by INSNetSourceCreator::GetNetSourceAdminInterface.
  * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource3
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSource2 {
-
-    static sizeof => A_PtrSize
+export default struct IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSource2 {
     /**
      * The interface identifier for IWMSInternalAdminNetSource3
      * @type {Guid}
      */
-    static IID => Guid("{6b63d08e-4590-44af-9eb3-57ff1e73bf80}")
+    static IID := Guid("{6b63d08e-4590-44af-9eb3-57ff1e73bf80}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMSInternalAdminNetSource3 interfaces
+    */
+    struct Vtbl extends IWMSInternalAdminNetSource2.Vtbl {
+        GetNetSourceCreator2  : IntPtr
+        FindProxyForURLEx2    : IntPtr
+        RegisterProxyFailure2 : IntPtr
+        ShutdownProxyContext2 : IntPtr
+        IsUsingIE2            : IntPtr
+        SetCredentialsEx2     : IntPtr
+        GetCredentialsEx2     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetNetSourceCreator2", "FindProxyForURLEx2", "RegisterProxyFailure2", "ShutdownProxyContext2", "IsUsingIE2", "SetCredentialsEx2", "GetCredentialsEx2"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMSInternalAdminNetSource3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IWMSInternalAdminNetSource3 interface provides improved methods to find proxy servers.To obtain a pointer to an instance of this interface, call the QueryInterface method of the IDispatch method retrieved by INSNetSourceCreator::GetNetSourceAdminInterface.
@@ -92,7 +109,7 @@ class IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSource2 {
         pdwProxyPortMarshal := pdwProxyPort is VarRef ? "uint*" : "ptr"
         pqwProxyContextMarshal := pqwProxyContext is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", bstrProtocol, "ptr", bstrHost, "ptr", bstrUrl, pfProxyEnabledMarshal, pfProxyEnabled, "ptr", pbstrProxyServer, pdwProxyPortMarshal, pdwProxyPort, pqwProxyContextMarshal, pqwProxyContext, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrProtocol, BSTR, bstrHost, BSTR, bstrUrl, pfProxyEnabledMarshal, pfProxyEnabled, BSTR.Ptr, pbstrProxyServer, pdwProxyPortMarshal, pdwProxyPort, pqwProxyContextMarshal, pqwProxyContext, "HRESULT")
         return result
     }
 
@@ -126,7 +143,7 @@ class IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSource2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource3
      */
     IsUsingIE2(qwProxyContext) {
-        result := ComCall(11, this, "uint", qwProxyContext, "int*", &pfIsUsingIE := 0, "HRESULT")
+        result := ComCall(11, this, "uint", qwProxyContext, BOOL.Ptr, &pfIsUsingIE := 0, "HRESULT")
         return pfIsUsingIE
     }
 
@@ -151,7 +168,7 @@ class IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSource2 {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
         bstrPassword := bstrPassword is String ? BSTR.Alloc(bstrPassword).Value : bstrPassword
 
-        result := ComCall(12, this, "ptr", bstrRealm, "ptr", bstrUrl, "int", fProxy, "ptr", bstrName, "ptr", bstrPassword, "int", fPersist, "int", fConfirmedGood, "int", fClearTextAuthentication, "HRESULT")
+        result := ComCall(12, this, BSTR, bstrRealm, BSTR, bstrUrl, BOOL, fProxy, BSTR, bstrName, BSTR, bstrPassword, BOOL, fPersist, BOOL, fConfirmedGood, BOOL, fClearTextAuthentication, "HRESULT")
         return result
     }
 
@@ -177,7 +194,39 @@ class IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSource2 {
         pdwUrlPolicyMarshal := pdwUrlPolicy is VarRef ? "int*" : "ptr"
         pfConfirmedGoodMarshal := pfConfirmedGood is VarRef ? "int*" : "ptr"
 
-        result := ComCall(13, this, "ptr", bstrRealm, "ptr", bstrUrl, "int", fProxy, "int", fClearTextAuthentication, pdwUrlPolicyMarshal, pdwUrlPolicy, "ptr", pbstrName, "ptr", pbstrPassword, pfConfirmedGoodMarshal, pfConfirmedGood, "HRESULT")
+        result := ComCall(13, this, BSTR, bstrRealm, BSTR, bstrUrl, BOOL, fProxy, BOOL, fClearTextAuthentication, pdwUrlPolicyMarshal, pdwUrlPolicy, BSTR.Ptr, pbstrName, BSTR.Ptr, pbstrPassword, pfConfirmedGoodMarshal, pfConfirmedGood, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMSInternalAdminNetSource3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetNetSourceCreator2 := CallbackCreate(GetMethod(implObj, "GetNetSourceCreator2"), flags, 2)
+        this.vtbl.FindProxyForURLEx2 := CallbackCreate(GetMethod(implObj, "FindProxyForURLEx2"), flags, 8)
+        this.vtbl.RegisterProxyFailure2 := CallbackCreate(GetMethod(implObj, "RegisterProxyFailure2"), flags, 3)
+        this.vtbl.ShutdownProxyContext2 := CallbackCreate(GetMethod(implObj, "ShutdownProxyContext2"), flags, 2)
+        this.vtbl.IsUsingIE2 := CallbackCreate(GetMethod(implObj, "IsUsingIE2"), flags, 3)
+        this.vtbl.SetCredentialsEx2 := CallbackCreate(GetMethod(implObj, "SetCredentialsEx2"), flags, 9)
+        this.vtbl.GetCredentialsEx2 := CallbackCreate(GetMethod(implObj, "GetCredentialsEx2"), flags, 9)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetNetSourceCreator2)
+        CallbackFree(this.vtbl.FindProxyForURLEx2)
+        CallbackFree(this.vtbl.RegisterProxyFailure2)
+        CallbackFree(this.vtbl.ShutdownProxyContext2)
+        CallbackFree(this.vtbl.IsUsingIE2)
+        CallbackFree(this.vtbl.SetCredentialsEx2)
+        CallbackFree(this.vtbl.GetCredentialsEx2)
     }
 }

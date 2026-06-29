@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
  */
-class SYSTEM_REGISTRY_QUOTA_INFORMATION extends Win32Struct {
-    static sizeof => 16
+export default struct SYSTEM_REGISTRY_QUOTA_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    RegistryQuotaAllowed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RegistryQuotaAllowed {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    RegistryQuotaUsed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RegistryQuotaUsed {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Reserved1 : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Reserved1 {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

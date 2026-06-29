@@ -1,31 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\KERB_NET_ADDRESS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KERB_NET_ADDRESS.ahk" { KERB_NET_ADDRESS }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class KERB_NET_ADDRESSES extends Win32Struct {
-    static sizeof => 24
+export default struct KERB_NET_ADDRESSES {
+    #StructPack 8
 
-    static packingSize => 8
+    Number : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Number {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Addresses : KERB_NET_ADDRESS[1]
 
-    /**
-     * @type {KERB_NET_ADDRESS}
-     */
-    Addresses {
-        get {
-            if(!this.HasProp("__AddressesProxyArray"))
-                this.__AddressesProxyArray := Win32FixedArray(this.ptr + 8, 1, KERB_NET_ADDRESS, "")
-            return this.__AddressesProxyArray
-        }
-    }
 }

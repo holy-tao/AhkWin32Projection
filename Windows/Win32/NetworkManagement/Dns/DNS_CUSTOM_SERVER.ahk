@@ -1,15 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Represents a DNS custom server. A **DNS_CUSTOM_SERVER** object is passed to [DnsQueryEx](/windows/win32/api/windns/nf-windns-dnsqueryex) via the [DNS_QUERY_REQUEST3](/windows/win32/api/windns/ns-windns-dns_query_request3) structure.
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_custom_server
  * @namespace Windows.Win32.NetworkManagement.Dns
  */
-class DNS_CUSTOM_SERVER extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct DNS_CUSTOM_SERVER {
+    #StructPack 8
 
     /**
      * Type: **[DWORD](/windows/win32/winprog/windows-data-types)**
@@ -20,12 +19,8 @@ class DNS_CUSTOM_SERVER extends Win32Struct {
      * |-|-|-|
      * |**DNS_CUSTOM_SERVER_TYPE_UDP**|0x1|Perform unsecure name resolution|
      * |**DNS_CUSTOM_SERVER_TYPE_DOH**|0x2|Perform **DNS-over-HTTPS** name resolution|
-     * @type {Integer}
      */
-    dwServerType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwServerType : UInt32
 
     /**
      * Type: **[ULONG64](/windows/win32/winprog/windows-data-types)**
@@ -35,34 +30,15 @@ class DNS_CUSTOM_SERVER extends Win32Struct {
      * ||Value|Description|
      * |-|-|-|
      * |**DNS_CUSTOM_SERVER_UDP_FALLBACK**|0x1|Server might fall back to unsecure resolution|
-     * @type {Integer}
      */
-    ullFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ullFlags : Int64
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszTemplate {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pwszTemplate : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszHostname {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    MaxSa : CHAR[32]
 
-    /**
-     * @type {String}
-     */
-    MaxSa {
-        get => StrGet(this.ptr + 24, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 24, 31, "UTF-8")
+    static __New() {
+        DefineProp(this.Prototype, 'pwszHostname', { type: PWSTR, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

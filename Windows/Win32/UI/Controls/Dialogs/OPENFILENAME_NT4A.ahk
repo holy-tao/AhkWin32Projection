@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HWND.ahk
-#Include ..\..\..\Foundation\HINSTANCE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The OPENFILENAME_NT4 structure is identical to OPENFILENAME with _WIN32_WINNT set to 0x0400. (ANSI)
@@ -10,174 +11,47 @@
  * @charset ANSI
  * @architecture X64, Arm64
  */
-class OPENFILENAME_NT4A extends Win32Struct {
-    static sizeof => 136
+export default struct OPENFILENAME_NT4A {
+    #StructPack 8
 
-    static packingSize => 8
+    lStructSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    lStructSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hwndOwner : HWND
 
-    /**
-     * @type {HWND}
-     */
-    hwndOwner {
-        get {
-            if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(8, this)
-            return this.__hwndOwner
-        }
-    }
+    hInstance : HINSTANCE
 
-    /**
-     * @type {HINSTANCE}
-     */
-    hInstance {
-        get {
-            if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(16, this)
-            return this.__hInstance
-        }
-    }
+    lpstrFilter : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    lpstrFilter {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpstrCustomFilter : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    lpstrCustomFilter {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    nMaxCustFilter : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nMaxCustFilter {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    nFilterIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nFilterIndex {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    lpstrFile : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    lpstrFile {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    nMaxFile : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nMaxFile {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    lpstrFileTitle : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    lpstrFileTitle {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    nMaxFileTitle : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nMaxFileTitle {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    lpstrInitialDir : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    lpstrInitialDir {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    lpstrTitle : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    lpstrTitle {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    nFileOffset : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    nFileOffset {
-        get => NumGet(this, 100, "ushort")
-        set => NumPut("ushort", value, this, 100)
-    }
+    nFileExtension : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    nFileExtension {
-        get => NumGet(this, 102, "ushort")
-        set => NumPut("ushort", value, this, 102)
-    }
+    lpstrDefExt : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    lpstrDefExt {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    lCustData : LPARAM
 
-    /**
-     * @type {LPARAM}
-     */
-    lCustData {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    lpfnHook : IntPtr
 
-    /**
-     * @type {Pointer<LPOFNHOOKPROC>}
-     */
-    lpfnHook {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    lpTemplateName : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    lpTemplateName {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
 }

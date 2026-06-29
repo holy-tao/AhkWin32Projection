@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\D3D11_SHADER_TYPE_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3D11_SHADER_TYPE_DESC.ahk" { D3D11_SHADER_TYPE_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * This shader-reflection interface provides access to variable type. (ID3D11ShaderReflectionType)
@@ -10,26 +12,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nn-d3d11shader-id3d11shaderreflectiontype
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3D11ShaderReflectionType extends Win32ComInterface {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11ShaderReflectionType extends Win32ComInterface {
     /**
      * The interface identifier for ID3D11ShaderReflectionType
      * @type {Guid}
      */
-    static IID => Guid("{6e6ffa6a-9bae-4613-a51e-91652d508c21}")
+    static IID := Guid("{6e6ffa6a-9bae-4613-a51e-91652d508c21}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 0
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11ShaderReflectionType interfaces
+    */
+    struct Vtbl {
+        GetDesc              : IntPtr
+        GetMemberTypeByIndex : IntPtr
+        GetMemberTypeByName  : IntPtr
+        GetMemberTypeName    : IntPtr
+        IsEqual              : IntPtr
+        GetSubType           : IntPtr
+        GetBaseClass         : IntPtr
+        GetNumInterfaces     : IntPtr
+        GetInterfaceByIndex  : IntPtr
+        IsOfType             : IntPtr
+        ImplementsInterface  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDesc", "GetMemberTypeByIndex", "GetMemberTypeByName", "GetMemberTypeName", "IsEqual", "GetSubType", "GetBaseClass", "GetNumInterfaces", "GetInterfaceByIndex", "IsOfType", "ImplementsInterface"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11ShaderReflectionType.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Get the description of a shader-reflection-variable type. (ID3D11ShaderReflectionType.GetDesc)
@@ -42,7 +61,7 @@ class ID3D11ShaderReflectionType extends Win32ComInterface {
      */
     GetDesc() {
         pDesc := D3D11_SHADER_TYPE_DESC()
-        result := ComCall(0, this, "ptr", pDesc, "HRESULT")
+        result := ComCall(0, this, D3D11_SHADER_TYPE_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -59,7 +78,7 @@ class ID3D11ShaderReflectionType extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflectiontype-getmembertypebyindex
      */
     GetMemberTypeByIndex(Index) {
-        result := ComCall(1, this, "uint", Index, "ptr")
+        result := ComCall(1, this, "uint", Index, ID3D11ShaderReflectionType)
         return result
     }
 
@@ -78,7 +97,7 @@ class ID3D11ShaderReflectionType extends Win32ComInterface {
     GetMemberTypeByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        result := ComCall(2, this, "ptr", Name, "ptr")
+        result := ComCall(2, this, "ptr", Name, ID3D11ShaderReflectionType)
         return result
     }
 
@@ -95,7 +114,7 @@ class ID3D11ShaderReflectionType extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflectiontype-getmembertypename
      */
     GetMemberTypeName(Index) {
-        result := ComCall(3, this, "uint", Index, "ptr")
+        result := ComCall(3, this, "uint", Index, PSTR)
         return result
     }
 
@@ -130,7 +149,7 @@ class ID3D11ShaderReflectionType extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflectiontype-getsubtype
      */
     GetSubType() {
-        result := ComCall(5, this, "ptr")
+        result := ComCall(5, this, ID3D11ShaderReflectionType)
         return result
     }
 
@@ -144,7 +163,7 @@ class ID3D11ShaderReflectionType extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflectiontype-getbaseclass
      */
     GetBaseClass() {
-        result := ComCall(6, this, "ptr")
+        result := ComCall(6, this, ID3D11ShaderReflectionType)
         return result
     }
 
@@ -158,7 +177,7 @@ class ID3D11ShaderReflectionType extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflectiontype-getnuminterfaces
      */
     GetNumInterfaces() {
-        result := ComCall(7, this, "uint")
+        result := ComCall(7, this, UInt32)
         return result
     }
 
@@ -175,7 +194,7 @@ class ID3D11ShaderReflectionType extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflectiontype-getinterfacebyindex
      */
     GetInterfaceByIndex(uIndex) {
-        result := ComCall(8, this, "uint", uIndex, "ptr")
+        result := ComCall(8, this, "uint", uIndex, ID3D11ShaderReflectionType)
         return result
     }
 
@@ -211,5 +230,12 @@ class ID3D11ShaderReflectionType extends Win32ComInterface {
     ImplementsInterface(pBase) {
         result := ComCall(10, this, "ptr", pBase, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID3D11ShaderReflectionType.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
     }
 }

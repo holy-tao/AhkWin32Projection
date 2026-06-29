@@ -1,37 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CurveAdjustments.ahk
-#Include .\CurveChannel.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CurveAdjustments.ahk" { CurveAdjustments }
+#Import ".\CurveChannel.ahk" { CurveChannel }
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus
  */
-class ColorCurveParams extends Win32Struct {
-    static sizeof => 12
+export default struct ColorCurveParams {
+    #StructPack 4
 
-    static packingSize => 4
+    adjustment : CurveAdjustments
 
-    /**
-     * @type {CurveAdjustments}
-     */
-    adjustment {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    channel : CurveChannel
 
-    /**
-     * @type {CurveChannel}
-     */
-    channel {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    adjustValue : Int32
 
-    /**
-     * @type {Integer}
-     */
-    adjustValue {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
 }

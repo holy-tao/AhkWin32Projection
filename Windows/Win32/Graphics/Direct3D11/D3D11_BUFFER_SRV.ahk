@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the elements in a buffer resource to use in a shader-resource view. (D3D11_BUFFER_SRV)
@@ -8,40 +7,16 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_buffer_srv
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_BUFFER_SRV extends Win32Struct {
-    static sizeof => 8
+export default struct D3D11_BUFFER_SRV {
+    #StructPack 4
 
-    static packingSize => 4
+    FirstElement : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FirstElement {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumElements : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ElementOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    NumElements {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ElementWidth {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+    static __New() {
+        DefineProp(this.Prototype, 'ElementOffset', { type: UInt32, offset: 0 })
+        DefineProp(this.Prototype, 'ElementWidth', { type: UInt32, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

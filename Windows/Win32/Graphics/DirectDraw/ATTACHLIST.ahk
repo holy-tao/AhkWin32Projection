@@ -1,46 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ATTACHLIST.ahk
-#Include .\DDRAWI_DDRAWSURFACE_LCL.ahk
-#Include .\DDRAWI_DDRAWSURFACE_INT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDRAWI_DDRAWSURFACE_INT.ahk" { DDRAWI_DDRAWSURFACE_INT }
+#Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class ATTACHLIST extends Win32Struct {
-    static sizeof => 32
+export default struct ATTACHLIST {
+    #StructPack 8
 
-    static packingSize => 8
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    lpLink : ATTACHLIST.Ptr
 
-    /**
-     * @type {Pointer<ATTACHLIST>}
-     */
-    lpLink {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<DDRAWI_DDRAWSURFACE_LCL>}
-     */
+    __lpAttached_ptr : IntPtr
     lpAttached {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => (addr := this.__lpAttached_ptr) ? DDRAWI_DDRAWSURFACE_LCL.At(addr) : unset
+        set => this.__lpAttached_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer<DDRAWI_DDRAWSURFACE_INT>}
-     */
+    __lpIAttached_ptr : IntPtr
     lpIAttached {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => (addr := this.__lpIAttached_ptr) ? DDRAWI_DDRAWSURFACE_INT.At(addr) : unset
+        set => this.__lpIAttached_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
+
 }

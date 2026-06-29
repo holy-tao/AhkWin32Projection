@@ -1,354 +1,95 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\PHYSICAL_MEMORY_DESCRIPTOR32.ahk
-#Include .\PHYSICAL_MEMORY_RUN32.ahk
-#Include .\EXCEPTION_RECORD32.ahk
-#Include .\DUMP_FILE_ATTRIBUTES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PHYSICAL_MEMORY_RUN32.ahk" { PHYSICAL_MEMORY_RUN32 }
+#Import ".\EXCEPTION_RECORD32.ahk" { EXCEPTION_RECORD32 }
+#Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
+#Import ".\DUMP_FILE_ATTRIBUTES.ahk" { DUMP_FILE_ATTRIBUTES }
+#Import ".\PHYSICAL_MEMORY_DESCRIPTOR32.ahk" { PHYSICAL_MEMORY_DESCRIPTOR32 }
+#Import "..\..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class DUMP_HEADER32 extends Win32Struct {
-    static sizeof => 4104
+export default struct DUMP_HEADER32 {
+    #StructPack 8
 
-    static packingSize => 8
+    Signature : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Signature {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ValidDump : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ValidDump {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    MajorVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MajorVersion {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MinorVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MinorVersion {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    DirectoryTableBase : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DirectoryTableBase {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    PfnDataBase : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PfnDataBase {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    PsLoadedModuleList : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PsLoadedModuleList {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    PsActiveProcessHead : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PsActiveProcessHead {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    MachineImageType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MachineImageType {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    NumberProcessors : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberProcessors {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    BugCheckCode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BugCheckCode {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    BugCheckParameter1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BugCheckParameter1 {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    BugCheckParameter2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BugCheckParameter2 {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    BugCheckParameter3 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BugCheckParameter3 {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    BugCheckParameter4 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BugCheckParameter4 {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    VersionUser : CHAR[32]
 
-    /**
-     * @type {String}
-     */
-    VersionUser {
-        get => StrGet(this.ptr + 60, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 60, 31, "UTF-8")
-    }
+    PaeEnabled : Int8
 
-    /**
-     * @type {Integer}
-     */
-    PaeEnabled {
-        get => NumGet(this, 92, "char")
-        set => NumPut("char", value, this, 92)
-    }
+    KdSecondaryVersion : Int8
 
-    /**
-     * @type {Integer}
-     */
-    KdSecondaryVersion {
-        get => NumGet(this, 93, "char")
-        set => NumPut("char", value, this, 93)
-    }
+    Spare3 : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Spare3 {
-        get {
-            if(!this.HasProp("__Spare3ProxyArray"))
-                this.__Spare3ProxyArray := Win32FixedArray(this.ptr + 94, 2, Primitive, "char")
-            return this.__Spare3ProxyArray
-        }
-    }
+    KdDebuggerDataBlock : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    KdDebuggerDataBlock {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    PhysicalMemoryBlock : PHYSICAL_MEMORY_DESCRIPTOR32
 
-    /**
-     * @type {PHYSICAL_MEMORY_DESCRIPTOR32}
-     */
-    PhysicalMemoryBlock {
-        get {
-            if(!this.HasProp("__PhysicalMemoryBlock"))
-                this.__PhysicalMemoryBlock := PHYSICAL_MEMORY_DESCRIPTOR32(100, this)
-            return this.__PhysicalMemoryBlock
-        }
-    }
+    ContextRecord : Int8[1200]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    PhysicalMemoryBlockBuffer {
-        get {
-            if(!this.HasProp("__PhysicalMemoryBlockBufferProxyArray"))
-                this.__PhysicalMemoryBlockBufferProxyArray := Win32FixedArray(this.ptr + 100, 700, Primitive, "char")
-            return this.__PhysicalMemoryBlockBufferProxyArray
-        }
-    }
+    Exception : EXCEPTION_RECORD32
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ContextRecord {
-        get {
-            if(!this.HasProp("__ContextRecordProxyArray"))
-                this.__ContextRecordProxyArray := Win32FixedArray(this.ptr + 800, 1200, Primitive, "char")
-            return this.__ContextRecordProxyArray
-        }
-    }
+    Comment : CHAR[128]
 
-    /**
-     * @type {EXCEPTION_RECORD32}
-     */
-    Exception {
-        get {
-            if(!this.HasProp("__Exception"))
-                this.__Exception := EXCEPTION_RECORD32(2000, this)
-            return this.__Exception
-        }
-    }
+    Attributes : DUMP_FILE_ATTRIBUTES
 
-    /**
-     * @type {String}
-     */
-    Comment {
-        get => StrGet(this.ptr + 2080, 127, "UTF-8")
-        set => StrPut(value, this.ptr + 2080, 127, "UTF-8")
-    }
+    BootId : UInt32
 
-    /**
-     * @type {DUMP_FILE_ATTRIBUTES}
-     */
-    Attributes {
-        get {
-            if(!this.HasProp("__Attributes"))
-                this.__Attributes := DUMP_FILE_ATTRIBUTES(2208, this)
-            return this.__Attributes
-        }
-    }
+    _reserved0 : Int8[1760]
 
-    /**
-     * @type {Integer}
-     */
-    BootId {
-        get => NumGet(this, 2216, "uint")
-        set => NumPut("uint", value, this, 2216)
-    }
+    DumpType : UInt32
 
-    /**
-     * @type {Array<Integer>}
-     */
-    _reserved0 {
-        get {
-            if(!this.HasProp("___reserved0ProxyArray"))
-                this.___reserved0ProxyArray := Win32FixedArray(this.ptr + 2220, 1760, Primitive, "char")
-            return this.___reserved0ProxyArray
-        }
-    }
+    MiniDumpFields : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DumpType {
-        get => NumGet(this, 3980, "uint")
-        set => NumPut("uint", value, this, 3980)
-    }
+    SecondaryDataState : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MiniDumpFields {
-        get => NumGet(this, 3984, "uint")
-        set => NumPut("uint", value, this, 3984)
-    }
+    ProductType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SecondaryDataState {
-        get => NumGet(this, 3988, "uint")
-        set => NumPut("uint", value, this, 3988)
-    }
+    SuiteMask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProductType {
-        get => NumGet(this, 3992, "uint")
-        set => NumPut("uint", value, this, 3992)
-    }
+    WriterStatus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SuiteMask {
-        get => NumGet(this, 3996, "uint")
-        set => NumPut("uint", value, this, 3996)
-    }
+    RequiredDumpSpace : Int64
 
-    /**
-     * @type {Integer}
-     */
-    WriterStatus {
-        get => NumGet(this, 4000, "uint")
-        set => NumPut("uint", value, this, 4000)
-    }
+    _reserved2 : Int8[16]
 
-    /**
-     * @type {Integer}
-     */
-    RequiredDumpSpace {
-        get => NumGet(this, 4008, "int64")
-        set => NumPut("int64", value, this, 4008)
-    }
+    SystemUpTime : Int64
 
-    /**
-     * @type {Array<Integer>}
-     */
-    _reserved2 {
-        get {
-            if(!this.HasProp("___reserved2ProxyArray"))
-                this.___reserved2ProxyArray := Win32FixedArray(this.ptr + 4016, 16, Primitive, "char")
-            return this.___reserved2ProxyArray
-        }
-    }
+    SystemTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SystemUpTime {
-        get => NumGet(this, 4032, "int64")
-        set => NumPut("int64", value, this, 4032)
-    }
+    _reserved3 : Int8[56]
 
-    /**
-     * @type {Integer}
-     */
-    SystemTime {
-        get => NumGet(this, 4040, "int64")
-        set => NumPut("int64", value, this, 4040)
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    _reserved3 {
-        get {
-            if(!this.HasProp("___reserved3ProxyArray"))
-                this.___reserved3ProxyArray := Win32FixedArray(this.ptr + 4048, 56, Primitive, "char")
-            return this.___reserved3ProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'PhysicalMemoryBlockBuffer', { type: Int8[700], offset: 100 })
+        this.DeleteProp("__New")
     }
 }

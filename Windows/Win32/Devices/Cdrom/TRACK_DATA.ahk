@@ -1,32 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
  */
-class TRACK_DATA extends Win32Struct {
-    static sizeof => 8
+export default struct TRACK_DATA {
+    #StructPack 1
 
-    static packingSize => 1
-
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Reserved : Int8
 
     /**
      * This bitfield backs the following members:
      * - Control
      * - Adr
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    _bitfield : Int8
+
 
     /**
      * @type {Integer}
@@ -43,31 +31,10 @@ class TRACK_DATA extends Win32Struct {
         get => (this._bitfield >> 4) & 0xF
         set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
     }
+    TrackNumber : Int8
 
-    /**
-     * @type {Integer}
-     */
-    TrackNumber {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    Reserved1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    Address : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Address {
-        get {
-            if(!this.HasProp("__AddressProxyArray"))
-                this.__AddressProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")
-            return this.__AddressProxyArray
-        }
-    }
 }

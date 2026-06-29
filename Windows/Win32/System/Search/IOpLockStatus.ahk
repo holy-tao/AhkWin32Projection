@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods to check the opportunistic lock that is used by Microsoft Windows Desktop Search (WDS) on items while indexing.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-ioplockstatus
  * @namespace Windows.Win32.System.Search
  */
-class IOpLockStatus extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOpLockStatus extends IUnknown {
     /**
      * The interface identifier for IOpLockStatus
      * @type {Guid}
      */
-    static IID => Guid("{c731065d-ac80-11d1-8df3-00c04fb6ef4f}")
+    static IID := Guid("{c731065d-ac80-11d1-8df3-00c04fb6ef4f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOpLockStatus interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        IsOplockValid        : IntPtr
+        IsOplockBroken       : IntPtr
+        GetOplockEventHandle : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsOplockValid", "IsOplockBroken", "GetOplockEventHandle"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOpLockStatus.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Checks the status of the opportunistic lock (OpLock) on the item being indexed. (IOpLockStatus.IsOplockValid)
@@ -42,7 +53,7 @@ class IOpLockStatus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-ioplockstatus-isoplockvalid
      */
     IsOplockValid() {
-        result := ComCall(3, this, "int*", &pfIsOplockValid := 0, "HRESULT")
+        result := ComCall(3, this, BOOL.Ptr, &pfIsOplockValid := 0, "HRESULT")
         return pfIsOplockValid
     }
 
@@ -56,7 +67,7 @@ class IOpLockStatus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-ioplockstatus-isoplockbroken
      */
     IsOplockBroken() {
-        result := ComCall(4, this, "int*", &pfIsOplockBroken := 0, "HRESULT")
+        result := ComCall(4, this, BOOL.Ptr, &pfIsOplockBroken := 0, "HRESULT")
         return pfIsOplockBroken
     }
 
@@ -68,8 +79,32 @@ class IOpLockStatus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-ioplockstatus-getoplockeventhandle
      */
     GetOplockEventHandle() {
-        phOplockEv := HANDLE()
-        result := ComCall(5, this, "ptr", phOplockEv, "HRESULT")
+        phOplockEv := HANDLE.Owned()
+        result := ComCall(5, this, HANDLE.Ptr, phOplockEv, "HRESULT")
         return phOplockEv
+    }
+
+    Query(iid) {
+        if (IOpLockStatus.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsOplockValid := CallbackCreate(GetMethod(implObj, "IsOplockValid"), flags, 2)
+        this.vtbl.IsOplockBroken := CallbackCreate(GetMethod(implObj, "IsOplockBroken"), flags, 2)
+        this.vtbl.GetOplockEventHandle := CallbackCreate(GetMethod(implObj, "GetOplockEventHandle"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsOplockValid)
+        CallbackFree(this.vtbl.IsOplockBroken)
+        CallbackFree(this.vtbl.GetOplockEventHandle)
     }
 }

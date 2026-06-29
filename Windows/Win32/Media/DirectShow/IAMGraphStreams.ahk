@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPin.ahk" { IPin }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAMGraphStreams interface controls a filter graph that renders a live source.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamgraphstreams
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAMGraphStreams extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAMGraphStreams extends IUnknown {
     /**
      * The interface identifier for IAMGraphStreams
      * @type {Guid}
      */
-    static IID => Guid("{632105fa-072e-11d3-8af9-00c04fb6bd3d}")
+    static IID := Guid("{632105fa-072e-11d3-8af9-00c04fb6bd3d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAMGraphStreams interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        FindUpstreamInterface : IntPtr
+        SyncUsingStreamOffset : IntPtr
+        SetMaxGraphLatency    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["FindUpstreamInterface", "SyncUsingStreamOffset", "SetMaxGraphLatency"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAMGraphStreams.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The FindUpstreamInterface method searches the filter graph for a specified interface, upstream from a specified pin.
@@ -60,7 +72,7 @@ class IAMGraphStreams extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamgraphstreams-findupstreaminterface
      */
     FindUpstreamInterface(pPin, riid, dwFlags) {
-        result := ComCall(3, this, "ptr", pPin, "ptr", riid, "ptr*", &ppvInterface := 0, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", pPin, Guid.Ptr, riid, "ptr*", &ppvInterface := 0, "uint", dwFlags, "HRESULT")
         return ppvInterface
     }
 
@@ -73,7 +85,7 @@ class IAMGraphStreams extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamgraphstreams-syncusingstreamoffset
      */
     SyncUsingStreamOffset(bUseStreamOffset) {
-        result := ComCall(4, this, "int", bUseStreamOffset, "HRESULT")
+        result := ComCall(4, this, BOOL, bUseStreamOffset, "HRESULT")
         return result
     }
 
@@ -119,5 +131,29 @@ class IAMGraphStreams extends IUnknown {
     SetMaxGraphLatency(rtMaxGraphLatency) {
         result := ComCall(5, this, "int64", rtMaxGraphLatency, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAMGraphStreams.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.FindUpstreamInterface := CallbackCreate(GetMethod(implObj, "FindUpstreamInterface"), flags, 5)
+        this.vtbl.SyncUsingStreamOffset := CallbackCreate(GetMethod(implObj, "SyncUsingStreamOffset"), flags, 2)
+        this.vtbl.SetMaxGraphLatency := CallbackCreate(GetMethod(implObj, "SetMaxGraphLatency"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.FindUpstreamInterface)
+        CallbackFree(this.vtbl.SyncUsingStreamOffset)
+        CallbackFree(this.vtbl.SetMaxGraphLatency)
     }
 }

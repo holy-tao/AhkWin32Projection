@@ -1,67 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class FILE_QUOTA_INFORMATION extends Win32Struct {
-    static sizeof => 48
+export default struct FILE_QUOTA_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    NextEntryOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NextEntryOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SidLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SidLength {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ChangeTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ChangeTime {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    QuotaUsed : Int64
 
-    /**
-     * @type {Integer}
-     */
-    QuotaUsed {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    QuotaThreshold : Int64
 
-    /**
-     * @type {Integer}
-     */
-    QuotaThreshold {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    QuotaLimit : Int64
 
-    /**
-     * @type {Integer}
-     */
-    QuotaLimit {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
+    Sid : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Sid {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

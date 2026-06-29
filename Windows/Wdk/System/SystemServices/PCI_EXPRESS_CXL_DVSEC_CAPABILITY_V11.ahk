@@ -1,155 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCI_EXPRESS_CXL_DVSEC_CAPABILITY_V11 extends Win32Struct {
-    static sizeof => 136
+export default struct PCI_EXPRESS_CXL_DVSEC_CAPABILITY_V11 {
+    #StructPack 8
 
-    static packingSize => 8
+    Header : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Header {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    DvsecHeader1 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    DvsecHeader1 {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    DvsecHeader2 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    DvsecHeader2 {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Capability : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Capability {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Control : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Control {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Status : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Status {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    Control2 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Control2 {
-        get => NumGet(this, 48, "ushort")
-        set => NumPut("ushort", value, this, 48)
-    }
+    Status2 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Status2 {
-        get => NumGet(this, 50, "ushort")
-        set => NumPut("ushort", value, this, 50)
-    }
+    Lock : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Lock {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    Reserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 64, "ushort")
-        set => NumPut("ushort", value, this, 64)
-    }
+    Range1SizeHigh : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Range1SizeHigh {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    Range1SizeLow : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Range1SizeLow {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    Range1BaseHigh : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Range1BaseHigh {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    Range1BaseLow : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Range1BaseLow {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    Range2SizeHigh : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Range2SizeHigh {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    Range2SizeLow : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Range2SizeLow {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    Range2BaseHigh : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Range2BaseHigh {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    Range2BaseLow : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Range2BaseLow {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
 }

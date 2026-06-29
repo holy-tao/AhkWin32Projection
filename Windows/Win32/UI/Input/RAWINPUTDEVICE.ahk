@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RAWINPUTDEVICE_FLAGS.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\RAWINPUTDEVICE_FLAGS.ahk" { RAWINPUTDEVICE_FLAGS }
 
 /**
  * Defines information for the raw input devices.
@@ -12,53 +11,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-rawinputdevice
  * @namespace Windows.Win32.UI.Input
  */
-class RAWINPUTDEVICE extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct RAWINPUTDEVICE {
+    #StructPack 8
 
     /**
      * Type: <b>USHORT</b>
      * 
      * [Top level collection](/windows-hardware/drivers/hid/top-level-collections) [Usage page](/windows-hardware/drivers/hid/hid-usages#usage-page) for the raw input device. See [HID Clients Supported in Windows](/windows-hardware/drivers/hid/hid-architecture#hid-clients-supported-in-windows) for details on possible values.
-     * @type {Integer}
      */
-    usUsagePage {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    usUsagePage : UInt16
 
     /**
      * Type: <b>USHORT</b>
      * 
      * [Top level collection](/windows-hardware/drivers/hid/top-level-collections) [Usage ID](/windows-hardware/drivers/hid/hid-usages#usage-id) for the raw input device. See [HID Clients Supported in Windows](/windows-hardware/drivers/hid/hid-architecture#hid-clients-supported-in-windows) for details on possible values.
-     * @type {Integer}
      */
-    usUsage {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    usUsage : UInt16
 
     /**
      * Type: <b>DWORD</b>
-     * @type {RAWINPUTDEVICE_FLAGS}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : RAWINPUTDEVICE_FLAGS
 
     /**
      * Type: <b>HWND</b>
      * 
      * A handle to the target window. If <b>NULL</b> it follows the keyboard focus.
-     * @type {HWND}
      */
-    hwndTarget {
-        get {
-            if(!this.HasProp("__hwndTarget"))
-                this.__hwndTarget := HWND(8, this)
-            return this.__hwndTarget
-        }
-    }
+    hwndTarget : HWND
+
 }

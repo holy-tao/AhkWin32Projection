@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that provide the briefcase reconciler with the means to notify the initiator of its progress, to set a termination object, and to request a given version of a document. The initiator is responsible for implementing this interface.
  * @see https://learn.microsoft.com/windows/win32/lwef/ireconcileinitiator
  * @namespace Windows.Win32.UI.LegacyWindowsEnvironmentFeatures
  */
-class IReconcileInitiator extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IReconcileInitiator extends IUnknown {
     /**
      * The interface identifier for IReconcileInitiator
      * @type {Guid}
      */
-    static IID => Guid("{99180161-da16-101a-935c-444553540000}")
+    static IID := Guid("{99180161-da16-101a-935c-444553540000}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IReconcileInitiator interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetAbortCallback    : IntPtr
+        SetProgressFeedback : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetAbortCallback", "SetProgressFeedback"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IReconcileInitiator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the object through which the initiator can asynchronously terminate a reconciliation. A briefcase reconciler typically sets this object for reconciliations that are lengthy or involve user interaction.
@@ -95,5 +104,27 @@ class IReconcileInitiator extends IUnknown {
     SetProgressFeedback(ulProgress, ulProgressMax) {
         result := ComCall(4, this, "uint", ulProgress, "uint", ulProgressMax, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IReconcileInitiator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetAbortCallback := CallbackCreate(GetMethod(implObj, "SetAbortCallback"), flags, 2)
+        this.vtbl.SetProgressFeedback := CallbackCreate(GetMethod(implObj, "SetProgressFeedback"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetAbortCallback)
+        CallbackFree(this.vtbl.SetProgressFeedback)
     }
 }

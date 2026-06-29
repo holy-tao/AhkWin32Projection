@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class RUNTIME_REPORT_HEADER extends Win32Struct {
-    static sizeof => 8
+export default struct RUNTIME_REPORT_HEADER {
+    #StructPack 4
 
-    static packingSize => 4
+    ReportType : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ReportType {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Reserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    ReportSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ReportSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
 }

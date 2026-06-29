@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Resource that describes the parameters for an error report.
@@ -8,28 +8,19 @@
  * @see https://learn.microsoft.com/windows/win32/api/diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_report_parameter
  * @namespace Windows.Win32.Security.DiagnosticDataQuery
  */
-class DIAGNOSTIC_REPORT_PARAMETER extends Win32Struct {
-    static sizeof => 778
-
-    static packingSize => 2
+export default struct DIAGNOSTIC_REPORT_PARAMETER {
+    #StructPack 2
 
     /**
      * Type: **[WCHAR\[\]](/windows/desktop/winprog/windows-data-types)**
      * The name of this parameter.
-     * @type {String}
      */
-    name {
-        get => StrGet(this.ptr + 0, 128, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 128, "UTF-16")
-    }
+    name : WCHAR[129]
 
     /**
      * Type: **[WCHAR\[\]](/windows/desktop/winprog/windows-data-types)**
      * The value of this parameter.
-     * @type {String}
      */
-    value {
-        get => StrGet(this.ptr + 258, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 258, 259, "UTF-16")
-    }
+    value : WCHAR[260]
+
 }

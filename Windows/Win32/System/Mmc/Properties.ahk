@@ -1,41 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\Property.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\Property.ahk" { Property }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Like any OLE object, a control provides much of its functionality through a set of incoming interfaces with properties and methods.
  * @see https://learn.microsoft.com/windows/win32/com/properties-and-methods
  * @namespace Windows.Win32.System.Mmc
  */
-class Properties extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct Properties extends IDispatch {
     /**
      * The interface identifier for Properties
      * @type {Guid}
      */
-    static IID => Guid("{2886abc2-a425-42b2-91c6-e25c0e04581c}")
+    static IID := Guid("{2886abc2-a425-42b2-91c6-e25c0e04581c}")
 
     /**
      * The class identifier for Properties
      * @type {Guid}
      */
-    static CLSID => Guid("{2886abc2-a425-42b2-91c6-e25c0e04581c}")
+    static CLSID := Guid("{2886abc2-a425-42b2-91c6-e25c0e04581c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for Properties interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get__NewEnum : IntPtr
+        Item         : IntPtr
+        get_Count    : IntPtr
+        Remove       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get__NewEnum", "Item", "get_Count", "Remove"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := Properties.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IUnknown} 
@@ -74,7 +86,7 @@ class Properties extends IDispatch {
     Item(Name) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
 
-        result := ComCall(8, this, "ptr", Name, "ptr*", &_Property := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, Name, "ptr*", &_Property := 0, "HRESULT")
         return Property(_Property)
     }
 
@@ -88,27 +100,40 @@ class Properties extends IDispatch {
     }
 
     /**
-     * Removes a TPM command from the local list of commands blocked from running on the computer.
-     * @remarks
-     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
+     * 
      * @param {BSTR} Name 
-     * @returns {HRESULT} Type: **uint32**
-     * 
-     * All TPM errors as well as errors specific to TPM Base Services can be returned.
-     * 
-     * Common return codes are listed below.
-     * 
-     * 
-     * 
-     * | Return code/value                                                                                                                                 | Description                           |
-     * |---------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------|
-     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl> | The method was successful.<br/> |
-     * @see https://learn.microsoft.com/windows/win32/SecProv/removeblockedcommand-win32-tpm
+     * @returns {HRESULT} 
      */
     Remove(Name) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
 
-        result := ComCall(10, this, "ptr", Name, "HRESULT")
+        result := ComCall(10, this, BSTR, Name, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (Properties.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.Item)
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.Remove)
     }
 }

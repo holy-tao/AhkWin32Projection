@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * BLUETOOTH_AUTHENTICATION_METHOD enumeration defines the supported authentication types during device pairing.
  * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ne-bluetoothapis-bluetooth_authentication_method
  * @namespace Windows.Win32.Devices.Bluetooth
  */
-class BLUETOOTH_AUTHENTICATION_METHOD extends Win32Enum {
+export default struct BLUETOOTH_AUTHENTICATION_METHOD {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The Bluetooth device supports authentication via a PIN.

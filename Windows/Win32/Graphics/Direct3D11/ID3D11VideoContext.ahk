@@ -1,8 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D11DeviceChild.ahk
-#Include .\D3D11_AUTHENTICATED_CONFIGURE_OUTPUT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Dxgi\Common\DXGI_RATIONAL.ahk" { DXGI_RATIONAL }
+#Import ".\D3D11_VIDEO_DECODER_BUFFER_DESC.ahk" { D3D11_VIDEO_DECODER_BUFFER_DESC }
+#Import ".\ID3D11VideoProcessorOutputView.ahk" { ID3D11VideoProcessorOutputView }
+#Import ".\D3D11_VIDEO_PROCESSOR_COLOR_SPACE.ahk" { D3D11_VIDEO_PROCESSOR_COLOR_SPACE }
+#Import ".\D3D11_VIDEO_PROCESSOR_ALPHA_FILL_MODE.ahk" { D3D11_VIDEO_PROCESSOR_ALPHA_FILL_MODE }
+#Import ".\D3D11_VIDEO_PROCESSOR_STEREO_FORMAT.ahk" { D3D11_VIDEO_PROCESSOR_STEREO_FORMAT }
+#Import ".\ID3D11AuthenticatedChannel.ahk" { ID3D11AuthenticatedChannel }
+#Import ".\D3D11_VIDEO_DECODER_EXTENSION.ahk" { D3D11_VIDEO_DECODER_EXTENSION }
+#Import ".\ID3D11VideoDecoderOutputView.ahk" { ID3D11VideoDecoderOutputView }
+#Import ".\D3D11_AUTHENTICATED_CONFIGURE_OUTPUT.ahk" { D3D11_AUTHENTICATED_CONFIGURE_OUTPUT }
+#Import ".\D3D11_VIDEO_PROCESSOR_STEREO_FLIP_MODE.ahk" { D3D11_VIDEO_PROCESSOR_STEREO_FLIP_MODE }
+#Import ".\D3D11_VIDEO_COLOR.ahk" { D3D11_VIDEO_COLOR }
+#Import ".\ID3D11VideoDecoder.ahk" { ID3D11VideoDecoder }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D11_VIDEO_PROCESSOR_STREAM.ahk" { D3D11_VIDEO_PROCESSOR_STREAM }
+#Import ".\D3D11_VIDEO_PROCESSOR_OUTPUT_RATE.ahk" { D3D11_VIDEO_PROCESSOR_OUTPUT_RATE }
+#Import ".\D3D11_VIDEO_DECODER_BUFFER_TYPE.ahk" { D3D11_VIDEO_DECODER_BUFFER_TYPE }
+#Import ".\ID3D11DeviceChild.ahk" { ID3D11DeviceChild }
+#Import ".\D3D11_VIDEO_PROCESSOR_FILTER.ahk" { D3D11_VIDEO_PROCESSOR_FILTER }
+#Import ".\D3D11_VIDEO_PROCESSOR_ROTATION.ahk" { D3D11_VIDEO_PROCESSOR_ROTATION }
+#Import ".\ID3D11CryptoSession.ahk" { ID3D11CryptoSession }
+#Import ".\D3D11_ENCRYPTED_BLOCK_INFO.ahk" { D3D11_ENCRYPTED_BLOCK_INFO }
+#Import ".\ID3D11Texture2D.ahk" { ID3D11Texture2D }
+#Import ".\ID3D11VideoProcessor.ahk" { ID3D11VideoProcessor }
+#Import ".\D3D11_VIDEO_FRAME_FORMAT.ahk" { D3D11_VIDEO_FRAME_FORMAT }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Provides the video functionality of a Microsoft Direct3D 11 device. (ID3D11VideoContext)
@@ -39,26 +65,90 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/nn-d3d11-id3d11videocontext
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3D11VideoContext extends ID3D11DeviceChild {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11VideoContext extends ID3D11DeviceChild {
     /**
      * The interface identifier for ID3D11VideoContext
      * @type {Guid}
      */
-    static IID => Guid("{61f21c45-3c0e-4a74-9cea-67100d9ad5e4}")
+    static IID := Guid("{61f21c45-3c0e-4a74-9cea-67100d9ad5e4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11VideoContext interfaces
+    */
+    struct Vtbl extends ID3D11DeviceChild.Vtbl {
+        GetDecoderBuffer                          : IntPtr
+        ReleaseDecoderBuffer                      : IntPtr
+        DecoderBeginFrame                         : IntPtr
+        DecoderEndFrame                           : IntPtr
+        SubmitDecoderBuffers                      : IntPtr
+        DecoderExtension                          : IntPtr
+        VideoProcessorSetOutputTargetRect         : IntPtr
+        VideoProcessorSetOutputBackgroundColor    : IntPtr
+        VideoProcessorSetOutputColorSpace         : IntPtr
+        VideoProcessorSetOutputAlphaFillMode      : IntPtr
+        VideoProcessorSetOutputConstriction       : IntPtr
+        VideoProcessorSetOutputStereoMode         : IntPtr
+        VideoProcessorSetOutputExtension          : IntPtr
+        VideoProcessorGetOutputTargetRect         : IntPtr
+        VideoProcessorGetOutputBackgroundColor    : IntPtr
+        VideoProcessorGetOutputColorSpace         : IntPtr
+        VideoProcessorGetOutputAlphaFillMode      : IntPtr
+        VideoProcessorGetOutputConstriction       : IntPtr
+        VideoProcessorGetOutputStereoMode         : IntPtr
+        VideoProcessorGetOutputExtension          : IntPtr
+        VideoProcessorSetStreamFrameFormat        : IntPtr
+        VideoProcessorSetStreamColorSpace         : IntPtr
+        VideoProcessorSetStreamOutputRate         : IntPtr
+        VideoProcessorSetStreamSourceRect         : IntPtr
+        VideoProcessorSetStreamDestRect           : IntPtr
+        VideoProcessorSetStreamAlpha              : IntPtr
+        VideoProcessorSetStreamPalette            : IntPtr
+        VideoProcessorSetStreamPixelAspectRatio   : IntPtr
+        VideoProcessorSetStreamLumaKey            : IntPtr
+        VideoProcessorSetStreamStereoFormat       : IntPtr
+        VideoProcessorSetStreamAutoProcessingMode : IntPtr
+        VideoProcessorSetStreamFilter             : IntPtr
+        VideoProcessorSetStreamExtension          : IntPtr
+        VideoProcessorGetStreamFrameFormat        : IntPtr
+        VideoProcessorGetStreamColorSpace         : IntPtr
+        VideoProcessorGetStreamOutputRate         : IntPtr
+        VideoProcessorGetStreamSourceRect         : IntPtr
+        VideoProcessorGetStreamDestRect           : IntPtr
+        VideoProcessorGetStreamAlpha              : IntPtr
+        VideoProcessorGetStreamPalette            : IntPtr
+        VideoProcessorGetStreamPixelAspectRatio   : IntPtr
+        VideoProcessorGetStreamLumaKey            : IntPtr
+        VideoProcessorGetStreamStereoFormat       : IntPtr
+        VideoProcessorGetStreamAutoProcessingMode : IntPtr
+        VideoProcessorGetStreamFilter             : IntPtr
+        VideoProcessorGetStreamExtension          : IntPtr
+        VideoProcessorBlt                         : IntPtr
+        NegotiateCryptoSessionKeyExchange         : IntPtr
+        EncryptionBlt                             : IntPtr
+        DecryptionBlt                             : IntPtr
+        StartSessionKeyRefresh                    : IntPtr
+        FinishSessionKeyRefresh                   : IntPtr
+        GetEncryptionBltKey                       : IntPtr
+        NegotiateAuthenticatedChannelKeyExchange  : IntPtr
+        QueryAuthenticatedChannel                 : IntPtr
+        ConfigureAuthenticatedChannel             : IntPtr
+        VideoProcessorSetStreamRotation           : IntPtr
+        VideoProcessorGetStreamRotation           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDecoderBuffer", "ReleaseDecoderBuffer", "DecoderBeginFrame", "DecoderEndFrame", "SubmitDecoderBuffers", "DecoderExtension", "VideoProcessorSetOutputTargetRect", "VideoProcessorSetOutputBackgroundColor", "VideoProcessorSetOutputColorSpace", "VideoProcessorSetOutputAlphaFillMode", "VideoProcessorSetOutputConstriction", "VideoProcessorSetOutputStereoMode", "VideoProcessorSetOutputExtension", "VideoProcessorGetOutputTargetRect", "VideoProcessorGetOutputBackgroundColor", "VideoProcessorGetOutputColorSpace", "VideoProcessorGetOutputAlphaFillMode", "VideoProcessorGetOutputConstriction", "VideoProcessorGetOutputStereoMode", "VideoProcessorGetOutputExtension", "VideoProcessorSetStreamFrameFormat", "VideoProcessorSetStreamColorSpace", "VideoProcessorSetStreamOutputRate", "VideoProcessorSetStreamSourceRect", "VideoProcessorSetStreamDestRect", "VideoProcessorSetStreamAlpha", "VideoProcessorSetStreamPalette", "VideoProcessorSetStreamPixelAspectRatio", "VideoProcessorSetStreamLumaKey", "VideoProcessorSetStreamStereoFormat", "VideoProcessorSetStreamAutoProcessingMode", "VideoProcessorSetStreamFilter", "VideoProcessorSetStreamExtension", "VideoProcessorGetStreamFrameFormat", "VideoProcessorGetStreamColorSpace", "VideoProcessorGetStreamOutputRate", "VideoProcessorGetStreamSourceRect", "VideoProcessorGetStreamDestRect", "VideoProcessorGetStreamAlpha", "VideoProcessorGetStreamPalette", "VideoProcessorGetStreamPixelAspectRatio", "VideoProcessorGetStreamLumaKey", "VideoProcessorGetStreamStereoFormat", "VideoProcessorGetStreamAutoProcessingMode", "VideoProcessorGetStreamFilter", "VideoProcessorGetStreamExtension", "VideoProcessorBlt", "NegotiateCryptoSessionKeyExchange", "EncryptionBlt", "DecryptionBlt", "StartSessionKeyRefresh", "FinishSessionKeyRefresh", "GetEncryptionBltKey", "NegotiateAuthenticatedChannelKeyExchange", "QueryAuthenticatedChannel", "ConfigureAuthenticatedChannel", "VideoProcessorSetStreamRotation", "VideoProcessorGetStreamRotation"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11VideoContext.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a pointer to a decoder buffer.
@@ -75,7 +165,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
         pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
         ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pDecoder, "int", Type, pBufferSizeMarshal, pBufferSize, ppBufferMarshal, ppBuffer, "HRESULT")
+        result := ComCall(7, this, "ptr", pDecoder, D3D11_VIDEO_DECODER_BUFFER_TYPE, Type, pBufferSizeMarshal, pBufferSize, ppBufferMarshal, ppBuffer, "HRESULT")
         return result
     }
 
@@ -87,7 +177,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-releasedecoderbuffer
      */
     ReleaseDecoderBuffer(pDecoder, Type) {
-        result := ComCall(8, this, "ptr", pDecoder, "int", Type, "HRESULT")
+        result := ComCall(8, this, "ptr", pDecoder, D3D11_VIDEO_DECODER_BUFFER_TYPE, Type, "HRESULT")
         return result
     }
 
@@ -145,7 +235,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-submitdecoderbuffers
      */
     SubmitDecoderBuffers(pDecoder, NumBuffers, pBufferDesc) {
-        result := ComCall(11, this, "ptr", pDecoder, "uint", NumBuffers, "ptr", pBufferDesc, "HRESULT")
+        result := ComCall(11, this, "ptr", pDecoder, "uint", NumBuffers, D3D11_VIDEO_DECODER_BUFFER_DESC.Ptr, pBufferDesc, "HRESULT")
         return result
     }
 
@@ -157,7 +247,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-decoderextension
      */
     DecoderExtension(pDecoder, pExtensionData) {
-        result := ComCall(12, this, "ptr", pDecoder, "ptr", pExtensionData, "int")
+        result := ComCall(12, this, "ptr", pDecoder, D3D11_VIDEO_DECODER_EXTENSION.Ptr, pExtensionData, Int32)
         return result
     }
 
@@ -174,7 +264,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetoutputtargetrect
      */
     VideoProcessorSetOutputTargetRect(pVideoProcessor, Enable, pRect) {
-        ComCall(13, this, "ptr", pVideoProcessor, "int", Enable, "ptr", pRect)
+        ComCall(13, this, "ptr", pVideoProcessor, BOOL, Enable, RECT.Ptr, pRect)
     }
 
     /**
@@ -188,7 +278,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetoutputbackgroundcolor
      */
     VideoProcessorSetOutputBackgroundColor(pVideoProcessor, YCbCr, pColor) {
-        ComCall(14, this, "ptr", pVideoProcessor, "int", YCbCr, "ptr", pColor)
+        ComCall(14, this, "ptr", pVideoProcessor, BOOL, YCbCr, D3D11_VIDEO_COLOR.Ptr, pColor)
     }
 
     /**
@@ -199,7 +289,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetoutputcolorspace
      */
     VideoProcessorSetOutputColorSpace(pVideoProcessor, pColorSpace) {
-        ComCall(15, this, "ptr", pVideoProcessor, "ptr", pColorSpace)
+        ComCall(15, this, "ptr", pVideoProcessor, D3D11_VIDEO_PROCESSOR_COLOR_SPACE.Ptr, pColorSpace)
     }
 
     /**
@@ -217,7 +307,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetoutputalphafillmode
      */
     VideoProcessorSetOutputAlphaFillMode(pVideoProcessor, AlphaFillMode, StreamIndex) {
-        ComCall(16, this, "ptr", pVideoProcessor, "int", AlphaFillMode, "uint", StreamIndex)
+        ComCall(16, this, "ptr", pVideoProcessor, D3D11_VIDEO_PROCESSOR_ALPHA_FILL_MODE, AlphaFillMode, "uint", StreamIndex)
     }
 
     /**
@@ -237,7 +327,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetoutputconstriction
      */
     VideoProcessorSetOutputConstriction(pVideoProcessor, Enable, _Size) {
-        ComCall(17, this, "ptr", pVideoProcessor, "int", Enable, "ptr", _Size)
+        ComCall(17, this, "ptr", pVideoProcessor, BOOL, Enable, SIZE, _Size)
     }
 
     /**
@@ -252,7 +342,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetoutputstereomode
      */
     VideoProcessorSetOutputStereoMode(pVideoProcessor, Enable) {
-        ComCall(18, this, "ptr", pVideoProcessor, "int", Enable)
+        ComCall(18, this, "ptr", pVideoProcessor, BOOL, Enable)
     }
 
     /**
@@ -267,7 +357,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
     VideoProcessorSetOutputExtension(pVideoProcessor, pExtensionGuid, DataSize, pData) {
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(19, this, "ptr", pVideoProcessor, "ptr", pExtensionGuid, "uint", DataSize, pDataMarshal, pData, "int")
+        result := ComCall(19, this, "ptr", pVideoProcessor, Guid.Ptr, pExtensionGuid, "uint", DataSize, pDataMarshal, pData, Int32)
         return result
     }
 
@@ -282,7 +372,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
     VideoProcessorGetOutputTargetRect(pVideoProcessor, Enabled, pRect) {
         EnabledMarshal := Enabled is VarRef ? "int*" : "ptr"
 
-        ComCall(20, this, "ptr", pVideoProcessor, EnabledMarshal, Enabled, "ptr", pRect)
+        ComCall(20, this, "ptr", pVideoProcessor, EnabledMarshal, Enabled, RECT.Ptr, pRect)
     }
 
     /**
@@ -296,7 +386,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
     VideoProcessorGetOutputBackgroundColor(pVideoProcessor, pYCbCr, pColor) {
         pYCbCrMarshal := pYCbCr is VarRef ? "int*" : "ptr"
 
-        ComCall(21, this, "ptr", pVideoProcessor, pYCbCrMarshal, pYCbCr, "ptr", pColor)
+        ComCall(21, this, "ptr", pVideoProcessor, pYCbCrMarshal, pYCbCr, D3D11_VIDEO_COLOR.Ptr, pColor)
     }
 
     /**
@@ -307,7 +397,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetoutputcolorspace
      */
     VideoProcessorGetOutputColorSpace(pVideoProcessor, pColorSpace) {
-        ComCall(22, this, "ptr", pVideoProcessor, "ptr", pColorSpace)
+        ComCall(22, this, "ptr", pVideoProcessor, D3D11_VIDEO_PROCESSOR_COLOR_SPACE.Ptr, pColorSpace)
     }
 
     /**
@@ -336,7 +426,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
     VideoProcessorGetOutputConstriction(pVideoProcessor, pEnabled, pSize) {
         pEnabledMarshal := pEnabled is VarRef ? "int*" : "ptr"
 
-        ComCall(24, this, "ptr", pVideoProcessor, pEnabledMarshal, pEnabled, "ptr", pSize)
+        ComCall(24, this, "ptr", pVideoProcessor, pEnabledMarshal, pEnabled, SIZE.Ptr, pSize)
     }
 
     /**
@@ -362,7 +452,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetoutputextension
      */
     VideoProcessorGetOutputExtension(pVideoProcessor, pExtensionGuid, DataSize, pData) {
-        result := ComCall(26, this, "ptr", pVideoProcessor, "ptr", pExtensionGuid, "uint", DataSize, "ptr", pData, "int")
+        result := ComCall(26, this, "ptr", pVideoProcessor, Guid.Ptr, pExtensionGuid, "uint", DataSize, "ptr", pData, Int32)
         return result
     }
 
@@ -375,7 +465,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetstreamframeformat
      */
     VideoProcessorSetStreamFrameFormat(pVideoProcessor, StreamIndex, FrameFormat) {
-        ComCall(27, this, "ptr", pVideoProcessor, "uint", StreamIndex, "int", FrameFormat)
+        ComCall(27, this, "ptr", pVideoProcessor, "uint", StreamIndex, D3D11_VIDEO_FRAME_FORMAT, FrameFormat)
     }
 
     /**
@@ -387,7 +477,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetstreamcolorspace
      */
     VideoProcessorSetStreamColorSpace(pVideoProcessor, StreamIndex, pColorSpace) {
-        ComCall(28, this, "ptr", pVideoProcessor, "uint", StreamIndex, "ptr", pColorSpace)
+        ComCall(28, this, "ptr", pVideoProcessor, "uint", StreamIndex, D3D11_VIDEO_PROCESSOR_COLOR_SPACE.Ptr, pColorSpace)
     }
 
     /**
@@ -432,7 +522,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetstreamoutputrate
      */
     VideoProcessorSetStreamOutputRate(pVideoProcessor, StreamIndex, OutputRate, RepeatFrame, pCustomRate) {
-        ComCall(29, this, "ptr", pVideoProcessor, "uint", StreamIndex, "int", OutputRate, "int", RepeatFrame, "ptr", pCustomRate)
+        ComCall(29, this, "ptr", pVideoProcessor, "uint", StreamIndex, D3D11_VIDEO_PROCESSOR_OUTPUT_RATE, OutputRate, BOOL, RepeatFrame, DXGI_RATIONAL.Ptr, pCustomRate)
     }
 
     /**
@@ -449,7 +539,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetstreamsourcerect
      */
     VideoProcessorSetStreamSourceRect(pVideoProcessor, StreamIndex, Enable, pRect) {
-        ComCall(30, this, "ptr", pVideoProcessor, "uint", StreamIndex, "int", Enable, "ptr", pRect)
+        ComCall(30, this, "ptr", pVideoProcessor, "uint", StreamIndex, BOOL, Enable, RECT.Ptr, pRect)
     }
 
     /**
@@ -466,7 +556,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetstreamdestrect
      */
     VideoProcessorSetStreamDestRect(pVideoProcessor, StreamIndex, Enable, pRect) {
-        ComCall(31, this, "ptr", pVideoProcessor, "uint", StreamIndex, "int", Enable, "ptr", pRect)
+        ComCall(31, this, "ptr", pVideoProcessor, "uint", StreamIndex, BOOL, Enable, RECT.Ptr, pRect)
     }
 
     /**
@@ -502,7 +592,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetstreamalpha
      */
     VideoProcessorSetStreamAlpha(pVideoProcessor, StreamIndex, Enable, Alpha) {
-        ComCall(32, this, "ptr", pVideoProcessor, "uint", StreamIndex, "int", Enable, "float", Alpha)
+        ComCall(32, this, "ptr", pVideoProcessor, "uint", StreamIndex, BOOL, Enable, "float", Alpha)
     }
 
     /**
@@ -543,7 +633,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetstreampixelaspectratio
      */
     VideoProcessorSetStreamPixelAspectRatio(pVideoProcessor, StreamIndex, Enable, pSourceAspectRatio, pDestinationAspectRatio) {
-        ComCall(34, this, "ptr", pVideoProcessor, "uint", StreamIndex, "int", Enable, "ptr", pSourceAspectRatio, "ptr", pDestinationAspectRatio)
+        ComCall(34, this, "ptr", pVideoProcessor, "uint", StreamIndex, BOOL, Enable, DXGI_RATIONAL.Ptr, pSourceAspectRatio, DXGI_RATIONAL.Ptr, pDestinationAspectRatio)
     }
 
     /**
@@ -571,7 +661,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetstreamlumakey
      */
     VideoProcessorSetStreamLumaKey(pVideoProcessor, StreamIndex, Enable, Lower, Upper) {
-        ComCall(35, this, "ptr", pVideoProcessor, "uint", StreamIndex, "int", Enable, "float", Lower, "float", Upper)
+        ComCall(35, this, "ptr", pVideoProcessor, "uint", StreamIndex, BOOL, Enable, "float", Lower, "float", Upper)
     }
 
     /**
@@ -613,7 +703,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetstreamstereoformat
      */
     VideoProcessorSetStreamStereoFormat(pVideoProcessor, StreamIndex, Enable, Format, LeftViewFrame0, BaseViewFrame0, FlipMode, MonoOffset) {
-        ComCall(36, this, "ptr", pVideoProcessor, "uint", StreamIndex, "int", Enable, "int", Format, "int", LeftViewFrame0, "int", BaseViewFrame0, "int", FlipMode, "int", MonoOffset)
+        ComCall(36, this, "ptr", pVideoProcessor, "uint", StreamIndex, BOOL, Enable, D3D11_VIDEO_PROCESSOR_STEREO_FORMAT, Format, BOOL, LeftViewFrame0, BOOL, BaseViewFrame0, D3D11_VIDEO_PROCESSOR_STEREO_FLIP_MODE, FlipMode, "int", MonoOffset)
     }
 
     /**
@@ -627,7 +717,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetstreamautoprocessingmode
      */
     VideoProcessorSetStreamAutoProcessingMode(pVideoProcessor, StreamIndex, Enable) {
-        ComCall(37, this, "ptr", pVideoProcessor, "uint", StreamIndex, "int", Enable)
+        ComCall(37, this, "ptr", pVideoProcessor, "uint", StreamIndex, BOOL, Enable)
     }
 
     /**
@@ -645,7 +735,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetstreamfilter
      */
     VideoProcessorSetStreamFilter(pVideoProcessor, StreamIndex, Filter, Enable, Level) {
-        ComCall(38, this, "ptr", pVideoProcessor, "uint", StreamIndex, "int", Filter, "int", Enable, "int", Level)
+        ComCall(38, this, "ptr", pVideoProcessor, "uint", StreamIndex, D3D11_VIDEO_PROCESSOR_FILTER, Filter, BOOL, Enable, "int", Level)
     }
 
     /**
@@ -661,7 +751,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
     VideoProcessorSetStreamExtension(pVideoProcessor, StreamIndex, pExtensionGuid, DataSize, pData) {
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(39, this, "ptr", pVideoProcessor, "uint", StreamIndex, "ptr", pExtensionGuid, "uint", DataSize, pDataMarshal, pData, "int")
+        result := ComCall(39, this, "ptr", pVideoProcessor, "uint", StreamIndex, Guid.Ptr, pExtensionGuid, "uint", DataSize, pDataMarshal, pData, Int32)
         return result
     }
 
@@ -688,7 +778,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamcolorspace
      */
     VideoProcessorGetStreamColorSpace(pVideoProcessor, StreamIndex, pColorSpace) {
-        ComCall(41, this, "ptr", pVideoProcessor, "uint", StreamIndex, "ptr", pColorSpace)
+        ComCall(41, this, "ptr", pVideoProcessor, "uint", StreamIndex, D3D11_VIDEO_PROCESSOR_COLOR_SPACE.Ptr, pColorSpace)
     }
 
     /**
@@ -734,7 +824,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
         pOutputRateMarshal := pOutputRate is VarRef ? "int*" : "ptr"
         pRepeatFrameMarshal := pRepeatFrame is VarRef ? "int*" : "ptr"
 
-        ComCall(42, this, "ptr", pVideoProcessor, "uint", StreamIndex, pOutputRateMarshal, pOutputRate, pRepeatFrameMarshal, pRepeatFrame, "ptr", pCustomRate)
+        ComCall(42, this, "ptr", pVideoProcessor, "uint", StreamIndex, pOutputRateMarshal, pOutputRate, pRepeatFrameMarshal, pRepeatFrame, DXGI_RATIONAL.Ptr, pCustomRate)
     }
 
     /**
@@ -749,7 +839,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
     VideoProcessorGetStreamSourceRect(pVideoProcessor, StreamIndex, pEnabled, pRect) {
         pEnabledMarshal := pEnabled is VarRef ? "int*" : "ptr"
 
-        ComCall(43, this, "ptr", pVideoProcessor, "uint", StreamIndex, pEnabledMarshal, pEnabled, "ptr", pRect)
+        ComCall(43, this, "ptr", pVideoProcessor, "uint", StreamIndex, pEnabledMarshal, pEnabled, RECT.Ptr, pRect)
     }
 
     /**
@@ -764,7 +854,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
     VideoProcessorGetStreamDestRect(pVideoProcessor, StreamIndex, pEnabled, pRect) {
         pEnabledMarshal := pEnabled is VarRef ? "int*" : "ptr"
 
-        ComCall(44, this, "ptr", pVideoProcessor, "uint", StreamIndex, pEnabledMarshal, pEnabled, "ptr", pRect)
+        ComCall(44, this, "ptr", pVideoProcessor, "uint", StreamIndex, pEnabledMarshal, pEnabled, RECT.Ptr, pRect)
     }
 
     /**
@@ -815,7 +905,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
     VideoProcessorGetStreamPixelAspectRatio(pVideoProcessor, StreamIndex, pEnabled, pSourceAspectRatio, pDestinationAspectRatio) {
         pEnabledMarshal := pEnabled is VarRef ? "int*" : "ptr"
 
-        ComCall(47, this, "ptr", pVideoProcessor, "uint", StreamIndex, pEnabledMarshal, pEnabled, "ptr", pSourceAspectRatio, "ptr", pDestinationAspectRatio)
+        ComCall(47, this, "ptr", pVideoProcessor, "uint", StreamIndex, pEnabledMarshal, pEnabled, DXGI_RATIONAL.Ptr, pSourceAspectRatio, DXGI_RATIONAL.Ptr, pDestinationAspectRatio)
     }
 
     /**
@@ -944,7 +1034,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
         pEnabledMarshal := pEnabled is VarRef ? "int*" : "ptr"
         pLevelMarshal := pLevel is VarRef ? "int*" : "ptr"
 
-        ComCall(51, this, "ptr", pVideoProcessor, "uint", StreamIndex, "int", Filter, pEnabledMarshal, pEnabled, pLevelMarshal, pLevel)
+        ComCall(51, this, "ptr", pVideoProcessor, "uint", StreamIndex, D3D11_VIDEO_PROCESSOR_FILTER, Filter, pEnabledMarshal, pEnabled, pLevelMarshal, pLevel)
     }
 
     /**
@@ -958,7 +1048,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamextension
      */
     VideoProcessorGetStreamExtension(pVideoProcessor, StreamIndex, pExtensionGuid, DataSize, pData) {
-        result := ComCall(52, this, "ptr", pVideoProcessor, "uint", StreamIndex, "ptr", pExtensionGuid, "uint", DataSize, "ptr", pData, "int")
+        result := ComCall(52, this, "ptr", pVideoProcessor, "uint", StreamIndex, Guid.Ptr, pExtensionGuid, "uint", DataSize, "ptr", pData, Int32)
         return result
     }
 
@@ -992,7 +1082,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorblt
      */
     VideoProcessorBlt(pVideoProcessor, pView, OutputFrame, StreamCount, pStreams) {
-        result := ComCall(53, this, "ptr", pVideoProcessor, "ptr", pView, "uint", OutputFrame, "uint", StreamCount, "ptr", pStreams, "HRESULT")
+        result := ComCall(53, this, "ptr", pVideoProcessor, "ptr", pView, "uint", OutputFrame, "uint", StreamCount, D3D11_VIDEO_PROCESSOR_STREAM.Ptr, pStreams, "HRESULT")
         return result
     }
 
@@ -1096,7 +1186,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-decryptionblt
      */
     DecryptionBlt(pCryptoSession, pSrcSurface, pDstSurface, pEncryptedBlockInfo, ContentKeySize, pContentKey, IVSize, pIV) {
-        ComCall(56, this, "ptr", pCryptoSession, "ptr", pSrcSurface, "ptr", pDstSurface, "ptr", pEncryptedBlockInfo, "uint", ContentKeySize, "ptr", pContentKey, "uint", IVSize, "ptr", pIV)
+        ComCall(56, this, "ptr", pCryptoSession, "ptr", pSrcSurface, "ptr", pDstSurface, D3D11_ENCRYPTED_BLOCK_INFO.Ptr, pEncryptedBlockInfo, "uint", ContentKeySize, "ptr", pContentKey, "uint", IVSize, "ptr", pIV)
     }
 
     /**
@@ -1190,7 +1280,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
      */
     ConfigureAuthenticatedChannel(pChannel, InputSize, pInput) {
         pOutput := D3D11_AUTHENTICATED_CONFIGURE_OUTPUT()
-        result := ComCall(62, this, "ptr", pChannel, "uint", InputSize, "ptr", pInput, "ptr", pOutput, "HRESULT")
+        result := ComCall(62, this, "ptr", pChannel, "uint", InputSize, "ptr", pInput, D3D11_AUTHENTICATED_CONFIGURE_OUTPUT.Ptr, pOutput, "HRESULT")
         return pOutput
     }
 
@@ -1208,7 +1298,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetstreamrotation
      */
     VideoProcessorSetStreamRotation(pVideoProcessor, StreamIndex, Enable, Rotation) {
-        ComCall(63, this, "ptr", pVideoProcessor, "uint", StreamIndex, "int", Enable, "int", Rotation)
+        ComCall(63, this, "ptr", pVideoProcessor, "uint", StreamIndex, BOOL, Enable, D3D11_VIDEO_PROCESSOR_ROTATION, Rotation)
     }
 
     /**
@@ -1225,5 +1315,139 @@ class ID3D11VideoContext extends ID3D11DeviceChild {
         pRotationMarshal := pRotation is VarRef ? "int*" : "ptr"
 
         ComCall(64, this, "ptr", pVideoProcessor, "uint", StreamIndex, pEnableMarshal, pEnable, pRotationMarshal, pRotation)
+    }
+
+    Query(iid) {
+        if (ID3D11VideoContext.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDecoderBuffer := CallbackCreate(GetMethod(implObj, "GetDecoderBuffer"), flags, 5)
+        this.vtbl.ReleaseDecoderBuffer := CallbackCreate(GetMethod(implObj, "ReleaseDecoderBuffer"), flags, 3)
+        this.vtbl.DecoderBeginFrame := CallbackCreate(GetMethod(implObj, "DecoderBeginFrame"), flags, 5)
+        this.vtbl.DecoderEndFrame := CallbackCreate(GetMethod(implObj, "DecoderEndFrame"), flags, 2)
+        this.vtbl.SubmitDecoderBuffers := CallbackCreate(GetMethod(implObj, "SubmitDecoderBuffers"), flags, 4)
+        this.vtbl.DecoderExtension := CallbackCreate(GetMethod(implObj, "DecoderExtension"), flags, 3)
+        this.vtbl.VideoProcessorSetOutputTargetRect := CallbackCreate(GetMethod(implObj, "VideoProcessorSetOutputTargetRect"), flags, 4)
+        this.vtbl.VideoProcessorSetOutputBackgroundColor := CallbackCreate(GetMethod(implObj, "VideoProcessorSetOutputBackgroundColor"), flags, 4)
+        this.vtbl.VideoProcessorSetOutputColorSpace := CallbackCreate(GetMethod(implObj, "VideoProcessorSetOutputColorSpace"), flags, 3)
+        this.vtbl.VideoProcessorSetOutputAlphaFillMode := CallbackCreate(GetMethod(implObj, "VideoProcessorSetOutputAlphaFillMode"), flags, 4)
+        this.vtbl.VideoProcessorSetOutputConstriction := CallbackCreate(GetMethod(implObj, "VideoProcessorSetOutputConstriction"), flags, 4)
+        this.vtbl.VideoProcessorSetOutputStereoMode := CallbackCreate(GetMethod(implObj, "VideoProcessorSetOutputStereoMode"), flags, 3)
+        this.vtbl.VideoProcessorSetOutputExtension := CallbackCreate(GetMethod(implObj, "VideoProcessorSetOutputExtension"), flags, 5)
+        this.vtbl.VideoProcessorGetOutputTargetRect := CallbackCreate(GetMethod(implObj, "VideoProcessorGetOutputTargetRect"), flags, 4)
+        this.vtbl.VideoProcessorGetOutputBackgroundColor := CallbackCreate(GetMethod(implObj, "VideoProcessorGetOutputBackgroundColor"), flags, 4)
+        this.vtbl.VideoProcessorGetOutputColorSpace := CallbackCreate(GetMethod(implObj, "VideoProcessorGetOutputColorSpace"), flags, 3)
+        this.vtbl.VideoProcessorGetOutputAlphaFillMode := CallbackCreate(GetMethod(implObj, "VideoProcessorGetOutputAlphaFillMode"), flags, 4)
+        this.vtbl.VideoProcessorGetOutputConstriction := CallbackCreate(GetMethod(implObj, "VideoProcessorGetOutputConstriction"), flags, 4)
+        this.vtbl.VideoProcessorGetOutputStereoMode := CallbackCreate(GetMethod(implObj, "VideoProcessorGetOutputStereoMode"), flags, 3)
+        this.vtbl.VideoProcessorGetOutputExtension := CallbackCreate(GetMethod(implObj, "VideoProcessorGetOutputExtension"), flags, 5)
+        this.vtbl.VideoProcessorSetStreamFrameFormat := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamFrameFormat"), flags, 4)
+        this.vtbl.VideoProcessorSetStreamColorSpace := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamColorSpace"), flags, 4)
+        this.vtbl.VideoProcessorSetStreamOutputRate := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamOutputRate"), flags, 6)
+        this.vtbl.VideoProcessorSetStreamSourceRect := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamSourceRect"), flags, 5)
+        this.vtbl.VideoProcessorSetStreamDestRect := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamDestRect"), flags, 5)
+        this.vtbl.VideoProcessorSetStreamAlpha := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamAlpha"), flags, 5)
+        this.vtbl.VideoProcessorSetStreamPalette := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamPalette"), flags, 5)
+        this.vtbl.VideoProcessorSetStreamPixelAspectRatio := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamPixelAspectRatio"), flags, 6)
+        this.vtbl.VideoProcessorSetStreamLumaKey := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamLumaKey"), flags, 6)
+        this.vtbl.VideoProcessorSetStreamStereoFormat := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamStereoFormat"), flags, 9)
+        this.vtbl.VideoProcessorSetStreamAutoProcessingMode := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamAutoProcessingMode"), flags, 4)
+        this.vtbl.VideoProcessorSetStreamFilter := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamFilter"), flags, 6)
+        this.vtbl.VideoProcessorSetStreamExtension := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamExtension"), flags, 6)
+        this.vtbl.VideoProcessorGetStreamFrameFormat := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamFrameFormat"), flags, 4)
+        this.vtbl.VideoProcessorGetStreamColorSpace := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamColorSpace"), flags, 4)
+        this.vtbl.VideoProcessorGetStreamOutputRate := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamOutputRate"), flags, 6)
+        this.vtbl.VideoProcessorGetStreamSourceRect := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamSourceRect"), flags, 5)
+        this.vtbl.VideoProcessorGetStreamDestRect := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamDestRect"), flags, 5)
+        this.vtbl.VideoProcessorGetStreamAlpha := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamAlpha"), flags, 5)
+        this.vtbl.VideoProcessorGetStreamPalette := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamPalette"), flags, 5)
+        this.vtbl.VideoProcessorGetStreamPixelAspectRatio := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamPixelAspectRatio"), flags, 6)
+        this.vtbl.VideoProcessorGetStreamLumaKey := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamLumaKey"), flags, 6)
+        this.vtbl.VideoProcessorGetStreamStereoFormat := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamStereoFormat"), flags, 9)
+        this.vtbl.VideoProcessorGetStreamAutoProcessingMode := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamAutoProcessingMode"), flags, 4)
+        this.vtbl.VideoProcessorGetStreamFilter := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamFilter"), flags, 6)
+        this.vtbl.VideoProcessorGetStreamExtension := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamExtension"), flags, 6)
+        this.vtbl.VideoProcessorBlt := CallbackCreate(GetMethod(implObj, "VideoProcessorBlt"), flags, 6)
+        this.vtbl.NegotiateCryptoSessionKeyExchange := CallbackCreate(GetMethod(implObj, "NegotiateCryptoSessionKeyExchange"), flags, 4)
+        this.vtbl.EncryptionBlt := CallbackCreate(GetMethod(implObj, "EncryptionBlt"), flags, 6)
+        this.vtbl.DecryptionBlt := CallbackCreate(GetMethod(implObj, "DecryptionBlt"), flags, 9)
+        this.vtbl.StartSessionKeyRefresh := CallbackCreate(GetMethod(implObj, "StartSessionKeyRefresh"), flags, 4)
+        this.vtbl.FinishSessionKeyRefresh := CallbackCreate(GetMethod(implObj, "FinishSessionKeyRefresh"), flags, 2)
+        this.vtbl.GetEncryptionBltKey := CallbackCreate(GetMethod(implObj, "GetEncryptionBltKey"), flags, 4)
+        this.vtbl.NegotiateAuthenticatedChannelKeyExchange := CallbackCreate(GetMethod(implObj, "NegotiateAuthenticatedChannelKeyExchange"), flags, 4)
+        this.vtbl.QueryAuthenticatedChannel := CallbackCreate(GetMethod(implObj, "QueryAuthenticatedChannel"), flags, 6)
+        this.vtbl.ConfigureAuthenticatedChannel := CallbackCreate(GetMethod(implObj, "ConfigureAuthenticatedChannel"), flags, 5)
+        this.vtbl.VideoProcessorSetStreamRotation := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamRotation"), flags, 5)
+        this.vtbl.VideoProcessorGetStreamRotation := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamRotation"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDecoderBuffer)
+        CallbackFree(this.vtbl.ReleaseDecoderBuffer)
+        CallbackFree(this.vtbl.DecoderBeginFrame)
+        CallbackFree(this.vtbl.DecoderEndFrame)
+        CallbackFree(this.vtbl.SubmitDecoderBuffers)
+        CallbackFree(this.vtbl.DecoderExtension)
+        CallbackFree(this.vtbl.VideoProcessorSetOutputTargetRect)
+        CallbackFree(this.vtbl.VideoProcessorSetOutputBackgroundColor)
+        CallbackFree(this.vtbl.VideoProcessorSetOutputColorSpace)
+        CallbackFree(this.vtbl.VideoProcessorSetOutputAlphaFillMode)
+        CallbackFree(this.vtbl.VideoProcessorSetOutputConstriction)
+        CallbackFree(this.vtbl.VideoProcessorSetOutputStereoMode)
+        CallbackFree(this.vtbl.VideoProcessorSetOutputExtension)
+        CallbackFree(this.vtbl.VideoProcessorGetOutputTargetRect)
+        CallbackFree(this.vtbl.VideoProcessorGetOutputBackgroundColor)
+        CallbackFree(this.vtbl.VideoProcessorGetOutputColorSpace)
+        CallbackFree(this.vtbl.VideoProcessorGetOutputAlphaFillMode)
+        CallbackFree(this.vtbl.VideoProcessorGetOutputConstriction)
+        CallbackFree(this.vtbl.VideoProcessorGetOutputStereoMode)
+        CallbackFree(this.vtbl.VideoProcessorGetOutputExtension)
+        CallbackFree(this.vtbl.VideoProcessorSetStreamFrameFormat)
+        CallbackFree(this.vtbl.VideoProcessorSetStreamColorSpace)
+        CallbackFree(this.vtbl.VideoProcessorSetStreamOutputRate)
+        CallbackFree(this.vtbl.VideoProcessorSetStreamSourceRect)
+        CallbackFree(this.vtbl.VideoProcessorSetStreamDestRect)
+        CallbackFree(this.vtbl.VideoProcessorSetStreamAlpha)
+        CallbackFree(this.vtbl.VideoProcessorSetStreamPalette)
+        CallbackFree(this.vtbl.VideoProcessorSetStreamPixelAspectRatio)
+        CallbackFree(this.vtbl.VideoProcessorSetStreamLumaKey)
+        CallbackFree(this.vtbl.VideoProcessorSetStreamStereoFormat)
+        CallbackFree(this.vtbl.VideoProcessorSetStreamAutoProcessingMode)
+        CallbackFree(this.vtbl.VideoProcessorSetStreamFilter)
+        CallbackFree(this.vtbl.VideoProcessorSetStreamExtension)
+        CallbackFree(this.vtbl.VideoProcessorGetStreamFrameFormat)
+        CallbackFree(this.vtbl.VideoProcessorGetStreamColorSpace)
+        CallbackFree(this.vtbl.VideoProcessorGetStreamOutputRate)
+        CallbackFree(this.vtbl.VideoProcessorGetStreamSourceRect)
+        CallbackFree(this.vtbl.VideoProcessorGetStreamDestRect)
+        CallbackFree(this.vtbl.VideoProcessorGetStreamAlpha)
+        CallbackFree(this.vtbl.VideoProcessorGetStreamPalette)
+        CallbackFree(this.vtbl.VideoProcessorGetStreamPixelAspectRatio)
+        CallbackFree(this.vtbl.VideoProcessorGetStreamLumaKey)
+        CallbackFree(this.vtbl.VideoProcessorGetStreamStereoFormat)
+        CallbackFree(this.vtbl.VideoProcessorGetStreamAutoProcessingMode)
+        CallbackFree(this.vtbl.VideoProcessorGetStreamFilter)
+        CallbackFree(this.vtbl.VideoProcessorGetStreamExtension)
+        CallbackFree(this.vtbl.VideoProcessorBlt)
+        CallbackFree(this.vtbl.NegotiateCryptoSessionKeyExchange)
+        CallbackFree(this.vtbl.EncryptionBlt)
+        CallbackFree(this.vtbl.DecryptionBlt)
+        CallbackFree(this.vtbl.StartSessionKeyRefresh)
+        CallbackFree(this.vtbl.FinishSessionKeyRefresh)
+        CallbackFree(this.vtbl.GetEncryptionBltKey)
+        CallbackFree(this.vtbl.NegotiateAuthenticatedChannelKeyExchange)
+        CallbackFree(this.vtbl.QueryAuthenticatedChannel)
+        CallbackFree(this.vtbl.ConfigureAuthenticatedChannel)
+        CallbackFree(this.vtbl.VideoProcessorSetStreamRotation)
+        CallbackFree(this.vtbl.VideoProcessorGetStreamRotation)
     }
 }

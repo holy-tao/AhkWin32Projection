@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSDXML_ELEMENT.ahk
-#Include .\WSDXML_ATTRIBUTE.ahk
-#Include .\WSDXML_NAME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
+#Import ".\WSDXML_NAME.ahk" { WSDXML_NAME }
 
 /**
  * Describes an XML attribute.
@@ -11,44 +10,31 @@
  * @see https://learn.microsoft.com/windows/win32/api/wsdxmldom/ns-wsdxmldom-wsdxml_attribute
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class WSDXML_ATTRIBUTE extends Win32Struct {
-    static sizeof => 32
+export default struct WSDXML_ATTRIBUTE {
+    #StructPack 8
 
-    static packingSize => 8
-
+    __Element_ptr : IntPtr
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_element">WSDXML_ELEMENT</a> structure that specifies parent element of the attribute.
-     * @type {Pointer<WSDXML_ELEMENT>}
      */
     Element {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get => (addr := this.__Element_ptr) ? WSDXML_ELEMENT.At(addr) : unset
+        set => this.__Element_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
     /**
      * Reference to a <b>WSDXML_ATTRIBUTE</b> structure that specifies the next sibling attribute, if any.
-     * @type {Pointer<WSDXML_ATTRIBUTE>}
      */
-    Next {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Next : WSDXML_ATTRIBUTE.Ptr
 
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_name">WSDXML_NAME</a> structure that specifies the qualified name of the attribute.
-     * @type {Pointer<WSDXML_NAME>}
      */
-    Name {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Name : WSDXML_NAME.Ptr
 
     /**
      * The value of the attribute.
-     * @type {PWSTR}
      */
-    Value {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Value : PWSTR
+
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used to store state information for IPsec DoS Protection.
@@ -8,59 +7,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_dosp_state0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IPSEC_DOSP_STATE0 extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct IPSEC_DOSP_STATE0 {
+    #StructPack 8
 
     /**
      * The IPv6 address of the public host.
-     * @type {Array<Integer>}
      */
-    publicHostV6Addr {
-        get {
-            if(!this.HasProp("__publicHostV6AddrProxyArray"))
-                this.__publicHostV6AddrProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
-            return this.__publicHostV6AddrProxyArray
-        }
-    }
+    publicHostV6Addr : Int8[16]
 
     /**
      * The IPv6 address of the internal host.
-     * @type {Array<Integer>}
      */
-    internalHostV6Addr {
-        get {
-            if(!this.HasProp("__internalHostV6AddrProxyArray"))
-                this.__internalHostV6AddrProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
-            return this.__internalHostV6AddrProxyArray
-        }
-    }
+    internalHostV6Addr : Int8[16]
 
     /**
      * The total number of inbound IPv6 IPsec packets that have been allowed since the state entry was created.
-     * @type {Integer}
      */
-    totalInboundIPv6IPsecAuthPackets {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    totalInboundIPv6IPsecAuthPackets : Int64
 
     /**
      * The total number of outbound IPv6 IPsec packets that have been allowed since the state entry was created.
-     * @type {Integer}
      */
-    totalOutboundIPv6IPsecAuthPackets {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    totalOutboundIPv6IPsecAuthPackets : Int64
 
     /**
      * The duration, in seconds, since the state entry was created.
-     * @type {Integer}
      */
-    durationSecs {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    durationSecs : UInt32
+
 }

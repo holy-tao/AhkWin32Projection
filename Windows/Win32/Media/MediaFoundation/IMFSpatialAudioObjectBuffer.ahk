@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFMediaBuffer.ahk
-#Include ..\Audio\ISpatialAudioMetadataItems.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFMediaBuffer.ahk" { IMFMediaBuffer }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Audio\ISpatialAudioMetadataItems.ahk" { ISpatialAudioMetadataItems }
+#Import "..\Audio\AudioObjectType.ahk" { AudioObjectType }
 
 /**
  * Represents a section of audio data with associated positional and rendering metadata. Spatial audio objects are stored in IMFSpatialAudioSample instances, and allow passing of spatial audio information between Media Foundation components.
@@ -11,26 +13,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfspatialaudio/nn-mfspatialaudio-imfspatialaudioobjectbuffer
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFSpatialAudioObjectBuffer extends IMFMediaBuffer {
-
-    static sizeof => A_PtrSize
+export default struct IMFSpatialAudioObjectBuffer extends IMFMediaBuffer {
     /**
      * The interface identifier for IMFSpatialAudioObjectBuffer
      * @type {Guid}
      */
-    static IID => Guid("{d396ec8c-605e-4249-978d-72ad1c312872}")
+    static IID := Guid("{d396ec8c-605e-4249-978d-72ad1c312872}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFSpatialAudioObjectBuffer interfaces
+    */
+    struct Vtbl extends IMFMediaBuffer.Vtbl {
+        SetID            : IntPtr
+        GetID            : IntPtr
+        SetType          : IntPtr
+        GetType          : IntPtr
+        GetMetadataItems : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetID", "GetID", "SetType", "GetType", "GetMetadataItems"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFSpatialAudioObjectBuffer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the ID of the spatial audio object represented by the buffer.
@@ -84,7 +97,7 @@ class IMFSpatialAudioObjectBuffer extends IMFMediaBuffer {
      * @see https://learn.microsoft.com/windows/win32/api/mfspatialaudio/nf-mfspatialaudio-imfspatialaudioobjectbuffer-settype
      */
     SetType(type) {
-        result := ComCall(10, this, "int", type, "HRESULT")
+        result := ComCall(10, this, AudioObjectType, type, "HRESULT")
         return result
     }
 
@@ -109,5 +122,33 @@ class IMFSpatialAudioObjectBuffer extends IMFMediaBuffer {
     GetMetadataItems() {
         result := ComCall(12, this, "ptr*", &ppMetadataItems := 0, "HRESULT")
         return ISpatialAudioMetadataItems(ppMetadataItems)
+    }
+
+    Query(iid) {
+        if (IMFSpatialAudioObjectBuffer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetID := CallbackCreate(GetMethod(implObj, "SetID"), flags, 2)
+        this.vtbl.GetID := CallbackCreate(GetMethod(implObj, "GetID"), flags, 2)
+        this.vtbl.SetType := CallbackCreate(GetMethod(implObj, "SetType"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetMetadataItems := CallbackCreate(GetMethod(implObj, "GetMetadataItems"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetID)
+        CallbackFree(this.vtbl.GetID)
+        CallbackFree(this.vtbl.SetType)
+        CallbackFree(this.vtbl.GetType)
+        CallbackFree(this.vtbl.GetMetadataItems)
     }
 }

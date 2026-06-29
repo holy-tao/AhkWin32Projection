@@ -1,115 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Environment
  */
-class VBS_BASIC_ENCLAVE_SYSCALL_PAGE extends Win32Struct {
-    static sizeof => 104
+export default struct VBS_BASIC_ENCLAVE_SYSCALL_PAGE {
+    #StructPack 8
 
-    static packingSize => 8
+    ReturnFromEnclave : IntPtr
 
-    /**
-     * @type {Pointer<VBS_BASIC_ENCLAVE_BASIC_CALL_RETURN_FROM_ENCLAVE>}
-     */
-    ReturnFromEnclave {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ReturnFromException : IntPtr
 
-    /**
-     * @type {Pointer<VBS_BASIC_ENCLAVE_BASIC_CALL_RETURN_FROM_EXCEPTION>}
-     */
-    ReturnFromException {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    TerminateThread : IntPtr
 
-    /**
-     * @type {Pointer<VBS_BASIC_ENCLAVE_BASIC_CALL_TERMINATE_THREAD>}
-     */
-    TerminateThread {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    InterruptThread : IntPtr
 
-    /**
-     * @type {Pointer<VBS_BASIC_ENCLAVE_BASIC_CALL_INTERRUPT_THREAD>}
-     */
-    InterruptThread {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    CommitPages : IntPtr
 
-    /**
-     * @type {Pointer<VBS_BASIC_ENCLAVE_BASIC_CALL_COMMIT_PAGES>}
-     */
-    CommitPages {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    DecommitPages : IntPtr
 
-    /**
-     * @type {Pointer<VBS_BASIC_ENCLAVE_BASIC_CALL_DECOMMIT_PAGES>}
-     */
-    DecommitPages {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    ProtectPages : IntPtr
 
-    /**
-     * @type {Pointer<VBS_BASIC_ENCLAVE_BASIC_CALL_PROTECT_PAGES>}
-     */
-    ProtectPages {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    CreateThread : IntPtr
 
-    /**
-     * @type {Pointer<VBS_BASIC_ENCLAVE_BASIC_CALL_CREATE_THREAD>}
-     */
-    CreateThread {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    GetEnclaveInformation : IntPtr
 
-    /**
-     * @type {Pointer<VBS_BASIC_ENCLAVE_BASIC_CALL_GET_ENCLAVE_INFORMATION>}
-     */
-    GetEnclaveInformation {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    GenerateKey : IntPtr
 
-    /**
-     * @type {Pointer<VBS_BASIC_ENCLAVE_BASIC_CALL_GENERATE_KEY>}
-     */
-    GenerateKey {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    GenerateReport : IntPtr
 
-    /**
-     * @type {Pointer<VBS_BASIC_ENCLAVE_BASIC_CALL_GENERATE_REPORT>}
-     */
-    GenerateReport {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    VerifyReport : IntPtr
 
-    /**
-     * @type {Pointer<VBS_BASIC_ENCLAVE_BASIC_CALL_VERIFY_REPORT>}
-     */
-    VerifyReport {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    GenerateRandomData : IntPtr
 
-    /**
-     * @type {Pointer<VBS_BASIC_ENCLAVE_BASIC_CALL_GENERATE_RANDOM_DATA>}
-     */
-    GenerateRandomData {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
 }

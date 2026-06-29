@@ -1,48 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The JOYINFO structure contains information about the joystick position and button state.
  * @see https://learn.microsoft.com/windows/win32/api/joystickapi/ns-joystickapi-joyinfo
  * @namespace Windows.Win32.Media.Multimedia
  */
-class JOYINFO extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct JOYINFO {
+    #StructPack 4
 
     /**
      * Current X-coordinate.
-     * @type {Integer}
      */
-    wXpos {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    wXpos : UInt32
 
     /**
      * Current Y-coordinate.
-     * @type {Integer}
      */
-    wYpos {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    wYpos : UInt32
 
     /**
      * Current Z-coordinate.
-     * @type {Integer}
      */
-    wZpos {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    wZpos : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wButtons {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    wButtons : UInt32
+
 }

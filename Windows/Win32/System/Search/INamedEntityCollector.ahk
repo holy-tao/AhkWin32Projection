@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IEntity.ahk" { IEntity }
+#Import ".\NAMED_ENTITY_CERTAINTY.ahk" { NAMED_ENTITY_CERTAINTY }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides a method to accumulate named entities as identified by an IConditionGenerator object.
  * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nn-structuredquery-inamedentitycollector
  * @namespace Windows.Win32.System.Search
  */
-class INamedEntityCollector extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct INamedEntityCollector extends IUnknown {
     /**
      * The interface identifier for INamedEntityCollector
      * @type {Guid}
      */
-    static IID => Guid("{af2440f6-8afc-47d0-9a7f-396a0acfb43d}")
+    static IID := Guid("{af2440f6-8afc-47d0-9a7f-396a0acfb43d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INamedEntityCollector interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Add : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Add"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INamedEntityCollector.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds a single (potential) named entity to this INamedEntityCollector collection, as identified in a tokenized span of the input string being parsed.
@@ -74,7 +85,27 @@ class INamedEntityCollector extends IUnknown {
     Add(beginSpan, endSpan, beginActual, endActual, pType, pszValue, certainty) {
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := ComCall(3, this, "uint", beginSpan, "uint", endSpan, "uint", beginActual, "uint", endActual, "ptr", pType, "ptr", pszValue, "int", certainty, "HRESULT")
+        result := ComCall(3, this, "uint", beginSpan, "uint", endSpan, "uint", beginActual, "uint", endActual, "ptr", pType, "ptr", pszValue, NAMED_ENTITY_CERTAINTY, certainty, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (INamedEntityCollector.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Add)
     }
 }

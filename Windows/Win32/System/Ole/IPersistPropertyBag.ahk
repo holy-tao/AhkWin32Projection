@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IPersist.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IErrorLog.ahk" { IErrorLog }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IPersist.ahk" { IPersist }
+#Import "..\Com\StructuredStorage\IPropertyBag.ahk" { IPropertyBag }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Works with [IPropertyBag](/windows/win32/api/oaidl/nn-oaidl-ipropertybag) and [IErrorlog](/windows/win32/api/oaidl/nn-oaidl-ierrorlog) to define an individual property-based persistence mechanism.
@@ -10,26 +14,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-ipersistpropertybag
  * @namespace Windows.Win32.System.Ole
  */
-class IPersistPropertyBag extends IPersist {
-
-    static sizeof => A_PtrSize
+export default struct IPersistPropertyBag extends IPersist {
     /**
      * The interface identifier for IPersistPropertyBag
      * @type {Guid}
      */
-    static IID => Guid("{37d84f60-42cb-11ce-8135-00aa004bb851}")
+    static IID := Guid("{37d84f60-42cb-11ce-8135-00aa004bb851}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPersistPropertyBag interfaces
+    */
+    struct Vtbl extends IPersist.Vtbl {
+        InitNew : IntPtr
+        Load    : IntPtr
+        Save    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitNew", "Load", "Save"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPersistPropertyBag.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Informs the object that it is being initialized as a newly created object.
@@ -72,7 +85,31 @@ class IPersistPropertyBag extends IPersist {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipersistpropertybag-save
      */
     Save(pPropBag, fClearDirty, fSaveAllProperties) {
-        result := ComCall(6, this, "ptr", pPropBag, "int", fClearDirty, "int", fSaveAllProperties, "HRESULT")
+        result := ComCall(6, this, "ptr", pPropBag, BOOL, fClearDirty, BOOL, fSaveAllProperties, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPersistPropertyBag.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitNew := CallbackCreate(GetMethod(implObj, "InitNew"), flags, 1)
+        this.vtbl.Load := CallbackCreate(GetMethod(implObj, "Load"), flags, 3)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitNew)
+        CallbackFree(this.vtbl.Load)
+        CallbackFree(this.vtbl.Save)
     }
 }

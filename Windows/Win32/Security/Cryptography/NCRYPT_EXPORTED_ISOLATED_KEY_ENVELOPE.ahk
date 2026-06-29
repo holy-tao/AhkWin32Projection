@@ -1,23 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NCRYPT_EXPORTED_ISOLATED_KEY_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NCRYPT_EXPORTED_ISOLATED_KEY_HEADER.ahk" { NCRYPT_EXPORTED_ISOLATED_KEY_HEADER }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class NCRYPT_EXPORTED_ISOLATED_KEY_ENVELOPE extends Win32Struct {
-    static sizeof => 32
+export default struct NCRYPT_EXPORTED_ISOLATED_KEY_ENVELOPE {
+    #StructPack 4
 
-    static packingSize => 4
+    Header : NCRYPT_EXPORTED_ISOLATED_KEY_HEADER
 
-    /**
-     * @type {NCRYPT_EXPORTED_ISOLATED_KEY_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NCRYPT_EXPORTED_ISOLATED_KEY_HEADER(0, this)
-            return this.__Header
-        }
-    }
 }

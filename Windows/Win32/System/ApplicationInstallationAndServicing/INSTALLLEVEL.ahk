@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The INSTALLLEVEL property is the initial level at which features are selected &\#0034;ON&\#0034; for installation by default.
@@ -23,7 +22,17 @@
  * @see https://learn.microsoft.com/windows/win32/Msi/installlevel
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
-class INSTALLLEVEL extends Win32Enum {
+export default struct INSTALLLEVEL {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

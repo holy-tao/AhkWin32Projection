@@ -1,32 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IDebugHostMemory.ahk
-#Include .\Location.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDebugHostMemory.ahk" { IDebugHostMemory }
+#Import ".\IDebugHostContext.ahk" { IDebugHostContext }
+#Import ".\Location.ahk" { Location }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IDebugHostMemory2 extends IDebugHostMemory {
-
-    static sizeof => A_PtrSize
+export default struct IDebugHostMemory2 extends IDebugHostMemory {
     /**
      * The interface identifier for IDebugHostMemory2
      * @type {Guid}
      */
-    static IID => Guid("{eea033de-38f6-416b-a251-1d3771001270}")
+    static IID := Guid("{eea033de-38f6-416b-a251-1d3771001270}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDebugHostMemory2 interfaces
+    */
+    struct Vtbl extends IDebugHostMemory.Vtbl {
+        LinearizeLocation : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["LinearizeLocation"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDebugHostMemory2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -36,7 +45,27 @@ class IDebugHostMemory2 extends IDebugHostMemory {
      */
     LinearizeLocation(_context, _location) {
         pLinearizedLocation := Location()
-        result := ComCall(8, this, "ptr", _context, "ptr", _location, "ptr", pLinearizedLocation, "HRESULT")
+        result := ComCall(8, this, "ptr", _context, Location, _location, Location.Ptr, pLinearizedLocation, "HRESULT")
         return pLinearizedLocation
+    }
+
+    Query(iid) {
+        if (IDebugHostMemory2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.LinearizeLocation := CallbackCreate(GetMethod(implObj, "LinearizeLocation"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.LinearizeLocation)
     }
 }

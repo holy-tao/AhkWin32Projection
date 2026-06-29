@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\INTERNET_PER_CONN_OPTIONA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\INTERNET_PER_CONN_OPTIONA.ahk" { INTERNET_PER_CONN_OPTIONA }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains the list of options for a particular Internet connection. (ANSI)
@@ -23,55 +23,34 @@
  * @namespace Windows.Win32.Networking.WinInet
  * @charset ANSI
  */
-class INTERNET_PER_CONN_OPTION_LISTA extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct INTERNET_PER_CONN_OPTION_LISTA {
+    #StructPack 8
 
     /**
      * Size of the 
      * structure, in bytes.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Pointer to a string that contains the name of the RAS connection or <b>NULL</b>, which indicates the default or LAN connection, to set or query options on.
-     * @type {PSTR}
      */
-    pszConnection {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszConnection : PSTR
 
     /**
      * Number of options to query or set.
-     * @type {Integer}
      */
-    dwOptionCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwOptionCount : UInt32
 
     /**
      * Options that failed, if an error occurs.
-     * @type {Integer}
      */
-    dwOptionError {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwOptionError : UInt32
 
     /**
      * Pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_per_conn_optiona">INTERNET_PER_CONN_OPTION</a> structures containing the options to query or set.
-     * @type {Pointer<INTERNET_PER_CONN_OPTIONA>}
      */
-    pOptions {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pOptions : INTERNET_PER_CONN_OPTIONA.Ptr
+
 }

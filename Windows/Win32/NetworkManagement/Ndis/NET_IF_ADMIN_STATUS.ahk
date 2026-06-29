@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The NET_IF_ADMIN_STATUS enumeration type specifies the NDIS network interface administrative status, as described in RFC 2863.
@@ -9,7 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/ifdef/ne-ifdef-net_if_admin_status
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NET_IF_ADMIN_STATUS extends Win32Enum {
+export default struct NET_IF_ADMIN_STATUS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies that the interface is initialized and enabled, but the interface is not necessarily

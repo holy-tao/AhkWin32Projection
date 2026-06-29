@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Ole\IOleWindow.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Ole\IOleWindow.ahk" { IOleWindow }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that manage the border space for one or more IDockingWindow objects. This interface is implemented by the browser and is similar to the IOleInPlaceUIWindow interface.
@@ -36,26 +38,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nn-shlobj_core-idockingwindowsite
  * @namespace Windows.Win32.UI.Shell
  */
-class IDockingWindowSite extends IOleWindow {
-
-    static sizeof => A_PtrSize
+export default struct IDockingWindowSite extends IOleWindow {
     /**
      * The interface identifier for IDockingWindowSite
      * @type {Guid}
      */
-    static IID => Guid("{2a342fc2-7b26-11d0-8ca9-00a0c92dbfe8}")
+    static IID := Guid("{2a342fc2-7b26-11d0-8ca9-00a0c92dbfe8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDockingWindowSite interfaces
+    */
+    struct Vtbl extends IOleWindow.Vtbl {
+        GetBorderDW          : IntPtr
+        RequestBorderSpaceDW : IntPtr
+        SetBorderSpaceDW     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetBorderDW", "RequestBorderSpaceDW", "SetBorderSpaceDW"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDockingWindowSite.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the border space allocated for the specified IDockingWindow object.
@@ -69,7 +80,7 @@ class IDockingWindowSite extends IOleWindow {
      */
     GetBorderDW(punkObj) {
         prcBorder := RECT()
-        result := ComCall(5, this, "ptr", punkObj, "ptr", prcBorder, "HRESULT")
+        result := ComCall(5, this, "ptr", punkObj, RECT.Ptr, prcBorder, "HRESULT")
         return prcBorder
     }
 
@@ -87,7 +98,7 @@ class IDockingWindowSite extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-idockingwindowsite-requestborderspacedw
      */
     RequestBorderSpaceDW(punkObj, pbw) {
-        result := ComCall(6, this, "ptr", punkObj, "ptr", pbw, "HRESULT")
+        result := ComCall(6, this, "ptr", punkObj, RECT.Ptr, pbw, "HRESULT")
         return result
     }
 
@@ -105,7 +116,31 @@ class IDockingWindowSite extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-idockingwindowsite-setborderspacedw
      */
     SetBorderSpaceDW(punkObj, pbw) {
-        result := ComCall(7, this, "ptr", punkObj, "ptr", pbw, "HRESULT")
+        result := ComCall(7, this, "ptr", punkObj, RECT.Ptr, pbw, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDockingWindowSite.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetBorderDW := CallbackCreate(GetMethod(implObj, "GetBorderDW"), flags, 3)
+        this.vtbl.RequestBorderSpaceDW := CallbackCreate(GetMethod(implObj, "RequestBorderSpaceDW"), flags, 3)
+        this.vtbl.SetBorderSpaceDW := CallbackCreate(GetMethod(implObj, "SetBorderSpaceDW"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetBorderDW)
+        CallbackFree(this.vtbl.RequestBorderSpaceDW)
+        CallbackFree(this.vtbl.SetBorderSpaceDW)
     }
 }

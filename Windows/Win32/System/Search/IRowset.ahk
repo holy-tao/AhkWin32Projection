@@ -1,42 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\HACCESSOR.ahk" { HACCESSOR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
- * Exposes methods for receiving event notifications.
- * @remarks
- * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
- * Implement <b>IRowsetEvents</b> if your provider needs to receive notifications of rowset events. <b>IRowsetEvents</b> exposes methods for receiving event notifications, and must be implemented to receive the following notifications on events: <a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-rowsetevent_itemstate">OnChangedItem</a>, <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/nf-searchapi-irowsetevents-ondeleteditem">OnDeletedItem</a>, <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/nf-searchapi-irowsetevents-onnewitem">OnNewItem</a> and <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/nf-searchapi-irowsetevents-onrowsetevent">OnRowsetEvent</a>. The <a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-rowsetevent_itemstate">ROWSETEVENT_ITEMSTATE</a> and <a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-rowsetevent_type">ROWSETEVENT_TYPE</a> enumerators capture the item state and rowset event, respectively. 
- * 
- * Indexer eventing is a new feature for Windows 7 that allows providers to receive notifications on their rowsets. Providers can use eventing to maintain their rowsets in such a way that they behave akin to actual file system locations.
- * 
- * The <b>IRowsetEvents</b> interface is registered by connection point with an open indexer rowset.
- * 
- * <b>DBPROP_ENABLEROWSETEVENTS</b> must be set to <b>TRUE</b> with the OLE DB <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ms711497(v=vs.85)">ICommandProperties::SetProperties</a> method prior to executing the query in order to use rowset eventing.
- * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-irowsetevents
  * @namespace Windows.Win32.System.Search
  */
-class IRowset extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRowset extends IUnknown {
     /**
      * The interface identifier for IRowset
      * @type {Guid}
      */
-    static IID => Guid("{0c733a7c-2a1c-11ce-ade5-00aa0044773d}")
+    static IID := Guid("{0c733a7c-2a1c-11ce-ade5-00aa0044773d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRowset interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddRefRows      : IntPtr
+        GetData         : IntPtr
+        GetNextRows     : IntPtr
+        ReleaseRows     : IntPtr
+        RestartPosition : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddRefRows", "GetData", "GetNextRows", "ReleaseRows", "RestartPosition"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRowset.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -62,9 +64,7 @@ class IRowset extends IUnknown {
      * @returns {Void} 
      */
     GetData(hRow, _hAccessor) {
-        _hAccessor := _hAccessor is Win32Handle ? NumGet(_hAccessor, "ptr") : _hAccessor
-
-        result := ComCall(4, this, "ptr", hRow, "ptr", _hAccessor, "ptr", &pData := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", hRow, HACCESSOR, _hAccessor, "ptr", &pData := 0, "HRESULT")
         return pData
     }
 
@@ -112,5 +112,33 @@ class IRowset extends IUnknown {
     RestartPosition(hReserved) {
         result := ComCall(7, this, "ptr", hReserved, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRowset.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddRefRows := CallbackCreate(GetMethod(implObj, "AddRefRows"), flags, 5)
+        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 4)
+        this.vtbl.GetNextRows := CallbackCreate(GetMethod(implObj, "GetNextRows"), flags, 6)
+        this.vtbl.ReleaseRows := CallbackCreate(GetMethod(implObj, "ReleaseRows"), flags, 6)
+        this.vtbl.RestartPosition := CallbackCreate(GetMethod(implObj, "RestartPosition"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddRefRows)
+        CallbackFree(this.vtbl.GetData)
+        CallbackFree(this.vtbl.GetNextRows)
+        CallbackFree(this.vtbl.ReleaseRows)
+        CallbackFree(this.vtbl.RestartPosition)
     }
 }

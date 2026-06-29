@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_PRIVACY_EXEMPTION extends Win32Struct {
-    static sizeof => 6
+export default struct DOT11_PRIVACY_EXEMPTION {
+    #StructPack 2
 
-    static packingSize => 2
+    usEtherType : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usEtherType {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    usExemptionActionType : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usExemptionActionType {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    usExemptionPacketType : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usExemptionPacketType {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
 }

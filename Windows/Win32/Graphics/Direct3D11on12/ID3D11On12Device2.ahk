@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D11On12Device1.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Direct3D11\ID3D11Resource.ahk" { ID3D11Resource }
+#Import "..\Direct3D12\ID3D12Fence.ahk" { ID3D12Fence }
+#Import "..\Direct3D12\ID3D12CommandQueue.ahk" { ID3D12CommandQueue }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D11On12Device1.ahk" { ID3D11On12Device1 }
 
 /**
  * Enables you to take resources created through the Direct3D 11 APIs, and use them in Direct3D 12.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11on12/nn-d3d11on12-id3d11on12device2
  * @namespace Windows.Win32.Graphics.Direct3D11on12
  */
-class ID3D11On12Device2 extends ID3D11On12Device1 {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11On12Device2 extends ID3D11On12Device1 {
     /**
      * The interface identifier for ID3D11On12Device2
      * @type {Guid}
      */
-    static IID => Guid("{dc90f331-4740-43fa-866e-67f12cb58223}")
+    static IID := Guid("{dc90f331-4740-43fa-866e-67f12cb58223}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11On12Device2 interfaces
+    */
+    struct Vtbl extends ID3D11On12Device1.Vtbl {
+        UnwrapUnderlyingResource : IntPtr
+        ReturnUnderlyingResource : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["UnwrapUnderlyingResource", "ReturnUnderlyingResource"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11On12Device2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Unwraps a Direct3D 11 resource object, and retrieves it as a Direct3D 12 resource object.
@@ -58,7 +70,7 @@ class ID3D11On12Device2 extends ID3D11On12Device1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11on12/nf-d3d11on12-id3d11on12device2-unwrapunderlyingresource
      */
     UnwrapUnderlyingResource(pResource11, pCommandQueue, riid) {
-        result := ComCall(7, this, "ptr", pResource11, "ptr", pCommandQueue, "ptr", riid, "ptr*", &ppvResource12 := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pResource11, "ptr", pCommandQueue, Guid.Ptr, riid, "ptr*", &ppvResource12 := 0, "HRESULT")
         return ppvResource12
     }
 
@@ -88,7 +100,29 @@ class ID3D11On12Device2 extends ID3D11On12Device1 {
     ReturnUnderlyingResource(pResource11, NumSync, pSignalValues, ppFences) {
         pSignalValuesMarshal := pSignalValues is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", pResource11, "uint", NumSync, pSignalValuesMarshal, pSignalValues, "ptr*", ppFences, "HRESULT")
+        result := ComCall(8, this, "ptr", pResource11, "uint", NumSync, pSignalValuesMarshal, pSignalValues, ID3D12Fence.Ptr, ppFences, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID3D11On12Device2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.UnwrapUnderlyingResource := CallbackCreate(GetMethod(implObj, "UnwrapUnderlyingResource"), flags, 5)
+        this.vtbl.ReturnUnderlyingResource := CallbackCreate(GetMethod(implObj, "ReturnUnderlyingResource"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.UnwrapUnderlyingResource)
+        CallbackFree(this.vtbl.ReturnUnderlyingResource)
     }
 }

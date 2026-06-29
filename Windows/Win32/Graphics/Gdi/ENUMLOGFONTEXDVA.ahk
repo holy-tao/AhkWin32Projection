@@ -1,12 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ENUMLOGFONTEXA.ahk
-#Include .\LOGFONTA.ahk
-#Include .\FONT_CHARSET.ahk
-#Include .\FONT_OUTPUT_PRECISION.ahk
-#Include .\FONT_CLIP_PRECISION.ahk
-#Include .\FONT_QUALITY.ahk
-#Include .\DESIGNVECTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FONT_OUTPUT_PRECISION.ahk" { FONT_OUTPUT_PRECISION }
+#Import ".\LOGFONTA.ahk" { LOGFONTA }
+#Import ".\ENUMLOGFONTEXA.ahk" { ENUMLOGFONTEXA }
+#Import ".\FONT_CLIP_PRECISION.ahk" { FONT_CLIP_PRECISION }
+#Import ".\DESIGNVECTOR.ahk" { DESIGNVECTOR }
+#Import ".\FONT_QUALITY.ahk" { FONT_QUALITY }
+#Import ".\FONT_CHARSET.ahk" { FONT_CHARSET }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * The ENUMLOGFONTEXDV structure contains the information used to create a font. (ANSI)
@@ -25,32 +25,17 @@
  * @namespace Windows.Win32.Graphics.Gdi
  * @charset ANSI
  */
-class ENUMLOGFONTEXDVA extends Win32Struct {
-    static sizeof => 260
-
-    static packingSize => 4
+export default struct ENUMLOGFONTEXDVA {
+    #StructPack 8
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-enumlogfontexa">ENUMLOGFONTEX</a> structure that contains information about the logical attributes of the font.
-     * @type {ENUMLOGFONTEXA}
      */
-    elfEnumLogfontEx {
-        get {
-            if(!this.HasProp("__elfEnumLogfontEx"))
-                this.__elfEnumLogfontEx := ENUMLOGFONTEXA(0, this)
-            return this.__elfEnumLogfontEx
-        }
-    }
+    elfEnumLogfontEx : ENUMLOGFONTEXA
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-designvector">DESIGNVECTOR</a> structure. This is zero-filled unless the font described is a multiple master OpenType font.
-     * @type {DESIGNVECTOR}
      */
-    elfDesignVector {
-        get {
-            if(!this.HasProp("__elfDesignVector"))
-                this.__elfDesignVector := DESIGNVECTOR(188, this)
-            return this.__elfDesignVector
-        }
-    }
+    elfDesignVector : DESIGNVECTOR
+
 }

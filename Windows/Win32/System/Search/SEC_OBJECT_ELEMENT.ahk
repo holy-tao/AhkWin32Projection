@@ -1,32 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Storage\IndexServer\DBID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Storage\IndexServer\DBID.ahk" { DBID }
 
 /**
  * @namespace Windows.Win32.System.Search
  * @architecture X64, Arm64
  */
-class SEC_OBJECT_ELEMENT extends Win32Struct {
-    static sizeof => 32
+export default struct SEC_OBJECT_ELEMENT {
+    #StructPack 8
 
-    static packingSize => 8
+    guidObjectType : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    guidObjectType {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ObjectID : DBID
 
-    /**
-     * @type {DBID}
-     */
-    ObjectID {
-        get {
-            if(!this.HasProp("__ObjectID"))
-                this.__ObjectID := DBID(8, this)
-            return this.__ObjectID
-        }
-    }
 }

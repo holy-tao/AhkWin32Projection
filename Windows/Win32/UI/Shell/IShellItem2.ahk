@@ -1,36 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IShellItem.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "PropertiesSystem\GETPROPERTYSTOREFLAGS.ahk" { GETPROPERTYSTOREFLAGS }
+#Import ".\IShellItem.ahk" { IShellItem }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * Extends IShellItem with methods that retrieve various property values of the item. IShellItem and IShellItem2 are the preferred representations of items in any new code.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishellitem2
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellItem2 extends IShellItem {
-
-    static sizeof => A_PtrSize
+export default struct IShellItem2 extends IShellItem {
     /**
      * The interface identifier for IShellItem2
      * @type {Guid}
      */
-    static IID => Guid("{7e9fb0d3-919f-4307-ab2e-9b1860310c93}")
+    static IID := Guid("{7e9fb0d3-919f-4307-ab2e-9b1860310c93}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellItem2 interfaces
+    */
+    struct Vtbl extends IShellItem.Vtbl {
+        GetPropertyStore                 : IntPtr
+        GetPropertyStoreWithCreateObject : IntPtr
+        GetPropertyStoreForKeys          : IntPtr
+        GetPropertyDescriptionList       : IntPtr
+        Update                           : IntPtr
+        GetProperty                      : IntPtr
+        GetCLSID                         : IntPtr
+        GetFileTime                      : IntPtr
+        GetInt32                         : IntPtr
+        GetString                        : IntPtr
+        GetUInt32                        : IntPtr
+        GetUInt64                        : IntPtr
+        GetBool                          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPropertyStore", "GetPropertyStoreWithCreateObject", "GetPropertyStoreForKeys", "GetPropertyDescriptionList", "Update", "GetProperty", "GetCLSID", "GetFileTime", "GetInt32", "GetString", "GetUInt32", "GetUInt64", "GetBool"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellItem2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a property store object for specified property store flags.
@@ -49,7 +74,7 @@ class IShellItem2 extends IShellItem {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getpropertystore
      */
     GetPropertyStore(flags, riid) {
-        result := ComCall(8, this, "int", flags, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(8, this, GETPROPERTYSTOREFLAGS, flags, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -79,7 +104,7 @@ class IShellItem2 extends IShellItem {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getpropertystorewithcreateobject
      */
     GetPropertyStoreWithCreateObject(flags, punkCreateObject, riid) {
-        result := ComCall(9, this, "int", flags, "ptr", punkCreateObject, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(9, this, GETPROPERTYSTOREFLAGS, flags, "ptr", punkCreateObject, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -107,7 +132,7 @@ class IShellItem2 extends IShellItem {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getpropertystoreforkeys
      */
     GetPropertyStoreForKeys(rgKeys, cKeys, flags, riid) {
-        result := ComCall(10, this, "ptr", rgKeys, "uint", cKeys, "int", flags, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(10, this, PROPERTYKEY.Ptr, rgKeys, "uint", cKeys, GETPROPERTYSTOREFLAGS, flags, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -125,7 +150,7 @@ class IShellItem2 extends IShellItem {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getpropertydescriptionlist
      */
     GetPropertyDescriptionList(keyType, riid) {
-        result := ComCall(11, this, "ptr", keyType, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(11, this, PROPERTYKEY.Ptr, keyType, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -156,7 +181,7 @@ class IShellItem2 extends IShellItem {
      */
     GetProperty(key) {
         ppropvar := PROPVARIANT()
-        result := ComCall(13, this, "ptr", key, "ptr", ppropvar, "HRESULT")
+        result := ComCall(13, this, PROPERTYKEY.Ptr, key, PROPVARIANT.Ptr, ppropvar, "HRESULT")
         return ppropvar
     }
 
@@ -172,7 +197,7 @@ class IShellItem2 extends IShellItem {
      */
     GetCLSID(key) {
         pclsid := Guid()
-        result := ComCall(14, this, "ptr", key, "ptr", pclsid, "HRESULT")
+        result := ComCall(14, this, PROPERTYKEY.Ptr, key, Guid.Ptr, pclsid, "HRESULT")
         return pclsid
     }
 
@@ -188,7 +213,7 @@ class IShellItem2 extends IShellItem {
      */
     GetFileTime(key) {
         pft := FILETIME()
-        result := ComCall(15, this, "ptr", key, "ptr", pft, "HRESULT")
+        result := ComCall(15, this, PROPERTYKEY.Ptr, key, FILETIME.Ptr, pft, "HRESULT")
         return pft
     }
 
@@ -203,7 +228,7 @@ class IShellItem2 extends IShellItem {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getint32
      */
     GetInt32(key) {
-        result := ComCall(16, this, "ptr", key, "int*", &pi := 0, "HRESULT")
+        result := ComCall(16, this, PROPERTYKEY.Ptr, key, "int*", &pi := 0, "HRESULT")
         return pi
     }
 
@@ -218,7 +243,7 @@ class IShellItem2 extends IShellItem {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getstring
      */
     GetString(key) {
-        result := ComCall(17, this, "ptr", key, "ptr*", &ppsz := 0, "HRESULT")
+        result := ComCall(17, this, PROPERTYKEY.Ptr, key, PWSTR.Ptr, &ppsz := 0, "HRESULT")
         return ppsz
     }
 
@@ -233,7 +258,7 @@ class IShellItem2 extends IShellItem {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getuint32
      */
     GetUInt32(key) {
-        result := ComCall(18, this, "ptr", key, "uint*", &pui := 0, "HRESULT")
+        result := ComCall(18, this, PROPERTYKEY.Ptr, key, "uint*", &pui := 0, "HRESULT")
         return pui
     }
 
@@ -248,7 +273,7 @@ class IShellItem2 extends IShellItem {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getuint64
      */
     GetUInt64(key) {
-        result := ComCall(19, this, "ptr", key, "uint*", &pull := 0, "HRESULT")
+        result := ComCall(19, this, PROPERTYKEY.Ptr, key, "uint*", &pull := 0, "HRESULT")
         return pull
     }
 
@@ -263,7 +288,51 @@ class IShellItem2 extends IShellItem {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getbool
      */
     GetBool(key) {
-        result := ComCall(20, this, "ptr", key, "int*", &pf := 0, "HRESULT")
+        result := ComCall(20, this, PROPERTYKEY.Ptr, key, BOOL.Ptr, &pf := 0, "HRESULT")
         return pf
+    }
+
+    Query(iid) {
+        if (IShellItem2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPropertyStore := CallbackCreate(GetMethod(implObj, "GetPropertyStore"), flags, 4)
+        this.vtbl.GetPropertyStoreWithCreateObject := CallbackCreate(GetMethod(implObj, "GetPropertyStoreWithCreateObject"), flags, 5)
+        this.vtbl.GetPropertyStoreForKeys := CallbackCreate(GetMethod(implObj, "GetPropertyStoreForKeys"), flags, 6)
+        this.vtbl.GetPropertyDescriptionList := CallbackCreate(GetMethod(implObj, "GetPropertyDescriptionList"), flags, 4)
+        this.vtbl.Update := CallbackCreate(GetMethod(implObj, "Update"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.GetCLSID := CallbackCreate(GetMethod(implObj, "GetCLSID"), flags, 3)
+        this.vtbl.GetFileTime := CallbackCreate(GetMethod(implObj, "GetFileTime"), flags, 3)
+        this.vtbl.GetInt32 := CallbackCreate(GetMethod(implObj, "GetInt32"), flags, 3)
+        this.vtbl.GetString := CallbackCreate(GetMethod(implObj, "GetString"), flags, 3)
+        this.vtbl.GetUInt32 := CallbackCreate(GetMethod(implObj, "GetUInt32"), flags, 3)
+        this.vtbl.GetUInt64 := CallbackCreate(GetMethod(implObj, "GetUInt64"), flags, 3)
+        this.vtbl.GetBool := CallbackCreate(GetMethod(implObj, "GetBool"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPropertyStore)
+        CallbackFree(this.vtbl.GetPropertyStoreWithCreateObject)
+        CallbackFree(this.vtbl.GetPropertyStoreForKeys)
+        CallbackFree(this.vtbl.GetPropertyDescriptionList)
+        CallbackFree(this.vtbl.Update)
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.GetCLSID)
+        CallbackFree(this.vtbl.GetFileTime)
+        CallbackFree(this.vtbl.GetInt32)
+        CallbackFree(this.vtbl.GetString)
+        CallbackFree(this.vtbl.GetUInt32)
+        CallbackFree(this.vtbl.GetUInt64)
+        CallbackFree(this.vtbl.GetBool)
     }
 }

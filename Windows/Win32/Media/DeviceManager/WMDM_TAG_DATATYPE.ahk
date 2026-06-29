@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The WMDM\_TAG\_DATATYPE enumeration type defines a data type.
  * @see https://learn.microsoft.com/windows/win32/WMDM/wmdm-tag-datatype
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class WMDM_TAG_DATATYPE extends Win32Enum {
+export default struct WMDM_TAG_DATATYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

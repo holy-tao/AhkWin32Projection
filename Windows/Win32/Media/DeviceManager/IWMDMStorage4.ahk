@@ -1,35 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMDMStorage3.ahk
-#Include .\IWMDMMetaData.ahk
-#Include .\IWMDMStorage.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWMDMStorage3.ahk" { IWMDMStorage3 }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWMDMMetaData.ahk" { IWMDMMetaData }
+#Import ".\IWMDMStorage.ahk" { IWMDMStorage }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WMDMRIGHTS.ahk" { WMDMRIGHTS }
+#Import ".\WMDM_FIND_SCOPE.ahk" { WMDM_FIND_SCOPE }
+#Import ".\IWMDMProgress3.ahk" { IWMDMProgress3 }
 
 /**
  * The IWMDMStorage4 interface extends IWMDMStorage3 by providing methods for retrieving a subset of available metadata for a storage, and for setting and retrieving a list of references to other storages.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmstorage4
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class IWMDMStorage4 extends IWMDMStorage3 {
-
-    static sizeof => A_PtrSize
+export default struct IWMDMStorage4 extends IWMDMStorage3 {
     /**
      * The interface identifier for IWMDMStorage4
      * @type {Guid}
      */
-    static IID => Guid("{c225bac5-a03a-40b8-9a23-91cf478c64a6}")
+    static IID := Guid("{c225bac5-a03a-40b8-9a23-91cf478c64a6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 19
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMDMStorage4 interfaces
+    */
+    struct Vtbl extends IWMDMStorage3.Vtbl {
+        SetReferences         : IntPtr
+        GetReferences         : IntPtr
+        GetRightsWithProgress : IntPtr
+        GetSpecifiedMetadata  : IntPtr
+        FindStorage           : IntPtr
+        GetParent             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetReferences", "GetReferences", "GetRightsWithProgress", "GetSpecifiedMetadata", "FindStorage", "GetParent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMDMStorage4.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetReferences method sets the references contained in a storage that has references (such as a playlist or album), overwriting any previously existing references held by the storage.
@@ -52,7 +69,7 @@ class IWMDMStorage4 extends IWMDMStorage3 {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage4-setreferences
      */
     SetReferences(dwRefs, ppIWMDMStorage) {
-        result := ComCall(19, this, "uint", dwRefs, "ptr*", ppIWMDMStorage, "HRESULT")
+        result := ComCall(19, this, "uint", dwRefs, IWMDMStorage.Ptr, ppIWMDMStorage, "HRESULT")
         return result
     }
 
@@ -151,7 +168,7 @@ class IWMDMStorage4 extends IWMDMStorage3 {
     FindStorage(findScope, pwszUniqueID) {
         pwszUniqueID := pwszUniqueID is String ? StrPtr(pwszUniqueID) : pwszUniqueID
 
-        result := ComCall(23, this, "int", findScope, "ptr", pwszUniqueID, "ptr*", &ppStorage := 0, "HRESULT")
+        result := ComCall(23, this, WMDM_FIND_SCOPE, findScope, "ptr", pwszUniqueID, "ptr*", &ppStorage := 0, "HRESULT")
         return IWMDMStorage(ppStorage)
     }
 
@@ -165,5 +182,35 @@ class IWMDMStorage4 extends IWMDMStorage3 {
     GetParent() {
         result := ComCall(24, this, "ptr*", &ppStorage := 0, "HRESULT")
         return IWMDMStorage(ppStorage)
+    }
+
+    Query(iid) {
+        if (IWMDMStorage4.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetReferences := CallbackCreate(GetMethod(implObj, "SetReferences"), flags, 3)
+        this.vtbl.GetReferences := CallbackCreate(GetMethod(implObj, "GetReferences"), flags, 3)
+        this.vtbl.GetRightsWithProgress := CallbackCreate(GetMethod(implObj, "GetRightsWithProgress"), flags, 4)
+        this.vtbl.GetSpecifiedMetadata := CallbackCreate(GetMethod(implObj, "GetSpecifiedMetadata"), flags, 4)
+        this.vtbl.FindStorage := CallbackCreate(GetMethod(implObj, "FindStorage"), flags, 4)
+        this.vtbl.GetParent := CallbackCreate(GetMethod(implObj, "GetParent"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetReferences)
+        CallbackFree(this.vtbl.GetReferences)
+        CallbackFree(this.vtbl.GetRightsWithProgress)
+        CallbackFree(this.vtbl.GetSpecifiedMetadata)
+        CallbackFree(this.vtbl.FindStorage)
+        CallbackFree(this.vtbl.GetParent)
     }
 }

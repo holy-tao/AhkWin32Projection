@@ -1,8 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDirect3DBaseTexture9.ahk
-#Include .\IDirect3DSurface9.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3DLOCKED_RECT.ahk" { D3DLOCKED_RECT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\D3DSURFACE_DESC.ahk" { D3DSURFACE_DESC }
+#Import ".\IDirect3DBaseTexture9.ahk" { IDirect3DBaseTexture9 }
 
 /**
  * The IDirect3DTexture9 (d3d9.h) interface is used by applications to manipulate a texture resource.
@@ -27,26 +31,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3dtexture9
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class IDirect3DTexture9 extends IDirect3DBaseTexture9 {
-
-    static sizeof => A_PtrSize
+export default struct IDirect3DTexture9 extends IDirect3DBaseTexture9 {
     /**
      * The interface identifier for IDirect3DTexture9
      * @type {Guid}
      */
-    static IID => Guid("{85c31227-3de5-4f00-9b3a-f11ac38c18b5}")
+    static IID := Guid("{85c31227-3de5-4f00-9b3a-f11ac38c18b5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 17
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirect3DTexture9 interfaces
+    */
+    struct Vtbl extends IDirect3DBaseTexture9.Vtbl {
+        GetLevelDesc    : IntPtr
+        GetSurfaceLevel : IntPtr
+        LockRect        : IntPtr
+        UnlockRect      : IntPtr
+        AddDirtyRect    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetLevelDesc", "GetSurfaceLevel", "LockRect", "UnlockRect", "AddDirtyRect"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirect3DTexture9.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IDirect3DTexture9::GetLevelDesc (d3d9.h) method retrieves a level description of a texture resource.
@@ -62,7 +77,7 @@ class IDirect3DTexture9 extends IDirect3DBaseTexture9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dtexture9-getleveldesc
      */
     GetLevelDesc(Level, pDesc) {
-        result := ComCall(17, this, "uint", Level, "ptr", pDesc, "HRESULT")
+        result := ComCall(17, this, "uint", Level, D3DSURFACE_DESC.Ptr, pDesc, "HRESULT")
         return result
     }
 
@@ -123,7 +138,7 @@ class IDirect3DTexture9 extends IDirect3DBaseTexture9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dtexture9-lockrect
      */
     LockRect(Level, pLockedRect, pRect, Flags) {
-        result := ComCall(19, this, "uint", Level, "ptr", pLockedRect, "ptr", pRect, "uint", Flags, "HRESULT")
+        result := ComCall(19, this, "uint", Level, D3DLOCKED_RECT.Ptr, pLockedRect, RECT.Ptr, pRect, "uint", Flags, "HRESULT")
         return result
     }
 
@@ -157,7 +172,35 @@ class IDirect3DTexture9 extends IDirect3DBaseTexture9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dtexture9-adddirtyrect
      */
     AddDirtyRect(pDirtyRect) {
-        result := ComCall(21, this, "ptr", pDirtyRect, "HRESULT")
+        result := ComCall(21, this, RECT.Ptr, pDirtyRect, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirect3DTexture9.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetLevelDesc := CallbackCreate(GetMethod(implObj, "GetLevelDesc"), flags, 3)
+        this.vtbl.GetSurfaceLevel := CallbackCreate(GetMethod(implObj, "GetSurfaceLevel"), flags, 3)
+        this.vtbl.LockRect := CallbackCreate(GetMethod(implObj, "LockRect"), flags, 5)
+        this.vtbl.UnlockRect := CallbackCreate(GetMethod(implObj, "UnlockRect"), flags, 2)
+        this.vtbl.AddDirtyRect := CallbackCreate(GetMethod(implObj, "AddDirtyRect"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetLevelDesc)
+        CallbackFree(this.vtbl.GetSurfaceLevel)
+        CallbackFree(this.vtbl.LockRect)
+        CallbackFree(this.vtbl.UnlockRect)
+        CallbackFree(this.vtbl.AddDirtyRect)
     }
 }

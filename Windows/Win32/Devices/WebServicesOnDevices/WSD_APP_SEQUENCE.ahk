@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Represents application sequence information relating to WS-Discovery messages.
@@ -41,35 +41,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_app_sequence
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class WSD_APP_SEQUENCE extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct WSD_APP_SEQUENCE {
+    #StructPack 8
 
     /**
      * The instance identifier.
-     * @type {Integer}
      */
-    InstanceId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    InstanceId : Int64
 
     /**
      * The sequence identifier.
-     * @type {PWSTR}
      */
-    SequenceId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    SequenceId : PWSTR
 
     /**
      * The message number.
-     * @type {Integer}
      */
-    MessageNumber {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    MessageNumber : Int64
+
 }

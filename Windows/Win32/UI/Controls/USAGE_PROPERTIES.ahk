@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains device properties (Human Interface Device (HID) global items that correspond to HID usages) for any type of HID input device.
@@ -8,99 +7,58 @@
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-usage_properties
  * @namespace Windows.Win32.UI.Controls
  */
-class USAGE_PROPERTIES extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 4
+export default struct USAGE_PROPERTIES {
+    #StructPack 4
 
     /**
      * A usage-specific value for a range-based linear control (knob or dial), an on/off  control (toggle switch), a momentary control (mouse button), a one-shot control (button that triggers a single event), or re-trigger control (button that triggers a repeating event).
-     * @type {Integer}
      */
-    level {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    level : UInt16
 
     /**
      * The Usage Page ID, such as VR Controls Page (0x03) or Game Controls Page (0x05).
-     * @type {Integer}
      */
-    page {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    page : UInt16
 
     /**
      * The Usage ID associated with a Usage Page, such as Turn Right/Left (21) or Move Right/Left (24) for a Game Controls Page.
-     * @type {Integer}
      */
-    usage {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    usage : UInt16
 
     /**
      * The smallest value that the control can report.
-     * @type {Integer}
      */
-    logicalMinimum {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    logicalMinimum : Int32
 
     /**
      * The largest value that the control can report.
-     * @type {Integer}
      */
-    logicalMaximum {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    logicalMaximum : Int32
 
     /**
      * The standard of measure used to describe a control's physical value (after converting the logical value using the <i>exponent</i> value). The HID specification defines codes for the basic units of length, mass, time, temperature, current, and luminous intensity.
-     * @type {Integer}
      */
-    unit {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    unit : UInt16
 
     /**
      * The value used to scale a logical value to a physical value.
-     * @type {Integer}
      */
-    exponent {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    exponent : UInt16
 
     /**
      * The number of data
      * items contained in the report.
-     * @type {Integer}
      */
-    count {
-        get => NumGet(this, 20, "char")
-        set => NumPut("char", value, this, 20)
-    }
+    count : Int8
 
     /**
      * The <i>logicalMinimum</i> expressed in physical units (converted by multiplying <i>logicalMinimum</i> by <i>exponent</i>).
-     * @type {Integer}
      */
-    physicalMinimum {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    physicalMinimum : Int32
 
     /**
      * The <i>logicalMaximum</i> expressed in physical units (converted by multiplying <i>logicalMaximum</i> by <i>exponent</i>).
-     * @type {Integer}
      */
-    physicalMaximum {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    physicalMaximum : Int32
+
 }

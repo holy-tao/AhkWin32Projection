@@ -1,44 +1,73 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IKeyStore.ahk" { IKeyStore }
+#Import ".\IModelObject.ahk" { IModelObject }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IModelMethod extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IModelMethod extends IUnknown {
     /**
      * The interface identifier for IModelMethod
      * @type {Guid}
      */
-    static IID => Guid("{80600c1f-b90b-4896-82ad-1c00207909e8}")
+    static IID := Guid("{80600c1f-b90b-4896-82ad-1c00207909e8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IModelMethod interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Call : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IModelMethod.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Call"]
-
-    /**
-     * A shader that is invoked from another shader with the CallShader intrinsic.
+     * 
      * @param {IModelObject} pContextObject 
      * @param {Integer} argCount 
      * @param {Pointer<IModelObject>} ppArguments 
      * @param {Pointer<IModelObject>} ppResult 
      * @param {Pointer<IKeyStore>} ppMetadata 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/direct3d12/callable-shader
      */
     Call(pContextObject, argCount, ppArguments, ppResult, ppMetadata) {
-        result := ComCall(3, this, "ptr", pContextObject, "uint", argCount, "ptr*", ppArguments, "ptr*", ppResult, "ptr*", ppMetadata, "HRESULT")
+        result := ComCall(3, this, "ptr", pContextObject, "uint", argCount, IModelObject.Ptr, ppArguments, IModelObject.Ptr, ppResult, IKeyStore.Ptr, ppMetadata, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IModelMethod.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Call := CallbackCreate(GetMethod(implObj, "Call"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Call)
     }
 }

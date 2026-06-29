@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMbnConnectionContext.ahk" { IMbnConnectionContext }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This notification interface is used to handle asynchronous provisioned context events.
@@ -19,26 +21,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnconnectioncontextevents
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  */
-class IMbnConnectionContextEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMbnConnectionContextEvents extends IUnknown {
     /**
      * The interface identifier for IMbnConnectionContextEvents
      * @type {Guid}
      */
-    static IID => Guid("{dcbbbab6-200c-4bbb-aaee-338e368af6fa}")
+    static IID := Guid("{dcbbbab6-200c-4bbb-aaee-338e368af6fa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMbnConnectionContextEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnProvisionedContextListChange  : IntPtr
+        OnSetProvisionedContextComplete : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnProvisionedContextListChange", "OnSetProvisionedContextComplete"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMbnConnectionContextEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Notification method called by the Mobile Broadband service to indicate that a provisioned context stored in the device is available or updated.
@@ -71,5 +81,27 @@ class IMbnConnectionContextEvents extends IUnknown {
     OnSetProvisionedContextComplete(newInterface, requestID, _status) {
         result := ComCall(4, this, "ptr", newInterface, "uint", requestID, "int", _status, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMbnConnectionContextEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnProvisionedContextListChange := CallbackCreate(GetMethod(implObj, "OnProvisionedContextListChange"), flags, 2)
+        this.vtbl.OnSetProvisionedContextComplete := CallbackCreate(GetMethod(implObj, "OnSetProvisionedContextComplete"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnProvisionedContextListChange)
+        CallbackFree(this.vtbl.OnSetProvisionedContextComplete)
     }
 }

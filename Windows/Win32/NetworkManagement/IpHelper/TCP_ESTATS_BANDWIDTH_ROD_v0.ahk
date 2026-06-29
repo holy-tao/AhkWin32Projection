@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * Contains read-only dynamic information for extended TCP statistics on bandwidth estimation for a TCP connection.
@@ -14,74 +14,49 @@
  * @see https://learn.microsoft.com/windows/win32/api/tcpestats/ns-tcpestats-tcp_estats_bandwidth_rod_v0
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class TCP_ESTATS_BANDWIDTH_ROD_v0 extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct TCP_ESTATS_BANDWIDTH_ROD_v0 {
+    #StructPack 8
 
     /**
      * Type: <b>ULONG64</b>
      * 
      * The computed outbound bandwidth estimate, in bits per second, for the network path for the TCP connection.
-     * @type {Integer}
      */
-    OutboundBandwidth {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    OutboundBandwidth : Int64
 
     /**
      * Type: <b>ULONG64</b>
      * 
      * The computed inbound bandwidth estimate, in bits per second, for the network path for the TCP connection.
-     * @type {Integer}
      */
-    InboundBandwidth {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    InboundBandwidth : Int64
 
     /**
      * Type: <b>ULONG64</b>
      * 
      * A measure, in bits per second, of the instability of the outbound bandwidth estimate for the network path for the TCP connection.
-     * @type {Integer}
      */
-    OutboundInstability {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    OutboundInstability : Int64
 
     /**
      * Type: <b>ULONG64</b>
      * 
      * A measure, in bits per second, of the instability of the inbound bandwidth estimate for the network path for the TCP connection.
-     * @type {Integer}
      */
-    InboundInstability {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    InboundInstability : Int64
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A boolean value that indicates if the computed outbound bandwidth estimate for the network path for the TCP connection has reached its peak value.
-     * @type {BOOLEAN}
      */
-    OutboundBandwidthPeaked {
-        get => NumGet(this, 32, "char")
-        set => NumPut("char", value, this, 32)
-    }
+    OutboundBandwidthPeaked : BOOLEAN
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A boolean value that indicates if the computed inbound bandwidth estimate for the network path for the TCP connection has reached its peak value.
-     * @type {BOOLEAN}
      */
-    InboundBandwidthPeaked {
-        get => NumGet(this, 33, "char")
-        set => NumPut("char", value, this, 33)
-    }
+    InboundBandwidthPeaked : BOOLEAN
+
 }

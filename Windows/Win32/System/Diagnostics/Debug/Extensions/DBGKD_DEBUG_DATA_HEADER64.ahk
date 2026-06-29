@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Kernel\LIST_ENTRY64.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Kernel\LIST_ENTRY64.ahk" { LIST_ENTRY64 }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class DBGKD_DEBUG_DATA_HEADER64 extends Win32Struct {
-    static sizeof => 24
+export default struct DBGKD_DEBUG_DATA_HEADER64 {
+    #StructPack 8
 
-    static packingSize => 8
+    List : LIST_ENTRY64
 
-    /**
-     * @type {LIST_ENTRY64}
-     */
-    List {
-        get {
-            if(!this.HasProp("__List"))
-                this.__List := LIST_ENTRY64(0, this)
-            return this.__List
-        }
-    }
+    OwnerTag : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OwnerTag {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

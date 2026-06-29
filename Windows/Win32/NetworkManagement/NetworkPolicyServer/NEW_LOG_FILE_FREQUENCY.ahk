@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The values of the NEW_LOG_FILE_FREQUENCY enumeration type specify how frequently new log files are created.
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-new_log_file_frequency
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  */
-class NEW_LOG_FILE_FREQUENCY extends Win32Enum {
+export default struct NEW_LOG_FILE_FREQUENCY {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Allows the log file to grow without limit. Do not create new log files periodically.

@@ -1,15 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Defines an individual network binding for the DHCP server. A single DHCP server can contain multiple bindings and serve multiple networks.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_bind_element
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  */
-class DHCP_BIND_ELEMENT extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct DHCP_BIND_ELEMENT {
+    #StructPack 8
 
     /**
      * Specifies a set of bit flags indicating properties of the network binding.
@@ -31,64 +30,37 @@ class DHCP_BIND_ELEMENT extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : UInt32
 
     /**
      * Specifies whether or not this binding is set on the DHCP server. If <b>TRUE</b>, the binding is set; if <b>FALSE</b>, it is not.
-     * @type {BOOL}
      */
-    fBoundToDHCPServer {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    fBoundToDHCPServer : BOOL
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> value that specifies the IP address assigned to the ethernet adapter of the DHCP server.
-     * @type {Integer}
      */
-    AdapterPrimaryAddress {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    AdapterPrimaryAddress : UInt32
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> value that specifies the subnet IP mask used by this ethernet adapter.
-     * @type {Integer}
      */
-    AdapterSubnetAddress {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    AdapterSubnetAddress : UInt32
 
     /**
      * Unicode string that specifies the name assigned to this network interface device.
-     * @type {PWSTR}
      */
-    IfDescription {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    IfDescription : PWSTR
 
     /**
      * Specifies the size of the network interface device ID, in bytes.
-     * @type {Integer}
      */
-    IfIdSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    IfIdSize : UInt32
 
     /**
      * Specifies the network interface device ID.
-     * @type {Pointer<Integer>}
      */
-    IfId {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    IfId : IntPtr
+
 }

@@ -1,35 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IObjectId.ahk
-#Include .\IX509Attributes.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IObjectId.ahk" { IObjectId }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IX509Attributes.ahk" { IX509Attributes }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ICryptAttribute interface represents a cryptographic attribute in a certificate request. A collection of these attributes is contained in the CertificateRequestInfo structure of a PKCS
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icryptattribute
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICryptAttribute extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ICryptAttribute extends IDispatch {
     /**
      * The interface identifier for ICryptAttribute
      * @type {Guid}
      */
-    static IID => Guid("{728ab32c-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab32c-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICryptAttribute interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        InitializeFromObjectId : IntPtr
+        InitializeFromValues   : IntPtr
+        get_ObjectId           : IntPtr
+        get_Values             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializeFromObjectId", "InitializeFromValues", "get_ObjectId", "get_Values"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICryptAttribute.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IObjectId} 
@@ -114,5 +125,31 @@ class ICryptAttribute extends IDispatch {
     get_Values() {
         result := ComCall(10, this, "ptr*", &ppValue := 0, "HRESULT")
         return IX509Attributes(ppValue)
+    }
+
+    Query(iid) {
+        if (ICryptAttribute.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializeFromObjectId := CallbackCreate(GetMethod(implObj, "InitializeFromObjectId"), flags, 2)
+        this.vtbl.InitializeFromValues := CallbackCreate(GetMethod(implObj, "InitializeFromValues"), flags, 2)
+        this.vtbl.get_ObjectId := CallbackCreate(GetMethod(implObj, "get_ObjectId"), flags, 2)
+        this.vtbl.get_Values := CallbackCreate(GetMethod(implObj, "get_Values"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializeFromObjectId)
+        CallbackFree(this.vtbl.InitializeFromValues)
+        CallbackFree(this.vtbl.get_ObjectId)
+        CallbackFree(this.vtbl.get_Values)
     }
 }

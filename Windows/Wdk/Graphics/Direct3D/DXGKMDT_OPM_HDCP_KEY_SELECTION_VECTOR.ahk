@@ -1,22 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class DXGKMDT_OPM_HDCP_KEY_SELECTION_VECTOR extends Win32Struct {
-    static sizeof => 5
+export default struct DXGKMDT_OPM_HDCP_KEY_SELECTION_VECTOR {
+    #StructPack 1
 
-    static packingSize => 1
+    abKeySelectionVector : Int8[5]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    abKeySelectionVector {
-        get {
-            if(!this.HasProp("__abKeySelectionVectorProxyArray"))
-                this.__abKeySelectionVectorProxyArray := Win32FixedArray(this.ptr + 0, 5, Primitive, "char")
-            return this.__abKeySelectionVectorProxyArray
-        }
-    }
 }

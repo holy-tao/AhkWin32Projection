@@ -1,9 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\FAX_DEVICE_RECEIVE_MODE_ENUM.ahk" { FAX_DEVICE_RECEIVE_MODE_ENUM }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IFaxDevice interface defines a configuration object used by a fax client application to retrieve and set fax device information, and to add and remove fax routing methods associated with a fax device.
@@ -12,32 +15,64 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxdevice
  * @namespace Windows.Win32.Devices.Fax
  */
-class IFaxDevice extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFaxDevice extends IDispatch {
     /**
      * The interface identifier for IFaxDevice
      * @type {Guid}
      */
-    static IID => Guid("{49306c59-b52e-4867-9df4-ca5841c956d0}")
+    static IID := Guid("{49306c59-b52e-4867-9df4-ca5841c956d0}")
 
     /**
      * The class identifier for FaxDevice
      * @type {Guid}
      */
-    static CLSID => Guid("{59e3a5b2-d676-484b-a6de-720bfa89b5af}")
+    static CLSID := Guid("{59e3a5b2-d676-484b-a6de-720bfa89b5af}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFaxDevice interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Id                 : IntPtr
+        get_DeviceName         : IntPtr
+        get_ProviderUniqueName : IntPtr
+        get_PoweredOff         : IntPtr
+        get_ReceivingNow       : IntPtr
+        get_SendingNow         : IntPtr
+        get_UsedRoutingMethods : IntPtr
+        get_Description        : IntPtr
+        put_Description        : IntPtr
+        get_SendEnabled        : IntPtr
+        put_SendEnabled        : IntPtr
+        get_ReceiveMode        : IntPtr
+        put_ReceiveMode        : IntPtr
+        get_RingsBeforeAnswer  : IntPtr
+        put_RingsBeforeAnswer  : IntPtr
+        get_CSID               : IntPtr
+        put_CSID               : IntPtr
+        get_TSID               : IntPtr
+        put_TSID               : IntPtr
+        Refresh                : IntPtr
+        Save                   : IntPtr
+        GetExtensionProperty   : IntPtr
+        SetExtensionProperty   : IntPtr
+        UseRoutingMethod       : IntPtr
+        get_RingingNow         : IntPtr
+        AnswerCall             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Id", "get_DeviceName", "get_ProviderUniqueName", "get_PoweredOff", "get_ReceivingNow", "get_SendingNow", "get_UsedRoutingMethods", "get_Description", "put_Description", "get_SendEnabled", "put_SendEnabled", "get_ReceiveMode", "put_ReceiveMode", "get_RingsBeforeAnswer", "put_RingsBeforeAnswer", "get_CSID", "put_CSID", "get_TSID", "put_TSID", "Refresh", "Save", "GetExtensionProperty", "SetExtensionProperty", "UseRoutingMethod", "get_RingingNow", "AnswerCall"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFaxDevice.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -159,8 +194,8 @@ class IFaxDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_devicename
      */
     get_DeviceName() {
-        pbstrDeviceName := BSTR()
-        result := ComCall(8, this, "ptr", pbstrDeviceName, "HRESULT")
+        pbstrDeviceName := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, pbstrDeviceName, "HRESULT")
         return pbstrDeviceName
     }
 
@@ -170,8 +205,8 @@ class IFaxDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_provideruniquename
      */
     get_ProviderUniqueName() {
-        pbstrProviderUniqueName := BSTR()
-        result := ComCall(9, this, "ptr", pbstrProviderUniqueName, "HRESULT")
+        pbstrProviderUniqueName := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pbstrProviderUniqueName, "HRESULT")
         return pbstrProviderUniqueName
     }
 
@@ -186,7 +221,7 @@ class IFaxDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_poweredoff
      */
     get_PoweredOff() {
-        result := ComCall(10, this, "short*", &pbPoweredOff := 0, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL.Ptr, &pbPoweredOff := 0, "HRESULT")
         return pbPoweredOff
     }
 
@@ -201,7 +236,7 @@ class IFaxDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_receivingnow
      */
     get_ReceivingNow() {
-        result := ComCall(11, this, "short*", &pbReceivingNow := 0, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL.Ptr, &pbReceivingNow := 0, "HRESULT")
         return pbReceivingNow
     }
 
@@ -216,7 +251,7 @@ class IFaxDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_sendingnow
      */
     get_SendingNow() {
-        result := ComCall(12, this, "short*", &pbSendingNow := 0, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL.Ptr, &pbSendingNow := 0, "HRESULT")
         return pbSendingNow
     }
 
@@ -231,7 +266,7 @@ class IFaxDevice extends IDispatch {
      */
     get_UsedRoutingMethods() {
         pvUsedRoutingMethods := VARIANT()
-        result := ComCall(13, this, "ptr", pvUsedRoutingMethods, "HRESULT")
+        result := ComCall(13, this, VARIANT.Ptr, pvUsedRoutingMethods, "HRESULT")
         return pvUsedRoutingMethods
     }
 
@@ -241,8 +276,8 @@ class IFaxDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_description
      */
     get_Description() {
-        pbstrDescription := BSTR()
-        result := ComCall(14, this, "ptr", pbstrDescription, "HRESULT")
+        pbstrDescription := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, pbstrDescription, "HRESULT")
         return pbstrDescription
     }
 
@@ -255,7 +290,7 @@ class IFaxDevice extends IDispatch {
     put_Description(bstrDescription) {
         bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
 
-        result := ComCall(15, this, "ptr", bstrDescription, "HRESULT")
+        result := ComCall(15, this, BSTR, bstrDescription, "HRESULT")
         return result
     }
 
@@ -267,7 +302,7 @@ class IFaxDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_sendenabled
      */
     get_SendEnabled() {
-        result := ComCall(16, this, "short*", &pbSendEnabled := 0, "HRESULT")
+        result := ComCall(16, this, VARIANT_BOOL.Ptr, &pbSendEnabled := 0, "HRESULT")
         return pbSendEnabled
     }
 
@@ -280,7 +315,7 @@ class IFaxDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-put_sendenabled
      */
     put_SendEnabled(bSendEnabled) {
-        result := ComCall(17, this, "short", bSendEnabled, "HRESULT")
+        result := ComCall(17, this, VARIANT_BOOL, bSendEnabled, "HRESULT")
         return result
     }
 
@@ -309,7 +344,7 @@ class IFaxDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-put_receivemode
      */
     put_ReceiveMode(ReceiveMode) {
-        result := ComCall(19, this, "int", ReceiveMode, "HRESULT")
+        result := ComCall(19, this, FAX_DEVICE_RECEIVE_MODE_ENUM, ReceiveMode, "HRESULT")
         return result
     }
 
@@ -347,8 +382,8 @@ class IFaxDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_csid
      */
     get_CSID() {
-        pbstrCSID := BSTR()
-        result := ComCall(22, this, "ptr", pbstrCSID, "HRESULT")
+        pbstrCSID := BSTR.Owned()
+        result := ComCall(22, this, BSTR.Ptr, pbstrCSID, "HRESULT")
         return pbstrCSID
     }
 
@@ -364,7 +399,7 @@ class IFaxDevice extends IDispatch {
     put_CSID(bstrCSID) {
         bstrCSID := bstrCSID is String ? BSTR.Alloc(bstrCSID).Value : bstrCSID
 
-        result := ComCall(23, this, "ptr", bstrCSID, "HRESULT")
+        result := ComCall(23, this, BSTR, bstrCSID, "HRESULT")
         return result
     }
 
@@ -377,8 +412,8 @@ class IFaxDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_tsid
      */
     get_TSID() {
-        pbstrTSID := BSTR()
-        result := ComCall(24, this, "ptr", pbstrTSID, "HRESULT")
+        pbstrTSID := BSTR.Owned()
+        result := ComCall(24, this, BSTR.Ptr, pbstrTSID, "HRESULT")
         return pbstrTSID
     }
 
@@ -394,7 +429,7 @@ class IFaxDevice extends IDispatch {
     put_TSID(bstrTSID) {
         bstrTSID := bstrTSID is String ? BSTR.Alloc(bstrTSID).Value : bstrTSID
 
-        result := ComCall(25, this, "ptr", bstrTSID, "HRESULT")
+        result := ComCall(25, this, BSTR, bstrTSID, "HRESULT")
         return result
     }
 
@@ -444,7 +479,7 @@ class IFaxDevice extends IDispatch {
         bstrGUID := bstrGUID is String ? BSTR.Alloc(bstrGUID).Value : bstrGUID
 
         pvProperty := VARIANT()
-        result := ComCall(28, this, "ptr", bstrGUID, "ptr", pvProperty, "HRESULT")
+        result := ComCall(28, this, BSTR, bstrGUID, VARIANT.Ptr, pvProperty, "HRESULT")
         return pvProperty
     }
 
@@ -469,7 +504,7 @@ class IFaxDevice extends IDispatch {
     SetExtensionProperty(bstrGUID, vProperty) {
         bstrGUID := bstrGUID is String ? BSTR.Alloc(bstrGUID).Value : bstrGUID
 
-        result := ComCall(29, this, "ptr", bstrGUID, "ptr", vProperty, "HRESULT")
+        result := ComCall(29, this, BSTR, bstrGUID, VARIANT, vProperty, "HRESULT")
         return result
     }
 
@@ -491,7 +526,7 @@ class IFaxDevice extends IDispatch {
     UseRoutingMethod(bstrMethodGUID, bUse) {
         bstrMethodGUID := bstrMethodGUID is String ? BSTR.Alloc(bstrMethodGUID).Value : bstrMethodGUID
 
-        result := ComCall(30, this, "ptr", bstrMethodGUID, "short", bUse, "HRESULT")
+        result := ComCall(30, this, BSTR, bstrMethodGUID, VARIANT_BOOL, bUse, "HRESULT")
         return result
     }
 
@@ -506,7 +541,7 @@ class IFaxDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdevice-get_ringingnow
      */
     get_RingingNow() {
-        result := ComCall(31, this, "short*", &pbRingingNow := 0, "HRESULT")
+        result := ComCall(31, this, VARIANT_BOOL.Ptr, &pbRingingNow := 0, "HRESULT")
         return pbRingingNow
     }
 
@@ -528,5 +563,75 @@ class IFaxDevice extends IDispatch {
     AnswerCall() {
         result := ComCall(32, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFaxDevice.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_DeviceName := CallbackCreate(GetMethod(implObj, "get_DeviceName"), flags, 2)
+        this.vtbl.get_ProviderUniqueName := CallbackCreate(GetMethod(implObj, "get_ProviderUniqueName"), flags, 2)
+        this.vtbl.get_PoweredOff := CallbackCreate(GetMethod(implObj, "get_PoweredOff"), flags, 2)
+        this.vtbl.get_ReceivingNow := CallbackCreate(GetMethod(implObj, "get_ReceivingNow"), flags, 2)
+        this.vtbl.get_SendingNow := CallbackCreate(GetMethod(implObj, "get_SendingNow"), flags, 2)
+        this.vtbl.get_UsedRoutingMethods := CallbackCreate(GetMethod(implObj, "get_UsedRoutingMethods"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.get_SendEnabled := CallbackCreate(GetMethod(implObj, "get_SendEnabled"), flags, 2)
+        this.vtbl.put_SendEnabled := CallbackCreate(GetMethod(implObj, "put_SendEnabled"), flags, 2)
+        this.vtbl.get_ReceiveMode := CallbackCreate(GetMethod(implObj, "get_ReceiveMode"), flags, 2)
+        this.vtbl.put_ReceiveMode := CallbackCreate(GetMethod(implObj, "put_ReceiveMode"), flags, 2)
+        this.vtbl.get_RingsBeforeAnswer := CallbackCreate(GetMethod(implObj, "get_RingsBeforeAnswer"), flags, 2)
+        this.vtbl.put_RingsBeforeAnswer := CallbackCreate(GetMethod(implObj, "put_RingsBeforeAnswer"), flags, 2)
+        this.vtbl.get_CSID := CallbackCreate(GetMethod(implObj, "get_CSID"), flags, 2)
+        this.vtbl.put_CSID := CallbackCreate(GetMethod(implObj, "put_CSID"), flags, 2)
+        this.vtbl.get_TSID := CallbackCreate(GetMethod(implObj, "get_TSID"), flags, 2)
+        this.vtbl.put_TSID := CallbackCreate(GetMethod(implObj, "put_TSID"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
+        this.vtbl.GetExtensionProperty := CallbackCreate(GetMethod(implObj, "GetExtensionProperty"), flags, 3)
+        this.vtbl.SetExtensionProperty := CallbackCreate(GetMethod(implObj, "SetExtensionProperty"), flags, 3)
+        this.vtbl.UseRoutingMethod := CallbackCreate(GetMethod(implObj, "UseRoutingMethod"), flags, 3)
+        this.vtbl.get_RingingNow := CallbackCreate(GetMethod(implObj, "get_RingingNow"), flags, 2)
+        this.vtbl.AnswerCall := CallbackCreate(GetMethod(implObj, "AnswerCall"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Id)
+        CallbackFree(this.vtbl.get_DeviceName)
+        CallbackFree(this.vtbl.get_ProviderUniqueName)
+        CallbackFree(this.vtbl.get_PoweredOff)
+        CallbackFree(this.vtbl.get_ReceivingNow)
+        CallbackFree(this.vtbl.get_SendingNow)
+        CallbackFree(this.vtbl.get_UsedRoutingMethods)
+        CallbackFree(this.vtbl.get_Description)
+        CallbackFree(this.vtbl.put_Description)
+        CallbackFree(this.vtbl.get_SendEnabled)
+        CallbackFree(this.vtbl.put_SendEnabled)
+        CallbackFree(this.vtbl.get_ReceiveMode)
+        CallbackFree(this.vtbl.put_ReceiveMode)
+        CallbackFree(this.vtbl.get_RingsBeforeAnswer)
+        CallbackFree(this.vtbl.put_RingsBeforeAnswer)
+        CallbackFree(this.vtbl.get_CSID)
+        CallbackFree(this.vtbl.put_CSID)
+        CallbackFree(this.vtbl.get_TSID)
+        CallbackFree(this.vtbl.put_TSID)
+        CallbackFree(this.vtbl.Refresh)
+        CallbackFree(this.vtbl.Save)
+        CallbackFree(this.vtbl.GetExtensionProperty)
+        CallbackFree(this.vtbl.SetExtensionProperty)
+        CallbackFree(this.vtbl.UseRoutingMethod)
+        CallbackFree(this.vtbl.get_RingingNow)
+        CallbackFree(this.vtbl.AnswerCall)
     }
 }

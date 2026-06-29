@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWPM_FIELD_TYPE.ahk
-#Include .\FWP_DATA_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FWP_DATA_TYPE.ahk" { FWP_DATA_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FWPM_FIELD_TYPE.ahk" { FWPM_FIELD_TYPE }
 
 /**
  * Specifies schema information for a field.
@@ -10,39 +10,26 @@
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_field0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class FWPM_FIELD0 extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct FWPM_FIELD0 {
+    #StructPack 8
 
     /**
      * Uniquely identifies the field. See FWPM_CONDITION_* identifiers in the topic <a href="https://docs.microsoft.com/windows/desktop/FWP/filtering-condition-identifiers-">Filtering Condition Identifiers</a>.
-     * @type {Pointer<Guid>}
      */
-    fieldKey {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    fieldKey : Guid.Ptr
 
     /**
      * Determines how <b>dataType</b> is interpreted.
      * 
      * See [FWPM_FIELD_TYPE](/windows/desktop/api/fwpmtypes/ne-fwpmtypes-fwpm_field_type) for more information.
-     * @type {FWPM_FIELD_TYPE}
      */
-    type {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    type : FWPM_FIELD_TYPE
 
     /**
      * Data type passed to classify.
      * 
      * See [FWP_DATA_TYPE](/windows/desktop/api/fwptypes/ne-fwptypes-fwp_data_type) for more information.
-     * @type {FWP_DATA_TYPE}
      */
-    dataType {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    dataType : FWP_DATA_TYPE
+
 }

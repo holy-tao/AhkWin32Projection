@@ -1,34 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Provides communications between a client or intermediary application and Certificate services.
  * @see https://learn.microsoft.com/windows/win32/api/certcli/nn-certcli-icertrequest
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICertRequest extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ICertRequest extends IDispatch {
     /**
      * The interface identifier for ICertRequest
      * @type {Guid}
      */
-    static IID => Guid("{014e4840-5523-11d0-8812-00a0c903b83c}")
+    static IID := Guid("{014e4840-5523-11d0-8812-00a0c903b83c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICertRequest interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Submit                : IntPtr
+        RetrievePending       : IntPtr
+        GetLastStatus         : IntPtr
+        GetRequestId          : IntPtr
+        GetDispositionMessage : IntPtr
+        GetCACertificate      : IntPtr
+        GetCertificate        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Submit", "RetrievePending", "GetLastStatus", "GetRequestId", "GetDispositionMessage", "GetCACertificate", "GetCertificate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICertRequest.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Submits a request to the Certificate Services server.
@@ -291,7 +305,7 @@ class ICertRequest extends IDispatch {
         strAttributes := strAttributes is String ? BSTR.Alloc(strAttributes).Value : strAttributes
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(7, this, "int", Flags, "ptr", strRequest, "ptr", strAttributes, "ptr", strConfig, "int*", &pDisposition := 0, "HRESULT")
+        result := ComCall(7, this, "int", Flags, BSTR, strRequest, BSTR, strAttributes, BSTR, strConfig, "int*", &pDisposition := 0, "HRESULT")
         return pDisposition
     }
 
@@ -312,7 +326,7 @@ class ICertRequest extends IDispatch {
     RetrievePending(RequestId, strConfig) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(8, this, "int", RequestId, "ptr", strConfig, "int*", &pDisposition := 0, "HRESULT")
+        result := ComCall(8, this, "int", RequestId, BSTR, strConfig, "int*", &pDisposition := 0, "HRESULT")
         return pDisposition
     }
 
@@ -353,8 +367,8 @@ class ICertRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest-getdispositionmessage
      */
     GetDispositionMessage() {
-        pstrDispositionMessage := BSTR()
-        result := ComCall(11, this, "ptr", pstrDispositionMessage, "HRESULT")
+        pstrDispositionMessage := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pstrDispositionMessage, "HRESULT")
         return pstrDispositionMessage
     }
 
@@ -442,8 +456,8 @@ class ICertRequest extends IDispatch {
     GetCACertificate(fExchangeCertificate, strConfig, Flags) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        pstrCertificate := BSTR()
-        result := ComCall(12, this, "int", fExchangeCertificate, "ptr", strConfig, "int", Flags, "ptr", pstrCertificate, "HRESULT")
+        pstrCertificate := BSTR.Owned()
+        result := ComCall(12, this, "int", fExchangeCertificate, BSTR, strConfig, "int", Flags, BSTR.Ptr, pstrCertificate, "HRESULT")
         return pstrCertificate
     }
 
@@ -547,8 +561,40 @@ class ICertRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest-getcertificate
      */
     GetCertificate(Flags) {
-        pstrCertificate := BSTR()
-        result := ComCall(13, this, "int", Flags, "ptr", pstrCertificate, "HRESULT")
+        pstrCertificate := BSTR.Owned()
+        result := ComCall(13, this, "int", Flags, BSTR.Ptr, pstrCertificate, "HRESULT")
         return pstrCertificate
+    }
+
+    Query(iid) {
+        if (ICertRequest.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Submit := CallbackCreate(GetMethod(implObj, "Submit"), flags, 6)
+        this.vtbl.RetrievePending := CallbackCreate(GetMethod(implObj, "RetrievePending"), flags, 4)
+        this.vtbl.GetLastStatus := CallbackCreate(GetMethod(implObj, "GetLastStatus"), flags, 2)
+        this.vtbl.GetRequestId := CallbackCreate(GetMethod(implObj, "GetRequestId"), flags, 2)
+        this.vtbl.GetDispositionMessage := CallbackCreate(GetMethod(implObj, "GetDispositionMessage"), flags, 2)
+        this.vtbl.GetCACertificate := CallbackCreate(GetMethod(implObj, "GetCACertificate"), flags, 5)
+        this.vtbl.GetCertificate := CallbackCreate(GetMethod(implObj, "GetCertificate"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Submit)
+        CallbackFree(this.vtbl.RetrievePending)
+        CallbackFree(this.vtbl.GetLastStatus)
+        CallbackFree(this.vtbl.GetRequestId)
+        CallbackFree(this.vtbl.GetDispositionMessage)
+        CallbackFree(this.vtbl.GetCACertificate)
+        CallbackFree(this.vtbl.GetCertificate)
     }
 }

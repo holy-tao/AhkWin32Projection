@@ -1,15 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IInkDrawingAttributes.ahk
-#Include .\IInkRenderer.ahk
-#Include .\IInkDisp.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Ole\IPictureDisp.ahk
-#Include .\IInkStrokes.ahk
-#Include .\IInkCursors.ahk
-#Include .\IInkTablet.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\InkCollectorEventInterest.ahk" { InkCollectorEventInterest }
+#Import ".\InkOverlayEraserMode.ahk" { InkOverlayEraserMode }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IInkCursors.ahk" { IInkCursors }
+#Import ".\InkApplicationGesture.ahk" { InkApplicationGesture }
+#Import ".\InkMousePointer.ahk" { InkMousePointer }
+#Import ".\IInkStrokes.ahk" { IInkStrokes }
+#Import ".\IInkRenderer.ahk" { IInkRenderer }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IInkDrawingAttributes.ahk" { IInkDrawingAttributes }
+#Import ".\IInkRectangle.ahk" { IInkRectangle }
+#Import ".\InkOverlayEditingMode.ahk" { InkOverlayEditingMode }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\InkOverlayAttachMode.ahk" { InkOverlayAttachMode }
+#Import ".\InkCollectionMode.ahk" { InkCollectionMode }
+#Import "..\..\System\Ole\IPictureDisp.ahk" { IPictureDisp }
+#Import ".\SelectionHitResult.ahk" { SelectionHitResult }
+#Import ".\IInkDisp.ahk" { IInkDisp }
+#Import ".\IInkTablet.ahk" { IInkTablet }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * . (IInkOverlay)
@@ -18,26 +29,86 @@
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkoverlay
  * @namespace Windows.Win32.UI.TabletPC
  */
-class IInkOverlay extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IInkOverlay extends IDispatch {
     /**
      * The interface identifier for IInkOverlay
      * @type {Guid}
      */
-    static IID => Guid("{b82a463b-c1c5-45a3-997c-deab5651b67a}")
+    static IID := Guid("{b82a463b-c1c5-45a3-997c-deab5651b67a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IInkOverlay interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_hWnd                           : IntPtr
+        put_hWnd                           : IntPtr
+        get_Enabled                        : IntPtr
+        put_Enabled                        : IntPtr
+        get_DefaultDrawingAttributes       : IntPtr
+        putref_DefaultDrawingAttributes    : IntPtr
+        get_Renderer                       : IntPtr
+        putref_Renderer                    : IntPtr
+        get_Ink                            : IntPtr
+        putref_Ink                         : IntPtr
+        get_AutoRedraw                     : IntPtr
+        put_AutoRedraw                     : IntPtr
+        get_CollectingInk                  : IntPtr
+        get_CollectionMode                 : IntPtr
+        put_CollectionMode                 : IntPtr
+        get_DynamicRendering               : IntPtr
+        put_DynamicRendering               : IntPtr
+        get_DesiredPacketDescription       : IntPtr
+        put_DesiredPacketDescription       : IntPtr
+        get_MouseIcon                      : IntPtr
+        put_MouseIcon                      : IntPtr
+        putref_MouseIcon                   : IntPtr
+        get_MousePointer                   : IntPtr
+        put_MousePointer                   : IntPtr
+        get_EditingMode                    : IntPtr
+        put_EditingMode                    : IntPtr
+        get_Selection                      : IntPtr
+        put_Selection                      : IntPtr
+        get_EraserMode                     : IntPtr
+        put_EraserMode                     : IntPtr
+        get_EraserWidth                    : IntPtr
+        put_EraserWidth                    : IntPtr
+        get_AttachMode                     : IntPtr
+        put_AttachMode                     : IntPtr
+        get_Cursors                        : IntPtr
+        get_MarginX                        : IntPtr
+        put_MarginX                        : IntPtr
+        get_MarginY                        : IntPtr
+        put_MarginY                        : IntPtr
+        get_Tablet                         : IntPtr
+        get_SupportHighContrastInk         : IntPtr
+        put_SupportHighContrastInk         : IntPtr
+        get_SupportHighContrastSelectionUI : IntPtr
+        put_SupportHighContrastSelectionUI : IntPtr
+        HitTestSelection                   : IntPtr
+        Draw                               : IntPtr
+        SetGestureStatus                   : IntPtr
+        GetGestureStatus                   : IntPtr
+        GetWindowInputRectangle            : IntPtr
+        SetWindowInputRectangle            : IntPtr
+        SetAllTabletsMode                  : IntPtr
+        SetSingleTabletIntegratedMode      : IntPtr
+        GetEventInterest                   : IntPtr
+        SetEventInterest                   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_hWnd", "put_hWnd", "get_Enabled", "put_Enabled", "get_DefaultDrawingAttributes", "putref_DefaultDrawingAttributes", "get_Renderer", "putref_Renderer", "get_Ink", "putref_Ink", "get_AutoRedraw", "put_AutoRedraw", "get_CollectingInk", "get_CollectionMode", "put_CollectionMode", "get_DynamicRendering", "put_DynamicRendering", "get_DesiredPacketDescription", "put_DesiredPacketDescription", "get_MouseIcon", "put_MouseIcon", "putref_MouseIcon", "get_MousePointer", "put_MousePointer", "get_EditingMode", "put_EditingMode", "get_Selection", "put_Selection", "get_EraserMode", "put_EraserMode", "get_EraserWidth", "put_EraserWidth", "get_AttachMode", "put_AttachMode", "get_Cursors", "get_MarginX", "put_MarginX", "get_MarginY", "put_MarginY", "get_Tablet", "get_SupportHighContrastInk", "put_SupportHighContrastInk", "get_SupportHighContrastSelectionUI", "put_SupportHighContrastSelectionUI", "HitTestSelection", "Draw", "SetGestureStatus", "GetGestureStatus", "GetWindowInputRectangle", "SetWindowInputRectangle", "SetAllTabletsMode", "SetSingleTabletIntegratedMode", "GetEventInterest", "SetEventInterest"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IInkOverlay.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Pointer} 
@@ -300,7 +371,7 @@ class IInkOverlay extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_enabled
      */
     get_Enabled() {
-        result := ComCall(9, this, "short*", &Collecting := 0, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL.Ptr, &Collecting := 0, "HRESULT")
         return Collecting
     }
 
@@ -355,7 +426,7 @@ class IInkOverlay extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-put_enabled
      */
     put_Enabled(Collecting) {
-        result := ComCall(10, this, "short", Collecting, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL, Collecting, "HRESULT")
         return result
     }
 
@@ -551,7 +622,7 @@ class IInkOverlay extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_autoredraw
      */
     get_AutoRedraw() {
-        result := ComCall(17, this, "short*", &AutoRedraw := 0, "HRESULT")
+        result := ComCall(17, this, VARIANT_BOOL.Ptr, &AutoRedraw := 0, "HRESULT")
         return AutoRedraw
     }
 
@@ -605,7 +676,7 @@ class IInkOverlay extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-put_autoredraw
      */
     put_AutoRedraw(AutoRedraw) {
-        result := ComCall(18, this, "short", AutoRedraw, "HRESULT")
+        result := ComCall(18, this, VARIANT_BOOL, AutoRedraw, "HRESULT")
         return result
     }
 
@@ -620,7 +691,7 @@ class IInkOverlay extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_collectingink
      */
     get_CollectingInk() {
-        result := ComCall(19, this, "short*", &Collecting := 0, "HRESULT")
+        result := ComCall(19, this, VARIANT_BOOL.Ptr, &Collecting := 0, "HRESULT")
         return Collecting
     }
 
@@ -731,7 +802,7 @@ class IInkOverlay extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-put_collectionmode
      */
     put_CollectionMode(_Mode) {
-        result := ComCall(21, this, "int", _Mode, "HRESULT")
+        result := ComCall(21, this, InkCollectionMode, _Mode, "HRESULT")
         return result
     }
 
@@ -741,7 +812,7 @@ class IInkOverlay extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_dynamicrendering
      */
     get_DynamicRendering() {
-        result := ComCall(22, this, "short*", &Enabled := 0, "HRESULT")
+        result := ComCall(22, this, VARIANT_BOOL.Ptr, &Enabled := 0, "HRESULT")
         return Enabled
     }
 
@@ -752,7 +823,7 @@ class IInkOverlay extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-put_dynamicrendering
      */
     put_DynamicRendering(Enabled) {
-        result := ComCall(23, this, "short", Enabled, "HRESULT")
+        result := ComCall(23, this, VARIANT_BOOL, Enabled, "HRESULT")
         return result
     }
 
@@ -773,7 +844,7 @@ class IInkOverlay extends IDispatch {
      */
     get_DesiredPacketDescription() {
         PacketGuids := VARIANT()
-        result := ComCall(24, this, "ptr", PacketGuids, "HRESULT")
+        result := ComCall(24, this, VARIANT.Ptr, PacketGuids, "HRESULT")
         return PacketGuids
     }
 
@@ -794,7 +865,7 @@ class IInkOverlay extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-put_desiredpacketdescription
      */
     put_DesiredPacketDescription(PacketGuids) {
-        result := ComCall(25, this, "ptr", PacketGuids, "HRESULT")
+        result := ComCall(25, this, VARIANT, PacketGuids, "HRESULT")
         return result
     }
 
@@ -866,7 +937,7 @@ class IInkOverlay extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-put_mousepointer
      */
     put_MousePointer(MousePointer) {
-        result := ComCall(30, this, "int", MousePointer, "HRESULT")
+        result := ComCall(30, this, InkMousePointer, MousePointer, "HRESULT")
         return result
     }
 
@@ -895,7 +966,7 @@ class IInkOverlay extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-put_editingmode
      */
     put_EditingMode(EditingMode) {
-        result := ComCall(32, this, "int", EditingMode, "HRESULT")
+        result := ComCall(32, this, InkOverlayEditingMode, EditingMode, "HRESULT")
         return result
     }
 
@@ -953,7 +1024,7 @@ class IInkOverlay extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-put_erasermode
      */
     put_EraserMode(EraserMode) {
-        result := ComCall(36, this, "int", EraserMode, "HRESULT")
+        result := ComCall(36, this, InkOverlayEraserMode, EraserMode, "HRESULT")
         return result
     }
 
@@ -1017,7 +1088,7 @@ class IInkOverlay extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-put_attachmode
      */
     put_AttachMode(AttachMode) {
-        result := ComCall(40, this, "int", AttachMode, "HRESULT")
+        result := ComCall(40, this, InkOverlayAttachMode, AttachMode, "HRESULT")
         return result
     }
 
@@ -1148,7 +1219,7 @@ class IInkOverlay extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_supporthighcontrastink
      */
     get_SupportHighContrastInk() {
-        result := ComCall(47, this, "short*", &Support := 0, "HRESULT")
+        result := ComCall(47, this, VARIANT_BOOL.Ptr, &Support := 0, "HRESULT")
         return Support
     }
 
@@ -1163,7 +1234,7 @@ class IInkOverlay extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-put_supporthighcontrastink
      */
     put_SupportHighContrastInk(Support) {
-        result := ComCall(48, this, "short", Support, "HRESULT")
+        result := ComCall(48, this, VARIANT_BOOL, Support, "HRESULT")
         return result
     }
 
@@ -1177,7 +1248,7 @@ class IInkOverlay extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_supporthighcontrastselectionui
      */
     get_SupportHighContrastSelectionUI() {
-        result := ComCall(49, this, "short*", &Support := 0, "HRESULT")
+        result := ComCall(49, this, VARIANT_BOOL.Ptr, &Support := 0, "HRESULT")
         return Support
     }
 
@@ -1192,7 +1263,7 @@ class IInkOverlay extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-put_supporthighcontrastselectionui
      */
     put_SupportHighContrastSelectionUI(Support) {
-        result := ComCall(50, this, "short", Support, "HRESULT")
+        result := ComCall(50, this, VARIANT_BOOL, Support, "HRESULT")
         return result
     }
 
@@ -1319,7 +1390,7 @@ class IInkOverlay extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-setgesturestatus
      */
     SetGestureStatus(Gesture, Listen) {
-        result := ComCall(53, this, "int", Gesture, "short", Listen, "HRESULT")
+        result := ComCall(53, this, InkApplicationGesture, Gesture, VARIANT_BOOL, Listen, "HRESULT")
         return result
     }
 
@@ -1339,7 +1410,7 @@ class IInkOverlay extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-getgesturestatus
      */
     GetGestureStatus(Gesture) {
-        result := ComCall(54, this, "int", Gesture, "short*", &Listening := 0, "HRESULT")
+        result := ComCall(54, this, InkApplicationGesture, Gesture, VARIANT_BOOL.Ptr, &Listening := 0, "HRESULT")
         return Listening
     }
 
@@ -1407,7 +1478,7 @@ class IInkOverlay extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-getwindowinputrectangle
      */
     GetWindowInputRectangle(WindowInputRectangle) {
-        result := ComCall(55, this, "ptr*", WindowInputRectangle, "HRESULT")
+        result := ComCall(55, this, IInkRectangle.Ptr, WindowInputRectangle, "HRESULT")
         return result
     }
 
@@ -1577,7 +1648,7 @@ class IInkOverlay extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-setalltabletsmode
      */
     SetAllTabletsMode(UseMouseForInput) {
-        result := ComCall(57, this, "short", UseMouseForInput, "HRESULT")
+        result := ComCall(57, this, VARIANT_BOOL, UseMouseForInput, "HRESULT")
         return result
     }
 
@@ -1667,7 +1738,7 @@ class IInkOverlay extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-geteventinterest
      */
     GetEventInterest(EventId) {
-        result := ComCall(59, this, "int", EventId, "short*", &Listen := 0, "HRESULT")
+        result := ComCall(59, this, InkCollectorEventInterest, EventId, VARIANT_BOOL.Ptr, &Listen := 0, "HRESULT")
         return Listen
     }
 
@@ -1734,7 +1805,133 @@ class IInkOverlay extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-seteventinterest
      */
     SetEventInterest(EventId, Listen) {
-        result := ComCall(60, this, "int", EventId, "short", Listen, "HRESULT")
+        result := ComCall(60, this, InkCollectorEventInterest, EventId, VARIANT_BOOL, Listen, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IInkOverlay.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_hWnd := CallbackCreate(GetMethod(implObj, "get_hWnd"), flags, 2)
+        this.vtbl.put_hWnd := CallbackCreate(GetMethod(implObj, "put_hWnd"), flags, 2)
+        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.put_Enabled := CallbackCreate(GetMethod(implObj, "put_Enabled"), flags, 2)
+        this.vtbl.get_DefaultDrawingAttributes := CallbackCreate(GetMethod(implObj, "get_DefaultDrawingAttributes"), flags, 2)
+        this.vtbl.putref_DefaultDrawingAttributes := CallbackCreate(GetMethod(implObj, "putref_DefaultDrawingAttributes"), flags, 2)
+        this.vtbl.get_Renderer := CallbackCreate(GetMethod(implObj, "get_Renderer"), flags, 2)
+        this.vtbl.putref_Renderer := CallbackCreate(GetMethod(implObj, "putref_Renderer"), flags, 2)
+        this.vtbl.get_Ink := CallbackCreate(GetMethod(implObj, "get_Ink"), flags, 2)
+        this.vtbl.putref_Ink := CallbackCreate(GetMethod(implObj, "putref_Ink"), flags, 2)
+        this.vtbl.get_AutoRedraw := CallbackCreate(GetMethod(implObj, "get_AutoRedraw"), flags, 2)
+        this.vtbl.put_AutoRedraw := CallbackCreate(GetMethod(implObj, "put_AutoRedraw"), flags, 2)
+        this.vtbl.get_CollectingInk := CallbackCreate(GetMethod(implObj, "get_CollectingInk"), flags, 2)
+        this.vtbl.get_CollectionMode := CallbackCreate(GetMethod(implObj, "get_CollectionMode"), flags, 2)
+        this.vtbl.put_CollectionMode := CallbackCreate(GetMethod(implObj, "put_CollectionMode"), flags, 2)
+        this.vtbl.get_DynamicRendering := CallbackCreate(GetMethod(implObj, "get_DynamicRendering"), flags, 2)
+        this.vtbl.put_DynamicRendering := CallbackCreate(GetMethod(implObj, "put_DynamicRendering"), flags, 2)
+        this.vtbl.get_DesiredPacketDescription := CallbackCreate(GetMethod(implObj, "get_DesiredPacketDescription"), flags, 2)
+        this.vtbl.put_DesiredPacketDescription := CallbackCreate(GetMethod(implObj, "put_DesiredPacketDescription"), flags, 2)
+        this.vtbl.get_MouseIcon := CallbackCreate(GetMethod(implObj, "get_MouseIcon"), flags, 2)
+        this.vtbl.put_MouseIcon := CallbackCreate(GetMethod(implObj, "put_MouseIcon"), flags, 2)
+        this.vtbl.putref_MouseIcon := CallbackCreate(GetMethod(implObj, "putref_MouseIcon"), flags, 2)
+        this.vtbl.get_MousePointer := CallbackCreate(GetMethod(implObj, "get_MousePointer"), flags, 2)
+        this.vtbl.put_MousePointer := CallbackCreate(GetMethod(implObj, "put_MousePointer"), flags, 2)
+        this.vtbl.get_EditingMode := CallbackCreate(GetMethod(implObj, "get_EditingMode"), flags, 2)
+        this.vtbl.put_EditingMode := CallbackCreate(GetMethod(implObj, "put_EditingMode"), flags, 2)
+        this.vtbl.get_Selection := CallbackCreate(GetMethod(implObj, "get_Selection"), flags, 2)
+        this.vtbl.put_Selection := CallbackCreate(GetMethod(implObj, "put_Selection"), flags, 2)
+        this.vtbl.get_EraserMode := CallbackCreate(GetMethod(implObj, "get_EraserMode"), flags, 2)
+        this.vtbl.put_EraserMode := CallbackCreate(GetMethod(implObj, "put_EraserMode"), flags, 2)
+        this.vtbl.get_EraserWidth := CallbackCreate(GetMethod(implObj, "get_EraserWidth"), flags, 2)
+        this.vtbl.put_EraserWidth := CallbackCreate(GetMethod(implObj, "put_EraserWidth"), flags, 2)
+        this.vtbl.get_AttachMode := CallbackCreate(GetMethod(implObj, "get_AttachMode"), flags, 2)
+        this.vtbl.put_AttachMode := CallbackCreate(GetMethod(implObj, "put_AttachMode"), flags, 2)
+        this.vtbl.get_Cursors := CallbackCreate(GetMethod(implObj, "get_Cursors"), flags, 2)
+        this.vtbl.get_MarginX := CallbackCreate(GetMethod(implObj, "get_MarginX"), flags, 2)
+        this.vtbl.put_MarginX := CallbackCreate(GetMethod(implObj, "put_MarginX"), flags, 2)
+        this.vtbl.get_MarginY := CallbackCreate(GetMethod(implObj, "get_MarginY"), flags, 2)
+        this.vtbl.put_MarginY := CallbackCreate(GetMethod(implObj, "put_MarginY"), flags, 2)
+        this.vtbl.get_Tablet := CallbackCreate(GetMethod(implObj, "get_Tablet"), flags, 2)
+        this.vtbl.get_SupportHighContrastInk := CallbackCreate(GetMethod(implObj, "get_SupportHighContrastInk"), flags, 2)
+        this.vtbl.put_SupportHighContrastInk := CallbackCreate(GetMethod(implObj, "put_SupportHighContrastInk"), flags, 2)
+        this.vtbl.get_SupportHighContrastSelectionUI := CallbackCreate(GetMethod(implObj, "get_SupportHighContrastSelectionUI"), flags, 2)
+        this.vtbl.put_SupportHighContrastSelectionUI := CallbackCreate(GetMethod(implObj, "put_SupportHighContrastSelectionUI"), flags, 2)
+        this.vtbl.HitTestSelection := CallbackCreate(GetMethod(implObj, "HitTestSelection"), flags, 4)
+        this.vtbl.Draw := CallbackCreate(GetMethod(implObj, "Draw"), flags, 2)
+        this.vtbl.SetGestureStatus := CallbackCreate(GetMethod(implObj, "SetGestureStatus"), flags, 3)
+        this.vtbl.GetGestureStatus := CallbackCreate(GetMethod(implObj, "GetGestureStatus"), flags, 3)
+        this.vtbl.GetWindowInputRectangle := CallbackCreate(GetMethod(implObj, "GetWindowInputRectangle"), flags, 2)
+        this.vtbl.SetWindowInputRectangle := CallbackCreate(GetMethod(implObj, "SetWindowInputRectangle"), flags, 2)
+        this.vtbl.SetAllTabletsMode := CallbackCreate(GetMethod(implObj, "SetAllTabletsMode"), flags, 2)
+        this.vtbl.SetSingleTabletIntegratedMode := CallbackCreate(GetMethod(implObj, "SetSingleTabletIntegratedMode"), flags, 2)
+        this.vtbl.GetEventInterest := CallbackCreate(GetMethod(implObj, "GetEventInterest"), flags, 3)
+        this.vtbl.SetEventInterest := CallbackCreate(GetMethod(implObj, "SetEventInterest"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_hWnd)
+        CallbackFree(this.vtbl.put_hWnd)
+        CallbackFree(this.vtbl.get_Enabled)
+        CallbackFree(this.vtbl.put_Enabled)
+        CallbackFree(this.vtbl.get_DefaultDrawingAttributes)
+        CallbackFree(this.vtbl.putref_DefaultDrawingAttributes)
+        CallbackFree(this.vtbl.get_Renderer)
+        CallbackFree(this.vtbl.putref_Renderer)
+        CallbackFree(this.vtbl.get_Ink)
+        CallbackFree(this.vtbl.putref_Ink)
+        CallbackFree(this.vtbl.get_AutoRedraw)
+        CallbackFree(this.vtbl.put_AutoRedraw)
+        CallbackFree(this.vtbl.get_CollectingInk)
+        CallbackFree(this.vtbl.get_CollectionMode)
+        CallbackFree(this.vtbl.put_CollectionMode)
+        CallbackFree(this.vtbl.get_DynamicRendering)
+        CallbackFree(this.vtbl.put_DynamicRendering)
+        CallbackFree(this.vtbl.get_DesiredPacketDescription)
+        CallbackFree(this.vtbl.put_DesiredPacketDescription)
+        CallbackFree(this.vtbl.get_MouseIcon)
+        CallbackFree(this.vtbl.put_MouseIcon)
+        CallbackFree(this.vtbl.putref_MouseIcon)
+        CallbackFree(this.vtbl.get_MousePointer)
+        CallbackFree(this.vtbl.put_MousePointer)
+        CallbackFree(this.vtbl.get_EditingMode)
+        CallbackFree(this.vtbl.put_EditingMode)
+        CallbackFree(this.vtbl.get_Selection)
+        CallbackFree(this.vtbl.put_Selection)
+        CallbackFree(this.vtbl.get_EraserMode)
+        CallbackFree(this.vtbl.put_EraserMode)
+        CallbackFree(this.vtbl.get_EraserWidth)
+        CallbackFree(this.vtbl.put_EraserWidth)
+        CallbackFree(this.vtbl.get_AttachMode)
+        CallbackFree(this.vtbl.put_AttachMode)
+        CallbackFree(this.vtbl.get_Cursors)
+        CallbackFree(this.vtbl.get_MarginX)
+        CallbackFree(this.vtbl.put_MarginX)
+        CallbackFree(this.vtbl.get_MarginY)
+        CallbackFree(this.vtbl.put_MarginY)
+        CallbackFree(this.vtbl.get_Tablet)
+        CallbackFree(this.vtbl.get_SupportHighContrastInk)
+        CallbackFree(this.vtbl.put_SupportHighContrastInk)
+        CallbackFree(this.vtbl.get_SupportHighContrastSelectionUI)
+        CallbackFree(this.vtbl.put_SupportHighContrastSelectionUI)
+        CallbackFree(this.vtbl.HitTestSelection)
+        CallbackFree(this.vtbl.Draw)
+        CallbackFree(this.vtbl.SetGestureStatus)
+        CallbackFree(this.vtbl.GetGestureStatus)
+        CallbackFree(this.vtbl.GetWindowInputRectangle)
+        CallbackFree(this.vtbl.SetWindowInputRectangle)
+        CallbackFree(this.vtbl.SetAllTabletsMode)
+        CallbackFree(this.vtbl.SetSingleTabletIntegratedMode)
+        CallbackFree(this.vtbl.GetEventInterest)
+        CallbackFree(this.vtbl.SetEventInterest)
     }
 }

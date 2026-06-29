@@ -1,14 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\..\Win32Handle.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BCRYPT_SECRET_HANDLE.ahk" { BCRYPT_SECRET_HANDLE }
+#Import ".\BCRYPT_HASH_HANDLE.ahk" { BCRYPT_HASH_HANDLE }
+#Import ".\BCRYPT_ALG_HANDLE.ahk" { BCRYPT_ALG_HANDLE }
+#Import ".\BCRYPT_KEY_HANDLE.ahk" { BCRYPT_KEY_HANDLE }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class BCRYPT_HANDLE extends Win32Handle {
-    static sizeof => 8
+export default struct BCRYPT_HANDLE {
+    Value : IntPtr
 
-    static packingSize => 8
+    __value {
+        set {
+            if ((value is BCRYPT_ALG_HANDLE) || (value is BCRYPT_HANDLE) || (value is BCRYPT_HASH_HANDLE) || (value is BCRYPT_KEY_HANDLE) || (value is BCRYPT_SECRET_HANDLE)) {
+                this.Value := value.Value
+            }
+            else {
+                this.Value := value
+            }
+        }
+    }
 
     /**
      * The list of values which indicate that the handle is invalid
@@ -16,11 +27,7 @@ class BCRYPT_HANDLE extends Win32Handle {
      */
     static invalidValues => [0]
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Value {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    __New(Value := 0) {
+        this.Value := Value
     }
 }

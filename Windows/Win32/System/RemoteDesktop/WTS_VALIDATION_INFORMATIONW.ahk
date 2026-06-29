@@ -1,62 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PRODUCT_INFOW.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PRODUCT_INFOW.ahk" { PRODUCT_INFOW }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop
  * @charset Unicode
  */
-class WTS_VALIDATION_INFORMATIONW extends Win32Struct {
-    static sizeof => 16932
+export default struct WTS_VALIDATION_INFORMATIONW {
+    #StructPack 4
 
-    static packingSize => 4
+    ProductInfo : PRODUCT_INFOW
 
-    /**
-     * @type {PRODUCT_INFOW}
-     */
-    ProductInfo {
-        get {
-            if(!this.HasProp("__ProductInfo"))
-                this.__ProductInfo := PRODUCT_INFOW(0, this)
-            return this.__ProductInfo
-        }
-    }
+    License : Int8[16384]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    License {
-        get {
-            if(!this.HasProp("__LicenseProxyArray"))
-                this.__LicenseProxyArray := Win32FixedArray(this.ptr + 520, 16384, Primitive, "char")
-            return this.__LicenseProxyArray
-        }
-    }
+    LicenseLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LicenseLength {
-        get => NumGet(this, 16904, "uint")
-        set => NumPut("uint", value, this, 16904)
-    }
+    HardwareID : Int8[20]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    HardwareID {
-        get {
-            if(!this.HasProp("__HardwareIDProxyArray"))
-                this.__HardwareIDProxyArray := Win32FixedArray(this.ptr + 16908, 20, Primitive, "char")
-            return this.__HardwareIDProxyArray
-        }
-    }
+    HardwareIDLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HardwareIDLength {
-        get => NumGet(this, 16928, "uint")
-        set => NumPut("uint", value, this, 16928)
-    }
 }

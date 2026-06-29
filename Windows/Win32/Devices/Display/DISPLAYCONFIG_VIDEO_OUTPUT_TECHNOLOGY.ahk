@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY enumeration specifies the target's connector type.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ne-wingdi-displayconfig_video_output_technology
  * @namespace Windows.Win32.Devices.Display
  */
-class DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY extends Win32Enum {
+export default struct DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates a connector that is not one of the types that is indicated by the following enumerators in this enumeration.

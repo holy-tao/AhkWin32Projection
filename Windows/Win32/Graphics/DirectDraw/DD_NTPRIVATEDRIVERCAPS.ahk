@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DD_NTPRIVATEDRIVERCAPS structure enables the driver to change the behavior of Microsoft DirectDraw when DirectDraw is creating surfaces.
@@ -12,26 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_ntprivatedrivercaps
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DD_NTPRIVATEDRIVERCAPS extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct DD_NTPRIVATEDRIVERCAPS {
+    #StructPack 4
 
     /**
      * Specifies the size in bytes of this DD_NTPRIVATEDRIVERCAPS structure.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Indicates how DirectDraw should create the surface.
-     * @type {Integer}
      */
-    dwPrivateCaps {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwPrivateCaps : UInt32
+
 }

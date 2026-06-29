@@ -1,52 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOC_SUBSYSTEM_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SOC_SUBSYSTEM_TYPE.ahk" { SOC_SUBSYSTEM_TYPE }
+#Import "..\..\..\Win32\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class SOC_SUBSYSTEM_FAILURE_DETAILS extends Win32Struct {
-    static sizeof => 32
+export default struct SOC_SUBSYSTEM_FAILURE_DETAILS {
+    #StructPack 8
 
-    static packingSize => 8
+    SubsysType : SOC_SUBSYSTEM_TYPE
 
-    /**
-     * @type {SOC_SUBSYSTEM_TYPE}
-     */
-    SubsysType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    FirmwareVersion : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FirmwareVersion {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    HardwareVersion : Int64
 
-    /**
-     * @type {Integer}
-     */
-    HardwareVersion {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    UnifiedFailureRegionSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    UnifiedFailureRegionSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    UnifiedFailureRegion : CHAR[1]
 
-    /**
-     * @type {String}
-     */
-    UnifiedFailureRegion {
-        get => StrGet(this.ptr + 28, 0, "UTF-8")
-        set => StrPut(value, this.ptr + 28, 0, "UTF-8")
-    }
 }

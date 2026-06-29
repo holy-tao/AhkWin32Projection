@@ -1,40 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\OFFLINEFILES_SETTING_VALUE_TYPE.ahk" { OFFLINEFILES_SETTING_VALUE_TYPE }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Represents a setting that controls the behavior the Offline Files service.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilessetting
  * @namespace Windows.Win32.Storage.OfflineFiles
  */
-class IOfflineFilesSetting extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOfflineFilesSetting extends IUnknown {
     /**
      * The interface identifier for IOfflineFilesSetting
      * @type {Guid}
      */
-    static IID => Guid("{d871d3f7-f613-48a1-827e-7a34e560fff6}")
+    static IID := Guid("{d871d3f7-f613-48a1-827e-7a34e560fff6}")
 
     /**
      * The class identifier for OfflineFilesSetting
      * @type {Guid}
      */
-    static CLSID => Guid("{fd3659e9-a920-4123-ad64-7fc76c7aacdf}")
+    static CLSID := Guid("{fd3659e9-a920-4123-ad64-7fc76c7aacdf}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOfflineFilesSetting interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetName            : IntPtr
+        GetValueType       : IntPtr
+        GetPreference      : IntPtr
+        GetPreferenceScope : IntPtr
+        SetPreference      : IntPtr
+        DeletePreference   : IntPtr
+        GetPolicy          : IntPtr
+        GetPolicyScope     : IntPtr
+        GetValue           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetName", "GetValueType", "GetPreference", "GetPreferenceScope", "SetPreference", "DeletePreference", "GetPolicy", "GetPolicyScope", "GetValue"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOfflineFilesSetting.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a name associated with a particular Offline Files setting.
@@ -42,7 +61,7 @@ class IOfflineFilesSetting extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessetting-getname
      */
     GetName() {
-        result := ComCall(3, this, "ptr*", &ppszName := 0, "HRESULT")
+        result := ComCall(3, this, PWSTR.Ptr, &ppszName := 0, "HRESULT")
         return ppszName
     }
 
@@ -66,7 +85,7 @@ class IOfflineFilesSetting extends IUnknown {
      */
     GetPreference(dwScope) {
         pvarValue := VARIANT()
-        result := ComCall(5, this, "ptr", pvarValue, "uint", dwScope, "HRESULT")
+        result := ComCall(5, this, VARIANT.Ptr, pvarValue, "uint", dwScope, "HRESULT")
         return pvarValue
     }
 
@@ -102,7 +121,7 @@ class IOfflineFilesSetting extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessetting-setpreference
      */
     SetPreference(pvarValue, dwScope) {
-        result := ComCall(7, this, "ptr", pvarValue, "uint", dwScope, "HRESULT")
+        result := ComCall(7, this, VARIANT.Ptr, pvarValue, "uint", dwScope, "HRESULT")
         return result
     }
 
@@ -138,7 +157,7 @@ class IOfflineFilesSetting extends IUnknown {
      */
     GetPolicy(dwScope) {
         pvarValue := VARIANT()
-        result := ComCall(9, this, "ptr", pvarValue, "uint", dwScope, "HRESULT")
+        result := ComCall(9, this, VARIANT.Ptr, pvarValue, "uint", dwScope, "HRESULT")
         return pvarValue
     }
 
@@ -179,7 +198,43 @@ class IOfflineFilesSetting extends IUnknown {
     GetValue(pvarValue, pbSetByPolicy) {
         pbSetByPolicyMarshal := pbSetByPolicy is VarRef ? "int*" : "ptr"
 
-        result := ComCall(11, this, "ptr", pvarValue, pbSetByPolicyMarshal, pbSetByPolicy, "HRESULT")
+        result := ComCall(11, this, VARIANT.Ptr, pvarValue, pbSetByPolicyMarshal, pbSetByPolicy, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOfflineFilesSetting.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetValueType := CallbackCreate(GetMethod(implObj, "GetValueType"), flags, 2)
+        this.vtbl.GetPreference := CallbackCreate(GetMethod(implObj, "GetPreference"), flags, 3)
+        this.vtbl.GetPreferenceScope := CallbackCreate(GetMethod(implObj, "GetPreferenceScope"), flags, 2)
+        this.vtbl.SetPreference := CallbackCreate(GetMethod(implObj, "SetPreference"), flags, 3)
+        this.vtbl.DeletePreference := CallbackCreate(GetMethod(implObj, "DeletePreference"), flags, 2)
+        this.vtbl.GetPolicy := CallbackCreate(GetMethod(implObj, "GetPolicy"), flags, 3)
+        this.vtbl.GetPolicyScope := CallbackCreate(GetMethod(implObj, "GetPolicyScope"), flags, 2)
+        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.GetValueType)
+        CallbackFree(this.vtbl.GetPreference)
+        CallbackFree(this.vtbl.GetPreferenceScope)
+        CallbackFree(this.vtbl.SetPreference)
+        CallbackFree(this.vtbl.DeletePreference)
+        CallbackFree(this.vtbl.GetPolicy)
+        CallbackFree(this.vtbl.GetPolicyScope)
+        CallbackFree(this.vtbl.GetValue)
     }
 }

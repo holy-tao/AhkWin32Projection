@@ -1,195 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\SIZE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KS_VIDEO_STREAM_CONFIG_CAPS extends Win32Struct {
-    static sizeof => 120
+export default struct KS_VIDEO_STREAM_CONFIG_CAPS {
+    #StructPack 8
 
-    static packingSize => 8
+    guid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    guid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    VideoStandard : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VideoStandard {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    InputSize : SIZE
 
-    /**
-     * @type {SIZE}
-     */
-    InputSize {
-        get {
-            if(!this.HasProp("__InputSize"))
-                this.__InputSize := SIZE(12, this)
-            return this.__InputSize
-        }
-    }
+    MinCroppingSize : SIZE
 
-    /**
-     * @type {SIZE}
-     */
-    MinCroppingSize {
-        get {
-            if(!this.HasProp("__MinCroppingSize"))
-                this.__MinCroppingSize := SIZE(20, this)
-            return this.__MinCroppingSize
-        }
-    }
+    MaxCroppingSize : SIZE
 
-    /**
-     * @type {SIZE}
-     */
-    MaxCroppingSize {
-        get {
-            if(!this.HasProp("__MaxCroppingSize"))
-                this.__MaxCroppingSize := SIZE(28, this)
-            return this.__MaxCroppingSize
-        }
-    }
+    CropGranularityX : Int32
 
-    /**
-     * @type {Integer}
-     */
-    CropGranularityX {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    CropGranularityY : Int32
 
-    /**
-     * @type {Integer}
-     */
-    CropGranularityY {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    CropAlignX : Int32
 
-    /**
-     * @type {Integer}
-     */
-    CropAlignX {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    CropAlignY : Int32
 
-    /**
-     * @type {Integer}
-     */
-    CropAlignY {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    MinOutputSize : SIZE
 
-    /**
-     * @type {SIZE}
-     */
-    MinOutputSize {
-        get {
-            if(!this.HasProp("__MinOutputSize"))
-                this.__MinOutputSize := SIZE(52, this)
-            return this.__MinOutputSize
-        }
-    }
+    MaxOutputSize : SIZE
 
-    /**
-     * @type {SIZE}
-     */
-    MaxOutputSize {
-        get {
-            if(!this.HasProp("__MaxOutputSize"))
-                this.__MaxOutputSize := SIZE(60, this)
-            return this.__MaxOutputSize
-        }
-    }
+    OutputGranularityX : Int32
 
-    /**
-     * @type {Integer}
-     */
-    OutputGranularityX {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
-    }
+    OutputGranularityY : Int32
 
-    /**
-     * @type {Integer}
-     */
-    OutputGranularityY {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
-    }
+    StretchTapsX : Int32
 
-    /**
-     * @type {Integer}
-     */
-    StretchTapsX {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
-    }
+    StretchTapsY : Int32
 
-    /**
-     * @type {Integer}
-     */
-    StretchTapsY {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
-    }
+    ShrinkTapsX : Int32
 
-    /**
-     * @type {Integer}
-     */
-    ShrinkTapsX {
-        get => NumGet(this, 84, "int")
-        set => NumPut("int", value, this, 84)
-    }
+    ShrinkTapsY : Int32
 
-    /**
-     * @type {Integer}
-     */
-    ShrinkTapsY {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
-    }
+    MinFrameInterval : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MinFrameInterval {
-        get => NumGet(this, 96, "int64")
-        set => NumPut("int64", value, this, 96)
-    }
+    MaxFrameInterval : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MaxFrameInterval {
-        get => NumGet(this, 104, "int64")
-        set => NumPut("int64", value, this, 104)
-    }
+    MinBitsPerSecond : Int32
 
-    /**
-     * @type {Integer}
-     */
-    MinBitsPerSecond {
-        get => NumGet(this, 112, "int")
-        set => NumPut("int", value, this, 112)
-    }
+    MaxBitsPerSecond : Int32
 
-    /**
-     * @type {Integer}
-     */
-    MaxBitsPerSecond {
-        get => NumGet(this, 116, "int")
-        set => NumPut("int", value, this, 116)
-    }
 }

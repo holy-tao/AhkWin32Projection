@@ -1,37 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes a JPEG DC huffman table.
  * @see https://learn.microsoft.com/windows/win32/direct3ddxgi/dxgi-jpeg-dc-huffman-table
  * @namespace Windows.Win32.Graphics.Dxgi.Common
  */
-class DXGI_JPEG_DC_HUFFMAN_TABLE extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 1
+export default struct DXGI_JPEG_DC_HUFFMAN_TABLE {
+    #StructPack 1
 
     /**
      * The number of codes for each code length.
-     * @type {Array<Integer>}
      */
-    CodeCounts {
-        get {
-            if(!this.HasProp("__CodeCountsProxyArray"))
-                this.__CodeCountsProxyArray := Win32FixedArray(this.ptr + 0, 12, Primitive, "char")
-            return this.__CodeCountsProxyArray
-        }
-    }
+    CodeCounts : Int8[12]
 
     /**
      * The Huffman code values, in order of increasing code length.
-     * @type {Array<Integer>}
      */
-    CodeValues {
-        get {
-            if(!this.HasProp("__CodeValuesProxyArray"))
-                this.__CodeValuesProxyArray := Win32FixedArray(this.ptr + 12, 12, Primitive, "char")
-            return this.__CodeValuesProxyArray
-        }
-    }
+    CodeValues : Int8[12]
+
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The WSL_DISTRIBUTION_FLAGS enumeration specifies the behavior of a distribution in the Windows Subsystem for Linux (WSL).
  * @see https://learn.microsoft.com/windows/win32/api/wslapi/ne-wslapi-wsl_distribution_flags
  * @namespace Windows.Win32.System.SubsystemForLinux
  */
-class WSL_DISTRIBUTION_FLAGS extends Win32BitflagEnum {
+export default struct WSL_DISTRIBUTION_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No flags are being supplied.

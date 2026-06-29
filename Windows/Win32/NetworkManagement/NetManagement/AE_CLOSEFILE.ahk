@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class AE_CLOSEFILE extends Win32Struct {
-    static sizeof => 24
+export default struct AE_CLOSEFILE {
+    #StructPack 4
 
-    static packingSize => 4
+    ae_cf_compname : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_cf_compname {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ae_cf_username : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_cf_username {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ae_cf_resname : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_cf_resname {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ae_cf_fileid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_cf_fileid {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ae_cf_duration : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_cf_duration {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ae_cf_reason : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_cf_reason {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

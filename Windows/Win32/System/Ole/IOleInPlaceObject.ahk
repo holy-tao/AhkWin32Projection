@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IOleWindow.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOleWindow.ahk" { IOleWindow }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Manages the activation and deactivation of in-place objects, and determines how much of the in-place object should be visible.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-ioleinplaceobject
  * @namespace Windows.Win32.System.Ole
  */
-class IOleInPlaceObject extends IOleWindow {
-
-    static sizeof => A_PtrSize
+export default struct IOleInPlaceObject extends IOleWindow {
     /**
      * The interface identifier for IOleInPlaceObject
      * @type {Guid}
      */
-    static IID => Guid("{00000113-0000-0000-c000-000000000046}")
+    static IID := Guid("{00000113-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOleInPlaceObject interfaces
+    */
+    struct Vtbl extends IOleWindow.Vtbl {
+        InPlaceDeactivate : IntPtr
+        UIDeactivate      : IntPtr
+        SetObjectRects    : IntPtr
+        ReactivateAndUndo : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InPlaceDeactivate", "UIDeactivate", "SetObjectRects", "ReactivateAndUndo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOleInPlaceObject.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Deactivates an active in-place object and discards the object's undo state.
@@ -168,7 +180,7 @@ class IOleInPlaceObject extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleinplaceobject-setobjectrects
      */
     SetObjectRects(lprcPosRect, lprcClipRect) {
-        result := ComCall(7, this, "ptr", lprcPosRect, "ptr", lprcClipRect, "HRESULT")
+        result := ComCall(7, this, RECT.Ptr, lprcPosRect, RECT.Ptr, lprcClipRect, "HRESULT")
         return result
     }
 
@@ -222,5 +234,31 @@ class IOleInPlaceObject extends IOleWindow {
     ReactivateAndUndo() {
         result := ComCall(8, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOleInPlaceObject.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InPlaceDeactivate := CallbackCreate(GetMethod(implObj, "InPlaceDeactivate"), flags, 1)
+        this.vtbl.UIDeactivate := CallbackCreate(GetMethod(implObj, "UIDeactivate"), flags, 1)
+        this.vtbl.SetObjectRects := CallbackCreate(GetMethod(implObj, "SetObjectRects"), flags, 3)
+        this.vtbl.ReactivateAndUndo := CallbackCreate(GetMethod(implObj, "ReactivateAndUndo"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InPlaceDeactivate)
+        CallbackFree(this.vtbl.UIDeactivate)
+        CallbackFree(this.vtbl.SetObjectRects)
+        CallbackFree(this.vtbl.ReactivateAndUndo)
     }
 }

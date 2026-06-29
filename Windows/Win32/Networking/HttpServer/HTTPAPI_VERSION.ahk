@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the version of the HTTP Server API.
@@ -12,26 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-httpapi_version
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTPAPI_VERSION extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 2
+export default struct HTTPAPI_VERSION {
+    #StructPack 2
 
     /**
      * Major version of the HTTP Server API.
-     * @type {Integer}
      */
-    HttpApiMajorVersion {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    HttpApiMajorVersion : UInt16
 
     /**
      * Minor version of the HTTP Server API.
-     * @type {Integer}
      */
-    HttpApiMinorVersion {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    HttpApiMinorVersion : UInt16
+
 }

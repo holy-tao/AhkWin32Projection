@@ -1,42 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MI_SessionFT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MI_SessionFT.ahk" { MI_SessionFT }
 
 /**
  * An object that is associated with a destination and has a set of credentials and options associated with it. .
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_session
  * @namespace Windows.Win32.System.Wmi
  */
-class MI_Session extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct MI_Session {
+    #StructPack 8
 
     /**
      * For internal use only.
-     * @type {Integer}
      */
-    reserved1 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    reserved1 : Int64
 
     /**
      * For internal use only.
-     * @type {Pointer}
      */
-    reserved2 {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    reserved2 : IntPtr
 
     /**
      * This is the function table for accessing carrying out 
      *                       operations on a destination machine, along with configuration of the session. Use the functions containing the MI_Session_ prefix to access this information.
-     * @type {Pointer<MI_SessionFT>}
      */
-    ft {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ft : MI_SessionFT.Ptr
+
 }

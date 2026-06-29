@@ -1,83 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters
  */
-class FLT_VOLUME_PROPERTIES extends Win32Struct {
-    static sizeof => 48
+export default struct FLT_VOLUME_PROPERTIES {
+    #StructPack 8
 
-    static packingSize => 8
+    DeviceType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DeviceType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DeviceCharacteristics : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DeviceCharacteristics {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    DeviceObjectFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DeviceObjectFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    AlignmentRequirement : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AlignmentRequirement {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    SectorSize : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    SectorSize {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    Flags : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    FileSystemDriverName : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    FileSystemDriverName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    FileSystemDeviceName : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    FileSystemDeviceName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    RealDeviceName : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    RealDeviceName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The LINEEXTENSIONID structure describes an extension identifier.
@@ -10,44 +9,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineextensionid
  * @namespace Windows.Win32.Devices.Tapi
  */
-class LINEEXTENSIONID extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct LINEEXTENSIONID {
+    #StructPack 4
 
     /**
      * First part of the extension identifier.
-     * @type {Integer}
      */
-    dwExtensionID0 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwExtensionID0 : UInt32
 
     /**
      * Second part of the extension identifier.
-     * @type {Integer}
      */
-    dwExtensionID1 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwExtensionID1 : UInt32
 
     /**
      * Third part of the extension identifier.
-     * @type {Integer}
      */
-    dwExtensionID2 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwExtensionID2 : UInt32
 
     /**
      * Fourth part of the extension identifier.
-     * @type {Integer}
      */
-    dwExtensionID3 {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwExtensionID3 : UInt32
+
 }

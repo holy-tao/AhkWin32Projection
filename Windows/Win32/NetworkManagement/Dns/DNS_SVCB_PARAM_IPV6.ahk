@@ -1,31 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IP6_ADDRESS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IP6_ADDRESS.ahk" { IP6_ADDRESS }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
  */
-class DNS_SVCB_PARAM_IPV6 extends Win32Struct {
-    static sizeof => 72
+export default struct DNS_SVCB_PARAM_IPV6 {
+    #StructPack 8
 
-    static packingSize => 8
+    cIps : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    cIps {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    rgIps : IP6_ADDRESS[1]
 
-    /**
-     * @type {IP6_ADDRESS}
-     */
-    rgIps {
-        get {
-            if(!this.HasProp("__rgIpsProxyArray"))
-                this.__rgIpsProxyArray := Win32FixedArray(this.ptr + 8, 1, IP6_ADDRESS, "")
-            return this.__rgIpsProxyArray
-        }
-    }
 }

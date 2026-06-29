@@ -1,112 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_FRAME_SUBREGION_LAYOUT_CONFIG_VALIDATION_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES.ahk" { D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES }
+#Import ".\D3D12_VIDEO_ENCODER_AV1_FRAME_SUBREGION_LAYOUT_CONFIG_VALIDATION_FLAGS.ahk" { D3D12_VIDEO_ENCODER_AV1_FRAME_SUBREGION_LAYOUT_CONFIG_VALIDATION_FLAGS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_ENCODER_AV1_FRAME_SUBREGION_LAYOUT_CONFIG_SUPPORT extends Win32Struct {
-    static sizeof => 1096
+export default struct D3D12_VIDEO_ENCODER_AV1_FRAME_SUBREGION_LAYOUT_CONFIG_SUPPORT {
+    #StructPack 8
 
-    static packingSize => 8
+    Use128SuperBlocks : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    Use128SuperBlocks {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    TilesConfiguration : D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES}
-     */
-    TilesConfiguration {
-        get {
-            if(!this.HasProp("__TilesConfiguration"))
-                this.__TilesConfiguration := D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES(8, this)
-            return this.__TilesConfiguration
-        }
-    }
+    ValidationFlags : D3D12_VIDEO_ENCODER_AV1_FRAME_SUBREGION_LAYOUT_CONFIG_VALIDATION_FLAGS
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_AV1_FRAME_SUBREGION_LAYOUT_CONFIG_VALIDATION_FLAGS}
-     */
-    ValidationFlags {
-        get => NumGet(this, 1056, "int")
-        set => NumPut("int", value, this, 1056)
-    }
+    MinTileRows : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MinTileRows {
-        get => NumGet(this, 1060, "uint")
-        set => NumPut("uint", value, this, 1060)
-    }
+    MaxTileRows : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxTileRows {
-        get => NumGet(this, 1064, "uint")
-        set => NumPut("uint", value, this, 1064)
-    }
+    MinTileCols : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MinTileCols {
-        get => NumGet(this, 1068, "uint")
-        set => NumPut("uint", value, this, 1068)
-    }
+    MaxTileCols : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxTileCols {
-        get => NumGet(this, 1072, "uint")
-        set => NumPut("uint", value, this, 1072)
-    }
+    MinTileWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MinTileWidth {
-        get => NumGet(this, 1076, "uint")
-        set => NumPut("uint", value, this, 1076)
-    }
+    MaxTileWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxTileWidth {
-        get => NumGet(this, 1080, "uint")
-        set => NumPut("uint", value, this, 1080)
-    }
+    MinTileArea : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MinTileArea {
-        get => NumGet(this, 1084, "uint")
-        set => NumPut("uint", value, this, 1084)
-    }
+    MaxTileArea : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxTileArea {
-        get => NumGet(this, 1088, "uint")
-        set => NumPut("uint", value, this, 1088)
-    }
+    TileSizeBytesMinus1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TileSizeBytesMinus1 {
-        get => NumGet(this, 1092, "uint")
-        set => NumPut("uint", value, this, 1092)
-    }
 }

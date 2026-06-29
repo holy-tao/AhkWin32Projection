@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines constant values that indicate if the map is a value map, bitmap, or pattern map.
@@ -47,7 +46,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/tdh/ne-tdh-map_flags
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class MAP_FLAGS extends Win32Enum {
+export default struct MAP_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The manifest value map maps integer values to strings. For details, see the <a href="https://docs.microsoft.com/windows/desktop/WES/eventmanifestschema-maptype-complextype">MapType</a> complex type.

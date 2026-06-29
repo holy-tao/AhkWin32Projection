@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\CHARRANGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CHARRANGE.ahk" { CHARRANGE }
 
 /**
  * Contains information about text to search for in a rich edit control. This structure is used with the EM_FINDTEXTEX message. (Unicode)
@@ -12,47 +12,28 @@
  * @charset Unicode
  * @architecture X64, Arm64
  */
-class FINDTEXTEXW extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct FINDTEXTEXW {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/richedit/ns-richedit-charrange">CHARRANGE</a></b>
      * 
      * The range of characters to search. To search forward in the entire control, set <b>cpMin</b> to 0 and <b>cpMax</b> to -1.
-     * @type {CHARRANGE}
      */
-    chrg {
-        get {
-            if(!this.HasProp("__chrg"))
-                this.__chrg := CHARRANGE(0, this)
-            return this.__chrg
-        }
-    }
+    chrg : CHARRANGE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCTSTR</a></b>
      * 
      * The null-terminated string to find.
-     * @type {PWSTR}
      */
-    lpstrText {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpstrText : PWSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/richedit/ns-richedit-charrange">CHARRANGE</a></b>
      * 
      * The range of characters in which the text was found. If the text was not found, <b>cpMin</b> and <b>cpMax</b> are -1.
-     * @type {CHARRANGE}
      */
-    chrgText {
-        get {
-            if(!this.HasProp("__chrgText"))
-                this.__chrgText := CHARRANGE(16, this)
-            return this.__chrgText
-        }
-    }
+    chrgText : CHARRANGE
+
 }

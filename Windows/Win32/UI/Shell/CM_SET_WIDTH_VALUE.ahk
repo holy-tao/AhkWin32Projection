@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies width values in pixels and includes special support for default and autosize. Used by members of the IColumnManager interface through the CM_COLUMNINFO structure.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-cm_set_width_value
  * @namespace Windows.Win32.UI.Shell
  */
-class CM_SET_WIDTH_VALUE extends Win32Enum {
+export default struct CM_SET_WIDTH_VALUE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Use the default width.

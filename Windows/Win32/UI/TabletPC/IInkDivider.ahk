@@ -1,36 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IInkStrokes.ahk
-#Include .\IInkRecognizerContext.ahk
-#Include .\IInkDivisionResult.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IInkRecognizerContext.ahk" { IInkRecognizerContext }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IInkDivisionResult.ahk" { IInkDivisionResult }
+#Import ".\IInkStrokes.ahk" { IInkStrokes }
 
 /**
  * . (IInkDivider)
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut15/nn-msinkaut15-iinkdivider
  * @namespace Windows.Win32.UI.TabletPC
  */
-class IInkDivider extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IInkDivider extends IDispatch {
     /**
      * The interface identifier for IInkDivider
      * @type {Guid}
      */
-    static IID => Guid("{5de00405-f9a4-4651-b0c5-c317defd58b9}")
+    static IID := Guid("{5de00405-f9a4-4651-b0c5-c317defd58b9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IInkDivider interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Strokes              : IntPtr
+        putref_Strokes           : IntPtr
+        get_RecognizerContext    : IntPtr
+        putref_RecognizerContext : IntPtr
+        get_LineHeight           : IntPtr
+        put_LineHeight           : IntPtr
+        Divide                   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Strokes", "putref_Strokes", "get_RecognizerContext", "putref_RecognizerContext", "get_LineHeight", "put_LineHeight", "Divide"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IInkDivider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IInkStrokes} 
@@ -183,5 +197,37 @@ class IInkDivider extends IDispatch {
     Divide() {
         result := ComCall(13, this, "ptr*", &InkDivisionResult := 0, "HRESULT")
         return IInkDivisionResult(InkDivisionResult)
+    }
+
+    Query(iid) {
+        if (IInkDivider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Strokes := CallbackCreate(GetMethod(implObj, "get_Strokes"), flags, 2)
+        this.vtbl.putref_Strokes := CallbackCreate(GetMethod(implObj, "putref_Strokes"), flags, 2)
+        this.vtbl.get_RecognizerContext := CallbackCreate(GetMethod(implObj, "get_RecognizerContext"), flags, 2)
+        this.vtbl.putref_RecognizerContext := CallbackCreate(GetMethod(implObj, "putref_RecognizerContext"), flags, 2)
+        this.vtbl.get_LineHeight := CallbackCreate(GetMethod(implObj, "get_LineHeight"), flags, 2)
+        this.vtbl.put_LineHeight := CallbackCreate(GetMethod(implObj, "put_LineHeight"), flags, 2)
+        this.vtbl.Divide := CallbackCreate(GetMethod(implObj, "Divide"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Strokes)
+        CallbackFree(this.vtbl.putref_Strokes)
+        CallbackFree(this.vtbl.get_RecognizerContext)
+        CallbackFree(this.vtbl.putref_RecognizerContext)
+        CallbackFree(this.vtbl.get_LineHeight)
+        CallbackFree(this.vtbl.put_LineHeight)
+        CallbackFree(this.vtbl.Divide)
     }
 }

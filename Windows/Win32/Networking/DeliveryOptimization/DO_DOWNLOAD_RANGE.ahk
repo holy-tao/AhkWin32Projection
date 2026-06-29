@@ -1,31 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Identifies a single range of bytes to download from a file.
  * @see https://learn.microsoft.com/windows/win32/api/deliveryoptimization/ns-deliveryoptimization-do_download_range
  * @namespace Windows.Win32.Networking.DeliveryOptimization
  */
-class DO_DOWNLOAD_RANGE extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct DO_DOWNLOAD_RANGE {
+    #StructPack 8
 
     /**
      * Zero-based offset to the beginning of the range of bytes to download from a file.
-     * @type {Integer}
      */
-    Offset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Offset : Int64
 
     /**
      * The length of the range, in bytes. Do not specify a zero-byte length. To indicate that the range extends to the end of the file, specify **DO_LENGTH_TO_EOF**.
-     * @type {Integer}
      */
-    Length {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Length : Int64
+
 }

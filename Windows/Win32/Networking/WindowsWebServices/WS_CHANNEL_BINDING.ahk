@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the protocol stack to use for the channel.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_channel_binding
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_CHANNEL_BINDING extends Win32Enum {
+export default struct WS_CHANNEL_BINDING {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * SOAP over HTTP.

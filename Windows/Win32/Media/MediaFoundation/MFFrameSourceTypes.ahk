@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the type of data provided by a frame source.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ne-mfapi-mfframesourcetypes
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFFrameSourceTypes extends Win32Enum {
+export default struct MFFrameSourceTypes {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The frame source provides color data.

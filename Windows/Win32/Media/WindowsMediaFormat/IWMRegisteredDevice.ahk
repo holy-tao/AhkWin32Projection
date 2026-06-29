@@ -1,36 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\DRM_VAL16.ahk
-#Include .\INSSBuffer.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DRM_VAL16.ahk" { DRM_VAL16 }
+#Import ".\INSSBuffer.ahk" { INSSBuffer }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMRegisteredDevice interface is the primary interface of the registered device object. It provides access to information about a playback device in the device registration database.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmregistereddevice
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMRegisteredDevice extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMRegisteredDevice extends IUnknown {
     /**
      * The interface identifier for IWMRegisteredDevice
      * @type {Guid}
      */
-    static IID => Guid("{a4503bec-5508-4148-97ac-bfa75760a70d}")
+    static IID := Guid("{a4503bec-5508-4148-97ac-bfa75760a70d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMRegisteredDevice interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDeviceSerialNumber : IntPtr
+        GetDeviceCertificate  : IntPtr
+        GetDeviceType         : IntPtr
+        GetAttributeCount     : IntPtr
+        GetAttributeByIndex   : IntPtr
+        GetAttributeByName    : IntPtr
+        SetAttributeByName    : IntPtr
+        Approve               : IntPtr
+        IsValid               : IntPtr
+        IsApproved            : IntPtr
+        IsWmdrmCompliant      : IntPtr
+        IsOpened              : IntPtr
+        Open                  : IntPtr
+        Close                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDeviceSerialNumber", "GetDeviceCertificate", "GetDeviceType", "GetAttributeCount", "GetAttributeByIndex", "GetAttributeByName", "SetAttributeByName", "Approve", "IsValid", "IsApproved", "IsWmdrmCompliant", "IsOpened", "Open", "Close"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMRegisteredDevice.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetDeviceID method retrieves the 128-bit value that identifies the device.
@@ -43,7 +65,7 @@ class IWMRegisteredDevice extends IUnknown {
      */
     GetDeviceSerialNumber() {
         pSerialNumber := DRM_VAL16()
-        result := ComCall(3, this, "ptr", pSerialNumber, "HRESULT")
+        result := ComCall(3, this, DRM_VAL16.Ptr, pSerialNumber, "HRESULT")
         return pSerialNumber
     }
 
@@ -114,7 +136,7 @@ class IWMRegisteredDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmregistereddevice-getattributebyindex
      */
     GetAttributeByIndex(dwIndex, pbstrName, pbstrValue) {
-        result := ComCall(7, this, "uint", dwIndex, "ptr", pbstrName, "ptr", pbstrValue, "HRESULT")
+        result := ComCall(7, this, "uint", dwIndex, BSTR.Ptr, pbstrName, BSTR.Ptr, pbstrValue, "HRESULT")
         return result
     }
 
@@ -127,8 +149,8 @@ class IWMRegisteredDevice extends IUnknown {
     GetAttributeByName(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        pbstrValue := BSTR()
-        result := ComCall(8, this, "ptr", bstrName, "ptr", pbstrValue, "HRESULT")
+        pbstrValue := BSTR.Owned()
+        result := ComCall(8, this, BSTR, bstrName, BSTR.Ptr, pbstrValue, "HRESULT")
         return pbstrValue
     }
 
@@ -161,7 +183,7 @@ class IWMRegisteredDevice extends IUnknown {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
         bstrValue := bstrValue is String ? BSTR.Alloc(bstrValue).Value : bstrValue
 
-        result := ComCall(9, this, "ptr", bstrName, "ptr", bstrValue, "HRESULT")
+        result := ComCall(9, this, BSTR, bstrName, BSTR, bstrValue, "HRESULT")
         return result
     }
 
@@ -200,7 +222,7 @@ class IWMRegisteredDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmregistereddevice-approve
      */
     Approve(fApprove) {
-        result := ComCall(10, this, "int", fApprove, "HRESULT")
+        result := ComCall(10, this, BOOL, fApprove, "HRESULT")
         return result
     }
 
@@ -218,7 +240,7 @@ class IWMRegisteredDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmregistereddevice-isvalid
      */
     IsValid() {
-        result := ComCall(11, this, "int*", &pfValid := 0, "HRESULT")
+        result := ComCall(11, this, BOOL.Ptr, &pfValid := 0, "HRESULT")
         return pfValid
     }
 
@@ -236,7 +258,7 @@ class IWMRegisteredDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmregistereddevice-isapproved
      */
     IsApproved() {
-        result := ComCall(12, this, "int*", &pfApproved := 0, "HRESULT")
+        result := ComCall(12, this, BOOL.Ptr, &pfApproved := 0, "HRESULT")
         return pfApproved
     }
 
@@ -246,7 +268,7 @@ class IWMRegisteredDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmregistereddevice-iswmdrmcompliant
      */
     IsWmdrmCompliant() {
-        result := ComCall(13, this, "int*", &pfCompliant := 0, "HRESULT")
+        result := ComCall(13, this, BOOL.Ptr, &pfCompliant := 0, "HRESULT")
         return pfCompliant
     }
 
@@ -264,7 +286,7 @@ class IWMRegisteredDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmregistereddevice-isopened
      */
     IsOpened() {
-        result := ComCall(14, this, "int*", &pfOpened := 0, "HRESULT")
+        result := ComCall(14, this, BOOL.Ptr, &pfOpened := 0, "HRESULT")
         return pfOpened
     }
 
@@ -343,5 +365,51 @@ class IWMRegisteredDevice extends IUnknown {
     Close() {
         result := ComCall(16, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMRegisteredDevice.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDeviceSerialNumber := CallbackCreate(GetMethod(implObj, "GetDeviceSerialNumber"), flags, 2)
+        this.vtbl.GetDeviceCertificate := CallbackCreate(GetMethod(implObj, "GetDeviceCertificate"), flags, 2)
+        this.vtbl.GetDeviceType := CallbackCreate(GetMethod(implObj, "GetDeviceType"), flags, 2)
+        this.vtbl.GetAttributeCount := CallbackCreate(GetMethod(implObj, "GetAttributeCount"), flags, 2)
+        this.vtbl.GetAttributeByIndex := CallbackCreate(GetMethod(implObj, "GetAttributeByIndex"), flags, 4)
+        this.vtbl.GetAttributeByName := CallbackCreate(GetMethod(implObj, "GetAttributeByName"), flags, 3)
+        this.vtbl.SetAttributeByName := CallbackCreate(GetMethod(implObj, "SetAttributeByName"), flags, 3)
+        this.vtbl.Approve := CallbackCreate(GetMethod(implObj, "Approve"), flags, 2)
+        this.vtbl.IsValid := CallbackCreate(GetMethod(implObj, "IsValid"), flags, 2)
+        this.vtbl.IsApproved := CallbackCreate(GetMethod(implObj, "IsApproved"), flags, 2)
+        this.vtbl.IsWmdrmCompliant := CallbackCreate(GetMethod(implObj, "IsWmdrmCompliant"), flags, 2)
+        this.vtbl.IsOpened := CallbackCreate(GetMethod(implObj, "IsOpened"), flags, 2)
+        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 1)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDeviceSerialNumber)
+        CallbackFree(this.vtbl.GetDeviceCertificate)
+        CallbackFree(this.vtbl.GetDeviceType)
+        CallbackFree(this.vtbl.GetAttributeCount)
+        CallbackFree(this.vtbl.GetAttributeByIndex)
+        CallbackFree(this.vtbl.GetAttributeByName)
+        CallbackFree(this.vtbl.SetAttributeByName)
+        CallbackFree(this.vtbl.Approve)
+        CallbackFree(this.vtbl.IsValid)
+        CallbackFree(this.vtbl.IsApproved)
+        CallbackFree(this.vtbl.IsWmdrmCompliant)
+        CallbackFree(this.vtbl.IsOpened)
+        CallbackFree(this.vtbl.Open)
+        CallbackFree(this.vtbl.Close)
     }
 }

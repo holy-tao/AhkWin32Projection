@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidFilePlaybackEvent.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IMSVidFilePlaybackEvent.ahk" { IMSVidFilePlaybackEvent }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Implements an event system for the Stream Buffer Engine, version 2 (SBE2) source filter that is wrapped in the Video Control. Each event corresponds to an event that the SBE2 source filter receives inside a DirectShow graph.
@@ -10,26 +12,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidstreambufferv2sourceevent
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSVidStreamBufferV2SourceEvent extends IMSVidFilePlaybackEvent {
-
-    static sizeof => A_PtrSize
+export default struct IMSVidStreamBufferV2SourceEvent extends IMSVidFilePlaybackEvent {
     /**
      * The interface identifier for IMSVidStreamBufferV2SourceEvent
      * @type {Guid}
      */
-    static IID => Guid("{49c771f9-41b2-4cf7-9f9a-a313a8f6027e}")
+    static IID := Guid("{49c771f9-41b2-4cf7-9f9a-a313a8f6027e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSVidStreamBufferV2SourceEvent interfaces
+    */
+    struct Vtbl extends IMSVidFilePlaybackEvent.Vtbl {
+        RatingsChanged        : IntPtr
+        TimeHole              : IntPtr
+        StaleDataRead         : IntPtr
+        ContentBecomingStale  : IntPtr
+        StaleFileDeleted      : IntPtr
+        RateChange            : IntPtr
+        BroadcastEvent        : IntPtr
+        BroadcastEventEx      : IntPtr
+        ContentPrimarilyAudio : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RatingsChanged", "TimeHole", "StaleDataRead", "ContentBecomingStale", "StaleFileDeleted", "RateChange", "BroadcastEvent", "BroadcastEventEx", "ContentPrimarilyAudio"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSVidStreamBufferV2SourceEvent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Fired when the SBE2 source filter receives a STREAMBUFFER_EC_RATE_CHANGED event, which indicates the playback rate has changed.
@@ -104,7 +121,7 @@ class IMSVidStreamBufferV2SourceEvent extends IMSVidFilePlaybackEvent {
     BroadcastEvent(Guid) {
         Guid := Guid is String ? BSTR.Alloc(Guid).Value : Guid
 
-        result := ComCall(14, this, "ptr", Guid, "HRESULT")
+        result := ComCall(14, this, BSTR, Guid, "HRESULT")
         return result
     }
 
@@ -121,7 +138,7 @@ class IMSVidStreamBufferV2SourceEvent extends IMSVidFilePlaybackEvent {
     BroadcastEventEx(Guid, Param1, Param2, Param3, Param4) {
         Guid := Guid is String ? BSTR.Alloc(Guid).Value : Guid
 
-        result := ComCall(15, this, "ptr", Guid, "uint", Param1, "uint", Param2, "uint", Param3, "uint", Param4, "HRESULT")
+        result := ComCall(15, this, BSTR, Guid, "uint", Param1, "uint", Param2, "uint", Param3, "uint", Param4, "HRESULT")
         return result
     }
 
@@ -137,5 +154,41 @@ class IMSVidStreamBufferV2SourceEvent extends IMSVidFilePlaybackEvent {
     ContentPrimarilyAudio() {
         result := ComCall(16, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMSVidStreamBufferV2SourceEvent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RatingsChanged := CallbackCreate(GetMethod(implObj, "RatingsChanged"), flags, 1)
+        this.vtbl.TimeHole := CallbackCreate(GetMethod(implObj, "TimeHole"), flags, 3)
+        this.vtbl.StaleDataRead := CallbackCreate(GetMethod(implObj, "StaleDataRead"), flags, 1)
+        this.vtbl.ContentBecomingStale := CallbackCreate(GetMethod(implObj, "ContentBecomingStale"), flags, 1)
+        this.vtbl.StaleFileDeleted := CallbackCreate(GetMethod(implObj, "StaleFileDeleted"), flags, 1)
+        this.vtbl.RateChange := CallbackCreate(GetMethod(implObj, "RateChange"), flags, 3)
+        this.vtbl.BroadcastEvent := CallbackCreate(GetMethod(implObj, "BroadcastEvent"), flags, 2)
+        this.vtbl.BroadcastEventEx := CallbackCreate(GetMethod(implObj, "BroadcastEventEx"), flags, 6)
+        this.vtbl.ContentPrimarilyAudio := CallbackCreate(GetMethod(implObj, "ContentPrimarilyAudio"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RatingsChanged)
+        CallbackFree(this.vtbl.TimeHole)
+        CallbackFree(this.vtbl.StaleDataRead)
+        CallbackFree(this.vtbl.ContentBecomingStale)
+        CallbackFree(this.vtbl.StaleFileDeleted)
+        CallbackFree(this.vtbl.RateChange)
+        CallbackFree(this.vtbl.BroadcastEvent)
+        CallbackFree(this.vtbl.BroadcastEventEx)
+        CallbackFree(this.vtbl.ContentPrimarilyAudio)
     }
 }

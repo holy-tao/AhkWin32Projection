@@ -1,36 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXGK_ENGINE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DXGK_ENGINE_TYPE.ahk" { DXGK_ENGINE_TYPE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_TRACKEDWORKLOAD_SUPPORT extends Win32Struct {
-    static sizeof => 12
+export default struct D3DKMT_TRACKEDWORKLOAD_SUPPORT {
+    #StructPack 4
 
-    static packingSize => 4
+    PhysicalAdapterIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PhysicalAdapterIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    EngineType : DXGK_ENGINE_TYPE
 
-    /**
-     * @type {DXGK_ENGINE_TYPE}
-     */
-    EngineType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Support : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    Support {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
 }

@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IRtwqAsyncResult.ahk" { IRtwqAsyncResult }
 
 /**
  * Callback interface to notify the application when an asynchronous method completes. (IRtwqAsyncCallback)
  * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nn-rtworkq-irtwqasynccallback
  * @namespace Windows.Win32.System.Threading
  */
-class IRtwqAsyncCallback extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRtwqAsyncCallback extends IUnknown {
     /**
      * The interface identifier for IRtwqAsyncCallback
      * @type {Guid}
      */
-    static IID => Guid("{a27003cf-2354-4f2a-8d6a-ab7cff15437e}")
+    static IID := Guid("{a27003cf-2354-4f2a-8d6a-ab7cff15437e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRtwqAsyncCallback interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetParameters : IntPtr
+        Invoke        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetParameters", "Invoke"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRtwqAsyncCallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Provides configuration information to the dispatching thread for a callback. (IRtwqAsyncCallback.GetParameters)
@@ -121,5 +131,27 @@ class IRtwqAsyncCallback extends IUnknown {
     Invoke(pAsyncResult) {
         result := ComCall(4, this, "ptr", pAsyncResult, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRtwqAsyncCallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetParameters := CallbackCreate(GetMethod(implObj, "GetParameters"), flags, 3)
+        this.vtbl.Invoke := CallbackCreate(GetMethod(implObj, "Invoke"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetParameters)
+        CallbackFree(this.vtbl.Invoke)
     }
 }

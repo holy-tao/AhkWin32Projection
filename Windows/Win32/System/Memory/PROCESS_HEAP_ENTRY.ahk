@@ -1,16 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * Contains information about a heap element.
  * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-process_heap_entry
  * @namespace Windows.Win32.System.Memory
  */
-class PROCESS_HEAP_ENTRY extends Win32Struct {
-    static sizeof => 40
+export default struct PROCESS_HEAP_ENTRY {
+    #StructPack 8
 
-    static packingSize => 8
+
+    struct _Block {
+        hMem : HANDLE
+
+        dwReserved : UInt32[3]
+
+    }
+
+    struct _Region {
+        dwCommittedSize : UInt32
+
+        dwUnCommittedSize : UInt32
+
+        lpFirstBlock : IntPtr
+
+        lpLastBlock : IntPtr
+
+    }
 
     /**
      * A pointer to the data portion of the heap element.
@@ -23,12 +39,8 @@ class PROCESS_HEAP_ENTRY extends Win32Struct {
      * 
      * If <b>PROCESS_HEAP_UNCOMMITTED_RANGE</b> is used in <b>wFlags</b>, 
      *        <b>lpData</b> points to the beginning of the range of uncommitted memory.
-     * @type {Pointer<Void>}
      */
-    lpData {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpData : IntPtr
 
     /**
      * The size of the data portion of the heap element, in bytes.
@@ -39,12 +51,8 @@ class PROCESS_HEAP_ENTRY extends Win32Struct {
      * 
      * If <b>PROCESS_HEAP_UNCOMMITTED_RANGE</b> is used in <b>wFlags</b>, 
      *        <b>cbData</b> specifies the size, in bytes, of the range of uncommitted memory.
-     * @type {Integer}
      */
-    cbData {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cbData : UInt32
 
     /**
      * The size of the data used by the system to maintain information about the heap element, in bytes. These 
@@ -58,12 +66,8 @@ class PROCESS_HEAP_ENTRY extends Win32Struct {
      * If <b>PROCESS_HEAP_UNCOMMITTED_RANGE</b> is used in <b>wFlags</b>, 
      *        <b>cbOverhead</b> specifies the size, in bytes, of the control structures that describe 
      *        this uncommitted range.
-     * @type {Integer}
      */
-    cbOverhead {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    cbOverhead : Int8
 
     /**
      * A handle to the heap region that contains the heap element. A heap consists of one or more regions of virtual 
@@ -83,12 +87,8 @@ class PROCESS_HEAP_ENTRY extends Win32Struct {
      *        members of the <b>Region</b> structure are not valid. You can use the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-virtualquery">VirtualQuery</a> function to get additional information 
      *        about a large block region.
-     * @type {Integer}
      */
-    iRegionIndex {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
-    }
+    iRegionIndex : Int8
 
     /**
      * The properties of the heap element. Some values affect the meaning of other members of this 
@@ -183,96 +183,13 @@ class PROCESS_HEAP_ENTRY extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    wFlags {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    wFlags : UInt16
 
-    class _Block extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
+    Block : PROCESS_HEAP_ENTRY._Block
 
-        /**
-         * @type {HANDLE}
-         */
-        hMem {
-            get {
-                if(!this.HasProp("__hMem"))
-                    this.__hMem := HANDLE(0, this)
-                return this.__hMem
-            }
-        }
-
-        /**
-         * @type {Array<Integer>}
-         */
-        dwReserved {
-            get {
-                if(!this.HasProp("__dwReservedProxyArray"))
-                    this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 8, 3, Primitive, "uint")
-                return this.__dwReservedProxyArray
-            }
-        }
-    }
-
-    class _Region extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        dwCommittedSize {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        dwUnCommittedSize {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
-
-        /**
-         * @type {Pointer<Void>}
-         */
-        lpFirstBlock {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
-
-        /**
-         * @type {Pointer<Void>}
-         */
-        lpLastBlock {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
-        }
-    }
-
-    /**
-     * @type {_Block}
-     */
-    Block {
-        get {
-            if(!this.HasProp("__Block"))
-                this.__Block := PROCESS_HEAP_ENTRY._Block(16, this)
-            return this.__Block
-        }
-    }
-
-    /**
-     * @type {_Region}
-     */
-    Region {
-        get {
-            if(!this.HasProp("__Region"))
-                this.__Region := PROCESS_HEAP_ENTRY._Region(16, this)
-            return this.__Region
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Region', { type: PROCESS_HEAP_ENTRY._Region, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

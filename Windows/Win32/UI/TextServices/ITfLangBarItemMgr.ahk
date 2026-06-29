@@ -1,36 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IEnumTfLangBarItems.ahk
-#Include .\ITfLangBarItem.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITfLangBarItemSink.ahk" { ITfLangBarItemSink }
+#Import ".\ITfLangBarItem.ahk" { ITfLangBarItem }
+#Import ".\IEnumTfLangBarItems.ahk" { IEnumTfLangBarItems }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TF_LANGBARITEMINFO.ahk" { TF_LANGBARITEMINFO }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITfLangBarItemMgr interface is implemented by the language bar and used by a text service to manage items in the language bar.
  * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nn-ctfutb-itflangbaritemmgr
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfLangBarItemMgr extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfLangBarItemMgr extends IUnknown {
     /**
      * The interface identifier for ITfLangBarItemMgr
      * @type {Guid}
      */
-    static IID => Guid("{ba468c55-9956-4fb1-a59d-52a7dd7cc6aa}")
+    static IID := Guid("{ba468c55-9956-4fb1-a59d-52a7dd7cc6aa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfLangBarItemMgr interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        EnumItems           : IntPtr
+        GetItem             : IntPtr
+        AddItem             : IntPtr
+        RemoveItem          : IntPtr
+        AdviseItemSink      : IntPtr
+        UnadviseItemSink    : IntPtr
+        GetItemFloatingRect : IntPtr
+        GetItemsStatus      : IntPtr
+        GetItemNum          : IntPtr
+        GetItems            : IntPtr
+        AdviseItemsSink     : IntPtr
+        UnadviseItemsSink   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EnumItems", "GetItem", "AddItem", "RemoveItem", "AdviseItemSink", "UnadviseItemSink", "GetItemFloatingRect", "GetItemsStatus", "GetItemNum", "GetItems", "AdviseItemsSink", "UnadviseItemsSink"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfLangBarItemMgr.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfLangBarItemMgr::EnumItems method
@@ -49,7 +70,7 @@ class ITfLangBarItemMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritemmgr-getitem
      */
     GetItem(rguid) {
-        result := ComCall(4, this, "ptr", rguid, "ptr*", &ppItem := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, rguid, "ptr*", &ppItem := 0, "HRESULT")
         return ITfLangBarItem(ppItem)
     }
 
@@ -176,7 +197,7 @@ class ITfLangBarItemMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritemmgr-adviseitemsink
      */
     AdviseItemSink(punk, rguidItem) {
-        result := ComCall(7, this, "ptr", punk, "uint*", &pdwCookie := 0, "ptr", rguidItem, "HRESULT")
+        result := ComCall(7, this, "ptr", punk, "uint*", &pdwCookie := 0, Guid.Ptr, rguidItem, "HRESULT")
         return pdwCookie
     }
 
@@ -229,7 +250,7 @@ class ITfLangBarItemMgr extends IUnknown {
      */
     GetItemFloatingRect(dwThreadId, rguid) {
         prc := RECT()
-        result := ComCall(9, this, "uint", dwThreadId, "ptr", rguid, "ptr", prc, "HRESULT")
+        result := ComCall(9, this, "uint", dwThreadId, Guid.Ptr, rguid, RECT.Ptr, prc, "HRESULT")
         return prc
     }
 
@@ -245,7 +266,7 @@ class ITfLangBarItemMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritemmgr-getitemsstatus
      */
     GetItemsStatus(ulCount, prgguid) {
-        result := ComCall(10, this, "uint", ulCount, "ptr", prgguid, "uint*", &pdwStatus := 0, "HRESULT")
+        result := ComCall(10, this, "uint", ulCount, Guid.Ptr, prgguid, "uint*", &pdwStatus := 0, "HRESULT")
         return pdwStatus
     }
 
@@ -313,7 +334,7 @@ class ITfLangBarItemMgr extends IUnknown {
         pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "uint", ulCount, "ptr*", ppItem, "ptr", pInfo, pdwStatusMarshal, pdwStatus, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(12, this, "uint", ulCount, ITfLangBarItem.Ptr, ppItem, TF_LANGBARITEMINFO.Ptr, pInfo, pdwStatusMarshal, pdwStatus, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
@@ -326,7 +347,7 @@ class ITfLangBarItemMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritemmgr-adviseitemssink
      */
     AdviseItemsSink(ulCount, ppunk, pguidItem) {
-        result := ComCall(13, this, "uint", ulCount, "ptr*", ppunk, "ptr", pguidItem, "uint*", &pdwCookie := 0, "HRESULT")
+        result := ComCall(13, this, "uint", ulCount, ITfLangBarItemSink.Ptr, ppunk, Guid.Ptr, pguidItem, "uint*", &pdwCookie := 0, "HRESULT")
         return pdwCookie
     }
 
@@ -342,5 +363,47 @@ class ITfLangBarItemMgr extends IUnknown {
 
         result := ComCall(14, this, "uint", ulCount, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITfLangBarItemMgr.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EnumItems := CallbackCreate(GetMethod(implObj, "EnumItems"), flags, 2)
+        this.vtbl.GetItem := CallbackCreate(GetMethod(implObj, "GetItem"), flags, 3)
+        this.vtbl.AddItem := CallbackCreate(GetMethod(implObj, "AddItem"), flags, 2)
+        this.vtbl.RemoveItem := CallbackCreate(GetMethod(implObj, "RemoveItem"), flags, 2)
+        this.vtbl.AdviseItemSink := CallbackCreate(GetMethod(implObj, "AdviseItemSink"), flags, 4)
+        this.vtbl.UnadviseItemSink := CallbackCreate(GetMethod(implObj, "UnadviseItemSink"), flags, 2)
+        this.vtbl.GetItemFloatingRect := CallbackCreate(GetMethod(implObj, "GetItemFloatingRect"), flags, 4)
+        this.vtbl.GetItemsStatus := CallbackCreate(GetMethod(implObj, "GetItemsStatus"), flags, 4)
+        this.vtbl.GetItemNum := CallbackCreate(GetMethod(implObj, "GetItemNum"), flags, 2)
+        this.vtbl.GetItems := CallbackCreate(GetMethod(implObj, "GetItems"), flags, 6)
+        this.vtbl.AdviseItemsSink := CallbackCreate(GetMethod(implObj, "AdviseItemsSink"), flags, 5)
+        this.vtbl.UnadviseItemsSink := CallbackCreate(GetMethod(implObj, "UnadviseItemsSink"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EnumItems)
+        CallbackFree(this.vtbl.GetItem)
+        CallbackFree(this.vtbl.AddItem)
+        CallbackFree(this.vtbl.RemoveItem)
+        CallbackFree(this.vtbl.AdviseItemSink)
+        CallbackFree(this.vtbl.UnadviseItemSink)
+        CallbackFree(this.vtbl.GetItemFloatingRect)
+        CallbackFree(this.vtbl.GetItemsStatus)
+        CallbackFree(this.vtbl.GetItemNum)
+        CallbackFree(this.vtbl.GetItems)
+        CallbackFree(this.vtbl.AdviseItemsSink)
+        CallbackFree(this.vtbl.UnadviseItemsSink)
     }
 }

@@ -1,34 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\OPM_REQUESTED_INFORMATION.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\OPM_ENCRYPTED_INITIALIZATION_PARAMETERS.ahk" { OPM_ENCRYPTED_INITIALIZATION_PARAMETERS }
+#Import ".\OPM_CONFIGURE_PARAMETERS.ahk" { OPM_CONFIGURE_PARAMETERS }
+#Import ".\OPM_COPP_COMPATIBLE_GET_INFO_PARAMETERS.ahk" { OPM_COPP_COMPATIBLE_GET_INFO_PARAMETERS }
+#Import ".\OPM_REQUESTED_INFORMATION.ahk" { OPM_REQUESTED_INFORMATION }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\OPM_RANDOM_NUMBER.ahk" { OPM_RANDOM_NUMBER }
+#Import ".\OPM_GET_INFO_PARAMETERS.ahk" { OPM_GET_INFO_PARAMETERS }
 
 /**
  * Represents a video output for an Output Protection Manager (OPM) session.
  * @see https://learn.microsoft.com/windows/win32/api/opmapi/nn-opmapi-iopmvideooutput
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IOPMVideoOutput extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOPMVideoOutput extends IUnknown {
     /**
      * The interface identifier for IOPMVideoOutput
      * @type {Guid}
      */
-    static IID => Guid("{0a15159d-41c7-4456-93e1-284cd61d4e8d}")
+    static IID := Guid("{0a15159d-41c7-4456-93e1-284cd61d4e8d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOPMVideoOutput interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        StartInitialization          : IntPtr
+        FinishInitialization         : IntPtr
+        GetInformation               : IntPtr
+        COPPCompatibleGetInformation : IntPtr
+        Configure                    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["StartInitialization", "FinishInitialization", "GetInformation", "COPPCompatibleGetInformation", "Configure"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOPMVideoOutput.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Begins the initialization sequence for an Output Protection Manager (OPM) session.
@@ -54,7 +71,7 @@ class IOPMVideoOutput extends IUnknown {
         ppbCertificateMarshal := ppbCertificate is VarRef ? "ptr*" : "ptr"
         pulCertificateLengthMarshal := pulCertificateLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", prnRandomNumber, ppbCertificateMarshal, ppbCertificate, pulCertificateLengthMarshal, pulCertificateLength, "HRESULT")
+        result := ComCall(3, this, OPM_RANDOM_NUMBER.Ptr, prnRandomNumber, ppbCertificateMarshal, ppbCertificate, pulCertificateLengthMarshal, pulCertificateLength, "HRESULT")
         return result
     }
 
@@ -119,7 +136,7 @@ class IOPMVideoOutput extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/opmapi/nf-opmapi-iopmvideooutput-finishinitialization
      */
     FinishInitialization(pParameters) {
-        result := ComCall(4, this, "ptr", pParameters, "HRESULT")
+        result := ComCall(4, this, OPM_ENCRYPTED_INITIALIZATION_PARAMETERS.Ptr, pParameters, "HRESULT")
         return result
     }
 
@@ -135,7 +152,7 @@ class IOPMVideoOutput extends IUnknown {
      */
     GetInformation(pParameters) {
         pRequestedInformation := OPM_REQUESTED_INFORMATION()
-        result := ComCall(5, this, "ptr", pParameters, "ptr", pRequestedInformation, "HRESULT")
+        result := ComCall(5, this, OPM_GET_INFO_PARAMETERS.Ptr, pParameters, OPM_REQUESTED_INFORMATION.Ptr, pRequestedInformation, "HRESULT")
         return pRequestedInformation
     }
 
@@ -151,7 +168,7 @@ class IOPMVideoOutput extends IUnknown {
      */
     COPPCompatibleGetInformation(pParameters) {
         pRequestedInformation := OPM_REQUESTED_INFORMATION()
-        result := ComCall(6, this, "ptr", pParameters, "ptr", pRequestedInformation, "HRESULT")
+        result := ComCall(6, this, OPM_COPP_COMPATIBLE_GET_INFO_PARAMETERS.Ptr, pParameters, OPM_REQUESTED_INFORMATION.Ptr, pRequestedInformation, "HRESULT")
         return pRequestedInformation
     }
 
@@ -174,7 +191,35 @@ class IOPMVideoOutput extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/opmapi/nf-opmapi-iopmvideooutput-configure
      */
     Configure(pParameters, ulAdditionalParametersSize, pbAdditionalParameters) {
-        result := ComCall(7, this, "ptr", pParameters, "uint", ulAdditionalParametersSize, "ptr", pbAdditionalParameters, "HRESULT")
+        result := ComCall(7, this, OPM_CONFIGURE_PARAMETERS.Ptr, pParameters, "uint", ulAdditionalParametersSize, "ptr", pbAdditionalParameters, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOPMVideoOutput.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.StartInitialization := CallbackCreate(GetMethod(implObj, "StartInitialization"), flags, 4)
+        this.vtbl.FinishInitialization := CallbackCreate(GetMethod(implObj, "FinishInitialization"), flags, 2)
+        this.vtbl.GetInformation := CallbackCreate(GetMethod(implObj, "GetInformation"), flags, 3)
+        this.vtbl.COPPCompatibleGetInformation := CallbackCreate(GetMethod(implObj, "COPPCompatibleGetInformation"), flags, 3)
+        this.vtbl.Configure := CallbackCreate(GetMethod(implObj, "Configure"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.StartInitialization)
+        CallbackFree(this.vtbl.FinishInitialization)
+        CallbackFree(this.vtbl.GetInformation)
+        CallbackFree(this.vtbl.COPPCompatibleGetInformation)
+        CallbackFree(this.vtbl.Configure)
     }
 }

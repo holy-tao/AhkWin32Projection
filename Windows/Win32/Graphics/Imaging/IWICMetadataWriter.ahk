@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWICMetadataReader.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWICMetadataReader.ahk" { IWICMetadataReader }
 
 /**
  * Exposes methods that provide access to writing metadata content. This is implemented by independent software vendors (ISVs) to create new metadata writers.
@@ -10,26 +12,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nn-wincodecsdk-iwicmetadatawriter
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class IWICMetadataWriter extends IWICMetadataReader {
-
-    static sizeof => A_PtrSize
+export default struct IWICMetadataWriter extends IWICMetadataReader {
     /**
      * The interface identifier for IWICMetadataWriter
      * @type {Guid}
      */
-    static IID => Guid("{f7836e16-3be0-470b-86bb-160d0aecd7de}")
+    static IID := Guid("{f7836e16-3be0-470b-86bb-160d0aecd7de}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWICMetadataWriter interfaces
+    */
+    struct Vtbl extends IWICMetadataReader.Vtbl {
+        SetValue           : IntPtr
+        SetValueByIndex    : IntPtr
+        RemoveValue        : IntPtr
+        RemoveValueByIndex : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetValue", "SetValueByIndex", "RemoveValue", "RemoveValueByIndex"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWICMetadataWriter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the given metadata item.
@@ -48,7 +60,7 @@ class IWICMetadataWriter extends IWICMetadataReader {
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatawriter-setvalue
      */
     SetValue(pvarSchema, pvarId, pvarValue) {
-        result := ComCall(9, this, "ptr", pvarSchema, "ptr", pvarId, "ptr", pvarValue, "HRESULT")
+        result := ComCall(9, this, PROPVARIANT.Ptr, pvarSchema, PROPVARIANT.Ptr, pvarId, PROPVARIANT.Ptr, pvarValue, "HRESULT")
         return result
     }
 
@@ -74,7 +86,7 @@ class IWICMetadataWriter extends IWICMetadataReader {
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatawriter-setvaluebyindex
      */
     SetValueByIndex(nIndex, pvarSchema, pvarId, pvarValue) {
-        result := ComCall(10, this, "uint", nIndex, "ptr", pvarSchema, "ptr", pvarId, "ptr", pvarValue, "HRESULT")
+        result := ComCall(10, this, "uint", nIndex, PROPVARIANT.Ptr, pvarSchema, PROPVARIANT.Ptr, pvarId, PROPVARIANT.Ptr, pvarValue, "HRESULT")
         return result
     }
 
@@ -92,7 +104,7 @@ class IWICMetadataWriter extends IWICMetadataReader {
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatawriter-removevalue
      */
     RemoveValue(pvarSchema, pvarId) {
-        result := ComCall(11, this, "ptr", pvarSchema, "ptr", pvarId, "HRESULT")
+        result := ComCall(11, this, PROPVARIANT.Ptr, pvarSchema, PROPVARIANT.Ptr, pvarId, "HRESULT")
         return result
     }
 
@@ -111,5 +123,31 @@ class IWICMetadataWriter extends IWICMetadataReader {
     RemoveValueByIndex(nIndex) {
         result := ComCall(12, this, "uint", nIndex, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWICMetadataWriter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 4)
+        this.vtbl.SetValueByIndex := CallbackCreate(GetMethod(implObj, "SetValueByIndex"), flags, 5)
+        this.vtbl.RemoveValue := CallbackCreate(GetMethod(implObj, "RemoveValue"), flags, 3)
+        this.vtbl.RemoveValueByIndex := CallbackCreate(GetMethod(implObj, "RemoveValueByIndex"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetValue)
+        CallbackFree(this.vtbl.SetValueByIndex)
+        CallbackFree(this.vtbl.RemoveValue)
+        CallbackFree(this.vtbl.RemoveValueByIndex)
     }
 }

@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains information about an entry in the Internet cache. (ANSI)
@@ -20,37 +20,23 @@
  * @namespace Windows.Win32.Networking.WinInet
  * @charset ANSI
  */
-class INTERNET_CACHE_ENTRY_INFOA extends Win32Struct {
-    static sizeof => 112
-
-    static packingSize => 8
+export default struct INTERNET_CACHE_ENTRY_INFOA {
+    #StructPack 8
 
     /**
      * Size of this structure, in bytes. This value can be used to help determine the version of the cache system.
-     * @type {Integer}
      */
-    dwStructSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwStructSize : UInt32
 
     /**
      * Pointer to a null-terminated string that contains the URL name. The string occupies the memory area at the end of this structure.
-     * @type {PSTR}
      */
-    lpszSourceUrlName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpszSourceUrlName : PSTR
 
     /**
      * Pointer to a null-terminated string that contains the local file name. The string occupies the memory area at the end of this structure.
-     * @type {PSTR}
      */
-    lpszLocalFileName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpszLocalFileName : PSTR
 
     /**
      * A bitmask indicating the type of cache entry and its properties. The cache entry types include: history entries (URLHISTORY_CACHE_ENTRY),  cookie entries  (COOKIE_CACHE_ENTRY), and normal cached content (NORMAL_CACHE_ENTRY).
@@ -161,138 +147,69 @@ class INTERNET_CACHE_ENTRY_INFOA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    CacheEntryType {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    CacheEntryType : UInt32
 
     /**
      * Current number of WinINEet callers using the cache entry.
-     * @type {Integer}
      */
-    dwUseCount {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwUseCount : UInt32
 
     /**
      * Number of times the cache entry was retrieved.
-     * @type {Integer}
      */
-    dwHitRate {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwHitRate : UInt32
 
     /**
      * Low-order portion of the file size, in <b>bytes</b>.
-     * @type {Integer}
      */
-    dwSizeLow {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwSizeLow : UInt32
 
     /**
      * High-order portion of the file size, in <b>bytes</b>.
-     * @type {Integer}
      */
-    dwSizeHigh {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwSizeHigh : UInt32
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the last modified time of this URL, in Greenwich mean time format.
-     * @type {FILETIME}
      */
-    LastModifiedTime {
-        get {
-            if(!this.HasProp("__LastModifiedTime"))
-                this.__LastModifiedTime := FILETIME(44, this)
-            return this.__LastModifiedTime
-        }
-    }
+    LastModifiedTime : FILETIME
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the expiration time of this file, in Greenwich mean time format.
-     * @type {FILETIME}
      */
-    ExpireTime {
-        get {
-            if(!this.HasProp("__ExpireTime"))
-                this.__ExpireTime := FILETIME(52, this)
-            return this.__ExpireTime
-        }
-    }
+    ExpireTime : FILETIME
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the last accessed time, in Greenwich mean time format.
-     * @type {FILETIME}
      */
-    LastAccessTime {
-        get {
-            if(!this.HasProp("__LastAccessTime"))
-                this.__LastAccessTime := FILETIME(60, this)
-            return this.__LastAccessTime
-        }
-    }
+    LastAccessTime : FILETIME
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the last time the cache was synchronized.
-     * @type {FILETIME}
      */
-    LastSyncTime {
-        get {
-            if(!this.HasProp("__LastSyncTime"))
-                this.__LastSyncTime := FILETIME(68, this)
-            return this.__LastSyncTime
-        }
-    }
+    LastSyncTime : FILETIME
 
     /**
      * Pointer to a buffer that contains the header information. The buffer occupies the memory at the end of this structure.
-     * @type {PSTR}
      */
-    lpHeaderInfo {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    lpHeaderInfo : PSTR
 
     /**
      * Size of the 
      * <b>lpHeaderInfo</b> buffer, in <b>TCHARs</b>.
-     * @type {Integer}
      */
-    dwHeaderInfoSize {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    dwHeaderInfoSize : UInt32
 
     /**
      * Pointer to a string that contains the file name extension used to retrieve the data as a file. The string occupies the memory area at the end of this structure.
-     * @type {PSTR}
      */
-    lpszFileExtension {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    lpszFileExtension : PSTR
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    dwReserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwExemptDelta {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
+    static __New() {
+        DefineProp(this.Prototype, 'dwExemptDelta', { type: UInt32, offset: 104 })
+        this.DeleteProp("__New")
     }
 }

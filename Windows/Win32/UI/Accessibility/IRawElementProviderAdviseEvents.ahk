@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\UIA_EVENT_ID.ahk" { UIA_EVENT_ID }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Exposes methods that are called to notify the root element of a fragment when a Microsoft UI Automation client application begins or ends listening for events on that fragment.
@@ -14,26 +17,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-irawelementprovideradviseevents
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IRawElementProviderAdviseEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRawElementProviderAdviseEvents extends IUnknown {
     /**
      * The interface identifier for IRawElementProviderAdviseEvents
      * @type {Guid}
      */
-    static IID => Guid("{a407b27b-0f6d-4427-9292-473c7bf93258}")
+    static IID := Guid("{a407b27b-0f6d-4427-9292-473c7bf93258}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRawElementProviderAdviseEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AdviseEventAdded   : IntPtr
+        AdviseEventRemoved : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AdviseEventAdded", "AdviseEventRemoved"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRawElementProviderAdviseEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Notifies the Microsoft UI Automation provider when a UI Automation client begins listening for a specific event, including a property-changed event.
@@ -55,7 +66,7 @@ class IRawElementProviderAdviseEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementprovideradviseevents-adviseeventadded
      */
     AdviseEventAdded(eventId, propertyIDs) {
-        result := ComCall(3, this, "int", eventId, "ptr", propertyIDs, "HRESULT")
+        result := ComCall(3, this, UIA_EVENT_ID, eventId, SAFEARRAY.Ptr, propertyIDs, "HRESULT")
         return result
     }
 
@@ -77,7 +88,29 @@ class IRawElementProviderAdviseEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementprovideradviseevents-adviseeventremoved
      */
     AdviseEventRemoved(eventId, propertyIDs) {
-        result := ComCall(4, this, "int", eventId, "ptr", propertyIDs, "HRESULT")
+        result := ComCall(4, this, UIA_EVENT_ID, eventId, SAFEARRAY.Ptr, propertyIDs, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRawElementProviderAdviseEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AdviseEventAdded := CallbackCreate(GetMethod(implObj, "AdviseEventAdded"), flags, 3)
+        this.vtbl.AdviseEventRemoved := CallbackCreate(GetMethod(implObj, "AdviseEventRemoved"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AdviseEventAdded)
+        CallbackFree(this.vtbl.AdviseEventRemoved)
     }
 }

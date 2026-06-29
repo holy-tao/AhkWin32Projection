@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class FILE_ID_INFORMATION extends Win32Struct {
-    static sizeof => 16
+export default struct FILE_ID_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    VolumeSerialNumber : Int64
 
-    /**
-     * @type {Integer}
-     */
-    VolumeSerialNumber {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    FileId : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    FileId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

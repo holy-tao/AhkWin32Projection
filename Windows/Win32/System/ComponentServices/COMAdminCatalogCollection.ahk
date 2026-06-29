@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents any collection in the COM+ catalog. Use it to enumerate, add, remove, and retrieve items in a collection and to access related collections.
@@ -34,8 +33,7 @@
  * @see https://learn.microsoft.com/windows/win32/cossdk/comadmincatalogcollection
  * @namespace Windows.Win32.System.ComponentServices
  */
-class COMAdminCatalogCollection extends Win32Struct {
-    static sizeof => 0
+export default struct COMAdminCatalogCollection {
+    #StructPack 1
 
-    static packingSize => 1
 }

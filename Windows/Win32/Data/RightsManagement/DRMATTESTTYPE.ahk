@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DRMATTESTTYPE enumeration specifies what kind of signature to create for a data blob.
  * @see https://learn.microsoft.com/windows/win32/api/msdrmdefs/ne-msdrmdefs-drmattesttype
  * @namespace Windows.Win32.Data.RightsManagement
  */
-class DRMATTESTTYPE extends Win32Enum {
+export default struct DRMATTESTTYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Create a signature using full environment information.

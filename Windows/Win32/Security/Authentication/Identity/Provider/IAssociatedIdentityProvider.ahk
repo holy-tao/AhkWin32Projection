@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
+#Import "..\..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Allows an identity provider to associate identities with local user accounts.
  * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nn-identityprovider-iassociatedidentityprovider
  * @namespace Windows.Win32.Security.Authentication.Identity.Provider
  */
-class IAssociatedIdentityProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAssociatedIdentityProvider extends IUnknown {
     /**
      * The interface identifier for IAssociatedIdentityProvider
      * @type {Guid}
      */
-    static IID => Guid("{2af066b3-4cbb-4cba-a798-204b6af68cc0}")
+    static IID := Guid("{2af066b3-4cbb-4cba-a798-204b6af68cc0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAssociatedIdentityProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AssociateIdentity    : IntPtr
+        DisassociateIdentity : IntPtr
+        ChangeCredential     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AssociateIdentity", "DisassociateIdentity", "ChangeCredential"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAssociatedIdentityProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Associates an identity with a local user account.
@@ -39,9 +51,7 @@ class IAssociatedIdentityProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nf-identityprovider-iassociatedidentityprovider-associateidentity
      */
     AssociateIdentity(hwndParent) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
-        result := ComCall(3, this, "ptr", hwndParent, "ptr*", &ppPropertyStore := 0, "HRESULT")
+        result := ComCall(3, this, HWND, hwndParent, "ptr*", &ppPropertyStore := 0, "HRESULT")
         return IPropertyStore(ppPropertyStore)
     }
 
@@ -55,10 +65,9 @@ class IAssociatedIdentityProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nf-identityprovider-iassociatedidentityprovider-disassociateidentity
      */
     DisassociateIdentity(hwndParent, lpszUniqueID) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         lpszUniqueID := lpszUniqueID is String ? StrPtr(lpszUniqueID) : lpszUniqueID
 
-        result := ComCall(4, this, "ptr", hwndParent, "ptr", lpszUniqueID, "HRESULT")
+        result := ComCall(4, this, HWND, hwndParent, "ptr", lpszUniqueID, "HRESULT")
         return result
     }
 
@@ -74,10 +83,33 @@ class IAssociatedIdentityProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nf-identityprovider-iassociatedidentityprovider-changecredential
      */
     ChangeCredential(hwndParent, lpszUniqueID) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         lpszUniqueID := lpszUniqueID is String ? StrPtr(lpszUniqueID) : lpszUniqueID
 
-        result := ComCall(5, this, "ptr", hwndParent, "ptr", lpszUniqueID, "HRESULT")
+        result := ComCall(5, this, HWND, hwndParent, "ptr", lpszUniqueID, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAssociatedIdentityProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AssociateIdentity := CallbackCreate(GetMethod(implObj, "AssociateIdentity"), flags, 3)
+        this.vtbl.DisassociateIdentity := CallbackCreate(GetMethod(implObj, "DisassociateIdentity"), flags, 3)
+        this.vtbl.ChangeCredential := CallbackCreate(GetMethod(implObj, "ChangeCredential"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AssociateIdentity)
+        CallbackFree(this.vtbl.DisassociateIdentity)
+        CallbackFree(this.vtbl.ChangeCredential)
     }
 }

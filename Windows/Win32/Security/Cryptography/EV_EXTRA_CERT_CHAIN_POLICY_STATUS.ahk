@@ -1,47 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains policy flags returned from a call to the CertVerifyCertificateChainPolicy function.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ev_extra_cert_chain_policy_status
  * @namespace Windows.Win32.Security.Cryptography
  */
-class EV_EXTRA_CERT_CHAIN_POLICY_STATUS extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct EV_EXTRA_CERT_CHAIN_POLICY_STATUS {
+    #StructPack 4
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    dwQualifiers {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwQualifiers : UInt32
 
     /**
      * A <b>DWORD</b> value that specifies an index in the array of the resultant set of policy OIDs for the chain. The index corresponds to the EV policy OID for which the chain is valid. The policy OID is retrieved by using  
      * the index, as shown in the following pseudocode:
      * 
      * <c>pChainContext-&gt;rgpChain[0]-&gt;rgpElement[0]-&gt;pIssuanceUsage-&gt;rgpszUsageIdentifier[dwIssuanceUsageIndex];</c>
-     * @type {Integer}
      */
-    dwIssuanceUsageIndex {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwIssuanceUsageIndex : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 12
-    }
 }

@@ -1,61 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\GameInputFlightStickButtons.ahk
-#Include .\GameInputSwitchPosition.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GameInputSwitchPosition.ahk" { GameInputSwitchPosition }
+#Import ".\GameInputFlightStickButtons.ahk" { GameInputFlightStickButtons }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
  */
-class GameInputFlightStickState extends Win32Struct {
-    static sizeof => 24
+export default struct GameInputFlightStickState {
+    #StructPack 4
 
-    static packingSize => 4
+    buttons : GameInputFlightStickButtons
 
-    /**
-     * @type {GameInputFlightStickButtons}
-     */
-    buttons {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    hatSwitch : GameInputSwitchPosition
 
-    /**
-     * @type {GameInputSwitchPosition}
-     */
-    hatSwitch {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    roll : Float32
 
-    /**
-     * @type {Float}
-     */
-    roll {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    pitch : Float32
 
-    /**
-     * @type {Float}
-     */
-    pitch {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    yaw : Float32
 
-    /**
-     * @type {Float}
-     */
-    yaw {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
+    throttle : Float32
 
-    /**
-     * @type {Float}
-     */
-    throttle {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
-    }
 }

@@ -1,37 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSDATAFORMAT.ahk
-#Include .\KS_VIDEOINFOHEADER2.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\KS_BITMAPINFOHEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KS_VIDEOINFOHEADER2.ahk" { KS_VIDEOINFOHEADER2 }
+#Import ".\KSDATAFORMAT.ahk" { KSDATAFORMAT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\KS_BITMAPINFOHEADER.ahk" { KS_BITMAPINFOHEADER }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KS_DATAFORMAT_VIDEOINFOHEADER2 extends Win32Struct {
-    static sizeof => 160
+export default struct KS_DATAFORMAT_VIDEOINFOHEADER2 {
+    #StructPack 8
 
-    static packingSize => 8
+    DataFormat : KSDATAFORMAT
 
-    /**
-     * @type {KSDATAFORMAT}
-     */
-    DataFormat {
-        get {
-            if(!this.HasProp("__DataFormat"))
-                this.__DataFormat := KSDATAFORMAT(0, this)
-            return this.__DataFormat
-        }
-    }
+    VideoInfoHeader2 : KS_VIDEOINFOHEADER2
 
-    /**
-     * @type {KS_VIDEOINFOHEADER2}
-     */
-    VideoInfoHeader2 {
-        get {
-            if(!this.HasProp("__VideoInfoHeader2"))
-                this.__VideoInfoHeader2 := KS_VIDEOINFOHEADER2(48, this)
-            return this.__VideoInfoHeader2
-        }
-    }
 }

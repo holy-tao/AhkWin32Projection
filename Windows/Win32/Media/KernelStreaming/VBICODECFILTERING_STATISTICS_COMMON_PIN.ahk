@@ -1,75 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class VBICODECFILTERING_STATISTICS_COMMON_PIN extends Win32Struct {
-    static sizeof => 32
+export default struct VBICODECFILTERING_STATISTICS_COMMON_PIN {
+    #StructPack 4
 
-    static packingSize => 4
+    SRBsProcessed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SRBsProcessed {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SRBsIgnored : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SRBsIgnored {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SRBsMissing : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SRBsMissing {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    InternalErrors : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InternalErrors {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ExternalErrors : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ExternalErrors {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Discontinuities : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Discontinuities {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    LineConfidenceAvg : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LineConfidenceAvg {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    BytesOutput : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BytesOutput {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
 }

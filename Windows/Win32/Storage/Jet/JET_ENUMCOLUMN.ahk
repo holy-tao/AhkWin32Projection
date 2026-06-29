@@ -1,62 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\JET_ENUMCOLUMNVALUE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\JET_ENUMCOLUMNVALUE.ahk" { JET_ENUMCOLUMNVALUE }
 
 /**
  * Learn more about: JET_ENUMCOLUMN class
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-enumcolumn-class
  * @namespace Windows.Win32.Storage.Jet
  */
-class JET_ENUMCOLUMN extends Win32Struct {
-    static sizeof => 24
+export default struct JET_ENUMCOLUMN {
+    #StructPack 8
 
-    static packingSize => 8
+    columnid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    columnid {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    err : Int32
 
-    /**
-     * @type {Integer}
-     */
-    err {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    cEnumColumnValue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cEnumColumnValue {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    rgEnumColumnValue : JET_ENUMCOLUMNVALUE.Ptr
 
-    /**
-     * @type {Pointer<JET_ENUMCOLUMNVALUE>}
-     */
-    rgEnumColumnValue {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    cbData {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    pvData {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    static __New() {
+        DefineProp(this.Prototype, 'cbData', { type: UInt32, offset: 8 })
+        DefineProp(this.Prototype, 'pvData', { type: IntPtr, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,46 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT extends Win32Struct {
-    static sizeof => 12
+export default struct SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT {
+    #StructPack 4
 
-    static packingSize => 4
+    GeneralStatus : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    GeneralStatus {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    ExtendedStatus : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ExtendedStatus {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    OutputDataLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OutputDataLength {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    OutputData : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    OutputData {
-        get {
-            if(!this.HasProp("__OutputDataProxyArray"))
-                this.__OutputDataProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
-            return this.__OutputDataProxyArray
-        }
-    }
 }

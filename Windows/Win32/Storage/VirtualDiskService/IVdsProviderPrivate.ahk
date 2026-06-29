@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VDS_OBJECT_TYPE.ahk" { VDS_OBJECT_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods to enable VDS to perform miscellaneous operations on provider objects.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdsproviderprivate
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsProviderPrivate extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsProviderPrivate extends IUnknown {
     /**
      * The interface identifier for IVdsProviderPrivate
      * @type {Guid}
      */
-    static IID => Guid("{11f3cd41-b7e8-48ff-9472-9dff018aa292}")
+    static IID := Guid("{11f3cd41-b7e8-48ff-9472-9dff018aa292}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsProviderPrivate interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetObject : IntPtr
+        OnLoad    : IntPtr
+        OnUnload  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetObject", "OnLoad", "OnUnload"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsProviderPrivate.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns the specified object.
@@ -39,7 +52,7 @@ class IVdsProviderPrivate extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsproviderprivate-getobject
      */
     GetObject(_ObjectId, type) {
-        result := ComCall(3, this, "ptr", _ObjectId, "int", type, "ptr*", &ppObjectUnk := 0, "HRESULT")
+        result := ComCall(3, this, Guid, _ObjectId, VDS_OBJECT_TYPE, type, "ptr*", &ppObjectUnk := 0, "HRESULT")
         return IUnknown(ppObjectUnk)
     }
 
@@ -132,7 +145,31 @@ class IVdsProviderPrivate extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsproviderprivate-onunload
      */
     OnUnload(bForceUnload) {
-        result := ComCall(5, this, "int", bForceUnload, "HRESULT")
+        result := ComCall(5, this, BOOL, bForceUnload, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVdsProviderPrivate.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetObject := CallbackCreate(GetMethod(implObj, "GetObject"), flags, 4)
+        this.vtbl.OnLoad := CallbackCreate(GetMethod(implObj, "OnLoad"), flags, 3)
+        this.vtbl.OnUnload := CallbackCreate(GetMethod(implObj, "OnUnload"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetObject)
+        CallbackFree(this.vtbl.OnLoad)
+        CallbackFree(this.vtbl.OnUnload)
     }
 }

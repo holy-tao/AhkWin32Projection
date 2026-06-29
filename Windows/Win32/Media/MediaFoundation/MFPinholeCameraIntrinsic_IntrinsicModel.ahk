@@ -1,58 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MFCameraIntrinsic_PinholeCameraModel.ahk
-#Include .\MF_FLOAT2.ahk
-#Include .\MFCameraIntrinsic_DistortionModel.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MFCameraIntrinsic_DistortionModel.ahk" { MFCameraIntrinsic_DistortionModel }
+#Import ".\MF_FLOAT2.ahk" { MF_FLOAT2 }
+#Import ".\MFCameraIntrinsic_PinholeCameraModel.ahk" { MFCameraIntrinsic_PinholeCameraModel }
 
 /**
  * Represents a pinhole camera intrinsic model for a specified resolution.
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-mfpinholecameraintrinsic_intrinsicmodel
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFPinholeCameraIntrinsic_IntrinsicModel extends Win32Struct {
-    static sizeof => 44
-
-    static packingSize => 4
+export default struct MFPinholeCameraIntrinsic_IntrinsicModel {
+    #StructPack 4
 
     /**
      * The width for the pinhole camera intrinsic model, in pixels.
-     * @type {Integer}
      */
-    Width {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Width : UInt32
 
     /**
      * The height for the pinhole camera intrinsic model, in pixels.
-     * @type {Integer}
      */
-    Height {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Height : UInt32
 
     /**
      * The pinhole camera model.
-     * @type {MFCameraIntrinsic_PinholeCameraModel}
      */
-    CameraModel {
-        get {
-            if(!this.HasProp("__CameraModel"))
-                this.__CameraModel := MFCameraIntrinsic_PinholeCameraModel(8, this)
-            return this.__CameraModel
-        }
-    }
+    CameraModel : MFCameraIntrinsic_PinholeCameraModel
 
     /**
      * The lens distortion model.
-     * @type {MFCameraIntrinsic_DistortionModel}
      */
-    DistortionModel {
-        get {
-            if(!this.HasProp("__DistortionModel"))
-                this.__DistortionModel := MFCameraIntrinsic_DistortionModel(24, this)
-            return this.__DistortionModel
-        }
-    }
+    DistortionModel : MFCameraIntrinsic_DistortionModel
+
 }

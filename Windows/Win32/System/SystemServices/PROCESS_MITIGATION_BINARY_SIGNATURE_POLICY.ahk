@@ -1,38 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains process mitigation policy settings for the loading of images depending on the signatures for the image.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-process_mitigation_binary_signature_policy
  * @namespace Windows.Win32.System.SystemServices
  */
-class PROCESS_MITIGATION_BINARY_SIGNATURE_POLICY extends Win32Struct {
-    static sizeof => 4
+export default struct PROCESS_MITIGATION_BINARY_SIGNATURE_POLICY {
+    #StructPack 4
 
-    static packingSize => 4
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - MicrosoftSignedOnly
-     * - StoreSignedOnly
-     * - MitigationOptIn
-     * - AuditMicrosoftSignedOnly
-     * - AuditStoreSignedOnly
-     * - ReservedFlags
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
 
     /**
      * @type {Integer}
@@ -80,5 +57,9 @@ class PROCESS_MITIGATION_BINARY_SIGNATURE_POLICY extends Win32Struct {
     ReservedFlags {
         get => (this._bitfield >> 5) & 0x7FFFFFF
         set => this._bitfield := ((value & 0x7FFFFFF) << 5) | (this._bitfield & ~(0x7FFFFFF << 5))
+    }
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

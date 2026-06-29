@@ -1,25 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_PCIXBUS_COMMAND extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 1
+export default struct WHEA_PCIXBUS_COMMAND {
+    #StructPack 1
 
     /**
      * This bitfield backs the following members:
      * - Command
      * - PCIXCommand
      * - Reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int64
+
 
     /**
      * @type {Integer}
@@ -36,12 +30,8 @@ class WHEA_PCIXBUS_COMMAND extends Win32Struct {
         get => (this._bitfield >> 56) & 0x1
         set => this._bitfield := ((value & 0x1) << 56) | (this._bitfield & ~(0x1 << 56))
     }
-
-    /**
-     * @type {Integer}
-     */
-    AsULONGLONG {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'AsULONGLONG', { type: Int64, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

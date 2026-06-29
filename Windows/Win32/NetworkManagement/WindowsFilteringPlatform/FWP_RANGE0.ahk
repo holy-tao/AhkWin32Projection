@@ -1,12 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWP_VALUE0.ahk
-#Include .\FWP_DATA_TYPE.ahk
-#Include .\FWP_BYTE_ARRAY16.ahk
-#Include .\FWP_BYTE_BLOB.ahk
-#Include ..\..\Security\SID.ahk
-#Include .\FWP_TOKEN_INFORMATION.ahk
-#Include .\FWP_BYTE_ARRAY6.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Security\SID.ahk" { SID }
+#Import ".\FWP_TOKEN_INFORMATION.ahk" { FWP_TOKEN_INFORMATION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\FWP_BYTE_ARRAY6.ahk" { FWP_BYTE_ARRAY6 }
+#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
+#Import ".\FWP_VALUE0.ahk" { FWP_VALUE0 }
+#Import ".\FWP_DATA_TYPE.ahk" { FWP_DATA_TYPE }
+#Import ".\FWP_BYTE_ARRAY16.ahk" { FWP_BYTE_ARRAY16 }
 
 /**
  * Specifies a range of values.
@@ -21,36 +21,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ns-fwptypes-fwp_range0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class FWP_RANGE0 extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct FWP_RANGE0 {
+    #StructPack 8
 
     /**
      * Low value of the range.
      * 
      * See [FWP_VALUE0](/windows/desktop/api/fwptypes/ns-fwptypes-fwp_value0) for more information.
-     * @type {FWP_VALUE0}
      */
-    valueLow {
-        get {
-            if(!this.HasProp("__valueLow"))
-                this.__valueLow := FWP_VALUE0(0, this)
-            return this.__valueLow
-        }
-    }
+    valueLow : FWP_VALUE0
 
     /**
      * High value of the range.
      * 
      * See [FWP_VALUE0](/windows/desktop/api/fwptypes/ns-fwptypes-fwp_value0) for more information.
-     * @type {FWP_VALUE0}
      */
-    valueHigh {
-        get {
-            if(!this.HasProp("__valueHigh"))
-                this.__valueHigh := FWP_VALUE0(16, this)
-            return this.__valueHigh
-        }
-    }
+    valueHigh : FWP_VALUE0
+
 }

@@ -1,17 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Identifies the algorithm used to generate an RSA PKCS
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_mask_gen_algorithm
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRYPT_MASK_GEN_ALGORITHM extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct CRYPT_MASK_GEN_ALGORITHM {
+    #StructPack 8
 
     /**
      * The address of a null-terminated ANSI string that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) of the mask generation algorithm. This can be the following value or any other mask generation function OID.
@@ -33,22 +31,12 @@ class CRYPT_MASK_GEN_ALGORITHM extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {PSTR}
      */
-    pszObjId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pszObjId : PSTR
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure that identifies the hash algorithm to use for the mask generation.
-     * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    HashAlgorithm {
-        get {
-            if(!this.HasProp("__HashAlgorithm"))
-                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(8, this)
-            return this.__HashAlgorithm
-        }
-    }
+    HashAlgorithm : CRYPT_ALGORITHM_IDENTIFIER
+
 }

@@ -1,99 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KS_BITMAPINFOHEADER extends Win32Struct {
-    static sizeof => 40
+export default struct KS_BITMAPINFOHEADER {
+    #StructPack 4
 
-    static packingSize => 4
+    biSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    biSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    biWidth : Int32
 
-    /**
-     * @type {Integer}
-     */
-    biWidth {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    biHeight : Int32
 
-    /**
-     * @type {Integer}
-     */
-    biHeight {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    biPlanes : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    biPlanes {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    biBitCount : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    biBitCount {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    biCompression : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    biCompression {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    biSizeImage : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    biSizeImage {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    biXPelsPerMeter : Int32
 
-    /**
-     * @type {Integer}
-     */
-    biXPelsPerMeter {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    biYPelsPerMeter : Int32
 
-    /**
-     * @type {Integer}
-     */
-    biYPelsPerMeter {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    biClrUsed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    biClrUsed {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    biClrImportant : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    biClrImportant {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
 }

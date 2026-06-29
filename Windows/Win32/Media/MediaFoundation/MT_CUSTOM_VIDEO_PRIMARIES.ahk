@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines custom color primaries for a video source. The color primaries define how to convert colors from RGB color space to CIE XYZ color space.
@@ -8,80 +7,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-mt_custom_video_primaries
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MT_CUSTOM_VIDEO_PRIMARIES extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 4
+export default struct MT_CUSTOM_VIDEO_PRIMARIES {
+    #StructPack 4
 
     /**
      * Red x-coordinate.
-     * @type {Float}
      */
-    fRx {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    fRx : Float32
 
     /**
      * Red y-coordinate.
-     * @type {Float}
      */
-    fRy {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    fRy : Float32
 
     /**
      * Green x-coordinate.
-     * @type {Float}
      */
-    fGx {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    fGx : Float32
 
     /**
      * Green y-coordinate.
-     * @type {Float}
      */
-    fGy {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    fGy : Float32
 
     /**
      * Blue x-coordinate.
-     * @type {Float}
      */
-    fBx {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
+    fBx : Float32
 
     /**
      * Blue y-coordinate.
-     * @type {Float}
      */
-    fBy {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
-    }
+    fBy : Float32
 
     /**
      * White point x-coordinate.
-     * @type {Float}
      */
-    fWx {
-        get => NumGet(this, 24, "float")
-        set => NumPut("float", value, this, 24)
-    }
+    fWx : Float32
 
     /**
      * White point y-coordinate.
-     * @type {Float}
      */
-    fWy {
-        get => NumGet(this, 28, "float")
-        set => NumPut("float", value, this, 28)
-    }
+    fWy : Float32
+
 }

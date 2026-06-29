@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\LIST_VIEW_BACKGROUND_IMAGE_FLAGS.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LIST_VIEW_BACKGROUND_IMAGE_FLAGS.ahk" { LIST_VIEW_BACKGROUND_IMAGE_FLAGS }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains information about the background image of a list-view control. This structure is used for both setting and retrieving background image information. (ANSI)
@@ -17,10 +17,8 @@
  * @namespace Windows.Win32.UI.Controls
  * @charset ANSI
  */
-class LVBKIMAGEA extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct LVBKIMAGEA {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">ULONG</a></b>
@@ -113,12 +111,8 @@ class LVBKIMAGEA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {LIST_VIEW_BACKGROUND_IMAGE_FLAGS}
      */
-    ulFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulFlags : LIST_VIEW_BACKGROUND_IMAGE_FLAGS
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HBITMAP</a></b>
@@ -126,15 +120,8 @@ class LVBKIMAGEA extends Win32Struct {
      * The handle of the background bitmap. This member is valid only if the 
      * 					<b>LVBKIF_SOURCE_HBITMAP</b> flag is set in 
      * 					<b>ulFlags</b>.
-     * @type {HBITMAP}
      */
-    hbm {
-        get {
-            if(!this.HasProp("__hbm"))
-                this.__hbm := HBITMAP(8, this)
-            return this.__hbm
-        }
-    }
+    hbm : HBITMAP
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
@@ -142,24 +129,16 @@ class LVBKIMAGEA extends Win32Struct {
      * Address of a NULL-terminated string that contains the URL of the background image. This member is valid only if the 
      * 					<b>LVBKIF_SOURCE_URL</b> flag is set in 
      * 					<b>ulFlags</b>. This member must be initialized to point to the buffer that contains or receives the text before sending the message.
-     * @type {PSTR}
      */
-    pszImage {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszImage : PSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Size of the buffer at the address in 
      * 					<b>pszImage</b>. If information is being sent to the control, this member is ignored.
-     * @type {Integer}
      */
-    cchImageMax {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    cchImageMax : UInt32
 
     /**
      * Type: <b>int</b>
@@ -167,12 +146,8 @@ class LVBKIMAGEA extends Win32Struct {
      * Percentage of the control's client area that the image should be offset horizontally. For example, at 0 percent, the image will be displayed against the left edge of the control's client area. At 50 percent, the image will be displayed horizontally centered in the control's client area. At 100 percent, the image will be displayed against the right edge of the control's client area. This member is valid only when 
      * 					<b>LVBKIF_STYLE_NORMAL</b> is specified in 
      * 					<b>ulFlags</b>. If both <b>LVBKIF_FLAG_TILEOFFSET</b> and <b>LVBKIF_STYLE_TILE</b> are specified in <b>ulFlags</b>, then the value specifies the pixel, not percentage offset, of the first tile. Otherwise, the value is ignored.
-     * @type {Integer}
      */
-    xOffsetPercent {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    xOffsetPercent : Int32
 
     /**
      * Type: <b>int</b>
@@ -180,10 +155,7 @@ class LVBKIMAGEA extends Win32Struct {
      * Percentage of the control's client area that the image should be offset vertically. For example, at 0 percent, the image will be displayed against the top edge of the control's client area. At 50 percent, the image will be displayed vertically centered in the control's client area. At 100 percent, the image will be displayed against the bottom edge of the control's client area. This member is valid only when 
      * 					<b>LVBKIF_STYLE_NORMAL</b> is specified in 
      * 					<b>ulFlags</b>. If both <b>LVBKIF_FLAG_TILEOFFSET</b> and <b>LVBKIF_STYLE_TILE</b> are specified in <b>ulFlags</b>, then the value specifies the pixel, not percentage offset, of the first tile. Otherwise, the value is ignored.
-     * @type {Integer}
      */
-    yOffsetPercent {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    yOffsetPercent : Int32
+
 }

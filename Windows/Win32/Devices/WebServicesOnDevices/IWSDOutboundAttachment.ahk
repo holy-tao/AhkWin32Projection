@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWSDAttachment.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWSDAttachment.ahk" { IWSDAttachment }
 
 /**
  * Enables applications to send attachment data in a message using a MIME container.
  * @see https://learn.microsoft.com/windows/win32/api/wsdattachment/nn-wsdattachment-iwsdoutboundattachment
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class IWSDOutboundAttachment extends IWSDAttachment {
-
-    static sizeof => A_PtrSize
+export default struct IWSDOutboundAttachment extends IWSDAttachment {
     /**
      * The interface identifier for IWSDOutboundAttachment
      * @type {Guid}
      */
-    static IID => Guid("{aa302f8d-5a22-4ba5-b392-aa8486f4c15d}")
+    static IID := Guid("{aa302f8d-5a22-4ba5-b392-aa8486f4c15d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWSDOutboundAttachment interfaces
+    */
+    struct Vtbl extends IWSDAttachment.Vtbl {
+        Write : IntPtr
+        Close : IntPtr
+        Abort : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Write", "Close", "Abort"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWSDOutboundAttachment.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sends attachment data to the remote host using a MIME container.
@@ -154,5 +164,29 @@ class IWSDOutboundAttachment extends IWSDAttachment {
     Abort() {
         result := ComCall(5, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWSDOutboundAttachment.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Write := CallbackCreate(GetMethod(implObj, "Write"), flags, 4)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Abort := CallbackCreate(GetMethod(implObj, "Abort"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Write)
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.Abort)
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The QuarantineStatus enumeration specifies possible health status values for the DHCPv4 client, as validated at the NAP server.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ne-dhcpsapi-quarantinestatus
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  */
-class QuarantineStatus extends Win32Enum {
+export default struct QuarantineStatus {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The DHCP client is compliant with the health policies defined by the administrator and has normal access to the network.

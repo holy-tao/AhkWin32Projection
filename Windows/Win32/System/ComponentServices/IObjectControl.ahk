@@ -1,39 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines context-specific initialization and cleanup procedures for your COM+ objects, and specifies whether the objects can be recycled.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iobjectcontrol
  * @namespace Windows.Win32.System.ComponentServices
  */
-class IObjectControl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IObjectControl extends IUnknown {
     /**
      * The interface identifier for IObjectControl
      * @type {Guid}
      */
-    static IID => Guid("{51372aec-cae7-11cf-be81-00aa00a2fa25}")
+    static IID := Guid("{51372aec-cae7-11cf-be81-00aa00a2fa25}")
 
     /**
      * The class identifier for ObjectControl
      * @type {Guid}
      */
-    static CLSID => Guid("{7dc41850-0c31-11d0-8b79-00aa00b8a790}")
+    static CLSID := Guid("{7dc41850-0c31-11d0-8b79-00aa00b8a790}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IObjectControl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Activate    : IntPtr
+        Deactivate  : IntPtr
+        CanBePooled : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Activate", "Deactivate", "CanBePooled"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IObjectControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Enables a COM+ object to perform context-specific initialization whenever it is activated. (IObjectControl.Activate)
@@ -90,7 +101,31 @@ class IObjectControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iobjectcontrol-canbepooled
      */
     CanBePooled() {
-        result := ComCall(5, this, "int")
+        result := ComCall(5, this, BOOL)
         return result
+    }
+
+    Query(iid) {
+        if (IObjectControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 1)
+        this.vtbl.Deactivate := CallbackCreate(GetMethod(implObj, "Deactivate"), flags, 1)
+        this.vtbl.CanBePooled := CallbackCreate(GetMethod(implObj, "CanBePooled"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Activate)
+        CallbackFree(this.vtbl.Deactivate)
+        CallbackFree(this.vtbl.CanBePooled)
     }
 }

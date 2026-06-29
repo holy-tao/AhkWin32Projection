@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
  */
-class COR_PRF_NONGC_HEAP_RANGE extends Win32Struct {
-    static sizeof => 24
+export default struct COR_PRF_NONGC_HEAP_RANGE {
+    #StructPack 8
 
-    static packingSize => 8
+    rangeStart : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    rangeStart {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    rangeLength : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    rangeLength {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    rangeLengthReserved : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    rangeLengthReserved {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

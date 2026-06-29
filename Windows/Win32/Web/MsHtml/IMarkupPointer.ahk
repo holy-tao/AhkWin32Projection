@@ -1,34 +1,68 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IHTMLDocument2.ahk
-#Include .\IMarkupContainer.ahk
-#Include .\IHTMLElement.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IHTMLDocument2.ahk" { IHTMLDocument2 }
+#Import ".\MOVEUNIT_ACTION.ahk" { MOVEUNIT_ACTION }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\MARKUP_CONTEXT_TYPE.ahk" { MARKUP_CONTEXT_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\POINTER_GRAVITY.ahk" { POINTER_GRAVITY }
+#Import ".\ELEMENT_ADJACENCY.ahk" { ELEMENT_ADJACENCY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import ".\IMarkupContainer.ahk" { IMarkupContainer }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IMarkupPointer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMarkupPointer extends IUnknown {
     /**
      * The interface identifier for IMarkupPointer
      * @type {Guid}
      */
-    static IID => Guid("{3050f49f-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f49f-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMarkupPointer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OwningDoc             : IntPtr
+        Gravity               : IntPtr
+        SetGravity            : IntPtr
+        Cling                 : IntPtr
+        SetCling              : IntPtr
+        Unposition            : IntPtr
+        IsPositioned          : IntPtr
+        GetContainer          : IntPtr
+        MoveAdjacentToElement : IntPtr
+        MoveToPointer         : IntPtr
+        MoveToContainer       : IntPtr
+        Left                  : IntPtr
+        Right                 : IntPtr
+        CurrentScope          : IntPtr
+        IsLeftOf              : IntPtr
+        IsLeftOfOrEqualTo     : IntPtr
+        IsRightOf             : IntPtr
+        IsRightOfOrEqualTo    : IntPtr
+        IsEqualTo             : IntPtr
+        MoveUnit              : IntPtr
+        FindText              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OwningDoc", "Gravity", "SetGravity", "Cling", "SetCling", "Unposition", "IsPositioned", "GetContainer", "MoveAdjacentToElement", "MoveToPointer", "MoveToContainer", "Left", "Right", "CurrentScope", "IsLeftOf", "IsLeftOfOrEqualTo", "IsRightOf", "IsRightOfOrEqualTo", "IsEqualTo", "MoveUnit", "FindText"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMarkupPointer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -54,7 +88,7 @@ class IMarkupPointer extends IUnknown {
      * @returns {HRESULT} 
      */
     SetGravity(Gravity) {
-        result := ComCall(5, this, "int", Gravity, "HRESULT")
+        result := ComCall(5, this, POINTER_GRAVITY, Gravity, "HRESULT")
         return result
     }
 
@@ -63,7 +97,7 @@ class IMarkupPointer extends IUnknown {
      * @returns {BOOL} 
      */
     Cling() {
-        result := ComCall(6, this, "int*", &pfCling := 0, "HRESULT")
+        result := ComCall(6, this, BOOL.Ptr, &pfCling := 0, "HRESULT")
         return pfCling
     }
 
@@ -73,7 +107,7 @@ class IMarkupPointer extends IUnknown {
      * @returns {HRESULT} 
      */
     SetCling(fCLing) {
-        result := ComCall(7, this, "int", fCLing, "HRESULT")
+        result := ComCall(7, this, BOOL, fCLing, "HRESULT")
         return result
     }
 
@@ -91,7 +125,7 @@ class IMarkupPointer extends IUnknown {
      * @returns {BOOL} 
      */
     IsPositioned() {
-        result := ComCall(9, this, "int*", &pfPositioned := 0, "HRESULT")
+        result := ComCall(9, this, BOOL.Ptr, &pfPositioned := 0, "HRESULT")
         return pfPositioned
     }
 
@@ -111,7 +145,7 @@ class IMarkupPointer extends IUnknown {
      * @returns {HRESULT} 
      */
     MoveAdjacentToElement(pElement, eAdj) {
-        result := ComCall(11, this, "ptr", pElement, "int", eAdj, "HRESULT")
+        result := ComCall(11, this, "ptr", pElement, ELEMENT_ADJACENCY, eAdj, "HRESULT")
         return result
     }
 
@@ -132,19 +166,18 @@ class IMarkupPointer extends IUnknown {
      * @returns {HRESULT} 
      */
     MoveToContainer(pContainer, fAtStart) {
-        result := ComCall(13, this, "ptr", pContainer, "int", fAtStart, "HRESULT")
+        result := ComCall(13, this, "ptr", pContainer, BOOL, fAtStart, "HRESULT")
         return result
     }
 
     /**
-     * If the LeftUnit property is set, the unit is placed to the left of the number instead of the typical right side.
+     * 
      * @param {BOOL} fMove 
      * @param {Pointer<MARKUP_CONTEXT_TYPE>} pContext 
      * @param {Pointer<IHTMLElement>} ppElement 
      * @param {Pointer<Integer>} pcch 
      * @param {PWSTR} pchText 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Msi/leftunit
      */
     Left(fMove, pContext, ppElement, pcch, pchText) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
@@ -152,7 +185,7 @@ class IMarkupPointer extends IUnknown {
         pContextMarshal := pContext is VarRef ? "int*" : "ptr"
         pcchMarshal := pcch is VarRef ? "int*" : "ptr"
 
-        result := ComCall(14, this, "int", fMove, pContextMarshal, pContext, "ptr*", ppElement, pcchMarshal, pcch, "ptr", pchText, "HRESULT")
+        result := ComCall(14, this, BOOL, fMove, pContextMarshal, pContext, IHTMLElement.Ptr, ppElement, pcchMarshal, pcch, "ptr", pchText, "HRESULT")
         return result
     }
 
@@ -171,7 +204,7 @@ class IMarkupPointer extends IUnknown {
         pContextMarshal := pContext is VarRef ? "int*" : "ptr"
         pcchMarshal := pcch is VarRef ? "int*" : "ptr"
 
-        result := ComCall(15, this, "int", fMove, pContextMarshal, pContext, "ptr*", ppElement, pcchMarshal, pcch, "ptr", pchText, "HRESULT")
+        result := ComCall(15, this, BOOL, fMove, pContextMarshal, pContext, IHTMLElement.Ptr, ppElement, pcchMarshal, pcch, "ptr", pchText, "HRESULT")
         return result
     }
 
@@ -190,7 +223,7 @@ class IMarkupPointer extends IUnknown {
      * @returns {BOOL} 
      */
     IsLeftOf(pPointerThat) {
-        result := ComCall(17, this, "ptr", pPointerThat, "int*", &pfResult := 0, "HRESULT")
+        result := ComCall(17, this, "ptr", pPointerThat, BOOL.Ptr, &pfResult := 0, "HRESULT")
         return pfResult
     }
 
@@ -200,7 +233,7 @@ class IMarkupPointer extends IUnknown {
      * @returns {BOOL} 
      */
     IsLeftOfOrEqualTo(pPointerThat) {
-        result := ComCall(18, this, "ptr", pPointerThat, "int*", &pfResult := 0, "HRESULT")
+        result := ComCall(18, this, "ptr", pPointerThat, BOOL.Ptr, &pfResult := 0, "HRESULT")
         return pfResult
     }
 
@@ -210,7 +243,7 @@ class IMarkupPointer extends IUnknown {
      * @returns {BOOL} 
      */
     IsRightOf(pPointerThat) {
-        result := ComCall(19, this, "ptr", pPointerThat, "int*", &pfResult := 0, "HRESULT")
+        result := ComCall(19, this, "ptr", pPointerThat, BOOL.Ptr, &pfResult := 0, "HRESULT")
         return pfResult
     }
 
@@ -220,7 +253,7 @@ class IMarkupPointer extends IUnknown {
      * @returns {BOOL} 
      */
     IsRightOfOrEqualTo(pPointerThat) {
-        result := ComCall(20, this, "ptr", pPointerThat, "int*", &pfResult := 0, "HRESULT")
+        result := ComCall(20, this, "ptr", pPointerThat, BOOL.Ptr, &pfResult := 0, "HRESULT")
         return pfResult
     }
 
@@ -230,7 +263,7 @@ class IMarkupPointer extends IUnknown {
      * @returns {BOOL} 
      */
     IsEqualTo(pPointerThat) {
-        result := ComCall(21, this, "ptr", pPointerThat, "int*", &pfAreEqual := 0, "HRESULT")
+        result := ComCall(21, this, "ptr", pPointerThat, BOOL.Ptr, &pfAreEqual := 0, "HRESULT")
         return pfAreEqual
     }
 
@@ -240,7 +273,7 @@ class IMarkupPointer extends IUnknown {
      * @returns {HRESULT} 
      */
     MoveUnit(muAction) {
-        result := ComCall(22, this, "int", muAction, "HRESULT")
+        result := ComCall(22, this, MOVEUNIT_ACTION, muAction, "HRESULT")
         return result
     }
 
@@ -270,5 +303,65 @@ class IMarkupPointer extends IUnknown {
 
         result := ComCall(23, this, "ptr", pchFindText, "uint", dwFlags, "ptr", pIEndMatch, "ptr", pIEndSearch, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMarkupPointer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OwningDoc := CallbackCreate(GetMethod(implObj, "OwningDoc"), flags, 2)
+        this.vtbl.Gravity := CallbackCreate(GetMethod(implObj, "Gravity"), flags, 2)
+        this.vtbl.SetGravity := CallbackCreate(GetMethod(implObj, "SetGravity"), flags, 2)
+        this.vtbl.Cling := CallbackCreate(GetMethod(implObj, "Cling"), flags, 2)
+        this.vtbl.SetCling := CallbackCreate(GetMethod(implObj, "SetCling"), flags, 2)
+        this.vtbl.Unposition := CallbackCreate(GetMethod(implObj, "Unposition"), flags, 1)
+        this.vtbl.IsPositioned := CallbackCreate(GetMethod(implObj, "IsPositioned"), flags, 2)
+        this.vtbl.GetContainer := CallbackCreate(GetMethod(implObj, "GetContainer"), flags, 2)
+        this.vtbl.MoveAdjacentToElement := CallbackCreate(GetMethod(implObj, "MoveAdjacentToElement"), flags, 3)
+        this.vtbl.MoveToPointer := CallbackCreate(GetMethod(implObj, "MoveToPointer"), flags, 2)
+        this.vtbl.MoveToContainer := CallbackCreate(GetMethod(implObj, "MoveToContainer"), flags, 3)
+        this.vtbl.Left := CallbackCreate(GetMethod(implObj, "Left"), flags, 6)
+        this.vtbl.Right := CallbackCreate(GetMethod(implObj, "Right"), flags, 6)
+        this.vtbl.CurrentScope := CallbackCreate(GetMethod(implObj, "CurrentScope"), flags, 2)
+        this.vtbl.IsLeftOf := CallbackCreate(GetMethod(implObj, "IsLeftOf"), flags, 3)
+        this.vtbl.IsLeftOfOrEqualTo := CallbackCreate(GetMethod(implObj, "IsLeftOfOrEqualTo"), flags, 3)
+        this.vtbl.IsRightOf := CallbackCreate(GetMethod(implObj, "IsRightOf"), flags, 3)
+        this.vtbl.IsRightOfOrEqualTo := CallbackCreate(GetMethod(implObj, "IsRightOfOrEqualTo"), flags, 3)
+        this.vtbl.IsEqualTo := CallbackCreate(GetMethod(implObj, "IsEqualTo"), flags, 3)
+        this.vtbl.MoveUnit := CallbackCreate(GetMethod(implObj, "MoveUnit"), flags, 2)
+        this.vtbl.FindText := CallbackCreate(GetMethod(implObj, "FindText"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OwningDoc)
+        CallbackFree(this.vtbl.Gravity)
+        CallbackFree(this.vtbl.SetGravity)
+        CallbackFree(this.vtbl.Cling)
+        CallbackFree(this.vtbl.SetCling)
+        CallbackFree(this.vtbl.Unposition)
+        CallbackFree(this.vtbl.IsPositioned)
+        CallbackFree(this.vtbl.GetContainer)
+        CallbackFree(this.vtbl.MoveAdjacentToElement)
+        CallbackFree(this.vtbl.MoveToPointer)
+        CallbackFree(this.vtbl.MoveToContainer)
+        CallbackFree(this.vtbl.Left)
+        CallbackFree(this.vtbl.Right)
+        CallbackFree(this.vtbl.CurrentScope)
+        CallbackFree(this.vtbl.IsLeftOf)
+        CallbackFree(this.vtbl.IsLeftOfOrEqualTo)
+        CallbackFree(this.vtbl.IsRightOf)
+        CallbackFree(this.vtbl.IsRightOfOrEqualTo)
+        CallbackFree(this.vtbl.IsEqualTo)
+        CallbackFree(this.vtbl.MoveUnit)
+        CallbackFree(this.vtbl.FindText)
     }
 }

@@ -1,43 +1,62 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IAppxEncryptedPackageWriter.ahk
-#Include .\IAppxPackageReader.ahk
-#Include .\IAppxEncryptedBundleWriter.ahk
-#Include .\IAppxBundleReader.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\APPX_KEY_INFO.ahk" { APPX_KEY_INFO }
+#Import ".\APPX_ENCRYPTED_PACKAGE_SETTINGS.ahk" { APPX_ENCRYPTED_PACKAGE_SETTINGS }
+#Import ".\APPX_ENCRYPTED_EXEMPTIONS.ahk" { APPX_ENCRYPTED_EXEMPTIONS }
+#Import ".\IAppxEncryptedPackageWriter.ahk" { IAppxEncryptedPackageWriter }
+#Import ".\IAppxBundleReader.ahk" { IAppxBundleReader }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\IAppxPackageReader.ahk" { IAppxPackageReader }
+#Import ".\IAppxEncryptedBundleWriter.ahk" { IAppxEncryptedBundleWriter }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Creates objects for encrypting, decrypting, reading, and writing packages and bundles.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxencryptionfactory
  * @namespace Windows.Win32.Storage.Packaging.Appx
  */
-class IAppxEncryptionFactory extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAppxEncryptionFactory extends IUnknown {
     /**
      * The interface identifier for IAppxEncryptionFactory
      * @type {Guid}
      */
-    static IID => Guid("{80e8e04d-8c88-44ae-a011-7cadf6fb2e72}")
+    static IID := Guid("{80e8e04d-8c88-44ae-a011-7cadf6fb2e72}")
 
     /**
      * The class identifier for AppxEncryptionFactory
      * @type {Guid}
      */
-    static CLSID => Guid("{dc664fdd-d868-46ee-8780-8d196cb739f7}")
+    static CLSID := Guid("{dc664fdd-d868-46ee-8780-8d196cb739f7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAppxEncryptionFactory interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        EncryptPackage               : IntPtr
+        DecryptPackage               : IntPtr
+        CreateEncryptedPackageWriter : IntPtr
+        CreateEncryptedPackageReader : IntPtr
+        EncryptBundle                : IntPtr
+        DecryptBundle                : IntPtr
+        CreateEncryptedBundleWriter  : IntPtr
+        CreateEncryptedBundleReader  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EncryptPackage", "DecryptPackage", "CreateEncryptedPackageWriter", "CreateEncryptedPackageReader", "EncryptBundle", "DecryptBundle", "CreateEncryptedBundleWriter", "CreateEncryptedBundleReader"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAppxEncryptionFactory.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates an encrypted Windows app package from an unencrypted one. (IAppxEncryptionFactory.EncryptPackage)
@@ -50,7 +69,7 @@ class IAppxEncryptionFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxencryptionfactory-encryptpackage
      */
     EncryptPackage(inputStream, outputStream, settings, keyInfo, exemptedFiles) {
-        result := ComCall(3, this, "ptr", inputStream, "ptr", outputStream, "ptr", settings, "ptr", keyInfo, "ptr", exemptedFiles, "HRESULT")
+        result := ComCall(3, this, "ptr", inputStream, "ptr", outputStream, APPX_ENCRYPTED_PACKAGE_SETTINGS.Ptr, settings, APPX_KEY_INFO.Ptr, keyInfo, APPX_ENCRYPTED_EXEMPTIONS.Ptr, exemptedFiles, "HRESULT")
         return result
     }
 
@@ -63,7 +82,7 @@ class IAppxEncryptionFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxencryptionfactory-decryptpackage
      */
     DecryptPackage(inputStream, outputStream, keyInfo) {
-        result := ComCall(4, this, "ptr", inputStream, "ptr", outputStream, "ptr", keyInfo, "HRESULT")
+        result := ComCall(4, this, "ptr", inputStream, "ptr", outputStream, APPX_KEY_INFO.Ptr, keyInfo, "HRESULT")
         return result
     }
 
@@ -78,7 +97,7 @@ class IAppxEncryptionFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxencryptionfactory-createencryptedpackagewriter
      */
     CreateEncryptedPackageWriter(outputStream, manifestStream, settings, keyInfo, exemptedFiles) {
-        result := ComCall(5, this, "ptr", outputStream, "ptr", manifestStream, "ptr", settings, "ptr", keyInfo, "ptr", exemptedFiles, "ptr*", &packageWriter := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", outputStream, "ptr", manifestStream, APPX_ENCRYPTED_PACKAGE_SETTINGS.Ptr, settings, APPX_KEY_INFO.Ptr, keyInfo, APPX_ENCRYPTED_EXEMPTIONS.Ptr, exemptedFiles, "ptr*", &packageWriter := 0, "HRESULT")
         return IAppxEncryptedPackageWriter(packageWriter)
     }
 
@@ -90,7 +109,7 @@ class IAppxEncryptionFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxencryptionfactory-createencryptedpackagereader
      */
     CreateEncryptedPackageReader(inputStream, keyInfo) {
-        result := ComCall(6, this, "ptr", inputStream, "ptr", keyInfo, "ptr*", &packageReader := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", inputStream, APPX_KEY_INFO.Ptr, keyInfo, "ptr*", &packageReader := 0, "HRESULT")
         return IAppxPackageReader(packageReader)
     }
 
@@ -105,7 +124,7 @@ class IAppxEncryptionFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxencryptionfactory-encryptbundle
      */
     EncryptBundle(inputStream, outputStream, settings, keyInfo, exemptedFiles) {
-        result := ComCall(7, this, "ptr", inputStream, "ptr", outputStream, "ptr", settings, "ptr", keyInfo, "ptr", exemptedFiles, "HRESULT")
+        result := ComCall(7, this, "ptr", inputStream, "ptr", outputStream, APPX_ENCRYPTED_PACKAGE_SETTINGS.Ptr, settings, APPX_KEY_INFO.Ptr, keyInfo, APPX_ENCRYPTED_EXEMPTIONS.Ptr, exemptedFiles, "HRESULT")
         return result
     }
 
@@ -118,7 +137,7 @@ class IAppxEncryptionFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxencryptionfactory-decryptbundle
      */
     DecryptBundle(inputStream, outputStream, keyInfo) {
-        result := ComCall(8, this, "ptr", inputStream, "ptr", outputStream, "ptr", keyInfo, "HRESULT")
+        result := ComCall(8, this, "ptr", inputStream, "ptr", outputStream, APPX_KEY_INFO.Ptr, keyInfo, "HRESULT")
         return result
     }
 
@@ -133,7 +152,7 @@ class IAppxEncryptionFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxencryptionfactory-createencryptedbundlewriter
      */
     CreateEncryptedBundleWriter(outputStream, bundleVersion, settings, keyInfo, exemptedFiles) {
-        result := ComCall(9, this, "ptr", outputStream, "uint", bundleVersion, "ptr", settings, "ptr", keyInfo, "ptr", exemptedFiles, "ptr*", &bundleWriter := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", outputStream, "uint", bundleVersion, APPX_ENCRYPTED_PACKAGE_SETTINGS.Ptr, settings, APPX_KEY_INFO.Ptr, keyInfo, APPX_ENCRYPTED_EXEMPTIONS.Ptr, exemptedFiles, "ptr*", &bundleWriter := 0, "HRESULT")
         return IAppxEncryptedBundleWriter(bundleWriter)
     }
 
@@ -145,7 +164,41 @@ class IAppxEncryptionFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxencryptionfactory-createencryptedbundlereader
      */
     CreateEncryptedBundleReader(inputStream, keyInfo) {
-        result := ComCall(10, this, "ptr", inputStream, "ptr", keyInfo, "ptr*", &bundleReader := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", inputStream, APPX_KEY_INFO.Ptr, keyInfo, "ptr*", &bundleReader := 0, "HRESULT")
         return IAppxBundleReader(bundleReader)
+    }
+
+    Query(iid) {
+        if (IAppxEncryptionFactory.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EncryptPackage := CallbackCreate(GetMethod(implObj, "EncryptPackage"), flags, 6)
+        this.vtbl.DecryptPackage := CallbackCreate(GetMethod(implObj, "DecryptPackage"), flags, 4)
+        this.vtbl.CreateEncryptedPackageWriter := CallbackCreate(GetMethod(implObj, "CreateEncryptedPackageWriter"), flags, 7)
+        this.vtbl.CreateEncryptedPackageReader := CallbackCreate(GetMethod(implObj, "CreateEncryptedPackageReader"), flags, 4)
+        this.vtbl.EncryptBundle := CallbackCreate(GetMethod(implObj, "EncryptBundle"), flags, 6)
+        this.vtbl.DecryptBundle := CallbackCreate(GetMethod(implObj, "DecryptBundle"), flags, 4)
+        this.vtbl.CreateEncryptedBundleWriter := CallbackCreate(GetMethod(implObj, "CreateEncryptedBundleWriter"), flags, 7)
+        this.vtbl.CreateEncryptedBundleReader := CallbackCreate(GetMethod(implObj, "CreateEncryptedBundleReader"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EncryptPackage)
+        CallbackFree(this.vtbl.DecryptPackage)
+        CallbackFree(this.vtbl.CreateEncryptedPackageWriter)
+        CallbackFree(this.vtbl.CreateEncryptedPackageReader)
+        CallbackFree(this.vtbl.EncryptBundle)
+        CallbackFree(this.vtbl.DecryptBundle)
+        CallbackFree(this.vtbl.CreateEncryptedBundleWriter)
+        CallbackFree(this.vtbl.CreateEncryptedBundleReader)
     }
 }

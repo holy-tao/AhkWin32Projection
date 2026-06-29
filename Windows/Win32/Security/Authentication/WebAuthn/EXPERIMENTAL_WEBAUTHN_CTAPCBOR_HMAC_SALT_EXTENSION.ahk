@@ -1,60 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\EXPERIMENTAL_WEBAUTHN_CTAPCBOR_ECC_PUBLIC_KEY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EXPERIMENTAL_WEBAUTHN_CTAPCBOR_ECC_PUBLIC_KEY.ahk" { EXPERIMENTAL_WEBAUTHN_CTAPCBOR_ECC_PUBLIC_KEY }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
  */
-class EXPERIMENTAL_WEBAUTHN_CTAPCBOR_HMAC_SALT_EXTENSION extends Win32Struct {
-    static sizeof => 48
+export default struct EXPERIMENTAL_WEBAUTHN_CTAPCBOR_HMAC_SALT_EXTENSION {
+    #StructPack 8
 
-    static packingSize => 8
+    dwVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pKeyAgreement : EXPERIMENTAL_WEBAUTHN_CTAPCBOR_ECC_PUBLIC_KEY.Ptr
 
-    /**
-     * @type {Pointer<EXPERIMENTAL_WEBAUTHN_CTAPCBOR_ECC_PUBLIC_KEY>}
-     */
-    pKeyAgreement {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    cbEncryptedSalt : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbEncryptedSalt {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    pbEncryptedSalt : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbEncryptedSalt {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    cbSaltAuth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbSaltAuth {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    pbSaltAuth : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbSaltAuth {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

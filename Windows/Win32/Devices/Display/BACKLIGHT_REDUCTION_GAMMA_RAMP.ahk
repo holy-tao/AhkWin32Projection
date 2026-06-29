@@ -1,44 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class BACKLIGHT_REDUCTION_GAMMA_RAMP extends Win32Struct {
-    static sizeof => 1536
+export default struct BACKLIGHT_REDUCTION_GAMMA_RAMP {
+    #StructPack 2
 
-    static packingSize => 2
+    R : UInt16[256]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    R {
-        get {
-            if(!this.HasProp("__RProxyArray"))
-                this.__RProxyArray := Win32FixedArray(this.ptr + 0, 256, Primitive, "ushort")
-            return this.__RProxyArray
-        }
-    }
+    G : UInt16[256]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    G {
-        get {
-            if(!this.HasProp("__GProxyArray"))
-                this.__GProxyArray := Win32FixedArray(this.ptr + 512, 256, Primitive, "ushort")
-            return this.__GProxyArray
-        }
-    }
+    B : UInt16[256]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    B {
-        get {
-            if(!this.HasProp("__BProxyArray"))
-                this.__BProxyArray := Win32FixedArray(this.ptr + 1024, 256, Primitive, "ushort")
-            return this.__BProxyArray
-        }
-    }
 }

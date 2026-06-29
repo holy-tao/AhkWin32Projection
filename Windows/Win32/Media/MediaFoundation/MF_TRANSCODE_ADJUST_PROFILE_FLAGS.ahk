@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the profile flags that are set in the MF_TRANSCODE_ADJUST_PROFILE attribute.
@@ -53,7 +52,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_transcode_adjust_profile_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MF_TRANSCODE_ADJUST_PROFILE_FLAGS extends Win32Enum {
+export default struct MF_TRANSCODE_ADJUST_PROFILE_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Media Foundation uses the application-specified settings for audio and video streams. If the required settings are not provided by the application, the topology is created but the encoding session fails. For the video stream, the frame rate and the interlace mode settings are modified. For more information, see Remarks.

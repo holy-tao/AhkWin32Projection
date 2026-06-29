@@ -1,28 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VIDEO_HARDWARE_STATE_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VIDEO_HARDWARE_STATE_HEADER.ahk" { VIDEO_HARDWARE_STATE_HEADER }
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class VIDEO_HARDWARE_STATE extends Win32Struct {
-    static sizeof => 16
+export default struct VIDEO_HARDWARE_STATE {
+    #StructPack 8
 
-    static packingSize => 8
+    StateHeader : VIDEO_HARDWARE_STATE_HEADER.Ptr
 
-    /**
-     * @type {Pointer<VIDEO_HARDWARE_STATE_HEADER>}
-     */
-    StateHeader {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    StateLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StateLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

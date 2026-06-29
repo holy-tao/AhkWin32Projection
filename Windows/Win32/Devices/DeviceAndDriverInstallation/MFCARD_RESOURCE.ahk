@@ -1,27 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MFCARD_DES.ahk
-#Include .\PMF_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PMF_FLAGS.ahk" { PMF_FLAGS }
+#Import ".\MFCARD_DES.ahk" { MFCARD_DES }
 
 /**
  * The MFCARD_RESOURCE structure is used for specifying either a resource list or a resource requirements list that describes resource usage by one of the hardware functions provided by an instance of a multifunction device.
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-mfcard_resource
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  */
-class MFCARD_RESOURCE extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct MFCARD_RESOURCE {
+    #StructPack 4
 
     /**
      * A [MFCARD_DES](/windows/desktop/api/cfgmgr32/ns-cfgmgr32-mfcard_des) structure.
-     * @type {MFCARD_DES}
      */
-    MfCard_Header {
-        get {
-            if(!this.HasProp("__MfCard_Header"))
-                this.__MfCard_Header := MFCARD_DES(0, this)
-            return this.__MfCard_Header
-        }
-    }
+    MfCard_Header : MFCARD_DES
+
 }

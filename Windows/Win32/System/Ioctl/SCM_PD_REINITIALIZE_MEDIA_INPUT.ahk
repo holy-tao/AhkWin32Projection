@@ -1,27 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class SCM_PD_REINITIALIZE_MEDIA_INPUT extends Win32Struct {
-    static sizeof => 12
+export default struct SCM_PD_REINITIALIZE_MEDIA_INPUT {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _Options extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
+    struct _Options {
         /**
          * This bitfield backs the following members:
          * - Overwrite
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -32,30 +24,10 @@ class SCM_PD_REINITIALIZE_MEDIA_INPUT extends Win32Struct {
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Size : UInt32
 
-    /**
-     * @type {_Options}
-     */
-    Options {
-        get {
-            if(!this.HasProp("__Options"))
-                this.__Options := SCM_PD_REINITIALIZE_MEDIA_INPUT._Options(8, this)
-            return this.__Options
-        }
-    }
+    Options : SCM_PD_REINITIALIZE_MEDIA_INPUT._Options
+
 }

@@ -1,37 +1,76 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\TS_STATUS.ahk
-#Include .\TS_TEXTCHANGE.ahk
-#Include ..\..\System\Com\IDataObject.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\TS_SELECTION_ACP.ahk" { TS_SELECTION_ACP }
+#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
+#Import ".\TS_ATTRVAL.ahk" { TS_ATTRVAL }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\FORMATETC.ahk" { FORMATETC }
+#Import ".\TS_STATUS.ahk" { TS_STATUS }
+#Import ".\TS_TEXTCHANGE.ahk" { TS_TEXTCHANGE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\TS_RUNINFO.ahk" { TS_RUNINFO }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * The ITextStoreACP2 interface is implemented by the application and is used by the TSF manager to manipulate text streams or text stores in TSF.
  * @see https://learn.microsoft.com/windows/win32/api/textstor/nn-textstor-itextstoreacp2
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITextStoreACP2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITextStoreACP2 extends IUnknown {
     /**
      * The interface identifier for ITextStoreACP2
      * @type {Guid}
      */
-    static IID => Guid("{f86ad89f-5fe4-4b8d-bb9f-ef3797a84f1f}")
+    static IID := Guid("{f86ad89f-5fe4-4b8d-bb9f-ef3797a84f1f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITextStoreACP2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AdviseSink                          : IntPtr
+        UnadviseSink                        : IntPtr
+        RequestLock                         : IntPtr
+        GetStatus                           : IntPtr
+        QueryInsert                         : IntPtr
+        GetSelection                        : IntPtr
+        SetSelection                        : IntPtr
+        GetText                             : IntPtr
+        SetText                             : IntPtr
+        GetFormattedText                    : IntPtr
+        GetEmbedded                         : IntPtr
+        QueryInsertEmbedded                 : IntPtr
+        InsertEmbedded                      : IntPtr
+        InsertTextAtSelection               : IntPtr
+        InsertEmbeddedAtSelection           : IntPtr
+        RequestSupportedAttrs               : IntPtr
+        RequestAttrsAtPosition              : IntPtr
+        RequestAttrsTransitioningAtPosition : IntPtr
+        FindNextAttrTransition              : IntPtr
+        RetrieveRequestedAttrs              : IntPtr
+        GetEndACP                           : IntPtr
+        GetActiveView                       : IntPtr
+        GetACPFromPoint                     : IntPtr
+        GetTextExt                          : IntPtr
+        GetScreenExt                        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AdviseSink", "UnadviseSink", "RequestLock", "GetStatus", "QueryInsert", "GetSelection", "SetSelection", "GetText", "SetText", "GetFormattedText", "GetEmbedded", "QueryInsertEmbedded", "InsertEmbedded", "InsertTextAtSelection", "InsertEmbeddedAtSelection", "RequestSupportedAttrs", "RequestAttrsAtPosition", "RequestAttrsTransitioningAtPosition", "FindNextAttrTransition", "RetrieveRequestedAttrs", "GetEndACP", "GetActiveView", "GetACPFromPoint", "GetTextExt", "GetScreenExt"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITextStoreACP2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Installs a new advise sink from the ITextStoreACPSink interface or modifies an existing advise sink. The sink interface is specified by the punk parameter.
@@ -93,7 +132,7 @@ class ITextStoreACP2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp2-advisesink
      */
     AdviseSink(riid, punk, dwMask) {
-        result := ComCall(3, this, "ptr", riid, "ptr", punk, "uint", dwMask, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, riid, "ptr", punk, "uint", dwMask, "HRESULT")
         return result
     }
 
@@ -212,7 +251,7 @@ class ITextStoreACP2 extends IUnknown {
      */
     GetStatus() {
         pdcs := TS_STATUS()
-        result := ComCall(6, this, "ptr", pdcs, "HRESULT")
+        result := ComCall(6, this, TS_STATUS.Ptr, pdcs, "HRESULT")
         return pdcs
     }
 
@@ -328,7 +367,7 @@ class ITextStoreACP2 extends IUnknown {
     GetSelection(ulIndex, ulCount, pSelection, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", ulIndex, "uint", ulCount, "ptr", pSelection, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(8, this, "uint", ulIndex, "uint", ulCount, TS_SELECTION_ACP.Ptr, pSelection, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
@@ -393,7 +432,7 @@ class ITextStoreACP2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp2-setselection
      */
     SetSelection(ulCount, pSelection) {
-        result := ComCall(9, this, "uint", ulCount, "ptr", pSelection, "HRESULT")
+        result := ComCall(9, this, "uint", ulCount, TS_SELECTION_ACP.Ptr, pSelection, "HRESULT")
         return result
     }
 
@@ -468,7 +507,7 @@ class ITextStoreACP2 extends IUnknown {
         pcRunInfoRetMarshal := pcRunInfoRet is VarRef ? "uint*" : "ptr"
         pacpNextMarshal := pacpNext is VarRef ? "int*" : "ptr"
 
-        result := ComCall(10, this, "int", acpStart, "int", acpEnd, "ptr", pchPlain, "uint", cchPlainReq, pcchPlainRetMarshal, pcchPlainRet, "ptr", prgRunInfo, "uint", cRunInfoReq, pcRunInfoRetMarshal, pcRunInfoRet, pacpNextMarshal, pacpNext, "HRESULT")
+        result := ComCall(10, this, "int", acpStart, "int", acpEnd, "ptr", pchPlain, "uint", cchPlainReq, pcchPlainRetMarshal, pcchPlainRet, TS_RUNINFO.Ptr, prgRunInfo, "uint", cRunInfoReq, pcRunInfoRetMarshal, pcRunInfoRet, pacpNextMarshal, pacpNext, "HRESULT")
         return result
     }
 
@@ -531,7 +570,7 @@ class ITextStoreACP2 extends IUnknown {
         pchText := pchText is String ? StrPtr(pchText) : pchText
 
         pChange := TS_TEXTCHANGE()
-        result := ComCall(11, this, "uint", dwFlags, "int", acpStart, "int", acpEnd, "ptr", pchText, "uint", cch, "ptr", pChange, "HRESULT")
+        result := ComCall(11, this, "uint", dwFlags, "int", acpStart, "int", acpEnd, "ptr", pchText, "uint", cch, TS_TEXTCHANGE.Ptr, pChange, "HRESULT")
         return pChange
     }
 
@@ -558,7 +597,7 @@ class ITextStoreACP2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp2-getembedded
      */
     GetEmbedded(acpPos, rguidService, riid) {
-        result := ComCall(13, this, "int", acpPos, "ptr", rguidService, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")
+        result := ComCall(13, this, "int", acpPos, Guid.Ptr, rguidService, Guid.Ptr, riid, "ptr*", &ppunk := 0, "HRESULT")
         return IUnknown(ppunk)
     }
 
@@ -572,7 +611,7 @@ class ITextStoreACP2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp2-queryinsertembedded
      */
     QueryInsertEmbedded(pguidService, pFormatEtc) {
-        result := ComCall(14, this, "ptr", pguidService, "ptr", pFormatEtc, "int*", &pfInsertable := 0, "HRESULT")
+        result := ComCall(14, this, Guid.Ptr, pguidService, FORMATETC.Ptr, pFormatEtc, BOOL.Ptr, &pfInsertable := 0, "HRESULT")
         return pfInsertable
     }
 
@@ -587,7 +626,7 @@ class ITextStoreACP2 extends IUnknown {
      */
     InsertEmbedded(dwFlags, acpStart, acpEnd, pDataObject) {
         pChange := TS_TEXTCHANGE()
-        result := ComCall(15, this, "uint", dwFlags, "int", acpStart, "int", acpEnd, "ptr", pDataObject, "ptr", pChange, "HRESULT")
+        result := ComCall(15, this, "uint", dwFlags, "int", acpStart, "int", acpEnd, "ptr", pDataObject, TS_TEXTCHANGE.Ptr, pChange, "HRESULT")
         return pChange
     }
 
@@ -612,7 +651,7 @@ class ITextStoreACP2 extends IUnknown {
         pacpStartMarshal := pacpStart is VarRef ? "int*" : "ptr"
         pacpEndMarshal := pacpEnd is VarRef ? "int*" : "ptr"
 
-        result := ComCall(16, this, "uint", dwFlags, "ptr", pchText, "uint", cch, pacpStartMarshal, pacpStart, pacpEndMarshal, pacpEnd, "ptr", pChange, "HRESULT")
+        result := ComCall(16, this, "uint", dwFlags, "ptr", pchText, "uint", cch, pacpStartMarshal, pacpStart, pacpEndMarshal, pacpEnd, TS_TEXTCHANGE.Ptr, pChange, "HRESULT")
         return result
     }
 
@@ -750,7 +789,7 @@ class ITextStoreACP2 extends IUnknown {
         pacpStartMarshal := pacpStart is VarRef ? "int*" : "ptr"
         pacpEndMarshal := pacpEnd is VarRef ? "int*" : "ptr"
 
-        result := ComCall(17, this, "uint", dwFlags, "ptr", pDataObject, pacpStartMarshal, pacpStart, pacpEndMarshal, pacpEnd, "ptr", pChange, "HRESULT")
+        result := ComCall(17, this, "uint", dwFlags, "ptr", pDataObject, pacpStartMarshal, pacpStart, pacpEndMarshal, pacpEnd, TS_TEXTCHANGE.Ptr, pChange, "HRESULT")
         return result
     }
 
@@ -803,7 +842,7 @@ class ITextStoreACP2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp2-requestsupportedattrs
      */
     RequestSupportedAttrs(dwFlags, cFilterAttrs, paFilterAttrs) {
-        result := ComCall(18, this, "uint", dwFlags, "uint", cFilterAttrs, "ptr", paFilterAttrs, "HRESULT")
+        result := ComCall(18, this, "uint", dwFlags, "uint", cFilterAttrs, Guid.Ptr, paFilterAttrs, "HRESULT")
         return result
     }
 
@@ -866,7 +905,7 @@ class ITextStoreACP2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp2-requestattrsatposition
      */
     RequestAttrsAtPosition(acpPos, cFilterAttrs, paFilterAttrs, dwFlags) {
-        result := ComCall(19, this, "int", acpPos, "uint", cFilterAttrs, "ptr", paFilterAttrs, "uint", dwFlags, "HRESULT")
+        result := ComCall(19, this, "int", acpPos, "uint", cFilterAttrs, Guid.Ptr, paFilterAttrs, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -929,7 +968,7 @@ class ITextStoreACP2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp2-requestattrstransitioningatposition
      */
     RequestAttrsTransitioningAtPosition(acpPos, cFilterAttrs, paFilterAttrs, dwFlags) {
-        result := ComCall(20, this, "int", acpPos, "uint", cFilterAttrs, "ptr", paFilterAttrs, "uint", dwFlags, "HRESULT")
+        result := ComCall(20, this, "int", acpPos, "uint", cFilterAttrs, Guid.Ptr, paFilterAttrs, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -1010,7 +1049,7 @@ class ITextStoreACP2 extends IUnknown {
         pfFoundMarshal := pfFound is VarRef ? "int*" : "ptr"
         plFoundOffsetMarshal := plFoundOffset is VarRef ? "int*" : "ptr"
 
-        result := ComCall(21, this, "int", acpStart, "int", acpHalt, "uint", cFilterAttrs, "ptr", paFilterAttrs, "uint", dwFlags, pacpNextMarshal, pacpNext, pfFoundMarshal, pfFound, plFoundOffsetMarshal, plFoundOffset, "HRESULT")
+        result := ComCall(21, this, "int", acpStart, "int", acpHalt, "uint", cFilterAttrs, Guid.Ptr, paFilterAttrs, "uint", dwFlags, pacpNextMarshal, pacpNext, pfFoundMarshal, pfFound, plFoundOffsetMarshal, plFoundOffset, "HRESULT")
         return result
     }
 
@@ -1043,7 +1082,7 @@ class ITextStoreACP2 extends IUnknown {
     RetrieveRequestedAttrs(ulCount, paAttrVals, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(22, this, "uint", ulCount, "ptr", paAttrVals, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(22, this, "uint", ulCount, TS_ATTRVAL.Ptr, paAttrVals, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
@@ -1105,7 +1144,7 @@ class ITextStoreACP2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreacp2-getacpfrompoint
      */
     GetACPFromPoint(vcView, ptScreen, dwFlags) {
-        result := ComCall(25, this, "uint", vcView, "ptr", ptScreen, "uint", dwFlags, "int*", &pacp := 0, "HRESULT")
+        result := ComCall(25, this, "uint", vcView, POINT.Ptr, ptScreen, "uint", dwFlags, "int*", &pacp := 0, "HRESULT")
         return pacp
     }
 
@@ -1186,7 +1225,7 @@ class ITextStoreACP2 extends IUnknown {
     GetTextExt(vcView, acpStart, acpEnd, prc, pfClipped) {
         pfClippedMarshal := pfClipped is VarRef ? "int*" : "ptr"
 
-        result := ComCall(26, this, "uint", vcView, "int", acpStart, "int", acpEnd, "ptr", prc, pfClippedMarshal, pfClipped, "HRESULT")
+        result := ComCall(26, this, "uint", vcView, "int", acpStart, "int", acpEnd, RECT.Ptr, prc, pfClippedMarshal, pfClipped, "HRESULT")
         return result
     }
 
@@ -1200,7 +1239,75 @@ class ITextStoreACP2 extends IUnknown {
      */
     GetScreenExt(vcView) {
         prc := RECT()
-        result := ComCall(27, this, "uint", vcView, "ptr", prc, "HRESULT")
+        result := ComCall(27, this, "uint", vcView, RECT.Ptr, prc, "HRESULT")
         return prc
+    }
+
+    Query(iid) {
+        if (ITextStoreACP2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AdviseSink := CallbackCreate(GetMethod(implObj, "AdviseSink"), flags, 4)
+        this.vtbl.UnadviseSink := CallbackCreate(GetMethod(implObj, "UnadviseSink"), flags, 2)
+        this.vtbl.RequestLock := CallbackCreate(GetMethod(implObj, "RequestLock"), flags, 3)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.QueryInsert := CallbackCreate(GetMethod(implObj, "QueryInsert"), flags, 6)
+        this.vtbl.GetSelection := CallbackCreate(GetMethod(implObj, "GetSelection"), flags, 5)
+        this.vtbl.SetSelection := CallbackCreate(GetMethod(implObj, "SetSelection"), flags, 3)
+        this.vtbl.GetText := CallbackCreate(GetMethod(implObj, "GetText"), flags, 10)
+        this.vtbl.SetText := CallbackCreate(GetMethod(implObj, "SetText"), flags, 7)
+        this.vtbl.GetFormattedText := CallbackCreate(GetMethod(implObj, "GetFormattedText"), flags, 4)
+        this.vtbl.GetEmbedded := CallbackCreate(GetMethod(implObj, "GetEmbedded"), flags, 5)
+        this.vtbl.QueryInsertEmbedded := CallbackCreate(GetMethod(implObj, "QueryInsertEmbedded"), flags, 4)
+        this.vtbl.InsertEmbedded := CallbackCreate(GetMethod(implObj, "InsertEmbedded"), flags, 6)
+        this.vtbl.InsertTextAtSelection := CallbackCreate(GetMethod(implObj, "InsertTextAtSelection"), flags, 7)
+        this.vtbl.InsertEmbeddedAtSelection := CallbackCreate(GetMethod(implObj, "InsertEmbeddedAtSelection"), flags, 6)
+        this.vtbl.RequestSupportedAttrs := CallbackCreate(GetMethod(implObj, "RequestSupportedAttrs"), flags, 4)
+        this.vtbl.RequestAttrsAtPosition := CallbackCreate(GetMethod(implObj, "RequestAttrsAtPosition"), flags, 5)
+        this.vtbl.RequestAttrsTransitioningAtPosition := CallbackCreate(GetMethod(implObj, "RequestAttrsTransitioningAtPosition"), flags, 5)
+        this.vtbl.FindNextAttrTransition := CallbackCreate(GetMethod(implObj, "FindNextAttrTransition"), flags, 9)
+        this.vtbl.RetrieveRequestedAttrs := CallbackCreate(GetMethod(implObj, "RetrieveRequestedAttrs"), flags, 4)
+        this.vtbl.GetEndACP := CallbackCreate(GetMethod(implObj, "GetEndACP"), flags, 2)
+        this.vtbl.GetActiveView := CallbackCreate(GetMethod(implObj, "GetActiveView"), flags, 2)
+        this.vtbl.GetACPFromPoint := CallbackCreate(GetMethod(implObj, "GetACPFromPoint"), flags, 5)
+        this.vtbl.GetTextExt := CallbackCreate(GetMethod(implObj, "GetTextExt"), flags, 6)
+        this.vtbl.GetScreenExt := CallbackCreate(GetMethod(implObj, "GetScreenExt"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AdviseSink)
+        CallbackFree(this.vtbl.UnadviseSink)
+        CallbackFree(this.vtbl.RequestLock)
+        CallbackFree(this.vtbl.GetStatus)
+        CallbackFree(this.vtbl.QueryInsert)
+        CallbackFree(this.vtbl.GetSelection)
+        CallbackFree(this.vtbl.SetSelection)
+        CallbackFree(this.vtbl.GetText)
+        CallbackFree(this.vtbl.SetText)
+        CallbackFree(this.vtbl.GetFormattedText)
+        CallbackFree(this.vtbl.GetEmbedded)
+        CallbackFree(this.vtbl.QueryInsertEmbedded)
+        CallbackFree(this.vtbl.InsertEmbedded)
+        CallbackFree(this.vtbl.InsertTextAtSelection)
+        CallbackFree(this.vtbl.InsertEmbeddedAtSelection)
+        CallbackFree(this.vtbl.RequestSupportedAttrs)
+        CallbackFree(this.vtbl.RequestAttrsAtPosition)
+        CallbackFree(this.vtbl.RequestAttrsTransitioningAtPosition)
+        CallbackFree(this.vtbl.FindNextAttrTransition)
+        CallbackFree(this.vtbl.RetrieveRequestedAttrs)
+        CallbackFree(this.vtbl.GetEndACP)
+        CallbackFree(this.vtbl.GetActiveView)
+        CallbackFree(this.vtbl.GetACPFromPoint)
+        CallbackFree(this.vtbl.GetTextExt)
+        CallbackFree(this.vtbl.GetScreenExt)
     }
 }

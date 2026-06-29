@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Registry
  */
-class REG_PROVIDER extends Win32Struct {
-    static sizeof => 48
+export default struct REG_PROVIDER {
+    #StructPack 8
 
-    static packingSize => 8
+    pi_R0_1val : IntPtr
 
-    /**
-     * @type {Pointer<PQUERYHANDLER>}
-     */
-    pi_R0_1val {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pi_R0_allvals : IntPtr
 
-    /**
-     * @type {Pointer<PQUERYHANDLER>}
-     */
-    pi_R0_allvals {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pi_R3_1val : IntPtr
 
-    /**
-     * @type {Pointer<PQUERYHANDLER>}
-     */
-    pi_R3_1val {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pi_R3_allvals : IntPtr
 
-    /**
-     * @type {Pointer<PQUERYHANDLER>}
-     */
-    pi_R3_allvals {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pi_flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    pi_flags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    pi_key_context : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pi_key_context {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

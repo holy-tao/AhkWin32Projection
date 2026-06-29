@@ -1,37 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_X64_MSR_EXIT_BITMAP extends Win32Struct {
-    static sizeof => 16
+export default struct WHV_X64_MSR_EXIT_BITMAP {
+    #StructPack 8
 
-    static packingSize => 8
+    AsUINT64 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    AsUINT64 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - UnhandledMsrs
-     * - TscMsrWrite
-     * - TscMsrRead
-     * - ApicBaseMsrWrite
-     * - MiscEnableMsrRead
-     * - McUpdatePatchLevelMsrRead
-     * - Reserved
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
 
     /**
      * @type {Integer}
@@ -79,5 +55,9 @@ class WHV_X64_MSR_EXIT_BITMAP extends Win32Struct {
     McUpdatePatchLevelMsrRead {
         get => (this._bitfield >> 5) & 0x1
         set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
+    }
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int64, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

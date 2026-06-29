@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MSP_CALL_EVENT (msp.h) enumeration constant is returned within the MSP_EVENT_INFO struct by the GetEvent method when MSP_EVENT is ME_CALL_EVENT.
  * @see https://learn.microsoft.com/windows/win32/api/msp/ne-msp-msp_call_event
  * @namespace Windows.Win32.Devices.Tapi
  */
-class MSP_CALL_EVENT extends Win32Enum {
+export default struct MSP_CALL_EVENT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * A new stream is created by the call. The application can choose to select a terminal or delete the stream from the call.

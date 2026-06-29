@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\INKMETRIC.ahk" { INKMETRIC }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IInkLineInfo interface provides access to the display properties and recognition result list of a text ink object (tInk).
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinklineinfo
  * @namespace Windows.Win32.UI.TabletPC
  */
-class IInkLineInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IInkLineInfo extends IUnknown {
     /**
      * The interface identifier for IInkLineInfo
      * @type {Guid}
      */
-    static IID => Guid("{9c1c5ad6-f22f-4de4-b453-a2cc482e7c33}")
+    static IID := Guid("{9c1c5ad6-f22f-4de4-b453-a2cc482e7c33}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IInkLineInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetFormat    : IntPtr
+        GetFormat    : IntPtr
+        GetInkExtent : IntPtr
+        GetCandidate : IntPtr
+        SetCandidate : IntPtr
+        Recognize    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetFormat", "GetFormat", "GetInkExtent", "GetCandidate", "SetCandidate", "Recognize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IInkLineInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies the display properties to set on the text ink object (tInk).
@@ -78,7 +93,7 @@ class IInkLineInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinklineinfo-setformat
      */
     SetFormat(pim) {
-        result := ComCall(3, this, "ptr", pim, "HRESULT")
+        result := ComCall(3, this, INKMETRIC.Ptr, pim, "HRESULT")
         return result
     }
 
@@ -118,7 +133,7 @@ class IInkLineInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinklineinfo-getformat
      */
     GetFormat(pim) {
-        result := ComCall(4, this, "ptr", pim, "HRESULT")
+        result := ComCall(4, this, INKMETRIC.Ptr, pim, "HRESULT")
         return result
     }
 
@@ -176,7 +191,7 @@ class IInkLineInfo extends IUnknown {
     GetInkExtent(pim, pnWidth) {
         pnWidthMarshal := pnWidth is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pim, pnWidthMarshal, pnWidth, "HRESULT")
+        result := ComCall(5, this, INKMETRIC.Ptr, pim, pnWidthMarshal, pnWidth, "HRESULT")
         return result
     }
 
@@ -324,5 +339,35 @@ class IInkLineInfo extends IUnknown {
     Recognize() {
         result := ComCall(8, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IInkLineInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetFormat := CallbackCreate(GetMethod(implObj, "SetFormat"), flags, 2)
+        this.vtbl.GetFormat := CallbackCreate(GetMethod(implObj, "GetFormat"), flags, 2)
+        this.vtbl.GetInkExtent := CallbackCreate(GetMethod(implObj, "GetInkExtent"), flags, 3)
+        this.vtbl.GetCandidate := CallbackCreate(GetMethod(implObj, "GetCandidate"), flags, 5)
+        this.vtbl.SetCandidate := CallbackCreate(GetMethod(implObj, "SetCandidate"), flags, 3)
+        this.vtbl.Recognize := CallbackCreate(GetMethod(implObj, "Recognize"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetFormat)
+        CallbackFree(this.vtbl.GetFormat)
+        CallbackFree(this.vtbl.GetInkExtent)
+        CallbackFree(this.vtbl.GetCandidate)
+        CallbackFree(this.vtbl.SetCandidate)
+        CallbackFree(this.vtbl.Recognize)
     }
 }

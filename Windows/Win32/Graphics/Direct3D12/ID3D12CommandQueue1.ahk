@@ -1,58 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12CommandQueue.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID3D12CommandQueue.ahk" { ID3D12CommandQueue }
+#Import ".\D3D12_COMMAND_QUEUE_GLOBAL_PRIORITY.ahk" { D3D12_COMMAND_QUEUE_GLOBAL_PRIORITY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_COMMAND_QUEUE_PROCESS_PRIORITY.ahk" { D3D12_COMMAND_QUEUE_PROCESS_PRIORITY }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class ID3D12CommandQueue1 extends ID3D12CommandQueue {
-
-    static sizeof => A_PtrSize
+export default struct ID3D12CommandQueue1 extends ID3D12CommandQueue {
     /**
      * The interface identifier for ID3D12CommandQueue1
      * @type {Guid}
      */
-    static IID => Guid("{3a3c3165-0ee7-4b8e-a0af-6356b4c3bbb9}")
+    static IID := Guid("{3a3c3165-0ee7-4b8e-a0af-6356b4c3bbb9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 19
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D12CommandQueue1 interfaces
+    */
+    struct Vtbl extends ID3D12CommandQueue.Vtbl {
+        SetProcessPriority : IntPtr
+        GetProcessPriority : IntPtr
+        SetGlobalPriority  : IntPtr
+        GetGlobalPriority  : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D12CommandQueue1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetProcessPriority", "GetProcessPriority", "SetGlobalPriority", "GetGlobalPriority"]
-
-    /**
-     * Disables or enables the ability of the system to temporarily boost the priority of the threads of the specified process.
-     * @remarks
-     * When a thread is running in one of the dynamic priority classes, the system temporarily boosts the thread's priority when it is taken out of a wait state. If 
-     * <b>SetProcessPriorityBoost</b> is called with the <i>DisablePriorityBoost</i> parameter set to TRUE, its threads' priorities are not boosted. This setting affects all existing threads and any threads subsequently created by the process. To restore normal behavior, call 
-     * <b>SetProcessPriorityBoost</b> with <i>DisablePriorityBoost</i> set to FALSE.
-     * @param {D3D12_COMMAND_QUEUE_PROCESS_PRIORITY} _Priority 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-setprocesspriorityboost
+     * @param {D3D12_COMMAND_QUEUE_PROCESS_PRIORITY} _Priority 
+     * @returns {HRESULT} 
      */
     SetProcessPriority(_Priority) {
-        result := ComCall(19, this, "int", _Priority, "HRESULT")
+        result := ComCall(19, this, D3D12_COMMAND_QUEUE_PROCESS_PRIORITY, _Priority, "HRESULT")
         return result
     }
 
     /**
-     * Retrieves the priority boost control state of the specified process.
-     * @param {Pointer<D3D12_COMMAND_QUEUE_PROCESS_PRIORITY>} pOutValue 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero. In that case, the variable pointed to by the <i>pDisablePriorityBoost</i> parameter receives the priority boost control state.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getprocesspriorityboost
+     * @param {Pointer<D3D12_COMMAND_QUEUE_PROCESS_PRIORITY>} pOutValue 
+     * @returns {HRESULT} 
      */
     GetProcessPriority(pOutValue) {
         pOutValueMarshal := pOutValue is VarRef ? "int*" : "ptr"
@@ -67,7 +68,7 @@ class ID3D12CommandQueue1 extends ID3D12CommandQueue {
      * @returns {HRESULT} 
      */
     SetGlobalPriority(_Priority) {
-        result := ComCall(21, this, "int", _Priority, "HRESULT")
+        result := ComCall(21, this, D3D12_COMMAND_QUEUE_GLOBAL_PRIORITY, _Priority, "HRESULT")
         return result
     }
 
@@ -81,5 +82,31 @@ class ID3D12CommandQueue1 extends ID3D12CommandQueue {
 
         result := ComCall(22, this, pOutValueMarshal, pOutValue, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID3D12CommandQueue1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetProcessPriority := CallbackCreate(GetMethod(implObj, "SetProcessPriority"), flags, 2)
+        this.vtbl.GetProcessPriority := CallbackCreate(GetMethod(implObj, "GetProcessPriority"), flags, 2)
+        this.vtbl.SetGlobalPriority := CallbackCreate(GetMethod(implObj, "SetGlobalPriority"), flags, 2)
+        this.vtbl.GetGlobalPriority := CallbackCreate(GetMethod(implObj, "GetGlobalPriority"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetProcessPriority)
+        CallbackFree(this.vtbl.GetProcessPriority)
+        CallbackFree(this.vtbl.SetGlobalPriority)
+        CallbackFree(this.vtbl.GetGlobalPriority)
     }
 }

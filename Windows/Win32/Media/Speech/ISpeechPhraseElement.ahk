@@ -1,33 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\SpeechEngineConfidence.ahk" { SpeechEngineConfidence }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SpeechDisplayAttributes.ahk" { SpeechDisplayAttributes }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpeechPhraseElement extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISpeechPhraseElement extends IDispatch {
     /**
      * The interface identifier for ISpeechPhraseElement
      * @type {Guid}
      */
-    static IID => Guid("{e6176f96-e373-4801-b223-3b62c068c0b4}")
+    static IID := Guid("{e6176f96-e373-4801-b223-3b62c068c0b4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpeechPhraseElement interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_AudioTimeOffset      : IntPtr
+        get_AudioSizeTime        : IntPtr
+        get_AudioStreamOffset    : IntPtr
+        get_AudioSizeBytes       : IntPtr
+        get_RetainedStreamOffset : IntPtr
+        get_RetainedSizeBytes    : IntPtr
+        get_DisplayText          : IntPtr
+        get_LexicalForm          : IntPtr
+        get_Pronunciation        : IntPtr
+        get_DisplayAttributes    : IntPtr
+        get_RequiredConfidence   : IntPtr
+        get_ActualConfidence     : IntPtr
+        get_EngineConfidence     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_AudioTimeOffset", "get_AudioSizeTime", "get_AudioStreamOffset", "get_AudioSizeBytes", "get_RetainedStreamOffset", "get_RetainedSizeBytes", "get_DisplayText", "get_LexicalForm", "get_Pronunciation", "get_DisplayAttributes", "get_RequiredConfidence", "get_ActualConfidence", "get_EngineConfidence"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpeechPhraseElement.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -179,8 +201,8 @@ class ISpeechPhraseElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_DisplayText() {
-        DisplayText := BSTR()
-        result := ComCall(13, this, "ptr", DisplayText, "HRESULT")
+        DisplayText := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, DisplayText, "HRESULT")
         return DisplayText
     }
 
@@ -189,8 +211,8 @@ class ISpeechPhraseElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_LexicalForm() {
-        LexicalForm := BSTR()
-        result := ComCall(14, this, "ptr", LexicalForm, "HRESULT")
+        LexicalForm := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, LexicalForm, "HRESULT")
         return LexicalForm
     }
 
@@ -200,7 +222,7 @@ class ISpeechPhraseElement extends IDispatch {
      */
     get_Pronunciation() {
         Pronunciation := VARIANT()
-        result := ComCall(15, this, "ptr", Pronunciation, "HRESULT")
+        result := ComCall(15, this, VARIANT.Ptr, Pronunciation, "HRESULT")
         return Pronunciation
     }
 
@@ -238,5 +260,49 @@ class ISpeechPhraseElement extends IDispatch {
     get_EngineConfidence() {
         result := ComCall(19, this, "float*", &EngineConfidence := 0, "HRESULT")
         return EngineConfidence
+    }
+
+    Query(iid) {
+        if (ISpeechPhraseElement.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_AudioTimeOffset := CallbackCreate(GetMethod(implObj, "get_AudioTimeOffset"), flags, 2)
+        this.vtbl.get_AudioSizeTime := CallbackCreate(GetMethod(implObj, "get_AudioSizeTime"), flags, 2)
+        this.vtbl.get_AudioStreamOffset := CallbackCreate(GetMethod(implObj, "get_AudioStreamOffset"), flags, 2)
+        this.vtbl.get_AudioSizeBytes := CallbackCreate(GetMethod(implObj, "get_AudioSizeBytes"), flags, 2)
+        this.vtbl.get_RetainedStreamOffset := CallbackCreate(GetMethod(implObj, "get_RetainedStreamOffset"), flags, 2)
+        this.vtbl.get_RetainedSizeBytes := CallbackCreate(GetMethod(implObj, "get_RetainedSizeBytes"), flags, 2)
+        this.vtbl.get_DisplayText := CallbackCreate(GetMethod(implObj, "get_DisplayText"), flags, 2)
+        this.vtbl.get_LexicalForm := CallbackCreate(GetMethod(implObj, "get_LexicalForm"), flags, 2)
+        this.vtbl.get_Pronunciation := CallbackCreate(GetMethod(implObj, "get_Pronunciation"), flags, 2)
+        this.vtbl.get_DisplayAttributes := CallbackCreate(GetMethod(implObj, "get_DisplayAttributes"), flags, 2)
+        this.vtbl.get_RequiredConfidence := CallbackCreate(GetMethod(implObj, "get_RequiredConfidence"), flags, 2)
+        this.vtbl.get_ActualConfidence := CallbackCreate(GetMethod(implObj, "get_ActualConfidence"), flags, 2)
+        this.vtbl.get_EngineConfidence := CallbackCreate(GetMethod(implObj, "get_EngineConfidence"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_AudioTimeOffset)
+        CallbackFree(this.vtbl.get_AudioSizeTime)
+        CallbackFree(this.vtbl.get_AudioStreamOffset)
+        CallbackFree(this.vtbl.get_AudioSizeBytes)
+        CallbackFree(this.vtbl.get_RetainedStreamOffset)
+        CallbackFree(this.vtbl.get_RetainedSizeBytes)
+        CallbackFree(this.vtbl.get_DisplayText)
+        CallbackFree(this.vtbl.get_LexicalForm)
+        CallbackFree(this.vtbl.get_Pronunciation)
+        CallbackFree(this.vtbl.get_DisplayAttributes)
+        CallbackFree(this.vtbl.get_RequiredConfidence)
+        CallbackFree(this.vtbl.get_ActualConfidence)
+        CallbackFree(this.vtbl.get_EngineConfidence)
     }
 }

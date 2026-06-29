@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Brush.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D2D1_EXTEND_MODE.ahk" { D2D1_EXTEND_MODE }
+#Import ".\D2D1_BITMAP_INTERPOLATION_MODE.ahk" { D2D1_BITMAP_INTERPOLATION_MODE }
+#Import ".\ID2D1Bitmap.ahk" { ID2D1Bitmap }
+#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
 
 /**
  * Paints an area with a bitmap. (ID2D1BitmapBrush)
@@ -15,26 +18,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1bitmapbrush
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1BitmapBrush extends ID2D1Brush {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1BitmapBrush extends ID2D1Brush {
     /**
      * The interface identifier for ID2D1BitmapBrush
      * @type {Guid}
      */
-    static IID => Guid("{2cd906aa-12e2-11dc-9fed-001143a055f9}")
+    static IID := Guid("{2cd906aa-12e2-11dc-9fed-001143a055f9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1BitmapBrush interfaces
+    */
+    struct Vtbl extends ID2D1Brush.Vtbl {
+        SetExtendModeX       : IntPtr
+        SetExtendModeY       : IntPtr
+        SetInterpolationMode : IntPtr
+        SetBitmap            : IntPtr
+        GetExtendModeX       : IntPtr
+        GetExtendModeY       : IntPtr
+        GetInterpolationMode : IntPtr
+        GetBitmap            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetExtendModeX", "SetExtendModeY", "SetInterpolationMode", "SetBitmap", "GetExtendModeX", "GetExtendModeY", "GetInterpolationMode", "GetBitmap"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1BitmapBrush.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies how the brush horizontally tiles those areas that extend past its bitmap.
@@ -51,7 +68,7 @@ class ID2D1BitmapBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1bitmapbrush-setextendmodex
      */
     SetExtendModeX(extendModeX) {
-        ComCall(8, this, "int", extendModeX)
+        ComCall(8, this, D2D1_EXTEND_MODE, extendModeX)
     }
 
     /**
@@ -69,7 +86,7 @@ class ID2D1BitmapBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1bitmapbrush-setextendmodey
      */
     SetExtendModeY(extendModeY) {
-        ComCall(9, this, "int", extendModeY)
+        ComCall(9, this, D2D1_EXTEND_MODE, extendModeY)
     }
 
     /**
@@ -85,7 +102,7 @@ class ID2D1BitmapBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1bitmapbrush-setinterpolationmode
      */
     SetInterpolationMode(_interpolationMode) {
-        ComCall(10, this, "int", _interpolationMode)
+        ComCall(10, this, D2D1_BITMAP_INTERPOLATION_MODE, _interpolationMode)
     }
 
     /**
@@ -114,7 +131,7 @@ class ID2D1BitmapBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1bitmapbrush-getextendmodex
      */
     GetExtendModeX() {
-        result := ComCall(12, this, "int")
+        result := ComCall(12, this, D2D1_EXTEND_MODE)
         return result
     }
 
@@ -130,7 +147,7 @@ class ID2D1BitmapBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1bitmapbrush-getextendmodey
      */
     GetExtendModeY() {
-        result := ComCall(13, this, "int")
+        result := ComCall(13, this, D2D1_EXTEND_MODE)
         return result
     }
 
@@ -146,7 +163,7 @@ class ID2D1BitmapBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1bitmapbrush-getinterpolationmode
      */
     GetInterpolationMode() {
-        result := ComCall(14, this, "int")
+        result := ComCall(14, this, D2D1_BITMAP_INTERPOLATION_MODE)
         return result
     }
 
@@ -159,6 +176,40 @@ class ID2D1BitmapBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1bitmapbrush-getbitmap
      */
     GetBitmap(_bitmap) {
-        ComCall(15, this, "ptr*", _bitmap)
+        ComCall(15, this, ID2D1Bitmap.Ptr, _bitmap)
+    }
+
+    Query(iid) {
+        if (ID2D1BitmapBrush.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetExtendModeX := CallbackCreate(GetMethod(implObj, "SetExtendModeX"), flags, 2)
+        this.vtbl.SetExtendModeY := CallbackCreate(GetMethod(implObj, "SetExtendModeY"), flags, 2)
+        this.vtbl.SetInterpolationMode := CallbackCreate(GetMethod(implObj, "SetInterpolationMode"), flags, 2)
+        this.vtbl.SetBitmap := CallbackCreate(GetMethod(implObj, "SetBitmap"), flags, 2)
+        this.vtbl.GetExtendModeX := CallbackCreate(GetMethod(implObj, "GetExtendModeX"), flags, 1)
+        this.vtbl.GetExtendModeY := CallbackCreate(GetMethod(implObj, "GetExtendModeY"), flags, 1)
+        this.vtbl.GetInterpolationMode := CallbackCreate(GetMethod(implObj, "GetInterpolationMode"), flags, 1)
+        this.vtbl.GetBitmap := CallbackCreate(GetMethod(implObj, "GetBitmap"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetExtendModeX)
+        CallbackFree(this.vtbl.SetExtendModeY)
+        CallbackFree(this.vtbl.SetInterpolationMode)
+        CallbackFree(this.vtbl.SetBitmap)
+        CallbackFree(this.vtbl.GetExtendModeX)
+        CallbackFree(this.vtbl.GetExtendModeY)
+        CallbackFree(this.vtbl.GetInterpolationMode)
+        CallbackFree(this.vtbl.GetBitmap)
     }
 }

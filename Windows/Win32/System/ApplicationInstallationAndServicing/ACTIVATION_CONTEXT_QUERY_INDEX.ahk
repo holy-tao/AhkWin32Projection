@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The ACTIVATION_CONTEXT_QUERY_INDEX structure is used by QueryActCtxW function.
@@ -11,26 +10,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-activation_context_query_index
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
-class ACTIVATION_CONTEXT_QUERY_INDEX extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct ACTIVATION_CONTEXT_QUERY_INDEX {
+    #StructPack 4
 
     /**
      * One-based index of the assembly whose file table is to be queried.
-     * @type {Integer}
      */
-    ulAssemblyIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulAssemblyIndex : UInt32
 
     /**
      * Zero-based index of the file in the above assembly to be queried.
-     * @type {Integer}
      */
-    ulFileIndexInAssembly {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulFileIndexInAssembly : UInt32
+
 }

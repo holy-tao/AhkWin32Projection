@@ -1,13 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NET_ADDRESS_FORMAT.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_IN.ahk
-#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
-#Include ..\..\Networking\WinSock\IN_ADDR.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
-#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
-#Include ..\..\Networking\WinSock\SCOPE_ID.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
+#Import "..\..\Networking\WinSock\SOCKADDR_IN6.ahk" { SOCKADDR_IN6 }
+#Import "..\..\Networking\WinSock\SOCKADDR_IN.ahk" { SOCKADDR_IN }
+#Import ".\NET_ADDRESS_FORMAT.ahk" { NET_ADDRESS_FORMAT }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
+#Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import "..\..\Networking\WinSock\SCOPE_ID.ahk" { SCOPE_ID }
+#Import "..\..\Networking\WinSock\SOCKADDR.ahk" { SOCKADDR }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Contains IP address information returned by the ParseNetworkString function.
@@ -20,84 +21,30 @@
  * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/ns-iphlpapi-net_address_info
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class NET_ADDRESS_INFO extends Win32Struct {
-    static sizeof => 528
+export default struct NET_ADDRESS_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+
+    struct _NamedAddress {
+        Address : WCHAR[256]
+
+        Port : WCHAR[6]
+
+    }
 
     /**
      * Type: <b>NET_ADDRESS_FORMAT</b>
      * 
      * The format of the network address in the union in this structure. This member is an enumeration value from the [NET_ADDRESS_FORMAT](/windows/desktop/api/iphlpapi/ne-iphlpapi-net_address_format) enumeration declared in the <i>Iphlpapi.h</i> header file.
-     * @type {NET_ADDRESS_FORMAT}
      */
-    Format {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Format : NET_ADDRESS_FORMAT
 
-    class _NamedAddress extends Win32Struct {
-        static sizeof => 524
-        static packingSize => 2
+    NamedAddress : NET_ADDRESS_INFO._NamedAddress
 
-        /**
-         * @type {String}
-         */
-        Address {
-            get => StrGet(this.ptr + 0, 255, "UTF-16")
-            set => StrPut(value, this.ptr + 0, 255, "UTF-16")
-        }
-
-        /**
-         * @type {String}
-         */
-        Port {
-            get => StrGet(this.ptr + 512, 5, "UTF-16")
-            set => StrPut(value, this.ptr + 512, 5, "UTF-16")
-        }
-    }
-
-    /**
-     * @type {_NamedAddress}
-     */
-    NamedAddress {
-        get {
-            if(!this.HasProp("__NamedAddress"))
-                this.__NamedAddress := NET_ADDRESS_INFO._NamedAddress(4, this)
-            return this.__NamedAddress
-        }
-    }
-
-    /**
-     * @type {SOCKADDR_IN}
-     */
-    Ipv4Address {
-        get {
-            if(!this.HasProp("__Ipv4Address"))
-                this.__Ipv4Address := SOCKADDR_IN(4, this)
-            return this.__Ipv4Address
-        }
-    }
-
-    /**
-     * @type {SOCKADDR_IN6}
-     */
-    Ipv6Address {
-        get {
-            if(!this.HasProp("__Ipv6Address"))
-                this.__Ipv6Address := SOCKADDR_IN6(4, this)
-            return this.__Ipv6Address
-        }
-    }
-
-    /**
-     * @type {SOCKADDR}
-     */
-    IpAddress {
-        get {
-            if(!this.HasProp("__IpAddress"))
-                this.__IpAddress := SOCKADDR(4, this)
-            return this.__IpAddress
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Ipv4Address', { type: SOCKADDR_IN, offset: 4 })
+        DefineProp(this.Prototype, 'Ipv6Address', { type: SOCKADDR_IN6, offset: 4 })
+        DefineProp(this.Prototype, 'IpAddress', { type: SOCKADDR, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

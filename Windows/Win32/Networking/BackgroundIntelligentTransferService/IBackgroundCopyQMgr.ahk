@@ -1,41 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IBackgroundCopyGroup.ahk
-#Include .\IEnumBackgroundCopyGroups.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IEnumBackgroundCopyGroups.ahk" { IEnumBackgroundCopyGroups }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IBackgroundCopyGroup.ahk" { IBackgroundCopyGroup }
 
 /**
  * Use the IBackgroundCopyQMgr interface to create a new group, retrieve an existing group, or enumerate all groups in the queue. A group contains a download job.
  * @see https://learn.microsoft.com/windows/win32/api/qmgr/nn-qmgr-ibackgroundcopyqmgr
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class IBackgroundCopyQMgr extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBackgroundCopyQMgr extends IUnknown {
     /**
      * The interface identifier for IBackgroundCopyQMgr
      * @type {Guid}
      */
-    static IID => Guid("{16f41c69-09f5-41d2-8cd8-3c08c47bc8a8}")
+    static IID := Guid("{16f41c69-09f5-41d2-8cd8-3c08c47bc8a8}")
 
     /**
      * The class identifier for BackgroundCopyQMgr
      * @type {Guid}
      */
-    static CLSID => Guid("{69ad4aee-51be-439b-a92c-86ae490e8b30}")
+    static CLSID := Guid("{69ad4aee-51be-439b-a92c-86ae490e8b30}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBackgroundCopyQMgr interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateGroup : IntPtr
+        GetGroup    : IntPtr
+        EnumGroups  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateGroup", "GetGroup", "EnumGroups"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBackgroundCopyQMgr.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Use the CreateGroup method to create a new group and add it to the download queue.
@@ -44,7 +54,7 @@ class IBackgroundCopyQMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopyqmgr-creategroup
      */
     CreateGroup(guidGroupID) {
-        result := ComCall(3, this, "ptr", guidGroupID, "ptr*", &ppGroup := 0, "HRESULT")
+        result := ComCall(3, this, Guid, guidGroupID, "ptr*", &ppGroup := 0, "HRESULT")
         return IBackgroundCopyGroup(ppGroup)
     }
 
@@ -55,7 +65,7 @@ class IBackgroundCopyQMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopyqmgr-getgroup
      */
     GetGroup(groupID) {
-        result := ComCall(4, this, "ptr", groupID, "ptr*", &ppGroup := 0, "HRESULT")
+        result := ComCall(4, this, Guid, groupID, "ptr*", &ppGroup := 0, "HRESULT")
         return IBackgroundCopyGroup(ppGroup)
     }
 
@@ -68,5 +78,29 @@ class IBackgroundCopyQMgr extends IUnknown {
     EnumGroups(dwFlags) {
         result := ComCall(5, this, "uint", dwFlags, "ptr*", &ppEnumGroups := 0, "HRESULT")
         return IEnumBackgroundCopyGroups(ppEnumGroups)
+    }
+
+    Query(iid) {
+        if (IBackgroundCopyQMgr.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateGroup := CallbackCreate(GetMethod(implObj, "CreateGroup"), flags, 3)
+        this.vtbl.GetGroup := CallbackCreate(GetMethod(implObj, "GetGroup"), flags, 3)
+        this.vtbl.EnumGroups := CallbackCreate(GetMethod(implObj, "EnumGroups"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateGroup)
+        CallbackFree(this.vtbl.GetGroup)
+        CallbackFree(this.vtbl.EnumGroups)
     }
 }

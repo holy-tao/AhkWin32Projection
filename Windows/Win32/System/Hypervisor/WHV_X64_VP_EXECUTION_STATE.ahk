@@ -1,13 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_X64_VP_EXECUTION_STATE extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 2
+export default struct WHV_X64_VP_EXECUTION_STATE {
+    #StructPack 2
 
     /**
      * This bitfield backs the following members:
@@ -20,12 +17,9 @@ class WHV_X64_VP_EXECUTION_STATE extends Win32Struct {
      * - Reserved0
      * - InterruptShadow
      * - Reserved1
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    _bitfield : Int16
+
 
     /**
      * @type {Integer}
@@ -98,12 +92,8 @@ class WHV_X64_VP_EXECUTION_STATE extends Win32Struct {
         get => (this._bitfield >> 13) & 0x7
         set => this._bitfield := ((value & 0x7) << 13) | (this._bitfield & ~(0x7 << 13))
     }
-
-    /**
-     * @type {Integer}
-     */
-    AsUINT16 {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'AsUINT16', { type: UInt16, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

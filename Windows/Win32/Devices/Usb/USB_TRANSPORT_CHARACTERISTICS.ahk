@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_TRANSPORT_CHARACTERISTICS extends Win32Struct {
-    static sizeof => 24
+export default struct USB_TRANSPORT_CHARACTERISTICS {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    TransportCharacteristicsFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TransportCharacteristicsFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    CurrentRoundtripLatencyInMilliSeconds : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CurrentRoundtripLatencyInMilliSeconds {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MaxPotentialBandwidth : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MaxPotentialBandwidth {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
  */
-class PROFILER_HEAP_OBJECT_SCOPE_LIST extends Win32Struct {
-    static sizeof => 16
+export default struct PROFILER_HEAP_OBJECT_SCOPE_LIST {
+    #StructPack 8
 
-    static packingSize => 8
+    count : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    count {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    scopes : IntPtr[1]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    scopes {
-        get {
-            if(!this.HasProp("__scopesProxyArray"))
-                this.__scopesProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")
-            return this.__scopesProxyArray
-        }
-    }
 }

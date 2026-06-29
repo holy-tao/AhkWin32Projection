@@ -1,10 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
-#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
-#Include .\MFVideoAlphaBitmapParams.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\MFVideoNormalizedRect.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MFVideoAlphaBitmapParams.ahk" { MFVideoAlphaBitmapParams }
+#Import ".\MFVideoNormalizedRect.ahk" { MFVideoNormalizedRect }
+#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Specifies a bitmap for the enhanced video renderer (EVR) to alpha-blend with the video.
@@ -13,65 +14,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/evr9/ns-evr9-mfvideoalphabitmap
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFVideoAlphaBitmap extends Win32Struct {
-    static sizeof => 64
+export default struct MFVideoAlphaBitmap {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _bitmap_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _bitmap {
+        hdc : HDC
 
-        /**
-         * @type {HDC}
-         */
-        hdc {
-            get {
-                if(!this.HasProp("__hdc"))
-                    this.__hdc := HDC(0, this)
-                return this.__hdc
-            }
-        }
-
-        /**
-         * @type {IDirect3DSurface9}
-         */
-        pDDS {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'pDDS', { type: IDirect3DSurface9, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
     /**
      * If <b>TRUE</b>, the <b>hdc</b> member is used. Otherwise, the <b>pDDs</b> member is used.
-     * @type {BOOL}
      */
-    GetBitmapFromDC {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    GetBitmapFromDC : BOOL
 
     /**
      * A union that contains the following members.
-     * @type {_bitmap_e__Union}
      */
-    bitmap {
-        get {
-            if(!this.HasProp("__bitmap"))
-                this.__bitmap := MFVideoAlphaBitmap._bitmap_e__Union(8, this)
-            return this.__bitmap
-        }
-    }
+    bitmap : MFVideoAlphaBitmap._bitmap
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/evr9/ns-evr9-mfvideoalphabitmapparams">MFVideoAlphaBitmapParams</a> structure that specifies the parameters for the alpha-blending operation.
-     * @type {MFVideoAlphaBitmapParams}
      */
-    params {
-        get {
-            if(!this.HasProp("__params"))
-                this.__params := MFVideoAlphaBitmapParams(16, this)
-            return this.__params
-        }
-    }
+    params : MFVideoAlphaBitmapParams
+
 }

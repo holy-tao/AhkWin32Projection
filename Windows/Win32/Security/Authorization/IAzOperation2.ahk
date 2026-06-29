@@ -1,34 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IAzOperation.ahk
-#Include .\IAzRoleAssignments.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IAzRoleAssignments.ahk" { IAzRoleAssignments }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IAzOperation.ahk" { IAzOperation }
 
 /**
  * Extends the IAzOperation with a method that returns the role assignments associated with the operation.
  * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazoperation2
  * @namespace Windows.Win32.Security.Authorization
  */
-class IAzOperation2 extends IAzOperation {
-
-    static sizeof => A_PtrSize
+export default struct IAzOperation2 extends IAzOperation {
     /**
      * The interface identifier for IAzOperation2
      * @type {Guid}
      */
-    static IID => Guid("{1f5ea01f-44a2-4184-9c48-a75b4dcc8ccc}")
+    static IID := Guid("{1f5ea01f-44a2-4184-9c48-a75b4dcc8ccc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 19
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAzOperation2 interfaces
+    */
+    struct Vtbl extends IAzOperation.Vtbl {
+        RoleAssignments : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RoleAssignments"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAzOperation2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns a collection of the role assignments associated with this operation.
@@ -40,7 +50,27 @@ class IAzOperation2 extends IAzOperation {
     RoleAssignments(bstrScopeName, bRecursive) {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
 
-        result := ComCall(19, this, "ptr", bstrScopeName, "short", bRecursive, "ptr*", &ppRoleAssignments := 0, "HRESULT")
+        result := ComCall(19, this, BSTR, bstrScopeName, VARIANT_BOOL, bRecursive, "ptr*", &ppRoleAssignments := 0, "HRESULT")
         return IAzRoleAssignments(ppRoleAssignments)
+    }
+
+    Query(iid) {
+        if (IAzOperation2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RoleAssignments := CallbackCreate(GetMethod(implObj, "RoleAssignments"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RoleAssignments)
     }
 }

@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDataCollector.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IDataCollector.ahk" { IDataCollector }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Collects computer settings at the time of collection.
@@ -31,26 +34,50 @@
  * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-iconfigurationdatacollector
  * @namespace Windows.Win32.System.Performance
  */
-class IConfigurationDataCollector extends IDataCollector {
-
-    static sizeof => A_PtrSize
+export default struct IConfigurationDataCollector extends IDataCollector {
     /**
      * The interface identifier for IConfigurationDataCollector
      * @type {Guid}
      */
-    static IID => Guid("{03837514-098b-11d8-9414-505054503030}")
+    static IID := Guid("{03837514-098b-11d8-9414-505054503030}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 32
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IConfigurationDataCollector interfaces
+    */
+    struct Vtbl extends IDataCollector.Vtbl {
+        get_FileMaxCount              : IntPtr
+        put_FileMaxCount              : IntPtr
+        get_FileMaxRecursiveDepth     : IntPtr
+        put_FileMaxRecursiveDepth     : IntPtr
+        get_FileMaxTotalSize          : IntPtr
+        put_FileMaxTotalSize          : IntPtr
+        get_Files                     : IntPtr
+        put_Files                     : IntPtr
+        get_ManagementQueries         : IntPtr
+        put_ManagementQueries         : IntPtr
+        get_QueryNetworkAdapters      : IntPtr
+        put_QueryNetworkAdapters      : IntPtr
+        get_RegistryKeys              : IntPtr
+        put_RegistryKeys              : IntPtr
+        get_RegistryMaxRecursiveDepth : IntPtr
+        put_RegistryMaxRecursiveDepth : IntPtr
+        get_SystemStateFile           : IntPtr
+        put_SystemStateFile           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_FileMaxCount", "put_FileMaxCount", "get_FileMaxRecursiveDepth", "put_FileMaxRecursiveDepth", "get_FileMaxTotalSize", "put_FileMaxTotalSize", "get_Files", "put_Files", "get_ManagementQueries", "put_ManagementQueries", "get_QueryNetworkAdapters", "put_QueryNetworkAdapters", "get_RegistryKeys", "put_RegistryKeys", "get_RegistryMaxRecursiveDepth", "put_RegistryMaxRecursiveDepth", "get_SystemStateFile", "put_SystemStateFile"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IConfigurationDataCollector.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -294,7 +321,7 @@ class IConfigurationDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iconfigurationdatacollector-put_files
      */
     put_Files(Files) {
-        result := ComCall(39, this, "ptr", Files, "HRESULT")
+        result := ComCall(39, this, SAFEARRAY.Ptr, Files, "HRESULT")
         return result
     }
 
@@ -319,7 +346,7 @@ class IConfigurationDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iconfigurationdatacollector-put_managementqueries
      */
     put_ManagementQueries(Queries) {
-        result := ComCall(41, this, "ptr", Queries, "HRESULT")
+        result := ComCall(41, this, SAFEARRAY.Ptr, Queries, "HRESULT")
         return result
     }
 
@@ -329,7 +356,7 @@ class IConfigurationDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iconfigurationdatacollector-get_querynetworkadapters
      */
     get_QueryNetworkAdapters() {
-        result := ComCall(42, this, "short*", &network := 0, "HRESULT")
+        result := ComCall(42, this, VARIANT_BOOL.Ptr, &network := 0, "HRESULT")
         return network
     }
 
@@ -340,7 +367,7 @@ class IConfigurationDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iconfigurationdatacollector-put_querynetworkadapters
      */
     put_QueryNetworkAdapters(network) {
-        result := ComCall(43, this, "short", network, "HRESULT")
+        result := ComCall(43, this, VARIANT_BOOL, network, "HRESULT")
         return result
     }
 
@@ -396,7 +423,7 @@ class IConfigurationDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iconfigurationdatacollector-put_registrykeys
      */
     put_RegistryKeys(query) {
-        result := ComCall(45, this, "ptr", query, "HRESULT")
+        result := ComCall(45, this, SAFEARRAY.Ptr, query, "HRESULT")
         return result
     }
 
@@ -433,8 +460,8 @@ class IConfigurationDataCollector extends IDataCollector {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iconfigurationdatacollector-get_systemstatefile
      */
     get_SystemStateFile() {
-        FileName := BSTR()
-        result := ComCall(48, this, "ptr", FileName, "HRESULT")
+        FileName := BSTR.Owned()
+        result := ComCall(48, this, BSTR.Ptr, FileName, "HRESULT")
         return FileName
     }
 
@@ -453,7 +480,61 @@ class IConfigurationDataCollector extends IDataCollector {
     put_SystemStateFile(FileName) {
         FileName := FileName is String ? BSTR.Alloc(FileName).Value : FileName
 
-        result := ComCall(49, this, "ptr", FileName, "HRESULT")
+        result := ComCall(49, this, BSTR, FileName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IConfigurationDataCollector.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_FileMaxCount := CallbackCreate(GetMethod(implObj, "get_FileMaxCount"), flags, 2)
+        this.vtbl.put_FileMaxCount := CallbackCreate(GetMethod(implObj, "put_FileMaxCount"), flags, 2)
+        this.vtbl.get_FileMaxRecursiveDepth := CallbackCreate(GetMethod(implObj, "get_FileMaxRecursiveDepth"), flags, 2)
+        this.vtbl.put_FileMaxRecursiveDepth := CallbackCreate(GetMethod(implObj, "put_FileMaxRecursiveDepth"), flags, 2)
+        this.vtbl.get_FileMaxTotalSize := CallbackCreate(GetMethod(implObj, "get_FileMaxTotalSize"), flags, 2)
+        this.vtbl.put_FileMaxTotalSize := CallbackCreate(GetMethod(implObj, "put_FileMaxTotalSize"), flags, 2)
+        this.vtbl.get_Files := CallbackCreate(GetMethod(implObj, "get_Files"), flags, 2)
+        this.vtbl.put_Files := CallbackCreate(GetMethod(implObj, "put_Files"), flags, 2)
+        this.vtbl.get_ManagementQueries := CallbackCreate(GetMethod(implObj, "get_ManagementQueries"), flags, 2)
+        this.vtbl.put_ManagementQueries := CallbackCreate(GetMethod(implObj, "put_ManagementQueries"), flags, 2)
+        this.vtbl.get_QueryNetworkAdapters := CallbackCreate(GetMethod(implObj, "get_QueryNetworkAdapters"), flags, 2)
+        this.vtbl.put_QueryNetworkAdapters := CallbackCreate(GetMethod(implObj, "put_QueryNetworkAdapters"), flags, 2)
+        this.vtbl.get_RegistryKeys := CallbackCreate(GetMethod(implObj, "get_RegistryKeys"), flags, 2)
+        this.vtbl.put_RegistryKeys := CallbackCreate(GetMethod(implObj, "put_RegistryKeys"), flags, 2)
+        this.vtbl.get_RegistryMaxRecursiveDepth := CallbackCreate(GetMethod(implObj, "get_RegistryMaxRecursiveDepth"), flags, 2)
+        this.vtbl.put_RegistryMaxRecursiveDepth := CallbackCreate(GetMethod(implObj, "put_RegistryMaxRecursiveDepth"), flags, 2)
+        this.vtbl.get_SystemStateFile := CallbackCreate(GetMethod(implObj, "get_SystemStateFile"), flags, 2)
+        this.vtbl.put_SystemStateFile := CallbackCreate(GetMethod(implObj, "put_SystemStateFile"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_FileMaxCount)
+        CallbackFree(this.vtbl.put_FileMaxCount)
+        CallbackFree(this.vtbl.get_FileMaxRecursiveDepth)
+        CallbackFree(this.vtbl.put_FileMaxRecursiveDepth)
+        CallbackFree(this.vtbl.get_FileMaxTotalSize)
+        CallbackFree(this.vtbl.put_FileMaxTotalSize)
+        CallbackFree(this.vtbl.get_Files)
+        CallbackFree(this.vtbl.put_Files)
+        CallbackFree(this.vtbl.get_ManagementQueries)
+        CallbackFree(this.vtbl.put_ManagementQueries)
+        CallbackFree(this.vtbl.get_QueryNetworkAdapters)
+        CallbackFree(this.vtbl.put_QueryNetworkAdapters)
+        CallbackFree(this.vtbl.get_RegistryKeys)
+        CallbackFree(this.vtbl.put_RegistryKeys)
+        CallbackFree(this.vtbl.get_RegistryMaxRecursiveDepth)
+        CallbackFree(this.vtbl.put_RegistryMaxRecursiveDepth)
+        CallbackFree(this.vtbl.get_SystemStateFile)
+        CallbackFree(this.vtbl.put_SystemStateFile)
     }
 }

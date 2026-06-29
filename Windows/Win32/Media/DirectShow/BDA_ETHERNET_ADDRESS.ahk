@@ -1,22 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class BDA_ETHERNET_ADDRESS extends Win32Struct {
-    static sizeof => 6
+export default struct BDA_ETHERNET_ADDRESS {
+    #StructPack 1
 
-    static packingSize => 1
+    rgbAddress : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    rgbAddress {
-        get {
-            if(!this.HasProp("__rgbAddressProxyArray"))
-                this.__rgbAddressProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
-            return this.__rgbAddressProxyArray
-        }
-    }
 }

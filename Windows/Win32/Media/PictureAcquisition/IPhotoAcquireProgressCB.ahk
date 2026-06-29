@@ -1,34 +1,66 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPhotoAcquireSource.ahk" { IPhotoAcquireSource }
+#Import ".\ERROR_ADVISE_RESULT.ahk" { ERROR_ADVISE_RESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IPhotoAcquireItem.ahk" { IPhotoAcquireItem }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ERROR_ADVISE_MESSAGE_TYPE.ahk" { ERROR_ADVISE_MESSAGE_TYPE }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 
 /**
  * The IPhotoAcquireProgressCB interface may be implemented if you wish to do extra processing at various stages in the acquisition process.
  * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nn-photoacquire-iphotoacquireprogresscb
  * @namespace Windows.Win32.Media.PictureAcquisition
  */
-class IPhotoAcquireProgressCB extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPhotoAcquireProgressCB extends IUnknown {
     /**
      * The interface identifier for IPhotoAcquireProgressCB
      * @type {Guid}
      */
-    static IID => Guid("{00f2ce1e-935e-4248-892c-130f32c45cb4}")
+    static IID := Guid("{00f2ce1e-935e-4248-892c-130f32c45cb4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPhotoAcquireProgressCB interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Cancelled             : IntPtr
+        StartEnumeration      : IntPtr
+        FoundItem             : IntPtr
+        EndEnumeration        : IntPtr
+        StartTransfer         : IntPtr
+        StartItemTransfer     : IntPtr
+        DirectoryCreated      : IntPtr
+        UpdateTransferPercent : IntPtr
+        EndItemTransfer       : IntPtr
+        EndTransfer           : IntPtr
+        StartDelete           : IntPtr
+        StartItemDelete       : IntPtr
+        UpdateDeletePercent   : IntPtr
+        EndItemDelete         : IntPtr
+        EndDelete             : IntPtr
+        EndSession            : IntPtr
+        GetDeleteAfterAcquire : IntPtr
+        ErrorAdvise           : IntPtr
+        GetUserInput          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Cancelled", "StartEnumeration", "FoundItem", "EndEnumeration", "StartTransfer", "StartItemTransfer", "DirectoryCreated", "UpdateTransferPercent", "EndItemTransfer", "EndTransfer", "StartDelete", "StartItemDelete", "UpdateDeletePercent", "EndItemDelete", "EndDelete", "EndSession", "GetDeleteAfterAcquire", "ErrorAdvise", "GetUserInput"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPhotoAcquireProgressCB.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Cancelled method provides extended functionality when a cancellation occurs during an acquisition session. The application provides the implementation of the Cancelled method.
@@ -36,7 +68,7 @@ class IPhotoAcquireProgressCB extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-cancelled
      */
     Cancelled() {
-        result := ComCall(3, this, "int*", &pfCancelled := 0, "HRESULT")
+        result := ComCall(3, this, BOOL.Ptr, &pfCancelled := 0, "HRESULT")
         return pfCancelled
     }
 
@@ -324,7 +356,7 @@ class IPhotoAcquireProgressCB extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-updatetransferpercent
      */
     UpdateTransferPercent(fOverall, nPercent) {
-        result := ComCall(10, this, "int", fOverall, "uint", nPercent, "HRESULT")
+        result := ComCall(10, this, BOOL, fOverall, "uint", nPercent, "HRESULT")
         return result
     }
 
@@ -659,7 +691,7 @@ class IPhotoAcquireProgressCB extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-getdeleteafteracquire
      */
     GetDeleteAfterAcquire() {
-        result := ComCall(19, this, "int*", &pfDeleteAfterAcquire := 0, "HRESULT")
+        result := ComCall(19, this, BOOL.Ptr, &pfDeleteAfterAcquire := 0, "HRESULT")
         return pfDeleteAfterAcquire
     }
 
@@ -739,7 +771,7 @@ class IPhotoAcquireProgressCB extends IUnknown {
     ErrorAdvise(hr, pszErrorMessage, nMessageType) {
         pszErrorMessage := pszErrorMessage is String ? StrPtr(pszErrorMessage) : pszErrorMessage
 
-        result := ComCall(20, this, "int", hr, "ptr", pszErrorMessage, "int", nMessageType, "int*", &pnErrorAdviseResult := 0, "HRESULT")
+        result := ComCall(20, this, "int", hr, "ptr", pszErrorMessage, ERROR_ADVISE_MESSAGE_TYPE, nMessageType, "int*", &pnErrorAdviseResult := 0, "HRESULT")
         return pnErrorAdviseResult
     }
 
@@ -761,7 +793,63 @@ class IPhotoAcquireProgressCB extends IUnknown {
      */
     GetUserInput(riidType, pUnknown, pPropVarDefault) {
         pPropVarResult := PROPVARIANT()
-        result := ComCall(21, this, "ptr", riidType, "ptr", pUnknown, "ptr", pPropVarResult, "ptr", pPropVarDefault, "HRESULT")
+        result := ComCall(21, this, Guid.Ptr, riidType, "ptr", pUnknown, PROPVARIANT.Ptr, pPropVarResult, PROPVARIANT.Ptr, pPropVarDefault, "HRESULT")
         return pPropVarResult
+    }
+
+    Query(iid) {
+        if (IPhotoAcquireProgressCB.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Cancelled := CallbackCreate(GetMethod(implObj, "Cancelled"), flags, 2)
+        this.vtbl.StartEnumeration := CallbackCreate(GetMethod(implObj, "StartEnumeration"), flags, 2)
+        this.vtbl.FoundItem := CallbackCreate(GetMethod(implObj, "FoundItem"), flags, 2)
+        this.vtbl.EndEnumeration := CallbackCreate(GetMethod(implObj, "EndEnumeration"), flags, 2)
+        this.vtbl.StartTransfer := CallbackCreate(GetMethod(implObj, "StartTransfer"), flags, 2)
+        this.vtbl.StartItemTransfer := CallbackCreate(GetMethod(implObj, "StartItemTransfer"), flags, 3)
+        this.vtbl.DirectoryCreated := CallbackCreate(GetMethod(implObj, "DirectoryCreated"), flags, 2)
+        this.vtbl.UpdateTransferPercent := CallbackCreate(GetMethod(implObj, "UpdateTransferPercent"), flags, 3)
+        this.vtbl.EndItemTransfer := CallbackCreate(GetMethod(implObj, "EndItemTransfer"), flags, 4)
+        this.vtbl.EndTransfer := CallbackCreate(GetMethod(implObj, "EndTransfer"), flags, 2)
+        this.vtbl.StartDelete := CallbackCreate(GetMethod(implObj, "StartDelete"), flags, 2)
+        this.vtbl.StartItemDelete := CallbackCreate(GetMethod(implObj, "StartItemDelete"), flags, 3)
+        this.vtbl.UpdateDeletePercent := CallbackCreate(GetMethod(implObj, "UpdateDeletePercent"), flags, 2)
+        this.vtbl.EndItemDelete := CallbackCreate(GetMethod(implObj, "EndItemDelete"), flags, 4)
+        this.vtbl.EndDelete := CallbackCreate(GetMethod(implObj, "EndDelete"), flags, 2)
+        this.vtbl.EndSession := CallbackCreate(GetMethod(implObj, "EndSession"), flags, 2)
+        this.vtbl.GetDeleteAfterAcquire := CallbackCreate(GetMethod(implObj, "GetDeleteAfterAcquire"), flags, 2)
+        this.vtbl.ErrorAdvise := CallbackCreate(GetMethod(implObj, "ErrorAdvise"), flags, 5)
+        this.vtbl.GetUserInput := CallbackCreate(GetMethod(implObj, "GetUserInput"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Cancelled)
+        CallbackFree(this.vtbl.StartEnumeration)
+        CallbackFree(this.vtbl.FoundItem)
+        CallbackFree(this.vtbl.EndEnumeration)
+        CallbackFree(this.vtbl.StartTransfer)
+        CallbackFree(this.vtbl.StartItemTransfer)
+        CallbackFree(this.vtbl.DirectoryCreated)
+        CallbackFree(this.vtbl.UpdateTransferPercent)
+        CallbackFree(this.vtbl.EndItemTransfer)
+        CallbackFree(this.vtbl.EndTransfer)
+        CallbackFree(this.vtbl.StartDelete)
+        CallbackFree(this.vtbl.StartItemDelete)
+        CallbackFree(this.vtbl.UpdateDeletePercent)
+        CallbackFree(this.vtbl.EndItemDelete)
+        CallbackFree(this.vtbl.EndDelete)
+        CallbackFree(this.vtbl.EndSession)
+        CallbackFree(this.vtbl.GetDeleteAfterAcquire)
+        CallbackFree(this.vtbl.ErrorAdvise)
+        CallbackFree(this.vtbl.GetUserInput)
     }
 }

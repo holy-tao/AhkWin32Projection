@@ -1,37 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISClusProperties.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ISCluster.ahk
-#Include .\ISClusResTypeResources.ahk
-#Include .\ISClusResTypePossibleOwnerNodes.ahk
-#Include .\ISClusDisks.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ISClusResTypeResources.ahk" { ISClusResTypeResources }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ISCluster.ahk" { ISCluster }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISClusResTypePossibleOwnerNodes.ahk" { ISClusResTypePossibleOwnerNodes }
+#Import ".\ISClusProperties.ahk" { ISClusProperties }
+#Import ".\ISClusDisks.ahk" { ISClusDisks }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
  */
-class ISClusResType extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISClusResType extends IDispatch {
     /**
      * The interface identifier for ISClusResType
      * @type {Guid}
      */
-    static IID => Guid("{f2e60710-2631-11d1-89f1-00a0c90d061e}")
+    static IID := Guid("{f2e60710-2631-11d1-89f1-00a0c90d061e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISClusResType interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_CommonProperties    : IntPtr
+        get_PrivateProperties   : IntPtr
+        get_CommonROProperties  : IntPtr
+        get_PrivateROProperties : IntPtr
+        get_Name                : IntPtr
+        Delete                  : IntPtr
+        get_Cluster             : IntPtr
+        get_Resources           : IntPtr
+        get_PossibleOwnerNodes  : IntPtr
+        get_AvailableDisks      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_CommonProperties", "get_PrivateProperties", "get_CommonROProperties", "get_PrivateROProperties", "get_Name", "Delete", "get_Cluster", "get_Resources", "get_PossibleOwnerNodes", "get_AvailableDisks"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISClusResType.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ISClusProperties} 
@@ -137,23 +154,14 @@ class ISClusResType extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        pbstrName := BSTR()
-        result := ComCall(11, this, "ptr", pbstrName, "HRESULT")
+        pbstrName := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 
     /**
-     * Deletes an access control entry (ACE) from an access control list (ACL).
-     * @remarks
-     * An application can use the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl_size_information">ACL_SIZE_INFORMATION</a> structure retrieved by the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getaclinformation">GetAclInformation</a> function to discover the size of the ACL and the number of ACEs it contains. The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getace">GetAce</a> function retrieves information about an individual ACE.
-     * @returns {HRESULT} If the function succeeds, the function returns nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-deleteace
+     * @returns {HRESULT} 
      */
     Delete() {
         result := ComCall(12, this, "HRESULT")
@@ -194,5 +202,43 @@ class ISClusResType extends IDispatch {
     get_AvailableDisks() {
         result := ComCall(16, this, "ptr*", &ppAvailableDisks := 0, "HRESULT")
         return ISClusDisks(ppAvailableDisks)
+    }
+
+    Query(iid) {
+        if (ISClusResType.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_CommonProperties := CallbackCreate(GetMethod(implObj, "get_CommonProperties"), flags, 2)
+        this.vtbl.get_PrivateProperties := CallbackCreate(GetMethod(implObj, "get_PrivateProperties"), flags, 2)
+        this.vtbl.get_CommonROProperties := CallbackCreate(GetMethod(implObj, "get_CommonROProperties"), flags, 2)
+        this.vtbl.get_PrivateROProperties := CallbackCreate(GetMethod(implObj, "get_PrivateROProperties"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.get_Cluster := CallbackCreate(GetMethod(implObj, "get_Cluster"), flags, 2)
+        this.vtbl.get_Resources := CallbackCreate(GetMethod(implObj, "get_Resources"), flags, 2)
+        this.vtbl.get_PossibleOwnerNodes := CallbackCreate(GetMethod(implObj, "get_PossibleOwnerNodes"), flags, 2)
+        this.vtbl.get_AvailableDisks := CallbackCreate(GetMethod(implObj, "get_AvailableDisks"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_CommonProperties)
+        CallbackFree(this.vtbl.get_PrivateProperties)
+        CallbackFree(this.vtbl.get_CommonROProperties)
+        CallbackFree(this.vtbl.get_PrivateROProperties)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.get_Cluster)
+        CallbackFree(this.vtbl.get_Resources)
+        CallbackFree(this.vtbl.get_PossibleOwnerNodes)
+        CallbackFree(this.vtbl.get_AvailableDisks)
     }
 }

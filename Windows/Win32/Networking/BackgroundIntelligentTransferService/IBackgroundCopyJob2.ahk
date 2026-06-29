@@ -1,33 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IBackgroundCopyJob.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\BG_AUTH_CREDENTIALS.ahk" { BG_AUTH_CREDENTIALS }
+#Import ".\BG_AUTH_TARGET.ahk" { BG_AUTH_TARGET }
+#Import ".\IBackgroundCopyJob.ahk" { IBackgroundCopyJob }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\BG_JOB_REPLY_PROGRESS.ahk" { BG_JOB_REPLY_PROGRESS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\BG_AUTH_SCHEME.ahk" { BG_AUTH_SCHEME }
 
 /**
  * Retrieve reply data from an upload-reply job, determine the progress of the reply data transfer to the client, request command line execution, and provide credentials for proxy and remote server authentication requests.
  * @see https://learn.microsoft.com/windows/win32/api/bits1_5/nn-bits1_5-ibackgroundcopyjob2
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class IBackgroundCopyJob2 extends IBackgroundCopyJob {
-
-    static sizeof => A_PtrSize
+export default struct IBackgroundCopyJob2 extends IBackgroundCopyJob {
     /**
      * The interface identifier for IBackgroundCopyJob2
      * @type {Guid}
      */
-    static IID => Guid("{54b50739-686f-45eb-9dff-d6a9a0faa9af}")
+    static IID := Guid("{54b50739-686f-45eb-9dff-d6a9a0faa9af}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 35
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBackgroundCopyJob2 interfaces
+    */
+    struct Vtbl extends IBackgroundCopyJob.Vtbl {
+        SetNotifyCmdLine  : IntPtr
+        GetNotifyCmdLine  : IntPtr
+        GetReplyProgress  : IntPtr
+        GetReplyData      : IntPtr
+        SetReplyFileName  : IntPtr
+        GetReplyFileName  : IntPtr
+        SetCredentials    : IntPtr
+        RemoveCredentials : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetNotifyCmdLine", "GetNotifyCmdLine", "GetReplyProgress", "GetReplyData", "SetReplyFileName", "GetReplyFileName", "SetCredentials", "RemoveCredentials"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBackgroundCopyJob2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies a program to execute if the job enters the BG_JOB_STATE_ERROR or BG_JOB_STATE_TRANSFERRED state. BITS executes the program in the context of the user who called this method.
@@ -185,7 +205,7 @@ class IBackgroundCopyJob2 extends IBackgroundCopyJob {
      * @see https://learn.microsoft.com/windows/win32/api/bits1_5/nf-bits1_5-ibackgroundcopyjob2-getreplyprogress
      */
     GetReplyProgress(pProgress) {
-        result := ComCall(37, this, "ptr", pProgress, "HRESULT")
+        result := ComCall(37, this, BG_JOB_REPLY_PROGRESS.Ptr, pProgress, "HRESULT")
         return result
     }
 
@@ -311,7 +331,7 @@ class IBackgroundCopyJob2 extends IBackgroundCopyJob {
      * @see https://learn.microsoft.com/windows/win32/api/bits1_5/nf-bits1_5-ibackgroundcopyjob2-getreplyfilename
      */
     GetReplyFileName() {
-        result := ComCall(40, this, "ptr*", &pReplyFileName := 0, "HRESULT")
+        result := ComCall(40, this, PWSTR.Ptr, &pReplyFileName := 0, "HRESULT")
         return pReplyFileName
     }
 
@@ -426,7 +446,7 @@ class IBackgroundCopyJob2 extends IBackgroundCopyJob {
      * @see https://learn.microsoft.com/windows/win32/api/bits1_5/nf-bits1_5-ibackgroundcopyjob2-setcredentials
      */
     SetCredentials(credentials) {
-        result := ComCall(41, this, "ptr", credentials, "HRESULT")
+        result := ComCall(41, this, BG_AUTH_CREDENTIALS.Ptr, credentials, "HRESULT")
         return result
     }
 
@@ -468,7 +488,41 @@ class IBackgroundCopyJob2 extends IBackgroundCopyJob {
      * @see https://learn.microsoft.com/windows/win32/api/bits1_5/nf-bits1_5-ibackgroundcopyjob2-removecredentials
      */
     RemoveCredentials(Target, Scheme) {
-        result := ComCall(42, this, "int", Target, "int", Scheme, "HRESULT")
+        result := ComCall(42, this, BG_AUTH_TARGET, Target, BG_AUTH_SCHEME, Scheme, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBackgroundCopyJob2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetNotifyCmdLine := CallbackCreate(GetMethod(implObj, "SetNotifyCmdLine"), flags, 3)
+        this.vtbl.GetNotifyCmdLine := CallbackCreate(GetMethod(implObj, "GetNotifyCmdLine"), flags, 3)
+        this.vtbl.GetReplyProgress := CallbackCreate(GetMethod(implObj, "GetReplyProgress"), flags, 2)
+        this.vtbl.GetReplyData := CallbackCreate(GetMethod(implObj, "GetReplyData"), flags, 3)
+        this.vtbl.SetReplyFileName := CallbackCreate(GetMethod(implObj, "SetReplyFileName"), flags, 2)
+        this.vtbl.GetReplyFileName := CallbackCreate(GetMethod(implObj, "GetReplyFileName"), flags, 2)
+        this.vtbl.SetCredentials := CallbackCreate(GetMethod(implObj, "SetCredentials"), flags, 2)
+        this.vtbl.RemoveCredentials := CallbackCreate(GetMethod(implObj, "RemoveCredentials"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetNotifyCmdLine)
+        CallbackFree(this.vtbl.GetNotifyCmdLine)
+        CallbackFree(this.vtbl.GetReplyProgress)
+        CallbackFree(this.vtbl.GetReplyData)
+        CallbackFree(this.vtbl.SetReplyFileName)
+        CallbackFree(this.vtbl.GetReplyFileName)
+        CallbackFree(this.vtbl.SetCredentials)
+        CallbackFree(this.vtbl.RemoveCredentials)
     }
 }

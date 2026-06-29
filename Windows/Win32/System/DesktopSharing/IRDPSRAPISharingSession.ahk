@@ -1,38 +1,60 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IRDPSRAPISessionProperties.ahk
-#Include .\IRDPSRAPIAttendeeManager.ahk
-#Include .\IRDPSRAPIInvitationManager.ahk
-#Include .\IRDPSRAPIApplicationFilter.ahk
-#Include .\IRDPSRAPIVirtualChannelManager.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRDPSRAPIVirtualChannelManager.ahk" { IRDPSRAPIVirtualChannelManager }
+#Import ".\IRDPSRAPIApplicationFilter.ahk" { IRDPSRAPIApplicationFilter }
+#Import ".\IRDPSRAPIAttendeeManager.ahk" { IRDPSRAPIAttendeeManager }
+#Import ".\IRDPSRAPISessionProperties.ahk" { IRDPSRAPISessionProperties }
+#Import ".\IRDPSRAPIInvitationManager.ahk" { IRDPSRAPIInvitationManager }
 
 /**
  * The main object that an application must create to start a collaboration session. (IRDPSRAPISharingSession)
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapisharingsession
  * @namespace Windows.Win32.System.DesktopSharing
  */
-class IRDPSRAPISharingSession extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IRDPSRAPISharingSession extends IDispatch {
     /**
      * The interface identifier for IRDPSRAPISharingSession
      * @type {Guid}
      */
-    static IID => Guid("{eeb20886-e470-4cf6-842b-2739c0ec5cfb}")
+    static IID := Guid("{eeb20886-e470-4cf6-842b-2739c0ec5cfb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRDPSRAPISharingSession interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Open                      : IntPtr
+        Close                     : IntPtr
+        put_ColorDepth            : IntPtr
+        get_ColorDepth            : IntPtr
+        get_Properties            : IntPtr
+        get_Attendees             : IntPtr
+        get_Invitations           : IntPtr
+        get_ApplicationFilter     : IntPtr
+        get_VirtualChannelManager : IntPtr
+        Pause                     : IntPtr
+        Resume                    : IntPtr
+        ConnectToClient           : IntPtr
+        SetDesktopSharedRect      : IntPtr
+        GetDesktopSharedRect      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Open", "Close", "put_ColorDepth", "get_ColorDepth", "get_Properties", "get_Attendees", "get_Invitations", "get_ApplicationFilter", "get_VirtualChannelManager", "Pause", "Resume", "ConnectToClient", "SetDesktopSharedRect", "GetDesktopSharedRect"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRDPSRAPISharingSession.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -201,7 +223,7 @@ class IRDPSRAPISharingSession extends IDispatch {
     ConnectToClient(bstrConnectionString) {
         bstrConnectionString := bstrConnectionString is String ? BSTR.Alloc(bstrConnectionString).Value : bstrConnectionString
 
-        result := ComCall(18, this, "ptr", bstrConnectionString, "HRESULT")
+        result := ComCall(18, this, BSTR, bstrConnectionString, "HRESULT")
         return result
     }
 
@@ -256,5 +278,51 @@ class IRDPSRAPISharingSession extends IDispatch {
 
         result := ComCall(20, this, pleftMarshal, pleft, ptopMarshal, ptop, prightMarshal, pright, pbottomMarshal, pbottom, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRDPSRAPISharingSession.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 1)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.put_ColorDepth := CallbackCreate(GetMethod(implObj, "put_ColorDepth"), flags, 2)
+        this.vtbl.get_ColorDepth := CallbackCreate(GetMethod(implObj, "get_ColorDepth"), flags, 2)
+        this.vtbl.get_Properties := CallbackCreate(GetMethod(implObj, "get_Properties"), flags, 2)
+        this.vtbl.get_Attendees := CallbackCreate(GetMethod(implObj, "get_Attendees"), flags, 2)
+        this.vtbl.get_Invitations := CallbackCreate(GetMethod(implObj, "get_Invitations"), flags, 2)
+        this.vtbl.get_ApplicationFilter := CallbackCreate(GetMethod(implObj, "get_ApplicationFilter"), flags, 2)
+        this.vtbl.get_VirtualChannelManager := CallbackCreate(GetMethod(implObj, "get_VirtualChannelManager"), flags, 2)
+        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.ConnectToClient := CallbackCreate(GetMethod(implObj, "ConnectToClient"), flags, 2)
+        this.vtbl.SetDesktopSharedRect := CallbackCreate(GetMethod(implObj, "SetDesktopSharedRect"), flags, 5)
+        this.vtbl.GetDesktopSharedRect := CallbackCreate(GetMethod(implObj, "GetDesktopSharedRect"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Open)
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.put_ColorDepth)
+        CallbackFree(this.vtbl.get_ColorDepth)
+        CallbackFree(this.vtbl.get_Properties)
+        CallbackFree(this.vtbl.get_Attendees)
+        CallbackFree(this.vtbl.get_Invitations)
+        CallbackFree(this.vtbl.get_ApplicationFilter)
+        CallbackFree(this.vtbl.get_VirtualChannelManager)
+        CallbackFree(this.vtbl.Pause)
+        CallbackFree(this.vtbl.Resume)
+        CallbackFree(this.vtbl.ConnectToClient)
+        CallbackFree(this.vtbl.SetDesktopSharedRect)
+        CallbackFree(this.vtbl.GetDesktopSharedRect)
     }
 }

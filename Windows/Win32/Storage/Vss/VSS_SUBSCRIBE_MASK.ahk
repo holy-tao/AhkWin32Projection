@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the events that the writer is willing to receive.
@@ -14,7 +13,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/vswriter/ne-vswriter-vss_subscribe_mask
  * @namespace Windows.Win32.Storage.Vss
  */
-class VSS_SUBSCRIBE_MASK extends Win32Enum {
+export default struct VSS_SUBSCRIBE_MASK {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * This enumeration value is reserved for future use. 

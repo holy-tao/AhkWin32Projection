@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
-class WAVELINK extends Win32Struct {
-    static sizeof => 12
+export default struct WAVELINK {
+    #StructPack 4
 
-    static packingSize => 4
+    fusOptions : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    fusOptions {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    usPhaseGroup : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usPhaseGroup {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    ulChannel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulChannel {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulTableIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulTableIndex {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

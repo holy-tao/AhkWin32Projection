@@ -1,31 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
  */
-class ICorThreadpool extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICorThreadpool extends IUnknown {
     /**
      * The interface identifier for ICorThreadpool
      * @type {Guid}
      */
-    static IID => Guid("{84680d3a-b2c1-46e8-acc2-dbc0a359159a}")
+    static IID := Guid("{84680d3a-b2c1-46e8-acc2-dbc0a359159a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICorThreadpool interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CorRegisterWaitForSingleObject : IntPtr
+        CorUnregisterWait              : IntPtr
+        CorQueueUserWorkItem           : IntPtr
+        CorCreateTimer                 : IntPtr
+        CorChangeTimer                 : IntPtr
+        CorDeleteTimer                 : IntPtr
+        CorBindIoCompletionCallback    : IntPtr
+        CorCallOrQueueUserWorkItem     : IntPtr
+        CorSetMaxThreads               : IntPtr
+        CorGetMaxThreads               : IntPtr
+        CorGetAvailableThreads         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CorRegisterWaitForSingleObject", "CorUnregisterWait", "CorQueueUserWorkItem", "CorCreateTimer", "CorChangeTimer", "CorDeleteTimer", "CorBindIoCompletionCallback", "CorCallOrQueueUserWorkItem", "CorSetMaxThreads", "CorGetMaxThreads", "CorGetAvailableThreads"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICorThreadpool.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -38,11 +58,9 @@ class ICorThreadpool extends IUnknown {
      * @returns {BOOL} 
      */
     CorRegisterWaitForSingleObject(phNewWaitObject, hWaitObject, Callback, _Context, timeout, executeOnlyOnce) {
-        hWaitObject := hWaitObject is Win32Handle ? NumGet(hWaitObject, "ptr") : hWaitObject
-
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", phNewWaitObject, "ptr", hWaitObject, "ptr", Callback, _ContextMarshal, _Context, "uint", timeout, "int", executeOnlyOnce, "int*", &result := 0, "HRESULT")
+        result := ComCall(3, this, HANDLE.Ptr, phNewWaitObject, HANDLE, hWaitObject, "ptr", Callback, _ContextMarshal, _Context, "uint", timeout, BOOL, executeOnlyOnce, BOOL.Ptr, &result := 0, "HRESULT")
         return result
     }
 
@@ -53,10 +71,7 @@ class ICorThreadpool extends IUnknown {
      * @returns {BOOL} 
      */
     CorUnregisterWait(hWaitObject, CompletionEvent) {
-        hWaitObject := hWaitObject is Win32Handle ? NumGet(hWaitObject, "ptr") : hWaitObject
-        CompletionEvent := CompletionEvent is Win32Handle ? NumGet(CompletionEvent, "ptr") : CompletionEvent
-
-        result := ComCall(4, this, "ptr", hWaitObject, "ptr", CompletionEvent, "int*", &result := 0, "HRESULT")
+        result := ComCall(4, this, HANDLE, hWaitObject, HANDLE, CompletionEvent, BOOL.Ptr, &result := 0, "HRESULT")
         return result
     }
 
@@ -70,7 +85,7 @@ class ICorThreadpool extends IUnknown {
     CorQueueUserWorkItem(Function, _Context, executeOnlyOnce) {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "ptr", Function, _ContextMarshal, _Context, "int", executeOnlyOnce, "int*", &result := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", Function, _ContextMarshal, _Context, BOOL, executeOnlyOnce, BOOL.Ptr, &result := 0, "HRESULT")
         return result
     }
 
@@ -86,7 +101,7 @@ class ICorThreadpool extends IUnknown {
     CorCreateTimer(phNewTimer, Callback, Parameter, DueTime, Period) {
         ParameterMarshal := Parameter is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, "ptr", phNewTimer, "ptr", Callback, ParameterMarshal, Parameter, "uint", DueTime, "uint", Period, "int*", &result := 0, "HRESULT")
+        result := ComCall(6, this, HANDLE.Ptr, phNewTimer, "ptr", Callback, ParameterMarshal, Parameter, "uint", DueTime, "uint", Period, BOOL.Ptr, &result := 0, "HRESULT")
         return result
     }
 
@@ -98,9 +113,7 @@ class ICorThreadpool extends IUnknown {
      * @returns {BOOL} 
      */
     CorChangeTimer(Timer, DueTime, Period) {
-        Timer := Timer is Win32Handle ? NumGet(Timer, "ptr") : Timer
-
-        result := ComCall(7, this, "ptr", Timer, "uint", DueTime, "uint", Period, "int*", &result := 0, "HRESULT")
+        result := ComCall(7, this, HANDLE, Timer, "uint", DueTime, "uint", Period, BOOL.Ptr, &result := 0, "HRESULT")
         return result
     }
 
@@ -111,10 +124,7 @@ class ICorThreadpool extends IUnknown {
      * @returns {BOOL} 
      */
     CorDeleteTimer(Timer, CompletionEvent) {
-        Timer := Timer is Win32Handle ? NumGet(Timer, "ptr") : Timer
-        CompletionEvent := CompletionEvent is Win32Handle ? NumGet(CompletionEvent, "ptr") : CompletionEvent
-
-        result := ComCall(8, this, "ptr", Timer, "ptr", CompletionEvent, "int*", &result := 0, "HRESULT")
+        result := ComCall(8, this, HANDLE, Timer, HANDLE, CompletionEvent, BOOL.Ptr, &result := 0, "HRESULT")
         return result
     }
 
@@ -125,9 +135,7 @@ class ICorThreadpool extends IUnknown {
      * @returns {HRESULT} 
      */
     CorBindIoCompletionCallback(fileHandle, callback) {
-        fileHandle := fileHandle is Win32Handle ? NumGet(fileHandle, "ptr") : fileHandle
-
-        result := ComCall(9, this, "ptr", fileHandle, "ptr", callback, "HRESULT")
+        result := ComCall(9, this, HANDLE, fileHandle, "ptr", callback, "HRESULT")
         return result
     }
 
@@ -140,7 +148,7 @@ class ICorThreadpool extends IUnknown {
     CorCallOrQueueUserWorkItem(Function, _Context) {
         _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, "ptr", Function, _ContextMarshal, _Context, "int*", &result := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", Function, _ContextMarshal, _Context, BOOL.Ptr, &result := 0, "HRESULT")
         return result
     }
 
@@ -181,5 +189,45 @@ class ICorThreadpool extends IUnknown {
 
         result := ComCall(13, this, AvailableWorkerThreadsMarshal, AvailableWorkerThreads, AvailableIOCompletionThreadsMarshal, AvailableIOCompletionThreads, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICorThreadpool.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CorRegisterWaitForSingleObject := CallbackCreate(GetMethod(implObj, "CorRegisterWaitForSingleObject"), flags, 8)
+        this.vtbl.CorUnregisterWait := CallbackCreate(GetMethod(implObj, "CorUnregisterWait"), flags, 4)
+        this.vtbl.CorQueueUserWorkItem := CallbackCreate(GetMethod(implObj, "CorQueueUserWorkItem"), flags, 5)
+        this.vtbl.CorCreateTimer := CallbackCreate(GetMethod(implObj, "CorCreateTimer"), flags, 7)
+        this.vtbl.CorChangeTimer := CallbackCreate(GetMethod(implObj, "CorChangeTimer"), flags, 5)
+        this.vtbl.CorDeleteTimer := CallbackCreate(GetMethod(implObj, "CorDeleteTimer"), flags, 4)
+        this.vtbl.CorBindIoCompletionCallback := CallbackCreate(GetMethod(implObj, "CorBindIoCompletionCallback"), flags, 3)
+        this.vtbl.CorCallOrQueueUserWorkItem := CallbackCreate(GetMethod(implObj, "CorCallOrQueueUserWorkItem"), flags, 4)
+        this.vtbl.CorSetMaxThreads := CallbackCreate(GetMethod(implObj, "CorSetMaxThreads"), flags, 3)
+        this.vtbl.CorGetMaxThreads := CallbackCreate(GetMethod(implObj, "CorGetMaxThreads"), flags, 3)
+        this.vtbl.CorGetAvailableThreads := CallbackCreate(GetMethod(implObj, "CorGetAvailableThreads"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CorRegisterWaitForSingleObject)
+        CallbackFree(this.vtbl.CorUnregisterWait)
+        CallbackFree(this.vtbl.CorQueueUserWorkItem)
+        CallbackFree(this.vtbl.CorCreateTimer)
+        CallbackFree(this.vtbl.CorChangeTimer)
+        CallbackFree(this.vtbl.CorDeleteTimer)
+        CallbackFree(this.vtbl.CorBindIoCompletionCallback)
+        CallbackFree(this.vtbl.CorCallOrQueueUserWorkItem)
+        CallbackFree(this.vtbl.CorSetMaxThreads)
+        CallbackFree(this.vtbl.CorGetMaxThreads)
+        CallbackFree(this.vtbl.CorGetAvailableThreads)
     }
 }

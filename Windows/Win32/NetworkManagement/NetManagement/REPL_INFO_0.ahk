@@ -1,91 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class REPL_INFO_0 extends Win32Struct {
-    static sizeof => 64
+export default struct REPL_INFO_0 {
+    #StructPack 8
 
-    static packingSize => 8
+    rp0_role : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    rp0_role {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    rp0_exportpath : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    rp0_exportpath {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    rp0_exportlist : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    rp0_exportlist {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    rp0_importpath : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    rp0_importpath {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    rp0_importlist : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    rp0_importlist {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    rp0_logonusername : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    rp0_logonusername {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    rp0_interval : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    rp0_interval {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    rp0_pulse : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    rp0_pulse {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    rp0_guardtime : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    rp0_guardtime {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    rp0_random : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    rp0_random {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
 }

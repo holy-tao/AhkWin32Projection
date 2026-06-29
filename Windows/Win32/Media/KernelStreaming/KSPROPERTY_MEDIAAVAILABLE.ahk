@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSPROPERTY_MEDIAAVAILABLE extends Win32Struct {
-    static sizeof => 16
+export default struct KSPROPERTY_MEDIAAVAILABLE {
+    #StructPack 8
 
-    static packingSize => 8
+    Earliest : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Earliest {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    Latest : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Latest {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
 }

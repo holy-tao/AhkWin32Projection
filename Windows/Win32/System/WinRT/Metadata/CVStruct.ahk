@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
  */
-class CVStruct extends Win32Struct {
-    static sizeof => 8
+export default struct CVStruct {
+    #StructPack 2
 
-    static packingSize => 2
+    Major : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Major {
-        get => NumGet(this, 0, "short")
-        set => NumPut("short", value, this, 0)
-    }
+    Minor : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Minor {
-        get => NumGet(this, 2, "short")
-        set => NumPut("short", value, this, 2)
-    }
+    Sub : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Sub {
-        get => NumGet(this, 4, "short")
-        set => NumPut("short", value, this, 4)
-    }
+    Build : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Build {
-        get => NumGet(this, 6, "short")
-        set => NumPut("short", value, this, 6)
-    }
 }

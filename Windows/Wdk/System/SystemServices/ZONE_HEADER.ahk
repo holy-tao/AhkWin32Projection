@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class ZONE_HEADER extends Win32Struct {
-    static sizeof => 24
+export default struct ZONE_HEADER {
+    #StructPack 8
 
-    static packingSize => 8
+    FreeList : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    FreeList {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    SegmentList : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    SegmentList {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    BlockSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BlockSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    TotalSegmentSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TotalSegmentSize {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

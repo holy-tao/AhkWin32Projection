@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPRULEHANDLE.ahk
-#Include .\SPSTATEHANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SPRULEHANDLE.ahk" { SPRULEHANDLE }
+#Import ".\SPSTATEHANDLE.ahk" { SPSTATEHANDLE }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class SPRULEENTRY extends Win32Struct {
-    static sizeof => 40
+export default struct SPRULEENTRY {
+    #StructPack 8
 
-    static packingSize => 8
+    hRule : SPRULEHANDLE
 
-    /**
-     * @type {SPRULEHANDLE}
-     */
-    hRule {
-        get {
-            if(!this.HasProp("__hRule"))
-                this.__hRule := SPRULEHANDLE(0, this)
-            return this.__hRule
-        }
-    }
+    hInitialState : SPSTATEHANDLE
 
-    /**
-     * @type {SPSTATEHANDLE}
-     */
-    hInitialState {
-        get {
-            if(!this.HasProp("__hInitialState"))
-                this.__hInitialState := SPSTATEHANDLE(8, this)
-            return this.__hInitialState
-        }
-    }
+    Attributes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Attributes {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    pvClientRuleContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pvClientRuleContext {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pvClientGrammarContext : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pvClientGrammarContext {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
 }

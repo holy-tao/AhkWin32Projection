@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Media\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides information to the audio engine about an audio endpoint. This interface is implemented by an audio endpoint.
@@ -11,26 +14,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nn-audioengineendpoint-iaudioendpoint
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class IAudioEndpoint extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAudioEndpoint extends IUnknown {
     /**
      * The interface identifier for IAudioEndpoint
      * @type {Guid}
      */
-    static IID => Guid("{30a99515-1527-4451-af9f-00c5f0234daf}")
+    static IID := Guid("{30a99515-1527-4451-af9f-00c5f0234daf}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAudioEndpoint interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetFrameFormat     : IntPtr
+        GetFramesPerPacket : IntPtr
+        GetLatency         : IntPtr
+        SetStreamFlags     : IntPtr
+        SetEventHandle     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFrameFormat", "GetFramesPerPacket", "GetLatency", "SetStreamFlags", "SetEventHandle"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAudioEndpoint.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the format of the audio endpoint.
@@ -103,9 +117,35 @@ class IAudioEndpoint extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpoint-seteventhandle
      */
     SetEventHandle(eventHandle) {
-        eventHandle := eventHandle is Win32Handle ? NumGet(eventHandle, "ptr") : eventHandle
-
-        result := ComCall(7, this, "ptr", eventHandle, "HRESULT")
+        result := ComCall(7, this, HANDLE, eventHandle, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAudioEndpoint.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFrameFormat := CallbackCreate(GetMethod(implObj, "GetFrameFormat"), flags, 2)
+        this.vtbl.GetFramesPerPacket := CallbackCreate(GetMethod(implObj, "GetFramesPerPacket"), flags, 2)
+        this.vtbl.GetLatency := CallbackCreate(GetMethod(implObj, "GetLatency"), flags, 2)
+        this.vtbl.SetStreamFlags := CallbackCreate(GetMethod(implObj, "SetStreamFlags"), flags, 2)
+        this.vtbl.SetEventHandle := CallbackCreate(GetMethod(implObj, "SetEventHandle"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFrameFormat)
+        CallbackFree(this.vtbl.GetFramesPerPacket)
+        CallbackFree(this.vtbl.GetLatency)
+        CallbackFree(this.vtbl.SetStreamFlags)
+        CallbackFree(this.vtbl.SetEventHandle)
     }
 }

@@ -1,54 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
  */
-class GNSS_PLATFORM_CAPABILITY extends Win32Struct {
-    static sizeof => 532
+export default struct GNSS_PLATFORM_CAPABILITY {
+    #StructPack 4
 
-    static packingSize => 4
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SupportAgnssInjection : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    SupportAgnssInjection {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    AgnssFormatSupported : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AgnssFormatSupported {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Unused : Int8[516]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Unused {
-        get {
-            if(!this.HasProp("__UnusedProxyArray"))
-                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 16, 516, Primitive, "char")
-            return this.__UnusedProxyArray
-        }
-    }
 }

@@ -1,136 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class CM_EISA_FUNCTION_INFORMATION extends Win32Struct {
-    static sizeof => 504
+export default struct CM_EISA_FUNCTION_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    CompressedId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CompressedId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    IdSlotFlags1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    IdSlotFlags1 {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    IdSlotFlags2 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    IdSlotFlags2 {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    MinorRevision : Int8
 
-    /**
-     * @type {Integer}
-     */
-    MinorRevision {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    MajorRevision : Int8
 
-    /**
-     * @type {Integer}
-     */
-    MajorRevision {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    Selections : Int8[26]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Selections {
-        get {
-            if(!this.HasProp("__SelectionsProxyArray"))
-                this.__SelectionsProxyArray := Win32FixedArray(this.ptr + 8, 26, Primitive, "char")
-            return this.__SelectionsProxyArray
-        }
-    }
+    FunctionFlags : Int8
 
-    /**
-     * @type {Integer}
-     */
-    FunctionFlags {
-        get => NumGet(this, 34, "char")
-        set => NumPut("char", value, this, 34)
-    }
+    TypeString : Int8[80]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    TypeString {
-        get {
-            if(!this.HasProp("__TypeStringProxyArray"))
-                this.__TypeStringProxyArray := Win32FixedArray(this.ptr + 35, 80, Primitive, "char")
-            return this.__TypeStringProxyArray
-        }
-    }
+    EisaMemory : IntPtr[9]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    EisaMemory {
-        get {
-            if(!this.HasProp("__EisaMemoryProxyArray"))
-                this.__EisaMemoryProxyArray := Win32FixedArray(this.ptr + 120, 9, Primitive, "ptr")
-            return this.__EisaMemoryProxyArray
-        }
-    }
+    EisaIrq : IntPtr[7]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    EisaIrq {
-        get {
-            if(!this.HasProp("__EisaIrqProxyArray"))
-                this.__EisaIrqProxyArray := Win32FixedArray(this.ptr + 192, 7, Primitive, "ptr")
-            return this.__EisaIrqProxyArray
-        }
-    }
+    EisaDma : IntPtr[4]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    EisaDma {
-        get {
-            if(!this.HasProp("__EisaDmaProxyArray"))
-                this.__EisaDmaProxyArray := Win32FixedArray(this.ptr + 248, 4, Primitive, "ptr")
-            return this.__EisaDmaProxyArray
-        }
-    }
+    EisaPort : IntPtr[20]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    EisaPort {
-        get {
-            if(!this.HasProp("__EisaPortProxyArray"))
-                this.__EisaPortProxyArray := Win32FixedArray(this.ptr + 280, 20, Primitive, "ptr")
-            return this.__EisaPortProxyArray
-        }
-    }
+    InitializationData : Int8[60]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    InitializationData {
-        get {
-            if(!this.HasProp("__InitializationDataProxyArray"))
-                this.__InitializationDataProxyArray := Win32FixedArray(this.ptr + 440, 60, Primitive, "char")
-            return this.__InitializationDataProxyArray
-        }
-    }
 }

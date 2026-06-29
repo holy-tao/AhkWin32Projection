@@ -1,92 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMT_FLIPMODEL_INDEPENDENT_FLIP_STAGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DKMT_FLIPMODEL_INDEPENDENT_FLIP_STAGE.ahk" { D3DKMT_FLIPMODEL_INDEPENDENT_FLIP_STAGE }
+#Import "..\..\..\Win32\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_FLIPMANAGER_AUXILIARYPRESENTINFO extends Win32Struct {
-    static sizeof => 56
+export default struct D3DKMT_FLIPMANAGER_AUXILIARYPRESENTINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    auxiliaryPresentInfo : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    auxiliaryPresentInfo {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    flipManagerTracingId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    flipManagerTracingId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    customDurationChanged : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    customDurationChanged {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    FlipAdapterLuid : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    FlipAdapterLuid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    VidPnSourceId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VidPnSourceId {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    independentFlipStage : D3DKMT_FLIPMODEL_INDEPENDENT_FLIP_STAGE
 
-    /**
-     * @type {D3DKMT_FLIPMODEL_INDEPENDENT_FLIP_STAGE}
-     */
-    independentFlipStage {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    FlipCompletedQpc : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FlipCompletedQpc {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    HwPresentDurationQpc : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HwPresentDurationQpc {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    WasCanceled : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    WasCanceled {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    ConvertedToNonIFlip : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    ConvertedToNonIFlip {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
 }

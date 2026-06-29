@@ -1,95 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\REFS_COMPRESSION_FORMATS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\REFS_COMPRESSION_FORMATS.ahk" { REFS_COMPRESSION_FORMATS }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class REFS_QUERY_VOLUME_COMPRESSION_INFO_OUTPUT_BUFFER extends Win32Struct {
-    static sizeof => 104
+export default struct REFS_QUERY_VOLUME_COMPRESSION_INFO_OUTPUT_BUFFER {
+    #StructPack 8
 
-    static packingSize => 8
+    DefaultCompressionFormat : REFS_COMPRESSION_FORMATS
 
-    /**
-     * @type {REFS_COMPRESSION_FORMATS}
-     */
-    DefaultCompressionFormat {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    DefaultCompressionLevel : Int16
 
-    /**
-     * @type {Integer}
-     */
-    DefaultCompressionLevel {
-        get => NumGet(this, 4, "short")
-        set => NumPut("short", value, this, 4)
-    }
+    DefaultCompressionChunkSizeBytes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DefaultCompressionChunkSizeBytes {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    VolumeClusterSizeBytes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VolumeClusterSizeBytes {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    TotalVolumeClusters : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TotalVolumeClusters {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    TotalAllocatedClusters : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TotalAllocatedClusters {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    TotalCompressibleClustersAllocated : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TotalCompressibleClustersAllocated {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    TotalCompressibleClustersInUse : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TotalCompressibleClustersInUse {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    TotalCompressedClusters : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TotalCompressedClusters {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    Reserved : Int64[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 56, 6, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
-    }
 }

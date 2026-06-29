@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines constants that specify certain axes that can be applied automatically in layout during font selection.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_automatic_font_axes
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class DWRITE_AUTOMATIC_FONT_AXES extends Win32BitflagEnum {
+export default struct DWRITE_AUTOMATIC_FONT_AXES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies that no axes are automatically applied.

@@ -1,31 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the byte vector information.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_byte_vector
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SECPKG_BYTE_VECTOR extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct SECPKG_BYTE_VECTOR {
+    #StructPack 4
 
     /**
      * Each element is a byte.
-     * @type {Integer}
      */
-    ByteArrayOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ByteArrayOffset : UInt32
 
     /**
      * The length of the byte array.
-     * @type {Integer}
      */
-    ByteArrayLength {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    ByteArrayLength : UInt16
+
 }

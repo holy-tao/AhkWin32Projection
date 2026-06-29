@@ -1,19 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class SERVER_INFO_1602 extends Win32Struct {
-    static sizeof => 4
+export default struct SERVER_INFO_1602 {
+    #StructPack 4
 
-    static packingSize => 4
+    sv_1598_disablestrictnamechecking : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    sv_1598_disablestrictnamechecking {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
 }

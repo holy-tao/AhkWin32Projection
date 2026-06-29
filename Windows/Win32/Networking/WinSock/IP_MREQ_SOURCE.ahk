@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IN_ADDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IN_ADDR.ahk" { IN_ADDR }
 
 /**
  * The ip_mreq_source structure provides multicast group information for IPv4 addresses.
@@ -34,46 +33,24 @@
  * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-ip_mreq_source
  * @namespace Windows.Win32.Networking.WinSock
  */
-class IP_MREQ_SOURCE extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct IP_MREQ_SOURCE {
+    #StructPack 4
 
     /**
      * The address of the IPv4 multicast group.
-     * @type {IN_ADDR}
      */
-    imr_multiaddr {
-        get {
-            if(!this.HasProp("__imr_multiaddr"))
-                this.__imr_multiaddr := IN_ADDR(0, this)
-            return this.__imr_multiaddr
-        }
-    }
+    imr_multiaddr : IN_ADDR
 
     /**
      * The address of the IPv4 multicast source.
-     * @type {IN_ADDR}
      */
-    imr_sourceaddr {
-        get {
-            if(!this.HasProp("__imr_sourceaddr"))
-                this.__imr_sourceaddr := IN_ADDR(4, this)
-            return this.__imr_sourceaddr
-        }
-    }
+    imr_sourceaddr : IN_ADDR
 
     /**
      * The local IPv4 address of the interface or the interface index on which the multicast group should be joined, dropped, blocked, or unblocked. This value is in network byte order. If this member specifies an IPv4 address of 0.0.0.0, the default IPv4 multicast interface is used. 
      * 
      *  To use an interface index of 1 would be the same as an IP address of  0.0.0.1.
-     * @type {IN_ADDR}
      */
-    imr_interface {
-        get {
-            if(!this.HasProp("__imr_interface"))
-                this.__imr_interface := IN_ADDR(8, this)
-            return this.__imr_interface
-        }
-    }
+    imr_interface : IN_ADDR
+
 }

@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\INTERFACEINFO.ahk" { INTERFACEINFO }
+#Import "..\..\Foundation\HTASK.ahk" { HTASK }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides COM servers and applications with the ability to selectively handle incoming and outgoing COM messages while waiting for responses from synchronous calls.
@@ -24,26 +26,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-imessagefilter
  * @namespace Windows.Win32.Media.Audio
  */
-class IMessageFilter extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMessageFilter extends IUnknown {
     /**
      * The interface identifier for IMessageFilter
      * @type {Guid}
      */
-    static IID => Guid("{00000016-0000-0000-c000-000000000046}")
+    static IID := Guid("{00000016-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMessageFilter interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        HandleInComingCall : IntPtr
+        RetryRejectedCall  : IntPtr
+        MessagePending     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["HandleInComingCall", "RetryRejectedCall", "MessagePending"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMessageFilter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Provides a single entry point for incoming calls.
@@ -108,9 +119,7 @@ class IMessageFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imessagefilter-handleincomingcall
      */
     HandleInComingCall(dwCallType, htaskCaller, dwTickCount, lpInterfaceInfo) {
-        htaskCaller := htaskCaller is Win32Handle ? NumGet(htaskCaller, "ptr") : htaskCaller
-
-        result := ComCall(3, this, "uint", dwCallType, "ptr", htaskCaller, "uint", dwTickCount, "ptr", lpInterfaceInfo, "uint")
+        result := ComCall(3, this, "uint", dwCallType, HTASK, htaskCaller, "uint", dwTickCount, INTERFACEINFO.Ptr, lpInterfaceInfo, UInt32)
         return result
     }
 
@@ -176,9 +185,7 @@ class IMessageFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imessagefilter-retryrejectedcall
      */
     RetryRejectedCall(htaskCallee, dwTickCount, dwRejectType) {
-        htaskCallee := htaskCallee is Win32Handle ? NumGet(htaskCallee, "ptr") : htaskCallee
-
-        result := ComCall(4, this, "ptr", htaskCallee, "uint", dwTickCount, "uint", dwRejectType, "uint")
+        result := ComCall(4, this, HTASK, htaskCallee, "uint", dwTickCount, "uint", dwRejectType, UInt32)
         return result
     }
 
@@ -252,9 +259,31 @@ class IMessageFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imessagefilter-messagepending
      */
     MessagePending(htaskCallee, dwTickCount, dwPendingType) {
-        htaskCallee := htaskCallee is Win32Handle ? NumGet(htaskCallee, "ptr") : htaskCallee
-
-        result := ComCall(5, this, "ptr", htaskCallee, "uint", dwTickCount, "uint", dwPendingType, "uint")
+        result := ComCall(5, this, HTASK, htaskCallee, "uint", dwTickCount, "uint", dwPendingType, UInt32)
         return result
+    }
+
+    Query(iid) {
+        if (IMessageFilter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.HandleInComingCall := CallbackCreate(GetMethod(implObj, "HandleInComingCall"), flags, 5)
+        this.vtbl.RetryRejectedCall := CallbackCreate(GetMethod(implObj, "RetryRejectedCall"), flags, 4)
+        this.vtbl.MessagePending := CallbackCreate(GetMethod(implObj, "MessagePending"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.HandleInComingCall)
+        CallbackFree(this.vtbl.RetryRejectedCall)
+        CallbackFree(this.vtbl.MessagePending)
     }
 }

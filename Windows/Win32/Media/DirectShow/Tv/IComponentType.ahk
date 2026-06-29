@@ -1,10 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\MediaFoundation\AM_MEDIA_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\ComponentCategory.ahk" { ComponentCategory }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IComponentType interface is implemented on ComponentType objects, and contains methods for setting and retrieving various properties for a Component.
@@ -13,32 +14,55 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-icomponenttype
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IComponentType extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IComponentType extends IDispatch {
     /**
      * The interface identifier for IComponentType
      * @type {Guid}
      */
-    static IID => Guid("{6a340dc0-0311-11d3-9d8e-00c04f72d980}")
+    static IID := Guid("{6a340dc0-0311-11d3-9d8e-00c04f72d980}")
 
     /**
      * The class identifier for ComponentType
      * @type {Guid}
      */
-    static CLSID => Guid("{823535a0-0318-11d3-9d8e-00c04f72d980}")
+    static CLSID := Guid("{823535a0-0318-11d3-9d8e-00c04f72d980}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IComponentType interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Category         : IntPtr
+        put_Category         : IntPtr
+        get_MediaMajorType   : IntPtr
+        put_MediaMajorType   : IntPtr
+        get__MediaMajorType  : IntPtr
+        put__MediaMajorType  : IntPtr
+        get_MediaSubType     : IntPtr
+        put_MediaSubType     : IntPtr
+        get__MediaSubType    : IntPtr
+        put__MediaSubType    : IntPtr
+        get_MediaFormatType  : IntPtr
+        put_MediaFormatType  : IntPtr
+        get__MediaFormatType : IntPtr
+        put__MediaFormatType : IntPtr
+        get_MediaType        : IntPtr
+        put_MediaType        : IntPtr
+        Clone                : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Category", "put_Category", "get_MediaMajorType", "put_MediaMajorType", "get__MediaMajorType", "put__MediaMajorType", "get_MediaSubType", "put_MediaSubType", "get__MediaSubType", "put__MediaSubType", "get_MediaFormatType", "put_MediaFormatType", "get__MediaFormatType", "put__MediaFormatType", "get_MediaType", "put_MediaType", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IComponentType.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ComponentCategory} 
@@ -121,7 +145,7 @@ class IComponentType extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-put_category
      */
     put_Category(Category) {
-        result := ComCall(8, this, "int", Category, "HRESULT")
+        result := ComCall(8, this, ComponentCategory, Category, "HRESULT")
         return result
     }
 
@@ -131,8 +155,8 @@ class IComponentType extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-get_mediamajortype
      */
     get_MediaMajorType() {
-        MediaMajorType := BSTR()
-        result := ComCall(9, this, "ptr", MediaMajorType, "HRESULT")
+        MediaMajorType := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, MediaMajorType, "HRESULT")
         return MediaMajorType
     }
 
@@ -145,7 +169,7 @@ class IComponentType extends IDispatch {
     put_MediaMajorType(MediaMajorType) {
         MediaMajorType := MediaMajorType is String ? BSTR.Alloc(MediaMajorType).Value : MediaMajorType
 
-        result := ComCall(10, this, "ptr", MediaMajorType, "HRESULT")
+        result := ComCall(10, this, BSTR, MediaMajorType, "HRESULT")
         return result
     }
 
@@ -158,7 +182,7 @@ class IComponentType extends IDispatch {
      */
     get__MediaMajorType() {
         MediaMajorTypeGuid := Guid()
-        result := ComCall(11, this, "ptr", MediaMajorTypeGuid, "HRESULT")
+        result := ComCall(11, this, Guid.Ptr, MediaMajorTypeGuid, "HRESULT")
         return MediaMajorTypeGuid
     }
 
@@ -171,7 +195,7 @@ class IComponentType extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-put__mediamajortype
      */
     put__MediaMajorType(MediaMajorTypeGuid) {
-        result := ComCall(12, this, "ptr", MediaMajorTypeGuid, "HRESULT")
+        result := ComCall(12, this, Guid.Ptr, MediaMajorTypeGuid, "HRESULT")
         return result
     }
 
@@ -181,8 +205,8 @@ class IComponentType extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-get_mediasubtype
      */
     get_MediaSubType() {
-        MediaSubType := BSTR()
-        result := ComCall(13, this, "ptr", MediaSubType, "HRESULT")
+        MediaSubType := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, MediaSubType, "HRESULT")
         return MediaSubType
     }
 
@@ -195,7 +219,7 @@ class IComponentType extends IDispatch {
     put_MediaSubType(MediaSubType) {
         MediaSubType := MediaSubType is String ? BSTR.Alloc(MediaSubType).Value : MediaSubType
 
-        result := ComCall(14, this, "ptr", MediaSubType, "HRESULT")
+        result := ComCall(14, this, BSTR, MediaSubType, "HRESULT")
         return result
     }
 
@@ -208,7 +232,7 @@ class IComponentType extends IDispatch {
      */
     get__MediaSubType() {
         MediaSubTypeGuid := Guid()
-        result := ComCall(15, this, "ptr", MediaSubTypeGuid, "HRESULT")
+        result := ComCall(15, this, Guid.Ptr, MediaSubTypeGuid, "HRESULT")
         return MediaSubTypeGuid
     }
 
@@ -221,7 +245,7 @@ class IComponentType extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-put__mediasubtype
      */
     put__MediaSubType(MediaSubTypeGuid) {
-        result := ComCall(16, this, "ptr", MediaSubTypeGuid, "HRESULT")
+        result := ComCall(16, this, Guid.Ptr, MediaSubTypeGuid, "HRESULT")
         return result
     }
 
@@ -231,8 +255,8 @@ class IComponentType extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-get_mediaformattype
      */
     get_MediaFormatType() {
-        MediaFormatType := BSTR()
-        result := ComCall(17, this, "ptr", MediaFormatType, "HRESULT")
+        MediaFormatType := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, MediaFormatType, "HRESULT")
         return MediaFormatType
     }
 
@@ -245,7 +269,7 @@ class IComponentType extends IDispatch {
     put_MediaFormatType(MediaFormatType) {
         MediaFormatType := MediaFormatType is String ? BSTR.Alloc(MediaFormatType).Value : MediaFormatType
 
-        result := ComCall(18, this, "ptr", MediaFormatType, "HRESULT")
+        result := ComCall(18, this, BSTR, MediaFormatType, "HRESULT")
         return result
     }
 
@@ -258,7 +282,7 @@ class IComponentType extends IDispatch {
      */
     get__MediaFormatType() {
         MediaFormatTypeGuid := Guid()
-        result := ComCall(19, this, "ptr", MediaFormatTypeGuid, "HRESULT")
+        result := ComCall(19, this, Guid.Ptr, MediaFormatTypeGuid, "HRESULT")
         return MediaFormatTypeGuid
     }
 
@@ -271,7 +295,7 @@ class IComponentType extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-put__mediaformattype
      */
     put__MediaFormatType(MediaFormatTypeGuid) {
-        result := ComCall(20, this, "ptr", MediaFormatTypeGuid, "HRESULT")
+        result := ComCall(20, this, Guid.Ptr, MediaFormatTypeGuid, "HRESULT")
         return result
     }
 
@@ -282,7 +306,7 @@ class IComponentType extends IDispatch {
      */
     get_MediaType() {
         _MediaType := AM_MEDIA_TYPE()
-        result := ComCall(21, this, "ptr", _MediaType, "HRESULT")
+        result := ComCall(21, this, AM_MEDIA_TYPE.Ptr, _MediaType, "HRESULT")
         return _MediaType
     }
 
@@ -293,7 +317,7 @@ class IComponentType extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttype-put_mediatype
      */
     put_MediaType(_MediaType) {
-        result := ComCall(22, this, "ptr", _MediaType, "HRESULT")
+        result := ComCall(22, this, AM_MEDIA_TYPE.Ptr, _MediaType, "HRESULT")
         return result
     }
 
@@ -305,5 +329,57 @@ class IComponentType extends IDispatch {
     Clone() {
         result := ComCall(23, this, "ptr*", &NewCT := 0, "HRESULT")
         return IComponentType(NewCT)
+    }
+
+    Query(iid) {
+        if (IComponentType.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Category := CallbackCreate(GetMethod(implObj, "get_Category"), flags, 2)
+        this.vtbl.put_Category := CallbackCreate(GetMethod(implObj, "put_Category"), flags, 2)
+        this.vtbl.get_MediaMajorType := CallbackCreate(GetMethod(implObj, "get_MediaMajorType"), flags, 2)
+        this.vtbl.put_MediaMajorType := CallbackCreate(GetMethod(implObj, "put_MediaMajorType"), flags, 2)
+        this.vtbl.get__MediaMajorType := CallbackCreate(GetMethod(implObj, "get__MediaMajorType"), flags, 2)
+        this.vtbl.put__MediaMajorType := CallbackCreate(GetMethod(implObj, "put__MediaMajorType"), flags, 2)
+        this.vtbl.get_MediaSubType := CallbackCreate(GetMethod(implObj, "get_MediaSubType"), flags, 2)
+        this.vtbl.put_MediaSubType := CallbackCreate(GetMethod(implObj, "put_MediaSubType"), flags, 2)
+        this.vtbl.get__MediaSubType := CallbackCreate(GetMethod(implObj, "get__MediaSubType"), flags, 2)
+        this.vtbl.put__MediaSubType := CallbackCreate(GetMethod(implObj, "put__MediaSubType"), flags, 2)
+        this.vtbl.get_MediaFormatType := CallbackCreate(GetMethod(implObj, "get_MediaFormatType"), flags, 2)
+        this.vtbl.put_MediaFormatType := CallbackCreate(GetMethod(implObj, "put_MediaFormatType"), flags, 2)
+        this.vtbl.get__MediaFormatType := CallbackCreate(GetMethod(implObj, "get__MediaFormatType"), flags, 2)
+        this.vtbl.put__MediaFormatType := CallbackCreate(GetMethod(implObj, "put__MediaFormatType"), flags, 2)
+        this.vtbl.get_MediaType := CallbackCreate(GetMethod(implObj, "get_MediaType"), flags, 2)
+        this.vtbl.put_MediaType := CallbackCreate(GetMethod(implObj, "put_MediaType"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Category)
+        CallbackFree(this.vtbl.put_Category)
+        CallbackFree(this.vtbl.get_MediaMajorType)
+        CallbackFree(this.vtbl.put_MediaMajorType)
+        CallbackFree(this.vtbl.get__MediaMajorType)
+        CallbackFree(this.vtbl.put__MediaMajorType)
+        CallbackFree(this.vtbl.get_MediaSubType)
+        CallbackFree(this.vtbl.put_MediaSubType)
+        CallbackFree(this.vtbl.get__MediaSubType)
+        CallbackFree(this.vtbl.put__MediaSubType)
+        CallbackFree(this.vtbl.get_MediaFormatType)
+        CallbackFree(this.vtbl.put_MediaFormatType)
+        CallbackFree(this.vtbl.get__MediaFormatType)
+        CallbackFree(this.vtbl.put__MediaFormatType)
+        CallbackFree(this.vtbl.get_MediaType)
+        CallbackFree(this.vtbl.put_MediaType)
+        CallbackFree(this.vtbl.Clone)
     }
 }

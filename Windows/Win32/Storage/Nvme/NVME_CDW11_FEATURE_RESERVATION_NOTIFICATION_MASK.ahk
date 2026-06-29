@@ -1,13 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_CDW11_FEATURE_RESERVATION_NOTIFICATION_MASK extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct NVME_CDW11_FEATURE_RESERVATION_NOTIFICATION_MASK {
+    #StructPack 4
 
     /**
      * This bitfield backs the following members:
@@ -16,12 +13,9 @@ class NVME_CDW11_FEATURE_RESERVATION_NOTIFICATION_MASK extends Win32Struct {
      * - RESREL
      * - RESPRE
      * - Reserved1
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}

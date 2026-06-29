@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IAction.ahk
-#Include .\ITaskNamedValueCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IAction.ahk" { IAction }
+#Import ".\ITaskNamedValueCollection.ahk" { ITaskNamedValueCollection }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Represents an action that sends an email message.
@@ -15,26 +18,52 @@
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-iemailaction
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class IEmailAction extends IAction {
-
-    static sizeof => A_PtrSize
+export default struct IEmailAction extends IAction {
     /**
      * The interface identifier for IEmailAction
      * @type {Guid}
      */
-    static IID => Guid("{10f62c64-7e16-4314-a0c2-0c3683f99d40}")
+    static IID := Guid("{10f62c64-7e16-4314-a0c2-0c3683f99d40}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 10
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IEmailAction interfaces
+    */
+    struct Vtbl extends IAction.Vtbl {
+        get_Server       : IntPtr
+        put_Server       : IntPtr
+        get_Subject      : IntPtr
+        put_Subject      : IntPtr
+        get_To           : IntPtr
+        put_To           : IntPtr
+        get_Cc           : IntPtr
+        put_Cc           : IntPtr
+        get_Bcc          : IntPtr
+        put_Bcc          : IntPtr
+        get_ReplyTo      : IntPtr
+        put_ReplyTo      : IntPtr
+        get_From         : IntPtr
+        put_From         : IntPtr
+        get_HeaderFields : IntPtr
+        put_HeaderFields : IntPtr
+        get_Body         : IntPtr
+        put_Body         : IntPtr
+        get_Attachments  : IntPtr
+        put_Attachments  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Server", "put_Server", "get_Subject", "put_Subject", "get_To", "put_To", "get_Cc", "put_Cc", "get_Bcc", "put_Bcc", "get_ReplyTo", "put_ReplyTo", "get_From", "put_From", "get_HeaderFields", "put_HeaderFields", "get_Body", "put_Body", "get_Attachments", "put_Attachments"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IEmailAction.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -125,7 +154,7 @@ class IEmailAction extends IAction {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iemailaction-get_server
      */
     get_Server(pServer) {
-        result := ComCall(10, this, "ptr", pServer, "HRESULT")
+        result := ComCall(10, this, BSTR.Ptr, pServer, "HRESULT")
         return result
     }
 
@@ -140,7 +169,7 @@ class IEmailAction extends IAction {
     put_Server(server) {
         server := server is String ? BSTR.Alloc(server).Value : server
 
-        result := ComCall(11, this, "ptr", server, "HRESULT")
+        result := ComCall(11, this, BSTR, server, "HRESULT")
         return result
     }
 
@@ -153,7 +182,7 @@ class IEmailAction extends IAction {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iemailaction-get_subject
      */
     get_Subject(pSubject) {
-        result := ComCall(12, this, "ptr", pSubject, "HRESULT")
+        result := ComCall(12, this, BSTR.Ptr, pSubject, "HRESULT")
         return result
     }
 
@@ -168,7 +197,7 @@ class IEmailAction extends IAction {
     put_Subject(subject) {
         subject := subject is String ? BSTR.Alloc(subject).Value : subject
 
-        result := ComCall(13, this, "ptr", subject, "HRESULT")
+        result := ComCall(13, this, BSTR, subject, "HRESULT")
         return result
     }
 
@@ -179,7 +208,7 @@ class IEmailAction extends IAction {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iemailaction-get_to
      */
     get_To(pTo) {
-        result := ComCall(14, this, "ptr", pTo, "HRESULT")
+        result := ComCall(14, this, BSTR.Ptr, pTo, "HRESULT")
         return result
     }
 
@@ -192,7 +221,7 @@ class IEmailAction extends IAction {
     put_To(to) {
         to := to is String ? BSTR.Alloc(to).Value : to
 
-        result := ComCall(15, this, "ptr", to, "HRESULT")
+        result := ComCall(15, this, BSTR, to, "HRESULT")
         return result
     }
 
@@ -203,7 +232,7 @@ class IEmailAction extends IAction {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iemailaction-get_cc
      */
     get_Cc(pCc) {
-        result := ComCall(16, this, "ptr", pCc, "HRESULT")
+        result := ComCall(16, this, BSTR.Ptr, pCc, "HRESULT")
         return result
     }
 
@@ -216,7 +245,7 @@ class IEmailAction extends IAction {
     put_Cc(cc) {
         cc := cc is String ? BSTR.Alloc(cc).Value : cc
 
-        result := ComCall(17, this, "ptr", cc, "HRESULT")
+        result := ComCall(17, this, BSTR, cc, "HRESULT")
         return result
     }
 
@@ -227,7 +256,7 @@ class IEmailAction extends IAction {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iemailaction-get_bcc
      */
     get_Bcc(pBcc) {
-        result := ComCall(18, this, "ptr", pBcc, "HRESULT")
+        result := ComCall(18, this, BSTR.Ptr, pBcc, "HRESULT")
         return result
     }
 
@@ -240,7 +269,7 @@ class IEmailAction extends IAction {
     put_Bcc(bcc) {
         bcc := bcc is String ? BSTR.Alloc(bcc).Value : bcc
 
-        result := ComCall(19, this, "ptr", bcc, "HRESULT")
+        result := ComCall(19, this, BSTR, bcc, "HRESULT")
         return result
     }
 
@@ -251,7 +280,7 @@ class IEmailAction extends IAction {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iemailaction-get_replyto
      */
     get_ReplyTo(pReplyTo) {
-        result := ComCall(20, this, "ptr", pReplyTo, "HRESULT")
+        result := ComCall(20, this, BSTR.Ptr, pReplyTo, "HRESULT")
         return result
     }
 
@@ -264,7 +293,7 @@ class IEmailAction extends IAction {
     put_ReplyTo(replyTo) {
         replyTo := replyTo is String ? BSTR.Alloc(replyTo).Value : replyTo
 
-        result := ComCall(21, this, "ptr", replyTo, "HRESULT")
+        result := ComCall(21, this, BSTR, replyTo, "HRESULT")
         return result
     }
 
@@ -275,7 +304,7 @@ class IEmailAction extends IAction {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iemailaction-get_from
      */
     get_From(pFrom) {
-        result := ComCall(22, this, "ptr", pFrom, "HRESULT")
+        result := ComCall(22, this, BSTR.Ptr, pFrom, "HRESULT")
         return result
     }
 
@@ -288,7 +317,7 @@ class IEmailAction extends IAction {
     put_From(from) {
         from := from is String ? BSTR.Alloc(from).Value : from
 
-        result := ComCall(23, this, "ptr", from, "HRESULT")
+        result := ComCall(23, this, BSTR, from, "HRESULT")
         return result
     }
 
@@ -322,7 +351,7 @@ class IEmailAction extends IAction {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iemailaction-get_body
      */
     get_Body(pBody) {
-        result := ComCall(26, this, "ptr", pBody, "HRESULT")
+        result := ComCall(26, this, BSTR.Ptr, pBody, "HRESULT")
         return result
     }
 
@@ -337,7 +366,7 @@ class IEmailAction extends IAction {
     put_Body(body) {
         body := body is String ? BSTR.Alloc(body).Value : body
 
-        result := ComCall(27, this, "ptr", body, "HRESULT")
+        result := ComCall(27, this, BSTR, body, "HRESULT")
         return result
     }
 
@@ -365,7 +394,65 @@ class IEmailAction extends IAction {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iemailaction-put_attachments
      */
     put_Attachments(pAttachements) {
-        result := ComCall(29, this, "ptr", pAttachements, "HRESULT")
+        result := ComCall(29, this, SAFEARRAY.Ptr, pAttachements, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IEmailAction.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Server := CallbackCreate(GetMethod(implObj, "get_Server"), flags, 2)
+        this.vtbl.put_Server := CallbackCreate(GetMethod(implObj, "put_Server"), flags, 2)
+        this.vtbl.get_Subject := CallbackCreate(GetMethod(implObj, "get_Subject"), flags, 2)
+        this.vtbl.put_Subject := CallbackCreate(GetMethod(implObj, "put_Subject"), flags, 2)
+        this.vtbl.get_To := CallbackCreate(GetMethod(implObj, "get_To"), flags, 2)
+        this.vtbl.put_To := CallbackCreate(GetMethod(implObj, "put_To"), flags, 2)
+        this.vtbl.get_Cc := CallbackCreate(GetMethod(implObj, "get_Cc"), flags, 2)
+        this.vtbl.put_Cc := CallbackCreate(GetMethod(implObj, "put_Cc"), flags, 2)
+        this.vtbl.get_Bcc := CallbackCreate(GetMethod(implObj, "get_Bcc"), flags, 2)
+        this.vtbl.put_Bcc := CallbackCreate(GetMethod(implObj, "put_Bcc"), flags, 2)
+        this.vtbl.get_ReplyTo := CallbackCreate(GetMethod(implObj, "get_ReplyTo"), flags, 2)
+        this.vtbl.put_ReplyTo := CallbackCreate(GetMethod(implObj, "put_ReplyTo"), flags, 2)
+        this.vtbl.get_From := CallbackCreate(GetMethod(implObj, "get_From"), flags, 2)
+        this.vtbl.put_From := CallbackCreate(GetMethod(implObj, "put_From"), flags, 2)
+        this.vtbl.get_HeaderFields := CallbackCreate(GetMethod(implObj, "get_HeaderFields"), flags, 2)
+        this.vtbl.put_HeaderFields := CallbackCreate(GetMethod(implObj, "put_HeaderFields"), flags, 2)
+        this.vtbl.get_Body := CallbackCreate(GetMethod(implObj, "get_Body"), flags, 2)
+        this.vtbl.put_Body := CallbackCreate(GetMethod(implObj, "put_Body"), flags, 2)
+        this.vtbl.get_Attachments := CallbackCreate(GetMethod(implObj, "get_Attachments"), flags, 2)
+        this.vtbl.put_Attachments := CallbackCreate(GetMethod(implObj, "put_Attachments"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Server)
+        CallbackFree(this.vtbl.put_Server)
+        CallbackFree(this.vtbl.get_Subject)
+        CallbackFree(this.vtbl.put_Subject)
+        CallbackFree(this.vtbl.get_To)
+        CallbackFree(this.vtbl.put_To)
+        CallbackFree(this.vtbl.get_Cc)
+        CallbackFree(this.vtbl.put_Cc)
+        CallbackFree(this.vtbl.get_Bcc)
+        CallbackFree(this.vtbl.put_Bcc)
+        CallbackFree(this.vtbl.get_ReplyTo)
+        CallbackFree(this.vtbl.put_ReplyTo)
+        CallbackFree(this.vtbl.get_From)
+        CallbackFree(this.vtbl.put_From)
+        CallbackFree(this.vtbl.get_HeaderFields)
+        CallbackFree(this.vtbl.put_HeaderFields)
+        CallbackFree(this.vtbl.get_Body)
+        CallbackFree(this.vtbl.put_Body)
+        CallbackFree(this.vtbl.get_Attachments)
+        CallbackFree(this.vtbl.put_Attachments)
     }
 }

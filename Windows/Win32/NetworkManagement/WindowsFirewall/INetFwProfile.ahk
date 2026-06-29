@@ -1,12 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\INetFwRemoteAdminSettings.ahk
-#Include .\INetFwIcmpSettings.ahk
-#Include .\INetFwOpenPorts.ahk
-#Include .\INetFwServices.ahk
-#Include .\INetFwAuthorizedApplications.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\INetFwRemoteAdminSettings.ahk" { INetFwRemoteAdminSettings }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\NET_FW_PROFILE_TYPE.ahk" { NET_FW_PROFILE_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\INetFwOpenPorts.ahk" { INetFwOpenPorts }
+#Import ".\INetFwIcmpSettings.ahk" { INetFwIcmpSettings }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\INetFwAuthorizedApplications.ahk" { INetFwAuthorizedApplications }
+#Import ".\INetFwServices.ahk" { INetFwServices }
 
 /**
  * The INetFwProfile interface provides access to the firewall settings profile.
@@ -20,26 +23,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwprofile
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  */
-class INetFwProfile extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct INetFwProfile extends IDispatch {
     /**
      * The interface identifier for INetFwProfile
      * @type {Guid}
      */
-    static IID => Guid("{174a0dda-e9f9-449d-993b-21ab667ca456}")
+    static IID := Guid("{174a0dda-e9f9-449d-993b-21ab667ca456}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INetFwProfile interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Type                                         : IntPtr
+        get_FirewallEnabled                              : IntPtr
+        put_FirewallEnabled                              : IntPtr
+        get_ExceptionsNotAllowed                         : IntPtr
+        put_ExceptionsNotAllowed                         : IntPtr
+        get_NotificationsDisabled                        : IntPtr
+        put_NotificationsDisabled                        : IntPtr
+        get_UnicastResponsesToMulticastBroadcastDisabled : IntPtr
+        put_UnicastResponsesToMulticastBroadcastDisabled : IntPtr
+        get_RemoteAdminSettings                          : IntPtr
+        get_IcmpSettings                                 : IntPtr
+        get_GloballyOpenPorts                            : IntPtr
+        get_Services                                     : IntPtr
+        get_AuthorizedApplications                       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Type", "get_FirewallEnabled", "put_FirewallEnabled", "get_ExceptionsNotAllowed", "put_ExceptionsNotAllowed", "get_NotificationsDisabled", "put_NotificationsDisabled", "get_UnicastResponsesToMulticastBroadcastDisabled", "put_UnicastResponsesToMulticastBroadcastDisabled", "get_RemoteAdminSettings", "get_IcmpSettings", "get_GloballyOpenPorts", "get_Services", "get_AuthorizedApplications"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INetFwProfile.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {NET_FW_PROFILE_TYPE} 
@@ -133,7 +156,7 @@ class INetFwProfile extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwprofile-get_firewallenabled
      */
     get_FirewallEnabled() {
-        result := ComCall(8, this, "short*", &enabled := 0, "HRESULT")
+        result := ComCall(8, this, VARIANT_BOOL.Ptr, &enabled := 0, "HRESULT")
         return enabled
     }
 
@@ -146,7 +169,7 @@ class INetFwProfile extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwprofile-put_firewallenabled
      */
     put_FirewallEnabled(enabled) {
-        result := ComCall(9, this, "short", enabled, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL, enabled, "HRESULT")
         return result
     }
 
@@ -161,7 +184,7 @@ class INetFwProfile extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwprofile-get_exceptionsnotallowed
      */
     get_ExceptionsNotAllowed() {
-        result := ComCall(10, this, "short*", &notAllowed := 0, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL.Ptr, &notAllowed := 0, "HRESULT")
         return notAllowed
     }
 
@@ -177,7 +200,7 @@ class INetFwProfile extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwprofile-put_exceptionsnotallowed
      */
     put_ExceptionsNotAllowed(notAllowed) {
-        result := ComCall(11, this, "short", notAllowed, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL, notAllowed, "HRESULT")
         return result
     }
 
@@ -187,7 +210,7 @@ class INetFwProfile extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwprofile-get_notificationsdisabled
      */
     get_NotificationsDisabled() {
-        result := ComCall(12, this, "short*", &disabled := 0, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL.Ptr, &disabled := 0, "HRESULT")
         return disabled
     }
 
@@ -198,7 +221,7 @@ class INetFwProfile extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwprofile-put_notificationsdisabled
      */
     put_NotificationsDisabled(disabled) {
-        result := ComCall(13, this, "short", disabled, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL, disabled, "HRESULT")
         return result
     }
 
@@ -210,7 +233,7 @@ class INetFwProfile extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwprofile-get_unicastresponsestomulticastbroadcastdisabled
      */
     get_UnicastResponsesToMulticastBroadcastDisabled() {
-        result := ComCall(14, this, "short*", &disabled := 0, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL.Ptr, &disabled := 0, "HRESULT")
         return disabled
     }
 
@@ -223,7 +246,7 @@ class INetFwProfile extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwprofile-put_unicastresponsestomulticastbroadcastdisabled
      */
     put_UnicastResponsesToMulticastBroadcastDisabled(disabled) {
-        result := ComCall(15, this, "short", disabled, "HRESULT")
+        result := ComCall(15, this, VARIANT_BOOL, disabled, "HRESULT")
         return result
     }
 
@@ -275,5 +298,51 @@ class INetFwProfile extends IDispatch {
     get_AuthorizedApplications() {
         result := ComCall(20, this, "ptr*", &apps := 0, "HRESULT")
         return INetFwAuthorizedApplications(apps)
+    }
+
+    Query(iid) {
+        if (INetFwProfile.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_FirewallEnabled := CallbackCreate(GetMethod(implObj, "get_FirewallEnabled"), flags, 2)
+        this.vtbl.put_FirewallEnabled := CallbackCreate(GetMethod(implObj, "put_FirewallEnabled"), flags, 2)
+        this.vtbl.get_ExceptionsNotAllowed := CallbackCreate(GetMethod(implObj, "get_ExceptionsNotAllowed"), flags, 2)
+        this.vtbl.put_ExceptionsNotAllowed := CallbackCreate(GetMethod(implObj, "put_ExceptionsNotAllowed"), flags, 2)
+        this.vtbl.get_NotificationsDisabled := CallbackCreate(GetMethod(implObj, "get_NotificationsDisabled"), flags, 2)
+        this.vtbl.put_NotificationsDisabled := CallbackCreate(GetMethod(implObj, "put_NotificationsDisabled"), flags, 2)
+        this.vtbl.get_UnicastResponsesToMulticastBroadcastDisabled := CallbackCreate(GetMethod(implObj, "get_UnicastResponsesToMulticastBroadcastDisabled"), flags, 2)
+        this.vtbl.put_UnicastResponsesToMulticastBroadcastDisabled := CallbackCreate(GetMethod(implObj, "put_UnicastResponsesToMulticastBroadcastDisabled"), flags, 2)
+        this.vtbl.get_RemoteAdminSettings := CallbackCreate(GetMethod(implObj, "get_RemoteAdminSettings"), flags, 2)
+        this.vtbl.get_IcmpSettings := CallbackCreate(GetMethod(implObj, "get_IcmpSettings"), flags, 2)
+        this.vtbl.get_GloballyOpenPorts := CallbackCreate(GetMethod(implObj, "get_GloballyOpenPorts"), flags, 2)
+        this.vtbl.get_Services := CallbackCreate(GetMethod(implObj, "get_Services"), flags, 2)
+        this.vtbl.get_AuthorizedApplications := CallbackCreate(GetMethod(implObj, "get_AuthorizedApplications"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Type)
+        CallbackFree(this.vtbl.get_FirewallEnabled)
+        CallbackFree(this.vtbl.put_FirewallEnabled)
+        CallbackFree(this.vtbl.get_ExceptionsNotAllowed)
+        CallbackFree(this.vtbl.put_ExceptionsNotAllowed)
+        CallbackFree(this.vtbl.get_NotificationsDisabled)
+        CallbackFree(this.vtbl.put_NotificationsDisabled)
+        CallbackFree(this.vtbl.get_UnicastResponsesToMulticastBroadcastDisabled)
+        CallbackFree(this.vtbl.put_UnicastResponsesToMulticastBroadcastDisabled)
+        CallbackFree(this.vtbl.get_RemoteAdminSettings)
+        CallbackFree(this.vtbl.get_IcmpSettings)
+        CallbackFree(this.vtbl.get_GloballyOpenPorts)
+        CallbackFree(this.vtbl.get_Services)
+        CallbackFree(this.vtbl.get_AuthorizedApplications)
     }
 }

@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PARTITION_STYLE.ahk
-#Include .\PARTITION_INFORMATION_MBR.ahk
-#Include .\PARTITION_INFORMATION_GPT.ahk
-#Include .\GPT_ATTRIBUTES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PARTITION_INFORMATION_MBR.ahk" { PARTITION_INFORMATION_MBR }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\PARTITION_INFORMATION_GPT.ahk" { PARTITION_INFORMATION_GPT }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\PARTITION_STYLE.ahk" { PARTITION_STYLE }
+#Import ".\GPT_ATTRIBUTES.ahk" { GPT_ATTRIBUTES }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains partition information for standard AT-style master boot record (MBR) and Extensible Firmware Interface (EFI) disks.
@@ -12,84 +14,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-partition_information_ex
  * @namespace Windows.Win32.System.Ioctl
  */
-class PARTITION_INFORMATION_EX extends Win32Struct {
-    static sizeof => 128
-
-    static packingSize => 8
+export default struct PARTITION_INFORMATION_EX {
+    #StructPack 8
 
     /**
      * The format of the partition. For a list of values, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ne-winioctl-partition_style">PARTITION_STYLE</a>.
-     * @type {PARTITION_STYLE}
      */
-    PartitionStyle {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    PartitionStyle : PARTITION_STYLE
 
     /**
      * The starting offset of the partition.
-     * @type {Integer}
      */
-    StartingOffset {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    StartingOffset : Int64
 
     /**
      * The size of the partition, in bytes.
-     * @type {Integer}
      */
-    PartitionLength {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    PartitionLength : Int64
 
     /**
      * The number of the partition (1-based).
-     * @type {Integer}
      */
-    PartitionNumber {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    PartitionNumber : UInt32
 
     /**
      * If this member is <b>TRUE</b>, the partition is rewritable. The value of this parameter should be set to <b>TRUE</b>.
-     * @type {BOOLEAN}
      */
-    RewritePartition {
-        get => NumGet(this, 28, "char")
-        set => NumPut("char", value, this, 28)
-    }
+    RewritePartition : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    IsServicePartition {
-        get => NumGet(this, 29, "char")
-        set => NumPut("char", value, this, 29)
-    }
+    IsServicePartition : BOOLEAN
 
-    /**
-     * @type {PARTITION_INFORMATION_MBR}
-     */
-    Mbr {
-        get {
-            if(!this.HasProp("__Mbr"))
-                this.__Mbr := PARTITION_INFORMATION_MBR(32, this)
-            return this.__Mbr
-        }
-    }
+    Mbr : PARTITION_INFORMATION_MBR
 
-    /**
-     * @type {PARTITION_INFORMATION_GPT}
-     */
-    Gpt {
-        get {
-            if(!this.HasProp("__Gpt"))
-                this.__Gpt := PARTITION_INFORMATION_GPT(32, this)
-            return this.__Gpt
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Gpt', { type: PARTITION_INFORMATION_GPT, offset: 32 })
+        this.DeleteProp("__New")
     }
 }

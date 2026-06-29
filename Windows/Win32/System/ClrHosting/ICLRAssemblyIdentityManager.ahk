@@ -1,34 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ICLRAssemblyReferenceList.ahk
-#Include .\ICLRReferenceAssemblyEnum.ahk
-#Include .\ICLRProbingAssemblyEnum.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICLRProbingAssemblyEnum.ahk" { ICLRProbingAssemblyEnum }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ICLRAssemblyReferenceList.ahk" { ICLRAssemblyReferenceList }
+#Import ".\ICLRReferenceAssemblyEnum.ahk" { ICLRReferenceAssemblyEnum }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
  */
-class ICLRAssemblyIdentityManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICLRAssemblyIdentityManager extends IUnknown {
     /**
      * The interface identifier for ICLRAssemblyIdentityManager
      * @type {Guid}
      */
-    static IID => Guid("{15f0a9da-3ff6-4393-9da9-fdfd284e6972}")
+    static IID := Guid("{15f0a9da-3ff6-4393-9da9-fdfd284e6972}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICLRAssemblyIdentityManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCLRAssemblyReferenceList       : IntPtr
+        GetBindingIdentityFromFile        : IntPtr
+        GetBindingIdentityFromStream      : IntPtr
+        GetReferencedAssembliesFromFile   : IntPtr
+        GetReferencedAssembliesFromStream : IntPtr
+        GetProbingAssembliesFromReference : IntPtr
+        IsStronglyNamed                   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCLRAssemblyReferenceList", "GetBindingIdentityFromFile", "GetBindingIdentityFromStream", "GetReferencedAssembliesFromFile", "GetReferencedAssembliesFromStream", "GetProbingAssembliesFromReference", "IsStronglyNamed"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICLRAssemblyIdentityManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -126,7 +143,39 @@ class ICLRAssemblyIdentityManager extends IUnknown {
     IsStronglyNamed(pwzAssemblyIdentity) {
         pwzAssemblyIdentity := pwzAssemblyIdentity is String ? StrPtr(pwzAssemblyIdentity) : pwzAssemblyIdentity
 
-        result := ComCall(9, this, "ptr", pwzAssemblyIdentity, "int*", &pbIsStronglyNamed := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", pwzAssemblyIdentity, BOOL.Ptr, &pbIsStronglyNamed := 0, "HRESULT")
         return pbIsStronglyNamed
+    }
+
+    Query(iid) {
+        if (ICLRAssemblyIdentityManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCLRAssemblyReferenceList := CallbackCreate(GetMethod(implObj, "GetCLRAssemblyReferenceList"), flags, 4)
+        this.vtbl.GetBindingIdentityFromFile := CallbackCreate(GetMethod(implObj, "GetBindingIdentityFromFile"), flags, 5)
+        this.vtbl.GetBindingIdentityFromStream := CallbackCreate(GetMethod(implObj, "GetBindingIdentityFromStream"), flags, 5)
+        this.vtbl.GetReferencedAssembliesFromFile := CallbackCreate(GetMethod(implObj, "GetReferencedAssembliesFromFile"), flags, 5)
+        this.vtbl.GetReferencedAssembliesFromStream := CallbackCreate(GetMethod(implObj, "GetReferencedAssembliesFromStream"), flags, 5)
+        this.vtbl.GetProbingAssembliesFromReference := CallbackCreate(GetMethod(implObj, "GetProbingAssembliesFromReference"), flags, 5)
+        this.vtbl.IsStronglyNamed := CallbackCreate(GetMethod(implObj, "IsStronglyNamed"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCLRAssemblyReferenceList)
+        CallbackFree(this.vtbl.GetBindingIdentityFromFile)
+        CallbackFree(this.vtbl.GetBindingIdentityFromStream)
+        CallbackFree(this.vtbl.GetReferencedAssembliesFromFile)
+        CallbackFree(this.vtbl.GetReferencedAssembliesFromStream)
+        CallbackFree(this.vtbl.GetProbingAssembliesFromReference)
+        CallbackFree(this.vtbl.IsStronglyNamed)
     }
 }

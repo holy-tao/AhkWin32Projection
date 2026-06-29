@@ -1,33 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionFilterEffect.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDCompositionFilterEffect.ahk" { IDCompositionFilterEffect }
+#Import "..\Direct2D\Common\D2D1_TURBULENCE_NOISE.ahk" { D2D1_TURBULENCE_NOISE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Direct2D\Common\D2D_VECTOR_2F.ahk" { D2D_VECTOR_2F }
 
 /**
  * The turbulence effect is used to generate a bitmap based on the Perlin noise function. The turbulence effect has no input image.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionturbulenceeffect
  * @namespace Windows.Win32.Graphics.DirectComposition
  */
-class IDCompositionTurbulenceEffect extends IDCompositionFilterEffect {
-
-    static sizeof => A_PtrSize
+export default struct IDCompositionTurbulenceEffect extends IDCompositionFilterEffect {
     /**
      * The interface identifier for IDCompositionTurbulenceEffect
      * @type {Guid}
      */
-    static IID => Guid("{a6a55bda-c09c-49f3-9193-a41922c89715}")
+    static IID := Guid("{a6a55bda-c09c-49f3-9193-a41922c89715}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDCompositionTurbulenceEffect interfaces
+    */
+    struct Vtbl extends IDCompositionFilterEffect.Vtbl {
+        SetOffset        : IntPtr
+        SetBaseFrequency : IntPtr
+        SetSize          : IntPtr
+        SetNumOctaves    : IntPtr
+        SetSeed          : IntPtr
+        SetNoise         : IntPtr
+        SetStitchable    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetOffset", "SetBaseFrequency", "SetSize", "SetNumOctaves", "SetSeed", "SetNoise", "SetStitchable"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDCompositionTurbulenceEffect.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the coordinates where the turbulence output is generated.
@@ -45,7 +62,7 @@ class IDCompositionTurbulenceEffect extends IDCompositionFilterEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionturbulenceeffect-setoffset
      */
     SetOffset(offset) {
-        result := ComCall(4, this, "ptr", offset, "HRESULT")
+        result := ComCall(4, this, D2D_VECTOR_2F.Ptr, offset, "HRESULT")
         return result
     }
 
@@ -63,7 +80,7 @@ class IDCompositionTurbulenceEffect extends IDCompositionFilterEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionturbulenceeffect-setbasefrequency
      */
     SetBaseFrequency(frequency) {
-        result := ComCall(5, this, "ptr", frequency, "HRESULT")
+        result := ComCall(5, this, D2D_VECTOR_2F.Ptr, frequency, "HRESULT")
         return result
     }
 
@@ -78,7 +95,7 @@ class IDCompositionTurbulenceEffect extends IDCompositionFilterEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionturbulenceeffect-setsize
      */
     SetSize(_size) {
-        result := ComCall(6, this, "ptr", _size, "HRESULT")
+        result := ComCall(6, this, D2D_VECTOR_2F.Ptr, _size, "HRESULT")
         return result
     }
 
@@ -123,7 +140,7 @@ class IDCompositionTurbulenceEffect extends IDCompositionFilterEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionturbulenceeffect-setnoise
      */
     SetNoise(noise) {
-        result := ComCall(9, this, "int", noise, "HRESULT")
+        result := ComCall(9, this, D2D1_TURBULENCE_NOISE, noise, "HRESULT")
         return result
     }
 
@@ -141,7 +158,39 @@ class IDCompositionTurbulenceEffect extends IDCompositionFilterEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionturbulenceeffect-setstitchable
      */
     SetStitchable(stitchable) {
-        result := ComCall(10, this, "int", stitchable, "HRESULT")
+        result := ComCall(10, this, BOOL, stitchable, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDCompositionTurbulenceEffect.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetOffset := CallbackCreate(GetMethod(implObj, "SetOffset"), flags, 2)
+        this.vtbl.SetBaseFrequency := CallbackCreate(GetMethod(implObj, "SetBaseFrequency"), flags, 2)
+        this.vtbl.SetSize := CallbackCreate(GetMethod(implObj, "SetSize"), flags, 2)
+        this.vtbl.SetNumOctaves := CallbackCreate(GetMethod(implObj, "SetNumOctaves"), flags, 2)
+        this.vtbl.SetSeed := CallbackCreate(GetMethod(implObj, "SetSeed"), flags, 2)
+        this.vtbl.SetNoise := CallbackCreate(GetMethod(implObj, "SetNoise"), flags, 2)
+        this.vtbl.SetStitchable := CallbackCreate(GetMethod(implObj, "SetStitchable"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetOffset)
+        CallbackFree(this.vtbl.SetBaseFrequency)
+        CallbackFree(this.vtbl.SetSize)
+        CallbackFree(this.vtbl.SetNumOctaves)
+        CallbackFree(this.vtbl.SetSeed)
+        CallbackFree(this.vtbl.SetNoise)
+        CallbackFree(this.vtbl.SetStitchable)
     }
 }

@@ -1,22 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains revision information about an ACL structure.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-acl_revision_information
  * @namespace Windows.Win32.Security
  */
-class ACL_REVISION_INFORMATION extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct ACL_REVISION_INFORMATION {
+    #StructPack 4
 
     /**
      * Specifies a revision number. The current revision number is ACL_REVISION.
-     * @type {Integer}
      */
-    AclRevision {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    AclRevision : UInt32
+
 }

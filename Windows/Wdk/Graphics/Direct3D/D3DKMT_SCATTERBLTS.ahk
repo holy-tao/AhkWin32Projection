@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_SCATTERBLTS extends Win32Struct {
-    static sizeof => 104
+export default struct D3DKMT_SCATTERBLTS {
+    #StructPack 8
 
-    static packingSize => 8
+    NumBlts : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumBlts {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Blts : IntPtr[12]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    Blts {
-        get {
-            if(!this.HasProp("__BltsProxyArray"))
-                this.__BltsProxyArray := Win32FixedArray(this.ptr + 8, 12, Primitive, "ptr")
-            return this.__BltsProxyArray
-        }
-    }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines constants that specify the shading rate (for variable-rate shading, or VRS) along a horizontal or vertical axis.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_axis_shading_rate
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_AXIS_SHADING_RATE extends Win32Enum {
+export default struct D3D12_AXIS_SHADING_RATE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies a 1x shading rate for the axis.

@@ -1,55 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_CONFIGURESHAREDRESOURCE extends Win32Struct {
-    static sizeof => 32
+export default struct D3DKMT_CONFIGURESHAREDRESOURCE {
+    #StructPack 8
 
-    static packingSize => 8
+    hDevice : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hDevice {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hResource : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hResource {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    IsDwm : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    IsDwm {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    hProcess : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hProcess {
-        get {
-            if(!this.HasProp("__hProcess"))
-                this.__hProcess := HANDLE(16, this)
-            return this.__hProcess
-        }
-    }
+    AllowAccess : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    AllowAccess {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
-    }
 }

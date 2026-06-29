@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Values used by IThumbnailCache::GetThumbnail to specify options for the extraction and display of the thumbnail image.
@@ -32,7 +31,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/thumbcache/ne-thumbcache-wts_flags
  * @namespace Windows.Win32.UI.Shell
  */
-class WTS_FLAGS extends Win32BitflagEnum {
+export default struct WTS_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * 0x00000000. <b>Introduced in Windows 8</b>. None of the following options are set.

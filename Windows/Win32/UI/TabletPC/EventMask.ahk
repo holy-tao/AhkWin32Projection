@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The events on the ITextInputPanel Interface that you can set attention for.
  * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-eventmask
  * @namespace Windows.Win32.UI.TabletPC
  */
-class EventMask extends Win32Enum {
+export default struct EventMask {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Occurs when the correction mode is about to change.

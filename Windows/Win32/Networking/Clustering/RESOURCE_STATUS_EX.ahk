@@ -1,64 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSTER_RESOURCE_STATE.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CLUSTER_RESOURCE_STATE.ahk" { CLUSTER_RESOURCE_STATE }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
  */
-class RESOURCE_STATUS_EX extends Win32Struct {
-    static sizeof => 32
+export default struct RESOURCE_STATUS_EX {
+    #StructPack 8
 
-    static packingSize => 8
+    ResourceState : CLUSTER_RESOURCE_STATE
 
-    /**
-     * @type {CLUSTER_RESOURCE_STATE}
-     */
-    ResourceState {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    CheckPoint : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CheckPoint {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    EventHandle : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    EventHandle {
-        get {
-            if(!this.HasProp("__EventHandle"))
-                this.__EventHandle := HANDLE(8, this)
-            return this.__EventHandle
-        }
-    }
+    ApplicationSpecificErrorCode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ApplicationSpecificErrorCode {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    WaitHint : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    WaitHint {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

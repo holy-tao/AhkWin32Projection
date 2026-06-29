@@ -1,34 +1,82 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\OA_BOOL.ahk" { OA_BOOL }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\UI\WindowsAndMessaging\SHOW_WINDOW_CMD.ahk" { SHOW_WINDOW_CMD }
 
 /**
  * The IVideoWindow interface sets properties on the video window.
  * @see https://learn.microsoft.com/windows/win32/api/control/nn-control-ivideowindow
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IVideoWindow extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IVideoWindow extends IDispatch {
     /**
      * The interface identifier for IVideoWindow
      * @type {Guid}
      */
-    static IID => Guid("{56a868b4-0ad4-11ce-b03a-0020af0ba770}")
+    static IID := Guid("{56a868b4-0ad4-11ce-b03a-0020af0ba770}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVideoWindow interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_Caption           : IntPtr
+        get_Caption           : IntPtr
+        put_WindowStyle       : IntPtr
+        get_WindowStyle       : IntPtr
+        put_WindowStyleEx     : IntPtr
+        get_WindowStyleEx     : IntPtr
+        put_AutoShow          : IntPtr
+        get_AutoShow          : IntPtr
+        put_WindowState       : IntPtr
+        get_WindowState       : IntPtr
+        put_BackgroundPalette : IntPtr
+        get_BackgroundPalette : IntPtr
+        put_Visible           : IntPtr
+        get_Visible           : IntPtr
+        put_Left              : IntPtr
+        get_Left              : IntPtr
+        put_Width             : IntPtr
+        get_Width             : IntPtr
+        put_Top               : IntPtr
+        get_Top               : IntPtr
+        put_Height            : IntPtr
+        get_Height            : IntPtr
+        put_Owner             : IntPtr
+        get_Owner             : IntPtr
+        put_MessageDrain      : IntPtr
+        get_MessageDrain      : IntPtr
+        get_BorderColor       : IntPtr
+        put_BorderColor       : IntPtr
+        get_FullScreenMode    : IntPtr
+        put_FullScreenMode    : IntPtr
+        SetWindowForeground   : IntPtr
+        NotifyOwnerMessage    : IntPtr
+        SetWindowPosition     : IntPtr
+        GetWindowPosition     : IntPtr
+        GetMinIdealImageSize  : IntPtr
+        GetMaxIdealImageSize  : IntPtr
+        GetRestorePosition    : IntPtr
+        HideCursor            : IntPtr
+        IsCursorHidden        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_Caption", "get_Caption", "put_WindowStyle", "get_WindowStyle", "put_WindowStyleEx", "get_WindowStyleEx", "put_AutoShow", "get_AutoShow", "put_WindowState", "get_WindowState", "put_BackgroundPalette", "get_BackgroundPalette", "put_Visible", "get_Visible", "put_Left", "get_Left", "put_Width", "get_Width", "put_Top", "get_Top", "put_Height", "get_Height", "put_Owner", "get_Owner", "put_MessageDrain", "get_MessageDrain", "get_BorderColor", "put_BorderColor", "get_FullScreenMode", "put_FullScreenMode", "SetWindowForeground", "NotifyOwnerMessage", "SetWindowPosition", "GetWindowPosition", "GetMinIdealImageSize", "GetMaxIdealImageSize", "GetRestorePosition", "HideCursor", "IsCursorHidden"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVideoWindow.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -199,7 +247,7 @@ class IVideoWindow extends IDispatch {
     put_Caption(strCaption) {
         strCaption := strCaption is String ? BSTR.Alloc(strCaption).Value : strCaption
 
-        result := ComCall(7, this, "ptr", strCaption, "HRESULT")
+        result := ComCall(7, this, BSTR, strCaption, "HRESULT")
         return result
     }
 
@@ -211,8 +259,8 @@ class IVideoWindow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-get_caption
      */
     get_Caption() {
-        strCaption := BSTR()
-        result := ComCall(8, this, "ptr", strCaption, "HRESULT")
+        strCaption := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, strCaption, "HRESULT")
         return strCaption
     }
 
@@ -1597,7 +1645,7 @@ class IVideoWindow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-hidecursor
      */
     HideCursor(HideCursor) {
-        result := ComCall(44, this, "int", HideCursor, "HRESULT")
+        result := ComCall(44, this, OA_BOOL, HideCursor, "HRESULT")
         return result
     }
 
@@ -1609,5 +1657,101 @@ class IVideoWindow extends IDispatch {
     IsCursorHidden() {
         result := ComCall(45, this, "int*", &CursorHidden := 0, "HRESULT")
         return CursorHidden
+    }
+
+    Query(iid) {
+        if (IVideoWindow.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_Caption := CallbackCreate(GetMethod(implObj, "put_Caption"), flags, 2)
+        this.vtbl.get_Caption := CallbackCreate(GetMethod(implObj, "get_Caption"), flags, 2)
+        this.vtbl.put_WindowStyle := CallbackCreate(GetMethod(implObj, "put_WindowStyle"), flags, 2)
+        this.vtbl.get_WindowStyle := CallbackCreate(GetMethod(implObj, "get_WindowStyle"), flags, 2)
+        this.vtbl.put_WindowStyleEx := CallbackCreate(GetMethod(implObj, "put_WindowStyleEx"), flags, 2)
+        this.vtbl.get_WindowStyleEx := CallbackCreate(GetMethod(implObj, "get_WindowStyleEx"), flags, 2)
+        this.vtbl.put_AutoShow := CallbackCreate(GetMethod(implObj, "put_AutoShow"), flags, 2)
+        this.vtbl.get_AutoShow := CallbackCreate(GetMethod(implObj, "get_AutoShow"), flags, 2)
+        this.vtbl.put_WindowState := CallbackCreate(GetMethod(implObj, "put_WindowState"), flags, 2)
+        this.vtbl.get_WindowState := CallbackCreate(GetMethod(implObj, "get_WindowState"), flags, 2)
+        this.vtbl.put_BackgroundPalette := CallbackCreate(GetMethod(implObj, "put_BackgroundPalette"), flags, 2)
+        this.vtbl.get_BackgroundPalette := CallbackCreate(GetMethod(implObj, "get_BackgroundPalette"), flags, 2)
+        this.vtbl.put_Visible := CallbackCreate(GetMethod(implObj, "put_Visible"), flags, 2)
+        this.vtbl.get_Visible := CallbackCreate(GetMethod(implObj, "get_Visible"), flags, 2)
+        this.vtbl.put_Left := CallbackCreate(GetMethod(implObj, "put_Left"), flags, 2)
+        this.vtbl.get_Left := CallbackCreate(GetMethod(implObj, "get_Left"), flags, 2)
+        this.vtbl.put_Width := CallbackCreate(GetMethod(implObj, "put_Width"), flags, 2)
+        this.vtbl.get_Width := CallbackCreate(GetMethod(implObj, "get_Width"), flags, 2)
+        this.vtbl.put_Top := CallbackCreate(GetMethod(implObj, "put_Top"), flags, 2)
+        this.vtbl.get_Top := CallbackCreate(GetMethod(implObj, "get_Top"), flags, 2)
+        this.vtbl.put_Height := CallbackCreate(GetMethod(implObj, "put_Height"), flags, 2)
+        this.vtbl.get_Height := CallbackCreate(GetMethod(implObj, "get_Height"), flags, 2)
+        this.vtbl.put_Owner := CallbackCreate(GetMethod(implObj, "put_Owner"), flags, 2)
+        this.vtbl.get_Owner := CallbackCreate(GetMethod(implObj, "get_Owner"), flags, 2)
+        this.vtbl.put_MessageDrain := CallbackCreate(GetMethod(implObj, "put_MessageDrain"), flags, 2)
+        this.vtbl.get_MessageDrain := CallbackCreate(GetMethod(implObj, "get_MessageDrain"), flags, 2)
+        this.vtbl.get_BorderColor := CallbackCreate(GetMethod(implObj, "get_BorderColor"), flags, 2)
+        this.vtbl.put_BorderColor := CallbackCreate(GetMethod(implObj, "put_BorderColor"), flags, 2)
+        this.vtbl.get_FullScreenMode := CallbackCreate(GetMethod(implObj, "get_FullScreenMode"), flags, 2)
+        this.vtbl.put_FullScreenMode := CallbackCreate(GetMethod(implObj, "put_FullScreenMode"), flags, 2)
+        this.vtbl.SetWindowForeground := CallbackCreate(GetMethod(implObj, "SetWindowForeground"), flags, 2)
+        this.vtbl.NotifyOwnerMessage := CallbackCreate(GetMethod(implObj, "NotifyOwnerMessage"), flags, 5)
+        this.vtbl.SetWindowPosition := CallbackCreate(GetMethod(implObj, "SetWindowPosition"), flags, 5)
+        this.vtbl.GetWindowPosition := CallbackCreate(GetMethod(implObj, "GetWindowPosition"), flags, 5)
+        this.vtbl.GetMinIdealImageSize := CallbackCreate(GetMethod(implObj, "GetMinIdealImageSize"), flags, 3)
+        this.vtbl.GetMaxIdealImageSize := CallbackCreate(GetMethod(implObj, "GetMaxIdealImageSize"), flags, 3)
+        this.vtbl.GetRestorePosition := CallbackCreate(GetMethod(implObj, "GetRestorePosition"), flags, 5)
+        this.vtbl.HideCursor := CallbackCreate(GetMethod(implObj, "HideCursor"), flags, 2)
+        this.vtbl.IsCursorHidden := CallbackCreate(GetMethod(implObj, "IsCursorHidden"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_Caption)
+        CallbackFree(this.vtbl.get_Caption)
+        CallbackFree(this.vtbl.put_WindowStyle)
+        CallbackFree(this.vtbl.get_WindowStyle)
+        CallbackFree(this.vtbl.put_WindowStyleEx)
+        CallbackFree(this.vtbl.get_WindowStyleEx)
+        CallbackFree(this.vtbl.put_AutoShow)
+        CallbackFree(this.vtbl.get_AutoShow)
+        CallbackFree(this.vtbl.put_WindowState)
+        CallbackFree(this.vtbl.get_WindowState)
+        CallbackFree(this.vtbl.put_BackgroundPalette)
+        CallbackFree(this.vtbl.get_BackgroundPalette)
+        CallbackFree(this.vtbl.put_Visible)
+        CallbackFree(this.vtbl.get_Visible)
+        CallbackFree(this.vtbl.put_Left)
+        CallbackFree(this.vtbl.get_Left)
+        CallbackFree(this.vtbl.put_Width)
+        CallbackFree(this.vtbl.get_Width)
+        CallbackFree(this.vtbl.put_Top)
+        CallbackFree(this.vtbl.get_Top)
+        CallbackFree(this.vtbl.put_Height)
+        CallbackFree(this.vtbl.get_Height)
+        CallbackFree(this.vtbl.put_Owner)
+        CallbackFree(this.vtbl.get_Owner)
+        CallbackFree(this.vtbl.put_MessageDrain)
+        CallbackFree(this.vtbl.get_MessageDrain)
+        CallbackFree(this.vtbl.get_BorderColor)
+        CallbackFree(this.vtbl.put_BorderColor)
+        CallbackFree(this.vtbl.get_FullScreenMode)
+        CallbackFree(this.vtbl.put_FullScreenMode)
+        CallbackFree(this.vtbl.SetWindowForeground)
+        CallbackFree(this.vtbl.NotifyOwnerMessage)
+        CallbackFree(this.vtbl.SetWindowPosition)
+        CallbackFree(this.vtbl.GetWindowPosition)
+        CallbackFree(this.vtbl.GetMinIdealImageSize)
+        CallbackFree(this.vtbl.GetMaxIdealImageSize)
+        CallbackFree(this.vtbl.GetRestorePosition)
+        CallbackFree(this.vtbl.HideCursor)
+        CallbackFree(this.vtbl.IsCursorHidden)
     }
 }

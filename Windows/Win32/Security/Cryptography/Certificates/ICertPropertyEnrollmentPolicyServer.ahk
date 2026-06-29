@@ -1,34 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ICertProperty.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\EnrollmentPolicyServerPropertyFlags.ahk" { EnrollmentPolicyServerPropertyFlags }
+#Import ".\PolicyServerUrlFlags.ahk" { PolicyServerUrlFlags }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\X509EnrollmentAuthFlags.ahk" { X509EnrollmentAuthFlags }
+#Import ".\ICertProperty.ahk" { ICertProperty }
 
 /**
  * Represents an external certificate property that contains information about a certificate enrollment policy (CEP) server and a certificate enrollment server (CES).
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icertpropertyenrollmentpolicyserver
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICertPropertyEnrollmentPolicyServer extends ICertProperty {
-
-    static sizeof => A_PtrSize
+export default struct ICertPropertyEnrollmentPolicyServer extends ICertProperty {
     /**
      * The interface identifier for ICertPropertyEnrollmentPolicyServer
      * @type {Guid}
      */
-    static IID => Guid("{728ab34a-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab34a-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICertPropertyEnrollmentPolicyServer interfaces
+    */
+    struct Vtbl extends ICertProperty.Vtbl {
+        Initialize                        : IntPtr
+        GetPolicyServerUrl                : IntPtr
+        GetPolicyServerId                 : IntPtr
+        GetEnrollmentServerUrl            : IntPtr
+        GetRequestIdString                : IntPtr
+        GetPropertyFlags                  : IntPtr
+        GetUrlFlags                       : IntPtr
+        GetAuthentication                 : IntPtr
+        GetEnrollmentServerAuthentication : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetPolicyServerUrl", "GetPolicyServerId", "GetEnrollmentServerUrl", "GetRequestIdString", "GetPropertyFlags", "GetUrlFlags", "GetAuthentication", "GetEnrollmentServerAuthentication"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICertPropertyEnrollmentPolicyServer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes an ICertPropertyEnrollmentPolicyServer object.
@@ -69,7 +88,7 @@ class ICertPropertyEnrollmentPolicyServer extends ICertProperty {
         strId := strId is String ? BSTR.Alloc(strId).Value : strId
         strEnrollmentServerUrl := strEnrollmentServerUrl is String ? BSTR.Alloc(strEnrollmentServerUrl).Value : strEnrollmentServerUrl
 
-        result := ComCall(14, this, "int", PropertyFlags, "int", AuthFlags, "int", EnrollmentServerAuthFlags, "int", UrlFlags, "ptr", strRequestId, "ptr", strUrl, "ptr", strId, "ptr", strEnrollmentServerUrl, "HRESULT")
+        result := ComCall(14, this, EnrollmentPolicyServerPropertyFlags, PropertyFlags, X509EnrollmentAuthFlags, AuthFlags, X509EnrollmentAuthFlags, EnrollmentServerAuthFlags, PolicyServerUrlFlags, UrlFlags, BSTR, strRequestId, BSTR, strUrl, BSTR, strId, BSTR, strEnrollmentServerUrl, "HRESULT")
         return result
     }
 
@@ -79,8 +98,8 @@ class ICertPropertyEnrollmentPolicyServer extends ICertProperty {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-getpolicyserverurl
      */
     GetPolicyServerUrl() {
-        pValue := BSTR()
-        result := ComCall(15, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -92,8 +111,8 @@ class ICertPropertyEnrollmentPolicyServer extends ICertProperty {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-getpolicyserverid
      */
     GetPolicyServerId() {
-        pValue := BSTR()
-        result := ComCall(16, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(16, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -103,8 +122,8 @@ class ICertPropertyEnrollmentPolicyServer extends ICertProperty {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-getenrollmentserverurl
      */
     GetEnrollmentServerUrl() {
-        pValue := BSTR()
-        result := ComCall(17, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -116,8 +135,8 @@ class ICertPropertyEnrollmentPolicyServer extends ICertProperty {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-getrequestidstring
      */
     GetRequestIdString() {
-        pValue := BSTR()
-        result := ComCall(18, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -159,5 +178,41 @@ class ICertPropertyEnrollmentPolicyServer extends ICertProperty {
     GetEnrollmentServerAuthentication() {
         result := ComCall(22, this, "int*", &pValue := 0, "HRESULT")
         return pValue
+    }
+
+    Query(iid) {
+        if (ICertPropertyEnrollmentPolicyServer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 9)
+        this.vtbl.GetPolicyServerUrl := CallbackCreate(GetMethod(implObj, "GetPolicyServerUrl"), flags, 2)
+        this.vtbl.GetPolicyServerId := CallbackCreate(GetMethod(implObj, "GetPolicyServerId"), flags, 2)
+        this.vtbl.GetEnrollmentServerUrl := CallbackCreate(GetMethod(implObj, "GetEnrollmentServerUrl"), flags, 2)
+        this.vtbl.GetRequestIdString := CallbackCreate(GetMethod(implObj, "GetRequestIdString"), flags, 2)
+        this.vtbl.GetPropertyFlags := CallbackCreate(GetMethod(implObj, "GetPropertyFlags"), flags, 2)
+        this.vtbl.GetUrlFlags := CallbackCreate(GetMethod(implObj, "GetUrlFlags"), flags, 2)
+        this.vtbl.GetAuthentication := CallbackCreate(GetMethod(implObj, "GetAuthentication"), flags, 2)
+        this.vtbl.GetEnrollmentServerAuthentication := CallbackCreate(GetMethod(implObj, "GetEnrollmentServerAuthentication"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetPolicyServerUrl)
+        CallbackFree(this.vtbl.GetPolicyServerId)
+        CallbackFree(this.vtbl.GetEnrollmentServerUrl)
+        CallbackFree(this.vtbl.GetRequestIdString)
+        CallbackFree(this.vtbl.GetPropertyFlags)
+        CallbackFree(this.vtbl.GetUrlFlags)
+        CallbackFree(this.vtbl.GetAuthentication)
+        CallbackFree(this.vtbl.GetEnrollmentServerAuthentication)
     }
 }

@@ -1,107 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCI_BUS_INTERFACE_STANDARD extends Win32Struct {
-    static sizeof => 88
+export default struct PCI_BUS_INTERFACE_STANDARD {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Version : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Context : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Context {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    InterfaceReference : IntPtr
 
-    /**
-     * @type {Pointer<PINTERFACE_REFERENCE>}
-     */
-    InterfaceReference {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    InterfaceDereference : IntPtr
 
-    /**
-     * @type {Pointer<PINTERFACE_DEREFERENCE>}
-     */
-    InterfaceDereference {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ReadConfig : IntPtr
 
-    /**
-     * @type {Pointer<PPCI_READ_WRITE_CONFIG>}
-     */
-    ReadConfig {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    WriteConfig : IntPtr
 
-    /**
-     * @type {Pointer<PPCI_READ_WRITE_CONFIG>}
-     */
-    WriteConfig {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    PinToLine : IntPtr
 
-    /**
-     * @type {Pointer<PPCI_PIN_TO_LINE>}
-     */
-    PinToLine {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    LineToPin : IntPtr
 
-    /**
-     * @type {Pointer<PPCI_LINE_TO_PIN>}
-     */
-    LineToPin {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    RootBusCapability : IntPtr
 
-    /**
-     * @type {Pointer<PPCI_ROOT_BUS_CAPABILITY>}
-     */
-    RootBusCapability {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    ExpressWakeControl : IntPtr
 
-    /**
-     * @type {Pointer<PPCI_EXPRESS_WAKE_CONTROL>}
-     */
-    ExpressWakeControl {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    PrepareMultistageResume : IntPtr
 
-    /**
-     * @type {Pointer<PPCI_PREPARE_MULTISTAGE_RESUME>}
-     */
-    PrepareMultistageResume {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
 }

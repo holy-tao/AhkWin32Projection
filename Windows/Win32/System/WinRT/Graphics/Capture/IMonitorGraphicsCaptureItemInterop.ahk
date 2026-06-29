@@ -1,48 +1,68 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Graphics\Gdi\HMONITOR.ahk" { HMONITOR }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Graphics.Capture
  */
-class IMonitorGraphicsCaptureItemInterop extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMonitorGraphicsCaptureItemInterop extends IUnknown {
     /**
      * The interface identifier for IMonitorGraphicsCaptureItemInterop
      * @type {Guid}
      */
-    static IID => Guid("{33274d14-a076-4048-8416-747e9b04db7b}")
+    static IID := Guid("{33274d14-a076-4048-8416-747e9b04db7b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMonitorGraphicsCaptureItemInterop interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetMonitor : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMonitorGraphicsCaptureItemInterop.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetMonitor"]
-
-    /**
-     * Retrieves a monitor's minimum, maximum, and current brightness settings.
-     * @remarks
-     * If this function is supported, the <a href="https://docs.microsoft.com/windows/desktop/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorcapabilities">GetMonitorCapabilities</a> function returns the MC_CAPS_BRIGHTNESS flag.
-     *       
      * 
-     * This function takes about 40 milliseconds to return.
-     *       
-     * 
-     * The brightness setting is a continuous monitor setting. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Monitor/using-the-high-level-monitor-configuration-functions">Using the High-Level Monitor Configuration Functions</a>.
      * @param {Pointer<HMONITOR>} _monitor 
-     * @returns {HRESULT} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorbrightness
+     * @returns {HRESULT} 
      */
     GetMonitor(_monitor) {
-        result := ComCall(3, this, "ptr", _monitor, "HRESULT")
+        result := ComCall(3, this, HMONITOR.Ptr, _monitor, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMonitorGraphicsCaptureItemInterop.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetMonitor := CallbackCreate(GetMethod(implObj, "GetMonitor"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetMonitor)
     }
 }

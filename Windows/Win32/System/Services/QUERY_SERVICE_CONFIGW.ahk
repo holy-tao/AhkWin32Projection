@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ENUM_SERVICE_TYPE.ahk
-#Include .\SERVICE_START_TYPE.ahk
-#Include .\SERVICE_ERROR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ENUM_SERVICE_TYPE.ahk" { ENUM_SERVICE_TYPE }
+#Import ".\SERVICE_START_TYPE.ahk" { SERVICE_START_TYPE }
+#Import ".\SERVICE_ERROR.ahk" { SERVICE_ERROR }
 
 /**
  * Contains configuration information for an installed service. It is used by the QueryServiceConfig function. (Unicode)
@@ -14,34 +14,14 @@
  * @namespace Windows.Win32.System.Services
  * @charset Unicode
  */
-class QUERY_SERVICE_CONFIGW extends Win32Struct {
-    static sizeof => 64
+export default struct QUERY_SERVICE_CONFIGW {
+    #StructPack 8
 
-    static packingSize => 8
+    dwServiceType : ENUM_SERVICE_TYPE
 
-    /**
-     * @type {ENUM_SERVICE_TYPE}
-     */
-    dwServiceType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwStartType : SERVICE_START_TYPE
 
-    /**
-     * @type {SERVICE_START_TYPE}
-     */
-    dwStartType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {SERVICE_ERROR}
-     */
-    dwErrorControl {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwErrorControl : SERVICE_ERROR
 
     /**
      * The fully qualified path to the service binary file. 
@@ -50,12 +30,8 @@ class QUERY_SERVICE_CONFIGW extends Win32Struct {
      * 
      * 
      * The path can also include arguments for an auto-start service. These arguments are passed to the service entry point (typically the <b>main</b> function).
-     * @type {PWSTR}
      */
-    lpBinaryPathName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpBinaryPathName : PWSTR
 
     /**
      * The name of the load ordering group to which this service belongs. If the member is NULL or an empty string, the service does not belong to a load ordering group. 
@@ -67,12 +43,8 @@ class QUERY_SERVICE_CONFIGW extends Win32Struct {
      * 
      * 
      * <b>HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\ServiceGroupOrder</b>
-     * @type {PWSTR}
      */
-    lpLoadOrderGroup {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpLoadOrderGroup : PWSTR
 
     /**
      * A unique tag value for this service in the group specified by the <i>lpLoadOrderGroup</i> parameter. A value of zero indicates that the service has not been assigned a tag. You can use a tag for ordering service startup within a load order group by specifying a tag order vector in the registry located at: 
@@ -83,21 +55,13 @@ class QUERY_SERVICE_CONFIGW extends Win32Struct {
      * 
      * 
      * Tags are only evaluated for <b>SERVICE_KERNEL_DRIVER</b> and <b>SERVICE_FILE_SYSTEM_DRIVER</b> type services that have <b>SERVICE_BOOT_START</b> or <b>SERVICE_SYSTEM_START</b> start types.
-     * @type {Integer}
      */
-    dwTagId {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwTagId : UInt32
 
     /**
      * A pointer to an array of null-separated names of services or load ordering groups that must start before this service. The array is doubly null-terminated. If the pointer is <b>NULL</b> or if it points to an empty string, the service has no dependencies. If a group name is specified, it must be prefixed by the <b>SC_GROUP_IDENTIFIER</b> (defined in WinSvc.h) character to differentiate it from a service name, because services and service groups share the same name space. Dependency on a service means that this service can only run if the service it depends on is running. Dependency on a group means that this service can run if at least one member of the group is running after an attempt to start all members of the group.
-     * @type {PWSTR}
      */
-    lpDependencies {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lpDependencies : PWSTR
 
     /**
      * If the service type is <b>SERVICE_WIN32_OWN_PROCESS</b> or <b>SERVICE_WIN32_SHARE_PROCESS</b>, this member is the name of the account that the service process will be logged on as when it runs. This name can be of the form <i>Domain</i><b>\\</b><i>UserName</i>. If the account belongs to the built-in domain, the name can be of the form <b>.\\</b><i>UserName</i>. The name can also be "LocalSystem" if the process is running under the LocalSystem account.   
@@ -107,12 +71,8 @@ class QUERY_SERVICE_CONFIGW extends Win32Struct {
      * 						
      * 
      * If the service type is <b>SERVICE_KERNEL_DRIVER</b> or <b>SERVICE_FILE_SYSTEM_DRIVER</b>, this member is the driver object name (that is, \FileSystem\Rdr or \Driver\Xns) which the input and output (I/O) system uses to load the device driver. If this member is NULL, the driver is to be run with a default object name created by the I/O system, based on the service name.
-     * @type {PWSTR}
      */
-    lpServiceStartName {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    lpServiceStartName : PWSTR
 
     /**
      * The display name to be used by service control programs to identify the service. This string has a maximum length of 256 characters. The name is case-preserved in the service control manager. Display name comparisons are always case-insensitive.
@@ -124,10 +84,7 @@ class QUERY_SERVICE_CONFIGW extends Win32Struct {
      * The string with identifier <i>StrID</i> is loaded from <i>DLLName</i>; the <i>Path</i> is optional. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regloadmuistringa">RegLoadMUIString</a>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>Localized strings are not supported until Windows Vista.
-     * @type {PWSTR}
      */
-    lpDisplayName {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    lpDisplayName : PWSTR
+
 }

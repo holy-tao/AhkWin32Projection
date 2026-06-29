@@ -1,66 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ACCESSRECTLIST.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\DDRAWI_DIRECTDRAW_LCL.ahk
-#Include .\HEAPALIASINFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HEAPALIASINFO.ahk" { HEAPALIASINFO }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class ACCESSRECTLIST extends Win32Struct {
-    static sizeof => 56
+export default struct ACCESSRECTLIST {
+    #StructPack 8
 
-    static packingSize => 8
+    lpLink : ACCESSRECTLIST.Ptr
 
-    /**
-     * @type {Pointer<ACCESSRECTLIST>}
-     */
-    lpLink {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    rDest : RECT
 
-    /**
-     * @type {RECT}
-     */
-    rDest {
-        get {
-            if(!this.HasProp("__rDest"))
-                this.__rDest := RECT(8, this)
-            return this.__rDest
-        }
-    }
-
-    /**
-     * @type {Pointer<DDRAWI_DIRECTDRAW_LCL>}
-     */
+    __lpOwner_ptr : IntPtr
     lpOwner {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => (addr := this.__lpOwner_ptr) ? DDRAWI_DIRECTDRAW_LCL.At(addr) : unset
+        set => this.__lpOwner_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpSurfaceData {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpSurfaceData : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Pointer<HEAPALIASINFO>}
-     */
-    lpHeapAliasInfo {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    lpHeapAliasInfo : HEAPALIASINFO.Ptr
+
 }

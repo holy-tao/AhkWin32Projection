@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CTL_USAGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CTL_USAGE.ahk" { CTL_USAGE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Provides criteria for identifying issuer certificates to be used to build a certificate chain.
@@ -25,10 +25,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_usage_match
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_USAGE_MATCH extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct CERT_USAGE_MATCH {
+    #StructPack 8
 
     /**
      * Determines the kind of issuer matching to be done. In <b>AND</b> logic, the certificate must meet all criteria. In <b>OR</b> logic, the certificate must meet at least one of the criteria. The following codes are defined to determine the logic used in the match. For more information about how this applied, see Remarks.
@@ -62,22 +60,12 @@ class CERT_USAGE_MATCH extends Win32Struct {
      *  
      * 
      * Default usage match logic is USAGE_MATCH_TYPE_AND.
-     * @type {Integer}
      */
-    dwType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwType : UInt32
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_usage">CERT_ENHKEY_USAGE</a> structure (<b>CERT_ENHKEY_USAGE</b> is an alternate typedef name for the <b>CTL_USAGE</b> structure) that includes an array of certificate <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifiers</a> (OIDs) that a certificate must match in order to be valid.
-     * @type {CTL_USAGE}
      */
-    Usage {
-        get {
-            if(!this.HasProp("__Usage"))
-                this.__Usage := CTL_USAGE(8, this)
-            return this.__Usage
-        }
-    }
+    Usage : CTL_USAGE
+
 }

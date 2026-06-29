@@ -1,183 +1,101 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HEAPALIGNMENT.ahk
-#Include .\DDSCAPS.ahk
-#Include .\SURFACEALIGNMENT.ahk
-#Include .\DDSCAPSEX.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDSCAPS.ahk" { DDSCAPS }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\DDSCAPSEX.ahk" { DDSCAPSEX }
+#Import ".\HEAPALIGNMENT.ahk" { HEAPALIGNMENT }
+#Import ".\SURFACEALIGNMENT.ahk" { SURFACEALIGNMENT }
 
 /**
  * The VMEMHEAP structure contains information about the heap.
  * @see https://learn.microsoft.com/windows/win32/api/dmemmgr/ns-dmemmgr-vmemheap
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class VMEMHEAP extends Win32Struct {
-    static sizeof => 248
-
-    static packingSize => 8
+export default struct VMEMHEAP {
+    #StructPack 8
 
     /**
      * Reserved for system use and should be ignored by the driver.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
     /**
      * Reserved for system use and should be ignored by the driver.
-     * @type {Integer}
      */
-    stride {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    stride : UInt32
 
     /**
      * Reserved for system use and should be ignored by the driver.
-     * @type {Pointer<Void>}
      */
-    freeList {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    freeList : IntPtr
 
     /**
      * Reserved for system use and should be ignored by the driver.
-     * @type {Pointer<Void>}
      */
-    allocList {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    allocList : IntPtr
 
     /**
      * Reserved for system use and should be ignored by the driver.
-     * @type {Integer}
      */
-    dwTotalSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwTotalSize : UInt32
 
     /**
      * Points to the linear graphic address remapping table (GART) address of the start of the heap for nonlocal display memory.
-     * @type {Pointer}
      */
-    fpGARTLin {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    fpGARTLin : IntPtr
 
     /**
      * Points to the physical GART address of the start of the heap for nonlocal display memory.
-     * @type {Pointer}
      */
-    fpGARTDev {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    fpGARTDev : IntPtr
 
     /**
      * Reserved for system use and should be ignored by the driver.
-     * @type {Integer}
      */
-    dwCommitedSize {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwCommitedSize : UInt32
 
     /**
      * Reserved for system use and should be ignored by the driver.
-     * @type {Integer}
      */
-    dwCoalesceCount {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwCoalesceCount : UInt32
 
     /**
      * Reserved for system use and should be ignored by the driver.
-     * @type {HEAPALIGNMENT}
      */
-    Alignment {
-        get {
-            if(!this.HasProp("__Alignment"))
-                this.__Alignment := HEAPALIGNMENT(56, this)
-            return this.__Alignment
-        }
-    }
+    Alignment : HEAPALIGNMENT
 
     /**
      * Reserved for system use and should be ignored by the driver.
-     * @type {DDSCAPSEX}
      */
-    ddsCapsEx {
-        get {
-            if(!this.HasProp("__ddsCapsEx"))
-                this.__ddsCapsEx := DDSCAPSEX(180, this)
-            return this.__ddsCapsEx
-        }
-    }
+    ddsCapsEx : DDSCAPSEX
 
     /**
      * Reserved for system use and should be ignored by the driver.
-     * @type {DDSCAPSEX}
      */
-    ddsCapsExAlt {
-        get {
-            if(!this.HasProp("__ddsCapsExAlt"))
-                this.__ddsCapsExAlt := DDSCAPSEX(192, this)
-            return this.__ddsCapsExAlt
-        }
-    }
+    ddsCapsExAlt : DDSCAPSEX
 
     /**
      * Reserved for system use and should be ignored by the driver.
-     * @type {Integer}
      */
-    liPhysAGPBase {
-        get => NumGet(this, 208, "int64")
-        set => NumPut("int64", value, this, 208)
-    }
+    liPhysAGPBase : Int64
 
     /**
      * Reserved for system use and should be ignored by the driver.
-     * @type {HANDLE}
      */
-    hdevAGP {
-        get {
-            if(!this.HasProp("__hdevAGP"))
-                this.__hdevAGP := HANDLE(216, this)
-            return this.__hdevAGP
-        }
-    }
+    hdevAGP : HANDLE
 
     /**
      * Reserved for system use and should be ignored by the driver.
-     * @type {Pointer<Void>}
      */
-    pvPhysRsrv {
-        get => NumGet(this, 224, "ptr")
-        set => NumPut("ptr", value, this, 224)
-    }
+    pvPhysRsrv : IntPtr
 
     /**
      * Reserved for system use and should be ignored by the driver.
-     * @type {Pointer<Integer>}
      */
-    pAgpCommitMask {
-        get => NumGet(this, 232, "ptr")
-        set => NumPut("ptr", value, this, 232)
-    }
+    pAgpCommitMask : IntPtr
 
     /**
      * Reserved for system use and should be ignored by the driver.
-     * @type {Integer}
      */
-    dwAgpCommitMaskSize {
-        get => NumGet(this, 240, "uint")
-        set => NumPut("uint", value, this, 240)
-    }
+    dwAgpCommitMaskSize : UInt32
+
 }

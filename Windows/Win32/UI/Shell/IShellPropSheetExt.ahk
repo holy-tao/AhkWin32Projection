@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that allow a property sheet handler to add or replace pages in the property sheet displayed for a file object.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishellpropsheetext
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellPropSheetExt extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IShellPropSheetExt extends IUnknown {
     /**
      * The interface identifier for IShellPropSheetExt
      * @type {Guid}
      */
-    static IID => Guid("{000214e9-0000-0000-c000-000000000046}")
+    static IID := Guid("{000214e9-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellPropSheetExt interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddPages    : IntPtr
+        ReplacePage : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddPages", "ReplacePage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellPropSheetExt.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds one or more pages to a property sheet that the Shell displays for a file object. The Shell calls this method for each property sheet handler registered to the file type.
@@ -56,7 +66,7 @@ class IShellPropSheetExt extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellpropsheetext-addpages
      */
     AddPages(pfnAddPage, _lParam) {
-        result := ComCall(3, this, "ptr", pfnAddPage, "ptr", _lParam, "HRESULT")
+        result := ComCall(3, this, "ptr", pfnAddPage, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -81,7 +91,29 @@ class IShellPropSheetExt extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellpropsheetext-replacepage
      */
     ReplacePage(uPageID, pfnReplaceWith, _lParam) {
-        result := ComCall(4, this, "uint", uPageID, "ptr", pfnReplaceWith, "ptr", _lParam, "HRESULT")
+        result := ComCall(4, this, "uint", uPageID, "ptr", pfnReplaceWith, LPARAM, _lParam, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IShellPropSheetExt.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddPages := CallbackCreate(GetMethod(implObj, "AddPages"), flags, 3)
+        this.vtbl.ReplacePage := CallbackCreate(GetMethod(implObj, "ReplacePage"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddPages)
+        CallbackFree(this.vtbl.ReplacePage)
     }
 }

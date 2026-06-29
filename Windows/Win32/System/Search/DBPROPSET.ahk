@@ -1,37 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DBPROP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DBPROP.ahk" { DBPROP }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.System.Search
  * @architecture X64, Arm64
  */
-class DBPROPSET extends Win32Struct {
-    static sizeof => 24
+export default struct DBPROPSET {
+    #StructPack 8
 
-    static packingSize => 8
+    rgProperties : DBPROP.Ptr
 
-    /**
-     * @type {Pointer<DBPROP>}
-     */
-    rgProperties {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    cProperties : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cProperties {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    guidPropertySet : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    guidPropertySet {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

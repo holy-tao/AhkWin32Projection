@@ -1,37 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
-#Include ..\..\System\Com\IStream.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * The IPhotoAcquireItem interface provides methods for working with items as they are acquired from a device.
  * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nn-photoacquire-iphotoacquireitem
  * @namespace Windows.Win32.Media.PictureAcquisition
  */
-class IPhotoAcquireItem extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPhotoAcquireItem extends IUnknown {
     /**
      * The interface identifier for IPhotoAcquireItem
      * @type {Guid}
      */
-    static IID => Guid("{00f21c97-28bf-4c02-b842-5e4e90139a30}")
+    static IID := Guid("{00f21c97-28bf-4c02-b842-5e4e90139a30}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPhotoAcquireItem interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetItemName     : IntPtr
+        GetThumbnail    : IntPtr
+        GetProperty     : IntPtr
+        SetProperty     : IntPtr
+        GetStream       : IntPtr
+        CanDelete       : IntPtr
+        Delete          : IntPtr
+        GetSubItemCount : IntPtr
+        GetSubItemAt    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetItemName", "GetThumbnail", "GetProperty", "SetProperty", "GetStream", "CanDelete", "Delete", "GetSubItemCount", "GetSubItemAt"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPhotoAcquireItem.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetItemName method retrieves the file name for an item.
@@ -41,8 +60,8 @@ class IPhotoAcquireItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireitem-getitemname
      */
     GetItemName() {
-        pbstrItemName := BSTR()
-        result := ComCall(3, this, "ptr", pbstrItemName, "HRESULT")
+        pbstrItemName := BSTR.Owned()
+        result := ComCall(3, this, BSTR.Ptr, pbstrItemName, "HRESULT")
         return pbstrItemName
     }
 
@@ -53,8 +72,8 @@ class IPhotoAcquireItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireitem-getthumbnail
      */
     GetThumbnail(sizeThumbnail) {
-        phbmpThumbnail := HBITMAP()
-        result := ComCall(4, this, "ptr", sizeThumbnail, "ptr", phbmpThumbnail, "HRESULT")
+        phbmpThumbnail := HBITMAP.Owned()
+        result := ComCall(4, this, SIZE, sizeThumbnail, HBITMAP.Ptr, phbmpThumbnail, "HRESULT")
         return phbmpThumbnail
     }
 
@@ -68,7 +87,7 @@ class IPhotoAcquireItem extends IUnknown {
      */
     GetProperty(key) {
         pv := PROPVARIANT()
-        result := ComCall(5, this, "ptr", key, "ptr", pv, "HRESULT")
+        result := ComCall(5, this, PROPERTYKEY.Ptr, key, PROPVARIANT.Ptr, pv, "HRESULT")
         return pv
     }
 
@@ -100,7 +119,7 @@ class IPhotoAcquireItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireitem-setproperty
      */
     SetProperty(key, pv) {
-        result := ComCall(6, this, "ptr", key, "ptr", pv, "HRESULT")
+        result := ComCall(6, this, PROPERTYKEY.Ptr, key, PROPVARIANT.Ptr, pv, "HRESULT")
         return result
     }
 
@@ -120,7 +139,7 @@ class IPhotoAcquireItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireitem-candelete
      */
     CanDelete() {
-        result := ComCall(8, this, "int*", &pfCanDelete := 0, "HRESULT")
+        result := ComCall(8, this, BOOL.Ptr, &pfCanDelete := 0, "HRESULT")
         return pfCanDelete
     }
 
@@ -177,5 +196,41 @@ class IPhotoAcquireItem extends IUnknown {
     GetSubItemAt(nItemIndex) {
         result := ComCall(11, this, "uint", nItemIndex, "ptr*", &ppPhotoAcquireItem := 0, "HRESULT")
         return IPhotoAcquireItem(ppPhotoAcquireItem)
+    }
+
+    Query(iid) {
+        if (IPhotoAcquireItem.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetItemName := CallbackCreate(GetMethod(implObj, "GetItemName"), flags, 2)
+        this.vtbl.GetThumbnail := CallbackCreate(GetMethod(implObj, "GetThumbnail"), flags, 3)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
+        this.vtbl.GetStream := CallbackCreate(GetMethod(implObj, "GetStream"), flags, 2)
+        this.vtbl.CanDelete := CallbackCreate(GetMethod(implObj, "CanDelete"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.GetSubItemCount := CallbackCreate(GetMethod(implObj, "GetSubItemCount"), flags, 2)
+        this.vtbl.GetSubItemAt := CallbackCreate(GetMethod(implObj, "GetSubItemAt"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetItemName)
+        CallbackFree(this.vtbl.GetThumbnail)
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.SetProperty)
+        CallbackFree(this.vtbl.GetStream)
+        CallbackFree(this.vtbl.CanDelete)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.GetSubItemCount)
+        CallbackFree(this.vtbl.GetSubItemAt)
     }
 }

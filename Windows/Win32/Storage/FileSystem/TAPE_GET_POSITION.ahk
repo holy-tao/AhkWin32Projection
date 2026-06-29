@@ -1,40 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TAPE_POSITION_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TAPE_POSITION_TYPE.ahk" { TAPE_POSITION_TYPE }
 
 /**
  * Describes the position of the tape.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-tape_get_position
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class TAPE_GET_POSITION extends Win32Struct {
-    static sizeof => 16
+export default struct TAPE_GET_POSITION {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {TAPE_POSITION_TYPE}
-     */
-    Type {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Type : TAPE_POSITION_TYPE
 
     /**
      * Partition to position within. If this member is zero, the current partition is assumed.
-     * @type {Integer}
      */
-    Partition {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Partition : UInt32
 
     /**
      * Block address.
-     * @type {Integer}
      */
-    Offset {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    Offset : Int64
+
 }

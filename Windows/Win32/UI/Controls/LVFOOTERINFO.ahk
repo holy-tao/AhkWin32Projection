@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains information on a footer in a list-view control.
@@ -10,52 +10,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-lvfooterinfo
  * @namespace Windows.Win32.UI.Controls
  */
-class LVFOOTERINFO extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct LVFOOTERINFO {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Set of flags that specify which members of this structure contain data to be set or which members are being requested. Currently, this value must be LVFF_ITEMCOUNT, for the <b>cItems</b> member.
-     * @type {Integer}
      */
-    mask {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    mask : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a></b>
      * 
      * Not supported. Must be set to zero.
-     * @type {PWSTR}
      */
-    pszText {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszText : PWSTR
 
     /**
      * Type: <b>int</b>
      * 
      * Not supported. Must be set to zero.
-     * @type {Integer}
      */
-    cchTextMax {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    cchTextMax : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The number of items in the footer. When this structure is used to get information, this member will be set by the message receiver.
-     * @type {Integer}
      */
-    cItems {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    cItems : UInt32
+
 }

@@ -1,88 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DNS_SVCB_PARAM_IPV4.ahk
-#Include .\DNS_SVCB_PARAM_IPV6.ahk
-#Include .\DNS_SVCB_PARAM_MANDATORY.ahk
-#Include .\DNS_SVCB_PARAM_ALPN.ahk
-#Include .\DNS_SVCB_PARAM_UNKNOWN.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DNS_SVCB_PARAM_IPV6.ahk" { DNS_SVCB_PARAM_IPV6 }
+#Import ".\DNS_SVCB_PARAM_MANDATORY.ahk" { DNS_SVCB_PARAM_MANDATORY }
+#Import ".\DNS_SVCB_PARAM_ALPN.ahk" { DNS_SVCB_PARAM_ALPN }
+#Import ".\DNS_SVCB_PARAM_IPV4.ahk" { DNS_SVCB_PARAM_IPV4 }
+#Import ".\DNS_SVCB_PARAM_UNKNOWN.ahk" { DNS_SVCB_PARAM_UNKNOWN }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
  */
-class DNS_SVCB_PARAM extends Win32Struct {
-    static sizeof => 16
+export default struct DNS_SVCB_PARAM {
+    #StructPack 8
 
-    static packingSize => 8
+    wSvcParamKey : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wSvcParamKey {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    pIpv4Hints : DNS_SVCB_PARAM_IPV4.Ptr
 
-    /**
-     * @type {Pointer<DNS_SVCB_PARAM_IPV4>}
-     */
-    pIpv4Hints {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<DNS_SVCB_PARAM_IPV6>}
-     */
-    pIpv6Hints {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<DNS_SVCB_PARAM_MANDATORY>}
-     */
-    pMandatory {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<DNS_SVCB_PARAM_ALPN>}
-     */
-    pAlpn {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    wPort {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<DNS_SVCB_PARAM_UNKNOWN>}
-     */
-    pUnknown {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {PSTR}
-     */
-    pszDohPath {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    pReserved {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'pIpv6Hints', { type: DNS_SVCB_PARAM_IPV6.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'pMandatory', { type: DNS_SVCB_PARAM_MANDATORY.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'pAlpn', { type: DNS_SVCB_PARAM_ALPN.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'wPort', { type: UInt16, offset: 8 })
+        DefineProp(this.Prototype, 'pUnknown', { type: DNS_SVCB_PARAM_UNKNOWN.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'pszDohPath', { type: PSTR, offset: 8 })
+        DefineProp(this.Prototype, 'pReserved', { type: IntPtr, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,34 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CERT_PROPERTY_TYPE.ahk" { CERT_PROPERTY_TYPE }
+#Import ".\CERT_IMPORT_FLAGS.ahk" { CERT_IMPORT_FLAGS }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Provides administration functionality for properly authorized clients.
  * @see https://learn.microsoft.com/windows/win32/api/certadm/nn-certadm-icertadmin
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICertAdmin extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ICertAdmin extends IDispatch {
     /**
      * The interface identifier for ICertAdmin
      * @type {Guid}
      */
-    static IID => Guid("{34df6950-7fb6-11d0-8817-00a0c903b83c}")
+    static IID := Guid("{34df6950-7fb6-11d0-8817-00a0c903b83c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICertAdmin interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        IsValidCertificate      : IntPtr
+        GetRevocationReason     : IntPtr
+        RevokeCertificate       : IntPtr
+        SetRequestAttributes    : IntPtr
+        SetCertificateExtension : IntPtr
+        DenyRequest             : IntPtr
+        ResubmitRequest         : IntPtr
+        PublishCRL              : IntPtr
+        GetCRL                  : IntPtr
+        ImportCertificate       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsValidCertificate", "GetRevocationReason", "RevokeCertificate", "SetRequestAttributes", "SetCertificateExtension", "DenyRequest", "ResubmitRequest", "PublishCRL", "GetCRL", "ImportCertificate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICertAdmin.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Verifies the certificate against the certification authority (CA) key and checks that the certificate has not been revoked. This method was first defined in the ICertAdmin interface.
@@ -49,7 +69,7 @@ class ICertAdmin extends IDispatch {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
         strSerialNumber := strSerialNumber is String ? BSTR.Alloc(strSerialNumber).Value : strSerialNumber
 
-        result := ComCall(7, this, "ptr", strConfig, "ptr", strSerialNumber, "int*", &pDisposition := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, strConfig, BSTR, strSerialNumber, "int*", &pDisposition := 0, "HRESULT")
         return pDisposition
     }
 
@@ -95,7 +115,7 @@ class ICertAdmin extends IDispatch {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
         strSerialNumber := strSerialNumber is String ? BSTR.Alloc(strSerialNumber).Value : strSerialNumber
 
-        result := ComCall(9, this, "ptr", strConfig, "ptr", strSerialNumber, "int", Reason, "double", Date, "HRESULT")
+        result := ComCall(9, this, BSTR, strConfig, BSTR, strSerialNumber, "int", Reason, "double", Date, "HRESULT")
         return result
     }
 
@@ -160,7 +180,7 @@ class ICertAdmin extends IDispatch {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
         strAttributes := strAttributes is String ? BSTR.Alloc(strAttributes).Value : strAttributes
 
-        result := ComCall(10, this, "ptr", strConfig, "int", RequestId, "ptr", strAttributes, "HRESULT")
+        result := ComCall(10, this, BSTR, strConfig, "int", RequestId, BSTR, strAttributes, "HRESULT")
         return result
     }
 
@@ -222,7 +242,7 @@ class ICertAdmin extends IDispatch {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
         strExtensionName := strExtensionName is String ? BSTR.Alloc(strExtensionName).Value : strExtensionName
 
-        result := ComCall(11, this, "ptr", strConfig, "int", RequestId, "ptr", strExtensionName, "int", Type, "int", Flags, "ptr", pvarValue, "HRESULT")
+        result := ComCall(11, this, BSTR, strConfig, "int", RequestId, BSTR, strExtensionName, CERT_PROPERTY_TYPE, Type, "int", Flags, VARIANT.Ptr, pvarValue, "HRESULT")
         return result
     }
 
@@ -241,7 +261,7 @@ class ICertAdmin extends IDispatch {
     DenyRequest(strConfig, RequestId) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(12, this, "ptr", strConfig, "int", RequestId, "HRESULT")
+        result := ComCall(12, this, BSTR, strConfig, "int", RequestId, "HRESULT")
         return result
     }
 
@@ -261,7 +281,7 @@ class ICertAdmin extends IDispatch {
     ResubmitRequest(strConfig, RequestId) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(13, this, "ptr", strConfig, "int", RequestId, "int*", &pDisposition := 0, "HRESULT")
+        result := ComCall(13, this, BSTR, strConfig, "int", RequestId, "int*", &pDisposition := 0, "HRESULT")
         return pDisposition
     }
 
@@ -282,7 +302,7 @@ class ICertAdmin extends IDispatch {
     PublishCRL(strConfig, Date) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(14, this, "ptr", strConfig, "double", Date, "HRESULT")
+        result := ComCall(14, this, BSTR, strConfig, "double", Date, "HRESULT")
         return result
     }
 
@@ -340,8 +360,8 @@ class ICertAdmin extends IDispatch {
     GetCRL(strConfig, Flags) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        pstrCRL := BSTR()
-        result := ComCall(15, this, "ptr", strConfig, "int", Flags, "ptr", pstrCRL, "HRESULT")
+        pstrCRL := BSTR.Owned()
+        result := ComCall(15, this, BSTR, strConfig, "int", Flags, BSTR.Ptr, pstrCRL, "HRESULT")
         return pstrCRL
     }
 
@@ -367,7 +387,45 @@ class ICertAdmin extends IDispatch {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
         strCertificate := strCertificate is String ? BSTR.Alloc(strCertificate).Value : strCertificate
 
-        result := ComCall(16, this, "ptr", strConfig, "ptr", strCertificate, "int", Flags, "int*", &pRequestId := 0, "HRESULT")
+        result := ComCall(16, this, BSTR, strConfig, BSTR, strCertificate, CERT_IMPORT_FLAGS, Flags, "int*", &pRequestId := 0, "HRESULT")
         return pRequestId
+    }
+
+    Query(iid) {
+        if (ICertAdmin.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsValidCertificate := CallbackCreate(GetMethod(implObj, "IsValidCertificate"), flags, 4)
+        this.vtbl.GetRevocationReason := CallbackCreate(GetMethod(implObj, "GetRevocationReason"), flags, 2)
+        this.vtbl.RevokeCertificate := CallbackCreate(GetMethod(implObj, "RevokeCertificate"), flags, 5)
+        this.vtbl.SetRequestAttributes := CallbackCreate(GetMethod(implObj, "SetRequestAttributes"), flags, 4)
+        this.vtbl.SetCertificateExtension := CallbackCreate(GetMethod(implObj, "SetCertificateExtension"), flags, 7)
+        this.vtbl.DenyRequest := CallbackCreate(GetMethod(implObj, "DenyRequest"), flags, 3)
+        this.vtbl.ResubmitRequest := CallbackCreate(GetMethod(implObj, "ResubmitRequest"), flags, 4)
+        this.vtbl.PublishCRL := CallbackCreate(GetMethod(implObj, "PublishCRL"), flags, 3)
+        this.vtbl.GetCRL := CallbackCreate(GetMethod(implObj, "GetCRL"), flags, 4)
+        this.vtbl.ImportCertificate := CallbackCreate(GetMethod(implObj, "ImportCertificate"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsValidCertificate)
+        CallbackFree(this.vtbl.GetRevocationReason)
+        CallbackFree(this.vtbl.RevokeCertificate)
+        CallbackFree(this.vtbl.SetRequestAttributes)
+        CallbackFree(this.vtbl.SetCertificateExtension)
+        CallbackFree(this.vtbl.DenyRequest)
+        CallbackFree(this.vtbl.ResubmitRequest)
+        CallbackFree(this.vtbl.PublishCRL)
+        CallbackFree(this.vtbl.GetCRL)
+        CallbackFree(this.vtbl.ImportCertificate)
     }
 }

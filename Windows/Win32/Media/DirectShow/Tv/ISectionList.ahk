@@ -1,7 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\MPEG_CONTEXT.ahk" { MPEG_CONTEXT }
+#Import ".\MPEG_PACKET_LIST.ahk" { MPEG_PACKET_LIST }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SECTION.ahk" { SECTION }
+#Import ".\MPEG_REQUEST_TYPE.ahk" { MPEG_REQUEST_TYPE }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MPEG2_FILTER.ahk" { MPEG2_FILTER }
+#Import ".\IMpeg2Data.ahk" { IMpeg2Data }
 
 /**
  * The ISectionList interface represents a list of MPEG-2 table sections.
@@ -10,32 +18,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nn-mpeg2data-isectionlist
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class ISectionList extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISectionList extends IUnknown {
     /**
      * The interface identifier for ISectionList
      * @type {Guid}
      */
-    static IID => Guid("{afec1eb5-2a64-46c6-bf4b-ae3ccb6afdb0}")
+    static IID := Guid("{afec1eb5-2a64-46c6-bf4b-ae3ccb6afdb0}")
 
     /**
      * The class identifier for SectionList
      * @type {Guid}
      */
-    static CLSID => Guid("{73da5d04-4347-45d3-a9dc-fae9ddbe558d}")
+    static CLSID := Guid("{73da5d04-4347-45d3-a9dc-fae9ddbe558d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISectionList interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize                : IntPtr
+        InitializeWithRawSections : IntPtr
+        CancelPendingRequest      : IntPtr
+        GetNumberOfSections       : IntPtr
+        GetSectionData            : IntPtr
+        GetProgramIdentifier      : IntPtr
+        GetTableIdentifier        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "InitializeWithRawSections", "CancelPendingRequest", "GetNumberOfSections", "GetSectionData", "GetProgramIdentifier", "GetTableIdentifier"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISectionList.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Initialize method initializes the object. This method should be called once, immediately after creating the object. The IMpeg2Data::GetSection and IMpeg2Data::GetTable methods call this method internally, so typically an application will not call it.
@@ -104,9 +125,7 @@ class ISectionList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nf-mpeg2data-isectionlist-initialize
      */
     Initialize(requestType, pMpeg2Data, pContext, pid, tid, pFilter, timeout, hDoneEvent) {
-        hDoneEvent := hDoneEvent is Win32Handle ? NumGet(hDoneEvent, "ptr") : hDoneEvent
-
-        result := ComCall(3, this, "int", requestType, "ptr", pMpeg2Data, "ptr", pContext, "ushort", pid, "char", tid, "ptr", pFilter, "uint", timeout, "ptr", hDoneEvent, "HRESULT")
+        result := ComCall(3, this, MPEG_REQUEST_TYPE, requestType, "ptr", pMpeg2Data, MPEG_CONTEXT.Ptr, pContext, "ushort", pid, "char", tid, MPEG2_FILTER.Ptr, pFilter, "uint", timeout, HANDLE, hDoneEvent, "HRESULT")
         return result
     }
 
@@ -164,7 +183,7 @@ class ISectionList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nf-mpeg2data-isectionlist-initializewithrawsections
      */
     InitializeWithRawSections(pmplSections) {
-        result := ComCall(4, this, "ptr", pmplSections, "HRESULT")
+        result := ComCall(4, this, MPEG_PACKET_LIST.Ptr, pmplSections, "HRESULT")
         return result
     }
 
@@ -363,5 +382,37 @@ class ISectionList extends IUnknown {
 
         result := ComCall(9, this, pTableIdMarshal, pTableId, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISectionList.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 9)
+        this.vtbl.InitializeWithRawSections := CallbackCreate(GetMethod(implObj, "InitializeWithRawSections"), flags, 2)
+        this.vtbl.CancelPendingRequest := CallbackCreate(GetMethod(implObj, "CancelPendingRequest"), flags, 1)
+        this.vtbl.GetNumberOfSections := CallbackCreate(GetMethod(implObj, "GetNumberOfSections"), flags, 2)
+        this.vtbl.GetSectionData := CallbackCreate(GetMethod(implObj, "GetSectionData"), flags, 4)
+        this.vtbl.GetProgramIdentifier := CallbackCreate(GetMethod(implObj, "GetProgramIdentifier"), flags, 2)
+        this.vtbl.GetTableIdentifier := CallbackCreate(GetMethod(implObj, "GetTableIdentifier"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.InitializeWithRawSections)
+        CallbackFree(this.vtbl.CancelPendingRequest)
+        CallbackFree(this.vtbl.GetNumberOfSections)
+        CallbackFree(this.vtbl.GetSectionData)
+        CallbackFree(this.vtbl.GetProgramIdentifier)
+        CallbackFree(this.vtbl.GetTableIdentifier)
     }
 }

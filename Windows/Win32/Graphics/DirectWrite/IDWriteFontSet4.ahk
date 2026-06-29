@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontSet3.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DWRITE_FONT_STYLE.ahk" { DWRITE_FONT_STYLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteFontSet3.ahk" { IDWriteFontSet3 }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DWRITE_FONT_STRETCH.ahk" { DWRITE_FONT_STRETCH }
+#Import ".\DWRITE_FONT_AXIS_VALUE.ahk" { DWRITE_FONT_AXIS_VALUE }
+#Import ".\DWRITE_FONT_SIMULATIONS.ahk" { DWRITE_FONT_SIMULATIONS }
+#Import ".\DWRITE_FONT_WEIGHT.ahk" { DWRITE_FONT_WEIGHT }
 
 /**
  * Represents a font set. (IDWriteFontSet4)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontset4
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteFontSet4 extends IDWriteFontSet3 {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteFontSet4 extends IDWriteFontSet3 {
     /**
      * The interface identifier for IDWriteFontSet4
      * @type {Guid}
      */
-    static IID => Guid("{eec175fc-bea9-4c86-8b53-ccbdd7df0c82}")
+    static IID := Guid("{eec175fc-bea9-4c86-8b53-ccbdd7df0c82}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 30
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteFontSet4 interfaces
+    */
+    struct Vtbl extends IDWriteFontSet3.Vtbl {
+        ConvertWeightStretchStyleToFontAxisValues : IntPtr
+        GetMatchingFonts                          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ConvertWeightStretchStyleToFontAxisValues", "GetMatchingFonts"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteFontSet4.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Computes derived font axis values from the specified font weight, stretch, style, and size.
@@ -60,7 +75,7 @@ class IDWriteFontSet4 extends IDWriteFontSet3 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset4-convertweightstretchstyletofontaxisvalues
      */
     ConvertWeightStretchStyleToFontAxisValues(inputAxisValues, inputAxisCount, fontWeight, fontStretch, _fontStyle, fontSize, outputAxisValues) {
-        result := ComCall(30, this, "ptr", inputAxisValues, "uint", inputAxisCount, "int", fontWeight, "int", fontStretch, "int", _fontStyle, "float", fontSize, "ptr", outputAxisValues, "uint")
+        result := ComCall(30, this, DWRITE_FONT_AXIS_VALUE.Ptr, inputAxisValues, "uint", inputAxisCount, DWRITE_FONT_WEIGHT, fontWeight, DWRITE_FONT_STRETCH, fontStretch, DWRITE_FONT_STYLE, _fontStyle, "float", fontSize, DWRITE_FONT_AXIS_VALUE.Ptr, outputAxisValues, UInt32)
         return result
     }
 
@@ -88,7 +103,29 @@ class IDWriteFontSet4 extends IDWriteFontSet3 {
     GetMatchingFonts(familyName, fontAxisValues, fontAxisValueCount, allowedSimulations) {
         familyName := familyName is String ? StrPtr(familyName) : familyName
 
-        result := ComCall(31, this, "ptr", familyName, "ptr", fontAxisValues, "uint", fontAxisValueCount, "int", allowedSimulations, "ptr*", &matchingFonts := 0, "HRESULT")
+        result := ComCall(31, this, "ptr", familyName, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, "uint", fontAxisValueCount, DWRITE_FONT_SIMULATIONS, allowedSimulations, "ptr*", &matchingFonts := 0, "HRESULT")
         return IDWriteFontSet4(matchingFonts)
+    }
+
+    Query(iid) {
+        if (IDWriteFontSet4.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ConvertWeightStretchStyleToFontAxisValues := CallbackCreate(GetMethod(implObj, "ConvertWeightStretchStyleToFontAxisValues"), flags, 8)
+        this.vtbl.GetMatchingFonts := CallbackCreate(GetMethod(implObj, "GetMatchingFonts"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ConvertWeightStretchStyleToFontAxisValues)
+        CallbackFree(this.vtbl.GetMatchingFonts)
     }
 }

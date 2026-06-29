@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines constants that specify a shader cache's mode.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_shader_cache_mode
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_SHADER_CACHE_MODE extends Win32Enum {
+export default struct D3D12_SHADER_CACHE_MODE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies that there's no backing file for this cache. All stores are discarded when the session object is destroyed.

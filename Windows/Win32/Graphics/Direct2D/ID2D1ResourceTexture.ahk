@@ -1,33 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Tracks a transform-created resource texture.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1resourcetexture
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1ResourceTexture extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1ResourceTexture extends IUnknown {
     /**
      * The interface identifier for ID2D1ResourceTexture
      * @type {Guid}
      */
-    static IID => Guid("{688d15c3-02b0-438d-b13a-d1b44c32c39a}")
+    static IID := Guid("{688d15c3-02b0-438d-b13a-d1b44c32c39a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1ResourceTexture interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Update : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Update"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1ResourceTexture.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Updates the specific resource texture inside the specific range or box using the supplied data.
@@ -84,5 +92,25 @@ class ID2D1ResourceTexture extends IUnknown {
 
         result := ComCall(3, this, minimumExtentsMarshal, minimumExtents, maximimumExtentsMarshal, maximimumExtents, stridesMarshal, strides, "uint", dimensions, dataMarshal, data, "uint", dataCount, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID2D1ResourceTexture.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Update := CallbackCreate(GetMethod(implObj, "Update"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Update)
     }
 }

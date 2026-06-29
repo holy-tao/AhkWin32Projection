@@ -1,44 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FORK_VIRTUAL_DISK_VERSION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\FORK_VIRTUAL_DISK_VERSION.ahk" { FORK_VIRTUAL_DISK_VERSION }
 
 /**
  * @namespace Windows.Win32.Storage.Vhd
  */
-class FORK_VIRTUAL_DISK_PARAMETERS extends Win32Struct {
-    static sizeof => 16
+export default struct FORK_VIRTUAL_DISK_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
 
-    /**
-     * @type {FORK_VIRTUAL_DISK_VERSION}
-     */
-    Version {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    struct _Version1 {
+        ForkedVirtualDiskPath : PWSTR
+
     }
 
-    class _Version1 extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    Version : FORK_VIRTUAL_DISK_VERSION
 
-        /**
-         * @type {PWSTR}
-         */
-        ForkedVirtualDiskPath {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-    }
+    Version1 : FORK_VIRTUAL_DISK_PARAMETERS._Version1
 
-    /**
-     * @type {_Version1}
-     */
-    Version1 {
-        get {
-            if(!this.HasProp("__Version1"))
-                this.__Version1 := FORK_VIRTUAL_DISK_PARAMETERS._Version1(8, this)
-            return this.__Version1
-        }
-    }
 }

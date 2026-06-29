@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PO_FX_COMPONENT_IDLE_STATE extends Win32Struct {
-    static sizeof => 24
+export default struct PO_FX_COMPONENT_IDLE_STATE {
+    #StructPack 8
 
-    static packingSize => 8
+    TransitionLatency : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TransitionLatency {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ResidencyRequirement : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ResidencyRequirement {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NominalPower : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NominalPower {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

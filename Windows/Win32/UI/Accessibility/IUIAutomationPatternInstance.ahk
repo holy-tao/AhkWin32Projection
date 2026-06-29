@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\UIAutomationType.ahk" { UIAutomationType }
+#Import ".\UIAutomationParameter.ahk" { UIAutomationParameter }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a control pattern object. The client API wrapper uses this interface to implement all property and method calls in terms of the GetProperty and CallMethod methods.
@@ -10,26 +14,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-iuiautomationpatterninstance
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IUIAutomationPatternInstance extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIAutomationPatternInstance extends IUnknown {
     /**
      * The interface identifier for IUIAutomationPatternInstance
      * @type {Guid}
      */
-    static IID => Guid("{c03a7fe4-9431-409f-bed8-ae7c2299bc8d}")
+    static IID := Guid("{c03a7fe4-9431-409f-bed8-ae7c2299bc8d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAutomationPatternInstance interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetProperty : IntPtr
+        CallMethod  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetProperty", "CallMethod"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAutomationPatternInstance.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The client wrapper object implements the IUIAutomation::get_CurrentX and IUIAutomationElement::get_CachedX methods by calling this function, specifying the property by index.
@@ -46,7 +58,7 @@ class IUIAutomationPatternInstance extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iuiautomationpatterninstance-getproperty
      */
     GetProperty(index, cached, type) {
-        result := ComCall(3, this, "uint", index, "int", cached, "int", type, "ptr", &pPtr := 0, "HRESULT")
+        result := ComCall(3, this, "uint", index, BOOL, cached, UIAutomationType, type, "ptr", &pPtr := 0, "HRESULT")
         return pPtr
     }
 
@@ -67,7 +79,29 @@ class IUIAutomationPatternInstance extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iuiautomationpatterninstance-callmethod
      */
     CallMethod(index, pParams, cParams) {
-        result := ComCall(4, this, "uint", index, "ptr", pParams, "uint", cParams, "HRESULT")
+        result := ComCall(4, this, "uint", index, UIAutomationParameter.Ptr, pParams, "uint", cParams, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUIAutomationPatternInstance.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 5)
+        this.vtbl.CallMethod := CallbackCreate(GetMethod(implObj, "CallMethod"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.CallMethod)
     }
 }

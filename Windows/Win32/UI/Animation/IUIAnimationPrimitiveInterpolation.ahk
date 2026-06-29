@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines a method that allows a custom interpolator to provide transition information, in the form of a cubic polynomial curve, to the animation manager.
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationprimitiveinterpolation
  * @namespace Windows.Win32.UI.Animation
  */
-class IUIAnimationPrimitiveInterpolation extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIAnimationPrimitiveInterpolation extends IUnknown {
     /**
      * The interface identifier for IUIAnimationPrimitiveInterpolation
      * @type {Guid}
      */
-    static IID => Guid("{bab20d63-4361-45da-a24f-ab8508846b5b}")
+    static IID := Guid("{bab20d63-4361-45da-a24f-ab8508846b5b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAnimationPrimitiveInterpolation interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddCubic      : IntPtr
+        AddSinusoidal : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddCubic", "AddSinusoidal"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAnimationPrimitiveInterpolation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds a cubic polynomial segment that describes the shape of a transition curve to the animation function.
@@ -67,5 +76,27 @@ class IUIAnimationPrimitiveInterpolation extends IUnknown {
     AddSinusoidal(dimension, beginOffset, bias, amplitude, frequency, phase) {
         result := ComCall(4, this, "uint", dimension, "double", beginOffset, "float", bias, "float", amplitude, "float", frequency, "float", phase, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUIAnimationPrimitiveInterpolation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddCubic := CallbackCreate(GetMethod(implObj, "AddCubic"), flags, 7)
+        this.vtbl.AddSinusoidal := CallbackCreate(GetMethod(implObj, "AddSinusoidal"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddCubic)
+        CallbackFree(this.vtbl.AddSinusoidal)
     }
 }

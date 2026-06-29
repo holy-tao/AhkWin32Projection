@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents a date-and-time value.
@@ -8,26 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsync/ns-winsync-sync_time
  * @namespace Windows.Win32.System.WindowsSync
  */
-class SYNC_TIME extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct SYNC_TIME {
+    #StructPack 4
 
     /**
      * The date portion of the value.
-     * @type {Integer}
      */
-    dwDate {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwDate : UInt32
 
     /**
      * The time portion of the value.
-     * @type {Integer}
      */
-    dwTime {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwTime : UInt32
+
 }

@@ -1,40 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Invitations enable a person or group of persons to connect to a session. When an attendee connects to a session, the client sends a ticket and a password. These two pieces of information are used to authenticate an attendee.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapiinvitation
  * @namespace Windows.Win32.System.DesktopSharing
  */
-class IRDPSRAPIInvitation extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IRDPSRAPIInvitation extends IDispatch {
     /**
      * The interface identifier for IRDPSRAPIInvitation
      * @type {Guid}
      */
-    static IID => Guid("{4fac1d43-fc51-45bb-b1b4-2b53aa562fa3}")
+    static IID := Guid("{4fac1d43-fc51-45bb-b1b4-2b53aa562fa3}")
 
     /**
      * The class identifier for RDPSRAPIInvitation
      * @type {Guid}
      */
-    static CLSID => Guid("{49174dc6-0731-4b5e-8ee1-83a63d3868fa}")
+    static CLSID := Guid("{49174dc6-0731-4b5e-8ee1-83a63d3868fa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRDPSRAPIInvitation interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_ConnectionString : IntPtr
+        get_GroupName        : IntPtr
+        get_Password         : IntPtr
+        get_AttendeeLimit    : IntPtr
+        put_AttendeeLimit    : IntPtr
+        get_Revoked          : IntPtr
+        put_Revoked          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ConnectionString", "get_GroupName", "get_Password", "get_AttendeeLimit", "put_AttendeeLimit", "get_Revoked", "put_Revoked"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRDPSRAPIInvitation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -81,8 +96,8 @@ class IRDPSRAPIInvitation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-get_connectionstring
      */
     get_ConnectionString() {
-        pbstrVal := BSTR()
-        result := ComCall(7, this, "ptr", pbstrVal, "HRESULT")
+        pbstrVal := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pbstrVal, "HRESULT")
         return pbstrVal
     }
 
@@ -94,8 +109,8 @@ class IRDPSRAPIInvitation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-get_groupname
      */
     get_GroupName() {
-        pbstrVal := BSTR()
-        result := ComCall(8, this, "ptr", pbstrVal, "HRESULT")
+        pbstrVal := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, pbstrVal, "HRESULT")
         return pbstrVal
     }
 
@@ -107,8 +122,8 @@ class IRDPSRAPIInvitation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-get_password
      */
     get_Password() {
-        pbstrVal := BSTR()
-        result := ComCall(9, this, "ptr", pbstrVal, "HRESULT")
+        pbstrVal := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pbstrVal, "HRESULT")
         return pbstrVal
     }
 
@@ -145,7 +160,7 @@ class IRDPSRAPIInvitation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-get_revoked
      */
     get_Revoked() {
-        result := ComCall(12, this, "short*", &pRetVal := 0, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL.Ptr, &pRetVal := 0, "HRESULT")
         return pRetVal
     }
 
@@ -158,7 +173,39 @@ class IRDPSRAPIInvitation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-put_revoked
      */
     put_Revoked(NewVal) {
-        result := ComCall(13, this, "short", NewVal, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL, NewVal, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRDPSRAPIInvitation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ConnectionString := CallbackCreate(GetMethod(implObj, "get_ConnectionString"), flags, 2)
+        this.vtbl.get_GroupName := CallbackCreate(GetMethod(implObj, "get_GroupName"), flags, 2)
+        this.vtbl.get_Password := CallbackCreate(GetMethod(implObj, "get_Password"), flags, 2)
+        this.vtbl.get_AttendeeLimit := CallbackCreate(GetMethod(implObj, "get_AttendeeLimit"), flags, 2)
+        this.vtbl.put_AttendeeLimit := CallbackCreate(GetMethod(implObj, "put_AttendeeLimit"), flags, 2)
+        this.vtbl.get_Revoked := CallbackCreate(GetMethod(implObj, "get_Revoked"), flags, 2)
+        this.vtbl.put_Revoked := CallbackCreate(GetMethod(implObj, "put_Revoked"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ConnectionString)
+        CallbackFree(this.vtbl.get_GroupName)
+        CallbackFree(this.vtbl.get_Password)
+        CallbackFree(this.vtbl.get_AttendeeLimit)
+        CallbackFree(this.vtbl.put_AttendeeLimit)
+        CallbackFree(this.vtbl.get_Revoked)
+        CallbackFree(this.vtbl.put_Revoked)
     }
 }

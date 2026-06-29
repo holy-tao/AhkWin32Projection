@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MapiRecipDescW.ahk
-#Include .\MapiFileDescW.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MapiFileDescW.ahk" { MapiFileDescW }
+#Import ".\MapiRecipDescW.ahk" { MapiRecipDescW }
 
 /**
  * A MapiMessageW structure contains information about a message.
@@ -9,21 +9,15 @@
  * @namespace Windows.Win32.System.Mapi
  * @charset Unicode
  */
-class MapiMessageW extends Win32Struct {
-    static sizeof => 96
-
-    static packingSize => 8
+export default struct MapiMessageW {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">ULONG</a></b>
      * 
      * Reserved; must be zero.
-     * @type {Integer}
      */
-    ulReserved {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulReserved : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
@@ -31,12 +25,8 @@ class MapiMessageW extends Win32Struct {
      * Pointer to the text string describing the message subject, typically limited to 256 characters or less.
      * 
      * If this member is empty or <b>NULL</b>, there is no subject text.
-     * @type {PWSTR}
      */
-    lpszSubject {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpszSubject : PWSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
@@ -44,12 +34,8 @@ class MapiMessageW extends Win32Struct {
      * Pointer to a string containing the message text.
      * 
      * If this member is empty or <b>NULL</b>, there is no message text.
-     * @type {PWSTR}
      */
-    lpszNoteText {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpszNoteText : PWSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
@@ -57,34 +43,22 @@ class MapiMessageW extends Win32Struct {
      * Pointer to a string that indicates the message type of when the message is not an IPM.
      * 
      * If your Client supports Interpersonal Messages (IPMs) exclusively, set the <b>lpszMessageType</b> member to empty or <b>NULL</b> when sending messages and ignore the member when reading messages.
-     * @type {PWSTR}
      */
-    lpszMessageType {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpszMessageType : PWSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
      * 
      * Pointer to a string indicating the date when the message was received. The format is <i>YYYY</i>/<i>MM</i>/<i>DD</i><i>HH</i>:<i>MM</i>, using a 24-hour clock.
-     * @type {PWSTR}
      */
-    lpszDateReceived {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpszDateReceived : PWSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
      * 
      * Pointer to a string identifying the conversation thread to which the message belongs. Some messaging systems ignore this member.
-     * @type {PWSTR}
      */
-    lpszConversationID {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lpszConversationID : PWSTR
 
     /**
      * Type: <b>FLAGS</b>
@@ -130,23 +104,15 @@ class MapiMessageW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    flFlags {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    flFlags : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mapi/ns-mapi-mapirecipdescw">lpMapiRecipDescW</a></b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mapi/ns-mapi-mapirecipdescw">MapiRecipDescW</a> structure containing information about the sender of the message.
-     * @type {Pointer<MapiRecipDescW>}
      */
-    lpOriginator {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    lpOriginator : MapiRecipDescW.Ptr
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">ULONG</a></b>
@@ -154,23 +120,15 @@ class MapiMessageW extends Win32Struct {
      * The number of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mapi/ns-mapi-mapirecipdescw">MapiRecipDescW</a> structures in the array pointed to by the <b>lpRecips</b> member.
      * 
      * If this member is zero, there are no recipients.
-     * @type {Integer}
      */
-    nRecipCount {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    nRecipCount : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mapi/ns-mapi-mapirecipdescw">lpMapiRecipDescW</a></b>
      * 
      * Pointer to an array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mapi/ns-mapi-mapirecipdescw">MapiRecipDescW</a> structures. Each structure contains information about one recipient.
-     * @type {Pointer<MapiRecipDescW>}
      */
-    lpRecips {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    lpRecips : MapiRecipDescW.Ptr
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">ULONG</a></b>
@@ -178,21 +136,14 @@ class MapiMessageW extends Win32Struct {
      * The number of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mapi/ns-mapi-mapifiledescw">MapiFileDescW</a> structures in the array pointed to by the <b>lpFiles</b> member.
      * 
      * If this member is zero, there are no file attachments.
-     * @type {Integer}
      */
-    nFileCount {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    nFileCount : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mapi/ns-mapi-mapifiledescw">lpMapiFileDescW</a></b>
      * 
      * Pointer to an array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mapi/ns-mapi-mapifiledescw">MapiFileDescW</a> structures. Each structure contains information about one file attachment.
-     * @type {Pointer<MapiFileDescW>}
      */
-    lpFiles {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    lpFiles : MapiFileDescW.Ptr
+
 }

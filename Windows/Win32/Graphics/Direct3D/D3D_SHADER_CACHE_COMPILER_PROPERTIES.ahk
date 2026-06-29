@@ -1,58 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D_VERSION_NUMBER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D_VERSION_NUMBER.ahk" { D3D_VERSION_NUMBER }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D
  */
-class D3D_SHADER_CACHE_COMPILER_PROPERTIES extends Win32Struct {
-    static sizeof => 304
+export default struct D3D_SHADER_CACHE_COMPILER_PROPERTIES {
+    #StructPack 8
 
-    static packingSize => 8
+    szAdapterFamily : WCHAR[128]
 
-    /**
-     * @type {String}
-     */
-    szAdapterFamily {
-        get => StrGet(this.ptr + 0, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 127, "UTF-16")
-    }
+    MinimumABISupportVersion : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MinimumABISupportVersion {
-        get => NumGet(this, 256, "uint")
-        set => NumPut("uint", value, this, 256)
-    }
+    MaximumABISupportVersion : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MaximumABISupportVersion {
-        get => NumGet(this, 264, "uint")
-        set => NumPut("uint", value, this, 264)
-    }
+    CompilerVersion : D3D_VERSION_NUMBER
 
-    /**
-     * @type {D3D_VERSION_NUMBER}
-     */
-    CompilerVersion {
-        get {
-            if(!this.HasProp("__CompilerVersion"))
-                this.__CompilerVersion := D3D_VERSION_NUMBER(272, this)
-            return this.__CompilerVersion
-        }
-    }
+    ApplicationProfileVersion : D3D_VERSION_NUMBER
 
-    /**
-     * @type {D3D_VERSION_NUMBER}
-     */
-    ApplicationProfileVersion {
-        get {
-            if(!this.HasProp("__ApplicationProfileVersion"))
-                this.__ApplicationProfileVersion := D3D_VERSION_NUMBER(288, this)
-            return this.__ApplicationProfileVersion
-        }
-    }
 }

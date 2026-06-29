@@ -1,36 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\SECPKG_SUPPLEMENTAL_CRED.ahk
-#Include .\LSA_UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SECPKG_SUPPLEMENTAL_CRED.ahk" { SECPKG_SUPPLEMENTAL_CRED }
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The SECPKG_SUPPLEMENTAL_CRED_ARRAY structure contains supplemental credentials information. This structure is used by the LsaApLogonUserEx2 and UpdateCredentials functions.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_supplemental_cred_array
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SECPKG_SUPPLEMENTAL_CRED_ARRAY extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct SECPKG_SUPPLEMENTAL_CRED_ARRAY {
+    #StructPack 8
 
     /**
      * The number of supplemental credentials in the <b>Credentials</b> member.
-     * @type {Integer}
      */
-    CredentialCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    CredentialCount : UInt32
 
     /**
      * An array containing supplemental credentials.
-     * @type {SECPKG_SUPPLEMENTAL_CRED}
      */
-    Credentials {
-        get {
-            if(!this.HasProp("__CredentialsProxyArray"))
-                this.__CredentialsProxyArray := Win32FixedArray(this.ptr + 8, 1, SECPKG_SUPPLEMENTAL_CRED, "")
-            return this.__CredentialsProxyArray
-        }
-    }
+    Credentials : SECPKG_SUPPLEMENTAL_CRED[1]
+
 }

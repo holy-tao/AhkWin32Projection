@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The BTH_QUERY_DEVICE structure is used when querying for the presence of a Bluetooth device.
@@ -9,26 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/ws2bth/ns-ws2bth-bth_query_device
  * @namespace Windows.Win32.Devices.Bluetooth
  */
-class BTH_QUERY_DEVICE extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct BTH_QUERY_DEVICE {
+    #StructPack 4
 
     /**
      * Reserved. Must be set to zero.
-     * @type {Integer}
      */
-    LAP {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    LAP : UInt32
 
     /**
      * Requested length of the inquiry, in seconds.
-     * @type {Integer}
      */
-    length {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    length : Int8
+
 }

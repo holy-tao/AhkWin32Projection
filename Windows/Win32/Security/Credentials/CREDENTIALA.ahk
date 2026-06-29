@@ -1,10 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRED_FLAGS.ahk
-#Include .\CRED_TYPE.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\CRED_PERSIST.ahk
-#Include .\CREDENTIAL_ATTRIBUTEA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRED_PERSIST.ahk" { CRED_PERSIST }
+#Import ".\CRED_FLAGS.ahk" { CRED_FLAGS }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\CREDENTIAL_ATTRIBUTEA.ahk" { CREDENTIAL_ATTRIBUTEA }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\CRED_TYPE.ahk" { CRED_TYPE }
 
 /**
  * The CREDENTIAL structure contains an individual credential. (ANSI)
@@ -15,10 +15,8 @@
  * @namespace Windows.Win32.Security.Credentials
  * @charset ANSI
  */
-class CREDENTIALA extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct CREDENTIALA {
+    #StructPack 8
 
     /**
      * A bit member that identifies characteristics of the credential. Undefined bits should be initialized as zero and not otherwise altered to permit future enhancement.
@@ -59,12 +57,8 @@ class CREDENTIALA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {CRED_FLAGS}
      */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : CRED_FLAGS
 
     /**
      * The type of the credential. This member cannot be changed after the credential is created. The following values are valid.
@@ -177,12 +171,8 @@ class CREDENTIALA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {CRED_TYPE}
      */
-    Type {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Type : CRED_TYPE
 
     /**
      * The name of the credential. The <b>TargetName</b> and <b>Type</b> members uniquely identify the credential. This member cannot be changed after the credential is created. Instead, the credential with the old name should be deleted and the credential with the new name created.
@@ -211,42 +201,23 @@ class CREDENTIALA extends Win32Struct {
      * If the <b>Type</b> is CRED_TYPE_GENERIC, this member should identify the service that uses the credential in addition to the actual target. Microsoft suggests the name be prefixed by the name of the company implementing the service. Microsoft will use the prefix "Microsoft". Services written by Microsoft should append their service name, for example <b>Microsoft_RAS_</b><i>TargetName</i>. This member cannot be longer than <b>CRED_MAX_GENERIC_TARGET_NAME_LENGTH</b> (32767) characters.
      * 
      * This member is case-insensitive.
-     * @type {PSTR}
      */
-    TargetName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    TargetName : PSTR
 
     /**
      * A string comment from the user that describes this credential. This member cannot be longer than <b>CRED_MAX_STRING_LENGTH</b> (256) characters.
-     * @type {PSTR}
      */
-    Comment {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Comment : PSTR
 
     /**
      * The time, in Coordinated Universal Time (Greenwich Mean Time), of the last modification of the credential. For write operations, the value of this member is ignored.
-     * @type {FILETIME}
      */
-    LastWritten {
-        get {
-            if(!this.HasProp("__LastWritten"))
-                this.__LastWritten := FILETIME(24, this)
-            return this.__LastWritten
-        }
-    }
+    LastWritten : FILETIME
 
     /**
      * The size, in bytes, of the <b>CredentialBlob</b> member. This member cannot be larger than <b>CRED_MAX_CREDENTIAL_BLOB_SIZE</b> (5*512) bytes.
-     * @type {Integer}
      */
-    CredentialBlobSize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    CredentialBlobSize : UInt32
 
     /**
      * Secret data for the credential. The <b>CredentialBlob</b> member can be both read and written.
@@ -258,12 +229,8 @@ class CREDENTIALA extends Win32Struct {
      * If the <b>Type</b> member is <b>CRED_TYPE_GENERIC</b>, this member is defined by the application.
      * 
      * Credentials are expected to be portable. Applications should ensure that the data in <b>CredentialBlob</b> is portable. The application defines the byte-endian and alignment of the data in <b>CredentialBlob</b>.
-     * @type {Pointer<Integer>}
      */
-    CredentialBlob {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    CredentialBlob : IntPtr
 
     /**
      * Defines the persistence of this credential. This member can be read and written.
@@ -315,41 +282,25 @@ class CREDENTIALA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {CRED_PERSIST}
      */
-    Persist {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    Persist : CRED_PERSIST
 
     /**
      * The number of application-defined attributes to be associated with the credential. This member can be read and written. Its value cannot be greater than <b>CRED_MAX_ATTRIBUTES</b> (64).
-     * @type {Integer}
      */
-    AttributeCount {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    AttributeCount : UInt32
 
     /**
      * Application-defined attributes that are associated with the credential. This member can be read and written.
-     * @type {Pointer<CREDENTIAL_ATTRIBUTEA>}
      */
-    Attributes {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    Attributes : CREDENTIAL_ATTRIBUTEA.Ptr
 
     /**
      * Alias for the <b>TargetName</b> member. This member can be read and written. It cannot be longer than <b>CRED_MAX_STRING_LENGTH</b> (256) characters.
      * 
      * If the credential <b>Type</b> is <b>CRED_TYPE_GENERIC</b>, this member can be non-<b>NULL</b>, but the credential manager ignores the member.
-     * @type {PSTR}
      */
-    TargetAlias {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    TargetAlias : PSTR
 
     /**
      * The user name of the account used to connect to <b>TargetName</b>. 
@@ -364,10 +315,7 @@ class CREDENTIALA extends Win32Struct {
      * If the credential <b>Type</b> is <b>CRED_TYPE_GENERIC</b>, this member can be non-<b>NULL</b>, but the credential manager ignores the member.
      * 
      * This member cannot be longer than <b>CRED_MAX_USERNAME_LENGTH</b> (513) characters.
-     * @type {PSTR}
      */
-    UserName {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    UserName : PSTR
+
 }

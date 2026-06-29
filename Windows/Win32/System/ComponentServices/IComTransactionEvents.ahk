@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Notifies the subscriber if the Microsoft Distributed Transaction Coordinator (DTC) transaction starts, commits, or aborts.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomtransactionevents
  * @namespace Windows.Win32.System.ComponentServices
  */
-class IComTransactionEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IComTransactionEvents extends IUnknown {
     /**
      * The interface identifier for IComTransactionEvents
      * @type {Guid}
      */
-    static IID => Guid("{683130a8-2e50-11d2-98a5-00c04f8ee1c4}")
+    static IID := Guid("{683130a8-2e50-11d2-98a5-00c04f8ee1c4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IComTransactionEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnTransactionStart   : IntPtr
+        OnTransactionPrepare : IntPtr
+        OnTransactionAbort   : IntPtr
+        OnTransactionCommit  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnTransactionStart", "OnTransactionPrepare", "OnTransactionAbort", "OnTransactionCommit"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IComTransactionEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Generated when a Microsoft Distributed Transaction Coordinator (DTC) transaction starts. (IComTransactionEvents.OnTransactionStart)
@@ -39,7 +52,7 @@ class IComTransactionEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomtransactionevents-ontransactionstart
      */
     OnTransactionStart(pInfo, guidTx, tsid, fRoot) {
-        result := ComCall(3, this, "ptr", pInfo, "ptr", guidTx, "ptr", tsid, "int", fRoot, "HRESULT")
+        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidTx, Guid.Ptr, tsid, BOOL, fRoot, "HRESULT")
         return result
     }
 
@@ -52,7 +65,7 @@ class IComTransactionEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomtransactionevents-ontransactionprepare
      */
     OnTransactionPrepare(pInfo, guidTx, fVoteYes) {
-        result := ComCall(4, this, "ptr", pInfo, "ptr", guidTx, "int", fVoteYes, "HRESULT")
+        result := ComCall(4, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidTx, BOOL, fVoteYes, "HRESULT")
         return result
     }
 
@@ -64,7 +77,7 @@ class IComTransactionEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomtransactionevents-ontransactionabort
      */
     OnTransactionAbort(pInfo, guidTx) {
-        result := ComCall(5, this, "ptr", pInfo, "ptr", guidTx, "HRESULT")
+        result := ComCall(5, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidTx, "HRESULT")
         return result
     }
 
@@ -76,7 +89,33 @@ class IComTransactionEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomtransactionevents-ontransactioncommit
      */
     OnTransactionCommit(pInfo, guidTx) {
-        result := ComCall(6, this, "ptr", pInfo, "ptr", guidTx, "HRESULT")
+        result := ComCall(6, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidTx, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IComTransactionEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnTransactionStart := CallbackCreate(GetMethod(implObj, "OnTransactionStart"), flags, 5)
+        this.vtbl.OnTransactionPrepare := CallbackCreate(GetMethod(implObj, "OnTransactionPrepare"), flags, 4)
+        this.vtbl.OnTransactionAbort := CallbackCreate(GetMethod(implObj, "OnTransactionAbort"), flags, 3)
+        this.vtbl.OnTransactionCommit := CallbackCreate(GetMethod(implObj, "OnTransactionCommit"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnTransactionStart)
+        CallbackFree(this.vtbl.OnTransactionPrepare)
+        CallbackFree(this.vtbl.OnTransactionAbort)
+        CallbackFree(this.vtbl.OnTransactionCommit)
     }
 }

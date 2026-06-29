@@ -1,37 +1,63 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IEnumAddress.ahk
-#Include .\IEnumCallHub.ahk
-#Include ..\..\System\Com\IEnumUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IEnumUnknown.ahk" { IEnumUnknown }
+#Import ".\ITAddress.ahk" { ITAddress }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IEnumAddress.ahk" { IEnumAddress }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IEnumCallHub.ahk" { IEnumCallHub }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ITTAPI interface is the base interface for the TAPI object. The TAPI object is created by CoCreateInstance. For information on CoCreateInstance, see documentation on COM. All other TAPI 3 objects are created by TAPI 3 itself.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-ittapi
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITTAPI extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITTAPI extends IDispatch {
     /**
      * The interface identifier for ITTAPI
      * @type {Guid}
      */
-    static IID => Guid("{b1efc382-9355-11d0-835c-00aa003ccabd}")
+    static IID := Guid("{b1efc382-9355-11d0-835c-00aa003ccabd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITTAPI interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Initialize                   : IntPtr
+        Shutdown                     : IntPtr
+        get_Addresses                : IntPtr
+        EnumerateAddresses           : IntPtr
+        RegisterCallNotifications    : IntPtr
+        UnregisterNotifications      : IntPtr
+        get_CallHubs                 : IntPtr
+        EnumerateCallHubs            : IntPtr
+        SetCallHubTracking           : IntPtr
+        EnumeratePrivateTAPIObjects  : IntPtr
+        get_PrivateTAPIObjects       : IntPtr
+        RegisterRequestRecipient     : IntPtr
+        SetAssistedTelephonyPriority : IntPtr
+        SetApplicationPriority       : IntPtr
+        put_EventFilter              : IntPtr
+        get_EventFilter              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "Shutdown", "get_Addresses", "EnumerateAddresses", "RegisterCallNotifications", "UnregisterNotifications", "get_CallHubs", "EnumerateCallHubs", "SetCallHubTracking", "EnumeratePrivateTAPIObjects", "get_PrivateTAPIObjects", "RegisterRequestRecipient", "SetAssistedTelephonyPriority", "SetApplicationPriority", "put_EventFilter", "get_EventFilter"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITTAPI.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT} 
@@ -179,7 +205,7 @@ class ITTAPI extends IDispatch {
      */
     get_Addresses() {
         pVariant := VARIANT()
-        result := ComCall(9, this, "ptr", pVariant, "HRESULT")
+        result := ComCall(9, this, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
     }
 
@@ -227,7 +253,7 @@ class ITTAPI extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapi-registercallnotifications
      */
     RegisterCallNotifications(pAddress, fMonitor, fOwner, lMediaTypes, lCallbackInstance) {
-        result := ComCall(11, this, "ptr", pAddress, "short", fMonitor, "short", fOwner, "int", lMediaTypes, "int", lCallbackInstance, "int*", &plRegister := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", pAddress, VARIANT_BOOL, fMonitor, VARIANT_BOOL, fOwner, "int", lMediaTypes, "int", lCallbackInstance, "int*", &plRegister := 0, "HRESULT")
         return plRegister
     }
 
@@ -296,7 +322,7 @@ class ITTAPI extends IDispatch {
      */
     get_CallHubs() {
         pVariant := VARIANT()
-        result := ComCall(13, this, "ptr", pVariant, "HRESULT")
+        result := ComCall(13, this, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
     }
 
@@ -364,7 +390,7 @@ class ITTAPI extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapi-setcallhubtracking
      */
     SetCallHubTracking(pAddresses, bTracking) {
-        result := ComCall(15, this, "ptr", pAddresses, "short", bTracking, "HRESULT")
+        result := ComCall(15, this, VARIANT, pAddresses, VARIANT_BOOL, bTracking, "HRESULT")
         return result
     }
 
@@ -385,7 +411,7 @@ class ITTAPI extends IDispatch {
      */
     get_PrivateTAPIObjects() {
         pVariant := VARIANT()
-        result := ComCall(17, this, "ptr", pVariant, "HRESULT")
+        result := ComCall(17, this, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
     }
 
@@ -438,7 +464,7 @@ class ITTAPI extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapi-registerrequestrecipient
      */
     RegisterRequestRecipient(lRegistrationInstance, lRequestMode, fEnable) {
-        result := ComCall(18, this, "int", lRegistrationInstance, "int", lRequestMode, "short", fEnable, "HRESULT")
+        result := ComCall(18, this, "int", lRegistrationInstance, "int", lRequestMode, VARIANT_BOOL, fEnable, "HRESULT")
         return result
     }
 
@@ -485,7 +511,7 @@ class ITTAPI extends IDispatch {
     SetAssistedTelephonyPriority(pAppFilename, fPriority) {
         pAppFilename := pAppFilename is String ? BSTR.Alloc(pAppFilename).Value : pAppFilename
 
-        result := ComCall(19, this, "ptr", pAppFilename, "short", fPriority, "HRESULT")
+        result := ComCall(19, this, BSTR, pAppFilename, VARIANT_BOOL, fPriority, "HRESULT")
         return result
     }
 
@@ -535,7 +561,7 @@ class ITTAPI extends IDispatch {
     SetApplicationPriority(pAppFilename, lMediaType, fPriority) {
         pAppFilename := pAppFilename is String ? BSTR.Alloc(pAppFilename).Value : pAppFilename
 
-        result := ComCall(20, this, "ptr", pAppFilename, "int", lMediaType, "short", fPriority, "HRESULT")
+        result := ComCall(20, this, BSTR, pAppFilename, "int", lMediaType, VARIANT_BOOL, fPriority, "HRESULT")
         return result
     }
 
@@ -587,5 +613,55 @@ class ITTAPI extends IDispatch {
     get_EventFilter() {
         result := ComCall(22, this, "int*", &plFilterMask := 0, "HRESULT")
         return plFilterMask
+    }
+
+    Query(iid) {
+        if (ITTAPI.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 1)
+        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
+        this.vtbl.get_Addresses := CallbackCreate(GetMethod(implObj, "get_Addresses"), flags, 2)
+        this.vtbl.EnumerateAddresses := CallbackCreate(GetMethod(implObj, "EnumerateAddresses"), flags, 2)
+        this.vtbl.RegisterCallNotifications := CallbackCreate(GetMethod(implObj, "RegisterCallNotifications"), flags, 7)
+        this.vtbl.UnregisterNotifications := CallbackCreate(GetMethod(implObj, "UnregisterNotifications"), flags, 2)
+        this.vtbl.get_CallHubs := CallbackCreate(GetMethod(implObj, "get_CallHubs"), flags, 2)
+        this.vtbl.EnumerateCallHubs := CallbackCreate(GetMethod(implObj, "EnumerateCallHubs"), flags, 2)
+        this.vtbl.SetCallHubTracking := CallbackCreate(GetMethod(implObj, "SetCallHubTracking"), flags, 3)
+        this.vtbl.EnumeratePrivateTAPIObjects := CallbackCreate(GetMethod(implObj, "EnumeratePrivateTAPIObjects"), flags, 2)
+        this.vtbl.get_PrivateTAPIObjects := CallbackCreate(GetMethod(implObj, "get_PrivateTAPIObjects"), flags, 2)
+        this.vtbl.RegisterRequestRecipient := CallbackCreate(GetMethod(implObj, "RegisterRequestRecipient"), flags, 4)
+        this.vtbl.SetAssistedTelephonyPriority := CallbackCreate(GetMethod(implObj, "SetAssistedTelephonyPriority"), flags, 3)
+        this.vtbl.SetApplicationPriority := CallbackCreate(GetMethod(implObj, "SetApplicationPriority"), flags, 4)
+        this.vtbl.put_EventFilter := CallbackCreate(GetMethod(implObj, "put_EventFilter"), flags, 2)
+        this.vtbl.get_EventFilter := CallbackCreate(GetMethod(implObj, "get_EventFilter"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.Shutdown)
+        CallbackFree(this.vtbl.get_Addresses)
+        CallbackFree(this.vtbl.EnumerateAddresses)
+        CallbackFree(this.vtbl.RegisterCallNotifications)
+        CallbackFree(this.vtbl.UnregisterNotifications)
+        CallbackFree(this.vtbl.get_CallHubs)
+        CallbackFree(this.vtbl.EnumerateCallHubs)
+        CallbackFree(this.vtbl.SetCallHubTracking)
+        CallbackFree(this.vtbl.EnumeratePrivateTAPIObjects)
+        CallbackFree(this.vtbl.get_PrivateTAPIObjects)
+        CallbackFree(this.vtbl.RegisterRequestRecipient)
+        CallbackFree(this.vtbl.SetAssistedTelephonyPriority)
+        CallbackFree(this.vtbl.SetApplicationPriority)
+        CallbackFree(this.vtbl.put_EventFilter)
+        CallbackFree(this.vtbl.get_EventFilter)
     }
 }

@@ -1,61 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DDDI_UPDATEALLOCPROPERTY extends Win32Struct {
-    static sizeof => 48
+export default struct D3DDDI_UPDATEALLOCPROPERTY {
+    #StructPack 8
 
-    static packingSize => 8
+    hPagingQueue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hPagingQueue {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hAllocation : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hAllocation {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SupportedSegmentSet : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SupportedSegmentSet {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    PreferredSegment : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    PreferredSegment {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Flags : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Flags {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    PagingFenceValue {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    PagingFenceValue : Int64
 
     /**
      * This bitfield backs the following members:
@@ -64,12 +25,9 @@ class D3DDDI_UPDATEALLOCPROPERTY extends Win32Struct {
      * - SetPreferredSegment
      * - SetUnmoveable
      * - Reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -102,12 +60,8 @@ class D3DDDI_UPDATEALLOCPROPERTY extends Win32Struct {
         get => (this._bitfield >> 3) & 0x1
         set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
     }
-
-    /**
-     * @type {Integer}
-     */
-    PropertyMaskValue {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+    static __New() {
+        DefineProp(this.Prototype, 'PropertyMaskValue', { type: UInt32, offset: 40 })
+        this.DeleteProp("__New")
     }
 }

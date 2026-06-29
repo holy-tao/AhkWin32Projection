@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMultisession.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IMultisession.ahk" { IMultisession }
 
 /**
  * Use this interface to retrieve information about the previous import session on a sequentially recorded media, if the media contains a previous session.
@@ -14,26 +16,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-imultisessionsequential
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IMultisessionSequential extends IMultisession {
-
-    static sizeof => A_PtrSize
+export default struct IMultisessionSequential extends IMultisession {
     /**
      * The interface identifier for IMultisessionSequential
      * @type {Guid}
      */
-    static IID => Guid("{27354151-7f64-5b0f-8f00-5d77afbe261e}")
+    static IID := Guid("{27354151-7f64-5b0f-8f00-5d77afbe261e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 11
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMultisessionSequential interfaces
+    */
+    struct Vtbl extends IMultisession.Vtbl {
+        get_IsFirstDataSession                  : IntPtr
+        get_StartAddressOfPreviousSession       : IntPtr
+        get_LastWrittenAddressOfPreviousSession : IntPtr
+        get_NextWritableAddress                 : IntPtr
+        get_FreeSectorsOnMedia                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_IsFirstDataSession", "get_StartAddressOfPreviousSession", "get_LastWrittenAddressOfPreviousSession", "get_NextWritableAddress", "get_FreeSectorsOnMedia"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMultisessionSequential.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -78,7 +91,7 @@ class IMultisessionSequential extends IMultisession {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisessionsequential-get_isfirstdatasession
      */
     get_IsFirstDataSession() {
-        result := ComCall(11, this, "short*", &value := 0, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -120,5 +133,33 @@ class IMultisessionSequential extends IMultisession {
     get_FreeSectorsOnMedia() {
         result := ComCall(15, this, "int*", &value := 0, "HRESULT")
         return value
+    }
+
+    Query(iid) {
+        if (IMultisessionSequential.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_IsFirstDataSession := CallbackCreate(GetMethod(implObj, "get_IsFirstDataSession"), flags, 2)
+        this.vtbl.get_StartAddressOfPreviousSession := CallbackCreate(GetMethod(implObj, "get_StartAddressOfPreviousSession"), flags, 2)
+        this.vtbl.get_LastWrittenAddressOfPreviousSession := CallbackCreate(GetMethod(implObj, "get_LastWrittenAddressOfPreviousSession"), flags, 2)
+        this.vtbl.get_NextWritableAddress := CallbackCreate(GetMethod(implObj, "get_NextWritableAddress"), flags, 2)
+        this.vtbl.get_FreeSectorsOnMedia := CallbackCreate(GetMethod(implObj, "get_FreeSectorsOnMedia"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_IsFirstDataSession)
+        CallbackFree(this.vtbl.get_StartAddressOfPreviousSession)
+        CallbackFree(this.vtbl.get_LastWrittenAddressOfPreviousSession)
+        CallbackFree(this.vtbl.get_NextWritableAddress)
+        CallbackFree(this.vtbl.get_FreeSectorsOnMedia)
     }
 }

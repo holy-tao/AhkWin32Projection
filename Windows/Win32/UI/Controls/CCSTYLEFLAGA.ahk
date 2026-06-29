@@ -1,36 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.UI.Controls
  * @charset ANSI
  */
-class CCSTYLEFLAGA extends Win32Struct {
-    static sizeof => 16
+export default struct CCSTYLEFLAGA {
+    #StructPack 8
 
-    static packingSize => 8
+    flStyle : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    flStyle {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    flStyleMask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    flStyleMask {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    pszStyle : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    pszStyle {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

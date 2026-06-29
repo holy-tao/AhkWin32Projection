@@ -1,86 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_PERSISTENT_EVENT_LOG_EVENT_HEADER extends Win32Struct {
-    static sizeof => 32
+export default struct NVME_PERSISTENT_EVENT_LOG_EVENT_HEADER {
+    #StructPack 8
 
-    static packingSize => 8
+    EventType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    EventType {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    EventTypeRevision : Int8
 
-    /**
-     * @type {Integer}
-     */
-    EventTypeRevision {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    EventHeaderLength : Int8
 
-    /**
-     * @type {Integer}
-     */
-    EventHeaderLength {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    Reserved0 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved0 {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    ControllerIdentifier : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ControllerIdentifier {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    EventTimestamp : Int64
 
-    /**
-     * @type {Integer}
-     */
-    EventTimestamp {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Reserved1 : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 16, 6, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    VendorSpecificInformationLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    VendorSpecificInformationLength {
-        get => NumGet(this, 22, "ushort")
-        set => NumPut("ushort", value, this, 22)
-    }
+    EventLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    EventLength {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
-    }
 }

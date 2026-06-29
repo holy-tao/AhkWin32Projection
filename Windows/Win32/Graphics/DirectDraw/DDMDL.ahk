@@ -1,76 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDMDL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDMDL extends Win32Struct {
-    static sizeof => 48
+export default struct DDMDL {
+    #StructPack 8
 
-    static packingSize => 8
+    MdlNext : DDMDL.Ptr
 
-    /**
-     * @type {Pointer<DDMDL>}
-     */
-    MdlNext {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    MdlSize : Int16
 
-    /**
-     * @type {Integer}
-     */
-    MdlSize {
-        get => NumGet(this, 8, "short")
-        set => NumPut("short", value, this, 8)
-    }
+    MdlFlags : Int16
 
-    /**
-     * @type {Integer}
-     */
-    MdlFlags {
-        get => NumGet(this, 10, "short")
-        set => NumPut("short", value, this, 10)
-    }
+    Process : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Process {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpMappedSystemVa : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    lpMappedSystemVa {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpStartVa : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    lpStartVa {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    ByteCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ByteCount {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ByteOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ByteOffset {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
 }

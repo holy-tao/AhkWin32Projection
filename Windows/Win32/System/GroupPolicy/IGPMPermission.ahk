@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IGPMTrustee.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IGPMTrustee.ahk" { IGPMTrustee }
+#Import ".\GPMPermissionType.ahk" { GPMPermissionType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IGPMPermission interface contains methods to retrieve permission-related properties when using the GPMC.
@@ -273,32 +276,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmpermission
  * @namespace Windows.Win32.System.GroupPolicy
  */
-class IGPMPermission extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IGPMPermission extends IDispatch {
     /**
      * The interface identifier for IGPMPermission
      * @type {Guid}
      */
-    static IID => Guid("{35ebca40-e1a1-4a02-8905-d79416fb464a}")
+    static IID := Guid("{35ebca40-e1a1-4a02-8905-d79416fb464a}")
 
     /**
      * The class identifier for GPMPermission
      * @type {Guid}
      */
-    static CLSID => Guid("{5871a40a-e9c0-46ec-913e-944ef9225a94}")
+    static CLSID := Guid("{5871a40a-e9c0-46ec-913e-944ef9225a94}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGPMPermission interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Inherited   : IntPtr
+        get_Inheritable : IntPtr
+        get_Denied      : IntPtr
+        get_Permission  : IntPtr
+        get_Trustee     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Inherited", "get_Inheritable", "get_Denied", "get_Permission", "get_Trustee"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGPMPermission.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -340,7 +354,7 @@ class IGPMPermission extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_Inherited() {
-        result := ComCall(7, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(7, this, VARIANT_BOOL.Ptr, &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -349,7 +363,7 @@ class IGPMPermission extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_Inheritable() {
-        result := ComCall(8, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(8, this, VARIANT_BOOL.Ptr, &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -358,7 +372,7 @@ class IGPMPermission extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_Denied() {
-        result := ComCall(9, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL.Ptr, &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -378,5 +392,33 @@ class IGPMPermission extends IDispatch {
     get_Trustee() {
         result := ComCall(11, this, "ptr*", &ppIGPMTrustee := 0, "HRESULT")
         return IGPMTrustee(ppIGPMTrustee)
+    }
+
+    Query(iid) {
+        if (IGPMPermission.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Inherited := CallbackCreate(GetMethod(implObj, "get_Inherited"), flags, 2)
+        this.vtbl.get_Inheritable := CallbackCreate(GetMethod(implObj, "get_Inheritable"), flags, 2)
+        this.vtbl.get_Denied := CallbackCreate(GetMethod(implObj, "get_Denied"), flags, 2)
+        this.vtbl.get_Permission := CallbackCreate(GetMethod(implObj, "get_Permission"), flags, 2)
+        this.vtbl.get_Trustee := CallbackCreate(GetMethod(implObj, "get_Trustee"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Inherited)
+        CallbackFree(this.vtbl.get_Inheritable)
+        CallbackFree(this.vtbl.get_Denied)
+        CallbackFree(this.vtbl.get_Permission)
+        CallbackFree(this.vtbl.get_Trustee)
     }
 }

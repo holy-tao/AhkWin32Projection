@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies whether to increment or decrement the number of resources currently being reserved.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-_amresctl_reserveflags
  * @namespace Windows.Win32.Media.DirectShow
  */
-class _AMRESCTL_RESERVEFLAGS extends Win32Enum {
+export default struct _AMRESCTL_RESERVEFLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Increment the reserved resource count.

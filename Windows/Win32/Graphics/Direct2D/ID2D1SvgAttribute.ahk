@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Resource.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID2D1SvgElement.ahk" { ID2D1SvgElement }
+#Import ".\ID2D1Resource.ahk" { ID2D1Resource }
 
 /**
  * Interface describing an SVG attribute.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nn-d2d1svg-id2d1svgattribute
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1SvgAttribute extends ID2D1Resource {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1SvgAttribute extends ID2D1Resource {
     /**
      * The interface identifier for ID2D1SvgAttribute
      * @type {Guid}
      */
-    static IID => Guid("{c9cdb0dd-f8c9-4e70-b7c2-301c80292c5e}")
+    static IID := Guid("{c9cdb0dd-f8c9-4e70-b7c2-301c80292c5e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1SvgAttribute interfaces
+    */
+    struct Vtbl extends ID2D1Resource.Vtbl {
+        GetElement : IntPtr
+        Clone      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetElement", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1SvgAttribute.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns the element on which this attribute is set. Returns null if the attribute is not set on any element.
@@ -38,7 +48,7 @@ class ID2D1SvgAttribute extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgattribute-getelement
      */
     GetElement(element) {
-        ComCall(4, this, "ptr*", element)
+        ComCall(4, this, ID2D1SvgElement.Ptr, element)
     }
 
     /**
@@ -51,5 +61,27 @@ class ID2D1SvgAttribute extends ID2D1Resource {
     Clone() {
         result := ComCall(5, this, "ptr*", &attribute := 0, "HRESULT")
         return ID2D1SvgAttribute(attribute)
+    }
+
+    Query(iid) {
+        if (ID2D1SvgAttribute.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetElement := CallbackCreate(GetMethod(implObj, "GetElement"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetElement)
+        CallbackFree(this.vtbl.Clone)
     }
 }

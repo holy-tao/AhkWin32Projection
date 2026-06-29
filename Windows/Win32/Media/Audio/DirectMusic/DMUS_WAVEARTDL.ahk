@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
-class DMUS_WAVEARTDL extends Win32Struct {
-    static sizeof => 20
+export default struct DMUS_WAVEARTDL {
+    #StructPack 4
 
-    static packingSize => 4
+    ulDownloadIdIdx : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulDownloadIdIdx {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulBus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulBus {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulBuffers : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulBuffers {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulMasterDLId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulMasterDLId {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    usOptions : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usOptions {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
 }

@@ -1,49 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\KernelStreaming\KSEVENTDATA.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
-#Include .\BDA_LockType.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\BDA_LockType.ahk" { BDA_LockType }
+#Import "..\..\KernelStreaming\KSEVENTDATA.ahk" { KSEVENTDATA }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class KSEVENTDATA_BDA_RF_TUNER_SCAN_S extends Win32Struct {
-    static sizeof => 48
+export default struct KSEVENTDATA_BDA_RF_TUNER_SCAN_S {
+    #StructPack 8
 
-    static packingSize => 8
+    EventData : KSEVENTDATA
 
-    /**
-     * @type {KSEVENTDATA}
-     */
-    EventData {
-        get {
-            if(!this.HasProp("__EventData"))
-                this.__EventData := KSEVENTDATA(0, this)
-            return this.__EventData
-        }
-    }
+    StartFrequency : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StartFrequency {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    EndFrequency : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EndFrequency {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    LockRequested : BDA_LockType
 
-    /**
-     * @type {BDA_LockType}
-     */
-    LockRequested {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
 }

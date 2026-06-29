@@ -1,10 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Graphics\DirectDraw\DDVIDEOPORTCONNECT.ahk
-#Include ..\..\Graphics\DirectDraw\DDPIXELFORMAT.ahk
-#Include ..\..\Graphics\DirectDraw\IDirectDrawSurface.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\AMVPSIZE.ahk" { AMVPSIZE }
+#Import "..\..\Graphics\DirectDraw\DDVIDEOPORTCONNECT.ahk" { DDVIDEOPORTCONNECT }
+#Import ".\AMVPDATAINFO.ahk" { AMVPDATAINFO }
+#Import "..\..\Graphics\DirectDraw\IDirectDrawSurface.ahk" { IDirectDrawSurface }
+#Import "..\..\Graphics\DirectDraw\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * IVPBaseConfig is implemented on a filter that wraps a hardware device such as a decoder or capture device, if the device has a video port to the graphics adapter.
@@ -13,21 +16,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/vpconfig/nn-vpconfig-ivpbaseconfig
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IVPBaseConfig extends IUnknown {
+export default struct IVPBaseConfig extends IUnknown {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetConnectInfo", "SetConnectInfo", "GetVPDataInfo", "GetMaxPixelRate", "InformVPInputFormats", "GetVideoFormats", "SetVideoFormat", "SetInvertPolarity", "GetOverlaySurface", "SetDirectDrawKernelHandle", "SetVideoPortID", "SetDDSurfaceKernelHandles", "SetSurfaceParameters"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVPBaseConfig interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetConnectInfo            : IntPtr
+        SetConnectInfo            : IntPtr
+        GetVPDataInfo             : IntPtr
+        GetMaxPixelRate           : IntPtr
+        InformVPInputFormats      : IntPtr
+        GetVideoFormats           : IntPtr
+        SetVideoFormat            : IntPtr
+        SetInvertPolarity         : IntPtr
+        GetOverlaySurface         : IntPtr
+        SetDirectDrawKernelHandle : IntPtr
+        SetVideoPortID            : IntPtr
+        SetDDSurfaceKernelHandles : IntPtr
+        SetSurfaceParameters      : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVPBaseConfig.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetConnectInfo method retrieves information about the connections supported by the VPE object.
@@ -47,7 +69,7 @@ class IVPBaseConfig extends IUnknown {
         pdwNumConnectInfoMarshal := pdwNumConnectInfo is VarRef ? "uint*" : "ptr"
 
         pddVPConnectInfo := DDVIDEOPORTCONNECT()
-        result := ComCall(3, this, pdwNumConnectInfoMarshal, pdwNumConnectInfo, "ptr", pddVPConnectInfo, "HRESULT")
+        result := ComCall(3, this, pdwNumConnectInfoMarshal, pdwNumConnectInfo, DDVIDEOPORTCONNECT.Ptr, pddVPConnectInfo, "HRESULT")
         return pddVPConnectInfo
     }
 
@@ -73,7 +95,7 @@ class IVPBaseConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vpconfig/nf-vpconfig-ivpbaseconfig-getvpdatainfo
      */
     GetVPDataInfo(pamvpDataInfo) {
-        result := ComCall(5, this, "ptr", pamvpDataInfo, "HRESULT")
+        result := ComCall(5, this, AMVPDATAINFO.Ptr, pamvpDataInfo, "HRESULT")
         return result
     }
 
@@ -91,7 +113,7 @@ class IVPBaseConfig extends IUnknown {
     GetMaxPixelRate(pamvpSize, pdwMaxPixelsPerSecond) {
         pdwMaxPixelsPerSecondMarshal := pdwMaxPixelsPerSecond is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pamvpSize, pdwMaxPixelsPerSecondMarshal, pdwMaxPixelsPerSecond, "HRESULT")
+        result := ComCall(6, this, AMVPSIZE.Ptr, pamvpSize, pdwMaxPixelsPerSecondMarshal, pdwMaxPixelsPerSecond, "HRESULT")
         return result
     }
 
@@ -109,7 +131,7 @@ class IVPBaseConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vpconfig/nf-vpconfig-ivpbaseconfig-informvpinputformats
      */
     InformVPInputFormats(dwNumFormats, pDDPixelFormats) {
-        result := ComCall(7, this, "uint", dwNumFormats, "ptr", pDDPixelFormats, "HRESULT")
+        result := ComCall(7, this, "uint", dwNumFormats, DDPIXELFORMAT.Ptr, pDDPixelFormats, "HRESULT")
         return result
     }
 
@@ -131,7 +153,7 @@ class IVPBaseConfig extends IUnknown {
         pdwNumFormatsMarshal := pdwNumFormats is VarRef ? "uint*" : "ptr"
 
         pddPixelFormats := DDPIXELFORMAT()
-        result := ComCall(8, this, pdwNumFormatsMarshal, pdwNumFormats, "ptr", pddPixelFormats, "HRESULT")
+        result := ComCall(8, this, pdwNumFormatsMarshal, pdwNumFormats, DDPIXELFORMAT.Ptr, pddPixelFormats, "HRESULT")
         return pddPixelFormats
     }
 
@@ -237,5 +259,49 @@ class IVPBaseConfig extends IUnknown {
     SetSurfaceParameters(dwPitch, dwXOrigin, dwYOrigin) {
         result := ComCall(15, this, "uint", dwPitch, "uint", dwXOrigin, "uint", dwYOrigin, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVPBaseConfig.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetConnectInfo := CallbackCreate(GetMethod(implObj, "GetConnectInfo"), flags, 3)
+        this.vtbl.SetConnectInfo := CallbackCreate(GetMethod(implObj, "SetConnectInfo"), flags, 2)
+        this.vtbl.GetVPDataInfo := CallbackCreate(GetMethod(implObj, "GetVPDataInfo"), flags, 2)
+        this.vtbl.GetMaxPixelRate := CallbackCreate(GetMethod(implObj, "GetMaxPixelRate"), flags, 3)
+        this.vtbl.InformVPInputFormats := CallbackCreate(GetMethod(implObj, "InformVPInputFormats"), flags, 3)
+        this.vtbl.GetVideoFormats := CallbackCreate(GetMethod(implObj, "GetVideoFormats"), flags, 3)
+        this.vtbl.SetVideoFormat := CallbackCreate(GetMethod(implObj, "SetVideoFormat"), flags, 2)
+        this.vtbl.SetInvertPolarity := CallbackCreate(GetMethod(implObj, "SetInvertPolarity"), flags, 1)
+        this.vtbl.GetOverlaySurface := CallbackCreate(GetMethod(implObj, "GetOverlaySurface"), flags, 2)
+        this.vtbl.SetDirectDrawKernelHandle := CallbackCreate(GetMethod(implObj, "SetDirectDrawKernelHandle"), flags, 2)
+        this.vtbl.SetVideoPortID := CallbackCreate(GetMethod(implObj, "SetVideoPortID"), flags, 2)
+        this.vtbl.SetDDSurfaceKernelHandles := CallbackCreate(GetMethod(implObj, "SetDDSurfaceKernelHandles"), flags, 3)
+        this.vtbl.SetSurfaceParameters := CallbackCreate(GetMethod(implObj, "SetSurfaceParameters"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetConnectInfo)
+        CallbackFree(this.vtbl.SetConnectInfo)
+        CallbackFree(this.vtbl.GetVPDataInfo)
+        CallbackFree(this.vtbl.GetMaxPixelRate)
+        CallbackFree(this.vtbl.InformVPInputFormats)
+        CallbackFree(this.vtbl.GetVideoFormats)
+        CallbackFree(this.vtbl.SetVideoFormat)
+        CallbackFree(this.vtbl.SetInvertPolarity)
+        CallbackFree(this.vtbl.GetOverlaySurface)
+        CallbackFree(this.vtbl.SetDirectDrawKernelHandle)
+        CallbackFree(this.vtbl.SetVideoPortID)
+        CallbackFree(this.vtbl.SetDDSurfaceKernelHandles)
+        CallbackFree(this.vtbl.SetSurfaceParameters)
     }
 }

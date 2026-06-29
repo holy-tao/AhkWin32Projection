@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\DISCDLGSTRUCT_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\DISCDLGSTRUCT_FLAGS.ahk" { DISCDLGSTRUCT_FLAGS }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Used in the WNetDisconnectDialog1 function. The structure contains required information for the disconnect attempt. (ANSI)
@@ -12,65 +12,41 @@
  * @namespace Windows.Win32.NetworkManagement.WNet
  * @charset ANSI
  */
-class DISCDLGSTRUCTA extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct DISCDLGSTRUCTA {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The size, in bytes, of the 
      * <b>DISCDLGSTRUCT</b> structure. The caller must supply this value.
-     * @type {Integer}
      */
-    cbStructure {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbStructure : UInt32
 
     /**
      * Type: <b>HWND</b>
      * 
      * A handle to the owner window of the dialog box.
-     * @type {HWND}
      */
-    hwndOwner {
-        get {
-            if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(8, this)
-            return this.__hwndOwner
-        }
-    }
+    hwndOwner : HWND
 
     /**
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to a <b>NULL</b>-terminated  string that specifies the local device name that is redirected to the network resource, such as "F:" or "LPT1".
-     * @type {PSTR}
      */
-    lpLocalName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpLocalName : PSTR
 
     /**
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to a <b>NULL</b>-terminated  string that specifies the name of the network resource to disconnect. This member can be NULL if the <b>lpLocalName</b> member is specified. When <b>lpLocalName</b> is specified, the connection to the network resource redirected from <b>lpLocalName</b>  is disconnected.
-     * @type {PSTR}
      */
-    lpRemoteName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpRemoteName : PSTR
 
     /**
      * Type: <b>DWORD</b>
-     * @type {DISCDLGSTRUCT_FLAGS}
      */
-    dwFlags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwFlags : DISCDLGSTRUCT_FLAGS
+
 }

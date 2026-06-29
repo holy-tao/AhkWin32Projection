@@ -1,34 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ISchemaItem.ahk
-#Include .\ISchemaType.ahk
-#Include .\ISchemaComplexType.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ISchemaComplexType.ahk" { ISchemaComplexType }
+#Import ".\SCHEMAUSE.ahk" { SCHEMAUSE }
+#Import ".\ISchemaItem.ahk" { ISchemaItem }
+#Import ".\ISchemaType.ahk" { ISchemaType }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
  */
-class ISchemaAttribute extends ISchemaItem {
-
-    static sizeof => A_PtrSize
+export default struct ISchemaAttribute extends ISchemaItem {
     /**
      * The interface identifier for ISchemaAttribute
      * @type {Guid}
      */
-    static IID => Guid("{50ea08b6-dd1b-4664-9a50-c2f40f4bd79a}")
+    static IID := Guid("{50ea08b6-dd1b-4664-9a50-c2f40f4bd79a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISchemaAttribute interfaces
+    */
+    struct Vtbl extends ISchemaItem.Vtbl {
+        get_type         : IntPtr
+        get_scope        : IntPtr
+        get_defaultValue : IntPtr
+        get_fixedValue   : IntPtr
+        get_use          : IntPtr
+        get_isReference  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_type", "get_scope", "get_defaultValue", "get_fixedValue", "get_use", "get_isReference"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISchemaAttribute.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ISchemaType} 
@@ -95,8 +110,8 @@ class ISchemaAttribute extends ISchemaItem {
      * @returns {BSTR} 
      */
     get_defaultValue() {
-        defaultValue := BSTR()
-        result := ComCall(16, this, "ptr", defaultValue, "HRESULT")
+        defaultValue := BSTR.Owned()
+        result := ComCall(16, this, BSTR.Ptr, defaultValue, "HRESULT")
         return defaultValue
     }
 
@@ -105,8 +120,8 @@ class ISchemaAttribute extends ISchemaItem {
      * @returns {BSTR} 
      */
     get_fixedValue() {
-        fixedValue := BSTR()
-        result := ComCall(17, this, "ptr", fixedValue, "HRESULT")
+        fixedValue := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, fixedValue, "HRESULT")
         return fixedValue
     }
 
@@ -124,7 +139,37 @@ class ISchemaAttribute extends ISchemaItem {
      * @returns {VARIANT_BOOL} 
      */
     get_isReference() {
-        result := ComCall(19, this, "short*", &_reference := 0, "HRESULT")
+        result := ComCall(19, this, VARIANT_BOOL.Ptr, &_reference := 0, "HRESULT")
         return _reference
+    }
+
+    Query(iid) {
+        if (ISchemaAttribute.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.get_scope := CallbackCreate(GetMethod(implObj, "get_scope"), flags, 2)
+        this.vtbl.get_defaultValue := CallbackCreate(GetMethod(implObj, "get_defaultValue"), flags, 2)
+        this.vtbl.get_fixedValue := CallbackCreate(GetMethod(implObj, "get_fixedValue"), flags, 2)
+        this.vtbl.get_use := CallbackCreate(GetMethod(implObj, "get_use"), flags, 2)
+        this.vtbl.get_isReference := CallbackCreate(GetMethod(implObj, "get_isReference"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_type)
+        CallbackFree(this.vtbl.get_scope)
+        CallbackFree(this.vtbl.get_defaultValue)
+        CallbackFree(this.vtbl.get_fixedValue)
+        CallbackFree(this.vtbl.get_use)
+        CallbackFree(this.vtbl.get_isReference)
     }
 }

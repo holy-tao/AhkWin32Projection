@@ -1,44 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include .\DRIVER_OBJECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DRIVER_OBJECT.ahk" { DRIVER_OBJECT }
 
 /**
  * @namespace Windows.Wdk.Foundation
  */
-class DRIVER_EXTENSION extends Win32Struct {
-    static sizeof => 32
+export default struct DRIVER_EXTENSION {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {Pointer<DRIVER_OBJECT>}
-     */
+    __DriverObject_ptr : IntPtr
     DriverObject {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+        get => (addr := this.__DriverObject_ptr) ? DRIVER_OBJECT.At(addr) : unset
+        set => this.__DriverObject_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer<DRIVER_ADD_DEVICE>}
-     */
-    AddDevice {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    AddDevice : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    Count {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Count : UInt32
 
-    /**
-     * @type {Pointer}
-     */
-    ServiceKeyName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ServiceKeyName : IntPtr
+
 }

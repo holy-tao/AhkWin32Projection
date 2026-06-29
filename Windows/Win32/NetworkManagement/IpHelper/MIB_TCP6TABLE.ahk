@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_TCP6ROW.ahk
-#Include .\MIB_TCP_STATE.ahk
-#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MIB_TCP_STATE.ahk" { MIB_TCP_STATE }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
+#Import ".\MIB_TCP6ROW.ahk" { MIB_TCP6ROW }
 
 /**
  * Contains a table of TCP connections for IPv6 on the local computer.
@@ -17,30 +16,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/tcpmib/ns-tcpmib-mib_tcp6table
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_TCP6TABLE extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 4
+export default struct MIB_TCP6TABLE {
+    #StructPack 4
 
     /**
      * A value that specifies the number of TCP connections in the array.
-     * @type {Integer}
      */
-    dwNumEntries {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwNumEntries : UInt32
 
     /**
      * An array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcp6row">MIB_TCP6ROW</a> structures containing TCP connection entries.
-     * @type {MIB_TCP6ROW}
      */
-    table {
-        get {
-            if(!this.HasProp("__tableProxyArray"))
-                this.__tableProxyArray := Win32FixedArray(this.ptr + 4, 1, MIB_TCP6ROW, "")
-            return this.__tableProxyArray
-        }
-    }
+    table : MIB_TCP6ROW[1]
+
 }

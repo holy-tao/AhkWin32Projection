@@ -1,13 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\IMAGE_FILE_HEADER.ahk
-#Include ..\..\SystemInformation\IMAGE_FILE_MACHINE.ahk
-#Include .\IMAGE_FILE_CHARACTERISTICS.ahk
-#Include .\IMAGE_OPTIONAL_HEADER64.ahk
-#Include .\IMAGE_OPTIONAL_HEADER_MAGIC.ahk
-#Include .\IMAGE_SUBSYSTEM.ahk
-#Include .\IMAGE_DLL_CHARACTERISTICS.ahk
-#Include .\IMAGE_DATA_DIRECTORY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IMAGE_FILE_HEADER.ahk" { IMAGE_FILE_HEADER }
+#Import ".\IMAGE_DLL_CHARACTERISTICS.ahk" { IMAGE_DLL_CHARACTERISTICS }
+#Import ".\IMAGE_FILE_CHARACTERISTICS.ahk" { IMAGE_FILE_CHARACTERISTICS }
+#Import ".\IMAGE_OPTIONAL_HEADER_MAGIC.ahk" { IMAGE_OPTIONAL_HEADER_MAGIC }
+#Import ".\IMAGE_DATA_DIRECTORY.ahk" { IMAGE_DATA_DIRECTORY }
+#Import ".\IMAGE_OPTIONAL_HEADER64.ahk" { IMAGE_OPTIONAL_HEADER64 }
+#Import "..\..\SystemInformation\IMAGE_FILE_MACHINE.ahk" { IMAGE_FILE_MACHINE }
+#Import ".\IMAGE_SUBSYSTEM.ahk" { IMAGE_SUBSYSTEM }
 
 /**
  * Represents the PE header format. (64 bit)
@@ -25,43 +24,24 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_nt_headers64
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class IMAGE_NT_HEADERS64 extends Win32Struct {
-    static sizeof => 264
-
-    static packingSize => 8
+export default struct IMAGE_NT_HEADERS64 {
+    #StructPack 8
 
     /**
      * A 4-byte signature identifying the file as a PE image. The bytes are "PE\0\0".
-     * @type {Integer}
      */
-    Signature {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Signature : UInt32
 
     /**
      * An 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-image_file_header">IMAGE_FILE_HEADER</a> structure that specifies the file header.
-     * @type {IMAGE_FILE_HEADER}
      */
-    FileHeader {
-        get {
-            if(!this.HasProp("__FileHeader"))
-                this.__FileHeader := IMAGE_FILE_HEADER(4, this)
-            return this.__FileHeader
-        }
-    }
+    FileHeader : IMAGE_FILE_HEADER
 
     /**
      * An 
      * <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-image_optional_header32">IMAGE_OPTIONAL_HEADER</a> structure that specifies the optional file header.
-     * @type {IMAGE_OPTIONAL_HEADER64}
      */
-    OptionalHeader {
-        get {
-            if(!this.HasProp("__OptionalHeader"))
-                this.__OptionalHeader := IMAGE_OPTIONAL_HEADER64(24, this)
-            return this.__OptionalHeader
-        }
-    }
+    OptionalHeader : IMAGE_OPTIONAL_HEADER64
+
 }

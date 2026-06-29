@@ -1,32 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Ole\IOleWindow.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Ole\IOleWindow.ahk" { IOleWindow }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.UI.Shell
  */
-class IDeskBarClient extends IOleWindow {
-
-    static sizeof => A_PtrSize
+export default struct IDeskBarClient extends IOleWindow {
     /**
      * The interface identifier for IDeskBarClient
      * @type {Guid}
      */
-    static IID => Guid("{eb0fe175-1a3a-11d0-89b3-00a0c90a90ac}")
+    static IID := Guid("{eb0fe175-1a3a-11d0-89b3-00a0c90a90ac}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDeskBarClient interfaces
+    */
+    struct Vtbl extends IOleWindow.Vtbl {
+        SetDeskBarSite : IntPtr
+        SetModeDBC     : IntPtr
+        UIActivateDBC  : IntPtr
+        GetSize        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetDeskBarSite", "SetModeDBC", "UIActivateDBC", "GetSize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDeskBarClient.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -65,7 +77,33 @@ class IDeskBarClient extends IOleWindow {
      */
     GetSize(dwWhich) {
         prc := RECT()
-        result := ComCall(8, this, "uint", dwWhich, "ptr", prc, "HRESULT")
+        result := ComCall(8, this, "uint", dwWhich, RECT.Ptr, prc, "HRESULT")
         return prc
+    }
+
+    Query(iid) {
+        if (IDeskBarClient.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetDeskBarSite := CallbackCreate(GetMethod(implObj, "SetDeskBarSite"), flags, 2)
+        this.vtbl.SetModeDBC := CallbackCreate(GetMethod(implObj, "SetModeDBC"), flags, 2)
+        this.vtbl.UIActivateDBC := CallbackCreate(GetMethod(implObj, "UIActivateDBC"), flags, 2)
+        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetDeskBarSite)
+        CallbackFree(this.vtbl.SetModeDBC)
+        CallbackFree(this.vtbl.UIActivateDBC)
+        CallbackFree(this.vtbl.GetSize)
     }
 }

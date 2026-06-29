@@ -1,17 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SAFER_IDENTIFICATION_TYPES.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SAFER_IDENTIFICATION_TYPES.ahk" { SAFER_IDENTIFICATION_TYPES }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * SAFER_IDENTIFICATION_HEADER structure is used as the header for the SAFER_PATHNAME_IDENTIFICATION, SAFER_HASH_IDENTIFICATION, and SAFER_URLZONE_IDENTIFICATION structures.
  * @see https://learn.microsoft.com/windows/win32/api/winsafer/ns-winsafer-safer_identification_header
  * @namespace Windows.Win32.Security.AppLocker
  */
-class SAFER_IDENTIFICATION_HEADER extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct SAFER_IDENTIFICATION_HEADER {
+    #StructPack 4
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/ne-winsafer-safer_identification_types">SAFER_IDENTIFICATION_TYPES</a> enumeration value that indicates the type of the structure. The following table shows the possible values.
@@ -72,41 +70,21 @@ class SAFER_IDENTIFICATION_HEADER extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {SAFER_IDENTIFICATION_TYPES}
      */
-    dwIdentificationType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    dwIdentificationType : SAFER_IDENTIFICATION_TYPES
 
     /**
      * The size of the entire  <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/ns-winsafer-safer_pathname_identification">SAFER_PATHNAME_IDENTIFICATION</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/ns-winsafer-safer_hash_identification">SAFER_HASH_IDENTIFICATION</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/ns-winsafer-safer_urlzone_identification">SAFER_URLZONE_IDENTIFICATION</a> structure, including the common header.
-     * @type {Integer}
      */
-    cbStructSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cbStructSize : UInt32
 
     /**
      * The GUID of the identification.
-     * @type {Pointer}
      */
-    IdentificationGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    IdentificationGuid : Guid
 
-    /**
-     * @type {FILETIME}
-     */
-    lastModified {
-        get {
-            if(!this.HasProp("__lastModified"))
-                this.__lastModified := FILETIME(16, this)
-            return this.__lastModified
-        }
-    }
+    lastModified : FILETIME
+
 }

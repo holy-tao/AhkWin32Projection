@@ -1,32 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCI_EXPRESS_ENHANCED_CAPABILITY_HEADER extends Win32Struct {
-    static sizeof => 4
+export default struct PCI_EXPRESS_ENHANCED_CAPABILITY_HEADER {
+    #StructPack 2
 
-    static packingSize => 2
-
-    /**
-     * @type {Integer}
-     */
-    CapabilityID {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    CapabilityID : UInt16
 
     /**
      * This bitfield backs the following members:
      * - Version
      * - Next
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    _bitfield : Int16
+
 
     /**
      * @type {Integer}

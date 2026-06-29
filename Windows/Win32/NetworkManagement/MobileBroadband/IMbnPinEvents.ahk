@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MBN_PIN_INFO.ahk" { MBN_PIN_INFO }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMbnPin.ahk" { IMbnPin }
 
 /**
  * This interface is a notification interface used to indicate when asynchronous PIN requests have completed.
@@ -19,26 +22,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnpinevents
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  */
-class IMbnPinEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMbnPinEvents extends IUnknown {
     /**
      * The interface identifier for IMbnPinEvents
      * @type {Guid}
      */
-    static IID => Guid("{dcbbbab6-2008-4bbb-aaee-338e368af6fa}")
+    static IID := Guid("{dcbbbab6-2008-4bbb-aaee-338e368af6fa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMbnPinEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnEnableComplete  : IntPtr
+        OnDisableComplete : IntPtr
+        OnEnterComplete   : IntPtr
+        OnChangeComplete  : IntPtr
+        OnUnblockComplete : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnEnableComplete", "OnDisableComplete", "OnEnterComplete", "OnChangeComplete", "OnUnblockComplete"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMbnPinEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Notification method called by the Mobile Broadband service to indicate that a PIN enable operation has completed.
@@ -58,7 +72,7 @@ class IMbnPinEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpinevents-onenablecomplete
      */
     OnEnableComplete(pin, pinInfo, requestID, _status) {
-        result := ComCall(3, this, "ptr", pin, "ptr", pinInfo, "uint", requestID, "int", _status, "HRESULT")
+        result := ComCall(3, this, "ptr", pin, MBN_PIN_INFO.Ptr, pinInfo, "uint", requestID, "int", _status, "HRESULT")
         return result
     }
 
@@ -80,7 +94,7 @@ class IMbnPinEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpinevents-ondisablecomplete
      */
     OnDisableComplete(pin, pinInfo, requestID, _status) {
-        result := ComCall(4, this, "ptr", pin, "ptr", pinInfo, "uint", requestID, "int", _status, "HRESULT")
+        result := ComCall(4, this, "ptr", pin, MBN_PIN_INFO.Ptr, pinInfo, "uint", requestID, "int", _status, "HRESULT")
         return result
     }
 
@@ -102,7 +116,7 @@ class IMbnPinEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpinevents-onentercomplete
      */
     OnEnterComplete(Pin, pinInfo, requestID, _status) {
-        result := ComCall(5, this, "ptr", Pin, "ptr", pinInfo, "uint", requestID, "int", _status, "HRESULT")
+        result := ComCall(5, this, "ptr", Pin, MBN_PIN_INFO.Ptr, pinInfo, "uint", requestID, "int", _status, "HRESULT")
         return result
     }
 
@@ -123,7 +137,7 @@ class IMbnPinEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpinevents-onchangecomplete
      */
     OnChangeComplete(Pin, pinInfo, requestID, _status) {
-        result := ComCall(6, this, "ptr", Pin, "ptr", pinInfo, "uint", requestID, "int", _status, "HRESULT")
+        result := ComCall(6, this, "ptr", Pin, MBN_PIN_INFO.Ptr, pinInfo, "uint", requestID, "int", _status, "HRESULT")
         return result
     }
 
@@ -147,7 +161,35 @@ class IMbnPinEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpinevents-onunblockcomplete
      */
     OnUnblockComplete(Pin, pinInfo, requestID, _status) {
-        result := ComCall(7, this, "ptr", Pin, "ptr", pinInfo, "uint", requestID, "int", _status, "HRESULT")
+        result := ComCall(7, this, "ptr", Pin, MBN_PIN_INFO.Ptr, pinInfo, "uint", requestID, "int", _status, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMbnPinEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnEnableComplete := CallbackCreate(GetMethod(implObj, "OnEnableComplete"), flags, 5)
+        this.vtbl.OnDisableComplete := CallbackCreate(GetMethod(implObj, "OnDisableComplete"), flags, 5)
+        this.vtbl.OnEnterComplete := CallbackCreate(GetMethod(implObj, "OnEnterComplete"), flags, 5)
+        this.vtbl.OnChangeComplete := CallbackCreate(GetMethod(implObj, "OnChangeComplete"), flags, 5)
+        this.vtbl.OnUnblockComplete := CallbackCreate(GetMethod(implObj, "OnUnblockComplete"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnEnableComplete)
+        CallbackFree(this.vtbl.OnDisableComplete)
+        CallbackFree(this.vtbl.OnEnterComplete)
+        CallbackFree(this.vtbl.OnChangeComplete)
+        CallbackFree(this.vtbl.OnUnblockComplete)
     }
 }

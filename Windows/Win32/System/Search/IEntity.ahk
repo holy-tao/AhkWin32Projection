@@ -1,35 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IRelationship.ahk
-#Include .\INamedEntity.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IRelationship.ahk" { IRelationship }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\INamedEntity.ahk" { INamedEntity }
 
 /**
  * Provides methods for retrieving information about an entity type in the schema.
  * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nn-structuredquery-ientity
  * @namespace Windows.Win32.System.Search
  */
-class IEntity extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IEntity extends IUnknown {
     /**
      * The interface identifier for IEntity
      * @type {Guid}
      */
-    static IID => Guid("{24264891-e80b-4fd3-b7ce-4ff2fae8931f}")
+    static IID := Guid("{24264891-e80b-4fd3-b7ce-4ff2fae8931f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IEntity interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Name            : IntPtr
+        Base            : IntPtr
+        Relationships   : IntPtr
+        GetRelationship : IntPtr
+        MetaData        : IntPtr
+        NamedEntities   : IntPtr
+        GetNamedEntity  : IntPtr
+        DefaultPhrase   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Name", "Base", "Relationships", "GetRelationship", "MetaData", "NamedEntities", "GetNamedEntity", "DefaultPhrase"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IEntity.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the name of this entity.
@@ -41,7 +57,7 @@ class IEntity extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-ientity-name
      */
     Name() {
-        result := ComCall(3, this, "ptr*", &ppszName := 0, "HRESULT")
+        result := ComCall(3, this, PWSTR.Ptr, &ppszName := 0, "HRESULT")
         return ppszName
     }
 
@@ -70,7 +86,7 @@ class IEntity extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-ientity-relationships
      */
     Relationships(riid) {
-        result := ComCall(5, this, "ptr", riid, "ptr*", &pRelationships := 0, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, riid, "ptr*", &pRelationships := 0, "HRESULT")
         return pRelationships
     }
 
@@ -102,7 +118,7 @@ class IEntity extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-ientity-metadata
      */
     MetaData(riid) {
-        result := ComCall(7, this, "ptr", riid, "ptr*", &pMetaData := 0, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, riid, "ptr*", &pMetaData := 0, "HRESULT")
         return pMetaData
     }
 
@@ -117,7 +133,7 @@ class IEntity extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-ientity-namedentities
      */
     NamedEntities(riid) {
-        result := ComCall(8, this, "ptr", riid, "ptr*", &pNamedEntities := 0, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, riid, "ptr*", &pNamedEntities := 0, "HRESULT")
         return pNamedEntities
     }
 
@@ -146,7 +162,41 @@ class IEntity extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-ientity-defaultphrase
      */
     DefaultPhrase() {
-        result := ComCall(10, this, "ptr*", &ppszPhrase := 0, "HRESULT")
+        result := ComCall(10, this, PWSTR.Ptr, &ppszPhrase := 0, "HRESULT")
         return ppszPhrase
+    }
+
+    Query(iid) {
+        if (IEntity.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Name := CallbackCreate(GetMethod(implObj, "Name"), flags, 2)
+        this.vtbl.Base := CallbackCreate(GetMethod(implObj, "Base"), flags, 2)
+        this.vtbl.Relationships := CallbackCreate(GetMethod(implObj, "Relationships"), flags, 3)
+        this.vtbl.GetRelationship := CallbackCreate(GetMethod(implObj, "GetRelationship"), flags, 3)
+        this.vtbl.MetaData := CallbackCreate(GetMethod(implObj, "MetaData"), flags, 3)
+        this.vtbl.NamedEntities := CallbackCreate(GetMethod(implObj, "NamedEntities"), flags, 3)
+        this.vtbl.GetNamedEntity := CallbackCreate(GetMethod(implObj, "GetNamedEntity"), flags, 3)
+        this.vtbl.DefaultPhrase := CallbackCreate(GetMethod(implObj, "DefaultPhrase"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Name)
+        CallbackFree(this.vtbl.Base)
+        CallbackFree(this.vtbl.Relationships)
+        CallbackFree(this.vtbl.GetRelationship)
+        CallbackFree(this.vtbl.MetaData)
+        CallbackFree(this.vtbl.NamedEntities)
+        CallbackFree(this.vtbl.GetNamedEntity)
+        CallbackFree(this.vtbl.DefaultPhrase)
     }
 }

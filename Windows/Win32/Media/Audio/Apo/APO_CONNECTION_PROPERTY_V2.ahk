@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\APO_CONNECTION_PROPERTY.ahk
-#Include .\APO_BUFFER_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\APO_CONNECTION_PROPERTY.ahk" { APO_CONNECTION_PROPERTY }
+#Import ".\APO_BUFFER_FLAGS.ahk" { APO_BUFFER_FLAGS }
 
 /**
  * Contains the dynamically changing connection properties. Version two of this structure introduces a time stamp that can be used to synchronize an auxiliary reference stream initialized with IApoAuxiliaryInputConfiguration.
@@ -12,29 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/audioapotypes/ns-audioapotypes-apo_connection_property_v2
  * @namespace Windows.Win32.Media.Audio.Apo
  */
-class APO_CONNECTION_PROPERTY_V2 extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct APO_CONNECTION_PROPERTY_V2 {
+    #StructPack 8
 
     /**
      * A [APO_CONNECTION_PROPERTY](ns-audioapotypes-apo_connection_property.md) structure containing the version 1 properties.
-     * @type {APO_CONNECTION_PROPERTY}
      */
-    property {
-        get {
-            if(!this.HasProp("__property"))
-                this.__property := APO_CONNECTION_PROPERTY(0, this)
-            return this.__property
-        }
-    }
+    property : APO_CONNECTION_PROPERTY
 
     /**
      * An unsigned 64-bit value representing a [QueryPerformanceCounter](/windows/win32/api/profileapi/nf-profileapi-queryperformancecounter) (QPC) time stamp for an audio buffer.
-     * @type {Integer}
      */
-    u64QPCTime {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    u64QPCTime : Int64
+
 }

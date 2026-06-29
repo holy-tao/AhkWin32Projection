@@ -1,83 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DD_MORECAPS extends Win32Struct {
-    static sizeof => 36
+export default struct DD_MORECAPS {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwAlphaCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAlphaCaps {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwSVBAlphaCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSVBAlphaCaps {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwVSBAlphaCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVSBAlphaCaps {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwSSBAlphaCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSSBAlphaCaps {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwFilterCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFilterCaps {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwSVBFilterCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSVBFilterCaps {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwVSBFilterCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVSBFilterCaps {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwSSBFilterCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSSBFilterCaps {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

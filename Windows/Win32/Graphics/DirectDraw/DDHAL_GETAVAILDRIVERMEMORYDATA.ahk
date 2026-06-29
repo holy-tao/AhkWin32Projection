@@ -1,76 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DIRECTDRAW_GBL.ahk
-#Include .\DDSCAPS.ahk
-#Include .\DDSCAPSEX.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDSCAPS.ahk" { DDSCAPS }
+#Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DDSCAPSEX.ahk" { DDSCAPSEX }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDHAL_GETAVAILDRIVERMEMORYDATA extends Win32Struct {
-    static sizeof => 48
+export default struct DDHAL_GETAVAILDRIVERMEMORYDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    lpDD : DDRAWI_DIRECTDRAW_GBL.Ptr
 
-    /**
-     * @type {Pointer<DDRAWI_DIRECTDRAW_GBL>}
-     */
-    lpDD {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    DDSCaps : DDSCAPS
 
-    /**
-     * @type {DDSCAPS}
-     */
-    DDSCaps {
-        get {
-            if(!this.HasProp("__DDSCaps"))
-                this.__DDSCaps := DDSCAPS(8, this)
-            return this.__DDSCaps
-        }
-    }
+    dwTotal : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwTotal {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwFree : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFree {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ddRVal : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    ddRVal {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    GetAvailDriverMemory : IntPtr
 
-    /**
-     * @type {Pointer<LPDDHAL_GETAVAILDRIVERMEMORY>}
-     */
-    GetAvailDriverMemory {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ddsCapsEx : DDSCAPSEX
 
-    /**
-     * @type {DDSCAPSEX}
-     */
-    ddsCapsEx {
-        get {
-            if(!this.HasProp("__ddsCapsEx"))
-                this.__ddsCapsEx := DDSCAPSEX(32, this)
-            return this.__ddsCapsEx
-        }
-    }
 }

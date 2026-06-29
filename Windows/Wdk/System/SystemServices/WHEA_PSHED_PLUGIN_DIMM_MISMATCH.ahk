@@ -1,91 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_PSHED_PLUGIN_DIMM_MISMATCH extends Win32Struct {
-    static sizeof => 32
+export default struct WHEA_PSHED_PLUGIN_DIMM_MISMATCH {
+    #StructPack 8
 
-    static packingSize => 8
+    WheaEventLogEntry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    WheaEventLogEntry {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    FirmwareBank : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    FirmwareBank {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    FirmwareCol : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    FirmwareCol {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    FirmwareRow : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    FirmwareRow {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    RetryRdBank : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    RetryRdBank {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    RetryRdCol : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    RetryRdCol {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    RetryRdRow : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    RetryRdRow {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    TaBank : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    TaBank {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
+    TaCol : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    TaCol {
-        get => NumGet(this, 22, "ushort")
-        set => NumPut("ushort", value, this, 22)
-    }
+    TaRow : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    TaRow {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
-    }
 }

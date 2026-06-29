@@ -1,80 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
-#Include .\DOT11_OFFLOAD_NETWORK.ahk
-#Include .\DOT11_SSID.ahk
-#Include .\DOT11_CIPHER_ALGORITHM.ahk
-#Include .\DOT11_AUTH_ALGORITHM.ahk
-#Include .\DOT11_CHANNEL_HINT.ahk
-#Include .\DOT11_PHY_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Ndis\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
+#Import ".\DOT11_CHANNEL_HINT.ahk" { DOT11_CHANNEL_HINT }
+#Import ".\DOT11_CIPHER_ALGORITHM.ahk" { DOT11_CIPHER_ALGORITHM }
+#Import ".\DOT11_PHY_TYPE.ahk" { DOT11_PHY_TYPE }
+#Import ".\DOT11_AUTH_ALGORITHM.ahk" { DOT11_AUTH_ALGORITHM }
+#Import ".\DOT11_SSID.ahk" { DOT11_SSID }
+#Import ".\DOT11_OFFLOAD_NETWORK.ahk" { DOT11_OFFLOAD_NETWORK }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_OFFLOAD_NETWORK_LIST_INFO extends Win32Struct {
-    static sizeof => 100
+export default struct DOT11_OFFLOAD_NETWORK_LIST_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    Header : NDIS_OBJECT_HEADER
 
-    /**
-     * @type {NDIS_OBJECT_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    ulFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    FastScanPeriod : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FastScanPeriod {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    FastScanIterations : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FastScanIterations {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    SlowScanPeriod : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SlowScanPeriod {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    uNumOfEntries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uNumOfEntries {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    offloadNetworkList : DOT11_OFFLOAD_NETWORK[1]
 
-    /**
-     * @type {DOT11_OFFLOAD_NETWORK}
-     */
-    offloadNetworkList {
-        get {
-            if(!this.HasProp("__offloadNetworkListProxyArray"))
-                this.__offloadNetworkListProxyArray := Win32FixedArray(this.ptr + 24, 1, DOT11_OFFLOAD_NETWORK, "")
-            return this.__offloadNetworkListProxyArray
-        }
-    }
 }

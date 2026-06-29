@@ -1,91 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_FEATURE_DATA_D3D12_OPTIONS19 extends Win32Struct {
-    static sizeof => 40
+export default struct D3D12_FEATURE_DATA_D3D12_OPTIONS19 {
+    #StructPack 4
 
-    static packingSize => 4
+    MismatchingOutputDimensionsSupported : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    MismatchingOutputDimensionsSupported {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    SupportedSampleCountsWithNoOutputs : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SupportedSampleCountsWithNoOutputs {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    PointSamplingAddressesNeverRoundUp : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    PointSamplingAddressesNeverRoundUp {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    RasterizerDesc2Supported : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    RasterizerDesc2Supported {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    NarrowQuadrilateralLinesSupported : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    NarrowQuadrilateralLinesSupported {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    AnisoFilterWithPointMipSupported : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    AnisoFilterWithPointMipSupported {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    MaxSamplerDescriptorHeapSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxSamplerDescriptorHeapSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    MaxSamplerDescriptorHeapSizeWithStaticSamplers : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxSamplerDescriptorHeapSizeWithStaticSamplers {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    MaxViewDescriptorHeapSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxViewDescriptorHeapSize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ComputeOnlyCustomHeapSupported : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    ComputeOnlyCustomHeapSupported {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
 }

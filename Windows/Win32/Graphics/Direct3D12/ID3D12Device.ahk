@@ -1,8 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12Object.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3D12_COMMAND_SIGNATURE_DESC.ahk" { D3D12_COMMAND_SIGNATURE_DESC }
+#Import ".\D3D12_PLACED_SUBRESOURCE_FOOTPRINT.ahk" { D3D12_PLACED_SUBRESOURCE_FOOTPRINT }
+#Import ".\ID3D12Object.ahk" { ID3D12Object }
+#Import ".\ID3D12Pageable.ahk" { ID3D12Pageable }
+#Import ".\D3D12_COMMAND_LIST_TYPE.ahk" { D3D12_COMMAND_LIST_TYPE }
+#Import ".\D3D12_COMPUTE_PIPELINE_STATE_DESC.ahk" { D3D12_COMPUTE_PIPELINE_STATE_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_RESOURCE_DESC.ahk" { D3D12_RESOURCE_DESC }
+#Import ".\D3D12_GRAPHICS_PIPELINE_STATE_DESC.ahk" { D3D12_GRAPHICS_PIPELINE_STATE_DESC }
+#Import "..\..\Foundation\LUID.ahk" { LUID }
+#Import ".\D3D12_RENDER_TARGET_VIEW_DESC.ahk" { D3D12_RENDER_TARGET_VIEW_DESC }
+#Import ".\ID3D12CommandAllocator.ahk" { ID3D12CommandAllocator }
+#Import ".\D3D12_TILE_SHAPE.ahk" { D3D12_TILE_SHAPE }
+#Import ".\D3D12_CLEAR_VALUE.ahk" { D3D12_CLEAR_VALUE }
+#Import ".\D3D12_SAMPLER_DESC.ahk" { D3D12_SAMPLER_DESC }
+#Import ".\ID3D12RootSignature.ahk" { ID3D12RootSignature }
+#Import ".\D3D12_DESCRIPTOR_HEAP_DESC.ahk" { D3D12_DESCRIPTOR_HEAP_DESC }
+#Import ".\D3D12_FEATURE.ahk" { D3D12_FEATURE }
+#Import ".\D3D12_COMMAND_QUEUE_DESC.ahk" { D3D12_COMMAND_QUEUE_DESC }
+#Import ".\D3D12_SUBRESOURCE_TILING.ahk" { D3D12_SUBRESOURCE_TILING }
+#Import ".\D3D12_HEAP_FLAGS.ahk" { D3D12_HEAP_FLAGS }
+#Import ".\ID3D12PipelineState.ahk" { ID3D12PipelineState }
+#Import ".\D3D12_FENCE_FLAGS.ahk" { D3D12_FENCE_FLAGS }
+#Import ".\D3D12_HEAP_PROPERTIES.ahk" { D3D12_HEAP_PROPERTIES }
+#Import ".\D3D12_HEAP_TYPE.ahk" { D3D12_HEAP_TYPE }
+#Import ".\ID3D12Heap.ahk" { ID3D12Heap }
+#Import ".\D3D12_RESOURCE_ALLOCATION_INFO.ahk" { D3D12_RESOURCE_ALLOCATION_INFO }
+#Import ".\D3D12_UNORDERED_ACCESS_VIEW_DESC.ahk" { D3D12_UNORDERED_ACCESS_VIEW_DESC }
+#Import ".\D3D12_QUERY_HEAP_DESC.ahk" { D3D12_QUERY_HEAP_DESC }
+#Import ".\D3D12_SHADER_RESOURCE_VIEW_DESC.ahk" { D3D12_SHADER_RESOURCE_VIEW_DESC }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D12_CONSTANT_BUFFER_VIEW_DESC.ahk" { D3D12_CONSTANT_BUFFER_VIEW_DESC }
+#Import ".\ID3D12DeviceChild.ahk" { ID3D12DeviceChild }
+#Import ".\D3D12_PACKED_MIP_INFO.ahk" { D3D12_PACKED_MIP_INFO }
+#Import ".\D3D12_CPU_DESCRIPTOR_HANDLE.ahk" { D3D12_CPU_DESCRIPTOR_HANDLE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\D3D12_RESOURCE_STATES.ahk" { D3D12_RESOURCE_STATES }
+#Import ".\ID3D12Resource.ahk" { ID3D12Resource }
+#Import ".\D3D12_DESCRIPTOR_HEAP_TYPE.ahk" { D3D12_DESCRIPTOR_HEAP_TYPE }
+#Import ".\D3D12_DEPTH_STENCIL_VIEW_DESC.ahk" { D3D12_DEPTH_STENCIL_VIEW_DESC }
+#Import ".\D3D12_HEAP_DESC.ahk" { D3D12_HEAP_DESC }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
 
 /**
  * Represents a virtual adapter; it is used to create command allocators, command lists, command queues, fences, resources, pipeline state objects, heaps, root signatures, samplers, and many resource views.
@@ -13,26 +54,69 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12device
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class ID3D12Device extends ID3D12Object {
-
-    static sizeof => A_PtrSize
+export default struct ID3D12Device extends ID3D12Object {
     /**
      * The interface identifier for ID3D12Device
      * @type {Guid}
      */
-    static IID => Guid("{189819f1-1db6-4b57-be54-1821339b85f7}")
+    static IID := Guid("{189819f1-1db6-4b57-be54-1821339b85f7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D12Device interfaces
+    */
+    struct Vtbl extends ID3D12Object.Vtbl {
+        GetNodeCount                     : IntPtr
+        CreateCommandQueue               : IntPtr
+        CreateCommandAllocator           : IntPtr
+        CreateGraphicsPipelineState      : IntPtr
+        CreateComputePipelineState       : IntPtr
+        CreateCommandList                : IntPtr
+        CheckFeatureSupport              : IntPtr
+        CreateDescriptorHeap             : IntPtr
+        GetDescriptorHandleIncrementSize : IntPtr
+        CreateRootSignature              : IntPtr
+        CreateConstantBufferView         : IntPtr
+        CreateShaderResourceView         : IntPtr
+        CreateUnorderedAccessView        : IntPtr
+        CreateRenderTargetView           : IntPtr
+        CreateDepthStencilView           : IntPtr
+        CreateSampler                    : IntPtr
+        CopyDescriptors                  : IntPtr
+        CopyDescriptorsSimple            : IntPtr
+        GetResourceAllocationInfo        : IntPtr
+        GetCustomHeapProperties          : IntPtr
+        CreateCommittedResource          : IntPtr
+        CreateHeap                       : IntPtr
+        CreatePlacedResource             : IntPtr
+        CreateReservedResource           : IntPtr
+        CreateSharedHandle               : IntPtr
+        OpenSharedHandle                 : IntPtr
+        OpenSharedHandleByName           : IntPtr
+        MakeResident                     : IntPtr
+        Evict                            : IntPtr
+        CreateFence                      : IntPtr
+        GetDeviceRemovedReason           : IntPtr
+        GetCopyableFootprints            : IntPtr
+        CreateQueryHeap                  : IntPtr
+        SetStablePowerState              : IntPtr
+        CreateCommandSignature           : IntPtr
+        GetResourceTiling                : IntPtr
+        GetAdapterLuid                   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetNodeCount", "CreateCommandQueue", "CreateCommandAllocator", "CreateGraphicsPipelineState", "CreateComputePipelineState", "CreateCommandList", "CheckFeatureSupport", "CreateDescriptorHeap", "GetDescriptorHandleIncrementSize", "CreateRootSignature", "CreateConstantBufferView", "CreateShaderResourceView", "CreateUnorderedAccessView", "CreateRenderTargetView", "CreateDepthStencilView", "CreateSampler", "CopyDescriptors", "CopyDescriptorsSimple", "GetResourceAllocationInfo", "GetCustomHeapProperties", "CreateCommittedResource", "CreateHeap", "CreatePlacedResource", "CreateReservedResource", "CreateSharedHandle", "OpenSharedHandle", "OpenSharedHandleByName", "MakeResident", "Evict", "CreateFence", "GetDeviceRemovedReason", "GetCopyableFootprints", "CreateQueryHeap", "SetStablePowerState", "CreateCommandSignature", "GetResourceTiling", "GetAdapterLuid"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D12Device.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Reports the number of physical adapters (nodes) that are associated with this device.
@@ -42,7 +126,7 @@ class ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-getnodecount
      */
     GetNodeCount() {
-        result := ComCall(7, this, "uint")
+        result := ComCall(7, this, UInt32)
         return result
     }
 
@@ -62,7 +146,7 @@ class ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandqueue
      */
     CreateCommandQueue(pDesc, riid) {
-        result := ComCall(8, this, "ptr", pDesc, "ptr", riid, "ptr*", &ppCommandQueue := 0, "HRESULT")
+        result := ComCall(8, this, D3D12_COMMAND_QUEUE_DESC.Ptr, pDesc, Guid.Ptr, riid, "ptr*", &ppCommandQueue := 0, "HRESULT")
         return ppCommandQueue
     }
 
@@ -85,7 +169,7 @@ class ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandallocator
      */
     CreateCommandAllocator(type, riid) {
-        result := ComCall(9, this, "int", type, "ptr", riid, "ptr*", &ppCommandAllocator := 0, "HRESULT")
+        result := ComCall(9, this, D3D12_COMMAND_LIST_TYPE, type, Guid.Ptr, riid, "ptr*", &ppCommandAllocator := 0, "HRESULT")
         return ppCommandAllocator
     }
 
@@ -106,7 +190,7 @@ class ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-creategraphicspipelinestate
      */
     CreateGraphicsPipelineState(pDesc, riid) {
-        result := ComCall(10, this, "ptr", pDesc, "ptr", riid, "ptr*", &ppPipelineState := 0, "HRESULT")
+        result := ComCall(10, this, D3D12_GRAPHICS_PIPELINE_STATE_DESC.Ptr, pDesc, Guid.Ptr, riid, "ptr*", &ppPipelineState := 0, "HRESULT")
         return ppPipelineState
     }
 
@@ -127,7 +211,7 @@ class ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcomputepipelinestate
      */
     CreateComputePipelineState(pDesc, riid) {
-        result := ComCall(11, this, "ptr", pDesc, "ptr", riid, "ptr*", &ppPipelineState := 0, "HRESULT")
+        result := ComCall(11, this, D3D12_COMPUTE_PIPELINE_STATE_DESC.Ptr, pDesc, Guid.Ptr, riid, "ptr*", &ppPipelineState := 0, "HRESULT")
         return ppPipelineState
     }
 
@@ -158,7 +242,7 @@ class ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandlist
      */
     CreateCommandList(nodeMask, type, pCommandAllocator, pInitialState, riid) {
-        result := ComCall(12, this, "uint", nodeMask, "int", type, "ptr", pCommandAllocator, "ptr", pInitialState, "ptr", riid, "ptr*", &ppCommandList := 0, "HRESULT")
+        result := ComCall(12, this, "uint", nodeMask, D3D12_COMMAND_LIST_TYPE, type, "ptr", pCommandAllocator, "ptr", pInitialState, Guid.Ptr, riid, "ptr*", &ppCommandList := 0, "HRESULT")
         return ppCommandList
     }
 
@@ -210,7 +294,7 @@ class ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-checkfeaturesupport
      */
     CheckFeatureSupport(Feature, pFeatureSupportData, FeatureSupportDataSize) {
-        result := ComCall(13, this, "int", Feature, "ptr", pFeatureSupportData, "uint", FeatureSupportDataSize, "HRESULT")
+        result := ComCall(13, this, D3D12_FEATURE, Feature, "ptr", pFeatureSupportData, "uint", FeatureSupportDataSize, "HRESULT")
         return result
     }
 
@@ -233,7 +317,7 @@ class ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createdescriptorheap
      */
     CreateDescriptorHeap(pDescriptorHeapDesc, riid) {
-        result := ComCall(14, this, "ptr", pDescriptorHeapDesc, "ptr", riid, "ptr*", &ppvHeap := 0, "HRESULT")
+        result := ComCall(14, this, D3D12_DESCRIPTOR_HEAP_DESC.Ptr, pDescriptorHeapDesc, Guid.Ptr, riid, "ptr*", &ppvHeap := 0, "HRESULT")
         return ppvHeap
     }
 
@@ -246,7 +330,7 @@ class ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-getdescriptorhandleincrementsize
      */
     GetDescriptorHandleIncrementSize(DescriptorHeapType) {
-        result := ComCall(15, this, "int", DescriptorHeapType, "uint")
+        result := ComCall(15, this, D3D12_DESCRIPTOR_HEAP_TYPE, DescriptorHeapType, UInt32)
         return result
     }
 
@@ -282,7 +366,7 @@ class ID3D12Device extends ID3D12Object {
     CreateRootSignature(nodeMask, pBlobWithRootSignature, blobLengthInBytes, riid) {
         pBlobWithRootSignatureMarshal := pBlobWithRootSignature is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(16, this, "uint", nodeMask, pBlobWithRootSignatureMarshal, pBlobWithRootSignature, "ptr", blobLengthInBytes, "ptr", riid, "ptr*", &ppvRootSignature := 0, "HRESULT")
+        result := ComCall(16, this, "uint", nodeMask, pBlobWithRootSignatureMarshal, pBlobWithRootSignature, "ptr", blobLengthInBytes, Guid.Ptr, riid, "ptr*", &ppvRootSignature := 0, "HRESULT")
         return ppvRootSignature
     }
 
@@ -298,7 +382,7 @@ class ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createconstantbufferview
      */
     CreateConstantBufferView(pDesc, DestDescriptor) {
-        ComCall(17, this, "ptr", pDesc, "ptr", DestDescriptor)
+        ComCall(17, this, D3D12_CONSTANT_BUFFER_VIEW_DESC.Ptr, pDesc, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor)
     }
 
     /**
@@ -326,7 +410,7 @@ class ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createshaderresourceview
      */
     CreateShaderResourceView(pResource, pDesc, DestDescriptor) {
-        ComCall(18, this, "ptr", pResource, "ptr", pDesc, "ptr", DestDescriptor)
+        ComCall(18, this, "ptr", pResource, D3D12_SHADER_RESOURCE_VIEW_DESC.Ptr, pDesc, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor)
     }
 
     /**
@@ -374,7 +458,7 @@ class ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createunorderedaccessview
      */
     CreateUnorderedAccessView(pResource, pCounterResource, pDesc, DestDescriptor) {
-        ComCall(19, this, "ptr", pResource, "ptr", pCounterResource, "ptr", pDesc, "ptr", DestDescriptor)
+        ComCall(19, this, "ptr", pResource, "ptr", pCounterResource, D3D12_UNORDERED_ACCESS_VIEW_DESC.Ptr, pDesc, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor)
     }
 
     /**
@@ -398,7 +482,7 @@ class ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createrendertargetview
      */
     CreateRenderTargetView(pResource, pDesc, DestDescriptor) {
-        ComCall(20, this, "ptr", pResource, "ptr", pDesc, "ptr", DestDescriptor)
+        ComCall(20, this, "ptr", pResource, D3D12_RENDER_TARGET_VIEW_DESC.Ptr, pDesc, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor)
     }
 
     /**
@@ -423,7 +507,7 @@ class ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createdepthstencilview
      */
     CreateDepthStencilView(pResource, pDesc, DestDescriptor) {
-        ComCall(21, this, "ptr", pResource, "ptr", pDesc, "ptr", DestDescriptor)
+        ComCall(21, this, "ptr", pResource, D3D12_DEPTH_STENCIL_VIEW_DESC.Ptr, pDesc, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor)
     }
 
     /**
@@ -438,7 +522,7 @@ class ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createsampler
      */
     CreateSampler(pDesc, DestDescriptor) {
-        ComCall(22, this, "ptr", pDesc, "ptr", DestDescriptor)
+        ComCall(22, this, D3D12_SAMPLER_DESC.Ptr, pDesc, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor)
     }
 
     /**
@@ -480,7 +564,7 @@ class ID3D12Device extends ID3D12Object {
         pDestDescriptorRangeSizesMarshal := pDestDescriptorRangeSizes is VarRef ? "uint*" : "ptr"
         pSrcDescriptorRangeSizesMarshal := pSrcDescriptorRangeSizes is VarRef ? "uint*" : "ptr"
 
-        ComCall(23, this, "uint", NumDestDescriptorRanges, "ptr", pDestDescriptorRangeStarts, pDestDescriptorRangeSizesMarshal, pDestDescriptorRangeSizes, "uint", NumSrcDescriptorRanges, "ptr", pSrcDescriptorRangeStarts, pSrcDescriptorRangeSizesMarshal, pSrcDescriptorRangeSizes, "int", DescriptorHeapsType)
+        ComCall(23, this, "uint", NumDestDescriptorRanges, D3D12_CPU_DESCRIPTOR_HANDLE.Ptr, pDestDescriptorRangeStarts, pDestDescriptorRangeSizesMarshal, pDestDescriptorRangeSizes, "uint", NumSrcDescriptorRanges, D3D12_CPU_DESCRIPTOR_HANDLE.Ptr, pSrcDescriptorRangeStarts, pSrcDescriptorRangeSizesMarshal, pSrcDescriptorRangeSizes, D3D12_DESCRIPTOR_HEAP_TYPE, DescriptorHeapsType)
     }
 
     /**
@@ -510,7 +594,7 @@ class ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-copydescriptorssimple
      */
     CopyDescriptorsSimple(NumDescriptors, DestDescriptorRangeStart, SrcDescriptorRangeStart, DescriptorHeapsType) {
-        ComCall(24, this, "uint", NumDescriptors, "ptr", DestDescriptorRangeStart, "ptr", SrcDescriptorRangeStart, "int", DescriptorHeapsType)
+        ComCall(24, this, "uint", NumDescriptors, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptorRangeStart, D3D12_CPU_DESCRIPTOR_HANDLE, SrcDescriptorRangeStart, D3D12_DESCRIPTOR_HEAP_TYPE, DescriptorHeapsType)
     }
 
     /**
@@ -542,7 +626,7 @@ class ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-getresourceallocationinfo
      */
     GetResourceAllocationInfo(visibleMask, numResourceDescs, pResourceDescs) {
-        result := ComCall(25, this, "uint", visibleMask, "uint", numResourceDescs, "ptr", pResourceDescs, "ptr")
+        result := ComCall(25, this, "uint", visibleMask, "uint", numResourceDescs, D3D12_RESOURCE_DESC.Ptr, pResourceDescs, D3D12_RESOURCE_ALLOCATION_INFO)
         return result
     }
 
@@ -644,7 +728,7 @@ class ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-getcustomheapproperties
      */
     GetCustomHeapProperties(nodeMask, heapType) {
-        result := ComCall(26, this, "uint", nodeMask, "int", heapType, "ptr")
+        result := ComCall(26, this, "uint", nodeMask, D3D12_HEAP_TYPE, heapType, D3D12_HEAP_PROPERTIES)
         return result
     }
 
@@ -694,7 +778,7 @@ class ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommittedresource
      */
     CreateCommittedResource(pHeapProperties, HeapFlags, pDesc, InitialResourceState, pOptimizedClearValue, riidResource) {
-        result := ComCall(27, this, "ptr", pHeapProperties, "int", HeapFlags, "ptr", pDesc, "int", InitialResourceState, "ptr", pOptimizedClearValue, "ptr", riidResource, "ptr*", &ppvResource := 0, "HRESULT")
+        result := ComCall(27, this, D3D12_HEAP_PROPERTIES.Ptr, pHeapProperties, D3D12_HEAP_FLAGS, HeapFlags, D3D12_RESOURCE_DESC.Ptr, pDesc, D3D12_RESOURCE_STATES, InitialResourceState, D3D12_CLEAR_VALUE.Ptr, pOptimizedClearValue, Guid.Ptr, riidResource, "ptr*", &ppvResource := 0, "HRESULT")
         return ppvResource
     }
 
@@ -722,7 +806,7 @@ class ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createheap
      */
     CreateHeap(pDesc, riid) {
-        result := ComCall(28, this, "ptr", pDesc, "ptr", riid, "ptr*", &ppvHeap := 0, "HRESULT")
+        result := ComCall(28, this, D3D12_HEAP_DESC.Ptr, pDesc, Guid.Ptr, riid, "ptr*", &ppvHeap := 0, "HRESULT")
         return ppvHeap
     }
 
@@ -768,7 +852,7 @@ class ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createplacedresource
      */
     CreatePlacedResource(pHeap, HeapOffset, pDesc, InitialState, pOptimizedClearValue, riid) {
-        result := ComCall(29, this, "ptr", pHeap, "uint", HeapOffset, "ptr", pDesc, "int", InitialState, "ptr", pOptimizedClearValue, "ptr", riid, "ptr*", &ppvResource := 0, "HRESULT")
+        result := ComCall(29, this, "ptr", pHeap, "uint", HeapOffset, D3D12_RESOURCE_DESC.Ptr, pDesc, D3D12_RESOURCE_STATES, InitialState, D3D12_CLEAR_VALUE.Ptr, pOptimizedClearValue, Guid.Ptr, riid, "ptr*", &ppvResource := 0, "HRESULT")
         return ppvResource
     }
 
@@ -806,7 +890,7 @@ class ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createreservedresource
      */
     CreateReservedResource(pDesc, InitialState, pOptimizedClearValue, riid) {
-        result := ComCall(30, this, "ptr", pDesc, "int", InitialState, "ptr", pOptimizedClearValue, "ptr", riid, "ptr*", &ppvResource := 0, "HRESULT")
+        result := ComCall(30, this, D3D12_RESOURCE_DESC.Ptr, pDesc, D3D12_RESOURCE_STATES, InitialState, D3D12_CLEAR_VALUE.Ptr, pOptimizedClearValue, Guid.Ptr, riid, "ptr*", &ppvResource := 0, "HRESULT")
         return ppvResource
     }
 
@@ -884,8 +968,8 @@ class ID3D12Device extends ID3D12Object {
     CreateSharedHandle(pObject, pAttributes, Access, Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        pHandle := HANDLE()
-        result := ComCall(31, this, "ptr", pObject, "ptr", pAttributes, "uint", Access, "ptr", Name, "ptr", pHandle, "HRESULT")
+        pHandle := HANDLE.Owned()
+        result := ComCall(31, this, "ptr", pObject, SECURITY_ATTRIBUTES.Ptr, pAttributes, "uint", Access, "ptr", Name, HANDLE.Ptr, pHandle, "HRESULT")
         return pHandle
     }
 
@@ -932,9 +1016,7 @@ class ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-opensharedhandle
      */
     OpenSharedHandle(NTHandle, riid) {
-        NTHandle := NTHandle is Win32Handle ? NumGet(NTHandle, "ptr") : NTHandle
-
-        result := ComCall(32, this, "ptr", NTHandle, "ptr", riid, "ptr*", &ppvObj := 0, "HRESULT")
+        result := ComCall(32, this, HANDLE, NTHandle, Guid.Ptr, riid, "ptr*", &ppvObj := 0, "HRESULT")
         return ppvObj
     }
 
@@ -956,8 +1038,8 @@ class ID3D12Device extends ID3D12Object {
     OpenSharedHandleByName(Name, Access) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        pNTHandle := HANDLE()
-        result := ComCall(33, this, "ptr", Name, "uint", Access, "ptr", pNTHandle, "HRESULT")
+        pNTHandle := HANDLE.Owned()
+        result := ComCall(33, this, "ptr", Name, "uint", Access, HANDLE.Ptr, pNTHandle, "HRESULT")
         return pNTHandle
     }
 
@@ -998,7 +1080,7 @@ class ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-makeresident
      */
     MakeResident(NumObjects, ppObjects) {
-        result := ComCall(34, this, "uint", NumObjects, "ptr*", ppObjects, "HRESULT")
+        result := ComCall(34, this, "uint", NumObjects, ID3D12Pageable.Ptr, ppObjects, "HRESULT")
         return result
     }
 
@@ -1025,7 +1107,7 @@ class ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-evict
      */
     Evict(NumObjects, ppObjects) {
-        result := ComCall(35, this, "uint", NumObjects, "ptr*", ppObjects, "HRESULT")
+        result := ComCall(35, this, "uint", NumObjects, ID3D12Pageable.Ptr, ppObjects, "HRESULT")
         return result
     }
 
@@ -1049,7 +1131,7 @@ class ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createfence
      */
     CreateFence(InitialValue, Flags, riid) {
-        result := ComCall(36, this, "uint", InitialValue, "int", Flags, "ptr", riid, "ptr*", &ppFence := 0, "HRESULT")
+        result := ComCall(36, this, "uint", InitialValue, D3D12_FENCE_FLAGS, Flags, Guid.Ptr, riid, "ptr*", &ppFence := 0, "HRESULT")
         return ppFence
     }
 
@@ -1115,7 +1197,7 @@ class ID3D12Device extends ID3D12Object {
         pRowSizeInBytesMarshal := pRowSizeInBytes is VarRef ? "uint*" : "ptr"
         pTotalBytesMarshal := pTotalBytes is VarRef ? "uint*" : "ptr"
 
-        ComCall(38, this, "ptr", pResourceDesc, "uint", FirstSubresource, "uint", NumSubresources, "uint", BaseOffset, "ptr", pLayouts, pNumRowsMarshal, pNumRows, pRowSizeInBytesMarshal, pRowSizeInBytes, pTotalBytesMarshal, pTotalBytes)
+        ComCall(38, this, D3D12_RESOURCE_DESC.Ptr, pResourceDesc, "uint", FirstSubresource, "uint", NumSubresources, "uint", BaseOffset, D3D12_PLACED_SUBRESOURCE_FOOTPRINT.Ptr, pLayouts, pNumRowsMarshal, pNumRows, pRowSizeInBytesMarshal, pRowSizeInBytes, pTotalBytesMarshal, pTotalBytes)
     }
 
     /**
@@ -1136,7 +1218,7 @@ class ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createqueryheap
      */
     CreateQueryHeap(pDesc, riid) {
-        result := ComCall(39, this, "ptr", pDesc, "ptr", riid, "ptr*", &ppvHeap := 0, "HRESULT")
+        result := ComCall(39, this, D3D12_QUERY_HEAP_DESC.Ptr, pDesc, Guid.Ptr, riid, "ptr*", &ppvHeap := 0, "HRESULT")
         return ppvHeap
     }
 
@@ -1157,7 +1239,7 @@ class ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-setstablepowerstate
      */
     SetStablePowerState(Enable) {
-        result := ComCall(40, this, "int", Enable, "HRESULT")
+        result := ComCall(40, this, BOOL, Enable, "HRESULT")
         return result
     }
 
@@ -1183,7 +1265,7 @@ class ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandsignature
      */
     CreateCommandSignature(pDesc, pRootSignature, riid) {
-        result := ComCall(41, this, "ptr", pDesc, "ptr", pRootSignature, "ptr", riid, "ptr*", &ppvCommandSignature := 0, "HRESULT")
+        result := ComCall(41, this, D3D12_COMMAND_SIGNATURE_DESC.Ptr, pDesc, "ptr", pRootSignature, Guid.Ptr, riid, "ptr*", &ppvCommandSignature := 0, "HRESULT")
         return ppvCommandSignature
     }
 
@@ -1223,7 +1305,7 @@ class ID3D12Device extends ID3D12Object {
         pNumTilesForEntireResourceMarshal := pNumTilesForEntireResource is VarRef ? "uint*" : "ptr"
         pNumSubresourceTilingsMarshal := pNumSubresourceTilings is VarRef ? "uint*" : "ptr"
 
-        ComCall(42, this, "ptr", pTiledResource, pNumTilesForEntireResourceMarshal, pNumTilesForEntireResource, "ptr", pPackedMipDesc, "ptr", pStandardTileShapeForNonPackedMips, pNumSubresourceTilingsMarshal, pNumSubresourceTilings, "uint", FirstSubresourceTilingToGet, "ptr", pSubresourceTilingsForNonPackedMips)
+        ComCall(42, this, "ptr", pTiledResource, pNumTilesForEntireResourceMarshal, pNumTilesForEntireResource, D3D12_PACKED_MIP_INFO.Ptr, pPackedMipDesc, D3D12_TILE_SHAPE.Ptr, pStandardTileShapeForNonPackedMips, pNumSubresourceTilingsMarshal, pNumSubresourceTilings, "uint", FirstSubresourceTilingToGet, D3D12_SUBRESOURCE_TILING.Ptr, pSubresourceTilingsForNonPackedMips)
     }
 
     /**
@@ -1241,7 +1323,99 @@ class ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-getadapterluid
      */
     GetAdapterLuid() {
-        result := ComCall(43, this, "ptr")
+        result := ComCall(43, this, LUID)
         return result
+    }
+
+    Query(iid) {
+        if (ID3D12Device.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetNodeCount := CallbackCreate(GetMethod(implObj, "GetNodeCount"), flags, 1)
+        this.vtbl.CreateCommandQueue := CallbackCreate(GetMethod(implObj, "CreateCommandQueue"), flags, 4)
+        this.vtbl.CreateCommandAllocator := CallbackCreate(GetMethod(implObj, "CreateCommandAllocator"), flags, 4)
+        this.vtbl.CreateGraphicsPipelineState := CallbackCreate(GetMethod(implObj, "CreateGraphicsPipelineState"), flags, 4)
+        this.vtbl.CreateComputePipelineState := CallbackCreate(GetMethod(implObj, "CreateComputePipelineState"), flags, 4)
+        this.vtbl.CreateCommandList := CallbackCreate(GetMethod(implObj, "CreateCommandList"), flags, 7)
+        this.vtbl.CheckFeatureSupport := CallbackCreate(GetMethod(implObj, "CheckFeatureSupport"), flags, 4)
+        this.vtbl.CreateDescriptorHeap := CallbackCreate(GetMethod(implObj, "CreateDescriptorHeap"), flags, 4)
+        this.vtbl.GetDescriptorHandleIncrementSize := CallbackCreate(GetMethod(implObj, "GetDescriptorHandleIncrementSize"), flags, 2)
+        this.vtbl.CreateRootSignature := CallbackCreate(GetMethod(implObj, "CreateRootSignature"), flags, 6)
+        this.vtbl.CreateConstantBufferView := CallbackCreate(GetMethod(implObj, "CreateConstantBufferView"), flags, 3)
+        this.vtbl.CreateShaderResourceView := CallbackCreate(GetMethod(implObj, "CreateShaderResourceView"), flags, 4)
+        this.vtbl.CreateUnorderedAccessView := CallbackCreate(GetMethod(implObj, "CreateUnorderedAccessView"), flags, 5)
+        this.vtbl.CreateRenderTargetView := CallbackCreate(GetMethod(implObj, "CreateRenderTargetView"), flags, 4)
+        this.vtbl.CreateDepthStencilView := CallbackCreate(GetMethod(implObj, "CreateDepthStencilView"), flags, 4)
+        this.vtbl.CreateSampler := CallbackCreate(GetMethod(implObj, "CreateSampler"), flags, 3)
+        this.vtbl.CopyDescriptors := CallbackCreate(GetMethod(implObj, "CopyDescriptors"), flags, 8)
+        this.vtbl.CopyDescriptorsSimple := CallbackCreate(GetMethod(implObj, "CopyDescriptorsSimple"), flags, 5)
+        this.vtbl.GetResourceAllocationInfo := CallbackCreate(GetMethod(implObj, "GetResourceAllocationInfo"), flags, 4)
+        this.vtbl.GetCustomHeapProperties := CallbackCreate(GetMethod(implObj, "GetCustomHeapProperties"), flags, 3)
+        this.vtbl.CreateCommittedResource := CallbackCreate(GetMethod(implObj, "CreateCommittedResource"), flags, 8)
+        this.vtbl.CreateHeap := CallbackCreate(GetMethod(implObj, "CreateHeap"), flags, 4)
+        this.vtbl.CreatePlacedResource := CallbackCreate(GetMethod(implObj, "CreatePlacedResource"), flags, 8)
+        this.vtbl.CreateReservedResource := CallbackCreate(GetMethod(implObj, "CreateReservedResource"), flags, 6)
+        this.vtbl.CreateSharedHandle := CallbackCreate(GetMethod(implObj, "CreateSharedHandle"), flags, 6)
+        this.vtbl.OpenSharedHandle := CallbackCreate(GetMethod(implObj, "OpenSharedHandle"), flags, 4)
+        this.vtbl.OpenSharedHandleByName := CallbackCreate(GetMethod(implObj, "OpenSharedHandleByName"), flags, 4)
+        this.vtbl.MakeResident := CallbackCreate(GetMethod(implObj, "MakeResident"), flags, 3)
+        this.vtbl.Evict := CallbackCreate(GetMethod(implObj, "Evict"), flags, 3)
+        this.vtbl.CreateFence := CallbackCreate(GetMethod(implObj, "CreateFence"), flags, 5)
+        this.vtbl.GetDeviceRemovedReason := CallbackCreate(GetMethod(implObj, "GetDeviceRemovedReason"), flags, 1)
+        this.vtbl.GetCopyableFootprints := CallbackCreate(GetMethod(implObj, "GetCopyableFootprints"), flags, 9)
+        this.vtbl.CreateQueryHeap := CallbackCreate(GetMethod(implObj, "CreateQueryHeap"), flags, 4)
+        this.vtbl.SetStablePowerState := CallbackCreate(GetMethod(implObj, "SetStablePowerState"), flags, 2)
+        this.vtbl.CreateCommandSignature := CallbackCreate(GetMethod(implObj, "CreateCommandSignature"), flags, 5)
+        this.vtbl.GetResourceTiling := CallbackCreate(GetMethod(implObj, "GetResourceTiling"), flags, 8)
+        this.vtbl.GetAdapterLuid := CallbackCreate(GetMethod(implObj, "GetAdapterLuid"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetNodeCount)
+        CallbackFree(this.vtbl.CreateCommandQueue)
+        CallbackFree(this.vtbl.CreateCommandAllocator)
+        CallbackFree(this.vtbl.CreateGraphicsPipelineState)
+        CallbackFree(this.vtbl.CreateComputePipelineState)
+        CallbackFree(this.vtbl.CreateCommandList)
+        CallbackFree(this.vtbl.CheckFeatureSupport)
+        CallbackFree(this.vtbl.CreateDescriptorHeap)
+        CallbackFree(this.vtbl.GetDescriptorHandleIncrementSize)
+        CallbackFree(this.vtbl.CreateRootSignature)
+        CallbackFree(this.vtbl.CreateConstantBufferView)
+        CallbackFree(this.vtbl.CreateShaderResourceView)
+        CallbackFree(this.vtbl.CreateUnorderedAccessView)
+        CallbackFree(this.vtbl.CreateRenderTargetView)
+        CallbackFree(this.vtbl.CreateDepthStencilView)
+        CallbackFree(this.vtbl.CreateSampler)
+        CallbackFree(this.vtbl.CopyDescriptors)
+        CallbackFree(this.vtbl.CopyDescriptorsSimple)
+        CallbackFree(this.vtbl.GetResourceAllocationInfo)
+        CallbackFree(this.vtbl.GetCustomHeapProperties)
+        CallbackFree(this.vtbl.CreateCommittedResource)
+        CallbackFree(this.vtbl.CreateHeap)
+        CallbackFree(this.vtbl.CreatePlacedResource)
+        CallbackFree(this.vtbl.CreateReservedResource)
+        CallbackFree(this.vtbl.CreateSharedHandle)
+        CallbackFree(this.vtbl.OpenSharedHandle)
+        CallbackFree(this.vtbl.OpenSharedHandleByName)
+        CallbackFree(this.vtbl.MakeResident)
+        CallbackFree(this.vtbl.Evict)
+        CallbackFree(this.vtbl.CreateFence)
+        CallbackFree(this.vtbl.GetDeviceRemovedReason)
+        CallbackFree(this.vtbl.GetCopyableFootprints)
+        CallbackFree(this.vtbl.CreateQueryHeap)
+        CallbackFree(this.vtbl.SetStablePowerState)
+        CallbackFree(this.vtbl.CreateCommandSignature)
+        CallbackFree(this.vtbl.GetResourceTiling)
+        CallbackFree(this.vtbl.GetAdapterLuid)
     }
 }

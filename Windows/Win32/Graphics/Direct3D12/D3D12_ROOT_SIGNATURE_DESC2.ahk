@@ -1,54 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_ROOT_PARAMETER1.ahk
-#Include .\D3D12_STATIC_SAMPLER_DESC1.ahk
-#Include .\D3D12_ROOT_SIGNATURE_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_ROOT_PARAMETER1.ahk" { D3D12_ROOT_PARAMETER1 }
+#Import ".\D3D12_ROOT_SIGNATURE_FLAGS.ahk" { D3D12_ROOT_SIGNATURE_FLAGS }
+#Import ".\D3D12_STATIC_SAMPLER_DESC1.ahk" { D3D12_STATIC_SAMPLER_DESC1 }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_ROOT_SIGNATURE_DESC2 extends Win32Struct {
-    static sizeof => 40
+export default struct D3D12_ROOT_SIGNATURE_DESC2 {
+    #StructPack 8
 
-    static packingSize => 8
+    NumParameters : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumParameters {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pParameters : D3D12_ROOT_PARAMETER1.Ptr
 
-    /**
-     * @type {Pointer<D3D12_ROOT_PARAMETER1>}
-     */
-    pParameters {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    NumStaticSamplers : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumStaticSamplers {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    pStaticSamplers : D3D12_STATIC_SAMPLER_DESC1.Ptr
 
-    /**
-     * @type {Pointer<D3D12_STATIC_SAMPLER_DESC1>}
-     */
-    pStaticSamplers {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Flags : D3D12_ROOT_SIGNATURE_FLAGS
 
-    /**
-     * @type {D3D12_ROOT_SIGNATURE_FLAGS}
-     */
-    Flags {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
 }

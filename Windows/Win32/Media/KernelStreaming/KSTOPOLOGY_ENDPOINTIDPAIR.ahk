@@ -1,34 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSTOPOLOGY_ENDPOINTID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSTOPOLOGY_ENDPOINTID.ahk" { KSTOPOLOGY_ENDPOINTID }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSTOPOLOGY_ENDPOINTIDPAIR extends Win32Struct {
-    static sizeof => 1048
+export default struct KSTOPOLOGY_ENDPOINTIDPAIR {
+    #StructPack 4
 
-    static packingSize => 4
+    RenderEndpoint : KSTOPOLOGY_ENDPOINTID
 
-    /**
-     * @type {KSTOPOLOGY_ENDPOINTID}
-     */
-    RenderEndpoint {
-        get {
-            if(!this.HasProp("__RenderEndpoint"))
-                this.__RenderEndpoint := KSTOPOLOGY_ENDPOINTID(0, this)
-            return this.__RenderEndpoint
-        }
-    }
+    CaptureEndpoint : KSTOPOLOGY_ENDPOINTID
 
-    /**
-     * @type {KSTOPOLOGY_ENDPOINTID}
-     */
-    CaptureEndpoint {
-        get {
-            if(!this.HasProp("__CaptureEndpoint"))
-                this.__CaptureEndpoint := KSTOPOLOGY_ENDPOINTID(524, this)
-            return this.__CaptureEndpoint
-        }
-    }
 }

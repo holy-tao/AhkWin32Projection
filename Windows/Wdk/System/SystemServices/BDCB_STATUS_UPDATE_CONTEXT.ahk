@@ -1,20 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BDCB_STATUS_UPDATE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BDCB_STATUS_UPDATE_TYPE.ahk" { BDCB_STATUS_UPDATE_TYPE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class BDCB_STATUS_UPDATE_CONTEXT extends Win32Struct {
-    static sizeof => 4
+export default struct BDCB_STATUS_UPDATE_CONTEXT {
+    #StructPack 4
 
-    static packingSize => 4
+    StatusType : BDCB_STATUS_UPDATE_TYPE
 
-    /**
-     * @type {BDCB_STATUS_UPDATE_TYPE}
-     */
-    StatusType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
 }

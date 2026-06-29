@@ -1,89 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CHANGER_ELEMENT.ahk
-#Include .\ELEMENT_TYPE.ahk
-#Include .\CHANGER_ELEMENT_STATUS_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ELEMENT_TYPE.ahk" { ELEMENT_TYPE }
+#Import ".\CHANGER_ELEMENT.ahk" { CHANGER_ELEMENT }
+#Import ".\CHANGER_ELEMENT_STATUS_FLAGS.ahk" { CHANGER_ELEMENT_STATUS_FLAGS }
 
 /**
  * Represents the status of the specified element. (CHANGER_ELEMENT_STATUS)
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-changer_element_status
  * @namespace Windows.Win32.System.Ioctl
  */
-class CHANGER_ELEMENT_STATUS extends Win32Struct {
-    static sizeof => 100
-
-    static packingSize => 4
+export default struct CHANGER_ELEMENT_STATUS {
+    #StructPack 4
 
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-changer_element">CHANGER_ELEMENT</a> structure that represents the element.
-     * @type {CHANGER_ELEMENT}
      */
-    Element {
-        get {
-            if(!this.HasProp("__Element"))
-                this.__Element := CHANGER_ELEMENT(0, this)
-            return this.__Element
-        }
-    }
+    Element : CHANGER_ELEMENT
 
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-changer_element">CHANGER_ELEMENT</a> structure that represents the element from which the media currently in this element was most recently moved.
      * 
      * This member is valid only if the <b>Flags</b> member includes ELEMENT_STATUS_SVALID.
-     * @type {CHANGER_ELEMENT}
      */
-    SrcElementAddress {
-        get {
-            if(!this.HasProp("__SrcElementAddress"))
-                this.__SrcElementAddress := CHANGER_ELEMENT(8, this)
-            return this.__SrcElementAddress
-        }
-    }
+    SrcElementAddress : CHANGER_ELEMENT
 
-    /**
-     * @type {CHANGER_ELEMENT_STATUS_FLAGS}
-     */
-    Flags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Flags : CHANGER_ELEMENT_STATUS_FLAGS
 
-    /**
-     * @type {Integer}
-     */
-    ExceptionCode {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ExceptionCode : UInt32
 
     /**
      * For a SCSI changer, specifies the SCSI target ID of the drive at this element address. This member is valid only if the <b>ElementType</b> member of the <b>Element</b> structure is ChangerDrive and the <b>Flags</b> member includes ELEMENT_STATUS_ID_VALID.
-     * @type {Integer}
      */
-    TargetId {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
-    }
+    TargetId : Int8
 
     /**
      * The SCSI logical unit number of the drive at this element address. This member is valid only if the <b>ElementType</b> member of the <b>Element</b> structure is ChangerDrive and the <b>Flags</b> member includes ELEMENT_STATUS_LUN_VALID.
-     * @type {Integer}
      */
-    Lun {
-        get => NumGet(this, 25, "char")
-        set => NumPut("char", value, this, 25)
-    }
+    Lun : Int8
 
     /**
      * Reserved for future use. The value of this member must be zero.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
-    }
+    Reserved : UInt16
 
     /**
      * The primary volume identifier for the media. If the changer supports a barcode reader and the reader is installed (as indicated by CHANGER_BAR_CODE_SCANNER_INSTALLED in the <b>Features0</b> member of 
@@ -92,15 +51,8 @@ class CHANGER_ELEMENT_STATUS extends Win32Struct {
      * This member is valid only if the <b>Flags</b> member includes ELEMENT_STATUS_PVOLTAG.
      * 
      * If the volume identifier is missing or unreadable, this member is cleared.
-     * @type {Array<Integer>}
      */
-    PrimaryVolumeID {
-        get {
-            if(!this.HasProp("__PrimaryVolumeIDProxyArray"))
-                this.__PrimaryVolumeIDProxyArray := Win32FixedArray(this.ptr + 28, 36, Primitive, "char")
-            return this.__PrimaryVolumeIDProxyArray
-        }
-    }
+    PrimaryVolumeID : Int8[36]
 
     /**
      * An alternate volume identification for the media. This member is valid only for two-sided media, and pertains to the ID of the inverted side. It never represents a bar code. 
@@ -109,13 +61,7 @@ class CHANGER_ELEMENT_STATUS extends Win32Struct {
      * 
      * 
      * This member is valid only if the <b>Flags</b> member includes ELEMENT_STATUS_AVOLTAG.
-     * @type {Array<Integer>}
      */
-    AlternateVolumeID {
-        get {
-            if(!this.HasProp("__AlternateVolumeIDProxyArray"))
-                this.__AlternateVolumeIDProxyArray := Win32FixedArray(this.ptr + 64, 36, Primitive, "char")
-            return this.__AlternateVolumeIDProxyArray
-        }
-    }
+    AlternateVolumeID : Int8[36]
+
 }

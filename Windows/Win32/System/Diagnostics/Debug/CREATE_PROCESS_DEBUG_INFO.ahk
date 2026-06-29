@@ -1,16 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * Contains process creation information that can be used by a debugger.
  * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-create_process_debug_info
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class CREATE_PROCESS_DEBUG_INFO extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct CREATE_PROCESS_DEBUG_INFO {
+    #StructPack 8
 
     /**
      * A handle to the process's image file. If this member is <b>NULL</b>, the handle is not 
@@ -18,28 +15,14 @@ class CREATE_PROCESS_DEBUG_INFO extends Win32Struct {
      * 
      * When the debugger is finished with this file, it should close the handle using the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function.
-     * @type {HANDLE}
      */
-    hFile {
-        get {
-            if(!this.HasProp("__hFile"))
-                this.__hFile := HANDLE(0, this)
-            return this.__hFile
-        }
-    }
+    hFile : HANDLE
 
     /**
      * A handle to the process. If this member is <b>NULL</b>, the handle is not valid. 
      *       Otherwise, the debugger can use the member to read from and write to the process's memory.
-     * @type {HANDLE}
      */
-    hProcess {
-        get {
-            if(!this.HasProp("__hProcess"))
-                this.__hProcess := HANDLE(8, this)
-            return this.__hProcess
-        }
-    }
+    hProcess : HANDLE
 
     /**
      * A handle to the initial thread of the process identified by the <b>hProcess</b> member. 
@@ -48,67 +31,40 @@ class CREATE_PROCESS_DEBUG_INFO extends Win32Struct {
      *       <b>THREAD_SET_CONTEXT</b>, and <b>THREAD_SUSPEND_RESUME</b> access to the 
      *       thread, allowing the debugger to read from and write to the registers of the thread and to control execution of 
      *       the thread.
-     * @type {HANDLE}
      */
-    hThread {
-        get {
-            if(!this.HasProp("__hThread"))
-                this.__hThread := HANDLE(16, this)
-            return this.__hThread
-        }
-    }
+    hThread : HANDLE
 
     /**
      * The base address of the executable image that the process is running.
-     * @type {Pointer<Void>}
      */
-    lpBaseOfImage {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpBaseOfImage : IntPtr
 
     /**
      * The offset to the debugging information in the file identified by the <b>hFile</b> 
      *       member.
-     * @type {Integer}
      */
-    dwDebugInfoFileOffset {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwDebugInfoFileOffset : UInt32
 
     /**
      * The size of the debugging information in the file, in bytes. If this value is zero, there is no debugging 
      *       information.
-     * @type {Integer}
      */
-    nDebugInfoSize {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    nDebugInfoSize : UInt32
 
     /**
      * A pointer to a block of data. At offset 0x2C into this block is another pointer, called 
      *       <c>ThreadLocalStoragePointer</c>, that points to an array of per-module thread local storage 
      *       blocks. This gives a debugger access to per-thread data in the threads of the process being debugged using the 
      *       same algorithms that a compiler would use.
-     * @type {Pointer<Void>}
      */
-    lpThreadLocalBase {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lpThreadLocalBase : IntPtr
 
     /**
      * A pointer to the starting address of the thread. This value may only be an approximation of the thread's 
      *       starting address, because any application with appropriate access to the thread can change the thread's context 
      *       by using the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-setthreadcontext">SetThreadContext</a> function.
-     * @type {Pointer<LPTHREAD_START_ROUTINE>}
      */
-    lpStartAddress {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    lpStartAddress : IntPtr
 
     /**
      * A pointer to the file name associated with the <b>hFile</b> member. This parameter may be 
@@ -124,20 +80,13 @@ class CREATE_PROCESS_DEBUG_INFO extends Win32Struct {
      *        event, and will not likely pass an image name for the first DLL event. The system also does not provide this 
      *        information in the case of debug events that originate from a call to the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/debugapi/nf-debugapi-debugactiveprocess">DebugActiveProcess</a> function.
-     * @type {Pointer<Void>}
      */
-    lpImageName {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    lpImageName : IntPtr
 
     /**
      * A value that indicates whether a file name specified by the <b>lpImageName</b> member 
      *       is Unicode or ANSI. A nonzero value indicates Unicode; zero indicates ANSI.
-     * @type {Integer}
      */
-    fUnicode {
-        get => NumGet(this, 64, "ushort")
-        set => NumPut("ushort", value, this, 64)
-    }
+    fUnicode : UInt16
+
 }

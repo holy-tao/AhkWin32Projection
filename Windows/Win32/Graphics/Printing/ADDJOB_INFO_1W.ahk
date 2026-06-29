@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The ADDJOB\_INFO\_1 structure identifies a print job as well as the directory and file in which an application can store that job.
@@ -7,26 +7,17 @@
  * @namespace Windows.Win32.Graphics.Printing
  * @charset Unicode
  */
-class ADDJOB_INFO_1W extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct ADDJOB_INFO_1W {
+    #StructPack 8
 
     /**
      * Pointer to a null-terminated string that contains the path and file name that the application can use to store the print job.
-     * @type {PWSTR}
      */
-    Path {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Path : PWSTR
 
     /**
      * A handle to the print job.
-     * @type {Integer}
      */
-    JobId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    JobId : UInt32
+
 }

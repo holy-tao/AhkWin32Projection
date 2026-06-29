@@ -1,82 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\POWER_ADAPTER_POWER_STATES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\POWER_ADAPTER_POWER_STATES.ahk" { POWER_ADAPTER_POWER_STATES }
 
 /**
  * @namespace Windows.Win32.System.Power
  */
-class POWER_ADAPTER_STATUS extends Win32Struct {
-    static sizeof => 40
+export default struct POWER_ADAPTER_STATUS {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Reserved : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    PowerState : POWER_ADAPTER_POWER_STATES
 
-    /**
-     * @type {POWER_ADAPTER_POWER_STATES}
-     */
-    PowerState {
-        get {
-            if(!this.HasProp("__PowerState"))
-                this.__PowerState := POWER_ADAPTER_POWER_STATES(4, this)
-            return this.__PowerState
-        }
-    }
+    PeakPower : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PeakPower {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    MaxOutputPower : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxOutputPower {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    MaxInputPower : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxInputPower {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    RecStartTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    RecStartTime {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    RecEndTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    RecEndTime {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

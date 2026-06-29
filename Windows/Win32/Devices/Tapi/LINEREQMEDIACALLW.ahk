@@ -1,99 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Devices.Tapi
  * @charset Unicode
  */
-class LINEREQMEDIACALLW extends Win32Struct {
-    static sizeof => 624
+export default struct LINEREQMEDIACALLW {
+    #StructPack 8
 
-    static packingSize => 8
+    hWnd : HWND
 
-    /**
-     * @type {HWND}
-     */
-    hWnd {
-        get {
-            if(!this.HasProp("__hWnd"))
-                this.__hWnd := HWND(0, this)
-            return this.__hWnd
-        }
-    }
+    wRequestID : WPARAM
 
-    /**
-     * @type {WPARAM}
-     */
-    wRequestID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    szDeviceClass : WCHAR[40]
 
-    /**
-     * @type {String}
-     */
-    szDeviceClass {
-        get => StrGet(this.ptr + 16, 39, "UTF-16")
-        set => StrPut(value, this.ptr + 16, 39, "UTF-16")
-    }
+    ucDeviceID : Int8[40]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ucDeviceID {
-        get {
-            if(!this.HasProp("__ucDeviceIDProxyArray"))
-                this.__ucDeviceIDProxyArray := Win32FixedArray(this.ptr + 96, 40, Primitive, "char")
-            return this.__ucDeviceIDProxyArray
-        }
-    }
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    dwSecure : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSecure {
-        get => NumGet(this, 140, "uint")
-        set => NumPut("uint", value, this, 140)
-    }
+    szDestAddress : WCHAR[80]
 
-    /**
-     * @type {String}
-     */
-    szDestAddress {
-        get => StrGet(this.ptr + 144, 79, "UTF-16")
-        set => StrPut(value, this.ptr + 144, 79, "UTF-16")
-    }
+    szAppName : WCHAR[40]
 
-    /**
-     * @type {String}
-     */
-    szAppName {
-        get => StrGet(this.ptr + 304, 39, "UTF-16")
-        set => StrPut(value, this.ptr + 304, 39, "UTF-16")
-    }
+    szCalledParty : WCHAR[40]
 
-    /**
-     * @type {String}
-     */
-    szCalledParty {
-        get => StrGet(this.ptr + 384, 39, "UTF-16")
-        set => StrPut(value, this.ptr + 384, 39, "UTF-16")
-    }
+    szComment : WCHAR[80]
 
-    /**
-     * @type {String}
-     */
-    szComment {
-        get => StrGet(this.ptr + 464, 79, "UTF-16")
-        set => StrPut(value, this.ptr + 464, 79, "UTF-16")
-    }
 }

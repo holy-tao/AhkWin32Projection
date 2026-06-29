@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the format of the raw input from a Human Interface Device (HID).
@@ -10,44 +9,28 @@
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-rawhid
  * @namespace Windows.Win32.UI.Input
  */
-class RAWHID extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct RAWHID {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The size, in bytes, of each HID input in <b>bRawData</b>.
-     * @type {Integer}
      */
-    dwSizeHid {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSizeHid : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The number of HID inputs in <b>bRawData</b>.
-     * @type {Integer}
      */
-    dwCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwCount : UInt32
 
     /**
      * Type: <b>BYTE[1]</b>
      * 
      * The raw input data, as an array of bytes.
-     * @type {Array<Integer>}
      */
-    bRawData {
-        get {
-            if(!this.HasProp("__bRawDataProxyArray"))
-                this.__bRawDataProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
-            return this.__bRawDataProxyArray
-        }
-    }
+    bRawData : Int8[1]
+
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains a row in a MIB_IPMCAST_BOUNDARY_TABLE structure that lists a router's scoped IPv4 multicast address boundaries.
@@ -8,21 +7,15 @@
  * @see https://learn.microsoft.com/windows/win32/api/iprtrmib/ns-iprtrmib-mib_ipmcast_boundary
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_IPMCAST_BOUNDARY extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct MIB_IPMCAST_BOUNDARY {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The index value for the interface to which this boundary applies. Packets with a destination address in the associated address/mask range are not forwarded with this interface.
-     * @type {Integer}
      */
-    dwIfIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwIfIndex : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -31,23 +24,15 @@ class MIB_IPMCAST_BOUNDARY extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  Scoped addresses must come from the range 239.*.*.* as specified in <a href="https://www.ietf.org/rfc/rfc2365.txt">RFC 2365</a>.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    dwGroupAddress {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwGroupAddress : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The 32-bit integer representation of the IPv4 group address mask which, when combined with the corresponding value in <b>dwGroupAddress</b>, identifies the group range for which the scoped boundary exists.
-     * @type {Integer}
      */
-    dwGroupMask {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwGroupMask : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -126,10 +111,7 @@ class MIB_IPMCAST_BOUNDARY extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwStatus {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwStatus : UInt32
+
 }

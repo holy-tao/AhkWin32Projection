@@ -1,34 +1,65 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IGenericDescriptor.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\MPE_ELEMENT.ahk" { MPE_ELEMENT }
+#Import ".\ISectionList.ahk" { ISectionList }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DSMCC_ELEMENT.ahk" { DSMCC_ELEMENT }
+#Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMpeg2Data.ahk" { IMpeg2Data }
 
 /**
  * The IPMT interface enables the client to get information from a program map table (PMT).
  * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nn-mpeg2psiparser-ipmt
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IPMT extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPMT extends IUnknown {
     /**
      * The interface identifier for IPMT
      * @type {Guid}
      */
-    static IID => Guid("{01f3b398-9527-4736-94db-5195878e97a8}")
+    static IID := Guid("{01f3b398-9527-4736-94db-5195878e97a8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPMT interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize                  : IntPtr
+        GetProgramNumber            : IntPtr
+        GetVersionNumber            : IntPtr
+        GetPcrPid                   : IntPtr
+        GetCountOfTableDescriptors  : IntPtr
+        GetTableDescriptorByIndex   : IntPtr
+        GetTableDescriptorByTag     : IntPtr
+        GetCountOfRecords           : IntPtr
+        GetRecordStreamType         : IntPtr
+        GetRecordElementaryPid      : IntPtr
+        GetRecordCountOfDescriptors : IntPtr
+        GetRecordDescriptorByIndex  : IntPtr
+        GetRecordDescriptorByTag    : IntPtr
+        QueryServiceGatewayInfo     : IntPtr
+        QueryMPEInfo                : IntPtr
+        RegisterForNextTable        : IntPtr
+        GetNextTable                : IntPtr
+        RegisterForWhenCurrent      : IntPtr
+        ConvertNextToCurrent        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetProgramNumber", "GetVersionNumber", "GetPcrPid", "GetCountOfTableDescriptors", "GetTableDescriptorByIndex", "GetTableDescriptorByTag", "GetCountOfRecords", "GetRecordStreamType", "GetRecordElementaryPid", "GetRecordCountOfDescriptors", "GetRecordDescriptorByIndex", "GetRecordDescriptorByTag", "QueryServiceGatewayInfo", "QueryMPEInfo", "RegisterForNextTable", "GetNextTable", "RegisterForWhenCurrent", "ConvertNextToCurrent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPMT.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Initialize method initializes the object using captured table section data. This method is called internally by the IAtscPsipParser::GetPMT method, so applications typically should not call it.
@@ -439,9 +470,7 @@ class IPMT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-registerfornexttable
      */
     RegisterForNextTable(hNextTableAvailable) {
-        hNextTableAvailable := hNextTableAvailable is Win32Handle ? NumGet(hNextTableAvailable, "ptr") : hNextTableAvailable
-
-        result := ComCall(18, this, "ptr", hNextTableAvailable, "HRESULT")
+        result := ComCall(18, this, HANDLE, hNextTableAvailable, "HRESULT")
         return result
     }
 
@@ -517,9 +546,7 @@ class IPMT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-registerforwhencurrent
      */
     RegisterForWhenCurrent(hNextTableIsCurrent) {
-        hNextTableIsCurrent := hNextTableIsCurrent is Win32Handle ? NumGet(hNextTableIsCurrent, "ptr") : hNextTableIsCurrent
-
-        result := ComCall(20, this, "ptr", hNextTableIsCurrent, "HRESULT")
+        result := ComCall(20, this, HANDLE, hNextTableIsCurrent, "HRESULT")
         return result
     }
 
@@ -584,5 +611,61 @@ class IPMT extends IUnknown {
     ConvertNextToCurrent() {
         result := ComCall(21, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPMT.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetProgramNumber := CallbackCreate(GetMethod(implObj, "GetProgramNumber"), flags, 2)
+        this.vtbl.GetVersionNumber := CallbackCreate(GetMethod(implObj, "GetVersionNumber"), flags, 2)
+        this.vtbl.GetPcrPid := CallbackCreate(GetMethod(implObj, "GetPcrPid"), flags, 2)
+        this.vtbl.GetCountOfTableDescriptors := CallbackCreate(GetMethod(implObj, "GetCountOfTableDescriptors"), flags, 2)
+        this.vtbl.GetTableDescriptorByIndex := CallbackCreate(GetMethod(implObj, "GetTableDescriptorByIndex"), flags, 3)
+        this.vtbl.GetTableDescriptorByTag := CallbackCreate(GetMethod(implObj, "GetTableDescriptorByTag"), flags, 4)
+        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordStreamType := CallbackCreate(GetMethod(implObj, "GetRecordStreamType"), flags, 3)
+        this.vtbl.GetRecordElementaryPid := CallbackCreate(GetMethod(implObj, "GetRecordElementaryPid"), flags, 3)
+        this.vtbl.GetRecordCountOfDescriptors := CallbackCreate(GetMethod(implObj, "GetRecordCountOfDescriptors"), flags, 3)
+        this.vtbl.GetRecordDescriptorByIndex := CallbackCreate(GetMethod(implObj, "GetRecordDescriptorByIndex"), flags, 4)
+        this.vtbl.GetRecordDescriptorByTag := CallbackCreate(GetMethod(implObj, "GetRecordDescriptorByTag"), flags, 5)
+        this.vtbl.QueryServiceGatewayInfo := CallbackCreate(GetMethod(implObj, "QueryServiceGatewayInfo"), flags, 3)
+        this.vtbl.QueryMPEInfo := CallbackCreate(GetMethod(implObj, "QueryMPEInfo"), flags, 3)
+        this.vtbl.RegisterForNextTable := CallbackCreate(GetMethod(implObj, "RegisterForNextTable"), flags, 2)
+        this.vtbl.GetNextTable := CallbackCreate(GetMethod(implObj, "GetNextTable"), flags, 2)
+        this.vtbl.RegisterForWhenCurrent := CallbackCreate(GetMethod(implObj, "RegisterForWhenCurrent"), flags, 2)
+        this.vtbl.ConvertNextToCurrent := CallbackCreate(GetMethod(implObj, "ConvertNextToCurrent"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetProgramNumber)
+        CallbackFree(this.vtbl.GetVersionNumber)
+        CallbackFree(this.vtbl.GetPcrPid)
+        CallbackFree(this.vtbl.GetCountOfTableDescriptors)
+        CallbackFree(this.vtbl.GetTableDescriptorByIndex)
+        CallbackFree(this.vtbl.GetTableDescriptorByTag)
+        CallbackFree(this.vtbl.GetCountOfRecords)
+        CallbackFree(this.vtbl.GetRecordStreamType)
+        CallbackFree(this.vtbl.GetRecordElementaryPid)
+        CallbackFree(this.vtbl.GetRecordCountOfDescriptors)
+        CallbackFree(this.vtbl.GetRecordDescriptorByIndex)
+        CallbackFree(this.vtbl.GetRecordDescriptorByTag)
+        CallbackFree(this.vtbl.QueryServiceGatewayInfo)
+        CallbackFree(this.vtbl.QueryMPEInfo)
+        CallbackFree(this.vtbl.RegisterForNextTable)
+        CallbackFree(this.vtbl.GetNextTable)
+        CallbackFree(this.vtbl.RegisterForWhenCurrent)
+        CallbackFree(this.vtbl.ConvertNextToCurrent)
     }
 }

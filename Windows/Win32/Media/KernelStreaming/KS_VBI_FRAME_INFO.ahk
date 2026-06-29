@@ -1,75 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KS_TVTUNER_CHANGE_INFO.ahk
-#Include .\KS_VBIINFOHEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KS_VBIINFOHEADER.ahk" { KS_VBIINFOHEADER }
+#Import ".\KS_TVTUNER_CHANGE_INFO.ahk" { KS_TVTUNER_CHANGE_INFO }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KS_VBI_FRAME_INFO extends Win32Struct {
-    static sizeof => 88
+export default struct KS_VBI_FRAME_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    ExtendedHeaderSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ExtendedHeaderSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFrameFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFrameFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    PictureNumber : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PictureNumber {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    DropCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DropCount {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    dwSamplingFrequency : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSamplingFrequency {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    TvTunerChangeInfo : KS_TVTUNER_CHANGE_INFO
 
-    /**
-     * @type {KS_TVTUNER_CHANGE_INFO}
-     */
-    TvTunerChangeInfo {
-        get {
-            if(!this.HasProp("__TvTunerChangeInfo"))
-                this.__TvTunerChangeInfo := KS_TVTUNER_CHANGE_INFO(28, this)
-            return this.__TvTunerChangeInfo
-        }
-    }
+    VBIInfoHeader : KS_VBIINFOHEADER
 
-    /**
-     * @type {KS_VBIINFOHEADER}
-     */
-    VBIInfoHeader {
-        get {
-            if(!this.HasProp("__VBIInfoHeader"))
-                this.__VBIInfoHeader := KS_VBIINFOHEADER(44, this)
-            return this.__VBIInfoHeader
-        }
-    }
 }

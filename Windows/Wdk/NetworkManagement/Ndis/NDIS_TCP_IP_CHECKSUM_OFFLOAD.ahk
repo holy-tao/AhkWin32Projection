@@ -1,25 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class NDIS_TCP_IP_CHECKSUM_OFFLOAD extends Win32Struct {
-    static sizeof => 32
+export default struct NDIS_TCP_IP_CHECKSUM_OFFLOAD {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _IPv4Transmit extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 4
-
-        /**
-         * @type {Integer}
-         */
-        Encapsulation {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+    struct _IPv4Transmit {
+        Encapsulation : UInt32
 
         /**
          * This bitfield backs the following members:
@@ -28,12 +17,9 @@ class NDIS_TCP_IP_CHECKSUM_OFFLOAD extends Win32Struct {
          * - TcpChecksum
          * - UdpChecksum
          * - IpChecksum
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -76,17 +62,8 @@ class NDIS_TCP_IP_CHECKSUM_OFFLOAD extends Win32Struct {
         }
     }
 
-    class _IPv4Receive extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 4
-
-        /**
-         * @type {Integer}
-         */
-        Encapsulation {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+    struct _IPv4Receive {
+        Encapsulation : UInt32
 
         /**
          * This bitfield backs the following members:
@@ -95,12 +72,9 @@ class NDIS_TCP_IP_CHECKSUM_OFFLOAD extends Win32Struct {
          * - TcpChecksum
          * - UdpChecksum
          * - IpChecksum
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -143,17 +117,8 @@ class NDIS_TCP_IP_CHECKSUM_OFFLOAD extends Win32Struct {
         }
     }
 
-    class _IPv6Transmit extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 4
-
-        /**
-         * @type {Integer}
-         */
-        Encapsulation {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+    struct _IPv6Transmit {
+        Encapsulation : UInt32
 
         /**
          * This bitfield backs the following members:
@@ -161,12 +126,9 @@ class NDIS_TCP_IP_CHECKSUM_OFFLOAD extends Win32Struct {
          * - TcpOptionsSupported
          * - TcpChecksum
          * - UdpChecksum
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -201,17 +163,8 @@ class NDIS_TCP_IP_CHECKSUM_OFFLOAD extends Win32Struct {
         }
     }
 
-    class _IPv6Receive extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 4
-
-        /**
-         * @type {Integer}
-         */
-        Encapsulation {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+    struct _IPv6Receive {
+        Encapsulation : UInt32
 
         /**
          * This bitfield backs the following members:
@@ -219,12 +172,9 @@ class NDIS_TCP_IP_CHECKSUM_OFFLOAD extends Win32Struct {
          * - TcpOptionsSupported
          * - TcpChecksum
          * - UdpChecksum
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -259,47 +209,12 @@ class NDIS_TCP_IP_CHECKSUM_OFFLOAD extends Win32Struct {
         }
     }
 
-    /**
-     * @type {_IPv4Transmit}
-     */
-    IPv4Transmit {
-        get {
-            if(!this.HasProp("__IPv4Transmit"))
-                this.__IPv4Transmit := NDIS_TCP_IP_CHECKSUM_OFFLOAD._IPv4Transmit(0, this)
-            return this.__IPv4Transmit
-        }
-    }
+    IPv4Transmit : NDIS_TCP_IP_CHECKSUM_OFFLOAD._IPv4Transmit
 
-    /**
-     * @type {_IPv4Receive}
-     */
-    IPv4Receive {
-        get {
-            if(!this.HasProp("__IPv4Receive"))
-                this.__IPv4Receive := NDIS_TCP_IP_CHECKSUM_OFFLOAD._IPv4Receive(8, this)
-            return this.__IPv4Receive
-        }
-    }
+    IPv4Receive : NDIS_TCP_IP_CHECKSUM_OFFLOAD._IPv4Receive
 
-    /**
-     * @type {_IPv6Transmit}
-     */
-    IPv6Transmit {
-        get {
-            if(!this.HasProp("__IPv6Transmit"))
-                this.__IPv6Transmit := NDIS_TCP_IP_CHECKSUM_OFFLOAD._IPv6Transmit(16, this)
-            return this.__IPv6Transmit
-        }
-    }
+    IPv6Transmit : NDIS_TCP_IP_CHECKSUM_OFFLOAD._IPv6Transmit
 
-    /**
-     * @type {_IPv6Receive}
-     */
-    IPv6Receive {
-        get {
-            if(!this.HasProp("__IPv6Receive"))
-                this.__IPv6Receive := NDIS_TCP_IP_CHECKSUM_OFFLOAD._IPv6Receive(24, this)
-            return this.__IPv6Receive
-        }
-    }
+    IPv6Receive : NDIS_TCP_IP_CHECKSUM_OFFLOAD._IPv6Receive
+
 }

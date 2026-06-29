@@ -1,35 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include .\DEBUG_STACK_FRAME_EX.ahk
-#Include .\STACK_SRC_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\STACK_SRC_INFO.ahk" { STACK_SRC_INFO }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DEBUG_STACK_FRAME_EX.ahk" { DEBUG_STACK_FRAME_EX }
+#Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class STACK_SYM_FRAME_INFO extends Win32Struct {
-    static sizeof => 176
+export default struct STACK_SYM_FRAME_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    StackFrameEx : DEBUG_STACK_FRAME_EX
 
-    /**
-     * @type {DEBUG_STACK_FRAME_EX}
-     */
-    StackFrameEx {
-        get {
-            if(!this.HasProp("__StackFrameEx"))
-                this.__StackFrameEx := DEBUG_STACK_FRAME_EX(0, this)
-            return this.__StackFrameEx
-        }
-    }
+    SrcInfo : STACK_SRC_INFO
 
-    /**
-     * @type {STACK_SRC_INFO}
-     */
-    SrcInfo {
-        get {
-            if(!this.HasProp("__SrcInfo"))
-                this.__SrcInfo := STACK_SRC_INFO(136, this)
-            return this.__SrcInfo
-        }
-    }
 }

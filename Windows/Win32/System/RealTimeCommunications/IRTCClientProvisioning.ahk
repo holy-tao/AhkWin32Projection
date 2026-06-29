@@ -1,34 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IRTCProfile.ahk
-#Include .\IRTCEnumProfiles.ahk
-#Include .\IRTCCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IRTCEnumProfiles.ahk" { IRTCEnumProfiles }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRTCCollection.ahk" { IRTCCollection }
+#Import ".\IRTCProfile.ahk" { IRTCProfile }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
  */
-class IRTCClientProvisioning extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRTCClientProvisioning extends IUnknown {
     /**
      * The interface identifier for IRTCClientProvisioning
      * @type {Guid}
      */
-    static IID => Guid("{b9f5cf06-65b9-4a80-a0e6-73cae3ef3822}")
+    static IID := Guid("{b9f5cf06-65b9-4a80-a0e6-73cae3ef3822}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRTCClientProvisioning interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateProfile           : IntPtr
+        EnableProfile           : IntPtr
+        DisableProfile          : IntPtr
+        EnumerateProfiles       : IntPtr
+        get_Profiles            : IntPtr
+        GetProfile              : IntPtr
+        get_SessionCapabilities : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateProfile", "EnableProfile", "DisableProfile", "EnumerateProfiles", "get_Profiles", "GetProfile", "get_SessionCapabilities"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRTCClientProvisioning.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IRTCCollection} 
@@ -55,7 +70,7 @@ class IRTCClientProvisioning extends IUnknown {
     CreateProfile(bstrProfileXML) {
         bstrProfileXML := bstrProfileXML is String ? BSTR.Alloc(bstrProfileXML).Value : bstrProfileXML
 
-        result := ComCall(3, this, "ptr", bstrProfileXML, "ptr*", &ppProfile := 0, "HRESULT")
+        result := ComCall(3, this, BSTR, bstrProfileXML, "ptr*", &ppProfile := 0, "HRESULT")
         return IRTCProfile(ppProfile)
     }
 
@@ -99,52 +114,14 @@ class IRTCClientProvisioning extends IUnknown {
     }
 
     /**
-     * Retrieves an integer from a key in the specified section of the Win.ini file. (Unicode)
-     * @remarks
-     * If the key name consists of digits followed by characters that are not numeric, the function returns only the value of the digits. For example, the function returns 102 for the following line: KeyName=102abc.
      * 
-     * <b>Windows Server 2003 and Windows XP/2000:  </b>Calls to profile functions may be mapped to the registry instead of to the initialization files. This mapping occurs when the initialization file and section are specified in the registry under the following key:<b>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\IniFileMapping</b>
-     * 
-     * When the operation has been mapped, the 
-     * <b>GetProfileInt</b> function retrieves information from the registry, not from the initialization file; the change in the storage location has no effect on the function's behavior.
-     * 
-     * The profile functions use the following steps to locate initialization information:
-     * 				
-     * 			
-     * 
-     * <ol>
-     * <li>Look in the registry for the name of the initialization file  under the <b>IniFileMapping</b> key.</li>
-     * <li>Look for the section name specified by <i>lpAppName</i>. This will be a named value under the key that has the name of the initialization file, or a subkey with this name, or the name will not exist as either a value or subkey.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a named value, then that value specifies where in the registry you will find the keys for the section.</li>
-     * <li>If the section name specified by <i>lpAppName</i> is a subkey, then named values under that subkey specify where in the registry you will find the keys for the section. If the key you are looking for does not exist as a named value, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the key.</li>
-     * <li>If the section name specified by <i>lpAppName</i> does not exist as a named value or as a subkey, then there will be an unnamed value (shown as <b>&lt;No Name&gt;</b>) that specifies the default location in the registry where you will find the keys for the section.</li>
-     * <li>If there is no subkey or entry for the section name, then look for the actual initialization file on the disk and read its contents.</li>
-     * </ol>
-     * When looking at values in the registry that specify other registry locations, there are several prefixes that change the behavior of the .ini file mapping:
-     * 				
-     * 			
-     * 
-     * <ul>
-     * <li>! - this character forces all writes to go both to the registry and to the .ini file on disk.</li>
-     * <li># - this character causes the registry value to be set to the value in the Windows 3.1 .ini file when a new user logs in for the first time after setup.</li>
-     * <li>@ - this character prevents any reads from going to the .ini file on disk if the requested data is not found in the registry.</li>
-     * <li>USR: - this prefix stands for <b>HKEY_CURRENT_USER</b>, and the text after the prefix is relative to that key.</li>
-     * <li>SYS: - this prefix stands for <b>HKEY_LOCAL_MACHINE\SOFTWARE</b>, and the text after the prefix is relative to that key.</li>
-     * </ul>
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines GetProfileInt as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {BSTR} bstrUserAccount 
      * @param {BSTR} bstrUserPassword 
      * @param {BSTR} bstrUserURI 
      * @param {BSTR} bstrServer 
      * @param {Integer} lTransport 
      * @param {Pointer} lCookie 
-     * @returns {HRESULT} The return value is the integer equivalent of the string following the key name in Win.ini. If the function cannot find the key, the return value is the default value. If the value of the key is less than zero, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprofileintw
+     * @returns {HRESULT} 
      */
     GetProfile(bstrUserAccount, bstrUserPassword, bstrUserURI, bstrServer, lTransport, lCookie) {
         bstrUserAccount := bstrUserAccount is String ? BSTR.Alloc(bstrUserAccount).Value : bstrUserAccount
@@ -152,7 +129,7 @@ class IRTCClientProvisioning extends IUnknown {
         bstrUserURI := bstrUserURI is String ? BSTR.Alloc(bstrUserURI).Value : bstrUserURI
         bstrServer := bstrServer is String ? BSTR.Alloc(bstrServer).Value : bstrServer
 
-        result := ComCall(8, this, "ptr", bstrUserAccount, "ptr", bstrUserPassword, "ptr", bstrUserURI, "ptr", bstrServer, "int", lTransport, "ptr", lCookie, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrUserAccount, BSTR, bstrUserPassword, BSTR, bstrUserURI, BSTR, bstrServer, "int", lTransport, "ptr", lCookie, "HRESULT")
         return result
     }
 
@@ -163,5 +140,37 @@ class IRTCClientProvisioning extends IUnknown {
     get_SessionCapabilities() {
         result := ComCall(9, this, "int*", &plSupportedSessions := 0, "HRESULT")
         return plSupportedSessions
+    }
+
+    Query(iid) {
+        if (IRTCClientProvisioning.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateProfile := CallbackCreate(GetMethod(implObj, "CreateProfile"), flags, 3)
+        this.vtbl.EnableProfile := CallbackCreate(GetMethod(implObj, "EnableProfile"), flags, 3)
+        this.vtbl.DisableProfile := CallbackCreate(GetMethod(implObj, "DisableProfile"), flags, 2)
+        this.vtbl.EnumerateProfiles := CallbackCreate(GetMethod(implObj, "EnumerateProfiles"), flags, 2)
+        this.vtbl.get_Profiles := CallbackCreate(GetMethod(implObj, "get_Profiles"), flags, 2)
+        this.vtbl.GetProfile := CallbackCreate(GetMethod(implObj, "GetProfile"), flags, 7)
+        this.vtbl.get_SessionCapabilities := CallbackCreate(GetMethod(implObj, "get_SessionCapabilities"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateProfile)
+        CallbackFree(this.vtbl.EnableProfile)
+        CallbackFree(this.vtbl.DisableProfile)
+        CallbackFree(this.vtbl.EnumerateProfiles)
+        CallbackFree(this.vtbl.get_Profiles)
+        CallbackFree(this.vtbl.GetProfile)
+        CallbackFree(this.vtbl.get_SessionCapabilities)
     }
 }

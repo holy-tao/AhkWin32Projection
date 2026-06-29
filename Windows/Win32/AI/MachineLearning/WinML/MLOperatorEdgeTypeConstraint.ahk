@@ -1,36 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MLOperatorEdgeDescription.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MLOperatorEdgeDescription.ahk" { MLOperatorEdgeDescription }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML
  */
-class MLOperatorEdgeTypeConstraint extends Win32Struct {
-    static sizeof => 24
+export default struct MLOperatorEdgeTypeConstraint {
+    #StructPack 8
 
-    static packingSize => 8
+    typeLabel : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    typeLabel {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    allowedTypes : MLOperatorEdgeDescription.Ptr
 
-    /**
-     * @type {Pointer<MLOperatorEdgeDescription>}
-     */
-    allowedTypes {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    allowedTypeCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    allowedTypeCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

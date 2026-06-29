@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines values that specify the state of a cursor button.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkcursorbuttonstate
  * @namespace Windows.Win32.UI.TabletPC
  */
-class InkCursorButtonState extends Win32Enum {
+export default struct InkCursorButtonState {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The cursor button is unavailable. A cursor button may become unavailable, for example, when a cursor leaves the range of Tablet PC.

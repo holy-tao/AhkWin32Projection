@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PACKET_PROPERTY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PACKET_PROPERTY.ahk" { PACKET_PROPERTY }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Describes the content of the packet for a particular tablet recognizer context.Do not use this structure to access the data contained in a packet. This structure describes the content of the packet.
@@ -9,53 +9,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/tpcshrd/ns-tpcshrd-packet_description
  * @namespace Windows.Win32.UI.TabletPC
  */
-class PACKET_DESCRIPTION extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct PACKET_DESCRIPTION {
+    #StructPack 8
 
     /**
      * The size, in bytes, of the packet data.
-     * @type {Integer}
      */
-    cbPacketSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbPacketSize : UInt32
 
     /**
      * The number of elements in the <i>pPacketProperties</i> array.
-     * @type {Integer}
      */
-    cPacketProperties {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cPacketProperties : UInt32
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/tpcshrd/ns-tpcshrd-packet_property">PACKET_PROPERTY</a> structures.
-     * @type {Pointer<PACKET_PROPERTY>}
      */
-    pPacketProperties {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pPacketProperties : PACKET_PROPERTY.Ptr
 
     /**
      * Deprecated. Do not use.
-     * @type {Integer}
      */
-    cButtons {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cButtons : UInt32
 
     /**
      * Deprecated. Do not use.
-     * @type {Pointer<Guid>}
      */
-    pguidButtons {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pguidButtons : Guid.Ptr
+
 }

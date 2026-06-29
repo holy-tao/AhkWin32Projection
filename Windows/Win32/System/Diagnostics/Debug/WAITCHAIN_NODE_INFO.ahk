@@ -1,119 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WCT_OBJECT_TYPE.ahk
-#Include .\WCT_OBJECT_STATUS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WCT_OBJECT_TYPE.ahk" { WCT_OBJECT_TYPE }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\WCT_OBJECT_STATUS.ahk" { WCT_OBJECT_STATUS }
+#Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Represents a node in a wait chain.
  * @see https://learn.microsoft.com/windows/win32/api/wct/ns-wct-waitchain_node_info
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class WAITCHAIN_NODE_INFO extends Win32Struct {
-    static sizeof => 280
+export default struct WAITCHAIN_NODE_INFO {
+    #StructPack 8
 
-    static packingSize => 8
 
-    /**
-     * @type {WCT_OBJECT_TYPE}
-     */
-    ObjectType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    struct _LockObject {
+        ObjectName : WCHAR[128]
+
+        Timeout : Int64
+
+        Alertable : BOOL
+
     }
 
-    /**
-     * @type {WCT_OBJECT_STATUS}
-     */
-    ObjectStatus {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    struct _ThreadObject {
+        ProcessId : UInt32
+
+        ThreadId : UInt32
+
+        WaitTime : UInt32
+
+        ContextSwitches : UInt32
+
     }
 
-    class _LockObject extends Win32Struct {
-        static sizeof => 272
-        static packingSize => 8
+    ObjectType : WCT_OBJECT_TYPE
 
-        /**
-         * @type {String}
-         */
-        ObjectName {
-            get => StrGet(this.ptr + 0, 127, "UTF-16")
-            set => StrPut(value, this.ptr + 0, 127, "UTF-16")
-        }
+    ObjectStatus : WCT_OBJECT_STATUS
 
-        /**
-         * @type {Integer}
-         */
-        Timeout {
-            get => NumGet(this, 256, "int64")
-            set => NumPut("int64", value, this, 256)
-        }
+    LockObject : WAITCHAIN_NODE_INFO._LockObject
 
-        /**
-         * @type {BOOL}
-         */
-        Alertable {
-            get => NumGet(this, 264, "int")
-            set => NumPut("int", value, this, 264)
-        }
-    }
-
-    class _ThreadObject extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 4
-
-        /**
-         * @type {Integer}
-         */
-        ProcessId {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        ThreadId {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        WaitTime {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        ContextSwitches {
-            get => NumGet(this, 12, "uint")
-            set => NumPut("uint", value, this, 12)
-        }
-    }
-
-    /**
-     * @type {_LockObject}
-     */
-    LockObject {
-        get {
-            if(!this.HasProp("__LockObject"))
-                this.__LockObject := WAITCHAIN_NODE_INFO._LockObject(8, this)
-            return this.__LockObject
-        }
-    }
-
-    /**
-     * @type {_ThreadObject}
-     */
-    ThreadObject {
-        get {
-            if(!this.HasProp("__ThreadObject"))
-                this.__ThreadObject := WAITCHAIN_NODE_INFO._ThreadObject(8, this)
-            return this.__ThreadObject
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'ThreadObject', { type: WAITCHAIN_NODE_INFO._ThreadObject, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

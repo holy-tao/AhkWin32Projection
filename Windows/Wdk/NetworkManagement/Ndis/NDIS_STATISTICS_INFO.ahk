@@ -1,171 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class NDIS_STATISTICS_INFO extends Win32Struct {
-    static sizeof => 160
+export default struct NDIS_STATISTICS_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    Header : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Header {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    SupportedStatistics : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SupportedStatistics {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ifInDiscards : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ifInDiscards {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ifInErrors : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ifInErrors {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ifHCInOctets : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ifHCInOctets {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ifHCInUcastPkts : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ifHCInUcastPkts {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ifHCInMulticastPkts : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ifHCInMulticastPkts {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    ifHCInBroadcastPkts : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ifHCInBroadcastPkts {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    ifHCOutOctets : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ifHCOutOctets {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    ifHCOutUcastPkts : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ifHCOutUcastPkts {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    ifHCOutMulticastPkts : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ifHCOutMulticastPkts {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    ifHCOutBroadcastPkts : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ifHCOutBroadcastPkts {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    ifOutErrors : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ifOutErrors {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    ifOutDiscards : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ifOutDiscards {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    ifHCInUcastOctets : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ifHCInUcastOctets {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    ifHCInMulticastOctets : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ifHCInMulticastOctets {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    ifHCInBroadcastOctets : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ifHCInBroadcastOctets {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    ifHCOutUcastOctets : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ifHCOutUcastOctets {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    ifHCOutMulticastOctets : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ifHCOutMulticastOctets {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
-    }
+    ifHCOutBroadcastOctets : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ifHCOutBroadcastOctets {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
-    }
 }

@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWP_BYTE_BLOB.ahk
-#Include .\IKEEXT_CERT_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
+#Import ".\IKEEXT_CERT_FLAGS.ahk" { IKEEXT_CERT_FLAGS }
 
 /**
  * Stores the IKE, AuthIP, or IKEv2 certificate root configuration.
@@ -10,30 +9,16 @@
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_cert_root_config0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IKEEXT_CERT_ROOT_CONFIG0 extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct IKEEXT_CERT_ROOT_CONFIG0 {
+    #StructPack 8
 
     /**
      * X509/ASN.1 encoded name of the certificate root.
      * 
      * See [FWP_BYTE_BLOB](/windows/desktop/api/fwptypes/ns-fwptypes-fwp_byte_blob) for more information.
-     * @type {FWP_BYTE_BLOB}
      */
-    certData {
-        get {
-            if(!this.HasProp("__certData"))
-                this.__certData := FWP_BYTE_BLOB(0, this)
-            return this.__certData
-        }
-    }
+    certData : FWP_BYTE_BLOB
 
-    /**
-     * @type {IKEEXT_CERT_FLAGS}
-     */
-    flags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    flags : IKEEXT_CERT_FLAGS
+
 }

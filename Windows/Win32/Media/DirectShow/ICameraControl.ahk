@@ -1,33 +1,91 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ICameraControl interface controls the camera settings on a capture device.This interface may be exposed by one or more nodes in a capture filter.
  * @see https://learn.microsoft.com/windows/win32/api/vidcap/nn-vidcap-icameracontrol
  * @namespace Windows.Win32.Media.DirectShow
  */
-class ICameraControl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICameraControl extends IUnknown {
     /**
      * The interface identifier for ICameraControl
      * @type {Guid}
      */
-    static IID => Guid("{2ba1785d-4d1b-44ef-85e8-c7f1d3f20184}")
+    static IID := Guid("{2ba1785d-4d1b-44ef-85e8-c7f1d3f20184}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICameraControl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_Exposure              : IntPtr
+        put_Exposure              : IntPtr
+        getRange_Exposure         : IntPtr
+        get_Focus                 : IntPtr
+        put_Focus                 : IntPtr
+        getRange_Focus            : IntPtr
+        get_Iris                  : IntPtr
+        put_Iris                  : IntPtr
+        getRange_Iris             : IntPtr
+        get_Zoom                  : IntPtr
+        put_Zoom                  : IntPtr
+        getRange_Zoom             : IntPtr
+        get_FocalLengths          : IntPtr
+        get_Pan                   : IntPtr
+        put_Pan                   : IntPtr
+        getRange_Pan              : IntPtr
+        get_Tilt                  : IntPtr
+        put_Tilt                  : IntPtr
+        getRange_Tilt             : IntPtr
+        get_PanTilt               : IntPtr
+        put_PanTilt               : IntPtr
+        get_Roll                  : IntPtr
+        put_Roll                  : IntPtr
+        getRange_Roll             : IntPtr
+        get_ExposureRelative      : IntPtr
+        put_ExposureRelative      : IntPtr
+        getRange_ExposureRelative : IntPtr
+        get_FocusRelative         : IntPtr
+        put_FocusRelative         : IntPtr
+        getRange_FocusRelative    : IntPtr
+        get_IrisRelative          : IntPtr
+        put_IrisRelative          : IntPtr
+        getRange_IrisRelative     : IntPtr
+        get_ZoomRelative          : IntPtr
+        put_ZoomRelative          : IntPtr
+        getRange_ZoomRelative     : IntPtr
+        get_PanRelative           : IntPtr
+        put_PanRelative           : IntPtr
+        get_TiltRelative          : IntPtr
+        put_TiltRelative          : IntPtr
+        getRange_TiltRelative     : IntPtr
+        get_PanTiltRelative       : IntPtr
+        put_PanTiltRelative       : IntPtr
+        getRange_PanRelative      : IntPtr
+        get_RollRelative          : IntPtr
+        put_RollRelative          : IntPtr
+        getRange_RollRelative     : IntPtr
+        get_ScanMode              : IntPtr
+        put_ScanMode              : IntPtr
+        get_PrivacyMode           : IntPtr
+        put_PrivacyMode           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Exposure", "put_Exposure", "getRange_Exposure", "get_Focus", "put_Focus", "getRange_Focus", "get_Iris", "put_Iris", "getRange_Iris", "get_Zoom", "put_Zoom", "getRange_Zoom", "get_FocalLengths", "get_Pan", "put_Pan", "getRange_Pan", "get_Tilt", "put_Tilt", "getRange_Tilt", "get_PanTilt", "put_PanTilt", "get_Roll", "put_Roll", "getRange_Roll", "get_ExposureRelative", "put_ExposureRelative", "getRange_ExposureRelative", "get_FocusRelative", "put_FocusRelative", "getRange_FocusRelative", "get_IrisRelative", "put_IrisRelative", "getRange_IrisRelative", "get_ZoomRelative", "put_ZoomRelative", "getRange_ZoomRelative", "get_PanRelative", "put_PanRelative", "get_TiltRelative", "put_TiltRelative", "getRange_TiltRelative", "get_PanTiltRelative", "put_PanTiltRelative", "getRange_PanRelative", "get_RollRelative", "put_RollRelative", "getRange_RollRelative", "get_ScanMode", "put_ScanMode", "get_PrivacyMode", "put_PrivacyMode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICameraControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The get_Exposure method returns the camera's exposure time.
@@ -1161,5 +1219,125 @@ class ICameraControl extends IUnknown {
     put_PrivacyMode(Value, Flags) {
         result := ComCall(53, this, "int", Value, "int", Flags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICameraControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Exposure := CallbackCreate(GetMethod(implObj, "get_Exposure"), flags, 3)
+        this.vtbl.put_Exposure := CallbackCreate(GetMethod(implObj, "put_Exposure"), flags, 3)
+        this.vtbl.getRange_Exposure := CallbackCreate(GetMethod(implObj, "getRange_Exposure"), flags, 6)
+        this.vtbl.get_Focus := CallbackCreate(GetMethod(implObj, "get_Focus"), flags, 3)
+        this.vtbl.put_Focus := CallbackCreate(GetMethod(implObj, "put_Focus"), flags, 3)
+        this.vtbl.getRange_Focus := CallbackCreate(GetMethod(implObj, "getRange_Focus"), flags, 6)
+        this.vtbl.get_Iris := CallbackCreate(GetMethod(implObj, "get_Iris"), flags, 3)
+        this.vtbl.put_Iris := CallbackCreate(GetMethod(implObj, "put_Iris"), flags, 3)
+        this.vtbl.getRange_Iris := CallbackCreate(GetMethod(implObj, "getRange_Iris"), flags, 6)
+        this.vtbl.get_Zoom := CallbackCreate(GetMethod(implObj, "get_Zoom"), flags, 3)
+        this.vtbl.put_Zoom := CallbackCreate(GetMethod(implObj, "put_Zoom"), flags, 3)
+        this.vtbl.getRange_Zoom := CallbackCreate(GetMethod(implObj, "getRange_Zoom"), flags, 6)
+        this.vtbl.get_FocalLengths := CallbackCreate(GetMethod(implObj, "get_FocalLengths"), flags, 4)
+        this.vtbl.get_Pan := CallbackCreate(GetMethod(implObj, "get_Pan"), flags, 3)
+        this.vtbl.put_Pan := CallbackCreate(GetMethod(implObj, "put_Pan"), flags, 3)
+        this.vtbl.getRange_Pan := CallbackCreate(GetMethod(implObj, "getRange_Pan"), flags, 6)
+        this.vtbl.get_Tilt := CallbackCreate(GetMethod(implObj, "get_Tilt"), flags, 3)
+        this.vtbl.put_Tilt := CallbackCreate(GetMethod(implObj, "put_Tilt"), flags, 3)
+        this.vtbl.getRange_Tilt := CallbackCreate(GetMethod(implObj, "getRange_Tilt"), flags, 6)
+        this.vtbl.get_PanTilt := CallbackCreate(GetMethod(implObj, "get_PanTilt"), flags, 4)
+        this.vtbl.put_PanTilt := CallbackCreate(GetMethod(implObj, "put_PanTilt"), flags, 4)
+        this.vtbl.get_Roll := CallbackCreate(GetMethod(implObj, "get_Roll"), flags, 3)
+        this.vtbl.put_Roll := CallbackCreate(GetMethod(implObj, "put_Roll"), flags, 3)
+        this.vtbl.getRange_Roll := CallbackCreate(GetMethod(implObj, "getRange_Roll"), flags, 6)
+        this.vtbl.get_ExposureRelative := CallbackCreate(GetMethod(implObj, "get_ExposureRelative"), flags, 3)
+        this.vtbl.put_ExposureRelative := CallbackCreate(GetMethod(implObj, "put_ExposureRelative"), flags, 3)
+        this.vtbl.getRange_ExposureRelative := CallbackCreate(GetMethod(implObj, "getRange_ExposureRelative"), flags, 6)
+        this.vtbl.get_FocusRelative := CallbackCreate(GetMethod(implObj, "get_FocusRelative"), flags, 3)
+        this.vtbl.put_FocusRelative := CallbackCreate(GetMethod(implObj, "put_FocusRelative"), flags, 3)
+        this.vtbl.getRange_FocusRelative := CallbackCreate(GetMethod(implObj, "getRange_FocusRelative"), flags, 6)
+        this.vtbl.get_IrisRelative := CallbackCreate(GetMethod(implObj, "get_IrisRelative"), flags, 3)
+        this.vtbl.put_IrisRelative := CallbackCreate(GetMethod(implObj, "put_IrisRelative"), flags, 3)
+        this.vtbl.getRange_IrisRelative := CallbackCreate(GetMethod(implObj, "getRange_IrisRelative"), flags, 6)
+        this.vtbl.get_ZoomRelative := CallbackCreate(GetMethod(implObj, "get_ZoomRelative"), flags, 3)
+        this.vtbl.put_ZoomRelative := CallbackCreate(GetMethod(implObj, "put_ZoomRelative"), flags, 3)
+        this.vtbl.getRange_ZoomRelative := CallbackCreate(GetMethod(implObj, "getRange_ZoomRelative"), flags, 6)
+        this.vtbl.get_PanRelative := CallbackCreate(GetMethod(implObj, "get_PanRelative"), flags, 3)
+        this.vtbl.put_PanRelative := CallbackCreate(GetMethod(implObj, "put_PanRelative"), flags, 3)
+        this.vtbl.get_TiltRelative := CallbackCreate(GetMethod(implObj, "get_TiltRelative"), flags, 3)
+        this.vtbl.put_TiltRelative := CallbackCreate(GetMethod(implObj, "put_TiltRelative"), flags, 3)
+        this.vtbl.getRange_TiltRelative := CallbackCreate(GetMethod(implObj, "getRange_TiltRelative"), flags, 6)
+        this.vtbl.get_PanTiltRelative := CallbackCreate(GetMethod(implObj, "get_PanTiltRelative"), flags, 4)
+        this.vtbl.put_PanTiltRelative := CallbackCreate(GetMethod(implObj, "put_PanTiltRelative"), flags, 4)
+        this.vtbl.getRange_PanRelative := CallbackCreate(GetMethod(implObj, "getRange_PanRelative"), flags, 6)
+        this.vtbl.get_RollRelative := CallbackCreate(GetMethod(implObj, "get_RollRelative"), flags, 3)
+        this.vtbl.put_RollRelative := CallbackCreate(GetMethod(implObj, "put_RollRelative"), flags, 3)
+        this.vtbl.getRange_RollRelative := CallbackCreate(GetMethod(implObj, "getRange_RollRelative"), flags, 6)
+        this.vtbl.get_ScanMode := CallbackCreate(GetMethod(implObj, "get_ScanMode"), flags, 3)
+        this.vtbl.put_ScanMode := CallbackCreate(GetMethod(implObj, "put_ScanMode"), flags, 3)
+        this.vtbl.get_PrivacyMode := CallbackCreate(GetMethod(implObj, "get_PrivacyMode"), flags, 3)
+        this.vtbl.put_PrivacyMode := CallbackCreate(GetMethod(implObj, "put_PrivacyMode"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Exposure)
+        CallbackFree(this.vtbl.put_Exposure)
+        CallbackFree(this.vtbl.getRange_Exposure)
+        CallbackFree(this.vtbl.get_Focus)
+        CallbackFree(this.vtbl.put_Focus)
+        CallbackFree(this.vtbl.getRange_Focus)
+        CallbackFree(this.vtbl.get_Iris)
+        CallbackFree(this.vtbl.put_Iris)
+        CallbackFree(this.vtbl.getRange_Iris)
+        CallbackFree(this.vtbl.get_Zoom)
+        CallbackFree(this.vtbl.put_Zoom)
+        CallbackFree(this.vtbl.getRange_Zoom)
+        CallbackFree(this.vtbl.get_FocalLengths)
+        CallbackFree(this.vtbl.get_Pan)
+        CallbackFree(this.vtbl.put_Pan)
+        CallbackFree(this.vtbl.getRange_Pan)
+        CallbackFree(this.vtbl.get_Tilt)
+        CallbackFree(this.vtbl.put_Tilt)
+        CallbackFree(this.vtbl.getRange_Tilt)
+        CallbackFree(this.vtbl.get_PanTilt)
+        CallbackFree(this.vtbl.put_PanTilt)
+        CallbackFree(this.vtbl.get_Roll)
+        CallbackFree(this.vtbl.put_Roll)
+        CallbackFree(this.vtbl.getRange_Roll)
+        CallbackFree(this.vtbl.get_ExposureRelative)
+        CallbackFree(this.vtbl.put_ExposureRelative)
+        CallbackFree(this.vtbl.getRange_ExposureRelative)
+        CallbackFree(this.vtbl.get_FocusRelative)
+        CallbackFree(this.vtbl.put_FocusRelative)
+        CallbackFree(this.vtbl.getRange_FocusRelative)
+        CallbackFree(this.vtbl.get_IrisRelative)
+        CallbackFree(this.vtbl.put_IrisRelative)
+        CallbackFree(this.vtbl.getRange_IrisRelative)
+        CallbackFree(this.vtbl.get_ZoomRelative)
+        CallbackFree(this.vtbl.put_ZoomRelative)
+        CallbackFree(this.vtbl.getRange_ZoomRelative)
+        CallbackFree(this.vtbl.get_PanRelative)
+        CallbackFree(this.vtbl.put_PanRelative)
+        CallbackFree(this.vtbl.get_TiltRelative)
+        CallbackFree(this.vtbl.put_TiltRelative)
+        CallbackFree(this.vtbl.getRange_TiltRelative)
+        CallbackFree(this.vtbl.get_PanTiltRelative)
+        CallbackFree(this.vtbl.put_PanTiltRelative)
+        CallbackFree(this.vtbl.getRange_PanRelative)
+        CallbackFree(this.vtbl.get_RollRelative)
+        CallbackFree(this.vtbl.put_RollRelative)
+        CallbackFree(this.vtbl.getRange_RollRelative)
+        CallbackFree(this.vtbl.get_ScanMode)
+        CallbackFree(this.vtbl.put_ScanMode)
+        CallbackFree(this.vtbl.get_PrivacyMode)
+        CallbackFree(this.vtbl.put_PrivacyMode)
     }
 }

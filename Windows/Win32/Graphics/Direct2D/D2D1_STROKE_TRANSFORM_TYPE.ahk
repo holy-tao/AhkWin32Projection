@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines how the world transform, dots per inch (dpi), and stroke width affect the shape of the pen used to stroke a primitive.
@@ -25,7 +24,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ne-d2d1_1-d2d1_stroke_transform_type
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_STROKE_TRANSFORM_TYPE extends Win32Enum {
+export default struct D2D1_STROKE_TRANSFORM_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The stroke respects the currently set world transform, the dpi, and the stroke width.

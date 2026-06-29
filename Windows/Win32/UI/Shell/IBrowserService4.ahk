@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IBrowserService3.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IBrowserService3.ahk" { IBrowserService3 }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Deprecated. (IBrowserService4)
@@ -10,26 +12,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nn-shdeprecated-ibrowserservice4
  * @namespace Windows.Win32.UI.Shell
  */
-class IBrowserService4 extends IBrowserService3 {
-
-    static sizeof => A_PtrSize
+export default struct IBrowserService4 extends IBrowserService3 {
     /**
      * The interface identifier for IBrowserService4
      * @type {Guid}
      */
-    static IID => Guid("{639f1bff-e135-4096-abd8-e0f504d649a4}")
+    static IID := Guid("{639f1bff-e135-4096-abd8-e0f504d649a4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 97
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBrowserService4 interfaces
+    */
+    struct Vtbl extends IBrowserService3.Vtbl {
+        ActivateView      : IntPtr
+        SaveViewState     : IntPtr
+        _ResizeAllBorders : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ActivateView", "SaveViewState", "_ResizeAllBorders"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBrowserService4.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Deprecated. (IBrowserService4.ActivateView)
@@ -42,7 +53,7 @@ class IBrowserService4 extends IBrowserService3 {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice4-activateview
      */
     ActivateView(fPendingView) {
-        result := ComCall(97, this, "int", fPendingView, "HRESULT")
+        result := ComCall(97, this, BOOL, fPendingView, "HRESULT")
         return result
     }
 
@@ -68,5 +79,29 @@ class IBrowserService4 extends IBrowserService3 {
     _ResizeAllBorders() {
         result := ComCall(99, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBrowserService4.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ActivateView := CallbackCreate(GetMethod(implObj, "ActivateView"), flags, 2)
+        this.vtbl.SaveViewState := CallbackCreate(GetMethod(implObj, "SaveViewState"), flags, 1)
+        this.vtbl._ResizeAllBorders := CallbackCreate(GetMethod(implObj, "_ResizeAllBorders"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ActivateView)
+        CallbackFree(this.vtbl.SaveViewState)
+        CallbackFree(this.vtbl._ResizeAllBorders)
     }
 }

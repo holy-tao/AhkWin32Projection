@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class WHEA_ERROR_SOURCE_CONFIGURATION_DD extends Win32Struct {
-    static sizeof => 24
+export default struct WHEA_ERROR_SOURCE_CONFIGURATION_DD {
+    #StructPack 8
 
-    static packingSize => 8
+    Initialize : IntPtr
 
-    /**
-     * @type {Pointer<WHEA_ERROR_SOURCE_INITIALIZE_DEVICE_DRIVER>}
-     */
-    Initialize {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Uninitialize : IntPtr
 
-    /**
-     * @type {Pointer<WHEA_ERROR_SOURCE_UNINITIALIZE_DEVICE_DRIVER>}
-     */
-    Uninitialize {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Correct : IntPtr
 
-    /**
-     * @type {Pointer<WHEA_ERROR_SOURCE_CORRECT_DEVICE_DRIVER>}
-     */
-    Correct {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

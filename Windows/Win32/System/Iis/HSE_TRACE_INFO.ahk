@@ -1,46 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.System.Iis
  */
-class HSE_TRACE_INFO extends Win32Struct {
-    static sizeof => 28
+export default struct HSE_TRACE_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    fTraceRequest : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    fTraceRequest {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    TraceContextId : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    TraceContextId {
-        get {
-            if(!this.HasProp("__TraceContextIdProxyArray"))
-                this.__TraceContextIdProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
-            return this.__TraceContextIdProxyArray
-        }
-    }
+    dwReserved1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved1 {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwReserved2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved2 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

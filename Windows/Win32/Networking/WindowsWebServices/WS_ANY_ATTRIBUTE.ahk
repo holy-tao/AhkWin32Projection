@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_XML_STRING.ahk
-#Include .\WS_XML_DICTIONARY.ahk
-#Include .\WS_XML_TEXT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
+#Import ".\WS_XML_DICTIONARY.ahk" { WS_XML_DICTIONARY }
+#Import ".\WS_XML_TEXT.ahk" { WS_XML_TEXT }
 
 /**
  * This type is used to store an attribute that has not been directly mapped to a field.
@@ -11,42 +10,23 @@
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_any_attribute
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_ANY_ATTRIBUTE extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct WS_ANY_ATTRIBUTE {
+    #StructPack 8
 
     /**
      * Specifies the localName of the attribute.
-     * @type {WS_XML_STRING}
      */
-    localName {
-        get {
-            if(!this.HasProp("__localName"))
-                this.__localName := WS_XML_STRING(0, this)
-            return this.__localName
-        }
-    }
+    localName : WS_XML_STRING
 
     /**
      * Specifies the namespace of the attribute.
-     * @type {WS_XML_STRING}
      */
-    ns {
-        get {
-            if(!this.HasProp("__ns"))
-                this.__ns := WS_XML_STRING(32, this)
-            return this.__ns
-        }
-    }
+    ns : WS_XML_STRING
 
     /**
      * Specifies the value of the attribute.  This
      *                     field may not be <b>NULL</b>.
-     * @type {Pointer<WS_XML_TEXT>}
      */
-    value {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    value : WS_XML_TEXT.Ptr
+
 }

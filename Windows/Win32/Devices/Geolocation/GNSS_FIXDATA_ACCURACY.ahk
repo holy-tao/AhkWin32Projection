@@ -1,139 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
  */
-class GNSS_FIXDATA_ACCURACY extends Win32Struct {
-    static sizeof => 64
+export default struct GNSS_FIXDATA_ACCURACY {
+    #StructPack 4
 
-    static packingSize => 4
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    HorizontalAccuracy : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HorizontalAccuracy {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    HorizontalErrorMajorAxis : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HorizontalErrorMajorAxis {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    HorizontalErrorMinorAxis : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HorizontalErrorMinorAxis {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    HorizontalErrorAngle : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HorizontalErrorAngle {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    HeadingAccuracy : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HeadingAccuracy {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    AltitudeAccuracy : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AltitudeAccuracy {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    SpeedAccuracy : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SpeedAccuracy {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    HorizontalConfidence : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HorizontalConfidence {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    HeadingConfidence : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HeadingConfidence {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    AltitudeConfidence : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AltitudeConfidence {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    SpeedConfidence : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SpeedConfidence {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    PositionDilutionOfPrecision : Float32
 
-    /**
-     * @type {Float}
-     */
-    PositionDilutionOfPrecision {
-        get => NumGet(this, 52, "float")
-        set => NumPut("float", value, this, 52)
-    }
+    HorizontalDilutionOfPrecision : Float32
 
-    /**
-     * @type {Float}
-     */
-    HorizontalDilutionOfPrecision {
-        get => NumGet(this, 56, "float")
-        set => NumPut("float", value, this, 56)
-    }
+    VerticalDilutionOfPrecision : Float32
 
-    /**
-     * @type {Float}
-     */
-    VerticalDilutionOfPrecision {
-        get => NumGet(this, 60, "float")
-        set => NumPut("float", value, this, 60)
-    }
 }

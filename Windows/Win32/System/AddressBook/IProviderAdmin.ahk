@@ -1,10 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IMAPITable.ahk
-#Include .\MAPIUID.ahk
-#Include .\IProfSect.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MAPIUID.ahk" { MAPIUID }
+#Import ".\SPropValue.ahk" { SPropValue }
+#Import ".\IMAPITable.ahk" { IMAPITable }
+#Import ".\IProfSect.ahk" { IProfSect }
+#Import ".\MAPIERROR.ahk" { MAPIERROR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Describes the properties and vtable order of members for IProviderAdmin IUnknown, which works with service providers in a message service.
@@ -13,21 +16,32 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iprovideradminiunknown
  * @namespace Windows.Win32.System.AddressBook
  */
-class IProviderAdmin extends IUnknown {
+export default struct IProviderAdmin extends IUnknown {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetLastError", "GetProviderTable", "CreateProvider", "DeleteProvider", "OpenProfileSection"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IProviderAdmin interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetLastError       : IntPtr
+        GetProviderTable   : IntPtr
+        CreateProvider     : IntPtr
+        DeleteProvider     : IntPtr
+        OpenProfileSection : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IProviderAdmin.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -98,7 +112,7 @@ class IProviderAdmin extends IUnknown {
         lpszProviderMarshal := lpszProvider is VarRef ? "char*" : "ptr"
 
         lpUID := MAPIUID()
-        result := ComCall(5, this, lpszProviderMarshal, lpszProvider, "uint", cValues, "ptr", lpProps, "ptr", ulUIParam, "uint", ulFlags, "ptr", lpUID, "HRESULT")
+        result := ComCall(5, this, lpszProviderMarshal, lpszProvider, "uint", cValues, SPropValue.Ptr, lpProps, "ptr", ulUIParam, "uint", ulFlags, MAPIUID.Ptr, lpUID, "HRESULT")
         return lpUID
     }
 
@@ -127,7 +141,7 @@ class IProviderAdmin extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iprovideradmin-deleteprovider
      */
     DeleteProvider(lpUID) {
-        result := ComCall(6, this, "ptr", lpUID, "HRESULT")
+        result := ComCall(6, this, MAPIUID.Ptr, lpUID, "HRESULT")
         return result
     }
 
@@ -158,7 +172,35 @@ class IProviderAdmin extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iprovideradmin-openprofilesection
      */
     OpenProfileSection(lpUID, lpInterface, ulFlags) {
-        result := ComCall(7, this, "ptr", lpUID, "ptr", lpInterface, "uint", ulFlags, "ptr*", &lppProfSect := 0, "HRESULT")
+        result := ComCall(7, this, MAPIUID.Ptr, lpUID, Guid.Ptr, lpInterface, "uint", ulFlags, "ptr*", &lppProfSect := 0, "HRESULT")
         return IProfSect(lppProfSect)
+    }
+
+    Query(iid) {
+        if (IProviderAdmin.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetLastError := CallbackCreate(GetMethod(implObj, "GetLastError"), flags, 4)
+        this.vtbl.GetProviderTable := CallbackCreate(GetMethod(implObj, "GetProviderTable"), flags, 3)
+        this.vtbl.CreateProvider := CallbackCreate(GetMethod(implObj, "CreateProvider"), flags, 7)
+        this.vtbl.DeleteProvider := CallbackCreate(GetMethod(implObj, "DeleteProvider"), flags, 2)
+        this.vtbl.OpenProfileSection := CallbackCreate(GetMethod(implObj, "OpenProfileSection"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetLastError)
+        CallbackFree(this.vtbl.GetProviderTable)
+        CallbackFree(this.vtbl.CreateProvider)
+        CallbackFree(this.vtbl.DeleteProvider)
+        CallbackFree(this.vtbl.OpenProfileSection)
     }
 }

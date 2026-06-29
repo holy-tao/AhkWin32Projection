@@ -1,41 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_DECODE_ARGUMENT_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_VIDEO_DECODE_ARGUMENT_TYPE.ahk" { D3D12_VIDEO_DECODE_ARGUMENT_TYPE }
 
 /**
  * Represents the decode parameters for a frame.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_decode_frame_argument
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_DECODE_FRAME_ARGUMENT extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct D3D12_VIDEO_DECODE_FRAME_ARGUMENT {
+    #StructPack 8
 
     /**
      * A member of the [D3D12_VIDEO_DECODE_ARGUMENT_TYPE](ne-d3d12video-d3d12_video_decode_argument_type.md) enumeration specifying the type of argument.
-     * @type {D3D12_VIDEO_DECODE_ARGUMENT_TYPE}
      */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Type : D3D12_VIDEO_DECODE_ARGUMENT_TYPE
 
     /**
      * The size of the data in *pArgument*, in bytes.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Size : UInt32
 
     /**
      * A pointer to the argument data.
-     * @type {Pointer<Void>}
      */
-    pData {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pData : IntPtr
+
 }

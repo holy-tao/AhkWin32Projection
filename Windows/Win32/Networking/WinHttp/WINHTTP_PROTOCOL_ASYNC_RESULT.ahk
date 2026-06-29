@@ -1,32 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WINHTTP_ASYNC_RESULT.ahk
-#Include .\WINHTTP_PROTOCOL_OPERATION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WINHTTP_ASYNC_RESULT.ahk" { WINHTTP_ASYNC_RESULT }
+#Import ".\WINHTTP_PROTOCOL_OPERATION.ahk" { WINHTTP_PROTOCOL_OPERATION }
 
 /**
  * @namespace Windows.Win32.Networking.WinHttp
  */
-class WINHTTP_PROTOCOL_ASYNC_RESULT extends Win32Struct {
-    static sizeof => 24
+export default struct WINHTTP_PROTOCOL_ASYNC_RESULT {
+    #StructPack 8
 
-    static packingSize => 8
+    AsyncResult : WINHTTP_ASYNC_RESULT
 
-    /**
-     * @type {WINHTTP_ASYNC_RESULT}
-     */
-    AsyncResult {
-        get {
-            if(!this.HasProp("__AsyncResult"))
-                this.__AsyncResult := WINHTTP_ASYNC_RESULT(0, this)
-            return this.__AsyncResult
-        }
-    }
+    Operation : WINHTTP_PROTOCOL_OPERATION
 
-    /**
-     * @type {WINHTTP_PROTOCOL_OPERATION}
-     */
-    Operation {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
 }

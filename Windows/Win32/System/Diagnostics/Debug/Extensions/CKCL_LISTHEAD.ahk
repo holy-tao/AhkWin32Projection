@@ -1,32 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include .\CKCL_DATA.ahk
-#Include ..\..\..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\CKCL_DATA.ahk" { CKCL_DATA }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class CKCL_LISTHEAD extends Win32Struct {
-    static sizeof => 16
+export default struct CKCL_LISTHEAD {
+    #StructPack 8
 
-    static packingSize => 8
+    LogEventListHead : CKCL_DATA.Ptr
 
-    /**
-     * @type {Pointer<CKCL_DATA>}
-     */
-    LogEventListHead {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Heap : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    Heap {
-        get {
-            if(!this.HasProp("__Heap"))
-                this.__Heap := HANDLE(8, this)
-            return this.__Heap
-        }
-    }
 }

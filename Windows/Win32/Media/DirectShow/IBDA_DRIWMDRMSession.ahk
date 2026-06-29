@@ -1,31 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IBDA_DRIWMDRMSession extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBDA_DRIWMDRMSession extends IUnknown {
     /**
      * The interface identifier for IBDA_DRIWMDRMSession
      * @type {Guid}
      */
-    static IID => Guid("{05c690f8-56db-4bb2-b053-79c12098bb26}")
+    static IID := Guid("{05c690f8-56db-4bb2-b053-79c12098bb26}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBDA_DRIWMDRMSession interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AcknowledgeLicense           : IntPtr
+        ProcessLicenseChallenge      : IntPtr
+        ProcessRegistrationChallenge : IntPtr
+        SetRevInfo                   : IntPtr
+        SetCrl                       : IntPtr
+        GetHMSAssociationData        : IntPtr
+        GetLastCardeaError           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AcknowledgeLicense", "ProcessLicenseChallenge", "ProcessRegistrationChallenge", "SetRevInfo", "SetCrl", "GetHMSAssociationData", "GetLastCardeaError"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBDA_DRIWMDRMSession.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -120,5 +134,37 @@ class IBDA_DRIWMDRMSession extends IUnknown {
 
         result := ComCall(9, this, pdwErrorMarshal, pdwError, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBDA_DRIWMDRMSession.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AcknowledgeLicense := CallbackCreate(GetMethod(implObj, "AcknowledgeLicense"), flags, 2)
+        this.vtbl.ProcessLicenseChallenge := CallbackCreate(GetMethod(implObj, "ProcessLicenseChallenge"), flags, 5)
+        this.vtbl.ProcessRegistrationChallenge := CallbackCreate(GetMethod(implObj, "ProcessRegistrationChallenge"), flags, 5)
+        this.vtbl.SetRevInfo := CallbackCreate(GetMethod(implObj, "SetRevInfo"), flags, 4)
+        this.vtbl.SetCrl := CallbackCreate(GetMethod(implObj, "SetCrl"), flags, 4)
+        this.vtbl.GetHMSAssociationData := CallbackCreate(GetMethod(implObj, "GetHMSAssociationData"), flags, 1)
+        this.vtbl.GetLastCardeaError := CallbackCreate(GetMethod(implObj, "GetLastCardeaError"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AcknowledgeLicense)
+        CallbackFree(this.vtbl.ProcessLicenseChallenge)
+        CallbackFree(this.vtbl.ProcessRegistrationChallenge)
+        CallbackFree(this.vtbl.SetRevInfo)
+        CallbackFree(this.vtbl.SetCrl)
+        CallbackFree(this.vtbl.GetHMSAssociationData)
+        CallbackFree(this.vtbl.GetLastCardeaError)
     }
 }

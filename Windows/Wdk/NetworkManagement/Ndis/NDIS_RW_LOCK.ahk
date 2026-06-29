@@ -1,84 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class NDIS_RW_LOCK extends Win32Struct {
-    static sizeof => 528
+export default struct NDIS_RW_LOCK {
+    #StructPack 8
 
-    static packingSize => 8
+    SpinLock : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    SpinLock {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Context : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Context {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    RefCount : IntPtr[32]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
-
-    /**
-     * @type {Array<Pointer>}
-     */
-    RefCount {
-        get {
-            if(!this.HasProp("__RefCountProxyArray"))
-                this.__RefCountProxyArray := Win32FixedArray(this.ptr + 16, 32, Primitive, "ptr")
-            return this.__RefCountProxyArray
-        }
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    RefCountEx {
-        get {
-            if(!this.HasProp("__RefCountExProxyArray"))
-                this.__RefCountExProxyArray := Win32FixedArray(this.ptr + 16, 128, Primitive, "uint")
-            return this.__RefCountExProxyArray
-        }
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    RefCountLock {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SharedRefCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    /**
-     * @type {BOOLEAN}
-     */
-    WriterWaiting {
-        get => NumGet(this, 28, "char")
-        set => NumPut("char", value, this, 28)
+    static __New() {
+        DefineProp(this.Prototype, 'Reserved', { type: Int8[16], offset: 0 })
+        DefineProp(this.Prototype, 'RefCountEx', { type: UInt32[128], offset: 16 })
+        DefineProp(this.Prototype, 'RefCountLock', { type: IntPtr, offset: 16 })
+        DefineProp(this.Prototype, 'SharedRefCount', { type: UInt32, offset: 24 })
+        DefineProp(this.Prototype, 'WriterWaiting', { type: BOOLEAN, offset: 28 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,34 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ITextPara.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITextPara.ahk" { ITextPara }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Text Object Model (TOM) rich text-range attributes are accessed through a pair of dual interfaces, ITextFont and ITextPara. (ITextPara2)
  * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextpara2
  * @namespace Windows.Win32.UI.Controls.RichEdit
  */
-class ITextPara2 extends ITextPara {
-
-    static sizeof => A_PtrSize
+export default struct ITextPara2 extends ITextPara {
     /**
      * The interface identifier for ITextPara2
      * @type {Guid}
      */
-    static IID => Guid("{c241f5e4-7206-11d8-a2c7-00a0d1d6c6b3}")
+    static IID := Guid("{c241f5e4-7206-11d8-a2c7-00a0d1d6c6b3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 55
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITextPara2 interfaces
+    */
+    struct Vtbl extends ITextPara.Vtbl {
+        GetBorders                : IntPtr
+        GetDuplicate2             : IntPtr
+        SetDuplicate2             : IntPtr
+        GetFontAlignment          : IntPtr
+        SetFontAlignment          : IntPtr
+        GetHangingPunctuation     : IntPtr
+        SetHangingPunctuation     : IntPtr
+        GetSnapToGrid             : IntPtr
+        SetSnapToGrid             : IntPtr
+        GetTrimPunctuationAtStart : IntPtr
+        SetTrimPunctuationAtStart : IntPtr
+        GetEffects                : IntPtr
+        GetProperty               : IntPtr
+        IsEqual2                  : IntPtr
+        SetEffects                : IntPtr
+        SetProperty               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetBorders", "GetDuplicate2", "SetDuplicate2", "GetFontAlignment", "SetFontAlignment", "GetHangingPunctuation", "SetHangingPunctuation", "GetSnapToGrid", "SetSnapToGrid", "GetTrimPunctuationAtStart", "SetTrimPunctuationAtStart", "GetEffects", "GetProperty", "IsEqual2", "SetEffects", "SetProperty"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITextPara2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the borders collection.
@@ -426,5 +449,55 @@ class ITextPara2 extends ITextPara {
     SetProperty(Type, Value) {
         result := ComCall(70, this, "int", Type, "int", Value, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITextPara2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetBorders := CallbackCreate(GetMethod(implObj, "GetBorders"), flags, 2)
+        this.vtbl.GetDuplicate2 := CallbackCreate(GetMethod(implObj, "GetDuplicate2"), flags, 2)
+        this.vtbl.SetDuplicate2 := CallbackCreate(GetMethod(implObj, "SetDuplicate2"), flags, 2)
+        this.vtbl.GetFontAlignment := CallbackCreate(GetMethod(implObj, "GetFontAlignment"), flags, 2)
+        this.vtbl.SetFontAlignment := CallbackCreate(GetMethod(implObj, "SetFontAlignment"), flags, 2)
+        this.vtbl.GetHangingPunctuation := CallbackCreate(GetMethod(implObj, "GetHangingPunctuation"), flags, 2)
+        this.vtbl.SetHangingPunctuation := CallbackCreate(GetMethod(implObj, "SetHangingPunctuation"), flags, 2)
+        this.vtbl.GetSnapToGrid := CallbackCreate(GetMethod(implObj, "GetSnapToGrid"), flags, 2)
+        this.vtbl.SetSnapToGrid := CallbackCreate(GetMethod(implObj, "SetSnapToGrid"), flags, 2)
+        this.vtbl.GetTrimPunctuationAtStart := CallbackCreate(GetMethod(implObj, "GetTrimPunctuationAtStart"), flags, 2)
+        this.vtbl.SetTrimPunctuationAtStart := CallbackCreate(GetMethod(implObj, "SetTrimPunctuationAtStart"), flags, 2)
+        this.vtbl.GetEffects := CallbackCreate(GetMethod(implObj, "GetEffects"), flags, 3)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.IsEqual2 := CallbackCreate(GetMethod(implObj, "IsEqual2"), flags, 3)
+        this.vtbl.SetEffects := CallbackCreate(GetMethod(implObj, "SetEffects"), flags, 3)
+        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetBorders)
+        CallbackFree(this.vtbl.GetDuplicate2)
+        CallbackFree(this.vtbl.SetDuplicate2)
+        CallbackFree(this.vtbl.GetFontAlignment)
+        CallbackFree(this.vtbl.SetFontAlignment)
+        CallbackFree(this.vtbl.GetHangingPunctuation)
+        CallbackFree(this.vtbl.SetHangingPunctuation)
+        CallbackFree(this.vtbl.GetSnapToGrid)
+        CallbackFree(this.vtbl.SetSnapToGrid)
+        CallbackFree(this.vtbl.GetTrimPunctuationAtStart)
+        CallbackFree(this.vtbl.SetTrimPunctuationAtStart)
+        CallbackFree(this.vtbl.GetEffects)
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.IsEqual2)
+        CallbackFree(this.vtbl.SetEffects)
+        CallbackFree(this.vtbl.SetProperty)
     }
 }

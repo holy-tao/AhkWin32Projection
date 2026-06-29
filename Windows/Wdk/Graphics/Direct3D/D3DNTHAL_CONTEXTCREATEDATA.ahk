@@ -1,86 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Graphics\DirectDraw\DD_DIRECTDRAW_GLOBAL.ahk
-#Include ..\..\..\Win32\Graphics\DirectDraw\DD_DIRECTDRAW_LOCAL.ahk
-#Include ..\..\..\Win32\Graphics\DirectDraw\DD_SURFACE_LOCAL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Graphics\DirectDraw\DD_DIRECTDRAW_LOCAL.ahk" { DD_DIRECTDRAW_LOCAL }
+#Import "..\..\..\Win32\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Win32\Graphics\DirectDraw\DD_DIRECTDRAW_GLOBAL.ahk" { DD_DIRECTDRAW_GLOBAL }
+#Import "..\..\..\Win32\Graphics\DirectDraw\DD_SURFACE_LOCAL.ahk" { DD_SURFACE_LOCAL }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DNTHAL_CONTEXTCREATEDATA extends Win32Struct {
-    static sizeof => 48
+export default struct D3DNTHAL_CONTEXTCREATEDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    lpDDGbl : DD_DIRECTDRAW_GLOBAL.Ptr
 
-    /**
-     * @type {Pointer<DD_DIRECTDRAW_GLOBAL>}
-     */
-    lpDDGbl {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpDDS : DD_SURFACE_LOCAL.Ptr
 
-    /**
-     * @type {Pointer<DD_DIRECTDRAW_LOCAL>}
-     */
-    lpDDLcl {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpDDSZ : DD_SURFACE_LOCAL.Ptr
 
-    /**
-     * @type {Pointer<DD_SURFACE_LOCAL>}
-     */
-    lpDDS {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    dwPID : UInt32
 
-    /**
-     * @type {Pointer<DD_SURFACE_LOCAL>}
-     */
-    lpDDSLcl {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    dwhContext : IntPtr
 
-    /**
-     * @type {Pointer<DD_SURFACE_LOCAL>}
-     */
-    lpDDSZ {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ddrval : HRESULT
 
-    /**
-     * @type {Pointer<DD_SURFACE_LOCAL>}
-     */
-    lpDDSZLcl {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwPID {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    dwhContext {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {HRESULT}
-     */
-    ddrval {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+    static __New() {
+        DefineProp(this.Prototype, 'lpDDLcl', { type: DD_DIRECTDRAW_LOCAL.Ptr, offset: 0 })
+        DefineProp(this.Prototype, 'lpDDSLcl', { type: DD_SURFACE_LOCAL.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'lpDDSZLcl', { type: DD_SURFACE_LOCAL.Ptr, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

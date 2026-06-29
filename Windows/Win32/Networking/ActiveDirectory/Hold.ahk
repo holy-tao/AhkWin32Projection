@@ -1,13 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The IADsHold interface provides methods for an ADSI client to access the Hold attribute.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadshold
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class Hold extends Win32Struct {
-    static sizeof => 0
+export default struct Hold {
+    #StructPack 1
 
-    static packingSize => 1
 }

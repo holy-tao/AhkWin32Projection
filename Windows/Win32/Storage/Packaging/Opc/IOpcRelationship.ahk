@@ -1,9 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IOpcUri.ahk
-#Include ..\..\..\System\Com\IUri.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\OPC_URI_TARGET_MODE.ahk" { OPC_URI_TARGET_MODE }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUri.ahk" { IUri }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IOpcUri.ahk" { IOpcUri }
 
 /**
  * Represents a relationship, which is a link between a source, which is a part or the package, and a target.
@@ -90,26 +93,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcrelationship
  * @namespace Windows.Win32.Storage.Packaging.Opc
  */
-class IOpcRelationship extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOpcRelationship extends IUnknown {
     /**
      * The interface identifier for IOpcRelationship
      * @type {Guid}
      */
-    static IID => Guid("{42195949-3b79-4fc8-89c6-fc7fb979ee72}")
+    static IID := Guid("{42195949-3b79-4fc8-89c6-fc7fb979ee72}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOpcRelationship interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetId               : IntPtr
+        GetRelationshipType : IntPtr
+        GetSourceUri        : IntPtr
+        GetTargetUri        : IntPtr
+        GetTargetMode       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetId", "GetRelationshipType", "GetSourceUri", "GetTargetUri", "GetTargetMode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOpcRelationship.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the unique identifier of the relationship.
@@ -131,7 +145,7 @@ class IOpcRelationship extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationship-getid
      */
     GetId() {
-        result := ComCall(3, this, "ptr*", &relationshipIdentifier := 0, "HRESULT")
+        result := ComCall(3, this, PWSTR.Ptr, &relationshipIdentifier := 0, "HRESULT")
         return relationshipIdentifier
     }
 
@@ -151,7 +165,7 @@ class IOpcRelationship extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationship-getrelationshiptype
      */
     GetRelationshipType() {
-        result := ComCall(4, this, "ptr*", &relationshipType := 0, "HRESULT")
+        result := ComCall(4, this, PWSTR.Ptr, &relationshipType := 0, "HRESULT")
         return relationshipType
     }
 
@@ -219,5 +233,33 @@ class IOpcRelationship extends IUnknown {
     GetTargetMode() {
         result := ComCall(7, this, "int*", &targetMode := 0, "HRESULT")
         return targetMode
+    }
+
+    Query(iid) {
+        if (IOpcRelationship.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetId := CallbackCreate(GetMethod(implObj, "GetId"), flags, 2)
+        this.vtbl.GetRelationshipType := CallbackCreate(GetMethod(implObj, "GetRelationshipType"), flags, 2)
+        this.vtbl.GetSourceUri := CallbackCreate(GetMethod(implObj, "GetSourceUri"), flags, 2)
+        this.vtbl.GetTargetUri := CallbackCreate(GetMethod(implObj, "GetTargetUri"), flags, 2)
+        this.vtbl.GetTargetMode := CallbackCreate(GetMethod(implObj, "GetTargetMode"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetId)
+        CallbackFree(this.vtbl.GetRelationshipType)
+        CallbackFree(this.vtbl.GetSourceUri)
+        CallbackFree(this.vtbl.GetTargetUri)
+        CallbackFree(this.vtbl.GetTargetMode)
     }
 }

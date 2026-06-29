@@ -1,9 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include .\HMENU.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\WINDOW_EX_STYLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import ".\WINDOW_EX_STYLE.ahk" { WINDOW_EX_STYLE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\HMENU.ahk" { HMENU }
 
 /**
  * Defines the initialization parameters passed to the window procedure of an application. These members are identical to the parameters of the CreateWindowEx function. (ANSI)
@@ -41,10 +41,8 @@
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @charset ANSI
  */
-class CREATESTRUCTA extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct CREATESTRUCTA {
+    #StructPack 8
 
     /**
      * Type: <b>LPVOID</b>
@@ -54,140 +52,84 @@ class CREATESTRUCTA extends Win32Struct {
      * If the window being created is a MDI client window, this member contains a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-clientcreatestruct">CLIENTCREATESTRUCT</a> structure. If the window being created is a MDI child window, this member contains a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-mdicreatestructa">MDICREATESTRUCT</a> structure.
      * 
      *  If the window is being created from a dialog template, this member is the address of a <b>SHORT</b> value that specifies the size, in bytes, of the window creation data. The value is immediately followed by the creation data. For more information, see the following Remarks section.
-     * @type {Pointer<Void>}
      */
-    lpCreateParams {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpCreateParams : IntPtr
 
     /**
      * Type: <b>HINSTANCE</b>
      * 
      * A handle to the module that owns the new window.
-     * @type {HINSTANCE}
      */
-    hInstance {
-        get {
-            if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(8, this)
-            return this.__hInstance
-        }
-    }
+    hInstance : HINSTANCE
 
     /**
      * Type: <b>HMENU</b>
      * 
      * A handle to the menu to be used by the new window.
-     * @type {HMENU}
      */
-    hMenu {
-        get {
-            if(!this.HasProp("__hMenu"))
-                this.__hMenu := HMENU(16, this)
-            return this.__hMenu
-        }
-    }
+    hMenu : HMENU
 
     /**
      * Type: <b>HWND</b>
      * 
      * A handle to the parent window, if the window is a child window. If the window is owned, this member identifies the owner window. If the window is not a child or owned window, this member is <b>NULL</b>.
-     * @type {HWND}
      */
-    hwndParent {
-        get {
-            if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(24, this)
-            return this.__hwndParent
-        }
-    }
+    hwndParent : HWND
 
     /**
      * Type: <b>int</b>
      * 
      * The height of the new window, in pixels.
-     * @type {Integer}
      */
-    cy {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    cy : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * The width of the new window, in pixels.
-     * @type {Integer}
      */
-    cx {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    cx : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * The y-coordinate of the upper left corner of the new window. If the new window is a child window, coordinates are relative to the parent window. Otherwise, the coordinates are relative to the screen origin.
-     * @type {Integer}
      */
-    y {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    y : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * The x-coordinate of the upper left corner of the new window. If the new window is a child window, coordinates are relative to the parent window. Otherwise, the coordinates are relative to the screen origin.
-     * @type {Integer}
      */
-    x {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    x : Int32
 
     /**
      * Type: <b>LONG</b>
      * 
      * The style for the new window. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-styles">Window Styles</a>.
-     * @type {Integer}
      */
-    style {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    style : Int32
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * The name of the new window.
-     * @type {PSTR}
      */
-    lpszName {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    lpszName : PSTR
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string or an atom that specifies the class name of the new window.
-     * @type {PSTR}
      */
-    lpszClass {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    lpszClass : PSTR
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The extended window style for the new window. For a list of possible values, see  <a href="https://docs.microsoft.com/windows/desktop/winmsg/extended-window-styles">Extended Window Styles</a>.
-     * @type {WINDOW_EX_STYLE}
      */
-    dwExStyle {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    dwExStyle : WINDOW_EX_STYLE
+
 }

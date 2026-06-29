@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDXGISurface1.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDXGISurface1.ahk" { IDXGISurface1 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IDXGISurface2 interface extends the IDXGISurface1 interface by adding support for subresource surfaces and getting a handle to a shared resource.
@@ -16,26 +17,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nn-dxgi1_2-idxgisurface2
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGISurface2 extends IDXGISurface1 {
-
-    static sizeof => A_PtrSize
+export default struct IDXGISurface2 extends IDXGISurface1 {
     /**
      * The interface identifier for IDXGISurface2
      * @type {Guid}
      */
-    static IID => Guid("{aba496dd-b617-4cb8-a866-bc44d7eb1fa2}")
+    static IID := Guid("{aba496dd-b617-4cb8-a866-bc44d7eb1fa2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 13
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGISurface2 interfaces
+    */
+    struct Vtbl extends IDXGISurface1.Vtbl {
+        GetResource : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetResource"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGISurface2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the parent resource and subresource index that support a subresource surface.
@@ -58,7 +66,27 @@ class IDXGISurface2 extends IDXGISurface1 {
         ppParentResourceMarshal := ppParentResource is VarRef ? "ptr*" : "ptr"
         pSubresourceIndexMarshal := pSubresourceIndex is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "ptr", riid, ppParentResourceMarshal, ppParentResource, pSubresourceIndexMarshal, pSubresourceIndex, "HRESULT")
+        result := ComCall(13, this, Guid.Ptr, riid, ppParentResourceMarshal, ppParentResource, pSubresourceIndexMarshal, pSubresourceIndex, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDXGISurface2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetResource := CallbackCreate(GetMethod(implObj, "GetResource"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetResource)
     }
 }

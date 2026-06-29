@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MOUSE_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MOUSE_STATE.ahk" { MOUSE_STATE }
 
 /**
  * Contains information about the state of the mouse.
@@ -77,10 +76,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-rawmouse
  * @namespace Windows.Win32.UI.Input
  */
-class RAWMOUSE extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct RAWMOUSE {
+    #StructPack 4
 
     /**
      * Type: **USHORT**
@@ -94,78 +91,42 @@ class RAWMOUSE extends Win32Struct {
      * | **MOUSE_VIRTUAL_DESKTOP**</br>0x02 | Mouse coordinates are mapped to the virtual desktop (for a multiple monitor system). For further information about mouse motion, see the following Remarks section. |
      * | **MOUSE_ATTRIBUTES_CHANGED**</br>0x04 | Mouse attributes changed; application needs to query the mouse attributes. |
      * | **MOUSE_MOVE_NOCOALESCE**</br>0x08 | This mouse movement event was not coalesced. Mouse movement events can be coalesced by default.<br/>Windows XP/2000: This value is not supported. |
-     * @type {MOUSE_STATE}
      */
-    usFlags {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    usFlags : MOUSE_STATE
 
-    /**
-     * @type {Integer}
-     */
-    ulButtons {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    usButtonFlags {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    usButtonData {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    ulButtons : UInt32
 
     /**
      * Type: **ULONG**
      * 
      * The raw state of the mouse buttons. The Win32 subsystem does not use this member.
-     * @type {Integer}
      */
-    ulRawButtons {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulRawButtons : UInt32
 
     /**
      * Type: **LONG**
      * 
      * The motion in the X direction. This is signed relative motion or absolute motion, depending on the value of **usFlags**.
-     * @type {Integer}
      */
-    lLastX {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    lLastX : Int32
 
     /**
      * Type: **LONG**
      * 
      * The motion in the Y direction. This is signed relative motion or absolute motion, depending on the value of **usFlags**.
-     * @type {Integer}
      */
-    lLastY {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    lLastY : Int32
 
     /**
      * Type: **ULONG**
      * 
      * The device-specific additional information for the event.
-     * @type {Integer}
      */
-    ulExtraInformation {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+    ulExtraInformation : UInt32
+
+    static __New() {
+        DefineProp(this.Prototype, 'usButtonFlags', { type: UInt16, offset: 4 })
+        DefineProp(this.Prototype, 'usButtonData', { type: UInt16, offset: 6 })
+        this.DeleteProp("__New")
     }
 }

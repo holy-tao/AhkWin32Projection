@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class PHYSICAL_MEMORY_RUN extends Win32Struct {
-    static sizeof => 8
+export default struct PHYSICAL_MEMORY_RUN {
+    #StructPack 4
 
-    static packingSize => 4
+    BasePage : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BasePage {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PageCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PageCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Includes options that can be set or retrieved for the current Microsoft Windows HTTP Services (WinHTTP) session.
@@ -11,7 +10,17 @@
  * @see https://learn.microsoft.com/windows/win32/WinHttp/winhttprequestoption
  * @namespace Windows.Win32.Networking.WinHttp
  */
-class WinHttpRequestOption extends Win32Enum {
+export default struct WinHttpRequestOption {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

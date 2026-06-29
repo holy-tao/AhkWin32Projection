@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Do not use. Used to filter contact data, based on a label or property set. Enumerates contact properties exposed with an IContactProperties object. For each property, the name, type, version, and modification date can be retrieved.
@@ -12,26 +15,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/icontact/nn-icontact-icontactpropertycollection
  * @namespace Windows.Win32.System.Contacts
  */
-class IContactPropertyCollection extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IContactPropertyCollection extends IUnknown {
     /**
      * The interface identifier for IContactPropertyCollection
      * @type {Guid}
      */
-    static IID => Guid("{ffd3adf8-fa64-4328-b1b6-2e0db509cb3c}")
+    static IID := Guid("{ffd3adf8-fa64-4328-b1b6-2e0db509cb3c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IContactPropertyCollection interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Reset                       : IntPtr
+        Next                        : IntPtr
+        GetPropertyName             : IntPtr
+        GetPropertyType             : IntPtr
+        GetPropertyVersion          : IntPtr
+        GetPropertyModificationDate : IntPtr
+        GetPropertyArrayElementID   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Reset", "Next", "GetPropertyName", "GetPropertyType", "GetPropertyVersion", "GetPropertyModificationDate", "GetPropertyArrayElementID"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IContactPropertyCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Resets enumeration of properties.
@@ -313,7 +329,7 @@ class IContactPropertyCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactpropertycollection-getpropertymodificationdate
      */
     GetPropertyModificationDate(pftModificationDate) {
-        result := ComCall(8, this, "ptr", pftModificationDate, "HRESULT")
+        result := ComCall(8, this, FILETIME.Ptr, pftModificationDate, "HRESULT")
         return result
     }
 
@@ -385,5 +401,37 @@ class IContactPropertyCollection extends IUnknown {
 
         result := ComCall(9, this, "ptr", pszArrayElementID, "uint", cchArrayElementID, pdwcchArrayElementIDRequiredMarshal, pdwcchArrayElementIDRequired, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IContactPropertyCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 1)
+        this.vtbl.GetPropertyName := CallbackCreate(GetMethod(implObj, "GetPropertyName"), flags, 4)
+        this.vtbl.GetPropertyType := CallbackCreate(GetMethod(implObj, "GetPropertyType"), flags, 2)
+        this.vtbl.GetPropertyVersion := CallbackCreate(GetMethod(implObj, "GetPropertyVersion"), flags, 2)
+        this.vtbl.GetPropertyModificationDate := CallbackCreate(GetMethod(implObj, "GetPropertyModificationDate"), flags, 2)
+        this.vtbl.GetPropertyArrayElementID := CallbackCreate(GetMethod(implObj, "GetPropertyArrayElementID"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.Next)
+        CallbackFree(this.vtbl.GetPropertyName)
+        CallbackFree(this.vtbl.GetPropertyType)
+        CallbackFree(this.vtbl.GetPropertyVersion)
+        CallbackFree(this.vtbl.GetPropertyModificationDate)
+        CallbackFree(this.vtbl.GetPropertyArrayElementID)
     }
 }

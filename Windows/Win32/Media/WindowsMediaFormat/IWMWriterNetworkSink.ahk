@@ -1,33 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMWriterSink.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WMT_NET_PROTOCOL.ahk" { WMT_NET_PROTOCOL }
+#Import ".\IWMWriterSink.ahk" { IWMWriterSink }
 
 /**
  * The IWMWriterNetworkSink interface is used to deliver streams to the network.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmwriternetworksink
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMWriterNetworkSink extends IWMWriterSink {
-
-    static sizeof => A_PtrSize
+export default struct IWMWriterNetworkSink extends IWMWriterSink {
     /**
      * The interface identifier for IWMWriterNetworkSink
      * @type {Guid}
      */
-    static IID => Guid("{96406be7-2b2b-11d3-b36b-00c04f6108ff}")
+    static IID := Guid("{96406be7-2b2b-11d3-b36b-00c04f6108ff}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMWriterNetworkSink interfaces
+    */
+    struct Vtbl extends IWMWriterSink.Vtbl {
+        SetMaximumClients  : IntPtr
+        GetMaximumClients  : IntPtr
+        SetNetworkProtocol : IntPtr
+        GetNetworkProtocol : IntPtr
+        GetHostURL         : IntPtr
+        Open               : IntPtr
+        Disconnect         : IntPtr
+        Close              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetMaximumClients", "GetMaximumClients", "SetNetworkProtocol", "GetNetworkProtocol", "GetHostURL", "Open", "Disconnect", "Close"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMWriterNetworkSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetMaximumClients method sets the maximum number of clients that can connect to this sink. Call this method before streaming begins.
@@ -115,7 +132,7 @@ class IWMWriterNetworkSink extends IWMWriterSink {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriternetworksink-setnetworkprotocol
      */
     SetNetworkProtocol(protocol) {
-        result := ComCall(10, this, "int", protocol, "HRESULT")
+        result := ComCall(10, this, WMT_NET_PROTOCOL, protocol, "HRESULT")
         return result
     }
 
@@ -335,5 +352,39 @@ class IWMWriterNetworkSink extends IWMWriterSink {
     Close() {
         result := ComCall(15, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMWriterNetworkSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetMaximumClients := CallbackCreate(GetMethod(implObj, "SetMaximumClients"), flags, 2)
+        this.vtbl.GetMaximumClients := CallbackCreate(GetMethod(implObj, "GetMaximumClients"), flags, 2)
+        this.vtbl.SetNetworkProtocol := CallbackCreate(GetMethod(implObj, "SetNetworkProtocol"), flags, 2)
+        this.vtbl.GetNetworkProtocol := CallbackCreate(GetMethod(implObj, "GetNetworkProtocol"), flags, 2)
+        this.vtbl.GetHostURL := CallbackCreate(GetMethod(implObj, "GetHostURL"), flags, 3)
+        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 2)
+        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 1)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetMaximumClients)
+        CallbackFree(this.vtbl.GetMaximumClients)
+        CallbackFree(this.vtbl.SetNetworkProtocol)
+        CallbackFree(this.vtbl.GetNetworkProtocol)
+        CallbackFree(this.vtbl.GetHostURL)
+        CallbackFree(this.vtbl.Open)
+        CallbackFree(this.vtbl.Disconnect)
+        CallbackFree(this.vtbl.Close)
     }
 }

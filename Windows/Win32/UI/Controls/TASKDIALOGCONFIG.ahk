@@ -1,60 +1,40 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include .\TASKDIALOG_FLAGS.ahk
-#Include .\TASKDIALOG_COMMON_BUTTON_FLAGS.ahk
-#Include ..\WindowsAndMessaging\HICON.ahk
-#Include .\TASKDIALOG_BUTTON.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TASKDIALOG_BUTTON.ahk" { TASKDIALOG_BUTTON }
+#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import ".\TASKDIALOG_FLAGS.ahk" { TASKDIALOG_FLAGS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\TASKDIALOG_COMMON_BUTTON_FLAGS.ahk" { TASKDIALOG_COMMON_BUTTON_FLAGS }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 
 /**
  * The TASKDIALOGCONFIG structure contains information used to display a task dialog. The TaskDialogIndirect function uses this structure.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-taskdialogconfig
  * @namespace Windows.Win32.UI.Controls
  */
-class TASKDIALOGCONFIG extends Win32Struct {
-    static sizeof => 176
-
-    static packingSize => 8
+export default struct TASKDIALOGCONFIG {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Specifies the structure size, in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Handle to the parent window. This member can be <b>NULL</b>.
-     * @type {HWND}
      */
-    hwndParent {
-        get {
-            if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(8, this)
-            return this.__hwndParent
-        }
-    }
+    hwndParent : HWND
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HINSTANCE</a></b>
      * 
      * Handle to the module that contains the icon resource identified by the <b>pszMainIcon</b> or <b>pszFooterIcon</b> members, and the string resources identified by the <b>pszWindowTitle</b>, <b>pszMainInstruction</b>, <b>pszContent</b>, <b>pszVerificationText</b>, <b>pszExpandedInformation</b>, <b>pszExpandedControlText</b>, <b>pszCollapsedControlText</b> or <b>pszFooter</b> members.
-     * @type {HINSTANCE}
      */
-    hInstance {
-        get {
-            if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(16, this)
-            return this.__hInstance
-        }
-    }
+    hInstance : HINSTANCE
 
     /**
      * Type: <b>TASKDIALOG_FLAGS</b>
@@ -258,12 +238,8 @@ class TASKDIALOGCONFIG extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {TASKDIALOG_FLAGS}
      */
-    dwFlags {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    dwFlags : TASKDIALOG_FLAGS
 
     /**
      * Type: <b>TASKDIALOG_COMMON_BUTTON_FLAGS</b>
@@ -336,86 +312,45 @@ class TASKDIALOGCONFIG extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {TASKDIALOG_COMMON_BUTTON_FLAGS}
      */
-    dwCommonButtons {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    dwCommonButtons : TASKDIALOG_COMMON_BUTTON_FLAGS
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PCWSTR</a></b>
      * 
      * Pointer that references the string to be used for the task dialog title.  This parameter can be either a null-terminated string or an integer resource identifier passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. If this parameter is <b>NULL</b>, the filename of the executable program is used.
-     * @type {PWSTR}
      */
-    pszWindowTitle {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pszWindowTitle : PWSTR
 
-    /**
-     * @type {HICON}
-     */
-    hMainIcon {
-        get {
-            if(!this.HasProp("__hMainIcon"))
-                this.__hMainIcon := HICON(40, this)
-            return this.__hMainIcon
-        }
-    }
-
-    /**
-     * @type {PWSTR}
-     */
-    pszMainIcon {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    hMainIcon : HICON
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PCWSTR</a></b>
      * 
      * Pointer that references the string to be used for the main instruction. This parameter can be either a null-terminated string or an integer resource identifier passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro.
-     * @type {PWSTR}
      */
-    pszMainInstruction {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pszMainInstruction : PWSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PCWSTR</a></b>
      * 
      * Pointer that references the string to be used for the dialog's primary content. This parameter can be either a null-terminated string or an integer resource identifier passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. If the ENABLE_HYPERLINKS flag is specified for the <b>dwFlags</b> member, then this string may contain hyperlinks in the form: &lt;A HREF="executablestring"&gt;Hyperlink Text&lt;/A&gt;.  <b>WARNING: Enabling hyperlinks when using content from an unsafe source may cause security vulnerabilities.</b>
-     * @type {PWSTR}
      */
-    pszContent {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pszContent : PWSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The number of entries in the <b>pButtons</b> array that is used to create buttons or command links in the task dialog. If this member is zero and no common buttons have been specified using the <b>dwCommonButtons</b> member, then the task dialog will have a single <b>OK</b> button displayed.
-     * @type {Integer}
      */
-    cButtons {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    cButtons : UInt32
 
     /**
      * Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-taskdialog_button">TASKDIALOG_BUTTON</a>*</b>
      * 
      * Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-taskdialog_button">TASKDIALOG_BUTTON</a> structures containing the definition of the custom buttons that are to be displayed in the task dialog.  This array must contain at least the number of entries that are specified by the <b>cButtons</b> member.
-     * @type {Pointer<TASKDIALOG_BUTTON>}
      */
-    pButtons {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    pButtons : TASKDIALOG_BUTTON.Ptr
 
     /**
      * Type: <b>int</b>
@@ -451,108 +386,59 @@ class TASKDIALOGCONFIG extends Win32Struct {
      *  
      * 
      * If this member is zero or its value does not correspond to any button ID in the dialog, then the first button in the dialog will be the default.
-     * @type {Integer}
      */
-    nDefaultButton {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
-    }
+    nDefaultButton : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The number of entries in the <b>pRadioButtons</b> array that is used to create radio buttons in the task dialog.
-     * @type {Integer}
      */
-    cRadioButtons {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    cRadioButtons : UInt32
 
     /**
      * Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-taskdialog_button">TASKDIALOG_BUTTON</a>*</b>
      * 
      * Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-taskdialog_button">TASKDIALOG_BUTTON</a> structures containing the definition of the radio buttons that are to be displayed in the task dialog.  This array must contain at least the number of entries that are specified by the <b>cRadioButtons</b> member. This parameter can be <b>NULL</b>.
-     * @type {Pointer<TASKDIALOG_BUTTON>}
      */
-    pRadioButtons {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    pRadioButtons : TASKDIALOG_BUTTON.Ptr
 
     /**
      * Type: <b>int</b>
      * 
      * The button ID of the radio button that is selected by default. If this value does not correspond to a button ID, the first button in the array is selected by default.
-     * @type {Integer}
      */
-    nDefaultRadioButton {
-        get => NumGet(this, 96, "int")
-        set => NumPut("int", value, this, 96)
-    }
+    nDefaultRadioButton : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PCWSTR</a></b>
      * 
      * Pointer that references the string to be used to label the verification checkbox. This parameter can be either a null-terminated string or an integer resource identifier passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. If this parameter is <b>NULL</b>, the verification checkbox is not displayed in the task dialog. If the <i>pfVerificationFlagChecked</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-taskdialogindirect">TaskDialogIndirect</a> is <b>NULL</b>, the checkbox is not enabled.
-     * @type {PWSTR}
      */
-    pszVerificationText {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    pszVerificationText : PWSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PCWSTR</a></b>
      * 
      * Pointer that references the string to be used for displaying additional information. This parameter can be either a null-terminated string or an integer resource identifier passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro.   The additional information is displayed either immediately below the content or below the footer text depending on whether the TDF_EXPAND_FOOTER_AREA flag is specified.  If the TDF_ENABLE_HYPERLINKS flag is specified for the <b>dwFlags</b> member, then this string may contain hyperlinks in the form: &lt;A HREF="executablestring"&gt;Hyperlink Text&lt;/A&gt;. <b>WARNING: Enabling hyperlinks when using content from an unsafe source may cause security vulnerabilities.</b>
-     * @type {PWSTR}
      */
-    pszExpandedInformation {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    pszExpandedInformation : PWSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PCWSTR</a></b>
      * 
      * Pointer that references the string to be used to label the button for collapsing the expandable information. This parameter can be either a null-terminated string or an integer resource identifier passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. This member is ignored when the <b>pszExpandedInformation</b> member is <b>NULL</b>.  If this member is <b>NULL</b> and the <b>pszCollapsedControlText</b> is specified, then the <b>pszCollapsedControlText</b> value will be used for this member as well.
-     * @type {PWSTR}
      */
-    pszExpandedControlText {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    pszExpandedControlText : PWSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PCWSTR</a></b>
      * 
      * Pointer that references the string to be used to label the button for expanding the expandable information. This parameter can be either a null-terminated string or an integer resource identifier passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. This member is ignored when the <b>pszExpandedInformation</b> member is <b>NULL</b>.  If this member is <b>NULL</b> and the <b>pszCollapsedControlText</b> is specified, then the <b>pszCollapsedControlText</b> value will be used for this member as well.
-     * @type {PWSTR}
      */
-    pszCollapsedControlText {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    pszCollapsedControlText : PWSTR
 
-    /**
-     * @type {HICON}
-     */
-    hFooterIcon {
-        get {
-            if(!this.HasProp("__hFooterIcon"))
-                this.__hFooterIcon := HICON(136, this)
-            return this.__hFooterIcon
-        }
-    }
-
-    /**
-     * @type {PWSTR}
-     */
-    pszFooterIcon {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
-    }
+    hFooterIcon : HICON
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PCWSTR</a></b>
@@ -569,48 +455,33 @@ class TASKDIALOGCONFIG extends Win32Struct {
      * 
      * <div class="alert"><b>Warning</b>  Enabling hyperlinks when using content from an unsafe source may cause security vulnerabilities.</div>
      * <div> </div>
-     * @type {PWSTR}
      */
-    pszFooter {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
-    }
+    pszFooter : PWSTR
 
     /**
      * Type: <b>PFTASKDIALOGCALLBACK</b>
      * 
      * Pointer to an application-defined callback function. For more information see <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nc-commctrl-pftaskdialogcallback">TaskDialogCallbackProc</a>.
-     * @type {Pointer<PFTASKDIALOGCALLBACK>}
      */
-    pfCallback {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
-    }
+    pfCallback : IntPtr
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG_PTR</a></b>
      * 
      * A pointer to application-defined reference data. This value is defined by the caller.
-     * @type {Pointer}
      */
-    lpCallbackData {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
-    }
+    lpCallbackData : IntPtr
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The width of the task dialog's client area, in dialog units. If 0, the task dialog manager will calculate the ideal width.
-     * @type {Integer}
      */
-    cxWidth {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
-    }
+    cxWidth : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 176
+    static __New() {
+        DefineProp(this.Prototype, 'pszMainIcon', { type: PWSTR, offset: 40 })
+        DefineProp(this.Prototype, 'pszFooterIcon', { type: PWSTR, offset: 136 })
+        this.DeleteProp("__New")
     }
 }

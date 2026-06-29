@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_HRDSSS_PHY_ATTRIBUTES extends Win32Struct {
-    static sizeof => 8
+export default struct DOT11_HRDSSS_PHY_ATTRIBUTES {
+    #StructPack 4
 
-    static packingSize => 4
+    bShortPreambleOptionImplemented : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bShortPreambleOptionImplemented {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    bPBCCOptionImplemented : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bPBCCOptionImplemented {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    bChannelAgilityPresent : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bChannelAgilityPresent {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    uHRCCAModeSupported : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uHRCCAModeSupported {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
 }

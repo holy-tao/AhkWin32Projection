@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\DXGI_FRAME_STATISTICS_MEDIA.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXGI_FRAME_STATISTICS_MEDIA.ahk" { DXGI_FRAME_STATISTICS_MEDIA }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This swap chain interface allows desktop media applications to request a seamless change to a specific refresh rate.
@@ -14,26 +15,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nn-dxgi1_3-idxgiswapchainmedia
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGISwapChainMedia extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDXGISwapChainMedia extends IUnknown {
     /**
      * The interface identifier for IDXGISwapChainMedia
      * @type {Guid}
      */
-    static IID => Guid("{dd95b90b-f05f-4f6a-bd65-25bfb264bd84}")
+    static IID := Guid("{dd95b90b-f05f-4f6a-bd65-25bfb264bd84}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGISwapChainMedia interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetFrameStatisticsMedia     : IntPtr
+        SetPresentDuration          : IntPtr
+        CheckPresentDurationSupport : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFrameStatisticsMedia", "SetPresentDuration", "CheckPresentDurationSupport"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGISwapChainMedia.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Queries the system for a DXGI_FRAME_STATISTICS_MEDIA structure that indicates whether a custom refresh rate is currently approved by the system.
@@ -42,7 +52,7 @@ class IDXGISwapChainMedia extends IUnknown {
      */
     GetFrameStatisticsMedia() {
         pStats := DXGI_FRAME_STATISTICS_MEDIA()
-        result := ComCall(3, this, "ptr", pStats, "HRESULT")
+        result := ComCall(3, this, DXGI_FRAME_STATISTICS_MEDIA.Ptr, pStats, "HRESULT")
         return pStats
     }
 
@@ -73,5 +83,29 @@ class IDXGISwapChainMedia extends IUnknown {
 
         result := ComCall(5, this, "uint", DesiredPresentDuration, pClosestSmallerPresentDurationMarshal, pClosestSmallerPresentDuration, pClosestLargerPresentDurationMarshal, pClosestLargerPresentDuration, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDXGISwapChainMedia.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFrameStatisticsMedia := CallbackCreate(GetMethod(implObj, "GetFrameStatisticsMedia"), flags, 2)
+        this.vtbl.SetPresentDuration := CallbackCreate(GetMethod(implObj, "SetPresentDuration"), flags, 2)
+        this.vtbl.CheckPresentDurationSupport := CallbackCreate(GetMethod(implObj, "CheckPresentDurationSupport"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFrameStatisticsMedia)
+        CallbackFree(this.vtbl.SetPresentDuration)
+        CallbackFree(this.vtbl.CheckPresentDurationSupport)
     }
 }

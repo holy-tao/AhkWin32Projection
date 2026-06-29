@@ -1,31 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FILE_OPENMODE.ahk" { FILE_OPENMODE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SEEK_ORIGIN.ahk" { SEEK_ORIGIN }
+#Import ".\FILE_ACCESSMODE.ahk" { FILE_ACCESSMODE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IFileIo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IFileIo extends IUnknown {
     /**
      * The interface identifier for IFileIo
      * @type {Guid}
      */
-    static IID => Guid("{11993196-1244-4840-ab44-480975c4ffe4}")
+    static IID := Guid("{11993196-1244-4840-ab44-480975c4ffe4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFileIo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize         : IntPtr
+        GetLength          : IntPtr
+        SetLength          : IntPtr
+        GetCurrentPosition : IntPtr
+        SetCurrentPosition : IntPtr
+        IsEndOfStream      : IntPtr
+        Read               : IntPtr
+        Write              : IntPtr
+        Seek               : IntPtr
+        Close              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetLength", "SetLength", "GetCurrentPosition", "SetCurrentPosition", "IsEndOfStream", "Read", "Write", "Seek", "Close"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFileIo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes a thread to use Windows Runtime APIs.
@@ -61,18 +83,14 @@ class IFileIo extends IUnknown {
     Initialize(eAccessMode, eOpenMode, pwszFileName) {
         pwszFileName := pwszFileName is String ? StrPtr(pwszFileName) : pwszFileName
 
-        result := ComCall(3, this, "int", eAccessMode, "int", eOpenMode, "ptr", pwszFileName, "HRESULT")
+        result := ComCall(3, this, FILE_ACCESSMODE, eAccessMode, FILE_OPENMODE, eOpenMode, "ptr", pwszFileName, "HRESULT")
         return result
     }
 
     /**
-     * Returns the length, in bytes, of a valid security identifier (SID).
-     * @param {Pointer<Integer>} pqwLength 
-     * @returns {HRESULT} If the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is valid, the return value is the length, in bytes, of the <b>SID</b> structure.
      * 
-     * If the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is not valid, the return value is undefined. Before calling <b>GetLengthSid</b>, pass the SID to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-isvalidsid">IsValidSid</a> function to verify that the SID is valid.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getlengthsid
+     * @param {Pointer<Integer>} pqwLength 
+     * @returns {HRESULT} 
      */
     GetLength(pqwLength) {
         pqwLengthMarshal := pqwLength is VarRef ? "uint*" : "ptr"
@@ -92,12 +110,9 @@ class IFileIo extends IUnknown {
     }
 
     /**
-     * The GetCurrentPositionEx function retrieves the current position in logical coordinates.
-     * @param {Pointer<Integer>} pqwPosition 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 
-     * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcurrentpositionex
+     * @param {Pointer<Integer>} pqwPosition 
+     * @returns {HRESULT} 
      */
     GetCurrentPosition(pqwPosition) {
         pqwPositionMarshal := pqwPosition is VarRef ? "uint*" : "ptr"
@@ -129,14 +144,11 @@ class IFileIo extends IUnknown {
     }
 
     /**
-     * The ReadBlobFromFile function reads a BLOB in a file.
+     * 
      * @param {Pointer<Integer>} pbt 
      * @param {Integer} ul 
      * @param {Pointer<Integer>} pulRead 
-     * @returns {HRESULT} If the function is successful, the return value is NMERR\_SUCCESS.
-     * 
-     * If the function is unsuccessful, the return value is a NMERR value that indicates the error.
-     * @see https://learn.microsoft.com/windows/win32/NetMon2/readblobfromfile
+     * @returns {HRESULT} 
      */
     Read(pbt, ul, pulRead) {
         pbtMarshal := pbt is VarRef ? "char*" : "ptr"
@@ -147,15 +159,11 @@ class IFileIo extends IUnknown {
     }
 
     /**
-     * The WriteBackRootHintDatafile method writes the RootHints back to the DNS Cache file.
+     * 
      * @param {Pointer<Integer>} pbt 
      * @param {Integer} ul 
      * @param {Pointer<Integer>} pulWritten 
-     * @returns {HRESULT} This method has no parameters.
-     * 
-     * 
-     * This method does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/DNS/microsoftdns-roothints-writebackroothintdatafile
+     * @returns {HRESULT} 
      */
     Write(pbt, ul, pulWritten) {
         pbtMarshal := pbt is VarRef ? "char*" : "ptr"
@@ -166,40 +174,64 @@ class IFileIo extends IUnknown {
     }
 
     /**
-     * The Seekable attribute is a file-level attribute specifying whether an application can seek to points within the content.
-     * @remarks
-     * This is a coded attribute.
      * 
-     * This attribute cannot be duplicated at the file level. If this attribute is used for an individual stream, it will be treated as custom metadata and will not convey its normal meaning to the objects of the Windows Media Format SDK.
-     * 
-     * The value of this attribute for a file may vary depending upon the object exposing the [**IWMHeaderInfo**](/previous-versions/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmheaderinfo) or [**IWMHeaderInfo3**](/previous-versions/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmheaderinfo3) interface used to retrieve it. This is because the reader objects (both synchronous and asynchronous) perform a more thorough check than the metadata editor object does, to ascertain whether you can seek to a point in a file. The **Seekable** attribute value returned by a reader object is more accurate.
      * @param {SEEK_ORIGIN} eSeekOrigin 
      * @param {Integer} qwSeekOffset 
      * @param {Integer} dwSeekFlags 
      * @param {Pointer<Integer>} pqwCurrentPosition 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/wmformat/seekable
      */
     Seek(eSeekOrigin, qwSeekOffset, dwSeekFlags, pqwCurrentPosition) {
         pqwCurrentPositionMarshal := pqwCurrentPosition is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "int", eSeekOrigin, "uint", qwSeekOffset, "uint", dwSeekFlags, pqwCurrentPositionMarshal, pqwCurrentPosition, "HRESULT")
+        result := ComCall(11, this, SEEK_ORIGIN, eSeekOrigin, "uint", qwSeekOffset, "uint", dwSeekFlags, pqwCurrentPositionMarshal, pqwCurrentPosition, "HRESULT")
         return result
     }
 
     /**
-     * Use the Close-Session packet to tell the BITS server that file upload is complete and to end the session.
-     * @remarks
-     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
      * 
-     * For upload-reply jobs, you must download the reply before sending **Close-Session**. Otherwise, the reply is lost.
-     * 
-     * If you send this packet before uploading all fragments, the upload file is deleted; you cannot upload a partial file.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Bits/close-session
      */
     Close() {
         result := ComCall(12, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFileIo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.SetLength := CallbackCreate(GetMethod(implObj, "SetLength"), flags, 2)
+        this.vtbl.GetCurrentPosition := CallbackCreate(GetMethod(implObj, "GetCurrentPosition"), flags, 2)
+        this.vtbl.SetCurrentPosition := CallbackCreate(GetMethod(implObj, "SetCurrentPosition"), flags, 2)
+        this.vtbl.IsEndOfStream := CallbackCreate(GetMethod(implObj, "IsEndOfStream"), flags, 2)
+        this.vtbl.Read := CallbackCreate(GetMethod(implObj, "Read"), flags, 4)
+        this.vtbl.Write := CallbackCreate(GetMethod(implObj, "Write"), flags, 4)
+        this.vtbl.Seek := CallbackCreate(GetMethod(implObj, "Seek"), flags, 5)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetLength)
+        CallbackFree(this.vtbl.SetLength)
+        CallbackFree(this.vtbl.GetCurrentPosition)
+        CallbackFree(this.vtbl.SetCurrentPosition)
+        CallbackFree(this.vtbl.IsEndOfStream)
+        CallbackFree(this.vtbl.Read)
+        CallbackFree(this.vtbl.Write)
+        CallbackFree(this.vtbl.Seek)
+        CallbackFree(this.vtbl.Close)
     }
 }

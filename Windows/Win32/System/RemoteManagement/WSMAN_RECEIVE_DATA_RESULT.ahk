@@ -1,56 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSMAN_DATA.ahk
-#Include .\WSManDataType.ahk
-#Include .\WSMAN_DATA_TEXT.ahk
-#Include .\WSMAN_DATA_BINARY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WSMAN_DATA.ahk" { WSMAN_DATA }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WSMAN_DATA_BINARY.ahk" { WSMAN_DATA_BINARY }
+#Import ".\WSManDataType.ahk" { WSManDataType }
+#Import ".\WSMAN_DATA_TEXT.ahk" { WSMAN_DATA_TEXT }
 
 /**
  * Represents the output data received from a WSManReceiveShellOutput method.
  * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_receive_data_result
  * @namespace Windows.Win32.System.RemoteManagement
  */
-class WSMAN_RECEIVE_DATA_RESULT extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct WSMAN_RECEIVE_DATA_RESULT {
+    #StructPack 8
 
     /**
      * Represents the <b>streamId</b> for which <b>streamData</b> is defined.
-     * @type {PWSTR}
      */
-    streamId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    streamId : PWSTR
 
     /**
      * Represents the data associated with <b>streamId</b>. The data can be stream text, binary content, or XML. For more information about the possible data, see <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_data">WSMAN_DATA</a>.
-     * @type {WSMAN_DATA}
      */
-    streamData {
-        get {
-            if(!this.HasProp("__streamData"))
-                this.__streamData := WSMAN_DATA(8, this)
-            return this.__streamData
-        }
-    }
+    streamData : WSMAN_DATA
 
     /**
      * Specifies the status of the command. If this member is set to <b>WSMAN_COMMAND_STATE_DONE</b>, the command should be immediately closed.
-     * @type {PWSTR}
      */
-    commandState {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    commandState : PWSTR
 
     /**
      * Defines the exit code of the command. This value is relevant only if the <b>commandState</b> member is set to <b>WSMAN_COMMAND_STATE_DONE</b>.
-     * @type {Integer}
      */
-    exitCode {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    exitCode : UInt32
+
 }

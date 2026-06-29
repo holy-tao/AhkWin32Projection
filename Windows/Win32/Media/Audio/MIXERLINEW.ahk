@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIXERLINE_COMPONENTTYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MIXERLINE_COMPONENTTYPE.ahk" { MIXERLINE_COMPONENTTYPE }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The MIXERLINE structure describes the state and metrics of an audio line. (MIXERLINEW)
@@ -11,99 +11,44 @@
  * @namespace Windows.Win32.Media.Audio
  * @charset Unicode
  */
-class MIXERLINEW extends Win32Struct {
-    static sizeof => 288
+export default struct MIXERLINEW {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Target extends Win32Struct {
-        static sizeof => 80
-        static packingSize => 4
+    struct _Target {
+        dwType : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        dwType {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        dwDeviceID : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        dwDeviceID {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
+        wMid : UInt16
 
-        /**
-         * @type {Integer}
-         */
-        wMid {
-            get => NumGet(this, 8, "ushort")
-            set => NumPut("ushort", value, this, 8)
-        }
+        wPid : UInt16
 
-        /**
-         * @type {Integer}
-         */
-        wPid {
-            get => NumGet(this, 10, "ushort")
-            set => NumPut("ushort", value, this, 10)
-        }
+        vDriverVersion : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        vDriverVersion {
-            get => NumGet(this, 12, "uint")
-            set => NumPut("uint", value, this, 12)
-        }
+        szPname : WCHAR[32]
 
-        /**
-         * @type {String}
-         */
-        szPname {
-            get => StrGet(this.ptr + 16, 31, "UTF-16")
-            set => StrPut(value, this.ptr + 16, 31, "UTF-16")
-        }
     }
 
     /**
      * Size, in bytes, of the <b>MIXERLINE</b> structure. This member must be initialized before calling the <a href="https://docs.microsoft.com/previous-versions/dd757303(v=vs.85)">mixerGetLineInfo</a> function. The size specified in this member must be large enough to contain the <b>MIXERLINE</b> structure. When <b>mixerGetLineInfo</b> returns, this member contains the actual size of the information returned. The returned information will not exceed the requested size.
-     * @type {Integer}
      */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbStruct : UInt32
 
     /**
      * Destination line index. This member ranges from zero to one less than the value specified in the <b>cDestinations</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixercapsa">MIXERCAPS</a> structure retrieved by the <a href="https://docs.microsoft.com/previous-versions/dd757300(v=vs.85)">mixerGetDevCaps</a> function. When the <a href="https://docs.microsoft.com/previous-versions/dd757303(v=vs.85)">mixerGetLineInfo</a> function is called with the MIXER_GETLINEINFOF_DESTINATION flag, properties for the destination line are returned. (The <b>dwSource</b> member must be set to zero in this case.) When called with the MIXER_GETLINEINFOF_SOURCE flag, the properties for the source given by the <b>dwSource</b> member that is associated with the <b>dwDestination</b> member are returned.
-     * @type {Integer}
      */
-    dwDestination {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwDestination : UInt32
 
     /**
      * Index for the audio source line associated with the <b>dwDestination</b> member. That is, this member specifies the <i>n</i>th audio source line associated with the specified audio destination line. This member is not used for destination lines and must be set to zero when MIXER_GETLINEINFOF_DESTINATION is specified in the <a href="https://docs.microsoft.com/previous-versions/dd757303(v=vs.85)">mixerGetLineInfo</a> function. When the MIXER_GETLINEINFOF_SOURCE flag is specified, this member ranges from zero to one less than the value specified in the <b>cConnections</b> member for the audio destination line given in the <b>dwDestination</b> member.
-     * @type {Integer}
      */
-    dwSource {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwSource : UInt32
 
     /**
      * An identifier defined by the mixer device that uniquely refers to the audio line described by the <b>MIXERLINE</b> structure. This identifier is unique for each mixer device and can be in any format. An application should use this identifier only as an abstract handle.
-     * @type {Integer}
      */
-    dwLineID {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwLineID : UInt32
 
     /**
      * Status and support flags for the audio line. This member is always returned to the application and requires no initialization.
@@ -153,29 +98,15 @@ class MIXERLINEW extends Win32Struct {
      * A paused or starved waveform-audio output device is still considered active. In other words, if the waveform-audio output device is opened by an application regardless of whether data is being played, the associated audio line is considered active. 
      * 
      * If a line cannot be strictly defined as active, the mixer device will always set the MIXERLINE_LINEF_ACTIVE flag.
-     * @type {Integer}
      */
-    fdwLine {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    fdwLine : UInt32
 
     /**
      * Instance data defined by the audio device for the line. This member is intended for custom mixer applications designed specifically for the mixer device returning this information. Other applications should ignore this data.
-     * @type {Pointer}
      */
-    dwUser {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    dwUser : IntPtr
 
-    /**
-     * @type {MIXERLINE_COMPONENTTYPE}
-     */
-    dwComponentType {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwComponentType : MIXERLINE_COMPONENTTYPE
 
     /**
      * Maximum number of separate channels that can be manipulated independently for the audio line. The minimum value for this field is 1 because a line must have at least one channel. 
@@ -185,58 +116,32 @@ class MIXERLINEW extends Win32Struct {
      * Channel 1 is assumed to be the left channel; channel 2 is assumed to be the right channel. 
      * 
      * A multichannel line might have one or more uniform controls (controls that affect all channels of a line uniformly) associated with it.
-     * @type {Integer}
      */
-    cChannels {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    cChannels : UInt32
 
     /**
      * Number of connections that are associated with the audio line. This member is used only for audio destination lines and specifies the number of audio source lines that are associated with it. This member is always zero for source lines and for destination lines that do not have any audio source lines associated with them.
-     * @type {Integer}
      */
-    cConnections {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    cConnections : UInt32
 
     /**
      * Number of controls associated with the audio line. This value can be zero. If no controls are associated with the line, the line is likely to be a source that might be selected in a MIXERCONTROL_CONTROLTYPE_MUX or MIXERCONTROL_CONTROLTYPE_MIXER but allows no manipulation of the signal.
-     * @type {Integer}
      */
-    cControls {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    cControls : UInt32
 
     /**
      * Short string that describes the audio mixer line specified in the <b>dwLineID</b> member. This description should be appropriate as a concise label for the line.
-     * @type {String}
      */
-    szShortName {
-        get => StrGet(this.ptr + 48, 15, "UTF-16")
-        set => StrPut(value, this.ptr + 48, 15, "UTF-16")
-    }
+    szShortName : WCHAR[16]
 
     /**
      * String that describes the audio mixer line specified in the <b>dwLineID</b> member. This description should be appropriate as a complete description for the line.
-     * @type {String}
      */
-    szName {
-        get => StrGet(this.ptr + 80, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 80, 63, "UTF-16")
-    }
+    szName : WCHAR[64]
 
     /**
      * Target media information.
-     * @type {_Target}
      */
-    Target {
-        get {
-            if(!this.HasProp("__Target"))
-                this.__Target := MIXERLINEW._Target(208, this)
-            return this.__Target
-        }
-    }
+    Target : MIXERLINEW._Target
+
 }

@@ -1,11 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ISearchJob.ahk
-#Include .\ISearchResult.ahk
-#Include .\IUpdateHistoryEntryCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ISearchJob.ahk" { ISearchJob }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISearchResult.ahk" { ISearchResult }
+#Import ".\ServerSelection.ahk" { ServerSelection }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IUpdateHistoryEntryCollection.ahk" { IUpdateHistoryEntryCollection }
 
 /**
  * Searches for updates on a server. (IUpdateSearcher)
@@ -14,32 +19,56 @@
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdatesearcher
  * @namespace Windows.Win32.System.UpdateAgent
  */
-class IUpdateSearcher extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IUpdateSearcher extends IDispatch {
     /**
      * The interface identifier for IUpdateSearcher
      * @type {Guid}
      */
-    static IID => Guid("{8f45abf1-f9ae-4b95-a933-f0f66e5056ea}")
+    static IID := Guid("{8f45abf1-f9ae-4b95-a933-f0f66e5056ea}")
 
     /**
      * The class identifier for UpdateSearcher
      * @type {Guid}
      */
-    static CLSID => Guid("{b699e5e8-67ff-4177-88b0-3684a3388bfb}")
+    static CLSID := Guid("{b699e5e8-67ff-4177-88b0-3684a3388bfb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUpdateSearcher interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_CanAutomaticallyUpgradeService      : IntPtr
+        put_CanAutomaticallyUpgradeService      : IntPtr
+        get_ClientApplicationID                 : IntPtr
+        put_ClientApplicationID                 : IntPtr
+        get_IncludePotentiallySupersededUpdates : IntPtr
+        put_IncludePotentiallySupersededUpdates : IntPtr
+        get_ServerSelection                     : IntPtr
+        put_ServerSelection                     : IntPtr
+        BeginSearch                             : IntPtr
+        EndSearch                               : IntPtr
+        EscapeString                            : IntPtr
+        QueryHistory                            : IntPtr
+        Search                                  : IntPtr
+        get_Online                              : IntPtr
+        put_Online                              : IntPtr
+        GetTotalHistoryCount                    : IntPtr
+        get_ServiceID                           : IntPtr
+        put_ServiceID                           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_CanAutomaticallyUpgradeService", "put_CanAutomaticallyUpgradeService", "get_ClientApplicationID", "put_ClientApplicationID", "get_IncludePotentiallySupersededUpdates", "put_IncludePotentiallySupersededUpdates", "get_ServerSelection", "put_ServerSelection", "BeginSearch", "EndSearch", "EscapeString", "QueryHistory", "Search", "get_Online", "put_Online", "GetTotalHistoryCount", "get_ServiceID", "put_ServiceID"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUpdateSearcher.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -95,7 +124,7 @@ class IUpdateSearcher extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-get_canautomaticallyupgradeservice
      */
     get_CanAutomaticallyUpgradeService() {
-        result := ComCall(7, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(7, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -106,7 +135,7 @@ class IUpdateSearcher extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-put_canautomaticallyupgradeservice
      */
     put_CanAutomaticallyUpgradeService(value) {
-        result := ComCall(8, this, "short", value, "HRESULT")
+        result := ComCall(8, this, VARIANT_BOOL, value, "HRESULT")
         return result
     }
 
@@ -118,8 +147,8 @@ class IUpdateSearcher extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-get_clientapplicationid
      */
     get_ClientApplicationID() {
-        retval := BSTR()
-        result := ComCall(9, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -134,7 +163,7 @@ class IUpdateSearcher extends IDispatch {
     put_ClientApplicationID(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        result := ComCall(10, this, "ptr", value, "HRESULT")
+        result := ComCall(10, this, BSTR, value, "HRESULT")
         return result
     }
 
@@ -144,7 +173,7 @@ class IUpdateSearcher extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-get_includepotentiallysupersededupdates
      */
     get_IncludePotentiallySupersededUpdates() {
-        result := ComCall(11, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -155,7 +184,7 @@ class IUpdateSearcher extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-put_includepotentiallysupersededupdates
      */
     put_IncludePotentiallySupersededUpdates(value) {
-        result := ComCall(12, this, "short", value, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL, value, "HRESULT")
         return result
     }
 
@@ -180,7 +209,7 @@ class IUpdateSearcher extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-put_serverselection
      */
     put_ServerSelection(value) {
-        result := ComCall(14, this, "int", value, "HRESULT")
+        result := ComCall(14, this, ServerSelection, value, "HRESULT")
         return result
     }
 
@@ -203,7 +232,7 @@ class IUpdateSearcher extends IDispatch {
     BeginSearch(criteria, onCompleted, state) {
         criteria := criteria is String ? BSTR.Alloc(criteria).Value : criteria
 
-        result := ComCall(15, this, "ptr", criteria, "ptr", onCompleted, "ptr", state, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(15, this, BSTR, criteria, "ptr", onCompleted, VARIANT, state, "ptr*", &retval := 0, "HRESULT")
         return ISearchJob(retval)
     }
 
@@ -234,8 +263,8 @@ class IUpdateSearcher extends IDispatch {
     EscapeString(unescaped) {
         unescaped := unescaped is String ? BSTR.Alloc(unescaped).Value : unescaped
 
-        retval := BSTR()
-        result := ComCall(17, this, "ptr", unescaped, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(17, this, BSTR, unescaped, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -460,7 +489,7 @@ class IUpdateSearcher extends IDispatch {
     Search(criteria) {
         criteria := criteria is String ? BSTR.Alloc(criteria).Value : criteria
 
-        result := ComCall(19, this, "ptr", criteria, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(19, this, BSTR, criteria, "ptr*", &retval := 0, "HRESULT")
         return ISearchResult(retval)
     }
 
@@ -470,7 +499,7 @@ class IUpdateSearcher extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-get_online
      */
     get_Online() {
-        result := ComCall(20, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(20, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -481,7 +510,7 @@ class IUpdateSearcher extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-put_online
      */
     put_Online(value) {
-        result := ComCall(21, this, "short", value, "HRESULT")
+        result := ComCall(21, this, VARIANT_BOOL, value, "HRESULT")
         return result
     }
 
@@ -503,8 +532,8 @@ class IUpdateSearcher extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-get_serviceid
      */
     get_ServiceID() {
-        retval := BSTR()
-        result := ComCall(23, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(23, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -519,7 +548,61 @@ class IUpdateSearcher extends IDispatch {
     put_ServiceID(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        result := ComCall(24, this, "ptr", value, "HRESULT")
+        result := ComCall(24, this, BSTR, value, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUpdateSearcher.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_CanAutomaticallyUpgradeService := CallbackCreate(GetMethod(implObj, "get_CanAutomaticallyUpgradeService"), flags, 2)
+        this.vtbl.put_CanAutomaticallyUpgradeService := CallbackCreate(GetMethod(implObj, "put_CanAutomaticallyUpgradeService"), flags, 2)
+        this.vtbl.get_ClientApplicationID := CallbackCreate(GetMethod(implObj, "get_ClientApplicationID"), flags, 2)
+        this.vtbl.put_ClientApplicationID := CallbackCreate(GetMethod(implObj, "put_ClientApplicationID"), flags, 2)
+        this.vtbl.get_IncludePotentiallySupersededUpdates := CallbackCreate(GetMethod(implObj, "get_IncludePotentiallySupersededUpdates"), flags, 2)
+        this.vtbl.put_IncludePotentiallySupersededUpdates := CallbackCreate(GetMethod(implObj, "put_IncludePotentiallySupersededUpdates"), flags, 2)
+        this.vtbl.get_ServerSelection := CallbackCreate(GetMethod(implObj, "get_ServerSelection"), flags, 2)
+        this.vtbl.put_ServerSelection := CallbackCreate(GetMethod(implObj, "put_ServerSelection"), flags, 2)
+        this.vtbl.BeginSearch := CallbackCreate(GetMethod(implObj, "BeginSearch"), flags, 5)
+        this.vtbl.EndSearch := CallbackCreate(GetMethod(implObj, "EndSearch"), flags, 3)
+        this.vtbl.EscapeString := CallbackCreate(GetMethod(implObj, "EscapeString"), flags, 3)
+        this.vtbl.QueryHistory := CallbackCreate(GetMethod(implObj, "QueryHistory"), flags, 4)
+        this.vtbl.Search := CallbackCreate(GetMethod(implObj, "Search"), flags, 3)
+        this.vtbl.get_Online := CallbackCreate(GetMethod(implObj, "get_Online"), flags, 2)
+        this.vtbl.put_Online := CallbackCreate(GetMethod(implObj, "put_Online"), flags, 2)
+        this.vtbl.GetTotalHistoryCount := CallbackCreate(GetMethod(implObj, "GetTotalHistoryCount"), flags, 2)
+        this.vtbl.get_ServiceID := CallbackCreate(GetMethod(implObj, "get_ServiceID"), flags, 2)
+        this.vtbl.put_ServiceID := CallbackCreate(GetMethod(implObj, "put_ServiceID"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_CanAutomaticallyUpgradeService)
+        CallbackFree(this.vtbl.put_CanAutomaticallyUpgradeService)
+        CallbackFree(this.vtbl.get_ClientApplicationID)
+        CallbackFree(this.vtbl.put_ClientApplicationID)
+        CallbackFree(this.vtbl.get_IncludePotentiallySupersededUpdates)
+        CallbackFree(this.vtbl.put_IncludePotentiallySupersededUpdates)
+        CallbackFree(this.vtbl.get_ServerSelection)
+        CallbackFree(this.vtbl.put_ServerSelection)
+        CallbackFree(this.vtbl.BeginSearch)
+        CallbackFree(this.vtbl.EndSearch)
+        CallbackFree(this.vtbl.EscapeString)
+        CallbackFree(this.vtbl.QueryHistory)
+        CallbackFree(this.vtbl.Search)
+        CallbackFree(this.vtbl.get_Online)
+        CallbackFree(this.vtbl.put_Online)
+        CallbackFree(this.vtbl.GetTotalHistoryCount)
+        CallbackFree(this.vtbl.get_ServiceID)
+        CallbackFree(this.vtbl.put_ServiceID)
     }
 }

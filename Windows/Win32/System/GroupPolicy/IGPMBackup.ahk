@@ -1,41 +1,60 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IGPMResult.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\GPMReportType.ahk" { GPMReportType }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IGPMResult.ahk" { IGPMResult }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IGPMBackup interface supports methods that allow you to delete GPMBackup objects and to retrieve various properties of GPMBackup objects.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmbackup
  * @namespace Windows.Win32.System.GroupPolicy
  */
-class IGPMBackup extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IGPMBackup extends IDispatch {
     /**
      * The interface identifier for IGPMBackup
      * @type {Guid}
      */
-    static IID => Guid("{d8a16a35-3b0d-416b-8d02-4df6f95a7119}")
+    static IID := Guid("{d8a16a35-3b0d-416b-8d02-4df6f95a7119}")
 
     /**
      * The class identifier for GPMBackup
      * @type {Guid}
      */
-    static CLSID => Guid("{ed1a54b8-5efa-482a-93c0-8ad86f0d68c3}")
+    static CLSID := Guid("{ed1a54b8-5efa-482a-93c0-8ad86f0d68c3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGPMBackup interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_ID               : IntPtr
+        get_GPOID            : IntPtr
+        get_GPODomain        : IntPtr
+        get_GPODisplayName   : IntPtr
+        get_Timestamp        : IntPtr
+        get_Comment          : IntPtr
+        get_BackupDir        : IntPtr
+        Delete               : IntPtr
+        GenerateReport       : IntPtr
+        GenerateReportToFile : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ID", "get_GPOID", "get_GPODomain", "get_GPODisplayName", "get_Timestamp", "get_Comment", "get_BackupDir", "Delete", "GenerateReport", "GenerateReportToFile"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGPMBackup.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -91,8 +110,8 @@ class IGPMBackup extends IDispatch {
      * @returns {BSTR} 
      */
     get_ID() {
-        pVal := BSTR()
-        result := ComCall(7, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -101,8 +120,8 @@ class IGPMBackup extends IDispatch {
      * @returns {BSTR} 
      */
     get_GPOID() {
-        pVal := BSTR()
-        result := ComCall(8, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -111,8 +130,8 @@ class IGPMBackup extends IDispatch {
      * @returns {BSTR} 
      */
     get_GPODomain() {
-        pVal := BSTR()
-        result := ComCall(9, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -121,8 +140,8 @@ class IGPMBackup extends IDispatch {
      * @returns {BSTR} 
      */
     get_GPODisplayName() {
-        pVal := BSTR()
-        result := ComCall(10, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -140,8 +159,8 @@ class IGPMBackup extends IDispatch {
      * @returns {BSTR} 
      */
     get_Comment() {
-        pVal := BSTR()
-        result := ComCall(12, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -150,8 +169,8 @@ class IGPMBackup extends IDispatch {
      * @returns {BSTR} 
      */
     get_BackupDir() {
-        pVal := BSTR()
-        result := ComCall(13, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -178,7 +197,7 @@ class IGPMBackup extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmbackup-generatereport
      */
     GenerateReport(_gpmReportType, pvarGPMProgress, pvarGPMCancel) {
-        result := ComCall(15, this, "int", _gpmReportType, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        result := ComCall(15, this, GPMReportType, _gpmReportType, VARIANT.Ptr, pvarGPMProgress, VARIANT.Ptr, pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
         return IGPMResult(ppIGPMResult)
     }
 
@@ -195,7 +214,45 @@ class IGPMBackup extends IDispatch {
     GenerateReportToFile(_gpmReportType, bstrTargetFilePath) {
         bstrTargetFilePath := bstrTargetFilePath is String ? BSTR.Alloc(bstrTargetFilePath).Value : bstrTargetFilePath
 
-        result := ComCall(16, this, "int", _gpmReportType, "ptr", bstrTargetFilePath, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        result := ComCall(16, this, GPMReportType, _gpmReportType, BSTR, bstrTargetFilePath, "ptr*", &ppIGPMResult := 0, "HRESULT")
         return IGPMResult(ppIGPMResult)
+    }
+
+    Query(iid) {
+        if (IGPMBackup.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ID := CallbackCreate(GetMethod(implObj, "get_ID"), flags, 2)
+        this.vtbl.get_GPOID := CallbackCreate(GetMethod(implObj, "get_GPOID"), flags, 2)
+        this.vtbl.get_GPODomain := CallbackCreate(GetMethod(implObj, "get_GPODomain"), flags, 2)
+        this.vtbl.get_GPODisplayName := CallbackCreate(GetMethod(implObj, "get_GPODisplayName"), flags, 2)
+        this.vtbl.get_Timestamp := CallbackCreate(GetMethod(implObj, "get_Timestamp"), flags, 2)
+        this.vtbl.get_Comment := CallbackCreate(GetMethod(implObj, "get_Comment"), flags, 2)
+        this.vtbl.get_BackupDir := CallbackCreate(GetMethod(implObj, "get_BackupDir"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.GenerateReport := CallbackCreate(GetMethod(implObj, "GenerateReport"), flags, 5)
+        this.vtbl.GenerateReportToFile := CallbackCreate(GetMethod(implObj, "GenerateReportToFile"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ID)
+        CallbackFree(this.vtbl.get_GPOID)
+        CallbackFree(this.vtbl.get_GPODomain)
+        CallbackFree(this.vtbl.get_GPODisplayName)
+        CallbackFree(this.vtbl.get_Timestamp)
+        CallbackFree(this.vtbl.get_Comment)
+        CallbackFree(this.vtbl.get_BackupDir)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.GenerateReport)
+        CallbackFree(this.vtbl.GenerateReportToFile)
     }
 }

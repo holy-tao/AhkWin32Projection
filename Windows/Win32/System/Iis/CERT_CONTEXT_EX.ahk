@@ -1,42 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\Cryptography\CERT_CONTEXT.ahk
-#Include ..\..\Security\Cryptography\CERT_QUERY_ENCODING_TYPE.ahk
-#Include ..\..\Security\Cryptography\CERT_INFO.ahk
-#Include ..\..\Security\Cryptography\HCERTSTORE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import "..\..\Security\Cryptography\CERT_QUERY_ENCODING_TYPE.ahk" { CERT_QUERY_ENCODING_TYPE }
+#Import "..\..\Security\Cryptography\HCERTSTORE.ahk" { HCERTSTORE }
+#Import "..\..\Security\Cryptography\CERT_INFO.ahk" { CERT_INFO }
 
 /**
  * @namespace Windows.Win32.System.Iis
  */
-class CERT_CONTEXT_EX extends Win32Struct {
-    static sizeof => 48
+export default struct CERT_CONTEXT_EX {
+    #StructPack 8
 
-    static packingSize => 8
+    CertContext : CERT_CONTEXT
 
-    /**
-     * @type {CERT_CONTEXT}
-     */
-    CertContext {
-        get {
-            if(!this.HasProp("__CertContext"))
-                this.__CertContext := CERT_CONTEXT(0, this)
-            return this.__CertContext
-        }
-    }
+    cbAllocated : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbAllocated {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwCertificateFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCertificateFlags {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
 }

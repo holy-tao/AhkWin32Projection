@@ -1,47 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSATTRIBUTE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSATTRIBUTE.ahk" { KSATTRIBUTE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class VIDEOFORMAT_DX12 extends Win32Struct {
-    static sizeof => 32
+export default struct VIDEOFORMAT_DX12 {
+    #StructPack 4
 
-    static packingSize => 8
+    Header : KSATTRIBUTE
 
-    /**
-     * @type {KSATTRIBUTE}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := KSATTRIBUTE(0, this)
-            return this.__Header
-        }
-    }
+    resourceLayout : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    resourceLayout {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    resourceFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    resourceFlags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    customLayout : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    customLayout {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

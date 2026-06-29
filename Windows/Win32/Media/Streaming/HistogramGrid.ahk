@@ -1,44 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * The HistogramGrid structure describes the blob format for MF_CAPTURE_METADATA_HISTOGRAM.
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-histogramgrid
  * @namespace Windows.Win32.Media.Streaming
  */
-class HistogramGrid extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct HistogramGrid {
+    #StructPack 4
 
     /**
      * Width of the sensor output that histogram is collected from.
-     * @type {Integer}
      */
-    Width {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Width : UInt32
 
     /**
      * Height of the sensor output that histogram is collected from.
-     * @type {Integer}
      */
-    Height {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Height : UInt32
 
     /**
      * Absolute coordinates of the region on the sensor output that the histogram is collected for.
-     * @type {RECT}
      */
-    Region {
-        get {
-            if(!this.HasProp("__Region"))
-                this.__Region := RECT(8, this)
-            return this.__Region
-        }
-    }
+    Region : RECT
+
 }

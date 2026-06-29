@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the destination context, which is the process in which the unmarshaling is to be done.
  * @see https://learn.microsoft.com/windows/win32/api/wtypesbase/ne-wtypesbase-mshctx
  * @namespace Windows.Win32.System.Com
  */
-class MSHCTX extends Win32Enum {
+export default struct MSHCTX {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The unmarshaling process is local and has shared memory access with the marshaling process.

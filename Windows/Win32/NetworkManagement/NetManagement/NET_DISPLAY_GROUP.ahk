@@ -1,37 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The NET_DISPLAY_GROUP structure contains information that an account manager can access to determine information about group accounts.
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-net_display_group
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class NET_DISPLAY_GROUP extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct NET_DISPLAY_GROUP {
+    #StructPack 8
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that specifies the name of the group.
-     * @type {PWSTR}
      */
-    grpi3_name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    grpi3_name : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains a comment associated with the group. This string can be a null string, or it can have any number of characters before the terminating null character.
-     * @type {PWSTR}
      */
-    grpi3_comment {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    grpi3_comment : PWSTR
 
     /**
      * Type: <b>DWORD</b>
@@ -40,24 +30,16 @@ class NET_DISPLAY_GROUP extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuseradd">NetUserAdd</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> functions ignore this member. For more information about RIDs, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/sid-components">SID Components</a>.
-     * @type {Integer}
      */
-    grpi3_group_id {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    grpi3_group_id : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * These attributes are hard-coded to SE_GROUP_MANDATORY, SE_GROUP_ENABLED, and SE_GROUP_ENABLED_BY_DEFAULT. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_groups">TOKEN_GROUPS</a>.
-     * @type {Integer}
      */
-    grpi3_attributes {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    grpi3_attributes : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -66,10 +48,7 @@ class NET_DISPLAY_GROUP extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netquerydisplayinformation">NetQueryDisplayInformation</a> function. Pass this value as the <i>Index</i> parameter to 
      * <b>NetQueryDisplayInformation</b> to return the next logical entry. Note that you should not use the value of this member for any purpose except to retrieve more data with additional calls to 
      * <b>NetQueryDisplayInformation</b>.
-     * @type {Integer}
      */
-    grpi3_next_index {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    grpi3_next_index : UInt32
+
 }

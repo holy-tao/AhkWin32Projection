@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IOD_DESFLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IOD_DESFLAGS.ahk" { IOD_DESFLAGS }
 
 /**
  * The IO_RANGE structure specifies a resource requirements list that describes I/O port usage for a device instance. For more information about resource requirements lists, see Hardware Resources.
@@ -9,55 +8,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-io_range
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  */
-class IO_RANGE extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct IO_RANGE {
+    #StructPack 8
 
     /**
      * Mask used to specify the port address boundary on which the first allocated I/O port address must be aligned.
-     * @type {Integer}
      */
-    IOR_Align {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    IOR_Align : Int64
 
     /**
      * The number of I/O port addresses required by the device.
-     * @type {Integer}
      */
-    IOR_nPorts {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    IOR_nPorts : UInt32
 
     /**
      * The lowest-numbered of a range of contiguous I/O port addresses that can be allocated to the device.
-     * @type {Integer}
      */
-    IOR_Min {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    IOR_Min : Int64
 
     /**
      * The highest-numbered of a range of contiguous I/O port addresses that can be allocated to the device.
-     * @type {Integer}
      */
-    IOR_Max {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    IOR_Max : Int64
 
     /**
      * One bit flag from [IO_DES](/windows/desktop/api/cfgmgr32/ns-cfgmgr32-io_des) structure. For more information, see the following <b>Remarks</b> section.
-     * @type {IOD_DESFLAGS}
      */
-    IOR_RangeFlags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    IOR_RangeFlags : IOD_DESFLAGS
 
     /**
      * One of the bit flags described in the following table.
@@ -111,10 +88,7 @@ class IO_RANGE extends Win32Struct {
      *  
      * 
      * For more information, see the following <b>Remarks</b> section.
-     * @type {Integer}
      */
-    IOR_Alias {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    IOR_Alias : Int64
+
 }

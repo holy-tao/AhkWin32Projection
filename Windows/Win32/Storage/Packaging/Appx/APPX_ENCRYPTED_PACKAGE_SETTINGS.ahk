@@ -1,50 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\System\Com\IUri.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\System\Com\IUri.ahk" { IUri }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Settings for encrypted Windows app packages.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/ns-appxpackaging-appx_encrypted_package_settings
  * @namespace Windows.Win32.Storage.Packaging.Appx
  */
-class APPX_ENCRYPTED_PACKAGE_SETTINGS extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct APPX_ENCRYPTED_PACKAGE_SETTINGS {
+    #StructPack 8
 
     /**
      * The key length.
-     * @type {Integer}
      */
-    keyLength {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    keyLength : UInt32
 
     /**
      * The encryption algorithm used.
-     * @type {PWSTR}
      */
-    encryptionAlgorithm {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    encryptionAlgorithm : PWSTR
 
     /**
      * True is diffusion is used, false otherwise.
-     * @type {BOOL}
      */
-    useDiffusion {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    useDiffusion : BOOL
 
     /**
      * The Uri of the block map hash algorithm.
-     * @type {IUri}
      */
-    blockMapHashAlgorithm {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    blockMapHashAlgorithm : IUri
+
 }

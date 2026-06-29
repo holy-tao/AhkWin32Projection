@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class DISCRIMINATEDUNION_TAG_VALUE extends Win32Struct {
-    static sizeof => 17
+export default struct DISCRIMINATEDUNION_TAG_VALUE {
+    #StructPack 1
 
-    static packingSize => 1
+    value : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    value {
-        get {
-            if(!this.HasProp("__valueProxyArray"))
-                this.__valueProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
-            return this.__valueProxyArray
-        }
-    }
+    valueSizeBytes : Int8
 
-    /**
-     * @type {Integer}
-     */
-    valueSizeBytes {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
 }

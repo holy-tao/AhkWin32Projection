@@ -1,9 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D10_DEPTH_WRITE_MASK.ahk
-#Include .\D3D10_COMPARISON_FUNC.ahk
-#Include .\D3D10_DEPTH_STENCILOP_DESC.ahk
-#Include .\D3D10_STENCIL_OP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D10_STENCIL_OP.ahk" { D3D10_STENCIL_OP }
+#Import ".\D3D10_DEPTH_STENCILOP_DESC.ahk" { D3D10_DEPTH_STENCILOP_DESC }
+#Import ".\D3D10_COMPARISON_FUNC.ahk" { D3D10_COMPARISON_FUNC }
+#Import ".\D3D10_DEPTH_WRITE_MASK.ahk" { D3D10_DEPTH_WRITE_MASK }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Describes depth-stencil state. (D3D10_DEPTH_STENCIL_DESC)
@@ -14,102 +14,63 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ns-d3d10-d3d10_depth_stencil_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class D3D10_DEPTH_STENCIL_DESC extends Win32Struct {
-    static sizeof => 52
-
-    static packingSize => 4
+export default struct D3D10_DEPTH_STENCIL_DESC {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * A Boolean value that enables depth testing.  The default value is <b>TRUE</b>.
-     * @type {BOOL}
      */
-    DepthEnable {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    DepthEnable : BOOL
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_depth_write_mask">D3D10_DEPTH_WRITE_MASK</a></b>
      * 
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_depth_write_mask">D3D10_DEPTH_WRITE_MASK</a> enumerated type that identifies a portion of the depth-stencil buffer that can be modified by depth data.  The default value is <b>D3D10_DEPTH_WRITE_MASK_ALL</b>.
-     * @type {D3D10_DEPTH_WRITE_MASK}
      */
-    DepthWriteMask {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    DepthWriteMask : D3D10_DEPTH_WRITE_MASK
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_comparison_func">D3D10_COMPARISON_FUNC</a></b>
      * 
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_comparison_func">D3D10_COMPARISON_FUNC</a> enumerated type that defines how depth data is compared against existing depth data.  The default value is <b>D3D10_COMPARISON_LESS</b>
-     * @type {D3D10_COMPARISON_FUNC}
      */
-    DepthFunc {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    DepthFunc : D3D10_COMPARISON_FUNC
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * A Boolean value that enables stencil testing.  The default value is <b>FALSE</b>.
-     * @type {BOOL}
      */
-    StencilEnable {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    StencilEnable : BOOL
 
     /**
      * Type: <b>UINT8</b>
      * 
      * A value that identifies a portion of the depth-stencil buffer for reading stencil data.  The default value is <b>D3D10_DEFAULT_STENCIL_READ_MASK</b>.
-     * @type {Integer}
      */
-    StencilReadMask {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    StencilReadMask : Int8
 
     /**
      * Type: <b>UINT8</b>
      * 
      * A value that identifies a portion of the depth-stencil buffer for writing stencil data. The default value is <b>D3D10_DEFAULT_STENCIL_WRITE_MASK</b>.
-     * @type {Integer}
      */
-    StencilWriteMask {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
+    StencilWriteMask : Int8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_depth_stencilop_desc">D3D10_DEPTH_STENCILOP_DESC</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_depth_stencilop_desc">D3D10_DEPTH_STENCILOP_DESC</a> structure that identifies how to use the results of the depth test and the stencil test for pixels whose surface normal is facing toward the camera.
-     * @type {D3D10_DEPTH_STENCILOP_DESC}
      */
-    FrontFace {
-        get {
-            if(!this.HasProp("__FrontFace"))
-                this.__FrontFace := D3D10_DEPTH_STENCILOP_DESC(20, this)
-            return this.__FrontFace
-        }
-    }
+    FrontFace : D3D10_DEPTH_STENCILOP_DESC
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_depth_stencilop_desc">D3D10_DEPTH_STENCILOP_DESC</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_depth_stencilop_desc">D3D10_DEPTH_STENCILOP_DESC</a> structure that identifies how to use the results of the depth test and the stencil test for pixels whose surface normal is facing away from the camera.
-     * @type {D3D10_DEPTH_STENCILOP_DESC}
      */
-    BackFace {
-        get {
-            if(!this.HasProp("__BackFace"))
-                this.__BackFace := D3D10_DEPTH_STENCILOP_DESC(36, this)
-            return this.__BackFace
-        }
-    }
+    BackFace : D3D10_DEPTH_STENCILOP_DESC
+
 }

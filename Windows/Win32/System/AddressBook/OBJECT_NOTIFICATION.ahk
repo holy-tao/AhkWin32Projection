@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ENTRYID.ahk
-#Include .\SPropTagArray.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SPropTagArray.ahk" { SPropTagArray }
+#Import ".\ENTRYID.ahk" { ENTRYID }
 
 /**
  * Contains information about an object that has undergone a change, such as being copied or modified.
@@ -44,28 +43,18 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/object_notification
  * @namespace Windows.Win32.System.AddressBook
  */
-class OBJECT_NOTIFICATION extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct OBJECT_NOTIFICATION {
+    #StructPack 8
 
     /**
      * > Count of bytes in the entry identifier pointed to by the **lpEntryID** member.
-     * @type {Integer}
      */
-    cbEntryID {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbEntryID : UInt32
 
     /**
      * > Pointer to the entry identifier of the affected object.
-     * @type {Pointer<ENTRYID>}
      */
-    lpEntryID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpEntryID : ENTRYID.Ptr
 
     /**
      * > Type of object affected. Possible types are as follows:
@@ -113,73 +102,42 @@ class OBJECT_NOTIFICATION extends Win32Struct {
      * MAPI_SESSION 
      *   
      * > Session object.
-     * @type {Integer}
      */
-    ulObjType {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ulObjType : UInt32
 
     /**
      * > Count of bytes in the entry identifier pointed to by the **lpParentID** member.
-     * @type {Integer}
      */
-    cbParentID {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    cbParentID : UInt32
 
     /**
      * > Pointer to the entry identifier of the parent of the affected object.
-     * @type {Pointer<ENTRYID>}
      */
-    lpParentID {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpParentID : ENTRYID.Ptr
 
     /**
      * > Count of bytes in the entry identifier pointed to by the **lpOldID** member.
-     * @type {Integer}
      */
-    cbOldID {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    cbOldID : UInt32
 
     /**
      * > Pointer to the entry identifier of the original object. This pointer can be NULL if the event does not require an original object.
-     * @type {Pointer<ENTRYID>}
      */
-    lpOldID {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lpOldID : ENTRYID.Ptr
 
     /**
      * > Count of bytes in the entry identifier pointed to by the **lpOldParentID** member.
-     * @type {Integer}
      */
-    cbOldParentID {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    cbOldParentID : UInt32
 
     /**
      * > Pointer to the entry identifier of the parent of the original object. This pointer can be NULL if the event does not require an original object.
-     * @type {Pointer<ENTRYID>}
      */
-    lpOldParentID {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    lpOldParentID : ENTRYID.Ptr
 
     /**
      * > Pointer to an [SPropTagArray](sproptagarray.md) structure that contains the property tags identifying properties affected by the event.
-     * @type {Pointer<SPropTagArray>}
      */
-    lpPropTagArray {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    lpPropTagArray : SPropTagArray.Ptr
+
 }

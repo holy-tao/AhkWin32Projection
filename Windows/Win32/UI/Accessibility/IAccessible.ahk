@@ -1,35 +1,63 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Exposes methods and properties that make a user interface element and its children accessible to client applications.
  * @see https://learn.microsoft.com/windows/win32/api/oleacc/nn-oleacc-iaccessible
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IAccessible extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IAccessible extends IDispatch {
     /**
      * The interface identifier for IAccessible
      * @type {Guid}
      */
-    static IID => Guid("{618736e0-3c3d-11cf-810c-00aa00389b71}")
+    static IID := Guid("{618736e0-3c3d-11cf-810c-00aa00389b71}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAccessible interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_accParent           : IntPtr
+        get_accChildCount       : IntPtr
+        get_accChild            : IntPtr
+        get_accName             : IntPtr
+        get_accValue            : IntPtr
+        get_accDescription      : IntPtr
+        get_accRole             : IntPtr
+        get_accState            : IntPtr
+        get_accHelp             : IntPtr
+        get_accHelpTopic        : IntPtr
+        get_accKeyboardShortcut : IntPtr
+        get_accFocus            : IntPtr
+        get_accSelection        : IntPtr
+        get_accDefaultAction    : IntPtr
+        accSelect               : IntPtr
+        accLocation             : IntPtr
+        accNavigate             : IntPtr
+        accHitTest              : IntPtr
+        accDoDefaultAction      : IntPtr
+        put_accName             : IntPtr
+        put_accValue            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_accParent", "get_accChildCount", "get_accChild", "get_accName", "get_accValue", "get_accDescription", "get_accRole", "get_accState", "get_accHelp", "get_accHelpTopic", "get_accKeyboardShortcut", "get_accFocus", "get_accSelection", "get_accDefaultAction", "accSelect", "accLocation", "accNavigate", "accHitTest", "accDoDefaultAction", "put_accName", "put_accValue"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAccessible.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IDispatch} 
@@ -124,7 +152,7 @@ class IAccessible extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_accchild
      */
     get_accChild(varChild) {
-        result := ComCall(9, this, "ptr", varChild, "ptr*", &ppdispChild := 0, "HRESULT")
+        result := ComCall(9, this, VARIANT, varChild, "ptr*", &ppdispChild := 0, "HRESULT")
         return IDispatch(ppdispChild)
     }
 
@@ -214,8 +242,8 @@ class IAccessible extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_accname
      */
     get_accName(varChild) {
-        pszName := BSTR()
-        result := ComCall(10, this, "ptr", varChild, "ptr", pszName, "HRESULT")
+        pszName := BSTR.Owned()
+        result := ComCall(10, this, VARIANT, varChild, BSTR.Ptr, pszName, "HRESULT")
         return pszName
     }
 
@@ -234,8 +262,8 @@ class IAccessible extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_accvalue
      */
     get_accValue(varChild) {
-        pszValue := BSTR()
-        result := ComCall(11, this, "ptr", varChild, "ptr", pszValue, "HRESULT")
+        pszValue := BSTR.Owned()
+        result := ComCall(11, this, VARIANT, varChild, BSTR.Ptr, pszValue, "HRESULT")
         return pszValue
     }
 
@@ -311,8 +339,8 @@ class IAccessible extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_accdescription
      */
     get_accDescription(varChild) {
-        pszDescription := BSTR()
-        result := ComCall(12, this, "ptr", varChild, "ptr", pszDescription, "HRESULT")
+        pszDescription := BSTR.Owned()
+        result := ComCall(12, this, VARIANT, varChild, BSTR.Ptr, pszDescription, "HRESULT")
         return pszDescription
     }
 
@@ -401,7 +429,7 @@ class IAccessible extends IDispatch {
      */
     get_accRole(varChild) {
         pvarRole := VARIANT()
-        result := ComCall(13, this, "ptr", varChild, "ptr", pvarRole, "HRESULT")
+        result := ComCall(13, this, VARIANT, varChild, VARIANT.Ptr, pvarRole, "HRESULT")
         return pvarRole
     }
 
@@ -504,7 +532,7 @@ class IAccessible extends IDispatch {
      */
     get_accState(varChild) {
         pvarState := VARIANT()
-        result := ComCall(14, this, "ptr", varChild, "ptr", pvarState, "HRESULT")
+        result := ComCall(14, this, VARIANT, varChild, VARIANT.Ptr, pvarState, "HRESULT")
         return pvarState
     }
 
@@ -569,8 +597,8 @@ class IAccessible extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_acchelp
      */
     get_accHelp(varChild) {
-        pszHelp := BSTR()
-        result := ComCall(15, this, "ptr", varChild, "ptr", pszHelp, "HRESULT")
+        pszHelp := BSTR.Owned()
+        result := ComCall(15, this, VARIANT, varChild, BSTR.Ptr, pszHelp, "HRESULT")
         return pszHelp
     }
 
@@ -592,7 +620,7 @@ class IAccessible extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_acchelptopic
      */
     get_accHelpTopic(pszHelpFile, varChild) {
-        result := ComCall(16, this, "ptr", pszHelpFile, "ptr", varChild, "int*", &pidTopic := 0, "HRESULT")
+        result := ComCall(16, this, BSTR.Ptr, pszHelpFile, VARIANT, varChild, "int*", &pidTopic := 0, "HRESULT")
         return pidTopic
     }
 
@@ -648,8 +676,8 @@ class IAccessible extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_acckeyboardshortcut
      */
     get_accKeyboardShortcut(varChild) {
-        pszKeyboardShortcut := BSTR()
-        result := ComCall(17, this, "ptr", varChild, "ptr", pszKeyboardShortcut, "HRESULT")
+        pszKeyboardShortcut := BSTR.Owned()
+        result := ComCall(17, this, VARIANT, varChild, BSTR.Ptr, pszKeyboardShortcut, "HRESULT")
         return pszKeyboardShortcut
     }
 
@@ -754,7 +782,7 @@ class IAccessible extends IDispatch {
      */
     get_accFocus() {
         pvarChild := VARIANT()
-        result := ComCall(18, this, "ptr", pvarChild, "HRESULT")
+        result := ComCall(18, this, VARIANT.Ptr, pvarChild, "HRESULT")
         return pvarChild
     }
 
@@ -851,7 +879,7 @@ class IAccessible extends IDispatch {
      */
     get_accSelection() {
         pvarChildren := VARIANT()
-        result := ComCall(19, this, "ptr", pvarChildren, "HRESULT")
+        result := ComCall(19, this, VARIANT.Ptr, pvarChildren, "HRESULT")
         return pvarChildren
     }
 
@@ -903,8 +931,8 @@ class IAccessible extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-get_accdefaultaction
      */
     get_accDefaultAction(varChild) {
-        pszDefaultAction := BSTR()
-        result := ComCall(20, this, "ptr", varChild, "ptr", pszDefaultAction, "HRESULT")
+        pszDefaultAction := BSTR.Owned()
+        result := ComCall(20, this, VARIANT, varChild, BSTR.Ptr, pszDefaultAction, "HRESULT")
         return pszDefaultAction
     }
 
@@ -991,7 +1019,7 @@ class IAccessible extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-accselect
      */
     accSelect(flagsSelect, varChild) {
-        result := ComCall(21, this, "int", flagsSelect, "ptr", varChild, "HRESULT")
+        result := ComCall(21, this, "int", flagsSelect, VARIANT, varChild, "HRESULT")
         return result
     }
 
@@ -1109,7 +1137,7 @@ class IAccessible extends IDispatch {
         pcxWidthMarshal := pcxWidth is VarRef ? "int*" : "ptr"
         pcyHeightMarshal := pcyHeight is VarRef ? "int*" : "ptr"
 
-        result := ComCall(22, this, pxLeftMarshal, pxLeft, pyTopMarshal, pyTop, pcxWidthMarshal, pcxWidth, pcyHeightMarshal, pcyHeight, "ptr", varChild, "HRESULT")
+        result := ComCall(22, this, pxLeftMarshal, pxLeft, pyTopMarshal, pyTop, pcxWidthMarshal, pcxWidth, pcyHeightMarshal, pcyHeight, VARIANT, varChild, "HRESULT")
         return result
     }
 
@@ -1352,7 +1380,7 @@ class IAccessible extends IDispatch {
      */
     accNavigate(navDir, varStart) {
         pvarEndUpAt := VARIANT()
-        result := ComCall(23, this, "int", navDir, "ptr", varStart, "ptr", pvarEndUpAt, "HRESULT")
+        result := ComCall(23, this, "int", navDir, VARIANT, varStart, VARIANT.Ptr, pvarEndUpAt, "HRESULT")
         return pvarEndUpAt
     }
 
@@ -1481,7 +1509,7 @@ class IAccessible extends IDispatch {
      */
     accHitTest(xLeft, yTop) {
         pvarChild := VARIANT()
-        result := ComCall(24, this, "int", xLeft, "int", yTop, "ptr", pvarChild, "HRESULT")
+        result := ComCall(24, this, "int", xLeft, "int", yTop, VARIANT.Ptr, pvarChild, "HRESULT")
         return pvarChild
     }
 
@@ -1579,7 +1607,7 @@ class IAccessible extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-accdodefaultaction
      */
     accDoDefaultAction(varChild) {
-        result := ComCall(25, this, "ptr", varChild, "HRESULT")
+        result := ComCall(25, this, VARIANT, varChild, "HRESULT")
         return result
     }
 
@@ -1593,7 +1621,7 @@ class IAccessible extends IDispatch {
     put_accName(varChild, szName) {
         szName := szName is String ? BSTR.Alloc(szName).Value : szName
 
-        result := ComCall(26, this, "ptr", varChild, "ptr", szName, "HRESULT")
+        result := ComCall(26, this, VARIANT, varChild, BSTR, szName, "HRESULT")
         return result
     }
 
@@ -1646,7 +1674,67 @@ class IAccessible extends IDispatch {
     put_accValue(varChild, szValue) {
         szValue := szValue is String ? BSTR.Alloc(szValue).Value : szValue
 
-        result := ComCall(27, this, "ptr", varChild, "ptr", szValue, "HRESULT")
+        result := ComCall(27, this, VARIANT, varChild, BSTR, szValue, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAccessible.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_accParent := CallbackCreate(GetMethod(implObj, "get_accParent"), flags, 2)
+        this.vtbl.get_accChildCount := CallbackCreate(GetMethod(implObj, "get_accChildCount"), flags, 2)
+        this.vtbl.get_accChild := CallbackCreate(GetMethod(implObj, "get_accChild"), flags, 3)
+        this.vtbl.get_accName := CallbackCreate(GetMethod(implObj, "get_accName"), flags, 3)
+        this.vtbl.get_accValue := CallbackCreate(GetMethod(implObj, "get_accValue"), flags, 3)
+        this.vtbl.get_accDescription := CallbackCreate(GetMethod(implObj, "get_accDescription"), flags, 3)
+        this.vtbl.get_accRole := CallbackCreate(GetMethod(implObj, "get_accRole"), flags, 3)
+        this.vtbl.get_accState := CallbackCreate(GetMethod(implObj, "get_accState"), flags, 3)
+        this.vtbl.get_accHelp := CallbackCreate(GetMethod(implObj, "get_accHelp"), flags, 3)
+        this.vtbl.get_accHelpTopic := CallbackCreate(GetMethod(implObj, "get_accHelpTopic"), flags, 4)
+        this.vtbl.get_accKeyboardShortcut := CallbackCreate(GetMethod(implObj, "get_accKeyboardShortcut"), flags, 3)
+        this.vtbl.get_accFocus := CallbackCreate(GetMethod(implObj, "get_accFocus"), flags, 2)
+        this.vtbl.get_accSelection := CallbackCreate(GetMethod(implObj, "get_accSelection"), flags, 2)
+        this.vtbl.get_accDefaultAction := CallbackCreate(GetMethod(implObj, "get_accDefaultAction"), flags, 3)
+        this.vtbl.accSelect := CallbackCreate(GetMethod(implObj, "accSelect"), flags, 3)
+        this.vtbl.accLocation := CallbackCreate(GetMethod(implObj, "accLocation"), flags, 6)
+        this.vtbl.accNavigate := CallbackCreate(GetMethod(implObj, "accNavigate"), flags, 4)
+        this.vtbl.accHitTest := CallbackCreate(GetMethod(implObj, "accHitTest"), flags, 4)
+        this.vtbl.accDoDefaultAction := CallbackCreate(GetMethod(implObj, "accDoDefaultAction"), flags, 2)
+        this.vtbl.put_accName := CallbackCreate(GetMethod(implObj, "put_accName"), flags, 3)
+        this.vtbl.put_accValue := CallbackCreate(GetMethod(implObj, "put_accValue"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_accParent)
+        CallbackFree(this.vtbl.get_accChildCount)
+        CallbackFree(this.vtbl.get_accChild)
+        CallbackFree(this.vtbl.get_accName)
+        CallbackFree(this.vtbl.get_accValue)
+        CallbackFree(this.vtbl.get_accDescription)
+        CallbackFree(this.vtbl.get_accRole)
+        CallbackFree(this.vtbl.get_accState)
+        CallbackFree(this.vtbl.get_accHelp)
+        CallbackFree(this.vtbl.get_accHelpTopic)
+        CallbackFree(this.vtbl.get_accKeyboardShortcut)
+        CallbackFree(this.vtbl.get_accFocus)
+        CallbackFree(this.vtbl.get_accSelection)
+        CallbackFree(this.vtbl.get_accDefaultAction)
+        CallbackFree(this.vtbl.accSelect)
+        CallbackFree(this.vtbl.accLocation)
+        CallbackFree(this.vtbl.accNavigate)
+        CallbackFree(this.vtbl.accHitTest)
+        CallbackFree(this.vtbl.accDoDefaultAction)
+        CallbackFree(this.vtbl.put_accName)
+        CallbackFree(this.vtbl.put_accValue)
     }
 }

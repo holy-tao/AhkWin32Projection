@@ -1,14 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMCUSTOMDRAW.ahk
-#Include .\NMHDR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\NMCUSTOMDRAW_DRAW_STAGE.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\NMCUSTOMDRAW_DRAW_STATE_FLAGS.ahk
-#Include .\NMLVCUSTOMDRAW_ITEM_TYPE.ahk
-#Include .\LIST_VIEW_GROUP_ALIGN_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\LIST_VIEW_GROUP_ALIGN_FLAGS.ahk" { LIST_VIEW_GROUP_ALIGN_FLAGS }
+#Import ".\NMHDR.ahk" { NMHDR }
+#Import ".\NMCUSTOMDRAW_DRAW_STAGE.ahk" { NMCUSTOMDRAW_DRAW_STAGE }
+#Import ".\NMLVCUSTOMDRAW_ITEM_TYPE.ahk" { NMLVCUSTOMDRAW_ITEM_TYPE }
+#Import ".\NMCUSTOMDRAW_DRAW_STATE_FLAGS.ahk" { NMCUSTOMDRAW_DRAW_STATE_FLAGS }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\NMCUSTOMDRAW.ahk" { NMCUSTOMDRAW }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 
 /**
  * Contains information specific to an NM_CUSTOMDRAW (list view) notification code sent by a list-view control.
@@ -18,71 +19,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmlvcustomdraw
  * @namespace Windows.Win32.UI.Controls
  */
-class NMLVCUSTOMDRAW extends Win32Struct {
-    static sizeof => 136
-
-    static packingSize => 8
+export default struct NMLVCUSTOMDRAW {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmcustomdraw">NMCUSTOMDRAW</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmcustomdraw">NMCUSTOMDRAW</a> structure that contains general custom draw information.
-     * @type {NMCUSTOMDRAW}
      */
-    nmcd {
-        get {
-            if(!this.HasProp("__nmcd"))
-                this.__nmcd := NMCUSTOMDRAW(0, this)
-            return this.__nmcd
-        }
-    }
+    nmcd : NMCUSTOMDRAW
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * <b>COLORREF</b> value representing the color that will be used to display text foreground in the list-view control.
-     * @type {COLORREF}
      */
-    clrText {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    clrText : COLORREF
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * <b>COLORREF</b> value representing the color that will be used to display text background in the list-view control. In <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 6.0., </a> this member is ignored if the background image is set with the <a href="https://docs.microsoft.com/windows/desktop/Controls/lvm-setbkimage">LVM_SETBKIMAGE</a> message.
-     * @type {COLORREF}
      */
-    clrTextBk {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    clrTextBk : COLORREF
 
     /**
      * Type: <b>int</b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 4.71.</a> Index of the subitem that is being drawn. If the main item is being drawn, this member will be zero.
-     * @type {Integer}
      */
-    iSubItem {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
-    }
+    iSubItem : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 6.0. </a>
-     * @type {NMLVCUSTOMDRAW_ITEM_TYPE}
      */
-    dwItemType {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    dwItemType : NMLVCUSTOMDRAW_ITEM_TYPE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
@@ -90,12 +66,8 @@ class NMLVCUSTOMDRAW extends Win32Struct {
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 6.0.</a> 
      * 					<b>COLORREF</b> value representing the color that will be used to display the face of an item.
-     * @type {COLORREF}
      */
-    clrFace {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    clrFace : COLORREF
 
     /**
      * Type: <b>int</b>
@@ -103,12 +75,8 @@ class NMLVCUSTOMDRAW extends Win32Struct {
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 6.0.</a>  
      * 					Value of type <b>int</b> that specifies the effect that is applied to an icon, such as Glow, Shadow, or Pulse.
-     * @type {Integer}
      */
-    iIconEffect {
-        get => NumGet(this, 100, "int")
-        set => NumPut("int", value, this, 100)
-    }
+    iIconEffect : Int32
 
     /**
      * Type: <b>int</b>
@@ -116,12 +84,8 @@ class NMLVCUSTOMDRAW extends Win32Struct {
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 6.0.</a>  
      * 					Value of type <b>int</b> that specifies the phase of an icon.
-     * @type {Integer}
      */
-    iIconPhase {
-        get => NumGet(this, 104, "int")
-        set => NumPut("int", value, this, 104)
-    }
+    iIconPhase : Int32
 
     /**
      * Type: <b>int</b>
@@ -129,12 +93,8 @@ class NMLVCUSTOMDRAW extends Win32Struct {
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 6.0.</a>  
      * 					Value of type <b>int</b> that specifies the ID of the part of an item to draw.
-     * @type {Integer}
      */
-    iPartId {
-        get => NumGet(this, 108, "int")
-        set => NumPut("int", value, this, 108)
-    }
+    iPartId : Int32
 
     /**
      * Type: <b>int</b>
@@ -142,12 +102,8 @@ class NMLVCUSTOMDRAW extends Win32Struct {
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 6.0.</a>  
      * 					Value of type <b>int</b> that specifies the ID of the state of an item to draw.
-     * @type {Integer}
      */
-    iStateId {
-        get => NumGet(this, 112, "int")
-        set => NumPut("int", value, this, 112)
-    }
+    iStateId : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a></b>
@@ -155,25 +111,15 @@ class NMLVCUSTOMDRAW extends Win32Struct {
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 6.0.</a>  
      * 					<b>RECT</b> that specifies the rectangle in which the text is to be drawn.
-     * @type {RECT}
      */
-    rcText {
-        get {
-            if(!this.HasProp("__rcText"))
-                this.__rcText := RECT(116, this)
-            return this.__rcText
-        }
-    }
+    rcText : RECT
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 6.0.</a>
-     * @type {LIST_VIEW_GROUP_ALIGN_FLAGS}
      */
-    uAlign {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
-    }
+    uAlign : LIST_VIEW_GROUP_ALIGN_FLAGS
+
 }

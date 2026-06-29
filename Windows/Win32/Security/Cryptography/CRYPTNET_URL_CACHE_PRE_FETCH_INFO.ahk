@@ -1,25 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * Contains update information used by the Cryptnet URL Cache (CUC) service to maintain a URL cache entry.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cryptnet_url_cache_pre_fetch_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRYPTNET_URL_CACHE_PRE_FETCH_INFO extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 4
+export default struct CRYPTNET_URL_CACHE_PRE_FETCH_INFO {
+    #StructPack 4
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * A value that specifies the type of object represented by the URL.
@@ -85,12 +78,8 @@ class CRYPTNET_URL_CACHE_PRE_FETCH_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwObjectType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwObjectType : UInt32
 
     /**
      * A value that specifies the status of a prefetch attempt.
@@ -155,47 +144,25 @@ class CRYPTNET_URL_CACHE_PRE_FETCH_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwError {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwError : UInt32
 
     /**
      * This parameter is not used. It must be zero.
-     * @type {Integer}
      */
-    dwReserved {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwReserved : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains a date and time whose meaning depends on <b>dwObjectType</b>. For a CRL, this indicates when the CRL was published. For an OCSP response, this indicates when the indicated status is known to be correct.
-     * @type {FILETIME}
      */
-    ThisUpdateTime {
-        get {
-            if(!this.HasProp("__ThisUpdateTime"))
-                this.__ThisUpdateTime := FILETIME(16, this)
-            return this.__ThisUpdateTime
-        }
-    }
+    ThisUpdateTime : FILETIME
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains a date and time whose meaning depends on <b>dwObjectType</b>. For a CRL, this indicates the next scheduled update for the CRL. For an OCSP response, this indicates when newer information will be available for the certificate status.
      * 
      * This is effectively an expiry date for the object. A value of zero indicates that the information has no expiration date.
-     * @type {FILETIME}
      */
-    NextUpdateTime {
-        get {
-            if(!this.HasProp("__NextUpdateTime"))
-                this.__NextUpdateTime := FILETIME(24, this)
-            return this.__NextUpdateTime
-        }
-    }
+    NextUpdateTime : FILETIME
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that specifies the time interval before expiry that a new CRL will be published. This value can be zero.
@@ -219,18 +186,7 @@ class CRYPTNET_URL_CACHE_PRE_FETCH_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {FILETIME}
      */
-    PublishTime {
-        get {
-            if(!this.HasProp("__PublishTime"))
-                this.__PublishTime := FILETIME(32, this)
-            return this.__PublishTime
-        }
-    }
+    PublishTime : FILETIME
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 40
-    }
 }

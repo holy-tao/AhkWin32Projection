@@ -1,36 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Console\CHAR_INFO.ahk
-#Include .\FONT_IMAGE_INFO.ahk
-#Include ..\..\System\Console\COORD.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import "..\..\System\Console\COORD.ahk" { COORD }
+#Import "..\..\System\Console\CHAR_INFO.ahk" { CHAR_INFO }
+#Import ".\FONT_IMAGE_INFO.ahk" { FONT_IMAGE_INFO }
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class CHAR_IMAGE_INFO extends Win32Struct {
-    static sizeof => 24
+export default struct CHAR_IMAGE_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    CharInfo : CHAR_INFO
 
-    /**
-     * @type {CHAR_INFO}
-     */
-    CharInfo {
-        get {
-            if(!this.HasProp("__CharInfo"))
-                this.__CharInfo := CHAR_INFO(0, this)
-            return this.__CharInfo
-        }
-    }
+    FontImageInfo : FONT_IMAGE_INFO
 
-    /**
-     * @type {FONT_IMAGE_INFO}
-     */
-    FontImageInfo {
-        get {
-            if(!this.HasProp("__FontImageInfo"))
-                this.__FontImageInfo := FONT_IMAGE_INFO(8, this)
-            return this.__FontImageInfo
-        }
-    }
 }

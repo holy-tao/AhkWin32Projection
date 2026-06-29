@@ -1,111 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RAW_SCSI_VIRTUAL_DISK_VERSION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RAW_SCSI_VIRTUAL_DISK_VERSION.ahk" { RAW_SCSI_VIRTUAL_DISK_VERSION }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains raw SCSI virtual disk request parameters.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-raw_scsi_virtual_disk_parameters
  * @namespace Windows.Win32.Storage.Vhd
  */
-class RAW_SCSI_VIRTUAL_DISK_PARAMETERS extends Win32Struct {
-    static sizeof => 48
+export default struct RAW_SCSI_VIRTUAL_DISK_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
+
+    struct _Version1 {
+        RSVDHandle : BOOL
+
+        DataIn : Int8
+
+        CdbLength : Int8
+
+        SenseInfoLength : Int8
+
+        SrbFlags : UInt32
+
+        DataTransferLength : UInt32
+
+        DataBuffer : IntPtr
+
+        SenseInfo : IntPtr
+
+        Cdb : IntPtr
+
+    }
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-raw_scsi_virtual_disk_version">RAW_SCSI_VIRTUAL_DISK_VERSION</a> enumeration that specifies the version of the <b>RAW_SCSI_VIRTUAL_DISK_PARAMETERS</b> structure being passed to or from the VHD functions.
-     * @type {RAW_SCSI_VIRTUAL_DISK_VERSION}
      */
-    Version {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Version : RAW_SCSI_VIRTUAL_DISK_VERSION
 
-    class _Version1 extends Win32Struct {
-        static sizeof => 40
-        static packingSize => 8
+    Version1 : RAW_SCSI_VIRTUAL_DISK_PARAMETERS._Version1
 
-        /**
-         * @type {BOOL}
-         */
-        RSVDHandle {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        DataIn {
-            get => NumGet(this, 4, "char")
-            set => NumPut("char", value, this, 4)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        CdbLength {
-            get => NumGet(this, 5, "char")
-            set => NumPut("char", value, this, 5)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        SenseInfoLength {
-            get => NumGet(this, 6, "char")
-            set => NumPut("char", value, this, 6)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        SrbFlags {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        DataTransferLength {
-            get => NumGet(this, 12, "uint")
-            set => NumPut("uint", value, this, 12)
-        }
-
-        /**
-         * @type {Pointer<Void>}
-         */
-        DataBuffer {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
-        }
-
-        /**
-         * @type {Pointer<Integer>}
-         */
-        SenseInfo {
-            get => NumGet(this, 24, "ptr")
-            set => NumPut("ptr", value, this, 24)
-        }
-
-        /**
-         * @type {Pointer<Integer>}
-         */
-        Cdb {
-            get => NumGet(this, 32, "ptr")
-            set => NumPut("ptr", value, this, 32)
-        }
-    }
-
-    /**
-     * @type {_Version1}
-     */
-    Version1 {
-        get {
-            if(!this.HasProp("__Version1"))
-                this.__Version1 := RAW_SCSI_VIRTUAL_DISK_PARAMETERS._Version1(8, this)
-            return this.__Version1
-        }
-    }
 }

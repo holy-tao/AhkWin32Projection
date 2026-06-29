@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IShellLinkA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IShellLinkA.ahk" { IShellLinkA }
 
 /**
  * Contains data used by SHAddToRecentDocs to identify both an item, in this case through an IShellLink, and the process that it is associated with.
@@ -20,30 +20,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-shardappidinfolink
  * @namespace Windows.Win32.UI.Shell
  */
-class SHARDAPPIDINFOLINK extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct SHARDAPPIDINFOLINK {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishelllinka">IShellLink</a>*</b>
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishelllinka">IShellLink</a> instance that, when launched, opens the item. The shortcut is not added by <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shaddtorecentdocs">SHAddToRecentDocs</a> to the user's <b>Recent</b> folder (<a href="https://docs.microsoft.com/windows/desktop/shell/csidl">CSIDL_RECENT</a>, <a href="https://docs.microsoft.com/windows/desktop/shell/knownfolderid">FOLDERID_Recent</a>), but it is added to the <b>Recent</b> category in the specified application's Jump List.
-     * @type {IShellLinkA}
      */
-    psl {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    psl : IShellLinkA
 
     /**
      * Type: <b>PCWSTR</b>
      * 
      * The application-defined AppUserModelID associated with the item.
-     * @type {PWSTR}
      */
-    pszAppID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszAppID : PWSTR
+
 }

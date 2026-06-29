@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the hardware capabilities of the Tablet PC.
@@ -12,7 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-tablethardwarecapabilities
  * @namespace Windows.Win32.UI.TabletPC
  */
-class TabletHardwareCapabilities extends Win32Enum {
+export default struct TabletHardwareCapabilities {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The digitizer is integrated with the display.

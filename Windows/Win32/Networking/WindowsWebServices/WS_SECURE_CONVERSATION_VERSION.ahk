@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the WS-SecureConversation specification version to be used with message security and mixed-mode security.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_secure_conversation_version
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_SECURE_CONVERSATION_VERSION extends Win32Enum {
+export default struct WS_SECURE_CONVERSATION_VERSION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * WS-SecureConversation with the specification URI of http://schemas.xmlsoap.org/ws/2005/02/sc

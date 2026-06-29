@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EAP_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EAP_TYPE.ahk" { EAP_TYPE }
 
 /**
  * Contains a set of function pointers to the EAPHost Peer Method APIs.
@@ -52,146 +51,85 @@
  * @see https://learn.microsoft.com/windows/win32/api/eapmethodpeerapis/ns-eapmethodpeerapis-eap_peer_method_routines
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  */
-class EAP_PEER_METHOD_ROUTINES extends Win32Struct {
-    static sizeof => 120
-
-    static packingSize => 8
+export default struct EAP_PEER_METHOD_ROUTINES {
+    #StructPack 8
 
     /**
      * The implementer-defined structure version.
      * 
      * <div class="alert"><b>Note</b>  Values for this field are not defined by Microsoft.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
     /**
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_type">EAP_TYPE</a> structure that contains the vendor information on the implementer of the APIs pointed to by the members of this structure.
-     * @type {Pointer<EAP_TYPE>}
      */
-    pEapType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pEapType : EAP_TYPE.Ptr
 
     /**
      * A function pointer for <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eapmethodpeerapis/nf-eapmethodpeerapis-eappeerinitialize">EapPeerInitialize</a>.
-     * @type {Pointer}
      */
-    EapPeerInitialize {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    EapPeerInitialize : IntPtr
 
     /**
      * A function pointer for <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eapmethodpeerapis/nf-eapmethodpeerapis-eappeergetidentity">EapPeerGetIdentity</a>.
-     * @type {Pointer}
      */
-    EapPeerGetIdentity {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    EapPeerGetIdentity : IntPtr
 
     /**
      * A function pointer for <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eapmethodpeerapis/nf-eapmethodpeerapis-eappeerbeginsession">EapPeerBeginSession</a>.
-     * @type {Pointer}
      */
-    EapPeerBeginSession {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    EapPeerBeginSession : IntPtr
 
     /**
      * A function pointer for <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eapmethodpeerapis/nf-eapmethodpeerapis-eappeersetcredentials">EapPeerSetCredentials</a>.
-     * @type {Pointer}
      */
-    EapPeerSetCredentials {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    EapPeerSetCredentials : IntPtr
 
     /**
      * A function pointer for <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eapmethodpeerapis/nf-eapmethodpeerapis-eappeerprocessrequestpacket">EapPeerProcessRequestPacket</a>.
-     * @type {Pointer}
      */
-    EapPeerProcessRequestPacket {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    EapPeerProcessRequestPacket : IntPtr
 
     /**
      * A function pointer for <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eapmethodpeerapis/nf-eapmethodpeerapis-eappeergetresponsepacket">EapPeerGetResponsePacket</a>.
-     * @type {Pointer}
      */
-    EapPeerGetResponsePacket {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    EapPeerGetResponsePacket : IntPtr
 
     /**
      * A function pointer for <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eapmethodpeerapis/nf-eapmethodpeerapis-eappeergetresult">EapPeerGetResult</a>.
-     * @type {Pointer}
      */
-    EapPeerGetResult {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    EapPeerGetResult : IntPtr
 
     /**
      * A function pointer for <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eapmethodpeerapis/nf-eapmethodpeerapis-eappeergetuicontext">EapPeerGetUIContext</a>.
-     * @type {Pointer}
      */
-    EapPeerGetUIContext {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    EapPeerGetUIContext : IntPtr
 
     /**
      * A function pointer for <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eapmethodpeerapis/nf-eapmethodpeerapis-eappeersetuicontext">EapPeerSetUIContext</a>.
-     * @type {Pointer}
      */
-    EapPeerSetUIContext {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    EapPeerSetUIContext : IntPtr
 
     /**
      * A function pointer for <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eapmethodpeerapis/nf-eapmethodpeerapis-eappeergetresponseattributes">EapPeerGetResponseAttributes</a>.
-     * @type {Pointer}
      */
-    EapPeerGetResponseAttributes {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    EapPeerGetResponseAttributes : IntPtr
 
     /**
      * A function pointer for <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eapmethodpeerapis/nf-eapmethodpeerapis-eappeersetresponseattributes">EapPeerSetResponseAttributes</a>.
-     * @type {Pointer}
      */
-    EapPeerSetResponseAttributes {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    EapPeerSetResponseAttributes : IntPtr
 
     /**
      * A function pointer for <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eapmethodpeerapis/nf-eapmethodpeerapis-eappeerendsession">EapPeerEndSession</a>.
-     * @type {Pointer}
      */
-    EapPeerEndSession {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    EapPeerEndSession : IntPtr
 
     /**
      * A function pointer for <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eapmethodpeerapis/nf-eapmethodpeerapis-eappeershutdown">EapPeerShutdown</a>.
-     * @type {Pointer}
      */
-    EapPeerShutdown {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    EapPeerShutdown : IntPtr
+
 }

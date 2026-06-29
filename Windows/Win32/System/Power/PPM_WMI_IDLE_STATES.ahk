@@ -1,63 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PPM_WMI_IDLE_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PPM_WMI_IDLE_STATE.ahk" { PPM_WMI_IDLE_STATE }
 
 /**
  * @namespace Windows.Win32.System.Power
  */
-class PPM_WMI_IDLE_STATES extends Win32Struct {
-    static sizeof => 56
+export default struct PPM_WMI_IDLE_STATES {
+    #StructPack 8
 
-    static packingSize => 8
+    Type : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Count : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Count {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    TargetState : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TargetState {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    OldState : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OldState {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    TargetProcessors : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TargetProcessors {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    State : PPM_WMI_IDLE_STATE[1]
 
-    /**
-     * @type {PPM_WMI_IDLE_STATE}
-     */
-    State {
-        get {
-            if(!this.HasProp("__StateProxyArray"))
-                this.__StateProxyArray := Win32FixedArray(this.ptr + 24, 1, PPM_WMI_IDLE_STATE, "")
-            return this.__StateProxyArray
-        }
-    }
 }

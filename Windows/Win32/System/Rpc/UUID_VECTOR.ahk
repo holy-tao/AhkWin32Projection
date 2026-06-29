@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The UUID_VECTOR structure contains a list of UUIDs.
@@ -10,29 +10,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-uuid_vector
  * @namespace Windows.Win32.System.Rpc
  */
-class UUID_VECTOR extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct UUID_VECTOR {
+    #StructPack 8
 
     /**
      * Number of <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a>s present in the array <b>Uuid</b>.
-     * @type {Integer}
      */
-    Count {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Count : UInt32
 
     /**
      * Array of pointers to <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a>s that contains <b>Count</b> elements.
-     * @type {Array<Pointer<Guid>>}
      */
-    Uuid {
-        get {
-            if(!this.HasProp("__UuidProxyArray"))
-                this.__UuidProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")
-            return this.__UuidProxyArray
-        }
-    }
+    Uuid : Guid.Ptr[1]
+
 }

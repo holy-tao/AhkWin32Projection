@@ -1,43 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWbemObjectSink.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IWbemClassObject.ahk" { IWbemClassObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWbemObjectSink.ahk" { IWbemObjectSink }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
- * Called by a source to provide a notification.
- * @remarks
- * When implementing an event subscription sink (<a href="https://docs.microsoft.com/windows/desktop/WmiSdk/iwbemobjectsink">IWbemObjectSink</a> or <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/iwbemeventsink">IWbemEventSink</a>), do  not call into WMI from within the <b>Indicate</b>  method on the sink object.  For example, calling <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemservices-cancelasynccall">IWbemServices::CancelAsyncCall</a>  from within an implementation of <b>Indicate</b> can interfere with the WMI state. To cancel an event subscription, set a flag and call <b>IWbemServices::CancelAsyncCall</b> from another thread or object. For implementations that are not related to an event sink, such as object, enum, and query retrievals, you can call back into WMI.
- * 
- * Sink implementations should process the event notification within 100 MSEC because the WMI thread that delivers the event notification cannot do other work until the sink object has completed processing. If the notification requires a large amount of processing, the sink can use an internal queue for another thread to handle the processing.
- * 
- * When an event provider calls 
- * <b>Indicate</b> to provide an event, the call can fail with <b>WBEM_E_SERVER_TOO_BUSY</b>. The provider can choose to respond to this message by re-firing the event.
- * 
- * <div class="alert"><b>Note</b>  Because the callback to the sink might not be returned at the same authentication level as the client requires, it is recommended that you use semisynchronous instead of asynchronous communication.  For more information, see <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/calling-a-method">Calling a Method</a>.</div>
- * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectsink-indicate
  * @namespace Windows.Win32.System.Wmi
  */
-class IWbemObjectSinkEx extends IWbemObjectSink {
-
-    static sizeof => A_PtrSize
+export default struct IWbemObjectSinkEx extends IWbemObjectSink {
     /**
      * The interface identifier for IWbemObjectSinkEx
      * @type {Guid}
      */
-    static IID => Guid("{e7d35cfa-348b-485e-b524-252725d697ca}")
+    static IID := Guid("{e7d35cfa-348b-485e-b524-252725d697ca}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWbemObjectSinkEx interfaces
+    */
+    struct Vtbl extends IWbemObjectSink.Vtbl {
+        WriteMessage         : IntPtr
+        WriteError           : IntPtr
+        PromptUser           : IntPtr
+        WriteProgress        : IntPtr
+        WriteStreamParameter : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["WriteMessage", "WriteError", "PromptUser", "WriteProgress", "WriteStreamParameter"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWbemObjectSinkEx.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * TBD (IWbemObjectSinkEx.WriteMessage)
@@ -49,7 +52,7 @@ class IWbemObjectSinkEx extends IWbemObjectSink {
     WriteMessage(uChannel, strMessage) {
         strMessage := strMessage is String ? BSTR.Alloc(strMessage).Value : strMessage
 
-        result := ComCall(5, this, "uint", uChannel, "ptr", strMessage, "HRESULT")
+        result := ComCall(5, this, "uint", uChannel, BSTR, strMessage, "HRESULT")
         return result
     }
 
@@ -74,7 +77,7 @@ class IWbemObjectSinkEx extends IWbemObjectSink {
     PromptUser(strMessage, uPromptType) {
         strMessage := strMessage is String ? BSTR.Alloc(strMessage).Value : strMessage
 
-        result := ComCall(7, this, "ptr", strMessage, "char", uPromptType, "char*", &puReturned := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, strMessage, "char", uPromptType, "char*", &puReturned := 0, "HRESULT")
         return puReturned
     }
 
@@ -93,7 +96,7 @@ class IWbemObjectSinkEx extends IWbemObjectSink {
         strCurrentOperation := strCurrentOperation is String ? BSTR.Alloc(strCurrentOperation).Value : strCurrentOperation
         strStatusDescription := strStatusDescription is String ? BSTR.Alloc(strStatusDescription).Value : strStatusDescription
 
-        result := ComCall(8, this, "ptr", strActivity, "ptr", strCurrentOperation, "ptr", strStatusDescription, "uint", uPercentComplete, "uint", uSecondsRemaining, "HRESULT")
+        result := ComCall(8, this, BSTR, strActivity, BSTR, strCurrentOperation, BSTR, strStatusDescription, "uint", uPercentComplete, "uint", uSecondsRemaining, "HRESULT")
         return result
     }
 
@@ -109,7 +112,35 @@ class IWbemObjectSinkEx extends IWbemObjectSink {
     WriteStreamParameter(strName, vtValue, ulType, ulFlags) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(9, this, "ptr", strName, "ptr", vtValue, "uint", ulType, "uint", ulFlags, "HRESULT")
+        result := ComCall(9, this, BSTR, strName, VARIANT.Ptr, vtValue, "uint", ulType, "uint", ulFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWbemObjectSinkEx.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.WriteMessage := CallbackCreate(GetMethod(implObj, "WriteMessage"), flags, 3)
+        this.vtbl.WriteError := CallbackCreate(GetMethod(implObj, "WriteError"), flags, 3)
+        this.vtbl.PromptUser := CallbackCreate(GetMethod(implObj, "PromptUser"), flags, 4)
+        this.vtbl.WriteProgress := CallbackCreate(GetMethod(implObj, "WriteProgress"), flags, 6)
+        this.vtbl.WriteStreamParameter := CallbackCreate(GetMethod(implObj, "WriteStreamParameter"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.WriteMessage)
+        CallbackFree(this.vtbl.WriteError)
+        CallbackFree(this.vtbl.PromptUser)
+        CallbackFree(this.vtbl.WriteProgress)
+        CallbackFree(this.vtbl.WriteStreamParameter)
     }
 }

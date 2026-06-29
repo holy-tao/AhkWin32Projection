@@ -1,48 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIRROR_VIRTUAL_DISK_VERSION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MIRROR_VIRTUAL_DISK_VERSION.ahk" { MIRROR_VIRTUAL_DISK_VERSION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains virtual hard disk (VHD) mirror request parameters.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-mirror_virtual_disk_parameters
  * @namespace Windows.Win32.Storage.Vhd
  */
-class MIRROR_VIRTUAL_DISK_PARAMETERS extends Win32Struct {
-    static sizeof => 16
+export default struct MIRROR_VIRTUAL_DISK_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
+
+    struct _Version1 {
+        MirrorVirtualDiskPath : PWSTR
+
+    }
 
     /**
      * Indicates the version of this structure to use. Set this to 
      *       <b>MIRROR_VIRTUAL_DISK_VERSION_1</b> (1).
-     * @type {MIRROR_VIRTUAL_DISK_VERSION}
      */
-    Version {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Version : MIRROR_VIRTUAL_DISK_VERSION
 
-    class _Version1 extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    Version1 : MIRROR_VIRTUAL_DISK_PARAMETERS._Version1
 
-        /**
-         * @type {PWSTR}
-         */
-        MirrorVirtualDiskPath {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-    }
-
-    /**
-     * @type {_Version1}
-     */
-    Version1 {
-        get {
-            if(!this.HasProp("__Version1"))
-                this.__Version1 := MIRROR_VIRTUAL_DISK_PARAMETERS._Version1(8, this)
-            return this.__Version1
-        }
-    }
 }

@@ -1,57 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\POINT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.UI.Shell
  * @charset ANSI
  * @architecture X64, Arm64
  */
-class DRAGINFOA extends Win32Struct {
-    static sizeof => 32
+export default struct DRAGINFOA {
+    #StructPack 8
 
-    static packingSize => 8
+    uSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pt : POINT
 
-    /**
-     * @type {POINT}
-     */
-    pt {
-        get {
-            if(!this.HasProp("__pt"))
-                this.__pt := POINT(4, this)
-            return this.__pt
-        }
-    }
+    fNC : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    fNC {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    lpFileList : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    lpFileList {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    grfKeyState : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    grfKeyState {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

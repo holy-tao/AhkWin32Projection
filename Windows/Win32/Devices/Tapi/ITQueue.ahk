@@ -1,34 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITQueue interface (tapi3cc.h) gets and sets information concerning a queue.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nn-tapi3cc-itqueue
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITQueue extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITQueue extends IDispatch {
     /**
      * The interface identifier for ITQueue
      * @type {Guid}
      */
-    static IID => Guid("{5afc3149-4bcc-11d1-bf80-00805fc147d3}")
+    static IID := Guid("{5afc3149-4bcc-11d1-bf80-00805fc147d3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITQueue interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_MeasurementPeriod      : IntPtr
+        get_MeasurementPeriod      : IntPtr
+        get_TotalCallsQueued       : IntPtr
+        get_CurrentCallsQueued     : IntPtr
+        get_TotalCallsAbandoned    : IntPtr
+        get_TotalCallsFlowedIn     : IntPtr
+        get_TotalCallsFlowedOut    : IntPtr
+        get_LongestEverWaitTime    : IntPtr
+        get_CurrentLongestWaitTime : IntPtr
+        get_AverageWaitTime        : IntPtr
+        get_FinalDisposition       : IntPtr
+        get_Name                   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_MeasurementPeriod", "get_MeasurementPeriod", "get_TotalCallsQueued", "get_CurrentCallsQueued", "get_TotalCallsAbandoned", "get_TotalCallsFlowedIn", "get_TotalCallsFlowedOut", "get_LongestEverWaitTime", "get_CurrentLongestWaitTime", "get_AverageWaitTime", "get_FinalDisposition", "get_Name"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITQueue.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -299,8 +318,50 @@ class ITQueue extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itqueue-get_name
      */
     get_Name() {
-        ppName := BSTR()
-        result := ComCall(18, this, "ptr", ppName, "HRESULT")
+        ppName := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, ppName, "HRESULT")
         return ppName
+    }
+
+    Query(iid) {
+        if (ITQueue.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_MeasurementPeriod := CallbackCreate(GetMethod(implObj, "put_MeasurementPeriod"), flags, 2)
+        this.vtbl.get_MeasurementPeriod := CallbackCreate(GetMethod(implObj, "get_MeasurementPeriod"), flags, 2)
+        this.vtbl.get_TotalCallsQueued := CallbackCreate(GetMethod(implObj, "get_TotalCallsQueued"), flags, 2)
+        this.vtbl.get_CurrentCallsQueued := CallbackCreate(GetMethod(implObj, "get_CurrentCallsQueued"), flags, 2)
+        this.vtbl.get_TotalCallsAbandoned := CallbackCreate(GetMethod(implObj, "get_TotalCallsAbandoned"), flags, 2)
+        this.vtbl.get_TotalCallsFlowedIn := CallbackCreate(GetMethod(implObj, "get_TotalCallsFlowedIn"), flags, 2)
+        this.vtbl.get_TotalCallsFlowedOut := CallbackCreate(GetMethod(implObj, "get_TotalCallsFlowedOut"), flags, 2)
+        this.vtbl.get_LongestEverWaitTime := CallbackCreate(GetMethod(implObj, "get_LongestEverWaitTime"), flags, 2)
+        this.vtbl.get_CurrentLongestWaitTime := CallbackCreate(GetMethod(implObj, "get_CurrentLongestWaitTime"), flags, 2)
+        this.vtbl.get_AverageWaitTime := CallbackCreate(GetMethod(implObj, "get_AverageWaitTime"), flags, 2)
+        this.vtbl.get_FinalDisposition := CallbackCreate(GetMethod(implObj, "get_FinalDisposition"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_MeasurementPeriod)
+        CallbackFree(this.vtbl.get_MeasurementPeriod)
+        CallbackFree(this.vtbl.get_TotalCallsQueued)
+        CallbackFree(this.vtbl.get_CurrentCallsQueued)
+        CallbackFree(this.vtbl.get_TotalCallsAbandoned)
+        CallbackFree(this.vtbl.get_TotalCallsFlowedIn)
+        CallbackFree(this.vtbl.get_TotalCallsFlowedOut)
+        CallbackFree(this.vtbl.get_LongestEverWaitTime)
+        CallbackFree(this.vtbl.get_CurrentLongestWaitTime)
+        CallbackFree(this.vtbl.get_AverageWaitTime)
+        CallbackFree(this.vtbl.get_FinalDisposition)
+        CallbackFree(this.vtbl.get_Name)
     }
 }

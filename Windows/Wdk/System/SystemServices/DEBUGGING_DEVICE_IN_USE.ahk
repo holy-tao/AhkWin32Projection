@@ -1,44 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KD_NAMESPACE_ENUM.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KD_NAMESPACE_ENUM.ahk" { KD_NAMESPACE_ENUM }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class DEBUGGING_DEVICE_IN_USE extends Win32Struct {
-    static sizeof => 16
+export default struct DEBUGGING_DEVICE_IN_USE {
+    #StructPack 8
 
-    static packingSize => 8
+    NameSpace : KD_NAMESPACE_ENUM
 
-    /**
-     * @type {KD_NAMESPACE_ENUM}
-     */
-    NameSpace {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    StructureLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StructureLength {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    AcpiDevice : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    AcpiDevice {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    PciDevice {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'PciDevice', { type: IntPtr, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

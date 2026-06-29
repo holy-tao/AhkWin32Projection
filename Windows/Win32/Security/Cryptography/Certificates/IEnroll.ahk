@@ -1,34 +1,117 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\HCERTSTORE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\CRYPT_ATTRIBUTES.ahk" { CRYPT_ATTRIBUTES }
+#Import "..\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import "..\HCERTSTORE.ahk" { HCERTSTORE }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import "..\CERT_EXTENSIONS.ahk" { CERT_EXTENSIONS }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents the Certificate Enrollment Control and is used primarily to generate certificate requests. (IEnroll)
  * @see https://learn.microsoft.com/windows/win32/api/xenroll/nn-xenroll-ienroll
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IEnroll extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IEnroll extends IUnknown {
     /**
      * The interface identifier for IEnroll
      * @type {Guid}
      */
-    static IID => Guid("{acaa7838-4585-11d1-ab57-00c04fc295e1}")
+    static IID := Guid("{acaa7838-4585-11d1-ab57-00c04fc295e1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IEnroll interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        createFilePKCS10WStr                     : IntPtr
+        acceptFilePKCS7WStr                      : IntPtr
+        createPKCS10WStr                         : IntPtr
+        acceptPKCS7Blob                          : IntPtr
+        getCertContextFromPKCS7                  : IntPtr
+        getMyStore                               : IntPtr
+        getCAStore                               : IntPtr
+        getROOTHStore                            : IntPtr
+        enumProvidersWStr                        : IntPtr
+        enumContainersWStr                       : IntPtr
+        freeRequestInfoBlob                      : IntPtr
+        get_MyStoreNameWStr                      : IntPtr
+        put_MyStoreNameWStr                      : IntPtr
+        get_MyStoreTypeWStr                      : IntPtr
+        put_MyStoreTypeWStr                      : IntPtr
+        get_MyStoreFlags                         : IntPtr
+        put_MyStoreFlags                         : IntPtr
+        get_CAStoreNameWStr                      : IntPtr
+        put_CAStoreNameWStr                      : IntPtr
+        get_CAStoreTypeWStr                      : IntPtr
+        put_CAStoreTypeWStr                      : IntPtr
+        get_CAStoreFlags                         : IntPtr
+        put_CAStoreFlags                         : IntPtr
+        get_RootStoreNameWStr                    : IntPtr
+        put_RootStoreNameWStr                    : IntPtr
+        get_RootStoreTypeWStr                    : IntPtr
+        put_RootStoreTypeWStr                    : IntPtr
+        get_RootStoreFlags                       : IntPtr
+        put_RootStoreFlags                       : IntPtr
+        get_RequestStoreNameWStr                 : IntPtr
+        put_RequestStoreNameWStr                 : IntPtr
+        get_RequestStoreTypeWStr                 : IntPtr
+        put_RequestStoreTypeWStr                 : IntPtr
+        get_RequestStoreFlags                    : IntPtr
+        put_RequestStoreFlags                    : IntPtr
+        get_ContainerNameWStr                    : IntPtr
+        put_ContainerNameWStr                    : IntPtr
+        get_ProviderNameWStr                     : IntPtr
+        put_ProviderNameWStr                     : IntPtr
+        get_ProviderType                         : IntPtr
+        put_ProviderType                         : IntPtr
+        get_KeySpec                              : IntPtr
+        put_KeySpec                              : IntPtr
+        get_ProviderFlags                        : IntPtr
+        put_ProviderFlags                        : IntPtr
+        get_UseExistingKeySet                    : IntPtr
+        put_UseExistingKeySet                    : IntPtr
+        get_GenKeyFlags                          : IntPtr
+        put_GenKeyFlags                          : IntPtr
+        get_DeleteRequestCert                    : IntPtr
+        put_DeleteRequestCert                    : IntPtr
+        get_WriteCertToUserDS                    : IntPtr
+        put_WriteCertToUserDS                    : IntPtr
+        get_EnableT61DNEncoding                  : IntPtr
+        put_EnableT61DNEncoding                  : IntPtr
+        get_WriteCertToCSP                       : IntPtr
+        put_WriteCertToCSP                       : IntPtr
+        get_SPCFileNameWStr                      : IntPtr
+        put_SPCFileNameWStr                      : IntPtr
+        get_PVKFileNameWStr                      : IntPtr
+        put_PVKFileNameWStr                      : IntPtr
+        get_HashAlgorithmWStr                    : IntPtr
+        put_HashAlgorithmWStr                    : IntPtr
+        get_RenewalCertificate                   : IntPtr
+        put_RenewalCertificate                   : IntPtr
+        AddCertTypeToRequestWStr                 : IntPtr
+        AddNameValuePairToSignatureWStr          : IntPtr
+        AddExtensionsToRequest                   : IntPtr
+        AddAuthenticatedAttributesToPKCS7Request : IntPtr
+        CreatePKCS7RequestFromRequest            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["createFilePKCS10WStr", "acceptFilePKCS7WStr", "createPKCS10WStr", "acceptPKCS7Blob", "getCertContextFromPKCS7", "getMyStore", "getCAStore", "getROOTHStore", "enumProvidersWStr", "enumContainersWStr", "freeRequestInfoBlob", "get_MyStoreNameWStr", "put_MyStoreNameWStr", "get_MyStoreTypeWStr", "put_MyStoreTypeWStr", "get_MyStoreFlags", "put_MyStoreFlags", "get_CAStoreNameWStr", "put_CAStoreNameWStr", "get_CAStoreTypeWStr", "put_CAStoreTypeWStr", "get_CAStoreFlags", "put_CAStoreFlags", "get_RootStoreNameWStr", "put_RootStoreNameWStr", "get_RootStoreTypeWStr", "put_RootStoreTypeWStr", "get_RootStoreFlags", "put_RootStoreFlags", "get_RequestStoreNameWStr", "put_RequestStoreNameWStr", "get_RequestStoreTypeWStr", "put_RequestStoreTypeWStr", "get_RequestStoreFlags", "put_RequestStoreFlags", "get_ContainerNameWStr", "put_ContainerNameWStr", "get_ProviderNameWStr", "put_ProviderNameWStr", "get_ProviderType", "put_ProviderType", "get_KeySpec", "put_KeySpec", "get_ProviderFlags", "put_ProviderFlags", "get_UseExistingKeySet", "put_UseExistingKeySet", "get_GenKeyFlags", "put_GenKeyFlags", "get_DeleteRequestCert", "put_DeleteRequestCert", "get_WriteCertToUserDS", "put_WriteCertToUserDS", "get_EnableT61DNEncoding", "put_EnableT61DNEncoding", "get_WriteCertToCSP", "put_WriteCertToCSP", "get_SPCFileNameWStr", "put_SPCFileNameWStr", "get_PVKFileNameWStr", "put_PVKFileNameWStr", "get_HashAlgorithmWStr", "put_HashAlgorithmWStr", "get_RenewalCertificate", "put_RenewalCertificate", "AddCertTypeToRequestWStr", "AddNameValuePairToSignatureWStr", "AddExtensionsToRequest", "AddAuthenticatedAttributesToPKCS7Request", "CreatePKCS7RequestFromRequest"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IEnroll.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {PWSTR} 
@@ -317,7 +400,7 @@ class IEnroll extends IUnknown {
         DNName := DNName is String ? StrPtr(DNName) : DNName
         Usage := Usage is String ? StrPtr(Usage) : Usage
 
-        result := ComCall(5, this, "ptr", DNName, "ptr", Usage, "ptr", pPkcs10Blob, "HRESULT")
+        result := ComCall(5, this, "ptr", DNName, "ptr", Usage, CRYPT_INTEGER_BLOB.Ptr, pPkcs10Blob, "HRESULT")
         return result
     }
 
@@ -348,7 +431,7 @@ class IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-acceptpkcs7blob
      */
     acceptPKCS7Blob(pBlobPKCS7) {
-        result := ComCall(6, this, "ptr", pBlobPKCS7, "HRESULT")
+        result := ComCall(6, this, CRYPT_INTEGER_BLOB.Ptr, pBlobPKCS7, "HRESULT")
         return result
     }
 
@@ -359,7 +442,7 @@ class IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-getcertcontextfrompkcs7
      */
     getCertContextFromPKCS7(pBlobPKCS7) {
-        result := ComCall(7, this, "ptr", pBlobPKCS7, "ptr")
+        result := ComCall(7, this, CRYPT_INTEGER_BLOB.Ptr, pBlobPKCS7, CERT_CONTEXT.Ptr)
         return result
     }
 
@@ -369,9 +452,8 @@ class IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-getmystore
      */
     getMyStore() {
-        result := ComCall(8, this, "ptr")
-        resultHandle := HCERTSTORE({Value: result}, True)
-        return resultHandle
+        result := ComCall(8, this, HCERTSTORE)
+        return result
     }
 
     /**
@@ -380,9 +462,8 @@ class IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-getcastore
      */
     getCAStore() {
-        result := ComCall(9, this, "ptr")
-        resultHandle := HCERTSTORE({Value: result}, True)
-        return resultHandle
+        result := ComCall(9, this, HCERTSTORE)
+        return result
     }
 
     /**
@@ -391,9 +472,8 @@ class IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-getroothstore
      */
     getROOTHStore() {
-        result := ComCall(10, this, "ptr")
-        resultHandle := HCERTSTORE({Value: result}, True)
-        return resultHandle
+        result := ComCall(10, this, HCERTSTORE)
+        return result
     }
 
     /**
@@ -442,7 +522,7 @@ class IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-freerequestinfoblob
      */
     freeRequestInfoBlob(pkcs7OrPkcs10) {
-        result := ComCall(13, this, "ptr", pkcs7OrPkcs10, "HRESULT")
+        result := ComCall(13, this, CRYPT_INTEGER_BLOB, pkcs7OrPkcs10, "HRESULT")
         return result
     }
 
@@ -1450,7 +1530,7 @@ class IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_useexistingkeyset
      */
     put_UseExistingKeySet(fUseExistingKeys) {
-        result := ComCall(49, this, "int", fUseExistingKeys, "HRESULT")
+        result := ComCall(49, this, BOOL, fUseExistingKeys, "HRESULT")
         return result
     }
 
@@ -1578,7 +1658,7 @@ class IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_deleterequestcert
      */
     put_DeleteRequestCert(fDelete) {
-        result := ComCall(53, this, "int", fDelete, "HRESULT")
+        result := ComCall(53, this, BOOL, fDelete, "HRESULT")
         return result
     }
 
@@ -1624,7 +1704,7 @@ class IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_writecerttouserds
      */
     put_WriteCertToUserDS(fBool) {
-        result := ComCall(55, this, "int", fBool, "HRESULT")
+        result := ComCall(55, this, BOOL, fBool, "HRESULT")
         return result
     }
 
@@ -1670,7 +1750,7 @@ class IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_enablet61dnencoding
      */
     put_EnableT61DNEncoding(fBool) {
-        result := ComCall(57, this, "int", fBool, "HRESULT")
+        result := ComCall(57, this, BOOL, fBool, "HRESULT")
         return result
     }
 
@@ -1730,7 +1810,7 @@ class IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_writecerttocsp
      */
     put_WriteCertToCSP(fBool) {
-        result := ComCall(59, this, "int", fBool, "HRESULT")
+        result := ComCall(59, this, BOOL, fBool, "HRESULT")
         return result
     }
 
@@ -1972,7 +2052,7 @@ class IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-put_renewalcertificate
      */
     put_RenewalCertificate(pCertContext) {
-        result := ComCall(67, this, "ptr", pCertContext, "HRESULT")
+        result := ComCall(67, this, CERT_CONTEXT.Ptr, pCertContext, "HRESULT")
         return result
     }
 
@@ -2015,7 +2095,7 @@ class IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-addextensionstorequest
      */
     AddExtensionsToRequest(pCertExtensions) {
-        result := ComCall(70, this, "ptr", pCertExtensions, "HRESULT")
+        result := ComCall(70, this, CERT_EXTENSIONS.Ptr, pCertExtensions, "HRESULT")
         return result
     }
 
@@ -2026,7 +2106,7 @@ class IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-addauthenticatedattributestopkcs7request
      */
     AddAuthenticatedAttributesToPKCS7Request(pAttributes) {
-        result := ComCall(71, this, "ptr", pAttributes, "HRESULT")
+        result := ComCall(71, this, CRYPT_ATTRIBUTES.Ptr, pAttributes, "HRESULT")
         return result
     }
 
@@ -2043,7 +2123,165 @@ class IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-createpkcs7requestfromrequest
      */
     CreatePKCS7RequestFromRequest(pRequest, pSigningCertContext, pPkcs7Blob) {
-        result := ComCall(72, this, "ptr", pRequest, "ptr", pSigningCertContext, "ptr", pPkcs7Blob, "HRESULT")
+        result := ComCall(72, this, CRYPT_INTEGER_BLOB.Ptr, pRequest, CERT_CONTEXT.Ptr, pSigningCertContext, CRYPT_INTEGER_BLOB.Ptr, pPkcs7Blob, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IEnroll.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.createFilePKCS10WStr := CallbackCreate(GetMethod(implObj, "createFilePKCS10WStr"), flags, 4)
+        this.vtbl.acceptFilePKCS7WStr := CallbackCreate(GetMethod(implObj, "acceptFilePKCS7WStr"), flags, 2)
+        this.vtbl.createPKCS10WStr := CallbackCreate(GetMethod(implObj, "createPKCS10WStr"), flags, 4)
+        this.vtbl.acceptPKCS7Blob := CallbackCreate(GetMethod(implObj, "acceptPKCS7Blob"), flags, 2)
+        this.vtbl.getCertContextFromPKCS7 := CallbackCreate(GetMethod(implObj, "getCertContextFromPKCS7"), flags, 2)
+        this.vtbl.getMyStore := CallbackCreate(GetMethod(implObj, "getMyStore"), flags, 1)
+        this.vtbl.getCAStore := CallbackCreate(GetMethod(implObj, "getCAStore"), flags, 1)
+        this.vtbl.getROOTHStore := CallbackCreate(GetMethod(implObj, "getROOTHStore"), flags, 1)
+        this.vtbl.enumProvidersWStr := CallbackCreate(GetMethod(implObj, "enumProvidersWStr"), flags, 4)
+        this.vtbl.enumContainersWStr := CallbackCreate(GetMethod(implObj, "enumContainersWStr"), flags, 3)
+        this.vtbl.freeRequestInfoBlob := CallbackCreate(GetMethod(implObj, "freeRequestInfoBlob"), flags, 2)
+        this.vtbl.get_MyStoreNameWStr := CallbackCreate(GetMethod(implObj, "get_MyStoreNameWStr"), flags, 2)
+        this.vtbl.put_MyStoreNameWStr := CallbackCreate(GetMethod(implObj, "put_MyStoreNameWStr"), flags, 2)
+        this.vtbl.get_MyStoreTypeWStr := CallbackCreate(GetMethod(implObj, "get_MyStoreTypeWStr"), flags, 2)
+        this.vtbl.put_MyStoreTypeWStr := CallbackCreate(GetMethod(implObj, "put_MyStoreTypeWStr"), flags, 2)
+        this.vtbl.get_MyStoreFlags := CallbackCreate(GetMethod(implObj, "get_MyStoreFlags"), flags, 2)
+        this.vtbl.put_MyStoreFlags := CallbackCreate(GetMethod(implObj, "put_MyStoreFlags"), flags, 2)
+        this.vtbl.get_CAStoreNameWStr := CallbackCreate(GetMethod(implObj, "get_CAStoreNameWStr"), flags, 2)
+        this.vtbl.put_CAStoreNameWStr := CallbackCreate(GetMethod(implObj, "put_CAStoreNameWStr"), flags, 2)
+        this.vtbl.get_CAStoreTypeWStr := CallbackCreate(GetMethod(implObj, "get_CAStoreTypeWStr"), flags, 2)
+        this.vtbl.put_CAStoreTypeWStr := CallbackCreate(GetMethod(implObj, "put_CAStoreTypeWStr"), flags, 2)
+        this.vtbl.get_CAStoreFlags := CallbackCreate(GetMethod(implObj, "get_CAStoreFlags"), flags, 2)
+        this.vtbl.put_CAStoreFlags := CallbackCreate(GetMethod(implObj, "put_CAStoreFlags"), flags, 2)
+        this.vtbl.get_RootStoreNameWStr := CallbackCreate(GetMethod(implObj, "get_RootStoreNameWStr"), flags, 2)
+        this.vtbl.put_RootStoreNameWStr := CallbackCreate(GetMethod(implObj, "put_RootStoreNameWStr"), flags, 2)
+        this.vtbl.get_RootStoreTypeWStr := CallbackCreate(GetMethod(implObj, "get_RootStoreTypeWStr"), flags, 2)
+        this.vtbl.put_RootStoreTypeWStr := CallbackCreate(GetMethod(implObj, "put_RootStoreTypeWStr"), flags, 2)
+        this.vtbl.get_RootStoreFlags := CallbackCreate(GetMethod(implObj, "get_RootStoreFlags"), flags, 2)
+        this.vtbl.put_RootStoreFlags := CallbackCreate(GetMethod(implObj, "put_RootStoreFlags"), flags, 2)
+        this.vtbl.get_RequestStoreNameWStr := CallbackCreate(GetMethod(implObj, "get_RequestStoreNameWStr"), flags, 2)
+        this.vtbl.put_RequestStoreNameWStr := CallbackCreate(GetMethod(implObj, "put_RequestStoreNameWStr"), flags, 2)
+        this.vtbl.get_RequestStoreTypeWStr := CallbackCreate(GetMethod(implObj, "get_RequestStoreTypeWStr"), flags, 2)
+        this.vtbl.put_RequestStoreTypeWStr := CallbackCreate(GetMethod(implObj, "put_RequestStoreTypeWStr"), flags, 2)
+        this.vtbl.get_RequestStoreFlags := CallbackCreate(GetMethod(implObj, "get_RequestStoreFlags"), flags, 2)
+        this.vtbl.put_RequestStoreFlags := CallbackCreate(GetMethod(implObj, "put_RequestStoreFlags"), flags, 2)
+        this.vtbl.get_ContainerNameWStr := CallbackCreate(GetMethod(implObj, "get_ContainerNameWStr"), flags, 2)
+        this.vtbl.put_ContainerNameWStr := CallbackCreate(GetMethod(implObj, "put_ContainerNameWStr"), flags, 2)
+        this.vtbl.get_ProviderNameWStr := CallbackCreate(GetMethod(implObj, "get_ProviderNameWStr"), flags, 2)
+        this.vtbl.put_ProviderNameWStr := CallbackCreate(GetMethod(implObj, "put_ProviderNameWStr"), flags, 2)
+        this.vtbl.get_ProviderType := CallbackCreate(GetMethod(implObj, "get_ProviderType"), flags, 2)
+        this.vtbl.put_ProviderType := CallbackCreate(GetMethod(implObj, "put_ProviderType"), flags, 2)
+        this.vtbl.get_KeySpec := CallbackCreate(GetMethod(implObj, "get_KeySpec"), flags, 2)
+        this.vtbl.put_KeySpec := CallbackCreate(GetMethod(implObj, "put_KeySpec"), flags, 2)
+        this.vtbl.get_ProviderFlags := CallbackCreate(GetMethod(implObj, "get_ProviderFlags"), flags, 2)
+        this.vtbl.put_ProviderFlags := CallbackCreate(GetMethod(implObj, "put_ProviderFlags"), flags, 2)
+        this.vtbl.get_UseExistingKeySet := CallbackCreate(GetMethod(implObj, "get_UseExistingKeySet"), flags, 2)
+        this.vtbl.put_UseExistingKeySet := CallbackCreate(GetMethod(implObj, "put_UseExistingKeySet"), flags, 2)
+        this.vtbl.get_GenKeyFlags := CallbackCreate(GetMethod(implObj, "get_GenKeyFlags"), flags, 2)
+        this.vtbl.put_GenKeyFlags := CallbackCreate(GetMethod(implObj, "put_GenKeyFlags"), flags, 2)
+        this.vtbl.get_DeleteRequestCert := CallbackCreate(GetMethod(implObj, "get_DeleteRequestCert"), flags, 2)
+        this.vtbl.put_DeleteRequestCert := CallbackCreate(GetMethod(implObj, "put_DeleteRequestCert"), flags, 2)
+        this.vtbl.get_WriteCertToUserDS := CallbackCreate(GetMethod(implObj, "get_WriteCertToUserDS"), flags, 2)
+        this.vtbl.put_WriteCertToUserDS := CallbackCreate(GetMethod(implObj, "put_WriteCertToUserDS"), flags, 2)
+        this.vtbl.get_EnableT61DNEncoding := CallbackCreate(GetMethod(implObj, "get_EnableT61DNEncoding"), flags, 2)
+        this.vtbl.put_EnableT61DNEncoding := CallbackCreate(GetMethod(implObj, "put_EnableT61DNEncoding"), flags, 2)
+        this.vtbl.get_WriteCertToCSP := CallbackCreate(GetMethod(implObj, "get_WriteCertToCSP"), flags, 2)
+        this.vtbl.put_WriteCertToCSP := CallbackCreate(GetMethod(implObj, "put_WriteCertToCSP"), flags, 2)
+        this.vtbl.get_SPCFileNameWStr := CallbackCreate(GetMethod(implObj, "get_SPCFileNameWStr"), flags, 2)
+        this.vtbl.put_SPCFileNameWStr := CallbackCreate(GetMethod(implObj, "put_SPCFileNameWStr"), flags, 2)
+        this.vtbl.get_PVKFileNameWStr := CallbackCreate(GetMethod(implObj, "get_PVKFileNameWStr"), flags, 2)
+        this.vtbl.put_PVKFileNameWStr := CallbackCreate(GetMethod(implObj, "put_PVKFileNameWStr"), flags, 2)
+        this.vtbl.get_HashAlgorithmWStr := CallbackCreate(GetMethod(implObj, "get_HashAlgorithmWStr"), flags, 2)
+        this.vtbl.put_HashAlgorithmWStr := CallbackCreate(GetMethod(implObj, "put_HashAlgorithmWStr"), flags, 2)
+        this.vtbl.get_RenewalCertificate := CallbackCreate(GetMethod(implObj, "get_RenewalCertificate"), flags, 2)
+        this.vtbl.put_RenewalCertificate := CallbackCreate(GetMethod(implObj, "put_RenewalCertificate"), flags, 2)
+        this.vtbl.AddCertTypeToRequestWStr := CallbackCreate(GetMethod(implObj, "AddCertTypeToRequestWStr"), flags, 2)
+        this.vtbl.AddNameValuePairToSignatureWStr := CallbackCreate(GetMethod(implObj, "AddNameValuePairToSignatureWStr"), flags, 3)
+        this.vtbl.AddExtensionsToRequest := CallbackCreate(GetMethod(implObj, "AddExtensionsToRequest"), flags, 2)
+        this.vtbl.AddAuthenticatedAttributesToPKCS7Request := CallbackCreate(GetMethod(implObj, "AddAuthenticatedAttributesToPKCS7Request"), flags, 2)
+        this.vtbl.CreatePKCS7RequestFromRequest := CallbackCreate(GetMethod(implObj, "CreatePKCS7RequestFromRequest"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.createFilePKCS10WStr)
+        CallbackFree(this.vtbl.acceptFilePKCS7WStr)
+        CallbackFree(this.vtbl.createPKCS10WStr)
+        CallbackFree(this.vtbl.acceptPKCS7Blob)
+        CallbackFree(this.vtbl.getCertContextFromPKCS7)
+        CallbackFree(this.vtbl.getMyStore)
+        CallbackFree(this.vtbl.getCAStore)
+        CallbackFree(this.vtbl.getROOTHStore)
+        CallbackFree(this.vtbl.enumProvidersWStr)
+        CallbackFree(this.vtbl.enumContainersWStr)
+        CallbackFree(this.vtbl.freeRequestInfoBlob)
+        CallbackFree(this.vtbl.get_MyStoreNameWStr)
+        CallbackFree(this.vtbl.put_MyStoreNameWStr)
+        CallbackFree(this.vtbl.get_MyStoreTypeWStr)
+        CallbackFree(this.vtbl.put_MyStoreTypeWStr)
+        CallbackFree(this.vtbl.get_MyStoreFlags)
+        CallbackFree(this.vtbl.put_MyStoreFlags)
+        CallbackFree(this.vtbl.get_CAStoreNameWStr)
+        CallbackFree(this.vtbl.put_CAStoreNameWStr)
+        CallbackFree(this.vtbl.get_CAStoreTypeWStr)
+        CallbackFree(this.vtbl.put_CAStoreTypeWStr)
+        CallbackFree(this.vtbl.get_CAStoreFlags)
+        CallbackFree(this.vtbl.put_CAStoreFlags)
+        CallbackFree(this.vtbl.get_RootStoreNameWStr)
+        CallbackFree(this.vtbl.put_RootStoreNameWStr)
+        CallbackFree(this.vtbl.get_RootStoreTypeWStr)
+        CallbackFree(this.vtbl.put_RootStoreTypeWStr)
+        CallbackFree(this.vtbl.get_RootStoreFlags)
+        CallbackFree(this.vtbl.put_RootStoreFlags)
+        CallbackFree(this.vtbl.get_RequestStoreNameWStr)
+        CallbackFree(this.vtbl.put_RequestStoreNameWStr)
+        CallbackFree(this.vtbl.get_RequestStoreTypeWStr)
+        CallbackFree(this.vtbl.put_RequestStoreTypeWStr)
+        CallbackFree(this.vtbl.get_RequestStoreFlags)
+        CallbackFree(this.vtbl.put_RequestStoreFlags)
+        CallbackFree(this.vtbl.get_ContainerNameWStr)
+        CallbackFree(this.vtbl.put_ContainerNameWStr)
+        CallbackFree(this.vtbl.get_ProviderNameWStr)
+        CallbackFree(this.vtbl.put_ProviderNameWStr)
+        CallbackFree(this.vtbl.get_ProviderType)
+        CallbackFree(this.vtbl.put_ProviderType)
+        CallbackFree(this.vtbl.get_KeySpec)
+        CallbackFree(this.vtbl.put_KeySpec)
+        CallbackFree(this.vtbl.get_ProviderFlags)
+        CallbackFree(this.vtbl.put_ProviderFlags)
+        CallbackFree(this.vtbl.get_UseExistingKeySet)
+        CallbackFree(this.vtbl.put_UseExistingKeySet)
+        CallbackFree(this.vtbl.get_GenKeyFlags)
+        CallbackFree(this.vtbl.put_GenKeyFlags)
+        CallbackFree(this.vtbl.get_DeleteRequestCert)
+        CallbackFree(this.vtbl.put_DeleteRequestCert)
+        CallbackFree(this.vtbl.get_WriteCertToUserDS)
+        CallbackFree(this.vtbl.put_WriteCertToUserDS)
+        CallbackFree(this.vtbl.get_EnableT61DNEncoding)
+        CallbackFree(this.vtbl.put_EnableT61DNEncoding)
+        CallbackFree(this.vtbl.get_WriteCertToCSP)
+        CallbackFree(this.vtbl.put_WriteCertToCSP)
+        CallbackFree(this.vtbl.get_SPCFileNameWStr)
+        CallbackFree(this.vtbl.put_SPCFileNameWStr)
+        CallbackFree(this.vtbl.get_PVKFileNameWStr)
+        CallbackFree(this.vtbl.put_PVKFileNameWStr)
+        CallbackFree(this.vtbl.get_HashAlgorithmWStr)
+        CallbackFree(this.vtbl.put_HashAlgorithmWStr)
+        CallbackFree(this.vtbl.get_RenewalCertificate)
+        CallbackFree(this.vtbl.put_RenewalCertificate)
+        CallbackFree(this.vtbl.AddCertTypeToRequestWStr)
+        CallbackFree(this.vtbl.AddNameValuePairToSignatureWStr)
+        CallbackFree(this.vtbl.AddExtensionsToRequest)
+        CallbackFree(this.vtbl.AddAuthenticatedAttributesToPKCS7Request)
+        CallbackFree(this.vtbl.CreatePKCS7RequestFromRequest)
     }
 }

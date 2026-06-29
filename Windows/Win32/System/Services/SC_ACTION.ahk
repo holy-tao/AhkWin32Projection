@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SC_ACTION_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SC_ACTION_TYPE.ahk" { SC_ACTION_TYPE }
 
 /**
  * Represents an action that the service control manager can perform.
@@ -12,25 +11,14 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-sc_action
  * @namespace Windows.Win32.System.Services
  */
-class SC_ACTION extends Win32Struct {
-    static sizeof => 8
+export default struct SC_ACTION {
+    #StructPack 4
 
-    static packingSize => 4
-
-    /**
-     * @type {SC_ACTION_TYPE}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Type : SC_ACTION_TYPE
 
     /**
      * The time to wait before performing the specified action, in milliseconds.
-     * @type {Integer}
      */
-    Delay {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Delay : UInt32
+
 }

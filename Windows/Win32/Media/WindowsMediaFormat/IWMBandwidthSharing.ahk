@@ -1,34 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMStreamList.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWMStreamList.ahk" { IWMStreamList }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMBandwidthSharing interface contains methods to manage the properties of combined streams.The list of streams that share bandwidth is stored in the bandwidth sharing object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmbandwidthsharing
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMBandwidthSharing extends IWMStreamList {
-
-    static sizeof => A_PtrSize
+export default struct IWMBandwidthSharing extends IWMStreamList {
     /**
      * The interface identifier for IWMBandwidthSharing
      * @type {Guid}
      */
-    static IID => Guid("{ad694af1-f8d9-42f8-bc47-70311b0c4f9e}")
+    static IID := Guid("{ad694af1-f8d9-42f8-bc47-70311b0c4f9e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMBandwidthSharing interfaces
+    */
+    struct Vtbl extends IWMStreamList.Vtbl {
+        GetType      : IntPtr
+        SetType      : IntPtr
+        GetBandwidth : IntPtr
+        SetBandwidth : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetType", "SetType", "GetBandwidth", "SetBandwidth"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMBandwidthSharing.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetType method retrieves the type of sharing for the bandwidth sharing object.
@@ -39,7 +49,7 @@ class IWMBandwidthSharing extends IWMStreamList {
      */
     GetType() {
         pguidType := Guid()
-        result := ComCall(6, this, "ptr", pguidType, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, pguidType, "HRESULT")
         return pguidType
     }
 
@@ -98,7 +108,7 @@ class IWMBandwidthSharing extends IWMStreamList {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmbandwidthsharing-settype
      */
     SetType(guidType) {
-        result := ComCall(7, this, "ptr", guidType, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, guidType, "HRESULT")
         return result
     }
 
@@ -160,5 +170,31 @@ class IWMBandwidthSharing extends IWMStreamList {
     SetBandwidth(dwBitrate, msBufferWindow) {
         result := ComCall(9, this, "uint", dwBitrate, "uint", msBufferWindow, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMBandwidthSharing.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.SetType := CallbackCreate(GetMethod(implObj, "SetType"), flags, 2)
+        this.vtbl.GetBandwidth := CallbackCreate(GetMethod(implObj, "GetBandwidth"), flags, 3)
+        this.vtbl.SetBandwidth := CallbackCreate(GetMethod(implObj, "SetBandwidth"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetType)
+        CallbackFree(this.vtbl.SetType)
+        CallbackFree(this.vtbl.GetBandwidth)
+        CallbackFree(this.vtbl.SetBandwidth)
     }
 }

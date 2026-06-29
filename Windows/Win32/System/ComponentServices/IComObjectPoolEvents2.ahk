@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Notifies the subscriber when a new object is created for or removed from the pool.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomobjectpoolevents2
  * @namespace Windows.Win32.System.ComponentServices
  */
-class IComObjectPoolEvents2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IComObjectPoolEvents2 extends IUnknown {
     /**
      * The interface identifier for IComObjectPoolEvents2
      * @type {Guid}
      */
-    static IID => Guid("{683130ae-2e50-11d2-98a5-00c04f8ee1c4}")
+    static IID := Guid("{683130ae-2e50-11d2-98a5-00c04f8ee1c4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IComObjectPoolEvents2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnObjPoolCreateObject   : IntPtr
+        OnObjPoolDestroyObject  : IntPtr
+        OnObjPoolCreateDecision : IntPtr
+        OnObjPoolTimeout        : IntPtr
+        OnObjPoolCreatePool     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnObjPoolCreateObject", "OnObjPoolDestroyObject", "OnObjPoolCreateDecision", "OnObjPoolTimeout", "OnObjPoolCreatePool"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IComObjectPoolEvents2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Generated when an object is created for the pool.
@@ -39,7 +52,7 @@ class IComObjectPoolEvents2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectpoolevents2-onobjpoolcreateobject
      */
     OnObjPoolCreateObject(pInfo, guidObject, dwObjsCreated, oid) {
-        result := ComCall(3, this, "ptr", pInfo, "ptr", guidObject, "uint", dwObjsCreated, "uint", oid, "HRESULT")
+        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidObject, "uint", dwObjsCreated, "uint", oid, "HRESULT")
         return result
     }
 
@@ -53,7 +66,7 @@ class IComObjectPoolEvents2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectpoolevents2-onobjpooldestroyobject
      */
     OnObjPoolDestroyObject(pInfo, guidObject, dwObjsCreated, oid) {
-        result := ComCall(4, this, "ptr", pInfo, "ptr", guidObject, "uint", dwObjsCreated, "uint", oid, "HRESULT")
+        result := ComCall(4, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidObject, "uint", dwObjsCreated, "uint", oid, "HRESULT")
         return result
     }
 
@@ -71,7 +84,7 @@ class IComObjectPoolEvents2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectpoolevents2-onobjpoolcreatedecision
      */
     OnObjPoolCreateDecision(pInfo, dwThreadsWaiting, dwAvail, dwCreated, dwMin, dwMax) {
-        result := ComCall(5, this, "ptr", pInfo, "uint", dwThreadsWaiting, "uint", dwAvail, "uint", dwCreated, "uint", dwMin, "uint", dwMax, "HRESULT")
+        result := ComCall(5, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", dwThreadsWaiting, "uint", dwAvail, "uint", dwCreated, "uint", dwMin, "uint", dwMax, "HRESULT")
         return result
     }
 
@@ -85,7 +98,7 @@ class IComObjectPoolEvents2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectpoolevents2-onobjpooltimeout
      */
     OnObjPoolTimeout(pInfo, guidObject, guidActivity, dwTimeout) {
-        result := ComCall(6, this, "ptr", pInfo, "ptr", guidObject, "ptr", guidActivity, "uint", dwTimeout, "HRESULT")
+        result := ComCall(6, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidObject, Guid.Ptr, guidActivity, "uint", dwTimeout, "HRESULT")
         return result
     }
 
@@ -100,7 +113,35 @@ class IComObjectPoolEvents2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectpoolevents2-onobjpoolcreatepool
      */
     OnObjPoolCreatePool(pInfo, guidObject, dwMin, dwMax, dwTimeout) {
-        result := ComCall(7, this, "ptr", pInfo, "ptr", guidObject, "uint", dwMin, "uint", dwMax, "uint", dwTimeout, "HRESULT")
+        result := ComCall(7, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidObject, "uint", dwMin, "uint", dwMax, "uint", dwTimeout, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IComObjectPoolEvents2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnObjPoolCreateObject := CallbackCreate(GetMethod(implObj, "OnObjPoolCreateObject"), flags, 5)
+        this.vtbl.OnObjPoolDestroyObject := CallbackCreate(GetMethod(implObj, "OnObjPoolDestroyObject"), flags, 5)
+        this.vtbl.OnObjPoolCreateDecision := CallbackCreate(GetMethod(implObj, "OnObjPoolCreateDecision"), flags, 7)
+        this.vtbl.OnObjPoolTimeout := CallbackCreate(GetMethod(implObj, "OnObjPoolTimeout"), flags, 5)
+        this.vtbl.OnObjPoolCreatePool := CallbackCreate(GetMethod(implObj, "OnObjPoolCreatePool"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnObjPoolCreateObject)
+        CallbackFree(this.vtbl.OnObjPoolDestroyObject)
+        CallbackFree(this.vtbl.OnObjPoolCreateDecision)
+        CallbackFree(this.vtbl.OnObjPoolTimeout)
+        CallbackFree(this.vtbl.OnObjPoolCreatePool)
     }
 }

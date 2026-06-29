@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSGOP_USERDATA extends Win32Struct {
-    static sizeof => 16
+export default struct KSGOP_USERDATA {
+    #StructPack 4
 
-    static packingSize => 4
+    sc : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sc {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    reserved1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    reserved1 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cFields : Int8
 
-    /**
-     * @type {Integer}
-     */
-    cFields {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    l21Data : CHAR[3]
 
-    /**
-     * @type {String}
-     */
-    l21Data {
-        get => StrGet(this.ptr + 10, 2, "UTF-8")
-        set => StrPut(value, this.ptr + 10, 2, "UTF-8")
-    }
 }

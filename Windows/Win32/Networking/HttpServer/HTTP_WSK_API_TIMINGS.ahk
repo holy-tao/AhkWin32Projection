@@ -1,107 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_WSK_API_TIMINGS extends Win32Struct {
-    static sizeof => 96
+export default struct HTTP_WSK_API_TIMINGS {
+    #StructPack 8
 
-    static packingSize => 8
+    ConnectCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ConnectCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ConnectSum : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ConnectSum {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    DisconnectCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DisconnectCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    DisconnectSum : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DisconnectSum {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    SendCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SendCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    SendSum : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SendSum {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ReceiveCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ReceiveCount {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    ReceiveSum : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ReceiveSum {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    ReleaseCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ReleaseCount {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    ReleaseSum : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ReleaseSum {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    ControlSocketCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ControlSocketCount {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    ControlSocketSum : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ControlSocketSum {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
 }

@@ -1,10 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DHSURF.ahk
-#Include .\HSURF.ahk
-#Include .\DHPDEV.ahk
-#Include .\HDEV.ahk
-#Include ..\..\Foundation\SIZE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HDEV.ahk" { HDEV }
+#Import ".\HSURF.ahk" { HSURF }
+#Import ".\DHPDEV.ahk" { DHPDEV }
+#Import ".\DHSURF.ahk" { DHSURF }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * The SURFOBJ structure is the user object for a surface. A device driver usually calls methods on a surface object only when the surface object represents a GDI bitmap or a device-managed surface.
@@ -19,117 +18,60 @@
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-surfobj
  * @namespace Windows.Win32.Devices.Display
  */
-class SURFOBJ extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct SURFOBJ {
+    #StructPack 8
 
     /**
      * Handle to a surface, provided that the surface is device-managed. Otherwise, this member is zero.
-     * @type {DHSURF}
      */
-    dhsurf {
-        get {
-            if(!this.HasProp("__dhsurf"))
-                this.__dhsurf := DHSURF(0, this)
-            return this.__dhsurf
-        }
-    }
+    dhsurf : DHSURF
 
     /**
      * Handle to the surface.
-     * @type {HSURF}
      */
-    hsurf {
-        get {
-            if(!this.HasProp("__hsurf"))
-                this.__hsurf := HSURF(8, this)
-            return this.__hsurf
-        }
-    }
+    hsurf : HSURF
 
     /**
      * Identifies the device's <a href="https://docs.microsoft.com/windows-hardware/drivers/">PDEV</a> that is associated with the specified surface.
-     * @type {DHPDEV}
      */
-    dhpdev {
-        get {
-            if(!this.HasProp("__dhpdev"))
-                this.__dhpdev := DHPDEV(16, this)
-            return this.__dhpdev
-        }
-    }
+    dhpdev : DHPDEV
 
     /**
      * GDI's logical handle to the PDEV associated with this device.
-     * @type {HDEV}
      */
-    hdev {
-        get {
-            if(!this.HasProp("__hdev"))
-                this.__hdev := HDEV(24, this)
-            return this.__hdev
-        }
-    }
+    hdev : HDEV
 
     /**
      * Specifies a SIZEL structure that contains the width and height, in pixels, of the surface. The SIZEL structure is identical to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-size">SIZE</a> structure.
-     * @type {SIZE}
      */
-    sizlBitmap {
-        get {
-            if(!this.HasProp("__sizlBitmap"))
-                this.__sizlBitmap := SIZE(32, this)
-            return this.__sizlBitmap
-        }
-    }
+    sizlBitmap : SIZE
 
     /**
      * Specifies the size of the buffer pointed to by <b>pvBits</b>.
-     * @type {Integer}
      */
-    cjBits {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    cjBits : UInt32
 
     /**
      * If the surface is a standard format bitmap, this is a pointer to the surface's pixels. For BMF_JPEG or BMF_PNG images, this is a pointer to a buffer containing the image data in a JPEG or PNG format. Otherwise, this member is <b>NULL</b>.
-     * @type {Pointer<Void>}
      */
-    pvBits {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pvBits : IntPtr
 
     /**
      * Pointer to the first scan line of the bitmap. If <b>iBitmapFormat</b> is BMF_JPEG or BMF_PNG, this member is <b>NULL</b>.
-     * @type {Pointer<Void>}
      */
-    pvScan0 {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pvScan0 : IntPtr
 
     /**
      * Specifies the count of bytes required to move down one scan line in the bitmap. If <b>iBitmapFormat</b> is BMF_JPEG or BMF_PNG, this member is <b>NULL</b>.
-     * @type {Integer}
      */
-    lDelta {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
-    }
+    lDelta : Int32
 
     /**
      * Specifies the current state of the specified surface. Every time the surface changes, this value is incremented. This enables drivers to cache source surfaces.
      * 
      * For a surface that should not be cached, <b>iUniq</b> is set to zero. This value is used in conjunction with the BMF_DONTCACHE flag of <b>fjBitmap</b>.
-     * @type {Integer}
      */
-    iUniq {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    iUniq : UInt32
 
     /**
      * Specifies the standard format most closely matching this surface. If the <b>iType</b> member specifies a bitmap (STYPE_BITMAP), this member specifies its format. NT-based operating systems support a set of predefined formats, although applications can also send device-specific formats by using <b>SetDIBitsToDevice</b>. Supported predefined formats include the following:
@@ -240,12 +182,8 @@ class SURFOBJ extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    iBitmapFormat {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    iBitmapFormat : UInt32
 
     /**
      * Surface type, which is one of the following:
@@ -286,12 +224,8 @@ class SURFOBJ extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    iType {
-        get => NumGet(this, 76, "ushort")
-        set => NumPut("ushort", value, this, 76)
-    }
+    iType : UInt16
 
     /**
      * If the surface is of type STYPE_BITMAP and is a standard uncompressed format bitmap, the following flags can be set. Otherwise, this member should be ignored.
@@ -362,10 +296,7 @@ class SURFOBJ extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    fjBitmap {
-        get => NumGet(this, 78, "ushort")
-        set => NumPut("ushort", value, this, 78)
-    }
+    fjBitmap : UInt16
+
 }

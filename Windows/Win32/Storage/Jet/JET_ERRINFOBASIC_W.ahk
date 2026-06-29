@@ -1,66 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\JET_ERRCAT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\JET_ERRCAT.ahk" { JET_ERRCAT }
 
 /**
  * @namespace Windows.Win32.Storage.Jet
  */
-class JET_ERRINFOBASIC_W extends Win32Struct {
-    static sizeof => 152
+export default struct JET_ERRINFOBASIC_W {
+    #StructPack 4
 
-    static packingSize => 4
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    errValue : Int32
 
-    /**
-     * @type {Integer}
-     */
-    errValue {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    errcatMostSpecific : JET_ERRCAT
 
-    /**
-     * @type {JET_ERRCAT}
-     */
-    errcatMostSpecific {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    rgCategoricalHierarchy : Int8[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    rgCategoricalHierarchy {
-        get {
-            if(!this.HasProp("__rgCategoricalHierarchyProxyArray"))
-                this.__rgCategoricalHierarchyProxyArray := Win32FixedArray(this.ptr + 12, 8, Primitive, "char")
-            return this.__rgCategoricalHierarchyProxyArray
-        }
-    }
+    lSourceLine : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    lSourceLine {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    rgszSourceFile : UInt16[64]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    rgszSourceFile {
-        get {
-            if(!this.HasProp("__rgszSourceFileProxyArray"))
-                this.__rgszSourceFileProxyArray := Win32FixedArray(this.ptr + 24, 64, Primitive, "ushort")
-            return this.__rgszSourceFileProxyArray
-        }
-    }
 }

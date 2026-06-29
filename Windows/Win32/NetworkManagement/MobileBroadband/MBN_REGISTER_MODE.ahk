@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MBN_REGISTER_MODE enumerated type indicates the network selection mode of a device.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_register_mode
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  */
-class MBN_REGISTER_MODE extends Win32Enum {
+export default struct MBN_REGISTER_MODE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No network selection mode is defined.

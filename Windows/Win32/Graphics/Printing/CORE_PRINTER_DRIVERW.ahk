@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Represents a printer driver on which other printer drivers depend.
@@ -10,31 +11,18 @@
  * @namespace Windows.Win32.Graphics.Printing
  * @charset Unicode
  */
-class CORE_PRINTER_DRIVERW extends Win32Struct {
-    static sizeof => 544
-
-    static packingSize => 8
+export default struct CORE_PRINTER_DRIVERW {
+    #StructPack 8
 
     /**
      * The GUID of the core printer driver.
-     * @type {Pointer}
      */
-    CoreDriverGUID {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    CoreDriverGUID : Guid
 
     /**
      * The date and time of the latest version of the core printer driver.
-     * @type {FILETIME}
      */
-    ftDriverDate {
-        get {
-            if(!this.HasProp("__ftDriverDate"))
-                this.__ftDriverDate := FILETIME(8, this)
-            return this.__ftDriverDate
-        }
-    }
+    ftDriverDate : FILETIME
 
     /**
      * The version ID of the latest version of the core printer driver.
@@ -43,18 +31,9 @@ class CORE_PRINTER_DRIVERW extends Win32Struct {
      * **szPackageID\[MAX\_PATH\]**
      * 
      * The path to the driver package that contains the core printer driver.
-     * @type {Integer}
      */
-    dwlDriverVersion {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwlDriverVersion : Int64
 
-    /**
-     * @type {String}
-     */
-    szPackageID {
-        get => StrGet(this.ptr + 24, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 259, "UTF-16")
-    }
+    szPackageID : WCHAR[260]
+
 }

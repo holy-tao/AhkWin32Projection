@@ -1,62 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDNONLOCALVIDMEMCAPS extends Win32Struct {
-    static sizeof => 52
+export default struct DDNONLOCALVIDMEMCAPS {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwNLVBCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNLVBCaps {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwNLVBCaps2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNLVBCaps2 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwNLVBCKeyCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNLVBCKeyCaps {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwNLVBFXCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNLVBFXCaps {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwNLVBRops : UInt32[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    dwNLVBRops {
-        get {
-            if(!this.HasProp("__dwNLVBRopsProxyArray"))
-                this.__dwNLVBRopsProxyArray := Win32FixedArray(this.ptr + 20, 8, Primitive, "uint")
-            return this.__dwNLVBRopsProxyArray
-        }
-    }
 }

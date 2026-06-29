@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAudioInputSelector interface provides access to a hardware multiplexer control (input selector).
  * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-iaudioinputselector
  * @namespace Windows.Win32.Media.Audio
  */
-class IAudioInputSelector extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAudioInputSelector extends IUnknown {
     /**
      * The interface identifier for IAudioInputSelector
      * @type {Guid}
      */
-    static IID => Guid("{4f03dc02-5e6e-4653-8f72-a030c123d598}")
+    static IID := Guid("{4f03dc02-5e6e-4653-8f72-a030c123d598}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAudioInputSelector interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetSelection : IntPtr
+        SetSelection : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSelection", "SetSelection"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAudioInputSelector.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetSelection method gets the local ID of the part that is connected to the selector input that is currently selected.
@@ -82,7 +91,29 @@ class IAudioInputSelector extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iaudioinputselector-setselection
      */
     SetSelection(nIdSelect, pguidEventContext) {
-        result := ComCall(4, this, "uint", nIdSelect, "ptr", pguidEventContext, "HRESULT")
+        result := ComCall(4, this, "uint", nIdSelect, Guid.Ptr, pguidEventContext, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAudioInputSelector.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSelection := CallbackCreate(GetMethod(implObj, "GetSelection"), flags, 2)
+        this.vtbl.SetSelection := CallbackCreate(GetMethod(implObj, "SetSelection"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSelection)
+        CallbackFree(this.vtbl.SetSelection)
     }
 }

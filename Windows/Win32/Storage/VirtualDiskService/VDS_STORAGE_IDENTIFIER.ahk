@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_STORAGE_IDENTIFIER_CODE_SET.ahk
-#Include .\VDS_STORAGE_IDENTIFIER_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VDS_STORAGE_IDENTIFIER_TYPE.ahk" { VDS_STORAGE_IDENTIFIER_TYPE }
+#Import ".\VDS_STORAGE_IDENTIFIER_CODE_SET.ahk" { VDS_STORAGE_IDENTIFIER_CODE_SET }
 
 /**
  * Defines a storage device using a particular code set and type.
@@ -11,46 +10,29 @@
  * @see https://learn.microsoft.com/windows/win32/api/vdslun/ns-vdslun-vds_storage_identifier
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_STORAGE_IDENTIFIER extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct VDS_STORAGE_IDENTIFIER {
+    #StructPack 8
 
     /**
      * The encoding type of <b>m_rgbIdentifier</b> enumerated by 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ne-vdslun-vds_storage_identifier_code_set">VDS_STORAGE_IDENTIFIER_CODE_SET</a>.
-     * @type {VDS_STORAGE_IDENTIFIER_CODE_SET}
      */
-    m_CodeSet {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    m_CodeSet : VDS_STORAGE_IDENTIFIER_CODE_SET
 
     /**
      * The type of <b>m_rgbIdentifier</b> enumerated by 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ne-vdslun-vds_storage_identifier_type">VDS_STORAGE_IDENTIFIER_TYPE</a>.
-     * @type {VDS_STORAGE_IDENTIFIER_TYPE}
      */
-    m_Type {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    m_Type : VDS_STORAGE_IDENTIFIER_TYPE
 
     /**
      * The size of the <b>m_rgbIdentifier</b> array, in bytes.
-     * @type {Integer}
      */
-    m_cbIdentifier {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    m_cbIdentifier : UInt32
 
     /**
      * Pointer to the identifier data.
-     * @type {Pointer<Integer>}
      */
-    m_rgbIdentifier {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    m_rgbIdentifier : IntPtr
+
 }

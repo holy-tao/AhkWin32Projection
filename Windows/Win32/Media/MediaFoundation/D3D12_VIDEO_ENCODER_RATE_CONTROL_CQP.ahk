@@ -1,40 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents a rate control structure definition for constant quantization parameter mode.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_rate_control_cqp
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_ENCODER_RATE_CONTROL_CQP extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct D3D12_VIDEO_ENCODER_RATE_CONTROL_CQP {
+    #StructPack 4
 
     /**
      * A UINT64 specifying the quantization parameter that should be used for each fully intra-encoded frame.
-     * @type {Integer}
      */
-    ConstantQP_FullIntracodedFrame {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ConstantQP_FullIntracodedFrame : UInt32
 
     /**
      * A UINT64 specifying the quantization parameter that should be used for each encoded frame that has inter-picture references to pictures (in display order) before the current one.
-     * @type {Integer}
      */
-    ConstantQP_InterPredictedFrame_PrevRefOnly {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ConstantQP_InterPredictedFrame_PrevRefOnly : UInt32
 
     /**
      * A UINT64 specifying the quantization parameter that should be used for each encoded frame that has inter-picture references to pictures (in display order) both from previous and next frames.
-     * @type {Integer}
      */
-    ConstantQP_InterPredictedFrame_BiDirectionalRef {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ConstantQP_InterPredictedFrame_BiDirectionalRef : UInt32
+
 }

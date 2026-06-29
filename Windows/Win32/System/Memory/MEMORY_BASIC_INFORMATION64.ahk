@@ -1,86 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PAGE_PROTECTION_FLAGS.ahk
-#Include .\VIRTUAL_ALLOCATION_TYPE.ahk
-#Include .\PAGE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PAGE_PROTECTION_FLAGS.ahk" { PAGE_PROTECTION_FLAGS }
+#Import ".\VIRTUAL_ALLOCATION_TYPE.ahk" { VIRTUAL_ALLOCATION_TYPE }
+#Import ".\PAGE_TYPE.ahk" { PAGE_TYPE }
 
 /**
  * @namespace Windows.Win32.System.Memory
  */
-class MEMORY_BASIC_INFORMATION64 extends Win32Struct {
-    static sizeof => 48
+export default struct MEMORY_BASIC_INFORMATION64 {
+    #StructPack 8
 
-    static packingSize => 8
+    BaseAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BaseAddress {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    AllocationBase : Int64
 
-    /**
-     * @type {Integer}
-     */
-    AllocationBase {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    AllocationProtect : PAGE_PROTECTION_FLAGS
 
-    /**
-     * @type {PAGE_PROTECTION_FLAGS}
-     */
-    AllocationProtect {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    __alignment1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    __alignment1 {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    RegionSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    RegionSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    State : VIRTUAL_ALLOCATION_TYPE
 
-    /**
-     * @type {VIRTUAL_ALLOCATION_TYPE}
-     */
-    State {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Protect : PAGE_PROTECTION_FLAGS
 
-    /**
-     * @type {PAGE_PROTECTION_FLAGS}
-     */
-    Protect {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    Type : PAGE_TYPE
 
-    /**
-     * @type {PAGE_TYPE}
-     */
-    Type {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    __alignment2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    __alignment2 {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains values that indicate the connection state of a user session.
  * @see https://learn.microsoft.com/windows/win32/api/tssbx/ne-tssbx-wtssbx_session_state
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class WTSSBX_SESSION_STATE extends Win32Enum {
+export default struct WTSSBX_SESSION_STATE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The session state is unspecified.

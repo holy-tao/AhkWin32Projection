@@ -1,53 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSIDENTIFIER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSPROPERTY_TVAUDIO_CAPS_S extends Win32Struct {
-    static sizeof => 56
+export default struct KSPROPERTY_TVAUDIO_CAPS_S {
+    #StructPack 8
 
-    static packingSize => 8
+    Property : KSIDENTIFIER
 
-    /**
-     * @type {KSIDENTIFIER}
-     */
-    Property {
-        get {
-            if(!this.HasProp("__Property"))
-                this.__Property := KSIDENTIFIER(0, this)
-            return this.__Property
-        }
-    }
+    Capabilities : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Capabilities {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    InputMedium : KSIDENTIFIER
 
-    /**
-     * @type {KSIDENTIFIER}
-     */
-    InputMedium {
-        get {
-            if(!this.HasProp("__InputMedium"))
-                this.__InputMedium := KSIDENTIFIER(24, this)
-            return this.__InputMedium
-        }
-    }
+    OutputMedium : KSIDENTIFIER
 
-    /**
-     * @type {KSIDENTIFIER}
-     */
-    OutputMedium {
-        get {
-            if(!this.HasProp("__OutputMedium"))
-                this.__OutputMedium := KSIDENTIFIER(40, this)
-            return this.__OutputMedium
-        }
-    }
 }

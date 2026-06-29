@@ -1,46 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Globalization
  */
-class USerializedSet extends Win32Struct {
-    static sizeof => 32
+export default struct USerializedSet {
+    #StructPack 8
 
-    static packingSize => 8
+    array : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    array {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    bmpLength : Int32
 
-    /**
-     * @type {Integer}
-     */
-    bmpLength {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    length : Int32
 
-    /**
-     * @type {Integer}
-     */
-    length {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    staticArray : UInt16[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    staticArray {
-        get {
-            if(!this.HasProp("__staticArrayProxyArray"))
-                this.__staticArrayProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "ushort")
-            return this.__staticArrayProxyArray
-        }
-    }
 }

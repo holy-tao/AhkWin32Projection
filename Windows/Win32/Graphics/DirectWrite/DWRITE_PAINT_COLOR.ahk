@@ -1,48 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DWRITE_COLOR_F.ahk
-#Include .\DWRITE_PAINT_ATTRIBUTES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DWRITE_COLOR_F.ahk" { DWRITE_COLOR_F }
+#Import ".\DWRITE_PAINT_ATTRIBUTES.ahk" { DWRITE_PAINT_ATTRIBUTES }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class DWRITE_PAINT_COLOR extends Win32Struct {
-    static sizeof => 28
+export default struct DWRITE_PAINT_COLOR {
+    #StructPack 4
 
-    static packingSize => 4
+    value : DWRITE_COLOR_F
 
-    /**
-     * @type {DWRITE_COLOR_F}
-     */
-    value {
-        get {
-            if(!this.HasProp("__value"))
-                this.__value := DWRITE_COLOR_F(0, this)
-            return this.__value
-        }
-    }
+    paletteEntryIndex : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    paletteEntryIndex {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    alphaMultiplier : Float32
 
-    /**
-     * @type {Float}
-     */
-    alphaMultiplier {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
-    }
+    colorAttributes : DWRITE_PAINT_ATTRIBUTES
 
-    /**
-     * @type {DWRITE_PAINT_ATTRIBUTES}
-     */
-    colorAttributes {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
 }

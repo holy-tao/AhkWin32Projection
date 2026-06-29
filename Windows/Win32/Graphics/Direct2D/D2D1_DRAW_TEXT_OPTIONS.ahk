@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies whether text snapping is suppressed or clipping to the layout rectangle is enabled. This enumeration allows a bitwise combination of its member values.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_draw_text_options
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_DRAW_TEXT_OPTIONS extends Win32BitflagEnum {
+export default struct D2D1_DRAW_TEXT_OPTIONS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Text is not vertically snapped to pixel boundaries. This setting is recommended for text that is being animated.

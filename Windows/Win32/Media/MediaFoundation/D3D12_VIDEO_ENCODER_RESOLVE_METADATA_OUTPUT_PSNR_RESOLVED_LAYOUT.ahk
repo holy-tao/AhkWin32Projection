@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_PSNR_RESOLVED_LAYOUT extends Win32Struct {
-    static sizeof => 12
+export default struct D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_PSNR_RESOLVED_LAYOUT {
+    #StructPack 4
 
-    static packingSize => 4
+    PSNRY : Float32
 
-    /**
-     * @type {Float}
-     */
-    PSNRY {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    PSNRU : Float32
 
-    /**
-     * @type {Float}
-     */
-    PSNRU {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    PSNRV : Float32
 
-    /**
-     * @type {Float}
-     */
-    PSNRV {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
 }

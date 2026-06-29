@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontSetBuilder.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDWriteFontSetBuilder.ahk" { IDWriteFontSetBuilder }
+#Import ".\IDWriteFontFile.ahk" { IDWriteFontFile }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Contains methods for building a font set. (IDWriteFontSetBuilder1)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontsetbuilder1
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteFontSetBuilder1 extends IDWriteFontSetBuilder {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteFontSetBuilder1 extends IDWriteFontSetBuilder {
     /**
      * The interface identifier for IDWriteFontSetBuilder1
      * @type {Guid}
      */
-    static IID => Guid("{3ff7715f-3cdc-4dc6-9b72-ec5621dccafd}")
+    static IID := Guid("{3ff7715f-3cdc-4dc6-9b72-ec5621dccafd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteFontSetBuilder1 interfaces
+    */
+    struct Vtbl extends IDWriteFontSetBuilder.Vtbl {
+        AddFontFile : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddFontFile"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteFontSetBuilder1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds references to all the fonts in the specified font file.
@@ -42,5 +51,25 @@ class IDWriteFontSetBuilder1 extends IDWriteFontSetBuilder {
     AddFontFile(fontFile) {
         result := ComCall(7, this, "ptr", fontFile, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDWriteFontSetBuilder1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddFontFile := CallbackCreate(GetMethod(implObj, "AddFontFile"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddFontFile)
     }
 }

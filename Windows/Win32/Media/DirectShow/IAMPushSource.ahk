@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IAMLatency.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IAMLatency.ahk" { IAMLatency }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAMPushSource interface synchronizes a filter graph that renders a live source.
@@ -20,26 +21,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iampushsource
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAMPushSource extends IAMLatency {
-
-    static sizeof => A_PtrSize
+export default struct IAMPushSource extends IAMLatency {
     /**
      * The interface identifier for IAMPushSource
      * @type {Guid}
      */
-    static IID => Guid("{f185fe76-e64e-11d2-b76e-00c04fb6bd3d}")
+    static IID := Guid("{f185fe76-e64e-11d2-b76e-00c04fb6bd3d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAMPushSource interfaces
+    */
+    struct Vtbl extends IAMLatency.Vtbl {
+        GetPushSourceFlags : IntPtr
+        SetPushSourceFlags : IntPtr
+        SetStreamOffset    : IntPtr
+        GetStreamOffset    : IntPtr
+        GetMaxStreamOffset : IntPtr
+        SetMaxStreamOffset : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPushSourceFlags", "SetPushSourceFlags", "SetStreamOffset", "GetStreamOffset", "GetMaxStreamOffset", "SetMaxStreamOffset"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAMPushSource.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetPushSourceFlags method retrieves a combination of flags describing the behavior of the filter.
@@ -112,5 +125,35 @@ class IAMPushSource extends IAMLatency {
     SetMaxStreamOffset(rtMaxOffset) {
         result := ComCall(9, this, "int64", rtMaxOffset, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAMPushSource.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPushSourceFlags := CallbackCreate(GetMethod(implObj, "GetPushSourceFlags"), flags, 2)
+        this.vtbl.SetPushSourceFlags := CallbackCreate(GetMethod(implObj, "SetPushSourceFlags"), flags, 2)
+        this.vtbl.SetStreamOffset := CallbackCreate(GetMethod(implObj, "SetStreamOffset"), flags, 2)
+        this.vtbl.GetStreamOffset := CallbackCreate(GetMethod(implObj, "GetStreamOffset"), flags, 2)
+        this.vtbl.GetMaxStreamOffset := CallbackCreate(GetMethod(implObj, "GetMaxStreamOffset"), flags, 2)
+        this.vtbl.SetMaxStreamOffset := CallbackCreate(GetMethod(implObj, "SetMaxStreamOffset"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPushSourceFlags)
+        CallbackFree(this.vtbl.SetPushSourceFlags)
+        CallbackFree(this.vtbl.SetStreamOffset)
+        CallbackFree(this.vtbl.GetStreamOffset)
+        CallbackFree(this.vtbl.GetMaxStreamOffset)
+        CallbackFree(this.vtbl.SetMaxStreamOffset)
     }
 }

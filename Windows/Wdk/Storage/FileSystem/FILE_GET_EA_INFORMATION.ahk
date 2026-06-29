@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class FILE_GET_EA_INFORMATION extends Win32Struct {
-    static sizeof => 8
+export default struct FILE_GET_EA_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
+    NextEntryOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NextEntryOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    EaNameLength : Int8
 
-    /**
-     * @type {Integer}
-     */
-    EaNameLength {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    EaName : CHAR[1]
 
-    /**
-     * @type {String}
-     */
-    EaName {
-        get => StrGet(this.ptr + 6, 0, "UTF-8")
-        set => StrPut(value, this.ptr + 6, 0, "UTF-8")
-    }
 }

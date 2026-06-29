@@ -1,41 +1,67 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IContactAggregationGroup.ahk
-#Include .\IContactAggregationContact.ahk
-#Include .\IContactAggregationServerPerson.ahk
-#Include .\IContactAggregationLink.ahk
-#Include .\IContactAggregationAggregate.ahk
-#Include .\IContactAggregationContactCollection.ahk
-#Include .\IContactAggregationAggregateCollection.ahk
-#Include .\IContactAggregationGroupCollection.ahk
-#Include .\IContactAggregationServerPersonCollection.ahk
-#Include .\IContactAggregationLinkCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CONTACT_AGGREGATION_COLLECTION_OPTIONS.ahk" { CONTACT_AGGREGATION_COLLECTION_OPTIONS }
+#Import ".\IContactAggregationContactCollection.ahk" { IContactAggregationContactCollection }
+#Import ".\IContactAggregationServerPerson.ahk" { IContactAggregationServerPerson }
+#Import ".\CONTACT_AGGREGATION_CREATE_OR_OPEN_OPTIONS.ahk" { CONTACT_AGGREGATION_CREATE_OR_OPEN_OPTIONS }
+#Import ".\IContactAggregationGroupCollection.ahk" { IContactAggregationGroupCollection }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IContactAggregationLink.ahk" { IContactAggregationLink }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IContactAggregationGroup.ahk" { IContactAggregationGroup }
+#Import ".\IContactAggregationServerPersonCollection.ahk" { IContactAggregationServerPersonCollection }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IContactAggregationAggregate.ahk" { IContactAggregationAggregate }
+#Import ".\IContactAggregationLinkCollection.ahk" { IContactAggregationLinkCollection }
+#Import ".\IContactAggregationAggregateCollection.ahk" { IContactAggregationAggregateCollection }
+#Import ".\IContactAggregationContact.ahk" { IContactAggregationContact }
 
 /**
  * @namespace Windows.Win32.System.Contacts
  */
-class IContactAggregationManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IContactAggregationManager extends IUnknown {
     /**
      * The interface identifier for IContactAggregationManager
      * @type {Guid}
      */
-    static IID => Guid("{1d865989-4b1f-4b60-8f34-c2ad468b2b50}")
+    static IID := Guid("{1d865989-4b1f-4b60-8f34-c2ad468b2b50}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IContactAggregationManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetVersionInfo          : IntPtr
+        CreateOrOpenGroup       : IntPtr
+        CreateExternalContact   : IntPtr
+        CreateServerPerson      : IntPtr
+        CreateServerContactLink : IntPtr
+        Flush                   : IntPtr
+        OpenAggregateContact    : IntPtr
+        OpenContact             : IntPtr
+        OpenServerContactLink   : IntPtr
+        OpenServerPerson        : IntPtr
+        get_Contacts            : IntPtr
+        get_AggregateContacts   : IntPtr
+        get_Groups              : IntPtr
+        get_ServerPersons       : IntPtr
+        get_ServerContactLinks  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetVersionInfo", "CreateOrOpenGroup", "CreateExternalContact", "CreateServerPerson", "CreateServerContactLink", "Flush", "OpenAggregateContact", "OpenContact", "OpenServerContactLink", "OpenServerPerson", "get_Contacts", "get_AggregateContacts", "get_Groups", "get_ServerPersons", "get_ServerContactLinks"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IContactAggregationManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IContactAggregationServerPersonCollection} 
@@ -70,7 +96,7 @@ class IContactAggregationManager extends IUnknown {
 
         pCreatedGroupMarshal := pCreatedGroup is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pGroupName, "int", options, pCreatedGroupMarshal, pCreatedGroup, "ptr*", &ppGroup := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pGroupName, CONTACT_AGGREGATION_CREATE_OR_OPEN_OPTIONS, options, pCreatedGroupMarshal, pCreatedGroup, "ptr*", &ppGroup := 0, "HRESULT")
         return IContactAggregationGroup(ppGroup)
     }
 
@@ -168,7 +194,7 @@ class IContactAggregationManager extends IUnknown {
      * @returns {IContactAggregationContactCollection} 
      */
     get_Contacts(options) {
-        result := ComCall(13, this, "int", options, "ptr*", &ppItems := 0, "HRESULT")
+        result := ComCall(13, this, CONTACT_AGGREGATION_COLLECTION_OPTIONS, options, "ptr*", &ppItems := 0, "HRESULT")
         return IContactAggregationContactCollection(ppItems)
     }
 
@@ -178,7 +204,7 @@ class IContactAggregationManager extends IUnknown {
      * @returns {IContactAggregationAggregateCollection} 
      */
     get_AggregateContacts(options) {
-        result := ComCall(14, this, "int", options, "ptr*", &ppAggregates := 0, "HRESULT")
+        result := ComCall(14, this, CONTACT_AGGREGATION_COLLECTION_OPTIONS, options, "ptr*", &ppAggregates := 0, "HRESULT")
         return IContactAggregationAggregateCollection(ppAggregates)
     }
 
@@ -188,7 +214,7 @@ class IContactAggregationManager extends IUnknown {
      * @returns {IContactAggregationGroupCollection} 
      */
     get_Groups(options) {
-        result := ComCall(15, this, "int", options, "ptr*", &ppGroups := 0, "HRESULT")
+        result := ComCall(15, this, CONTACT_AGGREGATION_COLLECTION_OPTIONS, options, "ptr*", &ppGroups := 0, "HRESULT")
         return IContactAggregationGroupCollection(ppGroups)
     }
 
@@ -211,5 +237,53 @@ class IContactAggregationManager extends IUnknown {
 
         result := ComCall(17, this, "ptr", pPersonItemId, "ptr*", &ppServerContactLinkCollection := 0, "HRESULT")
         return IContactAggregationLinkCollection(ppServerContactLinkCollection)
+    }
+
+    Query(iid) {
+        if (IContactAggregationManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetVersionInfo := CallbackCreate(GetMethod(implObj, "GetVersionInfo"), flags, 3)
+        this.vtbl.CreateOrOpenGroup := CallbackCreate(GetMethod(implObj, "CreateOrOpenGroup"), flags, 5)
+        this.vtbl.CreateExternalContact := CallbackCreate(GetMethod(implObj, "CreateExternalContact"), flags, 2)
+        this.vtbl.CreateServerPerson := CallbackCreate(GetMethod(implObj, "CreateServerPerson"), flags, 2)
+        this.vtbl.CreateServerContactLink := CallbackCreate(GetMethod(implObj, "CreateServerContactLink"), flags, 2)
+        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 1)
+        this.vtbl.OpenAggregateContact := CallbackCreate(GetMethod(implObj, "OpenAggregateContact"), flags, 3)
+        this.vtbl.OpenContact := CallbackCreate(GetMethod(implObj, "OpenContact"), flags, 3)
+        this.vtbl.OpenServerContactLink := CallbackCreate(GetMethod(implObj, "OpenServerContactLink"), flags, 3)
+        this.vtbl.OpenServerPerson := CallbackCreate(GetMethod(implObj, "OpenServerPerson"), flags, 3)
+        this.vtbl.get_Contacts := CallbackCreate(GetMethod(implObj, "get_Contacts"), flags, 3)
+        this.vtbl.get_AggregateContacts := CallbackCreate(GetMethod(implObj, "get_AggregateContacts"), flags, 3)
+        this.vtbl.get_Groups := CallbackCreate(GetMethod(implObj, "get_Groups"), flags, 3)
+        this.vtbl.get_ServerPersons := CallbackCreate(GetMethod(implObj, "get_ServerPersons"), flags, 2)
+        this.vtbl.get_ServerContactLinks := CallbackCreate(GetMethod(implObj, "get_ServerContactLinks"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetVersionInfo)
+        CallbackFree(this.vtbl.CreateOrOpenGroup)
+        CallbackFree(this.vtbl.CreateExternalContact)
+        CallbackFree(this.vtbl.CreateServerPerson)
+        CallbackFree(this.vtbl.CreateServerContactLink)
+        CallbackFree(this.vtbl.Flush)
+        CallbackFree(this.vtbl.OpenAggregateContact)
+        CallbackFree(this.vtbl.OpenContact)
+        CallbackFree(this.vtbl.OpenServerContactLink)
+        CallbackFree(this.vtbl.OpenServerPerson)
+        CallbackFree(this.vtbl.get_Contacts)
+        CallbackFree(this.vtbl.get_AggregateContacts)
+        CallbackFree(this.vtbl.get_Groups)
+        CallbackFree(this.vtbl.get_ServerPersons)
+        CallbackFree(this.vtbl.get_ServerContactLinks)
     }
 }

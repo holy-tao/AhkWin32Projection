@@ -1,32 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\COR_GC_THREAD_STATS.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\COR_GC_THREAD_STATS.ahk" { COR_GC_THREAD_STATS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
  */
-class ICLRTask extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICLRTask extends IUnknown {
     /**
      * The interface identifier for ICLRTask
      * @type {Guid}
      */
-    static IID => Guid("{28e66a4a-9906-4225-b231-9187c3eb8611}")
+    static IID := Guid("{28e66a4a-9906-4225-b231-9187c3eb8611}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICLRTask interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SwitchIn                : IntPtr
+        SwitchOut               : IntPtr
+        GetMemStats             : IntPtr
+        Reset                   : IntPtr
+        ExitTask                : IntPtr
+        Abort                   : IntPtr
+        RudeAbort               : IntPtr
+        NeedsPriorityScheduling : IntPtr
+        YieldTask               : IntPtr
+        LocksHeld               : IntPtr
+        SetTaskIdentifier       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SwitchIn", "SwitchOut", "GetMemStats", "Reset", "ExitTask", "Abort", "RudeAbort", "NeedsPriorityScheduling", "YieldTask", "LocksHeld", "SetTaskIdentifier"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICLRTask.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -34,9 +54,7 @@ class ICLRTask extends IUnknown {
      * @returns {HRESULT} 
      */
     SwitchIn(threadHandle) {
-        threadHandle := threadHandle is Win32Handle ? NumGet(threadHandle, "ptr") : threadHandle
-
-        result := ComCall(3, this, "ptr", threadHandle, "HRESULT")
+        result := ComCall(3, this, HANDLE, threadHandle, "HRESULT")
         return result
     }
 
@@ -55,33 +73,17 @@ class ICLRTask extends IUnknown {
      */
     GetMemStats() {
         memUsage := COR_GC_THREAD_STATS()
-        result := ComCall(5, this, "ptr", memUsage, "HRESULT")
+        result := ComCall(5, this, COR_GC_THREAD_STATS.Ptr, memUsage, "HRESULT")
         return memUsage
     }
 
     /**
-     * Resets the time-out period or other mechanism that TPM manufacturers implement to protect against dictionary attacks on TPM authorization values.
-     * @remarks
-     * This method calls the TPM\_ResetLockValue command on the TPM. The exact behavior of this method varies among TPM manufacturers. Documentation from the computer or TPM manufacturer may provide additional information on the implementation of the anti-dictionary attack mechanism.
      * 
-     * In general, manufacturers can detect dictionary attacks by keeping track of failed authentications. If the number or frequency of failures become high enough, the TPM will lock out further commands for a certain time. Generally, the initial time-out period will be short, to allow a legitimate user a chance to correct the situation. If failures continue, the duration of each subsequent time-out period may increase rapidly.
-     * 
-     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
      * @param {BOOL} fFull 
-     * @returns {HRESULT} Type: **uint32**
-     * 
-     * All TPM errors as well as errors specific to TPM Base Services can be returned. The following table lists some of the common return values.
-     * 
-     * 
-     * 
-     * | Return code/value                                                                                                                                                            | Description                                                                                                                                                                                                                                                               |
-     * |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl>                            | The method was successful.<br/>                                                                                                                                                                                                                                     |
-     * | <dl> <dt>**TPM\_E\_AUTHFAIL**</dt> <dt>2150105089 (0x80280001)</dt> </dl> | The provided owner authorization value is incorrect. Additional attempts at resetting the lock will fail with this same error. Please wait until the time-out period or other manufacturer-specific mechanism has expired before retrying locked TPM commands.<br/> |
-     * @see https://learn.microsoft.com/windows/win32/SecProv/resetauthlockout-win32-tpm
+     * @returns {HRESULT} 
      */
     Reset(fFull) {
-        result := ComCall(6, this, "int", fFull, "HRESULT")
+        result := ComCall(6, this, BOOL, fFull, "HRESULT")
         return result
     }
 
@@ -95,17 +97,8 @@ class ICLRTask extends IUnknown {
     }
 
     /**
-     * The AbortDoc function stops the current print job and erases everything drawn since the last call to the StartDoc function.
-     * @remarks
-     * <div class="alert"><b>Note</b>  This is a blocking or synchronous function and might not return immediately. How quickly this function returns depends on run-time factors such as network status, print server configuration, and printer driver implementation—factors that are difficult to predict when writing an application. Calling this function from a thread that manages interaction with the user interface could make the application appear to be unresponsive.</div>
-     * <div> </div>
-     * Applications should call the <b>AbortDoc</b> function to stop a print job if an error occurs, or to stop a print job after the user cancels that job. To end a successful print job, an application should call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enddoc">EndDoc</a> function.
      * 
-     * If Print Manager was used to start the print job, calling <b>AbortDoc</b> erases the entire spool job, so that the printer receives nothing. If Print Manager was not used to start the print job, the data may already have been sent to the printer. In this case, the printer driver resets the printer (when possible) and ends the print job.
-     * @returns {HRESULT} If the function succeeds, the return value is greater than zero.
-     * 
-     * If the function fails, the return value is SP_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-abortdoc
+     * @returns {HRESULT} 
      */
     Abort() {
         result := ComCall(8, this, "HRESULT")
@@ -126,7 +119,7 @@ class ICLRTask extends IUnknown {
      * @returns {BOOL} 
      */
     NeedsPriorityScheduling() {
-        result := ComCall(10, this, "int*", &pbNeedsPriorityScheduling := 0, "HRESULT")
+        result := ComCall(10, this, BOOL.Ptr, &pbNeedsPriorityScheduling := 0, "HRESULT")
         return pbNeedsPriorityScheduling
     }
 
@@ -156,5 +149,45 @@ class ICLRTask extends IUnknown {
     SetTaskIdentifier(asked) {
         result := ComCall(13, this, "uint", asked, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICLRTask.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SwitchIn := CallbackCreate(GetMethod(implObj, "SwitchIn"), flags, 2)
+        this.vtbl.SwitchOut := CallbackCreate(GetMethod(implObj, "SwitchOut"), flags, 1)
+        this.vtbl.GetMemStats := CallbackCreate(GetMethod(implObj, "GetMemStats"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 2)
+        this.vtbl.ExitTask := CallbackCreate(GetMethod(implObj, "ExitTask"), flags, 1)
+        this.vtbl.Abort := CallbackCreate(GetMethod(implObj, "Abort"), flags, 1)
+        this.vtbl.RudeAbort := CallbackCreate(GetMethod(implObj, "RudeAbort"), flags, 1)
+        this.vtbl.NeedsPriorityScheduling := CallbackCreate(GetMethod(implObj, "NeedsPriorityScheduling"), flags, 2)
+        this.vtbl.YieldTask := CallbackCreate(GetMethod(implObj, "YieldTask"), flags, 1)
+        this.vtbl.LocksHeld := CallbackCreate(GetMethod(implObj, "LocksHeld"), flags, 2)
+        this.vtbl.SetTaskIdentifier := CallbackCreate(GetMethod(implObj, "SetTaskIdentifier"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SwitchIn)
+        CallbackFree(this.vtbl.SwitchOut)
+        CallbackFree(this.vtbl.GetMemStats)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.ExitTask)
+        CallbackFree(this.vtbl.Abort)
+        CallbackFree(this.vtbl.RudeAbort)
+        CallbackFree(this.vtbl.NeedsPriorityScheduling)
+        CallbackFree(this.vtbl.YieldTask)
+        CallbackFree(this.vtbl.LocksHeld)
+        CallbackFree(this.vtbl.SetTaskIdentifier)
     }
 }

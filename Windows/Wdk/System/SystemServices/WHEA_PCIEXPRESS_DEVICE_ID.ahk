@@ -1,40 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_PCIEXPRESS_DEVICE_ID extends Win32Struct {
-    static sizeof => 16
+export default struct WHEA_PCIEXPRESS_DEVICE_ID {
+    #StructPack 4
 
-    static packingSize => 4
+    VendorID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    VendorID {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    DeviceID {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    DeviceID : UInt16
 
     /**
      * This bitfield backs the following members:
      * - ClassCode
      * - FunctionNumber
-     * @type {Integer}
      */
-    _bitfield1 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    _bitfield1 : Int32
+
 
     /**
      * @type {Integer}
@@ -51,18 +33,14 @@ class WHEA_PCIEXPRESS_DEVICE_ID extends Win32Struct {
         get => (this._bitfield1 >> 24) & 0xFF
         set => this._bitfield1 := ((value & 0xFF) << 24) | (this._bitfield1 & ~(0xFF << 24))
     }
-
     /**
      * This bitfield backs the following members:
      * - DeviceNumber
      * - Segment
      * - PrimaryBusNumber
-     * @type {Integer}
      */
-    _bitfield2 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    _bitfield2 : Int32
+
 
     /**
      * @type {Integer}
@@ -87,19 +65,15 @@ class WHEA_PCIEXPRESS_DEVICE_ID extends Win32Struct {
         get => (this._bitfield2 >> 24) & 0xFF
         set => this._bitfield2 := ((value & 0xFF) << 24) | (this._bitfield2 & ~(0xFF << 24))
     }
-
     /**
      * This bitfield backs the following members:
      * - SecondaryBusNumber
      * - Reserved1
      * - SlotNumber
      * - Reserved2
-     * @type {Integer}
      */
-    _bitfield3 {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    _bitfield3 : Int32
+
 
     /**
      * @type {Integer}

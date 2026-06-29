@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISyncKnowledge.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SYNC_VERSION.ahk" { SYNC_VERSION }
 
 /**
  * Represents knowledge that has been forgotten because of tombstone cleanup.
@@ -10,26 +12,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-iforgottenknowledge
  * @namespace Windows.Win32.System.WindowsSync
  */
-class IForgottenKnowledge extends ISyncKnowledge {
-
-    static sizeof => A_PtrSize
+export default struct IForgottenKnowledge extends ISyncKnowledge {
     /**
      * The interface identifier for IForgottenKnowledge
      * @type {Guid}
      */
-    static IID => Guid("{456e0f96-6036-452b-9f9d-bcc4b4a85db2}")
+    static IID := Guid("{456e0f96-6036-452b-9f9d-bcc4b4a85db2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 27
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IForgottenKnowledge interfaces
+    */
+    struct Vtbl extends ISyncKnowledge.Vtbl {
+        ForgetToVersion : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ForgetToVersion"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IForgottenKnowledge.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Updates the forgotten knowledge to reflect that all versions that are less than or equal to the specified version might have been forgotten, and that corresponding tombstones might have been deleted.
@@ -75,7 +84,27 @@ class IForgottenKnowledge extends ISyncKnowledge {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iforgottenknowledge-forgettoversion
      */
     ForgetToVersion(pKnowledge, pVersion) {
-        result := ComCall(27, this, "ptr", pKnowledge, "ptr", pVersion, "HRESULT")
+        result := ComCall(27, this, "ptr", pKnowledge, SYNC_VERSION.Ptr, pVersion, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IForgottenKnowledge.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ForgetToVersion := CallbackCreate(GetMethod(implObj, "ForgetToVersion"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ForgetToVersion)
     }
 }

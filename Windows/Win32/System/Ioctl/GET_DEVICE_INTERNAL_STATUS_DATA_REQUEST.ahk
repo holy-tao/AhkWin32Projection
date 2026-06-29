@@ -1,45 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE.ahk
-#Include .\DEVICE_INTERNAL_STATUS_DATA_SET.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE.ahk" { DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE }
+#Import ".\DEVICE_INTERNAL_STATUS_DATA_SET.ahk" { DEVICE_INTERNAL_STATUS_DATA_SET }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class GET_DEVICE_INTERNAL_STATUS_DATA_REQUEST extends Win32Struct {
-    static sizeof => 16
+export default struct GET_DEVICE_INTERNAL_STATUS_DATA_REQUEST {
+    #StructPack 4
 
-    static packingSize => 4
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    RequestDataType : DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE
 
-    /**
-     * @type {DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE}
-     */
-    RequestDataType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    RequestDataSet : DEVICE_INTERNAL_STATUS_DATA_SET
 
-    /**
-     * @type {DEVICE_INTERNAL_STATUS_DATA_SET}
-     */
-    RequestDataSet {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
 }

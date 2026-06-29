@@ -1,9 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IEnumIDList.ahk
-#Include Common\STRRET.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\SHGDNF.ahk" { SHGDNF }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import ".\IEnumIDList.ahk" { IEnumIDList }
+#Import "Common\STRRET.ahk" { STRRET }
 
 /**
  * Exposed by all Shell namespace folder objects, its methods are used to manage folders.
@@ -19,26 +26,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishellfolder
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellFolder extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IShellFolder extends IUnknown {
     /**
      * The interface identifier for IShellFolder
      * @type {Guid}
      */
-    static IID => Guid("{000214e6-0000-0000-c000-000000000046}")
+    static IID := Guid("{000214e6-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellFolder interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ParseDisplayName : IntPtr
+        EnumObjects      : IntPtr
+        BindToObject     : IntPtr
+        BindToStorage    : IntPtr
+        CompareIDs       : IntPtr
+        CreateViewObject : IntPtr
+        GetAttributesOf  : IntPtr
+        GetUIObjectOf    : IntPtr
+        GetDisplayNameOf : IntPtr
+        SetNameOf        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ParseDisplayName", "EnumObjects", "BindToObject", "BindToStorage", "CompareIDs", "CreateViewObject", "GetAttributesOf", "GetUIObjectOf", "GetDisplayNameOf", "SetNameOf"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellFolder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Translates the display name of a file object or a folder into an item identifier list.
@@ -110,12 +133,11 @@ class IShellFolder extends IUnknown {
     ParseDisplayName(_hwnd, pbc, pszDisplayName, pdwAttributes) {
         static pchEaten := 0 ;Reserved parameters must always be NULL
 
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszDisplayName := pszDisplayName is String ? StrPtr(pszDisplayName) : pszDisplayName
 
         pdwAttributesMarshal := pdwAttributes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", _hwnd, "ptr", pbc, "ptr", pszDisplayName, "uint*", pchEaten, "ptr*", &ppidl := 0, pdwAttributesMarshal, pdwAttributes, "HRESULT")
+        result := ComCall(3, this, HWND, _hwnd, "ptr", pbc, "ptr", pszDisplayName, "uint*", pchEaten, "ptr*", &ppidl := 0, pdwAttributesMarshal, pdwAttributes, "HRESULT")
         return ppidl
     }
 
@@ -141,9 +163,7 @@ class IShellFolder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder-enumobjects
      */
     EnumObjects(_hwnd, grfFlags) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(4, this, "ptr", _hwnd, "uint", grfFlags, "ptr*", &ppenumIDList := 0, "int")
+        result := ComCall(4, this, HWND, _hwnd, "uint", grfFlags, "ptr*", &ppenumIDList := 0, Int32)
         return IEnumIDList(ppenumIDList)
     }
 
@@ -172,7 +192,7 @@ class IShellFolder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder-bindtoobject
      */
     BindToObject(pidl, pbc, riid) {
-        result := ComCall(5, this, "ptr", pidl, "ptr", pbc, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(5, this, ITEMIDLIST.Ptr, pidl, "ptr", pbc, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -195,7 +215,7 @@ class IShellFolder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder-bindtostorage
      */
     BindToStorage(pidl, pbc, riid) {
-        result := ComCall(6, this, "ptr", pidl, "ptr", pbc, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(6, this, ITEMIDLIST.Ptr, pidl, "ptr", pbc, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -314,7 +334,7 @@ class IShellFolder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder-compareids
      */
     CompareIDs(_lParam, pidl1, pidl2) {
-        result := ComCall(7, this, "ptr", _lParam, "ptr", pidl1, "ptr", pidl2, "int")
+        result := ComCall(7, this, LPARAM, _lParam, ITEMIDLIST.Ptr, pidl1, ITEMIDLIST.Ptr, pidl2, Int32)
         return result
     }
 
@@ -359,9 +379,7 @@ class IShellFolder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder-createviewobject
      */
     CreateViewObject(hwndOwner, riid) {
-        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
-
-        result := ComCall(8, this, "ptr", hwndOwner, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(8, this, HWND, hwndOwner, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -494,11 +512,9 @@ class IShellFolder extends IUnknown {
     GetUIObjectOf(hwndOwner, cidl, apidl, riid) {
         static rgfReserved := 0 ;Reserved parameters must always be NULL
 
-        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
-
         apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, "ptr", hwndOwner, "uint", cidl, apidlMarshal, apidl, "ptr", riid, "uint*", rgfReserved, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(10, this, HWND, hwndOwner, "uint", cidl, apidlMarshal, apidl, Guid.Ptr, riid, "uint*", rgfReserved, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -530,7 +546,7 @@ class IShellFolder extends IUnknown {
      */
     GetDisplayNameOf(pidl, uFlags) {
         pName := STRRET()
-        result := ComCall(11, this, "ptr", pidl, "uint", uFlags, "ptr", pName, "HRESULT")
+        result := ComCall(11, this, ITEMIDLIST.Ptr, pidl, SHGDNF, uFlags, STRRET.Ptr, pName, "HRESULT")
         return pName
     }
 
@@ -570,10 +586,47 @@ class IShellFolder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder-setnameof
      */
     SetNameOf(_hwnd, pidl, pszName, uFlags) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(12, this, "ptr", _hwnd, "ptr", pidl, "ptr", pszName, "uint", uFlags, "ptr*", &ppidlOut := 0, "HRESULT")
+        result := ComCall(12, this, HWND, _hwnd, ITEMIDLIST.Ptr, pidl, "ptr", pszName, SHGDNF, uFlags, "ptr*", &ppidlOut := 0, "HRESULT")
         return ppidlOut
+    }
+
+    Query(iid) {
+        if (IShellFolder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ParseDisplayName := CallbackCreate(GetMethod(implObj, "ParseDisplayName"), flags, 7)
+        this.vtbl.EnumObjects := CallbackCreate(GetMethod(implObj, "EnumObjects"), flags, 4)
+        this.vtbl.BindToObject := CallbackCreate(GetMethod(implObj, "BindToObject"), flags, 5)
+        this.vtbl.BindToStorage := CallbackCreate(GetMethod(implObj, "BindToStorage"), flags, 5)
+        this.vtbl.CompareIDs := CallbackCreate(GetMethod(implObj, "CompareIDs"), flags, 4)
+        this.vtbl.CreateViewObject := CallbackCreate(GetMethod(implObj, "CreateViewObject"), flags, 4)
+        this.vtbl.GetAttributesOf := CallbackCreate(GetMethod(implObj, "GetAttributesOf"), flags, 4)
+        this.vtbl.GetUIObjectOf := CallbackCreate(GetMethod(implObj, "GetUIObjectOf"), flags, 7)
+        this.vtbl.GetDisplayNameOf := CallbackCreate(GetMethod(implObj, "GetDisplayNameOf"), flags, 4)
+        this.vtbl.SetNameOf := CallbackCreate(GetMethod(implObj, "SetNameOf"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ParseDisplayName)
+        CallbackFree(this.vtbl.EnumObjects)
+        CallbackFree(this.vtbl.BindToObject)
+        CallbackFree(this.vtbl.BindToStorage)
+        CallbackFree(this.vtbl.CompareIDs)
+        CallbackFree(this.vtbl.CreateViewObject)
+        CallbackFree(this.vtbl.GetAttributesOf)
+        CallbackFree(this.vtbl.GetUIObjectOf)
+        CallbackFree(this.vtbl.GetDisplayNameOf)
+        CallbackFree(this.vtbl.SetNameOf)
     }
 }

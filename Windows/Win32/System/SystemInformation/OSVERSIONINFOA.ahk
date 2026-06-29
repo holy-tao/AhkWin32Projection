@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Contains operating system version information. (ANSI)
@@ -128,46 +128,28 @@
  * @namespace Windows.Win32.System.SystemInformation
  * @charset ANSI
  */
-class OSVERSIONINFOA extends Win32Struct {
-    static sizeof => 148
-
-    static packingSize => 4
+export default struct OSVERSIONINFOA {
+    #StructPack 4
 
     /**
      * The size of this data structure, in bytes. Set this member to <c>sizeof(OSVERSIONINFO)</c>.
-     * @type {Integer}
      */
-    dwOSVersionInfoSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwOSVersionInfoSize : UInt32
 
     /**
      * The major version number of the operating system. For more information, see Remarks.
-     * @type {Integer}
      */
-    dwMajorVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwMajorVersion : UInt32
 
     /**
      * The minor version number of the operating system. For more information, see Remarks.
-     * @type {Integer}
      */
-    dwMinorVersion {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwMinorVersion : UInt32
 
     /**
      * The build number of the operating system.
-     * @type {Integer}
      */
-    dwBuildNumber {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwBuildNumber : UInt32
 
     /**
      * The operating system platform. This member can be the following value. 
@@ -191,19 +173,12 @@ class OSVERSIONINFOA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwPlatformId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwPlatformId : UInt32
 
     /**
      * A null-terminated string, such as "Service Pack 3", that indicates the latest Service Pack installed on the system. If no Service Pack has been installed, the string is empty.
-     * @type {String}
      */
-    szCSDVersion {
-        get => StrGet(this.ptr + 20, 127, "UTF-8")
-        set => StrPut(value, this.ptr + 20, 127, "UTF-8")
-    }
+    szCSDVersion : CHAR[128]
+
 }

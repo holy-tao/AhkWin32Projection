@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BCRYPT_DSA_MAGIC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BCRYPT_DSA_MAGIC.ahk" { BCRYPT_DSA_MAGIC }
 
 /**
  * Used as a header for a Digital Signature Algorithm (DSA) public key or private key BLOB in memory. (BCRYPT_DSA_KEY_BLOB)
@@ -34,61 +33,29 @@
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_dsa_key_blob
  * @namespace Windows.Win32.Security.Cryptography
  */
-class BCRYPT_DSA_KEY_BLOB extends Win32Struct {
-    static sizeof => 52
+export default struct BCRYPT_DSA_KEY_BLOB {
+    #StructPack 4
 
-    static packingSize => 4
-
-    /**
-     * @type {BCRYPT_DSA_MAGIC}
-     */
-    dwMagic {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwMagic : BCRYPT_DSA_MAGIC
 
     /**
      * The length, in bytes, of the key.
-     * @type {Integer}
      */
-    cbKey {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cbKey : UInt32
 
     /**
      * The number of iterations, in big-endian format, used to generate <i>q</i>.
-     * @type {Array<Integer>}
      */
-    Count {
-        get {
-            if(!this.HasProp("__CountProxyArray"))
-                this.__CountProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "char")
-            return this.__CountProxyArray
-        }
-    }
+    Count : Int8[4]
 
     /**
      * The seed value, in big-endian format, used to generate <i>q</i>.
-     * @type {Array<Integer>}
      */
-    Seed {
-        get {
-            if(!this.HasProp("__SeedProxyArray"))
-                this.__SeedProxyArray := Win32FixedArray(this.ptr + 12, 20, Primitive, "char")
-            return this.__SeedProxyArray
-        }
-    }
+    Seed : Int8[20]
 
     /**
      * The 160-bit prime factor, in big-endian format.
-     * @type {Array<Integer>}
      */
-    q {
-        get {
-            if(!this.HasProp("__qProxyArray"))
-                this.__qProxyArray := Win32FixedArray(this.ptr + 32, 20, Primitive, "char")
-            return this.__qProxyArray
-        }
-    }
+    q : Int8[20]
+
 }

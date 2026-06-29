@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class NCRYPT_PCP_TPM_FW_VERSION_INFO extends Win32Struct {
-    static sizeof => 8
+export default struct NCRYPT_PCP_TPM_FW_VERSION_INFO {
+    #StructPack 2
 
-    static packingSize => 2
+    major1 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    major1 {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    major2 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    major2 {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    minor1 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    minor1 {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    minor2 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    minor2 {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
 }

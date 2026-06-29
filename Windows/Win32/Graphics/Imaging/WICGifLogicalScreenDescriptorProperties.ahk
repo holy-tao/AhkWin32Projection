@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the logical screen descriptor properties for Graphics Interchange Format (GIF) metadata.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicgiflogicalscreendescriptorproperties
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class WICGifLogicalScreenDescriptorProperties extends Win32Enum {
+export default struct WICGifLogicalScreenDescriptorProperties {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * [VT_UI1 | VT_VECTOR] Indicates the signature property.

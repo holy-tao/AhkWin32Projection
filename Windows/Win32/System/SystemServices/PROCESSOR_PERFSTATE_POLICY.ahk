@@ -1,70 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class PROCESSOR_PERFSTATE_POLICY extends Win32Struct {
-    static sizeof => 28
+export default struct PROCESSOR_PERFSTATE_POLICY {
+    #StructPack 4
 
-    static packingSize => 4
 
-    /**
-     * @type {Integer}
-     */
-    Revision {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    struct _Flags {
+        AsBYTE : Int8
 
-    /**
-     * @type {Integer}
-     */
-    MaxThrottle {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    MinThrottle {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    BusyAdjThreshold {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
-
-    class _Flags_e__Union extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
-        /**
-         * @type {Integer}
-         */
-        AsBYTE {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
-
-        /**
-         * This bitfield backs the following members:
-         * - NoDomainAccounting
-         * - IncreasePolicy
-         * - DecreasePolicy
-         * - Reserved
-         * @type {Integer}
-         */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
 
         /**
          * @type {Integer}
@@ -89,64 +34,34 @@ class PROCESSOR_PERFSTATE_POLICY extends Win32Struct {
             get => (this._bitfield >> 3) & 0x3
             set => this._bitfield := ((value & 0x3) << 3) | (this._bitfield & ~(0x3 << 3))
         }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Spare {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
-
-    /**
-     * @type {_Flags_e__Union}
-     */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := PROCESSOR_PERFSTATE_POLICY._Flags_e__Union(7, this)
-            return this.__Flags
+        static __New() {
+            DefineProp(this.Prototype, '_bitfield', { type: Int8, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    TimeCheck {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Revision : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    IncreaseTime {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    MaxThrottle : Int8
 
-    /**
-     * @type {Integer}
-     */
-    DecreaseTime {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    MinThrottle : Int8
 
-    /**
-     * @type {Integer}
-     */
-    IncreasePercent {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    BusyAdjThreshold : Int8
 
-    /**
-     * @type {Integer}
-     */
-    DecreasePercent {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+    Spare : Int8
+
+    TimeCheck : UInt32
+
+    IncreaseTime : UInt32
+
+    DecreaseTime : UInt32
+
+    IncreasePercent : UInt32
+
+    DecreasePercent : UInt32
+
+    static __New() {
+        DefineProp(this.Prototype, 'Flags', { type: PROCESSOR_PERFSTATE_POLICY._Flags, offset: 7 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains an entry from the IPv4 User Datagram Protocol (UDP) listener table on the local computer. This entry also also includes any available ownership data and the process ID (PID) that issued the call to the bind function for the UDP endpoint.
@@ -17,10 +16,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/udpmib/ns-udpmib-mib_udprow_owner_module
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_UDPROW_OWNER_MODULE extends Win32Struct {
-    static sizeof => 160
-
-    static packingSize => 8
+export default struct MIB_UDPROW_OWNER_MODULE {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
@@ -29,55 +26,36 @@ class MIB_UDPROW_OWNER_MODULE extends Win32Struct {
      * 
      * A value of zero indicates a UDP listener  willing to accept datagrams for any IP interface associated
      *                       with the local computer.
-     * @type {Integer}
      */
-    dwLocalAddr {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwLocalAddr : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The port number of the UDP endpoint on the local computer. This member is stored in network byte order.
-     * @type {Integer}
      */
-    dwLocalPort {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwLocalPort : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The PID of the process that issued the call to the <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-bind">bind</a> function for the UDP endpoint.  This member is set to 0 when the PID is unavailable.
-     * @type {Integer}
      */
-    dwOwningPid {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwOwningPid : UInt32
 
     /**
      * Type: <b>LARGE_INTEGER</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that indicates when the call to the <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-bind">bind</a> function for the UDP endpoint occurred.
-     * @type {Integer}
      */
-    liCreateTimestamp {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    liCreateTimestamp : Int64
 
     /**
      * This bitfield backs the following members:
      * - SpecificPortBind
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -86,26 +64,15 @@ class MIB_UDPROW_OWNER_MODULE extends Win32Struct {
         get => (this._bitfield >> 0) & 0x1
         set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
     }
-
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
-
     /**
      * Type: <b>ULONGLONG[TCPIP_OWNING_MODULE_SIZE]</b>
      * 
      * An array of opaque data that contains ownership information.
-     * @type {Array<Integer>}
      */
-    OwningModuleInfo {
-        get {
-            if(!this.HasProp("__OwningModuleInfoProxyArray"))
-                this.__OwningModuleInfoProxyArray := Win32FixedArray(this.ptr + 32, 16, Primitive, "uint")
-            return this.__OwningModuleInfoProxyArray
-        }
+    OwningModuleInfo : Int64[16]
+
+    static __New() {
+        DefineProp(this.Prototype, 'dwFlags', { type: Int32, offset: 24 })
+        this.DeleteProp("__New")
     }
 }

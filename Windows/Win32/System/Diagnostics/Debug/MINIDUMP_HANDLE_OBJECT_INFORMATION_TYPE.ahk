@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Identifies the type of object-specific information.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ne-minidumpapiset-minidump_handle_object_information_type
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE extends Win32Enum {
+export default struct MINIDUMP_HANDLE_OBJECT_INFORMATION_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * There is no object-specific information for this handle type.

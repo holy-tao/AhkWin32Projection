@@ -1,61 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
-#Include ..\..\Foundation\KEVENT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\KEVENT.ahk" { KEVENT }
+#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\PPCW_BUFFER.ahk" { PPCW_BUFFER }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCW_MASK_INFORMATION extends Win32Struct {
-    static sizeof => 40
+export default struct PCW_MASK_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    CounterMask : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CounterMask {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    InstanceMask : UNICODE_STRING.Ptr
 
-    /**
-     * @type {Pointer<UNICODE_STRING>}
-     */
-    InstanceMask {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    InstanceId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InstanceId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    CollectMultiple : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    CollectMultiple {
-        get => NumGet(this, 20, "char")
-        set => NumPut("char", value, this, 20)
-    }
+    Buffer : PPCW_BUFFER
 
-    /**
-     * @type {PPCW_BUFFER}
-     */
-    Buffer {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    CancelEvent : KEVENT.Ptr
 
-    /**
-     * @type {Pointer<KEVENT>}
-     */
-    CancelEvent {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
 }

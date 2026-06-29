@@ -1,102 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_ID.ahk
-#Include .\CERT_ID_OPTION.ahk
-#Include .\CERT_ISSUER_SERIAL_NUMBER.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
-#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include .\CRYPT_ATTRIBUTES.ahk
-#Include .\CRYPT_ATTRIBUTE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPT_ATTRIBUTES.ahk" { CRYPT_ATTRIBUTES }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\CERT_ID_OPTION.ahk" { CERT_ID_OPTION }
+#Import ".\CERT_ISSUER_SERIAL_NUMBER.ahk" { CERT_ISSUER_SERIAL_NUMBER }
+#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
+#Import ".\CRYPT_ATTRIBUTE.ahk" { CRYPT_ATTRIBUTE }
+#Import ".\CERT_ID.ahk" { CERT_ID }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains the content of the defined SignerInfo in signed or signed and enveloped messages.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_cms_signer_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CMSG_CMS_SIGNER_INFO extends Win32Struct {
-    static sizeof => 144
-
-    static packingSize => 8
+export default struct CMSG_CMS_SIGNER_INFO {
+    #StructPack 8
 
     /**
      * The version of this structure.
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_id">CERT_ID</a> structure that identifies the signer's certificate.
-     * @type {CERT_ID}
      */
-    SignerId {
-        get {
-            if(!this.HasProp("__SignerId"))
-                this.__SignerId := CERT_ID(8, this)
-            return this.__SignerId
-        }
-    }
+    SignerId : CERT_ID
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure that specifies the algorithm used in generating the hash of a message.
-     * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    HashAlgorithm {
-        get {
-            if(!this.HasProp("__HashAlgorithm"))
-                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(48, this)
-            return this.__HashAlgorithm
-        }
-    }
+    HashAlgorithm : CRYPT_ALGORITHM_IDENTIFIER
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure that specifies the algorithm used to encrypt the hash.
-     * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    HashEncryptionAlgorithm {
-        get {
-            if(!this.HasProp("__HashEncryptionAlgorithm"))
-                this.__HashEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(72, this)
-            return this.__HashEncryptionAlgorithm
-        }
-    }
+    HashEncryptionAlgorithm : CRYPT_ALGORITHM_IDENTIFIER
 
     /**
      * A
      * 						<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_DATA_BLOB</a> structure that contains the encrypted hash of the message, the signature.
-     * @type {CRYPT_INTEGER_BLOB}
      */
-    EncryptedHash {
-        get {
-            if(!this.HasProp("__EncryptedHash"))
-                this.__EncryptedHash := CRYPT_INTEGER_BLOB(96, this)
-            return this.__EncryptedHash
-        }
-    }
+    EncryptedHash : CRYPT_INTEGER_BLOB
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_attributes">CRYPT_ATTRIBUTES</a> structure that contains authenticated attributes of the signer.
-     * @type {CRYPT_ATTRIBUTES}
      */
-    AuthAttrs {
-        get {
-            if(!this.HasProp("__AuthAttrs"))
-                this.__AuthAttrs := CRYPT_ATTRIBUTES(112, this)
-            return this.__AuthAttrs
-        }
-    }
+    AuthAttrs : CRYPT_ATTRIBUTES
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_attributes">CRYPT_ATTRIBUTES</a> structure that contains unauthenticated attributes of the signer.
-     * @type {CRYPT_ATTRIBUTES}
      */
-    UnauthAttrs {
-        get {
-            if(!this.HasProp("__UnauthAttrs"))
-                this.__UnauthAttrs := CRYPT_ATTRIBUTES(128, this)
-            return this.__UnauthAttrs
-        }
-    }
+    UnauthAttrs : CRYPT_ATTRIBUTES
+
 }

@@ -1,41 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\NetworkManagement\WNet\NETRESOURCEA.ahk
-#Include ..\..\NetworkManagement\WNet\NET_RESOURCE_SCOPE.ahk
-#Include ..\..\NetworkManagement\WNet\NET_RESOURCE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\NetworkManagement\WNet\NET_RESOURCE_TYPE.ahk" { NET_RESOURCE_TYPE }
+#Import "..\..\NetworkManagement\WNet\NET_RESOURCE_SCOPE.ahk" { NET_RESOURCE_SCOPE }
+#Import "..\..\NetworkManagement\WNet\NETRESOURCEA.ahk" { NETRESOURCEA }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Defines the CF_NETRESOURCE clipboard format.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-nresarray
  * @namespace Windows.Win32.UI.Shell
  */
-class NRESARRAY extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct NRESARRAY {
+    #StructPack 8
 
     /**
      * Type: <b>UINT</b>
      * 
      * The number of elements in the <b>nr</b> array.
-     * @type {Integer}
      */
-    cItems {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cItems : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a>[1]</b>
      * 
      * The array of <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structures that contain information about network resources. The string members (<b>LPSTR</b> types) in the structure contain offsets instead of addresses.
-     * @type {NETRESOURCEA}
      */
-    nr {
-        get {
-            if(!this.HasProp("__nrProxyArray"))
-                this.__nrProxyArray := Win32FixedArray(this.ptr + 8, 1, NETRESOURCEA, "")
-            return this.__nrProxyArray
-        }
-    }
+    nr : NETRESOURCEA[1]
+
 }

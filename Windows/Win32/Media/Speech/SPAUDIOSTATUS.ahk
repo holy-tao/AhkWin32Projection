@@ -1,68 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPAUDIOSTATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SPAUDIOSTATE.ahk" { SPAUDIOSTATE }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class SPAUDIOSTATUS extends Win32Struct {
-    static sizeof => 40
+export default struct SPAUDIOSTATUS {
+    #StructPack 8
 
-    static packingSize => 8
+    cbFreeBuffSpace : Int32
 
-    /**
-     * @type {Integer}
-     */
-    cbFreeBuffSpace {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    cbNonBlockingIO : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbNonBlockingIO {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    State : SPAUDIOSTATE
 
-    /**
-     * @type {SPAUDIOSTATE}
-     */
-    State {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    CurSeekPos : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CurSeekPos {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    CurDevicePos : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CurDevicePos {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwAudioLevel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAudioLevel {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwReserved2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved2 {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
 }

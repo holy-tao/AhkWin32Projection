@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains the IPv4 group address value and mask for a multicast boundary.
@@ -8,29 +7,20 @@
  * @see https://learn.microsoft.com/windows/win32/api/iprtrmib/ns-iprtrmib-mib_boundaryrow
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_BOUNDARYROW extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct MIB_BOUNDARYROW {
+    #StructPack 4
 
     /**
      * The 32-bit integer representation of the IPv4 group address which, when combined with the corresponding value in <b>dwGroupMask</b>, identifies the group range for which the scoped boundary exists. 
      * 
      * <div class="alert"><b>Note</b>  Scoped addresses must come from the range 239.*.*.* as specified in <a href="https://www.ietf.org/rfc/rfc2365.txt">RFC 2365</a>.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    dwGroupAddress {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwGroupAddress : UInt32
 
     /**
      * The 32-bit integer representation of the IPv4 group address mask which, when combined with the corresponding value in <b>dwGroupAddress</b>, identifies the group range for which the scoped boundary exists.
-     * @type {Integer}
      */
-    dwGroupMask {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwGroupMask : UInt32
+
 }

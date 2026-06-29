@@ -1,15 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
-#Include .\D3D11_RTV_DIMENSION.ahk
-#Include .\D3D11_BUFFER_RTV.ahk
-#Include .\D3D11_TEX1D_RTV.ahk
-#Include .\D3D11_TEX1D_ARRAY_RTV.ahk
-#Include .\D3D11_TEX2D_RTV.ahk
-#Include .\D3D11_TEX2D_ARRAY_RTV.ahk
-#Include .\D3D11_TEX2DMS_RTV.ahk
-#Include .\D3D11_TEX2DMS_ARRAY_RTV.ahk
-#Include .\D3D11_TEX3D_RTV.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D11_RTV_DIMENSION.ahk" { D3D11_RTV_DIMENSION }
+#Import ".\D3D11_BUFFER_RTV.ahk" { D3D11_BUFFER_RTV }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\D3D11_TEX1D_RTV.ahk" { D3D11_TEX1D_RTV }
+#Import ".\D3D11_TEX3D_RTV.ahk" { D3D11_TEX3D_RTV }
+#Import ".\D3D11_TEX2D_ARRAY_RTV.ahk" { D3D11_TEX2D_ARRAY_RTV }
+#Import ".\D3D11_TEX1D_ARRAY_RTV.ahk" { D3D11_TEX1D_ARRAY_RTV }
+#Import ".\D3D11_TEX2DMS_RTV.ahk" { D3D11_TEX2DMS_RTV }
+#Import ".\D3D11_TEX2DMS_ARRAY_RTV.ahk" { D3D11_TEX2DMS_ARRAY_RTV }
+#Import ".\D3D11_TEX2D_RTV.ahk" { D3D11_TEX2D_RTV }
 
 /**
  * Specifies the subresources from a resource that are accessible using a render-target view.
@@ -26,118 +25,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_render_target_view_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_RENDER_TARGET_VIEW_DESC extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct D3D11_RENDER_TARGET_VIEW_DESC {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
      * 
      * The data format (see <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>).
-     * @type {DXGI_FORMAT}
      */
-    Format {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Format : DXGI_FORMAT
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_rtv_dimension">D3D11_RTV_DIMENSION</a></b>
      * 
      * The resource type (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_rtv_dimension">D3D11_RTV_DIMENSION</a>), which specifies how the render-target resource will be accessed.
-     * @type {D3D11_RTV_DIMENSION}
      */
-    ViewDimension {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    ViewDimension : D3D11_RTV_DIMENSION
 
-    /**
-     * @type {D3D11_BUFFER_RTV}
-     */
-    Buffer {
-        get {
-            if(!this.HasProp("__Buffer"))
-                this.__Buffer := D3D11_BUFFER_RTV(8, this)
-            return this.__Buffer
-        }
-    }
+    Buffer : D3D11_BUFFER_RTV
 
-    /**
-     * @type {D3D11_TEX1D_RTV}
-     */
-    Texture1D {
-        get {
-            if(!this.HasProp("__Texture1D"))
-                this.__Texture1D := D3D11_TEX1D_RTV(8, this)
-            return this.__Texture1D
-        }
-    }
-
-    /**
-     * @type {D3D11_TEX1D_ARRAY_RTV}
-     */
-    Texture1DArray {
-        get {
-            if(!this.HasProp("__Texture1DArray"))
-                this.__Texture1DArray := D3D11_TEX1D_ARRAY_RTV(8, this)
-            return this.__Texture1DArray
-        }
-    }
-
-    /**
-     * @type {D3D11_TEX2D_RTV}
-     */
-    Texture2D {
-        get {
-            if(!this.HasProp("__Texture2D"))
-                this.__Texture2D := D3D11_TEX2D_RTV(8, this)
-            return this.__Texture2D
-        }
-    }
-
-    /**
-     * @type {D3D11_TEX2D_ARRAY_RTV}
-     */
-    Texture2DArray {
-        get {
-            if(!this.HasProp("__Texture2DArray"))
-                this.__Texture2DArray := D3D11_TEX2D_ARRAY_RTV(8, this)
-            return this.__Texture2DArray
-        }
-    }
-
-    /**
-     * @type {D3D11_TEX2DMS_RTV}
-     */
-    Texture2DMS {
-        get {
-            if(!this.HasProp("__Texture2DMS"))
-                this.__Texture2DMS := D3D11_TEX2DMS_RTV(8, this)
-            return this.__Texture2DMS
-        }
-    }
-
-    /**
-     * @type {D3D11_TEX2DMS_ARRAY_RTV}
-     */
-    Texture2DMSArray {
-        get {
-            if(!this.HasProp("__Texture2DMSArray"))
-                this.__Texture2DMSArray := D3D11_TEX2DMS_ARRAY_RTV(8, this)
-            return this.__Texture2DMSArray
-        }
-    }
-
-    /**
-     * @type {D3D11_TEX3D_RTV}
-     */
-    Texture3D {
-        get {
-            if(!this.HasProp("__Texture3D"))
-                this.__Texture3D := D3D11_TEX3D_RTV(8, this)
-            return this.__Texture3D
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Texture1D', { type: D3D11_TEX1D_RTV, offset: 8 })
+        DefineProp(this.Prototype, 'Texture1DArray', { type: D3D11_TEX1D_ARRAY_RTV, offset: 8 })
+        DefineProp(this.Prototype, 'Texture2D', { type: D3D11_TEX2D_RTV, offset: 8 })
+        DefineProp(this.Prototype, 'Texture2DArray', { type: D3D11_TEX2D_ARRAY_RTV, offset: 8 })
+        DefineProp(this.Prototype, 'Texture2DMS', { type: D3D11_TEX2DMS_RTV, offset: 8 })
+        DefineProp(this.Prototype, 'Texture2DMSArray', { type: D3D11_TEX2DMS_ARRAY_RTV, offset: 8 })
+        DefineProp(this.Prototype, 'Texture3D', { type: D3D11_TEX3D_RTV, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

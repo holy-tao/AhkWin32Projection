@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains information about whether files in a stream have been modified.
@@ -14,19 +13,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-csv_query_file_revision
  * @namespace Windows.Win32.System.Ioctl
  */
-class CSV_QUERY_FILE_REVISION extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct CSV_QUERY_FILE_REVISION {
+    #StructPack 8
 
     /**
      * The identifier of an NTFS file.
-     * @type {Integer}
      */
-    FileId {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    FileId : Int64
 
     /**
      * File revision tracking elements.
@@ -42,13 +35,7 @@ class CSV_QUERY_FILE_REVISION extends Win32Struct {
      *         opening this stream.</li>
      * </ul>
      * If any of the numbers are 0, the function caller should assume that the file was modified.
-     * @type {Array<Integer>}
      */
-    FileRevision {
-        get {
-            if(!this.HasProp("__FileRevisionProxyArray"))
-                this.__FileRevisionProxyArray := Win32FixedArray(this.ptr + 8, 3, Primitive, "int64")
-            return this.__FileRevisionProxyArray
-        }
-    }
+    FileRevision : Int64[3]
+
 }

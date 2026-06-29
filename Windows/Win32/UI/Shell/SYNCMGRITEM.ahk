@@ -1,101 +1,62 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\WindowsAndMessaging\HICON.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Provides information about items being enumerated by the ISyncMgrEnumItems interface.
  * @see https://learn.microsoft.com/windows/win32/api/mobsync/ns-mobsync-syncmgritem
  * @namespace Windows.Win32.UI.Shell
  */
-class SYNCMGRITEM extends Win32Struct {
-    static sizeof => 296
-
-    static packingSize => 8
+export default struct SYNCMGRITEM {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The size of the structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b>DWORD</b>
      * 
      * One or more values from the <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/ne-mobsync-syncmgritemflags">SYNCMGRITEMFLAGS</a> enumeration.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : UInt32
 
     /**
      * Type: <b>GUID</b>
      * 
      * The identifier for this item.
-     * @type {Pointer}
      */
-    ItemID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ItemID : Guid
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
      */
-    dwItemState {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwItemState : UInt32
 
     /**
      * Type: <b>HICON</b>
      * 
      * The icon for this item.
-     * @type {HICON}
      */
-    hIcon {
-        get {
-            if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(24, this)
-            return this.__hIcon
-        }
-    }
+    hIcon : HICON
 
     /**
      * Type: <b>WCHAR[MAX_SYNCMGRITEMNAME]</b>
      * 
      * The name of this item.
-     * @type {String}
      */
-    wszItemName {
-        get => StrGet(this.ptr + 32, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 32, 127, "UTF-16")
-    }
+    wszItemName : WCHAR[128]
 
     /**
      * Type: <b>FILETIME</b>
      * 
      * The time of the last synchronization for this item.
-     * @type {FILETIME}
      */
-    ftLastUpdate {
-        get {
-            if(!this.HasProp("__ftLastUpdate"))
-                this.__ftLastUpdate := FILETIME(288, this)
-            return this.__ftLastUpdate
-        }
-    }
+    ftLastUpdate : FILETIME
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 296
-    }
 }

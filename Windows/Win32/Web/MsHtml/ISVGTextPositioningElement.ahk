@@ -1,39 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISVGAnimatedLengthList.ahk
-#Include .\ISVGAnimatedNumberList.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISVGAnimatedNumberList.ahk" { ISVGAnimatedNumberList }
+#Import ".\ISVGAnimatedLengthList.ahk" { ISVGAnimatedLengthList }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class ISVGTextPositioningElement extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISVGTextPositioningElement extends IDispatch {
     /**
      * The interface identifier for ISVGTextPositioningElement
      * @type {Guid}
      */
-    static IID => Guid("{3051051b-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3051051b-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for SVGTextPositioningElement
      * @type {Guid}
      */
-    static CLSID => Guid("{305105e0-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{305105e0-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISVGTextPositioningElement interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        putref_x      : IntPtr
+        get_x         : IntPtr
+        putref_y      : IntPtr
+        get_y         : IntPtr
+        putref_dx     : IntPtr
+        get_dx        : IntPtr
+        putref_dy     : IntPtr
+        get_dy        : IntPtr
+        putref_rotate : IntPtr
+        get_rotate    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["putref_x", "get_x", "putref_y", "get_y", "putref_dx", "get_dx", "putref_dy", "get_dy", "putref_rotate", "get_rotate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISVGTextPositioningElement.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ISVGAnimatedLengthList} 
@@ -163,5 +180,43 @@ class ISVGTextPositioningElement extends IDispatch {
     get_rotate() {
         result := ComCall(16, this, "ptr*", &p := 0, "HRESULT")
         return ISVGAnimatedNumberList(p)
+    }
+
+    Query(iid) {
+        if (ISVGTextPositioningElement.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.putref_x := CallbackCreate(GetMethod(implObj, "putref_x"), flags, 2)
+        this.vtbl.get_x := CallbackCreate(GetMethod(implObj, "get_x"), flags, 2)
+        this.vtbl.putref_y := CallbackCreate(GetMethod(implObj, "putref_y"), flags, 2)
+        this.vtbl.get_y := CallbackCreate(GetMethod(implObj, "get_y"), flags, 2)
+        this.vtbl.putref_dx := CallbackCreate(GetMethod(implObj, "putref_dx"), flags, 2)
+        this.vtbl.get_dx := CallbackCreate(GetMethod(implObj, "get_dx"), flags, 2)
+        this.vtbl.putref_dy := CallbackCreate(GetMethod(implObj, "putref_dy"), flags, 2)
+        this.vtbl.get_dy := CallbackCreate(GetMethod(implObj, "get_dy"), flags, 2)
+        this.vtbl.putref_rotate := CallbackCreate(GetMethod(implObj, "putref_rotate"), flags, 2)
+        this.vtbl.get_rotate := CallbackCreate(GetMethod(implObj, "get_rotate"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.putref_x)
+        CallbackFree(this.vtbl.get_x)
+        CallbackFree(this.vtbl.putref_y)
+        CallbackFree(this.vtbl.get_y)
+        CallbackFree(this.vtbl.putref_dx)
+        CallbackFree(this.vtbl.get_dx)
+        CallbackFree(this.vtbl.putref_dy)
+        CallbackFree(this.vtbl.get_dy)
+        CallbackFree(this.vtbl.putref_rotate)
+        CallbackFree(this.vtbl.get_rotate)
     }
 }

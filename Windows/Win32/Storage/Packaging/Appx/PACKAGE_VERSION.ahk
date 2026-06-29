@@ -1,53 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents the package version information.
  * @see https://learn.microsoft.com/windows/win32/api/appmodel/ns-appmodel-package_version
  * @namespace Windows.Win32.Storage.Packaging.Appx
  */
-class PACKAGE_VERSION extends Win32Struct {
-    static sizeof => 8
+export default struct PACKAGE_VERSION {
+    #StructPack 4
 
-    static packingSize => 4
+    Version : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Revision {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Build {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Minor {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Major {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
+    static __New() {
+        DefineProp(this.Prototype, 'Revision', { type: UInt16, offset: 0 })
+        DefineProp(this.Prototype, 'Build', { type: UInt16, offset: 2 })
+        DefineProp(this.Prototype, 'Minor', { type: UInt16, offset: 4 })
+        DefineProp(this.Prototype, 'Major', { type: UInt16, offset: 6 })
+        this.DeleteProp("__New")
     }
 }

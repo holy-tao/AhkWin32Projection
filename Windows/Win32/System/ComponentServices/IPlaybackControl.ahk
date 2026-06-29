@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables participation in the abnormal handling of server-side playback errors and client-side failures of the Message Queuing delivery mechanism.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iplaybackcontrol
  * @namespace Windows.Win32.System.ComponentServices
  */
-class IPlaybackControl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPlaybackControl extends IUnknown {
     /**
      * The interface identifier for IPlaybackControl
      * @type {Guid}
      */
-    static IID => Guid("{51372afd-cae7-11cf-be81-00aa00a2fa25}")
+    static IID := Guid("{51372afd-cae7-11cf-be81-00aa00a2fa25}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPlaybackControl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        FinalClientRetry : IntPtr
+        FinalServerRetry : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["FinalClientRetry", "FinalServerRetry"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPlaybackControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Informs the client-side exception handling component that all Message Queuing attempts to deliver the message to the server were rejected. The message ended up on the client-side Xact dead letter queue.
@@ -59,5 +68,27 @@ class IPlaybackControl extends IUnknown {
     FinalServerRetry() {
         result := ComCall(4, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPlaybackControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.FinalClientRetry := CallbackCreate(GetMethod(implObj, "FinalClientRetry"), flags, 1)
+        this.vtbl.FinalServerRetry := CallbackCreate(GetMethod(implObj, "FinalServerRetry"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.FinalClientRetry)
+        CallbackFree(this.vtbl.FinalServerRetry)
     }
 }

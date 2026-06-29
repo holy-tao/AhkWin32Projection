@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IN6_ADDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IN6_ADDR.ahk" { IN6_ADDR }
 
 /**
  * The SOCKADDR_IN6_W2KSP1 (ws2ipdef.h) structure specifies a transport address and port for the AF_INET6 address family.
@@ -15,59 +14,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-sockaddr_in6_w2ksp1
  * @namespace Windows.Win32.Networking.WinSock
  */
-class SOCKADDR_IN6_W2KSP1 extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct SOCKADDR_IN6_W2KSP1 {
+    #StructPack 4
 
     /**
      * The address family for the transport address. This member should always be set to AF_INET6.
-     * @type {Integer}
      */
-    sin6_family {
-        get => NumGet(this, 0, "short")
-        set => NumPut("short", value, this, 0)
-    }
+    sin6_family : Int16
 
     /**
      * A transport protocol port number.
-     * @type {Integer}
      */
-    sin6_port {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    sin6_port : UInt16
 
     /**
      * The IPv6 flow information.
-     * @type {Integer}
      */
-    sin6_flowinfo {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    sin6_flowinfo : UInt32
 
     /**
      * An 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/in6addr/ns-in6addr-in6_addr">IN6_ADDR</a> structure that contains an IPv6 transport
      *      address.
-     * @type {IN6_ADDR}
      */
-    sin6_addr {
-        get {
-            if(!this.HasProp("__sin6_addr"))
-                this.__sin6_addr := IN6_ADDR(8, this)
-            return this.__sin6_addr
-        }
-    }
+    sin6_addr : IN6_ADDR
 
     /**
      * A ULONG representation of the IPv6 scope identifier that is defined in the 
      *       <b>sin6_scope_struct</b> member.
-     * @type {Integer}
      */
-    sin6_scope_id {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    sin6_scope_id : UInt32
+
 }

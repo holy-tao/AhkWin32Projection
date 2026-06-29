@@ -1,57 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES extends Win32Struct {
-    static sizeof => 1048
+export default struct D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES {
+    #StructPack 8
 
-    static packingSize => 8
+    RowCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    RowCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ColCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ColCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    RowHeights : Int64[64]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    RowHeights {
-        get {
-            if(!this.HasProp("__RowHeightsProxyArray"))
-                this.__RowHeightsProxyArray := Win32FixedArray(this.ptr + 16, 64, Primitive, "uint")
-            return this.__RowHeightsProxyArray
-        }
-    }
+    ColWidths : Int64[64]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ColWidths {
-        get {
-            if(!this.HasProp("__ColWidthsProxyArray"))
-                this.__ColWidthsProxyArray := Win32FixedArray(this.ptr + 528, 64, Primitive, "uint")
-            return this.__ColWidthsProxyArray
-        }
-    }
+    ContextUpdateTileId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ContextUpdateTileId {
-        get => NumGet(this, 1040, "uint")
-        set => NumPut("uint", value, this, 1040)
-    }
 }

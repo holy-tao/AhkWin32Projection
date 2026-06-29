@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\GNSS_FIXDATA_BASIC.ahk
-#Include .\GNSS_FIXDATA_ACCURACY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GNSS_FIXDATA_ACCURACY.ahk" { GNSS_FIXDATA_ACCURACY }
+#Import ".\GNSS_FIXDATA_BASIC.ahk" { GNSS_FIXDATA_BASIC }
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
  */
-class GNSS_AGNSS_INJECTPOSITION extends Win32Struct {
-    static sizeof => 128
+export default struct GNSS_AGNSS_INJECTPOSITION {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Age : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Age {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    BasicData : GNSS_FIXDATA_BASIC
 
-    /**
-     * @type {GNSS_FIXDATA_BASIC}
-     */
-    BasicData {
-        get {
-            if(!this.HasProp("__BasicData"))
-                this.__BasicData := GNSS_FIXDATA_BASIC(16, this)
-            return this.__BasicData
-        }
-    }
+    AccuracyData : GNSS_FIXDATA_ACCURACY
 
-    /**
-     * @type {GNSS_FIXDATA_ACCURACY}
-     */
-    AccuracyData {
-        get {
-            if(!this.HasProp("__AccuracyData"))
-                this.__AccuracyData := GNSS_FIXDATA_ACCURACY(64, this)
-            return this.__AccuracyData
-        }
-    }
 }

@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\INSSBuffer.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DRM_VAL16.ahk" { DRM_VAL16 }
+#Import ".\INSSBuffer.ahk" { INSSBuffer }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMDRMMessageParser interface parses pertinent information from messages received from a device.An IWMDRMMessageParser interface exists for every device registration object.
@@ -11,26 +14,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmdrmmessageparser
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMDRMMessageParser extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMDRMMessageParser extends IUnknown {
     /**
      * The interface identifier for IWMDRMMessageParser
      * @type {Guid}
      */
-    static IID => Guid("{a73a0072-25a0-4c99-b4a5-ede8101a6c39}")
+    static IID := Guid("{a73a0072-25a0-4c99-b4a5-ede8101a6c39}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMDRMMessageParser interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ParseRegistrationReqMsg : IntPtr
+        ParseLicenseRequestMsg  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ParseRegistrationReqMsg", "ParseLicenseRequestMsg"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMDRMMessageParser.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The ParseRegistrationReqMsg method extracts the device certificate and identifier from a registration message sent by a device.
@@ -77,7 +88,7 @@ class IWMDRMMessageParser extends IUnknown {
     ParseRegistrationReqMsg(pbRegistrationReqMsg, cbRegistrationReqMsg, ppDeviceCert, pDeviceSerialNumber) {
         pbRegistrationReqMsgMarshal := pbRegistrationReqMsg is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, pbRegistrationReqMsgMarshal, pbRegistrationReqMsg, "uint", cbRegistrationReqMsg, "ptr*", ppDeviceCert, "ptr", pDeviceSerialNumber, "HRESULT")
+        result := ComCall(3, this, pbRegistrationReqMsgMarshal, pbRegistrationReqMsg, "uint", cbRegistrationReqMsg, INSSBuffer.Ptr, ppDeviceCert, DRM_VAL16.Ptr, pDeviceSerialNumber, "HRESULT")
         return result
     }
 
@@ -125,7 +136,29 @@ class IWMDRMMessageParser extends IUnknown {
     ParseLicenseRequestMsg(pbLicenseRequestMsg, cbLicenseRequestMsg, ppDeviceCert, pDeviceSerialNumber, pbstrAction) {
         pbLicenseRequestMsgMarshal := pbLicenseRequestMsg is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, pbLicenseRequestMsgMarshal, pbLicenseRequestMsg, "uint", cbLicenseRequestMsg, "ptr*", ppDeviceCert, "ptr", pDeviceSerialNumber, "ptr", pbstrAction, "HRESULT")
+        result := ComCall(4, this, pbLicenseRequestMsgMarshal, pbLicenseRequestMsg, "uint", cbLicenseRequestMsg, INSSBuffer.Ptr, ppDeviceCert, DRM_VAL16.Ptr, pDeviceSerialNumber, BSTR.Ptr, pbstrAction, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMDRMMessageParser.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ParseRegistrationReqMsg := CallbackCreate(GetMethod(implObj, "ParseRegistrationReqMsg"), flags, 5)
+        this.vtbl.ParseLicenseRequestMsg := CallbackCreate(GetMethod(implObj, "ParseLicenseRequestMsg"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ParseRegistrationReqMsg)
+        CallbackFree(this.vtbl.ParseLicenseRequestMsg)
     }
 }

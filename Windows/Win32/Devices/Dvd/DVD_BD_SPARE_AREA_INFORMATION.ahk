@@ -1,44 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
  */
-class DVD_BD_SPARE_AREA_INFORMATION extends Win32Struct {
-    static sizeof => 12
+export default struct DVD_BD_SPARE_AREA_INFORMATION {
+    #StructPack 1
 
-    static packingSize => 1
+    Reserved1 : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    NumberOfFreeSpareBlocks : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    NumberOfFreeSpareBlocks {
-        get {
-            if(!this.HasProp("__NumberOfFreeSpareBlocksProxyArray"))
-                this.__NumberOfFreeSpareBlocksProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")
-            return this.__NumberOfFreeSpareBlocksProxyArray
-        }
-    }
+    NumberOfAllocatedSpareBlocks : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    NumberOfAllocatedSpareBlocks {
-        get {
-            if(!this.HasProp("__NumberOfAllocatedSpareBlocksProxyArray"))
-                this.__NumberOfAllocatedSpareBlocksProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "char")
-            return this.__NumberOfAllocatedSpareBlocksProxyArray
-        }
-    }
 }

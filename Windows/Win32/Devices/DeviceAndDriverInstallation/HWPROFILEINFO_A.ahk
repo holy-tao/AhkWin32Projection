@@ -1,36 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @charset ANSI
  */
-class HWPROFILEINFO_A extends Win32Struct {
-    static sizeof => 88
+export default struct HWPROFILEINFO_A {
+    #StructPack 4
 
-    static packingSize => 4
+    HWPI_ulHWProfile : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HWPI_ulHWProfile {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    HWPI_szFriendlyName : CHAR[80]
 
-    /**
-     * @type {String}
-     */
-    HWPI_szFriendlyName {
-        get => StrGet(this.ptr + 4, 79, "UTF-8")
-        set => StrPut(value, this.ptr + 4, 79, "UTF-8")
-    }
+    HWPI_dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HWPI_dwFlags {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
 }

@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFVideoProcessorControl.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFVideoProcessorControl.ahk" { IMFVideoProcessorControl }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Configures the Video Processor MFT. (IMFVideoProcessorControl2)
@@ -10,26 +12,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfvideoprocessorcontrol2
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFVideoProcessorControl2 extends IMFVideoProcessorControl {
-
-    static sizeof => A_PtrSize
+export default struct IMFVideoProcessorControl2 extends IMFVideoProcessorControl {
     /**
      * The interface identifier for IMFVideoProcessorControl2
      * @type {Guid}
      */
-    static IID => Guid("{bde633d3-e1dc-4a7f-a693-bbae399c4a20}")
+    static IID := Guid("{bde633d3-e1dc-4a7f-a693-bbae399c4a20}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFVideoProcessorControl2 interfaces
+    */
+    struct Vtbl extends IMFVideoProcessorControl.Vtbl {
+        SetRotationOverride         : IntPtr
+        EnableHardwareEffects       : IntPtr
+        GetSupportedHardwareEffects : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetRotationOverride", "EnableHardwareEffects", "GetSupportedHardwareEffects"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFVideoProcessorControl2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Overrides the rotation operation that is performed in the video processor.
@@ -57,7 +68,7 @@ class IMFVideoProcessorControl2 extends IMFVideoProcessorControl {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfvideoprocessorcontrol2-enablehardwareeffects
      */
     EnableHardwareEffects(fEnabled) {
-        result := ComCall(10, this, "int", fEnabled, "HRESULT")
+        result := ComCall(10, this, BOOL, fEnabled, "HRESULT")
         return result
     }
 
@@ -71,5 +82,29 @@ class IMFVideoProcessorControl2 extends IMFVideoProcessorControl {
     GetSupportedHardwareEffects() {
         result := ComCall(11, this, "uint*", &puiSupport := 0, "HRESULT")
         return puiSupport
+    }
+
+    Query(iid) {
+        if (IMFVideoProcessorControl2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetRotationOverride := CallbackCreate(GetMethod(implObj, "SetRotationOverride"), flags, 2)
+        this.vtbl.EnableHardwareEffects := CallbackCreate(GetMethod(implObj, "EnableHardwareEffects"), flags, 2)
+        this.vtbl.GetSupportedHardwareEffects := CallbackCreate(GetMethod(implObj, "GetSupportedHardwareEffects"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetRotationOverride)
+        CallbackFree(this.vtbl.EnableHardwareEffects)
+        CallbackFree(this.vtbl.GetSupportedHardwareEffects)
     }
 }

@@ -1,130 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SET_VIRTUAL_DISK_INFO_VERSION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SET_VIRTUAL_DISK_INFO_VERSION.ahk" { SET_VIRTUAL_DISK_INFO_VERSION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains virtual hard disk (VHD) information to use when you call the SetVirtualDiskInformation function to set VHD properties.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-set_virtual_disk_info
  * @namespace Windows.Win32.Storage.Vhd
  */
-class SET_VIRTUAL_DISK_INFO extends Win32Struct {
-    static sizeof => 24
+export default struct SET_VIRTUAL_DISK_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+
+    struct _ParentPathWithDepthInfo {
+        ChildDepth : UInt32
+
+        ParentFilePath : PWSTR
+
+    }
+
+    struct _ParentLocator {
+        LinkageId : Guid
+
+        ParentFilePath : PWSTR
+
+    }
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-set_virtual_disk_info_version">SET_VIRTUAL_DISK_INFO_VERSION</a> 
      *       enumeration that specifies the version of the 
      *       <b>SET_VIRTUAL_DISK_INFO</b> structure being passed to or 
      *       from the VHD functions. This determines the type of information set.
-     * @type {SET_VIRTUAL_DISK_INFO_VERSION}
      */
-    Version {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Version : SET_VIRTUAL_DISK_INFO_VERSION
 
-    class _ParentPathWithDepthInfo extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    ParentFilePath : PWSTR
 
-        /**
-         * @type {Integer}
-         */
-        ChildDepth {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {PWSTR}
-         */
-        ParentFilePath {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
-    }
-
-    class _ParentLocator extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
-
-        /**
-         * @type {Pointer}
-         */
-        LinkageId {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {PWSTR}
-         */
-        ParentFilePath {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
-    }
-
-    /**
-     * @type {PWSTR}
-     */
-    ParentFilePath {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    UniqueIdentifier {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {_ParentPathWithDepthInfo}
-     */
-    ParentPathWithDepthInfo {
-        get {
-            if(!this.HasProp("__ParentPathWithDepthInfo"))
-                this.__ParentPathWithDepthInfo := SET_VIRTUAL_DISK_INFO._ParentPathWithDepthInfo(8, this)
-            return this.__ParentPathWithDepthInfo
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    VhdPhysicalSectorSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    VirtualDiskId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {BOOL}
-     */
-    ChangeTrackingEnabled {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {_ParentLocator}
-     */
-    ParentLocator {
-        get {
-            if(!this.HasProp("__ParentLocator"))
-                this.__ParentLocator := SET_VIRTUAL_DISK_INFO._ParentLocator(8, this)
-            return this.__ParentLocator
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'UniqueIdentifier', { type: Guid, offset: 8 })
+        DefineProp(this.Prototype, 'ParentPathWithDepthInfo', { type: SET_VIRTUAL_DISK_INFO._ParentPathWithDepthInfo, offset: 8 })
+        DefineProp(this.Prototype, 'VhdPhysicalSectorSize', { type: UInt32, offset: 8 })
+        DefineProp(this.Prototype, 'VirtualDiskId', { type: Guid, offset: 8 })
+        DefineProp(this.Prototype, 'ChangeTrackingEnabled', { type: BOOL, offset: 8 })
+        DefineProp(this.Prototype, 'ParentLocator', { type: SET_VIRTUAL_DISK_INFO._ParentLocator, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

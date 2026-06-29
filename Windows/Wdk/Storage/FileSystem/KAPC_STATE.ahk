@@ -1,51 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class KAPC_STATE extends Win32Struct {
-    static sizeof => 32
+export default struct KAPC_STATE {
+    #StructPack 8
 
-    static packingSize => 8
+    ApcListHead : IntPtr[2]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    ApcListHead {
-        get {
-            if(!this.HasProp("__ApcListHeadProxyArray"))
-                this.__ApcListHeadProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "ptr")
-            return this.__ApcListHeadProxyArray
-        }
-    }
+    Process : IntPtr
 
-    /**
-     * @type {Pointer<Pointer>}
-     */
-    Process {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    InProgressFlags : Int8
 
-    /**
-     * @type {Integer}
-     */
-    InProgressFlags {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - KernelApcInProgress
-     * - SpecialApcInProgress
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
-    }
 
     /**
      * @type {Integer}
@@ -62,33 +29,10 @@ class KAPC_STATE extends Win32Struct {
         get => (this._bitfield >> 1) & 0x1
         set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
     }
+    KernelApcPending : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    KernelApcPending {
-        get => NumGet(this, 25, "char")
-        set => NumPut("char", value, this, 25)
-    }
+    UserApcPendingAll : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    UserApcPendingAll {
-        get => NumGet(this, 26, "char")
-        set => NumPut("char", value, this, 26)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - SpecialUserApcPending
-     * - UserApcPending
-     * @type {Integer}
-     */
-    _bitfield1 {
-        get => NumGet(this, 26, "char")
-        set => NumPut("char", value, this, 26)
-    }
 
     /**
      * @type {Integer}
@@ -104,5 +48,10 @@ class KAPC_STATE extends Win32Struct {
     UserApcPending {
         get => (this._bitfield1 >> 1) & 0x1
         set => this._bitfield1 := ((value & 0x1) << 1) | (this._bitfield1 & ~(0x1 << 1))
+    }
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int8, offset: 24 })
+        DefineProp(this.Prototype, '_bitfield1', { type: Int8, offset: 26 })
+        this.DeleteProp("__New")
     }
 }

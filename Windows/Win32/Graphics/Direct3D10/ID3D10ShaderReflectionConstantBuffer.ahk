@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\D3D10_SHADER_BUFFER_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D10_SHADER_BUFFER_DESC.ahk" { D3D10_SHADER_BUFFER_DESC }
+#Import ".\ID3D10ShaderReflectionVariable.ahk" { ID3D10ShaderReflectionVariable }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * This shader-reflection interface provides access to a constant buffer. (ID3D10ShaderReflectionConstantBuffer)
@@ -10,26 +13,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nn-d3d10shader-id3d10shaderreflectionconstantbuffer
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class ID3D10ShaderReflectionConstantBuffer extends Win32ComInterface {
-
-    static sizeof => A_PtrSize
+export default struct ID3D10ShaderReflectionConstantBuffer extends Win32ComInterface {
     /**
      * The interface identifier for ID3D10ShaderReflectionConstantBuffer
      * @type {Guid}
      */
-    static IID => Guid("{66c66a94-dddd-4b62-a66a-f0da33c2b4d0}")
+    static IID := Guid("{66c66a94-dddd-4b62-a66a-f0da33c2b4d0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 0
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D10ShaderReflectionConstantBuffer interfaces
+    */
+    struct Vtbl {
+        GetDesc            : IntPtr
+        GetVariableByIndex : IntPtr
+        GetVariableByName  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDesc", "GetVariableByIndex", "GetVariableByName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D10ShaderReflectionConstantBuffer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Get a constant-buffer description. (ID3D10ShaderReflectionConstantBuffer.GetDesc)
@@ -40,7 +52,7 @@ class ID3D10ShaderReflectionConstantBuffer extends Win32ComInterface {
      */
     GetDesc() {
         pDesc := D3D10_SHADER_BUFFER_DESC()
-        result := ComCall(0, this, "ptr", pDesc, "HRESULT")
+        result := ComCall(0, this, D3D10_SHADER_BUFFER_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -55,7 +67,7 @@ class ID3D10ShaderReflectionConstantBuffer extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-id3d10shaderreflectionconstantbuffer-getvariablebyindex
      */
     GetVariableByIndex(Index) {
-        result := ComCall(1, this, "uint", Index, "ptr")
+        result := ComCall(1, this, "uint", Index, ID3D10ShaderReflectionVariable)
         return result
     }
 
@@ -72,7 +84,14 @@ class ID3D10ShaderReflectionConstantBuffer extends Win32ComInterface {
     GetVariableByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        result := ComCall(2, this, "ptr", Name, "ptr")
+        result := ComCall(2, this, "ptr", Name, ID3D10ShaderReflectionVariable)
         return result
+    }
+
+    Query(iid) {
+        if (ID3D10ShaderReflectionConstantBuffer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
     }
 }

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The VDS_HINTS structure (vdshwprv.h) defines the automagic hints for a LUN or LUN plex.
@@ -21,10 +21,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_hints
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_HINTS extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct VDS_HINTS {
+    #StructPack 8
 
     /**
      * The LUN hint mask. Each of the <b>BOOL</b> members of this structure has a corresponding hint flag that can be set in the mask. If the 
@@ -138,12 +136,8 @@ class VDS_HINTS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ullHintMask {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ullHintMask : Int64
 
     /**
      * The maximum size to which the LUN is expected to grow, in bytes. The value can be equal to, greater than, or 
@@ -151,90 +145,54 @@ class VDS_HINTS extends Win32Struct {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdssubsystem-createlun">IVdsSubSystem::CreateLun</a> method is called.
      *       Some providers use this value to reserve space for the LUN. Providers that are unable to reserve space 
      *       typically ignore this parameter.
-     * @type {Integer}
      */
-    ullExpectedMaximumSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ullExpectedMaximumSize : Int64
 
     /**
      * The optimal read size for the LUN, in bytes. Zero indicates no optimal read size.
-     * @type {Integer}
      */
-    ulOptimalReadSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ulOptimalReadSize : UInt32
 
     /**
      * The optimal read alignment with respect to the first logical block of the LUN. Zero indicates no optimal read 
      *       alignment.
-     * @type {Integer}
      */
-    ulOptimalReadAlignment {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ulOptimalReadAlignment : UInt32
 
     /**
      * The optimal write size for the LUN, in bytes. Zero indicates no optimal write size.
-     * @type {Integer}
      */
-    ulOptimalWriteSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ulOptimalWriteSize : UInt32
 
     /**
      * The optimal write alignment with respect to the first logical block of the LUN. Zero indicates no optimal 
      *       write alignment.
-     * @type {Integer}
      */
-    ulOptimalWriteAlignment {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    ulOptimalWriteAlignment : UInt32
 
     /**
      * The maximum number of drives to contribute to the LUN. Zero indicates no maximum drive count. This value can be 
      *       used to limit the number of stripe interleaves in a stripe set.
-     * @type {Integer}
      */
-    ulMaximumDriveCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ulMaximumDriveCount : UInt32
 
     /**
      * The mirror or parity stripe interleave size, in bytes. Zero leaves the stripe size unspecified.
-     * @type {Integer}
      */
-    ulStripeSize {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    ulStripeSize : UInt32
 
     /**
      * If this member is TRUE, the recovery time is limited. Set the <b>VDS_HINT_FASTCRASHRECOVERYREQUIRED</b> 
      *       flag in the <b>ullHintMask</b> member to indicate interest in this member.
-     * @type {BOOL}
      */
-    bFastCrashRecoveryRequired {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    bFastCrashRecoveryRequired : BOOL
 
     /**
      * To optimize for a mostly-reads usage pattern (for example, through mirroring rather than parity striping), set 
      *       this member to TRUE. Otherwise, set it to <b>FALSE</b>. Set the <b>VDS_HINT_MOSTLYREADS</b> flag in 
      *       the <b>ullHintMask</b> member to indicate interest in this member.
-     * @type {BOOL}
      */
-    bMostlyReads {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    bMostlyReads : BOOL
 
     /**
      * To optimize for a sequential-reads usage pattern, set this member to <b>TRUE</b>. Otherwise, set it to <b>FALSE</b>. Setting the 
@@ -242,12 +200,8 @@ class VDS_HINTS extends Win32Struct {
      *       <b>bOptimizeForSequentialWrites</b> members both to <b>FALSE</b> optimizes for random I/O. Set the 
      *       <b>VDS_HINT_OPTIMIZEFORSEQUENTIALREADS</b> flag in 
      *       the <b>ullHintMask</b> member to indicate interest in this member.
-     * @type {BOOL}
      */
-    bOptimizeForSequentialReads {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    bOptimizeForSequentialReads : BOOL
 
     /**
      * To optimize for a sequential-writes usage pattern, set to this member to <b>TRUE</b>. Otherwise, set it to <b>FALSE</b>. Setting the 
@@ -255,57 +209,37 @@ class VDS_HINTS extends Win32Struct {
      *       <b>bOptimizeForSequentialWrites</b> members both to <b>FALSE</b> optimizes for random I/O. Set the 
      *       <b>VDS_HINT_OPTIMIZEFORSEQUENTIALWRITES</b> flag in 
      *       the <b>ullHintMask</b> member to indicate interest in this member.
-     * @type {BOOL}
      */
-    bOptimizeForSequentialWrites {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    bOptimizeForSequentialWrites : BOOL
 
     /**
      * If this member is <b>TRUE</b>, the provider remaps LUN extents to drive extents automatically. If it is <b>FALSE</b>, the mapping of LUN extents 
      *       to drive extents remains fixed after LUN configuration unless extents are explicitly remapped to avoid 
      *       corrupted blocks. Set the <b>VDS_HINT_REMAPENABLED</b> flag in 
      *       the <b>ullHintMask</b> member to indicate interest in this member.
-     * @type {BOOL}
      */
-    bRemapEnabled {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    bRemapEnabled : BOOL
 
     /**
      * If this member is set to <b>TRUE</b>, the provider verifies the writes to the LUN by readback. If it is set to <b>FALSE</b>, the provider does not verify writes. 
      *       Set the <b>VDS_HINT_READBACKVERIFYENABLED</b> flag in 
      *       the <b>ullHintMask</b> member to indicate interest in this member.
-     * @type {BOOL}
      */
-    bReadBackVerifyEnabled {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
-    }
+    bReadBackVerifyEnabled : BOOL
 
     /**
      * If this member is <b>TRUE</b>, the provider enables write-through caching on the LUN. If it is <b>FALSE</b>, the provider does not enable
      *       write-through caching. Set the <b>VDS_HINT_WRITETHROUGHCACHINGENABLED</b> flag in 
      *       the <b>ullHintMask</b> member to indicate interest in this member.
-     * @type {BOOL}
      */
-    bWriteThroughCachingEnabled {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
-    }
+    bWriteThroughCachingEnabled : BOOL
 
     /**
      * If this member is <b>TRUE</b>, the provider enables a checksum on the LUN. Set the 
      *       <b>VDS_HINT_HARDWARECHECKSUMENABLED</b> flag in 
      *       the <b>ullHintMask</b> member to indicate interest in this member.
-     * @type {BOOL}
      */
-    bHardwareChecksumEnabled {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
-    }
+    bHardwareChecksumEnabled : BOOL
 
     /**
      * If this member is <b>TRUE</b>, the drives that contribute to the LUN can be physically removed without significant disruption to the 
@@ -313,19 +247,12 @@ class VDS_HINTS extends Win32Struct {
      *       cannot be removed without significant disruption to the system. Set the 
      *       <b>VDS_HINT_ISYANKABLE</b> flag in the <b>ullHintMask</b> member to indicate 
      *       interest in this member.
-     * @type {BOOL}
      */
-    bIsYankable {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
-    }
+    bIsYankable : BOOL
 
     /**
      * The rebuild priority for the LUN. The value can range from 0 (lowest priority) through 15 (highest priority).
-     * @type {Integer}
      */
-    sRebuildPriority {
-        get => NumGet(this, 76, "short")
-        set => NumPut("short", value, this, 76)
-    }
+    sRebuildPriority : Int16
+
 }

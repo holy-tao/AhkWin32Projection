@@ -1,33 +1,70 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IWMPNetwork interface provides methods relating to the network connection used by Windows Media Player.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpnetwork
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPNetwork extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWMPNetwork extends IDispatch {
     /**
      * The interface identifier for IWMPNetwork
      * @type {Guid}
      */
-    static IID => Guid("{ec21b779-edef-462d-bba4-ad9dde2b29a7}")
+    static IID := Guid("{ec21b779-edef-462d-bba4-ad9dde2b29a7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPNetwork interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_bandWidth          : IntPtr
+        get_recoveredPackets   : IntPtr
+        get_sourceProtocol     : IntPtr
+        get_receivedPackets    : IntPtr
+        get_lostPackets        : IntPtr
+        get_receptionQuality   : IntPtr
+        get_bufferingCount     : IntPtr
+        get_bufferingProgress  : IntPtr
+        get_bufferingTime      : IntPtr
+        put_bufferingTime      : IntPtr
+        get_frameRate          : IntPtr
+        get_maxBitRate         : IntPtr
+        get_bitRate            : IntPtr
+        getProxySettings       : IntPtr
+        setProxySettings       : IntPtr
+        getProxyName           : IntPtr
+        setProxyName           : IntPtr
+        getProxyPort           : IntPtr
+        setProxyPort           : IntPtr
+        getProxyExceptionList  : IntPtr
+        setProxyExceptionList  : IntPtr
+        getProxyBypassForLocal : IntPtr
+        setProxyBypassForLocal : IntPtr
+        get_maxBandwidth       : IntPtr
+        put_maxBandwidth       : IntPtr
+        get_downloadProgress   : IntPtr
+        get_encodedFrameRate   : IntPtr
+        get_framesSkipped      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_bandWidth", "get_recoveredPackets", "get_sourceProtocol", "get_receivedPackets", "get_lostPackets", "get_receptionQuality", "get_bufferingCount", "get_bufferingProgress", "get_bufferingTime", "put_bufferingTime", "get_frameRate", "get_maxBitRate", "get_bitRate", "getProxySettings", "setProxySettings", "getProxyName", "setProxyName", "getProxyPort", "setProxyPort", "getProxyExceptionList", "setProxyExceptionList", "getProxyBypassForLocal", "setProxyBypassForLocal", "get_maxBandwidth", "put_maxBandwidth", "get_downloadProgress", "get_encodedFrameRate", "get_framesSkipped"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPNetwork.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      */
@@ -224,7 +261,7 @@ class IWMPNetwork extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_sourceprotocol
      */
     get_sourceProtocol(pbstrSourceProtocol) {
-        result := ComCall(9, this, "ptr", pbstrSourceProtocol, "HRESULT")
+        result := ComCall(9, this, BSTR.Ptr, pbstrSourceProtocol, "HRESULT")
         return result
     }
 
@@ -598,7 +635,7 @@ class IWMPNetwork extends IDispatch {
 
         plProxySettingMarshal := plProxySetting is VarRef ? "int*" : "ptr"
 
-        result := ComCall(20, this, "ptr", bstrProtocol, plProxySettingMarshal, plProxySetting, "HRESULT")
+        result := ComCall(20, this, BSTR, bstrProtocol, plProxySettingMarshal, plProxySetting, "HRESULT")
         return result
     }
 
@@ -634,7 +671,7 @@ class IWMPNetwork extends IDispatch {
     setProxySettings(bstrProtocol, lProxySetting) {
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
 
-        result := ComCall(21, this, "ptr", bstrProtocol, "int", lProxySetting, "HRESULT")
+        result := ComCall(21, this, BSTR, bstrProtocol, "int", lProxySetting, "HRESULT")
         return result
     }
 
@@ -670,7 +707,7 @@ class IWMPNetwork extends IDispatch {
     getProxyName(bstrProtocol, pbstrProxyName) {
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
 
-        result := ComCall(22, this, "ptr", bstrProtocol, "ptr", pbstrProxyName, "HRESULT")
+        result := ComCall(22, this, BSTR, bstrProtocol, BSTR.Ptr, pbstrProxyName, "HRESULT")
         return result
     }
 
@@ -709,7 +746,7 @@ class IWMPNetwork extends IDispatch {
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
         bstrProxyName := bstrProxyName is String ? BSTR.Alloc(bstrProxyName).Value : bstrProxyName
 
-        result := ComCall(23, this, "ptr", bstrProtocol, "ptr", bstrProxyName, "HRESULT")
+        result := ComCall(23, this, BSTR, bstrProtocol, BSTR, bstrProxyName, "HRESULT")
         return result
     }
 
@@ -747,7 +784,7 @@ class IWMPNetwork extends IDispatch {
 
         lProxyPortMarshal := lProxyPort is VarRef ? "int*" : "ptr"
 
-        result := ComCall(24, this, "ptr", bstrProtocol, lProxyPortMarshal, lProxyPort, "HRESULT")
+        result := ComCall(24, this, BSTR, bstrProtocol, lProxyPortMarshal, lProxyPort, "HRESULT")
         return result
     }
 
@@ -785,7 +822,7 @@ class IWMPNetwork extends IDispatch {
     setProxyPort(bstrProtocol, lProxyPort) {
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
 
-        result := ComCall(25, this, "ptr", bstrProtocol, "int", lProxyPort, "HRESULT")
+        result := ComCall(25, this, BSTR, bstrProtocol, "int", lProxyPort, "HRESULT")
         return result
     }
 
@@ -825,7 +862,7 @@ class IWMPNetwork extends IDispatch {
     getProxyExceptionList(bstrProtocol, pbstrExceptionList) {
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
 
-        result := ComCall(26, this, "ptr", bstrProtocol, "ptr", pbstrExceptionList, "HRESULT")
+        result := ComCall(26, this, BSTR, bstrProtocol, BSTR.Ptr, pbstrExceptionList, "HRESULT")
         return result
     }
 
@@ -868,7 +905,7 @@ class IWMPNetwork extends IDispatch {
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
         pbstrExceptionList := pbstrExceptionList is String ? BSTR.Alloc(pbstrExceptionList).Value : pbstrExceptionList
 
-        result := ComCall(27, this, "ptr", bstrProtocol, "ptr", pbstrExceptionList, "HRESULT")
+        result := ComCall(27, this, BSTR, bstrProtocol, BSTR, pbstrExceptionList, "HRESULT")
         return result
     }
 
@@ -906,7 +943,7 @@ class IWMPNetwork extends IDispatch {
 
         pfBypassForLocalMarshal := pfBypassForLocal is VarRef ? "short*" : "ptr"
 
-        result := ComCall(28, this, "ptr", bstrProtocol, pfBypassForLocalMarshal, pfBypassForLocal, "HRESULT")
+        result := ComCall(28, this, BSTR, bstrProtocol, pfBypassForLocalMarshal, pfBypassForLocal, "HRESULT")
         return result
     }
 
@@ -944,7 +981,7 @@ class IWMPNetwork extends IDispatch {
     setProxyBypassForLocal(bstrProtocol, fBypassForLocal) {
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
 
-        result := ComCall(29, this, "ptr", bstrProtocol, "short", fBypassForLocal, "HRESULT")
+        result := ComCall(29, this, BSTR, bstrProtocol, VARIANT_BOOL, fBypassForLocal, "HRESULT")
         return result
     }
 
@@ -1117,5 +1154,79 @@ class IWMPNetwork extends IDispatch {
 
         result := ComCall(34, this, plFramesMarshal, plFrames, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPNetwork.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_bandWidth := CallbackCreate(GetMethod(implObj, "get_bandWidth"), flags, 2)
+        this.vtbl.get_recoveredPackets := CallbackCreate(GetMethod(implObj, "get_recoveredPackets"), flags, 2)
+        this.vtbl.get_sourceProtocol := CallbackCreate(GetMethod(implObj, "get_sourceProtocol"), flags, 2)
+        this.vtbl.get_receivedPackets := CallbackCreate(GetMethod(implObj, "get_receivedPackets"), flags, 2)
+        this.vtbl.get_lostPackets := CallbackCreate(GetMethod(implObj, "get_lostPackets"), flags, 2)
+        this.vtbl.get_receptionQuality := CallbackCreate(GetMethod(implObj, "get_receptionQuality"), flags, 2)
+        this.vtbl.get_bufferingCount := CallbackCreate(GetMethod(implObj, "get_bufferingCount"), flags, 2)
+        this.vtbl.get_bufferingProgress := CallbackCreate(GetMethod(implObj, "get_bufferingProgress"), flags, 2)
+        this.vtbl.get_bufferingTime := CallbackCreate(GetMethod(implObj, "get_bufferingTime"), flags, 2)
+        this.vtbl.put_bufferingTime := CallbackCreate(GetMethod(implObj, "put_bufferingTime"), flags, 2)
+        this.vtbl.get_frameRate := CallbackCreate(GetMethod(implObj, "get_frameRate"), flags, 2)
+        this.vtbl.get_maxBitRate := CallbackCreate(GetMethod(implObj, "get_maxBitRate"), flags, 2)
+        this.vtbl.get_bitRate := CallbackCreate(GetMethod(implObj, "get_bitRate"), flags, 2)
+        this.vtbl.getProxySettings := CallbackCreate(GetMethod(implObj, "getProxySettings"), flags, 3)
+        this.vtbl.setProxySettings := CallbackCreate(GetMethod(implObj, "setProxySettings"), flags, 3)
+        this.vtbl.getProxyName := CallbackCreate(GetMethod(implObj, "getProxyName"), flags, 3)
+        this.vtbl.setProxyName := CallbackCreate(GetMethod(implObj, "setProxyName"), flags, 3)
+        this.vtbl.getProxyPort := CallbackCreate(GetMethod(implObj, "getProxyPort"), flags, 3)
+        this.vtbl.setProxyPort := CallbackCreate(GetMethod(implObj, "setProxyPort"), flags, 3)
+        this.vtbl.getProxyExceptionList := CallbackCreate(GetMethod(implObj, "getProxyExceptionList"), flags, 3)
+        this.vtbl.setProxyExceptionList := CallbackCreate(GetMethod(implObj, "setProxyExceptionList"), flags, 3)
+        this.vtbl.getProxyBypassForLocal := CallbackCreate(GetMethod(implObj, "getProxyBypassForLocal"), flags, 3)
+        this.vtbl.setProxyBypassForLocal := CallbackCreate(GetMethod(implObj, "setProxyBypassForLocal"), flags, 3)
+        this.vtbl.get_maxBandwidth := CallbackCreate(GetMethod(implObj, "get_maxBandwidth"), flags, 2)
+        this.vtbl.put_maxBandwidth := CallbackCreate(GetMethod(implObj, "put_maxBandwidth"), flags, 2)
+        this.vtbl.get_downloadProgress := CallbackCreate(GetMethod(implObj, "get_downloadProgress"), flags, 2)
+        this.vtbl.get_encodedFrameRate := CallbackCreate(GetMethod(implObj, "get_encodedFrameRate"), flags, 2)
+        this.vtbl.get_framesSkipped := CallbackCreate(GetMethod(implObj, "get_framesSkipped"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_bandWidth)
+        CallbackFree(this.vtbl.get_recoveredPackets)
+        CallbackFree(this.vtbl.get_sourceProtocol)
+        CallbackFree(this.vtbl.get_receivedPackets)
+        CallbackFree(this.vtbl.get_lostPackets)
+        CallbackFree(this.vtbl.get_receptionQuality)
+        CallbackFree(this.vtbl.get_bufferingCount)
+        CallbackFree(this.vtbl.get_bufferingProgress)
+        CallbackFree(this.vtbl.get_bufferingTime)
+        CallbackFree(this.vtbl.put_bufferingTime)
+        CallbackFree(this.vtbl.get_frameRate)
+        CallbackFree(this.vtbl.get_maxBitRate)
+        CallbackFree(this.vtbl.get_bitRate)
+        CallbackFree(this.vtbl.getProxySettings)
+        CallbackFree(this.vtbl.setProxySettings)
+        CallbackFree(this.vtbl.getProxyName)
+        CallbackFree(this.vtbl.setProxyName)
+        CallbackFree(this.vtbl.getProxyPort)
+        CallbackFree(this.vtbl.setProxyPort)
+        CallbackFree(this.vtbl.getProxyExceptionList)
+        CallbackFree(this.vtbl.setProxyExceptionList)
+        CallbackFree(this.vtbl.getProxyBypassForLocal)
+        CallbackFree(this.vtbl.setProxyBypassForLocal)
+        CallbackFree(this.vtbl.get_maxBandwidth)
+        CallbackFree(this.vtbl.put_maxBandwidth)
+        CallbackFree(this.vtbl.get_downloadProgress)
+        CallbackFree(this.vtbl.get_encodedFrameRate)
+        CallbackFree(this.vtbl.get_framesSkipped)
     }
 }

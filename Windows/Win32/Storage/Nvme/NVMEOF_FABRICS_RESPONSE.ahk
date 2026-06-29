@@ -1,54 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVMEOF_FABRICS_RESPONSE extends Win32Struct {
-    static sizeof => 16
+export default struct NVMEOF_FABRICS_RESPONSE {
+    #StructPack 2
 
-    static packingSize => 2
+    Specific : Int8[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Specific {
-        get {
-            if(!this.HasProp("__SpecificProxyArray"))
-                this.__SpecificProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")
-            return this.__SpecificProxyArray
-        }
-    }
+    SQHD : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    SQHD {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    Reserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    CID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    CID {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    STS : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    STS {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
 }

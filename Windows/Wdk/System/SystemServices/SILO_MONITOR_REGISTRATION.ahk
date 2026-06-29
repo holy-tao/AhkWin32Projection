@@ -1,79 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class SILO_MONITOR_REGISTRATION extends Win32Struct {
-    static sizeof => 32
+export default struct SILO_MONITOR_REGISTRATION {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    MonitorHost : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    MonitorHost {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    MonitorExistingSilos : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    MonitorExistingSilos {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    Reserved : Int8[5]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 3, 5, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    DriverObjectName : UNICODE_STRING.Ptr
 
-    /**
-     * @type {Pointer<UNICODE_STRING>}
-     */
-    DriverObjectName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    CreateCallback : IntPtr
 
-    /**
-     * @type {Pointer<UNICODE_STRING>}
-     */
-    ComponentName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    TerminateCallback : IntPtr
 
-    /**
-     * @type {Pointer<SILO_MONITOR_CREATE_CALLBACK>}
-     */
-    CreateCallback {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<SILO_MONITOR_TERMINATE_CALLBACK>}
-     */
-    TerminateCallback {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    static __New() {
+        DefineProp(this.Prototype, 'ComponentName', { type: UNICODE_STRING.Ptr, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

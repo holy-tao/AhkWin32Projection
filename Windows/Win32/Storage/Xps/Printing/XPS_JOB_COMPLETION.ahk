@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the completion status of a print job.
  * @see https://learn.microsoft.com/windows/win32/api/xpsprint/ne-xpsprint-xps_job_completion
  * @namespace Windows.Win32.Storage.Xps.Printing
  */
-class XPS_JOB_COMPLETION extends Win32Enum {
+export default struct XPS_JOB_COMPLETION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The print  job is running.

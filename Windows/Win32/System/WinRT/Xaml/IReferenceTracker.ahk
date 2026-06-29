@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Com\IUnknown.ahk
-#Include .\IReferenceTrackerManager.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IReferenceTrackerManager.ahk" { IReferenceTrackerManager }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IFindReferenceTargetsCallback.ahk" { IFindReferenceTargetsCallback }
 
 /**
  * Defines the interface implemented by the XAML framework for managing XAML object references.
@@ -11,26 +13,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.referencetracker/nn-windows-ui-xaml-hosting-referencetracker-ireferencetracker
  * @namespace Windows.Win32.System.WinRT.Xaml
  */
-class IReferenceTracker extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IReferenceTracker extends IUnknown {
     /**
      * The interface identifier for IReferenceTracker
      * @type {Guid}
      */
-    static IID => Guid("{11d3b13a-180e-4789-a8be-7712882893e6}")
+    static IID := Guid("{11d3b13a-180e-4789-a8be-7712882893e6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IReferenceTracker interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ConnectFromTrackerSource    : IntPtr
+        DisconnectFromTrackerSource : IntPtr
+        FindTrackerTargets          : IntPtr
+        GetReferenceTrackerManager  : IntPtr
+        AddRefFromTrackerSource     : IntPtr
+        ReleaseFromTrackerSource    : IntPtr
+        PegFromTrackerSource        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ConnectFromTrackerSource", "DisconnectFromTrackerSource", "FindTrackerTargets", "GetReferenceTrackerManager", "AddRefFromTrackerSource", "ReleaseFromTrackerSource", "PegFromTrackerSource"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IReferenceTracker.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Indicates that a reference tracker source has created its first COM reference on a reference tracker object.
@@ -108,5 +123,37 @@ class IReferenceTracker extends IUnknown {
     PegFromTrackerSource() {
         result := ComCall(9, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IReferenceTracker.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ConnectFromTrackerSource := CallbackCreate(GetMethod(implObj, "ConnectFromTrackerSource"), flags, 1)
+        this.vtbl.DisconnectFromTrackerSource := CallbackCreate(GetMethod(implObj, "DisconnectFromTrackerSource"), flags, 1)
+        this.vtbl.FindTrackerTargets := CallbackCreate(GetMethod(implObj, "FindTrackerTargets"), flags, 2)
+        this.vtbl.GetReferenceTrackerManager := CallbackCreate(GetMethod(implObj, "GetReferenceTrackerManager"), flags, 2)
+        this.vtbl.AddRefFromTrackerSource := CallbackCreate(GetMethod(implObj, "AddRefFromTrackerSource"), flags, 1)
+        this.vtbl.ReleaseFromTrackerSource := CallbackCreate(GetMethod(implObj, "ReleaseFromTrackerSource"), flags, 1)
+        this.vtbl.PegFromTrackerSource := CallbackCreate(GetMethod(implObj, "PegFromTrackerSource"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ConnectFromTrackerSource)
+        CallbackFree(this.vtbl.DisconnectFromTrackerSource)
+        CallbackFree(this.vtbl.FindTrackerTargets)
+        CallbackFree(this.vtbl.GetReferenceTrackerManager)
+        CallbackFree(this.vtbl.AddRefFromTrackerSource)
+        CallbackFree(this.vtbl.ReleaseFromTrackerSource)
+        CallbackFree(this.vtbl.PegFromTrackerSource)
     }
 }

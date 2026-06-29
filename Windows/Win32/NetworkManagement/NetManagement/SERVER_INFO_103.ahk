@@ -1,123 +1,39 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class SERVER_INFO_103 extends Win32Struct {
-    static sizeof => 80
+export default struct SERVER_INFO_103 {
+    #StructPack 8
 
-    static packingSize => 8
+    sv103_platform_id : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv103_platform_id {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    sv103_name : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    sv103_name {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    sv103_version_major : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv103_version_major {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    sv103_version_minor : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv103_version_minor {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    sv103_type : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv103_type {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    sv103_comment : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    sv103_comment {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    sv103_users : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv103_users {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    sv103_disc : Int32
 
-    /**
-     * @type {Integer}
-     */
-    sv103_disc {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    sv103_hidden : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    sv103_hidden {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    sv103_announce : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv103_announce {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    sv103_anndelta : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv103_anndelta {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    sv103_licenses : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv103_licenses {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    sv103_userpath : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    sv103_userpath {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    sv103_capabilities : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    sv103_capabilities {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
 }

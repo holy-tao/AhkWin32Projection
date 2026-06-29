@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HSZ.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\HSZ.ahk" { HSZ }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Contains information about a Dynamic Data Exchange (DDE) string handle. A DDE monitoring application can use this structure when monitoring the activity of the string manager component of the DDE Management Library. (ANSI)
@@ -12,21 +13,15 @@
  * @namespace Windows.Win32.System.DataExchange
  * @charset ANSI
  */
-class MONHSZSTRUCTA extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct MONHSZSTRUCTA {
+    #StructPack 8
 
     /**
      * Type: <b>UINT</b>
      * 
      * The structure's size, in bytes.
-     * @type {Integer}
      */
-    cb {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cb : UInt32
 
     /**
      * Type: <b>BOOL</b>
@@ -83,60 +78,35 @@ class MONHSZSTRUCTA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {BOOL}
      */
-    fsAction {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    fsAction : BOOL
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The Windows time at which the action specified by the <b>fsAction</b> member takes place. Windows time is the number of milliseconds that have elapsed since the system was booted.
-     * @type {Integer}
      */
-    dwTime {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwTime : UInt32
 
     /**
      * Type: <b>HSZ</b>
      * 
      * A handle to the string. Because string handles are local to the process, this member is a global atom.
-     * @type {HSZ}
      */
-    hsz {
-        get {
-            if(!this.HasProp("__hsz"))
-                this.__hsz := HSZ(16, this)
-            return this.__hsz
-        }
-    }
+    hsz : HSZ
 
     /**
      * Type: <b>HANDLE</b>
      * 
      * A handle to the task (application instance) performing the action on the string handle.
-     * @type {HANDLE}
      */
-    hTask {
-        get {
-            if(!this.HasProp("__hTask"))
-                this.__hTask := HANDLE(24, this)
-            return this.__hTask
-        }
-    }
+    hTask : HANDLE
 
     /**
      * Type: <b>TCHAR[1]</b>
      * 
      * Pointer to the string identified by the <b>hsz</b> member.
-     * @type {String}
      */
-    str {
-        get => StrGet(this.ptr + 32, 0, "UTF-8")
-        set => StrPut(value, this.ptr + 32, 0, "UTF-8")
-    }
+    str : CHAR[1]
+
 }

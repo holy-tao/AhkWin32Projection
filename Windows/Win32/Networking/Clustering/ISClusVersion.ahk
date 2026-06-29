@@ -1,33 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
  */
-class ISClusVersion extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISClusVersion extends IDispatch {
     /**
      * The interface identifier for ISClusVersion
      * @type {Guid}
      */
-    static IID => Guid("{f2e60716-2631-11d1-89f1-00a0c90d061e}")
+    static IID := Guid("{f2e60716-2631-11d1-89f1-00a0c90d061e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISClusVersion interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Name                  : IntPtr
+        get_MajorVersion          : IntPtr
+        get_MinorVersion          : IntPtr
+        get_BuildNumber           : IntPtr
+        get_VendorId              : IntPtr
+        get_CSDVersion            : IntPtr
+        get_ClusterHighestVersion : IntPtr
+        get_ClusterLowestVersion  : IntPtr
+        get_Flags                 : IntPtr
+        get_MixedVersion          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Name", "get_MajorVersion", "get_MinorVersion", "get_BuildNumber", "get_VendorId", "get_CSDVersion", "get_ClusterHighestVersion", "get_ClusterLowestVersion", "get_Flags", "get_MixedVersion"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISClusVersion.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -104,8 +121,8 @@ class ISClusVersion extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        pbstrClusterName := BSTR()
-        result := ComCall(7, this, "ptr", pbstrClusterName, "HRESULT")
+        pbstrClusterName := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pbstrClusterName, "HRESULT")
         return pbstrClusterName
     }
 
@@ -141,8 +158,8 @@ class ISClusVersion extends IDispatch {
      * @returns {BSTR} 
      */
     get_VendorId() {
-        pbstrVendorId := BSTR()
-        result := ComCall(11, this, "ptr", pbstrVendorId, "HRESULT")
+        pbstrVendorId := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pbstrVendorId, "HRESULT")
         return pbstrVendorId
     }
 
@@ -151,8 +168,8 @@ class ISClusVersion extends IDispatch {
      * @returns {BSTR} 
      */
     get_CSDVersion() {
-        pbstrCSDVersion := BSTR()
-        result := ComCall(12, this, "ptr", pbstrCSDVersion, "HRESULT")
+        pbstrCSDVersion := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, pbstrCSDVersion, "HRESULT")
         return pbstrCSDVersion
     }
 
@@ -189,7 +206,45 @@ class ISClusVersion extends IDispatch {
      */
     get_MixedVersion() {
         pvarMixedVersion := VARIANT()
-        result := ComCall(16, this, "ptr", pvarMixedVersion, "HRESULT")
+        result := ComCall(16, this, VARIANT.Ptr, pvarMixedVersion, "HRESULT")
         return pvarMixedVersion
+    }
+
+    Query(iid) {
+        if (ISClusVersion.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_MajorVersion := CallbackCreate(GetMethod(implObj, "get_MajorVersion"), flags, 2)
+        this.vtbl.get_MinorVersion := CallbackCreate(GetMethod(implObj, "get_MinorVersion"), flags, 2)
+        this.vtbl.get_BuildNumber := CallbackCreate(GetMethod(implObj, "get_BuildNumber"), flags, 2)
+        this.vtbl.get_VendorId := CallbackCreate(GetMethod(implObj, "get_VendorId"), flags, 2)
+        this.vtbl.get_CSDVersion := CallbackCreate(GetMethod(implObj, "get_CSDVersion"), flags, 2)
+        this.vtbl.get_ClusterHighestVersion := CallbackCreate(GetMethod(implObj, "get_ClusterHighestVersion"), flags, 2)
+        this.vtbl.get_ClusterLowestVersion := CallbackCreate(GetMethod(implObj, "get_ClusterLowestVersion"), flags, 2)
+        this.vtbl.get_Flags := CallbackCreate(GetMethod(implObj, "get_Flags"), flags, 2)
+        this.vtbl.get_MixedVersion := CallbackCreate(GetMethod(implObj, "get_MixedVersion"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.get_MajorVersion)
+        CallbackFree(this.vtbl.get_MinorVersion)
+        CallbackFree(this.vtbl.get_BuildNumber)
+        CallbackFree(this.vtbl.get_VendorId)
+        CallbackFree(this.vtbl.get_CSDVersion)
+        CallbackFree(this.vtbl.get_ClusterHighestVersion)
+        CallbackFree(this.vtbl.get_ClusterLowestVersion)
+        CallbackFree(this.vtbl.get_Flags)
+        CallbackFree(this.vtbl.get_MixedVersion)
     }
 }

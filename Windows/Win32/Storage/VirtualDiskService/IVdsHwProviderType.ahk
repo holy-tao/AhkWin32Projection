@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VDS_HWPROVIDER_TYPE.ahk" { VDS_HWPROVIDER_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVdsHwProviderType interface (vdshwprv.h) provides a method to retrieve the type of hardware provider.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdshwprovidertype
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsHwProviderType extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsHwProviderType extends IUnknown {
     /**
      * The interface identifier for IVdsHwProviderType
      * @type {Guid}
      */
-    static IID => Guid("{3e0f5166-542d-4fc6-947a-012174240b7e}")
+    static IID := Guid("{3e0f5166-542d-4fc6-947a-012174240b7e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsHwProviderType interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetProviderType : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetProviderType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsHwProviderType.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IVdsHwProviderType::GetProviderType (vdshwprv.h) method retrieves the type of the hardware provider.
@@ -37,5 +46,25 @@ class IVdsHwProviderType extends IUnknown {
     GetProviderType() {
         result := ComCall(3, this, "int*", &pType := 0, "HRESULT")
         return pType
+    }
+
+    Query(iid) {
+        if (IVdsHwProviderType.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetProviderType := CallbackCreate(GetMethod(implObj, "GetProviderType"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetProviderType)
     }
 }

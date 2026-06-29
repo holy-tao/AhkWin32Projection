@@ -1,36 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SIGNER_SUBJECT_CHOICE.ahk
-#Include .\SIGNER_FILE_INFO.ahk
-#Include .\SIGNER_BLOB_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SIGNER_SUBJECT_CHOICE.ahk" { SIGNER_SUBJECT_CHOICE }
+#Import ".\SIGNER_FILE_INFO.ahk" { SIGNER_FILE_INFO }
+#Import ".\SIGNER_BLOB_INFO.ahk" { SIGNER_BLOB_INFO }
 
 /**
  * Specifies a subject to sign.
  * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-subject-info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class SIGNER_SUBJECT_INFO extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct SIGNER_SUBJECT_INFO {
+    #StructPack 8
 
     /**
      * The size, in bytes, of the structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * This member is reserved. It must be set to zero.
-     * @type {Pointer<Integer>}
      */
-    pdwIndex {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pdwIndex : IntPtr
 
     /**
      * Specifies whether the subject is a file or a [*BLOB*](../secgloss/b-gly.md). This member can be one or more of the following values.
@@ -41,31 +30,13 @@ class SIGNER_SUBJECT_INFO extends Win32Struct {
      * |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|
      * | <span id="SIGNER_SUBJECT_BLOB"></span><span id="signer_subject_blob"></span><dl> <dt>**SIGNER\_SUBJECT\_BLOB**</dt> <dt>2 (0x2)</dt> </dl> | The subject is a BLOB.<br/> |
      * | <span id="SIGNER_SUBJECT_FILE"></span><span id="signer_subject_file"></span><dl> <dt>**SIGNER\_SUBJECT\_FILE**</dt> <dt>1 (0x1)</dt> </dl> | The subject is a file.<br/> |
-     * @type {SIGNER_SUBJECT_CHOICE}
      */
-    dwSubjectChoice {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwSubjectChoice : SIGNER_SUBJECT_CHOICE
 
-    /**
-     * @type {Pointer<SIGNER_FILE_INFO>}
-     */
-    pSignerFileInfo {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pSignerFileInfo : SIGNER_FILE_INFO.Ptr
 
-    /**
-     * @type {Pointer<SIGNER_BLOB_INFO>}
-     */
-    pSignerBlobInfo {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 32
+    static __New() {
+        DefineProp(this.Prototype, 'pSignerBlobInfo', { type: SIGNER_BLOB_INFO.Ptr, offset: 24 })
+        this.DeleteProp("__New")
     }
 }

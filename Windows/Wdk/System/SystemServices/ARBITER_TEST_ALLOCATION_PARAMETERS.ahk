@@ -1,37 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\System\Kernel\LIST_ENTRY.ahk
-#Include .\CM_PARTIAL_RESOURCE_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CM_PARTIAL_RESOURCE_DESCRIPTOR.ahk" { CM_PARTIAL_RESOURCE_DESCRIPTOR }
+#Import "..\..\..\Win32\System\Kernel\LIST_ENTRY.ahk" { LIST_ENTRY }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class ARBITER_TEST_ALLOCATION_PARAMETERS extends Win32Struct {
-    static sizeof => 24
+export default struct ARBITER_TEST_ALLOCATION_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
+    ArbitrationList : LIST_ENTRY.Ptr
 
-    /**
-     * @type {Pointer<LIST_ENTRY>}
-     */
-    ArbitrationList {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    AllocateFromCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AllocateFromCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    AllocateFrom : CM_PARTIAL_RESOURCE_DESCRIPTOR.Ptr
 
-    /**
-     * @type {Pointer<CM_PARTIAL_RESOURCE_DESCRIPTOR>}
-     */
-    AllocateFrom {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

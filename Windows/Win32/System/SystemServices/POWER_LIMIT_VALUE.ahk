@@ -1,44 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\POWER_LIMIT_TYPES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\POWER_LIMIT_TYPES.ahk" { POWER_LIMIT_TYPES }
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class POWER_LIMIT_VALUE extends Win32Struct {
-    static sizeof => 16
+export default struct POWER_LIMIT_VALUE {
+    #StructPack 4
 
-    static packingSize => 4
+    Type : POWER_LIMIT_TYPES
 
-    /**
-     * @type {POWER_LIMIT_TYPES}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    DomainId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DomainId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    TargetValue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TargetValue {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    TimeParameter : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TimeParameter {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

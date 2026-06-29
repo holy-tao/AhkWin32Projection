@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_RANGE_UINT64.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_RANGE_UINT64.ahk" { D3D12_RANGE_UINT64 }
 
 /**
  * Describes a subresource memory range.
@@ -9,29 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_subresource_range_uint64
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_SUBRESOURCE_RANGE_UINT64 extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct D3D12_SUBRESOURCE_RANGE_UINT64 {
+    #StructPack 8
 
     /**
      * The index of the subresource.
-     * @type {Integer}
      */
-    Subresource {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Subresource : UInt32
 
     /**
      * A memory range within the subresource.
-     * @type {D3D12_RANGE_UINT64}
      */
-    Range {
-        get {
-            if(!this.HasProp("__Range"))
-                this.__Range := D3D12_RANGE_UINT64(8, this)
-            return this.__Range
-        }
-    }
+    Range : D3D12_RANGE_UINT64
+
 }

@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class AE_CONNREJ extends Win32Struct {
-    static sizeof => 16
+export default struct AE_CONNREJ {
+    #StructPack 4
 
-    static packingSize => 4
+    ae_cr_compname : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_cr_compname {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ae_cr_username : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_cr_username {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ae_cr_netname : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_cr_netname {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ae_cr_reason : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ae_cr_reason {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class SYSTEM_FIRMWARE_TABLE_HANDLER extends Win32Struct {
-    static sizeof => 24
+export default struct SYSTEM_FIRMWARE_TABLE_HANDLER {
+    #StructPack 8
 
-    static packingSize => 8
+    ProviderSignature : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProviderSignature {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Register : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Register {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    FirmwareTableHandler : IntPtr
 
-    /**
-     * @type {Pointer<PFNFTH>}
-     */
-    FirmwareTableHandler {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    DriverObject : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    DriverObject {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

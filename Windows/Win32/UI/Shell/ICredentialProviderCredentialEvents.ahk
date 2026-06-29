@@ -1,8 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CREDENTIAL_PROVIDER_FIELD_STATE.ahk" { CREDENTIAL_PROVIDER_FIELD_STATE }
+#Import ".\ICredentialProviderCredential.ahk" { ICredentialProviderCredential }
+#Import ".\CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE.ahk" { CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides an asynchronous callback mechanism used by a credential to notify it of state or text change events in the Logon UI or Credential UI.
@@ -14,26 +21,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nn-credentialprovider-icredentialprovidercredentialevents
  * @namespace Windows.Win32.UI.Shell
  */
-class ICredentialProviderCredentialEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICredentialProviderCredentialEvents extends IUnknown {
     /**
      * The interface identifier for ICredentialProviderCredentialEvents
      * @type {Guid}
      */
-    static IID => Guid("{fa6fa76b-66b7-4b11-95f1-86171118e816}")
+    static IID := Guid("{fa6fa76b-66b7-4b11-95f1-86171118e816}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICredentialProviderCredentialEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetFieldState                : IntPtr
+        SetFieldInteractiveState     : IntPtr
+        SetFieldString               : IntPtr
+        SetFieldCheckbox             : IntPtr
+        SetFieldBitmap               : IntPtr
+        SetFieldComboBoxSelectedItem : IntPtr
+        DeleteFieldComboBoxItem      : IntPtr
+        AppendFieldComboBoxItem      : IntPtr
+        SetFieldSubmitButton         : IntPtr
+        OnCreatingWindow             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetFieldState", "SetFieldInteractiveState", "SetFieldString", "SetFieldCheckbox", "SetFieldBitmap", "SetFieldComboBoxSelectedItem", "DeleteFieldComboBoxItem", "AppendFieldComboBoxItem", "SetFieldSubmitButton", "OnCreatingWindow"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICredentialProviderCredentialEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Communicates to the Logon UI or Credential UI that a field state has changed and that the UI should be updated.
@@ -52,7 +75,7 @@ class ICredentialProviderCredentialEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents-setfieldstate
      */
     SetFieldState(pcpc, dwFieldID, cpfs) {
-        result := ComCall(3, this, "ptr", pcpc, "uint", dwFieldID, "int", cpfs, "HRESULT")
+        result := ComCall(3, this, "ptr", pcpc, "uint", dwFieldID, CREDENTIAL_PROVIDER_FIELD_STATE, cpfs, "HRESULT")
         return result
     }
 
@@ -73,7 +96,7 @@ class ICredentialProviderCredentialEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents-setfieldinteractivestate
      */
     SetFieldInteractiveState(pcpc, dwFieldID, cpfis) {
-        result := ComCall(4, this, "ptr", pcpc, "uint", dwFieldID, "int", cpfis, "HRESULT")
+        result := ComCall(4, this, "ptr", pcpc, "uint", dwFieldID, CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE, cpfis, "HRESULT")
         return result
     }
 
@@ -122,7 +145,7 @@ class ICredentialProviderCredentialEvents extends IUnknown {
     SetFieldCheckbox(pcpc, dwFieldID, bChecked, pszLabel) {
         pszLabel := pszLabel is String ? StrPtr(pszLabel) : pszLabel
 
-        result := ComCall(6, this, "ptr", pcpc, "uint", dwFieldID, "int", bChecked, "ptr", pszLabel, "HRESULT")
+        result := ComCall(6, this, "ptr", pcpc, "uint", dwFieldID, BOOL, bChecked, "ptr", pszLabel, "HRESULT")
         return result
     }
 
@@ -143,9 +166,7 @@ class ICredentialProviderCredentialEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents-setfieldbitmap
      */
     SetFieldBitmap(pcpc, dwFieldID, hbmp) {
-        hbmp := hbmp is Win32Handle ? NumGet(hbmp, "ptr") : hbmp
-
-        result := ComCall(7, this, "ptr", pcpc, "uint", dwFieldID, "ptr", hbmp, "HRESULT")
+        result := ComCall(7, this, "ptr", pcpc, "uint", dwFieldID, HBITMAP, hbmp, "HRESULT")
         return result
     }
 
@@ -251,7 +272,45 @@ class ICredentialProviderCredentialEvents extends IUnknown {
      */
     OnCreatingWindow() {
         phwndOwner := HWND()
-        result := ComCall(12, this, "ptr", phwndOwner, "HRESULT")
+        result := ComCall(12, this, HWND.Ptr, phwndOwner, "HRESULT")
         return phwndOwner
+    }
+
+    Query(iid) {
+        if (ICredentialProviderCredentialEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetFieldState := CallbackCreate(GetMethod(implObj, "SetFieldState"), flags, 4)
+        this.vtbl.SetFieldInteractiveState := CallbackCreate(GetMethod(implObj, "SetFieldInteractiveState"), flags, 4)
+        this.vtbl.SetFieldString := CallbackCreate(GetMethod(implObj, "SetFieldString"), flags, 4)
+        this.vtbl.SetFieldCheckbox := CallbackCreate(GetMethod(implObj, "SetFieldCheckbox"), flags, 5)
+        this.vtbl.SetFieldBitmap := CallbackCreate(GetMethod(implObj, "SetFieldBitmap"), flags, 4)
+        this.vtbl.SetFieldComboBoxSelectedItem := CallbackCreate(GetMethod(implObj, "SetFieldComboBoxSelectedItem"), flags, 4)
+        this.vtbl.DeleteFieldComboBoxItem := CallbackCreate(GetMethod(implObj, "DeleteFieldComboBoxItem"), flags, 4)
+        this.vtbl.AppendFieldComboBoxItem := CallbackCreate(GetMethod(implObj, "AppendFieldComboBoxItem"), flags, 4)
+        this.vtbl.SetFieldSubmitButton := CallbackCreate(GetMethod(implObj, "SetFieldSubmitButton"), flags, 4)
+        this.vtbl.OnCreatingWindow := CallbackCreate(GetMethod(implObj, "OnCreatingWindow"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetFieldState)
+        CallbackFree(this.vtbl.SetFieldInteractiveState)
+        CallbackFree(this.vtbl.SetFieldString)
+        CallbackFree(this.vtbl.SetFieldCheckbox)
+        CallbackFree(this.vtbl.SetFieldBitmap)
+        CallbackFree(this.vtbl.SetFieldComboBoxSelectedItem)
+        CallbackFree(this.vtbl.DeleteFieldComboBoxItem)
+        CallbackFree(this.vtbl.AppendFieldComboBoxItem)
+        CallbackFree(this.vtbl.SetFieldSubmitButton)
+        CallbackFree(this.vtbl.OnCreatingWindow)
     }
 }

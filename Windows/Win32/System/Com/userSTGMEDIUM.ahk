@@ -1,121 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\SystemServices\userHMETAFILEPICT.ahk
-#Include ..\SystemServices\userHENHMETAFILE.ahk
-#Include .\GDI_OBJECT.ahk
-#Include ..\SystemServices\userHGLOBAL.ahk
-#Include .\BYTE_BLOB.ahk
-#Include .\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\SystemServices\userHGLOBAL.ahk" { userHGLOBAL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\SystemServices\userHMETAFILEPICT.ahk" { userHMETAFILEPICT }
+#Import "..\SystemServices\userHENHMETAFILE.ahk" { userHENHMETAFILE }
+#Import ".\IUnknown.ahk" { IUnknown }
+#Import ".\GDI_OBJECT.ahk" { GDI_OBJECT }
+#Import ".\BYTE_BLOB.ahk" { BYTE_BLOB }
 
 /**
  * @namespace Windows.Win32.System.Com
  */
-class userSTGMEDIUM extends Win32Struct {
-    static sizeof => 72
+export default struct userSTGMEDIUM {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _STGMEDIUM_UNION extends Win32Struct {
-        static sizeof => 64
-        static packingSize => 8
+    struct _STGMEDIUM_UNION {
 
-        class _u extends Win32Struct {
-            static sizeof => 56
-            static packingSize => 8
+        struct _u {
+            hMetaFilePict : userHMETAFILEPICT.Ptr
 
-            /**
-             * @type {Pointer<userHMETAFILEPICT>}
-             */
-            hMetaFilePict {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
-            }
-
-            /**
-             * @type {Pointer<userHENHMETAFILE>}
-             */
-            hHEnhMetaFile {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
-            }
-
-            /**
-             * @type {Pointer<GDI_OBJECT>}
-             */
-            hGdiHandle {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
-            }
-
-            /**
-             * @type {Pointer<userHGLOBAL>}
-             */
-            hGlobal {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
-            }
-
-            /**
-             * @type {PWSTR}
-             */
-            lpszFileName {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
-            }
-
-            /**
-             * @type {Pointer<BYTE_BLOB>}
-             */
-            pstm {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
-            }
-
-            /**
-             * @type {Pointer<BYTE_BLOB>}
-             */
-            pstg {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
+            static __New() {
+                DefineProp(this.Prototype, 'hHEnhMetaFile', { type: userHENHMETAFILE.Ptr, offset: 0 })
+                DefineProp(this.Prototype, 'hGdiHandle', { type: GDI_OBJECT.Ptr, offset: 0 })
+                DefineProp(this.Prototype, 'hGlobal', { type: userHGLOBAL.Ptr, offset: 0 })
+                DefineProp(this.Prototype, 'lpszFileName', { type: PWSTR, offset: 0 })
+                DefineProp(this.Prototype, 'pstm', { type: BYTE_BLOB.Ptr, offset: 0 })
+                DefineProp(this.Prototype, 'pstg', { type: BYTE_BLOB.Ptr, offset: 0 })
+                this.DeleteProp("__New")
             }
         }
 
-        /**
-         * @type {Integer}
-         */
-        tymed {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        tymed : UInt32
 
-        /**
-         * @type {_u}
-         */
-        u {
-            get {
-                if(!this.HasProp("__u"))
-                    this.__u := userSTGMEDIUM._STGMEDIUM_UNION._u(8, this)
-                return this.__u
-            }
-        }
+        u : userSTGMEDIUM._STGMEDIUM_UNION._u
+
     }
 
-    /**
-     * @type {_STGMEDIUM_UNION}
-     */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := userSTGMEDIUM._STGMEDIUM_UNION(0, this)
-            return this.__u
-        }
-    }
+    u : userSTGMEDIUM._STGMEDIUM_UNION
 
-    /**
-     * @type {IUnknown}
-     */
-    pUnkForRelease {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    pUnkForRelease : IUnknown
+
 }

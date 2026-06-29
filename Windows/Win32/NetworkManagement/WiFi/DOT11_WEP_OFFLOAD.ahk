@@ -1,152 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\DOT11_OFFLOAD_TYPE.ahk
-#Include .\DOT11_IV48_COUNTER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\DOT11_OFFLOAD_TYPE.ahk" { DOT11_OFFLOAD_TYPE }
+#Import ".\DOT11_IV48_COUNTER.ahk" { DOT11_IV48_COUNTER }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_WEP_OFFLOAD extends Win32Struct {
-    static sizeof => 224
+export default struct DOT11_WEP_OFFLOAD {
+    #StructPack 8
 
-    static packingSize => 8
+    uReserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uReserved {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hOffloadContext : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hOffloadContext {
-        get {
-            if(!this.HasProp("__hOffloadContext"))
-                this.__hOffloadContext := HANDLE(8, this)
-            return this.__hOffloadContext
-        }
-    }
+    hOffload : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hOffload {
-        get {
-            if(!this.HasProp("__hOffload"))
-                this.__hOffload := HANDLE(16, this)
-            return this.__hOffload
-        }
-    }
+    dot11OffloadType : DOT11_OFFLOAD_TYPE
 
-    /**
-     * @type {DOT11_OFFLOAD_TYPE}
-     */
-    dot11OffloadType {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    dwAlgorithm : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAlgorithm {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    bRowIsOutbound : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bRowIsOutbound {
-        get => NumGet(this, 32, "char")
-        set => NumPut("char", value, this, 32)
-    }
+    bUseDefault : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bUseDefault {
-        get => NumGet(this, 33, "char")
-        set => NumPut("char", value, this, 33)
-    }
+    uFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uFlags {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    ucMacAddress : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ucMacAddress {
-        get {
-            if(!this.HasProp("__ucMacAddressProxyArray"))
-                this.__ucMacAddressProxyArray := Win32FixedArray(this.ptr + 40, 6, Primitive, "char")
-            return this.__ucMacAddressProxyArray
-        }
-    }
+    uNumOfRWsOnPeer : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uNumOfRWsOnPeer {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    uNumOfRWsOnMe : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uNumOfRWsOnMe {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dot11IV48Counters : DOT11_IV48_COUNTER[16]
 
-    /**
-     * @type {DOT11_IV48_COUNTER}
-     */
-    dot11IV48Counters {
-        get {
-            if(!this.HasProp("__dot11IV48CountersProxyArray"))
-                this.__dot11IV48CountersProxyArray := Win32FixedArray(this.ptr + 56, 16, DOT11_IV48_COUNTER, "")
-            return this.__dot11IV48CountersProxyArray
-        }
-    }
+    usDot11RWBitMaps : UInt16[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    usDot11RWBitMaps {
-        get {
-            if(!this.HasProp("__usDot11RWBitMapsProxyArray"))
-                this.__usDot11RWBitMapsProxyArray := Win32FixedArray(this.ptr + 184, 16, Primitive, "ushort")
-            return this.__usDot11RWBitMapsProxyArray
-        }
-    }
+    usKeyLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usKeyLength {
-        get => NumGet(this, 216, "ushort")
-        set => NumPut("ushort", value, this, 216)
-    }
+    ucKey : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ucKey {
-        get {
-            if(!this.HasProp("__ucKeyProxyArray"))
-                this.__ucKeyProxyArray := Win32FixedArray(this.ptr + 218, 1, Primitive, "char")
-            return this.__ucKeyProxyArray
-        }
-    }
 }

@@ -1,34 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IBaseFilter.ahk
-#Include .\IMediaStream.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMediaStream.ahk" { IMediaStream }
+#Import ".\IBaseFilter.ahk" { IBaseFilter }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAMMediaStream.ahk" { IAMMediaStream }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Note  This interface is deprecated. New applications should not use it. The IMediaStreamFilter interface is supported by the Media Stream filter, which is used internally by the multimedia stream object. Applications should not use this interface.
  * @see https://learn.microsoft.com/windows/win32/api/amstream/nn-amstream-imediastreamfilter
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IMediaStreamFilter extends IBaseFilter {
-
-    static sizeof => A_PtrSize
+export default struct IMediaStreamFilter extends IBaseFilter {
     /**
      * The interface identifier for IMediaStreamFilter
      * @type {Guid}
      */
-    static IID => Guid("{bebe595e-9a6f-11d0-8fde-00c04fd9189d}")
+    static IID := Guid("{bebe595e-9a6f-11d0-8fde-00c04fd9189d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 15
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMediaStreamFilter interfaces
+    */
+    struct Vtbl extends IBaseFilter.Vtbl {
+        AddMediaStream            : IntPtr
+        GetMediaStream            : IntPtr
+        EnumMediaStreams          : IntPtr
+        SupportSeeking            : IntPtr
+        ReferenceTimeToStreamTime : IntPtr
+        GetCurrentStreamTime      : IntPtr
+        WaitUntil                 : IntPtr
+        Flush                     : IntPtr
+        EndOfStream               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddMediaStream", "GetMediaStream", "EnumMediaStreams", "SupportSeeking", "ReferenceTimeToStreamTime", "GetCurrentStreamTime", "WaitUntil", "Flush", "EndOfStream"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMediaStreamFilter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Note  This interface is deprecated. New applications should not use it. The AddMediaStream method connects a media stream object to the underlying filter graph.
@@ -90,7 +108,7 @@ class IMediaStreamFilter extends IBaseFilter {
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-imediastreamfilter-getmediastream
      */
     GetMediaStream(idPurpose) {
-        result := ComCall(16, this, "ptr", idPurpose, "ptr*", &ppMediaStream := 0, "HRESULT")
+        result := ComCall(16, this, Guid.Ptr, idPurpose, "ptr*", &ppMediaStream := 0, "HRESULT")
         return IMediaStream(ppMediaStream)
     }
 
@@ -143,7 +161,7 @@ class IMediaStreamFilter extends IBaseFilter {
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-imediastreamfilter-supportseeking
      */
     SupportSeeking(bRenderer) {
-        result := ComCall(18, this, "int", bRenderer, "HRESULT")
+        result := ComCall(18, this, BOOL, bRenderer, "HRESULT")
         return result
     }
 
@@ -263,7 +281,7 @@ class IMediaStreamFilter extends IBaseFilter {
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-imediastreamfilter-flush
      */
     Flush(bCancelEOS) {
-        result := ComCall(22, this, "int", bCancelEOS, "HRESULT")
+        result := ComCall(22, this, BOOL, bCancelEOS, "HRESULT")
         return result
     }
 
@@ -275,5 +293,41 @@ class IMediaStreamFilter extends IBaseFilter {
     EndOfStream() {
         result := ComCall(23, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMediaStreamFilter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddMediaStream := CallbackCreate(GetMethod(implObj, "AddMediaStream"), flags, 2)
+        this.vtbl.GetMediaStream := CallbackCreate(GetMethod(implObj, "GetMediaStream"), flags, 3)
+        this.vtbl.EnumMediaStreams := CallbackCreate(GetMethod(implObj, "EnumMediaStreams"), flags, 3)
+        this.vtbl.SupportSeeking := CallbackCreate(GetMethod(implObj, "SupportSeeking"), flags, 2)
+        this.vtbl.ReferenceTimeToStreamTime := CallbackCreate(GetMethod(implObj, "ReferenceTimeToStreamTime"), flags, 2)
+        this.vtbl.GetCurrentStreamTime := CallbackCreate(GetMethod(implObj, "GetCurrentStreamTime"), flags, 2)
+        this.vtbl.WaitUntil := CallbackCreate(GetMethod(implObj, "WaitUntil"), flags, 2)
+        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 2)
+        this.vtbl.EndOfStream := CallbackCreate(GetMethod(implObj, "EndOfStream"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddMediaStream)
+        CallbackFree(this.vtbl.GetMediaStream)
+        CallbackFree(this.vtbl.EnumMediaStreams)
+        CallbackFree(this.vtbl.SupportSeeking)
+        CallbackFree(this.vtbl.ReferenceTimeToStreamTime)
+        CallbackFree(this.vtbl.GetCurrentStreamTime)
+        CallbackFree(this.vtbl.WaitUntil)
+        CallbackFree(this.vtbl.Flush)
+        CallbackFree(this.vtbl.EndOfStream)
     }
 }

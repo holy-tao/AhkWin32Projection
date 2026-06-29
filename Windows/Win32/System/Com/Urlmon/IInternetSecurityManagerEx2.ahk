@@ -1,31 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IInternetSecurityManagerEx.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IInternetSecurityManagerEx.ahk" { IInternetSecurityManagerEx }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\IUri.ahk" { IUri }
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
  */
-class IInternetSecurityManagerEx2 extends IInternetSecurityManagerEx {
-
-    static sizeof => A_PtrSize
+export default struct IInternetSecurityManagerEx2 extends IInternetSecurityManagerEx {
     /**
      * The interface identifier for IInternetSecurityManagerEx2
      * @type {Guid}
      */
-    static IID => Guid("{f1e50292-a795-4117-8e09-2b560a72ac60}")
+    static IID := Guid("{f1e50292-a795-4117-8e09-2b560a72ac60}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 12
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IInternetSecurityManagerEx2 interfaces
+    */
+    struct Vtbl extends IInternetSecurityManagerEx.Vtbl {
+        MapUrlToZoneEx2      : IntPtr
+        ProcessUrlActionEx2  : IntPtr
+        GetSecurityIdEx2     : IntPtr
+        QueryCustomPolicyEx2 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["MapUrlToZoneEx2", "ProcessUrlActionEx2", "GetSecurityIdEx2", "QueryCustomPolicyEx2"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IInternetSecurityManagerEx2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -97,7 +110,33 @@ class IInternetSecurityManagerEx2 extends IInternetSecurityManagerEx {
         pcbPolicyMarshal := pcbPolicy is VarRef ? "uint*" : "ptr"
         pContextMarshal := pContext is VarRef ? "char*" : "ptr"
 
-        result := ComCall(15, this, "ptr", pUri, "ptr", guidKey, ppPolicyMarshal, ppPolicy, pcbPolicyMarshal, pcbPolicy, pContextMarshal, pContext, "uint", cbContext, "ptr", dwReserved, "HRESULT")
+        result := ComCall(15, this, "ptr", pUri, Guid.Ptr, guidKey, ppPolicyMarshal, ppPolicy, pcbPolicyMarshal, pcbPolicy, pContextMarshal, pContext, "uint", cbContext, "ptr", dwReserved, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IInternetSecurityManagerEx2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.MapUrlToZoneEx2 := CallbackCreate(GetMethod(implObj, "MapUrlToZoneEx2"), flags, 6)
+        this.vtbl.ProcessUrlActionEx2 := CallbackCreate(GetMethod(implObj, "ProcessUrlActionEx2"), flags, 10)
+        this.vtbl.GetSecurityIdEx2 := CallbackCreate(GetMethod(implObj, "GetSecurityIdEx2"), flags, 5)
+        this.vtbl.QueryCustomPolicyEx2 := CallbackCreate(GetMethod(implObj, "QueryCustomPolicyEx2"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.MapUrlToZoneEx2)
+        CallbackFree(this.vtbl.ProcessUrlActionEx2)
+        CallbackFree(this.vtbl.GetSecurityIdEx2)
+        CallbackFree(this.vtbl.QueryCustomPolicyEx2)
     }
 }

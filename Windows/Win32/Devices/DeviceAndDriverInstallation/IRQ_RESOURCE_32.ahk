@@ -1,39 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IRQ_DES_32.ahk
-#Include .\IRQD_FLAGS.ahk
-#Include .\IRQ_RANGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IRQ_RANGE.ahk" { IRQ_RANGE }
+#Import ".\IRQ_DES_32.ahk" { IRQ_DES_32 }
+#Import ".\IRQD_FLAGS.ahk" { IRQD_FLAGS }
 
 /**
  * The IRQ_RESOURCE structure is used for specifying either a resource list or a resource requirements list that describes IRQ line usage for a device instance. (32 bit)
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-irq_resource_32
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  */
-class IRQ_RESOURCE_32 extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 4
+export default struct IRQ_RESOURCE_32 {
+    #StructPack 4
 
     /**
      * An [IRQ_DES](/windows/desktop/api/cfgmgr32/ns-cfgmgr32-irq_des_32) structure.
-     * @type {IRQ_DES_32}
      */
-    IRQ_Header {
-        get {
-            if(!this.HasProp("__IRQ_Header"))
-                this.__IRQ_Header := IRQ_DES_32(0, this)
-            return this.__IRQ_Header
-        }
-    }
+    IRQ_Header : IRQ_DES_32
 
-    /**
-     * @type {IRQ_RANGE}
-     */
-    IRQ_Data {
-        get {
-            if(!this.HasProp("__IRQ_DataProxyArray"))
-                this.__IRQ_DataProxyArray := Win32FixedArray(this.ptr + 20, 1, IRQ_RANGE, "")
-            return this.__IRQ_DataProxyArray
-        }
-    }
+    IRQ_Data : IRQ_RANGE[1]
+
 }

@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFCameraIntrinsic_DistortionModelArcTan extends Win32Struct {
-    static sizeof => 20
+export default struct MFCameraIntrinsic_DistortionModelArcTan {
+    #StructPack 4
 
-    static packingSize => 4
+    Radial_k0 : Float32
 
-    /**
-     * @type {Float}
-     */
-    Radial_k0 {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    DistortionCenter_x : Float32
 
-    /**
-     * @type {Float}
-     */
-    DistortionCenter_x {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    DistortionCenter_y : Float32
 
-    /**
-     * @type {Float}
-     */
-    DistortionCenter_y {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    Tangential_x : Float32
 
-    /**
-     * @type {Float}
-     */
-    Tangential_x {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    Tangential_y : Float32
 
-    /**
-     * @type {Float}
-     */
-    Tangential_y {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
 }

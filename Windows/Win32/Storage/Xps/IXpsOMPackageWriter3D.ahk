@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMPackageWriter.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\IXpsOMPackageWriter.ahk" { IXpsOMPackageWriter }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Contains methods that support model textures and print ticket.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_2/nn-xpsobjectmodel_2-ixpsompackagewriter3d
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMPackageWriter3D extends IXpsOMPackageWriter {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMPackageWriter3D extends IXpsOMPackageWriter {
     /**
      * The interface identifier for IXpsOMPackageWriter3D
      * @type {Guid}
      */
-    static IID => Guid("{e8a45033-640e-43fa-9bdf-fddeaa31c6a0}")
+    static IID := Guid("{e8a45033-640e-43fa-9bdf-fddeaa31c6a0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMPackageWriter3D interfaces
+    */
+    struct Vtbl extends IXpsOMPackageWriter.Vtbl {
+        AddModelTexture     : IntPtr
+        SetModelPrintTicket : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddModelTexture", "SetModelPrintTicket"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMPackageWriter3D.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a new 3D model texture from the specified texture part and stream.
@@ -55,5 +66,27 @@ class IXpsOMPackageWriter3D extends IXpsOMPackageWriter {
     SetModelPrintTicket(printTicketPartName, printTicketData) {
         result := ComCall(9, this, "ptr", printTicketPartName, "ptr", printTicketData, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IXpsOMPackageWriter3D.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddModelTexture := CallbackCreate(GetMethod(implObj, "AddModelTexture"), flags, 3)
+        this.vtbl.SetModelPrintTicket := CallbackCreate(GetMethod(implObj, "SetModelPrintTicket"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddModelTexture)
+        CallbackFree(this.vtbl.SetModelPrintTicket)
     }
 }

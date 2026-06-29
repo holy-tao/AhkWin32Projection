@@ -1,8 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IReplicaKeyMap.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IReplicaKeyMap.ahk" { IReplicaKeyMap }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SYNC_RANGE.ahk" { SYNC_RANGE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SYNC_VERSION.ahk" { SYNC_VERSION }
 
 /**
  * Represents knowledge that a replica has about its item store.
@@ -11,26 +15,56 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isyncknowledge
  * @namespace Windows.Win32.System.WindowsSync
  */
-class ISyncKnowledge extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISyncKnowledge extends IUnknown {
     /**
      * The interface identifier for ISyncKnowledge
      * @type {Guid}
      */
-    static IID => Guid("{615bbb53-c945-4203-bf4b-2cb65919a0aa}")
+    static IID := Guid("{615bbb53-c945-4203-bf4b-2cb65919a0aa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISyncKnowledge interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetOwnerReplicaId            : IntPtr
+        Serialize                    : IntPtr
+        SetLocalTickCount            : IntPtr
+        ContainsChange               : IntPtr
+        ContainsChangeUnit           : IntPtr
+        GetScopeVector               : IntPtr
+        GetReplicaKeyMap             : IntPtr
+        Clone                        : IntPtr
+        ConvertVersion               : IntPtr
+        MapRemoteToLocal             : IntPtr
+        Union                        : IntPtr
+        ProjectOntoItem              : IntPtr
+        ProjectOntoChangeUnit        : IntPtr
+        ProjectOntoRange             : IntPtr
+        ExcludeItem                  : IntPtr
+        ExcludeChangeUnit            : IntPtr
+        ContainsKnowledge            : IntPtr
+        FindMinTickCountForReplica   : IntPtr
+        GetRangeExceptions           : IntPtr
+        GetSingleItemExceptions      : IntPtr
+        GetChangeUnitExceptions      : IntPtr
+        FindClockVectorForItem       : IntPtr
+        FindClockVectorForChangeUnit : IntPtr
+        GetVersion                   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetOwnerReplicaId", "Serialize", "SetLocalTickCount", "ContainsChange", "ContainsChangeUnit", "GetScopeVector", "GetReplicaKeyMap", "Clone", "ConvertVersion", "MapRemoteToLocal", "Union", "ProjectOntoItem", "ProjectOntoChangeUnit", "ProjectOntoRange", "ExcludeItem", "ExcludeChangeUnit", "ContainsKnowledge", "FindMinTickCountForReplica", "GetRangeExceptions", "GetSingleItemExceptions", "GetChangeUnitExceptions", "FindClockVectorForItem", "FindClockVectorForChangeUnit", "GetVersion"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISyncKnowledge.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the ID of the replica that owns this knowledge.
@@ -154,7 +188,7 @@ class ISyncKnowledge extends IUnknown {
         pbKnowledgeMarshal := pbKnowledge is VarRef ? "char*" : "ptr"
         pcbKnowledgeMarshal := pcbKnowledge is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "int", fSerializeReplicaKeyMap, pbKnowledgeMarshal, pbKnowledge, pcbKnowledgeMarshal, pcbKnowledge, "HRESULT")
+        result := ComCall(4, this, BOOL, fSerializeReplicaKeyMap, pbKnowledgeMarshal, pbKnowledge, pcbKnowledgeMarshal, pcbKnowledge, "HRESULT")
         return result
     }
 
@@ -257,7 +291,7 @@ class ISyncKnowledge extends IUnknown {
         pbVersionOwnerReplicaIdMarshal := pbVersionOwnerReplicaId is VarRef ? "char*" : "ptr"
         pgidItemIdMarshal := pgidItemId is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, pbVersionOwnerReplicaIdMarshal, pbVersionOwnerReplicaId, pgidItemIdMarshal, pgidItemId, "ptr", pSyncVersion, "HRESULT")
+        result := ComCall(6, this, pbVersionOwnerReplicaIdMarshal, pbVersionOwnerReplicaId, pgidItemIdMarshal, pgidItemId, SYNC_VERSION.Ptr, pSyncVersion, "HRESULT")
         return result
     }
 
@@ -312,7 +346,7 @@ class ISyncKnowledge extends IUnknown {
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
         pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, pbVersionOwnerReplicaIdMarshal, pbVersionOwnerReplicaId, pbItemIdMarshal, pbItemId, pbChangeUnitIdMarshal, pbChangeUnitId, "ptr", pSyncVersion, "HRESULT")
+        result := ComCall(7, this, pbVersionOwnerReplicaIdMarshal, pbVersionOwnerReplicaId, pbItemIdMarshal, pbItemId, pbChangeUnitIdMarshal, pbChangeUnitId, SYNC_VERSION.Ptr, pSyncVersion, "HRESULT")
         return result
     }
 
@@ -370,7 +404,7 @@ class ISyncKnowledge extends IUnknown {
     GetScopeVector(riid, ppUnk) {
         ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, "ptr", riid, ppUnkMarshal, ppUnk, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, riid, ppUnkMarshal, ppUnk, "HRESULT")
         return result
     }
 
@@ -457,7 +491,7 @@ class ISyncKnowledge extends IUnknown {
         pbNewOwnerIdMarshal := pbNewOwnerId is VarRef ? "char*" : "ptr"
         pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "ptr", pKnowledgeIn, pbCurrentOwnerIdMarshal, pbCurrentOwnerId, "ptr", pVersionIn, pbNewOwnerIdMarshal, pbNewOwnerId, pcbIdSizeMarshal, pcbIdSize, "ptr", pVersionOut, "HRESULT")
+        result := ComCall(11, this, "ptr", pKnowledgeIn, pbCurrentOwnerIdMarshal, pbCurrentOwnerId, SYNC_VERSION.Ptr, pVersionIn, pbNewOwnerIdMarshal, pbNewOwnerId, pcbIdSizeMarshal, pcbIdSize, SYNC_VERSION.Ptr, pVersionOut, "HRESULT")
         return result
     }
 
@@ -563,7 +597,7 @@ class ISyncKnowledge extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-projectontorange
      */
     ProjectOntoRange(psrngSyncRange) {
-        result := ComCall(16, this, "ptr", psrngSyncRange, "ptr*", &ppKnowledgeOut := 0, "HRESULT")
+        result := ComCall(16, this, SYNC_RANGE.Ptr, psrngSyncRange, "ptr*", &ppKnowledgeOut := 0, "HRESULT")
         return ISyncKnowledge(ppKnowledgeOut)
     }
 
@@ -806,7 +840,7 @@ class ISyncKnowledge extends IUnknown {
     GetRangeExceptions(riid, ppUnk) {
         ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(21, this, "ptr", riid, ppUnkMarshal, ppUnk, "HRESULT")
+        result := ComCall(21, this, Guid.Ptr, riid, ppUnkMarshal, ppUnk, "HRESULT")
         return result
     }
 
@@ -864,7 +898,7 @@ class ISyncKnowledge extends IUnknown {
     GetSingleItemExceptions(riid, ppUnk) {
         ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(22, this, "ptr", riid, ppUnkMarshal, ppUnk, "HRESULT")
+        result := ComCall(22, this, Guid.Ptr, riid, ppUnkMarshal, ppUnk, "HRESULT")
         return result
     }
 
@@ -922,7 +956,7 @@ class ISyncKnowledge extends IUnknown {
     GetChangeUnitExceptions(riid, ppUnk) {
         ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(23, this, "ptr", riid, ppUnkMarshal, ppUnk, "HRESULT")
+        result := ComCall(23, this, Guid.Ptr, riid, ppUnkMarshal, ppUnk, "HRESULT")
         return result
     }
 
@@ -980,7 +1014,7 @@ class ISyncKnowledge extends IUnknown {
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
         ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(24, this, pbItemIdMarshal, pbItemId, "ptr", riid, ppUnkMarshal, ppUnk, "HRESULT")
+        result := ComCall(24, this, pbItemIdMarshal, pbItemId, Guid.Ptr, riid, ppUnkMarshal, ppUnk, "HRESULT")
         return result
     }
 
@@ -1040,7 +1074,7 @@ class ISyncKnowledge extends IUnknown {
         pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"
         ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(25, this, pbItemIdMarshal, pbItemId, pbChangeUnitIdMarshal, pbChangeUnitId, "ptr", riid, ppUnkMarshal, ppUnk, "HRESULT")
+        result := ComCall(25, this, pbItemIdMarshal, pbItemId, pbChangeUnitIdMarshal, pbChangeUnitId, Guid.Ptr, riid, ppUnkMarshal, ppUnk, "HRESULT")
         return result
     }
 
@@ -1086,5 +1120,71 @@ class ISyncKnowledge extends IUnknown {
 
         result := ComCall(26, this, pdwVersionMarshal, pdwVersion, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISyncKnowledge.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetOwnerReplicaId := CallbackCreate(GetMethod(implObj, "GetOwnerReplicaId"), flags, 3)
+        this.vtbl.Serialize := CallbackCreate(GetMethod(implObj, "Serialize"), flags, 4)
+        this.vtbl.SetLocalTickCount := CallbackCreate(GetMethod(implObj, "SetLocalTickCount"), flags, 2)
+        this.vtbl.ContainsChange := CallbackCreate(GetMethod(implObj, "ContainsChange"), flags, 4)
+        this.vtbl.ContainsChangeUnit := CallbackCreate(GetMethod(implObj, "ContainsChangeUnit"), flags, 5)
+        this.vtbl.GetScopeVector := CallbackCreate(GetMethod(implObj, "GetScopeVector"), flags, 3)
+        this.vtbl.GetReplicaKeyMap := CallbackCreate(GetMethod(implObj, "GetReplicaKeyMap"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.ConvertVersion := CallbackCreate(GetMethod(implObj, "ConvertVersion"), flags, 7)
+        this.vtbl.MapRemoteToLocal := CallbackCreate(GetMethod(implObj, "MapRemoteToLocal"), flags, 3)
+        this.vtbl.Union := CallbackCreate(GetMethod(implObj, "Union"), flags, 2)
+        this.vtbl.ProjectOntoItem := CallbackCreate(GetMethod(implObj, "ProjectOntoItem"), flags, 3)
+        this.vtbl.ProjectOntoChangeUnit := CallbackCreate(GetMethod(implObj, "ProjectOntoChangeUnit"), flags, 4)
+        this.vtbl.ProjectOntoRange := CallbackCreate(GetMethod(implObj, "ProjectOntoRange"), flags, 3)
+        this.vtbl.ExcludeItem := CallbackCreate(GetMethod(implObj, "ExcludeItem"), flags, 2)
+        this.vtbl.ExcludeChangeUnit := CallbackCreate(GetMethod(implObj, "ExcludeChangeUnit"), flags, 3)
+        this.vtbl.ContainsKnowledge := CallbackCreate(GetMethod(implObj, "ContainsKnowledge"), flags, 2)
+        this.vtbl.FindMinTickCountForReplica := CallbackCreate(GetMethod(implObj, "FindMinTickCountForReplica"), flags, 3)
+        this.vtbl.GetRangeExceptions := CallbackCreate(GetMethod(implObj, "GetRangeExceptions"), flags, 3)
+        this.vtbl.GetSingleItemExceptions := CallbackCreate(GetMethod(implObj, "GetSingleItemExceptions"), flags, 3)
+        this.vtbl.GetChangeUnitExceptions := CallbackCreate(GetMethod(implObj, "GetChangeUnitExceptions"), flags, 3)
+        this.vtbl.FindClockVectorForItem := CallbackCreate(GetMethod(implObj, "FindClockVectorForItem"), flags, 4)
+        this.vtbl.FindClockVectorForChangeUnit := CallbackCreate(GetMethod(implObj, "FindClockVectorForChangeUnit"), flags, 5)
+        this.vtbl.GetVersion := CallbackCreate(GetMethod(implObj, "GetVersion"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetOwnerReplicaId)
+        CallbackFree(this.vtbl.Serialize)
+        CallbackFree(this.vtbl.SetLocalTickCount)
+        CallbackFree(this.vtbl.ContainsChange)
+        CallbackFree(this.vtbl.ContainsChangeUnit)
+        CallbackFree(this.vtbl.GetScopeVector)
+        CallbackFree(this.vtbl.GetReplicaKeyMap)
+        CallbackFree(this.vtbl.Clone)
+        CallbackFree(this.vtbl.ConvertVersion)
+        CallbackFree(this.vtbl.MapRemoteToLocal)
+        CallbackFree(this.vtbl.Union)
+        CallbackFree(this.vtbl.ProjectOntoItem)
+        CallbackFree(this.vtbl.ProjectOntoChangeUnit)
+        CallbackFree(this.vtbl.ProjectOntoRange)
+        CallbackFree(this.vtbl.ExcludeItem)
+        CallbackFree(this.vtbl.ExcludeChangeUnit)
+        CallbackFree(this.vtbl.ContainsKnowledge)
+        CallbackFree(this.vtbl.FindMinTickCountForReplica)
+        CallbackFree(this.vtbl.GetRangeExceptions)
+        CallbackFree(this.vtbl.GetSingleItemExceptions)
+        CallbackFree(this.vtbl.GetChangeUnitExceptions)
+        CallbackFree(this.vtbl.FindClockVectorForItem)
+        CallbackFree(this.vtbl.FindClockVectorForChangeUnit)
+        CallbackFree(this.vtbl.GetVersion)
     }
 }

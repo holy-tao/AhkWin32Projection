@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DNTHAL_DP2SETCLIPPLANE extends Win32Struct {
-    static sizeof => 20
+export default struct D3DNTHAL_DP2SETCLIPPLANE {
+    #StructPack 4
 
-    static packingSize => 4
+    dwIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    plane : Float32[4]
 
-    /**
-     * @type {Array<Float>}
-     */
-    plane {
-        get {
-            if(!this.HasProp("__planeProxyArray"))
-                this.__planeProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "float")
-            return this.__planeProxyArray
-        }
-    }
 }

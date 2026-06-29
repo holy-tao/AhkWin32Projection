@@ -1,83 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPAUDIOSTATUS.ahk
-#Include .\SPAUDIOSTATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SPAUDIOSTATE.ahk" { SPAUDIOSTATE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SPAUDIOSTATUS.ahk" { SPAUDIOSTATUS }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class SPRECOGNIZERSTATUS extends Win32Struct {
-    static sizeof => 120
+export default struct SPRECOGNIZERSTATUS {
+    #StructPack 8
 
-    static packingSize => 8
+    AudioStatus : SPAUDIOSTATUS
 
-    /**
-     * @type {SPAUDIOSTATUS}
-     */
-    AudioStatus {
-        get {
-            if(!this.HasProp("__AudioStatus"))
-                this.__AudioStatus := SPAUDIOSTATUS(0, this)
-            return this.__AudioStatus
-        }
-    }
+    ullRecognitionStreamPos : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullRecognitionStreamPos {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ulStreamNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulStreamNumber {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    ulNumActive : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulNumActive {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    clsidEngine : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    clsidEngine {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    cLangIDs : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cLangIDs {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    aLangID : UInt16[20]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    aLangID {
-        get {
-            if(!this.HasProp("__aLangIDProxyArray"))
-                this.__aLangIDProxyArray := Win32FixedArray(this.ptr + 68, 20, Primitive, "ushort")
-            return this.__aLangIDProxyArray
-        }
-    }
+    ullRecognitionStreamTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullRecognitionStreamTime {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
 }

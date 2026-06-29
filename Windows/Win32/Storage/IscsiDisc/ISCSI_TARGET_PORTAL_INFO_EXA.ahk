@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ISCSI_LOGIN_OPTIONS.ahk
-#Include .\ISCSI_AUTH_TYPES.ahk
-#Include .\ISCSI_DIGEST_TYPES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ISCSI_AUTH_TYPES.ahk" { ISCSI_AUTH_TYPES }
+#Import ".\ISCSI_LOGIN_OPTIONS.ahk" { ISCSI_LOGIN_OPTIONS }
+#Import ".\ISCSI_DIGEST_TYPES.ahk" { ISCSI_DIGEST_TYPES }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * The ISCSI_TARGET_PORTAL_INFO_EX structure contains information about login credentials to a target portal. (ANSI)
@@ -13,55 +13,33 @@
  * @namespace Windows.Win32.Storage.IscsiDisc
  * @charset ANSI
  */
-class ISCSI_TARGET_PORTAL_INFO_EXA extends Win32Struct {
-    static sizeof => 848
-
-    static packingSize => 8
+export default struct ISCSI_TARGET_PORTAL_INFO_EXA {
+    #StructPack 8
 
     /**
      * A string that represents the name of the Host-Bus Adapter (HBA) initiator.
-     * @type {String}
      */
-    InitiatorName {
-        get => StrGet(this.ptr + 0, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 0, 255, "UTF-8")
-    }
+    InitiatorName : CHAR[256]
 
     /**
      * A <b>ULONG</b>  value that represents the port number on the HBA associated with the portal.
-     * @type {Integer}
      */
-    InitiatorPortNumber {
-        get => NumGet(this, 256, "uint")
-        set => NumPut("uint", value, this, 256)
-    }
+    InitiatorPortNumber : UInt32
 
     /**
      * A string that represents the symbolic name associated with the portal.
-     * @type {String}
      */
-    SymbolicName {
-        get => StrGet(this.ptr + 260, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 260, 255, "UTF-8")
-    }
+    SymbolicName : CHAR[256]
 
     /**
      * A string that represents the IP address or DNS name associated with the portal.
-     * @type {String}
      */
-    Address {
-        get => StrGet(this.ptr + 516, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 516, 255, "UTF-8")
-    }
+    Address : CHAR[256]
 
     /**
      * A <b>USHORT</b> value that represents the socket number.
-     * @type {Integer}
      */
-    Socket {
-        get => NumGet(this, 772, "ushort")
-        set => NumPut("ushort", value, this, 772)
-    }
+    Socket : UInt16
 
     /**
      * A pointer to an <b>ISCSI_SECURITY_FLAGS</b> structure that contains a bitmap that defines the security characteristics of a login connection.
@@ -146,22 +124,12 @@ class ISCSI_TARGET_PORTAL_INFO_EXA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    SecurityFlags {
-        get => NumGet(this, 776, "uint")
-        set => NumPut("uint", value, this, 776)
-    }
+    SecurityFlags : Int64
 
     /**
      * A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_login_options">ISCSI_LOGIN_OPTIONS</a> structure that defines the login data.
-     * @type {ISCSI_LOGIN_OPTIONS}
      */
-    LoginOptions {
-        get {
-            if(!this.HasProp("__LoginOptions"))
-                this.__LoginOptions := ISCSI_LOGIN_OPTIONS(784, this)
-            return this.__LoginOptions
-        }
-    }
+    LoginOptions : ISCSI_LOGIN_OPTIONS
+
 }

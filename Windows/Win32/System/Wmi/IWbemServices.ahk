@@ -1,9 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IWbemObjectSink.ahk
-#Include .\IEnumWbemClassObject.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WBEM_GENERIC_FLAG_TYPE.ahk" { WBEM_GENERIC_FLAG_TYPE }
+#Import ".\IEnumWbemClassObject.ahk" { IEnumWbemClassObject }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IWbemCallResult.ahk" { IWbemCallResult }
+#Import ".\IWbemContext.ahk" { IWbemContext }
+#Import ".\IWbemObjectSink.ahk" { IWbemObjectSink }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWbemClassObject.ahk" { IWbemClassObject }
 
 /**
  * Used by clients and providers to access WMI services. The interface is implemented by WMI and WMI providers, and is the primary WMI interface.
@@ -18,26 +24,55 @@
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemservices
  * @namespace Windows.Win32.System.Wmi
  */
-class IWbemServices extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWbemServices extends IUnknown {
     /**
      * The interface identifier for IWbemServices
      * @type {Guid}
      */
-    static IID => Guid("{9556dc99-828c-11cf-a37e-00aa003240c7}")
+    static IID := Guid("{9556dc99-828c-11cf-a37e-00aa003240c7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWbemServices interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OpenNamespace              : IntPtr
+        CancelAsyncCall            : IntPtr
+        QueryObjectSink            : IntPtr
+        GetObject                  : IntPtr
+        GetObjectAsync             : IntPtr
+        PutClass                   : IntPtr
+        PutClassAsync              : IntPtr
+        DeleteClass                : IntPtr
+        DeleteClassAsync           : IntPtr
+        CreateClassEnum            : IntPtr
+        CreateClassEnumAsync       : IntPtr
+        PutInstance                : IntPtr
+        PutInstanceAsync           : IntPtr
+        DeleteInstance             : IntPtr
+        DeleteInstanceAsync        : IntPtr
+        CreateInstanceEnum         : IntPtr
+        CreateInstanceEnumAsync    : IntPtr
+        ExecQuery                  : IntPtr
+        ExecQueryAsync             : IntPtr
+        ExecNotificationQuery      : IntPtr
+        ExecNotificationQueryAsync : IntPtr
+        ExecMethod                 : IntPtr
+        ExecMethodAsync            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OpenNamespace", "CancelAsyncCall", "QueryObjectSink", "GetObject", "GetObjectAsync", "PutClass", "PutClassAsync", "DeleteClass", "DeleteClassAsync", "CreateClassEnum", "CreateClassEnumAsync", "PutInstance", "PutInstanceAsync", "DeleteInstance", "DeleteInstanceAsync", "CreateInstanceEnum", "CreateInstanceEnumAsync", "ExecQuery", "ExecQueryAsync", "ExecNotificationQuery", "ExecNotificationQueryAsync", "ExecMethod", "ExecMethodAsync"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWbemServices.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IWbemServices::OpenNamespace method provides the caller with a new IWbemServices pointer that has the specified child namespace as its operating context.
@@ -75,7 +110,7 @@ class IWbemServices extends IUnknown {
     OpenNamespace(strNamespace, lFlags, pCtx, ppWorkingNamespace, ppResult) {
         strNamespace := strNamespace is String ? BSTR.Alloc(strNamespace).Value : strNamespace
 
-        result := ComCall(3, this, "ptr", strNamespace, "int", lFlags, "ptr", pCtx, "ptr*", ppWorkingNamespace, "ptr*", ppResult, "HRESULT")
+        result := ComCall(3, this, BSTR, strNamespace, WBEM_GENERIC_FLAG_TYPE, lFlags, "ptr", pCtx, IWbemServices.Ptr, ppWorkingNamespace, IWbemCallResult.Ptr, ppResult, "HRESULT")
         return result
     }
 
@@ -126,7 +161,7 @@ class IWbemServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemservices-queryobjectsink
      */
     QueryObjectSink(lFlags) {
-        result := ComCall(5, this, "int", lFlags, "ptr*", &ppResponseHandler := 0, "HRESULT")
+        result := ComCall(5, this, WBEM_GENERIC_FLAG_TYPE, lFlags, "ptr*", &ppResponseHandler := 0, "HRESULT")
         return IWbemObjectSink(ppResponseHandler)
     }
 
@@ -153,7 +188,7 @@ class IWbemServices extends IUnknown {
     GetObject(strObjectPath, lFlags, pCtx, ppObject, ppCallResult) {
         strObjectPath := strObjectPath is String ? BSTR.Alloc(strObjectPath).Value : strObjectPath
 
-        result := ComCall(6, this, "ptr", strObjectPath, "int", lFlags, "ptr", pCtx, "ptr*", ppObject, "ptr*", ppCallResult, "HRESULT")
+        result := ComCall(6, this, BSTR, strObjectPath, WBEM_GENERIC_FLAG_TYPE, lFlags, "ptr", pCtx, IWbemClassObject.Ptr, ppObject, IWbemCallResult.Ptr, ppCallResult, "HRESULT")
         return result
     }
 
@@ -204,7 +239,7 @@ class IWbemServices extends IUnknown {
     GetObjectAsync(strObjectPath, lFlags, pCtx, pResponseHandler) {
         strObjectPath := strObjectPath is String ? BSTR.Alloc(strObjectPath).Value : strObjectPath
 
-        result := ComCall(7, this, "ptr", strObjectPath, "int", lFlags, "ptr", pCtx, "ptr", pResponseHandler, "HRESULT")
+        result := ComCall(7, this, BSTR, strObjectPath, WBEM_GENERIC_FLAG_TYPE, lFlags, "ptr", pCtx, "ptr", pResponseHandler, "HRESULT")
         return result
     }
 
@@ -230,7 +265,7 @@ class IWbemServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemservices-putclass
      */
     PutClass(pObject, lFlags, pCtx, ppCallResult) {
-        result := ComCall(8, this, "ptr", pObject, "int", lFlags, "ptr", pCtx, "ptr*", ppCallResult, "HRESULT")
+        result := ComCall(8, this, "ptr", pObject, WBEM_GENERIC_FLAG_TYPE, lFlags, "ptr", pCtx, IWbemCallResult.Ptr, ppCallResult, "HRESULT")
         return result
     }
 
@@ -282,7 +317,7 @@ class IWbemServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemservices-putclassasync
      */
     PutClassAsync(pObject, lFlags, pCtx, pResponseHandler) {
-        result := ComCall(9, this, "ptr", pObject, "int", lFlags, "ptr", pCtx, "ptr", pResponseHandler, "HRESULT")
+        result := ComCall(9, this, "ptr", pObject, WBEM_GENERIC_FLAG_TYPE, lFlags, "ptr", pCtx, "ptr", pResponseHandler, "HRESULT")
         return result
     }
 
@@ -306,7 +341,7 @@ class IWbemServices extends IUnknown {
     DeleteClass(strClass, lFlags, pCtx, ppCallResult) {
         strClass := strClass is String ? BSTR.Alloc(strClass).Value : strClass
 
-        result := ComCall(10, this, "ptr", strClass, "int", lFlags, "ptr", pCtx, "ptr*", ppCallResult, "HRESULT")
+        result := ComCall(10, this, BSTR, strClass, WBEM_GENERIC_FLAG_TYPE, lFlags, "ptr", pCtx, IWbemCallResult.Ptr, ppCallResult, "HRESULT")
         return result
     }
 
@@ -344,7 +379,7 @@ class IWbemServices extends IUnknown {
     DeleteClassAsync(strClass, lFlags, pCtx, pResponseHandler) {
         strClass := strClass is String ? BSTR.Alloc(strClass).Value : strClass
 
-        result := ComCall(11, this, "ptr", strClass, "int", lFlags, "ptr", pCtx, "ptr", pResponseHandler, "HRESULT")
+        result := ComCall(11, this, BSTR, strClass, WBEM_GENERIC_FLAG_TYPE, lFlags, "ptr", pCtx, "ptr", pResponseHandler, "HRESULT")
         return result
     }
 
@@ -361,7 +396,7 @@ class IWbemServices extends IUnknown {
     CreateClassEnum(strSuperclass, lFlags, pCtx) {
         strSuperclass := strSuperclass is String ? BSTR.Alloc(strSuperclass).Value : strSuperclass
 
-        result := ComCall(12, this, "ptr", strSuperclass, "int", lFlags, "ptr", pCtx, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(12, this, BSTR, strSuperclass, WBEM_GENERIC_FLAG_TYPE, lFlags, "ptr", pCtx, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumWbemClassObject(ppEnum)
     }
 
@@ -391,7 +426,7 @@ class IWbemServices extends IUnknown {
     CreateClassEnumAsync(strSuperclass, lFlags, pCtx, pResponseHandler) {
         strSuperclass := strSuperclass is String ? BSTR.Alloc(strSuperclass).Value : strSuperclass
 
-        result := ComCall(13, this, "ptr", strSuperclass, "int", lFlags, "ptr", pCtx, "ptr", pResponseHandler, "HRESULT")
+        result := ComCall(13, this, BSTR, strSuperclass, WBEM_GENERIC_FLAG_TYPE, lFlags, "ptr", pCtx, "ptr", pResponseHandler, "HRESULT")
         return result
     }
 
@@ -435,7 +470,7 @@ class IWbemServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemservices-putinstance
      */
     PutInstance(pInst, lFlags, pCtx, ppCallResult) {
-        result := ComCall(14, this, "ptr", pInst, "int", lFlags, "ptr", pCtx, "ptr*", ppCallResult, "HRESULT")
+        result := ComCall(14, this, "ptr", pInst, WBEM_GENERIC_FLAG_TYPE, lFlags, "ptr", pCtx, IWbemCallResult.Ptr, ppCallResult, "HRESULT")
         return result
     }
 
@@ -559,7 +594,7 @@ class IWbemServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemservices-putinstanceasync
      */
     PutInstanceAsync(pInst, lFlags, pCtx, pResponseHandler) {
-        result := ComCall(15, this, "ptr", pInst, "int", lFlags, "ptr", pCtx, "ptr", pResponseHandler, "HRESULT")
+        result := ComCall(15, this, "ptr", pInst, WBEM_GENERIC_FLAG_TYPE, lFlags, "ptr", pCtx, "ptr", pResponseHandler, "HRESULT")
         return result
     }
 
@@ -607,7 +642,7 @@ class IWbemServices extends IUnknown {
     DeleteInstance(strObjectPath, lFlags, pCtx, ppCallResult) {
         strObjectPath := strObjectPath is String ? BSTR.Alloc(strObjectPath).Value : strObjectPath
 
-        result := ComCall(16, this, "ptr", strObjectPath, "int", lFlags, "ptr", pCtx, "ptr*", ppCallResult, "HRESULT")
+        result := ComCall(16, this, BSTR, strObjectPath, WBEM_GENERIC_FLAG_TYPE, lFlags, "ptr", pCtx, IWbemCallResult.Ptr, ppCallResult, "HRESULT")
         return result
     }
 
@@ -657,7 +692,7 @@ class IWbemServices extends IUnknown {
     DeleteInstanceAsync(strObjectPath, lFlags, pCtx, pResponseHandler) {
         strObjectPath := strObjectPath is String ? BSTR.Alloc(strObjectPath).Value : strObjectPath
 
-        result := ComCall(17, this, "ptr", strObjectPath, "int", lFlags, "ptr", pCtx, "ptr", pResponseHandler, "HRESULT")
+        result := ComCall(17, this, BSTR, strObjectPath, WBEM_GENERIC_FLAG_TYPE, lFlags, "ptr", pCtx, "ptr", pResponseHandler, "HRESULT")
         return result
     }
 
@@ -676,7 +711,7 @@ class IWbemServices extends IUnknown {
     CreateInstanceEnum(strFilter, lFlags, pCtx) {
         strFilter := strFilter is String ? BSTR.Alloc(strFilter).Value : strFilter
 
-        result := ComCall(18, this, "ptr", strFilter, "int", lFlags, "ptr", pCtx, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(18, this, BSTR, strFilter, WBEM_GENERIC_FLAG_TYPE, lFlags, "ptr", pCtx, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumWbemClassObject(ppEnum)
     }
 
@@ -719,7 +754,7 @@ class IWbemServices extends IUnknown {
     CreateInstanceEnumAsync(strFilter, lFlags, pCtx, pResponseHandler) {
         strFilter := strFilter is String ? BSTR.Alloc(strFilter).Value : strFilter
 
-        result := ComCall(19, this, "ptr", strFilter, "int", lFlags, "ptr", pCtx, "ptr", pResponseHandler, "HRESULT")
+        result := ComCall(19, this, BSTR, strFilter, WBEM_GENERIC_FLAG_TYPE, lFlags, "ptr", pCtx, "ptr", pResponseHandler, "HRESULT")
         return result
     }
 
@@ -745,7 +780,7 @@ class IWbemServices extends IUnknown {
         strQueryLanguage := strQueryLanguage is String ? BSTR.Alloc(strQueryLanguage).Value : strQueryLanguage
         strQuery := strQuery is String ? BSTR.Alloc(strQuery).Value : strQuery
 
-        result := ComCall(20, this, "ptr", strQueryLanguage, "ptr", strQuery, "int", lFlags, "ptr", pCtx, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(20, this, BSTR, strQueryLanguage, BSTR, strQuery, WBEM_GENERIC_FLAG_TYPE, lFlags, "ptr", pCtx, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumWbemClassObject(ppEnum)
     }
 
@@ -889,7 +924,7 @@ class IWbemServices extends IUnknown {
         strQueryLanguage := strQueryLanguage is String ? BSTR.Alloc(strQueryLanguage).Value : strQueryLanguage
         strQuery := strQuery is String ? BSTR.Alloc(strQuery).Value : strQuery
 
-        result := ComCall(21, this, "ptr", strQueryLanguage, "ptr", strQuery, "int", lFlags, "ptr", pCtx, "ptr", pResponseHandler, "HRESULT")
+        result := ComCall(21, this, BSTR, strQueryLanguage, BSTR, strQuery, WBEM_GENERIC_FLAG_TYPE, lFlags, "ptr", pCtx, "ptr", pResponseHandler, "HRESULT")
         return result
     }
 
@@ -913,7 +948,7 @@ class IWbemServices extends IUnknown {
         strQueryLanguage := strQueryLanguage is String ? BSTR.Alloc(strQueryLanguage).Value : strQueryLanguage
         strQuery := strQuery is String ? BSTR.Alloc(strQuery).Value : strQuery
 
-        result := ComCall(22, this, "ptr", strQueryLanguage, "ptr", strQuery, "int", lFlags, "ptr", pCtx, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(22, this, BSTR, strQueryLanguage, BSTR, strQuery, WBEM_GENERIC_FLAG_TYPE, lFlags, "ptr", pCtx, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumWbemClassObject(ppEnum)
     }
 
@@ -956,7 +991,7 @@ class IWbemServices extends IUnknown {
         strQueryLanguage := strQueryLanguage is String ? BSTR.Alloc(strQueryLanguage).Value : strQueryLanguage
         strQuery := strQuery is String ? BSTR.Alloc(strQuery).Value : strQuery
 
-        result := ComCall(23, this, "ptr", strQueryLanguage, "ptr", strQuery, "int", lFlags, "ptr", pCtx, "ptr", pResponseHandler, "HRESULT")
+        result := ComCall(23, this, BSTR, strQueryLanguage, BSTR, strQuery, WBEM_GENERIC_FLAG_TYPE, lFlags, "ptr", pCtx, "ptr", pResponseHandler, "HRESULT")
         return result
     }
 
@@ -990,7 +1025,7 @@ class IWbemServices extends IUnknown {
         strObjectPath := strObjectPath is String ? BSTR.Alloc(strObjectPath).Value : strObjectPath
         strMethodName := strMethodName is String ? BSTR.Alloc(strMethodName).Value : strMethodName
 
-        result := ComCall(24, this, "ptr", strObjectPath, "ptr", strMethodName, "int", lFlags, "ptr", pCtx, "ptr", pInParams, "ptr*", ppOutParams, "ptr*", ppCallResult, "HRESULT")
+        result := ComCall(24, this, BSTR, strObjectPath, BSTR, strMethodName, WBEM_GENERIC_FLAG_TYPE, lFlags, "ptr", pCtx, "ptr", pInParams, IWbemClassObject.Ptr, ppOutParams, IWbemCallResult.Ptr, ppCallResult, "HRESULT")
         return result
     }
 
@@ -1072,7 +1107,71 @@ class IWbemServices extends IUnknown {
         strObjectPath := strObjectPath is String ? BSTR.Alloc(strObjectPath).Value : strObjectPath
         strMethodName := strMethodName is String ? BSTR.Alloc(strMethodName).Value : strMethodName
 
-        result := ComCall(25, this, "ptr", strObjectPath, "ptr", strMethodName, "int", lFlags, "ptr", pCtx, "ptr", pInParams, "ptr", pResponseHandler, "HRESULT")
+        result := ComCall(25, this, BSTR, strObjectPath, BSTR, strMethodName, WBEM_GENERIC_FLAG_TYPE, lFlags, "ptr", pCtx, "ptr", pInParams, "ptr", pResponseHandler, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWbemServices.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OpenNamespace := CallbackCreate(GetMethod(implObj, "OpenNamespace"), flags, 6)
+        this.vtbl.CancelAsyncCall := CallbackCreate(GetMethod(implObj, "CancelAsyncCall"), flags, 2)
+        this.vtbl.QueryObjectSink := CallbackCreate(GetMethod(implObj, "QueryObjectSink"), flags, 3)
+        this.vtbl.GetObject := CallbackCreate(GetMethod(implObj, "GetObject"), flags, 6)
+        this.vtbl.GetObjectAsync := CallbackCreate(GetMethod(implObj, "GetObjectAsync"), flags, 5)
+        this.vtbl.PutClass := CallbackCreate(GetMethod(implObj, "PutClass"), flags, 5)
+        this.vtbl.PutClassAsync := CallbackCreate(GetMethod(implObj, "PutClassAsync"), flags, 5)
+        this.vtbl.DeleteClass := CallbackCreate(GetMethod(implObj, "DeleteClass"), flags, 5)
+        this.vtbl.DeleteClassAsync := CallbackCreate(GetMethod(implObj, "DeleteClassAsync"), flags, 5)
+        this.vtbl.CreateClassEnum := CallbackCreate(GetMethod(implObj, "CreateClassEnum"), flags, 5)
+        this.vtbl.CreateClassEnumAsync := CallbackCreate(GetMethod(implObj, "CreateClassEnumAsync"), flags, 5)
+        this.vtbl.PutInstance := CallbackCreate(GetMethod(implObj, "PutInstance"), flags, 5)
+        this.vtbl.PutInstanceAsync := CallbackCreate(GetMethod(implObj, "PutInstanceAsync"), flags, 5)
+        this.vtbl.DeleteInstance := CallbackCreate(GetMethod(implObj, "DeleteInstance"), flags, 5)
+        this.vtbl.DeleteInstanceAsync := CallbackCreate(GetMethod(implObj, "DeleteInstanceAsync"), flags, 5)
+        this.vtbl.CreateInstanceEnum := CallbackCreate(GetMethod(implObj, "CreateInstanceEnum"), flags, 5)
+        this.vtbl.CreateInstanceEnumAsync := CallbackCreate(GetMethod(implObj, "CreateInstanceEnumAsync"), flags, 5)
+        this.vtbl.ExecQuery := CallbackCreate(GetMethod(implObj, "ExecQuery"), flags, 6)
+        this.vtbl.ExecQueryAsync := CallbackCreate(GetMethod(implObj, "ExecQueryAsync"), flags, 6)
+        this.vtbl.ExecNotificationQuery := CallbackCreate(GetMethod(implObj, "ExecNotificationQuery"), flags, 6)
+        this.vtbl.ExecNotificationQueryAsync := CallbackCreate(GetMethod(implObj, "ExecNotificationQueryAsync"), flags, 6)
+        this.vtbl.ExecMethod := CallbackCreate(GetMethod(implObj, "ExecMethod"), flags, 8)
+        this.vtbl.ExecMethodAsync := CallbackCreate(GetMethod(implObj, "ExecMethodAsync"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OpenNamespace)
+        CallbackFree(this.vtbl.CancelAsyncCall)
+        CallbackFree(this.vtbl.QueryObjectSink)
+        CallbackFree(this.vtbl.GetObject)
+        CallbackFree(this.vtbl.GetObjectAsync)
+        CallbackFree(this.vtbl.PutClass)
+        CallbackFree(this.vtbl.PutClassAsync)
+        CallbackFree(this.vtbl.DeleteClass)
+        CallbackFree(this.vtbl.DeleteClassAsync)
+        CallbackFree(this.vtbl.CreateClassEnum)
+        CallbackFree(this.vtbl.CreateClassEnumAsync)
+        CallbackFree(this.vtbl.PutInstance)
+        CallbackFree(this.vtbl.PutInstanceAsync)
+        CallbackFree(this.vtbl.DeleteInstance)
+        CallbackFree(this.vtbl.DeleteInstanceAsync)
+        CallbackFree(this.vtbl.CreateInstanceEnum)
+        CallbackFree(this.vtbl.CreateInstanceEnumAsync)
+        CallbackFree(this.vtbl.ExecQuery)
+        CallbackFree(this.vtbl.ExecQueryAsync)
+        CallbackFree(this.vtbl.ExecNotificationQuery)
+        CallbackFree(this.vtbl.ExecNotificationQueryAsync)
+        CallbackFree(this.vtbl.ExecMethod)
+        CallbackFree(this.vtbl.ExecMethodAsync)
     }
 }

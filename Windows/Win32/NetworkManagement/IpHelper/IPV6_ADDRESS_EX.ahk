@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Stores an IPv6 address.
@@ -27,47 +26,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipexport/ns-ipexport-ipv6_address_ex
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class IPV6_ADDRESS_EX extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct IPV6_ADDRESS_EX {
+    #StructPack 4
 
     /**
      * The IPv6 port number in network byte order.
-     * @type {Integer}
      */
-    sin6_port {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    sin6_port : UInt16
 
     /**
      * The IPv6 flowinfo value from the IPv6 header in network byte order.
-     * @type {Integer}
      */
-    sin6_flowinfo {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    sin6_flowinfo : UInt32
 
     /**
      * The IPv6 address in network byte order.
-     * @type {Array<Integer>}
      */
-    sin6_addr {
-        get {
-            if(!this.HasProp("__sin6_addrProxyArray"))
-                this.__sin6_addrProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "ushort")
-            return this.__sin6_addrProxyArray
-        }
-    }
+    sin6_addr : UInt16[8]
 
     /**
      * The IPv6 scope ID in network byte order.
-     * @type {Integer}
      */
-    sin6_scope_id {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    sin6_scope_id : UInt32
+
 }

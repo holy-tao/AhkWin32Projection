@@ -1,11 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IEnumTfRanges.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\ITfContext.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITfContext.ahk" { ITfContext }
+#Import ".\IEnumTfRanges.ahk" { IEnumTfRanges }
+#Import ".\ITfRange.ahk" { ITfRange }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ITfReadOnlyProperty interface is implemented by the TSF manager and used by an application or text service to obtain property data.
@@ -14,26 +15,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfreadonlyproperty
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfReadOnlyProperty extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfReadOnlyProperty extends IUnknown {
     /**
      * The interface identifier for ITfReadOnlyProperty
      * @type {Guid}
      */
-    static IID => Guid("{17d49a3d-f8b8-4b2f-b254-52319dd64c53}")
+    static IID := Guid("{17d49a3d-f8b8-4b2f-b254-52319dd64c53}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfReadOnlyProperty interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetType    : IntPtr
+        EnumRanges : IntPtr
+        GetValue   : IntPtr
+        GetContext : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetType", "EnumRanges", "GetValue", "GetContext"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfReadOnlyProperty.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfReadOnlyProperty::GetType method
@@ -42,7 +53,7 @@ class ITfReadOnlyProperty extends IUnknown {
      */
     GetType() {
         pguid := Guid()
-        result := ComCall(3, this, "ptr", pguid, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pguid, "HRESULT")
         return pguid
     }
 
@@ -172,7 +183,7 @@ class ITfReadOnlyProperty extends IUnknown {
      */
     GetValue(ec, pRange) {
         pvarValue := VARIANT()
-        result := ComCall(5, this, "uint", ec, "ptr", pRange, "ptr", pvarValue, "HRESULT")
+        result := ComCall(5, this, "uint", ec, "ptr", pRange, VARIANT.Ptr, pvarValue, "HRESULT")
         return pvarValue
     }
 
@@ -184,5 +195,31 @@ class ITfReadOnlyProperty extends IUnknown {
     GetContext() {
         result := ComCall(6, this, "ptr*", &ppContext := 0, "HRESULT")
         return ITfContext(ppContext)
+    }
+
+    Query(iid) {
+        if (ITfReadOnlyProperty.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.EnumRanges := CallbackCreate(GetMethod(implObj, "EnumRanges"), flags, 4)
+        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 4)
+        this.vtbl.GetContext := CallbackCreate(GetMethod(implObj, "GetContext"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetType)
+        CallbackFree(this.vtbl.EnumRanges)
+        CallbackFree(this.vtbl.GetValue)
+        CallbackFree(this.vtbl.GetContext)
     }
 }

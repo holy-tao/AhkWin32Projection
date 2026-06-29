@@ -1,159 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SPPHRASERULE.ahk
-#Include .\SPPHRASEPROPERTY.ahk
-#Include .\SPPHRASEELEMENT.ahk
-#Include .\SPPHRASEREPLACEMENT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SPPHRASEPROPERTY.ahk" { SPPHRASEPROPERTY }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\SPPHRASEELEMENT.ahk" { SPPHRASEELEMENT }
+#Import ".\SPPHRASEREPLACEMENT.ahk" { SPPHRASEREPLACEMENT }
+#Import ".\SPPHRASERULE.ahk" { SPPHRASERULE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class SPPHRASE_50 extends Win32Struct {
-    static sizeof => 152
+export default struct SPPHRASE_50 {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    LangID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    LangID {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    wHomophoneGroupId : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wHomophoneGroupId {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    ullGrammarID : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullGrammarID {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ftStartTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ftStartTime {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ullAudioStreamPosition : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullAudioStreamPosition {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ulAudioSizeBytes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulAudioSizeBytes {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ulRetainedSizeBytes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulRetainedSizeBytes {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    ulAudioSizeTime : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulAudioSizeTime {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    Rule : SPPHRASERULE
 
-    /**
-     * @type {SPPHRASERULE}
-     */
-    Rule {
-        get {
-            if(!this.HasProp("__Rule"))
-                this.__Rule := SPPHRASERULE(48, this)
-            return this.__Rule
-        }
-    }
+    pProperties : SPPHRASEPROPERTY.Ptr
 
-    /**
-     * @type {Pointer<SPPHRASEPROPERTY>}
-     */
-    pProperties {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    pElements : SPPHRASEELEMENT.Ptr
 
-    /**
-     * @type {Pointer<SPPHRASEELEMENT>}
-     */
-    pElements {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    cReplacements : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cReplacements {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    pReplacements : SPPHRASEREPLACEMENT.Ptr
 
-    /**
-     * @type {Pointer<SPPHRASEREPLACEMENT>}
-     */
-    pReplacements {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    SREngineID : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    SREngineID {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    ulSREnginePrivateDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulSREnginePrivateDataSize {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    pSREnginePrivateData : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pSREnginePrivateData {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 152
-    }
 }

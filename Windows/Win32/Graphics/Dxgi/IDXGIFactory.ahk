@@ -1,10 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIObject.ahk
-#Include .\IDXGIAdapter.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\IDXGISwapChain.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DXGI_SWAP_CHAIN_DESC.ahk" { DXGI_SWAP_CHAIN_DESC }
+#Import ".\IDXGISwapChain.ahk" { IDXGISwapChain }
+#Import ".\IDXGIAdapter.ahk" { IDXGIAdapter }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DXGI_MWA_FLAGS.ahk" { DXGI_MWA_FLAGS }
+#Import ".\IDXGIObject.ahk" { IDXGIObject }
 
 /**
  * An IDXGIFactory interface implements methods for generating DXGI objects (which handle full screen transitions).
@@ -35,26 +40,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/nn-dxgi-idxgifactory
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGIFactory extends IDXGIObject {
-
-    static sizeof => A_PtrSize
+export default struct IDXGIFactory extends IDXGIObject {
     /**
      * The interface identifier for IDXGIFactory
      * @type {Guid}
      */
-    static IID => Guid("{7b7166ec-21c7-44ae-b21a-c9ae321ae369}")
+    static IID := Guid("{7b7166ec-21c7-44ae-b21a-c9ae321ae369}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGIFactory interfaces
+    */
+    struct Vtbl extends IDXGIObject.Vtbl {
+        EnumAdapters          : IntPtr
+        MakeWindowAssociation : IntPtr
+        GetWindowAssociation  : IntPtr
+        CreateSwapChain       : IntPtr
+        CreateSoftwareAdapter : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EnumAdapters", "MakeWindowAssociation", "GetWindowAssociation", "CreateSwapChain", "CreateSoftwareAdapter"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGIFactory.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Enumerates the adapters (video cards).
@@ -122,9 +138,7 @@ class IDXGIFactory extends IDXGIObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgifactory-makewindowassociation
      */
     MakeWindowAssociation(WindowHandle, Flags) {
-        WindowHandle := WindowHandle is Win32Handle ? NumGet(WindowHandle, "ptr") : WindowHandle
-
-        result := ComCall(8, this, "ptr", WindowHandle, "uint", Flags, "HRESULT")
+        result := ComCall(8, this, HWND, WindowHandle, DXGI_MWA_FLAGS, Flags, "HRESULT")
         return result
     }
 
@@ -140,7 +154,7 @@ class IDXGIFactory extends IDXGIObject {
      */
     GetWindowAssociation() {
         pWindowHandle := HWND()
-        result := ComCall(9, this, "ptr", pWindowHandle, "HRESULT")
+        result := ComCall(9, this, HWND.Ptr, pWindowHandle, "HRESULT")
         return pWindowHandle
     }
 
@@ -208,7 +222,7 @@ class IDXGIFactory extends IDXGIObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgifactory-createswapchain
      */
     CreateSwapChain(pDevice, pDesc) {
-        result := ComCall(10, this, "ptr", pDevice, "ptr", pDesc, "ptr*", &ppSwapChain := 0, "int")
+        result := ComCall(10, this, "ptr", pDevice, DXGI_SWAP_CHAIN_DESC.Ptr, pDesc, "ptr*", &ppSwapChain := 0, Int32)
         return IDXGISwapChain(ppSwapChain)
     }
 
@@ -229,9 +243,35 @@ class IDXGIFactory extends IDXGIObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgifactory-createsoftwareadapter
      */
     CreateSoftwareAdapter(Module) {
-        Module := Module is Win32Handle ? NumGet(Module, "ptr") : Module
-
-        result := ComCall(11, this, "ptr", Module, "ptr*", &ppAdapter := 0, "HRESULT")
+        result := ComCall(11, this, HMODULE, Module, "ptr*", &ppAdapter := 0, "HRESULT")
         return IDXGIAdapter(ppAdapter)
+    }
+
+    Query(iid) {
+        if (IDXGIFactory.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EnumAdapters := CallbackCreate(GetMethod(implObj, "EnumAdapters"), flags, 3)
+        this.vtbl.MakeWindowAssociation := CallbackCreate(GetMethod(implObj, "MakeWindowAssociation"), flags, 3)
+        this.vtbl.GetWindowAssociation := CallbackCreate(GetMethod(implObj, "GetWindowAssociation"), flags, 2)
+        this.vtbl.CreateSwapChain := CallbackCreate(GetMethod(implObj, "CreateSwapChain"), flags, 4)
+        this.vtbl.CreateSoftwareAdapter := CallbackCreate(GetMethod(implObj, "CreateSoftwareAdapter"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EnumAdapters)
+        CallbackFree(this.vtbl.MakeWindowAssociation)
+        CallbackFree(this.vtbl.GetWindowAssociation)
+        CallbackFree(this.vtbl.CreateSwapChain)
+        CallbackFree(this.vtbl.CreateSoftwareAdapter)
     }
 }

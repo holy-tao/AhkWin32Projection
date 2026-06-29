@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Identifies a change in the state of a button associated with a pointer.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ne-winuser-pointer_button_change_type
  * @namespace Windows.Win32.UI.Input.Pointer
  */
-class POINTER_BUTTON_CHANGE_TYPE extends Win32Enum {
+export default struct POINTER_BUTTON_CHANGE_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No change in button state.

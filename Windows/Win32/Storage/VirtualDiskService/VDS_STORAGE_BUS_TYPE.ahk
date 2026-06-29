@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the set of valid bus types of a storage device.
@@ -13,7 +12,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/vdslun/ne-vdslun-vds_storage_bus_type
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_STORAGE_BUS_TYPE extends Win32Enum {
+export default struct VDS_STORAGE_BUS_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * This value is reserved.

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains an array of property tags. A property tag is a 32-bit unsigned integer that consists of two parts.
@@ -26,29 +25,17 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sproptagarray
  * @namespace Windows.Win32.System.AddressBook
  */
-class SPropTagArray extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct SPropTagArray {
+    #StructPack 4
 
     /**
      * > Count of property tags in the array indicated by the **aulPropTag** member.
-     * @type {Integer}
      */
-    cValues {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cValues : UInt32
 
     /**
      * > Array of property tags.
-     * @type {Array<Integer>}
      */
-    aulPropTag {
-        get {
-            if(!this.HasProp("__aulPropTagProxyArray"))
-                this.__aulPropTagProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")
-            return this.__aulPropTagProxyArray
-        }
-    }
+    aulPropTag : UInt32[1]
+
 }

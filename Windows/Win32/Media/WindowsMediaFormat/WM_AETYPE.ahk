@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The WM_AETYPE enumeration specifies the permissions for an entry in an IP address access list.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ne-wmsdkidl-wm_aetype
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class WM_AETYPE extends Win32Enum {
+export default struct WM_AETYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * IP addresses that match the access entry are allowed to connect to the network sink.

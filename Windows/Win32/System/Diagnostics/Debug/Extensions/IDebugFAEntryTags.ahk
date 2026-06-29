@@ -1,58 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DEBUG_FLR_PARAM_TYPE.ahk" { DEBUG_FLR_PARAM_TYPE }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\FA_ENTRY_TYPE.ahk" { FA_ENTRY_TYPE }
+#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IDebugFAEntryTags extends Win32ComInterface {
+export default struct IDebugFAEntryTags extends Win32ComInterface {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 0
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetType", "SetType", "GetProperties", "SetProperties", "GetTagByName", "IsValidTagToSet"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDebugFAEntryTags interfaces
+    */
+    struct Vtbl {
+        GetType         : IntPtr
+        SetType         : IntPtr
+        GetProperties   : IntPtr
+        SetProperties   : IntPtr
+        GetTagByName    : IntPtr
+        IsValidTagToSet : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDebugFAEntryTags.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * The GetTypeByName function retrieves a service type GUID for a network service specified by name. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The nspapi.h header defines GetTypeByName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
-     * @returns {FA_ENTRY_TYPE} If the function succeeds, the return value is zero.
-     * 
-     * If the function fails, the return value is SOCKET_ERROR( – 1). To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which returns the following extended error value.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_SERVICE_DOES_NOT_EXIST</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The specified service type is unknown.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/nspapi/nf-nspapi-gettypebynamea
+     * @returns {FA_ENTRY_TYPE} 
      */
     GetType(Tag) {
-        result := ComCall(0, this, "int", Tag, "int")
+        result := ComCall(0, this, DEBUG_FLR_PARAM_TYPE, Tag, FA_ENTRY_TYPE)
         return result
     }
 
@@ -63,7 +55,7 @@ class IDebugFAEntryTags extends Win32ComInterface {
      * @returns {HRESULT} 
      */
     SetType(Tag, EntryType) {
-        result := ComCall(1, this, "int", Tag, "int", EntryType, "HRESULT")
+        result := ComCall(1, this, DEBUG_FLR_PARAM_TYPE, Tag, FA_ENTRY_TYPE, EntryType, "HRESULT")
         return result
     }
 
@@ -80,7 +72,7 @@ class IDebugFAEntryTags extends Win32ComInterface {
         NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
         DescSizeMarshal := DescSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(2, this, "int", Tag, "ptr", Name, NameSizeMarshal, NameSize, "ptr", Description, DescSizeMarshal, DescSize, "uint*", &Flags := 0, "HRESULT")
+        result := ComCall(2, this, DEBUG_FLR_PARAM_TYPE, Tag, "ptr", Name, NameSizeMarshal, NameSize, "ptr", Description, DescSizeMarshal, DescSize, "uint*", &Flags := 0, "HRESULT")
         return Flags
     }
 
@@ -96,7 +88,7 @@ class IDebugFAEntryTags extends Win32ComInterface {
         Name := Name is String ? StrPtr(Name) : Name
         Description := Description is String ? StrPtr(Description) : Description
 
-        result := ComCall(3, this, "int", Tag, "ptr", Name, "ptr", Description, "uint", Flags, "HRESULT")
+        result := ComCall(3, this, DEBUG_FLR_PARAM_TYPE, Tag, "ptr", Name, "ptr", Description, "uint", Flags, "HRESULT")
         return result
     }
 
@@ -120,7 +112,14 @@ class IDebugFAEntryTags extends Win32ComInterface {
      * @returns {BOOL} 
      */
     IsValidTagToSet(Tag) {
-        result := ComCall(5, this, "int", Tag, "int")
+        result := ComCall(5, this, DEBUG_FLR_PARAM_TYPE, Tag, BOOL)
         return result
+    }
+
+    Query(iid) {
+        if (IDebugFAEntryTags.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
     }
 }

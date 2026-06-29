@@ -1,37 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED extends Win32Struct {
-    static sizeof => 8
+export default struct USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED {
+    #StructPack 1
 
-    static packingSize => 1
+    AsUlong32 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AsUlong32 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - SublinkSpeedAttrID
-     * - LaneSpeedExponent
-     * - SublinkTypeMode
-     * - SublinkTypeDir
-     * - Reserved
-     * - LinkProtocol
-     * - LaneSpeedMantissa
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
 
     /**
      * @type {Integer}
@@ -79,5 +55,9 @@ class USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED extends Win32Struct {
     LaneSpeedMantissa {
         get => (this._bitfield >> 16) & 0xFFFF
         set => this._bitfield := ((value & 0xFFFF) << 16) | (this._bitfield & ~(0xFFFF << 16))
+    }
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

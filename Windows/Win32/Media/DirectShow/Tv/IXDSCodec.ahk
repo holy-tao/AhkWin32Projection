@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ProtType.ahk" { ProtType }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IXDSCodec interface is exposed by the XDS Codec filter. Most applications will not have to use this interface.
@@ -10,32 +13,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/encdec/nn-encdec-ixdscodec
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IXDSCodec extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IXDSCodec extends IUnknown {
     /**
      * The interface identifier for IXDSCodec
      * @type {Guid}
      */
-    static IID => Guid("{c4c4c4b3-0049-4e2b-98fb-9537f6ce516d}")
+    static IID := Guid("{c4c4c4b3-0049-4e2b-98fb-9537f6ce516d}")
 
     /**
      * The class identifier for XDSCodec
      * @type {Guid}
      */
-    static CLSID => Guid("{c4c4c4f3-0049-4e2b-98fb-9537f6ce516d}")
+    static CLSID := Guid("{c4c4c4f3-0049-4e2b-98fb-9537f6ce516d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXDSCodec interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_XDSToRatObjOK        : IntPtr
+        put_CCSubstreamService   : IntPtr
+        get_CCSubstreamService   : IntPtr
+        GetContentAdvisoryRating : IntPtr
+        GetXDSPacket             : IntPtr
+        GetCurrLicenseExpDate    : IntPtr
+        GetLastErrorCode         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_XDSToRatObjOK", "put_CCSubstreamService", "get_CCSubstreamService", "GetContentAdvisoryRating", "GetXDSPacket", "GetCurrLicenseExpDate", "GetLastErrorCode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXDSCodec.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {HRESULT} 
@@ -213,7 +229,7 @@ class IXDSCodec extends IUnknown {
         pTimeStartMarshal := pTimeStart is VarRef ? "int64*" : "ptr"
         pTimeEndMarshal := pTimeEnd is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(7, this, pXDSClassPktMarshal, pXDSClassPkt, pXDSTypePktMarshal, pXDSTypePkt, "ptr", pBstrXDSPkt, pPktSeqIDMarshal, pPktSeqID, pCallSeqIDMarshal, pCallSeqID, pTimeStartMarshal, pTimeStart, pTimeEndMarshal, pTimeEnd, "HRESULT")
+        result := ComCall(7, this, pXDSClassPktMarshal, pXDSClassPkt, pXDSTypePktMarshal, pXDSTypePkt, BSTR.Ptr, pBstrXDSPkt, pPktSeqIDMarshal, pPktSeqID, pCallSeqIDMarshal, pCallSeqID, pTimeStartMarshal, pTimeStart, pTimeEndMarshal, pTimeEnd, "HRESULT")
         return result
     }
 
@@ -238,5 +254,37 @@ class IXDSCodec extends IUnknown {
     GetLastErrorCode() {
         result := ComCall(9, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IXDSCodec.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_XDSToRatObjOK := CallbackCreate(GetMethod(implObj, "get_XDSToRatObjOK"), flags, 2)
+        this.vtbl.put_CCSubstreamService := CallbackCreate(GetMethod(implObj, "put_CCSubstreamService"), flags, 2)
+        this.vtbl.get_CCSubstreamService := CallbackCreate(GetMethod(implObj, "get_CCSubstreamService"), flags, 2)
+        this.vtbl.GetContentAdvisoryRating := CallbackCreate(GetMethod(implObj, "GetContentAdvisoryRating"), flags, 6)
+        this.vtbl.GetXDSPacket := CallbackCreate(GetMethod(implObj, "GetXDSPacket"), flags, 8)
+        this.vtbl.GetCurrLicenseExpDate := CallbackCreate(GetMethod(implObj, "GetCurrLicenseExpDate"), flags, 3)
+        this.vtbl.GetLastErrorCode := CallbackCreate(GetMethod(implObj, "GetLastErrorCode"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_XDSToRatObjOK)
+        CallbackFree(this.vtbl.put_CCSubstreamService)
+        CallbackFree(this.vtbl.get_CCSubstreamService)
+        CallbackFree(this.vtbl.GetContentAdvisoryRating)
+        CallbackFree(this.vtbl.GetXDSPacket)
+        CallbackFree(this.vtbl.GetCurrLicenseExpDate)
+        CallbackFree(this.vtbl.GetLastErrorCode)
     }
 }

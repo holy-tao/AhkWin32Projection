@@ -1,35 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\MP_PARAMINFO.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MP_PARAMINFO.ahk" { MP_PARAMINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IMediaParamInfo interface retrieves information about the parameters that an object supports. The set of parameters that an object supports will not change over the lifetime of an application. To set parameter values, use the IMediaParams interface.
  * @see https://learn.microsoft.com/windows/win32/api/medparam/nn-medparam-imediaparaminfo
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IMediaParamInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMediaParamInfo extends IUnknown {
     /**
      * The interface identifier for IMediaParamInfo
      * @type {Guid}
      */
-    static IID => Guid("{6d6cbb60-a223-44aa-842f-a2f06750be6d}")
+    static IID := Guid("{6d6cbb60-a223-44aa-842f-a2f06750be6d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMediaParamInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetParamCount          : IntPtr
+        GetParamInfo           : IntPtr
+        GetParamText           : IntPtr
+        GetNumTimeFormats      : IntPtr
+        GetSupportedTimeFormat : IntPtr
+        GetCurrentTimeFormat   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetParamCount", "GetParamInfo", "GetParamText", "GetNumTimeFormats", "GetSupportedTimeFormat", "GetCurrentTimeFormat"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMediaParamInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetParamCount method retrieves the number of parameters that the object supports.
@@ -51,7 +63,7 @@ class IMediaParamInfo extends IUnknown {
      */
     GetParamInfo(dwParamIndex) {
         pInfo := MP_PARAMINFO()
-        result := ComCall(4, this, "uint", dwParamIndex, "ptr", pInfo, "HRESULT")
+        result := ComCall(4, this, "uint", dwParamIndex, MP_PARAMINFO.Ptr, pInfo, "HRESULT")
         return pInfo
     }
 
@@ -102,7 +114,7 @@ class IMediaParamInfo extends IUnknown {
      */
     GetSupportedTimeFormat(dwFormatIndex) {
         pguidTimeFormat := Guid()
-        result := ComCall(7, this, "uint", dwFormatIndex, "ptr", pguidTimeFormat, "HRESULT")
+        result := ComCall(7, this, "uint", dwFormatIndex, Guid.Ptr, pguidTimeFormat, "HRESULT")
         return pguidTimeFormat
     }
 
@@ -147,7 +159,37 @@ class IMediaParamInfo extends IUnknown {
     GetCurrentTimeFormat(pguidTimeFormat, pTimeData) {
         pTimeDataMarshal := pTimeData is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", pguidTimeFormat, pTimeDataMarshal, pTimeData, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, pguidTimeFormat, pTimeDataMarshal, pTimeData, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMediaParamInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetParamCount := CallbackCreate(GetMethod(implObj, "GetParamCount"), flags, 2)
+        this.vtbl.GetParamInfo := CallbackCreate(GetMethod(implObj, "GetParamInfo"), flags, 3)
+        this.vtbl.GetParamText := CallbackCreate(GetMethod(implObj, "GetParamText"), flags, 3)
+        this.vtbl.GetNumTimeFormats := CallbackCreate(GetMethod(implObj, "GetNumTimeFormats"), flags, 2)
+        this.vtbl.GetSupportedTimeFormat := CallbackCreate(GetMethod(implObj, "GetSupportedTimeFormat"), flags, 3)
+        this.vtbl.GetCurrentTimeFormat := CallbackCreate(GetMethod(implObj, "GetCurrentTimeFormat"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetParamCount)
+        CallbackFree(this.vtbl.GetParamInfo)
+        CallbackFree(this.vtbl.GetParamText)
+        CallbackFree(this.vtbl.GetNumTimeFormats)
+        CallbackFree(this.vtbl.GetSupportedTimeFormat)
+        CallbackFree(this.vtbl.GetCurrentTimeFormat)
     }
 }

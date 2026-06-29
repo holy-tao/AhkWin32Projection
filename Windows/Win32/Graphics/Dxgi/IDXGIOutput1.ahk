@@ -1,9 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIOutput.ahk
-#Include .\DXGI_MODE_DESC1.ahk
-#Include .\IDXGIOutputDuplication.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\IDXGIResource.ahk" { IDXGIResource }
+#Import ".\IDXGIOutputDuplication.ahk" { IDXGIOutputDuplication }
+#Import ".\IDXGIOutput.ahk" { IDXGIOutput }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DXGI_ENUM_MODES.ahk" { DXGI_ENUM_MODES }
+#Import ".\DXGI_MODE_DESC1.ahk" { DXGI_MODE_DESC1 }
 
 /**
  * An IDXGIOutput1 interface represents an adapter output (such as a monitor).
@@ -12,26 +17,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nn-dxgi1_2-idxgioutput1
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGIOutput1 extends IDXGIOutput {
-
-    static sizeof => A_PtrSize
+export default struct IDXGIOutput1 extends IDXGIOutput {
     /**
      * The interface identifier for IDXGIOutput1
      * @type {Guid}
      */
-    static IID => Guid("{00cddea8-939b-4b83-a340-a685226666cc}")
+    static IID := Guid("{00cddea8-939b-4b83-a340-a685226666cc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 19
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGIOutput1 interfaces
+    */
+    struct Vtbl extends IDXGIOutput.Vtbl {
+        GetDisplayModeList1      : IntPtr
+        FindClosestMatchingMode1 : IntPtr
+        GetDisplaySurfaceData1   : IntPtr
+        DuplicateOutput          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDisplayModeList1", "FindClosestMatchingMode1", "GetDisplaySurfaceData1", "DuplicateOutput"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGIOutput1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the display modes that match the requested format and other input options. (IDXGIOutput1.GetDisplayModeList1)
@@ -73,7 +88,7 @@ class IDXGIOutput1 extends IDXGIOutput {
         pNumModesMarshal := pNumModes is VarRef ? "uint*" : "ptr"
 
         pDesc := DXGI_MODE_DESC1()
-        result := ComCall(19, this, "int", EnumFormat, "uint", Flags, pNumModesMarshal, pNumModes, "ptr", pDesc, "HRESULT")
+        result := ComCall(19, this, DXGI_FORMAT, EnumFormat, DXGI_ENUM_MODES, Flags, pNumModesMarshal, pNumModes, DXGI_MODE_DESC1.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -140,7 +155,7 @@ class IDXGIOutput1 extends IDXGIOutput {
      */
     FindClosestMatchingMode1(pModeToMatch, pConcernedDevice) {
         pClosestMatch := DXGI_MODE_DESC1()
-        result := ComCall(20, this, "ptr", pModeToMatch, "ptr", pClosestMatch, "ptr", pConcernedDevice, "HRESULT")
+        result := ComCall(20, this, DXGI_MODE_DESC1.Ptr, pModeToMatch, DXGI_MODE_DESC1.Ptr, pClosestMatch, "ptr", pConcernedDevice, "HRESULT")
         return pClosestMatch
     }
 
@@ -184,5 +199,31 @@ class IDXGIOutput1 extends IDXGIOutput {
     DuplicateOutput(pDevice) {
         result := ComCall(22, this, "ptr", pDevice, "ptr*", &ppOutputDuplication := 0, "HRESULT")
         return IDXGIOutputDuplication(ppOutputDuplication)
+    }
+
+    Query(iid) {
+        if (IDXGIOutput1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDisplayModeList1 := CallbackCreate(GetMethod(implObj, "GetDisplayModeList1"), flags, 5)
+        this.vtbl.FindClosestMatchingMode1 := CallbackCreate(GetMethod(implObj, "FindClosestMatchingMode1"), flags, 4)
+        this.vtbl.GetDisplaySurfaceData1 := CallbackCreate(GetMethod(implObj, "GetDisplaySurfaceData1"), flags, 2)
+        this.vtbl.DuplicateOutput := CallbackCreate(GetMethod(implObj, "DuplicateOutput"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDisplayModeList1)
+        CallbackFree(this.vtbl.FindClosestMatchingMode1)
+        CallbackFree(this.vtbl.GetDisplaySurfaceData1)
+        CallbackFree(this.vtbl.DuplicateOutput)
     }
 }

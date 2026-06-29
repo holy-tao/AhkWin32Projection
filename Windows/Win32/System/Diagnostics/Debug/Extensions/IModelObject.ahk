@@ -1,42 +1,86 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include .\IDebugHostContext.ahk
-#Include ..\..\..\Variant\VARIANT.ahk
-#Include .\IKeyEnumerator.ahk
-#Include .\IRawEnumerator.ahk
-#Include .\Location.ahk
-#Include .\IDebugHostType.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IKeyStore.ahk" { IKeyStore }
+#Import ".\Location.ahk" { Location }
+#Import ".\IKeyEnumerator.ahk" { IKeyEnumerator }
+#Import "..\..\..\Variant\VARENUM.ahk" { VARENUM }
+#Import ".\IDebugHostContext.ahk" { IDebugHostContext }
+#Import ".\SymbolKind.ahk" { SymbolKind }
+#Import ".\ModelObjectKind.ahk" { ModelObjectKind }
+#Import "..\..\..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IRawEnumerator.ahk" { IRawEnumerator }
+#Import ".\IDebugHostType.ahk" { IDebugHostType }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IModelObject extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IModelObject extends IUnknown {
     /**
      * The interface identifier for IModelObject
      * @type {Guid}
      */
-    static IID => Guid("{e28c7893-3f4b-4b96-baca-293cdc55f45d}")
+    static IID := Guid("{e28c7893-3f4b-4b96-baca-293cdc55f45d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IModelObject interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetContext              : IntPtr
+        GetKind                 : IntPtr
+        GetIntrinsicValue       : IntPtr
+        GetIntrinsicValueAs     : IntPtr
+        GetKeyValue             : IntPtr
+        SetKeyValue             : IntPtr
+        EnumerateKeyValues      : IntPtr
+        GetRawValue             : IntPtr
+        EnumerateRawValues      : IntPtr
+        Dereference             : IntPtr
+        TryCastToRuntimeType    : IntPtr
+        GetConcept              : IntPtr
+        GetLocation             : IntPtr
+        GetTypeInfo             : IntPtr
+        GetTargetInfo           : IntPtr
+        GetNumberOfParentModels : IntPtr
+        GetParentModel          : IntPtr
+        AddParentModel          : IntPtr
+        RemoveParentModel       : IntPtr
+        GetKey                  : IntPtr
+        GetKeyReference         : IntPtr
+        SetKey                  : IntPtr
+        ClearKeys               : IntPtr
+        EnumerateKeys           : IntPtr
+        EnumerateKeyReferences  : IntPtr
+        SetConcept              : IntPtr
+        ClearConcepts           : IntPtr
+        GetRawReference         : IntPtr
+        EnumerateRawReferences  : IntPtr
+        SetContextForDataModel  : IntPtr
+        GetContextForDataModel  : IntPtr
+        Compare                 : IntPtr
+        IsEqualTo               : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IModelObject.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetContext", "GetKind", "GetIntrinsicValue", "GetIntrinsicValueAs", "GetKeyValue", "SetKeyValue", "EnumerateKeyValues", "GetRawValue", "EnumerateRawValues", "Dereference", "TryCastToRuntimeType", "GetConcept", "GetLocation", "GetTypeInfo", "GetTargetInfo", "GetNumberOfParentModels", "GetParentModel", "AddParentModel", "RemoveParentModel", "GetKey", "GetKeyReference", "SetKey", "ClearKeys", "EnumerateKeys", "EnumerateKeyReferences", "SetConcept", "ClearConcepts", "GetRawReference", "EnumerateRawReferences", "SetContextForDataModel", "GetContextForDataModel", "Compare", "IsEqualTo"]
-
-    /**
-     * Gets the context preference flags.
+     * 
      * @returns {IDebugHostContext} 
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getcontextpreferenceflags
      */
     GetContext() {
         result := ComCall(3, this, "ptr*", &_context := 0, "HRESULT")
@@ -58,7 +102,7 @@ class IModelObject extends IUnknown {
      */
     GetIntrinsicValue() {
         intrinsicData := VARIANT()
-        result := ComCall(5, this, "ptr", intrinsicData, "HRESULT")
+        result := ComCall(5, this, VARIANT.Ptr, intrinsicData, "HRESULT")
         return intrinsicData
     }
 
@@ -69,7 +113,7 @@ class IModelObject extends IUnknown {
      */
     GetIntrinsicValueAs(vt) {
         intrinsicData := VARIANT()
-        result := ComCall(6, this, "ushort", vt, "ptr", intrinsicData, "HRESULT")
+        result := ComCall(6, this, VARENUM, vt, VARIANT.Ptr, intrinsicData, "HRESULT")
         return intrinsicData
     }
 
@@ -83,7 +127,7 @@ class IModelObject extends IUnknown {
     GetKeyValue(key, _object, metadata) {
         key := key is String ? StrPtr(key) : key
 
-        result := ComCall(7, this, "ptr", key, "ptr*", _object, "ptr*", metadata, "HRESULT")
+        result := ComCall(7, this, "ptr", key, IModelObject.Ptr, _object, IKeyStore.Ptr, metadata, "HRESULT")
         return result
     }
 
@@ -119,7 +163,7 @@ class IModelObject extends IUnknown {
     GetRawValue(kind, name, searchFlags) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(10, this, "int", kind, "ptr", name, "uint", searchFlags, "ptr*", &_object := 0, "HRESULT")
+        result := ComCall(10, this, SymbolKind, kind, "ptr", name, "uint", searchFlags, "ptr*", &_object := 0, "HRESULT")
         return IModelObject(_object)
     }
 
@@ -130,7 +174,7 @@ class IModelObject extends IUnknown {
      * @returns {IRawEnumerator} 
      */
     EnumerateRawValues(kind, searchFlags) {
-        result := ComCall(11, this, "int", kind, "uint", searchFlags, "ptr*", &_enumerator := 0, "HRESULT")
+        result := ComCall(11, this, SymbolKind, kind, "uint", searchFlags, "ptr*", &_enumerator := 0, "HRESULT")
         return IRawEnumerator(_enumerator)
     }
 
@@ -160,7 +204,7 @@ class IModelObject extends IUnknown {
      * @returns {HRESULT} 
      */
     GetConcept(conceptId, conceptInterface, conceptMetadata) {
-        result := ComCall(14, this, "ptr", conceptId, "ptr*", conceptInterface, "ptr*", conceptMetadata, "HRESULT")
+        result := ComCall(14, this, Guid.Ptr, conceptId, IUnknown.Ptr, conceptInterface, IKeyStore.Ptr, conceptMetadata, "HRESULT")
         return result
     }
 
@@ -170,7 +214,7 @@ class IModelObject extends IUnknown {
      */
     GetLocation() {
         _location := Location()
-        result := ComCall(15, this, "ptr", _location, "HRESULT")
+        result := ComCall(15, this, Location.Ptr, _location, "HRESULT")
         return _location
     }
 
@@ -190,7 +234,7 @@ class IModelObject extends IUnknown {
      * @returns {HRESULT} 
      */
     GetTargetInfo(_location, type) {
-        result := ComCall(17, this, "ptr", _location, "ptr*", type, "HRESULT")
+        result := ComCall(17, this, Location.Ptr, _location, IDebugHostType.Ptr, type, "HRESULT")
         return result
     }
 
@@ -211,7 +255,7 @@ class IModelObject extends IUnknown {
      * @returns {HRESULT} 
      */
     GetParentModel(i, model, contextObject) {
-        result := ComCall(19, this, "uint", i, "ptr*", model, "ptr*", contextObject, "HRESULT")
+        result := ComCall(19, this, "uint", i, IModelObject.Ptr, model, IModelObject.Ptr, contextObject, "HRESULT")
         return result
     }
 
@@ -238,27 +282,16 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * Retrieves the active input locale identifier (formerly called the keyboard layout).
-     * @remarks
-     * The input locale identifier is a broader concept than a keyboard layout, since it can also encompass a speech-to-text converter, an Input Method Editor (IME), or any other form of input.
      * 
-     * Since the keyboard layout can be dynamically changed, applications that cache information about the current keyboard layout should process the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-inputlangchange">WM_INPUTLANGCHANGE</a> message to be informed of changes in the input language.
-     * 
-     * To get the KLID (keyboard layout ID) of the currently active HKL, call the  <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getkeyboardlayoutnamea">GetKeyboardLayoutName</a>.
-     * 
-     * <b>Beginning in Windows 8:</b> The preferred method to retrieve the language associated with the current keyboard layout or input method is a call to <a href="https://docs.microsoft.com/uwp/api/windows.globalization.language.currentinputmethodlanguagetag">Windows.Globalization.Language.CurrentInputMethodLanguageTag</a>. If your app passes language tags from <b>CurrentInputMethodLanguageTag</b> to any <a href="https://docs.microsoft.com/windows/desktop/Intl/national-language-support-functions">National Language Support</a> functions, it must first convert the tags by calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-resolvelocalename">ResolveLocaleName</a>.
      * @param {PWSTR} key 
      * @param {Pointer<IModelObject>} _object 
      * @param {Pointer<IKeyStore>} metadata 
-     * @returns {HRESULT} Type: <b>HKL</b>
-     * 
-     * The return value is the input locale identifier for the thread. The low word contains a <a href="https://docs.microsoft.com/windows/desktop/Intl/language-identifiers">Language Identifier</a> for the input language and the high word contains a device handle to the physical layout of the keyboard.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getkeyboardlayout
+     * @returns {HRESULT} 
      */
     GetKey(key, _object, metadata) {
         key := key is String ? StrPtr(key) : key
 
-        result := ComCall(22, this, "ptr", key, "ptr*", _object, "ptr*", metadata, "HRESULT")
+        result := ComCall(22, this, "ptr", key, IModelObject.Ptr, _object, IKeyStore.Ptr, metadata, "HRESULT")
         return result
     }
 
@@ -272,23 +305,16 @@ class IModelObject extends IUnknown {
     GetKeyReference(key, objectReference, metadata) {
         key := key is String ? StrPtr(key) : key
 
-        result := ComCall(23, this, "ptr", key, "ptr*", objectReference, "ptr*", metadata, "HRESULT")
+        result := ComCall(23, this, "ptr", key, IModelObject.Ptr, objectReference, IKeyStore.Ptr, metadata, "HRESULT")
         return result
     }
 
     /**
-     * Copies an array of keyboard key states into the calling thread's keyboard input-state table. This is the same table accessed by the GetKeyboardState and GetKeyState functions. Changes made to this table do not affect keyboard input to any other thread.
-     * @remarks
-     * Because the <b>SetKeyboardState</b> function alters the input state of the calling thread and not the global input state of the system, an application cannot use <b>SetKeyboardState</b> to set the NUM LOCK, CAPS LOCK, or SCROLL LOCK (or the Japanese KANA) indicator lights on the keyboard. These can be set or cleared using <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-sendinput">SendInput</a> to simulate keystrokes.
+     * 
      * @param {PWSTR} key 
      * @param {IModelObject} _object 
      * @param {IKeyStore} metadata 
-     * @returns {HRESULT} Type: <b>BOOL</b>
-     * 
-     * If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setkeyboardstate
+     * @returns {HRESULT} 
      */
     SetKey(key, _object, metadata) {
         key := key is String ? StrPtr(key) : key
@@ -332,7 +358,7 @@ class IModelObject extends IUnknown {
      * @returns {HRESULT} 
      */
     SetConcept(conceptId, conceptInterface, conceptMetadata) {
-        result := ComCall(28, this, "ptr", conceptId, "ptr", conceptInterface, "ptr", conceptMetadata, "HRESULT")
+        result := ComCall(28, this, Guid.Ptr, conceptId, "ptr", conceptInterface, "ptr", conceptMetadata, "HRESULT")
         return result
     }
 
@@ -355,7 +381,7 @@ class IModelObject extends IUnknown {
     GetRawReference(kind, name, searchFlags) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(30, this, "int", kind, "ptr", name, "uint", searchFlags, "ptr*", &_object := 0, "HRESULT")
+        result := ComCall(30, this, SymbolKind, kind, "ptr", name, "uint", searchFlags, "ptr*", &_object := 0, "HRESULT")
         return IModelObject(_object)
     }
 
@@ -366,7 +392,7 @@ class IModelObject extends IUnknown {
      * @returns {IRawEnumerator} 
      */
     EnumerateRawReferences(kind, searchFlags) {
-        result := ComCall(31, this, "int", kind, "uint", searchFlags, "ptr*", &_enumerator := 0, "HRESULT")
+        result := ComCall(31, this, SymbolKind, kind, "uint", searchFlags, "ptr*", &_enumerator := 0, "HRESULT")
         return IRawEnumerator(_enumerator)
     }
 
@@ -392,14 +418,9 @@ class IModelObject extends IUnknown {
     }
 
     /**
-     * The CompareAddresses function compares two addresses, indicating that one of the addresses is greater than, less than, or equal to the other address.
-     * @remarks
-     * An address that is less than another address indicates a previous frame. An address that is greater than another address indicates a later frame.
      * 
-     * Network Monitor provides two other functions, [CompareFrameDestAddress](compareframedestaddress.md) and [CompareFrameSourceAddress](compareframesourceaddress.md), which you can use to compare addresses. The **CompareFrameDestAddress** function compares a given address to the frame's destination address, and the **CompareFrameSourceAddress** function compares a given address to the frame's source address.
      * @param {IModelObject} other 
      * @returns {IModelObject} 
-     * @see https://learn.microsoft.com/windows/win32/NetMon2/compareaddresses
      */
     Compare(other) {
         result := ComCall(34, this, "ptr", other, "ptr*", &ppResult := 0, "HRESULT")
@@ -414,5 +435,89 @@ class IModelObject extends IUnknown {
     IsEqualTo(other) {
         result := ComCall(35, this, "ptr", other, "int*", &equal := 0, "HRESULT")
         return equal
+    }
+
+    Query(iid) {
+        if (IModelObject.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetContext := CallbackCreate(GetMethod(implObj, "GetContext"), flags, 2)
+        this.vtbl.GetKind := CallbackCreate(GetMethod(implObj, "GetKind"), flags, 2)
+        this.vtbl.GetIntrinsicValue := CallbackCreate(GetMethod(implObj, "GetIntrinsicValue"), flags, 2)
+        this.vtbl.GetIntrinsicValueAs := CallbackCreate(GetMethod(implObj, "GetIntrinsicValueAs"), flags, 3)
+        this.vtbl.GetKeyValue := CallbackCreate(GetMethod(implObj, "GetKeyValue"), flags, 4)
+        this.vtbl.SetKeyValue := CallbackCreate(GetMethod(implObj, "SetKeyValue"), flags, 3)
+        this.vtbl.EnumerateKeyValues := CallbackCreate(GetMethod(implObj, "EnumerateKeyValues"), flags, 2)
+        this.vtbl.GetRawValue := CallbackCreate(GetMethod(implObj, "GetRawValue"), flags, 5)
+        this.vtbl.EnumerateRawValues := CallbackCreate(GetMethod(implObj, "EnumerateRawValues"), flags, 4)
+        this.vtbl.Dereference := CallbackCreate(GetMethod(implObj, "Dereference"), flags, 2)
+        this.vtbl.TryCastToRuntimeType := CallbackCreate(GetMethod(implObj, "TryCastToRuntimeType"), flags, 2)
+        this.vtbl.GetConcept := CallbackCreate(GetMethod(implObj, "GetConcept"), flags, 4)
+        this.vtbl.GetLocation := CallbackCreate(GetMethod(implObj, "GetLocation"), flags, 2)
+        this.vtbl.GetTypeInfo := CallbackCreate(GetMethod(implObj, "GetTypeInfo"), flags, 2)
+        this.vtbl.GetTargetInfo := CallbackCreate(GetMethod(implObj, "GetTargetInfo"), flags, 3)
+        this.vtbl.GetNumberOfParentModels := CallbackCreate(GetMethod(implObj, "GetNumberOfParentModels"), flags, 2)
+        this.vtbl.GetParentModel := CallbackCreate(GetMethod(implObj, "GetParentModel"), flags, 4)
+        this.vtbl.AddParentModel := CallbackCreate(GetMethod(implObj, "AddParentModel"), flags, 4)
+        this.vtbl.RemoveParentModel := CallbackCreate(GetMethod(implObj, "RemoveParentModel"), flags, 2)
+        this.vtbl.GetKey := CallbackCreate(GetMethod(implObj, "GetKey"), flags, 4)
+        this.vtbl.GetKeyReference := CallbackCreate(GetMethod(implObj, "GetKeyReference"), flags, 4)
+        this.vtbl.SetKey := CallbackCreate(GetMethod(implObj, "SetKey"), flags, 4)
+        this.vtbl.ClearKeys := CallbackCreate(GetMethod(implObj, "ClearKeys"), flags, 1)
+        this.vtbl.EnumerateKeys := CallbackCreate(GetMethod(implObj, "EnumerateKeys"), flags, 2)
+        this.vtbl.EnumerateKeyReferences := CallbackCreate(GetMethod(implObj, "EnumerateKeyReferences"), flags, 2)
+        this.vtbl.SetConcept := CallbackCreate(GetMethod(implObj, "SetConcept"), flags, 4)
+        this.vtbl.ClearConcepts := CallbackCreate(GetMethod(implObj, "ClearConcepts"), flags, 1)
+        this.vtbl.GetRawReference := CallbackCreate(GetMethod(implObj, "GetRawReference"), flags, 5)
+        this.vtbl.EnumerateRawReferences := CallbackCreate(GetMethod(implObj, "EnumerateRawReferences"), flags, 4)
+        this.vtbl.SetContextForDataModel := CallbackCreate(GetMethod(implObj, "SetContextForDataModel"), flags, 3)
+        this.vtbl.GetContextForDataModel := CallbackCreate(GetMethod(implObj, "GetContextForDataModel"), flags, 3)
+        this.vtbl.Compare := CallbackCreate(GetMethod(implObj, "Compare"), flags, 3)
+        this.vtbl.IsEqualTo := CallbackCreate(GetMethod(implObj, "IsEqualTo"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetContext)
+        CallbackFree(this.vtbl.GetKind)
+        CallbackFree(this.vtbl.GetIntrinsicValue)
+        CallbackFree(this.vtbl.GetIntrinsicValueAs)
+        CallbackFree(this.vtbl.GetKeyValue)
+        CallbackFree(this.vtbl.SetKeyValue)
+        CallbackFree(this.vtbl.EnumerateKeyValues)
+        CallbackFree(this.vtbl.GetRawValue)
+        CallbackFree(this.vtbl.EnumerateRawValues)
+        CallbackFree(this.vtbl.Dereference)
+        CallbackFree(this.vtbl.TryCastToRuntimeType)
+        CallbackFree(this.vtbl.GetConcept)
+        CallbackFree(this.vtbl.GetLocation)
+        CallbackFree(this.vtbl.GetTypeInfo)
+        CallbackFree(this.vtbl.GetTargetInfo)
+        CallbackFree(this.vtbl.GetNumberOfParentModels)
+        CallbackFree(this.vtbl.GetParentModel)
+        CallbackFree(this.vtbl.AddParentModel)
+        CallbackFree(this.vtbl.RemoveParentModel)
+        CallbackFree(this.vtbl.GetKey)
+        CallbackFree(this.vtbl.GetKeyReference)
+        CallbackFree(this.vtbl.SetKey)
+        CallbackFree(this.vtbl.ClearKeys)
+        CallbackFree(this.vtbl.EnumerateKeys)
+        CallbackFree(this.vtbl.EnumerateKeyReferences)
+        CallbackFree(this.vtbl.SetConcept)
+        CallbackFree(this.vtbl.ClearConcepts)
+        CallbackFree(this.vtbl.GetRawReference)
+        CallbackFree(this.vtbl.EnumerateRawReferences)
+        CallbackFree(this.vtbl.SetContextForDataModel)
+        CallbackFree(this.vtbl.GetContextForDataModel)
+        CallbackFree(this.vtbl.Compare)
+        CallbackFree(this.vtbl.IsEqualTo)
     }
 }

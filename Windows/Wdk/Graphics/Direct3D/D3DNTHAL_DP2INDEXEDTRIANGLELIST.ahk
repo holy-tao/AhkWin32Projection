@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DNTHAL_DP2INDEXEDTRIANGLELIST extends Win32Struct {
-    static sizeof => 8
+export default struct D3DNTHAL_DP2INDEXEDTRIANGLELIST {
+    #StructPack 2
 
-    static packingSize => 2
+    wV1 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wV1 {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wV2 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wV2 {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    wV3 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wV3 {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    wFlags : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wFlags {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
 }

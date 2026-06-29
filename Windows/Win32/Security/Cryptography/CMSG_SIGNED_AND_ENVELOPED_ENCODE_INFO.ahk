@@ -1,53 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CMSG_SIGNED_ENCODE_INFO.ahk
-#Include .\CMSG_SIGNER_ENCODE_INFO.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
-#Include .\CMSG_ENVELOPED_ENCODE_INFO.ahk
-#Include .\HCRYPTPROV_LEGACY.ahk
-#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include .\CERT_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HCRYPTPROV_LEGACY.ahk" { HCRYPTPROV_LEGACY }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
+#Import ".\CMSG_ENVELOPED_ENCODE_INFO.ahk" { CMSG_ENVELOPED_ENCODE_INFO }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\CMSG_SIGNED_ENCODE_INFO.ahk" { CMSG_SIGNED_ENCODE_INFO }
+#Import ".\CMSG_SIGNER_ENCODE_INFO.ahk" { CMSG_SIGNER_ENCODE_INFO }
+#Import ".\CERT_INFO.ahk" { CERT_INFO }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CMSG_SIGNED_AND_ENVELOPED_ENCODE_INFO extends Win32Struct {
-    static sizeof => 120
+export default struct CMSG_SIGNED_AND_ENVELOPED_ENCODE_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SignedInfo : CMSG_SIGNED_ENCODE_INFO
 
-    /**
-     * @type {CMSG_SIGNED_ENCODE_INFO}
-     */
-    SignedInfo {
-        get {
-            if(!this.HasProp("__SignedInfo"))
-                this.__SignedInfo := CMSG_SIGNED_ENCODE_INFO(8, this)
-            return this.__SignedInfo
-        }
-    }
+    EnvelopedInfo : CMSG_ENVELOPED_ENCODE_INFO
 
-    /**
-     * @type {CMSG_ENVELOPED_ENCODE_INFO}
-     */
-    EnvelopedInfo {
-        get {
-            if(!this.HasProp("__EnvelopedInfo"))
-                this.__EnvelopedInfo := CMSG_ENVELOPED_ENCODE_INFO(56, this)
-            return this.__EnvelopedInfo
-        }
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 120
-    }
 }

@@ -1,34 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFMediaKeys.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFMediaKeys.ahk" { IMFMediaKeys }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Implemented by the media engine to add encrypted media extensions methods.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfmediaengineeme
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFMediaEngineEME extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFMediaEngineEME extends IUnknown {
     /**
      * The interface identifier for IMFMediaEngineEME
      * @type {Guid}
      */
-    static IID => Guid("{50dc93e4-ba4f-4275-ae66-83e836e57469}")
+    static IID := Guid("{50dc93e4-ba4f-4275-ae66-83e836e57469}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFMediaEngineEME interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_Keys     : IntPtr
+        SetMediaKeys : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Keys", "SetMediaKeys"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFMediaEngineEME.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IMFMediaKeys} 
@@ -56,5 +65,27 @@ class IMFMediaEngineEME extends IUnknown {
     SetMediaKeys(keys) {
         result := ComCall(4, this, "ptr", keys, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFMediaEngineEME.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Keys := CallbackCreate(GetMethod(implObj, "get_Keys"), flags, 2)
+        this.vtbl.SetMediaKeys := CallbackCreate(GetMethod(implObj, "SetMediaKeys"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Keys)
+        CallbackFree(this.vtbl.SetMediaKeys)
     }
 }

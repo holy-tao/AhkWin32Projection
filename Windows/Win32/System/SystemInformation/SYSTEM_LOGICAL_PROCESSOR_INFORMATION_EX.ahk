@@ -1,83 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\LOGICAL_PROCESSOR_RELATIONSHIP.ahk
-#Include .\PROCESSOR_RELATIONSHIP.ahk
-#Include .\GROUP_AFFINITY.ahk
-#Include .\NUMA_NODE_RELATIONSHIP.ahk
-#Include .\CACHE_RELATIONSHIP.ahk
-#Include .\PROCESSOR_CACHE_TYPE.ahk
-#Include .\GROUP_RELATIONSHIP.ahk
-#Include .\PROCESSOR_GROUP_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GROUP_AFFINITY.ahk" { GROUP_AFFINITY }
+#Import ".\CACHE_RELATIONSHIP.ahk" { CACHE_RELATIONSHIP }
+#Import ".\GROUP_RELATIONSHIP.ahk" { GROUP_RELATIONSHIP }
+#Import ".\PROCESSOR_GROUP_INFO.ahk" { PROCESSOR_GROUP_INFO }
+#Import ".\PROCESSOR_CACHE_TYPE.ahk" { PROCESSOR_CACHE_TYPE }
+#Import ".\NUMA_NODE_RELATIONSHIP.ahk" { NUMA_NODE_RELATIONSHIP }
+#Import ".\PROCESSOR_RELATIONSHIP.ahk" { PROCESSOR_RELATIONSHIP }
+#Import ".\LOGICAL_PROCESSOR_RELATIONSHIP.ahk" { LOGICAL_PROCESSOR_RELATIONSHIP }
 
 /**
  * Contains information about the relationships of logical processors and related hardware. The GetLogicalProcessorInformationEx function uses this structure.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-system_logical_processor_information_ex
  * @namespace Windows.Win32.System.SystemInformation
  */
-class SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX {
+    #StructPack 8
 
     /**
      * The type of relationship between the logical processors. This parameter can be one of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-logical_processor_relationship">LOGICAL_PROCESSOR_RELATIONSHIP</a> enumeration values.
-     * @type {LOGICAL_PROCESSOR_RELATIONSHIP}
      */
-    Relationship {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Relationship : LOGICAL_PROCESSOR_RELATIONSHIP
 
     /**
      * The size of the structure.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Size : UInt32
 
-    /**
-     * @type {PROCESSOR_RELATIONSHIP}
-     */
-    Processor {
-        get {
-            if(!this.HasProp("__Processor"))
-                this.__Processor := PROCESSOR_RELATIONSHIP(8, this)
-            return this.__Processor
-        }
-    }
+    Processor : PROCESSOR_RELATIONSHIP
 
-    /**
-     * @type {NUMA_NODE_RELATIONSHIP}
-     */
-    NumaNode {
-        get {
-            if(!this.HasProp("__NumaNode"))
-                this.__NumaNode := NUMA_NODE_RELATIONSHIP(8, this)
-            return this.__NumaNode
-        }
-    }
-
-    /**
-     * @type {CACHE_RELATIONSHIP}
-     */
-    Cache {
-        get {
-            if(!this.HasProp("__Cache"))
-                this.__Cache := CACHE_RELATIONSHIP(8, this)
-            return this.__Cache
-        }
-    }
-
-    /**
-     * @type {GROUP_RELATIONSHIP}
-     */
-    Group {
-        get {
-            if(!this.HasProp("__Group"))
-                this.__Group := GROUP_RELATIONSHIP(8, this)
-            return this.__Group
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'NumaNode', { type: NUMA_NODE_RELATIONSHIP, offset: 8 })
+        DefineProp(this.Prototype, 'Cache', { type: CACHE_RELATIONSHIP, offset: 8 })
+        DefineProp(this.Prototype, 'Group', { type: GROUP_RELATIONSHIP, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,76 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KS_VIDEOINFOHEADER2.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\KS_BITMAPINFOHEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KS_VIDEOINFOHEADER2.ahk" { KS_VIDEOINFOHEADER2 }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\KS_BITMAPINFOHEADER.ahk" { KS_BITMAPINFOHEADER }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KS_MPEGVIDEOINFO2 extends Win32Struct {
-    static sizeof => 136
+export default struct KS_MPEGVIDEOINFO2 {
+    #StructPack 8
 
-    static packingSize => 8
+    hdr : KS_VIDEOINFOHEADER2
 
-    /**
-     * @type {KS_VIDEOINFOHEADER2}
-     */
-    hdr {
-        get {
-            if(!this.HasProp("__hdr"))
-                this.__hdr := KS_VIDEOINFOHEADER2(0, this)
-            return this.__hdr
-        }
-    }
+    dwStartTimeCode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwStartTimeCode {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    cbSequenceHeader : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbSequenceHeader {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
-    }
+    dwProfile : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwProfile {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    dwLevel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwLevel {
-        get => NumGet(this, 124, "uint")
-        set => NumPut("uint", value, this, 124)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    bSequenceHeader : UInt32[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    bSequenceHeader {
-        get {
-            if(!this.HasProp("__bSequenceHeaderProxyArray"))
-                this.__bSequenceHeaderProxyArray := Win32FixedArray(this.ptr + 132, 1, Primitive, "uint")
-            return this.__bSequenceHeaderProxyArray
-        }
-    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The ADDRESS_EVENT enum describes address events. The ITAddressEvent::get_Event method returns a member of this enum to indicate the type of address event that occurred.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-address_event
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ADDRESS_EVENT extends Win32Enum {
+export default struct ADDRESS_EVENT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The address state has changed. See 

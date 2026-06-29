@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_BLEND.ahk
-#Include .\D3D12_BLEND_OP.ahk
-#Include .\D3D12_LOGIC_OP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_LOGIC_OP.ahk" { D3D12_LOGIC_OP }
+#Import ".\D3D12_BLEND_OP.ahk" { D3D12_BLEND_OP }
+#Import ".\D3D12_BLEND.ahk" { D3D12_BLEND }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Describes the blend state for a render target. (D3D12_RENDER_TARGET_BLEND_DESC)
@@ -65,104 +65,63 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_render_target_blend_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_RENDER_TARGET_BLEND_DESC extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 4
+export default struct D3D12_RENDER_TARGET_BLEND_DESC {
+    #StructPack 4
 
     /**
      * Specifies whether to enable (or disable) blending. Set to <b>TRUE</b> to enable blending.
      * 
      * > [!NOTE]
      * > It's not valid for *LogicOpEnable* and *BlendEnable* to both be **TRUE**.
-     * @type {BOOL}
      */
-    BlendEnable {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    BlendEnable : BOOL
 
     /**
      * Specifies whether to enable (or disable) a logical operation. Set to <b>TRUE</b> to enable a logical operation.
      * 
      * > [!NOTE]
      * > It's not valid for *LogicOpEnable* and *BlendEnable* to both be **TRUE**.
-     * @type {BOOL}
      */
-    LogicOpEnable {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    LogicOpEnable : BOOL
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_blend">D3D12_BLEND</a>-typed value that specifies the operation to perform on the RGB value that the pixel shader outputs. The <b>BlendOp</b> member defines how to combine the <b>SrcBlend</b> and <b>DestBlend</b> operations.
-     * @type {D3D12_BLEND}
      */
-    SrcBlend {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    SrcBlend : D3D12_BLEND
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_blend">D3D12_BLEND</a>-typed value that specifies the operation to perform on the current RGB value in the render target. The <b>BlendOp</b> member defines how to combine the <b>SrcBlend</b> and <b>DestBlend</b> operations.
-     * @type {D3D12_BLEND}
      */
-    DestBlend {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    DestBlend : D3D12_BLEND
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_blend_op">D3D12_BLEND_OP</a>-typed value that defines how to combine the <b>SrcBlend</b> and <b>DestBlend</b> operations.
-     * @type {D3D12_BLEND_OP}
      */
-    BlendOp {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    BlendOp : D3D12_BLEND_OP
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_blend">D3D12_BLEND</a>-typed value that specifies the operation to perform on the alpha value that the pixel shader outputs. Blend options that end in _COLOR are not allowed. The <b>BlendOpAlpha</b> member defines how to combine the <b>SrcBlendAlpha</b> and <b>DestBlendAlpha</b> operations.
-     * @type {D3D12_BLEND}
      */
-    SrcBlendAlpha {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    SrcBlendAlpha : D3D12_BLEND
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_blend">D3D12_BLEND</a>-typed value that specifies the operation to perform on the current alpha value in the render target. Blend options that end in _COLOR are not allowed. The <b>BlendOpAlpha</b> member defines how to combine the <b>SrcBlendAlpha</b> and <b>DestBlendAlpha</b> operations.
-     * @type {D3D12_BLEND}
      */
-    DestBlendAlpha {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    DestBlendAlpha : D3D12_BLEND
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_blend_op">D3D12_BLEND_OP</a>-typed value that defines how to combine the <b>SrcBlendAlpha</b> and <b>DestBlendAlpha</b> operations.
-     * @type {D3D12_BLEND_OP}
      */
-    BlendOpAlpha {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    BlendOpAlpha : D3D12_BLEND_OP
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_logic_op">D3D12_LOGIC_OP</a>-typed value that specifies the logical operation to configure for the render target.
-     * @type {D3D12_LOGIC_OP}
      */
-    LogicOp {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    LogicOp : D3D12_LOGIC_OP
 
     /**
      * A combination of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_color_write_enable">D3D12_COLOR_WRITE_ENABLE</a>-typed values that are combined by using a bitwise OR operation. The resulting value specifies a write mask.
-     * @type {Integer}
      */
-    RenderTargetWriteMask {
-        get => NumGet(this, 36, "char")
-        set => NumPut("char", value, this, 36)
-    }
+    RenderTargetWriteMask : Int8
+
 }

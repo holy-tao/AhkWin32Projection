@@ -1,34 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITTAPIObjectEvent.ahk
-#Include .\ITPhone.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITTAPIObjectEvent.ahk" { ITTAPIObjectEvent }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITPhone.ahk" { ITPhone }
 
 /**
  * The ITTAPIObjectEvent2 interface is an extension of the ITTAPIObjectEvent interface. ITTAPIObjectEvent2 exposes an additional method that returns a pointer to an ITPhone interface on the phone object that caused the TAPI object event.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-ittapiobjectevent2
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITTAPIObjectEvent2 extends ITTAPIObjectEvent {
-
-    static sizeof => A_PtrSize
+export default struct ITTAPIObjectEvent2 extends ITTAPIObjectEvent {
     /**
      * The interface identifier for ITTAPIObjectEvent2
      * @type {Guid}
      */
-    static IID => Guid("{359dda6e-68ce-4383-bf0b-169133c41b46}")
+    static IID := Guid("{359dda6e-68ce-4383-bf0b-169133c41b46}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 11
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITTAPIObjectEvent2 interfaces
+    */
+    struct Vtbl extends ITTAPIObjectEvent.Vtbl {
+        get_Phone : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Phone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITTAPIObjectEvent2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ITPhone} 
@@ -50,5 +58,25 @@ class ITTAPIObjectEvent2 extends ITTAPIObjectEvent {
     get_Phone() {
         result := ComCall(11, this, "ptr*", &ppPhone := 0, "HRESULT")
         return ITPhone(ppPhone)
+    }
+
+    Query(iid) {
+        if (ITTAPIObjectEvent2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Phone := CallbackCreate(GetMethod(implObj, "get_Phone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Phone)
     }
 }

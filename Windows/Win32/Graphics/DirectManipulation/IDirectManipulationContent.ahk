@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Encapsulates content inside a viewport, where content represents a visual surface clipped inside the viewport.
@@ -11,26 +12,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nn-directmanipulation-idirectmanipulationcontent
  * @namespace Windows.Win32.Graphics.DirectManipulation
  */
-class IDirectManipulationContent extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectManipulationContent extends IUnknown {
     /**
      * The interface identifier for IDirectManipulationContent
      * @type {Guid}
      */
-    static IID => Guid("{b89962cb-3d89-442b-bb58-5098fa0f9f16}")
+    static IID := Guid("{b89962cb-3d89-442b-bb58-5098fa0f9f16}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectManipulationContent interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetContentRect       : IntPtr
+        SetContentRect       : IntPtr
+        GetViewport          : IntPtr
+        GetTag               : IntPtr
+        SetTag               : IntPtr
+        GetOutputTransform   : IntPtr
+        GetContentTransform  : IntPtr
+        SyncContentTransform : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetContentRect", "SetContentRect", "GetViewport", "GetTag", "SetTag", "GetOutputTransform", "GetContentTransform", "SyncContentTransform"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectManipulationContent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the bounding rectangle of the content, relative to the bounding rectangle of the viewport (if defined).
@@ -41,7 +56,7 @@ class IDirectManipulationContent extends IUnknown {
      */
     GetContentRect() {
         contentSize := RECT()
-        result := ComCall(3, this, "ptr", contentSize, "HRESULT")
+        result := ComCall(3, this, RECT.Ptr, contentSize, "HRESULT")
         return contentSize
     }
 
@@ -54,7 +69,7 @@ class IDirectManipulationContent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-setcontentrect
      */
     SetContentRect(contentSize) {
-        result := ComCall(4, this, "ptr", contentSize, "HRESULT")
+        result := ComCall(4, this, RECT.Ptr, contentSize, "HRESULT")
         return result
     }
 
@@ -65,7 +80,7 @@ class IDirectManipulationContent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-getviewport
      */
     GetViewport(riid) {
-        result := ComCall(5, this, "ptr", riid, "ptr*", &_object := 0, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, riid, "ptr*", &_object := 0, "HRESULT")
         return _object
     }
 
@@ -88,7 +103,7 @@ class IDirectManipulationContent extends IUnknown {
         _objectMarshal := _object is VarRef ? "ptr*" : "ptr"
         idMarshal := id is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", riid, _objectMarshal, _object, idMarshal, id, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, riid, _objectMarshal, _object, idMarshal, id, "HRESULT")
         return result
     }
 
@@ -167,5 +182,39 @@ class IDirectManipulationContent extends IUnknown {
 
         result := ComCall(10, this, _matrixMarshal, _matrix, "uint", pointCount, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectManipulationContent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetContentRect := CallbackCreate(GetMethod(implObj, "GetContentRect"), flags, 2)
+        this.vtbl.SetContentRect := CallbackCreate(GetMethod(implObj, "SetContentRect"), flags, 2)
+        this.vtbl.GetViewport := CallbackCreate(GetMethod(implObj, "GetViewport"), flags, 3)
+        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 4)
+        this.vtbl.SetTag := CallbackCreate(GetMethod(implObj, "SetTag"), flags, 3)
+        this.vtbl.GetOutputTransform := CallbackCreate(GetMethod(implObj, "GetOutputTransform"), flags, 3)
+        this.vtbl.GetContentTransform := CallbackCreate(GetMethod(implObj, "GetContentTransform"), flags, 3)
+        this.vtbl.SyncContentTransform := CallbackCreate(GetMethod(implObj, "SyncContentTransform"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetContentRect)
+        CallbackFree(this.vtbl.SetContentRect)
+        CallbackFree(this.vtbl.GetViewport)
+        CallbackFree(this.vtbl.GetTag)
+        CallbackFree(this.vtbl.SetTag)
+        CallbackFree(this.vtbl.GetOutputTransform)
+        CallbackFree(this.vtbl.GetContentTransform)
+        CallbackFree(this.vtbl.SyncContentTransform)
     }
 }

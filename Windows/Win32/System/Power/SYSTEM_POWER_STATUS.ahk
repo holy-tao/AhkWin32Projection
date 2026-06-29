@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains information about the power status of the system.
@@ -8,18 +7,10 @@
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-system_power_status
  * @namespace Windows.Win32.System.Power
  */
-class SYSTEM_POWER_STATUS extends Win32Struct {
-    static sizeof => 12
+export default struct SYSTEM_POWER_STATUS {
+    #StructPack 4
 
-    static packingSize => 4
-
-    /**
-     * @type {Integer}
-     */
-    ACLineStatus {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    ACLineStatus : Int8
 
     /**
      * The battery charge status. This member can contain one or more of the following flags. 
@@ -101,21 +92,13 @@ class SYSTEM_POWER_STATUS extends Win32Struct {
      *  
      * 
      * The value is zero if the battery is not being charged and the battery capacity is between low and high.
-     * @type {Integer}
      */
-    BatteryFlag {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    BatteryFlag : Int8
 
     /**
      * The percentage of full battery charge remaining. This member can be a value in the range 0 to 100, or 255 if status is unknown.
-     * @type {Integer}
      */
-    BatteryLifePercent {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    BatteryLifePercent : Int8
 
     /**
      * The status of battery saver. To participate in energy conservation, avoid resource intensive tasks when battery saver is on. To be notified when this value changes, call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerpowersettingnotification">RegisterPowerSettingNotification</a> function with the <a href="https://docs.microsoft.com/windows/desktop/Power/power-setting-guids">power setting GUID</a>, <b>GUID_POWER_SAVING_STATUS</b>. 
@@ -153,28 +136,17 @@ class SYSTEM_POWER_STATUS extends Win32Struct {
      * <div class="alert"><b>Note</b>  This flag and the <b>GUID_POWER_SAVING_STATUS</b> GUID were introduced in Windows 10. This flag was previously reserved, named <b>Reserved1</b>, and had a value of 0.</div>
      * <div> </div>
      * For general information about battery saver, see <a href="https://docs.microsoft.com/windows-hardware/design/component-guidelines/battery-saver">battery saver (in the hardware component guidelines)</a>.
-     * @type {Integer}
      */
-    SystemStatusFlag {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    SystemStatusFlag : Int8
 
     /**
      * The number of seconds of battery life remaining, or –1 if remaining seconds are unknown or if the device is connected to AC power.
-     * @type {Integer}
      */
-    BatteryLifeTime {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    BatteryLifeTime : UInt32
 
     /**
      * The number of seconds of battery life when at full charge, or –1 if full battery lifetime is unknown or if the device is connected to AC power.
-     * @type {Integer}
      */
-    BatteryFullLifeTime {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    BatteryFullLifeTime : UInt32
+
 }

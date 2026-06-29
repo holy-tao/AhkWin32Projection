@@ -1,39 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ISWbemRefreshableItem.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISWbemRefreshableItem.ahk" { ISWbemRefreshableItem }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISWbemServicesEx.ahk" { ISWbemServicesEx }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Wmi
  */
-class ISWbemRefresher extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISWbemRefresher extends IDispatch {
     /**
      * The interface identifier for ISWbemRefresher
      * @type {Guid}
      */
-    static IID => Guid("{14d8250e-d9c2-11d3-b38f-00105a1f473a}")
+    static IID := Guid("{14d8250e-d9c2-11d3-b38f-00105a1f473a}")
 
     /**
      * The class identifier for SWbemRefresher
      * @type {Guid}
      */
-    static CLSID => Guid("{d269bf5c-d9c1-11d3-b38f-00105a1f473a}")
+    static CLSID := Guid("{d269bf5c-d9c1-11d3-b38f-00105a1f473a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISWbemRefresher interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get__NewEnum      : IntPtr
+        Item              : IntPtr
+        get_Count         : IntPtr
+        Add               : IntPtr
+        AddEnum           : IntPtr
+        Remove            : IntPtr
+        Refresh           : IntPtr
+        get_AutoReconnect : IntPtr
+        put_AutoReconnect : IntPtr
+        DeleteAll         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get__NewEnum", "Item", "get_Count", "Add", "AddEnum", "Remove", "Refresh", "get_AutoReconnect", "put_AutoReconnect", "DeleteAll"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISWbemRefresher.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IUnknown} 
@@ -92,25 +112,17 @@ class ISWbemRefresher extends IDispatch {
     }
 
     /**
-     * Adds an access-allowed access control entry (ACE) to an access control list (ACL). The access is granted to a specified security identifier (SID).
-     * @remarks
-     * The addition of an access-allowed ACE to an ACL is the most common form of ACL modification.
      * 
-     * The <b>AddAccessAllowedAce</b> and <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-addaccessdeniedace">AddAccessDeniedAce</a> functions add a new ACE to the end of the list of ACEs for the ACL. These functions do not automatically place the new ACE in the proper canonical order. It is the caller's responsibility to ensure that the ACL is in canonical order by adding ACEs in the proper sequence.
-     * 
-     * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure placed in the ACE by the <b>AddAccessAllowedAce</b> function specifies a type and size, but provides no inheritance and no ACE flags.
      * @param {ISWbemServicesEx} objWbemServices 
      * @param {BSTR} bsInstancePath 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
      * @returns {ISWbemRefreshableItem} 
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addaccessallowedace
      */
     Add(objWbemServices, bsInstancePath, iFlags, objWbemNamedValueSet) {
         bsInstancePath := bsInstancePath is String ? BSTR.Alloc(bsInstancePath).Value : bsInstancePath
 
-        result := ComCall(10, this, "ptr", objWbemServices, "ptr", bsInstancePath, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemRefreshableItem := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", objWbemServices, BSTR, bsInstancePath, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemRefreshableItem := 0, "HRESULT")
         return ISWbemRefreshableItem(objWbemRefreshableItem)
     }
 
@@ -125,28 +137,15 @@ class ISWbemRefresher extends IDispatch {
     AddEnum(objWbemServices, bsClassName, iFlags, objWbemNamedValueSet) {
         bsClassName := bsClassName is String ? BSTR.Alloc(bsClassName).Value : bsClassName
 
-        result := ComCall(11, this, "ptr", objWbemServices, "ptr", bsClassName, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemRefreshableItem := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", objWbemServices, BSTR, bsClassName, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemRefreshableItem := 0, "HRESULT")
         return ISWbemRefreshableItem(objWbemRefreshableItem)
     }
 
     /**
-     * Removes a TPM command from the local list of commands blocked from running on the computer.
-     * @remarks
-     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
+     * 
      * @param {Integer} iIndex 
      * @param {Integer} iFlags 
-     * @returns {HRESULT} Type: **uint32**
-     * 
-     * All TPM errors as well as errors specific to TPM Base Services can be returned.
-     * 
-     * Common return codes are listed below.
-     * 
-     * 
-     * 
-     * | Return code/value                                                                                                                                 | Description                           |
-     * |---------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------|
-     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl> | The method was successful.<br/> |
-     * @see https://learn.microsoft.com/windows/win32/SecProv/removeblockedcommand-win32-tpm
+     * @returns {HRESULT} 
      */
     Remove(iIndex, iFlags) {
         result := ComCall(12, this, "int", iIndex, "int", iFlags, "HRESULT")
@@ -154,13 +153,9 @@ class ISWbemRefresher extends IDispatch {
     }
 
     /**
-     * RefreshIscsiSendTargetPortal function instructs the iSCSI initiator service to establish a discovery session with the indicated target portal and transmit a SendTargets request to refresh the list of discovered targets for the iSCSI initiator service. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines RefreshIScsiSendTargetPortal as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * 
      * @param {Integer} iFlags 
-     * @returns {HRESULT} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-refreshiscsisendtargetportala
+     * @returns {HRESULT} 
      */
     Refresh(iFlags) {
         result := ComCall(13, this, "int", iFlags, "HRESULT")
@@ -172,7 +167,7 @@ class ISWbemRefresher extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_AutoReconnect() {
-        result := ComCall(14, this, "short*", &bCount := 0, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL.Ptr, &bCount := 0, "HRESULT")
         return bCount
     }
 
@@ -182,17 +177,54 @@ class ISWbemRefresher extends IDispatch {
      * @returns {HRESULT} 
      */
     put_AutoReconnect(bCount) {
-        result := ComCall(15, this, "short", bCount, "HRESULT")
+        result := ComCall(15, this, VARIANT_BOOL, bCount, "HRESULT")
         return result
     }
 
     /**
-     * The DeleteAllGPOLinks function deletes all GPO links for the specified site, domain, or organizational unit.
-     * @returns {HRESULT} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the header file WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-deleteallgpolinks
+     * 
+     * @returns {HRESULT} 
      */
     DeleteAll() {
         result := ComCall(16, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISWbemRefresher.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 6)
+        this.vtbl.AddEnum := CallbackCreate(GetMethod(implObj, "AddEnum"), flags, 6)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 3)
+        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 2)
+        this.vtbl.get_AutoReconnect := CallbackCreate(GetMethod(implObj, "get_AutoReconnect"), flags, 2)
+        this.vtbl.put_AutoReconnect := CallbackCreate(GetMethod(implObj, "put_AutoReconnect"), flags, 2)
+        this.vtbl.DeleteAll := CallbackCreate(GetMethod(implObj, "DeleteAll"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.Item)
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.AddEnum)
+        CallbackFree(this.vtbl.Remove)
+        CallbackFree(this.vtbl.Refresh)
+        CallbackFree(this.vtbl.get_AutoReconnect)
+        CallbackFree(this.vtbl.put_AutoReconnect)
+        CallbackFree(this.vtbl.DeleteAll)
     }
 }

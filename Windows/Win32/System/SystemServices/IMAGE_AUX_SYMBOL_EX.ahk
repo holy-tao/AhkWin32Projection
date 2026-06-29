@@ -1,230 +1,64 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IMAGE_AUX_SYMBOL_TOKEN_DEF.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IMAGE_AUX_SYMBOL_TOKEN_DEF.ahk" { IMAGE_AUX_SYMBOL_TOKEN_DEF }
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class IMAGE_AUX_SYMBOL_EX extends Win32Struct {
-    static sizeof => 104
+export default struct IMAGE_AUX_SYMBOL_EX {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _Sym extends Win32Struct {
-        static sizeof => 20
-        static packingSize => 4
+    struct _Sym {
+        WeakDefaultSymIndex : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        WeakDefaultSymIndex {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        WeakSearchType : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        WeakSearchType {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
+        rgbReserved : Int8[12]
 
-        /**
-         * @type {Array<Integer>}
-         */
-        rgbReserved {
-            get {
-                if(!this.HasProp("__rgbReservedProxyArray"))
-                    this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 8, 12, Primitive, "char")
-                return this.__rgbReservedProxyArray
-            }
-        }
     }
 
-    class _File extends Win32Struct {
-        static sizeof => 20
-        static packingSize => 1
+    struct _File {
+        Name : Int8[20]
 
-        /**
-         * @type {Array<Integer>}
-         */
-        Name {
-            get {
-                if(!this.HasProp("__NameProxyArray"))
-                    this.__NameProxyArray := Win32FixedArray(this.ptr + 0, 20, Primitive, "char")
-                return this.__NameProxyArray
-            }
-        }
     }
 
-    class _Section extends Win32Struct {
-        static sizeof => 20
-        static packingSize => 4
+    struct _Section {
+        Length : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Length {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        NumberOfRelocations : UInt16
 
-        /**
-         * @type {Integer}
-         */
-        NumberOfRelocations {
-            get => NumGet(this, 4, "ushort")
-            set => NumPut("ushort", value, this, 4)
-        }
+        NumberOfLinenumbers : UInt16
 
-        /**
-         * @type {Integer}
-         */
-        NumberOfLinenumbers {
-            get => NumGet(this, 6, "ushort")
-            set => NumPut("ushort", value, this, 6)
-        }
+        CheckSum : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        CheckSum {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
+        Number : Int16
 
-        /**
-         * @type {Integer}
-         */
-        Number {
-            get => NumGet(this, 12, "short")
-            set => NumPut("short", value, this, 12)
-        }
+        Selection : Int8
 
-        /**
-         * @type {Integer}
-         */
-        Selection {
-            get => NumGet(this, 14, "char")
-            set => NumPut("char", value, this, 14)
-        }
+        bReserved : Int8
 
-        /**
-         * @type {Integer}
-         */
-        bReserved {
-            get => NumGet(this, 15, "char")
-            set => NumPut("char", value, this, 15)
-        }
+        HighNumber : Int16
 
-        /**
-         * @type {Integer}
-         */
-        HighNumber {
-            get => NumGet(this, 16, "short")
-            set => NumPut("short", value, this, 16)
-        }
+        rgbReserved : Int8[2]
 
-        /**
-         * @type {Array<Integer>}
-         */
-        rgbReserved {
-            get {
-                if(!this.HasProp("__rgbReservedProxyArray"))
-                    this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 18, 2, Primitive, "char")
-                return this.__rgbReservedProxyArray
-            }
-        }
     }
 
-    class _CRC extends Win32Struct {
-        static sizeof => 20
-        static packingSize => 4
+    struct _CRC {
+        crc : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        crc {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        rgbReserved : Int8[16]
 
-        /**
-         * @type {Array<Integer>}
-         */
-        rgbReserved {
-            get {
-                if(!this.HasProp("__rgbReservedProxyArray"))
-                    this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
-                return this.__rgbReservedProxyArray
-            }
-        }
     }
 
-    /**
-     * @type {_Sym}
-     */
-    Sym {
-        get {
-            if(!this.HasProp("__Sym"))
-                this.__Sym := IMAGE_AUX_SYMBOL_EX._Sym(0, this)
-            return this.__Sym
-        }
-    }
+    Sym : IMAGE_AUX_SYMBOL_EX._Sym
 
-    /**
-     * @type {_File}
-     */
-    File {
-        get {
-            if(!this.HasProp("__File"))
-                this.__File := IMAGE_AUX_SYMBOL_EX._File(0, this)
-            return this.__File
-        }
-    }
+    rgbReserved : Int8[2]
 
-    /**
-     * @type {_Section}
-     */
-    Section {
-        get {
-            if(!this.HasProp("__Section"))
-                this.__Section := IMAGE_AUX_SYMBOL_EX._Section(0, this)
-            return this.__Section
-        }
-    }
-
-    /**
-     * @type {IMAGE_AUX_SYMBOL_TOKEN_DEF}
-     */
-    TokenDef {
-        get {
-            if(!this.HasProp("__TokenDef"))
-                this.__TokenDef := IMAGE_AUX_SYMBOL_TOKEN_DEF(0, this)
-            return this.__TokenDef
-        }
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    rgbReserved {
-        get {
-            if(!this.HasProp("__rgbReservedProxyArray"))
-                this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 20, 2, Primitive, "char")
-            return this.__rgbReservedProxyArray
-        }
-    }
-
-    /**
-     * @type {_CRC}
-     */
-    CRC {
-        get {
-            if(!this.HasProp("__CRC"))
-                this.__CRC := IMAGE_AUX_SYMBOL_EX._CRC(0, this)
-            return this.__CRC
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'File', { type: IMAGE_AUX_SYMBOL_EX._File, offset: 0 })
+        DefineProp(this.Prototype, 'Section', { type: IMAGE_AUX_SYMBOL_EX._Section, offset: 0 })
+        DefineProp(this.Prototype, 'TokenDef', { type: IMAGE_AUX_SYMBOL_TOKEN_DEF, offset: 0 })
+        DefineProp(this.Prototype, 'CRC', { type: IMAGE_AUX_SYMBOL_EX._CRC, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

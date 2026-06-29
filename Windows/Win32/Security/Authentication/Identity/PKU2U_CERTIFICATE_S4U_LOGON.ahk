@@ -1,75 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\PKU2U_LOGON_SUBMIT_TYPE.ahk
-#Include .\LSA_UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PKU2U_LOGON_SUBMIT_TYPE.ahk" { PKU2U_LOGON_SUBMIT_TYPE }
 
 /**
  * Specifies a certificate used for S4U logon.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-pku2u_certificate_s4u_logon
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class PKU2U_CERTIFICATE_S4U_LOGON extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct PKU2U_CERTIFICATE_S4U_LOGON {
+    #StructPack 8
 
     /**
      * A value of the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-pku2u_logon_submit_type">PKU2U_LOGON_SUBMIT_TYPE</a> enumeration that indicates the logon type.
-     * @type {PKU2U_LOGON_SUBMIT_TYPE}
      */
-    MessageType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    MessageType : PKU2U_LOGON_SUBMIT_TYPE
 
     /**
      * This member is reserved. Do not use it.
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : UInt32
 
     /**
      * The name of the user who is attempting to authenticate.
-     * @type {LSA_UNICODE_STRING}
      */
-    UserPrincipalName {
-        get {
-            if(!this.HasProp("__UserPrincipalName"))
-                this.__UserPrincipalName := LSA_UNICODE_STRING(8, this)
-            return this.__UserPrincipalName
-        }
-    }
+    UserPrincipalName : LSA_UNICODE_STRING
 
     /**
      * This member is reserved. Do not use it.
-     * @type {LSA_UNICODE_STRING}
      */
-    DomainName {
-        get {
-            if(!this.HasProp("__DomainName"))
-                this.__DomainName := LSA_UNICODE_STRING(24, this)
-            return this.__DomainName
-        }
-    }
+    DomainName : LSA_UNICODE_STRING
 
     /**
      * The size, in bytes, of the <b>Certificate</b> buffer.
-     * @type {Integer}
      */
-    CertificateLength {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    CertificateLength : UInt32
 
     /**
      * The certificate data.
-     * @type {Pointer<Integer>}
      */
-    Certificate {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    Certificate : IntPtr
+
 }

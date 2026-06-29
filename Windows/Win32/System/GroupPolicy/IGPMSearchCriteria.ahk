@@ -1,39 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\GPMSearchOperation.ahk" { GPMSearchOperation }
+#Import ".\GPMSearchProperty.ahk" { GPMSearchProperty }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IGPMSearchCriteria interface allows you to define the criteria to use for search operations when using the Group Policy Management Console (GPMC) interfaces. To create a GPMSearchCriteria object, call the IGPM::CreateSearchCriteria method.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmsearchcriteria
  * @namespace Windows.Win32.System.GroupPolicy
  */
-class IGPMSearchCriteria extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IGPMSearchCriteria extends IDispatch {
     /**
      * The interface identifier for IGPMSearchCriteria
      * @type {Guid}
      */
-    static IID => Guid("{d6f11c42-829b-48d4-83f5-3615b67dfc22}")
+    static IID := Guid("{d6f11c42-829b-48d4-83f5-3615b67dfc22}")
 
     /**
      * The class identifier for GPMSearchCriteria
      * @type {Guid}
      */
-    static CLSID => Guid("{17aaca26-5ce0-44fa-8cc0-5259e6483566}")
+    static CLSID := Guid("{17aaca26-5ce0-44fa-8cc0-5259e6483566}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGPMSearchCriteria interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Add : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Add"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGPMSearchCriteria.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds a criterion for search operations.
@@ -308,7 +319,27 @@ class IGPMSearchCriteria extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmsearchcriteria-add
      */
     Add(searchProperty, searchOperation, varValue) {
-        result := ComCall(7, this, "int", searchProperty, "int", searchOperation, "ptr", varValue, "HRESULT")
+        result := ComCall(7, this, GPMSearchProperty, searchProperty, GPMSearchOperation, searchOperation, VARIANT, varValue, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IGPMSearchCriteria.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Add)
     }
 }

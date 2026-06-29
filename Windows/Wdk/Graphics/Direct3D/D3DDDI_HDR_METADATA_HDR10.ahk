@@ -1,87 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DDDI_HDR_METADATA_HDR10 extends Win32Struct {
-    static sizeof => 28
+export default struct D3DDDI_HDR_METADATA_HDR10 {
+    #StructPack 4
 
-    static packingSize => 4
+    RedPrimary : UInt16[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    RedPrimary {
-        get {
-            if(!this.HasProp("__RedPrimaryProxyArray"))
-                this.__RedPrimaryProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "ushort")
-            return this.__RedPrimaryProxyArray
-        }
-    }
+    GreenPrimary : UInt16[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    GreenPrimary {
-        get {
-            if(!this.HasProp("__GreenPrimaryProxyArray"))
-                this.__GreenPrimaryProxyArray := Win32FixedArray(this.ptr + 4, 2, Primitive, "ushort")
-            return this.__GreenPrimaryProxyArray
-        }
-    }
+    BluePrimary : UInt16[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    BluePrimary {
-        get {
-            if(!this.HasProp("__BluePrimaryProxyArray"))
-                this.__BluePrimaryProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "ushort")
-            return this.__BluePrimaryProxyArray
-        }
-    }
+    WhitePoint : UInt16[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    WhitePoint {
-        get {
-            if(!this.HasProp("__WhitePointProxyArray"))
-                this.__WhitePointProxyArray := Win32FixedArray(this.ptr + 12, 2, Primitive, "ushort")
-            return this.__WhitePointProxyArray
-        }
-    }
+    MaxMasteringLuminance : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxMasteringLuminance {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    MinMasteringLuminance : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MinMasteringLuminance {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    MaxContentLightLevel : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    MaxContentLightLevel {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
-    }
+    MaxFrameAverageLightLevel : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    MaxFrameAverageLightLevel {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
-    }
 }

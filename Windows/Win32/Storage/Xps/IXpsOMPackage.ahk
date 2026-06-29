@@ -1,11 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IXpsOMDocumentSequence.ahk
-#Include .\IXpsOMCoreProperties.ahk
-#Include ..\Packaging\Opc\IOpcPartUri.ahk
-#Include .\IXpsOMImageResource.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\ISequentialStream.ahk" { ISequentialStream }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IXpsOMDocumentSequence.ahk" { IXpsOMDocumentSequence }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IXpsOMImageResource.ahk" { IXpsOMImageResource }
+#Import ".\IXpsOMCoreProperties.ahk" { IXpsOMCoreProperties }
 
 /**
  * Provides the top-level entry into the XPS object model tree.
@@ -52,26 +57,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompackage
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMPackage extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMPackage extends IUnknown {
     /**
      * The interface identifier for IXpsOMPackage
      * @type {Guid}
      */
-    static IID => Guid("{18c3df65-81e1-4674-91dc-fc452f5a416f}")
+    static IID := Guid("{18c3df65-81e1-4674-91dc-fc452f5a416f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMPackage interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDocumentSequence       : IntPtr
+        SetDocumentSequence       : IntPtr
+        GetCoreProperties         : IntPtr
+        SetCoreProperties         : IntPtr
+        GetDiscardControlPartName : IntPtr
+        SetDiscardControlPartName : IntPtr
+        GetThumbnailResource      : IntPtr
+        SetThumbnailResource      : IntPtr
+        WriteToFile               : IntPtr
+        WriteToStream             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDocumentSequence", "SetDocumentSequence", "GetCoreProperties", "SetCoreProperties", "GetDiscardControlPartName", "SetDiscardControlPartName", "GetThumbnailResource", "SetThumbnailResource", "WriteToFile", "WriteToStream"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMPackage.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a pointer to the IXpsOMDocumentSequence interface that contains the document sequence of the XPS package.
@@ -360,7 +381,7 @@ class IXpsOMPackage extends IUnknown {
     WriteToFile(fileName, securityAttributes, flagsAndAttributes, optimizeMarkupSize) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
 
-        result := ComCall(11, this, "ptr", fileName, "ptr", securityAttributes, "uint", flagsAndAttributes, "int", optimizeMarkupSize, "HRESULT")
+        result := ComCall(11, this, "ptr", fileName, SECURITY_ATTRIBUTES.Ptr, securityAttributes, "uint", flagsAndAttributes, BOOL, optimizeMarkupSize, "HRESULT")
         return result
     }
 
@@ -436,7 +457,45 @@ class IXpsOMPackage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompackage-writetostream
      */
     WriteToStream(stream, optimizeMarkupSize) {
-        result := ComCall(12, this, "ptr", stream, "int", optimizeMarkupSize, "HRESULT")
+        result := ComCall(12, this, "ptr", stream, BOOL, optimizeMarkupSize, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IXpsOMPackage.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDocumentSequence := CallbackCreate(GetMethod(implObj, "GetDocumentSequence"), flags, 2)
+        this.vtbl.SetDocumentSequence := CallbackCreate(GetMethod(implObj, "SetDocumentSequence"), flags, 2)
+        this.vtbl.GetCoreProperties := CallbackCreate(GetMethod(implObj, "GetCoreProperties"), flags, 2)
+        this.vtbl.SetCoreProperties := CallbackCreate(GetMethod(implObj, "SetCoreProperties"), flags, 2)
+        this.vtbl.GetDiscardControlPartName := CallbackCreate(GetMethod(implObj, "GetDiscardControlPartName"), flags, 2)
+        this.vtbl.SetDiscardControlPartName := CallbackCreate(GetMethod(implObj, "SetDiscardControlPartName"), flags, 2)
+        this.vtbl.GetThumbnailResource := CallbackCreate(GetMethod(implObj, "GetThumbnailResource"), flags, 2)
+        this.vtbl.SetThumbnailResource := CallbackCreate(GetMethod(implObj, "SetThumbnailResource"), flags, 2)
+        this.vtbl.WriteToFile := CallbackCreate(GetMethod(implObj, "WriteToFile"), flags, 5)
+        this.vtbl.WriteToStream := CallbackCreate(GetMethod(implObj, "WriteToStream"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDocumentSequence)
+        CallbackFree(this.vtbl.SetDocumentSequence)
+        CallbackFree(this.vtbl.GetCoreProperties)
+        CallbackFree(this.vtbl.SetCoreProperties)
+        CallbackFree(this.vtbl.GetDiscardControlPartName)
+        CallbackFree(this.vtbl.SetDiscardControlPartName)
+        CallbackFree(this.vtbl.GetThumbnailResource)
+        CallbackFree(this.vtbl.SetThumbnailResource)
+        CallbackFree(this.vtbl.WriteToFile)
+        CallbackFree(this.vtbl.WriteToStream)
     }
 }

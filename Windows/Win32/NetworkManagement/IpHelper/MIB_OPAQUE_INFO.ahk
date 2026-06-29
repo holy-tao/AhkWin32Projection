@@ -1,41 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains information returned from a MIB opaque query.
  * @see https://learn.microsoft.com/windows/win32/api/iprtrmib/ns-iprtrmib-mib_opaque_info
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_OPAQUE_INFO extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct MIB_OPAQUE_INFO {
+    #StructPack 8
 
     /**
      * The type of information returned.
-     * @type {Integer}
      */
-    dwId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ullAlign {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ullAlign : Int64
 
-    /**
-     * @type {Array<Integer>}
-     */
-    rgbyData {
-        get {
-            if(!this.HasProp("__rgbyDataProxyArray"))
-                this.__rgbyDataProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
-            return this.__rgbyDataProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'rgbyData', { type: Int8[1], offset: 8 })
+        this.DeleteProp("__New")
     }
 }

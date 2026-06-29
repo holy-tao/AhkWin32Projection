@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The locally unique identifier (LUID) for a network interface.
@@ -12,26 +11,19 @@
  * @see https://learn.microsoft.com/windows/win32/api/ifdef/ns-ifdef-net_luid_lh
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NET_LUID_LH extends Win32Struct {
-    static sizeof => 16
+export default struct NET_LUID_LH {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Info extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
-
+    struct _Info {
         /**
          * This bitfield backs the following members:
          * - Reserved
          * - NetLuidIndex
          * - IfType
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int64
+
 
         /**
          * @type {Integer}
@@ -54,22 +46,11 @@ class NET_LUID_LH extends Win32Struct {
      * Type: <b>ULONG64</b>
      * 
      * A 64-bit value that represents the LUID.
-     * @type {Integer}
      */
-    Value {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Value : Int64
 
-    /**
-     * A named union containing the component fields in the 64-bit LUID  <b>Value</b> member.
-     * @type {_Info}
-     */
-    Info {
-        get {
-            if(!this.HasProp("__Info"))
-                this.__Info := NET_LUID_LH._Info(0, this)
-            return this.__Info
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Info', { type: NET_LUID_LH._Info, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

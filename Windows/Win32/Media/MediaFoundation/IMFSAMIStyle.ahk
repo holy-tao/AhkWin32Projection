@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Sets and retrieves Synchronized Accessible Media Interchange (SAMI) styles on the SAMI Media Source.
@@ -11,26 +13,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsamistyle
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFSAMIStyle extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFSAMIStyle extends IUnknown {
     /**
      * The interface identifier for IMFSAMIStyle
      * @type {Guid}
      */
-    static IID => Guid("{a7e025dd-5303-4a62-89d6-e747e1efac73}")
+    static IID := Guid("{a7e025dd-5303-4a62-89d6-e747e1efac73}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFSAMIStyle interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetStyleCount    : IntPtr
+        GetStyles        : IntPtr
+        SetSelectedStyle : IntPtr
+        GetSelectedStyle : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetStyleCount", "GetStyles", "SetSelectedStyle", "GetSelectedStyle"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFSAMIStyle.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the number of styles defined in the SAMI file.
@@ -49,7 +61,7 @@ class IMFSAMIStyle extends IUnknown {
      */
     GetStyles() {
         pPropVarStyleArray := PROPVARIANT()
-        result := ComCall(4, this, "ptr", pPropVarStyleArray, "HRESULT")
+        result := ComCall(4, this, PROPVARIANT.Ptr, pPropVarStyleArray, "HRESULT")
         return pPropVarStyleArray
     }
 
@@ -72,7 +84,33 @@ class IMFSAMIStyle extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsamistyle-getselectedstyle
      */
     GetSelectedStyle() {
-        result := ComCall(6, this, "ptr*", &ppwszStyle := 0, "HRESULT")
+        result := ComCall(6, this, PWSTR.Ptr, &ppwszStyle := 0, "HRESULT")
         return ppwszStyle
+    }
+
+    Query(iid) {
+        if (IMFSAMIStyle.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetStyleCount := CallbackCreate(GetMethod(implObj, "GetStyleCount"), flags, 2)
+        this.vtbl.GetStyles := CallbackCreate(GetMethod(implObj, "GetStyles"), flags, 2)
+        this.vtbl.SetSelectedStyle := CallbackCreate(GetMethod(implObj, "SetSelectedStyle"), flags, 2)
+        this.vtbl.GetSelectedStyle := CallbackCreate(GetMethod(implObj, "GetSelectedStyle"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetStyleCount)
+        CallbackFree(this.vtbl.GetStyles)
+        CallbackFree(this.vtbl.SetSelectedStyle)
+        CallbackFree(this.vtbl.GetSelectedStyle)
     }
 }

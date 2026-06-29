@@ -1,34 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITRequestEvent interface contains methods that allow an application to receive and process Assisted Telephony request events.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itrequestevent
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITRequestEvent extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITRequestEvent extends IDispatch {
     /**
      * The interface identifier for ITRequestEvent
      * @type {Guid}
      */
-    static IID => Guid("{ac48ffde-f8c4-11d1-a030-00c04fb6809f}")
+    static IID := Guid("{ac48ffde-f8c4-11d1-a030-00c04fb6809f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITRequestEvent interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_RegistrationInstance : IntPtr
+        get_RequestMode          : IntPtr
+        get_DestAddress          : IntPtr
+        get_AppName              : IntPtr
+        get_CalledParty          : IntPtr
+        get_Comment              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_RegistrationInstance", "get_RequestMode", "get_DestAddress", "get_AppName", "get_CalledParty", "get_Comment"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITRequestEvent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -101,8 +114,8 @@ class ITRequestEvent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itrequestevent-get_destaddress
      */
     get_DestAddress() {
-        ppDestAddress := BSTR()
-        result := ComCall(9, this, "ptr", ppDestAddress, "HRESULT")
+        ppDestAddress := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, ppDestAddress, "HRESULT")
         return ppDestAddress
     }
 
@@ -115,8 +128,8 @@ class ITRequestEvent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itrequestevent-get_appname
      */
     get_AppName() {
-        ppAppName := BSTR()
-        result := ComCall(10, this, "ptr", ppAppName, "HRESULT")
+        ppAppName := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, ppAppName, "HRESULT")
         return ppAppName
     }
 
@@ -129,8 +142,8 @@ class ITRequestEvent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itrequestevent-get_calledparty
      */
     get_CalledParty() {
-        ppCalledParty := BSTR()
-        result := ComCall(11, this, "ptr", ppCalledParty, "HRESULT")
+        ppCalledParty := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, ppCalledParty, "HRESULT")
         return ppCalledParty
     }
 
@@ -143,8 +156,38 @@ class ITRequestEvent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itrequestevent-get_comment
      */
     get_Comment() {
-        ppComment := BSTR()
-        result := ComCall(12, this, "ptr", ppComment, "HRESULT")
+        ppComment := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, ppComment, "HRESULT")
         return ppComment
+    }
+
+    Query(iid) {
+        if (ITRequestEvent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_RegistrationInstance := CallbackCreate(GetMethod(implObj, "get_RegistrationInstance"), flags, 2)
+        this.vtbl.get_RequestMode := CallbackCreate(GetMethod(implObj, "get_RequestMode"), flags, 2)
+        this.vtbl.get_DestAddress := CallbackCreate(GetMethod(implObj, "get_DestAddress"), flags, 2)
+        this.vtbl.get_AppName := CallbackCreate(GetMethod(implObj, "get_AppName"), flags, 2)
+        this.vtbl.get_CalledParty := CallbackCreate(GetMethod(implObj, "get_CalledParty"), flags, 2)
+        this.vtbl.get_Comment := CallbackCreate(GetMethod(implObj, "get_Comment"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_RegistrationInstance)
+        CallbackFree(this.vtbl.get_RequestMode)
+        CallbackFree(this.vtbl.get_DestAddress)
+        CallbackFree(this.vtbl.get_AppName)
+        CallbackFree(this.vtbl.get_CalledParty)
+        CallbackFree(this.vtbl.get_Comment)
     }
 }

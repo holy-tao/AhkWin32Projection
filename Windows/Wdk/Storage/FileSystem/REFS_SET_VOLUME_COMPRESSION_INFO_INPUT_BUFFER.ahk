@@ -1,56 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\REFS_COMPRESSION_FORMATS.ahk
-#Include .\REFS_SET_VOLUME_COMPRESSION_INFO_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\REFS_SET_VOLUME_COMPRESSION_INFO_FLAGS.ahk" { REFS_SET_VOLUME_COMPRESSION_INFO_FLAGS }
+#Import ".\REFS_COMPRESSION_FORMATS.ahk" { REFS_COMPRESSION_FORMATS }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class REFS_SET_VOLUME_COMPRESSION_INFO_INPUT_BUFFER extends Win32Struct {
-    static sizeof => 80
+export default struct REFS_SET_VOLUME_COMPRESSION_INFO_INPUT_BUFFER {
+    #StructPack 8
 
-    static packingSize => 8
+    CompressionFormat : REFS_COMPRESSION_FORMATS
 
-    /**
-     * @type {REFS_COMPRESSION_FORMATS}
-     */
-    CompressionFormat {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    CompressionLevel : Int16
 
-    /**
-     * @type {Integer}
-     */
-    CompressionLevel {
-        get => NumGet(this, 4, "short")
-        set => NumPut("short", value, this, 4)
-    }
+    CompressionChunkSizeBytes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CompressionChunkSizeBytes {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Flags : REFS_SET_VOLUME_COMPRESSION_INFO_FLAGS
 
-    /**
-     * @type {REFS_SET_VOLUME_COMPRESSION_INFO_FLAGS}
-     */
-    Flags {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    Reserved : Int64[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
-    }
 }

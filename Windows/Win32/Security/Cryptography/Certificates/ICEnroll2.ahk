@@ -1,39 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ICEnroll.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ICEnroll.ahk" { ICEnroll }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The ICEnroll2 interface is one of several interfaces that represent the Certificate Enrollment Control.
  * @see https://learn.microsoft.com/windows/win32/api/xenroll/nn-xenroll-icenroll2
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICEnroll2 extends ICEnroll {
-
-    static sizeof => A_PtrSize
+export default struct ICEnroll2 extends ICEnroll {
     /**
      * The interface identifier for ICEnroll2
      * @type {Guid}
      */
-    static IID => Guid("{704ca730-c90b-11d1-9bec-00c04fc295e1}")
+    static IID := Guid("{704ca730-c90b-11d1-9bec-00c04fc295e1}")
 
     /**
      * The class identifier for CEnroll2
      * @type {Guid}
      */
-    static CLSID => Guid("{127698e4-e730-4e5c-a2b1-21490a70c8a1}")
+    static CLSID := Guid("{127698e4-e730-4e5c-a2b1-21490a70c8a1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 63
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICEnroll2 interfaces
+    */
+    struct Vtbl extends ICEnroll.Vtbl {
+        addCertTypeToRequest        : IntPtr
+        addNameValuePairToSignature : IntPtr
+        get_WriteCertToUserDS       : IntPtr
+        put_WriteCertToUserDS       : IntPtr
+        get_EnableT61DNEncoding     : IntPtr
+        put_EnableT61DNEncoding     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["addCertTypeToRequest", "addNameValuePairToSignature", "get_WriteCertToUserDS", "put_WriteCertToUserDS", "get_EnableT61DNEncoding", "put_EnableT61DNEncoding"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICEnroll2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BOOL} 
@@ -63,7 +78,7 @@ class ICEnroll2 extends ICEnroll {
     addCertTypeToRequest(CertType) {
         CertType := CertType is String ? BSTR.Alloc(CertType).Value : CertType
 
-        result := ComCall(63, this, "ptr", CertType, "HRESULT")
+        result := ComCall(63, this, BSTR, CertType, "HRESULT")
         return result
     }
 
@@ -81,7 +96,7 @@ class ICEnroll2 extends ICEnroll {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
 
-        result := ComCall(64, this, "ptr", Name, "ptr", Value, "HRESULT")
+        result := ComCall(64, this, BSTR, Name, BSTR, Value, "HRESULT")
         return result
     }
 
@@ -105,7 +120,7 @@ class ICEnroll2 extends ICEnroll {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll2-get_writecerttouserds
      */
     get_WriteCertToUserDS() {
-        result := ComCall(65, this, "int*", &fBool := 0, "HRESULT")
+        result := ComCall(65, this, BOOL.Ptr, &fBool := 0, "HRESULT")
         return fBool
     }
 
@@ -130,7 +145,7 @@ class ICEnroll2 extends ICEnroll {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll2-put_writecerttouserds
      */
     put_WriteCertToUserDS(fBool) {
-        result := ComCall(66, this, "int", fBool, "HRESULT")
+        result := ComCall(66, this, BOOL, fBool, "HRESULT")
         return result
     }
 
@@ -151,7 +166,7 @@ class ICEnroll2 extends ICEnroll {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll2-get_enablet61dnencoding
      */
     get_EnableT61DNEncoding() {
-        result := ComCall(67, this, "int*", &fBool := 0, "HRESULT")
+        result := ComCall(67, this, BOOL.Ptr, &fBool := 0, "HRESULT")
         return fBool
     }
 
@@ -173,7 +188,37 @@ class ICEnroll2 extends ICEnroll {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll2-put_enablet61dnencoding
      */
     put_EnableT61DNEncoding(fBool) {
-        result := ComCall(68, this, "int", fBool, "HRESULT")
+        result := ComCall(68, this, BOOL, fBool, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICEnroll2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.addCertTypeToRequest := CallbackCreate(GetMethod(implObj, "addCertTypeToRequest"), flags, 2)
+        this.vtbl.addNameValuePairToSignature := CallbackCreate(GetMethod(implObj, "addNameValuePairToSignature"), flags, 3)
+        this.vtbl.get_WriteCertToUserDS := CallbackCreate(GetMethod(implObj, "get_WriteCertToUserDS"), flags, 2)
+        this.vtbl.put_WriteCertToUserDS := CallbackCreate(GetMethod(implObj, "put_WriteCertToUserDS"), flags, 2)
+        this.vtbl.get_EnableT61DNEncoding := CallbackCreate(GetMethod(implObj, "get_EnableT61DNEncoding"), flags, 2)
+        this.vtbl.put_EnableT61DNEncoding := CallbackCreate(GetMethod(implObj, "put_EnableT61DNEncoding"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.addCertTypeToRequest)
+        CallbackFree(this.vtbl.addNameValuePairToSignature)
+        CallbackFree(this.vtbl.get_WriteCertToUserDS)
+        CallbackFree(this.vtbl.put_WriteCertToUserDS)
+        CallbackFree(this.vtbl.get_EnableT61DNEncoding)
+        CallbackFree(this.vtbl.put_EnableT61DNEncoding)
     }
 }

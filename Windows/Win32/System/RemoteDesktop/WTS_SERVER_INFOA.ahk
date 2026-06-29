@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains information about a specific Remote Desktop Services server. (ANSI)
@@ -10,17 +10,12 @@
  * @namespace Windows.Win32.System.RemoteDesktop
  * @charset ANSI
  */
-class WTS_SERVER_INFOA extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 8
+export default struct WTS_SERVER_INFOA {
+    #StructPack 8
 
     /**
      * Name of the server.
-     * @type {PSTR}
      */
-    pServerName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pServerName : PSTR
+
 }

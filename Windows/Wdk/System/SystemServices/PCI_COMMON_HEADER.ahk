@@ -1,559 +1,150 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCI_COMMON_HEADER extends Win32Struct {
-    static sizeof => 64
+export default struct PCI_COMMON_HEADER {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _u_e__Union extends Win32Struct {
-        static sizeof => 48
-        static packingSize => 4
+    struct _u {
 
-        class _PCI_HEADER_TYPE_0 extends Win32Struct {
-            static sizeof => 48
-            static packingSize => 4
+        struct _PCI_HEADER_TYPE_0 {
+            BaseAddresses : UInt32[6]
 
-            /**
-             * @type {Array<Integer>}
-             */
-            BaseAddresses {
-                get {
-                    if(!this.HasProp("__BaseAddressesProxyArray"))
-                        this.__BaseAddressesProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "uint")
-                    return this.__BaseAddressesProxyArray
-                }
-            }
+            CIS : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            CIS {
-                get => NumGet(this, 24, "uint")
-                set => NumPut("uint", value, this, 24)
-            }
+            SubVendorID : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            SubVendorID {
-                get => NumGet(this, 28, "ushort")
-                set => NumPut("ushort", value, this, 28)
-            }
+            SubSystemID : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            SubSystemID {
-                get => NumGet(this, 30, "ushort")
-                set => NumPut("ushort", value, this, 30)
-            }
+            ROMBaseAddress : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            ROMBaseAddress {
-                get => NumGet(this, 32, "uint")
-                set => NumPut("uint", value, this, 32)
-            }
+            CapabilitiesPtr : Int8
 
-            /**
-             * @type {Integer}
-             */
-            CapabilitiesPtr {
-                get => NumGet(this, 36, "char")
-                set => NumPut("char", value, this, 36)
-            }
+            Reserved1 : Int8[3]
 
-            /**
-             * @type {Array<Integer>}
-             */
-            Reserved1 {
-                get {
-                    if(!this.HasProp("__Reserved1ProxyArray"))
-                        this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 37, 3, Primitive, "char")
-                    return this.__Reserved1ProxyArray
-                }
-            }
+            Reserved2 : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Reserved2 {
-                get => NumGet(this, 40, "uint")
-                set => NumPut("uint", value, this, 40)
-            }
+            InterruptLine : Int8
 
-            /**
-             * @type {Integer}
-             */
-            InterruptLine {
-                get => NumGet(this, 44, "char")
-                set => NumPut("char", value, this, 44)
-            }
+            InterruptPin : Int8
 
-            /**
-             * @type {Integer}
-             */
-            InterruptPin {
-                get => NumGet(this, 45, "char")
-                set => NumPut("char", value, this, 45)
-            }
+            MinimumGrant : Int8
 
-            /**
-             * @type {Integer}
-             */
-            MinimumGrant {
-                get => NumGet(this, 46, "char")
-                set => NumPut("char", value, this, 46)
-            }
+            MaximumLatency : Int8
 
-            /**
-             * @type {Integer}
-             */
-            MaximumLatency {
-                get => NumGet(this, 47, "char")
-                set => NumPut("char", value, this, 47)
-            }
         }
 
-        class _PCI_HEADER_TYPE_1 extends Win32Struct {
-            static sizeof => 48
-            static packingSize => 4
+        struct _PCI_HEADER_TYPE_1 {
+            BaseAddresses : UInt32[2]
 
-            /**
-             * @type {Array<Integer>}
-             */
-            BaseAddresses {
-                get {
-                    if(!this.HasProp("__BaseAddressesProxyArray"))
-                        this.__BaseAddressesProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "uint")
-                    return this.__BaseAddressesProxyArray
-                }
-            }
+            PrimaryBus : Int8
 
-            /**
-             * @type {Integer}
-             */
-            PrimaryBus {
-                get => NumGet(this, 8, "char")
-                set => NumPut("char", value, this, 8)
-            }
+            SecondaryBus : Int8
 
-            /**
-             * @type {Integer}
-             */
-            SecondaryBus {
-                get => NumGet(this, 9, "char")
-                set => NumPut("char", value, this, 9)
-            }
+            SubordinateBus : Int8
 
-            /**
-             * @type {Integer}
-             */
-            SubordinateBus {
-                get => NumGet(this, 10, "char")
-                set => NumPut("char", value, this, 10)
-            }
+            SecondaryLatency : Int8
 
-            /**
-             * @type {Integer}
-             */
-            SecondaryLatency {
-                get => NumGet(this, 11, "char")
-                set => NumPut("char", value, this, 11)
-            }
+            IOBase : Int8
 
-            /**
-             * @type {Integer}
-             */
-            IOBase {
-                get => NumGet(this, 12, "char")
-                set => NumPut("char", value, this, 12)
-            }
+            IOLimit : Int8
 
-            /**
-             * @type {Integer}
-             */
-            IOLimit {
-                get => NumGet(this, 13, "char")
-                set => NumPut("char", value, this, 13)
-            }
+            SecondaryStatus : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            SecondaryStatus {
-                get => NumGet(this, 14, "ushort")
-                set => NumPut("ushort", value, this, 14)
-            }
+            MemoryBase : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            MemoryBase {
-                get => NumGet(this, 16, "ushort")
-                set => NumPut("ushort", value, this, 16)
-            }
+            MemoryLimit : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            MemoryLimit {
-                get => NumGet(this, 18, "ushort")
-                set => NumPut("ushort", value, this, 18)
-            }
+            PrefetchBase : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            PrefetchBase {
-                get => NumGet(this, 20, "ushort")
-                set => NumPut("ushort", value, this, 20)
-            }
+            PrefetchLimit : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            PrefetchLimit {
-                get => NumGet(this, 22, "ushort")
-                set => NumPut("ushort", value, this, 22)
-            }
+            PrefetchBaseUpper32 : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            PrefetchBaseUpper32 {
-                get => NumGet(this, 24, "uint")
-                set => NumPut("uint", value, this, 24)
-            }
+            PrefetchLimitUpper32 : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            PrefetchLimitUpper32 {
-                get => NumGet(this, 28, "uint")
-                set => NumPut("uint", value, this, 28)
-            }
+            IOBaseUpper16 : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            IOBaseUpper16 {
-                get => NumGet(this, 32, "ushort")
-                set => NumPut("ushort", value, this, 32)
-            }
+            IOLimitUpper16 : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            IOLimitUpper16 {
-                get => NumGet(this, 34, "ushort")
-                set => NumPut("ushort", value, this, 34)
-            }
+            CapabilitiesPtr : Int8
 
-            /**
-             * @type {Integer}
-             */
-            CapabilitiesPtr {
-                get => NumGet(this, 36, "char")
-                set => NumPut("char", value, this, 36)
-            }
+            Reserved1 : Int8[3]
 
-            /**
-             * @type {Array<Integer>}
-             */
-            Reserved1 {
-                get {
-                    if(!this.HasProp("__Reserved1ProxyArray"))
-                        this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 37, 3, Primitive, "char")
-                    return this.__Reserved1ProxyArray
-                }
-            }
+            ROMBaseAddress : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            ROMBaseAddress {
-                get => NumGet(this, 40, "uint")
-                set => NumPut("uint", value, this, 40)
-            }
+            InterruptLine : Int8
 
-            /**
-             * @type {Integer}
-             */
-            InterruptLine {
-                get => NumGet(this, 44, "char")
-                set => NumPut("char", value, this, 44)
-            }
+            InterruptPin : Int8
 
-            /**
-             * @type {Integer}
-             */
-            InterruptPin {
-                get => NumGet(this, 45, "char")
-                set => NumPut("char", value, this, 45)
-            }
+            BridgeControl : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            BridgeControl {
-                get => NumGet(this, 46, "ushort")
-                set => NumPut("ushort", value, this, 46)
-            }
         }
 
-        class _PCI_HEADER_TYPE_2 extends Win32Struct {
-            static sizeof => 48
-            static packingSize => 4
+        struct _PCI_HEADER_TYPE_2 {
+            SocketRegistersBaseAddress : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            SocketRegistersBaseAddress {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            CapabilitiesPtr : Int8
 
-            /**
-             * @type {Integer}
-             */
-            CapabilitiesPtr {
-                get => NumGet(this, 4, "char")
-                set => NumPut("char", value, this, 4)
-            }
+            Reserved : Int8
 
-            /**
-             * @type {Integer}
-             */
-            Reserved {
-                get => NumGet(this, 5, "char")
-                set => NumPut("char", value, this, 5)
-            }
+            SecondaryStatus : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            SecondaryStatus {
-                get => NumGet(this, 6, "ushort")
-                set => NumPut("ushort", value, this, 6)
-            }
+            PrimaryBus : Int8
 
-            /**
-             * @type {Integer}
-             */
-            PrimaryBus {
-                get => NumGet(this, 8, "char")
-                set => NumPut("char", value, this, 8)
-            }
+            SecondaryBus : Int8
 
-            /**
-             * @type {Integer}
-             */
-            SecondaryBus {
-                get => NumGet(this, 9, "char")
-                set => NumPut("char", value, this, 9)
-            }
+            SubordinateBus : Int8
 
-            /**
-             * @type {Integer}
-             */
-            SubordinateBus {
-                get => NumGet(this, 10, "char")
-                set => NumPut("char", value, this, 10)
-            }
+            SecondaryLatency : Int8
 
-            /**
-             * @type {Integer}
-             */
-            SecondaryLatency {
-                get => NumGet(this, 11, "char")
-                set => NumPut("char", value, this, 11)
-            }
+            Base : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Base {
-                get => NumGet(this, 12, "uint")
-                set => NumPut("uint", value, this, 12)
-            }
+            Limit : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Limit {
-                get => NumGet(this, 16, "uint")
-                set => NumPut("uint", value, this, 16)
-            }
+            InterruptLine : Int8
 
-            /**
-             * @type {Integer}
-             */
-            InterruptLine {
-                get => NumGet(this, 44, "char")
-                set => NumPut("char", value, this, 44)
-            }
+            InterruptPin : Int8
 
-            /**
-             * @type {Integer}
-             */
-            InterruptPin {
-                get => NumGet(this, 45, "char")
-                set => NumPut("char", value, this, 45)
-            }
+            BridgeControl : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            BridgeControl {
-                get => NumGet(this, 46, "ushort")
-                set => NumPut("ushort", value, this, 46)
-            }
         }
 
-        /**
-         * @type {_PCI_HEADER_TYPE_0}
-         */
-        type0 {
-            get {
-                if(!this.HasProp("__type0"))
-                    this.__type0 := PCI_COMMON_HEADER._u_e__Union._PCI_HEADER_TYPE_0(0, this)
-                return this.__type0
-            }
-        }
+        type0 : PCI_COMMON_HEADER._u._PCI_HEADER_TYPE_0
 
-        /**
-         * @type {_PCI_HEADER_TYPE_1}
-         */
-        type1 {
-            get {
-                if(!this.HasProp("__type1"))
-                    this.__type1 := PCI_COMMON_HEADER._u_e__Union._PCI_HEADER_TYPE_1(0, this)
-                return this.__type1
-            }
-        }
-
-        /**
-         * @type {_PCI_HEADER_TYPE_2}
-         */
-        type2 {
-            get {
-                if(!this.HasProp("__type2"))
-                    this.__type2 := PCI_COMMON_HEADER._u_e__Union._PCI_HEADER_TYPE_2(0, this)
-                return this.__type2
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'type1', { type: PCI_COMMON_HEADER._u._PCI_HEADER_TYPE_1, offset: 0 })
+            DefineProp(this.Prototype, 'type2', { type: PCI_COMMON_HEADER._u._PCI_HEADER_TYPE_2, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    VendorID {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    VendorID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DeviceID {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    DeviceID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Command {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    Command : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Status {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    Status : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    RevisionID {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    RevisionID : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ProgIf {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    ProgIf : Int8
 
-    /**
-     * @type {Integer}
-     */
-    SubClass {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    SubClass : Int8
 
-    /**
-     * @type {Integer}
-     */
-    BaseClass {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
-    }
+    BaseClass : Int8
 
-    /**
-     * @type {Integer}
-     */
-    CacheLineSize {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    CacheLineSize : Int8
 
-    /**
-     * @type {Integer}
-     */
-    LatencyTimer {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
-    }
+    LatencyTimer : Int8
 
-    /**
-     * @type {Integer}
-     */
-    HeaderType {
-        get => NumGet(this, 14, "char")
-        set => NumPut("char", value, this, 14)
-    }
+    HeaderType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    BIST {
-        get => NumGet(this, 15, "char")
-        set => NumPut("char", value, this, 15)
-    }
+    BIST : Int8
 
-    /**
-     * @type {_u_e__Union}
-     */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := PCI_COMMON_HEADER._u_e__Union(16, this)
-            return this.__u
-        }
-    }
+    u : PCI_COMMON_HEADER._u
+
 }

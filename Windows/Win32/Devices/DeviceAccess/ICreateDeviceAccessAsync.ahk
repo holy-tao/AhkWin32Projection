@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ICreateDeviceAccessAsync interface is returned from a call to CreateDeviceAccessInstance.
  * @see https://learn.microsoft.com/windows/win32/api/deviceaccess/nn-deviceaccess-icreatedeviceaccessasync
  * @namespace Windows.Win32.Devices.DeviceAccess
  */
-class ICreateDeviceAccessAsync extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICreateDeviceAccessAsync extends IUnknown {
     /**
      * The interface identifier for ICreateDeviceAccessAsync
      * @type {Guid}
      */
-    static IID => Guid("{3474628f-683d-42d2-abcb-db018c6503bc}")
+    static IID := Guid("{3474628f-683d-42d2-abcb-db018c6503bc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICreateDeviceAccessAsync interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Cancel    : IntPtr
+        Wait      : IntPtr
+        Close     : IntPtr
+        GetResult : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Cancel", "Wait", "Close", "GetResult"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICreateDeviceAccessAsync.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Cancel method attempts to cancel an asynchronous operation that is in progress.
@@ -144,7 +155,33 @@ class ICreateDeviceAccessAsync extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/deviceaccess/nf-deviceaccess-icreatedeviceaccessasync-getresult
      */
     GetResult(riid) {
-        result := ComCall(6, this, "ptr", riid, "ptr*", &deviceAccess := 0, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, riid, "ptr*", &deviceAccess := 0, "HRESULT")
         return deviceAccess
+    }
+
+    Query(iid) {
+        if (ICreateDeviceAccessAsync.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.Wait := CallbackCreate(GetMethod(implObj, "Wait"), flags, 2)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.GetResult := CallbackCreate(GetMethod(implObj, "GetResult"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Cancel)
+        CallbackFree(this.vtbl.Wait)
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.GetResult)
     }
 }

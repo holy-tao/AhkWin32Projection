@@ -1,59 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\KERB_PROTOCOL_MESSAGE_TYPE.ahk
-#Include .\LSA_UNICODE_STRING.ahk
-#Include .\KERB_ADDRESS_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\KERB_ADDRESS_TYPE.ahk" { KERB_ADDRESS_TYPE }
+#Import ".\KERB_PROTOCOL_MESSAGE_TYPE.ahk" { KERB_PROTOCOL_MESSAGE_TYPE }
 
 /**
  * Specifies a message to add a binding cache entry.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_add_binding_cache_entry_request
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class KERB_ADD_BINDING_CACHE_ENTRY_REQUEST extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct KERB_ADD_BINDING_CACHE_ENTRY_REQUEST {
+    #StructPack 8
 
     /**
      * A 
      * 						value of the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-kerb_protocol_message_type">KERB_PROTOCOL_MESSAGE_TYPE</a> enumeration that lists the types of messages that can be sent to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">Kerberos</a> authentication package by calling 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsacallauthenticationpackage">LsaCallAuthenticationPackage</a> function. This member must be set to <b>KerbAddBindingCacheEntryMessage</b>.
-     * @type {KERB_PROTOCOL_MESSAGE_TYPE}
      */
-    MessageType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    MessageType : KERB_PROTOCOL_MESSAGE_TYPE
 
     /**
      * The 	name of the realm of the domain controller.
-     * @type {LSA_UNICODE_STRING}
      */
-    RealmName {
-        get {
-            if(!this.HasProp("__RealmName"))
-                this.__RealmName := LSA_UNICODE_STRING(8, this)
-            return this.__RealmName
-        }
-    }
+    RealmName : LSA_UNICODE_STRING
 
     /**
      * The address of the Key Distribution Center (KDC) of the server to  which you want to bind.
-     * @type {LSA_UNICODE_STRING}
      */
-    KdcAddress {
-        get {
-            if(!this.HasProp("__KdcAddress"))
-                this.__KdcAddress := LSA_UNICODE_STRING(24, this)
-            return this.__KdcAddress
-        }
-    }
+    KdcAddress : LSA_UNICODE_STRING
 
-    /**
-     * @type {KERB_ADDRESS_TYPE}
-     */
-    AddressType {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    AddressType : KERB_ADDRESS_TYPE
+
 }

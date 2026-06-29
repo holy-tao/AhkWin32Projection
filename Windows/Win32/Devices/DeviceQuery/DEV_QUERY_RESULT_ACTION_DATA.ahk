@@ -1,59 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DEV_QUERY_RESULT_ACTION.ahk
-#Include .\DEV_QUERY_STATE.ahk
-#Include .\DEV_OBJECT.ahk
-#Include .\DEV_OBJECT_TYPE.ahk
-#Include ..\Properties\DEVPROPERTY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Properties\DEVPROPERTY.ahk" { DEVPROPERTY }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DEV_QUERY_RESULT_ACTION.ahk" { DEV_QUERY_RESULT_ACTION }
+#Import ".\DEV_OBJECT.ahk" { DEV_OBJECT }
+#Import ".\DEV_QUERY_STATE.ahk" { DEV_QUERY_STATE }
+#Import ".\DEV_OBJECT_TYPE.ahk" { DEV_OBJECT_TYPE }
 
 /**
  * @namespace Windows.Win32.Devices.DeviceQuery
  */
-class DEV_QUERY_RESULT_ACTION_DATA extends Win32Struct {
-    static sizeof => 48
+export default struct DEV_QUERY_RESULT_ACTION_DATA {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _DEV_QUERY_RESULT_UPDATE_PAYLOAD extends Win32Struct {
-        static sizeof => 40
-        static packingSize => 8
+    struct _DEV_QUERY_RESULT_UPDATE_PAYLOAD {
+        State : DEV_QUERY_STATE
 
-        /**
-         * @type {DEV_QUERY_STATE}
-         */
-        State {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
-
-        /**
-         * @type {DEV_OBJECT}
-         */
-        DeviceObject {
-            get {
-                if(!this.HasProp("__DeviceObject"))
-                    this.__DeviceObject := DEV_OBJECT(0, this)
-                return this.__DeviceObject
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'DeviceObject', { type: DEV_OBJECT, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {DEV_QUERY_RESULT_ACTION}
-     */
-    Action {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Action : DEV_QUERY_RESULT_ACTION
 
-    /**
-     * @type {_DEV_QUERY_RESULT_UPDATE_PAYLOAD}
-     */
-    Data {
-        get {
-            if(!this.HasProp("__Data"))
-                this.__Data := DEV_QUERY_RESULT_ACTION_DATA._DEV_QUERY_RESULT_UPDATE_PAYLOAD(8, this)
-            return this.__Data
-        }
-    }
+    Data : DEV_QUERY_RESULT_ACTION_DATA._DEV_QUERY_RESULT_UPDATE_PAYLOAD
+
 }

@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IComponentType.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IComponentType.ahk" { IComponentType }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\TVAudioMode.ahk" { TVAudioMode }
 
 /**
  * The IAnalogAudioComponentType interface provides methods for accessing the analog audio mode.
@@ -10,32 +12,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-ianalogaudiocomponenttype
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IAnalogAudioComponentType extends IComponentType {
-
-    static sizeof => A_PtrSize
+export default struct IAnalogAudioComponentType extends IComponentType {
     /**
      * The interface identifier for IAnalogAudioComponentType
      * @type {Guid}
      */
-    static IID => Guid("{2cfeb2a8-1787-4a24-a941-c6eaec39c842}")
+    static IID := Guid("{2cfeb2a8-1787-4a24-a941-c6eaec39c842}")
 
     /**
      * The class identifier for AnalogAudioComponentType
      * @type {Guid}
      */
-    static CLSID => Guid("{28ab0005-e845-4ffa-aa9b-f4665236141c}")
+    static CLSID := Guid("{28ab0005-e845-4ffa-aa9b-f4665236141c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 24
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAnalogAudioComponentType interfaces
+    */
+    struct Vtbl extends IComponentType.Vtbl {
+        get_AnalogAudioMode : IntPtr
+        put_AnalogAudioMode : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_AnalogAudioMode", "put_AnalogAudioMode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAnalogAudioComponentType.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {TVAudioMode} 
@@ -62,7 +72,29 @@ class IAnalogAudioComponentType extends IComponentType {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogaudiocomponenttype-put_analogaudiomode
      */
     put_AnalogAudioMode(_Mode) {
-        result := ComCall(25, this, "int", _Mode, "HRESULT")
+        result := ComCall(25, this, TVAudioMode, _Mode, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAnalogAudioComponentType.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_AnalogAudioMode := CallbackCreate(GetMethod(implObj, "get_AnalogAudioMode"), flags, 2)
+        this.vtbl.put_AnalogAudioMode := CallbackCreate(GetMethod(implObj, "put_AnalogAudioMode"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_AnalogAudioMode)
+        CallbackFree(this.vtbl.put_AnalogAudioMode)
     }
 }

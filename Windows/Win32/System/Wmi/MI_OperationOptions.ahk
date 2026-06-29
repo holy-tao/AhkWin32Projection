@@ -1,41 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MI_OperationOptionsFT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MI_OperationOptionsFT.ahk" { MI_OperationOptionsFT }
 
 /**
  * Represents a set of operation options.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_operationoptions
  * @namespace Windows.Win32.System.Wmi
  */
-class MI_OperationOptions extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct MI_OperationOptions {
+    #StructPack 8
 
     /**
      * This member is used internally, and it must not be changed.
-     * @type {Integer}
      */
-    reserved1 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    reserved1 : Int64
 
     /**
      * This member is used internally, and it must not be changed.
-     * @type {Pointer}
      */
-    reserved2 {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    reserved2 : IntPtr
 
     /**
      * This member is used internally, and it must not be changed.
-     * @type {Pointer<MI_OperationOptionsFT>}
      */
-    ft {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ft : MI_OperationOptionsFT.Ptr
+
 }

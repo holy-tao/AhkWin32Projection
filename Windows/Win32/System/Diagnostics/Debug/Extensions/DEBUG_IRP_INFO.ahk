@@ -1,98 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include .\DEBUG_IRP_STACK_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DEBUG_IRP_STACK_INFO.ahk" { DEBUG_IRP_STACK_INFO }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class DEBUG_IRP_INFO extends Win32Struct {
-    static sizeof => 496
+export default struct DEBUG_IRP_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    SizeOfStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SizeOfStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    IrpAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    IrpAddress {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    IoStatus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    IoStatus {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    StackCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StackCount {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    CurrentLocation : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CurrentLocation {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    MdlAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MdlAddress {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Thread : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Thread {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    CancelRoutine : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CancelRoutine {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    CurrentStack : DEBUG_IRP_STACK_INFO
 
-    /**
-     * @type {DEBUG_IRP_STACK_INFO}
-     */
-    CurrentStack {
-        get {
-            if(!this.HasProp("__CurrentStack"))
-                this.__CurrentStack := DEBUG_IRP_STACK_INFO(56, this)
-            return this.__CurrentStack
-        }
-    }
+    Stack : DEBUG_IRP_STACK_INFO[10]
 
-    /**
-     * @type {DEBUG_IRP_STACK_INFO}
-     */
-    Stack {
-        get {
-            if(!this.HasProp("__StackProxyArray"))
-                this.__StackProxyArray := Win32FixedArray(this.ptr + 96, 10, DEBUG_IRP_STACK_INFO, "")
-            return this.__StackProxyArray
-        }
-    }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the storage location of a certificate that is used in signing.
  * @see https://learn.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_certificate_embedding_option
  * @namespace Windows.Win32.Storage.Packaging.Opc
  */
-class OPC_CERTIFICATE_EMBEDDING_OPTION extends Win32Enum {
+export default struct OPC_CERTIFICATE_EMBEDDING_OPTION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The certificate is stored in a part specific to the certificate.

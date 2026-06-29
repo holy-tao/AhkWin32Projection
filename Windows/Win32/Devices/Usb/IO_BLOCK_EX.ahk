@@ -1,67 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class IO_BLOCK_EX extends Win32Struct {
-    static sizeof => 24
+export default struct IO_BLOCK_EX {
+    #StructPack 8
 
-    static packingSize => 8
+    uOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    uLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uLength {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    pbyData : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbyData {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    uIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uIndex {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    bRequest : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bRequest {
-        get => NumGet(this, 20, "char")
-        set => NumPut("char", value, this, 20)
-    }
+    bmRequestType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bmRequestType {
-        get => NumGet(this, 21, "char")
-        set => NumPut("char", value, this, 21)
-    }
+    fTransferDirectionIn : Int8
 
-    /**
-     * @type {Integer}
-     */
-    fTransferDirectionIn {
-        get => NumGet(this, 22, "char")
-        set => NumPut("char", value, this, 22)
-    }
 }

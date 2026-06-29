@@ -1,12 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
-#Include ..\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include ..\CRYPT_INTEGER_BLOB.ahk
-#Include .\MS_ADDINFO_FLAT.ahk
-#Include ..\Catalog\MS_ADDINFO_CATALOGMEMBER.ahk
-#Include .\MS_ADDINFO_BLOB.ahk
-#Include .\MS_ADDINFO_DETACHEDSIG.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MS_ADDINFO_FLAT.ahk" { MS_ADDINFO_FLAT }
+#Import "..\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\MS_ADDINFO_BLOB.ahk" { MS_ADDINFO_BLOB }
+#Import ".\MS_ADDINFO_DETACHEDSIG.ahk" { MS_ADDINFO_DETACHEDSIG }
+#Import "..\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
+#Import "..\Catalog\MS_ADDINFO_CATALOGMEMBER.ahk" { MS_ADDINFO_CATALOGMEMBER }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Specifies subject information data to the subject interface package (SIP) APIs.
@@ -17,153 +19,85 @@
  * @see https://learn.microsoft.com/windows/win32/api/mssip/ns-mssip-sip_subjectinfo
  * @namespace Windows.Win32.Security.Cryptography.Sip
  */
-class SIP_SUBJECTINFO extends Win32Struct {
-    static sizeof => 128
-
-    static packingSize => 8
+export default struct SIP_SUBJECTINFO {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * A pointer to a <b>GUID</b> structure that identifies the subject type.
-     * @type {Pointer<Guid>}
      */
-    pgSubjectType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pgSubjectType : Guid.Ptr
 
     /**
      * A file handle that represents the subject. If the storage type of the subject is a file, set <i>hFile</i> to <b>INVALID_HANDLE_VALUE</b> and set the <i>pwsFileName</i> parameter to the name of the file.
-     * @type {HANDLE}
      */
-    hFile {
-        get {
-            if(!this.HasProp("__hFile"))
-                this.__hFile := HANDLE(16, this)
-            return this.__hFile
-        }
-    }
+    hFile : HANDLE
 
     /**
      * A pointer to a null-terminated Unicode string that contains the file name of the subject.
-     * @type {PWSTR}
      */
-    pwsFileName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pwsFileName : PWSTR
 
     /**
      * A pointer to a null-terminated Unicode string that contains the display name of 
      *                                                 the subject.
-     * @type {PWSTR}
      */
-    pwsDisplayName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pwsDisplayName : PWSTR
 
     /**
      * This member is reserved for future use.
-     * @type {Integer}
      */
-    dwReserved1 {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwReserved1 : UInt32
 
     /**
      * This member is reserved. Do not modify  this member. It is used by the SIP to pass the internal version number
      *                                                 between get and verify functions.
-     * @type {Integer}
      */
-    dwIntVersion {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    dwIntVersion : UInt32
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/hcryptprov">HCRYPTPROV</a> handle to the cryptography provider.
-     * @type {Pointer}
      */
-    hProv {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    hProv : IntPtr
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure that contains the identifier for the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hash</a> algorithm used to hash the file.
-     * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    DigestAlgorithm {
-        get {
-            if(!this.HasProp("__DigestAlgorithm"))
-                this.__DigestAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(56, this)
-            return this.__DigestAlgorithm
-        }
-    }
+    DigestAlgorithm : CRYPT_ALGORITHM_IDENTIFIER
 
     /**
      * A value that modifies the behavior of the functions that use this structure. For more information about possible values for this member, see the <i>dwFlags</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/signersignex">SignerSignEx</a>.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    dwFlags : UInt32
 
     /**
      * A value that specifies the encoding type used for the file. Currently, only <b>X509_ASN_ENCODING</b> and <b>PKCS_7_ASN_ENCODING</b> are being used; however, additional encoding types may be added in the future. For either current encoding type, use: <b>X509_ASN_ENCODING</b> | <b>PKCS_7_ASN_ENCODING</b>.
-     * @type {Integer}
      */
-    dwEncodingType {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    dwEncodingType : UInt32
 
     /**
      * This member is reserved  for future use.
-     * @type {Integer}
      */
-    dwReserved2 {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    dwReserved2 : UInt32
 
     /**
      * This member is not used.
-     * @type {Integer}
      */
-    fdwCAPISettings {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    fdwCAPISettings : UInt32
 
     /**
      * This member is not used.
-     * @type {Integer}
      */
-    fdwSecuritySettings {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    fdwSecuritySettings : UInt32
 
     /**
      * The message index of the last call to <b>CryptSIPGetSignedDataMsg</b>. operation.
-     * @type {Integer}
      */
-    dwIndex {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
+    dwIndex : UInt32
 
     /**
      * Specifies the type of additional information provided.
@@ -229,56 +163,20 @@ class SIP_SUBJECTINFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwUnionChoice {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    dwUnionChoice : UInt32
 
-    /**
-     * @type {Pointer<MS_ADDINFO_FLAT>}
-     */
-    psFlat {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
-
-    /**
-     * @type {Pointer<MS_ADDINFO_CATALOGMEMBER>}
-     */
-    psCatMember {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
-
-    /**
-     * @type {Pointer<MS_ADDINFO_BLOB>}
-     */
-    psBlob {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
-
-    /**
-     * @type {Pointer<MS_ADDINFO_DETACHEDSIG>}
-     */
-    psDetachedSig {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    psFlat : MS_ADDINFO_FLAT.Ptr
 
     /**
      * A pointer to SIP-specific data.
-     * @type {Pointer<Void>}
      */
-    pClientData {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    pClientData : IntPtr
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 128
+    static __New() {
+        DefineProp(this.Prototype, 'psCatMember', { type: MS_ADDINFO_CATALOGMEMBER.Ptr, offset: 112 })
+        DefineProp(this.Prototype, 'psBlob', { type: MS_ADDINFO_BLOB.Ptr, offset: 112 })
+        DefineProp(this.Prototype, 'psDetachedSig', { type: MS_ADDINFO_DETACHEDSIG.Ptr, offset: 112 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\COPYFILE_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\COPYFILE_FLAGS.ahk" { COPYFILE_FLAGS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains extended parameters for the CopyFile2 function.
@@ -11,20 +11,14 @@
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-copyfile2_extended_parameters
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class COPYFILE2_EXTENDED_PARAMETERS extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct COPYFILE2_EXTENDED_PARAMETERS {
+    #StructPack 8
 
     /**
      * Contains the size of this structure, 
      *       <c>sizeof(COPYFILE2_EXTENDED_PARAMETERS)</c>.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Contains a combination of zero or more of these flag values.
@@ -162,42 +156,27 @@ class COPYFILE2_EXTENDED_PARAMETERS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {COPYFILE_FLAGS}
      */
-    dwCopyFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwCopyFlags : COPYFILE_FLAGS
 
     /**
      * If this flag is set to <b>TRUE</b> during the copy operation then the copy operation is 
      *       canceled.
-     * @type {Pointer<BOOL>}
      */
-    pfCancel {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pfCancel : BOOL.Ptr
 
     /**
      * The optional address of a callback function of type <b>PCOPYFILE2_PROGRESS_ROUTINE</b> that is 
      *       called each time another portion of the file has been copied. This parameter can be 
      *       <b>NULL</b>. For more information on the progress callback function, see the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nc-winbase-pcopyfile2_progress_routine">CopyFile2ProgressRoutine</a> callback function.
-     * @type {Pointer<PCOPYFILE2_PROGRESS_ROUTINE>}
      */
-    pProgressRoutine {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pProgressRoutine : IntPtr
 
     /**
      * A pointer to application-specific context information to be passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nc-winbase-pcopyfile2_progress_routine">CopyFile2ProgressRoutine</a>.
-     * @type {Pointer<Void>}
      */
-    pvCallbackContext {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pvCallbackContext : IntPtr
+
 }

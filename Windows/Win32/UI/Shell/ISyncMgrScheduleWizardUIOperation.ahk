@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISyncMgrUIOperation.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISyncMgrUIOperation.ahk" { ISyncMgrUIOperation }
 
 /**
  * Exposes a method that allows a handler to display the sync schedule wizard for the handler.
@@ -10,26 +12,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nn-syncmgr-isyncmgrschedulewizarduioperation
  * @namespace Windows.Win32.UI.Shell
  */
-class ISyncMgrScheduleWizardUIOperation extends ISyncMgrUIOperation {
-
-    static sizeof => A_PtrSize
+export default struct ISyncMgrScheduleWizardUIOperation extends ISyncMgrUIOperation {
     /**
      * The interface identifier for ISyncMgrScheduleWizardUIOperation
      * @type {Guid}
      */
-    static IID => Guid("{459a6c84-21d2-4ddc-8a53-f023a46066f2}")
+    static IID := Guid("{459a6c84-21d2-4ddc-8a53-f023a46066f2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISyncMgrScheduleWizardUIOperation interfaces
+    */
+    struct Vtbl extends ISyncMgrUIOperation.Vtbl {
+        InitWizard : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitWizard"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISyncMgrScheduleWizardUIOperation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes the sync schedule wizard.
@@ -46,5 +55,25 @@ class ISyncMgrScheduleWizardUIOperation extends ISyncMgrUIOperation {
 
         result := ComCall(4, this, "ptr", pszHandlerID, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISyncMgrScheduleWizardUIOperation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitWizard := CallbackCreate(GetMethod(implObj, "InitWizard"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitWizard)
     }
 }

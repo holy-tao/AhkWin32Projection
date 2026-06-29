@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_USER_ERROR_CODE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USB_USER_ERROR_CODE.ahk" { USB_USER_ERROR_CODE }
 
 /**
  * The USBUSER_REQUEST_HEADER structure is used with the IOCTL_USB_USER_REQUEST I/O control request to send a user-mode request to the USB host controller driver.
@@ -9,44 +8,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/usbuser/ns-usbuser-usbuser_request_header
  * @namespace Windows.Win32.Devices.Usb
  */
-class USBUSER_REQUEST_HEADER extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct USBUSER_REQUEST_HEADER {
+    #StructPack 4
 
     /**
      * The user-mode request. For a list and description of possible values for this member, see <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ni-usbuser-ioctl_usb_user_request">IOCTL_USB_USER_REQUEST</a>.
-     * @type {Integer}
      */
-    UsbUserRequest {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    UsbUserRequest : UInt32
 
     /**
      * The status code that is returned by port driver.
-     * @type {USB_USER_ERROR_CODE}
      */
-    UsbUserStatusCode {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    UsbUserStatusCode : USB_USER_ERROR_CODE
 
     /**
      * The size, in bytes, of the data buffer. The same buffer is used for both input and output.
-     * @type {Integer}
      */
-    RequestBufferLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    RequestBufferLength : UInt32
 
     /**
      * The size, in bytes, of the data that is retrieved by the request.
-     * @type {Integer}
      */
-    ActualBufferLength {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ActualBufferLength : UInt32
+
 }

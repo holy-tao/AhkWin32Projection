@@ -1,34 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\IReferenceClock.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\IReferenceClock.ahk" { IReferenceClock }
+#Import "..\DirectSound\IDirectSound.ahk" { IDirectSound }
+#Import "..\DirectSound\IDirectSoundBuffer.ahk" { IDirectSoundBuffer }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDirectMusicSynth.ahk" { IDirectMusicSynth }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDirectMusicSynthSink interface is now largely obsolete and is supported only by versions of DirectMusic before DirectX 8.
  * @see https://learn.microsoft.com/windows/win32/api/dmusics/nn-dmusics-idirectmusicsynthsink
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
-class IDirectMusicSynthSink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectMusicSynthSink extends IUnknown {
     /**
      * The interface identifier for IDirectMusicSynthSink
      * @type {Guid}
      */
-    static IID => Guid("{09823663-5c85-11d2-afa6-00aa0024d8b6}")
+    static IID := Guid("{09823663-5c85-11d2-afa6-00aa0024d8b6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectMusicSynthSink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Init                 : IntPtr
+        SetMasterClock       : IntPtr
+        GetLatencyClock      : IntPtr
+        Activate             : IntPtr
+        SampleToRefTime      : IntPtr
+        RefTimeToSample      : IntPtr
+        SetDirectSound       : IntPtr
+        GetDesiredBufferSize : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Init", "SetMasterClock", "GetLatencyClock", "Activate", "SampleToRefTime", "RefTimeToSample", "SetDirectSound", "GetDesiredBufferSize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectMusicSynthSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Init method initializes the synth-sink object.
@@ -179,7 +198,7 @@ class IDirectMusicSynthSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynthsink-activate
      */
     Activate(fEnable) {
-        result := ComCall(6, this, "int", fEnable, "HRESULT")
+        result := ComCall(6, this, BOOL, fEnable, "HRESULT")
         return result
     }
 
@@ -311,5 +330,39 @@ class IDirectMusicSynthSink extends IUnknown {
 
         result := ComCall(10, this, pdwBufferSizeInSamplesMarshal, pdwBufferSizeInSamples, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectMusicSynthSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 2)
+        this.vtbl.SetMasterClock := CallbackCreate(GetMethod(implObj, "SetMasterClock"), flags, 2)
+        this.vtbl.GetLatencyClock := CallbackCreate(GetMethod(implObj, "GetLatencyClock"), flags, 2)
+        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 2)
+        this.vtbl.SampleToRefTime := CallbackCreate(GetMethod(implObj, "SampleToRefTime"), flags, 3)
+        this.vtbl.RefTimeToSample := CallbackCreate(GetMethod(implObj, "RefTimeToSample"), flags, 3)
+        this.vtbl.SetDirectSound := CallbackCreate(GetMethod(implObj, "SetDirectSound"), flags, 3)
+        this.vtbl.GetDesiredBufferSize := CallbackCreate(GetMethod(implObj, "GetDesiredBufferSize"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Init)
+        CallbackFree(this.vtbl.SetMasterClock)
+        CallbackFree(this.vtbl.GetLatencyClock)
+        CallbackFree(this.vtbl.Activate)
+        CallbackFree(this.vtbl.SampleToRefTime)
+        CallbackFree(this.vtbl.RefTimeToSample)
+        CallbackFree(this.vtbl.SetDirectSound)
+        CallbackFree(this.vtbl.GetDesiredBufferSize)
     }
 }

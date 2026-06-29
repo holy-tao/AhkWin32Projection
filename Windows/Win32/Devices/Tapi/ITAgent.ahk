@@ -1,38 +1,65 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IEnumAgentSession.ahk
-#Include .\ITAgentSession.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\CY.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITACDGroup.ahk" { ITACDGroup }
+#Import "..\..\System\Com\CY.ahk" { CY }
+#Import ".\ITAddress.ahk" { ITAddress }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IEnumAgentSession.ahk" { IEnumAgentSession }
+#Import ".\AGENT_STATE.ahk" { AGENT_STATE }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ITAgentSession.ahk" { ITAgentSession }
 
 /**
  * The ITAgent interface (tapi3cc.h) handles Agent objects, which receive and process incoming calls and make outgoing calls to customers or prospects.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nn-tapi3cc-itagent
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITAgent extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITAgent extends IDispatch {
     /**
      * The interface identifier for ITAgent
      * @type {Guid}
      */
-    static IID => Guid("{5770ece5-4b27-11d1-bf80-00805fc147d3}")
+    static IID := Guid("{5770ece5-4b27-11d1-bf80-00805fc147d3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITAgent interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        EnumerateAgentSessions    : IntPtr
+        CreateSession             : IntPtr
+        CreateSessionWithPIN      : IntPtr
+        get_ID                    : IntPtr
+        get_User                  : IntPtr
+        put_State                 : IntPtr
+        get_State                 : IntPtr
+        put_MeasurementPeriod     : IntPtr
+        get_MeasurementPeriod     : IntPtr
+        get_OverallCallRate       : IntPtr
+        get_NumberOfACDCalls      : IntPtr
+        get_NumberOfIncomingCalls : IntPtr
+        get_NumberOfOutgoingCalls : IntPtr
+        get_TotalACDTalkTime      : IntPtr
+        get_TotalACDCallTime      : IntPtr
+        get_TotalWrapUpTime       : IntPtr
+        get_AgentSessions         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EnumerateAgentSessions", "CreateSession", "CreateSessionWithPIN", "get_ID", "get_User", "put_State", "get_State", "put_MeasurementPeriod", "get_MeasurementPeriod", "get_OverallCallRate", "get_NumberOfACDCalls", "get_NumberOfIncomingCalls", "get_NumberOfOutgoingCalls", "get_TotalACDTalkTime", "get_TotalACDCallTime", "get_TotalWrapUpTime", "get_AgentSessions"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITAgent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -178,7 +205,7 @@ class ITAgent extends IDispatch {
     CreateSessionWithPIN(pACDGroup, pAddress, pPIN) {
         pPIN := pPIN is String ? BSTR.Alloc(pPIN).Value : pPIN
 
-        result := ComCall(9, this, "ptr", pACDGroup, "ptr", pAddress, "ptr", pPIN, "ptr*", &ppAgentSession := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", pACDGroup, "ptr", pAddress, BSTR, pPIN, "ptr*", &ppAgentSession := 0, "HRESULT")
         return ITAgentSession(ppAgentSession)
     }
 
@@ -193,8 +220,8 @@ class ITAgent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_id
      */
     get_ID() {
-        ppID := BSTR()
-        result := ComCall(10, this, "ptr", ppID, "HRESULT")
+        ppID := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, ppID, "HRESULT")
         return ppID
     }
 
@@ -207,8 +234,8 @@ class ITAgent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_user
      */
     get_User() {
-        ppUser := BSTR()
-        result := ComCall(11, this, "ptr", ppUser, "HRESULT")
+        ppUser := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, ppUser, "HRESULT")
         return ppUser
     }
 
@@ -273,7 +300,7 @@ class ITAgent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-put_state
      */
     put_State(AgentState) {
-        result := ComCall(12, this, "int", AgentState, "HRESULT")
+        result := ComCall(12, this, AGENT_STATE, AgentState, "HRESULT")
         return result
     }
 
@@ -375,7 +402,7 @@ class ITAgent extends IDispatch {
      */
     get_OverallCallRate() {
         pcyCallrate := CY()
-        result := ComCall(16, this, "ptr", pcyCallrate, "HRESULT")
+        result := ComCall(16, this, CY.Ptr, pcyCallrate, "HRESULT")
         return pcyCallrate
     }
 
@@ -452,7 +479,59 @@ class ITAgent extends IDispatch {
      */
     get_AgentSessions() {
         pVariant := VARIANT()
-        result := ComCall(23, this, "ptr", pVariant, "HRESULT")
+        result := ComCall(23, this, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
+    }
+
+    Query(iid) {
+        if (ITAgent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EnumerateAgentSessions := CallbackCreate(GetMethod(implObj, "EnumerateAgentSessions"), flags, 2)
+        this.vtbl.CreateSession := CallbackCreate(GetMethod(implObj, "CreateSession"), flags, 4)
+        this.vtbl.CreateSessionWithPIN := CallbackCreate(GetMethod(implObj, "CreateSessionWithPIN"), flags, 5)
+        this.vtbl.get_ID := CallbackCreate(GetMethod(implObj, "get_ID"), flags, 2)
+        this.vtbl.get_User := CallbackCreate(GetMethod(implObj, "get_User"), flags, 2)
+        this.vtbl.put_State := CallbackCreate(GetMethod(implObj, "put_State"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.put_MeasurementPeriod := CallbackCreate(GetMethod(implObj, "put_MeasurementPeriod"), flags, 2)
+        this.vtbl.get_MeasurementPeriod := CallbackCreate(GetMethod(implObj, "get_MeasurementPeriod"), flags, 2)
+        this.vtbl.get_OverallCallRate := CallbackCreate(GetMethod(implObj, "get_OverallCallRate"), flags, 2)
+        this.vtbl.get_NumberOfACDCalls := CallbackCreate(GetMethod(implObj, "get_NumberOfACDCalls"), flags, 2)
+        this.vtbl.get_NumberOfIncomingCalls := CallbackCreate(GetMethod(implObj, "get_NumberOfIncomingCalls"), flags, 2)
+        this.vtbl.get_NumberOfOutgoingCalls := CallbackCreate(GetMethod(implObj, "get_NumberOfOutgoingCalls"), flags, 2)
+        this.vtbl.get_TotalACDTalkTime := CallbackCreate(GetMethod(implObj, "get_TotalACDTalkTime"), flags, 2)
+        this.vtbl.get_TotalACDCallTime := CallbackCreate(GetMethod(implObj, "get_TotalACDCallTime"), flags, 2)
+        this.vtbl.get_TotalWrapUpTime := CallbackCreate(GetMethod(implObj, "get_TotalWrapUpTime"), flags, 2)
+        this.vtbl.get_AgentSessions := CallbackCreate(GetMethod(implObj, "get_AgentSessions"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EnumerateAgentSessions)
+        CallbackFree(this.vtbl.CreateSession)
+        CallbackFree(this.vtbl.CreateSessionWithPIN)
+        CallbackFree(this.vtbl.get_ID)
+        CallbackFree(this.vtbl.get_User)
+        CallbackFree(this.vtbl.put_State)
+        CallbackFree(this.vtbl.get_State)
+        CallbackFree(this.vtbl.put_MeasurementPeriod)
+        CallbackFree(this.vtbl.get_MeasurementPeriod)
+        CallbackFree(this.vtbl.get_OverallCallRate)
+        CallbackFree(this.vtbl.get_NumberOfACDCalls)
+        CallbackFree(this.vtbl.get_NumberOfIncomingCalls)
+        CallbackFree(this.vtbl.get_NumberOfOutgoingCalls)
+        CallbackFree(this.vtbl.get_TotalACDTalkTime)
+        CallbackFree(this.vtbl.get_TotalACDCallTime)
+        CallbackFree(this.vtbl.get_TotalWrapUpTime)
+        CallbackFree(this.vtbl.get_AgentSessions)
     }
 }

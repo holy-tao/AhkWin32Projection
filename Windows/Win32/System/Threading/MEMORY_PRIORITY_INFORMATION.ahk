@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MEMORY_PRIORITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MEMORY_PRIORITY.ahk" { MEMORY_PRIORITY }
 
 /**
  * Specifies the memory priority for a thread or process.
@@ -9,16 +8,9 @@
  * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/ns-processthreadsapi-memory_priority_information
  * @namespace Windows.Win32.System.Threading
  */
-class MEMORY_PRIORITY_INFORMATION extends Win32Struct {
-    static sizeof => 4
+export default struct MEMORY_PRIORITY_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
+    MemoryPriority : MEMORY_PRIORITY
 
-    /**
-     * @type {MEMORY_PRIORITY}
-     */
-    MemoryPriority {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
 }

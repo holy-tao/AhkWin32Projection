@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the type of query syntax. (SEARCH_QUERY_SYNTAX)
@@ -11,7 +10,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/ne-searchapi-search_query_syntax
  * @namespace Windows.Win32.System.Search
  */
-class SEARCH_QUERY_SYNTAX extends Win32Enum {
+export default struct SEARCH_QUERY_SYNTAX {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No syntax.

@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ISCSI_UNIQUE_SESSION_ID.ahk
-#Include .\ISCSI_CONNECTION_INFOW.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ISCSI_UNIQUE_SESSION_ID.ahk" { ISCSI_UNIQUE_SESSION_ID }
+#Import ".\ISCSI_CONNECTION_INFOW.ahk" { ISCSI_CONNECTION_INFOW }
 
 /**
  * ISCSI_SESSION_INFO. (Unicode)
@@ -12,89 +12,47 @@
  * @namespace Windows.Win32.Storage.IscsiDisc
  * @charset Unicode
  */
-class ISCSI_SESSION_INFOW extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct ISCSI_SESSION_INFOW {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_unique_session_id">ISCSI_UNIQUE_SESSION_ID</a> structure containing a unique identifier that represents the session.
-     * @type {ISCSI_UNIQUE_SESSION_ID}
      */
-    SessionId {
-        get {
-            if(!this.HasProp("__SessionId"))
-                this.__SessionId := ISCSI_UNIQUE_SESSION_ID(0, this)
-            return this.__SessionId
-        }
-    }
+    SessionId : ISCSI_UNIQUE_SESSION_ID
 
     /**
      * A string that represents the initiator name.
-     * @type {PWSTR}
      */
-    InitiatorName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    InitiatorName : PWSTR
 
     /**
      * A string that represents the target node name.
-     * @type {PWSTR}
      */
-    TargetNodeName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    TargetNodeName : PWSTR
 
     /**
      * A string that represents the target name.
-     * @type {PWSTR}
      */
-    TargetName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    TargetName : PWSTR
 
     /**
      * The initiator-side identifier (ISID) used in the iSCSI protocol.
-     * @type {Array<Integer>}
      */
-    ISID {
-        get {
-            if(!this.HasProp("__ISIDProxyArray"))
-                this.__ISIDProxyArray := Win32FixedArray(this.ptr + 40, 6, Primitive, "char")
-            return this.__ISIDProxyArray
-        }
-    }
+    ISID : Int8[6]
 
     /**
      * The target-side identifier (TSID) used in the iSCSI protocol.
-     * @type {Array<Integer>}
      */
-    TSID {
-        get {
-            if(!this.HasProp("__TSIDProxyArray"))
-                this.__TSIDProxyArray := Win32FixedArray(this.ptr + 46, 2, Primitive, "char")
-            return this.__TSIDProxyArray
-        }
-    }
+    TSID : Int8[2]
 
     /**
      * The number of connections associated with the session.
-     * @type {Integer}
      */
-    ConnectionCount {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    ConnectionCount : UInt32
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_connection_infoa">ISCSI_CONNECTION_INFO</a> structure.
-     * @type {Pointer<ISCSI_CONNECTION_INFOW>}
      */
-    Connections {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    Connections : ISCSI_CONNECTION_INFOW.Ptr
+
 }

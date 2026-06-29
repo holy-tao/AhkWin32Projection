@@ -1,48 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_SERVICE_CONFIG_SSL_SNI_KEY.ahk
-#Include ..\WinSock\SOCKADDR_STORAGE.ahk
-#Include ..\WinSock\ADDRESS_FAMILY.ahk
-#Include .\HTTP_SERVICE_CONFIG_SSL_PARAM_EX.ahk
-#Include .\HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE.ahk
-#Include .\HTTP2_WINDOW_SIZE_PARAM.ahk
-#Include .\HTTP2_SETTINGS_LIMITS_PARAM.ahk
-#Include .\HTTP_PERFORMANCE_PARAM.ahk
-#Include .\HTTP_PERFORMANCE_PARAM_TYPE.ahk
-#Include .\HTTP_TLS_RESTRICTIONS_PARAM.ahk
-#Include .\HTTP_ERROR_HEADERS_PARAM.ahk
-#Include .\HTTP_UNKNOWN_HEADER.ahk
-#Include .\HTTP_TLS_SESSION_TICKET_KEYS_PARAM.ahk
-#Include .\HTTP_CERT_CONFIG_PARAM.ahk
-#Include .\HTTP_CERT_CONFIG_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HTTP_SERVICE_CONFIG_SSL_PARAM_EX.ahk" { HTTP_SERVICE_CONFIG_SSL_PARAM_EX }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HTTP2_WINDOW_SIZE_PARAM.ahk" { HTTP2_WINDOW_SIZE_PARAM }
+#Import ".\HTTP_SERVICE_CONFIG_SSL_SNI_KEY.ahk" { HTTP_SERVICE_CONFIG_SSL_SNI_KEY }
+#Import ".\HTTP_CERT_CONFIG_PARAM.ahk" { HTTP_CERT_CONFIG_PARAM }
+#Import "..\WinSock\SOCKADDR_STORAGE.ahk" { SOCKADDR_STORAGE }
+#Import ".\HTTP_TLS_SESSION_TICKET_KEYS_PARAM.ahk" { HTTP_TLS_SESSION_TICKET_KEYS_PARAM }
+#Import ".\HTTP_CERT_CONFIG_ENTRY.ahk" { HTTP_CERT_CONFIG_ENTRY }
+#Import ".\HTTP2_SETTINGS_LIMITS_PARAM.ahk" { HTTP2_SETTINGS_LIMITS_PARAM }
+#Import ".\HTTP_ERROR_HEADERS_PARAM.ahk" { HTTP_ERROR_HEADERS_PARAM }
+#Import ".\HTTP_UNKNOWN_HEADER.ahk" { HTTP_UNKNOWN_HEADER }
+#Import ".\HTTP_PERFORMANCE_PARAM.ahk" { HTTP_PERFORMANCE_PARAM }
+#Import ".\HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE.ahk" { HTTP_SSL_SERVICE_CONFIG_EX_PARAM_TYPE }
+#Import ".\HTTP_TLS_RESTRICTIONS_PARAM.ahk" { HTTP_TLS_RESTRICTIONS_PARAM }
+#Import ".\HTTP_PERFORMANCE_PARAM_TYPE.ahk" { HTTP_PERFORMANCE_PARAM_TYPE }
+#Import "..\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_SERVICE_CONFIG_SSL_SNI_SET_EX extends Win32Struct {
-    static sizeof => 168
+export default struct HTTP_SERVICE_CONFIG_SSL_SNI_SET_EX {
+    #StructPack 8
 
-    static packingSize => 8
+    KeyDesc : HTTP_SERVICE_CONFIG_SSL_SNI_KEY
 
-    /**
-     * @type {HTTP_SERVICE_CONFIG_SSL_SNI_KEY}
-     */
-    KeyDesc {
-        get {
-            if(!this.HasProp("__KeyDesc"))
-                this.__KeyDesc := HTTP_SERVICE_CONFIG_SSL_SNI_KEY(0, this)
-            return this.__KeyDesc
-        }
-    }
+    ParamDesc : HTTP_SERVICE_CONFIG_SSL_PARAM_EX
 
-    /**
-     * @type {HTTP_SERVICE_CONFIG_SSL_PARAM_EX}
-     */
-    ParamDesc {
-        get {
-            if(!this.HasProp("__ParamDesc"))
-                this.__ParamDesc := HTTP_SERVICE_CONFIG_SSL_PARAM_EX(136, this)
-            return this.__ParamDesc
-        }
-    }
 }

@@ -1,44 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMDT_PALETTEDATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DKMDT_PALETTEDATA.ahk" { D3DKMDT_PALETTEDATA }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class DXGKARG_SETPALETTE extends Win32Struct {
-    static sizeof => 24
+export default struct DXGKARG_SETPALETTE {
+    #StructPack 8
 
-    static packingSize => 8
+    VidPnSourceId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VidPnSourceId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    FirstEntry : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FirstEntry {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NumEntries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumEntries {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    pLookupTable : D3DKMDT_PALETTEDATA.Ptr
 
-    /**
-     * @type {Pointer<D3DKMDT_PALETTEDATA>}
-     */
-    pLookupTable {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

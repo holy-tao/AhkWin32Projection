@@ -1,11 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IXpsOMFontResourceCollection.ahk
-#Include .\IXpsOMImageResourceCollection.ahk
-#Include .\IXpsOMColorProfileResourceCollection.ahk
-#Include .\IXpsOMRemoteDictionaryResourceCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IXpsOMColorProfileResourceCollection.ahk" { IXpsOMColorProfileResourceCollection }
+#Import ".\IXpsOMRemoteDictionaryResourceCollection.ahk" { IXpsOMRemoteDictionaryResourceCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsOMImageResourceCollection.ahk" { IXpsOMImageResourceCollection }
+#Import ".\IXpsOMFontResourceCollection.ahk" { IXpsOMFontResourceCollection }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides access to all shared, part-based resources of the XPS document.
@@ -49,26 +50,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompartresources
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMPartResources extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMPartResources extends IUnknown {
     /**
      * The interface identifier for IXpsOMPartResources
      * @type {Guid}
      */
-    static IID => Guid("{f4cf7729-4864-4275-99b3-a8717163ecaf}")
+    static IID := Guid("{f4cf7729-4864-4275-99b3-a8717163ecaf}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMPartResources interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetFontResources             : IntPtr
+        GetImageResources            : IntPtr
+        GetColorProfileResources     : IntPtr
+        GetRemoteDictionaryResources : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFontResources", "GetImageResources", "GetColorProfileResources", "GetRemoteDictionaryResources"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMPartResources.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the IXpsOMFontResourceCollection interface that contains the fonts that are used in the XPS document.
@@ -116,5 +127,31 @@ class IXpsOMPartResources extends IUnknown {
     GetRemoteDictionaryResources() {
         result := ComCall(6, this, "ptr*", &dictionaryResources := 0, "HRESULT")
         return IXpsOMRemoteDictionaryResourceCollection(dictionaryResources)
+    }
+
+    Query(iid) {
+        if (IXpsOMPartResources.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFontResources := CallbackCreate(GetMethod(implObj, "GetFontResources"), flags, 2)
+        this.vtbl.GetImageResources := CallbackCreate(GetMethod(implObj, "GetImageResources"), flags, 2)
+        this.vtbl.GetColorProfileResources := CallbackCreate(GetMethod(implObj, "GetColorProfileResources"), flags, 2)
+        this.vtbl.GetRemoteDictionaryResources := CallbackCreate(GetMethod(implObj, "GetRemoteDictionaryResources"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFontResources)
+        CallbackFree(this.vtbl.GetImageResources)
+        CallbackFree(this.vtbl.GetColorProfileResources)
+        CallbackFree(this.vtbl.GetRemoteDictionaryResources)
     }
 }

@@ -1,218 +1,65 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WEBAUTHN_CREDENTIAL_LIST.ahk
-#Include .\WEBAUTHN_CREDENTIAL_EX.ahk
-#Include .\EXPERIMENTAL_WEBAUTHN_CTAPCBOR_AUTHENTICATOR_OPTIONS.ahk
-#Include .\EXPERIMENTAL_WEBAUTHN_CTAPCBOR_HMAC_SALT_EXTENSION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EXPERIMENTAL_WEBAUTHN_CTAPCBOR_AUTHENTICATOR_OPTIONS.ahk" { EXPERIMENTAL_WEBAUTHN_CTAPCBOR_AUTHENTICATOR_OPTIONS }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WEBAUTHN_CREDENTIAL_EX.ahk" { WEBAUTHN_CREDENTIAL_EX }
+#Import ".\WEBAUTHN_CREDENTIAL_LIST.ahk" { WEBAUTHN_CREDENTIAL_LIST }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\EXPERIMENTAL_WEBAUTHN_CTAPCBOR_HMAC_SALT_EXTENSION.ahk" { EXPERIMENTAL_WEBAUTHN_CTAPCBOR_HMAC_SALT_EXTENSION }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
  */
-class EXPERIMENTAL_WEBAUTHN_CTAPCBOR_GET_ASSERTION_REQUEST extends Win32Struct {
-    static sizeof => 176
+export default struct EXPERIMENTAL_WEBAUTHN_CTAPCBOR_GET_ASSERTION_REQUEST {
+    #StructPack 8
 
-    static packingSize => 8
+    dwVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pwszRpId : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszRpId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    cbRpId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbRpId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    pbRpId : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbRpId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    cbClientDataHash : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbClientDataHash {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    pbClientDataHash : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbClientDataHash {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    CredentialList : WEBAUTHN_CREDENTIAL_LIST
 
-    /**
-     * @type {WEBAUTHN_CREDENTIAL_LIST}
-     */
-    CredentialList {
-        get {
-            if(!this.HasProp("__CredentialList"))
-                this.__CredentialList := WEBAUTHN_CREDENTIAL_LIST(48, this)
-            return this.__CredentialList
-        }
-    }
+    cbCborExtensionsMap : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbCborExtensionsMap {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    pbCborExtensionsMap : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbCborExtensionsMap {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    pAuthenticatorOptions : EXPERIMENTAL_WEBAUTHN_CTAPCBOR_AUTHENTICATOR_OPTIONS.Ptr
 
-    /**
-     * @type {Pointer<EXPERIMENTAL_WEBAUTHN_CTAPCBOR_AUTHENTICATOR_OPTIONS>}
-     */
-    pAuthenticatorOptions {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    fEmptyPinAuth : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    fEmptyPinAuth {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
-    }
+    cbPinAuth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbPinAuth {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    pbPinAuth : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbPinAuth {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    pHmacSaltExtension : EXPERIMENTAL_WEBAUTHN_CTAPCBOR_HMAC_SALT_EXTENSION.Ptr
 
-    /**
-     * @type {Pointer<EXPERIMENTAL_WEBAUTHN_CTAPCBOR_HMAC_SALT_EXTENSION>}
-     */
-    pHmacSaltExtension {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    cbHmacSecretSaltValues : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbHmacSecretSaltValues {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    pbHmacSecretSaltValues : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbHmacSecretSaltValues {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    dwPinProtocol : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwPinProtocol {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    lCredBlobExt : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lCredBlobExt {
-        get => NumGet(this, 132, "int")
-        set => NumPut("int", value, this, 132)
-    }
+    lLargeBlobKeyExt : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lLargeBlobKeyExt {
-        get => NumGet(this, 136, "int")
-        set => NumPut("int", value, this, 136)
-    }
+    dwCredLargeBlobOperation : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCredLargeBlobOperation {
-        get => NumGet(this, 140, "uint")
-        set => NumPut("uint", value, this, 140)
-    }
+    cbCredLargeBlobCompressed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbCredLargeBlobCompressed {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
-    }
+    pbCredLargeBlobCompressed : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbCredLargeBlobCompressed {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
-    }
+    dwCredLargeBlobOriginalSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCredLargeBlobOriginalSize {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
-    }
+    cbJsonExt : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbJsonExt {
-        get => NumGet(this, 164, "uint")
-        set => NumPut("uint", value, this, 164)
-    }
+    pbJsonExt : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbJsonExt {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
-    }
 }

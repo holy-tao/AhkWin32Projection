@@ -1,34 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WINSAT_ASSESSMENT_STATE.ahk" { WINSAT_ASSESSMENT_STATE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WINSAT_BITMAP_SIZE.ahk" { WINSAT_BITMAP_SIZE }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Retrieves elements that can be used in a user interface to graphically represent the WinSAT assessment.
  * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nn-winsatcominterfacei-iprovidewinsatvisuals
  * @namespace Windows.Win32.System.AssessmentTool
  */
-class IProvideWinSATVisuals extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IProvideWinSATVisuals extends IUnknown {
     /**
      * The interface identifier for IProvideWinSATVisuals
      * @type {Guid}
      */
-    static IID => Guid("{a9f4ade0-871a-42a3-b813-3078d25162c9}")
+    static IID := Guid("{a9f4ade0-871a-42a3-b813-3078d25162c9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IProvideWinSATVisuals interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_Bitmap : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Bitmap"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IProvideWinSATVisuals.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a bitmap for the WinSAT base score.
@@ -41,8 +51,28 @@ class IProvideWinSATVisuals extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatvisuals-get_bitmap
      */
     get_Bitmap(bitmapSize, state, rating) {
-        pBitmap := HBITMAP()
-        result := ComCall(3, this, "int", bitmapSize, "int", state, "float", rating, "ptr", pBitmap, "HRESULT")
+        pBitmap := HBITMAP.Owned()
+        result := ComCall(3, this, WINSAT_BITMAP_SIZE, bitmapSize, WINSAT_ASSESSMENT_STATE, state, "float", rating, HBITMAP.Ptr, pBitmap, "HRESULT")
         return pBitmap
+    }
+
+    Query(iid) {
+        if (IProvideWinSATVisuals.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Bitmap := CallbackCreate(GetMethod(implObj, "get_Bitmap"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Bitmap)
     }
 }

@@ -1,39 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * Contains access information used by an incremental crawl, such as the last access date and modification time.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/ns-searchapi-incremental_access_info
  * @namespace Windows.Win32.System.Search
  */
-class INCREMENTAL_ACCESS_INFO extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct INCREMENTAL_ACCESS_INFO {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Size of the file in bytes.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a></b>
      * 
      * Last time the file was modified.
-     * @type {FILETIME}
      */
-    ftLastModifiedTime {
-        get {
-            if(!this.HasProp("__ftLastModifiedTime"))
-                this.__ftLastModifiedTime := FILETIME(4, this)
-            return this.__ftLastModifiedTime
-        }
-    }
+    ftLastModifiedTime : FILETIME
+
 }

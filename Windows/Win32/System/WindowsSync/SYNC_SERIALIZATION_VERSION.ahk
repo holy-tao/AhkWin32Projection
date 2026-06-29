@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents the version of Microsoft Sync Framework that a particular component is compatible with.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsync/ne-winsync-sync_serialization_version
  * @namespace Windows.Win32.System.WindowsSync
  */
-class SYNC_SERIALIZATION_VERSION extends Win32Enum {
+export default struct SYNC_SERIALIZATION_VERSION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates a component is compatible with Sync Framework 1.0.

@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWSDTransportAddress.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWSDTransportAddress.ahk" { IWSDTransportAddress }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Provides access to the individual components of an HTTP address.
  * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nn-wsdbase-iwsdhttpaddress
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class IWSDHttpAddress extends IWSDTransportAddress {
-
-    static sizeof => A_PtrSize
+export default struct IWSDHttpAddress extends IWSDTransportAddress {
     /**
      * The interface identifier for IWSDHttpAddress
      * @type {Guid}
      */
-    static IID => Guid("{d09ac7bd-2a3e-4b85-8605-2737ff3e4ea0}")
+    static IID := Guid("{d09ac7bd-2a3e-4b85-8605-2737ff3e4ea0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 10
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWSDHttpAddress interfaces
+    */
+    struct Vtbl extends IWSDTransportAddress.Vtbl {
+        GetSecure : IntPtr
+        SetSecure : IntPtr
+        GetPath   : IntPtr
+        SetPath   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSecure", "SetSecure", "GetPath", "SetPath"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWSDHttpAddress.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the status on whether TLS secure sessions are enabled for this address.
@@ -103,7 +116,7 @@ class IWSDHttpAddress extends IWSDTransportAddress {
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpaddress-setsecure
      */
     SetSecure(fSecure) {
-        result := ComCall(11, this, "int", fSecure, "HRESULT")
+        result := ComCall(11, this, BOOL, fSecure, "HRESULT")
         return result
     }
 
@@ -113,7 +126,7 @@ class IWSDHttpAddress extends IWSDTransportAddress {
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpaddress-getpath
      */
     GetPath() {
-        result := ComCall(12, this, "ptr*", &ppszPath := 0, "HRESULT")
+        result := ComCall(12, this, PWSTR.Ptr, &ppszPath := 0, "HRESULT")
         return ppszPath
     }
 
@@ -173,5 +186,31 @@ class IWSDHttpAddress extends IWSDTransportAddress {
 
         result := ComCall(13, this, "ptr", pszPath, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWSDHttpAddress.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSecure := CallbackCreate(GetMethod(implObj, "GetSecure"), flags, 1)
+        this.vtbl.SetSecure := CallbackCreate(GetMethod(implObj, "SetSecure"), flags, 2)
+        this.vtbl.GetPath := CallbackCreate(GetMethod(implObj, "GetPath"), flags, 2)
+        this.vtbl.SetPath := CallbackCreate(GetMethod(implObj, "SetPath"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSecure)
+        CallbackFree(this.vtbl.SetSecure)
+        CallbackFree(this.vtbl.GetPath)
+        CallbackFree(this.vtbl.SetPath)
     }
 }

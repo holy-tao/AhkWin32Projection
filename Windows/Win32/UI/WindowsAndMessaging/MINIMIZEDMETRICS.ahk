@@ -1,63 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MINIMIZEDMETRICS_ARRANGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MINIMIZEDMETRICS_ARRANGE.ahk" { MINIMIZEDMETRICS_ARRANGE }
 
 /**
  * Contains the scalable metrics associated with minimized windows.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-minimizedmetrics
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class MINIMIZEDMETRICS extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct MINIMIZEDMETRICS {
+    #StructPack 4
 
     /**
      * The size of the structure, in bytes. The caller must set this to <c>sizeof(MINIMIZEDMETRICS)</c>.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * The width of minimized windows, in pixels.
-     * @type {Integer}
      */
-    iWidth {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    iWidth : Int32
 
     /**
      * The horizontal space between arranged minimized windows, in pixels.
-     * @type {Integer}
      */
-    iHorzGap {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    iHorzGap : Int32
 
     /**
      * The vertical space between arranged minimized windows, in pixels.
-     * @type {Integer}
      */
-    iVertGap {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    iVertGap : Int32
 
-    /**
-     * @type {MINIMIZEDMETRICS_ARRANGE}
-     */
-    iArrange {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    iArrange : MINIMIZEDMETRICS_ARRANGE
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 20
-    }
 }

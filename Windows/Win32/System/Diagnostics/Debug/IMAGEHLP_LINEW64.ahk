@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Represents a source file line. (IMAGEHLP_LINEW64)
@@ -12,53 +12,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-imagehlp_linew64
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class IMAGEHLP_LINEW64 extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct IMAGEHLP_LINEW64 {
+    #StructPack 8
 
     /**
      * The size of the structure, in bytes. The caller must set this member to <c>sizeof(IMAGEHLP_LINE64)</c>.
-     * @type {Integer}
      */
-    SizeOfStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SizeOfStruct : UInt32
 
     /**
      * This member is reserved for use by the operating system.
-     * @type {Pointer<Void>}
      */
-    Key {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Key : IntPtr
 
     /**
      * The line number in the file.
-     * @type {Integer}
      */
-    LineNumber {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    LineNumber : UInt32
 
     /**
      * The name of the file, including the full path.
-     * @type {PWSTR}
      */
-    FileName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    FileName : PWSTR
 
     /**
      * The address of the first instruction in the line.
-     * @type {Integer}
      */
-    Address {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Address : Int64
+
 }

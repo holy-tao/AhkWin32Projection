@@ -1,23 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_HUB_CAP_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USB_HUB_CAP_FLAGS.ahk" { USB_HUB_CAP_FLAGS }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_HUB_CAPABILITIES_EX extends Win32Struct {
-    static sizeof => 8
+export default struct USB_HUB_CAPABILITIES_EX {
+    #StructPack 1
 
-    static packingSize => 1
+    CapabilityFlags : USB_HUB_CAP_FLAGS
 
-    /**
-     * @type {USB_HUB_CAP_FLAGS}
-     */
-    CapabilityFlags {
-        get {
-            if(!this.HasProp("__CapabilityFlags"))
-                this.__CapabilityFlags := USB_HUB_CAP_FLAGS(0, this)
-            return this.__CapabilityFlags
-        }
-    }
 }

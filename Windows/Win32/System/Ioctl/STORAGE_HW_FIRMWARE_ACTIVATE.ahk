@@ -1,33 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * This structure contains information about the downloaded firmware to activate.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_hw_firmware_activate
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_HW_FIRMWARE_ACTIVATE extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct STORAGE_HW_FIRMWARE_ACTIVATE {
+    #StructPack 4
 
     /**
      * The version of this structure. This should be set to sizeof(STORAGE_HW_FIRMWARE_ACTIVATE).
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
     /**
      * The size of this structure. This should be set to sizeof(STORAGE_HW_FIRMWARE_ACTIVATE).
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Size : UInt32
 
     /**
      * The flags associated with the activation request. The following are valid flags that can be set in this member.
@@ -46,31 +35,17 @@ class STORAGE_HW_FIRMWARE_ACTIVATE extends Win32Struct {
      * <td>Indicates that the existing firmware image in the specified slot should be activated.</td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Flags : UInt32
 
     /**
      * The slot with the firmware image that is to be activated.
-     * @type {Integer}
      */
-    Slot {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    Slot : Int8
 
     /**
      * Reserved for future use.
-     * @type {Array<Integer>}
      */
-    Reserved0 {
-        get {
-            if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 13, 3, Primitive, "char")
-            return this.__Reserved0ProxyArray
-        }
-    }
+    Reserved0 : Int8[3]
+
 }

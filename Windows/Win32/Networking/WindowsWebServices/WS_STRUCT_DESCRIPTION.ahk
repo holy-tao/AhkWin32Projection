@@ -1,8 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_FIELD_DESCRIPTION.ahk
-#Include .\WS_XML_STRING.ahk
-#Include .\WS_STRUCT_DESCRIPTION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
+#Import ".\WS_FIELD_DESCRIPTION.ahk" { WS_FIELD_DESCRIPTION }
 
 /**
  * Information about C struct type, and how it maps to an XML element. This is used with WS_STRUCT_TYPE.
@@ -85,29 +83,19 @@
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_struct_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_STRUCT_DESCRIPTION extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct WS_STRUCT_DESCRIPTION {
+    #StructPack 8
 
     /**
      * The size of the structure, in bytes.
-     * @type {Integer}
      */
-    size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    size : UInt32
 
     /**
      * The alignment requirement of the structure.  This must be a power
      *                     of two between 1 and 8.
-     * @type {Integer}
      */
-    alignment {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    alignment : UInt32
 
     /**
      * An array of pointers to the descriptions of the fields of the structure.
@@ -115,79 +103,46 @@ class WS_STRUCT_DESCRIPTION extends Win32Struct {
      * 
      * See the Remarks section for information about ordering of the fields
      *                     in this array.
-     * @type {Pointer<Pointer<WS_FIELD_DESCRIPTION>>}
      */
-    fields {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    fields : IntPtr
 
     /**
      * The number of fields in the fields array.  Any part of the structure
      *                     that is not represented by a field will be left uninitialized.
      *                     No two fields descriptions may reference the same offset of the structure.
-     * @type {Integer}
      */
-    fieldCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    fieldCount : UInt32
 
     /**
      * The XML type name of the structure.  This is only used when 
      *                     structures derive from other structures, and may be <b>NULL</b> otherwise.
-     * @type {Pointer<WS_XML_STRING>}
      */
-    typeLocalName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    typeLocalName : WS_XML_STRING.Ptr
 
     /**
      * The XML type namespace of the structure.  This is only used when 
      *                     structures derive from other structures, and may be <b>NULL</b> otherwise.
-     * @type {Pointer<WS_XML_STRING>}
      */
-    typeNs {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    typeNs : WS_XML_STRING.Ptr
 
     /**
      * The type this type is derived from.  This is only used when 
      *                     structures derive from other structures, and may be <b>NULL</b> otherwise.
-     * @type {Pointer<WS_STRUCT_DESCRIPTION>}
      */
-    parentType {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    parentType : WS_STRUCT_DESCRIPTION.Ptr
 
     /**
      * An array of pointers to derived types.  This is only used when 
      *                     structures derive from other structures, and may be <b>NULL</b> otherwise.
-     * @type {Pointer<Pointer<WS_STRUCT_DESCRIPTION>>}
      */
-    subTypes {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    subTypes : IntPtr
 
     /**
      * The number of types in the subTypes array.  This is only used when 
      *                     structures derive from other structures, and may be <b>NULL</b> otherwise.
-     * @type {Integer}
      */
-    subTypeCount {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    subTypeCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    structOptions {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    structOptions : UInt32
+
 }

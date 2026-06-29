@@ -1,52 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IMAGE_POLICY_ENTRY.ahk
-#Include .\IMAGE_POLICY_ENTRY_TYPE.ahk
-#Include .\IMAGE_POLICY_ID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IMAGE_POLICY_ENTRY_TYPE.ahk" { IMAGE_POLICY_ENTRY_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IMAGE_POLICY_ENTRY.ahk" { IMAGE_POLICY_ENTRY }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\IMAGE_POLICY_ID.ahk" { IMAGE_POLICY_ID }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class IMAGE_POLICY_METADATA extends Win32Struct {
-    static sizeof => 32
+export default struct IMAGE_POLICY_METADATA {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Reserved0 : Int8[7]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved0 {
-        get {
-            if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 1, 7, Primitive, "char")
-            return this.__Reserved0ProxyArray
-        }
-    }
+    ApplicationId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ApplicationId {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Policies : IMAGE_POLICY_ENTRY[1]
 
-    /**
-     * @type {IMAGE_POLICY_ENTRY}
-     */
-    Policies {
-        get {
-            if(!this.HasProp("__PoliciesProxyArray"))
-                this.__PoliciesProxyArray := Win32FixedArray(this.ptr + 16, 1, IMAGE_POLICY_ENTRY, "")
-            return this.__PoliciesProxyArray
-        }
-    }
 }

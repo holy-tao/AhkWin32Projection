@@ -1,32 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PESILO.ahk" { PESILO }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class IO_FOEXT_SILO_PARAMETERS extends Win32Struct {
-    static sizeof => 16
+export default struct IO_FOEXT_SILO_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Length : UInt32
 
     /**
      * This bitfield backs the following members:
      * - HasHardReference
      * - SpareFlags
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -43,20 +32,10 @@ class IO_FOEXT_SILO_PARAMETERS extends Win32Struct {
         get => (this._bitfield >> 1) & 0x7FFFFFFF
         set => this._bitfield := ((value & 0x7FFFFFFF) << 1) | (this._bitfield & ~(0x7FFFFFFF << 1))
     }
+    SiloContext : PESILO
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {PESILO}
-     */
-    SiloContext {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'Flags', { type: UInt32, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

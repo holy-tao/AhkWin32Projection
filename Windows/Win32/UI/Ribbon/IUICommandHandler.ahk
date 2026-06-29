@@ -1,8 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\UI_EXECUTIONVERB.ahk" { UI_EXECUTIONVERB }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import ".\IUISimplePropertySet.ahk" { IUISimplePropertySet }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IUICommandHandler interface is implemented by the application and defines the methods for gathering Command information and handling Command events from the Windows Ribbon framework.
@@ -19,26 +23,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nn-uiribbon-iuicommandhandler
  * @namespace Windows.Win32.UI.Ribbon
  */
-class IUICommandHandler extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUICommandHandler extends IUnknown {
     /**
      * The interface identifier for IUICommandHandler
      * @type {Guid}
      */
-    static IID => Guid("{75ae0a2d-dc03-4c9f-8883-069660d0beb6}")
+    static IID := Guid("{75ae0a2d-dc03-4c9f-8883-069660d0beb6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUICommandHandler interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Execute        : IntPtr
+        UpdateProperty : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Execute", "UpdateProperty"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUICommandHandler.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Responds to execute events on Commands bound to the Command handler.
@@ -66,7 +78,7 @@ class IUICommandHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuicommandhandler-execute
      */
     Execute(commandId, verb, key, currentValue, commandExecutionProperties) {
-        result := ComCall(3, this, "uint", commandId, "int", verb, "ptr", key, "ptr", currentValue, "ptr", commandExecutionProperties, "HRESULT")
+        result := ComCall(3, this, "uint", commandId, UI_EXECUTIONVERB, verb, PROPERTYKEY.Ptr, key, PROPVARIANT.Ptr, currentValue, "ptr", commandExecutionProperties, "HRESULT")
         return result
     }
 
@@ -93,7 +105,29 @@ class IUICommandHandler extends IUnknown {
      */
     UpdateProperty(commandId, key, currentValue) {
         newValue := PROPVARIANT()
-        result := ComCall(4, this, "uint", commandId, "ptr", key, "ptr", currentValue, "ptr", newValue, "HRESULT")
+        result := ComCall(4, this, "uint", commandId, PROPERTYKEY.Ptr, key, PROPVARIANT.Ptr, currentValue, PROPVARIANT.Ptr, newValue, "HRESULT")
         return newValue
+    }
+
+    Query(iid) {
+        if (IUICommandHandler.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Execute := CallbackCreate(GetMethod(implObj, "Execute"), flags, 6)
+        this.vtbl.UpdateProperty := CallbackCreate(GetMethod(implObj, "UpdateProperty"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Execute)
+        CallbackFree(this.vtbl.UpdateProperty)
     }
 }

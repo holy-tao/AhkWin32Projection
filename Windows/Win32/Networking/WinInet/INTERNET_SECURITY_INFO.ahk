@@ -1,83 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\Cryptography\CERT_CONTEXT.ahk
-#Include ..\..\Security\Cryptography\CERT_CHAIN_CONTEXT.ahk
-#Include ..\..\Security\Authentication\Identity\SecPkgContext_ConnectionInfo.ahk
-#Include ..\..\Security\Cryptography\ALG_ID.ahk
-#Include ..\..\Security\Authentication\Identity\SecPkgContext_CipherInfo.ahk
-#Include ..\..\Security\Authentication\Identity\SecPkgContext_Bindings.ahk
-#Include ..\..\Security\Authentication\Identity\SEC_CHANNEL_BINDINGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import "..\..\Security\Cryptography\CERT_CHAIN_CONTEXT.ahk" { CERT_CHAIN_CONTEXT }
+#Import "..\..\Security\Authentication\Identity\SecPkgContext_CipherInfo.ahk" { SecPkgContext_CipherInfo }
+#Import "..\..\Security\Authentication\Identity\SecPkgContext_ConnectionInfo.ahk" { SecPkgContext_ConnectionInfo }
+#Import "..\..\Security\Authentication\Identity\SEC_CHANNEL_BINDINGS.ahk" { SEC_CHANNEL_BINDINGS }
+#Import "..\..\Security\Authentication\Identity\SecPkgContext_Bindings.ahk" { SecPkgContext_Bindings }
+#Import "..\..\Security\Cryptography\ALG_ID.ahk" { ALG_ID }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
  */
-class INTERNET_SECURITY_INFO extends Win32Struct {
-    static sizeof => 760
+export default struct INTERNET_SECURITY_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pCertificate : CERT_CONTEXT.Ptr
 
-    /**
-     * @type {Pointer<CERT_CONTEXT>}
-     */
-    pCertificate {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pcCertChain : CERT_CHAIN_CONTEXT.Ptr
 
-    /**
-     * @type {Pointer<CERT_CHAIN_CONTEXT>}
-     */
-    pcCertChain {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    connectionInfo : SecPkgContext_ConnectionInfo
 
-    /**
-     * @type {SecPkgContext_ConnectionInfo}
-     */
-    connectionInfo {
-        get {
-            if(!this.HasProp("__connectionInfo"))
-                this.__connectionInfo := SecPkgContext_ConnectionInfo(24, this)
-            return this.__connectionInfo
-        }
-    }
+    cipherInfo : SecPkgContext_CipherInfo
 
-    /**
-     * @type {SecPkgContext_CipherInfo}
-     */
-    cipherInfo {
-        get {
-            if(!this.HasProp("__cipherInfo"))
-                this.__cipherInfo := SecPkgContext_CipherInfo(52, this)
-            return this.__cipherInfo
-        }
-    }
+    pcUnverifiedCertChain : CERT_CHAIN_CONTEXT.Ptr
 
-    /**
-     * @type {Pointer<CERT_CHAIN_CONTEXT>}
-     */
-    pcUnverifiedCertChain {
-        get => NumGet(this, 736, "ptr")
-        set => NumPut("ptr", value, this, 736)
-    }
+    channelBindingToken : SecPkgContext_Bindings
 
-    /**
-     * @type {SecPkgContext_Bindings}
-     */
-    channelBindingToken {
-        get {
-            if(!this.HasProp("__channelBindingToken"))
-                this.__channelBindingToken := SecPkgContext_Bindings(744, this)
-            return this.__channelBindingToken
-        }
-    }
 }

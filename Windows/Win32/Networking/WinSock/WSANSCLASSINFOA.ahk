@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The WSANSCLASSINFO structure provides individual parameter information for a specific Windows Sockets namespace. (ANSI)
@@ -17,53 +17,32 @@
  * @charset ANSI
  * @deprecated WSANSCLASSINFOW
  */
-class WSANSCLASSINFOA extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct WSANSCLASSINFOA {
+    #StructPack 8
 
     /**
      * String value associated with the parameter, such as SAPID, TCPPORT, and so forth.
-     * @type {PSTR}
      */
-    lpszName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpszName : PSTR
 
     /**
      * GUID associated with the namespace.
-     * @type {Integer}
      */
-    dwNameSpace {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwNameSpace : UInt32
 
     /**
      * Value type for the parameter, such as REG_DWORD or REG_SZ, and so forth.
-     * @type {Integer}
      */
-    dwValueType {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwValueType : UInt32
 
     /**
      * Size of the parameter provided in <b>lpValue</b>, in bytes.
-     * @type {Integer}
      */
-    dwValueSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwValueSize : UInt32
 
     /**
      * Pointer to the value of the parameter.
-     * @type {Pointer<Void>}
      */
-    lpValue {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpValue : IntPtr
+
 }

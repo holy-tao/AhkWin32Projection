@@ -1,41 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISVGAnimatedLength.ahk
-#Include .\ISVGAnimatedEnumeration.ahk
-#Include .\ISVGPoint.ahk
-#Include .\ISVGRect.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISVGAnimatedEnumeration.ahk" { ISVGAnimatedEnumeration }
+#Import ".\ISVGAnimatedLength.ahk" { ISVGAnimatedLength }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISVGPoint.ahk" { ISVGPoint }
+#Import ".\ISVGRect.ahk" { ISVGRect }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class ISVGTextContentElement extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISVGTextContentElement extends IDispatch {
     /**
      * The interface identifier for ISVGTextContentElement
      * @type {Guid}
      */
-    static IID => Guid("{3051051a-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3051051a-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for SVGTextContentElement
      * @type {Guid}
      */
-    static CLSID => Guid("{305105dd-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{305105dd-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISVGTextContentElement interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        putref_textLength      : IntPtr
+        get_textLength         : IntPtr
+        putref_lengthAdjust    : IntPtr
+        get_lengthAdjust       : IntPtr
+        getNumberOfChars       : IntPtr
+        getComputedTextLength  : IntPtr
+        getSubStringLength     : IntPtr
+        getStartPositionOfChar : IntPtr
+        getEndPositionOfChar   : IntPtr
+        getExtentOfChar        : IntPtr
+        getRotationOfChar      : IntPtr
+        getCharNumAtPosition   : IntPtr
+        selectSubString        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["putref_textLength", "get_textLength", "putref_lengthAdjust", "get_lengthAdjust", "getNumberOfChars", "getComputedTextLength", "getSubStringLength", "getStartPositionOfChar", "getEndPositionOfChar", "getExtentOfChar", "getRotationOfChar", "getCharNumAtPosition", "selectSubString"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISVGTextContentElement.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ISVGAnimatedLength} 
@@ -177,5 +197,49 @@ class ISVGTextContentElement extends IDispatch {
     selectSubString(charnum, nchars) {
         result := ComCall(19, this, "int", charnum, "int", nchars, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISVGTextContentElement.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.putref_textLength := CallbackCreate(GetMethod(implObj, "putref_textLength"), flags, 2)
+        this.vtbl.get_textLength := CallbackCreate(GetMethod(implObj, "get_textLength"), flags, 2)
+        this.vtbl.putref_lengthAdjust := CallbackCreate(GetMethod(implObj, "putref_lengthAdjust"), flags, 2)
+        this.vtbl.get_lengthAdjust := CallbackCreate(GetMethod(implObj, "get_lengthAdjust"), flags, 2)
+        this.vtbl.getNumberOfChars := CallbackCreate(GetMethod(implObj, "getNumberOfChars"), flags, 2)
+        this.vtbl.getComputedTextLength := CallbackCreate(GetMethod(implObj, "getComputedTextLength"), flags, 2)
+        this.vtbl.getSubStringLength := CallbackCreate(GetMethod(implObj, "getSubStringLength"), flags, 4)
+        this.vtbl.getStartPositionOfChar := CallbackCreate(GetMethod(implObj, "getStartPositionOfChar"), flags, 3)
+        this.vtbl.getEndPositionOfChar := CallbackCreate(GetMethod(implObj, "getEndPositionOfChar"), flags, 3)
+        this.vtbl.getExtentOfChar := CallbackCreate(GetMethod(implObj, "getExtentOfChar"), flags, 3)
+        this.vtbl.getRotationOfChar := CallbackCreate(GetMethod(implObj, "getRotationOfChar"), flags, 3)
+        this.vtbl.getCharNumAtPosition := CallbackCreate(GetMethod(implObj, "getCharNumAtPosition"), flags, 3)
+        this.vtbl.selectSubString := CallbackCreate(GetMethod(implObj, "selectSubString"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.putref_textLength)
+        CallbackFree(this.vtbl.get_textLength)
+        CallbackFree(this.vtbl.putref_lengthAdjust)
+        CallbackFree(this.vtbl.get_lengthAdjust)
+        CallbackFree(this.vtbl.getNumberOfChars)
+        CallbackFree(this.vtbl.getComputedTextLength)
+        CallbackFree(this.vtbl.getSubStringLength)
+        CallbackFree(this.vtbl.getStartPositionOfChar)
+        CallbackFree(this.vtbl.getEndPositionOfChar)
+        CallbackFree(this.vtbl.getExtentOfChar)
+        CallbackFree(this.vtbl.getRotationOfChar)
+        CallbackFree(this.vtbl.getCharNumAtPosition)
+        CallbackFree(this.vtbl.selectSubString)
     }
 }

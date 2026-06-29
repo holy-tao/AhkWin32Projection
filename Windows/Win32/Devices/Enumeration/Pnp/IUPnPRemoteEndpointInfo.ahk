@@ -1,41 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IUPnPRemoteEndpointInfo interface allows a hosted device to obtain information about a requester (that is, a control point) and the request.
  * @see https://learn.microsoft.com/windows/win32/api/upnphost/nn-upnphost-iupnpremoteendpointinfo
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
  */
-class IUPnPRemoteEndpointInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUPnPRemoteEndpointInfo extends IUnknown {
     /**
      * The interface identifier for IUPnPRemoteEndpointInfo
      * @type {Guid}
      */
-    static IID => Guid("{c92eb863-0269-4aff-9c72-75321bba2952}")
+    static IID := Guid("{c92eb863-0269-4aff-9c72-75321bba2952}")
 
     /**
      * The class identifier for UPnPRemoteEndpointInfo
      * @type {Guid}
      */
-    static CLSID => Guid("{2e5e84e9-4049-4244-b728-2d24227157c7}")
+    static CLSID := Guid("{2e5e84e9-4049-4244-b728-2d24227157c7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUPnPRemoteEndpointInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDwordValue  : IntPtr
+        GetStringValue : IntPtr
+        GetGuidValue   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDwordValue", "GetStringValue", "GetGuidValue"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUPnPRemoteEndpointInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetDwordValue method gets a 4-byte value that provides information about either a request or requester.
@@ -77,7 +86,7 @@ class IUPnPRemoteEndpointInfo extends IUnknown {
     GetDwordValue(bstrValueName) {
         bstrValueName := bstrValueName is String ? BSTR.Alloc(bstrValueName).Value : bstrValueName
 
-        result := ComCall(3, this, "ptr", bstrValueName, "uint*", &pdwValue := 0, "HRESULT")
+        result := ComCall(3, this, BSTR, bstrValueName, "uint*", &pdwValue := 0, "HRESULT")
         return pdwValue
     }
 
@@ -94,8 +103,8 @@ class IUPnPRemoteEndpointInfo extends IUnknown {
     GetStringValue(bstrValueName) {
         bstrValueName := bstrValueName is String ? BSTR.Alloc(bstrValueName).Value : bstrValueName
 
-        pbstrValue := BSTR()
-        result := ComCall(4, this, "ptr", bstrValueName, "ptr", pbstrValue, "HRESULT")
+        pbstrValue := BSTR.Owned()
+        result := ComCall(4, this, BSTR, bstrValueName, BSTR.Ptr, pbstrValue, "HRESULT")
         return pbstrValue
     }
 
@@ -109,7 +118,31 @@ class IUPnPRemoteEndpointInfo extends IUnknown {
         bstrValueName := bstrValueName is String ? BSTR.Alloc(bstrValueName).Value : bstrValueName
 
         pguidValue := Guid()
-        result := ComCall(5, this, "ptr", bstrValueName, "ptr", pguidValue, "HRESULT")
+        result := ComCall(5, this, BSTR, bstrValueName, Guid.Ptr, pguidValue, "HRESULT")
         return pguidValue
+    }
+
+    Query(iid) {
+        if (IUPnPRemoteEndpointInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDwordValue := CallbackCreate(GetMethod(implObj, "GetDwordValue"), flags, 3)
+        this.vtbl.GetStringValue := CallbackCreate(GetMethod(implObj, "GetStringValue"), flags, 3)
+        this.vtbl.GetGuidValue := CallbackCreate(GetMethod(implObj, "GetGuidValue"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDwordValue)
+        CallbackFree(this.vtbl.GetStringValue)
+        CallbackFree(this.vtbl.GetGuidValue)
     }
 }

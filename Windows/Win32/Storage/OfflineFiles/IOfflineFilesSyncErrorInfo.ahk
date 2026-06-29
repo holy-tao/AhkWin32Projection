@@ -1,34 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IOfflineFilesErrorInfo.ahk
-#Include .\IOfflineFilesSyncErrorItemInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IOfflineFilesErrorInfo.ahk" { IOfflineFilesErrorInfo }
+#Import ".\OFFLINEFILES_SYNC_OPERATION.ahk" { OFFLINEFILES_SYNC_OPERATION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOfflineFilesSyncErrorItemInfo.ahk" { IOfflineFilesSyncErrorItemInfo }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Supplied with the IOfflineFilesSyncProgress::SyncItemResult method to communicate details about the item that experienced a sync error.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilessyncerrorinfo
  * @namespace Windows.Win32.Storage.OfflineFiles
  */
-class IOfflineFilesSyncErrorInfo extends IOfflineFilesErrorInfo {
-
-    static sizeof => A_PtrSize
+export default struct IOfflineFilesSyncErrorInfo extends IOfflineFilesErrorInfo {
     /**
      * The interface identifier for IOfflineFilesSyncErrorInfo
      * @type {Guid}
      */
-    static IID => Guid("{59f95e46-eb54-49d1-be76-de95458d01b0}")
+    static IID := Guid("{59f95e46-eb54-49d1-be76-de95458d01b0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOfflineFilesSyncErrorInfo interfaces
+    */
+    struct Vtbl extends IOfflineFilesErrorInfo.Vtbl {
+        GetSyncOperation   : IntPtr
+        GetItemChangeFlags : IntPtr
+        InfoEnumerated     : IntPtr
+        InfoAvailable      : IntPtr
+        GetLocalInfo       : IntPtr
+        GetRemoteInfo      : IntPtr
+        GetOriginalInfo    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSyncOperation", "GetItemChangeFlags", "InfoEnumerated", "InfoAvailable", "GetLocalInfo", "GetRemoteInfo", "GetOriginalInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOfflineFilesSyncErrorInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a value indicating the type of sync operation that was being performed when the error was encountered.
@@ -112,5 +128,37 @@ class IOfflineFilesSyncErrorInfo extends IOfflineFilesErrorInfo {
     GetOriginalInfo() {
         result := ComCall(11, this, "ptr*", &ppInfo := 0, "HRESULT")
         return IOfflineFilesSyncErrorItemInfo(ppInfo)
+    }
+
+    Query(iid) {
+        if (IOfflineFilesSyncErrorInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSyncOperation := CallbackCreate(GetMethod(implObj, "GetSyncOperation"), flags, 2)
+        this.vtbl.GetItemChangeFlags := CallbackCreate(GetMethod(implObj, "GetItemChangeFlags"), flags, 2)
+        this.vtbl.InfoEnumerated := CallbackCreate(GetMethod(implObj, "InfoEnumerated"), flags, 4)
+        this.vtbl.InfoAvailable := CallbackCreate(GetMethod(implObj, "InfoAvailable"), flags, 4)
+        this.vtbl.GetLocalInfo := CallbackCreate(GetMethod(implObj, "GetLocalInfo"), flags, 2)
+        this.vtbl.GetRemoteInfo := CallbackCreate(GetMethod(implObj, "GetRemoteInfo"), flags, 2)
+        this.vtbl.GetOriginalInfo := CallbackCreate(GetMethod(implObj, "GetOriginalInfo"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSyncOperation)
+        CallbackFree(this.vtbl.GetItemChangeFlags)
+        CallbackFree(this.vtbl.InfoEnumerated)
+        CallbackFree(this.vtbl.InfoAvailable)
+        CallbackFree(this.vtbl.GetLocalInfo)
+        CallbackFree(this.vtbl.GetRemoteInfo)
+        CallbackFree(this.vtbl.GetOriginalInfo)
     }
 }

@@ -1,72 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\AUTHZ_SECURITY_ATTRIBUTE_FLAGS.ahk
-#Include .\AUTHZ_SECURITY_ATTRIBUTE_FQBN_VALUE.ahk
-#Include .\AUTHZ_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\AUTHZ_SECURITY_ATTRIBUTE_FLAGS.ahk" { AUTHZ_SECURITY_ATTRIBUTE_FLAGS }
+#Import ".\AUTHZ_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE.ahk" { AUTHZ_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE }
+#Import ".\AUTHZ_SECURITY_ATTRIBUTE_FQBN_VALUE.ahk" { AUTHZ_SECURITY_ATTRIBUTE_FQBN_VALUE }
 
 /**
  * Defines a security attribute that can be associated with an authorization context.
  * @see https://learn.microsoft.com/windows/win32/api/authz/ns-authz-authz_security_attribute_v1
  * @namespace Windows.Win32.Security.Authorization
  */
-class AUTHZ_SECURITY_ATTRIBUTE_V1 extends Win32Struct {
-    static sizeof => 32
+export default struct AUTHZ_SECURITY_ATTRIBUTE_V1 {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Values_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _Values {
+        pInt64 : IntPtr
 
-        /**
-         * @type {Pointer<Integer>}
-         */
-        pInt64 {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<Integer>}
-         */
-        pUint64 {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<PWSTR>}
-         */
-        ppString {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<AUTHZ_SECURITY_ATTRIBUTE_FQBN_VALUE>}
-         */
-        pFqbn {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<AUTHZ_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE>}
-         */
-        pOctetString {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'pUint64', { type: IntPtr, offset: 0 })
+            DefineProp(this.Prototype, 'ppString', { type: PWSTR.Ptr, offset: 0 })
+            DefineProp(this.Prototype, 'pFqbn', { type: AUTHZ_SECURITY_ATTRIBUTE_FQBN_VALUE.Ptr, offset: 0 })
+            DefineProp(this.Prototype, 'pOctetString', { type: AUTHZ_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE.Ptr, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
     /**
      * A pointer to a name of a security attribute.
-     * @type {PWSTR}
      */
-    pName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pName : PWSTR
 
     /**
      * The data type of the values pointed to by the <b>Values</b> member.
@@ -169,47 +131,21 @@ class AUTHZ_SECURITY_ATTRIBUTE_V1 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ValueType {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    ValueType : UInt16
 
     /**
      * Reserved for future use.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    Reserved : UInt16
 
-    /**
-     * @type {AUTHZ_SECURITY_ATTRIBUTE_FLAGS}
-     */
-    Flags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Flags : AUTHZ_SECURITY_ATTRIBUTE_FLAGS
 
     /**
      * The number of values specified in the <b>Values</b> member.
-     * @type {Integer}
      */
-    ValueCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ValueCount : UInt32
 
-    /**
-     * @type {_Values_e__Union}
-     */
-    Values {
-        get {
-            if(!this.HasProp("__Values"))
-                this.__Values := AUTHZ_SECURITY_ATTRIBUTE_V1._Values_e__Union(24, this)
-            return this.__Values
-        }
-    }
+    Values : AUTHZ_SECURITY_ATTRIBUTE_V1._Values
+
 }

@@ -1,82 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_BSS_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_BSS_TYPE.ahk" { DOT11_BSS_TYPE }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_BSS_DESCRIPTION extends Win32Struct {
-    static sizeof => 48
+export default struct DOT11_BSS_DESCRIPTION {
+    #StructPack 8
 
-    static packingSize => 8
+    uReserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uReserved {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dot11BSSID : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    dot11BSSID {
-        get {
-            if(!this.HasProp("__dot11BSSIDProxyArray"))
-                this.__dot11BSSIDProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
-            return this.__dot11BSSIDProxyArray
-        }
-    }
+    dot11BSSType : DOT11_BSS_TYPE
 
-    /**
-     * @type {DOT11_BSS_TYPE}
-     */
-    dot11BSSType {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    usBeaconPeriod : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usBeaconPeriod {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    ullTimestamp : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullTimestamp {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    usCapabilityInformation : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usCapabilityInformation {
-        get => NumGet(this, 32, "ushort")
-        set => NumPut("ushort", value, this, 32)
-    }
+    uBufferLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uBufferLength {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    ucBuffer : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ucBuffer {
-        get {
-            if(!this.HasProp("__ucBufferProxyArray"))
-                this.__ucBufferProxyArray := Win32FixedArray(this.ptr + 40, 1, Primitive, "char")
-            return this.__ucBufferProxyArray
-        }
-    }
 }

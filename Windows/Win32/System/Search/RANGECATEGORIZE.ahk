@@ -1,28 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Com\StructuredStorage\PROPVARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class RANGECATEGORIZE extends Win32Struct {
-    static sizeof => 16
+export default struct RANGECATEGORIZE {
+    #StructPack 8
 
-    static packingSize => 8
+    cRange : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cRange {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    aRangeBegin : PROPVARIANT.Ptr
 
-    /**
-     * @type {Pointer<PROPVARIANT>}
-     */
-    aRangeBegin {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

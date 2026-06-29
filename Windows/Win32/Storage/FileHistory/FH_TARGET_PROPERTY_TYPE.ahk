@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the type of a property of a backup target.
@@ -12,7 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/fhcfg/ne-fhcfg-fh_target_property_type
  * @namespace Windows.Win32.Storage.FileHistory
  */
-class FH_TARGET_PROPERTY_TYPE extends Win32Enum {
+export default struct FH_TARGET_PROPERTY_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The property is a string that contains the backup target’s friendly name.  The friendly name is set during target provisioning by calling the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/nf-fhcfg-ifhconfigmgr-provisionandsetnewtarget">IFhConfigMgr::ProvisionAndSetNewTarget</a> method.

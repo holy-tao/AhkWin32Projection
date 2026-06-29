@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Use this class to retrieve the path and value of a counter and to specify the color used to graph the counter. To retrieve this object, call Counters.Item.
@@ -14,8 +13,7 @@
  * @see https://learn.microsoft.com/windows/win32/SysMon/counteritem
  * @namespace Windows.Win32.System.Performance
  */
-class CounterItem extends Win32Struct {
-    static sizeof => 0
+export default struct CounterItem {
+    #StructPack 1
 
-    static packingSize => 1
 }

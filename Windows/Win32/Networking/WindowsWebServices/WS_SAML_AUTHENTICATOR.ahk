@@ -1,23 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_SAML_AUTHENTICATOR_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_SAML_AUTHENTICATOR_TYPE.ahk" { WS_SAML_AUTHENTICATOR_TYPE }
 
 /**
  * The abstract base type for all SAML authenticators used on the server side to validate incoming SAML tokens.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_saml_authenticator
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_SAML_AUTHENTICATOR extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct WS_SAML_AUTHENTICATOR {
+    #StructPack 4
 
     /**
      * The type id that indicates the SAML authenticator subtype of this authenticator.
-     * @type {WS_SAML_AUTHENTICATOR_TYPE}
      */
-    authenticatorType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    authenticatorType : WS_SAML_AUTHENTICATOR_TYPE
+
 }

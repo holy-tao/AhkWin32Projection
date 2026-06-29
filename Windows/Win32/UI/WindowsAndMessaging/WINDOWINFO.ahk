@@ -1,137 +1,84 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\WINDOW_STYLE.ahk
-#Include .\WINDOW_EX_STYLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WINDOW_STYLE.ahk" { WINDOW_STYLE }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\WINDOW_EX_STYLE.ahk" { WINDOW_EX_STYLE }
 
 /**
  * Contains window information.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-windowinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class WINDOWINFO extends Win32Struct {
-    static sizeof => 60
-
-    static packingSize => 4
+export default struct WINDOWINFO {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The size of the structure, in bytes. The caller must set this member to <c>sizeof(WINDOWINFO)</c>.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a></b>
      * 
      * The coordinates of the window.
-     * @type {RECT}
      */
-    rcWindow {
-        get {
-            if(!this.HasProp("__rcWindow"))
-                this.__rcWindow := RECT(4, this)
-            return this.__rcWindow
-        }
-    }
+    rcWindow : RECT
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a></b>
      * 
      * The coordinates of the client area.
-     * @type {RECT}
      */
-    rcClient {
-        get {
-            if(!this.HasProp("__rcClient"))
-                this.__rcClient := RECT(20, this)
-            return this.__rcClient
-        }
-    }
+    rcClient : RECT
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The window styles. For a table of window styles, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-styles">Window Styles</a>.
-     * @type {WINDOW_STYLE}
      */
-    dwStyle {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwStyle : WINDOW_STYLE
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The extended window styles. For a table of extended window styles, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/extended-window-styles">Extended Window Styles</a>.
-     * @type {WINDOW_EX_STYLE}
      */
-    dwExStyle {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwExStyle : WINDOW_EX_STYLE
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The window status. If this member is <b>WS_ACTIVECAPTION</b> (0x0001), the window is active. Otherwise, this member is zero.
-     * @type {Integer}
      */
-    dwWindowStatus {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    dwWindowStatus : UInt32
 
     /**
      * Type: <b>UINT</b>
      * 
      * The width of the window border, in pixels.
-     * @type {Integer}
      */
-    cxWindowBorders {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    cxWindowBorders : UInt32
 
     /**
      * Type: <b>UINT</b>
      * 
      * The height of the window border, in pixels.
-     * @type {Integer}
      */
-    cyWindowBorders {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    cyWindowBorders : UInt32
 
     /**
      * Type: <b>ATOM</b>
      * 
      * The window class atom (see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a>).
-     * @type {Integer}
      */
-    atomWindowType {
-        get => NumGet(this, 56, "ushort")
-        set => NumPut("ushort", value, this, 56)
-    }
+    atomWindowType : UInt16
 
     /**
      * Type: <b>WORD</b>
      * 
      * The Windows version of the application that created the window.
-     * @type {Integer}
      */
-    wCreatorVersion {
-        get => NumGet(this, 58, "ushort")
-        set => NumPut("ushort", value, this, 58)
-    }
+    wCreatorVersion : UInt16
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 60
-    }
 }

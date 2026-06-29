@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HANDLE_PTR.ahk" { HANDLE_PTR }
 
 /**
  * This interface allows a custom IDD driver to be loaded in a remote session.
  * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nn-wtsprotocol-iwrdswddmiddprops
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class IWRdsWddmIddProps extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWRdsWddmIddProps extends IUnknown {
     /**
      * The interface identifier for IWRdsWddmIddProps
      * @type {Guid}
      */
-    static IID => Guid("{1382df4d-a289-43d1-a184-144726f9af90}")
+    static IID := Guid("{1382df4d-a289-43d1-a184-144726f9af90}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWRdsWddmIddProps interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetHardwareId  : IntPtr
+        OnDriverLoad   : IntPtr
+        OnDriverUnload : IntPtr
+        EnableWddmIdd  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetHardwareId", "OnDriverLoad", "OnDriverUnload", "EnableWddmIdd"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWRdsWddmIddProps.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Protocol stack uses this method to return hardware Id of WDDM ID driver.
@@ -51,7 +65,7 @@ class IWRdsWddmIddProps extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdswddmiddprops-ondriverload
      */
     OnDriverLoad(SessionId, DriverHandle) {
-        result := ComCall(4, this, "uint", SessionId, "ptr", DriverHandle, "HRESULT")
+        result := ComCall(4, this, "uint", SessionId, HANDLE_PTR, DriverHandle, "HRESULT")
         return result
     }
 
@@ -73,7 +87,33 @@ class IWRdsWddmIddProps extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdswddmiddprops-enablewddmidd
      */
     EnableWddmIdd(Enabled) {
-        result := ComCall(6, this, "int", Enabled, "HRESULT")
+        result := ComCall(6, this, BOOL, Enabled, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWRdsWddmIddProps.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetHardwareId := CallbackCreate(GetMethod(implObj, "GetHardwareId"), flags, 3)
+        this.vtbl.OnDriverLoad := CallbackCreate(GetMethod(implObj, "OnDriverLoad"), flags, 3)
+        this.vtbl.OnDriverUnload := CallbackCreate(GetMethod(implObj, "OnDriverUnload"), flags, 2)
+        this.vtbl.EnableWddmIdd := CallbackCreate(GetMethod(implObj, "EnableWddmIdd"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetHardwareId)
+        CallbackFree(this.vtbl.OnDriverLoad)
+        CallbackFree(this.vtbl.OnDriverUnload)
+        CallbackFree(this.vtbl.EnableWddmIdd)
     }
 }

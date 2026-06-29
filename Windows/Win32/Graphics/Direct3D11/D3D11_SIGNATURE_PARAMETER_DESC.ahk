@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Direct3D\D3D_NAME.ahk
-#Include ..\Direct3D\D3D_REGISTER_COMPONENT_TYPE.ahk
-#Include ..\Direct3D\D3D_MIN_PRECISION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Direct3D\D3D_NAME.ahk" { D3D_NAME }
+#Import "..\Direct3D\D3D_REGISTER_COMPONENT_TYPE.ahk" { D3D_REGISTER_COMPONENT_TYPE }
+#Import "..\Direct3D\D3D_MIN_PRECISION.ahk" { D3D_MIN_PRECISION }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Describes a shader signature. (D3D11_SIGNATURE_PARAMETER_DESC)
@@ -15,107 +15,70 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_signature_parameter_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_SIGNATURE_PARAMETER_DESC extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct D3D11_SIGNATURE_PARAMETER_DESC {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * A per-parameter string that identifies how the data will be used. For more info, see <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-semantics">Semantics</a>.
-     * @type {PSTR}
      */
-    SemanticName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    SemanticName : PSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Semantic index that modifies the semantic. Used to differentiate different parameters that use the same semantic.
-     * @type {Integer}
      */
-    SemanticIndex {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SemanticIndex : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The register that will contain this variable's data.
-     * @type {Integer}
      */
-    Register {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Register : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_name">D3D_NAME</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_name">D3D_NAME</a>-typed value that identifies a predefined string that determines the functionality of certain pipeline stages.
-     * @type {D3D_NAME}
      */
-    SystemValueType {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    SystemValueType : D3D_NAME
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_register_component_type">D3D_REGISTER_COMPONENT_TYPE</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_register_component_type">D3D_REGISTER_COMPONENT_TYPE</a>-typed value that identifies the per-component-data type that is stored in a register.  Each register can store up to four-components of data.
-     * @type {D3D_REGISTER_COMPONENT_TYPE}
      */
-    ComponentType {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    ComponentType : D3D_REGISTER_COMPONENT_TYPE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BYTE</a></b>
      * 
      * Mask which indicates which components of a register are used.
-     * @type {Integer}
      */
-    Mask {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
-    }
+    Mask : Int8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BYTE</a></b>
      * 
      * Mask which indicates whether a given component is never written (if the signature is an output signature) or always read (if the signature is an input signature).
-     * @type {Integer}
      */
-    ReadWriteMask {
-        get => NumGet(this, 25, "char")
-        set => NumPut("char", value, this, 25)
-    }
+    ReadWriteMask : Int8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Indicates which stream the geometry shader is using for the signature parameter.
-     * @type {Integer}
      */
-    Stream {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    Stream : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_min_precision">D3D_MIN_PRECISION</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_min_precision">D3D_MIN_PRECISION</a>-typed value that indicates the minimum desired interpolation precision. For more info, see <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/using-hlsl-minimum-precision">Using HLSL minimum precision</a>.
-     * @type {D3D_MIN_PRECISION}
      */
-    MinPrecision {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    MinPrecision : D3D_MIN_PRECISION
+
 }

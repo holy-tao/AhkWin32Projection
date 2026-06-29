@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents filtering modes that a transform may select to use on input textures.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/ne-d2d1effectauthor-d2d1_filter
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_FILTER extends Win32Enum {
+export default struct D2D1_FILTER {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Use point sampling for minification, magnification, and mip-level sampling.

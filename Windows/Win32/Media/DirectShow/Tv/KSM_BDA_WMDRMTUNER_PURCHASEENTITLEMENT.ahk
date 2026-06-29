@@ -1,59 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\KernelStreaming\KSM_NODE.ahk
-#Include ..\..\KernelStreaming\KSIDENTIFIER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\KernelStreaming\KSM_NODE.ahk" { KSM_NODE }
+#Import "..\..\KernelStreaming\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class KSM_BDA_WMDRMTUNER_PURCHASEENTITLEMENT extends Win32Struct {
-    static sizeof => 48
+export default struct KSM_BDA_WMDRMTUNER_PURCHASEENTITLEMENT {
+    #StructPack 8
 
-    static packingSize => 8
+    NodeMethod : KSM_NODE
 
-    /**
-     * @type {KSM_NODE}
-     */
-    NodeMethod {
-        get {
-            if(!this.HasProp("__NodeMethod"))
-                this.__NodeMethod := KSM_NODE(0, this)
-            return this.__NodeMethod
-        }
-    }
+    ulDialogRequest : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulDialogRequest {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    cLanguage : CHAR[12]
 
-    /**
-     * @type {String}
-     */
-    cLanguage {
-        get => StrGet(this.ptr + 28, 11, "UTF-8")
-        set => StrPut(value, this.ptr + 28, 11, "UTF-8")
-    }
+    ulPurchaseTokenLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulPurchaseTokenLength {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    argbDataBuffer : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    argbDataBuffer {
-        get {
-            if(!this.HasProp("__argbDataBufferProxyArray"))
-                this.__argbDataBufferProxyArray := Win32FixedArray(this.ptr + 44, 1, Primitive, "char")
-            return this.__argbDataBufferProxyArray
-        }
-    }
 }

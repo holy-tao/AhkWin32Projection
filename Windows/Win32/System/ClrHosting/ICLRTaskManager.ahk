@@ -1,32 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ICLRTask.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ETaskType.ahk" { ETaskType }
+#Import ".\ICLRTask.ahk" { ICLRTask }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
  */
-class ICLRTaskManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICLRTaskManager extends IUnknown {
     /**
      * The interface identifier for ICLRTaskManager
      * @type {Guid}
      */
-    static IID => Guid("{4862efbe-3ae5-44f8-8feb-346190ee8a34}")
+    static IID := Guid("{4862efbe-3ae5-44f8-8feb-346190ee8a34}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICLRTaskManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateTask         : IntPtr
+        GetCurrentTask     : IntPtr
+        SetUILocale        : IntPtr
+        SetLocale          : IntPtr
+        GetCurrentTaskType : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateTask", "GetCurrentTask", "SetUILocale", "SetLocale", "GetCurrentTaskType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICLRTaskManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -57,32 +70,9 @@ class ICLRTaskManager extends IUnknown {
     }
 
     /**
-     * Sets an item of information in the user override portion of the current locale. This function does not set the system defaults. (ANSI)
-     * @remarks
-     * This function writes to the registry, where it sets values that are associated with a particular user instead of a particular application. These registry values affect the behavior of other applications run by the user. As a rule, an application should call this function only when the user has explicitly requested the changes. The registry settings should not be changed for the convenience of a single application.
      * 
-     * For the <i>LCType</i> parameter, the application should set <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-use-cp-acp">LOCALE_USE_CP_ACP</a> to use the operating system ANSI code page instead of the locale code page for string translation.
-     * 
-     * When the ANSI version of this function is used with a Unicode-only locale identifier, the function can succeed because the operating system uses the system code page. However, characters that are undefined in the system code page appear in the string as a question mark (?). 
-     * 
-     * As of Windows Vista, the <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-sdate">LOCALE_SDATE</a> and <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-stime-constants">LOCALE_STIME</a> constants are obsolete. Do not use these constants. Use <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-sshortdate">LOCALE_SSHORTDATE</a> and <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-stime-constants">LOCALE_STIMEFORMAT</a> instead. A custom locale might not have a single, uniform separator character within the date or time format: for example, a format such as "12/31, 2006" or "03:56'23" might be valid.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winnls.h header defines SetLocaleInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} lcid 
-     * @returns {HRESULT} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
-     * 
-     * <ul>
-     * <li>ERROR_ACCESS_DISABLED_BY_POLICY. The group policy of the computer or the user has forbidden this operation.</li>
-     * <li>ERROR_INVALID_ACCESS. The access code was invalid.</li>
-     * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
-     * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
-     * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-setlocaleinfoa
+     * @returns {HRESULT} 
      */
     SetLocale(lcid) {
         result := ComCall(6, this, "uint", lcid, "HRESULT")
@@ -96,5 +86,33 @@ class ICLRTaskManager extends IUnknown {
     GetCurrentTaskType() {
         result := ComCall(7, this, "int*", &pTaskType := 0, "HRESULT")
         return pTaskType
+    }
+
+    Query(iid) {
+        if (ICLRTaskManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateTask := CallbackCreate(GetMethod(implObj, "CreateTask"), flags, 2)
+        this.vtbl.GetCurrentTask := CallbackCreate(GetMethod(implObj, "GetCurrentTask"), flags, 2)
+        this.vtbl.SetUILocale := CallbackCreate(GetMethod(implObj, "SetUILocale"), flags, 2)
+        this.vtbl.SetLocale := CallbackCreate(GetMethod(implObj, "SetLocale"), flags, 2)
+        this.vtbl.GetCurrentTaskType := CallbackCreate(GetMethod(implObj, "GetCurrentTaskType"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateTask)
+        CallbackFree(this.vtbl.GetCurrentTask)
+        CallbackFree(this.vtbl.SetUILocale)
+        CallbackFree(this.vtbl.SetLocale)
+        CallbackFree(this.vtbl.GetCurrentTaskType)
     }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The FT_STATE_EVENT_CAUSE enum indicates the type of file terminal event.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-ft_state_event_cause
  * @namespace Windows.Win32.Devices.Tapi
  */
-class FT_STATE_EVENT_CAUSE extends Win32Enum {
+export default struct FT_STATE_EVENT_CAUSE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * State change in response to a normal API call.

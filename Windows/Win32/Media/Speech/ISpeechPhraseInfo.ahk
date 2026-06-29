@@ -1,37 +1,62 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\ISpeechPhraseRule.ahk
-#Include .\ISpeechPhraseProperties.ahk
-#Include .\ISpeechPhraseElements.ahk
-#Include .\ISpeechPhraseReplacements.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISpeechPhraseReplacements.ahk" { ISpeechPhraseReplacements }
+#Import ".\ISpeechPhraseProperties.ahk" { ISpeechPhraseProperties }
+#Import ".\SpeechDisplayAttributes.ahk" { SpeechDisplayAttributes }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\ISpeechPhraseElements.ahk" { ISpeechPhraseElements }
+#Import ".\ISpeechPhraseRule.ahk" { ISpeechPhraseRule }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpeechPhraseInfo extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISpeechPhraseInfo extends IDispatch {
     /**
      * The interface identifier for ISpeechPhraseInfo
      * @type {Guid}
      */
-    static IID => Guid("{961559cf-4e67-4662-8bf0-d93f1fcd61b3}")
+    static IID := Guid("{961559cf-4e67-4662-8bf0-d93f1fcd61b3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpeechPhraseInfo interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_LanguageId          : IntPtr
+        get_GrammarId           : IntPtr
+        get_StartTime           : IntPtr
+        get_AudioStreamPosition : IntPtr
+        get_AudioSizeBytes      : IntPtr
+        get_RetainedSizeBytes   : IntPtr
+        get_AudioSizeTime       : IntPtr
+        get_Rule                : IntPtr
+        get_Properties          : IntPtr
+        get_Elements            : IntPtr
+        get_Replacements        : IntPtr
+        get_EngineId            : IntPtr
+        get_EnginePrivateData   : IntPtr
+        SaveToMemory            : IntPtr
+        GetText                 : IntPtr
+        GetDisplayAttributes    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_LanguageId", "get_GrammarId", "get_StartTime", "get_AudioStreamPosition", "get_AudioSizeBytes", "get_RetainedSizeBytes", "get_AudioSizeTime", "get_Rule", "get_Properties", "get_Elements", "get_Replacements", "get_EngineId", "get_EnginePrivateData", "SaveToMemory", "GetText", "GetDisplayAttributes"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpeechPhraseInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -139,7 +164,7 @@ class ISpeechPhraseInfo extends IDispatch {
      */
     get_GrammarId() {
         GrammarId := VARIANT()
-        result := ComCall(8, this, "ptr", GrammarId, "HRESULT")
+        result := ComCall(8, this, VARIANT.Ptr, GrammarId, "HRESULT")
         return GrammarId
     }
 
@@ -149,7 +174,7 @@ class ISpeechPhraseInfo extends IDispatch {
      */
     get_StartTime() {
         StartTime := VARIANT()
-        result := ComCall(9, this, "ptr", StartTime, "HRESULT")
+        result := ComCall(9, this, VARIANT.Ptr, StartTime, "HRESULT")
         return StartTime
     }
 
@@ -159,7 +184,7 @@ class ISpeechPhraseInfo extends IDispatch {
      */
     get_AudioStreamPosition() {
         AudioStreamPosition := VARIANT()
-        result := ComCall(10, this, "ptr", AudioStreamPosition, "HRESULT")
+        result := ComCall(10, this, VARIANT.Ptr, AudioStreamPosition, "HRESULT")
         return AudioStreamPosition
     }
 
@@ -231,8 +256,8 @@ class ISpeechPhraseInfo extends IDispatch {
      * @returns {BSTR} 
      */
     get_EngineId() {
-        EngineIdGuid := BSTR()
-        result := ComCall(18, this, "ptr", EngineIdGuid, "HRESULT")
+        EngineIdGuid := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, EngineIdGuid, "HRESULT")
         return EngineIdGuid
     }
 
@@ -242,7 +267,7 @@ class ISpeechPhraseInfo extends IDispatch {
      */
     get_EnginePrivateData() {
         _PrivateData := VARIANT()
-        result := ComCall(19, this, "ptr", _PrivateData, "HRESULT")
+        result := ComCall(19, this, VARIANT.Ptr, _PrivateData, "HRESULT")
         return _PrivateData
     }
 
@@ -252,47 +277,20 @@ class ISpeechPhraseInfo extends IDispatch {
      */
     SaveToMemory() {
         PhraseBlock := VARIANT()
-        result := ComCall(20, this, "ptr", PhraseBlock, "HRESULT")
+        result := ComCall(20, this, VARIANT.Ptr, PhraseBlock, "HRESULT")
         return PhraseBlock
     }
 
     /**
-     * The GetTextAlign function retrieves the text-alignment setting for the specified device context.
-     * @remarks
-     * The bounding rectangle is a rectangle bounding all of the character cells in a string of text. Its dimensions can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gettextextentpoint32a">GetTextExtentPoint32</a> function.
      * 
-     * The text-alignment flags determine how the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a> functions align a string of text in relation to the string's reference point provided to <b>TextOut</b> or <b>ExtTextOut</b>.
-     * 
-     * The text-alignment flags are not necessarily single bit flags and may be equal to zero. The flags must be examined in groups of related flags, as shown in the following list.
-     * 
-     * <ul>
-     * <li>TA_LEFT, TA_RIGHT, and TA_CENTER</li>
-     * <li>TA_BOTTOM, TA_TOP, and TA_BASELINE</li>
-     * <li>TA_NOUPDATECP and TA_UPDATECP</li>
-     * </ul>
-     * If the current font has a vertical default base line, the related flags are as shown in the following list.
-     * 
-     * <ul>
-     * <li>TA_LEFT, TA_RIGHT, and VTA_BASELINE</li>
-     * <li>TA_BOTTOM, TA_TOP, and VTA_CENTER</li>
-     * <li>TA_NOUPDATECP and TA_UPDATECP</li>
-     * </ul>
-     * <p class="proch"><b>To verify that a particular flag is set in the return value of this function:</b>
-     * 
-     * <ol>
-     * <li>Apply the bitwise OR operator to the flag and its related flags.</li>
-     * <li>Apply the bitwise AND operator to the result and the return value.</li>
-     * <li>Test for the equality of this result and the flag.</li>
-     * </ol>
      * @param {Integer} StartElement 
      * @param {Integer} Elements 
      * @param {VARIANT_BOOL} UseReplacements 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextalign
      */
     GetText(StartElement, Elements, UseReplacements) {
-        Text := BSTR()
-        result := ComCall(21, this, "int", StartElement, "int", Elements, "short", UseReplacements, "ptr", Text, "HRESULT")
+        Text := BSTR.Owned()
+        result := ComCall(21, this, "int", StartElement, "int", Elements, VARIANT_BOOL, UseReplacements, BSTR.Ptr, Text, "HRESULT")
         return Text
     }
 
@@ -304,7 +302,57 @@ class ISpeechPhraseInfo extends IDispatch {
      * @returns {SpeechDisplayAttributes} 
      */
     GetDisplayAttributes(StartElement, Elements, UseReplacements) {
-        result := ComCall(22, this, "int", StartElement, "int", Elements, "short", UseReplacements, "int*", &DisplayAttributes := 0, "HRESULT")
+        result := ComCall(22, this, "int", StartElement, "int", Elements, VARIANT_BOOL, UseReplacements, "int*", &DisplayAttributes := 0, "HRESULT")
         return DisplayAttributes
+    }
+
+    Query(iid) {
+        if (ISpeechPhraseInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_LanguageId := CallbackCreate(GetMethod(implObj, "get_LanguageId"), flags, 2)
+        this.vtbl.get_GrammarId := CallbackCreate(GetMethod(implObj, "get_GrammarId"), flags, 2)
+        this.vtbl.get_StartTime := CallbackCreate(GetMethod(implObj, "get_StartTime"), flags, 2)
+        this.vtbl.get_AudioStreamPosition := CallbackCreate(GetMethod(implObj, "get_AudioStreamPosition"), flags, 2)
+        this.vtbl.get_AudioSizeBytes := CallbackCreate(GetMethod(implObj, "get_AudioSizeBytes"), flags, 2)
+        this.vtbl.get_RetainedSizeBytes := CallbackCreate(GetMethod(implObj, "get_RetainedSizeBytes"), flags, 2)
+        this.vtbl.get_AudioSizeTime := CallbackCreate(GetMethod(implObj, "get_AudioSizeTime"), flags, 2)
+        this.vtbl.get_Rule := CallbackCreate(GetMethod(implObj, "get_Rule"), flags, 2)
+        this.vtbl.get_Properties := CallbackCreate(GetMethod(implObj, "get_Properties"), flags, 2)
+        this.vtbl.get_Elements := CallbackCreate(GetMethod(implObj, "get_Elements"), flags, 2)
+        this.vtbl.get_Replacements := CallbackCreate(GetMethod(implObj, "get_Replacements"), flags, 2)
+        this.vtbl.get_EngineId := CallbackCreate(GetMethod(implObj, "get_EngineId"), flags, 2)
+        this.vtbl.get_EnginePrivateData := CallbackCreate(GetMethod(implObj, "get_EnginePrivateData"), flags, 2)
+        this.vtbl.SaveToMemory := CallbackCreate(GetMethod(implObj, "SaveToMemory"), flags, 2)
+        this.vtbl.GetText := CallbackCreate(GetMethod(implObj, "GetText"), flags, 5)
+        this.vtbl.GetDisplayAttributes := CallbackCreate(GetMethod(implObj, "GetDisplayAttributes"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_LanguageId)
+        CallbackFree(this.vtbl.get_GrammarId)
+        CallbackFree(this.vtbl.get_StartTime)
+        CallbackFree(this.vtbl.get_AudioStreamPosition)
+        CallbackFree(this.vtbl.get_AudioSizeBytes)
+        CallbackFree(this.vtbl.get_RetainedSizeBytes)
+        CallbackFree(this.vtbl.get_AudioSizeTime)
+        CallbackFree(this.vtbl.get_Rule)
+        CallbackFree(this.vtbl.get_Properties)
+        CallbackFree(this.vtbl.get_Elements)
+        CallbackFree(this.vtbl.get_Replacements)
+        CallbackFree(this.vtbl.get_EngineId)
+        CallbackFree(this.vtbl.get_EnginePrivateData)
+        CallbackFree(this.vtbl.SaveToMemory)
+        CallbackFree(this.vtbl.GetText)
+        CallbackFree(this.vtbl.GetDisplayAttributes)
     }
 }

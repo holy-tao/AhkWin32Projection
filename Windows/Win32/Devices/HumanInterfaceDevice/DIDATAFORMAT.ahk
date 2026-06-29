@@ -1,60 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DIOBJECTDATAFORMAT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DIOBJECTDATAFORMAT.ahk" { DIOBJECTDATAFORMAT }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class DIDATAFORMAT extends Win32Struct {
-    static sizeof => 32
+export default struct DIDATAFORMAT {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwObjSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwObjSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDataSize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwNumObjs : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNumObjs {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    rgodf : DIOBJECTDATAFORMAT.Ptr
 
-    /**
-     * @type {Pointer<DIOBJECTDATAFORMAT>}
-     */
-    rgodf {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

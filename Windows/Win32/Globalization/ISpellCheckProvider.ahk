@@ -1,36 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\Guid.ahk
-#Include ..\System\Com\IUnknown.ahk
-#Include .\IEnumSpellingError.ahk
-#Include ..\System\Com\IEnumString.ahk
-#Include .\IOptionDescription.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
+#Import "..\System\Com\IEnumString.ahk" { IEnumString }
+#Import "..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumSpellingError.ahk" { IEnumSpellingError }
+#Import ".\WORDLIST_TYPE.ahk" { WORDLIST_TYPE }
+#Import "..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IOptionDescription.ahk" { IOptionDescription }
 
 /**
  * Represents a particular spell checker provider for a particular language, to be used by the spell checking infrastructure.
  * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nn-spellcheckprovider-ispellcheckprovider
  * @namespace Windows.Win32.Globalization
  */
-class ISpellCheckProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISpellCheckProvider extends IUnknown {
     /**
      * The interface identifier for ISpellCheckProvider
      * @type {Guid}
      */
-    static IID => Guid("{73e976e0-8ed4-4eb1-80d7-1be0a16b0c38}")
+    static IID := Guid("{73e976e0-8ed4-4eb1-80d7-1be0a16b0c38}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpellCheckProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_LanguageTag      : IntPtr
+        Check                : IntPtr
+        Suggest              : IntPtr
+        GetOptionValue       : IntPtr
+        SetOptionValue       : IntPtr
+        get_OptionIds        : IntPtr
+        get_Id               : IntPtr
+        get_LocalizedName    : IntPtr
+        GetOptionDescription : IntPtr
+        InitializeWordlist   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_LanguageTag", "Check", "Suggest", "GetOptionValue", "SetOptionValue", "get_OptionIds", "get_Id", "get_LocalizedName", "GetOptionDescription", "InitializeWordlist"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpellCheckProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {PWSTR} 
@@ -66,7 +85,7 @@ class ISpellCheckProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-get_languagetag
      */
     get_LanguageTag() {
-        result := ComCall(3, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(3, this, PWSTR.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -183,7 +202,7 @@ class ISpellCheckProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-get_id
      */
     get_Id() {
-        result := ComCall(9, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(9, this, PWSTR.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -193,7 +212,7 @@ class ISpellCheckProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-get_localizedname
      */
     get_LocalizedName() {
-        result := ComCall(10, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(10, this, PWSTR.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -249,7 +268,45 @@ class ISpellCheckProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-initializewordlist
      */
     InitializeWordlist(wordlistType, words) {
-        result := ComCall(12, this, "int", wordlistType, "ptr", words, "HRESULT")
+        result := ComCall(12, this, WORDLIST_TYPE, wordlistType, "ptr", words, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISpellCheckProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_LanguageTag := CallbackCreate(GetMethod(implObj, "get_LanguageTag"), flags, 2)
+        this.vtbl.Check := CallbackCreate(GetMethod(implObj, "Check"), flags, 3)
+        this.vtbl.Suggest := CallbackCreate(GetMethod(implObj, "Suggest"), flags, 3)
+        this.vtbl.GetOptionValue := CallbackCreate(GetMethod(implObj, "GetOptionValue"), flags, 3)
+        this.vtbl.SetOptionValue := CallbackCreate(GetMethod(implObj, "SetOptionValue"), flags, 3)
+        this.vtbl.get_OptionIds := CallbackCreate(GetMethod(implObj, "get_OptionIds"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_LocalizedName := CallbackCreate(GetMethod(implObj, "get_LocalizedName"), flags, 2)
+        this.vtbl.GetOptionDescription := CallbackCreate(GetMethod(implObj, "GetOptionDescription"), flags, 3)
+        this.vtbl.InitializeWordlist := CallbackCreate(GetMethod(implObj, "InitializeWordlist"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_LanguageTag)
+        CallbackFree(this.vtbl.Check)
+        CallbackFree(this.vtbl.Suggest)
+        CallbackFree(this.vtbl.GetOptionValue)
+        CallbackFree(this.vtbl.SetOptionValue)
+        CallbackFree(this.vtbl.get_OptionIds)
+        CallbackFree(this.vtbl.get_Id)
+        CallbackFree(this.vtbl.get_LocalizedName)
+        CallbackFree(this.vtbl.GetOptionDescription)
+        CallbackFree(this.vtbl.InitializeWordlist)
     }
 }

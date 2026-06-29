@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines flags that indicate whether an audio stream contains audio language extensions.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_audio_lang_ext
  * @namespace Windows.Win32.Media.DirectShow
  */
-class DVD_AUDIO_LANG_EXT extends Win32Enum {
+export default struct DVD_AUDIO_LANG_EXT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The DVD doesn't specify an audio language extension for this audio stream.

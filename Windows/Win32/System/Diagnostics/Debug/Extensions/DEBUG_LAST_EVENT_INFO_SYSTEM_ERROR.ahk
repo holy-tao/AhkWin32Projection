@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class DEBUG_LAST_EVENT_INFO_SYSTEM_ERROR extends Win32Struct {
-    static sizeof => 8
+export default struct DEBUG_LAST_EVENT_INFO_SYSTEM_ERROR {
+    #StructPack 4
 
-    static packingSize => 4
+    Error : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Error {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Level : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Level {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
 }

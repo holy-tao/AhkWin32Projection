@@ -1,8 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IEnumString.ahk" { IEnumString }
+#Import "..\..\System\Com\IEnumUnknown.ahk" { IEnumUnknown }
+#Import ".\SYNCMGR_EVENT_FLAGS.ahk" { SYNCMGR_EVENT_FLAGS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISyncMgrSyncItem.ahk" { ISyncMgrSyncItem }
+#Import ".\SYNCMGR_EVENT_LEVEL.ahk" { SYNCMGR_EVENT_LEVEL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SYNCMGR_CANCEL_REQUEST.ahk" { SYNCMGR_CANCEL_REQUEST }
+#Import ".\SYNCMGR_PROGRESS_STATUS.ahk" { SYNCMGR_PROGRESS_STATUS }
 
 /**
  * Exposes methods that allow a synchronization process to report progress and events to Sync Center, or to query whether the process has been canceled.
@@ -15,26 +23,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nn-syncmgr-isyncmgrsynccallback
  * @namespace Windows.Win32.UI.Shell
  */
-class ISyncMgrSyncCallback extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISyncMgrSyncCallback extends IUnknown {
     /**
      * The interface identifier for ISyncMgrSyncCallback
      * @type {Guid}
      */
-    static IID => Guid("{884ccd87-b139-4937-a4ba-4f8e19513fbe}")
+    static IID := Guid("{884ccd87-b139-4937-a4ba-4f8e19513fbe}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISyncMgrSyncCallback interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ReportProgress          : IntPtr
+        SetHandlerProgressText  : IntPtr
+        ReportEvent             : IntPtr
+        CanContinue             : IntPtr
+        QueryForAdditionalItems : IntPtr
+        AddItemToSession        : IntPtr
+        AddIUnknownToSession    : IntPtr
+        ProposeItem             : IntPtr
+        CommitItem              : IntPtr
+        ReportManualSync        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ReportProgress", "SetHandlerProgressText", "ReportEvent", "CanContinue", "QueryForAdditionalItems", "AddItemToSession", "AddIUnknownToSession", "ProposeItem", "CommitItem", "ReportManualSync"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISyncMgrSyncCallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Reports the progress of the synchronization of a single sync item to Sync Center.
@@ -77,7 +101,7 @@ class ISyncMgrSyncCallback extends IUnknown {
 
         pnCancelRequestMarshal := pnCancelRequest is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pszItemID, "ptr", pszProgressText, "int", nStatus, "uint", uCurrentStep, "uint", uMaxStep, pnCancelRequestMarshal, pnCancelRequest, "HRESULT")
+        result := ComCall(3, this, "ptr", pszItemID, "ptr", pszProgressText, SYNCMGR_PROGRESS_STATUS, nStatus, "uint", uCurrentStep, "uint", uMaxStep, pnCancelRequestMarshal, pnCancelRequest, "HRESULT")
         return result
     }
 
@@ -149,7 +173,7 @@ class ISyncMgrSyncCallback extends IUnknown {
         pszContext := pszContext is String ? StrPtr(pszContext) : pszContext
 
         pguidEventID := Guid()
-        result := ComCall(5, this, "ptr", pszItemID, "int", nLevel, "int", nFlags, "ptr", pszName, "ptr", pszDescription, "ptr", pszLinkText, "ptr", pszLinkReference, "ptr", pszContext, "ptr", pguidEventID, "HRESULT")
+        result := ComCall(5, this, "ptr", pszItemID, SYNCMGR_EVENT_LEVEL, nLevel, SYNCMGR_EVENT_FLAGS, nFlags, "ptr", pszName, "ptr", pszDescription, "ptr", pszLinkText, "ptr", pszLinkReference, "ptr", pszContext, Guid.Ptr, pguidEventID, "HRESULT")
         return pguidEventID
     }
 
@@ -210,7 +234,7 @@ class ISyncMgrSyncCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsynccallback-queryforadditionalitems
      */
     QueryForAdditionalItems(ppenumItemIDs, ppenumPunks) {
-        result := ComCall(7, this, "ptr*", ppenumItemIDs, "ptr*", ppenumPunks, "HRESULT")
+        result := ComCall(7, this, IEnumString.Ptr, ppenumItemIDs, IEnumUnknown.Ptr, ppenumPunks, "HRESULT")
         return result
     }
 
@@ -287,5 +311,43 @@ class ISyncMgrSyncCallback extends IUnknown {
     ReportManualSync() {
         result := ComCall(12, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISyncMgrSyncCallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ReportProgress := CallbackCreate(GetMethod(implObj, "ReportProgress"), flags, 7)
+        this.vtbl.SetHandlerProgressText := CallbackCreate(GetMethod(implObj, "SetHandlerProgressText"), flags, 3)
+        this.vtbl.ReportEvent := CallbackCreate(GetMethod(implObj, "ReportEvent"), flags, 10)
+        this.vtbl.CanContinue := CallbackCreate(GetMethod(implObj, "CanContinue"), flags, 2)
+        this.vtbl.QueryForAdditionalItems := CallbackCreate(GetMethod(implObj, "QueryForAdditionalItems"), flags, 3)
+        this.vtbl.AddItemToSession := CallbackCreate(GetMethod(implObj, "AddItemToSession"), flags, 2)
+        this.vtbl.AddIUnknownToSession := CallbackCreate(GetMethod(implObj, "AddIUnknownToSession"), flags, 2)
+        this.vtbl.ProposeItem := CallbackCreate(GetMethod(implObj, "ProposeItem"), flags, 2)
+        this.vtbl.CommitItem := CallbackCreate(GetMethod(implObj, "CommitItem"), flags, 2)
+        this.vtbl.ReportManualSync := CallbackCreate(GetMethod(implObj, "ReportManualSync"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ReportProgress)
+        CallbackFree(this.vtbl.SetHandlerProgressText)
+        CallbackFree(this.vtbl.ReportEvent)
+        CallbackFree(this.vtbl.CanContinue)
+        CallbackFree(this.vtbl.QueryForAdditionalItems)
+        CallbackFree(this.vtbl.AddItemToSession)
+        CallbackFree(this.vtbl.AddIUnknownToSession)
+        CallbackFree(this.vtbl.ProposeItem)
+        CallbackFree(this.vtbl.CommitItem)
+        CallbackFree(this.vtbl.ReportManualSync)
     }
 }

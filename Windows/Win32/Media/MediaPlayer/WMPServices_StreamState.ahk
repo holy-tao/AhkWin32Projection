@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The WMPServices_StreamState enumeration indicates whether the stream is currently stopped, paused, or playing.
  * @see https://learn.microsoft.com/windows/win32/api/wmpservices/ne-wmpservices-wmpservices_streamstate
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class WMPServices_StreamState extends Win32Enum {
+export default struct WMPServices_StreamState {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The stream is stopped.

@@ -1,16 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ALG_ID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ALG_ID.ahk" { ALG_ID }
 
 /**
  * The SCHANNEL_ALG structure contains algorithm and key size information. It is used as the structure passed as pbData in CryptSetKeyParam when dwParam is set to KP_SCHANNEL_ALG.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-schannel_alg
  * @namespace Windows.Win32.Security.Cryptography
  */
-class SCHANNEL_ALG extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct SCHANNEL_ALG {
+    #StructPack 4
 
     /**
      * Indicates the use of derived keys. The following values can be used. 
@@ -46,12 +43,8 @@ class SCHANNEL_ALG extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwUse {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwUse : UInt32
 
     /**
      * Algorithms used with the derived keys. Note that no algorithm will be specified unless earlier obtained from the CSP by enumeration. 
@@ -62,37 +55,22 @@ class SCHANNEL_ALG extends Win32Struct {
      * SCHANNEL_MAC_KEYs can be either MD5 or SHA.
      * 
      * SCHANNEL_ENC_KEYs can be RC4, DES, 3DES, or RC2.
-     * @type {ALG_ID}
      */
-    Algid {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Algid : ALG_ID
 
     /**
      * Size in bits of the derived keys.
-     * @type {Integer}
      */
-    cBits {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cBits : UInt32
 
     /**
      * This flag can be set to INTERNATIONAL_USAGE (0x00000001), indicating that derived keys must follow SSL export rules.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwFlags : UInt32
 
     /**
      * Reserved for future use. Should be set to zero.
-     * @type {Integer}
      */
-    dwReserved {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwReserved : UInt32
+
 }

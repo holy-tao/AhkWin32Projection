@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods so that an application can register with the synchronization manager. This can be achieved either through the ISyncMgrRegister interface or by registering directly in the registry.
@@ -10,26 +12,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/mobsync/nn-mobsync-isyncmgrregister
  * @namespace Windows.Win32.UI.Shell
  */
-class ISyncMgrRegister extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISyncMgrRegister extends IUnknown {
     /**
      * The interface identifier for ISyncMgrRegister
      * @type {Guid}
      */
-    static IID => Guid("{6295df42-35ee-11d1-8707-00c04fd93327}")
+    static IID := Guid("{6295df42-35ee-11d1-8707-00c04fd93327}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISyncMgrRegister interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RegisterSyncMgrHandler     : IntPtr
+        UnregisterSyncMgrHandler   : IntPtr
+        GetHandlerRegistrationInfo : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RegisterSyncMgrHandler", "UnregisterSyncMgrHandler", "GetHandlerRegistrationInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISyncMgrRegister.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Registers a handler with the synchronization manager when the handler has items to synchronize.
@@ -66,7 +77,7 @@ class ISyncMgrRegister extends IUnknown {
     RegisterSyncMgrHandler(clsidHandler, pwszDescription, dwSyncMgrRegisterFlags) {
         pwszDescription := pwszDescription is String ? StrPtr(pwszDescription) : pwszDescription
 
-        result := ComCall(3, this, "ptr", clsidHandler, "ptr", pwszDescription, "uint", dwSyncMgrRegisterFlags, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, clsidHandler, "ptr", pwszDescription, "uint", dwSyncMgrRegisterFlags, "HRESULT")
         return result
     }
 
@@ -100,7 +111,7 @@ class ISyncMgrRegister extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrregister-unregistersyncmgrhandler
      */
     UnregisterSyncMgrHandler(clsidHandler, dwReserved) {
-        result := ComCall(4, this, "ptr", clsidHandler, "uint", dwReserved, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, clsidHandler, "uint", dwReserved, "HRESULT")
         return result
     }
 
@@ -149,7 +160,31 @@ class ISyncMgrRegister extends IUnknown {
     GetHandlerRegistrationInfo(clsidHandler, pdwSyncMgrRegisterFlags) {
         pdwSyncMgrRegisterFlagsMarshal := pdwSyncMgrRegisterFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", clsidHandler, pdwSyncMgrRegisterFlagsMarshal, pdwSyncMgrRegisterFlags, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, clsidHandler, pdwSyncMgrRegisterFlagsMarshal, pdwSyncMgrRegisterFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISyncMgrRegister.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RegisterSyncMgrHandler := CallbackCreate(GetMethod(implObj, "RegisterSyncMgrHandler"), flags, 4)
+        this.vtbl.UnregisterSyncMgrHandler := CallbackCreate(GetMethod(implObj, "UnregisterSyncMgrHandler"), flags, 3)
+        this.vtbl.GetHandlerRegistrationInfo := CallbackCreate(GetMethod(implObj, "GetHandlerRegistrationInfo"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RegisterSyncMgrHandler)
+        CallbackFree(this.vtbl.UnregisterSyncMgrHandler)
+        CallbackFree(this.vtbl.GetHandlerRegistrationInfo)
     }
 }

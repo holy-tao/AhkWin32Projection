@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the notification type passed to a callback function when a notification occurs.
@@ -12,7 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ne-netioapi-mib_notification_type
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_NOTIFICATION_TYPE extends Win32Enum {
+export default struct MIB_NOTIFICATION_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * A parameter was changed.

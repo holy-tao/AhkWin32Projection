@@ -1,44 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Com\StructuredStorage\PROPVARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
  */
-class MQPRIVATEPROPS extends Win32Struct {
-    static sizeof => 32
+export default struct MQPRIVATEPROPS {
+    #StructPack 8
 
-    static packingSize => 8
+    cProp : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cProp {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    aPropID : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    aPropID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    aPropVar : PROPVARIANT.Ptr
 
-    /**
-     * @type {Pointer<PROPVARIANT>}
-     */
-    aPropVar {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    aStatus : IntPtr
 
-    /**
-     * @type {Pointer<HRESULT>}
-     */
-    aStatus {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

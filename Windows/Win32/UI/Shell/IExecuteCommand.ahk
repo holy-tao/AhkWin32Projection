@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that set a given state or parameter related to the command verb, as well as a method to invoke that verb.
@@ -16,26 +20,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iexecutecommand
  * @namespace Windows.Win32.UI.Shell
  */
-class IExecuteCommand extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IExecuteCommand extends IUnknown {
     /**
      * The interface identifier for IExecuteCommand
      * @type {Guid}
      */
-    static IID => Guid("{7f9185b0-cb92-43c5-80a9-92277a4f7b54}")
+    static IID := Guid("{7f9185b0-cb92-43c5-80a9-92277a4f7b54}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IExecuteCommand interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetKeyState   : IntPtr
+        SetParameters : IntPtr
+        SetPosition   : IntPtr
+        SetShowWindow : IntPtr
+        SetNoShowUI   : IntPtr
+        SetDirectory  : IntPtr
+        Execute       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetKeyState", "SetParameters", "SetPosition", "SetShowWindow", "SetNoShowUI", "SetDirectory", "Execute"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IExecuteCommand.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets a value based on the current state of the keys CTRL and SHIFT.
@@ -80,7 +97,7 @@ class IExecuteCommand extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexecutecommand-setposition
      */
     SetPosition(pt) {
-        result := ComCall(5, this, "ptr", pt, "HRESULT")
+        result := ComCall(5, this, POINT, pt, "HRESULT")
         return result
     }
 
@@ -110,7 +127,7 @@ class IExecuteCommand extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexecutecommand-setnoshowui
      */
     SetNoShowUI(fNoShowUI) {
-        result := ComCall(7, this, "int", fNoShowUI, "HRESULT")
+        result := ComCall(7, this, BOOL, fNoShowUI, "HRESULT")
         return result
     }
 
@@ -141,5 +158,37 @@ class IExecuteCommand extends IUnknown {
     Execute() {
         result := ComCall(9, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IExecuteCommand.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetKeyState := CallbackCreate(GetMethod(implObj, "SetKeyState"), flags, 2)
+        this.vtbl.SetParameters := CallbackCreate(GetMethod(implObj, "SetParameters"), flags, 2)
+        this.vtbl.SetPosition := CallbackCreate(GetMethod(implObj, "SetPosition"), flags, 2)
+        this.vtbl.SetShowWindow := CallbackCreate(GetMethod(implObj, "SetShowWindow"), flags, 2)
+        this.vtbl.SetNoShowUI := CallbackCreate(GetMethod(implObj, "SetNoShowUI"), flags, 2)
+        this.vtbl.SetDirectory := CallbackCreate(GetMethod(implObj, "SetDirectory"), flags, 2)
+        this.vtbl.Execute := CallbackCreate(GetMethod(implObj, "Execute"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetKeyState)
+        CallbackFree(this.vtbl.SetParameters)
+        CallbackFree(this.vtbl.SetPosition)
+        CallbackFree(this.vtbl.SetShowWindow)
+        CallbackFree(this.vtbl.SetNoShowUI)
+        CallbackFree(this.vtbl.SetDirectory)
+        CallbackFree(this.vtbl.Execute)
     }
 }

@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FDE_SHAREVIOLATION_RESPONSE.ahk" { FDE_SHAREVIOLATION_RESPONSE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FDE_OVERWRITE_RESPONSE.ahk" { FDE_OVERWRITE_RESPONSE }
+#Import ".\IShellItem.ahk" { IShellItem }
+#Import ".\IFileDialog.ahk" { IFileDialog }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that allow notification of events within a common file dialog.
@@ -11,26 +16,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ifiledialogevents
  * @namespace Windows.Win32.UI.Shell
  */
-class IFileDialogEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IFileDialogEvents extends IUnknown {
     /**
      * The interface identifier for IFileDialogEvents
      * @type {Guid}
      */
-    static IID => Guid("{973510db-7d7f-452b-8975-74a85828d354}")
+    static IID := Guid("{973510db-7d7f-452b-8975-74a85828d354}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFileDialogEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnFileOk          : IntPtr
+        OnFolderChanging  : IntPtr
+        OnFolderChange    : IntPtr
+        OnSelectionChange : IntPtr
+        OnShareViolation  : IntPtr
+        OnTypeChange      : IntPtr
+        OnOverwrite       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnFileOk", "OnFolderChanging", "OnFolderChange", "OnSelectionChange", "OnShareViolation", "OnTypeChange", "OnOverwrite"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFileDialogEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called just before the dialog is about to return with a result.
@@ -164,5 +182,37 @@ class IFileDialogEvents extends IUnknown {
     OnOverwrite(pfd, psi) {
         result := ComCall(9, this, "ptr", pfd, "ptr", psi, "int*", &pResponse := 0, "HRESULT")
         return pResponse
+    }
+
+    Query(iid) {
+        if (IFileDialogEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnFileOk := CallbackCreate(GetMethod(implObj, "OnFileOk"), flags, 2)
+        this.vtbl.OnFolderChanging := CallbackCreate(GetMethod(implObj, "OnFolderChanging"), flags, 3)
+        this.vtbl.OnFolderChange := CallbackCreate(GetMethod(implObj, "OnFolderChange"), flags, 2)
+        this.vtbl.OnSelectionChange := CallbackCreate(GetMethod(implObj, "OnSelectionChange"), flags, 2)
+        this.vtbl.OnShareViolation := CallbackCreate(GetMethod(implObj, "OnShareViolation"), flags, 4)
+        this.vtbl.OnTypeChange := CallbackCreate(GetMethod(implObj, "OnTypeChange"), flags, 2)
+        this.vtbl.OnOverwrite := CallbackCreate(GetMethod(implObj, "OnOverwrite"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnFileOk)
+        CallbackFree(this.vtbl.OnFolderChanging)
+        CallbackFree(this.vtbl.OnFolderChange)
+        CallbackFree(this.vtbl.OnSelectionChange)
+        CallbackFree(this.vtbl.OnShareViolation)
+        CallbackFree(this.vtbl.OnTypeChange)
+        CallbackFree(this.vtbl.OnOverwrite)
     }
 }

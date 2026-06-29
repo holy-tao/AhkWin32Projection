@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFSampleExtensionPsnrYuv extends Win32Struct {
-    static sizeof => 12
+export default struct MFSampleExtensionPsnrYuv {
+    #StructPack 4
 
-    static packingSize => 4
+    psnrY : Float32
 
-    /**
-     * @type {Float}
-     */
-    psnrY {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    psnrU : Float32
 
-    /**
-     * @type {Float}
-     */
-    psnrU {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    psnrV : Float32
 
-    /**
-     * @type {Float}
-     */
-    psnrV {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
 }

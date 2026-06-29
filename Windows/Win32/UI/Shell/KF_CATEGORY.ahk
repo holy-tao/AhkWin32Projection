@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Value that represent a category by which a folder registered with the Known Folder system can be classified.
@@ -15,7 +14,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-kf_category
  * @namespace Windows.Win32.UI.Shell
  */
-class KF_CATEGORY extends Win32Enum {
+export default struct KF_CATEGORY {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Virtual folders are not part of the file system, which is to say that they have no path. For example, <b>Control Panel</b> and <b>Printers</b> are virtual folders. A number of features such as folder path and redirection do not apply to this category.

@@ -1,7 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWordSink.ahk" { IWordSink }
+#Import "..\..\Storage\IndexServer\IPhraseSink.ahk" { IPhraseSink }
+#Import ".\TEXT_SOURCE.ahk" { TEXT_SOURCE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Parses text and identifies individual words and phrases. This interface is a language-specific language resource component. It is used in background processes and must be optimized for both throughput and minimal use of resources.
@@ -13,26 +19,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nn-indexsrv-iwordbreaker
  * @namespace Windows.Win32.System.Search
  */
-class IWordBreaker extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWordBreaker extends IUnknown {
     /**
      * The interface identifier for IWordBreaker
      * @type {Guid}
      */
-    static IID => Guid("{d53552c8-77e3-101a-b552-08002b33b0e6}")
+    static IID := Guid("{d53552c8-77e3-101a-b552-08002b33b0e6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWordBreaker interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Init            : IntPtr
+        BreakText       : IntPtr
+        ComposePhrase   : IntPtr
+        GetLicenseToUse : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Init", "BreakText", "ComposePhrase", "GetLicenseToUse"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWordBreaker.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes the IWordBreaker implementation and indicates the mode in which the component operates.
@@ -106,7 +122,7 @@ class IWordBreaker extends IUnknown {
     Init(fQuery, ulMaxTokenSize, pfLicense) {
         pfLicenseMarshal := pfLicense is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "int", fQuery, "uint", ulMaxTokenSize, pfLicenseMarshal, pfLicense, "HRESULT")
+        result := ComCall(3, this, BOOL, fQuery, "uint", ulMaxTokenSize, pfLicenseMarshal, pfLicense, "HRESULT")
         return result
     }
 
@@ -162,7 +178,7 @@ class IWordBreaker extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-iwordbreaker-breaktext
      */
     BreakText(pTextSource, pWordSink, pPhraseSink) {
-        result := ComCall(4, this, "ptr", pTextSource, "ptr", pWordSink, "ptr", pPhraseSink, "HRESULT")
+        result := ComCall(4, this, TEXT_SOURCE.Ptr, pTextSource, "ptr", pWordSink, "ptr", pPhraseSink, "HRESULT")
         return result
     }
 
@@ -206,5 +222,31 @@ class IWordBreaker extends IUnknown {
 
         result := ComCall(6, this, ppwcsLicenseMarshal, ppwcsLicense, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWordBreaker.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 4)
+        this.vtbl.BreakText := CallbackCreate(GetMethod(implObj, "BreakText"), flags, 4)
+        this.vtbl.ComposePhrase := CallbackCreate(GetMethod(implObj, "ComposePhrase"), flags, 8)
+        this.vtbl.GetLicenseToUse := CallbackCreate(GetMethod(implObj, "GetLicenseToUse"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Init)
+        CallbackFree(this.vtbl.BreakText)
+        CallbackFree(this.vtbl.ComposePhrase)
+        CallbackFree(this.vtbl.GetLicenseToUse)
     }
 }

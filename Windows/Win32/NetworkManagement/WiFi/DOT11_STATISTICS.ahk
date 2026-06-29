@@ -1,82 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
-#Include .\DOT11_MAC_FRAME_STATISTICS.ahk
-#Include .\DOT11_PHY_FRAME_STATISTICS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Ndis\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
+#Import ".\DOT11_PHY_FRAME_STATISTICS.ahk" { DOT11_PHY_FRAME_STATISTICS }
+#Import ".\DOT11_MAC_FRAME_STATISTICS.ahk" { DOT11_MAC_FRAME_STATISTICS }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_STATISTICS extends Win32Struct {
-    static sizeof => 400
+export default struct DOT11_STATISTICS {
+    #StructPack 8
 
-    static packingSize => 8
+    Header : NDIS_OBJECT_HEADER
 
-    /**
-     * @type {NDIS_OBJECT_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    ullFourWayHandshakeFailures : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullFourWayHandshakeFailures {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ullTKIPCounterMeasuresInvoked : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullTKIPCounterMeasuresInvoked {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ullReserved : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullReserved {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    MacUcastCounters : DOT11_MAC_FRAME_STATISTICS
 
-    /**
-     * @type {DOT11_MAC_FRAME_STATISTICS}
-     */
-    MacUcastCounters {
-        get {
-            if(!this.HasProp("__MacUcastCounters"))
-                this.__MacUcastCounters := DOT11_MAC_FRAME_STATISTICS(32, this)
-            return this.__MacUcastCounters
-        }
-    }
+    MacMcastCounters : DOT11_MAC_FRAME_STATISTICS
 
-    /**
-     * @type {DOT11_MAC_FRAME_STATISTICS}
-     */
-    MacMcastCounters {
-        get {
-            if(!this.HasProp("__MacMcastCounters"))
-                this.__MacMcastCounters := DOT11_MAC_FRAME_STATISTICS(144, this)
-            return this.__MacMcastCounters
-        }
-    }
+    PhyCounters : DOT11_PHY_FRAME_STATISTICS[1]
 
-    /**
-     * @type {DOT11_PHY_FRAME_STATISTICS}
-     */
-    PhyCounters {
-        get {
-            if(!this.HasProp("__PhyCountersProxyArray"))
-                this.__PhyCountersProxyArray := Win32FixedArray(this.ptr + 256, 1, DOT11_PHY_FRAME_STATISTICS, "")
-            return this.__PhyCountersProxyArray
-        }
-    }
 }

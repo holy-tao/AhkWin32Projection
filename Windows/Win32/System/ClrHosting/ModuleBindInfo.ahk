@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
  */
-class ModuleBindInfo extends Win32Struct {
-    static sizeof => 24
+export default struct ModuleBindInfo {
+    #StructPack 8
 
-    static packingSize => 8
+    dwAppDomainId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAppDomainId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    lpAssemblyIdentity : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    lpAssemblyIdentity {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpModuleName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    lpModuleName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

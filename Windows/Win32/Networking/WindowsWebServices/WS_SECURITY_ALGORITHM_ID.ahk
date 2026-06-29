@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the security algorithms to be used with WS-Security. These values are relevant to message security bindings and mixed-mode security bindings.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_security_algorithm_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_SECURITY_ALGORITHM_ID extends Win32Enum {
+export default struct WS_SECURITY_ALGORITHM_ID {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Default security algorithm for the particular algorithm type. See 

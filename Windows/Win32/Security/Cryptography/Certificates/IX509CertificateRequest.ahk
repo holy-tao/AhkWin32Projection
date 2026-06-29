@@ -1,36 +1,74 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\ICspInformations.ahk
-#Include .\IObjectId.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\InnerRequestLevel.ahk" { InnerRequestLevel }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IObjectId.ahk" { IObjectId }
+#Import ".\RequestClientInfoClientId.ahk" { RequestClientInfoClientId }
+#Import ".\ICspInformations.ahk" { ICspInformations }
+#Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\X509RequestType.ahk" { X509RequestType }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IX509CertificateRequest interface represents an abstract base certificate request that identifies methods and properties common to and inherited by each of the request objects implemented by the Certificate Enrollment API.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509certificaterequest
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IX509CertificateRequest extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IX509CertificateRequest extends IDispatch {
     /**
      * The interface identifier for IX509CertificateRequest
      * @type {Guid}
      */
-    static IID => Guid("{728ab341-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab341-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IX509CertificateRequest interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Initialize                      : IntPtr
+        Encode                          : IntPtr
+        ResetForEncode                  : IntPtr
+        GetInnerRequest                 : IntPtr
+        get_Type                        : IntPtr
+        get_EnrollmentContext           : IntPtr
+        get_Silent                      : IntPtr
+        put_Silent                      : IntPtr
+        get_ParentWindow                : IntPtr
+        put_ParentWindow                : IntPtr
+        get_UIContextMessage            : IntPtr
+        put_UIContextMessage            : IntPtr
+        get_SuppressDefaults            : IntPtr
+        put_SuppressDefaults            : IntPtr
+        get_RenewalCertificate          : IntPtr
+        put_RenewalCertificate          : IntPtr
+        get_ClientId                    : IntPtr
+        put_ClientId                    : IntPtr
+        get_CspInformations             : IntPtr
+        put_CspInformations             : IntPtr
+        get_HashAlgorithm               : IntPtr
+        put_HashAlgorithm               : IntPtr
+        get_AlternateSignatureAlgorithm : IntPtr
+        put_AlternateSignatureAlgorithm : IntPtr
+        get_RawData                     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "Encode", "ResetForEncode", "GetInnerRequest", "get_Type", "get_EnrollmentContext", "get_Silent", "put_Silent", "get_ParentWindow", "put_ParentWindow", "get_UIContextMessage", "put_UIContextMessage", "get_SuppressDefaults", "put_SuppressDefaults", "get_RenewalCertificate", "put_RenewalCertificate", "get_ClientId", "put_ClientId", "get_CspInformations", "put_CspInformations", "get_HashAlgorithm", "put_HashAlgorithm", "get_AlternateSignatureAlgorithm", "put_AlternateSignatureAlgorithm", "get_RawData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IX509CertificateRequest.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {X509RequestType} 
@@ -173,7 +211,7 @@ class IX509CertificateRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-initialize
      */
     Initialize(_Context) {
-        result := ComCall(7, this, "int", _Context, "HRESULT")
+        result := ComCall(7, this, X509CertificateEnrollmentContext, _Context, "HRESULT")
         return result
     }
 
@@ -315,7 +353,7 @@ class IX509CertificateRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-getinnerrequest
      */
     GetInnerRequest(Level) {
-        result := ComCall(10, this, "int", Level, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(10, this, InnerRequestLevel, Level, "ptr*", &ppValue := 0, "HRESULT")
         return IX509CertificateRequest(ppValue)
     }
 
@@ -361,7 +399,7 @@ class IX509CertificateRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_silent
      */
     get_Silent() {
-        result := ComCall(13, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -384,7 +422,7 @@ class IX509CertificateRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-put_silent
      */
     put_Silent(Value) {
-        result := ComCall(14, this, "short", Value, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL, Value, "HRESULT")
         return result
     }
 
@@ -447,8 +485,8 @@ class IX509CertificateRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_uicontextmessage
      */
     get_UIContextMessage() {
-        pValue := BSTR()
-        result := ComCall(17, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -465,7 +503,7 @@ class IX509CertificateRequest extends IDispatch {
     put_UIContextMessage(Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
 
-        result := ComCall(18, this, "ptr", Value, "HRESULT")
+        result := ComCall(18, this, BSTR, Value, "HRESULT")
         return result
     }
 
@@ -477,7 +515,7 @@ class IX509CertificateRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_suppressdefaults
      */
     get_SuppressDefaults() {
-        result := ComCall(19, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(19, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -490,7 +528,7 @@ class IX509CertificateRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-put_suppressdefaults
      */
     put_SuppressDefaults(Value) {
-        result := ComCall(20, this, "short", Value, "HRESULT")
+        result := ComCall(20, this, VARIANT_BOOL, Value, "HRESULT")
         return result
     }
 
@@ -505,8 +543,8 @@ class IX509CertificateRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_renewalcertificate
      */
     get_RenewalCertificate(Encoding) {
-        pValue := BSTR()
-        result := ComCall(21, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(21, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -524,7 +562,7 @@ class IX509CertificateRequest extends IDispatch {
     put_RenewalCertificate(Encoding, Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
 
-        result := ComCall(22, this, "int", Encoding, "ptr", Value, "HRESULT")
+        result := ComCall(22, this, EncodingType, Encoding, BSTR, Value, "HRESULT")
         return result
     }
 
@@ -549,7 +587,7 @@ class IX509CertificateRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-put_clientid
      */
     put_ClientId(Value) {
-        result := ComCall(24, this, "int", Value, "HRESULT")
+        result := ComCall(24, this, RequestClientInfoClientId, Value, "HRESULT")
         return result
     }
 
@@ -697,7 +735,7 @@ class IX509CertificateRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_alternatesignaturealgorithm
      */
     get_AlternateSignatureAlgorithm() {
-        result := ComCall(29, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(29, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -784,7 +822,7 @@ class IX509CertificateRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-put_alternatesignaturealgorithm
      */
     put_AlternateSignatureAlgorithm(Value) {
-        result := ComCall(30, this, "short", Value, "HRESULT")
+        result := ComCall(30, this, VARIANT_BOOL, Value, "HRESULT")
         return result
     }
 
@@ -797,8 +835,76 @@ class IX509CertificateRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_rawdata
      */
     get_RawData(Encoding) {
-        pValue := BSTR()
-        result := ComCall(31, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(31, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
+    }
+
+    Query(iid) {
+        if (IX509CertificateRequest.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.Encode := CallbackCreate(GetMethod(implObj, "Encode"), flags, 1)
+        this.vtbl.ResetForEncode := CallbackCreate(GetMethod(implObj, "ResetForEncode"), flags, 1)
+        this.vtbl.GetInnerRequest := CallbackCreate(GetMethod(implObj, "GetInnerRequest"), flags, 3)
+        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_EnrollmentContext := CallbackCreate(GetMethod(implObj, "get_EnrollmentContext"), flags, 2)
+        this.vtbl.get_Silent := CallbackCreate(GetMethod(implObj, "get_Silent"), flags, 2)
+        this.vtbl.put_Silent := CallbackCreate(GetMethod(implObj, "put_Silent"), flags, 2)
+        this.vtbl.get_ParentWindow := CallbackCreate(GetMethod(implObj, "get_ParentWindow"), flags, 2)
+        this.vtbl.put_ParentWindow := CallbackCreate(GetMethod(implObj, "put_ParentWindow"), flags, 2)
+        this.vtbl.get_UIContextMessage := CallbackCreate(GetMethod(implObj, "get_UIContextMessage"), flags, 2)
+        this.vtbl.put_UIContextMessage := CallbackCreate(GetMethod(implObj, "put_UIContextMessage"), flags, 2)
+        this.vtbl.get_SuppressDefaults := CallbackCreate(GetMethod(implObj, "get_SuppressDefaults"), flags, 2)
+        this.vtbl.put_SuppressDefaults := CallbackCreate(GetMethod(implObj, "put_SuppressDefaults"), flags, 2)
+        this.vtbl.get_RenewalCertificate := CallbackCreate(GetMethod(implObj, "get_RenewalCertificate"), flags, 3)
+        this.vtbl.put_RenewalCertificate := CallbackCreate(GetMethod(implObj, "put_RenewalCertificate"), flags, 3)
+        this.vtbl.get_ClientId := CallbackCreate(GetMethod(implObj, "get_ClientId"), flags, 2)
+        this.vtbl.put_ClientId := CallbackCreate(GetMethod(implObj, "put_ClientId"), flags, 2)
+        this.vtbl.get_CspInformations := CallbackCreate(GetMethod(implObj, "get_CspInformations"), flags, 2)
+        this.vtbl.put_CspInformations := CallbackCreate(GetMethod(implObj, "put_CspInformations"), flags, 2)
+        this.vtbl.get_HashAlgorithm := CallbackCreate(GetMethod(implObj, "get_HashAlgorithm"), flags, 2)
+        this.vtbl.put_HashAlgorithm := CallbackCreate(GetMethod(implObj, "put_HashAlgorithm"), flags, 2)
+        this.vtbl.get_AlternateSignatureAlgorithm := CallbackCreate(GetMethod(implObj, "get_AlternateSignatureAlgorithm"), flags, 2)
+        this.vtbl.put_AlternateSignatureAlgorithm := CallbackCreate(GetMethod(implObj, "put_AlternateSignatureAlgorithm"), flags, 2)
+        this.vtbl.get_RawData := CallbackCreate(GetMethod(implObj, "get_RawData"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.Encode)
+        CallbackFree(this.vtbl.ResetForEncode)
+        CallbackFree(this.vtbl.GetInnerRequest)
+        CallbackFree(this.vtbl.get_Type)
+        CallbackFree(this.vtbl.get_EnrollmentContext)
+        CallbackFree(this.vtbl.get_Silent)
+        CallbackFree(this.vtbl.put_Silent)
+        CallbackFree(this.vtbl.get_ParentWindow)
+        CallbackFree(this.vtbl.put_ParentWindow)
+        CallbackFree(this.vtbl.get_UIContextMessage)
+        CallbackFree(this.vtbl.put_UIContextMessage)
+        CallbackFree(this.vtbl.get_SuppressDefaults)
+        CallbackFree(this.vtbl.put_SuppressDefaults)
+        CallbackFree(this.vtbl.get_RenewalCertificate)
+        CallbackFree(this.vtbl.put_RenewalCertificate)
+        CallbackFree(this.vtbl.get_ClientId)
+        CallbackFree(this.vtbl.put_ClientId)
+        CallbackFree(this.vtbl.get_CspInformations)
+        CallbackFree(this.vtbl.put_CspInformations)
+        CallbackFree(this.vtbl.get_HashAlgorithm)
+        CallbackFree(this.vtbl.put_HashAlgorithm)
+        CallbackFree(this.vtbl.get_AlternateSignatureAlgorithm)
+        CallbackFree(this.vtbl.put_AlternateSignatureAlgorithm)
+        CallbackFree(this.vtbl.get_RawData)
     }
 }

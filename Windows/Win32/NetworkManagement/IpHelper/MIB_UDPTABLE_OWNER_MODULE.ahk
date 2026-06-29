@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_UDPROW_OWNER_MODULE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MIB_UDPROW_OWNER_MODULE.ahk" { MIB_UDPROW_OWNER_MODULE }
 
 /**
  * Contains the User Datagram Protocol (UDP) listener table for IPv4 on the local computer. The table also includes any available ownership data and the process ID (PID) that issued the call to the bind function for each UDP endpoint.
@@ -20,29 +19,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/udpmib/ns-udpmib-mib_udptable_owner_module
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_UDPTABLE_OWNER_MODULE extends Win32Struct {
-    static sizeof => 168
-
-    static packingSize => 8
+export default struct MIB_UDPTABLE_OWNER_MODULE {
+    #StructPack 8
 
     /**
      * The number of <a href="https://docs.microsoft.com/windows/desktop/api/udpmib/ns-udpmib-mib_udprow_owner_module">MIB_UDPROW_OWNER_MODULE</a> elements in <b>table</b>.
-     * @type {Integer}
      */
-    dwNumEntries {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwNumEntries : UInt32
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/udpmib/ns-udpmib-mib_udprow_owner_module">MIB_UDPROW_OWNER_MODULE</a> structures returned by a call to <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getextendedudptable">GetExtendedUdpTable</a>.
-     * @type {MIB_UDPROW_OWNER_MODULE}
      */
-    table {
-        get {
-            if(!this.HasProp("__tableProxyArray"))
-                this.__tableProxyArray := Win32FixedArray(this.ptr + 8, 1, MIB_UDPROW_OWNER_MODULE, "")
-            return this.__tableProxyArray
-        }
-    }
+    table : MIB_UDPROW_OWNER_MODULE[1]
+
 }

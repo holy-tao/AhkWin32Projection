@@ -1,34 +1,72 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IHTMLElement.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IHTMLElement.ahk" { IHTMLElement }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLTxtRange extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLTxtRange extends IDispatch {
     /**
      * The interface identifier for IHTMLTxtRange
      * @type {Guid}
      */
-    static IID => Guid("{3050f220-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f220-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLTxtRange interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_htmlText          : IntPtr
+        put_text              : IntPtr
+        get_text              : IntPtr
+        parentElement         : IntPtr
+        duplicate             : IntPtr
+        inRange               : IntPtr
+        isEqual               : IntPtr
+        scrollIntoView        : IntPtr
+        collapse              : IntPtr
+        expand                : IntPtr
+        move                  : IntPtr
+        moveStart             : IntPtr
+        moveEnd               : IntPtr
+        select                : IntPtr
+        pasteHTML             : IntPtr
+        moveToElementText     : IntPtr
+        setEndPoint           : IntPtr
+        compareEndPoints      : IntPtr
+        findText              : IntPtr
+        moveToPoint           : IntPtr
+        getBookmark           : IntPtr
+        moveToBookmark        : IntPtr
+        queryCommandSupported : IntPtr
+        queryCommandEnabled   : IntPtr
+        queryCommandState     : IntPtr
+        queryCommandIndeterm  : IntPtr
+        queryCommandText      : IntPtr
+        queryCommandValue     : IntPtr
+        execCommand           : IntPtr
+        execCommandShowHelp   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_htmlText", "put_text", "get_text", "parentElement", "duplicate", "inRange", "isEqual", "scrollIntoView", "collapse", "expand", "move", "moveStart", "moveEnd", "select", "pasteHTML", "moveToElementText", "setEndPoint", "compareEndPoints", "findText", "moveToPoint", "getBookmark", "moveToBookmark", "queryCommandSupported", "queryCommandEnabled", "queryCommandState", "queryCommandIndeterm", "queryCommandText", "queryCommandValue", "execCommand", "execCommandShowHelp"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLTxtRange.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -50,8 +88,8 @@ class IHTMLTxtRange extends IDispatch {
      * @returns {BSTR} 
      */
     get_htmlText() {
-        p := BSTR()
-        result := ComCall(7, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -63,7 +101,7 @@ class IHTMLTxtRange extends IDispatch {
     put_text(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(8, this, "ptr", v, "HRESULT")
+        result := ComCall(8, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -72,8 +110,8 @@ class IHTMLTxtRange extends IDispatch {
      * @returns {BSTR} 
      */
     get_text() {
-        p := BSTR()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -101,7 +139,7 @@ class IHTMLTxtRange extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     inRange(Range) {
-        result := ComCall(12, this, "ptr", Range, "short*", &InRange := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", Range, VARIANT_BOOL.Ptr, &InRange := 0, "HRESULT")
         return InRange
     }
 
@@ -111,7 +149,7 @@ class IHTMLTxtRange extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     isEqual(Range) {
-        result := ComCall(13, this, "ptr", Range, "short*", &IsEqual := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", Range, VARIANT_BOOL.Ptr, &IsEqual := 0, "HRESULT")
         return IsEqual
     }
 
@@ -121,7 +159,7 @@ class IHTMLTxtRange extends IDispatch {
      * @returns {HRESULT} 
      */
     scrollIntoView(fStart) {
-        result := ComCall(14, this, "short", fStart, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL, fStart, "HRESULT")
         return result
     }
 
@@ -131,7 +169,7 @@ class IHTMLTxtRange extends IDispatch {
      * @returns {HRESULT} 
      */
     collapse(Start) {
-        result := ComCall(15, this, "short", Start, "HRESULT")
+        result := ComCall(15, this, VARIANT_BOOL, Start, "HRESULT")
         return result
     }
 
@@ -143,7 +181,7 @@ class IHTMLTxtRange extends IDispatch {
     expand(_Unit) {
         _Unit := _Unit is String ? BSTR.Alloc(_Unit).Value : _Unit
 
-        result := ComCall(16, this, "ptr", _Unit, "short*", &Success := 0, "HRESULT")
+        result := ComCall(16, this, BSTR, _Unit, VARIANT_BOOL.Ptr, &Success := 0, "HRESULT")
         return Success
     }
 
@@ -156,7 +194,7 @@ class IHTMLTxtRange extends IDispatch {
     move(_Unit, Count) {
         _Unit := _Unit is String ? BSTR.Alloc(_Unit).Value : _Unit
 
-        result := ComCall(17, this, "ptr", _Unit, "int", Count, "int*", &ActualCount := 0, "HRESULT")
+        result := ComCall(17, this, BSTR, _Unit, "int", Count, "int*", &ActualCount := 0, "HRESULT")
         return ActualCount
     }
 
@@ -169,7 +207,7 @@ class IHTMLTxtRange extends IDispatch {
     moveStart(_Unit, Count) {
         _Unit := _Unit is String ? BSTR.Alloc(_Unit).Value : _Unit
 
-        result := ComCall(18, this, "ptr", _Unit, "int", Count, "int*", &ActualCount := 0, "HRESULT")
+        result := ComCall(18, this, BSTR, _Unit, "int", Count, "int*", &ActualCount := 0, "HRESULT")
         return ActualCount
     }
 
@@ -182,7 +220,7 @@ class IHTMLTxtRange extends IDispatch {
     moveEnd(_Unit, Count) {
         _Unit := _Unit is String ? BSTR.Alloc(_Unit).Value : _Unit
 
-        result := ComCall(19, this, "ptr", _Unit, "int", Count, "int*", &ActualCount := 0, "HRESULT")
+        result := ComCall(19, this, BSTR, _Unit, "int", Count, "int*", &ActualCount := 0, "HRESULT")
         return ActualCount
     }
 
@@ -388,7 +426,7 @@ class IHTMLTxtRange extends IDispatch {
     pasteHTML(html) {
         html := html is String ? BSTR.Alloc(html).Value : html
 
-        result := ComCall(21, this, "ptr", html, "HRESULT")
+        result := ComCall(21, this, BSTR, html, "HRESULT")
         return result
     }
 
@@ -411,7 +449,7 @@ class IHTMLTxtRange extends IDispatch {
     setEndPoint(how, SourceRange) {
         how := how is String ? BSTR.Alloc(how).Value : how
 
-        result := ComCall(23, this, "ptr", how, "ptr", SourceRange, "HRESULT")
+        result := ComCall(23, this, BSTR, how, "ptr", SourceRange, "HRESULT")
         return result
     }
 
@@ -424,7 +462,7 @@ class IHTMLTxtRange extends IDispatch {
     compareEndPoints(how, SourceRange) {
         how := how is String ? BSTR.Alloc(how).Value : how
 
-        result := ComCall(24, this, "ptr", how, "ptr", SourceRange, "int*", &ret := 0, "HRESULT")
+        result := ComCall(24, this, BSTR, how, "ptr", SourceRange, "int*", &ret := 0, "HRESULT")
         return ret
     }
 
@@ -438,7 +476,7 @@ class IHTMLTxtRange extends IDispatch {
     findText(_String, count, Flags) {
         _String := _String is String ? BSTR.Alloc(_String).Value : _String
 
-        result := ComCall(25, this, "ptr", _String, "int", count, "int", Flags, "short*", &Success := 0, "HRESULT")
+        result := ComCall(25, this, BSTR, _String, "int", count, "int", Flags, VARIANT_BOOL.Ptr, &Success := 0, "HRESULT")
         return Success
     }
 
@@ -458,8 +496,8 @@ class IHTMLTxtRange extends IDispatch {
      * @returns {BSTR} 
      */
     getBookmark() {
-        Boolmark := BSTR()
-        result := ComCall(27, this, "ptr", Boolmark, "HRESULT")
+        Boolmark := BSTR.Owned()
+        result := ComCall(27, this, BSTR.Ptr, Boolmark, "HRESULT")
         return Boolmark
     }
 
@@ -471,7 +509,7 @@ class IHTMLTxtRange extends IDispatch {
     moveToBookmark(Bookmark) {
         Bookmark := Bookmark is String ? BSTR.Alloc(Bookmark).Value : Bookmark
 
-        result := ComCall(28, this, "ptr", Bookmark, "short*", &Success := 0, "HRESULT")
+        result := ComCall(28, this, BSTR, Bookmark, VARIANT_BOOL.Ptr, &Success := 0, "HRESULT")
         return Success
     }
 
@@ -483,7 +521,7 @@ class IHTMLTxtRange extends IDispatch {
     queryCommandSupported(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        result := ComCall(29, this, "ptr", cmdID, "short*", &pfRet := 0, "HRESULT")
+        result := ComCall(29, this, BSTR, cmdID, VARIANT_BOOL.Ptr, &pfRet := 0, "HRESULT")
         return pfRet
     }
 
@@ -495,7 +533,7 @@ class IHTMLTxtRange extends IDispatch {
     queryCommandEnabled(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        result := ComCall(30, this, "ptr", cmdID, "short*", &pfRet := 0, "HRESULT")
+        result := ComCall(30, this, BSTR, cmdID, VARIANT_BOOL.Ptr, &pfRet := 0, "HRESULT")
         return pfRet
     }
 
@@ -507,7 +545,7 @@ class IHTMLTxtRange extends IDispatch {
     queryCommandState(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        result := ComCall(31, this, "ptr", cmdID, "short*", &pfRet := 0, "HRESULT")
+        result := ComCall(31, this, BSTR, cmdID, VARIANT_BOOL.Ptr, &pfRet := 0, "HRESULT")
         return pfRet
     }
 
@@ -519,7 +557,7 @@ class IHTMLTxtRange extends IDispatch {
     queryCommandIndeterm(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        result := ComCall(32, this, "ptr", cmdID, "short*", &pfRet := 0, "HRESULT")
+        result := ComCall(32, this, BSTR, cmdID, VARIANT_BOOL.Ptr, &pfRet := 0, "HRESULT")
         return pfRet
     }
 
@@ -531,8 +569,8 @@ class IHTMLTxtRange extends IDispatch {
     queryCommandText(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        pcmdText := BSTR()
-        result := ComCall(33, this, "ptr", cmdID, "ptr", pcmdText, "HRESULT")
+        pcmdText := BSTR.Owned()
+        result := ComCall(33, this, BSTR, cmdID, BSTR.Ptr, pcmdText, "HRESULT")
         return pcmdText
     }
 
@@ -545,7 +583,7 @@ class IHTMLTxtRange extends IDispatch {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
         pcmdValue := VARIANT()
-        result := ComCall(34, this, "ptr", cmdID, "ptr", pcmdValue, "HRESULT")
+        result := ComCall(34, this, BSTR, cmdID, VARIANT.Ptr, pcmdValue, "HRESULT")
         return pcmdValue
     }
 
@@ -559,7 +597,7 @@ class IHTMLTxtRange extends IDispatch {
     execCommand(cmdID, showUI, value) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        result := ComCall(35, this, "ptr", cmdID, "short", showUI, "ptr", value, "short*", &pfRet := 0, "HRESULT")
+        result := ComCall(35, this, BSTR, cmdID, VARIANT_BOOL, showUI, VARIANT, value, VARIANT_BOOL.Ptr, &pfRet := 0, "HRESULT")
         return pfRet
     }
 
@@ -571,7 +609,85 @@ class IHTMLTxtRange extends IDispatch {
     execCommandShowHelp(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        result := ComCall(36, this, "ptr", cmdID, "short*", &pfRet := 0, "HRESULT")
+        result := ComCall(36, this, BSTR, cmdID, VARIANT_BOOL.Ptr, &pfRet := 0, "HRESULT")
         return pfRet
+    }
+
+    Query(iid) {
+        if (IHTMLTxtRange.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_htmlText := CallbackCreate(GetMethod(implObj, "get_htmlText"), flags, 2)
+        this.vtbl.put_text := CallbackCreate(GetMethod(implObj, "put_text"), flags, 2)
+        this.vtbl.get_text := CallbackCreate(GetMethod(implObj, "get_text"), flags, 2)
+        this.vtbl.parentElement := CallbackCreate(GetMethod(implObj, "parentElement"), flags, 2)
+        this.vtbl.duplicate := CallbackCreate(GetMethod(implObj, "duplicate"), flags, 2)
+        this.vtbl.inRange := CallbackCreate(GetMethod(implObj, "inRange"), flags, 3)
+        this.vtbl.isEqual := CallbackCreate(GetMethod(implObj, "isEqual"), flags, 3)
+        this.vtbl.scrollIntoView := CallbackCreate(GetMethod(implObj, "scrollIntoView"), flags, 2)
+        this.vtbl.collapse := CallbackCreate(GetMethod(implObj, "collapse"), flags, 2)
+        this.vtbl.expand := CallbackCreate(GetMethod(implObj, "expand"), flags, 3)
+        this.vtbl.move := CallbackCreate(GetMethod(implObj, "move"), flags, 4)
+        this.vtbl.moveStart := CallbackCreate(GetMethod(implObj, "moveStart"), flags, 4)
+        this.vtbl.moveEnd := CallbackCreate(GetMethod(implObj, "moveEnd"), flags, 4)
+        this.vtbl.select := CallbackCreate(GetMethod(implObj, "select"), flags, 1)
+        this.vtbl.pasteHTML := CallbackCreate(GetMethod(implObj, "pasteHTML"), flags, 2)
+        this.vtbl.moveToElementText := CallbackCreate(GetMethod(implObj, "moveToElementText"), flags, 2)
+        this.vtbl.setEndPoint := CallbackCreate(GetMethod(implObj, "setEndPoint"), flags, 3)
+        this.vtbl.compareEndPoints := CallbackCreate(GetMethod(implObj, "compareEndPoints"), flags, 4)
+        this.vtbl.findText := CallbackCreate(GetMethod(implObj, "findText"), flags, 5)
+        this.vtbl.moveToPoint := CallbackCreate(GetMethod(implObj, "moveToPoint"), flags, 3)
+        this.vtbl.getBookmark := CallbackCreate(GetMethod(implObj, "getBookmark"), flags, 2)
+        this.vtbl.moveToBookmark := CallbackCreate(GetMethod(implObj, "moveToBookmark"), flags, 3)
+        this.vtbl.queryCommandSupported := CallbackCreate(GetMethod(implObj, "queryCommandSupported"), flags, 3)
+        this.vtbl.queryCommandEnabled := CallbackCreate(GetMethod(implObj, "queryCommandEnabled"), flags, 3)
+        this.vtbl.queryCommandState := CallbackCreate(GetMethod(implObj, "queryCommandState"), flags, 3)
+        this.vtbl.queryCommandIndeterm := CallbackCreate(GetMethod(implObj, "queryCommandIndeterm"), flags, 3)
+        this.vtbl.queryCommandText := CallbackCreate(GetMethod(implObj, "queryCommandText"), flags, 3)
+        this.vtbl.queryCommandValue := CallbackCreate(GetMethod(implObj, "queryCommandValue"), flags, 3)
+        this.vtbl.execCommand := CallbackCreate(GetMethod(implObj, "execCommand"), flags, 5)
+        this.vtbl.execCommandShowHelp := CallbackCreate(GetMethod(implObj, "execCommandShowHelp"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_htmlText)
+        CallbackFree(this.vtbl.put_text)
+        CallbackFree(this.vtbl.get_text)
+        CallbackFree(this.vtbl.parentElement)
+        CallbackFree(this.vtbl.duplicate)
+        CallbackFree(this.vtbl.inRange)
+        CallbackFree(this.vtbl.isEqual)
+        CallbackFree(this.vtbl.scrollIntoView)
+        CallbackFree(this.vtbl.collapse)
+        CallbackFree(this.vtbl.expand)
+        CallbackFree(this.vtbl.move)
+        CallbackFree(this.vtbl.moveStart)
+        CallbackFree(this.vtbl.moveEnd)
+        CallbackFree(this.vtbl.select)
+        CallbackFree(this.vtbl.pasteHTML)
+        CallbackFree(this.vtbl.moveToElementText)
+        CallbackFree(this.vtbl.setEndPoint)
+        CallbackFree(this.vtbl.compareEndPoints)
+        CallbackFree(this.vtbl.findText)
+        CallbackFree(this.vtbl.moveToPoint)
+        CallbackFree(this.vtbl.getBookmark)
+        CallbackFree(this.vtbl.moveToBookmark)
+        CallbackFree(this.vtbl.queryCommandSupported)
+        CallbackFree(this.vtbl.queryCommandEnabled)
+        CallbackFree(this.vtbl.queryCommandState)
+        CallbackFree(this.vtbl.queryCommandIndeterm)
+        CallbackFree(this.vtbl.queryCommandText)
+        CallbackFree(this.vtbl.queryCommandValue)
+        CallbackFree(this.vtbl.execCommand)
+        CallbackFree(this.vtbl.execCommandShowHelp)
     }
 }

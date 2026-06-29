@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
  */
-class XID extends Win32Struct {
-    static sizeof => 140
+export default struct XID {
+    #StructPack 4
 
-    static packingSize => 4
+    formatID : Int32
 
-    /**
-     * @type {Integer}
-     */
-    formatID {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    gtrid_length : Int32
 
-    /**
-     * @type {Integer}
-     */
-    gtrid_length {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    bqual_length : Int32
 
-    /**
-     * @type {Integer}
-     */
-    bqual_length {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    data : CHAR[128]
 
-    /**
-     * @type {String}
-     */
-    data {
-        get => StrGet(this.ptr + 12, 127, "UTF-8")
-        set => StrPut(value, this.ptr + 12, 127, "UTF-8")
-    }
 }

@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDARGB extends Win32Struct {
-    static sizeof => 4
+export default struct DDARGB {
+    #StructPack 1
 
-    static packingSize => 1
+    blue : Int8
 
-    /**
-     * @type {Integer}
-     */
-    blue {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    green : Int8
 
-    /**
-     * @type {Integer}
-     */
-    green {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    red : Int8
 
-    /**
-     * @type {Integer}
-     */
-    red {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    alpha : Int8
 
-    /**
-     * @type {Integer}
-     */
-    alpha {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
 }

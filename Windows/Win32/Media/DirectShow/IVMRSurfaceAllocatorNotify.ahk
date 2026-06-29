@@ -1,33 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Graphics\DirectDraw\IDirectDraw7.ahk" { IDirectDraw7 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IVMRSurfaceAllocator.ahk" { IVMRSurfaceAllocator }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Graphics\Gdi\HMONITOR.ahk" { HMONITOR }
 
 /**
  * The IVMRSurfaceAllocatorNotify interface is implemented by the Video Mixing Renderer Filter 7 (VMR-7).
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ivmrsurfaceallocatornotify
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IVMRSurfaceAllocatorNotify extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVMRSurfaceAllocatorNotify extends IUnknown {
     /**
      * The interface identifier for IVMRSurfaceAllocatorNotify
      * @type {Guid}
      */
-    static IID => Guid("{aada05a8-5a4e-4729-af0b-cea27aed51e2}")
+    static IID := Guid("{aada05a8-5a4e-4729-af0b-cea27aed51e2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVMRSurfaceAllocatorNotify interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AdviseSurfaceAllocator : IntPtr
+        SetDDrawDevice         : IntPtr
+        ChangeDDrawDevice      : IntPtr
+        RestoreDDrawSurfaces   : IntPtr
+        NotifyEvent            : IntPtr
+        SetBorderColor         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AdviseSurfaceAllocator", "SetDDrawDevice", "ChangeDDrawDevice", "RestoreDDrawSurfaces", "NotifyEvent", "SetBorderColor"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVMRSurfaceAllocatorNotify.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The AdviseSurfaceAllocator method is called by an application to instruct the VMR to use a custom allocator-presenter.
@@ -55,9 +72,7 @@ class IVMRSurfaceAllocatorNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrsurfaceallocatornotify-setddrawdevice
      */
     SetDDrawDevice(lpDDrawDevice, _hMonitor) {
-        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
-
-        result := ComCall(4, this, "ptr", lpDDrawDevice, "ptr", _hMonitor, "HRESULT")
+        result := ComCall(4, this, "ptr", lpDDrawDevice, HMONITOR, _hMonitor, "HRESULT")
         return result
     }
 
@@ -71,9 +86,7 @@ class IVMRSurfaceAllocatorNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrsurfaceallocatornotify-changeddrawdevice
      */
     ChangeDDrawDevice(lpDDrawDevice, _hMonitor) {
-        _hMonitor := _hMonitor is Win32Handle ? NumGet(_hMonitor, "ptr") : _hMonitor
-
-        result := ComCall(5, this, "ptr", lpDDrawDevice, "ptr", _hMonitor, "HRESULT")
+        result := ComCall(5, this, "ptr", lpDDrawDevice, HMONITOR, _hMonitor, "HRESULT")
         return result
     }
 
@@ -109,7 +122,37 @@ class IVMRSurfaceAllocatorNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrsurfaceallocatornotify-setbordercolor
      */
     SetBorderColor(clrBorder) {
-        result := ComCall(8, this, "uint", clrBorder, "HRESULT")
+        result := ComCall(8, this, COLORREF, clrBorder, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVMRSurfaceAllocatorNotify.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AdviseSurfaceAllocator := CallbackCreate(GetMethod(implObj, "AdviseSurfaceAllocator"), flags, 3)
+        this.vtbl.SetDDrawDevice := CallbackCreate(GetMethod(implObj, "SetDDrawDevice"), flags, 3)
+        this.vtbl.ChangeDDrawDevice := CallbackCreate(GetMethod(implObj, "ChangeDDrawDevice"), flags, 3)
+        this.vtbl.RestoreDDrawSurfaces := CallbackCreate(GetMethod(implObj, "RestoreDDrawSurfaces"), flags, 1)
+        this.vtbl.NotifyEvent := CallbackCreate(GetMethod(implObj, "NotifyEvent"), flags, 4)
+        this.vtbl.SetBorderColor := CallbackCreate(GetMethod(implObj, "SetBorderColor"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AdviseSurfaceAllocator)
+        CallbackFree(this.vtbl.SetDDrawDevice)
+        CallbackFree(this.vtbl.ChangeDDrawDevice)
+        CallbackFree(this.vtbl.RestoreDDrawSurfaces)
+        CallbackFree(this.vtbl.NotifyEvent)
+        CallbackFree(this.vtbl.SetBorderColor)
     }
 }

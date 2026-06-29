@@ -1,69 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\DIRECTSOUNDDEVICE_TYPE.ahk
-#Include .\DIRECTSOUNDDEVICE_DATAFLOW.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DIRECTSOUNDDEVICE_TYPE.ahk" { DIRECTSOUNDDEVICE_TYPE }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DIRECTSOUNDDEVICE_DATAFLOW.ahk" { DIRECTSOUNDDEVICE_DATAFLOW }
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
-class DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_W_DATA extends Win32Struct {
-    static sizeof => 48
+export default struct DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_W_DATA {
+    #StructPack 8
 
-    static packingSize => 8
+    Type : DIRECTSOUNDDEVICE_TYPE
 
-    /**
-     * @type {DIRECTSOUNDDEVICE_TYPE}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    DataFlow : DIRECTSOUNDDEVICE_DATAFLOW
 
-    /**
-     * @type {DIRECTSOUNDDEVICE_DATAFLOW}
-     */
-    DataFlow {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    DeviceId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    DeviceId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Description : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    Description {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Module : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    Module {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Interface : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    Interface {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    WaveDeviceId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    WaveDeviceId {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
 }

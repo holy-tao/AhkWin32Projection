@@ -1,22 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DDDI_HDR_METADATA_HDR10PLUS extends Win32Struct {
-    static sizeof => 72
+export default struct D3DDDI_HDR_METADATA_HDR10PLUS {
+    #StructPack 1
 
-    static packingSize => 1
+    Data : Int8[72]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Data {
-        get {
-            if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 0, 72, Primitive, "char")
-            return this.__DataProxyArray
-        }
-    }
 }

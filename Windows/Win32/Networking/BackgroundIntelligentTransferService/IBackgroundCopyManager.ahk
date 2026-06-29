@@ -1,10 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IBackgroundCopyJob.ahk
-#Include .\IEnumBackgroundCopyJobs.ahk
-#Include ..\..\System\Com\Apis.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IBackgroundCopyJob.ahk" { IBackgroundCopyJob }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IEnumBackgroundCopyJobs.ahk" { IEnumBackgroundCopyJobs }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\BG_JOB_TYPE.ahk" { BG_JOB_TYPE }
+#Import "..\..\System\Com\Apis.ahk" { CoTaskMemFree }
 
 /**
  * Creates transfer jobs, retrieves an enumerator object that contains the jobs in the queue, and retrieves individual jobs from the queue.
@@ -13,32 +16,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/bits/nn-bits-ibackgroundcopymanager
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class IBackgroundCopyManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBackgroundCopyManager extends IUnknown {
     /**
      * The interface identifier for IBackgroundCopyManager
      * @type {Guid}
      */
-    static IID => Guid("{5ce34c0d-0dc9-4c1f-897c-daa1b78cee7c}")
+    static IID := Guid("{5ce34c0d-0dc9-4c1f-897c-daa1b78cee7c}")
 
     /**
      * The class identifier for BackgroundCopyManager
      * @type {Guid}
      */
-    static CLSID => Guid("{4991d34b-80a1-4291-83b6-3328366b9097}")
+    static CLSID := Guid("{4991d34b-80a1-4291-83b6-3328366b9097}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBackgroundCopyManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateJob           : IntPtr
+        GetJob              : IntPtr
+        EnumJobs            : IntPtr
+        GetErrorDescription : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateJob", "GetJob", "EnumJobs", "GetErrorDescription"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBackgroundCopyManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a job.
@@ -115,7 +128,7 @@ class IBackgroundCopyManager extends IUnknown {
     CreateJob(DisplayName, Type, pJobId, ppJob) {
         DisplayName := DisplayName is String ? StrPtr(DisplayName) : DisplayName
 
-        result := ComCall(3, this, "ptr", DisplayName, "int", Type, "ptr", pJobId, "ptr*", ppJob, "HRESULT")
+        result := ComCall(3, this, "ptr", DisplayName, BG_JOB_TYPE, Type, Guid.Ptr, pJobId, IBackgroundCopyJob.Ptr, ppJob, "HRESULT")
         return result
     }
 
@@ -128,7 +141,7 @@ class IBackgroundCopyManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopymanager-getjob
      */
     GetJob(jobID) {
-        result := ComCall(4, this, "ptr", jobID, "ptr*", &ppJob := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, jobID, "ptr*", &ppJob := 0, "HRESULT")
         return IBackgroundCopyJob(ppJob)
     }
 
@@ -186,12 +199,38 @@ class IBackgroundCopyManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopymanager-geterrordescription
      */
     GetErrorDescription(_hResult, LanguageId) {
-        result := ComCall(6, this, "int", _hResult, "uint", LanguageId, "ptr*", &pErrorDescription := 0, "int")
+        result := ComCall(6, this, "int", _hResult, "uint", LanguageId, PWSTR.Ptr, &pErrorDescription := 0, Int32)
         if(result != 0) {
-            Com.CoTaskMemFree(pErrorDescription)
+            CoTaskMemFree(pErrorDescription.value)
             throw OSError()
         }
 
         return pErrorDescription
+    }
+
+    Query(iid) {
+        if (IBackgroundCopyManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateJob := CallbackCreate(GetMethod(implObj, "CreateJob"), flags, 5)
+        this.vtbl.GetJob := CallbackCreate(GetMethod(implObj, "GetJob"), flags, 3)
+        this.vtbl.EnumJobs := CallbackCreate(GetMethod(implObj, "EnumJobs"), flags, 3)
+        this.vtbl.GetErrorDescription := CallbackCreate(GetMethod(implObj, "GetErrorDescription"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateJob)
+        CallbackFree(this.vtbl.GetJob)
+        CallbackFree(this.vtbl.EnumJobs)
+        CallbackFree(this.vtbl.GetErrorDescription)
     }
 }

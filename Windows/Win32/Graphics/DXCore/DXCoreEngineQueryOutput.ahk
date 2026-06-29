@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.DXCore
  */
-class DXCoreEngineQueryOutput extends Win32Struct {
-    static sizeof => 16
+export default struct DXCoreEngineQueryOutput {
+    #StructPack 8
 
-    static packingSize => 8
+    runningTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    runningTime {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    processQuerySucceeded : Int8
 
-    /**
-     * @type {Integer}
-     */
-    processQuerySucceeded {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Stores the User Datagram Protocol (UDP) encapsulation ports for Encapsulating Security Payload (ESP) encapsulation.
@@ -10,26 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_v4_udp_encapsulation0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IPSEC_V4_UDP_ENCAPSULATION0 extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 2
+export default struct IPSEC_V4_UDP_ENCAPSULATION0 {
+    #StructPack 2
 
     /**
      * Source UDP encapsulation port.
-     * @type {Integer}
      */
-    localUdpEncapPort {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    localUdpEncapPort : UInt16
 
     /**
      * Destination UDP encapsulation port.
-     * @type {Integer}
      */
-    remoteUdpEncapPort {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    remoteUdpEncapPort : UInt16
+
 }

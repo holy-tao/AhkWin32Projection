@@ -1,58 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EMR.ahk
-#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
-#Include ..\..\Foundation\POINTL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EMR.ahk" { EMR }
+#Import "..\..\Foundation\POINTL.ahk" { POINTL }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
 
 /**
  * The EMREXTFLOODFILL structure contains members for the ExtFloodFill enhanced metafile record.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrextfloodfill
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class EMREXTFLOODFILL extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct EMREXTFLOODFILL {
+    #StructPack 4
 
     /**
      * The base structure for all record types.
-     * @type {EMR}
      */
-    emr {
-        get {
-            if(!this.HasProp("__emr"))
-                this.__emr := EMR(0, this)
-            return this.__emr
-        }
-    }
+    emr : EMR
 
     /**
      * Coordinates, in logical units, where filling begins.
-     * @type {POINTL}
      */
-    ptlStart {
-        get {
-            if(!this.HasProp("__ptlStart"))
-                this.__ptlStart := POINTL(8, this)
-            return this.__ptlStart
-        }
-    }
+    ptlStart : POINTL
 
     /**
      * Color of fill. To make a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
-     * @type {COLORREF}
      */
-    crColor {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    crColor : COLORREF
 
     /**
      * Type of fill operation to be performed. This member must be either the FLOODFILLBORDER or FLOODFILLSURFACE value.
-     * @type {Integer}
      */
-    iMode {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    iMode : UInt32
+
 }

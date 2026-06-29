@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_CPUID_OUTPUT extends Win32Struct {
-    static sizeof => 16
+export default struct WHV_CPUID_OUTPUT {
+    #StructPack 4
 
-    static packingSize => 4
+    Eax : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Eax {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Ebx : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Ebx {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Ecx : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Ecx {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Edx : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Edx {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

@@ -1,39 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSIDENTIFIER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSPROPERTY_SERIAL extends Win32Struct {
-    static sizeof => 24
+export default struct KSPROPERTY_SERIAL {
+    #StructPack 8
 
-    static packingSize => 8
+    PropTypeSet : KSIDENTIFIER
 
-    /**
-     * @type {KSIDENTIFIER}
-     */
-    PropTypeSet {
-        get {
-            if(!this.HasProp("__PropTypeSet"))
-                this.__PropTypeSet := KSIDENTIFIER(0, this)
-            return this.__PropTypeSet
-        }
-    }
+    Id : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Id {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    PropertyLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PropertyLength {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

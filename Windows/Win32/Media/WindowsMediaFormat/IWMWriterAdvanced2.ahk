@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMWriterAdvanced.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWMWriterAdvanced.ahk" { IWMWriterAdvanced }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WMT_ATTR_DATATYPE.ahk" { WMT_ATTR_DATATYPE }
 
 /**
  * The IWMWriterAdvanced2 interface provides the ability to set and retrieve named settings for an input.IWMWriterAdvanced2 exists for every instance of the writer object. To obtain a pointer to this interface, call QueryInterface on the writer object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmwriteradvanced2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMWriterAdvanced2 extends IWMWriterAdvanced {
-
-    static sizeof => A_PtrSize
+export default struct IWMWriterAdvanced2 extends IWMWriterAdvanced {
     /**
      * The interface identifier for IWMWriterAdvanced2
      * @type {Guid}
      */
-    static IID => Guid("{962dc1ec-c046-4db8-9cc7-26ceae500817}")
+    static IID := Guid("{962dc1ec-c046-4db8-9cc7-26ceae500817}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMWriterAdvanced2 interfaces
+    */
+    struct Vtbl extends IWMWriterAdvanced.Vtbl {
+        GetInputSetting : IntPtr
+        SetInputSetting : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetInputSetting", "SetInputSetting"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMWriterAdvanced2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetInputSetting method retrieves a setting for a particular input by name.
@@ -181,7 +192,29 @@ class IWMWriterAdvanced2 extends IWMWriterAdvanced {
 
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
 
-        result := ComCall(15, this, "uint", dwInputNum, "ptr", pszName, "int", Type, pValueMarshal, pValue, "ushort", cbLength, "HRESULT")
+        result := ComCall(15, this, "uint", dwInputNum, "ptr", pszName, WMT_ATTR_DATATYPE, Type, pValueMarshal, pValue, "ushort", cbLength, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMWriterAdvanced2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetInputSetting := CallbackCreate(GetMethod(implObj, "GetInputSetting"), flags, 6)
+        this.vtbl.SetInputSetting := CallbackCreate(GetMethod(implObj, "SetInputSetting"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetInputSetting)
+        CallbackFree(this.vtbl.SetInputSetting)
     }
 }

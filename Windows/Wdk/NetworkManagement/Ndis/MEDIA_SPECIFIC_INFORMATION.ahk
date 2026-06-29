@@ -1,47 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_CLASS_ID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NDIS_CLASS_ID.ahk" { NDIS_CLASS_ID }
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class MEDIA_SPECIFIC_INFORMATION extends Win32Struct {
-    static sizeof => 16
+export default struct MEDIA_SPECIFIC_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
+    NextEntryOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NextEntryOffset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ClassId : NDIS_CLASS_ID
 
-    /**
-     * @type {NDIS_CLASS_ID}
-     */
-    ClassId {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ClassInformation : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ClassInformation {
-        get {
-            if(!this.HasProp("__ClassInformationProxyArray"))
-                this.__ClassInformationProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
-            return this.__ClassInformationProxyArray
-        }
-    }
 }

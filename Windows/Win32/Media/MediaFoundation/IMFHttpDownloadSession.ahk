@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFHttpDownloadRequest.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IMFHttpDownloadRequest.ahk" { IMFHttpDownloadRequest }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Applications implement this interface to override the default implementation of the HTTP and HTTPS protocols used by Microsoft Media Foundation. (IMFHttpDownloadSession)
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfhttpdownloadsession
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFHttpDownloadSession extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFHttpDownloadSession extends IUnknown {
     /**
      * The interface identifier for IMFHttpDownloadSession
      * @type {Guid}
      */
-    static IID => Guid("{71fa9a2c-53ce-4662-a132-1a7e8cbf62db}")
+    static IID := Guid("{71fa9a2c-53ce-4662-a132-1a7e8cbf62db}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFHttpDownloadSession interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetServer     : IntPtr
+        CreateRequest : IntPtr
+        Close         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetServer", "CreateRequest", "Close"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFHttpDownloadSession.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called by Microsoft Media Foundation to specify parameters common to all requests created by this instance of IMFHttpDownloadSession.
@@ -92,7 +104,7 @@ class IMFHttpDownloadSession extends IUnknown {
         szVerb := szVerb is String ? StrPtr(szVerb) : szVerb
         szReferrer := szReferrer is String ? StrPtr(szReferrer) : szReferrer
 
-        result := ComCall(4, this, "ptr", szObjectName, "int", fBypassProxyCache, "int", fSecure, "ptr", szVerb, "ptr", szReferrer, "ptr*", &ppRequest := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", szObjectName, BOOL, fBypassProxyCache, BOOL, fSecure, "ptr", szVerb, "ptr", szReferrer, "ptr*", &ppRequest := 0, "HRESULT")
         return IMFHttpDownloadRequest(ppRequest)
     }
 
@@ -123,5 +135,29 @@ class IMFHttpDownloadSession extends IUnknown {
     Close() {
         result := ComCall(5, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFHttpDownloadSession.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetServer := CallbackCreate(GetMethod(implObj, "SetServer"), flags, 3)
+        this.vtbl.CreateRequest := CallbackCreate(GetMethod(implObj, "CreateRequest"), flags, 7)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetServer)
+        CallbackFree(this.vtbl.CreateRequest)
+        CallbackFree(this.vtbl.Close)
     }
 }

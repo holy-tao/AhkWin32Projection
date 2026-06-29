@@ -1,35 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IProviderQueryConstraintCollection.ahk
-#Include .\IProviderPropertyConstraintCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IProviderQueryConstraintCollection.ahk" { IProviderQueryConstraintCollection }
+#Import ".\IProviderPropertyConstraintCollection.ahk" { IProviderPropertyConstraintCollection }
 
 /**
  * This interface is passed to all IFunctionDiscoveryProvider::Query method calls and contains query definition information. Providers should use this to determine what the constraints are for each query request they receive.
  * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nn-functiondiscoveryprovider-ifunctiondiscoveryproviderquery
  * @namespace Windows.Win32.Devices.FunctionDiscovery
  */
-class IFunctionDiscoveryProviderQuery extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IFunctionDiscoveryProviderQuery extends IUnknown {
     /**
      * The interface identifier for IFunctionDiscoveryProviderQuery
      * @type {Guid}
      */
-    static IID => Guid("{6876ea98-baec-46db-bc20-75a76e267a3a}")
+    static IID := Guid("{6876ea98-baec-46db-bc20-75a76e267a3a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFunctionDiscoveryProviderQuery interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        IsInstanceQuery        : IntPtr
+        IsSubcategoryQuery     : IntPtr
+        GetQueryConstraints    : IntPtr
+        GetPropertyConstraints : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsInstanceQuery", "IsSubcategoryQuery", "GetQueryConstraints", "GetPropertyConstraints"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFunctionDiscoveryProviderQuery.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Determines whether a query is for a single function instance or multiple function instances.
@@ -89,5 +101,31 @@ class IFunctionDiscoveryProviderQuery extends IUnknown {
     GetPropertyConstraints() {
         result := ComCall(6, this, "ptr*", &ppIProviderPropertyConstraints := 0, "HRESULT")
         return IProviderPropertyConstraintCollection(ppIProviderPropertyConstraints)
+    }
+
+    Query(iid) {
+        if (IFunctionDiscoveryProviderQuery.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsInstanceQuery := CallbackCreate(GetMethod(implObj, "IsInstanceQuery"), flags, 3)
+        this.vtbl.IsSubcategoryQuery := CallbackCreate(GetMethod(implObj, "IsSubcategoryQuery"), flags, 3)
+        this.vtbl.GetQueryConstraints := CallbackCreate(GetMethod(implObj, "GetQueryConstraints"), flags, 2)
+        this.vtbl.GetPropertyConstraints := CallbackCreate(GetMethod(implObj, "GetPropertyConstraints"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsInstanceQuery)
+        CallbackFree(this.vtbl.IsSubcategoryQuery)
+        CallbackFree(this.vtbl.GetQueryConstraints)
+        CallbackFree(this.vtbl.GetPropertyConstraints)
     }
 }

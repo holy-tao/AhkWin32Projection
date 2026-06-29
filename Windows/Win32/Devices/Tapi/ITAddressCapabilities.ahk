@@ -1,36 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IEnumBstr.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ADDRESS_CAPABILITY_STRING.ahk" { ADDRESS_CAPABILITY_STRING }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ADDRESS_CAPABILITY.ahk" { ADDRESS_CAPABILITY }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IEnumBstr.ahk" { IEnumBstr }
 
 /**
  * The ITAddressCapabilities interface is used to obtain information about an address's capabilities. It is on the Address object, and an application can access it by calling QueryInterface on the Address object.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itaddresscapabilities
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITAddressCapabilities extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITAddressCapabilities extends IDispatch {
     /**
      * The interface identifier for ITAddressCapabilities
      * @type {Guid}
      */
-    static IID => Guid("{8df232f5-821b-11d1-bb5c-00c04fb6809f}")
+    static IID := Guid("{8df232f5-821b-11d1-bb5c-00c04fb6809f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITAddressCapabilities interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_AddressCapability       : IntPtr
+        get_AddressCapabilityString : IntPtr
+        get_CallTreatments          : IntPtr
+        EnumerateCallTreatments     : IntPtr
+        get_CompletionMessages      : IntPtr
+        EnumerateCompletionMessages : IntPtr
+        get_DeviceClasses           : IntPtr
+        EnumerateDeviceClasses      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_AddressCapability", "get_AddressCapabilityString", "get_CallTreatments", "EnumerateCallTreatments", "get_CompletionMessages", "EnumerateCompletionMessages", "get_DeviceClasses", "EnumerateDeviceClasses"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITAddressCapabilities.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT} 
@@ -60,7 +77,7 @@ class ITAddressCapabilities extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresscapabilities-get_addresscapability
      */
     get_AddressCapability(AddressCap) {
-        result := ComCall(7, this, "int", AddressCap, "int*", &plCapability := 0, "HRESULT")
+        result := ComCall(7, this, ADDRESS_CAPABILITY, AddressCap, "int*", &plCapability := 0, "HRESULT")
         return plCapability
     }
 
@@ -74,8 +91,8 @@ class ITAddressCapabilities extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresscapabilities-get_addresscapabilitystring
      */
     get_AddressCapabilityString(AddressCapString) {
-        ppCapabilityString := BSTR()
-        result := ComCall(8, this, "int", AddressCapString, "ptr", ppCapabilityString, "HRESULT")
+        ppCapabilityString := BSTR.Owned()
+        result := ComCall(8, this, ADDRESS_CAPABILITY_STRING, AddressCapString, BSTR.Ptr, ppCapabilityString, "HRESULT")
         return ppCapabilityString
     }
 
@@ -91,7 +108,7 @@ class ITAddressCapabilities extends IDispatch {
      */
     get_CallTreatments() {
         pVariant := VARIANT()
-        result := ComCall(9, this, "ptr", pVariant, "HRESULT")
+        result := ComCall(9, this, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
     }
 
@@ -116,7 +133,7 @@ class ITAddressCapabilities extends IDispatch {
      */
     get_CompletionMessages() {
         pVariant := VARIANT()
-        result := ComCall(11, this, "ptr", pVariant, "HRESULT")
+        result := ComCall(11, this, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
     }
 
@@ -142,7 +159,7 @@ class ITAddressCapabilities extends IDispatch {
      */
     get_DeviceClasses() {
         pVariant := VARIANT()
-        result := ComCall(13, this, "ptr", pVariant, "HRESULT")
+        result := ComCall(13, this, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
     }
 
@@ -159,5 +176,39 @@ class ITAddressCapabilities extends IDispatch {
     EnumerateDeviceClasses() {
         result := ComCall(14, this, "ptr*", &ppEnumDeviceClass := 0, "HRESULT")
         return IEnumBstr(ppEnumDeviceClass)
+    }
+
+    Query(iid) {
+        if (ITAddressCapabilities.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_AddressCapability := CallbackCreate(GetMethod(implObj, "get_AddressCapability"), flags, 3)
+        this.vtbl.get_AddressCapabilityString := CallbackCreate(GetMethod(implObj, "get_AddressCapabilityString"), flags, 3)
+        this.vtbl.get_CallTreatments := CallbackCreate(GetMethod(implObj, "get_CallTreatments"), flags, 2)
+        this.vtbl.EnumerateCallTreatments := CallbackCreate(GetMethod(implObj, "EnumerateCallTreatments"), flags, 2)
+        this.vtbl.get_CompletionMessages := CallbackCreate(GetMethod(implObj, "get_CompletionMessages"), flags, 2)
+        this.vtbl.EnumerateCompletionMessages := CallbackCreate(GetMethod(implObj, "EnumerateCompletionMessages"), flags, 2)
+        this.vtbl.get_DeviceClasses := CallbackCreate(GetMethod(implObj, "get_DeviceClasses"), flags, 2)
+        this.vtbl.EnumerateDeviceClasses := CallbackCreate(GetMethod(implObj, "EnumerateDeviceClasses"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_AddressCapability)
+        CallbackFree(this.vtbl.get_AddressCapabilityString)
+        CallbackFree(this.vtbl.get_CallTreatments)
+        CallbackFree(this.vtbl.EnumerateCallTreatments)
+        CallbackFree(this.vtbl.get_CompletionMessages)
+        CallbackFree(this.vtbl.EnumerateCompletionMessages)
+        CallbackFree(this.vtbl.get_DeviceClasses)
+        CallbackFree(this.vtbl.EnumerateDeviceClasses)
     }
 }

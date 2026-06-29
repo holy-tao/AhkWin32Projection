@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomationElement2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IUIAutomationElement2.ahk" { IUIAutomationElement2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Extends the IUIAutomationElement2 interface.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement3
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IUIAutomationElement3 extends IUIAutomationElement2 {
-
-    static sizeof => A_PtrSize
+export default struct IUIAutomationElement3 extends IUIAutomationElement2 {
     /**
      * The interface identifier for IUIAutomationElement3
      * @type {Guid}
      */
-    static IID => Guid("{8471df34-aee0-4a01-a7de-7db9af12c296}")
+    static IID := Guid("{8471df34-aee0-4a01-a7de-7db9af12c296}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 91
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAutomationElement3 interfaces
+    */
+    struct Vtbl extends IUIAutomationElement2.Vtbl {
+        ShowContextMenu         : IntPtr
+        get_CurrentIsPeripheral : IntPtr
+        get_CachedIsPeripheral  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ShowContextMenu", "get_CurrentIsPeripheral", "get_CachedIsPeripheral"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAutomationElement3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BOOL} 
@@ -87,7 +98,7 @@ class IUIAutomationElement3 extends IUIAutomationElement2 {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement3-get_currentisperipheral
      */
     get_CurrentIsPeripheral() {
-        result := ComCall(92, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(92, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -118,7 +129,31 @@ class IUIAutomationElement3 extends IUIAutomationElement2 {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement3-get_cachedisperipheral
      */
     get_CachedIsPeripheral() {
-        result := ComCall(93, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(93, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
+    }
+
+    Query(iid) {
+        if (IUIAutomationElement3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ShowContextMenu := CallbackCreate(GetMethod(implObj, "ShowContextMenu"), flags, 1)
+        this.vtbl.get_CurrentIsPeripheral := CallbackCreate(GetMethod(implObj, "get_CurrentIsPeripheral"), flags, 2)
+        this.vtbl.get_CachedIsPeripheral := CallbackCreate(GetMethod(implObj, "get_CachedIsPeripheral"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ShowContextMenu)
+        CallbackFree(this.vtbl.get_CurrentIsPeripheral)
+        CallbackFree(this.vtbl.get_CachedIsPeripheral)
     }
 }

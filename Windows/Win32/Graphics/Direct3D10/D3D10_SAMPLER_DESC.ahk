@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D10_FILTER.ahk
-#Include .\D3D10_TEXTURE_ADDRESS_MODE.ahk
-#Include .\D3D10_COMPARISON_FUNC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D10_TEXTURE_ADDRESS_MODE.ahk" { D3D10_TEXTURE_ADDRESS_MODE }
+#Import ".\D3D10_COMPARISON_FUNC.ahk" { D3D10_COMPARISON_FUNC }
+#Import ".\D3D10_FILTER.ahk" { D3D10_FILTER }
 
 /**
  * Describes a sampler state. (D3D10_SAMPLER_DESC)
@@ -62,121 +61,77 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ns-d3d10-d3d10_sampler_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class D3D10_SAMPLER_DESC extends Win32Struct {
-    static sizeof => 52
-
-    static packingSize => 4
+export default struct D3D10_SAMPLER_DESC {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_filter">D3D10_FILTER</a></b>
      * 
      * Filtering method to use when sampling a texture (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_filter">D3D10_FILTER</a>).
-     * @type {D3D10_FILTER}
      */
-    Filter {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Filter : D3D10_FILTER
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_texture_address_mode">D3D10_TEXTURE_ADDRESS_MODE</a></b>
      * 
      * Method to use for resolving a u texture coordinate that is outside the 0 to 1 range (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_texture_address_mode">D3D10_TEXTURE_ADDRESS_MODE</a>).
-     * @type {D3D10_TEXTURE_ADDRESS_MODE}
      */
-    AddressU {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    AddressU : D3D10_TEXTURE_ADDRESS_MODE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_texture_address_mode">D3D10_TEXTURE_ADDRESS_MODE</a></b>
      * 
      * Method to use for resolving a v texture coordinate that is outside the 0 to 1 range.
-     * @type {D3D10_TEXTURE_ADDRESS_MODE}
      */
-    AddressV {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    AddressV : D3D10_TEXTURE_ADDRESS_MODE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_texture_address_mode">D3D10_TEXTURE_ADDRESS_MODE</a></b>
      * 
      * Method to use for resolving a w texture coordinate that is outside the 0 to 1 range.
-     * @type {D3D10_TEXTURE_ADDRESS_MODE}
      */
-    AddressW {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    AddressW : D3D10_TEXTURE_ADDRESS_MODE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">FLOAT</a></b>
      * 
      * Offset from the calculated mipmap level. For example, if Direct3D calculates that a texture should be sampled at mipmap level 3 and MipLODBias is 2, then the texture will be sampled at mipmap level 5.
-     * @type {Float}
      */
-    MipLODBias {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
+    MipLODBias : Float32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Clamping value used if D3D10_FILTER_ANISOTROPIC or D3D10_FILTER_COMPARISON_ANISOTROPIC is specified in Filter. Valid values are between 1 and 16.
-     * @type {Integer}
      */
-    MaxAnisotropy {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    MaxAnisotropy : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_comparison_func">D3D10_COMPARISON_FUNC</a></b>
      * 
      * A function that compares sampled data against existing sampled data. The function options are listed in <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_comparison_func">D3D10_COMPARISON_FUNC</a>.
-     * @type {D3D10_COMPARISON_FUNC}
      */
-    ComparisonFunc {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    ComparisonFunc : D3D10_COMPARISON_FUNC
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">FLOAT</a></b>
      * 
      * Border color to use if D3D10_TEXTURE_ADDRESS_BORDER is specified for AddressU, AddressV, or AddressW. Range must be between 0.0 and 1.0 inclusive.
-     * @type {Array<Float>}
      */
-    BorderColor {
-        get {
-            if(!this.HasProp("__BorderColorProxyArray"))
-                this.__BorderColorProxyArray := Win32FixedArray(this.ptr + 28, 4, Primitive, "float")
-            return this.__BorderColorProxyArray
-        }
-    }
+    BorderColor : Float32[4]
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">FLOAT</a></b>
      * 
      * Lower end of the mipmap range to clamp access to, where 0 is the largest and most detailed mipmap level and any level higher than that is less detailed.
-     * @type {Float}
      */
-    MinLOD {
-        get => NumGet(this, 44, "float")
-        set => NumPut("float", value, this, 44)
-    }
+    MinLOD : Float32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">FLOAT</a></b>
      * 
      * Upper end of the mipmap range to clamp access to, where 0 is the largest and most detailed mipmap level and any level higher than that is less detailed. This value must be greater than or equal to MinLOD. To have no upper limit on LOD set this to a large value such as D3D10_FLOAT32_MAX.
-     * @type {Float}
      */
-    MaxLOD {
-        get => NumGet(this, 48, "float")
-        set => NumPut("float", value, this, 48)
-    }
+    MaxLOD : Float32
+
 }

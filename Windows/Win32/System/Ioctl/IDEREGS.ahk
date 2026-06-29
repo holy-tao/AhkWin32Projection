@@ -1,75 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class IDEREGS extends Win32Struct {
-    static sizeof => 8
+export default struct IDEREGS {
+    #StructPack 1
 
-    static packingSize => 1
+    bFeaturesReg : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bFeaturesReg {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    bSectorCountReg : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bSectorCountReg {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    bSectorNumberReg : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bSectorNumberReg {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    bCylLowReg : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bCylLowReg {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    bCylHighReg : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bCylHighReg {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    bDriveHeadReg : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bDriveHeadReg {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    bCommandReg : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bCommandReg {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    bReserved : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bReserved {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
 }

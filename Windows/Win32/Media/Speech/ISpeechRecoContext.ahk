@@ -1,37 +1,76 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISpeechRecognizer.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ISpeechVoice.ahk
-#Include .\ISpeechAudioFormat.ahk
-#Include .\ISpeechRecoGrammar.ahk
-#Include .\ISpeechRecoResult.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SpeechRetainedAudioOptions.ahk" { SpeechRetainedAudioOptions }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ISpeechRecognizer.ahk" { ISpeechRecognizer }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ISpeechAudioFormat.ahk" { ISpeechAudioFormat }
+#Import ".\SpeechInterference.ahk" { SpeechInterference }
+#Import ".\ISpeechRecoGrammar.ahk" { ISpeechRecoGrammar }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SpeechRecoEvents.ahk" { SpeechRecoEvents }
+#Import ".\ISpeechVoice.ahk" { ISpeechVoice }
+#Import ".\ISpeechRecoResult.ahk" { ISpeechRecoResult }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\SpeechRecoContextState.ahk" { SpeechRecoContextState }
+#Import ".\SpeechBookmarkOptions.ahk" { SpeechBookmarkOptions }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpeechRecoContext extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISpeechRecoContext extends IDispatch {
     /**
      * The interface identifier for ISpeechRecoContext
      * @type {Guid}
      */
-    static IID => Guid("{580aa49d-7e1e-4809-b8e2-57da806104b8}")
+    static IID := Guid("{580aa49d-7e1e-4809-b8e2-57da806104b8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpeechRecoContext interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Recognizer                        : IntPtr
+        get_AudioInputInterferenceStatus      : IntPtr
+        get_RequestedUIType                   : IntPtr
+        putref_Voice                          : IntPtr
+        get_Voice                             : IntPtr
+        put_AllowVoiceFormatMatchingOnNextSet : IntPtr
+        get_AllowVoiceFormatMatchingOnNextSet : IntPtr
+        put_VoicePurgeEvent                   : IntPtr
+        get_VoicePurgeEvent                   : IntPtr
+        put_EventInterests                    : IntPtr
+        get_EventInterests                    : IntPtr
+        put_CmdMaxAlternates                  : IntPtr
+        get_CmdMaxAlternates                  : IntPtr
+        put_State                             : IntPtr
+        get_State                             : IntPtr
+        put_RetainedAudio                     : IntPtr
+        get_RetainedAudio                     : IntPtr
+        putref_RetainedAudioFormat            : IntPtr
+        get_RetainedAudioFormat               : IntPtr
+        Pause                                 : IntPtr
+        Resume                                : IntPtr
+        CreateGrammar                         : IntPtr
+        CreateResultFromMemory                : IntPtr
+        Bookmark                              : IntPtr
+        SetAdaptationData                     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Recognizer", "get_AudioInputInterferenceStatus", "get_RequestedUIType", "putref_Voice", "get_Voice", "put_AllowVoiceFormatMatchingOnNextSet", "get_AllowVoiceFormatMatchingOnNextSet", "put_VoicePurgeEvent", "get_VoicePurgeEvent", "put_EventInterests", "get_EventInterests", "put_CmdMaxAlternates", "get_CmdMaxAlternates", "put_State", "get_State", "put_RetainedAudio", "get_RetainedAudio", "putref_RetainedAudioFormat", "get_RetainedAudioFormat", "Pause", "Resume", "CreateGrammar", "CreateResultFromMemory", "Bookmark", "SetAdaptationData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpeechRecoContext.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ISpeechRecognizer} 
@@ -139,8 +178,8 @@ class ISpeechRecoContext extends IDispatch {
      * @returns {BSTR} 
      */
     get_RequestedUIType() {
-        UIType := BSTR()
-        result := ComCall(9, this, "ptr", UIType, "HRESULT")
+        UIType := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, UIType, "HRESULT")
         return UIType
     }
 
@@ -169,7 +208,7 @@ class ISpeechRecoContext extends IDispatch {
      * @returns {HRESULT} 
      */
     put_AllowVoiceFormatMatchingOnNextSet(Allow) {
-        result := ComCall(12, this, "short", Allow, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL, Allow, "HRESULT")
         return result
     }
 
@@ -178,7 +217,7 @@ class ISpeechRecoContext extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_AllowVoiceFormatMatchingOnNextSet() {
-        result := ComCall(13, this, "short*", &pAllow := 0, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL.Ptr, &pAllow := 0, "HRESULT")
         return pAllow
     }
 
@@ -188,7 +227,7 @@ class ISpeechRecoContext extends IDispatch {
      * @returns {HRESULT} 
      */
     put_VoicePurgeEvent(EventInterest) {
-        result := ComCall(14, this, "int", EventInterest, "HRESULT")
+        result := ComCall(14, this, SpeechRecoEvents, EventInterest, "HRESULT")
         return result
     }
 
@@ -207,7 +246,7 @@ class ISpeechRecoContext extends IDispatch {
      * @returns {HRESULT} 
      */
     put_EventInterests(EventInterest) {
-        result := ComCall(16, this, "int", EventInterest, "HRESULT")
+        result := ComCall(16, this, SpeechRecoEvents, EventInterest, "HRESULT")
         return result
     }
 
@@ -245,7 +284,7 @@ class ISpeechRecoContext extends IDispatch {
      * @returns {HRESULT} 
      */
     put_State(State) {
-        result := ComCall(20, this, "int", State, "HRESULT")
+        result := ComCall(20, this, SpeechRecoContextState, State, "HRESULT")
         return result
     }
 
@@ -264,7 +303,7 @@ class ISpeechRecoContext extends IDispatch {
      * @returns {HRESULT} 
      */
     put_RetainedAudio(Option) {
-        result := ComCall(22, this, "int", Option, "HRESULT")
+        result := ComCall(22, this, SpeechRetainedAudioOptions, Option, "HRESULT")
         return result
     }
 
@@ -324,7 +363,7 @@ class ISpeechRecoContext extends IDispatch {
      * @returns {ISpeechRecoGrammar} 
      */
     CreateGrammar(GrammarId) {
-        result := ComCall(28, this, "ptr", GrammarId, "ptr*", &Grammar := 0, "HRESULT")
+        result := ComCall(28, this, VARIANT, GrammarId, "ptr*", &Grammar := 0, "HRESULT")
         return ISpeechRecoGrammar(Grammar)
     }
 
@@ -334,22 +373,19 @@ class ISpeechRecoContext extends IDispatch {
      * @returns {ISpeechRecoResult} 
      */
     CreateResultFromMemory(ResultBlock) {
-        result := ComCall(29, this, "ptr", ResultBlock, "ptr*", &Result := 0, "HRESULT")
+        result := ComCall(29, this, VARIANT.Ptr, ResultBlock, "ptr*", &Result := 0, "HRESULT")
         return ISpeechRecoResult(Result)
     }
 
     /**
-     * The DVDAdm.BookmarkOnClose property sets or retrieves a value that tells the MSDVDAdm object whether to automatically save a bookmark of the current location and settings when the user closes the application.
-     * @remarks
-     * This property is read/write with a default value of true.
+     * 
      * @param {SpeechBookmarkOptions} Options 
      * @param {VARIANT} StreamPos 
      * @param {VARIANT} BookmarkId 
-     * @returns {HRESULT} Returns a Boolean value, which if true, indicates that the MSDVDAdm control will save a bookmark of all DVD settings, including position on disc, parental level, and parental country/region when the user closes the DVD player application.
-     * @see https://learn.microsoft.com/windows/win32/DirectShow/bookmarkonclose-property
+     * @returns {HRESULT} 
      */
     Bookmark(Options, StreamPos, BookmarkId) {
-        result := ComCall(30, this, "int", Options, "ptr", StreamPos, "ptr", BookmarkId, "HRESULT")
+        result := ComCall(30, this, SpeechBookmarkOptions, Options, VARIANT, StreamPos, VARIANT, BookmarkId, "HRESULT")
         return result
     }
 
@@ -361,7 +397,75 @@ class ISpeechRecoContext extends IDispatch {
     SetAdaptationData(AdaptationString) {
         AdaptationString := AdaptationString is String ? BSTR.Alloc(AdaptationString).Value : AdaptationString
 
-        result := ComCall(31, this, "ptr", AdaptationString, "HRESULT")
+        result := ComCall(31, this, BSTR, AdaptationString, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISpeechRecoContext.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Recognizer := CallbackCreate(GetMethod(implObj, "get_Recognizer"), flags, 2)
+        this.vtbl.get_AudioInputInterferenceStatus := CallbackCreate(GetMethod(implObj, "get_AudioInputInterferenceStatus"), flags, 2)
+        this.vtbl.get_RequestedUIType := CallbackCreate(GetMethod(implObj, "get_RequestedUIType"), flags, 2)
+        this.vtbl.putref_Voice := CallbackCreate(GetMethod(implObj, "putref_Voice"), flags, 2)
+        this.vtbl.get_Voice := CallbackCreate(GetMethod(implObj, "get_Voice"), flags, 2)
+        this.vtbl.put_AllowVoiceFormatMatchingOnNextSet := CallbackCreate(GetMethod(implObj, "put_AllowVoiceFormatMatchingOnNextSet"), flags, 2)
+        this.vtbl.get_AllowVoiceFormatMatchingOnNextSet := CallbackCreate(GetMethod(implObj, "get_AllowVoiceFormatMatchingOnNextSet"), flags, 2)
+        this.vtbl.put_VoicePurgeEvent := CallbackCreate(GetMethod(implObj, "put_VoicePurgeEvent"), flags, 2)
+        this.vtbl.get_VoicePurgeEvent := CallbackCreate(GetMethod(implObj, "get_VoicePurgeEvent"), flags, 2)
+        this.vtbl.put_EventInterests := CallbackCreate(GetMethod(implObj, "put_EventInterests"), flags, 2)
+        this.vtbl.get_EventInterests := CallbackCreate(GetMethod(implObj, "get_EventInterests"), flags, 2)
+        this.vtbl.put_CmdMaxAlternates := CallbackCreate(GetMethod(implObj, "put_CmdMaxAlternates"), flags, 2)
+        this.vtbl.get_CmdMaxAlternates := CallbackCreate(GetMethod(implObj, "get_CmdMaxAlternates"), flags, 2)
+        this.vtbl.put_State := CallbackCreate(GetMethod(implObj, "put_State"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.put_RetainedAudio := CallbackCreate(GetMethod(implObj, "put_RetainedAudio"), flags, 2)
+        this.vtbl.get_RetainedAudio := CallbackCreate(GetMethod(implObj, "get_RetainedAudio"), flags, 2)
+        this.vtbl.putref_RetainedAudioFormat := CallbackCreate(GetMethod(implObj, "putref_RetainedAudioFormat"), flags, 2)
+        this.vtbl.get_RetainedAudioFormat := CallbackCreate(GetMethod(implObj, "get_RetainedAudioFormat"), flags, 2)
+        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.CreateGrammar := CallbackCreate(GetMethod(implObj, "CreateGrammar"), flags, 3)
+        this.vtbl.CreateResultFromMemory := CallbackCreate(GetMethod(implObj, "CreateResultFromMemory"), flags, 3)
+        this.vtbl.Bookmark := CallbackCreate(GetMethod(implObj, "Bookmark"), flags, 4)
+        this.vtbl.SetAdaptationData := CallbackCreate(GetMethod(implObj, "SetAdaptationData"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Recognizer)
+        CallbackFree(this.vtbl.get_AudioInputInterferenceStatus)
+        CallbackFree(this.vtbl.get_RequestedUIType)
+        CallbackFree(this.vtbl.putref_Voice)
+        CallbackFree(this.vtbl.get_Voice)
+        CallbackFree(this.vtbl.put_AllowVoiceFormatMatchingOnNextSet)
+        CallbackFree(this.vtbl.get_AllowVoiceFormatMatchingOnNextSet)
+        CallbackFree(this.vtbl.put_VoicePurgeEvent)
+        CallbackFree(this.vtbl.get_VoicePurgeEvent)
+        CallbackFree(this.vtbl.put_EventInterests)
+        CallbackFree(this.vtbl.get_EventInterests)
+        CallbackFree(this.vtbl.put_CmdMaxAlternates)
+        CallbackFree(this.vtbl.get_CmdMaxAlternates)
+        CallbackFree(this.vtbl.put_State)
+        CallbackFree(this.vtbl.get_State)
+        CallbackFree(this.vtbl.put_RetainedAudio)
+        CallbackFree(this.vtbl.get_RetainedAudio)
+        CallbackFree(this.vtbl.putref_RetainedAudioFormat)
+        CallbackFree(this.vtbl.get_RetainedAudioFormat)
+        CallbackFree(this.vtbl.Pause)
+        CallbackFree(this.vtbl.Resume)
+        CallbackFree(this.vtbl.CreateGrammar)
+        CallbackFree(this.vtbl.CreateResultFromMemory)
+        CallbackFree(this.vtbl.Bookmark)
+        CallbackFree(this.vtbl.SetAdaptationData)
     }
 }

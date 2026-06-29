@@ -1,69 +1,40 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PDH_FMT_COUNTERVALUE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PDH_FMT_COUNTERVALUE.ahk" { PDH_FMT_COUNTERVALUE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The PDH_STATISTICS structure contains the minimum, maximum, and mean values for an array of raw counters values.
  * @see https://learn.microsoft.com/windows/win32/api/pdh/ns-pdh-pdh_statistics
  * @namespace Windows.Win32.System.Performance
  */
-class PDH_STATISTICS extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct PDH_STATISTICS {
+    #StructPack 8
 
     /**
      * Format of the data. The format is specified in the <i>dwFormat</i> when calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhcomputecounterstatistics">PdhComputeCounterStatistics</a>.
-     * @type {Integer}
      */
-    dwFormat {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFormat : UInt32
 
     /**
      * Number of values in the array.
-     * @type {Integer}
      */
-    count {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    count : UInt32
 
     /**
      * Minimum of the values.
-     * @type {PDH_FMT_COUNTERVALUE}
      */
-    min {
-        get {
-            if(!this.HasProp("__min"))
-                this.__min := PDH_FMT_COUNTERVALUE(8, this)
-            return this.__min
-        }
-    }
+    min : PDH_FMT_COUNTERVALUE
 
     /**
      * Maximum of the values.
-     * @type {PDH_FMT_COUNTERVALUE}
      */
-    max {
-        get {
-            if(!this.HasProp("__max"))
-                this.__max := PDH_FMT_COUNTERVALUE(24, this)
-            return this.__max
-        }
-    }
+    max : PDH_FMT_COUNTERVALUE
 
     /**
      * Mean of the values.
-     * @type {PDH_FMT_COUNTERVALUE}
      */
-    mean {
-        get {
-            if(!this.HasProp("__mean"))
-                this.__mean := PDH_FMT_COUNTERVALUE(40, this)
-            return this.__mean
-        }
-    }
+    mean : PDH_FMT_COUNTERVALUE
+
 }

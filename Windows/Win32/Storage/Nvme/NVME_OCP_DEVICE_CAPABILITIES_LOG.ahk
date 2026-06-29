@@ -1,19 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DSSD_POWER_STATE_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DSSD_POWER_STATE_DESCRIPTOR.ahk" { DSSD_POWER_STATE_DESCRIPTOR }
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_OCP_DEVICE_CAPABILITIES_LOG extends Win32Struct {
-    static sizeof => 4088
+export default struct NVME_OCP_DEVICE_CAPABILITIES_LOG {
+    #StructPack 4
 
-    static packingSize => 8
 
-    class _OobMgmtSupport_e__Union extends Win32Struct {
-        static sizeof => 2
-        static packingSize => 1
-
+    struct _OobMgmtSupport {
         /**
          * This bitfield backs the following members:
          * - MctpOverSMBusSupported
@@ -21,12 +17,9 @@ class NVME_OCP_DEVICE_CAPABILITIES_LOG extends Win32Struct {
          * - BasicMgmtCommandSupported
          * - Reserved
          * - CompliesWithSpec
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
+        _bitfield : Int16
+
 
         /**
          * @type {Integer}
@@ -59,20 +52,13 @@ class NVME_OCP_DEVICE_CAPABILITIES_LOG extends Win32Struct {
             get => (this._bitfield >> 15) & 0x1
             set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
         }
-
-        /**
-         * @type {Integer}
-         */
-        AsUshort {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUshort', { type: UInt16, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    class _WriteZeroesCommand_e__Union extends Win32Struct {
-        static sizeof => 2
-        static packingSize => 1
-
+    struct _WriteZeroesCommand {
         /**
          * This bitfield backs the following members:
          * - Supported
@@ -82,12 +68,9 @@ class NVME_OCP_DEVICE_CAPABILITIES_LOG extends Win32Struct {
          * - NvmeIo6Met
          * - Reserved
          * - CompliesWithSpec
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
+        _bitfield : Int16
+
 
         /**
          * @type {Integer}
@@ -136,20 +119,13 @@ class NVME_OCP_DEVICE_CAPABILITIES_LOG extends Win32Struct {
             get => (this._bitfield >> 15) & 0x1
             set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
         }
-
-        /**
-         * @type {Integer}
-         */
-        AsUshort {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUshort', { type: UInt16, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    class _SanitizeCommand_e__Union extends Win32Struct {
-        static sizeof => 2
-        static packingSize => 1
-
+    struct _SanitizeCommand {
         /**
          * This bitfield backs the following members:
          * - Supported
@@ -159,12 +135,9 @@ class NVME_OCP_DEVICE_CAPABILITIES_LOG extends Win32Struct {
          * - DeallocateLbaSupported
          * - Reserved
          * - CompliesWithSpec
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
+        _bitfield : Int16
+
 
         /**
          * @type {Integer}
@@ -213,32 +186,22 @@ class NVME_OCP_DEVICE_CAPABILITIES_LOG extends Win32Struct {
             get => (this._bitfield >> 15) & 0x1
             set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
         }
-
-        /**
-         * @type {Integer}
-         */
-        AsUshort {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUshort', { type: UInt16, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    class _DatasetMgmtCommand_e__Union extends Win32Struct {
-        static sizeof => 2
-        static packingSize => 1
-
+    struct _DatasetMgmtCommand {
         /**
          * This bitfield backs the following members:
          * - Supported
          * - AttribDeallocateSupported
          * - Reserved
          * - CompliesWithSpec
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
+        _bitfield : Int16
+
 
         /**
          * @type {Integer}
@@ -263,20 +226,13 @@ class NVME_OCP_DEVICE_CAPABILITIES_LOG extends Win32Struct {
             get => (this._bitfield >> 15) & 0x1
             set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
         }
-
-        /**
-         * @type {Integer}
-         */
-        AsUshort {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUshort', { type: UInt16, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    class _WriteUncorrectableCommand_e__Union extends Win32Struct {
-        static sizeof => 2
-        static packingSize => 1
-
+    struct _WriteUncorrectableCommand {
         /**
          * This bitfield backs the following members:
          * - Supported
@@ -285,12 +241,9 @@ class NVME_OCP_DEVICE_CAPABILITIES_LOG extends Win32Struct {
          * - NvmeIo14Met
          * - Reserved
          * - CompliesWithSpec
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
+        _bitfield : Int16
+
 
         /**
          * @type {Integer}
@@ -331,31 +284,21 @@ class NVME_OCP_DEVICE_CAPABILITIES_LOG extends Win32Struct {
             get => (this._bitfield >> 15) & 0x1
             set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
         }
-
-        /**
-         * @type {Integer}
-         */
-        AsUshort {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUshort', { type: UInt16, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    class _FusedCommand_e__Union extends Win32Struct {
-        static sizeof => 2
-        static packingSize => 1
-
+    struct _FusedCommand {
         /**
          * This bitfield backs the following members:
          * - CWFusedSupported
          * - Reserved
          * - CompliesWithSpec
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
+        _bitfield : Int16
+
 
         /**
          * @type {Integer}
@@ -372,141 +315,36 @@ class NVME_OCP_DEVICE_CAPABILITIES_LOG extends Win32Struct {
             get => (this._bitfield >> 15) & 0x1
             set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
         }
-
-        /**
-         * @type {Integer}
-         */
-        AsUshort {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUshort', { type: UInt16, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    PciePorts {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    PciePorts : UInt16
 
-    /**
-     * @type {_OobMgmtSupport_e__Union}
-     */
-    OobMgmtSupport {
-        get {
-            if(!this.HasProp("__OobMgmtSupport"))
-                this.__OobMgmtSupport := NVME_OCP_DEVICE_CAPABILITIES_LOG._OobMgmtSupport_e__Union(2, this)
-            return this.__OobMgmtSupport
-        }
-    }
+    OobMgmtSupport : NVME_OCP_DEVICE_CAPABILITIES_LOG._OobMgmtSupport
 
-    /**
-     * @type {_WriteZeroesCommand_e__Union}
-     */
-    WriteZeroesCommand {
-        get {
-            if(!this.HasProp("__WriteZeroesCommand"))
-                this.__WriteZeroesCommand := NVME_OCP_DEVICE_CAPABILITIES_LOG._WriteZeroesCommand_e__Union(4, this)
-            return this.__WriteZeroesCommand
-        }
-    }
+    WriteZeroesCommand : NVME_OCP_DEVICE_CAPABILITIES_LOG._WriteZeroesCommand
 
-    /**
-     * @type {_SanitizeCommand_e__Union}
-     */
-    SanitizeCommand {
-        get {
-            if(!this.HasProp("__SanitizeCommand"))
-                this.__SanitizeCommand := NVME_OCP_DEVICE_CAPABILITIES_LOG._SanitizeCommand_e__Union(6, this)
-            return this.__SanitizeCommand
-        }
-    }
+    SanitizeCommand : NVME_OCP_DEVICE_CAPABILITIES_LOG._SanitizeCommand
 
-    /**
-     * @type {_DatasetMgmtCommand_e__Union}
-     */
-    DatasetMgmtCommand {
-        get {
-            if(!this.HasProp("__DatasetMgmtCommand"))
-                this.__DatasetMgmtCommand := NVME_OCP_DEVICE_CAPABILITIES_LOG._DatasetMgmtCommand_e__Union(8, this)
-            return this.__DatasetMgmtCommand
-        }
-    }
+    DatasetMgmtCommand : NVME_OCP_DEVICE_CAPABILITIES_LOG._DatasetMgmtCommand
 
-    /**
-     * @type {_WriteUncorrectableCommand_e__Union}
-     */
-    WriteUncorrectableCommand {
-        get {
-            if(!this.HasProp("__WriteUncorrectableCommand"))
-                this.__WriteUncorrectableCommand := NVME_OCP_DEVICE_CAPABILITIES_LOG._WriteUncorrectableCommand_e__Union(10, this)
-            return this.__WriteUncorrectableCommand
-        }
-    }
+    WriteUncorrectableCommand : NVME_OCP_DEVICE_CAPABILITIES_LOG._WriteUncorrectableCommand
 
-    /**
-     * @type {_FusedCommand_e__Union}
-     */
-    FusedCommand {
-        get {
-            if(!this.HasProp("__FusedCommand"))
-                this.__FusedCommand := NVME_OCP_DEVICE_CAPABILITIES_LOG._FusedCommand_e__Union(12, this)
-            return this.__FusedCommand
-        }
-    }
+    FusedCommand : NVME_OCP_DEVICE_CAPABILITIES_LOG._FusedCommand
 
-    /**
-     * @type {Integer}
-     */
-    MinimumValidDSSDPowerState {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    MinimumValidDSSDPowerState : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved0 {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    Reserved0 : Int8
 
-    /**
-     * @type {DSSD_POWER_STATE_DESCRIPTOR}
-     */
-    DssdDescriptors {
-        get {
-            if(!this.HasProp("__DssdDescriptorsProxyArray"))
-                this.__DssdDescriptorsProxyArray := Win32FixedArray(this.ptr + 17, 127, DSSD_POWER_STATE_DESCRIPTOR, "")
-            return this.__DssdDescriptorsProxyArray
-        }
-    }
+    DssdDescriptors : DSSD_POWER_STATE_DESCRIPTOR[127]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 144, 3934, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    Reserved1 : Int8[3934]
 
-    /**
-     * @type {Integer}
-     */
-    LogPageVersionNumber {
-        get => NumGet(this, 4078, "ushort")
-        set => NumPut("ushort", value, this, 4078)
-    }
+    LogPageVersionNumber : UInt16
 
-    /**
-     * @type {Pointer}
-     */
-    LogPageGUID {
-        get => NumGet(this, 4080, "ptr")
-        set => NumPut("ptr", value, this, 4080)
-    }
+    LogPageGUID : Guid
+
 }

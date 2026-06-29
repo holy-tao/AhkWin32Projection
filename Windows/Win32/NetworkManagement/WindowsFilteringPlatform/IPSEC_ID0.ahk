@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPSEC_TOKEN0.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IPSEC_TOKEN0.ahk" { IPSEC_TOKEN0 }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains information corresponding to identities that are authenticated by IPsec.
@@ -9,62 +9,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_id0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IPSEC_ID0 extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct IPSEC_ID0 {
+    #StructPack 8
 
     /**
      * Optional main mode target service principal name (SPN).  This is often the machine name.
-     * @type {PWSTR}
      */
-    mmTargetName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    mmTargetName : PWSTR
 
     /**
      * Optional extended mode target SPN.
-     * @type {PWSTR}
      */
-    emTargetName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    emTargetName : PWSTR
 
     /**
      * Optional.  Number of [IPSEC_TOKEN0](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_token0) structures present in the <b>tokens</b> member.
-     * @type {Integer}
      */
-    numTokens {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    numTokens : UInt32
 
     /**
      * Optional array of [IPSEC_TOKEN0](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_token0) structures.
-     * @type {Pointer<IPSEC_TOKEN0>}
      */
-    tokens {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    tokens : IPSEC_TOKEN0.Ptr
 
     /**
      * Optional handle to explicit credentials.
-     * @type {Integer}
      */
-    explicitCredentials {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    explicitCredentials : Int64
 
     /**
      * Unused parameter. This should always be 0.
-     * @type {Integer}
      */
-    logonId {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    logonId : Int64
+
 }

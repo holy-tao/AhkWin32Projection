@@ -1,154 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ACCESSRECTLIST.ahk
-#Include .\VMEMHEAP.ahk
-#Include .\DDRAWI_DIRECTDRAW_GBL.ahk
-#Include .\DDPIXELFORMAT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ACCESSRECTLIST.ahk" { ACCESSRECTLIST }
+#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
+#Import ".\VMEMHEAP.ahk" { VMEMHEAP }
+#Import ".\DDRAWI_DIRECTDRAW_GBL.ahk" { DDRAWI_DIRECTDRAW_GBL }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDRAWI_DDRAWSURFACE_GBL extends Win32Struct {
-    static sizeof => 96
+export default struct DDRAWI_DDRAWSURFACE_GBL {
+    #StructPack 8
 
-    static packingSize => 8
+    dwRefCnt : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwRefCnt {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwGlobalFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwGlobalFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {Pointer<ACCESSRECTLIST>}
-     */
+    __lpRectList_ptr : IntPtr
     lpRectList {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => (addr := this.__lpRectList_ptr) ? ACCESSRECTLIST.At(addr) : unset
+        set => this.__lpRectList_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Integer}
-     */
-    dwBlockSizeY {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    lpVidMemHeap : VMEMHEAP.Ptr
 
-    /**
-     * @type {Integer}
-     */
-    lSlicePitch {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<VMEMHEAP>}
-     */
-    lpVidMemHeap {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwBlockSizeX {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<DDRAWI_DIRECTDRAW_GBL>}
-     */
+    __lpDD_ptr : IntPtr
     lpDD {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => (addr := this.__lpDD_ptr) ? DDRAWI_DIRECTDRAW_GBL.At(addr) : unset
+        set => this.__lpDD_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpDDHandle {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    fpVidMem : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    fpVidMem {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lPitch : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lPitch {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    wHeight : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    dwLinearSize {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    wWidth : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wHeight {
-        get => NumGet(this, 44, "ushort")
-        set => NumPut("ushort", value, this, 44)
-    }
+    dwUsageCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wWidth {
-        get => NumGet(this, 46, "ushort")
-        set => NumPut("ushort", value, this, 46)
-    }
+    dwReserved1 : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    dwUsageCount {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    ddpfSurface : DDPIXELFORMAT
 
-    /**
-     * @type {Pointer}
-     */
-    dwReserved1 {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
-
-    /**
-     * @type {DDPIXELFORMAT}
-     */
-    ddpfSurface {
-        get {
-            if(!this.HasProp("__ddpfSurface"))
-                this.__ddpfSurface := DDPIXELFORMAT(64, this)
-            return this.__ddpfSurface
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'dwBlockSizeY', { type: UInt32, offset: 8 })
+        DefineProp(this.Prototype, 'lSlicePitch', { type: Int32, offset: 8 })
+        DefineProp(this.Prototype, 'dwBlockSizeX', { type: UInt32, offset: 16 })
+        DefineProp(this.Prototype, 'lpDDHandle', { type: IntPtr, offset: 24 })
+        DefineProp(this.Prototype, 'dwLinearSize', { type: UInt32, offset: 40 })
+        this.DeleteProp("__New")
     }
 }

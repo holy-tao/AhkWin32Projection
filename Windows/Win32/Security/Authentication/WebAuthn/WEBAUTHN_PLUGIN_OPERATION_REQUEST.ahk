@@ -1,72 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HWND.ahk
-#Include .\WEBAUTHN_PLUGIN_REQUEST_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\WEBAUTHN_PLUGIN_REQUEST_TYPE.ahk" { WEBAUTHN_PLUGIN_REQUEST_TYPE }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
  */
-class WEBAUTHN_PLUGIN_OPERATION_REQUEST extends Win32Struct {
-    static sizeof => 48
+export default struct WEBAUTHN_PLUGIN_OPERATION_REQUEST {
+    #StructPack 8
 
-    static packingSize => 8
+    hWnd : HWND
 
-    /**
-     * @type {HWND}
-     */
-    hWnd {
-        get {
-            if(!this.HasProp("__hWnd"))
-                this.__hWnd := HWND(0, this)
-            return this.__hWnd
-        }
-    }
+    transactionId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    transactionId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    cbRequestSignature : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbRequestSignature {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    pbRequestSignature : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbRequestSignature {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    requestType : WEBAUTHN_PLUGIN_REQUEST_TYPE
 
-    /**
-     * @type {WEBAUTHN_PLUGIN_REQUEST_TYPE}
-     */
-    requestType {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    cbEncodedRequest : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbEncodedRequest {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    pbEncodedRequest : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbEncodedRequest {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

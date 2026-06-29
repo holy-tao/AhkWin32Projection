@@ -1,67 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class SERVICE_INFO_2 extends Win32Struct {
-    static sizeof => 48
+export default struct SERVICE_INFO_2 {
+    #StructPack 8
 
-    static packingSize => 8
+    svci2_name : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    svci2_name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    svci2_status : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    svci2_status {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    svci2_code : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    svci2_code {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    svci2_pid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    svci2_pid {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    svci2_text : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    svci2_text {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    svci2_specific_error : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    svci2_specific_error {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    svci2_display_name : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    svci2_display_name {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

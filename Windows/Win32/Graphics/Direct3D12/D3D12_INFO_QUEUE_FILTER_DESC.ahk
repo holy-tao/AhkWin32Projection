@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_MESSAGE_CATEGORY.ahk
-#Include .\D3D12_MESSAGE_SEVERITY.ahk
-#Include .\D3D12_MESSAGE_ID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_MESSAGE_CATEGORY.ahk" { D3D12_MESSAGE_CATEGORY }
+#Import ".\D3D12_MESSAGE_SEVERITY.ahk" { D3D12_MESSAGE_SEVERITY }
+#Import ".\D3D12_MESSAGE_ID.ahk" { D3D12_MESSAGE_ID }
 
 /**
  * Allow or deny certain types of messages to pass through a filter. (D3D12_INFO_QUEUE_FILTER_DESC)
@@ -11,62 +10,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/ns-d3d12sdklayers-d3d12_info_queue_filter_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_INFO_QUEUE_FILTER_DESC extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct D3D12_INFO_QUEUE_FILTER_DESC {
+    #StructPack 8
 
     /**
      * Number of message categories to allow or deny.
-     * @type {Integer}
      */
-    NumCategories {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumCategories : UInt32
 
     /**
      * Array of message categories to allow or deny. Array must have at least <i>NumCategories</i> members (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_category">D3D12_MESSAGE_CATEGORY</a>).
-     * @type {Pointer<D3D12_MESSAGE_CATEGORY>}
      */
-    pCategoryList {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pCategoryList : D3D12_MESSAGE_CATEGORY.Ptr
 
     /**
      * Number of message severity levels to allow or deny.
-     * @type {Integer}
      */
-    NumSeverities {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    NumSeverities : UInt32
 
     /**
      * Array of message severity levels to allow or deny. Array must have at least <i>NumSeverities</i> members (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_severity">D3D12_MESSAGE_SEVERITY</a>).
-     * @type {Pointer<D3D12_MESSAGE_SEVERITY>}
      */
-    pSeverityList {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pSeverityList : D3D12_MESSAGE_SEVERITY.Ptr
 
     /**
      * Number of message IDs to allow or deny.
-     * @type {Integer}
      */
-    NumIDs {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    NumIDs : UInt32
 
     /**
      * Array of message IDs to allow or deny. Array must have at least <i>NumIDs</i> members (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_id">D3D12_MESSAGE_ID</a>).
-     * @type {Pointer<D3D12_MESSAGE_ID>}
      */
-    pIDList {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pIDList : D3D12_MESSAGE_ID.Ptr
+
 }

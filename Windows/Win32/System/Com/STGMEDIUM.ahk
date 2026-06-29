@@ -1,116 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
-#Include ..\..\Graphics\Gdi\HENHMETAFILE.ahk
-#Include ..\..\Foundation\HGLOBAL.ahk
-#Include .\IStream.ahk
-#Include StructuredStorage\IStorage.ahk
-#Include .\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\Graphics\Gdi\HENHMETAFILE.ahk" { HENHMETAFILE }
+#Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
+#Import ".\IStream.ahk" { IStream }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IUnknown.ahk" { IUnknown }
+#Import "StructuredStorage\IStorage.ahk" { IStorage }
 
 /**
- * The STGMEDIUM_UserFree function (oleidl.h) frees resources on the server side when called by RPC stub files.
- * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_userfree
  * @namespace Windows.Win32.System.Com
  */
-class STGMEDIUM extends Win32Struct {
-    static sizeof => 24
+export default struct STGMEDIUM {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _u {
+        hBitmap : HBITMAP
 
-        /**
-         * @type {HBITMAP}
-         */
-        hBitmap {
-            get {
-                if(!this.HasProp("__hBitmap"))
-                    this.__hBitmap := HBITMAP(0, this)
-                return this.__hBitmap
-            }
-        }
-
-        /**
-         * @type {Pointer<Void>}
-         */
-        hMetaFilePict {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {HENHMETAFILE}
-         */
-        hEnhMetaFile {
-            get {
-                if(!this.HasProp("__hEnhMetaFile"))
-                    this.__hEnhMetaFile := HENHMETAFILE(0, this)
-                return this.__hEnhMetaFile
-            }
-        }
-
-        /**
-         * @type {HGLOBAL}
-         */
-        hGlobal {
-            get {
-                if(!this.HasProp("__hGlobal"))
-                    this.__hGlobal := HGLOBAL(0, this)
-                return this.__hGlobal
-            }
-        }
-
-        /**
-         * @type {PWSTR}
-         */
-        lpszFileName {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {IStream}
-         */
-        pstm {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {IStorage}
-         */
-        pstg {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'hMetaFilePict', { type: IntPtr, offset: 0 })
+            DefineProp(this.Prototype, 'hEnhMetaFile', { type: HENHMETAFILE, offset: 0 })
+            DefineProp(this.Prototype, 'hGlobal', { type: HGLOBAL, offset: 0 })
+            DefineProp(this.Prototype, 'lpszFileName', { type: PWSTR, offset: 0 })
+            DefineProp(this.Prototype, 'pstm', { type: IStream, offset: 0 })
+            DefineProp(this.Prototype, 'pstg', { type: IStorage, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    tymed {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    tymed : UInt32
 
-    /**
-     * @type {_u_e__Union}
-     */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := STGMEDIUM._u_e__Union(8, this)
-            return this.__u
-        }
-    }
+    u : STGMEDIUM._u
 
-    /**
-     * @type {IUnknown}
-     */
-    pUnkForRelease {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pUnkForRelease : IUnknown
+
 }

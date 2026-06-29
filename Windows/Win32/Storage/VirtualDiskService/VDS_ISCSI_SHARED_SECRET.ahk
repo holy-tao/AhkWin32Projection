@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The VDS_ISCSI_SHARED_SECRET structure (vdshwprv.h) defines a CHAP shared secret.
@@ -22,26 +21,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_iscsi_shared_secret
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_ISCSI_SHARED_SECRET extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct VDS_ISCSI_SHARED_SECRET {
+    #StructPack 8
 
     /**
      * A pointer to an array of bytes that contains the CHAP shared secret. If a shared secret is not necessary, this parameter should be <b>NULL</b>.
-     * @type {Pointer<Integer>}
      */
-    pSharedSecret {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pSharedSecret : IntPtr
 
     /**
      * The number of bytes in the array that the <b>pSharedSecret</b> member points to. If the <b>pSharedSecret</b> member is <b>NULL</b>, this parameter must be zero. If  <b>pSharedSecret</b> is not <b>NULL</b>, this parameter must be greater than or equal to 12 and less than or equal to 16.
-     * @type {Integer}
      */
-    ulSharedSecretSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulSharedSecretSize : UInt32
+
 }

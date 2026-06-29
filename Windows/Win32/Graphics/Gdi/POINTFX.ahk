@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FIXED.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FIXED.ahk" { FIXED }
 
 /**
  * The POINTFX structure contains the coordinates of points that describe the outline of a character in a TrueType font.
@@ -9,32 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-pointfx
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class POINTFX extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 2
+export default struct POINTFX {
+    #StructPack 2
 
     /**
      * The x-component of a point on the outline of a TrueType character.
-     * @type {FIXED}
      */
-    x {
-        get {
-            if(!this.HasProp("__x"))
-                this.__x := FIXED(0, this)
-            return this.__x
-        }
-    }
+    x : FIXED
 
     /**
      * The y-component of a point on the outline of a TrueType character.
-     * @type {FIXED}
      */
-    y {
-        get {
-            if(!this.HasProp("__y"))
-                this.__y := FIXED(4, this)
-            return this.__y
-        }
-    }
+    y : FIXED
+
 }

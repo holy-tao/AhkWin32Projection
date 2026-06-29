@@ -1,35 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\TF_PERSISTENT_PROPERTY_HEADER_ACP.ahk
-#Include .\ITfRangeACP.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\TF_PERSISTENT_PROPERTY_HEADER_ACP.ahk" { TF_PERSISTENT_PROPERTY_HEADER_ACP }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\ITfPersistentPropertyLoaderACP.ahk" { ITfPersistentPropertyLoaderACP }
+#Import ".\ITfRange.ahk" { ITfRange }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITfRangeACP.ahk" { ITfRangeACP }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITfProperty.ahk" { ITfProperty }
 
 /**
  * The ITextStoreACPServices interface is implemented by the TSF manager to provide various services to an ACP-based application.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itextstoreacpservices
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITextStoreACPServices extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITextStoreACPServices extends IUnknown {
     /**
      * The interface identifier for ITextStoreACPServices
      * @type {Guid}
      */
-    static IID => Guid("{aa80e901-2021-11d2-93e0-0060b067b86e}")
+    static IID := Guid("{aa80e901-2021-11d2-93e0-0060b067b86e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITextStoreACPServices interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Serialize         : IntPtr
+        Unserialize       : IntPtr
+        ForceLoadProperty : IntPtr
+        CreateRange       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Serialize", "Unserialize", "ForceLoadProperty", "CreateRange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITextStoreACPServices.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITextStoreACPServices::Serialize method
@@ -54,7 +69,7 @@ class ITextStoreACPServices extends IUnknown {
      */
     Serialize(pProp, pRange, pStream) {
         pHdr := TF_PERSISTENT_PROPERTY_HEADER_ACP()
-        result := ComCall(3, this, "ptr", pProp, "ptr", pRange, "ptr", pHdr, "ptr", pStream, "HRESULT")
+        result := ComCall(3, this, "ptr", pProp, "ptr", pRange, TF_PERSISTENT_PROPERTY_HEADER_ACP.Ptr, pHdr, "ptr", pStream, "HRESULT")
         return pHdr
     }
 
@@ -123,7 +138,7 @@ class ITextStoreACPServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itextstoreacpservices-unserialize
      */
     Unserialize(pProp, pHdr, pStream, pLoader) {
-        result := ComCall(4, this, "ptr", pProp, "ptr", pHdr, "ptr", pStream, "ptr", pLoader, "HRESULT")
+        result := ComCall(4, this, "ptr", pProp, TF_PERSISTENT_PROPERTY_HEADER_ACP.Ptr, pHdr, "ptr", pStream, "ptr", pLoader, "HRESULT")
         return result
     }
 
@@ -190,5 +205,31 @@ class ITextStoreACPServices extends IUnknown {
     CreateRange(acpStart, acpEnd) {
         result := ComCall(6, this, "int", acpStart, "int", acpEnd, "ptr*", &ppRange := 0, "HRESULT")
         return ITfRangeACP(ppRange)
+    }
+
+    Query(iid) {
+        if (ITextStoreACPServices.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Serialize := CallbackCreate(GetMethod(implObj, "Serialize"), flags, 5)
+        this.vtbl.Unserialize := CallbackCreate(GetMethod(implObj, "Unserialize"), flags, 5)
+        this.vtbl.ForceLoadProperty := CallbackCreate(GetMethod(implObj, "ForceLoadProperty"), flags, 2)
+        this.vtbl.CreateRange := CallbackCreate(GetMethod(implObj, "CreateRange"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Serialize)
+        CallbackFree(this.vtbl.Unserialize)
+        CallbackFree(this.vtbl.ForceLoadProperty)
+        CallbackFree(this.vtbl.CreateRange)
     }
 }

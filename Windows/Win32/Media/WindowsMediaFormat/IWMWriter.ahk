@@ -1,35 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IWMInputMediaProps.ahk
-#Include .\INSSBuffer.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWMInputMediaProps.ahk" { IWMInputMediaProps }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\INSSBuffer.ahk" { INSSBuffer }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWMProfile.ahk" { IWMProfile }
 
 /**
  * The IWMWriter interface is used to write ASF files.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmwriter
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMWriter extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMWriter extends IUnknown {
     /**
      * The interface identifier for IWMWriter
      * @type {Guid}
      */
-    static IID => Guid("{96406bd4-2b2b-11d3-b36b-00c04f6108ff}")
+    static IID := Guid("{96406bd4-2b2b-11d3-b36b-00c04f6108ff}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMWriter interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetProfileByID      : IntPtr
+        SetProfile          : IntPtr
+        SetOutputFilename   : IntPtr
+        GetInputCount       : IntPtr
+        GetInputProps       : IntPtr
+        SetInputProps       : IntPtr
+        GetInputFormatCount : IntPtr
+        GetInputFormat      : IntPtr
+        BeginWriting        : IntPtr
+        EndWriting          : IntPtr
+        AllocateSample      : IntPtr
+        WriteSample         : IntPtr
+        Flush               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetProfileByID", "SetProfile", "SetOutputFilename", "GetInputCount", "GetInputProps", "SetInputProps", "GetInputFormatCount", "GetInputFormat", "BeginWriting", "EndWriting", "AllocateSample", "WriteSample", "Flush"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMWriter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetProfileByID method specifies the profile to use for the current writing task, identifying the profile by its GUID.
@@ -69,7 +91,7 @@ class IWMWriter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriter-setprofilebyid
      */
     SetProfileByID(guidProfile) {
-        result := ComCall(3, this, "ptr", guidProfile, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, guidProfile, "HRESULT")
         return result
     }
 
@@ -780,5 +802,49 @@ class IWMWriter extends IUnknown {
     Flush() {
         result := ComCall(15, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMWriter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetProfileByID := CallbackCreate(GetMethod(implObj, "SetProfileByID"), flags, 2)
+        this.vtbl.SetProfile := CallbackCreate(GetMethod(implObj, "SetProfile"), flags, 2)
+        this.vtbl.SetOutputFilename := CallbackCreate(GetMethod(implObj, "SetOutputFilename"), flags, 2)
+        this.vtbl.GetInputCount := CallbackCreate(GetMethod(implObj, "GetInputCount"), flags, 2)
+        this.vtbl.GetInputProps := CallbackCreate(GetMethod(implObj, "GetInputProps"), flags, 3)
+        this.vtbl.SetInputProps := CallbackCreate(GetMethod(implObj, "SetInputProps"), flags, 3)
+        this.vtbl.GetInputFormatCount := CallbackCreate(GetMethod(implObj, "GetInputFormatCount"), flags, 3)
+        this.vtbl.GetInputFormat := CallbackCreate(GetMethod(implObj, "GetInputFormat"), flags, 4)
+        this.vtbl.BeginWriting := CallbackCreate(GetMethod(implObj, "BeginWriting"), flags, 1)
+        this.vtbl.EndWriting := CallbackCreate(GetMethod(implObj, "EndWriting"), flags, 1)
+        this.vtbl.AllocateSample := CallbackCreate(GetMethod(implObj, "AllocateSample"), flags, 3)
+        this.vtbl.WriteSample := CallbackCreate(GetMethod(implObj, "WriteSample"), flags, 5)
+        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetProfileByID)
+        CallbackFree(this.vtbl.SetProfile)
+        CallbackFree(this.vtbl.SetOutputFilename)
+        CallbackFree(this.vtbl.GetInputCount)
+        CallbackFree(this.vtbl.GetInputProps)
+        CallbackFree(this.vtbl.SetInputProps)
+        CallbackFree(this.vtbl.GetInputFormatCount)
+        CallbackFree(this.vtbl.GetInputFormat)
+        CallbackFree(this.vtbl.BeginWriting)
+        CallbackFree(this.vtbl.EndWriting)
+        CallbackFree(this.vtbl.AllocateSample)
+        CallbackFree(this.vtbl.WriteSample)
+        CallbackFree(this.vtbl.Flush)
     }
 }

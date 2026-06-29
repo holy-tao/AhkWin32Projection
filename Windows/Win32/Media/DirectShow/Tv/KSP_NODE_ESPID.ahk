@@ -1,32 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\KernelStreaming\KSP_NODE.ahk
-#Include ..\..\KernelStreaming\KSIDENTIFIER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\KernelStreaming\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\KernelStreaming\KSP_NODE.ahk" { KSP_NODE }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class KSP_NODE_ESPID extends Win32Struct {
-    static sizeof => 32
+export default struct KSP_NODE_ESPID {
+    #StructPack 8
 
-    static packingSize => 8
+    Property : KSP_NODE
 
-    /**
-     * @type {KSP_NODE}
-     */
-    Property {
-        get {
-            if(!this.HasProp("__Property"))
-                this.__Property := KSP_NODE(0, this)
-            return this.__Property
-        }
-    }
+    EsPid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EsPid {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

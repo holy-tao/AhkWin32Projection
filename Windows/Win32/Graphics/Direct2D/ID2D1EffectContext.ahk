@@ -1,16 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ID2D1Effect.ahk
-#Include .\ID2D1TransformNode.ahk
-#Include .\ID2D1BlendTransform.ahk
-#Include .\ID2D1BorderTransform.ahk
-#Include .\ID2D1OffsetTransform.ahk
-#Include .\ID2D1BoundsAdjustmentTransform.ahk
-#Include .\ID2D1ResourceTexture.ahk
-#Include .\ID2D1VertexBuffer.ahk
-#Include .\ID2D1ColorContext.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D2D1_EXTEND_MODE.ahk" { D2D1_EXTEND_MODE }
+#Import ".\ID2D1Effect.ahk" { ID2D1Effect }
+#Import ".\D2D1_COLOR_SPACE.ahk" { D2D1_COLOR_SPACE }
+#Import ".\ID2D1VertexBuffer.ahk" { ID2D1VertexBuffer }
+#Import ".\D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES.ahk" { D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Direct3D\D3D_FEATURE_LEVEL.ahk" { D3D_FEATURE_LEVEL }
+#Import ".\ID2D1BoundsAdjustmentTransform.ahk" { ID2D1BoundsAdjustmentTransform }
+#Import ".\ID2D1BlendTransform.ahk" { ID2D1BlendTransform }
+#Import ".\ID2D1ColorContext.ahk" { ID2D1ColorContext }
+#Import ".\D2D1_BLEND_DESCRIPTION.ahk" { D2D1_BLEND_DESCRIPTION }
+#Import ".\ID2D1OffsetTransform.ahk" { ID2D1OffsetTransform }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\D2D1_FEATURE.ahk" { D2D1_FEATURE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ID2D1BorderTransform.ahk" { ID2D1BorderTransform }
+#Import ".\D2D1_RESOURCE_TEXTURE_PROPERTIES.ahk" { D2D1_RESOURCE_TEXTURE_PROPERTIES }
+#Import "..\Imaging\IWICColorContext.ahk" { IWICColorContext }
+#Import ".\D2D1_BUFFER_PRECISION.ahk" { D2D1_BUFFER_PRECISION }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ID2D1TransformNode.ahk" { ID2D1TransformNode }
+#Import ".\D2D1_VERTEX_BUFFER_PROPERTIES.ahk" { D2D1_VERTEX_BUFFER_PROPERTIES }
+#Import ".\ID2D1ResourceTexture.ahk" { ID2D1ResourceTexture }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Provides factory methods and other state management for effect and transform authors. (ID2D1EffectContext)
@@ -21,26 +36,53 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1effectcontext
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1EffectContext extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1EffectContext extends IUnknown {
     /**
      * The interface identifier for ID2D1EffectContext
      * @type {Guid}
      */
-    static IID => Guid("{3d9f916b-27dc-4ad7-b4f1-64945340f563}")
+    static IID := Guid("{3d9f916b-27dc-4ad7-b4f1-64945340f563}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1EffectContext interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDpi                                : IntPtr
+        CreateEffect                          : IntPtr
+        GetMaximumSupportedFeatureLevel       : IntPtr
+        CreateTransformNodeFromEffect         : IntPtr
+        CreateBlendTransform                  : IntPtr
+        CreateBorderTransform                 : IntPtr
+        CreateOffsetTransform                 : IntPtr
+        CreateBoundsAdjustmentTransform       : IntPtr
+        LoadPixelShader                       : IntPtr
+        LoadVertexShader                      : IntPtr
+        LoadComputeShader                     : IntPtr
+        IsShaderLoaded                        : IntPtr
+        CreateResourceTexture                 : IntPtr
+        FindResourceTexture                   : IntPtr
+        CreateVertexBuffer                    : IntPtr
+        FindVertexBuffer                      : IntPtr
+        CreateColorContext                    : IntPtr
+        CreateColorContextFromFilename        : IntPtr
+        CreateColorContextFromWicColorContext : IntPtr
+        CheckFeatureSupport                   : IntPtr
+        IsBufferPrecisionSupported            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDpi", "CreateEffect", "GetMaximumSupportedFeatureLevel", "CreateTransformNodeFromEffect", "CreateBlendTransform", "CreateBorderTransform", "CreateOffsetTransform", "CreateBoundsAdjustmentTransform", "LoadPixelShader", "LoadVertexShader", "LoadComputeShader", "IsShaderLoaded", "CreateResourceTexture", "FindResourceTexture", "CreateVertexBuffer", "FindVertexBuffer", "CreateColorContext", "CreateColorContextFromFilename", "CreateColorContextFromWicColorContext", "CheckFeatureSupport", "IsBufferPrecisionSupported"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1EffectContext.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the unit mapping that an effect will use for properties that could be in either dots per inch (dpi) or pixels.
@@ -75,7 +117,7 @@ class ID2D1EffectContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-createeffect
      */
     CreateEffect(effectId) {
-        result := ComCall(4, this, "ptr", effectId, "ptr*", &_effect := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, effectId, "ptr*", &_effect := 0, "HRESULT")
         return ID2D1Effect(_effect)
     }
 
@@ -128,7 +170,7 @@ class ID2D1EffectContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-createblendtransform
      */
     CreateBlendTransform(numInputs, blendDescription) {
-        result := ComCall(7, this, "uint", numInputs, "ptr", blendDescription, "ptr*", &transform := 0, "HRESULT")
+        result := ComCall(7, this, "uint", numInputs, D2D1_BLEND_DESCRIPTION.Ptr, blendDescription, "ptr*", &transform := 0, "HRESULT")
         return ID2D1BlendTransform(transform)
     }
 
@@ -146,7 +188,7 @@ class ID2D1EffectContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-createbordertransform
      */
     CreateBorderTransform(extendModeX, extendModeY) {
-        result := ComCall(8, this, "int", extendModeX, "int", extendModeY, "ptr*", &transform := 0, "HRESULT")
+        result := ComCall(8, this, D2D1_EXTEND_MODE, extendModeX, D2D1_EXTEND_MODE, extendModeY, "ptr*", &transform := 0, "HRESULT")
         return ID2D1BorderTransform(transform)
     }
 
@@ -163,7 +205,7 @@ class ID2D1EffectContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-createoffsettransform
      */
     CreateOffsetTransform(offset) {
-        result := ComCall(9, this, "ptr", offset, "ptr*", &transform := 0, "HRESULT")
+        result := ComCall(9, this, POINT, offset, "ptr*", &transform := 0, "HRESULT")
         return ID2D1OffsetTransform(transform)
     }
 
@@ -188,7 +230,7 @@ class ID2D1EffectContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-createboundsadjustmenttransform
      */
     CreateBoundsAdjustmentTransform(outputRectangle) {
-        result := ComCall(10, this, "ptr", outputRectangle, "ptr*", &transform := 0, "HRESULT")
+        result := ComCall(10, this, RECT.Ptr, outputRectangle, "ptr*", &transform := 0, "HRESULT")
         return ID2D1BoundsAdjustmentTransform(transform)
     }
 
@@ -232,7 +274,7 @@ class ID2D1EffectContext extends IUnknown {
     LoadPixelShader(shaderId, shaderBuffer, shaderBufferCount) {
         shaderBufferMarshal := shaderBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(11, this, "ptr", shaderId, shaderBufferMarshal, shaderBuffer, "uint", shaderBufferCount, "HRESULT")
+        result := ComCall(11, this, Guid.Ptr, shaderId, shaderBufferMarshal, shaderBuffer, "uint", shaderBufferCount, "HRESULT")
         return result
     }
 
@@ -276,7 +318,7 @@ class ID2D1EffectContext extends IUnknown {
     LoadVertexShader(resourceId, shaderBuffer, shaderBufferCount) {
         shaderBufferMarshal := shaderBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(12, this, "ptr", resourceId, shaderBufferMarshal, shaderBuffer, "uint", shaderBufferCount, "HRESULT")
+        result := ComCall(12, this, Guid.Ptr, resourceId, shaderBufferMarshal, shaderBuffer, "uint", shaderBufferCount, "HRESULT")
         return result
     }
 
@@ -320,7 +362,7 @@ class ID2D1EffectContext extends IUnknown {
     LoadComputeShader(resourceId, shaderBuffer, shaderBufferCount) {
         shaderBufferMarshal := shaderBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(13, this, "ptr", resourceId, shaderBufferMarshal, shaderBuffer, "uint", shaderBufferCount, "HRESULT")
+        result := ComCall(13, this, Guid.Ptr, resourceId, shaderBufferMarshal, shaderBuffer, "uint", shaderBufferCount, "HRESULT")
         return result
     }
 
@@ -335,7 +377,7 @@ class ID2D1EffectContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-isshaderloaded
      */
     IsShaderLoaded(shaderId) {
-        result := ComCall(14, this, "ptr", shaderId, "int")
+        result := ComCall(14, this, Guid.Ptr, shaderId, BOOL)
         return result
     }
 
@@ -365,7 +407,7 @@ class ID2D1EffectContext extends IUnknown {
         dataMarshal := data is VarRef ? "char*" : "ptr"
         stridesMarshal := strides is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "ptr", resourceId, "ptr", resourceTextureProperties, dataMarshal, data, stridesMarshal, strides, "uint", dataSize, "ptr*", &resourceTexture := 0, "HRESULT")
+        result := ComCall(15, this, Guid.Ptr, resourceId, D2D1_RESOURCE_TEXTURE_PROPERTIES.Ptr, resourceTextureProperties, dataMarshal, data, stridesMarshal, strides, "uint", dataSize, "ptr*", &resourceTexture := 0, "HRESULT")
         return ID2D1ResourceTexture(resourceTexture)
     }
 
@@ -380,7 +422,7 @@ class ID2D1EffectContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-findresourcetexture
      */
     FindResourceTexture(resourceId) {
-        result := ComCall(16, this, "ptr", resourceId, "ptr*", &resourceTexture := 0, "HRESULT")
+        result := ComCall(16, this, Guid.Ptr, resourceId, "ptr*", &resourceTexture := 0, "HRESULT")
         return ID2D1ResourceTexture(resourceTexture)
     }
 
@@ -401,7 +443,7 @@ class ID2D1EffectContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-createvertexbuffer
      */
     CreateVertexBuffer(vertexBufferProperties, resourceId, customVertexBufferProperties) {
-        result := ComCall(17, this, "ptr", vertexBufferProperties, "ptr", resourceId, "ptr", customVertexBufferProperties, "ptr*", &_buffer := 0, "HRESULT")
+        result := ComCall(17, this, D2D1_VERTEX_BUFFER_PROPERTIES.Ptr, vertexBufferProperties, Guid.Ptr, resourceId, D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES.Ptr, customVertexBufferProperties, "ptr*", &_buffer := 0, "HRESULT")
         return ID2D1VertexBuffer(_buffer)
     }
 
@@ -416,7 +458,7 @@ class ID2D1EffectContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-findvertexbuffer
      */
     FindVertexBuffer(resourceId) {
-        result := ComCall(18, this, "ptr", resourceId, "ptr*", &_buffer := 0, "HRESULT")
+        result := ComCall(18, this, Guid.Ptr, resourceId, "ptr*", &_buffer := 0, "HRESULT")
         return ID2D1VertexBuffer(_buffer)
     }
 
@@ -439,7 +481,7 @@ class ID2D1EffectContext extends IUnknown {
     CreateColorContext(space, _profile, profileSize) {
         _profileMarshal := _profile is VarRef ? "char*" : "ptr"
 
-        result := ComCall(19, this, "int", space, _profileMarshal, _profile, "uint", profileSize, "ptr*", &colorContext := 0, "HRESULT")
+        result := ComCall(19, this, D2D1_COLOR_SPACE, space, _profileMarshal, _profile, "uint", profileSize, "ptr*", &colorContext := 0, "HRESULT")
         return ID2D1ColorContext(colorContext)
     }
 
@@ -513,7 +555,7 @@ class ID2D1EffectContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-checkfeaturesupport
      */
     CheckFeatureSupport(feature, featureSupportData, featureSupportDataSize) {
-        result := ComCall(22, this, "int", feature, "ptr", featureSupportData, "uint", featureSupportDataSize, "HRESULT")
+        result := ComCall(22, this, D2D1_FEATURE, feature, "ptr", featureSupportData, "uint", featureSupportDataSize, "HRESULT")
         return result
     }
 
@@ -528,7 +570,67 @@ class ID2D1EffectContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-isbufferprecisionsupported
      */
     IsBufferPrecisionSupported(bufferPrecision) {
-        result := ComCall(23, this, "int", bufferPrecision, "int")
+        result := ComCall(23, this, D2D1_BUFFER_PRECISION, bufferPrecision, BOOL)
         return result
+    }
+
+    Query(iid) {
+        if (ID2D1EffectContext.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDpi := CallbackCreate(GetMethod(implObj, "GetDpi"), flags, 3)
+        this.vtbl.CreateEffect := CallbackCreate(GetMethod(implObj, "CreateEffect"), flags, 3)
+        this.vtbl.GetMaximumSupportedFeatureLevel := CallbackCreate(GetMethod(implObj, "GetMaximumSupportedFeatureLevel"), flags, 4)
+        this.vtbl.CreateTransformNodeFromEffect := CallbackCreate(GetMethod(implObj, "CreateTransformNodeFromEffect"), flags, 3)
+        this.vtbl.CreateBlendTransform := CallbackCreate(GetMethod(implObj, "CreateBlendTransform"), flags, 4)
+        this.vtbl.CreateBorderTransform := CallbackCreate(GetMethod(implObj, "CreateBorderTransform"), flags, 4)
+        this.vtbl.CreateOffsetTransform := CallbackCreate(GetMethod(implObj, "CreateOffsetTransform"), flags, 3)
+        this.vtbl.CreateBoundsAdjustmentTransform := CallbackCreate(GetMethod(implObj, "CreateBoundsAdjustmentTransform"), flags, 3)
+        this.vtbl.LoadPixelShader := CallbackCreate(GetMethod(implObj, "LoadPixelShader"), flags, 4)
+        this.vtbl.LoadVertexShader := CallbackCreate(GetMethod(implObj, "LoadVertexShader"), flags, 4)
+        this.vtbl.LoadComputeShader := CallbackCreate(GetMethod(implObj, "LoadComputeShader"), flags, 4)
+        this.vtbl.IsShaderLoaded := CallbackCreate(GetMethod(implObj, "IsShaderLoaded"), flags, 2)
+        this.vtbl.CreateResourceTexture := CallbackCreate(GetMethod(implObj, "CreateResourceTexture"), flags, 7)
+        this.vtbl.FindResourceTexture := CallbackCreate(GetMethod(implObj, "FindResourceTexture"), flags, 3)
+        this.vtbl.CreateVertexBuffer := CallbackCreate(GetMethod(implObj, "CreateVertexBuffer"), flags, 5)
+        this.vtbl.FindVertexBuffer := CallbackCreate(GetMethod(implObj, "FindVertexBuffer"), flags, 3)
+        this.vtbl.CreateColorContext := CallbackCreate(GetMethod(implObj, "CreateColorContext"), flags, 5)
+        this.vtbl.CreateColorContextFromFilename := CallbackCreate(GetMethod(implObj, "CreateColorContextFromFilename"), flags, 3)
+        this.vtbl.CreateColorContextFromWicColorContext := CallbackCreate(GetMethod(implObj, "CreateColorContextFromWicColorContext"), flags, 3)
+        this.vtbl.CheckFeatureSupport := CallbackCreate(GetMethod(implObj, "CheckFeatureSupport"), flags, 4)
+        this.vtbl.IsBufferPrecisionSupported := CallbackCreate(GetMethod(implObj, "IsBufferPrecisionSupported"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDpi)
+        CallbackFree(this.vtbl.CreateEffect)
+        CallbackFree(this.vtbl.GetMaximumSupportedFeatureLevel)
+        CallbackFree(this.vtbl.CreateTransformNodeFromEffect)
+        CallbackFree(this.vtbl.CreateBlendTransform)
+        CallbackFree(this.vtbl.CreateBorderTransform)
+        CallbackFree(this.vtbl.CreateOffsetTransform)
+        CallbackFree(this.vtbl.CreateBoundsAdjustmentTransform)
+        CallbackFree(this.vtbl.LoadPixelShader)
+        CallbackFree(this.vtbl.LoadVertexShader)
+        CallbackFree(this.vtbl.LoadComputeShader)
+        CallbackFree(this.vtbl.IsShaderLoaded)
+        CallbackFree(this.vtbl.CreateResourceTexture)
+        CallbackFree(this.vtbl.FindResourceTexture)
+        CallbackFree(this.vtbl.CreateVertexBuffer)
+        CallbackFree(this.vtbl.FindVertexBuffer)
+        CallbackFree(this.vtbl.CreateColorContext)
+        CallbackFree(this.vtbl.CreateColorContextFromFilename)
+        CallbackFree(this.vtbl.CreateColorContextFromWicColorContext)
+        CallbackFree(this.vtbl.CheckFeatureSupport)
+        CallbackFree(this.vtbl.IsBufferPrecisionSupported)
     }
 }

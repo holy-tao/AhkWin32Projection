@@ -1,123 +1,39 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class AVIFIELDINDEX extends Win32Struct {
-    static sizeof => 48
+export default struct AVIFIELDINDEX {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _avifieldindex_entry extends Win32Struct {
-        static sizeof => 12
-        static packingSize => 4
+    struct _avifieldindex_entry {
+        dwOffset : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        dwOffset {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        dwSize : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        dwSize {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
+        dwOffsetField2 : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        dwOffsetField2 {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
     }
 
-    /**
-     * @type {Integer}
-     */
-    fcc {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    fcc : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cb {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cb : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wLongsPerEntry {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    wLongsPerEntry : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    bIndexSubType {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    bIndexSubType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bIndexType {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
-    }
+    bIndexType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    nEntriesInUse {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    nEntriesInUse : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwChunkId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwChunkId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    qwBaseOffset {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    qwBaseOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved3 {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwReserved3 : UInt32
 
-    /**
-     * @type {_avifieldindex_entry}
-     */
-    aIndex {
-        get {
-            if(!this.HasProp("__aIndexProxyArray"))
-                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 36, 1, AVIFIELDINDEX._avifieldindex_entry, "")
-            return this.__aIndexProxyArray
-        }
-    }
+    aIndex : AVIFIELDINDEX._avifieldindex_entry[1]
+
 }

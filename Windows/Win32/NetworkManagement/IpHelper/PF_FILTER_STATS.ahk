@@ -1,32 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PF_FILTER_DESCRIPTOR.ahk
-#Include .\PFADDRESSTYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PF_FILTER_DESCRIPTOR.ahk" { PF_FILTER_DESCRIPTOR }
+#Import ".\PFADDRESSTYPE.ahk" { PFADDRESSTYPE }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class PF_FILTER_STATS extends Win32Struct {
-    static sizeof => 72
+export default struct PF_FILTER_STATS {
+    #StructPack 8
 
-    static packingSize => 8
+    dwNumPacketsFiltered : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNumPacketsFiltered {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    info : PF_FILTER_DESCRIPTOR
 
-    /**
-     * @type {PF_FILTER_DESCRIPTOR}
-     */
-    info {
-        get {
-            if(!this.HasProp("__info"))
-                this.__info := PF_FILTER_DESCRIPTOR(8, this)
-            return this.__info
-        }
-    }
 }

@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\INetDiagHelperUtilFactory.ahk" { INetDiagHelperUtilFactory }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\HypothesisResult.ahk" { HypothesisResult }
+#Import ".\DIAGNOSIS_STATUS.ahk" { DIAGNOSIS_STATUS }
 
 /**
  * Provides methods that extend on the INetDiagHelper interface to capture and provide information associated with diagnoses and resolution of network-related issues.
  * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nn-ndhelper-inetdiaghelperex
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  */
-class INetDiagHelperEx extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct INetDiagHelperEx extends IUnknown {
     /**
      * The interface identifier for INetDiagHelperEx
      * @type {Guid}
      */
-    static IID => Guid("{972dab4d-e4e3-4fc6-ae54-5f65ccde4a15}")
+    static IID := Guid("{972dab4d-e4e3-4fc6-ae54-5f65ccde4a15}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INetDiagHelperEx interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        ReconfirmLowHealth : IntPtr
+        SetUtilities       : IntPtr
+        ReproduceFailure   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ReconfirmLowHealth", "SetUtilities", "ReproduceFailure"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INetDiagHelperEx.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Used to add a second Low Health pass after hypotheses have been diagnosed and before repairs are retrieved.
@@ -65,7 +79,7 @@ class INetDiagHelperEx extends IUnknown {
         ppwszUpdatedDescriptionMarshal := ppwszUpdatedDescription is VarRef ? "ptr*" : "ptr"
         pUpdatedStatusMarshal := pUpdatedStatus is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, "ptr", pResults, ppwszUpdatedDescriptionMarshal, ppwszUpdatedDescription, pUpdatedStatusMarshal, pUpdatedStatus, "HRESULT")
+        result := ComCall(3, this, "uint", celt, HypothesisResult.Ptr, pResults, ppwszUpdatedDescriptionMarshal, ppwszUpdatedDescription, pUpdatedStatusMarshal, pUpdatedStatus, "HRESULT")
         return result
     }
 
@@ -92,5 +106,29 @@ class INetDiagHelperEx extends IUnknown {
     ReproduceFailure() {
         result := ComCall(5, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (INetDiagHelperEx.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ReconfirmLowHealth := CallbackCreate(GetMethod(implObj, "ReconfirmLowHealth"), flags, 5)
+        this.vtbl.SetUtilities := CallbackCreate(GetMethod(implObj, "SetUtilities"), flags, 2)
+        this.vtbl.ReproduceFailure := CallbackCreate(GetMethod(implObj, "ReproduceFailure"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ReconfirmLowHealth)
+        CallbackFree(this.vtbl.SetUtilities)
+        CallbackFree(this.vtbl.ReproduceFailure)
     }
 }

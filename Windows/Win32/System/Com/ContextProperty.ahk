@@ -1,36 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.System.Com
  */
-class ContextProperty extends Win32Struct {
-    static sizeof => 24
+export default struct ContextProperty {
+    #StructPack 8
 
-    static packingSize => 8
+    policyId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    policyId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    pUnk : IUnknown
 
-    /**
-     * @type {IUnknown}
-     */
-    pUnk {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

@@ -1,50 +1,39 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\ITravelLog.ahk
-#Include .\IHlinkFrame.ahk
-#Include .\IWebBrowser2.ahk
-#Include .\IExpDispSupportXP.ahk
-#Include .\IShellService.ahk
-#Include Common\ITEMIDLIST.ahk
-#Include ..\..\System\Ole\IOleCommandTarget.ahk
-#Include .\IShellView.ahk
-#Include .\IShellFolder.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IShellService.ahk" { IShellService }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\IShellFolder.ahk" { IShellFolder }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IExpDispSupportXP.ahk" { IExpDispSupportXP }
+#Import ".\IWebBrowser2.ahk" { IWebBrowser2 }
+#Import ".\IShellView.ahk" { IShellView }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ITravelLog.ahk" { ITravelLog }
+#Import ".\IHlinkFrame.ahk" { IHlinkFrame }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\System\Ole\IOleCommandTarget.ahk" { IOleCommandTarget }
 
 /**
  * The BASEBROWSERDATAXP structure contains protected members of the base class. (BASEBROWSERDATAXP structure)
  * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/ns-shdeprecated-basebrowserdataxp
  * @namespace Windows.Win32.UI.Shell
  */
-class BASEBROWSERDATAXP extends Win32Struct {
-    static sizeof => 192
-
-    static packingSize => 8
+export default struct BASEBROWSERDATAXP {
+    #StructPack 8
 
     /**
      * Type: <b>HWND</b>
      * 
      * The handle of the browser's top-level window.
-     * @type {HWND}
      */
-    _hwnd {
-        get {
-            if(!this.HasProp("___hwnd"))
-                this.___hwnd := HWND(0, this)
-            return this.___hwnd
-        }
-    }
+    _hwnd : HWND
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-itravellog">ITravelLog</a>*</b>
      * 
      * A pointer to the browser's <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-itravellog">ITravelLog</a>.
-     * @type {ITravelLog}
      */
-    _ptl {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    _ptl : ITravelLog
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa767938(v=vs.85)">IHlinkFrame</a>*</b>
@@ -55,64 +44,41 @@ class BASEBROWSERDATAXP extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  This member is only valid on first navigation from an hlink element-compatible application such as Word.</div>
      * <div> </div>
-     * @type {IHlinkFrame}
      */
-    _phlf {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    _phlf : IHlinkFrame
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/exdisp/nn-exdisp-iwebbrowser2">IWebBrowser2</a>*</b>
      * 
      * A pointer to the browser's <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/nn-exdisp-iwebbrowser2">IWebBrowser2</a> object.
-     * @type {IWebBrowser2}
      */
-    _pautoWB2 {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    _pautoWB2 : IWebBrowser2
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-iexpdispsupport">IExpDispSupport</a>*</b>
      * 
      * A pointer to the browser's <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-iexpdispsupport">IExpDispSupport</a> object.
-     * @type {IExpDispSupportXP}
      */
-    _pautoEDS {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    _pautoEDS : IExpDispSupportXP
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-ishellservice">IShellService</a>*</b>
      * 
      * A pointer to the browser's <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-ishellservice">IShellService</a> object.
-     * @type {IShellService}
      */
-    _pautoSS {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    _pautoSS : IShellService
 
     /**
      * Type: <b>int</b>
-     * @type {Integer}
      */
-    _eSecureLockIcon {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    _eSecureLockIcon : Int32
 
     /**
      * This bitfield backs the following members:
      * - _fCreatingViewWindow
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -121,202 +87,119 @@ class BASEBROWSERDATAXP extends Win32Struct {
         get => (this._bitfield >> 0) & 0x1
         set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
     }
-
     /**
      * Type: <b>UINT</b>
      * 
      * The browser view is in an activated state.
-     * @type {Integer}
      */
-    _uActivateState {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    _uActivateState : UInt32
 
-    /**
-     * @type {Pointer<ITEMIDLIST>}
-     */
-    _pidlViewState {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    _pidlViewState : ITEMIDLIST.Ptr
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/docobj/nn-docobj-iolecommandtarget">IOleCommandTarget</a>*</b>
      * 
      * A cached pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nn-docobj-iolecommandtarget">IOleCommandTarget</a> object associated with the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> object pointed to by <b>_psv</b>.
-     * @type {IOleCommandTarget}
      */
-    _pctView {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    _pctView : IOleCommandTarget
 
     /**
      * Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
      * A PIDL of the current navigated location of the browser. This value is the same retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nf-shdeprecated-ibrowserservice-getpidl">IBrowserService::GetPidl</a>.
-     * @type {Pointer<ITEMIDLIST>}
      */
-    _pidlCur {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    _pidlCur : ITEMIDLIST.Ptr
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> of the current location. This <b>IShellView</b> is bound to <b>_pidlCur</b> through <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-createviewobject">IShellFolder::CreateViewObject</a>.
-     * @type {IShellView}
      */
-    _psv {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    _psv : IShellView
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> of the current location. This <b>IShellFolder</b> is bound to <b>_pidlCur</b>.
-     * @type {IShellFolder}
      */
-    _psf {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    _psf : IShellFolder
 
     /**
      * Type: <b>HWND</b>
      * 
      * A handle to the window returned by <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellview-createviewwindow">_psv->CreateViewWindow</a>.
-     * @type {HWND}
      */
-    _hwndView {
-        get {
-            if(!this.HasProp("___hwndView"))
-                this.___hwndView := HWND(104, this)
-            return this.___hwndView
-        }
-    }
+    _hwndView : HWND
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a buffer containing the Unicode title text for the current location.
-     * @type {PWSTR}
      */
-    _pszTitleCur {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    _pszTitleCur : PWSTR
 
     /**
      * Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
      * The PIDL of the pending target location. Once navigation is complete, this value moves to <b>_pidlCur</b>.
-     * @type {Pointer<ITEMIDLIST>}
      */
-    _pidlPending {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    _pidlPending : ITEMIDLIST.Ptr
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>*</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> of the pending target location. Once navigation is complete, this value moves to <b>_psv</b>.
-     * @type {IShellView}
      */
-    _psvPending {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    _psvPending : IShellView
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> of the pending target location. Once navigation is complete, this value moves to <b>_psf</b>.
-     * @type {IShellFolder}
      */
-    _psfPending {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
-    }
+    _psfPending : IShellFolder
 
     /**
      * Type: <b>HWND</b>
      * 
      * A handle to the pending target location's view window. Once navigation is complete, this value moves to <b>_hwndView</b>.
-     * @type {HWND}
      */
-    _hwndViewPending {
-        get {
-            if(!this.HasProp("___hwndViewPending"))
-                this.___hwndViewPending := HWND(144, this)
-            return this.___hwndViewPending
-        }
-    }
+    _hwndViewPending : HWND
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a buffer containing the Unicode title text for the pending target location. Once navigation is complete, this value moves to <b>_pszTitleCur</b>.
-     * @type {PWSTR}
      */
-    _pszTitlePending {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
-    }
+    _pszTitlePending : PWSTR
 
     /**
      * Type: <b>BOOL</b>
      * 
      * A value of type <b>BOOL</b> that indicates whether the browser is hosting folder content or web content.
-     * @type {BOOL}
      */
-    _fIsViewMSHTML {
-        get => NumGet(this, 160, "int")
-        set => NumPut("int", value, this, 160)
-    }
+    _fIsViewMSHTML : BOOL
 
     /**
      * Type: <b>BOOL</b>
      * 
      * A value of type <b>BOOL</b> that indicates whether there is a privacy concern with the browser's content.
-     * @type {BOOL}
      */
-    _fPrivacyImpacted {
-        get => NumGet(this, 164, "int")
-        set => NumPut("int", value, this, 164)
-    }
+    _fPrivacyImpacted : BOOL
 
     /**
      * Type: <b>CLSID</b>
-     * @type {Pointer}
      */
-    _clsidView {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
-    }
+    _clsidView : Guid
 
     /**
      * Type: <b>CLSID</b>
-     * @type {Pointer}
      */
-    _clsidViewPending {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
-    }
+    _clsidViewPending : Guid
 
     /**
      * Type: <b>HWND</b>
-     * @type {HWND}
      */
-    _hwndFrame {
-        get {
-            if(!this.HasProp("___hwndFrame"))
-                this.___hwndFrame := HWND(184, this)
-            return this.___hwndFrame
-        }
-    }
+    _hwndFrame : HWND
+
 }

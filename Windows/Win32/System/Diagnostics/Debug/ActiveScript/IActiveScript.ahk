@@ -1,32 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include ..\..\..\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IActiveScriptSite.ahk" { IActiveScriptSite }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\SCRIPTSTATE.ahk" { SCRIPTSTATE }
+#Import "..\..\..\Com\EXCEPINFO.ahk" { EXCEPINFO }
+#Import ".\SCRIPTTHREADSTATE.ahk" { SCRIPTTHREADSTATE }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
  */
-class IActiveScript extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IActiveScript extends IUnknown {
     /**
      * The interface identifier for IActiveScript
      * @type {Guid}
      */
-    static IID => Guid("{bb1a2ae1-a4f9-11cf-8f20-00805f2cd064}")
+    static IID := Guid("{bb1a2ae1-a4f9-11cf-8f20-00805f2cd064}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IActiveScript interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetScriptSite            : IntPtr
+        GetScriptSite            : IntPtr
+        SetScriptState           : IntPtr
+        GetScriptState           : IntPtr
+        Close                    : IntPtr
+        AddNamedItem             : IntPtr
+        AddTypeLib               : IntPtr
+        GetScriptDispatch        : IntPtr
+        GetCurrentScriptThreadID : IntPtr
+        GetScriptThreadID        : IntPtr
+        GetScriptThreadState     : IntPtr
+        InterruptScriptThread    : IntPtr
+        Clone                    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetScriptSite", "GetScriptSite", "SetScriptState", "GetScriptState", "Close", "AddNamedItem", "AddTypeLib", "GetScriptDispatch", "GetCurrentScriptThreadID", "GetScriptThreadID", "GetScriptThreadState", "InterruptScriptThread", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IActiveScript.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -44,7 +69,7 @@ class IActiveScript extends IUnknown {
      * @returns {Pointer<Void>} 
      */
     GetScriptSite(riid) {
-        result := ComCall(4, this, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
         return ppvObject
     }
 
@@ -54,7 +79,7 @@ class IActiveScript extends IUnknown {
      * @returns {HRESULT} 
      */
     SetScriptState(ss) {
-        result := ComCall(5, this, "int", ss, "HRESULT")
+        result := ComCall(5, this, SCRIPTSTATE, ss, "HRESULT")
         return result
     }
 
@@ -68,15 +93,8 @@ class IActiveScript extends IUnknown {
     }
 
     /**
-     * Use the Close-Session packet to tell the BITS server that file upload is complete and to end the session.
-     * @remarks
-     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
      * 
-     * For upload-reply jobs, you must download the reply before sending **Close-Session**. Otherwise, the reply is lost.
-     * 
-     * If you send this packet before uploading all fragments, the upload file is deleted; you cannot upload a partial file.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Bits/close-session
      */
     Close() {
         result := ComCall(7, this, "HRESULT")
@@ -105,7 +123,7 @@ class IActiveScript extends IUnknown {
      * @returns {HRESULT} 
      */
     AddTypeLib(rguidTypeLib, dwMajor, dwMinor, dwFlags) {
-        result := ComCall(9, this, "ptr", rguidTypeLib, "uint", dwMajor, "uint", dwMinor, "uint", dwFlags, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, rguidTypeLib, "uint", dwMajor, "uint", dwMinor, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -158,19 +176,60 @@ class IActiveScript extends IUnknown {
      * @returns {HRESULT} 
      */
     InterruptScriptThread(stidThread, pexcepinfo, dwFlags) {
-        result := ComCall(14, this, "uint", stidThread, "ptr", pexcepinfo, "uint", dwFlags, "HRESULT")
+        result := ComCall(14, this, "uint", stidThread, EXCEPINFO.Ptr, pexcepinfo, "uint", dwFlags, "HRESULT")
         return result
     }
 
     /**
-     * Creates a recognizer context that contains the same settings as the original. The new recognizer context does not include the ink or recognition results of the original.
-     * @remarks
-     * The settings  for this context include the recognition guide, character Autocomplete mode, and any factoids that improve the recognition results. An example of a factoid may include whether the ink is a phone number, a name, or a URL. The TextContext and Wordlists are preserved in the new context.
+     * 
      * @returns {IActiveScript} 
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-clonecontext
      */
     Clone() {
         result := ComCall(15, this, "ptr*", &ppscript := 0, "HRESULT")
         return IActiveScript(ppscript)
+    }
+
+    Query(iid) {
+        if (IActiveScript.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetScriptSite := CallbackCreate(GetMethod(implObj, "SetScriptSite"), flags, 2)
+        this.vtbl.GetScriptSite := CallbackCreate(GetMethod(implObj, "GetScriptSite"), flags, 3)
+        this.vtbl.SetScriptState := CallbackCreate(GetMethod(implObj, "SetScriptState"), flags, 2)
+        this.vtbl.GetScriptState := CallbackCreate(GetMethod(implObj, "GetScriptState"), flags, 2)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.AddNamedItem := CallbackCreate(GetMethod(implObj, "AddNamedItem"), flags, 3)
+        this.vtbl.AddTypeLib := CallbackCreate(GetMethod(implObj, "AddTypeLib"), flags, 5)
+        this.vtbl.GetScriptDispatch := CallbackCreate(GetMethod(implObj, "GetScriptDispatch"), flags, 3)
+        this.vtbl.GetCurrentScriptThreadID := CallbackCreate(GetMethod(implObj, "GetCurrentScriptThreadID"), flags, 2)
+        this.vtbl.GetScriptThreadID := CallbackCreate(GetMethod(implObj, "GetScriptThreadID"), flags, 3)
+        this.vtbl.GetScriptThreadState := CallbackCreate(GetMethod(implObj, "GetScriptThreadState"), flags, 3)
+        this.vtbl.InterruptScriptThread := CallbackCreate(GetMethod(implObj, "InterruptScriptThread"), flags, 4)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetScriptSite)
+        CallbackFree(this.vtbl.GetScriptSite)
+        CallbackFree(this.vtbl.SetScriptState)
+        CallbackFree(this.vtbl.GetScriptState)
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.AddNamedItem)
+        CallbackFree(this.vtbl.AddTypeLib)
+        CallbackFree(this.vtbl.GetScriptDispatch)
+        CallbackFree(this.vtbl.GetCurrentScriptThreadID)
+        CallbackFree(this.vtbl.GetScriptThreadID)
+        CallbackFree(this.vtbl.GetScriptThreadState)
+        CallbackFree(this.vtbl.InterruptScriptThread)
+        CallbackFree(this.vtbl.Clone)
     }
 }

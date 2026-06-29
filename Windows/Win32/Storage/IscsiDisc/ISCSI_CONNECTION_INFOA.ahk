@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ISCSI_UNIQUE_SESSION_ID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ISCSI_UNIQUE_SESSION_ID.ahk" { ISCSI_UNIQUE_SESSION_ID }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * ISCSI_CONNECTION_INFO structure contains information about a connection. (ANSI)
@@ -11,68 +11,37 @@
  * @namespace Windows.Win32.Storage.IscsiDisc
  * @charset ANSI
  */
-class ISCSI_CONNECTION_INFOA extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct ISCSI_CONNECTION_INFOA {
+    #StructPack 8
 
     /**
      * A ISCSI_UNIQUE_CONNECTION_ID structure that contains the unique identifier for a connection. The LoginIScsiTarget and AddIScsiConnection functions return this value via the UniqueConnectionId parameter.
-     * @type {ISCSI_UNIQUE_SESSION_ID}
      */
-    ConnectionId {
-        get {
-            if(!this.HasProp("__ConnectionId"))
-                this.__ConnectionId := ISCSI_UNIQUE_SESSION_ID(0, this)
-            return this.__ConnectionId
-        }
-    }
+    ConnectionId : ISCSI_UNIQUE_SESSION_ID
 
     /**
      * A string that represents the IP address of the initiator.
-     * @type {PSTR}
      */
-    InitiatorAddress {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    InitiatorAddress : PSTR
 
     /**
      * A string that represents the IP address of the target.
-     * @type {PSTR}
      */
-    TargetAddress {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    TargetAddress : PSTR
 
     /**
      * The socket number on the initiator that establishes the connection.
-     * @type {Integer}
      */
-    InitiatorSocket {
-        get => NumGet(this, 32, "ushort")
-        set => NumPut("ushort", value, this, 32)
-    }
+    InitiatorSocket : UInt16
 
     /**
      * The socket number on the target that establishes the connection.
-     * @type {Integer}
      */
-    TargetSocket {
-        get => NumGet(this, 34, "ushort")
-        set => NumPut("ushort", value, this, 34)
-    }
+    TargetSocket : UInt16
 
     /**
      * The connection identifier for the connection.
-     * @type {Array<Integer>}
      */
-    CID {
-        get {
-            if(!this.HasProp("__CIDProxyArray"))
-                this.__CIDProxyArray := Win32FixedArray(this.ptr + 36, 2, Primitive, "char")
-            return this.__CIDProxyArray
-        }
-    }
+    CID : Int8[2]
+
 }

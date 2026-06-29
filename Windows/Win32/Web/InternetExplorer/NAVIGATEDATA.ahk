@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
  */
-class NAVIGATEDATA extends Win32Struct {
-    static sizeof => 20
+export default struct NAVIGATEDATA {
+    #StructPack 4
 
-    static packingSize => 4
+    ulTarget : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulTarget {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulURL : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulURL {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulRefURL : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulRefURL {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulPostData : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulPostData {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

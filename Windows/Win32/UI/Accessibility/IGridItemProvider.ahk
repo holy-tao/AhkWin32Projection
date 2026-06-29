@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IRawElementProviderSimple.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRawElementProviderSimple.ahk" { IRawElementProviderSimple }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides access to individual child controls of containers that implement IGridProvider.
@@ -15,26 +16,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-igriditemprovider
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IGridItemProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IGridItemProvider extends IUnknown {
     /**
      * The interface identifier for IGridItemProvider
      * @type {Guid}
      */
-    static IID => Guid("{d02541f1-fb81-4d64-ae32-f520f8a6dbd1}")
+    static IID := Guid("{d02541f1-fb81-4d64-ae32-f520f8a6dbd1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGridItemProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_Row            : IntPtr
+        get_Column         : IntPtr
+        get_RowSpan        : IntPtr
+        get_ColumnSpan     : IntPtr
+        get_ContainingGrid : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Row", "get_Column", "get_RowSpan", "get_ColumnSpan", "get_ContainingGrid"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGridItemProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -119,5 +131,33 @@ class IGridItemProvider extends IUnknown {
     get_ContainingGrid() {
         result := ComCall(7, this, "ptr*", &pRetVal := 0, "HRESULT")
         return IRawElementProviderSimple(pRetVal)
+    }
+
+    Query(iid) {
+        if (IGridItemProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Row := CallbackCreate(GetMethod(implObj, "get_Row"), flags, 2)
+        this.vtbl.get_Column := CallbackCreate(GetMethod(implObj, "get_Column"), flags, 2)
+        this.vtbl.get_RowSpan := CallbackCreate(GetMethod(implObj, "get_RowSpan"), flags, 2)
+        this.vtbl.get_ColumnSpan := CallbackCreate(GetMethod(implObj, "get_ColumnSpan"), flags, 2)
+        this.vtbl.get_ContainingGrid := CallbackCreate(GetMethod(implObj, "get_ContainingGrid"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Row)
+        CallbackFree(this.vtbl.get_Column)
+        CallbackFree(this.vtbl.get_RowSpan)
+        CallbackFree(this.vtbl.get_ColumnSpan)
+        CallbackFree(this.vtbl.get_ContainingGrid)
     }
 }

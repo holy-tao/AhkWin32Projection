@@ -1,50 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RESOURCE_MONITOR_STATE.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\RESOURCE_MONITOR_STATE.ahk" { RESOURCE_MONITOR_STATE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The MONITOR_STATE structure is part of the resapi.h header used by Windows Clustering.
  * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-monitor_state
  * @namespace Windows.Win32.Networking.Clustering
  */
-class MONITOR_STATE extends Win32Struct {
-    static sizeof => 32
+export default struct MONITOR_STATE {
+    #StructPack 8
 
-    static packingSize => 8
+    LastUpdate : Int64
 
-    /**
-     * @type {Integer}
-     */
-    LastUpdate {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    State : RESOURCE_MONITOR_STATE
 
-    /**
-     * @type {RESOURCE_MONITOR_STATE}
-     */
-    State {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    ActiveResource : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    ActiveResource {
-        get {
-            if(!this.HasProp("__ActiveResource"))
-                this.__ActiveResource := HANDLE(16, this)
-            return this.__ActiveResource
-        }
-    }
+    ResmonStop : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    ResmonStop {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
 }

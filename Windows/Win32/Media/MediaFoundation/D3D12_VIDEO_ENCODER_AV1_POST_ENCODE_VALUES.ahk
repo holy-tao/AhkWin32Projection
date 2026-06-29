@@ -1,111 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_CONFIG.ahk
-#Include .\D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_DELTA_CONFIG.ahk
-#Include .\D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_CONFIG.ahk
-#Include .\D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_DELTA_CONFIG.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_CDEF_CONFIG.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_CONFIG.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_SEGMENT_DATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_CONFIG.ahk" { D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_CONFIG }
+#Import ".\D3D12_VIDEO_ENCODER_AV1_CDEF_CONFIG.ahk" { D3D12_VIDEO_ENCODER_AV1_CDEF_CONFIG }
+#Import ".\D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_CONFIG.ahk" { D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_CONFIG }
+#Import ".\D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_DELTA_CONFIG.ahk" { D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_DELTA_CONFIG }
+#Import ".\D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_DELTA_CONFIG.ahk" { D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_DELTA_CONFIG }
+#Import ".\D3D12_VIDEO_ENCODER_AV1_SEGMENT_DATA.ahk" { D3D12_VIDEO_ENCODER_AV1_SEGMENT_DATA }
+#Import ".\D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_CONFIG.ahk" { D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_CONFIG }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_ENCODER_AV1_POST_ENCODE_VALUES extends Win32Struct {
-    static sizeof => 1216
+export default struct D3D12_VIDEO_ENCODER_AV1_POST_ENCODE_VALUES {
+    #StructPack 8
 
-    static packingSize => 8
+    CompoundPredictionType : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CompoundPredictionType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    LoopFilter : D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_CONFIG
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_CONFIG}
-     */
-    LoopFilter {
-        get {
-            if(!this.HasProp("__LoopFilter"))
-                this.__LoopFilter := D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_CONFIG(8, this)
-            return this.__LoopFilter
-        }
-    }
+    LoopFilterDelta : D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_DELTA_CONFIG
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_DELTA_CONFIG}
-     */
-    LoopFilterDelta {
-        get {
-            if(!this.HasProp("__LoopFilterDelta"))
-                this.__LoopFilterDelta := D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_DELTA_CONFIG(152, this)
-            return this.__LoopFilterDelta
-        }
-    }
+    Quantization : D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_CONFIG
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_CONFIG}
-     */
-    Quantization {
-        get {
-            if(!this.HasProp("__Quantization"))
-                this.__Quantization := D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_CONFIG(176, this)
-            return this.__Quantization
-        }
-    }
+    QuantizationDelta : D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_DELTA_CONFIG
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_DELTA_CONFIG}
-     */
-    QuantizationDelta {
-        get {
-            if(!this.HasProp("__QuantizationDelta"))
-                this.__QuantizationDelta := D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_DELTA_CONFIG(256, this)
-            return this.__QuantizationDelta
-        }
-    }
+    CDEF : D3D12_VIDEO_ENCODER_AV1_CDEF_CONFIG
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_AV1_CDEF_CONFIG}
-     */
-    CDEF {
-        get {
-            if(!this.HasProp("__CDEF"))
-                this.__CDEF := D3D12_VIDEO_ENCODER_AV1_CDEF_CONFIG(272, this)
-            return this.__CDEF
-        }
-    }
+    SegmentationConfig : D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_CONFIG
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_CONFIG}
-     */
-    SegmentationConfig {
-        get {
-            if(!this.HasProp("__SegmentationConfig"))
-                this.__SegmentationConfig := D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_CONFIG(544, this)
-            return this.__SegmentationConfig
-        }
-    }
+    PrimaryRefFrame : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PrimaryRefFrame {
-        get => NumGet(this, 1152, "uint")
-        set => NumPut("uint", value, this, 1152)
-    }
+    ReferenceIndices : Int64[7]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ReferenceIndices {
-        get {
-            if(!this.HasProp("__ReferenceIndicesProxyArray"))
-                this.__ReferenceIndicesProxyArray := Win32FixedArray(this.ptr + 1160, 7, Primitive, "uint")
-            return this.__ReferenceIndicesProxyArray
-        }
-    }
 }

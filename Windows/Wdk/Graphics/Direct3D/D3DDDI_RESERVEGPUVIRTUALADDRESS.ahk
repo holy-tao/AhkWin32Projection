@@ -1,116 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DDDIGPUVIRTUALADDRESS_RESERVATION_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DDDIGPUVIRTUALADDRESS_RESERVATION_TYPE.ahk" { D3DDDIGPUVIRTUALADDRESS_RESERVATION_TYPE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DDDI_RESERVEGPUVIRTUALADDRESS extends Win32Struct {
-    static sizeof => 72
+export default struct D3DDDI_RESERVEGPUVIRTUALADDRESS {
+    #StructPack 8
 
-    static packingSize => 8
+    hPagingQueue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hPagingQueue {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    BaseAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    hAdapter {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    MinimumAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BaseAddress {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MaximumAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MinimumAddress {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Size : Int64
 
-    /**
-     * @type {Integer}
-     */
-    MaximumAddress {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ReservationType : D3DDDIGPUVIRTUALADDRESS_RESERVATION_TYPE
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    DriverProtection : Int64
 
-    /**
-     * @type {D3DDDIGPUVIRTUALADDRESS_RESERVATION_TYPE}
-     */
-    ReservationType {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    VirtualAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Reserved0 {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    PagingFenceValue : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DriverProtection {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    VirtualAddress {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    PagingFenceValue {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved2 {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+    static __New() {
+        DefineProp(this.Prototype, 'hAdapter', { type: UInt32, offset: 0 })
+        DefineProp(this.Prototype, 'Reserved0', { type: UInt32, offset: 40 })
+        DefineProp(this.Prototype, 'Reserved1', { type: Int64, offset: 48 })
+        DefineProp(this.Prototype, 'Reserved2', { type: Int64, offset: 64 })
+        this.DeleteProp("__New")
     }
 }

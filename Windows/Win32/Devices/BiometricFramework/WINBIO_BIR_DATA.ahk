@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the size, in bytes, and the offset of a block of biometric information.
@@ -8,26 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-bir-data
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
-class WINBIO_BIR_DATA extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct WINBIO_BIR_DATA {
+    #StructPack 4
 
     /**
      * Size, in bytes, of the biometric information.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
     /**
      * Offset, in bytes from the beginning of the [**WINBIO\_BIR**](winbio-bir.md) structure, of the biometric information.
-     * @type {Integer}
      */
-    Offset {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Offset : UInt32
+
 }

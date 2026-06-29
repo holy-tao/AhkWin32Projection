@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the types of triggers associated with a task.
@@ -9,7 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mstask/ne-mstask-task_trigger_type
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class TASK_TRIGGER_TYPE extends Win32Enum {
+export default struct TASK_TRIGGER_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Trigger is set to run the task a single time. 

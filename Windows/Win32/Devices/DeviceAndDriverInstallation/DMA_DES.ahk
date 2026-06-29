@@ -1,33 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DD_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DD_FLAGS.ahk" { DD_FLAGS }
 
 /**
  * The DMA_DES structure is used for specifying either a resource list or a resource requirements list that describes direct memory access (DMA) channel usage for a device instance.
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-dma_des
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  */
-class DMA_DES extends Win32Struct {
-    static sizeof => 16
+export default struct DMA_DES {
+    #StructPack 4
 
-    static packingSize => 4
-
-    /**
-     * @type {Integer}
-     */
-    DD_Count {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DD_Count : UInt32
 
     /**
      * Must be set to the constant value <b>DType_Range</b>.
-     * @type {Integer}
      */
-    DD_Type {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    DD_Type : UInt32
 
     /**
      * One bit flag from <i>each</i> of the flag sets described in the following table.
@@ -203,18 +190,9 @@ class DMA_DES extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {DD_FLAGS}
      */
-    DD_Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    DD_Flags : DD_FLAGS
 
-    /**
-     * @type {Integer}
-     */
-    DD_Alloc_Chan {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    DD_Alloc_Chan : UInt32
+
 }

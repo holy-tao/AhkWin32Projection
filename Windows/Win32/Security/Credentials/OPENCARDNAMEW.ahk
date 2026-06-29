@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains the information that the GetOpenCardName function uses to initialize a smart card Select Card dialog box. (Unicode)
@@ -11,142 +12,81 @@
  * @namespace Windows.Win32.Security.Credentials
  * @charset Unicode
  */
-class OPENCARDNAMEW extends Win32Struct {
-    static sizeof => 176
-
-    static packingSize => 8
+export default struct OPENCARDNAMEW {
+    #StructPack 8
 
     /**
      * Specifies the length, in bytes, of the structure. This member must not be <b>NULL</b>.
-     * @type {Integer}
      */
-    dwStructSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwStructSize : UInt32
 
     /**
      * The window that owns the dialog box. This member can be any valid window handle, or it can be <b>NULL</b> for desktop default.
-     * @type {HWND}
      */
-    hwndOwner {
-        get {
-            if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(8, this)
-            return this.__hwndOwner
-        }
-    }
+    hwndOwner : HWND
 
     /**
      * The context used for communication with the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager</a>. Call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a> to set the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardreleasecontext">SCardReleaseContext</a> to release it. This member must not be <b>NULL</b>.
-     * @type {Pointer}
      */
-    hSCardContext {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    hSCardContext : IntPtr
 
     /**
      * A pointer to a buffer that contains null-terminated group name strings. The last string in the buffer must be terminated by two null characters. Each string is the name of a group of cards that is to be included in the search. If <b>lpstrGroupNames</b> is <b>NULL</b>, the default group (<a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">Scard$DefaultReaders</a>) is searched.
-     * @type {PWSTR}
      */
-    lpstrGroupNames {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpstrGroupNames : PWSTR
 
     /**
      * The maximum number of bytes (ANSI version) or characters (<a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">Unicode</a> version) in the <b>lpstrGroupNames</b> string.
-     * @type {Integer}
      */
-    nMaxGroupNames {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    nMaxGroupNames : UInt32
 
     /**
      * A pointer to a buffer that contains null-terminated card name strings. The last string in the buffer must be terminated by two null characters. Each string is the name of a card that is to be located.
-     * @type {PWSTR}
      */
-    lpstrCardNames {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lpstrCardNames : PWSTR
 
     /**
      * The maximum number of bytes (ANSI version) or characters (<a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">Unicode</a> version) in the <b>lpstrCardNames</b> string.
-     * @type {Integer}
      */
-    nMaxCardNames {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    nMaxCardNames : UInt32
 
     /**
      * Reserved for future use. Set to <b>NULL</b>. An array of GUIDs that identify the interfaces required.
-     * @type {Pointer<Guid>}
      */
-    rgguidInterfaces {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    rgguidInterfaces : Guid.Ptr
 
     /**
      * Reserved for futures use. Set to <b>NULL</b>. The number of interfaces in the <b>rgguidInterfaces</b> array.
-     * @type {Integer}
      */
-    cguidInterfaces {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    cguidInterfaces : UInt32
 
     /**
      * If the card is located, the <b>lpstrRdr</b> buffer contains the name of the reader that contains the located card. The buffer should be at least 256 characters long.
-     * @type {PWSTR}
      */
-    lpstrRdr {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    lpstrRdr : PWSTR
 
     /**
      * The size, in bytes (ANSI version) or characters (<a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">Unicode</a> version), of the buffer pointed to by <b>lpstrRdr</b>. If the buffer is too small to contain the reader information, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-getopencardnamea">GetOpenCardName</a> returns SCARD_E_NO_MEMORY and the required size of the buffer pointed to by <b>lpstrRdr</b>.
-     * @type {Integer}
      */
-    nMaxRdr {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    nMaxRdr : UInt32
 
     /**
      * If the card is located, the <b>lpstrCard</b> buffer contains the name of the located card. The buffer should be at least 256 characters long.
-     * @type {PWSTR}
      */
-    lpstrCard {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    lpstrCard : PWSTR
 
     /**
      * The size, in bytes (ANSI version) or characters (<a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">Unicode</a> version), of the buffer pointed to by <b>lpstrCard</b>. If the buffer is too small to contain the card information, <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-getopencardnamea">GetOpenCardName</a> returns SCARD_E_NO_MEMORY and the required size of the buffer in <b>nMaxCard</b>.
-     * @type {Integer}
      */
-    nMaxCard {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    nMaxCard : UInt32
 
     /**
      * A pointer to a string to be placed in the title bar of the dialog box. If this member is <b>NULL</b>, the system uses the default title "Select Card:".
-     * @type {PWSTR}
      */
-    lpstrTitle {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    lpstrTitle : PWSTR
 
     /**
      * A set of bit flags you can use to initialize the dialog box. When the dialog box returns, it sets these flags to indicate the input of the user. This member can be a combination of the following flags.
@@ -187,21 +127,13 @@ class OPENCARDNAMEW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    dwFlags : UInt32
 
     /**
      * A void pointer to user data. This pointer is passed back to the caller on the Connect, Check, and Disconnect routines.
-     * @type {Pointer<Void>}
      */
-    pvUserData {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    pvUserData : IntPtr
 
     /**
      * If <b>lpfnConnect</b> is not <b>NULL</b>, the <b>dwShareMode</b> and <b>dwPreferredProtocols</b> members are ignored.
@@ -210,30 +142,18 @@ class OPENCARDNAMEW extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardconnecta">SCardConnect</a> that uses <b>dwShareMode</b> and <b>dwPreferredProtocols</b> as the <i>dwShareMode</i> and <i>dwPreferredProtocols</i> parameters. If the connect succeeds, <b>hCardHandle</b> is set to the handle returned by <b>hSCardConnect</b>. 
      * 
      * If <b>lpfnConnect</b> is <b>NULL</b> and <b>dwShareMode</b> is zero, the dialog box returns <b>hCardHandle</b> as <b>NULL</b>.
-     * @type {Integer}
      */
-    dwShareMode {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    dwShareMode : UInt32
 
     /**
      * Used for internal connection as described in <b>dwShareMode</b>.
-     * @type {Integer}
      */
-    dwPreferredProtocols {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
-    }
+    dwPreferredProtocols : UInt32
 
     /**
      * Returns the actual protocol in use when the dialog box makes a connection to a card.
-     * @type {Integer}
      */
-    dwActiveProtocol {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    dwActiveProtocol : UInt32
 
     /**
      * A pointer to the card connect routine of the caller. If the caller needs to perform additional processing to connect to the card, this function pointer is set to the connect function for the user. If the connect function is successful, the card is left connected and initialized, and the card handle is returned. 
@@ -254,12 +174,8 @@ class OPENCARDNAMEW extends Win32Struct {
      * );
      * 
      * ```
-     * @type {Pointer<LPOCNCONNPROCW>}
      */
-    lpfnConnect {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
-    }
+    lpfnConnect : IntPtr
 
     /**
      * A pointer to the card verify routine of the caller. If no special card verification is required, this pointer is <b>NULL</b>. 
@@ -282,12 +198,8 @@ class OPENCARDNAMEW extends Win32Struct {
      * );
      * 
      * ```
-     * @type {Pointer<LPOCNCHKPROC>}
      */
-    lpfnCheck {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
-    }
+    lpfnCheck : IntPtr
 
     /**
      * A pointer to the card disconnect routine of the caller. 
@@ -310,19 +222,12 @@ class OPENCARDNAMEW extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  When using <b>lpfnConnect</b>, <b>lpfnCheck</b>, and <b>lpfnDisconnect</b>, all three callback procedures should be present. Using these callbacks allows further verification that the calling application has found the appropriate card. This is the best way to ensure the appropriate card is selected.</div>
      * <div> </div>
-     * @type {Pointer<LPOCNDSCPROC>}
      */
-    lpfnDisconnect {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
-    }
+    lpfnDisconnect : IntPtr
 
     /**
      * A handle of the connected card (either through an internal dialog box connect or an <b>lpfnConnect</b> callback).
-     * @type {Pointer}
      */
-    hCardHandle {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
-    }
+    hCardHandle : IntPtr
+
 }

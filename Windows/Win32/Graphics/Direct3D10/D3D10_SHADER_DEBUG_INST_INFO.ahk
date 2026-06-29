@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D10_SHADER_DEBUG_OUTPUTREG_INFO.ahk
-#Include .\D3D10_SHADER_DEBUG_REGTYPE.ahk
-#Include .\D3D10_SHADER_DEBUG_OUTPUTVAR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D10_SHADER_DEBUG_REGTYPE.ahk" { D3D10_SHADER_DEBUG_REGTYPE }
+#Import ".\D3D10_SHADER_DEBUG_OUTPUTVAR.ahk" { D3D10_SHADER_DEBUG_OUTPUTVAR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D10_SHADER_DEBUG_OUTPUTREG_INFO.ahk" { D3D10_SHADER_DEBUG_OUTPUTREG_INFO }
 
 /**
  * Contains instruction data.
@@ -11,115 +11,67 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/ns-d3d10_1shader-d3d10_shader_debug_inst_info
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class D3D10_SHADER_DEBUG_INST_INFO extends Win32Struct {
-    static sizeof => 396
-
-    static packingSize => 4
+export default struct D3D10_SHADER_DEBUG_INST_INFO {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Id of the instruction.
-     * @type {Integer}
      */
-    Id {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Id : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Type of instruction.
-     * @type {Integer}
      */
-    Opcode {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Opcode : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Must be 0, 1 or 2.
-     * @type {Integer}
      */
-    uOutputs {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    uOutputs : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d10_1shader/ns-d3d10_1shader-d3d10_shader_debug_outputreg_info">D3D10_SHADER_DEBUG_OUTPUTREG_INFO</a></b>
      * 
      * Array containing the outputs of the instruction.
-     * @type {D3D10_SHADER_DEBUG_OUTPUTREG_INFO}
      */
-    pOutputs {
-        get {
-            if(!this.HasProp("__pOutputsProxyArray"))
-                this.__pOutputsProxyArray := Win32FixedArray(this.ptr + 12, 2, D3D10_SHADER_DEBUG_OUTPUTREG_INFO, "")
-            return this.__pOutputsProxyArray
-        }
-    }
+    pOutputs : D3D10_SHADER_DEBUG_OUTPUTREG_INFO[2]
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Index into the list of tokens for this instruction's token.
-     * @type {Integer}
      */
-    TokenId {
-        get => NumGet(this, 372, "uint")
-        set => NumPut("uint", value, this, 372)
-    }
+    TokenId : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Number of function calls deep this instruction is.
-     * @type {Integer}
      */
-    NestingLevel {
-        get => NumGet(this, 376, "uint")
-        set => NumPut("uint", value, this, 376)
-    }
+    NestingLevel : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Number of scopes.
-     * @type {Integer}
      */
-    Scopes {
-        get => NumGet(this, 380, "uint")
-        set => NumPut("uint", value, this, 380)
-    }
+    Scopes : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Offset to an array of UINT values with <b>Scopes</b> elements.
-     * @type {Integer}
      */
-    ScopeInfo {
-        get => NumGet(this, 384, "uint")
-        set => NumPut("uint", value, this, 384)
-    }
+    ScopeInfo : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AccessedVars {
-        get => NumGet(this, 388, "uint")
-        set => NumPut("uint", value, this, 388)
-    }
+    AccessedVars : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AccessedVarsInfo {
-        get => NumGet(this, 392, "uint")
-        set => NumPut("uint", value, this, 392)
-    }
+    AccessedVarsInfo : UInt32
+
 }

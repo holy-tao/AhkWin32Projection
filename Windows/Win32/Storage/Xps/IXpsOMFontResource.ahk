@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMResource.ahk
-#Include ..\..\System\Com\IStream.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IXpsOMResource.ahk" { IXpsOMResource }
+#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\XPS_FONT_EMBEDDING.ahk" { XPS_FONT_EMBEDDING }
 
 /**
  * Provides an IStream interface to a font resource.
@@ -58,26 +61,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomfontresource
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMFontResource extends IXpsOMResource {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMFontResource extends IXpsOMResource {
     /**
      * The interface identifier for IXpsOMFontResource
      * @type {Guid}
      */
-    static IID => Guid("{a8c45708-47d9-4af4-8d20-33b48c9b8485}")
+    static IID := Guid("{a8c45708-47d9-4af4-8d20-33b48c9b8485}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMFontResource interfaces
+    */
+    struct Vtbl extends IXpsOMResource.Vtbl {
+        GetStream          : IntPtr
+        SetContent         : IntPtr
+        GetEmbeddingOption : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetStream", "SetContent", "GetEmbeddingOption"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMFontResource.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a new, read-only copy of the stream that is associated with this resource. (IXpsOMFontResource.GetStream)
@@ -149,7 +161,7 @@ class IXpsOMFontResource extends IXpsOMResource {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomfontresource-setcontent
      */
     SetContent(sourceStream, embeddingOption, partName) {
-        result := ComCall(6, this, "ptr", sourceStream, "int", embeddingOption, "ptr", partName, "HRESULT")
+        result := ComCall(6, this, "ptr", sourceStream, XPS_FONT_EMBEDDING, embeddingOption, "ptr", partName, "HRESULT")
         return result
     }
 
@@ -200,5 +212,29 @@ class IXpsOMFontResource extends IXpsOMResource {
     GetEmbeddingOption() {
         result := ComCall(7, this, "int*", &embeddingOption := 0, "HRESULT")
         return embeddingOption
+    }
+
+    Query(iid) {
+        if (IXpsOMFontResource.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetStream := CallbackCreate(GetMethod(implObj, "GetStream"), flags, 2)
+        this.vtbl.SetContent := CallbackCreate(GetMethod(implObj, "SetContent"), flags, 4)
+        this.vtbl.GetEmbeddingOption := CallbackCreate(GetMethod(implObj, "GetEmbeddingOption"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetStream)
+        CallbackFree(this.vtbl.SetContent)
+        CallbackFree(this.vtbl.GetEmbeddingOption)
     }
 }

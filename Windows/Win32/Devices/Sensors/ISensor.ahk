@@ -1,45 +1,70 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
-#Include ..\PortableDevices\IPortableDeviceValues.ahk
-#Include ..\PortableDevices\IPortableDeviceKeyCollection.ahk
-#Include .\ISensorDataReport.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\PortableDevices\IPortableDeviceKeyCollection.ahk" { IPortableDeviceKeyCollection }
+#Import ".\ISensorDataReport.ahk" { ISensorDataReport }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ISensorEvents.ahk" { ISensorEvents }
+#Import "..\PortableDevices\IPortableDeviceValues.ahk" { IPortableDeviceValues }
+#Import ".\SensorState.ahk" { SensorState }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a sensor.
  * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nn-sensorsapi-isensor
  * @namespace Windows.Win32.Devices.Sensors
  */
-class ISensor extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISensor extends IUnknown {
     /**
      * The interface identifier for ISensor
      * @type {Guid}
      */
-    static IID => Guid("{5fa08f80-2657-458e-af75-46f73fa6ac5c}")
+    static IID := Guid("{5fa08f80-2657-458e-af75-46f73fa6ac5c}")
 
     /**
      * The class identifier for Sensor
      * @type {Guid}
      */
-    static CLSID => Guid("{e97ced00-523a-4133-bf6f-d3a2dae7f6ba}")
+    static CLSID := Guid("{e97ced00-523a-4133-bf6f-d3a2dae7f6ba}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISensor interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetID                  : IntPtr
+        GetCategory            : IntPtr
+        GetType                : IntPtr
+        GetFriendlyName        : IntPtr
+        GetProperty            : IntPtr
+        GetProperties          : IntPtr
+        GetSupportedDataFields : IntPtr
+        SetProperties          : IntPtr
+        SupportsDataField      : IntPtr
+        GetState               : IntPtr
+        GetData                : IntPtr
+        SupportsEvent          : IntPtr
+        GetEventInterest       : IntPtr
+        SetEventInterest       : IntPtr
+        SetEventSink           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetID", "GetCategory", "GetType", "GetFriendlyName", "GetProperty", "GetProperties", "GetSupportedDataFields", "SetProperties", "SupportsDataField", "GetState", "GetData", "SupportsEvent", "GetEventInterest", "SetEventInterest", "SetEventSink"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISensor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the unique identifier of the sensor.
@@ -52,7 +77,7 @@ class ISensor extends IUnknown {
      */
     GetID() {
         pID := Guid()
-        result := ComCall(3, this, "ptr", pID, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pID, "HRESULT")
         return pID
     }
 
@@ -65,7 +90,7 @@ class ISensor extends IUnknown {
      */
     GetCategory() {
         pSensorCategory := Guid()
-        result := ComCall(4, this, "ptr", pSensorCategory, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, pSensorCategory, "HRESULT")
         return pSensorCategory
     }
 
@@ -79,7 +104,7 @@ class ISensor extends IUnknown {
      */
     GetType() {
         pSensorType := Guid()
-        result := ComCall(5, this, "ptr", pSensorType, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, pSensorType, "HRESULT")
         return pSensorType
     }
 
@@ -89,8 +114,8 @@ class ISensor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-getfriendlyname
      */
     GetFriendlyName() {
-        pFriendlyName := BSTR()
-        result := ComCall(6, this, "ptr", pFriendlyName, "HRESULT")
+        pFriendlyName := BSTR.Owned()
+        result := ComCall(6, this, BSTR.Ptr, pFriendlyName, "HRESULT")
         return pFriendlyName
     }
 
@@ -104,7 +129,7 @@ class ISensor extends IUnknown {
      */
     GetProperty(key) {
         pProperty := PROPVARIANT()
-        result := ComCall(7, this, "ptr", key, "ptr", pProperty, "HRESULT")
+        result := ComCall(7, this, PROPERTYKEY.Ptr, key, PROPVARIANT.Ptr, pProperty, "HRESULT")
         return pProperty
     }
 
@@ -157,7 +182,7 @@ class ISensor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-supportsdatafield
      */
     SupportsDataField(key) {
-        result := ComCall(11, this, "ptr", key, "short*", &pIsSupported := 0, "HRESULT")
+        result := ComCall(11, this, PROPERTYKEY.Ptr, key, VARIANT_BOOL.Ptr, &pIsSupported := 0, "HRESULT")
         return pIsSupported
     }
 
@@ -192,7 +217,7 @@ class ISensor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-supportsevent
      */
     SupportsEvent(eventGuid) {
-        result := ComCall(14, this, "ptr", eventGuid, "short*", &pIsSupported := 0, "HRESULT")
+        result := ComCall(14, this, Guid.Ptr, eventGuid, VARIANT_BOOL.Ptr, &pIsSupported := 0, "HRESULT")
         return pIsSupported
     }
 
@@ -270,7 +295,7 @@ class ISensor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-seteventinterest
      */
     SetEventInterest(pValues, count) {
-        result := ComCall(16, this, "ptr", pValues, "uint", count, "HRESULT")
+        result := ComCall(16, this, Guid.Ptr, pValues, "uint", count, "HRESULT")
         return result
     }
 
@@ -303,5 +328,53 @@ class ISensor extends IUnknown {
     SetEventSink(pEvents) {
         result := ComCall(17, this, "ptr", pEvents, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISensor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetID := CallbackCreate(GetMethod(implObj, "GetID"), flags, 2)
+        this.vtbl.GetCategory := CallbackCreate(GetMethod(implObj, "GetCategory"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetFriendlyName := CallbackCreate(GetMethod(implObj, "GetFriendlyName"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 3)
+        this.vtbl.GetSupportedDataFields := CallbackCreate(GetMethod(implObj, "GetSupportedDataFields"), flags, 2)
+        this.vtbl.SetProperties := CallbackCreate(GetMethod(implObj, "SetProperties"), flags, 3)
+        this.vtbl.SupportsDataField := CallbackCreate(GetMethod(implObj, "SupportsDataField"), flags, 3)
+        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 2)
+        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 2)
+        this.vtbl.SupportsEvent := CallbackCreate(GetMethod(implObj, "SupportsEvent"), flags, 3)
+        this.vtbl.GetEventInterest := CallbackCreate(GetMethod(implObj, "GetEventInterest"), flags, 3)
+        this.vtbl.SetEventInterest := CallbackCreate(GetMethod(implObj, "SetEventInterest"), flags, 3)
+        this.vtbl.SetEventSink := CallbackCreate(GetMethod(implObj, "SetEventSink"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetID)
+        CallbackFree(this.vtbl.GetCategory)
+        CallbackFree(this.vtbl.GetType)
+        CallbackFree(this.vtbl.GetFriendlyName)
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.GetProperties)
+        CallbackFree(this.vtbl.GetSupportedDataFields)
+        CallbackFree(this.vtbl.SetProperties)
+        CallbackFree(this.vtbl.SupportsDataField)
+        CallbackFree(this.vtbl.GetState)
+        CallbackFree(this.vtbl.GetData)
+        CallbackFree(this.vtbl.SupportsEvent)
+        CallbackFree(this.vtbl.GetEventInterest)
+        CallbackFree(this.vtbl.SetEventInterest)
+        CallbackFree(this.vtbl.SetEventSink)
     }
 }

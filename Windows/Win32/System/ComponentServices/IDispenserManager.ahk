@@ -1,40 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IHolder.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDispenserDriver.ahk" { IDispenserDriver }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IHolder.ahk" { IHolder }
 
 /**
  * Connects to the dispenser manager.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-idispensermanager
  * @namespace Windows.Win32.System.ComponentServices
  */
-class IDispenserManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDispenserManager extends IUnknown {
     /**
      * The interface identifier for IDispenserManager
      * @type {Guid}
      */
-    static IID => Guid("{5cb31e10-2b5f-11cf-be10-00aa00a2fa25}")
+    static IID := Guid("{5cb31e10-2b5f-11cf-be10-00aa00a2fa25}")
 
     /**
      * The class identifier for DispenserManager
      * @type {Guid}
      */
-    static CLSID => Guid("{ecabb0c0-7f19-11d2-978e-0000f8757e2a}")
+    static CLSID := Guid("{ecabb0c0-7f19-11d2-978e-0000f8757e2a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDispenserManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RegisterDispenser : IntPtr
+        GetContext        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RegisterDispenser", "GetContext"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDispenserManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Registers the resource dispenser with the dispenser manager.
@@ -69,5 +80,27 @@ class IDispenserManager extends IUnknown {
 
         result := ComCall(4, this, __MIDL__IDispenserManager0002Marshal, __MIDL__IDispenserManager0002, __MIDL__IDispenserManager0003Marshal, __MIDL__IDispenserManager0003, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDispenserManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RegisterDispenser := CallbackCreate(GetMethod(implObj, "RegisterDispenser"), flags, 4)
+        this.vtbl.GetContext := CallbackCreate(GetMethod(implObj, "GetContext"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RegisterDispenser)
+        CallbackFree(this.vtbl.GetContext)
     }
 }

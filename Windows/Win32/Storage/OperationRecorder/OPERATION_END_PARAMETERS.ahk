@@ -1,16 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\OPERATION_END_PARAMETERS_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\OPERATION_END_PARAMETERS_FLAGS.ahk" { OPERATION_END_PARAMETERS_FLAGS }
 
 /**
  * This structure is used by the OperationEnd function.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-operation_end_parameters
  * @namespace Windows.Win32.Storage.OperationRecorder
  */
-class OPERATION_END_PARAMETERS extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct OPERATION_END_PARAMETERS {
+    #StructPack 4
 
     /**
      * This parameter should be initialized to the  <b>OPERATION_API_VERSION</b> defined in the Windows SDK. 
@@ -32,27 +29,14 @@ class OPERATION_END_PARAMETERS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
     /**
      * Each operation has an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/oprec/operation-id">OPERATION_ID</a> namespace that is unique for each process. If two applications both use the same <b>OPERATION_ID</b> value to identify two operations, the system maintains separate contexts for each operation.
-     * @type {Integer}
      */
-    OperationId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    OperationId : UInt32
 
-    /**
-     * @type {OPERATION_END_PARAMETERS_FLAGS}
-     */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Flags : OPERATION_END_PARAMETERS_FLAGS
+
 }

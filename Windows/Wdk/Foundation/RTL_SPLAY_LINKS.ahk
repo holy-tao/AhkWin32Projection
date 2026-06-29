@@ -1,36 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include .\RTL_SPLAY_LINKS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Foundation
  */
-class RTL_SPLAY_LINKS extends Win32Struct {
-    static sizeof => 24
+export default struct RTL_SPLAY_LINKS {
+    #StructPack 8
 
-    static packingSize => 8
+    Parent : RTL_SPLAY_LINKS.Ptr
 
-    /**
-     * @type {Pointer<RTL_SPLAY_LINKS>}
-     */
-    Parent {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    LeftChild : RTL_SPLAY_LINKS.Ptr
 
-    /**
-     * @type {Pointer<RTL_SPLAY_LINKS>}
-     */
-    LeftChild {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    RightChild : RTL_SPLAY_LINKS.Ptr
 
-    /**
-     * @type {Pointer<RTL_SPLAY_LINKS>}
-     */
-    RightChild {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

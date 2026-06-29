@@ -1,76 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Used when calling WinVerifyTrust to verify a memory BLOB.
  * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-wintrust_blob_info
  * @namespace Windows.Win32.Security.WinTrust
  */
-class WINTRUST_BLOB_INFO extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct WINTRUST_BLOB_INFO {
+    #StructPack 8
 
     /**
      * The number of bytes in this structure.
-     * @type {Integer}
      */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbStruct : UInt32
 
     /**
      * The <b>GUID</b> of the SIP to load.
-     * @type {Pointer}
      */
-    gSubject {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    gSubject : Guid
 
     /**
      * A string that contains the name of the memory object pointed to by <b>pbMem</b>.
-     * @type {PWSTR}
      */
-    pcwszDisplayName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pcwszDisplayName : PWSTR
 
     /**
      * The length, in bytes, of the memory BLOB to be verified.
-     * @type {Integer}
      */
-    cbMemObject {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    cbMemObject : UInt32
 
     /**
      * A pointer to a memory BLOB to be verified.
-     * @type {Pointer<Integer>}
      */
-    pbMemObject {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pbMemObject : IntPtr
 
     /**
      * This member is reserved. Do not use it.
-     * @type {Integer}
      */
-    cbMemSignedMsg {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    cbMemSignedMsg : UInt32
 
     /**
      * This member is reserved. Do not use it.
-     * @type {Pointer<Integer>}
      */
-    pbMemSignedMsg {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pbMemSignedMsg : IntPtr
+
 }

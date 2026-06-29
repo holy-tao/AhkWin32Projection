@@ -1,27 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FILE_ID_TYPE.ahk
-#Include .\FILE_ID_128.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FILE_ID_128.ahk" { FILE_ID_128 }
+#Import ".\FILE_ID_TYPE.ahk" { FILE_ID_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Specifies the type of ID that is being used.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_id_descriptor
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class FILE_ID_DESCRIPTOR extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct FILE_ID_DESCRIPTOR {
+    #StructPack 8
 
     /**
      * The size of this <b>FILE_ID_DESCRIPTOR</b> 
      *       structure.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * The discriminator for the union indicating the type of identifier that is being passed.
@@ -68,37 +62,14 @@ class FILE_ID_DESCRIPTOR extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {FILE_ID_TYPE}
      */
-    Type {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Type : FILE_ID_TYPE
 
-    /**
-     * @type {Integer}
-     */
-    FileId {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    FileId : Int64
 
-    /**
-     * @type {Pointer}
-     */
-    ObjectId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {FILE_ID_128}
-     */
-    ExtendedFileId {
-        get {
-            if(!this.HasProp("__ExtendedFileId"))
-                this.__ExtendedFileId := FILE_ID_128(8, this)
-            return this.__ExtendedFileId
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'ObjectId', { type: Guid, offset: 8 })
+        DefineProp(this.Prototype, 'ExtendedFileId', { type: FILE_ID_128, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

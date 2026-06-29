@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFAttributes.ahk
-#Include .\IMFMediaBuffer.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFMediaBuffer.ahk" { IMFMediaBuffer }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
 
 /**
  * Represents a media sample, which is a container object for media data.
@@ -22,26 +23,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfsample
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFSample extends IMFAttributes {
-
-    static sizeof => A_PtrSize
+export default struct IMFSample extends IMFAttributes {
     /**
      * The interface identifier for IMFSample
      * @type {Guid}
      */
-    static IID => Guid("{c40a00f2-b93a-4d80-ae8c-5a1c634f58e4}")
+    static IID := Guid("{c40a00f2-b93a-4d80-ae8c-5a1c634f58e4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 33
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFSample interfaces
+    */
+    struct Vtbl extends IMFAttributes.Vtbl {
+        GetSampleFlags            : IntPtr
+        SetSampleFlags            : IntPtr
+        GetSampleTime             : IntPtr
+        SetSampleTime             : IntPtr
+        GetSampleDuration         : IntPtr
+        SetSampleDuration         : IntPtr
+        GetBufferCount            : IntPtr
+        GetBufferByIndex          : IntPtr
+        ConvertToContiguousBuffer : IntPtr
+        AddBuffer                 : IntPtr
+        RemoveBufferByIndex       : IntPtr
+        RemoveAllBuffers          : IntPtr
+        GetTotalLength            : IntPtr
+        CopyToBuffer              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSampleFlags", "SetSampleFlags", "GetSampleTime", "SetSampleTime", "GetSampleDuration", "SetSampleDuration", "GetBufferCount", "GetBufferByIndex", "ConvertToContiguousBuffer", "AddBuffer", "RemoveBufferByIndex", "RemoveAllBuffers", "GetTotalLength", "CopyToBuffer"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFSample.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves flags associated with the sample.Currently no flags are defined.
@@ -447,5 +468,51 @@ class IMFSample extends IMFAttributes {
     CopyToBuffer(pBuffer) {
         result := ComCall(46, this, "ptr", pBuffer, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFSample.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSampleFlags := CallbackCreate(GetMethod(implObj, "GetSampleFlags"), flags, 2)
+        this.vtbl.SetSampleFlags := CallbackCreate(GetMethod(implObj, "SetSampleFlags"), flags, 2)
+        this.vtbl.GetSampleTime := CallbackCreate(GetMethod(implObj, "GetSampleTime"), flags, 2)
+        this.vtbl.SetSampleTime := CallbackCreate(GetMethod(implObj, "SetSampleTime"), flags, 2)
+        this.vtbl.GetSampleDuration := CallbackCreate(GetMethod(implObj, "GetSampleDuration"), flags, 2)
+        this.vtbl.SetSampleDuration := CallbackCreate(GetMethod(implObj, "SetSampleDuration"), flags, 2)
+        this.vtbl.GetBufferCount := CallbackCreate(GetMethod(implObj, "GetBufferCount"), flags, 2)
+        this.vtbl.GetBufferByIndex := CallbackCreate(GetMethod(implObj, "GetBufferByIndex"), flags, 3)
+        this.vtbl.ConvertToContiguousBuffer := CallbackCreate(GetMethod(implObj, "ConvertToContiguousBuffer"), flags, 2)
+        this.vtbl.AddBuffer := CallbackCreate(GetMethod(implObj, "AddBuffer"), flags, 2)
+        this.vtbl.RemoveBufferByIndex := CallbackCreate(GetMethod(implObj, "RemoveBufferByIndex"), flags, 2)
+        this.vtbl.RemoveAllBuffers := CallbackCreate(GetMethod(implObj, "RemoveAllBuffers"), flags, 1)
+        this.vtbl.GetTotalLength := CallbackCreate(GetMethod(implObj, "GetTotalLength"), flags, 2)
+        this.vtbl.CopyToBuffer := CallbackCreate(GetMethod(implObj, "CopyToBuffer"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSampleFlags)
+        CallbackFree(this.vtbl.SetSampleFlags)
+        CallbackFree(this.vtbl.GetSampleTime)
+        CallbackFree(this.vtbl.SetSampleTime)
+        CallbackFree(this.vtbl.GetSampleDuration)
+        CallbackFree(this.vtbl.SetSampleDuration)
+        CallbackFree(this.vtbl.GetBufferCount)
+        CallbackFree(this.vtbl.GetBufferByIndex)
+        CallbackFree(this.vtbl.ConvertToContiguousBuffer)
+        CallbackFree(this.vtbl.AddBuffer)
+        CallbackFree(this.vtbl.RemoveBufferByIndex)
+        CallbackFree(this.vtbl.RemoveAllBuffers)
+        CallbackFree(this.vtbl.GetTotalLength)
+        CallbackFree(this.vtbl.CopyToBuffer)
     }
 }

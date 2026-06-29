@@ -1,35 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\DistributedTransactionCoordinator\ITransaction.ahk
-#Include ..\DistributedTransactionCoordinator\ITransactionVoterBallotAsync2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\DistributedTransactionCoordinator\ITransaction.ahk" { ITransaction }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\DistributedTransactionCoordinator\ITransactionVoterNotifyAsync2.ahk" { ITransactionVoterNotifyAsync2 }
+#Import "..\DistributedTransactionCoordinator\ITransactionVoterBallotAsync2.ahk" { ITransactionVoterBallotAsync2 }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides a way for a COM+ transaction context to work with a non-DTC transaction.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-itransactionproxy
  * @namespace Windows.Win32.System.ComponentServices
  */
-class ITransactionProxy extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITransactionProxy extends IUnknown {
     /**
      * The interface identifier for ITransactionProxy
      * @type {Guid}
      */
-    static IID => Guid("{02558374-df2e-4dae-bd6b-1d5c994f9bdc}")
+    static IID := Guid("{02558374-df2e-4dae-bd6b-1d5c994f9bdc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITransactionProxy interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Commit            : IntPtr
+        Abort             : IntPtr
+        Promote           : IntPtr
+        CreateVoter       : IntPtr
+        GetIsolationLevel : IntPtr
+        GetIdentifier     : IntPtr
+        IsReusable        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Commit", "Abort", "Promote", "CreateVoter", "GetIsolationLevel", "GetIdentifier", "IsReusable"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITransactionProxy.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Commits the transaction.
@@ -77,7 +93,7 @@ class ITransactionProxy extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactionproxy-commit
      */
     Commit(guid) {
-        result := ComCall(3, this, "ptr", guid, "HRESULT")
+        result := ComCall(3, this, Guid, guid, "HRESULT")
         return result
     }
 
@@ -136,7 +152,7 @@ class ITransactionProxy extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactionproxy-getidentifier
      */
     GetIdentifier(pbstrIdentifier) {
-        result := ComCall(8, this, "ptr", pbstrIdentifier, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, pbstrIdentifier, "HRESULT")
         return result
     }
 
@@ -151,5 +167,37 @@ class ITransactionProxy extends IUnknown {
 
         result := ComCall(9, this, pfIsReusableMarshal, pfIsReusable, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITransactionProxy.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 2)
+        this.vtbl.Abort := CallbackCreate(GetMethod(implObj, "Abort"), flags, 1)
+        this.vtbl.Promote := CallbackCreate(GetMethod(implObj, "Promote"), flags, 2)
+        this.vtbl.CreateVoter := CallbackCreate(GetMethod(implObj, "CreateVoter"), flags, 3)
+        this.vtbl.GetIsolationLevel := CallbackCreate(GetMethod(implObj, "GetIsolationLevel"), flags, 2)
+        this.vtbl.GetIdentifier := CallbackCreate(GetMethod(implObj, "GetIdentifier"), flags, 2)
+        this.vtbl.IsReusable := CallbackCreate(GetMethod(implObj, "IsReusable"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Commit)
+        CallbackFree(this.vtbl.Abort)
+        CallbackFree(this.vtbl.Promote)
+        CallbackFree(this.vtbl.CreateVoter)
+        CallbackFree(this.vtbl.GetIsolationLevel)
+        CallbackFree(this.vtbl.GetIdentifier)
+        CallbackFree(this.vtbl.IsReusable)
     }
 }

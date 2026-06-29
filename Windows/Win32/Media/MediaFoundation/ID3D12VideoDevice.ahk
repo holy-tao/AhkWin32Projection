@@ -1,33 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3D12_FEATURE_VIDEO.ahk" { D3D12_FEATURE_VIDEO }
+#Import ".\D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC.ahk" { D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC }
+#Import ".\D3D12_VIDEO_DECODER_DESC.ahk" { D3D12_VIDEO_DECODER_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_VIDEO_DECODER_HEAP_DESC.ahk" { D3D12_VIDEO_DECODER_HEAP_DESC }
+#Import ".\D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC.ahk" { D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides video decoding and processing capabilities of a Microsoft Direct3D 12 device including the ability to query video capabilities and instantiating video decoders and processors.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nn-d3d12video-id3d12videodevice
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class ID3D12VideoDevice extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID3D12VideoDevice extends IUnknown {
     /**
      * The interface identifier for ID3D12VideoDevice
      * @type {Guid}
      */
-    static IID => Guid("{1f052807-0b46-4acc-8a89-364f793718a4}")
+    static IID := Guid("{1f052807-0b46-4acc-8a89-364f793718a4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D12VideoDevice interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CheckFeatureSupport    : IntPtr
+        CreateVideoDecoder     : IntPtr
+        CreateVideoDecoderHeap : IntPtr
+        CreateVideoProcessor   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CheckFeatureSupport", "CreateVideoDecoder", "CreateVideoDecoderHeap", "CreateVideoProcessor"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D12VideoDevice.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets information about the features that are supported by the current video driver. (ID3D12VideoDevice::CheckFeatureSupport)
@@ -38,7 +54,7 @@ class ID3D12VideoDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice-checkfeaturesupport
      */
     CheckFeatureSupport(FeatureVideo, pFeatureSupportData, FeatureSupportDataSize) {
-        result := ComCall(3, this, "int", FeatureVideo, "ptr", pFeatureSupportData, "uint", FeatureSupportDataSize, "HRESULT")
+        result := ComCall(3, this, D3D12_FEATURE_VIDEO, FeatureVideo, "ptr", pFeatureSupportData, "uint", FeatureSupportDataSize, "HRESULT")
         return result
     }
 
@@ -52,7 +68,7 @@ class ID3D12VideoDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice-createvideodecoder
      */
     CreateVideoDecoder(pDesc, riid) {
-        result := ComCall(4, this, "ptr", pDesc, "ptr", riid, "ptr*", &ppVideoDecoder := 0, "HRESULT")
+        result := ComCall(4, this, D3D12_VIDEO_DECODER_DESC.Ptr, pDesc, Guid.Ptr, riid, "ptr*", &ppVideoDecoder := 0, "HRESULT")
         return ppVideoDecoder
     }
 
@@ -64,7 +80,7 @@ class ID3D12VideoDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice-createvideodecoderheap
      */
     CreateVideoDecoderHeap(pVideoDecoderHeapDesc, riid) {
-        result := ComCall(5, this, "ptr", pVideoDecoderHeapDesc, "ptr", riid, "ptr*", &ppVideoDecoderHeap := 0, "HRESULT")
+        result := ComCall(5, this, D3D12_VIDEO_DECODER_HEAP_DESC.Ptr, pVideoDecoderHeapDesc, Guid.Ptr, riid, "ptr*", &ppVideoDecoderHeap := 0, "HRESULT")
         return ppVideoDecoderHeap
     }
 
@@ -81,7 +97,33 @@ class ID3D12VideoDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice-createvideoprocessor
      */
     CreateVideoProcessor(NodeMask, pOutputStreamDesc, NumInputStreamDescs, pInputStreamDescs, riid) {
-        result := ComCall(6, this, "uint", NodeMask, "ptr", pOutputStreamDesc, "uint", NumInputStreamDescs, "ptr", pInputStreamDescs, "ptr", riid, "ptr*", &ppVideoProcessor := 0, "HRESULT")
+        result := ComCall(6, this, "uint", NodeMask, D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC.Ptr, pOutputStreamDesc, "uint", NumInputStreamDescs, D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC.Ptr, pInputStreamDescs, Guid.Ptr, riid, "ptr*", &ppVideoProcessor := 0, "HRESULT")
         return ppVideoProcessor
+    }
+
+    Query(iid) {
+        if (ID3D12VideoDevice.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CheckFeatureSupport := CallbackCreate(GetMethod(implObj, "CheckFeatureSupport"), flags, 4)
+        this.vtbl.CreateVideoDecoder := CallbackCreate(GetMethod(implObj, "CreateVideoDecoder"), flags, 4)
+        this.vtbl.CreateVideoDecoderHeap := CallbackCreate(GetMethod(implObj, "CreateVideoDecoderHeap"), flags, 4)
+        this.vtbl.CreateVideoProcessor := CallbackCreate(GetMethod(implObj, "CreateVideoProcessor"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CheckFeatureSupport)
+        CallbackFree(this.vtbl.CreateVideoDecoder)
+        CallbackFree(this.vtbl.CreateVideoDecoderHeap)
+        CallbackFree(this.vtbl.CreateVideoProcessor)
     }
 }

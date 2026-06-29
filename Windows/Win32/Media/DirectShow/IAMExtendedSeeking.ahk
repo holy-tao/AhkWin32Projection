@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IAMExtendedSeeking interface seeks to a marker in a Windows Media stream or changes the playback rate for a Windows Media file. This interface is implemented by the Windows Media Source filter and the WM ASF Reader filter.
@@ -12,26 +14,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nn-qnetwork-iamextendedseeking
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAMExtendedSeeking extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IAMExtendedSeeking extends IDispatch {
     /**
      * The interface identifier for IAMExtendedSeeking
      * @type {Guid}
      */
-    static IID => Guid("{fa2aa8f9-8b62-11d0-a520-000000000000}")
+    static IID := Guid("{fa2aa8f9-8b62-11d0-a520-000000000000}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAMExtendedSeeking interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_ExSeekCapabilities : IntPtr
+        get_MarkerCount        : IntPtr
+        get_CurrentMarker      : IntPtr
+        GetMarkerTime          : IntPtr
+        GetMarkerName          : IntPtr
+        put_PlaybackSpeed      : IntPtr
+        get_PlaybackSpeed      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ExSeekCapabilities", "get_MarkerCount", "get_CurrentMarker", "GetMarkerTime", "GetMarkerName", "put_PlaybackSpeed", "get_PlaybackSpeed"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAMExtendedSeeking.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      */
@@ -157,7 +172,7 @@ class IAMExtendedSeeking extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendedseeking-getmarkername
      */
     GetMarkerName(MarkerNum, pbstrMarkerName) {
-        result := ComCall(11, this, "int", MarkerNum, "ptr", pbstrMarkerName, "HRESULT")
+        result := ComCall(11, this, "int", MarkerNum, BSTR.Ptr, pbstrMarkerName, "HRESULT")
         return result
     }
 
@@ -183,5 +198,37 @@ class IAMExtendedSeeking extends IDispatch {
 
         result := ComCall(13, this, pSpeedMarshal, pSpeed, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAMExtendedSeeking.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ExSeekCapabilities := CallbackCreate(GetMethod(implObj, "get_ExSeekCapabilities"), flags, 2)
+        this.vtbl.get_MarkerCount := CallbackCreate(GetMethod(implObj, "get_MarkerCount"), flags, 2)
+        this.vtbl.get_CurrentMarker := CallbackCreate(GetMethod(implObj, "get_CurrentMarker"), flags, 2)
+        this.vtbl.GetMarkerTime := CallbackCreate(GetMethod(implObj, "GetMarkerTime"), flags, 3)
+        this.vtbl.GetMarkerName := CallbackCreate(GetMethod(implObj, "GetMarkerName"), flags, 3)
+        this.vtbl.put_PlaybackSpeed := CallbackCreate(GetMethod(implObj, "put_PlaybackSpeed"), flags, 2)
+        this.vtbl.get_PlaybackSpeed := CallbackCreate(GetMethod(implObj, "get_PlaybackSpeed"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ExSeekCapabilities)
+        CallbackFree(this.vtbl.get_MarkerCount)
+        CallbackFree(this.vtbl.get_CurrentMarker)
+        CallbackFree(this.vtbl.GetMarkerTime)
+        CallbackFree(this.vtbl.GetMarkerName)
+        CallbackFree(this.vtbl.put_PlaybackSpeed)
+        CallbackFree(this.vtbl.get_PlaybackSpeed)
     }
 }

@@ -1,33 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains information about a currently executing call.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_call_info
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SECPKG_CALL_INFO extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct SECPKG_CALL_INFO {
+    #StructPack 8
 
     /**
      * The process identifier of the call.
-     * @type {Integer}
      */
-    ProcessId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ProcessId : UInt32
 
     /**
      * The thread identifier of the call.
-     * @type {Integer}
      */
-    ThreadId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ThreadId : UInt32
 
     /**
      * The set of attribute flags that describe the call. The following table lists the valid attribute flag values.
@@ -230,27 +219,14 @@ class SECPKG_CALL_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Attributes {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Attributes : UInt32
 
     /**
      * The call count.
-     * @type {Integer}
      */
-    CallCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    CallCount : UInt32
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    MechOid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    MechOid : IntPtr
+
 }

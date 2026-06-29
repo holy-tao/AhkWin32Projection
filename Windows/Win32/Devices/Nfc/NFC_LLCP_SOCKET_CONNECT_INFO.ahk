@@ -1,56 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NFC_LLCP_SOCKET_CONNECT_TYPE.ahk
-#Include .\NFC_LLCP_SERVICE_NAME_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NFC_LLCP_SERVICE_NAME_ENTRY.ahk" { NFC_LLCP_SERVICE_NAME_ENTRY }
+#Import ".\NFC_LLCP_SOCKET_CONNECT_TYPE.ahk" { NFC_LLCP_SOCKET_CONNECT_TYPE }
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
  */
-class NFC_LLCP_SOCKET_CONNECT_INFO extends Win32Struct {
-    static sizeof => 32
+export default struct NFC_LLCP_SOCKET_CONNECT_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    hRemoteDev : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    hRemoteDev {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    hSocket : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    hSocket {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    eConnectType : NFC_LLCP_SOCKET_CONNECT_TYPE
 
-    /**
-     * @type {NFC_LLCP_SOCKET_CONNECT_TYPE}
-     */
-    eConnectType {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    bSAP : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bSAP {
-        get => NumGet(this, 20, "char")
-        set => NumPut("char", value, this, 20)
-    }
-
-    /**
-     * @type {NFC_LLCP_SERVICE_NAME_ENTRY}
-     */
-    sServiceName {
-        get {
-            if(!this.HasProp("__sServiceName"))
-                this.__sServiceName := NFC_LLCP_SERVICE_NAME_ENTRY(20, this)
-            return this.__sServiceName
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'sServiceName', { type: NFC_LLCP_SERVICE_NAME_ENTRY, offset: 20 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,86 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DIACTIONFORMATW.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\DICOLORSET.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DIACTIONFORMATW.ahk" { DIACTIONFORMATW }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\DICOLORSET.ahk" { DICOLORSET }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @charset Unicode
  */
-class DICONFIGUREDEVICESPARAMSW extends Win32Struct {
-    static sizeof => 88
+export default struct DICONFIGUREDEVICESPARAMSW {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwcUsers : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwcUsers {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    lptszUserNames : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    lptszUserNames {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    dwcFormats : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwcFormats {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    lprgFormats : DIACTIONFORMATW.Ptr
 
-    /**
-     * @type {Pointer<DIACTIONFORMATW>}
-     */
-    lprgFormats {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    hwnd : HWND
 
-    /**
-     * @type {HWND}
-     */
-    hwnd {
-        get {
-            if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(32, this)
-            return this.__hwnd
-        }
-    }
+    dics : DICOLORSET
 
-    /**
-     * @type {DICOLORSET}
-     */
-    dics {
-        get {
-            if(!this.HasProp("__dics"))
-                this.__dics := DICOLORSET(40, this)
-            return this.__dics
-        }
-    }
+    lpUnkDDSTarget : IUnknown
 
-    /**
-     * @type {IUnknown}
-     */
-    lpUnkDDSTarget {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
 }

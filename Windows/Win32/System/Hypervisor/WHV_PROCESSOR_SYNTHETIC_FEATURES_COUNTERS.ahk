@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_PROCESSOR_SYNTHETIC_FEATURES_COUNTERS extends Win32Struct {
-    static sizeof => 48
+export default struct WHV_PROCESSOR_SYNTHETIC_FEATURES_COUNTERS {
+    #StructPack 8
 
-    static packingSize => 8
+    SyntheticInterruptsCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SyntheticInterruptsCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    LongSpinWaitHypercallsCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    LongSpinWaitHypercallsCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    OtherHypercallsCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    OtherHypercallsCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    SyntheticInterruptHypercallsCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SyntheticInterruptHypercallsCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    VirtualInterruptHypercallsCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    VirtualInterruptHypercallsCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    VirtualMmuHypercallsCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    VirtualMmuHypercallsCount {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
 }

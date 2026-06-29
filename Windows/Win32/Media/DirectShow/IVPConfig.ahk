@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IVPBaseConfig.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IVPBaseConfig.ahk" { IVPBaseConfig }
+#Import ".\AMVPSIZE.ahk" { AMVPSIZE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The IVPConfig interface must be implemented by any filter that wraps a hardware decoder with a video port.
@@ -10,26 +13,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/vpconfig/nn-vpconfig-ivpconfig
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IVPConfig extends IVPBaseConfig {
-
-    static sizeof => A_PtrSize
+export default struct IVPConfig extends IVPBaseConfig {
     /**
      * The interface identifier for IVPConfig
      * @type {Guid}
      */
-    static IID => Guid("{bc29a660-30e3-11d0-9e69-00c04fd7c15b}")
+    static IID := Guid("{bc29a660-30e3-11d0-9e69-00c04fd7c15b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 16
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVPConfig interfaces
+    */
+    struct Vtbl extends IVPBaseConfig.Vtbl {
+        IsVPDecimationAllowed : IntPtr
+        SetScalingFactors     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsVPDecimationAllowed", "SetScalingFactors"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVPConfig.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IsVPDecimationAllowed method, given the context, retrieves whether scaling at the video port is possible.
@@ -59,7 +70,29 @@ class IVPConfig extends IVPBaseConfig {
      * @see https://learn.microsoft.com/windows/win32/api/vpconfig/nf-vpconfig-ivpconfig-setscalingfactors
      */
     SetScalingFactors(pamvpSize) {
-        result := ComCall(17, this, "ptr", pamvpSize, "HRESULT")
+        result := ComCall(17, this, AMVPSIZE.Ptr, pamvpSize, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVPConfig.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsVPDecimationAllowed := CallbackCreate(GetMethod(implObj, "IsVPDecimationAllowed"), flags, 2)
+        this.vtbl.SetScalingFactors := CallbackCreate(GetMethod(implObj, "SetScalingFactors"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsVPDecimationAllowed)
+        CallbackFree(this.vtbl.SetScalingFactors)
     }
 }

@@ -1,10 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\KERB_ADD_CREDENTIALS_REQUEST.ahk
-#Include .\KERB_PROTOCOL_MESSAGE_TYPE.ahk
-#Include .\LSA_UNICODE_STRING.ahk
-#Include ..\..\..\Foundation\LUID.ahk
-#Include .\KERB_REQUEST_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KERB_REQUEST_FLAGS.ahk" { KERB_REQUEST_FLAGS }
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import ".\KERB_ADD_CREDENTIALS_REQUEST.ahk" { KERB_ADD_CREDENTIALS_REQUEST }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\KERB_PROTOCOL_MESSAGE_TYPE.ahk" { KERB_PROTOCOL_MESSAGE_TYPE }
+#Import "..\..\..\Foundation\LUID.ahk" { LUID }
 
 /**
  * Specifies a message to add, remove, or replace an extra server credential for a logon session, and the service principal names (SPNs) to be associated with that credential.
@@ -13,41 +13,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_add_credentials_request_ex
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class KERB_ADD_CREDENTIALS_REQUEST_EX extends Win32Struct {
-    static sizeof => 96
-
-    static packingSize => 8
+export default struct KERB_ADD_CREDENTIALS_REQUEST_EX {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-kerb_add_credentials_request">KERB_ADD_CREDENTIALS_REQUEST</a> structure that specifies the credentials to add, remove, or replace.
-     * @type {KERB_ADD_CREDENTIALS_REQUEST}
      */
-    Credentials {
-        get {
-            if(!this.HasProp("__Credentials"))
-                this.__Credentials := KERB_ADD_CREDENTIALS_REQUEST(0, this)
-            return this.__Credentials
-        }
-    }
+    Credentials : KERB_ADD_CREDENTIALS_REQUEST
 
     /**
      * The number of elements in the <b>PrincipalNames</b> array.
-     * @type {Integer}
      */
-    PrincipalNameCount {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    PrincipalNameCount : UInt32
 
     /**
      * An array of SPNs to be associated with the user account specified by the <b>Credentials</b> member
-     * @type {LSA_UNICODE_STRING}
      */
-    PrincipalNames {
-        get {
-            if(!this.HasProp("__PrincipalNamesProxyArray"))
-                this.__PrincipalNamesProxyArray := Win32FixedArray(this.ptr + 80, 1, LSA_UNICODE_STRING, "")
-            return this.__PrincipalNamesProxyArray
-        }
-    }
+    PrincipalNames : LSA_UNICODE_STRING[1]
+
 }

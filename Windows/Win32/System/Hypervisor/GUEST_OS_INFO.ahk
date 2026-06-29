@@ -1,18 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class GUEST_OS_INFO extends Win32Struct {
-    static sizeof => 24
+export default struct GUEST_OS_INFO {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _ClosedSource extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
-
+    struct _ClosedSource {
         /**
          * This bitfield backs the following members:
          * - BuildNumber
@@ -21,12 +16,9 @@ class GUEST_OS_INFO extends Win32Struct {
          * - MajorVersion
          * - OsId
          * - VendorId
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int64
+
 
         /**
          * @type {Integer}
@@ -77,10 +69,7 @@ class GUEST_OS_INFO extends Win32Struct {
         }
     }
 
-    class _OpenSource extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
-
+    struct _OpenSource {
         /**
          * This bitfield backs the following members:
          * - VendorSpecific1
@@ -88,12 +77,9 @@ class GUEST_OS_INFO extends Win32Struct {
          * - VendorSpecific2
          * - OsId
          * - IsOpenSource
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int64
+
 
         /**
          * @type {Integer}
@@ -136,33 +122,11 @@ class GUEST_OS_INFO extends Win32Struct {
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    AsUINT64 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    AsUINT64 : Int64
 
-    /**
-     * @type {_ClosedSource}
-     */
-    ClosedSource {
-        get {
-            if(!this.HasProp("__ClosedSource"))
-                this.__ClosedSource := GUEST_OS_INFO._ClosedSource(0, this)
-            return this.__ClosedSource
-        }
-    }
-
-    /**
-     * @type {_OpenSource}
-     */
-    OpenSource {
-        get {
-            if(!this.HasProp("__OpenSource"))
-                this.__OpenSource := GUEST_OS_INFO._OpenSource(0, this)
-            return this.__OpenSource
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'ClosedSource', { type: GUEST_OS_INFO._ClosedSource, offset: 0 })
+        DefineProp(this.Prototype, 'OpenSource', { type: GUEST_OS_INFO._OpenSource, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

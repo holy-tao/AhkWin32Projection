@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the variety of updates that should be returned by the search:\_per-machine updates, per-user updates, or both.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-searchscope
  * @namespace Windows.Win32.System.UpdateAgent
  */
-class SearchScope extends Win32Enum {
+export default struct SearchScope {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Search by using the default scope (the scope that Automatic Updates would use when searching for updates). This is currently equivalent to search ScopeMachineOnly.

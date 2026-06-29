@@ -1,60 +1,39 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NMHDR.ahk" { NMHDR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 
 /**
  * Carries information required to process the MCN_GETDAYSTATE notification code. All members of this structure are for input, except prgDayState, which the receiving application must set when processing MCN_GETDAYSTATE.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmdaystate
  * @namespace Windows.Win32.UI.Controls
  */
-class NMDAYSTATE extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct NMDAYSTATE {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains information about this notification code.
-     * @type {NMHDR}
      */
-    nmhdr {
-        get {
-            if(!this.HasProp("__nmhdr"))
-                this.__nmhdr := NMHDR(0, this)
-            return this.__nmhdr
-        }
-    }
+    nmhdr : NMHDR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that contains the starting date.
-     * @type {SYSTEMTIME}
      */
-    stStart {
-        get {
-            if(!this.HasProp("__stStart"))
-                this.__stStart := SYSTEMTIME(24, this)
-            return this.__stStart
-        }
-    }
+    stStart : SYSTEMTIME
 
     /**
      * Type: <b>int</b>
      * 
      * INT value specifying the total number of elements that must be in the array at 
      * 					<b>prgDayState</b>.
-     * @type {Integer}
      */
-    cDayState {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    cDayState : Int32
 
     /**
      * Type: <b>LPMONTHDAYSTATE</b>
@@ -62,10 +41,7 @@ class NMDAYSTATE extends Win32Struct {
      * Address of an array of <a href="https://docs.microsoft.com/windows/desktop/Controls/monthdaystate">MONTHDAYSTATE</a> values. The buffer at this address must be large enough to contain at least 
      * 					<b>cDayState</b> elements. The first element in the array corresponds to the date in 
      * 					<b>stStart</b>.
-     * @type {Pointer<Integer>}
      */
-    prgDayState {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    prgDayState : IntPtr
+
 }

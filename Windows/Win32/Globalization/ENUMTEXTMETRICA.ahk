@@ -1,11 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include .\NEWTEXTMETRICEXA.ahk
-#Include ..\Graphics\Gdi\NEWTEXTMETRICA.ahk
-#Include ..\Graphics\Gdi\TMPF_FLAGS.ahk
-#Include .\FONTSIGNATURE.ahk
-#Include ..\Graphics\Gdi\AXESLISTA.ahk
-#Include ..\Graphics\Gdi\AXISINFOA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NEWTEXTMETRICEXA.ahk" { NEWTEXTMETRICEXA }
+#Import "..\Graphics\Gdi\AXISINFOA.ahk" { AXISINFOA }
+#Import "..\Graphics\Gdi\TMPF_FLAGS.ahk" { TMPF_FLAGS }
+#Import "..\Graphics\Gdi\NEWTEXTMETRICA.ahk" { NEWTEXTMETRICA }
+#Import "..\Graphics\Gdi\AXESLISTA.ahk" { AXESLISTA }
+#Import ".\FONTSIGNATURE.ahk" { FONTSIGNATURE }
 
 /**
  * The ENUMTEXTMETRIC structure contains information about a physical font. (ANSI)
@@ -24,32 +23,17 @@
  * @namespace Windows.Win32.Globalization
  * @charset ANSI
  */
-class ENUMTEXTMETRICA extends Win32Struct {
-    static sizeof => 488
-
-    static packingSize => 4
+export default struct ENUMTEXTMETRICA {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-newtextmetricexa">NEWTEXTMETRICEX</a> structure, containing information about a physical font.
-     * @type {NEWTEXTMETRICEXA}
      */
-    etmNewTextMetricEx {
-        get {
-            if(!this.HasProp("__etmNewTextMetricEx"))
-                this.__etmNewTextMetricEx := NEWTEXTMETRICEXA(0, this)
-            return this.__etmNewTextMetricEx
-        }
-    }
+    etmNewTextMetricEx : NEWTEXTMETRICEXA
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-axeslista">AXESLIST</a> structure, containing information about the axes for the font. This is only used for multiple master fonts.
-     * @type {AXESLISTA}
      */
-    etmAxesList {
-        get {
-            if(!this.HasProp("__etmAxesList"))
-                this.__etmAxesList := AXESLISTA(96, this)
-            return this.__etmAxesList
-        }
-    }
+    etmAxesList : AXESLISTA
+
 }

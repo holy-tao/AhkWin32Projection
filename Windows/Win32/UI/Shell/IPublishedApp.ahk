@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IShellApp.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IShellApp.ahk" { IShellApp }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\PUBAPPINFO.ahk" { PUBAPPINFO }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 
 /**
  * Exposes methods that represent applications to Add/Remove Programs in Control Panel.
@@ -10,26 +13,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nn-shappmgr-ipublishedapp
  * @namespace Windows.Win32.UI.Shell
  */
-class IPublishedApp extends IShellApp {
-
-    static sizeof => A_PtrSize
+export default struct IPublishedApp extends IShellApp {
     /**
      * The interface identifier for IPublishedApp
      * @type {Guid}
      */
-    static IID => Guid("{1bc752e0-9046-11d1-b8b3-006008059382}")
+    static IID := Guid("{1bc752e0-9046-11d1-b8b3-006008059382}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPublishedApp interfaces
+    */
+    struct Vtbl extends IShellApp.Vtbl {
+        Install             : IntPtr
+        GetPublishedAppInfo : IntPtr
+        Unschedule          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Install", "GetPublishedAppInfo", "Unschedule"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPublishedApp.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Installs an application published by an application publisher. This method is invoked when the user selects Add or Add Later in Add/Remove Programs in Control Panel.
@@ -42,7 +54,7 @@ class IPublishedApp extends IShellApp {
      * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-ipublishedapp-install
      */
     Install(pstInstall) {
-        result := ComCall(8, this, "ptr", pstInstall, "HRESULT")
+        result := ComCall(8, this, SYSTEMTIME.Ptr, pstInstall, "HRESULT")
         return result
     }
 
@@ -59,7 +71,7 @@ class IPublishedApp extends IShellApp {
      * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-ipublishedapp-getpublishedappinfo
      */
     GetPublishedAppInfo(ppai) {
-        result := ComCall(9, this, "ptr", ppai, "HRESULT")
+        result := ComCall(9, this, PUBAPPINFO.Ptr, ppai, "HRESULT")
         return result
     }
 
@@ -81,5 +93,29 @@ class IPublishedApp extends IShellApp {
     Unschedule() {
         result := ComCall(10, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPublishedApp.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Install := CallbackCreate(GetMethod(implObj, "Install"), flags, 2)
+        this.vtbl.GetPublishedAppInfo := CallbackCreate(GetMethod(implObj, "GetPublishedAppInfo"), flags, 2)
+        this.vtbl.Unschedule := CallbackCreate(GetMethod(implObj, "Unschedule"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Install)
+        CallbackFree(this.vtbl.GetPublishedAppInfo)
+        CallbackFree(this.vtbl.Unschedule)
     }
 }

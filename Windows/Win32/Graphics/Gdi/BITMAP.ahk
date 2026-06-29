@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The BITMAP structure defines the type, width, height, color format, and bit values of a bitmap.
@@ -29,71 +28,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmap
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class BITMAP extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct BITMAP {
+    #StructPack 8
 
     /**
      * The bitmap type. This member must be zero.
-     * @type {Integer}
      */
-    bmType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    bmType : Int32
 
     /**
      * The width, in pixels, of the bitmap. The width must be greater than zero.
-     * @type {Integer}
      */
-    bmWidth {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    bmWidth : Int32
 
     /**
      * The height, in pixels, of the bitmap. The height must be greater than zero.
-     * @type {Integer}
      */
-    bmHeight {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    bmHeight : Int32
 
     /**
      * The number of bytes in each scan line. This value must be divisible by 2, because the system assumes that the bit values of a bitmap form an array that is word aligned.
-     * @type {Integer}
      */
-    bmWidthBytes {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    bmWidthBytes : Int32
 
     /**
      * The count of color planes.
-     * @type {Integer}
      */
-    bmPlanes {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    bmPlanes : UInt16
 
     /**
      * The number of bits required to indicate the color of a pixel.
-     * @type {Integer}
      */
-    bmBitsPixel {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    bmBitsPixel : UInt16
 
     /**
      * A pointer to the location of the bit values for the bitmap. The <b>bmBits</b> member must be a pointer to an array of character (1-byte) values.
-     * @type {Pointer<Void>}
      */
-    bmBits {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    bmBits : IntPtr
+
 }

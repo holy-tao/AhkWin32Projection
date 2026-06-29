@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the type of an audio system effects property store.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/ne-mmdeviceapi-audio_systemeffects_propertystore_type
  * @namespace Windows.Win32.Media.Audio
  */
-class AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE extends Win32Enum {
+export default struct AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Default property store. Contains custom effects properties and is populated from the INF file. Properties will not be persisted across OS upgrades.

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Values for the D2D1_EDGEDETECTION_PROP_MODE property of the Edge Detection effect.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effects_2/ne-d2d1effects_2-d2d1_edgedetection_mode
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_EDGEDETECTION_MODE extends Win32Enum {
+export default struct D2D1_EDGEDETECTION_MODE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates the Sobel operator should be used for edge detection.

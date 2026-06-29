@@ -1,40 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IGPMTrustee interface contains methods to retrieve information about a given trustee when using the Group Policy Management Console (GPMC).
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmtrustee
  * @namespace Windows.Win32.System.GroupPolicy
  */
-class IGPMTrustee extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IGPMTrustee extends IDispatch {
     /**
      * The interface identifier for IGPMTrustee
      * @type {Guid}
      */
-    static IID => Guid("{3b466da8-c1a4-4b2a-999a-befcdd56cefb}")
+    static IID := Guid("{3b466da8-c1a4-4b2a-999a-befcdd56cefb}")
 
     /**
      * The class identifier for GPMTrustee
      * @type {Guid}
      */
-    static CLSID => Guid("{c54a700d-19b6-4211-bcb0-e8e2475e471e}")
+    static CLSID := Guid("{c54a700d-19b6-4211-bcb0-e8e2475e471e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGPMTrustee interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_TrusteeSid    : IntPtr
+        get_TrusteeName   : IntPtr
+        get_TrusteeDomain : IntPtr
+        get_TrusteeDSPath : IntPtr
+        get_TrusteeType   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_TrusteeSid", "get_TrusteeName", "get_TrusteeDomain", "get_TrusteeDSPath", "get_TrusteeType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGPMTrustee.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -76,8 +88,8 @@ class IGPMTrustee extends IDispatch {
      * @returns {BSTR} 
      */
     get_TrusteeSid() {
-        bstrVal := BSTR()
-        result := ComCall(7, this, "ptr", bstrVal, "HRESULT")
+        bstrVal := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, bstrVal, "HRESULT")
         return bstrVal
     }
 
@@ -86,8 +98,8 @@ class IGPMTrustee extends IDispatch {
      * @returns {BSTR} 
      */
     get_TrusteeName() {
-        bstrVal := BSTR()
-        result := ComCall(8, this, "ptr", bstrVal, "HRESULT")
+        bstrVal := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, bstrVal, "HRESULT")
         return bstrVal
     }
 
@@ -96,8 +108,8 @@ class IGPMTrustee extends IDispatch {
      * @returns {BSTR} 
      */
     get_TrusteeDomain() {
-        bstrVal := BSTR()
-        result := ComCall(9, this, "ptr", bstrVal, "HRESULT")
+        bstrVal := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, bstrVal, "HRESULT")
         return bstrVal
     }
 
@@ -106,8 +118,8 @@ class IGPMTrustee extends IDispatch {
      * @returns {BSTR} 
      */
     get_TrusteeDSPath() {
-        pVal := BSTR()
-        result := ComCall(10, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -118,5 +130,33 @@ class IGPMTrustee extends IDispatch {
     get_TrusteeType() {
         result := ComCall(11, this, "int*", &lVal := 0, "HRESULT")
         return lVal
+    }
+
+    Query(iid) {
+        if (IGPMTrustee.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_TrusteeSid := CallbackCreate(GetMethod(implObj, "get_TrusteeSid"), flags, 2)
+        this.vtbl.get_TrusteeName := CallbackCreate(GetMethod(implObj, "get_TrusteeName"), flags, 2)
+        this.vtbl.get_TrusteeDomain := CallbackCreate(GetMethod(implObj, "get_TrusteeDomain"), flags, 2)
+        this.vtbl.get_TrusteeDSPath := CallbackCreate(GetMethod(implObj, "get_TrusteeDSPath"), flags, 2)
+        this.vtbl.get_TrusteeType := CallbackCreate(GetMethod(implObj, "get_TrusteeType"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_TrusteeSid)
+        CallbackFree(this.vtbl.get_TrusteeName)
+        CallbackFree(this.vtbl.get_TrusteeDomain)
+        CallbackFree(this.vtbl.get_TrusteeDSPath)
+        CallbackFree(this.vtbl.get_TrusteeType)
     }
 }

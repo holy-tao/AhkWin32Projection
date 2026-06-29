@@ -1,165 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\REPARSE_DATA_BUFFER.ahk
-#Include .\FILE_TIMESTAMPS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\REPARSE_DATA_BUFFER.ahk" { REPARSE_DATA_BUFFER }
+#Import ".\FILE_TIMESTAMPS.ahk" { FILE_TIMESTAMPS }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class ATOMIC_CREATE_ECP_CONTEXT extends Win32Struct {
-    static sizeof => 88
+export default struct ATOMIC_CREATE_ECP_CONTEXT {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    InFlags : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    InFlags {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    OutFlags : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    OutFlags {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    ReparseBufferLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ReparseBufferLength {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    ReparseBuffer : REPARSE_DATA_BUFFER.Ptr
 
-    /**
-     * @type {Pointer<REPARSE_DATA_BUFFER>}
-     */
-    ReparseBuffer {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    FileSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FileSize {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    ValidDataLength : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ValidDataLength {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    FileTimestamps : FILE_TIMESTAMPS.Ptr
 
-    /**
-     * @type {Pointer<FILE_TIMESTAMPS>}
-     */
-    FileTimestamps {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    FileAttributes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FileAttributes {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    UsnSourceInfo : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    UsnSourceInfo {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    Usn : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Usn {
-        get => NumGet(this, 48, "int64")
-        set => NumPut("int64", value, this, 48)
-    }
+    SuppressFileAttributeInheritanceMask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SuppressFileAttributeInheritanceMask {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    InOpFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InOpFlags {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    OutOpFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OutOpFlags {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    InGenFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InGenFlags {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    OutGenFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OutGenFlags {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    CaseSensitiveFlagsMask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CaseSensitiveFlagsMask {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    InCaseSensitiveFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InCaseSensitiveFlags {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    OutCaseSensitiveFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OutCaseSensitiveFlags {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
 }

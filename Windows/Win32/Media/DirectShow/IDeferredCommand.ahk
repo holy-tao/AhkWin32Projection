@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDeferredCommand interface cancels or modify graph-control commands that were queued using the IQueueCommand interface.When an application calls an IQueueCommand method on the Filter Graph Manager, it receives a pointer to the IDeferredCommand interface. The application can use the interface to cancel or postpone the command, or retrieve the return value from the command.
  * @see https://learn.microsoft.com/windows/win32/api/control/nn-control-ideferredcommand
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IDeferredCommand extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDeferredCommand extends IUnknown {
     /**
      * The interface identifier for IDeferredCommand
      * @type {Guid}
      */
-    static IID => Guid("{56a868b8-0ad4-11ce-b03a-0020af0ba770}")
+    static IID := Guid("{56a868b8-0ad4-11ce-b03a-0020af0ba770}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDeferredCommand interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Cancel     : IntPtr
+        Confidence : IntPtr
+        Postpone   : IntPtr
+        GetHResult : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Cancel", "Confidence", "Postpone", "GetHResult"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDeferredCommand.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Cancel method cancels a command that the application previously queued.
@@ -126,5 +137,31 @@ class IDeferredCommand extends IUnknown {
     GetHResult() {
         result := ComCall(6, this, "int*", &phrResult := 0, "HRESULT")
         return phrResult
+    }
+
+    Query(iid) {
+        if (IDeferredCommand.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.Confidence := CallbackCreate(GetMethod(implObj, "Confidence"), flags, 2)
+        this.vtbl.Postpone := CallbackCreate(GetMethod(implObj, "Postpone"), flags, 2)
+        this.vtbl.GetHResult := CallbackCreate(GetMethod(implObj, "GetHResult"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Cancel)
+        CallbackFree(this.vtbl.Confidence)
+        CallbackFree(this.vtbl.Postpone)
+        CallbackFree(this.vtbl.GetHResult)
     }
 }

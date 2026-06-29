@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFContentDecryptionModule.ahk
-#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
+#Import ".\IMFContentDecryptionModule.ahk" { IMFContentDecryptionModule }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides access to a media key system.
@@ -12,26 +14,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nn-mfcontentdecryptionmodule-imfcontentdecryptionmoduleaccess
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFContentDecryptionModuleAccess extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFContentDecryptionModuleAccess extends IUnknown {
     /**
      * The interface identifier for IMFContentDecryptionModuleAccess
      * @type {Guid}
      */
-    static IID => Guid("{a853d1f4-e2a0-4303-9edc-f1a68ee43136}")
+    static IID := Guid("{a853d1f4-e2a0-4303-9edc-f1a68ee43136}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFContentDecryptionModuleAccess interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateContentDecryptionModule : IntPtr
+        GetConfiguration              : IntPtr
+        GetKeySystem                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateContentDecryptionModule", "GetConfiguration", "GetKeySystem"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFContentDecryptionModuleAccess.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IMFContentDecryptionModuleAccess::CreateContentDecryptionModule function creates a IMFContentDecryptionModule that represents a Content Decryption Module (CDM) for a DRM key system.
@@ -73,7 +84,31 @@ class IMFContentDecryptionModuleAccess extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmoduleaccess-getkeysystem
      */
     GetKeySystem() {
-        result := ComCall(5, this, "ptr*", &keySystem := 0, "HRESULT")
+        result := ComCall(5, this, PWSTR.Ptr, &keySystem := 0, "HRESULT")
         return keySystem
+    }
+
+    Query(iid) {
+        if (IMFContentDecryptionModuleAccess.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateContentDecryptionModule := CallbackCreate(GetMethod(implObj, "CreateContentDecryptionModule"), flags, 3)
+        this.vtbl.GetConfiguration := CallbackCreate(GetMethod(implObj, "GetConfiguration"), flags, 2)
+        this.vtbl.GetKeySystem := CallbackCreate(GetMethod(implObj, "GetKeySystem"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateContentDecryptionModule)
+        CallbackFree(this.vtbl.GetConfiguration)
+        CallbackFree(this.vtbl.GetKeySystem)
     }
 }

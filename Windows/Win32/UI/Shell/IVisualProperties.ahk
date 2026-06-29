@@ -1,34 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Graphics\Gdi\LOGFONTW.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Graphics\Gdi\LOGFONTW.ahk" { LOGFONTW }
+#Import ".\VPWATERMARKFLAGS.ahk" { VPWATERMARKFLAGS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import ".\VPCOLORFLAGS.ahk" { VPCOLORFLAGS }
 
 /**
  * Exposes methods that set and get visual properties.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-ivisualproperties
  * @namespace Windows.Win32.UI.Shell
  */
-class IVisualProperties extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVisualProperties extends IUnknown {
     /**
      * The interface identifier for IVisualProperties
      * @type {Guid}
      */
-    static IID => Guid("{e693cf68-d967-4112-8763-99172aee5e5a}")
+    static IID := Guid("{e693cf68-d967-4112-8763-99172aee5e5a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVisualProperties interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetWatermark  : IntPtr
+        SetColor      : IntPtr
+        GetColor      : IntPtr
+        SetItemHeight : IntPtr
+        GetItemHeight : IntPtr
+        SetFont       : IntPtr
+        GetFont       : IntPtr
+        SetTheme      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetWatermark", "SetColor", "GetColor", "SetItemHeight", "GetItemHeight", "SetFont", "GetFont", "SetTheme"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVisualProperties.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Provides a bitmap to use as a watermark.
@@ -45,9 +66,7 @@ class IVisualProperties extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ivisualproperties-setwatermark
      */
     SetWatermark(hbmp, vpwf) {
-        hbmp := hbmp is Win32Handle ? NumGet(hbmp, "ptr") : hbmp
-
-        result := ComCall(3, this, "ptr", hbmp, "int", vpwf, "HRESULT")
+        result := ComCall(3, this, HBITMAP, hbmp, VPWATERMARKFLAGS, vpwf, "HRESULT")
         return result
     }
 
@@ -65,7 +84,7 @@ class IVisualProperties extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ivisualproperties-setcolor
      */
     SetColor(vpcf, cr) {
-        result := ComCall(4, this, "int", vpcf, "uint", cr, "HRESULT")
+        result := ComCall(4, this, VPCOLORFLAGS, vpcf, COLORREF, cr, "HRESULT")
         return result
     }
 
@@ -80,7 +99,7 @@ class IVisualProperties extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ivisualproperties-getcolor
      */
     GetColor(vpcf) {
-        result := ComCall(5, this, "int", vpcf, "uint*", &pcr := 0, "HRESULT")
+        result := ComCall(5, this, VPCOLORFLAGS, vpcf, COLORREF.Ptr, &pcr := 0, "HRESULT")
         return pcr
     }
 
@@ -125,7 +144,7 @@ class IVisualProperties extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ivisualproperties-setfont
      */
     SetFont(plf, bRedraw) {
-        result := ComCall(8, this, "ptr", plf, "int", bRedraw, "HRESULT")
+        result := ComCall(8, this, LOGFONTW.Ptr, plf, BOOL, bRedraw, "HRESULT")
         return result
     }
 
@@ -138,7 +157,7 @@ class IVisualProperties extends IUnknown {
      */
     GetFont() {
         plf := LOGFONTW()
-        result := ComCall(9, this, "ptr", plf, "HRESULT")
+        result := ComCall(9, this, LOGFONTW.Ptr, plf, "HRESULT")
         return plf
     }
 
@@ -161,5 +180,39 @@ class IVisualProperties extends IUnknown {
 
         result := ComCall(10, this, "ptr", pszSubAppName, "ptr", pszSubIdList, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVisualProperties.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetWatermark := CallbackCreate(GetMethod(implObj, "SetWatermark"), flags, 3)
+        this.vtbl.SetColor := CallbackCreate(GetMethod(implObj, "SetColor"), flags, 3)
+        this.vtbl.GetColor := CallbackCreate(GetMethod(implObj, "GetColor"), flags, 3)
+        this.vtbl.SetItemHeight := CallbackCreate(GetMethod(implObj, "SetItemHeight"), flags, 2)
+        this.vtbl.GetItemHeight := CallbackCreate(GetMethod(implObj, "GetItemHeight"), flags, 2)
+        this.vtbl.SetFont := CallbackCreate(GetMethod(implObj, "SetFont"), flags, 3)
+        this.vtbl.GetFont := CallbackCreate(GetMethod(implObj, "GetFont"), flags, 2)
+        this.vtbl.SetTheme := CallbackCreate(GetMethod(implObj, "SetTheme"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetWatermark)
+        CallbackFree(this.vtbl.SetColor)
+        CallbackFree(this.vtbl.GetColor)
+        CallbackFree(this.vtbl.SetItemHeight)
+        CallbackFree(this.vtbl.GetItemHeight)
+        CallbackFree(this.vtbl.SetFont)
+        CallbackFree(this.vtbl.GetFont)
+        CallbackFree(this.vtbl.SetTheme)
     }
 }

@@ -1,227 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.Performance
  * @charset ANSI
  */
-class PDH_LOG_SERVICE_QUERY_INFO_A extends Win32Struct {
-    static sizeof => 96
+export default struct PDH_LOG_SERVICE_QUERY_INFO_A {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwLogQuota : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwLogQuota {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    szLogFileCaption : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    szLogFileCaption {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    szDefaultDir : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    szDefaultDir {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    szBaseFileName : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    szBaseFileName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    dwFileType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFileType {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwReserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    PdlAutoNameInterval : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PdlAutoNameInterval {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    PdlAutoNameUnits : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PdlAutoNameUnits {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    PdlCommandFilename : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    PdlCommandFilename {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    PdlCounterList : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    PdlCounterList {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    PdlAutoNameFormat : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PdlAutoNameFormat {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    PdlSampleInterval : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PdlSampleInterval {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    PdlLogStartTime : FILETIME
 
-    /**
-     * @type {FILETIME}
-     */
-    PdlLogStartTime {
-        get {
-            if(!this.HasProp("__PdlLogStartTime"))
-                this.__PdlLogStartTime := FILETIME(80, this)
-            return this.__PdlLogStartTime
-        }
-    }
+    PdlLogEndTime : FILETIME
 
-    /**
-     * @type {FILETIME}
-     */
-    PdlLogEndTime {
-        get {
-            if(!this.HasProp("__PdlLogEndTime"))
-                this.__PdlLogEndTime := FILETIME(88, this)
-            return this.__PdlLogEndTime
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    TlNumberOfBuffers {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    TlMinimumBuffers {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    TlMaximumBuffers {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    TlFreeBuffers {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    TlBufferSize {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    TlEventsLost {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    TlLoggerThreadId {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    TlBuffersWritten {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    TlLogHandle {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
-
-    /**
-     * @type {PSTR}
-     */
-    TlLogFileName {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+    static __New() {
+        DefineProp(this.Prototype, 'TlNumberOfBuffers', { type: UInt32, offset: 48 })
+        DefineProp(this.Prototype, 'TlMinimumBuffers', { type: UInt32, offset: 52 })
+        DefineProp(this.Prototype, 'TlMaximumBuffers', { type: UInt32, offset: 56 })
+        DefineProp(this.Prototype, 'TlFreeBuffers', { type: UInt32, offset: 60 })
+        DefineProp(this.Prototype, 'TlBufferSize', { type: UInt32, offset: 64 })
+        DefineProp(this.Prototype, 'TlEventsLost', { type: UInt32, offset: 68 })
+        DefineProp(this.Prototype, 'TlLoggerThreadId', { type: UInt32, offset: 72 })
+        DefineProp(this.Prototype, 'TlBuffersWritten', { type: UInt32, offset: 76 })
+        DefineProp(this.Prototype, 'TlLogHandle', { type: UInt32, offset: 80 })
+        DefineProp(this.Prototype, 'TlLogFileName', { type: PSTR, offset: 88 })
+        this.DeleteProp("__New")
     }
 }

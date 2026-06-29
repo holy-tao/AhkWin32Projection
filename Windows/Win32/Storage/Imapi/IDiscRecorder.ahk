@@ -1,9 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\StructuredStorage\IPropertyStorage.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\StructuredStorage\IPropertyStorage.ahk" { IPropertyStorage }
+#Import ".\MEDIA_TYPES.ahk" { MEDIA_TYPES }
+#Import ".\DISC_RECORDER_STATE_FLAGS.ahk" { DISC_RECORDER_STATE_FLAGS }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\RECORDER_TYPES.ahk" { RECORDER_TYPES }
+#Import ".\MEDIA_FLAGS.ahk" { MEDIA_FLAGS }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDiscRecorder interface enables access to a single disc recorder device, labeled the active disc recorder. An IMAPI object such as MSDiscMasterObj maintains an active disc recorder.
@@ -15,26 +20,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi/nn-imapi-idiscrecorder
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IDiscRecorder extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDiscRecorder extends IUnknown {
     /**
      * The interface identifier for IDiscRecorder
      * @type {Guid}
      */
-    static IID => Guid("{85ac9776-ca88-4cf2-894e-09598c078a41}")
+    static IID := Guid("{85ac9776-ca88-4cf2-894e-09598c078a41}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDiscRecorder interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Init                  : IntPtr
+        GetRecorderGUID       : IntPtr
+        GetRecorderType       : IntPtr
+        GetDisplayNames       : IntPtr
+        GetBasePnPID          : IntPtr
+        GetPath               : IntPtr
+        GetRecorderProperties : IntPtr
+        SetRecorderProperties : IntPtr
+        GetRecorderState      : IntPtr
+        OpenExclusive         : IntPtr
+        QueryMediaType        : IntPtr
+        QueryMediaInfo        : IntPtr
+        Eject                 : IntPtr
+        Erase                 : IntPtr
+        Close                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Init", "GetRecorderGUID", "GetRecorderType", "GetDisplayNames", "GetBasePnPID", "GetPath", "GetRecorderProperties", "SetRecorderProperties", "GetRecorderState", "OpenExclusive", "QueryMediaType", "QueryMediaInfo", "Eject", "Erase", "Close"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDiscRecorder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IDiscRecorder interface enables access to a single disc recorder device, labeled the active disc recorder. An IMAPI object such as MSDiscMasterObj maintains an active disc recorder.
@@ -94,7 +120,7 @@ class IDiscRecorder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-getdisplaynames
      */
     GetDisplayNames(pbstrVendorID, pbstrProductID, pbstrRevision) {
-        result := ComCall(6, this, "ptr", pbstrVendorID, "ptr", pbstrProductID, "ptr", pbstrRevision, "HRESULT")
+        result := ComCall(6, this, BSTR.Ptr, pbstrVendorID, BSTR.Ptr, pbstrProductID, BSTR.Ptr, pbstrRevision, "HRESULT")
         return result
     }
 
@@ -104,8 +130,8 @@ class IDiscRecorder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-getbasepnpid
      */
     GetBasePnPID() {
-        pbstrBasePnPID := BSTR()
-        result := ComCall(7, this, "ptr", pbstrBasePnPID, "HRESULT")
+        pbstrBasePnPID := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pbstrBasePnPID, "HRESULT")
         return pbstrBasePnPID
     }
 
@@ -115,8 +141,8 @@ class IDiscRecorder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-getpath
      */
     GetPath() {
-        pbstrPath := BSTR()
-        result := ComCall(8, this, "ptr", pbstrPath, "HRESULT")
+        pbstrPath := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, pbstrPath, "HRESULT")
         return pbstrPath
     }
 
@@ -264,5 +290,53 @@ class IDiscRecorder extends IUnknown {
     Close() {
         result := ComCall(17, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDiscRecorder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 4)
+        this.vtbl.GetRecorderGUID := CallbackCreate(GetMethod(implObj, "GetRecorderGUID"), flags, 4)
+        this.vtbl.GetRecorderType := CallbackCreate(GetMethod(implObj, "GetRecorderType"), flags, 2)
+        this.vtbl.GetDisplayNames := CallbackCreate(GetMethod(implObj, "GetDisplayNames"), flags, 4)
+        this.vtbl.GetBasePnPID := CallbackCreate(GetMethod(implObj, "GetBasePnPID"), flags, 2)
+        this.vtbl.GetPath := CallbackCreate(GetMethod(implObj, "GetPath"), flags, 2)
+        this.vtbl.GetRecorderProperties := CallbackCreate(GetMethod(implObj, "GetRecorderProperties"), flags, 2)
+        this.vtbl.SetRecorderProperties := CallbackCreate(GetMethod(implObj, "SetRecorderProperties"), flags, 2)
+        this.vtbl.GetRecorderState := CallbackCreate(GetMethod(implObj, "GetRecorderState"), flags, 2)
+        this.vtbl.OpenExclusive := CallbackCreate(GetMethod(implObj, "OpenExclusive"), flags, 1)
+        this.vtbl.QueryMediaType := CallbackCreate(GetMethod(implObj, "QueryMediaType"), flags, 3)
+        this.vtbl.QueryMediaInfo := CallbackCreate(GetMethod(implObj, "QueryMediaInfo"), flags, 6)
+        this.vtbl.Eject := CallbackCreate(GetMethod(implObj, "Eject"), flags, 1)
+        this.vtbl.Erase := CallbackCreate(GetMethod(implObj, "Erase"), flags, 2)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Init)
+        CallbackFree(this.vtbl.GetRecorderGUID)
+        CallbackFree(this.vtbl.GetRecorderType)
+        CallbackFree(this.vtbl.GetDisplayNames)
+        CallbackFree(this.vtbl.GetBasePnPID)
+        CallbackFree(this.vtbl.GetPath)
+        CallbackFree(this.vtbl.GetRecorderProperties)
+        CallbackFree(this.vtbl.SetRecorderProperties)
+        CallbackFree(this.vtbl.GetRecorderState)
+        CallbackFree(this.vtbl.OpenExclusive)
+        CallbackFree(this.vtbl.QueryMediaType)
+        CallbackFree(this.vtbl.QueryMediaInfo)
+        CallbackFree(this.vtbl.Eject)
+        CallbackFree(this.vtbl.Erase)
+        CallbackFree(this.vtbl.Close)
     }
 }

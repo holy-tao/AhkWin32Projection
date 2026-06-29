@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidFeature.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMSVidFeature.ahk" { IMSVidFeature }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Note  This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 or later. The IMSVidXDS interface provides access to the extended data services. The MSVidXDS feature exposes this interface.
@@ -11,32 +12,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidxds
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSVidXDS extends IMSVidFeature {
-
-    static sizeof => A_PtrSize
+export default struct IMSVidXDS extends IMSVidFeature {
     /**
      * The interface identifier for IMSVidXDS
      * @type {Guid}
      */
-    static IID => Guid("{11ebc158-e712-4d1f-8bb3-01ed5274c4ce}")
+    static IID := Guid("{11ebc158-e712-4d1f-8bb3-01ed5274c4ce}")
 
     /**
      * The class identifier for MSVidXDS
      * @type {Guid}
      */
-    static CLSID => Guid("{0149eedf-d08f-4142-8d73-d23903d21e90}")
+    static CLSID := Guid("{0149eedf-d08f-4142-8d73-d23903d21e90}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 16
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSVidXDS interfaces
+    */
+    struct Vtbl extends IMSVidFeature.Vtbl {
+        get_ChannelChangeInterface : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ChannelChangeInterface"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSVidXDS.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IUnknown} 
@@ -53,5 +61,25 @@ class IMSVidXDS extends IMSVidFeature {
     get_ChannelChangeInterface() {
         result := ComCall(16, this, "ptr*", &punkCC := 0, "HRESULT")
         return IUnknown(punkCC)
+    }
+
+    Query(iid) {
+        if (IMSVidXDS.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ChannelChangeInterface := CallbackCreate(GetMethod(implObj, "get_ChannelChangeInterface"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ChannelChangeInterface)
     }
 }

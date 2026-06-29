@@ -1,40 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IPortableDeviceValues.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IPortableDeviceValues.ahk" { IPortableDeviceValues }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWpdSerializer interface is used by the device driver to serialize IPortableDeviceValues interfaces to and from the raw data buffers used to communicate with the application.Applications do not need to use this interface, because the data is serialized and deserialized automatically when calling IPortableDevice::SendCommand.To get this interface, call CoCreateInstance and pass in IID\_IWpdSerializer.
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iwpdserializer
  * @namespace Windows.Win32.Devices.PortableDevices
  */
-class IWpdSerializer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWpdSerializer extends IUnknown {
     /**
      * The interface identifier for IWpdSerializer
      * @type {Guid}
      */
-    static IID => Guid("{b32f4002-bb27-45ff-af4f-06631c1e8dad}")
+    static IID := Guid("{b32f4002-bb27-45ff-af4f-06631c1e8dad}")
 
     /**
      * The class identifier for WpdSerializer
      * @type {Guid}
      */
-    static CLSID => Guid("{0b91a74b-ad7c-4a9d-b563-29eef9167172}")
+    static CLSID := Guid("{0b91a74b-ad7c-4a9d-b563-29eef9167172}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWpdSerializer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetIPortableDeviceValuesFromBuffer : IntPtr
+        WriteIPortableDeviceValuesToBuffer : IntPtr
+        GetBufferFromIPortableDeviceValues : IntPtr
+        GetSerializedSize                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetIPortableDeviceValuesFromBuffer", "WriteIPortableDeviceValuesToBuffer", "GetBufferFromIPortableDeviceValues", "GetSerializedSize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWpdSerializer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetIPortableDeviceValuesFromBuffer method deserializes a byte array to an IPortableDeviceValues interface.
@@ -110,5 +121,31 @@ class IWpdSerializer extends IUnknown {
     GetSerializedSize(pSource) {
         result := ComCall(6, this, "ptr", pSource, "uint*", &pdwSize := 0, "HRESULT")
         return pdwSize
+    }
+
+    Query(iid) {
+        if (IWpdSerializer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetIPortableDeviceValuesFromBuffer := CallbackCreate(GetMethod(implObj, "GetIPortableDeviceValuesFromBuffer"), flags, 4)
+        this.vtbl.WriteIPortableDeviceValuesToBuffer := CallbackCreate(GetMethod(implObj, "WriteIPortableDeviceValuesToBuffer"), flags, 5)
+        this.vtbl.GetBufferFromIPortableDeviceValues := CallbackCreate(GetMethod(implObj, "GetBufferFromIPortableDeviceValues"), flags, 4)
+        this.vtbl.GetSerializedSize := CallbackCreate(GetMethod(implObj, "GetSerializedSize"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetIPortableDeviceValuesFromBuffer)
+        CallbackFree(this.vtbl.WriteIPortableDeviceValuesToBuffer)
+        CallbackFree(this.vtbl.GetBufferFromIPortableDeviceValues)
+        CallbackFree(this.vtbl.GetSerializedSize)
     }
 }

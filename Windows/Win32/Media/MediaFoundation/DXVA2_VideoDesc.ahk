@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXVA2_ExtendedFormat.ahk
-#Include ..\..\Graphics\Direct3D9\D3DFORMAT.ahk
-#Include .\DXVA2_Frequency.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DXVA2_ExtendedFormat.ahk" { DXVA2_ExtendedFormat }
+#Import ".\DXVA2_Frequency.ahk" { DXVA2_Frequency }
+#Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
 
 /**
  * Describes a video stream for a DXVA decoder device or video processor device.
@@ -13,89 +12,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_videodesc
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVA2_VideoDesc extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 4
+export default struct DXVA2_VideoDesc {
+    #StructPack 4
 
     /**
      * Width of the video frame, in pixels.
-     * @type {Integer}
      */
-    SampleWidth {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SampleWidth : UInt32
 
     /**
      * Height of the video frame, in pixels.
-     * @type {Integer}
      */
-    SampleHeight {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SampleHeight : UInt32
 
     /**
      * Additional details about the video format, specified as a <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_extendedformat">DXVA2_ExtendedFormat</a> structure.
-     * @type {DXVA2_ExtendedFormat}
      */
-    SampleFormat {
-        get {
-            if(!this.HasProp("__SampleFormat"))
-                this.__SampleFormat := DXVA2_ExtendedFormat(8, this)
-            return this.__SampleFormat
-        }
-    }
+    SampleFormat : DXVA2_ExtendedFormat
 
     /**
      * Surface format, specified as a <b>D3DFORMAT</b> value or FOURCC code. A FOURCC code can be constructed using the <b>D3DFORMAT</b> or <b>MAKEFOURCC</b> macros.
-     * @type {D3DFORMAT}
      */
-    Format {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Format : D3DFORMAT
 
     /**
      * Frame rate of the input video stream, specified as a <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_frequency">DXVA2_Frequency</a> structure.
-     * @type {DXVA2_Frequency}
      */
-    InputSampleFreq {
-        get {
-            if(!this.HasProp("__InputSampleFreq"))
-                this.__InputSampleFreq := DXVA2_Frequency(16, this)
-            return this.__InputSampleFreq
-        }
-    }
+    InputSampleFreq : DXVA2_Frequency
 
     /**
      * Frame rate of the output video, specified as a <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_frequency">DXVA2_Frequency</a> structure.
-     * @type {DXVA2_Frequency}
      */
-    OutputFrameFreq {
-        get {
-            if(!this.HasProp("__OutputFrameFreq"))
-                this.__OutputFrameFreq := DXVA2_Frequency(24, this)
-            return this.__OutputFrameFreq
-        }
-    }
+    OutputFrameFreq : DXVA2_Frequency
 
     /**
      * Level of data protection required when the user accessible bus (UAB) is present. If <b>TRUE</b>, the video must be protected when a UAB is present. If <b>FALSE</b>, the video is not required to be protected.
-     * @type {Integer}
      */
-    UABProtectionLevel {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    UABProtectionLevel : UInt32
 
     /**
      * Reserved. Must be zero.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    Reserved : UInt32
+
 }

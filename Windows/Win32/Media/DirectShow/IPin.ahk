@@ -1,36 +1,60 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\MediaFoundation\AM_MEDIA_TYPE.ahk
-#Include .\PIN_INFO.ahk
-#Include .\IEnumMediaTypes.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
+#Import ".\PIN_INFO.ahk" { PIN_INFO }
+#Import ".\IEnumMediaTypes.ahk" { IEnumMediaTypes }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\PIN_DIRECTION.ahk" { PIN_DIRECTION }
 
 /**
  * This interface is exposed by all input and output pins.The filter graph manager uses this interface to connect pins and perform flushing operations.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ipin
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IPin extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPin extends IUnknown {
     /**
      * The interface identifier for IPin
      * @type {Guid}
      */
-    static IID => Guid("{56a86891-0ad4-11ce-b03a-0020af0ba770}")
+    static IID := Guid("{56a86891-0ad4-11ce-b03a-0020af0ba770}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPin interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Connect                  : IntPtr
+        ReceiveConnection        : IntPtr
+        Disconnect               : IntPtr
+        ConnectedTo              : IntPtr
+        ConnectionMediaType      : IntPtr
+        QueryPinInfo             : IntPtr
+        QueryDirection           : IntPtr
+        QueryId                  : IntPtr
+        QueryAccept              : IntPtr
+        EnumMediaTypes           : IntPtr
+        QueryInternalConnections : IntPtr
+        EndOfStream              : IntPtr
+        BeginFlush               : IntPtr
+        EndFlush                 : IntPtr
+        NewSegment               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Connect", "ReceiveConnection", "Disconnect", "ConnectedTo", "ConnectionMediaType", "QueryPinInfo", "QueryDirection", "QueryId", "QueryAccept", "EnumMediaTypes", "QueryInternalConnections", "EndOfStream", "BeginFlush", "EndFlush", "NewSegment"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPin.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Connect method connects the pin to another pin.
@@ -117,7 +141,7 @@ class IPin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ipin-connect
      */
     Connect(pReceivePin, pmt) {
-        result := ComCall(3, this, "ptr", pReceivePin, "ptr", pmt, "HRESULT")
+        result := ComCall(3, this, "ptr", pReceivePin, AM_MEDIA_TYPE.Ptr, pmt, "HRESULT")
         return result
     }
 
@@ -201,7 +225,7 @@ class IPin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ipin-receiveconnection
      */
     ReceiveConnection(pConnector, pmt) {
-        result := ComCall(4, this, "ptr", pConnector, "ptr", pmt, "HRESULT")
+        result := ComCall(4, this, "ptr", pConnector, AM_MEDIA_TYPE.Ptr, pmt, "HRESULT")
         return result
     }
 
@@ -282,7 +306,7 @@ class IPin extends IUnknown {
      */
     ConnectionMediaType() {
         pmt := AM_MEDIA_TYPE()
-        result := ComCall(7, this, "ptr", pmt, "HRESULT")
+        result := ComCall(7, this, AM_MEDIA_TYPE.Ptr, pmt, "HRESULT")
         return pmt
     }
 
@@ -295,7 +319,7 @@ class IPin extends IUnknown {
      */
     QueryPinInfo() {
         pInfo := PIN_INFO()
-        result := ComCall(8, this, "ptr", pInfo, "HRESULT")
+        result := ComCall(8, this, PIN_INFO.Ptr, pInfo, "HRESULT")
         return pInfo
     }
 
@@ -321,7 +345,7 @@ class IPin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ipin-queryid
      */
     QueryId() {
-        result := ComCall(10, this, "ptr*", &Id := 0, "HRESULT")
+        result := ComCall(10, this, PWSTR.Ptr, &Id := 0, "HRESULT")
         return Id
     }
 
@@ -367,7 +391,7 @@ class IPin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ipin-queryaccept
      */
     QueryAccept(pmt) {
-        result := ComCall(11, this, "ptr", pmt, "int")
+        result := ComCall(11, this, AM_MEDIA_TYPE.Ptr, pmt, Int32)
         return result
     }
 
@@ -569,5 +593,53 @@ class IPin extends IUnknown {
     NewSegment(tStart, tStop, dRate) {
         result := ComCall(17, this, "int64", tStart, "int64", tStop, "double", dRate, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPin.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 3)
+        this.vtbl.ReceiveConnection := CallbackCreate(GetMethod(implObj, "ReceiveConnection"), flags, 3)
+        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 1)
+        this.vtbl.ConnectedTo := CallbackCreate(GetMethod(implObj, "ConnectedTo"), flags, 2)
+        this.vtbl.ConnectionMediaType := CallbackCreate(GetMethod(implObj, "ConnectionMediaType"), flags, 2)
+        this.vtbl.QueryPinInfo := CallbackCreate(GetMethod(implObj, "QueryPinInfo"), flags, 2)
+        this.vtbl.QueryDirection := CallbackCreate(GetMethod(implObj, "QueryDirection"), flags, 2)
+        this.vtbl.QueryId := CallbackCreate(GetMethod(implObj, "QueryId"), flags, 2)
+        this.vtbl.QueryAccept := CallbackCreate(GetMethod(implObj, "QueryAccept"), flags, 2)
+        this.vtbl.EnumMediaTypes := CallbackCreate(GetMethod(implObj, "EnumMediaTypes"), flags, 2)
+        this.vtbl.QueryInternalConnections := CallbackCreate(GetMethod(implObj, "QueryInternalConnections"), flags, 3)
+        this.vtbl.EndOfStream := CallbackCreate(GetMethod(implObj, "EndOfStream"), flags, 1)
+        this.vtbl.BeginFlush := CallbackCreate(GetMethod(implObj, "BeginFlush"), flags, 1)
+        this.vtbl.EndFlush := CallbackCreate(GetMethod(implObj, "EndFlush"), flags, 1)
+        this.vtbl.NewSegment := CallbackCreate(GetMethod(implObj, "NewSegment"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Connect)
+        CallbackFree(this.vtbl.ReceiveConnection)
+        CallbackFree(this.vtbl.Disconnect)
+        CallbackFree(this.vtbl.ConnectedTo)
+        CallbackFree(this.vtbl.ConnectionMediaType)
+        CallbackFree(this.vtbl.QueryPinInfo)
+        CallbackFree(this.vtbl.QueryDirection)
+        CallbackFree(this.vtbl.QueryId)
+        CallbackFree(this.vtbl.QueryAccept)
+        CallbackFree(this.vtbl.EnumMediaTypes)
+        CallbackFree(this.vtbl.QueryInternalConnections)
+        CallbackFree(this.vtbl.EndOfStream)
+        CallbackFree(this.vtbl.BeginFlush)
+        CallbackFree(this.vtbl.EndFlush)
+        CallbackFree(this.vtbl.NewSegment)
     }
 }

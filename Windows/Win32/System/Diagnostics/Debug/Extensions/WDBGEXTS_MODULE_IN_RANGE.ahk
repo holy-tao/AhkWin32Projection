@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class WDBGEXTS_MODULE_IN_RANGE extends Win32Struct {
-    static sizeof => 32
+export default struct WDBGEXTS_MODULE_IN_RANGE {
+    #StructPack 8
 
-    static packingSize => 8
+    Start : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Start {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    End : Int64
 
-    /**
-     * @type {Integer}
-     */
-    End {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    FoundModBase : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FoundModBase {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    FoundModSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FoundModSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

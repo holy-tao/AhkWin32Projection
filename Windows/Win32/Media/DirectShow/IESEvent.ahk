@@ -1,9 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Implements a generic event interface that can deliver and encapsulate events that are raised by devices that work with the Protected Broadcast Driver Interface (PBDA).
@@ -12,26 +13,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-iesevent
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IESEvent extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IESEvent extends IUnknown {
     /**
      * The interface identifier for IESEvent
      * @type {Guid}
      */
-    static IID => Guid("{1f0e5357-af43-44e6-8547-654c645145d2}")
+    static IID := Guid("{1f0e5357-af43-44e6-8547-654c645145d2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IESEvent interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetEventId          : IntPtr
+        GetEventType        : IntPtr
+        SetCompletionStatus : IntPtr
+        GetData             : IntPtr
+        GetStringData       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetEventId", "GetEventType", "SetCompletionStatus", "GetData", "GetStringData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IESEvent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the unique identifier from an event that is derived from the IESEvent interface. The event identifier is contained in an IESEvent object, which ispassed in a call to IESEventService::FireESEvent.
@@ -50,7 +62,7 @@ class IESEvent extends IUnknown {
      */
     GetEventType() {
         pguidEventType := Guid()
-        result := ComCall(4, this, "ptr", pguidEventType, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, pguidEventType, "HRESULT")
         return pguidEventType
     }
 
@@ -82,8 +94,36 @@ class IESEvent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesevent-getstringdata
      */
     GetStringData() {
-        pbstrData := BSTR()
-        result := ComCall(7, this, "ptr", pbstrData, "HRESULT")
+        pbstrData := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pbstrData, "HRESULT")
         return pbstrData
+    }
+
+    Query(iid) {
+        if (IESEvent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetEventId := CallbackCreate(GetMethod(implObj, "GetEventId"), flags, 2)
+        this.vtbl.GetEventType := CallbackCreate(GetMethod(implObj, "GetEventType"), flags, 2)
+        this.vtbl.SetCompletionStatus := CallbackCreate(GetMethod(implObj, "SetCompletionStatus"), flags, 2)
+        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 2)
+        this.vtbl.GetStringData := CallbackCreate(GetMethod(implObj, "GetStringData"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetEventId)
+        CallbackFree(this.vtbl.GetEventType)
+        CallbackFree(this.vtbl.SetCompletionStatus)
+        CallbackFree(this.vtbl.GetData)
+        CallbackFree(this.vtbl.GetStringData)
     }
 }

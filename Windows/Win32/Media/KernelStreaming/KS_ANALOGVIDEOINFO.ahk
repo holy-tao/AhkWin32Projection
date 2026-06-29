@@ -1,58 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KS_ANALOGVIDEOINFO extends Win32Struct {
-    static sizeof => 48
+export default struct KS_ANALOGVIDEOINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    rcSource : RECT
 
-    /**
-     * @type {RECT}
-     */
-    rcSource {
-        get {
-            if(!this.HasProp("__rcSource"))
-                this.__rcSource := RECT(0, this)
-            return this.__rcSource
-        }
-    }
+    rcTarget : RECT
 
-    /**
-     * @type {RECT}
-     */
-    rcTarget {
-        get {
-            if(!this.HasProp("__rcTarget"))
-                this.__rcTarget := RECT(16, this)
-            return this.__rcTarget
-        }
-    }
+    dwActiveWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwActiveWidth {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwActiveHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwActiveHeight {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    AvgTimePerFrame : Int64
 
-    /**
-     * @type {Integer}
-     */
-    AvgTimePerFrame {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
-    }
 }

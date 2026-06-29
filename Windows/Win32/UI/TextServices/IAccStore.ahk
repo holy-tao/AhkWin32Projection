@@ -1,38 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\IEnumUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IEnumUnknown.ahk" { IEnumUnknown }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.UI.TextServices
  */
-class IAccStore extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAccStore extends IUnknown {
     /**
      * The interface identifier for IAccStore
      * @type {Guid}
      */
-    static IID => Guid("{e2cd4a63-2b72-4d48-b739-95e4765195ba}")
+    static IID := Guid("{e2cd4a63-2b72-4d48-b739-95e4765195ba}")
 
     /**
      * The class identifier for AccStore
      * @type {Guid}
      */
-    static CLSID => Guid("{5440837f-4bff-4ae5-a1b1-7722ecc6332a}")
+    static CLSID := Guid("{5440837f-4bff-4ae5-a1b1-7722ecc6332a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAccStore interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Register        : IntPtr
+        Unregister      : IntPtr
+        GetDocuments    : IntPtr
+        LookupByHWND    : IntPtr
+        LookupByPoint   : IntPtr
+        OnDocumentFocus : IntPtr
+        GetFocused      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Register", "Unregister", "GetDocuments", "LookupByHWND", "LookupByPoint", "OnDocumentFocus", "GetFocused"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAccStore.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The expert must implement the Register expert function. Network Monitor calls the Register expert function to obtain information about the expert.
@@ -46,35 +62,14 @@ class IAccStore extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/NetMon2/register-expert
      */
     Register(riid, punk) {
-        result := ComCall(3, this, "ptr", riid, "ptr", punk, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, riid, "ptr", punk, "HRESULT")
         return result
     }
 
     /**
-     * Removes the active instance of an application from the recovery list.
-     * @remarks
-     * You do not need to call this function before exiting. You need to remove the registration only if you choose to not recover data.
+     * 
      * @param {IUnknown} punk 
-     * @returns {HRESULT} This function returns <b>S_OK</b> on success or one of the following error codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Internal error.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-unregisterapplicationrecoverycallback
+     * @returns {HRESULT} 
      */
     Unregister(punk) {
         result := ComCall(4, this, "ptr", punk, "HRESULT")
@@ -97,9 +92,7 @@ class IAccStore extends IUnknown {
      * @returns {IUnknown} 
      */
     LookupByHWND(_hWnd, riid) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-
-        result := ComCall(6, this, "ptr", _hWnd, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")
+        result := ComCall(6, this, HWND, _hWnd, Guid.Ptr, riid, "ptr*", &ppunk := 0, "HRESULT")
         return IUnknown(ppunk)
     }
 
@@ -110,7 +103,7 @@ class IAccStore extends IUnknown {
      * @returns {IUnknown} 
      */
     LookupByPoint(pt, riid) {
-        result := ComCall(7, this, "ptr", pt, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")
+        result := ComCall(7, this, POINT, pt, Guid.Ptr, riid, "ptr*", &ppunk := 0, "HRESULT")
         return IUnknown(ppunk)
     }
 
@@ -130,7 +123,39 @@ class IAccStore extends IUnknown {
      * @returns {IUnknown} 
      */
     GetFocused(riid) {
-        result := ComCall(9, this, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, riid, "ptr*", &ppunk := 0, "HRESULT")
         return IUnknown(ppunk)
+    }
+
+    Query(iid) {
+        if (IAccStore.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Register := CallbackCreate(GetMethod(implObj, "Register"), flags, 3)
+        this.vtbl.Unregister := CallbackCreate(GetMethod(implObj, "Unregister"), flags, 2)
+        this.vtbl.GetDocuments := CallbackCreate(GetMethod(implObj, "GetDocuments"), flags, 2)
+        this.vtbl.LookupByHWND := CallbackCreate(GetMethod(implObj, "LookupByHWND"), flags, 4)
+        this.vtbl.LookupByPoint := CallbackCreate(GetMethod(implObj, "LookupByPoint"), flags, 4)
+        this.vtbl.OnDocumentFocus := CallbackCreate(GetMethod(implObj, "OnDocumentFocus"), flags, 2)
+        this.vtbl.GetFocused := CallbackCreate(GetMethod(implObj, "GetFocused"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Register)
+        CallbackFree(this.vtbl.Unregister)
+        CallbackFree(this.vtbl.GetDocuments)
+        CallbackFree(this.vtbl.LookupByHWND)
+        CallbackFree(this.vtbl.LookupByPoint)
+        CallbackFree(this.vtbl.OnDocumentFocus)
+        CallbackFree(this.vtbl.GetFocused)
     }
 }

@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FILE_DEVICE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FILE_DEVICE_TYPE.ahk" { FILE_DEVICE_TYPE }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The NTMS_DRIVETYPEINFORMATION structure defines the properties specific to a type of drive supported by RSM. (Unicode)
@@ -19,43 +19,24 @@
  * @namespace Windows.Win32.Storage.FileSystem
  * @charset Unicode
  */
-class NTMS_DRIVETYPEINFORMATIONW extends Win32Struct {
-    static sizeof => 520
-
-    static packingSize => 4
+export default struct NTMS_DRIVETYPEINFORMATIONW {
+    #StructPack 4
 
     /**
      * Name of the vendor of the drive. This is acquired directly from the device inquiry data.
-     * @type {String}
      */
-    szVendor {
-        get => StrGet(this.ptr + 0, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 127, "UTF-16")
-    }
+    szVendor : WCHAR[128]
 
     /**
      * Name of the product of the drive. This is acquired directly from the device inquiry data.
-     * @type {String}
      */
-    szProduct {
-        get => StrGet(this.ptr + 256, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 256, 127, "UTF-16")
-    }
+    szProduct : WCHAR[128]
 
     /**
      * This member is reserved for future use and should be ignored.
-     * @type {Integer}
      */
-    NumberOfHeads {
-        get => NumGet(this, 512, "uint")
-        set => NumPut("uint", value, this, 512)
-    }
+    NumberOfHeads : UInt32
 
-    /**
-     * @type {FILE_DEVICE_TYPE}
-     */
-    DeviceType {
-        get => NumGet(this, 516, "uint")
-        set => NumPut("uint", value, this, 516)
-    }
+    DeviceType : FILE_DEVICE_TYPE
+
 }

@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Describes a request initiated by a call to the lineGetRequest function. This data structure is obsolete and should not be used.
@@ -8,104 +9,57 @@
  * @namespace Windows.Win32.Devices.Tapi
  * @charset ANSI
  */
-class LINEREQMEDIACALL extends Win32Struct {
-    static sizeof => 344
-
-    static packingSize => 8
+export default struct LINEREQMEDIACALL {
+    #StructPack 8
 
     /**
      * A handle to the window of the application that  made the request.
-     * @type {HWND}
      */
-    hWnd {
-        get {
-            if(!this.HasProp("__hWnd"))
-                this.__hWnd := HWND(0, this)
-            return this.__hWnd
-        }
-    }
+    hWnd : HWND
 
     /**
      * The identifier of the request. Used to match an asynchronous response.
-     * @type {WPARAM}
      */
-    wRequestID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    wRequestID : WPARAM
 
     /**
      * The device class required to fill the request.
-     * @type {String}
      */
-    szDeviceClass {
-        get => StrGet(this.ptr + 16, 39, "UTF-8")
-        set => StrPut(value, this.ptr + 16, 39, "UTF-8")
-    }
+    szDeviceClass : CHAR[40]
 
     /**
      * The device identifier.
-     * @type {Array<Integer>}
      */
-    ucDeviceID {
-        get {
-            if(!this.HasProp("__ucDeviceIDProxyArray"))
-                this.__ucDeviceIDProxyArray := Win32FixedArray(this.ptr + 56, 40, Primitive, "char")
-            return this.__ucDeviceIDProxyArray
-        }
-    }
+    ucDeviceID : Int8[40]
 
     /**
      * Size, in bytes, of this structure.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    dwSize : UInt32
 
     /**
      * Not used.
-     * @type {Integer}
      */
-    dwSecure {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
+    dwSecure : UInt32
 
     /**
      * The destination address.
-     * @type {String}
      */
-    szDestAddress {
-        get => StrGet(this.ptr + 104, 79, "UTF-8")
-        set => StrPut(value, this.ptr + 104, 79, "UTF-8")
-    }
+    szDestAddress : CHAR[80]
 
     /**
      * The name of application that made the request.
-     * @type {String}
      */
-    szAppName {
-        get => StrGet(this.ptr + 184, 39, "UTF-8")
-        set => StrPut(value, this.ptr + 184, 39, "UTF-8")
-    }
+    szAppName : CHAR[40]
 
     /**
      * The called party name.
-     * @type {String}
      */
-    szCalledParty {
-        get => StrGet(this.ptr + 224, 39, "UTF-8")
-        set => StrPut(value, this.ptr + 224, 39, "UTF-8")
-    }
+    szCalledParty : CHAR[40]
 
     /**
      * The comment buffer.
-     * @type {String}
      */
-    szComment {
-        get => StrGet(this.ptr + 264, 79, "UTF-8")
-        set => StrPut(value, this.ptr + 264, 79, "UTF-8")
-    }
+    szComment : CHAR[80]
+
 }

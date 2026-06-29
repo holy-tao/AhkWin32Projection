@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ICrmLogControl.ahk" { ICrmLogControl }
+#Import ".\CrmLogRecordRead.ahk" { CrmLogRecordRead }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Delivers unstructured log records to the CRM Compensator when using Microsoft Visual C++.
@@ -10,26 +14,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icrmcompensator
  * @namespace Windows.Win32.System.ComponentServices
  */
-class ICrmCompensator extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICrmCompensator extends IUnknown {
     /**
      * The interface identifier for ICrmCompensator
      * @type {Guid}
      */
-    static IID => Guid("{bbc01830-8d3b-11d1-82ec-00a0c91eede9}")
+    static IID := Guid("{bbc01830-8d3b-11d1-82ec-00a0c91eede9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICrmCompensator interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetLogControl : IntPtr
+        BeginPrepare  : IntPtr
+        PrepareRecord : IntPtr
+        EndPrepare    : IntPtr
+        BeginCommit   : IntPtr
+        CommitRecord  : IntPtr
+        EndCommit     : IntPtr
+        BeginAbort    : IntPtr
+        AbortRecord   : IntPtr
+        EndAbort      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetLogControl", "BeginPrepare", "PrepareRecord", "EndPrepare", "BeginCommit", "CommitRecord", "EndCommit", "BeginAbort", "AbortRecord", "EndAbort"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICrmCompensator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Delivers an ICrmLogControl interface to the CRM Compensator so that it can write further log records during transaction completion.
@@ -67,7 +87,7 @@ class ICrmCompensator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmcompensator-preparerecord
      */
     PrepareRecord(crmLogRec) {
-        result := ComCall(5, this, "ptr", crmLogRec, "int*", &pfForget := 0, "HRESULT")
+        result := ComCall(5, this, CrmLogRecordRead, crmLogRec, BOOL.Ptr, &pfForget := 0, "HRESULT")
         return pfForget
     }
 
@@ -77,7 +97,7 @@ class ICrmCompensator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmcompensator-endprepare
      */
     EndPrepare() {
-        result := ComCall(6, this, "int*", &pfOkToPrepare := 0, "HRESULT")
+        result := ComCall(6, this, BOOL.Ptr, &pfOkToPrepare := 0, "HRESULT")
         return pfOkToPrepare
     }
 
@@ -92,7 +112,7 @@ class ICrmCompensator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmcompensator-begincommit
      */
     BeginCommit(fRecovery) {
-        result := ComCall(7, this, "int", fRecovery, "HRESULT")
+        result := ComCall(7, this, BOOL, fRecovery, "HRESULT")
         return result
     }
 
@@ -107,7 +127,7 @@ class ICrmCompensator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmcompensator-commitrecord
      */
     CommitRecord(crmLogRec) {
-        result := ComCall(8, this, "ptr", crmLogRec, "int*", &pfForget := 0, "HRESULT")
+        result := ComCall(8, this, CrmLogRecordRead, crmLogRec, BOOL.Ptr, &pfForget := 0, "HRESULT")
         return pfForget
     }
 
@@ -132,7 +152,7 @@ class ICrmCompensator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmcompensator-beginabort
      */
     BeginAbort(fRecovery) {
-        result := ComCall(10, this, "int", fRecovery, "HRESULT")
+        result := ComCall(10, this, BOOL, fRecovery, "HRESULT")
         return result
     }
 
@@ -147,7 +167,7 @@ class ICrmCompensator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmcompensator-abortrecord
      */
     AbortRecord(crmLogRec) {
-        result := ComCall(11, this, "ptr", crmLogRec, "int*", &pfForget := 0, "HRESULT")
+        result := ComCall(11, this, CrmLogRecordRead, crmLogRec, BOOL.Ptr, &pfForget := 0, "HRESULT")
         return pfForget
     }
 
@@ -159,5 +179,43 @@ class ICrmCompensator extends IUnknown {
     EndAbort() {
         result := ComCall(12, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICrmCompensator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetLogControl := CallbackCreate(GetMethod(implObj, "SetLogControl"), flags, 2)
+        this.vtbl.BeginPrepare := CallbackCreate(GetMethod(implObj, "BeginPrepare"), flags, 1)
+        this.vtbl.PrepareRecord := CallbackCreate(GetMethod(implObj, "PrepareRecord"), flags, 3)
+        this.vtbl.EndPrepare := CallbackCreate(GetMethod(implObj, "EndPrepare"), flags, 2)
+        this.vtbl.BeginCommit := CallbackCreate(GetMethod(implObj, "BeginCommit"), flags, 2)
+        this.vtbl.CommitRecord := CallbackCreate(GetMethod(implObj, "CommitRecord"), flags, 3)
+        this.vtbl.EndCommit := CallbackCreate(GetMethod(implObj, "EndCommit"), flags, 1)
+        this.vtbl.BeginAbort := CallbackCreate(GetMethod(implObj, "BeginAbort"), flags, 2)
+        this.vtbl.AbortRecord := CallbackCreate(GetMethod(implObj, "AbortRecord"), flags, 3)
+        this.vtbl.EndAbort := CallbackCreate(GetMethod(implObj, "EndAbort"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetLogControl)
+        CallbackFree(this.vtbl.BeginPrepare)
+        CallbackFree(this.vtbl.PrepareRecord)
+        CallbackFree(this.vtbl.EndPrepare)
+        CallbackFree(this.vtbl.BeginCommit)
+        CallbackFree(this.vtbl.CommitRecord)
+        CallbackFree(this.vtbl.EndCommit)
+        CallbackFree(this.vtbl.BeginAbort)
+        CallbackFree(this.vtbl.AbortRecord)
+        CallbackFree(this.vtbl.EndAbort)
     }
 }

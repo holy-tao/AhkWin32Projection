@@ -1,268 +1,71 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SDP_TYPE.ahk
-#Include .\SDP_SPECIFICTYPE.ahk
-#Include .\SDP_LARGE_INTEGER_16.ahk
-#Include .\SDP_ULARGE_INTEGER_16.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SDP_LARGE_INTEGER_16.ahk" { SDP_LARGE_INTEGER_16 }
+#Import ".\SDP_ULARGE_INTEGER_16.ahk" { SDP_ULARGE_INTEGER_16 }
+#Import ".\SDP_TYPE.ahk" { SDP_TYPE }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SDP_SPECIFICTYPE.ahk" { SDP_SPECIFICTYPE }
 
 /**
  * The SDP_ELEMENT_DATA structure stores SDP element data.
  * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-sdp_element_data
  * @namespace Windows.Win32.Devices.Bluetooth
  */
-class SDP_ELEMENT_DATA extends Win32Struct {
-    static sizeof => 24
+export default struct SDP_ELEMENT_DATA {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _data_e__Union extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _data {
 
-        class _string extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
+        struct _string {
+            value : IntPtr
 
-            /**
-             * @type {Pointer<Integer>}
-             */
-            value {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
-            }
+            length : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            length {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
         }
 
-        class _url extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
+        struct _url {
+            value : IntPtr
 
-            /**
-             * @type {Pointer<Integer>}
-             */
-            value {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
-            }
+            length : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            length {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
         }
 
-        class _sequence extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
+        struct _sequence {
+            value : IntPtr
 
-            /**
-             * @type {Pointer<Integer>}
-             */
-            value {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
-            }
+            length : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            length {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
         }
 
-        class _alternative extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
+        struct _alternative {
+            value : IntPtr
 
-            /**
-             * @type {Pointer<Integer>}
-             */
-            value {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
-            }
+            length : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            length {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
         }
 
-        /**
-         * @type {SDP_LARGE_INTEGER_16}
-         */
-        int128 {
-            get {
-                if(!this.HasProp("__int128"))
-                    this.__int128 := SDP_LARGE_INTEGER_16(0, this)
-                return this.__int128
-            }
-        }
+        int128 : SDP_LARGE_INTEGER_16
 
-        /**
-         * @type {Integer}
-         */
-        int64 {
-            get => NumGet(this, 0, "int64")
-            set => NumPut("int64", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        int32 {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        int16 {
-            get => NumGet(this, 0, "short")
-            set => NumPut("short", value, this, 0)
-        }
-
-        /**
-         * @type {CHAR}
-         */
-        int8 {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
-
-        /**
-         * @type {SDP_ULARGE_INTEGER_16}
-         */
-        uint128 {
-            get {
-                if(!this.HasProp("__uint128"))
-                    this.__uint128 := SDP_ULARGE_INTEGER_16(0, this)
-                return this.__uint128
-            }
-        }
-
-        /**
-         * @type {Integer}
-         */
-        uint64 {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        uint32 {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        uint16 {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        uint8 {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        booleanVal {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        uuid128 {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        uuid32 {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        uuid16 {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
-
-        /**
-         * @type {_string}
-         */
-        string {
-            get {
-                if(!this.HasProp("__string"))
-                    this.__string := SDP_ELEMENT_DATA._data_e__Union._string(0, this)
-                return this.__string
-            }
-        }
-
-        /**
-         * @type {_url}
-         */
-        url {
-            get {
-                if(!this.HasProp("__url"))
-                    this.__url := SDP_ELEMENT_DATA._data_e__Union._url(0, this)
-                return this.__url
-            }
-        }
-
-        /**
-         * @type {_sequence}
-         */
-        sequence {
-            get {
-                if(!this.HasProp("__sequence"))
-                    this.__sequence := SDP_ELEMENT_DATA._data_e__Union._sequence(0, this)
-                return this.__sequence
-            }
-        }
-
-        /**
-         * @type {_alternative}
-         */
-        alternative {
-            get {
-                if(!this.HasProp("__alternative"))
-                    this.__alternative := SDP_ELEMENT_DATA._data_e__Union._alternative(0, this)
-                return this.__alternative
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'int64', { type: Int64, offset: 0 })
+            DefineProp(this.Prototype, 'int32', { type: Int32, offset: 0 })
+            DefineProp(this.Prototype, 'int16', { type: Int16, offset: 0 })
+            DefineProp(this.Prototype, 'int8', { type: CHAR, offset: 0 })
+            DefineProp(this.Prototype, 'uint128', { type: SDP_ULARGE_INTEGER_16, offset: 0 })
+            DefineProp(this.Prototype, 'uint64', { type: Int64, offset: 0 })
+            DefineProp(this.Prototype, 'uint32', { type: UInt32, offset: 0 })
+            DefineProp(this.Prototype, 'uint16', { type: UInt16, offset: 0 })
+            DefineProp(this.Prototype, 'uint8', { type: Int8, offset: 0 })
+            DefineProp(this.Prototype, 'booleanVal', { type: Int8, offset: 0 })
+            DefineProp(this.Prototype, 'uuid128', { type: Guid, offset: 0 })
+            DefineProp(this.Prototype, 'uuid32', { type: UInt32, offset: 0 })
+            DefineProp(this.Prototype, 'uuid16', { type: UInt16, offset: 0 })
+            DefineProp(this.Prototype, 'string', { type: SDP_ELEMENT_DATA._data._string, offset: 0 })
+            DefineProp(this.Prototype, 'url', { type: SDP_ELEMENT_DATA._data._url, offset: 0 })
+            DefineProp(this.Prototype, 'sequence', { type: SDP_ELEMENT_DATA._data._sequence, offset: 0 })
+            DefineProp(this.Prototype, 'alternative', { type: SDP_ELEMENT_DATA._data._alternative, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
@@ -292,30 +95,14 @@ class SDP_ELEMENT_DATA extends Win32Struct {
      * 
      * 
      * There is no associated data value with the type SDP_TYPE_NIL.
-     * @type {SDP_TYPE}
      */
-    type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    type : SDP_TYPE
 
     /**
      * Specific type of SDP element, used to further specify generic element types.
-     * @type {SDP_SPECIFICTYPE}
      */
-    specificType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    specificType : SDP_SPECIFICTYPE
 
-    /**
-     * @type {_data_e__Union}
-     */
-    data {
-        get {
-            if(!this.HasProp("__data"))
-                this.__data := SDP_ELEMENT_DATA._data_e__Union(8, this)
-            return this.__data
-        }
-    }
+    data : SDP_ELEMENT_DATA._data
+
 }

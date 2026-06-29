@@ -1,33 +1,76 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Resource.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID2D1Resource.ahk" { ID2D1Resource }
+#Import ".\ID2D1SvgDocument.ahk" { ID2D1SvgDocument }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\D2D1_SVG_ATTRIBUTE_STRING_TYPE.ahk" { D2D1_SVG_ATTRIBUTE_STRING_TYPE }
+#Import ".\ID2D1SvgAttribute.ahk" { ID2D1SvgAttribute }
+#Import ".\D2D1_SVG_ATTRIBUTE_POD_TYPE.ahk" { D2D1_SVG_ATTRIBUTE_POD_TYPE }
 
 /**
  * Interface for all SVG elements.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nn-d2d1svg-id2d1svgelement
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1SvgElement extends ID2D1Resource {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1SvgElement extends ID2D1Resource {
     /**
      * The interface identifier for ID2D1SvgElement
      * @type {Guid}
      */
-    static IID => Guid("{ac7b67a6-183e-49c1-a823-0ebe40b0db29}")
+    static IID := Guid("{ac7b67a6-183e-49c1-a823-0ebe40b0db29}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1SvgElement interfaces
+    */
+    struct Vtbl extends ID2D1Resource.Vtbl {
+        GetDocument                     : IntPtr
+        GetTagName                      : IntPtr
+        GetTagNameLength                : IntPtr
+        IsTextContent                   : IntPtr
+        GetParent                       : IntPtr
+        HasChildren                     : IntPtr
+        GetFirstChild                   : IntPtr
+        GetLastChild                    : IntPtr
+        GetPreviousChild                : IntPtr
+        GetNextChild                    : IntPtr
+        InsertChildBefore               : IntPtr
+        AppendChild                     : IntPtr
+        ReplaceChild                    : IntPtr
+        RemoveChild                     : IntPtr
+        CreateChild                     : IntPtr
+        IsAttributeSpecified            : IntPtr
+        GetSpecifiedAttributeCount      : IntPtr
+        GetSpecifiedAttributeName       : IntPtr
+        GetSpecifiedAttributeNameLength : IntPtr
+        RemoveAttribute                 : IntPtr
+        SetTextValue                    : IntPtr
+        GetTextValue                    : IntPtr
+        GetTextValueLength              : IntPtr
+        SetAttributeValue               : IntPtr
+        SetAttributeValue1              : IntPtr
+        SetAttributeValue2              : IntPtr
+        GetAttributeValue               : IntPtr
+        GetAttributeValue1              : IntPtr
+        GetAttributeValue2              : IntPtr
+        GetAttributeValueLength         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDocument", "GetTagName", "GetTagNameLength", "IsTextContent", "GetParent", "HasChildren", "GetFirstChild", "GetLastChild", "GetPreviousChild", "GetNextChild", "InsertChildBefore", "AppendChild", "ReplaceChild", "RemoveChild", "CreateChild", "IsAttributeSpecified", "GetSpecifiedAttributeCount", "GetSpecifiedAttributeName", "GetSpecifiedAttributeNameLength", "RemoveAttribute", "SetTextValue", "GetTextValue", "GetTextValueLength", "SetAttributeValue", "SetAttributeValue1", "SetAttributeValue2", "GetAttributeValue", "GetAttributeValue1", "GetAttributeValue2", "GetAttributeValueLength"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1SvgElement.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the document that contains this element.
@@ -38,7 +81,7 @@ class ID2D1SvgElement extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-getdocument
      */
     GetDocument(_document) {
-        ComCall(4, this, "ptr*", _document)
+        ComCall(4, this, ID2D1SvgDocument.Ptr, _document)
     }
 
     /**
@@ -69,7 +112,7 @@ class ID2D1SvgElement extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-gettagnamelength
      */
     GetTagNameLength() {
-        result := ComCall(6, this, "uint")
+        result := ComCall(6, this, UInt32)
         return result
     }
 
@@ -81,7 +124,7 @@ class ID2D1SvgElement extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-istextcontent
      */
     IsTextContent() {
-        result := ComCall(7, this, "int")
+        result := ComCall(7, this, BOOL)
         return result
     }
 
@@ -94,7 +137,7 @@ class ID2D1SvgElement extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-getparent
      */
     GetParent(parent) {
-        ComCall(8, this, "ptr*", parent)
+        ComCall(8, this, ID2D1SvgElement.Ptr, parent)
     }
 
     /**
@@ -105,7 +148,7 @@ class ID2D1SvgElement extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-haschildren
      */
     HasChildren() {
-        result := ComCall(9, this, "int")
+        result := ComCall(9, this, BOOL)
         return result
     }
 
@@ -118,7 +161,7 @@ class ID2D1SvgElement extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-getfirstchild
      */
     GetFirstChild(child) {
-        ComCall(10, this, "ptr*", child)
+        ComCall(10, this, ID2D1SvgElement.Ptr, child)
     }
 
     /**
@@ -130,7 +173,7 @@ class ID2D1SvgElement extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-getlastchild
      */
     GetLastChild(child) {
-        ComCall(11, this, "ptr*", child)
+        ComCall(11, this, ID2D1SvgElement.Ptr, child)
     }
 
     /**
@@ -273,7 +316,7 @@ class ID2D1SvgElement extends ID2D1Resource {
 
         inheritedMarshal := inherited is VarRef ? "int*" : "ptr"
 
-        result := ComCall(19, this, "ptr", name, inheritedMarshal, inherited, "int")
+        result := ComCall(19, this, "ptr", name, inheritedMarshal, inherited, BOOL)
         return result
     }
 
@@ -285,7 +328,7 @@ class ID2D1SvgElement extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-getspecifiedattributecount
      */
     GetSpecifiedAttributeCount() {
-        result := ComCall(20, this, "uint")
+        result := ComCall(20, this, UInt32)
         return result
     }
 
@@ -308,7 +351,7 @@ class ID2D1SvgElement extends ID2D1Resource {
     GetSpecifiedAttributeName(index, name, nameCount) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(21, this, "uint", index, "ptr", name, "uint", nameCount, "int*", &inherited := 0, "HRESULT")
+        result := ComCall(21, this, "uint", index, "ptr", name, "uint", nameCount, BOOL.Ptr, &inherited := 0, "HRESULT")
         return inherited
     }
 
@@ -400,7 +443,7 @@ class ID2D1SvgElement extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-gettextvaluelength
      */
     GetTextValueLength() {
-        result := ComCall(26, this, "uint")
+        result := ComCall(26, this, UInt32)
         return result
     }
 
@@ -430,7 +473,7 @@ class ID2D1SvgElement extends ID2D1Resource {
     SetAttributeValue1(name, type, value, valueSizeInBytes) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(28, this, "ptr", name, "int", type, "ptr", value, "uint", valueSizeInBytes, "HRESULT")
+        result := ComCall(28, this, "ptr", name, D2D1_SVG_ATTRIBUTE_POD_TYPE, type, "ptr", value, "uint", valueSizeInBytes, "HRESULT")
         return result
     }
 
@@ -446,7 +489,7 @@ class ID2D1SvgElement extends ID2D1Resource {
         name := name is String ? StrPtr(name) : name
         value := value is String ? StrPtr(value) : value
 
-        result := ComCall(29, this, "ptr", name, "int", type, "ptr", value, "HRESULT")
+        result := ComCall(29, this, "ptr", name, D2D1_SVG_ATTRIBUTE_STRING_TYPE, type, "ptr", value, "HRESULT")
         return result
     }
 
@@ -460,7 +503,7 @@ class ID2D1SvgElement extends ID2D1Resource {
     GetAttributeValue(name, riid) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(30, this, "ptr", name, "ptr", riid, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(30, this, "ptr", name, Guid.Ptr, riid, "ptr*", &value := 0, "HRESULT")
         return value
     }
 
@@ -476,7 +519,7 @@ class ID2D1SvgElement extends ID2D1Resource {
     GetAttributeValue1(name, type, value, valueSizeInBytes) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(31, this, "ptr", name, "int", type, "ptr", value, "uint", valueSizeInBytes, "HRESULT")
+        result := ComCall(31, this, "ptr", name, D2D1_SVG_ATTRIBUTE_POD_TYPE, type, "ptr", value, "uint", valueSizeInBytes, "HRESULT")
         return result
     }
 
@@ -493,7 +536,7 @@ class ID2D1SvgElement extends ID2D1Resource {
         name := name is String ? StrPtr(name) : name
         value := value is String ? StrPtr(value) : value
 
-        result := ComCall(32, this, "ptr", name, "int", type, "ptr", value, "uint", valueCount, "HRESULT")
+        result := ComCall(32, this, "ptr", name, D2D1_SVG_ATTRIBUTE_STRING_TYPE, type, "ptr", value, "uint", valueCount, "HRESULT")
         return result
     }
 
@@ -513,7 +556,85 @@ class ID2D1SvgElement extends ID2D1Resource {
     GetAttributeValueLength(name, type) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(33, this, "ptr", name, "int", type, "uint*", &valueLength := 0, "HRESULT")
+        result := ComCall(33, this, "ptr", name, D2D1_SVG_ATTRIBUTE_STRING_TYPE, type, "uint*", &valueLength := 0, "HRESULT")
         return valueLength
+    }
+
+    Query(iid) {
+        if (ID2D1SvgElement.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDocument := CallbackCreate(GetMethod(implObj, "GetDocument"), flags, 2)
+        this.vtbl.GetTagName := CallbackCreate(GetMethod(implObj, "GetTagName"), flags, 3)
+        this.vtbl.GetTagNameLength := CallbackCreate(GetMethod(implObj, "GetTagNameLength"), flags, 1)
+        this.vtbl.IsTextContent := CallbackCreate(GetMethod(implObj, "IsTextContent"), flags, 1)
+        this.vtbl.GetParent := CallbackCreate(GetMethod(implObj, "GetParent"), flags, 2)
+        this.vtbl.HasChildren := CallbackCreate(GetMethod(implObj, "HasChildren"), flags, 1)
+        this.vtbl.GetFirstChild := CallbackCreate(GetMethod(implObj, "GetFirstChild"), flags, 2)
+        this.vtbl.GetLastChild := CallbackCreate(GetMethod(implObj, "GetLastChild"), flags, 2)
+        this.vtbl.GetPreviousChild := CallbackCreate(GetMethod(implObj, "GetPreviousChild"), flags, 3)
+        this.vtbl.GetNextChild := CallbackCreate(GetMethod(implObj, "GetNextChild"), flags, 3)
+        this.vtbl.InsertChildBefore := CallbackCreate(GetMethod(implObj, "InsertChildBefore"), flags, 3)
+        this.vtbl.AppendChild := CallbackCreate(GetMethod(implObj, "AppendChild"), flags, 2)
+        this.vtbl.ReplaceChild := CallbackCreate(GetMethod(implObj, "ReplaceChild"), flags, 3)
+        this.vtbl.RemoveChild := CallbackCreate(GetMethod(implObj, "RemoveChild"), flags, 2)
+        this.vtbl.CreateChild := CallbackCreate(GetMethod(implObj, "CreateChild"), flags, 3)
+        this.vtbl.IsAttributeSpecified := CallbackCreate(GetMethod(implObj, "IsAttributeSpecified"), flags, 3)
+        this.vtbl.GetSpecifiedAttributeCount := CallbackCreate(GetMethod(implObj, "GetSpecifiedAttributeCount"), flags, 1)
+        this.vtbl.GetSpecifiedAttributeName := CallbackCreate(GetMethod(implObj, "GetSpecifiedAttributeName"), flags, 5)
+        this.vtbl.GetSpecifiedAttributeNameLength := CallbackCreate(GetMethod(implObj, "GetSpecifiedAttributeNameLength"), flags, 4)
+        this.vtbl.RemoveAttribute := CallbackCreate(GetMethod(implObj, "RemoveAttribute"), flags, 2)
+        this.vtbl.SetTextValue := CallbackCreate(GetMethod(implObj, "SetTextValue"), flags, 3)
+        this.vtbl.GetTextValue := CallbackCreate(GetMethod(implObj, "GetTextValue"), flags, 3)
+        this.vtbl.GetTextValueLength := CallbackCreate(GetMethod(implObj, "GetTextValueLength"), flags, 1)
+        this.vtbl.SetAttributeValue := CallbackCreate(GetMethod(implObj, "SetAttributeValue"), flags, 3)
+        this.vtbl.SetAttributeValue1 := CallbackCreate(GetMethod(implObj, "SetAttributeValue1"), flags, 5)
+        this.vtbl.SetAttributeValue2 := CallbackCreate(GetMethod(implObj, "SetAttributeValue2"), flags, 4)
+        this.vtbl.GetAttributeValue := CallbackCreate(GetMethod(implObj, "GetAttributeValue"), flags, 4)
+        this.vtbl.GetAttributeValue1 := CallbackCreate(GetMethod(implObj, "GetAttributeValue1"), flags, 5)
+        this.vtbl.GetAttributeValue2 := CallbackCreate(GetMethod(implObj, "GetAttributeValue2"), flags, 5)
+        this.vtbl.GetAttributeValueLength := CallbackCreate(GetMethod(implObj, "GetAttributeValueLength"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDocument)
+        CallbackFree(this.vtbl.GetTagName)
+        CallbackFree(this.vtbl.GetTagNameLength)
+        CallbackFree(this.vtbl.IsTextContent)
+        CallbackFree(this.vtbl.GetParent)
+        CallbackFree(this.vtbl.HasChildren)
+        CallbackFree(this.vtbl.GetFirstChild)
+        CallbackFree(this.vtbl.GetLastChild)
+        CallbackFree(this.vtbl.GetPreviousChild)
+        CallbackFree(this.vtbl.GetNextChild)
+        CallbackFree(this.vtbl.InsertChildBefore)
+        CallbackFree(this.vtbl.AppendChild)
+        CallbackFree(this.vtbl.ReplaceChild)
+        CallbackFree(this.vtbl.RemoveChild)
+        CallbackFree(this.vtbl.CreateChild)
+        CallbackFree(this.vtbl.IsAttributeSpecified)
+        CallbackFree(this.vtbl.GetSpecifiedAttributeCount)
+        CallbackFree(this.vtbl.GetSpecifiedAttributeName)
+        CallbackFree(this.vtbl.GetSpecifiedAttributeNameLength)
+        CallbackFree(this.vtbl.RemoveAttribute)
+        CallbackFree(this.vtbl.SetTextValue)
+        CallbackFree(this.vtbl.GetTextValue)
+        CallbackFree(this.vtbl.GetTextValueLength)
+        CallbackFree(this.vtbl.SetAttributeValue)
+        CallbackFree(this.vtbl.SetAttributeValue1)
+        CallbackFree(this.vtbl.SetAttributeValue2)
+        CallbackFree(this.vtbl.GetAttributeValue)
+        CallbackFree(this.vtbl.GetAttributeValue1)
+        CallbackFree(this.vtbl.GetAttributeValue2)
+        CallbackFree(this.vtbl.GetAttributeValueLength)
     }
 }

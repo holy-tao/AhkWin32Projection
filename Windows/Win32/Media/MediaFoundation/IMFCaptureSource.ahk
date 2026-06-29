@@ -1,10 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFMediaSource.ahk
-#Include .\IMFActivate.ahk
-#Include .\IMFMediaType.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MF_CAPTURE_ENGINE_DEVICE_TYPE.ahk" { MF_CAPTURE_ENGINE_DEVICE_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MF_CAPTURE_ENGINE_STREAM_CATEGORY.ahk" { MF_CAPTURE_ENGINE_STREAM_CATEGORY }
+#Import ".\IMFActivate.ahk" { IMFActivate }
+#Import ".\IMFMediaSource.ahk" { IMFMediaSource }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IMFMediaType.ahk" { IMFMediaType }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Controls the capture source object. The capture source manages the audio and video capture devices.
@@ -13,26 +17,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nn-mfcaptureengine-imfcapturesource
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFCaptureSource extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFCaptureSource extends IUnknown {
     /**
      * The interface identifier for IMFCaptureSource
      * @type {Guid}
      */
-    static IID => Guid("{439a42a8-0d2c-4505-be83-f79b2a05d5c4}")
+    static IID := Guid("{439a42a8-0d2c-4505-be83-f79b2a05d5c4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFCaptureSource interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCaptureDeviceSource         : IntPtr
+        GetCaptureDeviceActivate       : IntPtr
+        GetService                     : IntPtr
+        AddEffect                      : IntPtr
+        RemoveEffect                   : IntPtr
+        RemoveAllEffects               : IntPtr
+        GetAvailableDeviceMediaType    : IntPtr
+        SetCurrentDeviceMediaType      : IntPtr
+        GetCurrentDeviceMediaType      : IntPtr
+        GetDeviceStreamCount           : IntPtr
+        GetDeviceStreamCategory        : IntPtr
+        GetMirrorState                 : IntPtr
+        SetMirrorState                 : IntPtr
+        GetStreamIndexFromFriendlyName : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCaptureDeviceSource", "GetCaptureDeviceActivate", "GetService", "AddEffect", "RemoveEffect", "RemoveAllEffects", "GetAvailableDeviceMediaType", "SetCurrentDeviceMediaType", "GetCurrentDeviceMediaType", "GetDeviceStreamCount", "GetDeviceStreamCategory", "GetMirrorState", "SetMirrorState", "GetStreamIndexFromFriendlyName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFCaptureSource.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the current capture device's IMFMediaSource object pointer.
@@ -41,7 +65,7 @@ class IMFCaptureSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getcapturedevicesource
      */
     GetCaptureDeviceSource(mfCaptureEngineDeviceType) {
-        result := ComCall(3, this, "int", mfCaptureEngineDeviceType, "ptr*", &ppMediaSource := 0, "HRESULT")
+        result := ComCall(3, this, MF_CAPTURE_ENGINE_DEVICE_TYPE, mfCaptureEngineDeviceType, "ptr*", &ppMediaSource := 0, "HRESULT")
         return IMFMediaSource(ppMediaSource)
     }
 
@@ -52,7 +76,7 @@ class IMFCaptureSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getcapturedeviceactivate
      */
     GetCaptureDeviceActivate(mfCaptureEngineDeviceType) {
-        result := ComCall(4, this, "int", mfCaptureEngineDeviceType, "ptr*", &ppActivate := 0, "HRESULT")
+        result := ComCall(4, this, MF_CAPTURE_ENGINE_DEVICE_TYPE, mfCaptureEngineDeviceType, "ptr*", &ppActivate := 0, "HRESULT")
         return IMFActivate(ppActivate)
     }
 
@@ -64,7 +88,7 @@ class IMFCaptureSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getservice
      */
     GetService(rguidService, riid) {
-        result := ComCall(5, this, "ptr", rguidService, "ptr", riid, "ptr*", &ppUnknown := 0, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, rguidService, Guid.Ptr, riid, "ptr*", &ppUnknown := 0, "HRESULT")
         return IUnknown(ppUnknown)
     }
 
@@ -629,7 +653,7 @@ class IMFCaptureSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getmirrorstate
      */
     GetMirrorState(dwStreamIndex) {
-        result := ComCall(14, this, "uint", dwStreamIndex, "int*", &pfMirrorState := 0, "HRESULT")
+        result := ComCall(14, this, "uint", dwStreamIndex, BOOL.Ptr, &pfMirrorState := 0, "HRESULT")
         return pfMirrorState
     }
 
@@ -681,7 +705,7 @@ class IMFCaptureSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-setmirrorstate
      */
     SetMirrorState(dwStreamIndex, fMirrorState) {
-        result := ComCall(15, this, "uint", dwStreamIndex, "int", fMirrorState, "HRESULT")
+        result := ComCall(15, this, "uint", dwStreamIndex, BOOL, fMirrorState, "HRESULT")
         return result
     }
 
@@ -703,5 +727,51 @@ class IMFCaptureSource extends IUnknown {
     GetStreamIndexFromFriendlyName(uifriendlyName) {
         result := ComCall(16, this, "uint", uifriendlyName, "uint*", &pdwActualStreamIndex := 0, "HRESULT")
         return pdwActualStreamIndex
+    }
+
+    Query(iid) {
+        if (IMFCaptureSource.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCaptureDeviceSource := CallbackCreate(GetMethod(implObj, "GetCaptureDeviceSource"), flags, 3)
+        this.vtbl.GetCaptureDeviceActivate := CallbackCreate(GetMethod(implObj, "GetCaptureDeviceActivate"), flags, 3)
+        this.vtbl.GetService := CallbackCreate(GetMethod(implObj, "GetService"), flags, 4)
+        this.vtbl.AddEffect := CallbackCreate(GetMethod(implObj, "AddEffect"), flags, 3)
+        this.vtbl.RemoveEffect := CallbackCreate(GetMethod(implObj, "RemoveEffect"), flags, 3)
+        this.vtbl.RemoveAllEffects := CallbackCreate(GetMethod(implObj, "RemoveAllEffects"), flags, 2)
+        this.vtbl.GetAvailableDeviceMediaType := CallbackCreate(GetMethod(implObj, "GetAvailableDeviceMediaType"), flags, 4)
+        this.vtbl.SetCurrentDeviceMediaType := CallbackCreate(GetMethod(implObj, "SetCurrentDeviceMediaType"), flags, 3)
+        this.vtbl.GetCurrentDeviceMediaType := CallbackCreate(GetMethod(implObj, "GetCurrentDeviceMediaType"), flags, 3)
+        this.vtbl.GetDeviceStreamCount := CallbackCreate(GetMethod(implObj, "GetDeviceStreamCount"), flags, 2)
+        this.vtbl.GetDeviceStreamCategory := CallbackCreate(GetMethod(implObj, "GetDeviceStreamCategory"), flags, 3)
+        this.vtbl.GetMirrorState := CallbackCreate(GetMethod(implObj, "GetMirrorState"), flags, 3)
+        this.vtbl.SetMirrorState := CallbackCreate(GetMethod(implObj, "SetMirrorState"), flags, 3)
+        this.vtbl.GetStreamIndexFromFriendlyName := CallbackCreate(GetMethod(implObj, "GetStreamIndexFromFriendlyName"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCaptureDeviceSource)
+        CallbackFree(this.vtbl.GetCaptureDeviceActivate)
+        CallbackFree(this.vtbl.GetService)
+        CallbackFree(this.vtbl.AddEffect)
+        CallbackFree(this.vtbl.RemoveEffect)
+        CallbackFree(this.vtbl.RemoveAllEffects)
+        CallbackFree(this.vtbl.GetAvailableDeviceMediaType)
+        CallbackFree(this.vtbl.SetCurrentDeviceMediaType)
+        CallbackFree(this.vtbl.GetCurrentDeviceMediaType)
+        CallbackFree(this.vtbl.GetDeviceStreamCount)
+        CallbackFree(this.vtbl.GetDeviceStreamCategory)
+        CallbackFree(this.vtbl.GetMirrorState)
+        CallbackFree(this.vtbl.SetMirrorState)
+        CallbackFree(this.vtbl.GetStreamIndexFromFriendlyName)
     }
 }

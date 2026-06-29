@@ -1,34 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\SIZE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\QACONTROL.ahk" { QACONTROL }
+#Import ".\QACONTAINER.ahk" { QACONTAINER }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * Enables controls and containers to avoid performance bottlenecks on loading controls. It combines the load-time or initialization-time handshaking between the control and its container into a single call.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-iquickactivate
  * @namespace Windows.Win32.System.Ole
  */
-class IQuickActivate extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IQuickActivate extends IUnknown {
     /**
      * The interface identifier for IQuickActivate
      * @type {Guid}
      */
-    static IID => Guid("{cf51ed10-62fe-11cf-bf86-00a0c9034836}")
+    static IID := Guid("{cf51ed10-62fe-11cf-bf86-00a0c9034836}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IQuickActivate interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        QuickActivate    : IntPtr
+        SetContentExtent : IntPtr
+        GetContentExtent : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["QuickActivate", "SetContentExtent", "GetContentExtent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IQuickActivate.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Quick activates a control.
@@ -44,7 +56,7 @@ class IQuickActivate extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iquickactivate-quickactivate
      */
     QuickActivate(pQaContainer, pQaControl) {
-        result := ComCall(3, this, "ptr", pQaContainer, "ptr", pQaControl, "HRESULT")
+        result := ComCall(3, this, QACONTAINER.Ptr, pQaContainer, QACONTROL.Ptr, pQaControl, "HRESULT")
         return result
     }
 
@@ -55,7 +67,7 @@ class IQuickActivate extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iquickactivate-setcontentextent
      */
     SetContentExtent(pSizel) {
-        result := ComCall(4, this, "ptr", pSizel, "HRESULT")
+        result := ComCall(4, this, SIZE.Ptr, pSizel, "HRESULT")
         return result
     }
 
@@ -81,7 +93,31 @@ class IQuickActivate extends IUnknown {
      */
     GetContentExtent() {
         pSizel := SIZE()
-        result := ComCall(5, this, "ptr", pSizel, "HRESULT")
+        result := ComCall(5, this, SIZE.Ptr, pSizel, "HRESULT")
         return pSizel
+    }
+
+    Query(iid) {
+        if (IQuickActivate.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.QuickActivate := CallbackCreate(GetMethod(implObj, "QuickActivate"), flags, 3)
+        this.vtbl.SetContentExtent := CallbackCreate(GetMethod(implObj, "SetContentExtent"), flags, 2)
+        this.vtbl.GetContentExtent := CallbackCreate(GetMethod(implObj, "GetContentExtent"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.QuickActivate)
+        CallbackFree(this.vtbl.SetContentExtent)
+        CallbackFree(this.vtbl.GetContentExtent)
     }
 }

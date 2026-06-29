@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_AUTHENTICATION_HARDENING_LEVELS.ahk
-#Include .\HTTP_SERVICE_BINDING_BASE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HTTP_SERVICE_BINDING_BASE.ahk" { HTTP_SERVICE_BINDING_BASE }
+#Import ".\HTTP_AUTHENTICATION_HARDENING_LEVELS.ahk" { HTTP_AUTHENTICATION_HARDENING_LEVELS }
 
 /**
  * HTTP_CHANNEL_BIND_INFO.
@@ -15,19 +14,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_channel_bind_info
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_CHANNEL_BIND_INFO extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct HTTP_CHANNEL_BIND_INFO {
+    #StructPack 8
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_authentication_hardening_levels">HTTP_AUTHENTICATION_HARDENING_LEVELS</a> value indicating the hardening level  levels to be set or queried per server session or URL group.
-     * @type {HTTP_AUTHENTICATION_HARDENING_LEVELS}
      */
-    Hardening {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Hardening : HTTP_AUTHENTICATION_HARDENING_LEVELS
 
     /**
      * A bitwise OR combination of flags that determine the behavior of authentication.
@@ -73,28 +66,17 @@ class HTTP_CHANNEL_BIND_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : UInt32
 
     /**
      * Pointer to a buffer holding an array of 1 or more service names.  Each service name is represented by either an <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_service_binding_a">HTTP_SERVICE_BINDING_A</a> structure or an <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_service_binding_w">HTTP_SERVICE_BINDING_W</a> structure, dependent upon whether the name is ASCII or Unicode.  Regardless of which structure type is used, the array is cast into a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_service_binding_base">HTTP_SERVICE_BINDING_BASE</a> structure.
-     * @type {Pointer<Pointer<HTTP_SERVICE_BINDING_BASE>>}
      */
-    ServiceNames {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ServiceNames : IntPtr
 
     /**
      * The number of names in <b>ServiceNames</b>.
-     * @type {Integer}
      */
-    NumberOfServiceNames {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    NumberOfServiceNames : UInt32
+
 }

@@ -1,33 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\SYMBOL_INFOW.ahk
-#Include .\SYMBOL_INFO_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SYMBOL_INFOW.ahk" { SYMBOL_INFOW }
+#Import ".\SYMBOL_INFO_FLAGS.ahk" { SYMBOL_INFO_FLAGS }
+#Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @charset Unicode
  */
-class SYMBOL_INFO_PACKAGEW extends Win32Struct {
-    static sizeof => 4096
+export default struct SYMBOL_INFO_PACKAGEW {
+    #StructPack 8
 
-    static packingSize => 8
+    si : SYMBOL_INFOW
 
-    /**
-     * @type {SYMBOL_INFOW}
-     */
-    si {
-        get {
-            if(!this.HasProp("__si"))
-                this.__si := SYMBOL_INFOW(0, this)
-            return this.__si
-        }
-    }
+    name : WCHAR[2001]
 
-    /**
-     * @type {String}
-     */
-    name {
-        get => StrGet(this.ptr + 88, 2000, "UTF-16")
-        set => StrPut(value, this.ptr + 88, 2000, "UTF-16")
-    }
 }

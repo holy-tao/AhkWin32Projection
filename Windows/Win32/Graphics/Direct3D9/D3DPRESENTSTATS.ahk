@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes swapchain statistics relating to PresentEx calls.
@@ -64,68 +63,47 @@
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @architecture X64, Arm64
  */
-class D3DPRESENTSTATS extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct D3DPRESENTSTATS {
+    #StructPack 8
 
     /**
      * Type: **[**UINT**](../winprog/windows-data-types.md)**
      * 
      * 
      * Running count of successful Present calls made by a display device that is currently outputting to screen. This parameter is really the Present ID of the last Present call and is not necessarily the total number of Present API calls made.
-     * @type {Integer}
      */
-    PresentCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PresentCount : UInt32
 
     /**
      * Type: **[**UINT**](../winprog/windows-data-types.md)**
      * 
      * 
      * The vblank count at which the last Present was displayed on screen, the vblank count increments once every vblank interval.
-     * @type {Integer}
      */
-    PresentRefreshCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    PresentRefreshCount : UInt32
 
     /**
      * Type: **[**UINT**](../winprog/windows-data-types.md)**
      * 
      * 
      * The vblank count when the scheduler last sampled the machine time by calling QueryPerformanceCounter.
-     * @type {Integer}
      */
-    SyncRefreshCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SyncRefreshCount : UInt32
 
     /**
      * Type: **[**LARGE\_INTEGER**](/windows/win32/api/winnt/ns-winnt-large_integer-r1)**
      * 
      * 
      * The scheduler's last sampled machine time, obtained by calling [**QueryPerformanceCounter**](/windows/win32/api/profileapi/nf-profileapi-queryperformancecounter).
-     * @type {Integer}
      */
-    SyncQPCTime {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    SyncQPCTime : Int64
 
     /**
      * Type: **[**LARGE\_INTEGER**](/windows/win32/api/winnt/ns-winnt-large_integer-r1)**
      * 
      * 
      * This value is not used.
-     * @type {Integer}
      */
-    SyncGPUTime {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    SyncGPUTime : Int64
+
 }

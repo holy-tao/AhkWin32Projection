@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Reacts to events by recognizing gestures and adding gesture data to the input queue.
@@ -14,32 +16,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/rtscom/nn-rtscom-igesturerecognizer
  * @namespace Windows.Win32.UI.TabletPC
  */
-class IGestureRecognizer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IGestureRecognizer extends IUnknown {
     /**
      * The interface identifier for IGestureRecognizer
      * @type {Guid}
      */
-    static IID => Guid("{ae9ef86b-7054-45e3-ae22-3174dc8811b7}")
+    static IID := Guid("{ae9ef86b-7054-45e3-ae22-3174dc8811b7}")
 
     /**
      * The class identifier for GestureRecognizer
      * @type {Guid}
      */
-    static CLSID => Guid("{ea30c654-c62c-441f-ac00-95f9a196782c}")
+    static CLSID := Guid("{ea30c654-c62c-441f-ac00-95f9a196782c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGestureRecognizer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_Enabled        : IntPtr
+        put_Enabled        : IntPtr
+        get_MaxStrokeCount : IntPtr
+        put_MaxStrokeCount : IntPtr
+        EnableGestures     : IntPtr
+        Reset              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Enabled", "put_Enabled", "get_MaxStrokeCount", "put_MaxStrokeCount", "EnableGestures", "Reset"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGestureRecognizer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BOOL} 
@@ -63,7 +77,7 @@ class IGestureRecognizer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-igesturerecognizer-get_enabled
      */
     get_Enabled() {
-        result := ComCall(3, this, "int*", &pfEnabled := 0, "HRESULT")
+        result := ComCall(3, this, BOOL.Ptr, &pfEnabled := 0, "HRESULT")
         return pfEnabled
     }
 
@@ -74,7 +88,7 @@ class IGestureRecognizer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-igesturerecognizer-put_enabled
      */
     put_Enabled(fEnabled) {
-        result := ComCall(4, this, "int", fEnabled, "HRESULT")
+        result := ComCall(4, this, BOOL, fEnabled, "HRESULT")
         return result
     }
 
@@ -129,5 +143,35 @@ class IGestureRecognizer extends IUnknown {
     Reset() {
         result := ComCall(8, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IGestureRecognizer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.put_Enabled := CallbackCreate(GetMethod(implObj, "put_Enabled"), flags, 2)
+        this.vtbl.get_MaxStrokeCount := CallbackCreate(GetMethod(implObj, "get_MaxStrokeCount"), flags, 2)
+        this.vtbl.put_MaxStrokeCount := CallbackCreate(GetMethod(implObj, "put_MaxStrokeCount"), flags, 2)
+        this.vtbl.EnableGestures := CallbackCreate(GetMethod(implObj, "EnableGestures"), flags, 3)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Enabled)
+        CallbackFree(this.vtbl.put_Enabled)
+        CallbackFree(this.vtbl.get_MaxStrokeCount)
+        CallbackFree(this.vtbl.put_MaxStrokeCount)
+        CallbackFree(this.vtbl.EnableGestures)
+        CallbackFree(this.vtbl.Reset)
     }
 }

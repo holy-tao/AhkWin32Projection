@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class PMKID_CANDIDATE extends Win32Struct {
-    static sizeof => 12
+export default struct PMKID_CANDIDATE {
+    #StructPack 4
 
-    static packingSize => 4
+    BSSID : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    BSSID {
-        get {
-            if(!this.HasProp("__BSSIDProxyArray"))
-                this.__BSSIDProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
-            return this.__BSSIDProxyArray
-        }
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

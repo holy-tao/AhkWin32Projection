@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class DNS_DOT_SERVER_SETTINGS extends Win32Struct {
-    static sizeof => 24
+export default struct DNS_DOT_SERVER_SETTINGS {
+    #StructPack 8
 
-    static packingSize => 8
+    Hostname : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    Hostname {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Flags : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Port : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Port {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
 }

@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\smiCNTR64.ahk
-#Include .\smiOCTETS.ahk
-#Include .\smiOID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\smiCNTR64.ahk" { smiCNTR64 }
+#Import ".\smiOCTETS.ahk" { smiOCTETS }
+#Import ".\smiOID.ahk" { smiOID }
 
 /**
  * The WinSNMP smiVALUE structure describes the value associated with a variable name in a variable binding entry.
@@ -24,70 +23,20 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsnmp/ns-winsnmp-smivalue
  * @namespace Windows.Win32.NetworkManagement.Snmp
  */
-class smiVALUE extends Win32Struct {
-    static sizeof => 24
+export default struct smiVALUE {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _value_e__Union extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _value {
+        sNumber : Int32
 
-        /**
-         * @type {Integer}
-         */
-        sNumber {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        uNumber {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {smiCNTR64}
-         */
-        hNumber {
-            get {
-                if(!this.HasProp("__hNumber"))
-                    this.__hNumber := smiCNTR64(0, this)
-                return this.__hNumber
-            }
-        }
-
-        /**
-         * @type {smiOCTETS}
-         */
-        string {
-            get {
-                if(!this.HasProp("__string"))
-                    this.__string := smiOCTETS(0, this)
-                return this.__string
-            }
-        }
-
-        /**
-         * @type {smiOID}
-         */
-        oid {
-            get {
-                if(!this.HasProp("__oid"))
-                    this.__oid := smiOID(0, this)
-                return this.__oid
-            }
-        }
-
-        /**
-         * @type {Integer}
-         */
-        empty {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'uNumber', { type: UInt32, offset: 0 })
+            DefineProp(this.Prototype, 'hNumber', { type: smiCNTR64, offset: 0 })
+            DefineProp(this.Prototype, 'string', { type: smiOCTETS, offset: 0 })
+            DefineProp(this.Prototype, 'oid', { type: smiOID, offset: 0 })
+            DefineProp(this.Prototype, 'empty', { type: Int8, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
@@ -256,24 +205,14 @@ class smiVALUE extends Win32Struct {
      *  
      * 
      * The last three syntax types describe exception conditions under the SNMP version 2C (SNMPv2C) framework.
-     * @type {Integer}
      */
-    syntax {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    syntax : UInt32
 
     /**
      * Specifies the union of all possible WinSNMP syntax data types, including the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioctets">smiOCTETS</a> descriptor types.
-     * @type {_value_e__Union}
      */
-    value {
-        get {
-            if(!this.HasProp("__value"))
-                this.__value := smiVALUE._value_e__Union(8, this)
-            return this.__value
-        }
-    }
+    value : smiVALUE._value
+
 }

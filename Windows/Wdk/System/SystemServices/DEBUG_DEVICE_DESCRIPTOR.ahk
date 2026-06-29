@@ -1,100 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KD_NAMESPACE_ENUM.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KD_NAMESPACE_ENUM.ahk" { KD_NAMESPACE_ENUM }
+#Import "..\..\..\Win32\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class DEBUG_DEVICE_DESCRIPTOR extends Win32Struct {
-    static sizeof => 136
+export default struct DEBUG_DEVICE_DESCRIPTOR {
+    #StructPack 8
 
-    static packingSize => 8
+    Bus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Bus {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Slot : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Slot {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Segment : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Segment {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    VendorID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    VendorID {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    DeviceID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DeviceID {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    BaseClass : Int8
 
-    /**
-     * @type {Integer}
-     */
-    BaseClass {
-        get => NumGet(this, 14, "char")
-        set => NumPut("char", value, this, 14)
-    }
+    SubClass : Int8
 
-    /**
-     * @type {Integer}
-     */
-    SubClass {
-        get => NumGet(this, 15, "char")
-        set => NumPut("char", value, this, 15)
-    }
+    ProgIf : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ProgIf {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    Flags : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - DbgHalScratchAllocated
-     * - DbgBarsMapped
-     * - DbgScratchAllocated
-     * - DbgUncachedMemory
-     * - DbgSynthetic
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
 
     /**
      * @type {Integer}
@@ -135,127 +67,38 @@ class DEBUG_DEVICE_DESCRIPTOR extends Win32Struct {
         get => (this._bitfield >> 4) & 0x1
         set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
     }
+    Initialized : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Initialized {
-        get => NumGet(this, 18, "char")
-        set => NumPut("char", value, this, 18)
-    }
+    Configured : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Configured {
-        get => NumGet(this, 19, "char")
-        set => NumPut("char", value, this, 19)
-    }
+    BaseAddress : IntPtr[6]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    BaseAddress {
-        get {
-            if(!this.HasProp("__BaseAddressProxyArray"))
-                this.__BaseAddressProxyArray := Win32FixedArray(this.ptr + 24, 6, Primitive, "ptr")
-            return this.__BaseAddressProxyArray
-        }
-    }
+    Memory : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Memory {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    Dbg2TableIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Dbg2TableIndex {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    PortType : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    PortType {
-        get => NumGet(this, 84, "ushort")
-        set => NumPut("ushort", value, this, 84)
-    }
+    PortSubtype : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    PortSubtype {
-        get => NumGet(this, 86, "ushort")
-        set => NumPut("ushort", value, this, 86)
-    }
+    OemData : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    OemData {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    OemDataLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OemDataLength {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    NameSpace : KD_NAMESPACE_ENUM
 
-    /**
-     * @type {KD_NAMESPACE_ENUM}
-     */
-    NameSpace {
-        get => NumGet(this, 100, "int")
-        set => NumPut("int", value, this, 100)
-    }
+    NameSpacePath : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    NameSpacePath {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    NameSpacePathLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NameSpacePathLength {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    TransportType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TransportType {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
-    }
+    TransportData : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    TransportData {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    EfiIoMmuData : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    EfiIoMmuData {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int8, offset: 17 })
+        this.DeleteProp("__New")
     }
 }

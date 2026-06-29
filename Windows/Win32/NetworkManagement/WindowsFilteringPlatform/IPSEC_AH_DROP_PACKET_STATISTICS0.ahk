@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Stores IPsec AH drop packet statistics.
@@ -8,44 +7,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_ah_drop_packet_statistics0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IPSEC_AH_DROP_PACKET_STATISTICS0 extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct IPSEC_AH_DROP_PACKET_STATISTICS0 {
+    #StructPack 4
 
     /**
      * Number of invalid SPIs on inbound.
-     * @type {Integer}
      */
-    invalidSpisOnInbound {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    invalidSpisOnInbound : UInt32
 
     /**
      * Number of authentication failures on inbound.
-     * @type {Integer}
      */
-    authenticationFailuresOnInbound {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    authenticationFailuresOnInbound : UInt32
 
     /**
      * Number of replay check failures  on inbound.
-     * @type {Integer}
      */
-    replayCheckFailuresOnInbound {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    replayCheckFailuresOnInbound : UInt32
 
     /**
      * Number of inbound drops for packets received on SAs that were not fully initialized.
-     * @type {Integer}
      */
-    saNotInitializedOnInbound {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    saNotInitializedOnInbound : UInt32
+
 }

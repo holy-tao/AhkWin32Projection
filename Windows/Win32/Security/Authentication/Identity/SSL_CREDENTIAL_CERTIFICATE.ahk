@@ -1,51 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SSL_CREDENTIAL_CERTIFICATE extends Win32Struct {
-    static sizeof => 40
+export default struct SSL_CREDENTIAL_CERTIFICATE {
+    #StructPack 8
 
-    static packingSize => 8
+    cbPrivateKey : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbPrivateKey {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pPrivateKey : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pPrivateKey {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    cbCertificate : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbCertificate {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    pCertificate : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pCertificate {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pszPassword : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    pszPassword {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
 }

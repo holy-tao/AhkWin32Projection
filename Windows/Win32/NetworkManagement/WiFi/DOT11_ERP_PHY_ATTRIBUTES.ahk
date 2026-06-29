@@ -1,47 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_HRDSSS_PHY_ATTRIBUTES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_HRDSSS_PHY_ATTRIBUTES.ahk" { DOT11_HRDSSS_PHY_ATTRIBUTES }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_ERP_PHY_ATTRIBUTES extends Win32Struct {
-    static sizeof => 12
+export default struct DOT11_ERP_PHY_ATTRIBUTES {
+    #StructPack 4
 
-    static packingSize => 4
+    HRDSSSAttributes : DOT11_HRDSSS_PHY_ATTRIBUTES
 
-    /**
-     * @type {DOT11_HRDSSS_PHY_ATTRIBUTES}
-     */
-    HRDSSSAttributes {
-        get {
-            if(!this.HasProp("__HRDSSSAttributes"))
-                this.__HRDSSSAttributes := DOT11_HRDSSS_PHY_ATTRIBUTES(0, this)
-            return this.__HRDSSSAttributes
-        }
-    }
+    bERPPBCCOptionImplemented : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bERPPBCCOptionImplemented {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    bDSSSOFDMOptionImplemented : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bDSSSOFDMOptionImplemented {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    bShortSlotTimeOptionImplemented : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bShortSlotTimeOptionImplemented {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
 }

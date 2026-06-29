@@ -1,91 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\JET_COLUMNDEF.ahk
-#Include .\JET_UNICODEINDEX.ahk
-#Include ..\StructuredStorage\JET_TABLEID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\JET_UNICODEINDEX.ahk" { JET_UNICODEINDEX }
+#Import "..\StructuredStorage\JET_TABLEID.ahk" { JET_TABLEID }
+#Import ".\JET_COLUMNDEF.ahk" { JET_COLUMNDEF }
 
 /**
  * Learn more about: JET_OPENTEMPORARYTABLE Structure
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-opentemporarytable-structure
  * @namespace Windows.Win32.Storage.Jet
  */
-class JET_OPENTEMPORARYTABLE extends Win32Struct {
-    static sizeof => 64
+export default struct JET_OPENTEMPORARYTABLE {
+    #StructPack 8
 
-    static packingSize => 8
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    prgcolumndef : JET_COLUMNDEF.Ptr
 
-    /**
-     * @type {Pointer<JET_COLUMNDEF>}
-     */
-    prgcolumndef {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ccolumn : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ccolumn {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    pidxunicode : JET_UNICODEINDEX.Ptr
 
-    /**
-     * @type {Pointer<JET_UNICODEINDEX>}
-     */
-    pidxunicode {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    grbit : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    grbit {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    prgcolumnid : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    prgcolumnid {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    cbKeyMost : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbKeyMost {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    cbVarSegMac : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbVarSegMac {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    tableid : JET_TABLEID
 
-    /**
-     * @type {JET_TABLEID}
-     */
-    tableid {
-        get {
-            if(!this.HasProp("__tableid"))
-                this.__tableid := JET_TABLEID(56, this)
-            return this.__tableid
-        }
-    }
 }

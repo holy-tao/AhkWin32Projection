@@ -1,275 +1,97 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IUNKNOWN_LIST.ahk
-#Include .\DDRAWI_DIRECTDRAW_LCL.ahk
-#Include .\DDRAWI_DIRECTDRAW_INT.ahk
-#Include .\DDRAWI_DDRAWCLIPPER_INT.ahk
-#Include .\HEAPALIASINFO.ahk
-#Include .\DDRAWI_DDVIDEOPORT_LCL.ahk
-#Include .\DDOVERLAYFX.ahk
-#Include .\DDSCAPSEX.ahk
-#Include .\DDSURFACEDESC2.ahk
-#Include .\DDRAWI_DDRAWSURFACE_LCL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HEAPALIASINFO.ahk" { HEAPALIASINFO }
+#Import ".\DDSURFACEDESC2.ahk" { DDSURFACEDESC2 }
+#Import ".\DDOVERLAYFX.ahk" { DDOVERLAYFX }
+#Import ".\DDRAWI_DIRECTDRAW_INT.ahk" { DDRAWI_DIRECTDRAW_INT }
+#Import ".\DDSCAPSEX.ahk" { DDSCAPSEX }
+#Import ".\DDRAWI_DDVIDEOPORT_LCL.ahk" { DDRAWI_DDVIDEOPORT_LCL }
+#Import ".\IUNKNOWN_LIST.ahk" { IUNKNOWN_LIST }
+#Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
+#Import ".\DDRAWI_DDRAWCLIPPER_INT.ahk" { DDRAWI_DDRAWCLIPPER_INT }
+#Import ".\DDRAWI_DDRAWSURFACE_LCL.ahk" { DDRAWI_DDRAWSURFACE_LCL }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDRAWI_DDRAWSURFACE_MORE extends Win32Struct {
-    static sizeof => 240
+export default struct DDRAWI_DDRAWSURFACE_MORE {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    lpIUnknowns : IUNKNOWN_LIST.Ptr
 
-    /**
-     * @type {Pointer<IUNKNOWN_LIST>}
-     */
-    lpIUnknowns {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<DDRAWI_DIRECTDRAW_LCL>}
-     */
+    __lpDD_lcl_ptr : IntPtr
     lpDD_lcl {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => (addr := this.__lpDD_lcl_ptr) ? DDRAWI_DIRECTDRAW_LCL.At(addr) : unset
+        set => this.__lpDD_lcl_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Integer}
-     */
-    dwPageLockCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwPageLockCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwBytesAllocated {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwBytesAllocated : UInt32
 
-    /**
-     * @type {Pointer<DDRAWI_DIRECTDRAW_INT>}
-     */
+    __lpDD_int_ptr : IntPtr
     lpDD_int {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => (addr := this.__lpDD_int_ptr) ? DDRAWI_DIRECTDRAW_INT.At(addr) : unset
+        set => this.__lpDD_int_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Integer}
-     */
-    dwMipMapCount {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwMipMapCount : UInt32
 
-    /**
-     * @type {Pointer<DDRAWI_DDRAWCLIPPER_INT>}
-     */
+    __lpDDIClipper_ptr : IntPtr
     lpDDIClipper {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => (addr := this.__lpDDIClipper_ptr) ? DDRAWI_DDRAWCLIPPER_INT.At(addr) : unset
+        set => this.__lpDDIClipper_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer<HEAPALIASINFO>}
-     */
-    lpHeapAliasInfo {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    lpHeapAliasInfo : HEAPALIASINFO.Ptr
 
-    /**
-     * @type {Integer}
-     */
-    dwOverlayFlags {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    dwOverlayFlags : UInt32
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    rgjunc {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    rgjunc : IntPtr
 
-    /**
-     * @type {Pointer<DDRAWI_DDVIDEOPORT_LCL>}
-     */
+    __lpVideoPort_ptr : IntPtr
     lpVideoPort {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => (addr := this.__lpVideoPort_ptr) ? DDRAWI_DDVIDEOPORT_LCL.At(addr) : unset
+        set => this.__lpVideoPort_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer<DDOVERLAYFX>}
-     */
-    lpddOverlayFX {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    lpddOverlayFX : DDOVERLAYFX.Ptr
 
-    /**
-     * @type {DDSCAPSEX}
-     */
-    ddsCapsEx {
-        get {
-            if(!this.HasProp("__ddsCapsEx"))
-                this.__ddsCapsEx := DDSCAPSEX(96, this)
-            return this.__ddsCapsEx
-        }
-    }
+    ddsCapsEx : DDSCAPSEX
 
-    /**
-     * @type {Integer}
-     */
-    dwTextureStage {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
+    dwTextureStage : UInt32
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpDDRAWReserved {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    lpDDRAWReserved : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpDDRAWReserved2 {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    lpDDRAWReserved2 : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpDDrawReserved3 {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    lpDDrawReserved3 : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    dwDDrawReserved4 {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    dwDDrawReserved4 : UInt32
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpDDrawReserved5 {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
-    }
+    lpDDrawReserved5 : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    lpGammaRamp {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
-    }
+    lpGammaRamp : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    lpOriginalGammaRamp {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
-    }
+    lpOriginalGammaRamp : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpDDrawReserved6 {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
-    }
+    lpDDrawReserved6 : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    dwSurfaceHandle {
-        get => NumGet(this, 176, "uint")
-        set => NumPut("uint", value, this, 176)
-    }
+    dwSurfaceHandle : UInt32
 
-    /**
-     * @type {Array<Integer>}
-     */
-    qwDDrawReserved8 {
-        get {
-            if(!this.HasProp("__qwDDrawReserved8ProxyArray"))
-                this.__qwDDrawReserved8ProxyArray := Win32FixedArray(this.ptr + 180, 2, Primitive, "uint")
-            return this.__qwDDrawReserved8ProxyArray
-        }
-    }
+    qwDDrawReserved8 : UInt32[2]
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpDDrawReserved9 {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
-    }
+    lpDDrawReserved9 : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    cSurfaces {
-        get => NumGet(this, 200, "uint")
-        set => NumPut("uint", value, this, 200)
-    }
+    cSurfaces : UInt32
 
-    /**
-     * @type {Pointer<DDSURFACEDESC2>}
-     */
-    pCreatedDDSurfaceDesc2 {
-        get => NumGet(this, 208, "ptr")
-        set => NumPut("ptr", value, this, 208)
-    }
+    pCreatedDDSurfaceDesc2 : DDSURFACEDESC2.Ptr
 
-    /**
-     * @type {Pointer<Pointer<DDRAWI_DDRAWSURFACE_LCL>>}
-     */
-    slist {
-        get => NumGet(this, 216, "ptr")
-        set => NumPut("ptr", value, this, 216)
-    }
+    slist : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    dwFVF {
-        get => NumGet(this, 224, "uint")
-        set => NumPut("uint", value, this, 224)
-    }
+    dwFVF : UInt32
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpVB {
-        get => NumGet(this, 232, "ptr")
-        set => NumPut("ptr", value, this, 232)
-    }
+    lpVB : IntPtr
+
 }

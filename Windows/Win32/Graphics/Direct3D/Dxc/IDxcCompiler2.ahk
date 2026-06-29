@@ -1,31 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IDxcCompiler.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DxcDefine.ahk" { DxcDefine }
+#Import ".\IDxcOperationResult.ahk" { IDxcOperationResult }
+#Import ".\IDxcIncludeHandler.ahk" { IDxcIncludeHandler }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDxcCompiler.ahk" { IDxcCompiler }
+#Import ".\IDxcBlob.ahk" { IDxcBlob }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
  */
-class IDxcCompiler2 extends IDxcCompiler {
-
-    static sizeof => A_PtrSize
+export default struct IDxcCompiler2 extends IDxcCompiler {
     /**
      * The interface identifier for IDxcCompiler2
      * @type {Guid}
      */
-    static IID => Guid("{a005a9d9-b8bb-4594-b5c9-0e633bec4d37}")
+    static IID := Guid("{a005a9d9-b8bb-4594-b5c9-0e633bec4d37}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDxcCompiler2 interfaces
+    */
+    struct Vtbl extends IDxcCompiler.Vtbl {
+        CompileWithDebug : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CompileWithDebug"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDxcCompiler2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -51,7 +64,27 @@ class IDxcCompiler2 extends IDxcCompiler {
         pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
         ppDebugBlobNameMarshal := ppDebugBlobName is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pSource, "ptr", pSourceName, "ptr", pEntryPoint, "ptr", pTargetProfile, pArgumentsMarshal, pArguments, "uint", argCount, "ptr", pDefines, "uint", defineCount, "ptr", pIncludeHandler, "ptr*", ppResult, ppDebugBlobNameMarshal, ppDebugBlobName, "ptr*", ppDebugBlob, "HRESULT")
+        result := ComCall(6, this, "ptr", pSource, "ptr", pSourceName, "ptr", pEntryPoint, "ptr", pTargetProfile, pArgumentsMarshal, pArguments, "uint", argCount, DxcDefine.Ptr, pDefines, "uint", defineCount, "ptr", pIncludeHandler, IDxcOperationResult.Ptr, ppResult, ppDebugBlobNameMarshal, ppDebugBlobName, IDxcBlob.Ptr, ppDebugBlob, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDxcCompiler2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CompileWithDebug := CallbackCreate(GetMethod(implObj, "CompileWithDebug"), flags, 13)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CompileWithDebug)
     }
 }

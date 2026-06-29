@@ -1,82 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Learn more about: JET_BKLOGTIME Structure
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-bklogtime-structure
  * @namespace Windows.Win32.Storage.Jet
  */
-class JET_BKLOGTIME extends Win32Struct {
-    static sizeof => 8
+export default struct JET_BKLOGTIME {
+    #StructPack 1
 
-    static packingSize => 1
+    bSeconds : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bSeconds {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    bMinutes : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bMinutes {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    bHours : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bHours {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    bDay : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bDay {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    bMonth : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bMonth {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    bYear : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bYear {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    bFiller1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bFiller1 {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - fTimeIsUTC
-     * - bMillisecondsLow
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
 
     /**
      * @type {Integer}
@@ -93,26 +38,8 @@ class JET_BKLOGTIME extends Win32Struct {
         get => (this._bitfield >> 1) & 0x7F
         set => this._bitfield := ((value & 0x7F) << 1) | (this._bitfield & ~(0x7F << 1))
     }
+    bFiller2 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bFiller2 {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - fOSSnapshot
-     * - bMillisecondsHigh
-     * - fReserved
-     * @type {Integer}
-     */
-    _bitfield1 {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
 
     /**
      * @type {Integer}
@@ -136,5 +63,10 @@ class JET_BKLOGTIME extends Win32Struct {
     fReserved {
         get => (this._bitfield1 >> 4) & 0xF
         set => this._bitfield1 := ((value & 0xF) << 4) | (this._bitfield1 & ~(0xF << 4))
+    }
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int8, offset: 6 })
+        DefineProp(this.Prototype, '_bitfield1', { type: Int8, offset: 7 })
+        this.DeleteProp("__New")
     }
 }

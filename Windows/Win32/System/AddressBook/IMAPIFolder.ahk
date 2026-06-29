@@ -1,29 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMAPIContainer.ahk
-#Include .\IMessage.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMessage.ahk" { IMessage }
+#Import ".\SBinaryArray.ahk" { SBinaryArray }
+#Import ".\IMAPIContainer.ahk" { IMAPIContainer }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SSortOrderSet.ahk" { SSortOrderSet }
+#Import ".\IMAPIProgress.ahk" { IMAPIProgress }
 
 /**
  * IMAPIFolderIMAPIContainer performs operations on the messages and subfolders in a folder. This article describes the related properties and members.
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapifolderimapicontainer
  * @namespace Windows.Win32.System.AddressBook
  */
-class IMAPIFolder extends IMAPIContainer {
+export default struct IMAPIFolder extends IMAPIContainer {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 19
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateMessage", "CopyMessages", "DeleteMessages", "CreateFolder", "CopyFolder", "DeleteFolder", "SetReadFlags", "GetMessageStatus", "SetMessageStatus", "SaveContentsSort", "EmptyFolder"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMAPIFolder interfaces
+    */
+    struct Vtbl extends IMAPIContainer.Vtbl {
+        CreateMessage    : IntPtr
+        CopyMessages     : IntPtr
+        DeleteMessages   : IntPtr
+        CreateFolder     : IntPtr
+        CopyFolder       : IntPtr
+        DeleteFolder     : IntPtr
+        SetReadFlags     : IntPtr
+        GetMessageStatus : IntPtr
+        SetMessageStatus : IntPtr
+        SaveContentsSort : IntPtr
+        EmptyFolder      : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMAPIFolder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * IMAPIFolderCreateMessage creates a new message. This article describes its syntax, parameters, return value, and remarks.
@@ -47,7 +68,7 @@ class IMAPIFolder extends IMAPIContainer {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapifolder-createmessage
      */
     CreateMessage(lpInterface, ulFlags) {
-        result := ComCall(19, this, "ptr", lpInterface, "uint", ulFlags, "ptr*", &lppMessage := 0, "HRESULT")
+        result := ComCall(19, this, Guid.Ptr, lpInterface, "uint", ulFlags, "ptr*", &lppMessage := 0, "HRESULT")
         return IMessage(lppMessage)
     }
 
@@ -91,7 +112,7 @@ class IMAPIFolder extends IMAPIContainer {
     CopyMessages(lpMsgList, lpInterface, lpDestFolder, ulUIParam, lpProgress, ulFlags) {
         lpDestFolderMarshal := lpDestFolder is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(20, this, "ptr", lpMsgList, "ptr", lpInterface, lpDestFolderMarshal, lpDestFolder, "ptr", ulUIParam, "ptr", lpProgress, "uint", ulFlags, "HRESULT")
+        result := ComCall(20, this, SBinaryArray.Ptr, lpMsgList, Guid.Ptr, lpInterface, lpDestFolderMarshal, lpDestFolder, "ptr", ulUIParam, "ptr", lpProgress, "uint", ulFlags, "HRESULT")
         return result
     }
 
@@ -121,7 +142,7 @@ class IMAPIFolder extends IMAPIContainer {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapifolder-deletemessages
      */
     DeleteMessages(lpMsgList, ulUIParam, lpProgress, ulFlags) {
-        result := ComCall(21, this, "ptr", lpMsgList, "ptr", ulUIParam, "ptr", lpProgress, "uint", ulFlags, "HRESULT")
+        result := ComCall(21, this, SBinaryArray.Ptr, lpMsgList, "ptr", ulUIParam, "ptr", lpProgress, "uint", ulFlags, "HRESULT")
         return result
     }
 
@@ -161,7 +182,7 @@ class IMAPIFolder extends IMAPIContainer {
         lpszFolderNameMarshal := lpszFolderName is VarRef ? "char*" : "ptr"
         lpszFolderCommentMarshal := lpszFolderComment is VarRef ? "char*" : "ptr"
 
-        result := ComCall(22, this, "uint", ulFolderType, lpszFolderNameMarshal, lpszFolderName, lpszFolderCommentMarshal, lpszFolderComment, "ptr", lpInterface, "uint", ulFlags, "ptr*", &lppFolder := 0, "HRESULT")
+        result := ComCall(22, this, "uint", ulFolderType, lpszFolderNameMarshal, lpszFolderName, lpszFolderCommentMarshal, lpszFolderComment, Guid.Ptr, lpInterface, "uint", ulFlags, "ptr*", &lppFolder := 0, "HRESULT")
         return IMAPIFolder(lppFolder)
     }
 
@@ -226,7 +247,7 @@ class IMAPIFolder extends IMAPIContainer {
         lpDestFolderMarshal := lpDestFolder is VarRef ? "ptr" : "ptr"
         lpszNewFolderNameMarshal := lpszNewFolderName is VarRef ? "char*" : "ptr"
 
-        result := ComCall(23, this, "uint", cbEntryID, "ptr", lpEntryID, "ptr", lpInterface, lpDestFolderMarshal, lpDestFolder, lpszNewFolderNameMarshal, lpszNewFolderName, "ptr", ulUIParam, "ptr", lpProgress, "uint", ulFlags, "HRESULT")
+        result := ComCall(23, this, "uint", cbEntryID, "ptr", lpEntryID, Guid.Ptr, lpInterface, lpDestFolderMarshal, lpDestFolder, lpszNewFolderNameMarshal, lpszNewFolderName, "ptr", ulUIParam, "ptr", lpProgress, "uint", ulFlags, "HRESULT")
         return result
     }
 
@@ -337,7 +358,7 @@ class IMAPIFolder extends IMAPIContainer {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapifolder-setreadflags
      */
     SetReadFlags(lpMsgList, ulUIParam, lpProgress, ulFlags) {
-        result := ComCall(25, this, "ptr", lpMsgList, "ptr", ulUIParam, "ptr", lpProgress, "uint", ulFlags, "HRESULT")
+        result := ComCall(25, this, SBinaryArray.Ptr, lpMsgList, "ptr", ulUIParam, "ptr", lpProgress, "uint", ulFlags, "HRESULT")
         return result
     }
 
@@ -442,7 +463,7 @@ class IMAPIFolder extends IMAPIContainer {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapifolder-savecontentssort
      */
     SaveContentsSort(lpSortCriteria, ulFlags) {
-        result := ComCall(28, this, "ptr", lpSortCriteria, "uint", ulFlags, "HRESULT")
+        result := ComCall(28, this, SSortOrderSet.Ptr, lpSortCriteria, "uint", ulFlags, "HRESULT")
         return result
     }
 
@@ -481,5 +502,45 @@ class IMAPIFolder extends IMAPIContainer {
     EmptyFolder(ulUIParam, lpProgress, ulFlags) {
         result := ComCall(29, this, "ptr", ulUIParam, "ptr", lpProgress, "uint", ulFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMAPIFolder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateMessage := CallbackCreate(GetMethod(implObj, "CreateMessage"), flags, 4)
+        this.vtbl.CopyMessages := CallbackCreate(GetMethod(implObj, "CopyMessages"), flags, 7)
+        this.vtbl.DeleteMessages := CallbackCreate(GetMethod(implObj, "DeleteMessages"), flags, 5)
+        this.vtbl.CreateFolder := CallbackCreate(GetMethod(implObj, "CreateFolder"), flags, 7)
+        this.vtbl.CopyFolder := CallbackCreate(GetMethod(implObj, "CopyFolder"), flags, 9)
+        this.vtbl.DeleteFolder := CallbackCreate(GetMethod(implObj, "DeleteFolder"), flags, 6)
+        this.vtbl.SetReadFlags := CallbackCreate(GetMethod(implObj, "SetReadFlags"), flags, 5)
+        this.vtbl.GetMessageStatus := CallbackCreate(GetMethod(implObj, "GetMessageStatus"), flags, 5)
+        this.vtbl.SetMessageStatus := CallbackCreate(GetMethod(implObj, "SetMessageStatus"), flags, 6)
+        this.vtbl.SaveContentsSort := CallbackCreate(GetMethod(implObj, "SaveContentsSort"), flags, 3)
+        this.vtbl.EmptyFolder := CallbackCreate(GetMethod(implObj, "EmptyFolder"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateMessage)
+        CallbackFree(this.vtbl.CopyMessages)
+        CallbackFree(this.vtbl.DeleteMessages)
+        CallbackFree(this.vtbl.CreateFolder)
+        CallbackFree(this.vtbl.CopyFolder)
+        CallbackFree(this.vtbl.DeleteFolder)
+        CallbackFree(this.vtbl.SetReadFlags)
+        CallbackFree(this.vtbl.GetMessageStatus)
+        CallbackFree(this.vtbl.SetMessageStatus)
+        CallbackFree(this.vtbl.SaveContentsSort)
+        CallbackFree(this.vtbl.EmptyFolder)
     }
 }

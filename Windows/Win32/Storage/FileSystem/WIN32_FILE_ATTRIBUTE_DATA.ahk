@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * Contains attribute information for a file or directory.
@@ -13,22 +12,16 @@
  * @see https://learn.microsoft.com/windows/win32/api/fileapi/ns-fileapi-win32_file_attribute_data
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class WIN32_FILE_ATTRIBUTE_DATA extends Win32Struct {
-    static sizeof => 36
-
-    static packingSize => 4
+export default struct WIN32_FILE_ATTRIBUTE_DATA {
+    #StructPack 4
 
     /**
      * The file system attribute information for a file or directory.
      *       
      * 
      * For possible values and their descriptions, see <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-attribute-constants">File Attribute Constants</a>.
-     * @type {Integer}
      */
-    dwFileAttributes {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFileAttributes : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that specifies when the file or 
@@ -36,15 +29,8 @@ class WIN32_FILE_ATTRIBUTE_DATA extends Win32Struct {
      *       
      * 
      * If the underlying file system does not support creation time, this member is zero.
-     * @type {FILETIME}
      */
-    ftCreationTime {
-        get {
-            if(!this.HasProp("__ftCreationTime"))
-                this.__ftCreationTime := FILETIME(4, this)
-            return this.__ftCreationTime
-        }
-    }
+    ftCreationTime : FILETIME
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure.
@@ -56,15 +42,8 @@ class WIN32_FILE_ATTRIBUTE_DATA extends Win32Struct {
      * 
      * For both files and directories, the specified date is correct, but the time of day is always set to midnight. 
      *        If the underlying file system does not support last access time, this member is zero.
-     * @type {FILETIME}
      */
-    ftLastAccessTime {
-        get {
-            if(!this.HasProp("__ftLastAccessTime"))
-                this.__ftLastAccessTime := FILETIME(12, this)
-            return this.__ftLastAccessTime
-        }
-    }
+    ftLastAccessTime : FILETIME
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure.
@@ -75,15 +54,8 @@ class WIN32_FILE_ATTRIBUTE_DATA extends Win32Struct {
      * For a directory, the structure specifies when the directory is created.
      * 
      * If the underlying file system does not support last write time, this member is zero.
-     * @type {FILETIME}
      */
-    ftLastWriteTime {
-        get {
-            if(!this.HasProp("__ftLastWriteTime"))
-                this.__ftLastWriteTime := FILETIME(20, this)
-            return this.__ftLastWriteTime
-        }
-    }
+    ftLastWriteTime : FILETIME
 
     /**
      * The high-order 
@@ -91,22 +63,15 @@ class WIN32_FILE_ATTRIBUTE_DATA extends Win32Struct {
      *       
      * 
      * This member does not have a meaning for directories.
-     * @type {Integer}
      */
-    nFileSizeHigh {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    nFileSizeHigh : UInt32
 
     /**
      * The low-order <b>DWORD</b> of the file size.
      *       
      * 
      * This member does not have a meaning for directories.
-     * @type {Integer}
      */
-    nFileSizeLow {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    nFileSizeLow : UInt32
+
 }

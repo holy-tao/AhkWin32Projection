@@ -1,79 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\VA_VIDEO_FORMAT.ahk
-#Include .\VA_COLOR_PRIMARIES.ahk
-#Include .\VA_TRANSFER_CHARACTERISTICS.ahk
-#Include .\VA_MATRIX_COEFFICIENTS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VA_TRANSFER_CHARACTERISTICS.ahk" { VA_TRANSFER_CHARACTERISTICS }
+#Import ".\VA_COLOR_PRIMARIES.ahk" { VA_COLOR_PRIMARIES }
+#Import ".\VA_MATRIX_COEFFICIENTS.ahk" { VA_MATRIX_COEFFICIENTS }
+#Import ".\VA_VIDEO_FORMAT.ahk" { VA_VIDEO_FORMAT }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class VA_OPTIONAL_VIDEO_PROPERTIES extends Win32Struct {
-    static sizeof => 24
+export default struct VA_OPTIONAL_VIDEO_PROPERTIES {
+    #StructPack 4
 
-    static packingSize => 4
+    dwPictureHeight : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    dwPictureHeight {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    dwPictureWidth : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    dwPictureWidth {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    dwAspectRatioX : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    dwAspectRatioX {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    dwAspectRatioY : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    dwAspectRatioY {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    VAVideoFormat : VA_VIDEO_FORMAT
 
-    /**
-     * @type {VA_VIDEO_FORMAT}
-     */
-    VAVideoFormat {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    VAColorPrimaries : VA_COLOR_PRIMARIES
 
-    /**
-     * @type {VA_COLOR_PRIMARIES}
-     */
-    VAColorPrimaries {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    VATransferCharacteristics : VA_TRANSFER_CHARACTERISTICS
 
-    /**
-     * @type {VA_TRANSFER_CHARACTERISTICS}
-     */
-    VATransferCharacteristics {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    VAMatrixCoefficients : VA_MATRIX_COEFFICIENTS
 
-    /**
-     * @type {VA_MATRIX_COEFFICIENTS}
-     */
-    VAMatrixCoefficients {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
 }

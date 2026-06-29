@@ -1,70 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER.ahk
-#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER.ahk" { D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER }
+#Import "..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_ARGUMENTS1 extends Win32Struct {
-    static sizeof => 72
+export default struct D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_ARGUMENTS1 {
+    #StructPack 8
 
-    static packingSize => 8
+    ResolvedLayoutMetadata : D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER}
-     */
-    ResolvedLayoutMetadata {
-        get {
-            if(!this.HasProp("__ResolvedLayoutMetadata"))
-                this.__ResolvedLayoutMetadata := D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER(0, this)
-            return this.__ResolvedLayoutMetadata
-        }
-    }
+    pOutputQPMap : ID3D12Resource
 
-    /**
-     * @type {ID3D12Resource}
-     */
-    pOutputQPMap {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pOutputSATDMap : ID3D12Resource
 
-    /**
-     * @type {ID3D12Resource}
-     */
-    pOutputSATDMap {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pOutputBitAllocationMap : ID3D12Resource
 
-    /**
-     * @type {ID3D12Resource}
-     */
-    pOutputBitAllocationMap {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    ResolvedFramePSNRData : D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER}
-     */
-    ResolvedFramePSNRData {
-        get {
-            if(!this.HasProp("__ResolvedFramePSNRData"))
-                this.__ResolvedFramePSNRData := D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER(40, this)
-            return this.__ResolvedFramePSNRData
-        }
-    }
+    ResolvedSubregionsPSNRData : D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER
 
-    /**
-     * @type {D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER}
-     */
-    ResolvedSubregionsPSNRData {
-        get {
-            if(!this.HasProp("__ResolvedSubregionsPSNRData"))
-                this.__ResolvedSubregionsPSNRData := D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER(56, this)
-            return this.__ResolvedSubregionsPSNRData
-        }
-    }
 }

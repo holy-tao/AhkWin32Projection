@@ -1,13 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DEVMODE_FIELD_FLAGS.ahk
-#Include ..\..\Foundation\POINTL.ahk
-#Include .\DEVMODE_DISPLAY_ORIENTATION.ahk
-#Include .\DEVMODE_DISPLAY_FIXED_OUTPUT.ahk
-#Include .\DEVMODE_COLOR.ahk
-#Include .\DEVMODE_DUPLEX.ahk
-#Include .\DEVMODE_TRUETYPE_OPTION.ahk
-#Include .\DEVMODE_COLLATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DEVMODE_TRUETYPE_OPTION.ahk" { DEVMODE_TRUETYPE_OPTION }
+#Import "..\..\Foundation\POINTL.ahk" { POINTL }
+#Import ".\DEVMODE_DISPLAY_ORIENTATION.ahk" { DEVMODE_DISPLAY_ORIENTATION }
+#Import ".\DEVMODE_DUPLEX.ahk" { DEVMODE_DUPLEX }
+#Import ".\DEVMODE_DISPLAY_FIXED_OUTPUT.ahk" { DEVMODE_DISPLAY_FIXED_OUTPUT }
+#Import ".\DEVMODE_COLLATE.ahk" { DEVMODE_COLLATE }
+#Import ".\DEVMODE_FIELD_FLAGS.ahk" { DEVMODE_FIELD_FLAGS }
+#Import ".\DEVMODE_COLOR.ahk" { DEVMODE_COLOR }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The DEVMODEW structure is used for specifying characteristics of display and print devices in the Unicode (wide) character set.
@@ -46,360 +46,173 @@
  * @namespace Windows.Win32.Graphics.Gdi
  * @charset Unicode
  */
-class DEVMODEW extends Win32Struct {
-    static sizeof => 220
-
-    static packingSize => 4
+export default struct DEVMODEW {
+    #StructPack 4
 
     /**
      * For a display, specifies the name of the display driver's DLL; for example, "perm3dd" for the 3Dlabs Permedia3 display driver.
      * 
      * For a printer, specifies the "friendly name"; for example, "PCL/HP LaserJet" in the case of PCL/HP LaserJet. If the name is greater than CCHDEVICENAME characters in length, the spooler truncates it to fit in the array.
-     * @type {String}
      */
-    dmDeviceName {
-        get => StrGet(this.ptr + 0, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 31, "UTF-16")
-    }
+    dmDeviceName : WCHAR[32]
 
     /**
      * Specifies the version number of this DEVMODEW structure. The current version number is identified by the DM_SPECVERSION constant in <i>wingdi.h</i>.
-     * @type {Integer}
      */
-    dmSpecVersion {
-        get => NumGet(this, 64, "ushort")
-        set => NumPut("ushort", value, this, 64)
-    }
+    dmSpecVersion : UInt16
 
     /**
      * For a printer, specifies the printer driver version number assigned by the printer driver developer.
      * 
      * Display drivers can set this member to DM_SPECVERSION.
-     * @type {Integer}
      */
-    dmDriverVersion {
-        get => NumGet(this, 66, "ushort")
-        set => NumPut("ushort", value, this, 66)
-    }
+    dmDriverVersion : UInt16
 
     /**
      * Specifies the size in bytes of the public DEVMODEW structure, not including any private, driver-specified members identified by the <b>dmDriverExtra</b> member.
-     * @type {Integer}
      */
-    dmSize {
-        get => NumGet(this, 68, "ushort")
-        set => NumPut("ushort", value, this, 68)
-    }
+    dmSize : UInt16
 
     /**
      * Specifies the number of bytes of private driver data that follow the public structure members. If a device driver does not provide private DEVMODEW members, this member should be set to zero.
-     * @type {Integer}
      */
-    dmDriverExtra {
-        get => NumGet(this, 70, "ushort")
-        set => NumPut("ushort", value, this, 70)
-    }
+    dmDriverExtra : UInt16
 
     /**
      * Specifies bit flags identifying which of the following DEVMODEW members are in use. For example, the DM_ORIENTATION flag is set when the <b>dmOrientation</b> member contains valid data. The DM_XXX flags are defined in <i>wingdi.h</i>.
-     * @type {DEVMODE_FIELD_FLAGS}
      */
-    dmFields {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    dmFields : DEVMODE_FIELD_FLAGS
 
-    /**
-     * @type {Integer}
-     */
-    dmOrientation {
-        get => NumGet(this, 76, "short")
-        set => NumPut("short", value, this, 76)
-    }
+    dmOrientation : Int16
 
-    /**
-     * @type {Integer}
-     */
-    dmPaperSize {
-        get => NumGet(this, 78, "short")
-        set => NumPut("short", value, this, 78)
-    }
+    dmPaperSize : Int16
 
-    /**
-     * @type {Integer}
-     */
-    dmPaperLength {
-        get => NumGet(this, 80, "short")
-        set => NumPut("short", value, this, 80)
-    }
+    dmPaperLength : Int16
 
-    /**
-     * @type {Integer}
-     */
-    dmPaperWidth {
-        get => NumGet(this, 82, "short")
-        set => NumPut("short", value, this, 82)
-    }
+    dmPaperWidth : Int16
 
-    /**
-     * @type {Integer}
-     */
-    dmScale {
-        get => NumGet(this, 84, "short")
-        set => NumPut("short", value, this, 84)
-    }
+    dmScale : Int16
 
-    /**
-     * @type {Integer}
-     */
-    dmCopies {
-        get => NumGet(this, 86, "short")
-        set => NumPut("short", value, this, 86)
-    }
+    dmCopies : Int16
 
-    /**
-     * @type {Integer}
-     */
-    dmDefaultSource {
-        get => NumGet(this, 88, "short")
-        set => NumPut("short", value, this, 88)
-    }
+    dmDefaultSource : Int16
 
-    /**
-     * @type {Integer}
-     */
-    dmPrintQuality {
-        get => NumGet(this, 90, "short")
-        set => NumPut("short", value, this, 90)
-    }
-
-    /**
-     * @type {POINTL}
-     */
-    dmPosition {
-        get {
-            if(!this.HasProp("__dmPosition"))
-                this.__dmPosition := POINTL(76, this)
-            return this.__dmPosition
-        }
-    }
-
-    /**
-     * @type {DEVMODE_DISPLAY_ORIENTATION}
-     */
-    dmDisplayOrientation {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
-
-    /**
-     * @type {DEVMODE_DISPLAY_FIXED_OUTPUT}
-     */
-    dmDisplayFixedOutput {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    dmPrintQuality : Int16
 
     /**
      * For printers, specifies whether a color printer should print color or monochrome. This member can be one of DMCOLOR_COLOR or DMCOLOR_MONOCHROME.
      * 
      * This member is not used for displays.
-     * @type {DEVMODE_COLOR}
      */
-    dmColor {
-        get => NumGet(this, 92, "short")
-        set => NumPut("short", value, this, 92)
-    }
+    dmColor : DEVMODE_COLOR
 
-    /**
-     * @type {DEVMODE_DUPLEX}
-     */
-    dmDuplex {
-        get => NumGet(this, 94, "short")
-        set => NumPut("short", value, this, 94)
-    }
+    dmDuplex : DEVMODE_DUPLEX
 
     /**
      * For printers, specifies the <i>y</i> resolution of the printer, in DPI. If this member is used, the <b>dmPrintQuality</b> member specifies the <i>x</i> resolution.
      * 
      * This member is not used for displays.
-     * @type {Integer}
      */
-    dmYResolution {
-        get => NumGet(this, 96, "short")
-        set => NumPut("short", value, this, 96)
-    }
+    dmYResolution : Int16
 
     /**
      * For printers, specifies how TrueType fonts should be printed. This member must be one of the DMTT-prefixed constants defined in <i>wingdi.h</i>.
      * 
      * This member is not used for displays.
-     * @type {DEVMODE_TRUETYPE_OPTION}
      */
-    dmTTOption {
-        get => NumGet(this, 98, "short")
-        set => NumPut("short", value, this, 98)
-    }
+    dmTTOption : DEVMODE_TRUETYPE_OPTION
 
-    /**
-     * @type {DEVMODE_COLLATE}
-     */
-    dmCollate {
-        get => NumGet(this, 100, "short")
-        set => NumPut("short", value, this, 100)
-    }
+    dmCollate : DEVMODE_COLLATE
 
     /**
      * For printers, specifies the name of the form to use; such as "Letter" or "Legal". This must be a name that can be obtain by calling the Win32 <b>EnumForms</b> function (described in the Microsoft Window SDK documentation).
      * 
      * This member is not used for displays.
-     * @type {String}
      */
-    dmFormName {
-        get => StrGet(this.ptr + 102, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 102, 31, "UTF-16")
-    }
+    dmFormName : WCHAR[32]
 
     /**
      * For displays, specifies the number of logical pixels per inch of a display device and should be equal to the <b>ulLogPixels</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-gdiinfo">GDIINFO</a> structure.
      * 
      * This member is not used for printers.
-     * @type {Integer}
      */
-    dmLogPixels {
-        get => NumGet(this, 166, "ushort")
-        set => NumPut("ushort", value, this, 166)
-    }
+    dmLogPixels : UInt16
 
     /**
      * For displays, specifies the color resolution, in bits per pixel, of a display device. 
      * 
      * This member is not used for printers.
-     * @type {Integer}
      */
-    dmBitsPerPel {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
-    }
+    dmBitsPerPel : UInt32
 
     /**
      * For displays, specifies the width, in pixels, of the visible device surface.
      * 
      * This member is not used for printers.
-     * @type {Integer}
      */
-    dmPelsWidth {
-        get => NumGet(this, 172, "uint")
-        set => NumPut("uint", value, this, 172)
-    }
+    dmPelsWidth : UInt32
 
     /**
      * For displays, specifies the height, in pixels, of the visible device surface. 
      * 
      * This member is not used for printers.
-     * @type {Integer}
      */
-    dmPelsHeight {
-        get => NumGet(this, 176, "uint")
-        set => NumPut("uint", value, this, 176)
-    }
+    dmPelsHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dmDisplayFlags {
-        get => NumGet(this, 180, "uint")
-        set => NumPut("uint", value, this, 180)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dmNup {
-        get => NumGet(this, 180, "uint")
-        set => NumPut("uint", value, this, 180)
-    }
+    dmDisplayFlags : UInt32
 
     /**
      * For displays, specifies the frequency, in hertz, of a display device in its current mode.
      * 
      * This member is not used for printers.
-     * @type {Integer}
      */
-    dmDisplayFrequency {
-        get => NumGet(this, 184, "uint")
-        set => NumPut("uint", value, this, 184)
-    }
+    dmDisplayFrequency : UInt32
 
     /**
      * Specifies one of the DMICMMETHOD-prefixed constants defined in <i>wingdi.h</i>.
-     * @type {Integer}
      */
-    dmICMMethod {
-        get => NumGet(this, 188, "uint")
-        set => NumPut("uint", value, this, 188)
-    }
+    dmICMMethod : UInt32
 
     /**
      * Specifies one of the DMICM-prefixed constants defined in <i>wingdi.h</i>.
-     * @type {Integer}
      */
-    dmICMIntent {
-        get => NumGet(this, 192, "uint")
-        set => NumPut("uint", value, this, 192)
-    }
+    dmICMIntent : UInt32
 
     /**
      * Specifies one of the DMMEDIA-prefixed constants defined in <i>wingdi.h</i>.
-     * @type {Integer}
      */
-    dmMediaType {
-        get => NumGet(this, 196, "uint")
-        set => NumPut("uint", value, this, 196)
-    }
+    dmMediaType : UInt32
 
     /**
      * Specifies one of the DMDITHER-prefixed constants defined in <i>wingdi.h</i>.
-     * @type {Integer}
      */
-    dmDitherType {
-        get => NumGet(this, 200, "uint")
-        set => NumPut("uint", value, this, 200)
-    }
+    dmDitherType : UInt32
 
     /**
      * Is reserved for system use and should be ignored by the driver.
-     * @type {Integer}
      */
-    dmReserved1 {
-        get => NumGet(this, 204, "uint")
-        set => NumPut("uint", value, this, 204)
-    }
+    dmReserved1 : UInt32
 
     /**
      * Is reserved for system use and should be ignored by the driver.
-     * @type {Integer}
      */
-    dmReserved2 {
-        get => NumGet(this, 208, "uint")
-        set => NumPut("uint", value, this, 208)
-    }
+    dmReserved2 : UInt32
 
     /**
      * Is reserved for system use and should be ignored by the driver.
-     * @type {Integer}
      */
-    dmPanningWidth {
-        get => NumGet(this, 212, "uint")
-        set => NumPut("uint", value, this, 212)
-    }
+    dmPanningWidth : UInt32
 
     /**
      * Is reserved for system use and should be ignored by the driver.
-     * @type {Integer}
      */
-    dmPanningHeight {
-        get => NumGet(this, 216, "uint")
-        set => NumPut("uint", value, this, 216)
+    dmPanningHeight : UInt32
+
+    static __New() {
+        DefineProp(this.Prototype, 'dmPosition', { type: POINTL, offset: 76 })
+        DefineProp(this.Prototype, 'dmDisplayOrientation', { type: DEVMODE_DISPLAY_ORIENTATION, offset: 84 })
+        DefineProp(this.Prototype, 'dmDisplayFixedOutput', { type: DEVMODE_DISPLAY_FIXED_OUTPUT, offset: 88 })
+        DefineProp(this.Prototype, 'dmNup', { type: UInt32, offset: 180 })
+        this.DeleteProp("__New")
     }
 }

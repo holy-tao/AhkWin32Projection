@@ -1,33 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IControlChangeNotify interface provides notifications when the status of a part (connector or subunit) changes.
  * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-icontrolchangenotify
  * @namespace Windows.Win32.Media.Audio
  */
-class IControlChangeNotify extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IControlChangeNotify extends IUnknown {
     /**
      * The interface identifier for IControlChangeNotify
      * @type {Guid}
      */
-    static IID => Guid("{a09513ed-c709-4d21-bd7b-5f34c47f3947}")
+    static IID := Guid("{a09513ed-c709-4d21-bd7b-5f34c47f3947}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IControlChangeNotify interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnNotify : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnNotify"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IControlChangeNotify.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The OnNotify method notifies the client when the status of a connector or subunit changes.
@@ -39,7 +47,27 @@ class IControlChangeNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-icontrolchangenotify-onnotify
      */
     OnNotify(dwSenderProcessId, pguidEventContext) {
-        result := ComCall(3, this, "uint", dwSenderProcessId, "ptr", pguidEventContext, "HRESULT")
+        result := ComCall(3, this, "uint", dwSenderProcessId, Guid.Ptr, pguidEventContext, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IControlChangeNotify.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnNotify := CallbackCreate(GetMethod(implObj, "OnNotify"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnNotify)
     }
 }

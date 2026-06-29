@@ -1,187 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\DSMCC_FILTER_OPTIONS.ahk
-#Include .\ATSC_FILTER_OPTIONS.ahk
-#Include .\DVB_EIT_FILTER_OPTIONS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DSMCC_FILTER_OPTIONS.ahk" { DSMCC_FILTER_OPTIONS }
+#Import ".\ATSC_FILTER_OPTIONS.ahk" { ATSC_FILTER_OPTIONS }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DVB_EIT_FILTER_OPTIONS.ahk" { DVB_EIT_FILTER_OPTIONS }
 
 /**
  * The MPEG2_FILTER2 structure specifies criteria for matching MPEG-2 section headers.
  * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-mpeg2_filter2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class MPEG2_FILTER2 extends Win32Struct {
-    static sizeof => 160
+export default struct MPEG2_FILTER2 {
+    #StructPack 4
 
-    static packingSize => 4
+    bVersionNumber : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bVersionNumber {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    wFilterSize : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wFilterSize {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    fUseRawFilteringBits : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    fUseRawFilteringBits {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Filter : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Filter {
-        get {
-            if(!this.HasProp("__FilterProxyArray"))
-                this.__FilterProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
-            return this.__FilterProxyArray
-        }
-    }
+    Mask : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Mask {
-        get {
-            if(!this.HasProp("__MaskProxyArray"))
-                this.__MaskProxyArray := Win32FixedArray(this.ptr + 24, 16, Primitive, "char")
-            return this.__MaskProxyArray
-        }
-    }
+    fSpecifyTableIdExtension : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    fSpecifyTableIdExtension {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    TableIdExtension : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    TableIdExtension {
-        get => NumGet(this, 44, "ushort")
-        set => NumPut("ushort", value, this, 44)
-    }
+    fSpecifyVersion : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    fSpecifyVersion {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    Version : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 52, "char")
-        set => NumPut("char", value, this, 52)
-    }
+    fSpecifySectionNumber : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    fSpecifySectionNumber {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    SectionNumber : Int8
 
-    /**
-     * @type {Integer}
-     */
-    SectionNumber {
-        get => NumGet(this, 60, "char")
-        set => NumPut("char", value, this, 60)
-    }
+    fSpecifyCurrentNext : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    fSpecifyCurrentNext {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
-    }
+    fNext : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    fNext {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
-    }
+    fSpecifyDsmccOptions : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    fSpecifyDsmccOptions {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
-    }
+    Dsmcc : DSMCC_FILTER_OPTIONS
 
-    /**
-     * @type {DSMCC_FILTER_OPTIONS}
-     */
-    Dsmcc {
-        get {
-            if(!this.HasProp("__Dsmcc"))
-                this.__Dsmcc := DSMCC_FILTER_OPTIONS(76, this)
-            return this.__Dsmcc
-        }
-    }
+    fSpecifyAtscOptions : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    fSpecifyAtscOptions {
-        get => NumGet(this, 136, "int")
-        set => NumPut("int", value, this, 136)
-    }
-
-    /**
-     * @type {ATSC_FILTER_OPTIONS}
-     */
-    Atsc {
-        get {
-            if(!this.HasProp("__Atsc"))
-                this.__Atsc := ATSC_FILTER_OPTIONS(140, this)
-            return this.__Atsc
-        }
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    bVersion1Bytes {
-        get {
-            if(!this.HasProp("__bVersion1BytesProxyArray"))
-                this.__bVersion1BytesProxyArray := Win32FixedArray(this.ptr + 0, 124, Primitive, "char")
-            return this.__bVersion1BytesProxyArray
-        }
-    }
+    Atsc : ATSC_FILTER_OPTIONS
 
     /**
      * If <b>TRUE</b>, the <b>Dvb_Eit</b> member contains additional filtering criteria. Otherwise, the <b>Dvb_Eit</b> member is ignored. <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
      * <div> </div>
-     * @type {BOOL}
      */
-    fSpecifyDvbEitOptions {
-        get => NumGet(this, 148, "int")
-        set => NumPut("int", value, this, 148)
-    }
+    fSpecifyDvbEitOptions : BOOL
 
     /**
      * An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2structs/ns-mpeg2structs-dvb_eit_filter_options">DVB_EIT_FILTER_OPTIONS</a> structure that contains additional filtering criteria. 
@@ -192,13 +61,11 @@ class MPEG2_FILTER2 extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
      * <div> </div>
-     * @type {DVB_EIT_FILTER_OPTIONS}
      */
-    DvbEit {
-        get {
-            if(!this.HasProp("__DvbEit"))
-                this.__DvbEit := DVB_EIT_FILTER_OPTIONS(152, this)
-            return this.__DvbEit
-        }
+    DvbEit : DVB_EIT_FILTER_OPTIONS
+
+    static __New() {
+        DefineProp(this.Prototype, 'bVersion1Bytes', { type: Int8[124], offset: 0 })
+        this.DeleteProp("__New")
     }
 }

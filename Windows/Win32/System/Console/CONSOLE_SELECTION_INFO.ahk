@@ -1,17 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\COORD.ahk
-#Include .\SMALL_RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\COORD.ahk" { COORD }
+#Import ".\SMALL_RECT.ahk" { SMALL_RECT }
 
 /**
  * See reference information about the CONSOLE_SELECTION_INFO structure, which contains information for a console selection.
  * @see https://learn.microsoft.com/windows/console/console-selection-info-str
  * @namespace Windows.Win32.System.Console
  */
-class CONSOLE_SELECTION_INFO extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct CONSOLE_SELECTION_INFO {
+    #StructPack 4
 
     /**
      * The selection indicator. This member can be one or more of the following values.
@@ -23,34 +20,17 @@ class CONSOLE_SELECTION_INFO extends Win32Struct {
      * | **CONSOLE_NO_SELECTION** 0x0000 | No selection. |
      * | **CONSOLE_SELECTION_IN_PROGRESS** 0x0001 | Selection has begun. If a mouse selection, this will typically not occur without the `CONSOLE_SELECTION_NOT_EMPTY` flag. If a keyboard selection, this may occur when mark mode has been entered but the user is still navigating to the initial position. |
      * | **CONSOLE_SELECTION_NOT_EMPTY** 0x0002 | Selection rectangle not empty. The payload of *dwSelectionAnchor* and *srSelection* are valid.  |
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
     /**
      * A [**COORD**](coord-str.md) structure that specifies the selection anchor, in characters.
-     * @type {COORD}
      */
-    dwSelectionAnchor {
-        get {
-            if(!this.HasProp("__dwSelectionAnchor"))
-                this.__dwSelectionAnchor := COORD(4, this)
-            return this.__dwSelectionAnchor
-        }
-    }
+    dwSelectionAnchor : COORD
 
     /**
      * A [**SMALL\_RECT**](small-rect-str.md) structure that specifies the selection rectangle.
-     * @type {SMALL_RECT}
      */
-    srSelection {
-        get {
-            if(!this.HasProp("__srSelection"))
-                this.__srSelection := SMALL_RECT(8, this)
-            return this.__srSelection
-        }
-    }
+    srSelection : SMALL_RECT
+
 }

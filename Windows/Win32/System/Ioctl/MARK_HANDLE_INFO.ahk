@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * Contains information that is used to mark a specified file or directory, and its update sequence number (USN) change journal record with data about changes.
@@ -16,26 +15,10 @@
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-mark_handle_info
  * @namespace Windows.Win32.System.Ioctl
  */
-class MARK_HANDLE_INFO extends Win32Struct {
-    static sizeof => 24
+export default struct MARK_HANDLE_INFO {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {Integer}
-     */
-    UsnSourceInfo {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CopyNumber {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    UsnSourceInfo : UInt32
 
     /**
      * The volume handle to the volume where the file or directory resides. For more information on obtaining a 
@@ -45,15 +28,8 @@ class MARK_HANDLE_INFO extends Win32Struct {
      * 
      * The caller must have the <b>SE_MANAGE_VOLUME_NAME</b> privilege. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privileges">Privileges</a>.
-     * @type {HANDLE}
      */
-    VolumeHandle {
-        get {
-            if(!this.HasProp("__VolumeHandle"))
-                this.__VolumeHandle := HANDLE(8, this)
-            return this.__VolumeHandle
-        }
-    }
+    VolumeHandle : HANDLE
 
     /**
      * The flag that specifies additional information about the file or directory identified by the handle value 
@@ -246,10 +222,11 @@ class MARK_HANDLE_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    HandleInfo {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+    HandleInfo : UInt32
+
+    static __New() {
+        DefineProp(this.Prototype, 'CopyNumber', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

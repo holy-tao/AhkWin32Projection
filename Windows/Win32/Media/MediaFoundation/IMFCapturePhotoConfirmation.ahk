@@ -1,32 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFCapturePhotoConfirmation extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFCapturePhotoConfirmation extends IUnknown {
     /**
      * The interface identifier for IMFCapturePhotoConfirmation
      * @type {Guid}
      */
-    static IID => Guid("{19f68549-ca8a-4706-a4ef-481dbc95e12c}")
+    static IID := Guid("{19f68549-ca8a-4706-a4ef-481dbc95e12c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFCapturePhotoConfirmation interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetPhotoConfirmationCallback : IntPtr
+        SetPixelFormat               : IntPtr
+        GetPixelFormat               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetPhotoConfirmationCallback", "SetPixelFormat", "GetPixelFormat"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFCapturePhotoConfirmation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -53,7 +63,7 @@ class IMFCapturePhotoConfirmation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setpixelformat
      */
     SetPixelFormat(subtype) {
-        result := ComCall(4, this, "ptr", subtype, "HRESULT")
+        result := ComCall(4, this, Guid, subtype, "HRESULT")
         return result
     }
 
@@ -64,7 +74,31 @@ class IMFCapturePhotoConfirmation extends IUnknown {
      */
     GetPixelFormat() {
         subtype := Guid()
-        result := ComCall(5, this, "ptr", subtype, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, subtype, "HRESULT")
         return subtype
+    }
+
+    Query(iid) {
+        if (IMFCapturePhotoConfirmation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetPhotoConfirmationCallback := CallbackCreate(GetMethod(implObj, "SetPhotoConfirmationCallback"), flags, 2)
+        this.vtbl.SetPixelFormat := CallbackCreate(GetMethod(implObj, "SetPixelFormat"), flags, 2)
+        this.vtbl.GetPixelFormat := CallbackCreate(GetMethod(implObj, "GetPixelFormat"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetPhotoConfirmationCallback)
+        CallbackFree(this.vtbl.SetPixelFormat)
+        CallbackFree(this.vtbl.GetPixelFormat)
     }
 }

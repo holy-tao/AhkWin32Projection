@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines values that indicate how to interpret track addresses for the current disc profile of a randomly-writable, hardware-defect-managed media type.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/ne-imapi2-imapi_read_track_address_type
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IMAPI_READ_TRACK_ADDRESS_TYPE extends Win32Enum {
+export default struct IMAPI_READ_TRACK_ADDRESS_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Interpret the address field as an LBA (sector address).  The returned data should reflect the information for the track which contains the specified LBA.

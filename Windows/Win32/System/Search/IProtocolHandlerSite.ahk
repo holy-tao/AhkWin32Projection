@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Storage\IndexServer\IFilter.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Storage\IndexServer\IFilter.ahk" { IFilter }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods for a protocol handler's IUrlAccessor object to query the Filter Daemon for the appropriate filter for the URL item.
@@ -11,26 +13,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-iprotocolhandlersite
  * @namespace Windows.Win32.System.Search
  */
-class IProtocolHandlerSite extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IProtocolHandlerSite extends IUnknown {
     /**
      * The interface identifier for IProtocolHandlerSite
      * @type {Guid}
      */
-    static IID => Guid("{0b63e385-9ccc-11d0-bcdb-00805fccce04}")
+    static IID := Guid("{0b63e385-9ccc-11d0-bcdb-00805fccce04}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IProtocolHandlerSite interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetFilter : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFilter"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IProtocolHandlerSite.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the appropriate IFilteraccording to the supplied parameters.
@@ -56,7 +65,27 @@ class IProtocolHandlerSite extends IUnknown {
         pcwszContentType := pcwszContentType is String ? StrPtr(pcwszContentType) : pcwszContentType
         pcwszExtension := pcwszExtension is String ? StrPtr(pcwszExtension) : pcwszExtension
 
-        result := ComCall(3, this, "ptr", pclsidObj, "ptr", pcwszContentType, "ptr", pcwszExtension, "ptr*", &ppFilter := 0, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pclsidObj, "ptr", pcwszContentType, "ptr", pcwszExtension, "ptr*", &ppFilter := 0, "HRESULT")
         return IFilter(ppFilter)
+    }
+
+    Query(iid) {
+        if (IProtocolHandlerSite.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFilter := CallbackCreate(GetMethod(implObj, "GetFilter"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFilter)
     }
 }

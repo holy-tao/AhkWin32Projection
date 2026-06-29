@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_SUBRESOURCE_FOOTPRINT.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_SUBRESOURCE_FOOTPRINT.ahk" { D3D12_SUBRESOURCE_FOOTPRINT }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
 
 /**
  * Describes the footprint of a placed subresource, including the offset and the D3D12_SUBRESOURCE_FOOTPRINT.
@@ -18,31 +17,19 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_placed_subresource_footprint
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_PLACED_SUBRESOURCE_FOOTPRINT extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct D3D12_PLACED_SUBRESOURCE_FOOTPRINT {
+    #StructPack 8
 
     /**
      * The offset of the subresource within the parent resource, in bytes.
      *             The offset between the start of the parent resource and this subresource.
-     * @type {Integer}
      */
-    Offset {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Offset : Int64
 
     /**
      * The format, width, height, depth, and row-pitch of the subresource,
      *             as a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_subresource_footprint">D3D12_SUBRESOURCE_FOOTPRINT</a> structure.
-     * @type {D3D12_SUBRESOURCE_FOOTPRINT}
      */
-    Footprint {
-        get {
-            if(!this.HasProp("__Footprint"))
-                this.__Footprint := D3D12_SUBRESOURCE_FOOTPRINT(8, this)
-            return this.__Footprint
-        }
-    }
+    Footprint : D3D12_SUBRESOURCE_FOOTPRINT
+
 }

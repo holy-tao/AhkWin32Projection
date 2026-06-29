@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines an interface implemented by a garbage collector object referenced from XAML.
  * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.referencetracker/nn-windows-ui-xaml-hosting-referencetracker-ireferencetrackertarget
  * @namespace Windows.Win32.System.WinRT.Xaml
  */
-class IReferenceTrackerTarget extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IReferenceTrackerTarget extends IUnknown {
     /**
      * The interface identifier for IReferenceTrackerTarget
      * @type {Guid}
      */
-    static IID => Guid("{64bd43f8-bfee-4ec4-b7eb-2935158dae21}")
+    static IID := Guid("{64bd43f8-bfee-4ec4-b7eb-2935158dae21}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IReferenceTrackerTarget interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddRefFromReferenceTracker  : IntPtr
+        ReleaseFromReferenceTracker : IntPtr
+        Peg                         : IntPtr
+        Unpeg                       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddRefFromReferenceTracker", "ReleaseFromReferenceTracker", "Peg", "Unpeg"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IReferenceTrackerTarget.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Indicates that the reference tracker is returning the target XAML object(s) from previous calls to FindTrackerTargets. Note that the reference is held by the reference tracker object in lieu of IUnknown::AddRef.
@@ -37,7 +48,7 @@ class IReferenceTrackerTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.referencetracker/nf-windows-ui-xaml-hosting-referencetracker-ireferencetrackertarget-addreffromreferencetracker
      */
     AddRefFromReferenceTracker() {
-        result := ComCall(3, this, "uint")
+        result := ComCall(3, this, UInt32)
         return result
     }
 
@@ -47,7 +58,7 @@ class IReferenceTrackerTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.referencetracker/nf-windows-ui-xaml-hosting-referencetracker-ireferencetrackertarget-releasefromreferencetracker
      */
     ReleaseFromReferenceTracker() {
-        result := ComCall(4, this, "uint")
+        result := ComCall(4, this, UInt32)
         return result
     }
 
@@ -72,5 +83,31 @@ class IReferenceTrackerTarget extends IUnknown {
     Unpeg() {
         result := ComCall(6, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IReferenceTrackerTarget.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddRefFromReferenceTracker := CallbackCreate(GetMethod(implObj, "AddRefFromReferenceTracker"), flags, 1)
+        this.vtbl.ReleaseFromReferenceTracker := CallbackCreate(GetMethod(implObj, "ReleaseFromReferenceTracker"), flags, 1)
+        this.vtbl.Peg := CallbackCreate(GetMethod(implObj, "Peg"), flags, 1)
+        this.vtbl.Unpeg := CallbackCreate(GetMethod(implObj, "Unpeg"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddRefFromReferenceTracker)
+        CallbackFree(this.vtbl.ReleaseFromReferenceTracker)
+        CallbackFree(this.vtbl.Peg)
+        CallbackFree(this.vtbl.Unpeg)
     }
 }

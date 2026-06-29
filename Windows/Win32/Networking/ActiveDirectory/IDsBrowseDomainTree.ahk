@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DOMAIN_TREE.ahk" { DOMAIN_TREE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDsBrowseDomainTree interface is used by an application to display a domain browser dialog box and/or obtain a list of trust domains related to a given computer.
@@ -30,26 +34,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/dsclient/nn-dsclient-idsbrowsedomaintree
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IDsBrowseDomainTree extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDsBrowseDomainTree extends IUnknown {
     /**
      * The interface identifier for IDsBrowseDomainTree
      * @type {Guid}
      */
-    static IID => Guid("{7cabcf1e-78f5-11d2-960c-00c04fa31a86}")
+    static IID := Guid("{7cabcf1e-78f5-11d2-960c-00c04fa31a86}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDsBrowseDomainTree interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        BrowseTo           : IntPtr
+        GetDomains         : IntPtr
+        FreeDomains        : IntPtr
+        FlushCachedDomains : IntPtr
+        SetComputer        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["BrowseTo", "GetDomains", "FreeDomains", "FlushCachedDomains", "SetComputer"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDsBrowseDomainTree.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IDsBrowseDomainTree::BrowseTo method displays a dialog box used to browse for a domain.
@@ -59,9 +74,7 @@ class IDsBrowseDomainTree extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dsclient/nf-dsclient-idsbrowsedomaintree-browseto
      */
     BrowseTo(hwndParent, dwFlags) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
-        result := ComCall(3, this, "ptr", hwndParent, "ptr*", &ppszTargetPath := 0, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, HWND, hwndParent, PWSTR.Ptr, &ppszTargetPath := 0, "uint", dwFlags, "HRESULT")
         return ppszTargetPath
     }
 
@@ -127,5 +140,33 @@ class IDsBrowseDomainTree extends IUnknown {
 
         result := ComCall(7, this, "ptr", pszComputerName, "ptr", pszUserName, "ptr", pszPassword, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDsBrowseDomainTree.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.BrowseTo := CallbackCreate(GetMethod(implObj, "BrowseTo"), flags, 4)
+        this.vtbl.GetDomains := CallbackCreate(GetMethod(implObj, "GetDomains"), flags, 3)
+        this.vtbl.FreeDomains := CallbackCreate(GetMethod(implObj, "FreeDomains"), flags, 2)
+        this.vtbl.FlushCachedDomains := CallbackCreate(GetMethod(implObj, "FlushCachedDomains"), flags, 1)
+        this.vtbl.SetComputer := CallbackCreate(GetMethod(implObj, "SetComputer"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.BrowseTo)
+        CallbackFree(this.vtbl.GetDomains)
+        CallbackFree(this.vtbl.FreeDomains)
+        CallbackFree(this.vtbl.FlushCachedDomains)
+        CallbackFree(this.vtbl.SetComputer)
     }
 }

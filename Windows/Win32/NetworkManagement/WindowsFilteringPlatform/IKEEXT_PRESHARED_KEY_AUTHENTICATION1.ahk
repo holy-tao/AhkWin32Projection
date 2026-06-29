@@ -1,35 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWP_BYTE_BLOB.ahk
-#Include .\IKEEXT_PRESHARED_KEY_AUTHENTICATION_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IKEEXT_PRESHARED_KEY_AUTHENTICATION_FLAGS.ahk" { IKEEXT_PRESHARED_KEY_AUTHENTICATION_FLAGS }
+#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
 
 /**
  * Stores information needed for pre-shared key authentication. (IKEEXT_PRESHARED_KEY_AUTHENTICATION1)
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_preshared_key_authentication1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IKEEXT_PRESHARED_KEY_AUTHENTICATION1 extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct IKEEXT_PRESHARED_KEY_AUTHENTICATION1 {
+    #StructPack 8
 
     /**
      * The pre-shared key specified by [FWP_BYTE_BLOB](/windows/desktop/api/fwptypes/ns-fwptypes-fwp_byte_blob).
-     * @type {FWP_BYTE_BLOB}
      */
-    presharedKey {
-        get {
-            if(!this.HasProp("__presharedKey"))
-                this.__presharedKey := FWP_BYTE_BLOB(0, this)
-            return this.__presharedKey
-        }
-    }
+    presharedKey : FWP_BYTE_BLOB
 
-    /**
-     * @type {IKEEXT_PRESHARED_KEY_AUTHENTICATION_FLAGS}
-     */
-    flags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    flags : IKEEXT_PRESHARED_KEY_AUTHENTICATION_FLAGS
+
 }

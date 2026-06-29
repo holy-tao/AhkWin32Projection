@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The MCI_DGV_STATUS_PARMSW (Unicode) structure contains parameters for the MCI_STATUS command for digital-video devices.
@@ -16,62 +16,37 @@
  * @namespace Windows.Win32.Media.Multimedia
  * @charset Unicode
  */
-class MCI_DGV_STATUS_PARMSW extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct MCI_DGV_STATUS_PARMSW {
+    #StructPack 8
 
     /**
      * The low-order word specifies a window handle used for the MCI_NOTIFY flag.
-     * @type {Pointer}
      */
-    dwCallback {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwCallback : IntPtr
 
     /**
      * Buffer for return information.
-     * @type {Pointer}
      */
-    dwReturn {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    dwReturn : IntPtr
 
     /**
      * Identifies capability being queried.
-     * @type {Integer}
      */
-    dwItem {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwItem : UInt32
 
     /**
      * Length or number of tracks.
-     * @type {Integer}
      */
-    dwTrack {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwTrack : UInt32
 
     /**
      * Specifies the approximate amount of disk space that can be obtained by the <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mci-reserve">MCI_RESERVE</a> command.
-     * @type {PWSTR}
      */
-    lpstrDrive {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpstrDrive : PWSTR
 
     /**
      * Specifies the approximate location of the nearest previous intraframe-encoded image.
-     * @type {Integer}
      */
-    dwReference {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwReference : UInt32
+
 }

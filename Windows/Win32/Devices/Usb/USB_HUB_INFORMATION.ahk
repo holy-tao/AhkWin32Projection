@@ -1,31 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_HUB_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\USB_HUB_DESCRIPTOR.ahk" { USB_HUB_DESCRIPTOR }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_HUB_INFORMATION extends Win32Struct {
-    static sizeof => 74
+export default struct USB_HUB_INFORMATION {
+    #StructPack 2
 
-    static packingSize => 2
+    HubDescriptor : USB_HUB_DESCRIPTOR
 
-    /**
-     * @type {USB_HUB_DESCRIPTOR}
-     */
-    HubDescriptor {
-        get {
-            if(!this.HasProp("__HubDescriptor"))
-                this.__HubDescriptor := USB_HUB_DESCRIPTOR(0, this)
-            return this.__HubDescriptor
-        }
-    }
+    HubIsBusPowered : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    HubIsBusPowered {
-        get => NumGet(this, 72, "char")
-        set => NumPut("char", value, this, 72)
-    }
 }

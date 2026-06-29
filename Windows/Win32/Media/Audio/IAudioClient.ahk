@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\AUDCLNT_SHAREMODE.ahk" { AUDCLNT_SHAREMODE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAudioClient interface enables a client to create and initialize an audio stream between an audio application and the audio engine (for a shared-mode stream) or the hardware buffer of an audio endpoint device (for an exclusive-mode stream).
@@ -11,26 +15,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/audioclient/nn-audioclient-iaudioclient
  * @namespace Windows.Win32.Media.Audio
  */
-class IAudioClient extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAudioClient extends IUnknown {
     /**
      * The interface identifier for IAudioClient
      * @type {Guid}
      */
-    static IID => Guid("{1cb9ad4c-dbfa-4c32-b178-c2f568a703b2}")
+    static IID := Guid("{1cb9ad4c-dbfa-4c32-b178-c2f568a703b2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAudioClient interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize        : IntPtr
+        GetBufferSize     : IntPtr
+        GetStreamLatency  : IntPtr
+        GetCurrentPadding : IntPtr
+        IsFormatSupported : IntPtr
+        GetMixFormat      : IntPtr
+        GetDevicePeriod   : IntPtr
+        Start             : IntPtr
+        Stop              : IntPtr
+        Reset             : IntPtr
+        SetEventHandle    : IntPtr
+        GetService        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetBufferSize", "GetStreamLatency", "GetCurrentPadding", "IsFormatSupported", "GetMixFormat", "GetDevicePeriod", "Start", "Stop", "Reset", "SetEventHandle", "GetService"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAudioClient.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Initialize method initializes the audio stream.
@@ -368,7 +390,7 @@ class IAudioClient extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient-initialize
      */
     Initialize(ShareMode, StreamFlags, hnsBufferDuration, hnsPeriodicity, pFormat, AudioSessionGuid) {
-        result := ComCall(3, this, "int", ShareMode, "uint", StreamFlags, "int64", hnsBufferDuration, "int64", hnsPeriodicity, "ptr", pFormat, "ptr", AudioSessionGuid, "HRESULT")
+        result := ComCall(3, this, AUDCLNT_SHAREMODE, ShareMode, "uint", StreamFlags, "int64", hnsBufferDuration, "int64", hnsPeriodicity, WAVEFORMATEX.Ptr, pFormat, Guid.Ptr, AudioSessionGuid, "HRESULT")
         return result
     }
 
@@ -475,7 +497,7 @@ class IAudioClient extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient-isformatsupported
      */
     IsFormatSupported(ShareMode, pFormat) {
-        result := ComCall(7, this, "int", ShareMode, "ptr", pFormat, "ptr*", &ppClosestMatch := 0, "int")
+        result := ComCall(7, this, AUDCLNT_SHAREMODE, ShareMode, WAVEFORMATEX.Ptr, pFormat, "ptr*", &ppClosestMatch := 0, Int32)
         return ppClosestMatch
     }
 
@@ -872,9 +894,7 @@ class IAudioClient extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient-seteventhandle
      */
     SetEventHandle(eventHandle) {
-        eventHandle := eventHandle is Win32Handle ? NumGet(eventHandle, "ptr") : eventHandle
-
-        result := ComCall(13, this, "ptr", eventHandle, "HRESULT")
+        result := ComCall(13, this, HANDLE, eventHandle, "HRESULT")
         return result
     }
 
@@ -970,7 +990,49 @@ class IAudioClient extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient-getservice
      */
     GetService(riid) {
-        result := ComCall(14, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(14, this, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
+    }
+
+    Query(iid) {
+        if (IAudioClient.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 7)
+        this.vtbl.GetBufferSize := CallbackCreate(GetMethod(implObj, "GetBufferSize"), flags, 2)
+        this.vtbl.GetStreamLatency := CallbackCreate(GetMethod(implObj, "GetStreamLatency"), flags, 2)
+        this.vtbl.GetCurrentPadding := CallbackCreate(GetMethod(implObj, "GetCurrentPadding"), flags, 2)
+        this.vtbl.IsFormatSupported := CallbackCreate(GetMethod(implObj, "IsFormatSupported"), flags, 4)
+        this.vtbl.GetMixFormat := CallbackCreate(GetMethod(implObj, "GetMixFormat"), flags, 2)
+        this.vtbl.GetDevicePeriod := CallbackCreate(GetMethod(implObj, "GetDevicePeriod"), flags, 3)
+        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 1)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.SetEventHandle := CallbackCreate(GetMethod(implObj, "SetEventHandle"), flags, 2)
+        this.vtbl.GetService := CallbackCreate(GetMethod(implObj, "GetService"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetBufferSize)
+        CallbackFree(this.vtbl.GetStreamLatency)
+        CallbackFree(this.vtbl.GetCurrentPadding)
+        CallbackFree(this.vtbl.IsFormatSupported)
+        CallbackFree(this.vtbl.GetMixFormat)
+        CallbackFree(this.vtbl.GetDevicePeriod)
+        CallbackFree(this.vtbl.Start)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.SetEventHandle)
+        CallbackFree(this.vtbl.GetService)
     }
 }

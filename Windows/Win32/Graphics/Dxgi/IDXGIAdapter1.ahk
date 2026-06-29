@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIAdapter.ahk
-#Include .\DXGI_ADAPTER_DESC1.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDXGIAdapter.ahk" { IDXGIAdapter }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXGI_ADAPTER_DESC1.ahk" { DXGI_ADAPTER_DESC1 }
 
 /**
  * The IDXGIAdapter1 interface represents a display sub-system (including one or more GPU's, DACs and video memory).
@@ -22,26 +23,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/nn-dxgi-idxgiadapter1
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGIAdapter1 extends IDXGIAdapter {
-
-    static sizeof => A_PtrSize
+export default struct IDXGIAdapter1 extends IDXGIAdapter {
     /**
      * The interface identifier for IDXGIAdapter1
      * @type {Guid}
      */
-    static IID => Guid("{29038f61-3839-4626-91fd-086879011a05}")
+    static IID := Guid("{29038f61-3839-4626-91fd-086879011a05}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 10
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGIAdapter1 interfaces
+    */
+    struct Vtbl extends IDXGIAdapter.Vtbl {
+        GetDesc1 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDesc1"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGIAdapter1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a DXGI 1.1 description of an adapter (or video card).
@@ -58,7 +66,27 @@ class IDXGIAdapter1 extends IDXGIAdapter {
      */
     GetDesc1() {
         pDesc := DXGI_ADAPTER_DESC1()
-        result := ComCall(10, this, "ptr", pDesc, "HRESULT")
+        result := ComCall(10, this, DXGI_ADAPTER_DESC1.Ptr, pDesc, "HRESULT")
         return pDesc
+    }
+
+    Query(iid) {
+        if (IDXGIAdapter1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDesc1 := CallbackCreate(GetMethod(implObj, "GetDesc1"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDesc1)
     }
 }

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The AMCOPPStatusInput structure contains a Certified Output Protection Protocol (COPP) status request.
@@ -47,56 +47,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-amcoppstatusinput
  * @namespace Windows.Win32.Media.DirectShow
  */
-class AMCOPPStatusInput extends Win32Struct {
-    static sizeof => 4080
-
-    static packingSize => 8
+export default struct AMCOPPStatusInput {
+    #StructPack 4
 
     /**
      * 128-bit random number.
-     * @type {Pointer}
      */
-    rApp {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    rApp : Guid
 
     /**
      * GUID that defines the status request.
-     * @type {Pointer}
      */
-    guidStatusRequestID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    guidStatusRequestID : Guid
 
     /**
      * Sequence number. The application must keep a running count of the COPP status requests issued. For each request, increment the sequence number by one.
-     * @type {Integer}
      */
-    dwSequence {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwSequence : UInt32
 
     /**
      * Number of bytes of valid data in the <b>StatusData</b> member.
-     * @type {Integer}
      */
-    cbSizeData {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    cbSizeData : UInt32
 
     /**
      * Data for the status request. The meaning of the data depends on the request.
-     * @type {Array<Integer>}
      */
-    StatusData {
-        get {
-            if(!this.HasProp("__StatusDataProxyArray"))
-                this.__StatusDataProxyArray := Win32FixedArray(this.ptr + 24, 4056, Primitive, "char")
-            return this.__StatusDataProxyArray
-        }
-    }
+    StatusData : Int8[4056]
+
 }

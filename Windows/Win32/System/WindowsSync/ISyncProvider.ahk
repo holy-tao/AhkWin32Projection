@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID_PARAMETERS.ahk" { ID_PARAMETERS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a synchronization provider that can be used by a synchronization session to synchronize data with another synchronization provider.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isyncprovider
  * @namespace Windows.Win32.System.WindowsSync
  */
-class ISyncProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISyncProvider extends IUnknown {
     /**
      * The interface identifier for ISyncProvider
      * @type {Guid}
      */
-    static IID => Guid("{8f657056-2bce-4a17-8c68-c7bb7898b56f}")
+    static IID := Guid("{8f657056-2bce-4a17-8c68-c7bb7898b56f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISyncProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetIdParameters : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetIdParameters"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISyncProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the ID format schema of the provider. (ISyncProvider.GetIdParameters)
@@ -64,7 +73,27 @@ class ISyncProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncprovider-getidparameters
      */
     GetIdParameters(pIdParameters) {
-        result := ComCall(3, this, "ptr", pIdParameters, "HRESULT")
+        result := ComCall(3, this, ID_PARAMETERS.Ptr, pIdParameters, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISyncProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetIdParameters := CallbackCreate(GetMethod(implObj, "GetIdParameters"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetIdParameters)
     }
 }

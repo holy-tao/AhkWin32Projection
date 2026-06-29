@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class KSYSTEM_TIME extends Win32Struct {
-    static sizeof => 12
+export default struct KSYSTEM_TIME {
+    #StructPack 4
 
-    static packingSize => 4
+    LowPart : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LowPart {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    High1Time : Int32
 
-    /**
-     * @type {Integer}
-     */
-    High1Time {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    High2Time : Int32
 
-    /**
-     * @type {Integer}
-     */
-    High2Time {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
 }

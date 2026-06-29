@@ -1,34 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents the per-user quota information.
  * @see https://learn.microsoft.com/windows/win32/api/dskquota/ns-dskquota-diskquota_user_information
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class DISKQUOTA_USER_INFORMATION extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct DISKQUOTA_USER_INFORMATION {
+    #StructPack 8
 
     /**
      * The disk space charged to the user, in bytes. This is the amount of information stored, not necessarily the number of bytes used on disk.
-     * @type {Integer}
      */
-    QuotaUsed {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    QuotaUsed : Int64
 
     /**
      * The warning threshold for the user, in bytes. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dskquota/nf-dskquota-idiskquotacontrol-setquotalogflags">IDiskQuotaControl::SetQuotaLogFlags</a> method to configure the system to generate a system logfile entry when the disk space charged to the user exceeds this value.
-     * @type {Integer}
      */
-    QuotaThreshold {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    QuotaThreshold : Int64
 
     /**
      * The quota limit for the user, in bytes. If this value is -1, the user has an unlimited quota. 
@@ -38,10 +27,7 @@ class DISKQUOTA_USER_INFORMATION extends Win32Struct {
      * 
      * You can use the <a href="https://docs.microsoft.com/windows/desktop/api/dskquota/nf-dskquota-idiskquotacontrol-setquotalogflags">IDiskQuotaControl::SetQuotaLogFlags</a> method to configure the system to generate a system logfile entry when the disk space charged to the user exceeds this value. You can also use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dskquota/nf-dskquota-idiskquotacontrol-setquotastate">IDiskQuotaControl::SetQuotaState</a> method to configure the system to deny additional disk space to the user when the disk space charged to the user exceeds this value.
-     * @type {Integer}
      */
-    QuotaLimit {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    QuotaLimit : Int64
+
 }

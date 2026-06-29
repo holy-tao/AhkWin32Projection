@@ -1,100 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHV_TRIGGER_TYPE.ahk
-#Include .\WHV_INTERRUPT_CONTROL.ahk
-#Include .\WHV_SYNIC_EVENT_PARAMETERS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WHV_TRIGGER_TYPE.ahk" { WHV_TRIGGER_TYPE }
+#Import ".\WHV_SYNIC_EVENT_PARAMETERS.ahk" { WHV_SYNIC_EVENT_PARAMETERS }
+#Import ".\WHV_INTERRUPT_CONTROL.ahk" { WHV_INTERRUPT_CONTROL }
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_TRIGGER_PARAMETERS extends Win32Struct {
-    static sizeof => 32
+export default struct WHV_TRIGGER_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
 
-    /**
-     * @type {WHV_TRIGGER_TYPE}
-     */
-    TriggerType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    struct _DeviceInterrupt {
+        LogicalDeviceId : Int64
+
+        MsiAddress : Int64
+
+        MsiData : UInt32
+
+        Reserved : UInt32
+
     }
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    TriggerType : WHV_TRIGGER_TYPE
 
-    class _DeviceInterrupt extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
+    Reserved : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        LogicalDeviceId {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+    Interrupt : WHV_INTERRUPT_CONTROL
 
-        /**
-         * @type {Integer}
-         */
-        MsiAddress {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        MsiData {
-            get => NumGet(this, 16, "uint")
-            set => NumPut("uint", value, this, 16)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => NumGet(this, 20, "uint")
-            set => NumPut("uint", value, this, 20)
-        }
-    }
-
-    /**
-     * @type {WHV_INTERRUPT_CONTROL}
-     */
-    Interrupt {
-        get {
-            if(!this.HasProp("__Interrupt"))
-                this.__Interrupt := WHV_INTERRUPT_CONTROL(8, this)
-            return this.__Interrupt
-        }
-    }
-
-    /**
-     * @type {WHV_SYNIC_EVENT_PARAMETERS}
-     */
-    SynicEvent {
-        get {
-            if(!this.HasProp("__SynicEvent"))
-                this.__SynicEvent := WHV_SYNIC_EVENT_PARAMETERS(8, this)
-            return this.__SynicEvent
-        }
-    }
-
-    /**
-     * @type {_DeviceInterrupt}
-     */
-    DeviceInterrupt {
-        get {
-            if(!this.HasProp("__DeviceInterrupt"))
-                this.__DeviceInterrupt := WHV_TRIGGER_PARAMETERS._DeviceInterrupt(8, this)
-            return this.__DeviceInterrupt
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'SynicEvent', { type: WHV_SYNIC_EVENT_PARAMETERS, offset: 8 })
+        DefineProp(this.Prototype, 'DeviceInterrupt', { type: WHV_TRIGGER_PARAMETERS._DeviceInterrupt, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

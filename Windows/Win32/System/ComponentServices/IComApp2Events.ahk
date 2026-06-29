@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Notifies the subscriber if a COM+ server application is loaded, shut down, or paused.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomapp2events
  * @namespace Windows.Win32.System.ComponentServices
  */
-class IComApp2Events extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IComApp2Events extends IUnknown {
     /**
      * The interface identifier for IComApp2Events
      * @type {Guid}
      */
-    static IID => Guid("{1290bc1a-b219-418d-b078-5934ded08242}")
+    static IID := Guid("{1290bc1a-b219-418d-b078-5934ded08242}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IComApp2Events interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnAppActivation2    : IntPtr
+        OnAppShutdown2      : IntPtr
+        OnAppForceShutdown2 : IntPtr
+        OnAppPaused2        : IntPtr
+        OnAppRecycle2       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnAppActivation2", "OnAppShutdown2", "OnAppForceShutdown2", "OnAppPaused2", "OnAppRecycle2"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IComApp2Events.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Generated when the server application process is loaded.
@@ -38,7 +52,7 @@ class IComApp2Events extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomapp2events-onappactivation2
      */
     OnAppActivation2(pInfo, guidApp, guidProcess) {
-        result := ComCall(3, this, "ptr", pInfo, "ptr", guidApp, "ptr", guidProcess, "HRESULT")
+        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid, guidApp, Guid, guidProcess, "HRESULT")
         return result
     }
 
@@ -50,7 +64,7 @@ class IComApp2Events extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomapp2events-onappshutdown2
      */
     OnAppShutdown2(pInfo, guidApp) {
-        result := ComCall(4, this, "ptr", pInfo, "ptr", guidApp, "HRESULT")
+        result := ComCall(4, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid, guidApp, "HRESULT")
         return result
     }
 
@@ -62,7 +76,7 @@ class IComApp2Events extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomapp2events-onappforceshutdown2
      */
     OnAppForceShutdown2(pInfo, guidApp) {
-        result := ComCall(5, this, "ptr", pInfo, "ptr", guidApp, "HRESULT")
+        result := ComCall(5, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid, guidApp, "HRESULT")
         return result
     }
 
@@ -75,7 +89,7 @@ class IComApp2Events extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomapp2events-onapppaused2
      */
     OnAppPaused2(pInfo, guidApp, bPaused) {
-        result := ComCall(6, this, "ptr", pInfo, "ptr", guidApp, "int", bPaused, "HRESULT")
+        result := ComCall(6, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid, guidApp, BOOL, bPaused, "HRESULT")
         return result
     }
 
@@ -162,7 +176,35 @@ class IComApp2Events extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomapp2events-onapprecycle2
      */
     OnAppRecycle2(pInfo, guidApp, guidProcess, lReason) {
-        result := ComCall(7, this, "ptr", pInfo, "ptr", guidApp, "ptr", guidProcess, "int", lReason, "HRESULT")
+        result := ComCall(7, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid, guidApp, Guid, guidProcess, "int", lReason, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IComApp2Events.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnAppActivation2 := CallbackCreate(GetMethod(implObj, "OnAppActivation2"), flags, 4)
+        this.vtbl.OnAppShutdown2 := CallbackCreate(GetMethod(implObj, "OnAppShutdown2"), flags, 3)
+        this.vtbl.OnAppForceShutdown2 := CallbackCreate(GetMethod(implObj, "OnAppForceShutdown2"), flags, 3)
+        this.vtbl.OnAppPaused2 := CallbackCreate(GetMethod(implObj, "OnAppPaused2"), flags, 4)
+        this.vtbl.OnAppRecycle2 := CallbackCreate(GetMethod(implObj, "OnAppRecycle2"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnAppActivation2)
+        CallbackFree(this.vtbl.OnAppShutdown2)
+        CallbackFree(this.vtbl.OnAppForceShutdown2)
+        CallbackFree(this.vtbl.OnAppPaused2)
+        CallbackFree(this.vtbl.OnAppRecycle2)
     }
 }

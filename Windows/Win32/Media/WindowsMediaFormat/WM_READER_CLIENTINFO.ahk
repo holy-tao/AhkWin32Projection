@@ -1,5 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The WM_READER_CLIENTINFO structure describes the client reader (player) accessing the media stream.
@@ -10,94 +11,52 @@
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wm_reader_clientinfo
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class WM_READER_CLIENTINFO extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct WM_READER_CLIENTINFO {
+    #StructPack 8
 
     /**
      * Size of the structure in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Two-letter or three-letter language code.
-     * @type {PWSTR}
      */
-    wszLang {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    wszLang : PWSTR
 
     /**
      * The browser's user-agent string.
-     * @type {PWSTR}
      */
-    wszBrowserUserAgent {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    wszBrowserUserAgent : PWSTR
 
     /**
      * Web page that contains the <a href="https://docs.microsoft.com/windows/desktop/wmformat/wmformat-glossary">plug-in</a>.
-     * @type {PWSTR}
      */
-    wszBrowserWebPage {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    wszBrowserWebPage : PWSTR
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    qwReserved {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    qwReserved : Int64
 
     /**
      * Unused. See Remarks.
-     * @type {Pointer<LPARAM>}
      */
-    pReserved {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pReserved : LPARAM.Ptr
 
     /**
      * Host application's .exe file; for example, Iexplore.exe.
-     * @type {PWSTR}
      */
-    wszHostExe {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    wszHostExe : PWSTR
 
     /**
      * Version number of the host application. The value is four unsigned <b>WORD</b> values packed into a 64-bit integer. When the client information is logged, each <b>WORD</b> value is unpacked and translated into its decimal equivalent. For example, if the value is 0x0001000200030004, the version number is logged as "1.2.3.4".
-     * @type {Integer}
      */
-    qwHostVersion {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    qwHostVersion : Int64
 
     /**
      * String identifying the player application. For example, "WMPlayer/9.0.0.0" identifies version 9 of the Windows Media Player.
-     * @type {PWSTR}
      */
-    wszPlayerUserAgent {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    wszPlayerUserAgent : PWSTR
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 72
-    }
 }

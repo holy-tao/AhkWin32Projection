@@ -1,17 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
-#Include .\DFS_STORAGE_INFO_1.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DFS_STORAGE_INFO_1.ahk" { DFS_STORAGE_INFO_1 }
 
 /**
  * Contains the name, status, GUID, time-out, property flags, metadata size, DFS target information, link reparse point security descriptor, and a list of DFS targets for a root or link.
  * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_info_9
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  */
-class DFS_INFO_9 extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct DFS_INFO_9 {
+    #StructPack 8
 
     /**
      * Pointer to a null-terminated Unicode string that specifies the Universal Naming Convention (UNC) path of a 
@@ -42,22 +41,14 @@ class DFS_INFO_9 extends Win32Struct {
      * &#92;&#92;<i>DomainName</i>&#92;<i>DomDfsname</i>
      * 
      * where the values of the names are the same as those described previously.
-     * @type {PWSTR}
      */
-    EntryPath {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    EntryPath : PWSTR
 
     /**
      * Pointer to a null-terminated Unicode string that contains a comment associated with the DFS root or 
      *       link.
-     * @type {PWSTR}
      */
-    Comment {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Comment : PWSTR
 
     /**
      * Specifies a set of bit flags that describe the DFS root or link. One 
@@ -66,39 +57,23 @@ class DFS_INFO_9 extends Win32Struct {
      *       namespace flavor, and the <b>DFS_VOLUME_STATES</b> bitmask (0x0000000F) must be used to 
      *       extract the DFS root or link state from this member. For an example that describes the interpretation of the 
      *       flags, see the Remarks section of <a href="https://docs.microsoft.com/windows/desktop/api/lmdfs/ns-lmdfs-dfs_info_2">DFS_INFO_2</a>.
-     * @type {Integer}
      */
-    State {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    State : UInt32
 
     /**
      * Specifies the time-out, in seconds, of the DFS root or link.
-     * @type {Integer}
      */
-    Timeout {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    Timeout : UInt32
 
     /**
      * Specifies the <b>GUID</b> of the DFS root or link.
-     * @type {Pointer}
      */
-    Guid {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Guid : Guid
 
     /**
      * Specifies a set of flags that describe specific properties of a DFS namespace, root, or link.
-     * @type {Integer}
      */
-    PropertyFlags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    PropertyFlags : UInt32
 
     /**
      * For domain-based DFS namespaces, this member specifies the size of the corresponding Active Directory data 
@@ -107,53 +82,31 @@ class DFS_INFO_9 extends Win32Struct {
      *        them.
      * 
      * This field is valid for DFS roots only.
-     * @type {Integer}
      */
-    MetadataSize {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    MetadataSize : UInt32
 
     /**
      * This member is reserved for system use.
-     * @type {Integer}
      */
-    SdLengthReserved {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    SdLengthReserved : UInt32
 
     /**
      * Pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> 
      *       structure that specifies a self-relative security descriptor to be associated with the DFS link's reparse point. 
      *       This field is valid for DFS links only.
-     * @type {PSECURITY_DESCRIPTOR}
      */
-    pSecurityDescriptor {
-        get {
-            if(!this.HasProp("__pSecurityDescriptor"))
-                this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(48, this)
-            return this.__pSecurityDescriptor
-        }
-    }
+    pSecurityDescriptor : PSECURITY_DESCRIPTOR
 
     /**
      * Specifies the number of targets for the DFS root or link. These targets are contained in the 
      *       <b>Storage</b> member of this structure.
-     * @type {Integer}
      */
-    NumberOfStorages {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    NumberOfStorages : UInt32
 
     /**
      * Specifies an array of <a href="https://docs.microsoft.com/windows/desktop/api/lmdfs/ns-lmdfs-dfs_storage_info_1">DFS_STORAGE_INFO_1</a> 
      *       structures that contain the DFS target information.
-     * @type {Pointer<DFS_STORAGE_INFO_1>}
      */
-    Storage {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    Storage : DFS_STORAGE_INFO_1.Ptr
+
 }

@@ -1,36 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BTH_LE_GATT_CHARACTERISTIC.ahk
-#Include .\BTH_LE_UUID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BTH_LE_GATT_CHARACTERISTIC.ahk" { BTH_LE_GATT_CHARACTERISTIC }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\BTH_LE_UUID.ahk" { BTH_LE_UUID }
 
 /**
  * The BLUETOOTH_GATT_VALUE_CHANGED_EVENT_REGISTRATION structure describes one or more characteristics that have changed.
  * @see https://learn.microsoft.com/windows/win32/api/bthledef/ns-bthledef-bluetooth_gatt_value_changed_event_registration
  * @namespace Windows.Win32.Devices.Bluetooth
  */
-class BLUETOOTH_GATT_VALUE_CHANGED_EVENT_REGISTRATION extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct BLUETOOTH_GATT_VALUE_CHANGED_EVENT_REGISTRATION {
+    #StructPack 4
 
     /**
      * The number of characteristics that follow this member in memory.
-     * @type {Integer}
      */
-    NumCharacteristics {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    NumCharacteristics : UInt16
 
     /**
      * Array of characteristics to monitor for incoming events.
-     * @type {BTH_LE_GATT_CHARACTERISTIC}
      */
-    Characteristics {
-        get {
-            if(!this.HasProp("__CharacteristicsProxyArray"))
-                this.__CharacteristicsProxyArray := Win32FixedArray(this.ptr + 8, 1, BTH_LE_GATT_CHARACTERISTIC, "")
-            return this.__CharacteristicsProxyArray
-        }
-    }
+    Characteristics : BTH_LE_GATT_CHARACTERISTIC[1]
+
 }

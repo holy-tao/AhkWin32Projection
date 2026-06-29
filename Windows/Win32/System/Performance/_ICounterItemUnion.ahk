@@ -1,39 +1,65 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SysmonDataType.ahk" { SysmonDataType }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.Performance
  */
-class _ICounterItemUnion extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct _ICounterItemUnion extends IUnknown {
     /**
      * The interface identifier for _ICounterItemUnion
      * @type {Guid}
      */
-    static IID => Guid("{de1a6b74-9182-4c41-8e2c-24c2cd30ee83}")
+    static IID := Guid("{de1a6b74-9182-4c41-8e2c-24c2cd30ee83}")
 
     /**
      * The class identifier for _ICounterItemUnion
      * @type {Guid}
      */
-    static CLSID => Guid("{de1a6b74-9182-4c41-8e2c-24c2cd30ee83}")
+    static CLSID := Guid("{de1a6b74-9182-4c41-8e2c-24c2cd30ee83}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for _ICounterItemUnion interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_Value       : IntPtr
+        put_Color       : IntPtr
+        get_Color       : IntPtr
+        put_Width       : IntPtr
+        get_Width       : IntPtr
+        put_LineStyle   : IntPtr
+        get_LineStyle   : IntPtr
+        put_ScaleFactor : IntPtr
+        get_ScaleFactor : IntPtr
+        get_Path        : IntPtr
+        GetValue        : IntPtr
+        GetStatistics   : IntPtr
+        put_Selected    : IntPtr
+        get_Selected    : IntPtr
+        put_Visible     : IntPtr
+        get_Visible     : IntPtr
+        GetDataAt       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Value", "put_Color", "get_Color", "put_Width", "get_Width", "put_LineStyle", "get_LineStyle", "put_ScaleFactor", "get_ScaleFactor", "get_Path", "GetValue", "GetStatistics", "put_Selected", "get_Selected", "put_Visible", "get_Visible", "GetDataAt"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := _ICounterItemUnion.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Float} 
@@ -187,17 +213,16 @@ class _ICounterItemUnion extends IUnknown {
      * @returns {BSTR} 
      */
     get_Path() {
-        pstrValue := BSTR()
-        result := ComCall(12, this, "ptr", pstrValue, "HRESULT")
+        pstrValue := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, pstrValue, "HRESULT")
         return pstrValue
     }
 
     /**
-     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetValueAndName
+     * 
      * @param {Pointer<Float>} Value 
      * @param {Pointer<Integer>} _Status 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecmetadata-getvalueandname
      */
     GetValue(Value, _Status) {
         ValueMarshal := Value is VarRef ? "double*" : "ptr"
@@ -231,7 +256,7 @@ class _ICounterItemUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_Selected(bState) {
-        result := ComCall(15, this, "short", bState, "HRESULT")
+        result := ComCall(15, this, VARIANT_BOOL, bState, "HRESULT")
         return result
     }
 
@@ -240,7 +265,7 @@ class _ICounterItemUnion extends IUnknown {
      * @returns {VARIANT_BOOL} 
      */
     get_Selected() {
-        result := ComCall(16, this, "short*", &pbState := 0, "HRESULT")
+        result := ComCall(16, this, VARIANT_BOOL.Ptr, &pbState := 0, "HRESULT")
         return pbState
     }
 
@@ -250,7 +275,7 @@ class _ICounterItemUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_Visible(bState) {
-        result := ComCall(17, this, "short", bState, "HRESULT")
+        result := ComCall(17, this, VARIANT_BOOL, bState, "HRESULT")
         return result
     }
 
@@ -259,7 +284,7 @@ class _ICounterItemUnion extends IUnknown {
      * @returns {VARIANT_BOOL} 
      */
     get_Visible() {
-        result := ComCall(18, this, "short*", &pbState := 0, "HRESULT")
+        result := ComCall(18, this, VARIANT_BOOL.Ptr, &pbState := 0, "HRESULT")
         return pbState
     }
 
@@ -271,7 +296,59 @@ class _ICounterItemUnion extends IUnknown {
      */
     GetDataAt(iIndex, iWhich) {
         pVariant := VARIANT()
-        result := ComCall(19, this, "int", iIndex, "int", iWhich, "ptr", pVariant, "HRESULT")
+        result := ComCall(19, this, "int", iIndex, SysmonDataType, iWhich, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
+    }
+
+    Query(iid) {
+        if (_ICounterItemUnion.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 2)
+        this.vtbl.put_Color := CallbackCreate(GetMethod(implObj, "put_Color"), flags, 2)
+        this.vtbl.get_Color := CallbackCreate(GetMethod(implObj, "get_Color"), flags, 2)
+        this.vtbl.put_Width := CallbackCreate(GetMethod(implObj, "put_Width"), flags, 2)
+        this.vtbl.get_Width := CallbackCreate(GetMethod(implObj, "get_Width"), flags, 2)
+        this.vtbl.put_LineStyle := CallbackCreate(GetMethod(implObj, "put_LineStyle"), flags, 2)
+        this.vtbl.get_LineStyle := CallbackCreate(GetMethod(implObj, "get_LineStyle"), flags, 2)
+        this.vtbl.put_ScaleFactor := CallbackCreate(GetMethod(implObj, "put_ScaleFactor"), flags, 2)
+        this.vtbl.get_ScaleFactor := CallbackCreate(GetMethod(implObj, "get_ScaleFactor"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 3)
+        this.vtbl.GetStatistics := CallbackCreate(GetMethod(implObj, "GetStatistics"), flags, 5)
+        this.vtbl.put_Selected := CallbackCreate(GetMethod(implObj, "put_Selected"), flags, 2)
+        this.vtbl.get_Selected := CallbackCreate(GetMethod(implObj, "get_Selected"), flags, 2)
+        this.vtbl.put_Visible := CallbackCreate(GetMethod(implObj, "put_Visible"), flags, 2)
+        this.vtbl.get_Visible := CallbackCreate(GetMethod(implObj, "get_Visible"), flags, 2)
+        this.vtbl.GetDataAt := CallbackCreate(GetMethod(implObj, "GetDataAt"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Value)
+        CallbackFree(this.vtbl.put_Color)
+        CallbackFree(this.vtbl.get_Color)
+        CallbackFree(this.vtbl.put_Width)
+        CallbackFree(this.vtbl.get_Width)
+        CallbackFree(this.vtbl.put_LineStyle)
+        CallbackFree(this.vtbl.get_LineStyle)
+        CallbackFree(this.vtbl.put_ScaleFactor)
+        CallbackFree(this.vtbl.get_ScaleFactor)
+        CallbackFree(this.vtbl.get_Path)
+        CallbackFree(this.vtbl.GetValue)
+        CallbackFree(this.vtbl.GetStatistics)
+        CallbackFree(this.vtbl.put_Selected)
+        CallbackFree(this.vtbl.get_Selected)
+        CallbackFree(this.vtbl.put_Visible)
+        CallbackFree(this.vtbl.get_Visible)
+        CallbackFree(this.vtbl.GetDataAt)
     }
 }

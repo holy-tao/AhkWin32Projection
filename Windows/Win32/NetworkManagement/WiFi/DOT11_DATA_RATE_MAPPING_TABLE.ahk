@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
-#Include .\DOT11_DATA_RATE_MAPPING_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Ndis\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
+#Import ".\DOT11_DATA_RATE_MAPPING_ENTRY.ahk" { DOT11_DATA_RATE_MAPPING_ENTRY }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_DATA_RATE_MAPPING_TABLE extends Win32Struct {
-    static sizeof => 512
+export default struct DOT11_DATA_RATE_MAPPING_TABLE {
+    #StructPack 4
 
-    static packingSize => 4
+    Header : NDIS_OBJECT_HEADER
 
-    /**
-     * @type {NDIS_OBJECT_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    uDataRateMappingLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uDataRateMappingLength {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    DataRateMappingEntries : DOT11_DATA_RATE_MAPPING_ENTRY[126]
 
-    /**
-     * @type {DOT11_DATA_RATE_MAPPING_ENTRY}
-     */
-    DataRateMappingEntries {
-        get {
-            if(!this.HasProp("__DataRateMappingEntriesProxyArray"))
-                this.__DataRateMappingEntriesProxyArray := Win32FixedArray(this.ptr + 8, 126, DOT11_DATA_RATE_MAPPING_ENTRY, "")
-            return this.__DataRateMappingEntriesProxyArray
-        }
-    }
 }

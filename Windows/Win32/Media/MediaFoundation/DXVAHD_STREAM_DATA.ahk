@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains per-stream data for the IDXVAHD_VideoProcessor::VideoProcessBltHD method.
@@ -60,80 +60,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_stream_data
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVAHD_STREAM_DATA extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct DXVAHD_STREAM_DATA {
+    #StructPack 8
 
     /**
      * Specifies whether this input stream is enabled. If the value is <b>TRUE</b>, the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nf-dxvahd-idxvahd_videoprocessor-videoprocessblthd">VideoProcessBltHD</a> method blits this stream to the output surface<b></b>. Otherwise, the stream is not blitted. The maximum number of streams that can be enabled at one time is given in the <b>MaxInputStreams</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_vpdevcaps">DXVAHD_VPDEVCAPS</a> structure.
-     * @type {BOOL}
      */
-    Enable {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Enable : BOOL
 
     /**
      * The zero-based index number of the output frame. See Remarks.
-     * @type {Integer}
      */
-    OutputIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    OutputIndex : UInt32
 
     /**
      * The zero-based index number of the input frame or field. See Remarks.
-     * @type {Integer}
      */
-    InputFrameOrField {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    InputFrameOrField : UInt32
 
     /**
      * The number of past reference frames. This value must be less than or equal to the value of the <b>PastFrames</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_vpcaps">DXVAHD_VPCAPS</a> structure.
-     * @type {Integer}
      */
-    PastFrames {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    PastFrames : UInt32
 
     /**
      * The number of future reference frames. This value must be less than or equal to the value of the <b>FutureFrames</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_vpcaps">DXVAHD_VPCAPS</a> structure.
-     * @type {Integer}
      */
-    FutureFrames {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    FutureFrames : UInt32
 
     /**
      * A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3dsurface9">IDirect3DSurface9</a> pointers, allocated by the caller. This array contains the past reference frames for the video processing operation. The number of elements in the array is equal to the value of the <b>PastFrames</b> member.
-     * @type {Pointer<IDirect3DSurface9>}
      */
-    ppPastSurfaces {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ppPastSurfaces : IDirect3DSurface9.Ptr
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3dsurface9">IDirect3DSurface9</a> interface of a Microsoft Direct3D surface that contains the current input frame.
-     * @type {IDirect3DSurface9}
      */
-    pInputSurface {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pInputSurface : IDirect3DSurface9
 
     /**
      * A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3dsurface9">IDirect3DSurface9</a> pointers, allocated by the caller. This array contains the future reference frames for the video processing operation. The number of elements in the array is equal to the value of the <b>FutureFrames</b> member.
-     * @type {Pointer<IDirect3DSurface9>}
      */
-    ppFutureSurfaces {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    ppFutureSurfaces : IDirect3DSurface9.Ptr
+
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the options for handling a name collision when saving a library.
@@ -19,7 +18,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-librarysaveflags
  * @namespace Windows.Win32.UI.Shell
  */
-class LIBRARYSAVEFLAGS extends Win32BitflagEnum {
+export default struct LIBRARYSAVEFLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * If a library with the same name already exists, the save operation fails.

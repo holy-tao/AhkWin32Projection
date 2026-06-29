@@ -1,223 +1,73 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_DATA_CHUNK_TYPE.ahk
-#Include .\HTTP_BYTE_RANGE.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\HTTP_UNKNOWN_HEADER.ahk
-#Include .\HTTP_WINHTTP_FAST_FORWARDING_DATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\HTTP_UNKNOWN_HEADER.ahk" { HTTP_UNKNOWN_HEADER }
+#Import ".\HTTP_DATA_CHUNK_TYPE.ahk" { HTTP_DATA_CHUNK_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HTTP_WINHTTP_FAST_FORWARDING_DATA.ahk" { HTTP_WINHTTP_FAST_FORWARDING_DATA }
+#Import ".\HTTP_BYTE_RANGE.ahk" { HTTP_BYTE_RANGE }
 
 /**
  * Represents an individual block of data either in memory, in a file, or in the HTTP Server API response-fragment cache.
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_data_chunk
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_DATA_CHUNK extends Win32Struct {
-    static sizeof => 32
+export default struct HTTP_DATA_CHUNK {
+    #StructPack 8
 
-    static packingSize => 8
+
+    struct _FromMemory {
+        pBuffer : IntPtr
+
+        BufferLength : UInt32
+
+    }
+
+    struct _FromFileHandle {
+        ByteRange : HTTP_BYTE_RANGE
+
+        FileHandle : HANDLE
+
+    }
+
+    struct _FromFragmentCache {
+        FragmentNameLength : UInt16
+
+        pFragmentName : PWSTR
+
+    }
+
+    struct _FromFragmentCacheEx {
+        ByteRange : HTTP_BYTE_RANGE
+
+        pFragmentName : PWSTR
+
+    }
+
+    struct _Trailers {
+        TrailerCount : UInt16
+
+        pTrailers : HTTP_UNKNOWN_HEADER.Ptr
+
+    }
+
+    struct _FromWinHttpFastForwarding {
+        WhFastForwardingData : HTTP_WINHTTP_FAST_FORWARDING_DATA
+
+    }
 
     /**
      * Type of data store. This member can be one of the values from the <b>HTTP_DATA_CHUNK_TYPE</b> enumeration.
-     * @type {HTTP_DATA_CHUNK_TYPE}
      */
-    DataChunkType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    DataChunkType : HTTP_DATA_CHUNK_TYPE
 
-    class _FromMemory extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    FromMemory : HTTP_DATA_CHUNK._FromMemory
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        pBuffer {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        BufferLength {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
-    }
-
-    class _FromFileHandle extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
-
-        /**
-         * @type {HTTP_BYTE_RANGE}
-         */
-        ByteRange {
-            get {
-                if(!this.HasProp("__ByteRange"))
-                    this.__ByteRange := HTTP_BYTE_RANGE(0, this)
-                return this.__ByteRange
-            }
-        }
-
-        /**
-         * @type {HANDLE}
-         */
-        FileHandle {
-            get {
-                if(!this.HasProp("__FileHandle"))
-                    this.__FileHandle := HANDLE(16, this)
-                return this.__FileHandle
-            }
-        }
-    }
-
-    class _FromFragmentCache extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        FragmentNameLength {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
-
-        /**
-         * @type {PWSTR}
-         */
-        pFragmentName {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
-    }
-
-    class _FromFragmentCacheEx extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
-
-        /**
-         * @type {HTTP_BYTE_RANGE}
-         */
-        ByteRange {
-            get {
-                if(!this.HasProp("__ByteRange"))
-                    this.__ByteRange := HTTP_BYTE_RANGE(0, this)
-                return this.__ByteRange
-            }
-        }
-
-        /**
-         * @type {PWSTR}
-         */
-        pFragmentName {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
-        }
-    }
-
-    class _Trailers extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        TrailerCount {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<HTTP_UNKNOWN_HEADER>}
-         */
-        pTrailers {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
-    }
-
-    class _FromWinHttpFastForwarding extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 1
-
-        /**
-         * @type {HTTP_WINHTTP_FAST_FORWARDING_DATA}
-         */
-        WhFastForwardingData {
-            get {
-                if(!this.HasProp("__WhFastForwardingData"))
-                    this.__WhFastForwardingData := HTTP_WINHTTP_FAST_FORWARDING_DATA(0, this)
-                return this.__WhFastForwardingData
-            }
-        }
-    }
-
-    /**
-     * @type {_FromMemory}
-     */
-    FromMemory {
-        get {
-            if(!this.HasProp("__FromMemory"))
-                this.__FromMemory := HTTP_DATA_CHUNK._FromMemory(8, this)
-            return this.__FromMemory
-        }
-    }
-
-    /**
-     * @type {_FromFileHandle}
-     */
-    FromFileHandle {
-        get {
-            if(!this.HasProp("__FromFileHandle"))
-                this.__FromFileHandle := HTTP_DATA_CHUNK._FromFileHandle(8, this)
-            return this.__FromFileHandle
-        }
-    }
-
-    /**
-     * @type {_FromFragmentCache}
-     */
-    FromFragmentCache {
-        get {
-            if(!this.HasProp("__FromFragmentCache"))
-                this.__FromFragmentCache := HTTP_DATA_CHUNK._FromFragmentCache(8, this)
-            return this.__FromFragmentCache
-        }
-    }
-
-    /**
-     * @type {_FromFragmentCacheEx}
-     */
-    FromFragmentCacheEx {
-        get {
-            if(!this.HasProp("__FromFragmentCacheEx"))
-                this.__FromFragmentCacheEx := HTTP_DATA_CHUNK._FromFragmentCacheEx(8, this)
-            return this.__FromFragmentCacheEx
-        }
-    }
-
-    /**
-     * @type {_Trailers}
-     */
-    Trailers {
-        get {
-            if(!this.HasProp("__Trailers"))
-                this.__Trailers := HTTP_DATA_CHUNK._Trailers(8, this)
-            return this.__Trailers
-        }
-    }
-
-    /**
-     * @type {_FromWinHttpFastForwarding}
-     */
-    FromWinHttpFastForwarding {
-        get {
-            if(!this.HasProp("__FromWinHttpFastForwarding"))
-                this.__FromWinHttpFastForwarding := HTTP_DATA_CHUNK._FromWinHttpFastForwarding(8, this)
-            return this.__FromWinHttpFastForwarding
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'FromFileHandle', { type: HTTP_DATA_CHUNK._FromFileHandle, offset: 8 })
+        DefineProp(this.Prototype, 'FromFragmentCache', { type: HTTP_DATA_CHUNK._FromFragmentCache, offset: 8 })
+        DefineProp(this.Prototype, 'FromFragmentCacheEx', { type: HTTP_DATA_CHUNK._FromFragmentCacheEx, offset: 8 })
+        DefineProp(this.Prototype, 'Trailers', { type: HTTP_DATA_CHUNK._Trailers, offset: 8 })
+        DefineProp(this.Prototype, 'FromWinHttpFastForwarding', { type: HTTP_DATA_CHUNK._FromWinHttpFastForwarding, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

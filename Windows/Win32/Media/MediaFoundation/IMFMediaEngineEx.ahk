@@ -1,9 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFMediaEngine.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MF_MEDIA_ENGINE_SEEK_MODE.ahk" { MF_MEDIA_ENGINE_SEEK_MODE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MF_MEDIA_ENGINE_S3D_PACKING_MODE.ahk" { MF_MEDIA_ENGINE_S3D_PACKING_MODE }
+#Import ".\MF_MEDIA_ENGINE_STATISTIC.ahk" { MF_MEDIA_ENGINE_STATISTIC }
+#Import ".\MFARGB.ahk" { MFARGB }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\MF3DVideoOutputType.ahk" { MF3DVideoOutputType }
+#Import ".\MFVideoNormalizedRect.ahk" { MFVideoNormalizedRect }
+#Import ".\IMFByteStream.ahk" { IMFByteStream }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\IMFMediaEngine.ahk" { IMFMediaEngine }
 
 /**
  * Extends the IMFMediaEngine interface.
@@ -12,26 +24,69 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfmediaengineex
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFMediaEngineEx extends IMFMediaEngine {
-
-    static sizeof => A_PtrSize
+export default struct IMFMediaEngineEx extends IMFMediaEngine {
     /**
      * The interface identifier for IMFMediaEngineEx
      * @type {Guid}
      */
-    static IID => Guid("{83015ead-b1e6-40d0-a98a-37145ffe1ad1}")
+    static IID := Guid("{83015ead-b1e6-40d0-a98a-37145ffe1ad1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 45
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFMediaEngineEx interfaces
+    */
+    struct Vtbl extends IMFMediaEngine.Vtbl {
+        SetSourceFromByteStream       : IntPtr
+        GetStatistics                 : IntPtr
+        UpdateVideoStream             : IntPtr
+        GetBalance                    : IntPtr
+        SetBalance                    : IntPtr
+        IsPlaybackRateSupported       : IntPtr
+        FrameStep                     : IntPtr
+        GetResourceCharacteristics    : IntPtr
+        GetPresentationAttribute      : IntPtr
+        GetNumberOfStreams            : IntPtr
+        GetStreamAttribute            : IntPtr
+        GetStreamSelection            : IntPtr
+        SetStreamSelection            : IntPtr
+        ApplyStreamSelections         : IntPtr
+        IsProtected                   : IntPtr
+        InsertVideoEffect             : IntPtr
+        InsertAudioEffect             : IntPtr
+        RemoveAllEffects              : IntPtr
+        SetTimelineMarkerTimer        : IntPtr
+        GetTimelineMarkerTimer        : IntPtr
+        CancelTimelineMarkerTimer     : IntPtr
+        IsStereo3D                    : IntPtr
+        GetStereo3DFramePackingMode   : IntPtr
+        SetStereo3DFramePackingMode   : IntPtr
+        GetStereo3DRenderMode         : IntPtr
+        SetStereo3DRenderMode         : IntPtr
+        EnableWindowlessSwapchainMode : IntPtr
+        GetVideoSwapchainHandle       : IntPtr
+        EnableHorizontalMirrorMode    : IntPtr
+        GetAudioStreamCategory        : IntPtr
+        SetAudioStreamCategory        : IntPtr
+        GetAudioEndpointRole          : IntPtr
+        SetAudioEndpointRole          : IntPtr
+        GetRealTimeMode               : IntPtr
+        SetRealTimeMode               : IntPtr
+        SetCurrentTimeEx              : IntPtr
+        EnableTimeUpdateTimer         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetSourceFromByteStream", "GetStatistics", "UpdateVideoStream", "GetBalance", "SetBalance", "IsPlaybackRateSupported", "FrameStep", "GetResourceCharacteristics", "GetPresentationAttribute", "GetNumberOfStreams", "GetStreamAttribute", "GetStreamSelection", "SetStreamSelection", "ApplyStreamSelections", "IsProtected", "InsertVideoEffect", "InsertAudioEffect", "RemoveAllEffects", "SetTimelineMarkerTimer", "GetTimelineMarkerTimer", "CancelTimelineMarkerTimer", "IsStereo3D", "GetStereo3DFramePackingMode", "SetStereo3DFramePackingMode", "GetStereo3DRenderMode", "SetStereo3DRenderMode", "EnableWindowlessSwapchainMode", "GetVideoSwapchainHandle", "EnableHorizontalMirrorMode", "GetAudioStreamCategory", "SetAudioStreamCategory", "GetAudioEndpointRole", "SetAudioEndpointRole", "GetRealTimeMode", "SetRealTimeMode", "SetCurrentTimeEx", "EnableTimeUpdateTimer"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFMediaEngineEx.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Opens a media resource from a byte stream.
@@ -43,7 +98,7 @@ class IMFMediaEngineEx extends IMFMediaEngine {
     SetSourceFromByteStream(pByteStream, pURL) {
         pURL := pURL is String ? BSTR.Alloc(pURL).Value : pURL
 
-        result := ComCall(45, this, "ptr", pByteStream, "ptr", pURL, "HRESULT")
+        result := ComCall(45, this, "ptr", pByteStream, BSTR, pURL, "HRESULT")
         return result
     }
 
@@ -55,7 +110,7 @@ class IMFMediaEngineEx extends IMFMediaEngine {
      */
     GetStatistics(StatisticID) {
         pStatistic := PROPVARIANT()
-        result := ComCall(46, this, "int", StatisticID, "ptr", pStatistic, "HRESULT")
+        result := ComCall(46, this, MF_MEDIA_ENGINE_STATISTIC, StatisticID, PROPVARIANT.Ptr, pStatistic, "HRESULT")
         return pStatistic
     }
 
@@ -74,7 +129,7 @@ class IMFMediaEngineEx extends IMFMediaEngine {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-updatevideostream
      */
     UpdateVideoStream(pSrc, pDst, pBorderClr) {
-        result := ComCall(47, this, "ptr", pSrc, "ptr", pDst, "ptr", pBorderClr, "HRESULT")
+        result := ComCall(47, this, MFVideoNormalizedRect.Ptr, pSrc, RECT.Ptr, pDst, MFARGB.Ptr, pBorderClr, "HRESULT")
         return result
     }
 
@@ -120,7 +175,7 @@ class IMFMediaEngineEx extends IMFMediaEngine {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getbalance
      */
     GetBalance() {
-        result := ComCall(48, this, "double")
+        result := ComCall(48, this, Float64)
         return result
     }
 
@@ -184,7 +239,7 @@ class IMFMediaEngineEx extends IMFMediaEngine {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-isplaybackratesupported
      */
     IsPlaybackRateSupported(rate) {
-        result := ComCall(50, this, "double", rate, "int")
+        result := ComCall(50, this, "double", rate, BOOL)
         return result
     }
 
@@ -199,7 +254,7 @@ class IMFMediaEngineEx extends IMFMediaEngine {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-framestep
      */
     FrameStep(Forward) {
-        result := ComCall(51, this, "int", Forward, "HRESULT")
+        result := ComCall(51, this, BOOL, Forward, "HRESULT")
         return result
     }
 
@@ -223,7 +278,7 @@ class IMFMediaEngineEx extends IMFMediaEngine {
      */
     GetPresentationAttribute(guidMFAttribute) {
         pvValue := PROPVARIANT()
-        result := ComCall(53, this, "ptr", guidMFAttribute, "ptr", pvValue, "HRESULT")
+        result := ComCall(53, this, Guid.Ptr, guidMFAttribute, PROPVARIANT.Ptr, pvValue, "HRESULT")
         return pvValue
     }
 
@@ -256,7 +311,7 @@ class IMFMediaEngineEx extends IMFMediaEngine {
      */
     GetStreamAttribute(dwStreamIndex, guidMFAttribute) {
         pvValue := PROPVARIANT()
-        result := ComCall(55, this, "uint", dwStreamIndex, "ptr", guidMFAttribute, "ptr", pvValue, "HRESULT")
+        result := ComCall(55, this, "uint", dwStreamIndex, Guid.Ptr, guidMFAttribute, PROPVARIANT.Ptr, pvValue, "HRESULT")
         return pvValue
     }
 
@@ -295,7 +350,7 @@ class IMFMediaEngineEx extends IMFMediaEngine {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getstreamselection
      */
     GetStreamSelection(dwStreamIndex) {
-        result := ComCall(56, this, "uint", dwStreamIndex, "int*", &pEnabled := 0, "HRESULT")
+        result := ComCall(56, this, "uint", dwStreamIndex, BOOL.Ptr, &pEnabled := 0, "HRESULT")
         return pEnabled
     }
 
@@ -334,7 +389,7 @@ class IMFMediaEngineEx extends IMFMediaEngine {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-setstreamselection
      */
     SetStreamSelection(dwStreamIndex, Enabled) {
-        result := ComCall(57, this, "uint", dwStreamIndex, "int", Enabled, "HRESULT")
+        result := ComCall(57, this, "uint", dwStreamIndex, BOOL, Enabled, "HRESULT")
         return result
     }
 
@@ -354,7 +409,7 @@ class IMFMediaEngineEx extends IMFMediaEngine {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-isprotected
      */
     IsProtected() {
-        result := ComCall(59, this, "int*", &pProtected := 0, "HRESULT")
+        result := ComCall(59, this, BOOL.Ptr, &pProtected := 0, "HRESULT")
         return pProtected
     }
 
@@ -429,7 +484,7 @@ class IMFMediaEngineEx extends IMFMediaEngine {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-insertvideoeffect
      */
     InsertVideoEffect(pEffect, fOptional) {
-        result := ComCall(60, this, "ptr", pEffect, "int", fOptional, "HRESULT")
+        result := ComCall(60, this, "ptr", pEffect, BOOL, fOptional, "HRESULT")
         return result
     }
 
@@ -504,7 +559,7 @@ class IMFMediaEngineEx extends IMFMediaEngine {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-insertaudioeffect
      */
     InsertAudioEffect(pEffect, fOptional) {
-        result := ComCall(61, this, "ptr", pEffect, "int", fOptional, "HRESULT")
+        result := ComCall(61, this, "ptr", pEffect, BOOL, fOptional, "HRESULT")
         return result
     }
 
@@ -567,7 +622,7 @@ class IMFMediaEngineEx extends IMFMediaEngine {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-isstereo3d
      */
     IsStereo3D() {
-        result := ComCall(66, this, "int")
+        result := ComCall(66, this, BOOL)
         return result
     }
 
@@ -588,7 +643,7 @@ class IMFMediaEngineEx extends IMFMediaEngine {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-setstereo3dframepackingmode
      */
     SetStereo3DFramePackingMode(packMode) {
-        result := ComCall(68, this, "int", packMode, "HRESULT")
+        result := ComCall(68, this, MF_MEDIA_ENGINE_S3D_PACKING_MODE, packMode, "HRESULT")
         return result
     }
 
@@ -609,7 +664,7 @@ class IMFMediaEngineEx extends IMFMediaEngine {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-setstereo3drendermode
      */
     SetStereo3DRenderMode(outputType) {
-        result := ComCall(70, this, "int", outputType, "HRESULT")
+        result := ComCall(70, this, MF3DVideoOutputType, outputType, "HRESULT")
         return result
     }
 
@@ -622,7 +677,7 @@ class IMFMediaEngineEx extends IMFMediaEngine {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-enablewindowlessswapchainmode
      */
     EnableWindowlessSwapchainMode(fEnable) {
-        result := ComCall(71, this, "int", fEnable, "HRESULT")
+        result := ComCall(71, this, BOOL, fEnable, "HRESULT")
         return result
     }
 
@@ -634,8 +689,8 @@ class IMFMediaEngineEx extends IMFMediaEngine {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getvideoswapchainhandle
      */
     GetVideoSwapchainHandle() {
-        phSwapchain := HANDLE()
-        result := ComCall(72, this, "ptr", phSwapchain, "HRESULT")
+        phSwapchain := HANDLE.Owned()
+        result := ComCall(72, this, HANDLE.Ptr, phSwapchain, "HRESULT")
         return phSwapchain
     }
 
@@ -646,7 +701,7 @@ class IMFMediaEngineEx extends IMFMediaEngine {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-enablehorizontalmirrormode
      */
     EnableHorizontalMirrorMode(fEnable) {
-        result := ComCall(73, this, "int", fEnable, "HRESULT")
+        result := ComCall(73, this, BOOL, fEnable, "HRESULT")
         return result
     }
 
@@ -706,7 +761,7 @@ class IMFMediaEngineEx extends IMFMediaEngine {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getrealtimemode
      */
     GetRealTimeMode() {
-        result := ComCall(78, this, "int*", &pfEnabled := 0, "HRESULT")
+        result := ComCall(78, this, BOOL.Ptr, &pfEnabled := 0, "HRESULT")
         return pfEnabled
     }
 
@@ -717,7 +772,7 @@ class IMFMediaEngineEx extends IMFMediaEngine {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-setrealtimemode
      */
     SetRealTimeMode(fEnable) {
-        result := ComCall(79, this, "int", fEnable, "HRESULT")
+        result := ComCall(79, this, BOOL, fEnable, "HRESULT")
         return result
     }
 
@@ -729,7 +784,7 @@ class IMFMediaEngineEx extends IMFMediaEngine {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-setcurrenttimeex
      */
     SetCurrentTimeEx(seekTime, seekMode) {
-        result := ComCall(80, this, "double", seekTime, "int", seekMode, "HRESULT")
+        result := ComCall(80, this, "double", seekTime, MF_MEDIA_ENGINE_SEEK_MODE, seekMode, "HRESULT")
         return result
     }
 
@@ -740,7 +795,99 @@ class IMFMediaEngineEx extends IMFMediaEngine {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-enabletimeupdatetimer
      */
     EnableTimeUpdateTimer(fEnableTimer) {
-        result := ComCall(81, this, "int", fEnableTimer, "HRESULT")
+        result := ComCall(81, this, BOOL, fEnableTimer, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFMediaEngineEx.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetSourceFromByteStream := CallbackCreate(GetMethod(implObj, "SetSourceFromByteStream"), flags, 3)
+        this.vtbl.GetStatistics := CallbackCreate(GetMethod(implObj, "GetStatistics"), flags, 3)
+        this.vtbl.UpdateVideoStream := CallbackCreate(GetMethod(implObj, "UpdateVideoStream"), flags, 4)
+        this.vtbl.GetBalance := CallbackCreate(GetMethod(implObj, "GetBalance"), flags, 1)
+        this.vtbl.SetBalance := CallbackCreate(GetMethod(implObj, "SetBalance"), flags, 2)
+        this.vtbl.IsPlaybackRateSupported := CallbackCreate(GetMethod(implObj, "IsPlaybackRateSupported"), flags, 2)
+        this.vtbl.FrameStep := CallbackCreate(GetMethod(implObj, "FrameStep"), flags, 2)
+        this.vtbl.GetResourceCharacteristics := CallbackCreate(GetMethod(implObj, "GetResourceCharacteristics"), flags, 2)
+        this.vtbl.GetPresentationAttribute := CallbackCreate(GetMethod(implObj, "GetPresentationAttribute"), flags, 3)
+        this.vtbl.GetNumberOfStreams := CallbackCreate(GetMethod(implObj, "GetNumberOfStreams"), flags, 2)
+        this.vtbl.GetStreamAttribute := CallbackCreate(GetMethod(implObj, "GetStreamAttribute"), flags, 4)
+        this.vtbl.GetStreamSelection := CallbackCreate(GetMethod(implObj, "GetStreamSelection"), flags, 3)
+        this.vtbl.SetStreamSelection := CallbackCreate(GetMethod(implObj, "SetStreamSelection"), flags, 3)
+        this.vtbl.ApplyStreamSelections := CallbackCreate(GetMethod(implObj, "ApplyStreamSelections"), flags, 1)
+        this.vtbl.IsProtected := CallbackCreate(GetMethod(implObj, "IsProtected"), flags, 2)
+        this.vtbl.InsertVideoEffect := CallbackCreate(GetMethod(implObj, "InsertVideoEffect"), flags, 3)
+        this.vtbl.InsertAudioEffect := CallbackCreate(GetMethod(implObj, "InsertAudioEffect"), flags, 3)
+        this.vtbl.RemoveAllEffects := CallbackCreate(GetMethod(implObj, "RemoveAllEffects"), flags, 1)
+        this.vtbl.SetTimelineMarkerTimer := CallbackCreate(GetMethod(implObj, "SetTimelineMarkerTimer"), flags, 2)
+        this.vtbl.GetTimelineMarkerTimer := CallbackCreate(GetMethod(implObj, "GetTimelineMarkerTimer"), flags, 2)
+        this.vtbl.CancelTimelineMarkerTimer := CallbackCreate(GetMethod(implObj, "CancelTimelineMarkerTimer"), flags, 1)
+        this.vtbl.IsStereo3D := CallbackCreate(GetMethod(implObj, "IsStereo3D"), flags, 1)
+        this.vtbl.GetStereo3DFramePackingMode := CallbackCreate(GetMethod(implObj, "GetStereo3DFramePackingMode"), flags, 2)
+        this.vtbl.SetStereo3DFramePackingMode := CallbackCreate(GetMethod(implObj, "SetStereo3DFramePackingMode"), flags, 2)
+        this.vtbl.GetStereo3DRenderMode := CallbackCreate(GetMethod(implObj, "GetStereo3DRenderMode"), flags, 2)
+        this.vtbl.SetStereo3DRenderMode := CallbackCreate(GetMethod(implObj, "SetStereo3DRenderMode"), flags, 2)
+        this.vtbl.EnableWindowlessSwapchainMode := CallbackCreate(GetMethod(implObj, "EnableWindowlessSwapchainMode"), flags, 2)
+        this.vtbl.GetVideoSwapchainHandle := CallbackCreate(GetMethod(implObj, "GetVideoSwapchainHandle"), flags, 2)
+        this.vtbl.EnableHorizontalMirrorMode := CallbackCreate(GetMethod(implObj, "EnableHorizontalMirrorMode"), flags, 2)
+        this.vtbl.GetAudioStreamCategory := CallbackCreate(GetMethod(implObj, "GetAudioStreamCategory"), flags, 2)
+        this.vtbl.SetAudioStreamCategory := CallbackCreate(GetMethod(implObj, "SetAudioStreamCategory"), flags, 2)
+        this.vtbl.GetAudioEndpointRole := CallbackCreate(GetMethod(implObj, "GetAudioEndpointRole"), flags, 2)
+        this.vtbl.SetAudioEndpointRole := CallbackCreate(GetMethod(implObj, "SetAudioEndpointRole"), flags, 2)
+        this.vtbl.GetRealTimeMode := CallbackCreate(GetMethod(implObj, "GetRealTimeMode"), flags, 2)
+        this.vtbl.SetRealTimeMode := CallbackCreate(GetMethod(implObj, "SetRealTimeMode"), flags, 2)
+        this.vtbl.SetCurrentTimeEx := CallbackCreate(GetMethod(implObj, "SetCurrentTimeEx"), flags, 3)
+        this.vtbl.EnableTimeUpdateTimer := CallbackCreate(GetMethod(implObj, "EnableTimeUpdateTimer"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetSourceFromByteStream)
+        CallbackFree(this.vtbl.GetStatistics)
+        CallbackFree(this.vtbl.UpdateVideoStream)
+        CallbackFree(this.vtbl.GetBalance)
+        CallbackFree(this.vtbl.SetBalance)
+        CallbackFree(this.vtbl.IsPlaybackRateSupported)
+        CallbackFree(this.vtbl.FrameStep)
+        CallbackFree(this.vtbl.GetResourceCharacteristics)
+        CallbackFree(this.vtbl.GetPresentationAttribute)
+        CallbackFree(this.vtbl.GetNumberOfStreams)
+        CallbackFree(this.vtbl.GetStreamAttribute)
+        CallbackFree(this.vtbl.GetStreamSelection)
+        CallbackFree(this.vtbl.SetStreamSelection)
+        CallbackFree(this.vtbl.ApplyStreamSelections)
+        CallbackFree(this.vtbl.IsProtected)
+        CallbackFree(this.vtbl.InsertVideoEffect)
+        CallbackFree(this.vtbl.InsertAudioEffect)
+        CallbackFree(this.vtbl.RemoveAllEffects)
+        CallbackFree(this.vtbl.SetTimelineMarkerTimer)
+        CallbackFree(this.vtbl.GetTimelineMarkerTimer)
+        CallbackFree(this.vtbl.CancelTimelineMarkerTimer)
+        CallbackFree(this.vtbl.IsStereo3D)
+        CallbackFree(this.vtbl.GetStereo3DFramePackingMode)
+        CallbackFree(this.vtbl.SetStereo3DFramePackingMode)
+        CallbackFree(this.vtbl.GetStereo3DRenderMode)
+        CallbackFree(this.vtbl.SetStereo3DRenderMode)
+        CallbackFree(this.vtbl.EnableWindowlessSwapchainMode)
+        CallbackFree(this.vtbl.GetVideoSwapchainHandle)
+        CallbackFree(this.vtbl.EnableHorizontalMirrorMode)
+        CallbackFree(this.vtbl.GetAudioStreamCategory)
+        CallbackFree(this.vtbl.SetAudioStreamCategory)
+        CallbackFree(this.vtbl.GetAudioEndpointRole)
+        CallbackFree(this.vtbl.SetAudioEndpointRole)
+        CallbackFree(this.vtbl.GetRealTimeMode)
+        CallbackFree(this.vtbl.SetRealTimeMode)
+        CallbackFree(this.vtbl.SetCurrentTimeEx)
+        CallbackFree(this.vtbl.EnableTimeUpdateTimer)
     }
 }

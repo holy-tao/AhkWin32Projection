@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IAnalogTVTuningSpace.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAnalogTVTuningSpace.ahk" { IAnalogTVTuningSpace }
 
 /**
  * The IATSCTuningSpace interface is implemented on ATSCTuningSpace objects, which represent any tuning space with an ATSC network type.
@@ -14,32 +15,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-iatsctuningspace
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IATSCTuningSpace extends IAnalogTVTuningSpace {
-
-    static sizeof => A_PtrSize
+export default struct IATSCTuningSpace extends IAnalogTVTuningSpace {
     /**
      * The interface identifier for IATSCTuningSpace
      * @type {Guid}
      */
-    static IID => Guid("{0369b4e2-45b6-11d3-b650-00c04f79498e}")
+    static IID := Guid("{0369b4e2-45b6-11d3-b650-00c04f79498e}")
 
     /**
      * The class identifier for ATSCTuningSpace
      * @type {Guid}
      */
-    static CLSID => Guid("{a2e30750-6c3d-11d3-b653-00c04f79498e}")
+    static CLSID := Guid("{a2e30750-6c3d-11d3-b653-00c04f79498e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 34
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IATSCTuningSpace interfaces
+    */
+    struct Vtbl extends IAnalogTVTuningSpace.Vtbl {
+        get_MinMinorChannel    : IntPtr
+        put_MinMinorChannel    : IntPtr
+        get_MaxMinorChannel    : IntPtr
+        put_MaxMinorChannel    : IntPtr
+        get_MinPhysicalChannel : IntPtr
+        put_MinPhysicalChannel : IntPtr
+        get_MaxPhysicalChannel : IntPtr
+        put_MaxPhysicalChannel : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_MinMinorChannel", "put_MinMinorChannel", "get_MaxMinorChannel", "put_MaxMinorChannel", "get_MinPhysicalChannel", "put_MinPhysicalChannel", "get_MaxPhysicalChannel", "put_MaxPhysicalChannel"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IATSCTuningSpace.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -159,5 +174,39 @@ class IATSCTuningSpace extends IAnalogTVTuningSpace {
     put_MaxPhysicalChannel(NewMaxPhysicalChannelVal) {
         result := ComCall(41, this, "int", NewMaxPhysicalChannelVal, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IATSCTuningSpace.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_MinMinorChannel := CallbackCreate(GetMethod(implObj, "get_MinMinorChannel"), flags, 2)
+        this.vtbl.put_MinMinorChannel := CallbackCreate(GetMethod(implObj, "put_MinMinorChannel"), flags, 2)
+        this.vtbl.get_MaxMinorChannel := CallbackCreate(GetMethod(implObj, "get_MaxMinorChannel"), flags, 2)
+        this.vtbl.put_MaxMinorChannel := CallbackCreate(GetMethod(implObj, "put_MaxMinorChannel"), flags, 2)
+        this.vtbl.get_MinPhysicalChannel := CallbackCreate(GetMethod(implObj, "get_MinPhysicalChannel"), flags, 2)
+        this.vtbl.put_MinPhysicalChannel := CallbackCreate(GetMethod(implObj, "put_MinPhysicalChannel"), flags, 2)
+        this.vtbl.get_MaxPhysicalChannel := CallbackCreate(GetMethod(implObj, "get_MaxPhysicalChannel"), flags, 2)
+        this.vtbl.put_MaxPhysicalChannel := CallbackCreate(GetMethod(implObj, "put_MaxPhysicalChannel"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_MinMinorChannel)
+        CallbackFree(this.vtbl.put_MinMinorChannel)
+        CallbackFree(this.vtbl.get_MaxMinorChannel)
+        CallbackFree(this.vtbl.put_MaxMinorChannel)
+        CallbackFree(this.vtbl.get_MinPhysicalChannel)
+        CallbackFree(this.vtbl.put_MinPhysicalChannel)
+        CallbackFree(this.vtbl.get_MaxPhysicalChannel)
+        CallbackFree(this.vtbl.put_MaxPhysicalChannel)
     }
 }

@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOCKET_ADDRESS.ahk
-#Include .\SOCKADDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SOCKADDR.ahk" { SOCKADDR }
+#Import ".\SOCKET_ADDRESS.ahk" { SOCKET_ADDRESS }
 
 /**
  * The CSADDR_INFO structure (nspapi.h) contains Windows Sockets address information for a socket, network service, or namespace provider.
@@ -14,10 +13,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/nspapi/ns-nspapi-csaddr_info
  * @namespace Windows.Win32.Networking.WinSock
  */
-class CSADDR_INFO extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct CSADDR_INFO {
+    #StructPack 8
 
     /**
      * Type: <b>SOCKET_ADDRESS</b>
@@ -29,15 +26,8 @@ class CSADDR_INFO extends Win32Struct {
      * 
      * In a network service, pass this address to the 
      * <b>bind</b> function so that the service is bound to the appropriate local address.
-     * @type {SOCKET_ADDRESS}
      */
-    LocalAddr {
-        get {
-            if(!this.HasProp("__LocalAddr"))
-                this.__LocalAddr := SOCKET_ADDRESS(0, this)
-            return this.__LocalAddr
-        }
-    }
+    LocalAddr : SOCKET_ADDRESS
 
     /**
      * Type: <b>SOCKET_ADDRESS</b>
@@ -52,15 +42,8 @@ class CSADDR_INFO extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-sendto">sendto</a> function when you are communicating over a connectionless (datagram) protocol. If you are using a connectionless protocol, such as UDP, 
      * <b>sendto</b> is typically the way you pass data to the remote system.</li>
      * </ul>
-     * @type {SOCKET_ADDRESS}
      */
-    RemoteAddr {
-        get {
-            if(!this.HasProp("__RemoteAddr"))
-                this.__RemoteAddr := SOCKET_ADDRESS(16, this)
-            return this.__RemoteAddr
-        }
-    }
+    RemoteAddr : SOCKET_ADDRESS
 
     /**
      * Type: <b>INT</b>
@@ -123,12 +106,8 @@ class CSADDR_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    iSocketType {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    iSocketType : Int32
 
     /**
      * Type: <b>INT</b>
@@ -178,10 +157,7 @@ class CSADDR_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    iProtocol {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    iProtocol : Int32
+
 }

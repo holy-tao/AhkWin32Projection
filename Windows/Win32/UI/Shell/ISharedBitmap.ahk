@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
-#Include ..\..\Foundation\SIZE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WTS_ALPHATYPE.ahk" { WTS_ALPHATYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * Exposes memory-efficient methods for accessing bitmaps. This interface is used as a thin wrapper around HBITMAP objects, allowing those objects to be reference counted and protected from having their underlying data changed.
@@ -16,32 +18,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nn-thumbcache-isharedbitmap
  * @namespace Windows.Win32.UI.Shell
  */
-class ISharedBitmap extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISharedBitmap extends IUnknown {
     /**
      * The interface identifier for ISharedBitmap
      * @type {Guid}
      */
-    static IID => Guid("{091162a4-bc96-411f-aae8-c5122cd03363}")
+    static IID := Guid("{091162a4-bc96-411f-aae8-c5122cd03363}")
 
     /**
      * The class identifier for SharedBitmap
      * @type {Guid}
      */
-    static CLSID => Guid("{4db26476-6787-4046-b836-e8412a9e8a27}")
+    static CLSID := Guid("{4db26476-6787-4046-b836-e8412a9e8a27}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISharedBitmap interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetSharedBitmap  : IntPtr
+        GetSize          : IntPtr
+        GetFormat        : IntPtr
+        InitializeBitmap : IntPtr
+        Detach           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSharedBitmap", "GetSize", "GetFormat", "InitializeBitmap", "Detach"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISharedBitmap.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the bitmap contained in an ISharedBitmap object.
@@ -53,8 +66,8 @@ class ISharedBitmap extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nf-thumbcache-isharedbitmap-getsharedbitmap
      */
     GetSharedBitmap() {
-        phbm := HBITMAP()
-        result := ComCall(3, this, "ptr", phbm, "HRESULT")
+        phbm := HBITMAP.Owned()
+        result := ComCall(3, this, HBITMAP.Ptr, phbm, "HRESULT")
         return phbm
     }
 
@@ -67,7 +80,7 @@ class ISharedBitmap extends IUnknown {
      */
     GetSize() {
         pSize := SIZE()
-        result := ComCall(4, this, "ptr", pSize, "HRESULT")
+        result := ComCall(4, this, SIZE.Ptr, pSize, "HRESULT")
         return pSize
     }
 
@@ -95,9 +108,7 @@ class ISharedBitmap extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nf-thumbcache-isharedbitmap-initializebitmap
      */
     InitializeBitmap(_hbm, wtsAT) {
-        _hbm := _hbm is Win32Handle ? NumGet(_hbm, "ptr") : _hbm
-
-        result := ComCall(6, this, "ptr", _hbm, "int", wtsAT, "HRESULT")
+        result := ComCall(6, this, HBITMAP, _hbm, WTS_ALPHATYPE, wtsAT, "HRESULT")
         return result
     }
 
@@ -113,8 +124,36 @@ class ISharedBitmap extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nf-thumbcache-isharedbitmap-detach
      */
     Detach() {
-        phbm := HBITMAP()
-        result := ComCall(7, this, "ptr", phbm, "HRESULT")
+        phbm := HBITMAP.Owned()
+        result := ComCall(7, this, HBITMAP.Ptr, phbm, "HRESULT")
         return phbm
+    }
+
+    Query(iid) {
+        if (ISharedBitmap.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSharedBitmap := CallbackCreate(GetMethod(implObj, "GetSharedBitmap"), flags, 2)
+        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 2)
+        this.vtbl.GetFormat := CallbackCreate(GetMethod(implObj, "GetFormat"), flags, 2)
+        this.vtbl.InitializeBitmap := CallbackCreate(GetMethod(implObj, "InitializeBitmap"), flags, 3)
+        this.vtbl.Detach := CallbackCreate(GetMethod(implObj, "Detach"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSharedBitmap)
+        CallbackFree(this.vtbl.GetSize)
+        CallbackFree(this.vtbl.GetFormat)
+        CallbackFree(this.vtbl.InitializeBitmap)
+        CallbackFree(this.vtbl.Detach)
     }
 }

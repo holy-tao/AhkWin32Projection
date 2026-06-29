@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The FIND_NAME_HEADER structure contains information about a network name. This structure is followed by as many FIND_NAME_BUFFER structures as are required to describe the name.
@@ -8,35 +7,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/nb30/ns-nb30-find_name_header
  * @namespace Windows.Win32.NetworkManagement.NetBios
  */
-class FIND_NAME_HEADER extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 2
+export default struct FIND_NAME_HEADER {
+    #StructPack 2
 
     /**
      * Specifies the number of nodes on which the specified name was found. This structure is followed by the number of <a href="https://docs.microsoft.com/windows/desktop/api/nb30/ns-nb30-find_name_buffer">FIND_NAME_BUFFER</a> structures specified by the <b>node_count</b> member.
-     * @type {Integer}
      */
-    node_count {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    node_count : UInt16
 
     /**
      * Reserved
-     * @type {Integer}
      */
-    reserved {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    reserved : Int8
 
     /**
      * Specifies whether the name is unique. This value is 0 to specify a unique name or 1 to specify a group.
-     * @type {Integer}
      */
-    unique_group {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    unique_group : Int8
+
 }

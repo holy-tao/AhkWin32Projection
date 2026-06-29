@@ -1,101 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
  */
-class BD_PAC_HEADER extends Win32Struct {
-    static sizeof => 384
+export default struct BD_PAC_HEADER {
+    #StructPack 1
 
-    static packingSize => 1
+    PACId : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    PACId {
-        get {
-            if(!this.HasProp("__PACIdProxyArray"))
-                this.__PACIdProxyArray := Win32FixedArray(this.ptr + 0, 3, Primitive, "char")
-            return this.__PACIdProxyArray
-        }
-    }
+    PACFormatNumber : Int8
 
-    /**
-     * @type {Integer}
-     */
-    PACFormatNumber {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    PACUpdateCount : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    PACUpdateCount {
-        get {
-            if(!this.HasProp("__PACUpdateCountProxyArray"))
-                this.__PACUpdateCountProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")
-            return this.__PACUpdateCountProxyArray
-        }
-    }
+    UnknownPACRules : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    UnknownPACRules {
-        get {
-            if(!this.HasProp("__UnknownPACRulesProxyArray"))
-                this.__UnknownPACRulesProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "char")
-            return this.__UnknownPACRulesProxyArray
-        }
-    }
+    UnkownPACEntireDiscFlag : Int8
 
-    /**
-     * @type {Integer}
-     */
-    UnkownPACEntireDiscFlag {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    Reserved1 : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 13, 2, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    NumberOfSegments : Int8
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfSegments {
-        get => NumGet(this, 15, "char")
-        set => NumPut("char", value, this, 15)
-    }
+    Segments : Int8[256]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Segments {
-        get {
-            if(!this.HasProp("__SegmentsProxyArray"))
-                this.__SegmentsProxyArray := Win32FixedArray(this.ptr + 16, 256, Primitive, "char")
-            return this.__SegmentsProxyArray
-        }
-    }
+    Reserved2 : Int8[112]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved2 {
-        get {
-            if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 272, 112, Primitive, "char")
-            return this.__Reserved2ProxyArray
-        }
-    }
 }

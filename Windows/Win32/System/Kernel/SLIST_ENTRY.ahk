@@ -1,6 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SLIST_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents an item in a singly linked list. (SLIST_ENTRY)
@@ -9,18 +7,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-slist_entry
  * @namespace Windows.Win32.System.Kernel
  */
-class SLIST_ENTRY extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 8
+export default struct SLIST_ENTRY {
+    #StructPack 8
 
     /**
      * A pointer to an 
      * <b>SLIST_ENTRY</b> structure that represents the next item in a singly linked list.
-     * @type {Pointer<SLIST_ENTRY>}
      */
-    Next {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Next : SLIST_ENTRY.Ptr
+
 }

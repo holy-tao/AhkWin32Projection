@@ -1,9 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IUIAnimationVariable.ahk
-#Include .\IUIAnimationStoryboard.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\UI_ANIMATION_UPDATE_RESULT.ahk" { UI_ANIMATION_UPDATE_RESULT }
+#Import ".\IUIAnimationPriorityComparison.ahk" { IUIAnimationPriorityComparison }
+#Import ".\IUIAnimationStoryboard.ahk" { IUIAnimationStoryboard }
+#Import ".\IUIAnimationManagerEventHandler.ahk" { IUIAnimationManagerEventHandler }
+#Import ".\UI_ANIMATION_MANAGER_STATUS.ahk" { UI_ANIMATION_MANAGER_STATUS }
+#Import ".\IUIAnimationTransition.ahk" { IUIAnimationTransition }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IUIAnimationVariable.ahk" { IUIAnimationVariable }
+#Import ".\UI_ANIMATION_MODE.ahk" { UI_ANIMATION_MODE }
 
 /**
  * Defines the animation manager, which provides a central interface for creating and managing animations.
@@ -19,32 +26,57 @@
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationmanager
  * @namespace Windows.Win32.UI.Animation
  */
-class IUIAnimationManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIAnimationManager extends IUnknown {
     /**
      * The interface identifier for IUIAnimationManager
      * @type {Guid}
      */
-    static IID => Guid("{9169896c-ac8d-4e7d-94e5-67fa4dc2f2e8}")
+    static IID := Guid("{9169896c-ac8d-4e7d-94e5-67fa4dc2f2e8}")
 
     /**
      * The class identifier for UIAnimationManager
      * @type {Guid}
      */
-    static CLSID => Guid("{4c1fc63a-695c-47e8-a339-1a194be3d0b8}")
+    static CLSID := Guid("{4c1fc63a-695c-47e8-a339-1a194be3d0b8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAnimationManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateAnimationVariable          : IntPtr
+        ScheduleTransition               : IntPtr
+        CreateStoryboard                 : IntPtr
+        FinishAllStoryboards             : IntPtr
+        AbandonAllStoryboards            : IntPtr
+        Update                           : IntPtr
+        GetVariableFromTag               : IntPtr
+        GetStoryboardFromTag             : IntPtr
+        GetStatus                        : IntPtr
+        SetAnimationMode                 : IntPtr
+        Pause                            : IntPtr
+        Resume                           : IntPtr
+        SetManagerEventHandler           : IntPtr
+        SetCancelPriorityComparison      : IntPtr
+        SetTrimPriorityComparison        : IntPtr
+        SetCompressPriorityComparison    : IntPtr
+        SetConcludePriorityComparison    : IntPtr
+        SetDefaultLongestAcceptableDelay : IntPtr
+        Shutdown                         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateAnimationVariable", "ScheduleTransition", "CreateStoryboard", "FinishAllStoryboards", "AbandonAllStoryboards", "Update", "GetVariableFromTag", "GetStoryboardFromTag", "GetStatus", "SetAnimationMode", "Pause", "Resume", "SetManagerEventHandler", "SetCancelPriorityComparison", "SetTrimPriorityComparison", "SetCompressPriorityComparison", "SetConcludePriorityComparison", "SetDefaultLongestAcceptableDelay", "Shutdown"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAnimationManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a new animation variable. (IUIAnimationManager.CreateAnimationVariable)
@@ -184,7 +216,7 @@ class IUIAnimationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-setanimationmode
      */
     SetAnimationMode(_mode) {
-        result := ComCall(12, this, "int", _mode, "HRESULT")
+        result := ComCall(12, this, UI_ANIMATION_MODE, _mode, "HRESULT")
         return result
     }
 
@@ -334,5 +366,61 @@ class IUIAnimationManager extends IUnknown {
     Shutdown() {
         result := ComCall(21, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUIAnimationManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateAnimationVariable := CallbackCreate(GetMethod(implObj, "CreateAnimationVariable"), flags, 3)
+        this.vtbl.ScheduleTransition := CallbackCreate(GetMethod(implObj, "ScheduleTransition"), flags, 4)
+        this.vtbl.CreateStoryboard := CallbackCreate(GetMethod(implObj, "CreateStoryboard"), flags, 2)
+        this.vtbl.FinishAllStoryboards := CallbackCreate(GetMethod(implObj, "FinishAllStoryboards"), flags, 2)
+        this.vtbl.AbandonAllStoryboards := CallbackCreate(GetMethod(implObj, "AbandonAllStoryboards"), flags, 1)
+        this.vtbl.Update := CallbackCreate(GetMethod(implObj, "Update"), flags, 3)
+        this.vtbl.GetVariableFromTag := CallbackCreate(GetMethod(implObj, "GetVariableFromTag"), flags, 4)
+        this.vtbl.GetStoryboardFromTag := CallbackCreate(GetMethod(implObj, "GetStoryboardFromTag"), flags, 4)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.SetAnimationMode := CallbackCreate(GetMethod(implObj, "SetAnimationMode"), flags, 2)
+        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.SetManagerEventHandler := CallbackCreate(GetMethod(implObj, "SetManagerEventHandler"), flags, 2)
+        this.vtbl.SetCancelPriorityComparison := CallbackCreate(GetMethod(implObj, "SetCancelPriorityComparison"), flags, 2)
+        this.vtbl.SetTrimPriorityComparison := CallbackCreate(GetMethod(implObj, "SetTrimPriorityComparison"), flags, 2)
+        this.vtbl.SetCompressPriorityComparison := CallbackCreate(GetMethod(implObj, "SetCompressPriorityComparison"), flags, 2)
+        this.vtbl.SetConcludePriorityComparison := CallbackCreate(GetMethod(implObj, "SetConcludePriorityComparison"), flags, 2)
+        this.vtbl.SetDefaultLongestAcceptableDelay := CallbackCreate(GetMethod(implObj, "SetDefaultLongestAcceptableDelay"), flags, 2)
+        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateAnimationVariable)
+        CallbackFree(this.vtbl.ScheduleTransition)
+        CallbackFree(this.vtbl.CreateStoryboard)
+        CallbackFree(this.vtbl.FinishAllStoryboards)
+        CallbackFree(this.vtbl.AbandonAllStoryboards)
+        CallbackFree(this.vtbl.Update)
+        CallbackFree(this.vtbl.GetVariableFromTag)
+        CallbackFree(this.vtbl.GetStoryboardFromTag)
+        CallbackFree(this.vtbl.GetStatus)
+        CallbackFree(this.vtbl.SetAnimationMode)
+        CallbackFree(this.vtbl.Pause)
+        CallbackFree(this.vtbl.Resume)
+        CallbackFree(this.vtbl.SetManagerEventHandler)
+        CallbackFree(this.vtbl.SetCancelPriorityComparison)
+        CallbackFree(this.vtbl.SetTrimPriorityComparison)
+        CallbackFree(this.vtbl.SetCompressPriorityComparison)
+        CallbackFree(this.vtbl.SetConcludePriorityComparison)
+        CallbackFree(this.vtbl.SetDefaultLongestAcceptableDelay)
+        CallbackFree(this.vtbl.Shutdown)
     }
 }

@@ -1,35 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ICrmMonitorClerks.ahk
-#Include ..\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICrmMonitorClerks.ahk" { ICrmMonitorClerks }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Captures a snapshot of the current state of the CRM and holds a specific CRM clerk.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icrmmonitor
  * @namespace Windows.Win32.System.ComponentServices
  */
-class ICrmMonitor extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICrmMonitor extends IUnknown {
     /**
      * The interface identifier for ICrmMonitor
      * @type {Guid}
      */
-    static IID => Guid("{70c8e443-c7ed-11d1-82fb-00a0c91eede9}")
+    static IID := Guid("{70c8e443-c7ed-11d1-82fb-00a0c91eede9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICrmMonitor interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetClerks : IntPtr
+        HoldClerk : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetClerks", "HoldClerk"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICrmMonitor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a clerk collection object, which is a snapshot of the current state of the clerks.
@@ -49,7 +58,29 @@ class ICrmMonitor extends IUnknown {
      */
     HoldClerk(Index) {
         pItem := VARIANT()
-        result := ComCall(4, this, "ptr", Index, "ptr", pItem, "HRESULT")
+        result := ComCall(4, this, VARIANT, Index, VARIANT.Ptr, pItem, "HRESULT")
         return pItem
+    }
+
+    Query(iid) {
+        if (ICrmMonitor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetClerks := CallbackCreate(GetMethod(implObj, "GetClerks"), flags, 2)
+        this.vtbl.HoldClerk := CallbackCreate(GetMethod(implObj, "HoldClerk"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetClerks)
+        CallbackFree(this.vtbl.HoldClerk)
     }
 }

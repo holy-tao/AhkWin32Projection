@@ -1,46 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WLAN_AVAILABLE_NETWORK_V2.ahk
-#Include .\DOT11_SSID.ahk
-#Include .\DOT11_BSS_TYPE.ahk
-#Include .\DOT11_PHY_TYPE.ahk
-#Include .\DOT11_AUTH_ALGORITHM.ahk
-#Include .\DOT11_CIPHER_ALGORITHM.ahk
-#Include .\DOT11_ACCESSNETWORKOPTIONS.ahk
-#Include .\DOT11_VENUEINFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_CIPHER_ALGORITHM.ahk" { DOT11_CIPHER_ALGORITHM }
+#Import ".\DOT11_PHY_TYPE.ahk" { DOT11_PHY_TYPE }
+#Import ".\DOT11_ACCESSNETWORKOPTIONS.ahk" { DOT11_ACCESSNETWORKOPTIONS }
+#Import ".\DOT11_BSS_TYPE.ahk" { DOT11_BSS_TYPE }
+#Import ".\DOT11_AUTH_ALGORITHM.ahk" { DOT11_AUTH_ALGORITHM }
+#Import ".\WLAN_AVAILABLE_NETWORK_V2.ahk" { WLAN_AVAILABLE_NETWORK_V2 }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DOT11_SSID.ahk" { DOT11_SSID }
+#Import ".\DOT11_VENUEINFO.ahk" { DOT11_VENUEINFO }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WLAN_AVAILABLE_NETWORK_LIST_V2 extends Win32Struct {
-    static sizeof => 652
+export default struct WLAN_AVAILABLE_NETWORK_LIST_V2 {
+    #StructPack 4
 
-    static packingSize => 4
+    dwNumberOfItems : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNumberOfItems {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Network : WLAN_AVAILABLE_NETWORK_V2[1]
 
-    /**
-     * @type {WLAN_AVAILABLE_NETWORK_V2}
-     */
-    Network {
-        get {
-            if(!this.HasProp("__NetworkProxyArray"))
-                this.__NetworkProxyArray := Win32FixedArray(this.ptr + 8, 1, WLAN_AVAILABLE_NETWORK_V2, "")
-            return this.__NetworkProxyArray
-        }
-    }
 }

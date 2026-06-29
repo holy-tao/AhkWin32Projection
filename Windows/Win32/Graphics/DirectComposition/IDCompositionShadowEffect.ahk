@@ -1,33 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionFilterEffect.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Direct2D\Common\D2D_VECTOR_4F.ahk" { D2D_VECTOR_4F }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDCompositionFilterEffect.ahk" { IDCompositionFilterEffect }
+#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 
 /**
  * The shadow effect is used to generate a shadow from the alpha channel of an image. The shadow is more opaque for higher alpha values and more transparent for lower alpha values. You can set the amount of blur and the color of the shadow.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionshadoweffect
  * @namespace Windows.Win32.Graphics.DirectComposition
  */
-class IDCompositionShadowEffect extends IDCompositionFilterEffect {
-
-    static sizeof => A_PtrSize
+export default struct IDCompositionShadowEffect extends IDCompositionFilterEffect {
     /**
      * The interface identifier for IDCompositionShadowEffect
      * @type {Guid}
      */
-    static IID => Guid("{4ad18ac0-cfd2-4c2f-bb62-96e54fdb6879}")
+    static IID := Guid("{4ad18ac0-cfd2-4c2f-bb62-96e54fdb6879}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDCompositionShadowEffect interfaces
+    */
+    struct Vtbl extends IDCompositionFilterEffect.Vtbl {
+        SetStandardDeviation  : IntPtr
+        SetStandardDeviation1 : IntPtr
+        SetColor              : IntPtr
+        SetRed                : IntPtr
+        SetRed1               : IntPtr
+        SetGreen              : IntPtr
+        SetGreen1             : IntPtr
+        SetBlue               : IntPtr
+        SetBlue1              : IntPtr
+        SetAlpha              : IntPtr
+        SetAlpha1             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetStandardDeviation", "SetStandardDeviation1", "SetColor", "SetRed", "SetRed1", "SetGreen", "SetGreen1", "SetBlue", "SetBlue1", "SetAlpha", "SetAlpha1"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDCompositionShadowEffect.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the amount of blur to be applied to the alpha channel of the image. (overload 1/2)
@@ -69,7 +89,7 @@ class IDCompositionShadowEffect extends IDCompositionFilterEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionshadoweffect-setcolor
      */
     SetColor(_color) {
-        result := ComCall(6, this, "ptr", _color, "HRESULT")
+        result := ComCall(6, this, D2D_VECTOR_4F.Ptr, _color, "HRESULT")
         return result
     }
 
@@ -183,5 +203,45 @@ class IDCompositionShadowEffect extends IDCompositionFilterEffect {
     SetAlpha1(amount) {
         result := ComCall(14, this, "float", amount, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDCompositionShadowEffect.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetStandardDeviation := CallbackCreate(GetMethod(implObj, "SetStandardDeviation"), flags, 2)
+        this.vtbl.SetStandardDeviation1 := CallbackCreate(GetMethod(implObj, "SetStandardDeviation1"), flags, 2)
+        this.vtbl.SetColor := CallbackCreate(GetMethod(implObj, "SetColor"), flags, 2)
+        this.vtbl.SetRed := CallbackCreate(GetMethod(implObj, "SetRed"), flags, 2)
+        this.vtbl.SetRed1 := CallbackCreate(GetMethod(implObj, "SetRed1"), flags, 2)
+        this.vtbl.SetGreen := CallbackCreate(GetMethod(implObj, "SetGreen"), flags, 2)
+        this.vtbl.SetGreen1 := CallbackCreate(GetMethod(implObj, "SetGreen1"), flags, 2)
+        this.vtbl.SetBlue := CallbackCreate(GetMethod(implObj, "SetBlue"), flags, 2)
+        this.vtbl.SetBlue1 := CallbackCreate(GetMethod(implObj, "SetBlue1"), flags, 2)
+        this.vtbl.SetAlpha := CallbackCreate(GetMethod(implObj, "SetAlpha"), flags, 2)
+        this.vtbl.SetAlpha1 := CallbackCreate(GetMethod(implObj, "SetAlpha1"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetStandardDeviation)
+        CallbackFree(this.vtbl.SetStandardDeviation1)
+        CallbackFree(this.vtbl.SetColor)
+        CallbackFree(this.vtbl.SetRed)
+        CallbackFree(this.vtbl.SetRed1)
+        CallbackFree(this.vtbl.SetGreen)
+        CallbackFree(this.vtbl.SetGreen1)
+        CallbackFree(this.vtbl.SetBlue)
+        CallbackFree(this.vtbl.SetBlue1)
+        CallbackFree(this.vtbl.SetAlpha)
+        CallbackFree(this.vtbl.SetAlpha1)
     }
 }

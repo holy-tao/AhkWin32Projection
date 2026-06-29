@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DRT_SECURITY_MODE enumeration defines possible security modes for the DRT. The security mode is specified by a field of the DRT_SETTINGS structure.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/drt/ne-drt-drt_security_mode
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
-class DRT_SECURITY_MODE extends Win32Enum {
+export default struct DRT_SECURITY_MODE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Nodes must authenticate the keys they publish. Nodes are not required to authenticate themselves when performing searches.

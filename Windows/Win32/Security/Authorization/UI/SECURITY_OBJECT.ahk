@@ -1,5 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * Contains the security object information.
@@ -8,55 +9,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/aclui/ns-aclui-security_object
  * @namespace Windows.Win32.Security.Authorization.UI
  */
-class SECURITY_OBJECT extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct SECURITY_OBJECT {
+    #StructPack 8
 
     /**
      * A pointer to the name.
-     * @type {PWSTR}
      */
-    pwszName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pwszName : PWSTR
 
     /**
      * A pointer to the security data.
-     * @type {Pointer<Void>}
      */
-    pData {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pData : IntPtr
 
     /**
      * The size, in bytes, of the data pointed to by the <b>pData</b> member. This may be zero if <b>pData</b> contains the data, such as when the data is an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface pointer, a handle, or data specific to the resource manager that can be stored in <b>pData</b> directly without a memory allocation.
-     * @type {Integer}
      */
-    cbData {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cbData : UInt32
 
     /**
      * A pointer to the additional security data.
-     * @type {Pointer<Void>}
      */
-    pData2 {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pData2 : IntPtr
 
     /**
      * The size, in bytes, of the data pointed to by the <b>pData2</b> member. This may be zero if <b>pData2</b> contains the data, such as when the data is an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface pointer, a handle, or data specific to the resource manager that can be stored in <b>pData2</b> directly without a memory allocation.
-     * @type {Integer}
      */
-    cbData2 {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    cbData2 : UInt32
 
     /**
      * The identifier for the security object's type. If the <b>fWellKnown</b> member is <b>FALSE</b>, then the <b>Id</b> member has no special significance other than to help resource managers distinguish it from other classes of security objects. If the <b>fWellKnown</b> member is <b>TRUE</b>, then the <b>Id</b> member is one of the following and the entire structure follows the corresponding representation.
@@ -131,19 +110,12 @@ class SECURITY_OBJECT extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Id {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    Id : UInt32
 
     /**
      * <b>TRUE</b> if the security object represents one of the well-know security objects listed in the <b>Id</b> member.
-     * @type {BOOLEAN}
      */
-    fWellKnown {
-        get => NumGet(this, 40, "char")
-        set => NumPut("char", value, this, 40)
-    }
+    fWellKnown : BOOLEAN
+
 }

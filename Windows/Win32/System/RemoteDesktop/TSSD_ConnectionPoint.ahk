@@ -1,53 +1,32 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TSSD_AddrV46Type.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TSSD_AddrV46Type.ahk" { TSSD_AddrV46Type }
 
 /**
  * Defines the IP address of a target.
  * @see https://learn.microsoft.com/windows/win32/api/sessdirpublictypes/ns-sessdirpublictypes-tssd_connectionpoint
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class TSSD_ConnectionPoint extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct TSSD_ConnectionPoint {
+    #StructPack 4
 
     /**
      * The server address.
-     * @type {Array<Integer>}
      */
-    ServerAddressB {
-        get {
-            if(!this.HasProp("__ServerAddressBProxyArray"))
-                this.__ServerAddressBProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
-            return this.__ServerAddressBProxyArray
-        }
-    }
+    ServerAddressB : Int8[16]
 
     /**
      * A value of the <a href="https://docs.microsoft.com/windows/win32/api/sessdirpublictypes/ne-sessdirpublictypes-tssd_addrv46type">TSSD_AddrV46Type</a> enumeration  that indicates the IP address type.
-     * @type {TSSD_AddrV46Type}
      */
-    AddressType {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    AddressType : TSSD_AddrV46Type
 
     /**
      * The IP port number.
-     * @type {Integer}
      */
-    PortNumber {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
+    PortNumber : UInt16
 
     /**
      * The scope of the address.
-     * @type {Integer}
      */
-    AddressScope {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    AddressScope : UInt32
+
 }

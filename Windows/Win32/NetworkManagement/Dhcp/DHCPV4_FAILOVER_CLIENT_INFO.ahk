@@ -1,91 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DHCP_BINARY_DATA.ahk
-#Include .\DATE_TIME.ahk
-#Include .\DHCP_HOST_INFO.ahk
-#Include .\QuarantineStatus.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DATE_TIME.ahk" { DATE_TIME }
+#Import ".\QuarantineStatus.ahk" { QuarantineStatus }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DHCP_HOST_INFO.ahk" { DHCP_HOST_INFO }
+#Import ".\DHCP_BINARY_DATA.ahk" { DHCP_BINARY_DATA }
 
 /**
  * The DHCPV4_FAILOVER_CLIENT_INFO structure defines DHCP server scope statistics that are part of a failover relationship.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcpv4_failover_client_info
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  */
-class DHCPV4_FAILOVER_CLIENT_INFO extends Win32Struct {
-    static sizeof => 136
-
-    static packingSize => 8
+export default struct DHCPV4_FAILOVER_CLIENT_INFO {
+    #StructPack 8
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> structure that contains the DHCPv4 client IPv4 address.
-     * @type {Integer}
      */
-    ClientIpAddress {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ClientIpAddress : UInt32
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_MASK</a> structure that contains the DHCPv4 client IPv4 subnet mask.
-     * @type {Integer}
      */
-    SubnetMask {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SubnetMask : UInt32
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_binary_data">DHCP_CLIENT_UID</a> structure that contains the hardware address (MAC address) of the DHCPv4 client.
-     * @type {DHCP_BINARY_DATA}
      */
-    ClientHardwareAddress {
-        get {
-            if(!this.HasProp("__ClientHardwareAddress"))
-                this.__ClientHardwareAddress := DHCP_BINARY_DATA(8, this)
-            return this.__ClientHardwareAddress
-        }
-    }
+    ClientHardwareAddress : DHCP_BINARY_DATA
 
     /**
      * Pointer to a null-terminated Unicode string that represents the DHCPv4 client machine name.
-     * @type {PWSTR}
      */
-    ClientName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ClientName : PWSTR
 
     /**
      * Pointer to a null-terminated Unicode string that represents the description of the DHCPv4 client.
-     * @type {PWSTR}
      */
-    ClientComment {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    ClientComment : PWSTR
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-date_time">DATE_TIME</a> structure that contains the lease expiry time for the DHCPv4 client. This is UTC time represented in the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> format.
-     * @type {DATE_TIME}
      */
-    ClientLeaseExpires {
-        get {
-            if(!this.HasProp("__ClientLeaseExpires"))
-                this.__ClientLeaseExpires := DATE_TIME(40, this)
-            return this.__ClientLeaseExpires
-        }
-    }
+    ClientLeaseExpires : DATE_TIME
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_host_info">DHCP_HOST_INFO</a> structure that contains information about the host machine (DHCPv4 server) that provided a lease to the DHCPv4 client.
-     * @type {DHCP_HOST_INFO}
      */
-    OwnerHost {
-        get {
-            if(!this.HasProp("__OwnerHost"))
-                this.__OwnerHost := DHCP_HOST_INFO(48, this)
-            return this.__OwnerHost
-        }
-    }
+    OwnerHost : DHCP_HOST_INFO
 
     /**
      * Value that specifies the DHCPv4 client type. The possible values are below.
@@ -162,12 +124,8 @@ class DHCPV4_FAILOVER_CLIENT_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    bClientType {
-        get => NumGet(this, 72, "char")
-        set => NumPut("char", value, this, 72)
-    }
+    bClientType : Int8
 
     /**
      * Value that specifies various states of the IPv4 address. The LSB is bit 0 and the MSB is bit 7. The possible values are below.
@@ -332,121 +290,67 @@ class DHCPV4_FAILOVER_CLIENT_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    AddressState {
-        get => NumGet(this, 73, "char")
-        set => NumPut("char", value, this, 73)
-    }
+    AddressState : Int8
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ne-dhcpsapi-quarantinestatus">QuarantineStatus</a> enumeration that specifies possible health status values for the DHCPv4 client as validated at the NAP server.
-     * @type {QuarantineStatus}
      */
-    Status {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
-    }
+    Status : QuarantineStatus
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-date_time">DATE_TIME</a> structure that contains the probation end time if the DHCPv4 client is on probation. The DHCPv4 client has full access to the network for this time period. This is UTC time represented in the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> format.
-     * @type {DATE_TIME}
      */
-    ProbationEnds {
-        get {
-            if(!this.HasProp("__ProbationEnds"))
-                this.__ProbationEnds := DATE_TIME(80, this)
-            return this.__ProbationEnds
-        }
-    }
+    ProbationEnds : DATE_TIME
 
     /**
      * <b>TRUE</b>, if the DHCPv4 client is quarantine-enabled; Otherwise, it is <b>FALSE</b>.
-     * @type {BOOL}
      */
-    QuarantineCapable {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
-    }
+    QuarantineCapable : BOOL
 
     /**
      * Time, in seconds, of potential-expiration-time sent to the partner server.
-     * @type {Integer}
      */
-    SentPotExpTime {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
+    SentPotExpTime : UInt32
 
     /**
      * Time, in seconds, of potential-expiration-time acknowledged by the partner server.
-     * @type {Integer}
      */
-    AckPotExpTime {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    AckPotExpTime : UInt32
 
     /**
      * Time, in seconds, of potential-expiration-time received from the partner server.
-     * @type {Integer}
      */
-    RecvPotExpTime {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
+    RecvPotExpTime : UInt32
 
     /**
      * Time, in seconds, since the client lease first entered into its current state.
-     * @type {Integer}
      */
-    StartTime {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    StartTime : UInt32
 
     /**
      * Time, in seconds, since the client-last-transaction-time.
-     * @type {Integer}
      */
-    CltLastTransTime {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
+    CltLastTransTime : UInt32
 
     /**
      * Time, in seconds, since the partner server last updated the DHCPv4 client lease.
-     * @type {Integer}
      */
-    LastBndUpdTime {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    LastBndUpdTime : UInt32
 
     /**
      * Reserved. Do not use.
-     * @type {Integer}
      */
-    BndMsgStatus {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
-    }
+    BndMsgStatus : UInt32
 
     /**
      * Pointer to a null-terminated Unicode string that represents the DHCP server policy name that resulted in the IPv4 address assignment to the DHCPv4 client in the lease.
-     * @type {PWSTR}
      */
-    PolicyName {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    PolicyName : PWSTR
 
     /**
      * Reserved. Do not use.
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 128, "char")
-        set => NumPut("char", value, this, 128)
-    }
+    Flags : Int8
+
 }

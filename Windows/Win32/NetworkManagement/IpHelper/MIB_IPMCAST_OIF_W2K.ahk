@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * MIB_IPMCAST_OIF_W2K (ipmib.h) stores the information required to send an outgoing IP multicast packet.
@@ -10,44 +9,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipmib/ns-ipmib-mib_ipmcast_oif_w2k
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_IPMCAST_OIF_W2K extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct MIB_IPMCAST_OIF_W2K {
+    #StructPack 8
 
     /**
      * The index of the interface on which to send the outgoing IP multicast packet.
-     * @type {Integer}
      */
-    dwOutIfIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwOutIfIndex : UInt32
 
     /**
      * The destination address for the outgoing IPv4 multicast packet.
-     * @type {Integer}
      */
-    dwNextHopAddr {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwNextHopAddr : UInt32
 
     /**
      * Reserved. This member should be <b>NULL</b>.
-     * @type {Pointer<Void>}
      */
-    pvReserved {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pvReserved : IntPtr
 
     /**
      * Reserved. This member should be zero.
-     * @type {Integer}
      */
-    dwReserved {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwReserved : UInt32
+
 }

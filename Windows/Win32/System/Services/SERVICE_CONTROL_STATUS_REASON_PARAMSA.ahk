@@ -1,9 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SERVICE_STATUS_PROCESS.ahk
-#Include .\ENUM_SERVICE_TYPE.ahk
-#Include .\SERVICE_STATUS_CURRENT_STATE.ahk
-#Include .\SERVICE_RUNS_IN_PROCESS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SERVICE_RUNS_IN_PROCESS.ahk" { SERVICE_RUNS_IN_PROCESS }
+#Import ".\SERVICE_STATUS_PROCESS.ahk" { SERVICE_STATUS_PROCESS }
+#Import ".\ENUM_SERVICE_TYPE.ahk" { ENUM_SERVICE_TYPE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\SERVICE_STATUS_CURRENT_STATE.ahk" { SERVICE_STATUS_CURRENT_STATE }
 
 /**
  * Contains service control parameters. (ANSI)
@@ -14,10 +14,8 @@
  * @namespace Windows.Win32.System.Services
  * @charset ANSI
  */
-class SERVICE_CONTROL_STATUS_REASON_PARAMSA extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct SERVICE_CONTROL_STATUS_REASON_PARAMSA {
+    #StructPack 8
 
     /**
      * The reason for changing the service status to SERVICE_CONTROL_STOP. If the current control code is not SERVICE_CONTROL_STOP, this member is ignored. 
@@ -415,21 +413,13 @@ class SERVICE_CONTROL_STATUS_REASON_PARAMSA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwReason {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwReason : UInt32
 
     /**
      * An optional string that provides additional information about the service stop. This string is stored in the event log along with the stop reason code. This member must be <b>NULL</b> or a valid string that is less than 128 characters, including the terminating null character.
-     * @type {PSTR}
      */
-    pszComment {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszComment : PSTR
 
     /**
      * A pointer to a 
@@ -440,13 +430,7 @@ class SERVICE_CONTROL_STATUS_REASON_PARAMSA extends Win32Struct {
      * 
      * The service control manager fills in the structure only when 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-controlserviceexa">ControlServiceEx</a> returns one of the following error codes: NO_ERROR, ERROR_INVALID_SERVICE_CONTROL, ERROR_SERVICE_CANNOT_ACCEPT_CTRL, or ERROR_SERVICE_NOT_ACTIVE. Otherwise, the structure is not filled in.
-     * @type {SERVICE_STATUS_PROCESS}
      */
-    ServiceStatus {
-        get {
-            if(!this.HasProp("__ServiceStatus"))
-                this.__ServiceStatus := SERVICE_STATUS_PROCESS(16, this)
-            return this.__ServiceStatus
-        }
-    }
+    ServiceStatus : SERVICE_STATUS_PROCESS
+
 }

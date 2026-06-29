@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The WLAN_POWER_SETTING enumeration specifies the power setting of an interface.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_power_setting~r1
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WLAN_POWER_SETTING extends Win32Enum {
+export default struct WLAN_POWER_SETTING {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies no power-saving activity performed by the 802.11 station.

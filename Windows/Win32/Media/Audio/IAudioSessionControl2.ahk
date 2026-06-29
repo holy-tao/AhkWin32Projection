@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IAudioSessionControl.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAudioSessionControl.ahk" { IAudioSessionControl }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The IAudioSessionControl2 interface can be used by a client to get information about the audio session.
@@ -18,26 +21,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nn-audiopolicy-iaudiosessioncontrol2
  * @namespace Windows.Win32.Media.Audio
  */
-class IAudioSessionControl2 extends IAudioSessionControl {
-
-    static sizeof => A_PtrSize
+export default struct IAudioSessionControl2 extends IAudioSessionControl {
     /**
      * The interface identifier for IAudioSessionControl2
      * @type {Guid}
      */
-    static IID => Guid("{bfb7ff88-7239-4fc9-8fa2-07c950be9c6d}")
+    static IID := Guid("{bfb7ff88-7239-4fc9-8fa2-07c950be9c6d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 12
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAudioSessionControl2 interfaces
+    */
+    struct Vtbl extends IAudioSessionControl.Vtbl {
+        GetSessionIdentifier         : IntPtr
+        GetSessionInstanceIdentifier : IntPtr
+        GetProcessId                 : IntPtr
+        IsSystemSoundsSession        : IntPtr
+        SetDuckingPreference         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSessionIdentifier", "GetSessionInstanceIdentifier", "GetProcessId", "IsSystemSoundsSession", "SetDuckingPreference"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAudioSessionControl2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetSessionIdentifier method retrieves the audio session identifier.
@@ -51,7 +65,7 @@ class IAudioSessionControl2 extends IAudioSessionControl {
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessioncontrol2-getsessionidentifier
      */
     GetSessionIdentifier() {
-        result := ComCall(12, this, "ptr*", &pRetVal := 0, "HRESULT")
+        result := ComCall(12, this, PWSTR.Ptr, &pRetVal := 0, "HRESULT")
         return pRetVal
     }
 
@@ -67,7 +81,7 @@ class IAudioSessionControl2 extends IAudioSessionControl {
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessioncontrol2-getsessioninstanceidentifier
      */
     GetSessionInstanceIdentifier() {
-        result := ComCall(13, this, "ptr*", &pRetVal := 0, "HRESULT")
+        result := ComCall(13, this, PWSTR.Ptr, &pRetVal := 0, "HRESULT")
         return pRetVal
     }
 
@@ -121,7 +135,7 @@ class IAudioSessionControl2 extends IAudioSessionControl {
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessioncontrol2-issystemsoundssession
      */
     IsSystemSoundsSession() {
-        result := ComCall(15, this, "int")
+        result := ComCall(15, this, Int32)
         return result
     }
 
@@ -161,7 +175,35 @@ class IAudioSessionControl2 extends IAudioSessionControl {
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessioncontrol2-setduckingpreference
      */
     SetDuckingPreference(optOut) {
-        result := ComCall(16, this, "int", optOut, "HRESULT")
+        result := ComCall(16, this, BOOL, optOut, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAudioSessionControl2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSessionIdentifier := CallbackCreate(GetMethod(implObj, "GetSessionIdentifier"), flags, 2)
+        this.vtbl.GetSessionInstanceIdentifier := CallbackCreate(GetMethod(implObj, "GetSessionInstanceIdentifier"), flags, 2)
+        this.vtbl.GetProcessId := CallbackCreate(GetMethod(implObj, "GetProcessId"), flags, 2)
+        this.vtbl.IsSystemSoundsSession := CallbackCreate(GetMethod(implObj, "IsSystemSoundsSession"), flags, 1)
+        this.vtbl.SetDuckingPreference := CallbackCreate(GetMethod(implObj, "SetDuckingPreference"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSessionIdentifier)
+        CallbackFree(this.vtbl.GetSessionInstanceIdentifier)
+        CallbackFree(this.vtbl.GetProcessId)
+        CallbackFree(this.vtbl.IsSystemSoundsSession)
+        CallbackFree(this.vtbl.SetDuckingPreference)
     }
 }

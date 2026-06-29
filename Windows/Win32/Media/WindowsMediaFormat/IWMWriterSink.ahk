@@ -1,34 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\INSSBuffer.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\INSSBuffer.ahk" { INSSBuffer }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMWriterSink interface is the basic interface of all writer sinks, including the file, network, and push sinks defined in the Windows Media Format SDK, and custom sinks.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmwritersink
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMWriterSink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMWriterSink extends IUnknown {
     /**
      * The interface identifier for IWMWriterSink
      * @type {Guid}
      */
-    static IID => Guid("{96406be4-2b2b-11d3-b36b-00c04f6108ff}")
+    static IID := Guid("{96406be4-2b2b-11d3-b36b-00c04f6108ff}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMWriterSink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnHeader         : IntPtr
+        IsRealTime       : IntPtr
+        AllocateDataUnit : IntPtr
+        OnDataUnit       : IntPtr
+        OnEndWriting     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnHeader", "IsRealTime", "AllocateDataUnit", "OnDataUnit", "OnEndWriting"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMWriterSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The OnHeader method is called by the writer when the ASF header is ready for the sink.
@@ -49,7 +62,7 @@ class IWMWriterSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwritersink-isrealtime
      */
     IsRealTime() {
-        result := ComCall(4, this, "int*", &pfRealTime := 0, "HRESULT")
+        result := ComCall(4, this, BOOL.Ptr, &pfRealTime := 0, "HRESULT")
         return pfRealTime
     }
 
@@ -83,5 +96,33 @@ class IWMWriterSink extends IUnknown {
     OnEndWriting() {
         result := ComCall(7, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMWriterSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnHeader := CallbackCreate(GetMethod(implObj, "OnHeader"), flags, 2)
+        this.vtbl.IsRealTime := CallbackCreate(GetMethod(implObj, "IsRealTime"), flags, 2)
+        this.vtbl.AllocateDataUnit := CallbackCreate(GetMethod(implObj, "AllocateDataUnit"), flags, 3)
+        this.vtbl.OnDataUnit := CallbackCreate(GetMethod(implObj, "OnDataUnit"), flags, 2)
+        this.vtbl.OnEndWriting := CallbackCreate(GetMethod(implObj, "OnEndWriting"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnHeader)
+        CallbackFree(this.vtbl.IsRealTime)
+        CallbackFree(this.vtbl.AllocateDataUnit)
+        CallbackFree(this.vtbl.OnDataUnit)
+        CallbackFree(this.vtbl.OnEndWriting)
     }
 }

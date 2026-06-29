@@ -1,85 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * The SCROLLBARINFO structure contains scroll bar information.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-scrollbarinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class SCROLLBARINFO extends Win32Struct {
-    static sizeof => 60
-
-    static packingSize => 4
+export default struct SCROLLBARINFO {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Specifies the size, in bytes, of the structure. Before calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getscrollbarinfo">GetScrollBarInfo</a> function, set <b>cbSize</b> to <b>sizeof</b>(<b>SCROLLBARINFO</b>).
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a></b>
      * 
      * Coordinates of the scroll bar as specified in a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure.
-     * @type {RECT}
      */
-    rcScrollBar {
-        get {
-            if(!this.HasProp("__rcScrollBar"))
-                this.__rcScrollBar := RECT(4, this)
-            return this.__rcScrollBar
-        }
-    }
+    rcScrollBar : RECT
 
     /**
      * Type: <b>int</b>
      * 
      * Height or width of the thumb.
-     * @type {Integer}
      */
-    dxyLineButton {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    dxyLineButton : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * Position of the top or left of the thumb.
-     * @type {Integer}
      */
-    xyThumbTop {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    xyThumbTop : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * Position of the bottom or right of the thumb.
-     * @type {Integer}
      */
-    xyThumbBottom {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    xyThumbBottom : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * Reserved.
-     * @type {Integer}
      */
-    reserved {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    reserved : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a>[CCHILDREN_SCROLLBAR+1]</b>
@@ -167,18 +137,7 @@ class SCROLLBARINFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Array<Integer>}
      */
-    rgstate {
-        get {
-            if(!this.HasProp("__rgstateProxyArray"))
-                this.__rgstateProxyArray := Win32FixedArray(this.ptr + 36, 6, Primitive, "uint")
-            return this.__rgstateProxyArray
-        }
-    }
+    rgstate : UInt32[6]
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 60
-    }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Identifies the origin of DFS namespace version information.
  * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ne-lmdfs-dfs_namespace_version_origin
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  */
-class DFS_NAMESPACE_VERSION_ORIGIN extends Win32Enum {
+export default struct DFS_NAMESPACE_VERSION_ORIGIN {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The version information specifies the maximum version that the server and the Active Directory Domain Service (AD DS) domain can support.

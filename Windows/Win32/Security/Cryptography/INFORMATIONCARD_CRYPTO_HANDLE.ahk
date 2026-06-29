@@ -1,36 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HandleType.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HandleType.ahk" { HandleType }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class INFORMATIONCARD_CRYPTO_HANDLE extends Win32Struct {
-    static sizeof => 24
+export default struct INFORMATIONCARD_CRYPTO_HANDLE {
+    #StructPack 8
 
-    static packingSize => 8
+    type : HandleType
 
-    /**
-     * @type {HandleType}
-     */
-    type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    expiration : Int64
 
-    /**
-     * @type {Integer}
-     */
-    expiration {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    cryptoParameters : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    cryptoParameters {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

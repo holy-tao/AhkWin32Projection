@@ -1,27 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\KERB_PROTOCOL_MESSAGE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KERB_PROTOCOL_MESSAGE_TYPE.ahk" { KERB_PROTOCOL_MESSAGE_TYPE }
 
 /**
  * Contains the results of querying for the extended policies of the specified domain.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_query_domain_extended_policies_response
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class KERB_QUERY_DOMAIN_EXTENDED_POLICIES_RESPONSE extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct KERB_QUERY_DOMAIN_EXTENDED_POLICIES_RESPONSE {
+    #StructPack 4
 
     /**
      * A 
      * 						value of the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-kerb_protocol_message_type">KERB_PROTOCOL_MESSAGE_TYPE</a> enumeration that lists the types of messages that can be sent to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">Kerberos</a> authentication package by calling 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsacallauthenticationpackage">LsaCallAuthenticationPackage</a> function. This member must be set to <b>KerbQueryDomainExtendedPoliciesMessage</b>.
-     * @type {KERB_PROTOCOL_MESSAGE_TYPE}
      */
-    MessageType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    MessageType : KERB_PROTOCOL_MESSAGE_TYPE
 
     /**
      * Contains flags used for the extended policies.
@@ -43,28 +36,17 @@ class KERB_QUERY_DOMAIN_EXTENDED_POLICIES_RESPONSE extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : UInt32
 
     /**
      * The 	name of the domain that you are querying for the extended policies.
-     * @type {Integer}
      */
-    ExtendedPolicies {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ExtendedPolicies : UInt32
 
     /**
      * Flags that represent the requirements. These flags are returned from the <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcnamea">DsGetDcName</a> function.
-     * @type {Integer}
      */
-    DsFlags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    DsFlags : UInt32
+
 }

@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include Common\SHELLDETAILS.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "Common\SHELLDETAILS.ahk" { SHELLDETAILS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposed by Shell folders to provide detailed information about the items in a folder.
@@ -11,26 +13,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nn-shlobj_core-ishelldetails
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellDetails extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IShellDetails extends IUnknown {
     /**
      * The interface identifier for IShellDetails
      * @type {Guid}
      */
-    static IID => Guid("{000214ec-0000-0000-c000-000000000046}")
+    static IID := Guid("{000214ec-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellDetails interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDetailsOf : IntPtr
+        ColumnClick  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDetailsOf", "ColumnClick"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellDetails.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets detailed information on an item in a Shell folder.
@@ -88,7 +98,7 @@ class IShellDetails extends IUnknown {
      */
     GetDetailsOf(pidl, iColumn) {
         pDetails := SHELLDETAILS()
-        result := ComCall(3, this, "ptr", pidl, "uint", iColumn, "ptr", pDetails, "HRESULT")
+        result := ComCall(3, this, ITEMIDLIST.Ptr, pidl, "uint", iColumn, SHELLDETAILS.Ptr, pDetails, "HRESULT")
         return pDetails
     }
 
@@ -110,5 +120,27 @@ class IShellDetails extends IUnknown {
     ColumnClick(iColumn) {
         result := ComCall(4, this, "uint", iColumn, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IShellDetails.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDetailsOf := CallbackCreate(GetMethod(implObj, "GetDetailsOf"), flags, 4)
+        this.vtbl.ColumnClick := CallbackCreate(GetMethod(implObj, "ColumnClick"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDetailsOf)
+        CallbackFree(this.vtbl.ColumnClick)
     }
 }

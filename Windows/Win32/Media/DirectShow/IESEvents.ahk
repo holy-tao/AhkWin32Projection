@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IESEvent.ahk" { IESEvent }
 
 /**
  * Implements event handling for devices that have registered to receive specific events derived from the IESEvent interface. In a Protected Broadcast Driver Architecture graph, Media Sink Devices implement this interface to register for events.
@@ -10,26 +12,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-iesevents
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IESEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IESEvents extends IUnknown {
     /**
      * The interface identifier for IESEvents
      * @type {Guid}
      */
-    static IID => Guid("{abd414bf-cfe5-4e5e-af5b-4b4e49c5bfeb}")
+    static IID := Guid("{abd414bf-cfe5-4e5e-af5b-4b4e49c5bfeb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IESEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnESEventReceived : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnESEventReceived"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IESEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Defines a handler for an event that is derived from the IESEvent interface.
@@ -39,7 +48,27 @@ class IESEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesevents-oneseventreceived
      */
     OnESEventReceived(guidEventType, pESEvent) {
-        result := ComCall(3, this, "ptr", guidEventType, "ptr", pESEvent, "HRESULT")
+        result := ComCall(3, this, Guid, guidEventType, "ptr", pESEvent, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IESEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnESEventReceived := CallbackCreate(GetMethod(implObj, "OnESEventReceived"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnESEventReceived)
     }
 }

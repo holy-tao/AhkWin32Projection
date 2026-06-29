@@ -1,10 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IFsrmProperty.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\FsrmFileStreamingInterfaceType.ahk" { FsrmFileStreamingInterfaceType }
+#Import ".\FsrmFileStreamingMode.ahk" { FsrmFileStreamingMode }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFsrmProperty.ahk" { IFsrmProperty }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Contains the classification properties for a file.
@@ -25,26 +29,53 @@
  * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nn-fsrmpipeline-ifsrmpropertybag
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmPropertyBag extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmPropertyBag extends IDispatch {
     /**
      * The interface identifier for IFsrmPropertyBag
      * @type {Guid}
      */
-    static IID => Guid("{774589d1-d300-4f7a-9a24-f7b766800250}")
+    static IID := Guid("{774589d1-d300-4f7a-9a24-f7b766800250}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmPropertyBag interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Name                  : IntPtr
+        get_RelativePath          : IntPtr
+        get_VolumeName            : IntPtr
+        get_RelativeNamespaceRoot : IntPtr
+        get_VolumeIndex           : IntPtr
+        get_FileId                : IntPtr
+        get_ParentDirectoryId     : IntPtr
+        get_Size                  : IntPtr
+        get_SizeAllocated         : IntPtr
+        get_CreationTime          : IntPtr
+        get_LastAccessTime        : IntPtr
+        get_LastModificationTime  : IntPtr
+        get_Attributes            : IntPtr
+        get_OwnerSid              : IntPtr
+        get_FilePropertyNames     : IntPtr
+        get_Messages              : IntPtr
+        get_PropertyBagFlags      : IntPtr
+        GetFileProperty           : IntPtr
+        SetFileProperty           : IntPtr
+        AddMessage                : IntPtr
+        GetFileStreamInterface    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Name", "get_RelativePath", "get_VolumeName", "get_RelativeNamespaceRoot", "get_VolumeIndex", "get_FileId", "get_ParentDirectoryId", "get_Size", "get_SizeAllocated", "get_CreationTime", "get_LastAccessTime", "get_LastModificationTime", "get_Attributes", "get_OwnerSid", "get_FilePropertyNames", "get_Messages", "get_PropertyBagFlags", "GetFileProperty", "SetFileProperty", "AddMessage", "GetFileStreamInterface"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmPropertyBag.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -171,8 +202,8 @@ class IFsrmPropertyBag extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_name
      */
     get_Name() {
-        name := BSTR()
-        result := ComCall(7, this, "ptr", name, "HRESULT")
+        name := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, name, "HRESULT")
         return name
     }
 
@@ -186,8 +217,8 @@ class IFsrmPropertyBag extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_relativepath
      */
     get_RelativePath() {
-        _path := BSTR()
-        result := ComCall(8, this, "ptr", _path, "HRESULT")
+        _path := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, _path, "HRESULT")
         return _path
     }
 
@@ -203,8 +234,8 @@ class IFsrmPropertyBag extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_volumename
      */
     get_VolumeName() {
-        volumeName := BSTR()
-        result := ComCall(9, this, "ptr", volumeName, "HRESULT")
+        volumeName := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, volumeName, "HRESULT")
         return volumeName
     }
 
@@ -220,8 +251,8 @@ class IFsrmPropertyBag extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_relativenamespaceroot
      */
     get_RelativeNamespaceRoot() {
-        relativeNamespaceRoot := BSTR()
-        result := ComCall(10, this, "ptr", relativeNamespaceRoot, "HRESULT")
+        relativeNamespaceRoot := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, relativeNamespaceRoot, "HRESULT")
         return relativeNamespaceRoot
     }
 
@@ -242,7 +273,7 @@ class IFsrmPropertyBag extends IDispatch {
      */
     get_FileId() {
         fileId := VARIANT()
-        result := ComCall(12, this, "ptr", fileId, "HRESULT")
+        result := ComCall(12, this, VARIANT.Ptr, fileId, "HRESULT")
         return fileId
     }
 
@@ -253,7 +284,7 @@ class IFsrmPropertyBag extends IDispatch {
      */
     get_ParentDirectoryId() {
         parentDirectoryId := VARIANT()
-        result := ComCall(13, this, "ptr", parentDirectoryId, "HRESULT")
+        result := ComCall(13, this, VARIANT.Ptr, parentDirectoryId, "HRESULT")
         return parentDirectoryId
     }
 
@@ -264,7 +295,7 @@ class IFsrmPropertyBag extends IDispatch {
      */
     get_Size() {
         _size := VARIANT()
-        result := ComCall(14, this, "ptr", _size, "HRESULT")
+        result := ComCall(14, this, VARIANT.Ptr, _size, "HRESULT")
         return _size
     }
 
@@ -275,7 +306,7 @@ class IFsrmPropertyBag extends IDispatch {
      */
     get_SizeAllocated() {
         sizeAllocated := VARIANT()
-        result := ComCall(15, this, "ptr", sizeAllocated, "HRESULT")
+        result := ComCall(15, this, VARIANT.Ptr, sizeAllocated, "HRESULT")
         return sizeAllocated
     }
 
@@ -286,7 +317,7 @@ class IFsrmPropertyBag extends IDispatch {
      */
     get_CreationTime() {
         creationTime := VARIANT()
-        result := ComCall(16, this, "ptr", creationTime, "HRESULT")
+        result := ComCall(16, this, VARIANT.Ptr, creationTime, "HRESULT")
         return creationTime
     }
 
@@ -297,7 +328,7 @@ class IFsrmPropertyBag extends IDispatch {
      */
     get_LastAccessTime() {
         lastAccessTime := VARIANT()
-        result := ComCall(17, this, "ptr", lastAccessTime, "HRESULT")
+        result := ComCall(17, this, VARIANT.Ptr, lastAccessTime, "HRESULT")
         return lastAccessTime
     }
 
@@ -308,7 +339,7 @@ class IFsrmPropertyBag extends IDispatch {
      */
     get_LastModificationTime() {
         lastModificationTime := VARIANT()
-        result := ComCall(18, this, "ptr", lastModificationTime, "HRESULT")
+        result := ComCall(18, this, VARIANT.Ptr, lastModificationTime, "HRESULT")
         return lastModificationTime
     }
 
@@ -328,8 +359,8 @@ class IFsrmPropertyBag extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_ownersid
      */
     get_OwnerSid() {
-        ownerSid := BSTR()
-        result := ComCall(20, this, "ptr", ownerSid, "HRESULT")
+        ownerSid := BSTR.Owned()
+        result := ComCall(20, this, BSTR.Ptr, ownerSid, "HRESULT")
         return ownerSid
     }
 
@@ -380,7 +411,7 @@ class IFsrmPropertyBag extends IDispatch {
     GetFileProperty(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(24, this, "ptr", name, "ptr*", &fileProperty := 0, "HRESULT")
+        result := ComCall(24, this, BSTR, name, "ptr*", &fileProperty := 0, "HRESULT")
         return IFsrmProperty(fileProperty)
     }
 
@@ -397,7 +428,7 @@ class IFsrmPropertyBag extends IDispatch {
         name := name is String ? BSTR.Alloc(name).Value : name
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        result := ComCall(25, this, "ptr", name, "ptr", value, "HRESULT")
+        result := ComCall(25, this, BSTR, name, BSTR, value, "HRESULT")
         return result
     }
 
@@ -429,7 +460,7 @@ class IFsrmPropertyBag extends IDispatch {
     AddMessage(message) {
         message := message is String ? BSTR.Alloc(message).Value : message
 
-        result := ComCall(26, this, "ptr", message, "HRESULT")
+        result := ComCall(26, this, BSTR, message, "HRESULT")
         return result
     }
 
@@ -454,7 +485,67 @@ class IFsrmPropertyBag extends IDispatch {
      */
     GetFileStreamInterface(accessMode, interfaceType) {
         pStreamInterface := VARIANT()
-        result := ComCall(27, this, "int", accessMode, "int", interfaceType, "ptr", pStreamInterface, "HRESULT")
+        result := ComCall(27, this, FsrmFileStreamingMode, accessMode, FsrmFileStreamingInterfaceType, interfaceType, VARIANT.Ptr, pStreamInterface, "HRESULT")
         return pStreamInterface
+    }
+
+    Query(iid) {
+        if (IFsrmPropertyBag.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_RelativePath := CallbackCreate(GetMethod(implObj, "get_RelativePath"), flags, 2)
+        this.vtbl.get_VolumeName := CallbackCreate(GetMethod(implObj, "get_VolumeName"), flags, 2)
+        this.vtbl.get_RelativeNamespaceRoot := CallbackCreate(GetMethod(implObj, "get_RelativeNamespaceRoot"), flags, 2)
+        this.vtbl.get_VolumeIndex := CallbackCreate(GetMethod(implObj, "get_VolumeIndex"), flags, 2)
+        this.vtbl.get_FileId := CallbackCreate(GetMethod(implObj, "get_FileId"), flags, 2)
+        this.vtbl.get_ParentDirectoryId := CallbackCreate(GetMethod(implObj, "get_ParentDirectoryId"), flags, 2)
+        this.vtbl.get_Size := CallbackCreate(GetMethod(implObj, "get_Size"), flags, 2)
+        this.vtbl.get_SizeAllocated := CallbackCreate(GetMethod(implObj, "get_SizeAllocated"), flags, 2)
+        this.vtbl.get_CreationTime := CallbackCreate(GetMethod(implObj, "get_CreationTime"), flags, 2)
+        this.vtbl.get_LastAccessTime := CallbackCreate(GetMethod(implObj, "get_LastAccessTime"), flags, 2)
+        this.vtbl.get_LastModificationTime := CallbackCreate(GetMethod(implObj, "get_LastModificationTime"), flags, 2)
+        this.vtbl.get_Attributes := CallbackCreate(GetMethod(implObj, "get_Attributes"), flags, 2)
+        this.vtbl.get_OwnerSid := CallbackCreate(GetMethod(implObj, "get_OwnerSid"), flags, 2)
+        this.vtbl.get_FilePropertyNames := CallbackCreate(GetMethod(implObj, "get_FilePropertyNames"), flags, 2)
+        this.vtbl.get_Messages := CallbackCreate(GetMethod(implObj, "get_Messages"), flags, 2)
+        this.vtbl.get_PropertyBagFlags := CallbackCreate(GetMethod(implObj, "get_PropertyBagFlags"), flags, 2)
+        this.vtbl.GetFileProperty := CallbackCreate(GetMethod(implObj, "GetFileProperty"), flags, 3)
+        this.vtbl.SetFileProperty := CallbackCreate(GetMethod(implObj, "SetFileProperty"), flags, 3)
+        this.vtbl.AddMessage := CallbackCreate(GetMethod(implObj, "AddMessage"), flags, 2)
+        this.vtbl.GetFileStreamInterface := CallbackCreate(GetMethod(implObj, "GetFileStreamInterface"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.get_RelativePath)
+        CallbackFree(this.vtbl.get_VolumeName)
+        CallbackFree(this.vtbl.get_RelativeNamespaceRoot)
+        CallbackFree(this.vtbl.get_VolumeIndex)
+        CallbackFree(this.vtbl.get_FileId)
+        CallbackFree(this.vtbl.get_ParentDirectoryId)
+        CallbackFree(this.vtbl.get_Size)
+        CallbackFree(this.vtbl.get_SizeAllocated)
+        CallbackFree(this.vtbl.get_CreationTime)
+        CallbackFree(this.vtbl.get_LastAccessTime)
+        CallbackFree(this.vtbl.get_LastModificationTime)
+        CallbackFree(this.vtbl.get_Attributes)
+        CallbackFree(this.vtbl.get_OwnerSid)
+        CallbackFree(this.vtbl.get_FilePropertyNames)
+        CallbackFree(this.vtbl.get_Messages)
+        CallbackFree(this.vtbl.get_PropertyBagFlags)
+        CallbackFree(this.vtbl.GetFileProperty)
+        CallbackFree(this.vtbl.SetFileProperty)
+        CallbackFree(this.vtbl.AddMessage)
+        CallbackFree(this.vtbl.GetFileStreamInterface)
     }
 }

@@ -1,28 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * The FSCTL_TXFS_SAVEPOINT_INFORMATION structure specifies the action to perform, and on which transaction.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-txfs_savepoint_information
  * @namespace Windows.Win32.System.Ioctl
  */
-class TXFS_SAVEPOINT_INFORMATION extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct TXFS_SAVEPOINT_INFORMATION {
+    #StructPack 8
 
     /**
      * Handle to the transaction on which to perform the savepoint operation.
-     * @type {HANDLE}
      */
-    KtmTransaction {
-        get {
-            if(!this.HasProp("__KtmTransaction"))
-                this.__KtmTransaction := HANDLE(0, this)
-            return this.__KtmTransaction
-        }
-    }
+    KtmTransaction : HANDLE
 
     /**
      * Specifies the savepoint action to perform. Valid values are:
@@ -77,12 +67,8 @@ class TXFS_SAVEPOINT_INFORMATION extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ActionCode {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ActionCode : UInt32
 
     /**
      * If <b>ActionCode</b> is <b>TXFS_SAVEPOINT_SET</b>, on output, 
@@ -94,10 +80,7 @@ class TXFS_SAVEPOINT_INFORMATION extends Win32Struct {
      * If <b>ActionCode</b> is <b>TXFS_SAVEPOINT_CLEAR</b> or 
      *       <b>TXFS_SAVEPOINT_CLEAR_ALL</b>, this member is not used; therefore, on input, specify 
      *       <b>NULL</b>.
-     * @type {Integer}
      */
-    SavepointId {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    SavepointId : UInt32
+
 }

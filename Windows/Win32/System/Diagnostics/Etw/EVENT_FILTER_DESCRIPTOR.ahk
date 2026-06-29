@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the filter data that a session passes to the provider's enable callback function.
@@ -22,10 +21,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/evntprov/ns-evntprov-event_filter_descriptor
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class EVENT_FILTER_DESCRIPTOR extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct EVENT_FILTER_DESCRIPTOR {
+    #StructPack 8
 
     /**
      * A pointer to the filter data for the filter type specified in the **Type**
@@ -50,12 +47,8 @@ class EVENT_FILTER_DESCRIPTOR extends Win32Struct {
      * If the **Type** member is set to **EVENT_FILTER_TYPE_SCHEMATIZED**, see the
      * [EVENT_FILTER_HEADER](/windows/desktop/api/evntprov/ns-evntprov-event_filter_header)
      * structure for details on constructing the filter.
-     * @type {Integer}
      */
-    Ptr {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Ptr : Int64
 
     /**
      * The size of the data, in bytes.
@@ -64,12 +57,8 @@ class EVENT_FILTER_DESCRIPTOR extends Win32Struct {
      * type of the filter). The maximum data size, in bytes, for many of the filter
      * types is limited to **MAX_EVENT_FILTER_DATA_SIZE**, defined in the _evntprov.h_
      * header file to 1024.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Size : UInt32
 
     /**
      * A provider-defined value that identifies the filter. For filters defined in an
@@ -277,10 +266,7 @@ class EVENT_FILTER_DESCRIPTOR extends Win32Struct {
      *   provider at all.
      * 
      *   > **Note:** Available on Windows 10, version 1709 and later.
-     * @type {Integer}
      */
-    Type {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Type : UInt32
+
 }

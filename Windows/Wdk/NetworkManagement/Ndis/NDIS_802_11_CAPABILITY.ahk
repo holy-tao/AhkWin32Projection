@@ -1,54 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class NDIS_802_11_CAPABILITY extends Win32Struct {
-    static sizeof => 24
+export default struct NDIS_802_11_CAPABILITY {
+    #StructPack 8
 
-    static packingSize => 8
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    NoOfPMKIDs : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NoOfPMKIDs {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NoOfAuthEncryptPairsSupported : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NoOfAuthEncryptPairsSupported {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    AuthenticationEncryptionSupported : IntPtr[1]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    AuthenticationEncryptionSupported {
-        get {
-            if(!this.HasProp("__AuthenticationEncryptionSupportedProxyArray"))
-                this.__AuthenticationEncryptionSupportedProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "ptr")
-            return this.__AuthenticationEncryptionSupportedProxyArray
-        }
-    }
 }

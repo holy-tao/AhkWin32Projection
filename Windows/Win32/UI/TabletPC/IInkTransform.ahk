@@ -1,34 +1,64 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Graphics\Gdi\XFORM.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Graphics\Gdi\XFORM.ahk" { XFORM }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * . (IInkTransform)
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinktransform
  * @namespace Windows.Win32.UI.TabletPC
  */
-class IInkTransform extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IInkTransform extends IDispatch {
     /**
      * The interface identifier for IInkTransform
      * @type {Guid}
      */
-    static IID => Guid("{615f1d43-8703-4565-88e2-8201d2ecd7b7}")
+    static IID := Guid("{615f1d43-8703-4565-88e2-8201d2ecd7b7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IInkTransform interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Reset          : IntPtr
+        Translate      : IntPtr
+        Rotate         : IntPtr
+        Reflect        : IntPtr
+        Shear          : IntPtr
+        ScaleTransform : IntPtr
+        GetTransform   : IntPtr
+        SetTransform   : IntPtr
+        get_eM11       : IntPtr
+        put_eM11       : IntPtr
+        get_eM12       : IntPtr
+        put_eM12       : IntPtr
+        get_eM21       : IntPtr
+        put_eM21       : IntPtr
+        get_eM22       : IntPtr
+        put_eM22       : IntPtr
+        get_eDx        : IntPtr
+        put_eDx        : IntPtr
+        get_eDy        : IntPtr
+        put_eDy        : IntPtr
+        get_Data       : IntPtr
+        put_Data       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Reset", "Translate", "Rotate", "Reflect", "Shear", "ScaleTransform", "GetTransform", "SetTransform", "get_eM11", "put_eM11", "get_eM12", "put_eM12", "get_eM21", "put_eM21", "get_eM22", "put_eM22", "get_eDx", "put_eDx", "get_eDy", "put_eDy", "get_Data", "put_Data"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IInkTransform.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Float} 
@@ -262,7 +292,7 @@ class IInkTransform extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-reflect
      */
     Reflect(Horizontally, Vertically) {
-        result := ComCall(10, this, "short", Horizontally, "short", Vertically, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL, Horizontally, VARIANT_BOOL, Vertically, "HRESULT")
         return result
     }
 
@@ -598,7 +628,7 @@ class IInkTransform extends IDispatch {
      */
     get_Data() {
         _XForm := XFORM()
-        result := ComCall(27, this, "ptr", _XForm, "HRESULT")
+        result := ComCall(27, this, XFORM.Ptr, _XForm, "HRESULT")
         return _XForm
     }
 
@@ -609,7 +639,69 @@ class IInkTransform extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-put_data
      */
     put_Data(_XForm) {
-        result := ComCall(28, this, "ptr", _XForm, "HRESULT")
+        result := ComCall(28, this, XFORM, _XForm, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IInkTransform.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Translate := CallbackCreate(GetMethod(implObj, "Translate"), flags, 3)
+        this.vtbl.Rotate := CallbackCreate(GetMethod(implObj, "Rotate"), flags, 4)
+        this.vtbl.Reflect := CallbackCreate(GetMethod(implObj, "Reflect"), flags, 3)
+        this.vtbl.Shear := CallbackCreate(GetMethod(implObj, "Shear"), flags, 3)
+        this.vtbl.ScaleTransform := CallbackCreate(GetMethod(implObj, "ScaleTransform"), flags, 3)
+        this.vtbl.GetTransform := CallbackCreate(GetMethod(implObj, "GetTransform"), flags, 7)
+        this.vtbl.SetTransform := CallbackCreate(GetMethod(implObj, "SetTransform"), flags, 7)
+        this.vtbl.get_eM11 := CallbackCreate(GetMethod(implObj, "get_eM11"), flags, 2)
+        this.vtbl.put_eM11 := CallbackCreate(GetMethod(implObj, "put_eM11"), flags, 2)
+        this.vtbl.get_eM12 := CallbackCreate(GetMethod(implObj, "get_eM12"), flags, 2)
+        this.vtbl.put_eM12 := CallbackCreate(GetMethod(implObj, "put_eM12"), flags, 2)
+        this.vtbl.get_eM21 := CallbackCreate(GetMethod(implObj, "get_eM21"), flags, 2)
+        this.vtbl.put_eM21 := CallbackCreate(GetMethod(implObj, "put_eM21"), flags, 2)
+        this.vtbl.get_eM22 := CallbackCreate(GetMethod(implObj, "get_eM22"), flags, 2)
+        this.vtbl.put_eM22 := CallbackCreate(GetMethod(implObj, "put_eM22"), flags, 2)
+        this.vtbl.get_eDx := CallbackCreate(GetMethod(implObj, "get_eDx"), flags, 2)
+        this.vtbl.put_eDx := CallbackCreate(GetMethod(implObj, "put_eDx"), flags, 2)
+        this.vtbl.get_eDy := CallbackCreate(GetMethod(implObj, "get_eDy"), flags, 2)
+        this.vtbl.put_eDy := CallbackCreate(GetMethod(implObj, "put_eDy"), flags, 2)
+        this.vtbl.get_Data := CallbackCreate(GetMethod(implObj, "get_Data"), flags, 2)
+        this.vtbl.put_Data := CallbackCreate(GetMethod(implObj, "put_Data"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.Translate)
+        CallbackFree(this.vtbl.Rotate)
+        CallbackFree(this.vtbl.Reflect)
+        CallbackFree(this.vtbl.Shear)
+        CallbackFree(this.vtbl.ScaleTransform)
+        CallbackFree(this.vtbl.GetTransform)
+        CallbackFree(this.vtbl.SetTransform)
+        CallbackFree(this.vtbl.get_eM11)
+        CallbackFree(this.vtbl.put_eM11)
+        CallbackFree(this.vtbl.get_eM12)
+        CallbackFree(this.vtbl.put_eM12)
+        CallbackFree(this.vtbl.get_eM21)
+        CallbackFree(this.vtbl.put_eM21)
+        CallbackFree(this.vtbl.get_eM22)
+        CallbackFree(this.vtbl.put_eM22)
+        CallbackFree(this.vtbl.get_eDx)
+        CallbackFree(this.vtbl.put_eDx)
+        CallbackFree(this.vtbl.get_eDy)
+        CallbackFree(this.vtbl.put_eDy)
+        CallbackFree(this.vtbl.get_Data)
+        CallbackFree(this.vtbl.put_Data)
     }
 }

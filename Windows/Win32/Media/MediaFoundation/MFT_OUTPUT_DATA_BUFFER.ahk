@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IMFSample.ahk
-#Include .\IMFCollection.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IMFCollection.ahk" { IMFCollection }
+#Import ".\IMFSample.ahk" { IMFSample }
 
 /**
  * Contains information about an output buffer for a Media Foundation transform. This structure is used in the IMFTransform::ProcessOutput method.
@@ -66,46 +65,29 @@
  * @see https://learn.microsoft.com/windows/win32/api/mftransform/ns-mftransform-mft_output_data_buffer
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFT_OUTPUT_DATA_BUFFER extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct MFT_OUTPUT_DATA_BUFFER {
+    #StructPack 8
 
     /**
      * Output stream identifier. Before calling <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nf-mftransform-imftransform-processoutput">ProcessOutput</a>, set this member to a valid stream identifier.
      * 
      * Exception: If the <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nf-mftransform-imftransform-getstreamids">IMFTransform::GetStreamIDs</a> method returns E_NOTIMPL, the MFT ignores this member and uses the indexes of the <i>pOutputSamples</i> array in the <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nf-mftransform-imftransform-processoutput">ProcessOutput</a> method as the stream identifiers. In other words, it uses the first element in the array for stream 0, the second for stream 1, and so forth. It is recommended (but not required) that the caller set <b>dwStreamID</b> equal to the array index in this case.
-     * @type {Integer}
      */
-    dwStreamID {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwStreamID : UInt32
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfsample">IMFSample</a> interface. Before calling <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nf-mftransform-imftransform-processoutput">ProcessOutput</a>, set this member equal to a valid <b>IMFSample</b> pointer or <b>NULL</b>. See Remarks for more information.
-     * @type {IMFSample}
      */
-    pSample {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pSample : IMFSample
 
     /**
      * Before calling <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nf-mftransform-imftransform-processoutput">ProcessOutput</a>, set this member to zero. When the method returns, the MFT might set the member equal to a value from the <a href="https://docs.microsoft.com/windows/win32/api/mftransform/ne-mftransform-_mft_output_data_buffer_flags">_MFT_OUTPUT_DATA_BUFFER_FLAGS</a> enumeration. Otherwise, the MFT leaves this member equal to zero.
-     * @type {Integer}
      */
-    dwStatus {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwStatus : UInt32
 
     /**
      * Before calling <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nf-mftransform-imftransform-processoutput">ProcessOutput</a>, set this member to <b>NULL</b>. On output, the MFT might set this member to a valid <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfcollection">IMFCollection</a> interface pointer. The pointer represents a collecton that contains zero or more events. To get each event, call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfcollection-getelement">IMFCollection::GetElement</a> and query the returned <b>IUnknown</b> pointer for the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediaevent">IMFMediaEvent</a> interface. When the <b>ProcessOutput</b> method returns, the caller is responsible for releasing the <b>IMFCollection</b> pointer if the pointer is not <b>NULL</b>.
-     * @type {IMFCollection}
      */
-    pEvents {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pEvents : IMFCollection
+
 }

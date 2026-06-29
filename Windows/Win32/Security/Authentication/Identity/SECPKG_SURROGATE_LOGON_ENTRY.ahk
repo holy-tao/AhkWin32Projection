@@ -1,27 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SECPKG_SURROGATE_LOGON_ENTRY extends Win32Struct {
-    static sizeof => 16
+export default struct SECPKG_SURROGATE_LOGON_ENTRY {
+    #StructPack 8
 
-    static packingSize => 8
+    Type : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    Type {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Data : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Data {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

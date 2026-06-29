@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEAP_CMCI_RESTART_EVENT extends Win32Struct {
-    static sizeof => 24
+export default struct WHEAP_CMCI_RESTART_EVENT {
+    #StructPack 8
 
-    static packingSize => 8
+    WheaEventLogEntry : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    WheaEventLogEntry {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    CmciRestoreAttempts : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CmciRestoreAttempts {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MaxCmciRestoreLimit : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxCmciRestoreLimit {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    MaxCorrectedErrorsFound : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxCorrectedErrorsFound {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    MaxCorrectedErrorLimit : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxCorrectedErrorLimit {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

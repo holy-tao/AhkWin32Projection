@@ -1,9 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\System\Registry\HKEY.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains information used by ShellExecuteEx. (ANSI)
@@ -27,44 +27,27 @@
  * @charset ANSI
  * @architecture X64, Arm64
  */
-class SHELLEXECUTEINFOA extends Win32Struct {
-    static sizeof => 112
-
-    static packingSize => 8
+export default struct SHELLEXECUTEINFOA {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Required. The size of this structure, in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b>ULONG</b>
-     * @type {Integer}
      */
-    fMask {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    fMask : UInt32
 
     /**
      * Type: <b>HWND</b>
      * 
      * Optional. A handle to the owner window, used to display and position any UI that the system might produce while executing this function.
-     * @type {HWND}
      */
-    hwnd {
-        get {
-            if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(8, this)
-            return this.__hwnd
-        }
-    }
+    hwnd : HWND
 
     /**
      * Type: <b>LPCTSTR</b>
@@ -78,12 +61,8 @@ class SHELLEXECUTEINFOA extends Win32Struct {
      * - **print**: Prints the document file specified by <b>lpFile</b>. If <b>lpFile</b> is not a document file, the function will fail.
      * - **properties**: Displays the file or folder's properties.
      * - **runas**: Launches an application as Administrator. User Account Control (UAC) will prompt the user for consent to run the application elevated or enter the credentials of an administrator account used to run the application.
-     * @type {PSTR}
      */
-    lpVerb {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpVerb : PSTR
 
     /**
      * Type: <b>LPCTSTR</b>
@@ -93,45 +72,29 @@ class SHELLEXECUTEINFOA extends Win32Struct {
      * <div class="alert"><b>Note:</b> If the <b>SEE_MASK_INVOKEIDLIST</b> flag is set, you can use either <b>lpFile</b> or <b>lpIDList</b> to identify the item by its file system path or its PIDL respectively. One of the two values—<b>lpFile</b> or <b>lpIDList</b>—must be set.</div>
      * 
      * <div class="alert"><b>Note:</b> If the path is not included with the name, the current directory is assumed.</div>
-     * @type {PSTR}
      */
-    lpFile {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpFile : PSTR
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Optional. The address of a null-terminated string that contains the application parameters. The parameters must be separated by spaces. If the <b>lpFile</b> member specifies a document file, <b>lpParameters</b> should be <b>NULL</b>.
-     * @type {PSTR}
      */
-    lpParameters {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpParameters : PSTR
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Optional. The address of a null-terminated string that specifies the name of the working directory. If this member is <b>NULL</b>, the current directory is used as the working directory.
-     * @type {PSTR}
      */
-    lpDirectory {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lpDirectory : PSTR
 
     /**
      * Type: <b>int</b>
      * 
      * Required. Flags that specify how an application is to be shown when it is opened; one of the SW_ values listed for the <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shellexecutea">ShellExecute</a> function. If <b>lpFile</b> specifies a document file, the flag is simply passed to the associated application. It is up to the application to decide how to handle it.
-     * @type {Integer}
      */
-    nShow {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    nShow : Int32
 
     /**
      * Type: <b>HINSTANCE</b>
@@ -153,26 +116,15 @@ class SHELLEXECUTEINFOA extends Win32Struct {
      * | SE_ERR_DDEFAIL (29) | DDE operation failed. |
      * | SE_ERR_DDEBUSY (30) | DDE operation is busy. |
      * | SE_ERR_NOASSOC (31) | File association not available. |
-     * @type {HINSTANCE}
      */
-    hInstApp {
-        get {
-            if(!this.HasProp("__hInstApp"))
-                this.__hInstApp := HINSTANCE(56, this)
-            return this.__hInstApp
-        }
-    }
+    hInstApp : HINSTANCE
 
     /**
      * Type: <b>LPVOID</b>
      * 
      * The address of an absolute <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure (PCIDLIST_ABSOLUTE) to contain an item identifier list that uniquely identifies the file to execute. This member is ignored if the <b>fMask</b> member does not include <b>SEE_MASK_IDLIST</b> or <b>SEE_MASK_INVOKEIDLIST</b>.
-     * @type {Pointer<Void>}
      */
-    lpIDList {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    lpIDList : IntPtr
 
     /**
      * Type: <b>LPCTSTR</b>
@@ -185,59 +137,24 @@ class SHELLEXECUTEINFOA extends Win32Struct {
      * - A registry path under HKEY_CLASSES_ROOT that names a subkey that contains one or more Shell verbs. This key will have a subkey that conforms to the Shell verb registry schema, such as <b>shell</b>&#92;<i>verb name</i>.
      * 
      * This member is ignored if <b>fMask</b> does not include <b>SEE_MASK_CLASSNAME</b>.
-     * @type {PSTR}
      */
-    lpClass {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    lpClass : PSTR
 
     /**
      * Type: <b>HKEY</b>
      * 
      * A handle to the registry key for the file type. The access rights for this registry key should be set to KEY_READ. This member is ignored if <b>fMask</b> does not include <b>SEE_MASK_CLASSKEY</b>.
-     * @type {HKEY}
      */
-    hkeyClass {
-        get {
-            if(!this.HasProp("__hkeyClass"))
-                this.__hkeyClass := HKEY(80, this)
-            return this.__hkeyClass
-        }
-    }
+    hkeyClass : HKEY
 
     /**
      * Type: <b>DWORD</b>
      * 
      * A keyboard shortcut to associate with the application. The low-order word is the virtual key code, and the high-order word is a modifier flag (HOTKEYF_). For a list of modifier flags, see the description of the <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-sethotkey">WM_SETHOTKEY</a> message. This member is ignored if <b>fMask</b> does not include <b>SEE_MASK_HOTKEY</b>.
-     * @type {Integer}
      */
-    dwHotKey {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    dwHotKey : UInt32
 
-    /**
-     * @type {HANDLE}
-     */
-    hIcon {
-        get {
-            if(!this.HasProp("__hIcon"))
-                this.__hIcon := HANDLE(96, this)
-            return this.__hIcon
-        }
-    }
-
-    /**
-     * @type {HANDLE}
-     */
-    hMonitor {
-        get {
-            if(!this.HasProp("__hMonitor"))
-                this.__hMonitor := HANDLE(96, this)
-            return this.__hMonitor
-        }
-    }
+    hIcon : HANDLE
 
     /**
      * Type: <b>HANDLE</b>
@@ -245,18 +162,11 @@ class SHELLEXECUTEINFOA extends Win32Struct {
      * A handle to the newly started application. This member is set on return and is always <b>NULL</b> unless <b>fMask</b> is set to <b>SEE_MASK_NOCLOSEPROCESS</b>. Even if <b>fMask</b> is set to <b>SEE_MASK_NOCLOSEPROCESS</b>, <b>hProcess</b> will be <b>NULL</b> if no process was launched. For example, if a document to be launched is a URL and an instance of Internet Explorer is already running, it will display the document. No new process is launched, and <b>hProcess</b> will be <b>NULL</b>.
      * 
      * <div class="alert"><b>Note:</b> <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shellexecuteexa">ShellExecuteEx</a> does not always return an <b>hProcess</b>, even if a process is launched as the result of the call. For example, an <b>hProcess</b> does not return when you use <b>SEE_MASK_INVOKEIDLIST</b> to invoke <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu">IContextMenu</a>.</div>
-     * @type {HANDLE}
      */
-    hProcess {
-        get {
-            if(!this.HasProp("__hProcess"))
-                this.__hProcess := HANDLE(104, this)
-            return this.__hProcess
-        }
-    }
+    hProcess : HANDLE
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 112
+    static __New() {
+        DefineProp(this.Prototype, 'hMonitor', { type: HANDLE, offset: 96 })
+        this.DeleteProp("__New")
     }
 }

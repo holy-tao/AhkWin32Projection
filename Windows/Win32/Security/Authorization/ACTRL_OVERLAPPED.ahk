@@ -1,47 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Win32.Security.Authorization
  */
-class ACTRL_OVERLAPPED extends Win32Struct {
-    static sizeof => 24
+export default struct ACTRL_OVERLAPPED {
+    #StructPack 8
 
-    static packingSize => 8
+    Provider : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Provider {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Reserved2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hEvent : HANDLE
 
-    /**
-     * @type {Integer}
-     */
-    Reserved2 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {HANDLE}
-     */
-    hEvent {
-        get {
-            if(!this.HasProp("__hEvent"))
-                this.__hEvent := HANDLE(16, this)
-            return this.__hEvent
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Reserved1', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

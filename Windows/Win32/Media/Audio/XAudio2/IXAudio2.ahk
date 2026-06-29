@@ -1,10 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IXAudio2SourceVoice.ahk
-#Include .\IXAudio2SubmixVoice.ahk
-#Include .\IXAudio2MasteringVoice.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXAudio2VoiceCallback.ahk" { IXAudio2VoiceCallback }
+#Import ".\IXAudio2SourceVoice.ahk" { IXAudio2SourceVoice }
+#Import "..\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import "..\AUDIO_STREAM_CATEGORY.ahk" { AUDIO_STREAM_CATEGORY }
+#Import ".\XAUDIO2_VOICE_SENDS.ahk" { XAUDIO2_VOICE_SENDS }
+#Import ".\IXAudio2EngineCallback.ahk" { IXAudio2EngineCallback }
+#Import ".\XAUDIO2_EFFECT_CHAIN.ahk" { XAUDIO2_EFFECT_CHAIN }
+#Import ".\IXAudio2SubmixVoice.ahk" { IXAudio2SubmixVoice }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\XAUDIO2_DEBUG_CONFIGURATION.ahk" { XAUDIO2_DEBUG_CONFIGURATION }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\XAUDIO2_PERFORMANCE_DATA.ahk" { XAUDIO2_PERFORMANCE_DATA }
+#Import ".\IXAudio2MasteringVoice.ahk" { IXAudio2MasteringVoice }
 
 /**
  * IXAudio2 is the interface for the XAudio2 object that manages all audio engine states, the audio processing thread, the voice graph, and so forth.
@@ -16,26 +26,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nn-xaudio2-ixaudio2
  * @namespace Windows.Win32.Media.Audio.XAudio2
  */
-class IXAudio2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IXAudio2 extends IUnknown {
     /**
      * The interface identifier for IXAudio2
      * @type {Guid}
      */
-    static IID => Guid("{2b02e3cf-2e0b-4ec3-be45-1b2a3fe7210d}")
+    static IID := Guid("{2b02e3cf-2e0b-4ec3-be45-1b2a3fe7210d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXAudio2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RegisterForCallbacks   : IntPtr
+        UnregisterForCallbacks : IntPtr
+        CreateSourceVoice      : IntPtr
+        CreateSubmixVoice      : IntPtr
+        CreateMasteringVoice   : IntPtr
+        StartEngine            : IntPtr
+        StopEngine             : IntPtr
+        CommitChanges          : IntPtr
+        GetPerformanceData     : IntPtr
+        SetDebugConfiguration  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RegisterForCallbacks", "UnregisterForCallbacks", "CreateSourceVoice", "CreateSubmixVoice", "CreateMasteringVoice", "StartEngine", "StopEngine", "CommitChanges", "GetPerformanceData", "SetDebugConfiguration"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXAudio2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds an IXAudio2EngineCallback pointer to the XAudio2 engine callback list.
@@ -242,7 +268,7 @@ class IXAudio2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2-createsourcevoice
      */
     CreateSourceVoice(pSourceFormat, Flags, MaxFrequencyRatio, pCallback, pSendList, pEffectChain) {
-        result := ComCall(5, this, "ptr*", &ppSourceVoice := 0, "ptr", pSourceFormat, "uint", Flags, "float", MaxFrequencyRatio, "ptr", pCallback, "ptr", pSendList, "ptr", pEffectChain, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppSourceVoice := 0, WAVEFORMATEX.Ptr, pSourceFormat, "uint", Flags, "float", MaxFrequencyRatio, "ptr", pCallback, XAUDIO2_VOICE_SENDS.Ptr, pSendList, XAUDIO2_EFFECT_CHAIN.Ptr, pEffectChain, "HRESULT")
         return IXAudio2SourceVoice(ppSourceVoice)
     }
 
@@ -299,7 +325,7 @@ class IXAudio2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2-createsubmixvoice
      */
     CreateSubmixVoice(InputChannels, InputSampleRate, Flags, ProcessingStage, pSendList, pEffectChain) {
-        result := ComCall(6, this, "ptr*", &ppSubmixVoice := 0, "uint", InputChannels, "uint", InputSampleRate, "uint", Flags, "uint", ProcessingStage, "ptr", pSendList, "ptr", pEffectChain, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppSubmixVoice := 0, "uint", InputChannels, "uint", InputSampleRate, "uint", Flags, "uint", ProcessingStage, XAUDIO2_VOICE_SENDS.Ptr, pSendList, XAUDIO2_EFFECT_CHAIN.Ptr, pEffectChain, "HRESULT")
         return IXAudio2SubmixVoice(ppSubmixVoice)
     }
 
@@ -375,7 +401,7 @@ class IXAudio2 extends IUnknown {
     CreateMasteringVoice(InputChannels, InputSampleRate, Flags, szDeviceId, pEffectChain, StreamCategory) {
         szDeviceId := szDeviceId is String ? StrPtr(szDeviceId) : szDeviceId
 
-        result := ComCall(7, this, "ptr*", &ppMasteringVoice := 0, "uint", InputChannels, "uint", InputSampleRate, "uint", Flags, "ptr", szDeviceId, "ptr", pEffectChain, "int", StreamCategory, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppMasteringVoice := 0, "uint", InputChannels, "uint", InputSampleRate, "uint", Flags, "ptr", szDeviceId, XAUDIO2_EFFECT_CHAIN.Ptr, pEffectChain, AUDIO_STREAM_CATEGORY, StreamCategory, "HRESULT")
         return IXAudio2MasteringVoice(ppMasteringVoice)
     }
 
@@ -454,7 +480,7 @@ class IXAudio2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2-getperformancedata
      */
     GetPerformanceData(pPerfData) {
-        ComCall(11, this, "ptr", pPerfData)
+        ComCall(11, this, XAUDIO2_PERFORMANCE_DATA.Ptr, pPerfData)
     }
 
     /**
@@ -471,6 +497,44 @@ class IXAudio2 extends IUnknown {
     SetDebugConfiguration(pDebugConfiguration) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
-        ComCall(12, this, "ptr", pDebugConfiguration, "ptr", pReserved)
+        ComCall(12, this, XAUDIO2_DEBUG_CONFIGURATION.Ptr, pDebugConfiguration, "ptr", pReserved)
+    }
+
+    Query(iid) {
+        if (IXAudio2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RegisterForCallbacks := CallbackCreate(GetMethod(implObj, "RegisterForCallbacks"), flags, 2)
+        this.vtbl.UnregisterForCallbacks := CallbackCreate(GetMethod(implObj, "UnregisterForCallbacks"), flags, 2)
+        this.vtbl.CreateSourceVoice := CallbackCreate(GetMethod(implObj, "CreateSourceVoice"), flags, 8)
+        this.vtbl.CreateSubmixVoice := CallbackCreate(GetMethod(implObj, "CreateSubmixVoice"), flags, 8)
+        this.vtbl.CreateMasteringVoice := CallbackCreate(GetMethod(implObj, "CreateMasteringVoice"), flags, 8)
+        this.vtbl.StartEngine := CallbackCreate(GetMethod(implObj, "StartEngine"), flags, 1)
+        this.vtbl.StopEngine := CallbackCreate(GetMethod(implObj, "StopEngine"), flags, 1)
+        this.vtbl.CommitChanges := CallbackCreate(GetMethod(implObj, "CommitChanges"), flags, 2)
+        this.vtbl.GetPerformanceData := CallbackCreate(GetMethod(implObj, "GetPerformanceData"), flags, 2)
+        this.vtbl.SetDebugConfiguration := CallbackCreate(GetMethod(implObj, "SetDebugConfiguration"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RegisterForCallbacks)
+        CallbackFree(this.vtbl.UnregisterForCallbacks)
+        CallbackFree(this.vtbl.CreateSourceVoice)
+        CallbackFree(this.vtbl.CreateSubmixVoice)
+        CallbackFree(this.vtbl.CreateMasteringVoice)
+        CallbackFree(this.vtbl.StartEngine)
+        CallbackFree(this.vtbl.StopEngine)
+        CallbackFree(this.vtbl.CommitChanges)
+        CallbackFree(this.vtbl.GetPerformanceData)
+        CallbackFree(this.vtbl.SetDebugConfiguration)
     }
 }

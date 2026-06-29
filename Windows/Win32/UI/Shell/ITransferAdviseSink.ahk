@@ -1,33 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IShellItem.ahk" { IShellItem }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods supporting status collection and failure information.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-itransferadvisesink
  * @namespace Windows.Win32.UI.Shell
  */
-class ITransferAdviseSink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITransferAdviseSink extends IUnknown {
     /**
      * The interface identifier for ITransferAdviseSink
      * @type {Guid}
      */
-    static IID => Guid("{d594d0d8-8da7-457b-b3b4-ce5dbaac0b88}")
+    static IID := Guid("{d594d0d8-8da7-457b-b3b4-ce5dbaac0b88}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITransferAdviseSink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        UpdateProgress        : IntPtr
+        UpdateTransferState   : IntPtr
+        ConfirmOverwrite      : IntPtr
+        ConfirmEncryptionLoss : IntPtr
+        FileFailure           : IntPtr
+        SubStreamFailure      : IntPtr
+        PropertyFailure       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["UpdateProgress", "UpdateTransferState", "ConfirmOverwrite", "ConfirmEncryptionLoss", "FileFailure", "SubStreamFailure", "PropertyFailure"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITransferAdviseSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Updates the transfer progress status in the UI.
@@ -420,7 +437,39 @@ class ITransferAdviseSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransferadvisesink-propertyfailure
      */
     PropertyFailure(psi, pkey, hrError) {
-        result := ComCall(9, this, "ptr", psi, "ptr", pkey, "int", hrError, "HRESULT")
+        result := ComCall(9, this, "ptr", psi, PROPERTYKEY.Ptr, pkey, "int", hrError, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITransferAdviseSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.UpdateProgress := CallbackCreate(GetMethod(implObj, "UpdateProgress"), flags, 7)
+        this.vtbl.UpdateTransferState := CallbackCreate(GetMethod(implObj, "UpdateTransferState"), flags, 2)
+        this.vtbl.ConfirmOverwrite := CallbackCreate(GetMethod(implObj, "ConfirmOverwrite"), flags, 4)
+        this.vtbl.ConfirmEncryptionLoss := CallbackCreate(GetMethod(implObj, "ConfirmEncryptionLoss"), flags, 2)
+        this.vtbl.FileFailure := CallbackCreate(GetMethod(implObj, "FileFailure"), flags, 6)
+        this.vtbl.SubStreamFailure := CallbackCreate(GetMethod(implObj, "SubStreamFailure"), flags, 4)
+        this.vtbl.PropertyFailure := CallbackCreate(GetMethod(implObj, "PropertyFailure"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.UpdateProgress)
+        CallbackFree(this.vtbl.UpdateTransferState)
+        CallbackFree(this.vtbl.ConfirmOverwrite)
+        CallbackFree(this.vtbl.ConfirmEncryptionLoss)
+        CallbackFree(this.vtbl.FileFailure)
+        CallbackFree(this.vtbl.SubStreamFailure)
+        CallbackFree(this.vtbl.PropertyFailure)
     }
 }

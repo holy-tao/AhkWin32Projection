@@ -1,31 +1,39 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IRpcChannelBuffer.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRpcChannelBuffer.ahk" { IRpcChannelBuffer }
 
 /**
  * @namespace Windows.Win32.System.Com
  */
-class IRpcChannelBuffer2 extends IRpcChannelBuffer {
-
-    static sizeof => A_PtrSize
+export default struct IRpcChannelBuffer2 extends IRpcChannelBuffer {
     /**
      * The interface identifier for IRpcChannelBuffer2
      * @type {Guid}
      */
-    static IID => Guid("{594f31d0-7f19-11d0-b194-00a0c90dc8bf}")
+    static IID := Guid("{594f31d0-7f19-11d0-b194-00a0c90dc8bf}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRpcChannelBuffer2 interfaces
+    */
+    struct Vtbl extends IRpcChannelBuffer.Vtbl {
+        GetProtocolVersion : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetProtocolVersion"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRpcChannelBuffer2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -34,5 +42,25 @@ class IRpcChannelBuffer2 extends IRpcChannelBuffer {
     GetProtocolVersion() {
         result := ComCall(8, this, "uint*", &pdwVersion := 0, "HRESULT")
         return pdwVersion
+    }
+
+    Query(iid) {
+        if (IRpcChannelBuffer2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetProtocolVersion := CallbackCreate(GetMethod(implObj, "GetProtocolVersion"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetProtocolVersion)
     }
 }

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The ACTIVATION_CONTEXT_DETAILED_INFORMATION structure is used by the QueryActCtxW function.
@@ -82,122 +82,73 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-activation_context_detailed_information
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
-class ACTIVATION_CONTEXT_DETAILED_INFORMATION extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct ACTIVATION_CONTEXT_DETAILED_INFORMATION {
+    #StructPack 8
 
     /**
      * This value is always 0.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
     /**
      * This value specifies the format of the returned information. On WindowsÂ XP and WindowsÂ Server 2003 this member is always 1.
-     * @type {Integer}
      */
-    ulFormatVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulFormatVersion : UInt32
 
     /**
      * Number of assemblies in the activation context.
-     * @type {Integer}
      */
-    ulAssemblyCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulAssemblyCount : UInt32
 
     /**
      * Specifies the kind of path from which this assembly's manifest was loaded. 
      * 
      * This member is always one of the following constants:
-     * @type {Integer}
      */
-    ulRootManifestPathType {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ulRootManifestPathType : UInt32
 
     /**
      * Number of characters in the manifest path.
-     * @type {Integer}
      */
-    ulRootManifestPathChars {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ulRootManifestPathChars : UInt32
 
     /**
      * Specifies the kind of path from which this assembly's application configuration manifest was loaded. 
      * 
      * This member is always one of the following constants:
-     * @type {Integer}
      */
-    ulRootConfigurationPathType {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ulRootConfigurationPathType : UInt32
 
     /**
      * Number of characters in any application configuration file path.
-     * @type {Integer}
      */
-    ulRootConfigurationPathChars {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ulRootConfigurationPathChars : UInt32
 
     /**
      * Specifies the kind of path from which this application manifest was loaded. 
      * 
      * This member is always one of the following constants:
-     * @type {Integer}
      */
-    ulAppDirPathType {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    ulAppDirPathType : UInt32
 
     /**
      * Number of characters in the application directory.
-     * @type {Integer}
      */
-    ulAppDirPathChars {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ulAppDirPathChars : UInt32
 
     /**
      * Path of the application manifest.
-     * @type {PWSTR}
      */
-    lpRootManifestPath {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lpRootManifestPath : PWSTR
 
     /**
      * Path of the configuration file.
-     * @type {PWSTR}
      */
-    lpRootConfigurationPath {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    lpRootConfigurationPath : PWSTR
 
     /**
      * Path of the application directory.
-     * @type {PWSTR}
      */
-    lpAppDirPath {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    lpAppDirPath : PWSTR
+
 }

@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\EVENT_RECORD.ahk" { EVENT_RECORD }
+#Import ".\EVENT_DESCRIPTOR.ahk" { EVENT_DESCRIPTOR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides access to data relating to a specific event.
@@ -10,26 +13,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/relogger/nn-relogger-itraceevent
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class ITraceEvent extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITraceEvent extends IUnknown {
     /**
      * The interface identifier for ITraceEvent
      * @type {Guid}
      */
-    static IID => Guid("{8cc97f40-9028-4ff3-9b62-7d1f79ca7bcb}")
+    static IID := Guid("{8cc97f40-9028-4ff3-9b62-7d1f79ca7bcb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITraceEvent interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Clone              : IntPtr
+        GetUserContext     : IntPtr
+        GetEventRecord     : IntPtr
+        SetPayload         : IntPtr
+        SetEventDescriptor : IntPtr
+        SetProcessId       : IntPtr
+        SetProcessorIndex  : IntPtr
+        SetThreadId        : IntPtr
+        SetThreadTimes     : IntPtr
+        SetActivityId      : IntPtr
+        SetTimeStamp       : IntPtr
+        SetProviderId      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Clone", "GetUserContext", "GetEventRecord", "SetPayload", "SetEventDescriptor", "SetProcessId", "SetProcessorIndex", "SetThreadId", "SetThreadTimes", "SetActivityId", "SetTimeStamp", "SetProviderId"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITraceEvent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a duplicate copy of an event.
@@ -102,7 +123,7 @@ class ITraceEvent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-seteventdescriptor
      */
     SetEventDescriptor(EventDescriptor) {
-        result := ComCall(7, this, "ptr", EventDescriptor, "HRESULT")
+        result := ComCall(7, this, EVENT_DESCRIPTOR.Ptr, EventDescriptor, "HRESULT")
         return result
     }
 
@@ -172,7 +193,7 @@ class ITraceEvent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-setactivityid
      */
     SetActivityId(ActivityId) {
-        result := ComCall(12, this, "ptr", ActivityId, "HRESULT")
+        result := ComCall(12, this, Guid.Ptr, ActivityId, "HRESULT")
         return result
     }
 
@@ -204,7 +225,49 @@ class ITraceEvent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-setproviderid
      */
     SetProviderId(ProviderId) {
-        result := ComCall(14, this, "ptr", ProviderId, "HRESULT")
+        result := ComCall(14, this, Guid.Ptr, ProviderId, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITraceEvent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetUserContext := CallbackCreate(GetMethod(implObj, "GetUserContext"), flags, 2)
+        this.vtbl.GetEventRecord := CallbackCreate(GetMethod(implObj, "GetEventRecord"), flags, 2)
+        this.vtbl.SetPayload := CallbackCreate(GetMethod(implObj, "SetPayload"), flags, 3)
+        this.vtbl.SetEventDescriptor := CallbackCreate(GetMethod(implObj, "SetEventDescriptor"), flags, 2)
+        this.vtbl.SetProcessId := CallbackCreate(GetMethod(implObj, "SetProcessId"), flags, 2)
+        this.vtbl.SetProcessorIndex := CallbackCreate(GetMethod(implObj, "SetProcessorIndex"), flags, 2)
+        this.vtbl.SetThreadId := CallbackCreate(GetMethod(implObj, "SetThreadId"), flags, 2)
+        this.vtbl.SetThreadTimes := CallbackCreate(GetMethod(implObj, "SetThreadTimes"), flags, 3)
+        this.vtbl.SetActivityId := CallbackCreate(GetMethod(implObj, "SetActivityId"), flags, 2)
+        this.vtbl.SetTimeStamp := CallbackCreate(GetMethod(implObj, "SetTimeStamp"), flags, 2)
+        this.vtbl.SetProviderId := CallbackCreate(GetMethod(implObj, "SetProviderId"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Clone)
+        CallbackFree(this.vtbl.GetUserContext)
+        CallbackFree(this.vtbl.GetEventRecord)
+        CallbackFree(this.vtbl.SetPayload)
+        CallbackFree(this.vtbl.SetEventDescriptor)
+        CallbackFree(this.vtbl.SetProcessId)
+        CallbackFree(this.vtbl.SetProcessorIndex)
+        CallbackFree(this.vtbl.SetThreadId)
+        CallbackFree(this.vtbl.SetThreadTimes)
+        CallbackFree(this.vtbl.SetActivityId)
+        CallbackFree(this.vtbl.SetTimeStamp)
+        CallbackFree(this.vtbl.SetProviderId)
     }
 }

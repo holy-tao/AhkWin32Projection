@@ -1,40 +1,67 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Ole\IPictureDisp.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Ole\IPictureDisp.ahk" { IPictureDisp }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IInkDisp.ahk" { IInkDisp }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Exposes methods that turn ink input into interpreted math output.
  * @see https://learn.microsoft.com/windows/win32/api/micaut/nn-micaut-imathinputcontrol
  * @namespace Windows.Win32.UI.TabletPC
  */
-class IMathInputControl extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IMathInputControl extends IDispatch {
     /**
      * The interface identifier for IMathInputControl
      * @type {Guid}
      */
-    static IID => Guid("{eba615aa-fac6-4738-ba5f-ff09e9fe473e}")
+    static IID := Guid("{eba615aa-fac6-4738-ba5f-ff09e9fe473e}")
 
     /**
      * The class identifier for MathInputControl
      * @type {Guid}
      */
-    static CLSID => Guid("{c561816c-14d8-4090-830c-98d994b21c7b}")
+    static CLSID := Guid("{c561816c-14d8-4090-830c-98d994b21c7b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMathInputControl interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Show                  : IntPtr
+        Hide                  : IntPtr
+        IsVisible             : IntPtr
+        GetPosition           : IntPtr
+        SetPosition           : IntPtr
+        Clear                 : IntPtr
+        SetCustomPaint        : IntPtr
+        SetCaptionText        : IntPtr
+        LoadInk               : IntPtr
+        SetOwnerWindow        : IntPtr
+        EnableExtendedButtons : IntPtr
+        GetPreviewHeight      : IntPtr
+        SetPreviewHeight      : IntPtr
+        EnableAutoGrow        : IntPtr
+        AddFunctionName       : IntPtr
+        RemoveFunctionName    : IntPtr
+        GetHoverIcon          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Show", "Hide", "IsVisible", "GetPosition", "SetPosition", "Clear", "SetCustomPaint", "SetCaptionText", "LoadInk", "SetOwnerWindow", "EnableExtendedButtons", "GetPreviewHeight", "SetPreviewHeight", "EnableAutoGrow", "AddFunctionName", "RemoveFunctionName", "GetHoverIcon"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMathInputControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Shows the control.
@@ -66,7 +93,7 @@ class IMathInputControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/micaut/nf-micaut-imathinputcontrol-isvisible
      */
     IsVisible() {
-        result := ComCall(9, this, "short*", &pvbShown := 0, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL.Ptr, &pvbShown := 0, "HRESULT")
         return pvbShown
     }
 
@@ -174,7 +201,7 @@ class IMathInputControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/micaut/nf-micaut-imathinputcontrol-setcustompaint
      */
     SetCustomPaint(Element, Paint) {
-        result := ComCall(13, this, "int", Element, "short", Paint, "HRESULT")
+        result := ComCall(13, this, "int", Element, VARIANT_BOOL, Paint, "HRESULT")
         return result
     }
 
@@ -187,7 +214,7 @@ class IMathInputControl extends IDispatch {
     SetCaptionText(CaptionText) {
         CaptionText := CaptionText is String ? BSTR.Alloc(CaptionText).Value : CaptionText
 
-        result := ComCall(14, this, "ptr", CaptionText, "HRESULT")
+        result := ComCall(14, this, BSTR, CaptionText, "HRESULT")
         return result
     }
 
@@ -240,7 +267,7 @@ class IMathInputControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/micaut/nf-micaut-imathinputcontrol-enableextendedbuttons
      */
     EnableExtendedButtons(Extended) {
-        result := ComCall(17, this, "short", Extended, "HRESULT")
+        result := ComCall(17, this, VARIANT_BOOL, Extended, "HRESULT")
         return result
     }
 
@@ -319,7 +346,7 @@ class IMathInputControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/micaut/nf-micaut-imathinputcontrol-enableautogrow
      */
     EnableAutoGrow(AutoGrow) {
-        result := ComCall(20, this, "short", AutoGrow, "HRESULT")
+        result := ComCall(20, this, VARIANT_BOOL, AutoGrow, "HRESULT")
         return result
     }
 
@@ -363,7 +390,7 @@ class IMathInputControl extends IDispatch {
     AddFunctionName(FunctionName) {
         FunctionName := FunctionName is String ? BSTR.Alloc(FunctionName).Value : FunctionName
 
-        result := ComCall(21, this, "ptr", FunctionName, "HRESULT")
+        result := ComCall(21, this, BSTR, FunctionName, "HRESULT")
         return result
     }
 
@@ -405,7 +432,7 @@ class IMathInputControl extends IDispatch {
     RemoveFunctionName(FunctionName) {
         FunctionName := FunctionName is String ? BSTR.Alloc(FunctionName).Value : FunctionName
 
-        result := ComCall(22, this, "ptr", FunctionName, "HRESULT")
+        result := ComCall(22, this, BSTR, FunctionName, "HRESULT")
         return result
     }
 
@@ -427,5 +454,57 @@ class IMathInputControl extends IDispatch {
     GetHoverIcon() {
         result := ComCall(23, this, "ptr*", &HoverImage := 0, "HRESULT")
         return IPictureDisp(HoverImage)
+    }
+
+    Query(iid) {
+        if (IMathInputControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Show := CallbackCreate(GetMethod(implObj, "Show"), flags, 1)
+        this.vtbl.Hide := CallbackCreate(GetMethod(implObj, "Hide"), flags, 1)
+        this.vtbl.IsVisible := CallbackCreate(GetMethod(implObj, "IsVisible"), flags, 2)
+        this.vtbl.GetPosition := CallbackCreate(GetMethod(implObj, "GetPosition"), flags, 5)
+        this.vtbl.SetPosition := CallbackCreate(GetMethod(implObj, "SetPosition"), flags, 5)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.SetCustomPaint := CallbackCreate(GetMethod(implObj, "SetCustomPaint"), flags, 3)
+        this.vtbl.SetCaptionText := CallbackCreate(GetMethod(implObj, "SetCaptionText"), flags, 2)
+        this.vtbl.LoadInk := CallbackCreate(GetMethod(implObj, "LoadInk"), flags, 2)
+        this.vtbl.SetOwnerWindow := CallbackCreate(GetMethod(implObj, "SetOwnerWindow"), flags, 2)
+        this.vtbl.EnableExtendedButtons := CallbackCreate(GetMethod(implObj, "EnableExtendedButtons"), flags, 2)
+        this.vtbl.GetPreviewHeight := CallbackCreate(GetMethod(implObj, "GetPreviewHeight"), flags, 2)
+        this.vtbl.SetPreviewHeight := CallbackCreate(GetMethod(implObj, "SetPreviewHeight"), flags, 2)
+        this.vtbl.EnableAutoGrow := CallbackCreate(GetMethod(implObj, "EnableAutoGrow"), flags, 2)
+        this.vtbl.AddFunctionName := CallbackCreate(GetMethod(implObj, "AddFunctionName"), flags, 2)
+        this.vtbl.RemoveFunctionName := CallbackCreate(GetMethod(implObj, "RemoveFunctionName"), flags, 2)
+        this.vtbl.GetHoverIcon := CallbackCreate(GetMethod(implObj, "GetHoverIcon"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Show)
+        CallbackFree(this.vtbl.Hide)
+        CallbackFree(this.vtbl.IsVisible)
+        CallbackFree(this.vtbl.GetPosition)
+        CallbackFree(this.vtbl.SetPosition)
+        CallbackFree(this.vtbl.Clear)
+        CallbackFree(this.vtbl.SetCustomPaint)
+        CallbackFree(this.vtbl.SetCaptionText)
+        CallbackFree(this.vtbl.LoadInk)
+        CallbackFree(this.vtbl.SetOwnerWindow)
+        CallbackFree(this.vtbl.EnableExtendedButtons)
+        CallbackFree(this.vtbl.GetPreviewHeight)
+        CallbackFree(this.vtbl.SetPreviewHeight)
+        CallbackFree(this.vtbl.EnableAutoGrow)
+        CallbackFree(this.vtbl.AddFunctionName)
+        CallbackFree(this.vtbl.RemoveFunctionName)
+        CallbackFree(this.vtbl.GetHoverIcon)
     }
 }

@@ -1,9 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IFaxOutboundRoutingRule.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IFaxOutboundRoutingRule.ahk" { IFaxOutboundRoutingRule }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IFaxOutboundRoutingRules interface describes a configuration collection that is used by a fax client application to manage the fax outbound routing rules.
@@ -12,32 +15,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxoutboundroutingrules
  * @namespace Windows.Win32.Devices.Fax
  */
-class IFaxOutboundRoutingRules extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFaxOutboundRoutingRules extends IDispatch {
     /**
      * The interface identifier for IFaxOutboundRoutingRules
      * @type {Guid}
      */
-    static IID => Guid("{dcefa1e7-ae7d-4ed6-8521-369edcca5120}")
+    static IID := Guid("{dcefa1e7-ae7d-4ed6-8521-369edcca5120}")
 
     /**
      * The class identifier for FaxOutboundRoutingRules
      * @type {Guid}
      */
-    static CLSID => Guid("{d385beca-e624-4473-bfaa-9f4000831f54}")
+    static CLSID := Guid("{d385beca-e624-4473-bfaa-9f4000831f54}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFaxOutboundRoutingRules interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get__NewEnum           : IntPtr
+        get_Item               : IntPtr
+        get_Count              : IntPtr
+        ItemByCountryAndArea   : IntPtr
+        RemoveByCountryAndArea : IntPtr
+        Remove                 : IntPtr
+        Add                    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get__NewEnum", "get_Item", "get_Count", "ItemByCountryAndArea", "RemoveByCountryAndArea", "Remove", "Add"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFaxOutboundRoutingRules.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IUnknown} 
@@ -176,7 +192,39 @@ class IFaxOutboundRoutingRules extends IDispatch {
     Add(lCountryCode, lAreaCode, bUseDevice, bstrGroupName, lDeviceId) {
         bstrGroupName := bstrGroupName is String ? BSTR.Alloc(bstrGroupName).Value : bstrGroupName
 
-        result := ComCall(13, this, "int", lCountryCode, "int", lAreaCode, "short", bUseDevice, "ptr", bstrGroupName, "int", lDeviceId, "ptr*", &pFaxOutboundRoutingRule := 0, "HRESULT")
+        result := ComCall(13, this, "int", lCountryCode, "int", lAreaCode, VARIANT_BOOL, bUseDevice, BSTR, bstrGroupName, "int", lDeviceId, "ptr*", &pFaxOutboundRoutingRule := 0, "HRESULT")
         return IFaxOutboundRoutingRule(pFaxOutboundRoutingRule)
+    }
+
+    Query(iid) {
+        if (IFaxOutboundRoutingRules.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.ItemByCountryAndArea := CallbackCreate(GetMethod(implObj, "ItemByCountryAndArea"), flags, 4)
+        this.vtbl.RemoveByCountryAndArea := CallbackCreate(GetMethod(implObj, "RemoveByCountryAndArea"), flags, 3)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.get_Item)
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.ItemByCountryAndArea)
+        CallbackFree(this.vtbl.RemoveByCountryAndArea)
+        CallbackFree(this.vtbl.Remove)
+        CallbackFree(this.vtbl.Add)
     }
 }

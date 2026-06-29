@@ -1,33 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMWriterFileSink2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WMT_FILESINK_DATA_UNIT.ahk" { WMT_FILESINK_DATA_UNIT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IWMWriterFileSink2.ahk" { IWMWriterFileSink2 }
 
 /**
  * The IWMWriterFileSink3 interface provides additional functionality to the file sink object. To obtain a pointer to this interface, call QueryInterface on the file sink object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmwriterfilesink3
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMWriterFileSink3 extends IWMWriterFileSink2 {
-
-    static sizeof => A_PtrSize
+export default struct IWMWriterFileSink3 extends IWMWriterFileSink2 {
     /**
      * The interface identifier for IWMWriterFileSink3
      * @type {Guid}
      */
-    static IID => Guid("{3fea4feb-2945-47a7-a1dd-c53a8fc4c45c}")
+    static IID := Guid("{3fea4feb-2945-47a7-a1dd-c53a8fc4c45c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 16
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMWriterFileSink3 interfaces
+    */
+    struct Vtbl extends IWMWriterFileSink2.Vtbl {
+        SetAutoIndexing    : IntPtr
+        GetAutoIndexing    : IntPtr
+        SetControlStream   : IntPtr
+        GetMode            : IntPtr
+        OnDataUnitEx       : IntPtr
+        SetUnbufferedIO    : IntPtr
+        GetUnbufferedIO    : IntPtr
+        CompleteOperations : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetAutoIndexing", "GetAutoIndexing", "SetControlStream", "GetMode", "OnDataUnitEx", "SetUnbufferedIO", "GetUnbufferedIO", "CompleteOperations"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMWriterFileSink3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetAutoIndexing method enables or disables automatic indexing of the file.
@@ -71,7 +88,7 @@ class IWMWriterFileSink3 extends IWMWriterFileSink2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterfilesink3-setautoindexing
      */
     SetAutoIndexing(fDoAutoIndexing) {
-        result := ComCall(16, this, "int", fDoAutoIndexing, "HRESULT")
+        result := ComCall(16, this, BOOL, fDoAutoIndexing, "HRESULT")
         return result
     }
 
@@ -81,7 +98,7 @@ class IWMWriterFileSink3 extends IWMWriterFileSink2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterfilesink3-getautoindexing
      */
     GetAutoIndexing() {
-        result := ComCall(17, this, "int*", &pfAutoIndexing := 0, "HRESULT")
+        result := ComCall(17, this, BOOL.Ptr, &pfAutoIndexing := 0, "HRESULT")
         return pfAutoIndexing
     }
 
@@ -126,7 +143,7 @@ class IWMWriterFileSink3 extends IWMWriterFileSink2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterfilesink3-setcontrolstream
      */
     SetControlStream(wStreamNumber, fShouldControlStartAndStop) {
-        result := ComCall(18, this, "ushort", wStreamNumber, "int", fShouldControlStartAndStop, "HRESULT")
+        result := ComCall(18, this, "ushort", wStreamNumber, BOOL, fShouldControlStartAndStop, "HRESULT")
         return result
     }
 
@@ -149,7 +166,7 @@ class IWMWriterFileSink3 extends IWMWriterFileSink2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterfilesink3-ondataunitex
      */
     OnDataUnitEx(pFileSinkDataUnit) {
-        result := ComCall(20, this, "ptr", pFileSinkDataUnit, "HRESULT")
+        result := ComCall(20, this, WMT_FILESINK_DATA_UNIT.Ptr, pFileSinkDataUnit, "HRESULT")
         return result
     }
 
@@ -196,7 +213,7 @@ class IWMWriterFileSink3 extends IWMWriterFileSink2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterfilesink3-setunbufferedio
      */
     SetUnbufferedIO(fUnbufferedIO, fRestrictMemUsage) {
-        result := ComCall(21, this, "int", fUnbufferedIO, "int", fRestrictMemUsage, "HRESULT")
+        result := ComCall(21, this, BOOL, fUnbufferedIO, BOOL, fRestrictMemUsage, "HRESULT")
         return result
     }
 
@@ -206,7 +223,7 @@ class IWMWriterFileSink3 extends IWMWriterFileSink2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterfilesink3-getunbufferedio
      */
     GetUnbufferedIO() {
-        result := ComCall(22, this, "int*", &pfUnbufferedIO := 0, "HRESULT")
+        result := ComCall(22, this, BOOL.Ptr, &pfUnbufferedIO := 0, "HRESULT")
         return pfUnbufferedIO
     }
 
@@ -220,5 +237,39 @@ class IWMWriterFileSink3 extends IWMWriterFileSink2 {
     CompleteOperations() {
         result := ComCall(23, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMWriterFileSink3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetAutoIndexing := CallbackCreate(GetMethod(implObj, "SetAutoIndexing"), flags, 2)
+        this.vtbl.GetAutoIndexing := CallbackCreate(GetMethod(implObj, "GetAutoIndexing"), flags, 2)
+        this.vtbl.SetControlStream := CallbackCreate(GetMethod(implObj, "SetControlStream"), flags, 3)
+        this.vtbl.GetMode := CallbackCreate(GetMethod(implObj, "GetMode"), flags, 2)
+        this.vtbl.OnDataUnitEx := CallbackCreate(GetMethod(implObj, "OnDataUnitEx"), flags, 2)
+        this.vtbl.SetUnbufferedIO := CallbackCreate(GetMethod(implObj, "SetUnbufferedIO"), flags, 3)
+        this.vtbl.GetUnbufferedIO := CallbackCreate(GetMethod(implObj, "GetUnbufferedIO"), flags, 2)
+        this.vtbl.CompleteOperations := CallbackCreate(GetMethod(implObj, "CompleteOperations"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetAutoIndexing)
+        CallbackFree(this.vtbl.GetAutoIndexing)
+        CallbackFree(this.vtbl.SetControlStream)
+        CallbackFree(this.vtbl.GetMode)
+        CallbackFree(this.vtbl.OnDataUnitEx)
+        CallbackFree(this.vtbl.SetUnbufferedIO)
+        CallbackFree(this.vtbl.GetUnbufferedIO)
+        CallbackFree(this.vtbl.CompleteOperations)
     }
 }

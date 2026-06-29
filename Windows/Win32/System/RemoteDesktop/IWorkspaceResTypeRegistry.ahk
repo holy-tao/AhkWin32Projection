@@ -1,34 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Exposes methods that allow a plug-in to manage third-party file name extensions in RemoteApp and Desktop Connection runtime.
  * @see https://learn.microsoft.com/windows/win32/api/workspaceax/nn-workspaceax-iworkspacerestyperegistry
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class IWorkspaceResTypeRegistry extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWorkspaceResTypeRegistry extends IDispatch {
     /**
      * The interface identifier for IWorkspaceResTypeRegistry
      * @type {Guid}
      */
-    static IID => Guid("{1d428c79-6e2e-4351-a361-c0401a03a0ba}")
+    static IID := Guid("{1d428c79-6e2e-4351-a361-c0401a03a0ba}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWorkspaceResTypeRegistry interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        AddResourceType             : IntPtr
+        DeleteResourceType          : IntPtr
+        GetRegisteredFileExtensions : IntPtr
+        GetResourceTypeInfo         : IntPtr
+        ModifyResourceType          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddResourceType", "DeleteResourceType", "GetRegisteredFileExtensions", "GetResourceTypeInfo", "ModifyResourceType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWorkspaceResTypeRegistry.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Registers a third-party file name extension with the RemoteApp and Desktop Connections runtime.
@@ -44,7 +58,7 @@ class IWorkspaceResTypeRegistry extends IDispatch {
         bstrFileExtension := bstrFileExtension is String ? BSTR.Alloc(bstrFileExtension).Value : bstrFileExtension
         bstrLauncher := bstrLauncher is String ? BSTR.Alloc(bstrLauncher).Value : bstrLauncher
 
-        result := ComCall(7, this, "short", fMachineWide, "ptr", bstrFileExtension, "ptr", bstrLauncher, "HRESULT")
+        result := ComCall(7, this, VARIANT_BOOL, fMachineWide, BSTR, bstrFileExtension, BSTR, bstrLauncher, "HRESULT")
         return result
     }
 
@@ -61,7 +75,7 @@ class IWorkspaceResTypeRegistry extends IDispatch {
     DeleteResourceType(fMachineWide, bstrFileExtension) {
         bstrFileExtension := bstrFileExtension is String ? BSTR.Alloc(bstrFileExtension).Value : bstrFileExtension
 
-        result := ComCall(8, this, "short", fMachineWide, "ptr", bstrFileExtension, "HRESULT")
+        result := ComCall(8, this, VARIANT_BOOL, fMachineWide, BSTR, bstrFileExtension, "HRESULT")
         return result
     }
 
@@ -72,7 +86,7 @@ class IWorkspaceResTypeRegistry extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/workspaceax/nf-workspaceax-iworkspacerestyperegistry-getregisteredfileextensions
      */
     GetRegisteredFileExtensions(fMachineWide) {
-        result := ComCall(9, this, "short", fMachineWide, "ptr*", &psaFileExtensions := 0, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL, fMachineWide, "ptr*", &psaFileExtensions := 0, "HRESULT")
         return psaFileExtensions
     }
 
@@ -86,8 +100,8 @@ class IWorkspaceResTypeRegistry extends IDispatch {
     GetResourceTypeInfo(fMachineWide, bstrFileExtension) {
         bstrFileExtension := bstrFileExtension is String ? BSTR.Alloc(bstrFileExtension).Value : bstrFileExtension
 
-        pbstrLauncher := BSTR()
-        result := ComCall(10, this, "short", fMachineWide, "ptr", bstrFileExtension, "ptr", pbstrLauncher, "HRESULT")
+        pbstrLauncher := BSTR.Owned()
+        result := ComCall(10, this, VARIANT_BOOL, fMachineWide, BSTR, bstrFileExtension, BSTR.Ptr, pbstrLauncher, "HRESULT")
         return pbstrLauncher
     }
 
@@ -103,7 +117,35 @@ class IWorkspaceResTypeRegistry extends IDispatch {
         bstrFileExtension := bstrFileExtension is String ? BSTR.Alloc(bstrFileExtension).Value : bstrFileExtension
         bstrLauncher := bstrLauncher is String ? BSTR.Alloc(bstrLauncher).Value : bstrLauncher
 
-        result := ComCall(11, this, "short", fMachineWide, "ptr", bstrFileExtension, "ptr", bstrLauncher, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL, fMachineWide, BSTR, bstrFileExtension, BSTR, bstrLauncher, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWorkspaceResTypeRegistry.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddResourceType := CallbackCreate(GetMethod(implObj, "AddResourceType"), flags, 4)
+        this.vtbl.DeleteResourceType := CallbackCreate(GetMethod(implObj, "DeleteResourceType"), flags, 3)
+        this.vtbl.GetRegisteredFileExtensions := CallbackCreate(GetMethod(implObj, "GetRegisteredFileExtensions"), flags, 3)
+        this.vtbl.GetResourceTypeInfo := CallbackCreate(GetMethod(implObj, "GetResourceTypeInfo"), flags, 4)
+        this.vtbl.ModifyResourceType := CallbackCreate(GetMethod(implObj, "ModifyResourceType"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddResourceType)
+        CallbackFree(this.vtbl.DeleteResourceType)
+        CallbackFree(this.vtbl.GetRegisteredFileExtensions)
+        CallbackFree(this.vtbl.GetResourceTypeInfo)
+        CallbackFree(this.vtbl.ModifyResourceType)
     }
 }

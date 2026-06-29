@@ -1,91 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.QoS
  */
-class WBCL_Iterator extends Win32Struct {
-    static sizeof => 56
+export default struct WBCL_Iterator {
+    #StructPack 8
 
-    static packingSize => 8
+    firstElementPtr : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    firstElementPtr {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    logSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    logSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    currentElementPtr : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    currentElementPtr {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    currentElementSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    currentElementSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    digestSize : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    digestSize {
-        get => NumGet(this, 28, "ushort")
-        set => NumPut("ushort", value, this, 28)
-    }
+    logFormat : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    logFormat {
-        get => NumGet(this, 30, "ushort")
-        set => NumPut("ushort", value, this, 30)
-    }
+    numberOfDigests : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    numberOfDigests {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    digestSizes : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    digestSizes {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    supportedAlgorithms : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    supportedAlgorithms {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    hashAlgorithm : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    hashAlgorithm {
-        get => NumGet(this, 52, "ushort")
-        set => NumPut("ushort", value, this, 52)
-    }
 }

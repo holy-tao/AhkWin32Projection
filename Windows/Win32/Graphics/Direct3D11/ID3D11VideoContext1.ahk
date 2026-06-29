@@ -1,7 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D11VideoContext.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\D3D11_CRYPTO_SESSION_STATUS.ahk" { D3D11_CRYPTO_SESSION_STATUS }
+#Import ".\ID3D11VideoDecoder.ahk" { ID3D11VideoDecoder }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D3D11_VIDEO_PROCESSOR_STREAM_BEHAVIOR_HINT.ahk" { D3D11_VIDEO_PROCESSOR_STREAM_BEHAVIOR_HINT }
+#Import ".\D3D11_VIDEO_DECODER_BUFFER_DESC1.ahk" { D3D11_VIDEO_DECODER_BUFFER_DESC1 }
+#Import "..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk" { DXGI_COLOR_SPACE_TYPE }
+#Import ".\ID3D11VideoContext.ahk" { ID3D11VideoContext }
+#Import ".\ID3D11CryptoSession.ahk" { ID3D11CryptoSession }
+#Import ".\ID3D11VideoProcessor.ahk" { ID3D11VideoProcessor }
+#Import ".\D3D11_VIDEO_SAMPLE_DESC.ahk" { D3D11_VIDEO_SAMPLE_DESC }
 
 /**
  * Provides the video functionality of a Microsoft Direct3D 11 device. (ID3D11VideoContext1)
@@ -10,26 +21,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nn-d3d11_1-id3d11videocontext1
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3D11VideoContext1 extends ID3D11VideoContext {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11VideoContext1 extends ID3D11VideoContext {
     /**
      * The interface identifier for ID3D11VideoContext1
      * @type {Guid}
      */
-    static IID => Guid("{a7f026da-a5f8-4487-a564-15e34357651e}")
+    static IID := Guid("{a7f026da-a5f8-4487-a564-15e34357651e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 65
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11VideoContext1 interfaces
+    */
+    struct Vtbl extends ID3D11VideoContext.Vtbl {
+        SubmitDecoderBuffers1              : IntPtr
+        GetDataForNewHardwareKey           : IntPtr
+        CheckCryptoSessionStatus           : IntPtr
+        DecoderEnableDownsampling          : IntPtr
+        DecoderUpdateDownsampling          : IntPtr
+        VideoProcessorSetOutputColorSpace1 : IntPtr
+        VideoProcessorSetOutputShaderUsage : IntPtr
+        VideoProcessorGetOutputColorSpace1 : IntPtr
+        VideoProcessorGetOutputShaderUsage : IntPtr
+        VideoProcessorSetStreamColorSpace1 : IntPtr
+        VideoProcessorSetStreamMirror      : IntPtr
+        VideoProcessorGetStreamColorSpace1 : IntPtr
+        VideoProcessorGetStreamMirror      : IntPtr
+        VideoProcessorGetBehaviorHints     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SubmitDecoderBuffers1", "GetDataForNewHardwareKey", "CheckCryptoSessionStatus", "DecoderEnableDownsampling", "DecoderUpdateDownsampling", "VideoProcessorSetOutputColorSpace1", "VideoProcessorSetOutputShaderUsage", "VideoProcessorGetOutputColorSpace1", "VideoProcessorGetOutputShaderUsage", "VideoProcessorSetStreamColorSpace1", "VideoProcessorSetStreamMirror", "VideoProcessorGetStreamColorSpace1", "VideoProcessorGetStreamMirror", "VideoProcessorGetBehaviorHints"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11VideoContext1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Submits one or more buffers for decoding. (ID3D11VideoContext1.SubmitDecoderBuffers1)
@@ -52,7 +83,7 @@ class ID3D11VideoContext1 extends ID3D11VideoContext {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-submitdecoderbuffers1
      */
     SubmitDecoderBuffers1(pDecoder, NumBuffers, pBufferDesc) {
-        result := ComCall(65, this, "ptr", pDecoder, "uint", NumBuffers, "ptr", pBufferDesc, "HRESULT")
+        result := ComCall(65, this, "ptr", pDecoder, "uint", NumBuffers, D3D11_VIDEO_DECODER_BUFFER_DESC1.Ptr, pBufferDesc, "HRESULT")
         return result
     }
 
@@ -131,7 +162,7 @@ class ID3D11VideoContext1 extends ID3D11VideoContext {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-decoderenabledownsampling
      */
     DecoderEnableDownsampling(pDecoder, InputColorSpace, pOutputDesc, ReferenceFrameCount) {
-        result := ComCall(68, this, "ptr", pDecoder, "int", InputColorSpace, "ptr", pOutputDesc, "uint", ReferenceFrameCount, "HRESULT")
+        result := ComCall(68, this, "ptr", pDecoder, DXGI_COLOR_SPACE_TYPE, InputColorSpace, D3D11_VIDEO_SAMPLE_DESC.Ptr, pOutputDesc, "uint", ReferenceFrameCount, "HRESULT")
         return result
     }
 
@@ -166,7 +197,7 @@ class ID3D11VideoContext1 extends ID3D11VideoContext {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-decoderupdatedownsampling
      */
     DecoderUpdateDownsampling(pDecoder, pOutputDesc) {
-        result := ComCall(69, this, "ptr", pDecoder, "ptr", pOutputDesc, "HRESULT")
+        result := ComCall(69, this, "ptr", pDecoder, D3D11_VIDEO_SAMPLE_DESC.Ptr, pOutputDesc, "HRESULT")
         return result
     }
 
@@ -182,7 +213,7 @@ class ID3D11VideoContext1 extends ID3D11VideoContext {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorsetoutputcolorspace1
      */
     VideoProcessorSetOutputColorSpace1(pVideoProcessor, ColorSpace) {
-        ComCall(70, this, "ptr", pVideoProcessor, "int", ColorSpace)
+        ComCall(70, this, "ptr", pVideoProcessor, DXGI_COLOR_SPACE_TYPE, ColorSpace)
     }
 
     /**
@@ -197,7 +228,7 @@ class ID3D11VideoContext1 extends ID3D11VideoContext {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorsetoutputshaderusage
      */
     VideoProcessorSetOutputShaderUsage(pVideoProcessor, ShaderUsage) {
-        ComCall(71, this, "ptr", pVideoProcessor, "int", ShaderUsage)
+        ComCall(71, this, "ptr", pVideoProcessor, BOOL, ShaderUsage)
     }
 
     /**
@@ -249,7 +280,7 @@ class ID3D11VideoContext1 extends ID3D11VideoContext {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorsetstreamcolorspace1
      */
     VideoProcessorSetStreamColorSpace1(pVideoProcessor, StreamIndex, ColorSpace) {
-        ComCall(74, this, "ptr", pVideoProcessor, "uint", StreamIndex, "int", ColorSpace)
+        ComCall(74, this, "ptr", pVideoProcessor, "uint", StreamIndex, DXGI_COLOR_SPACE_TYPE, ColorSpace)
     }
 
     /**
@@ -281,7 +312,7 @@ class ID3D11VideoContext1 extends ID3D11VideoContext {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorsetstreammirror
      */
     VideoProcessorSetStreamMirror(pVideoProcessor, StreamIndex, Enable, FlipHorizontal, FlipVertical) {
-        ComCall(75, this, "ptr", pVideoProcessor, "uint", StreamIndex, "int", Enable, "int", FlipHorizontal, "int", FlipVertical)
+        ComCall(75, this, "ptr", pVideoProcessor, "uint", StreamIndex, BOOL, Enable, BOOL, FlipHorizontal, BOOL, FlipVertical)
     }
 
     /**
@@ -360,7 +391,53 @@ class ID3D11VideoContext1 extends ID3D11VideoContext {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorgetbehaviorhints
      */
     VideoProcessorGetBehaviorHints(pVideoProcessor, OutputWidth, OutputHeight, OutputFormat, StreamCount, pStreams) {
-        result := ComCall(78, this, "ptr", pVideoProcessor, "uint", OutputWidth, "uint", OutputHeight, "int", OutputFormat, "uint", StreamCount, "ptr", pStreams, "uint*", &pBehaviorHints := 0, "HRESULT")
+        result := ComCall(78, this, "ptr", pVideoProcessor, "uint", OutputWidth, "uint", OutputHeight, DXGI_FORMAT, OutputFormat, "uint", StreamCount, D3D11_VIDEO_PROCESSOR_STREAM_BEHAVIOR_HINT.Ptr, pStreams, "uint*", &pBehaviorHints := 0, "HRESULT")
         return pBehaviorHints
+    }
+
+    Query(iid) {
+        if (ID3D11VideoContext1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SubmitDecoderBuffers1 := CallbackCreate(GetMethod(implObj, "SubmitDecoderBuffers1"), flags, 4)
+        this.vtbl.GetDataForNewHardwareKey := CallbackCreate(GetMethod(implObj, "GetDataForNewHardwareKey"), flags, 5)
+        this.vtbl.CheckCryptoSessionStatus := CallbackCreate(GetMethod(implObj, "CheckCryptoSessionStatus"), flags, 3)
+        this.vtbl.DecoderEnableDownsampling := CallbackCreate(GetMethod(implObj, "DecoderEnableDownsampling"), flags, 5)
+        this.vtbl.DecoderUpdateDownsampling := CallbackCreate(GetMethod(implObj, "DecoderUpdateDownsampling"), flags, 3)
+        this.vtbl.VideoProcessorSetOutputColorSpace1 := CallbackCreate(GetMethod(implObj, "VideoProcessorSetOutputColorSpace1"), flags, 3)
+        this.vtbl.VideoProcessorSetOutputShaderUsage := CallbackCreate(GetMethod(implObj, "VideoProcessorSetOutputShaderUsage"), flags, 3)
+        this.vtbl.VideoProcessorGetOutputColorSpace1 := CallbackCreate(GetMethod(implObj, "VideoProcessorGetOutputColorSpace1"), flags, 3)
+        this.vtbl.VideoProcessorGetOutputShaderUsage := CallbackCreate(GetMethod(implObj, "VideoProcessorGetOutputShaderUsage"), flags, 3)
+        this.vtbl.VideoProcessorSetStreamColorSpace1 := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamColorSpace1"), flags, 4)
+        this.vtbl.VideoProcessorSetStreamMirror := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamMirror"), flags, 6)
+        this.vtbl.VideoProcessorGetStreamColorSpace1 := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamColorSpace1"), flags, 4)
+        this.vtbl.VideoProcessorGetStreamMirror := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamMirror"), flags, 6)
+        this.vtbl.VideoProcessorGetBehaviorHints := CallbackCreate(GetMethod(implObj, "VideoProcessorGetBehaviorHints"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SubmitDecoderBuffers1)
+        CallbackFree(this.vtbl.GetDataForNewHardwareKey)
+        CallbackFree(this.vtbl.CheckCryptoSessionStatus)
+        CallbackFree(this.vtbl.DecoderEnableDownsampling)
+        CallbackFree(this.vtbl.DecoderUpdateDownsampling)
+        CallbackFree(this.vtbl.VideoProcessorSetOutputColorSpace1)
+        CallbackFree(this.vtbl.VideoProcessorSetOutputShaderUsage)
+        CallbackFree(this.vtbl.VideoProcessorGetOutputColorSpace1)
+        CallbackFree(this.vtbl.VideoProcessorGetOutputShaderUsage)
+        CallbackFree(this.vtbl.VideoProcessorSetStreamColorSpace1)
+        CallbackFree(this.vtbl.VideoProcessorSetStreamMirror)
+        CallbackFree(this.vtbl.VideoProcessorGetStreamColorSpace1)
+        CallbackFree(this.vtbl.VideoProcessorGetStreamMirror)
+        CallbackFree(this.vtbl.VideoProcessorGetBehaviorHints)
     }
 }

@@ -1,31 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISyncFilterInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FILTER_COMBINATION_TYPE.ahk" { FILTER_COMBINATION_TYPE }
+#Import ".\ISyncFilterInfo.ahk" { ISyncFilterInfo }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.WindowsSync
  */
-class ICombinedFilterInfo extends ISyncFilterInfo {
-
-    static sizeof => A_PtrSize
+export default struct ICombinedFilterInfo extends ISyncFilterInfo {
     /**
      * The interface identifier for ICombinedFilterInfo
      * @type {Guid}
      */
-    static IID => Guid("{11f9de71-2818-4779-b2ac-42d450565f45}")
+    static IID := Guid("{11f9de71-2818-4779-b2ac-42d450565f45}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICombinedFilterInfo interfaces
+    */
+    struct Vtbl extends ISyncFilterInfo.Vtbl {
+        GetFilterCount           : IntPtr
+        GetFilterInfo            : IntPtr
+        GetFilterCombinationType : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFilterCount", "GetFilterInfo", "GetFilterCombinationType"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICombinedFilterInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -59,5 +70,29 @@ class ICombinedFilterInfo extends ISyncFilterInfo {
 
         result := ComCall(6, this, pFilterCombinationTypeMarshal, pFilterCombinationType, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICombinedFilterInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFilterCount := CallbackCreate(GetMethod(implObj, "GetFilterCount"), flags, 2)
+        this.vtbl.GetFilterInfo := CallbackCreate(GetMethod(implObj, "GetFilterInfo"), flags, 3)
+        this.vtbl.GetFilterCombinationType := CallbackCreate(GetMethod(implObj, "GetFilterCombinationType"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFilterCount)
+        CallbackFree(this.vtbl.GetFilterInfo)
+        CallbackFree(this.vtbl.GetFilterCombinationType)
     }
 }

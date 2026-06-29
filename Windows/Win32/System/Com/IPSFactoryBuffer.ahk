@@ -1,34 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
-#Include .\IRpcStubBuffer.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IRpcStubBuffer.ahk" { IRpcStubBuffer }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRpcProxyBuffer.ahk" { IRpcProxyBuffer }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * The IPSFactoryBuffer (objidlbase.h) interface provides custom methods for the creation of COM object proxies and stubs. This interface is not marshalable.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-ipsfactorybuffer
  * @namespace Windows.Win32.System.Com
  */
-class IPSFactoryBuffer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPSFactoryBuffer extends IUnknown {
     /**
      * The interface identifier for IPSFactoryBuffer
      * @type {Guid}
      */
-    static IID => Guid("{d5f569d0-593b-101a-b569-08002b2dbf7a}")
+    static IID := Guid("{d5f569d0-593b-101a-b569-08002b2dbf7a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPSFactoryBuffer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateProxy : IntPtr
+        CreateStub  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateProxy", "CreateStub"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPSFactoryBuffer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IPSFactoryBuffer::CreateProxy (objidlbase.h) method creates a proxy for the specified remote interface.
@@ -44,7 +54,7 @@ class IPSFactoryBuffer extends IUnknown {
     CreateProxy(pUnkOuter, riid, ppProxy, ppv) {
         ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", riid, "ptr*", ppProxy, ppvMarshal, ppv, "HRESULT")
+        result := ComCall(3, this, "ptr", pUnkOuter, Guid.Ptr, riid, IRpcProxyBuffer.Ptr, ppProxy, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -56,7 +66,29 @@ class IPSFactoryBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ipsfactorybuffer-createstub
      */
     CreateStub(riid, pUnkServer) {
-        result := ComCall(4, this, "ptr", riid, "ptr", pUnkServer, "ptr*", &ppStub := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, riid, "ptr", pUnkServer, "ptr*", &ppStub := 0, "HRESULT")
         return IRpcStubBuffer(ppStub)
+    }
+
+    Query(iid) {
+        if (IPSFactoryBuffer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateProxy := CallbackCreate(GetMethod(implObj, "CreateProxy"), flags, 5)
+        this.vtbl.CreateStub := CallbackCreate(GetMethod(implObj, "CreateStub"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateProxy)
+        CallbackFree(this.vtbl.CreateStub)
     }
 }

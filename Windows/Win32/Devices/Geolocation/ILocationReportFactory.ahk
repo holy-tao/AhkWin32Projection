@@ -1,31 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
  */
-class ILocationReportFactory extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ILocationReportFactory extends IDispatch {
     /**
      * The interface identifier for ILocationReportFactory
      * @type {Guid}
      */
-    static IID => Guid("{2daec322-90b2-47e4-bb08-0da841935a6b}")
+    static IID := Guid("{2daec322-90b2-47e4-bb08-0da841935a6b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ILocationReportFactory interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        ListenForReports        : IntPtr
+        StopListeningForReports : IntPtr
+        get_Status              : IntPtr
+        get_ReportInterval      : IntPtr
+        put_ReportInterval      : IntPtr
+        get_DesiredAccuracy     : IntPtr
+        put_DesiredAccuracy     : IntPtr
+        RequestPermissions      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ListenForReports", "StopListeningForReports", "get_Status", "get_ReportInterval", "put_ReportInterval", "get_DesiredAccuracy", "put_DesiredAccuracy", "RequestPermissions"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ILocationReportFactory.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -126,5 +141,39 @@ class ILocationReportFactory extends IDispatch {
 
         result := ComCall(14, this, _hWndMarshal, _hWnd, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ILocationReportFactory.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ListenForReports := CallbackCreate(GetMethod(implObj, "ListenForReports"), flags, 2)
+        this.vtbl.StopListeningForReports := CallbackCreate(GetMethod(implObj, "StopListeningForReports"), flags, 1)
+        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.get_ReportInterval := CallbackCreate(GetMethod(implObj, "get_ReportInterval"), flags, 2)
+        this.vtbl.put_ReportInterval := CallbackCreate(GetMethod(implObj, "put_ReportInterval"), flags, 2)
+        this.vtbl.get_DesiredAccuracy := CallbackCreate(GetMethod(implObj, "get_DesiredAccuracy"), flags, 2)
+        this.vtbl.put_DesiredAccuracy := CallbackCreate(GetMethod(implObj, "put_DesiredAccuracy"), flags, 2)
+        this.vtbl.RequestPermissions := CallbackCreate(GetMethod(implObj, "RequestPermissions"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ListenForReports)
+        CallbackFree(this.vtbl.StopListeningForReports)
+        CallbackFree(this.vtbl.get_Status)
+        CallbackFree(this.vtbl.get_ReportInterval)
+        CallbackFree(this.vtbl.put_ReportInterval)
+        CallbackFree(this.vtbl.get_DesiredAccuracy)
+        CallbackFree(this.vtbl.put_DesiredAccuracy)
+        CallbackFree(this.vtbl.RequestPermissions)
     }
 }

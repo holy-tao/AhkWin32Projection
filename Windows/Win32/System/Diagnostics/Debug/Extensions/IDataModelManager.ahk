@@ -1,44 +1,73 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include .\IModelObject.ahk
-#Include .\IKeyStore.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IKeyStore.ahk" { IKeyStore }
+#Import ".\Location.ahk" { Location }
+#Import ".\IDebugHostSymbolEnumerator.ahk" { IDebugHostSymbolEnumerator }
+#Import ".\IModelObject.ahk" { IModelObject }
+#Import ".\IDataModelConcept.ahk" { IDataModelConcept }
+#Import ".\IDebugHostContext.ahk" { IDebugHostContext }
+#Import ".\ModelObjectKind.ahk" { ModelObjectKind }
+#Import "..\..\..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDebugHostTypeSignature.ahk" { IDebugHostTypeSignature }
+#Import ".\IDebugHostType.ahk" { IDebugHostType }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IDataModelManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDataModelManager extends IUnknown {
     /**
      * The interface identifier for IDataModelManager
      * @type {Guid}
      */
-    static IID => Guid("{73fe19f4-a110-4500-8ed9-3c28896f508c}")
+    static IID := Guid("{73fe19f4-a110-4500-8ed9-3c28896f508c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDataModelManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Close                               : IntPtr
+        CreateNoValue                       : IntPtr
+        CreateErrorObject                   : IntPtr
+        CreateTypedObject                   : IntPtr
+        CreateTypedObjectReference          : IntPtr
+        CreateSyntheticObject               : IntPtr
+        CreateDataModelObject               : IntPtr
+        CreateIntrinsicObject               : IntPtr
+        CreateTypedIntrinsicObject          : IntPtr
+        GetModelForTypeSignature            : IntPtr
+        GetModelForType                     : IntPtr
+        RegisterModelForTypeSignature       : IntPtr
+        UnregisterModelForTypeSignature     : IntPtr
+        RegisterExtensionForTypeSignature   : IntPtr
+        UnregisterExtensionForTypeSignature : IntPtr
+        CreateMetadataStore                 : IntPtr
+        GetRootNamespace                    : IntPtr
+        RegisterNamedModel                  : IntPtr
+        UnregisterNamedModel                : IntPtr
+        AcquireNamedModel                   : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDataModelManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Close", "CreateNoValue", "CreateErrorObject", "CreateTypedObject", "CreateTypedObjectReference", "CreateSyntheticObject", "CreateDataModelObject", "CreateIntrinsicObject", "CreateTypedIntrinsicObject", "GetModelForTypeSignature", "GetModelForType", "RegisterModelForTypeSignature", "UnregisterModelForTypeSignature", "RegisterExtensionForTypeSignature", "UnregisterExtensionForTypeSignature", "CreateMetadataStore", "GetRootNamespace", "RegisterNamedModel", "UnregisterNamedModel", "AcquireNamedModel"]
-
-    /**
-     * Use the Close-Session packet to tell the BITS server that file upload is complete and to end the session.
-     * @remarks
-     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
      * 
-     * For upload-reply jobs, you must download the reply before sending **Close-Session**. Otherwise, the reply is lost.
-     * 
-     * If you send this packet before uploading all fragments, the upload file is deleted; you cannot upload a partial file.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Bits/close-session
      */
     Close() {
         result := ComCall(3, this, "HRESULT")
@@ -75,7 +104,7 @@ class IDataModelManager extends IUnknown {
      * @returns {IModelObject} 
      */
     CreateTypedObject(_context, objectLocation, _objectType) {
-        result := ComCall(6, this, "ptr", _context, "ptr", objectLocation, "ptr", _objectType, "ptr*", &_object := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", _context, Location, objectLocation, "ptr", _objectType, "ptr*", &_object := 0, "HRESULT")
         return IModelObject(_object)
     }
 
@@ -87,7 +116,7 @@ class IDataModelManager extends IUnknown {
      * @returns {IModelObject} 
      */
     CreateTypedObjectReference(_context, objectLocation, _objectType) {
-        result := ComCall(7, this, "ptr", _context, "ptr", objectLocation, "ptr", _objectType, "ptr*", &_object := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", _context, Location, objectLocation, "ptr", _objectType, "ptr*", &_object := 0, "HRESULT")
         return IModelObject(_object)
     }
 
@@ -118,7 +147,7 @@ class IDataModelManager extends IUnknown {
      * @returns {IModelObject} 
      */
     CreateIntrinsicObject(objectKind, intrinsicData) {
-        result := ComCall(10, this, "int", objectKind, "ptr", intrinsicData, "ptr*", &_object := 0, "HRESULT")
+        result := ComCall(10, this, ModelObjectKind, objectKind, VARIANT.Ptr, intrinsicData, "ptr*", &_object := 0, "HRESULT")
         return IModelObject(_object)
     }
 
@@ -129,7 +158,7 @@ class IDataModelManager extends IUnknown {
      * @returns {IModelObject} 
      */
     CreateTypedIntrinsicObject(intrinsicData, type) {
-        result := ComCall(11, this, "ptr", intrinsicData, "ptr", type, "ptr*", &_object := 0, "HRESULT")
+        result := ComCall(11, this, VARIANT.Ptr, intrinsicData, "ptr", type, "ptr*", &_object := 0, "HRESULT")
         return IModelObject(_object)
     }
 
@@ -152,7 +181,7 @@ class IDataModelManager extends IUnknown {
      * @returns {HRESULT} 
      */
     GetModelForType(type, dataModel, typeSignature, wildcardMatches) {
-        result := ComCall(13, this, "ptr", type, "ptr*", dataModel, "ptr*", typeSignature, "ptr*", wildcardMatches, "HRESULT")
+        result := ComCall(13, this, "ptr", type, IModelObject.Ptr, dataModel, IDebugHostTypeSignature.Ptr, typeSignature, IDebugHostSymbolEnumerator.Ptr, wildcardMatches, "HRESULT")
         return result
     }
 
@@ -254,5 +283,63 @@ class IDataModelManager extends IUnknown {
 
         result := ComCall(22, this, "ptr", modelName, "ptr*", &modelObject := 0, "HRESULT")
         return IModelObject(modelObject)
+    }
+
+    Query(iid) {
+        if (IDataModelManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.CreateNoValue := CallbackCreate(GetMethod(implObj, "CreateNoValue"), flags, 2)
+        this.vtbl.CreateErrorObject := CallbackCreate(GetMethod(implObj, "CreateErrorObject"), flags, 4)
+        this.vtbl.CreateTypedObject := CallbackCreate(GetMethod(implObj, "CreateTypedObject"), flags, 5)
+        this.vtbl.CreateTypedObjectReference := CallbackCreate(GetMethod(implObj, "CreateTypedObjectReference"), flags, 5)
+        this.vtbl.CreateSyntheticObject := CallbackCreate(GetMethod(implObj, "CreateSyntheticObject"), flags, 3)
+        this.vtbl.CreateDataModelObject := CallbackCreate(GetMethod(implObj, "CreateDataModelObject"), flags, 3)
+        this.vtbl.CreateIntrinsicObject := CallbackCreate(GetMethod(implObj, "CreateIntrinsicObject"), flags, 4)
+        this.vtbl.CreateTypedIntrinsicObject := CallbackCreate(GetMethod(implObj, "CreateTypedIntrinsicObject"), flags, 4)
+        this.vtbl.GetModelForTypeSignature := CallbackCreate(GetMethod(implObj, "GetModelForTypeSignature"), flags, 3)
+        this.vtbl.GetModelForType := CallbackCreate(GetMethod(implObj, "GetModelForType"), flags, 5)
+        this.vtbl.RegisterModelForTypeSignature := CallbackCreate(GetMethod(implObj, "RegisterModelForTypeSignature"), flags, 3)
+        this.vtbl.UnregisterModelForTypeSignature := CallbackCreate(GetMethod(implObj, "UnregisterModelForTypeSignature"), flags, 3)
+        this.vtbl.RegisterExtensionForTypeSignature := CallbackCreate(GetMethod(implObj, "RegisterExtensionForTypeSignature"), flags, 3)
+        this.vtbl.UnregisterExtensionForTypeSignature := CallbackCreate(GetMethod(implObj, "UnregisterExtensionForTypeSignature"), flags, 3)
+        this.vtbl.CreateMetadataStore := CallbackCreate(GetMethod(implObj, "CreateMetadataStore"), flags, 3)
+        this.vtbl.GetRootNamespace := CallbackCreate(GetMethod(implObj, "GetRootNamespace"), flags, 2)
+        this.vtbl.RegisterNamedModel := CallbackCreate(GetMethod(implObj, "RegisterNamedModel"), flags, 3)
+        this.vtbl.UnregisterNamedModel := CallbackCreate(GetMethod(implObj, "UnregisterNamedModel"), flags, 2)
+        this.vtbl.AcquireNamedModel := CallbackCreate(GetMethod(implObj, "AcquireNamedModel"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.CreateNoValue)
+        CallbackFree(this.vtbl.CreateErrorObject)
+        CallbackFree(this.vtbl.CreateTypedObject)
+        CallbackFree(this.vtbl.CreateTypedObjectReference)
+        CallbackFree(this.vtbl.CreateSyntheticObject)
+        CallbackFree(this.vtbl.CreateDataModelObject)
+        CallbackFree(this.vtbl.CreateIntrinsicObject)
+        CallbackFree(this.vtbl.CreateTypedIntrinsicObject)
+        CallbackFree(this.vtbl.GetModelForTypeSignature)
+        CallbackFree(this.vtbl.GetModelForType)
+        CallbackFree(this.vtbl.RegisterModelForTypeSignature)
+        CallbackFree(this.vtbl.UnregisterModelForTypeSignature)
+        CallbackFree(this.vtbl.RegisterExtensionForTypeSignature)
+        CallbackFree(this.vtbl.UnregisterExtensionForTypeSignature)
+        CallbackFree(this.vtbl.CreateMetadataStore)
+        CallbackFree(this.vtbl.GetRootNamespace)
+        CallbackFree(this.vtbl.RegisterNamedModel)
+        CallbackFree(this.vtbl.UnregisterNamedModel)
+        CallbackFree(this.vtbl.AcquireNamedModel)
     }
 }

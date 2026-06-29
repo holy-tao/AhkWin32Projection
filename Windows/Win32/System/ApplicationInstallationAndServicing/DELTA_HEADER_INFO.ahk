@@ -1,76 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include ..\..\Security\Cryptography\ALG_ID.ahk
-#Include .\DELTA_HASH.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\DELTA_HASH.ahk" { DELTA_HASH }
+#Import "..\..\Security\Cryptography\ALG_ID.ahk" { ALG_ID }
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
-class DELTA_HEADER_INFO extends Win32Struct {
-    static sizeof => 80
+export default struct DELTA_HEADER_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    FileTypeSet : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FileTypeSet {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    FileType : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FileType {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    Flags : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    TargetSize : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    TargetSize {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    TargetFileTime : FILETIME
 
-    /**
-     * @type {FILETIME}
-     */
-    TargetFileTime {
-        get {
-            if(!this.HasProp("__TargetFileTime"))
-                this.__TargetFileTime := FILETIME(32, this)
-            return this.__TargetFileTime
-        }
-    }
+    TargetHashAlgId : ALG_ID
 
-    /**
-     * @type {ALG_ID}
-     */
-    TargetHashAlgId {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    TargetHash : DELTA_HASH
 
-    /**
-     * @type {DELTA_HASH}
-     */
-    TargetHash {
-        get {
-            if(!this.HasProp("__TargetHash"))
-                this.__TargetHash := DELTA_HASH(44, this)
-            return this.__TargetHash
-        }
-    }
 }

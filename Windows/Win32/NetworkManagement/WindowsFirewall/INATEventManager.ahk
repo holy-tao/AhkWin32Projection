@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The INATEventManager interface provides methods for NAT applications with UPnP technology to register callback interfaces with the NAT. The system calls the methods in these interfaces when the configuration of the NAT changes.
  * @see https://learn.microsoft.com/windows/win32/api/natupnp/nn-natupnp-inateventmanager
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  */
-class INATEventManager extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct INATEventManager extends IDispatch {
     /**
      * The interface identifier for INATEventManager
      * @type {Guid}
      */
-    static IID => Guid("{624bd588-9060-4109-b0b0-1adbbcac32df}")
+    static IID := Guid("{624bd588-9060-4109-b0b0-1adbbcac32df}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INATEventManager interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_ExternalIPAddressCallback : IntPtr
+        put_NumberOfEntriesCallback   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_ExternalIPAddressCallback", "put_NumberOfEntriesCallback"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INATEventManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IUnknown} 
@@ -275,5 +285,27 @@ class INATEventManager extends IDispatch {
     put_NumberOfEntriesCallback(pUnk) {
         result := ComCall(8, this, "ptr", pUnk, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (INATEventManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_ExternalIPAddressCallback := CallbackCreate(GetMethod(implObj, "put_ExternalIPAddressCallback"), flags, 2)
+        this.vtbl.put_NumberOfEntriesCallback := CallbackCreate(GetMethod(implObj, "put_NumberOfEntriesCallback"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_ExternalIPAddressCallback)
+        CallbackFree(this.vtbl.put_NumberOfEntriesCallback)
     }
 }

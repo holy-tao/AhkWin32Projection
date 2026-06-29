@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides a method to retrieve the minimum size of the shadow copy storage area.
@@ -13,26 +14,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nn-vsmgmt-ivsssnapshotmgmt2
  * @namespace Windows.Win32.Storage.Vss
  */
-class IVssSnapshotMgmt2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVssSnapshotMgmt2 extends IUnknown {
     /**
      * The interface identifier for IVssSnapshotMgmt2
      * @type {Guid}
      */
-    static IID => Guid("{0f61ec39-fe82-45f2-a3f0-768b5d427102}")
+    static IID := Guid("{0f61ec39-fe82-45f2-a3f0-768b5d427102}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVssSnapshotMgmt2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetMinDiffAreaSize : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetMinDiffAreaSize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVssSnapshotMgmt2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns the current minimum size of the shadow copy storage area.
@@ -44,5 +52,25 @@ class IVssSnapshotMgmt2 extends IUnknown {
     GetMinDiffAreaSize() {
         result := ComCall(3, this, "int64*", &pllMinDiffAreaSize := 0, "HRESULT")
         return pllMinDiffAreaSize
+    }
+
+    Query(iid) {
+        if (IVssSnapshotMgmt2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetMinDiffAreaSize := CallbackCreate(GetMethod(implObj, "GetMinDiffAreaSize"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetMinDiffAreaSize)
     }
 }

@@ -1,33 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides access to a control that can be moved, resized, or rotated.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationtransformpattern
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IUIAutomationTransformPattern extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIAutomationTransformPattern extends IUnknown {
     /**
      * The interface identifier for IUIAutomationTransformPattern
      * @type {Guid}
      */
-    static IID => Guid("{a9b55844-a55d-4ef0-926d-569c16ff89bb}")
+    static IID := Guid("{a9b55844-a55d-4ef0-926d-569c16ff89bb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAutomationTransformPattern interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Move                 : IntPtr
+        Resize               : IntPtr
+        Rotate               : IntPtr
+        get_CurrentCanMove   : IntPtr
+        get_CurrentCanResize : IntPtr
+        get_CurrentCanRotate : IntPtr
+        get_CachedCanMove    : IntPtr
+        get_CachedCanResize  : IntPtr
+        get_CachedCanRotate  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Move", "Resize", "Rotate", "get_CurrentCanMove", "get_CurrentCanResize", "get_CurrentCanRotate", "get_CachedCanMove", "get_CachedCanResize", "get_CachedCanRotate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAutomationTransformPattern.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BOOL} 
@@ -136,7 +153,7 @@ class IUIAutomationTransformPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern-get_currentcanmove
      */
     get_CurrentCanMove() {
-        result := ComCall(6, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(6, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -146,7 +163,7 @@ class IUIAutomationTransformPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern-get_currentcanresize
      */
     get_CurrentCanResize() {
-        result := ComCall(7, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(7, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -156,7 +173,7 @@ class IUIAutomationTransformPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern-get_currentcanrotate
      */
     get_CurrentCanRotate() {
-        result := ComCall(8, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(8, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -166,7 +183,7 @@ class IUIAutomationTransformPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern-get_cachedcanmove
      */
     get_CachedCanMove() {
-        result := ComCall(9, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(9, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -176,7 +193,7 @@ class IUIAutomationTransformPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern-get_cachedcanresize
      */
     get_CachedCanResize() {
-        result := ComCall(10, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(10, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
     }
 
@@ -186,7 +203,43 @@ class IUIAutomationTransformPattern extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern-get_cachedcanrotate
      */
     get_CachedCanRotate() {
-        result := ComCall(11, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(11, this, BOOL.Ptr, &retVal := 0, "HRESULT")
         return retVal
+    }
+
+    Query(iid) {
+        if (IUIAutomationTransformPattern.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Move := CallbackCreate(GetMethod(implObj, "Move"), flags, 3)
+        this.vtbl.Resize := CallbackCreate(GetMethod(implObj, "Resize"), flags, 3)
+        this.vtbl.Rotate := CallbackCreate(GetMethod(implObj, "Rotate"), flags, 2)
+        this.vtbl.get_CurrentCanMove := CallbackCreate(GetMethod(implObj, "get_CurrentCanMove"), flags, 2)
+        this.vtbl.get_CurrentCanResize := CallbackCreate(GetMethod(implObj, "get_CurrentCanResize"), flags, 2)
+        this.vtbl.get_CurrentCanRotate := CallbackCreate(GetMethod(implObj, "get_CurrentCanRotate"), flags, 2)
+        this.vtbl.get_CachedCanMove := CallbackCreate(GetMethod(implObj, "get_CachedCanMove"), flags, 2)
+        this.vtbl.get_CachedCanResize := CallbackCreate(GetMethod(implObj, "get_CachedCanResize"), flags, 2)
+        this.vtbl.get_CachedCanRotate := CallbackCreate(GetMethod(implObj, "get_CachedCanRotate"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Move)
+        CallbackFree(this.vtbl.Resize)
+        CallbackFree(this.vtbl.Rotate)
+        CallbackFree(this.vtbl.get_CurrentCanMove)
+        CallbackFree(this.vtbl.get_CurrentCanResize)
+        CallbackFree(this.vtbl.get_CurrentCanRotate)
+        CallbackFree(this.vtbl.get_CachedCanMove)
+        CallbackFree(this.vtbl.get_CachedCanResize)
+        CallbackFree(this.vtbl.get_CachedCanRotate)
     }
 }

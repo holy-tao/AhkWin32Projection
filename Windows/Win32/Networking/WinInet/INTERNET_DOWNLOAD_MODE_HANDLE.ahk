@@ -1,28 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
  */
-class INTERNET_DOWNLOAD_MODE_HANDLE extends Win32Struct {
-    static sizeof => 16
+export default struct INTERNET_DOWNLOAD_MODE_HANDLE {
+    #StructPack 8
 
-    static packingSize => 8
+    pcwszFileName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pcwszFileName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    phFile : HANDLE.Ptr
 
-    /**
-     * @type {Pointer<HANDLE>}
-     */
-    phFile {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

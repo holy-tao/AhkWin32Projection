@@ -1,238 +1,83 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\POINT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains information about the capabilities and enrollment requirements of the sensor adapter for a biometric unit.
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-extended-sensor-info
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
-class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct {
-    static sizeof => 1080
+export default struct WINBIO_EXTENDED_SENSOR_INFO {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _Specific_e__Union extends Win32Struct {
-        static sizeof => 1072
-        static packingSize => 4
+    struct _Specific {
 
-        class _FacialFeatures extends Win32Struct {
-            static sizeof => 1072
-            static packingSize => 4
+        struct _FacialFeatures {
 
-            class _HardwareInfo extends Win32Struct {
-                static sizeof => 1044
-                static packingSize => 4
+            struct _HardwareInfo {
+                ColorSensorId : WCHAR[260]
 
-                /**
-                 * @type {String}
-                 */
-                ColorSensorId {
-                    get => StrGet(this.ptr + 0, 259, "UTF-16")
-                    set => StrPut(value, this.ptr + 0, 259, "UTF-16")
-                }
+                InfraredSensorId : WCHAR[260]
 
-                /**
-                 * @type {String}
-                 */
-                InfraredSensorId {
-                    get => StrGet(this.ptr + 520, 259, "UTF-16")
-                    set => StrPut(value, this.ptr + 520, 259, "UTF-16")
-                }
+                InfraredSensorRotationAngle : UInt32
 
-                /**
-                 * @type {Integer}
-                 */
-                InfraredSensorRotationAngle {
-                    get => NumGet(this, 1040, "uint")
-                    set => NumPut("uint", value, this, 1040)
-                }
             }
 
-            /**
-             * @type {RECT}
-             */
-            FrameSize {
-                get {
-                    if(!this.HasProp("__FrameSize"))
-                        this.__FrameSize := RECT(0, this)
-                    return this.__FrameSize
-                }
-            }
+            FrameSize : RECT
 
-            /**
-             * @type {POINT}
-             */
-            FrameOffset {
-                get {
-                    if(!this.HasProp("__FrameOffset"))
-                        this.__FrameOffset := POINT(16, this)
-                    return this.__FrameOffset
-                }
-            }
+            FrameOffset : POINT
 
-            /**
-             * @type {Integer}
-             */
-            MandatoryOrientation {
-                get => NumGet(this, 24, "uint")
-                set => NumPut("uint", value, this, 24)
-            }
+            MandatoryOrientation : UInt32
 
-            /**
-             * @type {_HardwareInfo}
-             */
-            HardwareInfo {
-                get {
-                    if(!this.HasProp("__HardwareInfo"))
-                        this.__HardwareInfo := WINBIO_EXTENDED_SENSOR_INFO._Specific_e__Union._FacialFeatures._HardwareInfo(28, this)
-                    return this.__HardwareInfo
-                }
-            }
+            HardwareInfo : WINBIO_EXTENDED_SENSOR_INFO._Specific._FacialFeatures._HardwareInfo
+
         }
 
-        class _Fingerprint extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 4
+        struct _Fingerprint {
+            Reserved : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Reserved {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
         }
 
-        class _Iris extends Win32Struct {
-            static sizeof => 28
-            static packingSize => 4
+        struct _Iris {
+            FrameSize : RECT
 
-            /**
-             * @type {RECT}
-             */
-            FrameSize {
-                get {
-                    if(!this.HasProp("__FrameSize"))
-                        this.__FrameSize := RECT(0, this)
-                    return this.__FrameSize
-                }
-            }
+            FrameOffset : POINT
 
-            /**
-             * @type {POINT}
-             */
-            FrameOffset {
-                get {
-                    if(!this.HasProp("__FrameOffset"))
-                        this.__FrameOffset := POINT(16, this)
-                    return this.__FrameOffset
-                }
-            }
+            MandatoryOrientation : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            MandatoryOrientation {
-                get => NumGet(this, 24, "uint")
-                set => NumPut("uint", value, this, 24)
-            }
         }
 
-        class _Voice extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 4
+        struct _Voice {
+            Reserved : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Reserved {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
         }
 
-        /**
-         * @type {Integer}
-         */
-        Null {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        Null : UInt32
 
-        /**
-         * @type {_FacialFeatures}
-         */
-        FacialFeatures {
-            get {
-                if(!this.HasProp("__FacialFeatures"))
-                    this.__FacialFeatures := WINBIO_EXTENDED_SENSOR_INFO._Specific_e__Union._FacialFeatures(0, this)
-                return this.__FacialFeatures
-            }
-        }
-
-        /**
-         * @type {_Fingerprint}
-         */
-        Fingerprint {
-            get {
-                if(!this.HasProp("__Fingerprint"))
-                    this.__Fingerprint := WINBIO_EXTENDED_SENSOR_INFO._Specific_e__Union._Fingerprint(0, this)
-                return this.__Fingerprint
-            }
-        }
-
-        /**
-         * @type {_Iris}
-         */
-        Iris {
-            get {
-                if(!this.HasProp("__Iris"))
-                    this.__Iris := WINBIO_EXTENDED_SENSOR_INFO._Specific_e__Union._Iris(0, this)
-                return this.__Iris
-            }
-        }
-
-        /**
-         * @type {_Voice}
-         */
-        Voice {
-            get {
-                if(!this.HasProp("__Voice"))
-                    this.__Voice := WINBIO_EXTENDED_SENSOR_INFO._Specific_e__Union._Voice(0, this)
-                return this.__Voice
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'FacialFeatures', { type: WINBIO_EXTENDED_SENSOR_INFO._Specific._FacialFeatures, offset: 0 })
+            DefineProp(this.Prototype, 'Fingerprint', { type: WINBIO_EXTENDED_SENSOR_INFO._Specific._Fingerprint, offset: 0 })
+            DefineProp(this.Prototype, 'Iris', { type: WINBIO_EXTENDED_SENSOR_INFO._Specific._Iris, offset: 0 })
+            DefineProp(this.Prototype, 'Voice', { type: WINBIO_EXTENDED_SENSOR_INFO._Specific._Voice, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
     /**
      * The generic capabilities of the sensor component that is connected to a specific biometric unit.
-     * @type {Integer}
      */
-    GenericSensorCapabilities {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    GenericSensorCapabilities : UInt32
 
     /**
      * The type of biometric unit for which this structure contains information about capabilities and enrollment requirements of the sensor adapter. For example, if the value of the **Factor** member is **WINBIO\_TYPE\_FINGERPRINT**, the **WINBIO\_EXTENDED\_SENSOR\_INFO** structure applies to a fingerprint reader and contains the relevant information in the **Specifc.Fingerprint** structure.
-     * @type {Integer}
      */
-    Factor {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Factor : UInt32
 
     /**
      * Information about the capabilities and enrollment requirements of the sensor adapter for a biometric unit related to a specific biometric factor.
-     * @type {_Specific_e__Union}
      */
-    Specific {
-        get {
-            if(!this.HasProp("__Specific"))
-                this.__Specific := WINBIO_EXTENDED_SENSOR_INFO._Specific_e__Union(8, this)
-            return this.__Specific
-        }
-    }
+    Specific : WINBIO_EXTENDED_SENSOR_INFO._Specific
+
 }

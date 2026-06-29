@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes which levels of hardware composition are supported.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/ne-dxgi1_6-dxgi_hardware_composition_support_flags
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class DXGI_HARDWARE_COMPOSITION_SUPPORT_FLAGS extends Win32BitflagEnum {
+export default struct DXGI_HARDWARE_COMPOSITION_SUPPORT_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * This flag specifies that swapchain composition can be facilitated in a performant manner using hardware for fullscreen applications.

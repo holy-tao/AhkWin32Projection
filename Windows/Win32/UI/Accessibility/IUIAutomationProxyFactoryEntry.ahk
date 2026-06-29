@@ -1,35 +1,60 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IUIAutomationProxyFactory.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\UIA_EVENT_ID.ahk" { UIA_EVENT_ID }
+#Import ".\IUIAutomationProxyFactory.ahk" { IUIAutomationProxyFactory }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\UIA_PROPERTY_ID.ahk" { UIA_PROPERTY_ID }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Represents a proxy factory in the table maintained by Microsoft UI Automation, and exposes properties and methods that can be used by client applications to interact with IUIAutomationProxyFactory objects.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationproxyfactoryentry
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IUIAutomationProxyFactoryEntry extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIAutomationProxyFactoryEntry extends IUnknown {
     /**
      * The interface identifier for IUIAutomationProxyFactoryEntry
      * @type {Guid}
      */
-    static IID => Guid("{d50e472e-b64b-490c-bca1-d30696f9f289}")
+    static IID := Guid("{d50e472e-b64b-490c-bca1-d30696f9f289}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAutomationProxyFactoryEntry interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_ProxyFactory               : IntPtr
+        get_ClassName                  : IntPtr
+        get_ImageName                  : IntPtr
+        get_AllowSubstringMatch        : IntPtr
+        get_CanCheckBaseClass          : IntPtr
+        get_NeedsAdviseEvents          : IntPtr
+        put_ClassName                  : IntPtr
+        put_ImageName                  : IntPtr
+        put_AllowSubstringMatch        : IntPtr
+        put_CanCheckBaseClass          : IntPtr
+        put_NeedsAdviseEvents          : IntPtr
+        SetWinEventsForAutomationEvent : IntPtr
+        GetWinEventsForAutomationEvent : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ProxyFactory", "get_ClassName", "get_ImageName", "get_AllowSubstringMatch", "get_CanCheckBaseClass", "get_NeedsAdviseEvents", "put_ClassName", "put_ImageName", "put_AllowSubstringMatch", "put_CanCheckBaseClass", "put_NeedsAdviseEvents", "SetWinEventsForAutomationEvent", "GetWinEventsForAutomationEvent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAutomationProxyFactoryEntry.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IUIAutomationProxyFactory} 
@@ -94,8 +119,8 @@ class IUIAutomationProxyFactoryEntry extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-get_classname
      */
     get_ClassName() {
-        className := BSTR()
-        result := ComCall(4, this, "ptr", className, "HRESULT")
+        className := BSTR.Owned()
+        result := ComCall(4, this, BSTR.Ptr, className, "HRESULT")
         return className
     }
 
@@ -105,8 +130,8 @@ class IUIAutomationProxyFactoryEntry extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-get_imagename
      */
     get_ImageName() {
-        imageName := BSTR()
-        result := ComCall(5, this, "ptr", imageName, "HRESULT")
+        imageName := BSTR.Owned()
+        result := ComCall(5, this, BSTR.Ptr, imageName, "HRESULT")
         return imageName
     }
 
@@ -116,7 +141,7 @@ class IUIAutomationProxyFactoryEntry extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-get_allowsubstringmatch
      */
     get_AllowSubstringMatch() {
-        result := ComCall(6, this, "int*", &allowSubstringMatch := 0, "HRESULT")
+        result := ComCall(6, this, BOOL.Ptr, &allowSubstringMatch := 0, "HRESULT")
         return allowSubstringMatch
     }
 
@@ -126,7 +151,7 @@ class IUIAutomationProxyFactoryEntry extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-get_cancheckbaseclass
      */
     get_CanCheckBaseClass() {
-        result := ComCall(7, this, "int*", &canCheckBaseClass := 0, "HRESULT")
+        result := ComCall(7, this, BOOL.Ptr, &canCheckBaseClass := 0, "HRESULT")
         return canCheckBaseClass
     }
 
@@ -136,7 +161,7 @@ class IUIAutomationProxyFactoryEntry extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-get_needsadviseevents
      */
     get_NeedsAdviseEvents() {
-        result := ComCall(8, this, "int*", &adviseEvents := 0, "HRESULT")
+        result := ComCall(8, this, BOOL.Ptr, &adviseEvents := 0, "HRESULT")
         return adviseEvents
     }
 
@@ -173,7 +198,7 @@ class IUIAutomationProxyFactoryEntry extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-put_allowsubstringmatch
      */
     put_AllowSubstringMatch(allowSubstringMatch) {
-        result := ComCall(11, this, "int", allowSubstringMatch, "HRESULT")
+        result := ComCall(11, this, BOOL, allowSubstringMatch, "HRESULT")
         return result
     }
 
@@ -184,7 +209,7 @@ class IUIAutomationProxyFactoryEntry extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-put_cancheckbaseclass
      */
     put_CanCheckBaseClass(canCheckBaseClass) {
-        result := ComCall(12, this, "int", canCheckBaseClass, "HRESULT")
+        result := ComCall(12, this, BOOL, canCheckBaseClass, "HRESULT")
         return result
     }
 
@@ -195,7 +220,7 @@ class IUIAutomationProxyFactoryEntry extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-put_needsadviseevents
      */
     put_NeedsAdviseEvents(adviseEvents) {
-        result := ComCall(13, this, "int", adviseEvents, "HRESULT")
+        result := ComCall(13, this, BOOL, adviseEvents, "HRESULT")
         return result
     }
 
@@ -218,7 +243,7 @@ class IUIAutomationProxyFactoryEntry extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-setwineventsforautomationevent
      */
     SetWinEventsForAutomationEvent(eventId, propertyId, winEvents) {
-        result := ComCall(14, this, "int", eventId, "int", propertyId, "ptr", winEvents, "HRESULT")
+        result := ComCall(14, this, UIA_EVENT_ID, eventId, UIA_PROPERTY_ID, propertyId, SAFEARRAY.Ptr, winEvents, "HRESULT")
         return result
     }
 
@@ -236,7 +261,51 @@ class IUIAutomationProxyFactoryEntry extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-getwineventsforautomationevent
      */
     GetWinEventsForAutomationEvent(eventId, propertyId) {
-        result := ComCall(15, this, "int", eventId, "int", propertyId, "ptr*", &winEvents := 0, "HRESULT")
+        result := ComCall(15, this, UIA_EVENT_ID, eventId, UIA_PROPERTY_ID, propertyId, "ptr*", &winEvents := 0, "HRESULT")
         return winEvents
+    }
+
+    Query(iid) {
+        if (IUIAutomationProxyFactoryEntry.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ProxyFactory := CallbackCreate(GetMethod(implObj, "get_ProxyFactory"), flags, 2)
+        this.vtbl.get_ClassName := CallbackCreate(GetMethod(implObj, "get_ClassName"), flags, 2)
+        this.vtbl.get_ImageName := CallbackCreate(GetMethod(implObj, "get_ImageName"), flags, 2)
+        this.vtbl.get_AllowSubstringMatch := CallbackCreate(GetMethod(implObj, "get_AllowSubstringMatch"), flags, 2)
+        this.vtbl.get_CanCheckBaseClass := CallbackCreate(GetMethod(implObj, "get_CanCheckBaseClass"), flags, 2)
+        this.vtbl.get_NeedsAdviseEvents := CallbackCreate(GetMethod(implObj, "get_NeedsAdviseEvents"), flags, 2)
+        this.vtbl.put_ClassName := CallbackCreate(GetMethod(implObj, "put_ClassName"), flags, 2)
+        this.vtbl.put_ImageName := CallbackCreate(GetMethod(implObj, "put_ImageName"), flags, 2)
+        this.vtbl.put_AllowSubstringMatch := CallbackCreate(GetMethod(implObj, "put_AllowSubstringMatch"), flags, 2)
+        this.vtbl.put_CanCheckBaseClass := CallbackCreate(GetMethod(implObj, "put_CanCheckBaseClass"), flags, 2)
+        this.vtbl.put_NeedsAdviseEvents := CallbackCreate(GetMethod(implObj, "put_NeedsAdviseEvents"), flags, 2)
+        this.vtbl.SetWinEventsForAutomationEvent := CallbackCreate(GetMethod(implObj, "SetWinEventsForAutomationEvent"), flags, 4)
+        this.vtbl.GetWinEventsForAutomationEvent := CallbackCreate(GetMethod(implObj, "GetWinEventsForAutomationEvent"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ProxyFactory)
+        CallbackFree(this.vtbl.get_ClassName)
+        CallbackFree(this.vtbl.get_ImageName)
+        CallbackFree(this.vtbl.get_AllowSubstringMatch)
+        CallbackFree(this.vtbl.get_CanCheckBaseClass)
+        CallbackFree(this.vtbl.get_NeedsAdviseEvents)
+        CallbackFree(this.vtbl.put_ClassName)
+        CallbackFree(this.vtbl.put_ImageName)
+        CallbackFree(this.vtbl.put_AllowSubstringMatch)
+        CallbackFree(this.vtbl.put_CanCheckBaseClass)
+        CallbackFree(this.vtbl.put_NeedsAdviseEvents)
+        CallbackFree(this.vtbl.SetWinEventsForAutomationEvent)
+        CallbackFree(this.vtbl.GetWinEventsForAutomationEvent)
     }
 }

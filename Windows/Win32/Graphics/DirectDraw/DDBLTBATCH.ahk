@@ -1,61 +1,39 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\IDirectDrawSurface.ahk
-#Include .\DDBLTFX.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IDirectDrawSurface.ahk" { IDirectDrawSurface }
+#Import ".\DDBLTFX.ahk" { DDBLTFX }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * The DDBLTBATCH structure passes bit block transfer (bitblt) operations to the IDirectDrawSurface7::BltBatch method.
  * @see https://learn.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddbltbatch
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDBLTBATCH extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct DDBLTBATCH {
+    #StructPack 8
 
     /**
      * Address of a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that defines the destination for the bitblt.
-     * @type {Pointer<RECT>}
      */
-    lprDest {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lprDest : RECT.Ptr
 
     /**
      * Address of a DirectDrawSurface object to be the source of the bitblt.
-     * @type {IDirectDrawSurface}
      */
-    lpDDSSrc {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpDDSSrc : IDirectDrawSurface
 
     /**
      * Address of a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that defines the source rectangle of the bitblt.
-     * @type {Pointer<RECT>}
      */
-    lprSrc {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lprSrc : RECT.Ptr
 
     /**
      * Optional control flags. The following values are defined:
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwFlags : UInt32
 
     /**
      * Address of a <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/ns-ddraw-ddbltfx">DDBLTFX</a> structure that specifies additional bitblt effects.
-     * @type {Pointer<DDBLTFX>}
      */
-    lpDDBltFx {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpDDBltFx : DDBLTFX.Ptr
+
 }

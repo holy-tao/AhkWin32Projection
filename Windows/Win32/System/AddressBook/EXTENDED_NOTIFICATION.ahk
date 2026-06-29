@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * EXTENDED_NOTIFICATION describes information that relates to an event that is service provider-specific.
@@ -20,35 +19,22 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/extended_notification
  * @namespace Windows.Win32.System.AddressBook
  */
-class EXTENDED_NOTIFICATION extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct EXTENDED_NOTIFICATION {
+    #StructPack 8
 
     /**
      * > Extended event code that is defined by the provider.
-     * @type {Integer}
      */
-    ulEvent {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulEvent : UInt32
 
     /**
      * > Count of bytes in the event-specific parameters pointed to by **pbEventParameters**.
-     * @type {Integer}
      */
-    cb {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cb : UInt32
 
     /**
      * > Pointer to event-specific parameters. The type of parameters that are used depends on the value of the **ulEvent** member; these parameters are documented by the provider that issued the event.
-     * @type {Pointer<Integer>}
      */
-    pbEventParameters {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pbEventParameters : IntPtr
+
 }

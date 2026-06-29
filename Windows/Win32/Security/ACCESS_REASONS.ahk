@@ -1,22 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Security
  */
-class ACCESS_REASONS extends Win32Struct {
-    static sizeof => 128
+export default struct ACCESS_REASONS {
+    #StructPack 4
 
-    static packingSize => 4
+    Data : UInt32[32]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Data {
-        get {
-            if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 0, 32, Primitive, "uint")
-            return this.__DataProxyArray
-        }
-    }
 }

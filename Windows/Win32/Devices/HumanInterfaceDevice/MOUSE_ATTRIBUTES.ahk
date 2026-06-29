@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * MOUSE_ATTRIBUTES specifies the attributes of a mouse device.
@@ -8,10 +7,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/ntddmou/ns-ntddmou-mouse_attributes
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class MOUSE_ATTRIBUTES extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct MOUSE_ATTRIBUTES {
+    #StructPack 4
 
     /**
      * Specifies one of the following types of mouse devices.
@@ -112,37 +109,22 @@ class MOUSE_ATTRIBUTES extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    MouseIdentifier {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    MouseIdentifier : UInt16
 
     /**
      * Specifies the number of buttons supported by a mouse. A mouse can have from two to five buttons. The default value is MOUSE_NUMBER_OF_BUTTONS.
-     * @type {Integer}
      */
-    NumberOfButtons {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    NumberOfButtons : UInt16
 
     /**
      * Specifies the rate, in reports per second, at which input from a PS/2 mouse is sampled. The default value is MOUSE_SAMPLE_RATE. This value is not used for USB devices.
-     * @type {Integer}
      */
-    SampleRate {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    SampleRate : UInt16
 
     /**
      * Specifies the size, in bytes, of the input data queue used by the port driver for a mouse device.
-     * @type {Integer}
      */
-    InputDataQueueLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    InputDataQueueLength : UInt32
+
 }

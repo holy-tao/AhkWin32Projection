@@ -1,50 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ADDRESS_FAMILY.ahk
-#Include .\IN_ADDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IN_ADDR.ahk" { IN_ADDR }
+#Import ".\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * The SOCKADDR_IN (winsock.h) structure varies depending on the protocol selected.
  * @see https://learn.microsoft.com/windows/win32/api/winsock/ns-winsock-sockaddr_in
  * @namespace Windows.Win32.Networking.WinSock
  */
-class SOCKADDR_IN extends Win32Struct {
-    static sizeof => 16
+export default struct SOCKADDR_IN {
+    #StructPack 4
 
-    static packingSize => 4
+    sin_family : ADDRESS_FAMILY
 
-    /**
-     * @type {ADDRESS_FAMILY}
-     */
-    sin_family {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    sin_port : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    sin_port {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    sin_addr : IN_ADDR
 
-    /**
-     * @type {IN_ADDR}
-     */
-    sin_addr {
-        get {
-            if(!this.HasProp("__sin_addr"))
-                this.__sin_addr := IN_ADDR(4, this)
-            return this.__sin_addr
-        }
-    }
+    sin_zero : CHAR[8]
 
-    /**
-     * @type {String}
-     */
-    sin_zero {
-        get => StrGet(this.ptr + 8, 7, "UTF-8")
-        set => StrPut(value, this.ptr + 8, 7, "UTF-8")
-    }
 }

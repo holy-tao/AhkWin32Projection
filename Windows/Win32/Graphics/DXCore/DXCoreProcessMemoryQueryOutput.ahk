@@ -1,31 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXCoreMemoryUsage.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DXCoreMemoryUsage.ahk" { DXCoreMemoryUsage }
 
 /**
  * @namespace Windows.Win32.Graphics.DXCore
  */
-class DXCoreProcessMemoryQueryOutput extends Win32Struct {
-    static sizeof => 24
+export default struct DXCoreProcessMemoryQueryOutput {
+    #StructPack 8
 
-    static packingSize => 8
+    memoryUsage : DXCoreMemoryUsage
 
-    /**
-     * @type {DXCoreMemoryUsage}
-     */
-    memoryUsage {
-        get {
-            if(!this.HasProp("__memoryUsage"))
-                this.__memoryUsage := DXCoreMemoryUsage(0, this)
-            return this.__memoryUsage
-        }
-    }
+    processQuerySucceeded : Int8
 
-    /**
-     * @type {Integer}
-     */
-    processQuerySucceeded {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
 }

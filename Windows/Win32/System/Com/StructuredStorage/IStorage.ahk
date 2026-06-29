@@ -1,36 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IUnknown.ahk
-#Include ..\IStream.ahk
-#Include .\IEnumSTATSTG.ahk
-#Include ..\STATSTG.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumSTATSTG.ahk" { IEnumSTATSTG }
+#Import "..\IStream.ahk" { IStream }
+#Import "..\STATSTG.ahk" { STATSTG }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\STGM.ahk" { STGM }
+#Import "..\..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * The IStorage interface supports the creation and management of structured storage objects.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-istorage
  * @namespace Windows.Win32.System.Com.StructuredStorage
  */
-class IStorage extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IStorage extends IUnknown {
     /**
      * The interface identifier for IStorage
      * @type {Guid}
      */
-    static IID => Guid("{0000000b-0000-0000-c000-000000000046}")
+    static IID := Guid("{0000000b-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IStorage interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateStream    : IntPtr
+        OpenStream      : IntPtr
+        CreateStorage   : IntPtr
+        OpenStorage     : IntPtr
+        CopyTo          : IntPtr
+        MoveElementTo   : IntPtr
+        Commit          : IntPtr
+        Revert          : IntPtr
+        EnumElements    : IntPtr
+        DestroyElement  : IntPtr
+        RenameElement   : IntPtr
+        SetElementTimes : IntPtr
+        SetClass        : IntPtr
+        SetStateBits    : IntPtr
+        Stat            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateStream", "OpenStream", "CreateStorage", "OpenStorage", "CopyTo", "MoveElementTo", "Commit", "Revert", "EnumElements", "DestroyElement", "RenameElement", "SetElementTimes", "SetClass", "SetStateBits", "Stat"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IStorage.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates and opens a stream object with the specified name contained in this storage object.
@@ -56,7 +81,7 @@ class IStorage extends IUnknown {
     CreateStream(pwcsName, grfMode, reserved1, reserved2) {
         pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
 
-        result := ComCall(3, this, "ptr", pwcsName, "uint", grfMode, "uint", reserved1, "uint", reserved2, "ptr*", &ppstm := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pwcsName, STGM, grfMode, "uint", reserved1, "uint", reserved2, "ptr*", &ppstm := 0, "HRESULT")
         return IStream(ppstm)
     }
 
@@ -76,7 +101,7 @@ class IStorage extends IUnknown {
 
         pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
 
-        result := ComCall(4, this, "ptr", pwcsName, "ptr", reserved1, "uint", grfMode, "uint", reserved2, "ptr*", &ppstm := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pwcsName, "ptr", reserved1, STGM, grfMode, "uint", reserved2, "ptr*", &ppstm := 0, "HRESULT")
         return IStream(ppstm)
     }
 
@@ -104,7 +129,7 @@ class IStorage extends IUnknown {
     CreateStorage(pwcsName, grfMode, reserved1, reserved2) {
         pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
 
-        result := ComCall(5, this, "ptr", pwcsName, "uint", grfMode, "uint", reserved1, "uint", reserved2, "ptr*", &ppstg := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pwcsName, STGM, grfMode, "uint", reserved1, "uint", reserved2, "ptr*", &ppstg := 0, "HRESULT")
         return IStorage(ppstg)
     }
 
@@ -129,7 +154,7 @@ class IStorage extends IUnknown {
 
         snbExcludeMarshal := snbExclude is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pwcsName, "ptr", pstgPriority, "uint", grfMode, snbExcludeMarshal, snbExclude, "uint", reserved, "ptr*", &ppstg := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pwcsName, "ptr", pstgPriority, STGM, grfMode, snbExcludeMarshal, snbExclude, "uint", reserved, "ptr*", &ppstg := 0, "HRESULT")
         return IStorage(ppstg)
     }
 
@@ -193,7 +218,7 @@ class IStorage extends IUnknown {
     CopyTo(ciidExclude, rgiidExclude, snbExclude, pstgDest) {
         snbExcludeMarshal := snbExclude is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "uint", ciidExclude, "ptr", rgiidExclude, snbExcludeMarshal, snbExclude, "ptr", pstgDest, "HRESULT")
+        result := ComCall(7, this, "uint", ciidExclude, Guid.Ptr, rgiidExclude, snbExcludeMarshal, snbExclude, "ptr", pstgDest, "HRESULT")
         return result
     }
 
@@ -438,7 +463,7 @@ class IStorage extends IUnknown {
     SetElementTimes(pwcsName, pctime, patime, pmtime) {
         pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
 
-        result := ComCall(14, this, "ptr", pwcsName, "ptr", pctime, "ptr", patime, "ptr", pmtime, "HRESULT")
+        result := ComCall(14, this, "ptr", pwcsName, FILETIME.Ptr, pctime, FILETIME.Ptr, patime, FILETIME.Ptr, pmtime, "HRESULT")
         return result
     }
 
@@ -462,7 +487,7 @@ class IStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-istorage-setclass
      */
     SetClass(clsid) {
-        result := ComCall(15, this, "ptr", clsid, "HRESULT")
+        result := ComCall(15, this, Guid.Ptr, clsid, "HRESULT")
         return result
     }
 
@@ -505,7 +530,55 @@ class IStorage extends IUnknown {
      */
     Stat(grfStatFlag) {
         pstatstg := STATSTG()
-        result := ComCall(17, this, "ptr", pstatstg, "uint", grfStatFlag, "HRESULT")
+        result := ComCall(17, this, STATSTG.Ptr, pstatstg, "uint", grfStatFlag, "HRESULT")
         return pstatstg
+    }
+
+    Query(iid) {
+        if (IStorage.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateStream := CallbackCreate(GetMethod(implObj, "CreateStream"), flags, 6)
+        this.vtbl.OpenStream := CallbackCreate(GetMethod(implObj, "OpenStream"), flags, 6)
+        this.vtbl.CreateStorage := CallbackCreate(GetMethod(implObj, "CreateStorage"), flags, 6)
+        this.vtbl.OpenStorage := CallbackCreate(GetMethod(implObj, "OpenStorage"), flags, 7)
+        this.vtbl.CopyTo := CallbackCreate(GetMethod(implObj, "CopyTo"), flags, 5)
+        this.vtbl.MoveElementTo := CallbackCreate(GetMethod(implObj, "MoveElementTo"), flags, 5)
+        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 2)
+        this.vtbl.Revert := CallbackCreate(GetMethod(implObj, "Revert"), flags, 1)
+        this.vtbl.EnumElements := CallbackCreate(GetMethod(implObj, "EnumElements"), flags, 5)
+        this.vtbl.DestroyElement := CallbackCreate(GetMethod(implObj, "DestroyElement"), flags, 2)
+        this.vtbl.RenameElement := CallbackCreate(GetMethod(implObj, "RenameElement"), flags, 3)
+        this.vtbl.SetElementTimes := CallbackCreate(GetMethod(implObj, "SetElementTimes"), flags, 5)
+        this.vtbl.SetClass := CallbackCreate(GetMethod(implObj, "SetClass"), flags, 2)
+        this.vtbl.SetStateBits := CallbackCreate(GetMethod(implObj, "SetStateBits"), flags, 3)
+        this.vtbl.Stat := CallbackCreate(GetMethod(implObj, "Stat"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateStream)
+        CallbackFree(this.vtbl.OpenStream)
+        CallbackFree(this.vtbl.CreateStorage)
+        CallbackFree(this.vtbl.OpenStorage)
+        CallbackFree(this.vtbl.CopyTo)
+        CallbackFree(this.vtbl.MoveElementTo)
+        CallbackFree(this.vtbl.Commit)
+        CallbackFree(this.vtbl.Revert)
+        CallbackFree(this.vtbl.EnumElements)
+        CallbackFree(this.vtbl.DestroyElement)
+        CallbackFree(this.vtbl.RenameElement)
+        CallbackFree(this.vtbl.SetElementTimes)
+        CallbackFree(this.vtbl.SetClass)
+        CallbackFree(this.vtbl.SetStateBits)
+        CallbackFree(this.vtbl.Stat)
     }
 }

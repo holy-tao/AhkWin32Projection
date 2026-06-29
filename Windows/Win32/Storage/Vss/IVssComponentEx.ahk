@@ -1,34 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IVssComponent.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IVssComponent.ahk" { IVssComponent }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VSS_ROLLFORWARD_TYPE.ahk" { VSS_ROLLFORWARD_TYPE }
 
 /**
  * Defines additional methods for examining and modifying information about components contained in a requester's Backup Components Document.
  * @see https://learn.microsoft.com/windows/win32/api/vswriter/nl-vswriter-ivsscomponentex
  * @namespace Windows.Win32.Storage.Vss
  */
-class IVssComponentEx extends IVssComponent {
-
-    static sizeof => A_PtrSize
+export default struct IVssComponentEx extends IVssComponent {
     /**
      * The interface identifier for IVssComponentEx
      * @type {Guid}
      */
-    static IID => Guid("{156c8b5e-f131-4bd7-9c97-d1923be7e1fa}")
+    static IID := Guid("{156c8b5e-f131-4bd7-9c97-d1923be7e1fa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 41
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVssComponentEx interfaces
+    */
+    struct Vtbl extends IVssComponent.Vtbl {
+        SetPrepareForBackupFailureMsg : IntPtr
+        SetPostSnapshotFailureMsg     : IntPtr
+        GetPrepareForBackupFailureMsg : IntPtr
+        GetPostSnapshotFailureMsg     : IntPtr
+        GetAuthoritativeRestore       : IntPtr
+        GetRollForward                : IntPtr
+        GetRestoreName                : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetPrepareForBackupFailureMsg", "SetPostSnapshotFailureMsg", "GetPrepareForBackupFailureMsg", "GetPostSnapshotFailureMsg", "GetAuthoritativeRestore", "GetRollForward", "GetRestoreName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVssComponentEx.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets a PrepareForBackup failure message string for a component.
@@ -178,8 +194,8 @@ class IVssComponentEx extends IVssComponent {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponentex-getprepareforbackupfailuremsg
      */
     GetPrepareForBackupFailureMsg() {
-        pbstrFailureMsg := BSTR()
-        result := ComCall(43, this, "ptr", pbstrFailureMsg, "HRESULT")
+        pbstrFailureMsg := BSTR.Owned()
+        result := ComCall(43, this, BSTR.Ptr, pbstrFailureMsg, "HRESULT")
         return pbstrFailureMsg
     }
 
@@ -193,8 +209,8 @@ class IVssComponentEx extends IVssComponent {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponentex-getpostsnapshotfailuremsg
      */
     GetPostSnapshotFailureMsg() {
-        pbstrFailureMsg := BSTR()
-        result := ComCall(44, this, "ptr", pbstrFailureMsg, "HRESULT")
+        pbstrFailureMsg := BSTR.Owned()
+        result := ComCall(44, this, BSTR.Ptr, pbstrFailureMsg, "HRESULT")
         return pbstrFailureMsg
     }
 
@@ -274,7 +290,7 @@ class IVssComponentEx extends IVssComponent {
     GetRollForward(pRollType, pbstrPoint) {
         pRollTypeMarshal := pRollType is VarRef ? "int*" : "ptr"
 
-        result := ComCall(46, this, pRollTypeMarshal, pRollType, "ptr", pbstrPoint, "HRESULT")
+        result := ComCall(46, this, pRollTypeMarshal, pRollType, BSTR.Ptr, pbstrPoint, "HRESULT")
         return result
     }
 
@@ -294,8 +310,40 @@ class IVssComponentEx extends IVssComponent {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponentex-getrestorename
      */
     GetRestoreName() {
-        pbstrName := BSTR()
-        result := ComCall(47, this, "ptr", pbstrName, "HRESULT")
+        pbstrName := BSTR.Owned()
+        result := ComCall(47, this, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
+    }
+
+    Query(iid) {
+        if (IVssComponentEx.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetPrepareForBackupFailureMsg := CallbackCreate(GetMethod(implObj, "SetPrepareForBackupFailureMsg"), flags, 2)
+        this.vtbl.SetPostSnapshotFailureMsg := CallbackCreate(GetMethod(implObj, "SetPostSnapshotFailureMsg"), flags, 2)
+        this.vtbl.GetPrepareForBackupFailureMsg := CallbackCreate(GetMethod(implObj, "GetPrepareForBackupFailureMsg"), flags, 2)
+        this.vtbl.GetPostSnapshotFailureMsg := CallbackCreate(GetMethod(implObj, "GetPostSnapshotFailureMsg"), flags, 2)
+        this.vtbl.GetAuthoritativeRestore := CallbackCreate(GetMethod(implObj, "GetAuthoritativeRestore"), flags, 2)
+        this.vtbl.GetRollForward := CallbackCreate(GetMethod(implObj, "GetRollForward"), flags, 3)
+        this.vtbl.GetRestoreName := CallbackCreate(GetMethod(implObj, "GetRestoreName"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetPrepareForBackupFailureMsg)
+        CallbackFree(this.vtbl.SetPostSnapshotFailureMsg)
+        CallbackFree(this.vtbl.GetPrepareForBackupFailureMsg)
+        CallbackFree(this.vtbl.GetPostSnapshotFailureMsg)
+        CallbackFree(this.vtbl.GetAuthoritativeRestore)
+        CallbackFree(this.vtbl.GetRollForward)
+        CallbackFree(this.vtbl.GetRestoreName)
     }
 }

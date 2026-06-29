@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * An SP_DEVICE_INTERFACE_DETAIL_DATA structure contains the path for a device interface. (ANSI)
@@ -19,31 +19,17 @@
  * @charset ANSI
  * @architecture X64, Arm64
  */
-class SP_DEVICE_INTERFACE_DETAIL_DATA_A extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct SP_DEVICE_INTERFACE_DETAIL_DATA_A {
+    #StructPack 4
 
     /**
      * The size, in bytes, of the SP_DEVICE_INTERFACE_DETAIL_DATA structure. For more information, see the following Remarks section.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * A NULL-terminated string that contains the device interface path. This path can be passed to Win32 functions such as <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a>.
-     * @type {String}
      */
-    DevicePath {
-        get => StrGet(this.ptr + 4, 0, "UTF-8")
-        set => StrPut(value, this.ptr + 4, 0, "UTF-8")
-    }
+    DevicePath : CHAR[1]
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 8
-    }
 }

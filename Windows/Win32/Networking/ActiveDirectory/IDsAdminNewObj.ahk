@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDsAdminNewObj interface is used by a primary or secondary object creation wizard extension to obtain page count data and to control the command buttons in the wizard.
  * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nn-dsadmin-idsadminnewobj
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IDsAdminNewObj extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDsAdminNewObj extends IUnknown {
     /**
      * The interface identifier for IDsAdminNewObj
      * @type {Guid}
      */
-    static IID => Guid("{f2573587-e6fc-11d2-82af-00c04f68928b}")
+    static IID := Guid("{f2573587-e6fc-11d2-82af-00c04f68928b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDsAdminNewObj interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetButtons    : IntPtr
+        GetPageCounts : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetButtons", "GetPageCounts"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDsAdminNewObj.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IDsAdminNewObj::SetButtons method enables or disables the &quot;Next&quot; command button in the wizard for a specific page.
@@ -44,7 +54,7 @@ class IDsAdminNewObj extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnewobj-setbuttons
      */
     SetButtons(nCurrIndex, bValid) {
-        result := ComCall(3, this, "uint", nCurrIndex, "int", bValid, "HRESULT")
+        result := ComCall(3, this, "uint", nCurrIndex, BOOL, bValid, "HRESULT")
         return result
     }
 
@@ -67,5 +77,27 @@ class IDsAdminNewObj extends IUnknown {
 
         result := ComCall(4, this, pnTotalMarshal, pnTotal, pnStartIndexMarshal, pnStartIndex, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDsAdminNewObj.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetButtons := CallbackCreate(GetMethod(implObj, "SetButtons"), flags, 3)
+        this.vtbl.GetPageCounts := CallbackCreate(GetMethod(implObj, "GetPageCounts"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetButtons)
+        CallbackFree(this.vtbl.GetPageCounts)
     }
 }

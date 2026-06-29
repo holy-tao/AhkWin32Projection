@@ -1,31 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DEDUP_CHUNK_INFO_HASH32.ahk" { DEDUP_CHUNK_INFO_HASH32 }
 
 /**
  * @namespace Windows.Win32.Storage.DataDeduplication
  */
-class IDedupIterateChunksHash32 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDedupIterateChunksHash32 extends IUnknown {
     /**
      * The interface identifier for IDedupIterateChunksHash32
      * @type {Guid}
      */
-    static IID => Guid("{90b584d3-72aa-400f-9767-cad866a5a2d8}")
+    static IID := Guid("{90b584d3-72aa-400f-9767-cad866a5a2d8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDedupIterateChunksHash32 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        PushBuffer : IntPtr
+        Next       : IntPtr
+        Drain      : IntPtr
+        Reset      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["PushBuffer", "Next", "Drain", "Reset"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDedupIterateChunksHash32.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -50,7 +62,7 @@ class IDedupIterateChunksHash32 extends IUnknown {
     Next(ulMaxChunks, pArrChunks, pulFetched) {
         pulFetchedMarshal := pulFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulMaxChunks, "ptr", pArrChunks, pulFetchedMarshal, pulFetched, "HRESULT")
+        result := ComCall(4, this, "uint", ulMaxChunks, DEDUP_CHUNK_INFO_HASH32.Ptr, pArrChunks, pulFetchedMarshal, pulFetched, "HRESULT")
         return result
     }
 
@@ -64,27 +76,37 @@ class IDedupIterateChunksHash32 extends IUnknown {
     }
 
     /**
-     * Resets the time-out period or other mechanism that TPM manufacturers implement to protect against dictionary attacks on TPM authorization values.
-     * @remarks
-     * This method calls the TPM\_ResetLockValue command on the TPM. The exact behavior of this method varies among TPM manufacturers. Documentation from the computer or TPM manufacturer may provide additional information on the implementation of the anti-dictionary attack mechanism.
      * 
-     * In general, manufacturers can detect dictionary attacks by keeping track of failed authentications. If the number or frequency of failures become high enough, the TPM will lock out further commands for a certain time. Generally, the initial time-out period will be short, to allow a legitimate user a chance to correct the situation. If failures continue, the duration of each subsequent time-out period may increase rapidly.
-     * 
-     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
-     * @returns {HRESULT} Type: **uint32**
-     * 
-     * All TPM errors as well as errors specific to TPM Base Services can be returned. The following table lists some of the common return values.
-     * 
-     * 
-     * 
-     * | Return code/value                                                                                                                                                            | Description                                                                                                                                                                                                                                                               |
-     * |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl>                            | The method was successful.<br/>                                                                                                                                                                                                                                     |
-     * | <dl> <dt>**TPM\_E\_AUTHFAIL**</dt> <dt>2150105089 (0x80280001)</dt> </dl> | The provided owner authorization value is incorrect. Additional attempts at resetting the lock will fail with this same error. Please wait until the time-out period or other manufacturer-specific mechanism has expired before retrying locked TPM commands.<br/> |
-     * @see https://learn.microsoft.com/windows/win32/SecProv/resetauthlockout-win32-tpm
+     * @returns {HRESULT} 
      */
     Reset() {
         result := ComCall(6, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDedupIterateChunksHash32.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.PushBuffer := CallbackCreate(GetMethod(implObj, "PushBuffer"), flags, 3)
+        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 4)
+        this.vtbl.Drain := CallbackCreate(GetMethod(implObj, "Drain"), flags, 1)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.PushBuffer)
+        CallbackFree(this.vtbl.Next)
+        CallbackFree(this.vtbl.Drain)
+        CallbackFree(this.vtbl.Reset)
     }
 }

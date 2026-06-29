@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Defines the properties of the service object.
@@ -8,26 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_service_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_SERVICE_PROP extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct VDS_SERVICE_PROP {
+    #StructPack 8
 
     /**
      * The version of VDS; a zero-terminated, human-readable string.
-     * @type {PWSTR}
      */
-    pwszVersion {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pwszVersion : PWSTR
 
     /**
      * A bitmask of <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_service_flag">VDS_SERVICE_FLAG</a> enumeration values that describe the service.
-     * @type {Integer}
      */
-    ulFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulFlags : UInt32
+
 }

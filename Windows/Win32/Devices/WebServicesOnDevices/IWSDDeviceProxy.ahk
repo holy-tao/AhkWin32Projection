@@ -1,10 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IWSDAsyncResult.ahk
-#Include .\IWSDServiceProxy.ahk
-#Include .\IWSDEndpointProxy.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWSDEndpointProxy.ahk" { IWSDEndpointProxy }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WSDXML_NAME.ahk" { WSDXML_NAME }
+#Import ".\WSD_THIS_DEVICE_METADATA.ahk" { WSD_THIS_DEVICE_METADATA }
+#Import ".\IWSDXMLContext.ahk" { IWSDXMLContext }
+#Import ".\WSD_METADATA_SECTION_LIST.ahk" { WSD_METADATA_SECTION_LIST }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWSDServiceProxy.ahk" { IWSDServiceProxy }
+#Import ".\IWSDAsyncResult.ahk" { IWSDAsyncResult }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WSD_THIS_MODEL_METADATA.ahk" { WSD_THIS_MODEL_METADATA }
+#Import ".\IWSDAddress.ahk" { IWSDAddress }
+#Import ".\WSD_HOST_METADATA.ahk" { WSD_HOST_METADATA }
 
 /**
  * Represents a remote Devices Profile for Web Services (DPWS) device for client applications and middleware.
@@ -25,26 +34,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nn-wsdclient-iwsddeviceproxy
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class IWSDDeviceProxy extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWSDDeviceProxy extends IUnknown {
     /**
      * The interface identifier for IWSDDeviceProxy
      * @type {Guid}
      */
-    static IID => Guid("{eee0c031-c578-4c0e-9a3b-973c35f409db}")
+    static IID := Guid("{eee0c031-c578-4c0e-9a3b-973c35f409db}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWSDDeviceProxy interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Init                  : IntPtr
+        BeginGetMetadata      : IntPtr
+        EndGetMetadata        : IntPtr
+        GetHostMetadata       : IntPtr
+        GetThisModelMetadata  : IntPtr
+        GetThisDeviceMetadata : IntPtr
+        GetAllMetadata        : IntPtr
+        GetServiceProxyById   : IntPtr
+        GetServiceProxyByType : IntPtr
+        GetEndpointProxy      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Init", "BeginGetMetadata", "EndGetMetadata", "GetHostMetadata", "GetThisModelMetadata", "GetThisDeviceMetadata", "GetAllMetadata", "GetServiceProxyById", "GetServiceProxyByType", "GetEndpointProxy"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWSDDeviceProxy.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes the device proxy, optionally sharing a session with a previously initialized sponsoring device proxy.
@@ -280,7 +305,7 @@ class IWSDDeviceProxy extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsddeviceproxy-getserviceproxybytype
      */
     GetServiceProxyByType(pType) {
-        result := ComCall(11, this, "ptr", pType, "ptr*", &ppServiceProxy := 0, "HRESULT")
+        result := ComCall(11, this, WSDXML_NAME.Ptr, pType, "ptr*", &ppServiceProxy := 0, "HRESULT")
         return IWSDServiceProxy(ppServiceProxy)
     }
 
@@ -292,5 +317,43 @@ class IWSDDeviceProxy extends IUnknown {
     GetEndpointProxy() {
         result := ComCall(12, this, "ptr*", &ppProxy := 0, "HRESULT")
         return IWSDEndpointProxy(ppProxy)
+    }
+
+    Query(iid) {
+        if (IWSDDeviceProxy.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 6)
+        this.vtbl.BeginGetMetadata := CallbackCreate(GetMethod(implObj, "BeginGetMetadata"), flags, 2)
+        this.vtbl.EndGetMetadata := CallbackCreate(GetMethod(implObj, "EndGetMetadata"), flags, 2)
+        this.vtbl.GetHostMetadata := CallbackCreate(GetMethod(implObj, "GetHostMetadata"), flags, 2)
+        this.vtbl.GetThisModelMetadata := CallbackCreate(GetMethod(implObj, "GetThisModelMetadata"), flags, 2)
+        this.vtbl.GetThisDeviceMetadata := CallbackCreate(GetMethod(implObj, "GetThisDeviceMetadata"), flags, 2)
+        this.vtbl.GetAllMetadata := CallbackCreate(GetMethod(implObj, "GetAllMetadata"), flags, 2)
+        this.vtbl.GetServiceProxyById := CallbackCreate(GetMethod(implObj, "GetServiceProxyById"), flags, 3)
+        this.vtbl.GetServiceProxyByType := CallbackCreate(GetMethod(implObj, "GetServiceProxyByType"), flags, 3)
+        this.vtbl.GetEndpointProxy := CallbackCreate(GetMethod(implObj, "GetEndpointProxy"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Init)
+        CallbackFree(this.vtbl.BeginGetMetadata)
+        CallbackFree(this.vtbl.EndGetMetadata)
+        CallbackFree(this.vtbl.GetHostMetadata)
+        CallbackFree(this.vtbl.GetThisModelMetadata)
+        CallbackFree(this.vtbl.GetThisDeviceMetadata)
+        CallbackFree(this.vtbl.GetAllMetadata)
+        CallbackFree(this.vtbl.GetServiceProxyById)
+        CallbackFree(this.vtbl.GetServiceProxyByType)
+        CallbackFree(this.vtbl.GetEndpointProxy)
     }
 }

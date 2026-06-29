@@ -1,141 +1,77 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IKEEXT_KEY_MODULE_TYPE.ahk
-#Include .\FWP_IP_VERSION.ahk
-#Include .\IPSEC_V4_UDP_ENCAPSULATION0.ahk
-#Include .\IKEEXT_TRAFFIC0.ahk
-#Include .\IKEEXT_PROPOSAL0.ahk
-#Include .\IKEEXT_CIPHER_ALGORITHM0.ahk
-#Include .\IKEEXT_CIPHER_TYPE.ahk
-#Include .\IKEEXT_INTEGRITY_ALGORITHM0.ahk
-#Include .\IKEEXT_INTEGRITY_TYPE.ahk
-#Include .\IKEEXT_DH_GROUP.ahk
-#Include .\IKEEXT_COOKIE_PAIR0.ahk
-#Include .\IKEEXT_CREDENTIALS1.ahk
-#Include .\IKEEXT_CREDENTIAL_PAIR1.ahk
-#Include .\FWP_BYTE_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IKEEXT_TRAFFIC0.ahk" { IKEEXT_TRAFFIC0 }
+#Import ".\IKEEXT_CREDENTIALS1.ahk" { IKEEXT_CREDENTIALS1 }
+#Import ".\IKEEXT_INTEGRITY_TYPE.ahk" { IKEEXT_INTEGRITY_TYPE }
+#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
+#Import ".\IKEEXT_DH_GROUP.ahk" { IKEEXT_DH_GROUP }
+#Import ".\IKEEXT_KEY_MODULE_TYPE.ahk" { IKEEXT_KEY_MODULE_TYPE }
+#Import ".\IKEEXT_CREDENTIAL_PAIR1.ahk" { IKEEXT_CREDENTIAL_PAIR1 }
+#Import ".\IKEEXT_INTEGRITY_ALGORITHM0.ahk" { IKEEXT_INTEGRITY_ALGORITHM0 }
+#Import ".\IPSEC_V4_UDP_ENCAPSULATION0.ahk" { IPSEC_V4_UDP_ENCAPSULATION0 }
+#Import ".\IKEEXT_COOKIE_PAIR0.ahk" { IKEEXT_COOKIE_PAIR0 }
+#Import ".\IKEEXT_CIPHER_TYPE.ahk" { IKEEXT_CIPHER_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FWP_IP_VERSION.ahk" { FWP_IP_VERSION }
+#Import ".\IKEEXT_CIPHER_ALGORITHM0.ahk" { IKEEXT_CIPHER_ALGORITHM0 }
+#Import ".\IKEEXT_PROPOSAL0.ahk" { IKEEXT_PROPOSAL0 }
 
 /**
  * Is used to store information returned when enumerating IKE, AuthIP, and IKEv2 security associations (SAs). (IKEEXT_SA_DETAILS1)
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_sa_details1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IKEEXT_SA_DETAILS1 extends Win32Struct {
-    static sizeof => 168
-
-    static packingSize => 8
+export default struct IKEEXT_SA_DETAILS1 {
+    #StructPack 8
 
     /**
      * LUID identifying the security association.
-     * @type {Integer}
      */
-    saId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    saId : Int64
 
     /**
      * Key module type. 
      * 
      * See [IKEEXT_KEY_MODULE_TYPE](/windows/desktop/api/iketypes/ne-iketypes-ikeext_key_module_type) for more information.
-     * @type {IKEEXT_KEY_MODULE_TYPE}
      */
-    keyModuleType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    keyModuleType : IKEEXT_KEY_MODULE_TYPE
 
     /**
      * IP version specified by [FWP_IP_VERSION](/windows/desktop/api/fwptypes/ne-fwptypes-fwp_ip_version).
-     * @type {FWP_IP_VERSION}
      */
-    ipVersion {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    ipVersion : FWP_IP_VERSION
 
-    /**
-     * @type {Pointer<IPSEC_V4_UDP_ENCAPSULATION0>}
-     */
-    v4UdpEncapsulation {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    v4UdpEncapsulation : IPSEC_V4_UDP_ENCAPSULATION0.Ptr
 
     /**
      * The traffic corresponding to this IKE SA specified by [IKEEXT_TRAFFIC0](/windows/desktop/api/iketypes/ns-iketypes-ikeext_traffic0).
-     * @type {IKEEXT_TRAFFIC0}
      */
-    ikeTraffic {
-        get {
-            if(!this.HasProp("__ikeTraffic"))
-                this.__ikeTraffic := IKEEXT_TRAFFIC0(24, this)
-            return this.__ikeTraffic
-        }
-    }
+    ikeTraffic : IKEEXT_TRAFFIC0
 
     /**
      * The main mode proposal corresponding to this IKE SA specified by [IKEEXT_PROPOSAL0](/windows/desktop/api/iketypes/ns-iketypes-ikeext_proposal0).
-     * @type {IKEEXT_PROPOSAL0}
      */
-    ikeProposal {
-        get {
-            if(!this.HasProp("__ikeProposal"))
-                this.__ikeProposal := IKEEXT_PROPOSAL0(72, this)
-            return this.__ikeProposal
-        }
-    }
+    ikeProposal : IKEEXT_PROPOSAL0
 
     /**
      * SA cookies specified by [IKEEXT_COOKIE_PAIR0](/windows/desktop/api/iketypes/ns-iketypes-ikeext_cookie_pair0).
-     * @type {IKEEXT_COOKIE_PAIR0}
      */
-    cookiePair {
-        get {
-            if(!this.HasProp("__cookiePair"))
-                this.__cookiePair := IKEEXT_COOKIE_PAIR0(104, this)
-            return this.__cookiePair
-        }
-    }
+    cookiePair : IKEEXT_COOKIE_PAIR0
 
     /**
      * Credentials information for the SA specified by [IKEEXT_CREDENTIALS1](/windows/desktop/api/iketypes/ns-iketypes-ikeext_credentials1).
-     * @type {IKEEXT_CREDENTIALS1}
      */
-    ikeCredentials {
-        get {
-            if(!this.HasProp("__ikeCredentials"))
-                this.__ikeCredentials := IKEEXT_CREDENTIALS1(120, this)
-            return this.__ikeCredentials
-        }
-    }
+    ikeCredentials : IKEEXT_CREDENTIALS1
 
     /**
      * GUID of the main mode policy provider context corresponding to this SA.
-     * @type {Pointer}
      */
-    ikePolicyKey {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
-    }
+    ikePolicyKey : Guid
 
     /**
      * ID/Handle to virtual interface tunneling state. Applicable only to IKEv2.
-     * @type {Integer}
      */
-    virtualIfTunnelId {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
-    }
+    virtualIfTunnelId : Int64
 
-    /**
-     * @type {FWP_BYTE_BLOB}
-     */
-    correlationKey {
-        get {
-            if(!this.HasProp("__correlationKey"))
-                this.__correlationKey := FWP_BYTE_BLOB(152, this)
-            return this.__correlationKey
-        }
-    }
+    correlationKey : FWP_BYTE_BLOB
+
 }

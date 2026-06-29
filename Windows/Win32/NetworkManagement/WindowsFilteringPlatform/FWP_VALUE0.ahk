@@ -1,11 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWP_DATA_TYPE.ahk
-#Include .\FWP_BYTE_ARRAY16.ahk
-#Include .\FWP_BYTE_BLOB.ahk
-#Include ..\..\Security\SID.ahk
-#Include .\FWP_TOKEN_INFORMATION.ahk
-#Include .\FWP_BYTE_ARRAY6.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Security\SID.ahk" { SID }
+#Import ".\FWP_TOKEN_INFORMATION.ahk" { FWP_TOKEN_INFORMATION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\FWP_BYTE_ARRAY6.ahk" { FWP_BYTE_ARRAY6 }
+#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
+#Import ".\FWP_DATA_TYPE.ahk" { FWP_DATA_TYPE }
+#Import ".\FWP_BYTE_ARRAY16.ahk" { FWP_BYTE_ARRAY16 }
 
 /**
  * Defines a data value that can be one of a number of different data types.
@@ -21,163 +21,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ns-fwptypes-fwp_value0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class FWP_VALUE0 extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct FWP_VALUE0 {
+    #StructPack 8
 
     /**
      * The type of data for this value. 
      * 
      * See [FWP_DATA_TYPE](/windows/desktop/api/fwptypes/ne-fwptypes-fwp_data_type) for more information.
-     * @type {FWP_DATA_TYPE}
      */
-    type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    type : FWP_DATA_TYPE
 
-    /**
-     * @type {Integer}
-     */
-    uint8 {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    uint8 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    uint16 {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    uint32 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    uint64 {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    int8 {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    int16 {
-        get => NumGet(this, 8, "short")
-        set => NumPut("short", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    int32 {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    int64 {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Float}
-     */
-    float32 {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<Float>}
-     */
-    double64 {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<FWP_BYTE_ARRAY16>}
-     */
-    byteArray16 {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<FWP_BYTE_BLOB>}
-     */
-    byteBlob {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<SID>}
-     */
-    sid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<FWP_BYTE_BLOB>}
-     */
-    sd {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<FWP_TOKEN_INFORMATION>}
-     */
-    tokenInformation {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<FWP_BYTE_BLOB>}
-     */
-    tokenAccessInformation {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {PWSTR}
-     */
-    unicodeString {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<FWP_BYTE_ARRAY6>}
-     */
-    byteArray6 {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'uint16', { type: UInt16, offset: 8 })
+        DefineProp(this.Prototype, 'uint32', { type: UInt32, offset: 8 })
+        DefineProp(this.Prototype, 'uint64', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'int8', { type: Int8, offset: 8 })
+        DefineProp(this.Prototype, 'int16', { type: Int16, offset: 8 })
+        DefineProp(this.Prototype, 'int32', { type: Int32, offset: 8 })
+        DefineProp(this.Prototype, 'int64', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'float32', { type: Float32, offset: 8 })
+        DefineProp(this.Prototype, 'double64', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'byteArray16', { type: FWP_BYTE_ARRAY16.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'byteBlob', { type: FWP_BYTE_BLOB.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'sid', { type: SID.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'sd', { type: FWP_BYTE_BLOB.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'tokenInformation', { type: FWP_TOKEN_INFORMATION.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'tokenAccessInformation', { type: FWP_BYTE_BLOB.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'unicodeString', { type: PWSTR, offset: 8 })
+        DefineProp(this.Prototype, 'byteArray6', { type: FWP_BYTE_ARRAY6.Ptr, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

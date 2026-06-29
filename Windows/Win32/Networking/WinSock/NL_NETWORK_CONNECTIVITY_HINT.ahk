@@ -1,70 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NL_NETWORK_CONNECTIVITY_LEVEL_HINT.ahk
-#Include .\NL_NETWORK_CONNECTIVITY_COST_HINT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NL_NETWORK_CONNECTIVITY_COST_HINT.ahk" { NL_NETWORK_CONNECTIVITY_COST_HINT }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\NL_NETWORK_CONNECTIVITY_LEVEL_HINT.ahk" { NL_NETWORK_CONNECTIVITY_LEVEL_HINT }
 
 /**
  * Describes a level of network connectivity, the usage charge for a network connection, and other members reflecting cost factors.
  * @see https://learn.microsoft.com/windows/win32/api/nldef/ns-nldef-nl_network_connectivity_hint
  * @namespace Windows.Win32.Networking.WinSock
  */
-class NL_NETWORK_CONNECTIVITY_HINT extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct NL_NETWORK_CONNECTIVITY_HINT {
+    #StructPack 4
 
     /**
      * Type: **[NL_NETWORK_CONNECTIVITY_LEVEL_HINT](./ne-nldef-nl_network_connectivity_level_hint.md)**
      * 
      * The level of network connectivity.
-     * @type {NL_NETWORK_CONNECTIVITY_LEVEL_HINT}
      */
-    ConnectivityLevel {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ConnectivityLevel : NL_NETWORK_CONNECTIVITY_LEVEL_HINT
 
     /**
      * Type: **[NL_NETWORK_CONNECTIVITY_COST_HINT](./ne-nldef-nl_network_connectivity_cost_hint.md)**
      * 
      * The usage charge for the network connection.
-     * @type {NL_NETWORK_CONNECTIVITY_COST_HINT}
      */
-    ConnectivityCost {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    ConnectivityCost : NL_NETWORK_CONNECTIVITY_COST_HINT
 
     /**
      * Type: **[BOOLEAN](/windows/win32/winprog/windows-data-types)**
      * 
      * `TRUE` if the connection is approaching its data limit, otherwise `FALSE`.
-     * @type {BOOLEAN}
      */
-    ApproachingDataLimit {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    ApproachingDataLimit : BOOLEAN
 
     /**
      * Type: **[BOOLEAN](/windows/win32/winprog/windows-data-types)**
      * 
      * `TRUE` if the connection has exceeded its data limit, otherwise `FALSE`.
-     * @type {BOOLEAN}
      */
-    OverDataLimit {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    OverDataLimit : BOOLEAN
 
     /**
      * Type: **[BOOLEAN](/windows/win32/winprog/windows-data-types)**
      * 
      * `TRUE` if the connection is roaming, otherwise `FALSE`.
-     * @type {BOOLEAN}
      */
-    Roaming {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    Roaming : BOOLEAN
+
 }

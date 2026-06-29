@@ -1,19 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Foundation
  */
-class BOOLEAN extends Win32Struct {
-    static sizeof => 1
+export default struct BOOLEAN {
+    value : Int8
 
-    static packingSize => 1
+    __value {
+        get => !!this.value
+        set {
+            if (value is BOOLEAN) {
+                this.value := value.value
+            }
+            else {
+                this.value := !!value
+            }
+        }
+    }
 
-    /**
-     * @type {Integer}
-     */
-    Value {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
+    __New(value := 0) {
+        this.value := value
     }
 }

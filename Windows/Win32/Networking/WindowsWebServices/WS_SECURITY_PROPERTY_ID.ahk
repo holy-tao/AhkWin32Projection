@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Identifies the properties representing channel-wide security settings. This enumeration is used within the WS_SECURITY_PROPERTY structure, which is in turn used within a WS_SECURITY_DESCRIPTION structure.
@@ -11,7 +10,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_security_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_SECURITY_PROPERTY_ID extends Win32Enum {
+export default struct WS_SECURITY_PROPERTY_ID {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_protection_level">WS_PROTECTION_LEVEL</a> value that determines whether signing alone or

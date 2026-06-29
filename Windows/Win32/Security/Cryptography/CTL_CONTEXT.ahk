@@ -1,17 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CTL_INFO.ahk
-#Include .\HCERTSTORE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HCERTSTORE.ahk" { HCERTSTORE }
+#Import ".\CTL_INFO.ahk" { CTL_INFO }
 
 /**
  * The CTL_CONTEXT structure contains both the encoded and decoded representations of a CTL.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ctl_context
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CTL_CONTEXT extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct CTL_CONTEXT {
+    #StructPack 8
 
     /**
      * Type of encoding used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
@@ -24,77 +21,43 @@ class CTL_CONTEXT extends Win32Struct {
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @type {Integer}
      */
-    dwMsgAndCertEncodingType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwMsgAndCertEncodingType : UInt32
 
     /**
      * A pointer to the encoded CTL.
-     * @type {Pointer<Integer>}
      */
-    pbCtlEncoded {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pbCtlEncoded : IntPtr
 
     /**
      * The size, in bytes, of the encoded CTL.
-     * @type {Integer}
      */
-    cbCtlEncoded {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cbCtlEncoded : UInt32
 
     /**
      * A pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_info">CTL_INFO</a> structure contain the CTL information.
-     * @type {Pointer<CTL_INFO>}
      */
-    pCtlInfo {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pCtlInfo : CTL_INFO.Ptr
 
     /**
      * A handle to the certificate store.
-     * @type {HCERTSTORE}
      */
-    hCertStore {
-        get {
-            if(!this.HasProp("__hCertStore"))
-                this.__hCertStore := HCERTSTORE(32, this)
-            return this.__hCertStore
-        }
-    }
+    hCertStore : HCERTSTORE
 
     /**
      * Open <b>HCRYPTMSG</b> handle to a decoded, cryptographic-signed message containing the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_info">CTL_INFO</a> as its <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">inner content</a>.
-     * @type {Pointer<Void>}
      */
-    hCryptMsg {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    hCryptMsg : IntPtr
 
     /**
      * The encoded <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">inner content</a> of the signed message.
-     * @type {Pointer<Integer>}
      */
-    pbCtlContent {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pbCtlContent : IntPtr
 
     /**
      * Count, in bytes, of <b>pbCtlContent</b>.
-     * @type {Integer}
      */
-    cbCtlContent {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    cbCtlContent : UInt32
+
 }

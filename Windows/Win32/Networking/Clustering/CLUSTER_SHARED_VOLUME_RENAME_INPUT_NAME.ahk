@@ -1,19 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUSTER_SHARED_VOLUME_RENAME_INPUT_NAME extends Win32Struct {
-    static sizeof => 520
+export default struct CLUSTER_SHARED_VOLUME_RENAME_INPUT_NAME {
+    #StructPack 2
 
-    static packingSize => 2
+    NewVolumeName : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    NewVolumeName {
-        get => StrGet(this.ptr + 0, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 259, "UTF-16")
-    }
 }

@@ -1,27 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PROCESS_SYSCALL_PROVIDER_INFORMATION extends Win32Struct {
-    static sizeof => 16
+export default struct PROCESS_SYSCALL_PROVIDER_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 8
+    ProviderId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    ProviderId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Level : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Level {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
 }

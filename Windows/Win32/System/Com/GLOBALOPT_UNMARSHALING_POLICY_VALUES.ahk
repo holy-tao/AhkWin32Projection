@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The GLOBALOPT_UNMARSHALING_POLICY_VALUES (objidlbase.h) enumeration provides values for the COM unmarshaling policy global option.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/ne-objidlbase-globalopt_unmarshaling_policy_values
  * @namespace Windows.Win32.System.Com
  */
-class GLOBALOPT_UNMARSHALING_POLICY_VALUES extends Win32Enum {
+export default struct GLOBALOPT_UNMARSHALING_POLICY_VALUES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Unmarshaling behavior is the same as versions older than Windows 8. <b>EOAC_NO_CUSTOM_MARSHAL</b> restrictions apply if this flag is set in <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializesecurity">CoInitializeSecurity</a>. Otherwise, there are no restrictions. This is the default for processes that aren't in the app container.

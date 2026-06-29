@@ -1,33 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IADs.ahk" { IADs }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\IADsContainer.ahk" { IADsContainer }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IDsAdminNewObj.ahk" { IDsAdminNewObj }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DSA_NEWOBJ_DISPINFO.ahk" { DSA_NEWOBJ_DISPINFO }
 
 /**
  * The IDsAdminNewObjExt interface is implemented by an object creation wizard extension.
  * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nn-dsadmin-idsadminnewobjext
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IDsAdminNewObjExt extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDsAdminNewObjExt extends IUnknown {
     /**
      * The interface identifier for IDsAdminNewObjExt
      * @type {Guid}
      */
-    static IID => Guid("{6088eae2-e7bf-11d2-82af-00c04f68928b}")
+    static IID := Guid("{6088eae2-e7bf-11d2-82af-00c04f68928b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDsAdminNewObjExt interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize     : IntPtr
+        AddPages       : IntPtr
+        SetObject      : IntPtr
+        WriteData      : IntPtr
+        OnError        : IntPtr
+        GetSummaryInfo : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "AddPages", "SetObject", "WriteData", "OnError", "GetSummaryInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDsAdminNewObjExt.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IDsAdminNewObjExt::Initialize method initializes an object creation wizard extension.
@@ -44,7 +65,7 @@ class IDsAdminNewObjExt extends IUnknown {
     Initialize(pADsContainerObj, pADsCopySource, lpszClassName, pDsAdminNewObj, pDispInfo) {
         lpszClassName := lpszClassName is String ? StrPtr(lpszClassName) : lpszClassName
 
-        result := ComCall(3, this, "ptr", pADsContainerObj, "ptr", pADsCopySource, "ptr", lpszClassName, "ptr", pDsAdminNewObj, "ptr", pDispInfo, "HRESULT")
+        result := ComCall(3, this, "ptr", pADsContainerObj, "ptr", pADsCopySource, "ptr", lpszClassName, "ptr", pDsAdminNewObj, DSA_NEWOBJ_DISPINFO.Ptr, pDispInfo, "HRESULT")
         return result
     }
 
@@ -71,7 +92,7 @@ class IDsAdminNewObjExt extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnewobjext-addpages
      */
     AddPages(lpfnAddPage, _lParam) {
-        result := ComCall(4, this, "ptr", lpfnAddPage, "ptr", _lParam, "HRESULT")
+        result := ComCall(4, this, "ptr", lpfnAddPage, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -98,9 +119,7 @@ class IDsAdminNewObjExt extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnewobjext-writedata
      */
     WriteData(_hWnd, uContext) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-
-        result := ComCall(6, this, "ptr", _hWnd, "uint", uContext, "HRESULT")
+        result := ComCall(6, this, HWND, _hWnd, "uint", uContext, "HRESULT")
         return result
     }
 
@@ -115,9 +134,7 @@ class IDsAdminNewObjExt extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnewobjext-onerror
      */
     OnError(_hWnd, hr, uContext) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-
-        result := ComCall(7, this, "ptr", _hWnd, "int", hr, "uint", uContext, "HRESULT")
+        result := ComCall(7, this, HWND, _hWnd, "int", hr, "uint", uContext, "HRESULT")
         return result
     }
 
@@ -130,7 +147,37 @@ class IDsAdminNewObjExt extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnewobjext-getsummaryinfo
      */
     GetSummaryInfo(pBstrText) {
-        result := ComCall(8, this, "ptr", pBstrText, "HRESULT")
+        result := ComCall(8, this, BSTR.Ptr, pBstrText, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDsAdminNewObjExt.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 6)
+        this.vtbl.AddPages := CallbackCreate(GetMethod(implObj, "AddPages"), flags, 3)
+        this.vtbl.SetObject := CallbackCreate(GetMethod(implObj, "SetObject"), flags, 2)
+        this.vtbl.WriteData := CallbackCreate(GetMethod(implObj, "WriteData"), flags, 3)
+        this.vtbl.OnError := CallbackCreate(GetMethod(implObj, "OnError"), flags, 4)
+        this.vtbl.GetSummaryInfo := CallbackCreate(GetMethod(implObj, "GetSummaryInfo"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.AddPages)
+        CallbackFree(this.vtbl.SetObject)
+        CallbackFree(this.vtbl.WriteData)
+        CallbackFree(this.vtbl.OnError)
+        CallbackFree(this.vtbl.GetSummaryInfo)
     }
 }

@@ -1,84 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Media.Audio
  * @charset Unicode
  */
-class MIXERCAPS2W extends Win32Struct {
-    static sizeof => 104
+export default struct MIXERCAPS2W {
+    #StructPack 4
 
-    static packingSize => 8
+    wMid : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMid {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    wPid : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wPid {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    vDriverVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    vDriverVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    szPname : WCHAR[32]
 
-    /**
-     * @type {String}
-     */
-    szPname {
-        get => StrGet(this.ptr + 8, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 31, "UTF-16")
-    }
+    fdwSupport : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fdwSupport {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    cDestinations : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cDestinations {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    ManufacturerGuid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    ManufacturerGuid {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    ProductGuid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    ProductGuid {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    NameGuid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    NameGuid {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
 }

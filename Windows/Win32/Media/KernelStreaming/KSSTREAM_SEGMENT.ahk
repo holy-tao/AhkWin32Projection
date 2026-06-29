@@ -1,50 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IKsInterfaceHandler.ahk
-#Include .\IKsDataTypeHandler.ahk
-#Include .\KSIOOPERATION.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IKsDataTypeHandler.ahk" { IKsDataTypeHandler }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\KSIOOPERATION.ahk" { KSIOOPERATION }
+#Import ".\IKsInterfaceHandler.ahk" { IKsInterfaceHandler }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSSTREAM_SEGMENT extends Win32Struct {
-    static sizeof => 32
+export default struct KSSTREAM_SEGMENT {
+    #StructPack 8
 
-    static packingSize => 8
+    KsInterfaceHandler : IKsInterfaceHandler
 
-    /**
-     * @type {IKsInterfaceHandler}
-     */
-    KsInterfaceHandler {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    KsDataTypeHandler : IKsDataTypeHandler
 
-    /**
-     * @type {IKsDataTypeHandler}
-     */
-    KsDataTypeHandler {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    IoOperation : KSIOOPERATION
 
-    /**
-     * @type {KSIOOPERATION}
-     */
-    IoOperation {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    CompletionEvent : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    CompletionEvent {
-        get {
-            if(!this.HasProp("__CompletionEvent"))
-                this.__CompletionEvent := HANDLE(24, this)
-            return this.__CompletionEvent
-        }
-    }
 }

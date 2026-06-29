@@ -1,33 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Notifies the Filter Graph Manager of events that occur within the filter graph.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-imediaeventsink
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IMediaEventSink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMediaEventSink extends IUnknown {
     /**
      * The interface identifier for IMediaEventSink
      * @type {Guid}
      */
-    static IID => Guid("{56a868a2-0ad4-11ce-b03a-0020af0ba770}")
+    static IID := Guid("{56a868a2-0ad4-11ce-b03a-0020af0ba770}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMediaEventSink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Notify : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Notify"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMediaEventSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Notify method notifies the Filter Graph Manager of an event.
@@ -42,5 +50,25 @@ class IMediaEventSink extends IUnknown {
     Notify(EventCode, EventParam1, EventParam2) {
         result := ComCall(3, this, "int", EventCode, "ptr", EventParam1, "ptr", EventParam2, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMediaEventSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Notify := CallbackCreate(GetMethod(implObj, "Notify"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Notify)
     }
 }

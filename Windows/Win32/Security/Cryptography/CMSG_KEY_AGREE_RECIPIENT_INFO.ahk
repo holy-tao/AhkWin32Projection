@@ -1,105 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CMSG_KEY_AGREE_ORIGINATOR.ahk
-#Include .\CERT_ID.ahk
-#Include .\CERT_ID_OPTION.ahk
-#Include .\CERT_ISSUER_SERIAL_NUMBER.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
-#Include .\CERT_PUBLIC_KEY_INFO.ahk
-#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include .\CRYPT_BIT_BLOB.ahk
-#Include .\CMSG_RECIPIENT_ENCRYPTED_KEY_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CERT_PUBLIC_KEY_INFO.ahk" { CERT_PUBLIC_KEY_INFO }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\CERT_ID_OPTION.ahk" { CERT_ID_OPTION }
+#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
+#Import ".\CERT_ISSUER_SERIAL_NUMBER.ahk" { CERT_ISSUER_SERIAL_NUMBER }
+#Import ".\CERT_ID.ahk" { CERT_ID }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\CRYPT_BIT_BLOB.ahk" { CRYPT_BIT_BLOB }
+#Import ".\CMSG_KEY_AGREE_ORIGINATOR.ahk" { CMSG_KEY_AGREE_ORIGINATOR }
+#Import ".\CMSG_RECIPIENT_ENCRYPTED_KEY_INFO.ahk" { CMSG_RECIPIENT_ENCRYPTED_KEY_INFO }
 
 /**
  * Contains information used for key agreement algorithms.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_key_agree_recipient_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CMSG_KEY_AGREE_RECIPIENT_INFO extends Win32Struct {
-    static sizeof => 112
-
-    static packingSize => 8
+export default struct CMSG_KEY_AGREE_RECIPIENT_INFO {
+    #StructPack 8
 
     /**
      * A <b>DWORD</b> that indicates the version of the structure. Always set to three.
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
     /**
      * A <b>DWORD</b> that indicates the key identifier to use.
-     * @type {CMSG_KEY_AGREE_ORIGINATOR}
      */
-    dwOriginatorChoice {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwOriginatorChoice : CMSG_KEY_AGREE_ORIGINATOR
 
-    /**
-     * @type {CERT_ID}
-     */
-    OriginatorCertId {
-        get {
-            if(!this.HasProp("__OriginatorCertId"))
-                this.__OriginatorCertId := CERT_ID(8, this)
-            return this.__OriginatorCertId
-        }
-    }
-
-    /**
-     * @type {CERT_PUBLIC_KEY_INFO}
-     */
-    OriginatorPublicKeyInfo {
-        get {
-            if(!this.HasProp("__OriginatorPublicKeyInfo"))
-                this.__OriginatorPublicKeyInfo := CERT_PUBLIC_KEY_INFO(8, this)
-            return this.__OriginatorPublicKeyInfo
-        }
-    }
+    OriginatorCertId : CERT_ID
 
     /**
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_DATA_BLOB</a> that indicates that a different key is generated each time the same two parties generate a pair of keys. The sender provides the bits of this <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> with some key agreement algorithms. This member can be <b>NULL</b>.
-     * @type {CRYPT_INTEGER_BLOB}
      */
-    UserKeyingMaterial {
-        get {
-            if(!this.HasProp("__UserKeyingMaterial"))
-                this.__UserKeyingMaterial := CRYPT_INTEGER_BLOB(56, this)
-            return this.__UserKeyingMaterial
-        }
-    }
+    UserKeyingMaterial : CRYPT_INTEGER_BLOB
 
     /**
      * A 
      * 						<a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> that identifies the key-encryption algorithm and any associated parameters used to encrypt the content encryption key.
-     * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    KeyEncryptionAlgorithm {
-        get {
-            if(!this.HasProp("__KeyEncryptionAlgorithm"))
-                this.__KeyEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(72, this)
-            return this.__KeyEncryptionAlgorithm
-        }
-    }
+    KeyEncryptionAlgorithm : CRYPT_ALGORITHM_IDENTIFIER
 
     /**
      * The number of elements in the <b>rgpRecipientEncryptedKeys</b> array.
-     * @type {Integer}
      */
-    cRecipientEncryptedKeys {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    cRecipientEncryptedKeys : UInt32
 
     /**
      * The address of an array of <a href="https://docs.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_recipient_encrypted_key_info">CMSG_RECIPIENT_ENCRYPTED_KEY_INFO</a> structures that contains information about the key recipients. The <b>cRecipientEncryptedKeys</b> member contains the number of elements in this array.
-     * @type {Pointer<Pointer<CMSG_RECIPIENT_ENCRYPTED_KEY_INFO>>}
      */
-    rgpRecipientEncryptedKeys {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
+    rgpRecipientEncryptedKeys : IntPtr
+
+    static __New() {
+        DefineProp(this.Prototype, 'OriginatorPublicKeyInfo', { type: CERT_PUBLIC_KEY_INFO, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

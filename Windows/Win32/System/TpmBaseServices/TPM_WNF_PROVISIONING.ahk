@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.TpmBaseServices
  */
-class TPM_WNF_PROVISIONING extends Win32Struct {
-    static sizeof => 32
+export default struct TPM_WNF_PROVISIONING {
+    #StructPack 4
 
-    static packingSize => 4
+    status : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    status {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    message : Int8[28]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    message {
-        get {
-            if(!this.HasProp("__messageProxyArray"))
-                this.__messageProxyArray := Win32FixedArray(this.ptr + 4, 28, Primitive, "char")
-            return this.__messageProxyArray
-        }
-    }
 }

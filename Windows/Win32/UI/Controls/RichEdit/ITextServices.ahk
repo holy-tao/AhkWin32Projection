@@ -1,8 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\System\Ole\IDropTarget.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Ole\IDropTarget.ahk" { IDropTarget }
+#Import "..\..\..\Foundation\LRESULT.ahk" { LRESULT }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\RECTL.ahk" { RECTL }
+#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\..\System\Com\DVTARGETDEVICE.ahk" { DVTARGETDEVICE }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\..\System\Com\DVASPECT.ahk" { DVASPECT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import "..\..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Extends the Text Object Model (TOM) to provide extra functionality for windowless operation.
@@ -17,21 +30,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/textserv/nl-textserv-itextservices
  * @namespace Windows.Win32.UI.Controls.RichEdit
  */
-class ITextServices extends IUnknown {
+export default struct ITextServices extends IUnknown {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["TxSendMessage", "TxDraw", "TxGetHScroll", "TxGetVScroll", "OnTxSetCursor", "TxQueryHitPoint", "OnTxInPlaceActivate", "OnTxInPlaceDeactivate", "OnTxUIActivate", "OnTxUIDeactivate", "TxGetText", "TxSetText", "TxGetCurTargetX", "TxGetBaseLinePos", "TxGetNaturalSize", "TxGetDropTarget", "OnTxPropertyBitsChange", "TxGetCachedSize"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITextServices interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        TxSendMessage          : IntPtr
+        TxDraw                 : IntPtr
+        TxGetHScroll           : IntPtr
+        TxGetVScroll           : IntPtr
+        OnTxSetCursor          : IntPtr
+        TxQueryHitPoint        : IntPtr
+        OnTxInPlaceActivate    : IntPtr
+        OnTxInPlaceDeactivate  : IntPtr
+        OnTxUIActivate         : IntPtr
+        OnTxUIDeactivate       : IntPtr
+        TxGetText              : IntPtr
+        TxSetText              : IntPtr
+        TxGetCurTargetX        : IntPtr
+        TxGetBaseLinePos       : IntPtr
+        TxGetNaturalSize       : IntPtr
+        TxGetDropTarget        : IntPtr
+        OnTxPropertyBitsChange : IntPtr
+        TxGetCachedSize        : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITextServices.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Used by the window host to forward messages sent from its window to the text services object.
@@ -109,7 +146,7 @@ class ITextServices extends IUnknown {
     TxSendMessage(_msg, _wparam, _lparam, plresult) {
         plresultMarshal := plresult is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "uint", _msg, "ptr", _wparam, "ptr", _lparam, plresultMarshal, plresult, "HRESULT")
+        result := ComCall(3, this, "uint", _msg, WPARAM, _wparam, LPARAM, _lparam, plresultMarshal, plresult, "HRESULT")
         return result
     }
 
@@ -198,12 +235,9 @@ class ITextServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices-txdraw
      */
     TxDraw(dwDrawAspect, lindex, pvAspect, ptd, hdcDraw, hicTargetDev, lprcBounds, lprcWBounds, lprcUpdate, pfnContinue, dwContinue, lViewId) {
-        hdcDraw := hdcDraw is Win32Handle ? NumGet(hdcDraw, "ptr") : hdcDraw
-        hicTargetDev := hicTargetDev is Win32Handle ? NumGet(hicTargetDev, "ptr") : hicTargetDev
-
         pvAspectMarshal := pvAspect is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "uint", dwDrawAspect, "int", lindex, pvAspectMarshal, pvAspect, "ptr", ptd, "ptr", hdcDraw, "ptr", hicTargetDev, "ptr", lprcBounds, "ptr", lprcWBounds, "ptr", lprcUpdate, "ptr", pfnContinue, "uint", dwContinue, "int", lViewId, "HRESULT")
+        result := ComCall(4, this, DVASPECT, dwDrawAspect, "int", lindex, pvAspectMarshal, pvAspect, DVTARGETDEVICE.Ptr, ptd, HDC, hdcDraw, HDC, hicTargetDev, RECTL.Ptr, lprcBounds, RECTL.Ptr, lprcWBounds, RECT.Ptr, lprcUpdate, "ptr", pfnContinue, "uint", dwContinue, "int", lViewId, "HRESULT")
         return result
     }
 
@@ -365,12 +399,9 @@ class ITextServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices-ontxsetcursor
      */
     OnTxSetCursor(dwDrawAspect, lindex, pvAspect, ptd, hdcDraw, hicTargetDev, lprcClient, x, y) {
-        hdcDraw := hdcDraw is Win32Handle ? NumGet(hdcDraw, "ptr") : hdcDraw
-        hicTargetDev := hicTargetDev is Win32Handle ? NumGet(hicTargetDev, "ptr") : hicTargetDev
-
         pvAspectMarshal := pvAspect is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, "uint", dwDrawAspect, "int", lindex, pvAspectMarshal, pvAspect, "ptr", ptd, "ptr", hdcDraw, "ptr", hicTargetDev, "ptr", lprcClient, "int", x, "int", y, "HRESULT")
+        result := ComCall(7, this, DVASPECT, dwDrawAspect, "int", lindex, pvAspectMarshal, pvAspect, DVTARGETDEVICE.Ptr, ptd, HDC, hdcDraw, HDC, hicTargetDev, RECT.Ptr, lprcClient, "int", x, "int", y, "HRESULT")
         return result
     }
 
@@ -461,13 +492,10 @@ class ITextServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices-txqueryhitpoint
      */
     TxQueryHitPoint(dwDrawAspect, lindex, pvAspect, ptd, hdcDraw, hicTargetDev, lprcClient, x, y, pHitResult) {
-        hdcDraw := hdcDraw is Win32Handle ? NumGet(hdcDraw, "ptr") : hdcDraw
-        hicTargetDev := hicTargetDev is Win32Handle ? NumGet(hicTargetDev, "ptr") : hicTargetDev
-
         pvAspectMarshal := pvAspect is VarRef ? "ptr" : "ptr"
         pHitResultMarshal := pHitResult is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", dwDrawAspect, "int", lindex, pvAspectMarshal, pvAspect, "ptr", ptd, "ptr", hdcDraw, "ptr", hicTargetDev, "ptr", lprcClient, "int", x, "int", y, pHitResultMarshal, pHitResult, "HRESULT")
+        result := ComCall(8, this, DVASPECT, dwDrawAspect, "int", lindex, pvAspectMarshal, pvAspect, DVTARGETDEVICE.Ptr, ptd, HDC, hdcDraw, HDC, hicTargetDev, RECT.Ptr, lprcClient, "int", x, "int", y, pHitResultMarshal, pHitResult, "HRESULT")
         return result
     }
 
@@ -492,7 +520,7 @@ class ITextServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices-ontxinplaceactivate
      */
     OnTxInPlaceActivate(prcClient) {
-        result := ComCall(9, this, "ptr", prcClient, "HRESULT")
+        result := ComCall(9, this, RECT.Ptr, prcClient, "HRESULT")
         return result
     }
 
@@ -593,7 +621,7 @@ class ITextServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices-txgettext
      */
     TxGetText(pbstrText) {
-        result := ComCall(13, this, "ptr", pbstrText, "HRESULT")
+        result := ComCall(13, this, BSTR.Ptr, pbstrText, "HRESULT")
         return result
     }
 
@@ -889,13 +917,10 @@ class ITextServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices-txgetnaturalsize
      */
     TxGetNaturalSize(dwAspect, hdcDraw, hicTargetDev, ptd, dwMode, psizelExtent, pwidth, pheight) {
-        hdcDraw := hdcDraw is Win32Handle ? NumGet(hdcDraw, "ptr") : hdcDraw
-        hicTargetDev := hicTargetDev is Win32Handle ? NumGet(hicTargetDev, "ptr") : hicTargetDev
-
         pwidthMarshal := pwidth is VarRef ? "int*" : "ptr"
         pheightMarshal := pheight is VarRef ? "int*" : "ptr"
 
-        result := ComCall(17, this, "uint", dwAspect, "ptr", hdcDraw, "ptr", hicTargetDev, "ptr", ptd, "uint", dwMode, "ptr", psizelExtent, pwidthMarshal, pwidth, pheightMarshal, pheight, "HRESULT")
+        result := ComCall(17, this, "uint", dwAspect, HDC, hdcDraw, HDC, hicTargetDev, DVTARGETDEVICE.Ptr, ptd, "uint", dwMode, SIZE.Ptr, psizelExtent, pwidthMarshal, pwidth, pheightMarshal, pheight, "HRESULT")
         return result
     }
 
@@ -1284,5 +1309,59 @@ class ITextServices extends IUnknown {
 
         result := ComCall(20, this, pdwWidthMarshal, pdwWidth, pdwHeightMarshal, pdwHeight, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITextServices.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.TxSendMessage := CallbackCreate(GetMethod(implObj, "TxSendMessage"), flags, 5)
+        this.vtbl.TxDraw := CallbackCreate(GetMethod(implObj, "TxDraw"), flags, 13)
+        this.vtbl.TxGetHScroll := CallbackCreate(GetMethod(implObj, "TxGetHScroll"), flags, 6)
+        this.vtbl.TxGetVScroll := CallbackCreate(GetMethod(implObj, "TxGetVScroll"), flags, 6)
+        this.vtbl.OnTxSetCursor := CallbackCreate(GetMethod(implObj, "OnTxSetCursor"), flags, 10)
+        this.vtbl.TxQueryHitPoint := CallbackCreate(GetMethod(implObj, "TxQueryHitPoint"), flags, 11)
+        this.vtbl.OnTxInPlaceActivate := CallbackCreate(GetMethod(implObj, "OnTxInPlaceActivate"), flags, 2)
+        this.vtbl.OnTxInPlaceDeactivate := CallbackCreate(GetMethod(implObj, "OnTxInPlaceDeactivate"), flags, 1)
+        this.vtbl.OnTxUIActivate := CallbackCreate(GetMethod(implObj, "OnTxUIActivate"), flags, 1)
+        this.vtbl.OnTxUIDeactivate := CallbackCreate(GetMethod(implObj, "OnTxUIDeactivate"), flags, 1)
+        this.vtbl.TxGetText := CallbackCreate(GetMethod(implObj, "TxGetText"), flags, 2)
+        this.vtbl.TxSetText := CallbackCreate(GetMethod(implObj, "TxSetText"), flags, 2)
+        this.vtbl.TxGetCurTargetX := CallbackCreate(GetMethod(implObj, "TxGetCurTargetX"), flags, 2)
+        this.vtbl.TxGetBaseLinePos := CallbackCreate(GetMethod(implObj, "TxGetBaseLinePos"), flags, 2)
+        this.vtbl.TxGetNaturalSize := CallbackCreate(GetMethod(implObj, "TxGetNaturalSize"), flags, 9)
+        this.vtbl.TxGetDropTarget := CallbackCreate(GetMethod(implObj, "TxGetDropTarget"), flags, 2)
+        this.vtbl.OnTxPropertyBitsChange := CallbackCreate(GetMethod(implObj, "OnTxPropertyBitsChange"), flags, 3)
+        this.vtbl.TxGetCachedSize := CallbackCreate(GetMethod(implObj, "TxGetCachedSize"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.TxSendMessage)
+        CallbackFree(this.vtbl.TxDraw)
+        CallbackFree(this.vtbl.TxGetHScroll)
+        CallbackFree(this.vtbl.TxGetVScroll)
+        CallbackFree(this.vtbl.OnTxSetCursor)
+        CallbackFree(this.vtbl.TxQueryHitPoint)
+        CallbackFree(this.vtbl.OnTxInPlaceActivate)
+        CallbackFree(this.vtbl.OnTxInPlaceDeactivate)
+        CallbackFree(this.vtbl.OnTxUIActivate)
+        CallbackFree(this.vtbl.OnTxUIDeactivate)
+        CallbackFree(this.vtbl.TxGetText)
+        CallbackFree(this.vtbl.TxSetText)
+        CallbackFree(this.vtbl.TxGetCurTargetX)
+        CallbackFree(this.vtbl.TxGetBaseLinePos)
+        CallbackFree(this.vtbl.TxGetNaturalSize)
+        CallbackFree(this.vtbl.TxGetDropTarget)
+        CallbackFree(this.vtbl.OnTxPropertyBitsChange)
+        CallbackFree(this.vtbl.TxGetCachedSize)
     }
 }

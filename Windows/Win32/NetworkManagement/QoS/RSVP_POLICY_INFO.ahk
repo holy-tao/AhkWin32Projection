@@ -1,48 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\QOS_OBJECT_HDR.ahk
-#Include .\RSVP_POLICY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\QOS_OBJECT_HDR.ahk" { QOS_OBJECT_HDR }
+#Import ".\RSVP_POLICY.ahk" { RSVP_POLICY }
 
 /**
  * The RSVP_POLICY_INFO structure stores undefined policy elements retrieved from RSVP.
  * @see https://learn.microsoft.com/windows/win32/api/qossp/ns-qossp-rsvp_policy_info
  * @namespace Windows.Win32.NetworkManagement.QoS
  */
-class RSVP_POLICY_INFO extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct RSVP_POLICY_INFO {
+    #StructPack 4
 
     /**
      * QOS object header that specifies the size and length of the QOS object.
-     * @type {QOS_OBJECT_HDR}
      */
-    ObjectHdr {
-        get {
-            if(!this.HasProp("__ObjectHdr"))
-                this.__ObjectHdr := QOS_OBJECT_HDR(0, this)
-            return this.__ObjectHdr
-        }
-    }
+    ObjectHdr : QOS_OBJECT_HDR
 
     /**
      * Number of policy elements in <b>PolicyElement</b>.
-     * @type {Integer}
      */
-    NumPolicyElement {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NumPolicyElement : UInt32
 
     /**
      * List of policy elements received, in the form of a <a href="https://docs.microsoft.com/windows/desktop/api/qossp/ns-qossp-rsvp_policy">RSVP_POLICY</a> structure.
-     * @type {RSVP_POLICY}
      */
-    PolicyElement {
-        get {
-            if(!this.HasProp("__PolicyElementProxyArray"))
-                this.__PolicyElementProxyArray := Win32FixedArray(this.ptr + 12, 1, RSVP_POLICY, "")
-            return this.__PolicyElementProxyArray
-        }
-    }
+    PolicyElement : RSVP_POLICY[1]
+
 }

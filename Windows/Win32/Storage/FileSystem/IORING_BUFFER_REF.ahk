@@ -1,59 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IORING_REF_KIND.ahk
-#Include .\IORING_REGISTERED_BUFFER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IORING_REGISTERED_BUFFER.ahk" { IORING_REGISTERED_BUFFER }
+#Import ".\IORING_REF_KIND.ahk" { IORING_REF_KIND }
 
 /**
  * IORING_BUFFER_REF represents a reference to a buffer used in an I/O ring operation.
  * @see https://learn.microsoft.com/windows/win32/api/ioringapi/ns-ioringapi-ioring_buffer_ref
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class IORING_BUFFER_REF extends Win32Struct {
-    static sizeof => 24
+export default struct IORING_BUFFER_REF {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class BufferUnion extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct BufferUnion {
+        Address : IntPtr
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        Address {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {IORING_REGISTERED_BUFFER}
-         */
-        IndexAndOffset {
-            get {
-                if(!this.HasProp("__IndexAndOffset"))
-                    this.__IndexAndOffset := IORING_REGISTERED_BUFFER(0, this)
-                return this.__IndexAndOffset
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'IndexAndOffset', { type: IORING_REGISTERED_BUFFER, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
     /**
      * A value from the [IORING_REF_KIND](ne-ioringapi-ioring_ref_kind.md) enumeration specifying the kind of buffer represented by the structure.
-     * @type {IORING_REF_KIND}
      */
-    Kind {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Kind : IORING_REF_KIND
 
-    /**
-     * @type {BufferUnion}
-     */
-    Buffer {
-        get {
-            if(!this.HasProp("__Buffer"))
-                this.__Buffer := IORING_BUFFER_REF.BufferUnion(8, this)
-            return this.__Buffer
-        }
-    }
+    Buffer : IORING_BUFFER_REF.BufferUnion
+
 }

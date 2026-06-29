@@ -1,33 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRpcChannelBuffer.ahk" { IRpcChannelBuffer }
+#Import ".\IUnknown.ahk" { IUnknown }
+#Import ".\RPCOLEMESSAGE.ahk" { RPCOLEMESSAGE }
 
 /**
  * The IRpcStubBuffer (objidlbase.h) interface controls the RPC stub used to marshal data between COM components.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-irpcstubbuffer
  * @namespace Windows.Win32.System.Com
  */
-class IRpcStubBuffer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRpcStubBuffer extends IUnknown {
     /**
      * The interface identifier for IRpcStubBuffer
      * @type {Guid}
      */
-    static IID => Guid("{d5f56afc-593b-101a-b569-08002b2dbf7a}")
+    static IID := Guid("{d5f56afc-593b-101a-b569-08002b2dbf7a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRpcStubBuffer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Connect                   : IntPtr
+        Disconnect                : IntPtr
+        Invoke                    : IntPtr
+        IsIIDSupported            : IntPtr
+        CountRefs                 : IntPtr
+        DebugServerQueryInterface : IntPtr
+        DebugServerRelease        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Connect", "Disconnect", "Invoke", "IsIIDSupported", "CountRefs", "DebugServerQueryInterface", "DebugServerRelease"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRpcStubBuffer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IRpcStubBuffer::Connect (objidlbase.h) method initializes a server stub, binding it to the specified interface.
@@ -57,7 +73,7 @@ class IRpcStubBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-irpcstubbuffer-invoke
      */
     Invoke(_prpcmsg, _pRpcChannelBuffer) {
-        result := ComCall(5, this, "ptr", _prpcmsg, "ptr", _pRpcChannelBuffer, "HRESULT")
+        result := ComCall(5, this, RPCOLEMESSAGE.Ptr, _prpcmsg, "ptr", _pRpcChannelBuffer, "HRESULT")
         return result
     }
 
@@ -72,7 +88,7 @@ class IRpcStubBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-irpcstubbuffer-isiidsupported
      */
     IsIIDSupported(riid) {
-        result := ComCall(6, this, "ptr", riid, "ptr")
+        result := ComCall(6, this, Guid.Ptr, riid, IRpcStubBuffer)
         return result
     }
 
@@ -82,7 +98,7 @@ class IRpcStubBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-irpcstubbuffer-countrefs
      */
     CountRefs() {
-        result := ComCall(7, this, "uint")
+        result := ComCall(7, this, UInt32)
         return result
     }
 
@@ -106,5 +122,37 @@ class IRpcStubBuffer extends IUnknown {
         pvMarshal := pv is VarRef ? "ptr" : "ptr"
 
         ComCall(9, this, pvMarshal, pv)
+    }
+
+    Query(iid) {
+        if (IRpcStubBuffer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 2)
+        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 1)
+        this.vtbl.Invoke := CallbackCreate(GetMethod(implObj, "Invoke"), flags, 3)
+        this.vtbl.IsIIDSupported := CallbackCreate(GetMethod(implObj, "IsIIDSupported"), flags, 2)
+        this.vtbl.CountRefs := CallbackCreate(GetMethod(implObj, "CountRefs"), flags, 1)
+        this.vtbl.DebugServerQueryInterface := CallbackCreate(GetMethod(implObj, "DebugServerQueryInterface"), flags, 2)
+        this.vtbl.DebugServerRelease := CallbackCreate(GetMethod(implObj, "DebugServerRelease"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Connect)
+        CallbackFree(this.vtbl.Disconnect)
+        CallbackFree(this.vtbl.Invoke)
+        CallbackFree(this.vtbl.IsIIDSupported)
+        CallbackFree(this.vtbl.CountRefs)
+        CallbackFree(this.vtbl.DebugServerQueryInterface)
+        CallbackFree(this.vtbl.DebugServerRelease)
     }
 }

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The DNS_WINSR_DATA structure represents a DNS Windows Internet Name Service reverse-lookup (WINSR) record. (ANSI)
@@ -18,10 +18,8 @@
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @charset ANSI
  */
-class DNS_WINSR_DATAA extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct DNS_WINSR_DATAA {
+    #StructPack 8
 
     /**
      * The WINS mapping flag that specifies whether the record must be included into the zone replication. <b>dwMappingFlag</b> must be one of these mutually exclusive values:
@@ -52,37 +50,22 @@ class DNS_WINSR_DATAA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwMappingFlag {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwMappingFlag : UInt32
 
     /**
      * The time, in seconds, that a DNS Server attempts resolution using WINS lookup.
-     * @type {Integer}
      */
-    dwLookupTimeout {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwLookupTimeout : UInt32
 
     /**
      * The time, in seconds, that a DNS Server using WINS lookup may cache the WINS Server's response.
-     * @type {Integer}
      */
-    dwCacheTimeout {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwCacheTimeout : UInt32
 
     /**
      * A pointer to a string that represents the domain name to append to the name returned by a WINS reverse-lookup.
-     * @type {PSTR}
      */
-    pNameResultDomain {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pNameResultDomain : PSTR
+
 }

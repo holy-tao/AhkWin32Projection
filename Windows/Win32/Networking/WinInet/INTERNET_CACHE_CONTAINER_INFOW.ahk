@@ -1,52 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
  * @charset Unicode
  */
-class INTERNET_CACHE_CONTAINER_INFOW extends Win32Struct {
-    static sizeof => 40
+export default struct INTERNET_CACHE_CONTAINER_INFOW {
+    #StructPack 8
 
-    static packingSize => 8
+    dwCacheVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwCacheVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    lpszName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    lpszName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpszCachePrefix : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    lpszCachePrefix {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpszVolumeLabel : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    lpszVolumeLabel {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpszVolumeTitle : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    lpszVolumeTitle {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
 }

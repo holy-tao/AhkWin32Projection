@@ -1,25 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 
 /**
  * contains information about digest signing.
  * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-digest-sign-info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class SIGNER_DIGEST_SIGN_INFO extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct SIGNER_DIGEST_SIGN_INFO {
+    #StructPack 8
 
     /**
      * The size, in bytes, of the structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Specifies which digest sign implementation to use.
@@ -32,83 +25,35 @@ class SIGNER_DIGEST_SIGN_INFO extends Win32Struct {
      * | <span id="DIGEST_SIGN_WITHFILEHANDLE"></span><span id="digest_sign_withfilehandle"></span><dl> <dt>**DIGEST\_SIGN\_WITHFILEHANDLE**</dt> <dt>2 (0x2)</dt> </dl> | Use the DIGEST_SIGN_WITHFILEHANDLE implementation. <br/>                                                                                                |
      * | <span id="DIGEST_SIGN_EX"></span><span id="digest_sign_ex"></span><dl> <dt>**DIGEST\_SIGN\_EX**</dt> <dt>3 (0x3)</dt> </dl>                           | Use the DIGEST_SIGN_EX implementation.<br/> |
      * | <span id="DIGEST_SIGN_EX_WITHFILEHANDLE"></span><span id="digest_sign_ex_withfilehandle"></span><dl> <dt>**DIGEST\_SIGN\_EX\_WITHFILEHANDLE**</dt> <dt>4 (0x4)</dt> </dl>                           |Use the DIGEST_SIGN_EX_WITHFILEHANDLE implementation.<br/> |
-     * @type {Integer}
      */
-    dwDigestSignChoice {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwDigestSignChoice : UInt32
 
-    /**
-     * @type {Pointer<PFN_AUTHENTICODE_DIGEST_SIGN>}
-     */
-    pfnAuthenticodeDigestSign {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<PFN_AUTHENTICODE_DIGEST_SIGN_WITHFILEHANDLE>}
-     */
-    pfnAuthenticodeDigestSignWithFileHandle {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<PFN_AUTHENTICODE_DIGEST_SIGN_EX>}
-     */
-    pfnAuthenticodeDigestSignEx {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<PFN_AUTHENTICODE_DIGEST_SIGN_EX_WITHFILEHANDLE>}
-     */
-    pfnAuthenticodeDigestSignExWithFileHandle {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pfnAuthenticodeDigestSign : IntPtr
 
     /**
      * Optional pointer to [**CRYPT_DATA_BLOB**](/windows/win32/api/wincrypt/ns-wincrypt-crypt_integer_blob) specifying metadata.
-     * @type {Pointer<CRYPT_INTEGER_BLOB>}
      */
-    pMetadataBlob {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pMetadataBlob : CRYPT_INTEGER_BLOB.Ptr
 
     /**
      * Reserved. This value must be zero (0).
-     * @type {Integer}
      */
-    dwReserved {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwReserved : UInt32
 
     /**
      * Reserved. This value must be zero (0).
-     * @type {Integer}
      */
-    dwReserved2 {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwReserved2 : UInt32
 
     /**
      * Reserved. This value must be zero (0).
-     * @type {Integer}
      */
-    dwReserved3 {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwReserved3 : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 40
+    static __New() {
+        DefineProp(this.Prototype, 'pfnAuthenticodeDigestSignWithFileHandle', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'pfnAuthenticodeDigestSignEx', { type: IntPtr, offset: 8 })
+        DefineProp(this.Prototype, 'pfnAuthenticodeDigestSignExWithFileHandle', { type: IntPtr, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

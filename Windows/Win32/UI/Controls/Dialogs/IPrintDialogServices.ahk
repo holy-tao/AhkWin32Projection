@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Graphics\Gdi\DEVMODEA.ahk" { DEVMODEA }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods that enable an application using the PrintDlgEx function to retrieve information about the currently selected printer.
@@ -10,26 +13,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/commdlg/nn-commdlg-iprintdialogservices
  * @namespace Windows.Win32.UI.Controls.Dialogs
  */
-class IPrintDialogServices extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPrintDialogServices extends IUnknown {
     /**
      * The interface identifier for IPrintDialogServices
      * @type {Guid}
      */
-    static IID => Guid("{509aaeda-5639-11d1-b6a1-0000f8757bf9}")
+    static IID := Guid("{509aaeda-5639-11d1-b6a1-0000f8757bf9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPrintDialogServices interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCurrentDevMode     : IntPtr
+        GetCurrentPrinterName : IntPtr
+        GetCurrentPortName    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCurrentDevMode", "GetCurrentPrinterName", "GetCurrentPortName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPrintDialogServices.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Fills a DEVMODE structure with information about the currently selected printer for use with PrintDlgEx.
@@ -51,7 +63,7 @@ class IPrintDialogServices extends IUnknown {
     GetCurrentDevMode(pDevMode, pcbSize) {
         pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pDevMode, pcbSizeMarshal, pcbSize, "HRESULT")
+        result := ComCall(3, this, DEVMODEA.Ptr, pDevMode, pcbSizeMarshal, pcbSize, "HRESULT")
         return result
     }
 
@@ -109,5 +121,29 @@ class IPrintDialogServices extends IUnknown {
 
         result := ComCall(5, this, "ptr", pPortName, pcchSizeMarshal, pcchSize, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPrintDialogServices.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCurrentDevMode := CallbackCreate(GetMethod(implObj, "GetCurrentDevMode"), flags, 3)
+        this.vtbl.GetCurrentPrinterName := CallbackCreate(GetMethod(implObj, "GetCurrentPrinterName"), flags, 3)
+        this.vtbl.GetCurrentPortName := CallbackCreate(GetMethod(implObj, "GetCurrentPortName"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCurrentDevMode)
+        CallbackFree(this.vtbl.GetCurrentPrinterName)
+        CallbackFree(this.vtbl.GetCurrentPortName)
     }
 }

@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_PACK_STATUS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\VDS_PACK_STATUS.ahk" { VDS_PACK_STATUS }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Defines the properties of a pack object.
@@ -9,44 +10,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_pack_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_PACK_PROP extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct VDS_PACK_PROP {
+    #StructPack 8
 
     /**
      * The GUID of the pack object.
-     * @type {Pointer}
      */
-    id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    id : Guid
 
     /**
      * A string representing the pack name. Packs managed by the basic provider have no name.
-     * @type {PWSTR}
      */
-    pwszName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwszName : PWSTR
 
     /**
      * The pack status enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_pack_status">VDS_PACK_STATUS</a>.
-     * @type {VDS_PACK_STATUS}
      */
-    status {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    status : VDS_PACK_STATUS
 
     /**
      * The pack flags enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_pack_flag">VDS_PACK_FLAG</a>.
-     * @type {Integer}
      */
-    ulFlags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ulFlags : UInt32
+
 }

@@ -1,37 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDWriteFont.ahk
-#Include ..\Gdi\LOGFONTW.ahk
-#Include .\IDWriteFontFace.ahk
-#Include .\IDWriteBitmapRenderTarget.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Gdi\HDC.ahk" { HDC }
+#Import "..\Gdi\LOGFONTW.ahk" { LOGFONTW }
+#Import ".\IDWriteFont.ahk" { IDWriteFont }
+#Import ".\IDWriteFontFace.ahk" { IDWriteFontFace }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDWriteBitmapRenderTarget.ahk" { IDWriteBitmapRenderTarget }
 
 /**
  * Provides interoperability with GDI, such as methods to convert a font face to a LOGFONT structure, or to convert a GDI font description into a font face. It is also used to create bitmap render target objects. (IDWriteGdiInterop)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritegdiinterop
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteGdiInterop extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteGdiInterop extends IUnknown {
     /**
      * The interface identifier for IDWriteGdiInterop
      * @type {Guid}
      */
-    static IID => Guid("{1edd9491-9853-4299-898f-6432983b6f3a}")
+    static IID := Guid("{1edd9491-9853-4299-898f-6432983b6f3a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteGdiInterop interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateFontFromLOGFONT    : IntPtr
+        ConvertFontToLOGFONT     : IntPtr
+        ConvertFontFaceToLOGFONT : IntPtr
+        CreateFontFaceFromHdc    : IntPtr
+        CreateBitmapRenderTarget : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateFontFromLOGFONT", "ConvertFontToLOGFONT", "ConvertFontFaceToLOGFONT", "CreateFontFaceFromHdc", "CreateBitmapRenderTarget"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteGdiInterop.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a font object that matches the properties specified by the LOGFONT structure. (IDWriteGdiInterop.CreateFontFromLOGFONT)
@@ -44,7 +58,7 @@ class IDWriteGdiInterop extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritegdiinterop-createfontfromlogfont
      */
     CreateFontFromLOGFONT(logFont) {
-        result := ComCall(3, this, "ptr", logFont, "ptr*", &_font := 0, "HRESULT")
+        result := ComCall(3, this, LOGFONTW.Ptr, logFont, "ptr*", &_font := 0, "HRESULT")
         return IDWriteFont(_font)
     }
 
@@ -69,7 +83,7 @@ class IDWriteGdiInterop extends IUnknown {
     ConvertFontToLOGFONT(_font, logFont, isSystemFont) {
         isSystemFontMarshal := isSystemFont is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", _font, "ptr", logFont, isSystemFontMarshal, isSystemFont, "HRESULT")
+        result := ComCall(4, this, "ptr", _font, LOGFONTW.Ptr, logFont, isSystemFontMarshal, isSystemFont, "HRESULT")
         return result
     }
 
@@ -87,7 +101,7 @@ class IDWriteGdiInterop extends IUnknown {
      */
     ConvertFontFaceToLOGFONT(_font) {
         logFont := LOGFONTW()
-        result := ComCall(5, this, "ptr", _font, "ptr", logFont, "HRESULT")
+        result := ComCall(5, this, "ptr", _font, LOGFONTW.Ptr, logFont, "HRESULT")
         return logFont
     }
 
@@ -106,9 +120,7 @@ class IDWriteGdiInterop extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritegdiinterop-createfontfacefromhdc
      */
     CreateFontFaceFromHdc(_hdc) {
-        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
-
-        result := ComCall(6, this, "ptr", _hdc, "ptr*", &fontFace := 0, "HRESULT")
+        result := ComCall(6, this, HDC, _hdc, "ptr*", &fontFace := 0, "HRESULT")
         return IDWriteFontFace(fontFace)
     }
 
@@ -129,9 +141,35 @@ class IDWriteGdiInterop extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritegdiinterop-createbitmaprendertarget
      */
     CreateBitmapRenderTarget(_hdc, width, height) {
-        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
-
-        result := ComCall(7, this, "ptr", _hdc, "uint", width, "uint", height, "ptr*", &renderTarget := 0, "HRESULT")
+        result := ComCall(7, this, HDC, _hdc, "uint", width, "uint", height, "ptr*", &renderTarget := 0, "HRESULT")
         return IDWriteBitmapRenderTarget(renderTarget)
+    }
+
+    Query(iid) {
+        if (IDWriteGdiInterop.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateFontFromLOGFONT := CallbackCreate(GetMethod(implObj, "CreateFontFromLOGFONT"), flags, 3)
+        this.vtbl.ConvertFontToLOGFONT := CallbackCreate(GetMethod(implObj, "ConvertFontToLOGFONT"), flags, 4)
+        this.vtbl.ConvertFontFaceToLOGFONT := CallbackCreate(GetMethod(implObj, "ConvertFontFaceToLOGFONT"), flags, 3)
+        this.vtbl.CreateFontFaceFromHdc := CallbackCreate(GetMethod(implObj, "CreateFontFaceFromHdc"), flags, 3)
+        this.vtbl.CreateBitmapRenderTarget := CallbackCreate(GetMethod(implObj, "CreateBitmapRenderTarget"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateFontFromLOGFONT)
+        CallbackFree(this.vtbl.ConvertFontToLOGFONT)
+        CallbackFree(this.vtbl.ConvertFontFaceToLOGFONT)
+        CallbackFree(this.vtbl.CreateFontFaceFromHdc)
+        CallbackFree(this.vtbl.CreateBitmapRenderTarget)
     }
 }

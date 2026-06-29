@@ -1,44 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IOMMU_DEVICE_CREATION_CONFIGURATION_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IOMMU_DEVICE_CREATION_CONFIGURATION_TYPE.ahk" { IOMMU_DEVICE_CREATION_CONFIGURATION_TYPE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class IOMMU_DEVICE_CREATION_CONFIGURATION extends Win32Struct {
-    static sizeof => 24
+export default struct IOMMU_DEVICE_CREATION_CONFIGURATION {
+    #StructPack 8
 
-    static packingSize => 8
+    NextConfiguration : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    NextConfiguration {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ConfigType : IOMMU_DEVICE_CREATION_CONFIGURATION_TYPE
 
-    /**
-     * @type {IOMMU_DEVICE_CREATION_CONFIGURATION_TYPE}
-     */
-    ConfigType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    Acpi : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Acpi {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    DeviceId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    static __New() {
+        DefineProp(this.Prototype, 'DeviceId', { type: IntPtr, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

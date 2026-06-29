@@ -1,39 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\RdcBufferPointer.ahk" { RdcBufferPointer }
+#Import ".\RDC_ErrorCode.ahk" { RDC_ErrorCode }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\RdcNeedPointer.ahk" { RdcNeedPointer }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Used to compare two signature streams (seed and source) and produce the list of source and seed file data chunks needed to create the target file.
  * @see https://learn.microsoft.com/windows/win32/api/msrdc/nn-msrdc-irdccomparator
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  */
-class IRdcComparator extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRdcComparator extends IUnknown {
     /**
      * The interface identifier for IRdcComparator
      * @type {Guid}
      */
-    static IID => Guid("{96236a77-9dbc-11da-9e3f-0011114ae311}")
+    static IID := Guid("{96236a77-9dbc-11da-9e3f-0011114ae311}")
 
     /**
      * The class identifier for RdcComparator
      * @type {Guid}
      */
-    static CLSID => Guid("{96236a8b-9dbc-11da-9e3f-0011114ae311}")
+    static CLSID := Guid("{96236a8b-9dbc-11da-9e3f-0011114ae311}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRdcComparator interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Process : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Process"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRdcComparator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Compares two signature streams (seed and source) and produces a needs list, which describes the chunks of file data needed to create the target file.
@@ -69,7 +81,27 @@ class IRdcComparator extends IUnknown {
         endOfOutputMarshal := endOfOutput is VarRef ? "int*" : "ptr"
         _rdc_ErrorCodeMarshal := _rdc_ErrorCode is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "int", endOfInput, endOfOutputMarshal, endOfOutput, "ptr", inputBuffer, "ptr", outputBuffer, _rdc_ErrorCodeMarshal, _rdc_ErrorCode, "HRESULT")
+        result := ComCall(3, this, BOOL, endOfInput, endOfOutputMarshal, endOfOutput, RdcBufferPointer.Ptr, inputBuffer, RdcNeedPointer.Ptr, outputBuffer, _rdc_ErrorCodeMarshal, _rdc_ErrorCode, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRdcComparator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Process := CallbackCreate(GetMethod(implObj, "Process"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Process)
     }
 }

@@ -1,32 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
  */
-class CDROM_TOC_CD_TEXT_DATA_BLOCK extends Win32Struct {
-    static sizeof => 18
+export default struct CDROM_TOC_CD_TEXT_DATA_BLOCK {
+    #StructPack 2
 
-    static packingSize => 2
-
-    /**
-     * @type {Integer}
-     */
-    PackType {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    PackType : Int8
 
     /**
      * This bitfield backs the following members:
      * - TrackNumber
      * - ExtensionFlag
-     * @type {Integer}
      */
-    _bitfield1 {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    _bitfield1 : Int8
+
 
     /**
      * @type {Integer}
@@ -43,26 +32,16 @@ class CDROM_TOC_CD_TEXT_DATA_BLOCK extends Win32Struct {
         get => (this._bitfield1 >> 7) & 0x1
         set => this._bitfield1 := ((value & 0x1) << 7) | (this._bitfield1 & ~(0x1 << 7))
     }
-
-    /**
-     * @type {Integer}
-     */
-    SequenceNumber {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    SequenceNumber : Int8
 
     /**
      * This bitfield backs the following members:
      * - CharacterPosition
      * - BlockNumber
      * - Unicode
-     * @type {Integer}
      */
-    _bitfield2 {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    _bitfield2 : Int8
+
 
     /**
      * @type {Integer}
@@ -87,34 +66,12 @@ class CDROM_TOC_CD_TEXT_DATA_BLOCK extends Win32Struct {
         get => (this._bitfield2 >> 7) & 0x1
         set => this._bitfield2 := ((value & 0x1) << 7) | (this._bitfield2 & ~(0x1 << 7))
     }
+    Text : Int8[12]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Text {
-        get {
-            if(!this.HasProp("__TextProxyArray"))
-                this.__TextProxyArray := Win32FixedArray(this.ptr + 4, 12, Primitive, "char")
-            return this.__TextProxyArray
-        }
-    }
+    CRC : Int8[2]
 
-    /**
-     * @type {String}
-     */
-    WText {
-        get => StrGet(this.ptr + 4, 5, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 5, "UTF-16")
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    CRC {
-        get {
-            if(!this.HasProp("__CRCProxyArray"))
-                this.__CRCProxyArray := Win32FixedArray(this.ptr + 16, 2, Primitive, "char")
-            return this.__CRCProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'WText', { type: WCHAR[6], offset: 4 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,42 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ADDRESS_FAMILY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class SOCKADDR_DL extends Win32Struct {
-    static sizeof => 14
+export default struct SOCKADDR_DL {
+    #StructPack 2
 
-    static packingSize => 2
+    sdl_family : ADDRESS_FAMILY
 
-    /**
-     * @type {ADDRESS_FAMILY}
-     */
-    sdl_family {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    sdl_data : Int8[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    sdl_data {
-        get {
-            if(!this.HasProp("__sdl_dataProxyArray"))
-                this.__sdl_dataProxyArray := Win32FixedArray(this.ptr + 2, 8, Primitive, "char")
-            return this.__sdl_dataProxyArray
-        }
-    }
+    sdl_zero : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    sdl_zero {
-        get {
-            if(!this.HasProp("__sdl_zeroProxyArray"))
-                this.__sdl_zeroProxyArray := Win32FixedArray(this.ptr + 10, 4, Primitive, "char")
-            return this.__sdl_zeroProxyArray
-        }
-    }
 }

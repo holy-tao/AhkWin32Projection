@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains fields that specify the information in a Telemetry Host-Initiated Log page.
@@ -8,137 +7,63 @@
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_telemetry_host_initiated_log
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_TELEMETRY_HOST_INITIATED_LOG extends Win32Struct {
-    static sizeof => 512
-
-    static packingSize => 4
+export default struct NVME_TELEMETRY_HOST_INITIATED_LOG {
+    #StructPack 4
 
     /**
      * Indicates the log identifier.
-     * @type {Integer}
      */
-    LogIdentifier {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    LogIdentifier : Int8
 
     /**
      * Bytes 1-4 are reserved.
-     * @type {Array<Integer>}
      */
-    Reserved0 {
-        get {
-            if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 1, 4, Primitive, "char")
-            return this.__Reserved0ProxyArray
-        }
-    }
+    Reserved0 : Int8[4]
 
     /**
      * Indicates an IEEE Organizationally Unique Identifier (OUI) that is the Organization ID.
-     * @type {Array<Integer>}
      */
-    OrganizationID {
-        get {
-            if(!this.HasProp("__OrganizationIDProxyArray"))
-                this.__OrganizationIDProxyArray := Win32FixedArray(this.ptr + 5, 3, Primitive, "char")
-            return this.__OrganizationIDProxyArray
-        }
-    }
+    OrganizationID : Int8[3]
 
     /**
      * Bytes 8-9 indicate the last block of Area 1.
-     * @type {Integer}
      */
-    Area1LastBlock {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    Area1LastBlock : UInt16
 
     /**
      * Bytes 10-11 indicate the last block of Area 2.
-     * @type {Integer}
      */
-    Area2LastBlock {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    Area2LastBlock : UInt16
 
     /**
      * Bytes 12-13 indicate the last block of Area 3.
-     * @type {Integer}
      */
-    Area3LastBlock {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    Area3LastBlock : UInt16
 
     /**
      * Bytes 14-381 are reserved.
-     * @type {Array<Integer>}
      */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 14, 2, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    Reserved1 : Int8[2]
 
-    /**
-     * @type {Integer}
-     */
-    Area4LastBlock {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Area4LastBlock : UInt32
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved2 {
-        get {
-            if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 20, 361, Primitive, "char")
-            return this.__Reserved2ProxyArray
-        }
-    }
+    Reserved2 : Int8[361]
 
-    /**
-     * @type {Integer}
-     */
-    HostInitiatedDataGenerationNumber {
-        get => NumGet(this, 381, "char")
-        set => NumPut("char", value, this, 381)
-    }
+    HostInitiatedDataGenerationNumber : Int8
 
     /**
      * Byte 382 indicates whether controller initiated data is available.
-     * @type {Integer}
      */
-    ControllerInitiatedDataAvailable {
-        get => NumGet(this, 382, "char")
-        set => NumPut("char", value, this, 382)
-    }
+    ControllerInitiatedDataAvailable : Int8
 
     /**
      * Byte 383 indicates the generation number of controller initiated data when it is available.
-     * @type {Integer}
      */
-    ControllerInitiatedDataGenerationNumber {
-        get => NumGet(this, 383, "char")
-        set => NumPut("char", value, this, 383)
-    }
+    ControllerInitiatedDataGenerationNumber : Int8
 
     /**
      * Bytes 384-511 indicate the reason identifier.
-     * @type {Array<Integer>}
      */
-    ReasonIdentifier {
-        get {
-            if(!this.HasProp("__ReasonIdentifierProxyArray"))
-                this.__ReasonIdentifierProxyArray := Win32FixedArray(this.ptr + 384, 128, Primitive, "char")
-            return this.__ReasonIdentifierProxyArray
-        }
-    }
+    ReasonIdentifier : Int8[128]
+
 }

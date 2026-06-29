@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the effective power mode the system is running.
  * @see https://learn.microsoft.com/windows/win32/api/powersetting/ne-powersetting-effective_power_mode
  * @namespace Windows.Win32.System.Power
  */
-class EFFECTIVE_POWER_MODE extends Win32Enum {
+export default struct EFFECTIVE_POWER_MODE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The system is in battery saver mode.

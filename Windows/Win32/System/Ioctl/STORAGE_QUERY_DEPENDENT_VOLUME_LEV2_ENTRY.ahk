@@ -1,119 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Storage\Vhd\VIRTUAL_STORAGE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Storage\Vhd\VIRTUAL_STORAGE_TYPE.ahk" { VIRTUAL_STORAGE_TYPE }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY extends Win32Struct {
-    static sizeof => 72
+export default struct STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY {
+    #StructPack 4
 
-    static packingSize => 8
+    EntryLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EntryLength {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DependencyTypeFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DependencyTypeFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ProviderSpecificFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProviderSpecificFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    VirtualStorageType : VIRTUAL_STORAGE_TYPE
 
-    /**
-     * @type {VIRTUAL_STORAGE_TYPE}
-     */
-    VirtualStorageType {
-        get {
-            if(!this.HasProp("__VirtualStorageType"))
-                this.__VirtualStorageType := VIRTUAL_STORAGE_TYPE(16, this)
-            return this.__VirtualStorageType
-        }
-    }
+    AncestorLevel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AncestorLevel {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    HostVolumeNameOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HostVolumeNameOffset {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    HostVolumeNameSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HostVolumeNameSize {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    DependentVolumeNameOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DependentVolumeNameOffset {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    DependentVolumeNameSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DependentVolumeNameSize {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    RelativePathOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RelativePathOffset {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    RelativePathSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RelativePathSize {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    DependentDeviceNameOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DependentDeviceNameOffset {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    DependentDeviceNameSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DependentDeviceNameSize {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
 }

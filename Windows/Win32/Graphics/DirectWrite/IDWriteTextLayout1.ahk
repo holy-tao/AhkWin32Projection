@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteTextLayout.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDWriteTextLayout.ahk" { IDWriteTextLayout }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_TEXT_RANGE.ahk" { DWRITE_TEXT_RANGE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Represents a block of text after it has been fully analyzed and formatted. (IDWriteTextLayout1)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nn-dwrite_1-idwritetextlayout1
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteTextLayout1 extends IDWriteTextLayout {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteTextLayout1 extends IDWriteTextLayout {
     /**
      * The interface identifier for IDWriteTextLayout1
      * @type {Guid}
      */
-    static IID => Guid("{9064d822-80a7-465c-a986-df65f78b8feb}")
+    static IID := Guid("{9064d822-80a7-465c-a986-df65f78b8feb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 67
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteTextLayout1 interfaces
+    */
+    struct Vtbl extends IDWriteTextLayout.Vtbl {
+        SetPairKerning      : IntPtr
+        GetPairKerning      : IntPtr
+        SetCharacterSpacing : IntPtr
+        GetCharacterSpacing : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetPairKerning", "GetPairKerning", "SetCharacterSpacing", "GetCharacterSpacing"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteTextLayout1.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Enables or disables pair-kerning on a given text range.
@@ -43,7 +56,7 @@ class IDWriteTextLayout1 extends IDWriteTextLayout {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritetextlayout1-setpairkerning
      */
     SetPairKerning(isPairKerningEnabled, textRange) {
-        result := ComCall(67, this, "int", isPairKerningEnabled, "ptr", textRange, "HRESULT")
+        result := ComCall(67, this, BOOL, isPairKerningEnabled, DWRITE_TEXT_RANGE, textRange, "HRESULT")
         return result
     }
 
@@ -66,7 +79,7 @@ class IDWriteTextLayout1 extends IDWriteTextLayout {
     GetPairKerning(currentPosition, isPairKerningEnabled, textRange) {
         isPairKerningEnabledMarshal := isPairKerningEnabled is VarRef ? "int*" : "ptr"
 
-        result := ComCall(68, this, "uint", currentPosition, isPairKerningEnabledMarshal, isPairKerningEnabled, "ptr", textRange, "HRESULT")
+        result := ComCall(68, this, "uint", currentPosition, isPairKerningEnabledMarshal, isPairKerningEnabled, DWRITE_TEXT_RANGE.Ptr, textRange, "HRESULT")
         return result
     }
 
@@ -91,7 +104,7 @@ class IDWriteTextLayout1 extends IDWriteTextLayout {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritetextlayout1-setcharacterspacing
      */
     SetCharacterSpacing(leadingSpacing, trailingSpacing, minimumAdvanceWidth, textRange) {
-        result := ComCall(69, this, "float", leadingSpacing, "float", trailingSpacing, "float", minimumAdvanceWidth, "ptr", textRange, "HRESULT")
+        result := ComCall(69, this, "float", leadingSpacing, "float", trailingSpacing, "float", minimumAdvanceWidth, DWRITE_TEXT_RANGE, textRange, "HRESULT")
         return result
     }
 
@@ -122,7 +135,33 @@ class IDWriteTextLayout1 extends IDWriteTextLayout {
         trailingSpacingMarshal := trailingSpacing is VarRef ? "float*" : "ptr"
         minimumAdvanceWidthMarshal := minimumAdvanceWidth is VarRef ? "float*" : "ptr"
 
-        result := ComCall(70, this, "uint", currentPosition, leadingSpacingMarshal, leadingSpacing, trailingSpacingMarshal, trailingSpacing, minimumAdvanceWidthMarshal, minimumAdvanceWidth, "ptr", textRange, "HRESULT")
+        result := ComCall(70, this, "uint", currentPosition, leadingSpacingMarshal, leadingSpacing, trailingSpacingMarshal, trailingSpacing, minimumAdvanceWidthMarshal, minimumAdvanceWidth, DWRITE_TEXT_RANGE.Ptr, textRange, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDWriteTextLayout1.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetPairKerning := CallbackCreate(GetMethod(implObj, "SetPairKerning"), flags, 3)
+        this.vtbl.GetPairKerning := CallbackCreate(GetMethod(implObj, "GetPairKerning"), flags, 4)
+        this.vtbl.SetCharacterSpacing := CallbackCreate(GetMethod(implObj, "SetCharacterSpacing"), flags, 5)
+        this.vtbl.GetCharacterSpacing := CallbackCreate(GetMethod(implObj, "GetCharacterSpacing"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetPairKerning)
+        CallbackFree(this.vtbl.GetPairKerning)
+        CallbackFree(this.vtbl.SetCharacterSpacing)
+        CallbackFree(this.vtbl.GetCharacterSpacing)
     }
 }

@@ -1,34 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ISpeechAudioStatus.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ISpeechAudioStatus.ahk" { ISpeechAudioStatus }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpeechRecognizerStatus extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISpeechRecognizerStatus extends IDispatch {
     /**
      * The interface identifier for ISpeechRecognizerStatus
      * @type {Guid}
      */
-    static IID => Guid("{bff9e781-53ec-484e-bb8a-0e1b5551e35c}")
+    static IID := Guid("{bff9e781-53ec-484e-bb8a-0e1b5551e35c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpeechRecognizerStatus interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_AudioStatus           : IntPtr
+        get_CurrentStreamPosition : IntPtr
+        get_CurrentStreamNumber   : IntPtr
+        get_NumberOfActiveRules   : IntPtr
+        get_ClsidEngine           : IntPtr
+        get_SupportedLanguages    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_AudioStatus", "get_CurrentStreamPosition", "get_CurrentStreamNumber", "get_NumberOfActiveRules", "get_ClsidEngine", "get_SupportedLanguages"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpeechRecognizerStatus.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ISpeechAudioStatus} 
@@ -87,7 +100,7 @@ class ISpeechRecognizerStatus extends IDispatch {
      */
     get_CurrentStreamPosition() {
         pCurrentStreamPos := VARIANT()
-        result := ComCall(8, this, "ptr", pCurrentStreamPos, "HRESULT")
+        result := ComCall(8, this, VARIANT.Ptr, pCurrentStreamPos, "HRESULT")
         return pCurrentStreamPos
     }
 
@@ -114,8 +127,8 @@ class ISpeechRecognizerStatus extends IDispatch {
      * @returns {BSTR} 
      */
     get_ClsidEngine() {
-        ClsidEngine := BSTR()
-        result := ComCall(11, this, "ptr", ClsidEngine, "HRESULT")
+        ClsidEngine := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, ClsidEngine, "HRESULT")
         return ClsidEngine
     }
 
@@ -125,7 +138,37 @@ class ISpeechRecognizerStatus extends IDispatch {
      */
     get_SupportedLanguages() {
         SupportedLanguages := VARIANT()
-        result := ComCall(12, this, "ptr", SupportedLanguages, "HRESULT")
+        result := ComCall(12, this, VARIANT.Ptr, SupportedLanguages, "HRESULT")
         return SupportedLanguages
+    }
+
+    Query(iid) {
+        if (ISpeechRecognizerStatus.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_AudioStatus := CallbackCreate(GetMethod(implObj, "get_AudioStatus"), flags, 2)
+        this.vtbl.get_CurrentStreamPosition := CallbackCreate(GetMethod(implObj, "get_CurrentStreamPosition"), flags, 2)
+        this.vtbl.get_CurrentStreamNumber := CallbackCreate(GetMethod(implObj, "get_CurrentStreamNumber"), flags, 2)
+        this.vtbl.get_NumberOfActiveRules := CallbackCreate(GetMethod(implObj, "get_NumberOfActiveRules"), flags, 2)
+        this.vtbl.get_ClsidEngine := CallbackCreate(GetMethod(implObj, "get_ClsidEngine"), flags, 2)
+        this.vtbl.get_SupportedLanguages := CallbackCreate(GetMethod(implObj, "get_SupportedLanguages"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_AudioStatus)
+        CallbackFree(this.vtbl.get_CurrentStreamPosition)
+        CallbackFree(this.vtbl.get_CurrentStreamNumber)
+        CallbackFree(this.vtbl.get_NumberOfActiveRules)
+        CallbackFree(this.vtbl.get_ClsidEngine)
+        CallbackFree(this.vtbl.get_SupportedLanguages)
     }
 }

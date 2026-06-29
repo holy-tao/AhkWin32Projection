@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMPart.ahk
-#Include .\IXpsOMPackage.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsOMPart.ahk" { IXpsOMPart }
+#Import ".\IXpsOMPackage.ahk" { IXpsOMPackage }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
 
 /**
  * This interface provides access to the metadata that is stored in the Core Properties part of the XPS document.
@@ -12,26 +14,66 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomcoreproperties
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMCoreProperties extends IXpsOMPart {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMCoreProperties extends IXpsOMPart {
     /**
      * The interface identifier for IXpsOMCoreProperties
      * @type {Guid}
      */
-    static IID => Guid("{3340fe8f-4027-4aa1-8f5f-d35ae45fe597}")
+    static IID := Guid("{3340fe8f-4027-4aa1-8f5f-d35ae45fe597}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMCoreProperties interfaces
+    */
+    struct Vtbl extends IXpsOMPart.Vtbl {
+        GetOwner          : IntPtr
+        GetCategory       : IntPtr
+        SetCategory       : IntPtr
+        GetContentStatus  : IntPtr
+        SetContentStatus  : IntPtr
+        GetContentType    : IntPtr
+        SetContentType    : IntPtr
+        GetCreated        : IntPtr
+        SetCreated        : IntPtr
+        GetCreator        : IntPtr
+        SetCreator        : IntPtr
+        GetDescription    : IntPtr
+        SetDescription    : IntPtr
+        GetIdentifier     : IntPtr
+        SetIdentifier     : IntPtr
+        GetKeywords       : IntPtr
+        SetKeywords       : IntPtr
+        GetLanguage       : IntPtr
+        SetLanguage       : IntPtr
+        GetLastModifiedBy : IntPtr
+        SetLastModifiedBy : IntPtr
+        GetLastPrinted    : IntPtr
+        SetLastPrinted    : IntPtr
+        GetModified       : IntPtr
+        SetModified       : IntPtr
+        GetRevision       : IntPtr
+        SetRevision       : IntPtr
+        GetSubject        : IntPtr
+        SetSubject        : IntPtr
+        GetTitle          : IntPtr
+        SetTitle          : IntPtr
+        GetVersion        : IntPtr
+        SetVersion        : IntPtr
+        Clone             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetOwner", "GetCategory", "SetCategory", "GetContentStatus", "SetContentStatus", "GetContentType", "SetContentType", "GetCreated", "SetCreated", "GetCreator", "SetCreator", "GetDescription", "SetDescription", "GetIdentifier", "SetIdentifier", "GetKeywords", "SetKeywords", "GetLanguage", "SetLanguage", "GetLastModifiedBy", "SetLastModifiedBy", "GetLastPrinted", "SetLastPrinted", "GetModified", "SetModified", "GetRevision", "SetRevision", "GetSubject", "SetSubject", "GetTitle", "SetTitle", "GetVersion", "SetVersion", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMCoreProperties.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a pointer to the IXpsOMPackage interface that contains the core properties.
@@ -53,7 +95,7 @@ class IXpsOMCoreProperties extends IXpsOMPart {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getcategory
      */
     GetCategory() {
-        result := ComCall(6, this, "ptr*", &category := 0, "HRESULT")
+        result := ComCall(6, this, PWSTR.Ptr, &category := 0, "HRESULT")
         return category
     }
 
@@ -82,7 +124,7 @@ class IXpsOMCoreProperties extends IXpsOMPart {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getcontentstatus
      */
     GetContentStatus() {
-        result := ComCall(8, this, "ptr*", &contentStatus := 0, "HRESULT")
+        result := ComCall(8, this, PWSTR.Ptr, &contentStatus := 0, "HRESULT")
         return contentStatus
     }
 
@@ -112,7 +154,7 @@ class IXpsOMCoreProperties extends IXpsOMPart {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getcontenttype
      */
     GetContentType() {
-        result := ComCall(10, this, "ptr*", &contentType := 0, "HRESULT")
+        result := ComCall(10, this, PWSTR.Ptr, &contentType := 0, "HRESULT")
         return contentType
     }
 
@@ -141,7 +183,7 @@ class IXpsOMCoreProperties extends IXpsOMPart {
      */
     GetCreated() {
         created := SYSTEMTIME()
-        result := ComCall(12, this, "ptr", created, "HRESULT")
+        result := ComCall(12, this, SYSTEMTIME.Ptr, created, "HRESULT")
         return created
     }
 
@@ -183,7 +225,7 @@ class IXpsOMCoreProperties extends IXpsOMPart {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setcreated
      */
     SetCreated(created) {
-        result := ComCall(13, this, "ptr", created, "HRESULT")
+        result := ComCall(13, this, SYSTEMTIME.Ptr, created, "HRESULT")
         return result
     }
 
@@ -198,7 +240,7 @@ class IXpsOMCoreProperties extends IXpsOMPart {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getcreator
      */
     GetCreator() {
-        result := ComCall(14, this, "ptr*", &creator := 0, "HRESULT")
+        result := ComCall(14, this, PWSTR.Ptr, &creator := 0, "HRESULT")
         return creator
     }
 
@@ -228,7 +270,7 @@ class IXpsOMCoreProperties extends IXpsOMPart {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getdescription
      */
     GetDescription() {
-        result := ComCall(16, this, "ptr*", &description := 0, "HRESULT")
+        result := ComCall(16, this, PWSTR.Ptr, &description := 0, "HRESULT")
         return description
     }
 
@@ -258,7 +300,7 @@ class IXpsOMCoreProperties extends IXpsOMPart {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getidentifier
      */
     GetIdentifier() {
-        result := ComCall(18, this, "ptr*", &identifier := 0, "HRESULT")
+        result := ComCall(18, this, PWSTR.Ptr, &identifier := 0, "HRESULT")
         return identifier
     }
 
@@ -290,7 +332,7 @@ class IXpsOMCoreProperties extends IXpsOMPart {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getkeywords
      */
     GetKeywords() {
-        result := ComCall(20, this, "ptr*", &keywords := 0, "HRESULT")
+        result := ComCall(20, this, PWSTR.Ptr, &keywords := 0, "HRESULT")
         return keywords
     }
 
@@ -323,7 +365,7 @@ class IXpsOMCoreProperties extends IXpsOMPart {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getlanguage
      */
     GetLanguage() {
-        result := ComCall(22, this, "ptr*", &language := 0, "HRESULT")
+        result := ComCall(22, this, PWSTR.Ptr, &language := 0, "HRESULT")
         return language
     }
 
@@ -354,7 +396,7 @@ class IXpsOMCoreProperties extends IXpsOMPart {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getlastmodifiedby
      */
     GetLastModifiedBy() {
-        result := ComCall(24, this, "ptr*", &lastModifiedBy := 0, "HRESULT")
+        result := ComCall(24, this, PWSTR.Ptr, &lastModifiedBy := 0, "HRESULT")
         return lastModifiedBy
     }
 
@@ -382,7 +424,7 @@ class IXpsOMCoreProperties extends IXpsOMPart {
      */
     GetLastPrinted() {
         lastPrinted := SYSTEMTIME()
-        result := ComCall(26, this, "ptr", lastPrinted, "HRESULT")
+        result := ComCall(26, this, SYSTEMTIME.Ptr, lastPrinted, "HRESULT")
         return lastPrinted
     }
 
@@ -424,7 +466,7 @@ class IXpsOMCoreProperties extends IXpsOMPart {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setlastprinted
      */
     SetLastPrinted(lastPrinted) {
-        result := ComCall(27, this, "ptr", lastPrinted, "HRESULT")
+        result := ComCall(27, this, SYSTEMTIME.Ptr, lastPrinted, "HRESULT")
         return result
     }
 
@@ -437,7 +479,7 @@ class IXpsOMCoreProperties extends IXpsOMPart {
      */
     GetModified() {
         modified := SYSTEMTIME()
-        result := ComCall(28, this, "ptr", modified, "HRESULT")
+        result := ComCall(28, this, SYSTEMTIME.Ptr, modified, "HRESULT")
         return modified
     }
 
@@ -479,7 +521,7 @@ class IXpsOMCoreProperties extends IXpsOMPart {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setmodified
      */
     SetModified(modified) {
-        result := ComCall(29, this, "ptr", modified, "HRESULT")
+        result := ComCall(29, this, SYSTEMTIME.Ptr, modified, "HRESULT")
         return result
     }
 
@@ -493,7 +535,7 @@ class IXpsOMCoreProperties extends IXpsOMPart {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getrevision
      */
     GetRevision() {
-        result := ComCall(30, this, "ptr*", &revision := 0, "HRESULT")
+        result := ComCall(30, this, PWSTR.Ptr, &revision := 0, "HRESULT")
         return revision
     }
 
@@ -522,7 +564,7 @@ class IXpsOMCoreProperties extends IXpsOMPart {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getsubject
      */
     GetSubject() {
-        result := ComCall(32, this, "ptr*", &subject := 0, "HRESULT")
+        result := ComCall(32, this, PWSTR.Ptr, &subject := 0, "HRESULT")
         return subject
     }
 
@@ -551,7 +593,7 @@ class IXpsOMCoreProperties extends IXpsOMPart {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-gettitle
      */
     GetTitle() {
-        result := ComCall(34, this, "ptr*", &title := 0, "HRESULT")
+        result := ComCall(34, this, PWSTR.Ptr, &title := 0, "HRESULT")
         return title
     }
 
@@ -580,7 +622,7 @@ class IXpsOMCoreProperties extends IXpsOMPart {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getversion
      */
     GetVersion() {
-        result := ComCall(36, this, "ptr*", &_version := 0, "HRESULT")
+        result := ComCall(36, this, PWSTR.Ptr, &_version := 0, "HRESULT")
         return _version
     }
 
@@ -609,5 +651,91 @@ class IXpsOMCoreProperties extends IXpsOMPart {
     Clone() {
         result := ComCall(38, this, "ptr*", &coreProperties := 0, "HRESULT")
         return IXpsOMCoreProperties(coreProperties)
+    }
+
+    Query(iid) {
+        if (IXpsOMCoreProperties.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetOwner := CallbackCreate(GetMethod(implObj, "GetOwner"), flags, 2)
+        this.vtbl.GetCategory := CallbackCreate(GetMethod(implObj, "GetCategory"), flags, 2)
+        this.vtbl.SetCategory := CallbackCreate(GetMethod(implObj, "SetCategory"), flags, 2)
+        this.vtbl.GetContentStatus := CallbackCreate(GetMethod(implObj, "GetContentStatus"), flags, 2)
+        this.vtbl.SetContentStatus := CallbackCreate(GetMethod(implObj, "SetContentStatus"), flags, 2)
+        this.vtbl.GetContentType := CallbackCreate(GetMethod(implObj, "GetContentType"), flags, 2)
+        this.vtbl.SetContentType := CallbackCreate(GetMethod(implObj, "SetContentType"), flags, 2)
+        this.vtbl.GetCreated := CallbackCreate(GetMethod(implObj, "GetCreated"), flags, 2)
+        this.vtbl.SetCreated := CallbackCreate(GetMethod(implObj, "SetCreated"), flags, 2)
+        this.vtbl.GetCreator := CallbackCreate(GetMethod(implObj, "GetCreator"), flags, 2)
+        this.vtbl.SetCreator := CallbackCreate(GetMethod(implObj, "SetCreator"), flags, 2)
+        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 2)
+        this.vtbl.SetDescription := CallbackCreate(GetMethod(implObj, "SetDescription"), flags, 2)
+        this.vtbl.GetIdentifier := CallbackCreate(GetMethod(implObj, "GetIdentifier"), flags, 2)
+        this.vtbl.SetIdentifier := CallbackCreate(GetMethod(implObj, "SetIdentifier"), flags, 2)
+        this.vtbl.GetKeywords := CallbackCreate(GetMethod(implObj, "GetKeywords"), flags, 2)
+        this.vtbl.SetKeywords := CallbackCreate(GetMethod(implObj, "SetKeywords"), flags, 2)
+        this.vtbl.GetLanguage := CallbackCreate(GetMethod(implObj, "GetLanguage"), flags, 2)
+        this.vtbl.SetLanguage := CallbackCreate(GetMethod(implObj, "SetLanguage"), flags, 2)
+        this.vtbl.GetLastModifiedBy := CallbackCreate(GetMethod(implObj, "GetLastModifiedBy"), flags, 2)
+        this.vtbl.SetLastModifiedBy := CallbackCreate(GetMethod(implObj, "SetLastModifiedBy"), flags, 2)
+        this.vtbl.GetLastPrinted := CallbackCreate(GetMethod(implObj, "GetLastPrinted"), flags, 2)
+        this.vtbl.SetLastPrinted := CallbackCreate(GetMethod(implObj, "SetLastPrinted"), flags, 2)
+        this.vtbl.GetModified := CallbackCreate(GetMethod(implObj, "GetModified"), flags, 2)
+        this.vtbl.SetModified := CallbackCreate(GetMethod(implObj, "SetModified"), flags, 2)
+        this.vtbl.GetRevision := CallbackCreate(GetMethod(implObj, "GetRevision"), flags, 2)
+        this.vtbl.SetRevision := CallbackCreate(GetMethod(implObj, "SetRevision"), flags, 2)
+        this.vtbl.GetSubject := CallbackCreate(GetMethod(implObj, "GetSubject"), flags, 2)
+        this.vtbl.SetSubject := CallbackCreate(GetMethod(implObj, "SetSubject"), flags, 2)
+        this.vtbl.GetTitle := CallbackCreate(GetMethod(implObj, "GetTitle"), flags, 2)
+        this.vtbl.SetTitle := CallbackCreate(GetMethod(implObj, "SetTitle"), flags, 2)
+        this.vtbl.GetVersion := CallbackCreate(GetMethod(implObj, "GetVersion"), flags, 2)
+        this.vtbl.SetVersion := CallbackCreate(GetMethod(implObj, "SetVersion"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetOwner)
+        CallbackFree(this.vtbl.GetCategory)
+        CallbackFree(this.vtbl.SetCategory)
+        CallbackFree(this.vtbl.GetContentStatus)
+        CallbackFree(this.vtbl.SetContentStatus)
+        CallbackFree(this.vtbl.GetContentType)
+        CallbackFree(this.vtbl.SetContentType)
+        CallbackFree(this.vtbl.GetCreated)
+        CallbackFree(this.vtbl.SetCreated)
+        CallbackFree(this.vtbl.GetCreator)
+        CallbackFree(this.vtbl.SetCreator)
+        CallbackFree(this.vtbl.GetDescription)
+        CallbackFree(this.vtbl.SetDescription)
+        CallbackFree(this.vtbl.GetIdentifier)
+        CallbackFree(this.vtbl.SetIdentifier)
+        CallbackFree(this.vtbl.GetKeywords)
+        CallbackFree(this.vtbl.SetKeywords)
+        CallbackFree(this.vtbl.GetLanguage)
+        CallbackFree(this.vtbl.SetLanguage)
+        CallbackFree(this.vtbl.GetLastModifiedBy)
+        CallbackFree(this.vtbl.SetLastModifiedBy)
+        CallbackFree(this.vtbl.GetLastPrinted)
+        CallbackFree(this.vtbl.SetLastPrinted)
+        CallbackFree(this.vtbl.GetModified)
+        CallbackFree(this.vtbl.SetModified)
+        CallbackFree(this.vtbl.GetRevision)
+        CallbackFree(this.vtbl.SetRevision)
+        CallbackFree(this.vtbl.GetSubject)
+        CallbackFree(this.vtbl.SetSubject)
+        CallbackFree(this.vtbl.GetTitle)
+        CallbackFree(this.vtbl.SetTitle)
+        CallbackFree(this.vtbl.GetVersion)
+        CallbackFree(this.vtbl.SetVersion)
+        CallbackFree(this.vtbl.Clone)
     }
 }

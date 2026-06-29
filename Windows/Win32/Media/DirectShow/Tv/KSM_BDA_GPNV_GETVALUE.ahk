@@ -1,50 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\KernelStreaming\KSIDENTIFIER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\KernelStreaming\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class KSM_BDA_GPNV_GETVALUE extends Win32Struct {
-    static sizeof => 40
+export default struct KSM_BDA_GPNV_GETVALUE {
+    #StructPack 8
 
-    static packingSize => 8
+    Method : KSIDENTIFIER
 
-    /**
-     * @type {KSIDENTIFIER}
-     */
-    Method {
-        get {
-            if(!this.HasProp("__Method"))
-                this.__Method := KSIDENTIFIER(0, this)
-            return this.__Method
-        }
-    }
+    ulNameLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulNameLength {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cLanguage : CHAR[12]
 
-    /**
-     * @type {String}
-     */
-    cLanguage {
-        get => StrGet(this.ptr + 20, 11, "UTF-8")
-        set => StrPut(value, this.ptr + 20, 11, "UTF-8")
-    }
+    argbData : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    argbData {
-        get {
-            if(!this.HasProp("__argbDataProxyArray"))
-                this.__argbDataProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
-            return this.__argbDataProxyArray
-        }
-    }
 }

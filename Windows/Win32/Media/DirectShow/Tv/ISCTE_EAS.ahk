@@ -1,35 +1,73 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IGenericDescriptor.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ISectionList.ahk" { ISectionList }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMpeg2Data.ahk" { IMpeg2Data }
 
 /**
  * The ISCTE_EAS interface enables the client to get data from an ATSC emergency alert message (EAS) table.
  * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nn-atscpsipparser-iscte_eas
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class ISCTE_EAS extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISCTE_EAS extends IUnknown {
     /**
      * The interface identifier for ISCTE_EAS
      * @type {Guid}
      */
-    static IID => Guid("{1ff544d6-161d-4fae-9faa-4f9f492ae999}")
+    static IID := Guid("{1ff544d6-161d-4fae-9faa-4f9f492ae999}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISCTE_EAS interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize                      : IntPtr
+        GetVersionNumber                : IntPtr
+        GetSequencyNumber               : IntPtr
+        GetProtocolVersion              : IntPtr
+        GetEASEventID                   : IntPtr
+        GetOriginatorCode               : IntPtr
+        GetEASEventCodeLen              : IntPtr
+        GetEASEventCode                 : IntPtr
+        GetRawNatureOfActivationTextLen : IntPtr
+        GetRawNatureOfActivationText    : IntPtr
+        GetNatureOfActivationText       : IntPtr
+        GetTimeRemaining                : IntPtr
+        GetStartTime                    : IntPtr
+        GetDuration                     : IntPtr
+        GetAlertPriority                : IntPtr
+        GetDetailsOOBSourceID           : IntPtr
+        GetDetailsMajor                 : IntPtr
+        GetDetailsMinor                 : IntPtr
+        GetDetailsAudioOOBSourceID      : IntPtr
+        GetAlertText                    : IntPtr
+        GetRawAlertTextLen              : IntPtr
+        GetRawAlertText                 : IntPtr
+        GetLocationCount                : IntPtr
+        GetLocationCodes                : IntPtr
+        GetExceptionCount               : IntPtr
+        GetExceptionService             : IntPtr
+        GetCountOfTableDescriptors      : IntPtr
+        GetTableDescriptorByIndex       : IntPtr
+        GetTableDescriptorByTag         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetVersionNumber", "GetSequencyNumber", "GetProtocolVersion", "GetEASEventID", "GetOriginatorCode", "GetEASEventCodeLen", "GetEASEventCode", "GetRawNatureOfActivationTextLen", "GetRawNatureOfActivationText", "GetNatureOfActivationText", "GetTimeRemaining", "GetStartTime", "GetDuration", "GetAlertPriority", "GetDetailsOOBSourceID", "GetDetailsMajor", "GetDetailsMinor", "GetDetailsAudioOOBSourceID", "GetAlertText", "GetRawAlertTextLen", "GetRawAlertText", "GetLocationCount", "GetLocationCodes", "GetExceptionCount", "GetExceptionService", "GetCountOfTableDescriptors", "GetTableDescriptorByIndex", "GetTableDescriptorByTag"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISCTE_EAS.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Initialize method initializes the object using captured table section data. This method is called internally by the IAtscPsipParser::GetEAS method, so applications typically should not call it.
@@ -200,8 +238,8 @@ class ISCTE_EAS extends IUnknown {
     GetNatureOfActivationText(bstrIS0639code) {
         bstrIS0639code := bstrIS0639code is String ? BSTR.Alloc(bstrIS0639code).Value : bstrIS0639code
 
-        pbstrString := BSTR()
-        result := ComCall(13, this, "ptr", bstrIS0639code, "ptr", pbstrString, "HRESULT")
+        pbstrString := BSTR.Owned()
+        result := ComCall(13, this, BSTR, bstrIS0639code, BSTR.Ptr, pbstrString, "HRESULT")
         return pbstrString
     }
 
@@ -299,8 +337,8 @@ class ISCTE_EAS extends IUnknown {
     GetAlertText(bstrIS0639code) {
         bstrIS0639code := bstrIS0639code is String ? BSTR.Alloc(bstrIS0639code).Value : bstrIS0639code
 
-        pbstrString := BSTR()
-        result := ComCall(22, this, "ptr", bstrIS0639code, "ptr", pbstrString, "HRESULT")
+        pbstrString := BSTR.Owned()
+        result := ComCall(22, this, BSTR, bstrIS0639code, BSTR.Ptr, pbstrString, "HRESULT")
         return pbstrString
     }
 
@@ -497,5 +535,81 @@ class ISCTE_EAS extends IUnknown {
 
         result := ComCall(31, this, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
+    }
+
+    Query(iid) {
+        if (ISCTE_EAS.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetVersionNumber := CallbackCreate(GetMethod(implObj, "GetVersionNumber"), flags, 2)
+        this.vtbl.GetSequencyNumber := CallbackCreate(GetMethod(implObj, "GetSequencyNumber"), flags, 2)
+        this.vtbl.GetProtocolVersion := CallbackCreate(GetMethod(implObj, "GetProtocolVersion"), flags, 2)
+        this.vtbl.GetEASEventID := CallbackCreate(GetMethod(implObj, "GetEASEventID"), flags, 2)
+        this.vtbl.GetOriginatorCode := CallbackCreate(GetMethod(implObj, "GetOriginatorCode"), flags, 2)
+        this.vtbl.GetEASEventCodeLen := CallbackCreate(GetMethod(implObj, "GetEASEventCodeLen"), flags, 2)
+        this.vtbl.GetEASEventCode := CallbackCreate(GetMethod(implObj, "GetEASEventCode"), flags, 2)
+        this.vtbl.GetRawNatureOfActivationTextLen := CallbackCreate(GetMethod(implObj, "GetRawNatureOfActivationTextLen"), flags, 2)
+        this.vtbl.GetRawNatureOfActivationText := CallbackCreate(GetMethod(implObj, "GetRawNatureOfActivationText"), flags, 2)
+        this.vtbl.GetNatureOfActivationText := CallbackCreate(GetMethod(implObj, "GetNatureOfActivationText"), flags, 3)
+        this.vtbl.GetTimeRemaining := CallbackCreate(GetMethod(implObj, "GetTimeRemaining"), flags, 2)
+        this.vtbl.GetStartTime := CallbackCreate(GetMethod(implObj, "GetStartTime"), flags, 2)
+        this.vtbl.GetDuration := CallbackCreate(GetMethod(implObj, "GetDuration"), flags, 2)
+        this.vtbl.GetAlertPriority := CallbackCreate(GetMethod(implObj, "GetAlertPriority"), flags, 2)
+        this.vtbl.GetDetailsOOBSourceID := CallbackCreate(GetMethod(implObj, "GetDetailsOOBSourceID"), flags, 2)
+        this.vtbl.GetDetailsMajor := CallbackCreate(GetMethod(implObj, "GetDetailsMajor"), flags, 2)
+        this.vtbl.GetDetailsMinor := CallbackCreate(GetMethod(implObj, "GetDetailsMinor"), flags, 2)
+        this.vtbl.GetDetailsAudioOOBSourceID := CallbackCreate(GetMethod(implObj, "GetDetailsAudioOOBSourceID"), flags, 2)
+        this.vtbl.GetAlertText := CallbackCreate(GetMethod(implObj, "GetAlertText"), flags, 3)
+        this.vtbl.GetRawAlertTextLen := CallbackCreate(GetMethod(implObj, "GetRawAlertTextLen"), flags, 2)
+        this.vtbl.GetRawAlertText := CallbackCreate(GetMethod(implObj, "GetRawAlertText"), flags, 2)
+        this.vtbl.GetLocationCount := CallbackCreate(GetMethod(implObj, "GetLocationCount"), flags, 2)
+        this.vtbl.GetLocationCodes := CallbackCreate(GetMethod(implObj, "GetLocationCodes"), flags, 5)
+        this.vtbl.GetExceptionCount := CallbackCreate(GetMethod(implObj, "GetExceptionCount"), flags, 2)
+        this.vtbl.GetExceptionService := CallbackCreate(GetMethod(implObj, "GetExceptionService"), flags, 5)
+        this.vtbl.GetCountOfTableDescriptors := CallbackCreate(GetMethod(implObj, "GetCountOfTableDescriptors"), flags, 2)
+        this.vtbl.GetTableDescriptorByIndex := CallbackCreate(GetMethod(implObj, "GetTableDescriptorByIndex"), flags, 3)
+        this.vtbl.GetTableDescriptorByTag := CallbackCreate(GetMethod(implObj, "GetTableDescriptorByTag"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetVersionNumber)
+        CallbackFree(this.vtbl.GetSequencyNumber)
+        CallbackFree(this.vtbl.GetProtocolVersion)
+        CallbackFree(this.vtbl.GetEASEventID)
+        CallbackFree(this.vtbl.GetOriginatorCode)
+        CallbackFree(this.vtbl.GetEASEventCodeLen)
+        CallbackFree(this.vtbl.GetEASEventCode)
+        CallbackFree(this.vtbl.GetRawNatureOfActivationTextLen)
+        CallbackFree(this.vtbl.GetRawNatureOfActivationText)
+        CallbackFree(this.vtbl.GetNatureOfActivationText)
+        CallbackFree(this.vtbl.GetTimeRemaining)
+        CallbackFree(this.vtbl.GetStartTime)
+        CallbackFree(this.vtbl.GetDuration)
+        CallbackFree(this.vtbl.GetAlertPriority)
+        CallbackFree(this.vtbl.GetDetailsOOBSourceID)
+        CallbackFree(this.vtbl.GetDetailsMajor)
+        CallbackFree(this.vtbl.GetDetailsMinor)
+        CallbackFree(this.vtbl.GetDetailsAudioOOBSourceID)
+        CallbackFree(this.vtbl.GetAlertText)
+        CallbackFree(this.vtbl.GetRawAlertTextLen)
+        CallbackFree(this.vtbl.GetRawAlertText)
+        CallbackFree(this.vtbl.GetLocationCount)
+        CallbackFree(this.vtbl.GetLocationCodes)
+        CallbackFree(this.vtbl.GetExceptionCount)
+        CallbackFree(this.vtbl.GetExceptionService)
+        CallbackFree(this.vtbl.GetCountOfTableDescriptors)
+        CallbackFree(this.vtbl.GetTableDescriptorByIndex)
+        CallbackFree(this.vtbl.GetTableDescriptorByTag)
     }
 }

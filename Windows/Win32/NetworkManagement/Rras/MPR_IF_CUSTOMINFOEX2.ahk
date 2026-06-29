@@ -1,47 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MPRAPI_OBJECT_HEADER.ahk
-#Include .\ROUTER_IKEv2_IF_CUSTOM_CONFIG2.ahk
-#Include ..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk
-#Include .\ROUTER_CUSTOM_IKEv2_POLICY0.ahk
-#Include .\MPR_VPN_TRAFFIC_SELECTORS.ahk
-#Include .\MPR_VPN_TRAFFIC_SELECTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MPR_VPN_TRAFFIC_SELECTOR.ahk" { MPR_VPN_TRAFFIC_SELECTOR }
+#Import ".\ROUTER_CUSTOM_IKEv2_POLICY0.ahk" { ROUTER_CUSTOM_IKEv2_POLICY0 }
+#Import ".\MPR_VPN_TRAFFIC_SELECTORS.ahk" { MPR_VPN_TRAFFIC_SELECTORS }
+#Import ".\ROUTER_IKEv2_IF_CUSTOM_CONFIG2.ahk" { ROUTER_IKEv2_IF_CUSTOM_CONFIG2 }
+#Import "..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\MPRAPI_OBJECT_HEADER.ahk" { MPRAPI_OBJECT_HEADER }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class MPR_IF_CUSTOMINFOEX2 extends Win32Struct {
-    static sizeof => 88
+export default struct MPR_IF_CUSTOMINFOEX2 {
+    #StructPack 8
 
-    static packingSize => 8
+    Header : MPRAPI_OBJECT_HEADER
 
-    /**
-     * @type {MPRAPI_OBJECT_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := MPRAPI_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    customIkev2Config : ROUTER_IKEv2_IF_CUSTOM_CONFIG2
 
-    /**
-     * @type {ROUTER_IKEv2_IF_CUSTOM_CONFIG2}
-     */
-    customIkev2Config {
-        get {
-            if(!this.HasProp("__customIkev2Config"))
-                this.__customIkev2Config := ROUTER_IKEv2_IF_CUSTOM_CONFIG2(8, this)
-            return this.__customIkev2Config
-        }
-    }
 }

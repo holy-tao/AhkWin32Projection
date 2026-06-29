@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies whether a stream associated with an IMFSensorDevice is an input or an output stream.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfsensorstreamtype
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFSensorStreamType extends Win32Enum {
+export default struct MFSensorStreamType {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The sensor stream type is unknown.

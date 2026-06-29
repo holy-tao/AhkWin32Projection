@@ -1,121 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\AUDIT_PARAM_TYPE.ahk
-#Include ..\SID.ahk
-#Include .\AUDIT_OBJECT_TYPES.ahk
-#Include .\AUDIT_IP_ADDRESS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\AUDIT_OBJECT_TYPES.ahk" { AUDIT_OBJECT_TYPES }
+#Import "..\SID.ahk" { SID }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\AUDIT_IP_ADDRESS.ahk" { AUDIT_IP_ADDRESS }
+#Import ".\AUDIT_PARAM_TYPE.ahk" { AUDIT_PARAM_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
- * Defines the type of audit parameters that are available.
- * @see https://learn.microsoft.com/windows/win32/api/adtgen/ne-adtgen-audit_param_type
  * @namespace Windows.Win32.Security.Authorization
  */
-class AUDIT_PARAM extends Win32Struct {
-    static sizeof => 32
+export default struct AUDIT_PARAM {
+    #StructPack 8
 
-    static packingSize => 8
+    Type : AUDIT_PARAM_TYPE
 
-    /**
-     * @type {AUDIT_PARAM_TYPE}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Data0 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Data0 {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Data1 : IntPtr
 
-    /**
-     * @type {PWSTR}
-     */
-    String {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    u {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<SID>}
-     */
-    psid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Guid>}
-     */
-    pguid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    LogonId_LowPart {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<AUDIT_OBJECT_TYPES>}
-     */
-    pObjectTypes {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<AUDIT_IP_ADDRESS>}
-     */
-    pIpAddress {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    Data1 {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    LogonId_HighPart {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    static __New() {
+        DefineProp(this.Prototype, 'String', { type: PWSTR, offset: 16 })
+        DefineProp(this.Prototype, 'u', { type: IntPtr, offset: 16 })
+        DefineProp(this.Prototype, 'psid', { type: SID.Ptr, offset: 16 })
+        DefineProp(this.Prototype, 'pguid', { type: Guid.Ptr, offset: 16 })
+        DefineProp(this.Prototype, 'LogonId_LowPart', { type: UInt32, offset: 16 })
+        DefineProp(this.Prototype, 'pObjectTypes', { type: AUDIT_OBJECT_TYPES.Ptr, offset: 16 })
+        DefineProp(this.Prototype, 'pIpAddress', { type: AUDIT_IP_ADDRESS.Ptr, offset: 16 })
+        DefineProp(this.Prototype, 'LogonId_HighPart', { type: Int32, offset: 24 })
+        this.DeleteProp("__New")
     }
 }

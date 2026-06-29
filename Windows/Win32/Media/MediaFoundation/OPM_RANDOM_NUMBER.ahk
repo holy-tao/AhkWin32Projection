@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * OPM_RANDOM_NUMBER (opmapi.h) contains a 128-bit random number for use with Output Protection Manager (OPM).
@@ -8,20 +7,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/opmapi/ns-opmapi-opm_random_number
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class OPM_RANDOM_NUMBER extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 1
+export default struct OPM_RANDOM_NUMBER {
+    #StructPack 1
 
     /**
      * A 128-bit array that contains a random number.
-     * @type {Array<Integer>}
      */
-    abRandomNumber {
-        get {
-            if(!this.HasProp("__abRandomNumberProxyArray"))
-                this.__abRandomNumberProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
-            return this.__abRandomNumberProxyArray
-        }
-    }
+    abRandomNumber : Int8[16]
+
 }

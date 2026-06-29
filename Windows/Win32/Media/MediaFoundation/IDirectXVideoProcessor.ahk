@@ -1,36 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDirectXVideoProcessorService.ahk
-#Include .\DXVA2_VideoProcessorCaps.ahk
-#Include .\DXVA2_ValueRange.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DXVA2_VideoSample.ahk" { DXVA2_VideoSample }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\DXVA2_VideoDesc.ahk" { DXVA2_VideoDesc }
+#Import "..\..\Graphics\Direct3D9\D3DFORMAT.ahk" { D3DFORMAT }
+#Import ".\DXVA2_VideoProcessBltParams.ahk" { DXVA2_VideoProcessBltParams }
+#Import "..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk" { IDirect3DSurface9 }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DXVA2_VideoProcessorCaps.ahk" { DXVA2_VideoProcessorCaps }
+#Import ".\DXVA2_ValueRange.ahk" { DXVA2_ValueRange }
+#Import ".\IDirectXVideoProcessorService.ahk" { IDirectXVideoProcessorService }
 
 /**
  * Represents a DirectX Video Acceleration (DXVA) video processor device.
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nn-dxva2api-idirectxvideoprocessor
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IDirectXVideoProcessor extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectXVideoProcessor extends IUnknown {
     /**
      * The interface identifier for IDirectXVideoProcessor
      * @type {Guid}
      */
-    static IID => Guid("{8c3a39f0-916e-4690-804f-4c8001355d25}")
+    static IID := Guid("{8c3a39f0-916e-4690-804f-4c8001355d25}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectXVideoProcessor interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetVideoProcessorService : IntPtr
+        GetCreationParameters    : IntPtr
+        GetVideoProcessorCaps    : IntPtr
+        GetProcAmpRange          : IntPtr
+        GetFilterPropertyRange   : IntPtr
+        VideoProcessBlt          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetVideoProcessorService", "GetCreationParameters", "GetVideoProcessorCaps", "GetProcAmpRange", "GetFilterPropertyRange", "VideoProcessBlt"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectXVideoProcessor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the DirectX Video Acceleration (DXVA) video processor service that created this video processor device.
@@ -86,7 +105,7 @@ class IDirectXVideoProcessor extends IUnknown {
         pRenderTargetFormatMarshal := pRenderTargetFormat is VarRef ? "uint*" : "ptr"
         pMaxNumSubStreamsMarshal := pMaxNumSubStreams is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pDeviceGuid, "ptr", pVideoDesc, pRenderTargetFormatMarshal, pRenderTargetFormat, pMaxNumSubStreamsMarshal, pMaxNumSubStreams, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, pDeviceGuid, DXVA2_VideoDesc.Ptr, pVideoDesc, pRenderTargetFormatMarshal, pRenderTargetFormat, pMaxNumSubStreamsMarshal, pMaxNumSubStreams, "HRESULT")
         return result
     }
 
@@ -97,7 +116,7 @@ class IDirectXVideoProcessor extends IUnknown {
      */
     GetVideoProcessorCaps() {
         pCaps := DXVA2_VideoProcessorCaps()
-        result := ComCall(5, this, "ptr", pCaps, "HRESULT")
+        result := ComCall(5, this, DXVA2_VideoProcessorCaps.Ptr, pCaps, "HRESULT")
         return pCaps
     }
 
@@ -109,7 +128,7 @@ class IDirectXVideoProcessor extends IUnknown {
      */
     GetProcAmpRange(ProcAmpCap) {
         pRange := DXVA2_ValueRange()
-        result := ComCall(6, this, "uint", ProcAmpCap, "ptr", pRange, "HRESULT")
+        result := ComCall(6, this, "uint", ProcAmpCap, DXVA2_ValueRange.Ptr, pRange, "HRESULT")
         return pRange
     }
 
@@ -121,7 +140,7 @@ class IDirectXVideoProcessor extends IUnknown {
      */
     GetFilterPropertyRange(FilterSetting) {
         pRange := DXVA2_ValueRange()
-        result := ComCall(7, this, "uint", FilterSetting, "ptr", pRange, "HRESULT")
+        result := ComCall(7, this, "uint", FilterSetting, DXVA2_ValueRange.Ptr, pRange, "HRESULT")
         return pRange
     }
 
@@ -215,7 +234,37 @@ class IDirectXVideoProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideoprocessor-videoprocessblt
      */
     VideoProcessBlt(pRenderTarget, pBltParams, pSamples, NumSamples, pHandleComplete) {
-        result := ComCall(8, this, "ptr", pRenderTarget, "ptr", pBltParams, "ptr", pSamples, "uint", NumSamples, "ptr", pHandleComplete, "HRESULT")
+        result := ComCall(8, this, "ptr", pRenderTarget, DXVA2_VideoProcessBltParams.Ptr, pBltParams, DXVA2_VideoSample.Ptr, pSamples, "uint", NumSamples, HANDLE.Ptr, pHandleComplete, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectXVideoProcessor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetVideoProcessorService := CallbackCreate(GetMethod(implObj, "GetVideoProcessorService"), flags, 2)
+        this.vtbl.GetCreationParameters := CallbackCreate(GetMethod(implObj, "GetCreationParameters"), flags, 5)
+        this.vtbl.GetVideoProcessorCaps := CallbackCreate(GetMethod(implObj, "GetVideoProcessorCaps"), flags, 2)
+        this.vtbl.GetProcAmpRange := CallbackCreate(GetMethod(implObj, "GetProcAmpRange"), flags, 3)
+        this.vtbl.GetFilterPropertyRange := CallbackCreate(GetMethod(implObj, "GetFilterPropertyRange"), flags, 3)
+        this.vtbl.VideoProcessBlt := CallbackCreate(GetMethod(implObj, "VideoProcessBlt"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetVideoProcessorService)
+        CallbackFree(this.vtbl.GetCreationParameters)
+        CallbackFree(this.vtbl.GetVideoProcessorCaps)
+        CallbackFree(this.vtbl.GetProcAmpRange)
+        CallbackFree(this.vtbl.GetFilterPropertyRange)
+        CallbackFree(this.vtbl.VideoProcessBlt)
     }
 }

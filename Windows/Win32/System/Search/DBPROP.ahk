@@ -1,68 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Storage\IndexServer\DBID.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include ..\Variant\VARENUM.ahk
-#Include ..\Com\CY.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Com\SAFEARRAY.ahk
-#Include ..\..\Foundation\DECIMAL.ahk
-#Include ..\Ole\IRecordInfo.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\Ole\IRecordInfo.ahk" { IRecordInfo }
+#Import "..\..\Foundation\DECIMAL.ahk" { DECIMAL }
+#Import "..\Variant\VARENUM.ahk" { VARENUM }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\CY.ahk" { CY }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\Storage\IndexServer\DBID.ahk" { DBID }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * @namespace Windows.Win32.System.Search
  * @architecture X64, Arm64
  */
-class DBPROP extends Win32Struct {
-    static sizeof => 64
+export default struct DBPROP {
+    #StructPack 8
 
-    static packingSize => 8
+    dwPropertyID : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwPropertyID {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwOptions : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwOptions {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwStatus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwStatus {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    colid : DBID
 
-    /**
-     * @type {DBID}
-     */
-    colid {
-        get {
-            if(!this.HasProp("__colid"))
-                this.__colid := DBID(16, this)
-            return this.__colid
-        }
-    }
+    vValue : VARIANT
 
-    /**
-     * @type {VARIANT}
-     */
-    vValue {
-        get {
-            if(!this.HasProp("__vValue"))
-                this.__vValue := VARIANT(40, this)
-            return this.__vValue
-        }
-    }
 }

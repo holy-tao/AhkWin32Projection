@@ -1,34 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\KSJACK_DESCRIPTION2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\KSJACK_DESCRIPTION2.ahk" { KSJACK_DESCRIPTION2 }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IKsJackDescription2 interface provides information about the jacks or internal connectors that provide a physical connection between a device on an audio adapter and an external or internal endpoint device (for example, a microphone or CD player).
  * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-iksjackdescription2
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class IKsJackDescription2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IKsJackDescription2 extends IUnknown {
     /**
      * The interface identifier for IKsJackDescription2
      * @type {Guid}
      */
-    static IID => Guid("{478f3a9b-e0c9-4827-9228-6f5505ffe76a}")
+    static IID := Guid("{478f3a9b-e0c9-4827-9228-6f5505ffe76a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IKsJackDescription2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetJackCount        : IntPtr
+        GetJackDescription2 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetJackCount", "GetJackDescription2"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IKsJackDescription2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetJackCount method gets the number of jacks on the connector, which are required to connect to an endpoint device.
@@ -48,7 +57,29 @@ class IKsJackDescription2 extends IUnknown {
      */
     GetJackDescription2(nJack) {
         pDescription2 := KSJACK_DESCRIPTION2()
-        result := ComCall(4, this, "uint", nJack, "ptr", pDescription2, "HRESULT")
+        result := ComCall(4, this, "uint", nJack, KSJACK_DESCRIPTION2.Ptr, pDescription2, "HRESULT")
         return pDescription2
+    }
+
+    Query(iid) {
+        if (IKsJackDescription2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetJackCount := CallbackCreate(GetMethod(implObj, "GetJackCount"), flags, 2)
+        this.vtbl.GetJackDescription2 := CallbackCreate(GetMethod(implObj, "GetJackDescription2"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetJackCount)
+        CallbackFree(this.vtbl.GetJackDescription2)
     }
 }

@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_RESTORATION_TYPE.ahk
-#Include .\D3D12_VIDEO_ENCODER_AV1_RESTORATION_TILESIZE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_VIDEO_ENCODER_AV1_RESTORATION_TILESIZE.ahk" { D3D12_VIDEO_ENCODER_AV1_RESTORATION_TILESIZE }
+#Import ".\D3D12_VIDEO_ENCODER_AV1_RESTORATION_TYPE.ahk" { D3D12_VIDEO_ENCODER_AV1_RESTORATION_TYPE }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_ENCODER_AV1_RESTORATION_CONFIG extends Win32Struct {
-    static sizeof => 24
+export default struct D3D12_VIDEO_ENCODER_AV1_RESTORATION_CONFIG {
+    #StructPack 4
 
-    static packingSize => 4
+    FrameRestorationType : D3D12_VIDEO_ENCODER_AV1_RESTORATION_TYPE[3]
 
-    /**
-     * @type {Array<D3D12_VIDEO_ENCODER_AV1_RESTORATION_TYPE>}
-     */
-    FrameRestorationType {
-        get {
-            if(!this.HasProp("__FrameRestorationTypeProxyArray"))
-                this.__FrameRestorationTypeProxyArray := Win32FixedArray(this.ptr + 0, 3, Primitive, "int")
-            return this.__FrameRestorationTypeProxyArray
-        }
-    }
+    LoopRestorationPixelSize : D3D12_VIDEO_ENCODER_AV1_RESTORATION_TILESIZE[3]
 
-    /**
-     * @type {Array<D3D12_VIDEO_ENCODER_AV1_RESTORATION_TILESIZE>}
-     */
-    LoopRestorationPixelSize {
-        get {
-            if(!this.HasProp("__LoopRestorationPixelSizeProxyArray"))
-                this.__LoopRestorationPixelSizeProxyArray := Win32FixedArray(this.ptr + 12, 3, Primitive, "int")
-            return this.__LoopRestorationPixelSizeProxyArray
-        }
-    }
 }

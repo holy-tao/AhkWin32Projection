@@ -1,36 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IEnumBstr.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumBstr.ahk" { IEnumBstr }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IMcastLeaseInfo interface exposes methods that can get or set information concerning a multicast address allocation. The IMcastLease object is created by calling IMcastAddressAllocation::CreateLeaseInfo.
  * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nn-mdhcp-imcastleaseinfo
  * @namespace Windows.Win32.Devices.Tapi
  */
-class IMcastLeaseInfo extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IMcastLeaseInfo extends IDispatch {
     /**
      * The interface identifier for IMcastLeaseInfo
      * @type {Guid}
      */
-    static IID => Guid("{df0daefd-a289-11d1-8697-006008b0e5d2}")
+    static IID := Guid("{df0daefd-a289-11d1-8697-006008b0e5d2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMcastLeaseInfo interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_RequestID      : IntPtr
+        get_LeaseStartTime : IntPtr
+        put_LeaseStartTime : IntPtr
+        get_LeaseStopTime  : IntPtr
+        put_LeaseStopTime  : IntPtr
+        get_AddressCount   : IntPtr
+        get_ServerAddress  : IntPtr
+        get_TTL            : IntPtr
+        get_Addresses      : IntPtr
+        EnumerateAddresses : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_RequestID", "get_LeaseStartTime", "put_LeaseStartTime", "get_LeaseStopTime", "put_LeaseStopTime", "get_AddressCount", "get_ServerAddress", "get_TTL", "get_Addresses", "EnumerateAddresses"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMcastLeaseInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -95,8 +112,8 @@ class IMcastLeaseInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastleaseinfo-get_requestid
      */
     get_RequestID() {
-        ppRequestID := BSTR()
-        result := ComCall(7, this, "ptr", ppRequestID, "HRESULT")
+        ppRequestID := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, ppRequestID, "HRESULT")
         return ppRequestID
     }
 
@@ -236,8 +253,8 @@ class IMcastLeaseInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastleaseinfo-get_serveraddress
      */
     get_ServerAddress() {
-        ppAddress := BSTR()
-        result := ComCall(13, this, "ptr", ppAddress, "HRESULT")
+        ppAddress := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, ppAddress, "HRESULT")
         return ppAddress
     }
 
@@ -271,7 +288,7 @@ class IMcastLeaseInfo extends IDispatch {
      */
     get_Addresses() {
         pVariant := VARIANT()
-        result := ComCall(15, this, "ptr", pVariant, "HRESULT")
+        result := ComCall(15, this, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
     }
 
@@ -289,5 +306,43 @@ class IMcastLeaseInfo extends IDispatch {
     EnumerateAddresses() {
         result := ComCall(16, this, "ptr*", &ppEnumAddresses := 0, "HRESULT")
         return IEnumBstr(ppEnumAddresses)
+    }
+
+    Query(iid) {
+        if (IMcastLeaseInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_RequestID := CallbackCreate(GetMethod(implObj, "get_RequestID"), flags, 2)
+        this.vtbl.get_LeaseStartTime := CallbackCreate(GetMethod(implObj, "get_LeaseStartTime"), flags, 2)
+        this.vtbl.put_LeaseStartTime := CallbackCreate(GetMethod(implObj, "put_LeaseStartTime"), flags, 2)
+        this.vtbl.get_LeaseStopTime := CallbackCreate(GetMethod(implObj, "get_LeaseStopTime"), flags, 2)
+        this.vtbl.put_LeaseStopTime := CallbackCreate(GetMethod(implObj, "put_LeaseStopTime"), flags, 2)
+        this.vtbl.get_AddressCount := CallbackCreate(GetMethod(implObj, "get_AddressCount"), flags, 2)
+        this.vtbl.get_ServerAddress := CallbackCreate(GetMethod(implObj, "get_ServerAddress"), flags, 2)
+        this.vtbl.get_TTL := CallbackCreate(GetMethod(implObj, "get_TTL"), flags, 2)
+        this.vtbl.get_Addresses := CallbackCreate(GetMethod(implObj, "get_Addresses"), flags, 2)
+        this.vtbl.EnumerateAddresses := CallbackCreate(GetMethod(implObj, "EnumerateAddresses"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_RequestID)
+        CallbackFree(this.vtbl.get_LeaseStartTime)
+        CallbackFree(this.vtbl.put_LeaseStartTime)
+        CallbackFree(this.vtbl.get_LeaseStopTime)
+        CallbackFree(this.vtbl.put_LeaseStopTime)
+        CallbackFree(this.vtbl.get_AddressCount)
+        CallbackFree(this.vtbl.get_ServerAddress)
+        CallbackFree(this.vtbl.get_TTL)
+        CallbackFree(this.vtbl.get_Addresses)
+        CallbackFree(this.vtbl.EnumerateAddresses)
     }
 }

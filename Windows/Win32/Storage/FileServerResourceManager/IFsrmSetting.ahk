@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\FsrmActionType.ahk" { FsrmActionType }
 
 /**
  * Used to configure FSRM.
@@ -11,32 +14,51 @@
  * @see https://learn.microsoft.com/windows/win32/api/fsrm/nn-fsrm-ifsrmsetting
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmSetting extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmSetting extends IDispatch {
     /**
      * The interface identifier for IFsrmSetting
      * @type {Guid}
      */
-    static IID => Guid("{f411d4fd-14be-4260-8c40-03b7c95e608a}")
+    static IID := Guid("{f411d4fd-14be-4260-8c40-03b7c95e608a}")
 
     /**
      * The class identifier for FsrmSetting
      * @type {Guid}
      */
-    static CLSID => Guid("{f556d708-6d4d-4594-9c61-7dbb0dae2a46}")
+    static CLSID := Guid("{f556d708-6d4d-4594-9c61-7dbb0dae2a46}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmSetting interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_SmtpServer            : IntPtr
+        put_SmtpServer            : IntPtr
+        get_MailFrom              : IntPtr
+        put_MailFrom              : IntPtr
+        get_AdminEmail            : IntPtr
+        put_AdminEmail            : IntPtr
+        get_DisableCommandLine    : IntPtr
+        put_DisableCommandLine    : IntPtr
+        get_EnableScreeningAudit  : IntPtr
+        put_EnableScreeningAudit  : IntPtr
+        EmailTest                 : IntPtr
+        SetActionRunLimitInterval : IntPtr
+        GetActionRunLimitInterval : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_SmtpServer", "put_SmtpServer", "get_MailFrom", "put_MailFrom", "get_AdminEmail", "put_AdminEmail", "get_DisableCommandLine", "put_DisableCommandLine", "get_EnableScreeningAudit", "put_EnableScreeningAudit", "EmailTest", "SetActionRunLimitInterval", "GetActionRunLimitInterval"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmSetting.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -87,8 +109,8 @@ class IFsrmSetting extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-get_smtpserver
      */
     get_SmtpServer() {
-        smtpServer := BSTR()
-        result := ComCall(7, this, "ptr", smtpServer, "HRESULT")
+        smtpServer := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, smtpServer, "HRESULT")
         return smtpServer
     }
 
@@ -104,7 +126,7 @@ class IFsrmSetting extends IDispatch {
     put_SmtpServer(smtpServer) {
         smtpServer := smtpServer is String ? BSTR.Alloc(smtpServer).Value : smtpServer
 
-        result := ComCall(8, this, "ptr", smtpServer, "HRESULT")
+        result := ComCall(8, this, BSTR, smtpServer, "HRESULT")
         return result
     }
 
@@ -117,8 +139,8 @@ class IFsrmSetting extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-get_mailfrom
      */
     get_MailFrom() {
-        mailFrom := BSTR()
-        result := ComCall(9, this, "ptr", mailFrom, "HRESULT")
+        mailFrom := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, mailFrom, "HRESULT")
         return mailFrom
     }
 
@@ -134,7 +156,7 @@ class IFsrmSetting extends IDispatch {
     put_MailFrom(mailFrom) {
         mailFrom := mailFrom is String ? BSTR.Alloc(mailFrom).Value : mailFrom
 
-        result := ComCall(10, this, "ptr", mailFrom, "HRESULT")
+        result := ComCall(10, this, BSTR, mailFrom, "HRESULT")
         return result
     }
 
@@ -146,8 +168,8 @@ class IFsrmSetting extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-get_adminemail
      */
     get_AdminEmail() {
-        adminEmail := BSTR()
-        result := ComCall(11, this, "ptr", adminEmail, "HRESULT")
+        adminEmail := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, adminEmail, "HRESULT")
         return adminEmail
     }
 
@@ -162,7 +184,7 @@ class IFsrmSetting extends IDispatch {
     put_AdminEmail(adminEmail) {
         adminEmail := adminEmail is String ? BSTR.Alloc(adminEmail).Value : adminEmail
 
-        result := ComCall(12, this, "ptr", adminEmail, "HRESULT")
+        result := ComCall(12, this, BSTR, adminEmail, "HRESULT")
         return result
     }
 
@@ -172,7 +194,7 @@ class IFsrmSetting extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-get_disablecommandline
      */
     get_DisableCommandLine() {
-        result := ComCall(13, this, "short*", &disableCommandLine := 0, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL.Ptr, &disableCommandLine := 0, "HRESULT")
         return disableCommandLine
     }
 
@@ -183,7 +205,7 @@ class IFsrmSetting extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-put_disablecommandline
      */
     put_DisableCommandLine(disableCommandLine) {
-        result := ComCall(14, this, "short", disableCommandLine, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL, disableCommandLine, "HRESULT")
         return result
     }
 
@@ -210,7 +232,7 @@ class IFsrmSetting extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-get_enablescreeningaudit
      */
     get_EnableScreeningAudit() {
-        result := ComCall(15, this, "short*", &enableScreeningAudit := 0, "HRESULT")
+        result := ComCall(15, this, VARIANT_BOOL.Ptr, &enableScreeningAudit := 0, "HRESULT")
         return enableScreeningAudit
     }
 
@@ -238,7 +260,7 @@ class IFsrmSetting extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-put_enablescreeningaudit
      */
     put_EnableScreeningAudit(enableScreeningAudit) {
-        result := ComCall(16, this, "short", enableScreeningAudit, "HRESULT")
+        result := ComCall(16, this, VARIANT_BOOL, enableScreeningAudit, "HRESULT")
         return result
     }
 
@@ -258,7 +280,7 @@ class IFsrmSetting extends IDispatch {
     EmailTest(mailTo) {
         mailTo := mailTo is String ? BSTR.Alloc(mailTo).Value : mailTo
 
-        result := ComCall(17, this, "ptr", mailTo, "HRESULT")
+        result := ComCall(17, this, BSTR, mailTo, "HRESULT")
         return result
     }
 
@@ -274,7 +296,7 @@ class IFsrmSetting extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-setactionrunlimitinterval
      */
     SetActionRunLimitInterval(actionType, delayTimeMinutes) {
-        result := ComCall(18, this, "int", actionType, "int", delayTimeMinutes, "HRESULT")
+        result := ComCall(18, this, FsrmActionType, actionType, "int", delayTimeMinutes, "HRESULT")
         return result
     }
 
@@ -285,7 +307,51 @@ class IFsrmSetting extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-getactionrunlimitinterval
      */
     GetActionRunLimitInterval(actionType) {
-        result := ComCall(19, this, "int", actionType, "int*", &delayTimeMinutes := 0, "HRESULT")
+        result := ComCall(19, this, FsrmActionType, actionType, "int*", &delayTimeMinutes := 0, "HRESULT")
         return delayTimeMinutes
+    }
+
+    Query(iid) {
+        if (IFsrmSetting.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_SmtpServer := CallbackCreate(GetMethod(implObj, "get_SmtpServer"), flags, 2)
+        this.vtbl.put_SmtpServer := CallbackCreate(GetMethod(implObj, "put_SmtpServer"), flags, 2)
+        this.vtbl.get_MailFrom := CallbackCreate(GetMethod(implObj, "get_MailFrom"), flags, 2)
+        this.vtbl.put_MailFrom := CallbackCreate(GetMethod(implObj, "put_MailFrom"), flags, 2)
+        this.vtbl.get_AdminEmail := CallbackCreate(GetMethod(implObj, "get_AdminEmail"), flags, 2)
+        this.vtbl.put_AdminEmail := CallbackCreate(GetMethod(implObj, "put_AdminEmail"), flags, 2)
+        this.vtbl.get_DisableCommandLine := CallbackCreate(GetMethod(implObj, "get_DisableCommandLine"), flags, 2)
+        this.vtbl.put_DisableCommandLine := CallbackCreate(GetMethod(implObj, "put_DisableCommandLine"), flags, 2)
+        this.vtbl.get_EnableScreeningAudit := CallbackCreate(GetMethod(implObj, "get_EnableScreeningAudit"), flags, 2)
+        this.vtbl.put_EnableScreeningAudit := CallbackCreate(GetMethod(implObj, "put_EnableScreeningAudit"), flags, 2)
+        this.vtbl.EmailTest := CallbackCreate(GetMethod(implObj, "EmailTest"), flags, 2)
+        this.vtbl.SetActionRunLimitInterval := CallbackCreate(GetMethod(implObj, "SetActionRunLimitInterval"), flags, 3)
+        this.vtbl.GetActionRunLimitInterval := CallbackCreate(GetMethod(implObj, "GetActionRunLimitInterval"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_SmtpServer)
+        CallbackFree(this.vtbl.put_SmtpServer)
+        CallbackFree(this.vtbl.get_MailFrom)
+        CallbackFree(this.vtbl.put_MailFrom)
+        CallbackFree(this.vtbl.get_AdminEmail)
+        CallbackFree(this.vtbl.put_AdminEmail)
+        CallbackFree(this.vtbl.get_DisableCommandLine)
+        CallbackFree(this.vtbl.put_DisableCommandLine)
+        CallbackFree(this.vtbl.get_EnableScreeningAudit)
+        CallbackFree(this.vtbl.put_EnableScreeningAudit)
+        CallbackFree(this.vtbl.EmailTest)
+        CallbackFree(this.vtbl.SetActionRunLimitInterval)
+        CallbackFree(this.vtbl.GetActionRunLimitInterval)
     }
 }

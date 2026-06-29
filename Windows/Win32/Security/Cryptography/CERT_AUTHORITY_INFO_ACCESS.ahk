@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_ACCESS_DESCRIPTION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CERT_ACCESS_DESCRIPTION.ahk" { CERT_ACCESS_DESCRIPTION }
 
 /**
  * Represents authority information access and subject information access certificate extensions and specifies how to access additional information and services for the subject or the issuer of a certificate.
@@ -14,28 +13,19 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_authority_info_access
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_AUTHORITY_INFO_ACCESS extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct CERT_AUTHORITY_INFO_ACCESS {
+    #StructPack 8
 
     /**
      * The number of elements in the <b>rgAccDescr</b> array.
-     * @type {Integer}
      */
-    cAccDescr {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cAccDescr : UInt32
 
     /**
      * An array of pointers to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_access_description">CERT_ACCESS_DESCRIPTION</a> structures that describes the format and location of additional information about the certificate. Each <b>CERT_ACCESS_DESCRIPTION</b> structure has as its members a <b>pszAccessMethod</b> string that indicates an access method and a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_alt_name_entry">CERT_ALT_NAME_ENTRY</a> structure that indicates the location of the additional information.
-     * @type {Pointer<CERT_ACCESS_DESCRIPTION>}
      */
-    rgAccDescr {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    rgAccDescr : CERT_ACCESS_DESCRIPTION.Ptr
+
 }

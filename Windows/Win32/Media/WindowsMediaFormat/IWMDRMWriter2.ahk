@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMDRMWriter.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWMDRMWriter.ahk" { IWMDRMWriter }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The IWMDRMWriter2 interface provides a method that enables you to write content encrypted with Windows Media DRM 10 for Network Devices.An IWMDRMWriter2 interface exists for every writer object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmdrmwriter2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMDRMWriter2 extends IWMDRMWriter {
-
-    static sizeof => A_PtrSize
+export default struct IWMDRMWriter2 extends IWMDRMWriter {
     /**
      * The interface identifier for IWMDRMWriter2
      * @type {Guid}
      */
-    static IID => Guid("{38ee7a94-40e2-4e10-aa3f-33fd3210ed5b}")
+    static IID := Guid("{38ee7a94-40e2-4e10-aa3f-33fd3210ed5b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMDRMWriter2 interfaces
+    */
+    struct Vtbl extends IWMDRMWriter.Vtbl {
+        SetWMDRMNetEncryption : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetWMDRMNetEncryption"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMDRMWriter2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetWMDRMNetEncryption method configures the writer to receive input samples encoded with Windows Media DRM 10 for Network Devices.
@@ -64,7 +73,27 @@ class IWMDRMWriter2 extends IWMDRMWriter {
     SetWMDRMNetEncryption(fSamplesEncrypted, pbKeyID, cbKeyID) {
         pbKeyIDMarshal := pbKeyID is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, "int", fSamplesEncrypted, pbKeyIDMarshal, pbKeyID, "uint", cbKeyID, "HRESULT")
+        result := ComCall(7, this, BOOL, fSamplesEncrypted, pbKeyIDMarshal, pbKeyID, "uint", cbKeyID, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMDRMWriter2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetWMDRMNetEncryption := CallbackCreate(GetMethod(implObj, "SetWMDRMNetEncryption"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetWMDRMNetEncryption)
     }
 }

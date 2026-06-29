@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CountedString.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CountedString.ahk" { CountedString }
 
 /**
  * Defines a registered NAP component such as a SHA, SHV, or enforcement client.
@@ -15,67 +16,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/naptypes/ns-naptypes-napcomponentregistrationinfo
  * @namespace Windows.Win32.Security.NetworkAccessProtection
  */
-class NapComponentRegistrationInfo extends Win32Struct {
-    static sizeof => 104
-
-    static packingSize => 8
+export default struct NapComponentRegistrationInfo {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/NAP/nap-datatypes">NapComponentId</a> value that contains the unique identifier of the component.
-     * @type {Integer}
      */
-    id {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    id : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/naptypes/ns-naptypes-countedstring">CountedString</a> structure that contains the friendly (human-readable) name of the component.
-     * @type {CountedString}
      */
-    friendlyName {
-        get {
-            if(!this.HasProp("__friendlyName"))
-                this.__friendlyName := CountedString(8, this)
-            return this.__friendlyName
-        }
-    }
+    friendlyName : CountedString
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/naptypes/ns-naptypes-countedstring">CountedString</a> structure that contains a description of the component.
-     * @type {CountedString}
      */
-    description {
-        get {
-            if(!this.HasProp("__description"))
-                this.__description := CountedString(24, this)
-            return this.__description
-        }
-    }
+    description : CountedString
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/naptypes/ns-naptypes-countedstring">CountedString</a> structure that contains the version of the component.
-     * @type {CountedString}
      */
-    version {
-        get {
-            if(!this.HasProp("__version"))
-                this.__version := CountedString(40, this)
-            return this.__version
-        }
-    }
+    version : CountedString
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/naptypes/ns-naptypes-countedstring">CountedString</a> structure that contains the vendor name for the component.
-     * @type {CountedString}
      */
-    vendorName {
-        get {
-            if(!this.HasProp("__vendorName"))
-                this.__vendorName := CountedString(56, this)
-            return this.__vendorName
-        }
-    }
+    vendorName : CountedString
 
     /**
      * The <a href="https://docs.microsoft.com/windows/win32/com/clsid-key-hklm">CLSID</a> of the COM object that implements
@@ -85,12 +52,8 @@ class NapComponentRegistrationInfo extends Win32Struct {
      * 
      * Currently, enforcement clients do not need to
      *    provide a valid <i>infoClsid</i>.
-     * @type {Pointer}
      */
-    infoClsid {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    infoClsid : Guid
 
     /**
      * The <a href="https://docs.microsoft.com/windows/win32/com/clsid-key-hklm">CLSID</a> of the COM object that implements
@@ -98,24 +61,13 @@ class NapComponentRegistrationInfo extends Win32Struct {
      * 
      * Currently, SHAs and enforcement clients do not need to
      *    provide a valid <i>configClsid</i>.
-     * @type {Pointer}
      */
-    configClsid {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    configClsid : Guid
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the registration information date.
-     * @type {FILETIME}
      */
-    registrationDate {
-        get {
-            if(!this.HasProp("__registrationDate"))
-                this.__registrationDate := FILETIME(88, this)
-            return this.__registrationDate
-        }
-    }
+    registrationDate : FILETIME
 
     /**
      * A value that defines the component type.
@@ -123,10 +75,7 @@ class NapComponentRegistrationInfo extends Win32Struct {
      * For enforcement clients this value should be either  <a href="https://docs.microsoft.com/windows/desktop/NAP/nap-type-constants">ComponentTypeEnforcementClientSoH</a> or <b>ComponentTypeEnforcementClientRp</b>.
      * 
      * Currently, <i>componentType</i> is ignored for SHAs and SHVs and should be set to 0x00000000.
-     * @type {Integer}
      */
-    componentType {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    componentType : UInt32
+
 }

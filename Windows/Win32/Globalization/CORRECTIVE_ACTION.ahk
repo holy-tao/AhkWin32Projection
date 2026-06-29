@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Identifies the type of corrective action to be taken for a spelling error.
  * @see https://learn.microsoft.com/windows/win32/api/spellcheck/ne-spellcheck-corrective_action
  * @namespace Windows.Win32.Globalization
  */
-class CORRECTIVE_ACTION extends Win32Enum {
+export default struct CORRECTIVE_ACTION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * There are no errors.

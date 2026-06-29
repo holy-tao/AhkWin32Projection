@@ -1,218 +1,62 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHEA_ERROR_TYPE.ahk
-#Include .\WHEA_ERROR_SEVERITY.ahk
-#Include ..\..\..\Win32\System\Diagnostics\Debug\WHEA_ERROR_SOURCE_TYPE.ahk
-#Include .\WHEA_RAW_DATA_FORMAT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WHEA_RAW_DATA_FORMAT.ahk" { WHEA_RAW_DATA_FORMAT }
+#Import ".\WHEA_ERROR_TYPE.ahk" { WHEA_ERROR_TYPE }
+#Import ".\WHEA_ERROR_SEVERITY.ahk" { WHEA_ERROR_SEVERITY }
+#Import "..\..\..\Win32\System\Diagnostics\Debug\WHEA_ERROR_SOURCE_TYPE.ahk" { WHEA_ERROR_SOURCE_TYPE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_ERROR_PACKET_V1 extends Win32Struct {
-    static sizeof => 96
+export default struct WHEA_ERROR_PACKET_V1 {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _u {
+        ProcessorError : IntPtr
 
-        /**
-         * @type {Pointer}
-         */
-        ProcessorError {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        MemoryError {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        NmiError {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        PciExpressError {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        PciXBusError {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        PciXDeviceError {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        PmemError {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'MemoryError', { type: IntPtr, offset: 0 })
+            DefineProp(this.Prototype, 'NmiError', { type: IntPtr, offset: 0 })
+            DefineProp(this.Prototype, 'PciExpressError', { type: IntPtr, offset: 0 })
+            DefineProp(this.Prototype, 'PciXBusError', { type: IntPtr, offset: 0 })
+            DefineProp(this.Prototype, 'PciXDeviceError', { type: IntPtr, offset: 0 })
+            DefineProp(this.Prototype, 'PmemError', { type: IntPtr, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    Signature {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Signature : UInt32
 
-    /**
-     * @type {Pointer}
-     */
-    Flags {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Flags : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RawDataLength {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    RawDataLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Reserved1 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Context {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Context : Int64
 
-    /**
-     * @type {WHEA_ERROR_TYPE}
-     */
-    ErrorType {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    ErrorType : WHEA_ERROR_TYPE
 
-    /**
-     * @type {WHEA_ERROR_SEVERITY}
-     */
-    ErrorSeverity {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    ErrorSeverity : WHEA_ERROR_SEVERITY
 
-    /**
-     * @type {Integer}
-     */
-    ErrorSourceId {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    ErrorSourceId : UInt32
 
-    /**
-     * @type {WHEA_ERROR_SOURCE_TYPE}
-     */
-    ErrorSourceType {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    ErrorSourceType : WHEA_ERROR_SOURCE_TYPE
 
-    /**
-     * @type {Integer}
-     */
-    Reserved2 {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    Reserved2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Cpu {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    Cpu : Int64
 
-    /**
-     * @type {_u_e__Union}
-     */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := WHEA_ERROR_PACKET_V1._u_e__Union(72, this)
-            return this.__u
-        }
-    }
+    u : WHEA_ERROR_PACKET_V1._u
 
-    /**
-     * @type {WHEA_RAW_DATA_FORMAT}
-     */
-    RawDataFormat {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
-    }
+    RawDataFormat : WHEA_RAW_DATA_FORMAT
 
-    /**
-     * @type {Integer}
-     */
-    RawDataOffset {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    RawDataOffset : UInt32
 
-    /**
-     * @type {Array<Integer>}
-     */
-    RawData {
-        get {
-            if(!this.HasProp("__RawDataProxyArray"))
-                this.__RawDataProxyArray := Win32FixedArray(this.ptr + 88, 1, Primitive, "char")
-            return this.__RawDataProxyArray
-        }
-    }
+    RawData : Int8[1]
+
 }

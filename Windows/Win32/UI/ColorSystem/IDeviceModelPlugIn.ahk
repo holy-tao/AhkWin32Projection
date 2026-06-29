@@ -1,35 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\XYZColorF.ahk
-#Include .\PrimaryXYZColors.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\GamutShellTriangle.ahk" { GamutShellTriangle }
+#Import ".\BlackInformation.ahk" { BlackInformation }
+#Import ".\XYZColorF.ahk" { XYZColorF }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\PrimaryXYZColors.ahk" { PrimaryXYZColors }
 
 /**
  * Describes the methods that are defined for the IDeviceModelPlugIn Component Object Model (COM) interface.
  * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/nn-wcsplugin-idevicemodelplugin
  * @namespace Windows.Win32.UI.ColorSystem
  */
-class IDeviceModelPlugIn extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDeviceModelPlugIn extends IUnknown {
     /**
      * The interface identifier for IDeviceModelPlugIn
      * @type {Guid}
      */
-    static IID => Guid("{1cd63475-07c4-46fe-a903-d655316d11fd}")
+    static IID := Guid("{1cd63475-07c4-46fe-a903-d655316d11fd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDeviceModelPlugIn interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize                          : IntPtr
+        GetNumChannels                      : IntPtr
+        DeviceToColorimetricColors          : IntPtr
+        ColorimetricToDeviceColors          : IntPtr
+        ColorimetricToDeviceColorsWithBlack : IntPtr
+        SetTransformDeviceModelInfo         : IntPtr
+        GetPrimarySamples                   : IntPtr
+        GetGamutBoundaryMeshSize            : IntPtr
+        GetGamutBoundaryMesh                : IntPtr
+        GetNeutralAxisSize                  : IntPtr
+        GetNeutralAxis                      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetNumChannels", "DeviceToColorimetricColors", "ColorimetricToDeviceColors", "ColorimetricToDeviceColorsWithBlack", "SetTransformDeviceModelInfo", "GetPrimarySamples", "GetGamutBoundaryMeshSize", "GetGamutBoundaryMesh", "GetNeutralAxisSize", "GetNeutralAxis"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDeviceModelPlugIn.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Takes a pointer to a Stream that contains the whole device model plug-in as input, and initializes any internal parameters required by the plug-in.
@@ -46,7 +67,7 @@ class IDeviceModelPlugIn extends IUnknown {
     Initialize(bstrXml, cNumModels, iModelPosition) {
         bstrXml := bstrXml is String ? BSTR.Alloc(bstrXml).Value : bstrXml
 
-        result := ComCall(3, this, "ptr", bstrXml, "uint", cNumModels, "uint", iModelPosition, "HRESULT")
+        result := ComCall(3, this, BSTR, bstrXml, "uint", cNumModels, "uint", iModelPosition, "HRESULT")
         return result
     }
 
@@ -74,7 +95,7 @@ class IDeviceModelPlugIn extends IUnknown {
         pDeviceValuesMarshal := pDeviceValues is VarRef ? "float*" : "ptr"
 
         pXYZColors := XYZColorF()
-        result := ComCall(5, this, "uint", cColors, "uint", cChannels, pDeviceValuesMarshal, pDeviceValues, "ptr", pXYZColors, "HRESULT")
+        result := ComCall(5, this, "uint", cColors, "uint", cChannels, pDeviceValuesMarshal, pDeviceValues, XYZColorF.Ptr, pXYZColors, "HRESULT")
         return pXYZColors
     }
 
@@ -89,7 +110,7 @@ class IDeviceModelPlugIn extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/nf-wcsplugin-idevicemodelplugin-colorimetrictodevicecolors
      */
     ColorimetricToDeviceColors(cColors, cChannels, pXYZColors) {
-        result := ComCall(6, this, "uint", cColors, "uint", cChannels, "ptr", pXYZColors, "float*", &pDeviceValues := 0, "HRESULT")
+        result := ComCall(6, this, "uint", cColors, "uint", cChannels, XYZColorF.Ptr, pXYZColors, "float*", &pDeviceValues := 0, "HRESULT")
         return pDeviceValues
     }
 
@@ -105,7 +126,7 @@ class IDeviceModelPlugIn extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/nf-wcsplugin-idevicemodelplugin-colorimetrictodevicecolorswithblack
      */
     ColorimetricToDeviceColorsWithBlack(cColors, cChannels, pXYZColors, pBlackInformation) {
-        result := ComCall(7, this, "uint", cColors, "uint", cChannels, "ptr", pXYZColors, "ptr", pBlackInformation, "float*", &pDeviceValues := 0, "HRESULT")
+        result := ComCall(7, this, "uint", cColors, "uint", cChannels, XYZColorF.Ptr, pXYZColors, BlackInformation.Ptr, pBlackInformation, "float*", &pDeviceValues := 0, "HRESULT")
         return pDeviceValues
     }
 
@@ -134,7 +155,7 @@ class IDeviceModelPlugIn extends IUnknown {
      */
     GetPrimarySamples() {
         pPrimaryColor := PrimaryXYZColors()
-        result := ComCall(9, this, "ptr", pPrimaryColor, "HRESULT")
+        result := ComCall(9, this, PrimaryXYZColors.Ptr, pPrimaryColor, "HRESULT")
         return pPrimaryColor
     }
 
@@ -176,7 +197,7 @@ class IDeviceModelPlugIn extends IUnknown {
     GetGamutBoundaryMesh(cChannels, cVertices, cTriangles, pVertices, pTriangles) {
         pVerticesMarshal := pVertices is VarRef ? "float*" : "ptr"
 
-        result := ComCall(11, this, "uint", cChannels, "uint", cVertices, "uint", cTriangles, pVerticesMarshal, pVertices, "ptr", pTriangles, "HRESULT")
+        result := ComCall(11, this, "uint", cChannels, "uint", cVertices, "uint", cTriangles, pVerticesMarshal, pVertices, GamutShellTriangle.Ptr, pTriangles, "HRESULT")
         return result
     }
 
@@ -202,7 +223,47 @@ class IDeviceModelPlugIn extends IUnknown {
      */
     GetNeutralAxis(cColors) {
         pXYZColors := XYZColorF()
-        result := ComCall(13, this, "uint", cColors, "ptr", pXYZColors, "HRESULT")
+        result := ComCall(13, this, "uint", cColors, XYZColorF.Ptr, pXYZColors, "HRESULT")
         return pXYZColors
+    }
+
+    Query(iid) {
+        if (IDeviceModelPlugIn.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.GetNumChannels := CallbackCreate(GetMethod(implObj, "GetNumChannels"), flags, 2)
+        this.vtbl.DeviceToColorimetricColors := CallbackCreate(GetMethod(implObj, "DeviceToColorimetricColors"), flags, 5)
+        this.vtbl.ColorimetricToDeviceColors := CallbackCreate(GetMethod(implObj, "ColorimetricToDeviceColors"), flags, 5)
+        this.vtbl.ColorimetricToDeviceColorsWithBlack := CallbackCreate(GetMethod(implObj, "ColorimetricToDeviceColorsWithBlack"), flags, 6)
+        this.vtbl.SetTransformDeviceModelInfo := CallbackCreate(GetMethod(implObj, "SetTransformDeviceModelInfo"), flags, 3)
+        this.vtbl.GetPrimarySamples := CallbackCreate(GetMethod(implObj, "GetPrimarySamples"), flags, 2)
+        this.vtbl.GetGamutBoundaryMeshSize := CallbackCreate(GetMethod(implObj, "GetGamutBoundaryMeshSize"), flags, 3)
+        this.vtbl.GetGamutBoundaryMesh := CallbackCreate(GetMethod(implObj, "GetGamutBoundaryMesh"), flags, 6)
+        this.vtbl.GetNeutralAxisSize := CallbackCreate(GetMethod(implObj, "GetNeutralAxisSize"), flags, 2)
+        this.vtbl.GetNeutralAxis := CallbackCreate(GetMethod(implObj, "GetNeutralAxis"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetNumChannels)
+        CallbackFree(this.vtbl.DeviceToColorimetricColors)
+        CallbackFree(this.vtbl.ColorimetricToDeviceColors)
+        CallbackFree(this.vtbl.ColorimetricToDeviceColorsWithBlack)
+        CallbackFree(this.vtbl.SetTransformDeviceModelInfo)
+        CallbackFree(this.vtbl.GetPrimarySamples)
+        CallbackFree(this.vtbl.GetGamutBoundaryMeshSize)
+        CallbackFree(this.vtbl.GetGamutBoundaryMesh)
+        CallbackFree(this.vtbl.GetNeutralAxisSize)
+        CallbackFree(this.vtbl.GetNeutralAxis)
     }
 }

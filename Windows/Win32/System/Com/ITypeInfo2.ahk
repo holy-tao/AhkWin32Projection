@@ -1,35 +1,60 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITypeInfo.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include .\CUSTDATA.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ITypeInfo.ahk" { ITypeInfo }
+#Import ".\TYPEKIND.ahk" { TYPEKIND }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\CUSTDATA.ahk" { CUSTDATA }
+#Import ".\INVOKEKIND.ahk" { INVOKEKIND }
 
 /**
  * Used for reading information about objects. (ITypeInfo2)
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-itypeinfo2
  * @namespace Windows.Win32.System.Com
  */
-class ITypeInfo2 extends ITypeInfo {
-
-    static sizeof => A_PtrSize
+export default struct ITypeInfo2 extends ITypeInfo {
     /**
      * The interface identifier for ITypeInfo2
      * @type {Guid}
      */
-    static IID => Guid("{00020412-0000-0000-c000-000000000046}")
+    static IID := Guid("{00020412-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 22
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITypeInfo2 interfaces
+    */
+    struct Vtbl extends ITypeInfo.Vtbl {
+        GetTypeKind            : IntPtr
+        GetTypeFlags           : IntPtr
+        GetFuncIndexOfMemId    : IntPtr
+        GetVarIndexOfMemId     : IntPtr
+        GetCustData            : IntPtr
+        GetFuncCustData        : IntPtr
+        GetParamCustData       : IntPtr
+        GetVarCustData         : IntPtr
+        GetImplTypeCustData    : IntPtr
+        GetDocumentation2      : IntPtr
+        GetAllCustData         : IntPtr
+        GetAllFuncCustData     : IntPtr
+        GetAllParamCustData    : IntPtr
+        GetAllVarCustData      : IntPtr
+        GetAllImplTypeCustData : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetTypeKind", "GetTypeFlags", "GetFuncIndexOfMemId", "GetVarIndexOfMemId", "GetCustData", "GetFuncCustData", "GetParamCustData", "GetVarCustData", "GetImplTypeCustData", "GetDocumentation2", "GetAllCustData", "GetAllFuncCustData", "GetAllParamCustData", "GetAllVarCustData", "GetAllImplTypeCustData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITypeInfo2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns the TYPEKIND enumeration quickly, without doing any allocations.
@@ -59,7 +84,7 @@ class ITypeInfo2 extends ITypeInfo {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getfuncindexofmemid
      */
     GetFuncIndexOfMemId(memid, invKind) {
-        result := ComCall(24, this, "int", memid, "int", invKind, "uint*", &pFuncIndex := 0, "HRESULT")
+        result := ComCall(24, this, "int", memid, INVOKEKIND, invKind, "uint*", &pFuncIndex := 0, "HRESULT")
         return pFuncIndex
     }
 
@@ -82,7 +107,7 @@ class ITypeInfo2 extends ITypeInfo {
      */
     GetCustData(guid) {
         pVarVal := VARIANT()
-        result := ComCall(26, this, "ptr", guid, "ptr", pVarVal, "HRESULT")
+        result := ComCall(26, this, Guid.Ptr, guid, VARIANT.Ptr, pVarVal, "HRESULT")
         return pVarVal
     }
 
@@ -95,7 +120,7 @@ class ITypeInfo2 extends ITypeInfo {
      */
     GetFuncCustData(index, guid) {
         pVarVal := VARIANT()
-        result := ComCall(27, this, "uint", index, "ptr", guid, "ptr", pVarVal, "HRESULT")
+        result := ComCall(27, this, "uint", index, Guid.Ptr, guid, VARIANT.Ptr, pVarVal, "HRESULT")
         return pVarVal
     }
 
@@ -109,7 +134,7 @@ class ITypeInfo2 extends ITypeInfo {
      */
     GetParamCustData(indexFunc, indexParam, guid) {
         pVarVal := VARIANT()
-        result := ComCall(28, this, "uint", indexFunc, "uint", indexParam, "ptr", guid, "ptr", pVarVal, "HRESULT")
+        result := ComCall(28, this, "uint", indexFunc, "uint", indexParam, Guid.Ptr, guid, VARIANT.Ptr, pVarVal, "HRESULT")
         return pVarVal
     }
 
@@ -122,7 +147,7 @@ class ITypeInfo2 extends ITypeInfo {
      */
     GetVarCustData(index, guid) {
         pVarVal := VARIANT()
-        result := ComCall(29, this, "uint", index, "ptr", guid, "ptr", pVarVal, "HRESULT")
+        result := ComCall(29, this, "uint", index, Guid.Ptr, guid, VARIANT.Ptr, pVarVal, "HRESULT")
         return pVarVal
     }
 
@@ -135,7 +160,7 @@ class ITypeInfo2 extends ITypeInfo {
      */
     GetImplTypeCustData(index, guid) {
         pVarVal := VARIANT()
-        result := ComCall(30, this, "uint", index, "ptr", guid, "ptr", pVarVal, "HRESULT")
+        result := ComCall(30, this, "uint", index, Guid.Ptr, guid, VARIANT.Ptr, pVarVal, "HRESULT")
         return pVarVal
     }
 
@@ -199,7 +224,7 @@ class ITypeInfo2 extends ITypeInfo {
     GetDocumentation2(memid, lcid, pbstrHelpString, pdwHelpStringContext, pbstrHelpStringDll) {
         pdwHelpStringContextMarshal := pdwHelpStringContext is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(31, this, "int", memid, "uint", lcid, "ptr", pbstrHelpString, pdwHelpStringContextMarshal, pdwHelpStringContext, "ptr", pbstrHelpStringDll, "HRESULT")
+        result := ComCall(31, this, "int", memid, "uint", lcid, BSTR.Ptr, pbstrHelpString, pdwHelpStringContextMarshal, pdwHelpStringContext, BSTR.Ptr, pbstrHelpStringDll, "HRESULT")
         return result
     }
 
@@ -212,7 +237,7 @@ class ITypeInfo2 extends ITypeInfo {
      */
     GetAllCustData() {
         pCustData := CUSTDATA()
-        result := ComCall(32, this, "ptr", pCustData, "HRESULT")
+        result := ComCall(32, this, CUSTDATA.Ptr, pCustData, "HRESULT")
         return pCustData
     }
 
@@ -226,7 +251,7 @@ class ITypeInfo2 extends ITypeInfo {
      */
     GetAllFuncCustData(index) {
         pCustData := CUSTDATA()
-        result := ComCall(33, this, "uint", index, "ptr", pCustData, "HRESULT")
+        result := ComCall(33, this, "uint", index, CUSTDATA.Ptr, pCustData, "HRESULT")
         return pCustData
     }
 
@@ -239,7 +264,7 @@ class ITypeInfo2 extends ITypeInfo {
      */
     GetAllParamCustData(indexFunc, indexParam) {
         pCustData := CUSTDATA()
-        result := ComCall(34, this, "uint", indexFunc, "uint", indexParam, "ptr", pCustData, "HRESULT")
+        result := ComCall(34, this, "uint", indexFunc, "uint", indexParam, CUSTDATA.Ptr, pCustData, "HRESULT")
         return pCustData
     }
 
@@ -251,7 +276,7 @@ class ITypeInfo2 extends ITypeInfo {
      */
     GetAllVarCustData(index) {
         pCustData := CUSTDATA()
-        result := ComCall(35, this, "uint", index, "ptr", pCustData, "HRESULT")
+        result := ComCall(35, this, "uint", index, CUSTDATA.Ptr, pCustData, "HRESULT")
         return pCustData
     }
 
@@ -263,7 +288,55 @@ class ITypeInfo2 extends ITypeInfo {
      */
     GetAllImplTypeCustData(index) {
         pCustData := CUSTDATA()
-        result := ComCall(36, this, "uint", index, "ptr", pCustData, "HRESULT")
+        result := ComCall(36, this, "uint", index, CUSTDATA.Ptr, pCustData, "HRESULT")
         return pCustData
+    }
+
+    Query(iid) {
+        if (ITypeInfo2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetTypeKind := CallbackCreate(GetMethod(implObj, "GetTypeKind"), flags, 2)
+        this.vtbl.GetTypeFlags := CallbackCreate(GetMethod(implObj, "GetTypeFlags"), flags, 2)
+        this.vtbl.GetFuncIndexOfMemId := CallbackCreate(GetMethod(implObj, "GetFuncIndexOfMemId"), flags, 4)
+        this.vtbl.GetVarIndexOfMemId := CallbackCreate(GetMethod(implObj, "GetVarIndexOfMemId"), flags, 3)
+        this.vtbl.GetCustData := CallbackCreate(GetMethod(implObj, "GetCustData"), flags, 3)
+        this.vtbl.GetFuncCustData := CallbackCreate(GetMethod(implObj, "GetFuncCustData"), flags, 4)
+        this.vtbl.GetParamCustData := CallbackCreate(GetMethod(implObj, "GetParamCustData"), flags, 5)
+        this.vtbl.GetVarCustData := CallbackCreate(GetMethod(implObj, "GetVarCustData"), flags, 4)
+        this.vtbl.GetImplTypeCustData := CallbackCreate(GetMethod(implObj, "GetImplTypeCustData"), flags, 4)
+        this.vtbl.GetDocumentation2 := CallbackCreate(GetMethod(implObj, "GetDocumentation2"), flags, 6)
+        this.vtbl.GetAllCustData := CallbackCreate(GetMethod(implObj, "GetAllCustData"), flags, 2)
+        this.vtbl.GetAllFuncCustData := CallbackCreate(GetMethod(implObj, "GetAllFuncCustData"), flags, 3)
+        this.vtbl.GetAllParamCustData := CallbackCreate(GetMethod(implObj, "GetAllParamCustData"), flags, 4)
+        this.vtbl.GetAllVarCustData := CallbackCreate(GetMethod(implObj, "GetAllVarCustData"), flags, 3)
+        this.vtbl.GetAllImplTypeCustData := CallbackCreate(GetMethod(implObj, "GetAllImplTypeCustData"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetTypeKind)
+        CallbackFree(this.vtbl.GetTypeFlags)
+        CallbackFree(this.vtbl.GetFuncIndexOfMemId)
+        CallbackFree(this.vtbl.GetVarIndexOfMemId)
+        CallbackFree(this.vtbl.GetCustData)
+        CallbackFree(this.vtbl.GetFuncCustData)
+        CallbackFree(this.vtbl.GetParamCustData)
+        CallbackFree(this.vtbl.GetVarCustData)
+        CallbackFree(this.vtbl.GetImplTypeCustData)
+        CallbackFree(this.vtbl.GetDocumentation2)
+        CallbackFree(this.vtbl.GetAllCustData)
+        CallbackFree(this.vtbl.GetAllFuncCustData)
+        CallbackFree(this.vtbl.GetAllParamCustData)
+        CallbackFree(this.vtbl.GetAllVarCustData)
+        CallbackFree(this.vtbl.GetAllImplTypeCustData)
     }
 }

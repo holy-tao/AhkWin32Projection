@@ -1,75 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\LSA_UNICODE_STRING.ahk
-#Include .\KERB_S4U2PROXY_CACHE_ENTRY_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KERB_S4U2PROXY_CACHE_ENTRY_INFO.ahk" { KERB_S4U2PROXY_CACHE_ENTRY_INFO }
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class KERB_S4U2PROXY_CRED extends Win32Struct {
-    static sizeof => 64
+export default struct KERB_S4U2PROXY_CRED {
+    #StructPack 8
 
-    static packingSize => 8
+    UserName : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    UserName {
-        get {
-            if(!this.HasProp("__UserName"))
-                this.__UserName := LSA_UNICODE_STRING(0, this)
-            return this.__UserName
-        }
-    }
+    DomainName : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    DomainName {
-        get {
-            if(!this.HasProp("__DomainName"))
-                this.__DomainName := LSA_UNICODE_STRING(16, this)
-            return this.__DomainName
-        }
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    LastStatus : NTSTATUS
 
-    /**
-     * @type {NTSTATUS}
-     */
-    LastStatus {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    Expiry : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Expiry {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
-    }
+    CountOfEntries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CountOfEntries {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    Entries : KERB_S4U2PROXY_CACHE_ENTRY_INFO.Ptr
 
-    /**
-     * @type {Pointer<KERB_S4U2PROXY_CACHE_ENTRY_INFO>}
-     */
-    Entries {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
 }

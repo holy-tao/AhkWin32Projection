@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class AAL5_PARAMETERS extends Win32Struct {
-    static sizeof => 12
+export default struct AAL5_PARAMETERS {
+    #StructPack 4
 
-    static packingSize => 4
+    ForwardMaxCPCSSDUSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ForwardMaxCPCSSDUSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    BackwardMaxCPCSSDUSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BackwardMaxCPCSSDUSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Mode : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Mode {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    SSCSType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    SSCSType {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
 }

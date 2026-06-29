@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Provides the extended settings that the Task Scheduler uses to run the task. (ITaskSettings2)
@@ -10,26 +12,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-itasksettings2
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class ITaskSettings2 extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITaskSettings2 extends IDispatch {
     /**
      * The interface identifier for ITaskSettings2
      * @type {Guid}
      */
-    static IID => Guid("{2c05c3f0-6eed-4c05-a15f-ed7d7a98a369}")
+    static IID := Guid("{2c05c3f0-6eed-4c05-a15f-ed7d7a98a369}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITaskSettings2 interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_DisallowStartOnRemoteAppSession : IntPtr
+        put_DisallowStartOnRemoteAppSession : IntPtr
+        get_UseUnifiedSchedulingEngine      : IntPtr
+        put_UseUnifiedSchedulingEngine      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_DisallowStartOnRemoteAppSession", "put_DisallowStartOnRemoteAppSession", "get_UseUnifiedSchedulingEngine", "put_UseUnifiedSchedulingEngine"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITaskSettings2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -71,7 +83,7 @@ class ITaskSettings2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings2-put_disallowstartonremoteappsession
      */
     put_DisallowStartOnRemoteAppSession(disallowStart) {
-        result := ComCall(8, this, "short", disallowStart, "HRESULT")
+        result := ComCall(8, this, VARIANT_BOOL, disallowStart, "HRESULT")
         return result
     }
 
@@ -99,7 +111,33 @@ class ITaskSettings2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings2-put_useunifiedschedulingengine
      */
     put_UseUnifiedSchedulingEngine(useUnifiedEngine) {
-        result := ComCall(10, this, "short", useUnifiedEngine, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL, useUnifiedEngine, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITaskSettings2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_DisallowStartOnRemoteAppSession := CallbackCreate(GetMethod(implObj, "get_DisallowStartOnRemoteAppSession"), flags, 2)
+        this.vtbl.put_DisallowStartOnRemoteAppSession := CallbackCreate(GetMethod(implObj, "put_DisallowStartOnRemoteAppSession"), flags, 2)
+        this.vtbl.get_UseUnifiedSchedulingEngine := CallbackCreate(GetMethod(implObj, "get_UseUnifiedSchedulingEngine"), flags, 2)
+        this.vtbl.put_UseUnifiedSchedulingEngine := CallbackCreate(GetMethod(implObj, "put_UseUnifiedSchedulingEngine"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_DisallowStartOnRemoteAppSession)
+        CallbackFree(this.vtbl.put_DisallowStartOnRemoteAppSession)
+        CallbackFree(this.vtbl.get_UseUnifiedSchedulingEngine)
+        CallbackFree(this.vtbl.put_UseUnifiedSchedulingEngine)
     }
 }

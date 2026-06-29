@@ -1,30 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
  */
-class CDROM_EXCLUSIVE_LOCK_STATE extends Win32Struct {
-    static sizeof => 65
+export default struct CDROM_EXCLUSIVE_LOCK_STATE {
+    #StructPack 1
 
-    static packingSize => 1
+    LockState : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    LockState {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    CallerName : Int8[64]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    CallerName {
-        get {
-            if(!this.HasProp("__CallerNameProxyArray"))
-                this.__CallerNameProxyArray := Win32FixedArray(this.ptr + 1, 64, Primitive, "char")
-            return this.__CallerNameProxyArray
-        }
-    }
 }

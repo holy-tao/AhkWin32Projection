@@ -1,31 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  */
-class IAuthenticationProviderConfig extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAuthenticationProviderConfig extends IUnknown {
     /**
      * The interface identifier for IAuthenticationProviderConfig
      * @type {Guid}
      */
-    static IID => Guid("{66a2db17-d706-11d0-a37b-00c04fc9da04}")
+    static IID := Guid("{66a2db17-d706-11d0-a37b-00c04fc9da04}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAuthenticationProviderConfig interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize   : IntPtr
+        Uninitialize : IntPtr
+        Configure    : IntPtr
+        Activate     : IntPtr
+        Deactivate   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "Uninitialize", "Configure", "Activate", "Deactivate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAuthenticationProviderConfig.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes a thread to use Windows Runtime APIs.
@@ -54,55 +68,9 @@ class IAuthenticationProviderConfig extends IUnknown {
     }
 
     /**
-     * Uninitializes flat scroll bars for a particular window. The specified window will revert to standard scroll bars.
-     * @remarks
-     * <div class="alert"><b>Note</b>  Flat scroll bar functions are implemented in Comctl32.dll versions 4.71 through 5.82. Comctl32.dll versions 6.00 and higher do not support flat scroll bars.</div>
-     * <div> </div>
+     * 
      * @param {Pointer} uConnectionParam 
-     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * Returns one of the following values. 
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the window's scroll bars is currently in use. The operation cannot be completed at this time. 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_FALSE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The window does not have flat scroll bars initialized. 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation was successful. 
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-uninitializeflatsb
+     * @returns {HRESULT} 
      */
     Uninitialize(uConnectionParam) {
         result := ComCall(4, this, "ptr", uConnectionParam, "HRESULT")
@@ -130,33 +98,16 @@ class IAuthenticationProviderConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/NetMon2/configure
      */
     Configure(uConnectionParam, _hWnd, dwFlags, uReserved1, uReserved2) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-
-        result := ComCall(5, this, "ptr", uConnectionParam, "ptr", _hWnd, "uint", dwFlags, "ptr", uReserved1, "ptr", uReserved2, "HRESULT")
+        result := ComCall(5, this, "ptr", uConnectionParam, HWND, _hWnd, "uint", dwFlags, "ptr", uReserved1, "ptr", uReserved2, "HRESULT")
         return result
     }
 
     /**
-     * The ActivateActCtx function activates the specified activation context.
-     * @remarks
-     * The <i>lpCookie</i> parameter is later passed to 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-deactivateactctx">DeactivateActCtx</a>, which verifies the pairing of calls to 
-     * <b>ActivateActCtx</b> and 
-     * <b>DeactivateActCtx</b> and ensures that the appropriate activation context is being deactivated. This is done because the deactivation of activation contexts must occur in the reverse order of activation.
      * 
-     * The activation of activation contexts can be understood as pushing an activation context onto a stack of activation contexts. The activation context you activate through this function  redirects any binding to DLLs, window classes, COM servers, type libraries, and mutexes for any side-by-side APIs you call.
-     * 
-     * The top item of an activation context stack is the active, default-activation context of the current thread. If a null activation context handle is pushed onto the stack, thereby activating it, the default settings in the original manifest override all activation contexts that are lower on the stack.
      * @param {Pointer} uConnectionParam 
      * @param {Pointer} uReserved1 
      * @param {Pointer} uReserved2 
-     * @returns {HRESULT} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
-     * 
-     * This function sets errors that can be retrieved by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-activateactctx
+     * @returns {HRESULT} 
      */
     Activate(uConnectionParam, uReserved1, uReserved2) {
         result := ComCall(6, this, "ptr", uConnectionParam, "ptr", uReserved1, "ptr", uReserved2, "HRESULT")
@@ -164,22 +115,42 @@ class IAuthenticationProviderConfig extends IUnknown {
     }
 
     /**
-     * The DeactivateActCtx function deactivates the activation context corresponding to the specified cookie.
-     * @remarks
-     * The deactivation of activation contexts must occur in the reverse order of activation. It can be understood as popping an activation context from a stack.
+     * 
      * @param {Pointer} uConnectionParam 
      * @param {Pointer} uReserved1 
      * @param {Pointer} uReserved2 
-     * @returns {HRESULT} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
-     * 
-     * This function sets errors that can be retrieved by calling 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
-     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-deactivateactctx
+     * @returns {HRESULT} 
      */
     Deactivate(uConnectionParam, uReserved1, uReserved2) {
         result := ComCall(7, this, "ptr", uConnectionParam, "ptr", uReserved1, "ptr", uReserved2, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAuthenticationProviderConfig.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.Uninitialize := CallbackCreate(GetMethod(implObj, "Uninitialize"), flags, 2)
+        this.vtbl.Configure := CallbackCreate(GetMethod(implObj, "Configure"), flags, 6)
+        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 4)
+        this.vtbl.Deactivate := CallbackCreate(GetMethod(implObj, "Deactivate"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.Uninitialize)
+        CallbackFree(this.vtbl.Configure)
+        CallbackFree(this.vtbl.Activate)
+        CallbackFree(this.vtbl.Deactivate)
     }
 }

@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CM_NOTIFY_FILTER_TYPE.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\CM_NOTIFY_FILTER_TYPE.ahk" { CM_NOTIFY_FILTER_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Device notification filter structure.
@@ -10,140 +11,56 @@
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-cm_notify_filter
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  */
-class CM_NOTIFY_FILTER extends Win32Struct {
-    static sizeof => 416
+export default struct CM_NOTIFY_FILTER {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
-        static sizeof => 400
-        static packingSize => 8
+    struct _u {
 
-        class _DeviceInterface extends Win32Struct {
-            static sizeof => 8
-            static packingSize => 8
+        struct _DeviceInterface {
+            ClassGuid : Guid
 
-            /**
-             * @type {Pointer}
-             */
-            ClassGuid {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
-            }
         }
 
-        class _DeviceHandle extends Win32Struct {
-            static sizeof => 8
-            static packingSize => 8
+        struct _DeviceHandle {
+            hTarget : HANDLE
 
-            /**
-             * @type {HANDLE}
-             */
-            hTarget {
-                get {
-                    if(!this.HasProp("__hTarget"))
-                        this.__hTarget := HANDLE(0, this)
-                    return this.__hTarget
-                }
-            }
         }
 
-        class _DeviceInstance extends Win32Struct {
-            static sizeof => 400
-            static packingSize => 2
+        struct _DeviceInstance {
+            InstanceId : WCHAR[200]
 
-            /**
-             * @type {String}
-             */
-            InstanceId {
-                get => StrGet(this.ptr + 0, 199, "UTF-16")
-                set => StrPut(value, this.ptr + 0, 199, "UTF-16")
-            }
         }
 
-        /**
-         * @type {_DeviceInterface}
-         */
-        DeviceInterface {
-            get {
-                if(!this.HasProp("__DeviceInterface"))
-                    this.__DeviceInterface := CM_NOTIFY_FILTER._u_e__Union._DeviceInterface(0, this)
-                return this.__DeviceInterface
-            }
-        }
+        DeviceInterface : CM_NOTIFY_FILTER._u._DeviceInterface
 
-        /**
-         * @type {_DeviceHandle}
-         */
-        DeviceHandle {
-            get {
-                if(!this.HasProp("__DeviceHandle"))
-                    this.__DeviceHandle := CM_NOTIFY_FILTER._u_e__Union._DeviceHandle(0, this)
-                return this.__DeviceHandle
-            }
-        }
-
-        /**
-         * @type {_DeviceInstance}
-         */
-        DeviceInstance {
-            get {
-                if(!this.HasProp("__DeviceInstance"))
-                    this.__DeviceInstance := CM_NOTIFY_FILTER._u_e__Union._DeviceInstance(0, this)
-                return this.__DeviceInstance
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'DeviceHandle', { type: CM_NOTIFY_FILTER._u._DeviceHandle, offset: 0 })
+            DefineProp(this.Prototype, 'DeviceInstance', { type: CM_NOTIFY_FILTER._u._DeviceInstance, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
     /**
      * The size of the structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * A combination of zero or more of the following flags:
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {CM_NOTIFY_FILTER_TYPE}
-     */
-    FilterType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    FilterType : CM_NOTIFY_FILTER_TYPE
 
     /**
      * Set to 0.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Reserved : UInt32
 
     /**
      * A union that contains information about the device to receive notifications for.
-     * @type {_u_e__Union}
      */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := CM_NOTIFY_FILTER._u_e__Union(16, this)
-            return this.__u
-        }
-    }
+    u : CM_NOTIFY_FILTER._u
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 416
-    }
 }

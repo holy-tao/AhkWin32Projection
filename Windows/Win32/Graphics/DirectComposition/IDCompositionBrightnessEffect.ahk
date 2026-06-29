@@ -1,33 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionFilterEffect.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDCompositionFilterEffect.ahk" { IDCompositionFilterEffect }
+#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
+#Import "..\Direct2D\Common\D2D_VECTOR_2F.ahk" { D2D_VECTOR_2F }
 
 /**
  * The brightness effect controls the brightness of the image.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionbrightnesseffect
  * @namespace Windows.Win32.Graphics.DirectComposition
  */
-class IDCompositionBrightnessEffect extends IDCompositionFilterEffect {
-
-    static sizeof => A_PtrSize
+export default struct IDCompositionBrightnessEffect extends IDCompositionFilterEffect {
     /**
      * The interface identifier for IDCompositionBrightnessEffect
      * @type {Guid}
      */
-    static IID => Guid("{6027496e-cb3a-49ab-934f-d798da4f7da6}")
+    static IID := Guid("{6027496e-cb3a-49ab-934f-d798da4f7da6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDCompositionBrightnessEffect interfaces
+    */
+    struct Vtbl extends IDCompositionFilterEffect.Vtbl {
+        SetWhitePoint   : IntPtr
+        SetBlackPoint   : IntPtr
+        SetWhitePointX  : IntPtr
+        SetWhitePointX1 : IntPtr
+        SetWhitePointY  : IntPtr
+        SetWhitePointY1 : IntPtr
+        SetBlackPointX  : IntPtr
+        SetBlackPointX1 : IntPtr
+        SetBlackPointY  : IntPtr
+        SetBlackPointY1 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetWhitePoint", "SetBlackPoint", "SetWhitePointX", "SetWhitePointX1", "SetWhitePointY", "SetWhitePointY1", "SetBlackPointX", "SetBlackPointX1", "SetBlackPointY", "SetBlackPointY1"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDCompositionBrightnessEffect.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the upper portion of the brightness transfer curve.
@@ -41,7 +60,7 @@ class IDCompositionBrightnessEffect extends IDCompositionFilterEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionbrightnesseffect-setwhitepoint
      */
     SetWhitePoint(whitePoint) {
-        result := ComCall(4, this, "ptr", whitePoint, "HRESULT")
+        result := ComCall(4, this, D2D_VECTOR_2F.Ptr, whitePoint, "HRESULT")
         return result
     }
 
@@ -56,7 +75,7 @@ class IDCompositionBrightnessEffect extends IDCompositionFilterEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionbrightnesseffect-setblackpoint
      */
     SetBlackPoint(blackPoint) {
-        result := ComCall(5, this, "ptr", blackPoint, "HRESULT")
+        result := ComCall(5, this, D2D_VECTOR_2F.Ptr, blackPoint, "HRESULT")
         return result
     }
 
@@ -170,5 +189,43 @@ class IDCompositionBrightnessEffect extends IDCompositionFilterEffect {
     SetBlackPointY1(blackPointY) {
         result := ComCall(13, this, "float", blackPointY, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDCompositionBrightnessEffect.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetWhitePoint := CallbackCreate(GetMethod(implObj, "SetWhitePoint"), flags, 2)
+        this.vtbl.SetBlackPoint := CallbackCreate(GetMethod(implObj, "SetBlackPoint"), flags, 2)
+        this.vtbl.SetWhitePointX := CallbackCreate(GetMethod(implObj, "SetWhitePointX"), flags, 2)
+        this.vtbl.SetWhitePointX1 := CallbackCreate(GetMethod(implObj, "SetWhitePointX1"), flags, 2)
+        this.vtbl.SetWhitePointY := CallbackCreate(GetMethod(implObj, "SetWhitePointY"), flags, 2)
+        this.vtbl.SetWhitePointY1 := CallbackCreate(GetMethod(implObj, "SetWhitePointY1"), flags, 2)
+        this.vtbl.SetBlackPointX := CallbackCreate(GetMethod(implObj, "SetBlackPointX"), flags, 2)
+        this.vtbl.SetBlackPointX1 := CallbackCreate(GetMethod(implObj, "SetBlackPointX1"), flags, 2)
+        this.vtbl.SetBlackPointY := CallbackCreate(GetMethod(implObj, "SetBlackPointY"), flags, 2)
+        this.vtbl.SetBlackPointY1 := CallbackCreate(GetMethod(implObj, "SetBlackPointY1"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetWhitePoint)
+        CallbackFree(this.vtbl.SetBlackPoint)
+        CallbackFree(this.vtbl.SetWhitePointX)
+        CallbackFree(this.vtbl.SetWhitePointX1)
+        CallbackFree(this.vtbl.SetWhitePointY)
+        CallbackFree(this.vtbl.SetWhitePointY1)
+        CallbackFree(this.vtbl.SetBlackPointX)
+        CallbackFree(this.vtbl.SetBlackPointX1)
+        CallbackFree(this.vtbl.SetBlackPointY)
+        CallbackFree(this.vtbl.SetBlackPointY1)
     }
 }

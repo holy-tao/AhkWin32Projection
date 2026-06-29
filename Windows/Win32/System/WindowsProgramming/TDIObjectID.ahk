@@ -1,29 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TDIEntityID.ahk
-#Include .\TDIENTITY_ENTITY_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TDIEntityID.ahk" { TDIEntityID }
+#Import ".\TDIENTITY_ENTITY_TYPE.ahk" { TDIENTITY_ENTITY_TYPE }
 
 /**
  * Contains a part of the TCP_REQUEST_QUERY_INFORMATION_EX structure that is used with the IOCTL_TCP_QUERY_INFORMATION_EX control code to specify the kind of information being requested from the TCP driver.
  * @see https://learn.microsoft.com/windows/win32/api/tdiinfo/ns-tdiinfo-tdiobjectid
  * @namespace Windows.Win32.System.WindowsProgramming
  */
-class TDIObjectID extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct TDIObjectID {
+    #StructPack 4
 
     /**
      * This is a <a href="https://docs.microsoft.com/windows/desktop/api/tdiinfo/ns-tdiinfo-tdientityid">TDIEntityID</a> structure.
-     * @type {TDIEntityID}
      */
-    toi_entity {
-        get {
-            if(!this.HasProp("__toi_entity"))
-                this.__toi_entity := TDIEntityID(0, this)
-            return this.__toi_entity
-        }
-    }
+    toi_entity : TDIEntityID
 
     /**
      * The kind of information being requested. The value can be one of the following.
@@ -54,12 +44,8 @@ class TDIObjectID extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    toi_class {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    toi_class : UInt32
 
     /**
      * The type of object being queried. The value can be one of the following.
@@ -100,12 +86,8 @@ class TDIObjectID extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    toi_type {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    toi_type : UInt32
 
     /**
      * If <b>toi_class</b> is <b>INFO_CLASS_GENERIC</b>, <b>toi_id</b> can be one of the following.
@@ -186,10 +168,7 @@ class TDIObjectID extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    toi_id {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    toi_id : UInt32
+
 }

@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class GET_FILTER_FILE_IDENTIFIER_OUTPUT extends Win32Struct {
-    static sizeof => 4
+export default struct GET_FILTER_FILE_IDENTIFIER_OUTPUT {
+    #StructPack 2
 
-    static packingSize => 2
+    FilterFileIdentifierLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    FilterFileIdentifierLength {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    FilterFileIdentifier : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    FilterFileIdentifier {
-        get {
-            if(!this.HasProp("__FilterFileIdentifierProxyArray"))
-                this.__FilterFileIdentifierProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")
-            return this.__FilterFileIdentifierProxyArray
-        }
-    }
 }

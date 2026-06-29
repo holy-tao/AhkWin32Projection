@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\Properties.ahk" { Properties }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MMC_SNAPIN_PROPERTY.ahk" { MMC_SNAPIN_PROPERTY }
+#Import ".\ISnapinPropertiesCallback.ahk" { ISnapinPropertiesCallback }
 
 /**
  * The ISnapinProperties interface enables a snap-in to initialize the snap-in's properties and receive notification when a property is added, changed, or deleted.
  * @see https://learn.microsoft.com/windows/win32/api/mmcobj/nn-mmcobj-isnapinproperties
  * @namespace Windows.Win32.System.Mmc
  */
-class ISnapinProperties extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISnapinProperties extends IUnknown {
     /**
      * The interface identifier for ISnapinProperties
      * @type {Guid}
      */
-    static IID => Guid("{f7889da9-4a02-4837-bf89-1a6f2a021010}")
+    static IID := Guid("{f7889da9-4a02-4837-bf89-1a6f2a021010}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISnapinProperties interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize         : IntPtr
+        QueryPropertyNames : IntPtr
+        PropertiesChanged  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "QueryPropertyNames", "PropertiesChanged"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISnapinProperties.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Initialize method initializes a snap-in.
@@ -63,7 +76,31 @@ class ISnapinProperties extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmcobj/nf-mmcobj-isnapinproperties-propertieschanged
      */
     PropertiesChanged(cProperties, pProperties) {
-        result := ComCall(5, this, "int", cProperties, "ptr", pProperties, "HRESULT")
+        result := ComCall(5, this, "int", cProperties, MMC_SNAPIN_PROPERTY.Ptr, pProperties, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISnapinProperties.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.QueryPropertyNames := CallbackCreate(GetMethod(implObj, "QueryPropertyNames"), flags, 2)
+        this.vtbl.PropertiesChanged := CallbackCreate(GetMethod(implObj, "PropertiesChanged"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.QueryPropertyNames)
+        CallbackFree(this.vtbl.PropertiesChanged)
     }
 }

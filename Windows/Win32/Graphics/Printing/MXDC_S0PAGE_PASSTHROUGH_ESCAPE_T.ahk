@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MXDC_ESCAPE_HEADER_T.ahk
-#Include .\MXDC_S0PAGE_DATA_T.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MXDC_ESCAPE_HEADER_T.ahk" { MXDC_ESCAPE_HEADER_T }
+#Import ".\MXDC_S0PAGE_DATA_T.ahk" { MXDC_S0PAGE_DATA_T }
 
 /**
  * The MXDC\_S0PAGE\_PASSTHROUGH\_ESCAPE\_T structure is an MXDC\_ESCAPE\_HEADER\_T structure concatenated with an MXDC\_S0PAGE\_DATA\_T structure.
@@ -36,32 +35,17 @@
  * @see https://learn.microsoft.com/windows/win32/printdocs/mxdcs0pagepassthroughescape
  * @namespace Windows.Win32.Graphics.Printing
  */
-class MXDC_S0PAGE_PASSTHROUGH_ESCAPE_T extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct MXDC_S0PAGE_PASSTHROUGH_ESCAPE_T {
+    #StructPack 4
 
     /**
      * An [**MXDC\_ESCAPE\_HEADER\_T**](mxdcescapeheader.md) structure with its **opCode** member set to **MXDCOP\_SET\_S0PAGE**.
-     * @type {MXDC_ESCAPE_HEADER_T}
      */
-    mxdcEscape {
-        get {
-            if(!this.HasProp("__mxdcEscape"))
-                this.__mxdcEscape := MXDC_ESCAPE_HEADER_T(0, this)
-            return this.__mxdcEscape
-        }
-    }
+    mxdcEscape : MXDC_ESCAPE_HEADER_T
 
     /**
      * An [**MxdcS0PageData**](mxdcs0pagedata.md) structure that represents an XPS-document page.
-     * @type {MXDC_S0PAGE_DATA_T}
      */
-    xpsS0PageData {
-        get {
-            if(!this.HasProp("__xpsS0PageData"))
-                this.__xpsS0PageData := MXDC_S0PAGE_DATA_T(12, this)
-            return this.__xpsS0PageData
-        }
-    }
+    xpsS0PageData : MXDC_S0PAGE_DATA_T
+
 }

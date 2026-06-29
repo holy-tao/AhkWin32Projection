@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Render states define set-up states for all kinds of vertex and pixel processing.
@@ -29,7 +28,17 @@
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3drenderstatetype
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DRENDERSTATETYPE extends Win32Enum {
+export default struct D3DRENDERSTATETYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

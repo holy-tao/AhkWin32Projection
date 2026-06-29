@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Members of the RND_ADVERTISING_SCOPE enumeration specify how widely a conference announcement is distributed. Values correspond to the advertising scope property on the ITDirectoryObjectConference interface.
@@ -37,7 +36,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/rend/ne-rend-rnd_advertising_scope
  * @namespace Windows.Win32.Devices.Tapi
  */
-class RND_ADVERTISING_SCOPE extends Win32Enum {
+export default struct RND_ADVERTISING_SCOPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Advertising scope is local.

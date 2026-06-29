@@ -1,39 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLNamespace extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLNamespace extends IDispatch {
     /**
      * The interface identifier for IHTMLNamespace
      * @type {Guid}
      */
-    static IID => Guid("{3050f6bb-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f6bb-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for HTMLNamespace
      * @type {Guid}
      */
-    static CLSID => Guid("{3050f6bc-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{3050f6bc-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLNamespace interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_name               : IntPtr
+        get_urn                : IntPtr
+        get_tagNames           : IntPtr
+        get_readyState         : IntPtr
+        put_onreadystatechange : IntPtr
+        get_onreadystatechange : IntPtr
+        doImport               : IntPtr
+        attachEvent            : IntPtr
+        detachEvent            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_name", "get_urn", "get_tagNames", "get_readyState", "put_onreadystatechange", "get_onreadystatechange", "doImport", "attachEvent", "detachEvent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLNamespace.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -76,8 +93,8 @@ class IHTMLNamespace extends IDispatch {
      * @returns {BSTR} 
      */
     get_name() {
-        p := BSTR()
-        result := ComCall(7, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -86,8 +103,8 @@ class IHTMLNamespace extends IDispatch {
      * @returns {BSTR} 
      */
     get_urn() {
-        p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -106,7 +123,7 @@ class IHTMLNamespace extends IDispatch {
      */
     get_readyState() {
         p := VARIANT()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -116,7 +133,7 @@ class IHTMLNamespace extends IDispatch {
      * @returns {HRESULT} 
      */
     put_onreadystatechange(v) {
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -126,7 +143,7 @@ class IHTMLNamespace extends IDispatch {
      */
     get_onreadystatechange() {
         p := VARIANT()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -138,7 +155,7 @@ class IHTMLNamespace extends IDispatch {
     doImport(bstrImplementationUrl) {
         bstrImplementationUrl := bstrImplementationUrl is String ? BSTR.Alloc(bstrImplementationUrl).Value : bstrImplementationUrl
 
-        result := ComCall(13, this, "ptr", bstrImplementationUrl, "HRESULT")
+        result := ComCall(13, this, BSTR, bstrImplementationUrl, "HRESULT")
         return result
     }
 
@@ -151,7 +168,7 @@ class IHTMLNamespace extends IDispatch {
     attachEvent(event, pDisp) {
         event := event is String ? BSTR.Alloc(event).Value : event
 
-        result := ComCall(14, this, "ptr", event, "ptr", pDisp, "short*", &pfResult := 0, "HRESULT")
+        result := ComCall(14, this, BSTR, event, "ptr", pDisp, VARIANT_BOOL.Ptr, &pfResult := 0, "HRESULT")
         return pfResult
     }
 
@@ -164,7 +181,43 @@ class IHTMLNamespace extends IDispatch {
     detachEvent(event, pDisp) {
         event := event is String ? BSTR.Alloc(event).Value : event
 
-        result := ComCall(15, this, "ptr", event, "ptr", pDisp, "HRESULT")
+        result := ComCall(15, this, BSTR, event, "ptr", pDisp, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IHTMLNamespace.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.get_urn := CallbackCreate(GetMethod(implObj, "get_urn"), flags, 2)
+        this.vtbl.get_tagNames := CallbackCreate(GetMethod(implObj, "get_tagNames"), flags, 2)
+        this.vtbl.get_readyState := CallbackCreate(GetMethod(implObj, "get_readyState"), flags, 2)
+        this.vtbl.put_onreadystatechange := CallbackCreate(GetMethod(implObj, "put_onreadystatechange"), flags, 2)
+        this.vtbl.get_onreadystatechange := CallbackCreate(GetMethod(implObj, "get_onreadystatechange"), flags, 2)
+        this.vtbl.doImport := CallbackCreate(GetMethod(implObj, "doImport"), flags, 2)
+        this.vtbl.attachEvent := CallbackCreate(GetMethod(implObj, "attachEvent"), flags, 4)
+        this.vtbl.detachEvent := CallbackCreate(GetMethod(implObj, "detachEvent"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_name)
+        CallbackFree(this.vtbl.get_urn)
+        CallbackFree(this.vtbl.get_tagNames)
+        CallbackFree(this.vtbl.get_readyState)
+        CallbackFree(this.vtbl.put_onreadystatechange)
+        CallbackFree(this.vtbl.get_onreadystatechange)
+        CallbackFree(this.vtbl.doImport)
+        CallbackFree(this.vtbl.attachEvent)
+        CallbackFree(this.vtbl.detachEvent)
     }
 }

@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSPROPERTY_BOUNDS_LONG extends Win32Struct {
-    static sizeof => 16
+export default struct KSPROPERTY_BOUNDS_LONG {
+    #StructPack 4
 
-    static packingSize => 4
+    SignedMinimum : Int32
 
-    /**
-     * @type {Integer}
-     */
-    SignedMinimum {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    SignedMaximum : Int32
 
-    /**
-     * @type {Integer}
-     */
-    SignedMaximum {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    UnsignedMinimum {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    UnsignedMaximum {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+    static __New() {
+        DefineProp(this.Prototype, 'UnsignedMinimum', { type: UInt32, offset: 0 })
+        DefineProp(this.Prototype, 'UnsignedMaximum', { type: UInt32, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

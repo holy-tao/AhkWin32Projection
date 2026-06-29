@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains information about an asynchronous event that is posted to the Admin Completion Queue in DWord 0 of a Completion Queue Entry. Asynchronous events are used to notify the host software of status, error, and health information.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_completion_dw0_async_event_request
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_COMPLETION_DW0_ASYNC_EVENT_REQUEST extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct NVME_COMPLETION_DW0_ASYNC_EVENT_REQUEST {
+    #StructPack 4
 
     /**
      * This bitfield backs the following members:
@@ -18,12 +15,9 @@ class NVME_COMPLETION_DW0_ASYNC_EVENT_REQUEST extends Win32Struct {
      * - AsyncEventInfo
      * - LogPage
      * - Reserved1
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}

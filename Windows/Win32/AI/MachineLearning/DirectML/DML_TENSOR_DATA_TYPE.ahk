@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the data type of the values in a tensor. DirectML operators may not support all data types; see the documentation for each specific operator to find which data types it supports.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ne-directml-dml_tensor_data_type
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  */
-class DML_TENSOR_DATA_TYPE extends Win32Enum {
+export default struct DML_TENSOR_DATA_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates an unknown data type. This value is never valid.

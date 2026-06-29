@@ -1,44 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The MPR_IFTRANSPORT_0 structure contains information for a particular interface transport.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mpr_iftransport_0
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class MPR_IFTRANSPORT_0 extends Win32Struct {
-    static sizeof => 104
-
-    static packingSize => 8
+export default struct MPR_IFTRANSPORT_0 {
+    #StructPack 8
 
     /**
      * Identifies the transport.
-     * @type {Integer}
      */
-    dwTransportId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwTransportId : UInt32
 
     /**
      * Handle to the interface transport.
-     * @type {HANDLE}
      */
-    hIfTransport {
-        get {
-            if(!this.HasProp("__hIfTransport"))
-                this.__hIfTransport := HANDLE(8, this)
-            return this.__hIfTransport
-        }
-    }
+    hIfTransport : HANDLE
 
     /**
      * Specifies a Unicode string that contains the name of the interface transport.
-     * @type {String}
      */
-    wszIfTransportName {
-        get => StrGet(this.ptr + 16, 40, "UTF-16")
-        set => StrPut(value, this.ptr + 16, 40, "UTF-16")
-    }
+    wszIfTransportName : WCHAR[41]
+
 }

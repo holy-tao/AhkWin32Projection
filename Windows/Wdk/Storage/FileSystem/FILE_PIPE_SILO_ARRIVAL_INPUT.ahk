@@ -1,23 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class FILE_PIPE_SILO_ARRIVAL_INPUT extends Win32Struct {
-    static sizeof => 8
+export default struct FILE_PIPE_SILO_ARRIVAL_INPUT {
+    #StructPack 8
 
-    static packingSize => 8
+    JobHandle : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    JobHandle {
-        get {
-            if(!this.HasProp("__JobHandle"))
-                this.__JobHandle := HANDLE(0, this)
-            return this.__JobHandle
-        }
-    }
 }

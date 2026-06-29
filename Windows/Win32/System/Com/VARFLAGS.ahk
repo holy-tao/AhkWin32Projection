@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies variable flags.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ne-oaidl-varflags
  * @namespace Windows.Win32.System.Com
  */
-class VARFLAGS extends Win32Enum {
+export default struct VARFLAGS {
+    value : UInt16
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Assignment to the variable should not be allowed.

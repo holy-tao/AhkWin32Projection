@@ -1,31 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_SSID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_SSID.ahk" { DOT11_SSID }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11EXT_IHV_SSID_LIST extends Win32Struct {
-    static sizeof => 40
+export default struct DOT11EXT_IHV_SSID_LIST {
+    #StructPack 4
 
-    static packingSize => 4
+    ulCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SSIDs : DOT11_SSID[1]
 
-    /**
-     * @type {DOT11_SSID}
-     */
-    SSIDs {
-        get {
-            if(!this.HasProp("__SSIDsProxyArray"))
-                this.__SSIDsProxyArray := Win32FixedArray(this.ptr + 4, 1, DOT11_SSID, "")
-            return this.__SSIDsProxyArray
-        }
-    }
 }

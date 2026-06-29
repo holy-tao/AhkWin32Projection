@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies how ink is persisted.
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkpersistenceformat
  * @namespace Windows.Win32.UI.TabletPC
  */
-class InkPersistenceFormat extends Win32Enum {
+export default struct InkPersistenceFormat {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Ink is persisted using ink serialized format (ISF).

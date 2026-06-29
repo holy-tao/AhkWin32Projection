@@ -1,35 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Security\PSID.ahk" { PSID }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Storage.Packaging.Appx
  */
-class FindPackageDependencyCriteria extends Win32Struct {
-    static sizeof => 24
+export default struct FindPackageDependencyCriteria {
+    #StructPack 8
 
-    static packingSize => 8
+    User : PSID
 
-    /**
-     * @type {PSID}
-     */
-    User {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ScopeIsSystem : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    ScopeIsSystem {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    PackageFamilyName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    PackageFamilyName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

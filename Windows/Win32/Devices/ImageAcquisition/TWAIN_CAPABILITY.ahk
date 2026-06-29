@@ -1,78 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
-class TWAIN_CAPABILITY extends Win32Struct {
-    static sizeof => 32
+export default struct TWAIN_CAPABILITY {
+    #StructPack 4
 
-    static packingSize => 4
+    lSize : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lSize {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    lMSG : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lMSG {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    lCapID : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lCapID {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    lConType : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lConType {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    lRC : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lRC {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    lCC : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lCC {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    lDataSize : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lDataSize {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    Data : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Data {
-        get {
-            if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")
-            return this.__DataProxyArray
-        }
-    }
 }

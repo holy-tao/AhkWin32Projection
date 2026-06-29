@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BCRYPT_DH_KEY_BLOB_MAGIC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BCRYPT_DH_KEY_BLOB_MAGIC.ahk" { BCRYPT_DH_KEY_BLOB_MAGIC }
 
 /**
  * Used as a header for a Diffie-Hellman public key or private key BLOB in memory.
@@ -32,25 +31,14 @@
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_dh_key_blob
  * @namespace Windows.Win32.Security.Cryptography
  */
-class BCRYPT_DH_KEY_BLOB extends Win32Struct {
-    static sizeof => 8
+export default struct BCRYPT_DH_KEY_BLOB {
+    #StructPack 4
 
-    static packingSize => 4
-
-    /**
-     * @type {BCRYPT_DH_KEY_BLOB_MAGIC}
-     */
-    dwMagic {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwMagic : BCRYPT_DH_KEY_BLOB_MAGIC
 
     /**
      * The length, in bytes, of the key.
-     * @type {Integer}
      */
-    cbKey {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cbKey : UInt32
+
 }

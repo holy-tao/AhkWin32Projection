@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\COORD.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\COORD.ahk" { COORD }
 
 /**
  * See reference information about the CONSOLE_FONT_INFO structure, which contains the index and size for a console font.
@@ -9,29 +8,17 @@
  * @see https://learn.microsoft.com/windows/console/console-font-info-str
  * @namespace Windows.Win32.System.Console
  */
-class CONSOLE_FONT_INFO extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct CONSOLE_FONT_INFO {
+    #StructPack 4
 
     /**
      * The index of the font in the system's console font table.
-     * @type {Integer}
      */
-    nFont {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    nFont : UInt32
 
     /**
      * A [**COORD**](coord-str.md) structure that contains the width and height of each character in the font, in logical units. The **X** member contains the width, while the **Y** member contains the height.
-     * @type {COORD}
      */
-    dwFontSize {
-        get {
-            if(!this.HasProp("__dwFontSize"))
-                this.__dwFontSize := COORD(4, this)
-            return this.__dwFontSize
-        }
-    }
+    dwFontSize : COORD
+
 }

@@ -1,55 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains a packet of opaque data sent during an EAP authentication session.
  * @see https://learn.microsoft.com/windows/win32/api/eapmethodtypes/ns-eapmethodtypes-eappacket
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  */
-class EapPacket extends Win32Struct {
-    static sizeof => 5
-
-    static packingSize => 1
+export default struct EapPacket {
+    #StructPack 1
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/eapmethodtypes/ne-eapmethodtypes-eapcode">EapCode</a> enumeration value that identifies the packet type.
-     * @type {Integer}
      */
-    Code {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Code : Int8
 
     /**
      * The packet ID number.
-     * @type {Integer}
      */
-    Id {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Id : Int8
 
     /**
      * The length of the entire packet
-     * @type {Array<Integer>}
      */
-    Length {
-        get {
-            if(!this.HasProp("__LengthProxyArray"))
-                this.__LengthProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")
-            return this.__LengthProxyArray
-        }
-    }
+    Length : Int8[2]
 
     /**
      * The packet message data. This opaque data block continues after the first byte for <b>Length</b> - 1 bytes.
-     * @type {Array<Integer>}
      */
-    Data {
-        get {
-            if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
-            return this.__DataProxyArray
-        }
-    }
+    Data : Int8[1]
+
 }

@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_HEAP_TYPE.ahk
-#Include .\D3D12_CPU_PAGE_PROPERTY.ahk
-#Include .\D3D12_MEMORY_POOL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_CPU_PAGE_PROPERTY.ahk" { D3D12_CPU_PAGE_PROPERTY }
+#Import ".\D3D12_HEAP_TYPE.ahk" { D3D12_HEAP_TYPE }
+#Import ".\D3D12_MEMORY_POOL.ahk" { D3D12_MEMORY_POOL }
 
 /**
  * Describes heap properties.
@@ -42,37 +41,23 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_heap_properties
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_HEAP_PROPERTIES extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct D3D12_HEAP_PROPERTIES {
+    #StructPack 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_heap_type">D3D12_HEAP_TYPE</a>-typed value that specifies the type of heap.
-     * @type {D3D12_HEAP_TYPE}
      */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Type : D3D12_HEAP_TYPE
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_cpu_page_property">D3D12_CPU_PAGE_PROPERTY</a>-typed value that specifies the CPU-page properties for the heap.
-     * @type {D3D12_CPU_PAGE_PROPERTY}
      */
-    CPUPageProperty {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    CPUPageProperty : D3D12_CPU_PAGE_PROPERTY
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_memory_pool">D3D12_MEMORY_POOL</a>-typed value that specifies the memory pool for the heap.
-     * @type {D3D12_MEMORY_POOL}
      */
-    MemoryPoolPreference {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    MemoryPoolPreference : D3D12_MEMORY_POOL
 
     /**
      * For multi-adapter operation, this indicates the node where the resource should be created.
@@ -80,12 +65,8 @@ class D3D12_HEAP_PROPERTIES extends Win32Struct {
      * Exactly one bit of this UINT must be set. See <a href="https://docs.microsoft.com/windows/win32/direct3d12/multi-engine">Multi-adapter systems</a>.
      * 
      * Passing zero is equivalent to passing one, in order to simplify the usage of single-GPU adapters.
-     * @type {Integer}
      */
-    CreationNodeMask {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    CreationNodeMask : UInt32
 
     /**
      * For multi-adapter operation, this indicates the set of nodes where the resource is visible.
@@ -93,10 +74,7 @@ class D3D12_HEAP_PROPERTIES extends Win32Struct {
      * <i>VisibleNodeMask</i> must have the same bit set that is set in <i>CreationNodeMask</i>. <i>VisibleNodeMask</i> can *also* have additional bits set for cross-node resources, but doing so can potentially reduce performance for resource accesses, so you should do so only when needed.
      * 
      * Passing zero is equivalent to passing one, in order to simplify the usage of single-GPU adapters.
-     * @type {Integer}
      */
-    VisibleNodeMask {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    VisibleNodeMask : UInt32
+
 }

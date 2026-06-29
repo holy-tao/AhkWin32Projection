@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFAttributes.ahk
-#Include .\IMFCameraControlDefaults.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MF_CAMERA_CONTROL_CONFIGURATION_TYPE.ahk" { MF_CAMERA_CONTROL_CONFIGURATION_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFAttributes.ahk" { IMFAttributes }
+#Import ".\IMFCameraControlDefaults.ahk" { IMFCameraControlDefaults }
 
 /**
  * Represents a collection of camera controls.
@@ -11,26 +13,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfcameracontroldefaultscollection
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFCameraControlDefaultsCollection extends IMFAttributes {
-
-    static sizeof => A_PtrSize
+export default struct IMFCameraControlDefaultsCollection extends IMFAttributes {
     /**
      * The interface identifier for IMFCameraControlDefaultsCollection
      * @type {Guid}
      */
-    static IID => Guid("{92d43d0f-54a8-4bae-96da-356d259a5c26}")
+    static IID := Guid("{92d43d0f-54a8-4bae-96da-356d259a5c26}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 33
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFCameraControlDefaultsCollection interfaces
+    */
+    struct Vtbl extends IMFAttributes.Vtbl {
+        GetControlCount         : IntPtr
+        GetControl              : IntPtr
+        GetOrAddExtendedControl : IntPtr
+        GetOrAddControl         : IntPtr
+        RemoveControl           : IntPtr
+        RemoveAllControls       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetControlCount", "GetControl", "GetOrAddExtendedControl", "GetOrAddControl", "RemoveControl", "RemoveAllControls"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFCameraControlDefaultsCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the number of controls currently in the control defaults collection.
@@ -38,7 +52,7 @@ class IMFCameraControlDefaultsCollection extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcameracontroldefaultscollection-getcontrolcount
      */
     GetControlCount() {
-        result := ComCall(33, this, "uint")
+        result := ComCall(33, this, UInt32)
         return result
     }
 
@@ -67,7 +81,7 @@ class IMFCameraControlDefaultsCollection extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcameracontroldefaultscollection-getoraddextendedcontrol
      */
     GetOrAddExtendedControl(configType, constrolId, streamId, dataSize) {
-        result := ComCall(35, this, "int", configType, "uint", constrolId, "uint", streamId, "uint", dataSize, "ptr*", &defaults := 0, "HRESULT")
+        result := ComCall(35, this, MF_CAMERA_CONTROL_CONFIGURATION_TYPE, configType, "uint", constrolId, "uint", streamId, "uint", dataSize, "ptr*", &defaults := 0, "HRESULT")
         return IMFCameraControlDefaults(defaults)
     }
 
@@ -84,7 +98,7 @@ class IMFCameraControlDefaultsCollection extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcameracontroldefaultscollection-getoraddcontrol
      */
     GetOrAddControl(configType, controlSet, constrolId, controlSize, dataSize) {
-        result := ComCall(36, this, "int", configType, "ptr", controlSet, "uint", constrolId, "uint", controlSize, "uint", dataSize, "ptr*", &defaults := 0, "HRESULT")
+        result := ComCall(36, this, MF_CAMERA_CONTROL_CONFIGURATION_TYPE, configType, Guid.Ptr, controlSet, "uint", constrolId, "uint", controlSize, "uint", dataSize, "ptr*", &defaults := 0, "HRESULT")
         return IMFCameraControlDefaults(defaults)
     }
 
@@ -96,7 +110,7 @@ class IMFCameraControlDefaultsCollection extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcameracontroldefaultscollection-removecontrol
      */
     RemoveControl(controlSet, constrolId) {
-        result := ComCall(37, this, "ptr", controlSet, "uint", constrolId, "HRESULT")
+        result := ComCall(37, this, Guid.Ptr, controlSet, "uint", constrolId, "HRESULT")
         return result
     }
 
@@ -108,5 +122,35 @@ class IMFCameraControlDefaultsCollection extends IMFAttributes {
     RemoveAllControls() {
         result := ComCall(38, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFCameraControlDefaultsCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetControlCount := CallbackCreate(GetMethod(implObj, "GetControlCount"), flags, 1)
+        this.vtbl.GetControl := CallbackCreate(GetMethod(implObj, "GetControl"), flags, 3)
+        this.vtbl.GetOrAddExtendedControl := CallbackCreate(GetMethod(implObj, "GetOrAddExtendedControl"), flags, 6)
+        this.vtbl.GetOrAddControl := CallbackCreate(GetMethod(implObj, "GetOrAddControl"), flags, 7)
+        this.vtbl.RemoveControl := CallbackCreate(GetMethod(implObj, "RemoveControl"), flags, 3)
+        this.vtbl.RemoveAllControls := CallbackCreate(GetMethod(implObj, "RemoveAllControls"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetControlCount)
+        CallbackFree(this.vtbl.GetControl)
+        CallbackFree(this.vtbl.GetOrAddExtendedControl)
+        CallbackFree(this.vtbl.GetOrAddControl)
+        CallbackFree(this.vtbl.RemoveControl)
+        CallbackFree(this.vtbl.RemoveAllControls)
     }
 }

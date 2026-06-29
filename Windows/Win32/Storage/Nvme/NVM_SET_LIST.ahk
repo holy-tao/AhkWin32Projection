@@ -1,46 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NVME_SET_ATTRIBUTES_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NVME_SET_ATTRIBUTES_ENTRY.ahk" { NVME_SET_ATTRIBUTES_ENTRY }
 
 /**
  * Contains an array of entries for the NVME Set Attributes command.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvm_set_list
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVM_SET_LIST extends Win32Struct {
-    static sizeof => 256
-
-    static packingSize => 4
+export default struct NVM_SET_LIST {
+    #StructPack 4
 
     /**
      * The number of identifiers in the entry.
-     * @type {Integer}
      */
-    IdentifierCount {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    IdentifierCount : Int8
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 1, 127, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    Reserved : Int8[127]
 
     /**
      * An array of [NVME_SET_ATTRIBUTES_ENTRY](ns-nvme-nvme_set_attributes_entry.md) structures that specify attribute values to be set by the set list.
-     * @type {NVME_SET_ATTRIBUTES_ENTRY}
      */
-    Entry {
-        get {
-            if(!this.HasProp("__EntryProxyArray"))
-                this.__EntryProxyArray := Win32FixedArray(this.ptr + 128, 1, NVME_SET_ATTRIBUTES_ENTRY, "")
-            return this.__EntryProxyArray
-        }
-    }
+    Entry : NVME_SET_ATTRIBUTES_ENTRY[1]
+
 }

@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IP6_ADDRESS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IP6_ADDRESS.ahk" { IP6_ADDRESS }
 
 /**
  * Represents a DNS service running on the network.
@@ -16,105 +16,56 @@
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_service_instance
  * @namespace Windows.Win32.NetworkManagement.Dns
  */
-class DNS_SERVICE_INSTANCE extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct DNS_SERVICE_INSTANCE {
+    #StructPack 8
 
     /**
      * A string that represents the service name. This is a fully qualified domain name that begins with a service name, and ends with ".local". It takes the generalized form "\<ServiceName\>.\_\<ServiceType\>.\_\<TransportProtocol\>.local". For example, "MyMusicServer._http._tcp.local".
-     * @type {PWSTR}
      */
-    pszInstanceName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pszInstanceName : PWSTR
 
     /**
      * A string that represents the name of the host of the service.
-     * @type {PWSTR}
      */
-    pszHostName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszHostName : PWSTR
 
     /**
      * A pointer to an **IP4_ADDRESS** structure that represents the service-associated IPv4 address.
-     * @type {Pointer<Integer>}
      */
-    ip4Address {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ip4Address : IntPtr
 
     /**
      * A pointer to an [IP6_ADDRESS](/windows/win32/api/windns/ns-windns-ip6_address) structure that represents the service-associated IPv6 address.
-     * @type {Pointer<IP6_ADDRESS>}
      */
-    ip6Address {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ip6Address : IP6_ADDRESS.Ptr
 
     /**
      * A value that represents the port on which the service is running.
-     * @type {Integer}
      */
-    wPort {
-        get => NumGet(this, 32, "ushort")
-        set => NumPut("ushort", value, this, 32)
-    }
+    wPort : UInt16
 
     /**
      * A value that represents the service priority.
-     * @type {Integer}
      */
-    wPriority {
-        get => NumGet(this, 34, "ushort")
-        set => NumPut("ushort", value, this, 34)
-    }
+    wPriority : UInt16
 
     /**
      * A value that represents the service weight.
-     * @type {Integer}
      */
-    wWeight {
-        get => NumGet(this, 36, "ushort")
-        set => NumPut("ushort", value, this, 36)
-    }
+    wWeight : UInt16
 
     /**
      * The number of properties&mdash;defines the number of elements in the arrays of the `keys` and `values` parameters.
-     * @type {Integer}
      */
-    dwPropertyCount {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwPropertyCount : UInt32
 
-    /**
-     * @type {Pointer<PWSTR>}
-     */
-    keys {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    keys : PWSTR.Ptr
 
-    /**
-     * @type {Pointer<PWSTR>}
-     */
-    values {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    values : PWSTR.Ptr
 
     /**
      * A value that contains the interface index on which the service was discovered.
-     * @type {Integer}
      */
-    dwInterfaceIndex {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    dwInterfaceIndex : UInt32
+
 }

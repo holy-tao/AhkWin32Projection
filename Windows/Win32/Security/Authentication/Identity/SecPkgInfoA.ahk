@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The SecPkgInfo structure provides general information about a security package, such as its name and capabilities. (ANSI)
@@ -10,10 +9,8 @@
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @charset ANSI
  */
-class SecPkgInfoA extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct SecPkgInfoA {
+    #StructPack 8
 
     /**
      * Set of bit flags that describes the capabilities of the security package. This member can be a combination of the following flags. 
@@ -336,55 +333,32 @@ class SecPkgInfoA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    fCapabilities {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    fCapabilities : UInt32
 
     /**
      * Specifies the version of the package protocol. Must be 1.
-     * @type {Integer}
      */
-    wVersion {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    wVersion : UInt16
 
     /**
      * Specifies a DCE RPC identifier, if appropriate. If the package does not implement one of the DCE registered security systems, the reserved value SECPKG_ID_NONE is used.
-     * @type {Integer}
      */
-    wRPCID {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    wRPCID : UInt16
 
     /**
      * Specifies the maximum size, in bytes, of the token.
-     * @type {Integer}
      */
-    cbMaxToken {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cbMaxToken : UInt32
 
     /**
      * Pointer to a null-terminated string that contains the name of the security package.
-     * @type {Pointer<Integer>}
      */
-    Name {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Name : IntPtr
 
     /**
      * Pointer to a null-terminated string. This can be any additional string passed back by the package.
-     * @type {Pointer<Integer>}
      */
-    Comment {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Comment : IntPtr
+
 }

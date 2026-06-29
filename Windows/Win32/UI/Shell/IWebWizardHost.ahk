@@ -1,39 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.UI.Shell
  */
-class IWebWizardHost extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWebWizardHost extends IDispatch {
     /**
      * The interface identifier for IWebWizardHost
      * @type {Guid}
      */
-    static IID => Guid("{18bcc359-4990-4bfb-b951-3c83702be5f9}")
+    static IID := Guid("{18bcc359-4990-4bfb-b951-3c83702be5f9}")
 
     /**
      * The class identifier for WebWizardHost
      * @type {Guid}
      */
-    static CLSID => Guid("{c827f149-55c1-4d28-935e-57e47caed973}")
+    static CLSID := Guid("{c827f149-55c1-4d28-935e-57e47caed973}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWebWizardHost interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        FinalBack        : IntPtr
+        FinalNext        : IntPtr
+        Cancel           : IntPtr
+        put_Caption      : IntPtr
+        get_Caption      : IntPtr
+        put_Property     : IntPtr
+        get_Property     : IntPtr
+        SetWizardButtons : IntPtr
+        SetHeaderText    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["FinalBack", "FinalNext", "Cancel", "put_Caption", "get_Caption", "put_Property", "get_Property", "SetWizardButtons", "SetHeaderText"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWebWizardHost.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -62,15 +79,8 @@ class IWebWizardHost extends IDispatch {
     }
 
     /**
-     * Use the Cancel-Session packet to terminate the upload session with the BITS server.
-     * @remarks
-     * This packet cancels an upload job if it is sent before the last fragment is sent. Cancel-Session has no effect on a file whose last fragment has already been sent. When the BITS server receives the last fragment, it writes the file to its final destination and, in the case of an upload-reply, posts the file to the server application. In the upload-reply case, the Cancel-Session packet cancels the reply portion of an upload-reply job.
      * 
-     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
-     * 
-     * The BITS client sends this packet when the user cancels the job.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Bits/cancel-session
      */
     Cancel() {
         result := ComCall(9, this, "HRESULT")
@@ -85,7 +95,7 @@ class IWebWizardHost extends IDispatch {
     put_Caption(bstrCaption) {
         bstrCaption := bstrCaption is String ? BSTR.Alloc(bstrCaption).Value : bstrCaption
 
-        result := ComCall(10, this, "ptr", bstrCaption, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrCaption, "HRESULT")
         return result
     }
 
@@ -94,8 +104,8 @@ class IWebWizardHost extends IDispatch {
      * @returns {BSTR} 
      */
     get_Caption() {
-        pbstrCaption := BSTR()
-        result := ComCall(11, this, "ptr", pbstrCaption, "HRESULT")
+        pbstrCaption := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pbstrCaption, "HRESULT")
         return pbstrCaption
     }
 
@@ -108,7 +118,7 @@ class IWebWizardHost extends IDispatch {
     put_Property(bstrPropertyName, pvProperty) {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
 
-        result := ComCall(12, this, "ptr", bstrPropertyName, "ptr", pvProperty, "HRESULT")
+        result := ComCall(12, this, BSTR, bstrPropertyName, VARIANT.Ptr, pvProperty, "HRESULT")
         return result
     }
 
@@ -121,7 +131,7 @@ class IWebWizardHost extends IDispatch {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
 
         pvProperty := VARIANT()
-        result := ComCall(13, this, "ptr", bstrPropertyName, "ptr", pvProperty, "HRESULT")
+        result := ComCall(13, this, BSTR, bstrPropertyName, VARIANT.Ptr, pvProperty, "HRESULT")
         return pvProperty
     }
 
@@ -133,7 +143,7 @@ class IWebWizardHost extends IDispatch {
      * @returns {HRESULT} 
      */
     SetWizardButtons(vfEnableBack, vfEnableNext, vfLastPage) {
-        result := ComCall(14, this, "short", vfEnableBack, "short", vfEnableNext, "short", vfLastPage, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL, vfEnableBack, VARIANT_BOOL, vfEnableNext, VARIANT_BOOL, vfLastPage, "HRESULT")
         return result
     }
 
@@ -147,7 +157,43 @@ class IWebWizardHost extends IDispatch {
         bstrHeaderTitle := bstrHeaderTitle is String ? BSTR.Alloc(bstrHeaderTitle).Value : bstrHeaderTitle
         bstrHeaderSubtitle := bstrHeaderSubtitle is String ? BSTR.Alloc(bstrHeaderSubtitle).Value : bstrHeaderSubtitle
 
-        result := ComCall(15, this, "ptr", bstrHeaderTitle, "ptr", bstrHeaderSubtitle, "HRESULT")
+        result := ComCall(15, this, BSTR, bstrHeaderTitle, BSTR, bstrHeaderSubtitle, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWebWizardHost.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.FinalBack := CallbackCreate(GetMethod(implObj, "FinalBack"), flags, 1)
+        this.vtbl.FinalNext := CallbackCreate(GetMethod(implObj, "FinalNext"), flags, 1)
+        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.put_Caption := CallbackCreate(GetMethod(implObj, "put_Caption"), flags, 2)
+        this.vtbl.get_Caption := CallbackCreate(GetMethod(implObj, "get_Caption"), flags, 2)
+        this.vtbl.put_Property := CallbackCreate(GetMethod(implObj, "put_Property"), flags, 3)
+        this.vtbl.get_Property := CallbackCreate(GetMethod(implObj, "get_Property"), flags, 3)
+        this.vtbl.SetWizardButtons := CallbackCreate(GetMethod(implObj, "SetWizardButtons"), flags, 4)
+        this.vtbl.SetHeaderText := CallbackCreate(GetMethod(implObj, "SetHeaderText"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.FinalBack)
+        CallbackFree(this.vtbl.FinalNext)
+        CallbackFree(this.vtbl.Cancel)
+        CallbackFree(this.vtbl.put_Caption)
+        CallbackFree(this.vtbl.get_Caption)
+        CallbackFree(this.vtbl.put_Property)
+        CallbackFree(this.vtbl.get_Property)
+        CallbackFree(this.vtbl.SetWizardButtons)
+        CallbackFree(this.vtbl.SetHeaderText)
     }
 }

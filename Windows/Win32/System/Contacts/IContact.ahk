@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Do not use. Defines methods for reading and writing properties for a single contact.
@@ -30,32 +32,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/icontact/nn-icontact-icontact
  * @namespace Windows.Win32.System.Contacts
  */
-class IContact extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IContact extends IUnknown {
     /**
      * The interface identifier for IContact
      * @type {Guid}
      */
-    static IID => Guid("{f941b671-bda7-4f77-884a-f46462f226a7}")
+    static IID := Guid("{f941b671-bda7-4f77-884a-f46462f226a7}")
 
     /**
      * The class identifier for Contact
      * @type {Guid}
      */
-    static CLSID => Guid("{61b68808-8eee-4fd1-acb8-3d804c8db056}")
+    static CLSID := Guid("{61b68808-8eee-4fd1-acb8-3d804c8db056}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IContact interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetContactID  : IntPtr
+        GetPath       : IntPtr
+        CommitChanges : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetContactID", "GetPath", "CommitChanges"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IContact.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the local computer unique contact ID.
@@ -233,5 +244,29 @@ class IContact extends IUnknown {
     CommitChanges(dwCommitFlags) {
         result := ComCall(5, this, "uint", dwCommitFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IContact.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetContactID := CallbackCreate(GetMethod(implObj, "GetContactID"), flags, 4)
+        this.vtbl.GetPath := CallbackCreate(GetMethod(implObj, "GetPath"), flags, 4)
+        this.vtbl.CommitChanges := CallbackCreate(GetMethod(implObj, "CommitChanges"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetContactID)
+        CallbackFree(this.vtbl.GetPath)
+        CallbackFree(this.vtbl.CommitChanges)
     }
 }

@@ -1,76 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TDI_TL_IO_CONTROL_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TDI_TL_IO_CONTROL_TYPE.ahk" { TDI_TL_IO_CONTROL_TYPE }
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
  */
-class TDI_TL_IO_CONTROL_ENDPOINT extends Win32Struct {
-    static sizeof => 48
+export default struct TDI_TL_IO_CONTROL_ENDPOINT {
+    #StructPack 8
 
-    static packingSize => 8
+    Type : TDI_TL_IO_CONTROL_TYPE
 
-    /**
-     * @type {TDI_TL_IO_CONTROL_TYPE}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Level : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Level {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    IoControlCode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    IoControlCode {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    InputBuffer : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    OptionName {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    InputBufferLength : UInt32
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    InputBuffer {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    OutputBuffer : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    InputBufferLength {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    OutputBufferLength : UInt32
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    OutputBuffer {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    OutputBufferLength {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+    static __New() {
+        DefineProp(this.Prototype, 'OptionName', { type: UInt32, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

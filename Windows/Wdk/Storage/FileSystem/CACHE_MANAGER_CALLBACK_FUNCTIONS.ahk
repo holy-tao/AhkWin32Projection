@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class CACHE_MANAGER_CALLBACK_FUNCTIONS extends Win32Struct {
-    static sizeof => 32
+export default struct CACHE_MANAGER_CALLBACK_FUNCTIONS {
+    #StructPack 8
 
-    static packingSize => 8
+    AcquireForLazyWriteEx : IntPtr
 
-    /**
-     * @type {Pointer<PACQUIRE_FOR_LAZY_WRITE_EX>}
-     */
-    AcquireForLazyWriteEx {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ReleaseFromLazyWrite : IntPtr
 
-    /**
-     * @type {Pointer<PRELEASE_FROM_LAZY_WRITE>}
-     */
-    ReleaseFromLazyWrite {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    AcquireForReadAhead : IntPtr
 
-    /**
-     * @type {Pointer<PACQUIRE_FOR_READ_AHEAD>}
-     */
-    AcquireForReadAhead {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ReleaseFromReadAhead : IntPtr
 
-    /**
-     * @type {Pointer<PRELEASE_FROM_READ_AHEAD>}
-     */
-    ReleaseFromReadAhead {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

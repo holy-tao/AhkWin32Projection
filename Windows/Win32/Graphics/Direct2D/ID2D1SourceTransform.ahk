@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Transform.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID2D1Bitmap1.ahk" { ID2D1Bitmap1 }
+#Import ".\ID2D1RenderInfo.ahk" { ID2D1RenderInfo }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID2D1Transform.ahk" { ID2D1Transform }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "Common\D2D_POINT_2U.ahk" { D2D_POINT_2U }
 
 /**
  * Represents a CPU-based rasterization stage in the transform pipeline graph.
@@ -10,26 +15,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1sourcetransform
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1SourceTransform extends ID2D1Transform {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1SourceTransform extends ID2D1Transform {
     /**
      * The interface identifier for ID2D1SourceTransform
      * @type {Guid}
      */
-    static IID => Guid("{db1800dd-0c34-4cf9-be90-31cc0a5653e1}")
+    static IID := Guid("{db1800dd-0c34-4cf9-be90-31cc0a5653e1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1SourceTransform interfaces
+    */
+    struct Vtbl extends ID2D1Transform.Vtbl {
+        SetRenderInfo : IntPtr
+        Draw          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetRenderInfo", "Draw"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1SourceTransform.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the render information for the transform.
@@ -77,7 +90,29 @@ class ID2D1SourceTransform extends ID2D1Transform {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1sourcetransform-draw
      */
     Draw(target, drawRect, targetOrigin) {
-        result := ComCall(8, this, "ptr", target, "ptr", drawRect, "ptr", targetOrigin, "HRESULT")
+        result := ComCall(8, this, "ptr", target, RECT.Ptr, drawRect, D2D_POINT_2U, targetOrigin, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID2D1SourceTransform.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetRenderInfo := CallbackCreate(GetMethod(implObj, "SetRenderInfo"), flags, 2)
+        this.vtbl.Draw := CallbackCreate(GetMethod(implObj, "Draw"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetRenderInfo)
+        CallbackFree(this.vtbl.Draw)
     }
 }

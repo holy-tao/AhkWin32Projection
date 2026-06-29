@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The VDS_VERSION_SUPPORT_FLAG enumeration (vdshwprv.h) indicates which versions of the VDS interfaces are supported.
@@ -13,7 +12,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_version_support_flag
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_VERSION_SUPPORT_FLAG extends Win32Enum {
+export default struct VDS_VERSION_SUPPORT_FLAG {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates that the VDS 1.0 interfaces are supported. VDS 1.0 is supported on 

@@ -1,27 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class AUDIORESOURCEMANAGEMENT_RESOURCEGROUP extends Win32Struct {
-    static sizeof => 516
+export default struct AUDIORESOURCEMANAGEMENT_RESOURCEGROUP {
+    #StructPack 4
 
-    static packingSize => 4
+    ResourceGroupAcquired : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    ResourceGroupAcquired {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ResourceGroupName : WCHAR[256]
 
-    /**
-     * @type {String}
-     */
-    ResourceGroupName {
-        get => StrGet(this.ptr + 4, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 255, "UTF-16")
-    }
 }

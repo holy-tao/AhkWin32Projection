@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Iis
  */
-class HTTP_FILTER_PREPROC_HEADERS extends Win32Struct {
-    static sizeof => 32
+export default struct HTTP_FILTER_PREPROC_HEADERS {
+    #StructPack 8
 
-    static packingSize => 8
+    GetHeader : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    GetHeader {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    SetHeader : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    SetHeader {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    AddHeader : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    AddHeader {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    HttpStatus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    HttpStatus {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwReserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
 }

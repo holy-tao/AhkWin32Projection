@@ -1,44 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ALG_ID.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\ALG_ID.ahk" { ALG_ID }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains information about an object identifier (OID).
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_oid_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRYPT_OID_INFO extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct CRYPT_OID_INFO {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * The OID associated with this OID information.
-     * @type {PSTR}
      */
-    pszOID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszOID : PSTR
 
     /**
      * The display name associated with an OID.
-     * @type {PWSTR}
      */
-    pwszName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pwszName : PWSTR
 
     /**
      * The group identifier value associated with this OID information. 
@@ -134,36 +121,10 @@ class CRYPT_OID_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwGroupId {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwGroupId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwValue {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
-
-    /**
-     * @type {ALG_ID}
-     */
-    Algid {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwLength {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwValue : UInt32
 
     /**
      * Extra information used to find or register OID information. This member applies for the following values of <b>dwGroupId</b>: 
@@ -256,18 +217,12 @@ class CRYPT_OID_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {CRYPT_INTEGER_BLOB}
      */
-    ExtraInfo {
-        get {
-            if(!this.HasProp("__ExtraInfo"))
-                this.__ExtraInfo := CRYPT_INTEGER_BLOB(32, this)
-            return this.__ExtraInfo
-        }
-    }
+    ExtraInfo : CRYPT_INTEGER_BLOB
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 48
+    static __New() {
+        DefineProp(this.Prototype, 'Algid', { type: ALG_ID, offset: 28 })
+        DefineProp(this.Prototype, 'dwLength', { type: UInt32, offset: 28 })
+        this.DeleteProp("__New")
     }
 }

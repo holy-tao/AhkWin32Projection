@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Contains information about a hardware profile. (ANSI)
@@ -10,10 +10,8 @@
  * @namespace Windows.Win32.System.WindowsProgramming
  * @charset ANSI
  */
-class HW_PROFILE_INFOA extends Win32Struct {
-    static sizeof => 124
-
-    static packingSize => 4
+export default struct HW_PROFILE_INFOA {
+    #StructPack 4
 
     /**
      * The reported docking state of the computer. This member can be a combination of the following bit values. 
@@ -87,12 +85,8 @@ class HW_PROFILE_INFOA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwDockInfo {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwDockInfo : UInt32
 
     /**
      * The globally unique identifier (GUID) string for the current hardware profile. The string returned by 
@@ -104,19 +98,12 @@ class HW_PROFILE_INFOA extends Win32Struct {
      * {12340001-4980-1920-6788-123456789012}
      * 
      * You can use this string as a registry subkey under your application's configuration settings key in <b>HKEY_CURRENT_USER</b>. This enables you to store settings for each hardware profile.
-     * @type {String}
      */
-    szHwProfileGuid {
-        get => StrGet(this.ptr + 4, 38, "UTF-8")
-        set => StrPut(value, this.ptr + 4, 38, "UTF-8")
-    }
+    szHwProfileGuid : CHAR[39]
 
     /**
      * The display name for the current hardware profile.
-     * @type {String}
      */
-    szHwProfileName {
-        get => StrGet(this.ptr + 43, 79, "UTF-8")
-        set => StrPut(value, this.ptr + 43, 79, "UTF-8")
-    }
+    szHwProfileName : CHAR[80]
+
 }

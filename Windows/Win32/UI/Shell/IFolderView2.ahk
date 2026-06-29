@@ -1,10 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFolderView.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
-#Include .\SORTCOLUMN.ahk
-#Include .\IShellItemArray.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FVTEXTTYPE.ahk" { FVTEXTTYPE }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\IShellItemArray.ahk" { IShellItemArray }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import ".\SORTCOLUMN.ahk" { SORTCOLUMN }
+#Import ".\IFolderView.ahk" { IFolderView }
+#Import ".\FOLDERVIEWMODE.ahk" { FOLDERVIEWMODE }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 
 /**
  * Exposes methods that retrieve information about a folder's display options, select specified items in that folder, and set the folder's view mode. (IFolderView2)
@@ -13,26 +21,57 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ifolderview2
  * @namespace Windows.Win32.UI.Shell
  */
-class IFolderView2 extends IFolderView {
-
-    static sizeof => A_PtrSize
+export default struct IFolderView2 extends IFolderView {
     /**
      * The interface identifier for IFolderView2
      * @type {Guid}
      */
-    static IID => Guid("{1af3a467-214f-4298-908e-06b03e0b39f9}")
+    static IID := Guid("{1af3a467-214f-4298-908e-06b03e0b39f9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 17
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFolderView2 interfaces
+    */
+    struct Vtbl extends IFolderView.Vtbl {
+        SetGroupBy                    : IntPtr
+        GetGroupBy                    : IntPtr
+        SetViewProperty               : IntPtr
+        GetViewProperty               : IntPtr
+        SetTileViewProperties         : IntPtr
+        SetExtendedTileViewProperties : IntPtr
+        SetText                       : IntPtr
+        SetCurrentFolderFlags         : IntPtr
+        GetCurrentFolderFlags         : IntPtr
+        GetSortColumnCount            : IntPtr
+        SetSortColumns                : IntPtr
+        GetSortColumns                : IntPtr
+        GetItem                       : IntPtr
+        GetVisibleItem                : IntPtr
+        GetSelectedItem               : IntPtr
+        GetSelection                  : IntPtr
+        GetSelectionState             : IntPtr
+        InvokeVerbOnSelection         : IntPtr
+        SetViewModeAndIconSize        : IntPtr
+        GetViewModeAndIconSize        : IntPtr
+        SetGroupSubsetCount           : IntPtr
+        GetGroupSubsetCount           : IntPtr
+        SetRedraw                     : IntPtr
+        IsMoveInSameFolder            : IntPtr
+        DoRename                      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetGroupBy", "GetGroupBy", "SetViewProperty", "GetViewProperty", "SetTileViewProperties", "SetExtendedTileViewProperties", "SetText", "SetCurrentFolderFlags", "GetCurrentFolderFlags", "GetSortColumnCount", "SetSortColumns", "GetSortColumns", "GetItem", "GetVisibleItem", "GetSelectedItem", "GetSelection", "GetSelectionState", "InvokeVerbOnSelection", "SetViewModeAndIconSize", "GetViewModeAndIconSize", "SetGroupSubsetCount", "GetGroupSubsetCount", "SetRedraw", "IsMoveInSameFolder", "DoRename"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFolderView2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Groups the view by the given property key and direction.
@@ -48,7 +87,7 @@ class IFolderView2 extends IFolderView {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-setgroupby
      */
     SetGroupBy(key, fAscending) {
-        result := ComCall(17, this, "ptr", key, "int", fAscending, "HRESULT")
+        result := ComCall(17, this, PROPERTYKEY.Ptr, key, BOOL, fAscending, "HRESULT")
         return result
     }
 
@@ -97,7 +136,7 @@ class IFolderView2 extends IFolderView {
     GetGroupBy(pkey, pfAscending) {
         pfAscendingMarshal := pfAscending is VarRef ? "int*" : "ptr"
 
-        result := ComCall(18, this, "ptr", pkey, pfAscendingMarshal, pfAscending, "HRESULT")
+        result := ComCall(18, this, PROPERTYKEY.Ptr, pkey, pfAscendingMarshal, pfAscending, "HRESULT")
         return result
     }
 
@@ -120,7 +159,7 @@ class IFolderView2 extends IFolderView {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-setviewproperty
      */
     SetViewProperty(pidl, propkey, propvar) {
-        result := ComCall(19, this, "ptr", pidl, "ptr", propkey, "ptr", propvar, "HRESULT")
+        result := ComCall(19, this, ITEMIDLIST.Ptr, pidl, PROPERTYKEY.Ptr, propkey, PROPVARIANT.Ptr, propvar, "HRESULT")
         return result
     }
 
@@ -139,7 +178,7 @@ class IFolderView2 extends IFolderView {
      */
     GetViewProperty(pidl, propkey) {
         ppropvar := PROPVARIANT()
-        result := ComCall(20, this, "ptr", pidl, "ptr", propkey, "ptr", ppropvar, "HRESULT")
+        result := ComCall(20, this, ITEMIDLIST.Ptr, pidl, PROPERTYKEY.Ptr, propkey, PROPVARIANT.Ptr, ppropvar, "HRESULT")
         return ppropvar
     }
 
@@ -161,7 +200,7 @@ class IFolderView2 extends IFolderView {
     SetTileViewProperties(pidl, pszPropList) {
         pszPropList := pszPropList is String ? StrPtr(pszPropList) : pszPropList
 
-        result := ComCall(21, this, "ptr", pidl, "ptr", pszPropList, "HRESULT")
+        result := ComCall(21, this, ITEMIDLIST.Ptr, pidl, "ptr", pszPropList, "HRESULT")
         return result
     }
 
@@ -183,7 +222,7 @@ class IFolderView2 extends IFolderView {
     SetExtendedTileViewProperties(pidl, pszPropList) {
         pszPropList := pszPropList is String ? StrPtr(pszPropList) : pszPropList
 
-        result := ComCall(22, this, "ptr", pidl, "ptr", pszPropList, "HRESULT")
+        result := ComCall(22, this, ITEMIDLIST.Ptr, pidl, "ptr", pszPropList, "HRESULT")
         return result
     }
 
@@ -203,7 +242,7 @@ class IFolderView2 extends IFolderView {
     SetText(iType, pwszText) {
         pwszText := pwszText is String ? StrPtr(pwszText) : pwszText
 
-        result := ComCall(23, this, "int", iType, "ptr", pwszText, "HRESULT")
+        result := ComCall(23, this, FVTEXTTYPE, iType, "ptr", pwszText, "HRESULT")
         return result
     }
 
@@ -267,7 +306,7 @@ class IFolderView2 extends IFolderView {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-setsortcolumns
      */
     SetSortColumns(rgSortColumns, cColumns) {
-        result := ComCall(27, this, "ptr", rgSortColumns, "int", cColumns, "HRESULT")
+        result := ComCall(27, this, SORTCOLUMN.Ptr, rgSortColumns, "int", cColumns, "HRESULT")
         return result
     }
 
@@ -283,7 +322,7 @@ class IFolderView2 extends IFolderView {
      */
     GetSortColumns(cColumns) {
         rgSortColumns := SORTCOLUMN()
-        result := ComCall(28, this, "ptr", rgSortColumns, "int", cColumns, "HRESULT")
+        result := ComCall(28, this, SORTCOLUMN.Ptr, rgSortColumns, "int", cColumns, "HRESULT")
         return rgSortColumns
     }
 
@@ -301,7 +340,7 @@ class IFolderView2 extends IFolderView {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getitem
      */
     GetItem(iItem, riid) {
-        result := ComCall(29, this, "int", iItem, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(29, this, "int", iItem, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -319,7 +358,7 @@ class IFolderView2 extends IFolderView {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getvisibleitem
      */
     GetVisibleItem(iStart, fPrevious) {
-        result := ComCall(30, this, "int", iStart, "int", fPrevious, "int*", &piItem := 0, "HRESULT")
+        result := ComCall(30, this, "int", iStart, BOOL, fPrevious, "int*", &piItem := 0, "HRESULT")
         return piItem
     }
 
@@ -349,7 +388,7 @@ class IFolderView2 extends IFolderView {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getselection
      */
     GetSelection(fNoneImpliesFolder) {
-        result := ComCall(32, this, "int", fNoneImpliesFolder, "ptr*", &ppsia := 0, "HRESULT")
+        result := ComCall(32, this, BOOL, fNoneImpliesFolder, "ptr*", &ppsia := 0, "HRESULT")
         return IShellItemArray(ppsia)
     }
 
@@ -364,7 +403,7 @@ class IFolderView2 extends IFolderView {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getselectionstate
      */
     GetSelectionState(pidl) {
-        result := ComCall(33, this, "ptr", pidl, "uint*", &pdwFlags := 0, "HRESULT")
+        result := ComCall(33, this, ITEMIDLIST.Ptr, pidl, "uint*", &pdwFlags := 0, "HRESULT")
         return pdwFlags
     }
 
@@ -403,7 +442,7 @@ class IFolderView2 extends IFolderView {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-setviewmodeandiconsize
      */
     SetViewModeAndIconSize(uViewMode, iImageSize) {
-        result := ComCall(35, this, "int", uViewMode, "int", iImageSize, "HRESULT")
+        result := ComCall(35, this, FOLDERVIEWMODE, uViewMode, "int", iImageSize, "HRESULT")
         return result
     }
 
@@ -470,7 +509,7 @@ class IFolderView2 extends IFolderView {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-setredraw
      */
     SetRedraw(fRedrawOn) {
-        result := ComCall(39, this, "int", fRedrawOn, "HRESULT")
+        result := ComCall(39, this, BOOL, fRedrawOn, "HRESULT")
         return result
     }
 
@@ -496,5 +535,73 @@ class IFolderView2 extends IFolderView {
     DoRename() {
         result := ComCall(41, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFolderView2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetGroupBy := CallbackCreate(GetMethod(implObj, "SetGroupBy"), flags, 3)
+        this.vtbl.GetGroupBy := CallbackCreate(GetMethod(implObj, "GetGroupBy"), flags, 3)
+        this.vtbl.SetViewProperty := CallbackCreate(GetMethod(implObj, "SetViewProperty"), flags, 4)
+        this.vtbl.GetViewProperty := CallbackCreate(GetMethod(implObj, "GetViewProperty"), flags, 4)
+        this.vtbl.SetTileViewProperties := CallbackCreate(GetMethod(implObj, "SetTileViewProperties"), flags, 3)
+        this.vtbl.SetExtendedTileViewProperties := CallbackCreate(GetMethod(implObj, "SetExtendedTileViewProperties"), flags, 3)
+        this.vtbl.SetText := CallbackCreate(GetMethod(implObj, "SetText"), flags, 3)
+        this.vtbl.SetCurrentFolderFlags := CallbackCreate(GetMethod(implObj, "SetCurrentFolderFlags"), flags, 3)
+        this.vtbl.GetCurrentFolderFlags := CallbackCreate(GetMethod(implObj, "GetCurrentFolderFlags"), flags, 2)
+        this.vtbl.GetSortColumnCount := CallbackCreate(GetMethod(implObj, "GetSortColumnCount"), flags, 2)
+        this.vtbl.SetSortColumns := CallbackCreate(GetMethod(implObj, "SetSortColumns"), flags, 3)
+        this.vtbl.GetSortColumns := CallbackCreate(GetMethod(implObj, "GetSortColumns"), flags, 3)
+        this.vtbl.GetItem := CallbackCreate(GetMethod(implObj, "GetItem"), flags, 4)
+        this.vtbl.GetVisibleItem := CallbackCreate(GetMethod(implObj, "GetVisibleItem"), flags, 4)
+        this.vtbl.GetSelectedItem := CallbackCreate(GetMethod(implObj, "GetSelectedItem"), flags, 3)
+        this.vtbl.GetSelection := CallbackCreate(GetMethod(implObj, "GetSelection"), flags, 3)
+        this.vtbl.GetSelectionState := CallbackCreate(GetMethod(implObj, "GetSelectionState"), flags, 3)
+        this.vtbl.InvokeVerbOnSelection := CallbackCreate(GetMethod(implObj, "InvokeVerbOnSelection"), flags, 2)
+        this.vtbl.SetViewModeAndIconSize := CallbackCreate(GetMethod(implObj, "SetViewModeAndIconSize"), flags, 3)
+        this.vtbl.GetViewModeAndIconSize := CallbackCreate(GetMethod(implObj, "GetViewModeAndIconSize"), flags, 3)
+        this.vtbl.SetGroupSubsetCount := CallbackCreate(GetMethod(implObj, "SetGroupSubsetCount"), flags, 2)
+        this.vtbl.GetGroupSubsetCount := CallbackCreate(GetMethod(implObj, "GetGroupSubsetCount"), flags, 2)
+        this.vtbl.SetRedraw := CallbackCreate(GetMethod(implObj, "SetRedraw"), flags, 2)
+        this.vtbl.IsMoveInSameFolder := CallbackCreate(GetMethod(implObj, "IsMoveInSameFolder"), flags, 1)
+        this.vtbl.DoRename := CallbackCreate(GetMethod(implObj, "DoRename"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetGroupBy)
+        CallbackFree(this.vtbl.GetGroupBy)
+        CallbackFree(this.vtbl.SetViewProperty)
+        CallbackFree(this.vtbl.GetViewProperty)
+        CallbackFree(this.vtbl.SetTileViewProperties)
+        CallbackFree(this.vtbl.SetExtendedTileViewProperties)
+        CallbackFree(this.vtbl.SetText)
+        CallbackFree(this.vtbl.SetCurrentFolderFlags)
+        CallbackFree(this.vtbl.GetCurrentFolderFlags)
+        CallbackFree(this.vtbl.GetSortColumnCount)
+        CallbackFree(this.vtbl.SetSortColumns)
+        CallbackFree(this.vtbl.GetSortColumns)
+        CallbackFree(this.vtbl.GetItem)
+        CallbackFree(this.vtbl.GetVisibleItem)
+        CallbackFree(this.vtbl.GetSelectedItem)
+        CallbackFree(this.vtbl.GetSelection)
+        CallbackFree(this.vtbl.GetSelectionState)
+        CallbackFree(this.vtbl.InvokeVerbOnSelection)
+        CallbackFree(this.vtbl.SetViewModeAndIconSize)
+        CallbackFree(this.vtbl.GetViewModeAndIconSize)
+        CallbackFree(this.vtbl.SetGroupSubsetCount)
+        CallbackFree(this.vtbl.GetGroupSubsetCount)
+        CallbackFree(this.vtbl.SetRedraw)
+        CallbackFree(this.vtbl.IsMoveInSameFolder)
+        CallbackFree(this.vtbl.DoRename)
     }
 }

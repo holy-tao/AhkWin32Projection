@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Initializes a device endpoint object and gets the capabilities of the device that it represents.
@@ -10,26 +12,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nn-audioengineendpoint-iaudiodeviceendpoint
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class IAudioDeviceEndpoint extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAudioDeviceEndpoint extends IUnknown {
     /**
      * The interface identifier for IAudioDeviceEndpoint
      * @type {Guid}
      */
-    static IID => Guid("{d4952f5a-a0b2-4cc4-8b82-9358488dd8ac}")
+    static IID := Guid("{d4952f5a-a0b2-4cc4-8b82-9358488dd8ac}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAudioDeviceEndpoint interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetBuffer                                  : IntPtr
+        GetRTCaps                                  : IntPtr
+        GetEventDrivenCapable                      : IntPtr
+        WriteExclusiveModeParametersToSharedMemory : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetBuffer", "GetRTCaps", "GetEventDrivenCapable", "WriteExclusiveModeParametersToSharedMemory"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAudioDeviceEndpoint.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes the endpoint and creates a buffer based on the format of the endpoint into which the audio data is streamed.
@@ -62,7 +74,7 @@ class IAudioDeviceEndpoint extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudiodeviceendpoint-getrtcaps
      */
     GetRTCaps() {
-        result := ComCall(4, this, "int*", &pbIsRTCapable := 0, "HRESULT")
+        result := ComCall(4, this, BOOL.Ptr, &pbIsRTCapable := 0, "HRESULT")
         return pbIsRTCapable
     }
 
@@ -82,7 +94,7 @@ class IAudioDeviceEndpoint extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudiodeviceendpoint-geteventdrivencapable
      */
     GetEventDrivenCapable() {
-        result := ComCall(5, this, "int*", &pbisEventCapable := 0, "HRESULT")
+        result := ComCall(5, this, BOOL.Ptr, &pbisEventCapable := 0, "HRESULT")
         return pbisEventCapable
     }
 
@@ -115,5 +127,31 @@ class IAudioDeviceEndpoint extends IUnknown {
 
         result := ComCall(6, this, "ptr", hTargetProcess, "int64", hnsPeriod, "int64", hnsBufferDuration, "uint", u32LatencyCoefficient, pu32SharedMemorySizeMarshal, pu32SharedMemorySize, phSharedMemoryMarshal, phSharedMemory, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAudioDeviceEndpoint.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetBuffer := CallbackCreate(GetMethod(implObj, "SetBuffer"), flags, 3)
+        this.vtbl.GetRTCaps := CallbackCreate(GetMethod(implObj, "GetRTCaps"), flags, 2)
+        this.vtbl.GetEventDrivenCapable := CallbackCreate(GetMethod(implObj, "GetEventDrivenCapable"), flags, 2)
+        this.vtbl.WriteExclusiveModeParametersToSharedMemory := CallbackCreate(GetMethod(implObj, "WriteExclusiveModeParametersToSharedMemory"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetBuffer)
+        CallbackFree(this.vtbl.GetRTCaps)
+        CallbackFree(this.vtbl.GetEventDrivenCapable)
+        CallbackFree(this.vtbl.WriteExclusiveModeParametersToSharedMemory)
     }
 }

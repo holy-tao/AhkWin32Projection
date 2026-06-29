@@ -1,43 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class DMA_IOMMU_INTERFACE_EX extends Win32Struct {
-    static sizeof => 24
+export default struct DMA_IOMMU_INTERFACE_EX {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Size {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    V1 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    V1 {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    V2 {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    static __New() {
+        DefineProp(this.Prototype, 'V2', { type: IntPtr, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

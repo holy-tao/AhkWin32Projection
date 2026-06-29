@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MSIPATCHDATATYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MSIPATCHDATATYPE.ahk" { MSIPATCHDATATYPE }
 
 /**
  * The MSIPATCHSEQUENCEINFO structure is used by the MsiDeterminePatchSequence and MsiDetermineApplicablePatches functions. (Unicode)
@@ -11,19 +11,13 @@
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @charset Unicode
  */
-class MSIPATCHSEQUENCEINFOW extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct MSIPATCHSEQUENCEINFOW {
+    #StructPack 8
 
     /**
      * Pointer to the path of a patch file, an XML blob, or an XML file.
-     * @type {PWSTR}
      */
-    szPatchData {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    szPatchData : PWSTR
 
     /**
      * Qualifies <b>szPatchData</b> as a patch file, an XML blob, or an XML file. 
@@ -67,28 +61,17 @@ class MSIPATCHSEQUENCEINFOW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {MSIPATCHDATATYPE}
      */
-    ePatchDataType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    ePatchDataType : MSIPATCHDATATYPE
 
     /**
      * Set to an integer that indicates the sequence of the patch in the order of application. The sequence starts with 0. If a patch is not applicable to the specified .msi file, or if the function fails, <b>dwOrder</b> is set to -1.
-     * @type {Integer}
      */
-    dwOrder {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwOrder : UInt32
 
     /**
      * Set to ERROR_SUCCESS or the corresponding Win32 error code.
-     * @type {Integer}
      */
-    uStatus {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    uStatus : UInt32
+
 }

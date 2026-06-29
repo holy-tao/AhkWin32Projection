@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The structured exception codes thrown by this component. These exceptions are fatal and should not be handled by the application.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_exception_code
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_EXCEPTION_CODE extends Win32Enum {
+export default struct WS_EXCEPTION_CODE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * This exception occurs to indicate that usage of the web services component 

@@ -1,21 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The CLUSTER_VALIDATE_PATH (clusapi.h) structure passes in the network name to validate, with more information to be determined.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-cluster_validate_path
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUSTER_VALIDATE_PATH extends Win32Struct {
-    static sizeof => 2
+export default struct CLUSTER_VALIDATE_PATH {
+    #StructPack 2
 
-    static packingSize => 2
+    szPath : WCHAR[1]
 
-    /**
-     * @type {String}
-     */
-    szPath {
-        get => StrGet(this.ptr + 0, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 0, "UTF-16")
-    }
 }

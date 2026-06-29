@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Gets or sets the playback rate.
@@ -14,26 +16,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfratecontrol
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFRateControl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFRateControl extends IUnknown {
     /**
      * The interface identifier for IMFRateControl
      * @type {Guid}
      */
-    static IID => Guid("{88ddcd21-03c3-4275-91ed-55ee3929328f}")
+    static IID := Guid("{88ddcd21-03c3-4275-91ed-55ee3929328f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFRateControl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetRate : IntPtr
+        GetRate : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetRate", "GetRate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFRateControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the playback rate. (IMFRateControl.SetRate)
@@ -148,7 +158,7 @@ class IMFRateControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfratecontrol-setrate
      */
     SetRate(fThin, flRate) {
-        result := ComCall(3, this, "int", fThin, "float", flRate, "HRESULT")
+        result := ComCall(3, this, BOOL, fThin, "float", flRate, "HRESULT")
         return result
     }
 
@@ -183,5 +193,27 @@ class IMFRateControl extends IUnknown {
 
         result := ComCall(4, this, pfThinMarshal, pfThin, pflRateMarshal, pflRate, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFRateControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetRate := CallbackCreate(GetMethod(implObj, "SetRate"), flags, 3)
+        this.vtbl.GetRate := CallbackCreate(GetMethod(implObj, "GetRate"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetRate)
+        CallbackFree(this.vtbl.GetRate)
     }
 }

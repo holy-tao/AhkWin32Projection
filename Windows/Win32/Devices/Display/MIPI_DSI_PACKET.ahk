@@ -1,32 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class MIPI_DSI_PACKET extends Win32Struct {
-    static sizeof => 14
+export default struct MIPI_DSI_PACKET {
+    #StructPack 2
 
-    static packingSize => 2
+    DataId : Int8
 
-    /**
-     * @type {Integer}
-     */
-    DataId {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - DataType
-     * - VirtualChannel
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
 
     /**
      * @type {Integer}
@@ -43,47 +24,17 @@ class MIPI_DSI_PACKET extends Win32Struct {
         get => (this._bitfield >> 6) & 0x3
         set => this._bitfield := ((value & 0x3) << 6) | (this._bitfield & ~(0x3 << 6))
     }
+    Data0 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Data0 {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    Data1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Data1 {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    EccFiller : Int8
 
-    /**
-     * @type {Integer}
-     */
-    LongWriteWordCount {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Payload : Int8[8]
 
-    /**
-     * @type {Integer}
-     */
-    EccFiller {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    Payload {
-        get {
-            if(!this.HasProp("__PayloadProxyArray"))
-                this.__PayloadProxyArray := Win32FixedArray(this.ptr + 5, 8, Primitive, "char")
-            return this.__PayloadProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int8, offset: 0 })
+        DefineProp(this.Prototype, 'LongWriteWordCount', { type: UInt16, offset: 2 })
+        this.DeleteProp("__New")
     }
 }

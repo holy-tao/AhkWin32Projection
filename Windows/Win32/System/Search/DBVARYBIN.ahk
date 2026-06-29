@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class DBVARYBIN extends Win32Struct {
-    static sizeof => 8004
+export default struct DBVARYBIN {
+    #StructPack 2
 
-    static packingSize => 2
+    len : Int16
 
-    /**
-     * @type {Integer}
-     */
-    len {
-        get => NumGet(this, 0, "short")
-        set => NumPut("short", value, this, 0)
-    }
+    array : Int8[8001]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    array {
-        get {
-            if(!this.HasProp("__arrayProxyArray"))
-                this.__arrayProxyArray := Win32FixedArray(this.ptr + 2, 8001, Primitive, "char")
-            return this.__arrayProxyArray
-        }
-    }
 }

@@ -1,10 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IShellItemArray.ahk
-#Include .\IShellItem.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\IShellItemFilter.ahk" { IShellItemFilter }
+#Import ".\IShellItemArray.ahk" { IShellItemArray }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\NSTCGNI.ahk" { NSTCGNI }
+#Import ".\IShellItem.ahk" { IShellItem }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Exposes methods used to view and manipulate nodes in a tree of Shell items.
@@ -13,26 +19,51 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-inamespacetreecontrol
  * @namespace Windows.Win32.UI.Shell
  */
-class INameSpaceTreeControl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct INameSpaceTreeControl extends IUnknown {
     /**
      * The interface identifier for INameSpaceTreeControl
      * @type {Guid}
      */
-    static IID => Guid("{028212a3-b627-47e9-8856-c14265554e4f}")
+    static IID := Guid("{028212a3-b627-47e9-8856-c14265554e4f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INameSpaceTreeControl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize         : IntPtr
+        TreeAdvise         : IntPtr
+        TreeUnadvise       : IntPtr
+        AppendRoot         : IntPtr
+        InsertRoot         : IntPtr
+        RemoveRoot         : IntPtr
+        RemoveAllRoots     : IntPtr
+        GetRootItems       : IntPtr
+        SetItemState       : IntPtr
+        GetItemState       : IntPtr
+        GetSelectedItems   : IntPtr
+        GetItemCustomState : IntPtr
+        SetItemCustomState : IntPtr
+        EnsureItemVisible  : IntPtr
+        SetTheme           : IntPtr
+        GetNextItem        : IntPtr
+        HitTest            : IntPtr
+        GetItemRect        : IntPtr
+        CollapseAll        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "TreeAdvise", "TreeUnadvise", "AppendRoot", "InsertRoot", "RemoveRoot", "RemoveAllRoots", "GetRootItems", "SetItemState", "GetItemState", "GetSelectedItems", "GetItemCustomState", "SetItemCustomState", "EnsureItemVisible", "SetTheme", "GetNextItem", "HitTest", "GetItemRect", "CollapseAll"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INameSpaceTreeControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes an INameSpaceTreeControl object.
@@ -49,9 +80,7 @@ class INameSpaceTreeControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacetreecontrol-initialize
      */
     Initialize(hwndParent, prc, nsctsFlags) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
-        result := ComCall(3, this, "ptr", hwndParent, "ptr", prc, "uint", nsctsFlags, "HRESULT")
+        result := ComCall(3, this, HWND, hwndParent, RECT.Ptr, prc, "uint", nsctsFlags, "HRESULT")
         return result
     }
 
@@ -312,7 +341,7 @@ class INameSpaceTreeControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacetreecontrol-getnextitem
      */
     GetNextItem(psi, nstcgi) {
-        result := ComCall(18, this, "ptr", psi, "int", nstcgi, "ptr*", &ppsiNext := 0, "HRESULT")
+        result := ComCall(18, this, "ptr", psi, NSTCGNI, nstcgi, "ptr*", &ppsiNext := 0, "HRESULT")
         return IShellItem(ppsiNext)
     }
 
@@ -329,7 +358,7 @@ class INameSpaceTreeControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacetreecontrol-hittest
      */
     HitTest(ppt) {
-        result := ComCall(19, this, "ptr", ppt, "ptr*", &ppsiOut := 0, "HRESULT")
+        result := ComCall(19, this, POINT.Ptr, ppt, "ptr*", &ppsiOut := 0, "HRESULT")
         return IShellItem(ppsiOut)
     }
 
@@ -345,7 +374,7 @@ class INameSpaceTreeControl extends IUnknown {
      */
     GetItemRect(psi) {
         prect := RECT()
-        result := ComCall(20, this, "ptr", psi, "ptr", prect, "HRESULT")
+        result := ComCall(20, this, "ptr", psi, RECT.Ptr, prect, "HRESULT")
         return prect
     }
 
@@ -359,5 +388,61 @@ class INameSpaceTreeControl extends IUnknown {
     CollapseAll() {
         result := ComCall(21, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (INameSpaceTreeControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.TreeAdvise := CallbackCreate(GetMethod(implObj, "TreeAdvise"), flags, 3)
+        this.vtbl.TreeUnadvise := CallbackCreate(GetMethod(implObj, "TreeUnadvise"), flags, 2)
+        this.vtbl.AppendRoot := CallbackCreate(GetMethod(implObj, "AppendRoot"), flags, 5)
+        this.vtbl.InsertRoot := CallbackCreate(GetMethod(implObj, "InsertRoot"), flags, 6)
+        this.vtbl.RemoveRoot := CallbackCreate(GetMethod(implObj, "RemoveRoot"), flags, 2)
+        this.vtbl.RemoveAllRoots := CallbackCreate(GetMethod(implObj, "RemoveAllRoots"), flags, 1)
+        this.vtbl.GetRootItems := CallbackCreate(GetMethod(implObj, "GetRootItems"), flags, 2)
+        this.vtbl.SetItemState := CallbackCreate(GetMethod(implObj, "SetItemState"), flags, 4)
+        this.vtbl.GetItemState := CallbackCreate(GetMethod(implObj, "GetItemState"), flags, 4)
+        this.vtbl.GetSelectedItems := CallbackCreate(GetMethod(implObj, "GetSelectedItems"), flags, 2)
+        this.vtbl.GetItemCustomState := CallbackCreate(GetMethod(implObj, "GetItemCustomState"), flags, 3)
+        this.vtbl.SetItemCustomState := CallbackCreate(GetMethod(implObj, "SetItemCustomState"), flags, 3)
+        this.vtbl.EnsureItemVisible := CallbackCreate(GetMethod(implObj, "EnsureItemVisible"), flags, 2)
+        this.vtbl.SetTheme := CallbackCreate(GetMethod(implObj, "SetTheme"), flags, 2)
+        this.vtbl.GetNextItem := CallbackCreate(GetMethod(implObj, "GetNextItem"), flags, 4)
+        this.vtbl.HitTest := CallbackCreate(GetMethod(implObj, "HitTest"), flags, 3)
+        this.vtbl.GetItemRect := CallbackCreate(GetMethod(implObj, "GetItemRect"), flags, 3)
+        this.vtbl.CollapseAll := CallbackCreate(GetMethod(implObj, "CollapseAll"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.TreeAdvise)
+        CallbackFree(this.vtbl.TreeUnadvise)
+        CallbackFree(this.vtbl.AppendRoot)
+        CallbackFree(this.vtbl.InsertRoot)
+        CallbackFree(this.vtbl.RemoveRoot)
+        CallbackFree(this.vtbl.RemoveAllRoots)
+        CallbackFree(this.vtbl.GetRootItems)
+        CallbackFree(this.vtbl.SetItemState)
+        CallbackFree(this.vtbl.GetItemState)
+        CallbackFree(this.vtbl.GetSelectedItems)
+        CallbackFree(this.vtbl.GetItemCustomState)
+        CallbackFree(this.vtbl.SetItemCustomState)
+        CallbackFree(this.vtbl.EnsureItemVisible)
+        CallbackFree(this.vtbl.SetTheme)
+        CallbackFree(this.vtbl.GetNextItem)
+        CallbackFree(this.vtbl.HitTest)
+        CallbackFree(this.vtbl.GetItemRect)
+        CallbackFree(this.vtbl.CollapseAll)
     }
 }

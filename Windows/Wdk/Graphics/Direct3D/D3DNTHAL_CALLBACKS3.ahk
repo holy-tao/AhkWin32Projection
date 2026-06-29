@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DNTHAL_CALLBACKS3 extends Win32Struct {
-    static sizeof => 40
+export default struct D3DNTHAL_CALLBACKS3 {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Clear2 : IntPtr
 
-    /**
-     * @type {Pointer<LPD3DNTHAL_CLEAR2CB>}
-     */
-    Clear2 {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpvReserved : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    lpvReserved {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ValidateTextureStageState : IntPtr
 
-    /**
-     * @type {Pointer<LPD3DNTHAL_VALIDATETEXTURESTAGESTATECB>}
-     */
-    ValidateTextureStageState {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    DrawPrimitives2 : IntPtr
 
-    /**
-     * @type {Pointer<LPD3DNTHAL_DRAWPRIMITIVES2CB>}
-     */
-    DrawPrimitives2 {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
 }

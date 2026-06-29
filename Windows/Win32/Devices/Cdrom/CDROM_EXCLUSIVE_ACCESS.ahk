@@ -1,28 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EXCLUSIVE_ACCESS_REQUEST_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EXCLUSIVE_ACCESS_REQUEST_TYPE.ahk" { EXCLUSIVE_ACCESS_REQUEST_TYPE }
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
  */
-class CDROM_EXCLUSIVE_ACCESS extends Win32Struct {
-    static sizeof => 8
+export default struct CDROM_EXCLUSIVE_ACCESS {
+    #StructPack 4
 
-    static packingSize => 4
+    RequestType : EXCLUSIVE_ACCESS_REQUEST_TYPE
 
-    /**
-     * @type {EXCLUSIVE_ACCESS_REQUEST_TYPE}
-     */
-    RequestType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
 }

@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D11_BLEND.ahk
-#Include .\D3D11_BLEND_OP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D11_BLEND_OP.ahk" { D3D11_BLEND_OP }
+#Import ".\D3D11_BLEND.ahk" { D3D11_BLEND }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Describes the blend state for a render target. (D3D11_RENDER_TARGET_BLEND_DESC)
@@ -53,96 +53,63 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_render_target_blend_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_RENDER_TARGET_BLEND_DESC extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 4
+export default struct D3D11_RENDER_TARGET_BLEND_DESC {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Enable (or disable) blending.
-     * @type {BOOL}
      */
-    BlendEnable {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    BlendEnable : BOOL
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_blend">D3D11_BLEND</a></b>
      * 
      * This <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_blend">blend option</a> specifies the operation to perform on the RGB value that the pixel shader outputs. The <b>BlendOp</b> member defines how to combine the <b>SrcBlend</b> and <b>DestBlend</b> operations.
-     * @type {D3D11_BLEND}
      */
-    SrcBlend {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    SrcBlend : D3D11_BLEND
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_blend">D3D11_BLEND</a></b>
      * 
      * This <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_blend">blend option</a> specifies the operation to perform on the current RGB value in the render target. The <b>BlendOp</b> member defines how to combine the <b>SrcBlend</b> and <b>DestBlend</b> operations.
-     * @type {D3D11_BLEND}
      */
-    DestBlend {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    DestBlend : D3D11_BLEND
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_blend_op">D3D11_BLEND_OP</a></b>
      * 
      * This <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_blend_op">blend operation</a> defines how to combine the <b>SrcBlend</b> and <b>DestBlend</b> operations.
-     * @type {D3D11_BLEND_OP}
      */
-    BlendOp {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    BlendOp : D3D11_BLEND_OP
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_blend">D3D11_BLEND</a></b>
      * 
      * This <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_blend">blend option</a> specifies the operation to perform on the alpha value that the pixel shader outputs. Blend options that end in _COLOR are not allowed. The <b>BlendOpAlpha</b> member defines how to combine the <b>SrcBlendAlpha</b> and <b>DestBlendAlpha</b> operations.
-     * @type {D3D11_BLEND}
      */
-    SrcBlendAlpha {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    SrcBlendAlpha : D3D11_BLEND
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_blend">D3D11_BLEND</a></b>
      * 
      * This <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_blend">blend option</a> specifies the operation to perform on the current alpha value in the render target. Blend options that end in _COLOR are not allowed. The <b>BlendOpAlpha</b> member defines how to combine the <b>SrcBlendAlpha</b> and <b>DestBlendAlpha</b> operations.
-     * @type {D3D11_BLEND}
      */
-    DestBlendAlpha {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    DestBlendAlpha : D3D11_BLEND
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_blend_op">D3D11_BLEND_OP</a></b>
      * 
      * This <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_blend_op">blend operation</a> defines how to combine the <b>SrcBlendAlpha</b> and <b>DestBlendAlpha</b> operations.
-     * @type {D3D11_BLEND_OP}
      */
-    BlendOpAlpha {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    BlendOpAlpha : D3D11_BLEND_OP
 
     /**
      * Type: <b>UINT8</b>
      * 
      * A write mask.
-     * @type {Integer}
      */
-    RenderTargetWriteMask {
-        get => NumGet(this, 28, "char")
-        set => NumPut("char", value, this, 28)
-    }
+    RenderTargetWriteMask : Int8
+
 }

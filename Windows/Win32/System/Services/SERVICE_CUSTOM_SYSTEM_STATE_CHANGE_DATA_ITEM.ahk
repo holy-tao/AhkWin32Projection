@@ -1,74 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SERVICE_TRIGGER_CUSTOM_STATE_ID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SERVICE_TRIGGER_CUSTOM_STATE_ID.ahk" { SERVICE_TRIGGER_CUSTOM_STATE_ID }
 
 /**
  * @namespace Windows.Win32.System.Services
  */
-class SERVICE_CUSTOM_SYSTEM_STATE_CHANGE_DATA_ITEM extends Win32Struct {
-    static sizeof => 8
+export default struct SERVICE_CUSTOM_SYSTEM_STATE_CHANGE_DATA_ITEM {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _u_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 4
+    struct _u {
 
-        class _s extends Win32Struct {
-            static sizeof => 8
-            static packingSize => 4
+        struct _s {
+            DataOffset : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            DataOffset {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            Data : Int8[1]
 
-            /**
-             * @type {Array<Integer>}
-             */
-            Data {
-                get {
-                    if(!this.HasProp("__DataProxyArray"))
-                        this.__DataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
-                    return this.__DataProxyArray
-                }
-            }
         }
 
-        /**
-         * @type {SERVICE_TRIGGER_CUSTOM_STATE_ID}
-         */
-        CustomStateId {
-            get {
-                if(!this.HasProp("__CustomStateId"))
-                    this.__CustomStateId := SERVICE_TRIGGER_CUSTOM_STATE_ID(0, this)
-                return this.__CustomStateId
-            }
-        }
+        CustomStateId : SERVICE_TRIGGER_CUSTOM_STATE_ID
 
-        /**
-         * @type {_s}
-         */
-        s {
-            get {
-                if(!this.HasProp("__s"))
-                    this.__s := SERVICE_CUSTOM_SYSTEM_STATE_CHANGE_DATA_ITEM._u_e__Union._s(0, this)
-                return this.__s
-            }
+        static __New() {
+            DefineProp(this.Prototype, 's', { type: SERVICE_CUSTOM_SYSTEM_STATE_CHANGE_DATA_ITEM._u._s, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {_u_e__Union}
-     */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := SERVICE_CUSTOM_SYSTEM_STATE_CHANGE_DATA_ITEM._u_e__Union(0, this)
-            return this.__u
-        }
-    }
+    u : SERVICE_CUSTOM_SYSTEM_STATE_CHANGE_DATA_ITEM._u
+
 }

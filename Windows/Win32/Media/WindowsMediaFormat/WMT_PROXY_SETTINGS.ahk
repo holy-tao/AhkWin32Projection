@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The WMT_PROXY_SETTINGS enumeration type defines network proxy settings for use with a reader object.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ne-wmsdkidl-wmt_proxy_settings
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class WMT_PROXY_SETTINGS extends Win32Enum {
+export default struct WMT_PROXY_SETTINGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No proxy settings will be used.

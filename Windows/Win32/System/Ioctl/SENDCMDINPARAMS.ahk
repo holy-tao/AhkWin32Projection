@@ -1,72 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IDEREGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IDEREGS.ahk" { IDEREGS }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class SENDCMDINPARAMS extends Win32Struct {
-    static sizeof => 36
+export default struct SENDCMDINPARAMS {
+    #StructPack 4
 
-    static packingSize => 4
+    cBufferSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cBufferSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    irDriveRegs : IDEREGS
 
-    /**
-     * @type {IDEREGS}
-     */
-    irDriveRegs {
-        get {
-            if(!this.HasProp("__irDriveRegs"))
-                this.__irDriveRegs := IDEREGS(4, this)
-            return this.__irDriveRegs
-        }
-    }
+    bDriveNumber : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bDriveNumber {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    bReserved : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    bReserved {
-        get {
-            if(!this.HasProp("__bReservedProxyArray"))
-                this.__bReservedProxyArray := Win32FixedArray(this.ptr + 13, 3, Primitive, "char")
-            return this.__bReservedProxyArray
-        }
-    }
+    dwReserved : UInt32[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    dwReserved {
-        get {
-            if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 16, 4, Primitive, "uint")
-            return this.__dwReservedProxyArray
-        }
-    }
+    bBuffer : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    bBuffer {
-        get {
-            if(!this.HasProp("__bBufferProxyArray"))
-                this.__bBufferProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")
-            return this.__bBufferProxyArray
-        }
-    }
 }

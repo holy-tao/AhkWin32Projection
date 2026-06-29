@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DWRITE_LINE_BREAKPOINT.ahk" { DWRITE_LINE_BREAKPOINT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDWriteNumberSubstitution.ahk" { IDWriteNumberSubstitution }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DWRITE_SCRIPT_ANALYSIS.ahk" { DWRITE_SCRIPT_ANALYSIS }
 
 /**
  * This interface is implemented by the text analyzer's client to receive the output of a given text analysis.
@@ -11,26 +15,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextanalysissink
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteTextAnalysisSink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteTextAnalysisSink extends IUnknown {
     /**
      * The interface identifier for IDWriteTextAnalysisSink
      * @type {Guid}
      */
-    static IID => Guid("{5810cd44-0ca0-4701-b3fa-bec5182ae4f6}")
+    static IID := Guid("{5810cd44-0ca0-4701-b3fa-bec5182ae4f6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteTextAnalysisSink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetScriptAnalysis     : IntPtr
+        SetLineBreakpoints    : IntPtr
+        SetBidiLevel          : IntPtr
+        SetNumberSubstitution : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetScriptAnalysis", "SetLineBreakpoints", "SetBidiLevel", "SetNumberSubstitution"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteTextAnalysisSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Reports script analysis for the specified text range.
@@ -49,7 +63,7 @@ class IDWriteTextAnalysisSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalysissink-setscriptanalysis
      */
     SetScriptAnalysis(textPosition, textLength, scriptAnalysis) {
-        result := ComCall(3, this, "uint", textPosition, "uint", textLength, "ptr", scriptAnalysis, "HRESULT")
+        result := ComCall(3, this, "uint", textPosition, "uint", textLength, DWRITE_SCRIPT_ANALYSIS.Ptr, scriptAnalysis, "HRESULT")
         return result
     }
 
@@ -70,7 +84,7 @@ class IDWriteTextAnalysisSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalysissink-setlinebreakpoints
      */
     SetLineBreakpoints(textPosition, textLength, lineBreakpoints) {
-        result := ComCall(4, this, "uint", textPosition, "uint", textLength, "ptr", lineBreakpoints, "HRESULT")
+        result := ComCall(4, this, "uint", textPosition, "uint", textLength, DWRITE_LINE_BREAKPOINT.Ptr, lineBreakpoints, "HRESULT")
         return result
     }
 
@@ -119,5 +133,31 @@ class IDWriteTextAnalysisSink extends IUnknown {
     SetNumberSubstitution(textPosition, textLength, numberSubstitution) {
         result := ComCall(6, this, "uint", textPosition, "uint", textLength, "ptr", numberSubstitution, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDWriteTextAnalysisSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetScriptAnalysis := CallbackCreate(GetMethod(implObj, "SetScriptAnalysis"), flags, 4)
+        this.vtbl.SetLineBreakpoints := CallbackCreate(GetMethod(implObj, "SetLineBreakpoints"), flags, 4)
+        this.vtbl.SetBidiLevel := CallbackCreate(GetMethod(implObj, "SetBidiLevel"), flags, 5)
+        this.vtbl.SetNumberSubstitution := CallbackCreate(GetMethod(implObj, "SetNumberSubstitution"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetScriptAnalysis)
+        CallbackFree(this.vtbl.SetLineBreakpoints)
+        CallbackFree(this.vtbl.SetBidiLevel)
+        CallbackFree(this.vtbl.SetNumberSubstitution)
     }
 }

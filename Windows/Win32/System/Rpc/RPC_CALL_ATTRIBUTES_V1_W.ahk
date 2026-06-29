@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The RPC_CALL_ATTRIBUTES_V1 structure provides parameters to the RpcServerInqCallAttributes function. Implemented in ANSI and UNICODE versions for Windows XP and Windows Server 2003 operating systems. (Unicode)
@@ -35,29 +35,19 @@
  * @namespace Windows.Win32.System.Rpc
  * @charset Unicode
  */
-class RPC_CALL_ATTRIBUTES_V1_W extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct RPC_CALL_ATTRIBUTES_V1_W {
+    #StructPack 8
 
     /**
      * Version of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcasync/nf-rpcasync-rpcserverinqcallattributesa">RpcServerInqCallAttributes</a> function being used by the calling application. See Remarks.
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
     /**
      * Bitmask specifying valid flags to request RPC_QUERY_SERVER_PRINCIPAL_NAME or RPC_QUERY_CLIENT_PRINCIPAL_NAME. See Remarks.
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : UInt32
 
     /**
      * Length of <b>ServerPrincipalName</b>, in bytes. If insufficient, <b>ServerPrincipalName</b> is unchanged, and <b>ServerPrincipalNameBufferLength</b> indicates the required buffer length including the terminating <b>NULL</b> character, and ERROR_MORE_DATA is returned. If <b>ServerPrincipalNameBufferLength</b> is longer than necessary, upon return it is set to the actual length used, in bytes, including the terminating <b>NULL</b> character. See Remarks. 
@@ -70,21 +60,13 @@ class RPC_CALL_ATTRIBUTES_V1_W extends Win32Struct {
      * 
      * 
      * If the RPC_QUERY_SERVER_PRINCIPAL_NAME flag is not specified, <b>ServerPrincipalNameBufferLength</b> is ignored. If <b>ServerPrincipalNameBufferLength</b> is nonzero and <b>ServerPrincipalName</b> is <b>NULL</b>, ERROR_INVALID_PARAMETER is returned.
-     * @type {Integer}
      */
-    ServerPrincipalNameBufferLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ServerPrincipalNameBufferLength : UInt32
 
     /**
      * Pointer to the server principal name, if requested in <b>Flags</b> and supported by the protocol sequence. Upon any return value other than RPC_S_OK or ERROR_MORE_DATA, the content of <b>ServerPrincipalName</b> is undefined and may have been modified by RPC.
-     * @type {Pointer<Integer>}
      */
-    ServerPrincipalName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ServerPrincipalName : IntPtr
 
     /**
      * Length of the buffer pointed to by <b>ClientPrincipalName</b>, in bytes. If insufficient, <b>ClientPrincipalName</b> is unchanged, and <b>ClientPrincipalNameBufferLength</b> indicates the required buffer length including the terminating <b>NULL</b> character, and ERROR_MORE_DATA is returned. If <b>ClientPrincipalNameBufferLength</b> is longer than necessary, upon return it is set to the actual length used, in bytes, including the terminating <b>NULL</b> character. 
@@ -97,47 +79,28 @@ class RPC_CALL_ATTRIBUTES_V1_W extends Win32Struct {
      * 
      * 
      * If the RPC_QUERY_CLIENT_PRINCIPAL_NAME flag is not specified, <b>ClientPrincipalNameBufferLength</b> is ignored. If <b>ClientPrincipalNameBufferLength</b> is nonzero and <b>ClientPrincipalName</b> is <b>NULL</b>, ERROR_INVALID_PARAMETER is returned.
-     * @type {Integer}
      */
-    ClientPrincipalNameBufferLength {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ClientPrincipalNameBufferLength : UInt32
 
     /**
      * Pointer to the client principal name, if requested in <b>Flags</b> member and supported by the protocol sequence. Upon any return value other than RPC_S_OK or ERROR_MORE_DATA, the content of <b>ClientPrincipalName</b> is undefined and may have been modified by RPC.
-     * @type {Pointer<Integer>}
      */
-    ClientPrincipalName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    ClientPrincipalName : IntPtr
 
     /**
      * Authentication level for the call. See 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/authentication-level-constants">Authentication-Level Constants</a> for authentication levels supported by RPC.
-     * @type {Integer}
      */
-    AuthenticationLevel {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    AuthenticationLevel : UInt32
 
     /**
      * Authentication service, or security provider, used to make the remote procedure call.
-     * @type {Integer}
      */
-    AuthenticationService {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    AuthenticationService : UInt32
 
     /**
      * Specifies whether a <b>Null</b> session is used. Zero indicates the call is not coming over a <b>Null</b> session; any other value indicates a <b>Null</b> session.
-     * @type {BOOL}
      */
-    NullSession {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    NullSession : BOOL
+
 }

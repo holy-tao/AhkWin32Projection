@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include .\NET_VALIDATE_PASSWORD_HASH.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NET_VALIDATE_PASSWORD_HASH.ahk" { NET_VALIDATE_PASSWORD_HASH }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * The NET_VALIDATE_PERSISTED_FIELDS structure contains information about a user's password properties.
@@ -12,10 +11,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-net_validate_persisted_fields
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class NET_VALIDATE_PERSISTED_FIELDS extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct NET_VALIDATE_PERSISTED_FIELDS {
+    #StructPack 8
 
     /**
      * Type: <b>ULONG</b>
@@ -88,85 +85,49 @@ class NET_VALIDATE_PERSISTED_FIELDS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    PresentFields {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PresentFields : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a></b>
      * 
      * The date and time (in GMT) when the password for the account was set or last changed.
-     * @type {FILETIME}
      */
-    PasswordLastSet {
-        get {
-            if(!this.HasProp("__PasswordLastSet"))
-                this.__PasswordLastSet := FILETIME(4, this)
-            return this.__PasswordLastSet
-        }
-    }
+    PasswordLastSet : FILETIME
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a></b>
      * 
      * The date and time (in GMT) when the user tried to log on to the account using an incorrect password.
-     * @type {FILETIME}
      */
-    BadPasswordTime {
-        get {
-            if(!this.HasProp("__BadPasswordTime"))
-                this.__BadPasswordTime := FILETIME(12, this)
-            return this.__BadPasswordTime
-        }
-    }
+    BadPasswordTime : FILETIME
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a></b>
      * 
      * The date and time (in GMT) when the account was last locked out. If the account has not been locked out, this member is zero. A lockout occurs when the number of bad password logins exceeds the number allowed.
-     * @type {FILETIME}
      */
-    LockoutTime {
-        get {
-            if(!this.HasProp("__LockoutTime"))
-                this.__LockoutTime := FILETIME(20, this)
-            return this.__LockoutTime
-        }
-    }
+    LockoutTime : FILETIME
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The number of times the user tried to log on to the account using an incorrect password.
-     * @type {Integer}
      */
-    BadPasswordCount {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    BadPasswordCount : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The number of previous passwords saved in the history list for the account. The user cannot reuse a password in the history list.
-     * @type {Integer}
      */
-    PasswordHistoryLength {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    PasswordHistoryLength : UInt32
 
     /**
      * Type: <b>PNET_VALIDATE_PASSWORD_HASH</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-net_validate_password_hash">NET_VALIDATE_PASSWORD_HASH</a> structure that contains the password hashes in the history list.
-     * @type {Pointer<NET_VALIDATE_PASSWORD_HASH>}
      */
-    PasswordHistory {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    PasswordHistory : NET_VALIDATE_PASSWORD_HASH.Ptr
+
 }

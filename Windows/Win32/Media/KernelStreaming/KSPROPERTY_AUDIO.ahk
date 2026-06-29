@@ -1,12 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * The KSPROPERTY_AUDIOEFFECTSDISCOVERY enumeration defines a constant that is used by the list of audio processing objects (APOs).
- * @see https://learn.microsoft.com/windows/win32/api/msapofxproxy/ne-msapofxproxy-ksproperty_audioeffectsdiscovery
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSPROPERTY_AUDIO extends Win32Enum {
+export default struct KSPROPERTY_AUDIO {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

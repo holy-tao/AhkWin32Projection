@@ -1,36 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CDROM_OPC_INFO_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\CDROM_OPC_INFO_TYPE.ahk" { CDROM_OPC_INFO_TYPE }
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
  */
-class CDROM_SIMPLE_OPC_INFO extends Win32Struct {
-    static sizeof => 8
+export default struct CDROM_SIMPLE_OPC_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    RequestType : CDROM_OPC_INFO_TYPE
 
-    /**
-     * @type {CDROM_OPC_INFO_TYPE}
-     */
-    RequestType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Exclude0 : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Exclude0 {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    Exclude1 : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Exclude1 {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
 }

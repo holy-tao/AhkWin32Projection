@@ -1,34 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\DWRITE_FONT_FEATURE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DWRITE_FONT_FEATURE.ahk" { DWRITE_FONT_FEATURE }
 
 /**
  * Represents a font typography setting.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetypography
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteTypography extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteTypography extends IUnknown {
     /**
      * The interface identifier for IDWriteTypography
      * @type {Guid}
      */
-    static IID => Guid("{55f1112b-1dc2-4b3c-9541-f46894ed85b6}")
+    static IID := Guid("{55f1112b-1dc2-4b3c-9541-f46894ed85b6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteTypography interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddFontFeature      : IntPtr
+        GetFontFeatureCount : IntPtr
+        GetFontFeature      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddFontFeature", "GetFontFeatureCount", "GetFontFeature"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteTypography.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds an OpenType font feature.
@@ -41,7 +51,7 @@ class IDWriteTypography extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetypography-addfontfeature
      */
     AddFontFeature(fontFeature) {
-        result := ComCall(3, this, "ptr", fontFeature, "HRESULT")
+        result := ComCall(3, this, DWRITE_FONT_FEATURE, fontFeature, "HRESULT")
         return result
     }
 
@@ -55,7 +65,7 @@ class IDWriteTypography extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetypography-getfontfeaturecount
      */
     GetFontFeatureCount() {
-        result := ComCall(4, this, "uint")
+        result := ComCall(4, this, UInt32)
         return result
     }
 
@@ -73,7 +83,31 @@ class IDWriteTypography extends IUnknown {
      */
     GetFontFeature(fontFeatureIndex) {
         fontFeature := DWRITE_FONT_FEATURE()
-        result := ComCall(5, this, "uint", fontFeatureIndex, "ptr", fontFeature, "HRESULT")
+        result := ComCall(5, this, "uint", fontFeatureIndex, DWRITE_FONT_FEATURE.Ptr, fontFeature, "HRESULT")
         return fontFeature
+    }
+
+    Query(iid) {
+        if (IDWriteTypography.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddFontFeature := CallbackCreate(GetMethod(implObj, "AddFontFeature"), flags, 2)
+        this.vtbl.GetFontFeatureCount := CallbackCreate(GetMethod(implObj, "GetFontFeatureCount"), flags, 1)
+        this.vtbl.GetFontFeature := CallbackCreate(GetMethod(implObj, "GetFontFeature"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddFontFeature)
+        CallbackFree(this.vtbl.GetFontFeatureCount)
+        CallbackFree(this.vtbl.GetFontFeature)
     }
 }

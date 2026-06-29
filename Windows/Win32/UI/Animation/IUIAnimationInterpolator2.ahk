@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUIAnimationPrimitiveInterpolation.ahk" { IUIAnimationPrimitiveInterpolation }
+#Import ".\UI_ANIMATION_DEPENDENCIES.ahk" { UI_ANIMATION_DEPENDENCIES }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Extends the IUIAnimationInterpolator interface that defines methods for creating a custom interpolator. IUIAnimationInterpolator2 supports interpolation in a given dimension.
@@ -14,26 +17,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationinterpolator2
  * @namespace Windows.Win32.UI.Animation
  */
-class IUIAnimationInterpolator2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUIAnimationInterpolator2 extends IUnknown {
     /**
      * The interface identifier for IUIAnimationInterpolator2
      * @type {Guid}
      */
-    static IID => Guid("{ea76aff8-ea22-4a23-a0ef-a6a966703518}")
+    static IID := Guid("{ea76aff8-ea22-4a23-a0ef-a6a966703518}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUIAnimationInterpolator2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDimension               : IntPtr
+        SetInitialValueAndVelocity : IntPtr
+        SetDuration                : IntPtr
+        GetDuration                : IntPtr
+        GetFinalValue              : IntPtr
+        InterpolateValue           : IntPtr
+        InterpolateVelocity        : IntPtr
+        GetPrimitiveInterpolation  : IntPtr
+        GetDependencies            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDimension", "SetInitialValueAndVelocity", "SetDuration", "GetDuration", "GetFinalValue", "InterpolateValue", "InterpolateVelocity", "GetPrimitiveInterpolation", "GetDependencies"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUIAnimationInterpolator2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the number of dimensions that require interpolation.
@@ -196,5 +214,41 @@ class IUIAnimationInterpolator2 extends IUnknown {
 
         result := ComCall(11, this, initialValueDependenciesMarshal, initialValueDependencies, initialVelocityDependenciesMarshal, initialVelocityDependencies, durationDependenciesMarshal, durationDependencies, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUIAnimationInterpolator2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDimension := CallbackCreate(GetMethod(implObj, "GetDimension"), flags, 2)
+        this.vtbl.SetInitialValueAndVelocity := CallbackCreate(GetMethod(implObj, "SetInitialValueAndVelocity"), flags, 4)
+        this.vtbl.SetDuration := CallbackCreate(GetMethod(implObj, "SetDuration"), flags, 2)
+        this.vtbl.GetDuration := CallbackCreate(GetMethod(implObj, "GetDuration"), flags, 2)
+        this.vtbl.GetFinalValue := CallbackCreate(GetMethod(implObj, "GetFinalValue"), flags, 3)
+        this.vtbl.InterpolateValue := CallbackCreate(GetMethod(implObj, "InterpolateValue"), flags, 4)
+        this.vtbl.InterpolateVelocity := CallbackCreate(GetMethod(implObj, "InterpolateVelocity"), flags, 4)
+        this.vtbl.GetPrimitiveInterpolation := CallbackCreate(GetMethod(implObj, "GetPrimitiveInterpolation"), flags, 3)
+        this.vtbl.GetDependencies := CallbackCreate(GetMethod(implObj, "GetDependencies"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDimension)
+        CallbackFree(this.vtbl.SetInitialValueAndVelocity)
+        CallbackFree(this.vtbl.SetDuration)
+        CallbackFree(this.vtbl.GetDuration)
+        CallbackFree(this.vtbl.GetFinalValue)
+        CallbackFree(this.vtbl.InterpolateValue)
+        CallbackFree(this.vtbl.InterpolateVelocity)
+        CallbackFree(this.vtbl.GetPrimitiveInterpolation)
+        CallbackFree(this.vtbl.GetDependencies)
     }
 }

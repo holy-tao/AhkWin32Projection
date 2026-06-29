@@ -1,123 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
  */
-class UNDETERMINESTRUCT extends Win32Struct {
-    static sizeof => 56
+export default struct UNDETERMINESTRUCT {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    uDefIMESize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uDefIMESize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    uDefIMEPos : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uDefIMEPos {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    uUndetTextLen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uUndetTextLen {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    uUndetTextPos : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uUndetTextPos {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    uUndetAttrPos : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uUndetAttrPos {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    uCursorPos : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uCursorPos {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    uDeltaStart : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uDeltaStart {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    uDetermineTextLen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uDetermineTextLen {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    uDetermineTextPos : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uDetermineTextPos {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    uDetermineDelimPos : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uDetermineDelimPos {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    uYomiTextLen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uYomiTextLen {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    uYomiTextPos : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uYomiTextPos {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    uYomiDelimPos : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uYomiDelimPos {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
 }

@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CDCONTROLSTATEF.ahk" { CDCONTROLSTATEF }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that allow an application to add controls to a common file dialog.
@@ -20,26 +24,59 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ifiledialogcustomize
  * @namespace Windows.Win32.UI.Shell
  */
-class IFileDialogCustomize extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IFileDialogCustomize extends IUnknown {
     /**
      * The interface identifier for IFileDialogCustomize
      * @type {Guid}
      */
-    static IID => Guid("{e6fdd21a-163f-4975-9c8c-a69f1ba37034}")
+    static IID := Guid("{e6fdd21a-163f-4975-9c8c-a69f1ba37034}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFileDialogCustomize interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        EnableOpenDropDown     : IntPtr
+        AddMenu                : IntPtr
+        AddPushButton          : IntPtr
+        AddComboBox            : IntPtr
+        AddRadioButtonList     : IntPtr
+        AddCheckButton         : IntPtr
+        AddEditBox             : IntPtr
+        AddSeparator           : IntPtr
+        AddText                : IntPtr
+        SetControlLabel        : IntPtr
+        GetControlState        : IntPtr
+        SetControlState        : IntPtr
+        GetEditBoxText         : IntPtr
+        SetEditBoxText         : IntPtr
+        GetCheckButtonState    : IntPtr
+        SetCheckButtonState    : IntPtr
+        AddControlItem         : IntPtr
+        RemoveControlItem      : IntPtr
+        RemoveAllControlItems  : IntPtr
+        GetControlItemState    : IntPtr
+        SetControlItemState    : IntPtr
+        GetSelectedControlItem : IntPtr
+        SetSelectedControlItem : IntPtr
+        StartVisualGroup       : IntPtr
+        EndVisualGroup         : IntPtr
+        MakeProminent          : IntPtr
+        SetControlItemText     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EnableOpenDropDown", "AddMenu", "AddPushButton", "AddComboBox", "AddRadioButtonList", "AddCheckButton", "AddEditBox", "AddSeparator", "AddText", "SetControlLabel", "GetControlState", "SetControlState", "GetEditBoxText", "SetEditBoxText", "GetCheckButtonState", "SetCheckButtonState", "AddControlItem", "RemoveControlItem", "RemoveAllControlItems", "GetControlItemState", "SetControlItemState", "GetSelectedControlItem", "SetSelectedControlItem", "StartVisualGroup", "EndVisualGroup", "MakeProminent", "SetControlItemText"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFileDialogCustomize.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Enables a drop-down list on the Open or Save button in the dialog.
@@ -161,7 +198,7 @@ class IFileDialogCustomize extends IUnknown {
     AddCheckButton(dwIDCtl, pszLabel, bChecked) {
         pszLabel := pszLabel is String ? StrPtr(pszLabel) : pszLabel
 
-        result := ComCall(8, this, "uint", dwIDCtl, "ptr", pszLabel, "int", bChecked, "HRESULT")
+        result := ComCall(8, this, "uint", dwIDCtl, "ptr", pszLabel, BOOL, bChecked, "HRESULT")
         return result
     }
 
@@ -281,7 +318,7 @@ class IFileDialogCustomize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-setcontrolstate
      */
     SetControlState(dwIDCtl, dwState) {
-        result := ComCall(14, this, "uint", dwIDCtl, "int", dwState, "HRESULT")
+        result := ComCall(14, this, "uint", dwIDCtl, CDCONTROLSTATEF, dwState, "HRESULT")
         return result
     }
 
@@ -333,7 +370,7 @@ class IFileDialogCustomize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-getcheckbuttonstate
      */
     GetCheckButtonState(dwIDCtl) {
-        result := ComCall(17, this, "uint", dwIDCtl, "int*", &pbChecked := 0, "HRESULT")
+        result := ComCall(17, this, "uint", dwIDCtl, BOOL.Ptr, &pbChecked := 0, "HRESULT")
         return pbChecked
     }
 
@@ -351,7 +388,7 @@ class IFileDialogCustomize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-setcheckbuttonstate
      */
     SetCheckButtonState(dwIDCtl, bChecked) {
-        result := ComCall(18, this, "uint", dwIDCtl, "int", bChecked, "HRESULT")
+        result := ComCall(18, this, "uint", dwIDCtl, BOOL, bChecked, "HRESULT")
         return result
     }
 
@@ -460,7 +497,7 @@ class IFileDialogCustomize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-setcontrolitemstate
      */
     SetControlItemState(dwIDCtl, dwIDItem, dwState) {
-        result := ComCall(23, this, "uint", dwIDCtl, "uint", dwIDItem, "int", dwState, "HRESULT")
+        result := ComCall(23, this, "uint", dwIDCtl, "uint", dwIDItem, CDCONTROLSTATEF, dwState, "HRESULT")
         return result
     }
 
@@ -584,5 +621,77 @@ class IFileDialogCustomize extends IUnknown {
 
         result := ComCall(29, this, "uint", dwIDCtl, "uint", dwIDItem, "ptr", pszLabel, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFileDialogCustomize.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EnableOpenDropDown := CallbackCreate(GetMethod(implObj, "EnableOpenDropDown"), flags, 2)
+        this.vtbl.AddMenu := CallbackCreate(GetMethod(implObj, "AddMenu"), flags, 3)
+        this.vtbl.AddPushButton := CallbackCreate(GetMethod(implObj, "AddPushButton"), flags, 3)
+        this.vtbl.AddComboBox := CallbackCreate(GetMethod(implObj, "AddComboBox"), flags, 2)
+        this.vtbl.AddRadioButtonList := CallbackCreate(GetMethod(implObj, "AddRadioButtonList"), flags, 2)
+        this.vtbl.AddCheckButton := CallbackCreate(GetMethod(implObj, "AddCheckButton"), flags, 4)
+        this.vtbl.AddEditBox := CallbackCreate(GetMethod(implObj, "AddEditBox"), flags, 3)
+        this.vtbl.AddSeparator := CallbackCreate(GetMethod(implObj, "AddSeparator"), flags, 2)
+        this.vtbl.AddText := CallbackCreate(GetMethod(implObj, "AddText"), flags, 3)
+        this.vtbl.SetControlLabel := CallbackCreate(GetMethod(implObj, "SetControlLabel"), flags, 3)
+        this.vtbl.GetControlState := CallbackCreate(GetMethod(implObj, "GetControlState"), flags, 3)
+        this.vtbl.SetControlState := CallbackCreate(GetMethod(implObj, "SetControlState"), flags, 3)
+        this.vtbl.GetEditBoxText := CallbackCreate(GetMethod(implObj, "GetEditBoxText"), flags, 3)
+        this.vtbl.SetEditBoxText := CallbackCreate(GetMethod(implObj, "SetEditBoxText"), flags, 3)
+        this.vtbl.GetCheckButtonState := CallbackCreate(GetMethod(implObj, "GetCheckButtonState"), flags, 3)
+        this.vtbl.SetCheckButtonState := CallbackCreate(GetMethod(implObj, "SetCheckButtonState"), flags, 3)
+        this.vtbl.AddControlItem := CallbackCreate(GetMethod(implObj, "AddControlItem"), flags, 4)
+        this.vtbl.RemoveControlItem := CallbackCreate(GetMethod(implObj, "RemoveControlItem"), flags, 3)
+        this.vtbl.RemoveAllControlItems := CallbackCreate(GetMethod(implObj, "RemoveAllControlItems"), flags, 2)
+        this.vtbl.GetControlItemState := CallbackCreate(GetMethod(implObj, "GetControlItemState"), flags, 4)
+        this.vtbl.SetControlItemState := CallbackCreate(GetMethod(implObj, "SetControlItemState"), flags, 4)
+        this.vtbl.GetSelectedControlItem := CallbackCreate(GetMethod(implObj, "GetSelectedControlItem"), flags, 3)
+        this.vtbl.SetSelectedControlItem := CallbackCreate(GetMethod(implObj, "SetSelectedControlItem"), flags, 3)
+        this.vtbl.StartVisualGroup := CallbackCreate(GetMethod(implObj, "StartVisualGroup"), flags, 3)
+        this.vtbl.EndVisualGroup := CallbackCreate(GetMethod(implObj, "EndVisualGroup"), flags, 1)
+        this.vtbl.MakeProminent := CallbackCreate(GetMethod(implObj, "MakeProminent"), flags, 2)
+        this.vtbl.SetControlItemText := CallbackCreate(GetMethod(implObj, "SetControlItemText"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EnableOpenDropDown)
+        CallbackFree(this.vtbl.AddMenu)
+        CallbackFree(this.vtbl.AddPushButton)
+        CallbackFree(this.vtbl.AddComboBox)
+        CallbackFree(this.vtbl.AddRadioButtonList)
+        CallbackFree(this.vtbl.AddCheckButton)
+        CallbackFree(this.vtbl.AddEditBox)
+        CallbackFree(this.vtbl.AddSeparator)
+        CallbackFree(this.vtbl.AddText)
+        CallbackFree(this.vtbl.SetControlLabel)
+        CallbackFree(this.vtbl.GetControlState)
+        CallbackFree(this.vtbl.SetControlState)
+        CallbackFree(this.vtbl.GetEditBoxText)
+        CallbackFree(this.vtbl.SetEditBoxText)
+        CallbackFree(this.vtbl.GetCheckButtonState)
+        CallbackFree(this.vtbl.SetCheckButtonState)
+        CallbackFree(this.vtbl.AddControlItem)
+        CallbackFree(this.vtbl.RemoveControlItem)
+        CallbackFree(this.vtbl.RemoveAllControlItems)
+        CallbackFree(this.vtbl.GetControlItemState)
+        CallbackFree(this.vtbl.SetControlItemState)
+        CallbackFree(this.vtbl.GetSelectedControlItem)
+        CallbackFree(this.vtbl.SetSelectedControlItem)
+        CallbackFree(this.vtbl.StartVisualGroup)
+        CallbackFree(this.vtbl.EndVisualGroup)
+        CallbackFree(this.vtbl.MakeProminent)
+        CallbackFree(this.vtbl.SetControlItemText)
     }
 }

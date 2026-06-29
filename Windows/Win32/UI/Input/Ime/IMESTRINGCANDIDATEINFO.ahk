@@ -1,63 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\IMEFAREASTINFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IMEFAREASTINFO.ahk" { IMEFAREASTINFO }
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
  */
-class IMESTRINGCANDIDATEINFO extends Win32Struct {
-    static sizeof => 40
+export default struct IMESTRINGCANDIDATEINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    dwFarEastId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFarEastId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    lpFarEastInfo : IMEFAREASTINFO.Ptr
 
-    /**
-     * @type {Pointer<IMEFAREASTINFO>}
-     */
-    lpFarEastInfo {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    fInfoMask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fInfoMask {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    iSelIndex : Int32
 
-    /**
-     * @type {Integer}
-     */
-    iSelIndex {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    uCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    lpwstr : PWSTR[1]
 
-    /**
-     * @type {Array<PWSTR>}
-     */
-    lpwstr {
-        get {
-            if(!this.HasProp("__lpwstrProxyArray"))
-                this.__lpwstrProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "ptr")
-            return this.__lpwstrProxyArray
-        }
-    }
 }

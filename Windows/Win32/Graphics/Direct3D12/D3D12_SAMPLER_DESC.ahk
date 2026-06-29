@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_FILTER.ahk
-#Include .\D3D12_TEXTURE_ADDRESS_MODE.ahk
-#Include .\D3D12_COMPARISON_FUNC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_COMPARISON_FUNC.ahk" { D3D12_COMPARISON_FUNC }
+#Import ".\D3D12_TEXTURE_ADDRESS_MODE.ahk" { D3D12_TEXTURE_ADDRESS_MODE }
+#Import ".\D3D12_FILTER.ahk" { D3D12_FILTER }
 
 /**
  * Describes a sampler state. (D3D12_SAMPLER_DESC)
@@ -11,101 +10,57 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_sampler_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_SAMPLER_DESC extends Win32Struct {
-    static sizeof => 52
-
-    static packingSize => 4
+export default struct D3D12_SAMPLER_DESC {
+    #StructPack 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_filter">D3D12_FILTER</a>-typed value that specifies the filtering method to use when sampling a texture.
-     * @type {D3D12_FILTER}
      */
-    Filter {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Filter : D3D12_FILTER
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_texture_address_mode">D3D12_TEXTURE_ADDRESS_MODE</a>-typed value that specifies the method to use for resolving a u texture coordinate that is outside the 0 to 1 range.
-     * @type {D3D12_TEXTURE_ADDRESS_MODE}
      */
-    AddressU {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    AddressU : D3D12_TEXTURE_ADDRESS_MODE
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_texture_address_mode">D3D12_TEXTURE_ADDRESS_MODE</a>-typed value that specifies the method to use for resolving a v texture coordinate that is outside the 0 to 1 range.
-     * @type {D3D12_TEXTURE_ADDRESS_MODE}
      */
-    AddressV {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    AddressV : D3D12_TEXTURE_ADDRESS_MODE
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_texture_address_mode">D3D12_TEXTURE_ADDRESS_MODE</a>-typed value that specifies the method to use for resolving a w texture coordinate that is outside the 0 to 1 range.
-     * @type {D3D12_TEXTURE_ADDRESS_MODE}
      */
-    AddressW {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    AddressW : D3D12_TEXTURE_ADDRESS_MODE
 
     /**
      * Offset from the calculated mipmap level. For example, if the runtime calculates that a texture should be sampled at mipmap level 3 and <b>MipLODBias</b> is 2, the texture will be sampled at mipmap level 5.
-     * @type {Float}
      */
-    MipLODBias {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
+    MipLODBias : Float32
 
     /**
      * Clamping value used if <b>D3D12_FILTER_ANISOTROPIC</b> or <b>D3D12_FILTER_COMPARISON_ANISOTROPIC</b> is specified in <b>Filter</b>. Valid values are between 1 and 16.
-     * @type {Integer}
      */
-    MaxAnisotropy {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    MaxAnisotropy : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_comparison_func">D3D12_COMPARISON_FUNC</a>-typed value that specifies a function that compares sampled data against existing sampled data.
-     * @type {D3D12_COMPARISON_FUNC}
      */
-    ComparisonFunc {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    ComparisonFunc : D3D12_COMPARISON_FUNC
 
     /**
      * RGBA border color to use if <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_texture_address_mode">D3D12_TEXTURE_ADDRESS_MODE_BORDER</a> is specified for <b>AddressU</b>, <b>AddressV</b>, or <b>AddressW</b>. Range must be between 0.0 and 1.0 inclusive.
-     * @type {Array<Float>}
      */
-    BorderColor {
-        get {
-            if(!this.HasProp("__BorderColorProxyArray"))
-                this.__BorderColorProxyArray := Win32FixedArray(this.ptr + 28, 4, Primitive, "float")
-            return this.__BorderColorProxyArray
-        }
-    }
+    BorderColor : Float32[4]
 
     /**
      * Lower end of the mipmap range to clamp access to, where 0 is the largest and most detailed mipmap level and any level higher than that is less detailed.
-     * @type {Float}
      */
-    MinLOD {
-        get => NumGet(this, 44, "float")
-        set => NumPut("float", value, this, 44)
-    }
+    MinLOD : Float32
 
     /**
      * Upper end of the mipmap range to clamp access to, where 0 is the largest and most detailed mipmap level and any level higher than that is less detailed. This value must be greater than or equal to <b>MinLOD</b>. To have no upper limit on LOD, set this member to a large value.
-     * @type {Float}
      */
-    MaxLOD {
-        get => NumGet(this, 48, "float")
-        set => NumPut("float", value, this, 48)
-    }
+    MaxLOD : Float32
+
 }

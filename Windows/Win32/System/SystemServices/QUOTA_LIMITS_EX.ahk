@@ -1,111 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RATE_QUOTA_LIMIT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RATE_QUOTA_LIMIT.ahk" { RATE_QUOTA_LIMIT }
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class QUOTA_LIMITS_EX extends Win32Struct {
-    static sizeof => 96
+export default struct QUOTA_LIMITS_EX {
+    #StructPack 8
 
-    static packingSize => 8
+    PagedPoolLimit : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    PagedPoolLimit {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    NonPagedPoolLimit : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    NonPagedPoolLimit {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    MinimumWorkingSetSize : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    MinimumWorkingSetSize {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    MaximumWorkingSetSize : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    MaximumWorkingSetSize {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    PagefileLimit : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    PagefileLimit {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    TimeLimit : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TimeLimit {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
-    }
+    WorkingSetLimit : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    WorkingSetLimit {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    Reserved2 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Reserved2 {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    Reserved3 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Reserved3 {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    Reserved4 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Reserved4 {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    CpuRateLimit : RATE_QUOTA_LIMIT
 
-    /**
-     * @type {RATE_QUOTA_LIMIT}
-     */
-    CpuRateLimit {
-        get {
-            if(!this.HasProp("__CpuRateLimit"))
-                this.__CpuRateLimit := RATE_QUOTA_LIMIT(84, this)
-            return this.__CpuRateLimit
-        }
-    }
 }

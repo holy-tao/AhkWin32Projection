@@ -1,43 +1,64 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ITsSbTarget.ahk
-#Include .\ITsSbLoadBalanceResult.ahk
-#Include .\ITsSbSession.ahk
-#Include .\ITsSbPluginPropertySet.ahk
-#Include .\ITsSbTargetPropertySet.ahk
-#Include .\ITsSbEnvironment.ahk
-#Include .\ITsSbResourcePluginStore.ahk
-#Include .\ITsSbFilterPluginStore.ahk
-#Include .\ITsSbGlobalStore.ahk
-#Include .\ITsSbEnvironmentPropertySet.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITsSbTargetPropertySet.ahk" { ITsSbTargetPropertySet }
+#Import ".\ITsSbPluginPropertySet.ahk" { ITsSbPluginPropertySet }
+#Import ".\ITsSbTarget.ahk" { ITsSbTarget }
+#Import ".\ITsSbEnvironmentPropertySet.ahk" { ITsSbEnvironmentPropertySet }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ITsSbResourcePluginStore.ahk" { ITsSbResourcePluginStore }
+#Import ".\ITsSbSession.ahk" { ITsSbSession }
+#Import ".\ITsSbGlobalStore.ahk" { ITsSbGlobalStore }
+#Import ".\ITsSbEnvironment.ahk" { ITsSbEnvironment }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITsSbLoadBalanceResult.ahk" { ITsSbLoadBalanceResult }
+#Import ".\ITsSbFilterPluginStore.ahk" { ITsSbFilterPluginStore }
+#Import ".\ITsSbResourceNotification.ahk" { ITsSbResourceNotification }
 
 /**
  * Exposes methods that create default implementations of objects that are used in Remote Desktop Virtualization.
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbprovider
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class ITsSbProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITsSbProvider extends IUnknown {
     /**
      * The interface identifier for ITsSbProvider
      * @type {Guid}
      */
-    static IID => Guid("{87a4098f-6d7b-44dd-bc17-8ce44e370d52}")
+    static IID := Guid("{87a4098f-6d7b-44dd-bc17-8ce44e370d52}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITsSbProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateTargetObject                 : IntPtr
+        CreateLoadBalanceResultObject      : IntPtr
+        CreateSessionObject                : IntPtr
+        CreatePluginPropertySet            : IntPtr
+        CreateTargetPropertySetObject      : IntPtr
+        CreateEnvironmentObject            : IntPtr
+        GetResourcePluginStore             : IntPtr
+        GetFilterPluginStore               : IntPtr
+        RegisterForNotification            : IntPtr
+        UnRegisterForNotification          : IntPtr
+        GetInstanceOfGlobalStore           : IntPtr
+        CreateEnvironmentPropertySetObject : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateTargetObject", "CreateLoadBalanceResultObject", "CreateSessionObject", "CreatePluginPropertySet", "CreateTargetPropertySetObject", "CreateEnvironmentObject", "GetResourcePluginStore", "GetFilterPluginStore", "RegisterForNotification", "UnRegisterForNotification", "GetInstanceOfGlobalStore", "CreateEnvironmentPropertySetObject"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITsSbProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates an ITsSbTarget target object.
@@ -52,7 +73,7 @@ class ITsSbProvider extends IUnknown {
         TargetName := TargetName is String ? BSTR.Alloc(TargetName).Value : TargetName
         EnvironmentName := EnvironmentName is String ? BSTR.Alloc(EnvironmentName).Value : EnvironmentName
 
-        result := ComCall(3, this, "ptr", TargetName, "ptr", EnvironmentName, "ptr*", &ppTarget := 0, "HRESULT")
+        result := ComCall(3, this, BSTR, TargetName, BSTR, EnvironmentName, "ptr*", &ppTarget := 0, "HRESULT")
         return ITsSbTarget(ppTarget)
     }
 
@@ -68,7 +89,7 @@ class ITsSbProvider extends IUnknown {
     CreateLoadBalanceResultObject(TargetName) {
         TargetName := TargetName is String ? BSTR.Alloc(TargetName).Value : TargetName
 
-        result := ComCall(4, this, "ptr", TargetName, "ptr*", &ppLBResult := 0, "HRESULT")
+        result := ComCall(4, this, BSTR, TargetName, "ptr*", &ppLBResult := 0, "HRESULT")
         return ITsSbLoadBalanceResult(ppLBResult)
     }
 
@@ -86,7 +107,7 @@ class ITsSbProvider extends IUnknown {
         UserName := UserName is String ? BSTR.Alloc(UserName).Value : UserName
         Domain := Domain is String ? BSTR.Alloc(Domain).Value : Domain
 
-        result := ComCall(5, this, "ptr", TargetName, "ptr", UserName, "ptr", Domain, "uint", SessionId, "ptr*", &ppSession := 0, "HRESULT")
+        result := ComCall(5, this, BSTR, TargetName, BSTR, UserName, BSTR, Domain, "uint", SessionId, "ptr*", &ppSession := 0, "HRESULT")
         return ITsSbSession(ppSession)
     }
 
@@ -130,7 +151,7 @@ class ITsSbProvider extends IUnknown {
     CreateEnvironmentObject(Name, ServerWeight) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
 
-        result := ComCall(8, this, "ptr", Name, "uint", ServerWeight, "ptr*", &ppEnvironment := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, Name, "uint", ServerWeight, "ptr*", &ppEnvironment := 0, "HRESULT")
         return ITsSbEnvironment(ppEnvironment)
     }
 
@@ -165,7 +186,7 @@ class ITsSbProvider extends IUnknown {
     RegisterForNotification(notificationType, ResourceToMonitor, pPluginNotification) {
         ResourceToMonitor := ResourceToMonitor is String ? BSTR.Alloc(ResourceToMonitor).Value : ResourceToMonitor
 
-        result := ComCall(11, this, "uint", notificationType, "ptr", ResourceToMonitor, "ptr", pPluginNotification, "HRESULT")
+        result := ComCall(11, this, "uint", notificationType, BSTR, ResourceToMonitor, "ptr", pPluginNotification, "HRESULT")
         return result
     }
 
@@ -181,7 +202,7 @@ class ITsSbProvider extends IUnknown {
     UnRegisterForNotification(notificationType, ResourceToMonitor) {
         ResourceToMonitor := ResourceToMonitor is String ? BSTR.Alloc(ResourceToMonitor).Value : ResourceToMonitor
 
-        result := ComCall(12, this, "uint", notificationType, "ptr", ResourceToMonitor, "HRESULT")
+        result := ComCall(12, this, "uint", notificationType, BSTR, ResourceToMonitor, "HRESULT")
         return result
     }
 
@@ -205,5 +226,47 @@ class ITsSbProvider extends IUnknown {
     CreateEnvironmentPropertySetObject() {
         result := ComCall(14, this, "ptr*", &ppPropertySet := 0, "HRESULT")
         return ITsSbEnvironmentPropertySet(ppPropertySet)
+    }
+
+    Query(iid) {
+        if (ITsSbProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateTargetObject := CallbackCreate(GetMethod(implObj, "CreateTargetObject"), flags, 4)
+        this.vtbl.CreateLoadBalanceResultObject := CallbackCreate(GetMethod(implObj, "CreateLoadBalanceResultObject"), flags, 3)
+        this.vtbl.CreateSessionObject := CallbackCreate(GetMethod(implObj, "CreateSessionObject"), flags, 6)
+        this.vtbl.CreatePluginPropertySet := CallbackCreate(GetMethod(implObj, "CreatePluginPropertySet"), flags, 2)
+        this.vtbl.CreateTargetPropertySetObject := CallbackCreate(GetMethod(implObj, "CreateTargetPropertySetObject"), flags, 2)
+        this.vtbl.CreateEnvironmentObject := CallbackCreate(GetMethod(implObj, "CreateEnvironmentObject"), flags, 4)
+        this.vtbl.GetResourcePluginStore := CallbackCreate(GetMethod(implObj, "GetResourcePluginStore"), flags, 2)
+        this.vtbl.GetFilterPluginStore := CallbackCreate(GetMethod(implObj, "GetFilterPluginStore"), flags, 2)
+        this.vtbl.RegisterForNotification := CallbackCreate(GetMethod(implObj, "RegisterForNotification"), flags, 4)
+        this.vtbl.UnRegisterForNotification := CallbackCreate(GetMethod(implObj, "UnRegisterForNotification"), flags, 3)
+        this.vtbl.GetInstanceOfGlobalStore := CallbackCreate(GetMethod(implObj, "GetInstanceOfGlobalStore"), flags, 2)
+        this.vtbl.CreateEnvironmentPropertySetObject := CallbackCreate(GetMethod(implObj, "CreateEnvironmentPropertySetObject"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateTargetObject)
+        CallbackFree(this.vtbl.CreateLoadBalanceResultObject)
+        CallbackFree(this.vtbl.CreateSessionObject)
+        CallbackFree(this.vtbl.CreatePluginPropertySet)
+        CallbackFree(this.vtbl.CreateTargetPropertySetObject)
+        CallbackFree(this.vtbl.CreateEnvironmentObject)
+        CallbackFree(this.vtbl.GetResourcePluginStore)
+        CallbackFree(this.vtbl.GetFilterPluginStore)
+        CallbackFree(this.vtbl.RegisterForNotification)
+        CallbackFree(this.vtbl.UnRegisterForNotification)
+        CallbackFree(this.vtbl.GetInstanceOfGlobalStore)
+        CallbackFree(this.vtbl.CreateEnvironmentPropertySetObject)
     }
 }

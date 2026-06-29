@@ -1,11 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\LOGFONTW.ahk
-#Include ..\..\Graphics\Gdi\FONT_CHARSET.ahk
-#Include ..\..\Graphics\Gdi\FONT_OUTPUT_PRECISION.ahk
-#Include ..\..\Graphics\Gdi\FONT_CLIP_PRECISION.ahk
-#Include ..\..\Graphics\Gdi\FONT_QUALITY.ahk
-#Include ..\..\Graphics\Gdi\HPALETTE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\Gdi\FONT_OUTPUT_PRECISION.ahk" { FONT_OUTPUT_PRECISION }
+#Import "..\..\Graphics\Gdi\FONT_CLIP_PRECISION.ahk" { FONT_CLIP_PRECISION }
+#Import "..\..\Graphics\Gdi\FONT_QUALITY.ahk" { FONT_QUALITY }
+#Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
+#Import "..\..\Graphics\Gdi\LOGFONTW.ahk" { LOGFONTW }
+#Import "..\..\Graphics\Gdi\FONT_CHARSET.ahk" { FONT_CHARSET }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The DEVINFO structure provides information about the driver and its private PDEV to the graphics engine.
@@ -47,10 +47,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-devinfo
  * @namespace Windows.Win32.Devices.Display
  */
-class DEVINFO extends Win32Struct {
-    static sizeof => 312
-
-    static packingSize => 8
+export default struct DEVINFO {
+    #StructPack 8
 
     /**
      * Is a set of flags that describe graphics capabilities of the graphics driver and/or its hardware. These flags are defined in the following table.
@@ -371,94 +369,42 @@ class DEVINFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    flGraphicsCaps {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    flGraphicsCaps : UInt32
 
     /**
      * Is an Extended Logical Font structure that specifies the default font for a device. For more information about this structure, see EXTLOGFONT in the Microsoft Windows SDK documentation.
-     * @type {LOGFONTW}
      */
-    lfDefaultFont {
-        get {
-            if(!this.HasProp("__lfDefaultFont"))
-                this.__lfDefaultFont := LOGFONTW(4, this)
-            return this.__lfDefaultFont
-        }
-    }
+    lfDefaultFont : LOGFONTW
 
     /**
      * Is an Extended Logical Font structure that specifies the default variable-pitch font for a device. For more information about this structure, see EXTLOGFONT in the Windows SDK documentation.
-     * @type {LOGFONTW}
      */
-    lfAnsiVarFont {
-        get {
-            if(!this.HasProp("__lfAnsiVarFont"))
-                this.__lfAnsiVarFont := LOGFONTW(96, this)
-            return this.__lfAnsiVarFont
-        }
-    }
+    lfAnsiVarFont : LOGFONTW
 
     /**
      * Is an Extended Logical Font structure that specifies the default fixed-pitch (monospaced) font for a device. For more information about this structure, see EXTLOGFONT in the Windows SDK documentation.
-     * @type {LOGFONTW}
      */
-    lfAnsiFixFont {
-        get {
-            if(!this.HasProp("__lfAnsiFixFont"))
-                this.__lfAnsiFixFont := LOGFONTW(188, this)
-            return this.__lfAnsiFixFont
-        }
-    }
+    lfAnsiFixFont : LOGFONTW
 
     /**
      * Specifies the number of device fonts. GDI assumes that the device can draw text with this number of fonts on its own surfaces and that the driver can provide metrics information about the fonts. If the driver sets <b>cFonts</b> to -1, GDI will wait until fonts are needed to query the driver for the actual number of fonts it supports in a call to <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvqueryfont">DrvQueryFont</a>.
-     * @type {Integer}
      */
-    cFonts {
-        get => NumGet(this, 280, "uint")
-        set => NumPut("uint", value, this, 280)
-    }
+    cFonts : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    iDitherFormat {
-        get => NumGet(this, 284, "uint")
-        set => NumPut("uint", value, this, 284)
-    }
+    iDitherFormat : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cxDither {
-        get => NumGet(this, 288, "ushort")
-        set => NumPut("ushort", value, this, 288)
-    }
+    cxDither : UInt16
 
     /**
      * Specify the dimensions of a dithered brush. If these members are nonzero, then the device can create a dithered brush for a given RGB color.
-     * @type {Integer}
      */
-    cyDither {
-        get => NumGet(this, 290, "ushort")
-        set => NumPut("ushort", value, this, 290)
-    }
+    cyDither : UInt16
 
     /**
      * Handle to the default palette for the device. The driver should create the palette by calling <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engcreatepalette">EngCreatePalette</a>. The driver associates a palette with a device by returning this handle to GDI.
-     * @type {HPALETTE}
      */
-    hpalDefault {
-        get {
-            if(!this.HasProp("__hpalDefault"))
-                this.__hpalDefault := HPALETTE(296, this)
-            return this.__hpalDefault
-        }
-    }
+    hpalDefault : HPALETTE
 
     /**
      * Is a set of flags that describe additional graphics capabilities of the device driver. These flags are defined in the following table.
@@ -569,10 +515,7 @@ class DEVINFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    flGraphicsCaps2 {
-        get => NumGet(this, 304, "uint")
-        set => NumPut("uint", value, this, 304)
-    }
+    flGraphicsCaps2 : UInt32
+
 }

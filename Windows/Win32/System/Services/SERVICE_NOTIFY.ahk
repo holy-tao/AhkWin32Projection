@@ -1,30 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Represents service status notification information. (ANSI)
- * @remarks
- * The callback function is declared as follows:
- * 
- * 
- * ``` syntax
- * typedef VOID( CALLBACK * PFN_SC_NOTIFY_CALLBACK ) (
- *     IN PVOID pParameter 
- * );
- * ```
- * 
- * The callback function receives a pointer to the <b>SERVICE_NOTIFY</b> structure provided by the caller.
- * 
- * 
- * 
- * 
- * 
- * > [!NOTE]
- * > The winsvc.h header defines SERVICE_NOTIFY_2 as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_notify_2a
  * @namespace Windows.Win32.System.Services
  */
-class SERVICE_NOTIFY extends Win32BitflagEnum {
+export default struct SERVICE_NOTIFY {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

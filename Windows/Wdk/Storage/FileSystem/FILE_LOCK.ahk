@@ -1,78 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class FILE_LOCK extends Win32Struct {
-    static sizeof => 56
+export default struct FILE_LOCK {
+    #StructPack 8
 
-    static packingSize => 8
+    CompleteLockIrpRoutine : IntPtr
 
-    /**
-     * @type {Pointer<PCOMPLETE_LOCK_IRP_ROUTINE>}
-     */
-    CompleteLockIrpRoutine {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    UnlockRoutine : IntPtr
 
-    /**
-     * @type {Pointer<PUNLOCK_ROUTINE>}
-     */
-    UnlockRoutine {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    FastIoIsQuestionable : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    FastIoIsQuestionable {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    SpareC : BOOLEAN[3]
 
-    /**
-     * @type {Array<BOOLEAN>}
-     */
-    SpareC {
-        get {
-            if(!this.HasProp("__SpareCProxyArray"))
-                this.__SpareCProxyArray := Win32FixedArray(this.ptr + 17, 3, Primitive, "char")
-            return this.__SpareCProxyArray
-        }
-    }
+    LockInformation : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    LockInformation {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    LastReturnedLockInfo : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    LastReturnedLockInfo {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    LastReturnedLock : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    LastReturnedLock {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    LockRequestsInProgress : Int32
 
-    /**
-     * @type {Integer}
-     */
-    LockRequestsInProgress {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
 }

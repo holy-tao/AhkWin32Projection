@@ -1,32 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSTER_RESOURCE_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CLUSTER_RESOURCE_STATE.ahk" { CLUSTER_RESOURCE_STATE }
 
 /**
  * Represents the status of a Scale-Out File Server clone.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_dnn_sodafs_clone_status
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUS_DNN_SODAFS_CLONE_STATUS extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct CLUS_DNN_SODAFS_CLONE_STATUS {
+    #StructPack 4
 
     /**
      * The node ID of the clone.
-     * @type {Integer}
      */
-    NodeId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NodeId : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_resource_state">CLUSTER_RESOURCE_STATE</a> enumeration value that specifies the status of the clone.
-     * @type {CLUSTER_RESOURCE_STATE}
      */
-    Status {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Status : CLUSTER_RESOURCE_STATE
+
 }

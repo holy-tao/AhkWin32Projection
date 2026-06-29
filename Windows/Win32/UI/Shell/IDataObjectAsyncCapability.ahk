@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IBindCtx.ahk" { IBindCtx }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enables interfaces that are usually synchronous to function asynchronously.
@@ -14,26 +17,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/shldisp/nn-shldisp-idataobjectasynccapability
  * @namespace Windows.Win32.UI.Shell
  */
-class IDataObjectAsyncCapability extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDataObjectAsyncCapability extends IUnknown {
     /**
      * The interface identifier for IDataObjectAsyncCapability
      * @type {Guid}
      */
-    static IID => Guid("{3d8b0590-f691-11d2-8ea9-006097df5bd4}")
+    static IID := Guid("{3d8b0590-f691-11d2-8ea9-006097df5bd4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDataObjectAsyncCapability interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetAsyncMode   : IntPtr
+        GetAsyncMode   : IntPtr
+        StartOperation : IntPtr
+        InOperation    : IntPtr
+        EndOperation   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetAsyncMode", "GetAsyncMode", "StartOperation", "InOperation", "EndOperation"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDataObjectAsyncCapability.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called by a drop source to specify whether the data object supports asynchronous data extraction.
@@ -50,7 +64,7 @@ class IDataObjectAsyncCapability extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-idataobjectasynccapability-setasyncmode
      */
     SetAsyncMode(fDoOpAsync) {
-        result := ComCall(3, this, "int", fDoOpAsync, "HRESULT")
+        result := ComCall(3, this, BOOL, fDoOpAsync, "HRESULT")
         return result
     }
 
@@ -64,7 +78,7 @@ class IDataObjectAsyncCapability extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-idataobjectasynccapability-getasyncmode
      */
     GetAsyncMode() {
-        result := ComCall(4, this, "int*", &pfIsOpAsync := 0, "HRESULT")
+        result := ComCall(4, this, BOOL.Ptr, &pfIsOpAsync := 0, "HRESULT")
         return pfIsOpAsync
     }
 
@@ -95,7 +109,7 @@ class IDataObjectAsyncCapability extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-idataobjectasynccapability-inoperation
      */
     InOperation() {
-        result := ComCall(6, this, "int*", &pfInAsyncOp := 0, "HRESULT")
+        result := ComCall(6, this, BOOL.Ptr, &pfInAsyncOp := 0, "HRESULT")
         return pfInAsyncOp
     }
 
@@ -122,5 +136,33 @@ class IDataObjectAsyncCapability extends IUnknown {
     EndOperation(_hResult, pbcReserved, dwEffects) {
         result := ComCall(7, this, "int", _hResult, "ptr", pbcReserved, "uint", dwEffects, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDataObjectAsyncCapability.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetAsyncMode := CallbackCreate(GetMethod(implObj, "SetAsyncMode"), flags, 2)
+        this.vtbl.GetAsyncMode := CallbackCreate(GetMethod(implObj, "GetAsyncMode"), flags, 2)
+        this.vtbl.StartOperation := CallbackCreate(GetMethod(implObj, "StartOperation"), flags, 2)
+        this.vtbl.InOperation := CallbackCreate(GetMethod(implObj, "InOperation"), flags, 2)
+        this.vtbl.EndOperation := CallbackCreate(GetMethod(implObj, "EndOperation"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetAsyncMode)
+        CallbackFree(this.vtbl.GetAsyncMode)
+        CallbackFree(this.vtbl.StartOperation)
+        CallbackFree(this.vtbl.InOperation)
+        CallbackFree(this.vtbl.EndOperation)
     }
 }

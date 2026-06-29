@@ -1,44 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUS_NETNAME_IP_INFO_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CLUS_NETNAME_IP_INFO_ENTRY.ahk" { CLUS_NETNAME_IP_INFO_ENTRY }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Represents IP information for a NetName resource that has Multichannel enabled.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_netname_ip_info_for_multichannel
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUS_NETNAME_IP_INFO_FOR_MULTICHANNEL extends Win32Struct {
-    static sizeof => 144
-
-    static packingSize => 4
+export default struct CLUS_NETNAME_IP_INFO_FOR_MULTICHANNEL {
+    #StructPack 4
 
     /**
      * An array of wide characters that specifies the name of the resource.
-     * @type {String}
      */
-    szName {
-        get => StrGet(this.ptr + 0, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 63, "UTF-16")
-    }
+    szName : WCHAR[64]
 
     /**
      * The number of channels that are specified by the <i>IpInfo</i> parameter.
-     * @type {Integer}
      */
-    NumEntries {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    NumEntries : UInt32
 
     /**
      * An array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clus_netname_ip_info_entry">CLUS_NETNAME_IP_INFO_ENTRY</a> structures that specify the IP info for each channel.
-     * @type {CLUS_NETNAME_IP_INFO_ENTRY}
      */
-    IpInfo {
-        get {
-            if(!this.HasProp("__IpInfoProxyArray"))
-                this.__IpInfoProxyArray := Win32FixedArray(this.ptr + 132, 1, CLUS_NETNAME_IP_INFO_ENTRY, "")
-            return this.__IpInfoProxyArray
-        }
-    }
+    IpInfo : CLUS_NETNAME_IP_INFO_ENTRY[1]
+
 }

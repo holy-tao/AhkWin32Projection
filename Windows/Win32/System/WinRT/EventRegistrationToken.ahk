@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Identifies an event handler that has been registered with an event source.
@@ -10,19 +9,14 @@
  * @see https://learn.microsoft.com/windows/win32/api/eventtoken/ns-eventtoken-eventregistrationtoken
  * @namespace Windows.Win32.System.WinRT
  */
-class EventRegistrationToken extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 8
+export default struct EventRegistrationToken {
+    #StructPack 8
 
     /**
      * Type: **INT64**
      * 
      * An identifying value that is provided by an event source.
-     * @type {Integer}
      */
-    value {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    value : Int64
+
 }

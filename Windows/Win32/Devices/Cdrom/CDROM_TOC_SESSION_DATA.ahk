@@ -1,50 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TRACK_DATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TRACK_DATA.ahk" { TRACK_DATA }
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
  */
-class CDROM_TOC_SESSION_DATA extends Win32Struct {
-    static sizeof => 12
+export default struct CDROM_TOC_SESSION_DATA {
+    #StructPack 1
 
-    static packingSize => 1
+    Length : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Length {
-        get {
-            if(!this.HasProp("__LengthProxyArray"))
-                this.__LengthProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "char")
-            return this.__LengthProxyArray
-        }
-    }
+    FirstCompleteSession : Int8
 
-    /**
-     * @type {Integer}
-     */
-    FirstCompleteSession {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    LastCompleteSession : Int8
 
-    /**
-     * @type {Integer}
-     */
-    LastCompleteSession {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    TrackData : TRACK_DATA[1]
 
-    /**
-     * @type {TRACK_DATA}
-     */
-    TrackData {
-        get {
-            if(!this.HasProp("__TrackDataProxyArray"))
-                this.__TrackDataProxyArray := Win32FixedArray(this.ptr + 4, 1, TRACK_DATA, "")
-            return this.__TrackDataProxyArray
-        }
-    }
 }

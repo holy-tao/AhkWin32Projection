@@ -1,67 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHV_X64_CPUID_RESULT2_FLAGS.ahk
-#Include .\WHV_CPUID_OUTPUT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WHV_CPUID_OUTPUT.ahk" { WHV_CPUID_OUTPUT }
+#Import ".\WHV_X64_CPUID_RESULT2_FLAGS.ahk" { WHV_X64_CPUID_RESULT2_FLAGS }
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_X64_CPUID_RESULT2 extends Win32Struct {
-    static sizeof => 48
+export default struct WHV_X64_CPUID_RESULT2 {
+    #StructPack 4
 
-    static packingSize => 4
+    Function : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Function {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Index : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Index {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    VpIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VpIndex {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Flags : WHV_X64_CPUID_RESULT2_FLAGS
 
-    /**
-     * @type {WHV_X64_CPUID_RESULT2_FLAGS}
-     */
-    Flags {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    Output : WHV_CPUID_OUTPUT
 
-    /**
-     * @type {WHV_CPUID_OUTPUT}
-     */
-    Output {
-        get {
-            if(!this.HasProp("__Output"))
-                this.__Output := WHV_CPUID_OUTPUT(16, this)
-            return this.__Output
-        }
-    }
+    Mask : WHV_CPUID_OUTPUT
 
-    /**
-     * @type {WHV_CPUID_OUTPUT}
-     */
-    Mask {
-        get {
-            if(!this.HasProp("__Mask"))
-                this.__Mask := WHV_CPUID_OUTPUT(32, this)
-            return this.__Mask
-        }
-    }
 }

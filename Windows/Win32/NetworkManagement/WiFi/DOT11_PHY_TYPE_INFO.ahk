@@ -1,80 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_PHY_TYPE.ahk
-#Include .\CH_DESCRIPTION_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_PHY_TYPE.ahk" { DOT11_PHY_TYPE }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\CH_DESCRIPTION_TYPE.ahk" { CH_DESCRIPTION_TYPE }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_PHY_TYPE_INFO extends Win32Struct {
-    static sizeof => 32
+export default struct DOT11_PHY_TYPE_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    dot11PhyType : DOT11_PHY_TYPE
 
-    /**
-     * @type {DOT11_PHY_TYPE}
-     */
-    dot11PhyType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    bUseParameters : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bUseParameters {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    uProbeDelay : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uProbeDelay {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    uMinChannelTime : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uMinChannelTime {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    uMaxChannelTime : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uMaxChannelTime {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ChDescriptionType : CH_DESCRIPTION_TYPE
 
-    /**
-     * @type {CH_DESCRIPTION_TYPE}
-     */
-    ChDescriptionType {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    uChannelListSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uChannelListSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ucChannelListBuffer : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ucChannelListBuffer {
-        get {
-            if(!this.HasProp("__ucChannelListBufferProxyArray"))
-                this.__ucChannelListBufferProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")
-            return this.__ucChannelListBufferProxyArray
-        }
-    }
 }

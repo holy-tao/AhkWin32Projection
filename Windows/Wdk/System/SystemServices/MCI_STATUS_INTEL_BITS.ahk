@@ -1,13 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class MCI_STATUS_INTEL_BITS extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 8
+export default struct MCI_STATUS_INTEL_BITS {
+    #StructPack 8
 
     /**
      * This bitfield backs the following members:
@@ -26,12 +23,9 @@ class MCI_STATUS_INTEL_BITS extends Win32Struct {
      * - UncorrectedError
      * - StatusOverFlow
      * - Valid
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int64
+
 
     /**
      * @type {Integer}

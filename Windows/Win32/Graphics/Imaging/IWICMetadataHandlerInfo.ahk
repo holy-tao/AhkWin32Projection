@@ -1,34 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWICComponentInfo.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWICComponentInfo.ahk" { IWICComponentInfo }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Exposes methods that provide basic information about the registered metadata handler.
  * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nn-wincodecsdk-iwicmetadatahandlerinfo
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class IWICMetadataHandlerInfo extends IWICComponentInfo {
-
-    static sizeof => A_PtrSize
+export default struct IWICMetadataHandlerInfo extends IWICComponentInfo {
     /**
      * The interface identifier for IWICMetadataHandlerInfo
      * @type {Guid}
      */
-    static IID => Guid("{aba958bf-c672-44d1-8d61-ce6df2e682c2}")
+    static IID := Guid("{aba958bf-c672-44d1-8d61-ce6df2e682c2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 11
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWICMetadataHandlerInfo interfaces
+    */
+    struct Vtbl extends IWICComponentInfo.Vtbl {
+        GetMetadataFormat     : IntPtr
+        GetContainerFormats   : IntPtr
+        GetDeviceManufacturer : IntPtr
+        GetDeviceModels       : IntPtr
+        DoesRequireFullStream : IntPtr
+        DoesSupportPadding    : IntPtr
+        DoesRequireFixedSize  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetMetadataFormat", "GetContainerFormats", "GetDeviceManufacturer", "GetDeviceModels", "DoesRequireFullStream", "DoesSupportPadding", "DoesRequireFixedSize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWICMetadataHandlerInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the metadata format of the metadata handler.
@@ -39,7 +54,7 @@ class IWICMetadataHandlerInfo extends IWICComponentInfo {
      */
     GetMetadataFormat() {
         pguidMetadataFormat := Guid()
-        result := ComCall(11, this, "ptr", pguidMetadataFormat, "HRESULT")
+        result := ComCall(11, this, Guid.Ptr, pguidMetadataFormat, "HRESULT")
         return pguidMetadataFormat
     }
 
@@ -60,7 +75,7 @@ class IWICMetadataHandlerInfo extends IWICComponentInfo {
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-getcontainerformats
      */
     GetContainerFormats(cContainerFormats, pguidContainerFormats) {
-        result := ComCall(12, this, "uint", cContainerFormats, "ptr", pguidContainerFormats, "uint*", &pcchActual := 0, "HRESULT")
+        result := ComCall(12, this, "uint", cContainerFormats, Guid.Ptr, pguidContainerFormats, "uint*", &pcchActual := 0, "HRESULT")
         return pcchActual
     }
 
@@ -112,7 +127,7 @@ class IWICMetadataHandlerInfo extends IWICComponentInfo {
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-doesrequirefullstream
      */
     DoesRequireFullStream() {
-        result := ComCall(15, this, "int*", &pfRequiresFullStream := 0, "HRESULT")
+        result := ComCall(15, this, BOOL.Ptr, &pfRequiresFullStream := 0, "HRESULT")
         return pfRequiresFullStream
     }
 
@@ -124,7 +139,7 @@ class IWICMetadataHandlerInfo extends IWICComponentInfo {
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-doessupportpadding
      */
     DoesSupportPadding() {
-        result := ComCall(16, this, "int*", &pfSupportsPadding := 0, "HRESULT")
+        result := ComCall(16, this, BOOL.Ptr, &pfSupportsPadding := 0, "HRESULT")
         return pfSupportsPadding
     }
 
@@ -136,7 +151,39 @@ class IWICMetadataHandlerInfo extends IWICComponentInfo {
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-doesrequirefixedsize
      */
     DoesRequireFixedSize() {
-        result := ComCall(17, this, "int*", &pfFixedSize := 0, "HRESULT")
+        result := ComCall(17, this, BOOL.Ptr, &pfFixedSize := 0, "HRESULT")
         return pfFixedSize
+    }
+
+    Query(iid) {
+        if (IWICMetadataHandlerInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetMetadataFormat := CallbackCreate(GetMethod(implObj, "GetMetadataFormat"), flags, 2)
+        this.vtbl.GetContainerFormats := CallbackCreate(GetMethod(implObj, "GetContainerFormats"), flags, 4)
+        this.vtbl.GetDeviceManufacturer := CallbackCreate(GetMethod(implObj, "GetDeviceManufacturer"), flags, 4)
+        this.vtbl.GetDeviceModels := CallbackCreate(GetMethod(implObj, "GetDeviceModels"), flags, 4)
+        this.vtbl.DoesRequireFullStream := CallbackCreate(GetMethod(implObj, "DoesRequireFullStream"), flags, 2)
+        this.vtbl.DoesSupportPadding := CallbackCreate(GetMethod(implObj, "DoesSupportPadding"), flags, 2)
+        this.vtbl.DoesRequireFixedSize := CallbackCreate(GetMethod(implObj, "DoesRequireFixedSize"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetMetadataFormat)
+        CallbackFree(this.vtbl.GetContainerFormats)
+        CallbackFree(this.vtbl.GetDeviceManufacturer)
+        CallbackFree(this.vtbl.GetDeviceModels)
+        CallbackFree(this.vtbl.DoesRequireFullStream)
+        CallbackFree(this.vtbl.DoesSupportPadding)
+        CallbackFree(this.vtbl.DoesRequireFixedSize)
     }
 }

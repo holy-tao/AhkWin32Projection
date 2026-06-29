@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IN6_ADDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IN6_ADDR.ahk" { IN6_ADDR }
 
 /**
  * The ipv6_mreq structure provides multicast group information for IPv6 addresses.
@@ -33,29 +32,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-ipv6_mreq
  * @namespace Windows.Win32.Networking.WinSock
  */
-class IPV6_MREQ extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct IPV6_MREQ {
+    #StructPack 4
 
     /**
      * The address of the IPv6 multicast group.
-     * @type {IN6_ADDR}
      */
-    ipv6mr_multiaddr {
-        get {
-            if(!this.HasProp("__ipv6mr_multiaddr"))
-                this.__ipv6mr_multiaddr := IN6_ADDR(0, this)
-            return this.__ipv6mr_multiaddr
-        }
-    }
+    ipv6mr_multiaddr : IN6_ADDR
 
     /**
      * The interface index of the local interface on which the multicast group should be joined or dropped. If this member specifies an interface index of 0, the default multicast interface is used.
-     * @type {Integer}
      */
-    ipv6mr_interface {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ipv6mr_interface : UInt32
+
 }

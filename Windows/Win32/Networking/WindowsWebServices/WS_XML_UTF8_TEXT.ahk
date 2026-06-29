@@ -1,41 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_XML_TEXT.ahk
-#Include .\WS_XML_TEXT_TYPE.ahk
-#Include .\WS_XML_STRING.ahk
-#Include .\WS_XML_DICTIONARY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_XML_STRING.ahk" { WS_XML_STRING }
+#Import ".\WS_XML_TEXT_TYPE.ahk" { WS_XML_TEXT_TYPE }
+#Import ".\WS_XML_DICTIONARY.ahk" { WS_XML_DICTIONARY }
+#Import ".\WS_XML_TEXT.ahk" { WS_XML_TEXT }
 
 /**
  * Represents text encoded as UTF-8 bytes.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_utf8_text
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_XML_UTF8_TEXT extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct WS_XML_UTF8_TEXT {
+    #StructPack 8
 
     /**
      * The base type for all types that derive from <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_text">WS_XML_TEXT</a>.
-     * @type {WS_XML_TEXT}
      */
-    text {
-        get {
-            if(!this.HasProp("__text"))
-                this.__text := WS_XML_TEXT(0, this)
-            return this.__text
-        }
-    }
+    text : WS_XML_TEXT
 
     /**
      * The text value.
-     * @type {WS_XML_STRING}
      */
-    value {
-        get {
-            if(!this.HasProp("__value"))
-                this.__value := WS_XML_STRING(8, this)
-            return this.__value
-        }
-    }
+    value : WS_XML_STRING
+
 }

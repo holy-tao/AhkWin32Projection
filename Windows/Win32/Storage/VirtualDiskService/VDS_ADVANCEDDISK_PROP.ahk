@@ -1,207 +1,65 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_DISK_STATUS.ahk
-#Include .\VDS_HEALTH.ahk
-#Include .\VDS_STORAGE_BUS_TYPE.ahk
-#Include .\VDS_PARTITION_STYLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VDS_DISK_STATUS.ahk" { VDS_DISK_STATUS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\VDS_HEALTH.ahk" { VDS_HEALTH }
+#Import ".\VDS_PARTITION_STYLE.ahk" { VDS_PARTITION_STYLE }
+#Import ".\VDS_STORAGE_BUS_TYPE.ahk" { VDS_STORAGE_BUS_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_ADVANCEDDISK_PROP extends Win32Struct {
-    static sizeof => 144
+export default struct VDS_ADVANCEDDISK_PROP {
+    #StructPack 8
 
-    static packingSize => 8
+    pwszId : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pwszPathname : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszPathname {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwszLocation : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszLocation {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pwszFriendlyName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszFriendlyName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pswzIdentifier : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pswzIdentifier {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    usIdentifierFormat : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usIdentifierFormat {
-        get => NumGet(this, 40, "ushort")
-        set => NumPut("ushort", value, this, 40)
-    }
+    ulNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulNumber {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    pwszSerialNumber : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszSerialNumber {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pwszFirmwareVersion : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszFirmwareVersion {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pwszManufacturer : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszManufacturer {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    pwszModel : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszModel {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    ullTotalSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullTotalSize {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    ullAllocatedSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullAllocatedSize {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    ulLogicalSectorSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulLogicalSectorSize {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    ulPhysicalSectorSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulPhysicalSectorSize {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
+    ulPartitionCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulPartitionCount {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    status : VDS_DISK_STATUS
 
-    /**
-     * @type {VDS_DISK_STATUS}
-     */
-    status {
-        get => NumGet(this, 108, "int")
-        set => NumPut("int", value, this, 108)
-    }
+    health : VDS_HEALTH
 
-    /**
-     * @type {VDS_HEALTH}
-     */
-    health {
-        get => NumGet(this, 112, "int")
-        set => NumPut("int", value, this, 112)
-    }
+    BusType : VDS_STORAGE_BUS_TYPE
 
-    /**
-     * @type {VDS_STORAGE_BUS_TYPE}
-     */
-    BusType {
-        get => NumGet(this, 116, "int")
-        set => NumPut("int", value, this, 116)
-    }
+    PartitionStyle : VDS_PARTITION_STYLE
 
-    /**
-     * @type {VDS_PARTITION_STYLE}
-     */
-    PartitionStyle {
-        get => NumGet(this, 120, "int")
-        set => NumPut("int", value, this, 120)
-    }
+    dwSignature : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSignature {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    ulFlags : UInt32
 
-    /**
-     * @type {Pointer}
-     */
-    DiskGuid {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    dwDeviceType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulFlags {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwDeviceType {
-        get => NumGet(this, 140, "uint")
-        set => NumPut("uint", value, this, 140)
+    static __New() {
+        DefineProp(this.Prototype, 'DiskGuid', { type: Guid, offset: 124 })
+        this.DeleteProp("__New")
     }
 }

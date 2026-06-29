@@ -1,72 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_ZONE_TYPES.ahk
-#Include .\STORAGE_ZONE_CONDITION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\STORAGE_ZONE_TYPES.ahk" { STORAGE_ZONE_TYPES }
+#Import ".\STORAGE_ZONE_CONDITION.ahk" { STORAGE_ZONE_CONDITION }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_ZONE_DESCRIPTOR extends Win32Struct {
-    static sizeof => 32
+export default struct STORAGE_ZONE_DESCRIPTOR {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ZoneType : STORAGE_ZONE_TYPES
 
-    /**
-     * @type {STORAGE_ZONE_TYPES}
-     */
-    ZoneType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    ZoneCondition : STORAGE_ZONE_CONDITION
 
-    /**
-     * @type {STORAGE_ZONE_CONDITION}
-     */
-    ZoneCondition {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    ResetWritePointerRecommend : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    ResetWritePointerRecommend {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    Reserved0 : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved0 {
-        get {
-            if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 13, 3, Primitive, "char")
-            return this.__Reserved0ProxyArray
-        }
-    }
+    ZoneSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ZoneSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    WritePointerOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    WritePointerOffset {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

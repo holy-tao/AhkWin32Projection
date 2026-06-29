@@ -1,15 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains information about an access right or default access mask for a securable object.
  * @see https://learn.microsoft.com/windows/win32/api/aclui/ns-aclui-si_access
  * @namespace Windows.Win32.Security.Authorization.UI
  */
-class SI_ACCESS extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct SI_ACCESS {
+    #StructPack 8
 
     /**
      * A pointer to a 
@@ -19,21 +18,13 @@ class SI_ACCESS extends Win32Struct {
      * 
      * 
      * If this member points to GUID_NULL, the access right applies to the object itself.
-     * @type {Pointer<Guid>}
      */
-    pguid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pguid : Guid.Ptr
 
     /**
      * A bitmask that specifies the access right described by this structure. The mask can contain any combination of standard and specific rights, but should not contain generic rights such as GENERIC_ALL.
-     * @type {Integer}
      */
-    mask {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    mask : UInt32
 
     /**
      * A pointer to a null-terminated <a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">Unicode</a> string containing a display string that describes the access right. 
@@ -44,12 +35,8 @@ class SI_ACCESS extends Win32Struct {
      * Alternatively, <b>pszName</b> can be a string resource identifier returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nf-aclui-isecurityinformation-getobjectinformation">ISecurityInformation::GetObjectInformation</a> method to identify the module that contains the string resource.
-     * @type {PWSTR}
      */
-    pszName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszName : PWSTR
 
     /**
      * A set of bit flags that indicate where the access right is displayed. This member can be a combination of the following. 
@@ -153,10 +140,7 @@ class SI_ACCESS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwFlags : UInt32
+
 }

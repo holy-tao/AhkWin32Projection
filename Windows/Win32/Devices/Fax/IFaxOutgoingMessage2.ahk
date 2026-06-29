@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFaxOutgoingMessage.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FAX_RECEIPT_TYPE_ENUM.ahk" { FAX_RECEIPT_TYPE_ENUM }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IFaxOutgoingMessage.ahk" { IFaxOutgoingMessage }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Used by a fax client application to retrieve information about a sent fax message in the archive of outbound faxes.
@@ -13,26 +16,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxoutgoingmessage2
  * @namespace Windows.Win32.Devices.Fax
  */
-class IFaxOutgoingMessage2 extends IFaxOutgoingMessage {
-
-    static sizeof => A_PtrSize
+export default struct IFaxOutgoingMessage2 extends IFaxOutgoingMessage {
     /**
      * The interface identifier for IFaxOutgoingMessage2
      * @type {Guid}
      */
-    static IID => Guid("{b37df687-bc88-4b46-b3be-b458b3ea9e7f}")
+    static IID := Guid("{b37df687-bc88-4b46-b3be-b458b3ea9e7f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 26
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFaxOutgoingMessage2 interfaces
+    */
+    struct Vtbl extends IFaxOutgoingMessage.Vtbl {
+        get_HasCoverPage   : IntPtr
+        get_ReceiptType    : IntPtr
+        get_ReceiptAddress : IntPtr
+        get_Read           : IntPtr
+        put_Read           : IntPtr
+        Save               : IntPtr
+        Refresh            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_HasCoverPage", "get_ReceiptType", "get_ReceiptAddress", "get_Read", "put_Read", "Save", "Refresh"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFaxOutgoingMessage2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -69,7 +85,7 @@ class IFaxOutgoingMessage2 extends IFaxOutgoingMessage {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage2-get_hascoverpage
      */
     get_HasCoverPage() {
-        result := ComCall(26, this, "short*", &pbHasCoverPage := 0, "HRESULT")
+        result := ComCall(26, this, VARIANT_BOOL.Ptr, &pbHasCoverPage := 0, "HRESULT")
         return pbHasCoverPage
     }
 
@@ -106,8 +122,8 @@ class IFaxOutgoingMessage2 extends IFaxOutgoingMessage {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage2-get_receiptaddress
      */
     get_ReceiptAddress() {
-        pbstrReceiptAddress := BSTR()
-        result := ComCall(28, this, "ptr", pbstrReceiptAddress, "HRESULT")
+        pbstrReceiptAddress := BSTR.Owned()
+        result := ComCall(28, this, BSTR.Ptr, pbstrReceiptAddress, "HRESULT")
         return pbstrReceiptAddress
     }
 
@@ -121,7 +137,7 @@ class IFaxOutgoingMessage2 extends IFaxOutgoingMessage {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage2-get_read
      */
     get_Read() {
-        result := ComCall(29, this, "short*", &pbRead := 0, "HRESULT")
+        result := ComCall(29, this, VARIANT_BOOL.Ptr, &pbRead := 0, "HRESULT")
         return pbRead
     }
 
@@ -136,7 +152,7 @@ class IFaxOutgoingMessage2 extends IFaxOutgoingMessage {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage2-put_read
      */
     put_Read(bRead) {
-        result := ComCall(30, this, "short", bRead, "HRESULT")
+        result := ComCall(30, this, VARIANT_BOOL, bRead, "HRESULT")
         return result
     }
 
@@ -166,5 +182,37 @@ class IFaxOutgoingMessage2 extends IFaxOutgoingMessage {
     Refresh() {
         result := ComCall(32, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFaxOutgoingMessage2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_HasCoverPage := CallbackCreate(GetMethod(implObj, "get_HasCoverPage"), flags, 2)
+        this.vtbl.get_ReceiptType := CallbackCreate(GetMethod(implObj, "get_ReceiptType"), flags, 2)
+        this.vtbl.get_ReceiptAddress := CallbackCreate(GetMethod(implObj, "get_ReceiptAddress"), flags, 2)
+        this.vtbl.get_Read := CallbackCreate(GetMethod(implObj, "get_Read"), flags, 2)
+        this.vtbl.put_Read := CallbackCreate(GetMethod(implObj, "put_Read"), flags, 2)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
+        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_HasCoverPage)
+        CallbackFree(this.vtbl.get_ReceiptType)
+        CallbackFree(this.vtbl.get_ReceiptAddress)
+        CallbackFree(this.vtbl.get_Read)
+        CallbackFree(this.vtbl.put_Read)
+        CallbackFree(this.vtbl.Save)
+        CallbackFree(this.vtbl.Refresh)
     }
 }

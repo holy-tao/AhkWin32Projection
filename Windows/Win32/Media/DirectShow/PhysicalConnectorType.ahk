@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the physical type of pin (audio or video).
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-physicalconnectortype
  * @namespace Windows.Win32.Media.DirectShow
  */
-class PhysicalConnectorType extends Win32Enum {
+export default struct PhysicalConnectorType {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies a tuner pin for video.

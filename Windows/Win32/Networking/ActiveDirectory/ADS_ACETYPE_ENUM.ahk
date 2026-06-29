@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used to specify the type of an access-control entry for Active Directory objects.
@@ -13,7 +12,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_acetype_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class ADS_ACETYPE_ENUM extends Win32Enum {
+export default struct ADS_ACETYPE_ENUM {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The ACE is of the standard ACCESS ALLOWED type, where the <b>ObjectType</b> and <b>InheritedObjectType</b> fields are <b>NULL</b>.

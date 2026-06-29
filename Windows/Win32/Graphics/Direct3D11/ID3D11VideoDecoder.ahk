@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D11DeviceChild.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID3D11DeviceChild.ahk" { ID3D11DeviceChild }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\D3D11_VIDEO_DECODER_DESC.ahk" { D3D11_VIDEO_DECODER_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D11_VIDEO_DECODER_CONFIG.ahk" { D3D11_VIDEO_DECODER_CONFIG }
 
 /**
  * Represents a hardware-accelerated video decoder for Microsoft Direct3D 11.
@@ -11,26 +14,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/nn-d3d11-id3d11videodecoder
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3D11VideoDecoder extends ID3D11DeviceChild {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11VideoDecoder extends ID3D11DeviceChild {
     /**
      * The interface identifier for ID3D11VideoDecoder
      * @type {Guid}
      */
-    static IID => Guid("{3c9c5b51-995d-48d1-9b8d-fa5caeded65c}")
+    static IID := Guid("{3c9c5b51-995d-48d1-9b8d-fa5caeded65c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11VideoDecoder interfaces
+    */
+    struct Vtbl extends ID3D11DeviceChild.Vtbl {
+        GetCreationParameters : IntPtr
+        GetDriverHandle       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCreationParameters", "GetDriverHandle"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11VideoDecoder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the parameters that were used to create the decoder.
@@ -40,7 +51,7 @@ class ID3D11VideoDecoder extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodecoder-getcreationparameters
      */
     GetCreationParameters(pVideoDesc, pConfig) {
-        result := ComCall(7, this, "ptr", pVideoDesc, "ptr", pConfig, "HRESULT")
+        result := ComCall(7, this, D3D11_VIDEO_DECODER_DESC.Ptr, pVideoDesc, D3D11_VIDEO_DECODER_CONFIG.Ptr, pConfig, "HRESULT")
         return result
     }
 
@@ -52,8 +63,30 @@ class ID3D11VideoDecoder extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodecoder-getdriverhandle
      */
     GetDriverHandle() {
-        pDriverHandle := HANDLE()
-        result := ComCall(8, this, "ptr", pDriverHandle, "HRESULT")
+        pDriverHandle := HANDLE.Owned()
+        result := ComCall(8, this, HANDLE.Ptr, pDriverHandle, "HRESULT")
         return pDriverHandle
+    }
+
+    Query(iid) {
+        if (ID3D11VideoDecoder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCreationParameters := CallbackCreate(GetMethod(implObj, "GetCreationParameters"), flags, 3)
+        this.vtbl.GetDriverHandle := CallbackCreate(GetMethod(implObj, "GetDriverHandle"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCreationParameters)
+        CallbackFree(this.vtbl.GetDriverHandle)
     }
 }

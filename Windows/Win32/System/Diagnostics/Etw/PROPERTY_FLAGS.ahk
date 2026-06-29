@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines if the property is contained in a structure or array.
  * @see https://learn.microsoft.com/windows/win32/api/tdh/ne-tdh-property_flags
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class PROPERTY_FLAGS extends Win32Enum {
+export default struct PROPERTY_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The property information is contained in the <b>structType</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-event_property_info">EVENT_PROPERTY_INFO</a> structure.

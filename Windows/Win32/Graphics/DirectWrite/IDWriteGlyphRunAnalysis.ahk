@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DWRITE_TEXTURE_TYPE.ahk" { DWRITE_TEXTURE_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
 
 /**
  * Contains low-level information used to render a glyph run.
@@ -15,26 +18,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwriteglyphrunanalysis
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteGlyphRunAnalysis extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteGlyphRunAnalysis extends IUnknown {
     /**
      * The interface identifier for IDWriteGlyphRunAnalysis
      * @type {Guid}
      */
-    static IID => Guid("{7d97dbf7-e085-42d4-81e3-6a883bded118}")
+    static IID := Guid("{7d97dbf7-e085-42d4-81e3-6a883bded118}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteGlyphRunAnalysis interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetAlphaTextureBounds : IntPtr
+        CreateAlphaTexture    : IntPtr
+        GetAlphaBlendParams   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetAlphaTextureBounds", "CreateAlphaTexture", "GetAlphaBlendParams"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteGlyphRunAnalysis.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the bounding rectangle of the physical pixels affected by the glyph run.
@@ -51,7 +63,7 @@ class IDWriteGlyphRunAnalysis extends IUnknown {
      */
     GetAlphaTextureBounds(textureType) {
         textureBounds := RECT()
-        result := ComCall(3, this, "int", textureType, "ptr", textureBounds, "HRESULT")
+        result := ComCall(3, this, DWRITE_TEXTURE_TYPE, textureType, RECT.Ptr, textureBounds, "HRESULT")
         return textureBounds
     }
 
@@ -78,7 +90,7 @@ class IDWriteGlyphRunAnalysis extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwriteglyphrunanalysis-createalphatexture
      */
     CreateAlphaTexture(textureType, textureBounds, alphaValues, bufferSize) {
-        result := ComCall(4, this, "int", textureType, "ptr", textureBounds, "ptr", alphaValues, "uint", bufferSize, "HRESULT")
+        result := ComCall(4, this, DWRITE_TEXTURE_TYPE, textureType, RECT.Ptr, textureBounds, "ptr", alphaValues, "uint", bufferSize, "HRESULT")
         return result
     }
 
@@ -110,5 +122,29 @@ class IDWriteGlyphRunAnalysis extends IUnknown {
 
         result := ComCall(5, this, "ptr", renderingParams, blendGammaMarshal, blendGamma, blendEnhancedContrastMarshal, blendEnhancedContrast, blendClearTypeLevelMarshal, blendClearTypeLevel, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDWriteGlyphRunAnalysis.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetAlphaTextureBounds := CallbackCreate(GetMethod(implObj, "GetAlphaTextureBounds"), flags, 3)
+        this.vtbl.CreateAlphaTexture := CallbackCreate(GetMethod(implObj, "CreateAlphaTexture"), flags, 5)
+        this.vtbl.GetAlphaBlendParams := CallbackCreate(GetMethod(implObj, "GetAlphaBlendParams"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetAlphaTextureBounds)
+        CallbackFree(this.vtbl.CreateAlphaTexture)
+        CallbackFree(this.vtbl.GetAlphaBlendParams)
     }
 }

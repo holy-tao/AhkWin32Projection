@@ -1,51 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.Foundation
  */
-class KDEVICE_QUEUE extends Win32Struct {
-    static sizeof => 32
+export default struct KDEVICE_QUEUE {
+    #StructPack 8
 
-    static packingSize => 8
+    Type : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 0, "short")
-        set => NumPut("short", value, this, 0)
-    }
+    Size : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 2, "short")
-        set => NumPut("short", value, this, 2)
-    }
+    DeviceListHead : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    DeviceListHead {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Lock : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Lock {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Busy : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Busy {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
-    }
 }

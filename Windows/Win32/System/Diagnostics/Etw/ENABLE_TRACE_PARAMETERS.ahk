@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\EVENT_FILTER_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EVENT_FILTER_DESCRIPTOR.ahk" { EVENT_FILTER_DESCRIPTOR }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains information used to enable a provider via EnableTraceEx2.
@@ -35,19 +35,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-enable_trace_parameters
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class ENABLE_TRACE_PARAMETERS extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct ENABLE_TRACE_PARAMETERS {
+    #StructPack 8
 
     /**
      * Set to **ENABLE_TRACE_PARAMETERS_VERSION_2** (2).
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
     /**
      * Optional settings that ETW can include when writing the event. Some settings
@@ -140,33 +134,21 @@ class ENABLE_TRACE_PARAMETERS extends Win32Struct {
      *   64-bit stacks even if the trace was started by a 32-bit trace controller.
      * 
      *   Supported on Windows 7 and later.
-     * @type {Integer}
      */
-    EnableProperty {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    EnableProperty : UInt32
 
     /**
      * Reserved. Set to 0.
-     * @type {Integer}
      */
-    ControlFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ControlFlags : UInt32
 
     /**
      * A GUID that uniquely identifies the caller that is enabling or disabling the
      * provider. If the provider does not implement
      * [EnableCallback](/windows/desktop/api/evntprov/nc-evntprov-penablecallback), the
      * GUID is not used.
-     * @type {Pointer}
      */
-    SourceId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    SourceId : Guid
 
     /**
      * A pointer to an array of
@@ -175,12 +157,8 @@ class ENABLE_TRACE_PARAMETERS extends Win32Struct {
      * is specified in the **FilterDescCount** member. There can only be one descriptor
      * for each filter type as specified by the **Type** member of the
      * **EVENT_FILTER_DESCRIPTOR** structure.
-     * @type {Pointer<EVENT_FILTER_DESCRIPTOR>}
      */
-    EnableFilterDesc {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    EnableFilterDesc : EVENT_FILTER_DESCRIPTOR.Ptr
 
     /**
      * The number of elements (filters) in the
@@ -190,10 +168,7 @@ class ENABLE_TRACE_PARAMETERS extends Win32Struct {
      * The **FilterDescCount** member should match the number of
      * [EVENT_FILTER_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_filter_descriptor)
      * structures in the array pointed to by the **EnableFilterDesc** member.
-     * @type {Integer}
      */
-    FilterDescCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    FilterDescCount : UInt32
+
 }

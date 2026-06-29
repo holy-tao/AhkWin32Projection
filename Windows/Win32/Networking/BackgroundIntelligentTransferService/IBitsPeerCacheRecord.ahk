@@ -1,35 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\BG_FILE_RANGE.ahk" { BG_FILE_RANGE }
 
 /**
  * Use IBitsPeerCacheRecord to get information about a file in the cache.
  * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nn-bits3_0-ibitspeercacherecord
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class IBitsPeerCacheRecord extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBitsPeerCacheRecord extends IUnknown {
     /**
      * The interface identifier for IBitsPeerCacheRecord
      * @type {Guid}
      */
-    static IID => Guid("{659cdeaf-489e-11d9-a9cd-000d56965251}")
+    static IID := Guid("{659cdeaf-489e-11d9-a9cd-000d56965251}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBitsPeerCacheRecord interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetId                   : IntPtr
+        GetOriginUrl            : IntPtr
+        GetFileSize             : IntPtr
+        GetFileModificationTime : IntPtr
+        GetLastAccessTime       : IntPtr
+        IsFileValidated         : IntPtr
+        GetFileRanges           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetId", "GetOriginUrl", "GetFileSize", "GetFileModificationTime", "GetLastAccessTime", "IsFileValidated", "GetFileRanges"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBitsPeerCacheRecord.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the identifier that uniquely identifies the record in the cache.
@@ -38,7 +53,7 @@ class IBitsPeerCacheRecord extends IUnknown {
      */
     GetId() {
         pVal := Guid()
-        result := ComCall(3, this, "ptr", pVal, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -51,7 +66,7 @@ class IBitsPeerCacheRecord extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeercacherecord-getoriginurl
      */
     GetOriginUrl() {
-        result := ComCall(4, this, "ptr*", &pVal := 0, "HRESULT")
+        result := ComCall(4, this, PWSTR.Ptr, &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -73,7 +88,7 @@ class IBitsPeerCacheRecord extends IUnknown {
      */
     GetFileModificationTime() {
         pVal := FILETIME()
-        result := ComCall(6, this, "ptr", pVal, "HRESULT")
+        result := ComCall(6, this, FILETIME.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -85,7 +100,7 @@ class IBitsPeerCacheRecord extends IUnknown {
      */
     GetLastAccessTime() {
         pVal := FILETIME()
-        result := ComCall(7, this, "ptr", pVal, "HRESULT")
+        result := ComCall(7, this, FILETIME.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -163,5 +178,37 @@ class IBitsPeerCacheRecord extends IUnknown {
 
         result := ComCall(9, this, pRangeCountMarshal, pRangeCount, ppRangesMarshal, ppRanges, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBitsPeerCacheRecord.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetId := CallbackCreate(GetMethod(implObj, "GetId"), flags, 2)
+        this.vtbl.GetOriginUrl := CallbackCreate(GetMethod(implObj, "GetOriginUrl"), flags, 2)
+        this.vtbl.GetFileSize := CallbackCreate(GetMethod(implObj, "GetFileSize"), flags, 2)
+        this.vtbl.GetFileModificationTime := CallbackCreate(GetMethod(implObj, "GetFileModificationTime"), flags, 2)
+        this.vtbl.GetLastAccessTime := CallbackCreate(GetMethod(implObj, "GetLastAccessTime"), flags, 2)
+        this.vtbl.IsFileValidated := CallbackCreate(GetMethod(implObj, "IsFileValidated"), flags, 1)
+        this.vtbl.GetFileRanges := CallbackCreate(GetMethod(implObj, "GetFileRanges"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetId)
+        CallbackFree(this.vtbl.GetOriginUrl)
+        CallbackFree(this.vtbl.GetFileSize)
+        CallbackFree(this.vtbl.GetFileModificationTime)
+        CallbackFree(this.vtbl.GetLastAccessTime)
+        CallbackFree(this.vtbl.IsFileValidated)
+        CallbackFree(this.vtbl.GetFileRanges)
     }
 }

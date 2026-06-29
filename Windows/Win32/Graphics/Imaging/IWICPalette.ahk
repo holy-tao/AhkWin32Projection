@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WICBitmapPaletteType.ahk" { WICBitmapPaletteType }
+#Import ".\IWICBitmapSource.ahk" { IWICBitmapSource }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods for accessing and building a color table, primarily for indexed pixel formats.
@@ -17,26 +21,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicpalette
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class IWICPalette extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWICPalette extends IUnknown {
     /**
      * The interface identifier for IWICPalette
      * @type {Guid}
      */
-    static IID => Guid("{00000040-a8f2-4877-ba0a-fd2b6645fb94}")
+    static IID := Guid("{00000040-a8f2-4877-ba0a-fd2b6645fb94}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWICPalette interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        InitializePredefined  : IntPtr
+        InitializeCustom      : IntPtr
+        InitializeFromBitmap  : IntPtr
+        InitializeFromPalette : IntPtr
+        GetType               : IntPtr
+        GetColorCount         : IntPtr
+        GetColors             : IntPtr
+        IsBlackWhite          : IntPtr
+        IsGrayscale           : IntPtr
+        HasAlpha              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InitializePredefined", "InitializeCustom", "InitializeFromBitmap", "InitializeFromPalette", "GetType", "GetColorCount", "GetColors", "IsBlackWhite", "IsGrayscale", "HasAlpha"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWICPalette.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes the palette to one of the pre-defined palettes specified by WICBitmapPaletteType and optionally adds a transparent color.
@@ -54,7 +74,7 @@ class IWICPalette extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpalette-initializepredefined
      */
     InitializePredefined(ePaletteType, fAddTransparentColor) {
-        result := ComCall(3, this, "int", ePaletteType, "int", fAddTransparentColor, "HRESULT")
+        result := ComCall(3, this, WICBitmapPaletteType, ePaletteType, BOOL, fAddTransparentColor, "HRESULT")
         return result
     }
 
@@ -102,7 +122,7 @@ class IWICPalette extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpalette-initializefrombitmap
      */
     InitializeFromBitmap(pISurface, cCount, fAddTransparentColor) {
-        result := ComCall(5, this, "ptr", pISurface, "uint", cCount, "int", fAddTransparentColor, "HRESULT")
+        result := ComCall(5, this, "ptr", pISurface, "uint", cCount, BOOL, fAddTransparentColor, "HRESULT")
         return result
     }
 
@@ -181,7 +201,7 @@ class IWICPalette extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpalette-isblackwhite
      */
     IsBlackWhite() {
-        result := ComCall(10, this, "int*", &pfIsBlackWhite := 0, "HRESULT")
+        result := ComCall(10, this, BOOL.Ptr, &pfIsBlackWhite := 0, "HRESULT")
         return pfIsBlackWhite
     }
 
@@ -195,7 +215,7 @@ class IWICPalette extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpalette-isgrayscale
      */
     IsGrayscale() {
-        result := ComCall(11, this, "int*", &pfIsGrayscale := 0, "HRESULT")
+        result := ComCall(11, this, BOOL.Ptr, &pfIsGrayscale := 0, "HRESULT")
         return pfIsGrayscale
     }
 
@@ -209,7 +229,45 @@ class IWICPalette extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpalette-hasalpha
      */
     HasAlpha() {
-        result := ComCall(12, this, "int*", &pfHasAlpha := 0, "HRESULT")
+        result := ComCall(12, this, BOOL.Ptr, &pfHasAlpha := 0, "HRESULT")
         return pfHasAlpha
+    }
+
+    Query(iid) {
+        if (IWICPalette.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InitializePredefined := CallbackCreate(GetMethod(implObj, "InitializePredefined"), flags, 3)
+        this.vtbl.InitializeCustom := CallbackCreate(GetMethod(implObj, "InitializeCustom"), flags, 3)
+        this.vtbl.InitializeFromBitmap := CallbackCreate(GetMethod(implObj, "InitializeFromBitmap"), flags, 4)
+        this.vtbl.InitializeFromPalette := CallbackCreate(GetMethod(implObj, "InitializeFromPalette"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetColorCount := CallbackCreate(GetMethod(implObj, "GetColorCount"), flags, 2)
+        this.vtbl.GetColors := CallbackCreate(GetMethod(implObj, "GetColors"), flags, 4)
+        this.vtbl.IsBlackWhite := CallbackCreate(GetMethod(implObj, "IsBlackWhite"), flags, 2)
+        this.vtbl.IsGrayscale := CallbackCreate(GetMethod(implObj, "IsGrayscale"), flags, 2)
+        this.vtbl.HasAlpha := CallbackCreate(GetMethod(implObj, "HasAlpha"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InitializePredefined)
+        CallbackFree(this.vtbl.InitializeCustom)
+        CallbackFree(this.vtbl.InitializeFromBitmap)
+        CallbackFree(this.vtbl.InitializeFromPalette)
+        CallbackFree(this.vtbl.GetType)
+        CallbackFree(this.vtbl.GetColorCount)
+        CallbackFree(this.vtbl.GetColors)
+        CallbackFree(this.vtbl.IsBlackWhite)
+        CallbackFree(this.vtbl.IsGrayscale)
+        CallbackFree(this.vtbl.HasAlpha)
     }
 }

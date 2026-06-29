@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Supplies options to DirectML to control execution of operators. These flags can be bitwise OR'd together to specify multiple flags at once.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ne-directml-dml_execution_flags
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  */
-class DML_EXECUTION_FLAGS extends Win32BitflagEnum {
+export default struct DML_EXECUTION_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No execution flags are specified.

@@ -1,36 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
-#Include .\SYNCMGR_CONFLICT_ID_INFO.ahk
-#Include .\ISyncMgrConflictItems.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISyncMgrConflictItems.ahk" { ISyncMgrConflictItems }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SYNCMGR_CONFLICT_ID_INFO.ahk" { SYNCMGR_CONFLICT_ID_INFO }
+#Import ".\ISyncMgrConflictResolveInfo.ahk" { ISyncMgrConflictResolveInfo }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
 
 /**
  * Exposes methods that provide information about a conflict retrieved from a conflict store, and allows the conflict to be resolved.
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nn-syncmgr-isyncmgrconflict
  * @namespace Windows.Win32.UI.Shell
  */
-class ISyncMgrConflict extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISyncMgrConflict extends IUnknown {
     /**
      * The interface identifier for ISyncMgrConflict
      * @type {Guid}
      */
-    static IID => Guid("{9c204249-c443-4ba4-85ed-c972681db137}")
+    static IID := Guid("{9c204249-c443-4ba4-85ed-c972681db137}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISyncMgrConflict interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetProperty          : IntPtr
+        GetConflictIdInfo    : IntPtr
+        GetItemsArray        : IntPtr
+        Resolve              : IntPtr
+        GetResolutionHandler : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetProperty", "GetConflictIdInfo", "GetItemsArray", "Resolve", "GetResolutionHandler"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISyncMgrConflict.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a conflict property, given a property key.
@@ -48,7 +62,7 @@ class ISyncMgrConflict extends IUnknown {
      */
     GetProperty(propkey) {
         ppropvar := PROPVARIANT()
-        result := ComCall(3, this, "ptr", propkey, "ptr", ppropvar, "HRESULT")
+        result := ComCall(3, this, PROPERTYKEY.Ptr, propkey, PROPVARIANT.Ptr, ppropvar, "HRESULT")
         return ppropvar
     }
 
@@ -67,7 +81,7 @@ class ISyncMgrConflict extends IUnknown {
      */
     GetConflictIdInfo() {
         pConflictIdInfo := SYNCMGR_CONFLICT_ID_INFO()
-        result := ComCall(4, this, "ptr", pConflictIdInfo, "HRESULT")
+        result := ComCall(4, this, SYNCMGR_CONFLICT_ID_INFO.Ptr, pConflictIdInfo, "HRESULT")
         return pConflictIdInfo
     }
 
@@ -111,7 +125,35 @@ class ISyncMgrConflict extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflict-getresolutionhandler
      */
     GetResolutionHandler(riid) {
-        result := ComCall(7, this, "ptr", riid, "ptr*", &ppvResolutionHandler := 0, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, riid, "ptr*", &ppvResolutionHandler := 0, "HRESULT")
         return ppvResolutionHandler
+    }
+
+    Query(iid) {
+        if (ISyncMgrConflict.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.GetConflictIdInfo := CallbackCreate(GetMethod(implObj, "GetConflictIdInfo"), flags, 2)
+        this.vtbl.GetItemsArray := CallbackCreate(GetMethod(implObj, "GetItemsArray"), flags, 2)
+        this.vtbl.Resolve := CallbackCreate(GetMethod(implObj, "Resolve"), flags, 2)
+        this.vtbl.GetResolutionHandler := CallbackCreate(GetMethod(implObj, "GetResolutionHandler"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.GetConflictIdInfo)
+        CallbackFree(this.vtbl.GetItemsArray)
+        CallbackFree(this.vtbl.Resolve)
+        CallbackFree(this.vtbl.GetResolutionHandler)
     }
 }

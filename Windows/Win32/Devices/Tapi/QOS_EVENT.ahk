@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The QOS_EVENT enum describes quality of service (QOS) events. The ITQOSEvent::get_Event method returns a member of this enum to indicate the type of QOS event that occurred.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-qos_event
  * @namespace Windows.Win32.Devices.Tapi
  */
-class QOS_EVENT extends Win32Enum {
+export default struct QOS_EVENT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * QOS is not available.

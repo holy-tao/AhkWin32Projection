@@ -1,38 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11EXT_IHV_SSID_LIST.ahk
-#Include .\DOT11_BSS_TYPE.ahk
-#Include .\DOT11_MSSECURITY_SETTINGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_BSS_TYPE.ahk" { DOT11_BSS_TYPE }
+#Import ".\DOT11_MSSECURITY_SETTINGS.ahk" { DOT11_MSSECURITY_SETTINGS }
+#Import ".\DOT11EXT_IHV_SSID_LIST.ahk" { DOT11EXT_IHV_SSID_LIST }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11EXT_IHV_PROFILE_PARAMS extends Win32Struct {
-    static sizeof => 24
+export default struct DOT11EXT_IHV_PROFILE_PARAMS {
+    #StructPack 8
 
-    static packingSize => 8
+    pSsidList : DOT11EXT_IHV_SSID_LIST.Ptr
 
-    /**
-     * @type {Pointer<DOT11EXT_IHV_SSID_LIST>}
-     */
-    pSsidList {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    BssType : DOT11_BSS_TYPE
 
-    /**
-     * @type {DOT11_BSS_TYPE}
-     */
-    BssType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    pMSSecuritySettings : DOT11_MSSECURITY_SETTINGS.Ptr
 
-    /**
-     * @type {Pointer<DOT11_MSSECURITY_SETTINGS>}
-     */
-    pMSSecuritySettings {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

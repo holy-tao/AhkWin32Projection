@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The CS_DES structure is used for specifying a resource list that describes device class-specific resource usage for a device instance. For more information about resource lists, see Hardware Resources.
@@ -10,65 +10,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-cs_des
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  */
-class CS_DES extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct CS_DES {
+    #StructPack 4
 
     /**
      * The number of elements in the byte array specified by <b>CSD_Signature</b>.
-     * @type {Integer}
      */
-    CSD_SignatureLength {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    CSD_SignatureLength : UInt32
 
     /**
      * Offset, in bytes, from the beginning of the <b>CSD_Signature</b> array to the beginning of a block of data. For example, if the data block follows the signature array, and if the signature array length is 16 bytes, then the value for <b>CSD_LegacyDataOffset</b> should be 16.
-     * @type {Integer}
      */
-    CSD_LegacyDataOffset {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    CSD_LegacyDataOffset : UInt32
 
     /**
      * Length, in bytes, of the data block whose offset is specified by <b>CSD_LegacyDataOffset</b>.
-     * @type {Integer}
      */
-    CSD_LegacyDataSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    CSD_LegacyDataSize : UInt32
 
     /**
      * <i>Not used.</i>
-     * @type {Integer}
      */
-    CSD_Flags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    CSD_Flags : UInt32
 
     /**
      * A globally unique identifier (GUID) identifying a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/overview-of-device-setup-classes">device setup class</a>. If both <b>CSD_SignatureLength</b> and <b>CSD_LegacyDataSize</b> are zero, the GUID is null.
-     * @type {Pointer}
      */
-    CSD_ClassGuid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    CSD_ClassGuid : Guid
 
     /**
      * A byte array containing a class-specific signature.
-     * @type {Array<Integer>}
      */
-    CSD_Signature {
-        get {
-            if(!this.HasProp("__CSD_SignatureProxyArray"))
-                this.__CSD_SignatureProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
-            return this.__CSD_SignatureProxyArray
-        }
-    }
+    CSD_Signature : Int8[1]
+
 }

@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents the pinned status of an item in the Offline Files cache.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilespininfo
  * @namespace Windows.Win32.Storage.OfflineFiles
  */
-class IOfflineFilesPinInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOfflineFilesPinInfo extends IUnknown {
     /**
      * The interface identifier for IOfflineFilesPinInfo
      * @type {Guid}
      */
-    static IID => Guid("{5b2b0655-b3fd-497d-adeb-bd156bc8355b}")
+    static IID := Guid("{5b2b0655-b3fd-497d-adeb-bd156bc8355b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOfflineFilesPinInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        IsPinned                     : IntPtr
+        IsPinnedForUser              : IntPtr
+        IsPinnedForUserByPolicy      : IntPtr
+        IsPinnedForComputer          : IntPtr
+        IsPinnedForFolderRedirection : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsPinned", "IsPinnedForUser", "IsPinnedForUserByPolicy", "IsPinnedForComputer", "IsPinnedForFolderRedirection"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOfflineFilesPinInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Determines whether the item is pinned.
@@ -37,7 +50,7 @@ class IOfflineFilesPinInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilespininfo-ispinned
      */
     IsPinned() {
-        result := ComCall(3, this, "int*", &pbPinned := 0, "HRESULT")
+        result := ComCall(3, this, BOOL.Ptr, &pbPinned := 0, "HRESULT")
         return pbPinned
     }
 
@@ -115,5 +128,33 @@ class IOfflineFilesPinInfo extends IUnknown {
 
         result := ComCall(7, this, pbPinnedForFolderRedirectionMarshal, pbPinnedForFolderRedirection, pbInheritMarshal, pbInherit, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOfflineFilesPinInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsPinned := CallbackCreate(GetMethod(implObj, "IsPinned"), flags, 2)
+        this.vtbl.IsPinnedForUser := CallbackCreate(GetMethod(implObj, "IsPinnedForUser"), flags, 3)
+        this.vtbl.IsPinnedForUserByPolicy := CallbackCreate(GetMethod(implObj, "IsPinnedForUserByPolicy"), flags, 3)
+        this.vtbl.IsPinnedForComputer := CallbackCreate(GetMethod(implObj, "IsPinnedForComputer"), flags, 3)
+        this.vtbl.IsPinnedForFolderRedirection := CallbackCreate(GetMethod(implObj, "IsPinnedForFolderRedirection"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsPinned)
+        CallbackFree(this.vtbl.IsPinnedForUser)
+        CallbackFree(this.vtbl.IsPinnedForUserByPolicy)
+        CallbackFree(this.vtbl.IsPinnedForComputer)
+        CallbackFree(this.vtbl.IsPinnedForFolderRedirection)
     }
 }

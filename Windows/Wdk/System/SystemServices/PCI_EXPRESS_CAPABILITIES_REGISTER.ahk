@@ -1,13 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCI_EXPRESS_CAPABILITIES_REGISTER extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 2
+export default struct PCI_EXPRESS_CAPABILITIES_REGISTER {
+    #StructPack 2
 
     /**
      * This bitfield backs the following members:
@@ -16,12 +13,9 @@ class PCI_EXPRESS_CAPABILITIES_REGISTER extends Win32Struct {
      * - SlotImplemented
      * - InterruptMessageNumber
      * - Rsvd
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    _bitfield : Int16
+
 
     /**
      * @type {Integer}
@@ -62,12 +56,8 @@ class PCI_EXPRESS_CAPABILITIES_REGISTER extends Win32Struct {
         get => (this._bitfield >> 14) & 0x3
         set => this._bitfield := ((value & 0x3) << 14) | (this._bitfield & ~(0x3 << 14))
     }
-
-    /**
-     * @type {Integer}
-     */
-    AsUSHORT {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'AsUSHORT', { type: UInt16, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

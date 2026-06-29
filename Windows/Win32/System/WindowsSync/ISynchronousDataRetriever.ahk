@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID_PARAMETERS.ahk" { ID_PARAMETERS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ILoadChangeContext.ahk" { ILoadChangeContext }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents the mechanism by which the destination provider retrieves item data from the source provider.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isynchronousdataretriever
  * @namespace Windows.Win32.System.WindowsSync
  */
-class ISynchronousDataRetriever extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISynchronousDataRetriever extends IUnknown {
     /**
      * The interface identifier for ISynchronousDataRetriever
      * @type {Guid}
      */
-    static IID => Guid("{9b22f2a9-a4cd-4648-9d8e-3a510d4da04b}")
+    static IID := Guid("{9b22f2a9-a4cd-4648-9d8e-3a510d4da04b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISynchronousDataRetriever interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetIdParameters : IntPtr
+        LoadChangeData  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetIdParameters", "LoadChangeData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISynchronousDataRetriever.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the ID format schema of the provider. (ISynchronousDataRetriever.GetIdParameters)
@@ -62,7 +73,7 @@ class ISynchronousDataRetriever extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isynchronousdataretriever-getidparameters
      */
     GetIdParameters(pIdParameters) {
-        result := ComCall(3, this, "ptr", pIdParameters, "HRESULT")
+        result := ComCall(3, this, ID_PARAMETERS.Ptr, pIdParameters, "HRESULT")
         return result
     }
 
@@ -77,5 +88,27 @@ class ISynchronousDataRetriever extends IUnknown {
     LoadChangeData(pLoadChangeContext) {
         result := ComCall(4, this, "ptr", pLoadChangeContext, "ptr*", &ppUnkData := 0, "HRESULT")
         return IUnknown(ppUnkData)
+    }
+
+    Query(iid) {
+        if (ISynchronousDataRetriever.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetIdParameters := CallbackCreate(GetMethod(implObj, "GetIdParameters"), flags, 2)
+        this.vtbl.LoadChangeData := CallbackCreate(GetMethod(implObj, "LoadChangeData"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetIdParameters)
+        CallbackFree(this.vtbl.LoadChangeData)
     }
 }

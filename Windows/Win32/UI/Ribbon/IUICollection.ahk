@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IUICollection interface is implemented by the Ribbon framework.
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nn-uiribbon-iuicollection
  * @namespace Windows.Win32.UI.Ribbon
  */
-class IUICollection extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUICollection extends IUnknown {
     /**
      * The interface identifier for IUICollection
      * @type {Guid}
      */
-    static IID => Guid("{df4f45bf-6f9d-4dd7-9d68-d8f9cd18c4db}")
+    static IID := Guid("{df4f45bf-6f9d-4dd7-9d68-d8f9cd18c4db}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUICollection interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCount : IntPtr
+        GetItem  : IntPtr
+        Add      : IntPtr
+        Insert   : IntPtr
+        RemoveAt : IntPtr
+        Replace  : IntPtr
+        Clear    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCount", "GetItem", "Add", "Insert", "RemoveAt", "Replace", "Clear"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUICollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the number of items contained in the IUICollection.
@@ -132,5 +146,37 @@ class IUICollection extends IUnknown {
     Clear() {
         result := ComCall(9, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUICollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetItem := CallbackCreate(GetMethod(implObj, "GetItem"), flags, 3)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Insert := CallbackCreate(GetMethod(implObj, "Insert"), flags, 3)
+        this.vtbl.RemoveAt := CallbackCreate(GetMethod(implObj, "RemoveAt"), flags, 2)
+        this.vtbl.Replace := CallbackCreate(GetMethod(implObj, "Replace"), flags, 3)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCount)
+        CallbackFree(this.vtbl.GetItem)
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.Insert)
+        CallbackFree(this.vtbl.RemoveAt)
+        CallbackFree(this.vtbl.Replace)
+        CallbackFree(this.vtbl.Clear)
     }
 }

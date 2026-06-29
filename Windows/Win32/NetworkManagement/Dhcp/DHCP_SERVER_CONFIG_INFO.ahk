@@ -1,15 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The DHCP_SERVER_CONFIG_INFO structure defines the data used to configure the DHCP server.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_server_config_info
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  */
-class DHCP_SERVER_CONFIG_INFO extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct DHCP_SERVER_CONFIG_INFO {
+    #StructPack 8
 
     /**
      * Specifies a set of bit flags that contain the RPC protocols supported by the DHCP server.
@@ -53,48 +51,28 @@ class DHCP_SERVER_CONFIG_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    APIProtocolSupport {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    APIProtocolSupport : UInt32
 
     /**
      * Unicode string that specifies the  file name of the client lease JET database.
-     * @type {PWSTR}
      */
-    DatabaseName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    DatabaseName : PWSTR
 
     /**
      * Unicode string that specifies the absolute path to <b>DatabaseName</b>.
-     * @type {PWSTR}
      */
-    DatabasePath {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    DatabasePath : PWSTR
 
     /**
      * Unicode string that specifies the absolute path and file name of the backup client lease JET database.
-     * @type {PWSTR}
      */
-    BackupPath {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    BackupPath : PWSTR
 
     /**
      * Specifies the interval, in minutes,  between backups of the client lease database.
-     * @type {Integer}
      */
-    BackupInterval {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    BackupInterval : UInt32
 
     /**
      * Specifies a bit flag that indicates whether or not database actions should be logged.
@@ -116,12 +94,8 @@ class DHCP_SERVER_CONFIG_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    DatabaseLoggingFlag {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    DatabaseLoggingFlag : UInt32
 
     /**
      * Specifies a bit flag that indicates whether or not a database restore operation should be performed.
@@ -143,28 +117,17 @@ class DHCP_SERVER_CONFIG_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    RestoreFlag {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    RestoreFlag : UInt32
 
     /**
      * Specifies the interval, in minutes,  between cleanup operations  performed on the client lease database.
-     * @type {Integer}
      */
-    DatabaseCleanupInterval {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    DatabaseCleanupInterval : UInt32
 
     /**
      * Reserved. This field should be set to 0x00000000.
-     * @type {Integer}
      */
-    DebugFlag {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    DebugFlag : UInt32
+
 }

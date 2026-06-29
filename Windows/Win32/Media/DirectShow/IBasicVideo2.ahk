@@ -1,33 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IBasicVideo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IBasicVideo.ahk" { IBasicVideo }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IBasicVideo2 interface extends the IBasicVideo interface.
  * @see https://learn.microsoft.com/windows/win32/api/control/nn-control-ibasicvideo2
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IBasicVideo2 extends IBasicVideo {
-
-    static sizeof => A_PtrSize
+export default struct IBasicVideo2 extends IBasicVideo {
     /**
      * The interface identifier for IBasicVideo2
      * @type {Guid}
      */
-    static IID => Guid("{329bb360-f6ea-11d1-9038-00a0c9697298}")
+    static IID := Guid("{329bb360-f6ea-11d1-9038-00a0c9697298}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 39
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBasicVideo2 interfaces
+    */
+    struct Vtbl extends IBasicVideo.Vtbl {
+        GetPreferredAspectRatio : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPreferredAspectRatio"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBasicVideo2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetPreferredAspectRatio method retrieves the preferred aspect ratio.
@@ -82,5 +90,25 @@ class IBasicVideo2 extends IBasicVideo {
 
         result := ComCall(39, this, plAspectXMarshal, plAspectX, plAspectYMarshal, plAspectY, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBasicVideo2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPreferredAspectRatio := CallbackCreate(GetMethod(implObj, "GetPreferredAspectRatio"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPreferredAspectRatio)
     }
 }

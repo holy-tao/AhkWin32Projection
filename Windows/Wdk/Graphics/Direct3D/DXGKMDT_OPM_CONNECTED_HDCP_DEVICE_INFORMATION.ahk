@@ -1,76 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class DXGKMDT_OPM_CONNECTED_HDCP_DEVICE_INFORMATION extends Win32Struct {
-    static sizeof => 72
+export default struct DXGKMDT_OPM_CONNECTED_HDCP_DEVICE_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    rnRandomNumber : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    rnRandomNumber {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ulStatusFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulStatusFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulHDCPFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulHDCPFlags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ksvB : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ksvB {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Reserved : Int8[11]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 24, 11, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    Reserved2 : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved2 {
-        get {
-            if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 35, 16, Primitive, "char")
-            return this.__Reserved2ProxyArray
-        }
-    }
+    Reserved3 : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved3 {
-        get {
-            if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 51, 16, Primitive, "char")
-            return this.__Reserved3ProxyArray
-        }
-    }
 }

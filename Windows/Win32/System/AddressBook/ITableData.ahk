@@ -1,8 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IMAPITable.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMAPITable.ahk" { IMAPITable }
+#Import ".\SRowSet.ahk" { SRowSet }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SSortOrderSet.ahk" { SSortOrderSet }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SRow.ahk" { SRow }
+#Import ".\SPropValue.ahk" { SPropValue }
 
 /**
  * Provides utility methods for working with tables. MAPI provides objects that implement ITableData to help service providers perform table maintenance.
@@ -15,21 +20,36 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itabledataiunknown
  * @namespace Windows.Win32.System.AddressBook
  */
-class ITableData extends IUnknown {
+export default struct ITableData extends IUnknown {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["HrGetView", "HrModifyRow", "HrDeleteRow", "HrQueryRow", "HrEnumRow", "HrNotify", "HrInsertRow", "HrModifyRows", "HrDeleteRows"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITableData interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        HrGetView    : IntPtr
+        HrModifyRow  : IntPtr
+        HrDeleteRow  : IntPtr
+        HrQueryRow   : IntPtr
+        HrEnumRow    : IntPtr
+        HrNotify     : IntPtr
+        HrInsertRow  : IntPtr
+        HrModifyRows : IntPtr
+        HrDeleteRows : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITableData.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -48,7 +68,7 @@ class ITableData extends IUnknown {
     HrGetView(lpSSortOrderSet, lpfCallerRelease, ulCallerData) {
         lpfCallerReleaseMarshal := lpfCallerRelease is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", lpSSortOrderSet, lpfCallerReleaseMarshal, lpfCallerRelease, "uint", ulCallerData, "ptr*", &lppMAPITable := 0, "HRESULT")
+        result := ComCall(3, this, SSortOrderSet.Ptr, lpSSortOrderSet, lpfCallerReleaseMarshal, lpfCallerRelease, "uint", ulCallerData, "ptr*", &lppMAPITable := 0, "HRESULT")
         return IMAPITable(lppMAPITable)
     }
 
@@ -73,7 +93,7 @@ class ITableData extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itabledata-hrmodifyrow
      */
     HrModifyRow(param0) {
-        result := ComCall(4, this, "ptr", param0, "HRESULT")
+        result := ComCall(4, this, SRow.Ptr, param0, "HRESULT")
         return result
     }
 
@@ -96,7 +116,7 @@ class ITableData extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itabledata-hrdeleterow
      */
     HrDeleteRow(lpSPropValue) {
-        result := ComCall(5, this, "ptr", lpSPropValue, "HRESULT")
+        result := ComCall(5, this, SPropValue.Ptr, lpSPropValue, "HRESULT")
         return result
     }
 
@@ -122,7 +142,7 @@ class ITableData extends IUnknown {
         lppSRowMarshal := lppSRow is VarRef ? "ptr*" : "ptr"
         lpuliRowMarshal := lpuliRow is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", lpsPropValue, lppSRowMarshal, lppSRow, lpuliRowMarshal, lpuliRow, "HRESULT")
+        result := ComCall(6, this, SPropValue.Ptr, lpsPropValue, lppSRowMarshal, lppSRow, lpuliRowMarshal, lpuliRow, "HRESULT")
         return result
     }
 
@@ -163,7 +183,7 @@ class ITableData extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itabledata-hrnotify
      */
     HrNotify(ulFlags, cValues, lpSPropValue) {
-        result := ComCall(8, this, "uint", ulFlags, "uint", cValues, "ptr", lpSPropValue, "HRESULT")
+        result := ComCall(8, this, "uint", ulFlags, "uint", cValues, SPropValue.Ptr, lpSPropValue, "HRESULT")
         return result
     }
 
@@ -191,7 +211,7 @@ class ITableData extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itabledata-hrinsertrow
      */
     HrInsertRow(uliRow, lpSRow) {
-        result := ComCall(9, this, "uint", uliRow, "ptr", lpSRow, "HRESULT")
+        result := ComCall(9, this, "uint", uliRow, SRow.Ptr, lpSRow, "HRESULT")
         return result
     }
 
@@ -217,7 +237,7 @@ class ITableData extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itabledata-hrmodifyrows
      */
     HrModifyRows(ulFlags, lpSRowSet) {
-        result := ComCall(10, this, "uint", ulFlags, "ptr", lpSRowSet, "HRESULT")
+        result := ComCall(10, this, "uint", ulFlags, SRowSet.Ptr, lpSRowSet, "HRESULT")
         return result
     }
 
@@ -246,7 +266,43 @@ class ITableData extends IUnknown {
     HrDeleteRows(ulFlags, lprowsetToDelete, cRowsDeleted) {
         cRowsDeletedMarshal := cRowsDeleted is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "uint", ulFlags, "ptr", lprowsetToDelete, cRowsDeletedMarshal, cRowsDeleted, "HRESULT")
+        result := ComCall(11, this, "uint", ulFlags, SRowSet.Ptr, lprowsetToDelete, cRowsDeletedMarshal, cRowsDeleted, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITableData.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.HrGetView := CallbackCreate(GetMethod(implObj, "HrGetView"), flags, 5)
+        this.vtbl.HrModifyRow := CallbackCreate(GetMethod(implObj, "HrModifyRow"), flags, 2)
+        this.vtbl.HrDeleteRow := CallbackCreate(GetMethod(implObj, "HrDeleteRow"), flags, 2)
+        this.vtbl.HrQueryRow := CallbackCreate(GetMethod(implObj, "HrQueryRow"), flags, 4)
+        this.vtbl.HrEnumRow := CallbackCreate(GetMethod(implObj, "HrEnumRow"), flags, 3)
+        this.vtbl.HrNotify := CallbackCreate(GetMethod(implObj, "HrNotify"), flags, 4)
+        this.vtbl.HrInsertRow := CallbackCreate(GetMethod(implObj, "HrInsertRow"), flags, 3)
+        this.vtbl.HrModifyRows := CallbackCreate(GetMethod(implObj, "HrModifyRows"), flags, 3)
+        this.vtbl.HrDeleteRows := CallbackCreate(GetMethod(implObj, "HrDeleteRows"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.HrGetView)
+        CallbackFree(this.vtbl.HrModifyRow)
+        CallbackFree(this.vtbl.HrDeleteRow)
+        CallbackFree(this.vtbl.HrQueryRow)
+        CallbackFree(this.vtbl.HrEnumRow)
+        CallbackFree(this.vtbl.HrNotify)
+        CallbackFree(this.vtbl.HrInsertRow)
+        CallbackFree(this.vtbl.HrModifyRows)
+        CallbackFree(this.vtbl.HrDeleteRows)
     }
 }

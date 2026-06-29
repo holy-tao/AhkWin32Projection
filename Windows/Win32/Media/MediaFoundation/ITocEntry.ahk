@@ -1,33 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\TOC_ENTRY_DESCRIPTOR.ahk" { TOC_ENTRY_DESCRIPTOR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITocEntry interface represents an individual entry in a table of contents. It provides methods for setting and retrieving descriptive information for the entry.
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nn-wmcodecdsp-itocentry
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class ITocEntry extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITocEntry extends IUnknown {
     /**
      * The interface identifier for ITocEntry
      * @type {Guid}
      */
-    static IID => Guid("{f22f5e06-585c-4def-8523-6555cfbc0cb3}")
+    static IID := Guid("{f22f5e06-585c-4def-8523-6555cfbc0cb3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITocEntry interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetTitle           : IntPtr
+        GetTitle           : IntPtr
+        SetDescriptor      : IntPtr
+        GetDescriptor      : IntPtr
+        SetSubEntries      : IntPtr
+        GetSubEntries      : IntPtr
+        SetDescriptionData : IntPtr
+        GetDescriptionData : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetTitle", "GetTitle", "SetDescriptor", "GetDescriptor", "SetSubEntries", "GetSubEntries", "SetDescriptionData", "GetDescriptionData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITocEntry.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetTitle method sets the title of the entry.
@@ -130,7 +147,7 @@ class ITocEntry extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocentry-setdescriptor
      */
     SetDescriptor(pDescriptor) {
-        result := ComCall(5, this, "ptr", pDescriptor, "HRESULT")
+        result := ComCall(5, this, TOC_ENTRY_DESCRIPTOR.Ptr, pDescriptor, "HRESULT")
         return result
     }
 
@@ -159,7 +176,7 @@ class ITocEntry extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocentry-getdescriptor
      */
     GetDescriptor(pDescriptor) {
-        result := ComCall(6, this, "ptr", pDescriptor, "HRESULT")
+        result := ComCall(6, this, TOC_ENTRY_DESCRIPTOR.Ptr, pDescriptor, "HRESULT")
         return result
     }
 
@@ -272,7 +289,7 @@ class ITocEntry extends IUnknown {
     SetDescriptionData(dwDescriptionDataSize, pbtDescriptionData, pguidType) {
         pbtDescriptionDataMarshal := pbtDescriptionData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(9, this, "uint", dwDescriptionDataSize, pbtDescriptionDataMarshal, pbtDescriptionData, "ptr", pguidType, "HRESULT")
+        result := ComCall(9, this, "uint", dwDescriptionDataSize, pbtDescriptionDataMarshal, pbtDescriptionData, Guid.Ptr, pguidType, "HRESULT")
         return result
     }
 
@@ -319,7 +336,41 @@ class ITocEntry extends IUnknown {
         pdwDescriptionDataSizeMarshal := pdwDescriptionDataSize is VarRef ? "uint*" : "ptr"
         pbtDescriptionDataMarshal := pbtDescriptionData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(10, this, pdwDescriptionDataSizeMarshal, pdwDescriptionDataSize, pbtDescriptionDataMarshal, pbtDescriptionData, "ptr", pGuidType, "HRESULT")
+        result := ComCall(10, this, pdwDescriptionDataSizeMarshal, pdwDescriptionDataSize, pbtDescriptionDataMarshal, pbtDescriptionData, Guid.Ptr, pGuidType, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITocEntry.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetTitle := CallbackCreate(GetMethod(implObj, "SetTitle"), flags, 2)
+        this.vtbl.GetTitle := CallbackCreate(GetMethod(implObj, "GetTitle"), flags, 3)
+        this.vtbl.SetDescriptor := CallbackCreate(GetMethod(implObj, "SetDescriptor"), flags, 2)
+        this.vtbl.GetDescriptor := CallbackCreate(GetMethod(implObj, "GetDescriptor"), flags, 2)
+        this.vtbl.SetSubEntries := CallbackCreate(GetMethod(implObj, "SetSubEntries"), flags, 3)
+        this.vtbl.GetSubEntries := CallbackCreate(GetMethod(implObj, "GetSubEntries"), flags, 3)
+        this.vtbl.SetDescriptionData := CallbackCreate(GetMethod(implObj, "SetDescriptionData"), flags, 4)
+        this.vtbl.GetDescriptionData := CallbackCreate(GetMethod(implObj, "GetDescriptionData"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetTitle)
+        CallbackFree(this.vtbl.GetTitle)
+        CallbackFree(this.vtbl.SetDescriptor)
+        CallbackFree(this.vtbl.GetDescriptor)
+        CallbackFree(this.vtbl.SetSubEntries)
+        CallbackFree(this.vtbl.GetSubEntries)
+        CallbackFree(this.vtbl.SetDescriptionData)
+        CallbackFree(this.vtbl.GetDescriptionData)
     }
 }

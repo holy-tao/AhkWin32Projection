@@ -1,47 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NFC_DATA_BUFFER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NFC_DATA_BUFFER.ahk" { NFC_DATA_BUFFER }
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
  */
-class NFC_SNEP_SERVER_RESPONSE_INFO extends Win32Struct {
-    static sizeof => 24
+export default struct NFC_SNEP_SERVER_RESPONSE_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    hSnepServer : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    hSnepServer {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    hConnection : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    hConnection {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    dwResponseStatus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwResponseStatus {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    sResponsePayload : NFC_DATA_BUFFER
 
-    /**
-     * @type {NFC_DATA_BUFFER}
-     */
-    sResponsePayload {
-        get {
-            if(!this.HasProp("__sResponsePayload"))
-                this.__sResponsePayload := NFC_DATA_BUFFER(20, this)
-            return this.__sResponsePayload
-        }
-    }
 }

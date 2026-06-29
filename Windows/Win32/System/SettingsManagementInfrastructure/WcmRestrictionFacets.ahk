@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Enumerates the facet values that may be returned by the ISettingsItem::GetRestrictionFacets method.
  * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmrestrictionfacets
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
  */
-class WcmRestrictionFacets extends Win32Enum {
+export default struct WcmRestrictionFacets {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Maximum number of units of length. Units of length depend on the data type. This value must be a nonNegativeInteger.

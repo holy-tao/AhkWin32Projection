@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IShellFolder.ahk" { IShellFolder }
 
 /**
  * A callback interface exposing methods used with INamespaceWalk.
@@ -10,26 +14,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-inamespacewalkcb
  * @namespace Windows.Win32.UI.Shell
  */
-class INamespaceWalkCB extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct INamespaceWalkCB extends IUnknown {
     /**
      * The interface identifier for INamespaceWalkCB
      * @type {Guid}
      */
-    static IID => Guid("{d92995f8-cf5e-4a76-bf59-ead39ea2b97e}")
+    static IID := Guid("{d92995f8-cf5e-4a76-bf59-ead39ea2b97e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INamespaceWalkCB interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        FoundItem                : IntPtr
+        EnterFolder              : IntPtr
+        LeaveFolder              : IntPtr
+        InitializeProgressDialog : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["FoundItem", "EnterFolder", "LeaveFolder", "InitializeProgressDialog"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INamespaceWalkCB.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called when an object is found in the namespace during a namespace walk. Use this method as the main action function for the class implementing it. Perform your actions as needed inside this method.
@@ -45,7 +59,7 @@ class INamespaceWalkCB extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacewalkcb-founditem
      */
     FoundItem(psf, pidl) {
-        result := ComCall(3, this, "ptr", psf, "ptr", pidl, "HRESULT")
+        result := ComCall(3, this, "ptr", psf, ITEMIDLIST.Ptr, pidl, "HRESULT")
         return result
     }
 
@@ -63,7 +77,7 @@ class INamespaceWalkCB extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacewalkcb-enterfolder
      */
     EnterFolder(psf, pidl) {
-        result := ComCall(4, this, "ptr", psf, "ptr", pidl, "HRESULT")
+        result := ComCall(4, this, "ptr", psf, ITEMIDLIST.Ptr, pidl, "HRESULT")
         return result
     }
 
@@ -81,7 +95,7 @@ class INamespaceWalkCB extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacewalkcb-leavefolder
      */
     LeaveFolder(psf, pidl) {
-        result := ComCall(5, this, "ptr", psf, "ptr", pidl, "HRESULT")
+        result := ComCall(5, this, "ptr", psf, ITEMIDLIST.Ptr, pidl, "HRESULT")
         return result
     }
 
@@ -104,5 +118,31 @@ class INamespaceWalkCB extends IUnknown {
 
         result := ComCall(6, this, ppszTitleMarshal, ppszTitle, ppszCancelMarshal, ppszCancel, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (INamespaceWalkCB.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.FoundItem := CallbackCreate(GetMethod(implObj, "FoundItem"), flags, 3)
+        this.vtbl.EnterFolder := CallbackCreate(GetMethod(implObj, "EnterFolder"), flags, 3)
+        this.vtbl.LeaveFolder := CallbackCreate(GetMethod(implObj, "LeaveFolder"), flags, 3)
+        this.vtbl.InitializeProgressDialog := CallbackCreate(GetMethod(implObj, "InitializeProgressDialog"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.FoundItem)
+        CallbackFree(this.vtbl.EnterFolder)
+        CallbackFree(this.vtbl.LeaveFolder)
+        CallbackFree(this.vtbl.InitializeProgressDialog)
     }
 }

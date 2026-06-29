@@ -1,47 +1,34 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WINHTTP_CONNECTION_GROUP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WINHTTP_CONNECTION_GROUP.ahk" { WINHTTP_CONNECTION_GROUP }
 
 /**
  * Represents a collection of connection groups.
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_host_connection_group
  * @namespace Windows.Win32.Networking.WinHttp
  */
-class WINHTTP_HOST_CONNECTION_GROUP extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct WINHTTP_HOST_CONNECTION_GROUP {
+    #StructPack 8
 
     /**
      * Type: **[PCWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * A string containing the host name.
-     * @type {PWSTR}
      */
-    pwszHost {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pwszHost : PWSTR
 
     /**
      * Type: **[ULONG](/windows/win32/winprog/windows-data-types)**
      * 
      * The number of elements in *pConnectionGroups*.
-     * @type {Integer}
      */
-    cConnectionGroups {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cConnectionGroups : UInt32
 
     /**
      * Type: **[PWINHTTP_CONNECTION_GROUP](ns-winhttp-winhttp_connection_group.md)**
      * 
      * An array of [WINHTTP_CONNECTION_GROUP](ns-winhttp-winhttp_connection_group.md) objects.
-     * @type {Pointer<WINHTTP_CONNECTION_GROUP>}
      */
-    pConnectionGroups {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pConnectionGroups : WINHTTP_CONNECTION_GROUP.Ptr
+
 }

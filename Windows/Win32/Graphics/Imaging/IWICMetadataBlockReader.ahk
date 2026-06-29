@@ -1,10 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWICMetadataReader.ahk
-#Include ..\..\System\Com\IEnumUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IEnumUnknown.ahk" { IEnumUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWICMetadataReader.ahk" { IWICMetadataReader }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that provide access to all of the codec's top level metadata blocks.
@@ -17,26 +17,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nn-wincodecsdk-iwicmetadatablockreader
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class IWICMetadataBlockReader extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWICMetadataBlockReader extends IUnknown {
     /**
      * The interface identifier for IWICMetadataBlockReader
      * @type {Guid}
      */
-    static IID => Guid("{feaa2a8d-b3f3-43e4-b25c-d1de990a1ae1}")
+    static IID := Guid("{feaa2a8d-b3f3-43e4-b25c-d1de990a1ae1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWICMetadataBlockReader interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetContainerFormat : IntPtr
+        GetCount           : IntPtr
+        GetReaderByIndex   : IntPtr
+        GetEnumerator      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetContainerFormat", "GetCount", "GetReaderByIndex", "GetEnumerator"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWICMetadataBlockReader.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the container format of the decoder.
@@ -47,7 +57,7 @@ class IWICMetadataBlockReader extends IUnknown {
      */
     GetContainerFormat() {
         pguidContainerFormat := Guid()
-        result := ComCall(3, this, "ptr", pguidContainerFormat, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pguidContainerFormat, "HRESULT")
         return pguidContainerFormat
     }
 
@@ -88,5 +98,31 @@ class IWICMetadataBlockReader extends IUnknown {
     GetEnumerator() {
         result := ComCall(6, this, "ptr*", &ppIEnumMetadata := 0, "HRESULT")
         return IEnumUnknown(ppIEnumMetadata)
+    }
+
+    Query(iid) {
+        if (IWICMetadataBlockReader.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetContainerFormat := CallbackCreate(GetMethod(implObj, "GetContainerFormat"), flags, 2)
+        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetReaderByIndex := CallbackCreate(GetMethod(implObj, "GetReaderByIndex"), flags, 3)
+        this.vtbl.GetEnumerator := CallbackCreate(GetMethod(implObj, "GetEnumerator"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetContainerFormat)
+        CallbackFree(this.vtbl.GetCount)
+        CallbackFree(this.vtbl.GetReaderByIndex)
+        CallbackFree(this.vtbl.GetEnumerator)
     }
 }

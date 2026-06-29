@@ -1,156 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_ZONED_DEVICE_TYPES.ahk
-#Include .\STORAGE_ZONE_GROUP.ahk
-#Include .\STORAGE_ZONE_TYPES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\STORAGE_ZONED_DEVICE_TYPES.ahk" { STORAGE_ZONED_DEVICE_TYPES }
+#Import ".\STORAGE_ZONE_GROUP.ahk" { STORAGE_ZONE_GROUP }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\STORAGE_ZONE_TYPES.ahk" { STORAGE_ZONE_TYPES }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_ZONED_DEVICE_DESCRIPTOR extends Win32Struct {
-    static sizeof => 48
+export default struct STORAGE_ZONED_DEVICE_DESCRIPTOR {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _ZoneAttributes_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 4
+    struct _ZoneAttributes {
 
-        class _SequentialRequiredZone extends Win32Struct {
-            static sizeof => 8
-            static packingSize => 4
+        struct _SequentialRequiredZone {
+            MaxOpenZoneCount : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            MaxOpenZoneCount {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            UnrestrictedRead : BOOLEAN
 
-            /**
-             * @type {BOOLEAN}
-             */
-            UnrestrictedRead {
-                get => NumGet(this, 4, "char")
-                set => NumPut("char", value, this, 4)
-            }
+            Reserved : Int8[3]
 
-            /**
-             * @type {Array<Integer>}
-             */
-            Reserved {
-                get {
-                    if(!this.HasProp("__ReservedProxyArray"))
-                        this.__ReservedProxyArray := Win32FixedArray(this.ptr + 5, 3, Primitive, "char")
-                    return this.__ReservedProxyArray
-                }
-            }
         }
 
-        class _SequentialPreferredZone extends Win32Struct {
-            static sizeof => 8
-            static packingSize => 4
+        struct _SequentialPreferredZone {
+            OptimalOpenZoneCount : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            OptimalOpenZoneCount {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            Reserved : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Reserved {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
         }
 
-        /**
-         * @type {_SequentialRequiredZone}
-         */
-        SequentialRequiredZone {
-            get {
-                if(!this.HasProp("__SequentialRequiredZone"))
-                    this.__SequentialRequiredZone := STORAGE_ZONED_DEVICE_DESCRIPTOR._ZoneAttributes_e__Union._SequentialRequiredZone(0, this)
-                return this.__SequentialRequiredZone
-            }
-        }
+        SequentialRequiredZone : STORAGE_ZONED_DEVICE_DESCRIPTOR._ZoneAttributes._SequentialRequiredZone
 
-        /**
-         * @type {_SequentialPreferredZone}
-         */
-        SequentialPreferredZone {
-            get {
-                if(!this.HasProp("__SequentialPreferredZone"))
-                    this.__SequentialPreferredZone := STORAGE_ZONED_DEVICE_DESCRIPTOR._ZoneAttributes_e__Union._SequentialPreferredZone(0, this)
-                return this.__SequentialPreferredZone
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'SequentialPreferredZone', { type: STORAGE_ZONED_DEVICE_DESCRIPTOR._ZoneAttributes._SequentialPreferredZone, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Size : UInt32
 
-    /**
-     * @type {STORAGE_ZONED_DEVICE_TYPES}
-     */
-    DeviceType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    DeviceType : STORAGE_ZONED_DEVICE_TYPES
 
-    /**
-     * @type {Integer}
-     */
-    ZoneCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ZoneCount : UInt32
 
-    /**
-     * @type {_ZoneAttributes_e__Union}
-     */
-    ZoneAttributes {
-        get {
-            if(!this.HasProp("__ZoneAttributes"))
-                this.__ZoneAttributes := STORAGE_ZONED_DEVICE_DESCRIPTOR._ZoneAttributes_e__Union(16, this)
-            return this.__ZoneAttributes
-        }
-    }
+    ZoneAttributes : STORAGE_ZONED_DEVICE_DESCRIPTOR._ZoneAttributes
 
-    /**
-     * @type {Integer}
-     */
-    ZoneGroupCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ZoneGroupCount : UInt32
 
-    /**
-     * @type {STORAGE_ZONE_GROUP}
-     */
-    ZoneGroup {
-        get {
-            if(!this.HasProp("__ZoneGroupProxyArray"))
-                this.__ZoneGroupProxyArray := Win32FixedArray(this.ptr + 32, 1, STORAGE_ZONE_GROUP, "")
-            return this.__ZoneGroupProxyArray
-        }
-    }
+    ZoneGroup : STORAGE_ZONE_GROUP[1]
+
 }

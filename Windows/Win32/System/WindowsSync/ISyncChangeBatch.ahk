@@ -1,8 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISyncChangeBatchBase.ahk
-#Include .\ISyncChangeBuilder.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
+#Import ".\ISyncChangeBuilder.ahk" { ISyncChangeBuilder }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\SYNC_VERSION.ahk" { SYNC_VERSION }
+#Import ".\ISyncChangeBatchBase.ahk" { ISyncChangeBatchBase }
 
 /**
  * Represents metadata for a set of changes. (ISyncChangeBatch)
@@ -11,26 +15,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isyncchangebatch
  * @namespace Windows.Win32.System.WindowsSync
  */
-class ISyncChangeBatch extends ISyncChangeBatchBase {
-
-    static sizeof => A_PtrSize
+export default struct ISyncChangeBatch extends ISyncChangeBatchBase {
     /**
      * The interface identifier for ISyncChangeBatch
      * @type {Guid}
      */
-    static IID => Guid("{70c64dee-380f-4c2e-8f70-31c55bd5f9b3}")
+    static IID := Guid("{70c64dee-380f-4c2e-8f70-31c55bd5f9b3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 17
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISyncChangeBatch interfaces
+    */
+    struct Vtbl extends ISyncChangeBatchBase.Vtbl {
+        BeginUnorderedGroup : IntPtr
+        EndUnorderedGroup   : IntPtr
+        AddLoggedConflict   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["BeginUnorderedGroup", "EndUnorderedGroup", "AddLoggedConflict"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISyncChangeBatch.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Opens an unordered group in the change batch. Item changes in this group can be in any order.
@@ -128,7 +141,7 @@ class ISyncChangeBatch extends ISyncChangeBatchBase {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatch-endunorderedgroup
      */
     EndUnorderedGroup(pMadeWithKnowledge, fAllChangesForKnowledge) {
-        result := ComCall(18, this, "ptr", pMadeWithKnowledge, "int", fAllChangesForKnowledge, "HRESULT")
+        result := ComCall(18, this, "ptr", pMadeWithKnowledge, BOOL, fAllChangesForKnowledge, "HRESULT")
         return result
     }
 
@@ -150,7 +163,31 @@ class ISyncChangeBatch extends ISyncChangeBatchBase {
         pbOwnerReplicaIdMarshal := pbOwnerReplicaId is VarRef ? "char*" : "ptr"
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
 
-        result := ComCall(19, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbItemIdMarshal, pbItemId, "ptr", pChangeVersion, "ptr", pCreationVersion, "uint", dwFlags, "uint", dwWorkForChange, "ptr", pConflictKnowledge, "ptr*", &ppChangeBuilder := 0, "HRESULT")
+        result := ComCall(19, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbItemIdMarshal, pbItemId, SYNC_VERSION.Ptr, pChangeVersion, SYNC_VERSION.Ptr, pCreationVersion, "uint", dwFlags, "uint", dwWorkForChange, "ptr", pConflictKnowledge, "ptr*", &ppChangeBuilder := 0, "HRESULT")
         return ISyncChangeBuilder(ppChangeBuilder)
+    }
+
+    Query(iid) {
+        if (ISyncChangeBatch.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.BeginUnorderedGroup := CallbackCreate(GetMethod(implObj, "BeginUnorderedGroup"), flags, 1)
+        this.vtbl.EndUnorderedGroup := CallbackCreate(GetMethod(implObj, "EndUnorderedGroup"), flags, 3)
+        this.vtbl.AddLoggedConflict := CallbackCreate(GetMethod(implObj, "AddLoggedConflict"), flags, 9)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.BeginUnorderedGroup)
+        CallbackFree(this.vtbl.EndUnorderedGroup)
+        CallbackFree(this.vtbl.AddLoggedConflict)
     }
 }

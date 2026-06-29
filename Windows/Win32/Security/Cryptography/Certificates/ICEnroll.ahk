@@ -1,40 +1,104 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The ICEnroll interface is one of several interfaces that represent the Certificate Enrollment Control.
  * @see https://learn.microsoft.com/windows/win32/api/xenroll/nn-xenroll-icenroll
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICEnroll extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ICEnroll extends IDispatch {
     /**
      * The interface identifier for ICEnroll
      * @type {Guid}
      */
-    static IID => Guid("{43f8f288-7a20-11d0-8f06-00c04fc295e1}")
+    static IID := Guid("{43f8f288-7a20-11d0-8f06-00c04fc295e1}")
 
     /**
      * The class identifier for CEnroll
      * @type {Guid}
      */
-    static CLSID => Guid("{43f8f289-7a20-11d0-8f06-00c04fc295e1}")
+    static CLSID := Guid("{43f8f289-7a20-11d0-8f06-00c04fc295e1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICEnroll interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        createFilePKCS10      : IntPtr
+        acceptFilePKCS7       : IntPtr
+        createPKCS10          : IntPtr
+        acceptPKCS7           : IntPtr
+        getCertFromPKCS7      : IntPtr
+        enumProviders         : IntPtr
+        enumContainers        : IntPtr
+        freeRequestInfo       : IntPtr
+        get_MyStoreName       : IntPtr
+        put_MyStoreName       : IntPtr
+        get_MyStoreType       : IntPtr
+        put_MyStoreType       : IntPtr
+        get_MyStoreFlags      : IntPtr
+        put_MyStoreFlags      : IntPtr
+        get_CAStoreName       : IntPtr
+        put_CAStoreName       : IntPtr
+        get_CAStoreType       : IntPtr
+        put_CAStoreType       : IntPtr
+        get_CAStoreFlags      : IntPtr
+        put_CAStoreFlags      : IntPtr
+        get_RootStoreName     : IntPtr
+        put_RootStoreName     : IntPtr
+        get_RootStoreType     : IntPtr
+        put_RootStoreType     : IntPtr
+        get_RootStoreFlags    : IntPtr
+        put_RootStoreFlags    : IntPtr
+        get_RequestStoreName  : IntPtr
+        put_RequestStoreName  : IntPtr
+        get_RequestStoreType  : IntPtr
+        put_RequestStoreType  : IntPtr
+        get_RequestStoreFlags : IntPtr
+        put_RequestStoreFlags : IntPtr
+        get_ContainerName     : IntPtr
+        put_ContainerName     : IntPtr
+        get_ProviderName      : IntPtr
+        put_ProviderName      : IntPtr
+        get_ProviderType      : IntPtr
+        put_ProviderType      : IntPtr
+        get_KeySpec           : IntPtr
+        put_KeySpec           : IntPtr
+        get_ProviderFlags     : IntPtr
+        put_ProviderFlags     : IntPtr
+        get_UseExistingKeySet : IntPtr
+        put_UseExistingKeySet : IntPtr
+        get_GenKeyFlags       : IntPtr
+        put_GenKeyFlags       : IntPtr
+        get_DeleteRequestCert : IntPtr
+        put_DeleteRequestCert : IntPtr
+        get_WriteCertToCSP    : IntPtr
+        put_WriteCertToCSP    : IntPtr
+        get_SPCFileName       : IntPtr
+        put_SPCFileName       : IntPtr
+        get_PVKFileName       : IntPtr
+        put_PVKFileName       : IntPtr
+        get_HashAlgorithm     : IntPtr
+        put_HashAlgorithm     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["createFilePKCS10", "acceptFilePKCS7", "createPKCS10", "acceptPKCS7", "getCertFromPKCS7", "enumProviders", "enumContainers", "freeRequestInfo", "get_MyStoreName", "put_MyStoreName", "get_MyStoreType", "put_MyStoreType", "get_MyStoreFlags", "put_MyStoreFlags", "get_CAStoreName", "put_CAStoreName", "get_CAStoreType", "put_CAStoreType", "get_CAStoreFlags", "put_CAStoreFlags", "get_RootStoreName", "put_RootStoreName", "get_RootStoreType", "put_RootStoreType", "get_RootStoreFlags", "put_RootStoreFlags", "get_RequestStoreName", "put_RequestStoreName", "get_RequestStoreType", "put_RequestStoreType", "get_RequestStoreFlags", "put_RequestStoreFlags", "get_ContainerName", "put_ContainerName", "get_ProviderName", "put_ProviderName", "get_ProviderType", "put_ProviderType", "get_KeySpec", "put_KeySpec", "get_ProviderFlags", "put_ProviderFlags", "get_UseExistingKeySet", "put_UseExistingKeySet", "get_GenKeyFlags", "put_GenKeyFlags", "get_DeleteRequestCert", "put_DeleteRequestCert", "get_WriteCertToCSP", "put_WriteCertToCSP", "get_SPCFileName", "put_SPCFileName", "get_PVKFileName", "put_PVKFileName", "get_HashAlgorithm", "put_HashAlgorithm"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICEnroll.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -251,7 +315,7 @@ class ICEnroll extends IDispatch {
         Usage := Usage is String ? BSTR.Alloc(Usage).Value : Usage
         wszPKCS10FileName := wszPKCS10FileName is String ? BSTR.Alloc(wszPKCS10FileName).Value : wszPKCS10FileName
 
-        result := ComCall(7, this, "ptr", DNName, "ptr", Usage, "ptr", wszPKCS10FileName, "HRESULT")
+        result := ComCall(7, this, BSTR, DNName, BSTR, Usage, BSTR, wszPKCS10FileName, "HRESULT")
         return result
     }
 
@@ -286,7 +350,7 @@ class ICEnroll extends IDispatch {
     acceptFilePKCS7(wszPKCS7FileName) {
         wszPKCS7FileName := wszPKCS7FileName is String ? BSTR.Alloc(wszPKCS7FileName).Value : wszPKCS7FileName
 
-        result := ComCall(8, this, "ptr", wszPKCS7FileName, "HRESULT")
+        result := ComCall(8, this, BSTR, wszPKCS7FileName, "HRESULT")
         return result
     }
 
@@ -307,8 +371,8 @@ class ICEnroll extends IDispatch {
         DNName := DNName is String ? BSTR.Alloc(DNName).Value : DNName
         Usage := Usage is String ? BSTR.Alloc(Usage).Value : Usage
 
-        pPKCS10 := BSTR()
-        result := ComCall(9, this, "ptr", DNName, "ptr", Usage, "ptr", pPKCS10, "HRESULT")
+        pPKCS10 := BSTR.Owned()
+        result := ComCall(9, this, BSTR, DNName, BSTR, Usage, BSTR.Ptr, pPKCS10, "HRESULT")
         return pPKCS10
     }
 
@@ -345,7 +409,7 @@ class ICEnroll extends IDispatch {
     acceptPKCS7(PKCS7) {
         PKCS7 := PKCS7 is String ? BSTR.Alloc(PKCS7).Value : PKCS7
 
-        result := ComCall(10, this, "ptr", PKCS7, "HRESULT")
+        result := ComCall(10, this, BSTR, PKCS7, "HRESULT")
         return result
     }
 
@@ -358,8 +422,8 @@ class ICEnroll extends IDispatch {
     getCertFromPKCS7(wszPKCS7) {
         wszPKCS7 := wszPKCS7 is String ? BSTR.Alloc(wszPKCS7).Value : wszPKCS7
 
-        pbstrCert := BSTR()
-        result := ComCall(11, this, "ptr", wszPKCS7, "ptr", pbstrCert, "HRESULT")
+        pbstrCert := BSTR.Owned()
+        result := ComCall(11, this, BSTR, wszPKCS7, BSTR.Ptr, pbstrCert, "HRESULT")
         return pbstrCert
     }
 
@@ -377,8 +441,8 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-enumproviders
      */
     enumProviders(dwIndex, dwFlags) {
-        pbstrProvName := BSTR()
-        result := ComCall(12, this, "int", dwIndex, "int", dwFlags, "ptr", pbstrProvName, "HRESULT")
+        pbstrProvName := BSTR.Owned()
+        result := ComCall(12, this, "int", dwIndex, "int", dwFlags, BSTR.Ptr, pbstrProvName, "HRESULT")
         return pbstrProvName
     }
 
@@ -394,8 +458,8 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-enumcontainers
      */
     enumContainers(dwIndex) {
-        pbstr := BSTR()
-        result := ComCall(13, this, "int", dwIndex, "ptr", pbstr, "HRESULT")
+        pbstr := BSTR.Owned()
+        result := ComCall(13, this, "int", dwIndex, BSTR.Ptr, pbstr, "HRESULT")
         return pbstr
     }
 
@@ -408,7 +472,7 @@ class ICEnroll extends IDispatch {
     freeRequestInfo(PKCS7OrPKCS10) {
         PKCS7OrPKCS10 := PKCS7OrPKCS10 is String ? BSTR.Alloc(PKCS7OrPKCS10).Value : PKCS7OrPKCS10
 
-        result := ComCall(14, this, "ptr", PKCS7OrPKCS10, "HRESULT")
+        result := ComCall(14, this, BSTR, PKCS7OrPKCS10, "HRESULT")
         return result
     }
 
@@ -432,8 +496,8 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_mystorename
      */
     get_MyStoreName() {
-        pbstrName := BSTR()
-        result := ComCall(15, this, "ptr", pbstrName, "HRESULT")
+        pbstrName := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 
@@ -460,7 +524,7 @@ class ICEnroll extends IDispatch {
     put_MyStoreName(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(16, this, "ptr", bstrName, "HRESULT")
+        result := ComCall(16, this, BSTR, bstrName, "HRESULT")
         return result
     }
 
@@ -484,8 +548,8 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_mystoretype
      */
     get_MyStoreType() {
-        pbstrType := BSTR()
-        result := ComCall(17, this, "ptr", pbstrType, "HRESULT")
+        pbstrType := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, pbstrType, "HRESULT")
         return pbstrType
     }
 
@@ -512,7 +576,7 @@ class ICEnroll extends IDispatch {
     put_MyStoreType(bstrType) {
         bstrType := bstrType is String ? BSTR.Alloc(bstrType).Value : bstrType
 
-        result := ComCall(18, this, "ptr", bstrType, "HRESULT")
+        result := ComCall(18, this, BSTR, bstrType, "HRESULT")
         return result
     }
 
@@ -587,8 +651,8 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_castorename
      */
     get_CAStoreName() {
-        pbstrName := BSTR()
-        result := ComCall(21, this, "ptr", pbstrName, "HRESULT")
+        pbstrName := BSTR.Owned()
+        result := ComCall(21, this, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 
@@ -615,7 +679,7 @@ class ICEnroll extends IDispatch {
     put_CAStoreName(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(22, this, "ptr", bstrName, "HRESULT")
+        result := ComCall(22, this, BSTR, bstrName, "HRESULT")
         return result
     }
 
@@ -639,8 +703,8 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_castoretype
      */
     get_CAStoreType() {
-        pbstrType := BSTR()
-        result := ComCall(23, this, "ptr", pbstrType, "HRESULT")
+        pbstrType := BSTR.Owned()
+        result := ComCall(23, this, BSTR.Ptr, pbstrType, "HRESULT")
         return pbstrType
     }
 
@@ -667,7 +731,7 @@ class ICEnroll extends IDispatch {
     put_CAStoreType(bstrType) {
         bstrType := bstrType is String ? BSTR.Alloc(bstrType).Value : bstrType
 
-        result := ComCall(24, this, "ptr", bstrType, "HRESULT")
+        result := ComCall(24, this, BSTR, bstrType, "HRESULT")
         return result
     }
 
@@ -734,8 +798,8 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_rootstorename
      */
     get_RootStoreName() {
-        pbstrName := BSTR()
-        result := ComCall(27, this, "ptr", pbstrName, "HRESULT")
+        pbstrName := BSTR.Owned()
+        result := ComCall(27, this, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 
@@ -762,7 +826,7 @@ class ICEnroll extends IDispatch {
     put_RootStoreName(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(28, this, "ptr", bstrName, "HRESULT")
+        result := ComCall(28, this, BSTR, bstrName, "HRESULT")
         return result
     }
 
@@ -786,8 +850,8 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_rootstoretype
      */
     get_RootStoreType() {
-        pbstrType := BSTR()
-        result := ComCall(29, this, "ptr", pbstrType, "HRESULT")
+        pbstrType := BSTR.Owned()
+        result := ComCall(29, this, BSTR.Ptr, pbstrType, "HRESULT")
         return pbstrType
     }
 
@@ -814,7 +878,7 @@ class ICEnroll extends IDispatch {
     put_RootStoreType(bstrType) {
         bstrType := bstrType is String ? BSTR.Alloc(bstrType).Value : bstrType
 
-        result := ComCall(30, this, "ptr", bstrType, "HRESULT")
+        result := ComCall(30, this, BSTR, bstrType, "HRESULT")
         return result
     }
 
@@ -898,8 +962,8 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_requeststorename
      */
     get_RequestStoreName() {
-        pbstrName := BSTR()
-        result := ComCall(33, this, "ptr", pbstrName, "HRESULT")
+        pbstrName := BSTR.Owned()
+        result := ComCall(33, this, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 
@@ -935,7 +999,7 @@ class ICEnroll extends IDispatch {
     put_RequestStoreName(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(34, this, "ptr", bstrName, "HRESULT")
+        result := ComCall(34, this, BSTR, bstrName, "HRESULT")
         return result
     }
 
@@ -968,8 +1032,8 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_requeststoretype
      */
     get_RequestStoreType() {
-        pbstrType := BSTR()
-        result := ComCall(35, this, "ptr", pbstrType, "HRESULT")
+        pbstrType := BSTR.Owned()
+        result := ComCall(35, this, BSTR.Ptr, pbstrType, "HRESULT")
         return pbstrType
     }
 
@@ -1005,7 +1069,7 @@ class ICEnroll extends IDispatch {
     put_RequestStoreType(bstrType) {
         bstrType := bstrType is String ? BSTR.Alloc(bstrType).Value : bstrType
 
-        result := ComCall(36, this, "ptr", bstrType, "HRESULT")
+        result := ComCall(36, this, BSTR, bstrType, "HRESULT")
         return result
     }
 
@@ -1099,8 +1163,8 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_containername
      */
     get_ContainerName() {
-        pbstrContainer := BSTR()
-        result := ComCall(39, this, "ptr", pbstrContainer, "HRESULT")
+        pbstrContainer := BSTR.Owned()
+        result := ComCall(39, this, BSTR.Ptr, pbstrContainer, "HRESULT")
         return pbstrContainer
     }
 
@@ -1130,7 +1194,7 @@ class ICEnroll extends IDispatch {
     put_ContainerName(bstrContainer) {
         bstrContainer := bstrContainer is String ? BSTR.Alloc(bstrContainer).Value : bstrContainer
 
-        result := ComCall(40, this, "ptr", bstrContainer, "HRESULT")
+        result := ComCall(40, this, BSTR, bstrContainer, "HRESULT")
         return result
     }
 
@@ -1154,8 +1218,8 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_providername
      */
     get_ProviderName() {
-        pbstrProvider := BSTR()
-        result := ComCall(41, this, "ptr", pbstrProvider, "HRESULT")
+        pbstrProvider := BSTR.Owned()
+        result := ComCall(41, this, BSTR.Ptr, pbstrProvider, "HRESULT")
         return pbstrProvider
     }
 
@@ -1182,7 +1246,7 @@ class ICEnroll extends IDispatch {
     put_ProviderName(bstrProvider) {
         bstrProvider := bstrProvider is String ? BSTR.Alloc(bstrProvider).Value : bstrProvider
 
-        result := ComCall(42, this, "ptr", bstrProvider, "HRESULT")
+        result := ComCall(42, this, BSTR, bstrProvider, "HRESULT")
         return result
     }
 
@@ -1395,7 +1459,7 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_useexistingkeyset
      */
     get_UseExistingKeySet() {
-        result := ComCall(49, this, "int*", &fUseExistingKeys := 0, "HRESULT")
+        result := ComCall(49, this, BOOL.Ptr, &fUseExistingKeys := 0, "HRESULT")
         return fUseExistingKeys
     }
 
@@ -1420,7 +1484,7 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_useexistingkeyset
      */
     put_UseExistingKeySet(fUseExistingKeys) {
-        result := ComCall(50, this, "int", fUseExistingKeys, "HRESULT")
+        result := ComCall(50, this, BOOL, fUseExistingKeys, "HRESULT")
         return result
     }
 
@@ -1520,7 +1584,7 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_deleterequestcert
      */
     get_DeleteRequestCert() {
-        result := ComCall(53, this, "int*", &fDelete := 0, "HRESULT")
+        result := ComCall(53, this, BOOL.Ptr, &fDelete := 0, "HRESULT")
         return fDelete
     }
 
@@ -1542,7 +1606,7 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_deleterequestcert
      */
     put_DeleteRequestCert(fDelete) {
-        result := ComCall(54, this, "int", fDelete, "HRESULT")
+        result := ComCall(54, this, BOOL, fDelete, "HRESULT")
         return result
     }
 
@@ -1570,7 +1634,7 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_writecerttocsp
      */
     get_WriteCertToCSP() {
-        result := ComCall(55, this, "int*", &fBool := 0, "HRESULT")
+        result := ComCall(55, this, BOOL.Ptr, &fBool := 0, "HRESULT")
         return fBool
     }
 
@@ -1599,7 +1663,7 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-put_writecerttocsp
      */
     put_WriteCertToCSP(fBool) {
-        result := ComCall(56, this, "int", fBool, "HRESULT")
+        result := ComCall(56, this, BOOL, fBool, "HRESULT")
         return result
     }
 
@@ -1625,8 +1689,8 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_spcfilename
      */
     get_SPCFileName() {
-        pbstr := BSTR()
-        result := ComCall(57, this, "ptr", pbstr, "HRESULT")
+        pbstr := BSTR.Owned()
+        result := ComCall(57, this, BSTR.Ptr, pbstr, "HRESULT")
         return pbstr
     }
 
@@ -1655,7 +1719,7 @@ class ICEnroll extends IDispatch {
     put_SPCFileName(_bstr) {
         _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(58, this, "ptr", _bstr, "HRESULT")
+        result := ComCall(58, this, BSTR, _bstr, "HRESULT")
         return result
     }
 
@@ -1697,8 +1761,8 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_pvkfilename
      */
     get_PVKFileName() {
-        pbstr := BSTR()
-        result := ComCall(59, this, "ptr", pbstr, "HRESULT")
+        pbstr := BSTR.Owned()
+        result := ComCall(59, this, BSTR.Ptr, pbstr, "HRESULT")
         return pbstr
     }
 
@@ -1743,7 +1807,7 @@ class ICEnroll extends IDispatch {
     put_PVKFileName(_bstr) {
         _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(60, this, "ptr", _bstr, "HRESULT")
+        result := ComCall(60, this, BSTR, _bstr, "HRESULT")
         return result
     }
 
@@ -1773,8 +1837,8 @@ class ICEnroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll-get_hashalgorithm
      */
     get_HashAlgorithm() {
-        pbstr := BSTR()
-        result := ComCall(61, this, "ptr", pbstr, "HRESULT")
+        pbstr := BSTR.Owned()
+        result := ComCall(61, this, BSTR.Ptr, pbstr, "HRESULT")
         return pbstr
     }
 
@@ -1807,7 +1871,137 @@ class ICEnroll extends IDispatch {
     put_HashAlgorithm(_bstr) {
         _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(62, this, "ptr", _bstr, "HRESULT")
+        result := ComCall(62, this, BSTR, _bstr, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICEnroll.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.createFilePKCS10 := CallbackCreate(GetMethod(implObj, "createFilePKCS10"), flags, 4)
+        this.vtbl.acceptFilePKCS7 := CallbackCreate(GetMethod(implObj, "acceptFilePKCS7"), flags, 2)
+        this.vtbl.createPKCS10 := CallbackCreate(GetMethod(implObj, "createPKCS10"), flags, 4)
+        this.vtbl.acceptPKCS7 := CallbackCreate(GetMethod(implObj, "acceptPKCS7"), flags, 2)
+        this.vtbl.getCertFromPKCS7 := CallbackCreate(GetMethod(implObj, "getCertFromPKCS7"), flags, 3)
+        this.vtbl.enumProviders := CallbackCreate(GetMethod(implObj, "enumProviders"), flags, 4)
+        this.vtbl.enumContainers := CallbackCreate(GetMethod(implObj, "enumContainers"), flags, 3)
+        this.vtbl.freeRequestInfo := CallbackCreate(GetMethod(implObj, "freeRequestInfo"), flags, 2)
+        this.vtbl.get_MyStoreName := CallbackCreate(GetMethod(implObj, "get_MyStoreName"), flags, 2)
+        this.vtbl.put_MyStoreName := CallbackCreate(GetMethod(implObj, "put_MyStoreName"), flags, 2)
+        this.vtbl.get_MyStoreType := CallbackCreate(GetMethod(implObj, "get_MyStoreType"), flags, 2)
+        this.vtbl.put_MyStoreType := CallbackCreate(GetMethod(implObj, "put_MyStoreType"), flags, 2)
+        this.vtbl.get_MyStoreFlags := CallbackCreate(GetMethod(implObj, "get_MyStoreFlags"), flags, 2)
+        this.vtbl.put_MyStoreFlags := CallbackCreate(GetMethod(implObj, "put_MyStoreFlags"), flags, 2)
+        this.vtbl.get_CAStoreName := CallbackCreate(GetMethod(implObj, "get_CAStoreName"), flags, 2)
+        this.vtbl.put_CAStoreName := CallbackCreate(GetMethod(implObj, "put_CAStoreName"), flags, 2)
+        this.vtbl.get_CAStoreType := CallbackCreate(GetMethod(implObj, "get_CAStoreType"), flags, 2)
+        this.vtbl.put_CAStoreType := CallbackCreate(GetMethod(implObj, "put_CAStoreType"), flags, 2)
+        this.vtbl.get_CAStoreFlags := CallbackCreate(GetMethod(implObj, "get_CAStoreFlags"), flags, 2)
+        this.vtbl.put_CAStoreFlags := CallbackCreate(GetMethod(implObj, "put_CAStoreFlags"), flags, 2)
+        this.vtbl.get_RootStoreName := CallbackCreate(GetMethod(implObj, "get_RootStoreName"), flags, 2)
+        this.vtbl.put_RootStoreName := CallbackCreate(GetMethod(implObj, "put_RootStoreName"), flags, 2)
+        this.vtbl.get_RootStoreType := CallbackCreate(GetMethod(implObj, "get_RootStoreType"), flags, 2)
+        this.vtbl.put_RootStoreType := CallbackCreate(GetMethod(implObj, "put_RootStoreType"), flags, 2)
+        this.vtbl.get_RootStoreFlags := CallbackCreate(GetMethod(implObj, "get_RootStoreFlags"), flags, 2)
+        this.vtbl.put_RootStoreFlags := CallbackCreate(GetMethod(implObj, "put_RootStoreFlags"), flags, 2)
+        this.vtbl.get_RequestStoreName := CallbackCreate(GetMethod(implObj, "get_RequestStoreName"), flags, 2)
+        this.vtbl.put_RequestStoreName := CallbackCreate(GetMethod(implObj, "put_RequestStoreName"), flags, 2)
+        this.vtbl.get_RequestStoreType := CallbackCreate(GetMethod(implObj, "get_RequestStoreType"), flags, 2)
+        this.vtbl.put_RequestStoreType := CallbackCreate(GetMethod(implObj, "put_RequestStoreType"), flags, 2)
+        this.vtbl.get_RequestStoreFlags := CallbackCreate(GetMethod(implObj, "get_RequestStoreFlags"), flags, 2)
+        this.vtbl.put_RequestStoreFlags := CallbackCreate(GetMethod(implObj, "put_RequestStoreFlags"), flags, 2)
+        this.vtbl.get_ContainerName := CallbackCreate(GetMethod(implObj, "get_ContainerName"), flags, 2)
+        this.vtbl.put_ContainerName := CallbackCreate(GetMethod(implObj, "put_ContainerName"), flags, 2)
+        this.vtbl.get_ProviderName := CallbackCreate(GetMethod(implObj, "get_ProviderName"), flags, 2)
+        this.vtbl.put_ProviderName := CallbackCreate(GetMethod(implObj, "put_ProviderName"), flags, 2)
+        this.vtbl.get_ProviderType := CallbackCreate(GetMethod(implObj, "get_ProviderType"), flags, 2)
+        this.vtbl.put_ProviderType := CallbackCreate(GetMethod(implObj, "put_ProviderType"), flags, 2)
+        this.vtbl.get_KeySpec := CallbackCreate(GetMethod(implObj, "get_KeySpec"), flags, 2)
+        this.vtbl.put_KeySpec := CallbackCreate(GetMethod(implObj, "put_KeySpec"), flags, 2)
+        this.vtbl.get_ProviderFlags := CallbackCreate(GetMethod(implObj, "get_ProviderFlags"), flags, 2)
+        this.vtbl.put_ProviderFlags := CallbackCreate(GetMethod(implObj, "put_ProviderFlags"), flags, 2)
+        this.vtbl.get_UseExistingKeySet := CallbackCreate(GetMethod(implObj, "get_UseExistingKeySet"), flags, 2)
+        this.vtbl.put_UseExistingKeySet := CallbackCreate(GetMethod(implObj, "put_UseExistingKeySet"), flags, 2)
+        this.vtbl.get_GenKeyFlags := CallbackCreate(GetMethod(implObj, "get_GenKeyFlags"), flags, 2)
+        this.vtbl.put_GenKeyFlags := CallbackCreate(GetMethod(implObj, "put_GenKeyFlags"), flags, 2)
+        this.vtbl.get_DeleteRequestCert := CallbackCreate(GetMethod(implObj, "get_DeleteRequestCert"), flags, 2)
+        this.vtbl.put_DeleteRequestCert := CallbackCreate(GetMethod(implObj, "put_DeleteRequestCert"), flags, 2)
+        this.vtbl.get_WriteCertToCSP := CallbackCreate(GetMethod(implObj, "get_WriteCertToCSP"), flags, 2)
+        this.vtbl.put_WriteCertToCSP := CallbackCreate(GetMethod(implObj, "put_WriteCertToCSP"), flags, 2)
+        this.vtbl.get_SPCFileName := CallbackCreate(GetMethod(implObj, "get_SPCFileName"), flags, 2)
+        this.vtbl.put_SPCFileName := CallbackCreate(GetMethod(implObj, "put_SPCFileName"), flags, 2)
+        this.vtbl.get_PVKFileName := CallbackCreate(GetMethod(implObj, "get_PVKFileName"), flags, 2)
+        this.vtbl.put_PVKFileName := CallbackCreate(GetMethod(implObj, "put_PVKFileName"), flags, 2)
+        this.vtbl.get_HashAlgorithm := CallbackCreate(GetMethod(implObj, "get_HashAlgorithm"), flags, 2)
+        this.vtbl.put_HashAlgorithm := CallbackCreate(GetMethod(implObj, "put_HashAlgorithm"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.createFilePKCS10)
+        CallbackFree(this.vtbl.acceptFilePKCS7)
+        CallbackFree(this.vtbl.createPKCS10)
+        CallbackFree(this.vtbl.acceptPKCS7)
+        CallbackFree(this.vtbl.getCertFromPKCS7)
+        CallbackFree(this.vtbl.enumProviders)
+        CallbackFree(this.vtbl.enumContainers)
+        CallbackFree(this.vtbl.freeRequestInfo)
+        CallbackFree(this.vtbl.get_MyStoreName)
+        CallbackFree(this.vtbl.put_MyStoreName)
+        CallbackFree(this.vtbl.get_MyStoreType)
+        CallbackFree(this.vtbl.put_MyStoreType)
+        CallbackFree(this.vtbl.get_MyStoreFlags)
+        CallbackFree(this.vtbl.put_MyStoreFlags)
+        CallbackFree(this.vtbl.get_CAStoreName)
+        CallbackFree(this.vtbl.put_CAStoreName)
+        CallbackFree(this.vtbl.get_CAStoreType)
+        CallbackFree(this.vtbl.put_CAStoreType)
+        CallbackFree(this.vtbl.get_CAStoreFlags)
+        CallbackFree(this.vtbl.put_CAStoreFlags)
+        CallbackFree(this.vtbl.get_RootStoreName)
+        CallbackFree(this.vtbl.put_RootStoreName)
+        CallbackFree(this.vtbl.get_RootStoreType)
+        CallbackFree(this.vtbl.put_RootStoreType)
+        CallbackFree(this.vtbl.get_RootStoreFlags)
+        CallbackFree(this.vtbl.put_RootStoreFlags)
+        CallbackFree(this.vtbl.get_RequestStoreName)
+        CallbackFree(this.vtbl.put_RequestStoreName)
+        CallbackFree(this.vtbl.get_RequestStoreType)
+        CallbackFree(this.vtbl.put_RequestStoreType)
+        CallbackFree(this.vtbl.get_RequestStoreFlags)
+        CallbackFree(this.vtbl.put_RequestStoreFlags)
+        CallbackFree(this.vtbl.get_ContainerName)
+        CallbackFree(this.vtbl.put_ContainerName)
+        CallbackFree(this.vtbl.get_ProviderName)
+        CallbackFree(this.vtbl.put_ProviderName)
+        CallbackFree(this.vtbl.get_ProviderType)
+        CallbackFree(this.vtbl.put_ProviderType)
+        CallbackFree(this.vtbl.get_KeySpec)
+        CallbackFree(this.vtbl.put_KeySpec)
+        CallbackFree(this.vtbl.get_ProviderFlags)
+        CallbackFree(this.vtbl.put_ProviderFlags)
+        CallbackFree(this.vtbl.get_UseExistingKeySet)
+        CallbackFree(this.vtbl.put_UseExistingKeySet)
+        CallbackFree(this.vtbl.get_GenKeyFlags)
+        CallbackFree(this.vtbl.put_GenKeyFlags)
+        CallbackFree(this.vtbl.get_DeleteRequestCert)
+        CallbackFree(this.vtbl.put_DeleteRequestCert)
+        CallbackFree(this.vtbl.get_WriteCertToCSP)
+        CallbackFree(this.vtbl.put_WriteCertToCSP)
+        CallbackFree(this.vtbl.get_SPCFileName)
+        CallbackFree(this.vtbl.put_SPCFileName)
+        CallbackFree(this.vtbl.get_PVKFileName)
+        CallbackFree(this.vtbl.put_PVKFileName)
+        CallbackFree(this.vtbl.get_HashAlgorithm)
+        CallbackFree(this.vtbl.put_HashAlgorithm)
     }
 }

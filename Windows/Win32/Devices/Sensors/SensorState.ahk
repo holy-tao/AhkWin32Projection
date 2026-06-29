@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines possible operational states for sensors.
  * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/ne-sensorsapi-sensorstate
  * @namespace Windows.Win32.Devices.Sensors
  */
-class SensorState extends Win32Enum {
+export default struct SensorState {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Minimum enumerated sensor state. Use <b>SENSOR_STATE_READY</b> instead.

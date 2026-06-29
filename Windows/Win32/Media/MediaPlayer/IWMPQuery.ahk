@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMPQuery interface represents a compound query.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpquery
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPQuery extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWMPQuery extends IDispatch {
     /**
      * The interface identifier for IWMPQuery
      * @type {Guid}
      */
-    static IID => Guid("{a00918f3-a6b0-4bfb-9189-fd834c7bc5a5}")
+    static IID := Guid("{a00918f3-a6b0-4bfb-9189-fd834c7bc5a5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPQuery interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        addCondition   : IntPtr
+        beginNextGroup : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["addCondition", "beginNextGroup"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPQuery.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The addCondition method adds a condition to the compound query using AND logic.
@@ -120,7 +130,7 @@ class IWMPQuery extends IDispatch {
         bstrOperator := bstrOperator is String ? BSTR.Alloc(bstrOperator).Value : bstrOperator
         bstrValue := bstrValue is String ? BSTR.Alloc(bstrValue).Value : bstrValue
 
-        result := ComCall(7, this, "ptr", bstrAttribute, "ptr", bstrOperator, "ptr", bstrValue, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrAttribute, BSTR, bstrOperator, BSTR, bstrValue, "HRESULT")
         return result
     }
 
@@ -154,5 +164,27 @@ class IWMPQuery extends IDispatch {
     beginNextGroup() {
         result := ComCall(8, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPQuery.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.addCondition := CallbackCreate(GetMethod(implObj, "addCondition"), flags, 4)
+        this.vtbl.beginNextGroup := CallbackCreate(GetMethod(implObj, "beginNextGroup"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.addCondition)
+        CallbackFree(this.vtbl.beginNextGroup)
     }
 }

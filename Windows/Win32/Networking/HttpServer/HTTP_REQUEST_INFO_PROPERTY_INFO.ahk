@@ -1,31 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_PROPERTY_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HTTP_PROPERTY_FLAGS.ahk" { HTTP_PROPERTY_FLAGS }
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_REQUEST_INFO_PROPERTY_INFO extends Win32Struct {
-    static sizeof => 16
+export default struct HTTP_REQUEST_INFO_PROPERTY_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    Flags : HTTP_PROPERTY_FLAGS
 
-    /**
-     * @type {HTTP_PROPERTY_FLAGS}
-     */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := HTTP_PROPERTY_FLAGS(0, this)
-            return this.__Flags
-        }
-    }
+    RequestInfoFlags : Int64
 
-    /**
-     * @type {Integer}
-     */
-    RequestInfoFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

@@ -1,42 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PROPERTYKEY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Devices.PortableDevices
  */
-class WPD_COMMAND_ACCESS_LOOKUP_ENTRY extends Win32Struct {
-    static sizeof => 40
+export default struct WPD_COMMAND_ACCESS_LOOKUP_ENTRY {
+    #StructPack 4
 
-    static packingSize => 8
+    Command : PROPERTYKEY
 
-    /**
-     * @type {PROPERTYKEY}
-     */
-    Command {
-        get {
-            if(!this.HasProp("__Command"))
-                this.__Command := PROPERTYKEY(0, this)
-            return this.__Command
-        }
-    }
+    AccessType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AccessType {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    AccessProperty : PROPERTYKEY
 
-    /**
-     * @type {PROPERTYKEY}
-     */
-    AccessProperty {
-        get {
-            if(!this.HasProp("__AccessProperty"))
-                this.__AccessProperty := PROPERTYKEY(24, this)
-            return this.__AccessProperty
-        }
-    }
 }

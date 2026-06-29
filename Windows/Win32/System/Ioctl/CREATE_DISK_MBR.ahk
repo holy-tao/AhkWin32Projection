@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains information that the IOCTL_DISK_CREATE_DISK control code uses to initialize master boot record (MBR) disks.
@@ -10,17 +9,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-create_disk_mbr
  * @namespace Windows.Win32.System.Ioctl
  */
-class CREATE_DISK_MBR extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct CREATE_DISK_MBR {
+    #StructPack 4
 
     /**
      * The disk signature of the MBR disk to be initialized.
-     * @type {Integer}
      */
-    Signature {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Signature : UInt32
+
 }

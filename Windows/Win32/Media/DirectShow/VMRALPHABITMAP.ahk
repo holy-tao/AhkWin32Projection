@@ -1,19 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
-#Include ..\..\Graphics\DirectDraw\IDirectDrawSurface7.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include .\NORMALIZEDRECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NORMALIZEDRECT.ahk" { NORMALIZEDRECT }
+#Import "..\..\Graphics\DirectDraw\IDirectDrawSurface7.ahk" { IDirectDrawSurface7 }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 
 /**
  * The VMRALPHABITMAP structure is used in the VMR-7 filter's IVMRMixerBitmap methods when the application is providing a static alpha-blended bitmap to be displayed on the composited video frame.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-vmralphabitmap
  * @namespace Windows.Win32.Media.DirectShow
  */
-class VMRALPHABITMAP extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct VMRALPHABITMAP {
+    #StructPack 8
 
     /**
      * Flags that instruct the mixer where to find the bitmap. The following values are defined.
@@ -84,74 +82,38 @@ class VMRALPHABITMAP extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
     /**
      * The handle to the device context for the bitmap. Specify <b>NULL</b> if the bitmap is located in a DirectDraw surface.
-     * @type {HDC}
      */
-    hdc {
-        get {
-            if(!this.HasProp("__hdc"))
-                this.__hdc := HDC(8, this)
-            return this.__hdc
-        }
-    }
+    hdc : HDC
 
     /**
      * Pointer to a DirectDraw surface that contains the bitmap. Specify <b>NULL</b> if the bitmap is to be obtained from a GDI device context. If a DirectDraw surface is specified, 
      *           the pixel format must be ARGB-32 or RGB-32. If the surface contains per-pixel alpha, do not set the VMRBITMAP_SRCCOLORKEY flag in <b>dwFlags</b>.
-     * @type {IDirectDrawSurface7}
      */
-    pDDS {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pDDS : IDirectDrawSurface7
 
     /**
      * Specifies the source rectangle in either the GDI device context or the DirectDraw surface.
-     * @type {RECT}
      */
-    rSrc {
-        get {
-            if(!this.HasProp("__rSrc"))
-                this.__rSrc := RECT(24, this)
-            return this.__rSrc
-        }
-    }
+    rSrc : RECT
 
     /**
      * Specifies the destination rectangle in composition space.
-     * @type {NORMALIZEDRECT}
      */
-    rDest {
-        get {
-            if(!this.HasProp("__rDest"))
-                this.__rDest := NORMALIZEDRECT(40, this)
-            return this.__rDest
-        }
-    }
+    rDest : NORMALIZEDRECT
 
     /**
      * Specifies the alpha blending value; must be a value from 0.0 to 1.0 (inclusive).
-     * @type {Float}
      */
-    fAlpha {
-        get => NumGet(this, 56, "float")
-        set => NumPut("float", value, this, 56)
-    }
+    fAlpha : Float32
 
     /**
      * Specifies the source color key.
-     * @type {COLORREF}
      */
-    clrSrcKey {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    clrSrcKey : COLORREF
+
 }

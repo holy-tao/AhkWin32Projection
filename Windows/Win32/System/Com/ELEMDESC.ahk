@@ -1,55 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TYPEDESC.ahk
-#Include ..\Ole\ARRAYDESC.ahk
-#Include ..\Variant\VARENUM.ahk
-#Include .\IDLDESC.ahk
-#Include .\IDLFLAGS.ahk
-#Include ..\Ole\PARAMDESC.ahk
-#Include ..\Ole\PARAMDESCEX.ahk
-#Include ..\Ole\PARAMFLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IDLDESC.ahk" { IDLDESC }
+#Import "..\Ole\PARAMFLAGS.ahk" { PARAMFLAGS }
+#Import "..\Ole\PARAMDESCEX.ahk" { PARAMDESCEX }
+#Import ".\IDLFLAGS.ahk" { IDLFLAGS }
+#Import "..\Variant\VARENUM.ahk" { VARENUM }
+#Import ".\TYPEDESC.ahk" { TYPEDESC }
+#Import "..\Ole\PARAMDESC.ahk" { PARAMDESC }
+#Import "..\Ole\ARRAYDESC.ahk" { ARRAYDESC }
 
 /**
  * The ELEMDESC structure contains the type description and process-transfer information for a variable, a function, or a function parameter. (ELEMDESC)
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-elemdesc~r1
  * @namespace Windows.Win32.System.Com
  */
-class ELEMDESC extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct ELEMDESC {
+    #StructPack 8
 
     /**
      * The type of the element.
-     * @type {TYPEDESC}
      */
-    tdesc {
-        get {
-            if(!this.HasProp("__tdesc"))
-                this.__tdesc := TYPEDESC(0, this)
-            return this.__tdesc
-        }
-    }
+    tdesc : TYPEDESC
 
-    /**
-     * @type {IDLDESC}
-     */
-    idldesc {
-        get {
-            if(!this.HasProp("__idldesc"))
-                this.__idldesc := IDLDESC(16, this)
-            return this.__idldesc
-        }
-    }
+    idldesc : IDLDESC
 
-    /**
-     * @type {PARAMDESC}
-     */
-    paramdesc {
-        get {
-            if(!this.HasProp("__paramdesc"))
-                this.__paramdesc := PARAMDESC(16, this)
-            return this.__paramdesc
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'paramdesc', { type: PARAMDESC, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

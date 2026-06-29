@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EAP_CONFIG_INPUT_FIELD_DATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EAP_CONFIG_INPUT_FIELD_DATA.ahk" { EAP_CONFIG_INPUT_FIELD_DATA }
 
 /**
  * Contains a set of EAP_CONFIG_INPUT_FIELD_DATA structures that collectively contain the user input field data obtained from the user.
@@ -9,10 +8,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eap_config_input_field_array
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  */
-class EAP_CONFIG_INPUT_FIELD_ARRAY extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct EAP_CONFIG_INPUT_FIELD_ARRAY {
+    #StructPack 8
 
     /**
      * The version of the <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_config_input_field_data">EAP_CONFIG_INPUT_FIELD_DATA</a>   structures pointed to by <b>pFields</b>.
@@ -34,28 +31,17 @@ class EAP_CONFIG_INPUT_FIELD_ARRAY extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
     /**
      * The total number of elements in the array specified by  <b>pFields</b>.
-     * @type {Integer}
      */
-    dwNumberOfFields {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwNumberOfFields : UInt32
 
     /**
      * Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_config_input_field_data">EAP_CONFIG_INPUT_FIELD_DATA</a> structures that contain specific user input data obtained from an EAP configuration dialog box.
-     * @type {Pointer<EAP_CONFIG_INPUT_FIELD_DATA>}
      */
-    pFields {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pFields : EAP_CONFIG_INPUT_FIELD_DATA.Ptr
+
 }

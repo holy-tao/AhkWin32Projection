@@ -1,28 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Graphics\Direct3D9\D3DTRANSFORMSTATETYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Graphics\Direct3D9\D3DTRANSFORMSTATETYPE.ahk" { D3DTRANSFORMSTATETYPE }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DNTHAL_DP2SETTRANSFORM extends Win32Struct {
-    static sizeof => 16
+export default struct D3DNTHAL_DP2SETTRANSFORM {
+    #StructPack 8
 
-    static packingSize => 8
+    xfrmType : D3DTRANSFORMSTATETYPE
 
-    /**
-     * @type {D3DTRANSFORMSTATETYPE}
-     */
-    xfrmType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    matrix : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    matrix {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

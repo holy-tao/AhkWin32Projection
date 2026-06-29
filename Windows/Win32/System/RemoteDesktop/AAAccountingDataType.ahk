@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the type of event that the ITSGAccountingEngine::DoAccounting method is being notified of.
  * @see https://learn.microsoft.com/windows/win32/api/tsgpolicyengine/ne-tsgpolicyengine-aaaccountingdatatype
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class AAAccountingDataType extends Win32Enum {
+export default struct AAAccountingDataType {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * A new session was created.

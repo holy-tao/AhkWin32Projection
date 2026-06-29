@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The CLUSTER_NETWORK_ROLE enumeration (msclus.h) describes the role a network plays in the cluster.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_network_role
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUSTER_NETWORK_ROLE extends Win32Enum {
+export default struct CLUSTER_NETWORK_ROLE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The network is not used by the cluster.

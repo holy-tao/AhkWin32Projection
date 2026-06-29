@@ -1,32 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IWMPDownloadItem2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMPDownloadItem2.ahk" { IWMPDownloadItem2 }
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPDownloadCollection extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWMPDownloadCollection extends IDispatch {
     /**
      * The interface identifier for IWMPDownloadCollection
      * @type {Guid}
      */
-    static IID => Guid("{0a319c7f-85f9-436c-b88e-82fd88000e1c}")
+    static IID := Guid("{0a319c7f-85f9-436c-b88e-82fd88000e1c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPDownloadCollection interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_id        : IntPtr
+        get_count     : IntPtr
+        item          : IntPtr
+        startDownload : IntPtr
+        removeItem    : IntPtr
+        Clear         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_id", "get_count", "item", "startDownload", "removeItem", "Clear"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPDownloadCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      */
@@ -84,7 +98,7 @@ class IWMPDownloadCollection extends IDispatch {
         bstrSourceURL := bstrSourceURL is String ? BSTR.Alloc(bstrSourceURL).Value : bstrSourceURL
         bstrType := bstrType is String ? BSTR.Alloc(bstrType).Value : bstrType
 
-        result := ComCall(10, this, "ptr", bstrSourceURL, "ptr", bstrType, "ptr*", &ppDownload := 0, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrSourceURL, BSTR, bstrType, "ptr*", &ppDownload := 0, "HRESULT")
         return IWMPDownloadItem2(ppDownload)
     }
 
@@ -124,5 +138,35 @@ class IWMPDownloadCollection extends IDispatch {
     Clear() {
         result := ComCall(12, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPDownloadCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_id := CallbackCreate(GetMethod(implObj, "get_id"), flags, 2)
+        this.vtbl.get_count := CallbackCreate(GetMethod(implObj, "get_count"), flags, 2)
+        this.vtbl.item := CallbackCreate(GetMethod(implObj, "item"), flags, 3)
+        this.vtbl.startDownload := CallbackCreate(GetMethod(implObj, "startDownload"), flags, 4)
+        this.vtbl.removeItem := CallbackCreate(GetMethod(implObj, "removeItem"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_id)
+        CallbackFree(this.vtbl.get_count)
+        CallbackFree(this.vtbl.item)
+        CallbackFree(this.vtbl.startDownload)
+        CallbackFree(this.vtbl.removeItem)
+        CallbackFree(this.vtbl.Clear)
     }
 }

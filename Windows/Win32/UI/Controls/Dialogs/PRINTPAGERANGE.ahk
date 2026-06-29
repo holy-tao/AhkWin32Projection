@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents a range of pages in a print job. A print job can have more than one page range. This information is supplied in the PRINTDLGEX structure when calling the PrintDlgEx function.
@@ -7,30 +6,21 @@
  * @namespace Windows.Win32.UI.Controls.Dialogs
  * @architecture X64, Arm64
  */
-class PRINTPAGERANGE extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct PRINTPAGERANGE {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The first page of the range.
-     * @type {Integer}
      */
-    nFromPage {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    nFromPage : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The last page of the range.
-     * @type {Integer}
      */
-    nToPage {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    nToPage : UInt32
+
 }

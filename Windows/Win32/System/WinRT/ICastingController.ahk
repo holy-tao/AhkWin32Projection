@@ -1,31 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICastingEventHandler.ahk" { ICastingEventHandler }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.WinRT
  */
-class ICastingController extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICastingController extends IUnknown {
     /**
      * The interface identifier for ICastingController
      * @type {Guid}
      */
-    static IID => Guid("{f0a56423-a664-4fbd-8b43-409a45e8d9a1}")
+    static IID := Guid("{f0a56423-a664-4fbd-8b43-409a45e8d9a1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICastingController interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize : IntPtr
+        Connect    : IntPtr
+        Disconnect : IntPtr
+        Advise     : IntPtr
+        UnAdvise   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "Connect", "Disconnect", "Advise", "UnAdvise"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICastingController.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes a thread to use Windows Runtime APIs.
@@ -63,9 +76,8 @@ class ICastingController extends IUnknown {
     }
 
     /**
-     * Defines each configuration setting and associates it with a name. The Connection element is optional.
+     * 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/eaphost/eapconnectionpropertiesv1schema-connection-connections-element
      */
     Connect() {
         result := ComCall(4, this, "HRESULT")
@@ -85,16 +97,9 @@ class ICastingController extends IUnknown {
     }
 
     /**
-     * Stops the recognizer from processing ink because a stroke has been added or deleted.
-     * @remarks
-     * The <b>AdviseInkChange</b> function signals that there will be additional calls to the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-addstroke">AddStroke</a> function. This enables any recognition already in progress to stop at any convenient point. Recognition completion is one such point, so <b>AdviseInkChange</b> can safely do nothing.
      * 
-     * For example, if you have two threads, one thread may be using <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-addstroke">AddStroke</a> and <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-process">Process</a> with other functions to obtain results. The other thread may be collecting ink, echoing it, and queuing tasks for the first thread. The second thread calls <b>AdviseInkChange</b> to notify the recognizer a change is coming. This enables the first thread to return to the caller sooner than without the call to <b>AdviseInkChange</b>. The first thread can then call the recognizer again with more ink.
-     * 
-     * If you set the bNewStroke parameter to <b>FALSE</b> because a stroke was modified or deleted, you must also call the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-resetcontext">ResetContext</a> function, and then call the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-addstroke">AddStroke</a> function to add the strokes from the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> object to the recognizer context. This is done automatically if you attach the recognizer context to the <b>InkDisp</b> object.
      * @param {ICastingEventHandler} eventHandler 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-adviseinkchange
      */
     Advise(eventHandler) {
         result := ComCall(6, this, "ptr", eventHandler, "uint*", &cookie := 0, "HRESULT")
@@ -109,5 +114,33 @@ class ICastingController extends IUnknown {
     UnAdvise(cookie) {
         result := ComCall(7, this, "uint", cookie, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICastingController.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 1)
+        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 1)
+        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 3)
+        this.vtbl.UnAdvise := CallbackCreate(GetMethod(implObj, "UnAdvise"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.Connect)
+        CallbackFree(this.vtbl.Disconnect)
+        CallbackFree(this.vtbl.Advise)
+        CallbackFree(this.vtbl.UnAdvise)
     }
 }

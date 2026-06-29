@@ -1,9 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ONEX_STATUS.ahk
-#Include .\ONEX_AUTH_STATUS.ahk
-#Include .\ONEX_EAP_METHOD_BACKEND_SUPPORT.ahk
-#Include .\ONEX_VARIABLE_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ONEX_VARIABLE_BLOB.ahk" { ONEX_VARIABLE_BLOB }
+#Import ".\ONEX_STATUS.ahk" { ONEX_STATUS }
+#Import ".\ONEX_AUTH_STATUS.ahk" { ONEX_AUTH_STATUS }
+#Import ".\ONEX_EAP_METHOD_BACKEND_SUPPORT.ahk" { ONEX_EAP_METHOD_BACKEND_SUPPORT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains information on a status change to 802.1X authentication.
@@ -14,22 +14,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/dot1x/ns-dot1x-onex_result_update_data
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class ONEX_RESULT_UPDATE_DATA extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 4
+export default struct ONEX_RESULT_UPDATE_DATA {
+    #StructPack 4
 
     /**
      * Specifies the current 802.1X authentication status. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_status">ONEX_STATUS</a> structure.
-     * @type {ONEX_STATUS}
      */
-    oneXStatus {
-        get {
-            if(!this.HasProp("__oneXStatus"))
-                this.__oneXStatus := ONEX_STATUS(0, this)
-            return this.__oneXStatus
-        }
-    }
+    oneXStatus : ONEX_STATUS
 
     /**
      * Indicates if the configured EAP method on the supplicant is supported on the 802.1X authentication server.
@@ -38,32 +29,21 @@ class ONEX_RESULT_UPDATE_DATA extends Win32Struct {
      *    authentication server, which may implement some or all authentication
      *    methods, with the authenticator acting as a pass-through for some or
      *    all methods and peers. For more information, see RFC 3748 published by the IETF and the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ne-dot1x-onex_eap_method_backend_support">ONEX_EAP_METHOD_BACKEND_SUPPORT</a> enumeration.
-     * @type {ONEX_EAP_METHOD_BACKEND_SUPPORT}
      */
-    BackendSupport {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    BackendSupport : ONEX_EAP_METHOD_BACKEND_SUPPORT
 
     /**
      * Indicates if a response was received from the 802.1X authentication server.
-     * @type {BOOL}
      */
-    fBackendEngaged {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    fBackendEngaged : BOOL
 
     /**
      * This bitfield backs the following members:
      * - fOneXAuthParams
      * - fEapError
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -80,28 +60,14 @@ class ONEX_RESULT_UPDATE_DATA extends Win32Struct {
         get => (this._bitfield >> 1) & 0x1
         set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
     }
-
     /**
      * The 802.1X authentication parameters. This member contains an embedded <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_auth_params">ONEX_AUTH_PARAMS</a> structure starting at the <b>dwOffset</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_variable_blob">ONEX_VARIABLE_BLOB</a> if the <b>fOneXAuthParams</b> bitfield member is set.
-     * @type {ONEX_VARIABLE_BLOB}
      */
-    authParams {
-        get {
-            if(!this.HasProp("__authParams"))
-                this.__authParams := ONEX_VARIABLE_BLOB(24, this)
-            return this.__authParams
-        }
-    }
+    authParams : ONEX_VARIABLE_BLOB
 
     /**
      * An EAP error value. This member contains an embedded <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_eap_error">ONEX_EAP_ERROR</a> structure starting at the <b>dwOffset</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_variable_blob">ONEX_VARIABLE_BLOB</a> if the <b>fEapError</b> bitfield member is set.
-     * @type {ONEX_VARIABLE_BLOB}
      */
-    eapError {
-        get {
-            if(!this.HasProp("__eapError"))
-                this.__eapError := ONEX_VARIABLE_BLOB(32, this)
-            return this.__eapError
-        }
-    }
+    eapError : ONEX_VARIABLE_BLOB
+
 }

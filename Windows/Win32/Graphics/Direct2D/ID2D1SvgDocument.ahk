@@ -1,38 +1,64 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Resource.ahk
-#Include .\ID2D1SvgElement.ahk
-#Include .\ID2D1SvgPaint.ahk
-#Include .\ID2D1SvgStrokeDashArray.ahk
-#Include .\ID2D1SvgPointCollection.ahk
-#Include .\ID2D1SvgPathData.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D2D1_SVG_LENGTH.ahk" { D2D1_SVG_LENGTH }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D2D1_SVG_PAINT_TYPE.ahk" { D2D1_SVG_PAINT_TYPE }
+#Import "Common\D2D1_COLOR_F.ahk" { D2D1_COLOR_F }
+#Import ".\ID2D1SvgPointCollection.ahk" { ID2D1SvgPointCollection }
+#Import ".\ID2D1Resource.ahk" { ID2D1Resource }
+#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
+#Import "Common\D2D_SIZE_F.ahk" { D2D_SIZE_F }
+#Import ".\ID2D1SvgPaint.ahk" { ID2D1SvgPaint }
+#Import ".\ID2D1SvgElement.ahk" { ID2D1SvgElement }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\D2D1_SVG_PATH_COMMAND.ahk" { D2D1_SVG_PATH_COMMAND }
+#Import ".\ID2D1SvgStrokeDashArray.ahk" { ID2D1SvgStrokeDashArray }
+#Import ".\ID2D1SvgPathData.ahk" { ID2D1SvgPathData }
 
 /**
  * Represents an SVG document.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nn-d2d1svg-id2d1svgdocument
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1SvgDocument extends ID2D1Resource {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1SvgDocument extends ID2D1Resource {
     /**
      * The interface identifier for ID2D1SvgDocument
      * @type {Guid}
      */
-    static IID => Guid("{86b88e4d-afa4-4d7b-88e4-68a51c4a0aec}")
+    static IID := Guid("{86b88e4d-afa4-4d7b-88e4-68a51c4a0aec}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1SvgDocument interfaces
+    */
+    struct Vtbl extends ID2D1Resource.Vtbl {
+        SetViewportSize       : IntPtr
+        GetViewportSize       : IntPtr
+        SetRoot               : IntPtr
+        GetRoot               : IntPtr
+        FindElementById       : IntPtr
+        Serialize             : IntPtr
+        Deserialize           : IntPtr
+        CreatePaint           : IntPtr
+        CreateStrokeDashArray : IntPtr
+        CreatePointCollection : IntPtr
+        CreatePathData        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetViewportSize", "GetViewportSize", "SetRoot", "GetRoot", "FindElementById", "Serialize", "Deserialize", "CreatePaint", "CreateStrokeDashArray", "CreatePointCollection", "CreatePathData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1SvgDocument.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the size of the initial viewport.
@@ -45,7 +71,7 @@ class ID2D1SvgDocument extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgdocument-setviewportsize
      */
     SetViewportSize(viewportSize) {
-        result := ComCall(4, this, "ptr", viewportSize, "HRESULT")
+        result := ComCall(4, this, D2D_SIZE_F, viewportSize, "HRESULT")
         return result
     }
 
@@ -57,7 +83,7 @@ class ID2D1SvgDocument extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgdocument-getviewportsize
      */
     GetViewportSize() {
-        result := ComCall(5, this, "ptr")
+        result := ComCall(5, this, D2D_SIZE_F)
         return result
     }
 
@@ -85,7 +111,7 @@ class ID2D1SvgDocument extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgdocument-getroot
      */
     GetRoot(root) {
-        ComCall(7, this, "ptr*", root)
+        ComCall(7, this, ID2D1SvgElement.Ptr, root)
     }
 
     /**
@@ -149,7 +175,7 @@ class ID2D1SvgDocument extends ID2D1Resource {
     CreatePaint(paintType, _color, id) {
         id := id is String ? StrPtr(id) : id
 
-        result := ComCall(11, this, "int", paintType, "ptr", _color, "ptr", id, "ptr*", &paint := 0, "HRESULT")
+        result := ComCall(11, this, D2D1_SVG_PAINT_TYPE, paintType, D2D1_COLOR_F.Ptr, _color, "ptr", id, "ptr*", &paint := 0, "HRESULT")
         return ID2D1SvgPaint(paint)
     }
 
@@ -167,7 +193,7 @@ class ID2D1SvgDocument extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgdocument-createstrokedasharray
      */
     CreateStrokeDashArray(dashes, dashesCount) {
-        result := ComCall(12, this, "ptr", dashes, "uint", dashesCount, "ptr*", &strokeDashArray := 0, "HRESULT")
+        result := ComCall(12, this, D2D1_SVG_LENGTH.Ptr, dashes, "uint", dashesCount, "ptr*", &strokeDashArray := 0, "HRESULT")
         return ID2D1SvgStrokeDashArray(strokeDashArray)
     }
 
@@ -185,7 +211,7 @@ class ID2D1SvgDocument extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgdocument-createpointcollection
      */
     CreatePointCollection(_points, pointsCount) {
-        result := ComCall(13, this, "ptr", _points, "uint", pointsCount, "ptr*", &pointCollection := 0, "HRESULT")
+        result := ComCall(13, this, D2D_POINT_2F.Ptr, _points, "uint", pointsCount, "ptr*", &pointCollection := 0, "HRESULT")
         return ID2D1SvgPointCollection(pointCollection)
     }
 
@@ -214,5 +240,45 @@ class ID2D1SvgDocument extends ID2D1Resource {
 
         result := ComCall(14, this, segmentDataMarshal, segmentData, "uint", segmentDataCount, commandsMarshal, commands, "uint", commandsCount, "ptr*", &_pathData := 0, "HRESULT")
         return ID2D1SvgPathData(_pathData)
+    }
+
+    Query(iid) {
+        if (ID2D1SvgDocument.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetViewportSize := CallbackCreate(GetMethod(implObj, "SetViewportSize"), flags, 2)
+        this.vtbl.GetViewportSize := CallbackCreate(GetMethod(implObj, "GetViewportSize"), flags, 1)
+        this.vtbl.SetRoot := CallbackCreate(GetMethod(implObj, "SetRoot"), flags, 2)
+        this.vtbl.GetRoot := CallbackCreate(GetMethod(implObj, "GetRoot"), flags, 2)
+        this.vtbl.FindElementById := CallbackCreate(GetMethod(implObj, "FindElementById"), flags, 3)
+        this.vtbl.Serialize := CallbackCreate(GetMethod(implObj, "Serialize"), flags, 3)
+        this.vtbl.Deserialize := CallbackCreate(GetMethod(implObj, "Deserialize"), flags, 3)
+        this.vtbl.CreatePaint := CallbackCreate(GetMethod(implObj, "CreatePaint"), flags, 5)
+        this.vtbl.CreateStrokeDashArray := CallbackCreate(GetMethod(implObj, "CreateStrokeDashArray"), flags, 4)
+        this.vtbl.CreatePointCollection := CallbackCreate(GetMethod(implObj, "CreatePointCollection"), flags, 4)
+        this.vtbl.CreatePathData := CallbackCreate(GetMethod(implObj, "CreatePathData"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetViewportSize)
+        CallbackFree(this.vtbl.GetViewportSize)
+        CallbackFree(this.vtbl.SetRoot)
+        CallbackFree(this.vtbl.GetRoot)
+        CallbackFree(this.vtbl.FindElementById)
+        CallbackFree(this.vtbl.Serialize)
+        CallbackFree(this.vtbl.Deserialize)
+        CallbackFree(this.vtbl.CreatePaint)
+        CallbackFree(this.vtbl.CreateStrokeDashArray)
+        CallbackFree(this.vtbl.CreatePointCollection)
+        CallbackFree(this.vtbl.CreatePathData)
     }
 }

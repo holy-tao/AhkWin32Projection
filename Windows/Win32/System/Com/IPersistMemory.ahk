@@ -1,38 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IPersist.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPersist.ahk" { IPersist }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.System.Com
  */
-class IPersistMemory extends IPersist {
-
-    static sizeof => A_PtrSize
+export default struct IPersistMemory extends IPersist {
     /**
      * The interface identifier for IPersistMemory
      * @type {Guid}
      */
-    static IID => Guid("{bd1ae5e0-a6ae-11ce-bd37-504200c10000}")
+    static IID := Guid("{bd1ae5e0-a6ae-11ce-bd37-504200c10000}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPersistMemory interfaces
+    */
+    struct Vtbl extends IPersist.Vtbl {
+        IsDirty    : IntPtr
+        Load       : IntPtr
+        Save       : IntPtr
+        GetSizeMax : IntPtr
+        InitNew    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsDirty", "Load", "Save", "GetSizeMax", "InitNew"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPersistMemory.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
      * @returns {HRESULT} 
      */
     IsDirty() {
-        result := ComCall(4, this, "int")
+        result := ComCall(4, this, Int32)
         return result
     }
 
@@ -116,16 +129,13 @@ class IPersistMemory extends IPersist {
     }
 
     /**
-     * The SaveBookmark method saves the current disc position and state of the MSWebDVD object so the user can return to the same place later.
-     * @remarks
-     * A bookmark is a snapshot of the DVD Navigator's current state. This includes information such as where it is playing on the disc, and which audio and subpictures streams are selected. By saving a bookmark, the user can close the application, shut down the computer, and come back later to continue viewing the disc right where he or she left off, with all settings just as they were before. Only one bookmark can be saved at any given time. When you call `SaveBookmark`, the old bookmark is overwritten.
+     * 
      * @param {BOOL} fClearDirty 
      * @param {Integer} cbSize 
      * @returns {Void} 
-     * @see https://learn.microsoft.com/windows/win32/DirectShow/savebookmark-method
      */
     Save(fClearDirty, cbSize) {
-        result := ComCall(6, this, "ptr", &pMem := 0, "int", fClearDirty, "uint", cbSize, "HRESULT")
+        result := ComCall(6, this, "ptr", &pMem := 0, BOOL, fClearDirty, "uint", cbSize, "HRESULT")
         return pMem
     }
 
@@ -145,5 +155,33 @@ class IPersistMemory extends IPersist {
     InitNew() {
         result := ComCall(8, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPersistMemory.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsDirty := CallbackCreate(GetMethod(implObj, "IsDirty"), flags, 1)
+        this.vtbl.Load := CallbackCreate(GetMethod(implObj, "Load"), flags, 3)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 4)
+        this.vtbl.GetSizeMax := CallbackCreate(GetMethod(implObj, "GetSizeMax"), flags, 2)
+        this.vtbl.InitNew := CallbackCreate(GetMethod(implObj, "InitNew"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsDirty)
+        CallbackFree(this.vtbl.Load)
+        CallbackFree(this.vtbl.Save)
+        CallbackFree(this.vtbl.GetSizeMax)
+        CallbackFree(this.vtbl.InitNew)
     }
 }

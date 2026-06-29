@@ -1,121 +1,40 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class IMAGE_SYMBOL_EX extends Win32Struct {
-    static sizeof => 20
+export default struct IMAGE_SYMBOL_EX {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _N_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 2
+    struct _N {
 
-        class _Name extends Win32Struct {
-            static sizeof => 8
-            static packingSize => 4
+        struct _Name {
+            Short : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Short {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            Long : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Long {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
         }
 
-        /**
-         * @type {Array<Integer>}
-         */
-        ShortName {
-            get {
-                if(!this.HasProp("__ShortNameProxyArray"))
-                    this.__ShortNameProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")
-                return this.__ShortNameProxyArray
-            }
-        }
+        ShortName : Int8[8]
 
-        /**
-         * @type {_Name}
-         */
-        Name {
-            get {
-                if(!this.HasProp("__Name"))
-                    this.__Name := IMAGE_SYMBOL_EX._N_e__Union._Name(0, this)
-                return this.__Name
-            }
-        }
-
-        /**
-         * @type {Array<Integer>}
-         */
-        LongName {
-            get {
-                if(!this.HasProp("__LongNameProxyArray"))
-                    this.__LongNameProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "uint")
-                return this.__LongNameProxyArray
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'Name', { type: IMAGE_SYMBOL_EX._N._Name, offset: 0 })
+            DefineProp(this.Prototype, 'LongName', { type: UInt32[2], offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {_N_e__Union}
-     */
-    N {
-        get {
-            if(!this.HasProp("__N"))
-                this.__N := IMAGE_SYMBOL_EX._N_e__Union(0, this)
-            return this.__N
-        }
-    }
+    N : IMAGE_SYMBOL_EX._N
 
-    /**
-     * @type {Integer}
-     */
-    Value {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Value : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SectionNumber {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    SectionNumber : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    Type : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    StorageClass {
-        get => NumGet(this, 18, "char")
-        set => NumPut("char", value, this, 18)
-    }
+    StorageClass : Int8
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfAuxSymbols {
-        get => NumGet(this, 19, "char")
-        set => NumPut("char", value, this, 19)
-    }
+    NumberOfAuxSymbols : Int8
+
 }

@@ -1,45 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IWbemCallResult.ahk" { IWbemCallResult }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWbemContext.ahk" { IWbemContext }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWbemObjectSink.ahk" { IWbemObjectSink }
 
 /**
  * @namespace Windows.Win32.System.Wmi
  */
-class IWbemClientConnectionTransport extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWbemClientConnectionTransport extends IUnknown {
     /**
      * The interface identifier for IWbemClientConnectionTransport
      * @type {Guid}
      */
-    static IID => Guid("{a889c72a-fcc1-4a9e-af61-ed071333fb5b}")
+    static IID := Guid("{a889c72a-fcc1-4a9e-af61-ed071333fb5b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWbemClientConnectionTransport interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Open      : IntPtr
+        OpenAsync : IntPtr
+        Cancel    : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWbemClientConnectionTransport.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Open", "OpenAsync", "Cancel"]
-
-    /**
-     * Opens a handle to a backup event log created by the BackupEventLog function. (ANSI)
-     * @remarks
-     * If the backup filename specifies a remote server, the <i>lpUNCServerName</i> parameter must be <b>NULL</b>.
      * 
-     * When this function is used on Windows Vista and later computers, only backup event logs that were saved with the <b>BackupEventLog</b> function on Windows Vista and later computers can be opened.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The winbase.h header defines OpenBackupEventLog as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {BSTR} strAddressType 
      * @param {Integer} dwBinaryAddressLength 
      * @param {Pointer<Integer>} abBinaryAddress 
@@ -52,12 +55,7 @@ class IWbemClientConnectionTransport extends IUnknown {
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Pointer<Void>>} pInterface 
      * @param {Pointer<IWbemCallResult>} pCallRes 
-     * @returns {HRESULT} If the function succeeds, the return value is a handle to the backup event log.
-     * 						
-     * 
-     * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-openbackupeventloga
+     * @returns {HRESULT} 
      */
     Open(strAddressType, dwBinaryAddressLength, abBinaryAddress, strObject, strUser, strPassword, strLocale, lFlags, pCtx, riid, pInterface, pCallRes) {
         strAddressType := strAddressType is String ? BSTR.Alloc(strAddressType).Value : strAddressType
@@ -69,7 +67,7 @@ class IWbemClientConnectionTransport extends IUnknown {
         abBinaryAddressMarshal := abBinaryAddress is VarRef ? "char*" : "ptr"
         pInterfaceMarshal := pInterface is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", strAddressType, "uint", dwBinaryAddressLength, abBinaryAddressMarshal, abBinaryAddress, "ptr", strObject, "ptr", strUser, "ptr", strPassword, "ptr", strLocale, "int", lFlags, "ptr", pCtx, "ptr", riid, pInterfaceMarshal, pInterface, "ptr*", pCallRes, "HRESULT")
+        result := ComCall(3, this, BSTR, strAddressType, "uint", dwBinaryAddressLength, abBinaryAddressMarshal, abBinaryAddress, BSTR, strObject, BSTR, strUser, BSTR, strPassword, BSTR, strLocale, "int", lFlags, "ptr", pCtx, Guid.Ptr, riid, pInterfaceMarshal, pInterface, IWbemCallResult.Ptr, pCallRes, "HRESULT")
         return result
     }
 
@@ -97,25 +95,42 @@ class IWbemClientConnectionTransport extends IUnknown {
 
         abBinaryAddressMarshal := abBinaryAddress is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "ptr", strAddressType, "uint", dwBinaryAddressLength, abBinaryAddressMarshal, abBinaryAddress, "ptr", strObject, "ptr", strUser, "ptr", strPassword, "ptr", strLocale, "int", lFlags, "ptr", pCtx, "ptr", riid, "ptr", pResponseHandler, "HRESULT")
+        result := ComCall(4, this, BSTR, strAddressType, "uint", dwBinaryAddressLength, abBinaryAddressMarshal, abBinaryAddress, BSTR, strObject, BSTR, strUser, BSTR, strPassword, BSTR, strLocale, "int", lFlags, "ptr", pCtx, Guid.Ptr, riid, "ptr", pResponseHandler, "HRESULT")
         return result
     }
 
     /**
-     * Use the Cancel-Session packet to terminate the upload session with the BITS server.
-     * @remarks
-     * This packet cancels an upload job if it is sent before the last fragment is sent. Cancel-Session has no effect on a file whose last fragment has already been sent. When the BITS server receives the last fragment, it writes the file to its final destination and, in the case of an upload-reply, posts the file to the server application. In the upload-reply case, the Cancel-Session packet cancels the reply portion of an upload-reply job.
      * 
-     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
-     * 
-     * The BITS client sends this packet when the user cancels the job.
      * @param {Integer} lFlags 
      * @param {IWbemObjectSink} pHandler 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Bits/cancel-session
      */
     Cancel(lFlags, pHandler) {
         result := ComCall(5, this, "int", lFlags, "ptr", pHandler, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWbemClientConnectionTransport.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 13)
+        this.vtbl.OpenAsync := CallbackCreate(GetMethod(implObj, "OpenAsync"), flags, 12)
+        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Open)
+        CallbackFree(this.vtbl.OpenAsync)
+        CallbackFree(this.vtbl.Cancel)
     }
 }

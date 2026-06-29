@@ -1,13 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The IADsDNWithBinary interface provides methods for an ADSI client to associate a distinguished name (DN) with the GUID of an object.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsdnwithbinary
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class DNWithBinary extends Win32Struct {
-    static sizeof => 0
+export default struct DNWithBinary {
+    #StructPack 1
 
-    static packingSize => 1
 }

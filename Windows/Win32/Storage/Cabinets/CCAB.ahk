@@ -1,121 +1,72 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * The CCAB structure contains cabinet information.
  * @see https://learn.microsoft.com/windows/win32/api/fci/ns-fci-ccab
  * @namespace Windows.Win32.Storage.Cabinets
  */
-class CCAB extends Win32Struct {
-    static sizeof => 804
-
-    static packingSize => 4
+export default struct CCAB {
+    #StructPack 4
 
     /**
      * The maximum size, in bytes, of a cabinet  created by FCI.
-     * @type {Integer}
      */
-    cb {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cb : UInt32
 
     /**
      * The maximum size, in bytes, that  a folder will contain before a new folder is created.
-     * @type {Integer}
      */
-    cbFolderThresh {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cbFolderThresh : UInt32
 
     /**
      * The size, in bytes, of the CFHeader reserve area. Possible value range is 0-60,000.
-     * @type {Integer}
      */
-    cbReserveCFHeader {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cbReserveCFHeader : UInt32
 
     /**
      * The size, in bytes, of the CFFolder reserve area. Possible value range is 0-255.
-     * @type {Integer}
      */
-    cbReserveCFFolder {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    cbReserveCFFolder : UInt32
 
     /**
      * The size, in bytes, of the CFData reserve area. Possible value range is 0-255.
-     * @type {Integer}
      */
-    cbReserveCFData {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cbReserveCFData : UInt32
 
     /**
      * The number of created cabinets.
-     * @type {Integer}
      */
-    iCab {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    iCab : Int32
 
     /**
      * The maximum size, in bytes, of a cabinet  created by FCI.
-     * @type {Integer}
      */
-    iDisk {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    iDisk : Int32
 
     /**
      * TBD
-     * @type {Integer}
      */
-    fFailOnIncompressible {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    fFailOnIncompressible : Int32
 
     /**
      * A value that represents the association between a collection of linked cabinet files.
-     * @type {Integer}
      */
-    setID {
-        get => NumGet(this, 32, "ushort")
-        set => NumPut("ushort", value, this, 32)
-    }
+    setID : UInt16
 
     /**
      * The name of the disk on which the cabinet is placed.
-     * @type {String}
      */
-    szDisk {
-        get => StrGet(this.ptr + 34, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 34, 255, "UTF-8")
-    }
+    szDisk : CHAR[256]
 
     /**
      * The name of the cabinet.
-     * @type {String}
      */
-    szCab {
-        get => StrGet(this.ptr + 290, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 290, 255, "UTF-8")
-    }
+    szCab : CHAR[256]
 
     /**
      * The full path that indicates where to create the cabinet.
-     * @type {String}
      */
-    szCabPath {
-        get => StrGet(this.ptr + 546, 255, "UTF-8")
-        set => StrPut(value, this.ptr + 546, 255, "UTF-8")
-    }
+    szCabPath : CHAR[256]
+
 }

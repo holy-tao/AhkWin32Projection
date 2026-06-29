@@ -1,119 +1,36 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_QUIC_STREAM_API_TIMINGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HTTP_QUIC_STREAM_API_TIMINGS.ahk" { HTTP_QUIC_STREAM_API_TIMINGS }
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_QUIC_CONNECTION_API_TIMINGS extends Win32Struct {
-    static sizeof => 240
+export default struct HTTP_QUIC_CONNECTION_API_TIMINGS {
+    #StructPack 8
 
-    static packingSize => 8
+    OpenTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    OpenTime {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    CloseTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CloseTime {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    StartTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    StartTime {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ShutdownTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ShutdownTime {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    SecConfigCreateTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SecConfigCreateTime {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    SecConfigDeleteTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SecConfigDeleteTime {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    GetParamCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    GetParamCount {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    GetParamSum : Int64
 
-    /**
-     * @type {Integer}
-     */
-    GetParamSum {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    SetParamCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SetParamCount {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    SetParamSum : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SetParamSum {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    SetCallbackHandlerCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SetCallbackHandlerCount {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    SetCallbackHandlerSum : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SetCallbackHandlerSum {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    ControlStreamTimings : HTTP_QUIC_STREAM_API_TIMINGS
 
-    /**
-     * @type {HTTP_QUIC_STREAM_API_TIMINGS}
-     */
-    ControlStreamTimings {
-        get {
-            if(!this.HasProp("__ControlStreamTimings"))
-                this.__ControlStreamTimings := HTTP_QUIC_STREAM_API_TIMINGS(96, this)
-            return this.__ControlStreamTimings
-        }
-    }
 }

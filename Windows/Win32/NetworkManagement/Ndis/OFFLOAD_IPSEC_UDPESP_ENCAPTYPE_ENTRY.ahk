@@ -1,28 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\UDP_ENCAP_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\UDP_ENCAP_TYPE.ahk" { UDP_ENCAP_TYPE }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class OFFLOAD_IPSEC_UDPESP_ENCAPTYPE_ENTRY extends Win32Struct {
-    static sizeof => 8
+export default struct OFFLOAD_IPSEC_UDPESP_ENCAPTYPE_ENTRY {
+    #StructPack 4
 
-    static packingSize => 4
+    UdpEncapType : UDP_ENCAP_TYPE
 
-    /**
-     * @type {UDP_ENCAP_TYPE}
-     */
-    UdpEncapType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    DstEncapPort : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DstEncapPort {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
 }

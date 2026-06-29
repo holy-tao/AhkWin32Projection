@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Globalization
  */
-class UNICODERANGE extends Win32Struct {
-    static sizeof => 4
+export default struct UNICODERANGE {
+    #StructPack 2
 
-    static packingSize => 2
+    wcFrom : Int8
 
-    /**
-     * @type {Integer}
-     */
-    wcFrom {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    wcTo : Int8
 
-    /**
-     * @type {Integer}
-     */
-    wcTo {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
 }

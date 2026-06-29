@@ -1,48 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\NETLOGON_LOGON_IDENTITY_INFO.ahk
-#Include .\LSA_UNICODE_STRING.ahk
-#Include ..\..\..\System\PasswordManagement\LM_OWF_PASSWORD.ahk
-#Include ..\..\..\System\PasswordManagement\CYPHER_BLOCK.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\System\PasswordManagement\CYPHER_BLOCK.ahk" { CYPHER_BLOCK }
+#Import ".\NETLOGON_LOGON_IDENTITY_INFO.ahk" { NETLOGON_LOGON_IDENTITY_INFO }
+#Import "..\..\..\System\PasswordManagement\LM_OWF_PASSWORD.ahk" { LM_OWF_PASSWORD }
+#Import "..\..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class NETLOGON_INTERACTIVE_INFO extends Win32Struct {
-    static sizeof => 96
+export default struct NETLOGON_INTERACTIVE_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    Identity : NETLOGON_LOGON_IDENTITY_INFO
 
-    /**
-     * @type {NETLOGON_LOGON_IDENTITY_INFO}
-     */
-    Identity {
-        get {
-            if(!this.HasProp("__Identity"))
-                this.__Identity := NETLOGON_LOGON_IDENTITY_INFO(0, this)
-            return this.__Identity
-        }
-    }
+    LmOwfPassword : LM_OWF_PASSWORD
 
-    /**
-     * @type {LM_OWF_PASSWORD}
-     */
-    LmOwfPassword {
-        get {
-            if(!this.HasProp("__LmOwfPassword"))
-                this.__LmOwfPassword := LM_OWF_PASSWORD(64, this)
-            return this.__LmOwfPassword
-        }
-    }
+    NtOwfPassword : LM_OWF_PASSWORD
 
-    /**
-     * @type {LM_OWF_PASSWORD}
-     */
-    NtOwfPassword {
-        get {
-            if(!this.HasProp("__NtOwfPassword"))
-                this.__NtOwfPassword := LM_OWF_PASSWORD(80, this)
-            return this.__NtOwfPassword
-        }
-    }
 }

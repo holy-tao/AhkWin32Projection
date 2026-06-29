@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\POINTL.ahk
-#Include ..\..\Foundation\RECTL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import "..\..\Foundation\POINTL.ahk" { POINTL }
 
 /**
  * The EMRTEXT structure contains members for text output.
@@ -10,68 +9,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrtext
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class EMRTEXT extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 4
+export default struct EMRTEXT {
+    #StructPack 4
 
     /**
      * The logical coordinates of the reference point used to position the string.
-     * @type {POINTL}
      */
-    ptlReference {
-        get {
-            if(!this.HasProp("__ptlReference"))
-                this.__ptlReference := POINTL(0, this)
-            return this.__ptlReference
-        }
-    }
+    ptlReference : POINTL
 
     /**
      * The number of characters in the string.
-     * @type {Integer}
      */
-    nChars {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    nChars : UInt32
 
     /**
      * The offset to the string.
-     * @type {Integer}
      */
-    offString {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    offString : UInt32
 
     /**
      * A value that indicates how to use the application-defined rectangle. This member can be a combination of the ETO_CLIPPED and ETO_OPAQUE values.
-     * @type {Integer}
      */
-    fOptions {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    fOptions : UInt32
 
     /**
      * An optional clipping and/or opaquing rectangle, in logical units.
-     * @type {RECTL}
      */
-    rcl {
-        get {
-            if(!this.HasProp("__rcl"))
-                this.__rcl := RECTL(20, this)
-            return this.__rcl
-        }
-    }
+    rcl : RECTL
 
     /**
      * The offset to the intercharacter spacing array.
-     * @type {Integer}
      */
-    offDx {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    offDx : UInt32
+
 }

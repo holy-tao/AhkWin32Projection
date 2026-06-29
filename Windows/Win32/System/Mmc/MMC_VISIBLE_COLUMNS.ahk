@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used by MMC with the MMCN_COLUMNS_CHANGED notification to inform the snap-in which columns in a column set are visible.
@@ -10,29 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-mmc_visible_columns
  * @namespace Windows.Win32.System.Mmc
  */
-class MMC_VISIBLE_COLUMNS extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct MMC_VISIBLE_COLUMNS {
+    #StructPack 4
 
     /**
      * The number of visible columns in the column set.
-     * @type {Integer}
      */
-    nVisibleColumns {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    nVisibleColumns : Int32
 
     /**
      * A variable-length array in which each member contains the zero-based number of a visible column. The ordering of the columns in the array corresponds to the order of the columns as they appear in the list view. The nVisibleColumns member gives the number of elements in the list.
-     * @type {Array<Integer>}
      */
-    rgVisibleCols {
-        get {
-            if(!this.HasProp("__rgVisibleColsProxyArray"))
-                this.__rgVisibleColsProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "int")
-            return this.__rgVisibleColsProxyArray
-        }
-    }
+    rgVisibleCols : Int32[1]
+
 }

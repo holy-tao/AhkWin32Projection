@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Provides detail about whether the adapter supports creating heaps from existing system memory.
@@ -8,17 +8,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_existing_heaps
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_FEATURE_DATA_EXISTING_HEAPS extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct D3D12_FEATURE_DATA_EXISTING_HEAPS {
+    #StructPack 4
 
     /**
      * <b>TRUE</b> if the adapter can create a heap from existing system memory. Otherwise, <b>FALSE</b>.
-     * @type {BOOL}
      */
-    Supported {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Supported : BOOL
+
 }

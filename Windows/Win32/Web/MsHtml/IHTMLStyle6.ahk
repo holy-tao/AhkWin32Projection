@@ -1,33 +1,72 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLStyle6 extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLStyle6 extends IDispatch {
     /**
      * The interface identifier for IHTMLStyle6
      * @type {Guid}
      */
-    static IID => Guid("{30510480-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{30510480-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLStyle6 interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_content            : IntPtr
+        get_content            : IntPtr
+        put_captionSide        : IntPtr
+        get_captionSide        : IntPtr
+        put_counterIncrement   : IntPtr
+        get_counterIncrement   : IntPtr
+        put_counterReset       : IntPtr
+        get_counterReset       : IntPtr
+        put_outline            : IntPtr
+        get_outline            : IntPtr
+        put_outlineWidth       : IntPtr
+        get_outlineWidth       : IntPtr
+        put_outlineStyle       : IntPtr
+        get_outlineStyle       : IntPtr
+        put_outlineColor       : IntPtr
+        get_outlineColor       : IntPtr
+        put_boxSizing          : IntPtr
+        get_boxSizing          : IntPtr
+        put_borderSpacing      : IntPtr
+        get_borderSpacing      : IntPtr
+        put_orphans            : IntPtr
+        get_orphans            : IntPtr
+        put_widows             : IntPtr
+        get_widows             : IntPtr
+        put_pageBreakInside    : IntPtr
+        get_pageBreakInside    : IntPtr
+        put_emptyCells         : IntPtr
+        get_emptyCells         : IntPtr
+        put_msBlockProgression : IntPtr
+        get_msBlockProgression : IntPtr
+        put_quotes             : IntPtr
+        get_quotes             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_content", "get_content", "put_captionSide", "get_captionSide", "put_counterIncrement", "get_counterIncrement", "put_counterReset", "get_counterReset", "put_outline", "get_outline", "put_outlineWidth", "get_outlineWidth", "put_outlineStyle", "get_outlineStyle", "put_outlineColor", "get_outlineColor", "put_boxSizing", "get_boxSizing", "put_borderSpacing", "get_borderSpacing", "put_orphans", "get_orphans", "put_widows", "get_widows", "put_pageBreakInside", "get_pageBreakInside", "put_emptyCells", "get_emptyCells", "put_msBlockProgression", "get_msBlockProgression", "put_quotes", "get_quotes"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLStyle6.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -165,7 +204,7 @@ class IHTMLStyle6 extends IDispatch {
     put_content(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -174,8 +213,8 @@ class IHTMLStyle6 extends IDispatch {
      * @returns {BSTR} 
      */
     get_content() {
-        p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -187,7 +226,7 @@ class IHTMLStyle6 extends IDispatch {
     put_captionSide(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -196,8 +235,8 @@ class IHTMLStyle6 extends IDispatch {
      * @returns {BSTR} 
      */
     get_captionSide() {
-        p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -209,7 +248,7 @@ class IHTMLStyle6 extends IDispatch {
     put_counterIncrement(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -218,8 +257,8 @@ class IHTMLStyle6 extends IDispatch {
      * @returns {BSTR} 
      */
     get_counterIncrement() {
-        p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -231,7 +270,7 @@ class IHTMLStyle6 extends IDispatch {
     put_counterReset(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -240,8 +279,8 @@ class IHTMLStyle6 extends IDispatch {
      * @returns {BSTR} 
      */
     get_counterReset() {
-        p := BSTR()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -253,7 +292,7 @@ class IHTMLStyle6 extends IDispatch {
     put_outline(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -262,8 +301,8 @@ class IHTMLStyle6 extends IDispatch {
      * @returns {BSTR} 
      */
     get_outline() {
-        p := BSTR()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(16, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -273,7 +312,7 @@ class IHTMLStyle6 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_outlineWidth(v) {
-        result := ComCall(17, this, "ptr", v, "HRESULT")
+        result := ComCall(17, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -283,7 +322,7 @@ class IHTMLStyle6 extends IDispatch {
      */
     get_outlineWidth() {
         p := VARIANT()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        result := ComCall(18, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -295,7 +334,7 @@ class IHTMLStyle6 extends IDispatch {
     put_outlineStyle(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(19, this, "ptr", v, "HRESULT")
+        result := ComCall(19, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -304,8 +343,8 @@ class IHTMLStyle6 extends IDispatch {
      * @returns {BSTR} 
      */
     get_outlineStyle() {
-        p := BSTR()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(20, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -315,7 +354,7 @@ class IHTMLStyle6 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_outlineColor(v) {
-        result := ComCall(21, this, "ptr", v, "HRESULT")
+        result := ComCall(21, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -325,7 +364,7 @@ class IHTMLStyle6 extends IDispatch {
      */
     get_outlineColor() {
         p := VARIANT()
-        result := ComCall(22, this, "ptr", p, "HRESULT")
+        result := ComCall(22, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -337,7 +376,7 @@ class IHTMLStyle6 extends IDispatch {
     put_boxSizing(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(23, this, "ptr", v, "HRESULT")
+        result := ComCall(23, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -346,8 +385,8 @@ class IHTMLStyle6 extends IDispatch {
      * @returns {BSTR} 
      */
     get_boxSizing() {
-        p := BSTR()
-        result := ComCall(24, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(24, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -359,7 +398,7 @@ class IHTMLStyle6 extends IDispatch {
     put_borderSpacing(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(25, this, "ptr", v, "HRESULT")
+        result := ComCall(25, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -368,8 +407,8 @@ class IHTMLStyle6 extends IDispatch {
      * @returns {BSTR} 
      */
     get_borderSpacing() {
-        p := BSTR()
-        result := ComCall(26, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(26, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -379,7 +418,7 @@ class IHTMLStyle6 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_orphans(v) {
-        result := ComCall(27, this, "ptr", v, "HRESULT")
+        result := ComCall(27, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -389,7 +428,7 @@ class IHTMLStyle6 extends IDispatch {
      */
     get_orphans() {
         p := VARIANT()
-        result := ComCall(28, this, "ptr", p, "HRESULT")
+        result := ComCall(28, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -399,7 +438,7 @@ class IHTMLStyle6 extends IDispatch {
      * @returns {HRESULT} 
      */
     put_widows(v) {
-        result := ComCall(29, this, "ptr", v, "HRESULT")
+        result := ComCall(29, this, VARIANT, v, "HRESULT")
         return result
     }
 
@@ -409,7 +448,7 @@ class IHTMLStyle6 extends IDispatch {
      */
     get_widows() {
         p := VARIANT()
-        result := ComCall(30, this, "ptr", p, "HRESULT")
+        result := ComCall(30, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -421,7 +460,7 @@ class IHTMLStyle6 extends IDispatch {
     put_pageBreakInside(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(31, this, "ptr", v, "HRESULT")
+        result := ComCall(31, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -430,8 +469,8 @@ class IHTMLStyle6 extends IDispatch {
      * @returns {BSTR} 
      */
     get_pageBreakInside() {
-        p := BSTR()
-        result := ComCall(32, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(32, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -443,7 +482,7 @@ class IHTMLStyle6 extends IDispatch {
     put_emptyCells(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(33, this, "ptr", v, "HRESULT")
+        result := ComCall(33, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -452,8 +491,8 @@ class IHTMLStyle6 extends IDispatch {
      * @returns {BSTR} 
      */
     get_emptyCells() {
-        p := BSTR()
-        result := ComCall(34, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(34, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -465,7 +504,7 @@ class IHTMLStyle6 extends IDispatch {
     put_msBlockProgression(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(35, this, "ptr", v, "HRESULT")
+        result := ComCall(35, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -474,8 +513,8 @@ class IHTMLStyle6 extends IDispatch {
      * @returns {BSTR} 
      */
     get_msBlockProgression() {
-        p := BSTR()
-        result := ComCall(36, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(36, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -487,7 +526,7 @@ class IHTMLStyle6 extends IDispatch {
     put_quotes(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(37, this, "ptr", v, "HRESULT")
+        result := ComCall(37, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -496,8 +535,90 @@ class IHTMLStyle6 extends IDispatch {
      * @returns {BSTR} 
      */
     get_quotes() {
-        p := BSTR()
-        result := ComCall(38, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(38, this, BSTR.Ptr, p, "HRESULT")
         return p
+    }
+
+    Query(iid) {
+        if (IHTMLStyle6.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_content := CallbackCreate(GetMethod(implObj, "put_content"), flags, 2)
+        this.vtbl.get_content := CallbackCreate(GetMethod(implObj, "get_content"), flags, 2)
+        this.vtbl.put_captionSide := CallbackCreate(GetMethod(implObj, "put_captionSide"), flags, 2)
+        this.vtbl.get_captionSide := CallbackCreate(GetMethod(implObj, "get_captionSide"), flags, 2)
+        this.vtbl.put_counterIncrement := CallbackCreate(GetMethod(implObj, "put_counterIncrement"), flags, 2)
+        this.vtbl.get_counterIncrement := CallbackCreate(GetMethod(implObj, "get_counterIncrement"), flags, 2)
+        this.vtbl.put_counterReset := CallbackCreate(GetMethod(implObj, "put_counterReset"), flags, 2)
+        this.vtbl.get_counterReset := CallbackCreate(GetMethod(implObj, "get_counterReset"), flags, 2)
+        this.vtbl.put_outline := CallbackCreate(GetMethod(implObj, "put_outline"), flags, 2)
+        this.vtbl.get_outline := CallbackCreate(GetMethod(implObj, "get_outline"), flags, 2)
+        this.vtbl.put_outlineWidth := CallbackCreate(GetMethod(implObj, "put_outlineWidth"), flags, 2)
+        this.vtbl.get_outlineWidth := CallbackCreate(GetMethod(implObj, "get_outlineWidth"), flags, 2)
+        this.vtbl.put_outlineStyle := CallbackCreate(GetMethod(implObj, "put_outlineStyle"), flags, 2)
+        this.vtbl.get_outlineStyle := CallbackCreate(GetMethod(implObj, "get_outlineStyle"), flags, 2)
+        this.vtbl.put_outlineColor := CallbackCreate(GetMethod(implObj, "put_outlineColor"), flags, 2)
+        this.vtbl.get_outlineColor := CallbackCreate(GetMethod(implObj, "get_outlineColor"), flags, 2)
+        this.vtbl.put_boxSizing := CallbackCreate(GetMethod(implObj, "put_boxSizing"), flags, 2)
+        this.vtbl.get_boxSizing := CallbackCreate(GetMethod(implObj, "get_boxSizing"), flags, 2)
+        this.vtbl.put_borderSpacing := CallbackCreate(GetMethod(implObj, "put_borderSpacing"), flags, 2)
+        this.vtbl.get_borderSpacing := CallbackCreate(GetMethod(implObj, "get_borderSpacing"), flags, 2)
+        this.vtbl.put_orphans := CallbackCreate(GetMethod(implObj, "put_orphans"), flags, 2)
+        this.vtbl.get_orphans := CallbackCreate(GetMethod(implObj, "get_orphans"), flags, 2)
+        this.vtbl.put_widows := CallbackCreate(GetMethod(implObj, "put_widows"), flags, 2)
+        this.vtbl.get_widows := CallbackCreate(GetMethod(implObj, "get_widows"), flags, 2)
+        this.vtbl.put_pageBreakInside := CallbackCreate(GetMethod(implObj, "put_pageBreakInside"), flags, 2)
+        this.vtbl.get_pageBreakInside := CallbackCreate(GetMethod(implObj, "get_pageBreakInside"), flags, 2)
+        this.vtbl.put_emptyCells := CallbackCreate(GetMethod(implObj, "put_emptyCells"), flags, 2)
+        this.vtbl.get_emptyCells := CallbackCreate(GetMethod(implObj, "get_emptyCells"), flags, 2)
+        this.vtbl.put_msBlockProgression := CallbackCreate(GetMethod(implObj, "put_msBlockProgression"), flags, 2)
+        this.vtbl.get_msBlockProgression := CallbackCreate(GetMethod(implObj, "get_msBlockProgression"), flags, 2)
+        this.vtbl.put_quotes := CallbackCreate(GetMethod(implObj, "put_quotes"), flags, 2)
+        this.vtbl.get_quotes := CallbackCreate(GetMethod(implObj, "get_quotes"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_content)
+        CallbackFree(this.vtbl.get_content)
+        CallbackFree(this.vtbl.put_captionSide)
+        CallbackFree(this.vtbl.get_captionSide)
+        CallbackFree(this.vtbl.put_counterIncrement)
+        CallbackFree(this.vtbl.get_counterIncrement)
+        CallbackFree(this.vtbl.put_counterReset)
+        CallbackFree(this.vtbl.get_counterReset)
+        CallbackFree(this.vtbl.put_outline)
+        CallbackFree(this.vtbl.get_outline)
+        CallbackFree(this.vtbl.put_outlineWidth)
+        CallbackFree(this.vtbl.get_outlineWidth)
+        CallbackFree(this.vtbl.put_outlineStyle)
+        CallbackFree(this.vtbl.get_outlineStyle)
+        CallbackFree(this.vtbl.put_outlineColor)
+        CallbackFree(this.vtbl.get_outlineColor)
+        CallbackFree(this.vtbl.put_boxSizing)
+        CallbackFree(this.vtbl.get_boxSizing)
+        CallbackFree(this.vtbl.put_borderSpacing)
+        CallbackFree(this.vtbl.get_borderSpacing)
+        CallbackFree(this.vtbl.put_orphans)
+        CallbackFree(this.vtbl.get_orphans)
+        CallbackFree(this.vtbl.put_widows)
+        CallbackFree(this.vtbl.get_widows)
+        CallbackFree(this.vtbl.put_pageBreakInside)
+        CallbackFree(this.vtbl.get_pageBreakInside)
+        CallbackFree(this.vtbl.put_emptyCells)
+        CallbackFree(this.vtbl.get_emptyCells)
+        CallbackFree(this.vtbl.put_msBlockProgression)
+        CallbackFree(this.vtbl.get_msBlockProgression)
+        CallbackFree(this.vtbl.put_quotes)
+        CallbackFree(this.vtbl.get_quotes)
     }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains values that indicate how the access rights in an EXPLICIT_ACCESS structure apply to the trustee.
  * @see https://learn.microsoft.com/windows/win32/api/accctrl/ne-accctrl-access_mode
  * @namespace Windows.Win32.Security.Authorization
  */
-class ACCESS_MODE extends Win32Enum {
+export default struct ACCESS_MODE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Value not used.

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains the basic options with which to create an RPC binding handle. (Unicode)
@@ -43,32 +43,19 @@
  * @namespace Windows.Win32.System.Rpc
  * @charset Unicode
  */
-class RPC_BINDING_HANDLE_TEMPLATE_V1_W extends Win32Struct {
-    static sizeof => 48
+export default struct RPC_BINDING_HANDLE_TEMPLATE_V1_W {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _u1_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _u1 {
+        Reserved : IntPtr
 
-        /**
-         * @type {Pointer<Integer>}
-         */
-        Reserved {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
     }
 
     /**
      * The version of this structure. For <b>RPC_BINDING_HANDLE_TEMPLATE_V1</b> this must be set to 1.
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
     /**
      * Flag values that describe specific properties of the RPC template.
@@ -89,56 +76,26 @@ class RPC_BINDING_HANDLE_TEMPLATE_V1_W extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProtocolSequence {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ProtocolSequence : UInt32
 
     /**
      * Pointer to a string representation of the network address to bind to.
-     * @type {Pointer<Integer>}
      */
-    NetworkAddress {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    NetworkAddress : IntPtr
 
     /**
      * Pointer to a string representation of the endpoint to bind to. If a dynamic endpoint is used, set this member to <b>NULL</b>. After the endpoint is resolved, use <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcbindingtostringbinding">RpcBindingToStringBinding</a> to obtain it.
-     * @type {Pointer<Integer>}
      */
-    StringEndpoint {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    StringEndpoint : IntPtr
 
-    /**
-     * @type {_u1_e__Union}
-     */
-    u1 {
-        get {
-            if(!this.HasProp("__u1"))
-                this.__u1 := RPC_BINDING_HANDLE_TEMPLATE_V1_W._u1_e__Union(32, this)
-            return this.__u1
-        }
-    }
+    u1 : RPC_BINDING_HANDLE_TEMPLATE_V1_W._u1
 
     /**
      * The UUID of the remote object. The semantics for this UUID are the same as those for a string binding. After the binding handle is created, call <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcbindingsetobject">RpcBindingSetObject</a> to change the UUID as needed.
-     * @type {Pointer}
      */
-    ObjectUuid {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    ObjectUuid : Guid
+
 }

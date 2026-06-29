@@ -1,34 +1,62 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IMSMQQueueInfo2.ahk
-#Include .\IMSMQMessage.ahk
-#Include .\IMSMQMessage2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMSMQMessage.ahk" { IMSMQMessage }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IMSMQEvent2.ahk" { IMSMQEvent2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMSMQQueueInfo2.ahk" { IMSMQQueueInfo2 }
+#Import ".\IMSMQMessage2.ahk" { IMSMQMessage2 }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
  */
-class IMSMQQueue2 extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IMSMQQueue2 extends IDispatch {
     /**
      * The interface identifier for IMSMQQueue2
      * @type {Guid}
      */
-    static IID => Guid("{ef0574e0-06d8-11d3-b100-00e02c074f6b}")
+    static IID := Guid("{ef0574e0-06d8-11d3-b100-00e02c074f6b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSMQQueue2 interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Access         : IntPtr
+        get_ShareMode      : IntPtr
+        get_QueueInfo      : IntPtr
+        get_Handle         : IntPtr
+        get_IsOpen         : IntPtr
+        Close              : IntPtr
+        Receive_v1         : IntPtr
+        Peek_v1            : IntPtr
+        EnableNotification : IntPtr
+        Reset              : IntPtr
+        ReceiveCurrent_v1  : IntPtr
+        PeekNext_v1        : IntPtr
+        PeekCurrent_v1     : IntPtr
+        Receive            : IntPtr
+        Peek               : IntPtr
+        ReceiveCurrent     : IntPtr
+        PeekNext           : IntPtr
+        PeekCurrent        : IntPtr
+        get_Properties     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Access", "get_ShareMode", "get_QueueInfo", "get_Handle", "get_IsOpen", "Close", "Receive_v1", "Peek_v1", "EnableNotification", "Reset", "ReceiveCurrent_v1", "PeekNext_v1", "PeekCurrent_v1", "Receive", "Peek", "ReceiveCurrent", "PeekNext", "PeekCurrent", "get_Properties"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSMQQueue2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -118,15 +146,8 @@ class IMSMQQueue2 extends IDispatch {
     }
 
     /**
-     * Use the Close-Session packet to tell the BITS server that file upload is complete and to end the session.
-     * @remarks
-     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
      * 
-     * For upload-reply jobs, you must download the reply before sending **Close-Session**. Otherwise, the reply is lost.
-     * 
-     * If you send this packet before uploading all fragments, the upload file is deleted; you cannot upload a partial file.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Bits/close-session
      */
     Close() {
         result := ComCall(12, this, "HRESULT")
@@ -142,7 +163,7 @@ class IMSMQQueue2 extends IDispatch {
      * @returns {IMSMQMessage} 
      */
     Receive_v1(Transaction, WantDestinationQueue, WantBody, ReceiveTimeout) {
-        result := ComCall(13, this, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr*", &ppmsg := 0, "HRESULT")
+        result := ComCall(13, this, VARIANT.Ptr, Transaction, VARIANT.Ptr, WantDestinationQueue, VARIANT.Ptr, WantBody, VARIANT.Ptr, ReceiveTimeout, "ptr*", &ppmsg := 0, "HRESULT")
         return IMSMQMessage(ppmsg)
     }
 
@@ -154,7 +175,7 @@ class IMSMQQueue2 extends IDispatch {
      * @returns {IMSMQMessage} 
      */
     Peek_v1(WantDestinationQueue, WantBody, ReceiveTimeout) {
-        result := ComCall(14, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr*", &ppmsg := 0, "HRESULT")
+        result := ComCall(14, this, VARIANT.Ptr, WantDestinationQueue, VARIANT.Ptr, WantBody, VARIANT.Ptr, ReceiveTimeout, "ptr*", &ppmsg := 0, "HRESULT")
         return IMSMQMessage(ppmsg)
     }
 
@@ -166,29 +187,13 @@ class IMSMQQueue2 extends IDispatch {
      * @returns {HRESULT} 
      */
     EnableNotification(Event, Cursor, ReceiveTimeout) {
-        result := ComCall(15, this, "ptr", Event, "ptr", Cursor, "ptr", ReceiveTimeout, "HRESULT")
+        result := ComCall(15, this, "ptr", Event, VARIANT.Ptr, Cursor, VARIANT.Ptr, ReceiveTimeout, "HRESULT")
         return result
     }
 
     /**
-     * Resets the time-out period or other mechanism that TPM manufacturers implement to protect against dictionary attacks on TPM authorization values.
-     * @remarks
-     * This method calls the TPM\_ResetLockValue command on the TPM. The exact behavior of this method varies among TPM manufacturers. Documentation from the computer or TPM manufacturer may provide additional information on the implementation of the anti-dictionary attack mechanism.
      * 
-     * In general, manufacturers can detect dictionary attacks by keeping track of failed authentications. If the number or frequency of failures become high enough, the TPM will lock out further commands for a certain time. Generally, the initial time-out period will be short, to allow a legitimate user a chance to correct the situation. If failures continue, the duration of each subsequent time-out period may increase rapidly.
-     * 
-     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
-     * @returns {HRESULT} Type: **uint32**
-     * 
-     * All TPM errors as well as errors specific to TPM Base Services can be returned. The following table lists some of the common return values.
-     * 
-     * 
-     * 
-     * | Return code/value                                                                                                                                                            | Description                                                                                                                                                                                                                                                               |
-     * |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl>                            | The method was successful.<br/>                                                                                                                                                                                                                                     |
-     * | <dl> <dt>**TPM\_E\_AUTHFAIL**</dt> <dt>2150105089 (0x80280001)</dt> </dl> | The provided owner authorization value is incorrect. Additional attempts at resetting the lock will fail with this same error. Please wait until the time-out period or other manufacturer-specific mechanism has expired before retrying locked TPM commands.<br/> |
-     * @see https://learn.microsoft.com/windows/win32/SecProv/resetauthlockout-win32-tpm
+     * @returns {HRESULT} 
      */
     Reset() {
         result := ComCall(16, this, "HRESULT")
@@ -204,7 +209,7 @@ class IMSMQQueue2 extends IDispatch {
      * @returns {IMSMQMessage} 
      */
     ReceiveCurrent_v1(Transaction, WantDestinationQueue, WantBody, ReceiveTimeout) {
-        result := ComCall(17, this, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr*", &ppmsg := 0, "HRESULT")
+        result := ComCall(17, this, VARIANT.Ptr, Transaction, VARIANT.Ptr, WantDestinationQueue, VARIANT.Ptr, WantBody, VARIANT.Ptr, ReceiveTimeout, "ptr*", &ppmsg := 0, "HRESULT")
         return IMSMQMessage(ppmsg)
     }
 
@@ -216,7 +221,7 @@ class IMSMQQueue2 extends IDispatch {
      * @returns {IMSMQMessage} 
      */
     PeekNext_v1(WantDestinationQueue, WantBody, ReceiveTimeout) {
-        result := ComCall(18, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr*", &ppmsg := 0, "HRESULT")
+        result := ComCall(18, this, VARIANT.Ptr, WantDestinationQueue, VARIANT.Ptr, WantBody, VARIANT.Ptr, ReceiveTimeout, "ptr*", &ppmsg := 0, "HRESULT")
         return IMSMQMessage(ppmsg)
     }
 
@@ -228,7 +233,7 @@ class IMSMQQueue2 extends IDispatch {
      * @returns {IMSMQMessage} 
      */
     PeekCurrent_v1(WantDestinationQueue, WantBody, ReceiveTimeout) {
-        result := ComCall(19, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr*", &ppmsg := 0, "HRESULT")
+        result := ComCall(19, this, VARIANT.Ptr, WantDestinationQueue, VARIANT.Ptr, WantBody, VARIANT.Ptr, ReceiveTimeout, "ptr*", &ppmsg := 0, "HRESULT")
         return IMSMQMessage(ppmsg)
     }
 
@@ -242,25 +247,20 @@ class IMSMQQueue2 extends IDispatch {
      * @returns {IMSMQMessage2} 
      */
     Receive(Transaction, WantDestinationQueue, WantBody, ReceiveTimeout, WantConnectorType) {
-        result := ComCall(20, this, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        result := ComCall(20, this, VARIANT.Ptr, Transaction, VARIANT.Ptr, WantDestinationQueue, VARIANT.Ptr, WantBody, VARIANT.Ptr, ReceiveTimeout, VARIANT.Ptr, WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
         return IMSMQMessage2(ppmsg)
     }
 
     /**
-     * Reads data from the specified console input buffer without removing it from the buffer.
-     * @remarks
-     * If the number of records requested exceeds the number of records available in the buffer, the number available is read. If no data is available, the function returns immediately.
      * 
-     * [!INCLUDE [setting-codepage-mode-remarks](./includes/setting-codepage-mode-remarks.md)]
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} ReceiveTimeout 
      * @param {Pointer<VARIANT>} WantConnectorType 
      * @returns {IMSMQMessage2} 
-     * @see https://learn.microsoft.com/windows/console/peekconsoleinput
      */
     Peek(WantDestinationQueue, WantBody, ReceiveTimeout, WantConnectorType) {
-        result := ComCall(21, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        result := ComCall(21, this, VARIANT.Ptr, WantDestinationQueue, VARIANT.Ptr, WantBody, VARIANT.Ptr, ReceiveTimeout, VARIANT.Ptr, WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
         return IMSMQMessage2(ppmsg)
     }
 
@@ -274,7 +274,7 @@ class IMSMQQueue2 extends IDispatch {
      * @returns {IMSMQMessage2} 
      */
     ReceiveCurrent(Transaction, WantDestinationQueue, WantBody, ReceiveTimeout, WantConnectorType) {
-        result := ComCall(22, this, "ptr", Transaction, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        result := ComCall(22, this, VARIANT.Ptr, Transaction, VARIANT.Ptr, WantDestinationQueue, VARIANT.Ptr, WantBody, VARIANT.Ptr, ReceiveTimeout, VARIANT.Ptr, WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
         return IMSMQMessage2(ppmsg)
     }
 
@@ -287,7 +287,7 @@ class IMSMQQueue2 extends IDispatch {
      * @returns {IMSMQMessage2} 
      */
     PeekNext(WantDestinationQueue, WantBody, ReceiveTimeout, WantConnectorType) {
-        result := ComCall(23, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        result := ComCall(23, this, VARIANT.Ptr, WantDestinationQueue, VARIANT.Ptr, WantBody, VARIANT.Ptr, ReceiveTimeout, VARIANT.Ptr, WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
         return IMSMQMessage2(ppmsg)
     }
 
@@ -300,7 +300,7 @@ class IMSMQQueue2 extends IDispatch {
      * @returns {IMSMQMessage2} 
      */
     PeekCurrent(WantDestinationQueue, WantBody, ReceiveTimeout, WantConnectorType) {
-        result := ComCall(24, this, "ptr", WantDestinationQueue, "ptr", WantBody, "ptr", ReceiveTimeout, "ptr", WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
+        result := ComCall(24, this, VARIANT.Ptr, WantDestinationQueue, VARIANT.Ptr, WantBody, VARIANT.Ptr, ReceiveTimeout, VARIANT.Ptr, WantConnectorType, "ptr*", &ppmsg := 0, "HRESULT")
         return IMSMQMessage2(ppmsg)
     }
 
@@ -311,5 +311,61 @@ class IMSMQQueue2 extends IDispatch {
     get_Properties() {
         result := ComCall(25, this, "ptr*", &ppcolProperties := 0, "HRESULT")
         return IDispatch(ppcolProperties)
+    }
+
+    Query(iid) {
+        if (IMSMQQueue2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Access := CallbackCreate(GetMethod(implObj, "get_Access"), flags, 2)
+        this.vtbl.get_ShareMode := CallbackCreate(GetMethod(implObj, "get_ShareMode"), flags, 2)
+        this.vtbl.get_QueueInfo := CallbackCreate(GetMethod(implObj, "get_QueueInfo"), flags, 2)
+        this.vtbl.get_Handle := CallbackCreate(GetMethod(implObj, "get_Handle"), flags, 2)
+        this.vtbl.get_IsOpen := CallbackCreate(GetMethod(implObj, "get_IsOpen"), flags, 2)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Receive_v1 := CallbackCreate(GetMethod(implObj, "Receive_v1"), flags, 6)
+        this.vtbl.Peek_v1 := CallbackCreate(GetMethod(implObj, "Peek_v1"), flags, 5)
+        this.vtbl.EnableNotification := CallbackCreate(GetMethod(implObj, "EnableNotification"), flags, 4)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.ReceiveCurrent_v1 := CallbackCreate(GetMethod(implObj, "ReceiveCurrent_v1"), flags, 6)
+        this.vtbl.PeekNext_v1 := CallbackCreate(GetMethod(implObj, "PeekNext_v1"), flags, 5)
+        this.vtbl.PeekCurrent_v1 := CallbackCreate(GetMethod(implObj, "PeekCurrent_v1"), flags, 5)
+        this.vtbl.Receive := CallbackCreate(GetMethod(implObj, "Receive"), flags, 7)
+        this.vtbl.Peek := CallbackCreate(GetMethod(implObj, "Peek"), flags, 6)
+        this.vtbl.ReceiveCurrent := CallbackCreate(GetMethod(implObj, "ReceiveCurrent"), flags, 7)
+        this.vtbl.PeekNext := CallbackCreate(GetMethod(implObj, "PeekNext"), flags, 6)
+        this.vtbl.PeekCurrent := CallbackCreate(GetMethod(implObj, "PeekCurrent"), flags, 6)
+        this.vtbl.get_Properties := CallbackCreate(GetMethod(implObj, "get_Properties"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Access)
+        CallbackFree(this.vtbl.get_ShareMode)
+        CallbackFree(this.vtbl.get_QueueInfo)
+        CallbackFree(this.vtbl.get_Handle)
+        CallbackFree(this.vtbl.get_IsOpen)
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.Receive_v1)
+        CallbackFree(this.vtbl.Peek_v1)
+        CallbackFree(this.vtbl.EnableNotification)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.ReceiveCurrent_v1)
+        CallbackFree(this.vtbl.PeekNext_v1)
+        CallbackFree(this.vtbl.PeekCurrent_v1)
+        CallbackFree(this.vtbl.Receive)
+        CallbackFree(this.vtbl.Peek)
+        CallbackFree(this.vtbl.ReceiveCurrent)
+        CallbackFree(this.vtbl.PeekNext)
+        CallbackFree(this.vtbl.PeekCurrent)
+        CallbackFree(this.vtbl.get_Properties)
     }
 }

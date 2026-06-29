@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D_SHADER_MODEL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D_SHADER_MODEL.ahk" { D3D_SHADER_MODEL }
 
 /**
  * Contains the supported shader model.
@@ -14,17 +13,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_shader_model
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_FEATURE_DATA_SHADER_MODEL extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct D3D12_FEATURE_DATA_SHADER_MODEL {
+    #StructPack 4
 
     /**
      * Specifies one member of [D3D_SHADER_MODEL](/windows/win32/api/d3d12/ne-d3d12-d3d_shader_model) that indicates the maximum supported shader model.
-     * @type {D3D_SHADER_MODEL}
      */
-    HighestShaderModel {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    HighestShaderModel : D3D_SHADER_MODEL
+
 }

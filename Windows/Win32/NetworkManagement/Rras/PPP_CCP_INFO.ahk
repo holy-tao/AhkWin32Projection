@@ -1,24 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The PPP_CCP_INFO structure contains information that describes the results of a Compression Control Protocol (CCP) negotiation.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ppp_ccp_info
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class PPP_CCP_INFO extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct PPP_CCP_INFO {
+    #StructPack 4
 
     /**
      * Specifies an error if the negotiation is unsuccessful.
-     * @type {Integer}
      */
-    dwError {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwError : UInt32
 
     /**
      * Specifies the compression algorithm used by the local computer. The following table shows the possible values for this member. 
@@ -51,12 +44,8 @@ class PPP_CCP_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwCompressionAlgorithm {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwCompressionAlgorithm : UInt32
 
     /**
      * Specifies the compression options on the local computer. The following options are supported. 
@@ -129,12 +118,8 @@ class PPP_CCP_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwOptions {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwOptions : UInt32
 
     /**
      * Specifies the compression algorithm used by the remote computer. The following table shows the possible values for this member. 
@@ -167,12 +152,8 @@ class PPP_CCP_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwRemoteCompressionAlgorithm {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwRemoteCompressionAlgorithm : UInt32
 
     /**
      * Specifies the compression options on the remote computer. The following options are supported. 
@@ -245,10 +226,7 @@ class PPP_CCP_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwRemoteOptions {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwRemoteOptions : UInt32
+
 }

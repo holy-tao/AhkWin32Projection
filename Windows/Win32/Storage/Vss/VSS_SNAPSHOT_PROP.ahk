@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VSS_SNAPSHOT_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VSS_SNAPSHOT_STATE.ahk" { VSS_SNAPSHOT_STATE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains the properties of a shadow copy or shadow copy set.
@@ -26,30 +26,20 @@
  * @see https://learn.microsoft.com/windows/win32/api/vss/ns-vss-vss_snapshot_prop
  * @namespace Windows.Win32.Storage.Vss
  */
-class VSS_SNAPSHOT_PROP extends Win32Struct {
-    static sizeof => 104
-
-    static packingSize => 8
+export default struct VSS_SNAPSHOT_PROP {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/VSS/volume-shadow-copy-api-data-types">VSS_ID</a> (GUID) uniquely 
      *       identifying the shadow copy identifier.
-     * @type {Pointer}
      */
-    m_SnapshotId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    m_SnapshotId : Guid
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/VSS/volume-shadow-copy-api-data-types">VSS_ID</a> (GUID) 
      *       uniquely identifying the shadow copy set containing the shadow copy.
-     * @type {Pointer}
      */
-    m_SnapshotSetId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    m_SnapshotSetId : Guid
 
     /**
      * Number of volumes included with the shadow copy in the shadow copy set when it was created. Because it is 
@@ -59,12 +49,8 @@ class VSS_SNAPSHOT_PROP extends Win32Struct {
      *       
      * 
      * The maximum number of shadow-copied volumes permitted in a shadow copy set is 64.
-     * @type {Integer}
      */
-    m_lSnapshotsCount {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    m_lSnapshotsCount : Int32
 
     /**
      * Null-terminated wide character string containing the name of the device object for the shadow copy of the 
@@ -73,41 +59,25 @@ class VSS_SNAPSHOT_PROP extends Win32Struct {
      *       
      * 
      * The device name does not contain a trailing "\".
-     * @type {Pointer<Integer>}
      */
-    m_pwszSnapshotDeviceObject {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    m_pwszSnapshotDeviceObject : IntPtr
 
     /**
      * Null-terminated wide character string containing the name of the volume that had been shadow copied.
-     * @type {Pointer<Integer>}
      */
-    m_pwszOriginalVolumeName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    m_pwszOriginalVolumeName : IntPtr
 
     /**
      * Null-terminated wide character string containing the name of the machine containing the original 
      *       volume.
-     * @type {Pointer<Integer>}
      */
-    m_pwszOriginatingMachine {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    m_pwszOriginatingMachine : IntPtr
 
     /**
      * Null-terminated wide character string containing the name of the machine running the Volume Shadow Copy 
      *       Service that created the shadow copy.
-     * @type {Pointer<Integer>}
      */
-    m_pwszServiceMachine {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    m_pwszServiceMachine : IntPtr
 
     /**
      * Null-terminated wide character string containing the name of the shadow copy when it is exposed. This is a 
@@ -115,64 +85,41 @@ class VSS_SNAPSHOT_PROP extends Win32Struct {
      *       the <i>wszExpose</i> parameter of the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-exposesnapshot">IVssBackupComponents::ExposeSnapshot</a> 
      *       method.
-     * @type {Pointer<Integer>}
      */
-    m_pwszExposedName {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    m_pwszExposedName : IntPtr
 
     /**
      * Null-terminated wide character string indicating the portion of the shadow copy of a volume made available 
      *       if it is exposed as a share. Corresponds to the <i>wszPathFromRoot</i> parameter of the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-exposesnapshot">IVssBackupComponents::ExposeSnapshot</a> 
      *       method.
-     * @type {Pointer<Integer>}
      */
-    m_pwszExposedPath {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    m_pwszExposedPath : IntPtr
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/VSS/volume-shadow-copy-api-data-types">VSS_ID</a> (GUID) 
      *       uniquely identifying the provider used to create this shadow copy.
-     * @type {Pointer}
      */
-    m_ProviderId {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    m_ProviderId : Guid
 
     /**
      * The attributes of the shadow copy expressed as a bit mask (or bitwise OR) of members of the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_volume_snapshot_attributes">_VSS_VOLUME_SNAPSHOT_ATTRIBUTES</a> 
      *       enumeration.
-     * @type {Integer}
      */
-    m_lSnapshotAttributes {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
-    }
+    m_lSnapshotAttributes : Int32
 
     /**
      * Time stamp indicating when the shadow copy was created. The exact time is determined by the provider. See 
      *       <a href="https://docs.microsoft.com/windows/desktop/VSS/volume-shadow-copy-api-data-types">VSS_TIMESTAMP</a> for 
      *       information about the time-stamp format.
-     * @type {Integer}
      */
-    m_tsCreationTimestamp {
-        get => NumGet(this, 88, "int64")
-        set => NumPut("int64", value, this, 88)
-    }
+    m_tsCreationTimestamp : Int64
 
     /**
      * Current shadow copy creation status. See 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_snapshot_state">VSS_SNAPSHOT_STATE</a>.
-     * @type {VSS_SNAPSHOT_STATE}
      */
-    m_eStatus {
-        get => NumGet(this, 96, "int")
-        set => NumPut("int", value, this, 96)
-    }
+    m_eStatus : VSS_SNAPSHOT_STATE
+
 }

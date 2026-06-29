@@ -1,16 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Retrieves a list of network shares that point to the specified local path.
- * @remarks
- * When you get the path property for a quota, the path is the local path. You use this method to convert that 
- *     local path to the network path if you want to know the actual network share that is running out of space.
- * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmpathmapper-getsharepathsforlocalpath
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class FsrmPathMapper extends Win32Struct {
-    static sizeof => 0
+export default struct FsrmPathMapper {
+    #StructPack 1
 
-    static packingSize => 1
 }

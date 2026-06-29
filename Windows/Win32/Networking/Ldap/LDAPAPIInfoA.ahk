@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Retrieves data about the API and implementations used. (ANSI)
@@ -16,62 +16,37 @@
  * @namespace Windows.Win32.Networking.Ldap
  * @charset ANSI
  */
-class LDAPAPIInfoA extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct LDAPAPIInfoA {
+    #StructPack 8
 
     /**
      * The version of this structure, which must be set to <b>LDAP_API_INFO_VERSION</b> before a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_get_option">ldap_get_option</a>.
-     * @type {Integer}
      */
-    ldapai_info_version {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ldapai_info_version : Int32
 
     /**
      * The current revision number of this LDAP API library.
-     * @type {Integer}
      */
-    ldapai_api_version {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    ldapai_api_version : Int32
 
     /**
      * The latest LDAP version supported by this LDAP API library.
-     * @type {Integer}
      */
-    ldapai_protocol_version {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    ldapai_protocol_version : Int32
 
     /**
      * Pointer to an array of null-terminated strings that indicate what API extensions are supported.
-     * @type {Pointer<Pointer<Integer>>}
      */
-    ldapai_extensions {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ldapai_extensions : IntPtr
 
     /**
      * Pointer to a null-terminated string that contains the name of the API vendor.  This implementation returns the string ""Microsoft Corporation."".
-     * @type {PSTR}
      */
-    ldapai_vendor_name {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ldapai_vendor_name : PSTR
 
     /**
      * The API vendor version number. This implementation returns an integer value in the format of MMnn, where MM is the major version number * 100, and nn is the minor version number.  For example, version 5.10 is returned as 510.
-     * @type {Integer}
      */
-    ldapai_vendor_version {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    ldapai_vendor_version : Int32
+
 }

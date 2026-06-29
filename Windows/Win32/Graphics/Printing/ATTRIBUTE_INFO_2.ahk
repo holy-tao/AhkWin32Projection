@@ -1,75 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class ATTRIBUTE_INFO_2 extends Win32Struct {
-    static sizeof => 32
+export default struct ATTRIBUTE_INFO_2 {
+    #StructPack 4
 
-    static packingSize => 4
+    dwJobNumberOfPagesPerSide : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwJobNumberOfPagesPerSide {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwDrvNumberOfPagesPerSide : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDrvNumberOfPagesPerSide {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwNupBorderFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNupBorderFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwJobPageOrderFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwJobPageOrderFlags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwDrvPageOrderFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDrvPageOrderFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwJobNumberOfCopies : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwJobNumberOfCopies {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwDrvNumberOfCopies : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDrvNumberOfCopies {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwColorOptimization : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwColorOptimization {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
 }

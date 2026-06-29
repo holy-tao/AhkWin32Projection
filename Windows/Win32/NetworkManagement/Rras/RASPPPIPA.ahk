@@ -1,60 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @charset ANSI
  */
-class RASPPPIPA extends Win32Struct {
-    static sizeof => 48
+export default struct RASPPPIPA {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwError : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwError {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    szIpAddress : CHAR[16]
 
-    /**
-     * @type {String}
-     */
-    szIpAddress {
-        get => StrGet(this.ptr + 8, 15, "UTF-8")
-        set => StrPut(value, this.ptr + 8, 15, "UTF-8")
-    }
+    szServerIpAddress : CHAR[16]
 
-    /**
-     * @type {String}
-     */
-    szServerIpAddress {
-        get => StrGet(this.ptr + 24, 15, "UTF-8")
-        set => StrPut(value, this.ptr + 24, 15, "UTF-8")
-    }
+    dwOptions : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwOptions {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwServerOptions : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwServerOptions {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
 }

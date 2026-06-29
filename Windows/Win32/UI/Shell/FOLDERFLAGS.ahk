@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * A set of flags that specify folder view options. The flags are independent of each other and can be used in any combination.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-folderflags
  * @namespace Windows.Win32.UI.Shell
  */
-class FOLDERFLAGS extends Win32BitflagEnum {
+export default struct FOLDERFLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * 0x00000000. <b>Windows 7 and later</b>. No special view options.

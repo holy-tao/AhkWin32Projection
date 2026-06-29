@@ -1,35 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IObjectId.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IObjectId.ahk" { IObjectId }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\AlgorithmType.ahk" { AlgorithmType }
+#Import ".\AlgorithmOperationFlags.ahk" { AlgorithmOperationFlags }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\AlgorithmFlags.ahk" { AlgorithmFlags }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Represents an algorithm implemented by a cryptographic provider.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icspalgorithm
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICspAlgorithm extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ICspAlgorithm extends IDispatch {
     /**
      * The interface identifier for ICspAlgorithm
      * @type {Guid}
      */
-    static IID => Guid("{728ab305-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab305-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICspAlgorithm interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        GetAlgorithmOid     : IntPtr
+        get_DefaultLength   : IntPtr
+        get_IncrementLength : IntPtr
+        get_LongName        : IntPtr
+        get_Valid           : IntPtr
+        get_MaxLength       : IntPtr
+        get_MinLength       : IntPtr
+        get_Name            : IntPtr
+        get_Type            : IntPtr
+        get_Operations      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetAlgorithmOid", "get_DefaultLength", "get_IncrementLength", "get_LongName", "get_Valid", "get_MaxLength", "get_MinLength", "get_Name", "get_Type", "get_Operations"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICspAlgorithm.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -115,7 +136,7 @@ class ICspAlgorithm extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithm-getalgorithmoid
      */
     GetAlgorithmOid(Length, AlgFlags) {
-        result := ComCall(7, this, "int", Length, "int", AlgFlags, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(7, this, "int", Length, AlgorithmFlags, AlgFlags, "ptr*", &ppValue := 0, "HRESULT")
         return IObjectId(ppValue)
     }
 
@@ -520,8 +541,8 @@ class ICspAlgorithm extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithm-get_longname
      */
     get_LongName() {
-        pValue := BSTR()
-        result := ComCall(10, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -545,7 +566,7 @@ class ICspAlgorithm extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithm-get_valid
      */
     get_Valid() {
-        result := ComCall(11, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -852,8 +873,8 @@ class ICspAlgorithm extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithm-get_name
      */
     get_Name() {
-        pValue := BSTR()
-        result := ComCall(14, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -879,5 +900,43 @@ class ICspAlgorithm extends IDispatch {
     get_Operations() {
         result := ComCall(16, this, "int*", &pValue := 0, "HRESULT")
         return pValue
+    }
+
+    Query(iid) {
+        if (ICspAlgorithm.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetAlgorithmOid := CallbackCreate(GetMethod(implObj, "GetAlgorithmOid"), flags, 4)
+        this.vtbl.get_DefaultLength := CallbackCreate(GetMethod(implObj, "get_DefaultLength"), flags, 2)
+        this.vtbl.get_IncrementLength := CallbackCreate(GetMethod(implObj, "get_IncrementLength"), flags, 2)
+        this.vtbl.get_LongName := CallbackCreate(GetMethod(implObj, "get_LongName"), flags, 2)
+        this.vtbl.get_Valid := CallbackCreate(GetMethod(implObj, "get_Valid"), flags, 2)
+        this.vtbl.get_MaxLength := CallbackCreate(GetMethod(implObj, "get_MaxLength"), flags, 2)
+        this.vtbl.get_MinLength := CallbackCreate(GetMethod(implObj, "get_MinLength"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_Operations := CallbackCreate(GetMethod(implObj, "get_Operations"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetAlgorithmOid)
+        CallbackFree(this.vtbl.get_DefaultLength)
+        CallbackFree(this.vtbl.get_IncrementLength)
+        CallbackFree(this.vtbl.get_LongName)
+        CallbackFree(this.vtbl.get_Valid)
+        CallbackFree(this.vtbl.get_MaxLength)
+        CallbackFree(this.vtbl.get_MinLength)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.get_Type)
+        CallbackFree(this.vtbl.get_Operations)
     }
 }

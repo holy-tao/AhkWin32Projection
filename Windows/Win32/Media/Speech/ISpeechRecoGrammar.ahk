@@ -1,34 +1,66 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\ISpeechRecoContext.ahk
-#Include .\ISpeechGrammarRules.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISpeechTextSelectionInformation.ahk" { ISpeechTextSelectionInformation }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\SpeechRuleState.ahk" { SpeechRuleState }
+#Import ".\SpeechLoadOption.ahk" { SpeechLoadOption }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SpeechWordPronounceable.ahk" { SpeechWordPronounceable }
+#Import ".\ISpeechGrammarRules.ahk" { ISpeechGrammarRules }
+#Import ".\SpeechGrammarState.ahk" { SpeechGrammarState }
+#Import ".\ISpeechRecoContext.ahk" { ISpeechRecoContext }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpeechRecoGrammar extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISpeechRecoGrammar extends IDispatch {
     /**
      * The interface identifier for ISpeechRecoGrammar
      * @type {Guid}
      */
-    static IID => Guid("{b6d6f79f-2158-4e50-b5bc-9a9ccd852a09}")
+    static IID := Guid("{b6d6f79f-2158-4e50-b5bc-9a9ccd852a09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpeechRecoGrammar interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Id                        : IntPtr
+        get_RecoContext               : IntPtr
+        put_State                     : IntPtr
+        get_State                     : IntPtr
+        get_Rules                     : IntPtr
+        Reset                         : IntPtr
+        CmdLoadFromFile               : IntPtr
+        CmdLoadFromObject             : IntPtr
+        CmdLoadFromResource           : IntPtr
+        CmdLoadFromMemory             : IntPtr
+        CmdLoadFromProprietaryGrammar : IntPtr
+        CmdSetRuleState               : IntPtr
+        CmdSetRuleIdState             : IntPtr
+        DictationLoad                 : IntPtr
+        DictationUnload               : IntPtr
+        DictationSetState             : IntPtr
+        SetWordSequenceData           : IntPtr
+        SetTextSelection              : IntPtr
+        IsPronounceable               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Id", "get_RecoContext", "put_State", "get_State", "get_Rules", "Reset", "CmdLoadFromFile", "CmdLoadFromObject", "CmdLoadFromResource", "CmdLoadFromMemory", "CmdLoadFromProprietaryGrammar", "CmdSetRuleState", "CmdSetRuleIdState", "DictationLoad", "DictationUnload", "DictationSetState", "SetWordSequenceData", "SetTextSelection", "IsPronounceable"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpeechRecoGrammar.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT} 
@@ -65,7 +97,7 @@ class ISpeechRecoGrammar extends IDispatch {
      */
     get_Id() {
         Id := VARIANT()
-        result := ComCall(7, this, "ptr", Id, "HRESULT")
+        result := ComCall(7, this, VARIANT.Ptr, Id, "HRESULT")
         return Id
     }
 
@@ -84,7 +116,7 @@ class ISpeechRecoGrammar extends IDispatch {
      * @returns {HRESULT} 
      */
     put_State(State) {
-        result := ComCall(9, this, "int", State, "HRESULT")
+        result := ComCall(9, this, SpeechGrammarState, State, "HRESULT")
         return result
     }
 
@@ -107,25 +139,9 @@ class ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * Resets the time-out period or other mechanism that TPM manufacturers implement to protect against dictionary attacks on TPM authorization values.
-     * @remarks
-     * This method calls the TPM\_ResetLockValue command on the TPM. The exact behavior of this method varies among TPM manufacturers. Documentation from the computer or TPM manufacturer may provide additional information on the implementation of the anti-dictionary attack mechanism.
      * 
-     * In general, manufacturers can detect dictionary attacks by keeping track of failed authentications. If the number or frequency of failures become high enough, the TPM will lock out further commands for a certain time. Generally, the initial time-out period will be short, to allow a legitimate user a chance to correct the situation. If failures continue, the duration of each subsequent time-out period may increase rapidly.
-     * 
-     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
      * @param {Integer} NewLanguage 
-     * @returns {HRESULT} Type: **uint32**
-     * 
-     * All TPM errors as well as errors specific to TPM Base Services can be returned. The following table lists some of the common return values.
-     * 
-     * 
-     * 
-     * | Return code/value                                                                                                                                                            | Description                                                                                                                                                                                                                                                               |
-     * |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl>                            | The method was successful.<br/>                                                                                                                                                                                                                                     |
-     * | <dl> <dt>**TPM\_E\_AUTHFAIL**</dt> <dt>2150105089 (0x80280001)</dt> </dl> | The provided owner authorization value is incorrect. Additional attempts at resetting the lock will fail with this same error. Please wait until the time-out period or other manufacturer-specific mechanism has expired before retrying locked TPM commands.<br/> |
-     * @see https://learn.microsoft.com/windows/win32/SecProv/resetauthlockout-win32-tpm
+     * @returns {HRESULT} 
      */
     Reset(NewLanguage) {
         result := ComCall(12, this, "int", NewLanguage, "HRESULT")
@@ -141,7 +157,7 @@ class ISpeechRecoGrammar extends IDispatch {
     CmdLoadFromFile(FileName, LoadOption) {
         FileName := FileName is String ? BSTR.Alloc(FileName).Value : FileName
 
-        result := ComCall(13, this, "ptr", FileName, "int", LoadOption, "HRESULT")
+        result := ComCall(13, this, BSTR, FileName, SpeechLoadOption, LoadOption, "HRESULT")
         return result
     }
 
@@ -156,7 +172,7 @@ class ISpeechRecoGrammar extends IDispatch {
         ClassId := ClassId is String ? BSTR.Alloc(ClassId).Value : ClassId
         GrammarName := GrammarName is String ? BSTR.Alloc(GrammarName).Value : GrammarName
 
-        result := ComCall(14, this, "ptr", ClassId, "ptr", GrammarName, "int", LoadOption, "HRESULT")
+        result := ComCall(14, this, BSTR, ClassId, BSTR, GrammarName, SpeechLoadOption, LoadOption, "HRESULT")
         return result
     }
 
@@ -170,7 +186,7 @@ class ISpeechRecoGrammar extends IDispatch {
      * @returns {HRESULT} 
      */
     CmdLoadFromResource(_hModule, ResourceName, _ResourceType, LanguageId, LoadOption) {
-        result := ComCall(15, this, "int", _hModule, "ptr", ResourceName, "ptr", _ResourceType, "int", LanguageId, "int", LoadOption, "HRESULT")
+        result := ComCall(15, this, "int", _hModule, VARIANT, ResourceName, VARIANT, _ResourceType, "int", LanguageId, SpeechLoadOption, LoadOption, "HRESULT")
         return result
     }
 
@@ -181,7 +197,7 @@ class ISpeechRecoGrammar extends IDispatch {
      * @returns {HRESULT} 
      */
     CmdLoadFromMemory(GrammarData, LoadOption) {
-        result := ComCall(16, this, "ptr", GrammarData, "int", LoadOption, "HRESULT")
+        result := ComCall(16, this, VARIANT, GrammarData, SpeechLoadOption, LoadOption, "HRESULT")
         return result
     }
 
@@ -197,7 +213,7 @@ class ISpeechRecoGrammar extends IDispatch {
         ProprietaryGuid := ProprietaryGuid is String ? BSTR.Alloc(ProprietaryGuid).Value : ProprietaryGuid
         ProprietaryString := ProprietaryString is String ? BSTR.Alloc(ProprietaryString).Value : ProprietaryString
 
-        result := ComCall(17, this, "ptr", ProprietaryGuid, "ptr", ProprietaryString, "ptr", ProprietaryData, "int", LoadOption, "HRESULT")
+        result := ComCall(17, this, BSTR, ProprietaryGuid, BSTR, ProprietaryString, VARIANT, ProprietaryData, SpeechLoadOption, LoadOption, "HRESULT")
         return result
     }
 
@@ -210,7 +226,7 @@ class ISpeechRecoGrammar extends IDispatch {
     CmdSetRuleState(Name, State) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
 
-        result := ComCall(18, this, "ptr", Name, "int", State, "HRESULT")
+        result := ComCall(18, this, BSTR, Name, SpeechRuleState, State, "HRESULT")
         return result
     }
 
@@ -221,7 +237,7 @@ class ISpeechRecoGrammar extends IDispatch {
      * @returns {HRESULT} 
      */
     CmdSetRuleIdState(RuleId, State) {
-        result := ComCall(19, this, "int", RuleId, "int", State, "HRESULT")
+        result := ComCall(19, this, "int", RuleId, SpeechRuleState, State, "HRESULT")
         return result
     }
 
@@ -234,7 +250,7 @@ class ISpeechRecoGrammar extends IDispatch {
     DictationLoad(TopicName, LoadOption) {
         TopicName := TopicName is String ? BSTR.Alloc(TopicName).Value : TopicName
 
-        result := ComCall(20, this, "ptr", TopicName, "int", LoadOption, "HRESULT")
+        result := ComCall(20, this, BSTR, TopicName, SpeechLoadOption, LoadOption, "HRESULT")
         return result
     }
 
@@ -253,7 +269,7 @@ class ISpeechRecoGrammar extends IDispatch {
      * @returns {HRESULT} 
      */
     DictationSetState(State) {
-        result := ComCall(22, this, "int", State, "HRESULT")
+        result := ComCall(22, this, SpeechRuleState, State, "HRESULT")
         return result
     }
 
@@ -267,7 +283,7 @@ class ISpeechRecoGrammar extends IDispatch {
     SetWordSequenceData(Text, TextLength, Info) {
         Text := Text is String ? BSTR.Alloc(Text).Value : Text
 
-        result := ComCall(23, this, "ptr", Text, "int", TextLength, "ptr", Info, "HRESULT")
+        result := ComCall(23, this, BSTR, Text, "int", TextLength, "ptr", Info, "HRESULT")
         return result
     }
 
@@ -289,7 +305,63 @@ class ISpeechRecoGrammar extends IDispatch {
     IsPronounceable(Word) {
         Word := Word is String ? BSTR.Alloc(Word).Value : Word
 
-        result := ComCall(25, this, "ptr", Word, "int*", &WordPronounceable := 0, "HRESULT")
+        result := ComCall(25, this, BSTR, Word, "int*", &WordPronounceable := 0, "HRESULT")
         return WordPronounceable
+    }
+
+    Query(iid) {
+        if (ISpeechRecoGrammar.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_RecoContext := CallbackCreate(GetMethod(implObj, "get_RecoContext"), flags, 2)
+        this.vtbl.put_State := CallbackCreate(GetMethod(implObj, "put_State"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.get_Rules := CallbackCreate(GetMethod(implObj, "get_Rules"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 2)
+        this.vtbl.CmdLoadFromFile := CallbackCreate(GetMethod(implObj, "CmdLoadFromFile"), flags, 3)
+        this.vtbl.CmdLoadFromObject := CallbackCreate(GetMethod(implObj, "CmdLoadFromObject"), flags, 4)
+        this.vtbl.CmdLoadFromResource := CallbackCreate(GetMethod(implObj, "CmdLoadFromResource"), flags, 6)
+        this.vtbl.CmdLoadFromMemory := CallbackCreate(GetMethod(implObj, "CmdLoadFromMemory"), flags, 3)
+        this.vtbl.CmdLoadFromProprietaryGrammar := CallbackCreate(GetMethod(implObj, "CmdLoadFromProprietaryGrammar"), flags, 5)
+        this.vtbl.CmdSetRuleState := CallbackCreate(GetMethod(implObj, "CmdSetRuleState"), flags, 3)
+        this.vtbl.CmdSetRuleIdState := CallbackCreate(GetMethod(implObj, "CmdSetRuleIdState"), flags, 3)
+        this.vtbl.DictationLoad := CallbackCreate(GetMethod(implObj, "DictationLoad"), flags, 3)
+        this.vtbl.DictationUnload := CallbackCreate(GetMethod(implObj, "DictationUnload"), flags, 1)
+        this.vtbl.DictationSetState := CallbackCreate(GetMethod(implObj, "DictationSetState"), flags, 2)
+        this.vtbl.SetWordSequenceData := CallbackCreate(GetMethod(implObj, "SetWordSequenceData"), flags, 4)
+        this.vtbl.SetTextSelection := CallbackCreate(GetMethod(implObj, "SetTextSelection"), flags, 2)
+        this.vtbl.IsPronounceable := CallbackCreate(GetMethod(implObj, "IsPronounceable"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Id)
+        CallbackFree(this.vtbl.get_RecoContext)
+        CallbackFree(this.vtbl.put_State)
+        CallbackFree(this.vtbl.get_State)
+        CallbackFree(this.vtbl.get_Rules)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.CmdLoadFromFile)
+        CallbackFree(this.vtbl.CmdLoadFromObject)
+        CallbackFree(this.vtbl.CmdLoadFromResource)
+        CallbackFree(this.vtbl.CmdLoadFromMemory)
+        CallbackFree(this.vtbl.CmdLoadFromProprietaryGrammar)
+        CallbackFree(this.vtbl.CmdSetRuleState)
+        CallbackFree(this.vtbl.CmdSetRuleIdState)
+        CallbackFree(this.vtbl.DictationLoad)
+        CallbackFree(this.vtbl.DictationUnload)
+        CallbackFree(this.vtbl.DictationSetState)
+        CallbackFree(this.vtbl.SetWordSequenceData)
+        CallbackFree(this.vtbl.SetTextSelection)
+        CallbackFree(this.vtbl.IsPronounceable)
     }
 }

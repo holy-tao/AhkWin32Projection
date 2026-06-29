@@ -1,34 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Controls the preferred and blocked filter lists.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamplugincontrol
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAMPluginControl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAMPluginControl extends IUnknown {
     /**
      * The interface identifier for IAMPluginControl
      * @type {Guid}
      */
-    static IID => Guid("{0e26a181-f40c-4635-8786-976284b52981}")
+    static IID := Guid("{0e26a181-f40c-4635-8786-976284b52981}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAMPluginControl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetPreferredClsid        : IntPtr
+        GetPreferredClsidByIndex : IntPtr
+        SetPreferredClsid        : IntPtr
+        IsDisabled               : IntPtr
+        GetDisabledByIndex       : IntPtr
+        SetDisabled              : IntPtr
+        IsLegacyDisabled         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPreferredClsid", "GetPreferredClsidByIndex", "SetPreferredClsid", "IsDisabled", "GetDisabledByIndex", "SetDisabled", "IsLegacyDisabled"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAMPluginControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Searches the preferred list for a class identifier (CLSID) that matches a specified subtype.
@@ -38,7 +53,7 @@ class IAMPluginControl extends IUnknown {
      */
     GetPreferredClsid(subType) {
         clsid := Guid()
-        result := ComCall(3, this, "ptr", subType, "ptr", clsid, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, subType, Guid.Ptr, clsid, "HRESULT")
         return clsid
     }
 
@@ -81,7 +96,7 @@ class IAMPluginControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamplugincontrol-getpreferredclsidbyindex
      */
     GetPreferredClsidByIndex(index, subType, clsid) {
-        result := ComCall(4, this, "uint", index, "ptr", subType, "ptr", clsid, "HRESULT")
+        result := ComCall(4, this, "uint", index, Guid.Ptr, subType, Guid.Ptr, clsid, "HRESULT")
         return result
     }
 
@@ -93,7 +108,7 @@ class IAMPluginControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamplugincontrol-setpreferredclsid
      */
     SetPreferredClsid(subType, clsid) {
-        result := ComCall(5, this, "ptr", subType, "ptr", clsid, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, subType, Guid.Ptr, clsid, "HRESULT")
         return result
     }
 
@@ -135,7 +150,7 @@ class IAMPluginControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamplugincontrol-isdisabled
      */
     IsDisabled(clsid) {
-        result := ComCall(6, this, "ptr", clsid, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, clsid, "HRESULT")
         return result
     }
 
@@ -147,7 +162,7 @@ class IAMPluginControl extends IUnknown {
      */
     GetDisabledByIndex(index) {
         clsid := Guid()
-        result := ComCall(7, this, "uint", index, "ptr", clsid, "HRESULT")
+        result := ComCall(7, this, "uint", index, Guid.Ptr, clsid, "HRESULT")
         return clsid
     }
 
@@ -159,7 +174,7 @@ class IAMPluginControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamplugincontrol-setdisabled
      */
     SetDisabled(clsid, disabled) {
-        result := ComCall(8, this, "ptr", clsid, "int", disabled, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, clsid, BOOL, disabled, "HRESULT")
         return result
     }
 
@@ -204,5 +219,37 @@ class IAMPluginControl extends IUnknown {
 
         result := ComCall(9, this, "ptr", dllName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAMPluginControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPreferredClsid := CallbackCreate(GetMethod(implObj, "GetPreferredClsid"), flags, 3)
+        this.vtbl.GetPreferredClsidByIndex := CallbackCreate(GetMethod(implObj, "GetPreferredClsidByIndex"), flags, 4)
+        this.vtbl.SetPreferredClsid := CallbackCreate(GetMethod(implObj, "SetPreferredClsid"), flags, 3)
+        this.vtbl.IsDisabled := CallbackCreate(GetMethod(implObj, "IsDisabled"), flags, 2)
+        this.vtbl.GetDisabledByIndex := CallbackCreate(GetMethod(implObj, "GetDisabledByIndex"), flags, 3)
+        this.vtbl.SetDisabled := CallbackCreate(GetMethod(implObj, "SetDisabled"), flags, 3)
+        this.vtbl.IsLegacyDisabled := CallbackCreate(GetMethod(implObj, "IsLegacyDisabled"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPreferredClsid)
+        CallbackFree(this.vtbl.GetPreferredClsidByIndex)
+        CallbackFree(this.vtbl.SetPreferredClsid)
+        CallbackFree(this.vtbl.IsDisabled)
+        CallbackFree(this.vtbl.GetDisabledByIndex)
+        CallbackFree(this.vtbl.SetDisabled)
+        CallbackFree(this.vtbl.IsLegacyDisabled)
     }
 }

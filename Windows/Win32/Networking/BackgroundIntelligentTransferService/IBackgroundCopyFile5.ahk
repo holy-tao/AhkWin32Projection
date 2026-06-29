@@ -1,34 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IBackgroundCopyFile4.ahk
-#Include .\BITS_FILE_PROPERTY_VALUE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IBackgroundCopyFile4.ahk" { IBackgroundCopyFile4 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\BITS_FILE_PROPERTY_ID.ahk" { BITS_FILE_PROPERTY_ID }
+#Import ".\BITS_FILE_PROPERTY_VALUE.ahk" { BITS_FILE_PROPERTY_VALUE }
 
 /**
  * Use this interface to get or set generic properties of BITS file transfers.
  * @see https://learn.microsoft.com/windows/win32/api/bits5_0/nn-bits5_0-ibackgroundcopyfile5
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class IBackgroundCopyFile5 extends IBackgroundCopyFile4 {
-
-    static sizeof => A_PtrSize
+export default struct IBackgroundCopyFile5 extends IBackgroundCopyFile4 {
     /**
      * The interface identifier for IBackgroundCopyFile5
      * @type {Guid}
      */
-    static IID => Guid("{85c1657f-dafc-40e8-8834-df18ea25717e}")
+    static IID := Guid("{85c1657f-dafc-40e8-8834-df18ea25717e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 13
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBackgroundCopyFile5 interfaces
+    */
+    struct Vtbl extends IBackgroundCopyFile4.Vtbl {
+        SetProperty : IntPtr
+        GetProperty : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetProperty", "GetProperty"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBackgroundCopyFile5.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets a generic property of a BITS file transfer.
@@ -38,7 +48,7 @@ class IBackgroundCopyFile5 extends IBackgroundCopyFile4 {
      * @see https://learn.microsoft.com/windows/win32/api/bits5_0/nf-bits5_0-ibackgroundcopyfile5-setproperty
      */
     SetProperty(PropertyId, _PropertyValue) {
-        result := ComCall(13, this, "int", PropertyId, "ptr", _PropertyValue, "HRESULT")
+        result := ComCall(13, this, BITS_FILE_PROPERTY_ID, PropertyId, BITS_FILE_PROPERTY_VALUE, _PropertyValue, "HRESULT")
         return result
     }
 
@@ -50,7 +60,29 @@ class IBackgroundCopyFile5 extends IBackgroundCopyFile4 {
      */
     GetProperty(PropertyId) {
         _PropertyValue := BITS_FILE_PROPERTY_VALUE()
-        result := ComCall(14, this, "int", PropertyId, "ptr", _PropertyValue, "HRESULT")
+        result := ComCall(14, this, BITS_FILE_PROPERTY_ID, PropertyId, BITS_FILE_PROPERTY_VALUE.Ptr, _PropertyValue, "HRESULT")
         return _PropertyValue
+    }
+
+    Query(iid) {
+        if (IBackgroundCopyFile5.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetProperty)
+        CallbackFree(this.vtbl.GetProperty)
     }
 }

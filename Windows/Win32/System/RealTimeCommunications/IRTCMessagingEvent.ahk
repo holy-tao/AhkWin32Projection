@@ -1,34 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IRTCSession.ahk
-#Include .\IRTCParticipant.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\RTC_MESSAGING_EVENT_TYPE.ahk" { RTC_MESSAGING_EVENT_TYPE }
+#Import ".\RTC_MESSAGING_USER_STATUS.ahk" { RTC_MESSAGING_USER_STATUS }
+#Import ".\IRTCSession.ahk" { IRTCSession }
+#Import ".\IRTCParticipant.ahk" { IRTCParticipant }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
  */
-class IRTCMessagingEvent extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IRTCMessagingEvent extends IDispatch {
     /**
      * The interface identifier for IRTCMessagingEvent
      * @type {Guid}
      */
-    static IID => Guid("{d3609541-1b29-4de5-a4ad-5aebaf319512}")
+    static IID := Guid("{d3609541-1b29-4de5-a4ad-5aebaf319512}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRTCMessagingEvent interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Session       : IntPtr
+        get_Participant   : IntPtr
+        get_EventType     : IntPtr
+        get_Message       : IntPtr
+        get_MessageHeader : IntPtr
+        get_UserStatus    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Session", "get_Participant", "get_EventType", "get_Message", "get_MessageHeader", "get_UserStatus"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRTCMessagingEvent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IRTCSession} 
@@ -104,8 +119,8 @@ class IRTCMessagingEvent extends IDispatch {
      * @returns {BSTR} 
      */
     get_Message() {
-        pbstrMessage := BSTR()
-        result := ComCall(10, this, "ptr", pbstrMessage, "HRESULT")
+        pbstrMessage := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, pbstrMessage, "HRESULT")
         return pbstrMessage
     }
 
@@ -114,8 +129,8 @@ class IRTCMessagingEvent extends IDispatch {
      * @returns {BSTR} 
      */
     get_MessageHeader() {
-        pbstrMessageHeader := BSTR()
-        result := ComCall(11, this, "ptr", pbstrMessageHeader, "HRESULT")
+        pbstrMessageHeader := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pbstrMessageHeader, "HRESULT")
         return pbstrMessageHeader
     }
 
@@ -126,5 +141,35 @@ class IRTCMessagingEvent extends IDispatch {
     get_UserStatus() {
         result := ComCall(12, this, "int*", &penUserStatus := 0, "HRESULT")
         return penUserStatus
+    }
+
+    Query(iid) {
+        if (IRTCMessagingEvent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Session := CallbackCreate(GetMethod(implObj, "get_Session"), flags, 2)
+        this.vtbl.get_Participant := CallbackCreate(GetMethod(implObj, "get_Participant"), flags, 2)
+        this.vtbl.get_EventType := CallbackCreate(GetMethod(implObj, "get_EventType"), flags, 2)
+        this.vtbl.get_Message := CallbackCreate(GetMethod(implObj, "get_Message"), flags, 2)
+        this.vtbl.get_MessageHeader := CallbackCreate(GetMethod(implObj, "get_MessageHeader"), flags, 2)
+        this.vtbl.get_UserStatus := CallbackCreate(GetMethod(implObj, "get_UserStatus"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Session)
+        CallbackFree(this.vtbl.get_Participant)
+        CallbackFree(this.vtbl.get_EventType)
+        CallbackFree(this.vtbl.get_Message)
+        CallbackFree(this.vtbl.get_MessageHeader)
+        CallbackFree(this.vtbl.get_UserStatus)
     }
 }

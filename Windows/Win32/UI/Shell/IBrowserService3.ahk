@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IBrowserService2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IBrowserService2.ahk" { IBrowserService2 }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Deprecated. (IBrowserService3)
@@ -10,26 +15,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nn-shdeprecated-ibrowserservice3
  * @namespace Windows.Win32.UI.Shell
  */
-class IBrowserService3 extends IBrowserService2 {
-
-    static sizeof => A_PtrSize
+export default struct IBrowserService3 extends IBrowserService2 {
     /**
      * The interface identifier for IBrowserService3
      * @type {Guid}
      */
-    static IID => Guid("{27d7ce21-762d-48f3-86f3-40e2fd3749c4}")
+    static IID := Guid("{27d7ce21-762d-48f3-86f3-40e2fd3749c4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 95
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBrowserService3 interfaces
+    */
+    struct Vtbl extends IBrowserService2.Vtbl {
+        _PositionViewWindow  : IntPtr
+        IEParseDisplayNameEx : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["_PositionViewWindow", "IEParseDisplayNameEx"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBrowserService3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Deprecated. Used in view size negotiations. This method is called by _UpdateViewRectSize after determining the available dimensions.
@@ -45,9 +58,7 @@ class IBrowserService3 extends IBrowserService2 {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice3-_positionviewwindow
      */
     _PositionViewWindow(_hwnd, prc) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(95, this, "ptr", _hwnd, "ptr", prc, "HRESULT")
+        result := ComCall(95, this, HWND, _hwnd, RECT.Ptr, prc, "HRESULT")
         return result
     }
 
@@ -74,5 +85,27 @@ class IBrowserService3 extends IBrowserService2 {
 
         result := ComCall(96, this, "uint", uiCP, "ptr", pwszPath, "uint", dwFlags, "ptr*", &ppidlOut := 0, "HRESULT")
         return ppidlOut
+    }
+
+    Query(iid) {
+        if (IBrowserService3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl._PositionViewWindow := CallbackCreate(GetMethod(implObj, "_PositionViewWindow"), flags, 3)
+        this.vtbl.IEParseDisplayNameEx := CallbackCreate(GetMethod(implObj, "IEParseDisplayNameEx"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl._PositionViewWindow)
+        CallbackFree(this.vtbl.IEParseDisplayNameEx)
     }
 }

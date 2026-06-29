@@ -1,34 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains information about the certificate that the EAP method uses for authentication.
  * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eapcertificatecredential
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  */
-class EapCertificateCredential extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct EapCertificateCredential {
+    #StructPack 8
 
     /**
      * SHA1 hash of the certificate.
-     * @type {Array<Integer>}
      */
-    certHash {
-        get {
-            if(!this.HasProp("__certHashProxyArray"))
-                this.__certHashProxyArray := Win32FixedArray(this.ptr + 0, 20, Primitive, "char")
-            return this.__certHashProxyArray
-        }
-    }
+    certHash : Int8[20]
 
     /**
      * If the certificate is present on the system and strong private key protection is turned on for this certificate, this field contains the password to access the certificate.
-     * @type {PWSTR}
      */
-    password {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    password : PWSTR
+
 }

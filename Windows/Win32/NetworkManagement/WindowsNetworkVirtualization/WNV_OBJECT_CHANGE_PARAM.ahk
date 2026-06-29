@@ -1,17 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WNV_OBJECT_TYPE.ahk
-#Include .\WNV_PROVIDER_ADDRESS_CHANGE_PARAM.ahk
-#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
-#Include .\WNV_IP_ADDRESS.ahk
-#Include ..\..\Networking\WinSock\IN_ADDR.ahk
-#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
-#Include ..\..\Networking\WinSock\NL_DAD_STATE.ahk
-#Include .\WNV_CUSTOMER_ADDRESS_CHANGE_PARAM.ahk
-#Include ..\..\Networking\WinSock\DL_EUI48.ahk
-#Include ..\..\Networking\WinSock\DL_OUI.ahk
-#Include ..\..\Networking\WinSock\DL_EI48.ahk
-#Include .\WNV_CA_NOTIFICATION_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
+#Import "..\..\Networking\WinSock\DL_EUI48.ahk" { DL_EUI48 }
+#Import ".\WNV_CUSTOMER_ADDRESS_CHANGE_PARAM.ahk" { WNV_CUSTOMER_ADDRESS_CHANGE_PARAM }
+#Import "..\..\Networking\WinSock\NL_DAD_STATE.ahk" { NL_DAD_STATE }
+#Import ".\WNV_CA_NOTIFICATION_TYPE.ahk" { WNV_CA_NOTIFICATION_TYPE }
+#Import "..\..\Networking\WinSock\DL_EI48.ahk" { DL_EI48 }
+#Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import ".\WNV_OBJECT_TYPE.ahk" { WNV_OBJECT_TYPE }
+#Import ".\WNV_IP_ADDRESS.ahk" { WNV_IP_ADDRESS }
+#Import "..\..\Networking\WinSock\DL_OUI.ahk" { DL_OUI }
+#Import ".\WNV_PROVIDER_ADDRESS_CHANGE_PARAM.ahk" { WNV_PROVIDER_ADDRESS_CHANGE_PARAM }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
 
 /**
  * Specifies the parameters of an event that causes the Windows Network Virtualization (WNV) driver to generate a WnvObjectChangeType type of notification.
@@ -20,35 +19,16 @@
  * @see https://learn.microsoft.com/windows/win32/api/wnvapi/ns-wnvapi-wnv_object_change_param
  * @namespace Windows.Win32.NetworkManagement.WindowsNetworkVirtualization
  */
-class WNV_OBJECT_CHANGE_PARAM extends Win32Struct {
-    static sizeof => 64
+export default struct WNV_OBJECT_CHANGE_PARAM {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _ObjectParam_e__Union extends Win32Struct {
-        static sizeof => 60
-        static packingSize => 4
+    struct _ObjectParam {
+        ProviderAddressChange : WNV_PROVIDER_ADDRESS_CHANGE_PARAM
 
-        /**
-         * @type {WNV_PROVIDER_ADDRESS_CHANGE_PARAM}
-         */
-        ProviderAddressChange {
-            get {
-                if(!this.HasProp("__ProviderAddressChange"))
-                    this.__ProviderAddressChange := WNV_PROVIDER_ADDRESS_CHANGE_PARAM(0, this)
-                return this.__ProviderAddressChange
-            }
-        }
-
-        /**
-         * @type {WNV_CUSTOMER_ADDRESS_CHANGE_PARAM}
-         */
-        CustomerAddressChange {
-            get {
-                if(!this.HasProp("__CustomerAddressChange"))
-                    this.__CustomerAddressChange := WNV_CUSTOMER_ADDRESS_CHANGE_PARAM(0, this)
-                return this.__CustomerAddressChange
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'CustomerAddressChange', { type: WNV_CUSTOMER_ADDRESS_CHANGE_PARAM, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
@@ -56,22 +36,12 @@ class WNV_OBJECT_CHANGE_PARAM extends Win32Struct {
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wnvapi/ne-wnvapi-wnv_object_type">WNV_OBJECT_TYPE</a></b>
      * 
      * The object type that causes the change notification.
-     * @type {WNV_OBJECT_TYPE}
      */
-    ObjectType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ObjectType : WNV_OBJECT_TYPE
 
     /**
      * The parameters for the corresponding object type. If the object type is <b>WnvProviderAddressType</b>, this field points to the <a href="https://docs.microsoft.com/windows/desktop/api/wnvapi/ns-wnvapi-wnv_provider_address_change_param">WNV_PROVIDER_ADDRESS_CHANGE_PARAM</a> structure that describes the provider address object that generated an object change event.
-     * @type {_ObjectParam_e__Union}
      */
-    ObjectParam {
-        get {
-            if(!this.HasProp("__ObjectParam"))
-                this.__ObjectParam := WNV_OBJECT_CHANGE_PARAM._ObjectParam_e__Union(4, this)
-            return this.__ObjectParam
-        }
-    }
+    ObjectParam : WNV_OBJECT_CHANGE_PARAM._ObjectParam
+
 }

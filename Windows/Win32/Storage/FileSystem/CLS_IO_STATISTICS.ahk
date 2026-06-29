@@ -1,63 +1,38 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLS_IO_STATISTICS_HEADER.ahk
-#Include .\CLFS_IOSTATS_CLASS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CLFS_IOSTATS_CLASS.ahk" { CLFS_IOSTATS_CLASS }
+#Import ".\CLS_IO_STATISTICS_HEADER.ahk" { CLS_IO_STATISTICS_HEADER }
 
 /**
  * Defines the statistics that are reported by GetLogIoStatistics.
  * @see https://learn.microsoft.com/windows/win32/api/clfs/ns-clfs-cls_io_statistics
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class CLS_IO_STATISTICS extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct CLS_IO_STATISTICS {
+    #StructPack 8
 
     /**
      * The header for the statistics buffer.
-     * @type {CLS_IO_STATISTICS_HEADER}
      */
-    hdrIoStats {
-        get {
-            if(!this.HasProp("__hdrIoStats"))
-                this.__hdrIoStats := CLS_IO_STATISTICS_HEADER(0, this)
-            return this.__hdrIoStats
-        }
-    }
+    hdrIoStats : CLS_IO_STATISTICS_HEADER
 
     /**
      * The frequency of  data flushes  for the logging session.
-     * @type {Integer}
      */
-    cFlush {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cFlush : Int64
 
     /**
      * The cumulative number of bytes of data  flushed in the logging session.
-     * @type {Integer}
      */
-    cbFlush {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    cbFlush : Int64
 
     /**
      * The frequency of  metadata flushes  for the logging session.
-     * @type {Integer}
      */
-    cMetaFlush {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    cMetaFlush : Int64
 
     /**
      * The cumulative number of bytes of metadata flushed in the logging session.
-     * @type {Integer}
      */
-    cbMetaFlush {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    cbMetaFlush : Int64
+
 }

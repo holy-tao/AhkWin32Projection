@@ -1,31 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOS_IMAGE_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOS_IMAGE_INFO.ahk" { DOS_IMAGE_INFO }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class MODULE_INFO extends Win32Struct {
-    static sizeof => 32
+export default struct MODULE_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    ProcessImageName : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    ProcessImageName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Image : DOS_IMAGE_INFO
 
-    /**
-     * @type {DOS_IMAGE_INFO}
-     */
-    Image {
-        get {
-            if(!this.HasProp("__Image"))
-                this.__Image := DOS_IMAGE_INFO(8, this)
-            return this.__Image
-        }
-    }
 }

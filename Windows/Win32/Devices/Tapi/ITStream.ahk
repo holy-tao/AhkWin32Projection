@@ -1,36 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IEnumTerminal.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\TERMINAL_DIRECTION.ahk" { TERMINAL_DIRECTION }
+#Import ".\ITTerminal.ahk" { ITTerminal }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IEnumTerminal.ahk" { IEnumTerminal }
 
 /**
  * The ITStream interfaces expose methods that allow an application to retrieve information on a stream; to start, pause, or stop the stream; to select or unselect terminals on a stream; and to obtain a list of terminals selected on the stream.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itstream
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITStream extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITStream extends IDispatch {
     /**
      * The interface identifier for ITStream
      * @type {Guid}
      */
-    static IID => Guid("{ee3bd605-3868-11d2-a045-00c04fb6809f}")
+    static IID := Guid("{ee3bd605-3868-11d2-a045-00c04fb6809f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITStream interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_MediaType      : IntPtr
+        get_Direction      : IntPtr
+        get_Name           : IntPtr
+        StartStream        : IntPtr
+        PauseStream        : IntPtr
+        StopStream         : IntPtr
+        SelectTerminal     : IntPtr
+        UnselectTerminal   : IntPtr
+        EnumerateTerminals : IntPtr
+        get_Terminals      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_MediaType", "get_Direction", "get_Name", "StartStream", "PauseStream", "StopStream", "SelectTerminal", "UnselectTerminal", "EnumerateTerminals", "get_Terminals"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITStream.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -92,8 +111,8 @@ class ITStream extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itstream-get_name
      */
     get_Name() {
-        ppName := BSTR()
-        result := ComCall(9, this, "ptr", ppName, "HRESULT")
+        ppName := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, ppName, "HRESULT")
         return ppName
     }
 
@@ -488,7 +507,45 @@ class ITStream extends IDispatch {
      */
     get_Terminals() {
         pTerminals := VARIANT()
-        result := ComCall(16, this, "ptr", pTerminals, "HRESULT")
+        result := ComCall(16, this, VARIANT.Ptr, pTerminals, "HRESULT")
         return pTerminals
+    }
+
+    Query(iid) {
+        if (ITStream.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_MediaType := CallbackCreate(GetMethod(implObj, "get_MediaType"), flags, 2)
+        this.vtbl.get_Direction := CallbackCreate(GetMethod(implObj, "get_Direction"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.StartStream := CallbackCreate(GetMethod(implObj, "StartStream"), flags, 1)
+        this.vtbl.PauseStream := CallbackCreate(GetMethod(implObj, "PauseStream"), flags, 1)
+        this.vtbl.StopStream := CallbackCreate(GetMethod(implObj, "StopStream"), flags, 1)
+        this.vtbl.SelectTerminal := CallbackCreate(GetMethod(implObj, "SelectTerminal"), flags, 2)
+        this.vtbl.UnselectTerminal := CallbackCreate(GetMethod(implObj, "UnselectTerminal"), flags, 2)
+        this.vtbl.EnumerateTerminals := CallbackCreate(GetMethod(implObj, "EnumerateTerminals"), flags, 2)
+        this.vtbl.get_Terminals := CallbackCreate(GetMethod(implObj, "get_Terminals"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_MediaType)
+        CallbackFree(this.vtbl.get_Direction)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.StartStream)
+        CallbackFree(this.vtbl.PauseStream)
+        CallbackFree(this.vtbl.StopStream)
+        CallbackFree(this.vtbl.SelectTerminal)
+        CallbackFree(this.vtbl.UnselectTerminal)
+        CallbackFree(this.vtbl.EnumerateTerminals)
+        CallbackFree(this.vtbl.get_Terminals)
     }
 }

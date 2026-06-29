@@ -1,9 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\INetFwOpenPorts.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\NET_FW_SCOPE.ahk" { NET_FW_SCOPE }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\NET_FW_SERVICE_TYPE.ahk" { NET_FW_SERVICE_TYPE }
+#Import ".\NET_FW_IP_VERSION.ahk" { NET_FW_IP_VERSION }
+#Import ".\INetFwOpenPorts.ahk" { INetFwOpenPorts }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The INetFwService interface provides access to the properties of a service that may be authorized to listen through the firewall.
@@ -16,26 +21,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwservice
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  */
-class INetFwService extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct INetFwService extends IDispatch {
     /**
      * The interface identifier for INetFwService
      * @type {Guid}
      */
-    static IID => Guid("{79fd57c8-908e-4a36-9888-d5b3f0a444cf}")
+    static IID := Guid("{79fd57c8-908e-4a36-9888-d5b3f0a444cf}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INetFwService interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Name              : IntPtr
+        get_Type              : IntPtr
+        get_Customized        : IntPtr
+        get_IpVersion         : IntPtr
+        put_IpVersion         : IntPtr
+        get_Scope             : IntPtr
+        put_Scope             : IntPtr
+        get_RemoteAddresses   : IntPtr
+        put_RemoteAddresses   : IntPtr
+        get_Enabled           : IntPtr
+        put_Enabled           : IntPtr
+        get_GloballyOpenPorts : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Name", "get_Type", "get_Customized", "get_IpVersion", "put_IpVersion", "get_Scope", "put_Scope", "get_RemoteAddresses", "put_RemoteAddresses", "get_Enabled", "put_Enabled", "get_GloballyOpenPorts"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INetFwService.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -103,8 +126,8 @@ class INetFwService extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-get_name
      */
     get_Name() {
-        name := BSTR()
-        result := ComCall(7, this, "ptr", name, "HRESULT")
+        name := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, name, "HRESULT")
         return name
     }
 
@@ -128,7 +151,7 @@ class INetFwService extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-get_customized
      */
     get_Customized() {
-        result := ComCall(9, this, "short*", &customized := 0, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL.Ptr, &customized := 0, "HRESULT")
         return customized
     }
 
@@ -155,7 +178,7 @@ class INetFwService extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-put_ipversion
      */
     put_IpVersion(ipVersion) {
-        result := ComCall(11, this, "int", ipVersion, "HRESULT")
+        result := ComCall(11, this, NET_FW_IP_VERSION, ipVersion, "HRESULT")
         return result
     }
 
@@ -194,7 +217,7 @@ class INetFwService extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-put_scope
      */
     put_Scope(scope) {
-        result := ComCall(13, this, "int", scope, "HRESULT")
+        result := ComCall(13, this, NET_FW_SCOPE, scope, "HRESULT")
         return result
     }
 
@@ -226,8 +249,8 @@ class INetFwService extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-get_remoteaddresses
      */
     get_RemoteAddresses() {
-        remoteAddrs := BSTR()
-        result := ComCall(14, this, "ptr", remoteAddrs, "HRESULT")
+        remoteAddrs := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, remoteAddrs, "HRESULT")
         return remoteAddrs
     }
 
@@ -262,7 +285,7 @@ class INetFwService extends IDispatch {
     put_RemoteAddresses(remoteAddrs) {
         remoteAddrs := remoteAddrs is String ? BSTR.Alloc(remoteAddrs).Value : remoteAddrs
 
-        result := ComCall(15, this, "ptr", remoteAddrs, "HRESULT")
+        result := ComCall(15, this, BSTR, remoteAddrs, "HRESULT")
         return result
     }
 
@@ -272,7 +295,7 @@ class INetFwService extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-get_enabled
      */
     get_Enabled() {
-        result := ComCall(16, this, "short*", &enabled := 0, "HRESULT")
+        result := ComCall(16, this, VARIANT_BOOL.Ptr, &enabled := 0, "HRESULT")
         return enabled
     }
 
@@ -283,7 +306,7 @@ class INetFwService extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-put_enabled
      */
     put_Enabled(enabled) {
-        result := ComCall(17, this, "short", enabled, "HRESULT")
+        result := ComCall(17, this, VARIANT_BOOL, enabled, "HRESULT")
         return result
     }
 
@@ -295,5 +318,47 @@ class INetFwService extends IDispatch {
     get_GloballyOpenPorts() {
         result := ComCall(18, this, "ptr*", &openPorts := 0, "HRESULT")
         return INetFwOpenPorts(openPorts)
+    }
+
+    Query(iid) {
+        if (INetFwService.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_Customized := CallbackCreate(GetMethod(implObj, "get_Customized"), flags, 2)
+        this.vtbl.get_IpVersion := CallbackCreate(GetMethod(implObj, "get_IpVersion"), flags, 2)
+        this.vtbl.put_IpVersion := CallbackCreate(GetMethod(implObj, "put_IpVersion"), flags, 2)
+        this.vtbl.get_Scope := CallbackCreate(GetMethod(implObj, "get_Scope"), flags, 2)
+        this.vtbl.put_Scope := CallbackCreate(GetMethod(implObj, "put_Scope"), flags, 2)
+        this.vtbl.get_RemoteAddresses := CallbackCreate(GetMethod(implObj, "get_RemoteAddresses"), flags, 2)
+        this.vtbl.put_RemoteAddresses := CallbackCreate(GetMethod(implObj, "put_RemoteAddresses"), flags, 2)
+        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.put_Enabled := CallbackCreate(GetMethod(implObj, "put_Enabled"), flags, 2)
+        this.vtbl.get_GloballyOpenPorts := CallbackCreate(GetMethod(implObj, "get_GloballyOpenPorts"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.get_Type)
+        CallbackFree(this.vtbl.get_Customized)
+        CallbackFree(this.vtbl.get_IpVersion)
+        CallbackFree(this.vtbl.put_IpVersion)
+        CallbackFree(this.vtbl.get_Scope)
+        CallbackFree(this.vtbl.put_Scope)
+        CallbackFree(this.vtbl.get_RemoteAddresses)
+        CallbackFree(this.vtbl.put_RemoteAddresses)
+        CallbackFree(this.vtbl.get_Enabled)
+        CallbackFree(this.vtbl.put_Enabled)
+        CallbackFree(this.vtbl.get_GloballyOpenPorts)
     }
 }

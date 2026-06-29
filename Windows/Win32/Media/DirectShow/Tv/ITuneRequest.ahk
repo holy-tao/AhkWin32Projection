@@ -1,10 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\ITuningSpace.ahk
-#Include .\IComponents.ahk
-#Include .\ILocator.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ILocator.ahk" { ILocator }
+#Import ".\ITuningSpace.ahk" { ITuningSpace }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IComponents.ahk" { IComponents }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITuneRequest interface is the base interface for all tune requests.
@@ -13,32 +14,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-itunerequest
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class ITuneRequest extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITuneRequest extends IDispatch {
     /**
      * The interface identifier for ITuneRequest
      * @type {Guid}
      */
-    static IID => Guid("{07ddc146-fc3d-11d2-9d8c-00c04f72d980}")
+    static IID := Guid("{07ddc146-fc3d-11d2-9d8c-00c04f72d980}")
 
     /**
      * The class identifier for TuneRequest
      * @type {Guid}
      */
-    static CLSID => Guid("{b46e0d38-ab35-4a06-a137-70576b01b39f}")
+    static CLSID := Guid("{b46e0d38-ab35-4a06-a137-70576b01b39f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITuneRequest interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_TuningSpace : IntPtr
+        get_Components  : IntPtr
+        Clone           : IntPtr
+        get_Locator     : IntPtr
+        put_Locator     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_TuningSpace", "get_Components", "Clone", "get_Locator", "put_Locator"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITuneRequest.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ITuningSpace} 
@@ -121,5 +133,33 @@ class ITuneRequest extends IDispatch {
     put_Locator(_Locator) {
         result := ComCall(11, this, "ptr", _Locator, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITuneRequest.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_TuningSpace := CallbackCreate(GetMethod(implObj, "get_TuningSpace"), flags, 2)
+        this.vtbl.get_Components := CallbackCreate(GetMethod(implObj, "get_Components"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.get_Locator := CallbackCreate(GetMethod(implObj, "get_Locator"), flags, 2)
+        this.vtbl.put_Locator := CallbackCreate(GetMethod(implObj, "put_Locator"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_TuningSpace)
+        CallbackFree(this.vtbl.get_Components)
+        CallbackFree(this.vtbl.Clone)
+        CallbackFree(this.vtbl.get_Locator)
+        CallbackFree(this.vtbl.put_Locator)
     }
 }

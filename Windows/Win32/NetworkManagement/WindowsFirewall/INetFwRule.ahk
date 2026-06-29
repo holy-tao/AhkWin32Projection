@@ -1,9 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\NET_FW_ACTION.ahk" { NET_FW_ACTION }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\NET_FW_RULE_DIRECTION.ahk" { NET_FW_RULE_DIRECTION }
 
 /**
  * To the properties of a rule.
@@ -157,32 +161,74 @@
  * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwrule
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  */
-class INetFwRule extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct INetFwRule extends IDispatch {
     /**
      * The interface identifier for INetFwRule
      * @type {Guid}
      */
-    static IID => Guid("{af230d27-baba-4e42-aced-f524f22cfce2}")
+    static IID := Guid("{af230d27-baba-4e42-aced-f524f22cfce2}")
 
     /**
      * The class identifier for NetFwRule
      * @type {Guid}
      */
-    static CLSID => Guid("{2c5bc43e-3369-4c33-ab0c-be9469677af4}")
+    static CLSID := Guid("{2c5bc43e-3369-4c33-ab0c-be9469677af4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INetFwRule interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Name              : IntPtr
+        put_Name              : IntPtr
+        get_Description       : IntPtr
+        put_Description       : IntPtr
+        get_ApplicationName   : IntPtr
+        put_ApplicationName   : IntPtr
+        get_ServiceName       : IntPtr
+        put_ServiceName       : IntPtr
+        get_Protocol          : IntPtr
+        put_Protocol          : IntPtr
+        get_LocalPorts        : IntPtr
+        put_LocalPorts        : IntPtr
+        get_RemotePorts       : IntPtr
+        put_RemotePorts       : IntPtr
+        get_LocalAddresses    : IntPtr
+        put_LocalAddresses    : IntPtr
+        get_RemoteAddresses   : IntPtr
+        put_RemoteAddresses   : IntPtr
+        get_IcmpTypesAndCodes : IntPtr
+        put_IcmpTypesAndCodes : IntPtr
+        get_Direction         : IntPtr
+        put_Direction         : IntPtr
+        get_Interfaces        : IntPtr
+        put_Interfaces        : IntPtr
+        get_InterfaceTypes    : IntPtr
+        put_InterfaceTypes    : IntPtr
+        get_Enabled           : IntPtr
+        put_Enabled           : IntPtr
+        get_Grouping          : IntPtr
+        put_Grouping          : IntPtr
+        get_Profiles          : IntPtr
+        put_Profiles          : IntPtr
+        get_EdgeTraversal     : IntPtr
+        put_EdgeTraversal     : IntPtr
+        get_Action            : IntPtr
+        put_Action            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Name", "put_Name", "get_Description", "put_Description", "get_ApplicationName", "put_ApplicationName", "get_ServiceName", "put_ServiceName", "get_Protocol", "put_Protocol", "get_LocalPorts", "put_LocalPorts", "get_RemotePorts", "put_RemotePorts", "get_LocalAddresses", "put_LocalAddresses", "get_RemoteAddresses", "put_RemoteAddresses", "get_IcmpTypesAndCodes", "put_IcmpTypesAndCodes", "get_Direction", "put_Direction", "get_Interfaces", "put_Interfaces", "get_InterfaceTypes", "put_InterfaceTypes", "get_Enabled", "put_Enabled", "get_Grouping", "put_Grouping", "get_Profiles", "put_Profiles", "get_EdgeTraversal", "put_EdgeTraversal", "get_Action", "put_Action"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INetFwRule.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -338,8 +384,8 @@ class INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_name
      */
     get_Name() {
-        name := BSTR()
-        result := ComCall(7, this, "ptr", name, "HRESULT")
+        name := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, name, "HRESULT")
         return name
     }
 
@@ -356,7 +402,7 @@ class INetFwRule extends IDispatch {
     put_Name(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(8, this, "ptr", name, "HRESULT")
+        result := ComCall(8, this, BSTR, name, "HRESULT")
         return result
     }
 
@@ -370,8 +416,8 @@ class INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_description
      */
     get_Description() {
-        desc := BSTR()
-        result := ComCall(9, this, "ptr", desc, "HRESULT")
+        desc := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, desc, "HRESULT")
         return desc
     }
 
@@ -388,7 +434,7 @@ class INetFwRule extends IDispatch {
     put_Description(desc) {
         desc := desc is String ? BSTR.Alloc(desc).Value : desc
 
-        result := ComCall(10, this, "ptr", desc, "HRESULT")
+        result := ComCall(10, this, BSTR, desc, "HRESULT")
         return result
     }
 
@@ -402,8 +448,8 @@ class INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_applicationname
      */
     get_ApplicationName() {
-        imageFileName := BSTR()
-        result := ComCall(11, this, "ptr", imageFileName, "HRESULT")
+        imageFileName := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, imageFileName, "HRESULT")
         return imageFileName
     }
 
@@ -420,7 +466,7 @@ class INetFwRule extends IDispatch {
     put_ApplicationName(imageFileName) {
         imageFileName := imageFileName is String ? BSTR.Alloc(imageFileName).Value : imageFileName
 
-        result := ComCall(12, this, "ptr", imageFileName, "HRESULT")
+        result := ComCall(12, this, BSTR, imageFileName, "HRESULT")
         return result
     }
 
@@ -434,8 +480,8 @@ class INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_servicename
      */
     get_ServiceName() {
-        serviceName := BSTR()
-        result := ComCall(13, this, "ptr", serviceName, "HRESULT")
+        serviceName := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, serviceName, "HRESULT")
         return serviceName
     }
 
@@ -452,7 +498,7 @@ class INetFwRule extends IDispatch {
     put_ServiceName(serviceName) {
         serviceName := serviceName is String ? BSTR.Alloc(serviceName).Value : serviceName
 
-        result := ComCall(14, this, "ptr", serviceName, "HRESULT")
+        result := ComCall(14, this, BSTR, serviceName, "HRESULT")
         return result
     }
 
@@ -505,8 +551,8 @@ class INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_localports
      */
     get_LocalPorts() {
-        portNumbers := BSTR()
-        result := ComCall(17, this, "ptr", portNumbers, "HRESULT")
+        portNumbers := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, portNumbers, "HRESULT")
         return portNumbers
     }
 
@@ -525,7 +571,7 @@ class INetFwRule extends IDispatch {
     put_LocalPorts(portNumbers) {
         portNumbers := portNumbers is String ? BSTR.Alloc(portNumbers).Value : portNumbers
 
-        result := ComCall(18, this, "ptr", portNumbers, "HRESULT")
+        result := ComCall(18, this, BSTR, portNumbers, "HRESULT")
         return result
     }
 
@@ -541,8 +587,8 @@ class INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_remoteports
      */
     get_RemotePorts() {
-        portNumbers := BSTR()
-        result := ComCall(19, this, "ptr", portNumbers, "HRESULT")
+        portNumbers := BSTR.Owned()
+        result := ComCall(19, this, BSTR.Ptr, portNumbers, "HRESULT")
         return portNumbers
     }
 
@@ -561,7 +607,7 @@ class INetFwRule extends IDispatch {
     put_RemotePorts(portNumbers) {
         portNumbers := portNumbers is String ? BSTR.Alloc(portNumbers).Value : portNumbers
 
-        result := ComCall(20, this, "ptr", portNumbers, "HRESULT")
+        result := ComCall(20, this, BSTR, portNumbers, "HRESULT")
         return result
     }
 
@@ -589,8 +635,8 @@ class INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_localaddresses
      */
     get_LocalAddresses() {
-        localAddrs := BSTR()
-        result := ComCall(21, this, "ptr", localAddrs, "HRESULT")
+        localAddrs := BSTR.Owned()
+        result := ComCall(21, this, BSTR.Ptr, localAddrs, "HRESULT")
         return localAddrs
     }
 
@@ -621,7 +667,7 @@ class INetFwRule extends IDispatch {
     put_LocalAddresses(localAddrs) {
         localAddrs := localAddrs is String ? BSTR.Alloc(localAddrs).Value : localAddrs
 
-        result := ComCall(22, this, "ptr", localAddrs, "HRESULT")
+        result := ComCall(22, this, BSTR, localAddrs, "HRESULT")
         return result
     }
 
@@ -650,8 +696,8 @@ class INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_remoteaddresses
      */
     get_RemoteAddresses() {
-        remoteAddrs := BSTR()
-        result := ComCall(23, this, "ptr", remoteAddrs, "HRESULT")
+        remoteAddrs := BSTR.Owned()
+        result := ComCall(23, this, BSTR.Ptr, remoteAddrs, "HRESULT")
         return remoteAddrs
     }
 
@@ -683,7 +729,7 @@ class INetFwRule extends IDispatch {
     put_RemoteAddresses(remoteAddrs) {
         remoteAddrs := remoteAddrs is String ? BSTR.Alloc(remoteAddrs).Value : remoteAddrs
 
-        result := ComCall(24, this, "ptr", remoteAddrs, "HRESULT")
+        result := ComCall(24, this, BSTR, remoteAddrs, "HRESULT")
         return result
     }
 
@@ -699,8 +745,8 @@ class INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_icmptypesandcodes
      */
     get_IcmpTypesAndCodes() {
-        icmpTypesAndCodes := BSTR()
-        result := ComCall(25, this, "ptr", icmpTypesAndCodes, "HRESULT")
+        icmpTypesAndCodes := BSTR.Owned()
+        result := ComCall(25, this, BSTR.Ptr, icmpTypesAndCodes, "HRESULT")
         return icmpTypesAndCodes
     }
 
@@ -719,7 +765,7 @@ class INetFwRule extends IDispatch {
     put_IcmpTypesAndCodes(icmpTypesAndCodes) {
         icmpTypesAndCodes := icmpTypesAndCodes is String ? BSTR.Alloc(icmpTypesAndCodes).Value : icmpTypesAndCodes
 
-        result := ComCall(26, this, "ptr", icmpTypesAndCodes, "HRESULT")
+        result := ComCall(26, this, BSTR, icmpTypesAndCodes, "HRESULT")
         return result
     }
 
@@ -748,7 +794,7 @@ class INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-put_direction
      */
     put_Direction(dir) {
-        result := ComCall(28, this, "int", dir, "HRESULT")
+        result := ComCall(28, this, NET_FW_RULE_DIRECTION, dir, "HRESULT")
         return result
     }
 
@@ -763,7 +809,7 @@ class INetFwRule extends IDispatch {
      */
     get_Interfaces() {
         interfaces := VARIANT()
-        result := ComCall(29, this, "ptr", interfaces, "HRESULT")
+        result := ComCall(29, this, VARIANT.Ptr, interfaces, "HRESULT")
         return interfaces
     }
 
@@ -778,7 +824,7 @@ class INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-put_interfaces
      */
     put_Interfaces(interfaces) {
-        result := ComCall(30, this, "ptr", interfaces, "HRESULT")
+        result := ComCall(30, this, VARIANT, interfaces, "HRESULT")
         return result
     }
 
@@ -794,8 +840,8 @@ class INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_interfacetypes
      */
     get_InterfaceTypes() {
-        interfaceTypes := BSTR()
-        result := ComCall(31, this, "ptr", interfaceTypes, "HRESULT")
+        interfaceTypes := BSTR.Owned()
+        result := ComCall(31, this, BSTR.Ptr, interfaceTypes, "HRESULT")
         return interfaceTypes
     }
 
@@ -814,7 +860,7 @@ class INetFwRule extends IDispatch {
     put_InterfaceTypes(interfaceTypes) {
         interfaceTypes := interfaceTypes is String ? BSTR.Alloc(interfaceTypes).Value : interfaceTypes
 
-        result := ComCall(32, this, "ptr", interfaceTypes, "HRESULT")
+        result := ComCall(32, this, BSTR, interfaceTypes, "HRESULT")
         return result
     }
 
@@ -828,7 +874,7 @@ class INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_enabled
      */
     get_Enabled() {
-        result := ComCall(33, this, "short*", &enabled := 0, "HRESULT")
+        result := ComCall(33, this, VARIANT_BOOL.Ptr, &enabled := 0, "HRESULT")
         return enabled
     }
 
@@ -843,7 +889,7 @@ class INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-put_enabled
      */
     put_Enabled(enabled) {
-        result := ComCall(34, this, "short", enabled, "HRESULT")
+        result := ComCall(34, this, VARIANT_BOOL, enabled, "HRESULT")
         return result
     }
 
@@ -861,8 +907,8 @@ class INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_grouping
      */
     get_Grouping() {
-        _context := BSTR()
-        result := ComCall(35, this, "ptr", _context, "HRESULT")
+        _context := BSTR.Owned()
+        result := ComCall(35, this, BSTR.Ptr, _context, "HRESULT")
         return _context
     }
 
@@ -883,7 +929,7 @@ class INetFwRule extends IDispatch {
     put_Grouping(_context) {
         _context := _context is String ? BSTR.Alloc(_context).Value : _context
 
-        result := ComCall(36, this, "ptr", _context, "HRESULT")
+        result := ComCall(36, this, BSTR, _context, "HRESULT")
         return result
     }
 
@@ -928,7 +974,7 @@ class INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_edgetraversal
      */
     get_EdgeTraversal() {
-        result := ComCall(39, this, "short*", &enabled := 0, "HRESULT")
+        result := ComCall(39, this, VARIANT_BOOL.Ptr, &enabled := 0, "HRESULT")
         return enabled
     }
 
@@ -945,7 +991,7 @@ class INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-put_edgetraversal
      */
     put_EdgeTraversal(enabled) {
-        result := ComCall(40, this, "short", enabled, "HRESULT")
+        result := ComCall(40, this, VARIANT_BOOL, enabled, "HRESULT")
         return result
     }
 
@@ -974,7 +1020,97 @@ class INetFwRule extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-put_action
      */
     put_Action(action) {
-        result := ComCall(42, this, "int", action, "HRESULT")
+        result := ComCall(42, this, NET_FW_ACTION, action, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (INetFwRule.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.get_ApplicationName := CallbackCreate(GetMethod(implObj, "get_ApplicationName"), flags, 2)
+        this.vtbl.put_ApplicationName := CallbackCreate(GetMethod(implObj, "put_ApplicationName"), flags, 2)
+        this.vtbl.get_ServiceName := CallbackCreate(GetMethod(implObj, "get_ServiceName"), flags, 2)
+        this.vtbl.put_ServiceName := CallbackCreate(GetMethod(implObj, "put_ServiceName"), flags, 2)
+        this.vtbl.get_Protocol := CallbackCreate(GetMethod(implObj, "get_Protocol"), flags, 2)
+        this.vtbl.put_Protocol := CallbackCreate(GetMethod(implObj, "put_Protocol"), flags, 2)
+        this.vtbl.get_LocalPorts := CallbackCreate(GetMethod(implObj, "get_LocalPorts"), flags, 2)
+        this.vtbl.put_LocalPorts := CallbackCreate(GetMethod(implObj, "put_LocalPorts"), flags, 2)
+        this.vtbl.get_RemotePorts := CallbackCreate(GetMethod(implObj, "get_RemotePorts"), flags, 2)
+        this.vtbl.put_RemotePorts := CallbackCreate(GetMethod(implObj, "put_RemotePorts"), flags, 2)
+        this.vtbl.get_LocalAddresses := CallbackCreate(GetMethod(implObj, "get_LocalAddresses"), flags, 2)
+        this.vtbl.put_LocalAddresses := CallbackCreate(GetMethod(implObj, "put_LocalAddresses"), flags, 2)
+        this.vtbl.get_RemoteAddresses := CallbackCreate(GetMethod(implObj, "get_RemoteAddresses"), flags, 2)
+        this.vtbl.put_RemoteAddresses := CallbackCreate(GetMethod(implObj, "put_RemoteAddresses"), flags, 2)
+        this.vtbl.get_IcmpTypesAndCodes := CallbackCreate(GetMethod(implObj, "get_IcmpTypesAndCodes"), flags, 2)
+        this.vtbl.put_IcmpTypesAndCodes := CallbackCreate(GetMethod(implObj, "put_IcmpTypesAndCodes"), flags, 2)
+        this.vtbl.get_Direction := CallbackCreate(GetMethod(implObj, "get_Direction"), flags, 2)
+        this.vtbl.put_Direction := CallbackCreate(GetMethod(implObj, "put_Direction"), flags, 2)
+        this.vtbl.get_Interfaces := CallbackCreate(GetMethod(implObj, "get_Interfaces"), flags, 2)
+        this.vtbl.put_Interfaces := CallbackCreate(GetMethod(implObj, "put_Interfaces"), flags, 2)
+        this.vtbl.get_InterfaceTypes := CallbackCreate(GetMethod(implObj, "get_InterfaceTypes"), flags, 2)
+        this.vtbl.put_InterfaceTypes := CallbackCreate(GetMethod(implObj, "put_InterfaceTypes"), flags, 2)
+        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.put_Enabled := CallbackCreate(GetMethod(implObj, "put_Enabled"), flags, 2)
+        this.vtbl.get_Grouping := CallbackCreate(GetMethod(implObj, "get_Grouping"), flags, 2)
+        this.vtbl.put_Grouping := CallbackCreate(GetMethod(implObj, "put_Grouping"), flags, 2)
+        this.vtbl.get_Profiles := CallbackCreate(GetMethod(implObj, "get_Profiles"), flags, 2)
+        this.vtbl.put_Profiles := CallbackCreate(GetMethod(implObj, "put_Profiles"), flags, 2)
+        this.vtbl.get_EdgeTraversal := CallbackCreate(GetMethod(implObj, "get_EdgeTraversal"), flags, 2)
+        this.vtbl.put_EdgeTraversal := CallbackCreate(GetMethod(implObj, "put_EdgeTraversal"), flags, 2)
+        this.vtbl.get_Action := CallbackCreate(GetMethod(implObj, "get_Action"), flags, 2)
+        this.vtbl.put_Action := CallbackCreate(GetMethod(implObj, "put_Action"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.put_Name)
+        CallbackFree(this.vtbl.get_Description)
+        CallbackFree(this.vtbl.put_Description)
+        CallbackFree(this.vtbl.get_ApplicationName)
+        CallbackFree(this.vtbl.put_ApplicationName)
+        CallbackFree(this.vtbl.get_ServiceName)
+        CallbackFree(this.vtbl.put_ServiceName)
+        CallbackFree(this.vtbl.get_Protocol)
+        CallbackFree(this.vtbl.put_Protocol)
+        CallbackFree(this.vtbl.get_LocalPorts)
+        CallbackFree(this.vtbl.put_LocalPorts)
+        CallbackFree(this.vtbl.get_RemotePorts)
+        CallbackFree(this.vtbl.put_RemotePorts)
+        CallbackFree(this.vtbl.get_LocalAddresses)
+        CallbackFree(this.vtbl.put_LocalAddresses)
+        CallbackFree(this.vtbl.get_RemoteAddresses)
+        CallbackFree(this.vtbl.put_RemoteAddresses)
+        CallbackFree(this.vtbl.get_IcmpTypesAndCodes)
+        CallbackFree(this.vtbl.put_IcmpTypesAndCodes)
+        CallbackFree(this.vtbl.get_Direction)
+        CallbackFree(this.vtbl.put_Direction)
+        CallbackFree(this.vtbl.get_Interfaces)
+        CallbackFree(this.vtbl.put_Interfaces)
+        CallbackFree(this.vtbl.get_InterfaceTypes)
+        CallbackFree(this.vtbl.put_InterfaceTypes)
+        CallbackFree(this.vtbl.get_Enabled)
+        CallbackFree(this.vtbl.put_Enabled)
+        CallbackFree(this.vtbl.get_Grouping)
+        CallbackFree(this.vtbl.put_Grouping)
+        CallbackFree(this.vtbl.get_Profiles)
+        CallbackFree(this.vtbl.put_Profiles)
+        CallbackFree(this.vtbl.get_EdgeTraversal)
+        CallbackFree(this.vtbl.put_EdgeTraversal)
+        CallbackFree(this.vtbl.get_Action)
+        CallbackFree(this.vtbl.put_Action)
     }
 }

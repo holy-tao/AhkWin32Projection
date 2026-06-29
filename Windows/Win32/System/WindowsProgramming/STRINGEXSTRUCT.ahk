@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
  */
-class STRINGEXSTRUCT extends Win32Struct {
-    static sizeof => 20
+export default struct STRINGEXSTRUCT {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    uDeterminePos : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uDeterminePos {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    uDetermineDelimPos : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uDetermineDelimPos {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    uYomiPos : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uYomiPos {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    uYomiDelimPos : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uYomiDelimPos {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

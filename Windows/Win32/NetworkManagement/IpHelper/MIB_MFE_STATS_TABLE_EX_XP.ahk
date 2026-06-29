@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_IPMCAST_MFE_STATS_EX_XP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MIB_IPMCAST_MFE_STATS_EX_XP.ahk" { MIB_IPMCAST_MFE_STATS_EX_XP }
 
 /**
  * Contains a table of extended statistics for Multicast Forwarding Entries (MFEs).
@@ -9,30 +8,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipmib/ns-ipmib-mib_mfe_stats_table_ex_xp
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_MFE_STATS_TABLE_EX_XP extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct MIB_MFE_STATS_TABLE_EX_XP {
+    #StructPack 8
 
     /**
      * The number of MFEs  in the array.
-     * @type {Integer}
      */
-    dwNumEntries {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwNumEntries : UInt32
 
     /**
      * A pointer to a table of MFEs that are implemented as an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipmcast_mfe_stats_ex_xp">MIB_IPMCAST_MFE_STATS_EX</a> structures.
-     * @type {Array<Pointer<MIB_IPMCAST_MFE_STATS_EX_XP>>}
      */
-    table {
-        get {
-            if(!this.HasProp("__tableProxyArray"))
-                this.__tableProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")
-            return this.__tableProxyArray
-        }
-    }
+    table : MIB_IPMCAST_MFE_STATS_EX_XP.Ptr[1]
+
 }

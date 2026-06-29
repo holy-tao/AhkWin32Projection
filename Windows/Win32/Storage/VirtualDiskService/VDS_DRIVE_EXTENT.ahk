@@ -1,5 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The VDS_DRIVE_EXTENT structure (vdshwprv.h) defines the properties of a drive extent.
@@ -14,44 +15,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_drive_extent
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_DRIVE_EXTENT extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct VDS_DRIVE_EXTENT {
+    #StructPack 8
 
     /**
      * The <b>VDS_OBJECT_ID</b> of the drive.
-     * @type {Pointer}
      */
-    id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    id : Guid
 
     /**
      * The <b>VDS_OBJECT_ID</b> of the LUN that is associated with the drive extent.
-     * @type {Pointer}
      */
-    LunId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    LunId : Guid
 
     /**
      * The size of the extent, in bytes.
-     * @type {Integer}
      */
-    ullSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ullSize : Int64
 
     /**
      * If <b>TRUE</b>, the extent is allocated to a LUN plex. If <b>FALSE</b>, the extent is unallocated.
-     * @type {BOOL}
      */
-    bUsed {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    bUsed : BOOL
+
 }

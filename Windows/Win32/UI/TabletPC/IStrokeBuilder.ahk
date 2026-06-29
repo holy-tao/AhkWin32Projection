@@ -1,8 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IInkDisp.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\PACKET_PROPERTY.ahk" { PACKET_PROPERTY }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IInkDisp.ahk" { IInkDisp }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IInkStrokeDisp.ahk" { IInkStrokeDisp }
 
 /**
  * Use interface to programmatically create strokes from packet data.
@@ -20,32 +24,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/rtscom/nn-rtscom-istrokebuilder
  * @namespace Windows.Win32.UI.TabletPC
  */
-class IStrokeBuilder extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IStrokeBuilder extends IUnknown {
     /**
      * The interface identifier for IStrokeBuilder
      * @type {Guid}
      */
-    static IID => Guid("{a5fd4e2d-c44b-4092-9177-260905eb672b}")
+    static IID := Guid("{a5fd4e2d-c44b-4092-9177-260905eb672b}")
 
     /**
      * The class identifier for StrokeBuilder
      * @type {Guid}
      */
-    static CLSID => Guid("{e810cee7-6e51-4cb0-aa3a-0b985b70daf7}")
+    static CLSID := Guid("{e810cee7-6e51-4cb0-aa3a-0b985b70daf7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IStrokeBuilder interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateStroke  : IntPtr
+        BeginStroke   : IntPtr
+        AppendPackets : IntPtr
+        EndStroke     : IntPtr
+        get_Ink       : IntPtr
+        putref_Ink    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateStroke", "BeginStroke", "AppendPackets", "EndStroke", "get_Ink", "putref_Ink"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IStrokeBuilder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IInkDisp} 
@@ -73,7 +89,7 @@ class IStrokeBuilder extends IUnknown {
     CreateStroke(cPktBuffLength, pPackets, cPacketProperties, pPacketProperties, fInkToDeviceScaleX, fInkToDeviceScaleY, ppIInkStroke) {
         pPacketsMarshal := pPackets is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "uint", cPktBuffLength, pPacketsMarshal, pPackets, "uint", cPacketProperties, "ptr", pPacketProperties, "float", fInkToDeviceScaleX, "float", fInkToDeviceScaleY, "ptr*", ppIInkStroke, "HRESULT")
+        result := ComCall(3, this, "uint", cPktBuffLength, pPacketsMarshal, pPackets, "uint", cPacketProperties, PACKET_PROPERTY.Ptr, pPacketProperties, "float", fInkToDeviceScaleX, "float", fInkToDeviceScaleY, IInkStrokeDisp.Ptr, ppIInkStroke, "HRESULT")
         return result
     }
 
@@ -95,7 +111,7 @@ class IStrokeBuilder extends IUnknown {
     BeginStroke(tcid, _sid, pPacket, cPacketProperties, pPacketProperties, fInkToDeviceScaleX, fInkToDeviceScaleY, ppIInkStroke) {
         pPacketMarshal := pPacket is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "uint", tcid, "uint", _sid, pPacketMarshal, pPacket, "uint", cPacketProperties, "ptr", pPacketProperties, "float", fInkToDeviceScaleX, "float", fInkToDeviceScaleY, "ptr*", ppIInkStroke, "HRESULT")
+        result := ComCall(4, this, "uint", tcid, "uint", _sid, pPacketMarshal, pPacket, "uint", cPacketProperties, PACKET_PROPERTY.Ptr, pPacketProperties, "float", fInkToDeviceScaleX, "float", fInkToDeviceScaleY, IInkStrokeDisp.Ptr, ppIInkStroke, "HRESULT")
         return result
     }
 
@@ -132,7 +148,7 @@ class IStrokeBuilder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istrokebuilder-endstroke
      */
     EndStroke(tcid, _sid, ppIInkStroke, pDirtyRect) {
-        result := ComCall(6, this, "uint", tcid, "uint", _sid, "ptr*", ppIInkStroke, "ptr", pDirtyRect, "HRESULT")
+        result := ComCall(6, this, "uint", tcid, "uint", _sid, IInkStrokeDisp.Ptr, ppIInkStroke, RECT.Ptr, pDirtyRect, "HRESULT")
         return result
     }
 
@@ -154,5 +170,35 @@ class IStrokeBuilder extends IUnknown {
     putref_Ink(piInkObj) {
         result := ComCall(8, this, "ptr", piInkObj, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IStrokeBuilder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateStroke := CallbackCreate(GetMethod(implObj, "CreateStroke"), flags, 8)
+        this.vtbl.BeginStroke := CallbackCreate(GetMethod(implObj, "BeginStroke"), flags, 9)
+        this.vtbl.AppendPackets := CallbackCreate(GetMethod(implObj, "AppendPackets"), flags, 5)
+        this.vtbl.EndStroke := CallbackCreate(GetMethod(implObj, "EndStroke"), flags, 5)
+        this.vtbl.get_Ink := CallbackCreate(GetMethod(implObj, "get_Ink"), flags, 2)
+        this.vtbl.putref_Ink := CallbackCreate(GetMethod(implObj, "putref_Ink"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateStroke)
+        CallbackFree(this.vtbl.BeginStroke)
+        CallbackFree(this.vtbl.AppendPackets)
+        CallbackFree(this.vtbl.EndStroke)
+        CallbackFree(this.vtbl.get_Ink)
+        CallbackFree(this.vtbl.putref_Ink)
     }
 }

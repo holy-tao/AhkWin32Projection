@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IValidate interface enables authoring tools to validate a Windows Installer package against a set of Internal Consistency Evaluators.
  * @see https://learn.microsoft.com/windows/win32/api/evalcom2/nn-evalcom2-ivalidate
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
-class IValidate extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IValidate extends IUnknown {
     /**
      * The interface identifier for IValidate
      * @type {Guid}
      */
-    static IID => Guid("{e482e5c6-e31e-4143-a2e6-dbc3d8e4b8d3}")
+    static IID := Guid("{e482e5c6-e31e-4143-a2e6-dbc3d8e4b8d3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IValidate interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OpenDatabase  : IntPtr
+        OpenCUB       : IntPtr
+        CloseDatabase : IntPtr
+        CloseCUB      : IntPtr
+        SetDisplay    : IntPtr
+        SetStatus     : IntPtr
+        Validate      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OpenDatabase", "OpenCUB", "CloseDatabase", "CloseCUB", "SetDisplay", "SetStatus", "Validate"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IValidate.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The OpenDatabase method opens a Windows Installer installation package or merge module for validation.
@@ -342,5 +357,37 @@ class IValidate extends IUnknown {
 
         result := ComCall(9, this, "ptr", wzICEs, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IValidate.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OpenDatabase := CallbackCreate(GetMethod(implObj, "OpenDatabase"), flags, 2)
+        this.vtbl.OpenCUB := CallbackCreate(GetMethod(implObj, "OpenCUB"), flags, 2)
+        this.vtbl.CloseDatabase := CallbackCreate(GetMethod(implObj, "CloseDatabase"), flags, 1)
+        this.vtbl.CloseCUB := CallbackCreate(GetMethod(implObj, "CloseCUB"), flags, 1)
+        this.vtbl.SetDisplay := CallbackCreate(GetMethod(implObj, "SetDisplay"), flags, 3)
+        this.vtbl.SetStatus := CallbackCreate(GetMethod(implObj, "SetStatus"), flags, 3)
+        this.vtbl.Validate := CallbackCreate(GetMethod(implObj, "Validate"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OpenDatabase)
+        CallbackFree(this.vtbl.OpenCUB)
+        CallbackFree(this.vtbl.CloseDatabase)
+        CallbackFree(this.vtbl.CloseCUB)
+        CallbackFree(this.vtbl.SetDisplay)
+        CallbackFree(this.vtbl.SetStatus)
+        CallbackFree(this.vtbl.Validate)
     }
 }

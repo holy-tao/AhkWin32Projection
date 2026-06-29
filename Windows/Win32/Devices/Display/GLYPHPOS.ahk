@@ -1,45 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\GLYPHDEF.ahk
-#Include ..\..\Foundation\POINTL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GLYPHDEF.ahk" { GLYPHDEF }
+#Import "..\..\Foundation\POINTL.ahk" { POINTL }
 
 /**
  * The GLYPHPOS structure is used by GDI to provide a graphics driver with a glyph's description and position.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-glyphpos
  * @namespace Windows.Win32.Devices.Display
  */
-class GLYPHPOS extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct GLYPHPOS {
+    #StructPack 8
 
     /**
      * Handle to the glyph.
-     * @type {Integer}
      */
-    hg {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hg : UInt32
 
     /**
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-glyphdef">GLYPHDEF</a> union.
-     * @type {Pointer<GLYPHDEF>}
      */
-    pgdf {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pgdf : GLYPHDEF.Ptr
 
     /**
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-pointl">POINTL</a> structure that contains the coordinates of the point in device space where the character origin of the glyph should be placed.
-     * @type {POINTL}
      */
-    ptl {
-        get {
-            if(!this.HasProp("__ptl"))
-                this.__ptl := POINTL(16, this)
-            return this.__ptl
-        }
-    }
+    ptl : POINTL
+
 }

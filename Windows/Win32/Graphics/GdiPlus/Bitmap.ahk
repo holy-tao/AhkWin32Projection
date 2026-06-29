@@ -1,21 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains the Base64 encoded data for a bitmap contained in the Journal file as a background image.
  * @see https://learn.microsoft.com/windows/win32/tablet/bitmap-element
  * @namespace Windows.Win32.Graphics.GdiPlus
  */
-class Bitmap extends Win32Struct {
-    static sizeof => 8
+export default struct Bitmap {
+    value : IntPtr
 
-    static packingSize => 8
+    __value {
+        set {
+            if (value is Bitmap) {
+                this.value := value.value
+            }
+            else {
+                this.value := value
+            }
+        }
+    }
 
-    /**
-     * @type {Pointer}
-     */
-    Value {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    __New(value := 0) {
+        this.value := value
     }
 }

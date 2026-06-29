@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DHAL_DP2WINFO extends Win32Struct {
-    static sizeof => 8
+export default struct D3DHAL_DP2WINFO {
+    #StructPack 4
 
-    static packingSize => 4
+    dvWNear : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvWNear {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    dvWFar : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvWFar {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
 }

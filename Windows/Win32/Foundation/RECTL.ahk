@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include ..\Graphics\Gdi\Apis.ahk
-#Include .\POINT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\POINT.ahk" { POINT }
+#Import "..\Graphics\Gdi\Apis.ahk" { InflateRect, IsRectEmpty, EqualRect, OffsetRect, PtInRect, UnionRect, IntersectRect, SubtractRect }
 
 /**
  * The RECTL structure defines a rectangle by the coordinates of its upper-left and lower-right corners.
@@ -10,53 +9,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/windef/ns-windef-rectl
  * @namespace Windows.Win32.Foundation
  */
-class RECTL extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct RECTL {
+    #StructPack 4
 
     /**
      * Specifies the <i>x</i>-coordinate of the upper-left corner of the rectangle.
-     * @type {Integer}
      */
-    left {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    left : Int32
 
     /**
      * Specifies the <i>y</i>-coordinate of the upper-left corner of the rectangle.
-     * @type {Integer}
      */
-    top {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    top : Int32
 
     /**
      * Specifies the <i>x</i>-coordinate of the lower-right corner of the rectangle.
-     * @type {Integer}
      */
-    right {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    right : Int32
 
     /**
      * Specifies the <i>y</i>-coordinate of the lower-right corner of the rectangle.
-     * @type {Integer}
      */
-    bottom {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    bottom : Int32
+
+
     height => this.bottom - this.top
     
     width => this.right - this.left
     
     area => this.width * this.height
     
-    isEmpty => Gdi.IsRectEmpty(this)
+    isEmpty => IsRectEmpty(this)
     
     /**
      * Calculates the intersection of two source rectangles and returns it as a
@@ -68,12 +51,12 @@ class RECTL extends Win32Struct {
      */
     Intersect(other) {
         intersection := RECTL()
-        Gdi.IntersectRect(intersection, this, other)
+        IntersectRect(intersection, this, other)
         return intersection
     }
     
     /**
-     * Creates the union of two rectangles. The union is the smallest rectangle that 
+     * Creates the union of two rectangles. The union is the smallest rectangle that
      * contains both source rectangles.
      *
      * @param {RECT | RECTL} other rectangle to union this one with
@@ -81,12 +64,12 @@ class RECTL extends Win32Struct {
      */
     Union(other) {
         union := RECTL()
-        Gdi.UnionRect(union, this, other)
+        UnionRect(union, this, other)
         return union
     }
     
     /**
-     * Determines the coordinates of a rectangle formed by subtracting 
+     * Determines the coordinates of a rectangle formed by subtracting
      * one rectangle from this one
      *
      * @param {RECT | RECTL} other rectangle to subtract from this one
@@ -94,18 +77,18 @@ class RECTL extends Win32Struct {
      */
     Subtract(other) {
         diff := RECTL()
-        Gdi.SubtractRect(diff, this, other)
+        SubtractRect(diff, this, other)
         return diff
     }
     
     /**
      * Determines whether the this rectangle is equal to another
-     * 
+     *
      * @param {RECT | RECTL} other rectangle to compare this one to
      * @returns {Boolean} a nonzero value of the rectangles are equal, 0 if they aren't
      */
     Equals(other) {
-        return Gdi.EqualRect(this, other)
+        return EqualRect(this, other)
     }
     
     /**
@@ -115,7 +98,7 @@ class RECTL extends Win32Struct {
      * @param {Integer} dy the amount to shift the rectangle vertically
      */
     Offset(dx := 0, dy := 0) {
-        Gdi.OffsetRect(this, dx, dy)
+        OffsetRect(this, dx, dy)
     }
     
     /**
@@ -125,7 +108,7 @@ class RECTL extends Win32Struct {
      * @param {Integer} dy the amount to infalte or deflate vertically
      */
     Inflate(dx := 0, dy := 0) {
-        Gdi.InflateRect(this, dx, dy)
+        InflateRect(this, dx, dy)
     }
     
     /**
@@ -142,13 +125,15 @@ class RECTL extends Win32Struct {
      */
     HitTest(ptOrXCoord, yCoord?){
         if(IsSet(yCoord)){
-            pt := POINT({x: Integer(ptOrXCoord), y: Integer(yCoord)})
+            pt := POINT()
+            pt.x := Integer(ptOrXCoord)
+            pt.y := Integer(yCoord)
         }
         else{
             pt := ptOrXCoord
         }
     
-        return Gdi.PtInRect(this, pt.Value)
+        return PtInRect(this, pt)
     }
     
     ToString(){
@@ -156,4 +141,5 @@ class RECTL extends Win32Struct {
             this.left, this.top, this.right, this.bottom
         )
     }
+    
 }

@@ -1,58 +1,38 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The TF_LANGUAGEPROFILE structure contains information about a language profile.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/ns-msctf-tf_languageprofile
  * @namespace Windows.Win32.UI.TextServices
  */
-class TF_LANGUAGEPROFILE extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct TF_LANGUAGEPROFILE {
+    #StructPack 4
 
     /**
      * Specifies the class identifier of the text service within the language profile.
-     * @type {Pointer}
      */
-    clsid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    clsid : Guid
 
     /**
      * Specifies the language identifier of the profile.
-     * @type {Integer}
      */
-    langid {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    langid : UInt16
 
     /**
      * Specifies the identifier of the category that the text service belongs to.
-     * @type {Pointer}
      */
-    catid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    catid : Guid
 
     /**
      * A Boolean value, when <b>TRUE</b>, indicates that the language is activated.
-     * @type {BOOL}
      */
-    fActive {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    fActive : BOOL
 
     /**
      * Specifies the identifier of the language profile.
-     * @type {Pointer}
      */
-    guidProfile {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    guidProfile : Guid
+
 }

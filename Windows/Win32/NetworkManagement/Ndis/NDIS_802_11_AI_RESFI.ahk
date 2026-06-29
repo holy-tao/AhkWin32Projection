@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NDIS_802_11_AI_RESFI extends Win32Struct {
-    static sizeof => 6
+export default struct NDIS_802_11_AI_RESFI {
+    #StructPack 2
 
-    static packingSize => 2
+    Capabilities : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Capabilities {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    StatusCode : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    StatusCode {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    AssociationId : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    AssociationId {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
 }

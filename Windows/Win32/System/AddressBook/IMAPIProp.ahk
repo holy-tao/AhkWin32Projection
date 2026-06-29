@@ -1,7 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SPropProblemArray.ahk" { SPropProblemArray }
+#Import ".\SPropValue.ahk" { SPropValue }
+#Import ".\IMAPIProgress.ahk" { IMAPIProgress }
+#Import ".\SPropTagArray.ahk" { SPropTagArray }
+#Import ".\MAPINAMEID.ahk" { MAPINAMEID }
+#Import ".\MAPIERROR.ahk" { MAPIERROR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * IMAPIPropIUnknown enables clients, service providers, and MAPI to work with properties. All objects that support properties implement this interface.
@@ -28,21 +35,38 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapipropiunknown
  * @namespace Windows.Win32.System.AddressBook
  */
-class IMAPIProp extends IUnknown {
+export default struct IMAPIProp extends IUnknown {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetLastError", "SaveChanges", "GetProps", "GetPropList", "OpenProperty", "SetProps", "DeleteProps", "CopyTo", "CopyProps", "GetNamesFromIDs", "GetIDsFromNames"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMAPIProp interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetLastError    : IntPtr
+        SaveChanges     : IntPtr
+        GetProps        : IntPtr
+        GetPropList     : IntPtr
+        OpenProperty    : IntPtr
+        SetProps        : IntPtr
+        DeleteProps     : IntPtr
+        CopyTo          : IntPtr
+        CopyProps       : IntPtr
+        GetNamesFromIDs : IntPtr
+        GetIDsFromNames : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMAPIProp.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -181,7 +205,7 @@ class IMAPIProp extends IUnknown {
         lpcValuesMarshal := lpcValues is VarRef ? "uint*" : "ptr"
         lppPropArrayMarshal := lppPropArray is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", lpPropTagArray, "uint", ulFlags, lpcValuesMarshal, lpcValues, lppPropArrayMarshal, lppPropArray, "HRESULT")
+        result := ComCall(5, this, SPropTagArray.Ptr, lpPropTagArray, "uint", ulFlags, lpcValuesMarshal, lpcValues, lppPropArrayMarshal, lppPropArray, "HRESULT")
         return result
     }
 
@@ -243,7 +267,7 @@ class IMAPIProp extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapiprop-openproperty
      */
     OpenProperty(ulPropTag, lpiid, ulInterfaceOptions, ulFlags) {
-        result := ComCall(7, this, "uint", ulPropTag, "ptr", lpiid, "uint", ulInterfaceOptions, "uint", ulFlags, "ptr*", &lppUnk := 0, "HRESULT")
+        result := ComCall(7, this, "uint", ulPropTag, Guid.Ptr, lpiid, "uint", ulInterfaceOptions, "uint", ulFlags, "ptr*", &lppUnk := 0, "HRESULT")
         return IUnknown(lppUnk)
     }
 
@@ -286,7 +310,7 @@ class IMAPIProp extends IUnknown {
     SetProps(cValues, lpPropArray, lppProblems) {
         lppProblemsMarshal := lppProblems is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, "uint", cValues, "ptr", lpPropArray, lppProblemsMarshal, lppProblems, "HRESULT")
+        result := ComCall(8, this, "uint", cValues, SPropValue.Ptr, lpPropArray, lppProblemsMarshal, lppProblems, "HRESULT")
         return result
     }
 
@@ -308,7 +332,7 @@ class IMAPIProp extends IUnknown {
     DeleteProps(lpPropTagArray, lppProblems) {
         lppProblemsMarshal := lppProblems is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "ptr", lpPropTagArray, lppProblemsMarshal, lppProblems, "HRESULT")
+        result := ComCall(9, this, SPropTagArray.Ptr, lpPropTagArray, lppProblemsMarshal, lppProblems, "HRESULT")
         return result
     }
 
@@ -390,7 +414,7 @@ class IMAPIProp extends IUnknown {
         lpDestObjMarshal := lpDestObj is VarRef ? "ptr" : "ptr"
         lppProblemsMarshal := lppProblems is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, "uint", ciidExclude, "ptr", rgiidExclude, "ptr", lpExcludeProps, "ptr", ulUIParam, "ptr", lpProgress, "ptr", lpInterface, lpDestObjMarshal, lpDestObj, "uint", ulFlags, lppProblemsMarshal, lppProblems, "HRESULT")
+        result := ComCall(10, this, "uint", ciidExclude, Guid.Ptr, rgiidExclude, SPropTagArray.Ptr, lpExcludeProps, "ptr", ulUIParam, "ptr", lpProgress, Guid.Ptr, lpInterface, lpDestObjMarshal, lpDestObj, "uint", ulFlags, lppProblemsMarshal, lppProblems, "HRESULT")
         return result
     }
 
@@ -470,7 +494,7 @@ class IMAPIProp extends IUnknown {
         lpDestObjMarshal := lpDestObj is VarRef ? "ptr" : "ptr"
         lppProblemsMarshal := lppProblems is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, "ptr", lpIncludeProps, "ptr", ulUIParam, "ptr", lpProgress, "ptr", lpInterface, lpDestObjMarshal, lpDestObj, "uint", ulFlags, lppProblemsMarshal, lppProblems, "HRESULT")
+        result := ComCall(11, this, SPropTagArray.Ptr, lpIncludeProps, "ptr", ulUIParam, "ptr", lpProgress, Guid.Ptr, lpInterface, lpDestObjMarshal, lpDestObj, "uint", ulFlags, lppProblemsMarshal, lppProblems, "HRESULT")
         return result
     }
 
@@ -537,7 +561,7 @@ class IMAPIProp extends IUnknown {
         lpcPropNamesMarshal := lpcPropNames is VarRef ? "uint*" : "ptr"
         lpppPropNamesMarshal := lpppPropNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(12, this, lppPropTagsMarshal, lppPropTags, "ptr", lpPropSetGuid, "uint", ulFlags, lpcPropNamesMarshal, lpcPropNames, lpppPropNamesMarshal, lpppPropNames, "HRESULT")
+        result := ComCall(12, this, lppPropTagsMarshal, lppPropTags, Guid.Ptr, lpPropSetGuid, "uint", ulFlags, lpcPropNamesMarshal, lpcPropNames, lpppPropNamesMarshal, lpppPropNames, "HRESULT")
         return result
     }
 
@@ -592,5 +616,45 @@ class IMAPIProp extends IUnknown {
 
         result := ComCall(13, this, "uint", cPropNames, lppPropNamesMarshal, lppPropNames, "uint", ulFlags, lppPropTagsMarshal, lppPropTags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMAPIProp.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetLastError := CallbackCreate(GetMethod(implObj, "GetLastError"), flags, 4)
+        this.vtbl.SaveChanges := CallbackCreate(GetMethod(implObj, "SaveChanges"), flags, 2)
+        this.vtbl.GetProps := CallbackCreate(GetMethod(implObj, "GetProps"), flags, 5)
+        this.vtbl.GetPropList := CallbackCreate(GetMethod(implObj, "GetPropList"), flags, 3)
+        this.vtbl.OpenProperty := CallbackCreate(GetMethod(implObj, "OpenProperty"), flags, 6)
+        this.vtbl.SetProps := CallbackCreate(GetMethod(implObj, "SetProps"), flags, 4)
+        this.vtbl.DeleteProps := CallbackCreate(GetMethod(implObj, "DeleteProps"), flags, 3)
+        this.vtbl.CopyTo := CallbackCreate(GetMethod(implObj, "CopyTo"), flags, 10)
+        this.vtbl.CopyProps := CallbackCreate(GetMethod(implObj, "CopyProps"), flags, 8)
+        this.vtbl.GetNamesFromIDs := CallbackCreate(GetMethod(implObj, "GetNamesFromIDs"), flags, 6)
+        this.vtbl.GetIDsFromNames := CallbackCreate(GetMethod(implObj, "GetIDsFromNames"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetLastError)
+        CallbackFree(this.vtbl.SaveChanges)
+        CallbackFree(this.vtbl.GetProps)
+        CallbackFree(this.vtbl.GetPropList)
+        CallbackFree(this.vtbl.OpenProperty)
+        CallbackFree(this.vtbl.SetProps)
+        CallbackFree(this.vtbl.DeleteProps)
+        CallbackFree(this.vtbl.CopyTo)
+        CallbackFree(this.vtbl.CopyProps)
+        CallbackFree(this.vtbl.GetNamesFromIDs)
+        CallbackFree(this.vtbl.GetIDsFromNames)
     }
 }

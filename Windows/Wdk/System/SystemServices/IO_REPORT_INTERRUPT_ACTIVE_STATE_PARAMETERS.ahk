@@ -1,60 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IO_INTERRUPT_MESSAGE_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PKINTERRUPT.ahk" { PKINTERRUPT }
+#Import ".\IO_INTERRUPT_MESSAGE_INFO.ahk" { IO_INTERRUPT_MESSAGE_INFO }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class IO_REPORT_INTERRUPT_ACTIVE_STATE_PARAMETERS extends Win32Struct {
-    static sizeof => 16
+export default struct IO_REPORT_INTERRUPT_ACTIVE_STATE_PARAMETERS {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _ConnectionContext_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _ConnectionContext {
+        Generic : IntPtr
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        Generic {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {PKINTERRUPT}
-         */
-        InterruptObject {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<IO_INTERRUPT_MESSAGE_INFO>}
-         */
-        InterruptMessageTable {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'InterruptObject', { type: PKINTERRUPT, offset: 0 })
+            DefineProp(this.Prototype, 'InterruptMessageTable', { type: IO_INTERRUPT_MESSAGE_INFO.Ptr, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {_ConnectionContext_e__Union}
-     */
-    ConnectionContext {
-        get {
-            if(!this.HasProp("__ConnectionContext"))
-                this.__ConnectionContext := IO_REPORT_INTERRUPT_ACTIVE_STATE_PARAMETERS._ConnectionContext_e__Union(8, this)
-            return this.__ConnectionContext
-        }
-    }
+    ConnectionContext : IO_REPORT_INTERRUPT_ACTIVE_STATE_PARAMETERS._ConnectionContext
+
 }

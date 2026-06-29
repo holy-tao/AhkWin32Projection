@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The IP_PREFIX_ORIGIN enumeration specifies the origin of an IPv4 or IPv6 address prefix, and is used with the IP_ADAPTER_UNICAST_ADDRESS structure.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/nldef/ne-nldef-nl_prefix_origin
  * @namespace Windows.Win32.Networking.WinSock
  */
-class NL_PREFIX_ORIGIN extends Win32Enum {
+export default struct NL_PREFIX_ORIGIN {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The IP prefix was provided by a source other than those defined in this enumeration.

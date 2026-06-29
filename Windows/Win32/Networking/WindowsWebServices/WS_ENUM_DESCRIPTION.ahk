@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_ENUM_VALUE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_ENUM_VALUE.ahk" { WS_ENUM_VALUE }
 
 /**
  * A type description that is used with WS_ENUM_TYPE and is required. It provides information used in serializing and deserializing values of an enumeration.
@@ -50,10 +49,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_enum_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_ENUM_DESCRIPTION extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct WS_ENUM_DESCRIPTION {
+    #StructPack 8
 
     /**
      * Points to an array of enumeration values and their
@@ -62,31 +59,19 @@ class WS_ENUM_DESCRIPTION extends Win32Struct {
      * 
      * There must not be duplicate values or names in
      *                     the array.
-     * @type {Pointer<WS_ENUM_VALUE>}
      */
-    values {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    values : WS_ENUM_VALUE.Ptr
 
     /**
      * The number of items in the values array.
-     * @type {Integer}
      */
-    valueCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    valueCount : UInt32
 
     /**
      * The length, in UTF8 bytes, of the longest name
      *                     in the values array.
-     * @type {Integer}
      */
-    maxByteCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    maxByteCount : UInt32
 
     /**
      * An optional array that provides information which can improve
@@ -108,10 +93,7 @@ class WS_ENUM_DESCRIPTION extends Win32Struct {
      *                     The names should by sorted by performing a byte-wise comparison of the utf-8 string.
      *                 </li>
      * </ul>
-     * @type {Pointer<Integer>}
      */
-    nameIndices {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    nameIndices : IntPtr
+
 }

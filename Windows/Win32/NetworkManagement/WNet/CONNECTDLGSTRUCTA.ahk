@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\NETRESOURCEA.ahk
-#Include .\CONNECTDLGSTRUCT_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CONNECTDLGSTRUCT_FLAGS.ahk" { CONNECTDLGSTRUCT_FLAGS }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\NETRESOURCEA.ahk" { NETRESOURCEA }
 
 /**
  * Used by the WNetConnectionDialog1 function to establish browsing dialog box parameters. (ANSI)
@@ -22,36 +21,23 @@
  * @namespace Windows.Win32.NetworkManagement.WNet
  * @charset ANSI
  */
-class CONNECTDLGSTRUCTA extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct CONNECTDLGSTRUCTA {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The size, in bytes, of the 
      * <b>CONNECTDLGSTRUCT</b> structure. The caller must supply this value.
-     * @type {Integer}
      */
-    cbStructure {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbStructure : UInt32
 
     /**
      * Type: <b>HWND</b>
      * 
      * The handle to the owner window for the dialog box.
-     * @type {HWND}
      */
-    hwndOwner {
-        get {
-            if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(8, this)
-            return this.__hwndOwner
-        }
-    }
+    hwndOwner : HWND
 
     /**
      * Type: <b>LPNETRESOURCE</b>
@@ -68,31 +54,20 @@ class CONNECTDLGSTRUCTA extends Win32Struct {
      * 							
      * 
      *  The system does not support the <b>RESOURCETYPE_PRINT</b> flag for browsing and connecting to print resources.
-     * @type {Pointer<NETRESOURCEA>}
      */
-    lpConnRes {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpConnRes : NETRESOURCEA.Ptr
 
     /**
      * Type: <b>DWORD</b>
-     * @type {CONNECTDLGSTRUCT_FLAGS}
      */
-    dwFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwFlags : CONNECTDLGSTRUCT_FLAGS
 
     /**
      * Type: <b>DWORD</b>
      * 
      * If the call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetconnectiondialog1a">WNetConnectionDialog1</a> function is successful, this member returns the number of the connected device. The value is 1 for A:, 2 for B:, 3 for C:, and so on. If the user made a deviceless connection, the value is –1.
-     * @type {Integer}
      */
-    dwDevNum {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwDevNum : UInt32
+
 }

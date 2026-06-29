@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the property to retrieve.
@@ -12,10 +11,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/tdh/ns-tdh-property_data_descriptor
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class PROPERTY_DATA_DESCRIPTOR extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct PROPERTY_DATA_DESCRIPTOR {
+    #StructPack 8
 
     /**
      * Pointer to a null-terminated Unicode string that contains the case-sensitive property name. You can use the <b>NameOffset</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-event_property_info">EVENT_PROPERTY_INFO</a> structure to get the property name.
@@ -79,28 +76,17 @@ class PROPERTY_DATA_DESCRIPTOR extends Win32Struct {
      * <td>The value of the trace level enabling the trace message.</td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    PropertyName {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PropertyName : Int64
 
     /**
      * Zero-based index for accessing elements of a property array. If the property data is not an array or if you want to address the entire array, specify ULONG_MAX (0xFFFFFFFF).
-     * @type {Integer}
      */
-    ArrayIndex {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ArrayIndex : UInt32
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Reserved : UInt32
+
 }

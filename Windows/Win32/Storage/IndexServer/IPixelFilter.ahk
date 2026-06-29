@@ -1,32 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFilter.ahk
-#Include .\IMAGE_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFilter.ahk" { IFilter }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\IMAGE_INFO.ahk" { IMAGE_INFO }
 
 /**
  * @namespace Windows.Win32.Storage.IndexServer
  */
-class IPixelFilter extends IFilter {
-
-    static sizeof => A_PtrSize
+export default struct IPixelFilter extends IFilter {
     /**
      * The interface identifier for IPixelFilter
      * @type {Guid}
      */
-    static IID => Guid("{3d7df9a7-8da6-4fbf-a45b-7592f06d93a9}")
+    static IID := Guid("{3d7df9a7-8da6-4fbf-a45b-7592f06d93a9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPixelFilter interfaces
+    */
+    struct Vtbl extends IFilter.Vtbl {
+        GetImageInfo      : IntPtr
+        GetPixelsForImage : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetImageInfo", "GetPixelsForImage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPixelFilter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -34,7 +44,7 @@ class IPixelFilter extends IFilter {
      */
     GetImageInfo() {
         _imageInfo := IMAGE_INFO()
-        result := ComCall(8, this, "ptr", _imageInfo, "HRESULT")
+        result := ComCall(8, this, IMAGE_INFO.Ptr, _imageInfo, "HRESULT")
         return _imageInfo
     }
 
@@ -46,7 +56,29 @@ class IPixelFilter extends IFilter {
      * @returns {Integer} 
      */
     GetPixelsForImage(scalingFactor, sourceRect, pixelBufferSize) {
-        result := ComCall(9, this, "float", scalingFactor, "ptr", sourceRect, "uint", pixelBufferSize, "char*", &pixelBuffer := 0, "HRESULT")
+        result := ComCall(9, this, "float", scalingFactor, RECT.Ptr, sourceRect, "uint", pixelBufferSize, "char*", &pixelBuffer := 0, "HRESULT")
         return pixelBuffer
+    }
+
+    Query(iid) {
+        if (IPixelFilter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetImageInfo := CallbackCreate(GetMethod(implObj, "GetImageInfo"), flags, 2)
+        this.vtbl.GetPixelsForImage := CallbackCreate(GetMethod(implObj, "GetPixelsForImage"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetImageInfo)
+        CallbackFree(this.vtbl.GetPixelsForImage)
     }
 }

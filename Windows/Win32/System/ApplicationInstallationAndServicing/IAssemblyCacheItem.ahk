@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\Com\IStream.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAssemblyCacheItem interface can be used to install side-by-side assemblies into the side-by-side store using a stream-based installation.
  * @see https://learn.microsoft.com/windows/win32/api/winsxs/nn-winsxs-iassemblycacheitem
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
-class IAssemblyCacheItem extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAssemblyCacheItem extends IUnknown {
     /**
      * The interface identifier for IAssemblyCacheItem
      * @type {Guid}
      */
-    static IID => Guid("{9e3aaeb4-d1cd-11d2-bab9-00c04f8eceae}")
+    static IID := Guid("{9e3aaeb4-d1cd-11d2-bab9-00c04f8eceae}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAssemblyCacheItem interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateStream : IntPtr
+        Commit       : IntPtr
+        AbortItem    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateStream", "Commit", "AbortItem"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAssemblyCacheItem.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The CreateStream method copies the source of a manifest or module into a stream.
@@ -208,5 +219,29 @@ class IAssemblyCacheItem extends IUnknown {
     AbortItem() {
         result := ComCall(5, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAssemblyCacheItem.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateStream := CallbackCreate(GetMethod(implObj, "CreateStream"), flags, 7)
+        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 3)
+        this.vtbl.AbortItem := CallbackCreate(GetMethod(implObj, "AbortItem"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateStream)
+        CallbackFree(this.vtbl.Commit)
+        CallbackFree(this.vtbl.AbortItem)
     }
 }

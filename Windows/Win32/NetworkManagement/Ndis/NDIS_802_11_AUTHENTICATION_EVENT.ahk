@@ -1,36 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_802_11_STATUS_INDICATION.ahk
-#Include .\NDIS_802_11_STATUS_TYPE.ahk
-#Include .\NDIS_802_11_AUTHENTICATION_REQUEST.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NDIS_802_11_AUTHENTICATION_REQUEST.ahk" { NDIS_802_11_AUTHENTICATION_REQUEST }
+#Import ".\NDIS_802_11_STATUS_TYPE.ahk" { NDIS_802_11_STATUS_TYPE }
+#Import ".\NDIS_802_11_STATUS_INDICATION.ahk" { NDIS_802_11_STATUS_INDICATION }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NDIS_802_11_AUTHENTICATION_EVENT extends Win32Struct {
-    static sizeof => 20
+export default struct NDIS_802_11_AUTHENTICATION_EVENT {
+    #StructPack 4
 
-    static packingSize => 4
+    Status : NDIS_802_11_STATUS_INDICATION
 
-    /**
-     * @type {NDIS_802_11_STATUS_INDICATION}
-     */
-    Status {
-        get {
-            if(!this.HasProp("__Status"))
-                this.__Status := NDIS_802_11_STATUS_INDICATION(0, this)
-            return this.__Status
-        }
-    }
+    Request : NDIS_802_11_AUTHENTICATION_REQUEST[1]
 
-    /**
-     * @type {NDIS_802_11_AUTHENTICATION_REQUEST}
-     */
-    Request {
-        get {
-            if(!this.HasProp("__RequestProxyArray"))
-                this.__RequestProxyArray := Win32FixedArray(this.ptr + 4, 1, NDIS_802_11_AUTHENTICATION_REQUEST, "")
-            return this.__RequestProxyArray
-        }
-    }
 }

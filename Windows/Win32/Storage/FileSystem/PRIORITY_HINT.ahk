@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines values that are used with the FILE_IO_PRIORITY_HINT_INFO structure to specify the priority hint for a file I/O operation.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ne-winbase-priority_hint
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class PRIORITY_HINT extends Win32Enum {
+export default struct PRIORITY_HINT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The lowest possible priority hint level. The system uses this value for background I/O operations.

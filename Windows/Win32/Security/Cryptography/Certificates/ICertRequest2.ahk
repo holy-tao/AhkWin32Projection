@@ -1,35 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ICertRequest.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\FULL_RESPONSE_PROPERTY_ID.ahk" { FULL_RESPONSE_PROPERTY_ID }
+#Import ".\ICertRequest.ahk" { ICertRequest }
+#Import ".\CERT_REQUEST_OUT_TYPE.ahk" { CERT_REQUEST_OUT_TYPE }
+#Import ".\CR_DISP.ahk" { CR_DISP }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CERT_PROPERTY_TYPE.ahk" { CERT_PROPERTY_TYPE }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Provide communications between a client or intermediary application and Certificate Services. (ICertRequest2)
  * @see https://learn.microsoft.com/windows/win32/api/certcli/nn-certcli-icertrequest2
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICertRequest2 extends ICertRequest {
-
-    static sizeof => A_PtrSize
+export default struct ICertRequest2 extends ICertRequest {
     /**
      * The interface identifier for ICertRequest2
      * @type {Guid}
      */
-    static IID => Guid("{a4772988-4a85-4fa9-824e-b5cf5c16405a}")
+    static IID := Guid("{a4772988-4a85-4fa9-824e-b5cf5c16405a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICertRequest2 interfaces
+    */
+    struct Vtbl extends ICertRequest.Vtbl {
+        GetIssuedCertificate     : IntPtr
+        GetErrorMessageText      : IntPtr
+        GetCAProperty            : IntPtr
+        GetCAPropertyFlags       : IntPtr
+        GetCAPropertyDisplayName : IntPtr
+        GetFullResponseProperty  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetIssuedCertificate", "GetErrorMessageText", "GetCAProperty", "GetCAPropertyFlags", "GetCAPropertyDisplayName", "GetFullResponseProperty"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICertRequest2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a certificate's disposition by specifying either the request ID or the certificate serial number.
@@ -46,7 +63,7 @@ class ICertRequest2 extends ICertRequest {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
         strSerialNumber := strSerialNumber is String ? BSTR.Alloc(strSerialNumber).Value : strSerialNumber
 
-        result := ComCall(14, this, "ptr", strConfig, "int", RequestId, "ptr", strSerialNumber, "uint*", &pDisposition := 0, "HRESULT")
+        result := ComCall(14, this, BSTR, strConfig, "int", RequestId, BSTR, strSerialNumber, "uint*", &pDisposition := 0, "HRESULT")
         return pDisposition
     }
 
@@ -85,8 +102,8 @@ class ICertRequest2 extends ICertRequest {
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest2-geterrormessagetext
      */
     GetErrorMessageText(hrMessage, Flags) {
-        pstrErrorMessageText := BSTR()
-        result := ComCall(15, this, "int", hrMessage, "int", Flags, "ptr", pstrErrorMessageText, "HRESULT")
+        pstrErrorMessageText := BSTR.Owned()
+        result := ComCall(15, this, "int", hrMessage, "int", Flags, BSTR.Ptr, pstrErrorMessageText, "HRESULT")
         return pstrErrorMessageText
     }
 
@@ -252,7 +269,7 @@ class ICertRequest2 extends ICertRequest {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
         pvarPropertyValue := VARIANT()
-        result := ComCall(16, this, "ptr", strConfig, "int", PropId, "int", PropIndex, "int", PropType, "int", Flags, "ptr", pvarPropertyValue, "HRESULT")
+        result := ComCall(16, this, BSTR, strConfig, "int", PropId, "int", PropIndex, "int", PropType, "int", Flags, VARIANT.Ptr, pvarPropertyValue, "HRESULT")
         return pvarPropertyValue
     }
 
@@ -275,7 +292,7 @@ class ICertRequest2 extends ICertRequest {
     GetCAPropertyFlags(strConfig, PropId) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        result := ComCall(17, this, "ptr", strConfig, "int", PropId, "int*", &pPropFlags := 0, "HRESULT")
+        result := ComCall(17, this, BSTR, strConfig, "int", PropId, "int*", &pPropFlags := 0, "HRESULT")
         return pPropFlags
     }
 
@@ -298,8 +315,8 @@ class ICertRequest2 extends ICertRequest {
     GetCAPropertyDisplayName(strConfig, PropId) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        pstrDisplayName := BSTR()
-        result := ComCall(18, this, "ptr", strConfig, "int", PropId, "ptr", pstrDisplayName, "HRESULT")
+        pstrDisplayName := BSTR.Owned()
+        result := ComCall(18, this, BSTR, strConfig, "int", PropId, BSTR.Ptr, pstrDisplayName, "HRESULT")
         return pstrDisplayName
     }
 
@@ -340,7 +357,37 @@ class ICertRequest2 extends ICertRequest {
      */
     GetFullResponseProperty(PropId, PropIndex, PropType, Flags) {
         pvarPropertyValue := VARIANT()
-        result := ComCall(19, this, "int", PropId, "int", PropIndex, "int", PropType, "int", Flags, "ptr", pvarPropertyValue, "HRESULT")
+        result := ComCall(19, this, FULL_RESPONSE_PROPERTY_ID, PropId, "int", PropIndex, CERT_PROPERTY_TYPE, PropType, CERT_REQUEST_OUT_TYPE, Flags, VARIANT.Ptr, pvarPropertyValue, "HRESULT")
         return pvarPropertyValue
+    }
+
+    Query(iid) {
+        if (ICertRequest2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetIssuedCertificate := CallbackCreate(GetMethod(implObj, "GetIssuedCertificate"), flags, 5)
+        this.vtbl.GetErrorMessageText := CallbackCreate(GetMethod(implObj, "GetErrorMessageText"), flags, 4)
+        this.vtbl.GetCAProperty := CallbackCreate(GetMethod(implObj, "GetCAProperty"), flags, 7)
+        this.vtbl.GetCAPropertyFlags := CallbackCreate(GetMethod(implObj, "GetCAPropertyFlags"), flags, 4)
+        this.vtbl.GetCAPropertyDisplayName := CallbackCreate(GetMethod(implObj, "GetCAPropertyDisplayName"), flags, 4)
+        this.vtbl.GetFullResponseProperty := CallbackCreate(GetMethod(implObj, "GetFullResponseProperty"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetIssuedCertificate)
+        CallbackFree(this.vtbl.GetErrorMessageText)
+        CallbackFree(this.vtbl.GetCAProperty)
+        CallbackFree(this.vtbl.GetCAPropertyFlags)
+        CallbackFree(this.vtbl.GetCAPropertyDisplayName)
+        CallbackFree(this.vtbl.GetFullResponseProperty)
     }
 }

@@ -1,32 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ISyncChange.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CONSTRAINT_CONFLICT_REASON.ahk" { CONSTRAINT_CONFLICT_REASON }
+#Import ".\ISyncChangeUnit.ahk" { ISyncChangeUnit }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISyncChange.ahk" { ISyncChange }
+#Import ".\SYNC_CONSTRAINT_RESOLVE_ACTION.ahk" { SYNC_CONSTRAINT_RESOLVE_ACTION }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.WindowsSync
  */
-class IConstraintConflict extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IConstraintConflict extends IUnknown {
     /**
      * The interface identifier for IConstraintConflict
      * @type {Guid}
      */
-    static IID => Guid("{00d2302e-1cf8-4835-b85f-b7ca4f799e0a}")
+    static IID := Guid("{00d2302e-1cf8-4835-b85f-b7ca4f799e0a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IConstraintConflict interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDestinationProviderConflictingChange : IntPtr
+        GetSourceProviderConflictingChange      : IntPtr
+        GetDestinationProviderOriginalChange    : IntPtr
+        GetDestinationProviderConflictingData   : IntPtr
+        GetSourceProviderConflictingData        : IntPtr
+        GetDestinationProviderOriginalData      : IntPtr
+        GetConstraintResolveActionForChange     : IntPtr
+        SetConstraintResolveActionForChange     : IntPtr
+        GetConstraintResolveActionForChangeUnit : IntPtr
+        SetConstraintResolveActionForChangeUnit : IntPtr
+        GetConstraintConflictReason             : IntPtr
+        IsTemporary                             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDestinationProviderConflictingChange", "GetSourceProviderConflictingChange", "GetDestinationProviderOriginalChange", "GetDestinationProviderConflictingData", "GetSourceProviderConflictingData", "GetDestinationProviderOriginalData", "GetConstraintResolveActionForChange", "SetConstraintResolveActionForChange", "GetConstraintResolveActionForChangeUnit", "SetConstraintResolveActionForChangeUnit", "GetConstraintConflictReason", "IsTemporary"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IConstraintConflict.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -100,7 +122,7 @@ class IConstraintConflict extends IUnknown {
      * @returns {HRESULT} 
      */
     SetConstraintResolveActionForChange(constraintResolveAction) {
-        result := ComCall(10, this, "int", constraintResolveAction, "HRESULT")
+        result := ComCall(10, this, SYNC_CONSTRAINT_RESOLVE_ACTION, constraintResolveAction, "HRESULT")
         return result
     }
 
@@ -124,7 +146,7 @@ class IConstraintConflict extends IUnknown {
      * @returns {HRESULT} 
      */
     SetConstraintResolveActionForChangeUnit(pChangeUnit, constraintResolveAction) {
-        result := ComCall(12, this, "ptr", pChangeUnit, "int", constraintResolveAction, "HRESULT")
+        result := ComCall(12, this, "ptr", pChangeUnit, SYNC_CONSTRAINT_RESOLVE_ACTION, constraintResolveAction, "HRESULT")
         return result
     }
 
@@ -147,5 +169,47 @@ class IConstraintConflict extends IUnknown {
     IsTemporary() {
         result := ComCall(14, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IConstraintConflict.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDestinationProviderConflictingChange := CallbackCreate(GetMethod(implObj, "GetDestinationProviderConflictingChange"), flags, 2)
+        this.vtbl.GetSourceProviderConflictingChange := CallbackCreate(GetMethod(implObj, "GetSourceProviderConflictingChange"), flags, 2)
+        this.vtbl.GetDestinationProviderOriginalChange := CallbackCreate(GetMethod(implObj, "GetDestinationProviderOriginalChange"), flags, 2)
+        this.vtbl.GetDestinationProviderConflictingData := CallbackCreate(GetMethod(implObj, "GetDestinationProviderConflictingData"), flags, 2)
+        this.vtbl.GetSourceProviderConflictingData := CallbackCreate(GetMethod(implObj, "GetSourceProviderConflictingData"), flags, 2)
+        this.vtbl.GetDestinationProviderOriginalData := CallbackCreate(GetMethod(implObj, "GetDestinationProviderOriginalData"), flags, 2)
+        this.vtbl.GetConstraintResolveActionForChange := CallbackCreate(GetMethod(implObj, "GetConstraintResolveActionForChange"), flags, 2)
+        this.vtbl.SetConstraintResolveActionForChange := CallbackCreate(GetMethod(implObj, "SetConstraintResolveActionForChange"), flags, 2)
+        this.vtbl.GetConstraintResolveActionForChangeUnit := CallbackCreate(GetMethod(implObj, "GetConstraintResolveActionForChangeUnit"), flags, 3)
+        this.vtbl.SetConstraintResolveActionForChangeUnit := CallbackCreate(GetMethod(implObj, "SetConstraintResolveActionForChangeUnit"), flags, 3)
+        this.vtbl.GetConstraintConflictReason := CallbackCreate(GetMethod(implObj, "GetConstraintConflictReason"), flags, 2)
+        this.vtbl.IsTemporary := CallbackCreate(GetMethod(implObj, "IsTemporary"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDestinationProviderConflictingChange)
+        CallbackFree(this.vtbl.GetSourceProviderConflictingChange)
+        CallbackFree(this.vtbl.GetDestinationProviderOriginalChange)
+        CallbackFree(this.vtbl.GetDestinationProviderConflictingData)
+        CallbackFree(this.vtbl.GetSourceProviderConflictingData)
+        CallbackFree(this.vtbl.GetDestinationProviderOriginalData)
+        CallbackFree(this.vtbl.GetConstraintResolveActionForChange)
+        CallbackFree(this.vtbl.SetConstraintResolveActionForChange)
+        CallbackFree(this.vtbl.GetConstraintResolveActionForChangeUnit)
+        CallbackFree(this.vtbl.SetConstraintResolveActionForChangeUnit)
+        CallbackFree(this.vtbl.GetConstraintConflictReason)
+        CallbackFree(this.vtbl.IsTemporary)
     }
 }

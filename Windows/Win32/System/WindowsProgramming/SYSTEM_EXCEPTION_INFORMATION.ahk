@@ -1,22 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
  */
-class SYSTEM_EXCEPTION_INFORMATION extends Win32Struct {
-    static sizeof => 16
+export default struct SYSTEM_EXCEPTION_INFORMATION {
+    #StructPack 1
 
-    static packingSize => 1
+    Reserved1 : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
 }

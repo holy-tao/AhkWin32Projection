@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SERIAL_TIMEOUTS.ahk
-#Include .\SERIAL_HANDFLOW.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SERIAL_TIMEOUTS.ahk" { SERIAL_TIMEOUTS }
+#Import ".\SERIAL_HANDFLOW.ahk" { SERIAL_HANDFLOW }
 
 /**
  * @namespace Windows.Win32.Devices.SerialCommunication
  */
-class SERIAL_BASIC_SETTINGS extends Win32Struct {
-    static sizeof => 44
+export default struct SERIAL_BASIC_SETTINGS {
+    #StructPack 4
 
-    static packingSize => 4
+    Timeouts : SERIAL_TIMEOUTS
 
-    /**
-     * @type {SERIAL_TIMEOUTS}
-     */
-    Timeouts {
-        get {
-            if(!this.HasProp("__Timeouts"))
-                this.__Timeouts := SERIAL_TIMEOUTS(0, this)
-            return this.__Timeouts
-        }
-    }
+    HandFlow : SERIAL_HANDFLOW
 
-    /**
-     * @type {SERIAL_HANDFLOW}
-     */
-    HandFlow {
-        get {
-            if(!this.HasProp("__HandFlow"))
-                this.__HandFlow := SERIAL_HANDFLOW(20, this)
-            return this.__HandFlow
-        }
-    }
+    RxFifo : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RxFifo {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    TxFifo : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TxFifo {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
 }

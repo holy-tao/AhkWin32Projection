@@ -1,91 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSCAMERA_EXTENDEDPROP_DIGITALWINDOW_CONFIGCAPS extends Win32Struct {
-    static sizeof => 40
+export default struct KSCAMERA_EXTENDEDPROP_DIGITALWINDOW_CONFIGCAPS {
+    #StructPack 4
 
-    static packingSize => 4
+    ResolutionX : Int32
 
-    /**
-     * @type {Integer}
-     */
-    ResolutionX {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ResolutionY : Int32
 
-    /**
-     * @type {Integer}
-     */
-    ResolutionY {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    PorchTop : Int32
 
-    /**
-     * @type {Integer}
-     */
-    PorchTop {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    PorchLeft : Int32
 
-    /**
-     * @type {Integer}
-     */
-    PorchLeft {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    PorchBottom : Int32
 
-    /**
-     * @type {Integer}
-     */
-    PorchBottom {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    PorchRight : Int32
 
-    /**
-     * @type {Integer}
-     */
-    PorchRight {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    NonUpscalingWindowSize : Int32
 
-    /**
-     * @type {Integer}
-     */
-    NonUpscalingWindowSize {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    MinWindowSize : Int32
 
-    /**
-     * @type {Integer}
-     */
-    MinWindowSize {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    MaxWindowSize : Int32
 
-    /**
-     * @type {Integer}
-     */
-    MaxWindowSize {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    Reserved : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
 }

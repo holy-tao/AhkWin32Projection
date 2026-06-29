@@ -1,34 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IGenericDescriptor.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISectionList.ahk" { ISectionList }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IGenericDescriptor.ahk" { IGenericDescriptor }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMpeg2Data.ahk" { IMpeg2Data }
 
 /**
  * Implements methods that get information from an Integrated Services Digital Broadcasting (ISDB) common data table (CDT). A CDT contains data, such as company logos, that is needed for receivers and stored in nonvolatile memory.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-iisdb_cdt
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IISDB_CDT extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IISDB_CDT extends IUnknown {
     /**
      * The interface identifier for IISDB_CDT
      * @type {Guid}
      */
-    static IID => Guid("{25fa92c2-8b80-4787-a841-3a0e8f17984b}")
+    static IID := Guid("{25fa92c2-8b80-4787-a841-3a0e8f17984b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IISDB_CDT interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize                 : IntPtr
+        GetVersionNumber           : IntPtr
+        GetDownloadDataId          : IntPtr
+        GetSectionNumber           : IntPtr
+        GetOriginalNetworkId       : IntPtr
+        GetDataType                : IntPtr
+        GetCountOfTableDescriptors : IntPtr
+        GetTableDescriptorByIndex  : IntPtr
+        GetTableDescriptorByTag    : IntPtr
+        GetSizeOfDataModule        : IntPtr
+        GetDataModule              : IntPtr
+        GetVersionHash             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetVersionNumber", "GetDownloadDataId", "GetSectionNumber", "GetOriginalNetworkId", "GetDataType", "GetCountOfTableDescriptors", "GetTableDescriptorByIndex", "GetTableDescriptorByTag", "GetSizeOfDataModule", "GetDataModule", "GetVersionHash"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IISDB_CDT.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes the object by using captured table section data from an Integrated Services Digital Broadcasting System (ISDB) common data table (CDT).
@@ -165,5 +186,47 @@ class IISDB_CDT extends IUnknown {
     GetVersionHash() {
         result := ComCall(14, this, "uint*", &pdwVersionHash := 0, "HRESULT")
         return pdwVersionHash
+    }
+
+    Query(iid) {
+        if (IISDB_CDT.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.GetVersionNumber := CallbackCreate(GetMethod(implObj, "GetVersionNumber"), flags, 2)
+        this.vtbl.GetDownloadDataId := CallbackCreate(GetMethod(implObj, "GetDownloadDataId"), flags, 2)
+        this.vtbl.GetSectionNumber := CallbackCreate(GetMethod(implObj, "GetSectionNumber"), flags, 2)
+        this.vtbl.GetOriginalNetworkId := CallbackCreate(GetMethod(implObj, "GetOriginalNetworkId"), flags, 2)
+        this.vtbl.GetDataType := CallbackCreate(GetMethod(implObj, "GetDataType"), flags, 2)
+        this.vtbl.GetCountOfTableDescriptors := CallbackCreate(GetMethod(implObj, "GetCountOfTableDescriptors"), flags, 2)
+        this.vtbl.GetTableDescriptorByIndex := CallbackCreate(GetMethod(implObj, "GetTableDescriptorByIndex"), flags, 3)
+        this.vtbl.GetTableDescriptorByTag := CallbackCreate(GetMethod(implObj, "GetTableDescriptorByTag"), flags, 4)
+        this.vtbl.GetSizeOfDataModule := CallbackCreate(GetMethod(implObj, "GetSizeOfDataModule"), flags, 2)
+        this.vtbl.GetDataModule := CallbackCreate(GetMethod(implObj, "GetDataModule"), flags, 2)
+        this.vtbl.GetVersionHash := CallbackCreate(GetMethod(implObj, "GetVersionHash"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetVersionNumber)
+        CallbackFree(this.vtbl.GetDownloadDataId)
+        CallbackFree(this.vtbl.GetSectionNumber)
+        CallbackFree(this.vtbl.GetOriginalNetworkId)
+        CallbackFree(this.vtbl.GetDataType)
+        CallbackFree(this.vtbl.GetCountOfTableDescriptors)
+        CallbackFree(this.vtbl.GetTableDescriptorByIndex)
+        CallbackFree(this.vtbl.GetTableDescriptorByTag)
+        CallbackFree(this.vtbl.GetSizeOfDataModule)
+        CallbackFree(this.vtbl.GetDataModule)
+        CallbackFree(this.vtbl.GetVersionHash)
     }
 }

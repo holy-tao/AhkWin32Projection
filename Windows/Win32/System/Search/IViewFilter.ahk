@@ -1,31 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DBBINDING.ahk" { DBBINDING }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\HACCESSOR.ahk" { HACCESSOR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class IViewFilter extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IViewFilter extends IUnknown {
     /**
      * The interface identifier for IViewFilter
      * @type {Guid}
      */
-    static IID => Guid("{0c733a9b-2a1c-11ce-ade5-00aa0044773d}")
+    static IID := Guid("{0c733a9b-2a1c-11ce-ade5-00aa0044773d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IViewFilter interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetFilter         : IntPtr
+        GetFilterBindings : IntPtr
+        SetFilter         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFilter", "GetFilterBindings", "SetFilter"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IViewFilter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -36,13 +48,11 @@ class IViewFilter extends IUnknown {
      * @returns {HRESULT} 
      */
     GetFilter(_hAccessor, pcRows, pCompareOps, pCriteriaData) {
-        _hAccessor := _hAccessor is Win32Handle ? NumGet(_hAccessor, "ptr") : _hAccessor
-
         pcRowsMarshal := pcRows is VarRef ? "ptr*" : "ptr"
         pCompareOpsMarshal := pCompareOps is VarRef ? "ptr*" : "ptr"
         pCriteriaDataMarshal := pCriteriaData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", _hAccessor, pcRowsMarshal, pcRows, pCompareOpsMarshal, pCompareOps, pCriteriaDataMarshal, pCriteriaData, "HRESULT")
+        result := ComCall(3, this, HACCESSOR, _hAccessor, pcRowsMarshal, pcRows, pCompareOpsMarshal, pCompareOps, pCriteriaDataMarshal, pCriteriaData, "HRESULT")
         return result
     }
 
@@ -69,12 +79,34 @@ class IViewFilter extends IUnknown {
      * @returns {HRESULT} 
      */
     SetFilter(_hAccessor, cRows, CompareOps, pCriteriaData) {
-        _hAccessor := _hAccessor is Win32Handle ? NumGet(_hAccessor, "ptr") : _hAccessor
-
         CompareOpsMarshal := CompareOps is VarRef ? "uint*" : "ptr"
         pCriteriaDataMarshal := pCriteriaData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "ptr", _hAccessor, "ptr", cRows, CompareOpsMarshal, CompareOps, pCriteriaDataMarshal, pCriteriaData, "HRESULT")
+        result := ComCall(5, this, HACCESSOR, _hAccessor, "ptr", cRows, CompareOpsMarshal, CompareOps, pCriteriaDataMarshal, pCriteriaData, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IViewFilter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFilter := CallbackCreate(GetMethod(implObj, "GetFilter"), flags, 5)
+        this.vtbl.GetFilterBindings := CallbackCreate(GetMethod(implObj, "GetFilterBindings"), flags, 3)
+        this.vtbl.SetFilter := CallbackCreate(GetMethod(implObj, "SetFilter"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFilter)
+        CallbackFree(this.vtbl.GetFilterBindings)
+        CallbackFree(this.vtbl.SetFilter)
     }
 }

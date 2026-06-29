@@ -1,36 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITAddress.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IEnumPhone.ahk
-#Include .\ITPhone.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITAddress.ahk" { ITAddress }
+#Import ".\TAPI_EVENT.ahk" { TAPI_EVENT }
+#Import ".\ITCallInfo.ahk" { ITCallInfo }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\IEnumPhone.ahk" { IEnumPhone }
+#Import ".\ITTerminal.ahk" { ITTerminal }
+#Import ".\ITPhone.ahk" { ITPhone }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The ITAddress2 interface derives from the ITAddress interface. ITAddress2 adds methods to the Address object in order to support phone devices. All Address objects enumerated from TAPI 3.1 automatically implement this interface.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itaddress2
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITAddress2 extends ITAddress {
-
-    static sizeof => A_PtrSize
+export default struct ITAddress2 extends ITAddress {
     /**
      * The interface identifier for ITAddress2
      * @type {Guid}
      */
-    static IID => Guid("{b0ae5d9b-be51-46c9-b0f7-dfa8a22a8bc4}")
+    static IID := Guid("{b0ae5d9b-be51-46c9-b0f7-dfa8a22a8bc4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 22
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITAddress2 interfaces
+    */
+    struct Vtbl extends ITAddress.Vtbl {
+        get_Phones               : IntPtr
+        EnumeratePhones          : IntPtr
+        GetPhoneFromTerminal     : IntPtr
+        get_PreferredPhones      : IntPtr
+        EnumeratePreferredPhones : IntPtr
+        get_EventFilter          : IntPtr
+        put_EventFilter          : IntPtr
+        DeviceSpecific           : IntPtr
+        DeviceSpecificVariant    : IntPtr
+        NegotiateExtVersion      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Phones", "EnumeratePhones", "GetPhoneFromTerminal", "get_PreferredPhones", "EnumeratePreferredPhones", "get_EventFilter", "put_EventFilter", "DeviceSpecific", "DeviceSpecificVariant", "NegotiateExtVersion"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITAddress2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT} 
@@ -63,7 +84,7 @@ class ITAddress2 extends ITAddress {
      */
     get_Phones() {
         pPhones := VARIANT()
-        result := ComCall(22, this, "ptr", pPhones, "HRESULT")
+        result := ComCall(22, this, VARIANT.Ptr, pPhones, "HRESULT")
         return pPhones
     }
 
@@ -115,7 +136,7 @@ class ITAddress2 extends ITAddress {
      */
     get_PreferredPhones() {
         pPhones := VARIANT()
-        result := ComCall(25, this, "ptr", pPhones, "HRESULT")
+        result := ComCall(25, this, VARIANT.Ptr, pPhones, "HRESULT")
         return pPhones
     }
 
@@ -145,7 +166,7 @@ class ITAddress2 extends ITAddress {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress2-get_eventfilter
      */
     get_EventFilter(TapiEvent, lSubEvent) {
-        result := ComCall(27, this, "int", TapiEvent, "int", lSubEvent, "short*", &pEnable := 0, "HRESULT")
+        result := ComCall(27, this, TAPI_EVENT, TapiEvent, "int", lSubEvent, VARIANT_BOOL.Ptr, &pEnable := 0, "HRESULT")
         return pEnable
     }
 
@@ -159,7 +180,7 @@ class ITAddress2 extends ITAddress {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress2-put_eventfilter
      */
     put_EventFilter(TapiEvent, lSubEvent, bEnable) {
-        result := ComCall(28, this, "int", TapiEvent, "int", lSubEvent, "short", bEnable, "HRESULT")
+        result := ComCall(28, this, TAPI_EVENT, TapiEvent, "int", lSubEvent, VARIANT_BOOL, bEnable, "HRESULT")
         return result
     }
 
@@ -268,7 +289,7 @@ class ITAddress2 extends ITAddress {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress2-devicespecificvariant
      */
     DeviceSpecificVariant(pCall, varDevSpecificByteArray) {
-        result := ComCall(30, this, "ptr", pCall, "ptr", varDevSpecificByteArray, "HRESULT")
+        result := ComCall(30, this, "ptr", pCall, VARIANT, varDevSpecificByteArray, "HRESULT")
         return result
     }
 
@@ -284,5 +305,43 @@ class ITAddress2 extends ITAddress {
     NegotiateExtVersion(lLowVersion, lHighVersion) {
         result := ComCall(31, this, "int", lLowVersion, "int", lHighVersion, "int*", &plExtVersion := 0, "HRESULT")
         return plExtVersion
+    }
+
+    Query(iid) {
+        if (ITAddress2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Phones := CallbackCreate(GetMethod(implObj, "get_Phones"), flags, 2)
+        this.vtbl.EnumeratePhones := CallbackCreate(GetMethod(implObj, "EnumeratePhones"), flags, 2)
+        this.vtbl.GetPhoneFromTerminal := CallbackCreate(GetMethod(implObj, "GetPhoneFromTerminal"), flags, 3)
+        this.vtbl.get_PreferredPhones := CallbackCreate(GetMethod(implObj, "get_PreferredPhones"), flags, 2)
+        this.vtbl.EnumeratePreferredPhones := CallbackCreate(GetMethod(implObj, "EnumeratePreferredPhones"), flags, 2)
+        this.vtbl.get_EventFilter := CallbackCreate(GetMethod(implObj, "get_EventFilter"), flags, 4)
+        this.vtbl.put_EventFilter := CallbackCreate(GetMethod(implObj, "put_EventFilter"), flags, 4)
+        this.vtbl.DeviceSpecific := CallbackCreate(GetMethod(implObj, "DeviceSpecific"), flags, 4)
+        this.vtbl.DeviceSpecificVariant := CallbackCreate(GetMethod(implObj, "DeviceSpecificVariant"), flags, 3)
+        this.vtbl.NegotiateExtVersion := CallbackCreate(GetMethod(implObj, "NegotiateExtVersion"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Phones)
+        CallbackFree(this.vtbl.EnumeratePhones)
+        CallbackFree(this.vtbl.GetPhoneFromTerminal)
+        CallbackFree(this.vtbl.get_PreferredPhones)
+        CallbackFree(this.vtbl.EnumeratePreferredPhones)
+        CallbackFree(this.vtbl.get_EventFilter)
+        CallbackFree(this.vtbl.put_EventFilter)
+        CallbackFree(this.vtbl.DeviceSpecific)
+        CallbackFree(this.vtbl.DeviceSpecificVariant)
+        CallbackFree(this.vtbl.NegotiateExtVersion)
     }
 }

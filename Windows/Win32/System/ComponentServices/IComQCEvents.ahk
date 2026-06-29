@@ -1,33 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\COMSVCSEVENTINFO.ahk" { COMSVCSEVENTINFO }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Notifies the subscriber if a queued message is created, de-queued, or moved to a retry or dead letter queue.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomqcevents
  * @namespace Windows.Win32.System.ComponentServices
  */
-class IComQCEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IComQCEvents extends IUnknown {
     /**
      * The interface identifier for IComQCEvents
      * @type {Guid}
      */
-    static IID => Guid("{683130b2-2e50-11d2-98a5-00c04f8ee1c4}")
+    static IID := Guid("{683130b2-2e50-11d2-98a5-00c04f8ee1c4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IComQCEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnQCRecord           : IntPtr
+        OnQCQueueOpen        : IntPtr
+        OnQCReceive          : IntPtr
+        OnQCReceiveFail      : IntPtr
+        OnQCMoveToReTryQueue : IntPtr
+        OnQCMoveToDeadQueue  : IntPtr
+        OnQCPlayback         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnQCRecord", "OnQCQueueOpen", "OnQCReceive", "OnQCReceiveFail", "OnQCMoveToReTryQueue", "OnQCMoveToDeadQueue", "OnQCPlayback"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IComQCEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Generated when the queued components recorder creates the queued message.
@@ -43,7 +59,7 @@ class IComQCEvents extends IUnknown {
     OnQCRecord(pInfo, objid, szQueue, guidMsgId, guidWorkFlowId, msmqhr) {
         szQueue := szQueue is String ? StrPtr(szQueue) : szQueue
 
-        result := ComCall(3, this, "ptr", pInfo, "uint", objid, "ptr", szQueue, "ptr", guidMsgId, "ptr", guidWorkFlowId, "int", msmqhr, "HRESULT")
+        result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", objid, "ptr", szQueue, Guid.Ptr, guidMsgId, Guid.Ptr, guidWorkFlowId, "int", msmqhr, "HRESULT")
         return result
     }
 
@@ -59,7 +75,7 @@ class IComQCEvents extends IUnknown {
     OnQCQueueOpen(pInfo, szQueue, QueueID, hr) {
         szQueue := szQueue is String ? StrPtr(szQueue) : szQueue
 
-        result := ComCall(4, this, "ptr", pInfo, "ptr", szQueue, "uint", QueueID, "int", hr, "HRESULT")
+        result := ComCall(4, this, COMSVCSEVENTINFO.Ptr, pInfo, "ptr", szQueue, "uint", QueueID, "int", hr, "HRESULT")
         return result
     }
 
@@ -74,7 +90,7 @@ class IComQCEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomqcevents-onqcreceive
      */
     OnQCReceive(pInfo, QueueID, guidMsgId, guidWorkFlowId, hr) {
-        result := ComCall(5, this, "ptr", pInfo, "uint", QueueID, "ptr", guidMsgId, "ptr", guidWorkFlowId, "int", hr, "HRESULT")
+        result := ComCall(5, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", QueueID, Guid.Ptr, guidMsgId, Guid.Ptr, guidWorkFlowId, "int", hr, "HRESULT")
         return result
     }
 
@@ -87,7 +103,7 @@ class IComQCEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomqcevents-onqcreceivefail
      */
     OnQCReceiveFail(pInfo, QueueID, msmqhr) {
-        result := ComCall(6, this, "ptr", pInfo, "uint", QueueID, "int", msmqhr, "HRESULT")
+        result := ComCall(6, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", QueueID, "int", msmqhr, "HRESULT")
         return result
     }
 
@@ -101,7 +117,7 @@ class IComQCEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomqcevents-onqcmovetoretryqueue
      */
     OnQCMoveToReTryQueue(pInfo, guidMsgId, guidWorkFlowId, RetryIndex) {
-        result := ComCall(7, this, "ptr", pInfo, "ptr", guidMsgId, "ptr", guidWorkFlowId, "uint", RetryIndex, "HRESULT")
+        result := ComCall(7, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidMsgId, Guid.Ptr, guidWorkFlowId, "uint", RetryIndex, "HRESULT")
         return result
     }
 
@@ -114,7 +130,7 @@ class IComQCEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomqcevents-onqcmovetodeadqueue
      */
     OnQCMoveToDeadQueue(pInfo, guidMsgId, guidWorkFlowId) {
-        result := ComCall(8, this, "ptr", pInfo, "ptr", guidMsgId, "ptr", guidWorkFlowId, "HRESULT")
+        result := ComCall(8, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidMsgId, Guid.Ptr, guidWorkFlowId, "HRESULT")
         return result
     }
 
@@ -129,7 +145,39 @@ class IComQCEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomqcevents-onqcplayback
      */
     OnQCPlayback(pInfo, objid, guidMsgId, guidWorkFlowId, hr) {
-        result := ComCall(9, this, "ptr", pInfo, "uint", objid, "ptr", guidMsgId, "ptr", guidWorkFlowId, "int", hr, "HRESULT")
+        result := ComCall(9, this, COMSVCSEVENTINFO.Ptr, pInfo, "uint", objid, Guid.Ptr, guidMsgId, Guid.Ptr, guidWorkFlowId, "int", hr, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IComQCEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnQCRecord := CallbackCreate(GetMethod(implObj, "OnQCRecord"), flags, 7)
+        this.vtbl.OnQCQueueOpen := CallbackCreate(GetMethod(implObj, "OnQCQueueOpen"), flags, 5)
+        this.vtbl.OnQCReceive := CallbackCreate(GetMethod(implObj, "OnQCReceive"), flags, 6)
+        this.vtbl.OnQCReceiveFail := CallbackCreate(GetMethod(implObj, "OnQCReceiveFail"), flags, 4)
+        this.vtbl.OnQCMoveToReTryQueue := CallbackCreate(GetMethod(implObj, "OnQCMoveToReTryQueue"), flags, 5)
+        this.vtbl.OnQCMoveToDeadQueue := CallbackCreate(GetMethod(implObj, "OnQCMoveToDeadQueue"), flags, 4)
+        this.vtbl.OnQCPlayback := CallbackCreate(GetMethod(implObj, "OnQCPlayback"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnQCRecord)
+        CallbackFree(this.vtbl.OnQCQueueOpen)
+        CallbackFree(this.vtbl.OnQCReceive)
+        CallbackFree(this.vtbl.OnQCReceiveFail)
+        CallbackFree(this.vtbl.OnQCMoveToReTryQueue)
+        CallbackFree(this.vtbl.OnQCMoveToDeadQueue)
+        CallbackFree(this.vtbl.OnQCPlayback)
     }
 }

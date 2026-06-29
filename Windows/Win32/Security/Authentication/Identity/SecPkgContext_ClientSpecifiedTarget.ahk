@@ -1,22 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the service principal name (SPN) of the initial target when calling the QueryContextAttributes (Digest) function.
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_clientspecifiedtarget
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SecPkgContext_ClientSpecifiedTarget extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 8
+export default struct SecPkgContext_ClientSpecifiedTarget {
+    #StructPack 8
 
     /**
      * The SPN of the initial target.
-     * @type {Pointer<Integer>}
      */
-    sTargetName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    sTargetName : IntPtr
+
 }

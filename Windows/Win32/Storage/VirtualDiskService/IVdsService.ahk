@@ -1,36 +1,63 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VDS_SERVICE_PROP.ahk
-#Include .\IEnumVdsObject.ahk
-#Include .\VDS_DRIVE_LETTER_PROP.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VDS_OBJECT_TYPE.ahk" { VDS_OBJECT_TYPE }
+#Import ".\VDS_SERVICE_PROP.ahk" { VDS_SERVICE_PROP }
+#Import ".\IVdsAdviseSink.ahk" { IVdsAdviseSink }
+#Import ".\VDS_FILE_SYSTEM_TYPE_PROP.ahk" { VDS_FILE_SYSTEM_TYPE_PROP }
+#Import ".\VDS_DRIVE_LETTER_PROP.ahk" { VDS_DRIVE_LETTER_PROP }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
 
 /**
  * Provides methods to query and interact with VDS.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsservice
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsService extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsService extends IUnknown {
     /**
      * The interface identifier for IVdsService
      * @type {Guid}
      */
-    static IID => Guid("{0818a8ef-9ba9-40d8-a6f9-e22833cc771e}")
+    static IID := Guid("{0818a8ef-9ba9-40d8-a6f9-e22833cc771e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsService interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        IsServiceReady             : IntPtr
+        WaitForServiceReady        : IntPtr
+        GetProperties              : IntPtr
+        QueryProviders             : IntPtr
+        QueryMaskedDisks           : IntPtr
+        QueryUnallocatedDisks      : IntPtr
+        GetObject                  : IntPtr
+        QueryDriveLetters          : IntPtr
+        QueryFileSystemTypes       : IntPtr
+        Reenumerate                : IntPtr
+        Refresh                    : IntPtr
+        CleanupObsoleteMountPoints : IntPtr
+        Advise                     : IntPtr
+        Unadvise                   : IntPtr
+        Reboot                     : IntPtr
+        SetFlags                   : IntPtr
+        ClearFlags                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsServiceReady", "WaitForServiceReady", "GetProperties", "QueryProviders", "QueryMaskedDisks", "QueryUnallocatedDisks", "GetObject", "QueryDriveLetters", "QueryFileSystemTypes", "Reenumerate", "Refresh", "CleanupObsoleteMountPoints", "Advise", "Unadvise", "Reboot", "SetFlags", "ClearFlags"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsService.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns the initialization status of VDS.
@@ -137,7 +164,7 @@ class IVdsService extends IUnknown {
      */
     GetProperties() {
         pServiceProp := VDS_SERVICE_PROP()
-        result := ComCall(5, this, "ptr", pServiceProp, "HRESULT")
+        result := ComCall(5, this, VDS_SERVICE_PROP.Ptr, pServiceProp, "HRESULT")
         return pServiceProp
     }
 
@@ -196,7 +223,7 @@ class IVdsService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsservice-getobject
      */
     GetObject(_ObjectId, type) {
-        result := ComCall(9, this, "ptr", _ObjectId, "int", type, "ptr*", &ppObjectUnk := 0, "HRESULT")
+        result := ComCall(9, this, Guid, _ObjectId, VDS_OBJECT_TYPE, type, "ptr*", &ppObjectUnk := 0, "HRESULT")
         return IUnknown(ppObjectUnk)
     }
 
@@ -209,7 +236,7 @@ class IVdsService extends IUnknown {
      */
     QueryDriveLetters(wcFirstLetter, count) {
         pDriveLetterPropArray := VDS_DRIVE_LETTER_PROP()
-        result := ComCall(10, this, "char", wcFirstLetter, "uint", count, "ptr", pDriveLetterPropArray, "HRESULT")
+        result := ComCall(10, this, "char", wcFirstLetter, "uint", count, VDS_DRIVE_LETTER_PROP.Ptr, pDriveLetterPropArray, "HRESULT")
         return pDriveLetterPropArray
     }
 
@@ -640,5 +667,57 @@ class IVdsService extends IUnknown {
     ClearFlags(ulFlags) {
         result := ComCall(19, this, "uint", ulFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVdsService.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsServiceReady := CallbackCreate(GetMethod(implObj, "IsServiceReady"), flags, 1)
+        this.vtbl.WaitForServiceReady := CallbackCreate(GetMethod(implObj, "WaitForServiceReady"), flags, 1)
+        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.QueryProviders := CallbackCreate(GetMethod(implObj, "QueryProviders"), flags, 3)
+        this.vtbl.QueryMaskedDisks := CallbackCreate(GetMethod(implObj, "QueryMaskedDisks"), flags, 2)
+        this.vtbl.QueryUnallocatedDisks := CallbackCreate(GetMethod(implObj, "QueryUnallocatedDisks"), flags, 2)
+        this.vtbl.GetObject := CallbackCreate(GetMethod(implObj, "GetObject"), flags, 4)
+        this.vtbl.QueryDriveLetters := CallbackCreate(GetMethod(implObj, "QueryDriveLetters"), flags, 4)
+        this.vtbl.QueryFileSystemTypes := CallbackCreate(GetMethod(implObj, "QueryFileSystemTypes"), flags, 3)
+        this.vtbl.Reenumerate := CallbackCreate(GetMethod(implObj, "Reenumerate"), flags, 1)
+        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.CleanupObsoleteMountPoints := CallbackCreate(GetMethod(implObj, "CleanupObsoleteMountPoints"), flags, 1)
+        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 3)
+        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.Reboot := CallbackCreate(GetMethod(implObj, "Reboot"), flags, 1)
+        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 2)
+        this.vtbl.ClearFlags := CallbackCreate(GetMethod(implObj, "ClearFlags"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsServiceReady)
+        CallbackFree(this.vtbl.WaitForServiceReady)
+        CallbackFree(this.vtbl.GetProperties)
+        CallbackFree(this.vtbl.QueryProviders)
+        CallbackFree(this.vtbl.QueryMaskedDisks)
+        CallbackFree(this.vtbl.QueryUnallocatedDisks)
+        CallbackFree(this.vtbl.GetObject)
+        CallbackFree(this.vtbl.QueryDriveLetters)
+        CallbackFree(this.vtbl.QueryFileSystemTypes)
+        CallbackFree(this.vtbl.Reenumerate)
+        CallbackFree(this.vtbl.Refresh)
+        CallbackFree(this.vtbl.CleanupObsoleteMountPoints)
+        CallbackFree(this.vtbl.Advise)
+        CallbackFree(this.vtbl.Unadvise)
+        CallbackFree(this.vtbl.Reboot)
+        CallbackFree(this.vtbl.SetFlags)
+        CallbackFree(this.vtbl.ClearFlags)
     }
 }

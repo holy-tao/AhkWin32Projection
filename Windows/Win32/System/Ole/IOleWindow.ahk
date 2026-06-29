@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IOleWindow interface provides methods that allow an application to obtain the handle to the various windows that participate in in-place activation, and also to enter and exit context-sensitive help mode.
@@ -100,26 +102,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-iolewindow
  * @namespace Windows.Win32.System.Ole
  */
-class IOleWindow extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOleWindow extends IUnknown {
     /**
      * The interface identifier for IOleWindow
      * @type {Guid}
      */
-    static IID => Guid("{00000114-0000-0000-c000-000000000046}")
+    static IID := Guid("{00000114-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOleWindow interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetWindow            : IntPtr
+        ContextSensitiveHelp : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetWindow", "ContextSensitiveHelp"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOleWindow.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a handle to one of the windows participating in in-place activation (frame, document, parent, or in-place object window).
@@ -190,7 +200,7 @@ class IOleWindow extends IUnknown {
      */
     GetWindow() {
         phwnd := HWND()
-        result := ComCall(3, this, "ptr", phwnd, "HRESULT")
+        result := ComCall(3, this, HWND.Ptr, phwnd, "HRESULT")
         return phwnd
     }
 
@@ -261,7 +271,29 @@ class IOleWindow extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iolewindow-contextsensitivehelp
      */
     ContextSensitiveHelp(fEnterMode) {
-        result := ComCall(4, this, "int", fEnterMode, "HRESULT")
+        result := ComCall(4, this, BOOL, fEnterMode, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOleWindow.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetWindow := CallbackCreate(GetMethod(implObj, "GetWindow"), flags, 2)
+        this.vtbl.ContextSensitiveHelp := CallbackCreate(GetMethod(implObj, "ContextSensitiveHelp"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetWindow)
+        CallbackFree(this.vtbl.ContextSensitiveHelp)
     }
 }

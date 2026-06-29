@@ -1,62 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PATCH_IGNORE_RANGE.ahk
-#Include .\PATCH_RETAIN_RANGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PATCH_RETAIN_RANGE.ahk" { PATCH_RETAIN_RANGE }
+#Import ".\PATCH_IGNORE_RANGE.ahk" { PATCH_IGNORE_RANGE }
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @charset Unicode
  */
-class PATCH_OLD_FILE_INFO_W extends Win32Struct {
-    static sizeof => 48
+export default struct PATCH_OLD_FILE_INFO_W {
+    #StructPack 8
 
-    static packingSize => 8
+    SizeOfThisStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SizeOfThisStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    OldFileName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    OldFileName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    IgnoreRangeCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    IgnoreRangeCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    IgnoreRangeArray : PATCH_IGNORE_RANGE.Ptr
 
-    /**
-     * @type {Pointer<PATCH_IGNORE_RANGE>}
-     */
-    IgnoreRangeArray {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    RetainRangeCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    RetainRangeCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    RetainRangeArray : PATCH_RETAIN_RANGE.Ptr
 
-    /**
-     * @type {Pointer<PATCH_RETAIN_RANGE>}
-     */
-    RetainRangeArray {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

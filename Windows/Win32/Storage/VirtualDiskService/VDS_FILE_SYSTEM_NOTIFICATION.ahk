@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_NF_FILE_SYSTEM.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VDS_NF_FILE_SYSTEM.ahk" { VDS_NF_FILE_SYSTEM }
 
 /**
  * The VDS_FILE_SYSTEM_NOTIFICATION structure (vdshwprv.h) defines the details of file-system events.
@@ -11,34 +11,19 @@
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_file_system_notification
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_FILE_SYSTEM_NOTIFICATION extends Win32Struct {
-    static sizeof => 24
+export default struct VDS_FILE_SYSTEM_NOTIFICATION {
+    #StructPack 4
 
-    static packingSize => 8
-
-    /**
-     * @type {VDS_NF_FILE_SYSTEM}
-     */
-    ulEvent {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulEvent : VDS_NF_FILE_SYSTEM
 
     /**
      * The GUID of the volume object containing the file system that triggered the event.
-     * @type {Pointer}
      */
-    volumeId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    volumeId : Guid
 
     /**
      * The completed format progress as a percentage of the whole.
-     * @type {Integer}
      */
-    dwPercentCompleted {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwPercentCompleted : UInt32
+
 }

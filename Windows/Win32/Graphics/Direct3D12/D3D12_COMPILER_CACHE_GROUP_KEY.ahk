@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_COMPILER_CACHE_GROUP_KEY extends Win32Struct {
-    static sizeof => 16
+export default struct D3D12_COMPILER_CACHE_GROUP_KEY {
+    #StructPack 8
 
-    static packingSize => 8
+    pKey : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pKey {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    KeySize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    KeySize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

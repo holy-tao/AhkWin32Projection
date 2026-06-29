@@ -1,34 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ICreateTypeInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\TYPEKIND.ahk" { TYPEKIND }
+#Import ".\ICreateTypeInfo.ahk" { ICreateTypeInfo }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides the methods for creating and managing the component or file that contains type information. (ICreateTypeLib)
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-icreatetypelib
  * @namespace Windows.Win32.System.Ole
  */
-class ICreateTypeLib extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICreateTypeLib extends IUnknown {
     /**
      * The interface identifier for ICreateTypeLib
      * @type {Guid}
      */
-    static IID => Guid("{00020406-0000-0000-c000-000000000046}")
+    static IID := Guid("{00020406-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICreateTypeLib interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateTypeInfo  : IntPtr
+        SetName         : IntPtr
+        SetVersion      : IntPtr
+        SetGuid         : IntPtr
+        SetDocString    : IntPtr
+        SetHelpFileName : IntPtr
+        SetHelpContext  : IntPtr
+        SetLcid         : IntPtr
+        SetLibFlags     : IntPtr
+        SaveAllChanges  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateTypeInfo", "SetName", "SetVersion", "SetGuid", "SetDocString", "SetHelpFileName", "SetHelpContext", "SetLcid", "SetLibFlags", "SaveAllChanges"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICreateTypeLib.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a new type description instance within the type library.
@@ -42,7 +61,7 @@ class ICreateTypeLib extends IUnknown {
     CreateTypeInfo(szName, tkind) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(3, this, "ptr", szName, "int", tkind, "ptr*", &ppCTInfo := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", szName, TYPEKIND, tkind, "ptr*", &ppCTInfo := 0, "HRESULT")
         return ICreateTypeInfo(ppCTInfo)
     }
 
@@ -231,7 +250,7 @@ class ICreateTypeLib extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib-setguid
      */
     SetGuid(guid) {
-        result := ComCall(6, this, "ptr", guid, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, guid, "HRESULT")
         return result
     }
 
@@ -694,5 +713,43 @@ class ICreateTypeLib extends IUnknown {
     SaveAllChanges() {
         result := ComCall(12, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICreateTypeLib.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateTypeInfo := CallbackCreate(GetMethod(implObj, "CreateTypeInfo"), flags, 4)
+        this.vtbl.SetName := CallbackCreate(GetMethod(implObj, "SetName"), flags, 2)
+        this.vtbl.SetVersion := CallbackCreate(GetMethod(implObj, "SetVersion"), flags, 3)
+        this.vtbl.SetGuid := CallbackCreate(GetMethod(implObj, "SetGuid"), flags, 2)
+        this.vtbl.SetDocString := CallbackCreate(GetMethod(implObj, "SetDocString"), flags, 2)
+        this.vtbl.SetHelpFileName := CallbackCreate(GetMethod(implObj, "SetHelpFileName"), flags, 2)
+        this.vtbl.SetHelpContext := CallbackCreate(GetMethod(implObj, "SetHelpContext"), flags, 2)
+        this.vtbl.SetLcid := CallbackCreate(GetMethod(implObj, "SetLcid"), flags, 2)
+        this.vtbl.SetLibFlags := CallbackCreate(GetMethod(implObj, "SetLibFlags"), flags, 2)
+        this.vtbl.SaveAllChanges := CallbackCreate(GetMethod(implObj, "SaveAllChanges"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateTypeInfo)
+        CallbackFree(this.vtbl.SetName)
+        CallbackFree(this.vtbl.SetVersion)
+        CallbackFree(this.vtbl.SetGuid)
+        CallbackFree(this.vtbl.SetDocString)
+        CallbackFree(this.vtbl.SetHelpFileName)
+        CallbackFree(this.vtbl.SetHelpContext)
+        CallbackFree(this.vtbl.SetLcid)
+        CallbackFree(this.vtbl.SetLibFlags)
+        CallbackFree(this.vtbl.SaveAllChanges)
     }
 }

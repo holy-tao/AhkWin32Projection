@@ -1,16 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\WindowsAndMessaging\HICON.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Used to specify and set applet configuration in IImePad.
  * @see https://learn.microsoft.com/windows/win32/api/imepad/ns-imepad-imeappletcfg
  * @namespace Windows.Win32.UI.Input.Ime
  */
-class IMEAPPLETCFG extends Win32Struct {
-    static sizeof => 232
-
-    static packingSize => 8
+export default struct IMEAPPLETCFG {
+    #StructPack 8
 
     /**
      * Combination of <b>IPACFG_*</b> flags.
@@ -88,85 +87,47 @@ class IMEAPPLETCFG extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwConfig {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwConfig : UInt32
 
     /**
      * The applet's title, in Unicode.
-     * @type {String}
      */
-    wchTitle {
-        get => StrGet(this.ptr + 4, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 63, "UTF-16")
-    }
+    wchTitle : WCHAR[64]
 
     /**
      * The applet title's FontFace name.
-     * @type {String}
      */
-    wchTitleFontFace {
-        get => StrGet(this.ptr + 132, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 132, 31, "UTF-16")
-    }
+    wchTitleFontFace : WCHAR[32]
 
     /**
      * The applet font's character set.
-     * @type {Integer}
      */
-    dwCharSet {
-        get => NumGet(this, 196, "uint")
-        set => NumPut("uint", value, this, 196)
-    }
+    dwCharSet : UInt32
 
     /**
      * Not used.
-     * @type {Integer}
      */
-    iCategory {
-        get => NumGet(this, 200, "int")
-        set => NumPut("int", value, this, 200)
-    }
+    iCategory : Int32
 
     /**
      * The icon handle for the ImePad applet's menu.
-     * @type {HICON}
      */
-    hIcon {
-        get {
-            if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(208, this)
-            return this.__hIcon
-        }
-    }
+    hIcon : HICON
 
     /**
      * The applet's language ID.
-     * @type {Integer}
      */
-    langID {
-        get => NumGet(this, 216, "ushort")
-        set => NumPut("ushort", value, this, 216)
-    }
+    langID : UInt16
 
     /**
      * Not used.
-     * @type {Integer}
      */
-    dummy {
-        get => NumGet(this, 218, "ushort")
-        set => NumPut("ushort", value, this, 218)
-    }
+    dummy : UInt16
 
     /**
      * Reserved.
-     * @type {LPARAM}
      */
-    lReserved1 {
-        get => NumGet(this, 224, "ptr")
-        set => NumPut("ptr", value, this, 224)
-    }
+    lReserved1 : LPARAM
+
 }

@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_NF_DRIVE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VDS_NF_DRIVE.ahk" { VDS_NF_DRIVE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The VDS_DRIVE_NOTIFICATION structure (vdshwprv.h) defines the details of drive events.
@@ -13,25 +13,14 @@
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_drive_notification
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_DRIVE_NOTIFICATION extends Win32Struct {
-    static sizeof => 16
+export default struct VDS_DRIVE_NOTIFICATION {
+    #StructPack 4
 
-    static packingSize => 8
-
-    /**
-     * @type {VDS_NF_DRIVE}
-     */
-    ulEvent {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulEvent : VDS_NF_DRIVE
 
     /**
      * The GUID of the drive that triggered the event.
-     * @type {Pointer}
      */
-    driveId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    driveId : Guid
+
 }

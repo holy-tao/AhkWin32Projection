@@ -1,328 +1,102 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IMAGE_AUX_SYMBOL_TOKEN_DEF.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IMAGE_AUX_SYMBOL_TOKEN_DEF.ahk" { IMAGE_AUX_SYMBOL_TOKEN_DEF }
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class IMAGE_AUX_SYMBOL extends Win32Struct {
-    static sizeof => 100
+export default struct IMAGE_AUX_SYMBOL {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _Sym extends Win32Struct {
-        static sizeof => 20
-        static packingSize => 4
+    struct _Sym {
 
-        class _Misc_e__Union extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 2
+        struct _Misc {
 
-            class _LnSz extends Win32Struct {
-                static sizeof => 4
-                static packingSize => 2
+            struct _LnSz {
+                Linenumber : UInt16
 
-                /**
-                 * @type {Integer}
-                 */
-                Linenumber {
-                    get => NumGet(this, 0, "ushort")
-                    set => NumPut("ushort", value, this, 0)
-                }
+                Size : UInt16
 
-                /**
-                 * @type {Integer}
-                 */
-                Size {
-                    get => NumGet(this, 2, "ushort")
-                    set => NumPut("ushort", value, this, 2)
-                }
             }
 
-            /**
-             * @type {_LnSz}
-             */
-            LnSz {
-                get {
-                    if(!this.HasProp("__LnSz"))
-                        this.__LnSz := IMAGE_AUX_SYMBOL._Sym._Misc_e__Union._LnSz(0, this)
-                    return this.__LnSz
-                }
-            }
+            LnSz : IMAGE_AUX_SYMBOL._Sym._Misc._LnSz
 
-            /**
-             * @type {Integer}
-             */
-            TotalSize {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
+            static __New() {
+                DefineProp(this.Prototype, 'TotalSize', { type: UInt32, offset: 0 })
+                this.DeleteProp("__New")
             }
         }
 
-        class _FcnAry_e__Union extends Win32Struct {
-            static sizeof => 8
-            static packingSize => 4
+        struct _FcnAry {
 
-            class _Function extends Win32Struct {
-                static sizeof => 8
-                static packingSize => 4
+            struct _Function {
+                PointerToLinenumber : UInt32
 
-                /**
-                 * @type {Integer}
-                 */
-                PointerToLinenumber {
-                    get => NumGet(this, 0, "uint")
-                    set => NumPut("uint", value, this, 0)
-                }
+                PointerToNextFunction : UInt32
 
-                /**
-                 * @type {Integer}
-                 */
-                PointerToNextFunction {
-                    get => NumGet(this, 4, "uint")
-                    set => NumPut("uint", value, this, 4)
-                }
             }
 
-            class _Array extends Win32Struct {
-                static sizeof => 8
-                static packingSize => 2
+            struct _Array {
+                Dimension : UInt16[4]
 
-                /**
-                 * @type {Array<Integer>}
-                 */
-                Dimension {
-                    get {
-                        if(!this.HasProp("__DimensionProxyArray"))
-                            this.__DimensionProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "ushort")
-                        return this.__DimensionProxyArray
-                    }
-                }
             }
 
-            /**
-             * @type {_Function}
-             */
-            Function {
-                get {
-                    if(!this.HasProp("__Function"))
-                        this.__Function := IMAGE_AUX_SYMBOL._Sym._FcnAry_e__Union._Function(0, this)
-                    return this.__Function
-                }
-            }
+            Function : IMAGE_AUX_SYMBOL._Sym._FcnAry._Function
 
-            /**
-             * @type {_Array}
-             */
-            Array {
-                get {
-                    if(!this.HasProp("__Array"))
-                        this.__Array := IMAGE_AUX_SYMBOL._Sym._FcnAry_e__Union._Array(0, this)
-                    return this.__Array
-                }
+            static __New() {
+                DefineProp(this.Prototype, 'Array', { type: IMAGE_AUX_SYMBOL._Sym._FcnAry._Array, offset: 0 })
+                this.DeleteProp("__New")
             }
         }
 
-        /**
-         * @type {Integer}
-         */
-        TagIndex {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        TagIndex : UInt32
 
-        /**
-         * @type {_Misc_e__Union}
-         */
-        Misc {
-            get {
-                if(!this.HasProp("__Misc"))
-                    this.__Misc := IMAGE_AUX_SYMBOL._Sym._Misc_e__Union(4, this)
-                return this.__Misc
-            }
-        }
+        Misc : IMAGE_AUX_SYMBOL._Sym._Misc
 
-        /**
-         * @type {_FcnAry_e__Union}
-         */
-        FcnAry {
-            get {
-                if(!this.HasProp("__FcnAry"))
-                    this.__FcnAry := IMAGE_AUX_SYMBOL._Sym._FcnAry_e__Union(8, this)
-                return this.__FcnAry
-            }
-        }
+        FcnAry : IMAGE_AUX_SYMBOL._Sym._FcnAry
 
-        /**
-         * @type {Integer}
-         */
-        TvIndex {
-            get => NumGet(this, 16, "ushort")
-            set => NumPut("ushort", value, this, 16)
-        }
+        TvIndex : UInt16
+
     }
 
-    class _File extends Win32Struct {
-        static sizeof => 18
-        static packingSize => 1
+    struct _File {
+        Name : Int8[18]
 
-        /**
-         * @type {Array<Integer>}
-         */
-        Name {
-            get {
-                if(!this.HasProp("__NameProxyArray"))
-                    this.__NameProxyArray := Win32FixedArray(this.ptr + 0, 18, Primitive, "char")
-                return this.__NameProxyArray
-            }
-        }
     }
 
-    class _Section extends Win32Struct {
-        static sizeof => 20
-        static packingSize => 4
+    struct _Section {
+        Length : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Length {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        NumberOfRelocations : UInt16
 
-        /**
-         * @type {Integer}
-         */
-        NumberOfRelocations {
-            get => NumGet(this, 4, "ushort")
-            set => NumPut("ushort", value, this, 4)
-        }
+        NumberOfLinenumbers : UInt16
 
-        /**
-         * @type {Integer}
-         */
-        NumberOfLinenumbers {
-            get => NumGet(this, 6, "ushort")
-            set => NumPut("ushort", value, this, 6)
-        }
+        CheckSum : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        CheckSum {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
+        Number : Int16
 
-        /**
-         * @type {Integer}
-         */
-        Number {
-            get => NumGet(this, 12, "short")
-            set => NumPut("short", value, this, 12)
-        }
+        Selection : Int8
 
-        /**
-         * @type {Integer}
-         */
-        Selection {
-            get => NumGet(this, 14, "char")
-            set => NumPut("char", value, this, 14)
-        }
+        bReserved : Int8
 
-        /**
-         * @type {Integer}
-         */
-        bReserved {
-            get => NumGet(this, 15, "char")
-            set => NumPut("char", value, this, 15)
-        }
+        HighNumber : Int16
 
-        /**
-         * @type {Integer}
-         */
-        HighNumber {
-            get => NumGet(this, 16, "short")
-            set => NumPut("short", value, this, 16)
-        }
     }
 
-    class _CRC extends Win32Struct {
-        static sizeof => 20
-        static packingSize => 4
+    struct _CRC {
+        crc : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        crc {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        rgbReserved : Int8[14]
 
-        /**
-         * @type {Array<Integer>}
-         */
-        rgbReserved {
-            get {
-                if(!this.HasProp("__rgbReservedProxyArray"))
-                    this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 4, 14, Primitive, "char")
-                return this.__rgbReservedProxyArray
-            }
-        }
     }
 
-    /**
-     * @type {_Sym}
-     */
-    Sym {
-        get {
-            if(!this.HasProp("__Sym"))
-                this.__Sym := IMAGE_AUX_SYMBOL._Sym(0, this)
-            return this.__Sym
-        }
-    }
+    Sym : IMAGE_AUX_SYMBOL._Sym
 
-    /**
-     * @type {_File}
-     */
-    File {
-        get {
-            if(!this.HasProp("__File"))
-                this.__File := IMAGE_AUX_SYMBOL._File(0, this)
-            return this.__File
-        }
-    }
-
-    /**
-     * @type {_Section}
-     */
-    Section {
-        get {
-            if(!this.HasProp("__Section"))
-                this.__Section := IMAGE_AUX_SYMBOL._Section(0, this)
-            return this.__Section
-        }
-    }
-
-    /**
-     * @type {IMAGE_AUX_SYMBOL_TOKEN_DEF}
-     */
-    TokenDef {
-        get {
-            if(!this.HasProp("__TokenDef"))
-                this.__TokenDef := IMAGE_AUX_SYMBOL_TOKEN_DEF(0, this)
-            return this.__TokenDef
-        }
-    }
-
-    /**
-     * @type {_CRC}
-     */
-    CRC {
-        get {
-            if(!this.HasProp("__CRC"))
-                this.__CRC := IMAGE_AUX_SYMBOL._CRC(0, this)
-            return this.__CRC
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'File', { type: IMAGE_AUX_SYMBOL._File, offset: 0 })
+        DefineProp(this.Prototype, 'Section', { type: IMAGE_AUX_SYMBOL._Section, offset: 0 })
+        DefineProp(this.Prototype, 'TokenDef', { type: IMAGE_AUX_SYMBOL_TOKEN_DEF, offset: 0 })
+        DefineProp(this.Prototype, 'CRC', { type: IMAGE_AUX_SYMBOL._CRC, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

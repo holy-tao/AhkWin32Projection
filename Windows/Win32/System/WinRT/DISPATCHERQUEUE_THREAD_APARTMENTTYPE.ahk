@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the threading apartment type for a new DispatcherQueueController.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dispatcherqueue/ne-dispatcherqueue-dispatcherqueue_thread_apartmenttype
  * @namespace Windows.Win32.System.WinRT
  */
-class DISPATCHERQUEUE_THREAD_APARTMENTTYPE extends Win32Enum {
+export default struct DISPATCHERQUEUE_THREAD_APARTMENTTYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No COM threading apartment type specified.

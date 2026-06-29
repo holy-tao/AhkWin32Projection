@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the session and the information that the session used to enable the provider.
@@ -10,90 +9,57 @@
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-trace_enable_info
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class TRACE_ENABLE_INFO extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct TRACE_ENABLE_INFO {
+    #StructPack 8
 
     /**
      * Indicates if the provider is enabled to the session. The value is **TRUE** if
      * the provider is enabled to the session, otherwise, the value is **FALSE**. This
      * value should always be **TRUE**.
-     * @type {Integer}
      */
-    IsEnabled {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    IsEnabled : UInt32
 
     /**
      * Level of detail that the session asked the provider to include in the events.
      * For details, see the _Level_ parameter of the
      * [EnableTraceEx](/windows/desktop/ETW/enabletraceex-func) function.
-     * @type {Integer}
      */
-    Level {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    Level : Int8
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    Reserved1 {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    Reserved1 : Int8
 
     /**
      * Identifies the session that enabled the provider.
-     * @type {Integer}
      */
-    LoggerId {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    LoggerId : UInt16
 
     /**
      * Additional information that the session wants ETW to include in the log file.
      * For details, see the _EnableProperty_ parameter of the
      * [EnableTraceEx](/windows/desktop/ETW/enabletraceex-func) function.
-     * @type {Integer}
      */
-    EnableProperty {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    EnableProperty : UInt32
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    Reserved2 {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Reserved2 : UInt32
 
     /**
      * Keywords specify which events the session wants the provider to write. For
      * details, see the _MatchAnyKeyword_ parameter of the
      * [EnableTraceEx](/windows/desktop/ETW/enabletraceex-func) function.
-     * @type {Integer}
      */
-    MatchAnyKeyword {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    MatchAnyKeyword : Int64
 
     /**
      * Keywords specify which events the session wants the provider to write. For
      * details, see the _MatchAllKeyword_ parameter of the
      * [EnableTraceEx](/windows/desktop/ETW/enabletraceex-func) function.
-     * @type {Integer}
      */
-    MatchAllKeyword {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    MatchAllKeyword : Int64
+
 }

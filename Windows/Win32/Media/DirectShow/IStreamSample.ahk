@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\IMediaStream.ahk" { IMediaStream }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Note  This interface is deprecated.
  * @see https://learn.microsoft.com/windows/win32/api/mmstream/nn-mmstream-istreamsample
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IStreamSample extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IStreamSample extends IUnknown {
     /**
      * The interface identifier for IStreamSample
      * @type {Guid}
      */
-    static IID => Guid("{b502d1be-9a57-11d0-8fde-00c04fd9189d}")
+    static IID := Guid("{b502d1be-9a57-11d0-8fde-00c04fd9189d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IStreamSample interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetMediaStream   : IntPtr
+        GetSampleTimes   : IntPtr
+        SetSampleTimes   : IntPtr
+        Update           : IntPtr
+        CompletionStatus : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetMediaStream", "GetSampleTimes", "SetSampleTimes", "Update", "CompletionStatus"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IStreamSample.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Note  This interface is deprecated. New applications should not use it. Retrieves a pointer to the media stream object that created the current sample.
@@ -38,7 +52,7 @@ class IStreamSample extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-istreamsample-getmediastream
      */
     GetMediaStream(ppMediaStream) {
-        result := ComCall(3, this, "ptr*", ppMediaStream, "HRESULT")
+        result := ComCall(3, this, IMediaStream.Ptr, ppMediaStream, "HRESULT")
         return result
     }
 
@@ -217,9 +231,7 @@ class IStreamSample extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-istreamsample-update
      */
     Update(dwFlags, hEvent, pfnAPC, dwAPCData) {
-        hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
-
-        result := ComCall(6, this, "uint", dwFlags, "ptr", hEvent, "ptr", pfnAPC, "ptr", dwAPCData, "HRESULT")
+        result := ComCall(6, this, "uint", dwFlags, HANDLE, hEvent, "ptr", pfnAPC, "ptr", dwAPCData, "HRESULT")
         return result
     }
 
@@ -316,5 +328,33 @@ class IStreamSample extends IUnknown {
     CompletionStatus(dwFlags, dwMilliseconds) {
         result := ComCall(7, this, "uint", dwFlags, "uint", dwMilliseconds, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IStreamSample.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetMediaStream := CallbackCreate(GetMethod(implObj, "GetMediaStream"), flags, 2)
+        this.vtbl.GetSampleTimes := CallbackCreate(GetMethod(implObj, "GetSampleTimes"), flags, 4)
+        this.vtbl.SetSampleTimes := CallbackCreate(GetMethod(implObj, "SetSampleTimes"), flags, 3)
+        this.vtbl.Update := CallbackCreate(GetMethod(implObj, "Update"), flags, 5)
+        this.vtbl.CompletionStatus := CallbackCreate(GetMethod(implObj, "CompletionStatus"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetMediaStream)
+        CallbackFree(this.vtbl.GetSampleTimes)
+        CallbackFree(this.vtbl.SetSampleTimes)
+        CallbackFree(this.vtbl.Update)
+        CallbackFree(this.vtbl.CompletionStatus)
     }
 }

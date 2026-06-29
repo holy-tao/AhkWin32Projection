@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12Device6.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3D12_PROTECTED_RESOURCE_SESSION_DESC1.ahk" { D3D12_PROTECTED_RESOURCE_SESSION_DESC1 }
+#Import ".\ID3D12StateObject.ahk" { ID3D12StateObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D12_STATE_OBJECT_DESC.ahk" { D3D12_STATE_OBJECT_DESC }
+#Import ".\ID3D12Device6.ahk" { ID3D12Device6 }
 
 /**
  * Represents a virtual adapter. This interface extends [ID3D12Device6](../d3d12/nn-d3d12-id3d12device6.md).
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12device7
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class ID3D12Device7 extends ID3D12Device6 {
-
-    static sizeof => A_PtrSize
+export default struct ID3D12Device7 extends ID3D12Device6 {
     /**
      * The interface identifier for ID3D12Device7
      * @type {Guid}
      */
-    static IID => Guid("{5c014b53-68a1-4b9b-8bd1-dd6046b9358b}")
+    static IID := Guid("{5c014b53-68a1-4b9b-8bd1-dd6046b9358b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 66
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D12Device7 interfaces
+    */
+    struct Vtbl extends ID3D12Device6.Vtbl {
+        AddToStateObject                : IntPtr
+        CreateProtectedResourceSession1 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddToStateObject", "CreateProtectedResourceSession1"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D12Device7.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Incrementally add to an existing state object. This incurs lower CPU overhead than creating a state object from scratch that is a superset of an existing one.
@@ -52,7 +64,7 @@ class ID3D12Device7 extends ID3D12Device6 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device7-addtostateobject
      */
     AddToStateObject(pAddition, pStateObjectToGrowFrom, riid) {
-        result := ComCall(66, this, "ptr", pAddition, "ptr", pStateObjectToGrowFrom, "ptr", riid, "ptr*", &ppNewStateObject := 0, "HRESULT")
+        result := ComCall(66, this, D3D12_STATE_OBJECT_DESC.Ptr, pAddition, "ptr", pStateObjectToGrowFrom, Guid.Ptr, riid, "ptr*", &ppNewStateObject := 0, "HRESULT")
         return ppNewStateObject
     }
 
@@ -70,7 +82,29 @@ class ID3D12Device7 extends ID3D12Device6 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device7-createprotectedresourcesession1
      */
     CreateProtectedResourceSession1(pDesc, riid) {
-        result := ComCall(67, this, "ptr", pDesc, "ptr", riid, "ptr*", &ppSession := 0, "HRESULT")
+        result := ComCall(67, this, D3D12_PROTECTED_RESOURCE_SESSION_DESC1.Ptr, pDesc, Guid.Ptr, riid, "ptr*", &ppSession := 0, "HRESULT")
         return ppSession
+    }
+
+    Query(iid) {
+        if (ID3D12Device7.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddToStateObject := CallbackCreate(GetMethod(implObj, "AddToStateObject"), flags, 5)
+        this.vtbl.CreateProtectedResourceSession1 := CallbackCreate(GetMethod(implObj, "CreateProtectedResourceSession1"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddToStateObject)
+        CallbackFree(this.vtbl.CreateProtectedResourceSession1)
     }
 }

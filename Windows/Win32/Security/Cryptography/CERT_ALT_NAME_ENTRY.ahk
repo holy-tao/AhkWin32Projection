@@ -1,86 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_OTHER_NAME.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\CERT_OTHER_NAME.ahk" { CERT_OTHER_NAME }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains an alternative name in one of a variety of name forms.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_alt_name_entry
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_ALT_NAME_ENTRY extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct CERT_ALT_NAME_ENTRY {
+    #StructPack 8
 
     /**
      * Indicates the <b>union</b> variant used for the alternative name.
-     * @type {Integer}
      */
-    dwAltNameChoice {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwAltNameChoice : UInt32
 
-    /**
-     * @type {Pointer<CERT_OTHER_NAME>}
-     */
-    pOtherName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pOtherName : CERT_OTHER_NAME.Ptr
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszRfc822Name {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {PWSTR}
-     */
-    pwszDNSName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {CRYPT_INTEGER_BLOB}
-     */
-    DirectoryName {
-        get {
-            if(!this.HasProp("__DirectoryName"))
-                this.__DirectoryName := CRYPT_INTEGER_BLOB(8, this)
-            return this.__DirectoryName
-        }
-    }
-
-    /**
-     * @type {PWSTR}
-     */
-    pwszURL {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {CRYPT_INTEGER_BLOB}
-     */
-    IPAddress {
-        get {
-            if(!this.HasProp("__IPAddress"))
-                this.__IPAddress := CRYPT_INTEGER_BLOB(8, this)
-            return this.__IPAddress
-        }
-    }
-
-    /**
-     * @type {PSTR}
-     */
-    pszRegisteredID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'pwszRfc822Name', { type: PWSTR, offset: 8 })
+        DefineProp(this.Prototype, 'pwszDNSName', { type: PWSTR, offset: 8 })
+        DefineProp(this.Prototype, 'DirectoryName', { type: CRYPT_INTEGER_BLOB, offset: 8 })
+        DefineProp(this.Prototype, 'pwszURL', { type: PWSTR, offset: 8 })
+        DefineProp(this.Prototype, 'IPAddress', { type: CRYPT_INTEGER_BLOB, offset: 8 })
+        DefineProp(this.Prototype, 'pszRegisteredID', { type: PSTR, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

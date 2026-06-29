@@ -1,38 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NETWORK_ADDRESS extends Win32Struct {
-    static sizeof => 6
+export default struct NETWORK_ADDRESS {
+    #StructPack 2
 
-    static packingSize => 2
+    AddressLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    AddressLength {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    AddressType : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    AddressType {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Address : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Address {
-        get {
-            if(!this.HasProp("__AddressProxyArray"))
-                this.__AddressProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
-            return this.__AddressProxyArray
-        }
-    }
 }

@@ -1,11 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\LVITEMW.ahk
-#Include .\LIST_VIEW_ITEM_FLAGS.ahk
-#Include .\LIST_VIEW_ITEM_STATE_FLAGS.ahk
-#Include .\LIST_VIEW_ITEM_COLUMN_FORMAT_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LIST_VIEW_ITEM_STATE_FLAGS.ahk" { LIST_VIEW_ITEM_STATE_FLAGS }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\NMHDR.ahk" { NMHDR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\LIST_VIEW_ITEM_COLUMN_FORMAT_FLAGS.ahk" { LIST_VIEW_ITEM_COLUMN_FORMAT_FLAGS }
+#Import ".\LVITEMW.ahk" { LVITEMW }
+#Import ".\LIST_VIEW_ITEM_FLAGS.ahk" { LIST_VIEW_ITEM_FLAGS }
 
 /**
  * Contains information about an LVN_GETDISPINFO or LVN_SETDISPINFO notification code. This structure is the same as the LV_DISPINFO structure, but has been renamed to fit standard naming conventions. (Unicode)
@@ -25,25 +26,16 @@
  * @namespace Windows.Win32.UI.Controls
  * @charset Unicode
  */
-class NMLVDISPINFOW extends Win32Struct {
-    static sizeof => 112
-
-    static packingSize => 8
+export default struct NMLVDISPINFOW {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains information about this notification code.
-     * @type {NMHDR}
      */
-    hdr {
-        get {
-            if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(0, this)
-            return this.__hdr
-        }
-    }
+    hdr : NMHDR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-lvitema">LVITEM</a></b>
@@ -51,13 +43,7 @@ class NMLVDISPINFOW extends Win32Struct {
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-lvitema">LVITEM</a> structure that identifies the item or subitem. The structure either contains or receives information about the item. The <b>mask</b> member contains a set of bit flags that specify which item attributes are relevant.
      * For more information on the available bit flags, see <b>LVITEM</b>.
-     * @type {LVITEMW}
      */
-    item {
-        get {
-            if(!this.HasProp("__item"))
-                this.__item := LVITEMW(24, this)
-            return this.__item
-        }
-    }
+    item : LVITEMW
+
 }

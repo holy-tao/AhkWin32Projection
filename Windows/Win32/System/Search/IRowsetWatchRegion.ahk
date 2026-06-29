@@ -1,31 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IRowsetWatchAll.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DBROWWATCHCHANGE.ahk" { DBROWWATCHCHANGE }
+#Import ".\IRowsetWatchAll.ahk" { IRowsetWatchAll }
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class IRowsetWatchRegion extends IRowsetWatchAll {
-
-    static sizeof => A_PtrSize
+export default struct IRowsetWatchRegion extends IRowsetWatchAll {
     /**
      * The interface identifier for IRowsetWatchRegion
      * @type {Guid}
      */
-    static IID => Guid("{0c733a45-2a1c-11ce-ade5-00aa0044773d}")
+    static IID := Guid("{0c733a45-2a1c-11ce-ade5-00aa0044773d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRowsetWatchRegion interfaces
+    */
+    struct Vtbl extends IRowsetWatchAll.Vtbl {
+        CreateWatchRegion  : IntPtr
+        ChangeWatchMode    : IntPtr
+        DeleteWatchRegion  : IntPtr
+        GetWatchRegionInfo : IntPtr
+        Refresh            : IntPtr
+        ShrinkWatchRegion  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateWatchRegion", "ChangeWatchMode", "DeleteWatchRegion", "GetWatchRegionInfo", "Refresh", "ShrinkWatchRegion"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRowsetWatchRegion.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -80,13 +94,9 @@ class IRowsetWatchRegion extends IRowsetWatchAll {
     }
 
     /**
-     * RefreshIscsiSendTargetPortal function instructs the iSCSI initiator service to establish a discovery session with the indicated target portal and transmit a SendTargets request to refresh the list of discovered targets for the iSCSI initiator service. (ANSI)
-     * @remarks
-     * > [!NOTE]
-     * > The iscsidsc.h header defines RefreshIScsiSendTargetPortal as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * 
      * @param {Pointer<Pointer>} pcChangesObtained 
      * @returns {Pointer<DBROWWATCHCHANGE>} 
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-refreshiscsisendtargetportala
      */
     Refresh(pcChangesObtained) {
         pcChangesObtainedMarshal := pcChangesObtained is VarRef ? "ptr*" : "ptr"
@@ -109,5 +119,35 @@ class IRowsetWatchRegion extends IRowsetWatchAll {
 
         result := ComCall(11, this, "ptr", hRegion, "ptr", hChapter, "ptr", cbBookmark, pBookmarkMarshal, pBookmark, "ptr", cRows, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRowsetWatchRegion.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateWatchRegion := CallbackCreate(GetMethod(implObj, "CreateWatchRegion"), flags, 3)
+        this.vtbl.ChangeWatchMode := CallbackCreate(GetMethod(implObj, "ChangeWatchMode"), flags, 3)
+        this.vtbl.DeleteWatchRegion := CallbackCreate(GetMethod(implObj, "DeleteWatchRegion"), flags, 2)
+        this.vtbl.GetWatchRegionInfo := CallbackCreate(GetMethod(implObj, "GetWatchRegionInfo"), flags, 7)
+        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 3)
+        this.vtbl.ShrinkWatchRegion := CallbackCreate(GetMethod(implObj, "ShrinkWatchRegion"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateWatchRegion)
+        CallbackFree(this.vtbl.ChangeWatchMode)
+        CallbackFree(this.vtbl.DeleteWatchRegion)
+        CallbackFree(this.vtbl.GetWatchRegionInfo)
+        CallbackFree(this.vtbl.Refresh)
+        CallbackFree(this.vtbl.ShrinkWatchRegion)
     }
 }

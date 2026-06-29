@@ -1,35 +1,78 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ICOMAdminCatalog.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\COMAdminApplicationInstallOptions.ahk" { COMAdminApplicationInstallOptions }
+#Import ".\COMAdminApplicationExportOptions.ahk" { COMAdminApplicationExportOptions }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ICOMAdminCatalog.ahk" { ICOMAdminCatalog }
+#Import ".\COMAdminInUse.ahk" { COMAdminInUse }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * An extension of the ICOMAdminCatalog interface.
  * @see https://learn.microsoft.com/windows/win32/api/comadmin/nn-comadmin-icomadmincatalog2
  * @namespace Windows.Win32.System.ComponentServices
  */
-class ICOMAdminCatalog2 extends ICOMAdminCatalog {
-
-    static sizeof => A_PtrSize
+export default struct ICOMAdminCatalog2 extends ICOMAdminCatalog {
     /**
      * The interface identifier for ICOMAdminCatalog2
      * @type {Guid}
      */
-    static IID => Guid("{790c6e0b-9194-4cc9-9426-a48a63185696}")
+    static IID := Guid("{790c6e0b-9194-4cc9-9426-a48a63185696}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 33
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICOMAdminCatalog2 interfaces
+    */
+    struct Vtbl extends ICOMAdminCatalog.Vtbl {
+        GetCollectionByQuery2                  : IntPtr
+        GetApplicationInstanceIDFromProcessID  : IntPtr
+        ShutdownApplicationInstances           : IntPtr
+        PauseApplicationInstances              : IntPtr
+        ResumeApplicationInstances             : IntPtr
+        RecycleApplicationInstances            : IntPtr
+        AreApplicationInstancesPaused          : IntPtr
+        DumpApplicationInstance                : IntPtr
+        get_IsApplicationInstanceDumpSupported : IntPtr
+        CreateServiceForApplication            : IntPtr
+        DeleteServiceForApplication            : IntPtr
+        GetPartitionID                         : IntPtr
+        GetPartitionName                       : IntPtr
+        put_CurrentPartition                   : IntPtr
+        get_CurrentPartitionID                 : IntPtr
+        get_CurrentPartitionName               : IntPtr
+        get_GlobalPartitionID                  : IntPtr
+        FlushPartitionCache                    : IntPtr
+        CopyApplications                       : IntPtr
+        CopyComponents                         : IntPtr
+        MoveComponents                         : IntPtr
+        AliasComponent                         : IntPtr
+        IsSafeToDelete                         : IntPtr
+        ImportUnconfiguredComponents           : IntPtr
+        PromoteUnconfiguredComponents          : IntPtr
+        ImportComponents                       : IntPtr
+        get_Is64BitCatalogServer               : IntPtr
+        ExportPartition                        : IntPtr
+        InstallPartition                       : IntPtr
+        QueryApplicationFile2                  : IntPtr
+        GetComponentVersionCount               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCollectionByQuery2", "GetApplicationInstanceIDFromProcessID", "ShutdownApplicationInstances", "PauseApplicationInstances", "ResumeApplicationInstances", "RecycleApplicationInstances", "AreApplicationInstancesPaused", "DumpApplicationInstance", "get_IsApplicationInstanceDumpSupported", "CreateServiceForApplication", "DeleteServiceForApplication", "GetPartitionID", "GetPartitionName", "put_CurrentPartition", "get_CurrentPartitionID", "get_CurrentPartitionName", "get_GlobalPartitionID", "FlushPartitionCache", "CopyApplications", "CopyComponents", "MoveComponents", "AliasComponent", "IsSafeToDelete", "ImportUnconfiguredComponents", "PromoteUnconfiguredComponents", "ImportComponents", "get_Is64BitCatalogServer", "ExportPartition", "InstallPartition", "QueryApplicationFile2", "GetComponentVersionCount"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICOMAdminCatalog2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -83,7 +126,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
     GetCollectionByQuery2(bstrCollectionName, pVarQueryStrings) {
         bstrCollectionName := bstrCollectionName is String ? BSTR.Alloc(bstrCollectionName).Value : bstrCollectionName
 
-        result := ComCall(33, this, "ptr", bstrCollectionName, "ptr", pVarQueryStrings, "ptr*", &ppCatalogCollection := 0, "HRESULT")
+        result := ComCall(33, this, BSTR, bstrCollectionName, VARIANT.Ptr, pVarQueryStrings, "ptr*", &ppCatalogCollection := 0, "HRESULT")
         return IDispatch(ppCatalogCollection)
     }
 
@@ -94,8 +137,8 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-getapplicationinstanceidfromprocessid
      */
     GetApplicationInstanceIDFromProcessID(lProcessID) {
-        pbstrApplicationInstanceID := BSTR()
-        result := ComCall(34, this, "int", lProcessID, "ptr", pbstrApplicationInstanceID, "HRESULT")
+        pbstrApplicationInstanceID := BSTR.Owned()
+        result := ComCall(34, this, "int", lProcessID, BSTR.Ptr, pbstrApplicationInstanceID, "HRESULT")
         return pbstrApplicationInstanceID
     }
 
@@ -135,7 +178,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-shutdownapplicationinstances
      */
     ShutdownApplicationInstances(pVarApplicationInstanceID) {
-        result := ComCall(35, this, "ptr", pVarApplicationInstanceID, "HRESULT")
+        result := ComCall(35, this, VARIANT.Ptr, pVarApplicationInstanceID, "HRESULT")
         return result
     }
 
@@ -175,7 +218,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-pauseapplicationinstances
      */
     PauseApplicationInstances(pVarApplicationInstanceID) {
-        result := ComCall(36, this, "ptr", pVarApplicationInstanceID, "HRESULT")
+        result := ComCall(36, this, VARIANT.Ptr, pVarApplicationInstanceID, "HRESULT")
         return result
     }
 
@@ -216,7 +259,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-resumeapplicationinstances
      */
     ResumeApplicationInstances(pVarApplicationInstanceID) {
-        result := ComCall(37, this, "ptr", pVarApplicationInstanceID, "HRESULT")
+        result := ComCall(37, this, VARIANT.Ptr, pVarApplicationInstanceID, "HRESULT")
         return result
     }
 
@@ -257,7 +300,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-recycleapplicationinstances
      */
     RecycleApplicationInstances(pVarApplicationInstanceID, lReasonCode) {
-        result := ComCall(38, this, "ptr", pVarApplicationInstanceID, "int", lReasonCode, "HRESULT")
+        result := ComCall(38, this, VARIANT.Ptr, pVarApplicationInstanceID, "int", lReasonCode, "HRESULT")
         return result
     }
 
@@ -268,7 +311,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-areapplicationinstancespaused
      */
     AreApplicationInstancesPaused(pVarApplicationInstanceID) {
-        result := ComCall(39, this, "ptr", pVarApplicationInstanceID, "short*", &pVarBoolPaused := 0, "HRESULT")
+        result := ComCall(39, this, VARIANT.Ptr, pVarApplicationInstanceID, VARIANT_BOOL.Ptr, &pVarBoolPaused := 0, "HRESULT")
         return pVarBoolPaused
     }
 
@@ -284,8 +327,8 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
         bstrApplicationInstanceID := bstrApplicationInstanceID is String ? BSTR.Alloc(bstrApplicationInstanceID).Value : bstrApplicationInstanceID
         bstrDirectory := bstrDirectory is String ? BSTR.Alloc(bstrDirectory).Value : bstrDirectory
 
-        pbstrDumpFile := BSTR()
-        result := ComCall(40, this, "ptr", bstrApplicationInstanceID, "ptr", bstrDirectory, "int", lMaxImages, "ptr", pbstrDumpFile, "HRESULT")
+        pbstrDumpFile := BSTR.Owned()
+        result := ComCall(40, this, BSTR, bstrApplicationInstanceID, BSTR, bstrDirectory, "int", lMaxImages, BSTR.Ptr, pbstrDumpFile, "HRESULT")
         return pbstrDumpFile
     }
 
@@ -295,7 +338,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-get_isapplicationinstancedumpsupported
      */
     get_IsApplicationInstanceDumpSupported() {
-        result := ComCall(41, this, "short*", &pVarBoolDumpSupported := 0, "HRESULT")
+        result := ComCall(41, this, VARIANT_BOOL.Ptr, &pVarBoolDumpSupported := 0, "HRESULT")
         return pVarBoolDumpSupported
     }
 
@@ -323,7 +366,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
         bstrRunAs := bstrRunAs is String ? BSTR.Alloc(bstrRunAs).Value : bstrRunAs
         bstrPassword := bstrPassword is String ? BSTR.Alloc(bstrPassword).Value : bstrPassword
 
-        result := ComCall(42, this, "ptr", bstrApplicationIDOrName, "ptr", bstrServiceName, "ptr", bstrStartType, "ptr", bstrErrorControl, "ptr", bstrDependencies, "ptr", bstrRunAs, "ptr", bstrPassword, "short", bDesktopOk, "HRESULT")
+        result := ComCall(42, this, BSTR, bstrApplicationIDOrName, BSTR, bstrServiceName, BSTR, bstrStartType, BSTR, bstrErrorControl, BSTR, bstrDependencies, BSTR, bstrRunAs, BSTR, bstrPassword, VARIANT_BOOL, bDesktopOk, "HRESULT")
         return result
     }
 
@@ -336,7 +379,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
     DeleteServiceForApplication(bstrApplicationIDOrName) {
         bstrApplicationIDOrName := bstrApplicationIDOrName is String ? BSTR.Alloc(bstrApplicationIDOrName).Value : bstrApplicationIDOrName
 
-        result := ComCall(43, this, "ptr", bstrApplicationIDOrName, "HRESULT")
+        result := ComCall(43, this, BSTR, bstrApplicationIDOrName, "HRESULT")
         return result
     }
 
@@ -349,8 +392,8 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
     GetPartitionID(bstrApplicationIDOrName) {
         bstrApplicationIDOrName := bstrApplicationIDOrName is String ? BSTR.Alloc(bstrApplicationIDOrName).Value : bstrApplicationIDOrName
 
-        pbstrPartitionID := BSTR()
-        result := ComCall(44, this, "ptr", bstrApplicationIDOrName, "ptr", pbstrPartitionID, "HRESULT")
+        pbstrPartitionID := BSTR.Owned()
+        result := ComCall(44, this, BSTR, bstrApplicationIDOrName, BSTR.Ptr, pbstrPartitionID, "HRESULT")
         return pbstrPartitionID
     }
 
@@ -363,8 +406,8 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
     GetPartitionName(bstrApplicationIDOrName) {
         bstrApplicationIDOrName := bstrApplicationIDOrName is String ? BSTR.Alloc(bstrApplicationIDOrName).Value : bstrApplicationIDOrName
 
-        pbstrPartitionName := BSTR()
-        result := ComCall(45, this, "ptr", bstrApplicationIDOrName, "ptr", pbstrPartitionName, "HRESULT")
+        pbstrPartitionName := BSTR.Owned()
+        result := ComCall(45, this, BSTR, bstrApplicationIDOrName, BSTR.Ptr, pbstrPartitionName, "HRESULT")
         return pbstrPartitionName
     }
 
@@ -377,7 +420,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
     put_CurrentPartition(bstrPartitionIDOrName) {
         bstrPartitionIDOrName := bstrPartitionIDOrName is String ? BSTR.Alloc(bstrPartitionIDOrName).Value : bstrPartitionIDOrName
 
-        result := ComCall(46, this, "ptr", bstrPartitionIDOrName, "HRESULT")
+        result := ComCall(46, this, BSTR, bstrPartitionIDOrName, "HRESULT")
         return result
     }
 
@@ -387,8 +430,8 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-get_currentpartitionid
      */
     get_CurrentPartitionID() {
-        pbstrPartitionID := BSTR()
-        result := ComCall(47, this, "ptr", pbstrPartitionID, "HRESULT")
+        pbstrPartitionID := BSTR.Owned()
+        result := ComCall(47, this, BSTR.Ptr, pbstrPartitionID, "HRESULT")
         return pbstrPartitionID
     }
 
@@ -398,8 +441,8 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-get_currentpartitionname
      */
     get_CurrentPartitionName() {
-        pbstrPartitionName := BSTR()
-        result := ComCall(48, this, "ptr", pbstrPartitionName, "HRESULT")
+        pbstrPartitionName := BSTR.Owned()
+        result := ComCall(48, this, BSTR.Ptr, pbstrPartitionName, "HRESULT")
         return pbstrPartitionName
     }
 
@@ -409,8 +452,8 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-get_globalpartitionid
      */
     get_GlobalPartitionID() {
-        pbstrGlobalPartitionID := BSTR()
-        result := ComCall(49, this, "ptr", pbstrGlobalPartitionID, "HRESULT")
+        pbstrGlobalPartitionID := BSTR.Owned()
+        result := ComCall(49, this, BSTR.Ptr, pbstrGlobalPartitionID, "HRESULT")
         return pbstrGlobalPartitionID
     }
 
@@ -436,7 +479,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
         bstrSourcePartitionIDOrName := bstrSourcePartitionIDOrName is String ? BSTR.Alloc(bstrSourcePartitionIDOrName).Value : bstrSourcePartitionIDOrName
         bstrDestinationPartitionIDOrName := bstrDestinationPartitionIDOrName is String ? BSTR.Alloc(bstrDestinationPartitionIDOrName).Value : bstrDestinationPartitionIDOrName
 
-        result := ComCall(51, this, "ptr", bstrSourcePartitionIDOrName, "ptr", pVarApplicationID, "ptr", bstrDestinationPartitionIDOrName, "HRESULT")
+        result := ComCall(51, this, BSTR, bstrSourcePartitionIDOrName, VARIANT.Ptr, pVarApplicationID, BSTR, bstrDestinationPartitionIDOrName, "HRESULT")
         return result
     }
 
@@ -481,7 +524,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
         bstrSourceApplicationIDOrName := bstrSourceApplicationIDOrName is String ? BSTR.Alloc(bstrSourceApplicationIDOrName).Value : bstrSourceApplicationIDOrName
         bstrDestinationApplicationIDOrName := bstrDestinationApplicationIDOrName is String ? BSTR.Alloc(bstrDestinationApplicationIDOrName).Value : bstrDestinationApplicationIDOrName
 
-        result := ComCall(52, this, "ptr", bstrSourceApplicationIDOrName, "ptr", pVarCLSIDOrProgID, "ptr", bstrDestinationApplicationIDOrName, "HRESULT")
+        result := ComCall(52, this, BSTR, bstrSourceApplicationIDOrName, VARIANT.Ptr, pVarCLSIDOrProgID, BSTR, bstrDestinationApplicationIDOrName, "HRESULT")
         return result
     }
 
@@ -526,7 +569,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
         bstrSourceApplicationIDOrName := bstrSourceApplicationIDOrName is String ? BSTR.Alloc(bstrSourceApplicationIDOrName).Value : bstrSourceApplicationIDOrName
         bstrDestinationApplicationIDOrName := bstrDestinationApplicationIDOrName is String ? BSTR.Alloc(bstrDestinationApplicationIDOrName).Value : bstrDestinationApplicationIDOrName
 
-        result := ComCall(53, this, "ptr", bstrSourceApplicationIDOrName, "ptr", pVarCLSIDOrProgID, "ptr", bstrDestinationApplicationIDOrName, "HRESULT")
+        result := ComCall(53, this, BSTR, bstrSourceApplicationIDOrName, VARIANT.Ptr, pVarCLSIDOrProgID, BSTR, bstrDestinationApplicationIDOrName, "HRESULT")
         return result
     }
 
@@ -576,7 +619,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
         bstrNewProgId := bstrNewProgId is String ? BSTR.Alloc(bstrNewProgId).Value : bstrNewProgId
         bstrNewClsid := bstrNewClsid is String ? BSTR.Alloc(bstrNewClsid).Value : bstrNewClsid
 
-        result := ComCall(54, this, "ptr", bstrSrcApplicationIDOrName, "ptr", bstrCLSIDOrProgID, "ptr", bstrDestApplicationIDOrName, "ptr", bstrNewProgId, "ptr", bstrNewClsid, "HRESULT")
+        result := ComCall(54, this, BSTR, bstrSrcApplicationIDOrName, BSTR, bstrCLSIDOrProgID, BSTR, bstrDestApplicationIDOrName, BSTR, bstrNewProgId, BSTR, bstrNewClsid, "HRESULT")
         return result
     }
 
@@ -589,7 +632,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
     IsSafeToDelete(bstrDllName) {
         bstrDllName := bstrDllName is String ? BSTR.Alloc(bstrDllName).Value : bstrDllName
 
-        result := ComCall(55, this, "ptr", bstrDllName, "int*", &pCOMAdminInUse := 0, "HRESULT")
+        result := ComCall(55, this, BSTR, bstrDllName, "int*", &pCOMAdminInUse := 0, "HRESULT")
         return pCOMAdminInUse
     }
 
@@ -604,7 +647,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
     ImportUnconfiguredComponents(bstrApplicationIDOrName, pVarCLSIDOrProgID, pVarComponentType) {
         bstrApplicationIDOrName := bstrApplicationIDOrName is String ? BSTR.Alloc(bstrApplicationIDOrName).Value : bstrApplicationIDOrName
 
-        result := ComCall(56, this, "ptr", bstrApplicationIDOrName, "ptr", pVarCLSIDOrProgID, "ptr", pVarComponentType, "HRESULT")
+        result := ComCall(56, this, BSTR, bstrApplicationIDOrName, VARIANT.Ptr, pVarCLSIDOrProgID, VARIANT.Ptr, pVarComponentType, "HRESULT")
         return result
     }
 
@@ -619,7 +662,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
     PromoteUnconfiguredComponents(bstrApplicationIDOrName, pVarCLSIDOrProgID, pVarComponentType) {
         bstrApplicationIDOrName := bstrApplicationIDOrName is String ? BSTR.Alloc(bstrApplicationIDOrName).Value : bstrApplicationIDOrName
 
-        result := ComCall(57, this, "ptr", bstrApplicationIDOrName, "ptr", pVarCLSIDOrProgID, "ptr", pVarComponentType, "HRESULT")
+        result := ComCall(57, this, BSTR, bstrApplicationIDOrName, VARIANT.Ptr, pVarCLSIDOrProgID, VARIANT.Ptr, pVarComponentType, "HRESULT")
         return result
     }
 
@@ -634,7 +677,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
     ImportComponents(bstrApplicationIDOrName, pVarCLSIDOrProgID, pVarComponentType) {
         bstrApplicationIDOrName := bstrApplicationIDOrName is String ? BSTR.Alloc(bstrApplicationIDOrName).Value : bstrApplicationIDOrName
 
-        result := ComCall(58, this, "ptr", bstrApplicationIDOrName, "ptr", pVarCLSIDOrProgID, "ptr", pVarComponentType, "HRESULT")
+        result := ComCall(58, this, BSTR, bstrApplicationIDOrName, VARIANT.Ptr, pVarCLSIDOrProgID, VARIANT.Ptr, pVarComponentType, "HRESULT")
         return result
     }
 
@@ -644,7 +687,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-get_is64bitcatalogserver
      */
     get_Is64BitCatalogServer() {
-        result := ComCall(59, this, "short*", &pbIs64Bit := 0, "HRESULT")
+        result := ComCall(59, this, VARIANT_BOOL.Ptr, &pbIs64Bit := 0, "HRESULT")
         return pbIs64Bit
     }
 
@@ -689,7 +732,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
         bstrPartitionIDOrName := bstrPartitionIDOrName is String ? BSTR.Alloc(bstrPartitionIDOrName).Value : bstrPartitionIDOrName
         bstrPartitionFileName := bstrPartitionFileName is String ? BSTR.Alloc(bstrPartitionFileName).Value : bstrPartitionFileName
 
-        result := ComCall(60, this, "ptr", bstrPartitionIDOrName, "ptr", bstrPartitionFileName, "int", lOptions, "HRESULT")
+        result := ComCall(60, this, BSTR, bstrPartitionIDOrName, BSTR, bstrPartitionFileName, COMAdminApplicationExportOptions, lOptions, "HRESULT")
         return result
     }
 
@@ -711,7 +754,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
         bstrPassword := bstrPassword is String ? BSTR.Alloc(bstrPassword).Value : bstrPassword
         bstrRSN := bstrRSN is String ? BSTR.Alloc(bstrRSN).Value : bstrRSN
 
-        result := ComCall(61, this, "ptr", bstrFileName, "ptr", bstrDestDirectory, "int", lOptions, "ptr", bstrUserID, "ptr", bstrPassword, "ptr", bstrRSN, "HRESULT")
+        result := ComCall(61, this, BSTR, bstrFileName, BSTR, bstrDestDirectory, COMAdminApplicationInstallOptions, lOptions, BSTR, bstrUserID, BSTR, bstrPassword, BSTR, bstrRSN, "HRESULT")
         return result
     }
 
@@ -724,7 +767,7 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
     QueryApplicationFile2(bstrApplicationFile) {
         bstrApplicationFile := bstrApplicationFile is String ? BSTR.Alloc(bstrApplicationFile).Value : bstrApplicationFile
 
-        result := ComCall(62, this, "ptr", bstrApplicationFile, "ptr*", &ppFilesForImport := 0, "HRESULT")
+        result := ComCall(62, this, BSTR, bstrApplicationFile, "ptr*", &ppFilesForImport := 0, "HRESULT")
         return IDispatch(ppFilesForImport)
     }
 
@@ -737,7 +780,87 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog {
     GetComponentVersionCount(bstrCLSIDOrProgID) {
         bstrCLSIDOrProgID := bstrCLSIDOrProgID is String ? BSTR.Alloc(bstrCLSIDOrProgID).Value : bstrCLSIDOrProgID
 
-        result := ComCall(63, this, "ptr", bstrCLSIDOrProgID, "int*", &plVersionCount := 0, "HRESULT")
+        result := ComCall(63, this, BSTR, bstrCLSIDOrProgID, "int*", &plVersionCount := 0, "HRESULT")
         return plVersionCount
+    }
+
+    Query(iid) {
+        if (ICOMAdminCatalog2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCollectionByQuery2 := CallbackCreate(GetMethod(implObj, "GetCollectionByQuery2"), flags, 4)
+        this.vtbl.GetApplicationInstanceIDFromProcessID := CallbackCreate(GetMethod(implObj, "GetApplicationInstanceIDFromProcessID"), flags, 3)
+        this.vtbl.ShutdownApplicationInstances := CallbackCreate(GetMethod(implObj, "ShutdownApplicationInstances"), flags, 2)
+        this.vtbl.PauseApplicationInstances := CallbackCreate(GetMethod(implObj, "PauseApplicationInstances"), flags, 2)
+        this.vtbl.ResumeApplicationInstances := CallbackCreate(GetMethod(implObj, "ResumeApplicationInstances"), flags, 2)
+        this.vtbl.RecycleApplicationInstances := CallbackCreate(GetMethod(implObj, "RecycleApplicationInstances"), flags, 3)
+        this.vtbl.AreApplicationInstancesPaused := CallbackCreate(GetMethod(implObj, "AreApplicationInstancesPaused"), flags, 3)
+        this.vtbl.DumpApplicationInstance := CallbackCreate(GetMethod(implObj, "DumpApplicationInstance"), flags, 5)
+        this.vtbl.get_IsApplicationInstanceDumpSupported := CallbackCreate(GetMethod(implObj, "get_IsApplicationInstanceDumpSupported"), flags, 2)
+        this.vtbl.CreateServiceForApplication := CallbackCreate(GetMethod(implObj, "CreateServiceForApplication"), flags, 9)
+        this.vtbl.DeleteServiceForApplication := CallbackCreate(GetMethod(implObj, "DeleteServiceForApplication"), flags, 2)
+        this.vtbl.GetPartitionID := CallbackCreate(GetMethod(implObj, "GetPartitionID"), flags, 3)
+        this.vtbl.GetPartitionName := CallbackCreate(GetMethod(implObj, "GetPartitionName"), flags, 3)
+        this.vtbl.put_CurrentPartition := CallbackCreate(GetMethod(implObj, "put_CurrentPartition"), flags, 2)
+        this.vtbl.get_CurrentPartitionID := CallbackCreate(GetMethod(implObj, "get_CurrentPartitionID"), flags, 2)
+        this.vtbl.get_CurrentPartitionName := CallbackCreate(GetMethod(implObj, "get_CurrentPartitionName"), flags, 2)
+        this.vtbl.get_GlobalPartitionID := CallbackCreate(GetMethod(implObj, "get_GlobalPartitionID"), flags, 2)
+        this.vtbl.FlushPartitionCache := CallbackCreate(GetMethod(implObj, "FlushPartitionCache"), flags, 1)
+        this.vtbl.CopyApplications := CallbackCreate(GetMethod(implObj, "CopyApplications"), flags, 4)
+        this.vtbl.CopyComponents := CallbackCreate(GetMethod(implObj, "CopyComponents"), flags, 4)
+        this.vtbl.MoveComponents := CallbackCreate(GetMethod(implObj, "MoveComponents"), flags, 4)
+        this.vtbl.AliasComponent := CallbackCreate(GetMethod(implObj, "AliasComponent"), flags, 6)
+        this.vtbl.IsSafeToDelete := CallbackCreate(GetMethod(implObj, "IsSafeToDelete"), flags, 3)
+        this.vtbl.ImportUnconfiguredComponents := CallbackCreate(GetMethod(implObj, "ImportUnconfiguredComponents"), flags, 4)
+        this.vtbl.PromoteUnconfiguredComponents := CallbackCreate(GetMethod(implObj, "PromoteUnconfiguredComponents"), flags, 4)
+        this.vtbl.ImportComponents := CallbackCreate(GetMethod(implObj, "ImportComponents"), flags, 4)
+        this.vtbl.get_Is64BitCatalogServer := CallbackCreate(GetMethod(implObj, "get_Is64BitCatalogServer"), flags, 2)
+        this.vtbl.ExportPartition := CallbackCreate(GetMethod(implObj, "ExportPartition"), flags, 4)
+        this.vtbl.InstallPartition := CallbackCreate(GetMethod(implObj, "InstallPartition"), flags, 7)
+        this.vtbl.QueryApplicationFile2 := CallbackCreate(GetMethod(implObj, "QueryApplicationFile2"), flags, 3)
+        this.vtbl.GetComponentVersionCount := CallbackCreate(GetMethod(implObj, "GetComponentVersionCount"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCollectionByQuery2)
+        CallbackFree(this.vtbl.GetApplicationInstanceIDFromProcessID)
+        CallbackFree(this.vtbl.ShutdownApplicationInstances)
+        CallbackFree(this.vtbl.PauseApplicationInstances)
+        CallbackFree(this.vtbl.ResumeApplicationInstances)
+        CallbackFree(this.vtbl.RecycleApplicationInstances)
+        CallbackFree(this.vtbl.AreApplicationInstancesPaused)
+        CallbackFree(this.vtbl.DumpApplicationInstance)
+        CallbackFree(this.vtbl.get_IsApplicationInstanceDumpSupported)
+        CallbackFree(this.vtbl.CreateServiceForApplication)
+        CallbackFree(this.vtbl.DeleteServiceForApplication)
+        CallbackFree(this.vtbl.GetPartitionID)
+        CallbackFree(this.vtbl.GetPartitionName)
+        CallbackFree(this.vtbl.put_CurrentPartition)
+        CallbackFree(this.vtbl.get_CurrentPartitionID)
+        CallbackFree(this.vtbl.get_CurrentPartitionName)
+        CallbackFree(this.vtbl.get_GlobalPartitionID)
+        CallbackFree(this.vtbl.FlushPartitionCache)
+        CallbackFree(this.vtbl.CopyApplications)
+        CallbackFree(this.vtbl.CopyComponents)
+        CallbackFree(this.vtbl.MoveComponents)
+        CallbackFree(this.vtbl.AliasComponent)
+        CallbackFree(this.vtbl.IsSafeToDelete)
+        CallbackFree(this.vtbl.ImportUnconfiguredComponents)
+        CallbackFree(this.vtbl.PromoteUnconfiguredComponents)
+        CallbackFree(this.vtbl.ImportComponents)
+        CallbackFree(this.vtbl.get_Is64BitCatalogServer)
+        CallbackFree(this.vtbl.ExportPartition)
+        CallbackFree(this.vtbl.InstallPartition)
+        CallbackFree(this.vtbl.QueryApplicationFile2)
+        CallbackFree(this.vtbl.GetComponentVersionCount)
     }
 }

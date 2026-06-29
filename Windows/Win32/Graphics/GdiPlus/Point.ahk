@@ -1,29 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents an ordered pair of floating-point x- and y-coordinates that defines a point in a two-dimensional plane.
  * @see https://learn.microsoft.com/windows/win32/api/windows.foundation/ns-windows-foundation-point
  * @namespace Windows.Win32.Graphics.GdiPlus
  */
-class Point extends Win32Struct {
-    static sizeof => 8
+export default struct Point {
+    #StructPack 4
 
-    static packingSize => 4
+    X : Int32
 
-    /**
-     * @type {Integer}
-     */
-    X {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Y : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Y {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
 }

@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\DML_GRAPH_NODE_DESC.ahk
-#Include .\DML_GRAPH_EDGE_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DML_GRAPH_NODE_DESC.ahk" { DML_GRAPH_NODE_DESC }
+#Import ".\DML_GRAPH_EDGE_DESC.ahk" { DML_GRAPH_EDGE_DESC }
 
 /**
  * Describes a graph of DirectML operators used to compile a combined, optimized operator.
@@ -14,118 +13,77 @@
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_graph_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  */
-class DML_GRAPH_DESC extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct DML_GRAPH_DESC {
+    #StructPack 8
 
     /**
      * Type: [**UINT**](/windows/desktop/winprog/windows-data-types)
      * 
      * The number of inputs of the overall graph. Each graph input may be connected to a variable number of internal nodes, therefore this may be different from *InputEdgeCount*.
-     * @type {Integer}
      */
-    InputCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    InputCount : UInt32
 
     /**
      * Type: [**UINT**](/windows/desktop/winprog/windows-data-types)
      * 
      * The number of outputs of the overall graph. Each graph output may be connected to a variable number of internal nodes, therefore this may be different from *OutputEdgeCount*.
-     * @type {Integer}
      */
-    OutputCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    OutputCount : UInt32
 
     /**
      * Type: [**UINT**](/windows/desktop/winprog/windows-data-types)
      * 
      * The number of internal nodes in the graph.
-     * @type {Integer}
      */
-    NodeCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NodeCount : UInt32
 
     /**
      * Type: \_Field\_size\_(NodeCount) **const [DML_GRAPH_NODE_DESC](/windows/win32/api/directml/ns-directml-dml_graph_node_desc)\***
      * 
      * The internal nodes in the graph.
-     * @type {Pointer<DML_GRAPH_NODE_DESC>}
      */
-    Nodes {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Nodes : DML_GRAPH_NODE_DESC.Ptr
 
     /**
      * Type: [**UINT**](/windows/desktop/winprog/windows-data-types)
      * 
      * The number of connections between graph inputs and inputs of internal nodes in the graph.
-     * @type {Integer}
      */
-    InputEdgeCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    InputEdgeCount : UInt32
 
     /**
      * Type: \_Field\_size\_(InputEdgeCount) **const [DML_GRAPH_EDGE_DESC](/windows/win32/api/directml/ns-directml-dml_graph_edge_desc)\***
      * 
      * An array of connections between graph inputs and inputs of internal nodes in the graph. The *Type* field within each element should be set to [DML_GRAPH_EDGE_TYPE_INPUT](/windows/win32/api/directml/ne-directml-dml_graph_edge_type).
-     * @type {Pointer<DML_GRAPH_EDGE_DESC>}
      */
-    InputEdges {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    InputEdges : DML_GRAPH_EDGE_DESC.Ptr
 
     /**
      * Type: [**UINT**](/windows/desktop/winprog/windows-data-types)
      * 
      * The number of connections between graph outputs and outputs of internal nodes in the graph.
-     * @type {Integer}
      */
-    OutputEdgeCount {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    OutputEdgeCount : UInt32
 
     /**
      * Type: \_Field\_size\_(OutputEdgeCount) **const [DML_GRAPH_EDGE_DESC](/windows/win32/api/directml/ns-directml-dml_graph_edge_desc)\***
      * 
      * An array of connections between graph outputs and outputs of internal nodes in the graph. The *Type* field within each element should be set to [DML_GRAPH_EDGE_TYPE_OUTPUT](/windows/win32/api/directml/ne-directml-dml_graph_edge_type).
-     * @type {Pointer<DML_GRAPH_EDGE_DESC>}
      */
-    OutputEdges {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    OutputEdges : DML_GRAPH_EDGE_DESC.Ptr
 
     /**
      * Type: [**UINT**](/windows/desktop/winprog/windows-data-types)
      * 
      * The number of internal connections between nodes in the graph.
-     * @type {Integer}
      */
-    IntermediateEdgeCount {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    IntermediateEdgeCount : UInt32
 
     /**
      * Type: \_Field\_size\_(IntermediateEdgeCount) **const [DML_GRAPH_EDGE_DESC](/windows/win32/api/directml/ns-directml-dml_graph_edge_desc)\***
      * 
      * An array of connections between inputs and outputs of internal nodes in the graph. The Type field within each element should be set to [DML_GRAPH_EDGE_TYPE_INTERMEDIATE](/windows/win32/api/directml/ne-directml-dml_graph_edge_type)
-     * @type {Pointer<DML_GRAPH_EDGE_DESC>}
      */
-    IntermediateEdges {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    IntermediateEdges : DML_GRAPH_EDGE_DESC.Ptr
+
 }

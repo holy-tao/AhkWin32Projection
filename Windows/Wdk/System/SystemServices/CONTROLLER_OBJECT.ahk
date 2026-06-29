@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class CONTROLLER_OBJECT extends Win32Struct {
-    static sizeof => 40
+export default struct CONTROLLER_OBJECT {
+    #StructPack 8
 
-    static packingSize => 8
+    Type : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 0, "short")
-        set => NumPut("short", value, this, 0)
-    }
+    Size : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 2, "short")
-        set => NumPut("short", value, this, 2)
-    }
+    ControllerExtension : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    ControllerExtension {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    DeviceWaitQueue : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    DeviceWaitQueue {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Spare1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Spare1 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Spare2 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Spare2 {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
 }

@@ -1,102 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class ATM_BLLI_IE extends Win32Struct {
-    static sizeof => 36
+export default struct ATM_BLLI_IE {
+    #StructPack 4
 
-    static packingSize => 4
+    Layer2Protocol : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Layer2Protocol {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Layer2Mode : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Layer2Mode {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    Layer2WindowSize : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Layer2WindowSize {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    Layer2UserSpecifiedProtocol : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Layer2UserSpecifiedProtocol {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Layer3Protocol : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Layer3Protocol {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Layer3Mode : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Layer3Mode {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    Layer3DefaultPacketSize : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Layer3DefaultPacketSize {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
+    Layer3PacketWindowSize : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Layer3PacketWindowSize {
-        get => NumGet(this, 18, "char")
-        set => NumPut("char", value, this, 18)
-    }
+    Layer3UserSpecifiedProtocol : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Layer3UserSpecifiedProtocol {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    Layer3IPI : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Layer3IPI {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    SnapID : Int8[5]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    SnapID {
-        get {
-            if(!this.HasProp("__SnapIDProxyArray"))
-                this.__SnapIDProxyArray := Win32FixedArray(this.ptr + 28, 5, Primitive, "char")
-            return this.__SnapIDProxyArray
-        }
-    }
 }

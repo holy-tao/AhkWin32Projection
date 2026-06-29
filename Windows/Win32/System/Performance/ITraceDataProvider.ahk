@@ -1,10 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IValueMap.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IValueMap.ahk" { IValueMap }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Specifies a trace provider to enable in the trace session.
@@ -15,32 +17,57 @@
  * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-itracedataprovider
  * @namespace Windows.Win32.System.Performance
  */
-class ITraceDataProvider extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITraceDataProvider extends IDispatch {
     /**
      * The interface identifier for ITraceDataProvider
      * @type {Guid}
      */
-    static IID => Guid("{03837512-098b-11d8-9414-505054503030}")
+    static IID := Guid("{03837512-098b-11d8-9414-505054503030}")
 
     /**
      * The class identifier for TraceDataProvider
      * @type {Guid}
      */
-    static CLSID => Guid("{03837513-098b-11d8-9414-505054503030}")
+    static CLSID := Guid("{03837513-098b-11d8-9414-505054503030}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITraceDataProvider interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_DisplayName        : IntPtr
+        put_DisplayName        : IntPtr
+        get_Guid               : IntPtr
+        put_Guid               : IntPtr
+        get_Level              : IntPtr
+        get_KeywordsAny        : IntPtr
+        get_KeywordsAll        : IntPtr
+        get_Properties         : IntPtr
+        get_FilterEnabled      : IntPtr
+        put_FilterEnabled      : IntPtr
+        get_FilterType         : IntPtr
+        put_FilterType         : IntPtr
+        get_FilterData         : IntPtr
+        put_FilterData         : IntPtr
+        Query                  : IntPtr
+        Resolve                : IntPtr
+        SetSecurity            : IntPtr
+        GetSecurity            : IntPtr
+        GetRegisteredProcesses : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_DisplayName", "put_DisplayName", "get_Guid", "put_Guid", "get_Level", "get_KeywordsAny", "get_KeywordsAll", "get_Properties", "get_FilterEnabled", "put_FilterEnabled", "get_FilterType", "put_FilterType", "get_FilterData", "put_FilterData", "Query", "Resolve", "SetSecurity", "GetSecurity", "GetRegisteredProcesses"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITraceDataProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -116,8 +143,8 @@ class ITraceDataProvider extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedataprovider-get_displayname
      */
     get_DisplayName() {
-        name := BSTR()
-        result := ComCall(7, this, "ptr", name, "HRESULT")
+        name := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, name, "HRESULT")
         return name
     }
 
@@ -130,7 +157,7 @@ class ITraceDataProvider extends IDispatch {
     put_DisplayName(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(8, this, "ptr", name, "HRESULT")
+        result := ComCall(8, this, BSTR, name, "HRESULT")
         return result
     }
 
@@ -141,7 +168,7 @@ class ITraceDataProvider extends IDispatch {
      */
     get_Guid() {
         guid := Guid()
-        result := ComCall(9, this, "ptr", guid, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, guid, "HRESULT")
         return guid
     }
 
@@ -152,7 +179,7 @@ class ITraceDataProvider extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedataprovider-put_guid
      */
     put_Guid(guid) {
-        result := ComCall(10, this, "ptr", guid, "HRESULT")
+        result := ComCall(10, this, Guid, guid, "HRESULT")
         return result
     }
 
@@ -289,7 +316,7 @@ class ITraceDataProvider extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedataprovider-get_filterenabled
      */
     get_FilterEnabled() {
-        result := ComCall(15, this, "short*", &FilterEnabled := 0, "HRESULT")
+        result := ComCall(15, this, VARIANT_BOOL.Ptr, &FilterEnabled := 0, "HRESULT")
         return FilterEnabled
     }
 
@@ -300,7 +327,7 @@ class ITraceDataProvider extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedataprovider-put_filterenabled
      */
     put_FilterEnabled(FilterEnabled) {
-        result := ComCall(16, this, "short", FilterEnabled, "HRESULT")
+        result := ComCall(16, this, VARIANT_BOOL, FilterEnabled, "HRESULT")
         return result
     }
 
@@ -342,7 +369,7 @@ class ITraceDataProvider extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedataprovider-put_filterdata
      */
     put_FilterData(pData) {
-        result := ComCall(20, this, "ptr", pData, "HRESULT")
+        result := ComCall(20, this, SAFEARRAY.Ptr, pData, "HRESULT")
         return result
     }
 
@@ -361,7 +388,7 @@ class ITraceDataProvider extends IDispatch {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
         bstrServer := bstrServer is String ? BSTR.Alloc(bstrServer).Value : bstrServer
 
-        result := ComCall(21, this, "ptr", bstrName, "ptr", bstrServer, "HRESULT")
+        result := ComCall(21, this, BSTR, bstrName, BSTR, bstrServer, "HRESULT")
         return result
     }
 
@@ -387,7 +414,7 @@ class ITraceDataProvider extends IDispatch {
     SetSecurity(Sddl) {
         Sddl := Sddl is String ? BSTR.Alloc(Sddl).Value : Sddl
 
-        result := ComCall(23, this, "ptr", Sddl, "HRESULT")
+        result := ComCall(23, this, BSTR, Sddl, "HRESULT")
         return result
     }
 
@@ -398,8 +425,8 @@ class ITraceDataProvider extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedataprovider-getsecurity
      */
     GetSecurity(SecurityInfo) {
-        Sddl := BSTR()
-        result := ComCall(24, this, "uint", SecurityInfo, "ptr", Sddl, "HRESULT")
+        Sddl := BSTR.Owned()
+        result := ComCall(24, this, "uint", SecurityInfo, BSTR.Ptr, Sddl, "HRESULT")
         return Sddl
     }
 
@@ -411,5 +438,61 @@ class ITraceDataProvider extends IDispatch {
     GetRegisteredProcesses() {
         result := ComCall(25, this, "ptr*", &Processes := 0, "HRESULT")
         return IValueMap(Processes)
+    }
+
+    Query(iid) {
+        if (ITraceDataProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_DisplayName := CallbackCreate(GetMethod(implObj, "get_DisplayName"), flags, 2)
+        this.vtbl.put_DisplayName := CallbackCreate(GetMethod(implObj, "put_DisplayName"), flags, 2)
+        this.vtbl.get_Guid := CallbackCreate(GetMethod(implObj, "get_Guid"), flags, 2)
+        this.vtbl.put_Guid := CallbackCreate(GetMethod(implObj, "put_Guid"), flags, 2)
+        this.vtbl.get_Level := CallbackCreate(GetMethod(implObj, "get_Level"), flags, 2)
+        this.vtbl.get_KeywordsAny := CallbackCreate(GetMethod(implObj, "get_KeywordsAny"), flags, 2)
+        this.vtbl.get_KeywordsAll := CallbackCreate(GetMethod(implObj, "get_KeywordsAll"), flags, 2)
+        this.vtbl.get_Properties := CallbackCreate(GetMethod(implObj, "get_Properties"), flags, 2)
+        this.vtbl.get_FilterEnabled := CallbackCreate(GetMethod(implObj, "get_FilterEnabled"), flags, 2)
+        this.vtbl.put_FilterEnabled := CallbackCreate(GetMethod(implObj, "put_FilterEnabled"), flags, 2)
+        this.vtbl.get_FilterType := CallbackCreate(GetMethod(implObj, "get_FilterType"), flags, 2)
+        this.vtbl.put_FilterType := CallbackCreate(GetMethod(implObj, "put_FilterType"), flags, 2)
+        this.vtbl.get_FilterData := CallbackCreate(GetMethod(implObj, "get_FilterData"), flags, 2)
+        this.vtbl.put_FilterData := CallbackCreate(GetMethod(implObj, "put_FilterData"), flags, 2)
+        this.vtbl.Query := CallbackCreate(GetMethod(implObj, "Query"), flags, 3)
+        this.vtbl.Resolve := CallbackCreate(GetMethod(implObj, "Resolve"), flags, 2)
+        this.vtbl.SetSecurity := CallbackCreate(GetMethod(implObj, "SetSecurity"), flags, 2)
+        this.vtbl.GetSecurity := CallbackCreate(GetMethod(implObj, "GetSecurity"), flags, 3)
+        this.vtbl.GetRegisteredProcesses := CallbackCreate(GetMethod(implObj, "GetRegisteredProcesses"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_DisplayName)
+        CallbackFree(this.vtbl.put_DisplayName)
+        CallbackFree(this.vtbl.get_Guid)
+        CallbackFree(this.vtbl.put_Guid)
+        CallbackFree(this.vtbl.get_Level)
+        CallbackFree(this.vtbl.get_KeywordsAny)
+        CallbackFree(this.vtbl.get_KeywordsAll)
+        CallbackFree(this.vtbl.get_Properties)
+        CallbackFree(this.vtbl.get_FilterEnabled)
+        CallbackFree(this.vtbl.put_FilterEnabled)
+        CallbackFree(this.vtbl.get_FilterType)
+        CallbackFree(this.vtbl.put_FilterType)
+        CallbackFree(this.vtbl.get_FilterData)
+        CallbackFree(this.vtbl.put_FilterData)
+        CallbackFree(this.vtbl.Query)
+        CallbackFree(this.vtbl.Resolve)
+        CallbackFree(this.vtbl.SetSecurity)
+        CallbackFree(this.vtbl.GetSecurity)
+        CallbackFree(this.vtbl.GetRegisteredProcesses)
     }
 }

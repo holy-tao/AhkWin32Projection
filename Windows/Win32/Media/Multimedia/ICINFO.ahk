@@ -1,42 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The ICINFO structure contains compression parameters supplied by a video compression driver. The driver fills or updates the structure when it receives the ICM_GETINFO message.
  * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-icinfo
  * @namespace Windows.Win32.Media.Multimedia
  */
-class ICINFO extends Win32Struct {
-    static sizeof => 568
-
-    static packingSize => 4
+export default struct ICINFO {
+    #StructPack 4
 
     /**
      * Size, in bytes, of the <b>ICINFO</b> structure.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Four-character code indicating the type of stream being compressed or decompressed. Specify "VIDC" for video streams.
-     * @type {Integer}
      */
-    fccType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    fccType : UInt32
 
     /**
      * A four-character code identifying a specific compressor.
-     * @type {Integer}
      */
-    fccHandler {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    fccHandler : UInt32
 
     /**
      * Applicable flags. Zero or more of the following flags can be set:
@@ -117,55 +103,32 @@ class ICINFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwFlags : UInt32
 
     /**
      * Version number of the driver.
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwVersion : UInt32
 
     /**
      * Version of VCM supported by the driver. This member should be set to ICVERSION.
-     * @type {Integer}
      */
-    dwVersionICM {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwVersionICM : UInt32
 
     /**
      * Short version of the compressor name. The name in the null-terminated string should be suitable for use in list boxes.
-     * @type {String}
      */
-    szName {
-        get => StrGet(this.ptr + 24, 15, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 15, "UTF-16")
-    }
+    szName : WCHAR[16]
 
     /**
      * Long version of the compressor name.
-     * @type {String}
      */
-    szDescription {
-        get => StrGet(this.ptr + 56, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 56, 127, "UTF-16")
-    }
+    szDescription : WCHAR[128]
 
     /**
      * Name of the module containing VCM compression driver. Normally, a driver does not need to fill this out.
-     * @type {String}
      */
-    szDriver {
-        get => StrGet(this.ptr + 312, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 312, 127, "UTF-16")
-    }
+    szDriver : WCHAR[128]
+
 }

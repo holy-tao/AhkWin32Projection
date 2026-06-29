@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
 
 /**
  * Adds a bitmap that contains button images to a toolbar.
@@ -14,34 +13,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-tbaddbitmap
  * @namespace Windows.Win32.UI.Controls
  */
-class TBADDBITMAP extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct TBADDBITMAP {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HINSTANCE</a></b>
      * 
      * Handle to the module instance with the executable file that contains a bitmap resource. To use bitmap handles instead of resource IDs, set this member to <b>NULL</b>.
-     * @type {HINSTANCE}
      */
-    hInst {
-        get {
-            if(!this.HasProp("__hInst"))
-                this.__hInst := HINSTANCE(0, this)
-            return this.__hInst
-        }
-    }
+    hInst : HINSTANCE
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT_PTR</a></b>
      * 
      * If 
      * 					<b>hInst</b> is <b>NULL</b>, set this member to the bitmap handle of the bitmap with the button images. Otherwise, set it to the resource identifier of the bitmap with the button images.
-     * @type {Pointer}
      */
-    nID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    nID : IntPtr
+
 }

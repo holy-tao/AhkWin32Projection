@@ -1,37 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VDS_PACK_PROP.ahk
-#Include .\IVdsProvider.ahk
-#Include .\IEnumVdsObject.ahk
-#Include .\IVdsAsync.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VDS_VOLUME_TYPE.ahk" { VDS_VOLUME_TYPE }
+#Import ".\VDS_PARTITION_STYLE.ahk" { VDS_PARTITION_STYLE }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\VDS_PACK_PROP.ahk" { VDS_PACK_PROP }
+#Import ".\VDS_INPUT_DISK.ahk" { VDS_INPUT_DISK }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IVdsProvider.ahk" { IVdsProvider }
+#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
 
 /**
  * Provides methods to query and perform management operations on a pack containing disks and volumes.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdspack
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsPack extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsPack extends IUnknown {
     /**
      * The interface identifier for IVdsPack
      * @type {Guid}
      */
-    static IID => Guid("{3b69d7f5-9d94-4648-91ca-79939ba263bf}")
+    static IID := Guid("{3b69d7f5-9d94-4648-91ca-79939ba263bf}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsPack interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetProperties     : IntPtr
+        GetProvider       : IntPtr
+        QueryVolumes      : IntPtr
+        QueryDisks        : IntPtr
+        CreateVolume      : IntPtr
+        AddDisk           : IntPtr
+        MigrateDisks      : IntPtr
+        ReplaceDisk       : IntPtr
+        RemoveMissingDisk : IntPtr
+        Recover           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetProperties", "GetProvider", "QueryVolumes", "QueryDisks", "CreateVolume", "AddDisk", "MigrateDisks", "ReplaceDisk", "RemoveMissingDisk", "Recover"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsPack.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns the property details of a pack object.
@@ -43,7 +64,7 @@ class IVdsPack extends IUnknown {
      */
     GetProperties() {
         pPackProp := VDS_PACK_PROP()
-        result := ComCall(3, this, "ptr", pPackProp, "HRESULT")
+        result := ComCall(3, this, VDS_PACK_PROP.Ptr, pPackProp, "HRESULT")
         return pPackProp
     }
 
@@ -143,7 +164,7 @@ class IVdsPack extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdspack-createvolume
      */
     CreateVolume(type, pInputDiskArray, lNumberOfDisks, ulStripeSize) {
-        result := ComCall(7, this, "int", type, "ptr", pInputDiskArray, "int", lNumberOfDisks, "uint", ulStripeSize, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(7, this, VDS_VOLUME_TYPE, type, VDS_INPUT_DISK.Ptr, pInputDiskArray, "int", lNumberOfDisks, "uint", ulStripeSize, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 
@@ -284,7 +305,7 @@ class IVdsPack extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdspack-adddisk
      */
     AddDisk(DiskId, PartitionStyle, bAsHotSpare) {
-        result := ComCall(8, this, "ptr", DiskId, "int", PartitionStyle, "int", bAsHotSpare, "HRESULT")
+        result := ComCall(8, this, Guid, DiskId, VDS_PARTITION_STYLE, PartitionStyle, BOOL, bAsHotSpare, "HRESULT")
         return result
     }
 
@@ -472,7 +493,7 @@ class IVdsPack extends IUnknown {
         pResultsMarshal := pResults is VarRef ? "int*" : "ptr"
         pbRebootNeededMarshal := pbRebootNeeded is VarRef ? "int*" : "ptr"
 
-        result := ComCall(9, this, "ptr", pDiskArray, "int", lNumberOfDisks, "ptr", TargetPack, "int", bForce, "int", bQueryOnly, pResultsMarshal, pResults, pbRebootNeededMarshal, pbRebootNeeded, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, pDiskArray, "int", lNumberOfDisks, Guid, TargetPack, BOOL, bForce, BOOL, bQueryOnly, pResultsMarshal, pResults, pbRebootNeededMarshal, pbRebootNeeded, "HRESULT")
         return result
     }
 
@@ -499,7 +520,7 @@ class IVdsPack extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdspack-replacedisk
      */
     ReplaceDisk(OldDiskId, NewDiskId) {
-        result := ComCall(10, this, "ptr", OldDiskId, "ptr", NewDiskId, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(10, this, Guid, OldDiskId, Guid, NewDiskId, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 
@@ -542,7 +563,7 @@ class IVdsPack extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdspack-removemissingdisk
      */
     RemoveMissingDisk(DiskId) {
-        result := ComCall(11, this, "ptr", DiskId, "HRESULT")
+        result := ComCall(11, this, Guid, DiskId, "HRESULT")
         return result
     }
 
@@ -565,5 +586,43 @@ class IVdsPack extends IUnknown {
     Recover() {
         result := ComCall(12, this, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
+    }
+
+    Query(iid) {
+        if (IVdsPack.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetProvider := CallbackCreate(GetMethod(implObj, "GetProvider"), flags, 2)
+        this.vtbl.QueryVolumes := CallbackCreate(GetMethod(implObj, "QueryVolumes"), flags, 2)
+        this.vtbl.QueryDisks := CallbackCreate(GetMethod(implObj, "QueryDisks"), flags, 2)
+        this.vtbl.CreateVolume := CallbackCreate(GetMethod(implObj, "CreateVolume"), flags, 6)
+        this.vtbl.AddDisk := CallbackCreate(GetMethod(implObj, "AddDisk"), flags, 4)
+        this.vtbl.MigrateDisks := CallbackCreate(GetMethod(implObj, "MigrateDisks"), flags, 8)
+        this.vtbl.ReplaceDisk := CallbackCreate(GetMethod(implObj, "ReplaceDisk"), flags, 4)
+        this.vtbl.RemoveMissingDisk := CallbackCreate(GetMethod(implObj, "RemoveMissingDisk"), flags, 2)
+        this.vtbl.Recover := CallbackCreate(GetMethod(implObj, "Recover"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetProperties)
+        CallbackFree(this.vtbl.GetProvider)
+        CallbackFree(this.vtbl.QueryVolumes)
+        CallbackFree(this.vtbl.QueryDisks)
+        CallbackFree(this.vtbl.CreateVolume)
+        CallbackFree(this.vtbl.AddDisk)
+        CallbackFree(this.vtbl.MigrateDisks)
+        CallbackFree(this.vtbl.ReplaceDisk)
+        CallbackFree(this.vtbl.RemoveMissingDisk)
+        CallbackFree(this.vtbl.Recover)
     }
 }

@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFsrmCollection.ahk" { IFsrmCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Used to manage a collection of FSRM objects that can have objects added to or removed from the collection.
  * @see https://learn.microsoft.com/windows/win32/api/fsrm/nn-fsrm-ifsrmmutablecollection
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmMutableCollection extends IFsrmCollection {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmMutableCollection extends IFsrmCollection {
     /**
      * The interface identifier for IFsrmMutableCollection
      * @type {Guid}
      */
-    static IID => Guid("{1bb617b8-3886-49dc-af82-a6c90fa35dda}")
+    static IID := Guid("{1bb617b8-3886-49dc-af82-a6c90fa35dda}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmMutableCollection interfaces
+    */
+    struct Vtbl extends IFsrmCollection.Vtbl {
+        Add        : IntPtr
+        Remove     : IntPtr
+        RemoveById : IntPtr
+        Clone      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Add", "Remove", "RemoveById", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmMutableCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds an object to the collection. (IFsrmMutableCollection.Add)
@@ -38,7 +50,7 @@ class IFsrmMutableCollection extends IFsrmCollection {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmmutablecollection-add
      */
     Add(item) {
-        result := ComCall(14, this, "ptr", item, "HRESULT")
+        result := ComCall(14, this, VARIANT, item, "HRESULT")
         return result
     }
 
@@ -60,7 +72,7 @@ class IFsrmMutableCollection extends IFsrmCollection {
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmmutablecollection-removebyid
      */
     RemoveById(id) {
-        result := ComCall(16, this, "ptr", id, "HRESULT")
+        result := ComCall(16, this, Guid, id, "HRESULT")
         return result
     }
 
@@ -72,5 +84,31 @@ class IFsrmMutableCollection extends IFsrmCollection {
     Clone() {
         result := ComCall(17, this, "ptr*", &collection := 0, "HRESULT")
         return IFsrmMutableCollection(collection)
+    }
+
+    Query(iid) {
+        if (IFsrmMutableCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.RemoveById := CallbackCreate(GetMethod(implObj, "RemoveById"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.Remove)
+        CallbackFree(this.vtbl.RemoveById)
+        CallbackFree(this.vtbl.Clone)
     }
 }

@@ -1,32 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\KernelStreaming\KSM_NODE.ahk
-#Include ..\..\KernelStreaming\KSIDENTIFIER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\KernelStreaming\KSM_NODE.ahk" { KSM_NODE }
+#Import "..\..\KernelStreaming\KSIDENTIFIER.ahk" { KSIDENTIFIER }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class KSM_BDA_WMDRMTUNER_SYNCVALUE extends Win32Struct {
-    static sizeof => 32
+export default struct KSM_BDA_WMDRMTUNER_SYNCVALUE {
+    #StructPack 8
 
-    static packingSize => 8
+    NodeMethod : KSM_NODE
 
-    /**
-     * @type {KSM_NODE}
-     */
-    NodeMethod {
-        get {
-            if(!this.HasProp("__NodeMethod"))
-                this.__NodeMethod := KSM_NODE(0, this)
-            return this.__NodeMethod
-        }
-    }
+    ulSyncValue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulSyncValue {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

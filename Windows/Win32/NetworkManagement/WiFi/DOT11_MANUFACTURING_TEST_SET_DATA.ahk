@@ -1,46 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_MANUFACTURING_TEST_SET_DATA extends Win32Struct {
-    static sizeof => 16
+export default struct DOT11_MANUFACTURING_TEST_SET_DATA {
+    #StructPack 4
 
-    static packingSize => 4
+    uKey : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uKey {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    uOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uOffset {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    uBufferLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uBufferLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ucBufferIn : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ucBufferIn {
-        get {
-            if(!this.HasProp("__ucBufferInProxyArray"))
-                this.__ucBufferInProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
-            return this.__ucBufferInProxyArray
-        }
-    }
 }

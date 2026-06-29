@@ -1,85 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\ROUTER_INTERFACE_TYPE.ahk
-#Include .\ROUTER_CONNECTION_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\ROUTER_INTERFACE_TYPE.ahk" { ROUTER_INTERFACE_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ROUTER_CONNECTION_STATE.ahk" { ROUTER_CONNECTION_STATE }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The MPR_INTERFACE_0 structure contains information for a particular router interface.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mpr_interface_0
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class MPR_INTERFACE_0 extends Win32Struct {
-    static sizeof => 552
-
-    static packingSize => 8
+export default struct MPR_INTERFACE_0 {
+    #StructPack 8
 
     /**
      * Pointer to a Unicode string that contains the name of the interface.
-     * @type {String}
      */
-    wszInterfaceName {
-        get => StrGet(this.ptr + 0, 256, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 256, "UTF-16")
-    }
+    wszInterfaceName : WCHAR[257]
 
     /**
      * Handle to the interface.
-     * @type {HANDLE}
      */
-    hInterface {
-        get {
-            if(!this.HasProp("__hInterface"))
-                this.__hInterface := HANDLE(520, this)
-            return this.__hInterface
-        }
-    }
+    hInterface : HANDLE
 
     /**
      * Specifies whether the interface is enabled. This member is <b>TRUE</b> if the interface is enabled, <b>FALSE</b> if the interface is administratively disabled.
-     * @type {BOOL}
      */
-    fEnabled {
-        get => NumGet(this, 528, "int")
-        set => NumPut("int", value, this, 528)
-    }
+    fEnabled : BOOL
 
     /**
      * Specifies the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ne-mprapi-router_interface_type">type of interface</a>.
-     * @type {ROUTER_INTERFACE_TYPE}
      */
-    dwIfType {
-        get => NumGet(this, 532, "int")
-        set => NumPut("int", value, this, 532)
-    }
+    dwIfType : ROUTER_INTERFACE_TYPE
 
     /**
      * Specifies the current state of the interface, for example connected, disconnected, or unreachable. For a list of possible states, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ne-mprapi-router_connection_state">ROUTER_CONNECTION_STATE</a>.
-     * @type {ROUTER_CONNECTION_STATE}
      */
-    dwConnectionState {
-        get => NumGet(this, 536, "int")
-        set => NumPut("int", value, this, 536)
-    }
+    dwConnectionState : ROUTER_CONNECTION_STATE
 
     /**
      * Specifies a value that represents a reason why the interface cannot be reached. See 
      * <a href="https://docs.microsoft.com/windows/desktop/RRAS/unreachability-reasons">Unreachability Reasons</a> for a list of possible values.
-     * @type {Integer}
      */
-    fUnReachabilityReasons {
-        get => NumGet(this, 540, "uint")
-        set => NumPut("uint", value, this, 540)
-    }
+    fUnReachabilityReasons : UInt32
 
     /**
      * Specifies a nonzero value if the interface fails to connect.
-     * @type {Integer}
      */
-    dwLastError {
-        get => NumGet(this, 544, "uint")
-        set => NumPut("uint", value, this, 544)
-    }
+    dwLastError : UInt32
+
 }

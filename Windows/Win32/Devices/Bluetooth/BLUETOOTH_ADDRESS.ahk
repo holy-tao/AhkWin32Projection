@@ -1,32 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * The BLUETOOTH_ADDRESS structure provides the address of a Bluetooth device.
- * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_address_struct
  * @namespace Windows.Win32.Devices.Bluetooth
  */
-class BLUETOOTH_ADDRESS extends Win32Struct {
-    static sizeof => 8
+export default struct BLUETOOTH_ADDRESS {
+    #StructPack 8
 
-    static packingSize => 8
+    ullLong : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullLong {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    rgBytes {
-        get {
-            if(!this.HasProp("__rgBytesProxyArray"))
-                this.__rgBytesProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
-            return this.__rgBytesProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'rgBytes', { type: Int8[6], offset: 0 })
+        this.DeleteProp("__New")
     }
 }

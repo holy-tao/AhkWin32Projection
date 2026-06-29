@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies device orientation values for notifications of type APO_NOTIFICATION_TYPE_DEVICE_ORIENTATION.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/ne-audioengineextensionapo-device_orientation_type
  * @namespace Windows.Win32.Media.Audio.Apo
  */
-class DEVICE_ORIENTATION_TYPE extends Win32Enum {
+export default struct DEVICE_ORIENTATION_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The device is not rotated

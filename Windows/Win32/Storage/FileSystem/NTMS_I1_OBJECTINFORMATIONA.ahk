@@ -1,288 +1,73 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
-#Include .\NTMS_DRIVEINFORMATIONA.ahk
-#Include .\NTMS_DRIVETYPEINFORMATIONA.ahk
-#Include .\FILE_DEVICE_TYPE.ahk
-#Include .\NTMS_I1_LIBRARYINFORMATION.ahk
-#Include .\NTMS_CHANGERINFORMATIONA.ahk
-#Include .\NTMS_CHANGERTYPEINFORMATIONA.ahk
-#Include .\NTMS_STORAGESLOTINFORMATION.ahk
-#Include .\NTMS_IEDOORINFORMATION.ahk
-#Include .\NTMS_IEPORTINFORMATION.ahk
-#Include .\NTMS_I1_PMIDINFORMATIONA.ahk
-#Include .\NTMS_LMIDINFORMATION.ahk
-#Include .\NTMS_I1_PARTITIONINFORMATIONA.ahk
-#Include .\NTMS_MEDIAPOOLINFORMATION.ahk
-#Include .\NTMS_MEDIATYPEINFORMATION.ahk
-#Include .\NTMS_I1_LIBREQUESTINFORMATIONA.ahk
-#Include .\NTMS_I1_OPREQUESTINFORMATIONA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NTMS_STORAGESLOTINFORMATION.ahk" { NTMS_STORAGESLOTINFORMATION }
+#Import ".\NTMS_DRIVEINFORMATIONA.ahk" { NTMS_DRIVEINFORMATIONA }
+#Import ".\NTMS_I1_PARTITIONINFORMATIONA.ahk" { NTMS_I1_PARTITIONINFORMATIONA }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\NTMS_I1_OPREQUESTINFORMATIONA.ahk" { NTMS_I1_OPREQUESTINFORMATIONA }
+#Import ".\FILE_DEVICE_TYPE.ahk" { FILE_DEVICE_TYPE }
+#Import ".\NTMS_IEDOORINFORMATION.ahk" { NTMS_IEDOORINFORMATION }
+#Import ".\NTMS_I1_LIBRARYINFORMATION.ahk" { NTMS_I1_LIBRARYINFORMATION }
+#Import ".\NTMS_MEDIATYPEINFORMATION.ahk" { NTMS_MEDIATYPEINFORMATION }
+#Import ".\NTMS_LMIDINFORMATION.ahk" { NTMS_LMIDINFORMATION }
+#Import ".\NTMS_MEDIAPOOLINFORMATION.ahk" { NTMS_MEDIAPOOLINFORMATION }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import ".\NTMS_CHANGERTYPEINFORMATIONA.ahk" { NTMS_CHANGERTYPEINFORMATIONA }
+#Import ".\NTMS_DRIVETYPEINFORMATIONA.ahk" { NTMS_DRIVETYPEINFORMATIONA }
+#Import ".\NTMS_CHANGERINFORMATIONA.ahk" { NTMS_CHANGERINFORMATIONA }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\NTMS_IEPORTINFORMATION.ahk" { NTMS_IEPORTINFORMATION }
+#Import ".\NTMS_I1_LIBREQUESTINFORMATIONA.ahk" { NTMS_I1_LIBREQUESTINFORMATIONA }
+#Import ".\NTMS_I1_PMIDINFORMATIONA.ahk" { NTMS_I1_PMIDINFORMATIONA }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
  * @charset ANSI
  */
-class NTMS_I1_OBJECTINFORMATIONA extends Win32Struct {
-    static sizeof => 864
+export default struct NTMS_I1_OBJECTINFORMATIONA {
+    #StructPack 4
 
-    static packingSize => 8
 
-    class _Info_e__Union extends Win32Struct {
-        static sizeof => 616
-        static packingSize => 8
+    struct _Info {
+        Drive : NTMS_DRIVEINFORMATIONA
 
-        /**
-         * @type {NTMS_DRIVEINFORMATIONA}
-         */
-        Drive {
-            get {
-                if(!this.HasProp("__Drive"))
-                    this.__Drive := NTMS_DRIVEINFORMATIONA(0, this)
-                return this.__Drive
-            }
-        }
-
-        /**
-         * @type {NTMS_DRIVETYPEINFORMATIONA}
-         */
-        DriveType {
-            get {
-                if(!this.HasProp("__DriveType"))
-                    this.__DriveType := NTMS_DRIVETYPEINFORMATIONA(0, this)
-                return this.__DriveType
-            }
-        }
-
-        /**
-         * @type {NTMS_I1_LIBRARYINFORMATION}
-         */
-        Library {
-            get {
-                if(!this.HasProp("__Library"))
-                    this.__Library := NTMS_I1_LIBRARYINFORMATION(0, this)
-                return this.__Library
-            }
-        }
-
-        /**
-         * @type {NTMS_CHANGERINFORMATIONA}
-         */
-        Changer {
-            get {
-                if(!this.HasProp("__Changer"))
-                    this.__Changer := NTMS_CHANGERINFORMATIONA(0, this)
-                return this.__Changer
-            }
-        }
-
-        /**
-         * @type {NTMS_CHANGERTYPEINFORMATIONA}
-         */
-        ChangerType {
-            get {
-                if(!this.HasProp("__ChangerType"))
-                    this.__ChangerType := NTMS_CHANGERTYPEINFORMATIONA(0, this)
-                return this.__ChangerType
-            }
-        }
-
-        /**
-         * @type {NTMS_STORAGESLOTINFORMATION}
-         */
-        StorageSlot {
-            get {
-                if(!this.HasProp("__StorageSlot"))
-                    this.__StorageSlot := NTMS_STORAGESLOTINFORMATION(0, this)
-                return this.__StorageSlot
-            }
-        }
-
-        /**
-         * @type {NTMS_IEDOORINFORMATION}
-         */
-        IEDoor {
-            get {
-                if(!this.HasProp("__IEDoor"))
-                    this.__IEDoor := NTMS_IEDOORINFORMATION(0, this)
-                return this.__IEDoor
-            }
-        }
-
-        /**
-         * @type {NTMS_IEPORTINFORMATION}
-         */
-        IEPort {
-            get {
-                if(!this.HasProp("__IEPort"))
-                    this.__IEPort := NTMS_IEPORTINFORMATION(0, this)
-                return this.__IEPort
-            }
-        }
-
-        /**
-         * @type {NTMS_I1_PMIDINFORMATIONA}
-         */
-        PhysicalMedia {
-            get {
-                if(!this.HasProp("__PhysicalMedia"))
-                    this.__PhysicalMedia := NTMS_I1_PMIDINFORMATIONA(0, this)
-                return this.__PhysicalMedia
-            }
-        }
-
-        /**
-         * @type {NTMS_LMIDINFORMATION}
-         */
-        LogicalMedia {
-            get {
-                if(!this.HasProp("__LogicalMedia"))
-                    this.__LogicalMedia := NTMS_LMIDINFORMATION(0, this)
-                return this.__LogicalMedia
-            }
-        }
-
-        /**
-         * @type {NTMS_I1_PARTITIONINFORMATIONA}
-         */
-        Partition {
-            get {
-                if(!this.HasProp("__Partition"))
-                    this.__Partition := NTMS_I1_PARTITIONINFORMATIONA(0, this)
-                return this.__Partition
-            }
-        }
-
-        /**
-         * @type {NTMS_MEDIAPOOLINFORMATION}
-         */
-        MediaPool {
-            get {
-                if(!this.HasProp("__MediaPool"))
-                    this.__MediaPool := NTMS_MEDIAPOOLINFORMATION(0, this)
-                return this.__MediaPool
-            }
-        }
-
-        /**
-         * @type {NTMS_MEDIATYPEINFORMATION}
-         */
-        MediaType {
-            get {
-                if(!this.HasProp("__MediaType"))
-                    this.__MediaType := NTMS_MEDIATYPEINFORMATION(0, this)
-                return this.__MediaType
-            }
-        }
-
-        /**
-         * @type {NTMS_I1_LIBREQUESTINFORMATIONA}
-         */
-        LibRequest {
-            get {
-                if(!this.HasProp("__LibRequest"))
-                    this.__LibRequest := NTMS_I1_LIBREQUESTINFORMATIONA(0, this)
-                return this.__LibRequest
-            }
-        }
-
-        /**
-         * @type {NTMS_I1_OPREQUESTINFORMATIONA}
-         */
-        OpRequest {
-            get {
-                if(!this.HasProp("__OpRequest"))
-                    this.__OpRequest := NTMS_I1_OPREQUESTINFORMATIONA(0, this)
-                return this.__OpRequest
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'DriveType', { type: NTMS_DRIVETYPEINFORMATIONA, offset: 0 })
+            DefineProp(this.Prototype, 'Library', { type: NTMS_I1_LIBRARYINFORMATION, offset: 0 })
+            DefineProp(this.Prototype, 'Changer', { type: NTMS_CHANGERINFORMATIONA, offset: 0 })
+            DefineProp(this.Prototype, 'ChangerType', { type: NTMS_CHANGERTYPEINFORMATIONA, offset: 0 })
+            DefineProp(this.Prototype, 'StorageSlot', { type: NTMS_STORAGESLOTINFORMATION, offset: 0 })
+            DefineProp(this.Prototype, 'IEDoor', { type: NTMS_IEDOORINFORMATION, offset: 0 })
+            DefineProp(this.Prototype, 'IEPort', { type: NTMS_IEPORTINFORMATION, offset: 0 })
+            DefineProp(this.Prototype, 'PhysicalMedia', { type: NTMS_I1_PMIDINFORMATIONA, offset: 0 })
+            DefineProp(this.Prototype, 'LogicalMedia', { type: NTMS_LMIDINFORMATION, offset: 0 })
+            DefineProp(this.Prototype, 'Partition', { type: NTMS_I1_PARTITIONINFORMATIONA, offset: 0 })
+            DefineProp(this.Prototype, 'MediaPool', { type: NTMS_MEDIAPOOLINFORMATION, offset: 0 })
+            DefineProp(this.Prototype, 'MediaType', { type: NTMS_MEDIATYPEINFORMATION, offset: 0 })
+            DefineProp(this.Prototype, 'LibRequest', { type: NTMS_I1_LIBREQUESTINFORMATIONA, offset: 0 })
+            DefineProp(this.Prototype, 'OpRequest', { type: NTMS_I1_OPREQUESTINFORMATIONA, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwType : UInt32
 
-    /**
-     * @type {SYSTEMTIME}
-     */
-    Created {
-        get {
-            if(!this.HasProp("__Created"))
-                this.__Created := SYSTEMTIME(8, this)
-            return this.__Created
-        }
-    }
+    Created : SYSTEMTIME
 
-    /**
-     * @type {SYSTEMTIME}
-     */
-    Modified {
-        get {
-            if(!this.HasProp("__Modified"))
-                this.__Modified := SYSTEMTIME(24, this)
-            return this.__Modified
-        }
-    }
+    Modified : SYSTEMTIME
 
-    /**
-     * @type {Pointer}
-     */
-    ObjectGuid {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    ObjectGuid : Guid
 
-    /**
-     * @type {BOOL}
-     */
-    Enabled {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    Enabled : BOOL
 
-    /**
-     * @type {Integer}
-     */
-    dwOperationalState {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwOperationalState : UInt32
 
-    /**
-     * @type {String}
-     */
-    szName {
-        get => StrGet(this.ptr + 56, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 56, 63, "UTF-8")
-    }
+    szName : CHAR[64]
 
-    /**
-     * @type {String}
-     */
-    szDescription {
-        get => StrGet(this.ptr + 120, 126, "UTF-8")
-        set => StrPut(value, this.ptr + 120, 126, "UTF-8")
-    }
+    szDescription : CHAR[127]
 
-    /**
-     * @type {_Info_e__Union}
-     */
-    Info {
-        get {
-            if(!this.HasProp("__Info"))
-                this.__Info := NTMS_I1_OBJECTINFORMATIONA._Info_e__Union(248, this)
-            return this.__Info
-        }
-    }
+    Info : NTMS_I1_OBJECTINFORMATIONA._Info
+
 }

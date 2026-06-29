@@ -1,58 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Ndis\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_DISASSOCIATION_PARAMETERS extends Win32Struct {
-    static sizeof => 24
+export default struct DOT11_DISASSOCIATION_PARAMETERS {
+    #StructPack 4
 
-    static packingSize => 4
+    Header : NDIS_OBJECT_HEADER
 
-    /**
-     * @type {NDIS_OBJECT_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    MacAddr : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    MacAddr {
-        get {
-            if(!this.HasProp("__MacAddrProxyArray"))
-                this.__MacAddrProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
-            return this.__MacAddrProxyArray
-        }
-    }
+    uReason : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uReason {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    uIHVDataOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uIHVDataOffset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    uIHVDataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uIHVDataSize {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

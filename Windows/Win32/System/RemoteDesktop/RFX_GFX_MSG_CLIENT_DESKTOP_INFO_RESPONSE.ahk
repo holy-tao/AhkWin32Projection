@@ -1,59 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RFX_GFX_MSG_HEADER.ahk
-#Include .\RFX_GFX_MONITOR_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RFX_GFX_MSG_HEADER.ahk" { RFX_GFX_MSG_HEADER }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\RFX_GFX_MONITOR_INFO.ahk" { RFX_GFX_MONITOR_INFO }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class RFX_GFX_MSG_CLIENT_DESKTOP_INFO_RESPONSE extends Win32Struct {
-    static sizeof => 588
+export default struct RFX_GFX_MSG_CLIENT_DESKTOP_INFO_RESPONSE {
+    #StructPack 4
 
-    static packingSize => 4
+    channelHdr : RFX_GFX_MSG_HEADER
 
-    /**
-     * @type {RFX_GFX_MSG_HEADER}
-     */
-    channelHdr {
-        get {
-            if(!this.HasProp("__channelHdr"))
-                this.__channelHdr := RFX_GFX_MSG_HEADER(0, this)
-            return this.__channelHdr
-        }
-    }
+    reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    reserved {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    monitorCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    monitorCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MonitorData : RFX_GFX_MONITOR_INFO[16]
 
-    /**
-     * @type {RFX_GFX_MONITOR_INFO}
-     */
-    MonitorData {
-        get {
-            if(!this.HasProp("__MonitorDataProxyArray"))
-                this.__MonitorDataProxyArray := Win32FixedArray(this.ptr + 12, 16, RFX_GFX_MONITOR_INFO, "")
-            return this.__MonitorDataProxyArray
-        }
-    }
+    clientUniqueId : WCHAR[32]
 
-    /**
-     * @type {String}
-     */
-    clientUniqueId {
-        get => StrGet(this.ptr + 524, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 524, 31, "UTF-16")
-    }
 }

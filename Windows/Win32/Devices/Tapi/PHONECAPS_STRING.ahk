@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The PHONECAPS_STRING enum is used by methods that set or get phone capabilities described by a string.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-phonecaps_string
  * @namespace Windows.Win32.Devices.Tapi
  */
-class PHONECAPS_STRING extends Win32Enum {
+export default struct PHONECAPS_STRING {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Name of the phone.

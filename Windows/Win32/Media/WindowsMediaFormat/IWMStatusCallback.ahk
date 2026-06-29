@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WMT_STATUS.ahk" { WMT_STATUS }
+#Import ".\WMT_ATTR_DATATYPE.ahk" { WMT_ATTR_DATATYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMStatusCallback interface is implemented by the application to receive status information from various objects.
@@ -31,26 +34,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmstatuscallback
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMStatusCallback extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMStatusCallback extends IUnknown {
     /**
      * The interface identifier for IWMStatusCallback
      * @type {Guid}
      */
-    static IID => Guid("{6d7cdc70-9888-11d3-8edc-00c04f6109cf}")
+    static IID := Guid("{6d7cdc70-9888-11d3-8edc-00c04f6109cf}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMStatusCallback interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnStatus : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnStatus"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMStatusCallback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The OnStatus method is called when status information must be communicated to the application.
@@ -303,7 +313,27 @@ class IWMStatusCallback extends IUnknown {
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "int", _Status, "int", hr, "int", dwType, pValueMarshal, pValue, pvContextMarshal, pvContext, "HRESULT")
+        result := ComCall(3, this, WMT_STATUS, _Status, "int", hr, WMT_ATTR_DATATYPE, dwType, pValueMarshal, pValue, pvContextMarshal, pvContext, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMStatusCallback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnStatus := CallbackCreate(GetMethod(implObj, "OnStatus"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnStatus)
     }
 }

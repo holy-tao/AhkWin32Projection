@@ -1,43 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSALLOCATOR_FRAMING_EX.ahk
-#Include .\KS_COMPRESSION.ahk
-#Include .\KS_FRAMING_ITEM.ahk
-#Include .\KS_FRAMING_RANGE.ahk
-#Include .\KS_FRAMING_RANGE_WEIGHTED.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KS_FRAMING_RANGE.ahk" { KS_FRAMING_RANGE }
+#Import ".\KS_FRAMING_ITEM.ahk" { KS_FRAMING_ITEM }
+#Import ".\KS_COMPRESSION.ahk" { KS_COMPRESSION }
+#Import ".\KS_FRAMING_RANGE_WEIGHTED.ahk" { KS_FRAMING_RANGE_WEIGHTED }
+#Import ".\KSALLOCATOR_FRAMING_EX.ahk" { KSALLOCATOR_FRAMING_EX }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSSTREAMALLOCATOR_STATUS_EX extends Win32Struct {
-    static sizeof => 104
+export default struct KSSTREAMALLOCATOR_STATUS_EX {
+    #StructPack 4
 
-    static packingSize => 8
+    Framing : KSALLOCATOR_FRAMING_EX
 
-    /**
-     * @type {KSALLOCATOR_FRAMING_EX}
-     */
-    Framing {
-        get {
-            if(!this.HasProp("__Framing"))
-                this.__Framing := KSALLOCATOR_FRAMING_EX(0, this)
-            return this.__Framing
-        }
-    }
+    AllocatedFrames : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AllocatedFrames {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
 }

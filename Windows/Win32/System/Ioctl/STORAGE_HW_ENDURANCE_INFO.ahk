@@ -1,28 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_HW_ENDURANCE_INFO extends Win32Struct {
-    static sizeof => 48
+export default struct STORAGE_HW_ENDURANCE_INFO {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _Flags extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
+    struct _Flags {
         /**
          * This bitfield backs the following members:
          * - Shared
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -33,60 +25,16 @@ class STORAGE_HW_ENDURANCE_INFO extends Win32Struct {
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    ValidFields {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ValidFields : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GroupId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    GroupId : UInt32
 
-    /**
-     * @type {_Flags}
-     */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := STORAGE_HW_ENDURANCE_INFO._Flags(8, this)
-            return this.__Flags
-        }
-    }
+    Flags : STORAGE_HW_ENDURANCE_INFO._Flags
 
-    /**
-     * @type {Integer}
-     */
-    LifePercentage {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    LifePercentage : UInt32
 
-    /**
-     * @type {Array<Integer>}
-     */
-    BytesReadCount {
-        get {
-            if(!this.HasProp("__BytesReadCountProxyArray"))
-                this.__BytesReadCountProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
-            return this.__BytesReadCountProxyArray
-        }
-    }
+    BytesReadCount : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ByteWriteCount {
-        get {
-            if(!this.HasProp("__ByteWriteCountProxyArray"))
-                this.__ByteWriteCountProxyArray := Win32FixedArray(this.ptr + 32, 16, Primitive, "char")
-            return this.__ByteWriteCountProxyArray
-        }
-    }
+    ByteWriteCount : Int8[16]
+
 }

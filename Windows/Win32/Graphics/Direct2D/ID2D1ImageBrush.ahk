@@ -1,33 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Brush.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID2D1Image.ahk" { ID2D1Image }
+#Import ".\D2D1_EXTEND_MODE.ahk" { D2D1_EXTEND_MODE }
+#Import ".\D2D1_INTERPOLATION_MODE.ahk" { D2D1_INTERPOLATION_MODE }
+#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
+#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
 
 /**
  * Represents a brush based on an ID2D1Image.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nn-d2d1_1-id2d1imagebrush
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1ImageBrush extends ID2D1Brush {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1ImageBrush extends ID2D1Brush {
     /**
      * The interface identifier for ID2D1ImageBrush
      * @type {Guid}
      */
-    static IID => Guid("{fe9e984d-3f95-407c-b5db-cb94d4e8f87c}")
+    static IID := Guid("{fe9e984d-3f95-407c-b5db-cb94d4e8f87c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1ImageBrush interfaces
+    */
+    struct Vtbl extends ID2D1Brush.Vtbl {
+        SetImage             : IntPtr
+        SetExtendModeX       : IntPtr
+        SetExtendModeY       : IntPtr
+        SetInterpolationMode : IntPtr
+        SetSourceRectangle   : IntPtr
+        GetImage             : IntPtr
+        GetExtendModeX       : IntPtr
+        GetExtendModeY       : IntPtr
+        GetInterpolationMode : IntPtr
+        GetSourceRectangle   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetImage", "SetExtendModeX", "SetExtendModeY", "SetInterpolationMode", "SetSourceRectangle", "GetImage", "GetExtendModeX", "GetExtendModeY", "GetInterpolationMode", "GetSourceRectangle"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1ImageBrush.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the image associated with the provided image brush.
@@ -50,7 +70,7 @@ class ID2D1ImageBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1imagebrush-setextendmodex
      */
     SetExtendModeX(extendModeX) {
-        ComCall(9, this, "int", extendModeX)
+        ComCall(9, this, D2D1_EXTEND_MODE, extendModeX)
     }
 
     /**
@@ -62,7 +82,7 @@ class ID2D1ImageBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1imagebrush-setextendmodey
      */
     SetExtendModeY(extendModeY) {
-        ComCall(10, this, "int", extendModeY)
+        ComCall(10, this, D2D1_EXTEND_MODE, extendModeY)
     }
 
     /**
@@ -74,7 +94,7 @@ class ID2D1ImageBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1imagebrush-setinterpolationmode
      */
     SetInterpolationMode(_interpolationMode) {
-        ComCall(11, this, "int", _interpolationMode)
+        ComCall(11, this, D2D1_INTERPOLATION_MODE, _interpolationMode)
     }
 
     /**
@@ -98,7 +118,7 @@ class ID2D1ImageBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1imagebrush-setsourcerectangle
      */
     SetSourceRectangle(sourceRectangle) {
-        ComCall(12, this, "ptr", sourceRectangle)
+        ComCall(12, this, D2D_RECT_F.Ptr, sourceRectangle)
     }
 
     /**
@@ -110,7 +130,7 @@ class ID2D1ImageBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1imagebrush-getimage
      */
     GetImage(_image) {
-        ComCall(13, this, "ptr*", _image)
+        ComCall(13, this, ID2D1Image.Ptr, _image)
     }
 
     /**
@@ -121,7 +141,7 @@ class ID2D1ImageBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1imagebrush-getextendmodex
      */
     GetExtendModeX() {
-        result := ComCall(14, this, "int")
+        result := ComCall(14, this, D2D1_EXTEND_MODE)
         return result
     }
 
@@ -133,7 +153,7 @@ class ID2D1ImageBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1imagebrush-getextendmodey
      */
     GetExtendModeY() {
-        result := ComCall(15, this, "int")
+        result := ComCall(15, this, D2D1_EXTEND_MODE)
         return result
     }
 
@@ -145,7 +165,7 @@ class ID2D1ImageBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1imagebrush-getinterpolationmode
      */
     GetInterpolationMode() {
-        result := ComCall(16, this, "int")
+        result := ComCall(16, this, D2D1_INTERPOLATION_MODE)
         return result
     }
 
@@ -158,6 +178,44 @@ class ID2D1ImageBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1imagebrush-getsourcerectangle
      */
     GetSourceRectangle(sourceRectangle) {
-        ComCall(17, this, "ptr", sourceRectangle)
+        ComCall(17, this, D2D_RECT_F.Ptr, sourceRectangle)
+    }
+
+    Query(iid) {
+        if (ID2D1ImageBrush.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetImage := CallbackCreate(GetMethod(implObj, "SetImage"), flags, 2)
+        this.vtbl.SetExtendModeX := CallbackCreate(GetMethod(implObj, "SetExtendModeX"), flags, 2)
+        this.vtbl.SetExtendModeY := CallbackCreate(GetMethod(implObj, "SetExtendModeY"), flags, 2)
+        this.vtbl.SetInterpolationMode := CallbackCreate(GetMethod(implObj, "SetInterpolationMode"), flags, 2)
+        this.vtbl.SetSourceRectangle := CallbackCreate(GetMethod(implObj, "SetSourceRectangle"), flags, 2)
+        this.vtbl.GetImage := CallbackCreate(GetMethod(implObj, "GetImage"), flags, 2)
+        this.vtbl.GetExtendModeX := CallbackCreate(GetMethod(implObj, "GetExtendModeX"), flags, 1)
+        this.vtbl.GetExtendModeY := CallbackCreate(GetMethod(implObj, "GetExtendModeY"), flags, 1)
+        this.vtbl.GetInterpolationMode := CallbackCreate(GetMethod(implObj, "GetInterpolationMode"), flags, 1)
+        this.vtbl.GetSourceRectangle := CallbackCreate(GetMethod(implObj, "GetSourceRectangle"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetImage)
+        CallbackFree(this.vtbl.SetExtendModeX)
+        CallbackFree(this.vtbl.SetExtendModeY)
+        CallbackFree(this.vtbl.SetInterpolationMode)
+        CallbackFree(this.vtbl.SetSourceRectangle)
+        CallbackFree(this.vtbl.GetImage)
+        CallbackFree(this.vtbl.GetExtendModeX)
+        CallbackFree(this.vtbl.GetExtendModeY)
+        CallbackFree(this.vtbl.GetInterpolationMode)
+        CallbackFree(this.vtbl.GetSourceRectangle)
     }
 }

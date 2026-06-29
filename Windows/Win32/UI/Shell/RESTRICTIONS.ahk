@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * These flags are used with the SHRestricted function.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ne-shlobj_core-restrictions
  * @namespace Windows.Win32.UI.Shell
  */
-class RESTRICTIONS extends Win32Enum {
+export default struct RESTRICTIONS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Not used.

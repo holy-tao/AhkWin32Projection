@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidFilePlaybackEvent.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMSVidFilePlaybackEvent.ahk" { IMSVidFilePlaybackEvent }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This topic applies to Windows XP Service Pack 1 or later.
@@ -10,26 +11,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidstreambuffersourceevent
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSVidStreamBufferSourceEvent extends IMSVidFilePlaybackEvent {
-
-    static sizeof => A_PtrSize
+export default struct IMSVidStreamBufferSourceEvent extends IMSVidFilePlaybackEvent {
     /**
      * The interface identifier for IMSVidStreamBufferSourceEvent
      * @type {Guid}
      */
-    static IID => Guid("{50ce8a7d-9c28-4da8-9042-cdfa7116f979}")
+    static IID := Guid("{50ce8a7d-9c28-4da8-9042-cdfa7116f979}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSVidStreamBufferSourceEvent interfaces
+    */
+    struct Vtbl extends IMSVidFilePlaybackEvent.Vtbl {
+        CertificateFailure   : IntPtr
+        CertificateSuccess   : IntPtr
+        RatingsBlocked       : IntPtr
+        RatingsUnblocked     : IntPtr
+        RatingsChanged       : IntPtr
+        TimeHole             : IntPtr
+        StaleDataRead        : IntPtr
+        ContentBecomingStale : IntPtr
+        StaleFileDeleted     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CertificateFailure", "CertificateSuccess", "RatingsBlocked", "RatingsUnblocked", "RatingsChanged", "TimeHole", "StaleDataRead", "ContentBecomingStale", "StaleFileDeleted"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSVidStreamBufferSourceEvent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This topic applies to Windows XP Service Pack 1 or later.
@@ -129,5 +145,41 @@ class IMSVidStreamBufferSourceEvent extends IMSVidFilePlaybackEvent {
     StaleFileDeleted() {
         result := ComCall(16, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMSVidStreamBufferSourceEvent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CertificateFailure := CallbackCreate(GetMethod(implObj, "CertificateFailure"), flags, 1)
+        this.vtbl.CertificateSuccess := CallbackCreate(GetMethod(implObj, "CertificateSuccess"), flags, 1)
+        this.vtbl.RatingsBlocked := CallbackCreate(GetMethod(implObj, "RatingsBlocked"), flags, 1)
+        this.vtbl.RatingsUnblocked := CallbackCreate(GetMethod(implObj, "RatingsUnblocked"), flags, 1)
+        this.vtbl.RatingsChanged := CallbackCreate(GetMethod(implObj, "RatingsChanged"), flags, 1)
+        this.vtbl.TimeHole := CallbackCreate(GetMethod(implObj, "TimeHole"), flags, 3)
+        this.vtbl.StaleDataRead := CallbackCreate(GetMethod(implObj, "StaleDataRead"), flags, 1)
+        this.vtbl.ContentBecomingStale := CallbackCreate(GetMethod(implObj, "ContentBecomingStale"), flags, 1)
+        this.vtbl.StaleFileDeleted := CallbackCreate(GetMethod(implObj, "StaleFileDeleted"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CertificateFailure)
+        CallbackFree(this.vtbl.CertificateSuccess)
+        CallbackFree(this.vtbl.RatingsBlocked)
+        CallbackFree(this.vtbl.RatingsUnblocked)
+        CallbackFree(this.vtbl.RatingsChanged)
+        CallbackFree(this.vtbl.TimeHole)
+        CallbackFree(this.vtbl.StaleDataRead)
+        CallbackFree(this.vtbl.ContentBecomingStale)
+        CallbackFree(this.vtbl.StaleFileDeleted)
     }
 }

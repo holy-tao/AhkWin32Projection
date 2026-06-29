@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the left two columns of a 3-by-3 matrix.
@@ -28,62 +27,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_matrix
  * @namespace Windows.Win32.Storage.Xps
  */
-class XPS_MATRIX extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct XPS_MATRIX {
+    #StructPack 4
 
     /**
      * The value in the left column of the first row of the matrix.
-     * @type {Float}
      */
-    m11 {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    m11 : Float32
 
     /**
      * The value in the center column of the first row of the matrix.
-     * @type {Float}
      */
-    m12 {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    m12 : Float32
 
     /**
      * The value in the left column of the second row of the matrix.
-     * @type {Float}
      */
-    m21 {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    m21 : Float32
 
     /**
      * The value in the center column of the second row of the matrix.
-     * @type {Float}
      */
-    m22 {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    m22 : Float32
 
     /**
      * The value in the left column of the third row of the matrix. This value is also the x-offset.
-     * @type {Float}
      */
-    m31 {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
+    m31 : Float32
 
     /**
      * The value in the center column of the third row of the matrix. This value is also the y-offset.
-     * @type {Float}
      */
-    m32 {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
-    }
+    m32 : Float32
+
 }

@@ -1,23 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FLAT_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FLAT_STRING.ahk" { FLAT_STRING }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class NETWORK_NAME extends Win32Struct {
-    static sizeof => 6
+export default struct NETWORK_NAME {
+    #StructPack 2
 
-    static packingSize => 2
+    Name : FLAT_STRING
 
-    /**
-     * @type {FLAT_STRING}
-     */
-    Name {
-        get {
-            if(!this.HasProp("__Name"))
-                this.__Name := FLAT_STRING(0, this)
-            return this.__Name
-        }
-    }
 }

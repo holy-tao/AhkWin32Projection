@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
  */
-class GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE extends Win32Struct {
-    static sizeof => 8
+export default struct GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE {
+    #StructPack 4
 
-    static packingSize => 4
+    LowerBound : Int32
 
-    /**
-     * @type {Integer}
-     */
-    LowerBound {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    UpperBound : Int32
 
-    /**
-     * @type {Integer}
-     */
-    UpperBound {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
 }

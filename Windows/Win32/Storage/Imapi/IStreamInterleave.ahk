@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IStream.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Use this interface to combine several data streams into a single stream by alternately interspersing portions of each.
@@ -10,26 +11,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-istreaminterleave
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IStreamInterleave extends IStream {
-
-    static sizeof => A_PtrSize
+export default struct IStreamInterleave extends IStream {
     /**
      * The interface identifier for IStreamInterleave
      * @type {Guid}
      */
-    static IID => Guid("{27354147-7f64-5b0f-8f00-5d77afbe261e}")
+    static IID := Guid("{27354147-7f64-5b0f-8f00-5d77afbe261e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IStreamInterleave interfaces
+    */
+    struct Vtbl extends IStream.Vtbl {
+        Initialize : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IStreamInterleave.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initialize this interleaved stream from an array of input streams and interleave sizes.
@@ -88,7 +96,27 @@ class IStreamInterleave extends IStream {
     Initialize(streams, interleaveSizes, streamCount) {
         interleaveSizesMarshal := interleaveSizes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "ptr*", streams, interleaveSizesMarshal, interleaveSizes, "uint", streamCount, "HRESULT")
+        result := ComCall(14, this, IStream.Ptr, streams, interleaveSizesMarshal, interleaveSizes, "uint", streamCount, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IStreamInterleave.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
     }
 }

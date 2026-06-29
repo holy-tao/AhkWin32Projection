@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IOSPACE_EX32 extends Win32Struct {
-    static sizeof => 24
+export default struct IOSPACE_EX32 {
+    #StructPack 4
 
-    static packingSize => 4
+    Address : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Address {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Data : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Data {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    InterfaceType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InterfaceType {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    BusNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BusNumber {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    AddressSpace : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AddressSpace {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

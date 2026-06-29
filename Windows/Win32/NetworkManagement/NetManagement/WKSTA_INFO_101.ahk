@@ -1,15 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains information about a workstation environment, including platform-specific information, the name of the domain and the local computer, and information concerning the operating system. (WKSTA_INFO_101)
  * @see https://learn.microsoft.com/windows/win32/api/lmwksta/ns-lmwksta-wksta_info_101
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class WKSTA_INFO_101 extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct WKSTA_INFO_101 {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
@@ -80,12 +78,8 @@ class WKSTA_INFO_101 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    wki101_platform_id {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    wki101_platform_id : UInt32
 
     /**
      * Type: <b>LMSTR</b>
@@ -93,12 +87,8 @@ class WKSTA_INFO_101 extends Win32Struct {
      * A pointer to a string specifying the name of the local computer.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {PWSTR}
      */
-    wki101_computername {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    wki101_computername : PWSTR
 
     /**
      * Type: <b>LMSTR</b>
@@ -106,34 +96,22 @@ class WKSTA_INFO_101 extends Win32Struct {
      * A pointer to a string specifying the name of the domain to which the computer belongs.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {PWSTR}
      */
-    wki101_langroup {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    wki101_langroup : PWSTR
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The major version number of the operating system running on the computer.
-     * @type {Integer}
      */
-    wki101_ver_major {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    wki101_ver_major : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The minor version number of the operating system running on the computer.
-     * @type {Integer}
      */
-    wki101_ver_minor {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    wki101_ver_minor : UInt32
 
     /**
      * Type: <b>LMSTR</b>
@@ -141,10 +119,7 @@ class WKSTA_INFO_101 extends Win32Struct {
      * A pointer to a string that contains the path to the LANMAN directory.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {PWSTR}
      */
-    wki101_lanroot {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    wki101_lanroot : PWSTR
+
 }

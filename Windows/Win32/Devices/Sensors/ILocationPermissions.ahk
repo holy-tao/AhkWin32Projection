@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides the status of the system setting that allows users to change location settings.
@@ -12,26 +14,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nn-sensorsapi-ilocationpermissions
  * @namespace Windows.Win32.Devices.Sensors
  */
-class ILocationPermissions extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ILocationPermissions extends IUnknown {
     /**
      * The interface identifier for ILocationPermissions
      * @type {Guid}
      */
-    static IID => Guid("{d5fb0a7f-e74e-44f5-8e02-4806863a274f}")
+    static IID := Guid("{d5fb0a7f-e74e-44f5-8e02-4806863a274f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ILocationPermissions interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetGlobalLocationPermission : IntPtr
+        CheckLocationCapability     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetGlobalLocationPermission", "CheckLocationCapability"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ILocationPermissions.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the status of the system setting that allows users to change location settings.
@@ -43,7 +53,7 @@ class ILocationPermissions extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-ilocationpermissions-getgloballocationpermission
      */
     GetGlobalLocationPermission() {
-        result := ComCall(3, this, "int*", &pfEnabled := 0, "HRESULT")
+        result := ComCall(3, this, BOOL.Ptr, &pfEnabled := 0, "HRESULT")
         return pfEnabled
     }
 
@@ -100,5 +110,27 @@ class ILocationPermissions extends IUnknown {
     CheckLocationCapability(dwClientThreadId) {
         result := ComCall(4, this, "uint", dwClientThreadId, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ILocationPermissions.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetGlobalLocationPermission := CallbackCreate(GetMethod(implObj, "GetGlobalLocationPermission"), flags, 2)
+        this.vtbl.CheckLocationCapability := CallbackCreate(GetMethod(implObj, "CheckLocationCapability"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetGlobalLocationPermission)
+        CallbackFree(this.vtbl.CheckLocationCapability)
     }
 }

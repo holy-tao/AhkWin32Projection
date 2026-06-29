@@ -1,150 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
-#Include .\DOT11_WFD_CONFIGURATION_TIMEOUT.ahk
-#Include .\DOT11_WFD_INVITATION_FLAGS.ahk
-#Include .\DOT11_WFD_CHANNEL.ahk
-#Include .\DOT11_WFD_GROUP_ID.ahk
-#Include .\DOT11_SSID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Ndis\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
+#Import ".\DOT11_WFD_CHANNEL.ahk" { DOT11_WFD_CHANNEL }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\DOT11_WFD_GROUP_ID.ahk" { DOT11_WFD_GROUP_ID }
+#Import ".\DOT11_WFD_INVITATION_FLAGS.ahk" { DOT11_WFD_INVITATION_FLAGS }
+#Import ".\DOT11_SSID.ahk" { DOT11_SSID }
+#Import ".\DOT11_WFD_CONFIGURATION_TIMEOUT.ahk" { DOT11_WFD_CONFIGURATION_TIMEOUT }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_SEND_INVITATION_REQUEST_PARAMETERS extends Win32Struct {
-    static sizeof => 88
+export default struct DOT11_SEND_INVITATION_REQUEST_PARAMETERS {
+    #StructPack 4
 
-    static packingSize => 4
+    Header : NDIS_OBJECT_HEADER
 
-    /**
-     * @type {NDIS_OBJECT_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    DialogToken : Int8
 
-    /**
-     * @type {Integer}
-     */
-    DialogToken {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    PeerDeviceAddress : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    PeerDeviceAddress {
-        get {
-            if(!this.HasProp("__PeerDeviceAddressProxyArray"))
-                this.__PeerDeviceAddressProxyArray := Win32FixedArray(this.ptr + 5, 6, Primitive, "char")
-            return this.__PeerDeviceAddressProxyArray
-        }
-    }
+    uSendTimeout : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uSendTimeout {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    MinimumConfigTimeout : DOT11_WFD_CONFIGURATION_TIMEOUT
 
-    /**
-     * @type {DOT11_WFD_CONFIGURATION_TIMEOUT}
-     */
-    MinimumConfigTimeout {
-        get {
-            if(!this.HasProp("__MinimumConfigTimeout"))
-                this.__MinimumConfigTimeout := DOT11_WFD_CONFIGURATION_TIMEOUT(16, this)
-            return this.__MinimumConfigTimeout
-        }
-    }
+    InvitationFlags : DOT11_WFD_INVITATION_FLAGS
 
-    /**
-     * @type {DOT11_WFD_INVITATION_FLAGS}
-     */
-    InvitationFlags {
-        get {
-            if(!this.HasProp("__InvitationFlags"))
-                this.__InvitationFlags := DOT11_WFD_INVITATION_FLAGS(18, this)
-            return this.__InvitationFlags
-        }
-    }
+    GroupBSSID : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    GroupBSSID {
-        get {
-            if(!this.HasProp("__GroupBSSIDProxyArray"))
-                this.__GroupBSSIDProxyArray := Win32FixedArray(this.ptr + 19, 6, Primitive, "char")
-            return this.__GroupBSSIDProxyArray
-        }
-    }
+    bUseGroupBSSID : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bUseGroupBSSID {
-        get => NumGet(this, 25, "char")
-        set => NumPut("char", value, this, 25)
-    }
+    OperatingChannel : DOT11_WFD_CHANNEL
 
-    /**
-     * @type {DOT11_WFD_CHANNEL}
-     */
-    OperatingChannel {
-        get {
-            if(!this.HasProp("__OperatingChannel"))
-                this.__OperatingChannel := DOT11_WFD_CHANNEL(26, this)
-            return this.__OperatingChannel
-        }
-    }
+    bUseSpecifiedOperatingChannel : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bUseSpecifiedOperatingChannel {
-        get => NumGet(this, 31, "char")
-        set => NumPut("char", value, this, 31)
-    }
+    GroupID : DOT11_WFD_GROUP_ID
 
-    /**
-     * @type {DOT11_WFD_GROUP_ID}
-     */
-    GroupID {
-        get {
-            if(!this.HasProp("__GroupID"))
-                this.__GroupID := DOT11_WFD_GROUP_ID(32, this)
-            return this.__GroupID
-        }
-    }
+    bLocalGO : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bLocalGO {
-        get => NumGet(this, 76, "char")
-        set => NumPut("char", value, this, 76)
-    }
+    uIEsOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uIEsOffset {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    uIEsLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uIEsLength {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
 }

@@ -1,41 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IRDPSRAPIApplication.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRDPSRAPIApplication.ahk" { IRDPSRAPIApplication }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Represents a one-to-one mapping to a sharable window.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapiwindow
  * @namespace Windows.Win32.System.DesktopSharing
  */
-class IRDPSRAPIWindow extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IRDPSRAPIWindow extends IDispatch {
     /**
      * The interface identifier for IRDPSRAPIWindow
      * @type {Guid}
      */
-    static IID => Guid("{beafe0f9-c77b-4933-ba9f-a24cddcc27cf}")
+    static IID := Guid("{beafe0f9-c77b-4933-ba9f-a24cddcc27cf}")
 
     /**
      * The class identifier for RDPSRAPIWindow
      * @type {Guid}
      */
-    static CLSID => Guid("{03cf46db-ce45-4d36-86ed-ed28b74398bf}")
+    static CLSID := Guid("{03cf46db-ce45-4d36-86ed-ed28b74398bf}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRDPSRAPIWindow interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Id          : IntPtr
+        get_Application : IntPtr
+        get_Shared      : IntPtr
+        put_Shared      : IntPtr
+        get_Name        : IntPtr
+        Show            : IntPtr
+        get_Flags       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Id", "get_Application", "get_Shared", "put_Shared", "get_Name", "Show", "get_Flags"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRDPSRAPIWindow.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -99,7 +114,7 @@ class IRDPSRAPIWindow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_shared
      */
     get_Shared() {
-        result := ComCall(9, this, "short*", &pRetVal := 0, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL.Ptr, &pRetVal := 0, "HRESULT")
         return pRetVal
     }
 
@@ -110,7 +125,7 @@ class IRDPSRAPIWindow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-put_shared
      */
     put_Shared(NewVal) {
-        result := ComCall(10, this, "short", NewVal, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL, NewVal, "HRESULT")
         return result
     }
 
@@ -120,8 +135,8 @@ class IRDPSRAPIWindow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_name
      */
     get_Name() {
-        pRetVal := BSTR()
-        result := ComCall(11, this, "ptr", pRetVal, "HRESULT")
+        pRetVal := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pRetVal, "HRESULT")
         return pRetVal
     }
 
@@ -143,5 +158,37 @@ class IRDPSRAPIWindow extends IDispatch {
     get_Flags() {
         result := ComCall(13, this, "uint*", &pdwFlags := 0, "HRESULT")
         return pdwFlags
+    }
+
+    Query(iid) {
+        if (IRDPSRAPIWindow.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_Application := CallbackCreate(GetMethod(implObj, "get_Application"), flags, 2)
+        this.vtbl.get_Shared := CallbackCreate(GetMethod(implObj, "get_Shared"), flags, 2)
+        this.vtbl.put_Shared := CallbackCreate(GetMethod(implObj, "put_Shared"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.Show := CallbackCreate(GetMethod(implObj, "Show"), flags, 1)
+        this.vtbl.get_Flags := CallbackCreate(GetMethod(implObj, "get_Flags"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Id)
+        CallbackFree(this.vtbl.get_Application)
+        CallbackFree(this.vtbl.get_Shared)
+        CallbackFree(this.vtbl.put_Shared)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.Show)
+        CallbackFree(this.vtbl.get_Flags)
     }
 }

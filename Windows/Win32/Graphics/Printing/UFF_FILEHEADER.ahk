@@ -1,86 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class UFF_FILEHEADER extends Win32Struct {
-    static sizeof => 48
+export default struct UFF_FILEHEADER {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSignature : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSignature {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    nFonts : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nFonts {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    nGlyphSets : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nGlyphSets {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    nVarData : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nVarData {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    offFontDir : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    offFontDir {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwReserved : UInt32[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    dwReserved {
-        get {
-            if(!this.HasProp("__dwReservedProxyArray"))
-                this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 32, 4, Primitive, "uint")
-            return this.__dwReservedProxyArray
-        }
-    }
 }

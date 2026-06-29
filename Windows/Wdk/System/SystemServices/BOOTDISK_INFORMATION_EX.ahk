@@ -1,75 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class BOOTDISK_INFORMATION_EX extends Win32Struct {
-    static sizeof => 48
+export default struct BOOTDISK_INFORMATION_EX {
+    #StructPack 8
 
-    static packingSize => 8
+    BootPartitionOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BootPartitionOffset {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    SystemPartitionOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SystemPartitionOffset {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    BootDeviceSignature : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BootDeviceSignature {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    SystemDeviceSignature : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SystemDeviceSignature {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    BootDeviceGuid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    BootDeviceGuid {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    SystemDeviceGuid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    SystemDeviceGuid {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    BootDeviceIsGpt : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    BootDeviceIsGpt {
-        get => NumGet(this, 40, "char")
-        set => NumPut("char", value, this, 40)
-    }
+    SystemDeviceIsGpt : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    SystemDeviceIsGpt {
-        get => NumGet(this, 41, "char")
-        set => NumPut("char", value, this, 41)
-    }
 }

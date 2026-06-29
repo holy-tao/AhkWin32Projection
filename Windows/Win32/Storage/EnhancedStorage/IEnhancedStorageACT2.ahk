@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IEnhancedStorageACT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnhancedStorageACT.ahk" { IEnhancedStorageACT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * IEnhancedStorageACT2 interface is used to obtain information for a 1667 Addressable Contact Target (ACT).
  * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nn-ehstorapi-ienhancedstorageact2
  * @namespace Windows.Win32.Storage.EnhancedStorage
  */
-class IEnhancedStorageACT2 extends IEnhancedStorageACT {
-
-    static sizeof => A_PtrSize
+export default struct IEnhancedStorageACT2 extends IEnhancedStorageACT {
     /**
      * The interface identifier for IEnhancedStorageACT2
      * @type {Guid}
      */
-    static IID => Guid("{4da57d2e-8eb3-41f6-a07e-98b52b88242b}")
+    static IID := Guid("{4da57d2e-8eb3-41f6-a07e-98b52b88242b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IEnhancedStorageACT2 interfaces
+    */
+    struct Vtbl extends IEnhancedStorageACT.Vtbl {
+        GetDeviceName     : IntPtr
+        IsDeviceRemovable : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDeviceName", "IsDeviceRemovable"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IEnhancedStorageACT2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * IEnhancedStorageACT2::GetDeviceName method returns the device name associated with the Addressable Command Target (ACT).
@@ -37,7 +48,7 @@ class IEnhancedStorageACT2 extends IEnhancedStorageACT {
      * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstorageact2-getdevicename
      */
     GetDeviceName() {
-        result := ComCall(9, this, "ptr*", &ppwszDeviceName := 0, "HRESULT")
+        result := ComCall(9, this, PWSTR.Ptr, &ppwszDeviceName := 0, "HRESULT")
         return ppwszDeviceName
     }
 
@@ -47,7 +58,29 @@ class IEnhancedStorageACT2 extends IEnhancedStorageACT {
      * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstorageact2-isdeviceremovable
      */
     IsDeviceRemovable() {
-        result := ComCall(10, this, "int*", &pIsDeviceRemovable := 0, "HRESULT")
+        result := ComCall(10, this, BOOL.Ptr, &pIsDeviceRemovable := 0, "HRESULT")
         return pIsDeviceRemovable
+    }
+
+    Query(iid) {
+        if (IEnhancedStorageACT2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDeviceName := CallbackCreate(GetMethod(implObj, "GetDeviceName"), flags, 2)
+        this.vtbl.IsDeviceRemovable := CallbackCreate(GetMethod(implObj, "IsDeviceRemovable"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDeviceName)
+        CallbackFree(this.vtbl.IsDeviceRemovable)
     }
 }

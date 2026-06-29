@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MPEG_HEADER_BITS_MIDL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MPEG_HEADER_BITS_MIDL.ahk" { MPEG_HEADER_BITS_MIDL }
 
 /**
  * The SECTION structure represents a short header from an MPEG-2 table section.
@@ -28,65 +27,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-section
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class SECTION extends Win32Struct {
-    static sizeof => 4
+export default struct SECTION {
+    #StructPack 1
 
-    static packingSize => 1
 
-    class _Header_e__Union extends Win32Struct {
-        static sizeof => 2
-        static packingSize => 1
+    struct _Header {
+        S : MPEG_HEADER_BITS_MIDL
 
-        /**
-         * @type {MPEG_HEADER_BITS_MIDL}
-         */
-        S {
-            get {
-                if(!this.HasProp("__S"))
-                    this.__S := MPEG_HEADER_BITS_MIDL(0, this)
-                return this.__S
-            }
-        }
-
-        /**
-         * @type {Integer}
-         */
-        W {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'W', { type: UInt16, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
     /**
      * Specifies the table identifier (TID) of the section.
-     * @type {Integer}
      */
-    TableId {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    TableId : Int8
 
     /**
      * A union that contains the following members.
-     * @type {_Header_e__Union}
      */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := SECTION._Header_e__Union(1, this)
-            return this.__Header
-        }
-    }
+    Header : SECTION._Header
 
     /**
      * Contains the section data, as a byte array. The length of the array is given by the <b>Header.W.SectionLength</b> field.
-     * @type {Array<Integer>}
      */
-    SectionData {
-        get {
-            if(!this.HasProp("__SectionDataProxyArray"))
-                this.__SectionDataProxyArray := Win32FixedArray(this.ptr + 3, 1, Primitive, "char")
-            return this.__SectionDataProxyArray
-        }
-    }
+    SectionData : Int8[1]
+
 }

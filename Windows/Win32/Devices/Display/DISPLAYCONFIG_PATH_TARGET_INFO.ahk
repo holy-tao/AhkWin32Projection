@@ -1,11 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\LUID.ahk
-#Include .\DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY.ahk
-#Include .\DISPLAYCONFIG_ROTATION.ahk
-#Include .\DISPLAYCONFIG_SCALING.ahk
-#Include .\DISPLAYCONFIG_RATIONAL.ahk
-#Include .\DISPLAYCONFIG_SCANLINE_ORDERING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DISPLAYCONFIG_SCALING.ahk" { DISPLAYCONFIG_SCALING }
+#Import ".\DISPLAYCONFIG_ROTATION.ahk" { DISPLAYCONFIG_ROTATION }
+#Import ".\DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY.ahk" { DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY }
+#Import ".\DISPLAYCONFIG_SCANLINE_ORDERING.ahk" { DISPLAYCONFIG_SCANLINE_ORDERING }
+#Import ".\DISPLAYCONFIG_RATIONAL.ahk" { DISPLAYCONFIG_RATIONAL }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\LUID.ahk" { LUID }
 
 /**
  * The DISPLAYCONFIG_PATH_TARGET_INFO structure contains target information for a single path.
@@ -18,50 +18,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_path_target_info
  * @namespace Windows.Win32.Devices.Display
  */
-class DISPLAYCONFIG_PATH_TARGET_INFO extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 4
+export default struct DISPLAYCONFIG_PATH_TARGET_INFO {
+    #StructPack 4
 
     /**
      * The identifier of the adapter that the path is on.
-     * @type {LUID}
      */
-    adapterId {
-        get {
-            if(!this.HasProp("__adapterId"))
-                this.__adapterId := LUID(0, this)
-            return this.__adapterId
-        }
-    }
+    adapterId : LUID
 
     /**
      * The target identifier on the specified adapter that this path relates to.
-     * @type {Integer}
      */
-    id {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    id : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    modeInfoIdx {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    modeInfoIdx : UInt32
 
-    /**
-     * This bitfield backs the following members:
-     * - desktopModeInfoIdx
-     * - targetModeInfoIdx
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 
     /**
      * @type {Integer}
@@ -78,65 +49,37 @@ class DISPLAYCONFIG_PATH_TARGET_INFO extends Win32Struct {
         get => (this._bitfield >> 16) & 0xFFFF
         set => this._bitfield := ((value & 0xFFFF) << 16) | (this._bitfield & ~(0xFFFF << 16))
     }
-
     /**
      * The target's connector type. For a list of possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ne-wingdi-displayconfig_video_output_technology">DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY</a> enumerated type.
-     * @type {DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY}
      */
-    outputTechnology {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    outputTechnology : DISPLAYCONFIG_VIDEO_OUTPUT_TECHNOLOGY
 
     /**
      * A value that specifies the rotation of the target. For a list of possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ne-wingdi-displayconfig_rotation">DISPLAYCONFIG_ROTATION</a> enumerated type.
-     * @type {DISPLAYCONFIG_ROTATION}
      */
-    rotation {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    rotation : DISPLAYCONFIG_ROTATION
 
     /**
      * A value that specifies how the source image is scaled to the target. For a list of possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ne-wingdi-displayconfig_scaling">DISPLAYCONFIG_SCALING</a> enumerated type. For more information about scaling, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/scaling-the-desktop-image">Scaling the Desktop Image</a>.
-     * @type {DISPLAYCONFIG_SCALING}
      */
-    scaling {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    scaling : DISPLAYCONFIG_SCALING
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_rational">DISPLAYCONFIG_RATIONAL</a> structure that specifies the refresh rate of the target. If the caller specifies target mode information, the operating system will instead use the refresh rate that is stored in the <b>vSyncFreq</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_video_signal_info">DISPLAYCONFIG_VIDEO_SIGNAL_INFO</a> structure. In this case, the caller specifies this value in the <b>targetVideoSignalInfo</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_target_mode">DISPLAYCONFIG_TARGET_MODE</a> structure. A refresh rate with both the numerator and denominator set to zero indicates that the caller does not specify a refresh rate and the operating system should use the most optimal refresh rate available. For this case, in a call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setdisplayconfig">SetDisplayConfig</a> function, the caller must set the <b>scanLineOrdering</b> member to the DISPLAYCONFIG_SCANLINE_ORDERING_UNSPECIFIED value; otherwise, <b>SetDisplayConfig</b> fails.
-     * @type {DISPLAYCONFIG_RATIONAL}
      */
-    refreshRate {
-        get {
-            if(!this.HasProp("__refreshRate"))
-                this.__refreshRate := DISPLAYCONFIG_RATIONAL(28, this)
-            return this.__refreshRate
-        }
-    }
+    refreshRate : DISPLAYCONFIG_RATIONAL
 
     /**
      * A value that specifies the scan-line ordering of the output on the target. For a list of possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ne-wingdi-displayconfig_scanline_ordering">DISPLAYCONFIG_SCANLINE_ORDERING</a> enumerated type. If the caller specifies target mode information, the operating system will instead use the scan-line ordering that is stored in the <b>scanLineOrdering</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_video_signal_info">DISPLAYCONFIG_VIDEO_SIGNAL_INFO</a> structure. In this case, the caller specifies this value in the <b>targetVideoSignalInfo</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_target_mode">DISPLAYCONFIG_TARGET_MODE</a> structure.
-     * @type {DISPLAYCONFIG_SCANLINE_ORDERING}
      */
-    scanLineOrdering {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    scanLineOrdering : DISPLAYCONFIG_SCANLINE_ORDERING
 
     /**
      * A Boolean value that specifies whether the target is available. <b>TRUE</b> indicates that the target is available.
      * 
      * Because the asynchronous nature of display topology changes when a monitor is removed, a path might still be marked as active even though the monitor has been removed. In such a case, <b>targetAvailable</b> could be <b>FALSE</b> for an active path. This is typically a transient situation that will change after the operating system  takes action on the monitor removal.
-     * @type {BOOL}
      */
-    targetAvailable {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    targetAvailable : BOOL
 
     /**
      * A bitwise OR of flag values that indicates the status of the target. The following values are supported:
@@ -210,10 +153,11 @@ class DISPLAYCONFIG_PATH_TARGET_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    statusFlags {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+    statusFlags : UInt32
+
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int32, offset: 12 })
+        this.DeleteProp("__New")
     }
 }

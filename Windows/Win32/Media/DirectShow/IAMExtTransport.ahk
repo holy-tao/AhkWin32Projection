@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAMExtTransport interface controls the transport on a video tape recporder (VTR) or camcorder.
@@ -18,26 +20,60 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamexttransport
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAMExtTransport extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAMExtTransport extends IUnknown {
     /**
      * The interface identifier for IAMExtTransport
      * @type {Guid}
      */
-    static IID => Guid("{a03cd5f0-3045-11cf-8c44-00aa006b6814}")
+    static IID := Guid("{a03cd5f0-3045-11cf-8c44-00aa006b6814}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAMExtTransport interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCapability               : IntPtr
+        put_MediaState              : IntPtr
+        get_MediaState              : IntPtr
+        put_LocalControl            : IntPtr
+        get_LocalControl            : IntPtr
+        GetStatus                   : IntPtr
+        GetTransportBasicParameters : IntPtr
+        SetTransportBasicParameters : IntPtr
+        GetTransportVideoParameters : IntPtr
+        SetTransportVideoParameters : IntPtr
+        GetTransportAudioParameters : IntPtr
+        SetTransportAudioParameters : IntPtr
+        put_Mode                    : IntPtr
+        get_Mode                    : IntPtr
+        put_Rate                    : IntPtr
+        get_Rate                    : IntPtr
+        GetChase                    : IntPtr
+        SetChase                    : IntPtr
+        GetBump                     : IntPtr
+        SetBump                     : IntPtr
+        get_AntiClogControl         : IntPtr
+        put_AntiClogControl         : IntPtr
+        GetEditPropertySet          : IntPtr
+        SetEditPropertySet          : IntPtr
+        GetEditProperty             : IntPtr
+        SetEditProperty             : IntPtr
+        get_EditStart               : IntPtr
+        put_EditStart               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCapability", "put_MediaState", "get_MediaState", "put_LocalControl", "get_LocalControl", "GetStatus", "GetTransportBasicParameters", "SetTransportBasicParameters", "GetTransportVideoParameters", "SetTransportVideoParameters", "GetTransportAudioParameters", "SetTransportAudioParameters", "put_Mode", "get_Mode", "put_Rate", "get_Rate", "GetChase", "SetChase", "GetBump", "SetBump", "get_AntiClogControl", "put_AntiClogControl", "GetEditPropertySet", "SetEditPropertySet", "GetEditProperty", "SetEditProperty", "get_EditStart", "put_EditStart"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAMExtTransport.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -1618,5 +1654,79 @@ class IAMExtTransport extends IUnknown {
     put_EditStart(Value) {
         result := ComCall(30, this, "int", Value, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAMExtTransport.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCapability := CallbackCreate(GetMethod(implObj, "GetCapability"), flags, 4)
+        this.vtbl.put_MediaState := CallbackCreate(GetMethod(implObj, "put_MediaState"), flags, 2)
+        this.vtbl.get_MediaState := CallbackCreate(GetMethod(implObj, "get_MediaState"), flags, 2)
+        this.vtbl.put_LocalControl := CallbackCreate(GetMethod(implObj, "put_LocalControl"), flags, 2)
+        this.vtbl.get_LocalControl := CallbackCreate(GetMethod(implObj, "get_LocalControl"), flags, 2)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 3)
+        this.vtbl.GetTransportBasicParameters := CallbackCreate(GetMethod(implObj, "GetTransportBasicParameters"), flags, 4)
+        this.vtbl.SetTransportBasicParameters := CallbackCreate(GetMethod(implObj, "SetTransportBasicParameters"), flags, 4)
+        this.vtbl.GetTransportVideoParameters := CallbackCreate(GetMethod(implObj, "GetTransportVideoParameters"), flags, 3)
+        this.vtbl.SetTransportVideoParameters := CallbackCreate(GetMethod(implObj, "SetTransportVideoParameters"), flags, 3)
+        this.vtbl.GetTransportAudioParameters := CallbackCreate(GetMethod(implObj, "GetTransportAudioParameters"), flags, 3)
+        this.vtbl.SetTransportAudioParameters := CallbackCreate(GetMethod(implObj, "SetTransportAudioParameters"), flags, 3)
+        this.vtbl.put_Mode := CallbackCreate(GetMethod(implObj, "put_Mode"), flags, 2)
+        this.vtbl.get_Mode := CallbackCreate(GetMethod(implObj, "get_Mode"), flags, 2)
+        this.vtbl.put_Rate := CallbackCreate(GetMethod(implObj, "put_Rate"), flags, 2)
+        this.vtbl.get_Rate := CallbackCreate(GetMethod(implObj, "get_Rate"), flags, 2)
+        this.vtbl.GetChase := CallbackCreate(GetMethod(implObj, "GetChase"), flags, 4)
+        this.vtbl.SetChase := CallbackCreate(GetMethod(implObj, "SetChase"), flags, 4)
+        this.vtbl.GetBump := CallbackCreate(GetMethod(implObj, "GetBump"), flags, 3)
+        this.vtbl.SetBump := CallbackCreate(GetMethod(implObj, "SetBump"), flags, 3)
+        this.vtbl.get_AntiClogControl := CallbackCreate(GetMethod(implObj, "get_AntiClogControl"), flags, 2)
+        this.vtbl.put_AntiClogControl := CallbackCreate(GetMethod(implObj, "put_AntiClogControl"), flags, 2)
+        this.vtbl.GetEditPropertySet := CallbackCreate(GetMethod(implObj, "GetEditPropertySet"), flags, 3)
+        this.vtbl.SetEditPropertySet := CallbackCreate(GetMethod(implObj, "SetEditPropertySet"), flags, 3)
+        this.vtbl.GetEditProperty := CallbackCreate(GetMethod(implObj, "GetEditProperty"), flags, 4)
+        this.vtbl.SetEditProperty := CallbackCreate(GetMethod(implObj, "SetEditProperty"), flags, 4)
+        this.vtbl.get_EditStart := CallbackCreate(GetMethod(implObj, "get_EditStart"), flags, 2)
+        this.vtbl.put_EditStart := CallbackCreate(GetMethod(implObj, "put_EditStart"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCapability)
+        CallbackFree(this.vtbl.put_MediaState)
+        CallbackFree(this.vtbl.get_MediaState)
+        CallbackFree(this.vtbl.put_LocalControl)
+        CallbackFree(this.vtbl.get_LocalControl)
+        CallbackFree(this.vtbl.GetStatus)
+        CallbackFree(this.vtbl.GetTransportBasicParameters)
+        CallbackFree(this.vtbl.SetTransportBasicParameters)
+        CallbackFree(this.vtbl.GetTransportVideoParameters)
+        CallbackFree(this.vtbl.SetTransportVideoParameters)
+        CallbackFree(this.vtbl.GetTransportAudioParameters)
+        CallbackFree(this.vtbl.SetTransportAudioParameters)
+        CallbackFree(this.vtbl.put_Mode)
+        CallbackFree(this.vtbl.get_Mode)
+        CallbackFree(this.vtbl.put_Rate)
+        CallbackFree(this.vtbl.get_Rate)
+        CallbackFree(this.vtbl.GetChase)
+        CallbackFree(this.vtbl.SetChase)
+        CallbackFree(this.vtbl.GetBump)
+        CallbackFree(this.vtbl.SetBump)
+        CallbackFree(this.vtbl.get_AntiClogControl)
+        CallbackFree(this.vtbl.put_AntiClogControl)
+        CallbackFree(this.vtbl.GetEditPropertySet)
+        CallbackFree(this.vtbl.SetEditPropertySet)
+        CallbackFree(this.vtbl.GetEditProperty)
+        CallbackFree(this.vtbl.SetEditProperty)
+        CallbackFree(this.vtbl.get_EditStart)
+        CallbackFree(this.vtbl.put_EditStart)
     }
 }

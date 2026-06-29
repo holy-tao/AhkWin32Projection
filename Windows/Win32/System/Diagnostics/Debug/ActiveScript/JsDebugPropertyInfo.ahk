@@ -1,65 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\..\Foundation\BSTR.ahk
-#Include .\JS_PROPERTY_ATTRIBUTES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\JS_PROPERTY_ATTRIBUTES.ahk" { JS_PROPERTY_ATTRIBUTES }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
  */
-class JsDebugPropertyInfo extends Win32Struct {
-    static sizeof => 40
+export default struct JsDebugPropertyInfo {
+    #StructPack 8
 
-    static packingSize => 8
+    name : BSTR
 
-    /**
-     * @type {BSTR}
-     */
-    name {
-        get {
-            if(!this.HasProp("__name"))
-                this.__name := BSTR(0, this)
-            return this.__name
-        }
-    }
+    type : BSTR
 
-    /**
-     * @type {BSTR}
-     */
-    type {
-        get {
-            if(!this.HasProp("__type"))
-                this.__type := BSTR(8, this)
-            return this.__type
-        }
-    }
+    value : BSTR
 
-    /**
-     * @type {BSTR}
-     */
-    value {
-        get {
-            if(!this.HasProp("__value"))
-                this.__value := BSTR(16, this)
-            return this.__value
-        }
-    }
+    fullName : BSTR
 
-    /**
-     * @type {BSTR}
-     */
-    fullName {
-        get {
-            if(!this.HasProp("__fullName"))
-                this.__fullName := BSTR(24, this)
-            return this.__fullName
-        }
-    }
+    attr : JS_PROPERTY_ATTRIBUTES
 
-    /**
-     * @type {JS_PROPERTY_ATTRIBUTES}
-     */
-    attr {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
 }

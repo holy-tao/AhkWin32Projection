@@ -1,49 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NVME_COMMAND_EFFECTS_DATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NVME_COMMAND_EFFECTS_DATA.ahk" { NVME_COMMAND_EFFECTS_DATA }
 
 /**
  * Contains information that describes the commands that the controller supports and the effects of those commands on the state of the NVM subsystem.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_command_effects_log
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_COMMAND_EFFECTS_LOG extends Win32Struct {
-    static sizeof => 6144
-
-    static packingSize => 4
+export default struct NVME_COMMAND_EFFECTS_LOG {
+    #StructPack 4
 
     /**
      * A [NVME_COMMAND_EFFECTS_DATA](ns-nvme-nvme_command_effects_data.md) structure that describes the Admin commands that the controller supports and the effects of those commands.
-     * @type {NVME_COMMAND_EFFECTS_DATA}
      */
-    ACS {
-        get {
-            if(!this.HasProp("__ACSProxyArray"))
-                this.__ACSProxyArray := Win32FixedArray(this.ptr + 0, 256, NVME_COMMAND_EFFECTS_DATA, "")
-            return this.__ACSProxyArray
-        }
-    }
+    ACS : NVME_COMMAND_EFFECTS_DATA[256]
 
     /**
      * A [NVME_COMMAND_EFFECTS_DATA](ns-nvme-nvme_command_effects_data.md) structure that describes the I/O commands that the controller supports and the effects of those commands.
-     * @type {NVME_COMMAND_EFFECTS_DATA}
      */
-    IOCS {
-        get {
-            if(!this.HasProp("__IOCSProxyArray"))
-                this.__IOCSProxyArray := Win32FixedArray(this.ptr + 2048, 256, NVME_COMMAND_EFFECTS_DATA, "")
-            return this.__IOCSProxyArray
-        }
-    }
+    IOCS : NVME_COMMAND_EFFECTS_DATA[256]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 4096, 2048, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    Reserved : Int8[2048]
+
 }

@@ -1,12 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Version 1 file format.
- * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatopen
  * @namespace Windows.Win32.Security.Cryptography.Catalog
  */
-class CRYPTCAT_VERSION extends Win32Enum {
+export default struct CRYPTCAT_VERSION {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IShellDispatch3.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IShellDispatch3.ahk" { IShellDispatch3 }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Extends the IShellDispatch3 object.
@@ -16,26 +19,36 @@
  * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch4
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellDispatch4 extends IShellDispatch3 {
-
-    static sizeof => A_PtrSize
+export default struct IShellDispatch4 extends IShellDispatch3 {
     /**
      * The interface identifier for IShellDispatch4
      * @type {Guid}
      */
-    static IID => Guid("{efd84b2d-4bcf-4298-be25-eb542a59fbda}")
+    static IID := Guid("{efd84b2d-4bcf-4298-be25-eb542a59fbda}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 40
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellDispatch4 interfaces
+    */
+    struct Vtbl extends IShellDispatch3.Vtbl {
+        WindowsSecurity : IntPtr
+        ToggleDesktop   : IntPtr
+        ExplorerPolicy  : IntPtr
+        GetSetting      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["WindowsSecurity", "ToggleDesktop", "ExplorerPolicy", "GetSetting"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellDispatch4.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * IShellDispatch4.WindowsSecurity method - Displays the Windows Security dialog box.
@@ -80,7 +93,7 @@ class IShellDispatch4 extends IShellDispatch3 {
         bstrPolicyName := bstrPolicyName is String ? BSTR.Alloc(bstrPolicyName).Value : bstrPolicyName
 
         pValue := VARIANT()
-        result := ComCall(42, this, "ptr", bstrPolicyName, "ptr", pValue, "HRESULT")
+        result := ComCall(42, this, BSTR, bstrPolicyName, VARIANT.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -327,7 +340,33 @@ class IShellDispatch4 extends IShellDispatch3 {
      * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch4-getsetting
      */
     GetSetting(lSetting) {
-        result := ComCall(43, this, "int", lSetting, "short*", &pResult := 0, "HRESULT")
+        result := ComCall(43, this, "int", lSetting, VARIANT_BOOL.Ptr, &pResult := 0, "HRESULT")
         return pResult
+    }
+
+    Query(iid) {
+        if (IShellDispatch4.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.WindowsSecurity := CallbackCreate(GetMethod(implObj, "WindowsSecurity"), flags, 1)
+        this.vtbl.ToggleDesktop := CallbackCreate(GetMethod(implObj, "ToggleDesktop"), flags, 1)
+        this.vtbl.ExplorerPolicy := CallbackCreate(GetMethod(implObj, "ExplorerPolicy"), flags, 3)
+        this.vtbl.GetSetting := CallbackCreate(GetMethod(implObj, "GetSetting"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.WindowsSecurity)
+        CallbackFree(this.vtbl.ToggleDesktop)
+        CallbackFree(this.vtbl.ExplorerPolicy)
+        CallbackFree(this.vtbl.GetSetting)
     }
 }

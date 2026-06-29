@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
-#Include .\IEnumContextProps.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IEnumContextProps.ahk" { IEnumContextProps }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * The IContext (objidlbase.h) interface supports setting COM+ context properties.
@@ -11,26 +12,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-icontext
  * @namespace Windows.Win32.System.Com
  */
-class IContext extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IContext extends IUnknown {
     /**
      * The interface identifier for IContext
      * @type {Guid}
      */
-    static IID => Guid("{000001c0-0000-0000-c000-000000000046}")
+    static IID := Guid("{000001c0-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IContext interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetProperty      : IntPtr
+        RemoveProperty   : IntPtr
+        GetProperty      : IntPtr
+        EnumContextProps : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetProperty", "RemoveProperty", "GetProperty", "EnumContextProps"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IContext.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IContext::SetProperty (objidlbase.h) method adds the specified context property to the object context.
@@ -41,7 +52,7 @@ class IContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-icontext-setproperty
      */
     SetProperty(rpolicyId, flags, pUnk) {
-        result := ComCall(3, this, "ptr", rpolicyId, "uint", flags, "ptr", pUnk, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, rpolicyId, "uint", flags, "ptr", pUnk, "HRESULT")
         return result
     }
 
@@ -52,7 +63,7 @@ class IContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-icontext-removeproperty
      */
     RemoveProperty(rPolicyId) {
-        result := ComCall(4, this, "ptr", rPolicyId, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, rPolicyId, "HRESULT")
         return result
     }
 
@@ -67,7 +78,7 @@ class IContext extends IUnknown {
     GetProperty(rGuid, pFlags, ppUnk) {
         pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", rGuid, pFlagsMarshal, pFlags, "ptr*", ppUnk, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, rGuid, pFlagsMarshal, pFlags, IUnknown.Ptr, ppUnk, "HRESULT")
         return result
     }
 
@@ -79,5 +90,31 @@ class IContext extends IUnknown {
     EnumContextProps() {
         result := ComCall(6, this, "ptr*", &ppEnumContextProps := 0, "HRESULT")
         return IEnumContextProps(ppEnumContextProps)
+    }
+
+    Query(iid) {
+        if (IContext.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 4)
+        this.vtbl.RemoveProperty := CallbackCreate(GetMethod(implObj, "RemoveProperty"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 4)
+        this.vtbl.EnumContextProps := CallbackCreate(GetMethod(implObj, "EnumContextProps"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetProperty)
+        CallbackFree(this.vtbl.RemoveProperty)
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.EnumContextProps)
     }
 }

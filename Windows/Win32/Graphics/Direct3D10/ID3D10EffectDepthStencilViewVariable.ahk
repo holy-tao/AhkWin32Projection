@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D10EffectVariable.ahk
-#Include .\ID3D10DepthStencilView.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D10DepthStencilView.ahk" { ID3D10DepthStencilView }
+#Import ".\ID3D10EffectVariable.ahk" { ID3D10EffectVariable }
 
 /**
  * A depth-stencil-view-variable interface accesses a depth-stencil view.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nn-d3d10effect-id3d10effectdepthstencilviewvariable
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class ID3D10EffectDepthStencilViewVariable extends ID3D10EffectVariable {
-
-    static sizeof => A_PtrSize
+export default struct ID3D10EffectDepthStencilViewVariable extends ID3D10EffectVariable {
     /**
      * The interface identifier for ID3D10EffectDepthStencilViewVariable
      * @type {Guid}
      */
-    static IID => Guid("{3e02c918-cc79-4985-b622-2d92ad701623}")
+    static IID := Guid("{3e02c918-cc79-4985-b622-2d92ad701623}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 25
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D10EffectDepthStencilViewVariable interfaces
+    */
+    struct Vtbl extends ID3D10EffectVariable.Vtbl {
+        SetDepthStencil      : IntPtr
+        GetDepthStencil      : IntPtr
+        SetDepthStencilArray : IntPtr
+        GetDepthStencilArray : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetDepthStencil", "GetDepthStencil", "SetDepthStencilArray", "GetDepthStencilArray"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D10EffectDepthStencilViewVariable.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Set a depth-stencil-view resource.
@@ -74,7 +85,7 @@ class ID3D10EffectDepthStencilViewVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectdepthstencilviewvariable-setdepthstencilarray
      */
     SetDepthStencilArray(ppResources, Offset, Count) {
-        result := ComCall(27, this, "ptr*", ppResources, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(27, this, ID3D10DepthStencilView.Ptr, ppResources, "uint", Offset, "uint", Count, "HRESULT")
         return result
     }
 
@@ -94,5 +105,31 @@ class ID3D10EffectDepthStencilViewVariable extends ID3D10EffectVariable {
     GetDepthStencilArray(Offset, Count) {
         result := ComCall(28, this, "ptr*", &ppResources := 0, "uint", Offset, "uint", Count, "HRESULT")
         return ID3D10DepthStencilView(ppResources)
+    }
+
+    Query(iid) {
+        if (ID3D10EffectDepthStencilViewVariable.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetDepthStencil := CallbackCreate(GetMethod(implObj, "SetDepthStencil"), flags, 2)
+        this.vtbl.GetDepthStencil := CallbackCreate(GetMethod(implObj, "GetDepthStencil"), flags, 2)
+        this.vtbl.SetDepthStencilArray := CallbackCreate(GetMethod(implObj, "SetDepthStencilArray"), flags, 4)
+        this.vtbl.GetDepthStencilArray := CallbackCreate(GetMethod(implObj, "GetDepthStencilArray"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetDepthStencil)
+        CallbackFree(this.vtbl.GetDepthStencil)
+        CallbackFree(this.vtbl.SetDepthStencilArray)
+        CallbackFree(this.vtbl.GetDepthStencilArray)
     }
 }

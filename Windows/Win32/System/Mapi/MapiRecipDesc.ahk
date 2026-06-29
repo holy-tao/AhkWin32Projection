@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * A MapiRecipDesc structure contains information about a message sender or recipient. For Unicode support, use the MapiRecipDescW structure.
@@ -7,19 +7,13 @@
  * @namespace Windows.Win32.System.Mapi
  * @charset ANSI
  */
-class MapiRecipDesc extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct MapiRecipDesc {
+    #StructPack 8
 
     /**
      * Reserved; must be zero.
-     * @type {Integer}
      */
-    ulReserved {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulReserved : UInt32
 
     /**
      * Contains a numeric value that indicates the type of recipient. Possible values are as follow.
@@ -74,48 +68,29 @@ class MapiRecipDesc extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ulRecipClass {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulRecipClass : UInt32
 
     /**
      * Pointer to the display name of the message recipient or sender.
-     * @type {PSTR}
      */
-    lpszName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpszName : PSTR
 
     /**
      * Optional pointer to the recipient or sender's address; this address is provider-specific message delivery data. Generally, the messaging system provides such addresses for inbound messages. For outbound messages, the <b>lpszAddress</b> member can point to an address entered by the user for a recipient not in an address book (that is, a custom recipient).
      * 
      * The format of the address is <i>address type</i>:<i>email address</i>. Examples of valid addresses are FAX:206-555-1212 and SMTP:M@X.COM.
-     * @type {PSTR}
      */
-    lpszAddress {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpszAddress : PSTR
 
     /**
      * The size, in bytes, of the entry identifier pointed to by the <b>lpEntryID</b> member.
-     * @type {Integer}
      */
-    ulEIDSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ulEIDSize : UInt32
 
     /**
      * Pointer to an opaque entry identifier used by a messaging system service provider to identify the message recipient. Entry identifiers have meaning only for the service provider; client applications will not be able to decipher them. The messaging system uses this member to return valid entry identifiers for all recipients or senders listed in the address book.
-     * @type {Pointer<Void>}
      */
-    lpEntryID {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpEntryID : IntPtr
+
 }

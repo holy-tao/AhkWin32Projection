@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IWbemClassObject.ahk" { IWbemClassObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWbemObjectSink interface creates a sink interface that can receive all types of notifications within the WMI programming model.
@@ -12,26 +15,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemobjectsink
  * @namespace Windows.Win32.System.Wmi
  */
-class IWbemObjectSink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWbemObjectSink extends IUnknown {
     /**
      * The interface identifier for IWbemObjectSink
      * @type {Guid}
      */
-    static IID => Guid("{7c857801-7381-11cf-884d-00aa004b2e24}")
+    static IID := Guid("{7c857801-7381-11cf-884d-00aa004b2e24}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWbemObjectSink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Indicate  : IntPtr
+        SetStatus : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Indicate", "SetStatus"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWbemObjectSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called by a source to provide a notification.
@@ -53,7 +64,7 @@ class IWbemObjectSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectsink-indicate
      */
     Indicate(lObjectCount, apObjArray) {
-        result := ComCall(3, this, "int", lObjectCount, "ptr*", apObjArray, "HRESULT")
+        result := ComCall(3, this, "int", lObjectCount, IWbemClassObject.Ptr, apObjArray, "HRESULT")
         return result
     }
 
@@ -81,7 +92,29 @@ class IWbemObjectSink extends IUnknown {
     SetStatus(lFlags, _hResult, strParam, pObjParam) {
         strParam := strParam is String ? BSTR.Alloc(strParam).Value : strParam
 
-        result := ComCall(4, this, "int", lFlags, "int", _hResult, "ptr", strParam, "ptr", pObjParam, "HRESULT")
+        result := ComCall(4, this, "int", lFlags, "int", _hResult, BSTR, strParam, "ptr", pObjParam, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWbemObjectSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Indicate := CallbackCreate(GetMethod(implObj, "Indicate"), flags, 3)
+        this.vtbl.SetStatus := CallbackCreate(GetMethod(implObj, "SetStatus"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Indicate)
+        CallbackFree(this.vtbl.SetStatus)
     }
 }

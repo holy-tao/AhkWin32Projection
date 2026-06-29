@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCW_COUNTER_DESCRIPTOR extends Win32Struct {
-    static sizeof => 8
+export default struct PCW_COUNTER_DESCRIPTOR {
+    #StructPack 2
 
-    static packingSize => 2
+    Id : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Id {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    StructIndex : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    StructIndex {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Offset : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Offset {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    Size : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
 }

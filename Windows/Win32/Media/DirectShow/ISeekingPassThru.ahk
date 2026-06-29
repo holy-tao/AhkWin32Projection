@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPin.ahk" { IPin }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ISeekingPassThru interface creates a helper object that implements seeking for one-input filters.
@@ -10,26 +13,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iseekingpassthru
  * @namespace Windows.Win32.Media.DirectShow
  */
-class ISeekingPassThru extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISeekingPassThru extends IUnknown {
     /**
      * The interface identifier for ISeekingPassThru
      * @type {Guid}
      */
-    static IID => Guid("{36b73883-c2c8-11cf-8b46-00805f6cef60}")
+    static IID := Guid("{36b73883-c2c8-11cf-8b46-00805f6cef60}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISeekingPassThru interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Init : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Init"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISeekingPassThru.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Init method initializes the seeking helper object.
@@ -79,7 +89,27 @@ class ISeekingPassThru extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iseekingpassthru-init
      */
     Init(bSupportRendering, pPin) {
-        result := ComCall(3, this, "int", bSupportRendering, "ptr", pPin, "HRESULT")
+        result := ComCall(3, this, BOOL, bSupportRendering, "ptr", pPin, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISeekingPassThru.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Init)
     }
 }

@@ -1,32 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.UI.Shell
  */
-class IScriptErrorList extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IScriptErrorList extends IDispatch {
     /**
      * The interface identifier for IScriptErrorList
      * @type {Guid}
      */
-    static IID => Guid("{f3470f24-15fd-11d2-bb2e-00805ff7efca}")
+    static IID := Guid("{f3470f24-15fd-11d2-bb2e-00805ff7efca}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IScriptErrorList interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        advanceError           : IntPtr
+        retreatError           : IntPtr
+        canAdvanceError        : IntPtr
+        canRetreatError        : IntPtr
+        getErrorLine           : IntPtr
+        getErrorChar           : IntPtr
+        getErrorCode           : IntPtr
+        getErrorMsg            : IntPtr
+        getErrorUrl            : IntPtr
+        getAlwaysShowLockState : IntPtr
+        getDetailsPaneOpen     : IntPtr
+        setDetailsPaneOpen     : IntPtr
+        getPerErrorDisplay     : IntPtr
+        setPerErrorDisplay     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["advanceError", "retreatError", "canAdvanceError", "canRetreatError", "getErrorLine", "getErrorChar", "getErrorCode", "getErrorMsg", "getErrorUrl", "getAlwaysShowLockState", "getDetailsPaneOpen", "setDetailsPaneOpen", "getPerErrorDisplay", "setPerErrorDisplay"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IScriptErrorList.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -51,7 +73,7 @@ class IScriptErrorList extends IDispatch {
      * @returns {BOOL} 
      */
     canAdvanceError() {
-        result := ComCall(9, this, "int*", &pfCanAdvance := 0, "HRESULT")
+        result := ComCall(9, this, BOOL.Ptr, &pfCanAdvance := 0, "HRESULT")
         return pfCanAdvance
     }
 
@@ -60,7 +82,7 @@ class IScriptErrorList extends IDispatch {
      * @returns {BOOL} 
      */
     canRetreatError() {
-        result := ComCall(10, this, "int*", &pfCanRetreat := 0, "HRESULT")
+        result := ComCall(10, this, BOOL.Ptr, &pfCanRetreat := 0, "HRESULT")
         return pfCanRetreat
     }
 
@@ -96,8 +118,8 @@ class IScriptErrorList extends IDispatch {
      * @returns {BSTR} 
      */
     getErrorMsg() {
-        _pstr := BSTR()
-        result := ComCall(14, this, "ptr", _pstr, "HRESULT")
+        _pstr := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, _pstr, "HRESULT")
         return _pstr
     }
 
@@ -106,8 +128,8 @@ class IScriptErrorList extends IDispatch {
      * @returns {BSTR} 
      */
     getErrorUrl() {
-        _pstr := BSTR()
-        result := ComCall(15, this, "ptr", _pstr, "HRESULT")
+        _pstr := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, _pstr, "HRESULT")
         return _pstr
     }
 
@@ -116,7 +138,7 @@ class IScriptErrorList extends IDispatch {
      * @returns {BOOL} 
      */
     getAlwaysShowLockState() {
-        result := ComCall(16, this, "int*", &pfAlwaysShowLocked := 0, "HRESULT")
+        result := ComCall(16, this, BOOL.Ptr, &pfAlwaysShowLocked := 0, "HRESULT")
         return pfAlwaysShowLocked
     }
 
@@ -125,7 +147,7 @@ class IScriptErrorList extends IDispatch {
      * @returns {BOOL} 
      */
     getDetailsPaneOpen() {
-        result := ComCall(17, this, "int*", &pfDetailsPaneOpen := 0, "HRESULT")
+        result := ComCall(17, this, BOOL.Ptr, &pfDetailsPaneOpen := 0, "HRESULT")
         return pfDetailsPaneOpen
     }
 
@@ -135,7 +157,7 @@ class IScriptErrorList extends IDispatch {
      * @returns {HRESULT} 
      */
     setDetailsPaneOpen(fDetailsPaneOpen) {
-        result := ComCall(18, this, "int", fDetailsPaneOpen, "HRESULT")
+        result := ComCall(18, this, BOOL, fDetailsPaneOpen, "HRESULT")
         return result
     }
 
@@ -144,7 +166,7 @@ class IScriptErrorList extends IDispatch {
      * @returns {BOOL} 
      */
     getPerErrorDisplay() {
-        result := ComCall(19, this, "int*", &pfPerErrorDisplay := 0, "HRESULT")
+        result := ComCall(19, this, BOOL.Ptr, &pfPerErrorDisplay := 0, "HRESULT")
         return pfPerErrorDisplay
     }
 
@@ -154,7 +176,53 @@ class IScriptErrorList extends IDispatch {
      * @returns {HRESULT} 
      */
     setPerErrorDisplay(fPerErrorDisplay) {
-        result := ComCall(20, this, "int", fPerErrorDisplay, "HRESULT")
+        result := ComCall(20, this, BOOL, fPerErrorDisplay, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IScriptErrorList.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.advanceError := CallbackCreate(GetMethod(implObj, "advanceError"), flags, 1)
+        this.vtbl.retreatError := CallbackCreate(GetMethod(implObj, "retreatError"), flags, 1)
+        this.vtbl.canAdvanceError := CallbackCreate(GetMethod(implObj, "canAdvanceError"), flags, 2)
+        this.vtbl.canRetreatError := CallbackCreate(GetMethod(implObj, "canRetreatError"), flags, 2)
+        this.vtbl.getErrorLine := CallbackCreate(GetMethod(implObj, "getErrorLine"), flags, 2)
+        this.vtbl.getErrorChar := CallbackCreate(GetMethod(implObj, "getErrorChar"), flags, 2)
+        this.vtbl.getErrorCode := CallbackCreate(GetMethod(implObj, "getErrorCode"), flags, 2)
+        this.vtbl.getErrorMsg := CallbackCreate(GetMethod(implObj, "getErrorMsg"), flags, 2)
+        this.vtbl.getErrorUrl := CallbackCreate(GetMethod(implObj, "getErrorUrl"), flags, 2)
+        this.vtbl.getAlwaysShowLockState := CallbackCreate(GetMethod(implObj, "getAlwaysShowLockState"), flags, 2)
+        this.vtbl.getDetailsPaneOpen := CallbackCreate(GetMethod(implObj, "getDetailsPaneOpen"), flags, 2)
+        this.vtbl.setDetailsPaneOpen := CallbackCreate(GetMethod(implObj, "setDetailsPaneOpen"), flags, 2)
+        this.vtbl.getPerErrorDisplay := CallbackCreate(GetMethod(implObj, "getPerErrorDisplay"), flags, 2)
+        this.vtbl.setPerErrorDisplay := CallbackCreate(GetMethod(implObj, "setPerErrorDisplay"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.advanceError)
+        CallbackFree(this.vtbl.retreatError)
+        CallbackFree(this.vtbl.canAdvanceError)
+        CallbackFree(this.vtbl.canRetreatError)
+        CallbackFree(this.vtbl.getErrorLine)
+        CallbackFree(this.vtbl.getErrorChar)
+        CallbackFree(this.vtbl.getErrorCode)
+        CallbackFree(this.vtbl.getErrorMsg)
+        CallbackFree(this.vtbl.getErrorUrl)
+        CallbackFree(this.vtbl.getAlwaysShowLockState)
+        CallbackFree(this.vtbl.getDetailsPaneOpen)
+        CallbackFree(this.vtbl.setDetailsPaneOpen)
+        CallbackFree(this.vtbl.getPerErrorDisplay)
+        CallbackFree(this.vtbl.setPerErrorDisplay)
     }
 }

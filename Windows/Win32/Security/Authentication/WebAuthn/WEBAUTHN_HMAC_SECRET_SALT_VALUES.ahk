@@ -1,42 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WEBAUTHN_HMAC_SECRET_SALT.ahk
-#Include .\WEBAUTHN_CRED_WITH_HMAC_SECRET_SALT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WEBAUTHN_CRED_WITH_HMAC_SECRET_SALT.ahk" { WEBAUTHN_CRED_WITH_HMAC_SECRET_SALT }
+#Import ".\WEBAUTHN_HMAC_SECRET_SALT.ahk" { WEBAUTHN_HMAC_SECRET_SALT }
 
 /**
  * Contains the SALT values for the HMAC secret.
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_hmac_secret_salt_values
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
  */
-class WEBAUTHN_HMAC_SECRET_SALT_VALUES extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct WEBAUTHN_HMAC_SECRET_SALT_VALUES {
+    #StructPack 8
 
     /**
      * The global HMAC SALT.
-     * @type {Pointer<WEBAUTHN_HMAC_SECRET_SALT>}
      */
-    pGlobalHmacSalt {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pGlobalHmacSalt : WEBAUTHN_HMAC_SECRET_SALT.Ptr
 
     /**
      * The size of **pCredWithHmacSecretSaltList**.
-     * @type {Integer}
      */
-    cCredWithHmacSecretSaltList {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cCredWithHmacSecretSaltList : UInt32
 
     /**
      * The list of credentials with HMAC secret SALT.
-     * @type {Pointer<WEBAUTHN_CRED_WITH_HMAC_SECRET_SALT>}
      */
-    pCredWithHmacSecretSaltList {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pCredWithHmacSecretSaltList : WEBAUTHN_CRED_WITH_HMAC_SECRET_SALT.Ptr
+
 }

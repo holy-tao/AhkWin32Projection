@@ -1,10 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RPC_C_QOS_CAPABILITIES.ahk
-#Include .\RPC_C_QOS_IDENTITY.ahk
-#Include ..\Com\RPC_C_IMP_LEVEL.ahk
-#Include .\RPC_C_AUTHN_INFO_TYPE.ahk
-#Include .\RPC_HTTP_TRANSPORT_CREDENTIALS_A.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RPC_C_QOS_IDENTITY.ahk" { RPC_C_QOS_IDENTITY }
+#Import ".\RPC_C_AUTHN_INFO_TYPE.ahk" { RPC_C_AUTHN_INFO_TYPE }
+#Import ".\RPC_HTTP_TRANSPORT_CREDENTIALS_A.ahk" { RPC_HTTP_TRANSPORT_CREDENTIALS_A }
+#Import ".\RPC_C_QOS_CAPABILITIES.ahk" { RPC_C_QOS_CAPABILITIES }
+#Import "..\Com\RPC_C_IMP_LEVEL.ahk" { RPC_C_IMP_LEVEL }
 
 /**
  * The RPC_SECURITY_QOS_V3 structure defines version 3 security quality-of-service settings on a binding handle. See Remarks for version availability on Windows editions. (ANSI)
@@ -35,32 +34,19 @@
  * @namespace Windows.Win32.System.Rpc
  * @charset ANSI
  */
-class RPC_SECURITY_QOS_V3_A extends Win32Struct {
-    static sizeof => 40
+export default struct RPC_SECURITY_QOS_V3_A {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _u_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _u {
+        HttpCredentials : RPC_HTTP_TRANSPORT_CREDENTIALS_A.Ptr
 
-        /**
-         * @type {Pointer<RPC_HTTP_TRANSPORT_CREDENTIALS_A>}
-         */
-        HttpCredentials {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
     }
 
     /**
      * Version of the <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-rpc_security_qos">RPC_SECURITY_QOS</a> structure being used. This topic documents version 3 of the <b>RPC_SECURITY_QOS</b> structure. See <b>RPC_SECURITY_QOS</b>, <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-rpc_security_qos_v2_a">RPC_SECURITY_QOS_V2</a> and <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-rpc_security_qos_v4_a">RPC_SECURITY_QOS_V4</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-rpc_security_qos_v5_a">RPC_SECURITY_QOS_V5</a> for other versions.
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
     /**
      * Security services being provided to the application. Capabilities is a set of flags that can be combined using the bitwise OR operator.
@@ -137,12 +123,8 @@ class RPC_SECURITY_QOS_V3_A extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {RPC_C_QOS_CAPABILITIES}
      */
-    Capabilities {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Capabilities : RPC_C_QOS_CAPABILITIES
 
     /**
      * Sets the context tracking mode. Should be set to one of the values shown in the following table.
@@ -175,12 +157,8 @@ class RPC_SECURITY_QOS_V3_A extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {RPC_C_QOS_IDENTITY}
      */
-    IdentityTracking {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    IdentityTracking : RPC_C_QOS_IDENTITY
 
     /**
      * Level at which the server process can impersonate the client. 
@@ -245,12 +223,8 @@ class RPC_SECURITY_QOS_V3_A extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {RPC_C_IMP_LEVEL}
      */
-    ImpersonationType {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ImpersonationType : RPC_C_IMP_LEVEL
 
     /**
      * Specifies the type of additional credentials present in the <b>u</b> union. The following constants are supported:
@@ -281,30 +255,14 @@ class RPC_SECURITY_QOS_V3_A extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {RPC_C_AUTHN_INFO_TYPE}
      */
-    AdditionalSecurityInfoType {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    AdditionalSecurityInfoType : RPC_C_AUTHN_INFO_TYPE
 
-    /**
-     * @type {_u_e__Union}
-     */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := RPC_SECURITY_QOS_V3_A._u_e__Union(24, this)
-            return this.__u
-        }
-    }
+    u : RPC_SECURITY_QOS_V3_A._u
 
     /**
      * Points to a security identifier (SID). The SID is an alternative to the <b>ServerPrincName</b> member, and only one can be specified. The <b>Sid</b> member cannot be set to non-<b>NULL</b> if the security provider is the SCHANNEL SSP. Some protocol sequences use  <b>Sid</b> internally for security, and some use a <b>ServerPrincName</b>. For example, <a href="https://docs.microsoft.com/windows/desktop/Midl/ncalrpc">ncalrpc</a> uses a <b>Sid</b> internally, and if the caller knows both the SID and the <b>ServerPrincName</b>, a call using <b>ncalrpc</b> can complete much faster in some cases if the SID is passed. In contrast, the <b>ncacn_*</b> and <b>ncadg_*</b> protocol sequences use a <b>ServerPrincName</b> internally, and therefore can execute calls faster when provided the <b>ServerPrincName</b>.
-     * @type {Pointer<Void>}
      */
-    Sid {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Sid : IntPtr
+
 }

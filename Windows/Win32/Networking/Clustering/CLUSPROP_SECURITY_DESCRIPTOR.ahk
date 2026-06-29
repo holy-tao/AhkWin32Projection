@@ -1,50 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSPROP_VALUE.ahk
-#Include .\CLUSPROP_SYNTAX.ahk
-#Include ..\..\Security\SECURITY_DESCRIPTOR_RELATIVE.ahk
-#Include ..\..\Security\SECURITY_DESCRIPTOR_CONTROL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CLUSPROP_VALUE.ahk" { CLUSPROP_VALUE }
+#Import "..\..\Security\SECURITY_DESCRIPTOR_CONTROL.ahk" { SECURITY_DESCRIPTOR_CONTROL }
+#Import ".\CLUSPROP_SYNTAX.ahk" { CLUSPROP_SYNTAX }
+#Import "..\..\Security\SECURITY_DESCRIPTOR_RELATIVE.ahk" { SECURITY_DESCRIPTOR_RELATIVE }
 
 /**
  * Describes a security descriptor.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_security_descriptor
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUSPROP_SECURITY_DESCRIPTOR extends Win32Struct {
-    static sizeof => 32
+export default struct CLUSPROP_SECURITY_DESCRIPTOR {
+    #StructPack 4
 
-    static packingSize => 4
+    Base : CLUSPROP_VALUE
 
-    /**
-     * @type {CLUSPROP_VALUE}
-     */
-    Base {
-        get {
-            if(!this.HasProp("__Base"))
-                this.__Base := CLUSPROP_VALUE(0, this)
-            return this.__Base
-        }
-    }
+    sd : SECURITY_DESCRIPTOR_RELATIVE
 
-    /**
-     * @type {SECURITY_DESCRIPTOR_RELATIVE}
-     */
-    sd {
-        get {
-            if(!this.HasProp("__sd"))
-                this.__sd := SECURITY_DESCRIPTOR_RELATIVE(12, this)
-            return this.__sd
-        }
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    rgbSecurityDescriptor {
-        get {
-            if(!this.HasProp("__rgbSecurityDescriptorProxyArray"))
-                this.__rgbSecurityDescriptorProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
-            return this.__rgbSecurityDescriptorProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'rgbSecurityDescriptor', { type: Int8[1], offset: 12 })
+        this.DeleteProp("__New")
     }
 }

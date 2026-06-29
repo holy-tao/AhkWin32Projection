@@ -1,90 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHEA_ERROR_SEVERITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WHEA_ERROR_SEVERITY.ahk" { WHEA_ERROR_SEVERITY }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_GENERIC_ERROR_DATA_ENTRY_V1 extends Win32Struct {
-    static sizeof => 64
+export default struct WHEA_GENERIC_ERROR_DATA_ENTRY_V1 {
+    #StructPack 8
 
-    static packingSize => 8
+    SectionType : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    SectionType {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    ErrorSeverity : WHEA_ERROR_SEVERITY
 
-    /**
-     * @type {WHEA_ERROR_SEVERITY}
-     */
-    ErrorSeverity {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    Revision : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Revision {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ValidBits : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ValidBits {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
-    }
+    Flags : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 25, "char")
-        set => NumPut("char", value, this, 25)
-    }
+    ErrorDataLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ErrorDataLength {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    FRUId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    FRUId {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    FRUText : Int8[20]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    FRUText {
-        get {
-            if(!this.HasProp("__FRUTextProxyArray"))
-                this.__FRUTextProxyArray := Win32FixedArray(this.ptr + 40, 20, Primitive, "char")
-            return this.__FRUTextProxyArray
-        }
-    }
+    Data : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Data {
-        get {
-            if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 60, 1, Primitive, "char")
-            return this.__DataProxyArray
-        }
-    }
 }

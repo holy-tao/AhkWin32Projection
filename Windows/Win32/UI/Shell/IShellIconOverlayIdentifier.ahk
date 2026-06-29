@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that handle all communication between icon overlay handlers and the Shell.
@@ -16,26 +18,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishelliconoverlayidentifier
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellIconOverlayIdentifier extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IShellIconOverlayIdentifier extends IUnknown {
     /**
      * The interface identifier for IShellIconOverlayIdentifier
      * @type {Guid}
      */
-    static IID => Guid("{0c6c4200-c589-11d0-999a-00c04fd655e1}")
+    static IID := Guid("{0c6c4200-c589-11d0-999a-00c04fd655e1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellIconOverlayIdentifier interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        IsMemberOf     : IntPtr
+        GetOverlayInfo : IntPtr
+        GetPriority    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsMemberOf", "GetOverlayInfo", "GetPriority"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellIconOverlayIdentifier.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies whether an icon overlay should be added to a Shell object's icon.
@@ -143,5 +154,29 @@ class IShellIconOverlayIdentifier extends IUnknown {
     GetPriority() {
         result := ComCall(5, this, "int*", &pPriority := 0, "HRESULT")
         return pPriority
+    }
+
+    Query(iid) {
+        if (IShellIconOverlayIdentifier.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsMemberOf := CallbackCreate(GetMethod(implObj, "IsMemberOf"), flags, 3)
+        this.vtbl.GetOverlayInfo := CallbackCreate(GetMethod(implObj, "GetOverlayInfo"), flags, 5)
+        this.vtbl.GetPriority := CallbackCreate(GetMethod(implObj, "GetPriority"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsMemberOf)
+        CallbackFree(this.vtbl.GetOverlayInfo)
+        CallbackFree(this.vtbl.GetPriority)
     }
 }

@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * The WINHTTP_CERTIFICATE_INFO structure contains certificate information returned from the server. This structure is used by the WinHttpQueryOption function.
@@ -16,88 +16,49 @@
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_certificate_info
  * @namespace Windows.Win32.Networking.WinHttp
  */
-class WINHTTP_CERTIFICATE_INFO extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct WINHTTP_CERTIFICATE_INFO {
+    #StructPack 8
 
     /**
      * A 
      * 						<a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the date the certificate expires.
-     * @type {FILETIME}
      */
-    ftExpiry {
-        get {
-            if(!this.HasProp("__ftExpiry"))
-                this.__ftExpiry := FILETIME(0, this)
-            return this.__ftExpiry
-        }
-    }
+    ftExpiry : FILETIME
 
     /**
      * A 
      * 						<a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the date the certificate becomes valid.
-     * @type {FILETIME}
      */
-    ftStart {
-        get {
-            if(!this.HasProp("__ftStart"))
-                this.__ftStart := FILETIME(8, this)
-            return this.__ftStart
-        }
-    }
+    ftStart : FILETIME
 
     /**
      * A pointer to a buffer that contains the name of the organization, site, and server for which the certificate was issued.
-     * @type {PWSTR}
      */
-    lpszSubjectInfo {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpszSubjectInfo : PWSTR
 
     /**
      * A pointer to a buffer that contains the name of the organization, site, and server that issued the certificate.
-     * @type {PWSTR}
      */
-    lpszIssuerInfo {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpszIssuerInfo : PWSTR
 
     /**
      * A pointer to a buffer that contains the name of the protocol used to provide the secure connection. This member is not current used.
-     * @type {PWSTR}
      */
-    lpszProtocolName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpszProtocolName : PWSTR
 
     /**
      * A pointer to a buffer that contains the name of the algorithm used to sign the certificate. This member is not current used.
-     * @type {PWSTR}
      */
-    lpszSignatureAlgName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lpszSignatureAlgName : PWSTR
 
     /**
      * A pointer to a buffer that contains the name of the algorithm used to perform encryption over the secure channel (SSL/TLS) connection. This member is not current used.
-     * @type {PWSTR}
      */
-    lpszEncryptionAlgName {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    lpszEncryptionAlgName : PWSTR
 
     /**
      * The size, in bytes, of the key.
-     * @type {Integer}
      */
-    dwKeySize {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    dwKeySize : UInt32
+
 }

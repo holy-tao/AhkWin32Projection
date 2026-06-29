@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The PHONE_TONE enum identifies a phone tone.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-phone_tone
  * @namespace Windows.Win32.Devices.Tapi
  */
-class PHONE_TONE extends Win32Enum {
+export default struct PHONE_TONE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Zero.

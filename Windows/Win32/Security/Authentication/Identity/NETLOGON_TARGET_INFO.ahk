@@ -1,86 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\LSA_UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class NETLOGON_TARGET_INFO extends Win32Struct {
-    static sizeof => 104
+export default struct NETLOGON_TARGET_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    Type : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NbComputerName : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    NbComputerName {
-        get {
-            if(!this.HasProp("__NbComputerName"))
-                this.__NbComputerName := LSA_UNICODE_STRING(8, this)
-            return this.__NbComputerName
-        }
-    }
+    NbDomainName : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    NbDomainName {
-        get {
-            if(!this.HasProp("__NbDomainName"))
-                this.__NbDomainName := LSA_UNICODE_STRING(24, this)
-            return this.__NbDomainName
-        }
-    }
+    DnsComputerName : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    DnsComputerName {
-        get {
-            if(!this.HasProp("__DnsComputerName"))
-                this.__DnsComputerName := LSA_UNICODE_STRING(40, this)
-            return this.__DnsComputerName
-        }
-    }
+    DnsDomainName : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    DnsDomainName {
-        get {
-            if(!this.HasProp("__DnsDomainName"))
-                this.__DnsDomainName := LSA_UNICODE_STRING(56, this)
-            return this.__DnsDomainName
-        }
-    }
+    DnsTreeName : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    DnsTreeName {
-        get {
-            if(!this.HasProp("__DnsTreeName"))
-                this.__DnsTreeName := LSA_UNICODE_STRING(72, this)
-            return this.__DnsTreeName
-        }
-    }
+    TargetName : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    TargetName {
-        get {
-            if(!this.HasProp("__TargetName"))
-                this.__TargetName := LSA_UNICODE_STRING(88, this)
-            return this.__TargetName
-        }
-    }
 }

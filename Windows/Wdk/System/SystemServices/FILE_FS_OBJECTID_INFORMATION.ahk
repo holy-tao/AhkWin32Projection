@@ -1,33 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class FILE_FS_OBJECTID_INFORMATION extends Win32Struct {
-    static sizeof => 64
+export default struct FILE_FS_OBJECTID_INFORMATION {
+    #StructPack 1
 
-    static packingSize => 1
+    ObjectId : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ObjectId {
-        get {
-            if(!this.HasProp("__ObjectIdProxyArray"))
-                this.__ObjectIdProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
-            return this.__ObjectIdProxyArray
-        }
-    }
+    ExtendedInfo : Int8[48]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ExtendedInfo {
-        get {
-            if(!this.HasProp("__ExtendedInfoProxyArray"))
-                this.__ExtendedInfoProxyArray := Win32FixedArray(this.ptr + 16, 48, Primitive, "char")
-            return this.__ExtendedInfoProxyArray
-        }
-    }
 }

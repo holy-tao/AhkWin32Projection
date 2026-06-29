@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The INTERNET_COOKIE2 structure contains the constituent parts of a cookie. This structure is used with the InternetGetCookieEx2 and InternetSetCookieEx2 functions.
@@ -10,46 +11,28 @@
  * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-internet_cookie2
  * @namespace Windows.Win32.Networking.WinInet
  */
-class INTERNET_COOKIE2 extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct INTERNET_COOKIE2 {
+    #StructPack 8
 
     /**
      * Pointer to a string containing the cookie name. May be NULL if value is not NULL.
-     * @type {PWSTR}
      */
-    pwszName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pwszName : PWSTR
 
     /**
      * Pointer to a string containing the cookie value. May be NULL if name is not NULL.
-     * @type {PWSTR}
      */
-    pwszValue {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwszValue : PWSTR
 
     /**
      * Pointer to a string containing the cookie domain. May be NULL.
-     * @type {PWSTR}
      */
-    pwszDomain {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pwszDomain : PWSTR
 
     /**
      * Pointer to a string containing the cookie path. May be NULL.
-     * @type {PWSTR}
      */
-    pwszPath {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pwszPath : PWSTR
 
     /**
      * Flags for additional cookie details. The following flags are available.
@@ -64,31 +47,17 @@ class INTERNET_COOKIE2 extends Win32Struct {
      * | INTERNET_COOKIE_HOST_ONLY_APPLIED | The host-only setting has been applied to this cookie. |
      * | INTERNET_COOKIE_SAME_SITE_STRICT | The SameSite security level for this cookie is "strict". |
      * | INTERNET_COOKIE_SAME_SITE_LAX | The SameSite security level for this cookie is "lax". |
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwFlags : UInt32
 
     /**
      * The expiry time of the cookie.
-     * @type {FILETIME}
      */
-    ftExpires {
-        get {
-            if(!this.HasProp("__ftExpires"))
-                this.__ftExpires := FILETIME(36, this)
-            return this.__ftExpires
-        }
-    }
+    ftExpires : FILETIME
 
     /**
      * Whether or not the expiry time is set.
-     * @type {BOOL}
      */
-    fExpiresSet {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    fExpiresSet : BOOL
+
 }

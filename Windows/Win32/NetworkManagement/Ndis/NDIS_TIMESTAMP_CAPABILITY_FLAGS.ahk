@@ -1,123 +1,38 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NDIS_TIMESTAMP_CAPABILITY_FLAGS extends Win32Struct {
-    static sizeof => 14
+export default struct NDIS_TIMESTAMP_CAPABILITY_FLAGS {
+    #StructPack 1
 
-    static packingSize => 1
+    PtpV2OverUdpIPv4EventMsgReceiveHw : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    PtpV2OverUdpIPv4EventMsgReceiveHw {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    PtpV2OverUdpIPv4AllMsgReceiveHw : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    PtpV2OverUdpIPv4AllMsgReceiveHw {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    PtpV2OverUdpIPv4EventMsgTransmitHw : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    PtpV2OverUdpIPv4EventMsgTransmitHw {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    PtpV2OverUdpIPv4AllMsgTransmitHw : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    PtpV2OverUdpIPv4AllMsgTransmitHw {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    PtpV2OverUdpIPv6EventMsgReceiveHw : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    PtpV2OverUdpIPv6EventMsgReceiveHw {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    PtpV2OverUdpIPv6AllMsgReceiveHw : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    PtpV2OverUdpIPv6AllMsgReceiveHw {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    PtpV2OverUdpIPv6EventMsgTransmitHw : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    PtpV2OverUdpIPv6EventMsgTransmitHw {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    PtpV2OverUdpIPv6AllMsgTransmitHw : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    PtpV2OverUdpIPv6AllMsgTransmitHw {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    AllReceiveHw : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    AllReceiveHw {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    AllTransmitHw : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    AllTransmitHw {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    TaggedTransmitHw : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    TaggedTransmitHw {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    AllReceiveSw : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    AllReceiveSw {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
-    }
+    AllTransmitSw : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    AllTransmitSw {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    TaggedTransmitSw : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    TaggedTransmitSw {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
-    }
 }

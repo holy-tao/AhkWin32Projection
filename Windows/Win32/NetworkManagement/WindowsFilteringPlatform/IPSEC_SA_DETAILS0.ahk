@@ -1,85 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWP_IP_VERSION.ahk
-#Include .\FWP_DIRECTION.ahk
-#Include .\IPSEC_TRAFFIC0.ahk
-#Include .\IPSEC_TRAFFIC_TYPE.ahk
-#Include .\IPSEC_SA_BUNDLE0.ahk
-#Include .\IPSEC_SA_BUNDLE_FLAGS.ahk
-#Include .\IPSEC_SA_LIFETIME0.ahk
-#Include .\IPSEC_ID0.ahk
-#Include .\IPSEC_SA0.ahk
-#Include .\IPSEC_KEYMODULE_STATE0.ahk
-#Include .\IPSEC_PFS_GROUP.ahk
-#Include .\IPSEC_V4_UDP_ENCAPSULATION0.ahk
-#Include .\FWPM_FILTER0.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FWP_DIRECTION.ahk" { FWP_DIRECTION }
+#Import ".\IPSEC_SA_LIFETIME0.ahk" { IPSEC_SA_LIFETIME0 }
+#Import ".\IPSEC_KEYMODULE_STATE0.ahk" { IPSEC_KEYMODULE_STATE0 }
+#Import ".\IPSEC_SA_BUNDLE_FLAGS.ahk" { IPSEC_SA_BUNDLE_FLAGS }
+#Import ".\IPSEC_V4_UDP_ENCAPSULATION0.ahk" { IPSEC_V4_UDP_ENCAPSULATION0 }
+#Import ".\IPSEC_PFS_GROUP.ahk" { IPSEC_PFS_GROUP }
+#Import ".\FWPM_FILTER0.ahk" { FWPM_FILTER0 }
+#Import ".\IPSEC_ID0.ahk" { IPSEC_ID0 }
+#Import ".\IPSEC_TRAFFIC_TYPE.ahk" { IPSEC_TRAFFIC_TYPE }
+#Import ".\IPSEC_TRAFFIC0.ahk" { IPSEC_TRAFFIC0 }
+#Import ".\FWP_IP_VERSION.ahk" { FWP_IP_VERSION }
+#Import ".\IPSEC_SA0.ahk" { IPSEC_SA0 }
+#Import ".\IPSEC_SA_BUNDLE0.ahk" { IPSEC_SA_BUNDLE0 }
 
 /**
  * Is used to store information returned when enumerating IPsec security associations (SAs). (IPSEC_SA_DETAILS0)
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_sa_details0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IPSEC_SA_DETAILS0 extends Win32Struct {
-    static sizeof => 168
-
-    static packingSize => 8
+export default struct IPSEC_SA_DETAILS0 {
+    #StructPack 8
 
     /**
      * Internet Protocol (IP) version as specified by [FWP_IP_VERSION](/windows/desktop/api/fwptypes/ne-fwptypes-fwp_ip_version).
-     * @type {FWP_IP_VERSION}
      */
-    ipVersion {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ipVersion : FWP_IP_VERSION
 
     /**
      * Indicates direction of the IPsec SA as specified by [FWP_DIRECTION](/windows/desktop/api/fwptypes/ne-fwptypes-fwp_direction).
-     * @type {FWP_DIRECTION}
      */
-    saDirection {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    saDirection : FWP_DIRECTION
 
     /**
      * The traffic being secured by this IPsec SA as specified by [IPSEC_TRAFFIC0](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_traffic0).
-     * @type {IPSEC_TRAFFIC0}
      */
-    traffic {
-        get {
-            if(!this.HasProp("__traffic"))
-                this.__traffic := IPSEC_TRAFFIC0(8, this)
-            return this.__traffic
-        }
-    }
+    traffic : IPSEC_TRAFFIC0
 
     /**
      * Various parameters of the SA as specified by [IPSEC_SA_BUNDLE0](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_sa_bundle0).
-     * @type {IPSEC_SA_BUNDLE0}
      */
-    saBundle {
-        get {
-            if(!this.HasProp("__saBundle"))
-                this.__saBundle := IPSEC_SA_BUNDLE0(64, this)
-            return this.__saBundle
-        }
-    }
+    saBundle : IPSEC_SA_BUNDLE0
 
-    /**
-     * @type {Pointer<IPSEC_V4_UDP_ENCAPSULATION0>}
-     */
-    udpEncapsulation {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
-    }
+    udpEncapsulation : IPSEC_V4_UDP_ENCAPSULATION0.Ptr
 
     /**
      * The transport layer filter corresponding to this IPsec SA as specified by [FWPM_FILTER0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_filter0).
-     * @type {Pointer<FWPM_FILTER0>}
      */
-    transportFilter {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
-    }
+    transportFilter : FWPM_FILTER0.Ptr
+
 }

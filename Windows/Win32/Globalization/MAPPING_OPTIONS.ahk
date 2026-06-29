@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains options for text recognition. The values stored in this structure affect the behavior and results of MappingRecognizeText.
@@ -19,161 +19,96 @@
  * @see https://learn.microsoft.com/windows/win32/api/elscore/ns-elscore-mapping_options
  * @namespace Windows.Win32.Globalization
  */
-class MAPPING_OPTIONS extends Win32Struct {
-    static sizeof => 120
-
-    static packingSize => 8
+export default struct MAPPING_OPTIONS {
+    #StructPack 8
 
     /**
      * Size of the structure, used to validate the structure version. This value is required.
-     * @type {Pointer}
      */
-    Size {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Size : IntPtr
 
     /**
      * Optional. Pointer to an input language string, following the IETF naming convention, that identifies the input language that the service should be able to accept. The application can set this member to <b>NULL</b> to indicate that the service is free to interpret the input as any input language it supports.
-     * @type {PWSTR}
      */
-    pszInputLanguage {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszInputLanguage : PWSTR
 
     /**
      * Optional. Pointer to an output language string, following the IETF naming convention, that identifies the output language that the service should be able to use to produce results. The application can set this member to <b>NULL</b> if the service should decide the output language.
-     * @type {PWSTR}
      */
-    pszOutputLanguage {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pszOutputLanguage : PWSTR
 
     /**
      * Optional. Pointer to a standard Unicode script name that should be accepted by the service. The application can set this member to <b>NULL</b> to let the service decide how handle the input.
-     * @type {PWSTR}
      */
-    pszInputScript {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pszInputScript : PWSTR
 
     /**
      * Optional. Pointer to a standard Unicode script name that the service should use to retrieve results. The application can set this member to <b>NULL</b> to let the service decide the output script.
-     * @type {PWSTR}
      */
-    pszOutputScript {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pszOutputScript : PWSTR
 
     /**
      * Optional. Pointer to a string, following the format of the MIME content types, that identifies the format that the service should be able to interpret when the application passes data. Examples of content types are "text/plain", "text/html", and "text/css". The application can set this member to <b>NULL</b> to indicate the "text/plain" content type. 
      * 
      * <div class="alert"><b>Note</b>  In Windows 7, the ELS services support only the content type "text/plain". A content type specification can be found at <a href="https://www.iana.org/assignments/media-types/text">Text Media Types</a>.</div>
      * <div> </div>
-     * @type {PWSTR}
      */
-    pszInputContentType {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pszInputContentType : PWSTR
 
     /**
      * Optional. Pointer to a string, following the format of the MIME content types, that identifies the format in which the service should retrieve data. The application can set this member to <b>NULL</b> to let the service decide the output content type.
-     * @type {PWSTR}
      */
-    pszOutputContentType {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pszOutputContentType : PWSTR
 
     /**
      * Reserved.
-     * @type {PWSTR}
      */
-    pszUILanguage {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pszUILanguage : PWSTR
 
     /**
      * Optional. Pointer to an application callback function to receive callbacks with the results from the <a href="https://docs.microsoft.com/windows/desktop/api/elscore/nf-elscore-mappingrecognizetext">MappingRecognizeText</a> function. If a callback function is specified, text recognition is executed in asynchronous mode and the application obtains results through the callback function. The application must set this member to <b>NULL</b> if text recognition is to be synchronous.
-     * @type {Pointer<PFN_MAPPINGCALLBACKPROC>}
      */
-    pfnRecognizeCallback {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    pfnRecognizeCallback : IntPtr
 
     /**
      * Optional. Pointer to private application data passed to the callback function by a service after text recognition is complete. The application must set this member to <b>NULL</b> to indicate no private application data.
-     * @type {Pointer<Void>}
      */
-    pRecognizeCallerData {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    pRecognizeCallerData : IntPtr
 
     /**
      * Optional. Size, in bytes, of any private application data indicated by the <b>pRecognizeCallerData</b> member.
-     * @type {Integer}
      */
-    dwRecognizeCallerDataSize {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    dwRecognizeCallerDataSize : UInt32
 
     /**
      * Reserved.
-     * @type {Pointer<PFN_MAPPINGCALLBACKPROC>}
      */
-    pfnActionCallback {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    pfnActionCallback : IntPtr
 
     /**
      * Reserved.
-     * @type {Pointer<Void>}
      */
-    pActionCallerData {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    pActionCallerData : IntPtr
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    dwActionCallerDataSize {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    dwActionCallerDataSize : UInt32
 
     /**
      * Optional. Private flag that a service provider defines to affect service behavior. Services can interpret this flag as they require.
      * 
      * <div class="alert"><b>Note</b>  For Windows 7, none of the available ELS services support flags.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    dwServiceFlag {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
+    dwServiceFlag : UInt32
 
     /**
      * This bitfield backs the following members:
      * - GetActionDisplayName
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}

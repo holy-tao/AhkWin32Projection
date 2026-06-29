@@ -1,31 +1,144 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLDOMConstructorCollection extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLDOMConstructorCollection extends IDispatch {
     /**
      * The interface identifier for IHTMLDOMConstructorCollection
      * @type {Guid}
      */
-    static IID => Guid("{3051049c-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3051049c-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLDOMConstructorCollection interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Attr                        : IntPtr
+        get_BehaviorUrnsCollection      : IntPtr
+        get_BookmarkCollection          : IntPtr
+        get_CompatibleInfo              : IntPtr
+        get_CompatibleInfoCollection    : IntPtr
+        get_ControlRangeCollection      : IntPtr
+        get_CSSCurrentStyleDeclaration  : IntPtr
+        get_CSSRuleList                 : IntPtr
+        get_CSSRuleStyleDeclaration     : IntPtr
+        get_CSSStyleDeclaration         : IntPtr
+        get_CSSStyleRule                : IntPtr
+        get_CSSStyleSheet               : IntPtr
+        get_DataTransfer                : IntPtr
+        get_DOMImplementation           : IntPtr
+        get_Element                     : IntPtr
+        get_Event                       : IntPtr
+        get_History                     : IntPtr
+        get_HTCElementBehaviorDefaults  : IntPtr
+        get_HTMLAnchorElement           : IntPtr
+        get_HTMLAreaElement             : IntPtr
+        get_HTMLAreasCollection         : IntPtr
+        get_HTMLBaseElement             : IntPtr
+        get_HTMLBaseFontElement         : IntPtr
+        get_HTMLBGSoundElement          : IntPtr
+        get_HTMLBlockElement            : IntPtr
+        get_HTMLBodyElement             : IntPtr
+        get_HTMLBRElement               : IntPtr
+        get_HTMLButtonElement           : IntPtr
+        get_HTMLCollection              : IntPtr
+        get_HTMLCommentElement          : IntPtr
+        get_HTMLDDElement               : IntPtr
+        get_HTMLDivElement              : IntPtr
+        get_HTMLDocument                : IntPtr
+        get_HTMLDListElement            : IntPtr
+        get_HTMLDTElement               : IntPtr
+        get_HTMLEmbedElement            : IntPtr
+        get_HTMLFieldSetElement         : IntPtr
+        get_HTMLFontElement             : IntPtr
+        get_HTMLFormElement             : IntPtr
+        get_HTMLFrameElement            : IntPtr
+        get_HTMLFrameSetElement         : IntPtr
+        get_HTMLGenericElement          : IntPtr
+        get_HTMLHeadElement             : IntPtr
+        get_HTMLHeadingElement          : IntPtr
+        get_HTMLHRElement               : IntPtr
+        get_HTMLHtmlElement             : IntPtr
+        get_HTMLIFrameElement           : IntPtr
+        get_HTMLImageElement            : IntPtr
+        get_HTMLInputElement            : IntPtr
+        get_HTMLIsIndexElement          : IntPtr
+        get_HTMLLabelElement            : IntPtr
+        get_HTMLLegendElement           : IntPtr
+        get_HTMLLIElement               : IntPtr
+        get_HTMLLinkElement             : IntPtr
+        get_HTMLMapElement              : IntPtr
+        get_HTMLMarqueeElement          : IntPtr
+        get_HTMLMetaElement             : IntPtr
+        get_HTMLModelessDialog          : IntPtr
+        get_HTMLNamespaceInfo           : IntPtr
+        get_HTMLNamespaceInfoCollection : IntPtr
+        get_HTMLNextIdElement           : IntPtr
+        get_HTMLNoShowElement           : IntPtr
+        get_HTMLObjectElement           : IntPtr
+        get_HTMLOListElement            : IntPtr
+        get_HTMLOptionElement           : IntPtr
+        get_HTMLParagraphElement        : IntPtr
+        get_HTMLParamElement            : IntPtr
+        get_HTMLPhraseElement           : IntPtr
+        get_HTMLPluginsCollection       : IntPtr
+        get_HTMLPopup                   : IntPtr
+        get_HTMLScriptElement           : IntPtr
+        get_HTMLSelectElement           : IntPtr
+        get_HTMLSpanElement             : IntPtr
+        get_HTMLStyleElement            : IntPtr
+        get_HTMLTableCaptionElement     : IntPtr
+        get_HTMLTableCellElement        : IntPtr
+        get_HTMLTableColElement         : IntPtr
+        get_HTMLTableElement            : IntPtr
+        get_HTMLTableRowElement         : IntPtr
+        get_HTMLTableSectionElement     : IntPtr
+        get_HTMLTextAreaElement         : IntPtr
+        get_HTMLTextElement             : IntPtr
+        get_HTMLTitleElement            : IntPtr
+        get_HTMLUListElement            : IntPtr
+        get_HTMLUnknownElement          : IntPtr
+        get_Image                       : IntPtr
+        get_Location                    : IntPtr
+        get_NamedNodeMap                : IntPtr
+        get_Navigator                   : IntPtr
+        get_NodeList                    : IntPtr
+        get_Option                      : IntPtr
+        get_Screen                      : IntPtr
+        get_Selection                   : IntPtr
+        get_StaticNodeList              : IntPtr
+        get_Storage                     : IntPtr
+        get_StyleSheetList              : IntPtr
+        get_StyleSheetPage              : IntPtr
+        get_StyleSheetPageList          : IntPtr
+        get_Text                        : IntPtr
+        get_TextRange                   : IntPtr
+        get_TextRangeCollection         : IntPtr
+        get_TextRectangle               : IntPtr
+        get_TextRectangleList           : IntPtr
+        get_Window                      : IntPtr
+        get_XDomainRequest              : IntPtr
+        get_XMLHttpRequest              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Attr", "get_BehaviorUrnsCollection", "get_BookmarkCollection", "get_CompatibleInfo", "get_CompatibleInfoCollection", "get_ControlRangeCollection", "get_CSSCurrentStyleDeclaration", "get_CSSRuleList", "get_CSSRuleStyleDeclaration", "get_CSSStyleDeclaration", "get_CSSStyleRule", "get_CSSStyleSheet", "get_DataTransfer", "get_DOMImplementation", "get_Element", "get_Event", "get_History", "get_HTCElementBehaviorDefaults", "get_HTMLAnchorElement", "get_HTMLAreaElement", "get_HTMLAreasCollection", "get_HTMLBaseElement", "get_HTMLBaseFontElement", "get_HTMLBGSoundElement", "get_HTMLBlockElement", "get_HTMLBodyElement", "get_HTMLBRElement", "get_HTMLButtonElement", "get_HTMLCollection", "get_HTMLCommentElement", "get_HTMLDDElement", "get_HTMLDivElement", "get_HTMLDocument", "get_HTMLDListElement", "get_HTMLDTElement", "get_HTMLEmbedElement", "get_HTMLFieldSetElement", "get_HTMLFontElement", "get_HTMLFormElement", "get_HTMLFrameElement", "get_HTMLFrameSetElement", "get_HTMLGenericElement", "get_HTMLHeadElement", "get_HTMLHeadingElement", "get_HTMLHRElement", "get_HTMLHtmlElement", "get_HTMLIFrameElement", "get_HTMLImageElement", "get_HTMLInputElement", "get_HTMLIsIndexElement", "get_HTMLLabelElement", "get_HTMLLegendElement", "get_HTMLLIElement", "get_HTMLLinkElement", "get_HTMLMapElement", "get_HTMLMarqueeElement", "get_HTMLMetaElement", "get_HTMLModelessDialog", "get_HTMLNamespaceInfo", "get_HTMLNamespaceInfoCollection", "get_HTMLNextIdElement", "get_HTMLNoShowElement", "get_HTMLObjectElement", "get_HTMLOListElement", "get_HTMLOptionElement", "get_HTMLParagraphElement", "get_HTMLParamElement", "get_HTMLPhraseElement", "get_HTMLPluginsCollection", "get_HTMLPopup", "get_HTMLScriptElement", "get_HTMLSelectElement", "get_HTMLSpanElement", "get_HTMLStyleElement", "get_HTMLTableCaptionElement", "get_HTMLTableCellElement", "get_HTMLTableColElement", "get_HTMLTableElement", "get_HTMLTableRowElement", "get_HTMLTableSectionElement", "get_HTMLTextAreaElement", "get_HTMLTextElement", "get_HTMLTitleElement", "get_HTMLUListElement", "get_HTMLUnknownElement", "get_Image", "get_Location", "get_NamedNodeMap", "get_Navigator", "get_NodeList", "get_Option", "get_Screen", "get_Selection", "get_StaticNodeList", "get_Storage", "get_StyleSheetList", "get_StyleSheetPage", "get_StyleSheetPageList", "get_Text", "get_TextRange", "get_TextRangeCollection", "get_TextRectangle", "get_TextRectangleList", "get_Window", "get_XDomainRequest", "get_XMLHttpRequest"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLDOMConstructorCollection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IDispatch} 
@@ -1721,5 +1834,235 @@ class IHTMLDOMConstructorCollection extends IDispatch {
     get_XMLHttpRequest() {
         result := ComCall(112, this, "ptr*", &p := 0, "HRESULT")
         return IDispatch(p)
+    }
+
+    Query(iid) {
+        if (IHTMLDOMConstructorCollection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Attr := CallbackCreate(GetMethod(implObj, "get_Attr"), flags, 2)
+        this.vtbl.get_BehaviorUrnsCollection := CallbackCreate(GetMethod(implObj, "get_BehaviorUrnsCollection"), flags, 2)
+        this.vtbl.get_BookmarkCollection := CallbackCreate(GetMethod(implObj, "get_BookmarkCollection"), flags, 2)
+        this.vtbl.get_CompatibleInfo := CallbackCreate(GetMethod(implObj, "get_CompatibleInfo"), flags, 2)
+        this.vtbl.get_CompatibleInfoCollection := CallbackCreate(GetMethod(implObj, "get_CompatibleInfoCollection"), flags, 2)
+        this.vtbl.get_ControlRangeCollection := CallbackCreate(GetMethod(implObj, "get_ControlRangeCollection"), flags, 2)
+        this.vtbl.get_CSSCurrentStyleDeclaration := CallbackCreate(GetMethod(implObj, "get_CSSCurrentStyleDeclaration"), flags, 2)
+        this.vtbl.get_CSSRuleList := CallbackCreate(GetMethod(implObj, "get_CSSRuleList"), flags, 2)
+        this.vtbl.get_CSSRuleStyleDeclaration := CallbackCreate(GetMethod(implObj, "get_CSSRuleStyleDeclaration"), flags, 2)
+        this.vtbl.get_CSSStyleDeclaration := CallbackCreate(GetMethod(implObj, "get_CSSStyleDeclaration"), flags, 2)
+        this.vtbl.get_CSSStyleRule := CallbackCreate(GetMethod(implObj, "get_CSSStyleRule"), flags, 2)
+        this.vtbl.get_CSSStyleSheet := CallbackCreate(GetMethod(implObj, "get_CSSStyleSheet"), flags, 2)
+        this.vtbl.get_DataTransfer := CallbackCreate(GetMethod(implObj, "get_DataTransfer"), flags, 2)
+        this.vtbl.get_DOMImplementation := CallbackCreate(GetMethod(implObj, "get_DOMImplementation"), flags, 2)
+        this.vtbl.get_Element := CallbackCreate(GetMethod(implObj, "get_Element"), flags, 2)
+        this.vtbl.get_Event := CallbackCreate(GetMethod(implObj, "get_Event"), flags, 2)
+        this.vtbl.get_History := CallbackCreate(GetMethod(implObj, "get_History"), flags, 2)
+        this.vtbl.get_HTCElementBehaviorDefaults := CallbackCreate(GetMethod(implObj, "get_HTCElementBehaviorDefaults"), flags, 2)
+        this.vtbl.get_HTMLAnchorElement := CallbackCreate(GetMethod(implObj, "get_HTMLAnchorElement"), flags, 2)
+        this.vtbl.get_HTMLAreaElement := CallbackCreate(GetMethod(implObj, "get_HTMLAreaElement"), flags, 2)
+        this.vtbl.get_HTMLAreasCollection := CallbackCreate(GetMethod(implObj, "get_HTMLAreasCollection"), flags, 2)
+        this.vtbl.get_HTMLBaseElement := CallbackCreate(GetMethod(implObj, "get_HTMLBaseElement"), flags, 2)
+        this.vtbl.get_HTMLBaseFontElement := CallbackCreate(GetMethod(implObj, "get_HTMLBaseFontElement"), flags, 2)
+        this.vtbl.get_HTMLBGSoundElement := CallbackCreate(GetMethod(implObj, "get_HTMLBGSoundElement"), flags, 2)
+        this.vtbl.get_HTMLBlockElement := CallbackCreate(GetMethod(implObj, "get_HTMLBlockElement"), flags, 2)
+        this.vtbl.get_HTMLBodyElement := CallbackCreate(GetMethod(implObj, "get_HTMLBodyElement"), flags, 2)
+        this.vtbl.get_HTMLBRElement := CallbackCreate(GetMethod(implObj, "get_HTMLBRElement"), flags, 2)
+        this.vtbl.get_HTMLButtonElement := CallbackCreate(GetMethod(implObj, "get_HTMLButtonElement"), flags, 2)
+        this.vtbl.get_HTMLCollection := CallbackCreate(GetMethod(implObj, "get_HTMLCollection"), flags, 2)
+        this.vtbl.get_HTMLCommentElement := CallbackCreate(GetMethod(implObj, "get_HTMLCommentElement"), flags, 2)
+        this.vtbl.get_HTMLDDElement := CallbackCreate(GetMethod(implObj, "get_HTMLDDElement"), flags, 2)
+        this.vtbl.get_HTMLDivElement := CallbackCreate(GetMethod(implObj, "get_HTMLDivElement"), flags, 2)
+        this.vtbl.get_HTMLDocument := CallbackCreate(GetMethod(implObj, "get_HTMLDocument"), flags, 2)
+        this.vtbl.get_HTMLDListElement := CallbackCreate(GetMethod(implObj, "get_HTMLDListElement"), flags, 2)
+        this.vtbl.get_HTMLDTElement := CallbackCreate(GetMethod(implObj, "get_HTMLDTElement"), flags, 2)
+        this.vtbl.get_HTMLEmbedElement := CallbackCreate(GetMethod(implObj, "get_HTMLEmbedElement"), flags, 2)
+        this.vtbl.get_HTMLFieldSetElement := CallbackCreate(GetMethod(implObj, "get_HTMLFieldSetElement"), flags, 2)
+        this.vtbl.get_HTMLFontElement := CallbackCreate(GetMethod(implObj, "get_HTMLFontElement"), flags, 2)
+        this.vtbl.get_HTMLFormElement := CallbackCreate(GetMethod(implObj, "get_HTMLFormElement"), flags, 2)
+        this.vtbl.get_HTMLFrameElement := CallbackCreate(GetMethod(implObj, "get_HTMLFrameElement"), flags, 2)
+        this.vtbl.get_HTMLFrameSetElement := CallbackCreate(GetMethod(implObj, "get_HTMLFrameSetElement"), flags, 2)
+        this.vtbl.get_HTMLGenericElement := CallbackCreate(GetMethod(implObj, "get_HTMLGenericElement"), flags, 2)
+        this.vtbl.get_HTMLHeadElement := CallbackCreate(GetMethod(implObj, "get_HTMLHeadElement"), flags, 2)
+        this.vtbl.get_HTMLHeadingElement := CallbackCreate(GetMethod(implObj, "get_HTMLHeadingElement"), flags, 2)
+        this.vtbl.get_HTMLHRElement := CallbackCreate(GetMethod(implObj, "get_HTMLHRElement"), flags, 2)
+        this.vtbl.get_HTMLHtmlElement := CallbackCreate(GetMethod(implObj, "get_HTMLHtmlElement"), flags, 2)
+        this.vtbl.get_HTMLIFrameElement := CallbackCreate(GetMethod(implObj, "get_HTMLIFrameElement"), flags, 2)
+        this.vtbl.get_HTMLImageElement := CallbackCreate(GetMethod(implObj, "get_HTMLImageElement"), flags, 2)
+        this.vtbl.get_HTMLInputElement := CallbackCreate(GetMethod(implObj, "get_HTMLInputElement"), flags, 2)
+        this.vtbl.get_HTMLIsIndexElement := CallbackCreate(GetMethod(implObj, "get_HTMLIsIndexElement"), flags, 2)
+        this.vtbl.get_HTMLLabelElement := CallbackCreate(GetMethod(implObj, "get_HTMLLabelElement"), flags, 2)
+        this.vtbl.get_HTMLLegendElement := CallbackCreate(GetMethod(implObj, "get_HTMLLegendElement"), flags, 2)
+        this.vtbl.get_HTMLLIElement := CallbackCreate(GetMethod(implObj, "get_HTMLLIElement"), flags, 2)
+        this.vtbl.get_HTMLLinkElement := CallbackCreate(GetMethod(implObj, "get_HTMLLinkElement"), flags, 2)
+        this.vtbl.get_HTMLMapElement := CallbackCreate(GetMethod(implObj, "get_HTMLMapElement"), flags, 2)
+        this.vtbl.get_HTMLMarqueeElement := CallbackCreate(GetMethod(implObj, "get_HTMLMarqueeElement"), flags, 2)
+        this.vtbl.get_HTMLMetaElement := CallbackCreate(GetMethod(implObj, "get_HTMLMetaElement"), flags, 2)
+        this.vtbl.get_HTMLModelessDialog := CallbackCreate(GetMethod(implObj, "get_HTMLModelessDialog"), flags, 2)
+        this.vtbl.get_HTMLNamespaceInfo := CallbackCreate(GetMethod(implObj, "get_HTMLNamespaceInfo"), flags, 2)
+        this.vtbl.get_HTMLNamespaceInfoCollection := CallbackCreate(GetMethod(implObj, "get_HTMLNamespaceInfoCollection"), flags, 2)
+        this.vtbl.get_HTMLNextIdElement := CallbackCreate(GetMethod(implObj, "get_HTMLNextIdElement"), flags, 2)
+        this.vtbl.get_HTMLNoShowElement := CallbackCreate(GetMethod(implObj, "get_HTMLNoShowElement"), flags, 2)
+        this.vtbl.get_HTMLObjectElement := CallbackCreate(GetMethod(implObj, "get_HTMLObjectElement"), flags, 2)
+        this.vtbl.get_HTMLOListElement := CallbackCreate(GetMethod(implObj, "get_HTMLOListElement"), flags, 2)
+        this.vtbl.get_HTMLOptionElement := CallbackCreate(GetMethod(implObj, "get_HTMLOptionElement"), flags, 2)
+        this.vtbl.get_HTMLParagraphElement := CallbackCreate(GetMethod(implObj, "get_HTMLParagraphElement"), flags, 2)
+        this.vtbl.get_HTMLParamElement := CallbackCreate(GetMethod(implObj, "get_HTMLParamElement"), flags, 2)
+        this.vtbl.get_HTMLPhraseElement := CallbackCreate(GetMethod(implObj, "get_HTMLPhraseElement"), flags, 2)
+        this.vtbl.get_HTMLPluginsCollection := CallbackCreate(GetMethod(implObj, "get_HTMLPluginsCollection"), flags, 2)
+        this.vtbl.get_HTMLPopup := CallbackCreate(GetMethod(implObj, "get_HTMLPopup"), flags, 2)
+        this.vtbl.get_HTMLScriptElement := CallbackCreate(GetMethod(implObj, "get_HTMLScriptElement"), flags, 2)
+        this.vtbl.get_HTMLSelectElement := CallbackCreate(GetMethod(implObj, "get_HTMLSelectElement"), flags, 2)
+        this.vtbl.get_HTMLSpanElement := CallbackCreate(GetMethod(implObj, "get_HTMLSpanElement"), flags, 2)
+        this.vtbl.get_HTMLStyleElement := CallbackCreate(GetMethod(implObj, "get_HTMLStyleElement"), flags, 2)
+        this.vtbl.get_HTMLTableCaptionElement := CallbackCreate(GetMethod(implObj, "get_HTMLTableCaptionElement"), flags, 2)
+        this.vtbl.get_HTMLTableCellElement := CallbackCreate(GetMethod(implObj, "get_HTMLTableCellElement"), flags, 2)
+        this.vtbl.get_HTMLTableColElement := CallbackCreate(GetMethod(implObj, "get_HTMLTableColElement"), flags, 2)
+        this.vtbl.get_HTMLTableElement := CallbackCreate(GetMethod(implObj, "get_HTMLTableElement"), flags, 2)
+        this.vtbl.get_HTMLTableRowElement := CallbackCreate(GetMethod(implObj, "get_HTMLTableRowElement"), flags, 2)
+        this.vtbl.get_HTMLTableSectionElement := CallbackCreate(GetMethod(implObj, "get_HTMLTableSectionElement"), flags, 2)
+        this.vtbl.get_HTMLTextAreaElement := CallbackCreate(GetMethod(implObj, "get_HTMLTextAreaElement"), flags, 2)
+        this.vtbl.get_HTMLTextElement := CallbackCreate(GetMethod(implObj, "get_HTMLTextElement"), flags, 2)
+        this.vtbl.get_HTMLTitleElement := CallbackCreate(GetMethod(implObj, "get_HTMLTitleElement"), flags, 2)
+        this.vtbl.get_HTMLUListElement := CallbackCreate(GetMethod(implObj, "get_HTMLUListElement"), flags, 2)
+        this.vtbl.get_HTMLUnknownElement := CallbackCreate(GetMethod(implObj, "get_HTMLUnknownElement"), flags, 2)
+        this.vtbl.get_Image := CallbackCreate(GetMethod(implObj, "get_Image"), flags, 2)
+        this.vtbl.get_Location := CallbackCreate(GetMethod(implObj, "get_Location"), flags, 2)
+        this.vtbl.get_NamedNodeMap := CallbackCreate(GetMethod(implObj, "get_NamedNodeMap"), flags, 2)
+        this.vtbl.get_Navigator := CallbackCreate(GetMethod(implObj, "get_Navigator"), flags, 2)
+        this.vtbl.get_NodeList := CallbackCreate(GetMethod(implObj, "get_NodeList"), flags, 2)
+        this.vtbl.get_Option := CallbackCreate(GetMethod(implObj, "get_Option"), flags, 2)
+        this.vtbl.get_Screen := CallbackCreate(GetMethod(implObj, "get_Screen"), flags, 2)
+        this.vtbl.get_Selection := CallbackCreate(GetMethod(implObj, "get_Selection"), flags, 2)
+        this.vtbl.get_StaticNodeList := CallbackCreate(GetMethod(implObj, "get_StaticNodeList"), flags, 2)
+        this.vtbl.get_Storage := CallbackCreate(GetMethod(implObj, "get_Storage"), flags, 2)
+        this.vtbl.get_StyleSheetList := CallbackCreate(GetMethod(implObj, "get_StyleSheetList"), flags, 2)
+        this.vtbl.get_StyleSheetPage := CallbackCreate(GetMethod(implObj, "get_StyleSheetPage"), flags, 2)
+        this.vtbl.get_StyleSheetPageList := CallbackCreate(GetMethod(implObj, "get_StyleSheetPageList"), flags, 2)
+        this.vtbl.get_Text := CallbackCreate(GetMethod(implObj, "get_Text"), flags, 2)
+        this.vtbl.get_TextRange := CallbackCreate(GetMethod(implObj, "get_TextRange"), flags, 2)
+        this.vtbl.get_TextRangeCollection := CallbackCreate(GetMethod(implObj, "get_TextRangeCollection"), flags, 2)
+        this.vtbl.get_TextRectangle := CallbackCreate(GetMethod(implObj, "get_TextRectangle"), flags, 2)
+        this.vtbl.get_TextRectangleList := CallbackCreate(GetMethod(implObj, "get_TextRectangleList"), flags, 2)
+        this.vtbl.get_Window := CallbackCreate(GetMethod(implObj, "get_Window"), flags, 2)
+        this.vtbl.get_XDomainRequest := CallbackCreate(GetMethod(implObj, "get_XDomainRequest"), flags, 2)
+        this.vtbl.get_XMLHttpRequest := CallbackCreate(GetMethod(implObj, "get_XMLHttpRequest"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Attr)
+        CallbackFree(this.vtbl.get_BehaviorUrnsCollection)
+        CallbackFree(this.vtbl.get_BookmarkCollection)
+        CallbackFree(this.vtbl.get_CompatibleInfo)
+        CallbackFree(this.vtbl.get_CompatibleInfoCollection)
+        CallbackFree(this.vtbl.get_ControlRangeCollection)
+        CallbackFree(this.vtbl.get_CSSCurrentStyleDeclaration)
+        CallbackFree(this.vtbl.get_CSSRuleList)
+        CallbackFree(this.vtbl.get_CSSRuleStyleDeclaration)
+        CallbackFree(this.vtbl.get_CSSStyleDeclaration)
+        CallbackFree(this.vtbl.get_CSSStyleRule)
+        CallbackFree(this.vtbl.get_CSSStyleSheet)
+        CallbackFree(this.vtbl.get_DataTransfer)
+        CallbackFree(this.vtbl.get_DOMImplementation)
+        CallbackFree(this.vtbl.get_Element)
+        CallbackFree(this.vtbl.get_Event)
+        CallbackFree(this.vtbl.get_History)
+        CallbackFree(this.vtbl.get_HTCElementBehaviorDefaults)
+        CallbackFree(this.vtbl.get_HTMLAnchorElement)
+        CallbackFree(this.vtbl.get_HTMLAreaElement)
+        CallbackFree(this.vtbl.get_HTMLAreasCollection)
+        CallbackFree(this.vtbl.get_HTMLBaseElement)
+        CallbackFree(this.vtbl.get_HTMLBaseFontElement)
+        CallbackFree(this.vtbl.get_HTMLBGSoundElement)
+        CallbackFree(this.vtbl.get_HTMLBlockElement)
+        CallbackFree(this.vtbl.get_HTMLBodyElement)
+        CallbackFree(this.vtbl.get_HTMLBRElement)
+        CallbackFree(this.vtbl.get_HTMLButtonElement)
+        CallbackFree(this.vtbl.get_HTMLCollection)
+        CallbackFree(this.vtbl.get_HTMLCommentElement)
+        CallbackFree(this.vtbl.get_HTMLDDElement)
+        CallbackFree(this.vtbl.get_HTMLDivElement)
+        CallbackFree(this.vtbl.get_HTMLDocument)
+        CallbackFree(this.vtbl.get_HTMLDListElement)
+        CallbackFree(this.vtbl.get_HTMLDTElement)
+        CallbackFree(this.vtbl.get_HTMLEmbedElement)
+        CallbackFree(this.vtbl.get_HTMLFieldSetElement)
+        CallbackFree(this.vtbl.get_HTMLFontElement)
+        CallbackFree(this.vtbl.get_HTMLFormElement)
+        CallbackFree(this.vtbl.get_HTMLFrameElement)
+        CallbackFree(this.vtbl.get_HTMLFrameSetElement)
+        CallbackFree(this.vtbl.get_HTMLGenericElement)
+        CallbackFree(this.vtbl.get_HTMLHeadElement)
+        CallbackFree(this.vtbl.get_HTMLHeadingElement)
+        CallbackFree(this.vtbl.get_HTMLHRElement)
+        CallbackFree(this.vtbl.get_HTMLHtmlElement)
+        CallbackFree(this.vtbl.get_HTMLIFrameElement)
+        CallbackFree(this.vtbl.get_HTMLImageElement)
+        CallbackFree(this.vtbl.get_HTMLInputElement)
+        CallbackFree(this.vtbl.get_HTMLIsIndexElement)
+        CallbackFree(this.vtbl.get_HTMLLabelElement)
+        CallbackFree(this.vtbl.get_HTMLLegendElement)
+        CallbackFree(this.vtbl.get_HTMLLIElement)
+        CallbackFree(this.vtbl.get_HTMLLinkElement)
+        CallbackFree(this.vtbl.get_HTMLMapElement)
+        CallbackFree(this.vtbl.get_HTMLMarqueeElement)
+        CallbackFree(this.vtbl.get_HTMLMetaElement)
+        CallbackFree(this.vtbl.get_HTMLModelessDialog)
+        CallbackFree(this.vtbl.get_HTMLNamespaceInfo)
+        CallbackFree(this.vtbl.get_HTMLNamespaceInfoCollection)
+        CallbackFree(this.vtbl.get_HTMLNextIdElement)
+        CallbackFree(this.vtbl.get_HTMLNoShowElement)
+        CallbackFree(this.vtbl.get_HTMLObjectElement)
+        CallbackFree(this.vtbl.get_HTMLOListElement)
+        CallbackFree(this.vtbl.get_HTMLOptionElement)
+        CallbackFree(this.vtbl.get_HTMLParagraphElement)
+        CallbackFree(this.vtbl.get_HTMLParamElement)
+        CallbackFree(this.vtbl.get_HTMLPhraseElement)
+        CallbackFree(this.vtbl.get_HTMLPluginsCollection)
+        CallbackFree(this.vtbl.get_HTMLPopup)
+        CallbackFree(this.vtbl.get_HTMLScriptElement)
+        CallbackFree(this.vtbl.get_HTMLSelectElement)
+        CallbackFree(this.vtbl.get_HTMLSpanElement)
+        CallbackFree(this.vtbl.get_HTMLStyleElement)
+        CallbackFree(this.vtbl.get_HTMLTableCaptionElement)
+        CallbackFree(this.vtbl.get_HTMLTableCellElement)
+        CallbackFree(this.vtbl.get_HTMLTableColElement)
+        CallbackFree(this.vtbl.get_HTMLTableElement)
+        CallbackFree(this.vtbl.get_HTMLTableRowElement)
+        CallbackFree(this.vtbl.get_HTMLTableSectionElement)
+        CallbackFree(this.vtbl.get_HTMLTextAreaElement)
+        CallbackFree(this.vtbl.get_HTMLTextElement)
+        CallbackFree(this.vtbl.get_HTMLTitleElement)
+        CallbackFree(this.vtbl.get_HTMLUListElement)
+        CallbackFree(this.vtbl.get_HTMLUnknownElement)
+        CallbackFree(this.vtbl.get_Image)
+        CallbackFree(this.vtbl.get_Location)
+        CallbackFree(this.vtbl.get_NamedNodeMap)
+        CallbackFree(this.vtbl.get_Navigator)
+        CallbackFree(this.vtbl.get_NodeList)
+        CallbackFree(this.vtbl.get_Option)
+        CallbackFree(this.vtbl.get_Screen)
+        CallbackFree(this.vtbl.get_Selection)
+        CallbackFree(this.vtbl.get_StaticNodeList)
+        CallbackFree(this.vtbl.get_Storage)
+        CallbackFree(this.vtbl.get_StyleSheetList)
+        CallbackFree(this.vtbl.get_StyleSheetPage)
+        CallbackFree(this.vtbl.get_StyleSheetPageList)
+        CallbackFree(this.vtbl.get_Text)
+        CallbackFree(this.vtbl.get_TextRange)
+        CallbackFree(this.vtbl.get_TextRangeCollection)
+        CallbackFree(this.vtbl.get_TextRectangle)
+        CallbackFree(this.vtbl.get_TextRectangleList)
+        CallbackFree(this.vtbl.get_Window)
+        CallbackFree(this.vtbl.get_XDomainRequest)
+        CallbackFree(this.vtbl.get_XMLHttpRequest)
     }
 }

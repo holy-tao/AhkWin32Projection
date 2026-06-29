@@ -1,54 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMDT_VIDEO_OUTPUT_TECHNOLOGY.ahk
-#Include .\DXGK_CHILD_DEVICE_HPD_AWARENESS.ahk
-#Include .\D3DKMDT_MONITOR_ORIENTATION_AWARENESS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DKMDT_VIDEO_OUTPUT_TECHNOLOGY.ahk" { D3DKMDT_VIDEO_OUTPUT_TECHNOLOGY }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\D3DKMDT_MONITOR_ORIENTATION_AWARENESS.ahk" { D3DKMDT_MONITOR_ORIENTATION_AWARENESS }
+#Import ".\DXGK_CHILD_DEVICE_HPD_AWARENESS.ahk" { DXGK_CHILD_DEVICE_HPD_AWARENESS }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMDT_VIDEO_PRESENT_TARGET extends Win32Struct {
-    static sizeof => 20
+export default struct D3DKMDT_VIDEO_PRESENT_TARGET {
+    #StructPack 4
 
-    static packingSize => 4
+    Id : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Id {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    VideoOutputTechnology : D3DKMDT_VIDEO_OUTPUT_TECHNOLOGY
 
-    /**
-     * @type {D3DKMDT_VIDEO_OUTPUT_TECHNOLOGY}
-     */
-    VideoOutputTechnology {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    VideoOutputHpdAwareness : DXGK_CHILD_DEVICE_HPD_AWARENESS
 
-    /**
-     * @type {DXGK_CHILD_DEVICE_HPD_AWARENESS}
-     */
-    VideoOutputHpdAwareness {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    MonitorOrientationAwareness : D3DKMDT_MONITOR_ORIENTATION_AWARENESS
 
-    /**
-     * @type {D3DKMDT_MONITOR_ORIENTATION_AWARENESS}
-     */
-    MonitorOrientationAwareness {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    SupportsSdtvModes : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    SupportsSdtvModes {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
 }

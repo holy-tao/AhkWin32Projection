@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Describes the level of support for HLSL 6.0 wave operations.
@@ -15,62 +15,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options1
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_FEATURE_DATA_D3D12_OPTIONS1 extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct D3D12_FEATURE_DATA_D3D12_OPTIONS1 {
+    #StructPack 4
 
     /**
      * True if the driver supports HLSL 6.0 wave operations.
-     * @type {BOOL}
      */
-    WaveOps {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    WaveOps : BOOL
 
     /**
      * Specifies the baseline number of lanes in the SIMD wave that this implementation can support. This term is sometimes known as "wavefront size" or "warp width". Currently apps should rely only on this minimum value for sizing workloads.
-     * @type {Integer}
      */
-    WaveLaneCountMin {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    WaveLaneCountMin : UInt32
 
     /**
      * Specifies the maximum number of lanes in the SIMD wave that this implementation can support. This capability is reserved for future expansion, and is not expected to be used by current applications.
-     * @type {Integer}
      */
-    WaveLaneCountMax {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    WaveLaneCountMax : UInt32
 
     /**
      * Specifies the total number of SIMD lanes on the hardware.
-     * @type {Integer}
      */
-    TotalLaneCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    TotalLaneCount : UInt32
 
     /**
      * Indicates transitions are possible  in and out of the CBV, and indirect argument states, on compute command lists. If <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-checkfeaturesupport">CheckFeatureSupport</a> succeeds this value will always be true.
-     * @type {BOOL}
      */
-    ExpandedComputeResourceStates {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    ExpandedComputeResourceStates : BOOL
 
     /**
      * Indicates that 64bit integer operations are supported.
-     * @type {BOOL}
      */
-    Int64ShaderOps {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    Int64ShaderOps : BOOL
+
 }

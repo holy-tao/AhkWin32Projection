@@ -1,49 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EAP_METHOD_PROPERTY_TYPE.ahk
-#Include .\EAP_METHOD_PROPERTY_VALUE_TYPE.ahk
-#Include .\EAP_METHOD_PROPERTY_VALUE.ahk
-#Include .\EAP_METHOD_PROPERTY_VALUE_BOOL.ahk
-#Include .\EAP_METHOD_PROPERTY_VALUE_DWORD.ahk
-#Include .\EAP_METHOD_PROPERTY_VALUE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EAP_METHOD_PROPERTY_VALUE_DWORD.ahk" { EAP_METHOD_PROPERTY_VALUE_DWORD }
+#Import ".\EAP_METHOD_PROPERTY_TYPE.ahk" { EAP_METHOD_PROPERTY_TYPE }
+#Import ".\EAP_METHOD_PROPERTY_VALUE_BOOL.ahk" { EAP_METHOD_PROPERTY_VALUE_BOOL }
+#Import ".\EAP_METHOD_PROPERTY_VALUE.ahk" { EAP_METHOD_PROPERTY_VALUE }
+#Import ".\EAP_METHOD_PROPERTY_VALUE_STRING.ahk" { EAP_METHOD_PROPERTY_VALUE_STRING }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\EAP_METHOD_PROPERTY_VALUE_TYPE.ahk" { EAP_METHOD_PROPERTY_VALUE_TYPE }
 
 /**
  * Contains an EAP method property.
  * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eap_method_property
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  */
-class EAP_METHOD_PROPERTY extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct EAP_METHOD_PROPERTY {
+    #StructPack 8
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ne-eaptypes-eap_method_property_type">EAP_METHOD_PROPERTY_TYPE</a> enumeration value that describes the type of the EAP method property.
-     * @type {EAP_METHOD_PROPERTY_TYPE}
      */
-    eapMethodPropertyType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    eapMethodPropertyType : EAP_METHOD_PROPERTY_TYPE
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ne-eaptypes-eap_method_property_value_type">EAP_METHOD_PROPERTY_VALUE_TYPE</a> enumeration value that describes the data type of the value specified in <b>eapMethodPropertyValue</b>.
-     * @type {EAP_METHOD_PROPERTY_VALUE_TYPE}
      */
-    eapMethodPropertyValueType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    eapMethodPropertyValueType : EAP_METHOD_PROPERTY_VALUE_TYPE
 
     /**
      * An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eaptypes/ns-eaptypes-eap_method_property_value">EAP_METHOD_PROPERTY_VALUE</a> union that contains the method property value.
-     * @type {EAP_METHOD_PROPERTY_VALUE}
      */
-    eapMethodPropertyValue {
-        get {
-            if(!this.HasProp("__eapMethodPropertyValue"))
-                this.__eapMethodPropertyValue := EAP_METHOD_PROPERTY_VALUE(8, this)
-            return this.__eapMethodPropertyValue
-        }
-    }
+    eapMethodPropertyValue : EAP_METHOD_PROPERTY_VALUE
+
 }

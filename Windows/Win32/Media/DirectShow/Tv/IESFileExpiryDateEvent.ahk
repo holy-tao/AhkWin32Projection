@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IESEvent.ahk
-#Include ..\..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\IESEvent.ahk" { IESEvent }
 
 /**
  * Gets information from a FileExpiryDate event.
@@ -11,26 +12,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-iesfileexpirydateevent
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IESFileExpiryDateEvent extends IESEvent {
-
-    static sizeof => A_PtrSize
+export default struct IESFileExpiryDateEvent extends IESEvent {
     /**
      * The interface identifier for IESFileExpiryDateEvent
      * @type {Guid}
      */
-    static IID => Guid("{ba9edcb6-4d36-4cfe-8c56-87a6b0ca48e1}")
+    static IID := Guid("{ba9edcb6-4d36-4cfe-8c56-87a6b0ca48e1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IESFileExpiryDateEvent interfaces
+    */
+    struct Vtbl extends IESEvent.Vtbl {
+        GetTunerId                : IntPtr
+        GetExpiryDate             : IntPtr
+        GetFinalExpiryDate        : IntPtr
+        GetMaxRenewalCount        : IntPtr
+        IsEntitlementTokenPresent : IntPtr
+        DoesExpireAfterFirstUse   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetTunerId", "GetExpiryDate", "GetFinalExpiryDate", "GetMaxRenewalCount", "IsEntitlementTokenPresent", "DoesExpireAfterFirstUse"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IESFileExpiryDateEvent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a globally unique identifier (GUID) from a FileExpiryDate event that identifies the media transform device (MTD) that originated the event.
@@ -39,7 +52,7 @@ class IESFileExpiryDateEvent extends IESEvent {
      */
     GetTunerId() {
         pguidTunerId := Guid()
-        result := ComCall(8, this, "ptr", pguidTunerId, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, pguidTunerId, "HRESULT")
         return pguidTunerId
     }
 
@@ -79,7 +92,7 @@ class IESFileExpiryDateEvent extends IESEvent {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesfileexpirydateevent-isentitlementtokenpresent
      */
     IsEntitlementTokenPresent() {
-        result := ComCall(12, this, "int*", &pfEntTokenPresent := 0, "HRESULT")
+        result := ComCall(12, this, BOOL.Ptr, &pfEntTokenPresent := 0, "HRESULT")
         return pfEntTokenPresent
     }
 
@@ -89,7 +102,37 @@ class IESFileExpiryDateEvent extends IESEvent {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesfileexpirydateevent-doesexpireafterfirstuse
      */
     DoesExpireAfterFirstUse() {
-        result := ComCall(13, this, "int*", &pfExpireAfterFirstUse := 0, "HRESULT")
+        result := ComCall(13, this, BOOL.Ptr, &pfExpireAfterFirstUse := 0, "HRESULT")
         return pfExpireAfterFirstUse
+    }
+
+    Query(iid) {
+        if (IESFileExpiryDateEvent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetTunerId := CallbackCreate(GetMethod(implObj, "GetTunerId"), flags, 2)
+        this.vtbl.GetExpiryDate := CallbackCreate(GetMethod(implObj, "GetExpiryDate"), flags, 2)
+        this.vtbl.GetFinalExpiryDate := CallbackCreate(GetMethod(implObj, "GetFinalExpiryDate"), flags, 2)
+        this.vtbl.GetMaxRenewalCount := CallbackCreate(GetMethod(implObj, "GetMaxRenewalCount"), flags, 2)
+        this.vtbl.IsEntitlementTokenPresent := CallbackCreate(GetMethod(implObj, "IsEntitlementTokenPresent"), flags, 2)
+        this.vtbl.DoesExpireAfterFirstUse := CallbackCreate(GetMethod(implObj, "DoesExpireAfterFirstUse"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetTunerId)
+        CallbackFree(this.vtbl.GetExpiryDate)
+        CallbackFree(this.vtbl.GetFinalExpiryDate)
+        CallbackFree(this.vtbl.GetMaxRenewalCount)
+        CallbackFree(this.vtbl.IsEntitlementTokenPresent)
+        CallbackFree(this.vtbl.DoesExpireAfterFirstUse)
     }
 }

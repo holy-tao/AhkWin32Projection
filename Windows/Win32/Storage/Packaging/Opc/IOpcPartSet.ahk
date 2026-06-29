@@ -1,9 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IOpcPart.ahk
-#Include .\IOpcPartEnumerator.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\OPC_COMPRESSION_OPTIONS.ahk" { OPC_COMPRESSION_OPTIONS }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IOpcPartUri.ahk" { IOpcPartUri }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IOpcPart.ahk" { IOpcPart }
+#Import ".\IOpcPartEnumerator.ahk" { IOpcPartEnumerator }
 
 /**
  * An unordered set of IOpcPart interface pointers to part objects that represent the parts in a package that are not Relationships parts.
@@ -24,26 +29,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcpartset
  * @namespace Windows.Win32.Storage.Packaging.Opc
  */
-class IOpcPartSet extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOpcPartSet extends IUnknown {
     /**
      * The interface identifier for IOpcPartSet
      * @type {Guid}
      */
-    static IID => Guid("{42195949-3b79-4fc8-89c6-fc7fb979ee73}")
+    static IID := Guid("{42195949-3b79-4fc8-89c6-fc7fb979ee73}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOpcPartSet interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetPart       : IntPtr
+        CreatePart    : IntPtr
+        DeletePart    : IntPtr
+        PartExists    : IntPtr
+        GetEnumerator : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPart", "CreatePart", "DeletePart", "PartExists", "GetEnumerator"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOpcPartSet.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a part object, which represents a specified part, in the set.
@@ -87,7 +103,7 @@ class IOpcPartSet extends IUnknown {
     CreatePart(name, contentType, compressionOptions) {
         contentType := contentType is String ? StrPtr(contentType) : contentType
 
-        result := ComCall(4, this, "ptr", name, "ptr", contentType, "int", compressionOptions, "ptr*", &part := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", name, "ptr", contentType, OPC_COMPRESSION_OPTIONS, compressionOptions, "ptr*", &part := 0, "HRESULT")
         return IOpcPart(part)
     }
 
@@ -182,7 +198,7 @@ class IOpcPartSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcpartset-partexists
      */
     PartExists(name) {
-        result := ComCall(6, this, "ptr", name, "int*", &partExists := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", name, BOOL.Ptr, &partExists := 0, "HRESULT")
         return partExists
     }
 
@@ -194,5 +210,33 @@ class IOpcPartSet extends IUnknown {
     GetEnumerator() {
         result := ComCall(7, this, "ptr*", &partEnumerator := 0, "HRESULT")
         return IOpcPartEnumerator(partEnumerator)
+    }
+
+    Query(iid) {
+        if (IOpcPartSet.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPart := CallbackCreate(GetMethod(implObj, "GetPart"), flags, 3)
+        this.vtbl.CreatePart := CallbackCreate(GetMethod(implObj, "CreatePart"), flags, 5)
+        this.vtbl.DeletePart := CallbackCreate(GetMethod(implObj, "DeletePart"), flags, 2)
+        this.vtbl.PartExists := CallbackCreate(GetMethod(implObj, "PartExists"), flags, 3)
+        this.vtbl.GetEnumerator := CallbackCreate(GetMethod(implObj, "GetEnumerator"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPart)
+        CallbackFree(this.vtbl.CreatePart)
+        CallbackFree(this.vtbl.DeletePart)
+        CallbackFree(this.vtbl.PartExists)
+        CallbackFree(this.vtbl.GetEnumerator)
     }
 }

@@ -1,34 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include .\IDebugDocumentContext.ahk
-#Include .\IDebugApplication64.ahk
-#Include .\IDebugApplicationNode.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDebugApplication64.ahk" { IDebugApplication64 }
+#Import ".\IDebugDocumentContext.ahk" { IDebugDocumentContext }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IDebugApplicationNode.ahk" { IDebugApplicationNode }
+#Import ".\IActiveScriptErrorDebug.ahk" { IActiveScriptErrorDebug }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
  */
-class IActiveScriptSiteDebug64 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IActiveScriptSiteDebug64 extends IUnknown {
     /**
      * The interface identifier for IActiveScriptSiteDebug64
      * @type {Guid}
      */
-    static IID => Guid("{d6b96b0a-7463-402c-92ac-89984226942f}")
+    static IID := Guid("{d6b96b0a-7463-402c-92ac-89984226942f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IActiveScriptSiteDebug64 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDocumentContextFromPosition : IntPtr
+        GetApplication                 : IntPtr
+        GetRootApplicationNode         : IntPtr
+        OnScriptErrorDebug             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDocumentContextFromPosition", "GetApplication", "GetRootApplicationNode", "OnScriptErrorDebug"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IActiveScriptSiteDebug64.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -43,9 +56,8 @@ class IActiveScriptSiteDebug64 extends IUnknown {
     }
 
     /**
-     * Retrieves a pointer to the callback routine registered for the specified process. The address returned is in the virtual address space of the process.
+     * 
      * @returns {IDebugApplication64} 
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getapplicationrecoverycallback
      */
     GetApplication() {
         result := ComCall(4, this, "ptr*", &ppda := 0, "HRESULT")
@@ -74,5 +86,31 @@ class IActiveScriptSiteDebug64 extends IUnknown {
 
         result := ComCall(6, this, "ptr", pErrorDebug, pfEnterDebuggerMarshal, pfEnterDebugger, pfCallOnScriptErrorWhenContinuingMarshal, pfCallOnScriptErrorWhenContinuing, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IActiveScriptSiteDebug64.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDocumentContextFromPosition := CallbackCreate(GetMethod(implObj, "GetDocumentContextFromPosition"), flags, 5)
+        this.vtbl.GetApplication := CallbackCreate(GetMethod(implObj, "GetApplication"), flags, 2)
+        this.vtbl.GetRootApplicationNode := CallbackCreate(GetMethod(implObj, "GetRootApplicationNode"), flags, 2)
+        this.vtbl.OnScriptErrorDebug := CallbackCreate(GetMethod(implObj, "OnScriptErrorDebug"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDocumentContextFromPosition)
+        CallbackFree(this.vtbl.GetApplication)
+        CallbackFree(this.vtbl.GetRootApplicationNode)
+        CallbackFree(this.vtbl.OnScriptErrorDebug)
     }
 }

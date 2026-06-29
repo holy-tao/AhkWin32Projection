@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * A suite of security algorithms used for tasks such as signing and encrypting. The values in this enumeration correspond to the suites defined in WS-SecurityPolicy 1.1section 7.1.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_security_algorithm_suite_name
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_SECURITY_ALGORITHM_SUITE_NAME extends Win32Enum {
+export default struct WS_SECURITY_ALGORITHM_SUITE_NAME {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Identifies the Basic256 algorithm suite. This suite uses the following algorithms:

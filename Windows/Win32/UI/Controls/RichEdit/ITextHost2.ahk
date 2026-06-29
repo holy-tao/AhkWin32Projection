@@ -1,30 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ITextHost.ahk
-#Include ..\..\..\Graphics\Gdi\HPALETTE.ahk
-#Include ..\..\WindowsAndMessaging\HCURSOR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITextHost.ahk" { ITextHost }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\WindowsAndMessaging\HCURSOR.ahk" { HCURSOR }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
+#Import "..\..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * The ITextHost2 interface extends the ITextHost interface.
  * @see https://learn.microsoft.com/windows/win32/api/textserv/nl-textserv-itexthost2
  * @namespace Windows.Win32.UI.Controls.RichEdit
  */
-class ITextHost2 extends ITextHost {
+export default struct ITextHost2 extends ITextHost {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 42
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["TxIsDoubleClickPending", "TxGetWindow", "TxSetForegroundWindow", "TxGetPalette", "TxGetEastAsianFlags", "TxSetCursor2", "TxFreeTextServicesNotification", "TxGetEditStyle", "TxGetWindowStyles", "TxShowDropCaret", "TxDestroyCaret", "TxGetHorzExtent"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITextHost2 interfaces
+    */
+    struct Vtbl extends ITextHost.Vtbl {
+        TxIsDoubleClickPending         : IntPtr
+        TxGetWindow                    : IntPtr
+        TxSetForegroundWindow          : IntPtr
+        TxGetPalette                   : IntPtr
+        TxGetEastAsianFlags            : IntPtr
+        TxSetCursor2                   : IntPtr
+        TxFreeTextServicesNotification : IntPtr
+        TxGetEditStyle                 : IntPtr
+        TxGetWindowStyles              : IntPtr
+        TxShowDropCaret                : IntPtr
+        TxDestroyCaret                 : IntPtr
+        TxGetHorzExtent                : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITextHost2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Discovers whether the message queue contains a WM_LBUTTONDBLCLK message that is pending for the text host window.
@@ -34,7 +57,7 @@ class ITextHost2 extends ITextHost {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost2-txisdoubleclickpending
      */
     TxIsDoubleClickPending() {
-        result := ComCall(42, this, "int")
+        result := ComCall(42, this, BOOL)
         return result
     }
 
@@ -49,7 +72,7 @@ class ITextHost2 extends ITextHost {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost2-txgetwindow
      */
     TxGetWindow(phwnd) {
-        result := ComCall(43, this, "ptr", phwnd, "HRESULT")
+        result := ComCall(43, this, HWND.Ptr, phwnd, "HRESULT")
         return result
     }
 
@@ -73,9 +96,8 @@ class ITextHost2 extends ITextHost {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost2-txgetpalette
      */
     TxGetPalette() {
-        result := ComCall(45, this, "ptr")
-        resultHandle := HPALETTE({Value: result}, True)
-        return resultHandle
+        result := ComCall(45, this, HPALETTE.Owned)
+        return result
     }
 
     /**
@@ -136,11 +158,8 @@ class ITextHost2 extends ITextHost {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost2-txsetcursor2
      */
     TxSetCursor2(hcur, bText) {
-        hcur := hcur is Win32Handle ? NumGet(hcur, "ptr") : hcur
-
-        result := ComCall(47, this, "ptr", hcur, "int", bText, "ptr")
-        resultHandle := HCURSOR({Value: result}, True)
-        return resultHandle
+        result := ComCall(47, this, HCURSOR, hcur, BOOL, bText, HCURSOR.Owned)
+        return result
     }
 
     /**
@@ -230,9 +249,7 @@ class ITextHost2 extends ITextHost {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost2-txshowdropcaret
      */
     TxShowDropCaret(fShow, _hdc, prc) {
-        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
-
-        result := ComCall(51, this, "int", fShow, "ptr", _hdc, "ptr", prc, "HRESULT")
+        result := ComCall(51, this, BOOL, fShow, HDC, _hdc, RECT.Ptr, prc, "HRESULT")
         return result
     }
 
@@ -265,5 +282,47 @@ class ITextHost2 extends ITextHost {
 
         result := ComCall(53, this, plHorzExtentMarshal, plHorzExtent, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITextHost2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.TxIsDoubleClickPending := CallbackCreate(GetMethod(implObj, "TxIsDoubleClickPending"), flags, 1)
+        this.vtbl.TxGetWindow := CallbackCreate(GetMethod(implObj, "TxGetWindow"), flags, 2)
+        this.vtbl.TxSetForegroundWindow := CallbackCreate(GetMethod(implObj, "TxSetForegroundWindow"), flags, 1)
+        this.vtbl.TxGetPalette := CallbackCreate(GetMethod(implObj, "TxGetPalette"), flags, 1)
+        this.vtbl.TxGetEastAsianFlags := CallbackCreate(GetMethod(implObj, "TxGetEastAsianFlags"), flags, 2)
+        this.vtbl.TxSetCursor2 := CallbackCreate(GetMethod(implObj, "TxSetCursor2"), flags, 3)
+        this.vtbl.TxFreeTextServicesNotification := CallbackCreate(GetMethod(implObj, "TxFreeTextServicesNotification"), flags, 1)
+        this.vtbl.TxGetEditStyle := CallbackCreate(GetMethod(implObj, "TxGetEditStyle"), flags, 3)
+        this.vtbl.TxGetWindowStyles := CallbackCreate(GetMethod(implObj, "TxGetWindowStyles"), flags, 3)
+        this.vtbl.TxShowDropCaret := CallbackCreate(GetMethod(implObj, "TxShowDropCaret"), flags, 4)
+        this.vtbl.TxDestroyCaret := CallbackCreate(GetMethod(implObj, "TxDestroyCaret"), flags, 1)
+        this.vtbl.TxGetHorzExtent := CallbackCreate(GetMethod(implObj, "TxGetHorzExtent"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.TxIsDoubleClickPending)
+        CallbackFree(this.vtbl.TxGetWindow)
+        CallbackFree(this.vtbl.TxSetForegroundWindow)
+        CallbackFree(this.vtbl.TxGetPalette)
+        CallbackFree(this.vtbl.TxGetEastAsianFlags)
+        CallbackFree(this.vtbl.TxSetCursor2)
+        CallbackFree(this.vtbl.TxFreeTextServicesNotification)
+        CallbackFree(this.vtbl.TxGetEditStyle)
+        CallbackFree(this.vtbl.TxGetWindowStyles)
+        CallbackFree(this.vtbl.TxShowDropCaret)
+        CallbackFree(this.vtbl.TxDestroyCaret)
+        CallbackFree(this.vtbl.TxGetHorzExtent)
     }
 }

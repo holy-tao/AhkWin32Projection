@@ -1,49 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Storage\IndexServer\FULLPROPSPEC.ahk
-#Include ..\Com\StructuredStorage\PROPSPEC.ahk
-#Include ..\Com\StructuredStorage\PROPSPEC_KIND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Storage\IndexServer\FULLPROPSPEC.ahk" { FULLPROPSPEC }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\StructuredStorage\PROPSPEC_KIND.ahk" { PROPSPEC_KIND }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\StructuredStorage\PROPSPEC.ahk" { PROPSPEC }
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class CONTENTRESTRICTION extends Win32Struct {
-    static sizeof => 40
+export default struct CONTENTRESTRICTION {
+    #StructPack 8
 
-    static packingSize => 8
+    prop : FULLPROPSPEC
 
-    /**
-     * @type {FULLPROPSPEC}
-     */
-    prop {
-        get {
-            if(!this.HasProp("__prop"))
-                this.__prop := FULLPROPSPEC(0, this)
-            return this.__prop
-        }
-    }
+    pwcsPhrase : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwcsPhrase {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lcid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    lcid {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ulGenerateMethod : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulGenerateMethod {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
 }

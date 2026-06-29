@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWMOutputMediaProps.ahk" { IWMOutputMediaProps }
 
 /**
  * The IWMReaderTypeNegotiation interface provides a single method that can be used to test certain changes to the output properties of a stream.An IWMReaderTypeNegotiation interface exists for every reader object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreadertypenegotiation
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMReaderTypeNegotiation extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMReaderTypeNegotiation extends IUnknown {
     /**
      * The interface identifier for IWMReaderTypeNegotiation
      * @type {Guid}
      */
-    static IID => Guid("{fdbe5592-81a1-41ea-93bd-735cad1adc05}")
+    static IID := Guid("{fdbe5592-81a1-41ea-93bd-735cad1adc05}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMReaderTypeNegotiation interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        TryOutputProps : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["TryOutputProps"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMReaderTypeNegotiation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The TryOutputProps method ascertains whether certain changes to the properties of an output are possible.
@@ -103,5 +112,25 @@ class IWMReaderTypeNegotiation extends IUnknown {
     TryOutputProps(dwOutputNum, pOutput) {
         result := ComCall(3, this, "uint", dwOutputNum, "ptr", pOutput, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMReaderTypeNegotiation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.TryOutputProps := CallbackCreate(GetMethod(implObj, "TryOutputProps"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.TryOutputProps)
     }
 }

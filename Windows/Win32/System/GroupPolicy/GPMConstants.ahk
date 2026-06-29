@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The IGPMConstants interface supports methods that retrieve the value of multiple Group Policy Management Console (GPMC) constants. To create a GPMConstants object, call the IGPM::GetConstants method.
@@ -11,8 +10,7 @@
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmconstants
  * @namespace Windows.Win32.System.GroupPolicy
  */
-class GPMConstants extends Win32Struct {
-    static sizeof => 0
+export default struct GPMConstants {
+    #StructPack 1
 
-    static packingSize => 1
 }

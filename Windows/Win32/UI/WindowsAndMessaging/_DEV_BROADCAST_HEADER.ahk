@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class _DEV_BROADCAST_HEADER extends Win32Struct {
-    static sizeof => 12
+export default struct _DEV_BROADCAST_HEADER {
+    #StructPack 4
 
-    static packingSize => 4
+    dbcd_size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dbcd_size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dbcd_devicetype : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dbcd_devicetype {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dbcd_reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dbcd_reserved {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

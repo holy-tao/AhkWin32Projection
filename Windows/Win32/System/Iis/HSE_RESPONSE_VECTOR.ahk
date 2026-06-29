@@ -1,52 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HSE_VECTOR_ELEMENT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HSE_VECTOR_ELEMENT.ahk" { HSE_VECTOR_ELEMENT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.Iis
  */
-class HSE_RESPONSE_VECTOR extends Win32Struct {
-    static sizeof => 40
+export default struct HSE_RESPONSE_VECTOR {
+    #StructPack 8
 
-    static packingSize => 8
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pszStatus : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    pszStatus {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszHeaders : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    pszHeaders {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    nElementCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nElementCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    lpElementArray : HSE_VECTOR_ELEMENT.Ptr
 
-    /**
-     * @type {Pointer<HSE_VECTOR_ELEMENT>}
-     */
-    lpElementArray {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
 }

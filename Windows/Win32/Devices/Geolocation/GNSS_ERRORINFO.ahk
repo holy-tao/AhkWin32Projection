@@ -1,62 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
  */
-class GNSS_ERRORINFO extends Win32Struct {
-    static sizeof => 1040
+export default struct GNSS_ERRORINFO {
+    #StructPack 4
 
-    static packingSize => 4
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ErrorCode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ErrorCode {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    IsRecoverable : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    IsRecoverable {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    ErrorDescription : WCHAR[256]
 
-    /**
-     * @type {String}
-     */
-    ErrorDescription {
-        get => StrGet(this.ptr + 16, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 16, 255, "UTF-16")
-    }
+    Unused : Int8[512]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Unused {
-        get {
-            if(!this.HasProp("__UnusedProxyArray"))
-                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 528, 512, Primitive, "char")
-            return this.__UnusedProxyArray
-        }
-    }
 }

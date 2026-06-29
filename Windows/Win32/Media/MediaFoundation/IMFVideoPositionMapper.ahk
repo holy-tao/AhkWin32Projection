@@ -1,33 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Maps a position on an input video stream to the corresponding position on an output video stream.
  * @see https://learn.microsoft.com/windows/win32/api/evr/nn-evr-imfvideopositionmapper
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFVideoPositionMapper extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFVideoPositionMapper extends IUnknown {
     /**
      * The interface identifier for IMFVideoPositionMapper
      * @type {Guid}
      */
-    static IID => Guid("{1f6a9f17-e70b-4e24-8ae4-0b2c3ba7a4ae}")
+    static IID := Guid("{1f6a9f17-e70b-4e24-8ae4-0b2c3ba7a4ae}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFVideoPositionMapper interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        MapOutputCoordinateToInputStream : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["MapOutputCoordinateToInputStream"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFVideoPositionMapper.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Maps output image coordinates to input image coordinates.
@@ -110,5 +118,25 @@ class IMFVideoPositionMapper extends IUnknown {
 
         result := ComCall(3, this, "float", xOut, "float", yOut, "uint", dwOutputStreamIndex, "uint", dwInputStreamIndex, pxInMarshal, pxIn, pyInMarshal, pyIn, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFVideoPositionMapper.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.MapOutputCoordinateToInputStream := CallbackCreate(GetMethod(implObj, "MapOutputCoordinateToInputStream"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.MapOutputCoordinateToInputStream)
     }
 }

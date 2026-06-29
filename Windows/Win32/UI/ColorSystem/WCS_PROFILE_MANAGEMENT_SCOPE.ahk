@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the scope of a profile management operation, such as associating a profile with a device.
  * @see https://learn.microsoft.com/windows/win32/api/icm/ne-icm-wcs_profile_management_scope
  * @namespace Windows.Win32.UI.ColorSystem
  */
-class WCS_PROFILE_MANAGEMENT_SCOPE extends Win32Enum {
+export default struct WCS_PROFILE_MANAGEMENT_SCOPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates that the profile management operation affects all users.

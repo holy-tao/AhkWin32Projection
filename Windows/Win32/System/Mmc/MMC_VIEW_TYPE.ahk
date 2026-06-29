@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MMC_VIEW_TYPE enumeration specifies a result view type and is used in the RESULT_VIEW_TYPE_INFO structure.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ne-mmc-mmc_view_type
  * @namespace Windows.Win32.System.Mmc
  */
-class MMC_VIEW_TYPE extends Win32Enum {
+export default struct MMC_VIEW_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The view type is a list view.

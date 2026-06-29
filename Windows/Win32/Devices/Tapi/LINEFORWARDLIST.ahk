@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\LINEFORWARD.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LINEFORWARD.ahk" { LINEFORWARD }
 
 /**
  * The LINEFORWARDLIST structure describes a list of forwarding instructions. This structure can contain an array of LINEFORWARD structures. The lineForward and TSPI_lineForward functions use the LINEFORWARDLIST structure.
@@ -12,39 +11,23 @@
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineforwardlist
  * @namespace Windows.Win32.Devices.Tapi
  */
-class LINEFORWARDLIST extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 4
+export default struct LINEFORWARDLIST {
+    #StructPack 4
 
     /**
      * Total size of the data structure, in bytes.
-     * @type {Integer}
      */
-    dwTotalSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwTotalSize : UInt32
 
     /**
      * Number of entries in the array specified as <b>ForwardList[]</b>.
-     * @type {Integer}
      */
-    dwNumEntries {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwNumEntries : UInt32
 
     /**
      * Array of forwarding instruction. The array's entries are of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-lineforward">LINEFORWARD</a>.
-     * @type {LINEFORWARD}
      */
-    ForwardList {
-        get {
-            if(!this.HasProp("__ForwardListProxyArray"))
-                this.__ForwardListProxyArray := Win32FixedArray(this.ptr + 8, 1, LINEFORWARD, "")
-            return this.__ForwardListProxyArray
-        }
-    }
+    ForwardList : LINEFORWARD[1]
+
 }

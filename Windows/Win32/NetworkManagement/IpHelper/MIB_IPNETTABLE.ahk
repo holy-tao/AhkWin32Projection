@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_IPNETROW_LH.ahk
-#Include .\MIB_IPNET_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MIB_IPNETROW_LH.ahk" { MIB_IPNETROW_LH }
+#Import ".\MIB_IPNET_TYPE.ahk" { MIB_IPNET_TYPE }
 
 /**
  * Contains a table of Address Resolution Protocol (ARP) entries for IPv4 addresses.
@@ -23,30 +22,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipmib/ns-ipmib-mib_ipnettable
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_IPNETTABLE extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct MIB_IPNETTABLE {
+    #StructPack 4
 
     /**
      * The number of ARP entries in the table.
-     * @type {Integer}
      */
-    dwNumEntries {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwNumEntries : UInt32
 
     /**
      * A pointer to a table of ARP entries implemented as an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipnetrow_lh">MIB_IPNETROW</a> structures.
-     * @type {MIB_IPNETROW_LH}
      */
-    table {
-        get {
-            if(!this.HasProp("__tableProxyArray"))
-                this.__tableProxyArray := Win32FixedArray(this.ptr + 4, 1, MIB_IPNETROW_LH, "")
-            return this.__tableProxyArray
-        }
-    }
+    table : MIB_IPNETROW_LH[1]
+
 }

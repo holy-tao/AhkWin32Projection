@@ -1,62 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * The AMVPDIMINFO structure specifies the dimensional characteristics of a video port (VP) input stream.
  * @see https://learn.microsoft.com/windows/win32/api/vptype/ns-vptype-amvpdiminfo
  * @namespace Windows.Win32.Media.DirectShow
  */
-class AMVPDIMINFO extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 4
+export default struct AMVPDIMINFO {
+    #StructPack 4
 
     /**
      * Field width of the data.
-     * @type {Integer}
      */
-    dwFieldWidth {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFieldWidth : UInt32
 
     /**
      * Field height of the data.
-     * @type {Integer}
      */
-    dwFieldHeight {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFieldHeight : UInt32
 
     /**
      * Width of the VBI data.
-     * @type {Integer}
      */
-    dwVBIWidth {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwVBIWidth : UInt32
 
     /**
      * Height of the VBI data.
-     * @type {Integer}
      */
-    dwVBIHeight {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwVBIHeight : UInt32
 
     /**
      * Valid rectangle, used for cropping.
-     * @type {RECT}
      */
-    rcValidRegion {
-        get {
-            if(!this.HasProp("__rcValidRegion"))
-                this.__rcValidRegion := RECT(16, this)
-            return this.__rcValidRegion
-        }
-    }
+    rcValidRegion : RECT
+
 }

@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\XAUDIO2_SEND_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\XAUDIO2_SEND_DESCRIPTOR.ahk" { XAUDIO2_SEND_DESCRIPTOR }
 
 /**
  * Defines a set of voices to receive data from a single output voice.
@@ -21,26 +20,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/xaudio2/ns-xaudio2-xaudio2_voice_sends
  * @namespace Windows.Win32.Media.Audio.XAudio2
  */
-class XAUDIO2_VOICE_SENDS extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct XAUDIO2_VOICE_SENDS {
+    #StructPack 8
 
     /**
      * Number of voices to receive the output of the voice. An <b>OutputCount</b> value of 0 indicates the voice should not send output to any voices.
-     * @type {Integer}
      */
-    SendCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SendCount : UInt32
 
     /**
      * Array of <a href="https://docs.microsoft.com/windows/desktop/api/xaudio2/ns-xaudio2-xaudio2_send_descriptor">XAUDIO2_SEND_DESCRIPTOR</a> structures describing destination voices and the filters that should be used when sending to the voices. This array should contain <b>SendCount</b> elements. If <b>SendCount</b> is 0 <b>pSends</b> should be NULL. Note that <b>pSends</b> cannot contain the same voice more than once.
-     * @type {Pointer<XAUDIO2_SEND_DESCRIPTOR>}
      */
-    pSends {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pSends : XAUDIO2_SEND_DESCRIPTOR.Ptr
+
 }

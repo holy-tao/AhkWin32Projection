@@ -1,10 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSPROP_VALUE.ahk
-#Include .\CLUSPROP_SYNTAX.ahk
-#Include .\CLUSPROP_RESOURCE_CLASS.ahk
-#Include .\CLUSTER_RESOURCE_CLASS.ahk
-#Include .\CLUSPROP_SZ.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CLUSPROP_VALUE.ahk" { CLUSPROP_VALUE }
+#Import ".\CLUSPROP_RESOURCE_CLASS.ahk" { CLUSPROP_RESOURCE_CLASS }
+#Import ".\CLUSPROP_SZ.ahk" { CLUSPROP_SZ }
+#Import ".\CLUSTER_RESOURCE_CLASS.ahk" { CLUSTER_RESOURCE_CLASS }
+#Import ".\CLUSPROP_SYNTAX.ahk" { CLUSPROP_SYNTAX }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Describes a resource that is a required dependency of another resource. This union is used as a value in the value list returned from a CLUSCTL_RESOURCE_GET_REQUIRED_DEPENDENCIES or CLUSCTL_RESOURCE_TYPE_GET_REQUIRED_DEPENDENCIES control code operation.
@@ -26,45 +26,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_required_dependency
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUSPROP_REQUIRED_DEPENDENCY extends Win32Struct {
-    static sizeof => 44
-
-    static packingSize => 4
+export default struct CLUSPROP_REQUIRED_DEPENDENCY {
+    #StructPack 4
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_value">CLUSPROP_VALUE</a> structure describing whether the data 
      *        in the structure is a resource class or resource type name.
-     * @type {CLUSPROP_VALUE}
      */
-    Value {
-        get {
-            if(!this.HasProp("__Value"))
-                this.__Value := CLUSPROP_VALUE(0, this)
-            return this.__Value
-        }
-    }
+    Value : CLUSPROP_VALUE
 
-    /**
-     * @type {CLUSPROP_RESOURCE_CLASS}
-     */
-    ResClass {
-        get {
-            if(!this.HasProp("__ResClass"))
-                this.__ResClass := CLUSPROP_RESOURCE_CLASS(0, this)
-            return this.__ResClass
-        }
-    }
-
-    /**
-     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-types">Resource type</a> upon which a resource must depend, such 
-     *        as <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/ip-address">IP Address</a>.
-     * @type {CLUSPROP_SZ}
-     */
-    ResTypeName {
-        get {
-            if(!this.HasProp("__ResTypeName"))
-                this.__ResTypeName := CLUSPROP_SZ(0, this)
-            return this.__ResTypeName
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'ResClass', { type: CLUSPROP_RESOURCE_CLASS, offset: 0 })
+        DefineProp(this.Prototype, 'ResTypeName', { type: CLUSPROP_SZ, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

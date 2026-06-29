@@ -1,2525 +1,684 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\IO_SECURITY_CONTEXT.ahk
-#Include ..\..\..\Foundation\MDL.ahk
-#Include ..\FILE_INFORMATION_CLASS.ahk
-#Include ..\..\..\Foundation\FILE_OBJECT.ahk
-#Include ..\..\..\..\Win32\Foundation\HANDLE.ahk
-#Include ..\FS_INFORMATION_CLASS.ahk
-#Include ..\..\..\..\Win32\Foundation\UNICODE_STRING.ahk
-#Include ..\..\..\System\SystemServices\DIRECTORY_NOTIFY_INFORMATION_CLASS.ahk
-#Include ..\..\..\Foundation\VPB.ahk
-#Include ..\..\..\Foundation\DEVICE_OBJECT.ahk
-#Include ..\..\..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk
-#Include ..\FILE_GET_QUOTA_INFORMATION.ahk
-#Include ..\..\..\System\SystemServices\CM_RESOURCE_LIST.ahk
-#Include ..\..\..\System\SystemServices\DEVICE_RELATION_TYPE.ahk
-#Include ..\..\..\System\SystemServices\INTERFACE.ahk
-#Include ..\..\..\System\SystemServices\DEVICE_CAPABILITIES.ahk
-#Include ..\..\..\System\SystemServices\IO_RESOURCE_REQUIREMENTS_LIST.ahk
-#Include ..\..\..\System\SystemServices\BUS_QUERY_ID_TYPE.ahk
-#Include ..\..\..\System\SystemServices\DEVICE_TEXT_TYPE.ahk
-#Include ..\..\..\System\SystemServices\DEVICE_USAGE_NOTIFICATION_TYPE.ahk
-#Include ..\FS_FILTER_SECTION_SYNC_TYPE.ahk
-#Include ..\FS_FILTER_SECTION_SYNC_OUTPUT.ahk
-#Include ..\..\..\Foundation\ERESOURCE.ahk
-#Include ..\..\..\Foundation\IRP.ahk
-#Include ..\FILE_NETWORK_OPEN_INFORMATION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Win32\Foundation\UNICODE_STRING.ahk" { UNICODE_STRING }
+#Import "..\..\..\System\SystemServices\CM_RESOURCE_LIST.ahk" { CM_RESOURCE_LIST }
+#Import "..\..\..\System\SystemServices\DEVICE_USAGE_NOTIFICATION_TYPE.ahk" { DEVICE_USAGE_NOTIFICATION_TYPE }
+#Import "..\FS_FILTER_SECTION_SYNC_TYPE.ahk" { FS_FILTER_SECTION_SYNC_TYPE }
+#Import "..\..\..\System\SystemServices\BUS_QUERY_ID_TYPE.ahk" { BUS_QUERY_ID_TYPE }
+#Import "..\..\..\Foundation\MDL.ahk" { MDL }
+#Import "..\..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\System\SystemServices\DEVICE_TEXT_TYPE.ahk" { DEVICE_TEXT_TYPE }
+#Import "..\FS_INFORMATION_CLASS.ahk" { FS_INFORMATION_CLASS }
+#Import "..\FS_FILTER_SECTION_SYNC_OUTPUT.ahk" { FS_FILTER_SECTION_SYNC_OUTPUT }
+#Import "..\..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\IO_SECURITY_CONTEXT.ahk" { IO_SECURITY_CONTEXT }
+#Import "..\..\..\Foundation\ERESOURCE.ahk" { ERESOURCE }
+#Import "..\..\..\System\SystemServices\DIRECTORY_NOTIFY_INFORMATION_CLASS.ahk" { DIRECTORY_NOTIFY_INFORMATION_CLASS }
+#Import "..\..\..\Foundation\VPB.ahk" { VPB }
+#Import "..\..\..\System\SystemServices\IO_RESOURCE_REQUIREMENTS_LIST.ahk" { IO_RESOURCE_REQUIREMENTS_LIST }
+#Import "..\FILE_NETWORK_OPEN_INFORMATION.ahk" { FILE_NETWORK_OPEN_INFORMATION }
+#Import "..\..\..\..\Win32\Security\PSID.ahk" { PSID }
+#Import "..\..\..\System\SystemServices\DEVICE_CAPABILITIES.ahk" { DEVICE_CAPABILITIES }
+#Import "..\..\..\System\SystemServices\DEVICE_RELATION_TYPE.ahk" { DEVICE_RELATION_TYPE }
+#Import "..\FILE_GET_QUOTA_INFORMATION.ahk" { FILE_GET_QUOTA_INFORMATION }
+#Import "..\..\..\Foundation\FILE_OBJECT.ahk" { FILE_OBJECT }
+#Import "..\..\..\Foundation\PEPROCESS.ahk" { PEPROCESS }
+#Import "..\FILE_INFORMATION_CLASS.ahk" { FILE_INFORMATION_CLASS }
+#Import "..\..\..\Foundation\IRP.ahk" { IRP }
+#Import "..\..\..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
+#Import "..\..\..\Foundation\DEVICE_OBJECT.ahk" { DEVICE_OBJECT }
+#Import "..\..\..\System\SystemServices\INTERFACE.ahk" { INTERFACE }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters
  */
-class FLT_PARAMETERS extends Win32Struct {
-    static sizeof => 880
-
-    static packingSize => 8
-
-    class _Create extends Win32Struct {
-        static sizeof => 40
-        static packingSize => 8
-
-        /**
-         * @type {Pointer<IO_SECURITY_CONTEXT>}
-         */
-        SecurityContext {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
+export default struct FLT_PARAMETERS {
+    #StructPack 8
 
-        /**
-         * @type {Integer}
-         */
-        Options {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
 
-        /**
-         * @type {Integer}
-         */
-        FileAttributes {
-            get => NumGet(this, 12, "ushort")
-            set => NumPut("ushort", value, this, 12)
-        }
+    struct _Create {
+        SecurityContext : IO_SECURITY_CONTEXT.Ptr
 
-        /**
-         * @type {Integer}
-         */
-        ShareAccess {
-            get => NumGet(this, 14, "ushort")
-            set => NumPut("ushort", value, this, 14)
-        }
+        Options : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        EaLength {
-            get => NumGet(this, 16, "uint")
-            set => NumPut("uint", value, this, 16)
-        }
+        FileAttributes : UInt16
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        EaBuffer {
-            get => NumGet(this, 24, "ptr")
-            set => NumPut("ptr", value, this, 24)
-        }
+        ShareAccess : UInt16
 
-        /**
-         * @type {Integer}
-         */
-        AllocationSize {
-            get => NumGet(this, 32, "int64")
-            set => NumPut("int64", value, this, 32)
-        }
+        EaLength : UInt32
+
+        EaBuffer : IntPtr
+
+        AllocationSize : Int64
+
     }
 
-    class _CreatePipe extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
-
-        /**
-         * @type {Pointer<IO_SECURITY_CONTEXT>}
-         */
-        SecurityContext {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
+    struct _CreatePipe {
+        SecurityContext : IO_SECURITY_CONTEXT.Ptr
 
-        /**
-         * @type {Integer}
-         */
-        Options {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
+        Options : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => NumGet(this, 12, "ushort")
-            set => NumPut("ushort", value, this, 12)
-        }
+        Reserved : UInt16
 
-        /**
-         * @type {Integer}
-         */
-        ShareAccess {
-            get => NumGet(this, 14, "ushort")
-            set => NumPut("ushort", value, this, 14)
-        }
+        ShareAccess : UInt16
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        Parameters {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
-        }
+        Parameters : IntPtr
+
     }
 
-    class _CreateMailslot extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
-
-        /**
-         * @type {Pointer<IO_SECURITY_CONTEXT>}
-         */
-        SecurityContext {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
+    struct _CreateMailslot {
+        SecurityContext : IO_SECURITY_CONTEXT.Ptr
 
-        /**
-         * @type {Integer}
-         */
-        Options {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
+        Options : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => NumGet(this, 12, "ushort")
-            set => NumPut("ushort", value, this, 12)
-        }
+        Reserved : UInt16
 
-        /**
-         * @type {Integer}
-         */
-        ShareAccess {
-            get => NumGet(this, 14, "ushort")
-            set => NumPut("ushort", value, this, 14)
-        }
+        ShareAccess : UInt16
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        Parameters {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
-        }
+        Parameters : IntPtr
+
     }
 
-    class _Read extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        Length {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+    struct _Read {
+        Length : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Key {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
+        Key : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        ByteOffset {
-            get => NumGet(this, 8, "int64")
-            set => NumPut("int64", value, this, 8)
-        }
+        ByteOffset : Int64
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        ReadBuffer {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
-        }
+        ReadBuffer : IntPtr
 
-        /**
-         * @type {Pointer<MDL>}
-         */
-        MdlAddress {
-            get => NumGet(this, 24, "ptr")
-            set => NumPut("ptr", value, this, 24)
-        }
+        MdlAddress : MDL.Ptr
+
     }
 
-    class _Write extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        Length {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+    struct _Write {
+        Length : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Key {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
+        Key : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        ByteOffset {
-            get => NumGet(this, 8, "int64")
-            set => NumPut("int64", value, this, 8)
-        }
+        ByteOffset : Int64
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        WriteBuffer {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
-        }
+        WriteBuffer : IntPtr
 
-        /**
-         * @type {Pointer<MDL>}
-         */
-        MdlAddress {
-            get => NumGet(this, 24, "ptr")
-            set => NumPut("ptr", value, this, 24)
-        }
+        MdlAddress : MDL.Ptr
+
     }
 
-    class _QueryFileInformation extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        Length {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+    struct _QueryFileInformation {
+        Length : UInt32
 
-        /**
-         * @type {FILE_INFORMATION_CLASS}
-         */
-        FileInformationClass {
-            get => NumGet(this, 4, "int")
-            set => NumPut("int", value, this, 4)
-        }
+        FileInformationClass : FILE_INFORMATION_CLASS
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        InfoBuffer {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
-    }
+        InfoBuffer : IntPtr
 
-    class _SetFileInformation extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        Length {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+    }
 
-        /**
-         * @type {FILE_INFORMATION_CLASS}
-         */
-        FileInformationClass {
-            get => NumGet(this, 4, "int")
-            set => NumPut("int", value, this, 4)
-        }
+    struct _SetFileInformation {
+        Length : UInt32
 
-        /**
-         * @type {Pointer<FILE_OBJECT>}
-         */
-        ParentOfTarget {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
+        FileInformationClass : FILE_INFORMATION_CLASS
 
-        /**
-         * @type {BOOLEAN}
-         */
-        ReplaceIfExists {
-            get => NumGet(this, 16, "char")
-            set => NumPut("char", value, this, 16)
-        }
+        ParentOfTarget : FILE_OBJECT.Ptr
 
-        /**
-         * @type {BOOLEAN}
-         */
-        AdvanceOnly {
-            get => NumGet(this, 17, "char")
-            set => NumPut("char", value, this, 17)
-        }
+        ReplaceIfExists : BOOLEAN
 
-        /**
-         * @type {Integer}
-         */
-        ClusterCount {
-            get => NumGet(this, 16, "uint")
-            set => NumPut("uint", value, this, 16)
-        }
+        AdvanceOnly : BOOLEAN
 
-        /**
-         * @type {HANDLE}
-         */
-        DeleteHandle {
-            get {
-                if(!this.HasProp("__DeleteHandle"))
-                    this.__DeleteHandle := HANDLE(16, this)
-                return this.__DeleteHandle
-            }
-        }
+        InfoBuffer : IntPtr
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        InfoBuffer {
-            get => NumGet(this, 24, "ptr")
-            set => NumPut("ptr", value, this, 24)
+        static __New() {
+            DefineProp(this.Prototype, 'ClusterCount', { type: UInt32, offset: 16 })
+            DefineProp(this.Prototype, 'DeleteHandle', { type: HANDLE, offset: 16 })
+            this.DeleteProp("__New")
         }
     }
 
-    class _QueryEa extends Win32Struct {
-        static sizeof => 40
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        Length {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+    struct _QueryEa {
+        Length : UInt32
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        EaList {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
+        EaList : IntPtr
 
-        /**
-         * @type {Integer}
-         */
-        EaListLength {
-            get => NumGet(this, 16, "uint")
-            set => NumPut("uint", value, this, 16)
-        }
+        EaListLength : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        EaIndex {
-            get => NumGet(this, 20, "uint")
-            set => NumPut("uint", value, this, 20)
-        }
+        EaIndex : UInt32
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        EaBuffer {
-            get => NumGet(this, 24, "ptr")
-            set => NumPut("ptr", value, this, 24)
-        }
+        EaBuffer : IntPtr
 
-        /**
-         * @type {Pointer<MDL>}
-         */
-        MdlAddress {
-            get => NumGet(this, 32, "ptr")
-            set => NumPut("ptr", value, this, 32)
-        }
+        MdlAddress : MDL.Ptr
+
     }
 
-    class _SetEa extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        Length {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+    struct _SetEa {
+        Length : UInt32
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        EaBuffer {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
+        EaBuffer : IntPtr
 
-        /**
-         * @type {Pointer<MDL>}
-         */
-        MdlAddress {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
-        }
+        MdlAddress : MDL.Ptr
+
     }
 
-    class _QueryVolumeInformation extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        Length {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+    struct _QueryVolumeInformation {
+        Length : UInt32
 
-        /**
-         * @type {FS_INFORMATION_CLASS}
-         */
-        FsInformationClass {
-            get => NumGet(this, 4, "int")
-            set => NumPut("int", value, this, 4)
-        }
+        FsInformationClass : FS_INFORMATION_CLASS
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        VolumeBuffer {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
+        VolumeBuffer : IntPtr
+
     }
 
-    class _SetVolumeInformation extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        Length {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+    struct _SetVolumeInformation {
+        Length : UInt32
 
-        /**
-         * @type {FS_INFORMATION_CLASS}
-         */
-        FsInformationClass {
-            get => NumGet(this, 4, "int")
-            set => NumPut("int", value, this, 4)
-        }
+        FsInformationClass : FS_INFORMATION_CLASS
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        VolumeBuffer {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
+        VolumeBuffer : IntPtr
+
     }
 
-    class _DirectoryControl_e__Union extends Win32Struct {
-        static sizeof => 40
-        static packingSize => 8
-
-        class _QueryDirectory extends Win32Struct {
-            static sizeof => 40
-            static packingSize => 8
-
-            /**
-             * @type {Integer}
-             */
-            Length {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
-
-            /**
-             * @type {Pointer<UNICODE_STRING>}
-             */
-            FileName {
-                get => NumGet(this, 8, "ptr")
-                set => NumPut("ptr", value, this, 8)
-            }
-
-            /**
-             * @type {FILE_INFORMATION_CLASS}
-             */
-            FileInformationClass {
-                get => NumGet(this, 16, "int")
-                set => NumPut("int", value, this, 16)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            FileIndex {
-                get => NumGet(this, 20, "uint")
-                set => NumPut("uint", value, this, 20)
-            }
-
-            /**
-             * @type {Pointer<Void>}
-             */
-            DirectoryBuffer {
-                get => NumGet(this, 24, "ptr")
-                set => NumPut("ptr", value, this, 24)
-            }
-
-            /**
-             * @type {Pointer<MDL>}
-             */
-            MdlAddress {
-                get => NumGet(this, 32, "ptr")
-                set => NumPut("ptr", value, this, 32)
-            }
-        }
+    struct _DirectoryControl {
 
-        class _NotifyDirectory extends Win32Struct {
-            static sizeof => 32
-            static packingSize => 8
-
-            /**
-             * @type {Integer}
-             */
-            Length {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            CompletionFilter {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            Spare1 {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            Spare2 {
-                get => NumGet(this, 12, "uint")
-                set => NumPut("uint", value, this, 12)
-            }
-
-            /**
-             * @type {Pointer<Void>}
-             */
-            DirectoryBuffer {
-                get => NumGet(this, 16, "ptr")
-                set => NumPut("ptr", value, this, 16)
-            }
-
-            /**
-             * @type {Pointer<MDL>}
-             */
-            MdlAddress {
-                get => NumGet(this, 24, "ptr")
-                set => NumPut("ptr", value, this, 24)
-            }
-        }
+        struct _QueryDirectory {
+            Length : UInt32
 
-        class _NotifyDirectoryEx extends Win32Struct {
-            static sizeof => 32
-            static packingSize => 8
-
-            /**
-             * @type {Integer}
-             */
-            Length {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            CompletionFilter {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
-
-            /**
-             * @type {DIRECTORY_NOTIFY_INFORMATION_CLASS}
-             */
-            DirectoryNotifyInformationClass {
-                get => NumGet(this, 8, "int")
-                set => NumPut("int", value, this, 8)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            Spare2 {
-                get => NumGet(this, 12, "uint")
-                set => NumPut("uint", value, this, 12)
-            }
-
-            /**
-             * @type {Pointer<Void>}
-             */
-            DirectoryBuffer {
-                get => NumGet(this, 16, "ptr")
-                set => NumPut("ptr", value, this, 16)
-            }
-
-            /**
-             * @type {Pointer<MDL>}
-             */
-            MdlAddress {
-                get => NumGet(this, 24, "ptr")
-                set => NumPut("ptr", value, this, 24)
-            }
-        }
+            FileName : UNICODE_STRING.Ptr
 
-        /**
-         * @type {_QueryDirectory}
-         */
-        QueryDirectory {
-            get {
-                if(!this.HasProp("__QueryDirectory"))
-                    this.__QueryDirectory := FLT_PARAMETERS._DirectoryControl_e__Union._QueryDirectory(0, this)
-                return this.__QueryDirectory
-            }
-        }
+            FileInformationClass : FILE_INFORMATION_CLASS
 
-        /**
-         * @type {_NotifyDirectory}
-         */
-        NotifyDirectory {
-            get {
-                if(!this.HasProp("__NotifyDirectory"))
-                    this.__NotifyDirectory := FLT_PARAMETERS._DirectoryControl_e__Union._NotifyDirectory(0, this)
-                return this.__NotifyDirectory
-            }
-        }
+            FileIndex : UInt32
 
-        /**
-         * @type {_NotifyDirectoryEx}
-         */
-        NotifyDirectoryEx {
-            get {
-                if(!this.HasProp("__NotifyDirectoryEx"))
-                    this.__NotifyDirectoryEx := FLT_PARAMETERS._DirectoryControl_e__Union._NotifyDirectoryEx(0, this)
-                return this.__NotifyDirectoryEx
-            }
-        }
-    }
+            DirectoryBuffer : IntPtr
 
-    class _FileSystemControl_e__Union extends Win32Struct {
-        static sizeof => 40
-        static packingSize => 8
-
-        class _VerifyVolume extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
-
-            /**
-             * @type {Pointer<VPB>}
-             */
-            Vpb {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
-            }
-
-            /**
-             * @type {Pointer<DEVICE_OBJECT>}
-             */
-            DeviceObject {
-                get => NumGet(this, 8, "ptr")
-                set => NumPut("ptr", value, this, 8)
-            }
-        }
+            MdlAddress : MDL.Ptr
 
-        class _Common extends Win32Struct {
-            static sizeof => 12
-            static packingSize => 4
-
-            /**
-             * @type {Integer}
-             */
-            OutputBufferLength {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            InputBufferLength {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            FsControlCode {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
         }
 
-        class _Neither extends Win32Struct {
-            static sizeof => 40
-            static packingSize => 8
-
-            /**
-             * @type {Integer}
-             */
-            OutputBufferLength {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            InputBufferLength {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            FsControlCode {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
-
-            /**
-             * @type {Pointer<Void>}
-             */
-            InputBuffer {
-                get => NumGet(this, 16, "ptr")
-                set => NumPut("ptr", value, this, 16)
-            }
-
-            /**
-             * @type {Pointer<Void>}
-             */
-            OutputBuffer {
-                get => NumGet(this, 24, "ptr")
-                set => NumPut("ptr", value, this, 24)
-            }
-
-            /**
-             * @type {Pointer<MDL>}
-             */
-            OutputMdlAddress {
-                get => NumGet(this, 32, "ptr")
-                set => NumPut("ptr", value, this, 32)
-            }
-        }
+        struct _NotifyDirectory {
+            Length : UInt32
 
-        class _Buffered extends Win32Struct {
-            static sizeof => 24
-            static packingSize => 8
-
-            /**
-             * @type {Integer}
-             */
-            OutputBufferLength {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            InputBufferLength {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            FsControlCode {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
-
-            /**
-             * @type {Pointer<Void>}
-             */
-            SystemBuffer {
-                get => NumGet(this, 16, "ptr")
-                set => NumPut("ptr", value, this, 16)
-            }
-        }
+            CompletionFilter : UInt32
 
-        class _Direct extends Win32Struct {
-            static sizeof => 40
-            static packingSize => 8
-
-            /**
-             * @type {Integer}
-             */
-            OutputBufferLength {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            InputBufferLength {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            FsControlCode {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
-
-            /**
-             * @type {Pointer<Void>}
-             */
-            InputSystemBuffer {
-                get => NumGet(this, 16, "ptr")
-                set => NumPut("ptr", value, this, 16)
-            }
-
-            /**
-             * @type {Pointer<Void>}
-             */
-            OutputBuffer {
-                get => NumGet(this, 24, "ptr")
-                set => NumPut("ptr", value, this, 24)
-            }
-
-            /**
-             * @type {Pointer<MDL>}
-             */
-            OutputMdlAddress {
-                get => NumGet(this, 32, "ptr")
-                set => NumPut("ptr", value, this, 32)
-            }
-        }
+            Spare1 : UInt32
 
-        /**
-         * @type {_VerifyVolume}
-         */
-        VerifyVolume {
-            get {
-                if(!this.HasProp("__VerifyVolume"))
-                    this.__VerifyVolume := FLT_PARAMETERS._FileSystemControl_e__Union._VerifyVolume(0, this)
-                return this.__VerifyVolume
-            }
-        }
+            Spare2 : UInt32
 
-        /**
-         * @type {_Common}
-         */
-        Common {
-            get {
-                if(!this.HasProp("__Common"))
-                    this.__Common := FLT_PARAMETERS._FileSystemControl_e__Union._Common(0, this)
-                return this.__Common
-            }
-        }
+            DirectoryBuffer : IntPtr
+
+            MdlAddress : MDL.Ptr
 
-        /**
-         * @type {_Neither}
-         */
-        Neither {
-            get {
-                if(!this.HasProp("__Neither"))
-                    this.__Neither := FLT_PARAMETERS._FileSystemControl_e__Union._Neither(0, this)
-                return this.__Neither
-            }
         }
+
+        struct _NotifyDirectoryEx {
+            Length : UInt32
+
+            CompletionFilter : UInt32
+
+            DirectoryNotifyInformationClass : DIRECTORY_NOTIFY_INFORMATION_CLASS
+
+            Spare2 : UInt32
+
+            DirectoryBuffer : IntPtr
 
-        /**
-         * @type {_Buffered}
-         */
-        Buffered {
-            get {
-                if(!this.HasProp("__Buffered"))
-                    this.__Buffered := FLT_PARAMETERS._FileSystemControl_e__Union._Buffered(0, this)
-                return this.__Buffered
-            }
+            MdlAddress : MDL.Ptr
+
         }
+
+        QueryDirectory : FLT_PARAMETERS._DirectoryControl._QueryDirectory
 
-        /**
-         * @type {_Direct}
-         */
-        Direct {
-            get {
-                if(!this.HasProp("__Direct"))
-                    this.__Direct := FLT_PARAMETERS._FileSystemControl_e__Union._Direct(0, this)
-                return this.__Direct
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'NotifyDirectory', { type: FLT_PARAMETERS._DirectoryControl._NotifyDirectory, offset: 0 })
+            DefineProp(this.Prototype, 'NotifyDirectoryEx', { type: FLT_PARAMETERS._DirectoryControl._NotifyDirectoryEx, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    class _DeviceIoControl_e__Union extends Win32Struct {
-        static sizeof => 40
-        static packingSize => 8
-
-        class _Common extends Win32Struct {
-            static sizeof => 12
-            static packingSize => 4
-
-            /**
-             * @type {Integer}
-             */
-            OutputBufferLength {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            InputBufferLength {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            IoControlCode {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
-        }
+    struct _FileSystemControl {
 
-        class _Neither extends Win32Struct {
-            static sizeof => 40
-            static packingSize => 8
-
-            /**
-             * @type {Integer}
-             */
-            OutputBufferLength {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            InputBufferLength {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            IoControlCode {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
-
-            /**
-             * @type {Pointer<Void>}
-             */
-            InputBuffer {
-                get => NumGet(this, 16, "ptr")
-                set => NumPut("ptr", value, this, 16)
-            }
-
-            /**
-             * @type {Pointer<Void>}
-             */
-            OutputBuffer {
-                get => NumGet(this, 24, "ptr")
-                set => NumPut("ptr", value, this, 24)
-            }
-
-            /**
-             * @type {Pointer<MDL>}
-             */
-            OutputMdlAddress {
-                get => NumGet(this, 32, "ptr")
-                set => NumPut("ptr", value, this, 32)
-            }
-        }
+        struct _VerifyVolume {
+            Vpb : VPB.Ptr
 
-        class _Buffered extends Win32Struct {
-            static sizeof => 24
-            static packingSize => 8
-
-            /**
-             * @type {Integer}
-             */
-            OutputBufferLength {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            InputBufferLength {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            IoControlCode {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
-
-            /**
-             * @type {Pointer<Void>}
-             */
-            SystemBuffer {
-                get => NumGet(this, 16, "ptr")
-                set => NumPut("ptr", value, this, 16)
-            }
-        }
+            DeviceObject : DEVICE_OBJECT.Ptr
 
-        class _Direct extends Win32Struct {
-            static sizeof => 40
-            static packingSize => 8
-
-            /**
-             * @type {Integer}
-             */
-            OutputBufferLength {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            InputBufferLength {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            IoControlCode {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
-
-            /**
-             * @type {Pointer<Void>}
-             */
-            InputSystemBuffer {
-                get => NumGet(this, 16, "ptr")
-                set => NumPut("ptr", value, this, 16)
-            }
-
-            /**
-             * @type {Pointer<Void>}
-             */
-            OutputBuffer {
-                get => NumGet(this, 24, "ptr")
-                set => NumPut("ptr", value, this, 24)
-            }
-
-            /**
-             * @type {Pointer<MDL>}
-             */
-            OutputMdlAddress {
-                get => NumGet(this, 32, "ptr")
-                set => NumPut("ptr", value, this, 32)
-            }
         }
 
-        class _FastIo extends Win32Struct {
-            static sizeof => 32
-            static packingSize => 8
-
-            /**
-             * @type {Integer}
-             */
-            OutputBufferLength {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            InputBufferLength {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            IoControlCode {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
-
-            /**
-             * @type {Pointer<Void>}
-             */
-            InputBuffer {
-                get => NumGet(this, 16, "ptr")
-                set => NumPut("ptr", value, this, 16)
-            }
-
-            /**
-             * @type {Pointer<Void>}
-             */
-            OutputBuffer {
-                get => NumGet(this, 24, "ptr")
-                set => NumPut("ptr", value, this, 24)
-            }
-        }
+        struct _Common {
+            OutputBufferLength : UInt32
 
-        /**
-         * @type {_Common}
-         */
-        Common {
-            get {
-                if(!this.HasProp("__Common"))
-                    this.__Common := FLT_PARAMETERS._DeviceIoControl_e__Union._Common(0, this)
-                return this.__Common
-            }
-        }
+            InputBufferLength : UInt32
 
-        /**
-         * @type {_Neither}
-         */
-        Neither {
-            get {
-                if(!this.HasProp("__Neither"))
-                    this.__Neither := FLT_PARAMETERS._DeviceIoControl_e__Union._Neither(0, this)
-                return this.__Neither
-            }
-        }
+            FsControlCode : UInt32
 
-        /**
-         * @type {_Buffered}
-         */
-        Buffered {
-            get {
-                if(!this.HasProp("__Buffered"))
-                    this.__Buffered := FLT_PARAMETERS._DeviceIoControl_e__Union._Buffered(0, this)
-                return this.__Buffered
-            }
         }
 
-        /**
-         * @type {_Direct}
-         */
-        Direct {
-            get {
-                if(!this.HasProp("__Direct"))
-                    this.__Direct := FLT_PARAMETERS._DeviceIoControl_e__Union._Direct(0, this)
-                return this.__Direct
-            }
-        }
+        struct _Neither {
+            OutputBufferLength : UInt32
 
-        /**
-         * @type {_FastIo}
-         */
-        FastIo {
-            get {
-                if(!this.HasProp("__FastIo"))
-                    this.__FastIo := FLT_PARAMETERS._DeviceIoControl_e__Union._FastIo(0, this)
-                return this.__FastIo
-            }
-        }
-    }
+            InputBufferLength : UInt32
 
-    class _LockControl extends Win32Struct {
-        static sizeof => 40
-        static packingSize => 8
-
-        /**
-         * @type {Pointer<Integer>}
-         */
-        Length {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
+            FsControlCode : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Key {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
+            InputBuffer : IntPtr
 
-        /**
-         * @type {Integer}
-         */
-        ByteOffset {
-            get => NumGet(this, 16, "int64")
-            set => NumPut("int64", value, this, 16)
-        }
+            OutputBuffer : IntPtr
 
-        /**
-         * @type {PEPROCESS}
-         */
-        ProcessId {
-            get => NumGet(this, 24, "ptr")
-            set => NumPut("ptr", value, this, 24)
-        }
+            OutputMdlAddress : MDL.Ptr
 
-        /**
-         * @type {BOOLEAN}
-         */
-        FailImmediately {
-            get => NumGet(this, 32, "char")
-            set => NumPut("char", value, this, 32)
         }
 
-        /**
-         * @type {BOOLEAN}
-         */
-        ExclusiveLock {
-            get => NumGet(this, 33, "char")
-            set => NumPut("char", value, this, 33)
-        }
-    }
+        struct _Buffered {
+            OutputBufferLength : UInt32
 
-    class _QuerySecurity extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        SecurityInformation {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+            InputBufferLength : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Length {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
+            FsControlCode : UInt32
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        SecurityBuffer {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
+            SystemBuffer : IntPtr
 
-        /**
-         * @type {Pointer<MDL>}
-         */
-        MdlAddress {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
         }
-    }
 
-    class _SetSecurity extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        SecurityInformation {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        struct _Direct {
+            OutputBufferLength : UInt32
 
-        /**
-         * @type {PSECURITY_DESCRIPTOR}
-         */
-        SecurityDescriptor {
-            get {
-                if(!this.HasProp("__SecurityDescriptor"))
-                    this.__SecurityDescriptor := PSECURITY_DESCRIPTOR(8, this)
-                return this.__SecurityDescriptor
-            }
-        }
-    }
+            InputBufferLength : UInt32
 
-    class _WMI extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
-
-        /**
-         * @type {Pointer}
-         */
-        ProviderId {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
+            FsControlCode : UInt32
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        DataPath {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
+            InputSystemBuffer : IntPtr
+
+            OutputBuffer : IntPtr
 
-        /**
-         * @type {Integer}
-         */
-        BufferSize {
-            get => NumGet(this, 16, "uint")
-            set => NumPut("uint", value, this, 16)
+            OutputMdlAddress : MDL.Ptr
+
         }
+
+        VerifyVolume : FLT_PARAMETERS._FileSystemControl._VerifyVolume
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        Buffer {
-            get => NumGet(this, 24, "ptr")
-            set => NumPut("ptr", value, this, 24)
+        static __New() {
+            DefineProp(this.Prototype, 'Common', { type: FLT_PARAMETERS._FileSystemControl._Common, offset: 0 })
+            DefineProp(this.Prototype, 'Neither', { type: FLT_PARAMETERS._FileSystemControl._Neither, offset: 0 })
+            DefineProp(this.Prototype, 'Buffered', { type: FLT_PARAMETERS._FileSystemControl._Buffered, offset: 0 })
+            DefineProp(this.Prototype, 'Direct', { type: FLT_PARAMETERS._FileSystemControl._Direct, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    class _QueryQuota extends Win32Struct {
-        static sizeof => 48
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        Length {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+    struct _DeviceIoControl {
 
-        /**
-         * @type {PSID}
-         */
-        StartSid {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
+        struct _Common {
+            OutputBufferLength : UInt32
 
-        /**
-         * @type {Pointer<FILE_GET_QUOTA_INFORMATION>}
-         */
-        SidList {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
-        }
+            InputBufferLength : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        SidListLength {
-            get => NumGet(this, 24, "uint")
-            set => NumPut("uint", value, this, 24)
-        }
+            IoControlCode : UInt32
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        QuotaBuffer {
-            get => NumGet(this, 32, "ptr")
-            set => NumPut("ptr", value, this, 32)
         }
 
-        /**
-         * @type {Pointer<MDL>}
-         */
-        MdlAddress {
-            get => NumGet(this, 40, "ptr")
-            set => NumPut("ptr", value, this, 40)
-        }
-    }
+        struct _Neither {
+            OutputBufferLength : UInt32
 
-    class _SetQuota extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        Length {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+            InputBufferLength : UInt32
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        QuotaBuffer {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
+            IoControlCode : UInt32
 
-        /**
-         * @type {Pointer<MDL>}
-         */
-        MdlAddress {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
-        }
-    }
+            InputBuffer : IntPtr
 
-    class _Pnp_e__Union extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
-
-        class _StartDevice extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
-
-            /**
-             * @type {Pointer<CM_RESOURCE_LIST>}
-             */
-            AllocatedResources {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
-            }
-
-            /**
-             * @type {Pointer<CM_RESOURCE_LIST>}
-             */
-            AllocatedResourcesTranslated {
-                get => NumGet(this, 8, "ptr")
-                set => NumPut("ptr", value, this, 8)
-            }
-        }
+            OutputBuffer : IntPtr
 
-        class _QueryDeviceRelations extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 4
-
-            /**
-             * @type {DEVICE_RELATION_TYPE}
-             */
-            Type {
-                get => NumGet(this, 0, "int")
-                set => NumPut("int", value, this, 0)
-            }
-        }
+            OutputMdlAddress : MDL.Ptr
 
-        class _QueryInterface extends Win32Struct {
-            static sizeof => 32
-            static packingSize => 8
-
-            /**
-             * @type {Pointer<Guid>}
-             */
-            InterfaceType {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            Size {
-                get => NumGet(this, 8, "ushort")
-                set => NumPut("ushort", value, this, 8)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            Version {
-                get => NumGet(this, 10, "ushort")
-                set => NumPut("ushort", value, this, 10)
-            }
-
-            /**
-             * @type {Pointer<INTERFACE>}
-             */
-            Interface {
-                get => NumGet(this, 16, "ptr")
-                set => NumPut("ptr", value, this, 16)
-            }
-
-            /**
-             * @type {Pointer<Void>}
-             */
-            InterfaceSpecificData {
-                get => NumGet(this, 24, "ptr")
-                set => NumPut("ptr", value, this, 24)
-            }
         }
 
-        class _DeviceCapabilities extends Win32Struct {
-            static sizeof => 8
-            static packingSize => 8
-
-            /**
-             * @type {Pointer<DEVICE_CAPABILITIES>}
-             */
-            Capabilities {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
-            }
-        }
+        struct _Buffered {
+            OutputBufferLength : UInt32
 
-        class _FilterResourceRequirements extends Win32Struct {
-            static sizeof => 8
-            static packingSize => 8
-
-            /**
-             * @type {Pointer<IO_RESOURCE_REQUIREMENTS_LIST>}
-             */
-            IoResourceRequirementList {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
-            }
-        }
+            InputBufferLength : UInt32
 
-        class _ReadWriteConfig extends Win32Struct {
-            static sizeof => 24
-            static packingSize => 8
-
-            /**
-             * @type {Integer}
-             */
-            WhichSpace {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
-
-            /**
-             * @type {Pointer<Void>}
-             */
-            Buffer {
-                get => NumGet(this, 8, "ptr")
-                set => NumPut("ptr", value, this, 8)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            Offset {
-                get => NumGet(this, 16, "uint")
-                set => NumPut("uint", value, this, 16)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            Length {
-                get => NumGet(this, 20, "uint")
-                set => NumPut("uint", value, this, 20)
-            }
-        }
+            IoControlCode : UInt32
 
-        class _SetLock extends Win32Struct {
-            static sizeof => 1
-            static packingSize => 1
-
-            /**
-             * @type {BOOLEAN}
-             */
-            Lock {
-                get => NumGet(this, 0, "char")
-                set => NumPut("char", value, this, 0)
-            }
-        }
+            SystemBuffer : IntPtr
 
-        class _QueryId extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 4
-
-            /**
-             * @type {BUS_QUERY_ID_TYPE}
-             */
-            IdType {
-                get => NumGet(this, 0, "int")
-                set => NumPut("int", value, this, 0)
-            }
         }
 
-        class _QueryDeviceText extends Win32Struct {
-            static sizeof => 8
-            static packingSize => 4
-
-            /**
-             * @type {DEVICE_TEXT_TYPE}
-             */
-            DeviceTextType {
-                get => NumGet(this, 0, "int")
-                set => NumPut("int", value, this, 0)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            LocaleId {
-                get => NumGet(this, 4, "uint")
-                set => NumPut("uint", value, this, 4)
-            }
-        }
+        struct _Direct {
+            OutputBufferLength : UInt32
 
-        class _UsageNotification extends Win32Struct {
-            static sizeof => 8
-            static packingSize => 4
-
-            /**
-             * @type {BOOLEAN}
-             */
-            InPath {
-                get => NumGet(this, 0, "char")
-                set => NumPut("char", value, this, 0)
-            }
-
-            /**
-             * @type {Array<BOOLEAN>}
-             */
-            Reserved {
-                get {
-                    if(!this.HasProp("__ReservedProxyArray"))
-                        this.__ReservedProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
-                    return this.__ReservedProxyArray
-                }
-            }
-
-            /**
-             * @type {DEVICE_USAGE_NOTIFICATION_TYPE}
-             */
-            Type {
-                get => NumGet(this, 4, "int")
-                set => NumPut("int", value, this, 4)
-            }
-        }
+            InputBufferLength : UInt32
 
-        /**
-         * @type {_StartDevice}
-         */
-        StartDevice {
-            get {
-                if(!this.HasProp("__StartDevice"))
-                    this.__StartDevice := FLT_PARAMETERS._Pnp_e__Union._StartDevice(0, this)
-                return this.__StartDevice
-            }
-        }
+            IoControlCode : UInt32
 
-        /**
-         * @type {_QueryDeviceRelations}
-         */
-        QueryDeviceRelations {
-            get {
-                if(!this.HasProp("__QueryDeviceRelations"))
-                    this.__QueryDeviceRelations := FLT_PARAMETERS._Pnp_e__Union._QueryDeviceRelations(0, this)
-                return this.__QueryDeviceRelations
-            }
-        }
+            InputSystemBuffer : IntPtr
 
-        /**
-         * @type {_QueryInterface}
-         */
-        QueryInterface {
-            get {
-                if(!this.HasProp("__QueryInterface"))
-                    this.__QueryInterface := FLT_PARAMETERS._Pnp_e__Union._QueryInterface(0, this)
-                return this.__QueryInterface
-            }
-        }
+            OutputBuffer : IntPtr
 
-        /**
-         * @type {_DeviceCapabilities}
-         */
-        DeviceCapabilities {
-            get {
-                if(!this.HasProp("__DeviceCapabilities"))
-                    this.__DeviceCapabilities := FLT_PARAMETERS._Pnp_e__Union._DeviceCapabilities(0, this)
-                return this.__DeviceCapabilities
-            }
-        }
+            OutputMdlAddress : MDL.Ptr
 
-        /**
-         * @type {_FilterResourceRequirements}
-         */
-        FilterResourceRequirements {
-            get {
-                if(!this.HasProp("__FilterResourceRequirements"))
-                    this.__FilterResourceRequirements := FLT_PARAMETERS._Pnp_e__Union._FilterResourceRequirements(0, this)
-                return this.__FilterResourceRequirements
-            }
         }
 
-        /**
-         * @type {_ReadWriteConfig}
-         */
-        ReadWriteConfig {
-            get {
-                if(!this.HasProp("__ReadWriteConfig"))
-                    this.__ReadWriteConfig := FLT_PARAMETERS._Pnp_e__Union._ReadWriteConfig(0, this)
-                return this.__ReadWriteConfig
-            }
-        }
+        struct _FastIo {
+            OutputBufferLength : UInt32
 
-        /**
-         * @type {_SetLock}
-         */
-        SetLock {
-            get {
-                if(!this.HasProp("__SetLock"))
-                    this.__SetLock := FLT_PARAMETERS._Pnp_e__Union._SetLock(0, this)
-                return this.__SetLock
-            }
-        }
+            InputBufferLength : UInt32
 
-        /**
-         * @type {_QueryId}
-         */
-        QueryId {
-            get {
-                if(!this.HasProp("__QueryId"))
-                    this.__QueryId := FLT_PARAMETERS._Pnp_e__Union._QueryId(0, this)
-                return this.__QueryId
-            }
-        }
+            IoControlCode : UInt32
+
+            InputBuffer : IntPtr
 
-        /**
-         * @type {_QueryDeviceText}
-         */
-        QueryDeviceText {
-            get {
-                if(!this.HasProp("__QueryDeviceText"))
-                    this.__QueryDeviceText := FLT_PARAMETERS._Pnp_e__Union._QueryDeviceText(0, this)
-                return this.__QueryDeviceText
-            }
+            OutputBuffer : IntPtr
+
         }
+
+        Common : FLT_PARAMETERS._DeviceIoControl._Common
 
-        /**
-         * @type {_UsageNotification}
-         */
-        UsageNotification {
-            get {
-                if(!this.HasProp("__UsageNotification"))
-                    this.__UsageNotification := FLT_PARAMETERS._Pnp_e__Union._UsageNotification(0, this)
-                return this.__UsageNotification
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'Neither', { type: FLT_PARAMETERS._DeviceIoControl._Neither, offset: 0 })
+            DefineProp(this.Prototype, 'Buffered', { type: FLT_PARAMETERS._DeviceIoControl._Buffered, offset: 0 })
+            DefineProp(this.Prototype, 'Direct', { type: FLT_PARAMETERS._DeviceIoControl._Direct, offset: 0 })
+            DefineProp(this.Prototype, 'FastIo', { type: FLT_PARAMETERS._DeviceIoControl._FastIo, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    class _AcquireForSectionSynchronization extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
-
-        /**
-         * @type {FS_FILTER_SECTION_SYNC_TYPE}
-         */
-        SyncType {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
+    struct _LockControl {
+        Length : IntPtr
 
-        /**
-         * @type {Integer}
-         */
-        PageProtection {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
+        Key : UInt32
 
-        /**
-         * @type {Pointer<FS_FILTER_SECTION_SYNC_OUTPUT>}
-         */
-        OutputInformation {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
+        ByteOffset : Int64
 
-        /**
-         * @type {Integer}
-         */
-        Flags {
-            get => NumGet(this, 16, "uint")
-            set => NumPut("uint", value, this, 16)
-        }
+        ProcessId : PEPROCESS
 
-        /**
-         * @type {Integer}
-         */
-        AllocationAttributes {
-            get => NumGet(this, 20, "uint")
-            set => NumPut("uint", value, this, 20)
-        }
+        FailImmediately : BOOLEAN
+
+        ExclusiveLock : BOOLEAN
+
     }
 
-    class _AcquireForModifiedPageWriter extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
-
-        /**
-         * @type {Pointer<Integer>}
-         */
-        EndingOffset {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
+    struct _QuerySecurity {
+        SecurityInformation : UInt32
 
-        /**
-         * @type {Pointer<Pointer<ERESOURCE>>}
-         */
-        ResourceToRelease {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
+        Length : UInt32
+
+        SecurityBuffer : IntPtr
+
+        MdlAddress : MDL.Ptr
+
     }
 
-    class _ReleaseForModifiedPageWriter extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
-
-        /**
-         * @type {Pointer<ERESOURCE>}
-         */
-        ResourceToRelease {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
+    struct _SetSecurity {
+        SecurityInformation : UInt32
+
+        SecurityDescriptor : PSECURITY_DESCRIPTOR
+
     }
 
-    class _QueryOpen extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
-
-        /**
-         * @type {Pointer<IRP>}
-         */
-        Irp {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
+    struct _WMI {
+        ProviderId : IntPtr
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        FileInformation {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
+        DataPath : IntPtr
 
-        /**
-         * @type {Pointer<Integer>}
-         */
-        Length {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
-        }
+        BufferSize : UInt32
 
-        /**
-         * @type {FILE_INFORMATION_CLASS}
-         */
-        FileInformationClass {
-            get => NumGet(this, 24, "int")
-            set => NumPut("int", value, this, 24)
-        }
+        Buffer : IntPtr
+
     }
 
-    class _FastIoCheckIfPossible extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        FileOffset {
-            get => NumGet(this, 0, "int64")
-            set => NumPut("int64", value, this, 0)
-        }
+    struct _QueryQuota {
+        Length : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Length {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
+        StartSid : PSID
 
-        /**
-         * @type {Integer}
-         */
-        LockKey {
-            get => NumGet(this, 12, "uint")
-            set => NumPut("uint", value, this, 12)
-        }
+        SidList : FILE_GET_QUOTA_INFORMATION.Ptr
 
-        /**
-         * @type {BOOLEAN}
-         */
-        CheckForReadOperation {
-            get => NumGet(this, 16, "char")
-            set => NumPut("char", value, this, 16)
-        }
-    }
+        SidListLength : UInt32
 
-    class _NetworkQueryOpen extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
-
-        /**
-         * @type {Pointer<IRP>}
-         */
-        Irp {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
+        QuotaBuffer : IntPtr
 
-        /**
-         * @type {Pointer<FILE_NETWORK_OPEN_INFORMATION>}
-         */
-        NetworkInformation {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
+        MdlAddress : MDL.Ptr
+
     }
 
-    class _MdlRead extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        FileOffset {
-            get => NumGet(this, 0, "int64")
-            set => NumPut("int64", value, this, 0)
-        }
+    struct _SetQuota {
+        Length : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Length {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
+        QuotaBuffer : IntPtr
 
-        /**
-         * @type {Integer}
-         */
-        Key {
-            get => NumGet(this, 12, "uint")
-            set => NumPut("uint", value, this, 12)
-        }
+        MdlAddress : MDL.Ptr
 
-        /**
-         * @type {Pointer<Pointer<MDL>>}
-         */
-        MdlChain {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
-        }
     }
 
-    class _MdlReadComplete extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
-
-        /**
-         * @type {Pointer<MDL>}
-         */
-        MdlChain {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-    }
+    struct _Pnp {
 
-    class _PrepareMdlWrite extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        FileOffset {
-            get => NumGet(this, 0, "int64")
-            set => NumPut("int64", value, this, 0)
-        }
+        struct _StartDevice {
+            AllocatedResources : CM_RESOURCE_LIST.Ptr
 
-        /**
-         * @type {Integer}
-         */
-        Length {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
+            AllocatedResourcesTranslated : CM_RESOURCE_LIST.Ptr
 
-        /**
-         * @type {Integer}
-         */
-        Key {
-            get => NumGet(this, 12, "uint")
-            set => NumPut("uint", value, this, 12)
         }
 
-        /**
-         * @type {Pointer<Pointer<MDL>>}
-         */
-        MdlChain {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
-        }
-    }
+        struct _QueryDeviceRelations {
+            Type : DEVICE_RELATION_TYPE
 
-    class _MdlWriteComplete extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
-
-        /**
-         * @type {Integer}
-         */
-        FileOffset {
-            get => NumGet(this, 0, "int64")
-            set => NumPut("int64", value, this, 0)
         }
 
-        /**
-         * @type {Pointer<MDL>}
-         */
-        MdlChain {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
-    }
+        struct _QueryInterface {
+            InterfaceType : Guid.Ptr
 
-    class _MountVolume extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
-        /**
-         * @type {Integer}
-         */
-        DeviceType {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-    }
+            Size : UInt16
 
-    class _Others extends Win32Struct {
-        static sizeof => 48
-        static packingSize => 8
-
-        /**
-         * @type {Pointer<Void>}
-         */
-        Argument1 {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
+            Version : UInt16
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        Argument2 {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
+            Interface : INTERFACE.Ptr
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        Argument3 {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
-        }
+            InterfaceSpecificData : IntPtr
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        Argument4 {
-            get => NumGet(this, 24, "ptr")
-            set => NumPut("ptr", value, this, 24)
         }
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        Argument5 {
-            get => NumGet(this, 32, "ptr")
-            set => NumPut("ptr", value, this, 32)
-        }
+        struct _DeviceCapabilities {
+            Capabilities : DEVICE_CAPABILITIES.Ptr
 
-        /**
-         * @type {Integer}
-         */
-        Argument6 {
-            get => NumGet(this, 40, "int64")
-            set => NumPut("int64", value, this, 40)
         }
-    }
 
-    /**
-     * @type {_Create}
-     */
-    Create {
-        get {
-            if(!this.HasProp("__Create"))
-                this.__Create := FLT_PARAMETERS._Create(0, this)
-            return this.__Create
-        }
-    }
+        struct _FilterResourceRequirements {
+            IoResourceRequirementList : IO_RESOURCE_REQUIREMENTS_LIST.Ptr
 
-    /**
-     * @type {_CreatePipe}
-     */
-    CreatePipe {
-        get {
-            if(!this.HasProp("__CreatePipe"))
-                this.__CreatePipe := FLT_PARAMETERS._CreatePipe(0, this)
-            return this.__CreatePipe
         }
-    }
 
-    /**
-     * @type {_CreateMailslot}
-     */
-    CreateMailslot {
-        get {
-            if(!this.HasProp("__CreateMailslot"))
-                this.__CreateMailslot := FLT_PARAMETERS._CreateMailslot(0, this)
-            return this.__CreateMailslot
-        }
-    }
+        struct _ReadWriteConfig {
+            WhichSpace : UInt32
 
-    /**
-     * @type {_Read}
-     */
-    Read {
-        get {
-            if(!this.HasProp("__Read"))
-                this.__Read := FLT_PARAMETERS._Read(0, this)
-            return this.__Read
-        }
-    }
+            Buffer : IntPtr
 
-    /**
-     * @type {_Write}
-     */
-    Write {
-        get {
-            if(!this.HasProp("__Write"))
-                this.__Write := FLT_PARAMETERS._Write(0, this)
-            return this.__Write
-        }
-    }
+            Offset : UInt32
 
-    /**
-     * @type {_QueryFileInformation}
-     */
-    QueryFileInformation {
-        get {
-            if(!this.HasProp("__QueryFileInformation"))
-                this.__QueryFileInformation := FLT_PARAMETERS._QueryFileInformation(0, this)
-            return this.__QueryFileInformation
-        }
-    }
+            Length : UInt32
 
-    /**
-     * @type {_SetFileInformation}
-     */
-    SetFileInformation {
-        get {
-            if(!this.HasProp("__SetFileInformation"))
-                this.__SetFileInformation := FLT_PARAMETERS._SetFileInformation(0, this)
-            return this.__SetFileInformation
         }
-    }
 
-    /**
-     * @type {_QueryEa}
-     */
-    QueryEa {
-        get {
-            if(!this.HasProp("__QueryEa"))
-                this.__QueryEa := FLT_PARAMETERS._QueryEa(0, this)
-            return this.__QueryEa
-        }
-    }
+        struct _SetLock {
+            Lock : BOOLEAN
 
-    /**
-     * @type {_SetEa}
-     */
-    SetEa {
-        get {
-            if(!this.HasProp("__SetEa"))
-                this.__SetEa := FLT_PARAMETERS._SetEa(0, this)
-            return this.__SetEa
         }
-    }
 
-    /**
-     * @type {_QueryVolumeInformation}
-     */
-    QueryVolumeInformation {
-        get {
-            if(!this.HasProp("__QueryVolumeInformation"))
-                this.__QueryVolumeInformation := FLT_PARAMETERS._QueryVolumeInformation(0, this)
-            return this.__QueryVolumeInformation
-        }
-    }
+        struct _QueryId {
+            IdType : BUS_QUERY_ID_TYPE
 
-    /**
-     * @type {_SetVolumeInformation}
-     */
-    SetVolumeInformation {
-        get {
-            if(!this.HasProp("__SetVolumeInformation"))
-                this.__SetVolumeInformation := FLT_PARAMETERS._SetVolumeInformation(0, this)
-            return this.__SetVolumeInformation
         }
-    }
 
-    /**
-     * @type {_DirectoryControl_e__Union}
-     */
-    DirectoryControl {
-        get {
-            if(!this.HasProp("__DirectoryControl"))
-                this.__DirectoryControl := FLT_PARAMETERS._DirectoryControl_e__Union(0, this)
-            return this.__DirectoryControl
-        }
-    }
+        struct _QueryDeviceText {
+            DeviceTextType : DEVICE_TEXT_TYPE
 
-    /**
-     * @type {_FileSystemControl_e__Union}
-     */
-    FileSystemControl {
-        get {
-            if(!this.HasProp("__FileSystemControl"))
-                this.__FileSystemControl := FLT_PARAMETERS._FileSystemControl_e__Union(0, this)
-            return this.__FileSystemControl
-        }
-    }
+            LocaleId : UInt32
 
-    /**
-     * @type {_DeviceIoControl_e__Union}
-     */
-    DeviceIoControl {
-        get {
-            if(!this.HasProp("__DeviceIoControl"))
-                this.__DeviceIoControl := FLT_PARAMETERS._DeviceIoControl_e__Union(0, this)
-            return this.__DeviceIoControl
         }
-    }
 
-    /**
-     * @type {_LockControl}
-     */
-    LockControl {
-        get {
-            if(!this.HasProp("__LockControl"))
-                this.__LockControl := FLT_PARAMETERS._LockControl(0, this)
-            return this.__LockControl
-        }
-    }
+        struct _UsageNotification {
+            InPath : BOOLEAN
 
-    /**
-     * @type {_QuerySecurity}
-     */
-    QuerySecurity {
-        get {
-            if(!this.HasProp("__QuerySecurity"))
-                this.__QuerySecurity := FLT_PARAMETERS._QuerySecurity(0, this)
-            return this.__QuerySecurity
-        }
-    }
+            Reserved : BOOLEAN[3]
 
-    /**
-     * @type {_SetSecurity}
-     */
-    SetSecurity {
-        get {
-            if(!this.HasProp("__SetSecurity"))
-                this.__SetSecurity := FLT_PARAMETERS._SetSecurity(0, this)
-            return this.__SetSecurity
-        }
-    }
+            Type : DEVICE_USAGE_NOTIFICATION_TYPE
 
-    /**
-     * @type {_WMI}
-     */
-    WMI {
-        get {
-            if(!this.HasProp("__WMI"))
-                this.__WMI := FLT_PARAMETERS._WMI(0, this)
-            return this.__WMI
         }
-    }
 
-    /**
-     * @type {_QueryQuota}
-     */
-    QueryQuota {
-        get {
-            if(!this.HasProp("__QueryQuota"))
-                this.__QueryQuota := FLT_PARAMETERS._QueryQuota(0, this)
-            return this.__QueryQuota
-        }
-    }
+        StartDevice : FLT_PARAMETERS._Pnp._StartDevice
 
-    /**
-     * @type {_SetQuota}
-     */
-    SetQuota {
-        get {
-            if(!this.HasProp("__SetQuota"))
-                this.__SetQuota := FLT_PARAMETERS._SetQuota(0, this)
-            return this.__SetQuota
+        static __New() {
+            DefineProp(this.Prototype, 'QueryDeviceRelations', { type: FLT_PARAMETERS._Pnp._QueryDeviceRelations, offset: 0 })
+            DefineProp(this.Prototype, 'QueryInterface', { type: FLT_PARAMETERS._Pnp._QueryInterface, offset: 0 })
+            DefineProp(this.Prototype, 'DeviceCapabilities', { type: FLT_PARAMETERS._Pnp._DeviceCapabilities, offset: 0 })
+            DefineProp(this.Prototype, 'FilterResourceRequirements', { type: FLT_PARAMETERS._Pnp._FilterResourceRequirements, offset: 0 })
+            DefineProp(this.Prototype, 'ReadWriteConfig', { type: FLT_PARAMETERS._Pnp._ReadWriteConfig, offset: 0 })
+            DefineProp(this.Prototype, 'SetLock', { type: FLT_PARAMETERS._Pnp._SetLock, offset: 0 })
+            DefineProp(this.Prototype, 'QueryId', { type: FLT_PARAMETERS._Pnp._QueryId, offset: 0 })
+            DefineProp(this.Prototype, 'QueryDeviceText', { type: FLT_PARAMETERS._Pnp._QueryDeviceText, offset: 0 })
+            DefineProp(this.Prototype, 'UsageNotification', { type: FLT_PARAMETERS._Pnp._UsageNotification, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {_Pnp_e__Union}
-     */
-    Pnp {
-        get {
-            if(!this.HasProp("__Pnp"))
-                this.__Pnp := FLT_PARAMETERS._Pnp_e__Union(0, this)
-            return this.__Pnp
-        }
+    struct _AcquireForSectionSynchronization {
+        SyncType : FS_FILTER_SECTION_SYNC_TYPE
+
+        PageProtection : UInt32
+
+        OutputInformation : FS_FILTER_SECTION_SYNC_OUTPUT.Ptr
+
+        Flags : UInt32
+
+        AllocationAttributes : UInt32
+
     }
 
-    /**
-     * @type {_AcquireForSectionSynchronization}
-     */
-    AcquireForSectionSynchronization {
-        get {
-            if(!this.HasProp("__AcquireForSectionSynchronization"))
-                this.__AcquireForSectionSynchronization := FLT_PARAMETERS._AcquireForSectionSynchronization(0, this)
-            return this.__AcquireForSectionSynchronization
-        }
+    struct _AcquireForModifiedPageWriter {
+        EndingOffset : IntPtr
+
+        ResourceToRelease : IntPtr
+
     }
 
-    /**
-     * @type {_AcquireForModifiedPageWriter}
-     */
-    AcquireForModifiedPageWriter {
-        get {
-            if(!this.HasProp("__AcquireForModifiedPageWriter"))
-                this.__AcquireForModifiedPageWriter := FLT_PARAMETERS._AcquireForModifiedPageWriter(0, this)
-            return this.__AcquireForModifiedPageWriter
-        }
+    struct _ReleaseForModifiedPageWriter {
+        ResourceToRelease : ERESOURCE.Ptr
+
     }
 
-    /**
-     * @type {_ReleaseForModifiedPageWriter}
-     */
-    ReleaseForModifiedPageWriter {
-        get {
-            if(!this.HasProp("__ReleaseForModifiedPageWriter"))
-                this.__ReleaseForModifiedPageWriter := FLT_PARAMETERS._ReleaseForModifiedPageWriter(0, this)
-            return this.__ReleaseForModifiedPageWriter
-        }
+    struct _QueryOpen {
+        Irp : IRP.Ptr
+
+        FileInformation : IntPtr
+
+        Length : IntPtr
+
+        FileInformationClass : FILE_INFORMATION_CLASS
+
     }
 
-    /**
-     * @type {_QueryOpen}
-     */
-    QueryOpen {
-        get {
-            if(!this.HasProp("__QueryOpen"))
-                this.__QueryOpen := FLT_PARAMETERS._QueryOpen(0, this)
-            return this.__QueryOpen
-        }
+    struct _FastIoCheckIfPossible {
+        FileOffset : Int64
+
+        Length : UInt32
+
+        LockKey : UInt32
+
+        CheckForReadOperation : BOOLEAN
+
     }
 
-    /**
-     * @type {_FastIoCheckIfPossible}
-     */
-    FastIoCheckIfPossible {
-        get {
-            if(!this.HasProp("__FastIoCheckIfPossible"))
-                this.__FastIoCheckIfPossible := FLT_PARAMETERS._FastIoCheckIfPossible(0, this)
-            return this.__FastIoCheckIfPossible
-        }
+    struct _NetworkQueryOpen {
+        Irp : IRP.Ptr
+
+        NetworkInformation : FILE_NETWORK_OPEN_INFORMATION.Ptr
+
     }
 
-    /**
-     * @type {_NetworkQueryOpen}
-     */
-    NetworkQueryOpen {
-        get {
-            if(!this.HasProp("__NetworkQueryOpen"))
-                this.__NetworkQueryOpen := FLT_PARAMETERS._NetworkQueryOpen(0, this)
-            return this.__NetworkQueryOpen
-        }
+    struct _MdlRead {
+        FileOffset : Int64
+
+        Length : UInt32
+
+        Key : UInt32
+
+        MdlChain : IntPtr
+
     }
 
-    /**
-     * @type {_MdlRead}
-     */
-    MdlRead {
-        get {
-            if(!this.HasProp("__MdlRead"))
-                this.__MdlRead := FLT_PARAMETERS._MdlRead(0, this)
-            return this.__MdlRead
-        }
+    struct _MdlReadComplete {
+        MdlChain : MDL.Ptr
+
     }
 
-    /**
-     * @type {_MdlReadComplete}
-     */
-    MdlReadComplete {
-        get {
-            if(!this.HasProp("__MdlReadComplete"))
-                this.__MdlReadComplete := FLT_PARAMETERS._MdlReadComplete(0, this)
-            return this.__MdlReadComplete
-        }
+    struct _PrepareMdlWrite {
+        FileOffset : Int64
+
+        Length : UInt32
+
+        Key : UInt32
+
+        MdlChain : IntPtr
+
     }
 
-    /**
-     * @type {_PrepareMdlWrite}
-     */
-    PrepareMdlWrite {
-        get {
-            if(!this.HasProp("__PrepareMdlWrite"))
-                this.__PrepareMdlWrite := FLT_PARAMETERS._PrepareMdlWrite(0, this)
-            return this.__PrepareMdlWrite
-        }
+    struct _MdlWriteComplete {
+        FileOffset : Int64
+
+        MdlChain : MDL.Ptr
+
     }
 
-    /**
-     * @type {_MdlWriteComplete}
-     */
-    MdlWriteComplete {
-        get {
-            if(!this.HasProp("__MdlWriteComplete"))
-                this.__MdlWriteComplete := FLT_PARAMETERS._MdlWriteComplete(0, this)
-            return this.__MdlWriteComplete
-        }
+    struct _MountVolume {
+        DeviceType : UInt32
+
     }
 
-    /**
-     * @type {_MountVolume}
-     */
-    MountVolume {
-        get {
-            if(!this.HasProp("__MountVolume"))
-                this.__MountVolume := FLT_PARAMETERS._MountVolume(0, this)
-            return this.__MountVolume
-        }
+    struct _Others {
+        Argument1 : IntPtr
+
+        Argument2 : IntPtr
+
+        Argument3 : IntPtr
+
+        Argument4 : IntPtr
+
+        Argument5 : IntPtr
+
+        Argument6 : Int64
+
     }
 
-    /**
-     * @type {_Others}
-     */
-    Others {
-        get {
-            if(!this.HasProp("__Others"))
-                this.__Others := FLT_PARAMETERS._Others(0, this)
-            return this.__Others
-        }
+    Create : FLT_PARAMETERS._Create
+
+    static __New() {
+        DefineProp(this.Prototype, 'CreatePipe', { type: FLT_PARAMETERS._CreatePipe, offset: 0 })
+        DefineProp(this.Prototype, 'CreateMailslot', { type: FLT_PARAMETERS._CreateMailslot, offset: 0 })
+        DefineProp(this.Prototype, 'Read', { type: FLT_PARAMETERS._Read, offset: 0 })
+        DefineProp(this.Prototype, 'Write', { type: FLT_PARAMETERS._Write, offset: 0 })
+        DefineProp(this.Prototype, 'QueryFileInformation', { type: FLT_PARAMETERS._QueryFileInformation, offset: 0 })
+        DefineProp(this.Prototype, 'SetFileInformation', { type: FLT_PARAMETERS._SetFileInformation, offset: 0 })
+        DefineProp(this.Prototype, 'QueryEa', { type: FLT_PARAMETERS._QueryEa, offset: 0 })
+        DefineProp(this.Prototype, 'SetEa', { type: FLT_PARAMETERS._SetEa, offset: 0 })
+        DefineProp(this.Prototype, 'QueryVolumeInformation', { type: FLT_PARAMETERS._QueryVolumeInformation, offset: 0 })
+        DefineProp(this.Prototype, 'SetVolumeInformation', { type: FLT_PARAMETERS._SetVolumeInformation, offset: 0 })
+        DefineProp(this.Prototype, 'DirectoryControl', { type: FLT_PARAMETERS._DirectoryControl, offset: 0 })
+        DefineProp(this.Prototype, 'FileSystemControl', { type: FLT_PARAMETERS._FileSystemControl, offset: 0 })
+        DefineProp(this.Prototype, 'DeviceIoControl', { type: FLT_PARAMETERS._DeviceIoControl, offset: 0 })
+        DefineProp(this.Prototype, 'LockControl', { type: FLT_PARAMETERS._LockControl, offset: 0 })
+        DefineProp(this.Prototype, 'QuerySecurity', { type: FLT_PARAMETERS._QuerySecurity, offset: 0 })
+        DefineProp(this.Prototype, 'SetSecurity', { type: FLT_PARAMETERS._SetSecurity, offset: 0 })
+        DefineProp(this.Prototype, 'WMI', { type: FLT_PARAMETERS._WMI, offset: 0 })
+        DefineProp(this.Prototype, 'QueryQuota', { type: FLT_PARAMETERS._QueryQuota, offset: 0 })
+        DefineProp(this.Prototype, 'SetQuota', { type: FLT_PARAMETERS._SetQuota, offset: 0 })
+        DefineProp(this.Prototype, 'Pnp', { type: FLT_PARAMETERS._Pnp, offset: 0 })
+        DefineProp(this.Prototype, 'AcquireForSectionSynchronization', { type: FLT_PARAMETERS._AcquireForSectionSynchronization, offset: 0 })
+        DefineProp(this.Prototype, 'AcquireForModifiedPageWriter', { type: FLT_PARAMETERS._AcquireForModifiedPageWriter, offset: 0 })
+        DefineProp(this.Prototype, 'ReleaseForModifiedPageWriter', { type: FLT_PARAMETERS._ReleaseForModifiedPageWriter, offset: 0 })
+        DefineProp(this.Prototype, 'QueryOpen', { type: FLT_PARAMETERS._QueryOpen, offset: 0 })
+        DefineProp(this.Prototype, 'FastIoCheckIfPossible', { type: FLT_PARAMETERS._FastIoCheckIfPossible, offset: 0 })
+        DefineProp(this.Prototype, 'NetworkQueryOpen', { type: FLT_PARAMETERS._NetworkQueryOpen, offset: 0 })
+        DefineProp(this.Prototype, 'MdlRead', { type: FLT_PARAMETERS._MdlRead, offset: 0 })
+        DefineProp(this.Prototype, 'MdlReadComplete', { type: FLT_PARAMETERS._MdlReadComplete, offset: 0 })
+        DefineProp(this.Prototype, 'PrepareMdlWrite', { type: FLT_PARAMETERS._PrepareMdlWrite, offset: 0 })
+        DefineProp(this.Prototype, 'MdlWriteComplete', { type: FLT_PARAMETERS._MdlWriteComplete, offset: 0 })
+        DefineProp(this.Prototype, 'MountVolume', { type: FLT_PARAMETERS._MountVolume, offset: 0 })
+        DefineProp(this.Prototype, 'Others', { type: FLT_PARAMETERS._Others, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

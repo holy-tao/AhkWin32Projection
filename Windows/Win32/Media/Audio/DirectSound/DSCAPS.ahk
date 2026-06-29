@@ -1,203 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
  */
-class DSCAPS extends Win32Struct {
-    static sizeof => 96
+export default struct DSCAPS {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwMinSecondarySampleRate : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMinSecondarySampleRate {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwMaxSecondarySampleRate : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxSecondarySampleRate {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwPrimaryBuffers : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwPrimaryBuffers {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwMaxHwMixingAllBuffers : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxHwMixingAllBuffers {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwMaxHwMixingStaticBuffers : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxHwMixingStaticBuffers {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwMaxHwMixingStreamingBuffers : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxHwMixingStreamingBuffers {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwFreeHwMixingAllBuffers : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFreeHwMixingAllBuffers {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwFreeHwMixingStaticBuffers : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFreeHwMixingStaticBuffers {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwFreeHwMixingStreamingBuffers : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFreeHwMixingStreamingBuffers {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwMaxHw3DAllBuffers : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxHw3DAllBuffers {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    dwMaxHw3DStaticBuffers : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxHw3DStaticBuffers {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwMaxHw3DStreamingBuffers : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxHw3DStreamingBuffers {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwFreeHw3DAllBuffers : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFreeHw3DAllBuffers {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    dwFreeHw3DStaticBuffers : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFreeHw3DStaticBuffers {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    dwFreeHw3DStreamingBuffers : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFreeHw3DStreamingBuffers {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    dwTotalHwMemBytes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwTotalHwMemBytes {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    dwFreeHwMemBytes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFreeHwMemBytes {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    dwMaxContigFreeHwMemBytes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxContigFreeHwMemBytes {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    dwUnlockTransferRateHwBuffers : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwUnlockTransferRateHwBuffers {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    dwPlayCpuOverheadSwBuffers : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwPlayCpuOverheadSwBuffers {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    dwReserved1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved1 {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    dwReserved2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved2 {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
-    }
 }

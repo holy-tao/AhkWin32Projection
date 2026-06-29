@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMStreamConfig.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMStreamConfig.ahk" { IWMStreamConfig }
+#Import ".\WMT_TRANSPORT_TYPE.ahk" { WMT_TRANSPORT_TYPE }
 
 /**
  * The IWMStreamConfig2 interface manages the data unit extensions associated with a stream.IWMStreamConfig2 inherits from IWMStreamConfig. To obtain a pointer to IWMStreamConfig2, call the QueryInterface method of the IWMStreamConfig interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmstreamconfig2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMStreamConfig2 extends IWMStreamConfig {
-
-    static sizeof => A_PtrSize
+export default struct IWMStreamConfig2 extends IWMStreamConfig {
     /**
      * The interface identifier for IWMStreamConfig2
      * @type {Guid}
      */
-    static IID => Guid("{7688d8cb-fc0d-43bd-9459-5a8dec200cfa}")
+    static IID := Guid("{7688d8cb-fc0d-43bd-9459-5a8dec200cfa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 14
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMStreamConfig2 interfaces
+    */
+    struct Vtbl extends IWMStreamConfig.Vtbl {
+        GetTransportType            : IntPtr
+        SetTransportType            : IntPtr
+        AddDataUnitExtension        : IntPtr
+        GetDataUnitExtensionCount   : IntPtr
+        GetDataUnitExtension        : IntPtr
+        RemoveAllDataUnitExtensions : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetTransportType", "SetTransportType", "AddDataUnitExtension", "GetDataUnitExtensionCount", "GetDataUnitExtension", "RemoveAllDataUnitExtensions"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMStreamConfig2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetTransportType method retrieves the type of data communication protocol (reliable or unreliable) used for the stream.
@@ -48,7 +62,7 @@ class IWMStreamConfig2 extends IWMStreamConfig {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamconfig2-settransporttype
      */
     SetTransportType(nTransportType) {
-        result := ComCall(15, this, "int", nTransportType, "HRESULT")
+        result := ComCall(15, this, WMT_TRANSPORT_TYPE, nTransportType, "HRESULT")
         return result
     }
 
@@ -108,7 +122,7 @@ class IWMStreamConfig2 extends IWMStreamConfig {
     AddDataUnitExtension(guidExtensionSystemID, cbExtensionDataSize, pbExtensionSystemInfo, cbExtensionSystemInfo) {
         pbExtensionSystemInfoMarshal := pbExtensionSystemInfo is VarRef ? "char*" : "ptr"
 
-        result := ComCall(16, this, "ptr", guidExtensionSystemID, "ushort", cbExtensionDataSize, pbExtensionSystemInfoMarshal, pbExtensionSystemInfo, "uint", cbExtensionSystemInfo, "HRESULT")
+        result := ComCall(16, this, Guid, guidExtensionSystemID, "ushort", cbExtensionDataSize, pbExtensionSystemInfoMarshal, pbExtensionSystemInfo, "uint", cbExtensionSystemInfo, "HRESULT")
         return result
     }
 
@@ -174,7 +188,7 @@ class IWMStreamConfig2 extends IWMStreamConfig {
         pbExtensionSystemInfoMarshal := pbExtensionSystemInfo is VarRef ? "char*" : "ptr"
         pcbExtensionSystemInfoMarshal := pcbExtensionSystemInfo is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(18, this, "ushort", wDataUnitExtensionNumber, "ptr", pguidExtensionSystemID, pcbExtensionDataSizeMarshal, pcbExtensionDataSize, pbExtensionSystemInfoMarshal, pbExtensionSystemInfo, pcbExtensionSystemInfoMarshal, pcbExtensionSystemInfo, "HRESULT")
+        result := ComCall(18, this, "ushort", wDataUnitExtensionNumber, Guid.Ptr, pguidExtensionSystemID, pcbExtensionDataSizeMarshal, pcbExtensionDataSize, pbExtensionSystemInfoMarshal, pbExtensionSystemInfo, pcbExtensionSystemInfoMarshal, pcbExtensionSystemInfo, "HRESULT")
         return result
     }
 
@@ -188,5 +202,35 @@ class IWMStreamConfig2 extends IWMStreamConfig {
     RemoveAllDataUnitExtensions() {
         result := ComCall(19, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMStreamConfig2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetTransportType := CallbackCreate(GetMethod(implObj, "GetTransportType"), flags, 2)
+        this.vtbl.SetTransportType := CallbackCreate(GetMethod(implObj, "SetTransportType"), flags, 2)
+        this.vtbl.AddDataUnitExtension := CallbackCreate(GetMethod(implObj, "AddDataUnitExtension"), flags, 5)
+        this.vtbl.GetDataUnitExtensionCount := CallbackCreate(GetMethod(implObj, "GetDataUnitExtensionCount"), flags, 2)
+        this.vtbl.GetDataUnitExtension := CallbackCreate(GetMethod(implObj, "GetDataUnitExtension"), flags, 6)
+        this.vtbl.RemoveAllDataUnitExtensions := CallbackCreate(GetMethod(implObj, "RemoveAllDataUnitExtensions"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetTransportType)
+        CallbackFree(this.vtbl.SetTransportType)
+        CallbackFree(this.vtbl.AddDataUnitExtension)
+        CallbackFree(this.vtbl.GetDataUnitExtensionCount)
+        CallbackFree(this.vtbl.GetDataUnitExtension)
+        CallbackFree(this.vtbl.RemoveAllDataUnitExtensions)
     }
 }

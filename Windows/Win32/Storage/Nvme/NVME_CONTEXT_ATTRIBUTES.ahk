@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies optional context attributes for a logical block range (LBA range).
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_context_attributes
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_CONTEXT_ATTRIBUTES extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct NVME_CONTEXT_ATTRIBUTES {
+    #StructPack 4
 
     /**
      * This bitfield backs the following members:
@@ -21,12 +18,9 @@ class NVME_CONTEXT_ATTRIBUTES extends Win32Struct {
      * - WritePrepare
      * - Reserved1
      * - CommandAccessSize
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -91,12 +85,8 @@ class NVME_CONTEXT_ATTRIBUTES extends Win32Struct {
         get => (this._bitfield >> 24) & 0xFF
         set => this._bitfield := ((value & 0xFF) << 24) | (this._bitfield & ~(0xFF << 24))
     }
-
-    /**
-     * @type {Integer}
-     */
-    AsUlong {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'AsUlong', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

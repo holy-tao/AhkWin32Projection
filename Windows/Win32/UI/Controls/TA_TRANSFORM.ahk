@@ -1,53 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TA_TRANSFORM_TYPE.ahk
-#Include .\TA_TRANSFORM_FLAG.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TA_TRANSFORM_TYPE.ahk" { TA_TRANSFORM_TYPE }
+#Import ".\TA_TRANSFORM_FLAG.ahk" { TA_TRANSFORM_FLAG }
 
 /**
  * @namespace Windows.Win32.UI.Controls
  */
-class TA_TRANSFORM extends Win32Struct {
-    static sizeof => 20
+export default struct TA_TRANSFORM {
+    #StructPack 4
 
-    static packingSize => 4
+    eTransformType : TA_TRANSFORM_TYPE
 
-    /**
-     * @type {TA_TRANSFORM_TYPE}
-     */
-    eTransformType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    dwTimingFunctionId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwTimingFunctionId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwStartTime : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwStartTime {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwDurationTime : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDurationTime {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    eFlags : TA_TRANSFORM_FLAG
 
-    /**
-     * @type {TA_TRANSFORM_FLAG}
-     */
-    eFlags {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
 }

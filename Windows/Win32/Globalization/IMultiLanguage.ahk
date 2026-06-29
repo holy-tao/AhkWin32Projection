@@ -1,38 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\Guid.ahk
-#Include ..\System\Com\IUnknown.ahk
-#Include .\MIMECPINFO.ahk
-#Include .\IEnumCodePage.ahk
-#Include .\MIMECSETINFO.ahk
-#Include ..\Foundation\BSTR.ahk
-#Include .\IEnumRfc1766.ahk
-#Include .\RFC1766INFO.ahk
-#Include .\IMLangConvertCharset.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\Guid.ahk" { Guid }
+#Import "..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumRfc1766.ahk" { IEnumRfc1766 }
+#Import "..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\RFC1766INFO.ahk" { RFC1766INFO }
+#Import ".\IMLangConvertCharset.ahk" { IMLangConvertCharset }
+#Import ".\IEnumCodePage.ahk" { IEnumCodePage }
+#Import "..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MIMECPINFO.ahk" { MIMECPINFO }
+#Import "..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\MIMECSETINFO.ahk" { MIMECSETINFO }
 
 /**
  * @namespace Windows.Win32.Globalization
  */
-class IMultiLanguage extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMultiLanguage extends IUnknown {
     /**
      * The interface identifier for IMultiLanguage
      * @type {Guid}
      */
-    static IID => Guid("{275c23e1-3747-11d0-9fea-00aa003f8646}")
+    static IID := Guid("{275c23e1-3747-11d0-9fea-00aa003f8646}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMultiLanguage interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetNumberOfCodePageInfo  : IntPtr
+        GetCodePageInfo          : IntPtr
+        GetFamilyCodePage        : IntPtr
+        EnumCodePages            : IntPtr
+        GetCharsetInfo           : IntPtr
+        IsConvertible            : IntPtr
+        ConvertString            : IntPtr
+        ConvertStringToUnicode   : IntPtr
+        ConvertStringFromUnicode : IntPtr
+        ConvertStringReset       : IntPtr
+        GetRfc1766FromLcid       : IntPtr
+        GetLcidFromRfc1766       : IntPtr
+        EnumRfc1766              : IntPtr
+        GetRfc1766Info           : IntPtr
+        CreateConvertCharset     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetNumberOfCodePageInfo", "GetCodePageInfo", "GetFamilyCodePage", "EnumCodePages", "GetCharsetInfo", "IsConvertible", "ConvertString", "ConvertStringToUnicode", "ConvertStringFromUnicode", "ConvertStringReset", "GetRfc1766FromLcid", "GetLcidFromRfc1766", "EnumRfc1766", "GetRfc1766Info", "CreateConvertCharset"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMultiLanguage.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -50,7 +73,7 @@ class IMultiLanguage extends IUnknown {
      */
     GetCodePageInfo(uiCodePage) {
         pCodePageInfo := MIMECPINFO()
-        result := ComCall(4, this, "uint", uiCodePage, "ptr", pCodePageInfo, "HRESULT")
+        result := ComCall(4, this, "uint", uiCodePage, MIMECPINFO.Ptr, pCodePageInfo, "HRESULT")
         return pCodePageInfo
     }
 
@@ -83,7 +106,7 @@ class IMultiLanguage extends IUnknown {
         Charset := Charset is String ? BSTR.Alloc(Charset).Value : Charset
 
         pCharsetInfo := MIMECSETINFO()
-        result := ComCall(7, this, "ptr", Charset, "ptr", pCharsetInfo, "HRESULT")
+        result := ComCall(7, this, BSTR, Charset, MIMECSETINFO.Ptr, pCharsetInfo, "HRESULT")
         return pCharsetInfo
     }
 
@@ -99,17 +122,7 @@ class IMultiLanguage extends IUnknown {
     }
 
     /**
-     * Converts a string-format security descriptor into a valid, functional security descriptor. (Unicode)
-     * @remarks
-     * If <b>ace_type</b> is ACCESS_ALLOWED_OBJECT_ACE_TYPE
-     * and neither <b>object_guid</b> nor <b>inherit_object_guid</b> has a  <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> specified, then <b>ConvertStringSecurityDescriptorToSecurityDescriptor</b> converts <b>ace_type</b> to ACCESS_ALLOWED_ACE_TYPE. For information about the  <b>ace_type</b>,  <b>object_guid</b>, and <b>inherit_object_guid</b> fields, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/ace-strings">Ace Strings</a>.
      * 
-     * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The sddl.h header defines ConvertStringSecurityDescriptorToSecurityDescriptor as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} pdwMode 
      * @param {Integer} dwSrcEncoding 
      * @param {Integer} dwDstEncoding 
@@ -117,51 +130,7 @@ class IMultiLanguage extends IUnknown {
      * @param {Pointer<Integer>} pcSrcSize 
      * @param {Integer} pDstStr 
      * @param {Pointer<Integer>} pcDstSize 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> may return one of the following error codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_PARAMETER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A parameter is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_UNKNOWN_REVISION</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The SDDL revision level is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_NONE_MAPPED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) in the input security descriptor string could not be found in an account lookup operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/sddl/nf-sddl-convertstringsecuritydescriptortosecuritydescriptorw
+     * @returns {HRESULT} 
      */
     ConvertString(pdwMode, dwSrcEncoding, dwDstEncoding, pSrcStr, pcSrcSize, pDstStr, pcDstSize) {
         pdwModeMarshal := pdwMode is VarRef ? "uint*" : "ptr"
@@ -229,8 +198,8 @@ class IMultiLanguage extends IUnknown {
      * @returns {BSTR} 
      */
     GetRfc1766FromLcid(Locale) {
-        pbstrRfc1766 := BSTR()
-        result := ComCall(13, this, "uint", Locale, "ptr", pbstrRfc1766, "HRESULT")
+        pbstrRfc1766 := BSTR.Owned()
+        result := ComCall(13, this, "uint", Locale, BSTR.Ptr, pbstrRfc1766, "HRESULT")
         return pbstrRfc1766
     }
 
@@ -242,7 +211,7 @@ class IMultiLanguage extends IUnknown {
     GetLcidFromRfc1766(bstrRfc1766) {
         bstrRfc1766 := bstrRfc1766 is String ? BSTR.Alloc(bstrRfc1766).Value : bstrRfc1766
 
-        result := ComCall(14, this, "uint*", &pLocale := 0, "ptr", bstrRfc1766, "HRESULT")
+        result := ComCall(14, this, "uint*", &pLocale := 0, BSTR, bstrRfc1766, "HRESULT")
         return pLocale
     }
 
@@ -262,7 +231,7 @@ class IMultiLanguage extends IUnknown {
      */
     GetRfc1766Info(Locale) {
         pRfc1766Info := RFC1766INFO()
-        result := ComCall(16, this, "uint", Locale, "ptr", pRfc1766Info, "HRESULT")
+        result := ComCall(16, this, "uint", Locale, RFC1766INFO.Ptr, pRfc1766Info, "HRESULT")
         return pRfc1766Info
     }
 
@@ -276,5 +245,53 @@ class IMultiLanguage extends IUnknown {
     CreateConvertCharset(uiSrcCodePage, uiDstCodePage, dwProperty) {
         result := ComCall(17, this, "uint", uiSrcCodePage, "uint", uiDstCodePage, "uint", dwProperty, "ptr*", &ppMLangConvertCharset := 0, "HRESULT")
         return IMLangConvertCharset(ppMLangConvertCharset)
+    }
+
+    Query(iid) {
+        if (IMultiLanguage.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetNumberOfCodePageInfo := CallbackCreate(GetMethod(implObj, "GetNumberOfCodePageInfo"), flags, 2)
+        this.vtbl.GetCodePageInfo := CallbackCreate(GetMethod(implObj, "GetCodePageInfo"), flags, 3)
+        this.vtbl.GetFamilyCodePage := CallbackCreate(GetMethod(implObj, "GetFamilyCodePage"), flags, 3)
+        this.vtbl.EnumCodePages := CallbackCreate(GetMethod(implObj, "EnumCodePages"), flags, 3)
+        this.vtbl.GetCharsetInfo := CallbackCreate(GetMethod(implObj, "GetCharsetInfo"), flags, 3)
+        this.vtbl.IsConvertible := CallbackCreate(GetMethod(implObj, "IsConvertible"), flags, 3)
+        this.vtbl.ConvertString := CallbackCreate(GetMethod(implObj, "ConvertString"), flags, 8)
+        this.vtbl.ConvertStringToUnicode := CallbackCreate(GetMethod(implObj, "ConvertStringToUnicode"), flags, 7)
+        this.vtbl.ConvertStringFromUnicode := CallbackCreate(GetMethod(implObj, "ConvertStringFromUnicode"), flags, 7)
+        this.vtbl.ConvertStringReset := CallbackCreate(GetMethod(implObj, "ConvertStringReset"), flags, 1)
+        this.vtbl.GetRfc1766FromLcid := CallbackCreate(GetMethod(implObj, "GetRfc1766FromLcid"), flags, 3)
+        this.vtbl.GetLcidFromRfc1766 := CallbackCreate(GetMethod(implObj, "GetLcidFromRfc1766"), flags, 3)
+        this.vtbl.EnumRfc1766 := CallbackCreate(GetMethod(implObj, "EnumRfc1766"), flags, 2)
+        this.vtbl.GetRfc1766Info := CallbackCreate(GetMethod(implObj, "GetRfc1766Info"), flags, 3)
+        this.vtbl.CreateConvertCharset := CallbackCreate(GetMethod(implObj, "CreateConvertCharset"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetNumberOfCodePageInfo)
+        CallbackFree(this.vtbl.GetCodePageInfo)
+        CallbackFree(this.vtbl.GetFamilyCodePage)
+        CallbackFree(this.vtbl.EnumCodePages)
+        CallbackFree(this.vtbl.GetCharsetInfo)
+        CallbackFree(this.vtbl.IsConvertible)
+        CallbackFree(this.vtbl.ConvertString)
+        CallbackFree(this.vtbl.ConvertStringToUnicode)
+        CallbackFree(this.vtbl.ConvertStringFromUnicode)
+        CallbackFree(this.vtbl.ConvertStringReset)
+        CallbackFree(this.vtbl.GetRfc1766FromLcid)
+        CallbackFree(this.vtbl.GetLcidFromRfc1766)
+        CallbackFree(this.vtbl.EnumRfc1766)
+        CallbackFree(this.vtbl.GetRfc1766Info)
+        CallbackFree(this.vtbl.CreateConvertCharset)
     }
 }

@@ -1,9 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D10_INFO_QUEUE_FILTER_DESC.ahk
-#Include .\D3D10_MESSAGE_CATEGORY.ahk
-#Include .\D3D10_MESSAGE_SEVERITY.ahk
-#Include .\D3D10_MESSAGE_ID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D10_MESSAGE_CATEGORY.ahk" { D3D10_MESSAGE_CATEGORY }
+#Import ".\D3D10_MESSAGE_ID.ahk" { D3D10_MESSAGE_ID }
+#Import ".\D3D10_INFO_QUEUE_FILTER_DESC.ahk" { D3D10_INFO_QUEUE_FILTER_DESC }
+#Import ".\D3D10_MESSAGE_SEVERITY.ahk" { D3D10_MESSAGE_SEVERITY }
 
 /**
  * Debug message filter; contains a lists of message types to allow or deny. (D3D10_INFO_QUEUE_FILTER)
@@ -18,36 +17,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/ns-d3d10sdklayers-d3d10_info_queue_filter
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class D3D10_INFO_QUEUE_FILTER extends Win32Struct {
-    static sizeof => 96
-
-    static packingSize => 8
+export default struct D3D10_INFO_QUEUE_FILTER {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10sdklayers/ns-d3d10sdklayers-d3d10_info_queue_filter_desc">D3D10_INFO_QUEUE_FILTER_DESC</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d10sdklayers/ns-d3d10sdklayers-d3d10_info_queue_filter_desc">D3D10_INFO_QUEUE_FILTER_DESC</a> structure describing the types of messages the info queue should allow.
-     * @type {D3D10_INFO_QUEUE_FILTER_DESC}
      */
-    AllowList {
-        get {
-            if(!this.HasProp("__AllowList"))
-                this.__AllowList := D3D10_INFO_QUEUE_FILTER_DESC(0, this)
-            return this.__AllowList
-        }
-    }
+    AllowList : D3D10_INFO_QUEUE_FILTER_DESC
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10sdklayers/ns-d3d10sdklayers-d3d10_info_queue_filter_desc">D3D10_INFO_QUEUE_FILTER_DESC</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d10sdklayers/ns-d3d10sdklayers-d3d10_info_queue_filter_desc">D3D10_INFO_QUEUE_FILTER_DESC</a> structure describing the types of messages the info queue should reject.
-     * @type {D3D10_INFO_QUEUE_FILTER_DESC}
      */
-    DenyList {
-        get {
-            if(!this.HasProp("__DenyList"))
-                this.__DenyList := D3D10_INFO_QUEUE_FILTER_DESC(48, this)
-            return this.__DenyList
-        }
-    }
+    DenyList : D3D10_INFO_QUEUE_FILTER_DESC
+
 }

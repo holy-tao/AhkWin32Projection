@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The PROBLEM_TYPE enumeration describes the type of problem a helper class indicates is present.
  * @see https://learn.microsoft.com/windows/win32/api/ndhelper/ne-ndhelper-problem_type
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  */
-class PROBLEM_TYPE extends Win32Enum {
+export default struct PROBLEM_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

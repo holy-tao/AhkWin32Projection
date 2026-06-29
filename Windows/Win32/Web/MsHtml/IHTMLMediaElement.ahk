@@ -1,40 +1,85 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IHTMLMediaError.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IHTMLTimeRanges.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IHTMLTimeRanges.ahk" { IHTMLTimeRanges }
+#Import ".\IHTMLMediaError.ahk" { IHTMLMediaError }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLMediaElement extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLMediaElement extends IDispatch {
     /**
      * The interface identifier for IHTMLMediaElement
      * @type {Guid}
      */
-    static IID => Guid("{30510706-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{30510706-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for HTMLMediaElement
      * @type {Guid}
      */
-    static CLSID => Guid("{3051070c-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{3051070c-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLMediaElement interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_error               : IntPtr
+        put_src                 : IntPtr
+        get_src                 : IntPtr
+        get_currentSrc          : IntPtr
+        get_networkState        : IntPtr
+        put_preload             : IntPtr
+        get_preload             : IntPtr
+        get_buffered            : IntPtr
+        load                    : IntPtr
+        canPlayType             : IntPtr
+        get_seeking             : IntPtr
+        put_currentTime         : IntPtr
+        get_currentTime         : IntPtr
+        get_initialTime         : IntPtr
+        get_duration            : IntPtr
+        get_paused              : IntPtr
+        put_defaultPlaybackRate : IntPtr
+        get_defaultPlaybackRate : IntPtr
+        put_playbackRate        : IntPtr
+        get_playbackRate        : IntPtr
+        get_played              : IntPtr
+        get_seekable            : IntPtr
+        get_ended               : IntPtr
+        put_autoplay            : IntPtr
+        get_autoplay            : IntPtr
+        put_loop                : IntPtr
+        get_loop                : IntPtr
+        play                    : IntPtr
+        pause                   : IntPtr
+        put_controls            : IntPtr
+        get_controls            : IntPtr
+        put_volume              : IntPtr
+        get_volume              : IntPtr
+        put_muted               : IntPtr
+        get_muted               : IntPtr
+        put_autobuffer          : IntPtr
+        get_autobuffer          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_error", "put_src", "get_src", "get_currentSrc", "get_networkState", "put_preload", "get_preload", "get_buffered", "load", "canPlayType", "get_seeking", "put_currentTime", "get_currentTime", "get_initialTime", "get_duration", "get_paused", "put_defaultPlaybackRate", "get_defaultPlaybackRate", "put_playbackRate", "get_playbackRate", "get_played", "get_seekable", "get_ended", "put_autoplay", "get_autoplay", "put_loop", "get_loop", "play", "pause", "put_controls", "get_controls", "put_volume", "get_volume", "put_muted", "get_muted", "put_autobuffer", "get_autobuffer"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLMediaElement.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IHTMLMediaError} 
@@ -218,7 +263,7 @@ class IHTMLMediaElement extends IDispatch {
     put_src(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(8, this, "ptr", v, "HRESULT")
+        result := ComCall(8, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -227,8 +272,8 @@ class IHTMLMediaElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_src() {
-        p := BSTR()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -237,8 +282,8 @@ class IHTMLMediaElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_currentSrc() {
-        p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -259,7 +304,7 @@ class IHTMLMediaElement extends IDispatch {
     put_preload(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(12, this, "ptr", v, "HRESULT")
+        result := ComCall(12, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -268,8 +313,8 @@ class IHTMLMediaElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_preload() {
-        p := BSTR()
-        result := ComCall(13, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -318,8 +363,8 @@ class IHTMLMediaElement extends IDispatch {
     canPlayType(type) {
         type := type is String ? BSTR.Alloc(type).Value : type
 
-        canPlay := BSTR()
-        result := ComCall(16, this, "ptr", type, "ptr", canPlay, "HRESULT")
+        canPlay := BSTR.Owned()
+        result := ComCall(16, this, BSTR, type, BSTR.Ptr, canPlay, "HRESULT")
         return canPlay
     }
 
@@ -328,7 +373,7 @@ class IHTMLMediaElement extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_seeking() {
-        result := ComCall(17, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(17, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -374,7 +419,7 @@ class IHTMLMediaElement extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_paused() {
-        result := ComCall(22, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(22, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -439,7 +484,7 @@ class IHTMLMediaElement extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_ended() {
-        result := ComCall(29, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(29, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -449,7 +494,7 @@ class IHTMLMediaElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_autoplay(v) {
-        result := ComCall(30, this, "short", v, "HRESULT")
+        result := ComCall(30, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -458,7 +503,7 @@ class IHTMLMediaElement extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_autoplay() {
-        result := ComCall(31, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(31, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -468,7 +513,7 @@ class IHTMLMediaElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_loop(v) {
-        result := ComCall(32, this, "short", v, "HRESULT")
+        result := ComCall(32, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -477,7 +522,7 @@ class IHTMLMediaElement extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_loop() {
-        result := ComCall(33, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(33, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -575,7 +620,7 @@ class IHTMLMediaElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_controls(v) {
-        result := ComCall(36, this, "short", v, "HRESULT")
+        result := ComCall(36, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -584,7 +629,7 @@ class IHTMLMediaElement extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_controls() {
-        result := ComCall(37, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(37, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -613,7 +658,7 @@ class IHTMLMediaElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_muted(v) {
-        result := ComCall(40, this, "short", v, "HRESULT")
+        result := ComCall(40, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -622,7 +667,7 @@ class IHTMLMediaElement extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_muted() {
-        result := ComCall(41, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(41, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -632,7 +677,7 @@ class IHTMLMediaElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_autobuffer(v) {
-        result := ComCall(42, this, "short", v, "HRESULT")
+        result := ComCall(42, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -641,7 +686,99 @@ class IHTMLMediaElement extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_autobuffer() {
-        result := ComCall(43, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(43, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
+    }
+
+    Query(iid) {
+        if (IHTMLMediaElement.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_error := CallbackCreate(GetMethod(implObj, "get_error"), flags, 2)
+        this.vtbl.put_src := CallbackCreate(GetMethod(implObj, "put_src"), flags, 2)
+        this.vtbl.get_src := CallbackCreate(GetMethod(implObj, "get_src"), flags, 2)
+        this.vtbl.get_currentSrc := CallbackCreate(GetMethod(implObj, "get_currentSrc"), flags, 2)
+        this.vtbl.get_networkState := CallbackCreate(GetMethod(implObj, "get_networkState"), flags, 2)
+        this.vtbl.put_preload := CallbackCreate(GetMethod(implObj, "put_preload"), flags, 2)
+        this.vtbl.get_preload := CallbackCreate(GetMethod(implObj, "get_preload"), flags, 2)
+        this.vtbl.get_buffered := CallbackCreate(GetMethod(implObj, "get_buffered"), flags, 2)
+        this.vtbl.load := CallbackCreate(GetMethod(implObj, "load"), flags, 1)
+        this.vtbl.canPlayType := CallbackCreate(GetMethod(implObj, "canPlayType"), flags, 3)
+        this.vtbl.get_seeking := CallbackCreate(GetMethod(implObj, "get_seeking"), flags, 2)
+        this.vtbl.put_currentTime := CallbackCreate(GetMethod(implObj, "put_currentTime"), flags, 2)
+        this.vtbl.get_currentTime := CallbackCreate(GetMethod(implObj, "get_currentTime"), flags, 2)
+        this.vtbl.get_initialTime := CallbackCreate(GetMethod(implObj, "get_initialTime"), flags, 2)
+        this.vtbl.get_duration := CallbackCreate(GetMethod(implObj, "get_duration"), flags, 2)
+        this.vtbl.get_paused := CallbackCreate(GetMethod(implObj, "get_paused"), flags, 2)
+        this.vtbl.put_defaultPlaybackRate := CallbackCreate(GetMethod(implObj, "put_defaultPlaybackRate"), flags, 2)
+        this.vtbl.get_defaultPlaybackRate := CallbackCreate(GetMethod(implObj, "get_defaultPlaybackRate"), flags, 2)
+        this.vtbl.put_playbackRate := CallbackCreate(GetMethod(implObj, "put_playbackRate"), flags, 2)
+        this.vtbl.get_playbackRate := CallbackCreate(GetMethod(implObj, "get_playbackRate"), flags, 2)
+        this.vtbl.get_played := CallbackCreate(GetMethod(implObj, "get_played"), flags, 2)
+        this.vtbl.get_seekable := CallbackCreate(GetMethod(implObj, "get_seekable"), flags, 2)
+        this.vtbl.get_ended := CallbackCreate(GetMethod(implObj, "get_ended"), flags, 2)
+        this.vtbl.put_autoplay := CallbackCreate(GetMethod(implObj, "put_autoplay"), flags, 2)
+        this.vtbl.get_autoplay := CallbackCreate(GetMethod(implObj, "get_autoplay"), flags, 2)
+        this.vtbl.put_loop := CallbackCreate(GetMethod(implObj, "put_loop"), flags, 2)
+        this.vtbl.get_loop := CallbackCreate(GetMethod(implObj, "get_loop"), flags, 2)
+        this.vtbl.play := CallbackCreate(GetMethod(implObj, "play"), flags, 1)
+        this.vtbl.pause := CallbackCreate(GetMethod(implObj, "pause"), flags, 1)
+        this.vtbl.put_controls := CallbackCreate(GetMethod(implObj, "put_controls"), flags, 2)
+        this.vtbl.get_controls := CallbackCreate(GetMethod(implObj, "get_controls"), flags, 2)
+        this.vtbl.put_volume := CallbackCreate(GetMethod(implObj, "put_volume"), flags, 2)
+        this.vtbl.get_volume := CallbackCreate(GetMethod(implObj, "get_volume"), flags, 2)
+        this.vtbl.put_muted := CallbackCreate(GetMethod(implObj, "put_muted"), flags, 2)
+        this.vtbl.get_muted := CallbackCreate(GetMethod(implObj, "get_muted"), flags, 2)
+        this.vtbl.put_autobuffer := CallbackCreate(GetMethod(implObj, "put_autobuffer"), flags, 2)
+        this.vtbl.get_autobuffer := CallbackCreate(GetMethod(implObj, "get_autobuffer"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_error)
+        CallbackFree(this.vtbl.put_src)
+        CallbackFree(this.vtbl.get_src)
+        CallbackFree(this.vtbl.get_currentSrc)
+        CallbackFree(this.vtbl.get_networkState)
+        CallbackFree(this.vtbl.put_preload)
+        CallbackFree(this.vtbl.get_preload)
+        CallbackFree(this.vtbl.get_buffered)
+        CallbackFree(this.vtbl.load)
+        CallbackFree(this.vtbl.canPlayType)
+        CallbackFree(this.vtbl.get_seeking)
+        CallbackFree(this.vtbl.put_currentTime)
+        CallbackFree(this.vtbl.get_currentTime)
+        CallbackFree(this.vtbl.get_initialTime)
+        CallbackFree(this.vtbl.get_duration)
+        CallbackFree(this.vtbl.get_paused)
+        CallbackFree(this.vtbl.put_defaultPlaybackRate)
+        CallbackFree(this.vtbl.get_defaultPlaybackRate)
+        CallbackFree(this.vtbl.put_playbackRate)
+        CallbackFree(this.vtbl.get_playbackRate)
+        CallbackFree(this.vtbl.get_played)
+        CallbackFree(this.vtbl.get_seekable)
+        CallbackFree(this.vtbl.get_ended)
+        CallbackFree(this.vtbl.put_autoplay)
+        CallbackFree(this.vtbl.get_autoplay)
+        CallbackFree(this.vtbl.put_loop)
+        CallbackFree(this.vtbl.get_loop)
+        CallbackFree(this.vtbl.play)
+        CallbackFree(this.vtbl.pause)
+        CallbackFree(this.vtbl.put_controls)
+        CallbackFree(this.vtbl.get_controls)
+        CallbackFree(this.vtbl.put_volume)
+        CallbackFree(this.vtbl.get_volume)
+        CallbackFree(this.vtbl.put_muted)
+        CallbackFree(this.vtbl.get_muted)
+        CallbackFree(this.vtbl.put_autobuffer)
+        CallbackFree(this.vtbl.get_autobuffer)
     }
 }

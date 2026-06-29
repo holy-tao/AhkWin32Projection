@@ -1,244 +1,91 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include .\DRIVER_OBJECT.ahk
-#Include .\DEVICE_OBJECT.ahk
-#Include .\IRP.ahk
-#Include .\VPB.ahk
-#Include ..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk
-#Include .\DEVOBJ_EXTENSION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VPB.ahk" { VPB }
+#Import ".\DEVOBJ_EXTENSION.ahk" { DEVOBJ_EXTENSION }
+#Import ".\PIO_TIMER.ahk" { PIO_TIMER }
+#Import ".\IRP.ahk" { IRP }
+#Import "..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk" { PSECURITY_DESCRIPTOR }
+#Import ".\DRIVER_OBJECT.ahk" { DRIVER_OBJECT }
 
 /**
  * @namespace Windows.Wdk.Foundation
  */
-class DEVICE_OBJECT extends Win32Struct {
-    static sizeof => 160
+export default struct DEVICE_OBJECT {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Queue_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _Queue {
+        ListEntry : IntPtr
 
-        /**
-         * @type {Pointer}
-         */
-        ListEntry {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer}
-         */
-        Wcb {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'Wcb', { type: IntPtr, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 0, "short")
-        set => NumPut("short", value, this, 0)
-    }
+    Type : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Size : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ReferenceCount {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    ReferenceCount : Int32
 
-    /**
-     * @type {Pointer<DRIVER_OBJECT>}
-     */
+    __DriverObject_ptr : IntPtr
     DriverObject {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => (addr := this.__DriverObject_ptr) ? DRIVER_OBJECT.At(addr) : unset
+        set => this.__DriverObject_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer<DEVICE_OBJECT>}
-     */
-    NextDevice {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    NextDevice : DEVICE_OBJECT.Ptr
 
-    /**
-     * @type {Pointer<DEVICE_OBJECT>}
-     */
-    AttachedDevice {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    AttachedDevice : DEVICE_OBJECT.Ptr
 
-    /**
-     * @type {Pointer<IRP>}
-     */
+    __CurrentIrp_ptr : IntPtr
     CurrentIrp {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => (addr := this.__CurrentIrp_ptr) ? IRP.At(addr) : unset
+        set => this.__CurrentIrp_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {PIO_TIMER}
-     */
-    Timer {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    Timer : PIO_TIMER
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Characteristics {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    Characteristics : UInt32
 
-    /**
-     * @type {Pointer<VPB>}
-     */
+    __Vpb_ptr : IntPtr
     Vpb {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => (addr := this.__Vpb_ptr) ? VPB.At(addr) : unset
+        set => this.__Vpb_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    DeviceExtension {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    DeviceExtension : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    DeviceType {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    DeviceType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StackSize {
-        get => NumGet(this, 76, "char")
-        set => NumPut("char", value, this, 76)
-    }
+    StackSize : Int8
 
-    /**
-     * @type {_Queue_e__Union}
-     */
-    Queue {
-        get {
-            if(!this.HasProp("__Queue"))
-                this.__Queue := DEVICE_OBJECT._Queue_e__Union(80, this)
-            return this.__Queue
-        }
-    }
+    Queue : DEVICE_OBJECT._Queue
 
-    /**
-     * @type {Integer}
-     */
-    AlignmentRequirement {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    AlignmentRequirement : UInt32
 
-    /**
-     * @type {Pointer}
-     */
-    DeviceQueue {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    DeviceQueue : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Dpc {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    Dpc : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    ActiveThreadCount {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    ActiveThreadCount : UInt32
 
-    /**
-     * @type {PSECURITY_DESCRIPTOR}
-     */
-    SecurityDescriptor {
-        get {
-            if(!this.HasProp("__SecurityDescriptor"))
-                this.__SecurityDescriptor := PSECURITY_DESCRIPTOR(120, this)
-            return this.__SecurityDescriptor
-        }
-    }
+    SecurityDescriptor : PSECURITY_DESCRIPTOR
 
-    /**
-     * @type {Pointer}
-     */
-    DeviceLock {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    DeviceLock : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    SectorSize {
-        get => NumGet(this, 136, "ushort")
-        set => NumPut("ushort", value, this, 136)
-    }
+    SectorSize : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Spare1 {
-        get => NumGet(this, 138, "ushort")
-        set => NumPut("ushort", value, this, 138)
-    }
+    Spare1 : UInt16
 
-    /**
-     * @type {Pointer<DEVOBJ_EXTENSION>}
-     */
+    __DeviceObjectExtension_ptr : IntPtr
     DeviceObjectExtension {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
+        get => (addr := this.__DeviceObjectExtension_ptr) ? DEVOBJ_EXTENSION.At(addr) : unset
+        set => this.__DeviceObjectExtension_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Reserved {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
-    }
+    Reserved : IntPtr
+
 }

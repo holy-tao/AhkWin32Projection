@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\D2D1_COLOR_F.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D2D1_COLOR_F.ahk" { D2D1_COLOR_F }
 
 /**
  * Contains the position and color of a gradient stop.
@@ -15,33 +14,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_gradient_stop
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  */
-class D2D1_GRADIENT_STOP extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct D2D1_GRADIENT_STOP {
+    #StructPack 4
 
     /**
      * Type: <b>FLOAT</b>
      * 
      * A value that indicates the relative position of the gradient stop in the brush. This value must be in the [0.0f, 1.0f] range if the gradient stop is to be seen explicitly.
-     * @type {Float}
      */
-    position {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    position : Float32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-color-f">D2D1_COLOR_F</a></b>
      * 
      * The color of the gradient stop.
-     * @type {D2D1_COLOR_F}
      */
-    color {
-        get {
-            if(!this.HasProp("__color"))
-                this.__color := D2D1_COLOR_F(4, this)
-            return this.__color
-        }
-    }
+    color : D2D1_COLOR_F
+
 }

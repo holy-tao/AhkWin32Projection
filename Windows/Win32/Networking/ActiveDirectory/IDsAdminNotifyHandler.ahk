@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDsAdminNotifyHandler interface is implemented by an Active Directory administrative notification handler.
  * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nn-dsadmin-idsadminnotifyhandler
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IDsAdminNotifyHandler extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDsAdminNotifyHandler extends IUnknown {
     /**
      * The interface identifier for IDsAdminNotifyHandler
      * @type {Guid}
      */
-    static IID => Guid("{e4a2b8b3-5a18-11d2-97c1-00a0c9a06d2d}")
+    static IID := Guid("{e4a2b8b3-5a18-11d2-97c1-00a0c9a06d2d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDsAdminNotifyHandler interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize : IntPtr
+        Begin      : IntPtr
+        Notify     : IntPtr
+        End        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "Begin", "Notify", "End"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDsAdminNotifyHandler.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called to initialize the notification handler.
@@ -87,7 +100,7 @@ class IDsAdminNotifyHandler extends IUnknown {
     Begin(uEvent, pArg1, pArg2, puFlags, pBstr) {
         puFlagsMarshal := puFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", uEvent, "ptr", pArg1, "ptr", pArg2, puFlagsMarshal, puFlags, "ptr", pBstr, "HRESULT")
+        result := ComCall(4, this, "uint", uEvent, "ptr", pArg1, "ptr", pArg2, puFlagsMarshal, puFlags, BSTR.Ptr, pBstr, "HRESULT")
         return result
     }
 
@@ -113,5 +126,31 @@ class IDsAdminNotifyHandler extends IUnknown {
     End() {
         result := ComCall(6, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDsAdminNotifyHandler.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.Begin := CallbackCreate(GetMethod(implObj, "Begin"), flags, 6)
+        this.vtbl.Notify := CallbackCreate(GetMethod(implObj, "Notify"), flags, 3)
+        this.vtbl.End := CallbackCreate(GetMethod(implObj, "End"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.Begin)
+        CallbackFree(this.vtbl.Notify)
+        CallbackFree(this.vtbl.End)
     }
 }

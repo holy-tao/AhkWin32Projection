@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The WLAN_OPCODE_VALUE_TYPE enumeration specifies the origin of automatic configuration (auto config) settings.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_opcode_value_type~r1
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WLAN_OPCODE_VALUE_TYPE extends Win32Enum {
+export default struct WLAN_OPCODE_VALUE_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The auto config settings were queried, but the origin of the settings was not determined.

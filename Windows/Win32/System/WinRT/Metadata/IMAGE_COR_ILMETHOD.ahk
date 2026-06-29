@@ -1,35 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\IMAGE_COR_ILMETHOD_TINY.ahk
-#Include .\IMAGE_COR_ILMETHOD_FAT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IMAGE_COR_ILMETHOD_FAT.ahk" { IMAGE_COR_ILMETHOD_FAT }
+#Import ".\IMAGE_COR_ILMETHOD_TINY.ahk" { IMAGE_COR_ILMETHOD_TINY }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
  */
-class IMAGE_COR_ILMETHOD extends Win32Struct {
-    static sizeof => 16
+export default struct IMAGE_COR_ILMETHOD {
+    #StructPack 4
 
-    static packingSize => 4
+    Tiny : IMAGE_COR_ILMETHOD_TINY
 
-    /**
-     * @type {IMAGE_COR_ILMETHOD_TINY}
-     */
-    Tiny {
-        get {
-            if(!this.HasProp("__Tiny"))
-                this.__Tiny := IMAGE_COR_ILMETHOD_TINY(0, this)
-            return this.__Tiny
-        }
-    }
-
-    /**
-     * @type {IMAGE_COR_ILMETHOD_FAT}
-     */
-    Fat {
-        get {
-            if(!this.HasProp("__Fat"))
-                this.__Fat := IMAGE_COR_ILMETHOD_FAT(0, this)
-            return this.__Fat
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Fat', { type: IMAGE_COR_ILMETHOD_FAT, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,112 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DDDI_FLIPINTERVAL_TYPE.ahk
-#Include .\D3DKMT_MULTIPLANE_OVERLAY2.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DDDI_FLIPINTERVAL_TYPE.ahk" { D3DDDI_FLIPINTERVAL_TYPE }
+#Import ".\D3DKMT_MULTIPLANE_OVERLAY2.ahk" { D3DKMT_MULTIPLANE_OVERLAY2 }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_PRESENT_MULTIPLANE_OVERLAY2 extends Win32Struct {
-    static sizeof => 312
+export default struct D3DKMT_PRESENT_MULTIPLANE_OVERLAY2 {
+    #StructPack 8
 
-    static packingSize => 8
+    hAdapter : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hAdapter {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hDevice : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hDevice {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    BroadcastContextCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hContext {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    BroadcastContext : UInt32[64]
 
-    /**
-     * @type {Integer}
-     */
-    BroadcastContextCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    VidPnSourceId : UInt32
 
-    /**
-     * @type {Array<Integer>}
-     */
-    BroadcastContext {
-        get {
-            if(!this.HasProp("__BroadcastContextProxyArray"))
-                this.__BroadcastContextProxyArray := Win32FixedArray(this.ptr + 12, 64, Primitive, "uint")
-            return this.__BroadcastContextProxyArray
-        }
-    }
+    PresentCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VidPnSourceId {
-        get => NumGet(this, 268, "uint")
-        set => NumPut("uint", value, this, 268)
-    }
+    FlipInterval : D3DDDI_FLIPINTERVAL_TYPE
 
-    /**
-     * @type {Integer}
-     */
-    PresentCount {
-        get => NumGet(this, 272, "uint")
-        set => NumPut("uint", value, this, 272)
-    }
+    Flags : IntPtr
 
-    /**
-     * @type {D3DDDI_FLIPINTERVAL_TYPE}
-     */
-    FlipInterval {
-        get => NumGet(this, 276, "int")
-        set => NumPut("int", value, this, 276)
-    }
+    PresentPlaneCount : UInt32
 
-    /**
-     * @type {Pointer}
-     */
-    Flags {
-        get => NumGet(this, 280, "ptr")
-        set => NumPut("ptr", value, this, 280)
-    }
+    pPresentPlanes : D3DKMT_MULTIPLANE_OVERLAY2.Ptr
 
-    /**
-     * @type {Integer}
-     */
-    PresentPlaneCount {
-        get => NumGet(this, 288, "uint")
-        set => NumPut("uint", value, this, 288)
-    }
+    Duration : UInt32
 
-    /**
-     * @type {Pointer<D3DKMT_MULTIPLANE_OVERLAY2>}
-     */
-    pPresentPlanes {
-        get => NumGet(this, 296, "ptr")
-        set => NumPut("ptr", value, this, 296)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Duration {
-        get => NumGet(this, 304, "uint")
-        set => NumPut("uint", value, this, 304)
+    static __New() {
+        DefineProp(this.Prototype, 'hContext', { type: UInt32, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

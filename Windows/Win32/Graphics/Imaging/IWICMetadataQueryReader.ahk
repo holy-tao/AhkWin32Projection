@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IEnumString.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IEnumString.ahk" { IEnumString }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods for retrieving metadata blocks and items from a decoder or its image frames using a metadata query expression.
@@ -18,26 +20,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicmetadataqueryreader
  * @namespace Windows.Win32.Graphics.Imaging
  */
-class IWICMetadataQueryReader extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWICMetadataQueryReader extends IUnknown {
     /**
      * The interface identifier for IWICMetadataQueryReader
      * @type {Guid}
      */
-    static IID => Guid("{30989668-e1c9-4597-b395-458eedb808df}")
+    static IID := Guid("{30989668-e1c9-4597-b395-458eedb808df}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWICMetadataQueryReader interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetContainerFormat : IntPtr
+        GetLocation        : IntPtr
+        GetMetadataByName  : IntPtr
+        GetEnumerator      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetContainerFormat", "GetLocation", "GetMetadataByName", "GetEnumerator"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWICMetadataQueryReader.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the metadata query readers container format.
@@ -48,7 +60,7 @@ class IWICMetadataQueryReader extends IUnknown {
      */
     GetContainerFormat() {
         pguidContainerFormat := Guid()
-        result := ComCall(3, this, "ptr", pguidContainerFormat, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pguidContainerFormat, "HRESULT")
         return pguidContainerFormat
     }
 
@@ -99,7 +111,7 @@ class IWICMetadataQueryReader extends IUnknown {
     GetMetadataByName(wzName, pvarValue) {
         wzName := wzName is String ? StrPtr(wzName) : wzName
 
-        result := ComCall(5, this, "ptr", wzName, "ptr", pvarValue, "HRESULT")
+        result := ComCall(5, this, "ptr", wzName, PROPVARIANT.Ptr, pvarValue, "HRESULT")
         return result
     }
 
@@ -115,5 +127,31 @@ class IWICMetadataQueryReader extends IUnknown {
     GetEnumerator() {
         result := ComCall(6, this, "ptr*", &ppIEnumString := 0, "HRESULT")
         return IEnumString(ppIEnumString)
+    }
+
+    Query(iid) {
+        if (IWICMetadataQueryReader.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetContainerFormat := CallbackCreate(GetMethod(implObj, "GetContainerFormat"), flags, 2)
+        this.vtbl.GetLocation := CallbackCreate(GetMethod(implObj, "GetLocation"), flags, 4)
+        this.vtbl.GetMetadataByName := CallbackCreate(GetMethod(implObj, "GetMetadataByName"), flags, 3)
+        this.vtbl.GetEnumerator := CallbackCreate(GetMethod(implObj, "GetEnumerator"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetContainerFormat)
+        CallbackFree(this.vtbl.GetLocation)
+        CallbackFree(this.vtbl.GetMetadataByName)
+        CallbackFree(this.vtbl.GetEnumerator)
     }
 }

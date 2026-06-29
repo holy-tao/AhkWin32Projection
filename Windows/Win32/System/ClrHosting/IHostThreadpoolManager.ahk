@@ -1,31 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
  */
-class IHostThreadpoolManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IHostThreadpoolManager extends IUnknown {
     /**
      * The interface identifier for IHostThreadpoolManager
      * @type {Guid}
      */
-    static IID => Guid("{983d50e2-cb15-466b-80fc-845dc6e8c5fd}")
+    static IID := Guid("{983d50e2-cb15-466b-80fc-845dc6e8c5fd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHostThreadpoolManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        QueueUserWorkItem   : IntPtr
+        SetMaxThreads       : IntPtr
+        GetMaxThreads       : IntPtr
+        GetAvailableThreads : IntPtr
+        SetMinThreads       : IntPtr
+        GetMinThreads       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["QueueUserWorkItem", "SetMaxThreads", "GetMaxThreads", "GetAvailableThreads", "SetMinThreads", "GetMinThreads"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHostThreadpoolManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Queues a work item to a worker thread in the thread pool.
@@ -103,5 +116,35 @@ class IHostThreadpoolManager extends IUnknown {
     GetMinThreads() {
         result := ComCall(8, this, "uint*", &pdwMinIOCompletionThreads := 0, "HRESULT")
         return pdwMinIOCompletionThreads
+    }
+
+    Query(iid) {
+        if (IHostThreadpoolManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.QueueUserWorkItem := CallbackCreate(GetMethod(implObj, "QueueUserWorkItem"), flags, 4)
+        this.vtbl.SetMaxThreads := CallbackCreate(GetMethod(implObj, "SetMaxThreads"), flags, 2)
+        this.vtbl.GetMaxThreads := CallbackCreate(GetMethod(implObj, "GetMaxThreads"), flags, 2)
+        this.vtbl.GetAvailableThreads := CallbackCreate(GetMethod(implObj, "GetAvailableThreads"), flags, 2)
+        this.vtbl.SetMinThreads := CallbackCreate(GetMethod(implObj, "SetMinThreads"), flags, 2)
+        this.vtbl.GetMinThreads := CallbackCreate(GetMethod(implObj, "GetMinThreads"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.QueueUserWorkItem)
+        CallbackFree(this.vtbl.SetMaxThreads)
+        CallbackFree(this.vtbl.GetMaxThreads)
+        CallbackFree(this.vtbl.GetAvailableThreads)
+        CallbackFree(this.vtbl.SetMinThreads)
+        CallbackFree(this.vtbl.GetMinThreads)
     }
 }

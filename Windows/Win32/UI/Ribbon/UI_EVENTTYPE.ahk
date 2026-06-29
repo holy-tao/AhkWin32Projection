@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Identifies the types of events associated with a Ribbon.
@@ -12,7 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/ne-uiribbon-ui_eventtype
  * @namespace Windows.Win32.UI.Ribbon
  */
-class UI_EVENTTYPE extends Win32Enum {
+export default struct UI_EVENTTYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-applicationmenu">ApplicationMenu</a> opened.

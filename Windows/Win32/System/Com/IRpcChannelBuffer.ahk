@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUnknown.ahk" { IUnknown }
+#Import ".\RPCOLEMESSAGE.ahk" { RPCOLEMESSAGE }
 
 /**
  * The IRpcChannelBuffer (objidlbase.h) interface marshals data between a COM client proxy and a COM server stub.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-irpcchannelbuffer
  * @namespace Windows.Win32.System.Com
  */
-class IRpcChannelBuffer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRpcChannelBuffer extends IUnknown {
     /**
      * The interface identifier for IRpcChannelBuffer
      * @type {Guid}
      */
-    static IID => Guid("{d5f56b60-593b-101a-b569-08002b2dbf7a}")
+    static IID := Guid("{d5f56b60-593b-101a-b569-08002b2dbf7a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRpcChannelBuffer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetBuffer   : IntPtr
+        SendReceive : IntPtr
+        FreeBuffer  : IntPtr
+        GetDestCtx  : IntPtr
+        IsConnected : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetBuffer", "SendReceive", "FreeBuffer", "GetDestCtx", "IsConnected"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRpcChannelBuffer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IRpcChannelBuffer::GetBuffer (objidlbase.h) method retrieves a buffer into which data can be marshaled for transmission.
@@ -37,7 +50,7 @@ class IRpcChannelBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-irpcchannelbuffer-getbuffer
      */
     GetBuffer(pMessage, riid) {
-        result := ComCall(3, this, "ptr", pMessage, "ptr", riid, "HRESULT")
+        result := ComCall(3, this, RPCOLEMESSAGE.Ptr, pMessage, Guid.Ptr, riid, "HRESULT")
         return result
     }
 
@@ -50,7 +63,7 @@ class IRpcChannelBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-irpcchannelbuffer-sendreceive
      */
     SendReceive(pMessage) {
-        result := ComCall(4, this, "ptr", pMessage, "uint*", &pStatus := 0, "HRESULT")
+        result := ComCall(4, this, RPCOLEMESSAGE.Ptr, pMessage, "uint*", &pStatus := 0, "HRESULT")
         return pStatus
     }
 
@@ -61,7 +74,7 @@ class IRpcChannelBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-irpcchannelbuffer-freebuffer
      */
     FreeBuffer(pMessage) {
-        result := ComCall(5, this, "ptr", pMessage, "HRESULT")
+        result := ComCall(5, this, RPCOLEMESSAGE.Ptr, pMessage, "HRESULT")
         return result
     }
 
@@ -88,5 +101,33 @@ class IRpcChannelBuffer extends IUnknown {
     IsConnected() {
         result := ComCall(7, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRpcChannelBuffer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetBuffer := CallbackCreate(GetMethod(implObj, "GetBuffer"), flags, 3)
+        this.vtbl.SendReceive := CallbackCreate(GetMethod(implObj, "SendReceive"), flags, 3)
+        this.vtbl.FreeBuffer := CallbackCreate(GetMethod(implObj, "FreeBuffer"), flags, 2)
+        this.vtbl.GetDestCtx := CallbackCreate(GetMethod(implObj, "GetDestCtx"), flags, 3)
+        this.vtbl.IsConnected := CallbackCreate(GetMethod(implObj, "IsConnected"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetBuffer)
+        CallbackFree(this.vtbl.SendReceive)
+        CallbackFree(this.vtbl.FreeBuffer)
+        CallbackFree(this.vtbl.GetDestCtx)
+        CallbackFree(this.vtbl.IsConnected)
     }
 }

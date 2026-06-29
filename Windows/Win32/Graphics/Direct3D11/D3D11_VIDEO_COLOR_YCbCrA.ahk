@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies a YCbCr color value. (D3D11_VIDEO_COLOR_YCbCrA)
@@ -12,44 +11,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_video_color_ycbcra
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_VIDEO_COLOR_YCbCrA extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct D3D11_VIDEO_COLOR_YCbCrA {
+    #StructPack 4
 
     /**
      * The Y luma value.
-     * @type {Float}
      */
-    Y {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    Y : Float32
 
     /**
      * The Cb chroma value.
-     * @type {Float}
      */
-    Cb {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    Cb : Float32
 
     /**
      * The Cr chroma value.
-     * @type {Float}
      */
-    Cr {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    Cr : Float32
 
     /**
      * The alpha value. Values range from 0 (transparent) to 1 (opaque).
-     * @type {Float}
      */
-    A {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    A : Float32
+
 }

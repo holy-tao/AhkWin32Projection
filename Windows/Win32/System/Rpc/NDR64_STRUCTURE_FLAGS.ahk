@@ -1,13 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Rpc
  */
-class NDR64_STRUCTURE_FLAGS extends Win32Struct {
-    static sizeof => 1
-
-    static packingSize => 1
+export default struct NDR64_STRUCTURE_FLAGS {
+    #StructPack 1
 
     /**
      * This bitfield backs the following members:
@@ -19,12 +16,9 @@ class NDR64_STRUCTURE_FLAGS extends Win32Struct {
      * - Reserved1
      * - Reserved2
      * - Reserved3
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    _bitfield : Int8
+
 
     /**
      * @type {Integer}

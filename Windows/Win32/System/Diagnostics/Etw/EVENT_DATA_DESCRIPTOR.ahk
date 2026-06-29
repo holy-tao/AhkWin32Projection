@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The EVENT_DATA_DESCRIPTOR structure defines a block of data that will be used in an ETW event.
@@ -45,10 +44,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/evntprov/ns-evntprov-event_data_descriptor
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class EVENT_DATA_DESCRIPTOR extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct EVENT_DATA_DESCRIPTOR {
+    #StructPack 8
 
     /**
      * A pointer to the data.
@@ -60,51 +57,20 @@ class EVENT_DATA_DESCRIPTOR extends Win32Struct {
      * > `EventDataDescriptor.Ptr = (UINT_PTR)dataPointer;`, or use the
      * > [EventDataDescCreate](/windows/win32/api/evntprov/nf-evntprov-eventdatadesccreate)
      * > function.
-     * @type {Integer}
      */
-    Ptr {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Ptr : Int64
 
     /**
      * The size of the data in bytes.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved2 {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
+    static __New() {
+        DefineProp(this.Prototype, 'Type', { type: Int8, offset: 12 })
+        DefineProp(this.Prototype, 'Reserved1', { type: Int8, offset: 13 })
+        DefineProp(this.Prototype, 'Reserved2', { type: UInt16, offset: 14 })
+        this.DeleteProp("__New")
     }
 }

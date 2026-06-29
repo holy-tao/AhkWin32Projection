@@ -1,43 +1,63 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IPortableDeviceServiceCapabilities.ahk
-#Include .\IPortableDeviceContent2.ahk
-#Include .\IPortableDeviceServiceMethods.ahk
-#Include .\IPortableDeviceValues.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPortableDeviceServiceMethods.ahk" { IPortableDeviceServiceMethods }
+#Import ".\IPortableDeviceValues.ahk" { IPortableDeviceValues }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IPortableDeviceContent2.ahk" { IPortableDeviceContent2 }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IPortableDeviceServiceCapabilities.ahk" { IPortableDeviceServiceCapabilities }
+#Import ".\IPortableDeviceEventCallback.ahk" { IPortableDeviceEventCallback }
 
 /**
  * Provides access to a service.
  * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nn-portabledeviceapi-iportabledeviceservice
  * @namespace Windows.Win32.Devices.PortableDevices
  */
-class IPortableDeviceService extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPortableDeviceService extends IUnknown {
     /**
      * The interface identifier for IPortableDeviceService
      * @type {Guid}
      */
-    static IID => Guid("{d3bd3a44-d7b5-40a9-98b7-2fa4d01dec08}")
+    static IID := Guid("{d3bd3a44-d7b5-40a9-98b7-2fa4d01dec08}")
 
     /**
      * The class identifier for PortableDeviceService
      * @type {Guid}
      */
-    static CLSID => Guid("{ef5db4c2-9312-422c-9152-411cd9c4dd84}")
+    static CLSID := Guid("{ef5db4c2-9312-422c-9152-411cd9c4dd84}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPortableDeviceService interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Open               : IntPtr
+        Capabilities       : IntPtr
+        Content            : IntPtr
+        Methods            : IntPtr
+        Cancel             : IntPtr
+        Close              : IntPtr
+        GetServiceObjectID : IntPtr
+        GetPnPServiceID    : IntPtr
+        Advise             : IntPtr
+        Unadvise           : IntPtr
+        SendCommand        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Open", "Capabilities", "Content", "Methods", "Cancel", "Close", "GetServiceObjectID", "GetPnPServiceID", "Advise", "Unadvise", "SendCommand"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPortableDeviceService.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Opens a connection to the service.
@@ -169,7 +189,7 @@ class IPortableDeviceService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-getserviceobjectid
      */
     GetServiceObjectID() {
-        result := ComCall(9, this, "ptr*", &ppszServiceObjectID := 0, "HRESULT")
+        result := ComCall(9, this, PWSTR.Ptr, &ppszServiceObjectID := 0, "HRESULT")
         return ppszServiceObjectID
     }
 
@@ -183,7 +203,7 @@ class IPortableDeviceService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-getpnpserviceid
      */
     GetPnPServiceID() {
-        result := ComCall(10, this, "ptr*", &ppszPnPServiceID := 0, "HRESULT")
+        result := ComCall(10, this, PWSTR.Ptr, &ppszPnPServiceID := 0, "HRESULT")
         return ppszPnPServiceID
     }
 
@@ -198,7 +218,7 @@ class IPortableDeviceService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-advise
      */
     Advise(dwFlags, pCallback, pParameters) {
-        result := ComCall(11, this, "uint", dwFlags, "ptr", pCallback, "ptr", pParameters, "ptr*", &ppszCookie := 0, "HRESULT")
+        result := ComCall(11, this, "uint", dwFlags, "ptr", pCallback, "ptr", pParameters, PWSTR.Ptr, &ppszCookie := 0, "HRESULT")
         return ppszCookie
     }
 
@@ -270,5 +290,45 @@ class IPortableDeviceService extends IUnknown {
     SendCommand(dwFlags, pParameters) {
         result := ComCall(13, this, "uint", dwFlags, "ptr", pParameters, "ptr*", &ppResults := 0, "HRESULT")
         return IPortableDeviceValues(ppResults)
+    }
+
+    Query(iid) {
+        if (IPortableDeviceService.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 3)
+        this.vtbl.Capabilities := CallbackCreate(GetMethod(implObj, "Capabilities"), flags, 2)
+        this.vtbl.Content := CallbackCreate(GetMethod(implObj, "Content"), flags, 2)
+        this.vtbl.Methods := CallbackCreate(GetMethod(implObj, "Methods"), flags, 2)
+        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.GetServiceObjectID := CallbackCreate(GetMethod(implObj, "GetServiceObjectID"), flags, 2)
+        this.vtbl.GetPnPServiceID := CallbackCreate(GetMethod(implObj, "GetPnPServiceID"), flags, 2)
+        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 5)
+        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.SendCommand := CallbackCreate(GetMethod(implObj, "SendCommand"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Open)
+        CallbackFree(this.vtbl.Capabilities)
+        CallbackFree(this.vtbl.Content)
+        CallbackFree(this.vtbl.Methods)
+        CallbackFree(this.vtbl.Cancel)
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.GetServiceObjectID)
+        CallbackFree(this.vtbl.GetPnPServiceID)
+        CallbackFree(this.vtbl.Advise)
+        CallbackFree(this.vtbl.Unadvise)
+        CallbackFree(this.vtbl.SendCommand)
     }
 }

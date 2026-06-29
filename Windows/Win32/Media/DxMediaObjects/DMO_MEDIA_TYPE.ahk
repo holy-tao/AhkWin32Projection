@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The DMO_MEDIA_TYPE structure describes the format of the data used by a stream in a Microsoft DirectX Media Object (DMO).
@@ -9,55 +10,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/mediaobj/ns-mediaobj-dmo_media_type
  * @namespace Windows.Win32.Media.DxMediaObjects
  */
-class DMO_MEDIA_TYPE extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct DMO_MEDIA_TYPE {
+    #StructPack 8
 
     /**
      * Major type GUID of the stream.
-     * @type {Pointer}
      */
-    majortype {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    majortype : Guid
 
     /**
      * Subtype GUID of the stream.
-     * @type {Pointer}
      */
-    subtype {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    subtype : Guid
 
     /**
      * If <b>TRUE</b>, samples are of a fixed size. This field is informational only. For audio, it is generally set to <b>TRUE</b>. For video, it is usually <b>TRUE</b> for uncompressed video and <b>FALSE</b> for compressed video.
-     * @type {BOOL}
      */
-    bFixedSizeSamples {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    bFixedSizeSamples : BOOL
 
     /**
      * If <b>TRUE</b>, samples are compressed using temporal (interframe) compression. (A value of <b>TRUE</b> indicates that not all frames are key frames.) This field is informational only.
-     * @type {BOOL}
      */
-    bTemporalCompression {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    bTemporalCompression : BOOL
 
     /**
      * Size of the sample in bytes. For compressed data, the value can be zero.
-     * @type {Integer}
      */
-    lSampleSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    lSampleSize : UInt32
 
     /**
      * GUID specifying the format type. The <b>pbFormat</b> member points to the corresponding format structure. Format types include the following.
@@ -150,37 +129,22 @@ class DMO_MEDIA_TYPE extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer}
      */
-    formattype {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    formattype : Guid
 
     /**
      * Not used. Set to <b>NULL</b>.
-     * @type {IUnknown}
      */
-    pUnk {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pUnk : IUnknown
 
     /**
      * Size of the format block of the media type.
-     * @type {Integer}
      */
-    cbFormat {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    cbFormat : UInt32
 
     /**
      * Pointer to the format structure. The structure type is specified by the <b>formattype</b> member. The format structure must be present, unless <b>formattype</b> is GUID_NULL or FORMAT_None.
-     * @type {Pointer<Integer>}
      */
-    pbFormat {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pbFormat : IntPtr
+
 }

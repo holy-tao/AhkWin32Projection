@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WINHTTP_CREDS_AUTHSCHEME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WINHTTP_CREDS_AUTHSCHEME.ahk" { WINHTTP_CREDS_AUTHSCHEME }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains user credential information used for server and proxy authentication. (WINHTTP_CREDS_EX)
@@ -12,70 +12,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_creds_ex
  * @namespace Windows.Win32.Networking.WinHttp
  */
-class WINHTTP_CREDS_EX extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct WINHTTP_CREDS_EX {
+    #StructPack 8
 
     /**
      * Pointer to a buffer that contains username.
-     * @type {PSTR}
      */
-    lpszUserName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpszUserName : PSTR
 
     /**
      * Pointer to a buffer that contains password.
-     * @type {PSTR}
      */
-    lpszPassword {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpszPassword : PSTR
 
     /**
      * Pointer to a buffer that contains realm.
-     * @type {PSTR}
      */
-    lpszRealm {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpszRealm : PSTR
 
-    /**
-     * @type {WINHTTP_CREDS_AUTHSCHEME}
-     */
-    dwAuthScheme {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwAuthScheme : WINHTTP_CREDS_AUTHSCHEME
 
     /**
      * Pointer to a buffer that contains hostname.
-     * @type {PSTR}
      */
-    lpszHostName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpszHostName : PSTR
 
     /**
      * The server connection port.
-     * @type {Integer}
      */
-    dwPort {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwPort : UInt32
 
     /**
      * Pointer to a buffer that contains target URL.
-     * @type {PSTR}
      */
-    lpszUrl {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    lpszUrl : PSTR
+
 }

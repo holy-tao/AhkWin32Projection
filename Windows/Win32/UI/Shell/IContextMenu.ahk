@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CMINVOKECOMMANDINFO.ahk" { CMINVOKECOMMANDINFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\WindowsAndMessaging\HMENU.ahk" { HMENU }
 
 /**
  * Exposes methods that either create or merge a shortcut menu associated with a Shell object.
@@ -30,26 +34,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-icontextmenu
  * @namespace Windows.Win32.UI.Shell
  */
-class IContextMenu extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IContextMenu extends IUnknown {
     /**
      * The interface identifier for IContextMenu
      * @type {Guid}
      */
-    static IID => Guid("{000214e4-0000-0000-c000-000000000046}")
+    static IID := Guid("{000214e4-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IContextMenu interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        QueryContextMenu : IntPtr
+        InvokeCommand    : IntPtr
+        GetCommandString : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["QueryContextMenu", "InvokeCommand", "GetCommandString"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IContextMenu.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds commands to a shortcut menu.
@@ -80,9 +93,7 @@ class IContextMenu extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icontextmenu-querycontextmenu
      */
     QueryContextMenu(_hmenu, indexMenu, idCmdFirst, idCmdLast, uFlags) {
-        _hmenu := _hmenu is Win32Handle ? NumGet(_hmenu, "ptr") : _hmenu
-
-        result := ComCall(3, this, "ptr", _hmenu, "uint", indexMenu, "uint", idCmdFirst, "uint", idCmdLast, "uint", uFlags, "int")
+        result := ComCall(3, this, HMENU, _hmenu, "uint", indexMenu, "uint", idCmdFirst, "uint", idCmdLast, "uint", uFlags, Int32)
         return result
     }
 
@@ -109,7 +120,7 @@ class IContextMenu extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icontextmenu-invokecommand
      */
     InvokeCommand(pici) {
-        result := ComCall(4, this, "ptr", pici, "HRESULT")
+        result := ComCall(4, this, CMINVOKECOMMANDINFO.Ptr, pici, "HRESULT")
         return result
     }
 
@@ -143,5 +154,29 @@ class IContextMenu extends IUnknown {
 
         result := ComCall(5, this, "ptr", idCmd, "uint", uType, "uint*", pReserved, "ptr", pszName, "uint", cchMax, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IContextMenu.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.QueryContextMenu := CallbackCreate(GetMethod(implObj, "QueryContextMenu"), flags, 6)
+        this.vtbl.InvokeCommand := CallbackCreate(GetMethod(implObj, "InvokeCommand"), flags, 2)
+        this.vtbl.GetCommandString := CallbackCreate(GetMethod(implObj, "GetCommandString"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.QueryContextMenu)
+        CallbackFree(this.vtbl.InvokeCommand)
+        CallbackFree(this.vtbl.GetCommandString)
     }
 }

@@ -1,71 +1,127 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IXpsOMPackage.ahk
-#Include .\IXpsOMStoryFragmentsResource.ahk
-#Include .\IXpsOMDocumentStructureResource.ahk
-#Include .\IXpsOMSignatureBlockResource.ahk
-#Include .\IXpsOMRemoteDictionaryResource.ahk
-#Include .\IXpsOMPartResources.ahk
-#Include .\IXpsOMDocumentSequence.ahk
-#Include .\IXpsOMDocument.ahk
-#Include .\IXpsOMPageReference.ahk
-#Include .\IXpsOMPage.ahk
-#Include .\IXpsOMCanvas.ahk
-#Include .\IXpsOMGlyphs.ahk
-#Include .\IXpsOMPath.ahk
-#Include .\IXpsOMGeometry.ahk
-#Include .\IXpsOMGeometryFigure.ahk
-#Include .\IXpsOMMatrixTransform.ahk
-#Include .\IXpsOMSolidColorBrush.ahk
-#Include .\IXpsOMColorProfileResource.ahk
-#Include .\IXpsOMImageBrush.ahk
-#Include .\IXpsOMVisualBrush.ahk
-#Include .\IXpsOMImageResource.ahk
-#Include .\IXpsOMPrintTicketResource.ahk
-#Include .\IXpsOMFontResource.ahk
-#Include .\IXpsOMGradientStop.ahk
-#Include .\IXpsOMLinearGradientBrush.ahk
-#Include .\IXpsOMRadialGradientBrush.ahk
-#Include .\IXpsOMCoreProperties.ahk
-#Include .\IXpsOMDictionary.ahk
-#Include .\IXpsOMPartUriCollection.ahk
-#Include .\IXpsOMPackageWriter.ahk
-#Include ..\Packaging\Opc\IOpcPartUri.ahk
-#Include ..\..\System\Com\IStream.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IXpsOMGeometryFigure.ahk" { IXpsOMGeometryFigure }
+#Import ".\IXpsOMSolidColorBrush.ahk" { IXpsOMSolidColorBrush }
+#Import ".\IXpsOMRadialGradientBrush.ahk" { IXpsOMRadialGradientBrush }
+#Import "..\..\System\Com\ISequentialStream.ahk" { ISequentialStream }
+#Import ".\IXpsOMPrintTicketResource.ahk" { IXpsOMPrintTicketResource }
+#Import ".\IXpsOMGeometry.ahk" { IXpsOMGeometry }
+#Import ".\IXpsOMStoryFragmentsResource.ahk" { IXpsOMStoryFragmentsResource }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\IXpsOMDocument.ahk" { IXpsOMDocument }
+#Import ".\XPS_IMAGE_TYPE.ahk" { XPS_IMAGE_TYPE }
+#Import ".\XPS_COLOR.ahk" { XPS_COLOR }
+#Import ".\XPS_POINT.ahk" { XPS_POINT }
+#Import ".\IXpsOMPackageWriter.ahk" { IXpsOMPackageWriter }
+#Import ".\IXpsOMPartUriCollection.ahk" { IXpsOMPartUriCollection }
+#Import ".\IXpsOMCoreProperties.ahk" { IXpsOMCoreProperties }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\XPS_RECT.ahk" { XPS_RECT }
+#Import ".\IXpsOMSignatureBlockResource.ahk" { IXpsOMSignatureBlockResource }
+#Import ".\IXpsOMColorProfileResource.ahk" { IXpsOMColorProfileResource }
+#Import ".\IXpsOMVisualBrush.ahk" { IXpsOMVisualBrush }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IXpsOMGradientStop.ahk" { IXpsOMGradientStop }
+#Import ".\IXpsOMPartResources.ahk" { IXpsOMPartResources }
+#Import ".\IXpsOMGlyphs.ahk" { IXpsOMGlyphs }
+#Import ".\IXpsOMFontResource.ahk" { IXpsOMFontResource }
+#Import ".\IXpsOMLinearGradientBrush.ahk" { IXpsOMLinearGradientBrush }
+#Import ".\IXpsOMDictionary.ahk" { IXpsOMDictionary }
+#Import ".\XPS_MATRIX.ahk" { XPS_MATRIX }
+#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
+#Import ".\IXpsOMDocumentSequence.ahk" { IXpsOMDocumentSequence }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\XPS_SIZE.ahk" { XPS_SIZE }
+#Import ".\IXpsOMDocumentStructureResource.ahk" { IXpsOMDocumentStructureResource }
+#Import ".\IXpsOMCanvas.ahk" { IXpsOMCanvas }
+#Import ".\XPS_FONT_EMBEDDING.ahk" { XPS_FONT_EMBEDDING }
+#Import ".\IXpsOMPageReference.ahk" { IXpsOMPageReference }
+#Import ".\IXpsOMPackage.ahk" { IXpsOMPackage }
+#Import ".\IXpsOMRemoteDictionaryResource.ahk" { IXpsOMRemoteDictionaryResource }
+#Import ".\IXpsOMPage.ahk" { IXpsOMPage }
+#Import ".\XPS_INTERLEAVING.ahk" { XPS_INTERLEAVING }
+#Import ".\IXpsOMImageResource.ahk" { IXpsOMImageResource }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import ".\IXpsOMMatrixTransform.ahk" { IXpsOMMatrixTransform }
+#Import ".\IXpsOMImageBrush.ahk" { IXpsOMImageBrush }
+#Import ".\IXpsOMPath.ahk" { IXpsOMPath }
 
 /**
  * Creates objects in the XPS document object model.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomobjectfactory
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsOMObjectFactory extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IXpsOMObjectFactory extends IUnknown {
     /**
      * The interface identifier for IXpsOMObjectFactory
      * @type {Guid}
      */
-    static IID => Guid("{f9b2a685-a50d-4fc2-b764-b56e093ea0ca}")
+    static IID := Guid("{f9b2a685-a50d-4fc2-b764-b56e093ea0ca}")
 
     /**
      * The class identifier for XpsOMObjectFactory
      * @type {Guid}
      */
-    static CLSID => Guid("{e974d26d-3d9b-4d47-88cc-3872f2dc3585}")
+    static CLSID := Guid("{e974d26d-3d9b-4d47-88cc-3872f2dc3585}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsOMObjectFactory interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreatePackage                            : IntPtr
+        CreatePackageFromFile                    : IntPtr
+        CreatePackageFromStream                  : IntPtr
+        CreateStoryFragmentsResource             : IntPtr
+        CreateDocumentStructureResource          : IntPtr
+        CreateSignatureBlockResource             : IntPtr
+        CreateRemoteDictionaryResource           : IntPtr
+        CreateRemoteDictionaryResourceFromStream : IntPtr
+        CreatePartResources                      : IntPtr
+        CreateDocumentSequence                   : IntPtr
+        CreateDocument                           : IntPtr
+        CreatePageReference                      : IntPtr
+        CreatePage                               : IntPtr
+        CreatePageFromStream                     : IntPtr
+        CreateCanvas                             : IntPtr
+        CreateGlyphs                             : IntPtr
+        CreatePath                               : IntPtr
+        CreateGeometry                           : IntPtr
+        CreateGeometryFigure                     : IntPtr
+        CreateMatrixTransform                    : IntPtr
+        CreateSolidColorBrush                    : IntPtr
+        CreateColorProfileResource               : IntPtr
+        CreateImageBrush                         : IntPtr
+        CreateVisualBrush                        : IntPtr
+        CreateImageResource                      : IntPtr
+        CreatePrintTicketResource                : IntPtr
+        CreateFontResource                       : IntPtr
+        CreateGradientStop                       : IntPtr
+        CreateLinearGradientBrush                : IntPtr
+        CreateRadialGradientBrush                : IntPtr
+        CreateCoreProperties                     : IntPtr
+        CreateDictionary                         : IntPtr
+        CreatePartUriCollection                  : IntPtr
+        CreatePackageWriterOnFile                : IntPtr
+        CreatePackageWriterOnStream              : IntPtr
+        CreatePartUri                            : IntPtr
+        CreateReadOnlyStreamOnFile               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreatePackage", "CreatePackageFromFile", "CreatePackageFromStream", "CreateStoryFragmentsResource", "CreateDocumentStructureResource", "CreateSignatureBlockResource", "CreateRemoteDictionaryResource", "CreateRemoteDictionaryResourceFromStream", "CreatePartResources", "CreateDocumentSequence", "CreateDocument", "CreatePageReference", "CreatePage", "CreatePageFromStream", "CreateCanvas", "CreateGlyphs", "CreatePath", "CreateGeometry", "CreateGeometryFigure", "CreateMatrixTransform", "CreateSolidColorBrush", "CreateColorProfileResource", "CreateImageBrush", "CreateVisualBrush", "CreateImageResource", "CreatePrintTicketResource", "CreateFontResource", "CreateGradientStop", "CreateLinearGradientBrush", "CreateRadialGradientBrush", "CreateCoreProperties", "CreateDictionary", "CreatePartUriCollection", "CreatePackageWriterOnFile", "CreatePackageWriterOnStream", "CreatePartUri", "CreateReadOnlyStreamOnFile"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsOMObjectFactory.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates an IXpsOMPackage interface that serves as the root node of an XPS object model document tree.
@@ -222,7 +278,7 @@ class IXpsOMObjectFactory extends IUnknown {
     CreatePackageFromFile(filename, reuseObjects) {
         filename := filename is String ? StrPtr(filename) : filename
 
-        result := ComCall(4, this, "ptr", filename, "int", reuseObjects, "ptr*", &package := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", filename, BOOL, reuseObjects, "ptr*", &package := 0, "HRESULT")
         return IXpsOMPackage(package)
     }
 
@@ -329,7 +385,7 @@ class IXpsOMObjectFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createpackagefromstream
      */
     CreatePackageFromStream(stream, reuseObjects) {
-        result := ComCall(5, this, "ptr", stream, "int", reuseObjects, "ptr*", &package := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", stream, BOOL, reuseObjects, "ptr*", &package := 0, "HRESULT")
         return IXpsOMPackage(package)
     }
 
@@ -627,7 +683,7 @@ class IXpsOMObjectFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createpagereference
      */
     CreatePageReference(advisoryPageDimensions) {
-        result := ComCall(14, this, "ptr", advisoryPageDimensions, "ptr*", &pageReference := 0, "HRESULT")
+        result := ComCall(14, this, XPS_SIZE.Ptr, advisoryPageDimensions, "ptr*", &pageReference := 0, "HRESULT")
         return IXpsOMPageReference(pageReference)
     }
 
@@ -698,7 +754,7 @@ class IXpsOMObjectFactory extends IUnknown {
     CreatePage(pageDimensions, language, partUri) {
         language := language is String ? StrPtr(language) : language
 
-        result := ComCall(15, this, "ptr", pageDimensions, "ptr", language, "ptr", partUri, "ptr*", &page := 0, "HRESULT")
+        result := ComCall(15, this, XPS_SIZE.Ptr, pageDimensions, "ptr", language, "ptr", partUri, "ptr*", &page := 0, "HRESULT")
         return IXpsOMPage(page)
     }
 
@@ -741,7 +797,7 @@ class IXpsOMObjectFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createpagefromstream
      */
     CreatePageFromStream(pageMarkupStream, partUri, resources, reuseObjects) {
-        result := ComCall(16, this, "ptr", pageMarkupStream, "ptr", partUri, "ptr", resources, "int", reuseObjects, "ptr*", &page := 0, "HRESULT")
+        result := ComCall(16, this, "ptr", pageMarkupStream, "ptr", partUri, "ptr", resources, BOOL, reuseObjects, "ptr*", &page := 0, "HRESULT")
         return IXpsOMPage(page)
     }
 
@@ -979,7 +1035,7 @@ class IXpsOMObjectFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-creategeometryfigure
      */
     CreateGeometryFigure(startPoint) {
-        result := ComCall(21, this, "ptr", startPoint, "ptr*", &figure := 0, "HRESULT")
+        result := ComCall(21, this, XPS_POINT.Ptr, startPoint, "ptr*", &figure := 0, "HRESULT")
         return IXpsOMGeometryFigure(figure)
     }
 
@@ -1034,7 +1090,7 @@ class IXpsOMObjectFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-creatematrixtransform
      */
     CreateMatrixTransform(_matrix) {
-        result := ComCall(22, this, "ptr", _matrix, "ptr*", &transform := 0, "HRESULT")
+        result := ComCall(22, this, XPS_MATRIX.Ptr, _matrix, "ptr*", &transform := 0, "HRESULT")
         return IXpsOMMatrixTransform(transform)
     }
 
@@ -1090,7 +1146,7 @@ class IXpsOMObjectFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createsolidcolorbrush
      */
     CreateSolidColorBrush(_color, colorProfile) {
-        result := ComCall(23, this, "ptr", _color, "ptr", colorProfile, "ptr*", &solidColorBrush := 0, "HRESULT")
+        result := ComCall(23, this, XPS_COLOR.Ptr, _color, "ptr", colorProfile, "ptr*", &solidColorBrush := 0, "HRESULT")
         return IXpsOMSolidColorBrush(solidColorBrush)
     }
 
@@ -1237,7 +1293,7 @@ class IXpsOMObjectFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createimagebrush
      */
     CreateImageBrush(_image, viewBox, viewPort) {
-        result := ComCall(25, this, "ptr", _image, "ptr", viewBox, "ptr", viewPort, "ptr*", &imageBrush := 0, "HRESULT")
+        result := ComCall(25, this, "ptr", _image, XPS_RECT.Ptr, viewBox, XPS_RECT.Ptr, viewPort, "ptr*", &imageBrush := 0, "HRESULT")
         return IXpsOMImageBrush(imageBrush)
     }
 
@@ -1298,7 +1354,7 @@ class IXpsOMObjectFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createvisualbrush
      */
     CreateVisualBrush(viewBox, viewPort) {
-        result := ComCall(26, this, "ptr", viewBox, "ptr", viewPort, "ptr*", &visualBrush := 0, "HRESULT")
+        result := ComCall(26, this, XPS_RECT.Ptr, viewBox, XPS_RECT.Ptr, viewPort, "ptr*", &visualBrush := 0, "HRESULT")
         return IXpsOMVisualBrush(visualBrush)
     }
 
@@ -1366,7 +1422,7 @@ class IXpsOMObjectFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createimageresource
      */
     CreateImageResource(acquiredStream, contentType, partUri) {
-        result := ComCall(27, this, "ptr", acquiredStream, "int", contentType, "ptr", partUri, "ptr*", &imageResource := 0, "HRESULT")
+        result := ComCall(27, this, "ptr", acquiredStream, XPS_IMAGE_TYPE, contentType, "ptr", partUri, "ptr*", &imageResource := 0, "HRESULT")
         return IXpsOMImageResource(imageResource)
     }
 
@@ -1480,7 +1536,7 @@ class IXpsOMObjectFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createfontresource
      */
     CreateFontResource(acquiredStream, fontEmbedding, partUri, isObfSourceStream) {
-        result := ComCall(29, this, "ptr", acquiredStream, "int", fontEmbedding, "ptr", partUri, "int", isObfSourceStream, "ptr*", &fontResource := 0, "HRESULT")
+        result := ComCall(29, this, "ptr", acquiredStream, XPS_FONT_EMBEDDING, fontEmbedding, "ptr", partUri, BOOL, isObfSourceStream, "ptr*", &fontResource := 0, "HRESULT")
         return IXpsOMFontResource(fontResource)
     }
 
@@ -1551,7 +1607,7 @@ class IXpsOMObjectFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-creategradientstop
      */
     CreateGradientStop(_color, colorProfile, offset) {
-        result := ComCall(30, this, "ptr", _color, "ptr", colorProfile, "float", offset, "ptr*", &gradientStop := 0, "HRESULT")
+        result := ComCall(30, this, XPS_COLOR.Ptr, _color, "ptr", colorProfile, "float", offset, "ptr*", &gradientStop := 0, "HRESULT")
         return IXpsOMGradientStop(gradientStop)
     }
 
@@ -1618,7 +1674,7 @@ class IXpsOMObjectFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createlineargradientbrush
      */
     CreateLinearGradientBrush(gradStop1, gradStop2, startPoint, endPoint) {
-        result := ComCall(31, this, "ptr", gradStop1, "ptr", gradStop2, "ptr", startPoint, "ptr", endPoint, "ptr*", &linearGradientBrush := 0, "HRESULT")
+        result := ComCall(31, this, "ptr", gradStop1, "ptr", gradStop2, XPS_POINT.Ptr, startPoint, XPS_POINT.Ptr, endPoint, "ptr*", &linearGradientBrush := 0, "HRESULT")
         return IXpsOMLinearGradientBrush(linearGradientBrush)
     }
 
@@ -1716,7 +1772,7 @@ class IXpsOMObjectFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createradialgradientbrush
      */
     CreateRadialGradientBrush(gradStop1, gradStop2, centerPoint, gradientOrigin, radiiSizes) {
-        result := ComCall(32, this, "ptr", gradStop1, "ptr", gradStop2, "ptr", centerPoint, "ptr", gradientOrigin, "ptr", radiiSizes, "ptr*", &radialGradientBrush := 0, "HRESULT")
+        result := ComCall(32, this, "ptr", gradStop1, "ptr", gradStop2, XPS_POINT.Ptr, centerPoint, XPS_POINT.Ptr, gradientOrigin, XPS_SIZE.Ptr, radiiSizes, "ptr*", &radialGradientBrush := 0, "HRESULT")
         return IXpsOMRadialGradientBrush(radialGradientBrush)
     }
 
@@ -1814,7 +1870,7 @@ class IXpsOMObjectFactory extends IUnknown {
     CreatePackageWriterOnFile(fileName, securityAttributes, flagsAndAttributes, optimizeMarkupSize, interleaving, documentSequencePartName, coreProperties, packageThumbnail, documentSequencePrintTicket, discardControlPartName) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
 
-        result := ComCall(36, this, "ptr", fileName, "ptr", securityAttributes, "uint", flagsAndAttributes, "int", optimizeMarkupSize, "int", interleaving, "ptr", documentSequencePartName, "ptr", coreProperties, "ptr", packageThumbnail, "ptr", documentSequencePrintTicket, "ptr", discardControlPartName, "ptr*", &packageWriter := 0, "HRESULT")
+        result := ComCall(36, this, "ptr", fileName, SECURITY_ATTRIBUTES.Ptr, securityAttributes, "uint", flagsAndAttributes, BOOL, optimizeMarkupSize, XPS_INTERLEAVING, interleaving, "ptr", documentSequencePartName, "ptr", coreProperties, "ptr", packageThumbnail, "ptr", documentSequencePrintTicket, "ptr", discardControlPartName, "ptr*", &packageWriter := 0, "HRESULT")
         return IXpsOMPackageWriter(packageWriter)
     }
 
@@ -1865,7 +1921,7 @@ class IXpsOMObjectFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createpackagewriteronstream
      */
     CreatePackageWriterOnStream(outputStream, optimizeMarkupSize, interleaving, documentSequencePartName, coreProperties, packageThumbnail, documentSequencePrintTicket, discardControlPartName) {
-        result := ComCall(37, this, "ptr", outputStream, "int", optimizeMarkupSize, "int", interleaving, "ptr", documentSequencePartName, "ptr", coreProperties, "ptr", packageThumbnail, "ptr", documentSequencePrintTicket, "ptr", discardControlPartName, "ptr*", &packageWriter := 0, "HRESULT")
+        result := ComCall(37, this, "ptr", outputStream, BOOL, optimizeMarkupSize, XPS_INTERLEAVING, interleaving, "ptr", documentSequencePartName, "ptr", coreProperties, "ptr", packageThumbnail, "ptr", documentSequencePrintTicket, "ptr", discardControlPartName, "ptr*", &packageWriter := 0, "HRESULT")
         return IXpsOMPackageWriter(packageWriter)
     }
 
@@ -1906,5 +1962,97 @@ class IXpsOMObjectFactory extends IUnknown {
 
         result := ComCall(39, this, "ptr", filename, "ptr*", &stream := 0, "HRESULT")
         return IStream(stream)
+    }
+
+    Query(iid) {
+        if (IXpsOMObjectFactory.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreatePackage := CallbackCreate(GetMethod(implObj, "CreatePackage"), flags, 2)
+        this.vtbl.CreatePackageFromFile := CallbackCreate(GetMethod(implObj, "CreatePackageFromFile"), flags, 4)
+        this.vtbl.CreatePackageFromStream := CallbackCreate(GetMethod(implObj, "CreatePackageFromStream"), flags, 4)
+        this.vtbl.CreateStoryFragmentsResource := CallbackCreate(GetMethod(implObj, "CreateStoryFragmentsResource"), flags, 4)
+        this.vtbl.CreateDocumentStructureResource := CallbackCreate(GetMethod(implObj, "CreateDocumentStructureResource"), flags, 4)
+        this.vtbl.CreateSignatureBlockResource := CallbackCreate(GetMethod(implObj, "CreateSignatureBlockResource"), flags, 4)
+        this.vtbl.CreateRemoteDictionaryResource := CallbackCreate(GetMethod(implObj, "CreateRemoteDictionaryResource"), flags, 4)
+        this.vtbl.CreateRemoteDictionaryResourceFromStream := CallbackCreate(GetMethod(implObj, "CreateRemoteDictionaryResourceFromStream"), flags, 5)
+        this.vtbl.CreatePartResources := CallbackCreate(GetMethod(implObj, "CreatePartResources"), flags, 2)
+        this.vtbl.CreateDocumentSequence := CallbackCreate(GetMethod(implObj, "CreateDocumentSequence"), flags, 3)
+        this.vtbl.CreateDocument := CallbackCreate(GetMethod(implObj, "CreateDocument"), flags, 3)
+        this.vtbl.CreatePageReference := CallbackCreate(GetMethod(implObj, "CreatePageReference"), flags, 3)
+        this.vtbl.CreatePage := CallbackCreate(GetMethod(implObj, "CreatePage"), flags, 5)
+        this.vtbl.CreatePageFromStream := CallbackCreate(GetMethod(implObj, "CreatePageFromStream"), flags, 6)
+        this.vtbl.CreateCanvas := CallbackCreate(GetMethod(implObj, "CreateCanvas"), flags, 2)
+        this.vtbl.CreateGlyphs := CallbackCreate(GetMethod(implObj, "CreateGlyphs"), flags, 3)
+        this.vtbl.CreatePath := CallbackCreate(GetMethod(implObj, "CreatePath"), flags, 2)
+        this.vtbl.CreateGeometry := CallbackCreate(GetMethod(implObj, "CreateGeometry"), flags, 2)
+        this.vtbl.CreateGeometryFigure := CallbackCreate(GetMethod(implObj, "CreateGeometryFigure"), flags, 3)
+        this.vtbl.CreateMatrixTransform := CallbackCreate(GetMethod(implObj, "CreateMatrixTransform"), flags, 3)
+        this.vtbl.CreateSolidColorBrush := CallbackCreate(GetMethod(implObj, "CreateSolidColorBrush"), flags, 4)
+        this.vtbl.CreateColorProfileResource := CallbackCreate(GetMethod(implObj, "CreateColorProfileResource"), flags, 4)
+        this.vtbl.CreateImageBrush := CallbackCreate(GetMethod(implObj, "CreateImageBrush"), flags, 5)
+        this.vtbl.CreateVisualBrush := CallbackCreate(GetMethod(implObj, "CreateVisualBrush"), flags, 4)
+        this.vtbl.CreateImageResource := CallbackCreate(GetMethod(implObj, "CreateImageResource"), flags, 5)
+        this.vtbl.CreatePrintTicketResource := CallbackCreate(GetMethod(implObj, "CreatePrintTicketResource"), flags, 4)
+        this.vtbl.CreateFontResource := CallbackCreate(GetMethod(implObj, "CreateFontResource"), flags, 6)
+        this.vtbl.CreateGradientStop := CallbackCreate(GetMethod(implObj, "CreateGradientStop"), flags, 5)
+        this.vtbl.CreateLinearGradientBrush := CallbackCreate(GetMethod(implObj, "CreateLinearGradientBrush"), flags, 6)
+        this.vtbl.CreateRadialGradientBrush := CallbackCreate(GetMethod(implObj, "CreateRadialGradientBrush"), flags, 7)
+        this.vtbl.CreateCoreProperties := CallbackCreate(GetMethod(implObj, "CreateCoreProperties"), flags, 3)
+        this.vtbl.CreateDictionary := CallbackCreate(GetMethod(implObj, "CreateDictionary"), flags, 2)
+        this.vtbl.CreatePartUriCollection := CallbackCreate(GetMethod(implObj, "CreatePartUriCollection"), flags, 2)
+        this.vtbl.CreatePackageWriterOnFile := CallbackCreate(GetMethod(implObj, "CreatePackageWriterOnFile"), flags, 12)
+        this.vtbl.CreatePackageWriterOnStream := CallbackCreate(GetMethod(implObj, "CreatePackageWriterOnStream"), flags, 10)
+        this.vtbl.CreatePartUri := CallbackCreate(GetMethod(implObj, "CreatePartUri"), flags, 3)
+        this.vtbl.CreateReadOnlyStreamOnFile := CallbackCreate(GetMethod(implObj, "CreateReadOnlyStreamOnFile"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreatePackage)
+        CallbackFree(this.vtbl.CreatePackageFromFile)
+        CallbackFree(this.vtbl.CreatePackageFromStream)
+        CallbackFree(this.vtbl.CreateStoryFragmentsResource)
+        CallbackFree(this.vtbl.CreateDocumentStructureResource)
+        CallbackFree(this.vtbl.CreateSignatureBlockResource)
+        CallbackFree(this.vtbl.CreateRemoteDictionaryResource)
+        CallbackFree(this.vtbl.CreateRemoteDictionaryResourceFromStream)
+        CallbackFree(this.vtbl.CreatePartResources)
+        CallbackFree(this.vtbl.CreateDocumentSequence)
+        CallbackFree(this.vtbl.CreateDocument)
+        CallbackFree(this.vtbl.CreatePageReference)
+        CallbackFree(this.vtbl.CreatePage)
+        CallbackFree(this.vtbl.CreatePageFromStream)
+        CallbackFree(this.vtbl.CreateCanvas)
+        CallbackFree(this.vtbl.CreateGlyphs)
+        CallbackFree(this.vtbl.CreatePath)
+        CallbackFree(this.vtbl.CreateGeometry)
+        CallbackFree(this.vtbl.CreateGeometryFigure)
+        CallbackFree(this.vtbl.CreateMatrixTransform)
+        CallbackFree(this.vtbl.CreateSolidColorBrush)
+        CallbackFree(this.vtbl.CreateColorProfileResource)
+        CallbackFree(this.vtbl.CreateImageBrush)
+        CallbackFree(this.vtbl.CreateVisualBrush)
+        CallbackFree(this.vtbl.CreateImageResource)
+        CallbackFree(this.vtbl.CreatePrintTicketResource)
+        CallbackFree(this.vtbl.CreateFontResource)
+        CallbackFree(this.vtbl.CreateGradientStop)
+        CallbackFree(this.vtbl.CreateLinearGradientBrush)
+        CallbackFree(this.vtbl.CreateRadialGradientBrush)
+        CallbackFree(this.vtbl.CreateCoreProperties)
+        CallbackFree(this.vtbl.CreateDictionary)
+        CallbackFree(this.vtbl.CreatePartUriCollection)
+        CallbackFree(this.vtbl.CreatePackageWriterOnFile)
+        CallbackFree(this.vtbl.CreatePackageWriterOnStream)
+        CallbackFree(this.vtbl.CreatePartUri)
+        CallbackFree(this.vtbl.CreateReadOnlyStreamOnFile)
     }
 }

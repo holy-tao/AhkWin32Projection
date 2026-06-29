@@ -1,123 +1,39 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
  * @charset Unicode
  */
-class NTMS_I1_LIBREQUESTINFORMATIONW extends Win32Struct {
-    static sizeof => 472
+export default struct NTMS_I1_LIBREQUESTINFORMATIONW {
+    #StructPack 4
 
-    static packingSize => 8
+    OperationCode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OperationCode {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    OperationOption : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OperationOption {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    State : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    State {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    PartitionId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    PartitionId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    DriveId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    DriveId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    PhysMediaId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    PhysMediaId {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Library : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    Library {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    SlotId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    SlotId {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    TimeQueued : SYSTEMTIME
 
-    /**
-     * @type {SYSTEMTIME}
-     */
-    TimeQueued {
-        get {
-            if(!this.HasProp("__TimeQueued"))
-                this.__TimeQueued := SYSTEMTIME(56, this)
-            return this.__TimeQueued
-        }
-    }
+    TimeCompleted : SYSTEMTIME
 
-    /**
-     * @type {SYSTEMTIME}
-     */
-    TimeCompleted {
-        get {
-            if(!this.HasProp("__TimeCompleted"))
-                this.__TimeCompleted := SYSTEMTIME(72, this)
-            return this.__TimeCompleted
-        }
-    }
+    szApplication : WCHAR[64]
 
-    /**
-     * @type {String}
-     */
-    szApplication {
-        get => StrGet(this.ptr + 88, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 88, 63, "UTF-16")
-    }
+    szUser : WCHAR[64]
 
-    /**
-     * @type {String}
-     */
-    szUser {
-        get => StrGet(this.ptr + 216, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 216, 63, "UTF-16")
-    }
+    szComputer : WCHAR[64]
 
-    /**
-     * @type {String}
-     */
-    szComputer {
-        get => StrGet(this.ptr + 344, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 344, 63, "UTF-16")
-    }
 }

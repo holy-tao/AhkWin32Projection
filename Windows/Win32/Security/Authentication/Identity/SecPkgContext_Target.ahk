@@ -1,31 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Holds target information.
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_target
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SecPkgContext_Target extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct SecPkgContext_Target {
+    #StructPack 8
 
     /**
      * The length (in bytes) of the target array.
-     * @type {Integer}
      */
-    TargetLength {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    TargetLength : UInt32
 
     /**
      * An array containing the target information.
-     * @type {PSTR}
      */
-    Target {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Target : PSTR
+
 }

@@ -1,31 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SYNC_VERSION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\SYNC_VERSION.ahk" { SYNC_VERSION }
 
 /**
  * @namespace Windows.Win32.System.WindowsSync
  */
-class SYNC_FILTER_CHANGE extends Win32Struct {
-    static sizeof => 24
+export default struct SYNC_FILTER_CHANGE {
+    #StructPack 8
 
-    static packingSize => 8
+    fMoveIn : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    fMoveIn {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    moveVersion : SYNC_VERSION
 
-    /**
-     * @type {SYNC_VERSION}
-     */
-    moveVersion {
-        get {
-            if(!this.HasProp("__moveVersion"))
-                this.__moveVersion := SYNC_VERSION(8, this)
-            return this.__moveVersion
-        }
-    }
 }

@@ -1,39 +1,62 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IHTMLWindow2.ahk" { IHTMLWindow2 }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IDOMKeyboardEvent extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IDOMKeyboardEvent extends IDispatch {
     /**
      * The interface identifier for IDOMKeyboardEvent
      * @type {Guid}
      */
-    static IID => Guid("{305106d6-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{305106d6-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
      * The class identifier for DOMKeyboardEvent
      * @type {Guid}
      */
-    static CLSID => Guid("{305106d7-98b5-11cf-bb82-00aa00bdce0b}")
+    static CLSID := Guid("{305106d7-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDOMKeyboardEvent interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_key           : IntPtr
+        get_location      : IntPtr
+        get_ctrlKey       : IntPtr
+        get_shiftKey      : IntPtr
+        get_altKey        : IntPtr
+        get_metaKey       : IntPtr
+        get_repeat        : IntPtr
+        getModifierState  : IntPtr
+        initKeyboardEvent : IntPtr
+        get_keyCode       : IntPtr
+        get_charCode      : IntPtr
+        get_which         : IntPtr
+        get_ie9_char      : IntPtr
+        get_locale        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_key", "get_location", "get_ctrlKey", "get_shiftKey", "get_altKey", "get_metaKey", "get_repeat", "getModifierState", "initKeyboardEvent", "get_keyCode", "get_charCode", "get_which", "get_ie9_char", "get_locale"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDOMKeyboardEvent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -124,8 +147,8 @@ class IDOMKeyboardEvent extends IDispatch {
      * @returns {BSTR} 
      */
     get_key() {
-        p := BSTR()
-        result := ComCall(7, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -143,7 +166,7 @@ class IDOMKeyboardEvent extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_ctrlKey() {
-        result := ComCall(9, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -152,7 +175,7 @@ class IDOMKeyboardEvent extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_shiftKey() {
-        result := ComCall(10, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -161,7 +184,7 @@ class IDOMKeyboardEvent extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_altKey() {
-        result := ComCall(11, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(11, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -170,7 +193,7 @@ class IDOMKeyboardEvent extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_metaKey() {
-        result := ComCall(12, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(12, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -179,7 +202,7 @@ class IDOMKeyboardEvent extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_repeat() {
-        result := ComCall(13, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -191,7 +214,7 @@ class IDOMKeyboardEvent extends IDispatch {
     getModifierState(keyArg) {
         keyArg := keyArg is String ? BSTR.Alloc(keyArg).Value : keyArg
 
-        result := ComCall(14, this, "ptr", keyArg, "short*", &state := 0, "HRESULT")
+        result := ComCall(14, this, BSTR, keyArg, VARIANT_BOOL.Ptr, &state := 0, "HRESULT")
         return state
     }
 
@@ -214,7 +237,7 @@ class IDOMKeyboardEvent extends IDispatch {
         modifiersListArg := modifiersListArg is String ? BSTR.Alloc(modifiersListArg).Value : modifiersListArg
         locale := locale is String ? BSTR.Alloc(locale).Value : locale
 
-        result := ComCall(15, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", viewArg, "ptr", keyArg, "uint", locationArg, "ptr", modifiersListArg, "short", repeat, "ptr", locale, "HRESULT")
+        result := ComCall(15, this, BSTR, eventType, VARIANT_BOOL, canBubble, VARIANT_BOOL, cancelable, "ptr", viewArg, BSTR, keyArg, "uint", locationArg, BSTR, modifiersListArg, VARIANT_BOOL, repeat, BSTR, locale, "HRESULT")
         return result
     }
 
@@ -251,7 +274,7 @@ class IDOMKeyboardEvent extends IDispatch {
      */
     get_ie9_char() {
         p := VARIANT()
-        result := ComCall(19, this, "ptr", p, "HRESULT")
+        result := ComCall(19, this, VARIANT.Ptr, p, "HRESULT")
         return p
     }
 
@@ -260,8 +283,54 @@ class IDOMKeyboardEvent extends IDispatch {
      * @returns {BSTR} 
      */
     get_locale() {
-        p := BSTR()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(20, this, BSTR.Ptr, p, "HRESULT")
         return p
+    }
+
+    Query(iid) {
+        if (IDOMKeyboardEvent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_key := CallbackCreate(GetMethod(implObj, "get_key"), flags, 2)
+        this.vtbl.get_location := CallbackCreate(GetMethod(implObj, "get_location"), flags, 2)
+        this.vtbl.get_ctrlKey := CallbackCreate(GetMethod(implObj, "get_ctrlKey"), flags, 2)
+        this.vtbl.get_shiftKey := CallbackCreate(GetMethod(implObj, "get_shiftKey"), flags, 2)
+        this.vtbl.get_altKey := CallbackCreate(GetMethod(implObj, "get_altKey"), flags, 2)
+        this.vtbl.get_metaKey := CallbackCreate(GetMethod(implObj, "get_metaKey"), flags, 2)
+        this.vtbl.get_repeat := CallbackCreate(GetMethod(implObj, "get_repeat"), flags, 2)
+        this.vtbl.getModifierState := CallbackCreate(GetMethod(implObj, "getModifierState"), flags, 3)
+        this.vtbl.initKeyboardEvent := CallbackCreate(GetMethod(implObj, "initKeyboardEvent"), flags, 10)
+        this.vtbl.get_keyCode := CallbackCreate(GetMethod(implObj, "get_keyCode"), flags, 2)
+        this.vtbl.get_charCode := CallbackCreate(GetMethod(implObj, "get_charCode"), flags, 2)
+        this.vtbl.get_which := CallbackCreate(GetMethod(implObj, "get_which"), flags, 2)
+        this.vtbl.get_ie9_char := CallbackCreate(GetMethod(implObj, "get_ie9_char"), flags, 2)
+        this.vtbl.get_locale := CallbackCreate(GetMethod(implObj, "get_locale"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_key)
+        CallbackFree(this.vtbl.get_location)
+        CallbackFree(this.vtbl.get_ctrlKey)
+        CallbackFree(this.vtbl.get_shiftKey)
+        CallbackFree(this.vtbl.get_altKey)
+        CallbackFree(this.vtbl.get_metaKey)
+        CallbackFree(this.vtbl.get_repeat)
+        CallbackFree(this.vtbl.getModifierState)
+        CallbackFree(this.vtbl.initKeyboardEvent)
+        CallbackFree(this.vtbl.get_keyCode)
+        CallbackFree(this.vtbl.get_charCode)
+        CallbackFree(this.vtbl.get_which)
+        CallbackFree(this.vtbl.get_ie9_char)
+        CallbackFree(this.vtbl.get_locale)
     }
 }

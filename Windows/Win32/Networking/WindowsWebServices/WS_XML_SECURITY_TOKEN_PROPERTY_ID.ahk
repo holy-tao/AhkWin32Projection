@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The keys for the bag of properties for the creation of XML security tokens. This enumeration is used within the WS_XML_SECURITY_TOKEN_PROPERTY structure, which is used as parameter for WsCreateXmlSecurityToken.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_security_token_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_XML_SECURITY_TOKEN_PROPERTY_ID extends Win32Enum {
+export default struct WS_XML_SECURITY_TOKEN_PROPERTY_ID {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-buffer">WS_XML_BUFFER</a> that contains

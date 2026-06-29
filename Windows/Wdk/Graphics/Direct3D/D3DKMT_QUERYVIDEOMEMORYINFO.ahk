@@ -1,80 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
-#Include .\D3DKMT_MEMORY_SEGMENT_GROUP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\D3DKMT_MEMORY_SEGMENT_GROUP.ahk" { D3DKMT_MEMORY_SEGMENT_GROUP }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_QUERYVIDEOMEMORYINFO extends Win32Struct {
-    static sizeof => 56
+export default struct D3DKMT_QUERYVIDEOMEMORYINFO {
+    #StructPack 8
 
-    static packingSize => 8
+    hProcess : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hProcess {
-        get {
-            if(!this.HasProp("__hProcess"))
-                this.__hProcess := HANDLE(0, this)
-            return this.__hProcess
-        }
-    }
+    hAdapter : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    hAdapter {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MemorySegmentGroup : D3DKMT_MEMORY_SEGMENT_GROUP
 
-    /**
-     * @type {D3DKMT_MEMORY_SEGMENT_GROUP}
-     */
-    MemorySegmentGroup {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    Budget : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Budget {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    CurrentUsage : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CurrentUsage {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    CurrentReservation : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CurrentReservation {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    AvailableForReservation : Int64
 
-    /**
-     * @type {Integer}
-     */
-    AvailableForReservation {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    PhysicalAdapterIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PhysicalAdapterIndex {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
 }

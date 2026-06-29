@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DVD_OPTION_FLAG enumeration defines flags that control the behavior of the DVD Navigator Filter. To set any of these flags, call IDvdControl2::SetOption.
@@ -69,7 +68,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_option_flag
  * @namespace Windows.Win32.Media.DirectShow
  */
-class DVD_OPTION_FLAG extends Win32Enum {
+export default struct DVD_OPTION_FLAG {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Specifies whether the DVD Navigator returns to the start of the disc when the graph stops. 

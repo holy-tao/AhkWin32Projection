@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DFS_TARGET_PRIORITY_CLASS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DFS_TARGET_PRIORITY_CLASS.ahk" { DFS_TARGET_PRIORITY_CLASS }
 
 /**
  * Contains the priority class and rank of a specific DFS target.
@@ -40,37 +39,24 @@
  * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_target_priority
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  */
-class DFS_TARGET_PRIORITY extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct DFS_TARGET_PRIORITY {
+    #StructPack 4
 
     /**
      * <a href="https://docs.microsoft.com/windows/win32/api/lmdfs/ne-lmdfs-dfs_target_priority_class~r1">DFS_TARGET_PRIORITY_CLASS</a> enumeration 
      *       value that specifies the priority class of the target.
-     * @type {DFS_TARGET_PRIORITY_CLASS}
      */
-    TargetPriorityClass {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    TargetPriorityClass : DFS_TARGET_PRIORITY_CLASS
 
     /**
      * Specifies the priority rank value of the target. The default value is 0, which indicates the highest 
      *       priority rank within a priority class.
-     * @type {Integer}
      */
-    TargetPriorityRank {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    TargetPriorityRank : UInt16
 
     /**
      * This member is reserved and must be zero.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    Reserved : UInt16
+
 }

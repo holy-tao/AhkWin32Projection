@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * An IInkD2DRenderer object enables the rendering of ink strokes onto the designated Direct2D device context of a Universal Windows app, instead of the default InkCanvas control.
@@ -10,26 +12,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/inkrenderer/nn-inkrenderer-iinkd2drenderer
  * @namespace Windows.Win32.UI.Input.Ink
  */
-class IInkD2DRenderer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IInkD2DRenderer extends IUnknown {
     /**
      * The interface identifier for IInkD2DRenderer
      * @type {Guid}
      */
-    static IID => Guid("{407fb1de-f85a-4150-97cf-b7fb274fb4f8}")
+    static IID := Guid("{407fb1de-f85a-4150-97cf-b7fb274fb4f8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IInkD2DRenderer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Draw : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Draw"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IInkD2DRenderer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Renders the ink stroke to the designated Direct2D device context of the app.
@@ -42,7 +51,27 @@ class IInkD2DRenderer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/inkrenderer/nf-inkrenderer-iinkd2drenderer-draw
      */
     Draw(pD2D1DeviceContext, pInkStrokeIterable, fHighContrast) {
-        result := ComCall(3, this, "ptr", pD2D1DeviceContext, "ptr", pInkStrokeIterable, "int", fHighContrast, "HRESULT")
+        result := ComCall(3, this, "ptr", pD2D1DeviceContext, "ptr", pInkStrokeIterable, BOOL, fHighContrast, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IInkD2DRenderer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Draw := CallbackCreate(GetMethod(implObj, "Draw"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Draw)
     }
 }

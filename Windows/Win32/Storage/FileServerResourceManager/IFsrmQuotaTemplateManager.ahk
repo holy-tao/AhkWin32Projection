@@ -1,10 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IFsrmQuotaTemplate.ahk
-#Include .\IFsrmCommittableCollection.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IFsrmCommittableCollection.ahk" { IFsrmCommittableCollection }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFsrmQuotaTemplate.ahk" { IFsrmQuotaTemplate }
+#Import ".\FsrmEnumOptions.ahk" { FsrmEnumOptions }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Used to manage quota templates.
@@ -16,32 +19,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nn-fsrmquota-ifsrmquotatemplatemanager
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmQuotaTemplateManager extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmQuotaTemplateManager extends IDispatch {
     /**
      * The interface identifier for IFsrmQuotaTemplateManager
      * @type {Guid}
      */
-    static IID => Guid("{4173ac41-172d-4d52-963c-fdc7e415f717}")
+    static IID := Guid("{4173ac41-172d-4d52-963c-fdc7e415f717}")
 
     /**
      * The class identifier for FsrmQuotaTemplateManager
      * @type {Guid}
      */
-    static CLSID => Guid("{97d3d443-251c-4337-81e7-b32e8f4ee65e}")
+    static CLSID := Guid("{97d3d443-251c-4337-81e7-b32e8f4ee65e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmQuotaTemplateManager interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        CreateTemplate  : IntPtr
+        GetTemplate     : IntPtr
+        EnumTemplates   : IntPtr
+        ExportTemplates : IntPtr
+        ImportTemplates : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateTemplate", "GetTemplate", "EnumTemplates", "ExportTemplates", "ImportTemplates"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmQuotaTemplateManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a quota template object.
@@ -65,7 +79,7 @@ class IFsrmQuotaTemplateManager extends IDispatch {
     GetTemplate(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(8, this, "ptr", name, "ptr*", &quotaTemplate := 0, "HRESULT")
+        result := ComCall(8, this, BSTR, name, "ptr*", &quotaTemplate := 0, "HRESULT")
         return IFsrmQuotaTemplate(quotaTemplate)
     }
 
@@ -82,7 +96,7 @@ class IFsrmQuotaTemplateManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotatemplatemanager-enumtemplates
      */
     EnumTemplates(options) {
-        result := ComCall(9, this, "int", options, "ptr*", &quotaTemplates := 0, "HRESULT")
+        result := ComCall(9, this, FsrmEnumOptions, options, "ptr*", &quotaTemplates := 0, "HRESULT")
         return IFsrmCommittableCollection(quotaTemplates)
     }
 
@@ -99,8 +113,8 @@ class IFsrmQuotaTemplateManager extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotatemplatemanager-exporttemplates
      */
     ExportTemplates(quotaTemplateNamesArray) {
-        serializedQuotaTemplates := BSTR()
-        result := ComCall(10, this, "ptr", quotaTemplateNamesArray, "ptr", serializedQuotaTemplates, "HRESULT")
+        serializedQuotaTemplates := BSTR.Owned()
+        result := ComCall(10, this, VARIANT.Ptr, quotaTemplateNamesArray, BSTR.Ptr, serializedQuotaTemplates, "HRESULT")
         return serializedQuotaTemplates
     }
 
@@ -127,7 +141,35 @@ class IFsrmQuotaTemplateManager extends IDispatch {
     ImportTemplates(serializedQuotaTemplates, quotaTemplateNamesArray) {
         serializedQuotaTemplates := serializedQuotaTemplates is String ? BSTR.Alloc(serializedQuotaTemplates).Value : serializedQuotaTemplates
 
-        result := ComCall(11, this, "ptr", serializedQuotaTemplates, "ptr", quotaTemplateNamesArray, "ptr*", &quotaTemplates := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, serializedQuotaTemplates, VARIANT.Ptr, quotaTemplateNamesArray, "ptr*", &quotaTemplates := 0, "HRESULT")
         return IFsrmCommittableCollection(quotaTemplates)
+    }
+
+    Query(iid) {
+        if (IFsrmQuotaTemplateManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateTemplate := CallbackCreate(GetMethod(implObj, "CreateTemplate"), flags, 2)
+        this.vtbl.GetTemplate := CallbackCreate(GetMethod(implObj, "GetTemplate"), flags, 3)
+        this.vtbl.EnumTemplates := CallbackCreate(GetMethod(implObj, "EnumTemplates"), flags, 3)
+        this.vtbl.ExportTemplates := CallbackCreate(GetMethod(implObj, "ExportTemplates"), flags, 3)
+        this.vtbl.ImportTemplates := CallbackCreate(GetMethod(implObj, "ImportTemplates"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateTemplate)
+        CallbackFree(this.vtbl.GetTemplate)
+        CallbackFree(this.vtbl.EnumTemplates)
+        CallbackFree(this.vtbl.ExportTemplates)
+        CallbackFree(this.vtbl.ImportTemplates)
     }
 }

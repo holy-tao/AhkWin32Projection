@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the collection mode for drawn ink-whether ink collection is disabled, ink is collected, or ink and gestures are collected.
  * @see https://learn.microsoft.com/windows/win32/api/inked/ne-inked-inkmode
  * @namespace Windows.Win32.UI.TabletPC
  */
-class InkMode extends Win32Enum {
+export default struct InkMode {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Ink collection is disabled. No strokes are created when in this mode.

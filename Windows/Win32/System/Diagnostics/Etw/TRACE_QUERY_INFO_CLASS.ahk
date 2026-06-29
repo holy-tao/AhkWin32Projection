@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used with EnumerateTraceGuidsEx and TraceSetInformation to specify a type of trace information.
@@ -11,7 +10,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ne-evntrace-trace_query_info_class
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class TRACE_QUERY_INFO_CLASS extends Win32Enum {
+export default struct TRACE_QUERY_INFO_CLASS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Query for an array of GUIDs of the providers that are registered on the

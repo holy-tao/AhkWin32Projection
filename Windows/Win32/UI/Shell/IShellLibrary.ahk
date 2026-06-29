@@ -1,9 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IShellItem.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DEFAULTSAVEFOLDERTYPE.ahk" { DEFAULTSAVEFOLDERTYPE }
+#Import ".\LIBRARYOPTIONFLAGS.ahk" { LIBRARYOPTIONFLAGS }
+#Import ".\LIBRARYFOLDERFILTER.ahk" { LIBRARYFOLDERFILTER }
+#Import ".\LIBRARYSAVEFLAGS.ahk" { LIBRARYSAVEFLAGS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IShellItem.ahk" { IShellItem }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods for creating and managing libraries.
@@ -119,32 +124,55 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishelllibrary
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellLibrary extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IShellLibrary extends IUnknown {
     /**
      * The interface identifier for IShellLibrary
      * @type {Guid}
      */
-    static IID => Guid("{11a66efa-382e-451a-9234-1e0e12ef3085}")
+    static IID := Guid("{11a66efa-382e-451a-9234-1e0e12ef3085}")
 
     /**
      * The class identifier for ShellLibrary
      * @type {Guid}
      */
-    static CLSID => Guid("{d9b3211d-e57f-4426-aaef-30a806add397}")
+    static CLSID := Guid("{d9b3211d-e57f-4426-aaef-30a806add397}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellLibrary interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        LoadLibraryFromItem        : IntPtr
+        LoadLibraryFromKnownFolder : IntPtr
+        AddFolder                  : IntPtr
+        RemoveFolder               : IntPtr
+        GetFolders                 : IntPtr
+        ResolveFolder              : IntPtr
+        GetDefaultSaveFolder       : IntPtr
+        SetDefaultSaveFolder       : IntPtr
+        GetOptions                 : IntPtr
+        SetOptions                 : IntPtr
+        GetFolderType              : IntPtr
+        SetFolderType              : IntPtr
+        GetIcon                    : IntPtr
+        SetIcon                    : IntPtr
+        Commit                     : IntPtr
+        Save                       : IntPtr
+        SaveInKnownFolder          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["LoadLibraryFromItem", "LoadLibraryFromKnownFolder", "AddFolder", "RemoveFolder", "GetFolders", "ResolveFolder", "GetDefaultSaveFolder", "SetDefaultSaveFolder", "GetOptions", "SetOptions", "GetFolderType", "SetFolderType", "GetIcon", "SetIcon", "Commit", "Save", "SaveInKnownFolder"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellLibrary.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Loads the library from a specified library definition file.
@@ -186,7 +214,7 @@ class IShellLibrary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-loadlibraryfromknownfolder
      */
     LoadLibraryFromKnownFolder(kfidLibrary, grfMode) {
-        result := ComCall(4, this, "ptr", kfidLibrary, "uint", grfMode, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, kfidLibrary, "uint", grfMode, "HRESULT")
         return result
     }
 
@@ -244,7 +272,7 @@ class IShellLibrary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-getfolders
      */
     GetFolders(lff, riid) {
-        result := ComCall(7, this, "int", lff, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(7, this, LIBRARYFOLDERFILTER, lff, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -273,7 +301,7 @@ class IShellLibrary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-resolvefolder
      */
     ResolveFolder(psiFolderToResolve, dwTimeout, riid) {
-        result := ComCall(8, this, "ptr", psiFolderToResolve, "uint", dwTimeout, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", psiFolderToResolve, "uint", dwTimeout, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -293,7 +321,7 @@ class IShellLibrary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-getdefaultsavefolder
      */
     GetDefaultSaveFolder(dsft, riid) {
-        result := ComCall(9, this, "int", dsft, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(9, this, DEFAULTSAVEFOLDERTYPE, dsft, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -315,7 +343,7 @@ class IShellLibrary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-setdefaultsavefolder
      */
     SetDefaultSaveFolder(dsft, psi) {
-        result := ComCall(10, this, "int", dsft, "ptr", psi, "HRESULT")
+        result := ComCall(10, this, DEFAULTSAVEFOLDERTYPE, dsft, "ptr", psi, "HRESULT")
         return result
     }
 
@@ -349,7 +377,7 @@ class IShellLibrary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-setoptions
      */
     SetOptions(lofMask, lofOptions) {
-        result := ComCall(12, this, "int", lofMask, "int", lofOptions, "HRESULT")
+        result := ComCall(12, this, LIBRARYOPTIONFLAGS, lofMask, LIBRARYOPTIONFLAGS, lofOptions, "HRESULT")
         return result
     }
 
@@ -367,7 +395,7 @@ class IShellLibrary extends IUnknown {
      */
     GetFolderType() {
         pftid := Guid()
-        result := ComCall(13, this, "ptr", pftid, "HRESULT")
+        result := ComCall(13, this, Guid.Ptr, pftid, "HRESULT")
         return pftid
     }
 
@@ -384,7 +412,7 @@ class IShellLibrary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-setfoldertype
      */
     SetFolderType(ftid) {
-        result := ComCall(14, this, "ptr", ftid, "HRESULT")
+        result := ComCall(14, this, Guid.Ptr, ftid, "HRESULT")
         return result
     }
 
@@ -417,7 +445,7 @@ class IShellLibrary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllibrary-geticon
      */
     GetIcon() {
-        result := ComCall(15, this, "ptr*", &ppszIcon := 0, "HRESULT")
+        result := ComCall(15, this, PWSTR.Ptr, &ppszIcon := 0, "HRESULT")
         return ppszIcon
     }
 
@@ -503,7 +531,7 @@ class IShellLibrary extends IUnknown {
     Save(psiFolderToSaveIn, pszLibraryName, lsf) {
         pszLibraryName := pszLibraryName is String ? StrPtr(pszLibraryName) : pszLibraryName
 
-        result := ComCall(18, this, "ptr", psiFolderToSaveIn, "ptr", pszLibraryName, "int", lsf, "ptr*", &ppsiSavedTo := 0, "HRESULT")
+        result := ComCall(18, this, "ptr", psiFolderToSaveIn, "ptr", pszLibraryName, LIBRARYSAVEFLAGS, lsf, "ptr*", &ppsiSavedTo := 0, "HRESULT")
         return IShellItem(ppsiSavedTo)
     }
 
@@ -535,7 +563,59 @@ class IShellLibrary extends IUnknown {
     SaveInKnownFolder(kfidToSaveIn, pszLibraryName, lsf) {
         pszLibraryName := pszLibraryName is String ? StrPtr(pszLibraryName) : pszLibraryName
 
-        result := ComCall(19, this, "ptr", kfidToSaveIn, "ptr", pszLibraryName, "int", lsf, "ptr*", &ppsiSavedTo := 0, "HRESULT")
+        result := ComCall(19, this, Guid.Ptr, kfidToSaveIn, "ptr", pszLibraryName, LIBRARYSAVEFLAGS, lsf, "ptr*", &ppsiSavedTo := 0, "HRESULT")
         return IShellItem(ppsiSavedTo)
+    }
+
+    Query(iid) {
+        if (IShellLibrary.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.LoadLibraryFromItem := CallbackCreate(GetMethod(implObj, "LoadLibraryFromItem"), flags, 3)
+        this.vtbl.LoadLibraryFromKnownFolder := CallbackCreate(GetMethod(implObj, "LoadLibraryFromKnownFolder"), flags, 3)
+        this.vtbl.AddFolder := CallbackCreate(GetMethod(implObj, "AddFolder"), flags, 2)
+        this.vtbl.RemoveFolder := CallbackCreate(GetMethod(implObj, "RemoveFolder"), flags, 2)
+        this.vtbl.GetFolders := CallbackCreate(GetMethod(implObj, "GetFolders"), flags, 4)
+        this.vtbl.ResolveFolder := CallbackCreate(GetMethod(implObj, "ResolveFolder"), flags, 5)
+        this.vtbl.GetDefaultSaveFolder := CallbackCreate(GetMethod(implObj, "GetDefaultSaveFolder"), flags, 4)
+        this.vtbl.SetDefaultSaveFolder := CallbackCreate(GetMethod(implObj, "SetDefaultSaveFolder"), flags, 3)
+        this.vtbl.GetOptions := CallbackCreate(GetMethod(implObj, "GetOptions"), flags, 2)
+        this.vtbl.SetOptions := CallbackCreate(GetMethod(implObj, "SetOptions"), flags, 3)
+        this.vtbl.GetFolderType := CallbackCreate(GetMethod(implObj, "GetFolderType"), flags, 2)
+        this.vtbl.SetFolderType := CallbackCreate(GetMethod(implObj, "SetFolderType"), flags, 2)
+        this.vtbl.GetIcon := CallbackCreate(GetMethod(implObj, "GetIcon"), flags, 2)
+        this.vtbl.SetIcon := CallbackCreate(GetMethod(implObj, "SetIcon"), flags, 2)
+        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 1)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 5)
+        this.vtbl.SaveInKnownFolder := CallbackCreate(GetMethod(implObj, "SaveInKnownFolder"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.LoadLibraryFromItem)
+        CallbackFree(this.vtbl.LoadLibraryFromKnownFolder)
+        CallbackFree(this.vtbl.AddFolder)
+        CallbackFree(this.vtbl.RemoveFolder)
+        CallbackFree(this.vtbl.GetFolders)
+        CallbackFree(this.vtbl.ResolveFolder)
+        CallbackFree(this.vtbl.GetDefaultSaveFolder)
+        CallbackFree(this.vtbl.SetDefaultSaveFolder)
+        CallbackFree(this.vtbl.GetOptions)
+        CallbackFree(this.vtbl.SetOptions)
+        CallbackFree(this.vtbl.GetFolderType)
+        CallbackFree(this.vtbl.SetFolderType)
+        CallbackFree(this.vtbl.GetIcon)
+        CallbackFree(this.vtbl.SetIcon)
+        CallbackFree(this.vtbl.Commit)
+        CallbackFree(this.vtbl.Save)
+        CallbackFree(this.vtbl.SaveInKnownFolder)
     }
 }

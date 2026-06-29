@@ -1,36 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IVdsOpenVDisk.ahk
-#Include .\VDS_VDISK_PROPERTIES.ahk
-#Include .\IVdsVolume.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Vhd\VIRTUAL_DISK_ACCESS_MASK.ahk" { VIRTUAL_DISK_ACCESS_MASK }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IVdsOpenVDisk.ahk" { IVdsOpenVDisk }
+#Import ".\IVdsVolume.ahk" { IVdsVolume }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Vhd\OPEN_VIRTUAL_DISK_FLAG.ahk" { OPEN_VIRTUAL_DISK_FLAG }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\VDS_VDISK_PROPERTIES.ahk" { VDS_VDISK_PROPERTIES }
 
 /**
  * Defines methods for managing a virtual disk. (IVdsVDisk)
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsvdisk
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsVDisk extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsVDisk extends IUnknown {
     /**
      * The interface identifier for IVdsVDisk
      * @type {Guid}
      */
-    static IID => Guid("{1e062b84-e5e6-4b4b-8a25-67b81e8f13e8}")
+    static IID := Guid("{1e062b84-e5e6-4b4b-8a25-67b81e8f13e8}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsVDisk interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Open          : IntPtr
+        GetProperties : IntPtr
+        GetHostVolume : IntPtr
+        GetDeviceName : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Open", "GetProperties", "GetHostVolume", "GetDeviceName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsVDisk.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Opens a handle to the specified virtual disk file and returns an IVdsOpenVDisk interface pointer to the object that represents the opened handle.
@@ -45,7 +59,7 @@ class IVdsVDisk extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvdisk-open
      */
     Open(AccessMask, Flags, ReadWriteDepth) {
-        result := ComCall(3, this, "int", AccessMask, "int", Flags, "uint", ReadWriteDepth, "ptr*", &ppOpenVDisk := 0, "HRESULT")
+        result := ComCall(3, this, VIRTUAL_DISK_ACCESS_MASK, AccessMask, OPEN_VIRTUAL_DISK_FLAG, Flags, "uint", ReadWriteDepth, "ptr*", &ppOpenVDisk := 0, "HRESULT")
         return IVdsOpenVDisk(ppOpenVDisk)
     }
 
@@ -56,7 +70,7 @@ class IVdsVDisk extends IUnknown {
      */
     GetProperties() {
         pDiskProperties := VDS_VDISK_PROPERTIES()
-        result := ComCall(4, this, "ptr", pDiskProperties, "HRESULT")
+        result := ComCall(4, this, VDS_VDISK_PROPERTIES.Ptr, pDiskProperties, "HRESULT")
         return pDiskProperties
     }
 
@@ -76,7 +90,33 @@ class IVdsVDisk extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvdisk-getdevicename
      */
     GetDeviceName() {
-        result := ComCall(6, this, "ptr*", &ppDeviceName := 0, "HRESULT")
+        result := ComCall(6, this, PWSTR.Ptr, &ppDeviceName := 0, "HRESULT")
         return ppDeviceName
+    }
+
+    Query(iid) {
+        if (IVdsVDisk.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 5)
+        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetHostVolume := CallbackCreate(GetMethod(implObj, "GetHostVolume"), flags, 2)
+        this.vtbl.GetDeviceName := CallbackCreate(GetMethod(implObj, "GetDeviceName"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Open)
+        CallbackFree(this.vtbl.GetProperties)
+        CallbackFree(this.vtbl.GetHostVolume)
+        CallbackFree(this.vtbl.GetDeviceName)
     }
 }

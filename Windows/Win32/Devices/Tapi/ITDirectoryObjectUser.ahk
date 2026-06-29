@@ -1,34 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The ITDirectoryObjectUser interface is the common interface supported by the User object. This interface is created by calling QueryInterface on ITDirectoryObject.
  * @see https://learn.microsoft.com/windows/win32/api/rend/nn-rend-itdirectoryobjectuser
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITDirectoryObjectUser extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITDirectoryObjectUser extends IDispatch {
     /**
      * The interface identifier for ITDirectoryObjectUser
      * @type {Guid}
      */
-    static IID => Guid("{34621d6f-6cff-11d1-aff7-00c04fc31fee}")
+    static IID := Guid("{34621d6f-6cff-11d1-aff7-00c04fc31fee}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITDirectoryObjectUser interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_IPPhonePrimary : IntPtr
+        put_IPPhonePrimary : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_IPPhonePrimary", "put_IPPhonePrimary"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITDirectoryObjectUser.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -47,8 +56,8 @@ class ITDirectoryObjectUser extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectuser-get_ipphoneprimary
      */
     get_IPPhonePrimary() {
-        ppName := BSTR()
-        result := ComCall(7, this, "ptr", ppName, "HRESULT")
+        ppName := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, ppName, "HRESULT")
         return ppName
     }
 
@@ -100,7 +109,29 @@ class ITDirectoryObjectUser extends IDispatch {
     put_IPPhonePrimary(pName) {
         pName := pName is String ? BSTR.Alloc(pName).Value : pName
 
-        result := ComCall(8, this, "ptr", pName, "HRESULT")
+        result := ComCall(8, this, BSTR, pName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITDirectoryObjectUser.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_IPPhonePrimary := CallbackCreate(GetMethod(implObj, "get_IPPhonePrimary"), flags, 2)
+        this.vtbl.put_IPPhonePrimary := CallbackCreate(GetMethod(implObj, "put_IPPhonePrimary"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_IPPhonePrimary)
+        CallbackFree(this.vtbl.put_IPPhonePrimary)
     }
 }

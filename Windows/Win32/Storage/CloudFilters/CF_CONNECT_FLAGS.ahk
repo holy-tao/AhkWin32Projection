@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Additional information that can be requested by a sync provider when its callbacks are invoked.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_connect_flags
  * @namespace Windows.Win32.Storage.CloudFilters
  */
-class CF_CONNECT_FLAGS extends Win32BitflagEnum {
+export default struct CF_CONNECT_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No connection flags.

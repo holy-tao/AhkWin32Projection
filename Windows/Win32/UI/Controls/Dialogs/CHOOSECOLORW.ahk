@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HWND.ahk
-#Include .\CHOOSECOLOR_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\CHOOSECOLOR_FLAGS.ahk" { CHOOSECOLOR_FLAGS }
+#Import "..\..\..\Foundation\COLORREF.ahk" { COLORREF }
 
 /**
  * The CHOOSECOLORW (Unicode) structure (commdlg.h) contains information the ChooseColor function uses to initialize the Color dialog box.
@@ -10,71 +12,43 @@
  * @charset Unicode
  * @architecture X64, Arm64
  */
-class CHOOSECOLORW extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct CHOOSECOLORW {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The length, in bytes, of the structure.
-     * @type {Integer}
      */
-    lStructSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    lStructSize : UInt32
 
     /**
      * Type: <b>HWND</b>
      * 
      * A handle to the window that owns the dialog box. This member can be any valid window handle, or it can be <b>NULL</b> if the dialog box has no owner.
-     * @type {HWND}
      */
-    hwndOwner {
-        get {
-            if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(8, this)
-            return this.__hwndOwner
-        }
-    }
+    hwndOwner : HWND
 
     /**
      * Type: <b>HWND</b>
      * 
      * If the <b>CC_ENABLETEMPLATEHANDLE</b> flag is set in the <b>Flags</b> member, <b>hInstance</b> is a handle to a memory object containing a dialog box template. If the <b>CC_ENABLETEMPLATE</b> flag is set, <b>hInstance</b> is a handle to a module that contains a dialog box template named by the <b>lpTemplateName</b> member. If neither <b>CC_ENABLETEMPLATEHANDLE</b> nor <b>CC_ENABLETEMPLATE</b> is set, this member is ignored.
-     * @type {HWND}
      */
-    hInstance {
-        get {
-            if(!this.HasProp("__hInstance"))
-                this.__hInstance := HWND(16, this)
-            return this.__hInstance
-        }
-    }
+    hInstance : HWND
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * If the <b>CC_RGBINIT</b> flag is set, <b>rgbResult</b> specifies the color initially selected when the dialog box is created. If the specified color value is not among the available colors, the system selects the nearest solid color available. If <b>rgbResult</b> is zero or <b>CC_RGBINIT</b> is not set, the initially selected color is black. If the user clicks the <b>OK</b> button, <b>rgbResult</b> specifies the user's color selection. To create a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> color value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
-     * @type {COLORREF}
      */
-    rgbResult {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    rgbResult : COLORREF
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a>*</b>
      * 
      * A pointer to an array of 16  values that contain red, green, blue (RGB) values for the custom color boxes in the dialog box. If the user modifies these colors, the system updates the array with the new RGB values. To preserve new custom colors between calls to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms646912(v=vs.85)">ChooseColor</a> function, you should allocate static memory for the array. To create a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> color value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
-     * @type {Pointer<COLORREF>}
      */
-    lpCustColors {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpCustColors : COLORREF.Ptr
 
     /**
      * Type: <b>DWORD</b>
@@ -186,43 +160,28 @@ class CHOOSECOLORW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {CHOOSECOLOR_FLAGS}
      */
-    Flags {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    Flags : CHOOSECOLOR_FLAGS
 
     /**
      * Type: <b>LPARAM</b>
      * 
      * Application-defined data that the system passes to the hook procedure identified by the <b>lpfnHook</b> member. When the system sends the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/wm-initdialog">WM_INITDIALOG</a> message to the hook procedure, the message's <i>lParam</i> parameter is a pointer to the <b>CHOOSECOLOR</b> structure specified when the dialog was created. The hook procedure can use this pointer to get the <b>lCustData</b> value.
-     * @type {LPARAM}
      */
-    lCustData {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    lCustData : LPARAM
 
     /**
      * Type: <b>LPCCHOOKPROC</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nc-commdlg-lpcchookproc">CCHookProc</a> hook procedure that can process messages intended for the dialog box. This member is ignored unless the <b>CC_ENABLEHOOK</b> flag is set in the <b>Flags</b> member.
-     * @type {Pointer<LPCCHOOKPROC>}
      */
-    lpfnHook {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    lpfnHook : IntPtr
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * The name of the dialog box template resource in the module identified by the <b>hInstance</b> member. This template is substituted for the standard dialog box template. For numbered dialog box resources, <b>lpTemplateName</b> can be a value returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. This member is ignored unless the <b>CC_ENABLETEMPLATE</b> flag is set in the <b>Flags</b> member.
-     * @type {PWSTR}
      */
-    lpTemplateName {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    lpTemplateName : PWSTR
+
 }

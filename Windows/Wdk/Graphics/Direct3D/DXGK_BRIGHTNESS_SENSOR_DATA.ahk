@@ -1,38 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class DXGK_BRIGHTNESS_SENSOR_DATA extends Win32Struct {
-    static sizeof => 32
+export default struct DXGK_BRIGHTNESS_SENSOR_DATA {
+    #StructPack 8
 
-    static packingSize => 8
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    class _Flags extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
+    struct _Flags {
         /**
          * This bitfield backs the following members:
          * - AlsReadingValid
          * - ChromaticityValid
          * - ColorTemperatureValid
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -59,46 +43,18 @@ class DXGK_BRIGHTNESS_SENSOR_DATA extends Win32Struct {
         }
     }
 
-    /**
-     * @type {_Flags}
-     */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := DXGK_BRIGHTNESS_SENSOR_DATA._Flags(4, this)
-            return this.__Flags
-        }
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ValidSensorValues {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : DXGK_BRIGHTNESS_SENSOR_DATA._Flags
 
-    /**
-     * @type {Float}
-     */
-    AlsReading {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    AlsReading : Float32
 
-    /**
-     * @type {Pointer}
-     */
-    Chromaticity {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Chromaticity : IntPtr
 
-    /**
-     * @type {Float}
-     */
-    ColorTemperature {
-        get => NumGet(this, 24, "float")
-        set => NumPut("float", value, this, 24)
+    ColorTemperature : Float32
+
+    static __New() {
+        DefineProp(this.Prototype, 'ValidSensorValues', { type: UInt32, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

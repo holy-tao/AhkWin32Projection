@@ -1,34 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IPersist.ahk
-#Include ..\IReferenceClock.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\IReferenceClock.ahk" { IReferenceClock }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IPersist.ahk" { IPersist }
+#Import ".\FILTER_STATE.ahk" { FILTER_STATE }
 
 /**
  * The IMediaFilter interface controls the streaming state of a filter.All DirectShow filters implement this interface.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-imediafilter
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IMediaFilter extends IPersist {
-
-    static sizeof => A_PtrSize
+export default struct IMediaFilter extends IPersist {
     /**
      * The interface identifier for IMediaFilter
      * @type {Guid}
      */
-    static IID => Guid("{56a86899-0ad4-11ce-b03a-0020af0ba770}")
+    static IID := Guid("{56a86899-0ad4-11ce-b03a-0020af0ba770}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMediaFilter interfaces
+    */
+    struct Vtbl extends IPersist.Vtbl {
+        Stop          : IntPtr
+        Pause         : IntPtr
+        Run           : IntPtr
+        GetState      : IntPtr
+        SetSyncSource : IntPtr
+        GetSyncSource : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Stop", "Pause", "Run", "GetState", "SetSyncSource", "GetSyncSource"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMediaFilter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Stop method stops the filter.
@@ -226,5 +240,35 @@ class IMediaFilter extends IPersist {
     GetSyncSource() {
         result := ComCall(9, this, "ptr*", &pClock := 0, "HRESULT")
         return IReferenceClock(pClock)
+    }
+
+    Query(iid) {
+        if (IMediaFilter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Run := CallbackCreate(GetMethod(implObj, "Run"), flags, 2)
+        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 3)
+        this.vtbl.SetSyncSource := CallbackCreate(GetMethod(implObj, "SetSyncSource"), flags, 2)
+        this.vtbl.GetSyncSource := CallbackCreate(GetMethod(implObj, "GetSyncSource"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.Pause)
+        CallbackFree(this.vtbl.Run)
+        CallbackFree(this.vtbl.GetState)
+        CallbackFree(this.vtbl.SetSyncSource)
+        CallbackFree(this.vtbl.GetSyncSource)
     }
 }

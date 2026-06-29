@@ -1,22 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains the identification number of a connection.
  * @see https://learn.microsoft.com/windows/win32/api/lmshare/ns-lmshare-connection_info_0
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class CONNECTION_INFO_0 extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct CONNECTION_INFO_0 {
+    #StructPack 4
 
     /**
      * Specifies a connection identification number.
-     * @type {Integer}
      */
-    coni0_id {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    coni0_id : UInt32
+
 }

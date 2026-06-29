@@ -1,59 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Wmi
  */
-class WBEM_COMPILE_STATUS_INFO extends Win32Struct {
-    static sizeof => 24
+export default struct WBEM_COMPILE_STATUS_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    lPhaseError : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lPhaseError {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    hRes : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    hRes {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    ObjectNum : Int32
 
-    /**
-     * @type {Integer}
-     */
-    ObjectNum {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    FirstLine : Int32
 
-    /**
-     * @type {Integer}
-     */
-    FirstLine {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    LastLine : Int32
 
-    /**
-     * @type {Integer}
-     */
-    LastLine {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    dwOutFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwOutFlags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

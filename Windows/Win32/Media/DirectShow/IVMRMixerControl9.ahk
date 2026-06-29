@@ -1,8 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VMR9NormalizedRect.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VMR9ProcAmpControl.ahk" { VMR9ProcAmpControl }
+#Import ".\VMR9ProcAmpControlRange.ahk" { VMR9ProcAmpControlRange }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\VMR9NormalizedRect.ahk" { VMR9NormalizedRect }
 
 /**
  * The IVMRMixerControl9 interface enables an application to manipulate the incoming video streams on the Video Mixing Renderer Filter 9 (VMR-9). This interface is intended for use by applications only; it should not be used by upstream filters.
@@ -13,26 +17,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/nn-vmr9-ivmrmixercontrol9
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IVMRMixerControl9 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVMRMixerControl9 extends IUnknown {
     /**
      * The interface identifier for IVMRMixerControl9
      * @type {Guid}
      */
-    static IID => Guid("{1a777eaa-47c8-4930-b2c9-8fee1c1b0f3b}")
+    static IID := Guid("{1a777eaa-47c8-4930-b2c9-8fee1c1b0f3b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVMRMixerControl9 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetAlpha               : IntPtr
+        GetAlpha               : IntPtr
+        SetZOrder              : IntPtr
+        GetZOrder              : IntPtr
+        SetOutputRect          : IntPtr
+        GetOutputRect          : IntPtr
+        SetBackgroundClr       : IntPtr
+        GetBackgroundClr       : IntPtr
+        SetMixingPrefs         : IntPtr
+        GetMixingPrefs         : IntPtr
+        SetProcAmpControl      : IntPtr
+        GetProcAmpControl      : IntPtr
+        GetProcAmpControlRange : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetAlpha", "GetAlpha", "SetZOrder", "GetZOrder", "SetOutputRect", "GetOutputRect", "SetBackgroundClr", "GetBackgroundClr", "SetMixingPrefs", "GetMixingPrefs", "SetProcAmpControl", "GetProcAmpControl", "GetProcAmpControlRange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVMRMixerControl9.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetAlpha method sets a constant alpha value that is applied to this video stream.
@@ -202,7 +225,7 @@ class IVMRMixerControl9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmixercontrol9-setoutputrect
      */
     SetOutputRect(dwStreamID, pRect) {
-        result := ComCall(7, this, "uint", dwStreamID, "ptr", pRect, "HRESULT")
+        result := ComCall(7, this, "uint", dwStreamID, VMR9NormalizedRect.Ptr, pRect, "HRESULT")
         return result
     }
 
@@ -218,7 +241,7 @@ class IVMRMixerControl9 extends IUnknown {
      */
     GetOutputRect(dwStreamID) {
         pRect := VMR9NormalizedRect()
-        result := ComCall(8, this, "uint", dwStreamID, "ptr", pRect, "HRESULT")
+        result := ComCall(8, this, "uint", dwStreamID, VMR9NormalizedRect.Ptr, pRect, "HRESULT")
         return pRect
     }
 
@@ -249,7 +272,7 @@ class IVMRMixerControl9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmixercontrol9-setbackgroundclr
      */
     SetBackgroundClr(ClrBkg) {
-        result := ComCall(9, this, "uint", ClrBkg, "HRESULT")
+        result := ComCall(9, this, COLORREF, ClrBkg, "HRESULT")
         return result
     }
 
@@ -435,7 +458,7 @@ class IVMRMixerControl9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmixercontrol9-setprocampcontrol
      */
     SetProcAmpControl(dwStreamID, lpClrControl) {
-        result := ComCall(13, this, "uint", dwStreamID, "ptr", lpClrControl, "HRESULT")
+        result := ComCall(13, this, "uint", dwStreamID, VMR9ProcAmpControl.Ptr, lpClrControl, "HRESULT")
         return result
     }
 
@@ -515,7 +538,7 @@ class IVMRMixerControl9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmixercontrol9-getprocampcontrol
      */
     GetProcAmpControl(dwStreamID, lpClrControl) {
-        result := ComCall(14, this, "uint", dwStreamID, "ptr", lpClrControl, "HRESULT")
+        result := ComCall(14, this, "uint", dwStreamID, VMR9ProcAmpControl.Ptr, lpClrControl, "HRESULT")
         return result
     }
 
@@ -595,7 +618,51 @@ class IVMRMixerControl9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmixercontrol9-getprocampcontrolrange
      */
     GetProcAmpControlRange(dwStreamID, lpClrControl) {
-        result := ComCall(15, this, "uint", dwStreamID, "ptr", lpClrControl, "HRESULT")
+        result := ComCall(15, this, "uint", dwStreamID, VMR9ProcAmpControlRange.Ptr, lpClrControl, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVMRMixerControl9.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetAlpha := CallbackCreate(GetMethod(implObj, "SetAlpha"), flags, 3)
+        this.vtbl.GetAlpha := CallbackCreate(GetMethod(implObj, "GetAlpha"), flags, 3)
+        this.vtbl.SetZOrder := CallbackCreate(GetMethod(implObj, "SetZOrder"), flags, 3)
+        this.vtbl.GetZOrder := CallbackCreate(GetMethod(implObj, "GetZOrder"), flags, 3)
+        this.vtbl.SetOutputRect := CallbackCreate(GetMethod(implObj, "SetOutputRect"), flags, 3)
+        this.vtbl.GetOutputRect := CallbackCreate(GetMethod(implObj, "GetOutputRect"), flags, 3)
+        this.vtbl.SetBackgroundClr := CallbackCreate(GetMethod(implObj, "SetBackgroundClr"), flags, 2)
+        this.vtbl.GetBackgroundClr := CallbackCreate(GetMethod(implObj, "GetBackgroundClr"), flags, 2)
+        this.vtbl.SetMixingPrefs := CallbackCreate(GetMethod(implObj, "SetMixingPrefs"), flags, 2)
+        this.vtbl.GetMixingPrefs := CallbackCreate(GetMethod(implObj, "GetMixingPrefs"), flags, 2)
+        this.vtbl.SetProcAmpControl := CallbackCreate(GetMethod(implObj, "SetProcAmpControl"), flags, 3)
+        this.vtbl.GetProcAmpControl := CallbackCreate(GetMethod(implObj, "GetProcAmpControl"), flags, 3)
+        this.vtbl.GetProcAmpControlRange := CallbackCreate(GetMethod(implObj, "GetProcAmpControlRange"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetAlpha)
+        CallbackFree(this.vtbl.GetAlpha)
+        CallbackFree(this.vtbl.SetZOrder)
+        CallbackFree(this.vtbl.GetZOrder)
+        CallbackFree(this.vtbl.SetOutputRect)
+        CallbackFree(this.vtbl.GetOutputRect)
+        CallbackFree(this.vtbl.SetBackgroundClr)
+        CallbackFree(this.vtbl.GetBackgroundClr)
+        CallbackFree(this.vtbl.SetMixingPrefs)
+        CallbackFree(this.vtbl.GetMixingPrefs)
+        CallbackFree(this.vtbl.SetProcAmpControl)
+        CallbackFree(this.vtbl.GetProcAmpControl)
+        CallbackFree(this.vtbl.GetProcAmpControlRange)
     }
 }

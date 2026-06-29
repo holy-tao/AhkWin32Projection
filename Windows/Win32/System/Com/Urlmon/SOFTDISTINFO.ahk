@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Contains information about a software update.
@@ -8,152 +8,94 @@
  * @see https://learn.microsoft.com/windows/win32/api/urlmon/ns-urlmon-softdistinfo
  * @namespace Windows.Win32.System.Com.Urlmon
  */
-class SOFTDISTINFO extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct SOFTDISTINFO {
+    #StructPack 8
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The size of the structure, in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : UInt32
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
      */
-    dwAdState {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwAdState : UInt32
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A string that contains the contents of the TITLE flag from the associated .cdf file.
-     * @type {PWSTR}
      */
-    szTitle {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    szTitle : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A string that contains the contents of the ABSTRACT flag from the associated .cdf file.
-     * @type {PWSTR}
      */
-    szAbstract {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    szAbstract : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A string that contains the URL of the webpage to advertise or install the update.
-     * @type {PWSTR}
      */
-    szHREF {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    szHREF : PWSTR
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The most-significant unsigned long integer value of the installed version number.
-     * @type {Integer}
      */
-    dwInstalledVersionMS {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwInstalledVersionMS : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The least-significant unsigned long integer value of the installed version number.
-     * @type {Integer}
      */
-    dwInstalledVersionLS {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    dwInstalledVersionLS : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The most-significant unsigned long integer value of the update version number.
-     * @type {Integer}
      */
-    dwUpdateVersionMS {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwUpdateVersionMS : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The least-significant unsigned long integer value of the update version number.
-     * @type {Integer}
      */
-    dwUpdateVersionLS {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwUpdateVersionLS : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The most-significant unsigned long integer value of the advertised version number.
-     * @type {Integer}
      */
-    dwAdvertisedVersionMS {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    dwAdvertisedVersionMS : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The least-significant unsigned long integer value of the advertised version number.
-     * @type {Integer}
      */
-    dwAdvertisedVersionLS {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    dwAdvertisedVersionLS : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Reserved. Must be set to zero.
-     * @type {Integer}
      */
-    dwReserved {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    dwReserved : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 72
-    }
 }

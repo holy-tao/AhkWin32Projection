@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains raw data in the form of a blob that is used by some Native Wifi functions.
@@ -28,29 +27,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_raw_data
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WLAN_RAW_DATA extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct WLAN_RAW_DATA {
+    #StructPack 4
 
     /**
      * The size, in bytes, of the <b>DataBlob</b> member. The maximum value of the <b>dwDataSize</b> may be restricted by type of data that is stored in the <b>WLAN_RAW_DATA</b> structure.
-     * @type {Integer}
      */
-    dwDataSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwDataSize : UInt32
 
     /**
      * The data blob.
-     * @type {Array<Integer>}
      */
-    DataBlob {
-        get {
-            if(!this.HasProp("__DataBlobProxyArray"))
-                this.__DataBlobProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
-            return this.__DataBlobProxyArray
-        }
-    }
+    DataBlob : Int8[1]
+
 }

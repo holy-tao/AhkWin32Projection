@@ -1,51 +1,70 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\Views.ahk
-#Include .\SnapIns.ahk
-#Include .\View.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\Node.ahk
-#Include .\ScopeNamespace.ahk
-#Include .\Properties.ahk
-#Include .\_Application.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ScopeNamespace.ahk" { ScopeNamespace }
+#Import ".\_DocumentMode.ahk" { _DocumentMode }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\View.ahk" { View }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SnapIns.ahk" { SnapIns }
+#Import ".\Views.ahk" { Views }
+#Import ".\Properties.ahk" { Properties }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\Node.ahk" { Node }
+#Import ".\_Application.ahk" { _Application }
 
 /**
- * Specifies any additional documentation for the task.
- * @remarks
- * For scripting applications, additional task documentation is specified using the using the [**RegistrationInfo.Documentation**](registrationinfo-documentation.md) property.
- * 
- * For C++ applications, additional task documentation is specified using the using the [**IRegistrationInfo::Documentation**](/windows/desktop/api/taskschd/nf-taskschd-iregistrationinfo-get_documentation) property.
- * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-documentation-registrationinfotype-element
  * @namespace Windows.Win32.System.Mmc
  */
-class Document extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct Document extends IDispatch {
     /**
      * The interface identifier for Document
      * @type {Guid}
      */
-    static IID => Guid("{225120d6-1e0f-40a3-93fe-1079e6a8017b}")
+    static IID := Guid("{225120d6-1e0f-40a3-93fe-1079e6a8017b}")
 
     /**
      * The class identifier for Document
      * @type {Guid}
      */
-    static CLSID => Guid("{225120d6-1e0f-40a3-93fe-1079e6a8017b}")
+    static CLSID := Guid("{225120d6-1e0f-40a3-93fe-1079e6a8017b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for Document interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Save               : IntPtr
+        SaveAs             : IntPtr
+        Close              : IntPtr
+        get_Views          : IntPtr
+        get_SnapIns        : IntPtr
+        get_ActiveView     : IntPtr
+        get_Name           : IntPtr
+        put_Name           : IntPtr
+        get_Location       : IntPtr
+        get_IsSaved        : IntPtr
+        get_Mode           : IntPtr
+        put_Mode           : IntPtr
+        get_RootNode       : IntPtr
+        get_ScopeNamespace : IntPtr
+        CreateProperties   : IntPtr
+        get_Application    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Save", "SaveAs", "Close", "get_Views", "get_SnapIns", "get_ActiveView", "get_Name", "put_Name", "get_Location", "get_IsSaved", "get_Mode", "put_Mode", "get_RootNode", "get_ScopeNamespace", "CreateProperties", "get_Application"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := Document.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Views} 
@@ -120,11 +139,8 @@ class Document extends IDispatch {
     }
 
     /**
-     * The SaveBookmark method saves the current disc position and state of the MSWebDVD object so the user can return to the same place later.
-     * @remarks
-     * A bookmark is a snapshot of the DVD Navigator's current state. This includes information such as where it is playing on the disc, and which audio and subpictures streams are selected. By saving a bookmark, the user can close the application, shut down the computer, and come back later to continue viewing the disc right where he or she left off, with all settings just as they were before. Only one bookmark can be saved at any given time. When you call `SaveBookmark`, the old bookmark is overwritten.
-     * @returns {HRESULT} No return value.
-     * @see https://learn.microsoft.com/windows/win32/DirectShow/savebookmark-method
+     * 
+     * @returns {HRESULT} 
      */
     Save() {
         result := ComCall(7, this, "HRESULT")
@@ -139,24 +155,17 @@ class Document extends IDispatch {
     SaveAs(Filename) {
         Filename := Filename is String ? BSTR.Alloc(Filename).Value : Filename
 
-        result := ComCall(8, this, "ptr", Filename, "HRESULT")
+        result := ComCall(8, this, BSTR, Filename, "HRESULT")
         return result
     }
 
     /**
-     * Use the Close-Session packet to tell the BITS server that file upload is complete and to end the session.
-     * @remarks
-     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
      * 
-     * For upload-reply jobs, you must download the reply before sending **Close-Session**. Otherwise, the reply is lost.
-     * 
-     * If you send this packet before uploading all fragments, the upload file is deleted; you cannot upload a partial file.
      * @param {BOOL} SaveChanges 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Bits/close-session
      */
     Close(SaveChanges) {
-        result := ComCall(9, this, "int", SaveChanges, "HRESULT")
+        result := ComCall(9, this, BOOL, SaveChanges, "HRESULT")
         return result
     }
 
@@ -192,8 +201,8 @@ class Document extends IDispatch {
      * @returns {BSTR} 
      */
     get_Name() {
-        Name := BSTR()
-        result := ComCall(13, this, "ptr", Name, "HRESULT")
+        Name := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, Name, "HRESULT")
         return Name
     }
 
@@ -205,7 +214,7 @@ class Document extends IDispatch {
     put_Name(Name) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
 
-        result := ComCall(14, this, "ptr", Name, "HRESULT")
+        result := ComCall(14, this, BSTR, Name, "HRESULT")
         return result
     }
 
@@ -214,8 +223,8 @@ class Document extends IDispatch {
      * @returns {BSTR} 
      */
     get_Location() {
-        _Location := BSTR()
-        result := ComCall(15, this, "ptr", _Location, "HRESULT")
+        _Location := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, _Location, "HRESULT")
         return _Location
     }
 
@@ -224,7 +233,7 @@ class Document extends IDispatch {
      * @returns {BOOL} 
      */
     get_IsSaved() {
-        result := ComCall(16, this, "int*", &IsSaved := 0, "HRESULT")
+        result := ComCall(16, this, BOOL.Ptr, &IsSaved := 0, "HRESULT")
         return IsSaved
     }
 
@@ -243,7 +252,7 @@ class Document extends IDispatch {
      * @returns {HRESULT} 
      */
     put_Mode(_Mode) {
-        result := ComCall(18, this, "int", _Mode, "HRESULT")
+        result := ComCall(18, this, _DocumentMode, _Mode, "HRESULT")
         return result
     }
 
@@ -281,5 +290,55 @@ class Document extends IDispatch {
     get_Application() {
         result := ComCall(22, this, "ptr*", &_Application := 0, "HRESULT")
         return _Application(_Application)
+    }
+
+    Query(iid) {
+        if (Document.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
+        this.vtbl.SaveAs := CallbackCreate(GetMethod(implObj, "SaveAs"), flags, 2)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 2)
+        this.vtbl.get_Views := CallbackCreate(GetMethod(implObj, "get_Views"), flags, 2)
+        this.vtbl.get_SnapIns := CallbackCreate(GetMethod(implObj, "get_SnapIns"), flags, 2)
+        this.vtbl.get_ActiveView := CallbackCreate(GetMethod(implObj, "get_ActiveView"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_Location := CallbackCreate(GetMethod(implObj, "get_Location"), flags, 2)
+        this.vtbl.get_IsSaved := CallbackCreate(GetMethod(implObj, "get_IsSaved"), flags, 2)
+        this.vtbl.get_Mode := CallbackCreate(GetMethod(implObj, "get_Mode"), flags, 2)
+        this.vtbl.put_Mode := CallbackCreate(GetMethod(implObj, "put_Mode"), flags, 2)
+        this.vtbl.get_RootNode := CallbackCreate(GetMethod(implObj, "get_RootNode"), flags, 2)
+        this.vtbl.get_ScopeNamespace := CallbackCreate(GetMethod(implObj, "get_ScopeNamespace"), flags, 2)
+        this.vtbl.CreateProperties := CallbackCreate(GetMethod(implObj, "CreateProperties"), flags, 2)
+        this.vtbl.get_Application := CallbackCreate(GetMethod(implObj, "get_Application"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Save)
+        CallbackFree(this.vtbl.SaveAs)
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.get_Views)
+        CallbackFree(this.vtbl.get_SnapIns)
+        CallbackFree(this.vtbl.get_ActiveView)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.put_Name)
+        CallbackFree(this.vtbl.get_Location)
+        CallbackFree(this.vtbl.get_IsSaved)
+        CallbackFree(this.vtbl.get_Mode)
+        CallbackFree(this.vtbl.put_Mode)
+        CallbackFree(this.vtbl.get_RootNode)
+        CallbackFree(this.vtbl.get_ScopeNamespace)
+        CallbackFree(this.vtbl.CreateProperties)
+        CallbackFree(this.vtbl.get_Application)
     }
 }

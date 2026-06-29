@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\MediaFoundation\AM_MEDIA_TYPE.ahk" { AM_MEDIA_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAMVideoAccelerator.ahk" { IAMVideoAccelerator }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\WindowsMediaFormat\IWMPlayerTimestampHook.ahk" { IWMPlayerTimestampHook }
 
 /**
  * This interface is exposed by the Windows Media Decoder DMO and is called by a media player source filter to set up the various connections required to enable DirectX&#174; video acceleration (VA) for decoding of Windows Media-based video content.
  * @see https://learn.microsoft.com/windows/win32/api/wmdxva/nn-wmdxva-iwmcodecamvideoaccelerator
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IWMCodecAMVideoAccelerator extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMCodecAMVideoAccelerator extends IUnknown {
     /**
      * The interface identifier for IWMCodecAMVideoAccelerator
      * @type {Guid}
      */
-    static IID => Guid("{d98ee251-34e0-4a2d-9312-9b4c788d9fa1}")
+    static IID := Guid("{d98ee251-34e0-4a2d-9312-9b4c788d9fa1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMCodecAMVideoAccelerator interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetAcceleratorInterface : IntPtr
+        NegotiateConnection     : IntPtr
+        SetPlayerNotify         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetAcceleratorInterface", "NegotiateConnection", "SetPlayerNotify"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMCodecAMVideoAccelerator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetAcceleratorInterface method is called by the output pin on the player's source filter to pass the IAMVideoAccelerator interface on the Video Mixing Renderer (VMR) to the decoder DMO.
@@ -98,7 +111,7 @@ class IWMCodecAMVideoAccelerator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmdxva/nf-wmdxva-iwmcodecamvideoaccelerator-negotiateconnection
      */
     NegotiateConnection(pMediaType) {
-        result := ComCall(4, this, "ptr", pMediaType, "HRESULT")
+        result := ComCall(4, this, AM_MEDIA_TYPE.Ptr, pMediaType, "HRESULT")
         return result
     }
 
@@ -111,5 +124,29 @@ class IWMCodecAMVideoAccelerator extends IUnknown {
     SetPlayerNotify(pHook) {
         result := ComCall(5, this, "ptr", pHook, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMCodecAMVideoAccelerator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetAcceleratorInterface := CallbackCreate(GetMethod(implObj, "SetAcceleratorInterface"), flags, 2)
+        this.vtbl.NegotiateConnection := CallbackCreate(GetMethod(implObj, "NegotiateConnection"), flags, 2)
+        this.vtbl.SetPlayerNotify := CallbackCreate(GetMethod(implObj, "SetPlayerNotify"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetAcceleratorInterface)
+        CallbackFree(this.vtbl.NegotiateConnection)
+        CallbackFree(this.vtbl.SetPlayerNotify)
     }
 }

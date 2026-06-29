@@ -1,36 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USBUSER_REQUEST_HEADER.ahk
-#Include .\USB_USER_ERROR_CODE.ahk
-#Include .\USB_SEND_RAW_COMMAND_PARAMETERS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USB_USER_ERROR_CODE.ahk" { USB_USER_ERROR_CODE }
+#Import ".\USB_SEND_RAW_COMMAND_PARAMETERS.ahk" { USB_SEND_RAW_COMMAND_PARAMETERS }
+#Import ".\USBUSER_REQUEST_HEADER.ahk" { USBUSER_REQUEST_HEADER }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USBUSER_SEND_RAW_COMMAND extends Win32Struct {
-    static sizeof => 44
+export default struct USBUSER_SEND_RAW_COMMAND {
+    #StructPack 4
 
-    static packingSize => 4
+    Header : USBUSER_REQUEST_HEADER
 
-    /**
-     * @type {USBUSER_REQUEST_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := USBUSER_REQUEST_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    Parameters : USB_SEND_RAW_COMMAND_PARAMETERS
 
-    /**
-     * @type {USB_SEND_RAW_COMMAND_PARAMETERS}
-     */
-    Parameters {
-        get {
-            if(!this.HasProp("__Parameters"))
-                this.__Parameters := USB_SEND_RAW_COMMAND_PARAMETERS(16, this)
-            return this.__Parameters
-        }
-    }
 }

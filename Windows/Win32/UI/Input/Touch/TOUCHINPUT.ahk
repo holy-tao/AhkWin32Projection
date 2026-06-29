@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
-#Include .\TOUCHEVENTF_FLAGS.ahk
-#Include .\TOUCHINPUTMASKF_MASK.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\TOUCHEVENTF_FLAGS.ahk" { TOUCHEVENTF_FLAGS }
+#Import ".\TOUCHINPUTMASKF_MASK.ahk" { TOUCHINPUTMASKF_MASK }
 
 /**
  * Encapsulates data for touch input.
@@ -113,101 +112,57 @@
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-touchinput
  * @namespace Windows.Win32.UI.Input.Touch
  */
-class TOUCHINPUT extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct TOUCHINPUT {
+    #StructPack 8
 
     /**
      * The x-coordinate (horizontal point) of the touch input. This member is indicated in hundredths of a pixel of physical screen coordinates.
-     * @type {Integer}
      */
-    x {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    x : Int32
 
     /**
      * The y-coordinate (vertical point) of the touch input. This member is indicated in hundredths of a pixel of physical screen coordinates.
-     * @type {Integer}
      */
-    y {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    y : Int32
 
     /**
      * A device handle for the source input device.  Each device is given a unique provider at run time by the touch input provider. See **Examples** section below.
-     * @type {HANDLE}
      */
-    hSource {
-        get {
-            if(!this.HasProp("__hSource"))
-                this.__hSource := HANDLE(8, this)
-            return this.__hSource
-        }
-    }
+    hSource : HANDLE
 
     /**
      * A touch point identifier that distinguishes a particular touch input.  This value stays consistent in a touch contact sequence from the point a contact comes down until it comes back up. An ID may be reused later for subsequent contacts.
-     * @type {Integer}
      */
-    dwID {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwID : UInt32
 
     /**
      * A set of bit flags that specify various aspects of touch point press, release, and motion. The bits in this member can be any reasonable combination of the values in the Remarks section.
-     * @type {TOUCHEVENTF_FLAGS}
      */
-    dwFlags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwFlags : TOUCHEVENTF_FLAGS
 
     /**
      * A set of bit flags that specify which of the optional fields in the structure contain valid values. The availability of valid information in the optional fields is device-specific. Applications should use an optional field value only when the corresponding bit is set in <i>dwMask</i>. This field may contain a combination of the <i>dwMask</i> flags mentioned in the Remarks section.
-     * @type {TOUCHINPUTMASKF_MASK}
      */
-    dwMask {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwMask : TOUCHINPUTMASKF_MASK
 
     /**
      * The time stamp for the event, in milliseconds.  The consuming application should note that the system performs no validation on this field; when the <b>TOUCHINPUTMASKF_TIMEFROMSYSTEM</b> flag is not set, the accuracy and sequencing of values in this field are completely dependent on the touch input provider.
-     * @type {Integer}
      */
-    dwTime {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwTime : UInt32
 
     /**
      * An additional value associated with the touch event.
-     * @type {Pointer}
      */
-    dwExtraInfo {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    dwExtraInfo : IntPtr
 
     /**
      * The width of the touch contact area in hundredths of a pixel in physical screen coordinates. This value is only valid if the <b>dwMask</b> member has the <b>TOUCHEVENTFMASK_CONTACTAREA</b> flag set.
-     * @type {Integer}
      */
-    cxContact {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    cxContact : UInt32
 
     /**
      * The height of the touch contact area in hundredths of a pixel in physical screen coordinates. This value is only valid if the <b>dwMask</b> member has the <b>TOUCHEVENTFMASK_CONTACTAREA</b> flag set.
-     * @type {Integer}
      */
-    cyContact {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    cyContact : UInt32
+
 }

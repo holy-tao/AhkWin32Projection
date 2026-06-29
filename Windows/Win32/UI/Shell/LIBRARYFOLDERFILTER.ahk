@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines options for filtering folder items.
@@ -16,7 +15,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-libraryfolderfilter
  * @namespace Windows.Win32.UI.Shell
  */
-class LIBRARYFOLDERFILTER extends Win32Enum {
+export default struct LIBRARYFOLDERFILTER {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Return only file system items.

@@ -1,32 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.UI.Shell
  */
-class IBanneredBar extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBanneredBar extends IUnknown {
     /**
      * The interface identifier for IBanneredBar
      * @type {Guid}
      */
-    static IID => Guid("{596a9a94-013e-11d1-8d34-00a0c90f2719}")
+    static IID := Guid("{596a9a94-013e-11d1-8d34-00a0c90f2719}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBanneredBar interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetIconSize : IntPtr
+        GetIconSize : IntPtr
+        SetBitmap   : IntPtr
+        GetBitmap   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetIconSize", "GetIconSize", "SetBitmap", "GetBitmap"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBanneredBar.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -48,30 +59,48 @@ class IBanneredBar extends IUnknown {
     }
 
     /**
-     * The SetBitmapBits function sets the bits of color data for a bitmap to the specified values.
-     * @remarks
-     * The array identified by <i>lpBits</i> must be WORD aligned.
-     * @param {HBITMAP} _hBitmap 
-     * @returns {HRESULT} If the function succeeds, the return value is the number of bytes used in setting the bitmap bits.
      * 
-     * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setbitmapbits
+     * @param {HBITMAP} _hBitmap 
+     * @returns {HRESULT} 
      */
     SetBitmap(_hBitmap) {
-        _hBitmap := _hBitmap is Win32Handle ? NumGet(_hBitmap, "ptr") : _hBitmap
-
-        result := ComCall(5, this, "ptr", _hBitmap, "HRESULT")
+        result := ComCall(5, this, HBITMAP, _hBitmap, "HRESULT")
         return result
     }
 
     /**
-     * The GetBitmapBits function copies the bitmap bits of a specified device-dependent bitmap into a buffer.
+     * 
      * @returns {HBITMAP} 
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getbitmapbits
      */
     GetBitmap() {
-        phBitmap := HBITMAP()
-        result := ComCall(6, this, "ptr", phBitmap, "HRESULT")
+        phBitmap := HBITMAP.Owned()
+        result := ComCall(6, this, HBITMAP.Ptr, phBitmap, "HRESULT")
         return phBitmap
+    }
+
+    Query(iid) {
+        if (IBanneredBar.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetIconSize := CallbackCreate(GetMethod(implObj, "SetIconSize"), flags, 2)
+        this.vtbl.GetIconSize := CallbackCreate(GetMethod(implObj, "GetIconSize"), flags, 2)
+        this.vtbl.SetBitmap := CallbackCreate(GetMethod(implObj, "SetBitmap"), flags, 2)
+        this.vtbl.GetBitmap := CallbackCreate(GetMethod(implObj, "GetBitmap"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetIconSize)
+        CallbackFree(this.vtbl.GetIconSize)
+        CallbackFree(this.vtbl.SetBitmap)
+        CallbackFree(this.vtbl.GetBitmap)
     }
 }

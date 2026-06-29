@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Devices\Display\FD_KERNINGPAIR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Devices\Display\FD_KERNINGPAIR.ahk" { FD_KERNINGPAIR }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class KERNDATA extends Win32Struct {
-    static sizeof => 16
+export default struct KERNDATA {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwKernPairNum : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwKernPairNum {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    KernPair : FD_KERNINGPAIR[1]
 
-    /**
-     * @type {FD_KERNINGPAIR}
-     */
-    KernPair {
-        get {
-            if(!this.HasProp("__KernPairProxyArray"))
-                this.__KernPairProxyArray := Win32FixedArray(this.ptr + 8, 1, FD_KERNINGPAIR, "")
-            return this.__KernPairProxyArray
-        }
-    }
 }

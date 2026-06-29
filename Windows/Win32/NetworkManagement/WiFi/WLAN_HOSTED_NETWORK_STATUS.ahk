@@ -1,9 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WLAN_HOSTED_NETWORK_STATE.ahk
-#Include .\DOT11_PHY_TYPE.ahk
-#Include .\WLAN_HOSTED_NETWORK_PEER_STATE.ahk
-#Include .\WLAN_HOSTED_NETWORK_PEER_AUTH_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WLAN_HOSTED_NETWORK_PEER_AUTH_STATE.ahk" { WLAN_HOSTED_NETWORK_PEER_AUTH_STATE }
+#Import ".\WLAN_HOSTED_NETWORK_STATE.ahk" { WLAN_HOSTED_NETWORK_STATE }
+#Import ".\DOT11_PHY_TYPE.ahk" { DOT11_PHY_TYPE }
+#Import ".\WLAN_HOSTED_NETWORK_PEER_STATE.ahk" { WLAN_HOSTED_NETWORK_PEER_STATE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains information about the status of the wireless Hosted Network.
@@ -14,89 +14,54 @@
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_hosted_network_status
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WLAN_HOSTED_NETWORK_STATUS extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct WLAN_HOSTED_NETWORK_STATUS {
+    #StructPack 4
 
     /**
      * The current state of the wireless Hosted Network.
      * 
      * If the value of this member is <b>wlan_hosted_network_unavailable</b>, then the values of the other fields in this structure should not be used.
-     * @type {WLAN_HOSTED_NETWORK_STATE}
      */
-    HostedNetworkState {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    HostedNetworkState : WLAN_HOSTED_NETWORK_STATE
 
     /**
      * The actual network Device ID used for  the wireless Hosted Network. 
      * 
      * This is member is the GUID of a virtual wireless device which would not be available through calls to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanenuminterfaces">WlanEnumInterfaces</a> function. This GUID can be used for calling other higher layer networking functions that use the device GUID (IP Helper functions, for example).
-     * @type {Pointer}
      */
-    IPDeviceID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    IPDeviceID : Guid
 
     /**
      * The BSSID used by the wireless Hosted Network in packets, beacons, and probe responses.
-     * @type {Array<Integer>}
      */
-    wlanHostedNetworkBSSID {
-        get {
-            if(!this.HasProp("__wlanHostedNetworkBSSIDProxyArray"))
-                this.__wlanHostedNetworkBSSIDProxyArray := Win32FixedArray(this.ptr + 16, 6, Primitive, "char")
-            return this.__wlanHostedNetworkBSSIDProxyArray
-        }
-    }
+    wlanHostedNetworkBSSID : Int8[6]
 
     /**
      * The physical type of the network interface used by wireless Hosted Network.
      * 
      * This is one of the types  reported by the related physical interface. This value is correct only if the <b>HostedNetworkState</b> member is <b>wlan_hosted_network_active</b>.
-     * @type {DOT11_PHY_TYPE}
      */
-    dot11PhyType {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    dot11PhyType : DOT11_PHY_TYPE
 
     /**
      * The channel frequency of the network interface used by wireless Hosted Network.
      * 
      *  This value is correct only if <b>HostedNetworkState</b> is <b>wlan_hosted_network_active</b>.
-     * @type {Integer}
      */
-    ulChannelFrequency {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    ulChannelFrequency : UInt32
 
     /**
      * The current number of authenticated peers on the wireless Hosted Network.
      * 
      *  This value is correct only if <b>HostedNetworkState</b> is <b>wlan_hosted_network_active</b>.
-     * @type {Integer}
      */
-    dwNumberOfPeers {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwNumberOfPeers : UInt32
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_hosted_network_peer_state">WLAN_HOSTED_NETWORK_PEER_STATE</a>  structures describing each of the current peers on the wireless Hosted Network. The number of elements in the array is given by <b>dwNumberOfPeers</b> member.
      * 
      *  This value is correct only if <b>HostedNetworkState</b> is <b>wlan_hosted_network_active</b>.
-     * @type {WLAN_HOSTED_NETWORK_PEER_STATE}
      */
-    PeerList {
-        get {
-            if(!this.HasProp("__PeerListProxyArray"))
-                this.__PeerListProxyArray := Win32FixedArray(this.ptr + 36, 1, WLAN_HOSTED_NETWORK_PEER_STATE, "")
-            return this.__PeerListProxyArray
-        }
-    }
+    PeerList : WLAN_HOSTED_NETWORK_PEER_STATE[1]
+
 }

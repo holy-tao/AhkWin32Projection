@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_CONTROLLER_FLAVOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USB_CONTROLLER_FLAVOR.ahk" { USB_CONTROLLER_FLAVOR }
 
 /**
  * The USB_CONTROLLER_INFO_0 structure is used with the IOCTL_USB_USER_REQUEST I/O control request to retrieve information about the USB host controller.
@@ -9,58 +8,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/usbuser/ns-usbuser-usb_controller_info_0
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_CONTROLLER_INFO_0 extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct USB_CONTROLLER_INFO_0 {
+    #StructPack 4
 
     /**
      * The vendor identifier that is associated with the host controller device.
-     * @type {Integer}
      */
-    PciVendorId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PciVendorId : UInt32
 
     /**
      * The device identifier that is associated with the host controller.
-     * @type {Integer}
      */
-    PciDeviceId {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    PciDeviceId : UInt32
 
     /**
      * The revision number of the host controller device.
-     * @type {Integer}
      */
-    PciRevision {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    PciRevision : UInt32
 
     /**
      * The number of root hub ports that the host controller has. 
      * 
      * <div class="alert"><b>Note</b>  In Windows 8, the USB 3.0 driver stack does not include the number of SuperSpeed hubs in the reported <b>NumberOfRootPorts</b> value.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    NumberOfRootPorts {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    NumberOfRootPorts : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/usb/ne-usb-_usb_controller_flavor">USB_CONTROLLER_FLAVOR</a>-typed enumerator  that specifies the type of controller.
-     * @type {USB_CONTROLLER_FLAVOR}
      */
-    ControllerFlavor {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    ControllerFlavor : USB_CONTROLLER_FLAVOR
 
     /**
      * A bitwise OR of some combination of the following host controller feature flags.
@@ -105,10 +82,7 @@ class USB_CONTROLLER_INFO_0 extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  In Windows 8, the underlying USB 3.0 driver stack does not set any host controller feature flags in <b>HcFeatureFlags.</b></div>
      * <div> </div>
-     * @type {Integer}
      */
-    HcFeatureFlags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    HcFeatureFlags : UInt32
+
 }

@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Notifies a pipeline object to register itself with the Multimedia Class Scheduler Service (MMCSS). (IMFRealTimeClient)
@@ -20,26 +22,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfrealtimeclient
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFRealTimeClient extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFRealTimeClient extends IUnknown {
     /**
      * The interface identifier for IMFRealTimeClient
      * @type {Guid}
      */
-    static IID => Guid("{2347d60b-3fb5-480c-8803-8df3adcd3ef0}")
+    static IID := Guid("{2347d60b-3fb5-480c-8803-8df3adcd3ef0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFRealTimeClient interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RegisterThreads   : IntPtr
+        UnregisterThreads : IntPtr
+        SetWorkQueue      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RegisterThreads", "UnregisterThreads", "SetWorkQueue"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFRealTimeClient.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Notifies the object to register its worker threads with the Multimedia Class Scheduler Service (MMCSS). (IMFRealTimeClient.RegisterThreads)
@@ -83,5 +94,29 @@ class IMFRealTimeClient extends IUnknown {
     SetWorkQueue(dwWorkQueueId) {
         result := ComCall(5, this, "uint", dwWorkQueueId, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFRealTimeClient.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RegisterThreads := CallbackCreate(GetMethod(implObj, "RegisterThreads"), flags, 3)
+        this.vtbl.UnregisterThreads := CallbackCreate(GetMethod(implObj, "UnregisterThreads"), flags, 1)
+        this.vtbl.SetWorkQueue := CallbackCreate(GetMethod(implObj, "SetWorkQueue"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RegisterThreads)
+        CallbackFree(this.vtbl.UnregisterThreads)
+        CallbackFree(this.vtbl.SetWorkQueue)
     }
 }

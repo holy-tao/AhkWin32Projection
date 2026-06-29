@@ -1,36 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IO_SESSION_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\IO_SESSION_STATE.ahk" { IO_SESSION_STATE }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class IO_SESSION_STATE_INFORMATION extends Win32Struct {
-    static sizeof => 12
+export default struct IO_SESSION_STATE_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
+    SessionId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SessionId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    SessionState : IO_SESSION_STATE
 
-    /**
-     * @type {IO_SESSION_STATE}
-     */
-    SessionState {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    LocalSession : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    LocalSession {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
 }

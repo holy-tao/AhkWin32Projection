@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class IMAGE_BOUND_FORWARDER_REF extends Win32Struct {
-    static sizeof => 8
+export default struct IMAGE_BOUND_FORWARDER_REF {
+    #StructPack 4
 
-    static packingSize => 4
+    TimeDateStamp : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TimeDateStamp {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    OffsetModuleName : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    OffsetModuleName {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    Reserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
 }

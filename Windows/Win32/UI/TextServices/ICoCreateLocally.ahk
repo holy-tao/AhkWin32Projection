@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Exposes a method that enables a client application to create a helper object in the server context.
  * @see https://learn.microsoft.com/windows/win32/api/msaatext/nn-msaatext-icocreatelocally
  * @namespace Windows.Win32.UI.TextServices
  */
-class ICoCreateLocally extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICoCreateLocally extends IUnknown {
     /**
      * The interface identifier for ICoCreateLocally
      * @type {Guid}
      */
-    static IID => Guid("{03de00aa-f272-41e3-99cb-03c5e8114ea0}")
+    static IID := Guid("{03de00aa-f272-41e3-99cb-03c5e8114ea0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICoCreateLocally interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CoCreateLocally : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CoCreateLocally"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICoCreateLocally.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Clients call ICoCreateLocally::CoCreateLocally to create a helper object in the same context as the server object.
@@ -55,7 +64,27 @@ class ICoCreateLocally extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-icocreatelocally-cocreatelocally
      */
     CoCreateLocally(rclsid, dwClsContext, riid, riidParam, punkParam, varParam) {
-        result := ComCall(3, this, "ptr", rclsid, "uint", dwClsContext, "ptr", riid, "ptr*", &punk := 0, "ptr", riidParam, "ptr", punkParam, "ptr", varParam, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, rclsid, "uint", dwClsContext, Guid.Ptr, riid, "ptr*", &punk := 0, Guid.Ptr, riidParam, "ptr", punkParam, VARIANT, varParam, "HRESULT")
         return IUnknown(punk)
+    }
+
+    Query(iid) {
+        if (ICoCreateLocally.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CoCreateLocally := CallbackCreate(GetMethod(implObj, "CoCreateLocally"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CoCreateLocally)
     }
 }

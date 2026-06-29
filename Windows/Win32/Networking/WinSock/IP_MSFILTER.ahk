@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IN_ADDR.ahk
-#Include .\MULTICAST_MODE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IN_ADDR.ahk" { IN_ADDR }
+#Import ".\MULTICAST_MODE_TYPE.ahk" { MULTICAST_MODE_TYPE }
 
 /**
  * The ip_msfilter structure provides multicast filtering parameters for IPv4 addresses.
@@ -33,36 +32,20 @@
  * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-ip_msfilter
  * @namespace Windows.Win32.Networking.WinSock
  */
-class IP_MSFILTER extends Win32Struct {
-    static sizeof => 20
-
-    static packingSize => 4
+export default struct IP_MSFILTER {
+    #StructPack 4
 
     /**
      * The IPv4 address of the multicast group.
-     * @type {IN_ADDR}
      */
-    imsf_multiaddr {
-        get {
-            if(!this.HasProp("__imsf_multiaddr"))
-                this.__imsf_multiaddr := IN_ADDR(0, this)
-            return this.__imsf_multiaddr
-        }
-    }
+    imsf_multiaddr : IN_ADDR
 
     /**
      * The local IPv4 address of the interface  or the interface index on which the multicast group should be filtered. This value is in network byte order. If this member specifies an IPv4 address of 0.0.0.0, the default IPv4 multicast interface is used.
      * 
      *  To use an interface index of 1 would be the same as an IP address of  0.0.0.1.
-     * @type {IN_ADDR}
      */
-    imsf_interface {
-        get {
-            if(!this.HasProp("__imsf_interface"))
-                this.__imsf_interface := IN_ADDR(4, this)
-            return this.__imsf_interface
-        }
-    }
+    imsf_interface : IN_ADDR
 
     /**
      * The multicast filter mode to be used. This parameter can be either MCAST_INCLUDE (value of 0) to include particular multicast sources, or MCAST_EXCLUDE (value of 1) to exclude traffic from  specified sources.
@@ -70,31 +53,17 @@ class IP_MSFILTER extends Win32Struct {
      * On Windows Server 2003 and Windows XP, these values are defined in the <i>Ws2tcpip.h</i> header file. 
      * 
      * On Windows Vista and later, these values are defined as enumeration values in the <a href="https://docs.microsoft.com/windows/desktop/api/ws2ipdef/ne-ws2ipdef-multicast_mode_type">MULTICAST_MODE_TYPE</a> enumeration defined in the <i>Ws2ipdef.h</i> header file.
-     * @type {MULTICAST_MODE_TYPE}
      */
-    imsf_fmode {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    imsf_fmode : MULTICAST_MODE_TYPE
 
     /**
      * The number of sources in the <b>imsf_slist</b> member.
-     * @type {Integer}
      */
-    imsf_numsrc {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    imsf_numsrc : UInt32
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-in_addr">in_addr</a> structures that specify the IPv4 multicast source addresses to include or exclude.
-     * @type {IN_ADDR}
      */
-    imsf_slist {
-        get {
-            if(!this.HasProp("__imsf_slistProxyArray"))
-                this.__imsf_slistProxyArray := Win32FixedArray(this.ptr + 16, 1, IN_ADDR, "")
-            return this.__imsf_slistProxyArray
-        }
-    }
+    imsf_slist : IN_ADDR[1]
+
 }

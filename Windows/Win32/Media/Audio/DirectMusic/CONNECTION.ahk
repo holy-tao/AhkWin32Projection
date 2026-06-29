@@ -1,53 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Contains the identification number of a connection.
- * @see https://learn.microsoft.com/windows/win32/api/lmshare/ns-lmshare-connection_info_0
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  */
-class CONNECTION extends Win32Struct {
-    static sizeof => 12
+export default struct CONNECTION {
+    #StructPack 4
 
-    static packingSize => 4
+    usSource : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usSource {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    usControl : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usControl {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    usDestination : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usDestination {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    usTransform : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usTransform {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    lScale : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lScale {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
 }

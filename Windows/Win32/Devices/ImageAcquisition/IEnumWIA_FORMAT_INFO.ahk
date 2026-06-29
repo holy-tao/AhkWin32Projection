@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WIA_FORMAT_INFO.ahk" { WIA_FORMAT_INFO }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Use the IEnumWIA_FORMAT_INFO interface to enumerate the format and media type information for a device.
@@ -39,26 +41,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nn-wia_xp-ienumwia_format_info
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
-class IEnumWIA_FORMAT_INFO extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IEnumWIA_FORMAT_INFO extends IUnknown {
     /**
      * The interface identifier for IEnumWIA_FORMAT_INFO
      * @type {Guid}
      */
-    static IID => Guid("{81befc5b-656d-44f1-b24c-d41d51b4dc81}")
+    static IID := Guid("{81befc5b-656d-44f1-b24c-d41d51b4dc81}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IEnumWIA_FORMAT_INFO interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Next     : IntPtr
+        Skip     : IntPtr
+        Reset    : IntPtr
+        Clone    : IntPtr
+        GetCount : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Next", "Skip", "Reset", "Clone", "GetCount"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IEnumWIA_FORMAT_INFO.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IEnumWIA_FORMAT_INFO::Next method returns an array of WIA_FORMAT_INFO structures.
@@ -79,7 +92,7 @@ class IEnumWIA_FORMAT_INFO extends IUnknown {
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, "ptr", rgelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(3, this, "uint", celt, WIA_FORMAT_INFO.Ptr, rgelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 
@@ -134,5 +147,33 @@ class IEnumWIA_FORMAT_INFO extends IUnknown {
     GetCount() {
         result := ComCall(7, this, "uint*", &pcelt := 0, "HRESULT")
         return pcelt
+    }
+
+    Query(iid) {
+        if (IEnumWIA_FORMAT_INFO.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 4)
+        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Next)
+        CallbackFree(this.vtbl.Skip)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.Clone)
+        CallbackFree(this.vtbl.GetCount)
     }
 }

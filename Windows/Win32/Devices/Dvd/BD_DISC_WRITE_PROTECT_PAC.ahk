@@ -1,72 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BD_PAC_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BD_PAC_HEADER.ahk" { BD_PAC_HEADER }
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
  */
-class BD_DISC_WRITE_PROTECT_PAC extends Win32Struct {
-    static sizeof => 428
+export default struct BD_DISC_WRITE_PROTECT_PAC {
+    #StructPack 1
 
-    static packingSize => 1
+    Header : BD_PAC_HEADER
 
-    /**
-     * @type {BD_PAC_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := BD_PAC_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    KnownPACEntireDiscFlags : Int8
 
-    /**
-     * @type {Integer}
-     */
-    KnownPACEntireDiscFlags {
-        get => NumGet(this, 384, "char")
-        set => NumPut("char", value, this, 384)
-    }
+    Reserved1 : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 385, 3, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    WriteProtectControlByte : Int8
 
-    /**
-     * @type {Integer}
-     */
-    WriteProtectControlByte {
-        get => NumGet(this, 388, "char")
-        set => NumPut("char", value, this, 388)
-    }
+    Reserved2 : Int8[7]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved2 {
-        get {
-            if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 389, 7, Primitive, "char")
-            return this.__Reserved2ProxyArray
-        }
-    }
+    WriteProtectPassword : Int8[32]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    WriteProtectPassword {
-        get {
-            if(!this.HasProp("__WriteProtectPasswordProxyArray"))
-                this.__WriteProtectPasswordProxyArray := Win32FixedArray(this.ptr + 396, 32, Primitive, "char")
-            return this.__WriteProtectPasswordProxyArray
-        }
-    }
 }

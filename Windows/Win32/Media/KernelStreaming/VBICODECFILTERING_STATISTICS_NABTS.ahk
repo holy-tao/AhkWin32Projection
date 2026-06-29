@@ -1,79 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VBICODECFILTERING_STATISTICS_COMMON.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VBICODECFILTERING_STATISTICS_COMMON.ahk" { VBICODECFILTERING_STATISTICS_COMMON }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class VBICODECFILTERING_STATISTICS_NABTS extends Win32Struct {
-    static sizeof => 84
+export default struct VBICODECFILTERING_STATISTICS_NABTS {
+    #StructPack 4
 
-    static packingSize => 4
+    Common : VBICODECFILTERING_STATISTICS_COMMON
 
-    /**
-     * @type {VBICODECFILTERING_STATISTICS_COMMON}
-     */
-    Common {
-        get {
-            if(!this.HasProp("__Common"))
-                this.__Common := VBICODECFILTERING_STATISTICS_COMMON(0, this)
-            return this.__Common
-        }
-    }
+    FECBundleBadLines : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FECBundleBadLines {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    FECQueueOverflows : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FECQueueOverflows {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    FECCorrectedLines : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FECCorrectedLines {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    FECUncorrectableLines : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FECUncorrectableLines {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    BundlesProcessed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BundlesProcessed {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    BundlesSent2IP : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BundlesSent2IP {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    FilteredLines : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FilteredLines {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
 }

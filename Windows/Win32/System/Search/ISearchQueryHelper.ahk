@@ -1,7 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SEARCH_TERM_EXPANSION.ahk" { SEARCH_TERM_EXPANSION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SEARCH_COLUMN_PROPERTIES.ahk" { SEARCH_COLUMN_PROPERTIES }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\SEARCH_QUERY_SYNTAX.ahk" { SEARCH_QUERY_SYNTAX }
 
 /**
  * Provides methods for building a query from user input, converting a query to Windows Search SQL, and obtaining a connection string to initialize a connection to the Window Search index.
@@ -17,26 +24,53 @@
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-isearchqueryhelper
  * @namespace Windows.Win32.System.Search
  */
-class ISearchQueryHelper extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISearchQueryHelper extends IUnknown {
     /**
      * The interface identifier for ISearchQueryHelper
      * @type {Guid}
      */
-    static IID => Guid("{ab310581-ac80-11d1-8df3-00c04fb6ef63}")
+    static IID := Guid("{ab310581-ac80-11d1-8df3-00c04fb6ef63}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISearchQueryHelper interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_ConnectionString       : IntPtr
+        put_QueryContentLocale     : IntPtr
+        get_QueryContentLocale     : IntPtr
+        put_QueryKeywordLocale     : IntPtr
+        get_QueryKeywordLocale     : IntPtr
+        put_QueryTermExpansion     : IntPtr
+        get_QueryTermExpansion     : IntPtr
+        put_QuerySyntax            : IntPtr
+        get_QuerySyntax            : IntPtr
+        put_QueryContentProperties : IntPtr
+        get_QueryContentProperties : IntPtr
+        put_QuerySelectColumns     : IntPtr
+        get_QuerySelectColumns     : IntPtr
+        put_QueryWhereRestrictions : IntPtr
+        get_QueryWhereRestrictions : IntPtr
+        put_QuerySorting           : IntPtr
+        get_QuerySorting           : IntPtr
+        GenerateSQLFromUserQuery   : IntPtr
+        WriteProperties            : IntPtr
+        put_QueryMaxResults        : IntPtr
+        get_QueryMaxResults        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_ConnectionString", "put_QueryContentLocale", "get_QueryContentLocale", "put_QueryKeywordLocale", "get_QueryKeywordLocale", "put_QueryTermExpansion", "get_QueryTermExpansion", "put_QuerySyntax", "get_QuerySyntax", "put_QueryContentProperties", "get_QueryContentProperties", "put_QuerySelectColumns", "get_QuerySelectColumns", "put_QueryWhereRestrictions", "get_QueryWhereRestrictions", "put_QuerySorting", "get_QuerySorting", "GenerateSQLFromUserQuery", "WriteProperties", "put_QueryMaxResults", "get_QueryMaxResults"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISearchQueryHelper.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {PWSTR} 
@@ -129,7 +163,7 @@ class ISearchQueryHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchqueryhelper-get_connectionstring
      */
     get_ConnectionString() {
-        result := ComCall(3, this, "ptr*", &pszConnectionString := 0, "HRESULT")
+        result := ComCall(3, this, PWSTR.Ptr, &pszConnectionString := 0, "HRESULT")
         return pszConnectionString
     }
 
@@ -220,7 +254,7 @@ class ISearchQueryHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchqueryhelper-put_querytermexpansion
      */
     put_QueryTermExpansion(expandTerms) {
-        result := ComCall(8, this, "int", expandTerms, "HRESULT")
+        result := ComCall(8, this, SEARCH_TERM_EXPANSION, expandTerms, "HRESULT")
         return result
     }
 
@@ -255,7 +289,7 @@ class ISearchQueryHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchqueryhelper-put_querysyntax
      */
     put_QuerySyntax(querySyntax) {
-        result := ComCall(10, this, "int", querySyntax, "HRESULT")
+        result := ComCall(10, this, SEARCH_QUERY_SYNTAX, querySyntax, "HRESULT")
         return result
     }
 
@@ -311,7 +345,7 @@ class ISearchQueryHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchqueryhelper-get_querycontentproperties
      */
     get_QueryContentProperties() {
-        result := ComCall(13, this, "ptr*", &ppszContentProperties := 0, "HRESULT")
+        result := ComCall(13, this, PWSTR.Ptr, &ppszContentProperties := 0, "HRESULT")
         return ppszContentProperties
     }
 
@@ -348,7 +382,7 @@ class ISearchQueryHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchqueryhelper-get_queryselectcolumns
      */
     get_QuerySelectColumns() {
-        result := ComCall(15, this, "ptr*", &ppszSelectColumns := 0, "HRESULT")
+        result := ComCall(15, this, PWSTR.Ptr, &ppszSelectColumns := 0, "HRESULT")
         return ppszSelectColumns
     }
 
@@ -385,7 +419,7 @@ class ISearchQueryHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchqueryhelper-get_querywhererestrictions
      */
     get_QueryWhereRestrictions() {
-        result := ComCall(17, this, "ptr*", &ppszRestrictions := 0, "HRESULT")
+        result := ComCall(17, this, PWSTR.Ptr, &ppszRestrictions := 0, "HRESULT")
         return ppszRestrictions
     }
 
@@ -426,7 +460,7 @@ class ISearchQueryHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchqueryhelper-get_querysorting
      */
     get_QuerySorting() {
-        result := ComCall(19, this, "ptr*", &ppszSorting := 0, "HRESULT")
+        result := ComCall(19, this, PWSTR.Ptr, &ppszSorting := 0, "HRESULT")
         return ppszSorting
     }
 
@@ -458,7 +492,7 @@ class ISearchQueryHelper extends IUnknown {
     GenerateSQLFromUserQuery(pszQuery) {
         pszQuery := pszQuery is String ? StrPtr(pszQuery) : pszQuery
 
-        result := ComCall(20, this, "ptr", pszQuery, "ptr*", &ppszSQL := 0, "HRESULT")
+        result := ComCall(20, this, "ptr", pszQuery, PWSTR.Ptr, &ppszSQL := 0, "HRESULT")
         return ppszSQL
     }
 
@@ -485,7 +519,7 @@ class ISearchQueryHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchqueryhelper-writeproperties
      */
     WriteProperties(itemID, dwNumberOfColumns, pColumns, pValues, pftGatherModifiedTime) {
-        result := ComCall(21, this, "int", itemID, "uint", dwNumberOfColumns, "ptr", pColumns, "ptr", pValues, "ptr", pftGatherModifiedTime, "HRESULT")
+        result := ComCall(21, this, "int", itemID, "uint", dwNumberOfColumns, PROPERTYKEY.Ptr, pColumns, SEARCH_COLUMN_PROPERTIES.Ptr, pValues, FILETIME.Ptr, pftGatherModifiedTime, "HRESULT")
         return result
     }
 
@@ -518,5 +552,65 @@ class ISearchQueryHelper extends IUnknown {
     get_QueryMaxResults() {
         result := ComCall(23, this, "int*", &pcMaxResults := 0, "HRESULT")
         return pcMaxResults
+    }
+
+    Query(iid) {
+        if (ISearchQueryHelper.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_ConnectionString := CallbackCreate(GetMethod(implObj, "get_ConnectionString"), flags, 2)
+        this.vtbl.put_QueryContentLocale := CallbackCreate(GetMethod(implObj, "put_QueryContentLocale"), flags, 2)
+        this.vtbl.get_QueryContentLocale := CallbackCreate(GetMethod(implObj, "get_QueryContentLocale"), flags, 2)
+        this.vtbl.put_QueryKeywordLocale := CallbackCreate(GetMethod(implObj, "put_QueryKeywordLocale"), flags, 2)
+        this.vtbl.get_QueryKeywordLocale := CallbackCreate(GetMethod(implObj, "get_QueryKeywordLocale"), flags, 2)
+        this.vtbl.put_QueryTermExpansion := CallbackCreate(GetMethod(implObj, "put_QueryTermExpansion"), flags, 2)
+        this.vtbl.get_QueryTermExpansion := CallbackCreate(GetMethod(implObj, "get_QueryTermExpansion"), flags, 2)
+        this.vtbl.put_QuerySyntax := CallbackCreate(GetMethod(implObj, "put_QuerySyntax"), flags, 2)
+        this.vtbl.get_QuerySyntax := CallbackCreate(GetMethod(implObj, "get_QuerySyntax"), flags, 2)
+        this.vtbl.put_QueryContentProperties := CallbackCreate(GetMethod(implObj, "put_QueryContentProperties"), flags, 2)
+        this.vtbl.get_QueryContentProperties := CallbackCreate(GetMethod(implObj, "get_QueryContentProperties"), flags, 2)
+        this.vtbl.put_QuerySelectColumns := CallbackCreate(GetMethod(implObj, "put_QuerySelectColumns"), flags, 2)
+        this.vtbl.get_QuerySelectColumns := CallbackCreate(GetMethod(implObj, "get_QuerySelectColumns"), flags, 2)
+        this.vtbl.put_QueryWhereRestrictions := CallbackCreate(GetMethod(implObj, "put_QueryWhereRestrictions"), flags, 2)
+        this.vtbl.get_QueryWhereRestrictions := CallbackCreate(GetMethod(implObj, "get_QueryWhereRestrictions"), flags, 2)
+        this.vtbl.put_QuerySorting := CallbackCreate(GetMethod(implObj, "put_QuerySorting"), flags, 2)
+        this.vtbl.get_QuerySorting := CallbackCreate(GetMethod(implObj, "get_QuerySorting"), flags, 2)
+        this.vtbl.GenerateSQLFromUserQuery := CallbackCreate(GetMethod(implObj, "GenerateSQLFromUserQuery"), flags, 3)
+        this.vtbl.WriteProperties := CallbackCreate(GetMethod(implObj, "WriteProperties"), flags, 6)
+        this.vtbl.put_QueryMaxResults := CallbackCreate(GetMethod(implObj, "put_QueryMaxResults"), flags, 2)
+        this.vtbl.get_QueryMaxResults := CallbackCreate(GetMethod(implObj, "get_QueryMaxResults"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_ConnectionString)
+        CallbackFree(this.vtbl.put_QueryContentLocale)
+        CallbackFree(this.vtbl.get_QueryContentLocale)
+        CallbackFree(this.vtbl.put_QueryKeywordLocale)
+        CallbackFree(this.vtbl.get_QueryKeywordLocale)
+        CallbackFree(this.vtbl.put_QueryTermExpansion)
+        CallbackFree(this.vtbl.get_QueryTermExpansion)
+        CallbackFree(this.vtbl.put_QuerySyntax)
+        CallbackFree(this.vtbl.get_QuerySyntax)
+        CallbackFree(this.vtbl.put_QueryContentProperties)
+        CallbackFree(this.vtbl.get_QueryContentProperties)
+        CallbackFree(this.vtbl.put_QuerySelectColumns)
+        CallbackFree(this.vtbl.get_QuerySelectColumns)
+        CallbackFree(this.vtbl.put_QueryWhereRestrictions)
+        CallbackFree(this.vtbl.get_QueryWhereRestrictions)
+        CallbackFree(this.vtbl.put_QuerySorting)
+        CallbackFree(this.vtbl.get_QuerySorting)
+        CallbackFree(this.vtbl.GenerateSQLFromUserQuery)
+        CallbackFree(this.vtbl.WriteProperties)
+        CallbackFree(this.vtbl.put_QueryMaxResults)
+        CallbackFree(this.vtbl.get_QueryMaxResults)
     }
 }

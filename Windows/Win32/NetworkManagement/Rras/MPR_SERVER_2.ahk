@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Is used to retrieve and set the number of ports available for the Point-to-Point Tunneling Protocol (PPTP), Layer 2 Tunneling Protocol (L2TP), and Secure Socket Tunneling Protocol (SSTP) on a device.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mpr_server_2
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class MPR_SERVER_2 extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct MPR_SERVER_2 {
+    #StructPack 4
 
     /**
      * Specifies the number of ports configured for PPTP on the device. 
@@ -57,12 +54,8 @@ class MPR_SERVER_2 extends Win32Struct {
      *  
      * 
      * If <i>dwNumPptpPorts</i> contains a value beyond the limit configured in the registry at service start time (the default is 1000 for Windows Server 2008 Standard and Windows Server 2008 Enterprise), the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserversetinfo">MprConfigServerSetInfo</a> and <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserversetinfo">MprAdminServerSetInfo</a> functions will return <b>ERROR_SUCCESS_REBOOT_REQUIRED</b>.
-     * @type {Integer}
      */
-    dwNumPptpPorts {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwNumPptpPorts : UInt32
 
     /**
      * A set of bitflags that indicate if RAS or Routing is enabled on the device.
@@ -93,12 +86,8 @@ class MPR_SERVER_2 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwPptpPortFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwPptpPortFlags : UInt32
 
     /**
      * Specifies the number of ports configured for L2TP on the device. 
@@ -146,12 +135,8 @@ class MPR_SERVER_2 extends Win32Struct {
      *  
      * 
      * If <i>dwNumL2tpPorts</i> contains a value beyond the limit configured in the registry at service start time (the default is 1000 for Windows Server 2008 Standard and Windows Server 2008 Enterprise), the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserversetinfo">MprConfigServerSetInfo</a> and <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserversetinfo">MprAdminServerSetInfo</a> functions will return <b>ERROR_SUCCESS_REBOOT_REQUIRED</b>.
-     * @type {Integer}
      */
-    dwNumL2tpPorts {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwNumL2tpPorts : UInt32
 
     /**
      * A set of bitflags that indicate if RAS or Routing is enabled on the device.
@@ -182,12 +167,8 @@ class MPR_SERVER_2 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwL2tpPortFlags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwL2tpPortFlags : UInt32
 
     /**
      * Specifies the number of ports configured for SSTP on the device. 
@@ -235,12 +216,8 @@ class MPR_SERVER_2 extends Win32Struct {
      *  
      * 
      * If <i>dwNumSstpPorts</i> contains a value beyond the limit configured in the registry at service start time (the default is 1000 for Windows Server 2008 Standard and Windows Server 2008 Enterprise), the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserversetinfo">MprConfigServerSetInfo</a> and <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserversetinfo">MprAdminServerSetInfo</a> functions will return <b>ERROR_SUCCESS_REBOOT_REQUIRED</b>.
-     * @type {Integer}
      */
-    dwNumSstpPorts {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwNumSstpPorts : UInt32
 
     /**
      * A set of bitflags that indicate if RAS is enabled on the device.
@@ -261,10 +238,7 @@ class MPR_SERVER_2 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwSstpPortFlags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwSstpPortFlags : UInt32
+
 }

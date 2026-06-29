@@ -1,36 +1,79 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\WindowsAndMessaging\HICON.ahk
-#Include .\IMAGEINFO.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMAGEINFO.ahk" { IMAGEINFO }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\IMAGE_LIST_ITEM_FLAGS.ahk" { IMAGE_LIST_ITEM_FLAGS }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import ".\IMAGELISTDRAWPARAMS.ahk" { IMAGELISTDRAWPARAMS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\WindowsAndMessaging\HICON.ahk" { HICON }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Exposes methods that manipulate and interact with image lists.
  * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nn-commoncontrols-iimagelist
  * @namespace Windows.Win32.UI.Controls
  */
-class IImageList extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IImageList extends IUnknown {
     /**
      * The interface identifier for IImageList
      * @type {Guid}
      */
-    static IID => Guid("{46eb5926-582e-4017-9fdf-e8998daa0950}")
+    static IID := Guid("{46eb5926-582e-4017-9fdf-e8998daa0950}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IImageList interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Add                : IntPtr
+        ReplaceIcon        : IntPtr
+        SetOverlayImage    : IntPtr
+        Replace            : IntPtr
+        AddMasked          : IntPtr
+        Draw               : IntPtr
+        Remove             : IntPtr
+        GetIcon            : IntPtr
+        GetImageInfo       : IntPtr
+        Copy               : IntPtr
+        Merge              : IntPtr
+        Clone              : IntPtr
+        GetImageRect       : IntPtr
+        GetIconSize        : IntPtr
+        SetIconSize        : IntPtr
+        GetImageCount      : IntPtr
+        SetImageCount      : IntPtr
+        SetBkColor         : IntPtr
+        GetBkColor         : IntPtr
+        BeginDrag          : IntPtr
+        EndDrag            : IntPtr
+        DragEnter          : IntPtr
+        DragLeave          : IntPtr
+        DragMove           : IntPtr
+        SetDragCursorImage : IntPtr
+        DragShowNolock     : IntPtr
+        GetDragImage       : IntPtr
+        GetItemFlags       : IntPtr
+        GetOverlayImage    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Add", "ReplaceIcon", "SetOverlayImage", "Replace", "AddMasked", "Draw", "Remove", "GetIcon", "GetImageInfo", "Copy", "Merge", "Clone", "GetImageRect", "GetIconSize", "SetIconSize", "GetImageCount", "SetImageCount", "SetBkColor", "GetBkColor", "BeginDrag", "EndDrag", "DragEnter", "DragLeave", "DragMove", "SetDragCursorImage", "DragShowNolock", "GetDragImage", "GetItemFlags", "GetOverlayImage"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IImageList.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds an image or images to an image list. (IImageList.Add)
@@ -50,10 +93,7 @@ class IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-add
      */
     Add(hbmImage, hbmMask) {
-        hbmImage := hbmImage is Win32Handle ? NumGet(hbmImage, "ptr") : hbmImage
-        hbmMask := hbmMask is Win32Handle ? NumGet(hbmMask, "ptr") : hbmMask
-
-        result := ComCall(3, this, "ptr", hbmImage, "ptr", hbmMask, "int*", &pi := 0, "HRESULT")
+        result := ComCall(3, this, HBITMAP, hbmImage, HBITMAP, hbmMask, "int*", &pi := 0, "HRESULT")
         return pi
     }
 
@@ -76,9 +116,7 @@ class IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-replaceicon
      */
     ReplaceIcon(i, _hicon) {
-        _hicon := _hicon is Win32Handle ? NumGet(_hicon, "ptr") : _hicon
-
-        result := ComCall(4, this, "int", i, "ptr", _hicon, "int*", &pi := 0, "HRESULT")
+        result := ComCall(4, this, "int", i, HICON, _hicon, "int*", &pi := 0, "HRESULT")
         return pi
     }
 
@@ -129,10 +167,7 @@ class IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-replace
      */
     Replace(i, hbmImage, hbmMask) {
-        hbmImage := hbmImage is Win32Handle ? NumGet(hbmImage, "ptr") : hbmImage
-        hbmMask := hbmMask is Win32Handle ? NumGet(hbmMask, "ptr") : hbmMask
-
-        result := ComCall(6, this, "int", i, "ptr", hbmImage, "ptr", hbmMask, "HRESULT")
+        result := ComCall(6, this, "int", i, HBITMAP, hbmImage, HBITMAP, hbmMask, "HRESULT")
         return result
     }
 
@@ -157,9 +192,7 @@ class IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-addmasked
      */
     AddMasked(hbmImage, crMask) {
-        hbmImage := hbmImage is Win32Handle ? NumGet(hbmImage, "ptr") : hbmImage
-
-        result := ComCall(7, this, "ptr", hbmImage, "uint", crMask, "int*", &pi := 0, "HRESULT")
+        result := ComCall(7, this, HBITMAP, hbmImage, COLORREF, crMask, "int*", &pi := 0, "HRESULT")
         return pi
     }
 
@@ -179,7 +212,7 @@ class IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-draw
      */
     Draw(pimldp) {
-        result := ComCall(8, this, "ptr", pimldp, "HRESULT")
+        result := ComCall(8, this, IMAGELISTDRAWPARAMS.Ptr, pimldp, "HRESULT")
         return result
     }
 
@@ -222,8 +255,8 @@ class IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-geticon
      */
     GetIcon(i, flags) {
-        picon := HICON()
-        result := ComCall(10, this, "int", i, "uint", flags, "ptr", picon, "HRESULT")
+        picon := HICON.Owned()
+        result := ComCall(10, this, "int", i, "uint", flags, HICON.Ptr, picon, "HRESULT")
         return picon
     }
 
@@ -241,7 +274,7 @@ class IImageList extends IUnknown {
      */
     GetImageInfo(i) {
         pImageInfo := IMAGEINFO()
-        result := ComCall(11, this, "int", i, "ptr", pImageInfo, "HRESULT")
+        result := ComCall(11, this, "int", i, IMAGEINFO.Ptr, pImageInfo, "HRESULT")
         return pImageInfo
     }
 
@@ -321,7 +354,7 @@ class IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-merge
      */
     Merge(i1, punk2, i2, dx, dy, riid) {
-        result := ComCall(13, this, "int", i1, "ptr", punk2, "int", i2, "int", dx, "int", dy, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(13, this, "int", i1, "ptr", punk2, "int", i2, "int", dx, "int", dy, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -338,7 +371,7 @@ class IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-clone
      */
     Clone(riid) {
-        result := ComCall(14, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(14, this, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -356,7 +389,7 @@ class IImageList extends IUnknown {
      */
     GetImageRect(i) {
         prc := RECT()
-        result := ComCall(15, this, "int", i, "ptr", prc, "HRESULT")
+        result := ComCall(15, this, "int", i, RECT.Ptr, prc, "HRESULT")
         return prc
     }
 
@@ -452,7 +485,7 @@ class IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-setbkcolor
      */
     SetBkColor(clrBk) {
-        result := ComCall(20, this, "uint", clrBk, "uint*", &pclr := 0, "HRESULT")
+        result := ComCall(20, this, COLORREF, clrBk, COLORREF.Ptr, &pclr := 0, "HRESULT")
         return pclr
     }
 
@@ -466,7 +499,7 @@ class IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-getbkcolor
      */
     GetBkColor() {
-        result := ComCall(21, this, "uint*", &pclr := 0, "HRESULT")
+        result := ComCall(21, this, COLORREF.Ptr, &pclr := 0, "HRESULT")
         return pclr
     }
 
@@ -532,9 +565,7 @@ class IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-dragenter
      */
     DragEnter(hwndLock, x, y) {
-        hwndLock := hwndLock is Win32Handle ? NumGet(hwndLock, "ptr") : hwndLock
-
-        result := ComCall(24, this, "ptr", hwndLock, "int", x, "int", y, "HRESULT")
+        result := ComCall(24, this, HWND, hwndLock, "int", x, "int", y, "HRESULT")
         return result
     }
 
@@ -551,9 +582,7 @@ class IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-dragleave
      */
     DragLeave(hwndLock) {
-        hwndLock := hwndLock is Win32Handle ? NumGet(hwndLock, "ptr") : hwndLock
-
-        result := ComCall(25, this, "ptr", hwndLock, "HRESULT")
+        result := ComCall(25, this, HWND, hwndLock, "HRESULT")
         return result
     }
 
@@ -619,7 +648,7 @@ class IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-dragshownolock
      */
     DragShowNolock(fShow) {
-        result := ComCall(28, this, "int", fShow, "HRESULT")
+        result := ComCall(28, this, BOOL, fShow, "HRESULT")
         return result
     }
 
@@ -650,7 +679,7 @@ class IImageList extends IUnknown {
     GetDragImage(ppt, pptHotspot, riid, ppv) {
         ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(29, this, "ptr", ppt, "ptr", pptHotspot, "ptr", riid, ppvMarshal, ppv, "HRESULT")
+        result := ComCall(29, this, POINT.Ptr, ppt, POINT.Ptr, pptHotspot, Guid.Ptr, riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -685,5 +714,81 @@ class IImageList extends IUnknown {
     GetOverlayImage(_iOverlay) {
         result := ComCall(31, this, "int", _iOverlay, "int*", &piIndex := 0, "HRESULT")
         return piIndex
+    }
+
+    Query(iid) {
+        if (IImageList.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 4)
+        this.vtbl.ReplaceIcon := CallbackCreate(GetMethod(implObj, "ReplaceIcon"), flags, 4)
+        this.vtbl.SetOverlayImage := CallbackCreate(GetMethod(implObj, "SetOverlayImage"), flags, 3)
+        this.vtbl.Replace := CallbackCreate(GetMethod(implObj, "Replace"), flags, 4)
+        this.vtbl.AddMasked := CallbackCreate(GetMethod(implObj, "AddMasked"), flags, 4)
+        this.vtbl.Draw := CallbackCreate(GetMethod(implObj, "Draw"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.GetIcon := CallbackCreate(GetMethod(implObj, "GetIcon"), flags, 4)
+        this.vtbl.GetImageInfo := CallbackCreate(GetMethod(implObj, "GetImageInfo"), flags, 3)
+        this.vtbl.Copy := CallbackCreate(GetMethod(implObj, "Copy"), flags, 5)
+        this.vtbl.Merge := CallbackCreate(GetMethod(implObj, "Merge"), flags, 8)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 3)
+        this.vtbl.GetImageRect := CallbackCreate(GetMethod(implObj, "GetImageRect"), flags, 3)
+        this.vtbl.GetIconSize := CallbackCreate(GetMethod(implObj, "GetIconSize"), flags, 3)
+        this.vtbl.SetIconSize := CallbackCreate(GetMethod(implObj, "SetIconSize"), flags, 3)
+        this.vtbl.GetImageCount := CallbackCreate(GetMethod(implObj, "GetImageCount"), flags, 2)
+        this.vtbl.SetImageCount := CallbackCreate(GetMethod(implObj, "SetImageCount"), flags, 2)
+        this.vtbl.SetBkColor := CallbackCreate(GetMethod(implObj, "SetBkColor"), flags, 3)
+        this.vtbl.GetBkColor := CallbackCreate(GetMethod(implObj, "GetBkColor"), flags, 2)
+        this.vtbl.BeginDrag := CallbackCreate(GetMethod(implObj, "BeginDrag"), flags, 4)
+        this.vtbl.EndDrag := CallbackCreate(GetMethod(implObj, "EndDrag"), flags, 1)
+        this.vtbl.DragEnter := CallbackCreate(GetMethod(implObj, "DragEnter"), flags, 4)
+        this.vtbl.DragLeave := CallbackCreate(GetMethod(implObj, "DragLeave"), flags, 2)
+        this.vtbl.DragMove := CallbackCreate(GetMethod(implObj, "DragMove"), flags, 3)
+        this.vtbl.SetDragCursorImage := CallbackCreate(GetMethod(implObj, "SetDragCursorImage"), flags, 5)
+        this.vtbl.DragShowNolock := CallbackCreate(GetMethod(implObj, "DragShowNolock"), flags, 2)
+        this.vtbl.GetDragImage := CallbackCreate(GetMethod(implObj, "GetDragImage"), flags, 5)
+        this.vtbl.GetItemFlags := CallbackCreate(GetMethod(implObj, "GetItemFlags"), flags, 3)
+        this.vtbl.GetOverlayImage := CallbackCreate(GetMethod(implObj, "GetOverlayImage"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.ReplaceIcon)
+        CallbackFree(this.vtbl.SetOverlayImage)
+        CallbackFree(this.vtbl.Replace)
+        CallbackFree(this.vtbl.AddMasked)
+        CallbackFree(this.vtbl.Draw)
+        CallbackFree(this.vtbl.Remove)
+        CallbackFree(this.vtbl.GetIcon)
+        CallbackFree(this.vtbl.GetImageInfo)
+        CallbackFree(this.vtbl.Copy)
+        CallbackFree(this.vtbl.Merge)
+        CallbackFree(this.vtbl.Clone)
+        CallbackFree(this.vtbl.GetImageRect)
+        CallbackFree(this.vtbl.GetIconSize)
+        CallbackFree(this.vtbl.SetIconSize)
+        CallbackFree(this.vtbl.GetImageCount)
+        CallbackFree(this.vtbl.SetImageCount)
+        CallbackFree(this.vtbl.SetBkColor)
+        CallbackFree(this.vtbl.GetBkColor)
+        CallbackFree(this.vtbl.BeginDrag)
+        CallbackFree(this.vtbl.EndDrag)
+        CallbackFree(this.vtbl.DragEnter)
+        CallbackFree(this.vtbl.DragLeave)
+        CallbackFree(this.vtbl.DragMove)
+        CallbackFree(this.vtbl.SetDragCursorImage)
+        CallbackFree(this.vtbl.DragShowNolock)
+        CallbackFree(this.vtbl.GetDragImage)
+        CallbackFree(this.vtbl.GetItemFlags)
+        CallbackFree(this.vtbl.GetOverlayImage)
     }
 }

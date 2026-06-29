@@ -1,9 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include ..\Ole\IEnumVARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\Ole\IEnumVARIANT.ahk" { IEnumVARIANT }
+#Import ".\IGPMPermission.ahk" { IGPMPermission }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IGPMSecurityInfo interface defines the methods of the GPMSecurityInfo collection. This collection represents a set of policy-related permissions that can be set on a particular object, such as a scope of management (SOM), a GPO, or a WMI filter.
@@ -125,32 +128,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmsecurityinfo
  * @namespace Windows.Win32.System.GroupPolicy
  */
-class IGPMSecurityInfo extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IGPMSecurityInfo extends IDispatch {
     /**
      * The interface identifier for IGPMSecurityInfo
      * @type {Guid}
      */
-    static IID => Guid("{b6c31ed4-1c93-4d3e-ae84-eb6d61161b60}")
+    static IID := Guid("{b6c31ed4-1c93-4d3e-ae84-eb6d61161b60}")
 
     /**
      * The class identifier for GPMSecurityInfo
      * @type {Guid}
      */
-    static CLSID => Guid("{547a5e8f-9162-4516-a4df-9ddb9686d846}")
+    static CLSID := Guid("{547a5e8f-9162-4516-a4df-9ddb9686d846}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGPMSecurityInfo interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Count     : IntPtr
+        get_Item      : IntPtr
+        get__NewEnum  : IntPtr
+        Add           : IntPtr
+        Remove        : IntPtr
+        RemoveTrustee : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Count", "get_Item", "get__NewEnum", "Add", "Remove", "RemoveTrustee"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGPMSecurityInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -184,7 +199,7 @@ class IGPMSecurityInfo extends IDispatch {
      */
     get_Item(lIndex) {
         pVal := VARIANT()
-        result := ComCall(8, this, "int", lIndex, "ptr", pVal, "HRESULT")
+        result := ComCall(8, this, "int", lIndex, VARIANT.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -299,7 +314,37 @@ class IGPMSecurityInfo extends IDispatch {
     RemoveTrustee(bstrTrustee) {
         bstrTrustee := bstrTrustee is String ? BSTR.Alloc(bstrTrustee).Value : bstrTrustee
 
-        result := ComCall(12, this, "ptr", bstrTrustee, "HRESULT")
+        result := ComCall(12, this, BSTR, bstrTrustee, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IGPMSecurityInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.RemoveTrustee := CallbackCreate(GetMethod(implObj, "RemoveTrustee"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.get_Item)
+        CallbackFree(this.vtbl.get__NewEnum)
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.Remove)
+        CallbackFree(this.vtbl.RemoveTrustee)
     }
 }

@@ -1,26 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PEER_COLLAB_EVENT_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PEER_COLLAB_EVENT_TYPE.ahk" { PEER_COLLAB_EVENT_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The PEER_COLLAB_EVENT_REGISTRATION structure contains the data used by a peer to register for specific peer collaboration network events.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_collab_event_registration
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
-class PEER_COLLAB_EVENT_REGISTRATION extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct PEER_COLLAB_EVENT_REGISTRATION {
+    #StructPack 8
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_collab_event_type">PEER_COLLAB_EVENT_TYPE</a> enumeration value that specifies the type of peer collaboration network event for which to register.
      * @deprecated
-     * @type {PEER_COLLAB_EVENT_TYPE}
      */
-    eventType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    eventType : PEER_COLLAB_EVENT_TYPE
 
     /**
      * GUID value that uniquely identifies the application or object  that registers for the specific event.
@@ -28,10 +22,7 @@ class PEER_COLLAB_EVENT_REGISTRATION extends Win32Struct {
      * This parameter is valid only for PEER_EVENT_ENDPOINT_APPLICATION_CHANGED, PEER_EVENT_ENDPOINT_OBJECT_CHANGED, PEER_EVENT_MY_APPLICATION_CHANGED, and PEER_EVENT_MY_OBJECT_CHANGED. This GUID represents the application ID for application-specific events, and the object ID for object-specific events.  
      * 
      * When this member is set, notification will be sent only for the specific application or object.
-     * @type {Pointer<Guid>}
      */
-    pInstance {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pInstance : Guid.Ptr
+
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The values in the RADIUSSERVERGROUPPROPERTIES enumeration type enumerate properties of a RADIUS server group.
@@ -9,7 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-radiusservergroupproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  */
-class RADIUSSERVERGROUPPROPERTIES extends Win32Enum {
+export default struct RADIUSSERVERGROUPPROPERTIES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The collection of servers in the RADIUS server group.

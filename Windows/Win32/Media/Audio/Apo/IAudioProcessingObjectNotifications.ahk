@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\APO_NOTIFICATION_DESCRIPTOR.ahk" { APO_NOTIFICATION_DESCRIPTOR }
+#Import ".\APO_NOTIFICATION.ahk" { APO_NOTIFICATION }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Implemented by clients to register for and receive common audio-related notifications for APO endpoint and system effect notifications.
@@ -10,26 +13,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/nn-audioengineextensionapo-iaudioprocessingobjectnotifications
  * @namespace Windows.Win32.Media.Audio.Apo
  */
-class IAudioProcessingObjectNotifications extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAudioProcessingObjectNotifications extends IUnknown {
     /**
      * The interface identifier for IAudioProcessingObjectNotifications
      * @type {Guid}
      */
-    static IID => Guid("{56b0c76f-02fd-4b21-a52e-9f8219fc86e4}")
+    static IID := Guid("{56b0c76f-02fd-4b21-a52e-9f8219fc86e4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAudioProcessingObjectNotifications interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetApoNotificationRegistrationInfo : IntPtr
+        HandleNotification                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetApoNotificationRegistrationInfo", "HandleNotification"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAudioProcessingObjectNotifications.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Called by the system to allow clients to register to receive notification callbacks for APO endpoint and system effect notifications.
@@ -66,6 +77,28 @@ class IAudioProcessingObjectNotifications extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/nf-audioengineextensionapo-iaudioprocessingobjectnotifications-handlenotification
      */
     HandleNotification(apoNotification) {
-        ComCall(4, this, "ptr", apoNotification)
+        ComCall(4, this, APO_NOTIFICATION.Ptr, apoNotification)
+    }
+
+    Query(iid) {
+        if (IAudioProcessingObjectNotifications.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetApoNotificationRegistrationInfo := CallbackCreate(GetMethod(implObj, "GetApoNotificationRegistrationInfo"), flags, 3)
+        this.vtbl.HandleNotification := CallbackCreate(GetMethod(implObj, "HandleNotification"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetApoNotificationRegistrationInfo)
+        CallbackFree(this.vtbl.HandleNotification)
     }
 }

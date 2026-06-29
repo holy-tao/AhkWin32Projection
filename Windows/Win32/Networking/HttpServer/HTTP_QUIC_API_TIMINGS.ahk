@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_QUIC_CONNECTION_API_TIMINGS.ahk
-#Include .\HTTP_QUIC_STREAM_API_TIMINGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HTTP_QUIC_CONNECTION_API_TIMINGS.ahk" { HTTP_QUIC_CONNECTION_API_TIMINGS }
+#Import ".\HTTP_QUIC_STREAM_API_TIMINGS.ahk" { HTTP_QUIC_STREAM_API_TIMINGS }
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_QUIC_API_TIMINGS extends Win32Struct {
-    static sizeof => 384
+export default struct HTTP_QUIC_API_TIMINGS {
+    #StructPack 8
 
-    static packingSize => 8
+    ConnectionTimings : HTTP_QUIC_CONNECTION_API_TIMINGS
 
-    /**
-     * @type {HTTP_QUIC_CONNECTION_API_TIMINGS}
-     */
-    ConnectionTimings {
-        get {
-            if(!this.HasProp("__ConnectionTimings"))
-                this.__ConnectionTimings := HTTP_QUIC_CONNECTION_API_TIMINGS(0, this)
-            return this.__ConnectionTimings
-        }
-    }
+    StreamTimings : HTTP_QUIC_STREAM_API_TIMINGS
 
-    /**
-     * @type {HTTP_QUIC_STREAM_API_TIMINGS}
-     */
-    StreamTimings {
-        get {
-            if(!this.HasProp("__StreamTimings"))
-                this.__StreamTimings := HTTP_QUIC_STREAM_API_TIMINGS(240, this)
-            return this.__StreamTimings
-        }
-    }
 }

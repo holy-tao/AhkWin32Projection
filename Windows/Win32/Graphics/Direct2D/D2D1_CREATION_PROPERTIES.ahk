@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D2D1_THREADING_MODE.ahk
-#Include .\D2D1_DEBUG_LEVEL.ahk
-#Include .\D2D1_DEVICE_CONTEXT_OPTIONS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D2D1_THREADING_MODE.ahk" { D2D1_THREADING_MODE }
+#Import ".\D2D1_DEBUG_LEVEL.ahk" { D2D1_DEBUG_LEVEL }
+#Import ".\D2D1_DEVICE_CONTEXT_OPTIONS.ahk" { D2D1_DEVICE_CONTEXT_OPTIONS }
 
 /**
  * Specifies the options with which the Direct2D device, factory, and device context are created.
@@ -11,35 +10,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ns-d2d1_1-d2d1_creation_properties
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_CREATION_PROPERTIES extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct D2D1_CREATION_PROPERTIES {
+    #StructPack 4
 
     /**
      * The threading mode with which the corresponding root objects will be created.
-     * @type {D2D1_THREADING_MODE}
      */
-    threadingMode {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    threadingMode : D2D1_THREADING_MODE
 
     /**
      * The debug level that the root objects should be created with.
-     * @type {D2D1_DEBUG_LEVEL}
      */
-    debugLevel {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    debugLevel : D2D1_DEBUG_LEVEL
 
     /**
      * The device context options that the root objects should be created with.
-     * @type {D2D1_DEVICE_CONTEXT_OPTIONS}
      */
-    options {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    options : D2D1_DEVICE_CONTEXT_OPTIONS
+
 }

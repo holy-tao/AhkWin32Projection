@@ -1,65 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\REPAIR_SCOPE.ahk
-#Include .\REPAIR_RISK.ahk
-#Include .\UiInfo.ahk
-#Include .\UI_INFO_TYPE.ahk
-#Include .\ShellCommandInfo.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\UiInfo.ahk" { UiInfo }
+#Import ".\REPAIR_SCOPE.ahk" { REPAIR_SCOPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\UI_INFO_TYPE.ahk" { UI_INFO_TYPE }
+#Import ".\REPAIR_RISK.ahk" { REPAIR_RISK }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ShellCommandInfo.ahk" { ShellCommandInfo }
 
 /**
  * The RepairInfo structure contains data required for a particular repair option.
  * @see https://learn.microsoft.com/windows/win32/api/ndattrib/ns-ndattrib-repairinfo
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  */
-class RepairInfo extends Win32Struct {
-    static sizeof => 104
-
-    static packingSize => 8
+export default struct RepairInfo {
+    #StructPack 8
 
     /**
      * A unique GUID for this repair.
-     * @type {Pointer}
      */
-    guid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    guid : Guid
 
     /**
      * A pointer to a null-terminated  string that contains the helper class name in a user-friendly way.
-     * @type {PWSTR}
      */
-    pwszClassName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwszClassName : PWSTR
 
     /**
      * A pointer to a null-terminated string that describes the repair in a user friendly way.
-     * @type {PWSTR}
      */
-    pwszDescription {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pwszDescription : PWSTR
 
     /**
      * One of the WELL_KNOWN_SID_TYPE if the repair requires certain user contexts or privileges.
-     * @type {Integer}
      */
-    sidType {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    sidType : UInt32
 
     /**
      * The number of seconds required to perform the repair.
-     * @type {Integer}
      */
-    cost {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    cost : Int32
 
     /**
      * Additional information about the repair.
@@ -182,48 +161,24 @@ class RepairInfo extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    flags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    flags : UInt32
 
     /**
      * Reserved for future use.
-     * @type {REPAIR_SCOPE}
      */
-    scope {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    scope : REPAIR_SCOPE
 
     /**
      * Reserved for future use.
-     * @type {REPAIR_RISK}
      */
-    risk {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    risk : REPAIR_RISK
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/ndattrib/ns-ndattrib-uiinfo">UiInfo</a> structure.
-     * @type {UiInfo}
      */
-    UiInfo {
-        get {
-            if(!this.HasProp("__UiInfo"))
-                this.__UiInfo := UiInfo(48, this)
-            return this.__UiInfo
-        }
-    }
+    UiInfo : UiInfo
 
-    /**
-     * @type {Integer}
-     */
-    rootCauseIndex {
-        get => NumGet(this, 96, "int")
-        set => NumPut("int", value, this, 96)
-    }
+    rootCauseIndex : Int32
+
 }

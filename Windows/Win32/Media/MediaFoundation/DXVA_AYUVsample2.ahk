@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVA_AYUVsample2 extends Win32Struct {
-    static sizeof => 4
+export default struct DXVA_AYUVsample2 {
+    #StructPack 1
 
-    static packingSize => 1
+    bCrValue : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bCrValue {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    bCbValue : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bCbValue {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    bY_Value : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bY_Value {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    bSampleAlpha8 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bSampleAlpha8 {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
 }

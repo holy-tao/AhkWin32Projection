@@ -1,50 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Ndis\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_AVAILABLE_CHANNEL_LIST extends Win32Struct {
-    static sizeof => 16
+export default struct DOT11_AVAILABLE_CHANNEL_LIST {
+    #StructPack 4
 
-    static packingSize => 4
+    Header : NDIS_OBJECT_HEADER
 
-    /**
-     * @type {NDIS_OBJECT_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    uNumOfEntries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uNumOfEntries {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    uTotalNumOfEntries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    uTotalNumOfEntries {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    uChannelNumber : UInt32[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    uChannelNumber {
-        get {
-            if(!this.HasProp("__uChannelNumberProxyArray"))
-                this.__uChannelNumberProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "uint")
-            return this.__uChannelNumberProxyArray
-        }
-    }
 }

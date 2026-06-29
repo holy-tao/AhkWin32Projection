@@ -1,35 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include .\SID.ahk
-#Include .\SID_IDENTIFIER_AUTHORITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SID.ahk" { SID }
+#Import ".\SID_IDENTIFIER_AUTHORITY.ahk" { SID_IDENTIFIER_AUTHORITY }
 
 /**
  * @namespace Windows.Win32.Security
  */
-class SE_SID extends Win32Struct {
-    static sizeof => 80
+export default struct SE_SID {
+    #StructPack 4
 
-    static packingSize => 4
+    Sid : SID
 
-    /**
-     * @type {SID}
-     */
-    Sid {
-        get {
-            if(!this.HasProp("__Sid"))
-                this.__Sid := SID(0, this)
-            return this.__Sid
-        }
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    Buffer {
-        get {
-            if(!this.HasProp("__BufferProxyArray"))
-                this.__BufferProxyArray := Win32FixedArray(this.ptr + 0, 68, Primitive, "char")
-            return this.__BufferProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Buffer', { type: Int8[68], offset: 0 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Input structure for the IOCTL_STORAGE_MANAGE_DATA_SET_ATTRIBUTES control code.
@@ -9,20 +8,14 @@
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_manage_data_set_attributes
  * @namespace Windows.Win32.System.Ioctl
  */
-class DEVICE_MANAGE_DATA_SET_ATTRIBUTES extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct DEVICE_MANAGE_DATA_SET_ATTRIBUTES {
+    #StructPack 4
 
     /**
      * Size of this data structure. Must be set to 
      *       <c>sizeof(DEVICE_MANAGE_DATA_SET_ATTRIBUTES)</c>.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
     /**
      * A valid value of type 
@@ -149,12 +142,8 @@ class DEVICE_MANAGE_DATA_SET_ATTRIBUTES extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Action {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Action : UInt32
 
     /**
      * Flags for the actions.
@@ -201,33 +190,21 @@ class DEVICE_MANAGE_DATA_SET_ATTRIBUTES extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Flags : UInt32
 
     /**
      * Byte offset to the start of the parameter block stored in the buffer contiguous to this structure. Must be 
      *       aligned to the corresponding structure alignment. A value of zero indicates there is no parameter block and the 
      *       <b>ParameterBlockLength</b> member must also be zero.
-     * @type {Integer}
      */
-    ParameterBlockOffset {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ParameterBlockOffset : UInt32
 
     /**
      * Length of the parameter block, in bytes. A value of zero indicates there is no parameter block and the 
      *       <b>ParameterBlockOffset</b> member must also be zero.
-     * @type {Integer}
      */
-    ParameterBlockLength {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ParameterBlockLength : UInt32
 
     /**
      * Byte offset to the start of the data set ranges block made up of an array of 
@@ -236,20 +213,13 @@ class DEVICE_MANAGE_DATA_SET_ATTRIBUTES extends Win32Struct {
      *       <b>DEVICE_DATA_SET_RANGE</b> structure alignment. A 
      *       value of zero indicates there is no data set ranges block and the 
      *       <b>DataSetRangesLength</b> member must also be zero.
-     * @type {Integer}
      */
-    DataSetRangesOffset {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    DataSetRangesOffset : UInt32
 
     /**
      * Length of the data set ranges block, in bytes. A value of zero indicates there is no data set ranges block 
      *       and the <b>DataSetRangesOffset</b> member must also be zero.
-     * @type {Integer}
      */
-    DataSetRangesLength {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    DataSetRangesLength : UInt32
+
 }

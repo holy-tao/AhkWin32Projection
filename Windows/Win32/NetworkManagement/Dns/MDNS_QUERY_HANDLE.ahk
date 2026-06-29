@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains information related to an ongoing MDNS query. Your application must not modify its contents.
@@ -8,56 +8,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-mdns_query_handle
  * @namespace Windows.Win32.NetworkManagement.Dns
  */
-class MDNS_QUERY_HANDLE extends Win32Struct {
-    static sizeof => 544
-
-    static packingSize => 8
+export default struct MDNS_QUERY_HANDLE {
+    #StructPack 8
 
     /**
      * A value representing the queried name.
-     * @type {String}
      */
-    nameBuf {
-        get => StrGet(this.ptr + 0, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 255, "UTF-16")
-    }
+    nameBuf : WCHAR[256]
 
     /**
      * A value representing the type of the query.
-     * @type {Integer}
      */
-    wType {
-        get => NumGet(this, 512, "ushort")
-        set => NumPut("ushort", value, this, 512)
-    }
+    wType : UInt16
 
     /**
      * Reserved. Do not use.
-     * @type {Pointer<Void>}
      */
-    pSubscription {
-        get => NumGet(this, 520, "ptr")
-        set => NumPut("ptr", value, this, 520)
-    }
+    pSubscription : IntPtr
 
     /**
      * Reserved. Do not use.
-     * @type {Pointer<Void>}
      */
-    pWnfCallbackParams {
-        get => NumGet(this, 528, "ptr")
-        set => NumPut("ptr", value, this, 528)
-    }
+    pWnfCallbackParams : IntPtr
 
     /**
      * Reserved. Do not use.
-     * @type {Array<Integer>}
      */
-    stateNameData {
-        get {
-            if(!this.HasProp("__stateNameDataProxyArray"))
-                this.__stateNameDataProxyArray := Win32FixedArray(this.ptr + 536, 2, Primitive, "uint")
-            return this.__stateNameDataProxyArray
-        }
-    }
+    stateNameData : UInt32[2]
+
 }

@@ -1,29 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IMailUser.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMailUser.ahk" { IMailUser }
+#Import ".\IAddrBook.ahk" { IAddrBook }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\SBinary.ahk" { SBinary }
+#Import ".\MAPIERROR.ahk" { MAPIERROR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Do not use. This interface provides access to the Windows Address Book (WAB) object which contains function pointers to memory allocation functions and database maintenance functions.
  * @see https://learn.microsoft.com/windows/win32/api/wabapi/nn-wabapi-iwabobject
  * @namespace Windows.Win32.System.AddressBook
  */
-class IWABObject extends IUnknown {
+export default struct IWABObject extends IUnknown {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetLastError", "AllocateBuffer", "AllocateMore", "FreeBuffer", "Backup", "Import", "Find", "VCardDisplay", "LDAPUrl", "VCardCreate", "VCardRetrieve", "GetMe", "SetMe"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWABObject interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetLastError   : IntPtr
+        AllocateBuffer : IntPtr
+        AllocateMore   : IntPtr
+        FreeBuffer     : IntPtr
+        Backup         : IntPtr
+        Import         : IntPtr
+        Find           : IntPtr
+        VCardDisplay   : IntPtr
+        LDAPUrl        : IntPtr
+        VCardCreate    : IntPtr
+        VCardRetrieve  : IntPtr
+        GetMe          : IntPtr
+        SetMe          : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWABObject.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This method is not implemented. (IWABObject.GetLastError)
@@ -169,9 +194,7 @@ class IWABObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-find
      */
     Find(lpIAB, _hWnd) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
-
-        result := ComCall(9, this, "ptr", lpIAB, "ptr", _hWnd, "HRESULT")
+        result := ComCall(9, this, "ptr", lpIAB, HWND, _hWnd, "HRESULT")
         return result
     }
 
@@ -195,10 +218,9 @@ class IWABObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-vcarddisplay
      */
     VCardDisplay(lpIAB, _hWnd, lpszFileName) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
-        result := ComCall(10, this, "ptr", lpIAB, "ptr", _hWnd, "ptr", lpszFileName, "HRESULT")
+        result := ComCall(10, this, "ptr", lpIAB, HWND, _hWnd, "ptr", lpszFileName, "HRESULT")
         return result
     }
 
@@ -240,10 +262,9 @@ class IWABObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-ldapurl
      */
     LDAPUrl(lpIAB, _hWnd, ulFlags, lpszURL) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         lpszURL := lpszURL is String ? StrPtr(lpszURL) : lpszURL
 
-        result := ComCall(11, this, "ptr", lpIAB, "ptr", _hWnd, "uint", ulFlags, "ptr", lpszURL, "ptr*", &lppMailUser := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", lpIAB, HWND, _hWnd, "uint", ulFlags, "ptr", lpszURL, "ptr*", &lppMailUser := 0, "HRESULT")
         return IMailUser(lppMailUser)
     }
 
@@ -384,11 +405,9 @@ class IWABObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-getme
      */
     GetMe(lpIAB, ulFlags, lpdwAction, lpsbEID, _hwnd) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
         lpdwActionMarshal := lpdwAction is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "ptr", lpIAB, "uint", ulFlags, lpdwActionMarshal, lpdwAction, "ptr", lpsbEID, "ptr", _hwnd, "HRESULT")
+        result := ComCall(14, this, "ptr", lpIAB, "uint", ulFlags, lpdwActionMarshal, lpdwAction, SBinary.Ptr, lpsbEID, HWND, _hwnd, "HRESULT")
         return result
     }
 
@@ -435,9 +454,51 @@ class IWABObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-setme
      */
     SetMe(lpIAB, ulFlags, sbEID, _hwnd) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(15, this, "ptr", lpIAB, "uint", ulFlags, "ptr", sbEID, "ptr", _hwnd, "HRESULT")
+        result := ComCall(15, this, "ptr", lpIAB, "uint", ulFlags, SBinary, sbEID, HWND, _hwnd, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWABObject.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetLastError := CallbackCreate(GetMethod(implObj, "GetLastError"), flags, 4)
+        this.vtbl.AllocateBuffer := CallbackCreate(GetMethod(implObj, "AllocateBuffer"), flags, 3)
+        this.vtbl.AllocateMore := CallbackCreate(GetMethod(implObj, "AllocateMore"), flags, 4)
+        this.vtbl.FreeBuffer := CallbackCreate(GetMethod(implObj, "FreeBuffer"), flags, 2)
+        this.vtbl.Backup := CallbackCreate(GetMethod(implObj, "Backup"), flags, 2)
+        this.vtbl.Import := CallbackCreate(GetMethod(implObj, "Import"), flags, 2)
+        this.vtbl.Find := CallbackCreate(GetMethod(implObj, "Find"), flags, 3)
+        this.vtbl.VCardDisplay := CallbackCreate(GetMethod(implObj, "VCardDisplay"), flags, 4)
+        this.vtbl.LDAPUrl := CallbackCreate(GetMethod(implObj, "LDAPUrl"), flags, 6)
+        this.vtbl.VCardCreate := CallbackCreate(GetMethod(implObj, "VCardCreate"), flags, 5)
+        this.vtbl.VCardRetrieve := CallbackCreate(GetMethod(implObj, "VCardRetrieve"), flags, 5)
+        this.vtbl.GetMe := CallbackCreate(GetMethod(implObj, "GetMe"), flags, 6)
+        this.vtbl.SetMe := CallbackCreate(GetMethod(implObj, "SetMe"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetLastError)
+        CallbackFree(this.vtbl.AllocateBuffer)
+        CallbackFree(this.vtbl.AllocateMore)
+        CallbackFree(this.vtbl.FreeBuffer)
+        CallbackFree(this.vtbl.Backup)
+        CallbackFree(this.vtbl.Import)
+        CallbackFree(this.vtbl.Find)
+        CallbackFree(this.vtbl.VCardDisplay)
+        CallbackFree(this.vtbl.LDAPUrl)
+        CallbackFree(this.vtbl.VCardCreate)
+        CallbackFree(this.vtbl.VCardRetrieve)
+        CallbackFree(this.vtbl.GetMe)
+        CallbackFree(this.vtbl.SetMe)
     }
 }

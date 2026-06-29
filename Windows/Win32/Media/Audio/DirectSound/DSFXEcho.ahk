@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
  */
-class DSFXEcho extends Win32Struct {
-    static sizeof => 20
+export default struct DSFXEcho {
+    #StructPack 4
 
-    static packingSize => 4
+    fWetDryMix : Float32
 
-    /**
-     * @type {Float}
-     */
-    fWetDryMix {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    fFeedback : Float32
 
-    /**
-     * @type {Float}
-     */
-    fFeedback {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    fLeftDelay : Float32
 
-    /**
-     * @type {Float}
-     */
-    fLeftDelay {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    fRightDelay : Float32
 
-    /**
-     * @type {Float}
-     */
-    fRightDelay {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    lPanDelay : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lPanDelay {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
 }

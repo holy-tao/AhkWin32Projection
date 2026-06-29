@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Determines the fill mode to use when rendering triangles. (D3D11_FILL_MODE)
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_fill_mode
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_FILL_MODE extends Win32Enum {
+export default struct D3D11_FILL_MODE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Draw lines connecting the vertices. Adjacent vertices are not drawn.

@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WINDOWPLACEMENT_FLAGS.ahk
-#Include ..\..\Foundation\POINT.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import ".\WINDOWPLACEMENT_FLAGS.ahk" { WINDOWPLACEMENT_FLAGS }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Contains information about the placement of a window on the screen.
@@ -15,10 +14,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-windowplacement
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class WINDOWPLACEMENT extends Win32Struct {
-    static sizeof => 44
-
-    static packingSize => 4
+export default struct WINDOWPLACEMENT {
+    #StructPack 4
 
     /**
      * Type: <b>UINT</b>
@@ -28,72 +25,40 @@ class WINDOWPLACEMENT extends Win32Struct {
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getwindowplacement">GetWindowPlacement</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwindowplacement">SetWindowPlacement</a> fail if this member is not set correctly.
-     * @type {Integer}
      */
-    length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    length : UInt32
 
     /**
      * Type: <b>UINT</b>
-     * @type {WINDOWPLACEMENT_FLAGS}
      */
-    flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    flags : WINDOWPLACEMENT_FLAGS
 
     /**
      * Type: <b>UINT</b>
      * 
      * The current show state of the window. It can be any of the values that can be specified in the <i>nCmdShow</i> parameter for the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-showwindow">ShowWindow</a> function.
-     * @type {Integer}
      */
-    showCmd {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    showCmd : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
      * 
      * The coordinates of the window's upper-left corner when the window is minimized.
-     * @type {POINT}
      */
-    ptMinPosition {
-        get {
-            if(!this.HasProp("__ptMinPosition"))
-                this.__ptMinPosition := POINT(12, this)
-            return this.__ptMinPosition
-        }
-    }
+    ptMinPosition : POINT
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
      * 
      * The coordinates of the window's upper-left corner when the window is maximized.
-     * @type {POINT}
      */
-    ptMaxPosition {
-        get {
-            if(!this.HasProp("__ptMaxPosition"))
-                this.__ptMaxPosition := POINT(20, this)
-            return this.__ptMaxPosition
-        }
-    }
+    ptMaxPosition : POINT
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a></b>
      * 
      * The window's coordinates when the window is in the restored position.
-     * @type {RECT}
      */
-    rcNormalPosition {
-        get {
-            if(!this.HasProp("__rcNormalPosition"))
-                this.__rcNormalPosition := RECT(28, this)
-            return this.__rcNormalPosition
-        }
-    }
+    rcNormalPosition : RECT
+
 }

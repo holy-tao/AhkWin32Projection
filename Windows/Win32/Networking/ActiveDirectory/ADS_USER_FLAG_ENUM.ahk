@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the flags used for setting user properties in the directory.
@@ -19,7 +18,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_user_flag_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class ADS_USER_FLAG_ENUM extends Win32Enum {
+export default struct ADS_USER_FLAG_ENUM {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The logon script is executed. This flag does not work for the ADSI LDAP provider on either read or write 

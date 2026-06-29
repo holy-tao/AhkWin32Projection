@@ -1,34 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\IEnumMoniker.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IEnumMoniker.ahk" { IEnumMoniker }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ICreateDevEnum interface creates an enumerator for a category of filters, such as video capture devices or audio capture devices.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-icreatedevenum
  * @namespace Windows.Win32.Media.DirectShow
  */
-class ICreateDevEnum extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICreateDevEnum extends IUnknown {
     /**
      * The interface identifier for ICreateDevEnum
      * @type {Guid}
      */
-    static IID => Guid("{29840822-5b84-11d0-bd3b-00a0c911ce86}")
+    static IID := Guid("{29840822-5b84-11d0-bd3b-00a0c911ce86}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICreateDevEnum interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateClassEnumerator : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateClassEnumerator"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICreateDevEnum.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The CreateClassEnumerator method creates an enumerator for a specified device category.
@@ -86,7 +94,27 @@ class ICreateDevEnum extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icreatedevenum-createclassenumerator
      */
     CreateClassEnumerator(clsidDeviceClass, dwFlags) {
-        result := ComCall(3, this, "ptr", clsidDeviceClass, "ptr*", &ppEnumMoniker := 0, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, clsidDeviceClass, "ptr*", &ppEnumMoniker := 0, "uint", dwFlags, "HRESULT")
         return IEnumMoniker(ppEnumMoniker)
+    }
+
+    Query(iid) {
+        if (ICreateDevEnum.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateClassEnumerator := CallbackCreate(GetMethod(implObj, "CreateClassEnumerator"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateClassEnumerator)
     }
 }

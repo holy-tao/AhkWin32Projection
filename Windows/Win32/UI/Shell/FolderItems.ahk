@@ -1,41 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\FolderItem.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\FolderItem.ahk" { FolderItem }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Represents the collection of items in a Shell folder. This object contains properties and methods that allow you to retrieve information about the collection.
  * @see https://learn.microsoft.com/windows/win32/shell/folderitems
  * @namespace Windows.Win32.UI.Shell
  */
-class FolderItems extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct FolderItems extends IDispatch {
     /**
      * The interface identifier for FolderItems
      * @type {Guid}
      */
-    static IID => Guid("{744129e0-cbe5-11ce-8350-444553540000}")
+    static IID := Guid("{744129e0-cbe5-11ce-8350-444553540000}")
 
     /**
      * The class identifier for FolderItems
      * @type {Guid}
      */
-    static CLSID => Guid("{744129e0-cbe5-11ce-8350-444553540000}")
+    static CLSID := Guid("{744129e0-cbe5-11ce-8350-444553540000}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for FolderItems interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Count       : IntPtr
+        get_Application : IntPtr
+        get_Parent      : IntPtr
+        Item            : IntPtr
+        _NewEnum        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Count", "get_Application", "get_Parent", "Item", "_NewEnum"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := FolderItems.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -92,7 +105,7 @@ class FolderItems extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/shell/folderitems-item
      */
     Item(index) {
-        result := ComCall(10, this, "ptr", index, "ptr*", &ppid := 0, "HRESULT")
+        result := ComCall(10, this, VARIANT, index, "ptr*", &ppid := 0, "HRESULT")
         return FolderItem(ppid)
     }
 
@@ -104,5 +117,33 @@ class FolderItems extends IDispatch {
     _NewEnum() {
         result := ComCall(11, this, "ptr*", &ppunk := 0, "HRESULT")
         return IUnknown(ppunk)
+    }
+
+    Query(iid) {
+        if (FolderItems.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get_Application := CallbackCreate(GetMethod(implObj, "get_Application"), flags, 2)
+        this.vtbl.get_Parent := CallbackCreate(GetMethod(implObj, "get_Parent"), flags, 2)
+        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 3)
+        this.vtbl._NewEnum := CallbackCreate(GetMethod(implObj, "_NewEnum"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Count)
+        CallbackFree(this.vtbl.get_Application)
+        CallbackFree(this.vtbl.get_Parent)
+        CallbackFree(this.vtbl.Item)
+        CallbackFree(this.vtbl._NewEnum)
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The XFORM structure specifies a world-space to page-space transformation.
@@ -46,10 +45,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-xform
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class XFORM extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct XFORM {
+    #StructPack 4
 
     /**
      * The following.
@@ -72,12 +69,8 @@ class XFORM extends Win32Struct {
      * <td>Horizontal component</td>
      * </tr>
      * </table>
-     * @type {Float}
      */
-    eM11 {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    eM11 : Float32
 
     /**
      * The following.
@@ -96,12 +89,8 @@ class XFORM extends Win32Struct {
      * <td>Sine of the rotation angle</td>
      * </tr>
      * </table>
-     * @type {Float}
      */
-    eM12 {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    eM12 : Float32
 
     /**
      * The following.
@@ -120,12 +109,8 @@ class XFORM extends Win32Struct {
      * <td>Negative sine of the rotation angle</td>
      * </tr>
      * </table>
-     * @type {Float}
      */
-    eM21 {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    eM21 : Float32
 
     /**
      * The following.
@@ -148,28 +133,17 @@ class XFORM extends Win32Struct {
      * <td>Vertical reflection component</td>
      * </tr>
      * </table>
-     * @type {Float}
      */
-    eM22 {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    eM22 : Float32
 
     /**
      * The horizontal translation component, in logical units.
-     * @type {Float}
      */
-    eDx {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
-    }
+    eDx : Float32
 
     /**
      * The vertical translation component, in logical units.
-     * @type {Float}
      */
-    eDy {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
-    }
+    eDy : Float32
+
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used by IQueryAssociations::GetString to define the type of string that is to be returned.
  * @see https://learn.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-assocstr
  * @namespace Windows.Win32.UI.Shell
  */
-class ASSOCSTR extends Win32Enum {
+export default struct ASSOCSTR {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * A command string associated with a Shell verb.

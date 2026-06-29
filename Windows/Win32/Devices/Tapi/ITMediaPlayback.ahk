@@ -1,34 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The ITMediaPlayback interface provides playback-specific methods that allow an application to set and get the list of files to play. This interface is created by calling QueryInterface on ITTerminal.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itmediaplayback
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITMediaPlayback extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITMediaPlayback extends IDispatch {
     /**
      * The interface identifier for ITMediaPlayback
      * @type {Guid}
      */
-    static IID => Guid("{627e8ae6-ae4c-4a69-bb63-2ad625404b77}")
+    static IID := Guid("{627e8ae6-ae4c-4a69-bb63-2ad625404b77}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITMediaPlayback interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_PlayList : IntPtr
+        get_PlayList : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_PlayList", "get_PlayList"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITMediaPlayback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT} 
@@ -50,7 +59,7 @@ class ITMediaPlayback extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmediaplayback-put_playlist
      */
     put_PlayList(PlayListVariant) {
-        result := ComCall(7, this, "ptr", PlayListVariant, "HRESULT")
+        result := ComCall(7, this, VARIANT, PlayListVariant, "HRESULT")
         return result
     }
 
@@ -66,7 +75,29 @@ class ITMediaPlayback extends IDispatch {
      */
     get_PlayList() {
         pPlayListVariant := VARIANT()
-        result := ComCall(8, this, "ptr", pPlayListVariant, "HRESULT")
+        result := ComCall(8, this, VARIANT.Ptr, pPlayListVariant, "HRESULT")
         return pPlayListVariant
+    }
+
+    Query(iid) {
+        if (ITMediaPlayback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_PlayList := CallbackCreate(GetMethod(implObj, "put_PlayList"), flags, 2)
+        this.vtbl.get_PlayList := CallbackCreate(GetMethod(implObj, "get_PlayList"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_PlayList)
+        CallbackFree(this.vtbl.get_PlayList)
     }
 }

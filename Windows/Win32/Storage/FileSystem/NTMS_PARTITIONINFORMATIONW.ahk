@@ -1,5 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The NTMS_PARTITIONINFORMATION structure defines the properties specific to the side object. (Unicode)
@@ -18,109 +19,59 @@
  * @namespace Windows.Win32.Storage.FileSystem
  * @charset Unicode
  */
-class NTMS_PARTITIONINFORMATIONW extends Win32Struct {
-    static sizeof => 944
-
-    static packingSize => 8
+export default struct NTMS_PARTITIONINFORMATIONW {
+    #StructPack 8
 
     /**
      * Unique physical media identifier for the medium that contains this side.
-     * @type {Pointer}
      */
-    PhysicalMedia {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    PhysicalMedia : Guid
 
     /**
      * Unique logical media identifier (LMID) for a piece of logical media that contains this side. This parameter is a <b>NULL</b> if the side is not allocated.
-     * @type {Pointer}
      */
-    LogicalMedia {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    LogicalMedia : Guid
 
-    /**
-     * @type {Integer}
-     */
-    State {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    State : UInt32
 
     /**
      * Zero-relative value which indicates which side of a multi-sided media this is. For single-sided media, such as tape, this value is always zero. For dual-sided media one NTMS_PARITIONINFORMATION record has this property set to zero - the "A" side - and a second NTMS_PARTITIONINFORMATION record has it set to 1 - the "B" side.
-     * @type {Integer}
      */
-    Side {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
+    Side : UInt16
 
     /**
      * Length of the label ID string of the on-media identifier.
-     * @type {Integer}
      */
-    dwOmidLabelIdLength {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwOmidLabelIdLength : UInt32
 
     /**
      * Label ID unique identifier of the on-media identifier.
-     * @type {Array<Integer>}
      */
-    OmidLabelId {
-        get {
-            if(!this.HasProp("__OmidLabelIdProxyArray"))
-                this.__OmidLabelIdProxyArray := Win32FixedArray(this.ptr + 28, 255, Primitive, "char")
-            return this.__OmidLabelIdProxyArray
-        }
-    }
+    OmidLabelId : Int8[255]
 
     /**
      * Label type of the on-media identifier.
-     * @type {String}
      */
-    szOmidLabelType {
-        get => StrGet(this.ptr + 284, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 284, 63, "UTF-16")
-    }
+    szOmidLabelType : WCHAR[64]
 
     /**
      * Label information of the on-media identifier.
-     * @type {String}
      */
-    szOmidLabelInfo {
-        get => StrGet(this.ptr + 412, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 412, 255, "UTF-16")
-    }
+    szOmidLabelInfo : WCHAR[256]
 
     /**
      * Number of times this media has been mounted into a drive. This is initialized to zero when the objects are created in the database.
-     * @type {Integer}
      */
-    dwMountCount {
-        get => NumGet(this, 924, "uint")
-        set => NumPut("uint", value, this, 924)
-    }
+    dwMountCount : UInt32
 
     /**
      * Number of times this media has been allocated.
-     * @type {Integer}
      */
-    dwAllocateCount {
-        get => NumGet(this, 928, "uint")
-        set => NumPut("uint", value, this, 928)
-    }
+    dwAllocateCount : UInt32
 
     /**
      * Number bytes of storage available on this side.
-     * @type {Integer}
      */
-    Capacity {
-        get => NumGet(this, 936, "int64")
-        set => NumPut("int64", value, this, 936)
-    }
+    Capacity : Int64
+
 }

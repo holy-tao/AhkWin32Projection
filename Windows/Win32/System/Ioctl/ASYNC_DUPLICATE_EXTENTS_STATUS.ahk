@@ -1,60 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DUPLICATE_EXTENTS_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DUPLICATE_EXTENTS_STATE.ahk" { DUPLICATE_EXTENTS_STATE }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class ASYNC_DUPLICATE_EXTENTS_STATUS extends Win32Struct {
-    static sizeof => 40
+export default struct ASYNC_DUPLICATE_EXTENTS_STATUS {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    State : DUPLICATE_EXTENTS_STATE
 
-    /**
-     * @type {DUPLICATE_EXTENTS_STATE}
-     */
-    State {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    SourceFileOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SourceFileOffset {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    TargetFileOffset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TargetFileOffset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ByteCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ByteCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    BytesDuplicated : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BytesDuplicated {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

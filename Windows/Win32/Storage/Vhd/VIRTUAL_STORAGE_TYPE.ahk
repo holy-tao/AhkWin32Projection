@@ -1,15 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains the type and provider (vendor) of the virtual storage device.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-virtual_storage_type
  * @namespace Windows.Win32.Storage.Vhd
  */
-class VIRTUAL_STORAGE_TYPE extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct VIRTUAL_STORAGE_TYPE {
+    #StructPack 4
 
     /**
      * Device type identifier.
@@ -68,19 +66,12 @@ class VIRTUAL_STORAGE_TYPE extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    DeviceId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DeviceId : UInt32
 
     /**
      * Vendor-unique identifier.
-     * @type {Pointer}
      */
-    VendorId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    VendorId : Guid
+
 }

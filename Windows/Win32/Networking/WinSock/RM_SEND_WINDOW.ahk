@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The RM_SEND_WINDOW structure specifies the Reliable Multicast send window. This structure is used with the RM_RATE_WINDOW_SIZE socket option.
@@ -10,35 +9,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/wsrm/ns-wsrm-rm_send_window
  * @namespace Windows.Win32.Networking.WinSock
  */
-class RM_SEND_WINDOW extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct RM_SEND_WINDOW {
+    #StructPack 4
 
     /**
      * Transmission rate for the send window, in kilobits per second.
-     * @type {Integer}
      */
-    RateKbitsPerSec {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    RateKbitsPerSec : UInt32
 
     /**
      * Window size for the send window, in milliseconds.
-     * @type {Integer}
      */
-    WindowSizeInMSecs {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    WindowSizeInMSecs : UInt32
 
     /**
      * Window size for the session, in bytes.
-     * @type {Integer}
      */
-    WindowSizeInBytes {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    WindowSizeInBytes : UInt32
+
 }

@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_XML_READER_ENCODING.ahk
-#Include .\WS_XML_READER_ENCODING_TYPE.ahk
-#Include .\WS_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_STRING.ahk" { WS_STRING }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WS_XML_READER_ENCODING.ahk" { WS_XML_READER_ENCODING }
+#Import ".\WS_XML_READER_ENCODING_TYPE.ahk" { WS_XML_READER_ENCODING_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Used to indicate that the reader should interpret the bytes it reads as in MTOM format.
@@ -18,77 +19,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_reader_mtom_encoding
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_XML_READER_MTOM_ENCODING extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct WS_XML_READER_MTOM_ENCODING {
+    #StructPack 8
 
     /**
      * The base type for all types that derive from <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_reader_encoding">WS_XML_READER_ENCODING</a>.
-     * @type {WS_XML_READER_ENCODING}
      */
-    encoding {
-        get {
-            if(!this.HasProp("__encoding"))
-                this.__encoding := WS_XML_READER_ENCODING(0, this)
-            return this.__encoding
-        }
-    }
+    encoding : WS_XML_READER_ENCODING
 
     /**
      * The encoding of the xml document carried by MTOM.
-     * @type {Pointer<WS_XML_READER_ENCODING>}
      */
-    textEncoding {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    textEncoding : WS_XML_READER_ENCODING.Ptr
 
     /**
      * Specifies whether or not the reader should read the MIME header.
-     * @type {BOOL}
      */
-    readMimeHeader {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    readMimeHeader : BOOL
 
     /**
      * The type used by the mime part that contains the xml.  This corresponds to the "start-info" parameter in the of the MIME Content-Type.
      *           If readMimeHeader is specified as <b>TRUE</b>, then this must be empty as the startInfo will be read from the mime header.
-     * @type {WS_STRING}
      */
-    startInfo {
-        get {
-            if(!this.HasProp("__startInfo"))
-                this.__startInfo := WS_STRING(24, this)
-            return this.__startInfo
-        }
-    }
+    startInfo : WS_STRING
 
     /**
      * The character sequence that should be used to delimit the mime parts.  This corresponds to the "boundary" parameter of the MIME Content-Type.
      *           If readMimeHeader is specified as <b>TRUE</b>, then this must be empty as the boundary will be read from the mime header.
-     * @type {WS_STRING}
      */
-    boundary {
-        get {
-            if(!this.HasProp("__boundary"))
-                this.__boundary := WS_STRING(40, this)
-            return this.__boundary
-        }
-    }
+    boundary : WS_STRING
 
     /**
      * The mime part that contains the xml.  This corresponds to the "start" parameter of the MIME Content-Type.
      *           If readMimeHeader is specified as <b>TRUE</b>, then this must be empty as the startUri will be read from the mime header.
-     * @type {WS_STRING}
      */
-    startUri {
-        get {
-            if(!this.HasProp("__startUri"))
-                this.__startUri := WS_STRING(56, this)
-            return this.__startUri
-        }
-    }
+    startUri : WS_STRING
+
 }

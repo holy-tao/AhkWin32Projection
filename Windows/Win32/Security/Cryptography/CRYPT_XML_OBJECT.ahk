@@ -1,76 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_XML_REFERENCES.ahk
-#Include .\CRYPT_XML_REFERENCE.ahk
-#Include .\CRYPT_XML_BLOB.ahk
-#Include .\CRYPT_XML_CHARSET.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\CRYPT_XML_REFERENCE.ahk" { CRYPT_XML_REFERENCE }
+#Import ".\CRYPT_XML_CHARSET.ahk" { CRYPT_XML_CHARSET }
+#Import ".\CRYPT_XML_REFERENCES.ahk" { CRYPT_XML_REFERENCES }
+#Import ".\CRYPT_XML_BLOB.ahk" { CRYPT_XML_BLOB }
 
 /**
  * Describes an Object element in the signature.
  * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_object
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRYPT_XML_OBJECT extends Win32Struct {
-    static sizeof => 72
-
-    static packingSize => 8
+export default struct CRYPT_XML_OBJECT {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * The handle of the object.
-     * @type {Pointer<Void>}
      */
-    hObject {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    hObject : IntPtr
 
     /**
      * Optional. A pointer to a null-terminated wide character string that contains the value of the unique identifier attribute of the <b>Object</b> element.
-     * @type {PWSTR}
      */
-    wszId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    wszId : PWSTR
 
     /**
      * Optional. A pointer to a null-terminated wide character string that contains the value of the MIME-type attribute of the <b>Object</b> element.
-     * @type {PWSTR}
      */
-    wszMimeType {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    wszMimeType : PWSTR
 
     /**
      * Optional. A pointer to a null-terminated wide character string that contains the value of the encoding method attribute of the <b>Object</b> element.
-     * @type {PWSTR}
      */
-    wszEncoding {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    wszEncoding : PWSTR
 
     /**
      * Optional. A <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_references">CRYPT_XML_REFERENCES</a> structure that specifies an array of references.
-     * @type {CRYPT_XML_REFERENCES}
      */
-    Manifest {
-        get {
-            if(!this.HasProp("__Manifest"))
-                this.__Manifest := CRYPT_XML_REFERENCES(40, this)
-            return this.__Manifest
-        }
-    }
+    Manifest : CRYPT_XML_REFERENCES
 
     /**
      * Optional. A <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_blob">CRYPT_XML_BLOB</a> structure that contains the XML part of the entire <b>Object</b> element.
@@ -80,18 +51,7 @@ class CRYPT_XML_OBJECT extends Win32Struct {
      *     Applications can use the <b>CRYPT_XML_FLAG_ALWAYS_RETURN_ENCODED_OBJECT</b> flag
      *     to always receive an encoded <b>Object</b> element.</div>
      * <div> </div>
-     * @type {CRYPT_XML_BLOB}
      */
-    Encoded {
-        get {
-            if(!this.HasProp("__Encoded"))
-                this.__Encoded := CRYPT_XML_BLOB(56, this)
-            return this.__Encoded
-        }
-    }
+    Encoded : CRYPT_XML_BLOB
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 72
-    }
 }

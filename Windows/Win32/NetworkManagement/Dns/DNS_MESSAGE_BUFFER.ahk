@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DNS_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DNS_HEADER.ahk" { DNS_HEADER }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * The DNS_MESSAGE_BUFFER structure stores message information for DNS queries.
@@ -13,29 +13,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_message_buffer
  * @namespace Windows.Win32.NetworkManagement.Dns
  */
-class DNS_MESSAGE_BUFFER extends Win32Struct {
-    static sizeof => 14
-
-    static packingSize => 2
+export default struct DNS_MESSAGE_BUFFER {
+    #StructPack 2
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windns/ns-windns-dns_header">DNS_HEADER</a> structure that contains the header for the DNS message.
-     * @type {DNS_HEADER}
      */
-    MessageHead {
-        get {
-            if(!this.HasProp("__MessageHead"))
-                this.__MessageHead := DNS_HEADER(0, this)
-            return this.__MessageHead
-        }
-    }
+    MessageHead : DNS_HEADER
 
     /**
      * An array of characters that comprises the DNS query or resource records (RR).
-     * @type {String}
      */
-    MessageBody {
-        get => StrGet(this.ptr + 12, 0, "UTF-8")
-        set => StrPut(value, this.ptr + 12, 0, "UTF-8")
-    }
+    MessageBody : CHAR[1]
+
 }

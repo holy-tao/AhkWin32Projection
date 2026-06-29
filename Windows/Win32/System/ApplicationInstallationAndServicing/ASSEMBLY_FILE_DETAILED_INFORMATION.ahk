@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The ASSEMBLY_FILE_DETAILED_INFORMATION structure is used by the QueryActCtxW function.
@@ -81,53 +81,32 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-assembly_file_detailed_information
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
-class ASSEMBLY_FILE_DETAILED_INFORMATION extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct ASSEMBLY_FILE_DETAILED_INFORMATION {
+    #StructPack 8
 
     /**
      * This value is always 0.
-     * @type {Integer}
      */
-    ulFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulFlags : UInt32
 
     /**
      * Length in bytes of the file name pointed to by <b>lpFileName</b>. The count does not include the terminating null character.
-     * @type {Integer}
      */
-    ulFilenameLength {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ulFilenameLength : UInt32
 
     /**
      * Length in bytes of the path string pointed to by <b>lpFilePath</b> The count does not include the terminating null character.
-     * @type {Integer}
      */
-    ulPathLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ulPathLength : UInt32
 
     /**
      * Null-terminated string that specifies the name of the file.
-     * @type {PWSTR}
      */
-    lpFileName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpFileName : PWSTR
 
     /**
      * Null-terminated string that specifies the path to the file named in <b>lpFileName</b>.
-     * @type {PWSTR}
      */
-    lpFilePath {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpFilePath : PWSTR
+
 }

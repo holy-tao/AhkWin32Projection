@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WINBIO_BIR_DATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WINBIO_BIR_DATA.ahk" { WINBIO_BIR_DATA }
 
 /**
  * Represents a biometric information record (BIR).
@@ -13,56 +12,27 @@
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-bir
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
-class WINBIO_BIR extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 4
+export default struct WINBIO_BIR {
+    #StructPack 4
 
     /**
      * A [**WINBIO\_BIR\_DATA**](winbio-bir-data.md) structure that contains the size, in bytes, and offset of the BIR header. The header contains information that describes the contents of the information record.
-     * @type {WINBIO_BIR_DATA}
      */
-    HeaderBlock {
-        get {
-            if(!this.HasProp("__HeaderBlock"))
-                this.__HeaderBlock := WINBIO_BIR_DATA(0, this)
-            return this.__HeaderBlock
-        }
-    }
+    HeaderBlock : WINBIO_BIR_DATA
 
     /**
      * A [**WINBIO\_BIR\_DATA**](winbio-bir-data.md) structure that contains the size, in bytes, and offset of processed or unprocessed biometric information created by the Windows Biometric Framework (WBF).
-     * @type {WINBIO_BIR_DATA}
      */
-    StandardDataBlock {
-        get {
-            if(!this.HasProp("__StandardDataBlock"))
-                this.__StandardDataBlock := WINBIO_BIR_DATA(8, this)
-            return this.__StandardDataBlock
-        }
-    }
+    StandardDataBlock : WINBIO_BIR_DATA
 
     /**
      * A [**WINBIO\_BIR\_DATA**](winbio-bir-data.md) structure that contains the size, in bytes, and offset of processed or unprocessed biometric information provided by vendor sensors and software.
-     * @type {WINBIO_BIR_DATA}
      */
-    VendorDataBlock {
-        get {
-            if(!this.HasProp("__VendorDataBlock"))
-                this.__VendorDataBlock := WINBIO_BIR_DATA(16, this)
-            return this.__VendorDataBlock
-        }
-    }
+    VendorDataBlock : WINBIO_BIR_DATA
 
     /**
      * An optional [**WINBIO\_BIR\_DATA**](winbio-bir-data.md) structure that contains the size, in bytes, and offset of the digital signature message authentication code (MAC) that can be used to verify the integrity of the BIR. If present, the signature or MAC must cover the header and data blocks.
-     * @type {WINBIO_BIR_DATA}
      */
-    SignatureBlock {
-        get {
-            if(!this.HasProp("__SignatureBlock"))
-                this.__SignatureBlock := WINBIO_BIR_DATA(24, this)
-            return this.__SignatureBlock
-        }
-    }
+    SignatureBlock : WINBIO_BIR_DATA
+
 }

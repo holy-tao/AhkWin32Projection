@@ -1,32 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISpStreamFormat.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\SPAUDIOSTATE.ahk" { SPAUDIOSTATE }
+#Import ".\ISpStreamFormat.ahk" { ISpStreamFormat }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\SPAUDIOSTATUS.ahk" { SPAUDIOSTATUS }
+#Import ".\SPAUDIOBUFFERINFO.ahk" { SPAUDIOBUFFERINFO }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpAudio extends ISpStreamFormat {
-
-    static sizeof => A_PtrSize
+export default struct ISpAudio extends ISpStreamFormat {
     /**
      * The interface identifier for ISpAudio
      * @type {Guid}
      */
-    static IID => Guid("{c05c768f-fae8-4ec2-8e07-338321c12452}")
+    static IID := Guid("{c05c768f-fae8-4ec2-8e07-338321c12452}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 15
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpAudio interfaces
+    */
+    struct Vtbl extends ISpStreamFormat.Vtbl {
+        SetState            : IntPtr
+        SetFormat           : IntPtr
+        GetStatus           : IntPtr
+        SetBufferInfo       : IntPtr
+        GetBufferInfo       : IntPtr
+        GetDefaultFormat    : IntPtr
+        EventHandle         : IntPtr
+        GetVolumeLevel      : IntPtr
+        SetVolumeLevel      : IntPtr
+        GetBufferNotifySize : IntPtr
+        SetBufferNotifySize : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetState", "SetFormat", "GetStatus", "SetBufferInfo", "GetBufferInfo", "GetDefaultFormat", "EventHandle", "GetVolumeLevel", "SetVolumeLevel", "GetBufferNotifySize", "SetBufferNotifySize"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpAudio.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -35,7 +57,7 @@ class ISpAudio extends ISpStreamFormat {
      * @returns {HRESULT} 
      */
     SetState(NewState, ullReserved) {
-        result := ComCall(15, this, "int", NewState, "uint", ullReserved, "HRESULT")
+        result := ComCall(15, this, SPAUDIOSTATE, NewState, "uint", ullReserved, "HRESULT")
         return result
     }
 
@@ -46,7 +68,7 @@ class ISpAudio extends ISpStreamFormat {
      * @returns {HRESULT} 
      */
     SetFormat(rguidFmtId, pWaveFormatEx) {
-        result := ComCall(16, this, "ptr", rguidFmtId, "ptr", pWaveFormatEx, "HRESULT")
+        result := ComCall(16, this, Guid.Ptr, rguidFmtId, WAVEFORMATEX.Ptr, pWaveFormatEx, "HRESULT")
         return result
     }
 
@@ -56,7 +78,7 @@ class ISpAudio extends ISpStreamFormat {
      * @returns {HRESULT} 
      */
     GetStatus(pStatus) {
-        result := ComCall(17, this, "ptr", pStatus, "HRESULT")
+        result := ComCall(17, this, SPAUDIOSTATUS.Ptr, pStatus, "HRESULT")
         return result
     }
 
@@ -66,7 +88,7 @@ class ISpAudio extends ISpStreamFormat {
      * @returns {HRESULT} 
      */
     SetBufferInfo(pBuffInfo) {
-        result := ComCall(18, this, "ptr", pBuffInfo, "HRESULT")
+        result := ComCall(18, this, SPAUDIOBUFFERINFO.Ptr, pBuffInfo, "HRESULT")
         return result
     }
 
@@ -76,7 +98,7 @@ class ISpAudio extends ISpStreamFormat {
      * @returns {HRESULT} 
      */
     GetBufferInfo(pBuffInfo) {
-        result := ComCall(19, this, "ptr", pBuffInfo, "HRESULT")
+        result := ComCall(19, this, SPAUDIOBUFFERINFO.Ptr, pBuffInfo, "HRESULT")
         return result
     }
 
@@ -89,7 +111,7 @@ class ISpAudio extends ISpStreamFormat {
     GetDefaultFormat(pFormatId, ppCoMemWaveFormatEx) {
         ppCoMemWaveFormatExMarshal := ppCoMemWaveFormatEx is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(20, this, "ptr", pFormatId, ppCoMemWaveFormatExMarshal, ppCoMemWaveFormatEx, "HRESULT")
+        result := ComCall(20, this, Guid.Ptr, pFormatId, ppCoMemWaveFormatExMarshal, ppCoMemWaveFormatEx, "HRESULT")
         return result
     }
 
@@ -98,9 +120,8 @@ class ISpAudio extends ISpStreamFormat {
      * @returns {HANDLE} 
      */
     EventHandle() {
-        result := ComCall(21, this, "ptr")
-        resultHandle := HANDLE({Value: result}, True)
-        return resultHandle
+        result := ComCall(21, this, HANDLE.Owned)
+        return result
     }
 
     /**
@@ -145,5 +166,45 @@ class ISpAudio extends ISpStreamFormat {
     SetBufferNotifySize(cbSize) {
         result := ComCall(25, this, "uint", cbSize, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISpAudio.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetState := CallbackCreate(GetMethod(implObj, "SetState"), flags, 3)
+        this.vtbl.SetFormat := CallbackCreate(GetMethod(implObj, "SetFormat"), flags, 3)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.SetBufferInfo := CallbackCreate(GetMethod(implObj, "SetBufferInfo"), flags, 2)
+        this.vtbl.GetBufferInfo := CallbackCreate(GetMethod(implObj, "GetBufferInfo"), flags, 2)
+        this.vtbl.GetDefaultFormat := CallbackCreate(GetMethod(implObj, "GetDefaultFormat"), flags, 3)
+        this.vtbl.EventHandle := CallbackCreate(GetMethod(implObj, "EventHandle"), flags, 1)
+        this.vtbl.GetVolumeLevel := CallbackCreate(GetMethod(implObj, "GetVolumeLevel"), flags, 2)
+        this.vtbl.SetVolumeLevel := CallbackCreate(GetMethod(implObj, "SetVolumeLevel"), flags, 2)
+        this.vtbl.GetBufferNotifySize := CallbackCreate(GetMethod(implObj, "GetBufferNotifySize"), flags, 2)
+        this.vtbl.SetBufferNotifySize := CallbackCreate(GetMethod(implObj, "SetBufferNotifySize"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetState)
+        CallbackFree(this.vtbl.SetFormat)
+        CallbackFree(this.vtbl.GetStatus)
+        CallbackFree(this.vtbl.SetBufferInfo)
+        CallbackFree(this.vtbl.GetBufferInfo)
+        CallbackFree(this.vtbl.GetDefaultFormat)
+        CallbackFree(this.vtbl.EventHandle)
+        CallbackFree(this.vtbl.GetVolumeLevel)
+        CallbackFree(this.vtbl.SetVolumeLevel)
+        CallbackFree(this.vtbl.GetBufferNotifySize)
+        CallbackFree(this.vtbl.SetBufferNotifySize)
     }
 }

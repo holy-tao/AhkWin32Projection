@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Determines the concurrency model used for incoming calls to the objects created by this thread.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/roapi/ne-roapi-ro_init_type
  * @namespace Windows.Win32.System.WinRT
  */
-class RO_INIT_TYPE extends Win32Enum {
+export default struct RO_INIT_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

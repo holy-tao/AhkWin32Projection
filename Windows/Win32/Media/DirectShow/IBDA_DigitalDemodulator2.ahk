@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IBDA_DigitalDemodulator.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\TransmissionMode.ahk" { TransmissionMode }
+#Import ".\IBDA_DigitalDemodulator.ahk" { IBDA_DigitalDemodulator }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\GuardInterval.ahk" { GuardInterval }
+#Import ".\Pilot.ahk" { Pilot }
+#Import ".\RollOff.ahk" { RollOff }
 
 /**
  * Controls a Broadcast Driver Architecture (BDA) demodulator filter. Demodulation filters for Digital Video Broadcasting-Satellite version 2 (DVB-S2) implement this interface.
@@ -10,26 +15,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_digitaldemodulator2
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator {
-
-    static sizeof => A_PtrSize
+export default struct IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator {
     /**
      * The interface identifier for IBDA_DigitalDemodulator2
      * @type {Guid}
      */
-    static IID => Guid("{525ed3ee-5cf3-4e1e-9a06-5368a84f9a6e}")
+    static IID := Guid("{525ed3ee-5cf3-4e1e-9a06-5368a84f9a6e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 17
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBDA_DigitalDemodulator2 interfaces
+    */
+    struct Vtbl extends IBDA_DigitalDemodulator.Vtbl {
+        put_GuardInterval    : IntPtr
+        get_GuardInterval    : IntPtr
+        put_TransmissionMode : IntPtr
+        get_TransmissionMode : IntPtr
+        put_RollOff          : IntPtr
+        get_RollOff          : IntPtr
+        put_Pilot            : IntPtr
+        get_Pilot            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_GuardInterval", "get_GuardInterval", "put_TransmissionMode", "get_TransmissionMode", "put_RollOff", "get_RollOff", "put_Pilot", "get_Pilot"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBDA_DigitalDemodulator2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {GuardInterval} 
@@ -165,5 +184,39 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator {
 
         result := ComCall(24, this, pPilotMarshal, pPilot, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBDA_DigitalDemodulator2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_GuardInterval := CallbackCreate(GetMethod(implObj, "put_GuardInterval"), flags, 2)
+        this.vtbl.get_GuardInterval := CallbackCreate(GetMethod(implObj, "get_GuardInterval"), flags, 2)
+        this.vtbl.put_TransmissionMode := CallbackCreate(GetMethod(implObj, "put_TransmissionMode"), flags, 2)
+        this.vtbl.get_TransmissionMode := CallbackCreate(GetMethod(implObj, "get_TransmissionMode"), flags, 2)
+        this.vtbl.put_RollOff := CallbackCreate(GetMethod(implObj, "put_RollOff"), flags, 2)
+        this.vtbl.get_RollOff := CallbackCreate(GetMethod(implObj, "get_RollOff"), flags, 2)
+        this.vtbl.put_Pilot := CallbackCreate(GetMethod(implObj, "put_Pilot"), flags, 2)
+        this.vtbl.get_Pilot := CallbackCreate(GetMethod(implObj, "get_Pilot"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_GuardInterval)
+        CallbackFree(this.vtbl.get_GuardInterval)
+        CallbackFree(this.vtbl.put_TransmissionMode)
+        CallbackFree(this.vtbl.get_TransmissionMode)
+        CallbackFree(this.vtbl.put_RollOff)
+        CallbackFree(this.vtbl.get_RollOff)
+        CallbackFree(this.vtbl.put_Pilot)
+        CallbackFree(this.vtbl.get_Pilot)
     }
 }

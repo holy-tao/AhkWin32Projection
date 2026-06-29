@@ -1,34 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Associates a class of event objects with the event interface those objects implement.
  * @see https://learn.microsoft.com/windows/win32/api/eventsys/nn-eventsys-ieventclass
  * @namespace Windows.Win32.System.Com.Events
  */
-class IEventClass extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IEventClass extends IDispatch {
     /**
      * The interface identifier for IEventClass
      * @type {Guid}
      */
-    static IID => Guid("{fb2b72a0-7a68-11d1-88f9-0080c7d771bf}")
+    static IID := Guid("{fb2b72a0-7a68-11d1-88f9-0080c7d771bf}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IEventClass interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_EventClassID      : IntPtr
+        put_EventClassID      : IntPtr
+        get_EventClassName    : IntPtr
+        put_EventClassName    : IntPtr
+        get_OwnerSID          : IntPtr
+        put_OwnerSID          : IntPtr
+        get_FiringInterfaceID : IntPtr
+        put_FiringInterfaceID : IntPtr
+        get_Description       : IntPtr
+        put_Description       : IntPtr
+        get_CustomConfigCLSID : IntPtr
+        put_CustomConfigCLSID : IntPtr
+        get_TypeLib           : IntPtr
+        put_TypeLib           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_EventClassID", "put_EventClassID", "get_EventClassName", "put_EventClassName", "get_OwnerSID", "put_OwnerSID", "get_FiringInterfaceID", "put_FiringInterfaceID", "get_Description", "put_Description", "get_CustomConfigCLSID", "put_CustomConfigCLSID", "get_TypeLib", "put_TypeLib"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IEventClass.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -92,8 +113,8 @@ class IEventClass extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-get_eventclassid
      */
     get_EventClassID() {
-        pbstrEventClassID := BSTR()
-        result := ComCall(7, this, "ptr", pbstrEventClassID, "HRESULT")
+        pbstrEventClassID := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pbstrEventClassID, "HRESULT")
         return pbstrEventClassID
     }
 
@@ -106,7 +127,7 @@ class IEventClass extends IDispatch {
     put_EventClassID(bstrEventClassID) {
         bstrEventClassID := bstrEventClassID is String ? BSTR.Alloc(bstrEventClassID).Value : bstrEventClassID
 
-        result := ComCall(8, this, "ptr", bstrEventClassID, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrEventClassID, "HRESULT")
         return result
     }
 
@@ -116,8 +137,8 @@ class IEventClass extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-get_eventclassname
      */
     get_EventClassName() {
-        pbstrEventClassName := BSTR()
-        result := ComCall(9, this, "ptr", pbstrEventClassName, "HRESULT")
+        pbstrEventClassName := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pbstrEventClassName, "HRESULT")
         return pbstrEventClassName
     }
 
@@ -130,7 +151,7 @@ class IEventClass extends IDispatch {
     put_EventClassName(bstrEventClassName) {
         bstrEventClassName := bstrEventClassName is String ? BSTR.Alloc(bstrEventClassName).Value : bstrEventClassName
 
-        result := ComCall(10, this, "ptr", bstrEventClassName, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrEventClassName, "HRESULT")
         return result
     }
 
@@ -140,8 +161,8 @@ class IEventClass extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-get_ownersid
      */
     get_OwnerSID() {
-        pbstrOwnerSID := BSTR()
-        result := ComCall(11, this, "ptr", pbstrOwnerSID, "HRESULT")
+        pbstrOwnerSID := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pbstrOwnerSID, "HRESULT")
         return pbstrOwnerSID
     }
 
@@ -154,7 +175,7 @@ class IEventClass extends IDispatch {
     put_OwnerSID(bstrOwnerSID) {
         bstrOwnerSID := bstrOwnerSID is String ? BSTR.Alloc(bstrOwnerSID).Value : bstrOwnerSID
 
-        result := ComCall(12, this, "ptr", bstrOwnerSID, "HRESULT")
+        result := ComCall(12, this, BSTR, bstrOwnerSID, "HRESULT")
         return result
     }
 
@@ -164,8 +185,8 @@ class IEventClass extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-get_firinginterfaceid
      */
     get_FiringInterfaceID() {
-        pbstrFiringInterfaceID := BSTR()
-        result := ComCall(13, this, "ptr", pbstrFiringInterfaceID, "HRESULT")
+        pbstrFiringInterfaceID := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, pbstrFiringInterfaceID, "HRESULT")
         return pbstrFiringInterfaceID
     }
 
@@ -178,7 +199,7 @@ class IEventClass extends IDispatch {
     put_FiringInterfaceID(bstrFiringInterfaceID) {
         bstrFiringInterfaceID := bstrFiringInterfaceID is String ? BSTR.Alloc(bstrFiringInterfaceID).Value : bstrFiringInterfaceID
 
-        result := ComCall(14, this, "ptr", bstrFiringInterfaceID, "HRESULT")
+        result := ComCall(14, this, BSTR, bstrFiringInterfaceID, "HRESULT")
         return result
     }
 
@@ -188,8 +209,8 @@ class IEventClass extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-get_description
      */
     get_Description() {
-        pbstrDescription := BSTR()
-        result := ComCall(15, this, "ptr", pbstrDescription, "HRESULT")
+        pbstrDescription := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, pbstrDescription, "HRESULT")
         return pbstrDescription
     }
 
@@ -202,7 +223,7 @@ class IEventClass extends IDispatch {
     put_Description(bstrDescription) {
         bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
 
-        result := ComCall(16, this, "ptr", bstrDescription, "HRESULT")
+        result := ComCall(16, this, BSTR, bstrDescription, "HRESULT")
         return result
     }
 
@@ -212,8 +233,8 @@ class IEventClass extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-get_customconfigclsid
      */
     get_CustomConfigCLSID() {
-        pbstrCustomConfigCLSID := BSTR()
-        result := ComCall(17, this, "ptr", pbstrCustomConfigCLSID, "HRESULT")
+        pbstrCustomConfigCLSID := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, pbstrCustomConfigCLSID, "HRESULT")
         return pbstrCustomConfigCLSID
     }
 
@@ -226,7 +247,7 @@ class IEventClass extends IDispatch {
     put_CustomConfigCLSID(bstrCustomConfigCLSID) {
         bstrCustomConfigCLSID := bstrCustomConfigCLSID is String ? BSTR.Alloc(bstrCustomConfigCLSID).Value : bstrCustomConfigCLSID
 
-        result := ComCall(18, this, "ptr", bstrCustomConfigCLSID, "HRESULT")
+        result := ComCall(18, this, BSTR, bstrCustomConfigCLSID, "HRESULT")
         return result
     }
 
@@ -236,8 +257,8 @@ class IEventClass extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-get_typelib
      */
     get_TypeLib() {
-        pbstrTypeLib := BSTR()
-        result := ComCall(19, this, "ptr", pbstrTypeLib, "HRESULT")
+        pbstrTypeLib := BSTR.Owned()
+        result := ComCall(19, this, BSTR.Ptr, pbstrTypeLib, "HRESULT")
         return pbstrTypeLib
     }
 
@@ -250,7 +271,53 @@ class IEventClass extends IDispatch {
     put_TypeLib(bstrTypeLib) {
         bstrTypeLib := bstrTypeLib is String ? BSTR.Alloc(bstrTypeLib).Value : bstrTypeLib
 
-        result := ComCall(20, this, "ptr", bstrTypeLib, "HRESULT")
+        result := ComCall(20, this, BSTR, bstrTypeLib, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IEventClass.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_EventClassID := CallbackCreate(GetMethod(implObj, "get_EventClassID"), flags, 2)
+        this.vtbl.put_EventClassID := CallbackCreate(GetMethod(implObj, "put_EventClassID"), flags, 2)
+        this.vtbl.get_EventClassName := CallbackCreate(GetMethod(implObj, "get_EventClassName"), flags, 2)
+        this.vtbl.put_EventClassName := CallbackCreate(GetMethod(implObj, "put_EventClassName"), flags, 2)
+        this.vtbl.get_OwnerSID := CallbackCreate(GetMethod(implObj, "get_OwnerSID"), flags, 2)
+        this.vtbl.put_OwnerSID := CallbackCreate(GetMethod(implObj, "put_OwnerSID"), flags, 2)
+        this.vtbl.get_FiringInterfaceID := CallbackCreate(GetMethod(implObj, "get_FiringInterfaceID"), flags, 2)
+        this.vtbl.put_FiringInterfaceID := CallbackCreate(GetMethod(implObj, "put_FiringInterfaceID"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.get_CustomConfigCLSID := CallbackCreate(GetMethod(implObj, "get_CustomConfigCLSID"), flags, 2)
+        this.vtbl.put_CustomConfigCLSID := CallbackCreate(GetMethod(implObj, "put_CustomConfigCLSID"), flags, 2)
+        this.vtbl.get_TypeLib := CallbackCreate(GetMethod(implObj, "get_TypeLib"), flags, 2)
+        this.vtbl.put_TypeLib := CallbackCreate(GetMethod(implObj, "put_TypeLib"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_EventClassID)
+        CallbackFree(this.vtbl.put_EventClassID)
+        CallbackFree(this.vtbl.get_EventClassName)
+        CallbackFree(this.vtbl.put_EventClassName)
+        CallbackFree(this.vtbl.get_OwnerSID)
+        CallbackFree(this.vtbl.put_OwnerSID)
+        CallbackFree(this.vtbl.get_FiringInterfaceID)
+        CallbackFree(this.vtbl.put_FiringInterfaceID)
+        CallbackFree(this.vtbl.get_Description)
+        CallbackFree(this.vtbl.put_Description)
+        CallbackFree(this.vtbl.get_CustomConfigCLSID)
+        CallbackFree(this.vtbl.put_CustomConfigCLSID)
+        CallbackFree(this.vtbl.get_TypeLib)
+        CallbackFree(this.vtbl.put_TypeLib)
     }
 }

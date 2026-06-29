@@ -1,24 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains media type information for registering a Media Foundation transform (MFT).
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ns-mfobjects-mft_register_type_info
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFT_REGISTER_TYPE_INFO extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct MFT_REGISTER_TYPE_INFO {
+    #StructPack 4
 
     /**
      * The major media type. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/medfound/media-type-guids">Major Media Types</a>.
-     * @type {Pointer}
      */
-    guidMajorType {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    guidMajorType : Guid
 
     /**
      * The media subtype. For a list of possible values, see the following topics:
@@ -31,10 +25,7 @@ class MFT_REGISTER_TYPE_INFO extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/medfound/video-subtype-guids">Video Subtype GUIDs</a>
      * </li>
      * </ul>
-     * @type {Pointer}
      */
-    guidSubtype {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    guidSubtype : Guid
+
 }

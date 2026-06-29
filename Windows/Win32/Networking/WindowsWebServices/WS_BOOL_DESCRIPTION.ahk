@@ -1,22 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Specifies constraints on the set of values which can be deserialized. (WS_BOOL_DESCRIPTION)
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_bool_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_BOOL_DESCRIPTION extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct WS_BOOL_DESCRIPTION {
+    #StructPack 4
 
     /**
      * Specifies the required value.
-     * @type {BOOL}
      */
-    value {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    value : BOOL
+
 }

@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MOUSE_EVENT_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MOUSE_EVENT_FLAGS.ahk" { MOUSE_EVENT_FLAGS }
 
 /**
  * Contains information about a simulated mouse event.
@@ -19,32 +18,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-mouseinput
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
  */
-class MOUSEINPUT extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct MOUSEINPUT {
+    #StructPack 8
 
     /**
      * Type: **LONG**
      * 
      * The absolute position of the mouse, or the amount of motion since the last mouse event was generated, depending on the value of the **dwFlags** member. Absolute data is specified as the x coordinate of the mouse; relative data is specified as the number of pixels moved.
-     * @type {Integer}
      */
-    dx {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    dx : Int32
 
     /**
      * Type: **LONG**
      * 
      * The absolute position of the mouse, or the amount of motion since the last mouse event was generated, depending on the value of the **dwFlags** member. Absolute data is specified as the y coordinate of the mouse; relative data is specified as the number of pixels moved.
-     * @type {Integer}
      */
-    dy {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    dy : Int32
 
     /**
      * Type: **DWORD**
@@ -61,41 +50,26 @@ class MOUSEINPUT extends Win32Struct {
      * |-|-|
      * | **XBUTTON1**<br>0x0001 | Set if the first X button is pressed or released. |
      * | **XBUTTON2**<br>0x0002 | Set if the second X button is pressed or released. |
-     * @type {Integer}
      */
-    mouseData {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    mouseData : UInt32
 
     /**
      * Type: **DWORD**
-     * @type {MOUSE_EVENT_FLAGS}
      */
-    dwFlags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwFlags : MOUSE_EVENT_FLAGS
 
     /**
      * Type: **DWORD**
      * 
      * The time stamp for the event, in milliseconds. If this parameter is 0, the system will provide its own time stamp.
-     * @type {Integer}
      */
-    time {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    time : UInt32
 
     /**
      * Type: **ULONG_PTR**
      * 
      * An additional value associated with the mouse event. An application calls [GetMessageExtraInfo](/windows/desktop/api/winuser/nf-winuser-getmessageextrainfo) to obtain this extra information.
-     * @type {Pointer}
      */
-    dwExtraInfo {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    dwExtraInfo : IntPtr
+
 }

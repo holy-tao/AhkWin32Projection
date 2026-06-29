@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * This structure describes a dash element of a path.
@@ -12,26 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_dash
  * @namespace Windows.Win32.Storage.Xps
  */
-class XPS_DASH extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct XPS_DASH {
+    #StructPack 4
 
     /**
      * Length of the visible segment of the dash element.
-     * @type {Float}
      */
-    length {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    length : Float32
 
     /**
      * Length of the space between the visible segments of the dash sequence.
-     * @type {Float}
      */
-    gap {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    gap : Float32
+
 }

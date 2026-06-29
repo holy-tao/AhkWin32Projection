@@ -1,70 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ONEX_AUTH_STATUS.ahk
-#Include .\ONEX_REASON_CODE.ahk
-#Include .\DOT11_EAP_RESULT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_EAP_RESULT.ahk" { DOT11_EAP_RESULT }
+#Import ".\ONEX_REASON_CODE.ahk" { ONEX_REASON_CODE }
+#Import ".\ONEX_AUTH_STATUS.ahk" { ONEX_AUTH_STATUS }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_MSONEX_RESULT_PARAMS extends Win32Struct {
-    static sizeof => 48
+export default struct DOT11_MSONEX_RESULT_PARAMS {
+    #StructPack 8
 
-    static packingSize => 8
+    Dot11OnexAuthStatus : ONEX_AUTH_STATUS
 
-    /**
-     * @type {ONEX_AUTH_STATUS}
-     */
-    Dot11OnexAuthStatus {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Dot11OneXReasonCode : ONEX_REASON_CODE
 
-    /**
-     * @type {ONEX_REASON_CODE}
-     */
-    Dot11OneXReasonCode {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    pbMPPESendKey : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbMPPESendKey {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    dwMPPESendKeyLen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMPPESendKeyLen {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    pbMPPERecvKey : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbMPPERecvKey {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    dwMPPERecvKeyLen : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMPPERecvKeyLen {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    pDot11EapResult : DOT11_EAP_RESULT.Ptr
 
-    /**
-     * @type {Pointer<DOT11_EAP_RESULT>}
-     */
-    pDot11EapResult {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

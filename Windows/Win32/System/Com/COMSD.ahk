@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Determines the type of COM security descriptor to get when calling CoGetSystemSecurityPermissions.
  * @see https://learn.microsoft.com/windows/win32/api/objbase/ne-objbase-comsd
  * @namespace Windows.Win32.System.Com
  */
-class COMSD extends Win32Enum {
+export default struct COMSD {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Machine-wide launch permissions.

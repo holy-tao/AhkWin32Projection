@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Interface to pass requests from an application to the underlying Mobile Broadband miniport drivers.
@@ -10,26 +12,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnvendorspecificoperation
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  */
-class IMbnVendorSpecificOperation extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMbnVendorSpecificOperation extends IUnknown {
     /**
      * The interface identifier for IMbnVendorSpecificOperation
      * @type {Guid}
      */
-    static IID => Guid("{dcbbbab6-2019-4bbb-aaee-338e368af6fa}")
+    static IID := Guid("{dcbbbab6-2019-4bbb-aaee-338e368af6fa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMbnVendorSpecificOperation interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetVendorSpecific : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetVendorSpecific"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMbnVendorSpecificOperation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sends a request to the underlying Mobile Broadband device miniport driver.
@@ -46,7 +55,27 @@ class IMbnVendorSpecificOperation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnvendorspecificoperation-setvendorspecific
      */
     SetVendorSpecific(vendorSpecificData) {
-        result := ComCall(3, this, "ptr", vendorSpecificData, "uint*", &requestID := 0, "HRESULT")
+        result := ComCall(3, this, SAFEARRAY.Ptr, vendorSpecificData, "uint*", &requestID := 0, "HRESULT")
         return requestID
+    }
+
+    Query(iid) {
+        if (IMbnVendorSpecificOperation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetVendorSpecific := CallbackCreate(GetMethod(implObj, "SetVendorSpecific"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetVendorSpecific)
     }
 }

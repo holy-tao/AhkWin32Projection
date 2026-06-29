@@ -1,32 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_METADATA_ENDPOINT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_METADATA_ENDPOINT.ahk" { WS_METADATA_ENDPOINT }
 
 /**
  * Information about all endpoints that were read from metadata documents.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_metadata_endpoints
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_METADATA_ENDPOINTS extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct WS_METADATA_ENDPOINTS {
+    #StructPack 8
 
     /**
      * An array of endpoints.
-     * @type {Pointer<WS_METADATA_ENDPOINT>}
      */
-    endpoints {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    endpoints : WS_METADATA_ENDPOINT.Ptr
 
     /**
      * The number of elements in the endpoints array.
-     * @type {Integer}
      */
-    endpointCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    endpointCount : UInt32
+
 }

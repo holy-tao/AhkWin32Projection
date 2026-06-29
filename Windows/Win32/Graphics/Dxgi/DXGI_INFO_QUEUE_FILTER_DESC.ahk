@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXGI_INFO_QUEUE_MESSAGE_CATEGORY.ahk
-#Include .\DXGI_INFO_QUEUE_MESSAGE_SEVERITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DXGI_INFO_QUEUE_MESSAGE_SEVERITY.ahk" { DXGI_INFO_QUEUE_MESSAGE_SEVERITY }
+#Import ".\DXGI_INFO_QUEUE_MESSAGE_CATEGORY.ahk" { DXGI_INFO_QUEUE_MESSAGE_CATEGORY }
 
 /**
  * Describes the types of messages to allow or deny to pass through a filter.
@@ -12,62 +11,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/ns-dxgidebug-dxgi_info_queue_filter_desc
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class DXGI_INFO_QUEUE_FILTER_DESC extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct DXGI_INFO_QUEUE_FILTER_DESC {
+    #StructPack 8
 
     /**
      * The number of message categories to allow or deny.
-     * @type {Integer}
      */
-    NumCategories {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumCategories : UInt32
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/ne-dxgidebug-dxgi_info_queue_message_category">DXGI_INFO_QUEUE_MESSAGE_CATEGORY</a> enumeration values that describe the message categories to allow or deny. The array must have at least <b>NumCategories</b> number of elements.
-     * @type {Pointer<DXGI_INFO_QUEUE_MESSAGE_CATEGORY>}
      */
-    pCategoryList {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pCategoryList : DXGI_INFO_QUEUE_MESSAGE_CATEGORY.Ptr
 
     /**
      * The number of message severity levels to allow or deny.
-     * @type {Integer}
      */
-    NumSeverities {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    NumSeverities : UInt32
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/ne-dxgidebug-dxgi_info_queue_message_severity">DXGI_INFO_QUEUE_MESSAGE_SEVERITY</a> enumeration values that describe the message severity levels to allow or deny. The array must have at least <b>NumSeverities</b> number of elements.
-     * @type {Pointer<DXGI_INFO_QUEUE_MESSAGE_SEVERITY>}
      */
-    pSeverityList {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pSeverityList : DXGI_INFO_QUEUE_MESSAGE_SEVERITY.Ptr
 
     /**
      * The number of message IDs to allow or deny.
-     * @type {Integer}
      */
-    NumIDs {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    NumIDs : UInt32
 
     /**
      * An array of integers that represent the message IDs to allow or deny. The array must have at least <b>NumIDs</b> number of elements.
-     * @type {Pointer<Integer>}
      */
-    pIDList {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pIDList : IntPtr
+
 }

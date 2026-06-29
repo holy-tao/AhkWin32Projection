@@ -1,22 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class BDA_TS_SELECTORINFO_ISDBS_EXT extends Win32Struct {
-    static sizeof => 48
+export default struct BDA_TS_SELECTORINFO_ISDBS_EXT {
+    #StructPack 1
 
-    static packingSize => 1
+    bTMCC : Int8[48]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    bTMCC {
-        get {
-            if(!this.HasProp("__bTMCCProxyArray"))
-                this.__bTMCCProxyArray := Win32FixedArray(this.ptr + 0, 48, Primitive, "char")
-            return this.__bTMCCProxyArray
-        }
-    }
 }

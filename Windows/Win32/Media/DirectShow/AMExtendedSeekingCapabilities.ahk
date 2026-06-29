@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The AMExtendedSeekingCapabilities enumeration contains flags that describe the extended seeking capabilities of a filter.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/qnetwork/ne-qnetwork-amextendedseekingcapabilities
  * @namespace Windows.Win32.Media.DirectShow
  */
-class AMExtendedSeekingCapabilities extends Win32Enum {
+export default struct AMExtendedSeekingCapabilities {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates that the stream is seekable.

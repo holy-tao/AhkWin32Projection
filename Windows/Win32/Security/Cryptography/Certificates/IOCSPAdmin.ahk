@@ -1,11 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IOCSPPropertyCollection.ahk
-#Include .\IOCSPCAConfigurationCollection.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IOCSPPropertyCollection.ahk" { IOCSPPropertyCollection }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOCSPCAConfigurationCollection.ahk" { IOCSPCAConfigurationCollection }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Provides functionality to manage an Online Certificate Status Protocol (OCSP) responder server.
@@ -61,32 +63,48 @@
  * @see https://learn.microsoft.com/windows/win32/api/certadm/nn-certadm-iocspadmin
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IOCSPAdmin extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IOCSPAdmin extends IDispatch {
     /**
      * The interface identifier for IOCSPAdmin
      * @type {Guid}
      */
-    static IID => Guid("{322e830d-67db-4fe9-9577-4596d9f09294}")
+    static IID := Guid("{322e830d-67db-4fe9-9577-4596d9f09294}")
 
     /**
      * The class identifier for OCSPAdmin
      * @type {Guid}
      */
-    static CLSID => Guid("{d3f73511-92c9-47cb-8ff2-8d891a7c4de4}")
+    static CLSID := Guid("{d3f73511-92c9-47cb-8ff2-8d891a7c4de4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOCSPAdmin interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_OCSPServiceProperties         : IntPtr
+        get_OCSPCAConfigurationCollection : IntPtr
+        GetConfiguration                  : IntPtr
+        SetConfiguration                  : IntPtr
+        GetMyRoles                        : IntPtr
+        Ping                              : IntPtr
+        SetSecurity                       : IntPtr
+        GetSecurity                       : IntPtr
+        GetSigningCertificates            : IntPtr
+        GetHashAlgorithms                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_OCSPServiceProperties", "get_OCSPCAConfigurationCollection", "GetConfiguration", "SetConfiguration", "GetMyRoles", "Ping", "SetSecurity", "GetSecurity", "GetSigningCertificates", "GetHashAlgorithms"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOCSPAdmin.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IOCSPPropertyCollection} 
@@ -338,7 +356,7 @@ class IOCSPAdmin extends IDispatch {
     GetConfiguration(bstrServerName, bForce) {
         bstrServerName := bstrServerName is String ? BSTR.Alloc(bstrServerName).Value : bstrServerName
 
-        result := ComCall(9, this, "ptr", bstrServerName, "short", bForce, "HRESULT")
+        result := ComCall(9, this, BSTR, bstrServerName, VARIANT_BOOL, bForce, "HRESULT")
         return result
     }
 
@@ -445,7 +463,7 @@ class IOCSPAdmin extends IDispatch {
     SetConfiguration(bstrServerName, bForce) {
         bstrServerName := bstrServerName is String ? BSTR.Alloc(bstrServerName).Value : bstrServerName
 
-        result := ComCall(10, this, "ptr", bstrServerName, "short", bForce, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrServerName, VARIANT_BOOL, bForce, "HRESULT")
         return result
     }
 
@@ -533,7 +551,7 @@ class IOCSPAdmin extends IDispatch {
     GetMyRoles(bstrServerName) {
         bstrServerName := bstrServerName is String ? BSTR.Alloc(bstrServerName).Value : bstrServerName
 
-        result := ComCall(11, this, "ptr", bstrServerName, "int*", &pRoles := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, bstrServerName, "int*", &pRoles := 0, "HRESULT")
         return pRoles
     }
 
@@ -546,7 +564,7 @@ class IOCSPAdmin extends IDispatch {
     Ping(bstrServerName) {
         bstrServerName := bstrServerName is String ? BSTR.Alloc(bstrServerName).Value : bstrServerName
 
-        result := ComCall(12, this, "ptr", bstrServerName, "HRESULT")
+        result := ComCall(12, this, BSTR, bstrServerName, "HRESULT")
         return result
     }
 
@@ -563,7 +581,7 @@ class IOCSPAdmin extends IDispatch {
         bstrServerName := bstrServerName is String ? BSTR.Alloc(bstrServerName).Value : bstrServerName
         bstrVal := bstrVal is String ? BSTR.Alloc(bstrVal).Value : bstrVal
 
-        result := ComCall(13, this, "ptr", bstrServerName, "ptr", bstrVal, "HRESULT")
+        result := ComCall(13, this, BSTR, bstrServerName, BSTR, bstrVal, "HRESULT")
         return result
     }
 
@@ -578,8 +596,8 @@ class IOCSPAdmin extends IDispatch {
     GetSecurity(bstrServerName) {
         bstrServerName := bstrServerName is String ? BSTR.Alloc(bstrServerName).Value : bstrServerName
 
-        pVal := BSTR()
-        result := ComCall(14, this, "ptr", bstrServerName, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(14, this, BSTR, bstrServerName, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -603,7 +621,7 @@ class IOCSPAdmin extends IDispatch {
         bstrServerName := bstrServerName is String ? BSTR.Alloc(bstrServerName).Value : bstrServerName
 
         pVal := VARIANT()
-        result := ComCall(15, this, "ptr", bstrServerName, "ptr", pCACertVar, "ptr", pVal, "HRESULT")
+        result := ComCall(15, this, BSTR, bstrServerName, VARIANT.Ptr, pCACertVar, VARIANT.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -619,7 +637,45 @@ class IOCSPAdmin extends IDispatch {
         bstrCAId := bstrCAId is String ? BSTR.Alloc(bstrCAId).Value : bstrCAId
 
         pVal := VARIANT()
-        result := ComCall(16, this, "ptr", bstrServerName, "ptr", bstrCAId, "ptr", pVal, "HRESULT")
+        result := ComCall(16, this, BSTR, bstrServerName, BSTR, bstrCAId, VARIANT.Ptr, pVal, "HRESULT")
         return pVal
+    }
+
+    Query(iid) {
+        if (IOCSPAdmin.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_OCSPServiceProperties := CallbackCreate(GetMethod(implObj, "get_OCSPServiceProperties"), flags, 2)
+        this.vtbl.get_OCSPCAConfigurationCollection := CallbackCreate(GetMethod(implObj, "get_OCSPCAConfigurationCollection"), flags, 2)
+        this.vtbl.GetConfiguration := CallbackCreate(GetMethod(implObj, "GetConfiguration"), flags, 3)
+        this.vtbl.SetConfiguration := CallbackCreate(GetMethod(implObj, "SetConfiguration"), flags, 3)
+        this.vtbl.GetMyRoles := CallbackCreate(GetMethod(implObj, "GetMyRoles"), flags, 3)
+        this.vtbl.Ping := CallbackCreate(GetMethod(implObj, "Ping"), flags, 2)
+        this.vtbl.SetSecurity := CallbackCreate(GetMethod(implObj, "SetSecurity"), flags, 3)
+        this.vtbl.GetSecurity := CallbackCreate(GetMethod(implObj, "GetSecurity"), flags, 3)
+        this.vtbl.GetSigningCertificates := CallbackCreate(GetMethod(implObj, "GetSigningCertificates"), flags, 4)
+        this.vtbl.GetHashAlgorithms := CallbackCreate(GetMethod(implObj, "GetHashAlgorithms"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_OCSPServiceProperties)
+        CallbackFree(this.vtbl.get_OCSPCAConfigurationCollection)
+        CallbackFree(this.vtbl.GetConfiguration)
+        CallbackFree(this.vtbl.SetConfiguration)
+        CallbackFree(this.vtbl.GetMyRoles)
+        CallbackFree(this.vtbl.Ping)
+        CallbackFree(this.vtbl.SetSecurity)
+        CallbackFree(this.vtbl.GetSecurity)
+        CallbackFree(this.vtbl.GetSigningCertificates)
+        CallbackFree(this.vtbl.GetHashAlgorithms)
     }
 }

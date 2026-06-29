@@ -1,52 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SpatialAudioHrtfDirectivityCone.ahk
-#Include .\SpatialAudioHrtfDirectivity.ahk
-#Include .\SpatialAudioHrtfDirectivityType.ahk
-#Include .\SpatialAudioHrtfDirectivityCardioid.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SpatialAudioHrtfDirectivityType.ahk" { SpatialAudioHrtfDirectivityType }
+#Import ".\SpatialAudioHrtfDirectivityCone.ahk" { SpatialAudioHrtfDirectivityCone }
+#Import ".\SpatialAudioHrtfDirectivity.ahk" { SpatialAudioHrtfDirectivity }
+#Import ".\SpatialAudioHrtfDirectivityCardioid.ahk" { SpatialAudioHrtfDirectivityCardioid }
 
 /**
  * Defines a spatial audio directivity model for an ISpatialAudioObjectForHrtf.
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudiohrtf/ns-spatialaudiohrtf-spatialaudiohrtfdirectivityunion
  * @namespace Windows.Win32.Media.Audio
  */
-class SpatialAudioHrtfDirectivityUnion extends Win32Struct {
-    static sizeof => 36
-
-    static packingSize => 4
+export default struct SpatialAudioHrtfDirectivityUnion {
+    #StructPack 4
 
     /**
      * A cone-shaped directivity model
-     * @type {SpatialAudioHrtfDirectivityCone}
      */
-    Cone {
-        get {
-            if(!this.HasProp("__Cone"))
-                this.__Cone := SpatialAudioHrtfDirectivityCone(0, this)
-            return this.__Cone
-        }
-    }
+    Cone : SpatialAudioHrtfDirectivityCone
 
-    /**
-     * @type {SpatialAudioHrtfDirectivityCardioid}
-     */
-    Cardiod {
-        get {
-            if(!this.HasProp("__Cardiod"))
-                this.__Cardiod := SpatialAudioHrtfDirectivityCardioid(0, this)
-            return this.__Cardiod
-        }
-    }
-
-    /**
-     * And omni-direction directivity model that can be interpolated linearly with one of the other directivity models.
-     * @type {SpatialAudioHrtfDirectivity}
-     */
-    Omni {
-        get {
-            if(!this.HasProp("__Omni"))
-                this.__Omni := SpatialAudioHrtfDirectivity(0, this)
-            return this.__Omni
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Cardiod', { type: SpatialAudioHrtfDirectivityCardioid, offset: 0 })
+        DefineProp(this.Prototype, 'Omni', { type: SpatialAudioHrtfDirectivity, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

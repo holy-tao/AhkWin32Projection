@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFaxDocument.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IFaxDocument.ahk" { IFaxDocument }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IFaxServer.ahk" { IFaxServer }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Defines a messaging object used by a fax client application to compose a fax document and submit it to the fax service for processing.
@@ -12,26 +14,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxdocument2
  * @namespace Windows.Win32.Devices.Fax
  */
-class IFaxDocument2 extends IFaxDocument {
-
-    static sizeof => A_PtrSize
+export default struct IFaxDocument2 extends IFaxDocument {
     /**
      * The interface identifier for IFaxDocument2
      * @type {Guid}
      */
-    static IID => Guid("{e1347661-f9ef-4d6d-b4a5-c0a068b65cff}")
+    static IID := Guid("{e1347661-f9ef-4d6d-b4a5-c0a068b65cff}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 41
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFaxDocument2 interfaces
+    */
+    struct Vtbl extends IFaxDocument.Vtbl {
+        get_SubmissionId : IntPtr
+        get_Bodies       : IntPtr
+        put_Bodies       : IntPtr
+        Submit2          : IntPtr
+        ConnectedSubmit2 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_SubmissionId", "get_Bodies", "put_Bodies", "Submit2", "ConnectedSubmit2"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFaxDocument2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -56,8 +69,8 @@ class IFaxDocument2 extends IFaxDocument {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument2-get_submissionid
      */
     get_SubmissionId() {
-        pbstrSubmissionId := BSTR()
-        result := ComCall(41, this, "ptr", pbstrSubmissionId, "HRESULT")
+        pbstrSubmissionId := BSTR.Owned()
+        result := ComCall(41, this, BSTR.Ptr, pbstrSubmissionId, "HRESULT")
         return pbstrSubmissionId
     }
 
@@ -72,7 +85,7 @@ class IFaxDocument2 extends IFaxDocument {
      */
     get_Bodies() {
         pvBodies := VARIANT()
-        result := ComCall(42, this, "ptr", pvBodies, "HRESULT")
+        result := ComCall(42, this, VARIANT.Ptr, pvBodies, "HRESULT")
         return pvBodies
     }
 
@@ -87,7 +100,7 @@ class IFaxDocument2 extends IFaxDocument {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument2-put_bodies
      */
     put_Bodies(vBodies) {
-        result := ComCall(43, this, "ptr", vBodies, "HRESULT")
+        result := ComCall(43, this, VARIANT, vBodies, "HRESULT")
         return result
     }
 
@@ -132,7 +145,7 @@ class IFaxDocument2 extends IFaxDocument {
 
         plErrorBodyFileMarshal := plErrorBodyFile is VarRef ? "int*" : "ptr"
 
-        result := ComCall(44, this, "ptr", bstrFaxServerName, "ptr", pvFaxOutgoingJobIDs, plErrorBodyFileMarshal, plErrorBodyFile, "HRESULT")
+        result := ComCall(44, this, BSTR, bstrFaxServerName, VARIANT.Ptr, pvFaxOutgoingJobIDs, plErrorBodyFileMarshal, plErrorBodyFile, "HRESULT")
         return result
     }
 
@@ -173,7 +186,35 @@ class IFaxDocument2 extends IFaxDocument {
     ConnectedSubmit2(pFaxServer, pvFaxOutgoingJobIDs, plErrorBodyFile) {
         plErrorBodyFileMarshal := plErrorBodyFile is VarRef ? "int*" : "ptr"
 
-        result := ComCall(45, this, "ptr", pFaxServer, "ptr", pvFaxOutgoingJobIDs, plErrorBodyFileMarshal, plErrorBodyFile, "HRESULT")
+        result := ComCall(45, this, "ptr", pFaxServer, VARIANT.Ptr, pvFaxOutgoingJobIDs, plErrorBodyFileMarshal, plErrorBodyFile, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFaxDocument2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_SubmissionId := CallbackCreate(GetMethod(implObj, "get_SubmissionId"), flags, 2)
+        this.vtbl.get_Bodies := CallbackCreate(GetMethod(implObj, "get_Bodies"), flags, 2)
+        this.vtbl.put_Bodies := CallbackCreate(GetMethod(implObj, "put_Bodies"), flags, 2)
+        this.vtbl.Submit2 := CallbackCreate(GetMethod(implObj, "Submit2"), flags, 4)
+        this.vtbl.ConnectedSubmit2 := CallbackCreate(GetMethod(implObj, "ConnectedSubmit2"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_SubmissionId)
+        CallbackFree(this.vtbl.get_Bodies)
+        CallbackFree(this.vtbl.put_Bodies)
+        CallbackFree(this.vtbl.Submit2)
+        CallbackFree(this.vtbl.ConnectedSubmit2)
     }
 }

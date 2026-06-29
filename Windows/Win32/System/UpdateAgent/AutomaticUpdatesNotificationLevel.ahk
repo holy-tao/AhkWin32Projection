@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the possible ways in which elevated users are notified about Automatic Updates events.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-automaticupdatesnotificationlevel
  * @namespace Windows.Win32.System.UpdateAgent
  */
-class AutomaticUpdatesNotificationLevel extends Win32Enum {
+export default struct AutomaticUpdatesNotificationLevel {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Automatic Updates is not configured by the user or by a Group Policy administrator. Users are periodically prompted to configure Automatic Updates.

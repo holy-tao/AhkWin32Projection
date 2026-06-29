@@ -1,16 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains input data for the ID3D11VideoContext::QueryAuthenticatedChannel method.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_authenticated_query_input
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_AUTHENTICATED_QUERY_INPUT extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct D3D11_AUTHENTICATED_QUERY_INPUT {
+    #StructPack 8
 
     /**
      * A GUID that specifies the query. The following GUIDs are defined.
@@ -205,31 +203,17 @@ class D3D11_AUTHENTICATED_QUERY_INPUT extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer}
      */
-    QueryType {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    QueryType : Guid
 
     /**
      * A handle to the authenticated channel. To get the handle, call the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11authenticatedchannel-getchannelhandle">ID3D11AuthenticatedChannel::GetChannelHandle</a> method.
-     * @type {HANDLE}
      */
-    hChannel {
-        get {
-            if(!this.HasProp("__hChannel"))
-                this.__hChannel := HANDLE(8, this)
-            return this.__hChannel
-        }
-    }
+    hChannel : HANDLE
 
     /**
      * The query sequence number. At the start of the session, generate a cryptographically secure 32-bit random number to use as the starting sequence number. For each query, increment the sequence number by 1.
-     * @type {Integer}
      */
-    SequenceNumber {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    SequenceNumber : UInt32
+
 }

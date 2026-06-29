@@ -1,33 +1,71 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\Graphics\Direct3D12\ID3D12CommandList.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3D12_VIDEO_MOTION_ESTIMATOR_OUTPUT.ahk" { D3D12_VIDEO_MOTION_ESTIMATOR_OUTPUT }
+#Import "..\..\Graphics\Direct3D12\ID3D12QueryHeap.ahk" { ID3D12QueryHeap }
+#Import "..\..\Graphics\Direct3D12\D3D12_DISCARD_REGION.ahk" { D3D12_DISCARD_REGION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Direct3D12\ID3D12CommandAllocator.ahk" { ID3D12CommandAllocator }
+#Import ".\ID3D12VideoMotionEstimator.ahk" { ID3D12VideoMotionEstimator }
+#Import "..\..\Graphics\Direct3D12\D3D12_WRITEBUFFERIMMEDIATE_PARAMETER.ahk" { D3D12_WRITEBUFFERIMMEDIATE_PARAMETER }
+#Import ".\D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_OUTPUT.ahk" { D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_OUTPUT }
+#Import "..\..\Graphics\Direct3D12\D3D12_RESOURCE_BARRIER.ahk" { D3D12_RESOURCE_BARRIER }
+#Import ".\D3D12_VIDEO_MOTION_ESTIMATOR_INPUT.ahk" { D3D12_VIDEO_MOTION_ESTIMATOR_INPUT }
+#Import "..\..\Graphics\Direct3D12\D3D12_PREDICATION_OP.ahk" { D3D12_PREDICATION_OP }
+#Import "..\..\Graphics\Direct3D12\D3D12_QUERY_TYPE.ahk" { D3D12_QUERY_TYPE }
+#Import "..\..\Graphics\Direct3D12\ID3D12ProtectedResourceSession.ahk" { ID3D12ProtectedResourceSession }
+#Import "..\..\Graphics\Direct3D12\ID3D12CommandList.ahk" { ID3D12CommandList }
+#Import "..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
+#Import "..\..\Graphics\Direct3D12\D3D12_WRITEBUFFERIMMEDIATE_MODE.ahk" { D3D12_WRITEBUFFERIMMEDIATE_MODE }
+#Import ".\D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_INPUT.ahk" { D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_INPUT }
 
 /**
  * Encapsulates a list of graphics commands for video encoding, including motion estimation.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nn-d3d12video-id3d12videoencodecommandlist
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class ID3D12VideoEncodeCommandList extends ID3D12CommandList {
-
-    static sizeof => A_PtrSize
+export default struct ID3D12VideoEncodeCommandList extends ID3D12CommandList {
     /**
      * The interface identifier for ID3D12VideoEncodeCommandList
      * @type {Guid}
      */
-    static IID => Guid("{8455293a-0cbd-4831-9b39-fbdbab724723}")
+    static IID := Guid("{8455293a-0cbd-4831-9b39-fbdbab724723}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D12VideoEncodeCommandList interfaces
+    */
+    struct Vtbl extends ID3D12CommandList.Vtbl {
+        Close                       : IntPtr
+        Reset                       : IntPtr
+        ClearState                  : IntPtr
+        ResourceBarrier             : IntPtr
+        DiscardResource             : IntPtr
+        BeginQuery                  : IntPtr
+        EndQuery                    : IntPtr
+        ResolveQueryData            : IntPtr
+        SetPredication              : IntPtr
+        SetMarker                   : IntPtr
+        BeginEvent                  : IntPtr
+        EndEvent                    : IntPtr
+        EstimateMotion              : IntPtr
+        ResolveMotionVectorHeap     : IntPtr
+        WriteBufferImmediate        : IntPtr
+        SetProtectedResourceSession : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Close", "Reset", "ClearState", "ResourceBarrier", "DiscardResource", "BeginQuery", "EndQuery", "ResolveQueryData", "SetPredication", "SetMarker", "BeginEvent", "EndEvent", "EstimateMotion", "ResolveMotionVectorHeap", "WriteBufferImmediate", "SetProtectedResourceSession"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D12VideoEncodeCommandList.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Indicates that recording to the command list has finished. (ID3D12VideoEncodeCommandList::Close)
@@ -108,7 +146,7 @@ class ID3D12VideoEncodeCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencodecommandlist-resourcebarrier
      */
     ResourceBarrier(NumBarriers, pBarriers) {
-        ComCall(12, this, "uint", NumBarriers, "ptr", pBarriers)
+        ComCall(12, this, "uint", NumBarriers, D3D12_RESOURCE_BARRIER.Ptr, pBarriers)
     }
 
     /**
@@ -119,7 +157,7 @@ class ID3D12VideoEncodeCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencodecommandlist-discardresource
      */
     DiscardResource(pResource, pRegion) {
-        ComCall(13, this, "ptr", pResource, "ptr", pRegion)
+        ComCall(13, this, "ptr", pResource, D3D12_DISCARD_REGION.Ptr, pRegion)
     }
 
     /**
@@ -133,7 +171,7 @@ class ID3D12VideoEncodeCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencodecommandlist-beginquery
      */
     BeginQuery(pQueryHeap, Type, Index) {
-        ComCall(14, this, "ptr", pQueryHeap, "int", Type, "uint", Index)
+        ComCall(14, this, "ptr", pQueryHeap, D3D12_QUERY_TYPE, Type, "uint", Index)
     }
 
     /**
@@ -145,7 +183,7 @@ class ID3D12VideoEncodeCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencodecommandlist-endquery
      */
     EndQuery(pQueryHeap, Type, Index) {
-        ComCall(15, this, "ptr", pQueryHeap, "int", Type, "uint", Index)
+        ComCall(15, this, "ptr", pQueryHeap, D3D12_QUERY_TYPE, Type, "uint", Index)
     }
 
     /**
@@ -160,7 +198,7 @@ class ID3D12VideoEncodeCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencodecommandlist-resolvequerydata
      */
     ResolveQueryData(pQueryHeap, Type, StartIndex, NumQueries, pDestinationBuffer, AlignedDestinationBufferOffset) {
-        ComCall(16, this, "ptr", pQueryHeap, "int", Type, "uint", StartIndex, "uint", NumQueries, "ptr", pDestinationBuffer, "uint", AlignedDestinationBufferOffset)
+        ComCall(16, this, "ptr", pQueryHeap, D3D12_QUERY_TYPE, Type, "uint", StartIndex, "uint", NumQueries, "ptr", pDestinationBuffer, "uint", AlignedDestinationBufferOffset)
     }
 
     /**
@@ -172,7 +210,7 @@ class ID3D12VideoEncodeCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencodecommandlist-setpredication
      */
     SetPredication(pBuffer, AlignedBufferOffset, Operation) {
-        ComCall(17, this, "ptr", pBuffer, "uint", AlignedBufferOffset, "int", Operation)
+        ComCall(17, this, "ptr", pBuffer, "uint", AlignedBufferOffset, D3D12_PREDICATION_OP, Operation)
     }
 
     /**
@@ -217,7 +255,7 @@ class ID3D12VideoEncodeCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencodecommandlist-estimatemotion
      */
     EstimateMotion(pMotionEstimator, pOutputArguments, pInputArguments) {
-        ComCall(21, this, "ptr", pMotionEstimator, "ptr", pOutputArguments, "ptr", pInputArguments)
+        ComCall(21, this, "ptr", pMotionEstimator, D3D12_VIDEO_MOTION_ESTIMATOR_OUTPUT.Ptr, pOutputArguments, D3D12_VIDEO_MOTION_ESTIMATOR_INPUT.Ptr, pInputArguments)
     }
 
     /**
@@ -228,7 +266,7 @@ class ID3D12VideoEncodeCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencodecommandlist-resolvemotionvectorheap
      */
     ResolveMotionVectorHeap(pOutputArguments, pInputArguments) {
-        ComCall(22, this, "ptr", pOutputArguments, "ptr", pInputArguments)
+        ComCall(22, this, D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_OUTPUT.Ptr, pOutputArguments, D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_INPUT.Ptr, pInputArguments)
     }
 
     /**
@@ -244,7 +282,7 @@ class ID3D12VideoEncodeCommandList extends ID3D12CommandList {
     WriteBufferImmediate(Count, pParams, pModes) {
         pModesMarshal := pModes is VarRef ? "int*" : "ptr"
 
-        ComCall(23, this, "uint", Count, "ptr", pParams, pModesMarshal, pModes)
+        ComCall(23, this, "uint", Count, D3D12_WRITEBUFFERIMMEDIATE_PARAMETER.Ptr, pParams, pModesMarshal, pModes)
     }
 
     /**
@@ -255,5 +293,55 @@ class ID3D12VideoEncodeCommandList extends ID3D12CommandList {
      */
     SetProtectedResourceSession(pProtectedResourceSession) {
         ComCall(24, this, "ptr", pProtectedResourceSession)
+    }
+
+    Query(iid) {
+        if (ID3D12VideoEncodeCommandList.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 2)
+        this.vtbl.ClearState := CallbackCreate(GetMethod(implObj, "ClearState"), flags, 1)
+        this.vtbl.ResourceBarrier := CallbackCreate(GetMethod(implObj, "ResourceBarrier"), flags, 3)
+        this.vtbl.DiscardResource := CallbackCreate(GetMethod(implObj, "DiscardResource"), flags, 3)
+        this.vtbl.BeginQuery := CallbackCreate(GetMethod(implObj, "BeginQuery"), flags, 4)
+        this.vtbl.EndQuery := CallbackCreate(GetMethod(implObj, "EndQuery"), flags, 4)
+        this.vtbl.ResolveQueryData := CallbackCreate(GetMethod(implObj, "ResolveQueryData"), flags, 7)
+        this.vtbl.SetPredication := CallbackCreate(GetMethod(implObj, "SetPredication"), flags, 4)
+        this.vtbl.SetMarker := CallbackCreate(GetMethod(implObj, "SetMarker"), flags, 4)
+        this.vtbl.BeginEvent := CallbackCreate(GetMethod(implObj, "BeginEvent"), flags, 4)
+        this.vtbl.EndEvent := CallbackCreate(GetMethod(implObj, "EndEvent"), flags, 1)
+        this.vtbl.EstimateMotion := CallbackCreate(GetMethod(implObj, "EstimateMotion"), flags, 4)
+        this.vtbl.ResolveMotionVectorHeap := CallbackCreate(GetMethod(implObj, "ResolveMotionVectorHeap"), flags, 3)
+        this.vtbl.WriteBufferImmediate := CallbackCreate(GetMethod(implObj, "WriteBufferImmediate"), flags, 4)
+        this.vtbl.SetProtectedResourceSession := CallbackCreate(GetMethod(implObj, "SetProtectedResourceSession"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.ClearState)
+        CallbackFree(this.vtbl.ResourceBarrier)
+        CallbackFree(this.vtbl.DiscardResource)
+        CallbackFree(this.vtbl.BeginQuery)
+        CallbackFree(this.vtbl.EndQuery)
+        CallbackFree(this.vtbl.ResolveQueryData)
+        CallbackFree(this.vtbl.SetPredication)
+        CallbackFree(this.vtbl.SetMarker)
+        CallbackFree(this.vtbl.BeginEvent)
+        CallbackFree(this.vtbl.EndEvent)
+        CallbackFree(this.vtbl.EstimateMotion)
+        CallbackFree(this.vtbl.ResolveMotionVectorHeap)
+        CallbackFree(this.vtbl.WriteBufferImmediate)
+        CallbackFree(this.vtbl.SetProtectedResourceSession)
     }
 }

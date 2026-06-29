@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains information about the PERF_COUNTER_IDENTIFIER block that contains the structure.
@@ -21,71 +21,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_counter_identifier
  * @namespace Windows.Win32.System.Performance
  */
-class PERF_COUNTER_IDENTIFIER extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct PERF_COUNTER_IDENTIFIER {
+    #StructPack 4
 
     /**
      * The <b>GUID</b> of the performance counter set.
-     * @type {Pointer}
      */
-    CounterSetGuid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    CounterSetGuid : Guid
 
     /**
      * An error code  that indicates whether the operation to add or delete a performance counter succeeded or failed.
-     * @type {Integer}
      */
-    Status {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Status : UInt32
 
     /**
      * The total size of the <b>PERF_COUNTER_IDENTIFIER</b> block, in bytes. The total size of the block is the sum of the sizes of the <b>PERF_COUNTER_IDENTIFIER</b> structure, the string that specifies the instance name, and the padding.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Size : UInt32
 
     /**
      * The identifier of the performance counter. <b>PERF_WILDCARD_COUNTER</b> specifies  all counters.
-     * @type {Integer}
      */
-    CounterId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    CounterId : UInt32
 
     /**
      * The instance identifier. Specify 0xFFFFFFFF if you do  not want to filter the results based on the instance identifier.
-     * @type {Integer}
      */
-    InstanceId {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    InstanceId : UInt32
 
     /**
      * The position in the sequence of <b>PERF_COUNTER_IDENTIFIER</b> blocks at which the counter data that corresponds to this <b>PERF_COUNTER_IDENTIFIER</b> block is returned. Set by <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfquerycounterinfo">PerfQueryCounterInfo</a>.
-     * @type {Integer}
      */
-    Index {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Index : UInt32
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    Reserved : UInt32
+
 }

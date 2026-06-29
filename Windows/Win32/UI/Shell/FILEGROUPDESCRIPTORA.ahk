@@ -1,9 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FILEDESCRIPTORA.ahk
-#Include ..\..\Foundation\SIZE.ahk
-#Include ..\..\Foundation\POINTL.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\POINTL.ahk" { POINTL }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\FILEDESCRIPTORA.ahk" { FILEDESCRIPTORA }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Defines the CF_FILEGROUPDESCRIPTOR clipboard format. (ANSI)
@@ -14,33 +15,21 @@
  * @namespace Windows.Win32.UI.Shell
  * @charset ANSI
  */
-class FILEGROUPDESCRIPTORA extends Win32Struct {
-    static sizeof => 336
-
-    static packingSize => 8
+export default struct FILEGROUPDESCRIPTORA {
+    #StructPack 4
 
     /**
      * Type: <b>UINT</b>
      * 
      * The number of elements in <b>fgd</b>.
-     * @type {Integer}
      */
-    cItems {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cItems : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-filedescriptora">FILEDESCRIPTOR</a>[1]</b>
      * 
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-filedescriptora">FILEDESCRIPTOR</a> structures that contain the file information.
-     * @type {FILEDESCRIPTORA}
      */
-    fgd {
-        get {
-            if(!this.HasProp("__fgdProxyArray"))
-                this.__fgdProxyArray := Win32FixedArray(this.ptr + 8, 1, FILEDESCRIPTORA, "")
-            return this.__fgdProxyArray
-        }
-    }
+    fgd : FILEDESCRIPTORA[1]
+
 }

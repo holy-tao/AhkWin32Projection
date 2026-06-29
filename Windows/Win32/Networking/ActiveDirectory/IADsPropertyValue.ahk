@@ -1,35 +1,67 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Used to represent the value of an IADsPropertyEntry object in a predefined data type.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadspropertyvalue
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IADsPropertyValue extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IADsPropertyValue extends IDispatch {
     /**
      * The interface identifier for IADsPropertyValue
      * @type {Guid}
      */
-    static IID => Guid("{79fa9ad0-a97c-11d0-8534-00c04fd8d503}")
+    static IID := Guid("{79fa9ad0-a97c-11d0-8534-00c04fd8d503}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IADsPropertyValue interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Clear                  : IntPtr
+        get_ADsType            : IntPtr
+        put_ADsType            : IntPtr
+        get_DNString           : IntPtr
+        put_DNString           : IntPtr
+        get_CaseExactString    : IntPtr
+        put_CaseExactString    : IntPtr
+        get_CaseIgnoreString   : IntPtr
+        put_CaseIgnoreString   : IntPtr
+        get_PrintableString    : IntPtr
+        put_PrintableString    : IntPtr
+        get_NumericString      : IntPtr
+        put_NumericString      : IntPtr
+        get_Boolean            : IntPtr
+        put_Boolean            : IntPtr
+        get_Integer            : IntPtr
+        put_Integer            : IntPtr
+        get_OctetString        : IntPtr
+        put_OctetString        : IntPtr
+        get_SecurityDescriptor : IntPtr
+        put_SecurityDescriptor : IntPtr
+        get_LargeInteger       : IntPtr
+        put_LargeInteger       : IntPtr
+        get_UTCTime            : IntPtr
+        put_UTCTime            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Clear", "get_ADsType", "put_ADsType", "get_DNString", "put_DNString", "get_CaseExactString", "put_CaseExactString", "get_CaseIgnoreString", "put_CaseIgnoreString", "get_PrintableString", "put_PrintableString", "get_NumericString", "put_NumericString", "get_Boolean", "put_Boolean", "get_Integer", "put_Integer", "get_OctetString", "put_OctetString", "get_SecurityDescriptor", "put_SecurityDescriptor", "get_LargeInteger", "put_LargeInteger", "get_UTCTime", "put_UTCTime"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IADsPropertyValue.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -163,8 +195,8 @@ class IADsPropertyValue extends IDispatch {
      * @returns {BSTR} 
      */
     get_DNString() {
-        retval := BSTR()
-        result := ComCall(10, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -176,7 +208,7 @@ class IADsPropertyValue extends IDispatch {
     put_DNString(bstrDNString) {
         bstrDNString := bstrDNString is String ? BSTR.Alloc(bstrDNString).Value : bstrDNString
 
-        result := ComCall(11, this, "ptr", bstrDNString, "HRESULT")
+        result := ComCall(11, this, BSTR, bstrDNString, "HRESULT")
         return result
     }
 
@@ -185,8 +217,8 @@ class IADsPropertyValue extends IDispatch {
      * @returns {BSTR} 
      */
     get_CaseExactString() {
-        retval := BSTR()
-        result := ComCall(12, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -198,7 +230,7 @@ class IADsPropertyValue extends IDispatch {
     put_CaseExactString(bstrCaseExactString) {
         bstrCaseExactString := bstrCaseExactString is String ? BSTR.Alloc(bstrCaseExactString).Value : bstrCaseExactString
 
-        result := ComCall(13, this, "ptr", bstrCaseExactString, "HRESULT")
+        result := ComCall(13, this, BSTR, bstrCaseExactString, "HRESULT")
         return result
     }
 
@@ -207,8 +239,8 @@ class IADsPropertyValue extends IDispatch {
      * @returns {BSTR} 
      */
     get_CaseIgnoreString() {
-        retval := BSTR()
-        result := ComCall(14, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -220,7 +252,7 @@ class IADsPropertyValue extends IDispatch {
     put_CaseIgnoreString(bstrCaseIgnoreString) {
         bstrCaseIgnoreString := bstrCaseIgnoreString is String ? BSTR.Alloc(bstrCaseIgnoreString).Value : bstrCaseIgnoreString
 
-        result := ComCall(15, this, "ptr", bstrCaseIgnoreString, "HRESULT")
+        result := ComCall(15, this, BSTR, bstrCaseIgnoreString, "HRESULT")
         return result
     }
 
@@ -229,8 +261,8 @@ class IADsPropertyValue extends IDispatch {
      * @returns {BSTR} 
      */
     get_PrintableString() {
-        retval := BSTR()
-        result := ComCall(16, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(16, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -242,7 +274,7 @@ class IADsPropertyValue extends IDispatch {
     put_PrintableString(bstrPrintableString) {
         bstrPrintableString := bstrPrintableString is String ? BSTR.Alloc(bstrPrintableString).Value : bstrPrintableString
 
-        result := ComCall(17, this, "ptr", bstrPrintableString, "HRESULT")
+        result := ComCall(17, this, BSTR, bstrPrintableString, "HRESULT")
         return result
     }
 
@@ -251,8 +283,8 @@ class IADsPropertyValue extends IDispatch {
      * @returns {BSTR} 
      */
     get_NumericString() {
-        retval := BSTR()
-        result := ComCall(18, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -264,7 +296,7 @@ class IADsPropertyValue extends IDispatch {
     put_NumericString(bstrNumericString) {
         bstrNumericString := bstrNumericString is String ? BSTR.Alloc(bstrNumericString).Value : bstrNumericString
 
-        result := ComCall(19, this, "ptr", bstrNumericString, "HRESULT")
+        result := ComCall(19, this, BSTR, bstrNumericString, "HRESULT")
         return result
     }
 
@@ -312,7 +344,7 @@ class IADsPropertyValue extends IDispatch {
      */
     get_OctetString() {
         retval := VARIANT()
-        result := ComCall(24, this, "ptr", retval, "HRESULT")
+        result := ComCall(24, this, VARIANT.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -322,7 +354,7 @@ class IADsPropertyValue extends IDispatch {
      * @returns {HRESULT} 
      */
     put_OctetString(vOctetString) {
-        result := ComCall(25, this, "ptr", vOctetString, "HRESULT")
+        result := ComCall(25, this, VARIANT, vOctetString, "HRESULT")
         return result
     }
 
@@ -381,5 +413,73 @@ class IADsPropertyValue extends IDispatch {
     put_UTCTime(daUTCTime) {
         result := ComCall(31, this, "double", daUTCTime, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IADsPropertyValue.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.get_ADsType := CallbackCreate(GetMethod(implObj, "get_ADsType"), flags, 2)
+        this.vtbl.put_ADsType := CallbackCreate(GetMethod(implObj, "put_ADsType"), flags, 2)
+        this.vtbl.get_DNString := CallbackCreate(GetMethod(implObj, "get_DNString"), flags, 2)
+        this.vtbl.put_DNString := CallbackCreate(GetMethod(implObj, "put_DNString"), flags, 2)
+        this.vtbl.get_CaseExactString := CallbackCreate(GetMethod(implObj, "get_CaseExactString"), flags, 2)
+        this.vtbl.put_CaseExactString := CallbackCreate(GetMethod(implObj, "put_CaseExactString"), flags, 2)
+        this.vtbl.get_CaseIgnoreString := CallbackCreate(GetMethod(implObj, "get_CaseIgnoreString"), flags, 2)
+        this.vtbl.put_CaseIgnoreString := CallbackCreate(GetMethod(implObj, "put_CaseIgnoreString"), flags, 2)
+        this.vtbl.get_PrintableString := CallbackCreate(GetMethod(implObj, "get_PrintableString"), flags, 2)
+        this.vtbl.put_PrintableString := CallbackCreate(GetMethod(implObj, "put_PrintableString"), flags, 2)
+        this.vtbl.get_NumericString := CallbackCreate(GetMethod(implObj, "get_NumericString"), flags, 2)
+        this.vtbl.put_NumericString := CallbackCreate(GetMethod(implObj, "put_NumericString"), flags, 2)
+        this.vtbl.get_Boolean := CallbackCreate(GetMethod(implObj, "get_Boolean"), flags, 2)
+        this.vtbl.put_Boolean := CallbackCreate(GetMethod(implObj, "put_Boolean"), flags, 2)
+        this.vtbl.get_Integer := CallbackCreate(GetMethod(implObj, "get_Integer"), flags, 2)
+        this.vtbl.put_Integer := CallbackCreate(GetMethod(implObj, "put_Integer"), flags, 2)
+        this.vtbl.get_OctetString := CallbackCreate(GetMethod(implObj, "get_OctetString"), flags, 2)
+        this.vtbl.put_OctetString := CallbackCreate(GetMethod(implObj, "put_OctetString"), flags, 2)
+        this.vtbl.get_SecurityDescriptor := CallbackCreate(GetMethod(implObj, "get_SecurityDescriptor"), flags, 2)
+        this.vtbl.put_SecurityDescriptor := CallbackCreate(GetMethod(implObj, "put_SecurityDescriptor"), flags, 2)
+        this.vtbl.get_LargeInteger := CallbackCreate(GetMethod(implObj, "get_LargeInteger"), flags, 2)
+        this.vtbl.put_LargeInteger := CallbackCreate(GetMethod(implObj, "put_LargeInteger"), flags, 2)
+        this.vtbl.get_UTCTime := CallbackCreate(GetMethod(implObj, "get_UTCTime"), flags, 2)
+        this.vtbl.put_UTCTime := CallbackCreate(GetMethod(implObj, "put_UTCTime"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Clear)
+        CallbackFree(this.vtbl.get_ADsType)
+        CallbackFree(this.vtbl.put_ADsType)
+        CallbackFree(this.vtbl.get_DNString)
+        CallbackFree(this.vtbl.put_DNString)
+        CallbackFree(this.vtbl.get_CaseExactString)
+        CallbackFree(this.vtbl.put_CaseExactString)
+        CallbackFree(this.vtbl.get_CaseIgnoreString)
+        CallbackFree(this.vtbl.put_CaseIgnoreString)
+        CallbackFree(this.vtbl.get_PrintableString)
+        CallbackFree(this.vtbl.put_PrintableString)
+        CallbackFree(this.vtbl.get_NumericString)
+        CallbackFree(this.vtbl.put_NumericString)
+        CallbackFree(this.vtbl.get_Boolean)
+        CallbackFree(this.vtbl.put_Boolean)
+        CallbackFree(this.vtbl.get_Integer)
+        CallbackFree(this.vtbl.put_Integer)
+        CallbackFree(this.vtbl.get_OctetString)
+        CallbackFree(this.vtbl.put_OctetString)
+        CallbackFree(this.vtbl.get_SecurityDescriptor)
+        CallbackFree(this.vtbl.put_SecurityDescriptor)
+        CallbackFree(this.vtbl.get_LargeInteger)
+        CallbackFree(this.vtbl.put_LargeInteger)
+        CallbackFree(this.vtbl.get_UTCTime)
+        CallbackFree(this.vtbl.put_UTCTime)
     }
 }

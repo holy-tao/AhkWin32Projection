@@ -1,306 +1,83 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\System\Kernel\NT_PRODUCT_TYPE.ahk
-#Include .\ALTERNATIVE_ARCHITECTURE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ALTERNATIVE_ARCHITECTURE_TYPE.ahk" { ALTERNATIVE_ARCHITECTURE_TYPE }
+#Import "..\..\..\Win32\System\Kernel\NT_PRODUCT_TYPE.ahk" { NT_PRODUCT_TYPE }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\Win32\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class KUSER_SHARED_DATA extends Win32Struct {
-    static sizeof => 1008
+export default struct KUSER_SHARED_DATA {
+    #StructPack 8
 
-    static packingSize => 8
+    TickCountLowDeprecated : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TickCountLowDeprecated {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    TickCountMultiplier : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TickCountMultiplier {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    InterruptTime : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    InterruptTime {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    SystemTime : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    SystemTime {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    TimeZoneBias : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    TimeZoneBias {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ImageNumberLow : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ImageNumberLow {
-        get => NumGet(this, 32, "ushort")
-        set => NumPut("ushort", value, this, 32)
-    }
+    ImageNumberHigh : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ImageNumberHigh {
-        get => NumGet(this, 34, "ushort")
-        set => NumPut("ushort", value, this, 34)
-    }
+    NtSystemRoot : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    NtSystemRoot {
-        get => StrGet(this.ptr + 36, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 36, 259, "UTF-16")
-    }
+    MaxStackTraceDepth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxStackTraceDepth {
-        get => NumGet(this, 556, "uint")
-        set => NumPut("uint", value, this, 556)
-    }
+    CryptoExponent : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CryptoExponent {
-        get => NumGet(this, 560, "uint")
-        set => NumPut("uint", value, this, 560)
-    }
+    TimeZoneId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TimeZoneId {
-        get => NumGet(this, 564, "uint")
-        set => NumPut("uint", value, this, 564)
-    }
+    LargePageMinimum : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LargePageMinimum {
-        get => NumGet(this, 568, "uint")
-        set => NumPut("uint", value, this, 568)
-    }
+    AitSamplingValue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AitSamplingValue {
-        get => NumGet(this, 572, "uint")
-        set => NumPut("uint", value, this, 572)
-    }
+    AppCompatFlag : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AppCompatFlag {
-        get => NumGet(this, 576, "uint")
-        set => NumPut("uint", value, this, 576)
-    }
+    RNGSeedVersion : Int64
 
-    /**
-     * @type {Integer}
-     */
-    RNGSeedVersion {
-        get => NumGet(this, 584, "uint")
-        set => NumPut("uint", value, this, 584)
-    }
+    GlobalValidationRunlevel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GlobalValidationRunlevel {
-        get => NumGet(this, 592, "uint")
-        set => NumPut("uint", value, this, 592)
-    }
+    TimeZoneBiasStamp : Int32
 
-    /**
-     * @type {Integer}
-     */
-    TimeZoneBiasStamp {
-        get => NumGet(this, 596, "int")
-        set => NumPut("int", value, this, 596)
-    }
+    NtBuildNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NtBuildNumber {
-        get => NumGet(this, 600, "uint")
-        set => NumPut("uint", value, this, 600)
-    }
+    NtProductType : NT_PRODUCT_TYPE
 
-    /**
-     * @type {NT_PRODUCT_TYPE}
-     */
-    NtProductType {
-        get => NumGet(this, 604, "int")
-        set => NumPut("int", value, this, 604)
-    }
+    ProductTypeIsValid : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    ProductTypeIsValid {
-        get => NumGet(this, 608, "char")
-        set => NumPut("char", value, this, 608)
-    }
+    Reserved0 : BOOLEAN[1]
 
-    /**
-     * @type {Array<BOOLEAN>}
-     */
-    Reserved0 {
-        get {
-            if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 609, 1, Primitive, "char")
-            return this.__Reserved0ProxyArray
-        }
-    }
+    NativeProcessorArchitecture : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NativeProcessorArchitecture {
-        get => NumGet(this, 610, "ushort")
-        set => NumPut("ushort", value, this, 610)
-    }
+    NtMajorVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NtMajorVersion {
-        get => NumGet(this, 612, "uint")
-        set => NumPut("uint", value, this, 612)
-    }
+    NtMinorVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NtMinorVersion {
-        get => NumGet(this, 616, "uint")
-        set => NumPut("uint", value, this, 616)
-    }
+    ProcessorFeatures : BOOLEAN[64]
 
-    /**
-     * @type {Array<BOOLEAN>}
-     */
-    ProcessorFeatures {
-        get {
-            if(!this.HasProp("__ProcessorFeaturesProxyArray"))
-                this.__ProcessorFeaturesProxyArray := Win32FixedArray(this.ptr + 620, 64, Primitive, "char")
-            return this.__ProcessorFeaturesProxyArray
-        }
-    }
+    Reserved1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 684, "uint")
-        set => NumPut("uint", value, this, 684)
-    }
+    Reserved3 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved3 {
-        get => NumGet(this, 688, "uint")
-        set => NumPut("uint", value, this, 688)
-    }
+    TimeSlip : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TimeSlip {
-        get => NumGet(this, 692, "uint")
-        set => NumPut("uint", value, this, 692)
-    }
+    AlternativeArchitecture : ALTERNATIVE_ARCHITECTURE_TYPE
 
-    /**
-     * @type {ALTERNATIVE_ARCHITECTURE_TYPE}
-     */
-    AlternativeArchitecture {
-        get => NumGet(this, 696, "int")
-        set => NumPut("int", value, this, 696)
-    }
+    BootId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BootId {
-        get => NumGet(this, 700, "uint")
-        set => NumPut("uint", value, this, 700)
-    }
+    SystemExpirationDate : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SystemExpirationDate {
-        get => NumGet(this, 704, "int64")
-        set => NumPut("int64", value, this, 704)
-    }
+    SuiteMask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SuiteMask {
-        get => NumGet(this, 712, "uint")
-        set => NumPut("uint", value, this, 712)
-    }
+    KdDebuggerEnabled : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    KdDebuggerEnabled {
-        get => NumGet(this, 716, "char")
-        set => NumPut("char", value, this, 716)
-    }
+    MitigationPolicies : Int8
 
-    /**
-     * @type {Integer}
-     */
-    MitigationPolicies {
-        get => NumGet(this, 717, "char")
-        set => NumPut("char", value, this, 717)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - NXSupportPolicy
-     * - SEHValidationPolicy
-     * - CurDirDevicesSkippedForDlls
-     * - Reserved
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 717, "char")
-        set => NumPut("char", value, this, 717)
-    }
 
     /**
      * @type {Integer}
@@ -325,110 +102,26 @@ class KUSER_SHARED_DATA extends Win32Struct {
         get => (this._bitfield >> 4) & 0x3
         set => this._bitfield := ((value & 0x3) << 4) | (this._bitfield & ~(0x3 << 4))
     }
+    CyclesPerYield : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    CyclesPerYield {
-        get => NumGet(this, 718, "ushort")
-        set => NumPut("ushort", value, this, 718)
-    }
+    ActiveConsoleId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ActiveConsoleId {
-        get => NumGet(this, 720, "uint")
-        set => NumPut("uint", value, this, 720)
-    }
+    DismountCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DismountCount {
-        get => NumGet(this, 724, "uint")
-        set => NumPut("uint", value, this, 724)
-    }
+    ComPlusPackage : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ComPlusPackage {
-        get => NumGet(this, 728, "uint")
-        set => NumPut("uint", value, this, 728)
-    }
+    LastSystemRITEventTickCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LastSystemRITEventTickCount {
-        get => NumGet(this, 732, "uint")
-        set => NumPut("uint", value, this, 732)
-    }
+    NumberOfPhysicalPages : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfPhysicalPages {
-        get => NumGet(this, 736, "uint")
-        set => NumPut("uint", value, this, 736)
-    }
+    SafeBootMode : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    SafeBootMode {
-        get => NumGet(this, 740, "char")
-        set => NumPut("char", value, this, 740)
-    }
+    VirtualizationFlags : Int8
 
-    /**
-     * @type {Integer}
-     */
-    VirtualizationFlags {
-        get => NumGet(this, 741, "char")
-        set => NumPut("char", value, this, 741)
-    }
+    Reserved12 : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved12 {
-        get {
-            if(!this.HasProp("__Reserved12ProxyArray"))
-                this.__Reserved12ProxyArray := Win32FixedArray(this.ptr + 742, 2, Primitive, "char")
-            return this.__Reserved12ProxyArray
-        }
-    }
+    SharedDataFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SharedDataFlags {
-        get => NumGet(this, 744, "uint")
-        set => NumPut("uint", value, this, 744)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - DbgErrorPortPresent
-     * - DbgElevationEnabled
-     * - DbgVirtEnabled
-     * - DbgInstallerDetectEnabled
-     * - DbgLkgEnabled
-     * - DbgDynProcessorEnabled
-     * - DbgConsoleBrokerEnabled
-     * - DbgSecureBootEnabled
-     * - DbgMultiSessionSku
-     * - DbgMultiUsersInSessionSku
-     * - DbgStateSeparationEnabled
-     * - SpareBits
-     * @type {Integer}
-     */
-    _bitfield1 {
-        get => NumGet(this, 744, "uint")
-        set => NumPut("uint", value, this, 744)
-    }
 
     /**
      * @type {Integer}
@@ -525,353 +218,87 @@ class KUSER_SHARED_DATA extends Win32Struct {
         get => (this._bitfield1 >> 11) & 0x1FFFFF
         set => this._bitfield1 := ((value & 0x1FFFFF) << 11) | (this._bitfield1 & ~(0x1FFFFF << 11))
     }
+    DataFlagsPad : UInt32[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    DataFlagsPad {
-        get {
-            if(!this.HasProp("__DataFlagsPadProxyArray"))
-                this.__DataFlagsPadProxyArray := Win32FixedArray(this.ptr + 748, 1, Primitive, "uint")
-            return this.__DataFlagsPadProxyArray
-        }
-    }
+    TestRetInstruction : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TestRetInstruction {
-        get => NumGet(this, 752, "uint")
-        set => NumPut("uint", value, this, 752)
-    }
+    QpcFrequency : Int64
 
-    /**
-     * @type {Integer}
-     */
-    QpcFrequency {
-        get => NumGet(this, 760, "int64")
-        set => NumPut("int64", value, this, 760)
-    }
+    SystemCall : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SystemCall {
-        get => NumGet(this, 768, "uint")
-        set => NumPut("uint", value, this, 768)
-    }
+    Reserved2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved2 {
-        get => NumGet(this, 772, "uint")
-        set => NumPut("uint", value, this, 772)
-    }
+    SystemCallPad : Int64[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    SystemCallPad {
-        get {
-            if(!this.HasProp("__SystemCallPadProxyArray"))
-                this.__SystemCallPadProxyArray := Win32FixedArray(this.ptr + 776, 2, Primitive, "uint")
-            return this.__SystemCallPadProxyArray
-        }
-    }
+    TickCount : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    TickCount {
-        get => NumGet(this, 792, "ptr")
-        set => NumPut("ptr", value, this, 792)
-    }
+    TickCountPad : UInt32[1]
 
-    /**
-     * @type {Integer}
-     */
-    TickCountQuad {
-        get => NumGet(this, 792, "uint")
-        set => NumPut("uint", value, this, 792)
-    }
+    Cookie : UInt32
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ReservedTickCountOverlay {
-        get {
-            if(!this.HasProp("__ReservedTickCountOverlayProxyArray"))
-                this.__ReservedTickCountOverlayProxyArray := Win32FixedArray(this.ptr + 792, 3, Primitive, "uint")
-            return this.__ReservedTickCountOverlayProxyArray
-        }
-    }
+    CookiePad : UInt32[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    TickCountPad {
-        get {
-            if(!this.HasProp("__TickCountPadProxyArray"))
-                this.__TickCountPadProxyArray := Win32FixedArray(this.ptr + 804, 1, Primitive, "uint")
-            return this.__TickCountPadProxyArray
-        }
-    }
+    ConsoleSessionForegroundProcessId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Cookie {
-        get => NumGet(this, 808, "uint")
-        set => NumPut("uint", value, this, 808)
-    }
+    TimeUpdateLock : Int64
 
-    /**
-     * @type {Array<Integer>}
-     */
-    CookiePad {
-        get {
-            if(!this.HasProp("__CookiePadProxyArray"))
-                this.__CookiePadProxyArray := Win32FixedArray(this.ptr + 812, 1, Primitive, "uint")
-            return this.__CookiePadProxyArray
-        }
-    }
+    BaselineSystemTimeQpc : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ConsoleSessionForegroundProcessId {
-        get => NumGet(this, 816, "int64")
-        set => NumPut("int64", value, this, 816)
-    }
+    BaselineInterruptTimeQpc : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TimeUpdateLock {
-        get => NumGet(this, 824, "uint")
-        set => NumPut("uint", value, this, 824)
-    }
+    QpcSystemTimeIncrement : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BaselineSystemTimeQpc {
-        get => NumGet(this, 832, "uint")
-        set => NumPut("uint", value, this, 832)
-    }
+    QpcInterruptTimeIncrement : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BaselineInterruptTimeQpc {
-        get => NumGet(this, 840, "uint")
-        set => NumPut("uint", value, this, 840)
-    }
+    QpcSystemTimeIncrementShift : Int8
 
-    /**
-     * @type {Integer}
-     */
-    QpcSystemTimeIncrement {
-        get => NumGet(this, 848, "uint")
-        set => NumPut("uint", value, this, 848)
-    }
+    QpcInterruptTimeIncrementShift : Int8
 
-    /**
-     * @type {Integer}
-     */
-    QpcInterruptTimeIncrement {
-        get => NumGet(this, 856, "uint")
-        set => NumPut("uint", value, this, 856)
-    }
+    UnparkedProcessorCount : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    QpcSystemTimeIncrementShift {
-        get => NumGet(this, 864, "char")
-        set => NumPut("char", value, this, 864)
-    }
+    EnclaveFeatureMask : UInt32[4]
 
-    /**
-     * @type {Integer}
-     */
-    QpcInterruptTimeIncrementShift {
-        get => NumGet(this, 865, "char")
-        set => NumPut("char", value, this, 865)
-    }
+    TelemetryCoverageRound : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    UnparkedProcessorCount {
-        get => NumGet(this, 866, "ushort")
-        set => NumPut("ushort", value, this, 866)
-    }
+    UserModeGlobalLogger : UInt16[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    EnclaveFeatureMask {
-        get {
-            if(!this.HasProp("__EnclaveFeatureMaskProxyArray"))
-                this.__EnclaveFeatureMaskProxyArray := Win32FixedArray(this.ptr + 868, 4, Primitive, "uint")
-            return this.__EnclaveFeatureMaskProxyArray
-        }
-    }
+    ImageFileExecutionOptions : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TelemetryCoverageRound {
-        get => NumGet(this, 884, "uint")
-        set => NumPut("uint", value, this, 884)
-    }
+    LangGenerationCount : UInt32
 
-    /**
-     * @type {Array<Integer>}
-     */
-    UserModeGlobalLogger {
-        get {
-            if(!this.HasProp("__UserModeGlobalLoggerProxyArray"))
-                this.__UserModeGlobalLoggerProxyArray := Win32FixedArray(this.ptr + 888, 16, Primitive, "ushort")
-            return this.__UserModeGlobalLoggerProxyArray
-        }
-    }
+    Reserved4 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ImageFileExecutionOptions {
-        get => NumGet(this, 920, "uint")
-        set => NumPut("uint", value, this, 920)
-    }
+    InterruptTimeBias : Int64
 
-    /**
-     * @type {Integer}
-     */
-    LangGenerationCount {
-        get => NumGet(this, 924, "uint")
-        set => NumPut("uint", value, this, 924)
-    }
+    QpcBias : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Reserved4 {
-        get => NumGet(this, 928, "uint")
-        set => NumPut("uint", value, this, 928)
-    }
+    ActiveProcessorCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InterruptTimeBias {
-        get => NumGet(this, 936, "uint")
-        set => NumPut("uint", value, this, 936)
-    }
+    ActiveGroupCount : Int8
 
-    /**
-     * @type {Integer}
-     */
-    QpcBias {
-        get => NumGet(this, 944, "uint")
-        set => NumPut("uint", value, this, 944)
-    }
+    Reserved9 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ActiveProcessorCount {
-        get => NumGet(this, 952, "uint")
-        set => NumPut("uint", value, this, 952)
-    }
+    QpcData : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ActiveGroupCount {
-        get => NumGet(this, 956, "char")
-        set => NumPut("char", value, this, 956)
-    }
+    TimeZoneBiasEffectiveStart : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Reserved9 {
-        get => NumGet(this, 957, "char")
-        set => NumPut("char", value, this, 957)
-    }
+    TimeZoneBiasEffectiveEnd : Int64
 
-    /**
-     * @type {Integer}
-     */
-    QpcData {
-        get => NumGet(this, 958, "ushort")
-        set => NumPut("ushort", value, this, 958)
-    }
+    XState : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    QpcBypassEnabled {
-        get => NumGet(this, 958, "char")
-        set => NumPut("char", value, this, 958)
-    }
+    FeatureConfigurationChangeStamp : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    QpcShift {
-        get => NumGet(this, 959, "char")
-        set => NumPut("char", value, this, 959)
-    }
+    Spare : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TimeZoneBiasEffectiveStart {
-        get => NumGet(this, 960, "int64")
-        set => NumPut("int64", value, this, 960)
-    }
+    UserPointerAuthMask : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TimeZoneBiasEffectiveEnd {
-        get => NumGet(this, 968, "int64")
-        set => NumPut("int64", value, this, 968)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    XState {
-        get => NumGet(this, 976, "ptr")
-        set => NumPut("ptr", value, this, 976)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    FeatureConfigurationChangeStamp {
-        get => NumGet(this, 984, "ptr")
-        set => NumPut("ptr", value, this, 984)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Spare {
-        get => NumGet(this, 992, "uint")
-        set => NumPut("uint", value, this, 992)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    UserPointerAuthMask {
-        get => NumGet(this, 1000, "uint")
-        set => NumPut("uint", value, this, 1000)
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int8, offset: 717 })
+        DefineProp(this.Prototype, '_bitfield1', { type: Int32, offset: 744 })
+        DefineProp(this.Prototype, 'TickCountQuad', { type: Int64, offset: 792 })
+        DefineProp(this.Prototype, 'ReservedTickCountOverlay', { type: UInt32[3], offset: 792 })
+        DefineProp(this.Prototype, 'QpcBypassEnabled', { type: Int8, offset: 958 })
+        DefineProp(this.Prototype, 'QpcShift', { type: Int8, offset: 959 })
+        this.DeleteProp("__New")
     }
 }

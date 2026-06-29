@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\GameInputForceFeedbackEnvelope.ahk
-#Include .\GameInputForceFeedbackMagnitude.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GameInputForceFeedbackMagnitude.ahk" { GameInputForceFeedbackMagnitude }
+#Import ".\GameInputForceFeedbackEnvelope.ahk" { GameInputForceFeedbackEnvelope }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
  */
-class GameInputForceFeedbackPeriodicParams extends Win32Struct {
-    static sizeof => 88
+export default struct GameInputForceFeedbackPeriodicParams {
+    #StructPack 8
 
-    static packingSize => 8
+    envelope : GameInputForceFeedbackEnvelope
 
-    /**
-     * @type {GameInputForceFeedbackEnvelope}
-     */
-    envelope {
-        get {
-            if(!this.HasProp("__envelope"))
-                this.__envelope := GameInputForceFeedbackEnvelope(0, this)
-            return this.__envelope
-        }
-    }
+    magnitude : GameInputForceFeedbackMagnitude
 
-    /**
-     * @type {GameInputForceFeedbackMagnitude}
-     */
-    magnitude {
-        get {
-            if(!this.HasProp("__magnitude"))
-                this.__magnitude := GameInputForceFeedbackMagnitude(48, this)
-            return this.__magnitude
-        }
-    }
+    frequency : Float32
 
-    /**
-     * @type {Float}
-     */
-    frequency {
-        get => NumGet(this, 76, "float")
-        set => NumPut("float", value, this, 76)
-    }
+    phase : Float32
 
-    /**
-     * @type {Float}
-     */
-    phase {
-        get => NumGet(this, 80, "float")
-        set => NumPut("float", value, this, 80)
-    }
+    bias : Float32
 
-    /**
-     * @type {Float}
-     */
-    bias {
-        get => NumGet(this, 84, "float")
-        set => NumPut("float", value, this, 84)
-    }
 }

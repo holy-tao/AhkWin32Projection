@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAMCopyCaptureFileProgress interface is a callback interface used by the ICaptureGraphBuilder2::CopyCaptureFile method.Because the CopyCaptureFile method can take a long time to complete, an application can implement this interface to receive periodic notifications about the progress of the copy operation. If the application does not need to receive this information, there is no need to implement the interface.
@@ -85,26 +86,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamcopycapturefileprogress
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAMCopyCaptureFileProgress extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAMCopyCaptureFileProgress extends IUnknown {
     /**
      * The interface identifier for IAMCopyCaptureFileProgress
      * @type {Guid}
      */
-    static IID => Guid("{670d1d20-a068-11d0-b3f0-00aa003761c5}")
+    static IID := Guid("{670d1d20-a068-11d0-b3f0-00aa003761c5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAMCopyCaptureFileProgress interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Progress : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Progress"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAMCopyCaptureFileProgress.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Progress method is called periodically by the ICaptureGraphBuilder2::CopyCaptureFile method while it copies the file.
@@ -117,5 +125,25 @@ class IAMCopyCaptureFileProgress extends IUnknown {
     Progress(iProgress) {
         result := ComCall(3, this, "int", iProgress, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAMCopyCaptureFileProgress.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Progress := CallbackCreate(GetMethod(implObj, "Progress"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Progress)
     }
 }

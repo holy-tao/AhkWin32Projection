@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The type of the endpoint IDentity, used as a selector for subtypes of WS_ENDPOINT_IDENTITY.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_endpoint_identity_type
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_ENDPOINT_IDENTITY_TYPE extends Win32Enum {
+export default struct WS_ENDPOINT_IDENTITY_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Type ID for <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_dns_endpoint_identity">WS_DNS_ENDPOINT_IDENTITY</a>.

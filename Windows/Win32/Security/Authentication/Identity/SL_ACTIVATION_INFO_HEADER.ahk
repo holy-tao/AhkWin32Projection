@@ -1,41 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\SL_ACTIVATION_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SL_ACTIVATION_TYPE.ahk" { SL_ACTIVATION_TYPE }
 
 /**
  * Specifies the product activation information.
  * @see https://learn.microsoft.com/windows/win32/api/slpublic/ns-slpublic-sl_activation_info_header
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SL_ACTIVATION_INFO_HEADER extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct SL_ACTIVATION_INFO_HEADER {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The size of the structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b>SL_ACTIVATION_TYPE</b>
      * 
      * The activation type.
-     * @type {SL_ACTIVATION_TYPE}
      */
-    type {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    type : SL_ACTIVATION_TYPE
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 8
-    }
 }

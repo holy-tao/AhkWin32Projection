@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The RAS_PORT_CONDITION enumerated type specifies information regarding the connection condition of a given RAS port.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ne-mprapi-ras_port_condition
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class RAS_PORT_CONDITION extends Win32Enum {
+export default struct RAS_PORT_CONDITION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The port is not operational.

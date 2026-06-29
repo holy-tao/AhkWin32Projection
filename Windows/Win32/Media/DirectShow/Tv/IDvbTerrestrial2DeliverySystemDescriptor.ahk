@@ -1,31 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown {
     /**
      * The interface identifier for IDvbTerrestrial2DeliverySystemDescriptor
      * @type {Guid}
      */
-    static IID => Guid("{20ee9be9-cd57-49ab-8f6e-1d07aeb8e482}")
+    static IID := Guid("{20ee9be9-cd57-49ab-8f6e-1d07aeb8e482}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDvbTerrestrial2DeliverySystemDescriptor interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetTag                : IntPtr
+        GetLength             : IntPtr
+        GetTagExtension       : IntPtr
+        GetCentreFrequency    : IntPtr
+        GetPLPId              : IntPtr
+        GetT2SystemId         : IntPtr
+        GetMultipleInputMode  : IntPtr
+        GetBandwidth          : IntPtr
+        GetGuardInterval      : IntPtr
+        GetTransmissionMode   : IntPtr
+        GetCellId             : IntPtr
+        GetOtherFrequencyFlag : IntPtr
+        GetTFSFlag            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetTag", "GetLength", "GetTagExtension", "GetCentreFrequency", "GetPLPId", "GetT2SystemId", "GetMultipleInputMode", "GetBandwidth", "GetGuardInterval", "GetTransmissionMode", "GetCellId", "GetOtherFrequencyFlag", "GetTFSFlag"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDvbTerrestrial2DeliverySystemDescriptor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -37,9 +57,8 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown {
     }
 
     /**
-     * Returns the length, in bytes, of a valid security identifier (SID).
+     * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getlengthsid
      */
     GetLength() {
         result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
@@ -143,5 +162,49 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown {
     GetTFSFlag() {
         result := ComCall(15, this, "char*", &pbVal := 0, "HRESULT")
         return pbVal
+    }
+
+    Query(iid) {
+        if (IDvbTerrestrial2DeliverySystemDescriptor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetTagExtension := CallbackCreate(GetMethod(implObj, "GetTagExtension"), flags, 2)
+        this.vtbl.GetCentreFrequency := CallbackCreate(GetMethod(implObj, "GetCentreFrequency"), flags, 2)
+        this.vtbl.GetPLPId := CallbackCreate(GetMethod(implObj, "GetPLPId"), flags, 2)
+        this.vtbl.GetT2SystemId := CallbackCreate(GetMethod(implObj, "GetT2SystemId"), flags, 2)
+        this.vtbl.GetMultipleInputMode := CallbackCreate(GetMethod(implObj, "GetMultipleInputMode"), flags, 2)
+        this.vtbl.GetBandwidth := CallbackCreate(GetMethod(implObj, "GetBandwidth"), flags, 2)
+        this.vtbl.GetGuardInterval := CallbackCreate(GetMethod(implObj, "GetGuardInterval"), flags, 2)
+        this.vtbl.GetTransmissionMode := CallbackCreate(GetMethod(implObj, "GetTransmissionMode"), flags, 2)
+        this.vtbl.GetCellId := CallbackCreate(GetMethod(implObj, "GetCellId"), flags, 2)
+        this.vtbl.GetOtherFrequencyFlag := CallbackCreate(GetMethod(implObj, "GetOtherFrequencyFlag"), flags, 2)
+        this.vtbl.GetTFSFlag := CallbackCreate(GetMethod(implObj, "GetTFSFlag"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetTag)
+        CallbackFree(this.vtbl.GetLength)
+        CallbackFree(this.vtbl.GetTagExtension)
+        CallbackFree(this.vtbl.GetCentreFrequency)
+        CallbackFree(this.vtbl.GetPLPId)
+        CallbackFree(this.vtbl.GetT2SystemId)
+        CallbackFree(this.vtbl.GetMultipleInputMode)
+        CallbackFree(this.vtbl.GetBandwidth)
+        CallbackFree(this.vtbl.GetGuardInterval)
+        CallbackFree(this.vtbl.GetTransmissionMode)
+        CallbackFree(this.vtbl.GetCellId)
+        CallbackFree(this.vtbl.GetOtherFrequencyFlag)
+        CallbackFree(this.vtbl.GetTFSFlag)
     }
 }

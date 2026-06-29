@@ -1,9 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SECRET_TYPE.ahk
-#Include .\SECRET_PURPOSE.ahk
-#Include .\PIN_CACHE_POLICY.ahk
-#Include .\PIN_CACHE_POLICY_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PIN_CACHE_POLICY_TYPE.ahk" { PIN_CACHE_POLICY_TYPE }
+#Import ".\PIN_CACHE_POLICY.ahk" { PIN_CACHE_POLICY }
+#Import ".\SECRET_PURPOSE.ahk" { SECRET_PURPOSE }
+#Import ".\SECRET_TYPE.ahk" { SECRET_TYPE }
 
 /**
  * The PIN_INFO structure contains information about a pin.
@@ -16,67 +15,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-pin_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class PIN_INFO extends Win32Struct {
-    static sizeof => 36
+export default struct PIN_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    dwVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PinType : SECRET_TYPE
 
-    /**
-     * @type {SECRET_TYPE}
-     */
-    PinType {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    PinPurpose : SECRET_PURPOSE
 
-    /**
-     * @type {SECRET_PURPOSE}
-     */
-    PinPurpose {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    dwChangePermission : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwChangePermission {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwUnblockPermission : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwUnblockPermission {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    PinCachePolicy : PIN_CACHE_POLICY
 
-    /**
-     * @type {PIN_CACHE_POLICY}
-     */
-    PinCachePolicy {
-        get {
-            if(!this.HasProp("__PinCachePolicy"))
-                this.__PinCachePolicy := PIN_CACHE_POLICY(20, this)
-            return this.__PinCachePolicy
-        }
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

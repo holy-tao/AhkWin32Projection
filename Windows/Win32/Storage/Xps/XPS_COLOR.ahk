@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\XPS_COLOR_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\XPS_COLOR_TYPE.ahk" { XPS_COLOR_TYPE }
 
 /**
  * The contents of the XPS_COLOR structure when the colorType is XPS_COLOR_TYPE_CONTEXT.
@@ -9,163 +8,52 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_color
  * @namespace Windows.Win32.Storage.Xps
  */
-class XPS_COLOR extends Win32Struct {
-    static sizeof => 64
+export default struct XPS_COLOR {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class XPS_COLOR_VALUE extends Win32Struct {
-        static sizeof => 60
-        static packingSize => 4
+    struct XPS_COLOR_VALUE {
 
-        class _sRGB extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 1
+        struct _sRGB {
+            alpha : Int8
 
-            /**
-             * @type {Integer}
-             */
-            alpha {
-                get => NumGet(this, 0, "char")
-                set => NumPut("char", value, this, 0)
-            }
+            red : Int8
 
-            /**
-             * @type {Integer}
-             */
-            red {
-                get => NumGet(this, 1, "char")
-                set => NumPut("char", value, this, 1)
-            }
+            green : Int8
 
-            /**
-             * @type {Integer}
-             */
-            green {
-                get => NumGet(this, 2, "char")
-                set => NumPut("char", value, this, 2)
-            }
+            blue : Int8
 
-            /**
-             * @type {Integer}
-             */
-            blue {
-                get => NumGet(this, 3, "char")
-                set => NumPut("char", value, this, 3)
-            }
         }
 
-        class _scRGB extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 4
+        struct _scRGB {
+            alpha : Float32
 
-            /**
-             * @type {Float}
-             */
-            alpha {
-                get => NumGet(this, 0, "float")
-                set => NumPut("float", value, this, 0)
-            }
+            red : Float32
 
-            /**
-             * @type {Float}
-             */
-            red {
-                get => NumGet(this, 4, "float")
-                set => NumPut("float", value, this, 4)
-            }
+            green : Float32
 
-            /**
-             * @type {Float}
-             */
-            green {
-                get => NumGet(this, 8, "float")
-                set => NumPut("float", value, this, 8)
-            }
+            blue : Float32
 
-            /**
-             * @type {Float}
-             */
-            blue {
-                get => NumGet(this, 12, "float")
-                set => NumPut("float", value, this, 12)
-            }
         }
 
-        class _context extends Win32Struct {
-            static sizeof => 40
-            static packingSize => 4
+        struct _context {
+            channelCount : Int8
 
-            /**
-             * @type {Integer}
-             */
-            channelCount {
-                get => NumGet(this, 0, "char")
-                set => NumPut("char", value, this, 0)
-            }
+            channels : Float32[9]
 
-            /**
-             * @type {Array<Float>}
-             */
-            channels {
-                get {
-                    if(!this.HasProp("__channelsProxyArray"))
-                        this.__channelsProxyArray := Win32FixedArray(this.ptr + 4, 9, Primitive, "float")
-                    return this.__channelsProxyArray
-                }
-            }
         }
 
-        /**
-         * @type {_sRGB}
-         */
-        sRGB {
-            get {
-                if(!this.HasProp("__sRGB"))
-                    this.__sRGB := XPS_COLOR.XPS_COLOR_VALUE._sRGB(0, this)
-                return this.__sRGB
-            }
-        }
+        sRGB : XPS_COLOR.XPS_COLOR_VALUE._sRGB
 
-        /**
-         * @type {_scRGB}
-         */
-        scRGB {
-            get {
-                if(!this.HasProp("__scRGB"))
-                    this.__scRGB := XPS_COLOR.XPS_COLOR_VALUE._scRGB(0, this)
-                return this.__scRGB
-            }
-        }
-
-        /**
-         * @type {_context}
-         */
-        context {
-            get {
-                if(!this.HasProp("__context"))
-                    this.__context := XPS_COLOR.XPS_COLOR_VALUE._context(0, this)
-                return this.__context
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'scRGB', { type: XPS_COLOR.XPS_COLOR_VALUE._scRGB, offset: 0 })
+            DefineProp(this.Prototype, 'context', { type: XPS_COLOR.XPS_COLOR_VALUE._context, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {XPS_COLOR_TYPE}
-     */
-    colorType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    colorType : XPS_COLOR_TYPE
 
-    /**
-     * @type {XPS_COLOR_VALUE}
-     */
-    value {
-        get {
-            if(!this.HasProp("__value"))
-                this.__value := XPS_COLOR.XPS_COLOR_VALUE(4, this)
-            return this.__value
-        }
-    }
+    value : XPS_COLOR.XPS_COLOR_VALUE
+
 }

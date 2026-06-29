@@ -1,35 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_PROPERTY_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HTTP_PROPERTY_FLAGS.ahk" { HTTP_PROPERTY_FLAGS }
 
 /**
  * Used to set or query the limit on the maximum number of outstanding connections for a URL Group.
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_connection_limit_info
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_CONNECTION_LIMIT_INFO extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct HTTP_CONNECTION_LIMIT_INFO {
+    #StructPack 4
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_property_flags">HTTP_PROPERTY_FLAGS</a> structure specifying whether the property is present.
-     * @type {HTTP_PROPERTY_FLAGS}
      */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := HTTP_PROPERTY_FLAGS(0, this)
-            return this.__Flags
-        }
-    }
+    Flags : HTTP_PROPERTY_FLAGS
 
     /**
      * The number of connections allowed. Setting this value to HTTP_LIMIT_INFINITE allows an unlimited number of connections.
-     * @type {Integer}
      */
-    MaxConnections {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    MaxConnections : UInt32
+
 }

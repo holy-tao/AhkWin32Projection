@@ -1,204 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include .\UTextFuncs.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\UTextFuncs.ahk" { UTextFuncs }
 
 /**
  * @namespace Windows.Win32.Globalization
  */
-class UText extends Win32Struct {
-    static sizeof => 144
+export default struct UText {
+    #StructPack 8
 
-    static packingSize => 8
+    magic : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    magic {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    flags : Int32
 
-    /**
-     * @type {Integer}
-     */
-    flags {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    providerProperties : Int32
 
-    /**
-     * @type {Integer}
-     */
-    providerProperties {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    sizeOfStruct : Int32
 
-    /**
-     * @type {Integer}
-     */
-    sizeOfStruct {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    chunkNativeLimit : Int64
 
-    /**
-     * @type {Integer}
-     */
-    chunkNativeLimit {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    extraSize : Int32
 
-    /**
-     * @type {Integer}
-     */
-    extraSize {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    nativeIndexingLimit : Int32
 
-    /**
-     * @type {Integer}
-     */
-    nativeIndexingLimit {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    chunkNativeStart : Int64
 
-    /**
-     * @type {Integer}
-     */
-    chunkNativeStart {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
+    chunkOffset : Int32
 
-    /**
-     * @type {Integer}
-     */
-    chunkOffset {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    chunkLength : Int32
 
-    /**
-     * @type {Integer}
-     */
-    chunkLength {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    chunkContents : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    chunkContents {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pFuncs : UTextFuncs.Ptr
 
-    /**
-     * @type {Pointer<UTextFuncs>}
-     */
-    pFuncs {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pExtra : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pExtra {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    context : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    context {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    p : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    p {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    q : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    q {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    r : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    r {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    privP : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    privP {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    a : Int64
 
-    /**
-     * @type {Integer}
-     */
-    a {
-        get => NumGet(this, 112, "int64")
-        set => NumPut("int64", value, this, 112)
-    }
+    b : Int32
 
-    /**
-     * @type {Integer}
-     */
-    b {
-        get => NumGet(this, 120, "int")
-        set => NumPut("int", value, this, 120)
-    }
+    c : Int32
 
-    /**
-     * @type {Integer}
-     */
-    c {
-        get => NumGet(this, 124, "int")
-        set => NumPut("int", value, this, 124)
-    }
+    privA : Int64
 
-    /**
-     * @type {Integer}
-     */
-    privA {
-        get => NumGet(this, 128, "int64")
-        set => NumPut("int64", value, this, 128)
-    }
+    privB : Int32
 
-    /**
-     * @type {Integer}
-     */
-    privB {
-        get => NumGet(this, 136, "int")
-        set => NumPut("int", value, this, 136)
-    }
+    privC : Int32
 
-    /**
-     * @type {Integer}
-     */
-    privC {
-        get => NumGet(this, 140, "int")
-        set => NumPut("int", value, this, 140)
-    }
 }

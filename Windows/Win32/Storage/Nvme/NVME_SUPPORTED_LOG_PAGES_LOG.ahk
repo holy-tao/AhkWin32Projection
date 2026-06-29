@@ -1,23 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NVME_LID_SUPPORTED_AND_EFFECTS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NVME_LID_SUPPORTED_AND_EFFECTS.ahk" { NVME_LID_SUPPORTED_AND_EFFECTS }
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_SUPPORTED_LOG_PAGES_LOG extends Win32Struct {
-    static sizeof => 1024
+export default struct NVME_SUPPORTED_LOG_PAGES_LOG {
+    #StructPack 4
 
-    static packingSize => 4
+    LogPageIdentifierSupported : NVME_LID_SUPPORTED_AND_EFFECTS[256]
 
-    /**
-     * @type {NVME_LID_SUPPORTED_AND_EFFECTS}
-     */
-    LogPageIdentifierSupported {
-        get {
-            if(!this.HasProp("__LogPageIdentifierSupportedProxyArray"))
-                this.__LogPageIdentifierSupportedProxyArray := Win32FixedArray(this.ptr + 0, 256, NVME_LID_SUPPORTED_AND_EFFECTS, "")
-            return this.__LogPageIdentifierSupportedProxyArray
-        }
-    }
 }

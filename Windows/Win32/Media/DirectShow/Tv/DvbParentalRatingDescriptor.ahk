@@ -1,31 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\DvbParentalRatingParam.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DvbParentalRatingParam.ahk" { DvbParentalRatingParam }
+#Import "..\..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class DvbParentalRatingDescriptor extends Win32Struct {
-    static sizeof => 12
+export default struct DvbParentalRatingDescriptor {
+    #StructPack 4
 
-    static packingSize => 4
+    ulNumParams : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulNumParams {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pParams : DvbParentalRatingParam[1]
 
-    /**
-     * @type {DvbParentalRatingParam}
-     */
-    pParams {
-        get {
-            if(!this.HasProp("__pParamsProxyArray"))
-                this.__pParamsProxyArray := Win32FixedArray(this.ptr + 4, 1, DvbParentalRatingParam, "")
-            return this.__pParamsProxyArray
-        }
-    }
 }

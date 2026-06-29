@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Registry\HKEY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\System\Registry\HKEY.ahk" { HKEY }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The CERT_SYSTEM_STORE_RELOCATE_PARA structure contains data to be passed to CertOpenStore when that function's dwFlags parameter is set to CERT_SYSTEM_STORE_RELOCATE_FLAG.
@@ -10,51 +11,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_system_store_relocate_para
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_SYSTEM_STORE_RELOCATE_PARA extends Win32Struct {
-    static sizeof => 16
+export default struct CERT_SYSTEM_STORE_RELOCATE_PARA {
+    #StructPack 8
 
-    static packingSize => 8
+    hKeyBase : HKEY
 
-    /**
-     * @type {HKEY}
-     */
-    hKeyBase {
-        get {
-            if(!this.HasProp("__hKeyBase"))
-                this.__hKeyBase := HKEY(0, this)
-            return this.__hKeyBase
-        }
-    }
+    pvSystemStore : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pvBase {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    pvSystemStore {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {PSTR}
-     */
-    pszSystemStore {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {PWSTR}
-     */
-    pwszSystemStore {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'pvBase', { type: IntPtr, offset: 0 })
+        DefineProp(this.Prototype, 'pszSystemStore', { type: PSTR, offset: 8 })
+        DefineProp(this.Prototype, 'pwszSystemStore', { type: PWSTR, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

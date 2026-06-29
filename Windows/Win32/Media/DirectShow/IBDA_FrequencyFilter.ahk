@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\Polarisation.ahk" { Polarisation }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IBDA_FrequencyFilter interface is implemented on a BDA tuner device, and is used by the Network Provider to tell the tuner how to set its frequencies.
@@ -10,26 +12,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_frequencyfilter
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IBDA_FrequencyFilter extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBDA_FrequencyFilter extends IUnknown {
     /**
      * The interface identifier for IBDA_FrequencyFilter
      * @type {Guid}
      */
-    static IID => Guid("{71985f47-1ca1-11d3-9cc8-00c04f7971e0}")
+    static IID := Guid("{71985f47-1ca1-11d3-9cc8-00c04f7971e0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBDA_FrequencyFilter interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        put_Autotune            : IntPtr
+        get_Autotune            : IntPtr
+        put_Frequency           : IntPtr
+        get_Frequency           : IntPtr
+        put_Polarity            : IntPtr
+        get_Polarity            : IntPtr
+        put_Range               : IntPtr
+        get_Range               : IntPtr
+        put_Bandwidth           : IntPtr
+        get_Bandwidth           : IntPtr
+        put_FrequencyMultiplier : IntPtr
+        get_FrequencyMultiplier : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_Autotune", "get_Autotune", "put_Frequency", "get_Frequency", "put_Polarity", "get_Polarity", "put_Range", "get_Range", "put_Bandwidth", "get_Bandwidth", "put_FrequencyMultiplier", "get_FrequencyMultiplier"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBDA_FrequencyFilter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -138,7 +158,7 @@ class IBDA_FrequencyFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_frequencyfilter-put_polarity
      */
     put_Polarity(Polarity) {
-        result := ComCall(7, this, "int", Polarity, "HRESULT")
+        result := ComCall(7, this, Polarisation, Polarity, "HRESULT")
         return result
     }
 
@@ -229,5 +249,47 @@ class IBDA_FrequencyFilter extends IUnknown {
 
         result := ComCall(14, this, pulMultiplierMarshal, pulMultiplier, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBDA_FrequencyFilter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_Autotune := CallbackCreate(GetMethod(implObj, "put_Autotune"), flags, 2)
+        this.vtbl.get_Autotune := CallbackCreate(GetMethod(implObj, "get_Autotune"), flags, 2)
+        this.vtbl.put_Frequency := CallbackCreate(GetMethod(implObj, "put_Frequency"), flags, 2)
+        this.vtbl.get_Frequency := CallbackCreate(GetMethod(implObj, "get_Frequency"), flags, 2)
+        this.vtbl.put_Polarity := CallbackCreate(GetMethod(implObj, "put_Polarity"), flags, 2)
+        this.vtbl.get_Polarity := CallbackCreate(GetMethod(implObj, "get_Polarity"), flags, 2)
+        this.vtbl.put_Range := CallbackCreate(GetMethod(implObj, "put_Range"), flags, 2)
+        this.vtbl.get_Range := CallbackCreate(GetMethod(implObj, "get_Range"), flags, 2)
+        this.vtbl.put_Bandwidth := CallbackCreate(GetMethod(implObj, "put_Bandwidth"), flags, 2)
+        this.vtbl.get_Bandwidth := CallbackCreate(GetMethod(implObj, "get_Bandwidth"), flags, 2)
+        this.vtbl.put_FrequencyMultiplier := CallbackCreate(GetMethod(implObj, "put_FrequencyMultiplier"), flags, 2)
+        this.vtbl.get_FrequencyMultiplier := CallbackCreate(GetMethod(implObj, "get_FrequencyMultiplier"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_Autotune)
+        CallbackFree(this.vtbl.get_Autotune)
+        CallbackFree(this.vtbl.put_Frequency)
+        CallbackFree(this.vtbl.get_Frequency)
+        CallbackFree(this.vtbl.put_Polarity)
+        CallbackFree(this.vtbl.get_Polarity)
+        CallbackFree(this.vtbl.put_Range)
+        CallbackFree(this.vtbl.get_Range)
+        CallbackFree(this.vtbl.put_Bandwidth)
+        CallbackFree(this.vtbl.get_Bandwidth)
+        CallbackFree(this.vtbl.put_FrequencyMultiplier)
+        CallbackFree(this.vtbl.get_FrequencyMultiplier)
     }
 }

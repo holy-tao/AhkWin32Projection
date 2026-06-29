@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMWriterSink.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMWriterSink.ahk" { IWMWriterSink }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The IWMWriterPushSink interface enables the application to send ASF files to a publishing point on a Windows Media server.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmwriterpushsink
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMWriterPushSink extends IWMWriterSink {
-
-    static sizeof => A_PtrSize
+export default struct IWMWriterPushSink extends IWMWriterSink {
     /**
      * The interface identifier for IWMWriterPushSink
      * @type {Guid}
      */
-    static IID => Guid("{dc10e6a5-072c-467d-bf57-6330a9dde12a}")
+    static IID := Guid("{dc10e6a5-072c-467d-bf57-6330a9dde12a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMWriterPushSink interfaces
+    */
+    struct Vtbl extends IWMWriterSink.Vtbl {
+        Connect    : IntPtr
+        Disconnect : IntPtr
+        EndSession : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Connect", "Disconnect", "EndSession"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMWriterPushSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Connect method connects to a publishing point on a Windows Media server.
@@ -105,7 +117,7 @@ class IWMWriterPushSink extends IWMWriterSink {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
         pwszTemplateURL := pwszTemplateURL is String ? StrPtr(pwszTemplateURL) : pwszTemplateURL
 
-        result := ComCall(8, this, "ptr", pwszURL, "ptr", pwszTemplateURL, "int", fAutoDestroy, "HRESULT")
+        result := ComCall(8, this, "ptr", pwszURL, "ptr", pwszTemplateURL, BOOL, fAutoDestroy, "HRESULT")
         return result
     }
 
@@ -169,5 +181,29 @@ class IWMWriterPushSink extends IWMWriterSink {
     EndSession() {
         result := ComCall(10, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMWriterPushSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 4)
+        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 1)
+        this.vtbl.EndSession := CallbackCreate(GetMethod(implObj, "EndSession"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Connect)
+        CallbackFree(this.vtbl.Disconnect)
+        CallbackFree(this.vtbl.EndSession)
     }
 }

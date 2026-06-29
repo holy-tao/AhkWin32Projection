@@ -1,39 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\Win32\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class FILE_TRACKING_INFORMATION extends Win32Struct {
-    static sizeof => 16
+export default struct FILE_TRACKING_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    DestinationFile : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    DestinationFile {
-        get {
-            if(!this.HasProp("__DestinationFile"))
-                this.__DestinationFile := HANDLE(0, this)
-            return this.__DestinationFile
-        }
-    }
+    ObjectInformationLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ObjectInformationLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ObjectInformation : CHAR[1]
 
-    /**
-     * @type {String}
-     */
-    ObjectInformation {
-        get => StrGet(this.ptr + 12, 0, "UTF-8")
-        set => StrPut(value, this.ptr + 12, 0, "UTF-8")
-    }
 }

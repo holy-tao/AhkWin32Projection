@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ENTRYID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ENTRYID.ahk" { ENTRYID }
 
 /**
  * Provides the property info, members, and remarks for NEWMAIL_NOTIFICATION, which describes information that relates to the arrival of a new message.
@@ -19,46 +18,28 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/newmail_notification
  * @namespace Windows.Win32.System.AddressBook
  */
-class NEWMAIL_NOTIFICATION extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct NEWMAIL_NOTIFICATION {
+    #StructPack 8
 
     /**
      * > Count of bytes in the entry identifier pointed to by the **lpEntryID** member.
-     * @type {Integer}
      */
-    cbEntryID {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbEntryID : UInt32
 
     /**
      * > Pointer to the entry identifier of the newly arrived message.
-     * @type {Pointer<ENTRYID>}
      */
-    lpEntryID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpEntryID : ENTRYID.Ptr
 
     /**
      * > Count of bytes in the entry identifier pointed to by the **lpParentID** member.
-     * @type {Integer}
      */
-    cbParentID {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cbParentID : UInt32
 
     /**
      * > Pointer to the entry identifier of the receive folder for the newly arrived message.
-     * @type {Pointer<ENTRYID>}
      */
-    lpParentID {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpParentID : ENTRYID.Ptr
 
     /**
      * > Bitmask of flags used to describe the format of the string properties included with the message. The following flag can be set:
@@ -66,28 +47,17 @@ class NEWMAIL_NOTIFICATION extends Win32Struct {
      * MAPI_UNICODE 
      *   
      * > The passed-in strings are in Unicode format. If the MAPI_UNICODE flag is not set, the strings are in ANSI format.
-     * @type {Integer}
      */
-    ulFlags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ulFlags : UInt32
 
     /**
      * > Pointer to the message class of the newly arrived message.
-     * @type {Pointer<Integer>}
      */
-    lpszMessageClass {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lpszMessageClass : IntPtr
 
     /**
      * > Bitmask of flags that describes the current state of the newly arrived message. The **ulMessageFlags** member is a copy of the message's **PR_MESSAGE_FLAGS** ([PidTagMessageFlags](pidtagmessageflags-canonical-property.md)) property.
-     * @type {Integer}
      */
-    ulMessageFlags {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    ulMessageFlags : UInt32
+
 }

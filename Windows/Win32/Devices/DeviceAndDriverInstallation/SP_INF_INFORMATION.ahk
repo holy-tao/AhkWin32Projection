@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\INF_STYLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\INF_STYLE.ahk" { INF_STYLE }
 
 /**
  * The SP_INF_INFORMATION structure stores information about an INF file, including the style, number of constituent INF files, and version data.
@@ -8,37 +7,19 @@
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @architecture X64, Arm64
  */
-class SP_INF_INFORMATION extends Win32Struct {
-    static sizeof => 12
+export default struct SP_INF_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
-
-    /**
-     * @type {INF_STYLE}
-     */
-    InfStyle {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    InfStyle : INF_STYLE
 
     /**
      * Number of constituent INF files.
-     * @type {Integer}
      */
-    InfCount {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    InfCount : UInt32
 
     /**
      * Stores information from the <b>Version</b> section of an INF file in an array of <b>ANYSIZE_ARRAY</b> bytes.
-     * @type {Array<Integer>}
      */
-    VersionData {
-        get {
-            if(!this.HasProp("__VersionDataProxyArray"))
-                this.__VersionDataProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")
-            return this.__VersionDataProxyArray
-        }
-    }
+    VersionData : Int8[1]
+
 }

@@ -1,22 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_PROGRAM_IDENTIFIER extends Win32Struct {
-    static sizeof => 32
+export default struct D3D12_PROGRAM_IDENTIFIER {
+    #StructPack 8
 
-    static packingSize => 8
+    OpaqueData : Int64[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    OpaqueData {
-        get {
-            if(!this.HasProp("__OpaqueDataProxyArray"))
-                this.__OpaqueDataProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "uint")
-            return this.__OpaqueDataProxyArray
-        }
-    }
 }

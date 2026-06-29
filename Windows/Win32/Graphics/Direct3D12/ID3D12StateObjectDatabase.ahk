@@ -1,31 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D3D12_PIPELINE_STATE_STREAM_DESC.ahk" { D3D12_PIPELINE_STATE_STREAM_DESC }
+#Import ".\D3D12_APPLICATION_DESC.ahk" { D3D12_APPLICATION_DESC }
+#Import ".\D3D12_STATE_OBJECT_DESC.ahk" { D3D12_STATE_OBJECT_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class ID3D12StateObjectDatabase extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID3D12StateObjectDatabase extends IUnknown {
     /**
      * The interface identifier for ID3D12StateObjectDatabase
      * @type {Guid}
      */
-    static IID => Guid("{c56060b7-b5fc-4135-98e0-a1e9997eace0}")
+    static IID := Guid("{c56060b7-b5fc-4135-98e0-a1e9997eace0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D12StateObjectDatabase interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetApplicationDesc     : IntPtr
+        GetApplicationDesc     : IntPtr
+        StorePipelineStateDesc : IntPtr
+        FindPipelineStateDesc  : IntPtr
+        StoreStateObjectDesc   : IntPtr
+        FindStateObjectDesc    : IntPtr
+        FindObjectVersion      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetApplicationDesc", "GetApplicationDesc", "StorePipelineStateDesc", "FindPipelineStateDesc", "StoreStateObjectDesc", "FindStateObjectDesc", "FindObjectVersion"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D12StateObjectDatabase.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -33,7 +50,7 @@ class ID3D12StateObjectDatabase extends IUnknown {
      * @returns {HRESULT} 
      */
     SetApplicationDesc(pApplicationDesc) {
-        result := ComCall(3, this, "ptr", pApplicationDesc, "HRESULT")
+        result := ComCall(3, this, D3D12_APPLICATION_DESC.Ptr, pApplicationDesc, "HRESULT")
         return result
     }
 
@@ -61,7 +78,7 @@ class ID3D12StateObjectDatabase extends IUnknown {
     StorePipelineStateDesc(pKey, KeySize, _Version, pDesc) {
         pKeyMarshal := pKey is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, pKeyMarshal, pKey, "uint", KeySize, "uint", _Version, "ptr", pDesc, "HRESULT")
+        result := ComCall(5, this, pKeyMarshal, pKey, "uint", KeySize, "uint", _Version, D3D12_PIPELINE_STATE_STREAM_DESC.Ptr, pDesc, "HRESULT")
         return result
     }
 
@@ -95,7 +112,7 @@ class ID3D12StateObjectDatabase extends IUnknown {
         pKeyMarshal := pKey is VarRef ? "ptr" : "ptr"
         pStateObjectToGrowFromKeyMarshal := pStateObjectToGrowFromKey is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, pKeyMarshal, pKey, "uint", KeySize, "uint", _Version, "ptr", pDesc, pStateObjectToGrowFromKeyMarshal, pStateObjectToGrowFromKey, "uint", StateObjectToGrowFromKeySize, "HRESULT")
+        result := ComCall(7, this, pKeyMarshal, pKey, "uint", KeySize, "uint", _Version, D3D12_STATE_OBJECT_DESC.Ptr, pDesc, pStateObjectToGrowFromKeyMarshal, pStateObjectToGrowFromKey, "uint", StateObjectToGrowFromKeySize, "HRESULT")
         return result
     }
 
@@ -126,5 +143,37 @@ class ID3D12StateObjectDatabase extends IUnknown {
 
         result := ComCall(9, this, pKeyMarshal, pKey, "uint", KeySize, "uint*", &pVersion := 0, "HRESULT")
         return pVersion
+    }
+
+    Query(iid) {
+        if (ID3D12StateObjectDatabase.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetApplicationDesc := CallbackCreate(GetMethod(implObj, "SetApplicationDesc"), flags, 2)
+        this.vtbl.GetApplicationDesc := CallbackCreate(GetMethod(implObj, "GetApplicationDesc"), flags, 3)
+        this.vtbl.StorePipelineStateDesc := CallbackCreate(GetMethod(implObj, "StorePipelineStateDesc"), flags, 5)
+        this.vtbl.FindPipelineStateDesc := CallbackCreate(GetMethod(implObj, "FindPipelineStateDesc"), flags, 5)
+        this.vtbl.StoreStateObjectDesc := CallbackCreate(GetMethod(implObj, "StoreStateObjectDesc"), flags, 7)
+        this.vtbl.FindStateObjectDesc := CallbackCreate(GetMethod(implObj, "FindStateObjectDesc"), flags, 5)
+        this.vtbl.FindObjectVersion := CallbackCreate(GetMethod(implObj, "FindObjectVersion"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetApplicationDesc)
+        CallbackFree(this.vtbl.GetApplicationDesc)
+        CallbackFree(this.vtbl.StorePipelineStateDesc)
+        CallbackFree(this.vtbl.FindPipelineStateDesc)
+        CallbackFree(this.vtbl.StoreStateObjectDesc)
+        CallbackFree(this.vtbl.FindStateObjectDesc)
+        CallbackFree(this.vtbl.FindObjectVersion)
     }
 }

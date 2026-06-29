@@ -1,71 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDR64_ARRAY_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NDR64_ARRAY_FLAGS.ahk" { NDR64_ARRAY_FLAGS }
 
 /**
  * @namespace Windows.Win32.System.Rpc
  */
-class NDR64_CONF_VAR_ARRAY_HEADER_FORMAT extends Win32Struct {
-    static sizeof => 24
+export default struct NDR64_CONF_VAR_ARRAY_HEADER_FORMAT {
+    #StructPack 8
 
-    static packingSize => 8
+    FormatCode : Int8
 
-    /**
-     * @type {Integer}
-     */
-    FormatCode {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Alignment : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Alignment {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Flags : NDR64_ARRAY_FLAGS
 
-    /**
-     * @type {NDR64_ARRAY_FLAGS}
-     */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := NDR64_ARRAY_FLAGS(2, this)
-            return this.__Flags
-        }
-    }
+    Reserved : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    ElementSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ElementSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ConfDescriptor : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    ConfDescriptor {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    VarDescriptor : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    VarDescriptor {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

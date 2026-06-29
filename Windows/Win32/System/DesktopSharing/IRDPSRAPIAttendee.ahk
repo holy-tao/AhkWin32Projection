@@ -1,10 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IRDPSRAPIInvitation.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\CTRL_LEVEL.ahk" { CTRL_LEVEL }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRDPSRAPIInvitation.ahk" { IRDPSRAPIInvitation }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Attendee objects are created as a result of clients connecting to the session and being authenticated. After an attendee object is created, it is automatically added to the attendees list.
@@ -13,32 +15,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapiattendee
  * @namespace Windows.Win32.System.DesktopSharing
  */
-class IRDPSRAPIAttendee extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IRDPSRAPIAttendee extends IDispatch {
     /**
      * The interface identifier for IRDPSRAPIAttendee
      * @type {Guid}
      */
-    static IID => Guid("{ec0671b3-1b78-4b80-a464-9132247543e3}")
+    static IID := Guid("{ec0671b3-1b78-4b80-a464-9132247543e3}")
 
     /**
      * The class identifier for RDPSRAPIAttendee
      * @type {Guid}
      */
-    static CLSID => Guid("{74f93bb5-755f-488e-8a29-2390108aef55}")
+    static CLSID := Guid("{74f93bb5-755f-488e-8a29-2390108aef55}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRDPSRAPIAttendee interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Id               : IntPtr
+        get_RemoteName       : IntPtr
+        get_ControlLevel     : IntPtr
+        put_ControlLevel     : IntPtr
+        get_Invitation       : IntPtr
+        TerminateConnection  : IntPtr
+        get_Flags            : IntPtr
+        get_ConnectivityInfo : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Id", "get_RemoteName", "get_ControlLevel", "put_ControlLevel", "get_Invitation", "TerminateConnection", "get_Flags", "get_ConnectivityInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRDPSRAPIAttendee.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -101,8 +117,8 @@ class IRDPSRAPIAttendee extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-get_remotename
      */
     get_RemoteName() {
-        pVal := BSTR()
-        result := ComCall(8, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -123,7 +139,7 @@ class IRDPSRAPIAttendee extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-put_controllevel
      */
     put_ControlLevel(pNewVal) {
-        result := ComCall(10, this, "int", pNewVal, "HRESULT")
+        result := ComCall(10, this, CTRL_LEVEL, pNewVal, "HRESULT")
         return result
     }
 
@@ -175,5 +191,39 @@ class IRDPSRAPIAttendee extends IDispatch {
     get_ConnectivityInfo() {
         result := ComCall(14, this, "ptr*", &ppVal := 0, "HRESULT")
         return IUnknown(ppVal)
+    }
+
+    Query(iid) {
+        if (IRDPSRAPIAttendee.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_RemoteName := CallbackCreate(GetMethod(implObj, "get_RemoteName"), flags, 2)
+        this.vtbl.get_ControlLevel := CallbackCreate(GetMethod(implObj, "get_ControlLevel"), flags, 2)
+        this.vtbl.put_ControlLevel := CallbackCreate(GetMethod(implObj, "put_ControlLevel"), flags, 2)
+        this.vtbl.get_Invitation := CallbackCreate(GetMethod(implObj, "get_Invitation"), flags, 2)
+        this.vtbl.TerminateConnection := CallbackCreate(GetMethod(implObj, "TerminateConnection"), flags, 1)
+        this.vtbl.get_Flags := CallbackCreate(GetMethod(implObj, "get_Flags"), flags, 2)
+        this.vtbl.get_ConnectivityInfo := CallbackCreate(GetMethod(implObj, "get_ConnectivityInfo"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Id)
+        CallbackFree(this.vtbl.get_RemoteName)
+        CallbackFree(this.vtbl.get_ControlLevel)
+        CallbackFree(this.vtbl.put_ControlLevel)
+        CallbackFree(this.vtbl.get_Invitation)
+        CallbackFree(this.vtbl.TerminateConnection)
+        CallbackFree(this.vtbl.get_Flags)
+        CallbackFree(this.vtbl.get_ConnectivityInfo)
     }
 }

@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VBICODECFILTERING_SCANLINES.ahk
-#Include .\CC_BYTE_PAIR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VBICODECFILTERING_SCANLINES.ahk" { VBICODECFILTERING_SCANLINES }
+#Import ".\CC_BYTE_PAIR.ahk" { CC_BYTE_PAIR }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class CC_HW_FIELD extends Win32Struct {
-    static sizeof => 192
+export default struct CC_HW_FIELD {
+    #StructPack 8
 
-    static packingSize => 8
+    ScanlinesRequested : VBICODECFILTERING_SCANLINES
 
-    /**
-     * @type {VBICODECFILTERING_SCANLINES}
-     */
-    ScanlinesRequested {
-        get {
-            if(!this.HasProp("__ScanlinesRequested"))
-                this.__ScanlinesRequested := VBICODECFILTERING_SCANLINES(0, this)
-            return this.__ScanlinesRequested
-        }
-    }
+    fieldFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fieldFlags {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    PictureNumber : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PictureNumber {
-        get => NumGet(this, 136, "int64")
-        set => NumPut("int64", value, this, 136)
-    }
+    Lines : CC_BYTE_PAIR[12]
 
-    /**
-     * @type {CC_BYTE_PAIR}
-     */
-    Lines {
-        get {
-            if(!this.HasProp("__LinesProxyArray"))
-                this.__LinesProxyArray := Win32FixedArray(this.ptr + 144, 12, CC_BYTE_PAIR, "")
-            return this.__LinesProxyArray
-        }
-    }
 }

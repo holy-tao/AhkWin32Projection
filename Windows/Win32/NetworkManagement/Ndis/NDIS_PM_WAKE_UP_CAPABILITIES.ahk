@@ -1,36 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_DEVICE_POWER_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NDIS_DEVICE_POWER_STATE.ahk" { NDIS_DEVICE_POWER_STATE }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NDIS_PM_WAKE_UP_CAPABILITIES extends Win32Struct {
-    static sizeof => 12
+export default struct NDIS_PM_WAKE_UP_CAPABILITIES {
+    #StructPack 4
 
-    static packingSize => 4
+    MinMagicPacketWakeUp : NDIS_DEVICE_POWER_STATE
 
-    /**
-     * @type {NDIS_DEVICE_POWER_STATE}
-     */
-    MinMagicPacketWakeUp {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    MinPatternWakeUp : NDIS_DEVICE_POWER_STATE
 
-    /**
-     * @type {NDIS_DEVICE_POWER_STATE}
-     */
-    MinPatternWakeUp {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    MinLinkChangeWakeUp : NDIS_DEVICE_POWER_STATE
 
-    /**
-     * @type {NDIS_DEVICE_POWER_STATE}
-     */
-    MinLinkChangeWakeUp {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
 }

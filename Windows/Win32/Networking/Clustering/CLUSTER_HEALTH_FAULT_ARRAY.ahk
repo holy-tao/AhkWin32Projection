@@ -1,32 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSTER_HEALTH_FAULT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CLUSTER_HEALTH_FAULT.ahk" { CLUSTER_HEALTH_FAULT }
 
 /**
  * The CLUSTER_HEALTH_FAULT_ARRAY structure is part of the resapi.h header used by Windows Clustering.
  * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-cluster_health_fault_array
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUSTER_HEALTH_FAULT_ARRAY extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct CLUSTER_HEALTH_FAULT_ARRAY {
+    #StructPack 8
 
     /**
      * The number of faults in the array.
-     * @type {Integer}
      */
-    numFaults {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    numFaults : UInt32
 
     /**
      * The array of faults.
-     * @type {Pointer<CLUSTER_HEALTH_FAULT>}
      */
-    faults {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    faults : CLUSTER_HEALTH_FAULT.Ptr
+
 }

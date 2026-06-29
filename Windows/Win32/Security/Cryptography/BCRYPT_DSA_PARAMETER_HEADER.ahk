@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used to contain parameter header information for a Digital Signature Algorithm (DSA) key.
@@ -21,74 +20,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_dsa_parameter_header
  * @namespace Windows.Win32.Security.Cryptography
  */
-class BCRYPT_DSA_PARAMETER_HEADER extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 4
+export default struct BCRYPT_DSA_PARAMETER_HEADER {
+    #StructPack 4
 
     /**
      * The total size, in bytes, of this structure and the buffer that immediately follows this structure in memory.
-     * @type {Integer}
      */
-    cbLength {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbLength : UInt32
 
     /**
      * The magic value for the key.
      * 
      * 
      * This member must be the following value.
-     * @type {Integer}
      */
-    dwMagic {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwMagic : UInt32
 
     /**
      * The size, in bytes, of the key that this structure applies to.
-     * @type {Integer}
      */
-    cbKeyLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cbKeyLength : UInt32
 
     /**
      * The number of iterations performed to generate the prime number <i>q</i> from the seed.
-     * @type {Array<Integer>}
      */
-    Count {
-        get {
-            if(!this.HasProp("__CountProxyArray"))
-                this.__CountProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "char")
-            return this.__CountProxyArray
-        }
-    }
+    Count : Int8[4]
 
     /**
      * The seed value, in big-endian format, used to generate <i>q</i>.
-     * @type {Array<Integer>}
      */
-    Seed {
-        get {
-            if(!this.HasProp("__SeedProxyArray"))
-                this.__SeedProxyArray := Win32FixedArray(this.ptr + 16, 20, Primitive, "char")
-            return this.__SeedProxyArray
-        }
-    }
+    Seed : Int8[20]
 
     /**
      * The 160-bit prime factor, in big-endian format.
-     * @type {Array<Integer>}
      */
-    q {
-        get {
-            if(!this.HasProp("__qProxyArray"))
-                this.__qProxyArray := Win32FixedArray(this.ptr + 36, 20, Primitive, "char")
-            return this.__qProxyArray
-        }
-    }
+    q : Int8[20]
+
 }

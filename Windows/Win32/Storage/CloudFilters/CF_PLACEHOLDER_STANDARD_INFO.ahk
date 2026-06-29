@@ -1,108 +1,63 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CF_PIN_STATE.ahk
-#Include .\CF_IN_SYNC_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CF_PIN_STATE.ahk" { CF_PIN_STATE }
+#Import ".\CF_IN_SYNC_STATE.ahk" { CF_IN_SYNC_STATE }
 
 /**
  * Standard placeholder information.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_placeholder_standard_info
  * @namespace Windows.Win32.Storage.CloudFilters
  */
-class CF_PLACEHOLDER_STANDARD_INFO extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct CF_PLACEHOLDER_STANDARD_INFO {
+    #StructPack 8
 
     /**
      * Total number of bytes on disk.
-     * @type {Integer}
      */
-    OnDiskDataSize {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    OnDiskDataSize : Int64
 
     /**
      * Total number of bytes that are in sync with the cloud.
-     * @type {Integer}
      */
-    ValidatedDataSize {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    ValidatedDataSize : Int64
 
     /**
      * Total number of bytes that have been overwritten/appended locally and are not in sync with the cloud.
-     * @type {Integer}
      */
-    ModifiedDataSize {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    ModifiedDataSize : Int64
 
     /**
      * Total number of bytes on disk that are used by all the property blobs.
-     * @type {Integer}
      */
-    PropertiesSize {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    PropertiesSize : Int64
 
     /**
      * The [CF_PIN_STATE](ne-cfapi-cf_pin_state.md) of the placeholder. See [CfSetPinState](nf-cfapi-cfsetpinstate.md) for more details.
-     * @type {CF_PIN_STATE}
      */
-    PinState {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    PinState : CF_PIN_STATE
 
     /**
      * The [CF_IN_SYNC_STATE](ne-cfapi-cf_in_sync_state.md) of the placeholder. see [CfSetInSyncState](nf-cfapi-cfsetinsyncstate.md) for more details.
-     * @type {CF_IN_SYNC_STATE}
      */
-    InSyncState {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    InSyncState : CF_IN_SYNC_STATE
 
     /**
      * A 64-bit volume wide non-volatile number that uniquely identifies a file or directory.
-     * @type {Integer}
      */
-    FileId {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
-    }
+    FileId : Int64
 
     /**
      * The file ID of the sync root directory that contains the file whose placeholder information is to be queried.
-     * @type {Integer}
      */
-    SyncRootFileId {
-        get => NumGet(this, 48, "int64")
-        set => NumPut("int64", value, this, 48)
-    }
+    SyncRootFileId : Int64
 
     /**
      * Length, in bytes, of the *FileIdentity*.
-     * @type {Integer}
      */
-    FileIdentityLength {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    FileIdentityLength : UInt32
 
     /**
      * An opaque blob supplied by the sync provider to the platform when the placeholder was created. File identity is provided for all sync provider callbacks.
-     * @type {Array<Integer>}
      */
-    FileIdentity {
-        get {
-            if(!this.HasProp("__FileIdentityProxyArray"))
-                this.__FileIdentityProxyArray := Win32FixedArray(this.ptr + 60, 1, Primitive, "char")
-            return this.__FileIdentityProxyArray
-        }
-    }
+    FileIdentity : Int8[1]
+
 }

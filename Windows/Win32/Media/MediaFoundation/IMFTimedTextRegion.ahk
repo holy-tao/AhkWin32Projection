@@ -1,34 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\MFARGB.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MF_TIMED_TEXT_UNIT_TYPE.ahk" { MF_TIMED_TEXT_UNIT_TYPE }
+#Import ".\MFARGB.ahk" { MFARGB }
+#Import ".\MF_TIMED_TEXT_SCROLL_MODE.ahk" { MF_TIMED_TEXT_SCROLL_MODE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MF_TIMED_TEXT_WRITING_MODE.ahk" { MF_TIMED_TEXT_WRITING_MODE }
+#Import ".\MF_TIMED_TEXT_DISPLAY_ALIGNMENT.ahk" { MF_TIMED_TEXT_DISPLAY_ALIGNMENT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents the display region of a timed-text object.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imftimedtextregion
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFTimedTextRegion extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFTimedTextRegion extends IUnknown {
     /**
      * The interface identifier for IMFTimedTextRegion
      * @type {Guid}
      */
-    static IID => Guid("{c8d22afc-bc47-4bdf-9b04-787e49ce3f58}")
+    static IID := Guid("{c8d22afc-bc47-4bdf-9b04-787e49ce3f58}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFTimedTextRegion interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetName             : IntPtr
+        GetPosition         : IntPtr
+        GetExtent           : IntPtr
+        GetBackgroundColor  : IntPtr
+        GetWritingMode      : IntPtr
+        GetDisplayAlignment : IntPtr
+        GetLineHeight       : IntPtr
+        GetClipOverflow     : IntPtr
+        GetPadding          : IntPtr
+        GetWrap             : IntPtr
+        GetZIndex           : IntPtr
+        GetScrollMode       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetName", "GetPosition", "GetExtent", "GetBackgroundColor", "GetWritingMode", "GetDisplayAlignment", "GetLineHeight", "GetClipOverflow", "GetPadding", "GetWrap", "GetZIndex", "GetScrollMode"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFTimedTextRegion.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the name of the region.
@@ -38,7 +63,7 @@ class IMFTimedTextRegion extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getname
      */
     GetName() {
-        result := ComCall(3, this, "ptr*", &name := 0, "HRESULT")
+        result := ComCall(3, this, PWSTR.Ptr, &name := 0, "HRESULT")
         return name
     }
 
@@ -101,7 +126,7 @@ class IMFTimedTextRegion extends IUnknown {
      */
     GetBackgroundColor() {
         bgColor := MFARGB()
-        result := ComCall(6, this, "ptr", bgColor, "HRESULT")
+        result := ComCall(6, this, MFARGB.Ptr, bgColor, "HRESULT")
         return bgColor
     }
 
@@ -158,7 +183,7 @@ class IMFTimedTextRegion extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getclipoverflow
      */
     GetClipOverflow() {
-        result := ComCall(10, this, "int*", &clipOverflow := 0, "HRESULT")
+        result := ComCall(10, this, BOOL.Ptr, &clipOverflow := 0, "HRESULT")
         return clipOverflow
     }
 
@@ -203,7 +228,7 @@ class IMFTimedTextRegion extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getwrap
      */
     GetWrap() {
-        result := ComCall(12, this, "int*", &wrap := 0, "HRESULT")
+        result := ComCall(12, this, BOOL.Ptr, &wrap := 0, "HRESULT")
         return wrap
     }
 
@@ -229,5 +254,47 @@ class IMFTimedTextRegion extends IUnknown {
     GetScrollMode() {
         result := ComCall(14, this, "int*", &scrollMode := 0, "HRESULT")
         return scrollMode
+    }
+
+    Query(iid) {
+        if (IMFTimedTextRegion.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetPosition := CallbackCreate(GetMethod(implObj, "GetPosition"), flags, 4)
+        this.vtbl.GetExtent := CallbackCreate(GetMethod(implObj, "GetExtent"), flags, 4)
+        this.vtbl.GetBackgroundColor := CallbackCreate(GetMethod(implObj, "GetBackgroundColor"), flags, 2)
+        this.vtbl.GetWritingMode := CallbackCreate(GetMethod(implObj, "GetWritingMode"), flags, 2)
+        this.vtbl.GetDisplayAlignment := CallbackCreate(GetMethod(implObj, "GetDisplayAlignment"), flags, 2)
+        this.vtbl.GetLineHeight := CallbackCreate(GetMethod(implObj, "GetLineHeight"), flags, 3)
+        this.vtbl.GetClipOverflow := CallbackCreate(GetMethod(implObj, "GetClipOverflow"), flags, 2)
+        this.vtbl.GetPadding := CallbackCreate(GetMethod(implObj, "GetPadding"), flags, 6)
+        this.vtbl.GetWrap := CallbackCreate(GetMethod(implObj, "GetWrap"), flags, 2)
+        this.vtbl.GetZIndex := CallbackCreate(GetMethod(implObj, "GetZIndex"), flags, 2)
+        this.vtbl.GetScrollMode := CallbackCreate(GetMethod(implObj, "GetScrollMode"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.GetPosition)
+        CallbackFree(this.vtbl.GetExtent)
+        CallbackFree(this.vtbl.GetBackgroundColor)
+        CallbackFree(this.vtbl.GetWritingMode)
+        CallbackFree(this.vtbl.GetDisplayAlignment)
+        CallbackFree(this.vtbl.GetLineHeight)
+        CallbackFree(this.vtbl.GetClipOverflow)
+        CallbackFree(this.vtbl.GetPadding)
+        CallbackFree(this.vtbl.GetWrap)
+        CallbackFree(this.vtbl.GetZIndex)
+        CallbackFree(this.vtbl.GetScrollMode)
     }
 }

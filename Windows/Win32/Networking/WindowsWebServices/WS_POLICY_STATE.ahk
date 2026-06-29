@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The state of the policy object.
@@ -11,7 +10,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_policy_state
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_POLICY_STATE extends Win32Enum {
+export default struct WS_POLICY_STATE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The initial state of the policy object.

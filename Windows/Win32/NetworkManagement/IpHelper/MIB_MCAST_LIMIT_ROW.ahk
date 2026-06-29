@@ -1,31 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MIB_MCAST_LIMIT_ROW structure contains the configurable limit information from a corresponding MIB_IPMCAST_IF_ENTRY structure.
  * @see https://learn.microsoft.com/windows/win32/api/iprtrmib/ns-iprtrmib-mib_mcast_limit_row
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_MCAST_LIMIT_ROW extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct MIB_MCAST_LIMIT_ROW {
+    #StructPack 4
 
     /**
      * The time-to-live value for a multicast interface.
-     * @type {Integer}
      */
-    dwTtl {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwTtl : UInt32
 
     /**
      * The rate limit for a multicast interface.
-     * @type {Integer}
      */
-    dwRateLimit {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwRateLimit : UInt32
+
 }

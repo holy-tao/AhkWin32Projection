@@ -1,59 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PFLT_CONTEXT.ahk" { PFLT_CONTEXT }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters
  */
-class FLT_RELATED_CONTEXTS extends Win32Struct {
-    static sizeof => 48
+export default struct FLT_RELATED_CONTEXTS {
+    #StructPack 8
 
-    static packingSize => 8
+    VolumeContext : PFLT_CONTEXT
 
-    /**
-     * @type {PFLT_CONTEXT}
-     */
-    VolumeContext {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    InstanceContext : PFLT_CONTEXT
 
-    /**
-     * @type {PFLT_CONTEXT}
-     */
-    InstanceContext {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    FileContext : PFLT_CONTEXT
 
-    /**
-     * @type {PFLT_CONTEXT}
-     */
-    FileContext {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    StreamContext : PFLT_CONTEXT
 
-    /**
-     * @type {PFLT_CONTEXT}
-     */
-    StreamContext {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    StreamHandleContext : PFLT_CONTEXT
 
-    /**
-     * @type {PFLT_CONTEXT}
-     */
-    StreamHandleContext {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    TransactionContext : PFLT_CONTEXT
 
-    /**
-     * @type {PFLT_CONTEXT}
-     */
-    TransactionContext {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
 }

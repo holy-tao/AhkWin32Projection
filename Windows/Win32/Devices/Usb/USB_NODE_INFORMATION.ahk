@@ -1,61 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_HUB_NODE.ahk
-#Include .\USB_HUB_INFORMATION.ahk
-#Include .\USB_HUB_DESCRIPTOR.ahk
-#Include .\USB_MI_PARENT_INFORMATION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USB_HUB_INFORMATION.ahk" { USB_HUB_INFORMATION }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\USB_HUB_DESCRIPTOR.ahk" { USB_HUB_DESCRIPTOR }
+#Import ".\USB_MI_PARENT_INFORMATION.ahk" { USB_MI_PARENT_INFORMATION }
+#Import ".\USB_HUB_NODE.ahk" { USB_HUB_NODE }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_NODE_INFORMATION extends Win32Struct {
-    static sizeof => 80
+export default struct USB_NODE_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _u_e__Union extends Win32Struct {
-        static sizeof => 76
-        static packingSize => 4
+    struct _u {
+        HubInformation : USB_HUB_INFORMATION
 
-        /**
-         * @type {USB_HUB_INFORMATION}
-         */
-        HubInformation {
-            get {
-                if(!this.HasProp("__HubInformation"))
-                    this.__HubInformation := USB_HUB_INFORMATION(0, this)
-                return this.__HubInformation
-            }
-        }
-
-        /**
-         * @type {USB_MI_PARENT_INFORMATION}
-         */
-        MiParentInformation {
-            get {
-                if(!this.HasProp("__MiParentInformation"))
-                    this.__MiParentInformation := USB_MI_PARENT_INFORMATION(0, this)
-                return this.__MiParentInformation
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'MiParentInformation', { type: USB_MI_PARENT_INFORMATION, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {USB_HUB_NODE}
-     */
-    NodeType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    NodeType : USB_HUB_NODE
 
-    /**
-     * @type {_u_e__Union}
-     */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := USB_NODE_INFORMATION._u_e__Union(4, this)
-            return this.__u
-        }
-    }
+    u : USB_NODE_INFORMATION._u
+
 }

@@ -1,35 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
  */
-class KBDTABLE_DESC extends Win32Struct {
-    static sizeof => 72
+export default struct KBDTABLE_DESC {
+    #StructPack 4
 
-    static packingSize => 4
+    wszDllName : WCHAR[32]
 
-    /**
-     * @type {String}
-     */
-    wszDllName {
-        get => StrGet(this.ptr + 0, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 31, "UTF-16")
-    }
+    dwType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwType {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    dwSubType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSubType {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
 }

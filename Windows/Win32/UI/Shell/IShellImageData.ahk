@@ -1,9 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\StructuredStorage\IPropertySetStorage.ahk
-#Include .\IShellImageDataAbort.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IShellImageDataAbort.ahk" { IShellImageDataAbort }
+#Import "..\..\Graphics\GdiPlus\InterpolationMode.ahk" { InterpolationMode }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\System\Com\StructuredStorage\IPropertySetStorage.ahk" { IPropertySetStorage }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Com\StructuredStorage\IPropertyBag.ahk" { IPropertyBag }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Exposes methods and properties that display, manipulate, and describe image data.
@@ -12,26 +19,62 @@
  * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nn-shimgdata-ishellimagedata
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellImageData extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IShellImageData extends IUnknown {
     /**
      * The interface identifier for IShellImageData
      * @type {Guid}
      */
-    static IID => Guid("{bfdeec12-8040-4403-a5ea-9e07dafcf530}")
+    static IID := Guid("{bfdeec12-8040-4403-a5ea-9e07dafcf530}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellImageData interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Decode           : IntPtr
+        Draw             : IntPtr
+        NextFrame        : IntPtr
+        NextPage         : IntPtr
+        PrevPage         : IntPtr
+        IsTransparent    : IntPtr
+        IsAnimated       : IntPtr
+        IsVector         : IntPtr
+        IsMultipage      : IntPtr
+        IsEditable       : IntPtr
+        IsPrintable      : IntPtr
+        IsDecoded        : IntPtr
+        GetCurrentPage   : IntPtr
+        GetPageCount     : IntPtr
+        SelectPage       : IntPtr
+        GetSize          : IntPtr
+        GetRawDataFormat : IntPtr
+        GetPixelFormat   : IntPtr
+        GetDelay         : IntPtr
+        GetProperties    : IntPtr
+        Rotate           : IntPtr
+        Scale            : IntPtr
+        DiscardEdit      : IntPtr
+        SetEncoderParams : IntPtr
+        DisplayName      : IntPtr
+        GetResolution    : IntPtr
+        GetEncoderParams : IntPtr
+        RegisterAbort    : IntPtr
+        CloneFrame       : IntPtr
+        ReplaceFrame     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Decode", "Draw", "NextFrame", "NextPage", "PrevPage", "IsTransparent", "IsAnimated", "IsVector", "IsMultipage", "IsEditable", "IsPrintable", "IsDecoded", "GetCurrentPage", "GetPageCount", "SelectPage", "GetSize", "GetRawDataFormat", "GetPixelFormat", "GetDelay", "GetProperties", "Rotate", "Scale", "DiscardEdit", "SetEncoderParams", "DisplayName", "GetResolution", "GetEncoderParams", "RegisterAbort", "CloneFrame", "ReplaceFrame"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellImageData.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Decodes the image file, setting state.
@@ -168,9 +211,7 @@ class IShellImageData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedata-draw
      */
     Draw(_hdc, prcDest, prcSrc) {
-        _hdc := _hdc is Win32Handle ? NumGet(_hdc, "ptr") : _hdc
-
-        result := ComCall(4, this, "ptr", _hdc, "ptr", prcDest, "ptr", prcSrc, "HRESULT")
+        result := ComCall(4, this, HDC, _hdc, RECT.Ptr, prcDest, RECT.Ptr, prcSrc, "HRESULT")
         return result
     }
 
@@ -749,7 +790,7 @@ class IShellImageData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedata-getsize
      */
     GetSize(pSize) {
-        result := ComCall(18, this, "ptr", pSize, "HRESULT")
+        result := ComCall(18, this, SIZE.Ptr, pSize, "HRESULT")
         return result
     }
 
@@ -784,7 +825,7 @@ class IShellImageData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedata-getrawdataformat
      */
     GetRawDataFormat(pDataFormat) {
-        result := ComCall(19, this, "ptr", pDataFormat, "HRESULT")
+        result := ComCall(19, this, Guid.Ptr, pDataFormat, "HRESULT")
         return result
     }
 
@@ -1024,7 +1065,7 @@ class IShellImageData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedata-scale
      */
     Scale(cx, _cy, hints) {
-        result := ComCall(24, this, "uint", cx, "uint", _cy, "int", hints, "HRESULT")
+        result := ComCall(24, this, "uint", cx, "uint", _cy, InterpolationMode, hints, "HRESULT")
         return result
     }
 
@@ -1187,7 +1228,7 @@ class IShellImageData extends IUnknown {
     GetEncoderParams(pguidFmt, ppEncParams) {
         ppEncParamsMarshal := ppEncParams is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(29, this, "ptr", pguidFmt, ppEncParamsMarshal, ppEncParams, "HRESULT")
+        result := ComCall(29, this, Guid.Ptr, pguidFmt, ppEncParamsMarshal, ppEncParams, "HRESULT")
         return result
     }
 
@@ -1267,5 +1308,83 @@ class IShellImageData extends IUnknown {
 
         result := ComCall(32, this, pImgMarshal, pImg, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IShellImageData.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Decode := CallbackCreate(GetMethod(implObj, "Decode"), flags, 4)
+        this.vtbl.Draw := CallbackCreate(GetMethod(implObj, "Draw"), flags, 4)
+        this.vtbl.NextFrame := CallbackCreate(GetMethod(implObj, "NextFrame"), flags, 1)
+        this.vtbl.NextPage := CallbackCreate(GetMethod(implObj, "NextPage"), flags, 1)
+        this.vtbl.PrevPage := CallbackCreate(GetMethod(implObj, "PrevPage"), flags, 1)
+        this.vtbl.IsTransparent := CallbackCreate(GetMethod(implObj, "IsTransparent"), flags, 1)
+        this.vtbl.IsAnimated := CallbackCreate(GetMethod(implObj, "IsAnimated"), flags, 1)
+        this.vtbl.IsVector := CallbackCreate(GetMethod(implObj, "IsVector"), flags, 1)
+        this.vtbl.IsMultipage := CallbackCreate(GetMethod(implObj, "IsMultipage"), flags, 1)
+        this.vtbl.IsEditable := CallbackCreate(GetMethod(implObj, "IsEditable"), flags, 1)
+        this.vtbl.IsPrintable := CallbackCreate(GetMethod(implObj, "IsPrintable"), flags, 1)
+        this.vtbl.IsDecoded := CallbackCreate(GetMethod(implObj, "IsDecoded"), flags, 1)
+        this.vtbl.GetCurrentPage := CallbackCreate(GetMethod(implObj, "GetCurrentPage"), flags, 2)
+        this.vtbl.GetPageCount := CallbackCreate(GetMethod(implObj, "GetPageCount"), flags, 2)
+        this.vtbl.SelectPage := CallbackCreate(GetMethod(implObj, "SelectPage"), flags, 2)
+        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 2)
+        this.vtbl.GetRawDataFormat := CallbackCreate(GetMethod(implObj, "GetRawDataFormat"), flags, 2)
+        this.vtbl.GetPixelFormat := CallbackCreate(GetMethod(implObj, "GetPixelFormat"), flags, 2)
+        this.vtbl.GetDelay := CallbackCreate(GetMethod(implObj, "GetDelay"), flags, 2)
+        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 3)
+        this.vtbl.Rotate := CallbackCreate(GetMethod(implObj, "Rotate"), flags, 2)
+        this.vtbl.Scale := CallbackCreate(GetMethod(implObj, "Scale"), flags, 4)
+        this.vtbl.DiscardEdit := CallbackCreate(GetMethod(implObj, "DiscardEdit"), flags, 1)
+        this.vtbl.SetEncoderParams := CallbackCreate(GetMethod(implObj, "SetEncoderParams"), flags, 2)
+        this.vtbl.DisplayName := CallbackCreate(GetMethod(implObj, "DisplayName"), flags, 3)
+        this.vtbl.GetResolution := CallbackCreate(GetMethod(implObj, "GetResolution"), flags, 3)
+        this.vtbl.GetEncoderParams := CallbackCreate(GetMethod(implObj, "GetEncoderParams"), flags, 3)
+        this.vtbl.RegisterAbort := CallbackCreate(GetMethod(implObj, "RegisterAbort"), flags, 3)
+        this.vtbl.CloneFrame := CallbackCreate(GetMethod(implObj, "CloneFrame"), flags, 2)
+        this.vtbl.ReplaceFrame := CallbackCreate(GetMethod(implObj, "ReplaceFrame"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Decode)
+        CallbackFree(this.vtbl.Draw)
+        CallbackFree(this.vtbl.NextFrame)
+        CallbackFree(this.vtbl.NextPage)
+        CallbackFree(this.vtbl.PrevPage)
+        CallbackFree(this.vtbl.IsTransparent)
+        CallbackFree(this.vtbl.IsAnimated)
+        CallbackFree(this.vtbl.IsVector)
+        CallbackFree(this.vtbl.IsMultipage)
+        CallbackFree(this.vtbl.IsEditable)
+        CallbackFree(this.vtbl.IsPrintable)
+        CallbackFree(this.vtbl.IsDecoded)
+        CallbackFree(this.vtbl.GetCurrentPage)
+        CallbackFree(this.vtbl.GetPageCount)
+        CallbackFree(this.vtbl.SelectPage)
+        CallbackFree(this.vtbl.GetSize)
+        CallbackFree(this.vtbl.GetRawDataFormat)
+        CallbackFree(this.vtbl.GetPixelFormat)
+        CallbackFree(this.vtbl.GetDelay)
+        CallbackFree(this.vtbl.GetProperties)
+        CallbackFree(this.vtbl.Rotate)
+        CallbackFree(this.vtbl.Scale)
+        CallbackFree(this.vtbl.DiscardEdit)
+        CallbackFree(this.vtbl.SetEncoderParams)
+        CallbackFree(this.vtbl.DisplayName)
+        CallbackFree(this.vtbl.GetResolution)
+        CallbackFree(this.vtbl.GetEncoderParams)
+        CallbackFree(this.vtbl.RegisterAbort)
+        CallbackFree(this.vtbl.CloneFrame)
+        CallbackFree(this.vtbl.ReplaceFrame)
     }
 }

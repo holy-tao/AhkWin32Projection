@@ -1,47 +1,61 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FEEDS_DOWNLOAD_ERROR.ahk" { FEEDS_DOWNLOAD_ERROR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\FEEDS_DOWNLOAD_STATUS.ahk" { FEEDS_DOWNLOAD_STATUS }
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IXFeedEnclosure extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IXFeedEnclosure extends IUnknown {
     /**
      * The interface identifier for IXFeedEnclosure
      * @type {Guid}
      */
-    static IID => Guid("{bfbfb953-644f-4792-b69c-dfaca4cbf89a}")
+    static IID := Guid("{bfbfb953-644f-4792-b69c-dfaca4cbf89a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXFeedEnclosure interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Url                 : IntPtr
+        Type                : IntPtr
+        Length              : IntPtr
+        AsyncDownload       : IntPtr
+        CancelAsyncDownload : IntPtr
+        DownloadStatus      : IntPtr
+        LastDownloadError   : IntPtr
+        LocalPath           : IntPtr
+        Parent              : IntPtr
+        DownloadUrl         : IntPtr
+        DownloadMimeType    : IntPtr
+        RemoveFile          : IntPtr
+        SetFile             : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXFeedEnclosure.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Url", "Type", "Length", "AsyncDownload", "CancelAsyncDownload", "DownloadStatus", "LastDownloadError", "LocalPath", "Parent", "DownloadUrl", "DownloadMimeType", "RemoveFile", "SetFile"]
-
-    /**
-     * Determines a scheme for a specified URL string, and returns a string with an appropriate prefix. (Unicode)
-     * @remarks
-     * If the URL has a valid scheme, the string will not be modified. However, almost any combination of two or more characters followed by a colon will be parsed as a scheme. Valid characters include some common punctuation marks, such as ".". If your input string fits this description, <b>UrlApplyScheme</b> may treat it as valid and not apply a scheme. To force the function to apply a scheme to a URL, set the <b>URL_APPLY_FORCEAPPLY</b> and <b>URL_APPLY_DEFAULT</b> flags in <i>dwFlags</i>. This combination of flags forces the function to apply a scheme to the URL. Typically, the function will not be able to determine a valid scheme. The second flag guarantees that, if no valid scheme can be determined, the function will apply the default scheme to the URL.
      * 
-     * 
-     * 
-     * 
-     * > [!NOTE]
-     * > The shlwapi.h header defines UrlApplyScheme as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlapplyschemew
      */
     Url() {
-        result := ComCall(3, this, "ptr*", &ppszUrl := 0, "HRESULT")
+        result := ComCall(3, this, PWSTR.Ptr, &ppszUrl := 0, "HRESULT")
         return ppszUrl
     }
 
@@ -51,14 +65,13 @@ class IXFeedEnclosure extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/eaphost/baseeapconnectionpropertiesv1schema-type-baseeapparameters-element
      */
     Type() {
-        result := ComCall(4, this, "ptr*", &ppszMimeType := 0, "HRESULT")
+        result := ComCall(4, this, PWSTR.Ptr, &ppszMimeType := 0, "HRESULT")
         return ppszMimeType
     }
 
     /**
-     * Defines a length type that is used to specify the number of bytes or characters in a variable length data item such as binary data or an ANSI or Unicode string.
+     * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/WES/eventmanifestschema-lengthtype-simpletype
      */
     Length() {
         result := ComCall(5, this, "uint*", &puiLength := 0, "HRESULT")
@@ -109,18 +122,17 @@ class IXFeedEnclosure extends IUnknown {
      * @returns {PWSTR} 
      */
     LocalPath() {
-        result := ComCall(10, this, "ptr*", &ppszPath := 0, "HRESULT")
+        result := ComCall(10, this, PWSTR.Ptr, &ppszPath := 0, "HRESULT")
         return ppszPath
     }
 
     /**
-     * Associates a parent object with a child object.
+     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/xamlom/ns-xamlom-parentchildrelation
      */
     Parent(riid) {
-        result := ComCall(11, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(11, this, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -129,7 +141,7 @@ class IXFeedEnclosure extends IUnknown {
      * @returns {PWSTR} 
      */
     DownloadUrl() {
-        result := ComCall(12, this, "ptr*", &ppszUrl := 0, "HRESULT")
+        result := ComCall(12, this, PWSTR.Ptr, &ppszUrl := 0, "HRESULT")
         return ppszUrl
     }
 
@@ -138,7 +150,7 @@ class IXFeedEnclosure extends IUnknown {
      * @returns {PWSTR} 
      */
     DownloadMimeType() {
-        result := ComCall(13, this, "ptr*", &ppszMimeType := 0, "HRESULT")
+        result := ComCall(13, this, PWSTR.Ptr, &ppszMimeType := 0, "HRESULT")
         return ppszMimeType
     }
 
@@ -152,108 +164,12 @@ class IXFeedEnclosure extends IUnknown {
     }
 
     /**
-     * Causes the file I/O functions to use the ANSI character set code page for the current process.
-     * @remarks
-     * The file I/O functions whose code page is set by <b>SetFileApisToANSI</b> are those 
-     *     functions exported by KERNEL32.DLL that accept or return a file name. 
-     *     <b>SetFileApisToANSI</b> sets the code page per process, rather than per thread or per 
-     *     computer.
      * 
-     * The <b>SetFileApisToANSI</b> function complements the 
-     *     <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-setfileapistooem">SetFileApisToOEM</a> function, which causes the same set 
-     *     of file I/O functions to use the OEM character set code page.
-     * 
-     * The 8-bit console functions use the OEM code page by default. All other functions use the ANSI code page by 
-     *     default. This means that strings returned by the console functions may not be processed correctly by other 
-     *     functions, and vice versa. For example, if the 
-     *     <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirstfilea">FindFirstFileA</a> function returns a string that contains 
-     *     certain extended ANSI characters, and the 8-bit console functions are set to use the OEM code page, then the 
-     *     <a href="https://docs.microsoft.com/windows/console/writeconsole">WriteConsoleA</a> function does not display the string 
-     *     properly.
-     * 
-     * Use the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-arefileapisansi">AreFileApisANSI</a> function to determine 
-     *     which code page the set of file I/O functions is currently using. Use the 
-     *     <a href="https://docs.microsoft.com/windows/console/setconsolecp">SetConsoleCP</a> and 
-     *     <a href="https://docs.microsoft.com/windows/console/setconsoleoutputcp">SetConsoleOutputCP</a> functions to set the code page 
-     *     for the 8-bit console functions.
-     * 
-     * To solve the problem of code page incompatibility, it is best to use Unicode for console applications. Console 
-     *     applications that use Unicode are much more versatile than those that use 8-bit console functions. Barring that 
-     *     solution, a console application can call the 
-     *     <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-setfileapistooem">SetFileApisToOEM</a> function to cause the 
-     *     set of file I/O functions to use OEM character set strings rather than ANSI character set strings. Use the 
-     *     <b>SetFileApisToANSI</b> function to set those functions back to the ANSI code 
-     *     page.
-     * 
-     * When dealing with command lines, a console application should obtain the command line in Unicode form and then 
-     *     convert it to OEM form using the relevant character-to-OEM functions. Note also that the array in the 
-     *     <i>argv</i> parameter of the command-line <b>main</b> function 
-     *     contains ANSI character set strings in this case.
-     * 
-     * In Windows 8 and Windows Server 2012, this function is supported by the following technologies.
-     * 
-     * <table>
-     * <tr>
-     * <th>Technology</th>
-     * <th>Supported</th>
-     * </tr>
-     * <tr>
-     * <td>
-     * Server Message Block (SMB) 3.0 protocol
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * SMB 3.0 Transparent Failover (TFO)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * SMB 3.0 with Scale-out File Shares (SO)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * Cluster Shared Volume File System (CsvFS)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * Resilient File System (ReFS)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @param {PWSTR} pszDownloadUrl 
      * @param {PWSTR} pszDownloadFilePath 
      * @param {PWSTR} pszDownloadMimeType 
      * @param {PWSTR} pszEnclosureFilename 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-setfileapistoansi
      */
     SetFile(pszDownloadUrl, pszDownloadFilePath, pszDownloadMimeType, pszEnclosureFilename) {
         pszDownloadUrl := pszDownloadUrl is String ? StrPtr(pszDownloadUrl) : pszDownloadUrl
@@ -263,5 +179,49 @@ class IXFeedEnclosure extends IUnknown {
 
         result := ComCall(15, this, "ptr", pszDownloadUrl, "ptr", pszDownloadFilePath, "ptr", pszDownloadMimeType, "ptr", pszEnclosureFilename, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IXFeedEnclosure.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Url := CallbackCreate(GetMethod(implObj, "Url"), flags, 2)
+        this.vtbl.Type := CallbackCreate(GetMethod(implObj, "Type"), flags, 2)
+        this.vtbl.Length := CallbackCreate(GetMethod(implObj, "Length"), flags, 2)
+        this.vtbl.AsyncDownload := CallbackCreate(GetMethod(implObj, "AsyncDownload"), flags, 1)
+        this.vtbl.CancelAsyncDownload := CallbackCreate(GetMethod(implObj, "CancelAsyncDownload"), flags, 1)
+        this.vtbl.DownloadStatus := CallbackCreate(GetMethod(implObj, "DownloadStatus"), flags, 2)
+        this.vtbl.LastDownloadError := CallbackCreate(GetMethod(implObj, "LastDownloadError"), flags, 2)
+        this.vtbl.LocalPath := CallbackCreate(GetMethod(implObj, "LocalPath"), flags, 2)
+        this.vtbl.Parent := CallbackCreate(GetMethod(implObj, "Parent"), flags, 3)
+        this.vtbl.DownloadUrl := CallbackCreate(GetMethod(implObj, "DownloadUrl"), flags, 2)
+        this.vtbl.DownloadMimeType := CallbackCreate(GetMethod(implObj, "DownloadMimeType"), flags, 2)
+        this.vtbl.RemoveFile := CallbackCreate(GetMethod(implObj, "RemoveFile"), flags, 1)
+        this.vtbl.SetFile := CallbackCreate(GetMethod(implObj, "SetFile"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Url)
+        CallbackFree(this.vtbl.Type)
+        CallbackFree(this.vtbl.Length)
+        CallbackFree(this.vtbl.AsyncDownload)
+        CallbackFree(this.vtbl.CancelAsyncDownload)
+        CallbackFree(this.vtbl.DownloadStatus)
+        CallbackFree(this.vtbl.LastDownloadError)
+        CallbackFree(this.vtbl.LocalPath)
+        CallbackFree(this.vtbl.Parent)
+        CallbackFree(this.vtbl.DownloadUrl)
+        CallbackFree(this.vtbl.DownloadMimeType)
+        CallbackFree(this.vtbl.RemoveFile)
+        CallbackFree(this.vtbl.SetFile)
     }
 }

@@ -1,68 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILE_OBJECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\FILE_OBJECT.ahk" { FILE_OBJECT }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class FILE_LOCK_INFO extends Win32Struct {
-    static sizeof => 48
+export default struct FILE_LOCK_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    StartingByte : Int64
 
-    /**
-     * @type {Integer}
-     */
-    StartingByte {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    Length : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    ExclusiveLock : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    ExclusiveLock {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    Key : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Key {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    FileObject : FILE_OBJECT.Ptr
 
-    /**
-     * @type {Pointer<FILE_OBJECT>}
-     */
-    FileObject {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ProcessId : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    ProcessId {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    EndingByte : Int64
 
-    /**
-     * @type {Integer}
-     */
-    EndingByte {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
-    }
 }

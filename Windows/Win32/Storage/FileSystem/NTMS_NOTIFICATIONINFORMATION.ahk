@@ -1,30 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The NTMS_NOTIFICATIONINFORMATION structure defines an object and operation that occurred in the RSM database.
  * @see https://learn.microsoft.com/windows/win32/api/ntmsapi/ns-ntmsapi-ntms_notificationinformation
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class NTMS_NOTIFICATIONINFORMATION extends Win32Struct {
-    static sizeof => 16
+export default struct NTMS_NOTIFICATIONINFORMATION {
+    #StructPack 4
 
-    static packingSize => 8
-
-    /**
-     * @type {Integer}
-     */
-    dwOperation {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwOperation : UInt32
 
     /**
      * Object Identifier.
-     * @type {Pointer}
      */
-    ObjectId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ObjectId : Guid
+
 }

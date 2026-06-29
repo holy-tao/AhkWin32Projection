@@ -1,61 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HSE_EXEC_URL_USER_INFO.ahk
-#Include .\HSE_EXEC_URL_ENTITY_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HSE_EXEC_URL_ENTITY_INFO.ahk" { HSE_EXEC_URL_ENTITY_INFO }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\HSE_EXEC_URL_USER_INFO.ahk" { HSE_EXEC_URL_USER_INFO }
 
 /**
  * @namespace Windows.Win32.System.Iis
  */
-class HSE_EXEC_URL_INFO extends Win32Struct {
-    static sizeof => 48
+export default struct HSE_EXEC_URL_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    pszUrl : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    pszUrl {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pszMethod : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    pszMethod {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszChildHeaders : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    pszChildHeaders {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pUserInfo : HSE_EXEC_URL_USER_INFO.Ptr
 
-    /**
-     * @type {Pointer<HSE_EXEC_URL_USER_INFO>}
-     */
-    pUserInfo {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pEntity : HSE_EXEC_URL_ENTITY_INFO.Ptr
 
-    /**
-     * @type {Pointer<HSE_EXEC_URL_ENTITY_INFO>}
-     */
-    pEntity {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    dwExecUrlFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwExecUrlFlags {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
 }

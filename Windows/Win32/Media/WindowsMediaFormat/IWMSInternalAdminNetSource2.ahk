@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\NETSOURCE_URLCREDPOLICY_SETTINGS.ahk" { NETSOURCE_URLCREDPOLICY_SETTINGS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMSInternalAdminNetSource2 interface provides improved methods for password caching.
  * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMSInternalAdminNetSource2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMSInternalAdminNetSource2 extends IUnknown {
     /**
      * The interface identifier for IWMSInternalAdminNetSource2
      * @type {Guid}
      */
-    static IID => Guid("{e74d58c3-cf77-4b51-af17-744687c43eae}")
+    static IID := Guid("{e74d58c3-cf77-4b51-af17-744687c43eae}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMSInternalAdminNetSource2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetCredentialsEx    : IntPtr
+        GetCredentialsEx    : IntPtr
+        DeleteCredentialsEx : IntPtr
+        FindProxyForURLEx   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetCredentialsEx", "GetCredentialsEx", "DeleteCredentialsEx", "FindProxyForURLEx"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMSInternalAdminNetSource2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetCredentialsEx method adds a password to the cache.
@@ -49,7 +63,7 @@ class IWMSInternalAdminNetSource2 extends IUnknown {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
         bstrPassword := bstrPassword is String ? BSTR.Alloc(bstrPassword).Value : bstrPassword
 
-        result := ComCall(3, this, "ptr", bstrRealm, "ptr", bstrUrl, "int", fProxy, "ptr", bstrName, "ptr", bstrPassword, "int", fPersist, "int", fConfirmedGood, "HRESULT")
+        result := ComCall(3, this, BSTR, bstrRealm, BSTR, bstrUrl, BOOL, fProxy, BSTR, bstrName, BSTR, bstrPassword, BOOL, fPersist, BOOL, fConfirmedGood, "HRESULT")
         return result
     }
 
@@ -74,7 +88,7 @@ class IWMSInternalAdminNetSource2 extends IUnknown {
         pdwUrlPolicyMarshal := pdwUrlPolicy is VarRef ? "int*" : "ptr"
         pfConfirmedGoodMarshal := pfConfirmedGood is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", bstrRealm, "ptr", bstrUrl, "int", fProxy, pdwUrlPolicyMarshal, pdwUrlPolicy, "ptr", pbstrName, "ptr", pbstrPassword, pfConfirmedGoodMarshal, pfConfirmedGood, "HRESULT")
+        result := ComCall(4, this, BSTR, bstrRealm, BSTR, bstrUrl, BOOL, fProxy, pdwUrlPolicyMarshal, pdwUrlPolicy, BSTR.Ptr, pbstrName, BSTR.Ptr, pbstrPassword, pfConfirmedGoodMarshal, pfConfirmedGood, "HRESULT")
         return result
     }
 
@@ -90,7 +104,7 @@ class IWMSInternalAdminNetSource2 extends IUnknown {
         bstrRealm := bstrRealm is String ? BSTR.Alloc(bstrRealm).Value : bstrRealm
         bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
 
-        result := ComCall(5, this, "ptr", bstrRealm, "ptr", bstrUrl, "int", fProxy, "HRESULT")
+        result := ComCall(5, this, BSTR, bstrRealm, BSTR, bstrUrl, BOOL, fProxy, "HRESULT")
         return result
     }
 
@@ -115,7 +129,33 @@ class IWMSInternalAdminNetSource2 extends IUnknown {
         pdwProxyPortMarshal := pdwProxyPort is VarRef ? "uint*" : "ptr"
         pdwProxyContextMarshal := pdwProxyContext is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", bstrProtocol, "ptr", bstrHost, "ptr", bstrUrl, pfProxyEnabledMarshal, pfProxyEnabled, "ptr", pbstrProxyServer, pdwProxyPortMarshal, pdwProxyPort, pdwProxyContextMarshal, pdwProxyContext, "HRESULT")
+        result := ComCall(6, this, BSTR, bstrProtocol, BSTR, bstrHost, BSTR, bstrUrl, pfProxyEnabledMarshal, pfProxyEnabled, BSTR.Ptr, pbstrProxyServer, pdwProxyPortMarshal, pdwProxyPort, pdwProxyContextMarshal, pdwProxyContext, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMSInternalAdminNetSource2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetCredentialsEx := CallbackCreate(GetMethod(implObj, "SetCredentialsEx"), flags, 8)
+        this.vtbl.GetCredentialsEx := CallbackCreate(GetMethod(implObj, "GetCredentialsEx"), flags, 8)
+        this.vtbl.DeleteCredentialsEx := CallbackCreate(GetMethod(implObj, "DeleteCredentialsEx"), flags, 4)
+        this.vtbl.FindProxyForURLEx := CallbackCreate(GetMethod(implObj, "FindProxyForURLEx"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetCredentialsEx)
+        CallbackFree(this.vtbl.GetCredentialsEx)
+        CallbackFree(this.vtbl.DeleteCredentialsEx)
+        CallbackFree(this.vtbl.FindProxyForURLEx)
     }
 }

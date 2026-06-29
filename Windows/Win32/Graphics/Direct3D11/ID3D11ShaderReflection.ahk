@@ -1,10 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\D3D11_SHADER_DESC.ahk
-#Include .\D3D11_SHADER_INPUT_BIND_DESC.ahk
-#Include .\D3D11_SIGNATURE_PARAMETER_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3D11_SHADER_DESC.ahk" { D3D11_SHADER_DESC }
+#Import ".\D3D11_SHADER_INPUT_BIND_DESC.ahk" { D3D11_SHADER_INPUT_BIND_DESC }
+#Import "..\Direct3D\D3D_PRIMITIVE.ahk" { D3D_PRIMITIVE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\ID3D11ShaderReflectionConstantBuffer.ahk" { ID3D11ShaderReflectionConstantBuffer }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ID3D11ShaderReflectionVariable.ahk" { ID3D11ShaderReflectionVariable }
+#Import ".\D3D11_SIGNATURE_PARAMETER_DESC.ahk" { D3D11_SIGNATURE_PARAMETER_DESC }
+#Import "..\Direct3D\D3D_FEATURE_LEVEL.ahk" { D3D_FEATURE_LEVEL }
 
 /**
  * A shader-reflection interface accesses shader information. (ID3D11ShaderReflection)
@@ -24,26 +31,51 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nn-d3d11shader-id3d11shaderreflection
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3D11ShaderReflection extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11ShaderReflection extends IUnknown {
     /**
      * The interface identifier for ID3D11ShaderReflection
      * @type {Guid}
      */
-    static IID => Guid("{8d536ca1-0cca-4956-a837-786963755584}")
+    static IID := Guid("{8d536ca1-0cca-4956-a837-786963755584}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11ShaderReflection interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDesc                       : IntPtr
+        GetConstantBufferByIndex      : IntPtr
+        GetConstantBufferByName       : IntPtr
+        GetResourceBindingDesc        : IntPtr
+        GetInputParameterDesc         : IntPtr
+        GetOutputParameterDesc        : IntPtr
+        GetPatchConstantParameterDesc : IntPtr
+        GetVariableByName             : IntPtr
+        GetResourceBindingDescByName  : IntPtr
+        GetMovInstructionCount        : IntPtr
+        GetMovcInstructionCount       : IntPtr
+        GetConversionInstructionCount : IntPtr
+        GetBitwiseInstructionCount    : IntPtr
+        GetGSInputPrimitive           : IntPtr
+        IsSampleFrequencyShader       : IntPtr
+        GetNumInterfaceSlots          : IntPtr
+        GetMinFeatureLevel            : IntPtr
+        GetThreadGroupSize            : IntPtr
+        GetRequiresFlags              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDesc", "GetConstantBufferByIndex", "GetConstantBufferByName", "GetResourceBindingDesc", "GetInputParameterDesc", "GetOutputParameterDesc", "GetPatchConstantParameterDesc", "GetVariableByName", "GetResourceBindingDescByName", "GetMovInstructionCount", "GetMovcInstructionCount", "GetConversionInstructionCount", "GetBitwiseInstructionCount", "GetGSInputPrimitive", "IsSampleFrequencyShader", "GetNumInterfaceSlots", "GetMinFeatureLevel", "GetThreadGroupSize", "GetRequiresFlags"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11ShaderReflection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Get a shader description. (ID3D11ShaderReflection.GetDesc)
@@ -56,7 +88,7 @@ class ID3D11ShaderReflection extends IUnknown {
      */
     GetDesc() {
         pDesc := D3D11_SHADER_DESC()
-        result := ComCall(3, this, "ptr", pDesc, "HRESULT")
+        result := ComCall(3, this, D3D11_SHADER_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -75,7 +107,7 @@ class ID3D11ShaderReflection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getconstantbufferbyindex
      */
     GetConstantBufferByIndex(Index) {
-        result := ComCall(4, this, "uint", Index, "ptr")
+        result := ComCall(4, this, "uint", Index, ID3D11ShaderReflectionConstantBuffer)
         return result
     }
 
@@ -96,7 +128,7 @@ class ID3D11ShaderReflection extends IUnknown {
     GetConstantBufferByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        result := ComCall(5, this, "ptr", Name, "ptr")
+        result := ComCall(5, this, "ptr", Name, ID3D11ShaderReflectionConstantBuffer)
         return result
     }
 
@@ -116,7 +148,7 @@ class ID3D11ShaderReflection extends IUnknown {
      */
     GetResourceBindingDesc(ResourceIndex) {
         pDesc := D3D11_SHADER_INPUT_BIND_DESC()
-        result := ComCall(6, this, "uint", ResourceIndex, "ptr", pDesc, "HRESULT")
+        result := ComCall(6, this, "uint", ResourceIndex, D3D11_SHADER_INPUT_BIND_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -136,7 +168,7 @@ class ID3D11ShaderReflection extends IUnknown {
      */
     GetInputParameterDesc(ParameterIndex) {
         pDesc := D3D11_SIGNATURE_PARAMETER_DESC()
-        result := ComCall(7, this, "uint", ParameterIndex, "ptr", pDesc, "HRESULT")
+        result := ComCall(7, this, "uint", ParameterIndex, D3D11_SIGNATURE_PARAMETER_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -156,7 +188,7 @@ class ID3D11ShaderReflection extends IUnknown {
      */
     GetOutputParameterDesc(ParameterIndex) {
         pDesc := D3D11_SIGNATURE_PARAMETER_DESC()
-        result := ComCall(8, this, "uint", ParameterIndex, "ptr", pDesc, "HRESULT")
+        result := ComCall(8, this, "uint", ParameterIndex, D3D11_SIGNATURE_PARAMETER_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -174,7 +206,7 @@ class ID3D11ShaderReflection extends IUnknown {
      */
     GetPatchConstantParameterDesc(ParameterIndex) {
         pDesc := D3D11_SIGNATURE_PARAMETER_DESC()
-        result := ComCall(9, this, "uint", ParameterIndex, "ptr", pDesc, "HRESULT")
+        result := ComCall(9, this, "uint", ParameterIndex, D3D11_SIGNATURE_PARAMETER_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -193,7 +225,7 @@ class ID3D11ShaderReflection extends IUnknown {
     GetVariableByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        result := ComCall(10, this, "ptr", Name, "ptr")
+        result := ComCall(10, this, "ptr", Name, ID3D11ShaderReflectionVariable)
         return result
     }
 
@@ -215,7 +247,7 @@ class ID3D11ShaderReflection extends IUnknown {
         Name := Name is String ? StrPtr(Name) : Name
 
         pDesc := D3D11_SHADER_INPUT_BIND_DESC()
-        result := ComCall(11, this, "ptr", Name, "ptr", pDesc, "HRESULT")
+        result := ComCall(11, this, "ptr", Name, D3D11_SHADER_INPUT_BIND_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -229,7 +261,7 @@ class ID3D11ShaderReflection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getmovinstructioncount
      */
     GetMovInstructionCount() {
-        result := ComCall(12, this, "uint")
+        result := ComCall(12, this, UInt32)
         return result
     }
 
@@ -243,7 +275,7 @@ class ID3D11ShaderReflection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getmovcinstructioncount
      */
     GetMovcInstructionCount() {
-        result := ComCall(13, this, "uint")
+        result := ComCall(13, this, UInt32)
         return result
     }
 
@@ -257,7 +289,7 @@ class ID3D11ShaderReflection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getconversioninstructioncount
      */
     GetConversionInstructionCount() {
-        result := ComCall(14, this, "uint")
+        result := ComCall(14, this, UInt32)
         return result
     }
 
@@ -271,7 +303,7 @@ class ID3D11ShaderReflection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getbitwiseinstructioncount
      */
     GetBitwiseInstructionCount() {
-        result := ComCall(15, this, "uint")
+        result := ComCall(15, this, UInt32)
         return result
     }
 
@@ -288,7 +320,7 @@ class ID3D11ShaderReflection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getgsinputprimitive
      */
     GetGSInputPrimitive() {
-        result := ComCall(16, this, "int")
+        result := ComCall(16, this, D3D_PRIMITIVE)
         return result
     }
 
@@ -302,7 +334,7 @@ class ID3D11ShaderReflection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-issamplefrequencyshader
      */
     IsSampleFrequencyShader() {
-        result := ComCall(17, this, "int")
+        result := ComCall(17, this, BOOL)
         return result
     }
 
@@ -316,7 +348,7 @@ class ID3D11ShaderReflection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getnuminterfaceslots
      */
     GetNumInterfaceSlots() {
-        result := ComCall(18, this, "uint")
+        result := ComCall(18, this, UInt32)
         return result
     }
 
@@ -364,7 +396,7 @@ class ID3D11ShaderReflection extends IUnknown {
         pSizeYMarshal := pSizeY is VarRef ? "uint*" : "ptr"
         pSizeZMarshal := pSizeZ is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(20, this, pSizeXMarshal, pSizeX, pSizeYMarshal, pSizeY, pSizeZMarshal, pSizeZ, "uint")
+        result := ComCall(20, this, pSizeXMarshal, pSizeX, pSizeYMarshal, pSizeY, pSizeZMarshal, pSizeZ, UInt32)
         return result
     }
 
@@ -424,7 +456,63 @@ class ID3D11ShaderReflection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getrequiresflags
      */
     GetRequiresFlags() {
-        result := ComCall(21, this, "uint")
+        result := ComCall(21, this, Int64)
         return result
+    }
+
+    Query(iid) {
+        if (ID3D11ShaderReflection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 2)
+        this.vtbl.GetConstantBufferByIndex := CallbackCreate(GetMethod(implObj, "GetConstantBufferByIndex"), flags, 2)
+        this.vtbl.GetConstantBufferByName := CallbackCreate(GetMethod(implObj, "GetConstantBufferByName"), flags, 2)
+        this.vtbl.GetResourceBindingDesc := CallbackCreate(GetMethod(implObj, "GetResourceBindingDesc"), flags, 3)
+        this.vtbl.GetInputParameterDesc := CallbackCreate(GetMethod(implObj, "GetInputParameterDesc"), flags, 3)
+        this.vtbl.GetOutputParameterDesc := CallbackCreate(GetMethod(implObj, "GetOutputParameterDesc"), flags, 3)
+        this.vtbl.GetPatchConstantParameterDesc := CallbackCreate(GetMethod(implObj, "GetPatchConstantParameterDesc"), flags, 3)
+        this.vtbl.GetVariableByName := CallbackCreate(GetMethod(implObj, "GetVariableByName"), flags, 2)
+        this.vtbl.GetResourceBindingDescByName := CallbackCreate(GetMethod(implObj, "GetResourceBindingDescByName"), flags, 3)
+        this.vtbl.GetMovInstructionCount := CallbackCreate(GetMethod(implObj, "GetMovInstructionCount"), flags, 1)
+        this.vtbl.GetMovcInstructionCount := CallbackCreate(GetMethod(implObj, "GetMovcInstructionCount"), flags, 1)
+        this.vtbl.GetConversionInstructionCount := CallbackCreate(GetMethod(implObj, "GetConversionInstructionCount"), flags, 1)
+        this.vtbl.GetBitwiseInstructionCount := CallbackCreate(GetMethod(implObj, "GetBitwiseInstructionCount"), flags, 1)
+        this.vtbl.GetGSInputPrimitive := CallbackCreate(GetMethod(implObj, "GetGSInputPrimitive"), flags, 1)
+        this.vtbl.IsSampleFrequencyShader := CallbackCreate(GetMethod(implObj, "IsSampleFrequencyShader"), flags, 1)
+        this.vtbl.GetNumInterfaceSlots := CallbackCreate(GetMethod(implObj, "GetNumInterfaceSlots"), flags, 1)
+        this.vtbl.GetMinFeatureLevel := CallbackCreate(GetMethod(implObj, "GetMinFeatureLevel"), flags, 2)
+        this.vtbl.GetThreadGroupSize := CallbackCreate(GetMethod(implObj, "GetThreadGroupSize"), flags, 4)
+        this.vtbl.GetRequiresFlags := CallbackCreate(GetMethod(implObj, "GetRequiresFlags"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDesc)
+        CallbackFree(this.vtbl.GetConstantBufferByIndex)
+        CallbackFree(this.vtbl.GetConstantBufferByName)
+        CallbackFree(this.vtbl.GetResourceBindingDesc)
+        CallbackFree(this.vtbl.GetInputParameterDesc)
+        CallbackFree(this.vtbl.GetOutputParameterDesc)
+        CallbackFree(this.vtbl.GetPatchConstantParameterDesc)
+        CallbackFree(this.vtbl.GetVariableByName)
+        CallbackFree(this.vtbl.GetResourceBindingDescByName)
+        CallbackFree(this.vtbl.GetMovInstructionCount)
+        CallbackFree(this.vtbl.GetMovcInstructionCount)
+        CallbackFree(this.vtbl.GetConversionInstructionCount)
+        CallbackFree(this.vtbl.GetBitwiseInstructionCount)
+        CallbackFree(this.vtbl.GetGSInputPrimitive)
+        CallbackFree(this.vtbl.IsSampleFrequencyShader)
+        CallbackFree(this.vtbl.GetNumInterfaceSlots)
+        CallbackFree(this.vtbl.GetMinFeatureLevel)
+        CallbackFree(this.vtbl.GetThreadGroupSize)
+        CallbackFree(this.vtbl.GetRequiresFlags)
     }
 }

@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class ETW_TRACE_PARTITION_INFORMATION_V2 extends Win32Struct {
-    static sizeof => 32
+export default struct ETW_TRACE_PARTITION_INFORMATION_V2 {
+    #StructPack 8
 
-    static packingSize => 8
+    QpcOffsetFromRoot : Int64
 
-    /**
-     * @type {Integer}
-     */
-    QpcOffsetFromRoot {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    PartitionType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PartitionType {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    PartitionId : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    PartitionId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ParentId : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    ParentId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

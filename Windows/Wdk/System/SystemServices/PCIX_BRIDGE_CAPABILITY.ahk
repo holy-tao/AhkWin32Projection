@@ -1,18 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCIX_BRIDGE_CAPABILITY extends Win32Struct {
-    static sizeof => 40
+export default struct PCIX_BRIDGE_CAPABILITY {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _SecondaryStatus_e__Union extends Win32Struct {
-        static sizeof => 2
-        static packingSize => 2
-
+    struct _SecondaryStatus {
         /**
          * This bitfield backs the following members:
          * - Bus64Bit
@@ -26,12 +21,9 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct {
          * - Version
          * - Bus266MHzCapable
          * - Bus533MHzCapable
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
+        _bitfield : Int16
+
 
         /**
          * @type {Integer}
@@ -120,20 +112,13 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct {
             get => (this._bitfield >> 15) & 0x1
             set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
         }
-
-        /**
-         * @type {Integer}
-         */
-        AsUSHORT {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsUSHORT', { type: UInt16, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    class _BridgeStatus_e__Union extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
+    struct _BridgeStatus {
         /**
          * This bitfield backs the following members:
          * - FunctionNumber
@@ -149,12 +134,9 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct {
          * - DIMCapable
          * - Device266MHzCapable
          * - Device533MHzCapable
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -259,20 +241,13 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct {
             get => (this._bitfield >> 31) & 0x1
             set => this._bitfield := ((value & 0x1) << 31) | (this._bitfield & ~(0x1 << 31))
         }
-
-        /**
-         * @type {Integer}
-         */
-        AsULONG {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsULONG', { type: UInt32, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    class _EccControlStatus_e__Union extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
+    struct _EccControlStatus {
         /**
          * This bitfield backs the following members:
          * - SelectSecondaryRegisters
@@ -289,12 +264,9 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct {
          * - Rsvd
          * - DisableSingleBitCorrection
          * - EccMode
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -407,110 +379,32 @@ class PCIX_BRIDGE_CAPABILITY extends Win32Struct {
             get => (this._bitfield >> 31) & 0x1
             set => this._bitfield := ((value & 0x1) << 31) | (this._bitfield & ~(0x1 << 31))
         }
-
-        /**
-         * @type {Integer}
-         */
-        AsULONG {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'AsULONG', { type: UInt32, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Pointer}
-     */
-    Header {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Header : IntPtr
 
-    /**
-     * @type {_SecondaryStatus_e__Union}
-     */
-    SecondaryStatus {
-        get {
-            if(!this.HasProp("__SecondaryStatus"))
-                this.__SecondaryStatus := PCIX_BRIDGE_CAPABILITY._SecondaryStatus_e__Union(8, this)
-            return this.__SecondaryStatus
-        }
-    }
+    SecondaryStatus : PCIX_BRIDGE_CAPABILITY._SecondaryStatus
 
-    /**
-     * @type {_BridgeStatus_e__Union}
-     */
-    BridgeStatus {
-        get {
-            if(!this.HasProp("__BridgeStatus"))
-                this.__BridgeStatus := PCIX_BRIDGE_CAPABILITY._BridgeStatus_e__Union(12, this)
-            return this.__BridgeStatus
-        }
-    }
+    BridgeStatus : PCIX_BRIDGE_CAPABILITY._BridgeStatus
 
-    /**
-     * @type {Integer}
-     */
-    UpstreamSplitTransactionCapacity {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    UpstreamSplitTransactionCapacity : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    UpstreamSplitTransactionLimit {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    UpstreamSplitTransactionLimit : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DownstreamSplitTransactionCapacity {
-        get => NumGet(this, 20, "ushort")
-        set => NumPut("ushort", value, this, 20)
-    }
+    DownstreamSplitTransactionCapacity : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DownstreamSplitTransactionLimit {
-        get => NumGet(this, 22, "ushort")
-        set => NumPut("ushort", value, this, 22)
-    }
+    DownstreamSplitTransactionLimit : UInt16
 
-    /**
-     * @type {_EccControlStatus_e__Union}
-     */
-    EccControlStatus {
-        get {
-            if(!this.HasProp("__EccControlStatus"))
-                this.__EccControlStatus := PCIX_BRIDGE_CAPABILITY._EccControlStatus_e__Union(24, this)
-            return this.__EccControlStatus
-        }
-    }
+    EccControlStatus : PCIX_BRIDGE_CAPABILITY._EccControlStatus
 
-    /**
-     * @type {Integer}
-     */
-    EccFirstAddress {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    EccFirstAddress : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EccSecondAddress {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    EccSecondAddress : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    EccAttribute {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    EccAttribute : UInt32
+
 }

@@ -1,81 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\UNWIND_HISTORY_TABLE_ENTRY.ahk
-#Include .\IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY.ahk" { IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY }
+#Import ".\UNWIND_HISTORY_TABLE_ENTRY.ahk" { UNWIND_HISTORY_TABLE_ENTRY }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @architecture X64, Arm64
  */
-class UNWIND_HISTORY_TABLE extends Win32Struct {
-    static sizeof => 216
+export default struct UNWIND_HISTORY_TABLE {
+    #StructPack 8
 
-    static packingSize => 8
+    Count : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Count {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    LocalHint : Int8
 
-    /**
-     * @type {Integer}
-     */
-    LocalHint {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    GlobalHint : Int8
 
-    /**
-     * @type {Integer}
-     */
-    GlobalHint {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    Search : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Search {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    Once : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Once {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    LowAddress : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    LowAddress {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    HighAddress : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    HighAddress {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    Entry : UNWIND_HISTORY_TABLE_ENTRY[12]
 
-    /**
-     * @type {UNWIND_HISTORY_TABLE_ENTRY}
-     */
-    Entry {
-        get {
-            if(!this.HasProp("__EntryProxyArray"))
-                this.__EntryProxyArray := Win32FixedArray(this.ptr + 24, 12, UNWIND_HISTORY_TABLE_ENTRY, "")
-            return this.__EntryProxyArray
-        }
-    }
 }

@@ -1,57 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MI_UsernamePasswordCreds.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MI_UsernamePasswordCreds.ahk" { MI_UsernamePasswordCreds }
 
 /**
  * A user's credentials. It includes an authentication type and either a username and password or a certificate thumbprint.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_usercredentials
  * @namespace Windows.Win32.System.Wmi
  */
-class MI_UserCredentials extends Win32Struct {
-    static sizeof => 32
+export default struct MI_UserCredentials {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _credentials_e__Union extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
+    struct _credentials {
+        usernamePassword : MI_UsernamePasswordCreds
 
-        /**
-         * @type {MI_UsernamePasswordCreds}
-         */
-        usernamePassword {
-            get {
-                if(!this.HasProp("__usernamePassword"))
-                    this.__usernamePassword := MI_UsernamePasswordCreds(0, this)
-                return this.__usernamePassword
-            }
-        }
-
-        /**
-         * @type {Pointer<Integer>}
-         */
-        certificateThumbprint {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'certificateThumbprint', { type: IntPtr, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    authenticationType {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    authenticationType : IntPtr
 
-    /**
-     * @type {_credentials_e__Union}
-     */
-    credentials {
-        get {
-            if(!this.HasProp("__credentials"))
-                this.__credentials := MI_UserCredentials._credentials_e__Union(8, this)
-            return this.__credentials
-        }
-    }
+    credentials : MI_UserCredentials._credentials
+
 }

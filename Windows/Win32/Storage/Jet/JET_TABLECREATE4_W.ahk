@@ -1,155 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\JET_COLUMNCREATE_W.ahk
-#Include .\JET_INDEXCREATE3_W.ahk
-#Include .\JET_SPACEHINTS.ahk
-#Include ..\StructuredStorage\JET_TABLEID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\JET_INDEXCREATE3_W.ahk" { JET_INDEXCREATE3_W }
+#Import ".\JET_SPACEHINTS.ahk" { JET_SPACEHINTS }
+#Import "..\StructuredStorage\JET_TABLEID.ahk" { JET_TABLEID }
+#Import ".\JET_COLUMNCREATE_W.ahk" { JET_COLUMNCREATE_W }
 
 /**
  * @namespace Windows.Win32.Storage.Jet
  * @charset Unicode
  */
-class JET_TABLECREATE4_W extends Win32Struct {
-    static sizeof => 120
+export default struct JET_TABLECREATE4_W {
+    #StructPack 8
 
-    static packingSize => 8
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    szTableName : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    szTableName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    szTemplateTableName : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    szTemplateTableName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ulPages : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulPages {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ulDensity : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulDensity {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    rgcolumncreate : JET_COLUMNCREATE_W.Ptr
 
-    /**
-     * @type {Pointer<JET_COLUMNCREATE_W>}
-     */
-    rgcolumncreate {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    cColumns : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cColumns {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    rgindexcreate : JET_INDEXCREATE3_W.Ptr
 
-    /**
-     * @type {Pointer<JET_INDEXCREATE3_W>}
-     */
-    rgindexcreate {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    cIndexes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cIndexes {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    szCallback : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    szCallback {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    cbtyp : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbtyp {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    grbit : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    grbit {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    pSeqSpacehints : JET_SPACEHINTS.Ptr
 
-    /**
-     * @type {Pointer<JET_SPACEHINTS>}
-     */
-    pSeqSpacehints {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    pLVSpacehints : JET_SPACEHINTS.Ptr
 
-    /**
-     * @type {Pointer<JET_SPACEHINTS>}
-     */
-    pLVSpacehints {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    cbSeparateLV : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbSeparateLV {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    tableid : JET_TABLEID
 
-    /**
-     * @type {JET_TABLEID}
-     */
-    tableid {
-        get {
-            if(!this.HasProp("__tableid"))
-                this.__tableid := JET_TABLEID(104, this)
-            return this.__tableid
-        }
-    }
+    cCreated : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cCreated {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
 }

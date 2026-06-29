@@ -1,22 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCI_EXPRESS_DPC_RP_PIO_HEADERLOG_REGISTER extends Win32Struct {
-    static sizeof => 16
+export default struct PCI_EXPRESS_DPC_RP_PIO_HEADERLOG_REGISTER {
+    #StructPack 4
 
-    static packingSize => 4
+    PioHeaderLogRegister : UInt32[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    PioHeaderLogRegister {
-        get {
-            if(!this.HasProp("__PioHeaderLogRegisterProxyArray"))
-                this.__PioHeaderLogRegisterProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "uint")
-            return this.__PioHeaderLogRegisterProxyArray
-        }
-    }
 }

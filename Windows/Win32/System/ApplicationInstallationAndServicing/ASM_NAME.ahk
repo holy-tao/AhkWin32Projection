@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The values of the ASM_NAME enumeration are the property IDs for the name-value pairs included in a side-by-side assembly name.
  * @see https://learn.microsoft.com/windows/win32/api/winsxs/ne-winsxs-asm_name
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  */
-class ASM_NAME extends Win32Enum {
+export default struct ASM_NAME {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Property ID for the assembly's public key. The value is a byte array.

@@ -1,85 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D11_VIDEO_DECODER_BUFFER_TYPE.ahk
-#Include .\D3D11_VIDEO_DECODER_SUB_SAMPLE_MAPPING_BLOCK.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D11_VIDEO_DECODER_BUFFER_TYPE.ahk" { D3D11_VIDEO_DECODER_BUFFER_TYPE }
+#Import ".\D3D11_VIDEO_DECODER_SUB_SAMPLE_MAPPING_BLOCK.ahk" { D3D11_VIDEO_DECODER_SUB_SAMPLE_MAPPING_BLOCK }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_VIDEO_DECODER_BUFFER_DESC2 extends Win32Struct {
-    static sizeof => 56
+export default struct D3D11_VIDEO_DECODER_BUFFER_DESC2 {
+    #StructPack 8
 
-    static packingSize => 8
+    BufferType : D3D11_VIDEO_DECODER_BUFFER_TYPE
 
-    /**
-     * @type {D3D11_VIDEO_DECODER_BUFFER_TYPE}
-     */
-    BufferType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    DataOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataOffset {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    DataSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    pIV : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pIV {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    IVSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    IVSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    pSubSampleMappingBlock : D3D11_VIDEO_DECODER_SUB_SAMPLE_MAPPING_BLOCK.Ptr
 
-    /**
-     * @type {Pointer<D3D11_VIDEO_DECODER_SUB_SAMPLE_MAPPING_BLOCK>}
-     */
-    pSubSampleMappingBlock {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    SubSampleMappingCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SubSampleMappingCount {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    cBlocksStripeEncrypted : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cBlocksStripeEncrypted {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    cBlocksStripeClear : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cBlocksStripeClear {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
 }

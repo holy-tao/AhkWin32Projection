@@ -1,33 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ICorProfilerInfo2.ahk
-#Include .\ICorProfilerFunctionEnum.ahk
-#Include .\ICorProfilerModuleEnum.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\COR_PRF_FUNCTION_ARGUMENT_INFO.ahk" { COR_PRF_FUNCTION_ARGUMENT_INFO }
+#Import ".\ICorProfilerModuleEnum.ahk" { ICorProfilerModuleEnum }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICorProfilerFunctionEnum.ahk" { ICorProfilerFunctionEnum }
+#Import ".\COR_PRF_FUNCTION_ARGUMENT_RANGE.ahk" { COR_PRF_FUNCTION_ARGUMENT_RANGE }
+#Import ".\COR_PRF_RUNTIME_TYPE.ahk" { COR_PRF_RUNTIME_TYPE }
+#Import ".\ICorProfilerInfo2.ahk" { ICorProfilerInfo2 }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
  */
-class ICorProfilerInfo3 extends ICorProfilerInfo2 {
-
-    static sizeof => A_PtrSize
+export default struct ICorProfilerInfo3 extends ICorProfilerInfo2 {
     /**
      * The interface identifier for ICorProfilerInfo3
      * @type {Guid}
      */
-    static IID => Guid("{b555ed4f-452a-4e54-8b39-b5360bad32a0}")
+    static IID := Guid("{b555ed4f-452a-4e54-8b39-b5360bad32a0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 57
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICorProfilerInfo3 interfaces
+    */
+    struct Vtbl extends ICorProfilerInfo2.Vtbl {
+        EnumJITedFunctions                  : IntPtr
+        RequestProfilerDetach               : IntPtr
+        SetFunctionIDMapper2                : IntPtr
+        GetStringLayout2                    : IntPtr
+        SetEnterLeaveFunctionHooks3         : IntPtr
+        SetEnterLeaveFunctionHooks3WithInfo : IntPtr
+        GetFunctionEnter3Info               : IntPtr
+        GetFunctionLeave3Info               : IntPtr
+        GetFunctionTailcall3Info            : IntPtr
+        EnumModules                         : IntPtr
+        GetRuntimeInformation               : IntPtr
+        GetThreadStaticAddress2             : IntPtr
+        GetAppDomainsContainingModule       : IntPtr
+        GetModuleInfo2                      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EnumJITedFunctions", "RequestProfilerDetach", "SetFunctionIDMapper2", "GetStringLayout2", "SetEnterLeaveFunctionHooks3", "SetEnterLeaveFunctionHooks3WithInfo", "GetFunctionEnter3Info", "GetFunctionLeave3Info", "GetFunctionTailcall3Info", "EnumModules", "GetRuntimeInformation", "GetThreadStaticAddress2", "GetAppDomainsContainingModule", "GetModuleInfo2"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICorProfilerInfo3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -121,7 +146,7 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2 {
         pFrameInfoMarshal := pFrameInfo is VarRef ? "ptr*" : "ptr"
         pcbArgumentInfoMarshal := pcbArgumentInfo is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(63, this, "ptr", functionId, "ptr", eltInfo, pFrameInfoMarshal, pFrameInfo, pcbArgumentInfoMarshal, pcbArgumentInfo, "ptr", pArgumentInfo, "HRESULT")
+        result := ComCall(63, this, "ptr", functionId, "ptr", eltInfo, pFrameInfoMarshal, pFrameInfo, pcbArgumentInfoMarshal, pcbArgumentInfo, COR_PRF_FUNCTION_ARGUMENT_INFO.Ptr, pArgumentInfo, "HRESULT")
         return result
     }
 
@@ -136,7 +161,7 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2 {
     GetFunctionLeave3Info(functionId, eltInfo, pFrameInfo, pRetvalRange) {
         pFrameInfoMarshal := pFrameInfo is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(64, this, "ptr", functionId, "ptr", eltInfo, pFrameInfoMarshal, pFrameInfo, "ptr", pRetvalRange, "HRESULT")
+        result := ComCall(64, this, "ptr", functionId, "ptr", eltInfo, pFrameInfoMarshal, pFrameInfo, COR_PRF_FUNCTION_ARGUMENT_RANGE.Ptr, pRetvalRange, "HRESULT")
         return result
     }
 
@@ -238,5 +263,51 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2 {
 
         result := ComCall(70, this, "ptr", moduleId, ppBaseLoadAddressMarshal, ppBaseLoadAddress, "uint", cchName, pcchNameMarshal, pcchName, "ptr", szName, pAssemblyIdMarshal, pAssemblyId, pdwModuleFlagsMarshal, pdwModuleFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICorProfilerInfo3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EnumJITedFunctions := CallbackCreate(GetMethod(implObj, "EnumJITedFunctions"), flags, 2)
+        this.vtbl.RequestProfilerDetach := CallbackCreate(GetMethod(implObj, "RequestProfilerDetach"), flags, 2)
+        this.vtbl.SetFunctionIDMapper2 := CallbackCreate(GetMethod(implObj, "SetFunctionIDMapper2"), flags, 3)
+        this.vtbl.GetStringLayout2 := CallbackCreate(GetMethod(implObj, "GetStringLayout2"), flags, 3)
+        this.vtbl.SetEnterLeaveFunctionHooks3 := CallbackCreate(GetMethod(implObj, "SetEnterLeaveFunctionHooks3"), flags, 4)
+        this.vtbl.SetEnterLeaveFunctionHooks3WithInfo := CallbackCreate(GetMethod(implObj, "SetEnterLeaveFunctionHooks3WithInfo"), flags, 4)
+        this.vtbl.GetFunctionEnter3Info := CallbackCreate(GetMethod(implObj, "GetFunctionEnter3Info"), flags, 6)
+        this.vtbl.GetFunctionLeave3Info := CallbackCreate(GetMethod(implObj, "GetFunctionLeave3Info"), flags, 5)
+        this.vtbl.GetFunctionTailcall3Info := CallbackCreate(GetMethod(implObj, "GetFunctionTailcall3Info"), flags, 4)
+        this.vtbl.EnumModules := CallbackCreate(GetMethod(implObj, "EnumModules"), flags, 2)
+        this.vtbl.GetRuntimeInformation := CallbackCreate(GetMethod(implObj, "GetRuntimeInformation"), flags, 10)
+        this.vtbl.GetThreadStaticAddress2 := CallbackCreate(GetMethod(implObj, "GetThreadStaticAddress2"), flags, 6)
+        this.vtbl.GetAppDomainsContainingModule := CallbackCreate(GetMethod(implObj, "GetAppDomainsContainingModule"), flags, 5)
+        this.vtbl.GetModuleInfo2 := CallbackCreate(GetMethod(implObj, "GetModuleInfo2"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EnumJITedFunctions)
+        CallbackFree(this.vtbl.RequestProfilerDetach)
+        CallbackFree(this.vtbl.SetFunctionIDMapper2)
+        CallbackFree(this.vtbl.GetStringLayout2)
+        CallbackFree(this.vtbl.SetEnterLeaveFunctionHooks3)
+        CallbackFree(this.vtbl.SetEnterLeaveFunctionHooks3WithInfo)
+        CallbackFree(this.vtbl.GetFunctionEnter3Info)
+        CallbackFree(this.vtbl.GetFunctionLeave3Info)
+        CallbackFree(this.vtbl.GetFunctionTailcall3Info)
+        CallbackFree(this.vtbl.EnumModules)
+        CallbackFree(this.vtbl.GetRuntimeInformation)
+        CallbackFree(this.vtbl.GetThreadStaticAddress2)
+        CallbackFree(this.vtbl.GetAppDomainsContainingModule)
+        CallbackFree(this.vtbl.GetModuleInfo2)
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the access restrictions for a virtual camera.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfvirtualcamera/ne-mfvirtualcamera-mfvirtualcameraaccess
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFVirtualCameraAccess extends Win32Enum {
+export default struct MFVirtualCameraAccess {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The virtual camera can only be accessed by the current user.

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the scope of a directory search.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_scopeenum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class ADS_SCOPEENUM extends Win32Enum {
+export default struct ADS_SCOPEENUM {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Limits the search to the base object. The result contains, at most, one object.

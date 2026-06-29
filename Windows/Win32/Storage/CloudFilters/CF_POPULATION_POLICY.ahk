@@ -1,33 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CF_POPULATION_POLICY_PRIMARY.ahk
-#Include .\CF_POPULATION_POLICY_MODIFIER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CF_POPULATION_POLICY_MODIFIER.ahk" { CF_POPULATION_POLICY_MODIFIER }
+#Import ".\CF_POPULATION_POLICY_PRIMARY.ahk" { CF_POPULATION_POLICY_PRIMARY }
 
 /**
  * Specifies the primary population policy and its modifier.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_population_policy
  * @namespace Windows.Win32.Storage.CloudFilters
  */
-class CF_POPULATION_POLICY extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 2
+export default struct CF_POPULATION_POLICY {
+    #StructPack 2
 
     /**
      * The primary population policy. See [CF_POPULATION_POLICY_PRIMARY](ne-cfapi-cf_population_policy_primary.md) for more information.
-     * @type {CF_POPULATION_POLICY_PRIMARY}
      */
-    Primary {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Primary : CF_POPULATION_POLICY_PRIMARY
 
     /**
      * The population policy modifier. See [CF_POPULATION_POLICY_MODIFIER](ne-cfapi-cf_population_policy_modifier.md) for more information.
-     * @type {CF_POPULATION_POLICY_MODIFIER}
      */
-    Modifier {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    Modifier : CF_POPULATION_POLICY_MODIFIER
+
 }

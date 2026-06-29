@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class EISA_MEMORY_CONFIGURATION extends Win32Struct {
-    static sizeof => 16
+export default struct EISA_MEMORY_CONFIGURATION {
+    #StructPack 8
 
-    static packingSize => 8
+    ConfigurationByte : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ConfigurationByte {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    DataSize : Int8
 
-    /**
-     * @type {Integer}
-     */
-    DataSize {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    AddressLowWord : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    AddressLowWord {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    AddressHighByte : Int8
 
-    /**
-     * @type {Integer}
-     */
-    AddressHighByte {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    MemorySize : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    MemorySize {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
 }

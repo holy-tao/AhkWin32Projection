@@ -1,194 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHV_CAPABILITY_FEATURES.ahk
-#Include .\WHV_EXTENDED_VM_EXITS.ahk
-#Include .\WHV_PROCESSOR_VENDOR.ahk
-#Include .\WHV_PROCESSOR_FEATURES.ahk
-#Include .\WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS.ahk
-#Include .\WHV_SYNTHETIC_PROCESSOR_FEATURES.ahk
-#Include .\WHV_PROCESSOR_XSAVE_FEATURES.ahk
-#Include .\WHV_X64_MSR_EXIT_BITMAP.ahk
-#Include .\WHV_PROCESSOR_FEATURES_BANKS.ahk
-#Include .\WHV_PROCESSOR_FEATURES1.ahk
-#Include .\WHV_ADVISE_GPA_RANGE_POPULATE_FLAGS.ahk
-#Include .\WHV_CAPABILITY_PROCESSOR_FREQUENCY_CAP.ahk
-#Include .\WHV_PROCESSOR_PERFMON_FEATURES.ahk
-#Include .\WHV_SCHEDULER_FEATURES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WHV_PROCESSOR_PERFMON_FEATURES.ahk" { WHV_PROCESSOR_PERFMON_FEATURES }
+#Import ".\WHV_PROCESSOR_VENDOR.ahk" { WHV_PROCESSOR_VENDOR }
+#Import ".\WHV_CAPABILITY_PROCESSOR_FREQUENCY_CAP.ahk" { WHV_CAPABILITY_PROCESSOR_FREQUENCY_CAP }
+#Import ".\WHV_ADVISE_GPA_RANGE_POPULATE_FLAGS.ahk" { WHV_ADVISE_GPA_RANGE_POPULATE_FLAGS }
+#Import ".\WHV_CAPABILITY_FEATURES.ahk" { WHV_CAPABILITY_FEATURES }
+#Import ".\WHV_SCHEDULER_FEATURES.ahk" { WHV_SCHEDULER_FEATURES }
+#Import ".\WHV_PROCESSOR_FEATURES1.ahk" { WHV_PROCESSOR_FEATURES1 }
+#Import ".\WHV_EXTENDED_VM_EXITS.ahk" { WHV_EXTENDED_VM_EXITS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\WHV_PROCESSOR_XSAVE_FEATURES.ahk" { WHV_PROCESSOR_XSAVE_FEATURES }
+#Import ".\WHV_PROCESSOR_FEATURES_BANKS.ahk" { WHV_PROCESSOR_FEATURES_BANKS }
+#Import ".\WHV_PROCESSOR_FEATURES.ahk" { WHV_PROCESSOR_FEATURES }
+#Import ".\WHV_SYNTHETIC_PROCESSOR_FEATURES.ahk" { WHV_SYNTHETIC_PROCESSOR_FEATURES }
+#Import ".\WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS.ahk" { WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS }
+#Import ".\WHV_X64_MSR_EXIT_BITMAP.ahk" { WHV_X64_MSR_EXIT_BITMAP }
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class WHV_CAPABILITY extends Win32Struct {
-    static sizeof => 256
+export default struct WHV_CAPABILITY {
+    #StructPack 8
 
-    static packingSize => 8
+    HypervisorPresent : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    HypervisorPresent {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
-
-    /**
-     * @type {WHV_CAPABILITY_FEATURES}
-     */
-    Features {
-        get {
-            if(!this.HasProp("__Features"))
-                this.__Features := WHV_CAPABILITY_FEATURES(0, this)
-            return this.__Features
-        }
-    }
-
-    /**
-     * @type {WHV_EXTENDED_VM_EXITS}
-     */
-    ExtendedVmExits {
-        get {
-            if(!this.HasProp("__ExtendedVmExits"))
-                this.__ExtendedVmExits := WHV_EXTENDED_VM_EXITS(0, this)
-            return this.__ExtendedVmExits
-        }
-    }
-
-    /**
-     * @type {WHV_PROCESSOR_VENDOR}
-     */
-    ProcessorVendor {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
-
-    /**
-     * @type {WHV_PROCESSOR_FEATURES}
-     */
-    ProcessorFeatures {
-        get {
-            if(!this.HasProp("__ProcessorFeatures"))
-                this.__ProcessorFeatures := WHV_PROCESSOR_FEATURES(0, this)
-            return this.__ProcessorFeatures
-        }
-    }
-
-    /**
-     * @type {WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS}
-     */
-    SyntheticProcessorFeaturesBanks {
-        get {
-            if(!this.HasProp("__SyntheticProcessorFeaturesBanks"))
-                this.__SyntheticProcessorFeaturesBanks := WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS(0, this)
-            return this.__SyntheticProcessorFeaturesBanks
-        }
-    }
-
-    /**
-     * @type {WHV_PROCESSOR_XSAVE_FEATURES}
-     */
-    ProcessorXsaveFeatures {
-        get {
-            if(!this.HasProp("__ProcessorXsaveFeatures"))
-                this.__ProcessorXsaveFeatures := WHV_PROCESSOR_XSAVE_FEATURES(0, this)
-            return this.__ProcessorXsaveFeatures
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ProcessorClFlushSize {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ExceptionExitBitmap {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {WHV_X64_MSR_EXIT_BITMAP}
-     */
-    X64MsrExitBitmap {
-        get {
-            if(!this.HasProp("__X64MsrExitBitmap"))
-                this.__X64MsrExitBitmap := WHV_X64_MSR_EXIT_BITMAP(0, this)
-            return this.__X64MsrExitBitmap
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ProcessorClockFrequency {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    InterruptClockFrequency {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {WHV_PROCESSOR_FEATURES_BANKS}
-     */
-    ProcessorFeaturesBanks {
-        get {
-            if(!this.HasProp("__ProcessorFeaturesBanks"))
-                this.__ProcessorFeaturesBanks := WHV_PROCESSOR_FEATURES_BANKS(0, this)
-            return this.__ProcessorFeaturesBanks
-        }
-    }
-
-    /**
-     * @type {WHV_ADVISE_GPA_RANGE_POPULATE_FLAGS}
-     */
-    GpaRangePopulateFlags {
-        get {
-            if(!this.HasProp("__GpaRangePopulateFlags"))
-                this.__GpaRangePopulateFlags := WHV_ADVISE_GPA_RANGE_POPULATE_FLAGS(0, this)
-            return this.__GpaRangePopulateFlags
-        }
-    }
-
-    /**
-     * @type {WHV_CAPABILITY_PROCESSOR_FREQUENCY_CAP}
-     */
-    ProcessorFrequencyCap {
-        get {
-            if(!this.HasProp("__ProcessorFrequencyCap"))
-                this.__ProcessorFrequencyCap := WHV_CAPABILITY_PROCESSOR_FREQUENCY_CAP(0, this)
-            return this.__ProcessorFrequencyCap
-        }
-    }
-
-    /**
-     * @type {WHV_PROCESSOR_PERFMON_FEATURES}
-     */
-    ProcessorPerfmonFeatures {
-        get {
-            if(!this.HasProp("__ProcessorPerfmonFeatures"))
-                this.__ProcessorPerfmonFeatures := WHV_PROCESSOR_PERFMON_FEATURES(0, this)
-            return this.__ProcessorPerfmonFeatures
-        }
-    }
-
-    /**
-     * @type {WHV_SCHEDULER_FEATURES}
-     */
-    SchedulerFeatures {
-        get {
-            if(!this.HasProp("__SchedulerFeatures"))
-                this.__SchedulerFeatures := WHV_SCHEDULER_FEATURES(0, this)
-            return this.__SchedulerFeatures
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Features', { type: WHV_CAPABILITY_FEATURES, offset: 0 })
+        DefineProp(this.Prototype, 'ExtendedVmExits', { type: WHV_EXTENDED_VM_EXITS, offset: 0 })
+        DefineProp(this.Prototype, 'ProcessorVendor', { type: WHV_PROCESSOR_VENDOR, offset: 0 })
+        DefineProp(this.Prototype, 'ProcessorFeatures', { type: WHV_PROCESSOR_FEATURES, offset: 0 })
+        DefineProp(this.Prototype, 'SyntheticProcessorFeaturesBanks', { type: WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS, offset: 0 })
+        DefineProp(this.Prototype, 'ProcessorXsaveFeatures', { type: WHV_PROCESSOR_XSAVE_FEATURES, offset: 0 })
+        DefineProp(this.Prototype, 'ProcessorClFlushSize', { type: Int8, offset: 0 })
+        DefineProp(this.Prototype, 'ExceptionExitBitmap', { type: Int64, offset: 0 })
+        DefineProp(this.Prototype, 'X64MsrExitBitmap', { type: WHV_X64_MSR_EXIT_BITMAP, offset: 0 })
+        DefineProp(this.Prototype, 'ProcessorClockFrequency', { type: Int64, offset: 0 })
+        DefineProp(this.Prototype, 'InterruptClockFrequency', { type: Int64, offset: 0 })
+        DefineProp(this.Prototype, 'ProcessorFeaturesBanks', { type: WHV_PROCESSOR_FEATURES_BANKS, offset: 0 })
+        DefineProp(this.Prototype, 'GpaRangePopulateFlags', { type: WHV_ADVISE_GPA_RANGE_POPULATE_FLAGS, offset: 0 })
+        DefineProp(this.Prototype, 'ProcessorFrequencyCap', { type: WHV_CAPABILITY_PROCESSOR_FREQUENCY_CAP, offset: 0 })
+        DefineProp(this.Prototype, 'ProcessorPerfmonFeatures', { type: WHV_PROCESSOR_PERFMON_FEATURES, offset: 0 })
+        DefineProp(this.Prototype, 'SchedulerFeatures', { type: WHV_SCHEDULER_FEATURES, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

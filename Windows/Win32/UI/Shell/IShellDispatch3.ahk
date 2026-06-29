@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IShellDispatch2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IShellDispatch2.ahk" { IShellDispatch2 }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Extends the IShellDispatch2 object.
@@ -15,26 +18,33 @@
  * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch3
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellDispatch3 extends IShellDispatch2 {
-
-    static sizeof => A_PtrSize
+export default struct IShellDispatch3 extends IShellDispatch2 {
     /**
      * The interface identifier for IShellDispatch3
      * @type {Guid}
      */
-    static IID => Guid("{177160ca-bb5a-411c-841d-bd38facdeaa0}")
+    static IID := Guid("{177160ca-bb5a-411c-841d-bd38facdeaa0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 39
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellDispatch3 interfaces
+    */
+    struct Vtbl extends IShellDispatch2.Vtbl {
+        AddToRecent : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddToRecent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellDispatch3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * IShellDispatch3.AddToRecent method - Adds a file to the most recently used (MRU) list.
@@ -52,7 +62,27 @@ class IShellDispatch3 extends IShellDispatch2 {
     AddToRecent(varFile, bstrCategory) {
         bstrCategory := bstrCategory is String ? BSTR.Alloc(bstrCategory).Value : bstrCategory
 
-        result := ComCall(39, this, "ptr", varFile, "ptr", bstrCategory, "HRESULT")
+        result := ComCall(39, this, VARIANT, varFile, BSTR, bstrCategory, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IShellDispatch3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddToRecent := CallbackCreate(GetMethod(implObj, "AddToRecent"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddToRecent)
     }
 }

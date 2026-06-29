@@ -1,113 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
  */
-class ATA_PASS_THROUGH_EX extends Win32Struct {
-    static sizeof => 48
+export default struct ATA_PASS_THROUGH_EX {
+    #StructPack 8
 
-    static packingSize => 8
+    Length : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    AtaFlags : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    AtaFlags {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    PathId : Int8
 
-    /**
-     * @type {Integer}
-     */
-    PathId {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    TargetId : Int8
 
-    /**
-     * @type {Integer}
-     */
-    TargetId {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    Lun : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Lun {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    ReservedAsUchar : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ReservedAsUchar {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    DataTransferLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataTransferLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    TimeOutValue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TimeOutValue {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ReservedAsUlong : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ReservedAsUlong {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    DataBufferOffset : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    DataBufferOffset {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    PreviousTaskFile : Int8[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    PreviousTaskFile {
-        get {
-            if(!this.HasProp("__PreviousTaskFileProxyArray"))
-                this.__PreviousTaskFileProxyArray := Win32FixedArray(this.ptr + 32, 8, Primitive, "char")
-            return this.__PreviousTaskFileProxyArray
-        }
-    }
+    CurrentTaskFile : Int8[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    CurrentTaskFile {
-        get {
-            if(!this.HasProp("__CurrentTaskFileProxyArray"))
-                this.__CurrentTaskFileProxyArray := Win32FixedArray(this.ptr + 40, 8, Primitive, "char")
-            return this.__CurrentTaskFileProxyArray
-        }
-    }
 }

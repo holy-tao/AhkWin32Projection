@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_AUTH_STATUS.ahk
-#Include .\HTTP_REQUEST_AUTH_TYPE.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\HTTP_AUTH_STATUS.ahk" { HTTP_AUTH_STATUS }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\HTTP_REQUEST_AUTH_TYPE.ahk" { HTTP_REQUEST_AUTH_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains the authentication status of the request with a handle to the client token that the receiving process can use to impersonate the authenticated client.
@@ -27,30 +29,20 @@
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_request_auth_info
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_REQUEST_AUTH_INFO extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct HTTP_REQUEST_AUTH_INFO {
+    #StructPack 8
 
     /**
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_auth_status">HTTP_AUTH_STATUS</a> enumeration that indicates the final authentication status of the request.
      * 
      * If the authentication status is not <b>HttpAuthStatusSuccess</b>, applications should disregard members of this structure except <b>AuthStatus</b>, <b>SecStatus</b>, and <b>AuthType</b>.
-     * @type {HTTP_AUTH_STATUS}
      */
-    AuthStatus {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    AuthStatus : HTTP_AUTH_STATUS
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-acceptsecuritycontext">SECURITY_STATUS</a> value that indicates the security failure status when the <b>AuthStatus</b> member   is <b>HttpAuthStatusFailure</b>.
-     * @type {HRESULT}
      */
-    SecStatus {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    SecStatus : HRESULT
 
     /**
      * The authentication flags that indicate the following authentication attributes:
@@ -71,62 +63,35 @@ class HTTP_REQUEST_AUTH_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Flags : UInt32
 
     /**
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_request_auth_type">HTTP_REQUEST_AUTH_TYPE</a> enumeration that indicates the authentication scheme attempted or established  for the request.
-     * @type {HTTP_REQUEST_AUTH_TYPE}
      */
-    AuthType {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    AuthType : HTTP_REQUEST_AUTH_TYPE
 
     /**
      * A  handle to the client token that the receiving process can use to impersonate the authenticated client.
      * 
      * The handle to the token should be closed by calling <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> when it is no longer required. This token is valid only for the lifetime of the request. Applications can regenerate the initial 401 challenge to reauthenticate when the token expires.
-     * @type {HANDLE}
      */
-    AccessToken {
-        get {
-            if(!this.HasProp("__AccessToken"))
-                this.__AccessToken := HANDLE(16, this)
-            return this.__AccessToken
-        }
-    }
+    AccessToken : HANDLE
 
     /**
      * The client context attributes for the access token.
-     * @type {Integer}
      */
-    ContextAttributes {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ContextAttributes : UInt32
 
     /**
      * The length, in bytes, of the <b>PackedContext</b>.
-     * @type {Integer}
      */
-    PackedContextLength {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    PackedContextLength : UInt32
 
     /**
      * The type of context in the <b>PackedContext</b> member.
-     * @type {Integer}
      */
-    PackedContextType {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    PackedContextType : UInt32
 
     /**
      * The security context for the authentication type.
@@ -134,44 +99,21 @@ class HTTP_REQUEST_AUTH_INFO extends Win32Struct {
      * Applications can query the attributes of the packed context by calling the SSPI <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-querycontextattributesa">QueryContextAttributes</a> API. However, applications must acquire a  credential handle for the security package for the indicated AuthType.
      * 
      * Application should call the SSPI <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-freecontextbuffer">FreeContextBuffer</a> API to free the serialized context when it is no longer required.
-     * @type {Pointer<Void>}
      */
-    PackedContext {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    PackedContext : IntPtr
 
     /**
      * The length, in bytes, of the <b>pMutualAuthData</b> member.
-     * @type {Integer}
      */
-    MutualAuthDataLength {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    MutualAuthDataLength : UInt32
 
     /**
      * The Base64 encoded mutual authentication data used in  the WWW-Authenticate header.
-     * @type {PSTR}
      */
-    pMutualAuthData {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pMutualAuthData : PSTR
 
-    /**
-     * @type {Integer}
-     */
-    PackageNameLength {
-        get => NumGet(this, 64, "ushort")
-        set => NumPut("ushort", value, this, 64)
-    }
+    PackageNameLength : UInt16
 
-    /**
-     * @type {PWSTR}
-     */
-    pPackageName {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    pPackageName : PWSTR
+
 }

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains information about a Remote Desktop Services session. (WTSCONFIGINFOW)
@@ -10,106 +10,59 @@
  * @namespace Windows.Win32.System.RemoteDesktop
  * @charset Unicode
  */
-class WTSCONFIGINFOW extends Win32Struct {
-    static sizeof => 1668
-
-    static packingSize => 4
+export default struct WTSCONFIGINFOW {
+    #StructPack 4
 
     /**
      * This member is reserved.
-     * @type {Integer}
      */
-    version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    version : UInt32
 
     /**
      * This member is reserved.
-     * @type {Integer}
      */
-    fConnectClientDrivesAtLogon {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    fConnectClientDrivesAtLogon : UInt32
 
     /**
      * This member is reserved.
-     * @type {Integer}
      */
-    fConnectPrinterAtLogon {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    fConnectPrinterAtLogon : UInt32
 
     /**
      * Specifies whether the client can use printer redirection.
-     * @type {Integer}
      */
-    fDisablePrinterRedirection {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    fDisablePrinterRedirection : UInt32
 
     /**
      * Specifies whether the printer connected to the client is the default printer for the user.
-     * @type {Integer}
      */
-    fDisableDefaultMainClientPrinter {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    fDisableDefaultMainClientPrinter : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ShadowSettings {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ShadowSettings : UInt32
 
     /**
      * A null-terminated string that contains the user name used in automatic logon scenarios.
-     * @type {String}
      */
-    LogonUserName {
-        get => StrGet(this.ptr + 24, 20, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 20, "UTF-16")
-    }
+    LogonUserName : WCHAR[21]
 
     /**
      * A null-terminated string that contains the domain name used in automatic logon scenarios.
-     * @type {String}
      */
-    LogonDomain {
-        get => StrGet(this.ptr + 66, 17, "UTF-16")
-        set => StrPut(value, this.ptr + 66, 17, "UTF-16")
-    }
+    LogonDomain : WCHAR[18]
 
     /**
      * A null-terminated string that contains the path of the working directory of  the initial program.
-     * @type {String}
      */
-    WorkDirectory {
-        get => StrGet(this.ptr + 102, 260, "UTF-16")
-        set => StrPut(value, this.ptr + 102, 260, "UTF-16")
-    }
+    WorkDirectory : WCHAR[261]
 
     /**
      * A null-terminated string that contains the name of  the program to start immediately after the user logs on to the server.
-     * @type {String}
      */
-    InitialProgram {
-        get => StrGet(this.ptr + 624, 260, "UTF-16")
-        set => StrPut(value, this.ptr + 624, 260, "UTF-16")
-    }
+    InitialProgram : WCHAR[261]
 
     /**
      * This member is reserved.
-     * @type {String}
      */
-    ApplicationName {
-        get => StrGet(this.ptr + 1146, 260, "UTF-16")
-        set => StrPut(value, this.ptr + 1146, 260, "UTF-16")
-    }
+    ApplicationName : WCHAR[261]
+
 }

@@ -1,155 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_QUIC_STREAM_API_TIMINGS extends Win32Struct {
-    static sizeof => 144
+export default struct HTTP_QUIC_STREAM_API_TIMINGS {
+    #StructPack 8
 
-    static packingSize => 8
+    OpenCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    OpenCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    OpenSum : Int64
 
-    /**
-     * @type {Integer}
-     */
-    OpenSum {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    CloseCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CloseCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    CloseSum : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CloseSum {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    StartCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    StartCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    StartSum : Int64
 
-    /**
-     * @type {Integer}
-     */
-    StartSum {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ShutdownCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ShutdownCount {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    ShutdownSum : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ShutdownSum {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    SendCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SendCount {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    SendSum : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SendSum {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    ReceiveSetEnabledCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ReceiveSetEnabledCount {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    ReceiveSetEnabledSum : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ReceiveSetEnabledSum {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    GetParamCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    GetParamCount {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    GetParamSum : Int64
 
-    /**
-     * @type {Integer}
-     */
-    GetParamSum {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    SetParamCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SetParamCount {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    SetParamSum : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SetParamSum {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    SetCallbackHandlerCount : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SetCallbackHandlerCount {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    SetCallbackHandlerSum : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SetCallbackHandlerSum {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
 }

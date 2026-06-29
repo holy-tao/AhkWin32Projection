@@ -1,31 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellFavoritesNameSpace extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IShellFavoritesNameSpace extends IDispatch {
     /**
      * The interface identifier for IShellFavoritesNameSpace
      * @type {Guid}
      */
-    static IID => Guid("{55136804-b2de-11d1-b9f2-00a0c98bc547}")
+    static IID := Guid("{55136804-b2de-11d1-b9f2-00a0c98bc547}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellFavoritesNameSpace interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        MoveSelectionUp                : IntPtr
+        MoveSelectionDown              : IntPtr
+        ResetSort                      : IntPtr
+        NewFolder                      : IntPtr
+        Synchronize                    : IntPtr
+        Import                         : IntPtr
+        Export                         : IntPtr
+        InvokeContextMenuCommand       : IntPtr
+        MoveSelectionTo                : IntPtr
+        get_SubscriptionsEnabled       : IntPtr
+        CreateSubscriptionForSelection : IntPtr
+        DeleteSubscriptionForSelection : IntPtr
+        SetRoot                        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["MoveSelectionUp", "MoveSelectionDown", "ResetSort", "NewFolder", "Synchronize", "Import", "Export", "InvokeContextMenuCommand", "MoveSelectionTo", "get_SubscriptionsEnabled", "CreateSubscriptionForSelection", "DeleteSubscriptionForSelection", "SetRoot"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellFavoritesNameSpace.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -71,11 +93,8 @@ class IShellFavoritesNameSpace extends IDispatch {
     }
 
     /**
-     * Causes the UI Automation provider to stop listening for mouse or keyboard input.
-     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * Returns S_OK if successful or an error value otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-synchronizedinputpattern_cancel
+     * @returns {HRESULT} 
      */
     Synchronize() {
         result := ComCall(11, this, "HRESULT")
@@ -83,24 +102,8 @@ class IShellFavoritesNameSpace extends IDispatch {
     }
 
     /**
-     * An application-defined callback function used with WriteEncryptedFileRaw. The system calls ImportCallback one or more times, each time to retrieve a portion of a backup file's data.
-     * @remarks
-     * The system calls the <b>ImportCallback</b> function until the 
-     *      callback function indicates there is no more data to restore. To indicate that there is no more data to be 
-     *      restored, set <i>*ulLength</i> to 0 and use a return code of 
-     *      <b>ERROR_SUCCESS</b>. You can use the application-defined context block for internal tracking 
-     *      of information such as the file handle and the current offset in the file.
-     * @returns {HRESULT} If the function succeeds, it must set the return value to <b>ERROR_SUCCESS</b>, and set 
-     *        the value pointed to by the <i>ulLength</i> parameter to the number of bytes copied into 
-     *        <i>pbData</i>.
      * 
-     * When the end of the backup file is reached, set <i>ulLength</i> to zero to tell the system 
-     *        that the entire file has been processed.
-     * 
-     * If the function fails, set the return value to a nonzero error code defined in WinError.h. For 
-     *        example, if this function fails because an API that it calls fails, you can set the return value to the value 
-     *        returned by <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for the failed API.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nc-winbase-pfe_import_func
+     * @returns {HRESULT} 
      */
     Import() {
         result := ComCall(12, this, "HRESULT")
@@ -108,16 +111,8 @@ class IShellFavoritesNameSpace extends IDispatch {
     }
 
     /**
-     * An application-defined callback function used with ReadEncryptedFileRaw.
-     * @remarks
-     * You can use the application-defined context block for internal tracking of information such as the file handle 
-     *      and the current offset in the file.
-     * @returns {HRESULT} If the function succeeds, it must set the return value to <b>ERROR_SUCCESS</b>.
      * 
-     * If the function fails, set the return value to a nonzero error code defined in WinError.h. For 
-     *        example, if this function fails because an API that it calls fails, you can set the return value to the value 
-     *        returned by <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for the failed API.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nc-winbase-pfe_export_func
+     * @returns {HRESULT} 
      */
     Export() {
         result := ComCall(13, this, "HRESULT")
@@ -132,7 +127,7 @@ class IShellFavoritesNameSpace extends IDispatch {
     InvokeContextMenuCommand(strCommand) {
         strCommand := strCommand is String ? BSTR.Alloc(strCommand).Value : strCommand
 
-        result := ComCall(14, this, "ptr", strCommand, "HRESULT")
+        result := ComCall(14, this, BSTR, strCommand, "HRESULT")
         return result
     }
 
@@ -150,7 +145,7 @@ class IShellFavoritesNameSpace extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_SubscriptionsEnabled() {
-        result := ComCall(16, this, "short*", &pBool := 0, "HRESULT")
+        result := ComCall(16, this, VARIANT_BOOL.Ptr, &pBool := 0, "HRESULT")
         return pBool
     }
 
@@ -159,7 +154,7 @@ class IShellFavoritesNameSpace extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     CreateSubscriptionForSelection() {
-        result := ComCall(17, this, "short*", &pBool := 0, "HRESULT")
+        result := ComCall(17, this, VARIANT_BOOL.Ptr, &pBool := 0, "HRESULT")
         return pBool
     }
 
@@ -168,7 +163,7 @@ class IShellFavoritesNameSpace extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     DeleteSubscriptionForSelection() {
-        result := ComCall(18, this, "short*", &pBool := 0, "HRESULT")
+        result := ComCall(18, this, VARIANT_BOOL.Ptr, &pBool := 0, "HRESULT")
         return pBool
     }
 
@@ -180,7 +175,51 @@ class IShellFavoritesNameSpace extends IDispatch {
     SetRoot(bstrFullPath) {
         bstrFullPath := bstrFullPath is String ? BSTR.Alloc(bstrFullPath).Value : bstrFullPath
 
-        result := ComCall(19, this, "ptr", bstrFullPath, "HRESULT")
+        result := ComCall(19, this, BSTR, bstrFullPath, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IShellFavoritesNameSpace.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.MoveSelectionUp := CallbackCreate(GetMethod(implObj, "MoveSelectionUp"), flags, 1)
+        this.vtbl.MoveSelectionDown := CallbackCreate(GetMethod(implObj, "MoveSelectionDown"), flags, 1)
+        this.vtbl.ResetSort := CallbackCreate(GetMethod(implObj, "ResetSort"), flags, 1)
+        this.vtbl.NewFolder := CallbackCreate(GetMethod(implObj, "NewFolder"), flags, 1)
+        this.vtbl.Synchronize := CallbackCreate(GetMethod(implObj, "Synchronize"), flags, 1)
+        this.vtbl.Import := CallbackCreate(GetMethod(implObj, "Import"), flags, 1)
+        this.vtbl.Export := CallbackCreate(GetMethod(implObj, "Export"), flags, 1)
+        this.vtbl.InvokeContextMenuCommand := CallbackCreate(GetMethod(implObj, "InvokeContextMenuCommand"), flags, 2)
+        this.vtbl.MoveSelectionTo := CallbackCreate(GetMethod(implObj, "MoveSelectionTo"), flags, 1)
+        this.vtbl.get_SubscriptionsEnabled := CallbackCreate(GetMethod(implObj, "get_SubscriptionsEnabled"), flags, 2)
+        this.vtbl.CreateSubscriptionForSelection := CallbackCreate(GetMethod(implObj, "CreateSubscriptionForSelection"), flags, 2)
+        this.vtbl.DeleteSubscriptionForSelection := CallbackCreate(GetMethod(implObj, "DeleteSubscriptionForSelection"), flags, 2)
+        this.vtbl.SetRoot := CallbackCreate(GetMethod(implObj, "SetRoot"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.MoveSelectionUp)
+        CallbackFree(this.vtbl.MoveSelectionDown)
+        CallbackFree(this.vtbl.ResetSort)
+        CallbackFree(this.vtbl.NewFolder)
+        CallbackFree(this.vtbl.Synchronize)
+        CallbackFree(this.vtbl.Import)
+        CallbackFree(this.vtbl.Export)
+        CallbackFree(this.vtbl.InvokeContextMenuCommand)
+        CallbackFree(this.vtbl.MoveSelectionTo)
+        CallbackFree(this.vtbl.get_SubscriptionsEnabled)
+        CallbackFree(this.vtbl.CreateSubscriptionForSelection)
+        CallbackFree(this.vtbl.DeleteSubscriptionForSelection)
+        CallbackFree(this.vtbl.SetRoot)
     }
 }

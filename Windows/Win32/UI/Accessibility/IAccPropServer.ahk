@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Exposes a method that retrieves a property value for an accessible element.
  * @see https://learn.microsoft.com/windows/win32/api/oleacc/nn-oleacc-iaccpropserver
  * @namespace Windows.Win32.UI.Accessibility
  */
-class IAccPropServer extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAccPropServer extends IUnknown {
     /**
      * The interface identifier for IAccPropServer
      * @type {Guid}
      */
-    static IID => Guid("{76c0dbbb-15e0-4e7b-b61b-20eeea2001e0}")
+    static IID := Guid("{76c0dbbb-15e0-4e7b-b61b-20eeea2001e0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAccPropServer interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetPropValue : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPropValue"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAccPropServer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a property value for an accessible element.
@@ -61,7 +71,27 @@ class IAccPropServer extends IUnknown {
         pIDStringMarshal := pIDString is VarRef ? "char*" : "ptr"
         pfHasPropMarshal := pfHasProp is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, pIDStringMarshal, pIDString, "uint", dwIDStringLen, "ptr", idProp, "ptr", pvarValue, pfHasPropMarshal, pfHasProp, "HRESULT")
+        result := ComCall(3, this, pIDStringMarshal, pIDString, "uint", dwIDStringLen, Guid, idProp, VARIANT.Ptr, pvarValue, pfHasPropMarshal, pfHasProp, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAccPropServer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPropValue := CallbackCreate(GetMethod(implObj, "GetPropValue"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPropValue)
     }
 }

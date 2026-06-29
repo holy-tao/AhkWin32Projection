@@ -1,65 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_PMEM_ERROR_SECTION extends Win32Struct {
-    static sizeof => 96
+export default struct WHEA_PMEM_ERROR_SECTION {
+    #StructPack 8
 
-    static packingSize => 8
+    ValidBits : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ValidBits {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    LocationInfo : Int8[64]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    LocationInfo {
-        get {
-            if(!this.HasProp("__LocationInfoProxyArray"))
-                this.__LocationInfoProxyArray := Win32FixedArray(this.ptr + 8, 64, Primitive, "char")
-            return this.__LocationInfoProxyArray
-        }
-    }
+    ErrorStatus : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ErrorStatus {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    NFITHandle : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NFITHandle {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    PageRangeCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PageRangeCount {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    PageRange : IntPtr[1]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    PageRange {
-        get {
-            if(!this.HasProp("__PageRangeProxyArray"))
-                this.__PageRangeProxyArray := Win32FixedArray(this.ptr + 88, 1, Primitive, "ptr")
-            return this.__PageRangeProxyArray
-        }
-    }
 }

@@ -1,10 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IEnumBitsPeerCacheRecords.ahk
-#Include .\IBitsPeerCacheRecord.ahk
-#Include .\IEnumBitsPeers.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IEnumBitsPeerCacheRecords.ahk" { IEnumBitsPeerCacheRecords }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IBitsPeerCacheRecord.ahk" { IBitsPeerCacheRecord }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumBitsPeers.ahk" { IEnumBitsPeers }
 
 /**
  * Use IBitsPeerCacheAdministration to manage the pool of peers from which you can download content.
@@ -15,26 +17,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nn-bits3_0-ibitspeercacheadministration
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class IBitsPeerCacheAdministration extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBitsPeerCacheAdministration extends IUnknown {
     /**
      * The interface identifier for IBitsPeerCacheAdministration
      * @type {Guid}
      */
-    static IID => Guid("{659cdead-489e-11d9-a9cd-000d56965251}")
+    static IID := Guid("{659cdead-489e-11d9-a9cd-000d56965251}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBitsPeerCacheAdministration interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetMaximumCacheSize   : IntPtr
+        SetMaximumCacheSize   : IntPtr
+        GetMaximumContentAge  : IntPtr
+        SetMaximumContentAge  : IntPtr
+        GetConfigurationFlags : IntPtr
+        SetConfigurationFlags : IntPtr
+        EnumRecords           : IntPtr
+        GetRecord             : IntPtr
+        ClearRecords          : IntPtr
+        DeleteRecord          : IntPtr
+        DeleteUrl             : IntPtr
+        EnumPeers             : IntPtr
+        ClearPeers            : IntPtr
+        DiscoverPeers         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetMaximumCacheSize", "SetMaximumCacheSize", "GetMaximumContentAge", "SetMaximumContentAge", "GetConfigurationFlags", "SetConfigurationFlags", "EnumRecords", "GetRecord", "ClearRecords", "DeleteRecord", "DeleteUrl", "EnumPeers", "ClearPeers", "DiscoverPeers"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBitsPeerCacheAdministration.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the maximum size of the cache.
@@ -142,7 +164,7 @@ class IBitsPeerCacheAdministration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeercacheadministration-setmaximumcontentage
      */
     SetMaximumContentAge(Seconds) {
-        result := ComCall(6, this, "uint", Seconds, "int")
+        result := ComCall(6, this, "uint", Seconds, Int32)
         return result
     }
 
@@ -290,7 +312,7 @@ class IBitsPeerCacheAdministration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeercacheadministration-getrecord
      */
     GetRecord(id) {
-        result := ComCall(10, this, "ptr", id, "ptr*", &ppRecord := 0, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, id, "ptr*", &ppRecord := 0, "HRESULT")
         return IBitsPeerCacheRecord(ppRecord)
     }
 
@@ -362,7 +384,7 @@ class IBitsPeerCacheAdministration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeercacheadministration-deleterecord
      */
     DeleteRecord(id) {
-        result := ComCall(12, this, "ptr", id, "HRESULT")
+        result := ComCall(12, this, Guid.Ptr, id, "HRESULT")
         return result
     }
 
@@ -493,5 +515,51 @@ class IBitsPeerCacheAdministration extends IUnknown {
     DiscoverPeers() {
         result := ComCall(16, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBitsPeerCacheAdministration.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetMaximumCacheSize := CallbackCreate(GetMethod(implObj, "GetMaximumCacheSize"), flags, 2)
+        this.vtbl.SetMaximumCacheSize := CallbackCreate(GetMethod(implObj, "SetMaximumCacheSize"), flags, 2)
+        this.vtbl.GetMaximumContentAge := CallbackCreate(GetMethod(implObj, "GetMaximumContentAge"), flags, 2)
+        this.vtbl.SetMaximumContentAge := CallbackCreate(GetMethod(implObj, "SetMaximumContentAge"), flags, 2)
+        this.vtbl.GetConfigurationFlags := CallbackCreate(GetMethod(implObj, "GetConfigurationFlags"), flags, 2)
+        this.vtbl.SetConfigurationFlags := CallbackCreate(GetMethod(implObj, "SetConfigurationFlags"), flags, 2)
+        this.vtbl.EnumRecords := CallbackCreate(GetMethod(implObj, "EnumRecords"), flags, 2)
+        this.vtbl.GetRecord := CallbackCreate(GetMethod(implObj, "GetRecord"), flags, 3)
+        this.vtbl.ClearRecords := CallbackCreate(GetMethod(implObj, "ClearRecords"), flags, 1)
+        this.vtbl.DeleteRecord := CallbackCreate(GetMethod(implObj, "DeleteRecord"), flags, 2)
+        this.vtbl.DeleteUrl := CallbackCreate(GetMethod(implObj, "DeleteUrl"), flags, 2)
+        this.vtbl.EnumPeers := CallbackCreate(GetMethod(implObj, "EnumPeers"), flags, 2)
+        this.vtbl.ClearPeers := CallbackCreate(GetMethod(implObj, "ClearPeers"), flags, 1)
+        this.vtbl.DiscoverPeers := CallbackCreate(GetMethod(implObj, "DiscoverPeers"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetMaximumCacheSize)
+        CallbackFree(this.vtbl.SetMaximumCacheSize)
+        CallbackFree(this.vtbl.GetMaximumContentAge)
+        CallbackFree(this.vtbl.SetMaximumContentAge)
+        CallbackFree(this.vtbl.GetConfigurationFlags)
+        CallbackFree(this.vtbl.SetConfigurationFlags)
+        CallbackFree(this.vtbl.EnumRecords)
+        CallbackFree(this.vtbl.GetRecord)
+        CallbackFree(this.vtbl.ClearRecords)
+        CallbackFree(this.vtbl.DeleteRecord)
+        CallbackFree(this.vtbl.DeleteUrl)
+        CallbackFree(this.vtbl.EnumPeers)
+        CallbackFree(this.vtbl.ClearPeers)
+        CallbackFree(this.vtbl.DiscoverPeers)
     }
 }

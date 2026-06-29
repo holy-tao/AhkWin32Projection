@@ -1,7 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IShellMenu.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\IShellMenu.ahk" { IShellMenu }
+#Import "..\..\Foundation\POINTL.ahk" { POINTL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes methods that extend the IShellMenu interface by providing the ability to coordinate toolbar buttons with a menu as well as display a pop-up menu.
@@ -12,32 +17,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nn-shdeprecated-itrackshellmenu
  * @namespace Windows.Win32.UI.Shell
  */
-class ITrackShellMenu extends IShellMenu {
-
-    static sizeof => A_PtrSize
+export default struct ITrackShellMenu extends IShellMenu {
     /**
      * The interface identifier for ITrackShellMenu
      * @type {Guid}
      */
-    static IID => Guid("{8278f932-2a3e-11d2-838f-00c04fd918d0}")
+    static IID := Guid("{8278f932-2a3e-11d2-838f-00c04fd918d0}")
 
     /**
      * The class identifier for TrackShellMenu
      * @type {Guid}
      */
-    static CLSID => Guid("{8278f931-2a3e-11d2-838f-00c04fd918d0}")
+    static CLSID := Guid("{8278f931-2a3e-11d2-838f-00c04fd918d0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 12
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITrackShellMenu interfaces
+    */
+    struct Vtbl extends IShellMenu.Vtbl {
+        SetObscured : IntPtr
+        Popup       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetObscured", "Popup"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITrackShellMenu.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Coordinates obscured items on a toolbar with items in a menu.
@@ -60,9 +73,7 @@ class ITrackShellMenu extends IShellMenu {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itrackshellmenu-setobscured
      */
     SetObscured(hwndTB, punkBand, dwSMSetFlags) {
-        hwndTB := hwndTB is Win32Handle ? NumGet(hwndTB, "ptr") : hwndTB
-
-        result := ComCall(12, this, "ptr", hwndTB, "ptr", punkBand, "uint", dwSMSetFlags, "HRESULT")
+        result := ComCall(12, this, HWND, hwndTB, "ptr", punkBand, "uint", dwSMSetFlags, "HRESULT")
         return result
     }
 
@@ -86,9 +97,29 @@ class ITrackShellMenu extends IShellMenu {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itrackshellmenu-popup
      */
     Popup(_hwnd, ppt, prcExclude, dwFlags) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(13, this, "ptr", _hwnd, "ptr", ppt, "ptr", prcExclude, "int", dwFlags, "HRESULT")
+        result := ComCall(13, this, HWND, _hwnd, POINTL.Ptr, ppt, RECTL.Ptr, prcExclude, "int", dwFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITrackShellMenu.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetObscured := CallbackCreate(GetMethod(implObj, "SetObscured"), flags, 4)
+        this.vtbl.Popup := CallbackCreate(GetMethod(implObj, "Popup"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetObscured)
+        CallbackFree(this.vtbl.Popup)
     }
 }

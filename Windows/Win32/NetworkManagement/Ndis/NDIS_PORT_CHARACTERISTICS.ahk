@@ -1,116 +1,39 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_OBJECT_HEADER.ahk
-#Include .\NDIS_PORT_TYPE.ahk
-#Include .\NET_IF_MEDIA_CONNECT_STATE.ahk
-#Include .\NET_IF_DIRECTION_TYPE.ahk
-#Include .\NDIS_PORT_CONTROL_STATE.ahk
-#Include .\NDIS_PORT_AUTHORIZATION_STATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NET_IF_MEDIA_CONNECT_STATE.ahk" { NET_IF_MEDIA_CONNECT_STATE }
+#Import ".\NDIS_OBJECT_HEADER.ahk" { NDIS_OBJECT_HEADER }
+#Import ".\NDIS_PORT_TYPE.ahk" { NDIS_PORT_TYPE }
+#Import ".\NDIS_PORT_AUTHORIZATION_STATE.ahk" { NDIS_PORT_AUTHORIZATION_STATE }
+#Import ".\NDIS_PORT_CONTROL_STATE.ahk" { NDIS_PORT_CONTROL_STATE }
+#Import ".\NET_IF_DIRECTION_TYPE.ahk" { NET_IF_DIRECTION_TYPE }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NDIS_PORT_CHARACTERISTICS extends Win32Struct {
-    static sizeof => 64
+export default struct NDIS_PORT_CHARACTERISTICS {
+    #StructPack 8
 
-    static packingSize => 8
+    Header : NDIS_OBJECT_HEADER
 
-    /**
-     * @type {NDIS_OBJECT_HEADER}
-     */
-    Header {
-        get {
-            if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(0, this)
-            return this.__Header
-        }
-    }
+    PortNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PortNumber {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Type : NDIS_PORT_TYPE
 
-    /**
-     * @type {NDIS_PORT_TYPE}
-     */
-    Type {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    MediaConnectState : NET_IF_MEDIA_CONNECT_STATE
 
-    /**
-     * @type {NET_IF_MEDIA_CONNECT_STATE}
-     */
-    MediaConnectState {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    XmitLinkSpeed : Int64
 
-    /**
-     * @type {Integer}
-     */
-    XmitLinkSpeed {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    RcvLinkSpeed : Int64
 
-    /**
-     * @type {Integer}
-     */
-    RcvLinkSpeed {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Direction : NET_IF_DIRECTION_TYPE
 
-    /**
-     * @type {NET_IF_DIRECTION_TYPE}
-     */
-    Direction {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    SendControlState : NDIS_PORT_CONTROL_STATE
 
-    /**
-     * @type {NDIS_PORT_CONTROL_STATE}
-     */
-    SendControlState {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    RcvControlState : NDIS_PORT_CONTROL_STATE
 
-    /**
-     * @type {NDIS_PORT_CONTROL_STATE}
-     */
-    RcvControlState {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    SendAuthorizationState : NDIS_PORT_AUTHORIZATION_STATE
 
-    /**
-     * @type {NDIS_PORT_AUTHORIZATION_STATE}
-     */
-    SendAuthorizationState {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    RcvAuthorizationState : NDIS_PORT_AUTHORIZATION_STATE
 
-    /**
-     * @type {NDIS_PORT_AUTHORIZATION_STATE}
-     */
-    RcvAuthorizationState {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
 }

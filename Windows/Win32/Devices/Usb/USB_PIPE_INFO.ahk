@@ -1,31 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_ENDPOINT_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USB_ENDPOINT_DESCRIPTOR.ahk" { USB_ENDPOINT_DESCRIPTOR }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_PIPE_INFO extends Win32Struct {
-    static sizeof => 12
+export default struct USB_PIPE_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    EndpointDescriptor : USB_ENDPOINT_DESCRIPTOR
 
-    /**
-     * @type {USB_ENDPOINT_DESCRIPTOR}
-     */
-    EndpointDescriptor {
-        get {
-            if(!this.HasProp("__EndpointDescriptor"))
-                this.__EndpointDescriptor := USB_ENDPOINT_DESCRIPTOR(0, this)
-            return this.__EndpointDescriptor
-        }
-    }
+    ScheduleOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ScheduleOffset {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

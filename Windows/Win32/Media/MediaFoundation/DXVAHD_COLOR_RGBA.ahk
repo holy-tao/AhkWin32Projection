@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies an RGB color value. (DXVAHD_COLOR_RGBA)
@@ -14,44 +13,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_color_rgba
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVAHD_COLOR_RGBA extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct DXVAHD_COLOR_RGBA {
+    #StructPack 4
 
     /**
      * The red value.
-     * @type {Float}
      */
-    R {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    R : Float32
 
     /**
      * The green value.
-     * @type {Float}
      */
-    G {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    G : Float32
 
     /**
      * The blue value.
-     * @type {Float}
      */
-    B {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    B : Float32
 
     /**
      * The alpha value. Values range from 0 (transparent) to 1 (opaque).
-     * @type {Float}
      */
-    A {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    A : Float32
+
 }

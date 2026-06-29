@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMAPI_BURN_VERIFICATION_LEVEL.ahk" { IMAPI_BURN_VERIFICATION_LEVEL }
 
 /**
  * Use this interface with IDiscFormat2Data or IDiscFormat2TrackAtOnce to get or set the Burn Verification Level property which dictates how burned media is verified for integrity after the write operation.
@@ -13,26 +15,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-iburnverification
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IBurnVerification extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IBurnVerification extends IUnknown {
     /**
      * The interface identifier for IBurnVerification
      * @type {Guid}
      */
-    static IID => Guid("{d2ffd834-958b-426d-8470-2a13879c6a91}")
+    static IID := Guid("{d2ffd834-958b-426d-8470-2a13879c6a91}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBurnVerification interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        put_BurnVerificationLevel : IntPtr
+        get_BurnVerificationLevel : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_BurnVerificationLevel", "get_BurnVerificationLevel"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBurnVerification.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IMAPI_BURN_VERIFICATION_LEVEL} 
@@ -51,7 +61,7 @@ class IBurnVerification extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iburnverification-put_burnverificationlevel
      */
     put_BurnVerificationLevel(value) {
-        result := ComCall(3, this, "int", value, "HRESULT")
+        result := ComCall(3, this, IMAPI_BURN_VERIFICATION_LEVEL, value, "HRESULT")
         return result
     }
 
@@ -65,5 +75,27 @@ class IBurnVerification extends IUnknown {
     get_BurnVerificationLevel() {
         result := ComCall(4, this, "int*", &value := 0, "HRESULT")
         return value
+    }
+
+    Query(iid) {
+        if (IBurnVerification.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_BurnVerificationLevel := CallbackCreate(GetMethod(implObj, "put_BurnVerificationLevel"), flags, 2)
+        this.vtbl.get_BurnVerificationLevel := CallbackCreate(GetMethod(implObj, "get_BurnVerificationLevel"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_BurnVerificationLevel)
+        CallbackFree(this.vtbl.get_BurnVerificationLevel)
     }
 }

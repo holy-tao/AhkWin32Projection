@@ -1,31 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MINIDUMP_THREAD_NAME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MINIDUMP_THREAD_NAME.ahk" { MINIDUMP_THREAD_NAME }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class MINIDUMP_THREAD_NAME_LIST extends Win32Struct {
-    static sizeof => 24
+export default struct MINIDUMP_THREAD_NAME_LIST {
+    #StructPack 8
 
-    static packingSize => 8
+    NumberOfThreadNames : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfThreadNames {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ThreadNames : MINIDUMP_THREAD_NAME[1]
 
-    /**
-     * @type {MINIDUMP_THREAD_NAME}
-     */
-    ThreadNames {
-        get {
-            if(!this.HasProp("__ThreadNamesProxyArray"))
-                this.__ThreadNamesProxyArray := Win32FixedArray(this.ptr + 8, 1, MINIDUMP_THREAD_NAME, "")
-            return this.__ThreadNamesProxyArray
-        }
-    }
 }

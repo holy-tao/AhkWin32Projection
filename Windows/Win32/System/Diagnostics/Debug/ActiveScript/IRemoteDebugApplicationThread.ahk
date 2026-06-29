@@ -1,33 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IUnknown.ahk
-#Include .\IRemoteDebugApplication.ahk
-#Include .\IEnumDebugStackFrames.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumDebugStackFrames.ahk" { IEnumDebugStackFrames }
+#Import ".\IRemoteDebugApplication.ahk" { IRemoteDebugApplication }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IDebugStackFrame.ahk" { IDebugStackFrame }
+#Import ".\IDebugCodeContext.ahk" { IDebugCodeContext }
+#Import "..\..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
  */
-class IRemoteDebugApplicationThread extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRemoteDebugApplicationThread extends IUnknown {
     /**
      * The interface identifier for IRemoteDebugApplicationThread
      * @type {Guid}
      */
-    static IID => Guid("{51973c37-cb0c-11d0-b5c9-00a0244a0e7a}")
+    static IID := Guid("{51973c37-cb0c-11d0-b5c9-00a0244a0e7a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRemoteDebugApplicationThread interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetSystemThreadId : IntPtr
+        GetApplication    : IntPtr
+        EnumStackFrames   : IntPtr
+        GetDescription    : IntPtr
+        SetNextStatement  : IntPtr
+        GetState          : IntPtr
+        Suspend           : IntPtr
+        Resume            : IntPtr
+        GetSuspendCount   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSystemThreadId", "GetApplication", "EnumStackFrames", "GetDescription", "SetNextStatement", "GetState", "Suspend", "Resume", "GetSuspendCount"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRemoteDebugApplicationThread.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -39,9 +58,8 @@ class IRemoteDebugApplicationThread extends IUnknown {
     }
 
     /**
-     * Retrieves a pointer to the callback routine registered for the specified process. The address returned is in the virtual address space of the process.
+     * 
      * @returns {IRemoteDebugApplication} 
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getapplicationrecoverycallback
      */
     GetApplication() {
         result := ComCall(4, this, "ptr*", &pprda := 0, "HRESULT")
@@ -65,7 +83,7 @@ class IRemoteDebugApplicationThread extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getdescription
      */
     GetDescription(pbstrDescription, pbstrState) {
-        result := ComCall(6, this, "ptr", pbstrDescription, "ptr", pbstrState, "HRESULT")
+        result := ComCall(6, this, BSTR.Ptr, pbstrDescription, BSTR.Ptr, pbstrState, "HRESULT")
         return result
     }
 
@@ -81,11 +99,8 @@ class IRemoteDebugApplicationThread extends IUnknown {
     }
 
     /**
-     * Gets current Interaction Context state and the time when the context will return to idle state.
-     * @remarks
-     * After interaction ends, the interaction context might still be busy reporting inertia, or expecting second tap in a double tap gesture (in general, if multi-stroke gesture is possible). This function allows the caller to find out when it is safe to treat the Interaction Context object as idle. The main purpose of this function is management of pools of interaction contexts.
+     * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-getstateinteractioncontext
      */
     GetState() {
         result := ComCall(8, this, "uint*", &pState := 0, "HRESULT")
@@ -93,24 +108,8 @@ class IRemoteDebugApplicationThread extends IUnknown {
     }
 
     /**
-     * Suspends the specified thread.
-     * @remarks
-     * If the function succeeds, execution of the specified thread is suspended and the thread's suspend count is incremented. Suspending a thread causes the thread to stop executing user-mode (application) code.
      * 
-     * This function is primarily designed for use by debuggers. It is not intended to be used for thread synchronization. Calling 
-     * <b>SuspendThread</b> on a thread that owns a synchronization object, such as a mutex or critical section, can lead to a deadlock if the calling thread tries to obtain a synchronization object owned by a suspended thread. To avoid this situation, a thread within an application that is not a debugger should signal the other thread to suspend itself. The target thread must be designed to watch for this signal and respond appropriately.
-     * 
-     * Each thread has a suspend count (with a maximum value of <b>MAXIMUM_SUSPEND_COUNT</b>). If the suspend count is greater than zero, the thread is suspended; otherwise, the thread is not suspended and is eligible for execution. Calling 
-     * <b>SuspendThread</b> causes the target thread's suspend count to be incremented. Attempting to increment past the maximum suspend count causes an error without incrementing the count.
-     * 
-     * The 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-resumethread">ResumeThread</a> function decrements the suspend count of a suspended thread.
-     * 
-     * <b>Windows Phone 8.1:</b> This function is supported for Windows Phone Store apps on Windows Phone 8.1 and later.
-     * 
-     * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-suspendthread
      */
     Suspend() {
         result := ComCall(9, this, "uint*", &pdwCount := 0, "HRESULT")
@@ -137,5 +136,41 @@ class IRemoteDebugApplicationThread extends IUnknown {
     GetSuspendCount() {
         result := ComCall(11, this, "uint*", &pdwCount := 0, "HRESULT")
         return pdwCount
+    }
+
+    Query(iid) {
+        if (IRemoteDebugApplicationThread.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSystemThreadId := CallbackCreate(GetMethod(implObj, "GetSystemThreadId"), flags, 2)
+        this.vtbl.GetApplication := CallbackCreate(GetMethod(implObj, "GetApplication"), flags, 2)
+        this.vtbl.EnumStackFrames := CallbackCreate(GetMethod(implObj, "EnumStackFrames"), flags, 2)
+        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 3)
+        this.vtbl.SetNextStatement := CallbackCreate(GetMethod(implObj, "SetNextStatement"), flags, 3)
+        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 2)
+        this.vtbl.Suspend := CallbackCreate(GetMethod(implObj, "Suspend"), flags, 2)
+        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 2)
+        this.vtbl.GetSuspendCount := CallbackCreate(GetMethod(implObj, "GetSuspendCount"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSystemThreadId)
+        CallbackFree(this.vtbl.GetApplication)
+        CallbackFree(this.vtbl.EnumStackFrames)
+        CallbackFree(this.vtbl.GetDescription)
+        CallbackFree(this.vtbl.SetNextStatement)
+        CallbackFree(this.vtbl.GetState)
+        CallbackFree(this.vtbl.Suspend)
+        CallbackFree(this.vtbl.Resume)
+        CallbackFree(this.vtbl.GetSuspendCount)
     }
 }

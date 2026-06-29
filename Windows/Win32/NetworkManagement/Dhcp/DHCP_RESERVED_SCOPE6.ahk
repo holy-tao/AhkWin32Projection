@@ -1,34 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DHCP_IPV6_ADDRESS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DHCP_IPV6_ADDRESS.ahk" { DHCP_IPV6_ADDRESS }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  */
-class DHCP_RESERVED_SCOPE6 extends Win32Struct {
-    static sizeof => 32
+export default struct DHCP_RESERVED_SCOPE6 {
+    #StructPack 8
 
-    static packingSize => 8
+    ReservedIpAddress : DHCP_IPV6_ADDRESS
 
-    /**
-     * @type {DHCP_IPV6_ADDRESS}
-     */
-    ReservedIpAddress {
-        get {
-            if(!this.HasProp("__ReservedIpAddress"))
-                this.__ReservedIpAddress := DHCP_IPV6_ADDRESS(0, this)
-            return this.__ReservedIpAddress
-        }
-    }
+    ReservedIpSubnetAddress : DHCP_IPV6_ADDRESS
 
-    /**
-     * @type {DHCP_IPV6_ADDRESS}
-     */
-    ReservedIpSubnetAddress {
-        get {
-            if(!this.HasProp("__ReservedIpSubnetAddress"))
-                this.__ReservedIpSubnetAddress := DHCP_IPV6_ADDRESS(16, this)
-            return this.__ReservedIpSubnetAddress
-        }
-    }
 }

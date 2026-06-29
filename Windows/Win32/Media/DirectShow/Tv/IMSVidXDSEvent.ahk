@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidFeatureEvent.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\EnTvRat_GenericLevel.ahk" { EnTvRat_GenericLevel }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\BfEnTvRat_GenericAttributes.ahk" { BfEnTvRat_GenericAttributes }
+#Import ".\EnTvRat_System.ahk" { EnTvRat_System }
+#Import ".\IMSVidFeatureEvent.ahk" { IMSVidFeatureEvent }
 
 /**
  * Note  This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 or later. The IMSVidXDSEvent interface is used to receive events from the MSVidXDS object.This interface is an outgoing connection-point interface.
@@ -10,26 +14,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidxdsevent
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSVidXDSEvent extends IMSVidFeatureEvent {
-
-    static sizeof => A_PtrSize
+export default struct IMSVidXDSEvent extends IMSVidFeatureEvent {
     /**
      * The interface identifier for IMSVidXDSEvent
      * @type {Guid}
      */
-    static IID => Guid("{6db2317d-3b23-41ec-ba4b-701f407eaf3a}")
+    static IID := Guid("{6db2317d-3b23-41ec-ba4b-701f407eaf3a}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSVidXDSEvent interfaces
+    */
+    struct Vtbl extends IMSVidFeatureEvent.Vtbl {
+        RatingChange : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RatingChange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSVidXDSEvent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The RatingChange method is called when the current rating changes.
@@ -43,7 +54,27 @@ class IMSVidXDSEvent extends IMSVidFeatureEvent {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidxdsevent-ratingchange
      */
     RatingChange(PrevRatingSystem, PrevLevel, PrevAttributes, NewRatingSystem, NewLevel, NewAttributes) {
-        result := ComCall(8, this, "int", PrevRatingSystem, "int", PrevLevel, "int", PrevAttributes, "int", NewRatingSystem, "int", NewLevel, "int", NewAttributes, "HRESULT")
+        result := ComCall(8, this, EnTvRat_System, PrevRatingSystem, EnTvRat_GenericLevel, PrevLevel, BfEnTvRat_GenericAttributes, PrevAttributes, EnTvRat_System, NewRatingSystem, EnTvRat_GenericLevel, NewLevel, BfEnTvRat_GenericAttributes, NewAttributes, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMSVidXDSEvent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RatingChange := CallbackCreate(GetMethod(implObj, "RatingChange"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RatingChange)
     }
 }

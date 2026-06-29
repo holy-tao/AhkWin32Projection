@@ -1,47 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISideShowNotification.ahk" { ISideShowNotification }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.SideShow
  */
-class ISideShowNotificationManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISideShowNotificationManager extends IUnknown {
     /**
      * The interface identifier for ISideShowNotificationManager
      * @type {Guid}
      */
-    static IID => Guid("{63cea909-f2b9-4302-b5e1-c68e6d9ab833}")
+    static IID := Guid("{63cea909-f2b9-4302-b5e1-c68e6d9ab833}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISideShowNotificationManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Show      : IntPtr
+        Revoke    : IntPtr
+        RevokeAll : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISideShowNotificationManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Show", "Revoke", "RevokeAll"]
-
-    /**
-     * Makes the caret visible on the screen at the caret's current position. When the caret becomes visible, it begins flashing automatically.
-     * @remarks
-     * <b>ShowCaret</b> shows the caret only if the specified window owns the caret, the caret has a shape, and the caret has not been hidden two or more times in a row. If one or more of these conditions is not met, <b>ShowCaret</b> does nothing and returns <b>FALSE</b>. 
      * 
-     * Hiding is cumulative. If your application calls <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-hidecaret">HideCaret</a> five times in a row, it must also call <b>ShowCaret</b> five times before the caret reappears. 
-     * 
-     * The system provides one caret per queue. A window should create a caret only when it has the keyboard focus or is active. The window should destroy the caret before losing the keyboard focus or becoming inactive.
      * @param {ISideShowNotification} in_pINotification 
-     * @returns {HRESULT} Type: <b>BOOL</b>
-     * 
-     * If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-showcaret
+     * @returns {HRESULT} 
      */
     Show(in_pINotification) {
         result := ComCall(3, this, "ptr", in_pINotification, "HRESULT")
@@ -49,10 +49,9 @@ class ISideShowNotificationManager extends IUnknown {
     }
 
     /**
-     * Ends an object's status as active.
+     * 
      * @param {Integer} in_notificationId 
-     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-revokeactiveobject
+     * @returns {HRESULT} 
      */
     Revoke(in_notificationId) {
         result := ComCall(4, this, "uint", in_notificationId, "HRESULT")
@@ -66,5 +65,29 @@ class ISideShowNotificationManager extends IUnknown {
     RevokeAll() {
         result := ComCall(5, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISideShowNotificationManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Show := CallbackCreate(GetMethod(implObj, "Show"), flags, 2)
+        this.vtbl.Revoke := CallbackCreate(GetMethod(implObj, "Revoke"), flags, 2)
+        this.vtbl.RevokeAll := CallbackCreate(GetMethod(implObj, "RevokeAll"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Show)
+        CallbackFree(this.vtbl.Revoke)
+        CallbackFree(this.vtbl.RevokeAll)
     }
 }

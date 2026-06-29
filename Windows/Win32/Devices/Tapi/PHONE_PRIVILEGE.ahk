@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The PHONE_PRIVILEGE enum indicates the application's privilege status with respect to the current phone device.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-phone_privilege
  * @namespace Windows.Win32.Devices.Tapi
  */
-class PHONE_PRIVILEGE extends Win32Enum {
+export default struct PHONE_PRIVILEGE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The application has owner privileges for the current phone session.

@@ -1,59 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class KDEXT_FILELOCK_OWNER extends Win32Struct {
-    static sizeof => 72
+export default struct KDEXT_FILELOCK_OWNER {
+    #StructPack 8
 
-    static packingSize => 8
+    Sizeofstruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Sizeofstruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    FileObject : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FileObject {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    OwnerThread : Int64
 
-    /**
-     * @type {Integer}
-     */
-    OwnerThread {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    WaitIrp : Int64
 
-    /**
-     * @type {Integer}
-     */
-    WaitIrp {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    DeviceObject : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DeviceObject {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    BlockingDirver : CHAR[32]
 
-    /**
-     * @type {String}
-     */
-    BlockingDirver {
-        get => StrGet(this.ptr + 40, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 40, 31, "UTF-8")
-    }
 }

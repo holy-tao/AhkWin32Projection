@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IContextMenuCallback.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\IContextMenuCallback.ahk" { IContextMenuCallback }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IContextMenuProvider interface implements methods that create new context menus, for the purpose of adding items to those menus, to enable extensions to extend those menus, and to display the resulting context menus.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-icontextmenuprovider
  * @namespace Windows.Win32.System.Mmc
  */
-class IContextMenuProvider extends IContextMenuCallback {
-
-    static sizeof => A_PtrSize
+export default struct IContextMenuProvider extends IContextMenuCallback {
     /**
      * The interface identifier for IContextMenuProvider
      * @type {Guid}
      */
-    static IID => Guid("{43136eb6-d36c-11cf-adbc-00aa00a80033}")
+    static IID := Guid("{43136eb6-d36c-11cf-adbc-00aa00a80033}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IContextMenuProvider interfaces
+    */
+    struct Vtbl extends IContextMenuCallback.Vtbl {
+        EmptyMenuList               : IntPtr
+        AddPrimaryExtensionItems    : IntPtr
+        AddThirdPartyExtensionItems : IntPtr
+        ShowContextMenu             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EmptyMenuList", "AddPrimaryExtensionItems", "AddThirdPartyExtensionItems", "ShowContextMenu"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IContextMenuProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IContextMenuProvider::EmptyMenuList method clears a context menu.
@@ -85,9 +99,33 @@ class IContextMenuProvider extends IContextMenuCallback {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icontextmenuprovider-showcontextmenu
      */
     ShowContextMenu(hwndParent, xPos, yPos) {
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-
-        result := ComCall(7, this, "ptr", hwndParent, "int", xPos, "int", yPos, "int*", &plSelected := 0, "HRESULT")
+        result := ComCall(7, this, HWND, hwndParent, "int", xPos, "int", yPos, "int*", &plSelected := 0, "HRESULT")
         return plSelected
+    }
+
+    Query(iid) {
+        if (IContextMenuProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EmptyMenuList := CallbackCreate(GetMethod(implObj, "EmptyMenuList"), flags, 1)
+        this.vtbl.AddPrimaryExtensionItems := CallbackCreate(GetMethod(implObj, "AddPrimaryExtensionItems"), flags, 3)
+        this.vtbl.AddThirdPartyExtensionItems := CallbackCreate(GetMethod(implObj, "AddThirdPartyExtensionItems"), flags, 2)
+        this.vtbl.ShowContextMenu := CallbackCreate(GetMethod(implObj, "ShowContextMenu"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EmptyMenuList)
+        CallbackFree(this.vtbl.AddPrimaryExtensionItems)
+        CallbackFree(this.vtbl.AddThirdPartyExtensionItems)
+        CallbackFree(this.vtbl.ShowContextMenu)
     }
 }

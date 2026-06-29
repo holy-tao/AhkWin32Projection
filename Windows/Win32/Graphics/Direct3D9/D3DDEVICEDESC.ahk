@@ -1,298 +1,81 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DTRANSFORMCAPS.ahk
-#Include .\D3DLIGHTINGCAPS.ahk
-#Include .\D3DPRIMCAPS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DTRANSFORMCAPS.ahk" { D3DTRANSFORMCAPS }
+#Import ".\D3DPRIMCAPS.ahk" { D3DPRIMCAPS }
+#Import ".\D3DLIGHTINGCAPS.ahk" { D3DLIGHTINGCAPS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DDEVICEDESC extends Win32Struct {
-    static sizeof => 252
+export default struct D3DDEVICEDESC {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dcmColorModel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dcmColorModel {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwDevCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDevCaps {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dtcTransformCaps : D3DTRANSFORMCAPS
 
-    /**
-     * @type {D3DTRANSFORMCAPS}
-     */
-    dtcTransformCaps {
-        get {
-            if(!this.HasProp("__dtcTransformCaps"))
-                this.__dtcTransformCaps := D3DTRANSFORMCAPS(16, this)
-            return this.__dtcTransformCaps
-        }
-    }
+    bClipping : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    bClipping {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    dlcLightingCaps : D3DLIGHTINGCAPS
 
-    /**
-     * @type {D3DLIGHTINGCAPS}
-     */
-    dlcLightingCaps {
-        get {
-            if(!this.HasProp("__dlcLightingCaps"))
-                this.__dlcLightingCaps := D3DLIGHTINGCAPS(28, this)
-            return this.__dlcLightingCaps
-        }
-    }
+    dpcLineCaps : D3DPRIMCAPS
 
-    /**
-     * @type {D3DPRIMCAPS}
-     */
-    dpcLineCaps {
-        get {
-            if(!this.HasProp("__dpcLineCaps"))
-                this.__dpcLineCaps := D3DPRIMCAPS(44, this)
-            return this.__dpcLineCaps
-        }
-    }
+    dpcTriCaps : D3DPRIMCAPS
 
-    /**
-     * @type {D3DPRIMCAPS}
-     */
-    dpcTriCaps {
-        get {
-            if(!this.HasProp("__dpcTriCaps"))
-                this.__dpcTriCaps := D3DPRIMCAPS(100, this)
-            return this.__dpcTriCaps
-        }
-    }
+    dwDeviceRenderBitDepth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDeviceRenderBitDepth {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
-    }
+    dwDeviceZBufferBitDepth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDeviceZBufferBitDepth {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
-    }
+    dwMaxBufferSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxBufferSize {
-        get => NumGet(this, 164, "uint")
-        set => NumPut("uint", value, this, 164)
-    }
+    dwMaxVertexCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxVertexCount {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
-    }
+    dwMinTextureWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMinTextureWidth {
-        get => NumGet(this, 172, "uint")
-        set => NumPut("uint", value, this, 172)
-    }
+    dwMinTextureHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMinTextureHeight {
-        get => NumGet(this, 176, "uint")
-        set => NumPut("uint", value, this, 176)
-    }
+    dwMaxTextureWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxTextureWidth {
-        get => NumGet(this, 180, "uint")
-        set => NumPut("uint", value, this, 180)
-    }
+    dwMaxTextureHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxTextureHeight {
-        get => NumGet(this, 184, "uint")
-        set => NumPut("uint", value, this, 184)
-    }
+    dwMinStippleWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMinStippleWidth {
-        get => NumGet(this, 188, "uint")
-        set => NumPut("uint", value, this, 188)
-    }
+    dwMaxStippleWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxStippleWidth {
-        get => NumGet(this, 192, "uint")
-        set => NumPut("uint", value, this, 192)
-    }
+    dwMinStippleHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMinStippleHeight {
-        get => NumGet(this, 196, "uint")
-        set => NumPut("uint", value, this, 196)
-    }
+    dwMaxStippleHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxStippleHeight {
-        get => NumGet(this, 200, "uint")
-        set => NumPut("uint", value, this, 200)
-    }
+    dwMaxTextureRepeat : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxTextureRepeat {
-        get => NumGet(this, 204, "uint")
-        set => NumPut("uint", value, this, 204)
-    }
+    dwMaxTextureAspectRatio : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxTextureAspectRatio {
-        get => NumGet(this, 208, "uint")
-        set => NumPut("uint", value, this, 208)
-    }
+    dwMaxAnisotropy : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxAnisotropy {
-        get => NumGet(this, 212, "uint")
-        set => NumPut("uint", value, this, 212)
-    }
+    dvGuardBandLeft : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvGuardBandLeft {
-        get => NumGet(this, 216, "float")
-        set => NumPut("float", value, this, 216)
-    }
+    dvGuardBandTop : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvGuardBandTop {
-        get => NumGet(this, 220, "float")
-        set => NumPut("float", value, this, 220)
-    }
+    dvGuardBandRight : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvGuardBandRight {
-        get => NumGet(this, 224, "float")
-        set => NumPut("float", value, this, 224)
-    }
+    dvGuardBandBottom : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvGuardBandBottom {
-        get => NumGet(this, 228, "float")
-        set => NumPut("float", value, this, 228)
-    }
+    dvExtentsAdjust : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvExtentsAdjust {
-        get => NumGet(this, 232, "float")
-        set => NumPut("float", value, this, 232)
-    }
+    dwStencilCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwStencilCaps {
-        get => NumGet(this, 236, "uint")
-        set => NumPut("uint", value, this, 236)
-    }
+    dwFVFCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFVFCaps {
-        get => NumGet(this, 240, "uint")
-        set => NumPut("uint", value, this, 240)
-    }
+    dwTextureOpCaps : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwTextureOpCaps {
-        get => NumGet(this, 244, "uint")
-        set => NumPut("uint", value, this, 244)
-    }
+    wMaxTextureBlendStages : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMaxTextureBlendStages {
-        get => NumGet(this, 248, "ushort")
-        set => NumPut("ushort", value, this, 248)
-    }
+    wMaxSimultaneousTextures : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wMaxSimultaneousTextures {
-        get => NumGet(this, 250, "ushort")
-        set => NumPut("ushort", value, this, 250)
-    }
 }

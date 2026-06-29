@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDot11AdHocNetwork.ahk" { IDot11AdHocNetwork }
+#Import ".\IDot11AdHocInterface.ahk" { IDot11AdHocInterface }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines the notifications supported by the IDot11AdHocManager interface.
  * @see https://learn.microsoft.com/windows/win32/api/adhoc/nn-adhoc-idot11adhocmanagernotificationsink
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class IDot11AdHocManagerNotificationSink extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDot11AdHocManagerNotificationSink extends IUnknown {
     /**
      * The interface identifier for IDot11AdHocManagerNotificationSink
      * @type {Guid}
      */
-    static IID => Guid("{8f10cc27-cf0d-42a0-acbe-e2de7007384d}")
+    static IID := Guid("{8f10cc27-cf0d-42a0-acbe-e2de7007384d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDot11AdHocManagerNotificationSink interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnNetworkAdd      : IntPtr
+        OnNetworkRemove   : IntPtr
+        OnInterfaceAdd    : IntPtr
+        OnInterfaceRemove : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnNetworkAdd", "OnNetworkRemove", "OnInterfaceAdd", "OnInterfaceRemove"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDot11AdHocManagerNotificationSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Notifies the client that a new wireless ad hoc network destination is in range and available for connection.
@@ -105,7 +118,7 @@ class IDot11AdHocManagerNotificationSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocmanagernotificationsink-onnetworkremove
      */
     OnNetworkRemove(Signature) {
-        result := ComCall(4, this, "ptr", Signature, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, Signature, "HRESULT")
         return result
     }
 
@@ -185,7 +198,33 @@ class IDot11AdHocManagerNotificationSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocmanagernotificationsink-oninterfaceremove
      */
     OnInterfaceRemove(Signature) {
-        result := ComCall(6, this, "ptr", Signature, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, Signature, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDot11AdHocManagerNotificationSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnNetworkAdd := CallbackCreate(GetMethod(implObj, "OnNetworkAdd"), flags, 2)
+        this.vtbl.OnNetworkRemove := CallbackCreate(GetMethod(implObj, "OnNetworkRemove"), flags, 2)
+        this.vtbl.OnInterfaceAdd := CallbackCreate(GetMethod(implObj, "OnInterfaceAdd"), flags, 2)
+        this.vtbl.OnInterfaceRemove := CallbackCreate(GetMethod(implObj, "OnInterfaceRemove"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnNetworkAdd)
+        CallbackFree(this.vtbl.OnNetworkRemove)
+        CallbackFree(this.vtbl.OnInterfaceAdd)
+        CallbackFree(this.vtbl.OnInterfaceRemove)
     }
 }

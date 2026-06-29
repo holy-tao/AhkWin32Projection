@@ -1,36 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOMAIN_CONFIGURATION_ARCH.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOMAIN_CONFIGURATION_ARCH.ahk" { DOMAIN_CONFIGURATION_ARCH }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class DOMAIN_CONFIGURATION extends Win32Struct {
-    static sizeof => 16
+export default struct DOMAIN_CONFIGURATION {
+    #StructPack 8
 
-    static packingSize => 8
+    Type : DOMAIN_CONFIGURATION_ARCH
 
-    /**
-     * @type {DOMAIN_CONFIGURATION_ARCH}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Arm64 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Arm64 {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    X64 {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'X64', { type: IntPtr, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

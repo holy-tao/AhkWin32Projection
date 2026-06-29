@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WLAN_HOSTED_NETWORK_PEER_STATE.ahk
-#Include .\WLAN_HOSTED_NETWORK_PEER_AUTH_STATE.ahk
-#Include .\WLAN_HOSTED_NETWORK_REASON.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WLAN_HOSTED_NETWORK_PEER_AUTH_STATE.ahk" { WLAN_HOSTED_NETWORK_PEER_AUTH_STATE }
+#Import ".\WLAN_HOSTED_NETWORK_REASON.ahk" { WLAN_HOSTED_NETWORK_REASON }
+#Import ".\WLAN_HOSTED_NETWORK_PEER_STATE.ahk" { WLAN_HOSTED_NETWORK_PEER_STATE }
 
 /**
  * Contains information about a network state change for a data peer on the wireless Hosted Network.
@@ -11,41 +10,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_hosted_network_data_peer_state_change
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE extends Win32Struct {
-    static sizeof => 28
-
-    static packingSize => 4
+export default struct WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE {
+    #StructPack 4
 
     /**
      * The previous network state for a data peer on the wireless Hosted Network.
-     * @type {WLAN_HOSTED_NETWORK_PEER_STATE}
      */
-    OldState {
-        get {
-            if(!this.HasProp("__OldState"))
-                this.__OldState := WLAN_HOSTED_NETWORK_PEER_STATE(0, this)
-            return this.__OldState
-        }
-    }
+    OldState : WLAN_HOSTED_NETWORK_PEER_STATE
 
     /**
      * The current network state for a data peer on the wireless Hosted Network.
-     * @type {WLAN_HOSTED_NETWORK_PEER_STATE}
      */
-    NewState {
-        get {
-            if(!this.HasProp("__NewState"))
-                this.__NewState := WLAN_HOSTED_NETWORK_PEER_STATE(12, this)
-            return this.__NewState
-        }
-    }
+    NewState : WLAN_HOSTED_NETWORK_PEER_STATE
 
     /**
      * The reason for the network state change for the data peer.
-     * @type {WLAN_HOSTED_NETWORK_REASON}
      */
-    PeerStateChangeReason {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    PeerStateChangeReason : WLAN_HOSTED_NETWORK_REASON
+
 }

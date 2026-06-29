@@ -1,91 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVMEOF_AUTH_DHCHAP_CHALLENGE extends Win32Struct {
-    static sizeof => 16
+export default struct NVMEOF_AUTH_DHCHAP_CHALLENGE {
+    #StructPack 4
 
-    static packingSize => 4
+    AUTH_TYPE : Int8
 
-    /**
-     * @type {Integer}
-     */
-    AUTH_TYPE {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    AUTH_ID : Int8
 
-    /**
-     * @type {Integer}
-     */
-    AUTH_ID {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Reserved0 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved0 {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    T_ID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    T_ID {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    HL : Int8
 
-    /**
-     * @type {Integer}
-     */
-    HL {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    Reserved1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved1 {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    HashID : Int8
 
-    /**
-     * @type {Integer}
-     */
-    HashID {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    DHgID : Int8
 
-    /**
-     * @type {Integer}
-     */
-    DHgID {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    DHVLEN : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DHVLEN {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    SEQNUM : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SEQNUM {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

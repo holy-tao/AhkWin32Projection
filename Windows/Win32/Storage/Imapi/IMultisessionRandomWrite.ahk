@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMultisession.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMultisession.ahk" { IMultisession }
 
 /**
  * Use this interface to retrieve information about the current state of media allowing random writes and not supporting the concept of physical sessions.
@@ -13,26 +14,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-imultisessionrandomwrite
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IMultisessionRandomWrite extends IMultisession {
-
-    static sizeof => A_PtrSize
+export default struct IMultisessionRandomWrite extends IMultisession {
     /**
      * The interface identifier for IMultisessionRandomWrite
      * @type {Guid}
      */
-    static IID => Guid("{b507ca23-2204-11dd-966a-001aa01bbc58}")
+    static IID := Guid("{b507ca23-2204-11dd-966a-001aa01bbc58}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 11
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMultisessionRandomWrite interfaces
+    */
+    struct Vtbl extends IMultisession.Vtbl {
+        get_WriteUnitSize       : IntPtr
+        get_LastWrittenAddress  : IntPtr
+        get_TotalSectorsOnMedia : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_WriteUnitSize", "get_LastWrittenAddress", "get_TotalSectorsOnMedia"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMultisessionRandomWrite.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -87,5 +97,29 @@ class IMultisessionRandomWrite extends IMultisession {
     get_TotalSectorsOnMedia() {
         result := ComCall(13, this, "int*", &value := 0, "HRESULT")
         return value
+    }
+
+    Query(iid) {
+        if (IMultisessionRandomWrite.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_WriteUnitSize := CallbackCreate(GetMethod(implObj, "get_WriteUnitSize"), flags, 2)
+        this.vtbl.get_LastWrittenAddress := CallbackCreate(GetMethod(implObj, "get_LastWrittenAddress"), flags, 2)
+        this.vtbl.get_TotalSectorsOnMedia := CallbackCreate(GetMethod(implObj, "get_TotalSectorsOnMedia"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_WriteUnitSize)
+        CallbackFree(this.vtbl.get_LastWrittenAddress)
+        CallbackFree(this.vtbl.get_TotalSectorsOnMedia)
     }
 }

@@ -1,35 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IPrintSchemaElement.ahk
-#Include .\IPrintSchemaFeature.ahk
-#Include .\IPrintSchemaPageImageableSize.ahk
-#Include .\IPrintSchemaOption.ahk
-#Include .\IPrintSchemaOptionCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IPrintSchemaPageImageableSize.ahk" { IPrintSchemaPageImageableSize }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IPrintSchemaElement.ahk" { IPrintSchemaElement }
+#Import ".\IPrintSchemaOption.ahk" { IPrintSchemaOption }
+#Import ".\IPrintSchemaFeature.ahk" { IPrintSchemaFeature }
+#Import ".\IPrintSchemaOptionCollection.ahk" { IPrintSchemaOptionCollection }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class IPrintSchemaCapabilities extends IPrintSchemaElement {
-
-    static sizeof => A_PtrSize
+export default struct IPrintSchemaCapabilities extends IPrintSchemaElement {
     /**
      * The interface identifier for IPrintSchemaCapabilities
      * @type {Guid}
      */
-    static IID => Guid("{5a577640-501d-4927-bcd0-5ef57a7ed175}")
+    static IID := Guid("{5a577640-501d-4927-bcd0-5ef57a7ed175}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 10
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPrintSchemaCapabilities interfaces
+    */
+    struct Vtbl extends IPrintSchemaElement.Vtbl {
+        GetFeatureByKeyName               : IntPtr
+        GetFeature                        : IntPtr
+        get_PageImageableSize             : IntPtr
+        get_JobCopiesAllDocumentsMinValue : IntPtr
+        get_JobCopiesAllDocumentsMaxValue : IntPtr
+        GetSelectedOptionInPrintTicket    : IntPtr
+        GetOptions                        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFeatureByKeyName", "GetFeature", "get_PageImageableSize", "get_JobCopiesAllDocumentsMinValue", "get_JobCopiesAllDocumentsMaxValue", "GetSelectedOptionInPrintTicket", "GetOptions"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPrintSchemaCapabilities.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IPrintSchemaPageImageableSize} 
@@ -60,22 +75,21 @@ class IPrintSchemaCapabilities extends IPrintSchemaElement {
     GetFeatureByKeyName(bstrKeyName) {
         bstrKeyName := bstrKeyName is String ? BSTR.Alloc(bstrKeyName).Value : bstrKeyName
 
-        result := ComCall(10, this, "ptr", bstrKeyName, "ptr*", &ppFeature := 0, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrKeyName, "ptr*", &ppFeature := 0, "HRESULT")
         return IPrintSchemaFeature(ppFeature)
     }
 
     /**
-     * This function is intended for infrastructure use only. (GetFeatureEnabledState)
+     * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrNamespaceUri 
      * @returns {IPrintSchemaFeature} 
-     * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-getfeatureenabledstate
      */
     GetFeature(bstrName, bstrNamespaceUri) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
         bstrNamespaceUri := bstrNamespaceUri is String ? BSTR.Alloc(bstrNamespaceUri).Value : bstrNamespaceUri
 
-        result := ComCall(11, this, "ptr", bstrName, "ptr", bstrNamespaceUri, "ptr*", &ppFeature := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, bstrName, BSTR, bstrNamespaceUri, "ptr*", &ppFeature := 0, "HRESULT")
         return IPrintSchemaFeature(ppFeature)
     }
 
@@ -124,5 +138,37 @@ class IPrintSchemaCapabilities extends IPrintSchemaElement {
     GetOptions(pFeature) {
         result := ComCall(16, this, "ptr", pFeature, "ptr*", &ppOptionCollection := 0, "HRESULT")
         return IPrintSchemaOptionCollection(ppOptionCollection)
+    }
+
+    Query(iid) {
+        if (IPrintSchemaCapabilities.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFeatureByKeyName := CallbackCreate(GetMethod(implObj, "GetFeatureByKeyName"), flags, 3)
+        this.vtbl.GetFeature := CallbackCreate(GetMethod(implObj, "GetFeature"), flags, 4)
+        this.vtbl.get_PageImageableSize := CallbackCreate(GetMethod(implObj, "get_PageImageableSize"), flags, 2)
+        this.vtbl.get_JobCopiesAllDocumentsMinValue := CallbackCreate(GetMethod(implObj, "get_JobCopiesAllDocumentsMinValue"), flags, 2)
+        this.vtbl.get_JobCopiesAllDocumentsMaxValue := CallbackCreate(GetMethod(implObj, "get_JobCopiesAllDocumentsMaxValue"), flags, 2)
+        this.vtbl.GetSelectedOptionInPrintTicket := CallbackCreate(GetMethod(implObj, "GetSelectedOptionInPrintTicket"), flags, 3)
+        this.vtbl.GetOptions := CallbackCreate(GetMethod(implObj, "GetOptions"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFeatureByKeyName)
+        CallbackFree(this.vtbl.GetFeature)
+        CallbackFree(this.vtbl.get_PageImageableSize)
+        CallbackFree(this.vtbl.get_JobCopiesAllDocumentsMinValue)
+        CallbackFree(this.vtbl.get_JobCopiesAllDocumentsMaxValue)
+        CallbackFree(this.vtbl.GetSelectedOptionInPrintTicket)
+        CallbackFree(this.vtbl.GetOptions)
     }
 }

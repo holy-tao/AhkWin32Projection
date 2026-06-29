@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the phase of a copy at the time of an error.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ne-winbase-copyfile2_copy_phase
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class COPYFILE2_COPY_PHASE extends Win32Enum {
+export default struct COPYFILE2_COPY_PHASE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The copy had not yet started processing.

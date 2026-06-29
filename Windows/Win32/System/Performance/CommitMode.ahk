@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the action to take when committing changes to the data collector set.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/pla/ne-pla-commitmode
  * @namespace Windows.Win32.System.Performance
  */
-class CommitMode extends Win32Enum {
+export default struct CommitMode {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Save the set. The set must not already exist. 

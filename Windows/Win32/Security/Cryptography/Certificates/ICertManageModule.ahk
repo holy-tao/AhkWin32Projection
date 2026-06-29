@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Provided to retrieve information about a Certificate Services Policy or Exit module.
@@ -63,26 +65,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/certmod/nn-certmod-icertmanagemodule
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class ICertManageModule extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ICertManageModule extends IDispatch {
     /**
      * The interface identifier for ICertManageModule
      * @type {Guid}
      */
-    static IID => Guid("{e7d7ad42-bd3d-11d1-9a4d-00c04fc297eb}")
+    static IID := Guid("{e7d7ad42-bd3d-11d1-9a4d-00c04fc297eb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICertManageModule interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        GetProperty : IntPtr
+        SetProperty : IntPtr
+        Configure   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetProperty", "SetProperty", "Configure"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICertManageModule.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a module's property value.
@@ -178,7 +189,7 @@ class ICertManageModule extends IDispatch {
         strPropertyName := strPropertyName is String ? BSTR.Alloc(strPropertyName).Value : strPropertyName
 
         pvarProperty := VARIANT()
-        result := ComCall(7, this, "ptr", strConfig, "ptr", strStorageLocation, "ptr", strPropertyName, "int", Flags, "ptr", pvarProperty, "HRESULT")
+        result := ComCall(7, this, BSTR, strConfig, BSTR, strStorageLocation, BSTR, strPropertyName, "int", Flags, VARIANT.Ptr, pvarProperty, "HRESULT")
         return pvarProperty
     }
 
@@ -261,7 +272,7 @@ class ICertManageModule extends IDispatch {
         strStorageLocation := strStorageLocation is String ? BSTR.Alloc(strStorageLocation).Value : strStorageLocation
         strPropertyName := strPropertyName is String ? BSTR.Alloc(strPropertyName).Value : strPropertyName
 
-        result := ComCall(8, this, "ptr", strConfig, "ptr", strStorageLocation, "ptr", strPropertyName, "int", Flags, "ptr", pvarProperty, "HRESULT")
+        result := ComCall(8, this, BSTR, strConfig, BSTR, strStorageLocation, BSTR, strPropertyName, "int", Flags, VARIANT.Ptr, pvarProperty, "HRESULT")
         return result
     }
 
@@ -285,7 +296,31 @@ class ICertManageModule extends IDispatch {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
         strStorageLocation := strStorageLocation is String ? BSTR.Alloc(strStorageLocation).Value : strStorageLocation
 
-        result := ComCall(9, this, "ptr", strConfig, "ptr", strStorageLocation, "int", Flags, "HRESULT")
+        result := ComCall(9, this, BSTR, strConfig, BSTR, strStorageLocation, "int", Flags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICertManageModule.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 6)
+        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 6)
+        this.vtbl.Configure := CallbackCreate(GetMethod(implObj, "Configure"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.SetProperty)
+        CallbackFree(this.vtbl.Configure)
     }
 }

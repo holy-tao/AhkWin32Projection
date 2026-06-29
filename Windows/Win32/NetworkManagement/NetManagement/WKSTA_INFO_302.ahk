@@ -1,171 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class WKSTA_INFO_302 extends Win32Struct {
-    static sizeof => 88
+export default struct WKSTA_INFO_302 {
+    #StructPack 8
 
-    static packingSize => 8
+    wki302_char_wait : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wki302_char_wait {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    wki302_collection_time : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wki302_collection_time {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    wki302_maximum_collection_count : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wki302_maximum_collection_count {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    wki302_keep_conn : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wki302_keep_conn {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    wki302_keep_search : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wki302_keep_search {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    wki302_max_cmds : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wki302_max_cmds {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    wki302_num_work_buf : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wki302_num_work_buf {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    wki302_siz_work_buf : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wki302_siz_work_buf {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    wki302_max_wrk_cache : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wki302_max_wrk_cache {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    wki302_sess_timeout : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wki302_sess_timeout {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    wki302_siz_error : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wki302_siz_error {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    wki302_num_alerts : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wki302_num_alerts {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    wki302_num_services : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wki302_num_services {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    wki302_errlog_sz : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wki302_errlog_sz {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    wki302_print_buf_time : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wki302_print_buf_time {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    wki302_num_char_buf : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wki302_num_char_buf {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    wki302_siz_char_buf : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wki302_siz_char_buf {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    wki302_wrk_heuristics : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    wki302_wrk_heuristics {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    wki302_mailslots : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wki302_mailslots {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    wki302_num_dgram_buf : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wki302_num_dgram_buf {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
 }

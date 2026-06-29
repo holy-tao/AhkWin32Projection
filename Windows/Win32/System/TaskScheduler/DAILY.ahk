@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the interval, in days, at which a task is run.
@@ -10,17 +9,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/mstask/ns-mstask-daily
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class DAILY extends Win32Struct {
-    static sizeof => 2
-
-    static packingSize => 2
+export default struct DAILY {
+    #StructPack 2
 
     /**
      * Specifies the number of days between task runs.
-     * @type {Integer}
      */
-    DaysInterval {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    DaysInterval : UInt16
+
 }

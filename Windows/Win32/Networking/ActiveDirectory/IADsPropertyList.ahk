@@ -1,34 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * The IADsPropertyList interface is used to modify, read, and update a list of property entries in the property cache of an object.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadspropertylist
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IADsPropertyList extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IADsPropertyList extends IDispatch {
     /**
      * The interface identifier for IADsPropertyList
      * @type {Guid}
      */
-    static IID => Guid("{c6f602b6-8f69-11d0-8528-00c04fd8d503}")
+    static IID := Guid("{c6f602b6-8f69-11d0-8528-00c04fd8d503}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IADsPropertyList interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_PropertyCount : IntPtr
+        Next              : IntPtr
+        Skip              : IntPtr
+        Reset             : IntPtr
+        Item              : IntPtr
+        GetPropertyItem   : IntPtr
+        PutPropertyItem   : IntPtr
+        ResetPropertyItem : IntPtr
+        PurgePropertyList : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_PropertyCount", "Next", "Skip", "Reset", "Item", "GetPropertyItem", "PutPropertyItem", "ResetPropertyItem", "PurgePropertyList"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IADsPropertyList.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -55,7 +72,7 @@ class IADsPropertyList extends IDispatch {
      */
     Next() {
         pVariant := VARIANT()
-        result := ComCall(8, this, "ptr", pVariant, "int")
+        result := ComCall(8, this, VARIANT.Ptr, pVariant, Int32)
         return pVariant
     }
 
@@ -66,7 +83,7 @@ class IADsPropertyList extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspropertylist-skip
      */
     Skip(cElements) {
-        result := ComCall(9, this, "int", cElements, "int")
+        result := ComCall(9, this, "int", cElements, Int32)
         return result
     }
 
@@ -90,7 +107,7 @@ class IADsPropertyList extends IDispatch {
      */
     Item(varIndex) {
         pVariant := VARIANT()
-        result := ComCall(11, this, "ptr", varIndex, "ptr", pVariant, "HRESULT")
+        result := ComCall(11, this, VARIANT, varIndex, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
     }
 
@@ -255,7 +272,7 @@ class IADsPropertyList extends IDispatch {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
         pVariant := VARIANT()
-        result := ComCall(12, this, "ptr", bstrName, "int", lnADsType, "ptr", pVariant, "HRESULT")
+        result := ComCall(12, this, BSTR, bstrName, "int", lnADsType, VARIANT.Ptr, pVariant, "HRESULT")
         return pVariant
     }
 
@@ -268,7 +285,7 @@ class IADsPropertyList extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspropertylist-putpropertyitem
      */
     PutPropertyItem(varData) {
-        result := ComCall(13, this, "ptr", varData, "HRESULT")
+        result := ComCall(13, this, VARIANT, varData, "HRESULT")
         return result
     }
 
@@ -281,7 +298,7 @@ class IADsPropertyList extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspropertylist-resetpropertyitem
      */
     ResetPropertyItem(varEntry) {
-        result := ComCall(14, this, "ptr", varEntry, "HRESULT")
+        result := ComCall(14, this, VARIANT, varEntry, "HRESULT")
         return result
     }
 
@@ -295,5 +312,41 @@ class IADsPropertyList extends IDispatch {
     PurgePropertyList() {
         result := ComCall(15, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IADsPropertyList.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_PropertyCount := CallbackCreate(GetMethod(implObj, "get_PropertyCount"), flags, 2)
+        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 2)
+        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 3)
+        this.vtbl.GetPropertyItem := CallbackCreate(GetMethod(implObj, "GetPropertyItem"), flags, 4)
+        this.vtbl.PutPropertyItem := CallbackCreate(GetMethod(implObj, "PutPropertyItem"), flags, 2)
+        this.vtbl.ResetPropertyItem := CallbackCreate(GetMethod(implObj, "ResetPropertyItem"), flags, 2)
+        this.vtbl.PurgePropertyList := CallbackCreate(GetMethod(implObj, "PurgePropertyList"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_PropertyCount)
+        CallbackFree(this.vtbl.Next)
+        CallbackFree(this.vtbl.Skip)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.Item)
+        CallbackFree(this.vtbl.GetPropertyItem)
+        CallbackFree(this.vtbl.PutPropertyItem)
+        CallbackFree(this.vtbl.ResetPropertyItem)
+        CallbackFree(this.vtbl.PurgePropertyList)
     }
 }

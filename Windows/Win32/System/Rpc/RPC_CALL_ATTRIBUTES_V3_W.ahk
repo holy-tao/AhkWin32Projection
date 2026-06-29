@@ -1,179 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RpcCallClientLocality.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\RpcCallType.ahk
-#Include .\RPC_CALL_LOCAL_ADDRESS_V1.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\RpcCallType.ahk" { RpcCallType }
+#Import ".\RPC_CALL_LOCAL_ADDRESS_V1.ahk" { RPC_CALL_LOCAL_ADDRESS_V1 }
+#Import ".\RpcCallClientLocality.ahk" { RpcCallClientLocality }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.System.Rpc
  * @charset Unicode
  */
-class RPC_CALL_ATTRIBUTES_V3_W extends Win32Struct {
-    static sizeof => 120
+export default struct RPC_CALL_ATTRIBUTES_V3_W {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ServerPrincipalNameBufferLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ServerPrincipalNameBufferLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ServerPrincipalName : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    ServerPrincipalName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ClientPrincipalNameBufferLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ClientPrincipalNameBufferLength {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ClientPrincipalName : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    ClientPrincipalName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    AuthenticationLevel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AuthenticationLevel {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    AuthenticationService : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AuthenticationService {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    NullSession : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    NullSession {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    KernelModeCaller : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    KernelModeCaller {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    ProtocolSequence : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProtocolSequence {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    IsClientLocal : RpcCallClientLocality
 
-    /**
-     * @type {RpcCallClientLocality}
-     */
-    IsClientLocal {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
-    }
+    ClientPID : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    ClientPID {
-        get {
-            if(!this.HasProp("__ClientPID"))
-                this.__ClientPID := HANDLE(64, this)
-            return this.__ClientPID
-        }
-    }
+    CallStatus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CallStatus {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    CallType : RpcCallType
 
-    /**
-     * @type {RpcCallType}
-     */
-    CallType {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
-    }
+    CallLocalAddress : RPC_CALL_LOCAL_ADDRESS_V1.Ptr
 
-    /**
-     * @type {Pointer<RPC_CALL_LOCAL_ADDRESS_V1>}
-     */
-    CallLocalAddress {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    OpNum : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    OpNum {
-        get => NumGet(this, 88, "ushort")
-        set => NumPut("ushort", value, this, 88)
-    }
+    InterfaceUuid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    InterfaceUuid {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    ClientIdentifierBufferLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ClientIdentifierBufferLength {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    ClientIdentifier : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    ClientIdentifier {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
 }

@@ -1,34 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ATTRIBUTEID.ahk" { ATTRIBUTEID }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Use the ISdoDictionaryOld interface to manipulate the dictionary of Remote Access Dial-In User Service (RADIUS) attributes.
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/nn-sdoias-isdodictionaryold
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  */
-class ISdoDictionaryOld extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISdoDictionaryOld extends IDispatch {
     /**
      * The interface identifier for ISdoDictionaryOld
      * @type {Guid}
      */
-    static IID => Guid("{d432e5f4-53d8-11d2-9a3a-00c04fb998ac}")
+    static IID := Guid("{d432e5f4-53d8-11d2-9a3a-00c04fb998ac}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISdoDictionaryOld interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        EnumAttributes      : IntPtr
+        GetAttributeInfo    : IntPtr
+        EnumAttributeValues : IntPtr
+        CreateAttribute     : IntPtr
+        GetAttributeID      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EnumAttributes", "GetAttributeInfo", "EnumAttributeValues", "CreateAttribute", "GetAttributeID"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISdoDictionaryOld.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The EnumAttributes method retrieves the values of the specified attributes.
@@ -58,7 +72,7 @@ class ISdoDictionaryOld extends IDispatch {
      */
     EnumAttributes(Id) {
         pValues := VARIANT()
-        result := ComCall(7, this, "ptr", Id, "ptr", pValues, "HRESULT")
+        result := ComCall(7, this, VARIANT.Ptr, Id, VARIANT.Ptr, pValues, "HRESULT")
         return pValues
     }
 
@@ -75,7 +89,7 @@ class ISdoDictionaryOld extends IDispatch {
      */
     GetAttributeInfo(Id, pInfoIDs) {
         pInfoValues := VARIANT()
-        result := ComCall(8, this, "uint", Id, "ptr", pInfoIDs, "ptr", pInfoValues, "HRESULT")
+        result := ComCall(8, this, ATTRIBUTEID, Id, VARIANT.Ptr, pInfoIDs, VARIANT.Ptr, pInfoValues, "HRESULT")
         return pInfoValues
     }
 
@@ -94,7 +108,7 @@ class ISdoDictionaryOld extends IDispatch {
      */
     EnumAttributeValues(Id, pValueIds) {
         pValuesDesc := VARIANT()
-        result := ComCall(9, this, "uint", Id, "ptr", pValueIds, "ptr", pValuesDesc, "HRESULT")
+        result := ComCall(9, this, ATTRIBUTEID, Id, VARIANT.Ptr, pValueIds, VARIANT.Ptr, pValuesDesc, "HRESULT")
         return pValuesDesc
     }
 
@@ -107,7 +121,7 @@ class ISdoDictionaryOld extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdodictionaryold-createattribute
      */
     CreateAttribute(Id) {
-        result := ComCall(10, this, "uint", Id, "ptr*", &ppAttributeObject := 0, "HRESULT")
+        result := ComCall(10, this, ATTRIBUTEID, Id, "ptr*", &ppAttributeObject := 0, "HRESULT")
         return IDispatch(ppAttributeObject)
     }
 
@@ -121,7 +135,35 @@ class ISdoDictionaryOld extends IDispatch {
     GetAttributeID(bstrAttributeName) {
         bstrAttributeName := bstrAttributeName is String ? BSTR.Alloc(bstrAttributeName).Value : bstrAttributeName
 
-        result := ComCall(11, this, "ptr", bstrAttributeName, "uint*", &pId := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, bstrAttributeName, "uint*", &pId := 0, "HRESULT")
         return pId
+    }
+
+    Query(iid) {
+        if (ISdoDictionaryOld.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EnumAttributes := CallbackCreate(GetMethod(implObj, "EnumAttributes"), flags, 3)
+        this.vtbl.GetAttributeInfo := CallbackCreate(GetMethod(implObj, "GetAttributeInfo"), flags, 4)
+        this.vtbl.EnumAttributeValues := CallbackCreate(GetMethod(implObj, "EnumAttributeValues"), flags, 4)
+        this.vtbl.CreateAttribute := CallbackCreate(GetMethod(implObj, "CreateAttribute"), flags, 3)
+        this.vtbl.GetAttributeID := CallbackCreate(GetMethod(implObj, "GetAttributeID"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EnumAttributes)
+        CallbackFree(this.vtbl.GetAttributeInfo)
+        CallbackFree(this.vtbl.EnumAttributeValues)
+        CallbackFree(this.vtbl.CreateAttribute)
+        CallbackFree(this.vtbl.GetAttributeID)
     }
 }

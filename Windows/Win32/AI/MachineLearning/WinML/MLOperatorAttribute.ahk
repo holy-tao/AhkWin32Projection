@@ -1,36 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MLOperatorAttributeType.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MLOperatorAttributeType.ahk" { MLOperatorAttributeType }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML
  */
-class MLOperatorAttribute extends Win32Struct {
-    static sizeof => 16
+export default struct MLOperatorAttribute {
+    #StructPack 8
 
-    static packingSize => 8
+    name : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    type : MLOperatorAttributeType
 
-    /**
-     * @type {MLOperatorAttributeType}
-     */
-    type {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    required : Int8
 
-    /**
-     * @type {Integer}
-     */
-    required {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
 }

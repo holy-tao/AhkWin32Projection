@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Elements of the TsRunType enumeration specify if a text run is visible, hidden, or is a private data type embedded in the text run.
@@ -39,7 +38,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/textstor/ne-textstor-tsruntype
  * @namespace Windows.Win32.UI.TextServices
  */
-class TsRunType extends Win32Enum {
+export default struct TsRunType {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The text run is visible.

@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\WIN32_ERROR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WIN32_ERROR.ahk" { WIN32_ERROR }
 
 /**
  * Contains status information used by the SRSetRestorePoint function.
@@ -44,26 +43,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/srrestoreptapi/ns-srrestoreptapi-statemgrstatus
  * @namespace Windows.Win32.System.Restore
  */
-class STATEMGRSTATUS extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct STATEMGRSTATUS {
+    #StructPack 8
 
     /**
      * The status code. For a list of values, see the Remarks section.
-     * @type {WIN32_ERROR}
      */
-    nStatus {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    nStatus : WIN32_ERROR
 
     /**
      * The sequence number of the restore point.
-     * @type {Integer}
      */
-    llSequenceNumber {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    llSequenceNumber : Int64
+
 }

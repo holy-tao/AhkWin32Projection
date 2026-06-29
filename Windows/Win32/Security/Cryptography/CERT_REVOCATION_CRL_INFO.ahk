@@ -1,63 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRL_CONTEXT.ahk
-#Include .\CRL_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRL_ENTRY.ahk" { CRL_ENTRY }
+#Import ".\CRL_CONTEXT.ahk" { CRL_CONTEXT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains information updated by a certificate revocation list (CRL) revocation type handler.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_revocation_crl_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_REVOCATION_CRL_INFO extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct CERT_REVOCATION_CRL_INFO {
+    #StructPack 8
 
     /**
      * Size, in bytes, of the structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Pointer<CRL_CONTEXT>}
-     */
-    pBaseCrlContext {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pBaseCrlContext : CRL_CONTEXT.Ptr
 
-    /**
-     * @type {Pointer<CRL_CONTEXT>}
-     */
-    pDeltaCrlContext {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pDeltaCrlContext : CRL_CONTEXT.Ptr
 
     /**
      * A pointer to an entry in either the base CRL or the delta CRL.
-     * @type {Pointer<CRL_ENTRY>}
      */
-    pCrlEntry {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pCrlEntry : CRL_ENTRY.Ptr
 
     /**
      * <b>TRUE</b> if <b>pCrlEntry</b> points to an entry in the delta CRL. <b>FALSE</b> if <b>pCrlEntry</b> points to an entry in the base CRL.
-     * @type {BOOL}
      */
-    fDeltaCrlEntry {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    fDeltaCrlEntry : BOOL
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 40
-    }
 }

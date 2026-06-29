@@ -1,12 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IShellFolder.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IEnumExtraSearch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include Common\SHELLDETAILS.ahk
-#Include ..\..\Foundation\PROPERTYKEY.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "Common\SHELLDETAILS.ahk" { SHELLDETAILS }
+#Import "Common\SHCOLSTATE.ahk" { SHCOLSTATE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "Common\ITEMIDLIST.ahk" { ITEMIDLIST }
+#Import ".\IEnumExtraSearch.ahk" { IEnumExtraSearch }
+#Import "..\..\Foundation\PROPERTYKEY.ahk" { PROPERTYKEY }
+#Import ".\IShellFolder.ahk" { IShellFolder }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Extends the capabilities of IShellFolder. Its methods provide a variety of information about the contents of a Shell folder.
@@ -21,26 +23,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishellfolder2
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellFolder2 extends IShellFolder {
-
-    static sizeof => A_PtrSize
+export default struct IShellFolder2 extends IShellFolder {
     /**
      * The interface identifier for IShellFolder2
      * @type {Guid}
      */
-    static IID => Guid("{93f2f68c-1d1b-11d3-a30e-00c04f79abd1}")
+    static IID := Guid("{93f2f68c-1d1b-11d3-a30e-00c04f79abd1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 13
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellFolder2 interfaces
+    */
+    struct Vtbl extends IShellFolder.Vtbl {
+        GetDefaultSearchGUID  : IntPtr
+        EnumSearches          : IntPtr
+        GetDefaultColumn      : IntPtr
+        GetDefaultColumnState : IntPtr
+        GetDetailsEx          : IntPtr
+        GetDetailsOf          : IntPtr
+        MapColumnToSCID       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDefaultSearchGUID", "EnumSearches", "GetDefaultColumn", "GetDefaultColumnState", "GetDetailsEx", "GetDetailsOf", "MapColumnToSCID"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellFolder2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns the globally unique identifier (GUID) of the default search object for the folder.
@@ -51,7 +66,7 @@ class IShellFolder2 extends IShellFolder {
      */
     GetDefaultSearchGUID() {
         pguid := Guid()
-        result := ComCall(13, this, "ptr", pguid, "HRESULT")
+        result := ComCall(13, this, Guid.Ptr, pguid, "HRESULT")
         return pguid
     }
 
@@ -141,7 +156,7 @@ class IShellFolder2 extends IShellFolder {
      */
     GetDetailsEx(pidl, pscid) {
         pv := VARIANT()
-        result := ComCall(17, this, "ptr", pidl, "ptr", pscid, "ptr", pv, "HRESULT")
+        result := ComCall(17, this, ITEMIDLIST.Ptr, pidl, PROPERTYKEY.Ptr, pscid, VARIANT.Ptr, pv, "HRESULT")
         return pv
     }
 
@@ -194,7 +209,7 @@ class IShellFolder2 extends IShellFolder {
      */
     GetDetailsOf(pidl, iColumn) {
         psd := SHELLDETAILS()
-        result := ComCall(18, this, "ptr", pidl, "uint", iColumn, "ptr", psd, "HRESULT")
+        result := ComCall(18, this, ITEMIDLIST.Ptr, pidl, "uint", iColumn, SHELLDETAILS.Ptr, psd, "HRESULT")
         return psd
     }
 
@@ -210,7 +225,39 @@ class IShellFolder2 extends IShellFolder {
      */
     MapColumnToSCID(iColumn) {
         pscid := PROPERTYKEY()
-        result := ComCall(19, this, "uint", iColumn, "ptr", pscid, "HRESULT")
+        result := ComCall(19, this, "uint", iColumn, PROPERTYKEY.Ptr, pscid, "HRESULT")
         return pscid
+    }
+
+    Query(iid) {
+        if (IShellFolder2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDefaultSearchGUID := CallbackCreate(GetMethod(implObj, "GetDefaultSearchGUID"), flags, 2)
+        this.vtbl.EnumSearches := CallbackCreate(GetMethod(implObj, "EnumSearches"), flags, 2)
+        this.vtbl.GetDefaultColumn := CallbackCreate(GetMethod(implObj, "GetDefaultColumn"), flags, 4)
+        this.vtbl.GetDefaultColumnState := CallbackCreate(GetMethod(implObj, "GetDefaultColumnState"), flags, 3)
+        this.vtbl.GetDetailsEx := CallbackCreate(GetMethod(implObj, "GetDetailsEx"), flags, 4)
+        this.vtbl.GetDetailsOf := CallbackCreate(GetMethod(implObj, "GetDetailsOf"), flags, 4)
+        this.vtbl.MapColumnToSCID := CallbackCreate(GetMethod(implObj, "MapColumnToSCID"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDefaultSearchGUID)
+        CallbackFree(this.vtbl.EnumSearches)
+        CallbackFree(this.vtbl.GetDefaultColumn)
+        CallbackFree(this.vtbl.GetDefaultColumnState)
+        CallbackFree(this.vtbl.GetDetailsEx)
+        CallbackFree(this.vtbl.GetDetailsOf)
+        CallbackFree(this.vtbl.MapColumnToSCID)
     }
 }

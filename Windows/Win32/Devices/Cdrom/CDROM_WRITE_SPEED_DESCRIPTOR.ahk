@@ -1,13 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
  */
-class CDROM_WRITE_SPEED_DESCRIPTOR extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 1
+export default struct CDROM_WRITE_SPEED_DESCRIPTOR {
+    #StructPack 1
 
     /**
      * This bitfield backs the following members:
@@ -16,12 +13,9 @@ class CDROM_WRITE_SPEED_DESCRIPTOR extends Win32Struct {
      * - Reserved1
      * - WriteRotationControl
      * - Reserved2
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    _bitfield : Int8
+
 
     /**
      * @type {Integer}
@@ -62,48 +56,12 @@ class CDROM_WRITE_SPEED_DESCRIPTOR extends Win32Struct {
         get => (this._bitfield >> 5) & 0x7
         set => this._bitfield := ((value & 0x7) << 5) | (this._bitfield & ~(0x7 << 5))
     }
+    Reserved3 : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved3 {
-        get {
-            if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
-            return this.__Reserved3ProxyArray
-        }
-    }
+    EndLba : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    EndLba {
-        get {
-            if(!this.HasProp("__EndLbaProxyArray"))
-                this.__EndLbaProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")
-            return this.__EndLbaProxyArray
-        }
-    }
+    ReadSpeed : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ReadSpeed {
-        get {
-            if(!this.HasProp("__ReadSpeedProxyArray"))
-                this.__ReadSpeedProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "char")
-            return this.__ReadSpeedProxyArray
-        }
-    }
+    WriteSpeed : Int8[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    WriteSpeed {
-        get {
-            if(!this.HasProp("__WriteSpeedProxyArray"))
-                this.__WriteSpeedProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "char")
-            return this.__WriteSpeedProxyArray
-        }
-    }
 }

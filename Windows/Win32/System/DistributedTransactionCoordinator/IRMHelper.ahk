@@ -1,31 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\xa_switch_t.ahk" { xa_switch_t }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
  */
-class IRMHelper extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRMHelper extends IUnknown {
     /**
      * The interface identifier for IRMHelper
      * @type {Guid}
      */
-    static IID => Guid("{e793f6d1-f53d-11cf-a60d-00a0c905416e}")
+    static IID := Guid("{e793f6d1-f53d-11cf-a60d-00a0c905416e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRMHelper interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RMCount : IntPtr
+        RMInfo  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RMCount", "RMInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRMHelper.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -50,7 +62,29 @@ class IRMHelper extends IUnknown {
         pszOpenString := pszOpenString is String ? StrPtr(pszOpenString) : pszOpenString
         pszCloseString := pszCloseString is String ? StrPtr(pszCloseString) : pszCloseString
 
-        result := ComCall(4, this, "ptr", pXa_Switch, "int", fCDeclCallingConv, "ptr", pszOpenString, "ptr", pszCloseString, "ptr", guidRMRecovery, "HRESULT")
+        result := ComCall(4, this, xa_switch_t.Ptr, pXa_Switch, BOOL, fCDeclCallingConv, "ptr", pszOpenString, "ptr", pszCloseString, Guid, guidRMRecovery, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRMHelper.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RMCount := CallbackCreate(GetMethod(implObj, "RMCount"), flags, 2)
+        this.vtbl.RMInfo := CallbackCreate(GetMethod(implObj, "RMInfo"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RMCount)
+        CallbackFree(this.vtbl.RMInfo)
     }
 }

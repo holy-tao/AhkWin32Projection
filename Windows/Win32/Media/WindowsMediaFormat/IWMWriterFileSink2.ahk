@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMWriterFileSink.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IWMWriterFileSink.ahk" { IWMWriterFileSink }
 
 /**
  * The IWMWriterFileSink2 interface provides extended management of a file sink.This interface can be obtained by calling the QueryInterface method of an IWMWriterFileSink interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmwriterfilesink2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMWriterFileSink2 extends IWMWriterFileSink {
-
-    static sizeof => A_PtrSize
+export default struct IWMWriterFileSink2 extends IWMWriterFileSink {
     /**
      * The interface identifier for IWMWriterFileSink2
      * @type {Guid}
      */
-    static IID => Guid("{14282ba7-4aef-4205-8ce5-c229035a05bc}")
+    static IID := Guid("{14282ba7-4aef-4205-8ce5-c229035a05bc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMWriterFileSink2 interfaces
+    */
+    struct Vtbl extends IWMWriterFileSink.Vtbl {
+        Start           : IntPtr
+        Stop            : IntPtr
+        IsStopped       : IntPtr
+        GetFileDuration : IntPtr
+        GetFileSize     : IntPtr
+        Close           : IntPtr
+        IsClosed        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Start", "Stop", "IsStopped", "GetFileDuration", "GetFileSize", "Close", "IsClosed"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMWriterFileSink2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Start method starts recording at the specified time.
@@ -103,7 +118,7 @@ class IWMWriterFileSink2 extends IWMWriterFileSink {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterfilesink2-isstopped
      */
     IsStopped() {
-        result := ComCall(11, this, "int*", &pfStopped := 0, "HRESULT")
+        result := ComCall(11, this, BOOL.Ptr, &pfStopped := 0, "HRESULT")
         return pfStopped
     }
 
@@ -145,7 +160,39 @@ class IWMWriterFileSink2 extends IWMWriterFileSink {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterfilesink2-isclosed
      */
     IsClosed() {
-        result := ComCall(15, this, "int*", &pfClosed := 0, "HRESULT")
+        result := ComCall(15, this, BOOL.Ptr, &pfClosed := 0, "HRESULT")
         return pfClosed
+    }
+
+    Query(iid) {
+        if (IWMWriterFileSink2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 2)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 2)
+        this.vtbl.IsStopped := CallbackCreate(GetMethod(implObj, "IsStopped"), flags, 2)
+        this.vtbl.GetFileDuration := CallbackCreate(GetMethod(implObj, "GetFileDuration"), flags, 2)
+        this.vtbl.GetFileSize := CallbackCreate(GetMethod(implObj, "GetFileSize"), flags, 2)
+        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.IsClosed := CallbackCreate(GetMethod(implObj, "IsClosed"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Start)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.IsStopped)
+        CallbackFree(this.vtbl.GetFileDuration)
+        CallbackFree(this.vtbl.GetFileSize)
+        CallbackFree(this.vtbl.Close)
+        CallbackFree(this.vtbl.IsClosed)
     }
 }

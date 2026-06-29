@@ -1,36 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ITCallInfo.ahk
-#Include .\ITTerminal.ahk
-#Include .\ITStream.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITTerminal.ahk" { ITTerminal }
+#Import ".\CALL_MEDIA_EVENT.ahk" { CALL_MEDIA_EVENT }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CALL_MEDIA_EVENT_CAUSE.ahk" { CALL_MEDIA_EVENT_CAUSE }
+#Import ".\ITStream.ahk" { ITStream }
+#Import ".\ITCallInfo.ahk" { ITCallInfo }
 
 /**
  * The ITCallMediaEvent interface contains methods that retrieve the description of media events.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itcallmediaevent
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITCallMediaEvent extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITCallMediaEvent extends IDispatch {
     /**
      * The interface identifier for ITCallMediaEvent
      * @type {Guid}
      */
-    static IID => Guid("{ff36b87f-ec3a-11d0-8ee4-00c04fb6809f}")
+    static IID := Guid("{ff36b87f-ec3a-11d0-8ee4-00c04fb6809f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITCallMediaEvent interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Call     : IntPtr
+        get_Event    : IntPtr
+        get_Error    : IntPtr
+        get_Terminal : IntPtr
+        get_Stream   : IntPtr
+        get_Cause    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Call", "get_Event", "get_Error", "get_Terminal", "get_Stream", "get_Cause"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITCallMediaEvent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {ITCallInfo} 
@@ -154,5 +169,35 @@ class ITCallMediaEvent extends IDispatch {
     get_Cause() {
         result := ComCall(12, this, "int*", &pCause := 0, "HRESULT")
         return pCause
+    }
+
+    Query(iid) {
+        if (ITCallMediaEvent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Call := CallbackCreate(GetMethod(implObj, "get_Call"), flags, 2)
+        this.vtbl.get_Event := CallbackCreate(GetMethod(implObj, "get_Event"), flags, 2)
+        this.vtbl.get_Error := CallbackCreate(GetMethod(implObj, "get_Error"), flags, 2)
+        this.vtbl.get_Terminal := CallbackCreate(GetMethod(implObj, "get_Terminal"), flags, 2)
+        this.vtbl.get_Stream := CallbackCreate(GetMethod(implObj, "get_Stream"), flags, 2)
+        this.vtbl.get_Cause := CallbackCreate(GetMethod(implObj, "get_Cause"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Call)
+        CallbackFree(this.vtbl.get_Event)
+        CallbackFree(this.vtbl.get_Error)
+        CallbackFree(this.vtbl.get_Terminal)
+        CallbackFree(this.vtbl.get_Stream)
+        CallbackFree(this.vtbl.get_Cause)
     }
 }

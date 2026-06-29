@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_GDIMODEL_PRESENTHISTORYTOKEN extends Win32Struct {
-    static sizeof => 40
+export default struct D3DKMT_GDIMODEL_PRESENTHISTORYTOKEN {
+    #StructPack 8
 
-    static packingSize => 8
+    hLogicalSurface : Int64
 
-    /**
-     * @type {Integer}
-     */
-    hLogicalSurface {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hPhysicalSurface : Int64
 
-    /**
-     * @type {Integer}
-     */
-    hPhysicalSurface {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ScrollRect : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ScrollRect {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ScrollOffset : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ScrollOffset {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    DirtyRegions : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    DirtyRegions {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
 }

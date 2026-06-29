@@ -1,11 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Documentation varies per use. Refer to each: <see href="https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotacontrol-addusername">IDiskQuotaControl.AddUserName</see>, <see href="https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotacontrol-addusersid">IDiskQuotaControl.AddUserSid</see>, <see href="https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotacontrol-createenumusers">IDiskQuotaControl.CreateEnumUsers</see>, <see href="https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotacontrol-findusersid">IDiskQuotaControl.FindUserSid</see>.
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class DISKQUOTA_USERNAME_RESOLVE extends Win32Enum {
+export default struct DISKQUOTA_USERNAME_RESOLVE {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

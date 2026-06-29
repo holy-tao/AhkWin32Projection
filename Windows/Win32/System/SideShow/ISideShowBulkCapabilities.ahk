@@ -1,43 +1,70 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISideShowCapabilities.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISideShowCapabilities.ahk" { ISideShowCapabilities }
+#Import ".\ISideShowPropVariantCollection.ahk" { ISideShowPropVariantCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISideShowKeyCollection.ahk" { ISideShowKeyCollection }
 
 /**
  * @namespace Windows.Win32.System.SideShow
  */
-class ISideShowBulkCapabilities extends ISideShowCapabilities {
-
-    static sizeof => A_PtrSize
+export default struct ISideShowBulkCapabilities extends ISideShowCapabilities {
     /**
      * The interface identifier for ISideShowBulkCapabilities
      * @type {Guid}
      */
-    static IID => Guid("{3a2b7fbc-3ad5-48bd-bbf1-0e6cfbd10807}")
+    static IID := Guid("{3a2b7fbc-3ad5-48bd-bbf1-0e6cfbd10807}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISideShowBulkCapabilities interfaces
+    */
+    struct Vtbl extends ISideShowCapabilities.Vtbl {
+        GetCapabilities : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISideShowBulkCapabilities.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCapabilities"]
-
-    /**
-     * Retrieves the length of a monitor's capabilities string.
-     * @remarks
-     * This function usually returns quickly, but sometimes it can take several seconds to complete.
+     * 
      * @param {ISideShowKeyCollection} in_keyCollection 
      * @param {Pointer<ISideShowPropVariantCollection>} inout_pValues 
-     * @returns {HRESULT} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-getcapabilitiesstringlength
+     * @returns {HRESULT} 
      */
     GetCapabilities(in_keyCollection, inout_pValues) {
-        result := ComCall(4, this, "ptr", in_keyCollection, "ptr*", inout_pValues, "HRESULT")
+        result := ComCall(4, this, "ptr", in_keyCollection, ISideShowPropVariantCollection.Ptr, inout_pValues, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISideShowBulkCapabilities.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCapabilities := CallbackCreate(GetMethod(implObj, "GetCapabilities"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCapabilities)
     }
 }

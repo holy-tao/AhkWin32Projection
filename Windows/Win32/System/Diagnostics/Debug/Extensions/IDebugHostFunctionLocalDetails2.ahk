@@ -1,39 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IDebugHostFunctionLocalDetails.ahk
-#Include .\IDebugHostSymbol.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDebugHostFunctionLocalDetails.ahk" { IDebugHostFunctionLocalDetails }
+#Import ".\IDebugHostSymbol.ahk" { IDebugHostSymbol }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IDebugHostFunctionLocalDetails2 extends IDebugHostFunctionLocalDetails {
-
-    static sizeof => A_PtrSize
+export default struct IDebugHostFunctionLocalDetails2 extends IDebugHostFunctionLocalDetails {
     /**
      * The interface identifier for IDebugHostFunctionLocalDetails2
      * @type {Guid}
      */
-    static IID => Guid("{199a57b0-1967-4363-b25e-90c7e8a07f22}")
+    static IID := Guid("{199a57b0-1967-4363-b25e-90c7e8a07f22}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDebugHostFunctionLocalDetails2 interfaces
+    */
+    struct Vtbl extends IDebugHostFunctionLocalDetails.Vtbl {
+        IsInlineScope      : IntPtr
+        GetInlinedFunction : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsInlineScope", "GetInlinedFunction"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDebugHostFunctionLocalDetails2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
      * @returns {Boolean} 
      */
     IsInlineScope() {
-        result := ComCall(8, this, "int")
+        result := ComCall(8, this, Int32)
         return result
     }
 
@@ -44,5 +53,27 @@ class IDebugHostFunctionLocalDetails2 extends IDebugHostFunctionLocalDetails {
     GetInlinedFunction() {
         result := ComCall(9, this, "ptr*", &inlineFunction := 0, "HRESULT")
         return IDebugHostSymbol(inlineFunction)
+    }
+
+    Query(iid) {
+        if (IDebugHostFunctionLocalDetails2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsInlineScope := CallbackCreate(GetMethod(implObj, "IsInlineScope"), flags, 1)
+        this.vtbl.GetInlinedFunction := CallbackCreate(GetMethod(implObj, "GetInlinedFunction"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsInlineScope)
+        CallbackFree(this.vtbl.GetInlinedFunction)
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the aspect ratio for ETSI EN 300 294.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/opmapi/ne-opmapi-opm_image_aspect_ratio_en300294
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class OPM_IMAGE_ASPECT_RATIO_EN300294 extends Win32Enum {
+export default struct OPM_IMAGE_ASPECT_RATIO_EN300294 {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Full format 4:3.

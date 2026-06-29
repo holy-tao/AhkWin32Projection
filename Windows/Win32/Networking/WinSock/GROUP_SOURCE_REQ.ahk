@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SOCKADDR_STORAGE.ahk
-#Include .\ADDRESS_FAMILY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SOCKADDR_STORAGE.ahk" { SOCKADDR_STORAGE }
+#Import ".\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Provides multicast group information for IPv6 or IPv4 addresses that includes the source IP address.
@@ -20,41 +20,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-group_source_req
  * @namespace Windows.Win32.Networking.WinSock
  */
-class GROUP_SOURCE_REQ extends Win32Struct {
-    static sizeof => 264
-
-    static packingSize => 8
+export default struct GROUP_SOURCE_REQ {
+    #StructPack 8
 
     /**
      * The interface index of the local interface on which the multicast group should be joined, dropped, blocked, or unblocked.
-     * @type {Integer}
      */
-    gsr_interface {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    gsr_interface : UInt32
 
     /**
      * The address of the multicast group. This may be either an IPv6 or IPv4 multicast address.
-     * @type {SOCKADDR_STORAGE}
      */
-    gsr_group {
-        get {
-            if(!this.HasProp("__gsr_group"))
-                this.__gsr_group := SOCKADDR_STORAGE(8, this)
-            return this.__gsr_group
-        }
-    }
+    gsr_group : SOCKADDR_STORAGE
 
     /**
      * The source address that should be used. This may be either an IPv6 or IPv4 multicast address, but it must be the same address family (IPv6 or IPv4) as the address specified in the <b>gsr_group</b> member.
-     * @type {SOCKADDR_STORAGE}
      */
-    gsr_source {
-        get {
-            if(!this.HasProp("__gsr_source"))
-                this.__gsr_source := SOCKADDR_STORAGE(136, this)
-            return this.__gsr_source
-        }
-    }
+    gsr_source : SOCKADDR_STORAGE
+
 }

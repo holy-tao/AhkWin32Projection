@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Rpc
  */
-class GENERIC_BINDING_INFO extends Win32Struct {
-    static sizeof => 32
+export default struct GENERIC_BINDING_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    pObj : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pObj {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    pfnBind : IntPtr
 
-    /**
-     * @type {Pointer<GENERIC_BINDING_ROUTINE>}
-     */
-    pfnBind {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pfnUnbind : IntPtr
 
-    /**
-     * @type {Pointer<GENERIC_UNBIND_ROUTINE>}
-     */
-    pfnUnbind {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

@@ -1,158 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include .\EXT_TDOP.ahk
-#Include .\DEBUG_TYPED_DATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DEBUG_TYPED_DATA.ahk" { DEBUG_TYPED_DATA }
+#Import ".\EXT_TDOP.ahk" { EXT_TDOP }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class EXT_TYPED_DATA extends Win32Struct {
-    static sizeof => 392
+export default struct EXT_TYPED_DATA {
+    #StructPack 8
 
-    static packingSize => 8
+    Operation : EXT_TDOP
 
-    /**
-     * @type {EXT_TDOP}
-     */
-    Operation {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    InData : DEBUG_TYPED_DATA
 
-    /**
-     * @type {DEBUG_TYPED_DATA}
-     */
-    InData {
-        get {
-            if(!this.HasProp("__InData"))
-                this.__InData := DEBUG_TYPED_DATA(8, this)
-            return this.__InData
-        }
-    }
+    OutData : DEBUG_TYPED_DATA
 
-    /**
-     * @type {DEBUG_TYPED_DATA}
-     */
-    OutData {
-        get {
-            if(!this.HasProp("__OutData"))
-                this.__OutData := DEBUG_TYPED_DATA(136, this)
-            return this.__OutData
-        }
-    }
+    InStrIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InStrIndex {
-        get => NumGet(this, 264, "uint")
-        set => NumPut("uint", value, this, 264)
-    }
+    In32 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    In32 {
-        get => NumGet(this, 268, "uint")
-        set => NumPut("uint", value, this, 268)
-    }
+    Out32 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Out32 {
-        get => NumGet(this, 272, "uint")
-        set => NumPut("uint", value, this, 272)
-    }
+    In64 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    In64 {
-        get => NumGet(this, 280, "uint")
-        set => NumPut("uint", value, this, 280)
-    }
+    Out64 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Out64 {
-        get => NumGet(this, 288, "uint")
-        set => NumPut("uint", value, this, 288)
-    }
+    StrBufferIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StrBufferIndex {
-        get => NumGet(this, 296, "uint")
-        set => NumPut("uint", value, this, 296)
-    }
+    StrBufferChars : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StrBufferChars {
-        get => NumGet(this, 300, "uint")
-        set => NumPut("uint", value, this, 300)
-    }
+    StrCharsNeeded : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    StrCharsNeeded {
-        get => NumGet(this, 304, "uint")
-        set => NumPut("uint", value, this, 304)
-    }
+    DataBufferIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataBufferIndex {
-        get => NumGet(this, 308, "uint")
-        set => NumPut("uint", value, this, 308)
-    }
+    DataBufferBytes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataBufferBytes {
-        get => NumGet(this, 312, "uint")
-        set => NumPut("uint", value, this, 312)
-    }
+    DataBytesNeeded : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataBytesNeeded {
-        get => NumGet(this, 316, "uint")
-        set => NumPut("uint", value, this, 316)
-    }
+    Status : HRESULT
 
-    /**
-     * @type {HRESULT}
-     */
-    Status {
-        get => NumGet(this, 320, "int")
-        set => NumPut("int", value, this, 320)
-    }
+    Reserved : Int64[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 328, 8, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
-    }
 }

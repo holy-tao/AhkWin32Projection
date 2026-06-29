@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * An SP_DRVINFO_DATA structure contains information about a driver. This structure is a member of a driver information list that can be associated with a particular device instance or globally with a device information set. (sp_drvinfo_data_v2_w)
@@ -14,87 +14,44 @@
  * @charset Unicode
  * @architecture X64, Arm64
  */
-class SP_DRVINFO_DATA_V2_W extends Win32Struct {
-    static sizeof => 1568
-
-    static packingSize => 8
+export default struct SP_DRVINFO_DATA_V2_W {
+    #StructPack 8
 
     /**
      * The size, in bytes, of the SP_DRVINFO_DATA structure. For more information, see the Remarks section in this topic.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    DriverType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    DriverType : UInt32
 
     /**
      * Reserved. For internal use only.
-     * @type {Pointer}
      */
-    Reserved {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Reserved : IntPtr
 
     /**
      * A NULL-terminated string that describes the device supported by this driver.
-     * @type {String}
      */
-    Description {
-        get => StrGet(this.ptr + 16, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 16, 255, "UTF-16")
-    }
+    Description : WCHAR[256]
 
     /**
      * A NULL-terminated string that contains the name of the manufacturer of the device supported by this driver.
-     * @type {String}
      */
-    MfgName {
-        get => StrGet(this.ptr + 528, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 528, 255, "UTF-16")
-    }
+    MfgName : WCHAR[256]
 
     /**
      * A NULL-terminated string giving the provider of this driver. This is typically the name of the organization that creates the driver or INF file. <b>ProviderName</b> can be an empty string.
-     * @type {String}
      */
-    ProviderName {
-        get => StrGet(this.ptr + 1040, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 1040, 255, "UTF-16")
-    }
+    ProviderName : WCHAR[256]
 
     /**
      * Date of the driver. From the <b>DriverVer</b> entry in the INF file. See the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/inf-ddinstall-section">INF DDInstall Section</a> for more information about the <b>DriverVer</b> entry.
-     * @type {FILETIME}
      */
-    DriverDate {
-        get {
-            if(!this.HasProp("__DriverDate"))
-                this.__DriverDate := FILETIME(1552, this)
-            return this.__DriverDate
-        }
-    }
+    DriverDate : FILETIME
 
     /**
      * Version of the driver. From the <b>DriverVer</b> entry in the INF file.
-     * @type {Integer}
      */
-    DriverVersion {
-        get => NumGet(this, 1560, "uint")
-        set => NumPut("uint", value, this, 1560)
-    }
+    DriverVersion : Int64
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 1568
-    }
 }

@@ -1,74 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class FILE_OBJECTID_INFORMATION extends Win32Struct {
-    static sizeof => 72
+export default struct FILE_OBJECTID_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    FileReference : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FileReference {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    ObjectId : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ObjectId {
-        get {
-            if(!this.HasProp("__ObjectIdProxyArray"))
-                this.__ObjectIdProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
-            return this.__ObjectIdProxyArray
-        }
-    }
+    BirthVolumeId : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    BirthVolumeId {
-        get {
-            if(!this.HasProp("__BirthVolumeIdProxyArray"))
-                this.__BirthVolumeIdProxyArray := Win32FixedArray(this.ptr + 24, 16, Primitive, "char")
-            return this.__BirthVolumeIdProxyArray
-        }
-    }
+    BirthObjectId : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    BirthObjectId {
-        get {
-            if(!this.HasProp("__BirthObjectIdProxyArray"))
-                this.__BirthObjectIdProxyArray := Win32FixedArray(this.ptr + 40, 16, Primitive, "char")
-            return this.__BirthObjectIdProxyArray
-        }
-    }
+    DomainId : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    DomainId {
-        get {
-            if(!this.HasProp("__DomainIdProxyArray"))
-                this.__DomainIdProxyArray := Win32FixedArray(this.ptr + 56, 16, Primitive, "char")
-            return this.__DomainIdProxyArray
-        }
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    ExtendedInfo {
-        get {
-            if(!this.HasProp("__ExtendedInfoProxyArray"))
-                this.__ExtendedInfoProxyArray := Win32FixedArray(this.ptr + 24, 48, Primitive, "char")
-            return this.__ExtendedInfoProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'ExtendedInfo', { type: Int8[48], offset: 24 })
+        this.DeleteProp("__New")
     }
 }

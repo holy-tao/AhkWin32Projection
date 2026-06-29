@@ -1,33 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWMPClosedCaption interface provides a way to include captions with a digital media file. The captioning text is in a Synchronized Accessible Media Interchange (SAMI) file.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpclosedcaption
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPClosedCaption extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWMPClosedCaption extends IDispatch {
     /**
      * The interface identifier for IWMPClosedCaption
      * @type {Guid}
      */
-    static IID => Guid("{4f2df574-c588-11d3-9ed0-00c04fb6e937}")
+    static IID := Guid("{4f2df574-c588-11d3-9ed0-00c04fb6e937}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPClosedCaption interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_SAMIStyle    : IntPtr
+        put_SAMIStyle    : IntPtr
+        get_SAMILang     : IntPtr
+        put_SAMILang     : IntPtr
+        get_SAMIFileName : IntPtr
+        put_SAMIFileName : IntPtr
+        get_captioningId : IntPtr
+        put_captioningId : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_SAMIStyle", "put_SAMIStyle", "get_SAMILang", "put_SAMILang", "get_SAMIFileName", "put_SAMIFileName", "get_captioningId", "put_captioningId"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPClosedCaption.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -91,7 +107,7 @@ class IWMPClosedCaption extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpclosedcaption-get_samistyle
      */
     get_SAMIStyle(pbstrSAMIStyle) {
-        result := ComCall(7, this, "ptr", pbstrSAMIStyle, "HRESULT")
+        result := ComCall(7, this, BSTR.Ptr, pbstrSAMIStyle, "HRESULT")
         return result
     }
 
@@ -127,7 +143,7 @@ class IWMPClosedCaption extends IDispatch {
     put_SAMIStyle(bstrSAMIStyle) {
         bstrSAMIStyle := bstrSAMIStyle is String ? BSTR.Alloc(bstrSAMIStyle).Value : bstrSAMIStyle
 
-        result := ComCall(8, this, "ptr", bstrSAMIStyle, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrSAMIStyle, "HRESULT")
         return result
     }
 
@@ -172,7 +188,7 @@ class IWMPClosedCaption extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpclosedcaption-get_samilang
      */
     get_SAMILang(pbstrSAMILang) {
-        result := ComCall(9, this, "ptr", pbstrSAMILang, "HRESULT")
+        result := ComCall(9, this, BSTR.Ptr, pbstrSAMILang, "HRESULT")
         return result
     }
 
@@ -217,7 +233,7 @@ class IWMPClosedCaption extends IDispatch {
     put_SAMILang(bstrSAMILang) {
         bstrSAMILang := bstrSAMILang is String ? BSTR.Alloc(bstrSAMILang).Value : bstrSAMILang
 
-        result := ComCall(10, this, "ptr", bstrSAMILang, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrSAMILang, "HRESULT")
         return result
     }
 
@@ -254,7 +270,7 @@ class IWMPClosedCaption extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpclosedcaption-get_samifilename
      */
     get_SAMIFileName(pbstrSAMIFileName) {
-        result := ComCall(11, this, "ptr", pbstrSAMIFileName, "HRESULT")
+        result := ComCall(11, this, BSTR.Ptr, pbstrSAMIFileName, "HRESULT")
         return result
     }
 
@@ -291,7 +307,7 @@ class IWMPClosedCaption extends IDispatch {
     put_SAMIFileName(bstrSAMIFileName) {
         bstrSAMIFileName := bstrSAMIFileName is String ? BSTR.Alloc(bstrSAMIFileName).Value : bstrSAMIFileName
 
-        result := ComCall(12, this, "ptr", bstrSAMIFileName, "HRESULT")
+        result := ComCall(12, this, BSTR, bstrSAMIFileName, "HRESULT")
         return result
     }
 
@@ -324,7 +340,7 @@ class IWMPClosedCaption extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpclosedcaption-get_captioningid
      */
     get_captioningId(pbstrCaptioningID) {
-        result := ComCall(13, this, "ptr", pbstrCaptioningID, "HRESULT")
+        result := ComCall(13, this, BSTR.Ptr, pbstrCaptioningID, "HRESULT")
         return result
     }
 
@@ -359,7 +375,41 @@ class IWMPClosedCaption extends IDispatch {
     put_captioningId(bstrCaptioningID) {
         bstrCaptioningID := bstrCaptioningID is String ? BSTR.Alloc(bstrCaptioningID).Value : bstrCaptioningID
 
-        result := ComCall(14, this, "ptr", bstrCaptioningID, "HRESULT")
+        result := ComCall(14, this, BSTR, bstrCaptioningID, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPClosedCaption.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_SAMIStyle := CallbackCreate(GetMethod(implObj, "get_SAMIStyle"), flags, 2)
+        this.vtbl.put_SAMIStyle := CallbackCreate(GetMethod(implObj, "put_SAMIStyle"), flags, 2)
+        this.vtbl.get_SAMILang := CallbackCreate(GetMethod(implObj, "get_SAMILang"), flags, 2)
+        this.vtbl.put_SAMILang := CallbackCreate(GetMethod(implObj, "put_SAMILang"), flags, 2)
+        this.vtbl.get_SAMIFileName := CallbackCreate(GetMethod(implObj, "get_SAMIFileName"), flags, 2)
+        this.vtbl.put_SAMIFileName := CallbackCreate(GetMethod(implObj, "put_SAMIFileName"), flags, 2)
+        this.vtbl.get_captioningId := CallbackCreate(GetMethod(implObj, "get_captioningId"), flags, 2)
+        this.vtbl.put_captioningId := CallbackCreate(GetMethod(implObj, "put_captioningId"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_SAMIStyle)
+        CallbackFree(this.vtbl.put_SAMIStyle)
+        CallbackFree(this.vtbl.get_SAMILang)
+        CallbackFree(this.vtbl.put_SAMILang)
+        CallbackFree(this.vtbl.get_SAMIFileName)
+        CallbackFree(this.vtbl.put_SAMIFileName)
+        CallbackFree(this.vtbl.get_captioningId)
+        CallbackFree(this.vtbl.put_captioningId)
     }
 }

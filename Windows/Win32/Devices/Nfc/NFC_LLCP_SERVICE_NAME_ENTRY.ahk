@@ -1,30 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
  */
-class NFC_LLCP_SERVICE_NAME_ENTRY extends Win32Struct {
-    static sizeof => 8
+export default struct NFC_LLCP_SERVICE_NAME_ENTRY {
+    #StructPack 4
 
-    static packingSize => 4
+    cbServiceName : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbServiceName {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    pbServiceName : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    pbServiceName {
-        get {
-            if(!this.HasProp("__pbServiceNameProxyArray"))
-                this.__pbServiceNameProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
-            return this.__pbServiceNameProxyArray
-        }
-    }
 }

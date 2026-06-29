@@ -1,37 +1,72 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IX509CertificateRequest.ahk
-#Include .\IX509NameValuePairs.ahk
-#Include .\IX509EnrollmentStatus.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\X509CertificateEnrollmentContext.ahk" { X509CertificateEnrollmentContext }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\PFXExportOptions.ahk" { PFXExportOptions }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IX509NameValuePairs.ahk" { IX509NameValuePairs }
+#Import ".\IX509CertificateRequest.ahk" { IX509CertificateRequest }
+#Import ".\InstallResponseRestrictionFlags.ahk" { InstallResponseRestrictionFlags }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IX509EnrollmentStatus.ahk" { IX509EnrollmentStatus }
 
 /**
  * Represents the top level object and enables you to enroll in a certificate hierarchy and install a certificate response.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509enrollment
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IX509Enrollment extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IX509Enrollment extends IDispatch {
     /**
      * The interface identifier for IX509Enrollment
      * @type {Guid}
      */
-    static IID => Guid("{728ab346-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab346-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IX509Enrollment interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Initialize                  : IntPtr
+        InitializeFromTemplateName  : IntPtr
+        InitializeFromRequest       : IntPtr
+        CreateRequest               : IntPtr
+        Enroll                      : IntPtr
+        InstallResponse             : IntPtr
+        CreatePFX                   : IntPtr
+        get_Request                 : IntPtr
+        get_Silent                  : IntPtr
+        put_Silent                  : IntPtr
+        get_ParentWindow            : IntPtr
+        put_ParentWindow            : IntPtr
+        get_NameValuePairs          : IntPtr
+        get_EnrollmentContext       : IntPtr
+        get_Status                  : IntPtr
+        get_Certificate             : IntPtr
+        get_Response                : IntPtr
+        get_CertificateFriendlyName : IntPtr
+        put_CertificateFriendlyName : IntPtr
+        get_CertificateDescription  : IntPtr
+        put_CertificateDescription  : IntPtr
+        get_RequestId               : IntPtr
+        get_CAConfigString          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "InitializeFromTemplateName", "InitializeFromRequest", "CreateRequest", "Enroll", "InstallResponse", "CreatePFX", "get_Request", "get_Silent", "put_Silent", "get_ParentWindow", "put_ParentWindow", "get_NameValuePairs", "get_EnrollmentContext", "get_Status", "get_Certificate", "get_Response", "get_CertificateFriendlyName", "put_CertificateFriendlyName", "get_CertificateDescription", "put_CertificateDescription", "get_RequestId", "get_CAConfigString"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IX509Enrollment.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IX509CertificateRequest} 
@@ -137,7 +172,7 @@ class IX509Enrollment extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-initialize
      */
     Initialize(_Context) {
-        result := ComCall(7, this, "int", _Context, "HRESULT")
+        result := ComCall(7, this, X509CertificateEnrollmentContext, _Context, "HRESULT")
         return result
     }
 
@@ -193,7 +228,7 @@ class IX509Enrollment extends IDispatch {
     InitializeFromTemplateName(_Context, strTemplateName) {
         strTemplateName := strTemplateName is String ? BSTR.Alloc(strTemplateName).Value : strTemplateName
 
-        result := ComCall(8, this, "int", _Context, "ptr", strTemplateName, "HRESULT")
+        result := ComCall(8, this, X509CertificateEnrollmentContext, _Context, BSTR, strTemplateName, "HRESULT")
         return result
     }
 
@@ -265,8 +300,8 @@ class IX509Enrollment extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-createrequest
      */
     CreateRequest(Encoding) {
-        pValue := BSTR()
-        result := ComCall(10, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(10, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -399,7 +434,7 @@ class IX509Enrollment extends IDispatch {
         strResponse := strResponse is String ? BSTR.Alloc(strResponse).Value : strResponse
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
 
-        result := ComCall(12, this, "int", _Restrictions, "ptr", strResponse, "int", Encoding, "ptr", strPassword, "HRESULT")
+        result := ComCall(12, this, InstallResponseRestrictionFlags, _Restrictions, BSTR, strResponse, EncodingType, Encoding, BSTR, strPassword, "HRESULT")
         return result
     }
 
@@ -434,8 +469,8 @@ class IX509Enrollment extends IDispatch {
     CreatePFX(strPassword, ExportOptions, Encoding) {
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
 
-        pValue := BSTR()
-        result := ComCall(13, this, "ptr", strPassword, "int", ExportOptions, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(13, this, BSTR, strPassword, PFXExportOptions, ExportOptions, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -459,7 +494,7 @@ class IX509Enrollment extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-get_silent
      */
     get_Silent() {
-        result := ComCall(15, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(15, this, VARIANT_BOOL.Ptr, &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -472,7 +507,7 @@ class IX509Enrollment extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-put_silent
      */
     put_Silent(Value) {
-        result := ComCall(16, this, "short", Value, "HRESULT")
+        result := ComCall(16, this, VARIANT_BOOL, Value, "HRESULT")
         return result
     }
 
@@ -562,8 +597,8 @@ class IX509Enrollment extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-get_certificate
      */
     get_Certificate(Encoding) {
-        pValue := BSTR()
-        result := ComCall(22, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(22, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -574,8 +609,8 @@ class IX509Enrollment extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-get_response
      */
     get_Response(Encoding) {
-        pValue := BSTR()
-        result := ComCall(23, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(23, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -585,8 +620,8 @@ class IX509Enrollment extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-get_certificatefriendlyname
      */
     get_CertificateFriendlyName() {
-        pValue := BSTR()
-        result := ComCall(24, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(24, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -599,7 +634,7 @@ class IX509Enrollment extends IDispatch {
     put_CertificateFriendlyName(strValue) {
         strValue := strValue is String ? BSTR.Alloc(strValue).Value : strValue
 
-        result := ComCall(25, this, "ptr", strValue, "HRESULT")
+        result := ComCall(25, this, BSTR, strValue, "HRESULT")
         return result
     }
 
@@ -609,8 +644,8 @@ class IX509Enrollment extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-get_certificatedescription
      */
     get_CertificateDescription() {
-        pValue := BSTR()
-        result := ComCall(26, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(26, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -623,7 +658,7 @@ class IX509Enrollment extends IDispatch {
     put_CertificateDescription(strValue) {
         strValue := strValue is String ? BSTR.Alloc(strValue).Value : strValue
 
-        result := ComCall(27, this, "ptr", strValue, "HRESULT")
+        result := ComCall(27, this, BSTR, strValue, "HRESULT")
         return result
     }
 
@@ -647,8 +682,72 @@ class IX509Enrollment extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-get_caconfigstring
      */
     get_CAConfigString() {
-        pValue := BSTR()
-        result := ComCall(29, this, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(29, this, BSTR.Ptr, pValue, "HRESULT")
         return pValue
+    }
+
+    Query(iid) {
+        if (IX509Enrollment.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.InitializeFromTemplateName := CallbackCreate(GetMethod(implObj, "InitializeFromTemplateName"), flags, 3)
+        this.vtbl.InitializeFromRequest := CallbackCreate(GetMethod(implObj, "InitializeFromRequest"), flags, 2)
+        this.vtbl.CreateRequest := CallbackCreate(GetMethod(implObj, "CreateRequest"), flags, 3)
+        this.vtbl.Enroll := CallbackCreate(GetMethod(implObj, "Enroll"), flags, 1)
+        this.vtbl.InstallResponse := CallbackCreate(GetMethod(implObj, "InstallResponse"), flags, 5)
+        this.vtbl.CreatePFX := CallbackCreate(GetMethod(implObj, "CreatePFX"), flags, 5)
+        this.vtbl.get_Request := CallbackCreate(GetMethod(implObj, "get_Request"), flags, 2)
+        this.vtbl.get_Silent := CallbackCreate(GetMethod(implObj, "get_Silent"), flags, 2)
+        this.vtbl.put_Silent := CallbackCreate(GetMethod(implObj, "put_Silent"), flags, 2)
+        this.vtbl.get_ParentWindow := CallbackCreate(GetMethod(implObj, "get_ParentWindow"), flags, 2)
+        this.vtbl.put_ParentWindow := CallbackCreate(GetMethod(implObj, "put_ParentWindow"), flags, 2)
+        this.vtbl.get_NameValuePairs := CallbackCreate(GetMethod(implObj, "get_NameValuePairs"), flags, 2)
+        this.vtbl.get_EnrollmentContext := CallbackCreate(GetMethod(implObj, "get_EnrollmentContext"), flags, 2)
+        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.get_Certificate := CallbackCreate(GetMethod(implObj, "get_Certificate"), flags, 3)
+        this.vtbl.get_Response := CallbackCreate(GetMethod(implObj, "get_Response"), flags, 3)
+        this.vtbl.get_CertificateFriendlyName := CallbackCreate(GetMethod(implObj, "get_CertificateFriendlyName"), flags, 2)
+        this.vtbl.put_CertificateFriendlyName := CallbackCreate(GetMethod(implObj, "put_CertificateFriendlyName"), flags, 2)
+        this.vtbl.get_CertificateDescription := CallbackCreate(GetMethod(implObj, "get_CertificateDescription"), flags, 2)
+        this.vtbl.put_CertificateDescription := CallbackCreate(GetMethod(implObj, "put_CertificateDescription"), flags, 2)
+        this.vtbl.get_RequestId := CallbackCreate(GetMethod(implObj, "get_RequestId"), flags, 2)
+        this.vtbl.get_CAConfigString := CallbackCreate(GetMethod(implObj, "get_CAConfigString"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.InitializeFromTemplateName)
+        CallbackFree(this.vtbl.InitializeFromRequest)
+        CallbackFree(this.vtbl.CreateRequest)
+        CallbackFree(this.vtbl.Enroll)
+        CallbackFree(this.vtbl.InstallResponse)
+        CallbackFree(this.vtbl.CreatePFX)
+        CallbackFree(this.vtbl.get_Request)
+        CallbackFree(this.vtbl.get_Silent)
+        CallbackFree(this.vtbl.put_Silent)
+        CallbackFree(this.vtbl.get_ParentWindow)
+        CallbackFree(this.vtbl.put_ParentWindow)
+        CallbackFree(this.vtbl.get_NameValuePairs)
+        CallbackFree(this.vtbl.get_EnrollmentContext)
+        CallbackFree(this.vtbl.get_Status)
+        CallbackFree(this.vtbl.get_Certificate)
+        CallbackFree(this.vtbl.get_Response)
+        CallbackFree(this.vtbl.get_CertificateFriendlyName)
+        CallbackFree(this.vtbl.put_CertificateFriendlyName)
+        CallbackFree(this.vtbl.get_CertificateDescription)
+        CallbackFree(this.vtbl.put_CertificateDescription)
+        CallbackFree(this.vtbl.get_RequestId)
+        CallbackFree(this.vtbl.get_CAConfigString)
     }
 }

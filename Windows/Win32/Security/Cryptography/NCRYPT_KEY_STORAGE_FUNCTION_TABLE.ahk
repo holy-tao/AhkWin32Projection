@@ -1,255 +1,70 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BCRYPT_INTERFACE_VERSION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BCRYPT_INTERFACE_VERSION.ahk" { BCRYPT_INTERFACE_VERSION }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct {
-    static sizeof => 240
+export default struct NCRYPT_KEY_STORAGE_FUNCTION_TABLE {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : BCRYPT_INTERFACE_VERSION
 
-    /**
-     * @type {BCRYPT_INTERFACE_VERSION}
-     */
-    Version {
-        get {
-            if(!this.HasProp("__Version"))
-                this.__Version := BCRYPT_INTERFACE_VERSION(0, this)
-            return this.__Version
-        }
-    }
+    OpenProvider : IntPtr
 
-    /**
-     * @type {Pointer<NCryptOpenStorageProviderFn>}
-     */
-    OpenProvider {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    OpenKey : IntPtr
 
-    /**
-     * @type {Pointer<NCryptOpenKeyFn>}
-     */
-    OpenKey {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    CreatePersistedKey : IntPtr
 
-    /**
-     * @type {Pointer<NCryptCreatePersistedKeyFn>}
-     */
-    CreatePersistedKey {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    GetProviderProperty : IntPtr
 
-    /**
-     * @type {Pointer<NCryptGetProviderPropertyFn>}
-     */
-    GetProviderProperty {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    GetKeyProperty : IntPtr
 
-    /**
-     * @type {Pointer<NCryptGetKeyPropertyFn>}
-     */
-    GetKeyProperty {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    SetProviderProperty : IntPtr
 
-    /**
-     * @type {Pointer<NCryptSetProviderPropertyFn>}
-     */
-    SetProviderProperty {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    SetKeyProperty : IntPtr
 
-    /**
-     * @type {Pointer<NCryptSetKeyPropertyFn>}
-     */
-    SetKeyProperty {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    FinalizeKey : IntPtr
 
-    /**
-     * @type {Pointer<NCryptFinalizeKeyFn>}
-     */
-    FinalizeKey {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    DeleteKey : IntPtr
 
-    /**
-     * @type {Pointer<NCryptDeleteKeyFn>}
-     */
-    DeleteKey {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    FreeProvider : IntPtr
 
-    /**
-     * @type {Pointer<NCryptFreeProviderFn>}
-     */
-    FreeProvider {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    FreeKey : IntPtr
 
-    /**
-     * @type {Pointer<NCryptFreeKeyFn>}
-     */
-    FreeKey {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    FreeBuffer : IntPtr
 
-    /**
-     * @type {Pointer<NCryptFreeBufferFn>}
-     */
-    FreeBuffer {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    Encrypt : IntPtr
 
-    /**
-     * @type {Pointer<NCryptEncryptFn>}
-     */
-    Encrypt {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    Decrypt : IntPtr
 
-    /**
-     * @type {Pointer<NCryptDecryptFn>}
-     */
-    Decrypt {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    IsAlgSupported : IntPtr
 
-    /**
-     * @type {Pointer<NCryptIsAlgSupportedFn>}
-     */
-    IsAlgSupported {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    EnumAlgorithms : IntPtr
 
-    /**
-     * @type {Pointer<NCryptEnumAlgorithmsFn>}
-     */
-    EnumAlgorithms {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    EnumKeys : IntPtr
 
-    /**
-     * @type {Pointer<NCryptEnumKeysFn>}
-     */
-    EnumKeys {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
-    }
+    ImportKey : IntPtr
 
-    /**
-     * @type {Pointer<NCryptImportKeyFn>}
-     */
-    ImportKey {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
-    }
+    ExportKey : IntPtr
 
-    /**
-     * @type {Pointer<NCryptExportKeyFn>}
-     */
-    ExportKey {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
-    }
+    SignHash : IntPtr
 
-    /**
-     * @type {Pointer<NCryptSignHashFn>}
-     */
-    SignHash {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
-    }
+    VerifySignature : IntPtr
 
-    /**
-     * @type {Pointer<NCryptVerifySignatureFn>}
-     */
-    VerifySignature {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
-    }
+    PromptUser : IntPtr
 
-    /**
-     * @type {Pointer<NCryptPromptUserFn>}
-     */
-    PromptUser {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
-    }
+    NotifyChangeKey : IntPtr
 
-    /**
-     * @type {Pointer<NCryptNotifyChangeKeyFn>}
-     */
-    NotifyChangeKey {
-        get => NumGet(this, 184, "ptr")
-        set => NumPut("ptr", value, this, 184)
-    }
+    SecretAgreement : IntPtr
 
-    /**
-     * @type {Pointer<NCryptSecretAgreementFn>}
-     */
-    SecretAgreement {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
-    }
+    DeriveKey : IntPtr
 
-    /**
-     * @type {Pointer<NCryptDeriveKeyFn>}
-     */
-    DeriveKey {
-        get => NumGet(this, 200, "ptr")
-        set => NumPut("ptr", value, this, 200)
-    }
+    FreeSecret : IntPtr
 
-    /**
-     * @type {Pointer<NCryptFreeSecretFn>}
-     */
-    FreeSecret {
-        get => NumGet(this, 208, "ptr")
-        set => NumPut("ptr", value, this, 208)
-    }
+    KeyDerivation : IntPtr
 
-    /**
-     * @type {Pointer<NCryptKeyDerivationFn>}
-     */
-    KeyDerivation {
-        get => NumGet(this, 216, "ptr")
-        set => NumPut("ptr", value, this, 216)
-    }
+    CreateClaim : IntPtr
 
-    /**
-     * @type {Pointer<NCryptCreateClaimFn>}
-     */
-    CreateClaim {
-        get => NumGet(this, 224, "ptr")
-        set => NumPut("ptr", value, this, 224)
-    }
+    VerifyClaim : IntPtr
 
-    /**
-     * @type {Pointer<NCryptVerifyClaimFn>}
-     */
-    VerifyClaim {
-        get => NumGet(this, 232, "ptr")
-        set => NumPut("ptr", value, this, 232)
-    }
 }

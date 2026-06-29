@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IRunnableTask.ahk" { IRunnableTask }
 
 /**
  * IShellTaskScheduler may be altered or unavailable.
@@ -14,26 +17,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishelltaskscheduler
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellTaskScheduler extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IShellTaskScheduler extends IUnknown {
     /**
      * The interface identifier for IShellTaskScheduler
      * @type {Guid}
      */
-    static IID => Guid("{6ccb7be0-6807-11d0-b810-00c04fd706ec}")
+    static IID := Guid("{6ccb7be0-6807-11d0-b810-00c04fd706ec}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellTaskScheduler interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddTask     : IntPtr
+        RemoveTasks : IntPtr
+        CountTasks  : IntPtr
+        Status      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddTask", "RemoveTasks", "CountTasks", "Status"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellTaskScheduler.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds a task to the scheduler's background queue.
@@ -53,7 +66,7 @@ class IShellTaskScheduler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelltaskscheduler-addtask
      */
     AddTask(prt, rtoid, _lParam, dwPriority) {
-        result := ComCall(3, this, "ptr", prt, "ptr", rtoid, "ptr", _lParam, "uint", dwPriority, "HRESULT")
+        result := ComCall(3, this, "ptr", prt, Guid.Ptr, rtoid, "ptr", _lParam, "uint", dwPriority, "HRESULT")
         return result
     }
 
@@ -74,7 +87,7 @@ class IShellTaskScheduler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelltaskscheduler-removetasks
      */
     RemoveTasks(rtoid, _lParam, bWaitIfRunning) {
-        result := ComCall(4, this, "ptr", rtoid, "ptr", _lParam, "int", bWaitIfRunning, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, rtoid, "ptr", _lParam, BOOL, bWaitIfRunning, "HRESULT")
         return result
     }
 
@@ -89,7 +102,7 @@ class IShellTaskScheduler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelltaskscheduler-counttasks
      */
     CountTasks(rtoid) {
-        result := ComCall(5, this, "ptr", rtoid, "uint")
+        result := ComCall(5, this, Guid.Ptr, rtoid, UInt32)
         return result
     }
 
@@ -109,5 +122,31 @@ class IShellTaskScheduler extends IUnknown {
     Status(dwReleaseStatus, dwThreadTimeout) {
         result := ComCall(6, this, "uint", dwReleaseStatus, "uint", dwThreadTimeout, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IShellTaskScheduler.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddTask := CallbackCreate(GetMethod(implObj, "AddTask"), flags, 5)
+        this.vtbl.RemoveTasks := CallbackCreate(GetMethod(implObj, "RemoveTasks"), flags, 4)
+        this.vtbl.CountTasks := CallbackCreate(GetMethod(implObj, "CountTasks"), flags, 2)
+        this.vtbl.Status := CallbackCreate(GetMethod(implObj, "Status"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddTask)
+        CallbackFree(this.vtbl.RemoveTasks)
+        CallbackFree(this.vtbl.CountTasks)
+        CallbackFree(this.vtbl.Status)
     }
 }

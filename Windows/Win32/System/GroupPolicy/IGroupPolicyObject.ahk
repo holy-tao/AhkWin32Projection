@@ -1,7 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\GPO_OPTIONS.ahk" { GPO_OPTIONS }
+#Import "..\Registry\HKEY.ahk" { HKEY }
+#Import ".\GPO_SECTION.ahk" { GPO_SECTION }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\GROUP_POLICY_OBJECT_TYPE.ahk" { GROUP_POLICY_OBJECT_TYPE }
+#Import "..\..\UI\Controls\HPROPSHEETPAGE.ahk" { HPROPSHEETPAGE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\GPO_OPEN_FLAGS.ahk" { GPO_OPEN_FLAGS }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IGroupPolicyObject interface provides methods to create and modify a GPO directly, without using the Group Policy Object Editor.
@@ -11,26 +20,50 @@
  * @see https://learn.microsoft.com/windows/win32/api/gpedit/nn-gpedit-igrouppolicyobject
  * @namespace Windows.Win32.System.GroupPolicy
  */
-class IGroupPolicyObject extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IGroupPolicyObject extends IUnknown {
     /**
      * The interface identifier for IGroupPolicyObject
      * @type {Guid}
      */
-    static IID => Guid("{ea502723-a23d-11d1-a7d3-0000f87571e3}")
+    static IID := Guid("{ea502723-a23d-11d1-a7d3-0000f87571e3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGroupPolicyObject interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        New                   : IntPtr
+        OpenDSGPO             : IntPtr
+        OpenLocalMachineGPO   : IntPtr
+        OpenRemoteMachineGPO  : IntPtr
+        Save                  : IntPtr
+        Delete                : IntPtr
+        GetName               : IntPtr
+        GetDisplayName        : IntPtr
+        SetDisplayName        : IntPtr
+        GetPath               : IntPtr
+        GetDSPath             : IntPtr
+        GetFileSysPath        : IntPtr
+        GetRegistryKey        : IntPtr
+        GetOptions            : IntPtr
+        SetOptions            : IntPtr
+        GetType               : IntPtr
+        GetMachineName        : IntPtr
+        GetPropertySheetPages : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["New", "OpenDSGPO", "OpenLocalMachineGPO", "OpenRemoteMachineGPO", "Save", "Delete", "GetName", "GetDisplayName", "SetDisplayName", "GetPath", "GetDSPath", "GetFileSysPath", "GetRegistryKey", "GetOptions", "SetOptions", "GetType", "GetMachineName", "GetPropertySheetPages"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGroupPolicyObject.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The New method creates a new GPO in the Active Directory with the specified display name. The method opens the GPO using the OpenDSGPO method.
@@ -64,7 +97,7 @@ class IGroupPolicyObject extends IUnknown {
     OpenDSGPO(pszPath, dwFlags) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(4, this, "ptr", pszPath, "uint", dwFlags, "HRESULT")
+        result := ComCall(4, this, "ptr", pszPath, GPO_OPEN_FLAGS, dwFlags, "HRESULT")
         return result
     }
 
@@ -78,7 +111,7 @@ class IGroupPolicyObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igrouppolicyobject-openlocalmachinegpo
      */
     OpenLocalMachineGPO(dwFlags) {
-        result := ComCall(5, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, GPO_OPEN_FLAGS, dwFlags, "HRESULT")
         return result
     }
 
@@ -96,7 +129,7 @@ class IGroupPolicyObject extends IUnknown {
     OpenRemoteMachineGPO(pszComputerName, dwFlags) {
         pszComputerName := pszComputerName is String ? StrPtr(pszComputerName) : pszComputerName
 
-        result := ComCall(6, this, "ptr", pszComputerName, "uint", dwFlags, "HRESULT")
+        result := ComCall(6, this, "ptr", pszComputerName, GPO_OPEN_FLAGS, dwFlags, "HRESULT")
         return result
     }
 
@@ -113,7 +146,7 @@ class IGroupPolicyObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igrouppolicyobject-save
      */
     Save(bMachine, bAdd, pGuidExtension, pGuid) {
-        result := ComCall(7, this, "int", bMachine, "int", bAdd, "ptr", pGuidExtension, "ptr", pGuid, "HRESULT")
+        result := ComCall(7, this, BOOL, bMachine, BOOL, bAdd, Guid.Ptr, pGuidExtension, Guid.Ptr, pGuid, "HRESULT")
         return result
     }
 
@@ -254,7 +287,7 @@ class IGroupPolicyObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igrouppolicyobject-getregistrykey
      */
     GetRegistryKey(dwSection, _hKey) {
-        result := ComCall(15, this, "uint", dwSection, "ptr", _hKey, "HRESULT")
+        result := ComCall(15, this, GPO_SECTION, dwSection, HKEY.Ptr, _hKey, "HRESULT")
         return result
     }
 
@@ -305,7 +338,7 @@ class IGroupPolicyObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igrouppolicyobject-setoptions
      */
     SetOptions(dwOptions, dwMask) {
-        result := ComCall(17, this, "uint", dwOptions, "uint", dwMask, "HRESULT")
+        result := ComCall(17, this, GPO_OPTIONS, dwOptions, "uint", dwMask, "HRESULT")
         return result
     }
 
@@ -353,5 +386,59 @@ class IGroupPolicyObject extends IUnknown {
 
         result := ComCall(20, this, hPagesMarshal, hPages, uPageCountMarshal, uPageCount, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IGroupPolicyObject.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.New := CallbackCreate(GetMethod(implObj, "New"), flags, 4)
+        this.vtbl.OpenDSGPO := CallbackCreate(GetMethod(implObj, "OpenDSGPO"), flags, 3)
+        this.vtbl.OpenLocalMachineGPO := CallbackCreate(GetMethod(implObj, "OpenLocalMachineGPO"), flags, 2)
+        this.vtbl.OpenRemoteMachineGPO := CallbackCreate(GetMethod(implObj, "OpenRemoteMachineGPO"), flags, 3)
+        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 5)
+        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 3)
+        this.vtbl.GetDisplayName := CallbackCreate(GetMethod(implObj, "GetDisplayName"), flags, 3)
+        this.vtbl.SetDisplayName := CallbackCreate(GetMethod(implObj, "SetDisplayName"), flags, 2)
+        this.vtbl.GetPath := CallbackCreate(GetMethod(implObj, "GetPath"), flags, 3)
+        this.vtbl.GetDSPath := CallbackCreate(GetMethod(implObj, "GetDSPath"), flags, 4)
+        this.vtbl.GetFileSysPath := CallbackCreate(GetMethod(implObj, "GetFileSysPath"), flags, 4)
+        this.vtbl.GetRegistryKey := CallbackCreate(GetMethod(implObj, "GetRegistryKey"), flags, 3)
+        this.vtbl.GetOptions := CallbackCreate(GetMethod(implObj, "GetOptions"), flags, 2)
+        this.vtbl.SetOptions := CallbackCreate(GetMethod(implObj, "SetOptions"), flags, 3)
+        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetMachineName := CallbackCreate(GetMethod(implObj, "GetMachineName"), flags, 3)
+        this.vtbl.GetPropertySheetPages := CallbackCreate(GetMethod(implObj, "GetPropertySheetPages"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.New)
+        CallbackFree(this.vtbl.OpenDSGPO)
+        CallbackFree(this.vtbl.OpenLocalMachineGPO)
+        CallbackFree(this.vtbl.OpenRemoteMachineGPO)
+        CallbackFree(this.vtbl.Save)
+        CallbackFree(this.vtbl.Delete)
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.GetDisplayName)
+        CallbackFree(this.vtbl.SetDisplayName)
+        CallbackFree(this.vtbl.GetPath)
+        CallbackFree(this.vtbl.GetDSPath)
+        CallbackFree(this.vtbl.GetFileSysPath)
+        CallbackFree(this.vtbl.GetRegistryKey)
+        CallbackFree(this.vtbl.GetOptions)
+        CallbackFree(this.vtbl.SetOptions)
+        CallbackFree(this.vtbl.GetType)
+        CallbackFree(this.vtbl.GetMachineName)
+        CallbackFree(this.vtbl.GetPropertySheetPages)
     }
 }

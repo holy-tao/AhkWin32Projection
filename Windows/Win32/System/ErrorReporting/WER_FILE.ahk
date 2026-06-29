@@ -1,12 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * The file does not contain personal information that could be used to identify or contact the user.
- * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werregisterfile
  * @namespace Windows.Win32.System.ErrorReporting
  */
-class WER_FILE extends Win32BitflagEnum {
+export default struct WER_FILE {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

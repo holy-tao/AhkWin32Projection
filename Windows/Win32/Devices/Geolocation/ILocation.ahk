@@ -1,8 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ILocationReport.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ILocationReport.ahk" { ILocationReport }
+#Import ".\LOCATION_REPORT_STATUS.ahk" { LOCATION_REPORT_STATUS }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ILocationEvents.ahk" { ILocationEvents }
+#Import "..\Sensors\LOCATION_DESIRED_ACCURACY.ahk" { LOCATION_DESIRED_ACCURACY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods used to manage location reports, event registration, and sensor permissions.
@@ -11,32 +17,47 @@
  * @see https://learn.microsoft.com/windows/win32/api/locationapi/nn-locationapi-ilocation
  * @namespace Windows.Win32.Devices.Geolocation
  */
-class ILocation extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ILocation extends IUnknown {
     /**
      * The interface identifier for ILocation
      * @type {Guid}
      */
-    static IID => Guid("{ab2ece69-56d9-4f28-b525-de1b0ee44237}")
+    static IID := Guid("{ab2ece69-56d9-4f28-b525-de1b0ee44237}")
 
     /**
      * The class identifier for Location
      * @type {Guid}
      */
-    static CLSID => Guid("{e5b8e079-ee6d-4e33-a438-c87f2e959254}")
+    static CLSID := Guid("{e5b8e079-ee6d-4e33-a438-c87f2e959254}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ILocation interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RegisterForReport   : IntPtr
+        UnregisterForReport : IntPtr
+        GetReport           : IntPtr
+        GetReportStatus     : IntPtr
+        GetReportInterval   : IntPtr
+        SetReportInterval   : IntPtr
+        GetDesiredAccuracy  : IntPtr
+        SetDesiredAccuracy  : IntPtr
+        RequestPermissions  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RegisterForReport", "UnregisterForReport", "GetReport", "GetReportStatus", "GetReportInterval", "SetReportInterval", "GetDesiredAccuracy", "SetDesiredAccuracy", "RequestPermissions"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ILocation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Requests location report events.
@@ -93,7 +114,7 @@ class ILocation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocation-registerforreport
      */
     RegisterForReport(pEvents, reportType, dwRequestedReportInterval) {
-        result := ComCall(3, this, "ptr", pEvents, "ptr", reportType, "uint", dwRequestedReportInterval, "HRESULT")
+        result := ComCall(3, this, "ptr", pEvents, Guid.Ptr, reportType, "uint", dwRequestedReportInterval, "HRESULT")
         return result
     }
 
@@ -144,7 +165,7 @@ class ILocation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocation-unregisterforreport
      */
     UnregisterForReport(reportType) {
-        result := ComCall(4, this, "ptr", reportType, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, reportType, "HRESULT")
         return result
     }
 
@@ -162,7 +183,7 @@ class ILocation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocation-getreport
      */
     GetReport(reportType) {
-        result := ComCall(5, this, "ptr", reportType, "ptr*", &ppLocationReport := 0, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, reportType, "ptr*", &ppLocationReport := 0, "HRESULT")
         return ILocationReport(ppLocationReport)
     }
 
@@ -202,7 +223,7 @@ class ILocation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocation-getreportstatus
      */
     GetReportStatus(reportType) {
-        result := ComCall(6, this, "ptr", reportType, "int*", &pStatus := 0, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, reportType, "int*", &pStatus := 0, "HRESULT")
         return pStatus
     }
 
@@ -215,7 +236,7 @@ class ILocation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocation-getreportinterval
      */
     GetReportInterval(reportType) {
-        result := ComCall(7, this, "ptr", reportType, "uint*", &pMilliseconds := 0, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, reportType, "uint*", &pMilliseconds := 0, "HRESULT")
         return pMilliseconds
     }
 
@@ -273,7 +294,7 @@ class ILocation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocation-setreportinterval
      */
     SetReportInterval(reportType, millisecondsRequested) {
-        result := ComCall(8, this, "ptr", reportType, "uint", millisecondsRequested, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, reportType, "uint", millisecondsRequested, "HRESULT")
         return result
     }
 
@@ -284,7 +305,7 @@ class ILocation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocation-getdesiredaccuracy
      */
     GetDesiredAccuracy(reportType) {
-        result := ComCall(9, this, "ptr", reportType, "int*", &pDesiredAccuracy := 0, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, reportType, "int*", &pDesiredAccuracy := 0, "HRESULT")
         return pDesiredAccuracy
     }
 
@@ -336,7 +357,7 @@ class ILocation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocation-setdesiredaccuracy
      */
     SetDesiredAccuracy(reportType, desiredAccuracy) {
-        result := ComCall(10, this, "ptr", reportType, "int", desiredAccuracy, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, reportType, LOCATION_DESIRED_ACCURACY, desiredAccuracy, "HRESULT")
         return result
     }
 
@@ -450,9 +471,43 @@ class ILocation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocation-requestpermissions
      */
     RequestPermissions(hParent, pReportTypes, count, fModal) {
-        hParent := hParent is Win32Handle ? NumGet(hParent, "ptr") : hParent
-
-        result := ComCall(11, this, "ptr", hParent, "ptr", pReportTypes, "uint", count, "int", fModal, "HRESULT")
+        result := ComCall(11, this, HWND, hParent, Guid.Ptr, pReportTypes, "uint", count, BOOL, fModal, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ILocation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RegisterForReport := CallbackCreate(GetMethod(implObj, "RegisterForReport"), flags, 4)
+        this.vtbl.UnregisterForReport := CallbackCreate(GetMethod(implObj, "UnregisterForReport"), flags, 2)
+        this.vtbl.GetReport := CallbackCreate(GetMethod(implObj, "GetReport"), flags, 3)
+        this.vtbl.GetReportStatus := CallbackCreate(GetMethod(implObj, "GetReportStatus"), flags, 3)
+        this.vtbl.GetReportInterval := CallbackCreate(GetMethod(implObj, "GetReportInterval"), flags, 3)
+        this.vtbl.SetReportInterval := CallbackCreate(GetMethod(implObj, "SetReportInterval"), flags, 3)
+        this.vtbl.GetDesiredAccuracy := CallbackCreate(GetMethod(implObj, "GetDesiredAccuracy"), flags, 3)
+        this.vtbl.SetDesiredAccuracy := CallbackCreate(GetMethod(implObj, "SetDesiredAccuracy"), flags, 3)
+        this.vtbl.RequestPermissions := CallbackCreate(GetMethod(implObj, "RequestPermissions"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RegisterForReport)
+        CallbackFree(this.vtbl.UnregisterForReport)
+        CallbackFree(this.vtbl.GetReport)
+        CallbackFree(this.vtbl.GetReportStatus)
+        CallbackFree(this.vtbl.GetReportInterval)
+        CallbackFree(this.vtbl.SetReportInterval)
+        CallbackFree(this.vtbl.GetDesiredAccuracy)
+        CallbackFree(this.vtbl.SetDesiredAccuracy)
+        CallbackFree(this.vtbl.RequestPermissions)
     }
 }

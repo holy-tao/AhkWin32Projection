@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The VDS_SUB_SYSTEM_NOTIFICATION structure (vdshwprv.h) defines the details of subsystem events.
@@ -16,10 +16,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_sub_system_notification
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_SUB_SYSTEM_NOTIFICATION extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct VDS_SUB_SYSTEM_NOTIFICATION {
+    #StructPack 4
 
     /**
      * Determines the subsystem event for which an application will be notified, as one of the following 
@@ -65,19 +63,12 @@ class VDS_SUB_SYSTEM_NOTIFICATION extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ulEvent {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulEvent : UInt32
 
     /**
      * The subsystem's GUID.
-     * @type {Pointer}
      */
-    subSystemId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    subSystemId : Guid
+
 }

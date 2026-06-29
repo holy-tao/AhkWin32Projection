@@ -1,35 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITypeLib.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include .\CUSTDATA.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CUSTDATA.ahk" { CUSTDATA }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import ".\ITypeLib.ahk" { ITypeLib }
 
 /**
  * Represents a type library, the data that describes a set of objects. (ITypeLib2)
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-itypelib2
  * @namespace Windows.Win32.System.Com
  */
-class ITypeLib2 extends ITypeLib {
-
-    static sizeof => A_PtrSize
+export default struct ITypeLib2 extends ITypeLib {
     /**
      * The interface identifier for ITypeLib2
      * @type {Guid}
      */
-    static IID => Guid("{00020411-0000-0000-c000-000000000046}")
+    static IID := Guid("{00020411-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 13
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITypeLib2 interfaces
+    */
+    struct Vtbl extends ITypeLib.Vtbl {
+        GetCustData       : IntPtr
+        GetLibStatistics  : IntPtr
+        GetDocumentation2 : IntPtr
+        GetAllCustData    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCustData", "GetLibStatistics", "GetDocumentation2", "GetAllCustData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITypeLib2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the custom data. (ITypeLib2.GetCustData)
@@ -39,7 +51,7 @@ class ITypeLib2 extends ITypeLib {
      */
     GetCustData(guid) {
         pVarVal := VARIANT()
-        result := ComCall(13, this, "ptr", guid, "ptr", pVarVal, "HRESULT")
+        result := ComCall(13, this, Guid.Ptr, guid, VARIANT.Ptr, pVarVal, "HRESULT")
         return pVarVal
     }
 
@@ -163,7 +175,7 @@ class ITypeLib2 extends ITypeLib {
     GetDocumentation2(index, lcid, pbstrHelpString, pdwHelpStringContext, pbstrHelpStringDll) {
         pdwHelpStringContextMarshal := pdwHelpStringContext is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "int", index, "uint", lcid, "ptr", pbstrHelpString, pdwHelpStringContextMarshal, pdwHelpStringContext, "ptr", pbstrHelpStringDll, "HRESULT")
+        result := ComCall(15, this, "int", index, "uint", lcid, BSTR.Ptr, pbstrHelpString, pdwHelpStringContextMarshal, pdwHelpStringContext, BSTR.Ptr, pbstrHelpStringDll, "HRESULT")
         return result
     }
 
@@ -176,7 +188,33 @@ class ITypeLib2 extends ITypeLib {
      */
     GetAllCustData() {
         pCustData := CUSTDATA()
-        result := ComCall(16, this, "ptr", pCustData, "HRESULT")
+        result := ComCall(16, this, CUSTDATA.Ptr, pCustData, "HRESULT")
         return pCustData
+    }
+
+    Query(iid) {
+        if (ITypeLib2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCustData := CallbackCreate(GetMethod(implObj, "GetCustData"), flags, 3)
+        this.vtbl.GetLibStatistics := CallbackCreate(GetMethod(implObj, "GetLibStatistics"), flags, 3)
+        this.vtbl.GetDocumentation2 := CallbackCreate(GetMethod(implObj, "GetDocumentation2"), flags, 6)
+        this.vtbl.GetAllCustData := CallbackCreate(GetMethod(implObj, "GetAllCustData"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCustData)
+        CallbackFree(this.vtbl.GetLibStatistics)
+        CallbackFree(this.vtbl.GetDocumentation2)
+        CallbackFree(this.vtbl.GetAllCustData)
     }
 }

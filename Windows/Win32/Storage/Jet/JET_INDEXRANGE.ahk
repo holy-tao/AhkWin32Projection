@@ -1,41 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\StructuredStorage\JET_TABLEID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\StructuredStorage\JET_TABLEID.ahk" { JET_TABLEID }
 
 /**
  * Learn more about: JET_INDEXRANGE Structure
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-indexrange-structure
  * @namespace Windows.Win32.Storage.Jet
  */
-class JET_INDEXRANGE extends Win32Struct {
-    static sizeof => 24
+export default struct JET_INDEXRANGE {
+    #StructPack 8
 
-    static packingSize => 8
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    tableid : JET_TABLEID
 
-    /**
-     * @type {JET_TABLEID}
-     */
-    tableid {
-        get {
-            if(!this.HasProp("__tableid"))
-                this.__tableid := JET_TABLEID(8, this)
-            return this.__tableid
-        }
-    }
+    grbit : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    grbit {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
 }

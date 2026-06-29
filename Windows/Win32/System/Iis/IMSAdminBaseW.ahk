@@ -1,33 +1,74 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\METADATA_HANDLE_INFO.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\METADATA_RECORD.ahk" { METADATA_RECORD }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\METADATA_HANDLE_INFO.ahk" { METADATA_HANDLE_INFO }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Iis
  */
-class IMSAdminBaseW extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMSAdminBaseW extends IUnknown {
     /**
      * The interface identifier for IMSAdminBaseW
      * @type {Guid}
      */
-    static IID => Guid("{70b51430-b6ca-11d0-b9b9-00a0c922e750}")
+    static IID := Guid("{70b51430-b6ca-11d0-b9b9-00a0c922e750}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSAdminBaseW interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddKey                : IntPtr
+        DeleteKey             : IntPtr
+        DeleteChildKeys       : IntPtr
+        EnumKeys              : IntPtr
+        CopyKey               : IntPtr
+        RenameKey             : IntPtr
+        SetData               : IntPtr
+        GetData               : IntPtr
+        DeleteData            : IntPtr
+        EnumData              : IntPtr
+        GetAllData            : IntPtr
+        DeleteAllData         : IntPtr
+        CopyData              : IntPtr
+        GetDataPaths          : IntPtr
+        OpenKey               : IntPtr
+        CloseKey              : IntPtr
+        ChangePermissions     : IntPtr
+        SaveData              : IntPtr
+        GetHandleInfo         : IntPtr
+        GetSystemChangeNumber : IntPtr
+        GetDataSetNumber      : IntPtr
+        SetLastChangeTime     : IntPtr
+        GetLastChangeTime     : IntPtr
+        KeyExchangePhase1     : IntPtr
+        KeyExchangePhase2     : IntPtr
+        Backup                : IntPtr
+        Restore               : IntPtr
+        EnumBackups           : IntPtr
+        DeleteBackup          : IntPtr
+        UnmarshalInterface    : IntPtr
+        GetServerGuid         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddKey", "DeleteKey", "DeleteChildKeys", "EnumKeys", "CopyKey", "RenameKey", "SetData", "GetData", "DeleteData", "EnumData", "GetAllData", "DeleteAllData", "CopyData", "GetDataPaths", "OpenKey", "CloseKey", "ChangePermissions", "SaveData", "GetHandleInfo", "GetSystemChangeNumber", "GetDataSetNumber", "SetLastChangeTime", "GetLastChangeTime", "KeyExchangePhase1", "KeyExchangePhase2", "Backup", "Restore", "EnumBackups", "DeleteBackup", "UnmarshalInterface", "GetServerGuid"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSAdminBaseW.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -43,26 +84,10 @@ class IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * Deletes a given key protector for the volume.
-     * @remarks
-     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
+     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
-     * @returns {HRESULT} Type: **uint32**
-     * 
-     * This method returns one of the following codes or another error code if it fails.
-     * 
-     * 
-     * 
-     * | Return code/value                                                                                                                                                                          | Description                                                                                                                                                                                                                                                                                                               |
-     * |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl>                                          | The method was successful.<br/>                                                                                                                                                                                                                                                                                     |
-     * | <dl> <dt>**FVE\_E\_LOCKED\_VOLUME**</dt> <dt>2150694912 (0x80310000)</dt> </dl>         | The volume is locked.<br/>                                                                                                                                                                                                                                                                                          |
-     * | <dl> <dt>**FVE\_E\_NOT\_ACTIVATED**</dt> <dt>2150694920 (0x80310008)</dt> </dl>         | BitLocker is not enabled on the volume. Add a key protector to enable BitLocker. <br/>                                                                                                                                                                                                                              |
-     * | <dl> <dt>**E\_INVALIDARG**</dt> <dt>2147942487 (0x80070057)</dt> </dl>                  | The *VolumeKeyProtectorID* parameter does not refer to a valid key protector.<br/>                                                                                                                                                                                                                                  |
-     * | <dl> <dt>**FVE\_E\_KEY\_REQUIRED**</dt> <dt>2150694941 (0x8031001D)</dt> </dl>          | The last key protector for a partially or fully encrypted volume cannot be removed if key protectors are enabled. Use [**DisableKeyProtectors**](disablekeyprotectors-win32-encryptablevolume.md) before removing this last key protector to ensure that encrypted portions of the volume remain accessible. <br/> |
-     * | <dl> <dt>**FVE\_E\_VOLUME\_BOUND\_ALREADY**</dt> <dt>2150694943 (0x8031001F)</dt> </dl> | This key protector cannot be deleted because it is being used to automatically unlock the volume. <br/> Use [**DisableAutoUnlock**](disableautounlock-win32-encryptablevolume.md) to disable automatic unlocking before deleting this key protector.<br/>                                                    |
-     * @see https://learn.microsoft.com/windows/win32/SecProv/deletekeyprotector-win32-encryptablevolume
+     * @returns {HRESULT} 
      */
     DeleteKey(hMDHandle, pszMDPath) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
@@ -114,7 +139,7 @@ class IMSAdminBaseW extends IUnknown {
         pszMDSourcePath := pszMDSourcePath is String ? StrPtr(pszMDSourcePath) : pszMDSourcePath
         pszMDDestPath := pszMDDestPath is String ? StrPtr(pszMDDestPath) : pszMDDestPath
 
-        result := ComCall(7, this, "uint", hMDSourceHandle, "ptr", pszMDSourcePath, "uint", hMDDestHandle, "ptr", pszMDDestPath, "int", bMDOverwriteFlag, "int", bMDCopyFlag, "HRESULT")
+        result := ComCall(7, this, "uint", hMDSourceHandle, "ptr", pszMDSourcePath, "uint", hMDDestHandle, "ptr", pszMDDestPath, BOOL, bMDOverwriteFlag, BOOL, bMDCopyFlag, "HRESULT")
         return result
     }
 
@@ -143,7 +168,7 @@ class IMSAdminBaseW extends IUnknown {
     SetData(hMDHandle, pszMDPath, pmdrMDData) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(9, this, "uint", hMDHandle, "ptr", pszMDPath, "ptr", pmdrMDData, "HRESULT")
+        result := ComCall(9, this, "uint", hMDHandle, "ptr", pszMDPath, METADATA_RECORD.Ptr, pmdrMDData, "HRESULT")
         return result
     }
 
@@ -160,7 +185,7 @@ class IMSAdminBaseW extends IUnknown {
 
         pdwMDRequiredDataLenMarshal := pdwMDRequiredDataLen is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "uint", hMDHandle, "ptr", pszMDPath, "ptr", pmdrMDData, pdwMDRequiredDataLenMarshal, pdwMDRequiredDataLen, "HRESULT")
+        result := ComCall(10, this, "uint", hMDHandle, "ptr", pszMDPath, METADATA_RECORD.Ptr, pmdrMDData, pdwMDRequiredDataLenMarshal, pdwMDRequiredDataLen, "HRESULT")
         return result
     }
 
@@ -193,7 +218,7 @@ class IMSAdminBaseW extends IUnknown {
 
         pdwMDRequiredDataLenMarshal := pdwMDRequiredDataLen is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "uint", hMDHandle, "ptr", pszMDPath, "ptr", pmdrMDData, "uint", dwMDEnumDataIndex, pdwMDRequiredDataLenMarshal, pdwMDRequiredDataLen, "HRESULT")
+        result := ComCall(12, this, "uint", hMDHandle, "ptr", pszMDPath, METADATA_RECORD.Ptr, pmdrMDData, "uint", dwMDEnumDataIndex, pdwMDRequiredDataLenMarshal, pdwMDRequiredDataLen, "HRESULT")
         return result
     }
 
@@ -254,7 +279,7 @@ class IMSAdminBaseW extends IUnknown {
         pszMDSourcePath := pszMDSourcePath is String ? StrPtr(pszMDSourcePath) : pszMDSourcePath
         pszMDDestPath := pszMDDestPath is String ? StrPtr(pszMDDestPath) : pszMDDestPath
 
-        result := ComCall(15, this, "uint", hMDSourceHandle, "ptr", pszMDSourcePath, "uint", hMDDestHandle, "ptr", pszMDDestPath, "uint", dwMDAttributes, "uint", dwMDUserType, "uint", dwMDDataType, "int", bMDCopyFlag, "HRESULT")
+        result := ComCall(15, this, "uint", hMDSourceHandle, "ptr", pszMDSourcePath, "uint", hMDDestHandle, "ptr", pszMDDestPath, "uint", dwMDAttributes, "uint", dwMDUserType, "uint", dwMDDataType, BOOL, bMDCopyFlag, "HRESULT")
         return result
     }
 
@@ -323,14 +348,13 @@ class IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * Retrieves certain properties of an object handle.
+     * 
      * @param {Integer} hMDHandle 
      * @returns {METADATA_HANDLE_INFO} 
-     * @see https://learn.microsoft.com/windows/win32/api/handleapi/nf-handleapi-gethandleinformation
      */
     GetHandleInfo(hMDHandle) {
         pmdhiInfo := METADATA_HANDLE_INFO()
-        result := ComCall(21, this, "uint", hMDHandle, "ptr", pmdhiInfo, "HRESULT")
+        result := ComCall(21, this, "uint", hMDHandle, METADATA_HANDLE_INFO.Ptr, pmdhiInfo, "HRESULT")
         return pmdhiInfo
     }
 
@@ -367,7 +391,7 @@ class IMSAdminBaseW extends IUnknown {
     SetLastChangeTime(hMDHandle, pszMDPath, pftMDLastChangeTime, bLocalTime) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(24, this, "uint", hMDHandle, "ptr", pszMDPath, "ptr", pftMDLastChangeTime, "int", bLocalTime, "HRESULT")
+        result := ComCall(24, this, "uint", hMDHandle, "ptr", pszMDPath, FILETIME.Ptr, pftMDLastChangeTime, BOOL, bLocalTime, "HRESULT")
         return result
     }
 
@@ -382,7 +406,7 @@ class IMSAdminBaseW extends IUnknown {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
         pftMDLastChangeTime := FILETIME()
-        result := ComCall(25, this, "uint", hMDHandle, "ptr", pszMDPath, "ptr", pftMDLastChangeTime, "int", bLocalTime, "HRESULT")
+        result := ComCall(25, this, "uint", hMDHandle, "ptr", pszMDPath, FILETIME.Ptr, pftMDLastChangeTime, BOOL, bLocalTime, "HRESULT")
         return pftMDLastChangeTime
     }
 
@@ -447,7 +471,7 @@ class IMSAdminBaseW extends IUnknown {
 
         pdwMDVersionMarshal := pdwMDVersion is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(30, this, "ptr", pszMDBackupLocation, pdwMDVersionMarshal, pdwMDVersion, "ptr", pftMDBackupTime, "uint", dwMDEnumIndex, "HRESULT")
+        result := ComCall(30, this, "ptr", pszMDBackupLocation, pdwMDVersionMarshal, pdwMDVersion, FILETIME.Ptr, pftMDBackupTime, "uint", dwMDEnumIndex, "HRESULT")
         return result
     }
 
@@ -480,5 +504,85 @@ class IMSAdminBaseW extends IUnknown {
     GetServerGuid() {
         result := ComCall(33, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMSAdminBaseW.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddKey := CallbackCreate(GetMethod(implObj, "AddKey"), flags, 3)
+        this.vtbl.DeleteKey := CallbackCreate(GetMethod(implObj, "DeleteKey"), flags, 3)
+        this.vtbl.DeleteChildKeys := CallbackCreate(GetMethod(implObj, "DeleteChildKeys"), flags, 3)
+        this.vtbl.EnumKeys := CallbackCreate(GetMethod(implObj, "EnumKeys"), flags, 5)
+        this.vtbl.CopyKey := CallbackCreate(GetMethod(implObj, "CopyKey"), flags, 7)
+        this.vtbl.RenameKey := CallbackCreate(GetMethod(implObj, "RenameKey"), flags, 4)
+        this.vtbl.SetData := CallbackCreate(GetMethod(implObj, "SetData"), flags, 4)
+        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 5)
+        this.vtbl.DeleteData := CallbackCreate(GetMethod(implObj, "DeleteData"), flags, 5)
+        this.vtbl.EnumData := CallbackCreate(GetMethod(implObj, "EnumData"), flags, 6)
+        this.vtbl.GetAllData := CallbackCreate(GetMethod(implObj, "GetAllData"), flags, 11)
+        this.vtbl.DeleteAllData := CallbackCreate(GetMethod(implObj, "DeleteAllData"), flags, 5)
+        this.vtbl.CopyData := CallbackCreate(GetMethod(implObj, "CopyData"), flags, 9)
+        this.vtbl.GetDataPaths := CallbackCreate(GetMethod(implObj, "GetDataPaths"), flags, 8)
+        this.vtbl.OpenKey := CallbackCreate(GetMethod(implObj, "OpenKey"), flags, 6)
+        this.vtbl.CloseKey := CallbackCreate(GetMethod(implObj, "CloseKey"), flags, 2)
+        this.vtbl.ChangePermissions := CallbackCreate(GetMethod(implObj, "ChangePermissions"), flags, 4)
+        this.vtbl.SaveData := CallbackCreate(GetMethod(implObj, "SaveData"), flags, 1)
+        this.vtbl.GetHandleInfo := CallbackCreate(GetMethod(implObj, "GetHandleInfo"), flags, 3)
+        this.vtbl.GetSystemChangeNumber := CallbackCreate(GetMethod(implObj, "GetSystemChangeNumber"), flags, 2)
+        this.vtbl.GetDataSetNumber := CallbackCreate(GetMethod(implObj, "GetDataSetNumber"), flags, 4)
+        this.vtbl.SetLastChangeTime := CallbackCreate(GetMethod(implObj, "SetLastChangeTime"), flags, 5)
+        this.vtbl.GetLastChangeTime := CallbackCreate(GetMethod(implObj, "GetLastChangeTime"), flags, 5)
+        this.vtbl.KeyExchangePhase1 := CallbackCreate(GetMethod(implObj, "KeyExchangePhase1"), flags, 1)
+        this.vtbl.KeyExchangePhase2 := CallbackCreate(GetMethod(implObj, "KeyExchangePhase2"), flags, 1)
+        this.vtbl.Backup := CallbackCreate(GetMethod(implObj, "Backup"), flags, 4)
+        this.vtbl.Restore := CallbackCreate(GetMethod(implObj, "Restore"), flags, 4)
+        this.vtbl.EnumBackups := CallbackCreate(GetMethod(implObj, "EnumBackups"), flags, 5)
+        this.vtbl.DeleteBackup := CallbackCreate(GetMethod(implObj, "DeleteBackup"), flags, 3)
+        this.vtbl.UnmarshalInterface := CallbackCreate(GetMethod(implObj, "UnmarshalInterface"), flags, 2)
+        this.vtbl.GetServerGuid := CallbackCreate(GetMethod(implObj, "GetServerGuid"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddKey)
+        CallbackFree(this.vtbl.DeleteKey)
+        CallbackFree(this.vtbl.DeleteChildKeys)
+        CallbackFree(this.vtbl.EnumKeys)
+        CallbackFree(this.vtbl.CopyKey)
+        CallbackFree(this.vtbl.RenameKey)
+        CallbackFree(this.vtbl.SetData)
+        CallbackFree(this.vtbl.GetData)
+        CallbackFree(this.vtbl.DeleteData)
+        CallbackFree(this.vtbl.EnumData)
+        CallbackFree(this.vtbl.GetAllData)
+        CallbackFree(this.vtbl.DeleteAllData)
+        CallbackFree(this.vtbl.CopyData)
+        CallbackFree(this.vtbl.GetDataPaths)
+        CallbackFree(this.vtbl.OpenKey)
+        CallbackFree(this.vtbl.CloseKey)
+        CallbackFree(this.vtbl.ChangePermissions)
+        CallbackFree(this.vtbl.SaveData)
+        CallbackFree(this.vtbl.GetHandleInfo)
+        CallbackFree(this.vtbl.GetSystemChangeNumber)
+        CallbackFree(this.vtbl.GetDataSetNumber)
+        CallbackFree(this.vtbl.SetLastChangeTime)
+        CallbackFree(this.vtbl.GetLastChangeTime)
+        CallbackFree(this.vtbl.KeyExchangePhase1)
+        CallbackFree(this.vtbl.KeyExchangePhase2)
+        CallbackFree(this.vtbl.Backup)
+        CallbackFree(this.vtbl.Restore)
+        CallbackFree(this.vtbl.EnumBackups)
+        CallbackFree(this.vtbl.DeleteBackup)
+        CallbackFree(this.vtbl.UnmarshalInterface)
+        CallbackFree(this.vtbl.GetServerGuid)
     }
 }

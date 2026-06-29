@@ -1,23 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SCARD_IO_REQUEST.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SCARD_IO_REQUEST.ahk" { SCARD_IO_REQUEST }
 
 /**
  * @namespace Windows.Win32.Security.Credentials
  */
-class SCARD_T1_REQUEST extends Win32Struct {
-    static sizeof => 8
+export default struct SCARD_T1_REQUEST {
+    #StructPack 4
 
-    static packingSize => 4
+    ioRequest : SCARD_IO_REQUEST
 
-    /**
-     * @type {SCARD_IO_REQUEST}
-     */
-    ioRequest {
-        get {
-            if(!this.HasProp("__ioRequest"))
-                this.__ioRequest := SCARD_IO_REQUEST(0, this)
-            return this.__ioRequest
-        }
-    }
 }

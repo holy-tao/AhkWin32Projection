@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies how 3D video frames are stored in memory.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ne-mfapi-mfvideo3dformat
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFVideo3DFormat extends Win32Enum {
+export default struct MFVideo3DFormat {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The base view is stored in a single buffer. The other view is discarded.

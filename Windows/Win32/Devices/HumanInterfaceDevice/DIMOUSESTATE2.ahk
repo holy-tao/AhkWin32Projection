@@ -1,46 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class DIMOUSESTATE2 extends Win32Struct {
-    static sizeof => 20
+export default struct DIMOUSESTATE2 {
+    #StructPack 4
 
-    static packingSize => 4
+    lX : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lX {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    lY : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lY {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    lZ : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lZ {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    rgbButtons : Int8[8]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    rgbButtons {
-        get {
-            if(!this.HasProp("__rgbButtonsProxyArray"))
-                this.__rgbButtonsProxyArray := Win32FixedArray(this.ptr + 12, 8, Primitive, "char")
-            return this.__rgbButtonsProxyArray
-        }
-    }
 }

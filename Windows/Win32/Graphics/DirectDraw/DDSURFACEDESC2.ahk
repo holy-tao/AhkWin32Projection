@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDCOLORKEY.ahk
-#Include .\DDPIXELFORMAT.ahk
-#Include .\DDSCAPS2.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDSCAPS2.ahk" { DDSCAPS2 }
+#Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
+#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
 
 /**
  * The DDSURFACEDESC2 structure contains a description of a surface to be created by the driver.
@@ -11,19 +10,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddsurfacedesc2
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDSURFACEDESC2 extends Win32Struct {
-    static sizeof => 136
-
-    static packingSize => 8
+export default struct DDSURFACEDESC2 {
+    #StructPack 8
 
     /**
      * Specifies the size in bytes of this DDSURFACEDESC2 structure. This member must be initialized before the structure is used.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Specifies a set of flags that determine what members of the DDSURFACEDESC2 structure contain valid data. This member can be one or more of the following flags:
@@ -122,206 +115,76 @@ class DDSURFACEDESC2 extends Win32Struct {
      * </tr>
      * </tbody>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : UInt32
 
     /**
      * Specifies the height of surface in pixels.
-     * @type {Integer}
      */
-    dwHeight {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwHeight : UInt32
 
     /**
      * Specifies the width of the surface in pixels.
-     * @type {Integer}
      */
-    dwWidth {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    lPitch {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    lPitch : Int32
 
-    /**
-     * @type {Integer}
-     */
-    dwLinearSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwBackBufferCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwBackBufferCount {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwDepth {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwMipMapCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwRefreshRate {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwSrcVBHandle {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwMipMapCount : UInt32
 
     /**
      * Specifies the depth of the alpha buffer in bits per pixel.
-     * @type {Integer}
      */
-    dwAlphaBitDepth {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwAlphaBitDepth : UInt32
 
     /**
      * Reserved, and should be set to zero.
-     * @type {Integer}
      */
-    dwReserved {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwReserved : UInt32
 
     /**
      * Specifies the address of the associated surface memory.
-     * @type {Pointer<Void>}
      */
-    lpSurface {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lpSurface : IntPtr
 
-    /**
-     * @type {DDCOLORKEY}
-     */
-    ddckCKDestOverlay {
-        get {
-            if(!this.HasProp("__ddckCKDestOverlay"))
-                this.__ddckCKDestOverlay := DDCOLORKEY(48, this)
-            return this.__ddckCKDestOverlay
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwEmptyFaceColor {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    ddckCKDestOverlay : DDCOLORKEY
 
     /**
      * Specifies the color key for destination blit use.
-     * @type {DDCOLORKEY}
      */
-    ddckCKDestBlt {
-        get {
-            if(!this.HasProp("__ddckCKDestBlt"))
-                this.__ddckCKDestBlt := DDCOLORKEY(56, this)
-            return this.__ddckCKDestBlt
-        }
-    }
+    ddckCKDestBlt : DDCOLORKEY
 
     /**
      * Specifies the color key for source overlay use.
-     * @type {DDCOLORKEY}
      */
-    ddckCKSrcOverlay {
-        get {
-            if(!this.HasProp("__ddckCKSrcOverlay"))
-                this.__ddckCKSrcOverlay := DDCOLORKEY(64, this)
-            return this.__ddckCKSrcOverlay
-        }
-    }
+    ddckCKSrcOverlay : DDCOLORKEY
 
     /**
      * Specifies the color key for source blit use.
-     * @type {DDCOLORKEY}
      */
-    ddckCKSrcBlt {
-        get {
-            if(!this.HasProp("__ddckCKSrcBlt"))
-                this.__ddckCKSrcBlt := DDCOLORKEY(72, this)
-            return this.__ddckCKSrcBlt
-        }
-    }
+    ddckCKSrcBlt : DDCOLORKEY
 
-    /**
-     * @type {DDPIXELFORMAT}
-     */
-    ddpfPixelFormat {
-        get {
-            if(!this.HasProp("__ddpfPixelFormat"))
-                this.__ddpfPixelFormat := DDPIXELFORMAT(80, this)
-            return this.__ddpfPixelFormat
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwFVF {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    ddpfPixelFormat : DDPIXELFORMAT
 
     /**
      * Specifies a [DDSCAPS](ns-ddraw-ddscaps.md) structure that contains the DirectDraw surface capabilities.
-     * @type {DDSCAPS2}
      */
-    ddsCaps {
-        get {
-            if(!this.HasProp("__ddsCaps"))
-                this.__ddsCaps := DDSCAPS2(112, this)
-            return this.__ddsCaps
-        }
-    }
+    ddsCaps : DDSCAPS2
 
     /**
      * Specifies the stage in the multitexture cascade. For more information, see [Texture Stages](/windows-hardware/drivers/display/texture-stages).
-     * @type {Integer}
      */
-    dwTextureStage {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
+    dwTextureStage : UInt32
+
+    static __New() {
+        DefineProp(this.Prototype, 'dwLinearSize', { type: UInt32, offset: 16 })
+        DefineProp(this.Prototype, 'dwDepth', { type: UInt32, offset: 20 })
+        DefineProp(this.Prototype, 'dwRefreshRate', { type: UInt32, offset: 24 })
+        DefineProp(this.Prototype, 'dwSrcVBHandle', { type: UInt32, offset: 24 })
+        DefineProp(this.Prototype, 'dwEmptyFaceColor', { type: UInt32, offset: 48 })
+        DefineProp(this.Prototype, 'dwFVF', { type: UInt32, offset: 80 })
+        this.DeleteProp("__New")
     }
 }

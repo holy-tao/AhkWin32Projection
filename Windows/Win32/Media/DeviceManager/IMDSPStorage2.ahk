@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMDSPStorage.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\MediaFoundation\VIDEOINFOHEADER.ahk" { VIDEOINFOHEADER }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import ".\IMDSPStorage.ahk" { IMDSPStorage }
 
 /**
  * The IMDSPStorage2 interface extends IMDSPStorage by providing methods for getting and setting extended attributes and making it possible to get a pointer to a storage medium from its name.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-imdspstorage2
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class IMDSPStorage2 extends IMDSPStorage {
-
-    static sizeof => A_PtrSize
+export default struct IMDSPStorage2 extends IMDSPStorage {
     /**
      * The interface identifier for IMDSPStorage2
      * @type {Guid}
      */
-    static IID => Guid("{0a5e07a5-6454-4451-9c36-1c6ae7e2b1d6}")
+    static IID := Guid("{0a5e07a5-6454-4451-9c36-1c6ae7e2b1d6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 13
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMDSPStorage2 interfaces
+    */
+    struct Vtbl extends IMDSPStorage.Vtbl {
+        GetStorage     : IntPtr
+        CreateStorage2 : IntPtr
+        SetAttributes2 : IntPtr
+        GetAttributes2 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetStorage", "CreateStorage2", "SetAttributes2", "GetAttributes2"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMDSPStorage2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetStorage method makes it possible to go directly to a storage object from a storage name instead of enumerating through all storages to find it.
@@ -78,7 +92,7 @@ class IMDSPStorage2 extends IMDSPStorage {
     CreateStorage2(dwAttributes, dwAttributesEx, pAudioFormat, pVideoFormat, pwszName, qwFileSize) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(14, this, "uint", dwAttributes, "uint", dwAttributesEx, "ptr", pAudioFormat, "ptr", pVideoFormat, "ptr", pwszName, "uint", qwFileSize, "ptr*", &ppNewStorage := 0, "HRESULT")
+        result := ComCall(14, this, "uint", dwAttributes, "uint", dwAttributesEx, WAVEFORMATEX.Ptr, pAudioFormat, VIDEOINFOHEADER.Ptr, pVideoFormat, "ptr", pwszName, "uint", qwFileSize, "ptr*", &ppNewStorage := 0, "HRESULT")
         return IMDSPStorage(ppNewStorage)
     }
 
@@ -103,7 +117,7 @@ class IMDSPStorage2 extends IMDSPStorage {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage2-setattributes2
      */
     SetAttributes2(dwAttributes, dwAttributesEx, pAudioFormat, pVideoFormat) {
-        result := ComCall(15, this, "uint", dwAttributes, "uint", dwAttributesEx, "ptr", pAudioFormat, "ptr", pVideoFormat, "HRESULT")
+        result := ComCall(15, this, "uint", dwAttributes, "uint", dwAttributesEx, WAVEFORMATEX.Ptr, pAudioFormat, VIDEOINFOHEADER.Ptr, pVideoFormat, "HRESULT")
         return result
     }
 
@@ -131,7 +145,33 @@ class IMDSPStorage2 extends IMDSPStorage {
         pdwAttributesMarshal := pdwAttributes is VarRef ? "uint*" : "ptr"
         pdwAttributesExMarshal := pdwAttributesEx is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, pdwAttributesMarshal, pdwAttributes, pdwAttributesExMarshal, pdwAttributesEx, "ptr", pAudioFormat, "ptr", pVideoFormat, "HRESULT")
+        result := ComCall(16, this, pdwAttributesMarshal, pdwAttributes, pdwAttributesExMarshal, pdwAttributesEx, WAVEFORMATEX.Ptr, pAudioFormat, VIDEOINFOHEADER.Ptr, pVideoFormat, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMDSPStorage2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetStorage := CallbackCreate(GetMethod(implObj, "GetStorage"), flags, 3)
+        this.vtbl.CreateStorage2 := CallbackCreate(GetMethod(implObj, "CreateStorage2"), flags, 8)
+        this.vtbl.SetAttributes2 := CallbackCreate(GetMethod(implObj, "SetAttributes2"), flags, 5)
+        this.vtbl.GetAttributes2 := CallbackCreate(GetMethod(implObj, "GetAttributes2"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetStorage)
+        CallbackFree(this.vtbl.CreateStorage2)
+        CallbackFree(this.vtbl.SetAttributes2)
+        CallbackFree(this.vtbl.GetAttributes2)
     }
 }

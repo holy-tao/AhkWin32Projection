@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_TCP_STATE.ahk
-#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MIB_TCP_STATE.ahk" { MIB_TCP_STATE }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
 
 /**
  * Contains information that describes an IPv6 TCP connection. (MIB_TCP6ROW)
@@ -28,10 +27,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/tcpmib/ns-tcpmib-mib_tcp6row
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_TCP6ROW extends Win32Struct {
-    static sizeof => 52
-
-    static packingSize => 4
+export default struct MIB_TCP6ROW {
+    #StructPack 4
 
     /**
      * Type: <b>MIB_TCP_STATE</b>
@@ -193,37 +190,22 @@ class MIB_TCP6ROW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {MIB_TCP_STATE}
      */
-    State {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    State : MIB_TCP_STATE
 
     /**
      * Type: <b>IN6_ADDR</b>
      * 
      * The local IPv6 address for the TCP connection on the local computer. A value of zero indicates the listener  can accept a connection on any interface.
-     * @type {IN6_ADDR}
      */
-    LocalAddr {
-        get {
-            if(!this.HasProp("__LocalAddr"))
-                this.__LocalAddr := IN6_ADDR(4, this)
-            return this.__LocalAddr
-        }
-    }
+    LocalAddr : IN6_ADDR
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The local scope ID for the TCP connection on the local computer.
-     * @type {Integer}
      */
-    dwLocalScopeId {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwLocalScopeId : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -231,37 +213,22 @@ class MIB_TCP6ROW extends Win32Struct {
      * The local port number in network byte order for the TCP connection on the local computer.
      * 
      *  The maximum size of an IP port number is 16 bits, so only the lower 16 bits should be used. The upper 16 bits may contain uninitialized data.
-     * @type {Integer}
      */
-    dwLocalPort {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwLocalPort : UInt32
 
     /**
      * Type: <b>IN6_ADDR</b>
      * 
      * The IPv6 address for the TCP connection on the remote computer. When the <b>State</b> member is <b>MIB_TCP_STATE_LISTEN</b>, this value has no meaning.
-     * @type {IN6_ADDR}
      */
-    RemoteAddr {
-        get {
-            if(!this.HasProp("__RemoteAddr"))
-                this.__RemoteAddr := IN6_ADDR(28, this)
-            return this.__RemoteAddr
-        }
-    }
+    RemoteAddr : IN6_ADDR
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The remote scope ID for the TCP connection on the remote computer. When the <b>State</b> member is <b>MIB_TCP_STATE_LISTEN</b>, this value has no meaning.
-     * @type {Integer}
      */
-    dwRemoteScopeId {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    dwRemoteScopeId : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -269,10 +236,7 @@ class MIB_TCP6ROW extends Win32Struct {
      * The remote port number in network byte order for the TCP connection on the remote computer. When the <b>State</b> member is <b>MIB_TCP_STATE_LISTEN</b>, this value has no meaning.
      * 
      *  The maximum size of an IP port number is 16 bits, so only the lower 16 bits should be used. The upper 16 bits may contain uninitialized data.
-     * @type {Integer}
      */
-    dwRemotePort {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwRemotePort : UInt32
+
 }

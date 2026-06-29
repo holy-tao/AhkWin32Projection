@@ -1,43 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D2D1_SVG_ASPECT_ALIGN.ahk
-#Include .\D2D1_SVG_ASPECT_SCALING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D2D1_SVG_ASPECT_ALIGN.ahk" { D2D1_SVG_ASPECT_ALIGN }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\D2D1_SVG_ASPECT_SCALING.ahk" { D2D1_SVG_ASPECT_SCALING }
 
 /**
  * Represents all SVG preserveAspectRatio settings.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/ns-d2d1svg-d2d1_svg_preserve_aspect_ratio
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_SVG_PRESERVE_ASPECT_RATIO extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct D2D1_SVG_PRESERVE_ASPECT_RATIO {
+    #StructPack 4
 
     /**
      * Sets the 'defer' portion of the preserveAspectRatio settings. This field only has an effect on an 'image' element that references another SVG document. As
      *           this is not currently supported, the field has no impact on rendering.
-     * @type {BOOL}
      */
-    defer {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    defer : BOOL
 
     /**
      * Sets the align portion of the preserveAspectRatio settings.
-     * @type {D2D1_SVG_ASPECT_ALIGN}
      */
-    align {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    align : D2D1_SVG_ASPECT_ALIGN
 
     /**
      * Sets the meetOrSlice portion of the preserveAspectRatio settings.
-     * @type {D2D1_SVG_ASPECT_SCALING}
      */
-    meetOrSlice {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    meetOrSlice : D2D1_SVG_ASPECT_SCALING
+
 }

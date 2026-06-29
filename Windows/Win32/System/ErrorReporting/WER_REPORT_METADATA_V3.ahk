@@ -1,156 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WER_REPORT_SIGNATURE.ahk
-#Include .\WER_REPORT_PARAMETER.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WER_REPORT_PARAMETER.ahk" { WER_REPORT_PARAMETER }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import ".\WER_REPORT_SIGNATURE.ahk" { WER_REPORT_SIGNATURE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.ErrorReporting
  */
-class WER_REPORT_METADATA_V3 extends Win32Struct {
-    static sizeof => 11080
+export default struct WER_REPORT_METADATA_V3 {
+    #StructPack 8
 
-    static packingSize => 8
+    Signature : WER_REPORT_SIGNATURE
 
-    /**
-     * @type {WER_REPORT_SIGNATURE}
-     */
-    Signature {
-        get {
-            if(!this.HasProp("__Signature"))
-                this.__Signature := WER_REPORT_SIGNATURE(0, this)
-            return this.__Signature
-        }
-    }
+    BucketId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    BucketId {
-        get => NumGet(this, 7912, "ptr")
-        set => NumPut("ptr", value, this, 7912)
-    }
+    ReportId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    ReportId {
-        get => NumGet(this, 7920, "ptr")
-        set => NumPut("ptr", value, this, 7920)
-    }
+    CreationTime : FILETIME
 
-    /**
-     * @type {FILETIME}
-     */
-    CreationTime {
-        get {
-            if(!this.HasProp("__CreationTime"))
-                this.__CreationTime := FILETIME(7928, this)
-            return this.__CreationTime
-        }
-    }
+    SizeInBytes : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SizeInBytes {
-        get => NumGet(this, 7936, "uint")
-        set => NumPut("uint", value, this, 7936)
-    }
+    CabId : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    CabId {
-        get => StrGet(this.ptr + 7944, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 7944, 259, "UTF-16")
-    }
+    ReportStatus : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ReportStatus {
-        get => NumGet(this, 8464, "uint")
-        set => NumPut("uint", value, this, 8464)
-    }
+    ReportIntegratorId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    ReportIntegratorId {
-        get => NumGet(this, 8472, "ptr")
-        set => NumPut("ptr", value, this, 8472)
-    }
+    NumberOfFiles : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfFiles {
-        get => NumGet(this, 8480, "uint")
-        set => NumPut("uint", value, this, 8480)
-    }
+    SizeOfFileNames : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SizeOfFileNames {
-        get => NumGet(this, 8484, "uint")
-        set => NumPut("uint", value, this, 8484)
-    }
+    FileNames : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    FileNames {
-        get => NumGet(this, 8488, "ptr")
-        set => NumPut("ptr", value, this, 8488)
-    }
+    FriendlyEventName : WCHAR[128]
 
-    /**
-     * @type {String}
-     */
-    FriendlyEventName {
-        get => StrGet(this.ptr + 8496, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 8496, 127, "UTF-16")
-    }
+    ApplicationName : WCHAR[128]
 
-    /**
-     * @type {String}
-     */
-    ApplicationName {
-        get => StrGet(this.ptr + 8752, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 8752, 127, "UTF-16")
-    }
+    ApplicationPath : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    ApplicationPath {
-        get => StrGet(this.ptr + 9008, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 9008, 259, "UTF-16")
-    }
+    Description : WCHAR[512]
 
-    /**
-     * @type {String}
-     */
-    Description {
-        get => StrGet(this.ptr + 9528, 511, "UTF-16")
-        set => StrPut(value, this.ptr + 9528, 511, "UTF-16")
-    }
+    BucketIdString : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    BucketIdString {
-        get => StrGet(this.ptr + 10552, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 10552, 259, "UTF-16")
-    }
+    LegacyBucketId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    LegacyBucketId {
-        get => NumGet(this, 11072, "uint")
-        set => NumPut("uint", value, this, 11072)
-    }
 }

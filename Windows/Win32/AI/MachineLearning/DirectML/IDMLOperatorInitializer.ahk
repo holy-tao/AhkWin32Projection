@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IDMLDispatchable.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDMLCompiledOperator.ahk" { IDMLCompiledOperator }
+#Import ".\IDMLDispatchable.ahk" { IDMLDispatchable }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Represents a specialized object whose purpose is to initialize compiled operators. To create an instance of this object, call IDMLDevice::CreateOperatorInitializer.
@@ -19,26 +21,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/directml/nn-directml-idmloperatorinitializer
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  */
-class IDMLOperatorInitializer extends IDMLDispatchable {
-
-    static sizeof => A_PtrSize
+export default struct IDMLOperatorInitializer extends IDMLDispatchable {
     /**
      * The interface identifier for IDMLOperatorInitializer
      * @type {Guid}
      */
-    static IID => Guid("{427c1113-435c-469c-8676-4d5dd072f813}")
+    static IID := Guid("{427c1113-435c-469c-8676-4d5dd072f813}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 9
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDMLOperatorInitializer interfaces
+    */
+    struct Vtbl extends IDMLDispatchable.Vtbl {
+        Reset : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Reset"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDMLOperatorInitializer.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Resets the initializer to handle initialization of a new set of operators.
@@ -54,7 +63,27 @@ class IDMLOperatorInitializer extends IDMLDispatchable {
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmloperatorinitializer-reset
      */
     Reset(operatorCount, operators) {
-        result := ComCall(9, this, "uint", operatorCount, "ptr*", operators, "HRESULT")
+        result := ComCall(9, this, "uint", operatorCount, IDMLCompiledOperator.Ptr, operators, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDMLOperatorInitializer.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Reset)
     }
 }

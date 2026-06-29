@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The NETCON_CHARACTERISTIC_FLAGS enumeration type specifies possible characteristics for a network connection.
  * @see https://learn.microsoft.com/windows/win32/api/netcon/ne-netcon-netcon_characteristic_flags
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  */
-class NETCON_CHARACTERISTIC_FLAGS extends Win32Enum {
+export default struct NETCON_CHARACTERISTIC_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No special characteristics.

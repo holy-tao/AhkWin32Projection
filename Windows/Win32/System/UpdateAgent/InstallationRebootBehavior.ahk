@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the possible restart behaviors for an update.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-installationrebootbehavior
  * @namespace Windows.Win32.System.UpdateAgent
  */
-class InstallationRebootBehavior extends Win32Enum {
+export default struct InstallationRebootBehavior {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The update never requires a system restart during or after an installation or an uninstallation.

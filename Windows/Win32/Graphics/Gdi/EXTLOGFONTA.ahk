@@ -1,21 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\LOGFONTA.ahk
-#Include .\FONT_CHARSET.ahk
-#Include .\FONT_OUTPUT_PRECISION.ahk
-#Include .\FONT_CLIP_PRECISION.ahk
-#Include .\FONT_QUALITY.ahk
-#Include .\PANOSE.ahk
-#Include .\PAN_FAMILY_TYPE.ahk
-#Include .\PAN_SERIF_STYLE.ahk
-#Include .\PAN_WEIGHT.ahk
-#Include .\PAN_PROPORTION.ahk
-#Include .\PAN_CONTRAST.ahk
-#Include .\PAN_STROKE_VARIATION.ahk
-#Include .\PAN_ARM_STYLE.ahk
-#Include .\PAN_LETT_FORM.ahk
-#Include .\PAN_MIDLINE.ahk
-#Include .\PAN_XHEIGHT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PAN_FAMILY_TYPE.ahk" { PAN_FAMILY_TYPE }
+#Import ".\PAN_STROKE_VARIATION.ahk" { PAN_STROKE_VARIATION }
+#Import ".\PANOSE.ahk" { PANOSE }
+#Import ".\PAN_MIDLINE.ahk" { PAN_MIDLINE }
+#Import ".\FONT_OUTPUT_PRECISION.ahk" { FONT_OUTPUT_PRECISION }
+#Import ".\LOGFONTA.ahk" { LOGFONTA }
+#Import ".\PAN_WEIGHT.ahk" { PAN_WEIGHT }
+#Import ".\FONT_CLIP_PRECISION.ahk" { FONT_CLIP_PRECISION }
+#Import ".\FONT_QUALITY.ahk" { FONT_QUALITY }
+#Import ".\PAN_CONTRAST.ahk" { PAN_CONTRAST }
+#Import ".\PAN_LETT_FORM.ahk" { PAN_LETT_FORM }
+#Import ".\PAN_SERIF_STYLE.ahk" { PAN_SERIF_STYLE }
+#Import ".\PAN_ARM_STYLE.ahk" { PAN_ARM_STYLE }
+#Import ".\PAN_PROPORTION.ahk" { PAN_PROPORTION }
+#Import ".\FONT_CHARSET.ahk" { FONT_CHARSET }
+#Import ".\PAN_XHEIGHT.ahk" { PAN_XHEIGHT }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * The EXTLOGFONT structure defines the attributes of a font. (ANSI)
@@ -26,113 +26,57 @@
  * @namespace Windows.Win32.Graphics.Gdi
  * @charset ANSI
  */
-class EXTLOGFONTA extends Win32Struct {
-    static sizeof => 192
-
-    static packingSize => 4
+export default struct EXTLOGFONTA {
+    #StructPack 8
 
     /**
      * Specifies some of the attributes of the specified font. This member is a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure.
-     * @type {LOGFONTA}
      */
-    elfLogFont {
-        get {
-            if(!this.HasProp("__elfLogFont"))
-                this.__elfLogFont := LOGFONTA(0, this)
-            return this.__elfLogFont
-        }
-    }
+    elfLogFont : LOGFONTA
 
     /**
      * A unique name for the font (for example, ABCD Font Company TrueType Bold Italic Sans Serif).
-     * @type {Array<Integer>}
      */
-    elfFullName {
-        get {
-            if(!this.HasProp("__elfFullNameProxyArray"))
-                this.__elfFullNameProxyArray := Win32FixedArray(this.ptr + 60, 64, Primitive, "char")
-            return this.__elfFullNameProxyArray
-        }
-    }
+    elfFullName : Int8[64]
 
     /**
      * The style of the font (for example, Bold Italic).
-     * @type {Array<Integer>}
      */
-    elfStyle {
-        get {
-            if(!this.HasProp("__elfStyleProxyArray"))
-                this.__elfStyleProxyArray := Win32FixedArray(this.ptr + 124, 32, Primitive, "char")
-            return this.__elfStyleProxyArray
-        }
-    }
+    elfStyle : Int8[32]
 
     /**
      * Reserved. Must be zero.
-     * @type {Integer}
      */
-    elfVersion {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
-    }
+    elfVersion : UInt32
 
     /**
      * This member only has meaning for hinted fonts. It specifies the point size at which the font is hinted. If set to zero, which is its default value, the font is hinted at the point size corresponding to the <b>lfHeight</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure specified by <b>elfLogFont</b>.
-     * @type {Integer}
      */
-    elfStyleSize {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
-    }
+    elfStyleSize : UInt32
 
     /**
      * A unique identifier for an enumerated font. This will be filled in by the graphics device interface (GDI) upon font enumeration.
-     * @type {Integer}
      */
-    elfMatch {
-        get => NumGet(this, 164, "uint")
-        set => NumPut("uint", value, this, 164)
-    }
+    elfMatch : UInt32
 
     /**
      * Reserved; must be zero.
-     * @type {Integer}
      */
-    elfReserved {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
-    }
+    elfReserved : UInt32
 
     /**
      * A 4-byte identifier of the font vendor.
-     * @type {Array<Integer>}
      */
-    elfVendorId {
-        get {
-            if(!this.HasProp("__elfVendorIdProxyArray"))
-                this.__elfVendorIdProxyArray := Win32FixedArray(this.ptr + 172, 4, Primitive, "char")
-            return this.__elfVendorIdProxyArray
-        }
-    }
+    elfVendorId : Int8[4]
 
     /**
      * Reserved; must be zero.
-     * @type {Integer}
      */
-    elfCulture {
-        get => NumGet(this, 176, "uint")
-        set => NumPut("uint", value, this, 176)
-    }
+    elfCulture : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-panose">PANOSE</a> structure that specifies the shape of the font. If all members of this structure are set to zero, the <b>elfPanose</b> member is ignored by the font mapper.
-     * @type {PANOSE}
      */
-    elfPanose {
-        get {
-            if(!this.HasProp("__elfPanose"))
-                this.__elfPanose := PANOSE(180, this)
-            return this.__elfPanose
-        }
-    }
+    elfPanose : PANOSE
+
 }

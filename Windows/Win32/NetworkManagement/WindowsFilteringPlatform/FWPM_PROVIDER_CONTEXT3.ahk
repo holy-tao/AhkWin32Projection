@@ -1,195 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWPM_DISPLAY_DATA0.ahk
-#Include .\FWP_BYTE_BLOB.ahk
-#Include .\FWPM_PROVIDER_CONTEXT_TYPE.ahk
-#Include .\IPSEC_KEYING_POLICY1.ahk
-#Include .\IPSEC_TRANSPORT_POLICY2.ahk
-#Include .\IPSEC_TUNNEL_POLICY3.ahk
-#Include .\IKEEXT_POLICY2.ahk
-#Include .\FWPM_CLASSIFY_OPTIONS0.ahk
-#Include .\IPSEC_DOSP_OPTIONS0.ahk
-#Include .\FWPM_NETWORK_CONNECTION_POLICY_SETTINGS0.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IPSEC_DOSP_OPTIONS0.ahk" { IPSEC_DOSP_OPTIONS0 }
+#Import ".\FWPM_PROVIDER_CONTEXT_TYPE.ahk" { FWPM_PROVIDER_CONTEXT_TYPE }
+#Import ".\FWPM_CLASSIFY_OPTIONS0.ahk" { FWPM_CLASSIFY_OPTIONS0 }
+#Import ".\FWPM_NETWORK_CONNECTION_POLICY_SETTINGS0.ahk" { FWPM_NETWORK_CONNECTION_POLICY_SETTINGS0 }
+#Import ".\FWP_BYTE_BLOB.ahk" { FWP_BYTE_BLOB }
+#Import ".\IKEEXT_POLICY2.ahk" { IKEEXT_POLICY2 }
+#Import ".\FWPM_DISPLAY_DATA0.ahk" { FWPM_DISPLAY_DATA0 }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IPSEC_TRANSPORT_POLICY2.ahk" { IPSEC_TRANSPORT_POLICY2 }
+#Import ".\IPSEC_TUNNEL_POLICY3.ahk" { IPSEC_TUNNEL_POLICY3 }
+#Import ".\IPSEC_KEYING_POLICY1.ahk" { IPSEC_KEYING_POLICY1 }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class FWPM_PROVIDER_CONTEXT3 extends Win32Struct {
-    static sizeof => 80
+export default struct FWPM_PROVIDER_CONTEXT3 {
+    #StructPack 8
 
-    static packingSize => 8
+    providerContextKey : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    providerContextKey {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    displayData : FWPM_DISPLAY_DATA0
 
-    /**
-     * @type {FWPM_DISPLAY_DATA0}
-     */
-    displayData {
-        get {
-            if(!this.HasProp("__displayData"))
-                this.__displayData := FWPM_DISPLAY_DATA0(8, this)
-            return this.__displayData
-        }
-    }
+    flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    flags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    providerKey : Guid.Ptr
 
-    /**
-     * @type {Pointer<Guid>}
-     */
-    providerKey {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    providerData : FWP_BYTE_BLOB
 
-    /**
-     * @type {FWP_BYTE_BLOB}
-     */
-    providerData {
-        get {
-            if(!this.HasProp("__providerData"))
-                this.__providerData := FWP_BYTE_BLOB(40, this)
-            return this.__providerData
-        }
-    }
+    type : FWPM_PROVIDER_CONTEXT_TYPE
 
-    /**
-     * @type {FWPM_PROVIDER_CONTEXT_TYPE}
-     */
-    type {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    keyingPolicy : IPSEC_KEYING_POLICY1.Ptr
 
-    /**
-     * @type {Pointer<IPSEC_KEYING_POLICY1>}
-     */
-    keyingPolicy {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    providerContextId : Int64
 
-    /**
-     * @type {Pointer<IPSEC_TRANSPORT_POLICY2>}
-     */
-    ikeQmTransportPolicy {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Pointer<IPSEC_TUNNEL_POLICY3>}
-     */
-    ikeQmTunnelPolicy {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Pointer<IPSEC_TRANSPORT_POLICY2>}
-     */
-    authipQmTransportPolicy {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Pointer<IPSEC_TUNNEL_POLICY3>}
-     */
-    authipQmTunnelPolicy {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Pointer<IKEEXT_POLICY2>}
-     */
-    ikeMmPolicy {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Pointer<IKEEXT_POLICY2>}
-     */
-    authIpMmPolicy {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Pointer<FWP_BYTE_BLOB>}
-     */
-    dataBuffer {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Pointer<FWPM_CLASSIFY_OPTIONS0>}
-     */
-    classifyOptions {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Pointer<IPSEC_TUNNEL_POLICY3>}
-     */
-    ikeV2QmTunnelPolicy {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Pointer<IPSEC_TRANSPORT_POLICY2>}
-     */
-    ikeV2QmTransportPolicy {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Pointer<IKEEXT_POLICY2>}
-     */
-    ikeV2MmPolicy {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Pointer<IPSEC_DOSP_OPTIONS0>}
-     */
-    idpOptions {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Pointer<FWPM_NETWORK_CONNECTION_POLICY_SETTINGS0>}
-     */
-    networkConnectionPolicy {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    providerContextId {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
+    static __New() {
+        DefineProp(this.Prototype, 'ikeQmTransportPolicy', { type: IPSEC_TRANSPORT_POLICY2.Ptr, offset: 72 })
+        DefineProp(this.Prototype, 'ikeQmTunnelPolicy', { type: IPSEC_TUNNEL_POLICY3.Ptr, offset: 72 })
+        DefineProp(this.Prototype, 'authipQmTransportPolicy', { type: IPSEC_TRANSPORT_POLICY2.Ptr, offset: 72 })
+        DefineProp(this.Prototype, 'authipQmTunnelPolicy', { type: IPSEC_TUNNEL_POLICY3.Ptr, offset: 72 })
+        DefineProp(this.Prototype, 'ikeMmPolicy', { type: IKEEXT_POLICY2.Ptr, offset: 72 })
+        DefineProp(this.Prototype, 'authIpMmPolicy', { type: IKEEXT_POLICY2.Ptr, offset: 72 })
+        DefineProp(this.Prototype, 'dataBuffer', { type: FWP_BYTE_BLOB.Ptr, offset: 72 })
+        DefineProp(this.Prototype, 'classifyOptions', { type: FWPM_CLASSIFY_OPTIONS0.Ptr, offset: 72 })
+        DefineProp(this.Prototype, 'ikeV2QmTunnelPolicy', { type: IPSEC_TUNNEL_POLICY3.Ptr, offset: 72 })
+        DefineProp(this.Prototype, 'ikeV2QmTransportPolicy', { type: IPSEC_TRANSPORT_POLICY2.Ptr, offset: 72 })
+        DefineProp(this.Prototype, 'ikeV2MmPolicy', { type: IKEEXT_POLICY2.Ptr, offset: 72 })
+        DefineProp(this.Prototype, 'idpOptions', { type: IPSEC_DOSP_OPTIONS0.Ptr, offset: 72 })
+        DefineProp(this.Prototype, 'networkConnectionPolicy', { type: FWPM_NETWORK_CONNECTION_POLICY_SETTINGS0.Ptr, offset: 72 })
+        this.DeleteProp("__New")
     }
 }

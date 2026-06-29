@@ -1,20 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_QUANTIZATION_MATRIX extends Win32Struct {
-    static sizeof => 8
+export default struct D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_QUANTIZATION_MATRIX {
+    #StructPack 8
 
-    static packingSize => 8
+    pQuantizationMap : ID3D12Resource
 
-    /**
-     * @type {ID3D12Resource}
-     */
-    pQuantizationMap {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
 }

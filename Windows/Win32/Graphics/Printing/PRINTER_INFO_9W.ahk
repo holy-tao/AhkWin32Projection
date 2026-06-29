@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Gdi\DEVMODEW.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Gdi\DEVMODEW.ahk" { DEVMODEW }
 
 /**
  * The PRINTER\_INFO\_9 structure specifies the per-user default printer settings.
@@ -10,17 +9,12 @@
  * @namespace Windows.Win32.Graphics.Printing
  * @charset Unicode
  */
-class PRINTER_INFO_9W extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 8
+export default struct PRINTER_INFO_9W {
+    #StructPack 8
 
     /**
      * A pointer to a [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) structure that defines the per-user default printer data such as the paper orientation and the resolution. The **DEVMODE** is stored in the user's registry.
-     * @type {Pointer<DEVMODEW>}
      */
-    pDevMode {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pDevMode : DEVMODEW.Ptr
+
 }

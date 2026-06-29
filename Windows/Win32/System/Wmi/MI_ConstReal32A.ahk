@@ -1,31 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents an array of MI_Real32 types. (MI_ConstReal32A)
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_constreal32a
  * @namespace Windows.Win32.System.Wmi
  */
-class MI_ConstReal32A extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct MI_ConstReal32A {
+    #StructPack 8
 
     /**
      * An array of  MI_Real32 types.
-     * @type {Pointer<Float>}
      */
-    data {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    data : IntPtr
 
     /**
      * Number of items in the data array.
-     * @type {Integer}
      */
-    size {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    size : UInt32
+
 }

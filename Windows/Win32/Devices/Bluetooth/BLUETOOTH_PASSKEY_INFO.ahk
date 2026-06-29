@@ -1,22 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * BLUETOOTH_PASSKEY_INFO structure contains a passkey value used for authentication. A passkey is similar to a password, except that a passkey value is used for authentication only once.
  * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_passkey_info
  * @namespace Windows.Win32.Devices.Bluetooth
  */
-class BLUETOOTH_PASSKEY_INFO extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct BLUETOOTH_PASSKEY_INFO {
+    #StructPack 4
 
     /**
      * The passkey used for authentication.
-     * @type {Integer}
      */
-    passkey {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    passkey : UInt32
+
 }

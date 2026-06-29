@@ -1,33 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods for the storage and retrieval of metadata information in tables.
  * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nn-rometadataapi-imetadatatables
  * @namespace Windows.Win32.System.WinRT.Metadata
  */
-class IMetaDataTables extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMetaDataTables extends IUnknown {
     /**
      * The interface identifier for IMetaDataTables
      * @type {Guid}
      */
-    static IID => Guid("{d8f579ab-402d-4b8e-82d9-5d63b1065c68}")
+    static IID := Guid("{d8f579ab-402d-4b8e-82d9-5d63b1065c68}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMetaDataTables interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetStringHeapSize     : IntPtr
+        GetBlobHeapSize       : IntPtr
+        GetGuidHeapSize       : IntPtr
+        GetUserStringHeapSize : IntPtr
+        GetNumTables          : IntPtr
+        GetTableIndex         : IntPtr
+        GetTableInfo          : IntPtr
+        GetColumnInfo         : IntPtr
+        GetCodedTokenInfo     : IntPtr
+        GetRow                : IntPtr
+        GetColumn             : IntPtr
+        GetString             : IntPtr
+        GetBlob               : IntPtr
+        GetGuid               : IntPtr
+        GetUserString         : IntPtr
+        GetNextString         : IntPtr
+        GetNextBlob           : IntPtr
+        GetNextGuid           : IntPtr
+        GetNextUserString     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetStringHeapSize", "GetBlobHeapSize", "GetGuidHeapSize", "GetUserStringHeapSize", "GetNumTables", "GetTableIndex", "GetTableInfo", "GetColumnInfo", "GetCodedTokenInfo", "GetRow", "GetColumn", "GetString", "GetBlob", "GetGuid", "GetUserString", "GetNextString", "GetNextBlob", "GetNextGuid", "GetNextUserString"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMetaDataTables.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the size, in bytes, of the string heap.
@@ -324,5 +350,61 @@ class IMetaDataTables extends IUnknown {
 
         result := ComCall(21, this, "uint", ixUserString, pNextMarshal, pNext, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMetaDataTables.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetStringHeapSize := CallbackCreate(GetMethod(implObj, "GetStringHeapSize"), flags, 2)
+        this.vtbl.GetBlobHeapSize := CallbackCreate(GetMethod(implObj, "GetBlobHeapSize"), flags, 2)
+        this.vtbl.GetGuidHeapSize := CallbackCreate(GetMethod(implObj, "GetGuidHeapSize"), flags, 2)
+        this.vtbl.GetUserStringHeapSize := CallbackCreate(GetMethod(implObj, "GetUserStringHeapSize"), flags, 2)
+        this.vtbl.GetNumTables := CallbackCreate(GetMethod(implObj, "GetNumTables"), flags, 2)
+        this.vtbl.GetTableIndex := CallbackCreate(GetMethod(implObj, "GetTableIndex"), flags, 3)
+        this.vtbl.GetTableInfo := CallbackCreate(GetMethod(implObj, "GetTableInfo"), flags, 7)
+        this.vtbl.GetColumnInfo := CallbackCreate(GetMethod(implObj, "GetColumnInfo"), flags, 7)
+        this.vtbl.GetCodedTokenInfo := CallbackCreate(GetMethod(implObj, "GetCodedTokenInfo"), flags, 5)
+        this.vtbl.GetRow := CallbackCreate(GetMethod(implObj, "GetRow"), flags, 4)
+        this.vtbl.GetColumn := CallbackCreate(GetMethod(implObj, "GetColumn"), flags, 5)
+        this.vtbl.GetString := CallbackCreate(GetMethod(implObj, "GetString"), flags, 3)
+        this.vtbl.GetBlob := CallbackCreate(GetMethod(implObj, "GetBlob"), flags, 4)
+        this.vtbl.GetGuid := CallbackCreate(GetMethod(implObj, "GetGuid"), flags, 3)
+        this.vtbl.GetUserString := CallbackCreate(GetMethod(implObj, "GetUserString"), flags, 4)
+        this.vtbl.GetNextString := CallbackCreate(GetMethod(implObj, "GetNextString"), flags, 3)
+        this.vtbl.GetNextBlob := CallbackCreate(GetMethod(implObj, "GetNextBlob"), flags, 3)
+        this.vtbl.GetNextGuid := CallbackCreate(GetMethod(implObj, "GetNextGuid"), flags, 3)
+        this.vtbl.GetNextUserString := CallbackCreate(GetMethod(implObj, "GetNextUserString"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetStringHeapSize)
+        CallbackFree(this.vtbl.GetBlobHeapSize)
+        CallbackFree(this.vtbl.GetGuidHeapSize)
+        CallbackFree(this.vtbl.GetUserStringHeapSize)
+        CallbackFree(this.vtbl.GetNumTables)
+        CallbackFree(this.vtbl.GetTableIndex)
+        CallbackFree(this.vtbl.GetTableInfo)
+        CallbackFree(this.vtbl.GetColumnInfo)
+        CallbackFree(this.vtbl.GetCodedTokenInfo)
+        CallbackFree(this.vtbl.GetRow)
+        CallbackFree(this.vtbl.GetColumn)
+        CallbackFree(this.vtbl.GetString)
+        CallbackFree(this.vtbl.GetBlob)
+        CallbackFree(this.vtbl.GetGuid)
+        CallbackFree(this.vtbl.GetUserString)
+        CallbackFree(this.vtbl.GetNextString)
+        CallbackFree(this.vtbl.GetNextBlob)
+        CallbackFree(this.vtbl.GetNextGuid)
+        CallbackFree(this.vtbl.GetNextUserString)
     }
 }

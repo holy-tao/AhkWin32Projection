@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * NLM_USAGE_DATA structure stores information that indicates the data usage of a plan.
@@ -9,29 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/ns-netlistmgr-nlm_usage_data
  * @namespace Windows.Win32.Networking.NetworkListManager
  */
-class NLM_USAGE_DATA extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct NLM_USAGE_DATA {
+    #StructPack 4
 
     /**
      * The data usage of a plan, represented in megabytes.
-     * @type {Integer}
      */
-    UsageInMegabytes {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    UsageInMegabytes : UInt32
 
     /**
      * The timestamp of last time synced with carriers about the data usage stored in this structure.
-     * @type {FILETIME}
      */
-    LastSyncTime {
-        get {
-            if(!this.HasProp("__LastSyncTime"))
-                this.__LastSyncTime := FILETIME(4, this)
-            return this.__LastSyncTime
-        }
-    }
+    LastSyncTime : FILETIME
+
 }

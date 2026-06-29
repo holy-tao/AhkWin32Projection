@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIAdapter3.ahk
-#Include .\DXGI_ADAPTER_DESC3.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DXGI_ADAPTER_DESC3.ahk" { DXGI_ADAPTER_DESC3 }
+#Import ".\IDXGIAdapter3.ahk" { IDXGIAdapter3 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * This interface represents a display subsystem, and extends this family of interfaces to expose a method to check for an adapter's compatibility with Arbitrary Code Guard (ACG).
@@ -11,26 +12,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/nn-dxgi1_6-idxgiadapter4
  * @namespace Windows.Win32.Graphics.Dxgi
  */
-class IDXGIAdapter4 extends IDXGIAdapter3 {
-
-    static sizeof => A_PtrSize
+export default struct IDXGIAdapter4 extends IDXGIAdapter3 {
     /**
      * The interface identifier for IDXGIAdapter4
      * @type {Guid}
      */
-    static IID => Guid("{3c8d99d1-4fbf-4181-a82c-af66bf7bd24e}")
+    static IID := Guid("{3c8d99d1-4fbf-4181-a82c-af66bf7bd24e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 18
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXGIAdapter4 interfaces
+    */
+    struct Vtbl extends IDXGIAdapter3.Vtbl {
+        GetDesc3 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDesc3"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXGIAdapter4.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a Microsoft DirectX Graphics Infrastructure (DXGI) 1.6 description of an adapter or video card. This description includes information about ACG compatibility.
@@ -46,7 +54,27 @@ class IDXGIAdapter4 extends IDXGIAdapter3 {
      */
     GetDesc3() {
         pDesc := DXGI_ADAPTER_DESC3()
-        result := ComCall(18, this, "ptr", pDesc, "HRESULT")
+        result := ComCall(18, this, DXGI_ADAPTER_DESC3.Ptr, pDesc, "HRESULT")
         return pDesc
+    }
+
+    Query(iid) {
+        if (IDXGIAdapter4.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDesc3 := CallbackCreate(GetMethod(implObj, "GetDesc3"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDesc3)
     }
 }

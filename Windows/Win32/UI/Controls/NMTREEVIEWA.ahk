@@ -1,13 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\NM_TREEVIEW_ACTION.ahk
-#Include .\TVITEMA.ahk
-#Include .\TVITEM_MASK.ahk
-#Include .\TREE_VIEW_ITEM_STATE_FLAGS.ahk
-#Include .\TVITEMEXW_CHILDREN.ahk
-#Include ..\..\Foundation\POINT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TVITEMA.ahk" { TVITEMA }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\NM_TREEVIEW_ACTION.ahk" { NM_TREEVIEW_ACTION }
+#Import ".\TVITEM_MASK.ahk" { TVITEM_MASK }
+#Import ".\TREE_VIEW_ITEM_STATE_FLAGS.ahk" { TREE_VIEW_ITEM_STATE_FLAGS }
+#Import ".\HTREEITEM.ahk" { HTREEITEM }
+#Import ".\NMHDR.ahk" { NMHDR }
+#Import ".\TVITEMEXW_CHILDREN.ahk" { TVITEMEXW_CHILDREN }
 
 /**
  * Contains information about a tree-view notification message. This structure is identical to the NM_TREEVIEW structure, but it has been renamed to follow current naming conventions. (ANSI)
@@ -18,25 +20,16 @@
  * @namespace Windows.Win32.UI.Controls
  * @charset ANSI
  */
-class NMTREEVIEWA extends Win32Struct {
-    static sizeof => 152
-
-    static packingSize => 8
+export default struct NMTREEVIEWA {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains information about this notification message.
-     * @type {NMHDR}
      */
-    hdr {
-        get {
-            if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(0, this)
-            return this.__hdr
-        }
-    }
+    hdr : NMHDR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -58,55 +51,31 @@ class NMTREEVIEWA extends Win32Struct {
      * </li>
      * </ul>
      * For the possible action flag values, see <a href="https://docs.microsoft.com/windows/desktop/Controls/tvm-expand">TVM_EXPAND</a> and <a href="https://docs.microsoft.com/windows/desktop/Controls/tvn-selchanged">TVN_SELCHANGED</a>.
-     * @type {NM_TREEVIEW_ACTION}
      */
-    action {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    action : NM_TREEVIEW_ACTION
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-tvitema">TVITEM</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-tvitema">TVITEM</a> structure that contains information about the old item state. This member is zero for notification messages that do not use it.
-     * @type {TVITEMA}
      */
-    itemOld {
-        get {
-            if(!this.HasProp("__itemOld"))
-                this.__itemOld := TVITEMA(32, this)
-            return this.__itemOld
-        }
-    }
+    itemOld : TVITEMA
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-tvitema">TVITEM</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-tvitema">TVITEM</a> structure that contains information about the new item state. This member is zero for notification messages that do not use it.
-     * @type {TVITEMA}
      */
-    itemNew {
-        get {
-            if(!this.HasProp("__itemNew"))
-                this.__itemNew := TVITEMA(88, this)
-            return this.__itemNew
-        }
-    }
+    itemNew : TVITEMA
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that contains the client coordinates of the mouse at the time the event occurred that caused the notification message to be sent.
-     * @type {POINT}
      */
-    ptDrag {
-        get {
-            if(!this.HasProp("__ptDrag"))
-                this.__ptDrag := POINT(144, this)
-            return this.__ptDrag
-        }
-    }
+    ptDrag : POINT
+
 }

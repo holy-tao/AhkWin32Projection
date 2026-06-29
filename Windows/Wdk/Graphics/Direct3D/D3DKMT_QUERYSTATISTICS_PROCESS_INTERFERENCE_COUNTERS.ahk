@@ -1,22 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_QUERYSTATISTICS_PROCESS_INTERFERENCE_COUNTERS extends Win32Struct {
-    static sizeof => 72
+export default struct D3DKMT_QUERYSTATISTICS_PROCESS_INTERFERENCE_COUNTERS {
+    #StructPack 8
 
-    static packingSize => 8
+    InterferenceCount : Int64[9]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    InterferenceCount {
-        get {
-            if(!this.HasProp("__InterferenceCountProxyArray"))
-                this.__InterferenceCountProxyArray := Win32FixedArray(this.ptr + 0, 9, Primitive, "uint")
-            return this.__InterferenceCountProxyArray
-        }
-    }
 }

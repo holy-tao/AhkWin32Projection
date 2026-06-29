@@ -1,55 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WLAN_QOS_CAPABILITIES.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WLAN_QOS_CAPABILITIES.ahk" { WLAN_QOS_CAPABILITIES }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WLAN_CONNECTION_QOS_INFO extends Win32Struct {
-    static sizeof => 32
+export default struct WLAN_CONNECTION_QOS_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    peerCapabilities : WLAN_QOS_CAPABILITIES
 
-    /**
-     * @type {WLAN_QOS_CAPABILITIES}
-     */
-    peerCapabilities {
-        get {
-            if(!this.HasProp("__peerCapabilities"))
-                this.__peerCapabilities := WLAN_QOS_CAPABILITIES(0, this)
-            return this.__peerCapabilities
-        }
-    }
+    bMSCSConfigured : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    bMSCSConfigured {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    bDSCPToUPMappingConfigured : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    bDSCPToUPMappingConfigured {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    ulNumConfiguredSCSStreams : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulNumConfiguredSCSStreams {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ulNumConfiguredDSCPPolicies : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulNumConfiguredDSCPPolicies {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
 }

@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HSEMAPHORE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HSEMAPHORE.ahk" { HSEMAPHORE }
 
 /**
  * The ENGSAFESEMAPHORE structure provides the driver with a thread-safe semaphore.
@@ -13,29 +12,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-engsafesemaphore
  * @namespace Windows.Win32.Devices.Display
  */
-class ENGSAFESEMAPHORE extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct ENGSAFESEMAPHORE {
+    #StructPack 8
 
     /**
      * Handle to the semaphore.
-     * @type {HSEMAPHORE}
      */
-    hsem {
-        get {
-            if(!this.HasProp("__hsem"))
-                this.__hsem := HSEMAPHORE(0, this)
-            return this.__hsem
-        }
-    }
+    hsem : HSEMAPHORE
 
     /**
      * Specifies the reference count on the semaphore.
-     * @type {Integer}
      */
-    lCount {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    lCount : Int32
+
 }

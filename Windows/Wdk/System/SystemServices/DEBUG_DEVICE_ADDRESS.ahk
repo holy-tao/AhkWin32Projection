@@ -1,70 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class DEBUG_DEVICE_ADDRESS extends Win32Struct {
-    static sizeof => 24
+export default struct DEBUG_DEVICE_ADDRESS {
+    #StructPack 8
 
-    static packingSize => 8
+    Type : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Valid : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Valid {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Reserved : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    TranslatedAddress : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    BitWidth {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    Length : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AccessSize {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
-    TranslatedAddress {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Length {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+    static __New() {
+        DefineProp(this.Prototype, 'BitWidth', { type: Int8, offset: 2 })
+        DefineProp(this.Prototype, 'AccessSize', { type: Int8, offset: 3 })
+        this.DeleteProp("__New")
     }
 }

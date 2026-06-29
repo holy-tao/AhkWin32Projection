@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The MCI_DGV_OPEN_PARMSA (ANSI) structure (digitalv.h) contains information for the MCI_OPEN command for digital-video devices.
@@ -17,74 +17,42 @@
  * @namespace Windows.Win32.Media.Multimedia
  * @charset ANSI
  */
-class MCI_DGV_OPEN_PARMSA extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct MCI_DGV_OPEN_PARMSA {
+    #StructPack 8
 
     /**
      * The low-order word specifies a window handle used for the MCI_NOTIFY flag.
-     * @type {Pointer}
      */
-    dwCallback {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwCallback : IntPtr
 
     /**
      * Device ID returned to user.
-     * @type {Integer}
      */
-    wDeviceID {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    wDeviceID : UInt32
 
     /**
      * Name or constant ID of device type.
-     * @type {PSTR}
      */
-    lpstrDeviceType {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpstrDeviceType : PSTR
 
     /**
      * Optional device alias.
-     * @type {PSTR}
      */
-    lpstrElementName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpstrElementName : PSTR
 
     /**
      * Optional device alias.
-     * @type {PSTR}
      */
-    lpstrAlias {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpstrAlias : PSTR
 
     /**
      * Window style.
-     * @type {Integer}
      */
-    dwStyle {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwStyle : UInt32
 
     /**
      * Handle to parent window.
-     * @type {HWND}
      */
-    hWndParent {
-        get {
-            if(!this.HasProp("__hWndParent"))
-                this.__hWndParent := HWND(48, this)
-            return this.__hWndParent
-        }
-    }
+    hWndParent : HWND
+
 }

@@ -1,59 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class JOYPOS extends Win32Struct {
-    static sizeof => 24
+export default struct JOYPOS {
+    #StructPack 4
 
-    static packingSize => 4
+    dwX : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwX {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwY : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwY {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwZ : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwZ {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwR : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwR {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwU : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwU {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwV : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwV {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

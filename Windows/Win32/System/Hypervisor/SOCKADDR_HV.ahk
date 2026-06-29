@@ -1,44 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class SOCKADDR_HV extends Win32Struct {
-    static sizeof => 24
+export default struct SOCKADDR_HV {
+    #StructPack 4
 
-    static packingSize => 8
+    Family : ADDRESS_FAMILY
 
-    /**
-     * @type {ADDRESS_FAMILY}
-     */
-    Family {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Reserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    VmId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    VmId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ServiceId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    ServiceId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

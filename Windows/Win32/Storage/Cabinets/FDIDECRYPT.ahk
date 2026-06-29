@@ -1,180 +1,58 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FDIDECRYPTTYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FDIDECRYPTTYPE.ahk" { FDIDECRYPTTYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Storage.Cabinets
  */
-class FDIDECRYPT extends Win32Struct {
-    static sizeof => 56
+export default struct FDIDECRYPT {
+    #StructPack 8
 
-    static packingSize => 8
 
-    /**
-     * @type {FDIDECRYPTTYPE}
-     */
-    fdidt {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    struct _cabinet {
+        pHeaderReserve : IntPtr
+
+        cbHeaderReserve : UInt16
+
+        setID : UInt16
+
+        iCabinet : Int32
+
     }
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    pvUser {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    struct _folder {
+        pFolderReserve : IntPtr
+
+        cbFolderReserve : UInt16
+
+        iFolder : UInt16
+
     }
 
-    class _cabinet extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _decrypt {
+        pDataReserve : IntPtr
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        pHeaderReserve {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
+        cbDataReserve : UInt16
 
-        /**
-         * @type {Integer}
-         */
-        cbHeaderReserve {
-            get => NumGet(this, 8, "ushort")
-            set => NumPut("ushort", value, this, 8)
-        }
+        pbData : IntPtr
 
-        /**
-         * @type {Integer}
-         */
-        setID {
-            get => NumGet(this, 10, "ushort")
-            set => NumPut("ushort", value, this, 10)
-        }
+        cbData : UInt16
 
-        /**
-         * @type {Integer}
-         */
-        iCabinet {
-            get => NumGet(this, 12, "int")
-            set => NumPut("int", value, this, 12)
-        }
+        fSplit : BOOL
+
+        cbPartial : UInt16
+
     }
 
-    class _folder extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    fdidt : FDIDECRYPTTYPE
 
-        /**
-         * @type {Pointer<Void>}
-         */
-        pFolderReserve {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
+    pvUser : IntPtr
 
-        /**
-         * @type {Integer}
-         */
-        cbFolderReserve {
-            get => NumGet(this, 8, "ushort")
-            set => NumPut("ushort", value, this, 8)
-        }
+    cabinet : FDIDECRYPT._cabinet
 
-        /**
-         * @type {Integer}
-         */
-        iFolder {
-            get => NumGet(this, 10, "ushort")
-            set => NumPut("ushort", value, this, 10)
-        }
-    }
-
-    class _decrypt extends Win32Struct {
-        static sizeof => 40
-        static packingSize => 8
-
-        /**
-         * @type {Pointer<Void>}
-         */
-        pDataReserve {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        cbDataReserve {
-            get => NumGet(this, 8, "ushort")
-            set => NumPut("ushort", value, this, 8)
-        }
-
-        /**
-         * @type {Pointer<Void>}
-         */
-        pbData {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        cbData {
-            get => NumGet(this, 24, "ushort")
-            set => NumPut("ushort", value, this, 24)
-        }
-
-        /**
-         * @type {BOOL}
-         */
-        fSplit {
-            get => NumGet(this, 28, "int")
-            set => NumPut("int", value, this, 28)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        cbPartial {
-            get => NumGet(this, 32, "ushort")
-            set => NumPut("ushort", value, this, 32)
-        }
-    }
-
-    /**
-     * @type {_cabinet}
-     */
-    cabinet {
-        get {
-            if(!this.HasProp("__cabinet"))
-                this.__cabinet := FDIDECRYPT._cabinet(16, this)
-            return this.__cabinet
-        }
-    }
-
-    /**
-     * @type {_folder}
-     */
-    folder {
-        get {
-            if(!this.HasProp("__folder"))
-                this.__folder := FDIDECRYPT._folder(16, this)
-            return this.__folder
-        }
-    }
-
-    /**
-     * @type {_decrypt}
-     */
-    decrypt {
-        get {
-            if(!this.HasProp("__decrypt"))
-                this.__decrypt := FDIDECRYPT._decrypt(16, this)
-            return this.__decrypt
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'folder', { type: FDIDECRYPT._folder, offset: 16 })
+        DefineProp(this.Prototype, 'decrypt', { type: FDIDECRYPT._decrypt, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

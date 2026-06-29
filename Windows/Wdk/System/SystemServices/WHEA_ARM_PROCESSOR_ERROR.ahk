@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_ARM_PROCESSOR_ERROR extends Win32Struct {
-    static sizeof => 32
+export default struct WHEA_ARM_PROCESSOR_ERROR {
+    #StructPack 1
 
-    static packingSize => 1
+    CacheError : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    CacheError {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    TlbError {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    BusError {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    AsULONGLONG {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'TlbError', { type: IntPtr, offset: 0 })
+        DefineProp(this.Prototype, 'BusError', { type: IntPtr, offset: 0 })
+        DefineProp(this.Prototype, 'AsULONGLONG', { type: Int64, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

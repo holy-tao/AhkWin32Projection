@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IScheduledWorkItem.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IScheduledWorkItem.ahk" { IScheduledWorkItem }
 
 /**
  * Provides the methods for running tasks, getting or setting task information, and terminating tasks. It is derived from the IScheduledWorkItem interface and inherits all the methods of that interface.
@@ -12,26 +14,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/mstask/nn-mstask-itask
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class ITask extends IScheduledWorkItem {
-
-    static sizeof => A_PtrSize
+export default struct ITask extends IScheduledWorkItem {
     /**
      * The interface identifier for ITask
      * @type {Guid}
      */
-    static IID => Guid("{148bd524-a2ab-11ce-b11f-00aa00530503}")
+    static IID := Guid("{148bd524-a2ab-11ce-b11f-00aa00530503}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 32
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITask interfaces
+    */
+    struct Vtbl extends IScheduledWorkItem.Vtbl {
+        SetApplicationName  : IntPtr
+        GetApplicationName  : IntPtr
+        SetParameters       : IntPtr
+        GetParameters       : IntPtr
+        SetWorkingDirectory : IntPtr
+        GetWorkingDirectory : IntPtr
+        SetPriority         : IntPtr
+        GetPriority         : IntPtr
+        SetTaskFlags        : IntPtr
+        GetTaskFlags        : IntPtr
+        SetMaxRunTime       : IntPtr
+        GetMaxRunTime       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetApplicationName", "GetApplicationName", "SetParameters", "GetParameters", "SetWorkingDirectory", "GetWorkingDirectory", "SetPriority", "GetPriority", "SetTaskFlags", "GetTaskFlags", "SetMaxRunTime", "GetMaxRunTime"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITask.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This method assigns a specific application to the current task.
@@ -98,7 +118,7 @@ class ITask extends IScheduledWorkItem {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itask-getapplicationname
      */
     GetApplicationName() {
-        result := ComCall(33, this, "ptr*", &ppwszApplicationName := 0, "HRESULT")
+        result := ComCall(33, this, PWSTR.Ptr, &ppwszApplicationName := 0, "HRESULT")
         return ppwszApplicationName
     }
 
@@ -167,7 +187,7 @@ class ITask extends IScheduledWorkItem {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itask-getparameters
      */
     GetParameters() {
-        result := ComCall(35, this, "ptr*", &ppwszParameters := 0, "HRESULT")
+        result := ComCall(35, this, PWSTR.Ptr, &ppwszParameters := 0, "HRESULT")
         return ppwszParameters
     }
 
@@ -239,7 +259,7 @@ class ITask extends IScheduledWorkItem {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itask-getworkingdirectory
      */
     GetWorkingDirectory() {
-        result := ComCall(37, this, "ptr*", &ppwszWorkingDirectory := 0, "HRESULT")
+        result := ComCall(37, this, PWSTR.Ptr, &ppwszWorkingDirectory := 0, "HRESULT")
         return ppwszWorkingDirectory
     }
 
@@ -453,5 +473,47 @@ class ITask extends IScheduledWorkItem {
     GetMaxRunTime() {
         result := ComCall(43, this, "uint*", &pdwMaxRunTimeMS := 0, "HRESULT")
         return pdwMaxRunTimeMS
+    }
+
+    Query(iid) {
+        if (ITask.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetApplicationName := CallbackCreate(GetMethod(implObj, "SetApplicationName"), flags, 2)
+        this.vtbl.GetApplicationName := CallbackCreate(GetMethod(implObj, "GetApplicationName"), flags, 2)
+        this.vtbl.SetParameters := CallbackCreate(GetMethod(implObj, "SetParameters"), flags, 2)
+        this.vtbl.GetParameters := CallbackCreate(GetMethod(implObj, "GetParameters"), flags, 2)
+        this.vtbl.SetWorkingDirectory := CallbackCreate(GetMethod(implObj, "SetWorkingDirectory"), flags, 2)
+        this.vtbl.GetWorkingDirectory := CallbackCreate(GetMethod(implObj, "GetWorkingDirectory"), flags, 2)
+        this.vtbl.SetPriority := CallbackCreate(GetMethod(implObj, "SetPriority"), flags, 2)
+        this.vtbl.GetPriority := CallbackCreate(GetMethod(implObj, "GetPriority"), flags, 2)
+        this.vtbl.SetTaskFlags := CallbackCreate(GetMethod(implObj, "SetTaskFlags"), flags, 2)
+        this.vtbl.GetTaskFlags := CallbackCreate(GetMethod(implObj, "GetTaskFlags"), flags, 2)
+        this.vtbl.SetMaxRunTime := CallbackCreate(GetMethod(implObj, "SetMaxRunTime"), flags, 2)
+        this.vtbl.GetMaxRunTime := CallbackCreate(GetMethod(implObj, "GetMaxRunTime"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetApplicationName)
+        CallbackFree(this.vtbl.GetApplicationName)
+        CallbackFree(this.vtbl.SetParameters)
+        CallbackFree(this.vtbl.GetParameters)
+        CallbackFree(this.vtbl.SetWorkingDirectory)
+        CallbackFree(this.vtbl.GetWorkingDirectory)
+        CallbackFree(this.vtbl.SetPriority)
+        CallbackFree(this.vtbl.GetPriority)
+        CallbackFree(this.vtbl.SetTaskFlags)
+        CallbackFree(this.vtbl.GetTaskFlags)
+        CallbackFree(this.vtbl.SetMaxRunTime)
+        CallbackFree(this.vtbl.GetMaxRunTime)
     }
 }

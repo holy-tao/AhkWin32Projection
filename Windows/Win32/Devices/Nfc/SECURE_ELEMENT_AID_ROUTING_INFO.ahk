@@ -1,38 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
  */
-class SECURE_ELEMENT_AID_ROUTING_INFO extends Win32Struct {
-    static sizeof => 32
+export default struct SECURE_ELEMENT_AID_ROUTING_INFO {
+    #StructPack 4
 
-    static packingSize => 8
+    guidSecureElementId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    guidSecureElementId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    cbAid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbAid {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    pbAid : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    pbAid {
-        get {
-            if(!this.HasProp("__pbAidProxyArray"))
-                this.__pbAidProxyArray := Win32FixedArray(this.ptr + 12, 16, Primitive, "char")
-            return this.__pbAidProxyArray
-        }
-    }
 }

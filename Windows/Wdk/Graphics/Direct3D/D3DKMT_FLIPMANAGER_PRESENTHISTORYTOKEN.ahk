@@ -1,30 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_FLIPMANAGER_PRESENTHISTORYTOKEN extends Win32Struct {
-    static sizeof => 24
+export default struct D3DKMT_FLIPMANAGER_PRESENTHISTORYTOKEN {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Flags_e__Union extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
+    struct _Flags {
         /**
          * This bitfield backs the following members:
          * - Discard
          * - PresentAt
          * - hPrivateDataIsPointer
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -49,40 +41,16 @@ class D3DKMT_FLIPMANAGER_PRESENTHISTORYTOKEN extends Win32Struct {
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-
-        /**
-         * @type {Integer}
-         */
-        Value {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'Value', { type: UInt32, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    hPrivateData {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    hPrivateData : Int64
 
-    /**
-     * @type {Integer}
-     */
-    PresentAtQpc {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    PresentAtQpc : Int64
 
-    /**
-     * @type {_Flags_e__Union}
-     */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := D3DKMT_FLIPMANAGER_PRESENTHISTORYTOKEN._Flags_e__Union(16, this)
-            return this.__Flags
-        }
-    }
+    Flags : D3DKMT_FLIPMANAGER_PRESENTHISTORYTOKEN._Flags
+
 }

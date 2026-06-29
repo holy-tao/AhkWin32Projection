@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITrigger.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\ITrigger.ahk" { ITrigger }
 
 /**
  * Represents a trigger that starts a job based on a monthly schedule.
@@ -12,26 +15,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-imonthlytrigger
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class IMonthlyTrigger extends ITrigger {
-
-    static sizeof => A_PtrSize
+export default struct IMonthlyTrigger extends ITrigger {
     /**
      * The interface identifier for IMonthlyTrigger
      * @type {Guid}
      */
-    static IID => Guid("{97c45ef1-6b02-4a1a-9c0e-1ebfba1500ac}")
+    static IID := Guid("{97c45ef1-6b02-4a1a-9c0e-1ebfba1500ac}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 20
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMonthlyTrigger interfaces
+    */
+    struct Vtbl extends ITrigger.Vtbl {
+        get_DaysOfMonth         : IntPtr
+        put_DaysOfMonth         : IntPtr
+        get_MonthsOfYear        : IntPtr
+        put_MonthsOfYear        : IntPtr
+        get_RunOnLastDayOfMonth : IntPtr
+        put_RunOnLastDayOfMonth : IntPtr
+        get_RandomDelay         : IntPtr
+        put_RandomDelay         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_DaysOfMonth", "put_DaysOfMonth", "get_MonthsOfYear", "put_MonthsOfYear", "get_RunOnLastDayOfMonth", "put_RunOnLastDayOfMonth", "get_RandomDelay", "put_RandomDelay"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMonthlyTrigger.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -625,7 +642,7 @@ class IMonthlyTrigger extends ITrigger {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imonthlytrigger-put_runonlastdayofmonth
      */
     put_RunOnLastDayOfMonth(lastDay) {
-        result := ComCall(25, this, "short", lastDay, "HRESULT")
+        result := ComCall(25, this, VARIANT_BOOL, lastDay, "HRESULT")
         return result
     }
 
@@ -636,7 +653,7 @@ class IMonthlyTrigger extends ITrigger {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imonthlytrigger-get_randomdelay
      */
     get_RandomDelay(pRandomDelay) {
-        result := ComCall(26, this, "ptr", pRandomDelay, "HRESULT")
+        result := ComCall(26, this, BSTR.Ptr, pRandomDelay, "HRESULT")
         return result
     }
 
@@ -649,7 +666,41 @@ class IMonthlyTrigger extends ITrigger {
     put_RandomDelay(randomDelay) {
         randomDelay := randomDelay is String ? BSTR.Alloc(randomDelay).Value : randomDelay
 
-        result := ComCall(27, this, "ptr", randomDelay, "HRESULT")
+        result := ComCall(27, this, BSTR, randomDelay, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMonthlyTrigger.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_DaysOfMonth := CallbackCreate(GetMethod(implObj, "get_DaysOfMonth"), flags, 2)
+        this.vtbl.put_DaysOfMonth := CallbackCreate(GetMethod(implObj, "put_DaysOfMonth"), flags, 2)
+        this.vtbl.get_MonthsOfYear := CallbackCreate(GetMethod(implObj, "get_MonthsOfYear"), flags, 2)
+        this.vtbl.put_MonthsOfYear := CallbackCreate(GetMethod(implObj, "put_MonthsOfYear"), flags, 2)
+        this.vtbl.get_RunOnLastDayOfMonth := CallbackCreate(GetMethod(implObj, "get_RunOnLastDayOfMonth"), flags, 2)
+        this.vtbl.put_RunOnLastDayOfMonth := CallbackCreate(GetMethod(implObj, "put_RunOnLastDayOfMonth"), flags, 2)
+        this.vtbl.get_RandomDelay := CallbackCreate(GetMethod(implObj, "get_RandomDelay"), flags, 2)
+        this.vtbl.put_RandomDelay := CallbackCreate(GetMethod(implObj, "put_RandomDelay"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_DaysOfMonth)
+        CallbackFree(this.vtbl.put_DaysOfMonth)
+        CallbackFree(this.vtbl.get_MonthsOfYear)
+        CallbackFree(this.vtbl.put_MonthsOfYear)
+        CallbackFree(this.vtbl.get_RunOnLastDayOfMonth)
+        CallbackFree(this.vtbl.put_RunOnLastDayOfMonth)
+        CallbackFree(this.vtbl.get_RandomDelay)
+        CallbackFree(this.vtbl.put_RandomDelay)
     }
 }

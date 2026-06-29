@@ -1,55 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DEVICE_DATA_SET_RANGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DEVICE_DATA_SET_RANGE.ahk" { DEVICE_DATA_SET_RANGE }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class DEVICE_DATA_SET_SCRUB_EX_OUTPUT extends Win32Struct {
-    static sizeof => 48
+export default struct DEVICE_DATA_SET_SCRUB_EX_OUTPUT {
+    #StructPack 8
 
-    static packingSize => 8
+    BytesProcessed : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BytesProcessed {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    BytesRepaired : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BytesRepaired {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    BytesFailed : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BytesFailed {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ParityExtent : DEVICE_DATA_SET_RANGE
 
-    /**
-     * @type {DEVICE_DATA_SET_RANGE}
-     */
-    ParityExtent {
-        get {
-            if(!this.HasProp("__ParityExtent"))
-                this.__ParityExtent := DEVICE_DATA_SET_RANGE(24, this)
-            return this.__ParityExtent
-        }
-    }
+    BytesScrubbed : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BytesScrubbed {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
 }

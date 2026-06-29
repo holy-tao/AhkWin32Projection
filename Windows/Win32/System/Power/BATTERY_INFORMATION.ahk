@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains battery information.
@@ -8,10 +7,8 @@
  * @see https://learn.microsoft.com/windows/win32/Power/battery-information-str
  * @namespace Windows.Win32.System.Power
  */
-class BATTERY_INFORMATION extends Win32Struct {
-    static sizeof => 36
-
-    static packingSize => 4
+export default struct BATTERY_INFORMATION {
+    #StructPack 4
 
     /**
      * The battery capabilities. This member can be one or more of the following values.
@@ -25,12 +22,8 @@ class BATTERY_INFORMATION extends Win32Struct {
      * | <span id="BATTERY_SET_CHARGE_SUPPORTED"></span><span id="battery_set_charge_supported"></span><dl> <dt>**BATTERY\_SET\_CHARGE\_SUPPORTED**</dt> <dt>0x00000001</dt> </dl>          | Indicates that set information requests of the type BatteryCharge are supported by this battery device.<br/>                                                                                                                                                                                                                                                                                                                                                                                                                         |
      * | <span id="BATTERY_SET_DISCHARGE_SUPPORTED"></span><span id="battery_set_discharge_supported"></span><dl> <dt>**BATTERY\_SET\_DISCHARGE\_SUPPORTED**</dt> <dt>0x00000002</dt> </dl> | Indicates that set information requests of the type BatteryDischarge are supported by this battery device.<br/>                                                                                                                                                                                                                                                                                                                                                                                                                      |
      * | <span id="BATTERY_SYSTEM_BATTERY"></span><span id="battery_system_battery"></span><dl> <dt>**BATTERY\_SYSTEM\_BATTERY**</dt> <dt>0x80000000</dt> </dl>                             | Indicates that the battery can provide general power to run the system.<br/>                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-     * @type {Integer}
      */
-    Capabilities {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Capabilities : UInt32
 
     /**
      * The battery technology. This member can be one of the following values.
@@ -41,24 +34,13 @@ class BATTERY_INFORMATION extends Win32Struct {
      * |------------------------------------------------------------------------------|------------------------------------------------------------|
      * | <dl> <dt>0</dt> </dl> | Nonrechargeable battery, for example, alkaline.<br/> |
      * | <dl> <dt>1</dt> </dl> | Rechargeable battery, for example, lead acid.<br/>   |
-     * @type {Integer}
      */
-    Technology {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    Technology : Int8
 
     /**
      * Reserved.
-     * @type {Array<Integer>}
      */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 5, 3, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    Reserved : Int8[3]
 
     /**
      * An abbreviated character string that indicates the battery's chemistry. This string is not necessarily zero-terminated. The following is a partial list of abbreviations that can be returned and the associated chemistries.
@@ -80,67 +62,37 @@ class BATTERY_INFORMATION extends Win32Struct {
      *  
      * 
      * Other chemistries may appear in the future and your code should be able to handle them.
-     * @type {Array<Integer>}
      */
-    Chemistry {
-        get {
-            if(!this.HasProp("__ChemistryProxyArray"))
-                this.__ChemistryProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "char")
-            return this.__ChemistryProxyArray
-        }
-    }
+    Chemistry : Int8[4]
 
     /**
      * The theoretical capacity of the battery when new, in mWh unless BATTERY\_CAPACITY\_RELATIVE is set. In that case, the units are undefined.
-     * @type {Integer}
      */
-    DesignedCapacity {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    DesignedCapacity : UInt32
 
     /**
      * The battery's current fully charged capacity in mWh (or relative). Compare this value to **DesignedCapacity** to estimate the battery's wear.
-     * @type {Integer}
      */
-    FullChargedCapacity {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    FullChargedCapacity : UInt32
 
     /**
      * The manufacturer's suggested capacity, in mWh, at which a low battery alert should occur. Definitions of low vary from manufacturer to manufacturer. In general, a warning state will occur before a low state, but you should not assume that it always will. To reduce risk of data loss, this value is usually used as the default setting for the critical battery alarm.
-     * @type {Integer}
      */
-    DefaultAlert1 {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    DefaultAlert1 : UInt32
 
     /**
      * The manufacturer's suggested capacity, in mWh, at which a warning battery alert should occur. Definitions of warning vary from manufacturer to manufacturer. In general, a warning state will occur before a low state, but you should not assume that it always will. To reduce risk of data loss, this value is usually used as the default setting for the low battery alarm.
-     * @type {Integer}
      */
-    DefaultAlert2 {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    DefaultAlert2 : UInt32
 
     /**
      * A bias from zero, in mWh, which is applied to battery reporting. Some batteries reserve a small charge that is biased out of the battery's capacity values to show "0" as the critical battery level. Critical bias is analogous to setting a fuel gauge to show "empty" when there are several liters of fuel left.
-     * @type {Integer}
      */
-    CriticalBias {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    CriticalBias : UInt32
 
     /**
      * The number of charge/discharge cycles the battery has experienced. This provides a means to determine the battery's wear. If the battery does not support a cycle counter, this member is zero.
-     * @type {Integer}
      */
-    CycleCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    CycleCount : UInt32
+
 }

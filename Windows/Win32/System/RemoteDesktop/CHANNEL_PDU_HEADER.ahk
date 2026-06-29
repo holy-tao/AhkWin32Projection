@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains information about a data block being received by the server end of a virtual channel.
@@ -15,28 +14,19 @@
  * @see https://learn.microsoft.com/windows/win32/api/pchannel/ns-pchannel-channel_pdu_header
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class CHANNEL_PDU_HEADER extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct CHANNEL_PDU_HEADER {
+    #StructPack 4
 
     /**
      * Size, in bytes, of the data block, excluding this header.
-     * @type {Integer}
      */
-    length {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    length : UInt32
 
     /**
      * Information about the data block. The following bit flags will be set. Note that you should not make direct 
      *       comparisons using the '==' operator when comparing the values in the following list; instead, use the comparison 
      *       methods described in the list.
-     * @type {Integer}
      */
-    flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    flags : UInt32
+
 }

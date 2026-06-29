@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the various reasons a disk on a cluster node can be eligible or ineligible for replication.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ne-clusapi-sr_disk_replication_eligible
  * @namespace Windows.Win32.Networking.Clustering
  */
-class SR_DISK_REPLICATION_ELIGIBLE extends Win32Enum {
+export default struct SR_DISK_REPLICATION_ELIGIBLE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * None of the disks on the node are eligible for replication.

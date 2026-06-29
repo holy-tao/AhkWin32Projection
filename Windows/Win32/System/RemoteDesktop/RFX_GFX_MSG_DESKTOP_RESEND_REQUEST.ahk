@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RFX_GFX_MSG_HEADER.ahk
-#Include .\RFX_GFX_RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RFX_GFX_RECT.ahk" { RFX_GFX_RECT }
+#Import ".\RFX_GFX_MSG_HEADER.ahk" { RFX_GFX_MSG_HEADER }
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class RFX_GFX_MSG_DESKTOP_RESEND_REQUEST extends Win32Struct {
-    static sizeof => 20
+export default struct RFX_GFX_MSG_DESKTOP_RESEND_REQUEST {
+    #StructPack 4
 
-    static packingSize => 4
+    channelHdr : RFX_GFX_MSG_HEADER
 
-    /**
-     * @type {RFX_GFX_MSG_HEADER}
-     */
-    channelHdr {
-        get {
-            if(!this.HasProp("__channelHdr"))
-                this.__channelHdr := RFX_GFX_MSG_HEADER(0, this)
-            return this.__channelHdr
-        }
-    }
+    RedrawRect : RFX_GFX_RECT
 
-    /**
-     * @type {RFX_GFX_RECT}
-     */
-    RedrawRect {
-        get {
-            if(!this.HasProp("__RedrawRect"))
-                this.__RedrawRect := RFX_GFX_RECT(4, this)
-            return this.__RedrawRect
-        }
-    }
 }

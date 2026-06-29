@@ -1,31 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The AM_ExactRateChange structure is not supported. Use AM_SimpleRateChange.
  * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ns-dvdmedia-am_exactratechange
  * @namespace Windows.Win32.Media.DirectShow
  */
-class AM_ExactRateChange extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct AM_ExactRateChange {
+    #StructPack 8
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    OutputZeroTime {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    OutputZeroTime : Int64
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    Rate {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    Rate : Int32
+
 }

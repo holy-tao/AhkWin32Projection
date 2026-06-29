@@ -1,63 +1,40 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BP_PAINTPARAMS_FLAGS.ahk
-#Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Graphics\Gdi\BLENDFUNCTION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\Gdi\BLENDFUNCTION.ahk" { BLENDFUNCTION }
+#Import ".\BP_PAINTPARAMS_FLAGS.ahk" { BP_PAINTPARAMS_FLAGS }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Defines paint operation parameters for BeginBufferedPaint.
  * @see https://learn.microsoft.com/windows/win32/api/uxtheme/ns-uxtheme-bp_paintparams
  * @namespace Windows.Win32.UI.Controls
  */
-class BP_PAINTPARAMS extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct BP_PAINTPARAMS {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {BP_PAINTPARAMS_FLAGS}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : BP_PAINTPARAMS_FLAGS
 
     /**
      * Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * A pointer to exclusion <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure. This rectangle is excluded from the clipping region.  May be <b>NULL</b> for no exclusion rectangle.
-     * @type {Pointer<RECT>}
      */
-    prcExclude {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    prcExclude : RECT.Ptr
 
     /**
      * Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-blendfunction">BLENDFUNCTION</a>*</b>
      * 
      * A pointer to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-blendfunction">BLENDFUNCTION</a> structure, which controls blending by specifying the blending functions for source and destination bitmaps.  If <b>NULL</b>, the source buffer is copied to the destination with no blending.
-     * @type {Pointer<BLENDFUNCTION>}
      */
-    pBlendFunction {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pBlendFunction : BLENDFUNCTION.Ptr
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 24
-    }
 }

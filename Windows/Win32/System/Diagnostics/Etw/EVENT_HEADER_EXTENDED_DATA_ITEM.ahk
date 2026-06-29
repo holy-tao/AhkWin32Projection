@@ -1,24 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The EVENT_HEADER_EXTENDED_DATA_ITEM structure (evntcons.h) defines the extended data that ETW collects as part of the event data.
  * @see https://learn.microsoft.com/windows/win32/api/evntcons/ns-evntcons-event_header_extended_data_item
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class EVENT_HEADER_EXTENDED_DATA_ITEM extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct EVENT_HEADER_EXTENDED_DATA_ITEM {
+    #StructPack 8
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    Reserved1 {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Reserved1 : UInt16
 
     /**
      * Type of extended data. The following are possible values.
@@ -133,23 +126,16 @@ class EVENT_HEADER_EXTENDED_DATA_ITEM extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    ExtType {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    ExtType : UInt16
 
     /**
      * This bitfield backs the following members:
      * - Linkage
      * - Reserved2
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    _bitfield : Int16
+
 
     /**
      * @type {Integer}
@@ -166,22 +152,14 @@ class EVENT_HEADER_EXTENDED_DATA_ITEM extends Win32Struct {
         get => (this._bitfield >> 1) & 0x7FFF
         set => this._bitfield := ((value & 0x7FFF) << 1) | (this._bitfield & ~(0x7FFF << 1))
     }
-
     /**
      * Size, in bytes, of the extended data that <b>DataPtr</b> points to.
-     * @type {Integer}
      */
-    DataSize {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    DataSize : UInt16
 
     /**
      * Pointer to the extended data. The <b>ExtType</b> member determines the type of extended data to which this member points.
-     * @type {Integer}
      */
-    DataPtr {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    DataPtr : Int64
+
 }

@@ -1,40 +1,85 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DIRECTMANIPULATION_VIEWPORT_OPTIONS.ahk" { DIRECTMANIPULATION_VIEWPORT_OPTIONS }
+#Import ".\DIRECTMANIPULATION_STATUS.ahk" { DIRECTMANIPULATION_STATUS }
+#Import ".\DIRECTMANIPULATION_INPUT_MODE.ahk" { DIRECTMANIPULATION_INPUT_MODE }
+#Import ".\IDirectManipulationViewportEventHandler.ahk" { IDirectManipulationViewportEventHandler }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DIRECTMANIPULATION_CONFIGURATION.ahk" { DIRECTMANIPULATION_CONFIGURATION }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import ".\DIRECTMANIPULATION_GESTURE_CONFIGURATION.ahk" { DIRECTMANIPULATION_GESTURE_CONFIGURATION }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DIRECTMANIPULATION_MOTION_TYPES.ahk" { DIRECTMANIPULATION_MOTION_TYPES }
+#Import ".\IDirectManipulationContent.ahk" { IDirectManipulationContent }
 
 /**
  * Defines a region within a window (referred to as a viewport) that is able to receive and process input from user interactions.
  * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nn-directmanipulation-idirectmanipulationviewport
  * @namespace Windows.Win32.Graphics.DirectManipulation
  */
-class IDirectManipulationViewport extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectManipulationViewport extends IUnknown {
     /**
      * The interface identifier for IDirectManipulationViewport
      * @type {Guid}
      */
-    static IID => Guid("{28b85a3d-60a0-48bd-9ba1-5ce8d9ea3a6d}")
+    static IID := Guid("{28b85a3d-60a0-48bd-9ba1-5ce8d9ea3a6d}")
 
     /**
      * The class identifier for DirectManipulationViewport
      * @type {Guid}
      */
-    static CLSID => Guid("{34e211b6-3650-4f75-8334-fa359598e1c5}")
+    static CLSID := Guid("{34e211b6-3650-4f75-8334-fa359598e1c5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectManipulationViewport interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Enable                : IntPtr
+        Disable               : IntPtr
+        SetContact            : IntPtr
+        ReleaseContact        : IntPtr
+        ReleaseAllContacts    : IntPtr
+        GetStatus             : IntPtr
+        GetTag                : IntPtr
+        SetTag                : IntPtr
+        GetViewportRect       : IntPtr
+        SetViewportRect       : IntPtr
+        ZoomToRect            : IntPtr
+        SetViewportTransform  : IntPtr
+        SyncDisplayTransform  : IntPtr
+        GetPrimaryContent     : IntPtr
+        AddContent            : IntPtr
+        RemoveContent         : IntPtr
+        SetViewportOptions    : IntPtr
+        AddConfiguration      : IntPtr
+        RemoveConfiguration   : IntPtr
+        ActivateConfiguration : IntPtr
+        SetManualGesture      : IntPtr
+        SetChaining           : IntPtr
+        AddEventHandler       : IntPtr
+        RemoveEventHandler    : IntPtr
+        SetInputMode          : IntPtr
+        SetUpdateMode         : IntPtr
+        Stop                  : IntPtr
+        Abandon               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Enable", "Disable", "SetContact", "ReleaseContact", "ReleaseAllContacts", "GetStatus", "GetTag", "SetTag", "GetViewportRect", "SetViewportRect", "ZoomToRect", "SetViewportTransform", "SyncDisplayTransform", "GetPrimaryContent", "AddContent", "RemoveContent", "SetViewportOptions", "AddConfiguration", "RemoveConfiguration", "ActivateConfiguration", "SetManualGesture", "SetChaining", "AddEventHandler", "RemoveEventHandler", "SetInputMode", "SetUpdateMode", "Stop", "Abandon"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectManipulationViewport.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Starts or resumes input processing by the viewport.
@@ -150,7 +195,7 @@ class IDirectManipulationViewport extends IUnknown {
         _objectMarshal := _object is VarRef ? "ptr*" : "ptr"
         idMarshal := id is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "ptr", riid, _objectMarshal, _object, idMarshal, id, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, riid, _objectMarshal, _object, idMarshal, id, "HRESULT")
         return result
     }
 
@@ -177,7 +222,7 @@ class IDirectManipulationViewport extends IUnknown {
      */
     GetViewportRect() {
         viewport := RECT()
-        result := ComCall(11, this, "ptr", viewport, "HRESULT")
+        result := ComCall(11, this, RECT.Ptr, viewport, "HRESULT")
         return viewport
     }
 
@@ -190,7 +235,7 @@ class IDirectManipulationViewport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-setviewportrect
      */
     SetViewportRect(viewport) {
-        result := ComCall(12, this, "ptr", viewport, "HRESULT")
+        result := ComCall(12, this, RECT.Ptr, viewport, "HRESULT")
         return result
     }
 
@@ -205,7 +250,7 @@ class IDirectManipulationViewport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-zoomtorect
      */
     ZoomToRect(left, top, right, bottom, animate) {
-        result := ComCall(13, this, "float", left, "float", top, "float", right, "float", bottom, "int", animate, "HRESULT")
+        result := ComCall(13, this, "float", left, "float", top, "float", right, "float", bottom, BOOL, animate, "HRESULT")
         return result
     }
 
@@ -277,7 +322,7 @@ class IDirectManipulationViewport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-getprimarycontent
      */
     GetPrimaryContent(riid) {
-        result := ComCall(16, this, "ptr", riid, "ptr*", &_object := 0, "HRESULT")
+        result := ComCall(16, this, Guid.Ptr, riid, "ptr*", &_object := 0, "HRESULT")
         return _object
     }
 
@@ -316,7 +361,7 @@ class IDirectManipulationViewport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-setviewportoptions
      */
     SetViewportOptions(options) {
-        result := ComCall(19, this, "int", options, "HRESULT")
+        result := ComCall(19, this, DIRECTMANIPULATION_VIEWPORT_OPTIONS, options, "HRESULT")
         return result
     }
 
@@ -345,7 +390,7 @@ class IDirectManipulationViewport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-addconfiguration
      */
     AddConfiguration(configuration) {
-        result := ComCall(20, this, "int", configuration, "HRESULT")
+        result := ComCall(20, this, DIRECTMANIPULATION_CONFIGURATION, configuration, "HRESULT")
         return result
     }
 
@@ -360,7 +405,7 @@ class IDirectManipulationViewport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-removeconfiguration
      */
     RemoveConfiguration(configuration) {
-        result := ComCall(21, this, "int", configuration, "HRESULT")
+        result := ComCall(21, this, DIRECTMANIPULATION_CONFIGURATION, configuration, "HRESULT")
         return result
     }
 
@@ -385,7 +430,7 @@ class IDirectManipulationViewport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-activateconfiguration
      */
     ActivateConfiguration(configuration) {
-        result := ComCall(22, this, "int", configuration, "HRESULT")
+        result := ComCall(22, this, DIRECTMANIPULATION_CONFIGURATION, configuration, "HRESULT")
         return result
     }
 
@@ -398,7 +443,7 @@ class IDirectManipulationViewport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-setmanualgesture
      */
     SetManualGesture(configuration) {
-        result := ComCall(23, this, "int", configuration, "HRESULT")
+        result := ComCall(23, this, DIRECTMANIPULATION_GESTURE_CONFIGURATION, configuration, "HRESULT")
         return result
     }
 
@@ -409,7 +454,7 @@ class IDirectManipulationViewport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-setchaining
      */
     SetChaining(enabledTypes) {
-        result := ComCall(24, this, "int", enabledTypes, "HRESULT")
+        result := ComCall(24, this, DIRECTMANIPULATION_MOTION_TYPES, enabledTypes, "HRESULT")
         return result
     }
 
@@ -428,9 +473,7 @@ class IDirectManipulationViewport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-addeventhandler
      */
     AddEventHandler(window, eventHandler) {
-        window := window is Win32Handle ? NumGet(window, "ptr") : window
-
-        result := ComCall(25, this, "ptr", window, "ptr", eventHandler, "uint*", &cookie := 0, "HRESULT")
+        result := ComCall(25, this, HWND, window, "ptr", eventHandler, "uint*", &cookie := 0, "HRESULT")
         return cookie
     }
 
@@ -465,7 +508,7 @@ class IDirectManipulationViewport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-setinputmode
      */
     SetInputMode(_mode) {
-        result := ComCall(27, this, "int", _mode, "HRESULT")
+        result := ComCall(27, this, DIRECTMANIPULATION_INPUT_MODE, _mode, "HRESULT")
         return result
     }
 
@@ -484,7 +527,7 @@ class IDirectManipulationViewport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-setupdatemode
      */
     SetUpdateMode(_mode) {
-        result := ComCall(28, this, "int", _mode, "HRESULT")
+        result := ComCall(28, this, DIRECTMANIPULATION_INPUT_MODE, _mode, "HRESULT")
         return result
     }
 
@@ -510,5 +553,79 @@ class IDirectManipulationViewport extends IUnknown {
     Abandon() {
         result := ComCall(30, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectManipulationViewport.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Enable := CallbackCreate(GetMethod(implObj, "Enable"), flags, 1)
+        this.vtbl.Disable := CallbackCreate(GetMethod(implObj, "Disable"), flags, 1)
+        this.vtbl.SetContact := CallbackCreate(GetMethod(implObj, "SetContact"), flags, 2)
+        this.vtbl.ReleaseContact := CallbackCreate(GetMethod(implObj, "ReleaseContact"), flags, 2)
+        this.vtbl.ReleaseAllContacts := CallbackCreate(GetMethod(implObj, "ReleaseAllContacts"), flags, 1)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 4)
+        this.vtbl.SetTag := CallbackCreate(GetMethod(implObj, "SetTag"), flags, 3)
+        this.vtbl.GetViewportRect := CallbackCreate(GetMethod(implObj, "GetViewportRect"), flags, 2)
+        this.vtbl.SetViewportRect := CallbackCreate(GetMethod(implObj, "SetViewportRect"), flags, 2)
+        this.vtbl.ZoomToRect := CallbackCreate(GetMethod(implObj, "ZoomToRect"), flags, 6)
+        this.vtbl.SetViewportTransform := CallbackCreate(GetMethod(implObj, "SetViewportTransform"), flags, 3)
+        this.vtbl.SyncDisplayTransform := CallbackCreate(GetMethod(implObj, "SyncDisplayTransform"), flags, 3)
+        this.vtbl.GetPrimaryContent := CallbackCreate(GetMethod(implObj, "GetPrimaryContent"), flags, 3)
+        this.vtbl.AddContent := CallbackCreate(GetMethod(implObj, "AddContent"), flags, 2)
+        this.vtbl.RemoveContent := CallbackCreate(GetMethod(implObj, "RemoveContent"), flags, 2)
+        this.vtbl.SetViewportOptions := CallbackCreate(GetMethod(implObj, "SetViewportOptions"), flags, 2)
+        this.vtbl.AddConfiguration := CallbackCreate(GetMethod(implObj, "AddConfiguration"), flags, 2)
+        this.vtbl.RemoveConfiguration := CallbackCreate(GetMethod(implObj, "RemoveConfiguration"), flags, 2)
+        this.vtbl.ActivateConfiguration := CallbackCreate(GetMethod(implObj, "ActivateConfiguration"), flags, 2)
+        this.vtbl.SetManualGesture := CallbackCreate(GetMethod(implObj, "SetManualGesture"), flags, 2)
+        this.vtbl.SetChaining := CallbackCreate(GetMethod(implObj, "SetChaining"), flags, 2)
+        this.vtbl.AddEventHandler := CallbackCreate(GetMethod(implObj, "AddEventHandler"), flags, 4)
+        this.vtbl.RemoveEventHandler := CallbackCreate(GetMethod(implObj, "RemoveEventHandler"), flags, 2)
+        this.vtbl.SetInputMode := CallbackCreate(GetMethod(implObj, "SetInputMode"), flags, 2)
+        this.vtbl.SetUpdateMode := CallbackCreate(GetMethod(implObj, "SetUpdateMode"), flags, 2)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Abandon := CallbackCreate(GetMethod(implObj, "Abandon"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Enable)
+        CallbackFree(this.vtbl.Disable)
+        CallbackFree(this.vtbl.SetContact)
+        CallbackFree(this.vtbl.ReleaseContact)
+        CallbackFree(this.vtbl.ReleaseAllContacts)
+        CallbackFree(this.vtbl.GetStatus)
+        CallbackFree(this.vtbl.GetTag)
+        CallbackFree(this.vtbl.SetTag)
+        CallbackFree(this.vtbl.GetViewportRect)
+        CallbackFree(this.vtbl.SetViewportRect)
+        CallbackFree(this.vtbl.ZoomToRect)
+        CallbackFree(this.vtbl.SetViewportTransform)
+        CallbackFree(this.vtbl.SyncDisplayTransform)
+        CallbackFree(this.vtbl.GetPrimaryContent)
+        CallbackFree(this.vtbl.AddContent)
+        CallbackFree(this.vtbl.RemoveContent)
+        CallbackFree(this.vtbl.SetViewportOptions)
+        CallbackFree(this.vtbl.AddConfiguration)
+        CallbackFree(this.vtbl.RemoveConfiguration)
+        CallbackFree(this.vtbl.ActivateConfiguration)
+        CallbackFree(this.vtbl.SetManualGesture)
+        CallbackFree(this.vtbl.SetChaining)
+        CallbackFree(this.vtbl.AddEventHandler)
+        CallbackFree(this.vtbl.RemoveEventHandler)
+        CallbackFree(this.vtbl.SetInputMode)
+        CallbackFree(this.vtbl.SetUpdateMode)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.Abandon)
     }
 }

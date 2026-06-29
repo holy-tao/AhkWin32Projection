@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Define the settings for object comparison and are used by SWbemObject.CompareTo_.
  * @see https://learn.microsoft.com/windows/win32/api/wbemdisp/ne-wbemdisp-wbemcomparisonflagenum
  * @namespace Windows.Win32.System.Wmi
  */
-class WbemComparisonFlagEnum extends Win32Enum {
+export default struct WbemComparisonFlagEnum {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Used to compare all properties, qualifiers, and flavors.

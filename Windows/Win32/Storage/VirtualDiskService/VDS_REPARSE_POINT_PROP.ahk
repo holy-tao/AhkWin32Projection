@@ -1,5 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Defines the reparse-point properties of a volume object.
@@ -8,26 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_reparse_point_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_REPARSE_POINT_PROP extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct VDS_REPARSE_POINT_PROP {
+    #StructPack 8
 
     /**
      * The GUID of the volume object that contains the reparse point.
-     * @type {Pointer}
      */
-    SourceVolumeId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    SourceVolumeId : Guid
 
     /**
      * A string for a path without a drive letter. For example, "\mount".
-     * @type {PWSTR}
      */
-    pwszPath {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwszPath : PWSTR
+
 }

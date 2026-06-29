@@ -1,38 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_MEDIA_SERIAL_NUMBER_DATA extends Win32Struct {
-    static sizeof => 6
+export default struct STORAGE_MEDIA_SERIAL_NUMBER_DATA {
+    #StructPack 2
 
-    static packingSize => 2
+    Reserved : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    SerialNumberLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    SerialNumberLength {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    SerialNumber : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    SerialNumber {
-        get {
-            if(!this.HasProp("__SerialNumberProxyArray"))
-                this.__SerialNumberProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
-            return this.__SerialNumberProxyArray
-        }
-    }
 }

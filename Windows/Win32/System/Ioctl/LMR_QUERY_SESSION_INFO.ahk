@@ -1,19 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class LMR_QUERY_SESSION_INFO extends Win32Struct {
-    static sizeof => 8
+export default struct LMR_QUERY_SESSION_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    SessionId : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SessionId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
 }

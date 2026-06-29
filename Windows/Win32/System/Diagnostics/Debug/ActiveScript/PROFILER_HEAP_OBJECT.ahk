@@ -1,67 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
  */
-class PROFILER_HEAP_OBJECT extends Win32Struct {
-    static sizeof => 32
+export default struct PROFILER_HEAP_OBJECT {
+    #StructPack 8
 
-    static packingSize => 8
+    size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    objectId : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    objectId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    typeNameId : UInt32
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    externalObjectAddress {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    typeNameId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    unused : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    flags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    optionalInfoCount : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    unused {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    optionalInfoCount {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
+    static __New() {
+        DefineProp(this.Prototype, 'externalObjectAddress', { type: IntPtr, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

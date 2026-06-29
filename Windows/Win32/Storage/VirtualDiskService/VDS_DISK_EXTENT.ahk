@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_DISK_EXTENT_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VDS_DISK_EXTENT_TYPE.ahk" { VDS_DISK_EXTENT_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Defines the properties of a disk extent.
@@ -22,71 +22,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_disk_extent
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_DISK_EXTENT extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct VDS_DISK_EXTENT {
+    #StructPack 8
 
     /**
      * The GUID of the disk.
-     * @type {Pointer}
      */
-    diskId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    diskId : Guid
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_disk_extent_type">VDS_DISK_EXTENT_TYPE</a> enumeration value that specifies the type of the disk extent.
-     * @type {VDS_DISK_EXTENT_TYPE}
      */
-    type {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    type : VDS_DISK_EXTENT_TYPE
 
     /**
      * The disk offset, in bytes.
-     * @type {Integer}
      */
-    ullOffset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ullOffset : Int64
 
     /**
      * The size of the extent, in bytes.
-     * @type {Integer}
      */
-    ullSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ullSize : Int64
 
     /**
      * The GUID of the volume to which the extent belongs.
-     * @type {Pointer}
      */
-    volumeId {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    volumeId : Guid
 
     /**
      * If the extent is from a volume, this member is the GUID of the plex to which the extent belongs.
-     * @type {Pointer}
      */
-    plexId {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    plexId : Guid
 
     /**
      * If the extent is from a volume plex, this member is the zero-based index of the plex member to which the extent belongs.
-     * @type {Integer}
      */
-    memberIdx {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    memberIdx : UInt32
+
 }

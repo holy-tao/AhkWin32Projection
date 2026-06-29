@@ -1,31 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_UDPROW2.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MIB_UDPROW2.ahk" { MIB_UDPROW2 }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_UDPTABLE2 extends Win32Struct {
-    static sizeof => 176
+export default struct MIB_UDPTABLE2 {
+    #StructPack 8
 
-    static packingSize => 8
+    dwNumEntries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwNumEntries {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    table : MIB_UDPROW2[1]
 
-    /**
-     * @type {MIB_UDPROW2}
-     */
-    table {
-        get {
-            if(!this.HasProp("__tableProxyArray"))
-                this.__tableProxyArray := Win32FixedArray(this.ptr + 8, 1, MIB_UDPROW2, "")
-            return this.__tableProxyArray
-        }
-    }
 }

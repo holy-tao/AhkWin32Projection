@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes a buffer sent from a decoder to a DirectX Video Acceleration (DXVA) device.
@@ -8,107 +7,60 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_decodebufferdesc
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVA2_DecodeBufferDesc extends Win32Struct {
-    static sizeof => 48
+export default struct DXVA2_DecodeBufferDesc {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {Integer}
-     */
-    CompressedBufferType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    CompressedBufferType : UInt32
 
     /**
      * Reserved. Set to zero.
-     * @type {Integer}
      */
-    BufferIndex {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    BufferIndex : UInt32
 
     /**
      * Specifies the offset of the relevant data from the beginning of the buffer, in bytes. Currently this value must be zero.
-     * @type {Integer}
      */
-    DataOffset {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    DataOffset : UInt32
 
     /**
      * Specifies the amount of relevant data in the buffer, in bytes. The location of the last byte of content in the buffer is <b>DataOffset</b> + <b>DataSize</b> − 1.
-     * @type {Integer}
      */
-    DataSize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    DataSize : UInt32
 
     /**
      * Specifies the macroblock address of the first macroblock in the buffer. The macroblock address is given in raster scan order.
-     * @type {Integer}
      */
-    FirstMBaddress {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    FirstMBaddress : UInt32
 
     /**
      * Specifies the number of macroblocks of data in the buffer. This count includes skipped macroblocks. This value must be zero if the data buffer type is one of the following: picture decoding parameters, inverse-quantization matrix, AYUV, IA44/AI44, DPXD, Highlight, or DCCMD.
-     * @type {Integer}
      */
-    NumMBsInBuffer {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    NumMBsInBuffer : UInt32
 
     /**
      * Reserved. Set to zero.
-     * @type {Integer}
      */
-    Width {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    Width : UInt32
 
     /**
      * Reserved. Set to zero.
-     * @type {Integer}
      */
-    Height {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    Height : UInt32
 
     /**
      * Reserved. Set to zero.
-     * @type {Integer}
      */
-    Stride {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Stride : UInt32
 
     /**
      * Reserved. Set to zero.
-     * @type {Integer}
      */
-    ReservedBits {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    ReservedBits : UInt32
 
     /**
      * Pointer to a byte array that contains an initialization vector (IV) for encrypted data. If the decode buffer does not contain encrypted data, set this member to <b>NULL</b>.
      *           If the decode buffer contains encrypted data, the contents of <b>pvPVPState</b> depends on the type of encryption. For <b>D3DCRYPTOTYPE_AES128_CTR</b>, the <b>pvPVPState</b> member points to a <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_aes_ctr_iv">DXVA2_AES_CTR_IV</a> structure.
-     * @type {Pointer<Void>}
      */
-    pvPVPState {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pvPVPState : IntPtr
+
 }

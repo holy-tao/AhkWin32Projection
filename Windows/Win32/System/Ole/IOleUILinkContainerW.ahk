@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Implemented by containers and used by OLE common dialog boxes. It supports these dialog boxes by providing the methods needed to manage a container's links. (Unicode)
@@ -12,21 +15,35 @@
  * @namespace Windows.Win32.System.Ole
  * @charset Unicode
  */
-class IOleUILinkContainerW extends IUnknown {
+export default struct IOleUILinkContainerW extends IUnknown {
 
-    static sizeof => A_PtrSize
-
-    /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetNextLink", "SetLinkUpdateOptions", "GetLinkUpdateOptions", "SetLinkSource", "GetLinkSource", "OpenLinkSource", "UpdateLink", "CancelLink"]
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOleUILinkContainerW interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetNextLink          : IntPtr
+        SetLinkUpdateOptions : IntPtr
+        GetLinkUpdateOptions : IntPtr
+        SetLinkSource        : IntPtr
+        GetLinkSource        : IntPtr
+        OpenLinkSource       : IntPtr
+        UpdateLink           : IntPtr
+        CancelLink           : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOleUILinkContainerW.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Enumerates the links in a container. (Unicode)
@@ -38,7 +55,7 @@ class IOleUILinkContainerW extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-ioleuilinkcontainerw-getnextlink
      */
     GetNextLink(dwLink) {
-        result := ComCall(3, this, "uint", dwLink, "uint")
+        result := ComCall(3, this, "uint", dwLink, UInt32)
         return result
     }
 
@@ -137,7 +154,7 @@ class IOleUILinkContainerW extends IUnknown {
     SetLinkSource(dwLink, lpszDisplayName, lenFileName, fValidateSource) {
         lpszDisplayName := lpszDisplayName is String ? StrPtr(lpszDisplayName) : lpszDisplayName
 
-        result := ComCall(6, this, "uint", dwLink, "ptr", lpszDisplayName, "uint", lenFileName, "uint*", &pchEaten := 0, "int", fValidateSource, "HRESULT")
+        result := ComCall(6, this, "uint", dwLink, "ptr", lpszDisplayName, "uint", lenFileName, "uint*", &pchEaten := 0, BOOL, fValidateSource, "HRESULT")
         return pchEaten
     }
 
@@ -350,7 +367,7 @@ class IOleUILinkContainerW extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-ioleuilinkcontainerw-updatelink
      */
     UpdateLink(dwLink, fErrorMessage, fReserved) {
-        result := ComCall(9, this, "uint", dwLink, "int", fErrorMessage, "int", fReserved, "HRESULT")
+        result := ComCall(9, this, "uint", dwLink, BOOL, fErrorMessage, BOOL, fReserved, "HRESULT")
         return result
     }
 
@@ -420,5 +437,39 @@ class IOleUILinkContainerW extends IUnknown {
     CancelLink(dwLink) {
         result := ComCall(10, this, "uint", dwLink, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOleUILinkContainerW.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetNextLink := CallbackCreate(GetMethod(implObj, "GetNextLink"), flags, 2)
+        this.vtbl.SetLinkUpdateOptions := CallbackCreate(GetMethod(implObj, "SetLinkUpdateOptions"), flags, 3)
+        this.vtbl.GetLinkUpdateOptions := CallbackCreate(GetMethod(implObj, "GetLinkUpdateOptions"), flags, 3)
+        this.vtbl.SetLinkSource := CallbackCreate(GetMethod(implObj, "SetLinkSource"), flags, 6)
+        this.vtbl.GetLinkSource := CallbackCreate(GetMethod(implObj, "GetLinkSource"), flags, 8)
+        this.vtbl.OpenLinkSource := CallbackCreate(GetMethod(implObj, "OpenLinkSource"), flags, 2)
+        this.vtbl.UpdateLink := CallbackCreate(GetMethod(implObj, "UpdateLink"), flags, 4)
+        this.vtbl.CancelLink := CallbackCreate(GetMethod(implObj, "CancelLink"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetNextLink)
+        CallbackFree(this.vtbl.SetLinkUpdateOptions)
+        CallbackFree(this.vtbl.GetLinkUpdateOptions)
+        CallbackFree(this.vtbl.SetLinkSource)
+        CallbackFree(this.vtbl.GetLinkSource)
+        CallbackFree(this.vtbl.OpenLinkSource)
+        CallbackFree(this.vtbl.UpdateLink)
+        CallbackFree(this.vtbl.CancelLink)
     }
 }

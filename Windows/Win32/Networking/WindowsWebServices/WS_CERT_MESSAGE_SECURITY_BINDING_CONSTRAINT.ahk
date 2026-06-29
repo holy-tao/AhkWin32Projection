@@ -1,42 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_SECURITY_BINDING_CONSTRAINT.ahk
-#Include .\WS_SECURITY_BINDING_CONSTRAINT_TYPE.ahk
-#Include .\WS_SECURITY_BINDING_PROPERTY_CONSTRAINT.ahk
-#Include .\WS_MESSAGE_SECURITY_USAGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_MESSAGE_SECURITY_USAGE.ahk" { WS_MESSAGE_SECURITY_USAGE }
+#Import ".\WS_SECURITY_BINDING_PROPERTY_CONSTRAINT.ahk" { WS_SECURITY_BINDING_PROPERTY_CONSTRAINT }
+#Import ".\WS_SECURITY_BINDING_CONSTRAINT.ahk" { WS_SECURITY_BINDING_CONSTRAINT }
+#Import ".\WS_SECURITY_BINDING_CONSTRAINT_TYPE.ahk" { WS_SECURITY_BINDING_CONSTRAINT_TYPE }
 
 /**
  * A security binding constraint that can be used with WS_XML_TOKEN_MESSAGE_SECURITY_BINDING.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_cert_message_security_binding_constraint
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_CERT_MESSAGE_SECURITY_BINDING_CONSTRAINT extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct WS_CERT_MESSAGE_SECURITY_BINDING_CONSTRAINT {
+    #StructPack 8
 
     /**
      * The base binding constraint that this binding constraint derives from.
      *                 
      * 
      * There are currently no binding-specific properties defined for this binding constraint.
-     * @type {WS_SECURITY_BINDING_CONSTRAINT}
      */
-    bindingConstraint {
-        get {
-            if(!this.HasProp("__bindingConstraint"))
-                this.__bindingConstraint := WS_SECURITY_BINDING_CONSTRAINT(0, this)
-            return this.__bindingConstraint
-        }
-    }
+    bindingConstraint : WS_SECURITY_BINDING_CONSTRAINT
 
     /**
      * This specifies how the security token corresponding to this security 
      *                     binding should be attached to a message.
-     * @type {WS_MESSAGE_SECURITY_USAGE}
      */
-    bindingUsage {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    bindingUsage : WS_MESSAGE_SECURITY_USAGE
+
 }

@@ -1,44 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DNS_SVCB_PARAM.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DNS_SVCB_PARAM.ahk" { DNS_SVCB_PARAM }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
  */
-class DNS_SVCB_DATA extends Win32Struct {
-    static sizeof => 32
+export default struct DNS_SVCB_DATA {
+    #StructPack 8
 
-    static packingSize => 8
+    wSvcPriority : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wSvcPriority {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    pszTargetName : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    pszTargetName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    cSvcParams : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    cSvcParams {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    pSvcParams : DNS_SVCB_PARAM.Ptr
 
-    /**
-     * @type {Pointer<DNS_SVCB_PARAM>}
-     */
-    pSvcParams {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

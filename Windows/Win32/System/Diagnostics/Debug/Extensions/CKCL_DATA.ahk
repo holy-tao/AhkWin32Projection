@@ -1,36 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include .\TANALYZE_RETURN.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TANALYZE_RETURN.ahk" { TANALYZE_RETURN }
+#Import "..\..\..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class CKCL_DATA extends Win32Struct {
-    static sizeof => 24
+export default struct CKCL_DATA {
+    #StructPack 8
 
-    static packingSize => 8
+    NextLogEvent : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    NextLogEvent {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    TAnalyzeString : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    TAnalyzeString {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    TAnalyzeReturnType : TANALYZE_RETURN
 
-    /**
-     * @type {TANALYZE_RETURN}
-     */
-    TAnalyzeReturnType {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
 }

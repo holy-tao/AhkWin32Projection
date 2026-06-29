@@ -1,54 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_SSID.ahk
-#Include .\DOT11_CIPHER_ALGORITHM.ahk
-#Include .\DOT11_AUTH_ALGORITHM.ahk
-#Include .\DOT11_CHANNEL_HINT.ahk
-#Include .\DOT11_PHY_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_CHANNEL_HINT.ahk" { DOT11_CHANNEL_HINT }
+#Import ".\DOT11_CIPHER_ALGORITHM.ahk" { DOT11_CIPHER_ALGORITHM }
+#Import ".\DOT11_PHY_TYPE.ahk" { DOT11_PHY_TYPE }
+#Import ".\DOT11_AUTH_ALGORITHM.ahk" { DOT11_AUTH_ALGORITHM }
+#Import ".\DOT11_SSID.ahk" { DOT11_SSID }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_OFFLOAD_NETWORK extends Win32Struct {
-    static sizeof => 76
+export default struct DOT11_OFFLOAD_NETWORK {
+    #StructPack 4
 
-    static packingSize => 4
+    Ssid : DOT11_SSID
 
-    /**
-     * @type {DOT11_SSID}
-     */
-    Ssid {
-        get {
-            if(!this.HasProp("__Ssid"))
-                this.__Ssid := DOT11_SSID(0, this)
-            return this.__Ssid
-        }
-    }
+    UnicastCipher : DOT11_CIPHER_ALGORITHM
 
-    /**
-     * @type {DOT11_CIPHER_ALGORITHM}
-     */
-    UnicastCipher {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    AuthAlgo : DOT11_AUTH_ALGORITHM
 
-    /**
-     * @type {DOT11_AUTH_ALGORITHM}
-     */
-    AuthAlgo {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    Dot11ChannelHints : DOT11_CHANNEL_HINT[4]
 
-    /**
-     * @type {DOT11_CHANNEL_HINT}
-     */
-    Dot11ChannelHints {
-        get {
-            if(!this.HasProp("__Dot11ChannelHintsProxyArray"))
-                this.__Dot11ChannelHintsProxyArray := Win32FixedArray(this.ptr + 44, 4, DOT11_CHANNEL_HINT, "")
-            return this.__Dot11ChannelHintsProxyArray
-        }
-    }
 }

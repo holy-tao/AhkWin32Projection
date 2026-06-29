@@ -1,47 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\LIGATURE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LIGATURE.ahk" { LIGATURE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class FD_LIGATURE extends Win32Struct {
-    static sizeof => 40
+export default struct FD_LIGATURE {
+    #StructPack 8
 
-    static packingSize => 8
+    culThis : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    culThis {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    ulType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cLigatures : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cLigatures {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    alig : LIGATURE[1]
 
-    /**
-     * @type {LIGATURE}
-     */
-    alig {
-        get {
-            if(!this.HasProp("__aligProxyArray"))
-                this.__aligProxyArray := Win32FixedArray(this.ptr + 16, 1, LIGATURE, "")
-            return this.__aligProxyArray
-        }
-    }
 }

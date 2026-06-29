@@ -1,104 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPSEC_PROPOSAL0.ahk
-#Include .\IPSEC_TUNNEL_ENDPOINTS2.ahk
-#Include .\FWP_IP_VERSION.ahk
-#Include .\IPSEC_TUNNEL_ENDPOINT0.ahk
-#Include .\IPSEC_SA_IDLE_TIMEOUT0.ahk
-#Include .\IKEEXT_EM_POLICY2.ahk
-#Include .\IPSEC_TRAFFIC_SELECTOR_POLICY0.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IPSEC_TUNNEL_ENDPOINT0.ahk" { IPSEC_TUNNEL_ENDPOINT0 }
+#Import ".\IKEEXT_EM_POLICY2.ahk" { IKEEXT_EM_POLICY2 }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IPSEC_TRAFFIC_SELECTOR_POLICY0.ahk" { IPSEC_TRAFFIC_SELECTOR_POLICY0 }
+#Import ".\IPSEC_TUNNEL_ENDPOINTS2.ahk" { IPSEC_TUNNEL_ENDPOINTS2 }
+#Import ".\IPSEC_SA_IDLE_TIMEOUT0.ahk" { IPSEC_SA_IDLE_TIMEOUT0 }
+#Import ".\FWP_IP_VERSION.ahk" { FWP_IP_VERSION }
+#Import ".\IPSEC_PROPOSAL0.ahk" { IPSEC_PROPOSAL0 }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IPSEC_TUNNEL_POLICY3 extends Win32Struct {
-    static sizeof => 128
+export default struct IPSEC_TUNNEL_POLICY3 {
+    #StructPack 8
 
-    static packingSize => 8
+    flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    numIpsecProposals : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    numIpsecProposals {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ipsecProposals : IPSEC_PROPOSAL0.Ptr
 
-    /**
-     * @type {Pointer<IPSEC_PROPOSAL0>}
-     */
-    ipsecProposals {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    tunnelEndpoints : IPSEC_TUNNEL_ENDPOINTS2
 
-    /**
-     * @type {IPSEC_TUNNEL_ENDPOINTS2}
-     */
-    tunnelEndpoints {
-        get {
-            if(!this.HasProp("__tunnelEndpoints"))
-                this.__tunnelEndpoints := IPSEC_TUNNEL_ENDPOINTS2(16, this)
-            return this.__tunnelEndpoints
-        }
-    }
+    saIdleTimeout : IPSEC_SA_IDLE_TIMEOUT0
 
-    /**
-     * @type {IPSEC_SA_IDLE_TIMEOUT0}
-     */
-    saIdleTimeout {
-        get {
-            if(!this.HasProp("__saIdleTimeout"))
-                this.__saIdleTimeout := IPSEC_SA_IDLE_TIMEOUT0(88, this)
-            return this.__saIdleTimeout
-        }
-    }
+    emPolicy : IKEEXT_EM_POLICY2.Ptr
 
-    /**
-     * @type {Pointer<IKEEXT_EM_POLICY2>}
-     */
-    emPolicy {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    fwdPathSaLifetime : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    fwdPathSaLifetime {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    compartmentId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    compartmentId {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
+    numTrafficSelectorPolicy : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    numTrafficSelectorPolicy {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    trafficSelectorPolicies : IPSEC_TRAFFIC_SELECTOR_POLICY0.Ptr
 
-    /**
-     * @type {Pointer<IPSEC_TRAFFIC_SELECTOR_POLICY0>}
-     */
-    trafficSelectorPolicies {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
 }

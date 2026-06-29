@@ -1,40 +1,134 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IInkDrawingAttributes.ahk
-#Include .\IInkRecognizer.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Ole\OLE_HANDLE.ahk
-#Include ..\..\System\Ole\IFontDisp.ahk
-#Include ..\..\System\Ole\IPictureDisp.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\BorderStyleConstants.ahk" { BorderStyleConstants }
+#Import ".\InkApplicationGesture.ahk" { InkApplicationGesture }
+#Import ".\InkMousePointer.ahk" { InkMousePointer }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\AppearanceConstants.ahk" { AppearanceConstants }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\..\System\Ole\OLE_HANDLE.ahk" { OLE_HANDLE }
+#Import ".\IInkDrawingAttributes.ahk" { IInkDrawingAttributes }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\System\Ole\IFontDisp.ahk" { IFontDisp }
+#Import ".\InkMode.ahk" { InkMode }
+#Import ".\IInkRecognizer.ahk" { IInkRecognizer }
+#Import ".\ScrollBarsConstants.ahk" { ScrollBarsConstants }
+#Import ".\InkDisplayMode.ahk" { InkDisplayMode }
+#Import "..\..\System\Ole\IPictureDisp.ahk" { IPictureDisp }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\InkInsertMode.ahk" { InkInsertMode }
+#Import ".\InkEditStatus.ahk" { InkEditStatus }
 
 /**
  * . (IInkEdit)
  * @see https://learn.microsoft.com/windows/win32/api/inked/nn-inked-iinkedit
  * @namespace Windows.Win32.UI.TabletPC
  */
-class IInkEdit extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IInkEdit extends IDispatch {
     /**
      * The interface identifier for IInkEdit
      * @type {Guid}
      */
-    static IID => Guid("{f2127a19-fbfb-4aed-8464-3f36d78cfefb}")
+    static IID := Guid("{f2127a19-fbfb-4aed-8464-3f36d78cfefb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IInkEdit interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Status               : IntPtr
+        get_UseMouseForInput     : IntPtr
+        put_UseMouseForInput     : IntPtr
+        get_InkMode              : IntPtr
+        put_InkMode              : IntPtr
+        get_InkInsertMode        : IntPtr
+        put_InkInsertMode        : IntPtr
+        get_DrawingAttributes    : IntPtr
+        putref_DrawingAttributes : IntPtr
+        get_RecognitionTimeout   : IntPtr
+        put_RecognitionTimeout   : IntPtr
+        get_Recognizer           : IntPtr
+        putref_Recognizer        : IntPtr
+        get_Factoid              : IntPtr
+        put_Factoid              : IntPtr
+        get_SelInks              : IntPtr
+        put_SelInks              : IntPtr
+        get_SelInksDisplayMode   : IntPtr
+        put_SelInksDisplayMode   : IntPtr
+        Recognize                : IntPtr
+        GetGestureStatus         : IntPtr
+        SetGestureStatus         : IntPtr
+        put_BackColor            : IntPtr
+        get_BackColor            : IntPtr
+        get_Appearance           : IntPtr
+        put_Appearance           : IntPtr
+        get_BorderStyle          : IntPtr
+        put_BorderStyle          : IntPtr
+        get_Hwnd                 : IntPtr
+        get_Font                 : IntPtr
+        putref_Font              : IntPtr
+        get_Text                 : IntPtr
+        put_Text                 : IntPtr
+        get_MouseIcon            : IntPtr
+        put_MouseIcon            : IntPtr
+        putref_MouseIcon         : IntPtr
+        get_MousePointer         : IntPtr
+        put_MousePointer         : IntPtr
+        get_Locked               : IntPtr
+        put_Locked               : IntPtr
+        get_Enabled              : IntPtr
+        put_Enabled              : IntPtr
+        get_MaxLength            : IntPtr
+        put_MaxLength            : IntPtr
+        get_MultiLine            : IntPtr
+        put_MultiLine            : IntPtr
+        get_ScrollBars           : IntPtr
+        put_ScrollBars           : IntPtr
+        get_DisableNoScroll      : IntPtr
+        put_DisableNoScroll      : IntPtr
+        get_SelAlignment         : IntPtr
+        put_SelAlignment         : IntPtr
+        get_SelBold              : IntPtr
+        put_SelBold              : IntPtr
+        get_SelItalic            : IntPtr
+        put_SelItalic            : IntPtr
+        get_SelUnderline         : IntPtr
+        put_SelUnderline         : IntPtr
+        get_SelColor             : IntPtr
+        put_SelColor             : IntPtr
+        get_SelFontName          : IntPtr
+        put_SelFontName          : IntPtr
+        get_SelFontSize          : IntPtr
+        put_SelFontSize          : IntPtr
+        get_SelCharOffset        : IntPtr
+        put_SelCharOffset        : IntPtr
+        get_TextRTF              : IntPtr
+        put_TextRTF              : IntPtr
+        get_SelStart             : IntPtr
+        put_SelStart             : IntPtr
+        get_SelLength            : IntPtr
+        put_SelLength            : IntPtr
+        get_SelText              : IntPtr
+        put_SelText              : IntPtr
+        get_SelRTF               : IntPtr
+        put_SelRTF               : IntPtr
+        Refresh                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Status", "get_UseMouseForInput", "put_UseMouseForInput", "get_InkMode", "put_InkMode", "get_InkInsertMode", "put_InkInsertMode", "get_DrawingAttributes", "putref_DrawingAttributes", "get_RecognitionTimeout", "put_RecognitionTimeout", "get_Recognizer", "putref_Recognizer", "get_Factoid", "put_Factoid", "get_SelInks", "put_SelInks", "get_SelInksDisplayMode", "put_SelInksDisplayMode", "Recognize", "GetGestureStatus", "SetGestureStatus", "put_BackColor", "get_BackColor", "get_Appearance", "put_Appearance", "get_BorderStyle", "put_BorderStyle", "get_Hwnd", "get_Font", "putref_Font", "get_Text", "put_Text", "get_MouseIcon", "put_MouseIcon", "putref_MouseIcon", "get_MousePointer", "put_MousePointer", "get_Locked", "put_Locked", "get_Enabled", "put_Enabled", "get_MaxLength", "put_MaxLength", "get_MultiLine", "put_MultiLine", "get_ScrollBars", "put_ScrollBars", "get_DisableNoScroll", "put_DisableNoScroll", "get_SelAlignment", "put_SelAlignment", "get_SelBold", "put_SelBold", "get_SelItalic", "put_SelItalic", "get_SelUnderline", "put_SelUnderline", "get_SelColor", "put_SelColor", "get_SelFontName", "put_SelFontName", "get_SelFontSize", "put_SelFontSize", "get_SelCharOffset", "put_SelCharOffset", "get_TextRTF", "put_TextRTF", "get_SelStart", "put_SelStart", "get_SelLength", "put_SelLength", "get_SelText", "put_SelText", "get_SelRTF", "put_SelRTF", "Refresh"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IInkEdit.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {InkEditStatus} 
@@ -347,7 +441,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_usemouseforinput
      */
     get_UseMouseForInput() {
-        result := ComCall(8, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(8, this, VARIANT_BOOL.Ptr, &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -360,7 +454,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_usemouseforinput
      */
     put_UseMouseForInput(newVal) {
-        result := ComCall(9, this, "short", newVal, "HRESULT")
+        result := ComCall(9, this, VARIANT_BOOL, newVal, "HRESULT")
         return result
     }
 
@@ -389,7 +483,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_inkmode
      */
     put_InkMode(newVal) {
-        result := ComCall(11, this, "int", newVal, "HRESULT")
+        result := ComCall(11, this, InkMode, newVal, "HRESULT")
         return result
     }
 
@@ -410,7 +504,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_inkinsertmode
      */
     put_InkInsertMode(newVal) {
-        result := ComCall(13, this, "int", newVal, "HRESULT")
+        result := ComCall(13, this, InkInsertMode, newVal, "HRESULT")
         return result
     }
 
@@ -519,8 +613,8 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_factoid
      */
     get_Factoid() {
-        pVal := BSTR()
-        result := ComCall(20, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(20, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -545,7 +639,7 @@ class IInkEdit extends IDispatch {
     put_Factoid(newVal) {
         newVal := newVal is String ? BSTR.Alloc(newVal).Value : newVal
 
-        result := ComCall(21, this, "ptr", newVal, "HRESULT")
+        result := ComCall(21, this, BSTR, newVal, "HRESULT")
         return result
     }
 
@@ -562,7 +656,7 @@ class IInkEdit extends IDispatch {
      */
     get_SelInks() {
         pSelInk := VARIANT()
-        result := ComCall(22, this, "ptr", pSelInk, "HRESULT")
+        result := ComCall(22, this, VARIANT.Ptr, pSelInk, "HRESULT")
         return pSelInk
     }
 
@@ -579,7 +673,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_selinks
      */
     put_SelInks(SelInk) {
-        result := ComCall(23, this, "ptr", SelInk, "HRESULT")
+        result := ComCall(23, this, VARIANT, SelInk, "HRESULT")
         return result
     }
 
@@ -604,7 +698,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_selinksdisplaymode
      */
     put_SelInksDisplayMode(_InkDisplayMode) {
-        result := ComCall(25, this, "int", _InkDisplayMode, "HRESULT")
+        result := ComCall(25, this, InkDisplayMode, _InkDisplayMode, "HRESULT")
         return result
     }
 
@@ -681,7 +775,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-getgesturestatus
      */
     GetGestureStatus(Gesture) {
-        result := ComCall(27, this, "int", Gesture, "short*", &pListen := 0, "HRESULT")
+        result := ComCall(27, this, InkApplicationGesture, Gesture, VARIANT_BOOL.Ptr, &pListen := 0, "HRESULT")
         return pListen
     }
 
@@ -783,7 +877,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-setgesturestatus
      */
     SetGestureStatus(Gesture, Listen) {
-        result := ComCall(28, this, "int", Gesture, "short", Listen, "HRESULT")
+        result := ComCall(28, this, InkApplicationGesture, Gesture, VARIANT_BOOL, Listen, "HRESULT")
         return result
     }
 
@@ -825,7 +919,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_appearance
      */
     put_Appearance(pAppearance) {
-        result := ComCall(32, this, "int", pAppearance, "HRESULT")
+        result := ComCall(32, this, AppearanceConstants, pAppearance, "HRESULT")
         return result
     }
 
@@ -846,7 +940,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_borderstyle
      */
     put_BorderStyle(pBorderStyle) {
-        result := ComCall(34, this, "int", pBorderStyle, "HRESULT")
+        result := ComCall(34, this, BorderStyleConstants, pBorderStyle, "HRESULT")
         return result
     }
 
@@ -861,7 +955,7 @@ class IInkEdit extends IDispatch {
      */
     get_Hwnd() {
         pohHwnd := OLE_HANDLE()
-        result := ComCall(35, this, "ptr", pohHwnd, "HRESULT")
+        result := ComCall(35, this, OLE_HANDLE.Ptr, pohHwnd, "HRESULT")
         return pohHwnd
     }
 
@@ -900,8 +994,8 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_text
      */
     get_Text() {
-        pbstrText := BSTR()
-        result := ComCall(38, this, "ptr", pbstrText, "HRESULT")
+        pbstrText := BSTR.Owned()
+        result := ComCall(38, this, BSTR.Ptr, pbstrText, "HRESULT")
         return pbstrText
     }
 
@@ -916,7 +1010,7 @@ class IInkEdit extends IDispatch {
     put_Text(pbstrText) {
         pbstrText := pbstrText is String ? BSTR.Alloc(pbstrText).Value : pbstrText
 
-        result := ComCall(39, this, "ptr", pbstrText, "HRESULT")
+        result := ComCall(39, this, BSTR, pbstrText, "HRESULT")
         return result
     }
 
@@ -987,7 +1081,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_mousepointer
      */
     put_MousePointer(MousePointer) {
-        result := ComCall(44, this, "int", MousePointer, "HRESULT")
+        result := ComCall(44, this, InkMousePointer, MousePointer, "HRESULT")
         return result
     }
 
@@ -997,7 +1091,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_locked
      */
     get_Locked() {
-        result := ComCall(45, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(45, this, VARIANT_BOOL.Ptr, &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -1008,7 +1102,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_locked
      */
     put_Locked(newVal) {
-        result := ComCall(46, this, "short", newVal, "HRESULT")
+        result := ComCall(46, this, VARIANT_BOOL, newVal, "HRESULT")
         return result
     }
 
@@ -1020,7 +1114,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_enabled
      */
     get_Enabled() {
-        result := ComCall(47, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(47, this, VARIANT_BOOL.Ptr, &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -1033,7 +1127,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_enabled
      */
     put_Enabled(newVal) {
-        result := ComCall(48, this, "short", newVal, "HRESULT")
+        result := ComCall(48, this, VARIANT_BOOL, newVal, "HRESULT")
         return result
     }
 
@@ -1086,7 +1180,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_multiline
      */
     get_MultiLine() {
-        result := ComCall(51, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(51, this, VARIANT_BOOL.Ptr, &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -1103,7 +1197,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_multiline
      */
     put_MultiLine(newVal) {
-        result := ComCall(52, this, "short", newVal, "HRESULT")
+        result := ComCall(52, this, VARIANT_BOOL, newVal, "HRESULT")
         return result
     }
 
@@ -1144,7 +1238,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_scrollbars
      */
     put_ScrollBars(newVal) {
-        result := ComCall(54, this, "int", newVal, "HRESULT")
+        result := ComCall(54, this, ScrollBarsConstants, newVal, "HRESULT")
         return result
     }
 
@@ -1160,7 +1254,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_disablenoscroll
      */
     get_DisableNoScroll() {
-        result := ComCall(55, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(55, this, VARIANT_BOOL.Ptr, &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -1177,7 +1271,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_disablenoscroll
      */
     put_DisableNoScroll(newVal) {
-        result := ComCall(56, this, "short", newVal, "HRESULT")
+        result := ComCall(56, this, VARIANT_BOOL, newVal, "HRESULT")
         return result
     }
 
@@ -1192,7 +1286,7 @@ class IInkEdit extends IDispatch {
      */
     get_SelAlignment() {
         pvarSelAlignment := VARIANT()
-        result := ComCall(57, this, "ptr", pvarSelAlignment, "HRESULT")
+        result := ComCall(57, this, VARIANT.Ptr, pvarSelAlignment, "HRESULT")
         return pvarSelAlignment
     }
 
@@ -1207,7 +1301,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_selalignment
      */
     put_SelAlignment(pvarSelAlignment) {
-        result := ComCall(58, this, "ptr", pvarSelAlignment, "HRESULT")
+        result := ComCall(58, this, VARIANT, pvarSelAlignment, "HRESULT")
         return result
     }
 
@@ -1222,7 +1316,7 @@ class IInkEdit extends IDispatch {
      */
     get_SelBold() {
         pvarSelBold := VARIANT()
-        result := ComCall(59, this, "ptr", pvarSelBold, "HRESULT")
+        result := ComCall(59, this, VARIANT.Ptr, pvarSelBold, "HRESULT")
         return pvarSelBold
     }
 
@@ -1237,7 +1331,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_selbold
      */
     put_SelBold(pvarSelBold) {
-        result := ComCall(60, this, "ptr", pvarSelBold, "HRESULT")
+        result := ComCall(60, this, VARIANT, pvarSelBold, "HRESULT")
         return result
     }
 
@@ -1252,7 +1346,7 @@ class IInkEdit extends IDispatch {
      */
     get_SelItalic() {
         pvarSelItalic := VARIANT()
-        result := ComCall(61, this, "ptr", pvarSelItalic, "HRESULT")
+        result := ComCall(61, this, VARIANT.Ptr, pvarSelItalic, "HRESULT")
         return pvarSelItalic
     }
 
@@ -1267,7 +1361,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_selitalic
      */
     put_SelItalic(pvarSelItalic) {
-        result := ComCall(62, this, "ptr", pvarSelItalic, "HRESULT")
+        result := ComCall(62, this, VARIANT, pvarSelItalic, "HRESULT")
         return result
     }
 
@@ -1278,7 +1372,7 @@ class IInkEdit extends IDispatch {
      */
     get_SelUnderline() {
         pvarSelUnderline := VARIANT()
-        result := ComCall(63, this, "ptr", pvarSelUnderline, "HRESULT")
+        result := ComCall(63, this, VARIANT.Ptr, pvarSelUnderline, "HRESULT")
         return pvarSelUnderline
     }
 
@@ -1289,7 +1383,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_selunderline
      */
     put_SelUnderline(pvarSelUnderline) {
-        result := ComCall(64, this, "ptr", pvarSelUnderline, "HRESULT")
+        result := ComCall(64, this, VARIANT, pvarSelUnderline, "HRESULT")
         return result
     }
 
@@ -1304,7 +1398,7 @@ class IInkEdit extends IDispatch {
      */
     get_SelColor() {
         pvarSelColor := VARIANT()
-        result := ComCall(65, this, "ptr", pvarSelColor, "HRESULT")
+        result := ComCall(65, this, VARIANT.Ptr, pvarSelColor, "HRESULT")
         return pvarSelColor
     }
 
@@ -1319,7 +1413,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_selcolor
      */
     put_SelColor(pvarSelColor) {
-        result := ComCall(66, this, "ptr", pvarSelColor, "HRESULT")
+        result := ComCall(66, this, VARIANT, pvarSelColor, "HRESULT")
         return result
     }
 
@@ -1334,7 +1428,7 @@ class IInkEdit extends IDispatch {
      */
     get_SelFontName() {
         pvarSelFontName := VARIANT()
-        result := ComCall(67, this, "ptr", pvarSelFontName, "HRESULT")
+        result := ComCall(67, this, VARIANT.Ptr, pvarSelFontName, "HRESULT")
         return pvarSelFontName
     }
 
@@ -1349,7 +1443,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_selfontname
      */
     put_SelFontName(pvarSelFontName) {
-        result := ComCall(68, this, "ptr", pvarSelFontName, "HRESULT")
+        result := ComCall(68, this, VARIANT, pvarSelFontName, "HRESULT")
         return result
     }
 
@@ -1362,7 +1456,7 @@ class IInkEdit extends IDispatch {
      */
     get_SelFontSize() {
         pvarSelFontSize := VARIANT()
-        result := ComCall(69, this, "ptr", pvarSelFontSize, "HRESULT")
+        result := ComCall(69, this, VARIANT.Ptr, pvarSelFontSize, "HRESULT")
         return pvarSelFontSize
     }
 
@@ -1375,7 +1469,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_selfontsize
      */
     put_SelFontSize(pvarSelFontSize) {
-        result := ComCall(70, this, "ptr", pvarSelFontSize, "HRESULT")
+        result := ComCall(70, this, VARIANT, pvarSelFontSize, "HRESULT")
         return result
     }
 
@@ -1386,7 +1480,7 @@ class IInkEdit extends IDispatch {
      */
     get_SelCharOffset() {
         pvarSelCharOffset := VARIANT()
-        result := ComCall(71, this, "ptr", pvarSelCharOffset, "HRESULT")
+        result := ComCall(71, this, VARIANT.Ptr, pvarSelCharOffset, "HRESULT")
         return pvarSelCharOffset
     }
 
@@ -1397,7 +1491,7 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_selcharoffset
      */
     put_SelCharOffset(pvarSelCharOffset) {
-        result := ComCall(72, this, "ptr", pvarSelCharOffset, "HRESULT")
+        result := ComCall(72, this, VARIANT, pvarSelCharOffset, "HRESULT")
         return result
     }
 
@@ -1409,8 +1503,8 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_textrtf
      */
     get_TextRTF() {
-        pbstrTextRTF := BSTR()
-        result := ComCall(73, this, "ptr", pbstrTextRTF, "HRESULT")
+        pbstrTextRTF := BSTR.Owned()
+        result := ComCall(73, this, BSTR.Ptr, pbstrTextRTF, "HRESULT")
         return pbstrTextRTF
     }
 
@@ -1425,7 +1519,7 @@ class IInkEdit extends IDispatch {
     put_TextRTF(pbstrTextRTF) {
         pbstrTextRTF := pbstrTextRTF is String ? BSTR.Alloc(pbstrTextRTF).Value : pbstrTextRTF
 
-        result := ComCall(74, this, "ptr", pbstrTextRTF, "HRESULT")
+        result := ComCall(74, this, BSTR, pbstrTextRTF, "HRESULT")
         return result
     }
 
@@ -1487,8 +1581,8 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_seltext
      */
     get_SelText() {
-        pbstrSelText := BSTR()
-        result := ComCall(79, this, "ptr", pbstrSelText, "HRESULT")
+        pbstrSelText := BSTR.Owned()
+        result := ComCall(79, this, BSTR.Ptr, pbstrSelText, "HRESULT")
         return pbstrSelText
     }
 
@@ -1503,7 +1597,7 @@ class IInkEdit extends IDispatch {
     put_SelText(pbstrSelText) {
         pbstrSelText := pbstrSelText is String ? BSTR.Alloc(pbstrSelText).Value : pbstrSelText
 
-        result := ComCall(80, this, "ptr", pbstrSelText, "HRESULT")
+        result := ComCall(80, this, BSTR, pbstrSelText, "HRESULT")
         return result
     }
 
@@ -1515,8 +1609,8 @@ class IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_selrtf
      */
     get_SelRTF() {
-        pbstrSelRTF := BSTR()
-        result := ComCall(81, this, "ptr", pbstrSelRTF, "HRESULT")
+        pbstrSelRTF := BSTR.Owned()
+        result := ComCall(81, this, BSTR.Ptr, pbstrSelRTF, "HRESULT")
         return pbstrSelRTF
     }
 
@@ -1531,7 +1625,7 @@ class IInkEdit extends IDispatch {
     put_SelRTF(pbstrSelRTF) {
         pbstrSelRTF := pbstrSelRTF is String ? BSTR.Alloc(pbstrSelRTF).Value : pbstrSelRTF
 
-        result := ComCall(82, this, "ptr", pbstrSelRTF, "HRESULT")
+        result := ComCall(82, this, BSTR, pbstrSelRTF, "HRESULT")
         return result
     }
 
@@ -1543,5 +1637,177 @@ class IInkEdit extends IDispatch {
     Refresh() {
         result := ComCall(83, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IInkEdit.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.get_UseMouseForInput := CallbackCreate(GetMethod(implObj, "get_UseMouseForInput"), flags, 2)
+        this.vtbl.put_UseMouseForInput := CallbackCreate(GetMethod(implObj, "put_UseMouseForInput"), flags, 2)
+        this.vtbl.get_InkMode := CallbackCreate(GetMethod(implObj, "get_InkMode"), flags, 2)
+        this.vtbl.put_InkMode := CallbackCreate(GetMethod(implObj, "put_InkMode"), flags, 2)
+        this.vtbl.get_InkInsertMode := CallbackCreate(GetMethod(implObj, "get_InkInsertMode"), flags, 2)
+        this.vtbl.put_InkInsertMode := CallbackCreate(GetMethod(implObj, "put_InkInsertMode"), flags, 2)
+        this.vtbl.get_DrawingAttributes := CallbackCreate(GetMethod(implObj, "get_DrawingAttributes"), flags, 2)
+        this.vtbl.putref_DrawingAttributes := CallbackCreate(GetMethod(implObj, "putref_DrawingAttributes"), flags, 2)
+        this.vtbl.get_RecognitionTimeout := CallbackCreate(GetMethod(implObj, "get_RecognitionTimeout"), flags, 2)
+        this.vtbl.put_RecognitionTimeout := CallbackCreate(GetMethod(implObj, "put_RecognitionTimeout"), flags, 2)
+        this.vtbl.get_Recognizer := CallbackCreate(GetMethod(implObj, "get_Recognizer"), flags, 2)
+        this.vtbl.putref_Recognizer := CallbackCreate(GetMethod(implObj, "putref_Recognizer"), flags, 2)
+        this.vtbl.get_Factoid := CallbackCreate(GetMethod(implObj, "get_Factoid"), flags, 2)
+        this.vtbl.put_Factoid := CallbackCreate(GetMethod(implObj, "put_Factoid"), flags, 2)
+        this.vtbl.get_SelInks := CallbackCreate(GetMethod(implObj, "get_SelInks"), flags, 2)
+        this.vtbl.put_SelInks := CallbackCreate(GetMethod(implObj, "put_SelInks"), flags, 2)
+        this.vtbl.get_SelInksDisplayMode := CallbackCreate(GetMethod(implObj, "get_SelInksDisplayMode"), flags, 2)
+        this.vtbl.put_SelInksDisplayMode := CallbackCreate(GetMethod(implObj, "put_SelInksDisplayMode"), flags, 2)
+        this.vtbl.Recognize := CallbackCreate(GetMethod(implObj, "Recognize"), flags, 1)
+        this.vtbl.GetGestureStatus := CallbackCreate(GetMethod(implObj, "GetGestureStatus"), flags, 3)
+        this.vtbl.SetGestureStatus := CallbackCreate(GetMethod(implObj, "SetGestureStatus"), flags, 3)
+        this.vtbl.put_BackColor := CallbackCreate(GetMethod(implObj, "put_BackColor"), flags, 2)
+        this.vtbl.get_BackColor := CallbackCreate(GetMethod(implObj, "get_BackColor"), flags, 2)
+        this.vtbl.get_Appearance := CallbackCreate(GetMethod(implObj, "get_Appearance"), flags, 2)
+        this.vtbl.put_Appearance := CallbackCreate(GetMethod(implObj, "put_Appearance"), flags, 2)
+        this.vtbl.get_BorderStyle := CallbackCreate(GetMethod(implObj, "get_BorderStyle"), flags, 2)
+        this.vtbl.put_BorderStyle := CallbackCreate(GetMethod(implObj, "put_BorderStyle"), flags, 2)
+        this.vtbl.get_Hwnd := CallbackCreate(GetMethod(implObj, "get_Hwnd"), flags, 2)
+        this.vtbl.get_Font := CallbackCreate(GetMethod(implObj, "get_Font"), flags, 2)
+        this.vtbl.putref_Font := CallbackCreate(GetMethod(implObj, "putref_Font"), flags, 2)
+        this.vtbl.get_Text := CallbackCreate(GetMethod(implObj, "get_Text"), flags, 2)
+        this.vtbl.put_Text := CallbackCreate(GetMethod(implObj, "put_Text"), flags, 2)
+        this.vtbl.get_MouseIcon := CallbackCreate(GetMethod(implObj, "get_MouseIcon"), flags, 2)
+        this.vtbl.put_MouseIcon := CallbackCreate(GetMethod(implObj, "put_MouseIcon"), flags, 2)
+        this.vtbl.putref_MouseIcon := CallbackCreate(GetMethod(implObj, "putref_MouseIcon"), flags, 2)
+        this.vtbl.get_MousePointer := CallbackCreate(GetMethod(implObj, "get_MousePointer"), flags, 2)
+        this.vtbl.put_MousePointer := CallbackCreate(GetMethod(implObj, "put_MousePointer"), flags, 2)
+        this.vtbl.get_Locked := CallbackCreate(GetMethod(implObj, "get_Locked"), flags, 2)
+        this.vtbl.put_Locked := CallbackCreate(GetMethod(implObj, "put_Locked"), flags, 2)
+        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.put_Enabled := CallbackCreate(GetMethod(implObj, "put_Enabled"), flags, 2)
+        this.vtbl.get_MaxLength := CallbackCreate(GetMethod(implObj, "get_MaxLength"), flags, 2)
+        this.vtbl.put_MaxLength := CallbackCreate(GetMethod(implObj, "put_MaxLength"), flags, 2)
+        this.vtbl.get_MultiLine := CallbackCreate(GetMethod(implObj, "get_MultiLine"), flags, 2)
+        this.vtbl.put_MultiLine := CallbackCreate(GetMethod(implObj, "put_MultiLine"), flags, 2)
+        this.vtbl.get_ScrollBars := CallbackCreate(GetMethod(implObj, "get_ScrollBars"), flags, 2)
+        this.vtbl.put_ScrollBars := CallbackCreate(GetMethod(implObj, "put_ScrollBars"), flags, 2)
+        this.vtbl.get_DisableNoScroll := CallbackCreate(GetMethod(implObj, "get_DisableNoScroll"), flags, 2)
+        this.vtbl.put_DisableNoScroll := CallbackCreate(GetMethod(implObj, "put_DisableNoScroll"), flags, 2)
+        this.vtbl.get_SelAlignment := CallbackCreate(GetMethod(implObj, "get_SelAlignment"), flags, 2)
+        this.vtbl.put_SelAlignment := CallbackCreate(GetMethod(implObj, "put_SelAlignment"), flags, 2)
+        this.vtbl.get_SelBold := CallbackCreate(GetMethod(implObj, "get_SelBold"), flags, 2)
+        this.vtbl.put_SelBold := CallbackCreate(GetMethod(implObj, "put_SelBold"), flags, 2)
+        this.vtbl.get_SelItalic := CallbackCreate(GetMethod(implObj, "get_SelItalic"), flags, 2)
+        this.vtbl.put_SelItalic := CallbackCreate(GetMethod(implObj, "put_SelItalic"), flags, 2)
+        this.vtbl.get_SelUnderline := CallbackCreate(GetMethod(implObj, "get_SelUnderline"), flags, 2)
+        this.vtbl.put_SelUnderline := CallbackCreate(GetMethod(implObj, "put_SelUnderline"), flags, 2)
+        this.vtbl.get_SelColor := CallbackCreate(GetMethod(implObj, "get_SelColor"), flags, 2)
+        this.vtbl.put_SelColor := CallbackCreate(GetMethod(implObj, "put_SelColor"), flags, 2)
+        this.vtbl.get_SelFontName := CallbackCreate(GetMethod(implObj, "get_SelFontName"), flags, 2)
+        this.vtbl.put_SelFontName := CallbackCreate(GetMethod(implObj, "put_SelFontName"), flags, 2)
+        this.vtbl.get_SelFontSize := CallbackCreate(GetMethod(implObj, "get_SelFontSize"), flags, 2)
+        this.vtbl.put_SelFontSize := CallbackCreate(GetMethod(implObj, "put_SelFontSize"), flags, 2)
+        this.vtbl.get_SelCharOffset := CallbackCreate(GetMethod(implObj, "get_SelCharOffset"), flags, 2)
+        this.vtbl.put_SelCharOffset := CallbackCreate(GetMethod(implObj, "put_SelCharOffset"), flags, 2)
+        this.vtbl.get_TextRTF := CallbackCreate(GetMethod(implObj, "get_TextRTF"), flags, 2)
+        this.vtbl.put_TextRTF := CallbackCreate(GetMethod(implObj, "put_TextRTF"), flags, 2)
+        this.vtbl.get_SelStart := CallbackCreate(GetMethod(implObj, "get_SelStart"), flags, 2)
+        this.vtbl.put_SelStart := CallbackCreate(GetMethod(implObj, "put_SelStart"), flags, 2)
+        this.vtbl.get_SelLength := CallbackCreate(GetMethod(implObj, "get_SelLength"), flags, 2)
+        this.vtbl.put_SelLength := CallbackCreate(GetMethod(implObj, "put_SelLength"), flags, 2)
+        this.vtbl.get_SelText := CallbackCreate(GetMethod(implObj, "get_SelText"), flags, 2)
+        this.vtbl.put_SelText := CallbackCreate(GetMethod(implObj, "put_SelText"), flags, 2)
+        this.vtbl.get_SelRTF := CallbackCreate(GetMethod(implObj, "get_SelRTF"), flags, 2)
+        this.vtbl.put_SelRTF := CallbackCreate(GetMethod(implObj, "put_SelRTF"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Status)
+        CallbackFree(this.vtbl.get_UseMouseForInput)
+        CallbackFree(this.vtbl.put_UseMouseForInput)
+        CallbackFree(this.vtbl.get_InkMode)
+        CallbackFree(this.vtbl.put_InkMode)
+        CallbackFree(this.vtbl.get_InkInsertMode)
+        CallbackFree(this.vtbl.put_InkInsertMode)
+        CallbackFree(this.vtbl.get_DrawingAttributes)
+        CallbackFree(this.vtbl.putref_DrawingAttributes)
+        CallbackFree(this.vtbl.get_RecognitionTimeout)
+        CallbackFree(this.vtbl.put_RecognitionTimeout)
+        CallbackFree(this.vtbl.get_Recognizer)
+        CallbackFree(this.vtbl.putref_Recognizer)
+        CallbackFree(this.vtbl.get_Factoid)
+        CallbackFree(this.vtbl.put_Factoid)
+        CallbackFree(this.vtbl.get_SelInks)
+        CallbackFree(this.vtbl.put_SelInks)
+        CallbackFree(this.vtbl.get_SelInksDisplayMode)
+        CallbackFree(this.vtbl.put_SelInksDisplayMode)
+        CallbackFree(this.vtbl.Recognize)
+        CallbackFree(this.vtbl.GetGestureStatus)
+        CallbackFree(this.vtbl.SetGestureStatus)
+        CallbackFree(this.vtbl.put_BackColor)
+        CallbackFree(this.vtbl.get_BackColor)
+        CallbackFree(this.vtbl.get_Appearance)
+        CallbackFree(this.vtbl.put_Appearance)
+        CallbackFree(this.vtbl.get_BorderStyle)
+        CallbackFree(this.vtbl.put_BorderStyle)
+        CallbackFree(this.vtbl.get_Hwnd)
+        CallbackFree(this.vtbl.get_Font)
+        CallbackFree(this.vtbl.putref_Font)
+        CallbackFree(this.vtbl.get_Text)
+        CallbackFree(this.vtbl.put_Text)
+        CallbackFree(this.vtbl.get_MouseIcon)
+        CallbackFree(this.vtbl.put_MouseIcon)
+        CallbackFree(this.vtbl.putref_MouseIcon)
+        CallbackFree(this.vtbl.get_MousePointer)
+        CallbackFree(this.vtbl.put_MousePointer)
+        CallbackFree(this.vtbl.get_Locked)
+        CallbackFree(this.vtbl.put_Locked)
+        CallbackFree(this.vtbl.get_Enabled)
+        CallbackFree(this.vtbl.put_Enabled)
+        CallbackFree(this.vtbl.get_MaxLength)
+        CallbackFree(this.vtbl.put_MaxLength)
+        CallbackFree(this.vtbl.get_MultiLine)
+        CallbackFree(this.vtbl.put_MultiLine)
+        CallbackFree(this.vtbl.get_ScrollBars)
+        CallbackFree(this.vtbl.put_ScrollBars)
+        CallbackFree(this.vtbl.get_DisableNoScroll)
+        CallbackFree(this.vtbl.put_DisableNoScroll)
+        CallbackFree(this.vtbl.get_SelAlignment)
+        CallbackFree(this.vtbl.put_SelAlignment)
+        CallbackFree(this.vtbl.get_SelBold)
+        CallbackFree(this.vtbl.put_SelBold)
+        CallbackFree(this.vtbl.get_SelItalic)
+        CallbackFree(this.vtbl.put_SelItalic)
+        CallbackFree(this.vtbl.get_SelUnderline)
+        CallbackFree(this.vtbl.put_SelUnderline)
+        CallbackFree(this.vtbl.get_SelColor)
+        CallbackFree(this.vtbl.put_SelColor)
+        CallbackFree(this.vtbl.get_SelFontName)
+        CallbackFree(this.vtbl.put_SelFontName)
+        CallbackFree(this.vtbl.get_SelFontSize)
+        CallbackFree(this.vtbl.put_SelFontSize)
+        CallbackFree(this.vtbl.get_SelCharOffset)
+        CallbackFree(this.vtbl.put_SelCharOffset)
+        CallbackFree(this.vtbl.get_TextRTF)
+        CallbackFree(this.vtbl.put_TextRTF)
+        CallbackFree(this.vtbl.get_SelStart)
+        CallbackFree(this.vtbl.put_SelStart)
+        CallbackFree(this.vtbl.get_SelLength)
+        CallbackFree(this.vtbl.put_SelLength)
+        CallbackFree(this.vtbl.get_SelText)
+        CallbackFree(this.vtbl.put_SelText)
+        CallbackFree(this.vtbl.get_SelRTF)
+        CallbackFree(this.vtbl.put_SelRTF)
+        CallbackFree(this.vtbl.Refresh)
     }
 }

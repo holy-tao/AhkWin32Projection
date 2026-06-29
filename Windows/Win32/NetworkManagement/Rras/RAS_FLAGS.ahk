@@ -1,12 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * The connection is using AppleTalk Remote Access Protocol (ARAP).
- * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ras_connection_0
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class RAS_FLAGS extends Win32Enum {
+export default struct RAS_FLAGS {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

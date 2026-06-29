@@ -1,85 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
  */
-class XML_ERROR extends Win32Struct {
-    static sizeof => 48
+export default struct XML_ERROR {
+    #StructPack 8
 
-    static packingSize => 8
+    _nLine : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    _nLine {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _pchBuf : BSTR
 
-    /**
-     * @type {BSTR}
-     */
-    _pchBuf {
-        get {
-            if(!this.HasProp("___pchBuf"))
-                this.___pchBuf := BSTR(8, this)
-            return this.___pchBuf
-        }
-    }
+    _cchBuf : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    _cchBuf {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    _ich : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    _ich {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    _pszFound : BSTR
 
-    /**
-     * @type {BSTR}
-     */
-    _pszFound {
-        get {
-            if(!this.HasProp("___pszFound"))
-                this.___pszFound := BSTR(24, this)
-            return this.___pszFound
-        }
-    }
+    _pszExpected : BSTR
 
-    /**
-     * @type {BSTR}
-     */
-    _pszExpected {
-        get {
-            if(!this.HasProp("___pszExpected"))
-                this.___pszExpected := BSTR(32, this)
-            return this.___pszExpected
-        }
-    }
+    _reserved1 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    _reserved1 {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    _reserved2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    _reserved2 {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The values of the ATTRIBUTEPROPERTIES type enumerate properties for a RADIUS dictionary attribute.
@@ -9,7 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-attributeproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  */
-class ATTRIBUTEPROPERTIES extends Win32Enum {
+export default struct ATTRIBUTEPROPERTIES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The ID of the attribute.

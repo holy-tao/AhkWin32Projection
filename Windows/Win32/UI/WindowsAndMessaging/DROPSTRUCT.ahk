@@ -1,70 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\POINT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  */
-class DROPSTRUCT extends Win32Struct {
-    static sizeof => 48
+export default struct DROPSTRUCT {
+    #StructPack 8
 
-    static packingSize => 8
+    hwndSource : HWND
 
-    /**
-     * @type {HWND}
-     */
-    hwndSource {
-        get {
-            if(!this.HasProp("__hwndSource"))
-                this.__hwndSource := HWND(0, this)
-            return this.__hwndSource
-        }
-    }
+    hwndSink : HWND
 
-    /**
-     * @type {HWND}
-     */
-    hwndSink {
-        get {
-            if(!this.HasProp("__hwndSink"))
-                this.__hwndSink := HWND(8, this)
-            return this.__hwndSink
-        }
-    }
+    wFmt : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    wFmt {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwData : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwData {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    ptDrop : POINT
 
-    /**
-     * @type {POINT}
-     */
-    ptDrop {
-        get {
-            if(!this.HasProp("__ptDrop"))
-                this.__ptDrop := POINT(32, this)
-            return this.__ptDrop
-        }
-    }
+    dwControlData : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwControlData {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
 }

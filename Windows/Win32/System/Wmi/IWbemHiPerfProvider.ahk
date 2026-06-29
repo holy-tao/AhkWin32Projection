@@ -1,35 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IWbemRefresher.ahk
-#Include .\IWbemObjectAccess.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IWbemObjectAccess.ahk" { IWbemObjectAccess }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IWbemRefresher.ahk" { IWbemRefresher }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWbemServices.ahk" { IWbemServices }
+#Import ".\IWbemHiPerfEnum.ahk" { IWbemHiPerfEnum }
+#Import ".\IWbemContext.ahk" { IWbemContext }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IWbemObjectSink.ahk" { IWbemObjectSink }
 
 /**
  * Enables providers to supply refreshable objects and enumerators.
  * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nn-wbemprov-iwbemhiperfprovider
  * @namespace Windows.Win32.System.Wmi
  */
-class IWbemHiPerfProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWbemHiPerfProvider extends IUnknown {
     /**
      * The interface identifier for IWbemHiPerfProvider
      * @type {Guid}
      */
-    static IID => Guid("{49353c93-516b-11d1-aea6-00c04fb68820}")
+    static IID := Guid("{49353c93-516b-11d1-aea6-00c04fb68820}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWbemHiPerfProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        QueryInstances          : IntPtr
+        CreateRefresher         : IntPtr
+        CreateRefreshableObject : IntPtr
+        StopRefreshing          : IntPtr
+        CreateRefreshableEnum   : IntPtr
+        GetObjects              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["QueryInstances", "CreateRefresher", "CreateRefreshableObject", "StopRefreshing", "CreateRefreshableEnum", "GetObjects"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWbemHiPerfProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns instances of the specified class using the supplied IWbemObjectSink instance.
@@ -112,7 +130,7 @@ class IWbemHiPerfProvider extends IUnknown {
     CreateRefreshableObject(pNamespace, pTemplate, pRefresher, lFlags, pContext, ppRefreshable, plId) {
         plIdMarshal := plId is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pNamespace, "ptr", pTemplate, "ptr", pRefresher, "int", lFlags, "ptr", pContext, "ptr*", ppRefreshable, plIdMarshal, plId, "HRESULT")
+        result := ComCall(5, this, "ptr", pNamespace, "ptr", pTemplate, "ptr", pRefresher, "int", lFlags, "ptr", pContext, IWbemObjectAccess.Ptr, ppRefreshable, plIdMarshal, plId, "HRESULT")
         return result
     }
 
@@ -181,5 +199,35 @@ class IWbemHiPerfProvider extends IUnknown {
     GetObjects(pNamespace, lNumObjects, lFlags, pContext) {
         result := ComCall(8, this, "ptr", pNamespace, "int", lNumObjects, "ptr*", &apObj := 0, "int", lFlags, "ptr", pContext, "HRESULT")
         return IWbemObjectAccess(apObj)
+    }
+
+    Query(iid) {
+        if (IWbemHiPerfProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.QueryInstances := CallbackCreate(GetMethod(implObj, "QueryInstances"), flags, 6)
+        this.vtbl.CreateRefresher := CallbackCreate(GetMethod(implObj, "CreateRefresher"), flags, 4)
+        this.vtbl.CreateRefreshableObject := CallbackCreate(GetMethod(implObj, "CreateRefreshableObject"), flags, 8)
+        this.vtbl.StopRefreshing := CallbackCreate(GetMethod(implObj, "StopRefreshing"), flags, 4)
+        this.vtbl.CreateRefreshableEnum := CallbackCreate(GetMethod(implObj, "CreateRefreshableEnum"), flags, 8)
+        this.vtbl.GetObjects := CallbackCreate(GetMethod(implObj, "GetObjects"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.QueryInstances)
+        CallbackFree(this.vtbl.CreateRefresher)
+        CallbackFree(this.vtbl.CreateRefreshableObject)
+        CallbackFree(this.vtbl.StopRefreshing)
+        CallbackFree(this.vtbl.CreateRefreshableEnum)
+        CallbackFree(this.vtbl.GetObjects)
     }
 }

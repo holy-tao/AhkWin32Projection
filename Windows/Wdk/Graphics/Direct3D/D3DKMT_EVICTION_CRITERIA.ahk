@@ -1,44 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMT_EVICTION_CRITERIA extends Win32Struct {
-    static sizeof => 24
+export default struct D3DKMT_EVICTION_CRITERIA {
+    #StructPack 8
 
-    static packingSize => 8
 
-    /**
-     * @type {Integer}
-     */
-    MinimumSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    MaximumSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    class _Flags extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
-
+    struct _Flags {
         /**
          * This bitfield backs the following members:
          * - Primary
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -49,22 +25,14 @@ class D3DKMT_EVICTION_CRITERIA extends Win32Struct {
         }
     }
 
-    /**
-     * @type {_Flags}
-     */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := D3DKMT_EVICTION_CRITERIA._Flags(16, this)
-            return this.__Flags
-        }
-    }
+    MinimumSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Value {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+    MaximumSize : Int64
+
+    Flags : D3DKMT_EVICTION_CRITERIA._Flags
+
+    static __New() {
+        DefineProp(this.Prototype, 'Value', { type: UInt32, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

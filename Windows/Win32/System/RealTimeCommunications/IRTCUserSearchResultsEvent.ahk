@@ -1,35 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\IRTCEnumUserSearchResults.ahk
-#Include .\IRTCCollection.ahk
-#Include .\IRTCProfile2.ahk
-#Include .\IRTCUserSearchQuery.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IRTCEnumUserSearchResults.ahk" { IRTCEnumUserSearchResults }
+#Import ".\IRTCUserSearchQuery.ahk" { IRTCUserSearchQuery }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IRTCProfile2.ahk" { IRTCProfile2 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IRTCCollection.ahk" { IRTCCollection }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
  */
-class IRTCUserSearchResultsEvent extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IRTCUserSearchResultsEvent extends IDispatch {
     /**
      * The interface identifier for IRTCUserSearchResultsEvent
      * @type {Guid}
      */
-    static IID => Guid("{d8c8c3cd-7fac-4088-81c5-c24cbc0938e3}")
+    static IID := Guid("{d8c8c3cd-7fac-4088-81c5-c24cbc0938e3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRTCUserSearchResultsEvent interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        EnumerateResults  : IntPtr
+        get_Results       : IntPtr
+        get_Profile       : IntPtr
+        get_Query         : IntPtr
+        get_Cookie        : IntPtr
+        get_StatusCode    : IntPtr
+        get_MoreAvailable : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EnumerateResults", "get_Results", "get_Profile", "get_Query", "get_Cookie", "get_StatusCode", "get_MoreAvailable"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRTCUserSearchResultsEvent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IRTCCollection} 
@@ -132,7 +147,39 @@ class IRTCUserSearchResultsEvent extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_MoreAvailable() {
-        result := ComCall(13, this, "short*", &pfMoreAvailable := 0, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL.Ptr, &pfMoreAvailable := 0, "HRESULT")
         return pfMoreAvailable
+    }
+
+    Query(iid) {
+        if (IRTCUserSearchResultsEvent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EnumerateResults := CallbackCreate(GetMethod(implObj, "EnumerateResults"), flags, 2)
+        this.vtbl.get_Results := CallbackCreate(GetMethod(implObj, "get_Results"), flags, 2)
+        this.vtbl.get_Profile := CallbackCreate(GetMethod(implObj, "get_Profile"), flags, 2)
+        this.vtbl.get_Query := CallbackCreate(GetMethod(implObj, "get_Query"), flags, 2)
+        this.vtbl.get_Cookie := CallbackCreate(GetMethod(implObj, "get_Cookie"), flags, 2)
+        this.vtbl.get_StatusCode := CallbackCreate(GetMethod(implObj, "get_StatusCode"), flags, 2)
+        this.vtbl.get_MoreAvailable := CallbackCreate(GetMethod(implObj, "get_MoreAvailable"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EnumerateResults)
+        CallbackFree(this.vtbl.get_Results)
+        CallbackFree(this.vtbl.get_Profile)
+        CallbackFree(this.vtbl.get_Query)
+        CallbackFree(this.vtbl.get_Cookie)
+        CallbackFree(this.vtbl.get_StatusCode)
+        CallbackFree(this.vtbl.get_MoreAvailable)
     }
 }

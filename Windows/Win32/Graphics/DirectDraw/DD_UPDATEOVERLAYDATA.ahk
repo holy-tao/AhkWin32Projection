@@ -1,72 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DD_DIRECTDRAW_GLOBAL.ahk
-#Include .\DD_SURFACE_LOCAL.ahk
-#Include ..\..\Foundation\RECTL.ahk
-#Include .\DDOVERLAYFX.ahk
-#Include .\IDirectDrawSurface.ahk
-#Include .\DDCOLORKEY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IDirectDrawSurface.ahk" { IDirectDrawSurface }
+#Import ".\DDOVERLAYFX.ahk" { DDOVERLAYFX }
+#Import "..\..\Foundation\RECTL.ahk" { RECTL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
+#Import ".\DD_DIRECTDRAW_GLOBAL.ahk" { DD_DIRECTDRAW_GLOBAL }
+#Import ".\DD_SURFACE_LOCAL.ahk" { DD_SURFACE_LOCAL }
 
 /**
  * The DD_UPDATEOVERLAYDATA structure contains information necessary for updating an overlay surface.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_updateoverlaydata
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DD_UPDATEOVERLAYDATA extends Win32Struct {
-    static sizeof => 152
-
-    static packingSize => 8
+export default struct DD_UPDATEOVERLAYDATA {
+    #StructPack 8
 
     /**
      * Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_directdraw_global">DD_DIRECTDRAW_GLOBAL</a> structure that describes the driver's device.
-     * @type {Pointer<DD_DIRECTDRAW_GLOBAL>}
      */
-    lpDD {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpDD : DD_DIRECTDRAW_GLOBAL.Ptr
 
     /**
      * Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_surface_local">DD_SURFACE_LOCAL</a> structure that represents the Microsoft DirectDraw surface to be overlaid. This value can be <b>NULL</b> if DDOVER_HIDE is specified in <b>dwFlags</b>.
-     * @type {Pointer<DD_SURFACE_LOCAL>}
      */
-    lpDDDestSurface {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpDDDestSurface : DD_SURFACE_LOCAL.Ptr
 
     /**
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rectl">RECTL</a> structure that contains the x, y, width, and height of the region on the destination surface to be overlaid.
-     * @type {RECTL}
      */
-    rDest {
-        get {
-            if(!this.HasProp("__rDest"))
-                this.__rDest := RECTL(16, this)
-            return this.__rDest
-        }
-    }
+    rDest : RECTL
 
     /**
      * Points to a DD_SURFACE_LOCAL structure that describes the overlay surface.
-     * @type {Pointer<DD_SURFACE_LOCAL>}
      */
-    lpDDSrcSurface {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpDDSrcSurface : DD_SURFACE_LOCAL.Ptr
 
     /**
      * Specifies a RECTL structure that contains the x, y, width, and height of the region on the source surface to be used for the overlay.
-     * @type {RECTL}
      */
-    rSrc {
-        get {
-            if(!this.HasProp("__rSrc"))
-                this.__rSrc := RECTL(40, this)
-            return this.__rSrc
-        }
-    }
+    rSrc : RECTL
 
     /**
      * Specifies how the driver should handle the overlay. This member can be a combination of any of the following flags: 
@@ -227,40 +199,22 @@ class DD_UPDATEOVERLAYDATA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    dwFlags : UInt32
 
     /**
      * Specifies a DDOVERLAYFX structure (described in the DirectDraw SDK documentation) that describes additional effects that the driver should use to update the overlay. The driver should use this structure only if one of DDOVER_DDFX, DDOVER_KEYDESTOVERRIDE, or DDOVER_KEYSRCOVERRIDE are set in the <b>dwFlags</b> member.
-     * @type {DDOVERLAYFX}
      */
-    overlayFX {
-        get {
-            if(!this.HasProp("__overlayFX"))
-                this.__overlayFX := DDOVERLAYFX(64, this)
-            return this.__overlayFX
-        }
-    }
+    overlayFX : DDOVERLAYFX
 
     /**
      * Specifies the location in which the driver writes the return value of the <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_surfcb_updateoverlay">DdUpdateOverlay</a> callback. A return code of DD_OK indicates success. For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/return-values-for-directdraw">Return Values for DirectDraw</a>.
-     * @type {HRESULT}
      */
-    ddRVal {
-        get => NumGet(this, 136, "int")
-        set => NumPut("int", value, this, 136)
-    }
+    ddRVal : HRESULT
 
     /**
      * Used by the DirectDraw API and should not be filled in by the driver.
-     * @type {Pointer<Void>}
      */
-    UpdateOverlay {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
-    }
+    UpdateOverlay : IntPtr
+
 }

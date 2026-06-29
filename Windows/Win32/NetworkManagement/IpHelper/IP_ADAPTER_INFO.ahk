@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IP_ADAPTER_INFO.ahk
-#Include .\IP_ADDR_STRING.ahk
-#Include .\IP_ADDRESS_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IP_ADDRESS_STRING.ahk" { IP_ADDRESS_STRING }
+#Import ".\IP_ADDR_STRING.ahk" { IP_ADDR_STRING }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Contains information about a particular network adapter on the local computer.
@@ -17,79 +17,50 @@
  * @see https://learn.microsoft.com/windows/win32/api/iptypes/ns-iptypes-ip_adapter_info
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class IP_ADAPTER_INFO extends Win32Struct {
-    static sizeof => 704
-
-    static packingSize => 8
+export default struct IP_ADAPTER_INFO {
+    #StructPack 8
 
     /**
      * Type: <b>struct _IP_ADAPTER_INFO*</b>
      * 
      * A pointer to the next adapter in the list of adapters.
-     * @type {Pointer<IP_ADAPTER_INFO>}
      */
-    Next {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Next : IP_ADAPTER_INFO.Ptr
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Reserved.
-     * @type {Integer}
      */
-    ComboIndex {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ComboIndex : UInt32
 
     /**
      * Type: <b>char[MAX_ADAPTER_NAME_LENGTH + 4]</b>
      * 
      * An ANSI character string of the name of the adapter.
-     * @type {String}
      */
-    AdapterName {
-        get => StrGet(this.ptr + 12, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 12, 259, "UTF-8")
-    }
+    AdapterName : CHAR[260]
 
     /**
      * Type: <b>char[MAX_ADAPTER_DESCRIPTION_LENGTH + 4]</b>
      * 
      * An ANSI character string that contains the description of the adapter.
-     * @type {String}
      */
-    Description {
-        get => StrGet(this.ptr + 272, 131, "UTF-8")
-        set => StrPut(value, this.ptr + 272, 131, "UTF-8")
-    }
+    Description : CHAR[132]
 
     /**
      * Type: <b>UINT</b>
      * 
      * The length, in bytes,  of the hardware address for the adapter.
-     * @type {Integer}
      */
-    AddressLength {
-        get => NumGet(this, 404, "uint")
-        set => NumPut("uint", value, this, 404)
-    }
+    AddressLength : UInt32
 
     /**
      * Type: <b>BYTE[MAX_ADAPTER_ADDRESS_LENGTH]</b>
      * 
      * The hardware address for the adapter represented as a <b>BYTE</b> array.
-     * @type {Array<Integer>}
      */
-    Address {
-        get {
-            if(!this.HasProp("__AddressProxyArray"))
-                this.__AddressProxyArray := Win32FixedArray(this.ptr + 408, 8, Primitive, "char")
-            return this.__AddressProxyArray
-        }
-    }
+    Address : Int8[8]
 
     /**
      * Type: <b>DWORD</b>
@@ -97,12 +68,8 @@ class IP_ADAPTER_INFO extends Win32Struct {
      * The adapter index. 
      * 
      * The adapter index  may change when an adapter is disabled and then enabled, or under other circumstances, and should not be considered persistent.
-     * @type {Integer}
      */
-    Index {
-        get => NumGet(this, 416, "uint")
-        set => NumPut("uint", value, this, 416)
-    }
+    Index : UInt32
 
     /**
      * Type: <b>UINT</b>
@@ -197,62 +164,36 @@ class IP_ADAPTER_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Type {
-        get => NumGet(this, 420, "uint")
-        set => NumPut("uint", value, this, 420)
-    }
+    Type : UInt32
 
     /**
      * Type: <b>UINT</b>
      * 
      * An option value  that specifies whether the dynamic host configuration protocol (DHCP) is enabled for this adapter.
-     * @type {Integer}
      */
-    DhcpEnabled {
-        get => NumGet(this, 424, "uint")
-        set => NumPut("uint", value, this, 424)
-    }
+    DhcpEnabled : UInt32
 
     /**
      * Type: <b>PIP_ADDR_STRING</b>
      * 
      * Reserved.
-     * @type {Pointer<IP_ADDR_STRING>}
      */
-    CurrentIpAddress {
-        get => NumGet(this, 432, "ptr")
-        set => NumPut("ptr", value, this, 432)
-    }
+    CurrentIpAddress : IP_ADDR_STRING.Ptr
 
     /**
      * Type: <b>IP_ADDR_STRING</b>
      * 
      * The list of IPv4 addresses associated with this adapter represented as  a linked list of <b>IP_ADDR_STRING</b> structures. An adapter can have multiple IPv4 addresses assigned to it.
-     * @type {IP_ADDR_STRING}
      */
-    IpAddressList {
-        get {
-            if(!this.HasProp("__IpAddressList"))
-                this.__IpAddressList := IP_ADDR_STRING(440, this)
-            return this.__IpAddressList
-        }
-    }
+    IpAddressList : IP_ADDR_STRING
 
     /**
      * Type: <b>IP_ADDR_STRING</b>
      * 
      * The IPv4 address of the gateway for this adapter represented as  a linked list of <b>IP_ADDR_STRING</b> structures. An adapter can have multiple IPv4 gateway addresses assigned to it. This list usually contains a single entry for IPv4 address of the default gateway for this adapter.
-     * @type {IP_ADDR_STRING}
      */
-    GatewayList {
-        get {
-            if(!this.HasProp("__GatewayList"))
-                this.__GatewayList := IP_ADDR_STRING(488, this)
-            return this.__GatewayList
-        }
-    }
+    GatewayList : IP_ADDR_STRING
 
     /**
      * Type: <b>IP_ADDR_STRING</b>
@@ -260,26 +201,15 @@ class IP_ADAPTER_INFO extends Win32Struct {
      * The IPv4 address of the DHCP server for this adapter represented as  a linked list of <b>IP_ADDR_STRING</b> structures. This  list contains a single entry for the IPv4 address of the DHCP server for this adapter. A value of 255.255.255.255 indicates the DHCP server could not be reached, or is in the process of being reached. 
      * 
      * This member is only valid when the <b>DhcpEnabled</b> member is nonzero.
-     * @type {IP_ADDR_STRING}
      */
-    DhcpServer {
-        get {
-            if(!this.HasProp("__DhcpServer"))
-                this.__DhcpServer := IP_ADDR_STRING(536, this)
-            return this.__DhcpServer
-        }
-    }
+    DhcpServer : IP_ADDR_STRING
 
     /**
      * Type: <b>BOOL</b>
      * 
      * An option value that specifies whether this adapter uses the Windows Internet Name Service (WINS).
-     * @type {BOOL}
      */
-    HaveWins {
-        get => NumGet(this, 584, "int")
-        set => NumPut("int", value, this, 584)
-    }
+    HaveWins : BOOL
 
     /**
      * Type: <b>IP_ADDR_STRING</b>
@@ -287,15 +217,8 @@ class IP_ADAPTER_INFO extends Win32Struct {
      * The IPv4 address of the primary WINS server represented as  a linked list of <b>IP_ADDR_STRING</b> structures. This list contains a single entry for the IPv4 address of the primary WINS server for this adapter. 
      * 
      * This member is only valid when the <b>HaveWins</b> member is <b>TRUE</b>.
-     * @type {IP_ADDR_STRING}
      */
-    PrimaryWinsServer {
-        get {
-            if(!this.HasProp("__PrimaryWinsServer"))
-                this.__PrimaryWinsServer := IP_ADDR_STRING(592, this)
-            return this.__PrimaryWinsServer
-        }
-    }
+    PrimaryWinsServer : IP_ADDR_STRING
 
     /**
      * Type: <b>IP_ADDR_STRING</b>
@@ -303,15 +226,8 @@ class IP_ADAPTER_INFO extends Win32Struct {
      * The IPv4 address of the secondary WINS server represented as  a linked list of <b>IP_ADDR_STRING</b> structures. An adapter can have multiple secondary WINS server addresses assigned to it. 
      * 
      * This member is only valid when the <b>HaveWins</b> member is <b>TRUE</b>.
-     * @type {IP_ADDR_STRING}
      */
-    SecondaryWinsServer {
-        get {
-            if(!this.HasProp("__SecondaryWinsServer"))
-                this.__SecondaryWinsServer := IP_ADDR_STRING(640, this)
-            return this.__SecondaryWinsServer
-        }
-    }
+    SecondaryWinsServer : IP_ADDR_STRING
 
     /**
      * Type: <b>time_t</b>
@@ -319,12 +235,8 @@ class IP_ADAPTER_INFO extends Win32Struct {
      * The time when the current DHCP lease was obtained. 
      * 
      * This member is only valid when the <b>DhcpEnabled</b> member is nonzero.
-     * @type {Integer}
      */
-    LeaseObtained {
-        get => NumGet(this, 688, "int64")
-        set => NumPut("int64", value, this, 688)
-    }
+    LeaseObtained : Int64
 
     /**
      * Type: <b>time_t</b>
@@ -332,10 +244,7 @@ class IP_ADAPTER_INFO extends Win32Struct {
      * The time when the current DHCP lease expires. 
      * 
      * This member is only valid when the <b>DhcpEnabled</b> member is nonzero.
-     * @type {Integer}
      */
-    LeaseExpires {
-        get => NumGet(this, 696, "int64")
-        set => NumPut("int64", value, this, 696)
-    }
+    LeaseExpires : Int64
+
 }

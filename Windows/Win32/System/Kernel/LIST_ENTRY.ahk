@@ -1,6 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\LIST_ENTRY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * A LIST_ENTRY structure describes an entry in a doubly linked list or serves as the header for such a list.
@@ -13,30 +11,21 @@
  * @see https://learn.microsoft.com/windows/win32/api/ntdef/ns-ntdef-list_entry
  * @namespace Windows.Win32.System.Kernel
  */
-class LIST_ENTRY extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct LIST_ENTRY {
+    #StructPack 8
 
     /**
      * For a <b>LIST_ENTRY</b> structure that serves as a list entry, the <b>Flink</b> member points to the next entry in the list or to the list header if there is no next entry in the list. 
      * 
      * For a <b>LIST_ENTRY</b> structure that serves as the list header, the <b>Flink</b> member points to the first entry in the list or to the LIST_ENTRY structure itself if the list is empty.
-     * @type {Pointer<LIST_ENTRY>}
      */
-    Flink {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Flink : LIST_ENTRY.Ptr
 
     /**
      * For a <b>LIST_ENTRY</b> structure that serves as a list entry, the <b>Blink</b> member points to the previous entry in the list or to the list header if there is no previous entry in the list.
      * 
      * For a <b>LIST_ENTRY</b> structure that serves as the list header, the <b>Blink</b> member points to the last entry in the list or to the <b>LIST_ENTRY</b> structure itself if the list is empty.
-     * @type {Pointer<LIST_ENTRY>}
      */
-    Blink {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Blink : LIST_ENTRY.Ptr
+
 }

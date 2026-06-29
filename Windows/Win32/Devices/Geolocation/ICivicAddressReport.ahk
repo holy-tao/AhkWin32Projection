@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ILocationReport.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ILocationReport.ahk" { ILocationReport }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * ICivicAddressReport represents a location report that contains information in the form of a street address.
@@ -11,32 +12,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/locationapi/nn-locationapi-icivicaddressreport
  * @namespace Windows.Win32.Devices.Geolocation
  */
-class ICivicAddressReport extends ILocationReport {
-
-    static sizeof => A_PtrSize
+export default struct ICivicAddressReport extends ILocationReport {
     /**
      * The interface identifier for ICivicAddressReport
      * @type {Guid}
      */
-    static IID => Guid("{c0b19f70-4adf-445d-87f2-cad8fd711792}")
+    static IID := Guid("{c0b19f70-4adf-445d-87f2-cad8fd711792}")
 
     /**
      * The class identifier for CivicAddressReport
      * @type {Guid}
      */
-    static CLSID => Guid("{d39e7bdd-7d05-46b8-8721-80cf035f57d7}")
+    static CLSID := Guid("{d39e7bdd-7d05-46b8-8721-80cf035f57d7}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICivicAddressReport interfaces
+    */
+    struct Vtbl extends ILocationReport.Vtbl {
+        GetAddressLine1  : IntPtr
+        GetAddressLine2  : IntPtr
+        GetCity          : IntPtr
+        GetStateProvince : IntPtr
+        GetPostalCode    : IntPtr
+        GetCountryRegion : IntPtr
+        GetDetailLevel   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetAddressLine1", "GetAddressLine2", "GetCity", "GetStateProvince", "GetPostalCode", "GetCountryRegion", "GetDetailLevel"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICivicAddressReport.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the first line of a street address.
@@ -44,8 +58,8 @@ class ICivicAddressReport extends ILocationReport {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getaddressline1
      */
     GetAddressLine1() {
-        pbstrAddress1 := BSTR()
-        result := ComCall(6, this, "ptr", pbstrAddress1, "HRESULT")
+        pbstrAddress1 := BSTR.Owned()
+        result := ComCall(6, this, BSTR.Ptr, pbstrAddress1, "HRESULT")
         return pbstrAddress1
     }
 
@@ -55,8 +69,8 @@ class ICivicAddressReport extends ILocationReport {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getaddressline2
      */
     GetAddressLine2() {
-        pbstrAddress2 := BSTR()
-        result := ComCall(7, this, "ptr", pbstrAddress2, "HRESULT")
+        pbstrAddress2 := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pbstrAddress2, "HRESULT")
         return pbstrAddress2
     }
 
@@ -66,8 +80,8 @@ class ICivicAddressReport extends ILocationReport {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getcity
      */
     GetCity() {
-        pbstrCity := BSTR()
-        result := ComCall(8, this, "ptr", pbstrCity, "HRESULT")
+        pbstrCity := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, pbstrCity, "HRESULT")
         return pbstrCity
     }
 
@@ -77,8 +91,8 @@ class ICivicAddressReport extends ILocationReport {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getstateprovince
      */
     GetStateProvince() {
-        pbstrStateProvince := BSTR()
-        result := ComCall(9, this, "ptr", pbstrStateProvince, "HRESULT")
+        pbstrStateProvince := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pbstrStateProvince, "HRESULT")
         return pbstrStateProvince
     }
 
@@ -88,8 +102,8 @@ class ICivicAddressReport extends ILocationReport {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getpostalcode
      */
     GetPostalCode() {
-        pbstrPostalCode := BSTR()
-        result := ComCall(10, this, "ptr", pbstrPostalCode, "HRESULT")
+        pbstrPostalCode := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, pbstrPostalCode, "HRESULT")
         return pbstrPostalCode
     }
 
@@ -101,8 +115,8 @@ class ICivicAddressReport extends ILocationReport {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getcountryregion
      */
     GetCountryRegion() {
-        pbstrCountryRegion := BSTR()
-        result := ComCall(11, this, "ptr", pbstrCountryRegion, "HRESULT")
+        pbstrCountryRegion := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pbstrCountryRegion, "HRESULT")
         return pbstrCountryRegion
     }
 
@@ -116,5 +130,37 @@ class ICivicAddressReport extends ILocationReport {
     GetDetailLevel() {
         result := ComCall(12, this, "uint*", &pDetailLevel := 0, "HRESULT")
         return pDetailLevel
+    }
+
+    Query(iid) {
+        if (ICivicAddressReport.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetAddressLine1 := CallbackCreate(GetMethod(implObj, "GetAddressLine1"), flags, 2)
+        this.vtbl.GetAddressLine2 := CallbackCreate(GetMethod(implObj, "GetAddressLine2"), flags, 2)
+        this.vtbl.GetCity := CallbackCreate(GetMethod(implObj, "GetCity"), flags, 2)
+        this.vtbl.GetStateProvince := CallbackCreate(GetMethod(implObj, "GetStateProvince"), flags, 2)
+        this.vtbl.GetPostalCode := CallbackCreate(GetMethod(implObj, "GetPostalCode"), flags, 2)
+        this.vtbl.GetCountryRegion := CallbackCreate(GetMethod(implObj, "GetCountryRegion"), flags, 2)
+        this.vtbl.GetDetailLevel := CallbackCreate(GetMethod(implObj, "GetDetailLevel"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetAddressLine1)
+        CallbackFree(this.vtbl.GetAddressLine2)
+        CallbackFree(this.vtbl.GetCity)
+        CallbackFree(this.vtbl.GetStateProvince)
+        CallbackFree(this.vtbl.GetPostalCode)
+        CallbackFree(this.vtbl.GetCountryRegion)
+        CallbackFree(this.vtbl.GetDetailLevel)
     }
 }

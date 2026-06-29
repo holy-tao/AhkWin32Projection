@@ -1,88 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TAPE_GET_DRIVE_PARAMETERS_FEATURES_HIGH.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TAPE_GET_DRIVE_PARAMETERS_FEATURES_HIGH.ahk" { TAPE_GET_DRIVE_PARAMETERS_FEATURES_HIGH }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * Describes the tape drive. It is used by the GetTapeParameters function.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-tape_get_drive_parameters
  * @namespace Windows.Win32.System.SystemServices
  */
-class TAPE_GET_DRIVE_PARAMETERS extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 4
+export default struct TAPE_GET_DRIVE_PARAMETERS {
+    #StructPack 4
 
     /**
      * If this member is <b>TRUE</b>, the device supports hardware error correction. Otherwise, it does not.
-     * @type {BOOLEAN}
      */
-    ECC {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    ECC : BOOLEAN
 
     /**
      * If this member is <b>TRUE</b>, hardware data compression is enabled. Otherwise, it is disabled.
-     * @type {BOOLEAN}
      */
-    Compression {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Compression : BOOLEAN
 
     /**
      * If this member is <b>TRUE</b>, data padding is enabled. Otherwise, it is disabled. Data padding keeps the tape streaming at a constant speed.
-     * @type {BOOLEAN}
      */
-    DataPadding {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    DataPadding : BOOLEAN
 
     /**
      * If this member is <b>TRUE</b>, setmark reporting is enabled. Otherwise, it is disabled.
-     * @type {BOOLEAN}
      */
-    ReportSetmarks {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    ReportSetmarks : BOOLEAN
 
     /**
      * Device's default fixed block size, in bytes.
-     * @type {Integer}
      */
-    DefaultBlockSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    DefaultBlockSize : UInt32
 
     /**
      * Device's maximum block size, in bytes.
-     * @type {Integer}
      */
-    MaximumBlockSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    MaximumBlockSize : UInt32
 
     /**
      * Device's minimum block size, in bytes.
-     * @type {Integer}
      */
-    MinimumBlockSize {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    MinimumBlockSize : UInt32
 
     /**
      * Maximum number of partitions that can be created on the device.
-     * @type {Integer}
      */
-    MaximumPartitionCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    MaximumPartitionCount : UInt32
 
     /**
      * Low-order bits of the device features flag. This member can be one or more of following values. 
@@ -337,27 +303,14 @@ class TAPE_GET_DRIVE_PARAMETERS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    FeaturesLow {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    FeaturesLow : UInt32
 
-    /**
-     * @type {TAPE_GET_DRIVE_PARAMETERS_FEATURES_HIGH}
-     */
-    FeaturesHigh {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    FeaturesHigh : TAPE_GET_DRIVE_PARAMETERS_FEATURES_HIGH
 
     /**
      * Indicates the number of bytes between the end-of-tape warning and the physical end of the tape.
-     * @type {Integer}
      */
-    EOTWarningZoneSize {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    EOTWarningZoneSize : UInt32
+
 }

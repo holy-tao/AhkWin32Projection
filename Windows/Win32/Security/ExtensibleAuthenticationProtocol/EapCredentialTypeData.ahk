@@ -1,47 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EapUsernamePasswordCredential.ahk
-#Include .\EapCertificateCredential.ahk
-#Include .\EapSimCredential.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\EapSimCredential.ahk" { EapSimCredential }
+#Import ".\EapCertificateCredential.ahk" { EapCertificateCredential }
+#Import ".\EapUsernamePasswordCredential.ahk" { EapUsernamePasswordCredential }
 
 /**
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  */
-class EapCredentialTypeData extends Win32Struct {
-    static sizeof => 56
+export default struct EapCredentialTypeData {
+    #StructPack 8
 
-    static packingSize => 8
+    username_password : EapUsernamePasswordCredential
 
-    /**
-     * @type {EapUsernamePasswordCredential}
-     */
-    username_password {
-        get {
-            if(!this.HasProp("__username_password"))
-                this.__username_password := EapUsernamePasswordCredential(0, this)
-            return this.__username_password
-        }
-    }
-
-    /**
-     * @type {EapCertificateCredential}
-     */
-    certificate {
-        get {
-            if(!this.HasProp("__certificate"))
-                this.__certificate := EapCertificateCredential(0, this)
-            return this.__certificate
-        }
-    }
-
-    /**
-     * @type {EapSimCredential}
-     */
-    sim {
-        get {
-            if(!this.HasProp("__sim"))
-                this.__sim := EapSimCredential(0, this)
-            return this.__sim
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'certificate', { type: EapCertificateCredential, offset: 0 })
+        DefineProp(this.Prototype, 'sim', { type: EapSimCredential, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

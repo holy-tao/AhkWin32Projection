@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes how a render target is remoted and whether it should be GDI-compatible. This enumeration allows a bitwise combination of its member values.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_render_target_usage
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class D2D1_RENDER_TARGET_USAGE extends Win32BitflagEnum {
+export default struct D2D1_RENDER_TARGET_USAGE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The render target attempts to use Direct3D command-stream remoting and uses bitmap remoting if stream remoting fails. The render target is not GDI-compatible.

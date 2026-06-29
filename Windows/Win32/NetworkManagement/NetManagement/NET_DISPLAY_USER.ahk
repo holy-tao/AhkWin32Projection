@@ -1,70 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USER_ACCOUNT_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\USER_ACCOUNT_FLAGS.ahk" { USER_ACCOUNT_FLAGS }
 
 /**
  * The NET_DISPLAY_USER structure contains information that an account manager can access to determine information about user accounts.
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-net_display_user
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  */
-class NET_DISPLAY_USER extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct NET_DISPLAY_USER {
+    #StructPack 8
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that specifies the name of the user account.
-     * @type {PWSTR}
      */
-    usri1_name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    usri1_name : PWSTR
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains a comment associated with the user. This string can be a null string, or it can have any number of characters before the terminating null character (MAXCOMMENTSZ).
-     * @type {PWSTR}
      */
-    usri1_comment {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    usri1_comment : PWSTR
 
     /**
      * Type: <b>DWORD</b>
-     * @type {USER_ACCOUNT_FLAGS}
      */
-    usri1_flags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    usri1_flags : USER_ACCOUNT_FLAGS
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains the full name of the user. This string can be a null string, or it can have any number of characters before the terminating null character.
-     * @type {PWSTR}
      */
-    usri1_full_name {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    usri1_full_name : PWSTR
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The relative identifier (RID) of the user. The relative identifier is determined by the accounts database when the user is created. It uniquely defines this user account to the account manager within the domain. For more information about relative identifiers, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/sid-components">SID Components</a>.
-     * @type {Integer}
      */
-    usri1_user_id {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    usri1_user_id : UInt32
 
     /**
      * Type: <b>DWORD</b>
@@ -73,10 +51,7 @@ class NET_DISPLAY_USER extends Win32Struct {
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netquerydisplayinformation">NetQueryDisplayInformation</a> function. Pass this value as the <i>Index</i> parameter to 
      * <b>NetQueryDisplayInformation</b> to return the next logical entry. Note that you should not use the value of this member for any purpose except to retrieve more data with additional calls to 
      * <b>NetQueryDisplayInformation</b>.
-     * @type {Integer}
      */
-    usri1_next_index {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    usri1_next_index : UInt32
+
 }

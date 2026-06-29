@@ -1,13 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PASTE_SPECIAL_FLAGS.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\Foundation\HRSRC.ahk
-#Include ..\Com\IDataObject.ahk
-#Include .\OLEUIPASTEENTRYA.ahk
-#Include ..\..\Foundation\HGLOBAL.ahk
-#Include ..\..\Foundation\SIZE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Com\IDataObject.ahk" { IDataObject }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\PASTE_SPECIAL_FLAGS.ahk" { PASTE_SPECIAL_FLAGS }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import ".\OLEUIPASTEENTRYA.ahk" { OLEUIPASTEENTRYA }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\HGLOBAL.ahk" { HGLOBAL }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\HRSRC.ahk" { HRSRC }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
 
 /**
  * Contains information that the OLE User Interface Library uses to initialize the Paste Special dialog box, as well as space for the library to return information when the dialog box is dismissed. (ANSI)
@@ -18,19 +21,13 @@
  * @namespace Windows.Win32.System.Ole
  * @charset ANSI
  */
-class OLEUIPASTESPECIALA extends Win32Struct {
-    static sizeof => 136
-
-    static packingSize => 8
+export default struct OLEUIPASTESPECIALA {
+    #StructPack 8
 
     /**
      * The size of the structure, in bytes. This member must be filled on input.
-     * @type {Integer}
      */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbStruct : UInt32
 
     /**
      * On input, <b>dwFlags</b> specifies the initialization and creation flags. On exit, it specifies the user's choices. It may be a combination of the following flags.
@@ -127,187 +124,97 @@ class OLEUIPASTESPECIALA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {PASTE_SPECIAL_FLAGS}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : PASTE_SPECIAL_FLAGS
 
     /**
      * The window that owns the dialog box. This member should not be <b>NULL</b>.
-     * @type {HWND}
      */
-    hWndOwner {
-        get {
-            if(!this.HasProp("__hWndOwner"))
-                this.__hWndOwner := HWND(8, this)
-            return this.__hWndOwner
-        }
-    }
+    hWndOwner : HWND
 
     /**
      * Pointer to a string to be used as the title of the dialog box. If <b>NULL</b>, then the library uses <b>Paste Special</b>.
-     * @type {PSTR}
      */
-    lpszCaption {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpszCaption : PSTR
 
     /**
      * Pointer to a hook function that processes messages intended for the dialog box. The hook function must return zero to pass a message that it didn't process back to the dialog box procedure in the library. The hook function must return a nonzero value to prevent the library's dialog box procedure from processing a message it has already processed.
-     * @type {Pointer<LPFNOLEUIHOOK>}
      */
-    lpfnHook {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpfnHook : IntPtr
 
     /**
      * Application-defined data that the library passes to the hook function pointed to by the <b>lpfnHook</b> member. The library passes a pointer to the <b>OLEUIPASTESPECIAL</b> structure in the <b>lParam</b> parameter of the WM_INITDIALOG message; this pointer can be used to retrieve the <b>lCustData</b> member.
-     * @type {LPARAM}
      */
-    lCustData {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lCustData : LPARAM
 
     /**
      * Instance that contains a dialog box template specified by the <b>lpTemplateName</b> member.
-     * @type {HINSTANCE}
      */
-    hInstance {
-        get {
-            if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(40, this)
-            return this.__hInstance
-        }
-    }
+    hInstance : HINSTANCE
 
     /**
      * Pointer to a null-terminated string that specifies the name of the resource file for the dialog box template that is to be substituted for the library's <b>Paste Special</b> dialog box template.
-     * @type {PSTR}
      */
-    lpszTemplate {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    lpszTemplate : PSTR
 
     /**
      * Customized template handle.
-     * @type {HRSRC}
      */
-    hResource {
-        get {
-            if(!this.HasProp("__hResource"))
-                this.__hResource := HRSRC(56, this)
-            return this.__hResource
-        }
-    }
+    hResource : HRSRC
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface of the data object to be pasted (from the clipboard). This member is filled on input. If <b>lpSrcDataObj</b> is <b>NULL</b> when <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nf-oledlg-oleuipastespeciala">OleUIPasteSpecial</a> is called, then <b>OleUIPasteSpecial</b> will attempt to retrieve a pointer to an <b>IDataObject</b> from the clipboard. If <b>OleUIPasteSpecial</b> succeeds, it is the caller's responsibility to free the <b>IDataObject</b> returned in <b>lpSrcDataObj</b>.
-     * @type {IDataObject}
      */
-    lpSrcDataObj {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    lpSrcDataObj : IDataObject
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuipasteentrya">OLEUIPASTEENTRY</a> array which specifies acceptable formats. This member is filled on input.
-     * @type {Pointer<OLEUIPASTEENTRYA>}
      */
-    arrPasteEntries {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    arrPasteEntries : OLEUIPASTEENTRYA.Ptr
 
     /**
      * Number of <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuipasteentrya">OLEUIPASTEENTRY</a> array entries. This member is filled on input.
-     * @type {Integer}
      */
-    cPasteEntries {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
-    }
+    cPasteEntries : Int32
 
     /**
      * List of link types that are acceptable. Link types are referred to using <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ne-oledlg-oleuipasteflag">OLEUIPASTEFLAG</a> in <b>arrPasteEntries</b>. This member is filled on input.
-     * @type {Pointer<Integer>}
      */
-    arrLinkTypes {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    arrLinkTypes : IntPtr
 
     /**
      * Number of link types. This member is filled on input.
-     * @type {Integer}
      */
-    cLinkTypes {
-        get => NumGet(this, 96, "int")
-        set => NumPut("int", value, this, 96)
-    }
+    cLinkTypes : Int32
 
     /**
      * Number of CLSIDs in <b>lpClsidExclude</b>. This member is filled on input.
-     * @type {Integer}
      */
-    cClsidExclude {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
+    cClsidExclude : UInt32
 
     /**
      * Pointer to an array of CLSIDs to exclude from the list of available server objects for a Paste operation. Note that this does not affect <b>Paste Link</b>. An application can prevent embedding into itself by listing its own CLSID in this list. This field is filled on input.
-     * @type {Pointer<Guid>}
      */
-    lpClsidExclude {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    lpClsidExclude : Guid.Ptr
 
     /**
      * Index of <b>arrPasteEntries</b> that the user selected. This member is filled on output.
-     * @type {Integer}
      */
-    nSelectedIndex {
-        get => NumGet(this, 112, "int")
-        set => NumPut("int", value, this, 112)
-    }
+    nSelectedIndex : Int32
 
     /**
      * Whether <b>Paste</b> or <b>Paste Link</b> was selected by the user. This member is filled on output.
-     * @type {BOOL}
      */
-    fLink {
-        get => NumGet(this, 116, "int")
-        set => NumPut("int", value, this, 116)
-    }
+    fLink : BOOL
 
     /**
      * Handle to the Metafile containing the icon and icon title selected by the user. This member is filled on output.
-     * @type {HGLOBAL}
      */
-    hMetaPict {
-        get {
-            if(!this.HasProp("__hMetaPict"))
-                this.__hMetaPict := HGLOBAL(120, this)
-            return this.__hMetaPict
-        }
-    }
+    hMetaPict : HGLOBAL
 
     /**
      * The size of object as displayed in its source, if the display aspect chosen by the user matches the aspect displayed in the source. If the user chooses a different aspect, then <b>sizel.cx</b> and <b>sizel.cy</b> are both set to zero. The size of the object as it is displayed in the source is retrieved from the ObjectDescriptor if <b>fLink</b> is <b>FALSE</b> and from the LinkSrcDescriptor if <b>fLink</b> is <b>TRUE</b>. This member is filled on output.
-     * @type {SIZE}
      */
-    sizel {
-        get {
-            if(!this.HasProp("__sizel"))
-                this.__sizel := SIZE(128, this)
-            return this.__sizel
-        }
-    }
+    sizel : SIZE
+
 }

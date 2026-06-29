@@ -1,9 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DAILY.ahk
-#Include .\WEEKLY.ahk
-#Include .\MONTHLYDATE.ahk
-#Include .\MONTHLYDOW.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MONTHLYDATE.ahk" { MONTHLYDATE }
+#Import ".\WEEKLY.ahk" { WEEKLY }
+#Import ".\MONTHLYDOW.ahk" { MONTHLYDOW }
+#Import ".\DAILY.ahk" { DAILY }
 
 /**
  * Defines the invocation schedule of the trigger within the Type member of a TASK_TRIGGER structure.
@@ -13,60 +12,19 @@
  * @see https://learn.microsoft.com/windows/win32/api/mstask/ns-mstask-trigger_type_union
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class TRIGGER_TYPE_UNION extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct TRIGGER_TYPE_UNION {
+    #StructPack 4
 
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-daily">DAILY</a> structure that specifies the number of days between invocations of a task.
-     * @type {DAILY}
      */
-    Daily {
-        get {
-            if(!this.HasProp("__Daily"))
-                this.__Daily := DAILY(0, this)
-            return this.__Daily
-        }
-    }
+    Daily : DAILY
 
-    /**
-     * A 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-weekly">WEEKLY</a> structure that specifies the number of weeks between invocations of a task, and day(s) of the week the task will run.
-     * @type {WEEKLY}
-     */
-    Weekly {
-        get {
-            if(!this.HasProp("__Weekly"))
-                this.__Weekly := WEEKLY(0, this)
-            return this.__Weekly
-        }
-    }
-
-    /**
-     * A 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-monthlydate">MONTHLYDATE</a> structure that specifies the month(s) and day(s) of the month a task will run.
-     * @type {MONTHLYDATE}
-     */
-    MonthlyDate {
-        get {
-            if(!this.HasProp("__MonthlyDate"))
-                this.__MonthlyDate := MONTHLYDATE(0, this)
-            return this.__MonthlyDate
-        }
-    }
-
-    /**
-     * A 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-monthlydow">MONTHLYDOW</a> structure that specifies the day(s) of the year a task runs by month(s), week of month, and day(s) of week.
-     * @type {MONTHLYDOW}
-     */
-    MonthlyDOW {
-        get {
-            if(!this.HasProp("__MonthlyDOW"))
-                this.__MonthlyDOW := MONTHLYDOW(0, this)
-            return this.__MonthlyDOW
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Weekly', { type: WEEKLY, offset: 0 })
+        DefineProp(this.Prototype, 'MonthlyDate', { type: MONTHLYDATE, offset: 0 })
+        DefineProp(this.Prototype, 'MonthlyDOW', { type: MONTHLYDOW, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

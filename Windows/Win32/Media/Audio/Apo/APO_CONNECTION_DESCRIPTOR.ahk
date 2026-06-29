@@ -1,53 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\APO_CONNECTION_BUFFER_TYPE.ahk
-#Include .\IAudioMediaType.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\APO_CONNECTION_BUFFER_TYPE.ahk" { APO_CONNECTION_BUFFER_TYPE }
+#Import ".\IAudioMediaType.ahk" { IAudioMediaType }
 
 /**
  * @namespace Windows.Win32.Media.Audio.Apo
  */
-class APO_CONNECTION_DESCRIPTOR extends Win32Struct {
-    static sizeof => 40
+export default struct APO_CONNECTION_DESCRIPTOR {
+    #StructPack 8
 
-    static packingSize => 8
+    Type : APO_CONNECTION_BUFFER_TYPE
 
-    /**
-     * @type {APO_CONNECTION_BUFFER_TYPE}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    pBuffer : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    pBuffer {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    u32MaxFrameCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    u32MaxFrameCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    pFormat : IAudioMediaType
 
-    /**
-     * @type {IAudioMediaType}
-     */
-    pFormat {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    u32Signature : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    u32Signature {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

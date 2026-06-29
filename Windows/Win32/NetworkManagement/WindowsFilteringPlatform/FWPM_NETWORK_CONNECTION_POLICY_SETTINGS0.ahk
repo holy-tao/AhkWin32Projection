@@ -1,28 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FWPM_NETWORK_CONNECTION_POLICY_SETTING0.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FWPM_NETWORK_CONNECTION_POLICY_SETTING0.ahk" { FWPM_NETWORK_CONNECTION_POLICY_SETTING0 }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class FWPM_NETWORK_CONNECTION_POLICY_SETTINGS0 extends Win32Struct {
-    static sizeof => 16
+export default struct FWPM_NETWORK_CONNECTION_POLICY_SETTINGS0 {
+    #StructPack 8
 
-    static packingSize => 8
+    numSettings : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    numSettings {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    settings : FWPM_NETWORK_CONNECTION_POLICY_SETTING0.Ptr
 
-    /**
-     * @type {Pointer<FWPM_NETWORK_CONNECTION_POLICY_SETTING0>}
-     */
-    settings {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

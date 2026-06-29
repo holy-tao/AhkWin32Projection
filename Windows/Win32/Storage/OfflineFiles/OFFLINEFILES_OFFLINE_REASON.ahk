@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the reason why an item is offline.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/ne-cscobj-offlinefiles_offline_reason
  * @namespace Windows.Win32.Storage.OfflineFiles
  */
-class OFFLINEFILES_OFFLINE_REASON extends Win32Enum {
+export default struct OFFLINEFILES_OFFLINE_REASON {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The reason is unknown because the method failed.

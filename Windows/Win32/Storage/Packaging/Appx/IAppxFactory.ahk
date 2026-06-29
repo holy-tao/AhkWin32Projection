@@ -1,11 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IAppxPackageWriter.ahk
-#Include .\IAppxPackageReader.ahk
-#Include .\IAppxManifestReader.ahk
-#Include .\IAppxBlockMapReader.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IAppxBlockMapReader.ahk" { IAppxBlockMapReader }
+#Import ".\IAppxManifestReader.ahk" { IAppxManifestReader }
+#Import ".\IAppxPackageReader.ahk" { IAppxPackageReader }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\APPX_PACKAGE_SETTINGS.ahk" { APPX_PACKAGE_SETTINGS }
+#Import ".\IAppxPackageWriter.ahk" { IAppxPackageWriter }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Creates objects for reading and writing app packages. (IAppxFactory)
@@ -14,32 +18,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxfactory
  * @namespace Windows.Win32.Storage.Packaging.Appx
  */
-class IAppxFactory extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAppxFactory extends IUnknown {
     /**
      * The interface identifier for IAppxFactory
      * @type {Guid}
      */
-    static IID => Guid("{beb94909-e451-438b-b5a7-d79e767b75d8}")
+    static IID := Guid("{beb94909-e451-438b-b5a7-d79e767b75d8}")
 
     /**
      * The class identifier for AppxFactory
      * @type {Guid}
      */
-    static CLSID => Guid("{5842a140-ff9f-4166-8f5c-62f5b7b0c781}")
+    static CLSID := Guid("{5842a140-ff9f-4166-8f5c-62f5b7b0c781}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAppxFactory interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreatePackageWriter           : IntPtr
+        CreatePackageReader           : IntPtr
+        CreateManifestReader          : IntPtr
+        CreateBlockMapReader          : IntPtr
+        CreateValidatedBlockMapReader : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreatePackageWriter", "CreatePackageReader", "CreateManifestReader", "CreateBlockMapReader", "CreateValidatedBlockMapReader"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAppxFactory.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a write-only package object to which files can be added.
@@ -57,7 +72,7 @@ class IAppxFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxfactory-createpackagewriter
      */
     CreatePackageWriter(outputStream, settings) {
-        result := ComCall(3, this, "ptr", outputStream, "ptr", settings, "ptr*", &packageWriter := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", outputStream, APPX_PACKAGE_SETTINGS.Ptr, settings, "ptr*", &packageWriter := 0, "HRESULT")
         return IAppxPackageWriter(packageWriter)
     }
 
@@ -134,5 +149,33 @@ class IAppxFactory extends IUnknown {
 
         result := ComCall(7, this, "ptr", blockMapStream, "ptr", signatureFileName, "ptr*", &blockMapReader := 0, "HRESULT")
         return IAppxBlockMapReader(blockMapReader)
+    }
+
+    Query(iid) {
+        if (IAppxFactory.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreatePackageWriter := CallbackCreate(GetMethod(implObj, "CreatePackageWriter"), flags, 4)
+        this.vtbl.CreatePackageReader := CallbackCreate(GetMethod(implObj, "CreatePackageReader"), flags, 3)
+        this.vtbl.CreateManifestReader := CallbackCreate(GetMethod(implObj, "CreateManifestReader"), flags, 3)
+        this.vtbl.CreateBlockMapReader := CallbackCreate(GetMethod(implObj, "CreateBlockMapReader"), flags, 3)
+        this.vtbl.CreateValidatedBlockMapReader := CallbackCreate(GetMethod(implObj, "CreateValidatedBlockMapReader"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreatePackageWriter)
+        CallbackFree(this.vtbl.CreatePackageReader)
+        CallbackFree(this.vtbl.CreateManifestReader)
+        CallbackFree(this.vtbl.CreateBlockMapReader)
+        CallbackFree(this.vtbl.CreateValidatedBlockMapReader)
     }
 }

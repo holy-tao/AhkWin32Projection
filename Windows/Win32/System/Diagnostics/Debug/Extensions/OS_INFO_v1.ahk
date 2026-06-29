@@ -1,31 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include .\OS_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\OS_TYPE.ahk" { OS_TYPE }
+#Import "..\..\..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class OS_INFO_v1 extends Win32Struct {
-    static sizeof => 192
+export default struct OS_INFO_v1 {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _s extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
+    struct _Version {
+        Major : UInt32
 
+        Minor : UInt32
+
+    }
+
+    struct _s {
         /**
          * This bitfield backs the following members:
          * - Checked
          * - Pae
          * - MultiProc
          * - Reserved
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield : Int32
+
 
         /**
          * @type {Integer}
@@ -52,110 +52,26 @@ class OS_INFO_v1 extends Win32Struct {
         }
     }
 
-    /**
-     * @type {OS_TYPE}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Type : OS_TYPE
 
-    class _Version extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 4
+    Version : OS_INFO_v1._Version
 
-        /**
-         * @type {Integer}
-         */
-        Major {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+    ProductType : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        Minor {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
-    }
+    Suite : UInt32
 
-    /**
-     * @type {_Version}
-     */
-    Version {
-        get {
-            if(!this.HasProp("__Version"))
-                this.__Version := OS_INFO_v1._Version(8, this)
-            return this.__Version
-        }
-    }
+    s : OS_INFO_v1._s
 
-    /**
-     * @type {Integer}
-     */
-    Ver64 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SrvPackNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProductType {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Language : CHAR[30]
 
-    /**
-     * @type {Integer}
-     */
-    Suite {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    OsString : CHAR[64]
 
-    /**
-     * @type {_s}
-     */
-    s {
-        get {
-            if(!this.HasProp("__s"))
-                this.__s := OS_INFO_v1._s(24, this)
-            return this.__s
-        }
-    }
+    ServicePackString : CHAR[64]
 
-    /**
-     * @type {Integer}
-     */
-    SrvPackNumber {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
-
-    /**
-     * @type {String}
-     */
-    Language {
-        get => StrGet(this.ptr + 32, 29, "UTF-8")
-        set => StrPut(value, this.ptr + 32, 29, "UTF-8")
-    }
-
-    /**
-     * @type {String}
-     */
-    OsString {
-        get => StrGet(this.ptr + 62, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 62, 63, "UTF-8")
-    }
-
-    /**
-     * @type {String}
-     */
-    ServicePackString {
-        get => StrGet(this.ptr + 126, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 126, 63, "UTF-8")
+    static __New() {
+        DefineProp(this.Prototype, 'Ver64', { type: Int64, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

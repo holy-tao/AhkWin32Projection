@@ -1,11 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VSS_OBJECT_TYPE.ahk
-#Include .\VSS_OBJECT_UNION.ahk
-#Include .\VSS_SNAPSHOT_PROP.ahk
-#Include .\VSS_SNAPSHOT_STATE.ahk
-#Include .\VSS_PROVIDER_PROP.ahk
-#Include .\VSS_PROVIDER_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VSS_OBJECT_UNION.ahk" { VSS_OBJECT_UNION }
+#Import ".\VSS_SNAPSHOT_STATE.ahk" { VSS_SNAPSHOT_STATE }
+#Import ".\VSS_PROVIDER_TYPE.ahk" { VSS_PROVIDER_TYPE }
+#Import ".\VSS_PROVIDER_PROP.ahk" { VSS_PROVIDER_PROP }
+#Import ".\VSS_SNAPSHOT_PROP.ahk" { VSS_SNAPSHOT_PROP }
+#Import ".\VSS_OBJECT_TYPE.ahk" { VSS_OBJECT_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Defines the properties of a provider, volume, shadow copy, or shadow copy set.
@@ -27,19 +27,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/vss/ns-vss-vss_object_prop
  * @namespace Windows.Win32.Storage.Vss
  */
-class VSS_OBJECT_PROP extends Win32Struct {
-    static sizeof => 160
-
-    static packingSize => 8
+export default struct VSS_OBJECT_PROP {
+    #StructPack 8
 
     /**
      * Object type. Refer to <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_object_type">VSS_OBJECT_TYPE</a>.
-     * @type {VSS_OBJECT_TYPE}
      */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Type : VSS_OBJECT_TYPE
 
     /**
      * Object properties: a union of <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a> 
@@ -50,13 +44,7 @@ class VSS_OBJECT_PROP extends Win32Struct {
      * It contains information for an object of the type specified by the <b>Type</b> member of 
      *       the <b>VSS_OBJECT_PROP</b> structure. Objects can be 
      *       providers, volumes, shadow copies, or shadow copy sets.
-     * @type {VSS_OBJECT_UNION}
      */
-    Obj {
-        get {
-            if(!this.HasProp("__Obj"))
-                this.__Obj := VSS_OBJECT_UNION(8, this)
-            return this.__Obj
-        }
-    }
+    Obj : VSS_OBJECT_UNION
+
 }

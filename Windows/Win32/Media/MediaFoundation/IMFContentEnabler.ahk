@@ -1,34 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MF_URL_TRUST_STATUS.ahk" { MF_URL_TRUST_STATUS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Implements one step that must be performed for the user to access media content.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfcontentenabler
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFContentEnabler extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFContentEnabler extends IUnknown {
     /**
      * The interface identifier for IMFContentEnabler
      * @type {Guid}
      */
-    static IID => Guid("{d3c4ef59-49ce-4381-9071-d5bcd044c770}")
+    static IID := Guid("{d3c4ef59-49ce-4381-9071-d5bcd044c770}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFContentEnabler interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetEnableType        : IntPtr
+        GetEnableURL         : IntPtr
+        GetEnableData        : IntPtr
+        IsAutomaticSupported : IntPtr
+        AutomaticEnable      : IntPtr
+        MonitorEnable        : IntPtr
+        Cancel               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetEnableType", "GetEnableURL", "GetEnableData", "IsAutomaticSupported", "AutomaticEnable", "MonitorEnable", "Cancel"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFContentEnabler.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the type of operation that this content enabler performs.
@@ -70,7 +86,7 @@ class IMFContentEnabler extends IUnknown {
      */
     GetEnableType() {
         pType := Guid()
-        result := ComCall(3, this, "ptr", pType, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pType, "HRESULT")
         return pType
     }
 
@@ -219,7 +235,7 @@ class IMFContentEnabler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcontentenabler-isautomaticsupported
      */
     IsAutomaticSupported() {
-        result := ComCall(6, this, "int*", &pfAutomatic := 0, "HRESULT")
+        result := ComCall(6, this, BOOL.Ptr, &pfAutomatic := 0, "HRESULT")
         return pfAutomatic
     }
 
@@ -326,5 +342,37 @@ class IMFContentEnabler extends IUnknown {
     Cancel() {
         result := ComCall(9, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFContentEnabler.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetEnableType := CallbackCreate(GetMethod(implObj, "GetEnableType"), flags, 2)
+        this.vtbl.GetEnableURL := CallbackCreate(GetMethod(implObj, "GetEnableURL"), flags, 4)
+        this.vtbl.GetEnableData := CallbackCreate(GetMethod(implObj, "GetEnableData"), flags, 3)
+        this.vtbl.IsAutomaticSupported := CallbackCreate(GetMethod(implObj, "IsAutomaticSupported"), flags, 2)
+        this.vtbl.AutomaticEnable := CallbackCreate(GetMethod(implObj, "AutomaticEnable"), flags, 1)
+        this.vtbl.MonitorEnable := CallbackCreate(GetMethod(implObj, "MonitorEnable"), flags, 1)
+        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetEnableType)
+        CallbackFree(this.vtbl.GetEnableURL)
+        CallbackFree(this.vtbl.GetEnableData)
+        CallbackFree(this.vtbl.IsAutomaticSupported)
+        CallbackFree(this.vtbl.AutomaticEnable)
+        CallbackFree(this.vtbl.MonitorEnable)
+        CallbackFree(this.vtbl.Cancel)
     }
 }

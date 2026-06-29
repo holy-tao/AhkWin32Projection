@@ -1,35 +1,55 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Maintains the state that describes a particular client.
  * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazclientcontext
  * @namespace Windows.Win32.Security.Authorization
  */
-class IAzClientContext extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IAzClientContext extends IDispatch {
     /**
      * The interface identifier for IAzClientContext
      * @type {Guid}
      */
-    static IID => Guid("{eff1f00b-488a-466d-afd9-a401c5f9eef5}")
+    static IID := Guid("{eff1f00b-488a-466d-afd9-a401c5f9eef5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAzClientContext interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        AccessCheck            : IntPtr
+        GetBusinessRuleString  : IntPtr
+        get_UserDn             : IntPtr
+        get_UserSamCompat      : IntPtr
+        get_UserDisplay        : IntPtr
+        get_UserGuid           : IntPtr
+        get_UserCanonical      : IntPtr
+        get_UserUpn            : IntPtr
+        get_UserDnsSamCompat   : IntPtr
+        GetProperty            : IntPtr
+        GetRoles               : IntPtr
+        get_RoleForAccessCheck : IntPtr
+        put_RoleForAccessCheck : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AccessCheck", "GetBusinessRuleString", "get_UserDn", "get_UserSamCompat", "get_UserDisplay", "get_UserGuid", "get_UserCanonical", "get_UserUpn", "get_UserDnsSamCompat", "GetProperty", "GetRoles", "get_RoleForAccessCheck", "put_RoleForAccessCheck"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAzClientContext.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -113,7 +133,7 @@ class IAzClientContext extends IDispatch {
         bstrObjectName := bstrObjectName is String ? BSTR.Alloc(bstrObjectName).Value : bstrObjectName
 
         pvarResults := VARIANT()
-        result := ComCall(7, this, "ptr", bstrObjectName, "ptr", varScopeNames, "ptr", varOperations, "ptr", varParameterNames, "ptr", varParameterValues, "ptr", varInterfaceNames, "ptr", varInterfaceFlags, "ptr", varInterfaces, "ptr", pvarResults, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrObjectName, VARIANT, varScopeNames, VARIANT, varOperations, VARIANT, varParameterNames, VARIANT, varParameterValues, VARIANT, varInterfaceNames, VARIANT, varInterfaceFlags, VARIANT, varInterfaces, VARIANT.Ptr, pvarResults, "HRESULT")
         return pvarResults
     }
 
@@ -123,8 +143,8 @@ class IAzClientContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext-getbusinessrulestring
      */
     GetBusinessRuleString() {
-        pbstrBusinessRuleString := BSTR()
-        result := ComCall(8, this, "ptr", pbstrBusinessRuleString, "HRESULT")
+        pbstrBusinessRuleString := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, pbstrBusinessRuleString, "HRESULT")
         return pbstrBusinessRuleString
     }
 
@@ -138,8 +158,8 @@ class IAzClientContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext-get_userdn
      */
     get_UserDn() {
-        pbstrProp := BSTR()
-        result := ComCall(9, this, "ptr", pbstrProp, "HRESULT")
+        pbstrProp := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pbstrProp, "HRESULT")
         return pbstrProp
     }
 
@@ -153,8 +173,8 @@ class IAzClientContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext-get_usersamcompat
      */
     get_UserSamCompat() {
-        pbstrProp := BSTR()
-        result := ComCall(10, this, "ptr", pbstrProp, "HRESULT")
+        pbstrProp := BSTR.Owned()
+        result := ComCall(10, this, BSTR.Ptr, pbstrProp, "HRESULT")
         return pbstrProp
     }
 
@@ -168,8 +188,8 @@ class IAzClientContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext-get_userdisplay
      */
     get_UserDisplay() {
-        pbstrProp := BSTR()
-        result := ComCall(11, this, "ptr", pbstrProp, "HRESULT")
+        pbstrProp := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pbstrProp, "HRESULT")
         return pbstrProp
     }
 
@@ -183,8 +203,8 @@ class IAzClientContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext-get_userguid
      */
     get_UserGuid() {
-        pbstrProp := BSTR()
-        result := ComCall(12, this, "ptr", pbstrProp, "HRESULT")
+        pbstrProp := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, pbstrProp, "HRESULT")
         return pbstrProp
     }
 
@@ -198,8 +218,8 @@ class IAzClientContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext-get_usercanonical
      */
     get_UserCanonical() {
-        pbstrProp := BSTR()
-        result := ComCall(13, this, "ptr", pbstrProp, "HRESULT")
+        pbstrProp := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, pbstrProp, "HRESULT")
         return pbstrProp
     }
 
@@ -213,8 +233,8 @@ class IAzClientContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext-get_userupn
      */
     get_UserUpn() {
-        pbstrProp := BSTR()
-        result := ComCall(14, this, "ptr", pbstrProp, "HRESULT")
+        pbstrProp := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, pbstrProp, "HRESULT")
         return pbstrProp
     }
 
@@ -228,8 +248,8 @@ class IAzClientContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext-get_userdnssamcompat
      */
     get_UserDnsSamCompat() {
-        pbstrProp := BSTR()
-        result := ComCall(15, this, "ptr", pbstrProp, "HRESULT")
+        pbstrProp := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, pbstrProp, "HRESULT")
         return pbstrProp
     }
 
@@ -339,7 +359,7 @@ class IAzClientContext extends IDispatch {
      */
     GetProperty(lPropId, varReserved) {
         pvarProp := VARIANT()
-        result := ComCall(16, this, "int", lPropId, "ptr", varReserved, "ptr", pvarProp, "HRESULT")
+        result := ComCall(16, this, "int", lPropId, VARIANT, varReserved, VARIANT.Ptr, pvarProp, "HRESULT")
         return pvarProp
     }
 
@@ -355,7 +375,7 @@ class IAzClientContext extends IDispatch {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
 
         pvarRoleNames := VARIANT()
-        result := ComCall(17, this, "ptr", bstrScopeName, "ptr", pvarRoleNames, "HRESULT")
+        result := ComCall(17, this, BSTR, bstrScopeName, VARIANT.Ptr, pvarRoleNames, "HRESULT")
         return pvarRoleNames
     }
 
@@ -367,8 +387,8 @@ class IAzClientContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext-get_roleforaccesscheck
      */
     get_RoleForAccessCheck() {
-        pbstrProp := BSTR()
-        result := ComCall(18, this, "ptr", pbstrProp, "HRESULT")
+        pbstrProp := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, pbstrProp, "HRESULT")
         return pbstrProp
     }
 
@@ -383,7 +403,51 @@ class IAzClientContext extends IDispatch {
     put_RoleForAccessCheck(bstrProp) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
 
-        result := ComCall(19, this, "ptr", bstrProp, "HRESULT")
+        result := ComCall(19, this, BSTR, bstrProp, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAzClientContext.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AccessCheck := CallbackCreate(GetMethod(implObj, "AccessCheck"), flags, 10)
+        this.vtbl.GetBusinessRuleString := CallbackCreate(GetMethod(implObj, "GetBusinessRuleString"), flags, 2)
+        this.vtbl.get_UserDn := CallbackCreate(GetMethod(implObj, "get_UserDn"), flags, 2)
+        this.vtbl.get_UserSamCompat := CallbackCreate(GetMethod(implObj, "get_UserSamCompat"), flags, 2)
+        this.vtbl.get_UserDisplay := CallbackCreate(GetMethod(implObj, "get_UserDisplay"), flags, 2)
+        this.vtbl.get_UserGuid := CallbackCreate(GetMethod(implObj, "get_UserGuid"), flags, 2)
+        this.vtbl.get_UserCanonical := CallbackCreate(GetMethod(implObj, "get_UserCanonical"), flags, 2)
+        this.vtbl.get_UserUpn := CallbackCreate(GetMethod(implObj, "get_UserUpn"), flags, 2)
+        this.vtbl.get_UserDnsSamCompat := CallbackCreate(GetMethod(implObj, "get_UserDnsSamCompat"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 4)
+        this.vtbl.GetRoles := CallbackCreate(GetMethod(implObj, "GetRoles"), flags, 3)
+        this.vtbl.get_RoleForAccessCheck := CallbackCreate(GetMethod(implObj, "get_RoleForAccessCheck"), flags, 2)
+        this.vtbl.put_RoleForAccessCheck := CallbackCreate(GetMethod(implObj, "put_RoleForAccessCheck"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AccessCheck)
+        CallbackFree(this.vtbl.GetBusinessRuleString)
+        CallbackFree(this.vtbl.get_UserDn)
+        CallbackFree(this.vtbl.get_UserSamCompat)
+        CallbackFree(this.vtbl.get_UserDisplay)
+        CallbackFree(this.vtbl.get_UserGuid)
+        CallbackFree(this.vtbl.get_UserCanonical)
+        CallbackFree(this.vtbl.get_UserUpn)
+        CallbackFree(this.vtbl.get_UserDnsSamCompat)
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.GetRoles)
+        CallbackFree(this.vtbl.get_RoleForAccessCheck)
+        CallbackFree(this.vtbl.put_RoleForAccessCheck)
     }
 }

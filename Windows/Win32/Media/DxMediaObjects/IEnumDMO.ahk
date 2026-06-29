@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IEnumDMO interface provides methods for enumerating Microsoft DirectX Media Objects (DMOs). It is based on the OLE enumeration interfaces. For more information, see the IEnumXXXX topic in the Platform SDK.
  * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nn-mediaobj-ienumdmo
  * @namespace Windows.Win32.Media.DxMediaObjects
  */
-class IEnumDMO extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IEnumDMO extends IUnknown {
     /**
      * The interface identifier for IEnumDMO
      * @type {Guid}
      */
-    static IID => Guid("{2c3cd98a-2bfa-4a53-9c27-5249ba64ba0f}")
+    static IID := Guid("{2c3cd98a-2bfa-4a53-9c27-5249ba64ba0f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IEnumDMO interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Next  : IntPtr
+        Skip  : IntPtr
+        Reset : IntPtr
+        Clone : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Next", "Skip", "Reset", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IEnumDMO.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Next method retrieves a specified number of items in the enumeration sequence.
@@ -110,7 +122,7 @@ class IEnumDMO extends IUnknown {
         NamesMarshal := Names is VarRef ? "ptr*" : "ptr"
         pcItemsFetchedMarshal := pcItemsFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cItemsToFetch, "ptr", pCLSID, NamesMarshal, Names, pcItemsFetchedMarshal, pcItemsFetched, "HRESULT")
+        result := ComCall(3, this, "uint", cItemsToFetch, Guid.Ptr, pCLSID, NamesMarshal, Names, pcItemsFetchedMarshal, pcItemsFetched, "HRESULT")
         return result
     }
 
@@ -143,5 +155,31 @@ class IEnumDMO extends IUnknown {
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumDMO(ppEnum)
+    }
+
+    Query(iid) {
+        if (IEnumDMO.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 5)
+        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Next)
+        CallbackFree(this.vtbl.Skip)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.Clone)
     }
 }

@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class IMAGE_LOAD_CONFIG_CODE_INTEGRITY extends Win32Struct {
-    static sizeof => 12
+export default struct IMAGE_LOAD_CONFIG_CODE_INTEGRITY {
+    #StructPack 4
 
-    static packingSize => 4
+    Flags : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Catalog : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Catalog {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    CatalogOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    CatalogOffset {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

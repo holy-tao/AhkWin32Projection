@@ -1,45 +1,28 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * Specifies the attributes to be set on a disk device.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-set_disk_attributes
  * @namespace Windows.Win32.System.Ioctl
  */
-class SET_DISK_ATTRIBUTES extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct SET_DISK_ATTRIBUTES {
+    #StructPack 8
 
     /**
      * Set to <c>sizeof(GET_DISK_ATTRIBUTES)</c>.
-     * @type {Integer}
      */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Version : UInt32
 
     /**
      * If <b>TRUE</b>, these settings are persisted across reboots.
-     * @type {BOOLEAN}
      */
-    Persist {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    Persist : BOOLEAN
 
     /**
      * Reserved. Must be set to <b>FALSE</b> (0).
-     * @type {Array<Integer>}
      */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 5, 3, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    Reserved1 : Int8[3]
 
     /**
      * Specifies attributes.
@@ -72,12 +55,8 @@ class SET_DISK_ATTRIBUTES extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Attributes {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Attributes : Int64
 
     /**
      * Indicates which attributes are being changed.
@@ -110,22 +89,12 @@ class SET_DISK_ATTRIBUTES extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    AttributesMask {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    AttributesMask : Int64
 
     /**
      * Reserved. Must be set to 0.
-     * @type {Array<Integer>}
      */
-    Reserved2 {
-        get {
-            if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "uint")
-            return this.__Reserved2ProxyArray
-        }
-    }
+    Reserved2 : UInt32[4]
+
 }

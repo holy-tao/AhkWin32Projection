@@ -1,35 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class WHEA_PCIEXPRESS_COMMAND_STATUS extends Win32Struct {
-    static sizeof => 8
+export default struct WHEA_PCIEXPRESS_COMMAND_STATUS {
+    #StructPack 1
 
-    static packingSize => 1
+    Command : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Command {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Status : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Status {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    AsULONG {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'AsULONG', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

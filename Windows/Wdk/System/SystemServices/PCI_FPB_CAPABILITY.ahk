@@ -1,83 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class PCI_FPB_CAPABILITY extends Win32Struct {
-    static sizeof => 72
+export default struct PCI_FPB_CAPABILITY {
+    #StructPack 8
 
-    static packingSize => 8
+    Header : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    Header {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    CapabilitiesRegister : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    CapabilitiesRegister {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    RidVectorControl1Register : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    RidVectorControl1Register {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    RidVectorControl2Register : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    RidVectorControl2Register {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    MemLowVectorControlRegister : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    MemLowVectorControlRegister {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    MemHighVectorControl1Register : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    MemHighVectorControl1Register {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    MemHighVectorControl2Register : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    MemHighVectorControl2Register {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    VectorAccessControlRegister : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    VectorAccessControlRegister {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    VectorAccessDataRegister : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    VectorAccessDataRegister {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
 }

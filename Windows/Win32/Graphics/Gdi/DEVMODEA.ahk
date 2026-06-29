@@ -1,13 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DEVMODE_FIELD_FLAGS.ahk
-#Include ..\..\Foundation\POINTL.ahk
-#Include .\DEVMODE_DISPLAY_ORIENTATION.ahk
-#Include .\DEVMODE_DISPLAY_FIXED_OUTPUT.ahk
-#Include .\DEVMODE_COLOR.ahk
-#Include .\DEVMODE_DUPLEX.ahk
-#Include .\DEVMODE_TRUETYPE_OPTION.ahk
-#Include .\DEVMODE_COLLATE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DEVMODE_TRUETYPE_OPTION.ahk" { DEVMODE_TRUETYPE_OPTION }
+#Import "..\..\Foundation\POINTL.ahk" { POINTL }
+#Import ".\DEVMODE_DISPLAY_ORIENTATION.ahk" { DEVMODE_DISPLAY_ORIENTATION }
+#Import ".\DEVMODE_DUPLEX.ahk" { DEVMODE_DUPLEX }
+#Import ".\DEVMODE_DISPLAY_FIXED_OUTPUT.ahk" { DEVMODE_DISPLAY_FIXED_OUTPUT }
+#Import ".\DEVMODE_COLLATE.ahk" { DEVMODE_COLLATE }
+#Import ".\DEVMODE_FIELD_FLAGS.ahk" { DEVMODE_FIELD_FLAGS }
+#Import ".\DEVMODE_COLOR.ahk" { DEVMODE_COLOR }
 
 /**
  * The DEVMODE data structure contains information about the initialization and environment of a printer or a display device.
@@ -25,58 +24,33 @@
  * @namespace Windows.Win32.Graphics.Gdi
  * @charset ANSI
  */
-class DEVMODEA extends Win32Struct {
-    static sizeof => 156
-
-    static packingSize => 4
+export default struct DEVMODEA {
+    #StructPack 4
 
     /**
      * A zero-terminated character array that specifies the "friendly" name of the printer or display; for example, "PCL/HP LaserJet" in the case of PCL/HP LaserJet. This string is unique among device drivers. Note that this name may be truncated to fit in the <b>dmDeviceName</b> array.
-     * @type {Array<Integer>}
      */
-    dmDeviceName {
-        get {
-            if(!this.HasProp("__dmDeviceNameProxyArray"))
-                this.__dmDeviceNameProxyArray := Win32FixedArray(this.ptr + 0, 32, Primitive, "char")
-            return this.__dmDeviceNameProxyArray
-        }
-    }
+    dmDeviceName : Int8[32]
 
     /**
      * The version number of the initialization data specification on which the structure is based. To ensure the correct version is used for any operating system, use DM_SPECVERSION.
-     * @type {Integer}
      */
-    dmSpecVersion {
-        get => NumGet(this, 32, "ushort")
-        set => NumPut("ushort", value, this, 32)
-    }
+    dmSpecVersion : UInt16
 
     /**
      * The driver version number assigned by the driver developer.
-     * @type {Integer}
      */
-    dmDriverVersion {
-        get => NumGet(this, 34, "ushort")
-        set => NumPut("ushort", value, this, 34)
-    }
+    dmDriverVersion : UInt16
 
     /**
      * Specifies the size, in bytes, of the <b>DEVMODE</b> structure, not including any private driver-specific data that might follow the structure's public members. Set this member to <c>sizeof (DEVMODE)</c> to indicate the version of the <b>DEVMODE</b> structure being used.
-     * @type {Integer}
      */
-    dmSize {
-        get => NumGet(this, 36, "ushort")
-        set => NumPut("ushort", value, this, 36)
-    }
+    dmSize : UInt16
 
     /**
      * Contains the number of bytes of private driver-data that follow this structure. If a device driver does not use device-specific information, set this member to zero.
-     * @type {Integer}
      */
-    dmDriverExtra {
-        get => NumGet(this, 38, "ushort")
-        set => NumPut("ushort", value, this, 38)
-    }
+    dmDriverExtra : UInt16
 
     /**
      * Specifies whether certain members of the <b>DEVMODE</b> structure have been initialized. If a member is initialized, its corresponding bit is set, otherwise the bit is clear. A driver supports only those <b>DEVMODE</b> members that are appropriate for the printer or display technology.
@@ -209,103 +183,24 @@ class DEVMODEA extends Win32Struct {
      * <td><b>dmPanningHeight</b></td>
      * </tr>
      * </table>
-     * @type {DEVMODE_FIELD_FLAGS}
      */
-    dmFields {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dmFields : DEVMODE_FIELD_FLAGS
 
-    /**
-     * @type {Integer}
-     */
-    dmOrientation {
-        get => NumGet(this, 44, "short")
-        set => NumPut("short", value, this, 44)
-    }
+    dmOrientation : Int16
 
-    /**
-     * @type {Integer}
-     */
-    dmPaperSize {
-        get => NumGet(this, 46, "short")
-        set => NumPut("short", value, this, 46)
-    }
+    dmPaperSize : Int16
 
-    /**
-     * @type {Integer}
-     */
-    dmPaperLength {
-        get => NumGet(this, 48, "short")
-        set => NumPut("short", value, this, 48)
-    }
+    dmPaperLength : Int16
 
-    /**
-     * @type {Integer}
-     */
-    dmPaperWidth {
-        get => NumGet(this, 50, "short")
-        set => NumPut("short", value, this, 50)
-    }
+    dmPaperWidth : Int16
 
-    /**
-     * @type {Integer}
-     */
-    dmScale {
-        get => NumGet(this, 52, "short")
-        set => NumPut("short", value, this, 52)
-    }
+    dmScale : Int16
 
-    /**
-     * @type {Integer}
-     */
-    dmCopies {
-        get => NumGet(this, 54, "short")
-        set => NumPut("short", value, this, 54)
-    }
+    dmCopies : Int16
 
-    /**
-     * @type {Integer}
-     */
-    dmDefaultSource {
-        get => NumGet(this, 56, "short")
-        set => NumPut("short", value, this, 56)
-    }
+    dmDefaultSource : Int16
 
-    /**
-     * @type {Integer}
-     */
-    dmPrintQuality {
-        get => NumGet(this, 58, "short")
-        set => NumPut("short", value, this, 58)
-    }
-
-    /**
-     * @type {POINTL}
-     */
-    dmPosition {
-        get {
-            if(!this.HasProp("__dmPosition"))
-                this.__dmPosition := POINTL(44, this)
-            return this.__dmPosition
-        }
-    }
-
-    /**
-     * @type {DEVMODE_DISPLAY_ORIENTATION}
-     */
-    dmDisplayOrientation {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
-
-    /**
-     * @type {DEVMODE_DISPLAY_FIXED_OUTPUT}
-     */
-    dmDisplayFixedOutput {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    dmPrintQuality : Int16
 
     /**
      * Switches between color and monochrome on color printers. The following are the possible values:
@@ -314,12 +209,8 @@ class DEVMODEA extends Win32Struct {
      * <li>DMCOLOR_COLOR</li>
      * <li>DMCOLOR_MONOCHROME</li>
      * </ul>
-     * @type {DEVMODE_COLOR}
      */
-    dmColor {
-        get => NumGet(this, 60, "short")
-        set => NumPut("short", value, this, 60)
-    }
+    dmColor : DEVMODE_COLOR
 
     /**
      * Selects duplex or double-sided printing for printers capable of duplex printing. Following are the possible values.
@@ -342,112 +233,51 @@ class DEVMODEA extends Win32Struct {
      * <td>Long-edge binding, that is, the long edge of the page is vertical.</td>
      * </tr>
      * </table>
-     * @type {DEVMODE_DUPLEX}
      */
-    dmDuplex {
-        get => NumGet(this, 62, "short")
-        set => NumPut("short", value, this, 62)
-    }
+    dmDuplex : DEVMODE_DUPLEX
 
     /**
      * Specifies the y-resolution, in dots per inch, of the printer. If the printer initializes this member, the <b>dmPrintQuality</b> member specifies the x-resolution, in dots per inch, of the printer.
-     * @type {Integer}
      */
-    dmYResolution {
-        get => NumGet(this, 64, "short")
-        set => NumPut("short", value, this, 64)
-    }
+    dmYResolution : Int16
 
-    /**
-     * @type {DEVMODE_TRUETYPE_OPTION}
-     */
-    dmTTOption {
-        get => NumGet(this, 66, "short")
-        set => NumPut("short", value, this, 66)
-    }
+    dmTTOption : DEVMODE_TRUETYPE_OPTION
 
-    /**
-     * @type {DEVMODE_COLLATE}
-     */
-    dmCollate {
-        get => NumGet(this, 68, "short")
-        set => NumPut("short", value, this, 68)
-    }
+    dmCollate : DEVMODE_COLLATE
 
     /**
      * A zero-terminated character array that specifies the name of the form to use; for example, "Letter" or "Legal". A complete set of names can be retrieved by using the <a href="https://docs.microsoft.com/windows/desktop/printdocs/enumforms">EnumForms</a> function.
-     * @type {Array<Integer>}
      */
-    dmFormName {
-        get {
-            if(!this.HasProp("__dmFormNameProxyArray"))
-                this.__dmFormNameProxyArray := Win32FixedArray(this.ptr + 70, 32, Primitive, "char")
-            return this.__dmFormNameProxyArray
-        }
-    }
+    dmFormName : Int8[32]
 
     /**
      * The number of pixels per logical inch. Printer drivers do not use this member.
-     * @type {Integer}
      */
-    dmLogPixels {
-        get => NumGet(this, 102, "ushort")
-        set => NumPut("ushort", value, this, 102)
-    }
+    dmLogPixels : UInt16
 
     /**
      * Specifies the color resolution, in bits per pixel, of the display device (for example: 4 bits for 16 colors, 8 bits for 256 colors, or 16 bits for 65,536 colors). Display drivers use this member, for example, in the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-changedisplaysettingsa">ChangeDisplaySettings</a> function. Printer drivers do not use this member.
-     * @type {Integer}
      */
-    dmBitsPerPel {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    dmBitsPerPel : UInt32
 
     /**
      * Specifies the width, in pixels, of the visible device surface. Display drivers use this member, for example, in the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-changedisplaysettingsa">ChangeDisplaySettings</a> function. Printer drivers do not use this member.
-     * @type {Integer}
      */
-    dmPelsWidth {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
+    dmPelsWidth : UInt32
 
     /**
      * Specifies the height, in pixels, of the visible device surface. Display drivers use this member, for example, in the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-changedisplaysettingsa">ChangeDisplaySettings</a> function. Printer drivers do not use this member.
-     * @type {Integer}
      */
-    dmPelsHeight {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    dmPelsHeight : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dmDisplayFlags {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dmNup {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
-    }
+    dmDisplayFlags : UInt32
 
     /**
      * Specifies the frequency, in hertz (cycles per second), of the display device in a particular mode. This value is also known as the display device's vertical refresh rate. Display drivers use this member. It is used, for example, in the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-changedisplaysettingsa">ChangeDisplaySettings</a> function. Printer drivers do not use this member.
      * 
      * When you call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumdisplaysettingsa">EnumDisplaySettings</a> function, the <b>dmDisplayFrequency</b> member may return with the value 0 or 1. These values represent the display hardware's default refresh rate. This default rate is typically set by switches on a display card or computer motherboard, or by a configuration program that does not use display functions such as <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-changedisplaysettingsa">ChangeDisplaySettings</a>.
-     * @type {Integer}
      */
-    dmDisplayFrequency {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    dmDisplayFrequency : UInt32
 
     /**
      * Specifies how ICM is handled. For a non-ICM application, this member determines if ICM is enabled or disabled. For ICM applications, the system examines this member to determine how to handle ICM support. This member can be one of the following predefined values, or a driver-defined value greater than or equal to the value of DMICMMETHOD_USER.
@@ -477,12 +307,8 @@ class DEVMODEA extends Win32Struct {
      *  
      * 
      * The printer driver must provide a user interface for setting this member. Most printer drivers support only the DMICMMETHOD_SYSTEM or DMICMMETHOD_NONE value. Drivers for PostScript printers support all values.
-     * @type {Integer}
      */
-    dmICMMethod {
-        get => NumGet(this, 124, "uint")
-        set => NumPut("uint", value, this, 124)
-    }
+    dmICMMethod : UInt32
 
     /**
      * Specifies which color matching method, or intent, should be used by default. This member is primarily for non-ICM applications. ICM applications can establish intents by using the ICM functions. This member can be one of the following predefined values, or a driver defined value greater than or equal to the value of DMICM_USER.
@@ -509,12 +335,8 @@ class DEVMODEA extends Win32Struct {
      * <td>Color matching should optimize for color saturation. This value is the most appropriate choice for business graphs when dithering is not desired.</td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dmICMIntent {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
-    }
+    dmICMIntent : UInt32
 
     /**
      * Specifies the type of media being printed on. The member can be one of the following predefined values, or a driver-defined value greater than or equal to the value of DMMEDIA_USER.
@@ -540,12 +362,8 @@ class DEVMODEA extends Win32Struct {
      *  
      * 
      *  To retrieve a list of the available media types for a printer, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-devicecapabilitiesa">DeviceCapabilities</a> function with the DC_MEDIATYPES flag.
-     * @type {Integer}
      */
-    dmMediaType {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
-    }
+    dmMediaType : UInt32
 
     /**
      * Specifies how dithering is to be done. The member can be one of the following predefined values, or a driver-defined value greater than or equal to the value of DMDITHER_USER.
@@ -576,46 +394,34 @@ class DEVMODEA extends Win32Struct {
      * <td>Device does gray scaling.</td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dmDitherType {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    dmDitherType : UInt32
 
     /**
      * Not used; must be zero.
-     * @type {Integer}
      */
-    dmReserved1 {
-        get => NumGet(this, 140, "uint")
-        set => NumPut("uint", value, this, 140)
-    }
+    dmReserved1 : UInt32
 
     /**
      * Not used; must be zero.
-     * @type {Integer}
      */
-    dmReserved2 {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
-    }
+    dmReserved2 : UInt32
 
     /**
      * This member must be zero.
-     * @type {Integer}
      */
-    dmPanningWidth {
-        get => NumGet(this, 148, "uint")
-        set => NumPut("uint", value, this, 148)
-    }
+    dmPanningWidth : UInt32
 
     /**
      * This member must be zero.
-     * @type {Integer}
      */
-    dmPanningHeight {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
+    dmPanningHeight : UInt32
+
+    static __New() {
+        DefineProp(this.Prototype, 'dmPosition', { type: POINTL, offset: 44 })
+        DefineProp(this.Prototype, 'dmDisplayOrientation', { type: DEVMODE_DISPLAY_ORIENTATION, offset: 52 })
+        DefineProp(this.Prototype, 'dmDisplayFixedOutput', { type: DEVMODE_DISPLAY_FIXED_OUTPUT, offset: 56 })
+        DefineProp(this.Prototype, 'dmNup', { type: UInt32, offset: 116 })
+        this.DeleteProp("__New")
     }
 }

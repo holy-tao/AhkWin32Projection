@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains shaping output properties for an output glyph.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_shaping_glyph_properties
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class DWRITE_SHAPING_GLYPH_PROPERTIES extends Win32Struct {
-    static sizeof => 2
-
-    static packingSize => 2
+export default struct DWRITE_SHAPING_GLYPH_PROPERTIES {
+    #StructPack 2
 
     /**
      * This bitfield backs the following members:
@@ -18,12 +15,9 @@ class DWRITE_SHAPING_GLYPH_PROPERTIES extends Win32Struct {
      * - isDiacritic
      * - isZeroWidthSpace
      * - reserved
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    _bitfield : Int16
+
 
     /**
      * @type {Integer}

@@ -1,34 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_STRING.ahk" { WS_STRING }
 
 /**
  * A structure containing a list of host names.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_host_names
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_HOST_NAMES extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct WS_HOST_NAMES {
+    #StructPack 8
 
     /**
      * A list of host names.  Each host name can be a DNS name or
      *                     an IPv4 or IPv6 address.  IPv6 addresses are enclosed
      *                     in brackets ('[' address ']').
-     * @type {Pointer<WS_STRING>}
      */
-    hostNames {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    hostNames : WS_STRING.Ptr
 
     /**
      * The number of elements in the hostNames array.
-     * @type {Integer}
      */
-    hostNameCount {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    hostNameCount : UInt32
+
 }

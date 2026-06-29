@@ -1,40 +1,77 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Used to examine and configure Remote Desktop Services user properties.
  * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nn-tsuserex-iadstsuserex
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class IADsTSUserEx extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IADsTSUserEx extends IDispatch {
     /**
      * The interface identifier for IADsTSUserEx
      * @type {Guid}
      */
-    static IID => Guid("{c4930e79-2989-4462-8a60-2fcf2f2955ef}")
+    static IID := Guid("{c4930e79-2989-4462-8a60-2fcf2f2955ef}")
 
     /**
      * The class identifier for ADsTSUserEx
      * @type {Guid}
      */
-    static CLSID => Guid("{e2e9cae6-1e7b-4b8e-babd-e9bf6292ac29}")
+    static CLSID := Guid("{e2e9cae6-1e7b-4b8e-babd-e9bf6292ac29}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IADsTSUserEx interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_TerminalServicesProfilePath    : IntPtr
+        put_TerminalServicesProfilePath    : IntPtr
+        get_TerminalServicesHomeDirectory  : IntPtr
+        put_TerminalServicesHomeDirectory  : IntPtr
+        get_TerminalServicesHomeDrive      : IntPtr
+        put_TerminalServicesHomeDrive      : IntPtr
+        get_AllowLogon                     : IntPtr
+        put_AllowLogon                     : IntPtr
+        get_EnableRemoteControl            : IntPtr
+        put_EnableRemoteControl            : IntPtr
+        get_MaxDisconnectionTime           : IntPtr
+        put_MaxDisconnectionTime           : IntPtr
+        get_MaxConnectionTime              : IntPtr
+        put_MaxConnectionTime              : IntPtr
+        get_MaxIdleTime                    : IntPtr
+        put_MaxIdleTime                    : IntPtr
+        get_ReconnectionAction             : IntPtr
+        put_ReconnectionAction             : IntPtr
+        get_BrokenConnectionAction         : IntPtr
+        put_BrokenConnectionAction         : IntPtr
+        get_ConnectClientDrivesAtLogon     : IntPtr
+        put_ConnectClientDrivesAtLogon     : IntPtr
+        get_ConnectClientPrintersAtLogon   : IntPtr
+        put_ConnectClientPrintersAtLogon   : IntPtr
+        get_DefaultToMainPrinter           : IntPtr
+        put_DefaultToMainPrinter           : IntPtr
+        get_TerminalServicesWorkDirectory  : IntPtr
+        put_TerminalServicesWorkDirectory  : IntPtr
+        get_TerminalServicesInitialProgram : IntPtr
+        put_TerminalServicesInitialProgram : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_TerminalServicesProfilePath", "put_TerminalServicesProfilePath", "get_TerminalServicesHomeDirectory", "put_TerminalServicesHomeDirectory", "get_TerminalServicesHomeDrive", "put_TerminalServicesHomeDrive", "get_AllowLogon", "put_AllowLogon", "get_EnableRemoteControl", "put_EnableRemoteControl", "get_MaxDisconnectionTime", "put_MaxDisconnectionTime", "get_MaxConnectionTime", "put_MaxConnectionTime", "get_MaxIdleTime", "put_MaxIdleTime", "get_ReconnectionAction", "put_ReconnectionAction", "get_BrokenConnectionAction", "put_BrokenConnectionAction", "get_ConnectClientDrivesAtLogon", "put_ConnectClientDrivesAtLogon", "get_ConnectClientPrintersAtLogon", "put_ConnectClientPrintersAtLogon", "get_DefaultToMainPrinter", "put_DefaultToMainPrinter", "get_TerminalServicesWorkDirectory", "put_TerminalServicesWorkDirectory", "get_TerminalServicesInitialProgram", "put_TerminalServicesInitialProgram"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IADsTSUserEx.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -170,8 +207,8 @@ class IADsTSUserEx extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-get_terminalservicesprofilepath
      */
     get_TerminalServicesProfilePath() {
-        pVal := BSTR()
-        result := ComCall(7, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -192,7 +229,7 @@ class IADsTSUserEx extends IDispatch {
     put_TerminalServicesProfilePath(pNewVal) {
         pNewVal := pNewVal is String ? BSTR.Alloc(pNewVal).Value : pNewVal
 
-        result := ComCall(8, this, "ptr", pNewVal, "HRESULT")
+        result := ComCall(8, this, BSTR, pNewVal, "HRESULT")
         return result
     }
 
@@ -204,8 +241,8 @@ class IADsTSUserEx extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-get_terminalserviceshomedirectory
      */
     get_TerminalServicesHomeDirectory() {
-        pVal := BSTR()
-        result := ComCall(9, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -220,7 +257,7 @@ class IADsTSUserEx extends IDispatch {
     put_TerminalServicesHomeDirectory(pNewVal) {
         pNewVal := pNewVal is String ? BSTR.Alloc(pNewVal).Value : pNewVal
 
-        result := ComCall(10, this, "ptr", pNewVal, "HRESULT")
+        result := ComCall(10, this, BSTR, pNewVal, "HRESULT")
         return result
     }
 
@@ -232,8 +269,8 @@ class IADsTSUserEx extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-get_terminalserviceshomedrive
      */
     get_TerminalServicesHomeDrive() {
-        pVal := BSTR()
-        result := ComCall(11, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -248,7 +285,7 @@ class IADsTSUserEx extends IDispatch {
     put_TerminalServicesHomeDrive(pNewVal) {
         pNewVal := pNewVal is String ? BSTR.Alloc(pNewVal).Value : pNewVal
 
-        result := ComCall(12, this, "ptr", pNewVal, "HRESULT")
+        result := ComCall(12, this, BSTR, pNewVal, "HRESULT")
         return result
     }
 
@@ -470,8 +507,8 @@ class IADsTSUserEx extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-get_terminalservicesworkdirectory
      */
     get_TerminalServicesWorkDirectory() {
-        pVal := BSTR()
-        result := ComCall(33, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(33, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -486,7 +523,7 @@ class IADsTSUserEx extends IDispatch {
     put_TerminalServicesWorkDirectory(pNewVal) {
         pNewVal := pNewVal is String ? BSTR.Alloc(pNewVal).Value : pNewVal
 
-        result := ComCall(34, this, "ptr", pNewVal, "HRESULT")
+        result := ComCall(34, this, BSTR, pNewVal, "HRESULT")
         return result
     }
 
@@ -498,8 +535,8 @@ class IADsTSUserEx extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tsuserex/nf-tsuserex-iadstsuserex-get_terminalservicesinitialprogram
      */
     get_TerminalServicesInitialProgram() {
-        pVal := BSTR()
-        result := ComCall(35, this, "ptr", pVal, "HRESULT")
+        pVal := BSTR.Owned()
+        result := ComCall(35, this, BSTR.Ptr, pVal, "HRESULT")
         return pVal
     }
 
@@ -514,7 +551,85 @@ class IADsTSUserEx extends IDispatch {
     put_TerminalServicesInitialProgram(pNewVal) {
         pNewVal := pNewVal is String ? BSTR.Alloc(pNewVal).Value : pNewVal
 
-        result := ComCall(36, this, "ptr", pNewVal, "HRESULT")
+        result := ComCall(36, this, BSTR, pNewVal, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IADsTSUserEx.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_TerminalServicesProfilePath := CallbackCreate(GetMethod(implObj, "get_TerminalServicesProfilePath"), flags, 2)
+        this.vtbl.put_TerminalServicesProfilePath := CallbackCreate(GetMethod(implObj, "put_TerminalServicesProfilePath"), flags, 2)
+        this.vtbl.get_TerminalServicesHomeDirectory := CallbackCreate(GetMethod(implObj, "get_TerminalServicesHomeDirectory"), flags, 2)
+        this.vtbl.put_TerminalServicesHomeDirectory := CallbackCreate(GetMethod(implObj, "put_TerminalServicesHomeDirectory"), flags, 2)
+        this.vtbl.get_TerminalServicesHomeDrive := CallbackCreate(GetMethod(implObj, "get_TerminalServicesHomeDrive"), flags, 2)
+        this.vtbl.put_TerminalServicesHomeDrive := CallbackCreate(GetMethod(implObj, "put_TerminalServicesHomeDrive"), flags, 2)
+        this.vtbl.get_AllowLogon := CallbackCreate(GetMethod(implObj, "get_AllowLogon"), flags, 2)
+        this.vtbl.put_AllowLogon := CallbackCreate(GetMethod(implObj, "put_AllowLogon"), flags, 2)
+        this.vtbl.get_EnableRemoteControl := CallbackCreate(GetMethod(implObj, "get_EnableRemoteControl"), flags, 2)
+        this.vtbl.put_EnableRemoteControl := CallbackCreate(GetMethod(implObj, "put_EnableRemoteControl"), flags, 2)
+        this.vtbl.get_MaxDisconnectionTime := CallbackCreate(GetMethod(implObj, "get_MaxDisconnectionTime"), flags, 2)
+        this.vtbl.put_MaxDisconnectionTime := CallbackCreate(GetMethod(implObj, "put_MaxDisconnectionTime"), flags, 2)
+        this.vtbl.get_MaxConnectionTime := CallbackCreate(GetMethod(implObj, "get_MaxConnectionTime"), flags, 2)
+        this.vtbl.put_MaxConnectionTime := CallbackCreate(GetMethod(implObj, "put_MaxConnectionTime"), flags, 2)
+        this.vtbl.get_MaxIdleTime := CallbackCreate(GetMethod(implObj, "get_MaxIdleTime"), flags, 2)
+        this.vtbl.put_MaxIdleTime := CallbackCreate(GetMethod(implObj, "put_MaxIdleTime"), flags, 2)
+        this.vtbl.get_ReconnectionAction := CallbackCreate(GetMethod(implObj, "get_ReconnectionAction"), flags, 2)
+        this.vtbl.put_ReconnectionAction := CallbackCreate(GetMethod(implObj, "put_ReconnectionAction"), flags, 2)
+        this.vtbl.get_BrokenConnectionAction := CallbackCreate(GetMethod(implObj, "get_BrokenConnectionAction"), flags, 2)
+        this.vtbl.put_BrokenConnectionAction := CallbackCreate(GetMethod(implObj, "put_BrokenConnectionAction"), flags, 2)
+        this.vtbl.get_ConnectClientDrivesAtLogon := CallbackCreate(GetMethod(implObj, "get_ConnectClientDrivesAtLogon"), flags, 2)
+        this.vtbl.put_ConnectClientDrivesAtLogon := CallbackCreate(GetMethod(implObj, "put_ConnectClientDrivesAtLogon"), flags, 2)
+        this.vtbl.get_ConnectClientPrintersAtLogon := CallbackCreate(GetMethod(implObj, "get_ConnectClientPrintersAtLogon"), flags, 2)
+        this.vtbl.put_ConnectClientPrintersAtLogon := CallbackCreate(GetMethod(implObj, "put_ConnectClientPrintersAtLogon"), flags, 2)
+        this.vtbl.get_DefaultToMainPrinter := CallbackCreate(GetMethod(implObj, "get_DefaultToMainPrinter"), flags, 2)
+        this.vtbl.put_DefaultToMainPrinter := CallbackCreate(GetMethod(implObj, "put_DefaultToMainPrinter"), flags, 2)
+        this.vtbl.get_TerminalServicesWorkDirectory := CallbackCreate(GetMethod(implObj, "get_TerminalServicesWorkDirectory"), flags, 2)
+        this.vtbl.put_TerminalServicesWorkDirectory := CallbackCreate(GetMethod(implObj, "put_TerminalServicesWorkDirectory"), flags, 2)
+        this.vtbl.get_TerminalServicesInitialProgram := CallbackCreate(GetMethod(implObj, "get_TerminalServicesInitialProgram"), flags, 2)
+        this.vtbl.put_TerminalServicesInitialProgram := CallbackCreate(GetMethod(implObj, "put_TerminalServicesInitialProgram"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_TerminalServicesProfilePath)
+        CallbackFree(this.vtbl.put_TerminalServicesProfilePath)
+        CallbackFree(this.vtbl.get_TerminalServicesHomeDirectory)
+        CallbackFree(this.vtbl.put_TerminalServicesHomeDirectory)
+        CallbackFree(this.vtbl.get_TerminalServicesHomeDrive)
+        CallbackFree(this.vtbl.put_TerminalServicesHomeDrive)
+        CallbackFree(this.vtbl.get_AllowLogon)
+        CallbackFree(this.vtbl.put_AllowLogon)
+        CallbackFree(this.vtbl.get_EnableRemoteControl)
+        CallbackFree(this.vtbl.put_EnableRemoteControl)
+        CallbackFree(this.vtbl.get_MaxDisconnectionTime)
+        CallbackFree(this.vtbl.put_MaxDisconnectionTime)
+        CallbackFree(this.vtbl.get_MaxConnectionTime)
+        CallbackFree(this.vtbl.put_MaxConnectionTime)
+        CallbackFree(this.vtbl.get_MaxIdleTime)
+        CallbackFree(this.vtbl.put_MaxIdleTime)
+        CallbackFree(this.vtbl.get_ReconnectionAction)
+        CallbackFree(this.vtbl.put_ReconnectionAction)
+        CallbackFree(this.vtbl.get_BrokenConnectionAction)
+        CallbackFree(this.vtbl.put_BrokenConnectionAction)
+        CallbackFree(this.vtbl.get_ConnectClientDrivesAtLogon)
+        CallbackFree(this.vtbl.put_ConnectClientDrivesAtLogon)
+        CallbackFree(this.vtbl.get_ConnectClientPrintersAtLogon)
+        CallbackFree(this.vtbl.put_ConnectClientPrintersAtLogon)
+        CallbackFree(this.vtbl.get_DefaultToMainPrinter)
+        CallbackFree(this.vtbl.put_DefaultToMainPrinter)
+        CallbackFree(this.vtbl.get_TerminalServicesWorkDirectory)
+        CallbackFree(this.vtbl.put_TerminalServicesWorkDirectory)
+        CallbackFree(this.vtbl.get_TerminalServicesInitialProgram)
+        CallbackFree(this.vtbl.put_TerminalServicesInitialProgram)
     }
 }

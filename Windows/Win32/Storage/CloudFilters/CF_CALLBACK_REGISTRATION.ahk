@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CF_CALLBACK_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CF_CALLBACK_TYPE.ahk" { CF_CALLBACK_TYPE }
 
 /**
  * The callbacks to be registered by the sync provider.
@@ -11,26 +10,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_callback_registration
  * @namespace Windows.Win32.Storage.CloudFilters
  */
-class CF_CALLBACK_REGISTRATION extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct CF_CALLBACK_REGISTRATION {
+    #StructPack 8
 
     /**
      * The type of callback to be registered. See [CF_CALLBACK_TYPE](ne-cfapi-cf_callback_type.md).
-     * @type {CF_CALLBACK_TYPE}
      */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Type : CF_CALLBACK_TYPE
 
     /**
      * A pointer to the callback function.
-     * @type {Pointer<CF_CALLBACK>}
      */
-    Callback {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Callback : IntPtr
+
 }

@@ -1,37 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\IMAGE_FILE_HEADER.ahk
-#Include ..\..\SystemInformation\IMAGE_FILE_MACHINE.ahk
-#Include .\IMAGE_FILE_CHARACTERISTICS.ahk
-#Include .\IMAGE_ROM_OPTIONAL_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IMAGE_FILE_HEADER.ahk" { IMAGE_FILE_HEADER }
+#Import ".\IMAGE_ROM_OPTIONAL_HEADER.ahk" { IMAGE_ROM_OPTIONAL_HEADER }
+#Import ".\IMAGE_FILE_CHARACTERISTICS.ahk" { IMAGE_FILE_CHARACTERISTICS }
+#Import "..\..\SystemInformation\IMAGE_FILE_MACHINE.ahk" { IMAGE_FILE_MACHINE }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class IMAGE_ROM_HEADERS extends Win32Struct {
-    static sizeof => 76
+export default struct IMAGE_ROM_HEADERS {
+    #StructPack 4
 
-    static packingSize => 4
+    FileHeader : IMAGE_FILE_HEADER
 
-    /**
-     * @type {IMAGE_FILE_HEADER}
-     */
-    FileHeader {
-        get {
-            if(!this.HasProp("__FileHeader"))
-                this.__FileHeader := IMAGE_FILE_HEADER(0, this)
-            return this.__FileHeader
-        }
-    }
+    OptionalHeader : IMAGE_ROM_OPTIONAL_HEADER
 
-    /**
-     * @type {IMAGE_ROM_OPTIONAL_HEADER}
-     */
-    OptionalHeader {
-        get {
-            if(!this.HasProp("__OptionalHeader"))
-                this.__OptionalHeader := IMAGE_ROM_OPTIONAL_HEADER(20, this)
-            return this.__OptionalHeader
-        }
-    }
 }

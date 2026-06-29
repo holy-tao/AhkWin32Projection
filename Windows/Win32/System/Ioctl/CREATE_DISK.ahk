@@ -1,50 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PARTITION_STYLE.ahk
-#Include .\CREATE_DISK_MBR.ahk
-#Include .\CREATE_DISK_GPT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CREATE_DISK_GPT.ahk" { CREATE_DISK_GPT }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\PARTITION_STYLE.ahk" { PARTITION_STYLE }
+#Import ".\CREATE_DISK_MBR.ahk" { CREATE_DISK_MBR }
 
 /**
  * Contains information that the IOCTL_DISK_CREATE_DISK control code uses to initialize GUID partition table (GPT), master boot record (MBR), or raw disks.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-create_disk
  * @namespace Windows.Win32.System.Ioctl
  */
-class CREATE_DISK extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct CREATE_DISK {
+    #StructPack 4
 
     /**
      * The format of a partition. 
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ne-winioctl-partition_style">PARTITION_STYLE</a>.
-     * @type {PARTITION_STYLE}
      */
-    PartitionStyle {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    PartitionStyle : PARTITION_STYLE
 
-    /**
-     * @type {CREATE_DISK_MBR}
-     */
-    Mbr {
-        get {
-            if(!this.HasProp("__Mbr"))
-                this.__Mbr := CREATE_DISK_MBR(8, this)
-            return this.__Mbr
-        }
-    }
+    Mbr : CREATE_DISK_MBR
 
-    /**
-     * @type {CREATE_DISK_GPT}
-     */
-    Gpt {
-        get {
-            if(!this.HasProp("__Gpt"))
-                this.__Gpt := CREATE_DISK_GPT(8, this)
-            return this.__Gpt
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Gpt', { type: CREATE_DISK_GPT, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

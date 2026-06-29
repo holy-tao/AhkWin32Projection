@@ -1,24 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Specifies a security event type and when to audit that type.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-audit_policy_information
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class AUDIT_POLICY_INFORMATION extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct AUDIT_POLICY_INFORMATION {
+    #StructPack 4
 
     /**
      * A <b>GUID</b> structure that specifies an audit subcategory.
-     * @type {Pointer}
      */
-    AuditSubCategoryGuid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    AuditSubCategoryGuid : Guid
 
     /**
      * A set of bit flags that specify the conditions under which  the security event type specified by the <b>AuditSubCategoryGuid</b> and <b>AuditCategoryGuid</b> members are audited. The following values are defined.
@@ -161,19 +155,12 @@ class AUDIT_POLICY_INFORMATION extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    AuditingInformation {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    AuditingInformation : UInt32
 
     /**
      * A <b>GUID</b> structure that specifies an audit-policy category.
-     * @type {Pointer}
      */
-    AuditCategoryGuid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    AuditCategoryGuid : Guid
+
 }

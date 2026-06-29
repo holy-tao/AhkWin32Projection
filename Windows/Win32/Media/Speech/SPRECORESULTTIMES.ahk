@@ -1,47 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class SPRECORESULTTIMES extends Win32Struct {
-    static sizeof => 32
+export default struct SPRECORESULTTIMES {
+    #StructPack 8
 
-    static packingSize => 8
+    ftStreamTime : FILETIME
 
-    /**
-     * @type {FILETIME}
-     */
-    ftStreamTime {
-        get {
-            if(!this.HasProp("__ftStreamTime"))
-                this.__ftStreamTime := FILETIME(0, this)
-            return this.__ftStreamTime
-        }
-    }
+    ullLength : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwTickCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwTickCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ullStart : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ullStart {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
 }

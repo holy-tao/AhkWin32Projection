@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMHeaderInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMHeaderInfo.ahk" { IWMHeaderInfo }
+#Import ".\WMT_CODEC_INFO_TYPE.ahk" { WMT_CODEC_INFO_TYPE }
 
 /**
  * The IWMHeaderInfo2 interface exposes information about the codecs used to create the content in a file.The IWMHeaderInfo2 interface is implemented by the metadata editor object, the writer object, the reader object, and the synchronous reader object.
@@ -10,26 +13,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmheaderinfo2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMHeaderInfo2 extends IWMHeaderInfo {
-
-    static sizeof => A_PtrSize
+export default struct IWMHeaderInfo2 extends IWMHeaderInfo {
     /**
      * The interface identifier for IWMHeaderInfo2
      * @type {Guid}
      */
-    static IID => Guid("{15cf9781-454e-482e-b393-85fae487a810}")
+    static IID := Guid("{15cf9781-454e-482e-b393-85fae487a810}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 15
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMHeaderInfo2 interfaces
+    */
+    struct Vtbl extends IWMHeaderInfo.Vtbl {
+        GetCodecInfoCount : IntPtr
+        GetCodecInfo      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCodecInfoCount", "GetCodecInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMHeaderInfo2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetCodecInfoCount method retrieves the number of codecs for which information is available.
@@ -72,5 +83,27 @@ class IWMHeaderInfo2 extends IWMHeaderInfo {
 
         result := ComCall(16, this, "uint", wIndex, pcchNameMarshal, pcchName, "ptr", pwszName, pcchDescriptionMarshal, pcchDescription, "ptr", pwszDescription, pCodecTypeMarshal, pCodecType, pcbCodecInfoMarshal, pcbCodecInfo, pbCodecInfoMarshal, pbCodecInfo, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMHeaderInfo2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCodecInfoCount := CallbackCreate(GetMethod(implObj, "GetCodecInfoCount"), flags, 2)
+        this.vtbl.GetCodecInfo := CallbackCreate(GetMethod(implObj, "GetCodecInfo"), flags, 9)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCodecInfoCount)
+        CallbackFree(this.vtbl.GetCodecInfo)
     }
 }

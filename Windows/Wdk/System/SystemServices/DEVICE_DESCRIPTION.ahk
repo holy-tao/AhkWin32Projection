@@ -1,174 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\INTERFACE_TYPE.ahk
-#Include .\DMA_WIDTH.ahk
-#Include .\DMA_SPEED.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\INTERFACE_TYPE.ahk" { INTERFACE_TYPE }
+#Import ".\DMA_SPEED.ahk" { DMA_SPEED }
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\DMA_WIDTH.ahk" { DMA_WIDTH }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class DEVICE_DESCRIPTION extends Win32Struct {
-    static sizeof => 64
+export default struct DEVICE_DESCRIPTION {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Master : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Master {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    ScatterGather : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    ScatterGather {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
-    }
+    DemandMode : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    DemandMode {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
-    }
+    AutoInitialize : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    AutoInitialize {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
-    }
+    Dma32BitAddresses : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Dma32BitAddresses {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    IgnoreCount : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    IgnoreCount {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    Reserved1 : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Reserved1 {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    Dma64BitAddresses : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Dma64BitAddresses {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
-    }
+    BusNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    BusNumber {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    DmaChannel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DmaChannel {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    InterfaceType : INTERFACE_TYPE
 
-    /**
-     * @type {INTERFACE_TYPE}
-     */
-    InterfaceType {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    DmaWidth : DMA_WIDTH
 
-    /**
-     * @type {DMA_WIDTH}
-     */
-    DmaWidth {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    DmaSpeed : DMA_SPEED
 
-    /**
-     * @type {DMA_SPEED}
-     */
-    DmaSpeed {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    MaximumLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaximumLength {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    DmaPort : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DmaPort {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    DmaAddressWidth : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DmaAddressWidth {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    DmaControllerInstance : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DmaControllerInstance {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    DmaRequestLine : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DmaRequestLine {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    DeviceAddress : Int64
 
-    /**
-     * @type {Integer}
-     */
-    DeviceAddress {
-        get => NumGet(this, 56, "int64")
-        set => NumPut("int64", value, this, 56)
-    }
 }

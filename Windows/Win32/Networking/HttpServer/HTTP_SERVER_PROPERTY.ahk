@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the properties that are configured by the HTTP Server API on a URL group, server session, or request queue.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_server_property
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_SERVER_PROPERTY extends Win32Enum {
+export default struct HTTP_SERVER_PROPERTY {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The authentication property enables server-side authentication for a URL group, or  server session using the Basic, NTLM, Negotiate, and Digest authentication schemes.

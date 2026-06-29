@@ -1,166 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media
  */
-class MMTIME extends Win32Struct {
-    static sizeof => 12
+export default struct MMTIME {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _u_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 1
+    struct _u {
 
-        class _smpte extends Win32Struct {
-            static sizeof => 8
-            static packingSize => 1
+        struct _smpte {
+            hour : Int8
 
-            /**
-             * @type {Integer}
-             */
-            hour {
-                get => NumGet(this, 0, "char")
-                set => NumPut("char", value, this, 0)
-            }
+            min : Int8
 
-            /**
-             * @type {Integer}
-             */
-            min {
-                get => NumGet(this, 1, "char")
-                set => NumPut("char", value, this, 1)
-            }
+            sec : Int8
 
-            /**
-             * @type {Integer}
-             */
-            sec {
-                get => NumGet(this, 2, "char")
-                set => NumPut("char", value, this, 2)
-            }
+            frame : Int8
 
-            /**
-             * @type {Integer}
-             */
-            frame {
-                get => NumGet(this, 3, "char")
-                set => NumPut("char", value, this, 3)
-            }
+            fps : Int8
 
-            /**
-             * @type {Integer}
-             */
-            fps {
-                get => NumGet(this, 4, "char")
-                set => NumPut("char", value, this, 4)
-            }
+            dummy : Int8
 
-            /**
-             * @type {Integer}
-             */
-            dummy {
-                get => NumGet(this, 5, "char")
-                set => NumPut("char", value, this, 5)
-            }
+            pad : Int8[2]
 
-            /**
-             * @type {Array<Integer>}
-             */
-            pad {
-                get {
-                    if(!this.HasProp("__padProxyArray"))
-                        this.__padProxyArray := Win32FixedArray(this.ptr + 6, 2, Primitive, "char")
-                    return this.__padProxyArray
-                }
-            }
         }
 
-        class _midi extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 4
+        struct _midi {
+            songptrpos : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            songptrpos {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
         }
 
-        /**
-         * @type {Integer}
-         */
-        ms {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        ms : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        sample {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        cb {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        ticks {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {_smpte}
-         */
-        smpte {
-            get {
-                if(!this.HasProp("__smpte"))
-                    this.__smpte := MMTIME._u_e__Union._smpte(0, this)
-                return this.__smpte
-            }
-        }
-
-        /**
-         * @type {_midi}
-         */
-        midi {
-            get {
-                if(!this.HasProp("__midi"))
-                    this.__midi := MMTIME._u_e__Union._midi(0, this)
-                return this.__midi
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'sample', { type: UInt32, offset: 0 })
+            DefineProp(this.Prototype, 'cb', { type: UInt32, offset: 0 })
+            DefineProp(this.Prototype, 'ticks', { type: UInt32, offset: 0 })
+            DefineProp(this.Prototype, 'smpte', { type: MMTIME._u._smpte, offset: 0 })
+            DefineProp(this.Prototype, 'midi', { type: MMTIME._u._midi, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    wType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    wType : UInt32
 
-    /**
-     * @type {_u_e__Union}
-     */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := MMTIME._u_e__Union(4, this)
-            return this.__u
-        }
-    }
+    u : MMTIME._u
+
 }

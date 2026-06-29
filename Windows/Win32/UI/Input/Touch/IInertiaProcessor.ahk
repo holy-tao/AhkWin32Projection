@@ -1,33 +1,90 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IInertiaProcessor interface handles calculations regarding object motion for Windows Touch.
  * @see https://learn.microsoft.com/windows/win32/api/manipulations/nn-manipulations-iinertiaprocessor
  * @namespace Windows.Win32.UI.Input.Touch
  */
-class IInertiaProcessor extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IInertiaProcessor extends IUnknown {
     /**
      * The interface identifier for IInertiaProcessor
      * @type {Guid}
      */
-    static IID => Guid("{18b00c6d-c5ee-41b1-90a9-9d4a929095ad}")
+    static IID := Guid("{18b00c6d-c5ee-41b1-90a9-9d4a929095ad}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IInertiaProcessor interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_InitialOriginX               : IntPtr
+        put_InitialOriginX               : IntPtr
+        get_InitialOriginY               : IntPtr
+        put_InitialOriginY               : IntPtr
+        get_InitialVelocityX             : IntPtr
+        put_InitialVelocityX             : IntPtr
+        get_InitialVelocityY             : IntPtr
+        put_InitialVelocityY             : IntPtr
+        get_InitialAngularVelocity       : IntPtr
+        put_InitialAngularVelocity       : IntPtr
+        get_InitialExpansionVelocity     : IntPtr
+        put_InitialExpansionVelocity     : IntPtr
+        get_InitialRadius                : IntPtr
+        put_InitialRadius                : IntPtr
+        get_BoundaryLeft                 : IntPtr
+        put_BoundaryLeft                 : IntPtr
+        get_BoundaryTop                  : IntPtr
+        put_BoundaryTop                  : IntPtr
+        get_BoundaryRight                : IntPtr
+        put_BoundaryRight                : IntPtr
+        get_BoundaryBottom               : IntPtr
+        put_BoundaryBottom               : IntPtr
+        get_ElasticMarginLeft            : IntPtr
+        put_ElasticMarginLeft            : IntPtr
+        get_ElasticMarginTop             : IntPtr
+        put_ElasticMarginTop             : IntPtr
+        get_ElasticMarginRight           : IntPtr
+        put_ElasticMarginRight           : IntPtr
+        get_ElasticMarginBottom          : IntPtr
+        put_ElasticMarginBottom          : IntPtr
+        get_DesiredDisplacement          : IntPtr
+        put_DesiredDisplacement          : IntPtr
+        get_DesiredRotation              : IntPtr
+        put_DesiredRotation              : IntPtr
+        get_DesiredExpansion             : IntPtr
+        put_DesiredExpansion             : IntPtr
+        get_DesiredDeceleration          : IntPtr
+        put_DesiredDeceleration          : IntPtr
+        get_DesiredAngularDeceleration   : IntPtr
+        put_DesiredAngularDeceleration   : IntPtr
+        get_DesiredExpansionDeceleration : IntPtr
+        put_DesiredExpansionDeceleration : IntPtr
+        get_InitialTimestamp             : IntPtr
+        put_InitialTimestamp             : IntPtr
+        Reset                            : IntPtr
+        Process                          : IntPtr
+        ProcessTime                      : IntPtr
+        Complete                         : IntPtr
+        CompleteTime                     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_InitialOriginX", "put_InitialOriginX", "get_InitialOriginY", "put_InitialOriginY", "get_InitialVelocityX", "put_InitialVelocityX", "get_InitialVelocityY", "put_InitialVelocityY", "get_InitialAngularVelocity", "put_InitialAngularVelocity", "get_InitialExpansionVelocity", "put_InitialExpansionVelocity", "get_InitialRadius", "put_InitialRadius", "get_BoundaryLeft", "put_BoundaryLeft", "get_BoundaryTop", "put_BoundaryTop", "get_BoundaryRight", "put_BoundaryRight", "get_BoundaryBottom", "put_BoundaryBottom", "get_ElasticMarginLeft", "put_ElasticMarginLeft", "get_ElasticMarginTop", "put_ElasticMarginTop", "get_ElasticMarginRight", "put_ElasticMarginRight", "get_ElasticMarginBottom", "put_ElasticMarginBottom", "get_DesiredDisplacement", "put_DesiredDisplacement", "get_DesiredRotation", "put_DesiredRotation", "get_DesiredExpansion", "put_DesiredExpansion", "get_DesiredDeceleration", "put_DesiredDeceleration", "get_DesiredAngularDeceleration", "put_DesiredAngularDeceleration", "get_DesiredExpansionDeceleration", "put_DesiredExpansionDeceleration", "get_InitialTimestamp", "put_InitialTimestamp", "Reset", "Process", "ProcessTime", "Complete", "CompleteTime"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IInertiaProcessor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Float} 
@@ -889,7 +946,7 @@ class IInertiaProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-process
      */
     Process() {
-        result := ComCall(48, this, "int*", &completed := 0, "HRESULT")
+        result := ComCall(48, this, BOOL.Ptr, &completed := 0, "HRESULT")
         return completed
     }
 
@@ -900,7 +957,7 @@ class IInertiaProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-processtime
      */
     ProcessTime(_timestamp) {
-        result := ComCall(49, this, "uint", _timestamp, "int*", &completed := 0, "HRESULT")
+        result := ComCall(49, this, "uint", _timestamp, BOOL.Ptr, &completed := 0, "HRESULT")
         return completed
     }
 
@@ -927,5 +984,121 @@ class IInertiaProcessor extends IUnknown {
     CompleteTime(_timestamp) {
         result := ComCall(51, this, "uint", _timestamp, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IInertiaProcessor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_InitialOriginX := CallbackCreate(GetMethod(implObj, "get_InitialOriginX"), flags, 2)
+        this.vtbl.put_InitialOriginX := CallbackCreate(GetMethod(implObj, "put_InitialOriginX"), flags, 2)
+        this.vtbl.get_InitialOriginY := CallbackCreate(GetMethod(implObj, "get_InitialOriginY"), flags, 2)
+        this.vtbl.put_InitialOriginY := CallbackCreate(GetMethod(implObj, "put_InitialOriginY"), flags, 2)
+        this.vtbl.get_InitialVelocityX := CallbackCreate(GetMethod(implObj, "get_InitialVelocityX"), flags, 2)
+        this.vtbl.put_InitialVelocityX := CallbackCreate(GetMethod(implObj, "put_InitialVelocityX"), flags, 2)
+        this.vtbl.get_InitialVelocityY := CallbackCreate(GetMethod(implObj, "get_InitialVelocityY"), flags, 2)
+        this.vtbl.put_InitialVelocityY := CallbackCreate(GetMethod(implObj, "put_InitialVelocityY"), flags, 2)
+        this.vtbl.get_InitialAngularVelocity := CallbackCreate(GetMethod(implObj, "get_InitialAngularVelocity"), flags, 2)
+        this.vtbl.put_InitialAngularVelocity := CallbackCreate(GetMethod(implObj, "put_InitialAngularVelocity"), flags, 2)
+        this.vtbl.get_InitialExpansionVelocity := CallbackCreate(GetMethod(implObj, "get_InitialExpansionVelocity"), flags, 2)
+        this.vtbl.put_InitialExpansionVelocity := CallbackCreate(GetMethod(implObj, "put_InitialExpansionVelocity"), flags, 2)
+        this.vtbl.get_InitialRadius := CallbackCreate(GetMethod(implObj, "get_InitialRadius"), flags, 2)
+        this.vtbl.put_InitialRadius := CallbackCreate(GetMethod(implObj, "put_InitialRadius"), flags, 2)
+        this.vtbl.get_BoundaryLeft := CallbackCreate(GetMethod(implObj, "get_BoundaryLeft"), flags, 2)
+        this.vtbl.put_BoundaryLeft := CallbackCreate(GetMethod(implObj, "put_BoundaryLeft"), flags, 2)
+        this.vtbl.get_BoundaryTop := CallbackCreate(GetMethod(implObj, "get_BoundaryTop"), flags, 2)
+        this.vtbl.put_BoundaryTop := CallbackCreate(GetMethod(implObj, "put_BoundaryTop"), flags, 2)
+        this.vtbl.get_BoundaryRight := CallbackCreate(GetMethod(implObj, "get_BoundaryRight"), flags, 2)
+        this.vtbl.put_BoundaryRight := CallbackCreate(GetMethod(implObj, "put_BoundaryRight"), flags, 2)
+        this.vtbl.get_BoundaryBottom := CallbackCreate(GetMethod(implObj, "get_BoundaryBottom"), flags, 2)
+        this.vtbl.put_BoundaryBottom := CallbackCreate(GetMethod(implObj, "put_BoundaryBottom"), flags, 2)
+        this.vtbl.get_ElasticMarginLeft := CallbackCreate(GetMethod(implObj, "get_ElasticMarginLeft"), flags, 2)
+        this.vtbl.put_ElasticMarginLeft := CallbackCreate(GetMethod(implObj, "put_ElasticMarginLeft"), flags, 2)
+        this.vtbl.get_ElasticMarginTop := CallbackCreate(GetMethod(implObj, "get_ElasticMarginTop"), flags, 2)
+        this.vtbl.put_ElasticMarginTop := CallbackCreate(GetMethod(implObj, "put_ElasticMarginTop"), flags, 2)
+        this.vtbl.get_ElasticMarginRight := CallbackCreate(GetMethod(implObj, "get_ElasticMarginRight"), flags, 2)
+        this.vtbl.put_ElasticMarginRight := CallbackCreate(GetMethod(implObj, "put_ElasticMarginRight"), flags, 2)
+        this.vtbl.get_ElasticMarginBottom := CallbackCreate(GetMethod(implObj, "get_ElasticMarginBottom"), flags, 2)
+        this.vtbl.put_ElasticMarginBottom := CallbackCreate(GetMethod(implObj, "put_ElasticMarginBottom"), flags, 2)
+        this.vtbl.get_DesiredDisplacement := CallbackCreate(GetMethod(implObj, "get_DesiredDisplacement"), flags, 2)
+        this.vtbl.put_DesiredDisplacement := CallbackCreate(GetMethod(implObj, "put_DesiredDisplacement"), flags, 2)
+        this.vtbl.get_DesiredRotation := CallbackCreate(GetMethod(implObj, "get_DesiredRotation"), flags, 2)
+        this.vtbl.put_DesiredRotation := CallbackCreate(GetMethod(implObj, "put_DesiredRotation"), flags, 2)
+        this.vtbl.get_DesiredExpansion := CallbackCreate(GetMethod(implObj, "get_DesiredExpansion"), flags, 2)
+        this.vtbl.put_DesiredExpansion := CallbackCreate(GetMethod(implObj, "put_DesiredExpansion"), flags, 2)
+        this.vtbl.get_DesiredDeceleration := CallbackCreate(GetMethod(implObj, "get_DesiredDeceleration"), flags, 2)
+        this.vtbl.put_DesiredDeceleration := CallbackCreate(GetMethod(implObj, "put_DesiredDeceleration"), flags, 2)
+        this.vtbl.get_DesiredAngularDeceleration := CallbackCreate(GetMethod(implObj, "get_DesiredAngularDeceleration"), flags, 2)
+        this.vtbl.put_DesiredAngularDeceleration := CallbackCreate(GetMethod(implObj, "put_DesiredAngularDeceleration"), flags, 2)
+        this.vtbl.get_DesiredExpansionDeceleration := CallbackCreate(GetMethod(implObj, "get_DesiredExpansionDeceleration"), flags, 2)
+        this.vtbl.put_DesiredExpansionDeceleration := CallbackCreate(GetMethod(implObj, "put_DesiredExpansionDeceleration"), flags, 2)
+        this.vtbl.get_InitialTimestamp := CallbackCreate(GetMethod(implObj, "get_InitialTimestamp"), flags, 2)
+        this.vtbl.put_InitialTimestamp := CallbackCreate(GetMethod(implObj, "put_InitialTimestamp"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Process := CallbackCreate(GetMethod(implObj, "Process"), flags, 2)
+        this.vtbl.ProcessTime := CallbackCreate(GetMethod(implObj, "ProcessTime"), flags, 3)
+        this.vtbl.Complete := CallbackCreate(GetMethod(implObj, "Complete"), flags, 1)
+        this.vtbl.CompleteTime := CallbackCreate(GetMethod(implObj, "CompleteTime"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_InitialOriginX)
+        CallbackFree(this.vtbl.put_InitialOriginX)
+        CallbackFree(this.vtbl.get_InitialOriginY)
+        CallbackFree(this.vtbl.put_InitialOriginY)
+        CallbackFree(this.vtbl.get_InitialVelocityX)
+        CallbackFree(this.vtbl.put_InitialVelocityX)
+        CallbackFree(this.vtbl.get_InitialVelocityY)
+        CallbackFree(this.vtbl.put_InitialVelocityY)
+        CallbackFree(this.vtbl.get_InitialAngularVelocity)
+        CallbackFree(this.vtbl.put_InitialAngularVelocity)
+        CallbackFree(this.vtbl.get_InitialExpansionVelocity)
+        CallbackFree(this.vtbl.put_InitialExpansionVelocity)
+        CallbackFree(this.vtbl.get_InitialRadius)
+        CallbackFree(this.vtbl.put_InitialRadius)
+        CallbackFree(this.vtbl.get_BoundaryLeft)
+        CallbackFree(this.vtbl.put_BoundaryLeft)
+        CallbackFree(this.vtbl.get_BoundaryTop)
+        CallbackFree(this.vtbl.put_BoundaryTop)
+        CallbackFree(this.vtbl.get_BoundaryRight)
+        CallbackFree(this.vtbl.put_BoundaryRight)
+        CallbackFree(this.vtbl.get_BoundaryBottom)
+        CallbackFree(this.vtbl.put_BoundaryBottom)
+        CallbackFree(this.vtbl.get_ElasticMarginLeft)
+        CallbackFree(this.vtbl.put_ElasticMarginLeft)
+        CallbackFree(this.vtbl.get_ElasticMarginTop)
+        CallbackFree(this.vtbl.put_ElasticMarginTop)
+        CallbackFree(this.vtbl.get_ElasticMarginRight)
+        CallbackFree(this.vtbl.put_ElasticMarginRight)
+        CallbackFree(this.vtbl.get_ElasticMarginBottom)
+        CallbackFree(this.vtbl.put_ElasticMarginBottom)
+        CallbackFree(this.vtbl.get_DesiredDisplacement)
+        CallbackFree(this.vtbl.put_DesiredDisplacement)
+        CallbackFree(this.vtbl.get_DesiredRotation)
+        CallbackFree(this.vtbl.put_DesiredRotation)
+        CallbackFree(this.vtbl.get_DesiredExpansion)
+        CallbackFree(this.vtbl.put_DesiredExpansion)
+        CallbackFree(this.vtbl.get_DesiredDeceleration)
+        CallbackFree(this.vtbl.put_DesiredDeceleration)
+        CallbackFree(this.vtbl.get_DesiredAngularDeceleration)
+        CallbackFree(this.vtbl.put_DesiredAngularDeceleration)
+        CallbackFree(this.vtbl.get_DesiredExpansionDeceleration)
+        CallbackFree(this.vtbl.put_DesiredExpansionDeceleration)
+        CallbackFree(this.vtbl.get_InitialTimestamp)
+        CallbackFree(this.vtbl.put_InitialTimestamp)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.Process)
+        CallbackFree(this.vtbl.ProcessTime)
+        CallbackFree(this.vtbl.Complete)
+        CallbackFree(this.vtbl.CompleteTime)
     }
 }

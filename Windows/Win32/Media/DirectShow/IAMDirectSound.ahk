@@ -1,35 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\Audio\DirectSound\IDirectSound.ahk
-#Include ..\Audio\DirectSound\IDirectSoundBuffer.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\Audio\DirectSound\IDirectSound.ahk" { IDirectSound }
+#Import "..\Audio\DirectSound\IDirectSoundBuffer.ahk" { IDirectSoundBuffer }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAMDirectSound interface specifies which window has focus for controlling DirectSound audio playback.
  * @see https://learn.microsoft.com/windows/win32/api/amaudio/nn-amaudio-iamdirectsound
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAMDirectSound extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAMDirectSound extends IUnknown {
     /**
      * The interface identifier for IAMDirectSound
      * @type {Guid}
      */
-    static IID => Guid("{546f4260-d53e-11cf-b3f0-00aa003761c5}")
+    static IID := Guid("{546f4260-d53e-11cf-b3f0-00aa003761c5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAMDirectSound interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDirectSoundInterface         : IntPtr
+        GetPrimaryBufferInterface       : IntPtr
+        GetSecondaryBufferInterface     : IntPtr
+        ReleaseDirectSoundInterface     : IntPtr
+        ReleasePrimaryBufferInterface   : IntPtr
+        ReleaseSecondaryBufferInterface : IntPtr
+        SetFocusWindow                  : IntPtr
+        GetFocusWindow                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDirectSoundInterface", "GetPrimaryBufferInterface", "GetSecondaryBufferInterface", "ReleaseDirectSoundInterface", "ReleasePrimaryBufferInterface", "ReleaseSecondaryBufferInterface", "SetFocusWindow", "GetFocusWindow"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAMDirectSound.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetDirectSoundInterface method is not implemented.
@@ -102,9 +119,7 @@ class IAMDirectSound extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/amaudio/nf-amaudio-iamdirectsound-setfocuswindow
      */
     SetFocusWindow(param0, param1) {
-        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
-
-        result := ComCall(9, this, "ptr", param0, "int", param1, "HRESULT")
+        result := ComCall(9, this, HWND, param0, BOOL, param1, "HRESULT")
         return result
     }
 
@@ -158,7 +173,41 @@ class IAMDirectSound extends IUnknown {
     GetFocusWindow(param0, param1) {
         param1Marshal := param1 is VarRef ? "int*" : "ptr"
 
-        result := ComCall(10, this, "ptr", param0, param1Marshal, param1, "HRESULT")
+        result := ComCall(10, this, HWND.Ptr, param0, param1Marshal, param1, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAMDirectSound.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDirectSoundInterface := CallbackCreate(GetMethod(implObj, "GetDirectSoundInterface"), flags, 2)
+        this.vtbl.GetPrimaryBufferInterface := CallbackCreate(GetMethod(implObj, "GetPrimaryBufferInterface"), flags, 2)
+        this.vtbl.GetSecondaryBufferInterface := CallbackCreate(GetMethod(implObj, "GetSecondaryBufferInterface"), flags, 2)
+        this.vtbl.ReleaseDirectSoundInterface := CallbackCreate(GetMethod(implObj, "ReleaseDirectSoundInterface"), flags, 2)
+        this.vtbl.ReleasePrimaryBufferInterface := CallbackCreate(GetMethod(implObj, "ReleasePrimaryBufferInterface"), flags, 2)
+        this.vtbl.ReleaseSecondaryBufferInterface := CallbackCreate(GetMethod(implObj, "ReleaseSecondaryBufferInterface"), flags, 2)
+        this.vtbl.SetFocusWindow := CallbackCreate(GetMethod(implObj, "SetFocusWindow"), flags, 3)
+        this.vtbl.GetFocusWindow := CallbackCreate(GetMethod(implObj, "GetFocusWindow"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDirectSoundInterface)
+        CallbackFree(this.vtbl.GetPrimaryBufferInterface)
+        CallbackFree(this.vtbl.GetSecondaryBufferInterface)
+        CallbackFree(this.vtbl.ReleaseDirectSoundInterface)
+        CallbackFree(this.vtbl.ReleasePrimaryBufferInterface)
+        CallbackFree(this.vtbl.ReleaseSecondaryBufferInterface)
+        CallbackFree(this.vtbl.SetFocusWindow)
+        CallbackFree(this.vtbl.GetFocusWindow)
     }
 }

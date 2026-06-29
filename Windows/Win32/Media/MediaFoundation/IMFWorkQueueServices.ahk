@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFAsyncCallback.ahk" { IMFAsyncCallback }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IMFAsyncResult.ahk" { IMFAsyncResult }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Controls the work queues created by the Media Session.
@@ -10,26 +14,44 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfworkqueueservices
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFWorkQueueServices extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFWorkQueueServices extends IUnknown {
     /**
      * The interface identifier for IMFWorkQueueServices
      * @type {Guid}
      */
-    static IID => Guid("{35fe1bb8-a3a9-40fe-bbec-eb569c9ccca3}")
+    static IID := Guid("{35fe1bb8-a3a9-40fe-bbec-eb569c9ccca3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFWorkQueueServices interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        BeginRegisterTopologyWorkQueuesWithMMCSS   : IntPtr
+        EndRegisterTopologyWorkQueuesWithMMCSS     : IntPtr
+        BeginUnregisterTopologyWorkQueuesWithMMCSS : IntPtr
+        EndUnregisterTopologyWorkQueuesWithMMCSS   : IntPtr
+        GetTopologyWorkQueueMMCSSClass             : IntPtr
+        GetTopologyWorkQueueMMCSSTaskId            : IntPtr
+        BeginRegisterPlatformWorkQueueWithMMCSS    : IntPtr
+        EndRegisterPlatformWorkQueueWithMMCSS      : IntPtr
+        BeginUnregisterPlatformWorkQueueWithMMCSS  : IntPtr
+        EndUnregisterPlatformWorkQueueWithMMCSS    : IntPtr
+        GetPlaftormWorkQueueMMCSSClass             : IntPtr
+        GetPlatformWorkQueueMMCSSTaskId            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["BeginRegisterTopologyWorkQueuesWithMMCSS", "EndRegisterTopologyWorkQueuesWithMMCSS", "BeginUnregisterTopologyWorkQueuesWithMMCSS", "EndUnregisterTopologyWorkQueuesWithMMCSS", "GetTopologyWorkQueueMMCSSClass", "GetTopologyWorkQueueMMCSSTaskId", "BeginRegisterPlatformWorkQueueWithMMCSS", "EndRegisterPlatformWorkQueueWithMMCSS", "BeginUnregisterPlatformWorkQueueWithMMCSS", "EndUnregisterPlatformWorkQueueWithMMCSS", "GetPlaftormWorkQueueMMCSSClass", "GetPlatformWorkQueueMMCSSTaskId"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFWorkQueueServices.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Registers the topology work queues with the Multimedia Class Scheduler Service (MMCSS).
@@ -387,5 +409,47 @@ class IMFWorkQueueServices extends IUnknown {
     GetPlatformWorkQueueMMCSSTaskId(dwPlatformWorkQueueId) {
         result := ComCall(14, this, "uint", dwPlatformWorkQueueId, "uint*", &pdwTaskId := 0, "HRESULT")
         return pdwTaskId
+    }
+
+    Query(iid) {
+        if (IMFWorkQueueServices.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.BeginRegisterTopologyWorkQueuesWithMMCSS := CallbackCreate(GetMethod(implObj, "BeginRegisterTopologyWorkQueuesWithMMCSS"), flags, 3)
+        this.vtbl.EndRegisterTopologyWorkQueuesWithMMCSS := CallbackCreate(GetMethod(implObj, "EndRegisterTopologyWorkQueuesWithMMCSS"), flags, 2)
+        this.vtbl.BeginUnregisterTopologyWorkQueuesWithMMCSS := CallbackCreate(GetMethod(implObj, "BeginUnregisterTopologyWorkQueuesWithMMCSS"), flags, 3)
+        this.vtbl.EndUnregisterTopologyWorkQueuesWithMMCSS := CallbackCreate(GetMethod(implObj, "EndUnregisterTopologyWorkQueuesWithMMCSS"), flags, 2)
+        this.vtbl.GetTopologyWorkQueueMMCSSClass := CallbackCreate(GetMethod(implObj, "GetTopologyWorkQueueMMCSSClass"), flags, 4)
+        this.vtbl.GetTopologyWorkQueueMMCSSTaskId := CallbackCreate(GetMethod(implObj, "GetTopologyWorkQueueMMCSSTaskId"), flags, 3)
+        this.vtbl.BeginRegisterPlatformWorkQueueWithMMCSS := CallbackCreate(GetMethod(implObj, "BeginRegisterPlatformWorkQueueWithMMCSS"), flags, 6)
+        this.vtbl.EndRegisterPlatformWorkQueueWithMMCSS := CallbackCreate(GetMethod(implObj, "EndRegisterPlatformWorkQueueWithMMCSS"), flags, 3)
+        this.vtbl.BeginUnregisterPlatformWorkQueueWithMMCSS := CallbackCreate(GetMethod(implObj, "BeginUnregisterPlatformWorkQueueWithMMCSS"), flags, 4)
+        this.vtbl.EndUnregisterPlatformWorkQueueWithMMCSS := CallbackCreate(GetMethod(implObj, "EndUnregisterPlatformWorkQueueWithMMCSS"), flags, 2)
+        this.vtbl.GetPlaftormWorkQueueMMCSSClass := CallbackCreate(GetMethod(implObj, "GetPlaftormWorkQueueMMCSSClass"), flags, 4)
+        this.vtbl.GetPlatformWorkQueueMMCSSTaskId := CallbackCreate(GetMethod(implObj, "GetPlatformWorkQueueMMCSSTaskId"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.BeginRegisterTopologyWorkQueuesWithMMCSS)
+        CallbackFree(this.vtbl.EndRegisterTopologyWorkQueuesWithMMCSS)
+        CallbackFree(this.vtbl.BeginUnregisterTopologyWorkQueuesWithMMCSS)
+        CallbackFree(this.vtbl.EndUnregisterTopologyWorkQueuesWithMMCSS)
+        CallbackFree(this.vtbl.GetTopologyWorkQueueMMCSSClass)
+        CallbackFree(this.vtbl.GetTopologyWorkQueueMMCSSTaskId)
+        CallbackFree(this.vtbl.BeginRegisterPlatformWorkQueueWithMMCSS)
+        CallbackFree(this.vtbl.EndRegisterPlatformWorkQueueWithMMCSS)
+        CallbackFree(this.vtbl.BeginUnregisterPlatformWorkQueueWithMMCSS)
+        CallbackFree(this.vtbl.EndUnregisterPlatformWorkQueueWithMMCSS)
+        CallbackFree(this.vtbl.GetPlaftormWorkQueueMMCSSClass)
+        CallbackFree(this.vtbl.GetPlatformWorkQueueMMCSSTaskId)
     }
 }

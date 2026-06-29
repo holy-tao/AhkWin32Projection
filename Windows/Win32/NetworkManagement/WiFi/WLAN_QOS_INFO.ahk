@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WLAN_QOS_CAPABILITIES.ahk
-#Include .\WLAN_CONNECTION_QOS_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WLAN_QOS_CAPABILITIES.ahk" { WLAN_QOS_CAPABILITIES }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\WLAN_CONNECTION_QOS_INFO.ahk" { WLAN_CONNECTION_QOS_INFO }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WLAN_QOS_INFO extends Win32Struct {
-    static sizeof => 52
+export default struct WLAN_QOS_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    interfaceCapabilities : WLAN_QOS_CAPABILITIES
 
-    /**
-     * @type {WLAN_QOS_CAPABILITIES}
-     */
-    interfaceCapabilities {
-        get {
-            if(!this.HasProp("__interfaceCapabilities"))
-                this.__interfaceCapabilities := WLAN_QOS_CAPABILITIES(0, this)
-            return this.__interfaceCapabilities
-        }
-    }
+    bConnected : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    bConnected {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    connectionQoSInfo : WLAN_CONNECTION_QOS_INFO
 
-    /**
-     * @type {WLAN_CONNECTION_QOS_INFO}
-     */
-    connectionQoSInfo {
-        get {
-            if(!this.HasProp("__connectionQoSInfo"))
-                this.__connectionQoSInfo := WLAN_CONNECTION_QOS_INFO(20, this)
-            return this.__connectionQoSInfo
-        }
-    }
 }

@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Retrieves the client SSL certificate.
@@ -13,26 +15,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nn-wsdbase-iwsdsslclientcertificate
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class IWSDSSLClientCertificate extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWSDSSLClientCertificate extends IUnknown {
     /**
      * The interface identifier for IWSDSSLClientCertificate
      * @type {Guid}
      */
-    static IID => Guid("{de105e87-a0da-418e-98ad-27b9eed87bdc}")
+    static IID := Guid("{de105e87-a0da-418e-98ad-27b9eed87bdc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWSDSSLClientCertificate interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetClientCertificate : IntPtr
+        GetMappedAccessToken : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetClientCertificate", "GetMappedAccessToken"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWSDSSLClientCertificate.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the client certificate.
@@ -52,8 +62,30 @@ class IWSDSSLClientCertificate extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdsslclientcertificate-getmappedaccesstoken
      */
     GetMappedAccessToken() {
-        phToken := HANDLE()
-        result := ComCall(4, this, "ptr", phToken, "HRESULT")
+        phToken := HANDLE.Owned()
+        result := ComCall(4, this, HANDLE.Ptr, phToken, "HRESULT")
         return phToken
+    }
+
+    Query(iid) {
+        if (IWSDSSLClientCertificate.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetClientCertificate := CallbackCreate(GetMethod(implObj, "GetClientCertificate"), flags, 2)
+        this.vtbl.GetMappedAccessToken := CallbackCreate(GetMethod(implObj, "GetMappedAccessToken"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetClientCertificate)
+        CallbackFree(this.vtbl.GetMappedAccessToken)
     }
 }

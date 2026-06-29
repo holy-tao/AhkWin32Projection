@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\WRDS_LISTENER_SETTINGS.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WRDS_LISTENER_SETTING_LEVEL.ahk" { WRDS_LISTENER_SETTING_LEVEL }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWRdsProtocolListenerCallback.ahk" { IWRdsProtocolListenerCallback }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WRDS_LISTENER_SETTINGS.ahk" { WRDS_LISTENER_SETTINGS }
 
 /**
  * Exposes methods that request that the protocol start and stop listening for client connection requests.
@@ -11,26 +14,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nn-wtsprotocol-iwrdsprotocollistener
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class IWRdsProtocolListener extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWRdsProtocolListener extends IUnknown {
     /**
      * The interface identifier for IWRdsProtocolListener
      * @type {Guid}
      */
-    static IID => Guid("{fcbc131b-c686-451d-a773-e279e230f540}")
+    static IID := Guid("{fcbc131b-c686-451d-a773-e279e230f540}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWRdsProtocolListener interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetSettings : IntPtr
+        StartListen : IntPtr
+        StopListen  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSettings", "StartListen", "StopListen"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWRdsProtocolListener.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the listener setting information for client connection requests.
@@ -40,7 +52,7 @@ class IWRdsProtocolListener extends IUnknown {
      */
     GetSettings(WRdsListenerSettingLevel) {
         pWRdsListenerSettings := WRDS_LISTENER_SETTINGS()
-        result := ComCall(3, this, "int", WRdsListenerSettingLevel, "ptr", pWRdsListenerSettings, "HRESULT")
+        result := ComCall(3, this, WRDS_LISTENER_SETTING_LEVEL, WRdsListenerSettingLevel, WRDS_LISTENER_SETTINGS.Ptr, pWRdsListenerSettings, "HRESULT")
         return pWRdsListenerSettings
     }
 
@@ -80,5 +92,29 @@ class IWRdsProtocolListener extends IUnknown {
     StopListen() {
         result := ComCall(5, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWRdsProtocolListener.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSettings := CallbackCreate(GetMethod(implObj, "GetSettings"), flags, 3)
+        this.vtbl.StartListen := CallbackCreate(GetMethod(implObj, "StartListen"), flags, 2)
+        this.vtbl.StopListen := CallbackCreate(GetMethod(implObj, "StopListen"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSettings)
+        CallbackFree(this.vtbl.StartListen)
+        CallbackFree(this.vtbl.StopListen)
     }
 }

@@ -1,34 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IDebugHostSymbol.ahk
-#Include ..\..\..\..\Foundation\BSTR.ahk
-#Include .\Location.ahk
-#Include .\IDebugHostType.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\Location.ahk" { Location }
+#Import "..\..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDebugHostSymbol.ahk" { IDebugHostSymbol }
+#Import ".\IDebugHostType.ahk" { IDebugHostType }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class IDebugHostModule extends IDebugHostSymbol {
-
-    static sizeof => A_PtrSize
+export default struct IDebugHostModule extends IDebugHostSymbol {
     /**
      * The interface identifier for IDebugHostModule
      * @type {Guid}
      */
-    static IID => Guid("{c9ba3e18-d070-4378-bbd0-34613b346e1e}")
+    static IID := Guid("{c9ba3e18-d070-4378-bbd0-34613b346e1e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 10
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDebugHostModule interfaces
+    */
+    struct Vtbl extends IDebugHostSymbol.Vtbl {
+        GetImageName     : IntPtr
+        GetBaseLocation  : IntPtr
+        GetVersion       : IntPtr
+        FindTypeByName   : IntPtr
+        FindSymbolByRVA  : IntPtr
+        FindSymbolByName : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetImageName", "GetBaseLocation", "GetVersion", "FindTypeByName", "FindSymbolByRVA", "FindSymbolByName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDebugHostModule.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -36,8 +50,8 @@ class IDebugHostModule extends IDebugHostSymbol {
      * @returns {BSTR} 
      */
     GetImageName(allowPath) {
-        imageName := BSTR()
-        result := ComCall(10, this, "char", allowPath, "ptr", imageName, "HRESULT")
+        imageName := BSTR.Owned()
+        result := ComCall(10, this, "char", allowPath, BSTR.Ptr, imageName, "HRESULT")
         return imageName
     }
 
@@ -47,7 +61,7 @@ class IDebugHostModule extends IDebugHostSymbol {
      */
     GetBaseLocation() {
         moduleBaseLocation := Location()
-        result := ComCall(11, this, "ptr", moduleBaseLocation, "HRESULT")
+        result := ComCall(11, this, Location.Ptr, moduleBaseLocation, "HRESULT")
         return moduleBaseLocation
     }
 
@@ -106,5 +120,35 @@ class IDebugHostModule extends IDebugHostSymbol {
 
         result := ComCall(15, this, "ptr", symbolName, "ptr*", &symbol := 0, "HRESULT")
         return IDebugHostSymbol(symbol)
+    }
+
+    Query(iid) {
+        if (IDebugHostModule.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetImageName := CallbackCreate(GetMethod(implObj, "GetImageName"), flags, 3)
+        this.vtbl.GetBaseLocation := CallbackCreate(GetMethod(implObj, "GetBaseLocation"), flags, 2)
+        this.vtbl.GetVersion := CallbackCreate(GetMethod(implObj, "GetVersion"), flags, 3)
+        this.vtbl.FindTypeByName := CallbackCreate(GetMethod(implObj, "FindTypeByName"), flags, 3)
+        this.vtbl.FindSymbolByRVA := CallbackCreate(GetMethod(implObj, "FindSymbolByRVA"), flags, 3)
+        this.vtbl.FindSymbolByName := CallbackCreate(GetMethod(implObj, "FindSymbolByName"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetImageName)
+        CallbackFree(this.vtbl.GetBaseLocation)
+        CallbackFree(this.vtbl.GetVersion)
+        CallbackFree(this.vtbl.FindTypeByName)
+        CallbackFree(this.vtbl.FindSymbolByRVA)
+        CallbackFree(this.vtbl.FindSymbolByName)
     }
 }

@@ -1,88 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSTIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\KSTIME.ahk" { KSTIME }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  * @architecture X64, Arm64
  */
-class KSSTREAM_HEADER extends Win32Struct {
-    static sizeof => 56
+export default struct KSSTREAM_HEADER {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    TypeSpecificFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TypeSpecificFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    PresentationTime : KSTIME
 
-    /**
-     * @type {KSTIME}
-     */
-    PresentationTime {
-        get {
-            if(!this.HasProp("__PresentationTime"))
-                this.__PresentationTime := KSTIME(8, this)
-            return this.__PresentationTime
-        }
-    }
+    Duration : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Duration {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    FrameExtent : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FrameExtent {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    DataUsed : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataUsed {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    Data : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Data {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    OptionsFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OptionsFlags {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
 }

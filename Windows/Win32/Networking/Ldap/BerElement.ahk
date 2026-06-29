@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * C++ class object that performs basic encoding rules (BER) encoding.
@@ -14,17 +14,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/winldap/ns-winldap-berelement
  * @namespace Windows.Win32.Networking.Ldap
  */
-class BerElement extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 8
+export default struct BerElement {
+    #StructPack 8
 
     /**
      * Pointer to an opaque buffer. Do not attempt to access it.
-     * @type {PSTR}
      */
-    opaque {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    opaque : PSTR
+
 }

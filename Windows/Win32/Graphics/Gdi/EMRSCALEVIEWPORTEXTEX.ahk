@@ -1,63 +1,38 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EMR.ahk
-#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EMR.ahk" { EMR }
+#Import ".\ENHANCED_METAFILE_RECORD_TYPE.ahk" { ENHANCED_METAFILE_RECORD_TYPE }
 
 /**
  * The EMRSCALEVIEWPORTEXTEX and EMRSCALEWINDOWEXTEX structures contain members for the ScaleViewportExtEx and ScaleWindowExtEx enhanced metafile records.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrscaleviewportextex
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class EMRSCALEVIEWPORTEXTEX extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct EMRSCALEVIEWPORTEXTEX {
+    #StructPack 4
 
     /**
      * Base structure for all record types.
-     * @type {EMR}
      */
-    emr {
-        get {
-            if(!this.HasProp("__emr"))
-                this.__emr := EMR(0, this)
-            return this.__emr
-        }
-    }
+    emr : EMR
 
     /**
      * Horizontal multiplicand.
-     * @type {Integer}
      */
-    xNum {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    xNum : Int32
 
     /**
      * Horizontal divisor.
-     * @type {Integer}
      */
-    xDenom {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    xDenom : Int32
 
     /**
      * Vertical multiplicand.
-     * @type {Integer}
      */
-    yNum {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    yNum : Int32
 
     /**
      * Vertical divisor.
-     * @type {Integer}
      */
-    yDenom {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    yDenom : Int32
+
 }

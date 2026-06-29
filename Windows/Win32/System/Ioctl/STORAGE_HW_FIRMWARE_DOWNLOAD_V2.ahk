@@ -1,97 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_HW_FIRMWARE_DOWNLOAD_V2 extends Win32Struct {
-    static sizeof => 48
+export default struct STORAGE_HW_FIRMWARE_DOWNLOAD_V2 {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Slot : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Slot {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    Reserved : Int8[3]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 13, 3, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    Offset : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Offset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    BufferSize : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BufferSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ImageSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ImageSize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Reserved2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved2 {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    ImageBuffer : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ImageBuffer {
-        get {
-            if(!this.HasProp("__ImageBufferProxyArray"))
-                this.__ImageBufferProxyArray := Win32FixedArray(this.ptr + 40, 1, Primitive, "char")
-            return this.__ImageBufferProxyArray
-        }
-    }
 }

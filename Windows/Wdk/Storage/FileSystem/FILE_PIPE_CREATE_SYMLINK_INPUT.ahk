@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class FILE_PIPE_CREATE_SYMLINK_INPUT extends Win32Struct {
-    static sizeof => 12
+export default struct FILE_PIPE_CREATE_SYMLINK_INPUT {
+    #StructPack 4
 
-    static packingSize => 4
+    NameOffset : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NameOffset {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    NameLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    NameLength {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    SubstituteNameOffset : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    SubstituteNameOffset {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    SubstituteNameLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    SubstituteNameLength {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

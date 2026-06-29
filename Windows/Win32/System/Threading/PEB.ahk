@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PEB_LDR_DATA.ahk
-#Include .\RTL_USER_PROCESS_PARAMETERS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RTL_USER_PROCESS_PARAMETERS.ahk" { RTL_USER_PROCESS_PARAMETERS }
+#Import ".\PEB_LDR_DATA.ahk" { PEB_LDR_DATA }
 
 /**
  * Contains process information.
@@ -25,196 +24,81 @@
  * @see https://learn.microsoft.com/windows/win32/api/winternl/ns-winternl-peb
  * @namespace Windows.Win32.System.Threading
  */
-class PEB extends Win32Struct {
-    static sizeof => 712
-
-    static packingSize => 8
+export default struct PEB {
+    #StructPack 8
 
     /**
      * Reserved for internal use by the operating system.
-     * @type {Array<Integer>}
      */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    Reserved1 : Int8[2]
 
     /**
      * Indicates whether the specified process is currently being debugged. The <b>PEB</b> structure, however, is an internal operating-system structure whose layout may change in the future. It is best to use the <a href="https://docs.microsoft.com/windows/desktop/api/debugapi/nf-debugapi-checkremotedebuggerpresent">CheckRemoteDebuggerPresent</a> function instead.
-     * @type {Integer}
      */
-    BeingDebugged {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    BeingDebugged : Int8
 
     /**
      * Reserved for internal use by the operating system.
-     * @type {Array<Integer>}
      */
-    Reserved2 {
-        get {
-            if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 3, 1, Primitive, "char")
-            return this.__Reserved2ProxyArray
-        }
-    }
+    Reserved2 : Int8[1]
 
     /**
      * Reserved for internal use by the operating system.
-     * @type {Array<Pointer<Void>>}
      */
-    Reserved3 {
-        get {
-            if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "ptr")
-            return this.__Reserved3ProxyArray
-        }
-    }
+    Reserved3 : IntPtr[2]
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winternl/ns-winternl-peb_ldr_data">PEB_LDR_DATA</a> structure that contains information about the loaded modules for the process.
-     * @type {Pointer<PEB_LDR_DATA>}
      */
-    Ldr {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Ldr : PEB_LDR_DATA.Ptr
 
     /**
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winternl/ns-winternl-rtl_user_process_parameters">RTL_USER_PROCESS_PARAMETERS</a> structure that contains process parameter information such as the command line.
-     * @type {Pointer<RTL_USER_PROCESS_PARAMETERS>}
      */
-    ProcessParameters {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    ProcessParameters : RTL_USER_PROCESS_PARAMETERS.Ptr
 
     /**
      * Reserved for internal use by the operating system.
-     * @type {Array<Pointer<Void>>}
      */
-    Reserved4 {
-        get {
-            if(!this.HasProp("__Reserved4ProxyArray"))
-                this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 40, 3, Primitive, "ptr")
-            return this.__Reserved4ProxyArray
-        }
-    }
+    Reserved4 : IntPtr[3]
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    AtlThunkSListPtr {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    AtlThunkSListPtr : IntPtr
 
     /**
      * Reserved for internal use by the operating system.
-     * @type {Pointer<Void>}
      */
-    Reserved5 {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    Reserved5 : IntPtr
 
     /**
      * Reserved for internal use by the operating system.
-     * @type {Integer}
      */
-    Reserved6 {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    Reserved6 : UInt32
 
     /**
      * Reserved for internal use by the operating system.
-     * @type {Pointer<Void>}
      */
-    Reserved7 {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    Reserved7 : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    Reserved8 {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    Reserved8 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    AtlThunkSListPtr32 {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
+    AtlThunkSListPtr32 : UInt32
 
-    /**
-     * @type {Array<Pointer<Void>>}
-     */
-    Reserved9 {
-        get {
-            if(!this.HasProp("__Reserved9ProxyArray"))
-                this.__Reserved9ProxyArray := Win32FixedArray(this.ptr + 104, 45, Primitive, "ptr")
-            return this.__Reserved9ProxyArray
-        }
-    }
+    Reserved9 : IntPtr[45]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved10 {
-        get {
-            if(!this.HasProp("__Reserved10ProxyArray"))
-                this.__Reserved10ProxyArray := Win32FixedArray(this.ptr + 464, 96, Primitive, "char")
-            return this.__Reserved10ProxyArray
-        }
-    }
+    Reserved10 : Int8[96]
 
     /**
      * Not supported.
-     * @type {Pointer<PPS_POST_PROCESS_INIT_ROUTINE>}
      */
-    PostProcessInitRoutine {
-        get => NumGet(this, 560, "ptr")
-        set => NumPut("ptr", value, this, 560)
-    }
+    PostProcessInitRoutine : IntPtr
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved11 {
-        get {
-            if(!this.HasProp("__Reserved11ProxyArray"))
-                this.__Reserved11ProxyArray := Win32FixedArray(this.ptr + 568, 128, Primitive, "char")
-            return this.__Reserved11ProxyArray
-        }
-    }
+    Reserved11 : Int8[128]
 
-    /**
-     * @type {Array<Pointer<Void>>}
-     */
-    Reserved12 {
-        get {
-            if(!this.HasProp("__Reserved12ProxyArray"))
-                this.__Reserved12ProxyArray := Win32FixedArray(this.ptr + 696, 1, Primitive, "ptr")
-            return this.__Reserved12ProxyArray
-        }
-    }
+    Reserved12 : IntPtr[1]
 
     /**
      * The Terminal Services session identifier associated with the current process.
-     * @type {Integer}
      */
-    SessionId {
-        get => NumGet(this, 704, "uint")
-        set => NumPut("uint", value, this, 704)
-    }
+    SessionId : UInt32
+
 }

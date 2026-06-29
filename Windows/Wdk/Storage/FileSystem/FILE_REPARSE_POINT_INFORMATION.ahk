@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class FILE_REPARSE_POINT_INFORMATION extends Win32Struct {
-    static sizeof => 16
+export default struct FILE_REPARSE_POINT_INFORMATION {
+    #StructPack 8
 
-    static packingSize => 8
+    FileReference : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FileReference {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
-    }
+    Tag : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Tag {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

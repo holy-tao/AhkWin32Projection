@@ -1,33 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\RESULTDATAITEM.ahk" { RESULTDATAITEM }
+#Import ".\MMC_RESULT_VIEW_STYLE.ahk" { MMC_RESULT_VIEW_STYLE }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IResultData interface enables a user to add, remove, find, and modify items associated with the result view pane. It also enables the manipulation of the view style of the result view pane.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-iresultdata
  * @namespace Windows.Win32.System.Mmc
  */
-class IResultData extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IResultData extends IUnknown {
     /**
      * The interface identifier for IResultData
      * @type {Guid}
      */
-    static IID => Guid("{31da5fa0-e0eb-11cf-9f21-00aa003ca9f6}")
+    static IID := Guid("{31da5fa0-e0eb-11cf-9f21-00aa003ca9f6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IResultData interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        InsertItem         : IntPtr
+        DeleteItem         : IntPtr
+        FindItemByLParam   : IntPtr
+        DeleteAllRsltItems : IntPtr
+        SetItem            : IntPtr
+        GetItem            : IntPtr
+        GetNextItem        : IntPtr
+        ModifyItemState    : IntPtr
+        ModifyViewStyle    : IntPtr
+        SetViewMode        : IntPtr
+        GetViewMode        : IntPtr
+        UpdateItem         : IntPtr
+        Sort               : IntPtr
+        SetDescBarText     : IntPtr
+        SetItemCount       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InsertItem", "DeleteItem", "FindItemByLParam", "DeleteAllRsltItems", "SetItem", "GetItem", "GetNextItem", "ModifyItemState", "ModifyViewStyle", "SetViewMode", "GetViewMode", "UpdateItem", "Sort", "SetDescBarText", "SetItemCount"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IResultData.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IResultData::InsertItem method enables the snap-in to add a single new item to the result pane view.
@@ -55,7 +81,7 @@ class IResultData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iresultdata-insertitem
      */
     InsertItem(item) {
-        result := ComCall(3, this, "ptr", item, "HRESULT")
+        result := ComCall(3, this, RESULTDATAITEM.Ptr, item, "HRESULT")
         return result
     }
 
@@ -84,7 +110,7 @@ class IResultData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iresultdata-finditembylparam
      */
     FindItemByLParam(_lParam) {
-        result := ComCall(5, this, "ptr", _lParam, "ptr*", &pItemID := 0, "HRESULT")
+        result := ComCall(5, this, LPARAM, _lParam, "ptr*", &pItemID := 0, "HRESULT")
         return pItemID
     }
 
@@ -114,7 +140,7 @@ class IResultData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iresultdata-setitem
      */
     SetItem(item) {
-        result := ComCall(7, this, "ptr", item, "HRESULT")
+        result := ComCall(7, this, RESULTDATAITEM.Ptr, item, "HRESULT")
         return result
     }
 
@@ -133,7 +159,7 @@ class IResultData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iresultdata-getitem
      */
     GetItem(item) {
-        result := ComCall(8, this, "ptr", item, "HRESULT")
+        result := ComCall(8, this, RESULTDATAITEM.Ptr, item, "HRESULT")
         return result
     }
 
@@ -149,7 +175,7 @@ class IResultData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iresultdata-getnextitem
      */
     GetNextItem(item) {
-        result := ComCall(9, this, "ptr", item, "HRESULT")
+        result := ComCall(9, this, RESULTDATAITEM.Ptr, item, "HRESULT")
         return result
     }
 
@@ -178,7 +204,7 @@ class IResultData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iresultdata-modifyviewstyle
      */
     ModifyViewStyle(add, remove) {
-        result := ComCall(11, this, "int", add, "int", remove, "HRESULT")
+        result := ComCall(11, this, MMC_RESULT_VIEW_STYLE, add, MMC_RESULT_VIEW_STYLE, remove, "HRESULT")
         return result
     }
 
@@ -239,7 +265,7 @@ class IResultData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iresultdata-sort
      */
     Sort(nColumn, dwSortOptions, lUserParam) {
-        result := ComCall(15, this, "int", nColumn, "uint", dwSortOptions, "ptr", lUserParam, "HRESULT")
+        result := ComCall(15, this, "int", nColumn, "uint", dwSortOptions, LPARAM, lUserParam, "HRESULT")
         return result
     }
 
@@ -278,5 +304,53 @@ class IResultData extends IUnknown {
     SetItemCount(nItemCount, dwOptions) {
         result := ComCall(17, this, "int", nItemCount, "uint", dwOptions, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IResultData.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InsertItem := CallbackCreate(GetMethod(implObj, "InsertItem"), flags, 2)
+        this.vtbl.DeleteItem := CallbackCreate(GetMethod(implObj, "DeleteItem"), flags, 3)
+        this.vtbl.FindItemByLParam := CallbackCreate(GetMethod(implObj, "FindItemByLParam"), flags, 3)
+        this.vtbl.DeleteAllRsltItems := CallbackCreate(GetMethod(implObj, "DeleteAllRsltItems"), flags, 1)
+        this.vtbl.SetItem := CallbackCreate(GetMethod(implObj, "SetItem"), flags, 2)
+        this.vtbl.GetItem := CallbackCreate(GetMethod(implObj, "GetItem"), flags, 2)
+        this.vtbl.GetNextItem := CallbackCreate(GetMethod(implObj, "GetNextItem"), flags, 2)
+        this.vtbl.ModifyItemState := CallbackCreate(GetMethod(implObj, "ModifyItemState"), flags, 5)
+        this.vtbl.ModifyViewStyle := CallbackCreate(GetMethod(implObj, "ModifyViewStyle"), flags, 3)
+        this.vtbl.SetViewMode := CallbackCreate(GetMethod(implObj, "SetViewMode"), flags, 2)
+        this.vtbl.GetViewMode := CallbackCreate(GetMethod(implObj, "GetViewMode"), flags, 2)
+        this.vtbl.UpdateItem := CallbackCreate(GetMethod(implObj, "UpdateItem"), flags, 2)
+        this.vtbl.Sort := CallbackCreate(GetMethod(implObj, "Sort"), flags, 4)
+        this.vtbl.SetDescBarText := CallbackCreate(GetMethod(implObj, "SetDescBarText"), flags, 2)
+        this.vtbl.SetItemCount := CallbackCreate(GetMethod(implObj, "SetItemCount"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InsertItem)
+        CallbackFree(this.vtbl.DeleteItem)
+        CallbackFree(this.vtbl.FindItemByLParam)
+        CallbackFree(this.vtbl.DeleteAllRsltItems)
+        CallbackFree(this.vtbl.SetItem)
+        CallbackFree(this.vtbl.GetItem)
+        CallbackFree(this.vtbl.GetNextItem)
+        CallbackFree(this.vtbl.ModifyItemState)
+        CallbackFree(this.vtbl.ModifyViewStyle)
+        CallbackFree(this.vtbl.SetViewMode)
+        CallbackFree(this.vtbl.GetViewMode)
+        CallbackFree(this.vtbl.UpdateItem)
+        CallbackFree(this.vtbl.Sort)
+        CallbackFree(this.vtbl.SetDescBarText)
+        CallbackFree(this.vtbl.SetItemCount)
     }
 }

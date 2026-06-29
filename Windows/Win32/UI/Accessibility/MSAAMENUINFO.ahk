@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * Used by server developers to expose the names of owner-drawn menu items.
@@ -12,41 +12,28 @@
  * @see https://learn.microsoft.com/windows/win32/api/oleacc/ns-oleacc-msaamenuinfo
  * @namespace Windows.Win32.UI.Accessibility
  */
-class MSAAMENUINFO extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct MSAAMENUINFO {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Must be MSAA_MENU_SIG, which is defined in oleacc.h.
-     * @type {Integer}
      */
-    dwMSAASignature {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwMSAASignature : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Length, in characters, of the text for the menu item, <b>not including</b> the Unicode null-terminated character.
-     * @type {Integer}
      */
-    cchWText {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cchWText : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a></b>
      * 
      * The text of the menu item, in Unicode, <b>including</b> the Unicode null-terminated character.
-     * @type {PWSTR}
      */
-    pszWText {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszWText : PWSTR
+
 }

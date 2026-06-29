@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\PACKAGE_VERSION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PACKAGE_VERSION.ahk" { PACKAGE_VERSION }
 
 /**
  * Represents package identification information, such as name, version, and publisher.
@@ -10,21 +10,15 @@
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @architecture X64, Arm64
  */
-class PACKAGE_ID extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct PACKAGE_ID {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT32</a></b>
      * 
      * Reserved; do not use.
-     * @type {Integer}
      */
-    reserved {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    reserved : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT32</a></b>
@@ -38,68 +32,42 @@ class PACKAGE_ID extends Win32Struct {
      * * PROCESSOR_ARCHITECTURE_IA32_ON_ARM64
      * * PROCESSOR_ARCHITECTURE_NEUTRAL
      * * PROCESSOR_ARCHITECTURE_UNKNOWN
-     * @type {Integer}
      */
-    processorArchitecture {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    processorArchitecture : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ns-appmodel-package_version">PACKAGE_VERSION</a></b>
      * 
      * The version of the package.
-     * @type {PACKAGE_VERSION}
      */
-    version {
-        get {
-            if(!this.HasProp("__version"))
-                this.__version := PACKAGE_VERSION(8, this)
-            return this.__version
-        }
-    }
+    version : PACKAGE_VERSION
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
      * 
      * The name of the package.
-     * @type {PWSTR}
      */
-    name {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    name : PWSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
      * 
      * The publisher of the package. If there is no publisher for the package, this member is <b>NULL</b>.
-     * @type {PWSTR}
      */
-    publisher {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    publisher : PWSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
      * 
      * The resource identifier (ID) of the package. If there is no resource ID for the package, this member is <b>NULL</b>.
-     * @type {PWSTR}
      */
-    resourceId {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    resourceId : PWSTR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
      * 
      * The publisher identifier (ID) of the package. If there is no publisher ID for the package, this member is <b>NULL</b>.
-     * @type {PWSTR}
      */
-    publisherId {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    publisherId : PWSTR
+
 }

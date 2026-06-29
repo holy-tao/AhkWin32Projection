@@ -1,8 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Provides access to properties on an ADSI security descriptor object.
@@ -13,26 +15,53 @@
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadssecuritydescriptor
  * @namespace Windows.Win32.Networking.ActiveDirectory
  */
-class IADsSecurityDescriptor extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IADsSecurityDescriptor extends IDispatch {
     /**
      * The interface identifier for IADsSecurityDescriptor
      * @type {Guid}
      */
-    static IID => Guid("{b8c787ca-9bdd-11d0-852c-00c04fd8d503}")
+    static IID := Guid("{b8c787ca-9bdd-11d0-852c-00c04fd8d503}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IADsSecurityDescriptor interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Revision           : IntPtr
+        put_Revision           : IntPtr
+        get_Control            : IntPtr
+        put_Control            : IntPtr
+        get_Owner              : IntPtr
+        put_Owner              : IntPtr
+        get_OwnerDefaulted     : IntPtr
+        put_OwnerDefaulted     : IntPtr
+        get_Group              : IntPtr
+        put_Group              : IntPtr
+        get_GroupDefaulted     : IntPtr
+        put_GroupDefaulted     : IntPtr
+        get_DiscretionaryAcl   : IntPtr
+        put_DiscretionaryAcl   : IntPtr
+        get_DaclDefaulted      : IntPtr
+        put_DaclDefaulted      : IntPtr
+        get_SystemAcl          : IntPtr
+        put_SystemAcl          : IntPtr
+        get_SaclDefaulted      : IntPtr
+        put_SaclDefaulted      : IntPtr
+        CopySecurityDescriptor : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Revision", "put_Revision", "get_Control", "put_Control", "get_Owner", "put_Owner", "get_OwnerDefaulted", "put_OwnerDefaulted", "get_Group", "put_Group", "get_GroupDefaulted", "put_GroupDefaulted", "get_DiscretionaryAcl", "put_DiscretionaryAcl", "get_DaclDefaulted", "put_DaclDefaulted", "get_SystemAcl", "put_SystemAcl", "get_SaclDefaulted", "put_SaclDefaulted", "CopySecurityDescriptor"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IADsSecurityDescriptor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -157,8 +186,8 @@ class IADsSecurityDescriptor extends IDispatch {
      * @returns {BSTR} 
      */
     get_Owner() {
-        retval := BSTR()
-        result := ComCall(11, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -170,7 +199,7 @@ class IADsSecurityDescriptor extends IDispatch {
     put_Owner(bstrOwner) {
         bstrOwner := bstrOwner is String ? BSTR.Alloc(bstrOwner).Value : bstrOwner
 
-        result := ComCall(12, this, "ptr", bstrOwner, "HRESULT")
+        result := ComCall(12, this, BSTR, bstrOwner, "HRESULT")
         return result
     }
 
@@ -179,7 +208,7 @@ class IADsSecurityDescriptor extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_OwnerDefaulted() {
-        result := ComCall(13, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -189,7 +218,7 @@ class IADsSecurityDescriptor extends IDispatch {
      * @returns {HRESULT} 
      */
     put_OwnerDefaulted(fOwnerDefaulted) {
-        result := ComCall(14, this, "short", fOwnerDefaulted, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL, fOwnerDefaulted, "HRESULT")
         return result
     }
 
@@ -198,8 +227,8 @@ class IADsSecurityDescriptor extends IDispatch {
      * @returns {BSTR} 
      */
     get_Group() {
-        retval := BSTR()
-        result := ComCall(15, this, "ptr", retval, "HRESULT")
+        retval := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, retval, "HRESULT")
         return retval
     }
 
@@ -211,7 +240,7 @@ class IADsSecurityDescriptor extends IDispatch {
     put_Group(bstrGroup) {
         bstrGroup := bstrGroup is String ? BSTR.Alloc(bstrGroup).Value : bstrGroup
 
-        result := ComCall(16, this, "ptr", bstrGroup, "HRESULT")
+        result := ComCall(16, this, BSTR, bstrGroup, "HRESULT")
         return result
     }
 
@@ -220,7 +249,7 @@ class IADsSecurityDescriptor extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_GroupDefaulted() {
-        result := ComCall(17, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(17, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -230,7 +259,7 @@ class IADsSecurityDescriptor extends IDispatch {
      * @returns {HRESULT} 
      */
     put_GroupDefaulted(fGroupDefaulted) {
-        result := ComCall(18, this, "short", fGroupDefaulted, "HRESULT")
+        result := ComCall(18, this, VARIANT_BOOL, fGroupDefaulted, "HRESULT")
         return result
     }
 
@@ -258,7 +287,7 @@ class IADsSecurityDescriptor extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_DaclDefaulted() {
-        result := ComCall(21, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(21, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -268,7 +297,7 @@ class IADsSecurityDescriptor extends IDispatch {
      * @returns {HRESULT} 
      */
     put_DaclDefaulted(fDaclDefaulted) {
-        result := ComCall(22, this, "short", fDaclDefaulted, "HRESULT")
+        result := ComCall(22, this, VARIANT_BOOL, fDaclDefaulted, "HRESULT")
         return result
     }
 
@@ -296,7 +325,7 @@ class IADsSecurityDescriptor extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_SaclDefaulted() {
-        result := ComCall(25, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(25, this, VARIANT_BOOL.Ptr, &retval := 0, "HRESULT")
         return retval
     }
 
@@ -306,7 +335,7 @@ class IADsSecurityDescriptor extends IDispatch {
      * @returns {HRESULT} 
      */
     put_SaclDefaulted(fSaclDefaulted) {
-        result := ComCall(26, this, "short", fSaclDefaulted, "HRESULT")
+        result := ComCall(26, this, VARIANT_BOOL, fSaclDefaulted, "HRESULT")
         return result
     }
 
@@ -318,5 +347,65 @@ class IADsSecurityDescriptor extends IDispatch {
     CopySecurityDescriptor() {
         result := ComCall(27, this, "ptr*", &ppSecurityDescriptor := 0, "HRESULT")
         return IDispatch(ppSecurityDescriptor)
+    }
+
+    Query(iid) {
+        if (IADsSecurityDescriptor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Revision := CallbackCreate(GetMethod(implObj, "get_Revision"), flags, 2)
+        this.vtbl.put_Revision := CallbackCreate(GetMethod(implObj, "put_Revision"), flags, 2)
+        this.vtbl.get_Control := CallbackCreate(GetMethod(implObj, "get_Control"), flags, 2)
+        this.vtbl.put_Control := CallbackCreate(GetMethod(implObj, "put_Control"), flags, 2)
+        this.vtbl.get_Owner := CallbackCreate(GetMethod(implObj, "get_Owner"), flags, 2)
+        this.vtbl.put_Owner := CallbackCreate(GetMethod(implObj, "put_Owner"), flags, 2)
+        this.vtbl.get_OwnerDefaulted := CallbackCreate(GetMethod(implObj, "get_OwnerDefaulted"), flags, 2)
+        this.vtbl.put_OwnerDefaulted := CallbackCreate(GetMethod(implObj, "put_OwnerDefaulted"), flags, 2)
+        this.vtbl.get_Group := CallbackCreate(GetMethod(implObj, "get_Group"), flags, 2)
+        this.vtbl.put_Group := CallbackCreate(GetMethod(implObj, "put_Group"), flags, 2)
+        this.vtbl.get_GroupDefaulted := CallbackCreate(GetMethod(implObj, "get_GroupDefaulted"), flags, 2)
+        this.vtbl.put_GroupDefaulted := CallbackCreate(GetMethod(implObj, "put_GroupDefaulted"), flags, 2)
+        this.vtbl.get_DiscretionaryAcl := CallbackCreate(GetMethod(implObj, "get_DiscretionaryAcl"), flags, 2)
+        this.vtbl.put_DiscretionaryAcl := CallbackCreate(GetMethod(implObj, "put_DiscretionaryAcl"), flags, 2)
+        this.vtbl.get_DaclDefaulted := CallbackCreate(GetMethod(implObj, "get_DaclDefaulted"), flags, 2)
+        this.vtbl.put_DaclDefaulted := CallbackCreate(GetMethod(implObj, "put_DaclDefaulted"), flags, 2)
+        this.vtbl.get_SystemAcl := CallbackCreate(GetMethod(implObj, "get_SystemAcl"), flags, 2)
+        this.vtbl.put_SystemAcl := CallbackCreate(GetMethod(implObj, "put_SystemAcl"), flags, 2)
+        this.vtbl.get_SaclDefaulted := CallbackCreate(GetMethod(implObj, "get_SaclDefaulted"), flags, 2)
+        this.vtbl.put_SaclDefaulted := CallbackCreate(GetMethod(implObj, "put_SaclDefaulted"), flags, 2)
+        this.vtbl.CopySecurityDescriptor := CallbackCreate(GetMethod(implObj, "CopySecurityDescriptor"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Revision)
+        CallbackFree(this.vtbl.put_Revision)
+        CallbackFree(this.vtbl.get_Control)
+        CallbackFree(this.vtbl.put_Control)
+        CallbackFree(this.vtbl.get_Owner)
+        CallbackFree(this.vtbl.put_Owner)
+        CallbackFree(this.vtbl.get_OwnerDefaulted)
+        CallbackFree(this.vtbl.put_OwnerDefaulted)
+        CallbackFree(this.vtbl.get_Group)
+        CallbackFree(this.vtbl.put_Group)
+        CallbackFree(this.vtbl.get_GroupDefaulted)
+        CallbackFree(this.vtbl.put_GroupDefaulted)
+        CallbackFree(this.vtbl.get_DiscretionaryAcl)
+        CallbackFree(this.vtbl.put_DiscretionaryAcl)
+        CallbackFree(this.vtbl.get_DaclDefaulted)
+        CallbackFree(this.vtbl.put_DaclDefaulted)
+        CallbackFree(this.vtbl.get_SystemAcl)
+        CallbackFree(this.vtbl.put_SystemAcl)
+        CallbackFree(this.vtbl.get_SaclDefaulted)
+        CallbackFree(this.vtbl.put_SaclDefaulted)
+        CallbackFree(this.vtbl.CopySecurityDescriptor)
     }
 }

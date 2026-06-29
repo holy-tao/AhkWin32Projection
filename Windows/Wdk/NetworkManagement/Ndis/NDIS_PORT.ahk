@@ -1,52 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_PORT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class NDIS_PORT extends Win32Struct {
-    static sizeof => 40
+export default struct NDIS_PORT {
+    #StructPack 8
 
-    static packingSize => 8
+    Next : NDIS_PORT.Ptr
 
-    /**
-     * @type {Pointer<NDIS_PORT>}
-     */
-    Next {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    NdisReserved : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    NdisReserved {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    MiniportReserved : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    MiniportReserved {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    ProtocolReserved : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    ProtocolReserved {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    PortCharacteristics : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    PortCharacteristics {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
 }

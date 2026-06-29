@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WLAN_CONNECTION_MODE.ahk
-#Include .\DOT11_SSID.ahk
-#Include .\DOT11_BSS_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WLAN_CONNECTION_MODE.ahk" { WLAN_CONNECTION_MODE }
+#Import ".\DOT11_BSS_TYPE.ahk" { DOT11_BSS_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DOT11_SSID.ahk" { DOT11_SSID }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains information about media specific module (MSM) connection related notifications.
@@ -17,97 +18,54 @@
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_msm_notification_data
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class WLAN_MSM_NOTIFICATION_DATA extends Win32Struct {
-    static sizeof => 580
-
-    static packingSize => 4
+export default struct WLAN_MSM_NOTIFICATION_DATA {
+    #StructPack 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_connection_mode">WLAN_CONNECTION_MODE</a> value that specifies the mode of the connection.
-     * @type {WLAN_CONNECTION_MODE}
      */
-    wlanConnectionMode {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    wlanConnectionMode : WLAN_CONNECTION_MODE
 
     /**
      * The name of the profile used for the connection. WLAN_MAX_NAME_LENGTH is 256. Profile names are case-sensitive. This string must be NULL-terminated.
-     * @type {String}
      */
-    strProfileName {
-        get => StrGet(this.ptr + 4, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 255, "UTF-16")
-    }
+    strProfileName : WCHAR[256]
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-ssid">DOT11_SSID</a> structure that contains the SSID of the association.
-     * @type {DOT11_SSID}
      */
-    dot11Ssid {
-        get {
-            if(!this.HasProp("__dot11Ssid"))
-                this.__dot11Ssid := DOT11_SSID(516, this)
-            return this.__dot11Ssid
-        }
-    }
+    dot11Ssid : DOT11_SSID
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-bss-type">DOT11_BSS_TYPE</a> value that indicates the BSS network type.
-     * @type {DOT11_BSS_TYPE}
      */
-    dot11BssType {
-        get => NumGet(this, 552, "int")
-        set => NumPut("int", value, this, 552)
-    }
+    dot11BssType : DOT11_BSS_TYPE
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-mac-address-type">DOT11_MAC_ADDRESS</a> that specifies the MAC address of the peer or access point.
-     * @type {Array<Integer>}
      */
-    dot11MacAddr {
-        get {
-            if(!this.HasProp("__dot11MacAddrProxyArray"))
-                this.__dot11MacAddrProxyArray := Win32FixedArray(this.ptr + 556, 6, Primitive, "char")
-            return this.__dot11MacAddrProxyArray
-        }
-    }
+    dot11MacAddr : Int8[6]
 
     /**
      * Indicates whether security is enabled for this connection.  If <b>TRUE</b>, security is enabled.
-     * @type {BOOL}
      */
-    bSecurityEnabled {
-        get => NumGet(this, 564, "int")
-        set => NumPut("int", value, this, 564)
-    }
+    bSecurityEnabled : BOOL
 
     /**
      * Indicates whether the peer is the first to join the ad hoc network created by the machine. If <b>TRUE</b>, the peer is the first to join.
      * 
      * After the first peer joins the network, the interface state of the machine that created the ad hoc network changes from wlan_interface_state_ad_hoc_network_formed to wlan_interface_state_connected.
-     * @type {BOOL}
      */
-    bFirstPeer {
-        get => NumGet(this, 568, "int")
-        set => NumPut("int", value, this, 568)
-    }
+    bFirstPeer : BOOL
 
     /**
      * Indicates whether the peer is the last to leave the ad hoc network created by the machine. If <b>TRUE</b>, the peer is the last to leave. After the last peer leaves the network, the interface state of the machine that created the ad hoc network changes from wlan_interface_state_connected to wlan_interface_state_ad_hoc_network_formed.
-     * @type {BOOL}
      */
-    bLastPeer {
-        get => NumGet(this, 572, "int")
-        set => NumPut("int", value, this, 572)
-    }
+    bLastPeer : BOOL
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/wlan-reason-code">WLAN_REASON_CODE</a> that indicates the reason for an operation failure.  If the operation succeeds, this field has a value of <b>WLAN_REASON_CODE_SUCCESS</b>. Otherwise, this field indicates the reason for the failure.
-     * @type {Integer}
      */
-    wlanReasonCode {
-        get => NumGet(this, 576, "uint")
-        set => NumPut("uint", value, this, 576)
-    }
+    wlanReasonCode : UInt32
+
 }

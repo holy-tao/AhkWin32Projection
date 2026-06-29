@@ -1,37 +1,38 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DNS_RECORDW.ahk
-#Include .\DNS_RECORD_FLAGS.ahk
-#Include .\DNS_A_DATA.ahk
-#Include .\DNS_SOA_DATAW.ahk
-#Include .\DNS_PTR_DATAW.ahk
-#Include .\DNS_MINFO_DATAW.ahk
-#Include .\DNS_MX_DATAW.ahk
-#Include .\DNS_TXT_DATAW.ahk
-#Include .\DNS_NULL_DATA.ahk
-#Include .\DNS_WKS_DATA.ahk
-#Include .\DNS_AAAA_DATA.ahk
-#Include .\IP6_ADDRESS.ahk
-#Include .\DNS_KEY_DATA.ahk
-#Include .\DNS_SIG_DATAW.ahk
-#Include .\DNS_ATMA_DATA.ahk
-#Include .\DNS_NXT_DATAW.ahk
-#Include .\DNS_SRV_DATAW.ahk
-#Include .\DNS_NAPTR_DATAW.ahk
-#Include .\DNS_OPT_DATA.ahk
-#Include .\DNS_DS_DATA.ahk
-#Include .\DNS_NSEC_DATAW.ahk
-#Include .\DNS_TKEY_DATAW.ahk
-#Include .\DNS_TSIG_DATAW.ahk
-#Include .\DNS_WINS_DATA.ahk
-#Include .\DNS_WINSR_DATAW.ahk
-#Include .\DNS_DHCID_DATA.ahk
-#Include .\DNS_NSEC3_DATA.ahk
-#Include .\DNS_NSEC3PARAM_DATA.ahk
-#Include .\DNS_TLSA_DATA.ahk
-#Include .\DNS_SVCB_DATA.ahk
-#Include .\DNS_SVCB_PARAM.ahk
-#Include .\DNS_UNKNOWN_DATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DNS_NSEC_DATAW.ahk" { DNS_NSEC_DATAW }
+#Import ".\DNS_WINSR_DATAW.ahk" { DNS_WINSR_DATAW }
+#Import ".\DNS_PTR_DATAW.ahk" { DNS_PTR_DATAW }
+#Import ".\DNS_SOA_DATAW.ahk" { DNS_SOA_DATAW }
+#Import ".\DNS_TXT_DATAW.ahk" { DNS_TXT_DATAW }
+#Import ".\DNS_TSIG_DATAW.ahk" { DNS_TSIG_DATAW }
+#Import ".\DNS_ATMA_DATA.ahk" { DNS_ATMA_DATA }
+#Import ".\DNS_WINS_DATA.ahk" { DNS_WINS_DATA }
+#Import ".\DNS_NXT_DATAW.ahk" { DNS_NXT_DATAW }
+#Import ".\DNS_NSEC3_DATA.ahk" { DNS_NSEC3_DATA }
+#Import ".\DNS_SRV_DATAW.ahk" { DNS_SRV_DATAW }
+#Import ".\DNS_SIG_DATAW.ahk" { DNS_SIG_DATAW }
+#Import ".\DNS_NSEC3PARAM_DATA.ahk" { DNS_NSEC3PARAM_DATA }
+#Import ".\DNS_AAAA_DATA.ahk" { DNS_AAAA_DATA }
+#Import ".\DNS_WKS_DATA.ahk" { DNS_WKS_DATA }
+#Import ".\DNS_SVCB_DATA.ahk" { DNS_SVCB_DATA }
+#Import ".\DNS_TLSA_DATA.ahk" { DNS_TLSA_DATA }
+#Import ".\DNS_A_DATA.ahk" { DNS_A_DATA }
+#Import ".\DNS_NULL_DATA.ahk" { DNS_NULL_DATA }
+#Import ".\DNS_DS_DATA.ahk" { DNS_DS_DATA }
+#Import ".\DNS_MX_DATAW.ahk" { DNS_MX_DATAW }
+#Import ".\DNS_RECORD_FLAGS.ahk" { DNS_RECORD_FLAGS }
+#Import ".\DNS_OPT_DATA.ahk" { DNS_OPT_DATA }
+#Import ".\DNS_KEY_DATA.ahk" { DNS_KEY_DATA }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\DNS_DHCID_DATA.ahk" { DNS_DHCID_DATA }
+#Import ".\DNS_SVCB_PARAM.ahk" { DNS_SVCB_PARAM }
+#Import ".\IP6_ADDRESS.ahk" { IP6_ADDRESS }
+#Import ".\DNS_UNKNOWN_DATA.ahk" { DNS_UNKNOWN_DATA }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DNS_MINFO_DATAW.ahk" { DNS_MINFO_DATAW }
+#Import ".\DNS_TKEY_DATAW.ahk" { DNS_TKEY_DATAW }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\DNS_NAPTR_DATAW.ahk" { DNS_NAPTR_DATAW }
 
 /**
  * Stores a DNS resource record (RR). (Unicode)
@@ -50,570 +51,127 @@
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @charset Unicode
  */
-class DNS_RECORDW extends Win32Struct {
-    static sizeof => 96
+export default struct DNS_RECORDW {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Flags_e__Union extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
+    struct _Flags {
+        DW : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        DW {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {DNS_RECORD_FLAGS}
-         */
-        S {
-            get {
-                if(!this.HasProp("__S"))
-                    this.__S := DNS_RECORD_FLAGS(0, this)
-                return this.__S
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'S', { type: DNS_RECORD_FLAGS, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    class _Data_e__Union extends Win32Struct {
-        static sizeof => 64
-        static packingSize => 8
+    struct _Data {
+        A : DNS_A_DATA
 
-        /**
-         * @type {DNS_A_DATA}
-         */
-        A {
-            get {
-                if(!this.HasProp("__A"))
-                    this.__A := DNS_A_DATA(0, this)
-                return this.__A
-            }
-        }
-
-        /**
-         * @type {DNS_SOA_DATAW}
-         */
-        SOA {
-            get {
-                if(!this.HasProp("__SOA"))
-                    this.__SOA := DNS_SOA_DATAW(0, this)
-                return this.__SOA
-            }
-        }
-
-        /**
-         * @type {DNS_PTR_DATAW}
-         */
-        PTR {
-            get {
-                if(!this.HasProp("__PTR"))
-                    this.__PTR := DNS_PTR_DATAW(0, this)
-                return this.__PTR
-            }
-        }
-
-        /**
-         * @type {DNS_PTR_DATAW}
-         */
-        NS {
-            get {
-                if(!this.HasProp("__NS"))
-                    this.__NS := DNS_PTR_DATAW(0, this)
-                return this.__NS
-            }
-        }
-
-        /**
-         * @type {DNS_PTR_DATAW}
-         */
-        CNAME {
-            get {
-                if(!this.HasProp("__CNAME"))
-                    this.__CNAME := DNS_PTR_DATAW(0, this)
-                return this.__CNAME
-            }
-        }
-
-        /**
-         * @type {DNS_PTR_DATAW}
-         */
-        DNAME {
-            get {
-                if(!this.HasProp("__DNAME"))
-                    this.__DNAME := DNS_PTR_DATAW(0, this)
-                return this.__DNAME
-            }
-        }
-
-        /**
-         * @type {DNS_PTR_DATAW}
-         */
-        MB {
-            get {
-                if(!this.HasProp("__MB"))
-                    this.__MB := DNS_PTR_DATAW(0, this)
-                return this.__MB
-            }
-        }
-
-        /**
-         * @type {DNS_PTR_DATAW}
-         */
-        MD {
-            get {
-                if(!this.HasProp("__MD"))
-                    this.__MD := DNS_PTR_DATAW(0, this)
-                return this.__MD
-            }
-        }
-
-        /**
-         * @type {DNS_PTR_DATAW}
-         */
-        MF {
-            get {
-                if(!this.HasProp("__MF"))
-                    this.__MF := DNS_PTR_DATAW(0, this)
-                return this.__MF
-            }
-        }
-
-        /**
-         * @type {DNS_PTR_DATAW}
-         */
-        MG {
-            get {
-                if(!this.HasProp("__MG"))
-                    this.__MG := DNS_PTR_DATAW(0, this)
-                return this.__MG
-            }
-        }
-
-        /**
-         * @type {DNS_PTR_DATAW}
-         */
-        MR {
-            get {
-                if(!this.HasProp("__MR"))
-                    this.__MR := DNS_PTR_DATAW(0, this)
-                return this.__MR
-            }
-        }
-
-        /**
-         * @type {DNS_MINFO_DATAW}
-         */
-        MINFO {
-            get {
-                if(!this.HasProp("__MINFO"))
-                    this.__MINFO := DNS_MINFO_DATAW(0, this)
-                return this.__MINFO
-            }
-        }
-
-        /**
-         * @type {DNS_MINFO_DATAW}
-         */
-        RP {
-            get {
-                if(!this.HasProp("__RP"))
-                    this.__RP := DNS_MINFO_DATAW(0, this)
-                return this.__RP
-            }
-        }
-
-        /**
-         * @type {DNS_MX_DATAW}
-         */
-        MX {
-            get {
-                if(!this.HasProp("__MX"))
-                    this.__MX := DNS_MX_DATAW(0, this)
-                return this.__MX
-            }
-        }
-
-        /**
-         * @type {DNS_MX_DATAW}
-         */
-        AFSDB {
-            get {
-                if(!this.HasProp("__AFSDB"))
-                    this.__AFSDB := DNS_MX_DATAW(0, this)
-                return this.__AFSDB
-            }
-        }
-
-        /**
-         * @type {DNS_MX_DATAW}
-         */
-        RT {
-            get {
-                if(!this.HasProp("__RT"))
-                    this.__RT := DNS_MX_DATAW(0, this)
-                return this.__RT
-            }
-        }
-
-        /**
-         * @type {DNS_TXT_DATAW}
-         */
-        HINFO {
-            get {
-                if(!this.HasProp("__HINFO"))
-                    this.__HINFO := DNS_TXT_DATAW(0, this)
-                return this.__HINFO
-            }
-        }
-
-        /**
-         * @type {DNS_TXT_DATAW}
-         */
-        ISDN {
-            get {
-                if(!this.HasProp("__ISDN"))
-                    this.__ISDN := DNS_TXT_DATAW(0, this)
-                return this.__ISDN
-            }
-        }
-
-        /**
-         * @type {DNS_TXT_DATAW}
-         */
-        TXT {
-            get {
-                if(!this.HasProp("__TXT"))
-                    this.__TXT := DNS_TXT_DATAW(0, this)
-                return this.__TXT
-            }
-        }
-
-        /**
-         * @type {DNS_TXT_DATAW}
-         */
-        X25 {
-            get {
-                if(!this.HasProp("__X25"))
-                    this.__X25 := DNS_TXT_DATAW(0, this)
-                return this.__X25
-            }
-        }
-
-        /**
-         * @type {DNS_NULL_DATA}
-         */
-        Null {
-            get {
-                if(!this.HasProp("__Null"))
-                    this.__Null := DNS_NULL_DATA(0, this)
-                return this.__Null
-            }
-        }
-
-        /**
-         * @type {DNS_WKS_DATA}
-         */
-        WKS {
-            get {
-                if(!this.HasProp("__WKS"))
-                    this.__WKS := DNS_WKS_DATA(0, this)
-                return this.__WKS
-            }
-        }
-
-        /**
-         * @type {DNS_AAAA_DATA}
-         */
-        AAAA {
-            get {
-                if(!this.HasProp("__AAAA"))
-                    this.__AAAA := DNS_AAAA_DATA(0, this)
-                return this.__AAAA
-            }
-        }
-
-        /**
-         * @type {DNS_KEY_DATA}
-         */
-        KEY {
-            get {
-                if(!this.HasProp("__KEY"))
-                    this.__KEY := DNS_KEY_DATA(0, this)
-                return this.__KEY
-            }
-        }
-
-        /**
-         * @type {DNS_SIG_DATAW}
-         */
-        SIG {
-            get {
-                if(!this.HasProp("__SIG"))
-                    this.__SIG := DNS_SIG_DATAW(0, this)
-                return this.__SIG
-            }
-        }
-
-        /**
-         * @type {DNS_ATMA_DATA}
-         */
-        ATMA {
-            get {
-                if(!this.HasProp("__ATMA"))
-                    this.__ATMA := DNS_ATMA_DATA(0, this)
-                return this.__ATMA
-            }
-        }
-
-        /**
-         * @type {DNS_NXT_DATAW}
-         */
-        NXT {
-            get {
-                if(!this.HasProp("__NXT"))
-                    this.__NXT := DNS_NXT_DATAW(0, this)
-                return this.__NXT
-            }
-        }
-
-        /**
-         * @type {DNS_SRV_DATAW}
-         */
-        SRV {
-            get {
-                if(!this.HasProp("__SRV"))
-                    this.__SRV := DNS_SRV_DATAW(0, this)
-                return this.__SRV
-            }
-        }
-
-        /**
-         * @type {DNS_NAPTR_DATAW}
-         */
-        NAPTR {
-            get {
-                if(!this.HasProp("__NAPTR"))
-                    this.__NAPTR := DNS_NAPTR_DATAW(0, this)
-                return this.__NAPTR
-            }
-        }
-
-        /**
-         * @type {DNS_OPT_DATA}
-         */
-        OPT {
-            get {
-                if(!this.HasProp("__OPT"))
-                    this.__OPT := DNS_OPT_DATA(0, this)
-                return this.__OPT
-            }
-        }
-
-        /**
-         * @type {DNS_DS_DATA}
-         */
-        DS {
-            get {
-                if(!this.HasProp("__DS"))
-                    this.__DS := DNS_DS_DATA(0, this)
-                return this.__DS
-            }
-        }
-
-        /**
-         * @type {DNS_SIG_DATAW}
-         */
-        RRSIG {
-            get {
-                if(!this.HasProp("__RRSIG"))
-                    this.__RRSIG := DNS_SIG_DATAW(0, this)
-                return this.__RRSIG
-            }
-        }
-
-        /**
-         * @type {DNS_NSEC_DATAW}
-         */
-        NSEC {
-            get {
-                if(!this.HasProp("__NSEC"))
-                    this.__NSEC := DNS_NSEC_DATAW(0, this)
-                return this.__NSEC
-            }
-        }
-
-        /**
-         * @type {DNS_KEY_DATA}
-         */
-        DNSKEY {
-            get {
-                if(!this.HasProp("__DNSKEY"))
-                    this.__DNSKEY := DNS_KEY_DATA(0, this)
-                return this.__DNSKEY
-            }
-        }
-
-        /**
-         * @type {DNS_TKEY_DATAW}
-         */
-        TKEY {
-            get {
-                if(!this.HasProp("__TKEY"))
-                    this.__TKEY := DNS_TKEY_DATAW(0, this)
-                return this.__TKEY
-            }
-        }
-
-        /**
-         * @type {DNS_TSIG_DATAW}
-         */
-        TSIG {
-            get {
-                if(!this.HasProp("__TSIG"))
-                    this.__TSIG := DNS_TSIG_DATAW(0, this)
-                return this.__TSIG
-            }
-        }
-
-        /**
-         * @type {DNS_WINS_DATA}
-         */
-        WINS {
-            get {
-                if(!this.HasProp("__WINS"))
-                    this.__WINS := DNS_WINS_DATA(0, this)
-                return this.__WINS
-            }
-        }
-
-        /**
-         * @type {DNS_WINSR_DATAW}
-         */
-        WINSR {
-            get {
-                if(!this.HasProp("__WINSR"))
-                    this.__WINSR := DNS_WINSR_DATAW(0, this)
-                return this.__WINSR
-            }
-        }
-
-        /**
-         * @type {DNS_WINSR_DATAW}
-         */
-        NBSTAT {
-            get {
-                if(!this.HasProp("__NBSTAT"))
-                    this.__NBSTAT := DNS_WINSR_DATAW(0, this)
-                return this.__NBSTAT
-            }
-        }
-
-        /**
-         * @type {DNS_DHCID_DATA}
-         */
-        DHCID {
-            get {
-                if(!this.HasProp("__DHCID"))
-                    this.__DHCID := DNS_DHCID_DATA(0, this)
-                return this.__DHCID
-            }
-        }
-
-        /**
-         * @type {DNS_NSEC3_DATA}
-         */
-        NSEC3 {
-            get {
-                if(!this.HasProp("__NSEC3"))
-                    this.__NSEC3 := DNS_NSEC3_DATA(0, this)
-                return this.__NSEC3
-            }
-        }
-
-        /**
-         * @type {DNS_NSEC3PARAM_DATA}
-         */
-        NSEC3PARAM {
-            get {
-                if(!this.HasProp("__NSEC3PARAM"))
-                    this.__NSEC3PARAM := DNS_NSEC3PARAM_DATA(0, this)
-                return this.__NSEC3PARAM
-            }
-        }
-
-        /**
-         * @type {DNS_TLSA_DATA}
-         */
-        TLSA {
-            get {
-                if(!this.HasProp("__TLSA"))
-                    this.__TLSA := DNS_TLSA_DATA(0, this)
-                return this.__TLSA
-            }
-        }
-
-        /**
-         * @type {DNS_SVCB_DATA}
-         */
-        SVCB {
-            get {
-                if(!this.HasProp("__SVCB"))
-                    this.__SVCB := DNS_SVCB_DATA(0, this)
-                return this.__SVCB
-            }
-        }
-
-        /**
-         * @type {DNS_UNKNOWN_DATA}
-         */
-        UNKNOWN {
-            get {
-                if(!this.HasProp("__UNKNOWN"))
-                    this.__UNKNOWN := DNS_UNKNOWN_DATA(0, this)
-                return this.__UNKNOWN
-            }
-        }
-
-        /**
-         * @type {Pointer<Integer>}
-         */
-        pDataPtr {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'SOA', { type: DNS_SOA_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'Soa1', { type: DNS_SOA_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'PTR', { type: DNS_PTR_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'Ptr1', { type: DNS_PTR_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'NS', { type: DNS_PTR_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'Ns1', { type: DNS_PTR_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'CNAME', { type: DNS_PTR_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'Cname1', { type: DNS_PTR_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'DNAME', { type: DNS_PTR_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'Dname1', { type: DNS_PTR_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'MB', { type: DNS_PTR_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'Mb1', { type: DNS_PTR_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'MD', { type: DNS_PTR_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'Md1', { type: DNS_PTR_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'MF', { type: DNS_PTR_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'Mf1', { type: DNS_PTR_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'MG', { type: DNS_PTR_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'Mg1', { type: DNS_PTR_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'MR', { type: DNS_PTR_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'Mr1', { type: DNS_PTR_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'MINFO', { type: DNS_MINFO_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'Minfo1', { type: DNS_MINFO_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'RP', { type: DNS_MINFO_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'Rp1', { type: DNS_MINFO_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'MX', { type: DNS_MX_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'Mx1', { type: DNS_MX_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'AFSDB', { type: DNS_MX_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'Afsdb1', { type: DNS_MX_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'RT', { type: DNS_MX_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'Rt1', { type: DNS_MX_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'HINFO', { type: DNS_TXT_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'Hinfo1', { type: DNS_TXT_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'ISDN', { type: DNS_TXT_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'Isdn1', { type: DNS_TXT_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'TXT', { type: DNS_TXT_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'Txt1', { type: DNS_TXT_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'X25', { type: DNS_TXT_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'Null', { type: DNS_NULL_DATA, offset: 0 })
+            DefineProp(this.Prototype, 'WKS', { type: DNS_WKS_DATA, offset: 0 })
+            DefineProp(this.Prototype, 'Wks1', { type: DNS_WKS_DATA, offset: 0 })
+            DefineProp(this.Prototype, 'AAAA', { type: DNS_AAAA_DATA, offset: 0 })
+            DefineProp(this.Prototype, 'KEY', { type: DNS_KEY_DATA, offset: 0 })
+            DefineProp(this.Prototype, 'Key1', { type: DNS_KEY_DATA, offset: 0 })
+            DefineProp(this.Prototype, 'SIG', { type: DNS_SIG_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'Sig1', { type: DNS_SIG_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'ATMA', { type: DNS_ATMA_DATA, offset: 0 })
+            DefineProp(this.Prototype, 'Atma1', { type: DNS_ATMA_DATA, offset: 0 })
+            DefineProp(this.Prototype, 'NXT', { type: DNS_NXT_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'Nxt1', { type: DNS_NXT_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'SRV', { type: DNS_SRV_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'Srv1', { type: DNS_SRV_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'NAPTR', { type: DNS_NAPTR_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'Naptr1', { type: DNS_NAPTR_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'OPT', { type: DNS_OPT_DATA, offset: 0 })
+            DefineProp(this.Prototype, 'Opt1', { type: DNS_OPT_DATA, offset: 0 })
+            DefineProp(this.Prototype, 'DS', { type: DNS_DS_DATA, offset: 0 })
+            DefineProp(this.Prototype, 'Ds1', { type: DNS_DS_DATA, offset: 0 })
+            DefineProp(this.Prototype, 'RRSIG', { type: DNS_SIG_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'Rrsig1', { type: DNS_SIG_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'NSEC', { type: DNS_NSEC_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'Nsec1', { type: DNS_NSEC_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'DNSKEY', { type: DNS_KEY_DATA, offset: 0 })
+            DefineProp(this.Prototype, 'Dnskey1', { type: DNS_KEY_DATA, offset: 0 })
+            DefineProp(this.Prototype, 'TKEY', { type: DNS_TKEY_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'Tkey1', { type: DNS_TKEY_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'TSIG', { type: DNS_TSIG_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'Tsig1', { type: DNS_TSIG_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'WINS', { type: DNS_WINS_DATA, offset: 0 })
+            DefineProp(this.Prototype, 'Wins1', { type: DNS_WINS_DATA, offset: 0 })
+            DefineProp(this.Prototype, 'WINSR', { type: DNS_WINSR_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'WinsR1', { type: DNS_WINSR_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'NBSTAT', { type: DNS_WINSR_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'Nbstat1', { type: DNS_WINSR_DATAW, offset: 0 })
+            DefineProp(this.Prototype, 'DHCID', { type: DNS_DHCID_DATA, offset: 0 })
+            DefineProp(this.Prototype, 'NSEC3', { type: DNS_NSEC3_DATA, offset: 0 })
+            DefineProp(this.Prototype, 'Nsec31', { type: DNS_NSEC3_DATA, offset: 0 })
+            DefineProp(this.Prototype, 'NSEC3PARAM', { type: DNS_NSEC3PARAM_DATA, offset: 0 })
+            DefineProp(this.Prototype, 'Nsec3Param1', { type: DNS_NSEC3PARAM_DATA, offset: 0 })
+            DefineProp(this.Prototype, 'TLSA', { type: DNS_TLSA_DATA, offset: 0 })
+            DefineProp(this.Prototype, 'Tlsa1', { type: DNS_TLSA_DATA, offset: 0 })
+            DefineProp(this.Prototype, 'SVCB', { type: DNS_SVCB_DATA, offset: 0 })
+            DefineProp(this.Prototype, 'Svcb1', { type: DNS_SVCB_DATA, offset: 0 })
+            DefineProp(this.Prototype, 'UNKNOWN', { type: DNS_UNKNOWN_DATA, offset: 0 })
+            DefineProp(this.Prototype, 'Unknown1', { type: DNS_UNKNOWN_DATA, offset: 0 })
+            DefineProp(this.Prototype, 'pDataPtr', { type: IntPtr, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
     /**
      * A pointer to the next 
      * <b>DNS_RECORD</b> structure.
-     * @type {Pointer<DNS_RECORDW>}
      */
-    pNext {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pNext : DNS_RECORDW.Ptr
 
     /**
      * A pointer to a string that represents the domain name of the record set. This must be in the string format that corresponds to the function called, such as ANSI, Unicode, or UTF8.
-     * @type {PWSTR}
      */
-    pName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pName : PWSTR
 
     /**
      * A value that represents the RR <a href="https://docs.microsoft.com/windows/desktop/DNS/dns-constants">DNS Record Type</a>. <b>wType</b> determines the format of <b>Data</b>. For example, if the value of <b>wType</b> is <b>DNS_TYPE_A</b>, the data type of <b>Data</b> is <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_a_data">DNS_A_DATA</a>.
-     * @type {Integer}
      */
-    wType {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    wType : UInt16
 
     /**
      * The length, in bytes, of <b>Data</b>. For fixed-length data types, this value is the size of the corresponding data type, such as <b>sizeof(DNS_A_DATA)</b>. For the non-fixed data types, use one of the following macros to determine the length of the data: 
@@ -629,51 +187,24 @@ class DNS_RECORDW extends Win32Struct {
      * <tr>
      * <td>
      * <pre>#include &lt;windows.h&gt;
-     * @type {Integer}
      */
-    wDataLength {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    wDataLength : UInt16
 
-    /**
-     * @type {_Flags_e__Union}
-     */
-    Flags {
-        get {
-            if(!this.HasProp("__Flags"))
-                this.__Flags := DNS_RECORDW._Flags_e__Union(20, this)
-            return this.__Flags
-        }
-    }
+    Flags : DNS_RECORDW._Flags
 
     /**
      * The DNS RR's Time To Live value (TTL), in seconds.
-     * @type {Integer}
      */
-    dwTtl {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwTtl : UInt32
 
     /**
      * Reserved. Do not use.
-     * @type {Integer}
      */
-    dwReserved {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwReserved : UInt32
 
     /**
      * The DNS RR data type is determined by <b>wType</b> and is one of the following members:
-     * @type {_Data_e__Union}
      */
-    Data {
-        get {
-            if(!this.HasProp("__Data"))
-                this.__Data := DNS_RECORDW._Data_e__Union(32, this)
-            return this.__Data
-        }
-    }
+    Data : DNS_RECORDW._Data
+
 }

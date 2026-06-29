@@ -1,33 +1,105 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\COR_FIELD_OFFSET.ahk" { COR_FIELD_OFFSET }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides methods for importing and manipulating existing metadata from a portable executable (PE) file or other source, such as a type library or a stand-alone, run-time metadata binary.
  * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nn-rometadataapi-imetadataimport
  * @namespace Windows.Win32.System.WinRT.Metadata
  */
-class IMetaDataImport extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMetaDataImport extends IUnknown {
     /**
      * The interface identifier for IMetaDataImport
      * @type {Guid}
      */
-    static IID => Guid("{7dac8207-d3ae-4c75-9b67-92801a497d44}")
+    static IID := Guid("{7dac8207-d3ae-4c75-9b67-92801a497d44}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMetaDataImport interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CloseEnum                : IntPtr
+        CountEnum                : IntPtr
+        ResetEnum                : IntPtr
+        EnumTypeDefs             : IntPtr
+        EnumInterfaceImpls       : IntPtr
+        EnumTypeRefs             : IntPtr
+        FindTypeDefByName        : IntPtr
+        GetScopeProps            : IntPtr
+        GetModuleFromScope       : IntPtr
+        GetTypeDefProps          : IntPtr
+        GetInterfaceImplProps    : IntPtr
+        GetTypeRefProps          : IntPtr
+        ResolveTypeRef           : IntPtr
+        EnumMembers              : IntPtr
+        EnumMembersWithName      : IntPtr
+        EnumMethods              : IntPtr
+        EnumMethodsWithName      : IntPtr
+        EnumFields               : IntPtr
+        EnumFieldsWithName       : IntPtr
+        EnumParams               : IntPtr
+        EnumMemberRefs           : IntPtr
+        EnumMethodImpls          : IntPtr
+        EnumPermissionSets       : IntPtr
+        FindMember               : IntPtr
+        FindMethod               : IntPtr
+        FindField                : IntPtr
+        FindMemberRef            : IntPtr
+        GetMethodProps           : IntPtr
+        GetMemberRefProps        : IntPtr
+        EnumProperties           : IntPtr
+        EnumEvents               : IntPtr
+        GetEventProps            : IntPtr
+        EnumMethodSemantics      : IntPtr
+        GetMethodSemantics       : IntPtr
+        GetClassLayout           : IntPtr
+        GetFieldMarshal          : IntPtr
+        GetRVA                   : IntPtr
+        GetPermissionSetProps    : IntPtr
+        GetSigFromToken          : IntPtr
+        GetModuleRefProps        : IntPtr
+        EnumModuleRefs           : IntPtr
+        GetTypeSpecFromToken     : IntPtr
+        GetNameFromToken         : IntPtr
+        EnumUnresolvedMethods    : IntPtr
+        GetUserString            : IntPtr
+        GetPinvokeMap            : IntPtr
+        EnumSignatures           : IntPtr
+        EnumTypeSpecs            : IntPtr
+        EnumUserStrings          : IntPtr
+        GetParamForMethodIndex   : IntPtr
+        EnumCustomAttributes     : IntPtr
+        GetCustomAttributeProps  : IntPtr
+        FindTypeRef              : IntPtr
+        GetMemberProps           : IntPtr
+        GetFieldProps            : IntPtr
+        GetPropertyProps         : IntPtr
+        GetParamProps            : IntPtr
+        GetCustomAttributeByName : IntPtr
+        IsValidToken             : IntPtr
+        GetNestedClassProps      : IntPtr
+        GetNativeCallConvFromSig : IntPtr
+        IsGlobal                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CloseEnum", "CountEnum", "ResetEnum", "EnumTypeDefs", "EnumInterfaceImpls", "EnumTypeRefs", "FindTypeDefByName", "GetScopeProps", "GetModuleFromScope", "GetTypeDefProps", "GetInterfaceImplProps", "GetTypeRefProps", "ResolveTypeRef", "EnumMembers", "EnumMembersWithName", "EnumMethods", "EnumMethodsWithName", "EnumFields", "EnumFieldsWithName", "EnumParams", "EnumMemberRefs", "EnumMethodImpls", "EnumPermissionSets", "FindMember", "FindMethod", "FindField", "FindMemberRef", "GetMethodProps", "GetMemberRefProps", "EnumProperties", "EnumEvents", "GetEventProps", "EnumMethodSemantics", "GetMethodSemantics", "GetClassLayout", "GetFieldMarshal", "GetRVA", "GetPermissionSetProps", "GetSigFromToken", "GetModuleRefProps", "EnumModuleRefs", "GetTypeSpecFromToken", "GetNameFromToken", "EnumUnresolvedMethods", "GetUserString", "GetPinvokeMap", "EnumSignatures", "EnumTypeSpecs", "EnumUserStrings", "GetParamForMethodIndex", "EnumCustomAttributes", "GetCustomAttributeProps", "FindTypeRef", "GetMemberProps", "GetFieldProps", "GetPropertyProps", "GetParamProps", "GetCustomAttributeByName", "IsValidToken", "GetNestedClassProps", "GetNativeCallConvFromSig", "IsGlobal"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMetaDataImport.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Closes the enumerator that is identified by the specified handle.
@@ -210,7 +282,7 @@ class IMetaDataImport extends IUnknown {
 
         pchNameMarshal := pchName is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, "ptr", pmvid, "HRESULT")
+        result := ComCall(10, this, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, Guid.Ptr, pmvid, "HRESULT")
         return result
     }
 
@@ -305,7 +377,7 @@ class IMetaDataImport extends IUnknown {
     ResolveTypeRef(tr, riid, ptd) {
         ptdMarshal := ptd is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "uint", tr, "ptr", riid, "ptr*", &ppIScope := 0, ptdMarshal, ptd, "HRESULT")
+        result := ComCall(15, this, "uint", tr, Guid.Ptr, riid, "ptr*", &ppIScope := 0, ptdMarshal, ptd, "HRESULT")
         return IUnknown(ppIScope)
     }
 
@@ -680,20 +752,13 @@ class IMetaDataImport extends IUnknown {
     }
 
     /**
-     * Gets a pointer to the MemberRef token for the member reference that is enclosed by the specified Type and that has the specified name and metadata signature.
-     * @remarks
-     * You specify the member using its enclosing class or interface (<i>tkTypeRef</i>), its name (<i>szName</i>), and optionally its signature (<i>pvSigBlob</i>).
      * 
-     * The signature passed to <b>FindMemberRef</b> must have been generated in the current scope, because signatures are bound to a particular scope. A signature can embed a token that identifies the enclosing class or value type. The token is an index into the local TypeDef table. You cannot build a run-time signature outside the context of the current scope and use that signature as input to <b>FindMemberRef</b>.
-     * 
-     * <b>FindMemberRef</b> finds only member references that were defined directly in the class or interface; it does not find inherited member references.
      * @param {Integer} td 
-     * @param {PWSTR} szName The name of the member reference to search for.
-     * @param {Pointer<Integer>} pvSigBlob A pointer to the binary metadata signature of the member reference.
-     * @param {Integer} cbSigBlob The size in bytes of <i>pvSigBlob</i>.
+     * @param {PWSTR} szName 
+     * @param {Pointer<Integer>} pvSigBlob 
+     * @param {Integer} cbSigBlob 
      * @param {Pointer<Integer>} pmb 
-     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-findmemberref
+     * @returns {HRESULT} 
      */
     FindMember(td, szName, pvSigBlob, cbSigBlob, pmb) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -992,7 +1057,7 @@ class IMetaDataImport extends IUnknown {
         pcFieldOffsetMarshal := pcFieldOffset is VarRef ? "uint*" : "ptr"
         pulClassSizeMarshal := pulClassSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(37, this, "uint", td, pdwPackSizeMarshal, pdwPackSize, "ptr", rFieldOffset, "uint", cMax, pcFieldOffsetMarshal, pcFieldOffset, pulClassSizeMarshal, pulClassSize, "HRESULT")
+        result := ComCall(37, this, "uint", td, pdwPackSizeMarshal, pdwPackSize, COR_FIELD_OFFSET.Ptr, rFieldOffset, "uint", cMax, pcFieldOffsetMarshal, pcFieldOffset, pulClassSizeMarshal, pulClassSize, "HRESULT")
         return result
     }
 
@@ -1584,7 +1649,7 @@ class IMetaDataImport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataimport-isvalidtoken
      */
     IsValidToken(tk) {
-        result := ComCall(61, this, "uint", tk, "int")
+        result := ComCall(61, this, "uint", tk, BOOL)
         return result
     }
 
@@ -1630,5 +1695,147 @@ class IMetaDataImport extends IUnknown {
 
         result := ComCall(64, this, "uint", pd, pbGlobalMarshal, pbGlobal, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMetaDataImport.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CloseEnum := CallbackCreate(GetMethod(implObj, "CloseEnum"), flags, 2)
+        this.vtbl.CountEnum := CallbackCreate(GetMethod(implObj, "CountEnum"), flags, 3)
+        this.vtbl.ResetEnum := CallbackCreate(GetMethod(implObj, "ResetEnum"), flags, 3)
+        this.vtbl.EnumTypeDefs := CallbackCreate(GetMethod(implObj, "EnumTypeDefs"), flags, 5)
+        this.vtbl.EnumInterfaceImpls := CallbackCreate(GetMethod(implObj, "EnumInterfaceImpls"), flags, 6)
+        this.vtbl.EnumTypeRefs := CallbackCreate(GetMethod(implObj, "EnumTypeRefs"), flags, 5)
+        this.vtbl.FindTypeDefByName := CallbackCreate(GetMethod(implObj, "FindTypeDefByName"), flags, 4)
+        this.vtbl.GetScopeProps := CallbackCreate(GetMethod(implObj, "GetScopeProps"), flags, 5)
+        this.vtbl.GetModuleFromScope := CallbackCreate(GetMethod(implObj, "GetModuleFromScope"), flags, 2)
+        this.vtbl.GetTypeDefProps := CallbackCreate(GetMethod(implObj, "GetTypeDefProps"), flags, 7)
+        this.vtbl.GetInterfaceImplProps := CallbackCreate(GetMethod(implObj, "GetInterfaceImplProps"), flags, 4)
+        this.vtbl.GetTypeRefProps := CallbackCreate(GetMethod(implObj, "GetTypeRefProps"), flags, 6)
+        this.vtbl.ResolveTypeRef := CallbackCreate(GetMethod(implObj, "ResolveTypeRef"), flags, 5)
+        this.vtbl.EnumMembers := CallbackCreate(GetMethod(implObj, "EnumMembers"), flags, 6)
+        this.vtbl.EnumMembersWithName := CallbackCreate(GetMethod(implObj, "EnumMembersWithName"), flags, 7)
+        this.vtbl.EnumMethods := CallbackCreate(GetMethod(implObj, "EnumMethods"), flags, 6)
+        this.vtbl.EnumMethodsWithName := CallbackCreate(GetMethod(implObj, "EnumMethodsWithName"), flags, 7)
+        this.vtbl.EnumFields := CallbackCreate(GetMethod(implObj, "EnumFields"), flags, 6)
+        this.vtbl.EnumFieldsWithName := CallbackCreate(GetMethod(implObj, "EnumFieldsWithName"), flags, 7)
+        this.vtbl.EnumParams := CallbackCreate(GetMethod(implObj, "EnumParams"), flags, 6)
+        this.vtbl.EnumMemberRefs := CallbackCreate(GetMethod(implObj, "EnumMemberRefs"), flags, 6)
+        this.vtbl.EnumMethodImpls := CallbackCreate(GetMethod(implObj, "EnumMethodImpls"), flags, 7)
+        this.vtbl.EnumPermissionSets := CallbackCreate(GetMethod(implObj, "EnumPermissionSets"), flags, 7)
+        this.vtbl.FindMember := CallbackCreate(GetMethod(implObj, "FindMember"), flags, 6)
+        this.vtbl.FindMethod := CallbackCreate(GetMethod(implObj, "FindMethod"), flags, 6)
+        this.vtbl.FindField := CallbackCreate(GetMethod(implObj, "FindField"), flags, 6)
+        this.vtbl.FindMemberRef := CallbackCreate(GetMethod(implObj, "FindMemberRef"), flags, 6)
+        this.vtbl.GetMethodProps := CallbackCreate(GetMethod(implObj, "GetMethodProps"), flags, 11)
+        this.vtbl.GetMemberRefProps := CallbackCreate(GetMethod(implObj, "GetMemberRefProps"), flags, 8)
+        this.vtbl.EnumProperties := CallbackCreate(GetMethod(implObj, "EnumProperties"), flags, 6)
+        this.vtbl.EnumEvents := CallbackCreate(GetMethod(implObj, "EnumEvents"), flags, 6)
+        this.vtbl.GetEventProps := CallbackCreate(GetMethod(implObj, "GetEventProps"), flags, 14)
+        this.vtbl.EnumMethodSemantics := CallbackCreate(GetMethod(implObj, "EnumMethodSemantics"), flags, 6)
+        this.vtbl.GetMethodSemantics := CallbackCreate(GetMethod(implObj, "GetMethodSemantics"), flags, 4)
+        this.vtbl.GetClassLayout := CallbackCreate(GetMethod(implObj, "GetClassLayout"), flags, 7)
+        this.vtbl.GetFieldMarshal := CallbackCreate(GetMethod(implObj, "GetFieldMarshal"), flags, 4)
+        this.vtbl.GetRVA := CallbackCreate(GetMethod(implObj, "GetRVA"), flags, 4)
+        this.vtbl.GetPermissionSetProps := CallbackCreate(GetMethod(implObj, "GetPermissionSetProps"), flags, 5)
+        this.vtbl.GetSigFromToken := CallbackCreate(GetMethod(implObj, "GetSigFromToken"), flags, 4)
+        this.vtbl.GetModuleRefProps := CallbackCreate(GetMethod(implObj, "GetModuleRefProps"), flags, 5)
+        this.vtbl.EnumModuleRefs := CallbackCreate(GetMethod(implObj, "EnumModuleRefs"), flags, 5)
+        this.vtbl.GetTypeSpecFromToken := CallbackCreate(GetMethod(implObj, "GetTypeSpecFromToken"), flags, 4)
+        this.vtbl.GetNameFromToken := CallbackCreate(GetMethod(implObj, "GetNameFromToken"), flags, 3)
+        this.vtbl.EnumUnresolvedMethods := CallbackCreate(GetMethod(implObj, "EnumUnresolvedMethods"), flags, 5)
+        this.vtbl.GetUserString := CallbackCreate(GetMethod(implObj, "GetUserString"), flags, 5)
+        this.vtbl.GetPinvokeMap := CallbackCreate(GetMethod(implObj, "GetPinvokeMap"), flags, 7)
+        this.vtbl.EnumSignatures := CallbackCreate(GetMethod(implObj, "EnumSignatures"), flags, 5)
+        this.vtbl.EnumTypeSpecs := CallbackCreate(GetMethod(implObj, "EnumTypeSpecs"), flags, 5)
+        this.vtbl.EnumUserStrings := CallbackCreate(GetMethod(implObj, "EnumUserStrings"), flags, 5)
+        this.vtbl.GetParamForMethodIndex := CallbackCreate(GetMethod(implObj, "GetParamForMethodIndex"), flags, 4)
+        this.vtbl.EnumCustomAttributes := CallbackCreate(GetMethod(implObj, "EnumCustomAttributes"), flags, 7)
+        this.vtbl.GetCustomAttributeProps := CallbackCreate(GetMethod(implObj, "GetCustomAttributeProps"), flags, 6)
+        this.vtbl.FindTypeRef := CallbackCreate(GetMethod(implObj, "FindTypeRef"), flags, 4)
+        this.vtbl.GetMemberProps := CallbackCreate(GetMethod(implObj, "GetMemberProps"), flags, 14)
+        this.vtbl.GetFieldProps := CallbackCreate(GetMethod(implObj, "GetFieldProps"), flags, 12)
+        this.vtbl.GetPropertyProps := CallbackCreate(GetMethod(implObj, "GetPropertyProps"), flags, 17)
+        this.vtbl.GetParamProps := CallbackCreate(GetMethod(implObj, "GetParamProps"), flags, 11)
+        this.vtbl.GetCustomAttributeByName := CallbackCreate(GetMethod(implObj, "GetCustomAttributeByName"), flags, 5)
+        this.vtbl.IsValidToken := CallbackCreate(GetMethod(implObj, "IsValidToken"), flags, 2)
+        this.vtbl.GetNestedClassProps := CallbackCreate(GetMethod(implObj, "GetNestedClassProps"), flags, 3)
+        this.vtbl.GetNativeCallConvFromSig := CallbackCreate(GetMethod(implObj, "GetNativeCallConvFromSig"), flags, 4)
+        this.vtbl.IsGlobal := CallbackCreate(GetMethod(implObj, "IsGlobal"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CloseEnum)
+        CallbackFree(this.vtbl.CountEnum)
+        CallbackFree(this.vtbl.ResetEnum)
+        CallbackFree(this.vtbl.EnumTypeDefs)
+        CallbackFree(this.vtbl.EnumInterfaceImpls)
+        CallbackFree(this.vtbl.EnumTypeRefs)
+        CallbackFree(this.vtbl.FindTypeDefByName)
+        CallbackFree(this.vtbl.GetScopeProps)
+        CallbackFree(this.vtbl.GetModuleFromScope)
+        CallbackFree(this.vtbl.GetTypeDefProps)
+        CallbackFree(this.vtbl.GetInterfaceImplProps)
+        CallbackFree(this.vtbl.GetTypeRefProps)
+        CallbackFree(this.vtbl.ResolveTypeRef)
+        CallbackFree(this.vtbl.EnumMembers)
+        CallbackFree(this.vtbl.EnumMembersWithName)
+        CallbackFree(this.vtbl.EnumMethods)
+        CallbackFree(this.vtbl.EnumMethodsWithName)
+        CallbackFree(this.vtbl.EnumFields)
+        CallbackFree(this.vtbl.EnumFieldsWithName)
+        CallbackFree(this.vtbl.EnumParams)
+        CallbackFree(this.vtbl.EnumMemberRefs)
+        CallbackFree(this.vtbl.EnumMethodImpls)
+        CallbackFree(this.vtbl.EnumPermissionSets)
+        CallbackFree(this.vtbl.FindMember)
+        CallbackFree(this.vtbl.FindMethod)
+        CallbackFree(this.vtbl.FindField)
+        CallbackFree(this.vtbl.FindMemberRef)
+        CallbackFree(this.vtbl.GetMethodProps)
+        CallbackFree(this.vtbl.GetMemberRefProps)
+        CallbackFree(this.vtbl.EnumProperties)
+        CallbackFree(this.vtbl.EnumEvents)
+        CallbackFree(this.vtbl.GetEventProps)
+        CallbackFree(this.vtbl.EnumMethodSemantics)
+        CallbackFree(this.vtbl.GetMethodSemantics)
+        CallbackFree(this.vtbl.GetClassLayout)
+        CallbackFree(this.vtbl.GetFieldMarshal)
+        CallbackFree(this.vtbl.GetRVA)
+        CallbackFree(this.vtbl.GetPermissionSetProps)
+        CallbackFree(this.vtbl.GetSigFromToken)
+        CallbackFree(this.vtbl.GetModuleRefProps)
+        CallbackFree(this.vtbl.EnumModuleRefs)
+        CallbackFree(this.vtbl.GetTypeSpecFromToken)
+        CallbackFree(this.vtbl.GetNameFromToken)
+        CallbackFree(this.vtbl.EnumUnresolvedMethods)
+        CallbackFree(this.vtbl.GetUserString)
+        CallbackFree(this.vtbl.GetPinvokeMap)
+        CallbackFree(this.vtbl.EnumSignatures)
+        CallbackFree(this.vtbl.EnumTypeSpecs)
+        CallbackFree(this.vtbl.EnumUserStrings)
+        CallbackFree(this.vtbl.GetParamForMethodIndex)
+        CallbackFree(this.vtbl.EnumCustomAttributes)
+        CallbackFree(this.vtbl.GetCustomAttributeProps)
+        CallbackFree(this.vtbl.FindTypeRef)
+        CallbackFree(this.vtbl.GetMemberProps)
+        CallbackFree(this.vtbl.GetFieldProps)
+        CallbackFree(this.vtbl.GetPropertyProps)
+        CallbackFree(this.vtbl.GetParamProps)
+        CallbackFree(this.vtbl.GetCustomAttributeByName)
+        CallbackFree(this.vtbl.IsValidToken)
+        CallbackFree(this.vtbl.GetNestedClassProps)
+        CallbackFree(this.vtbl.GetNativeCallConvFromSig)
+        CallbackFree(this.vtbl.IsGlobal)
     }
 }

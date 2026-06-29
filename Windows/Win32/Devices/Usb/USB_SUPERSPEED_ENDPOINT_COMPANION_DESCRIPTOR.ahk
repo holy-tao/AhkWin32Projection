@@ -1,32 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR extends Win32Struct {
-    static sizeof => 6
+export default struct USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR {
+    #StructPack 2
 
-    static packingSize => 2
 
-    class _bmAttributes_e__Union extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
+    struct _bmAttributes {
 
-        class _Bulk extends Win32Struct {
-            static sizeof => 1
-            static packingSize => 1
-
+        struct _Bulk {
             /**
              * This bitfield backs the following members:
              * - MaxStreams
              * - Reserved1
-             * @type {Integer}
              */
-            _bitfield {
-                get => NumGet(this, 0, "char")
-                set => NumPut("char", value, this, 0)
-            }
+            _bitfield : Int8
+
 
             /**
              * @type {Integer}
@@ -45,21 +35,15 @@ class USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR extends Win32Struct {
             }
         }
 
-        class _Isochronous extends Win32Struct {
-            static sizeof => 1
-            static packingSize => 1
-
+        struct _Isochronous {
             /**
              * This bitfield backs the following members:
              * - Mult
              * - Reserved2
              * - SspCompanion
-             * @type {Integer}
              */
-            _bitfield {
-                get => NumGet(this, 0, "char")
-                set => NumPut("char", value, this, 0)
-            }
+            _bitfield : Int8
+
 
             /**
              * @type {Integer}
@@ -86,77 +70,23 @@ class USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR extends Win32Struct {
             }
         }
 
-        /**
-         * @type {Integer}
-         */
-        AsUchar {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        AsUchar : Int8
 
-        /**
-         * @type {_Bulk}
-         */
-        Bulk {
-            get {
-                if(!this.HasProp("__Bulk"))
-                    this.__Bulk := USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR._bmAttributes_e__Union._Bulk(0, this)
-                return this.__Bulk
-            }
-        }
-
-        /**
-         * @type {_Isochronous}
-         */
-        Isochronous {
-            get {
-                if(!this.HasProp("__Isochronous"))
-                    this.__Isochronous := USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR._bmAttributes_e__Union._Isochronous(0, this)
-                return this.__Isochronous
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'Bulk', { type: USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR._bmAttributes._Bulk, offset: 0 })
+            DefineProp(this.Prototype, 'Isochronous', { type: USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR._bmAttributes._Isochronous, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    bLength {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    bLength : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bDescriptorType {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    bDescriptorType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bMaxBurst {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    bMaxBurst : Int8
 
-    /**
-     * @type {_bmAttributes_e__Union}
-     */
-    bmAttributes {
-        get {
-            if(!this.HasProp("__bmAttributes"))
-                this.__bmAttributes := USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR._bmAttributes_e__Union(3, this)
-            return this.__bmAttributes
-        }
-    }
+    bmAttributes : USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR._bmAttributes
 
-    /**
-     * @type {Integer}
-     */
-    wBytesPerInterval {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    wBytesPerInterval : UInt16
+
 }

@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class CO_PVC extends Win32Struct {
-    static sizeof => 16
+export default struct CO_PVC {
+    #StructPack 8
 
-    static packingSize => 8
+    NdisAfHandle : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    NdisAfHandle {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    PvcParameters : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    PvcParameters {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

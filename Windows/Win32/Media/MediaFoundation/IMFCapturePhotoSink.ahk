@@ -1,7 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IMFCaptureSink.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMFCaptureEngineOnSampleCallback.ahk" { IMFCaptureEngineOnSampleCallback }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFCaptureSink.ahk" { IMFCaptureSink }
+#Import ".\IMFByteStream.ahk" { IMFByteStream }
 
 /**
  * Controls the photo sink.
@@ -19,26 +23,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nn-mfcaptureengine-imfcapturephotosink
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFCapturePhotoSink extends IMFCaptureSink {
-
-    static sizeof => A_PtrSize
+export default struct IMFCapturePhotoSink extends IMFCaptureSink {
     /**
      * The interface identifier for IMFCapturePhotoSink
      * @type {Guid}
      */
-    static IID => Guid("{d2d43cc8-48bb-4aa7-95db-10c06977e777}")
+    static IID := Guid("{d2d43cc8-48bb-4aa7-95db-10c06977e777}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFCapturePhotoSink interfaces
+    */
+    struct Vtbl extends IMFCaptureSink.Vtbl {
+        SetOutputFileName   : IntPtr
+        SetSampleCallback   : IntPtr
+        SetOutputByteStream : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetOutputFileName", "SetSampleCallback", "SetOutputByteStream"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFCapturePhotoSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies the name of the output file for the still image.
@@ -79,5 +92,29 @@ class IMFCapturePhotoSink extends IMFCaptureSink {
     SetOutputByteStream(pByteStream) {
         result := ComCall(10, this, "ptr", pByteStream, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFCapturePhotoSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetOutputFileName := CallbackCreate(GetMethod(implObj, "SetOutputFileName"), flags, 2)
+        this.vtbl.SetSampleCallback := CallbackCreate(GetMethod(implObj, "SetSampleCallback"), flags, 2)
+        this.vtbl.SetOutputByteStream := CallbackCreate(GetMethod(implObj, "SetOutputByteStream"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetOutputFileName)
+        CallbackFree(this.vtbl.SetSampleCallback)
+        CallbackFree(this.vtbl.SetOutputByteStream)
     }
 }

@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WTS_ALPHATYPE.ahk" { WTS_ALPHATYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes a method for getting a thumbnail image and is intended to be implemented for thumbnail handlers. The object that implements this interface must also implement IInitializeWithStream.
@@ -30,26 +33,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nn-thumbcache-ithumbnailprovider
  * @namespace Windows.Win32.UI.Shell
  */
-class IThumbnailProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IThumbnailProvider extends IUnknown {
     /**
      * The interface identifier for IThumbnailProvider
      * @type {Guid}
      */
-    static IID => Guid("{e357fccd-a995-4576-b01f-234630154e96}")
+    static IID := Guid("{e357fccd-a995-4576-b01f-234630154e96}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IThumbnailProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetThumbnail : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetThumbnail"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IThumbnailProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a thumbnail image and alpha type.
@@ -68,7 +78,27 @@ class IThumbnailProvider extends IUnknown {
     GetThumbnail(cx, phbmp, pdwAlpha) {
         pdwAlphaMarshal := pdwAlpha is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "uint", cx, "ptr", phbmp, pdwAlphaMarshal, pdwAlpha, "HRESULT")
+        result := ComCall(3, this, "uint", cx, HBITMAP.Ptr, phbmp, pdwAlphaMarshal, pdwAlpha, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IThumbnailProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetThumbnail := CallbackCreate(GetMethod(implObj, "GetThumbnail"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetThumbnail)
     }
 }

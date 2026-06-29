@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\DML_TENSOR_DESC.ahk
-#Include .\DML_RANDOM_GENERATOR_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DML_TENSOR_DESC.ahk" { DML_TENSOR_DESC }
+#Import ".\DML_RANDOM_GENERATOR_TYPE.ahk" { DML_RANDOM_GENERATOR_TYPE }
 
 /**
  * Fills an output tensor with deterministically-generated, pseudo-random, uniformly-distributed bits. This operator optionally may also output an updated internal generator state, which can be used during subsequent executions of the operator.
@@ -14,10 +13,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_random_generator_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  */
-class DML_RANDOM_GENERATOR_OPERATOR_DESC extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct DML_RANDOM_GENERATOR_OPERATOR_DESC {
+    #StructPack 8
 
     /**
      * Type: **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
@@ -33,43 +30,28 @@ class DML_RANDOM_GENERATOR_OPERATOR_DESC extends Win32Struct {
      * ```
      * 
      * When initializing the generator's input state for the first time, typically the 128-bit counter (the first four 32-bit UINT32 values) should be initialized to 0. The key can be arbitrarily chosen; different key values will produce different sequences of numbers. The value for the key is usually generated using a user-provided *seed*.
-     * @type {Pointer<DML_TENSOR_DESC>}
      */
-    InputStateTensor {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    InputStateTensor : DML_TENSOR_DESC.Ptr
 
     /**
      * Type: **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
      * 
      * An output tensor which holds the resulting pseudo-random values. This tensor can be of any size.
-     * @type {Pointer<DML_TENSOR_DESC>}
      */
-    OutputTensor {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    OutputTensor : DML_TENSOR_DESC.Ptr
 
     /**
      * Type: \_Maybenull\_ **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
      * 
      * An optional output tensor THAT holds the updated internal generator state. If supplied, this operator uses the *InputStateTensor* to compute an appropriate updated generator state, and writes the result into the *OutputStateTensor*. Typically, callers would save this result and supply it as the input state on a subsequent execution of this operator.
-     * @type {Pointer<DML_TENSOR_DESC>}
      */
-    OutputStateTensor {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    OutputStateTensor : DML_TENSOR_DESC.Ptr
 
     /**
      * Type: **[DML_RANDOM_GENERATOR_TYPE](/windows/win32/api/directml/ne-directml-dml_random_generator_type)**
      * 
      * One of the values from the [DML_RANDOM_GENERATOR_TYPE](/windows/win32/api/directml/ne-directml-dml_random_generator_type) enum, indicating the type of generator to use. Currently the only valid value is **DML_RANDOM_GENERATOR_TYPE_PHILOX_4X32_10**, which generates pseudo-random numbers according to the [Philox 4x32-10 algorithm](http://www.thesalmons.org/john/random123/papers/random123sc11.pdf).
-     * @type {DML_RANDOM_GENERATOR_TYPE}
      */
-    Type {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    Type : DML_RANDOM_GENERATOR_TYPE
+
 }

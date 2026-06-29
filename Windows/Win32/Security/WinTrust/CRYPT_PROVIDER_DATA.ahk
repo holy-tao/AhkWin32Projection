@@ -1,265 +1,153 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WINTRUST_DATA.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include .\CRYPT_PROVIDER_FUNCTIONS.ahk
-#Include ..\Cryptography\HCERTSTORE.ahk
-#Include .\CRYPT_PROVIDER_SGNR.ahk
-#Include .\CRYPT_PROVIDER_PRIVDATA.ahk
-#Include .\PROVDATA_SIP.ahk
-#Include ..\..\Foundation\FILETIME.ahk
-#Include ..\Cryptography\CERT_USAGE_MATCH.ahk
-#Include .\CRYPT_PROVIDER_SIGSTATE.ahk
-#Include .\WINTRUST_SIGNATURE_SETTINGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPT_PROVIDER_SIGSTATE.ahk" { CRYPT_PROVIDER_SIGSTATE }
+#Import ".\WINTRUST_DATA.ahk" { WINTRUST_DATA }
+#Import ".\CRYPT_PROVIDER_PRIVDATA.ahk" { CRYPT_PROVIDER_PRIVDATA }
+#Import ".\CRYPT_PROVIDER_FUNCTIONS.ahk" { CRYPT_PROVIDER_FUNCTIONS }
+#Import ".\PROVDATA_SIP.ahk" { PROVDATA_SIP }
+#Import "..\Cryptography\CERT_USAGE_MATCH.ahk" { CERT_USAGE_MATCH }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\CRYPT_PROVIDER_SGNR.ahk" { CRYPT_PROVIDER_SGNR }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\Cryptography\HCERTSTORE.ahk" { HCERTSTORE }
+#Import ".\WINTRUST_SIGNATURE_SETTINGS.ahk" { WINTRUST_SIGNATURE_SETTINGS }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Used to pass data between WinVerifyTrust and trust providers.
  * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-crypt_provider_data
  * @namespace Windows.Win32.Security.WinTrust
  */
-class CRYPT_PROVIDER_DATA extends Win32Struct {
-    static sizeof => 240
-
-    static packingSize => 8
+export default struct CRYPT_PROVIDER_DATA {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbStruct : UInt32
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-wintrust_data">WINTRUST_DATA</a> structure that contains the information to verify.
-     * @type {Pointer<WINTRUST_DATA>}
      */
-    pWintrustData {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pWintrustData : WINTRUST_DATA.Ptr
 
     /**
      * A Boolean value that indicates whether the trust provider opened the file handle, if applicable.
-     * @type {BOOL}
      */
-    fOpenedFile {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    fOpenedFile : BOOL
 
     /**
      * A handle to the parent window. If not specified, a handle to the desktop  window is used.
-     * @type {HWND}
      */
-    hWndParent {
-        get {
-            if(!this.HasProp("__hWndParent"))
-                this.__hWndParent := HWND(24, this)
-            return this.__hWndParent
-        }
-    }
+    hWndParent : HWND
 
     /**
      * A pointer to a <b>GUID</b> structure that identifies an action and the trust provider that supports that action.
-     * @type {Pointer<Guid>}
      */
-    pgActionID {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pgActionID : Guid.Ptr
 
     /**
      * A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP). If this parameter is <b>NULL</b>, then the operating system will provide a default CSP.
-     * @type {Pointer}
      */
-    hProv {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    hProv : IntPtr
 
     /**
      * An error level if a low-level system error was encountered.
-     * @type {Integer}
      */
-    dwError {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwError : UInt32
 
     /**
      * The registry security settings.
-     * @type {Integer}
      */
-    dwRegSecuritySettings {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwRegSecuritySettings : UInt32
 
     /**
      * The registry policy settings.
-     * @type {Integer}
      */
-    dwRegPolicySettings {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    dwRegPolicySettings : UInt32
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_provider_functions">CRYPT_PROVIDER_FUNCTIONS</a> structure.
-     * @type {Pointer<CRYPT_PROVIDER_FUNCTIONS>}
      */
-    psPfns {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    psPfns : CRYPT_PROVIDER_FUNCTIONS.Ptr
 
     /**
      * The number of elements in the <b>padwTrustStepErrors</b> array.
-     * @type {Integer}
      */
-    cdwTrustStepErrors {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    cdwTrustStepErrors : UInt32
 
     /**
      * An array of <b>DWORD</b> values that specify trust step errors.
-     * @type {Pointer<Integer>}
      */
-    padwTrustStepErrors {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    padwTrustStepErrors : IntPtr
 
     /**
      * The number of elements in the <b>pahStores</b> array.
-     * @type {Integer}
      */
-    chStores {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    chStores : UInt32
 
     /**
      * An array of certificate store handles.
-     * @type {Pointer<HCERTSTORE>}
      */
-    pahStores {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    pahStores : HCERTSTORE.Ptr
 
     /**
      * A value that specifies the encoding type.
-     * @type {Integer}
      */
-    dwEncoding {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    dwEncoding : UInt32
 
     /**
      * A  handle to the cryptographic message.
-     * @type {Pointer<Void>}
      */
-    hMsg {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    hMsg : IntPtr
 
     /**
      * The number of elements in the <b>pasSigners</b> array.
-     * @type {Integer}
      */
-    csSigners {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    csSigners : UInt32
 
     /**
      * A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_provider_sgnr">CRYPT_PROVIDER_SGNR</a> structures.
-     * @type {Pointer<CRYPT_PROVIDER_SGNR>}
      */
-    pasSigners {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    pasSigners : CRYPT_PROVIDER_SGNR.Ptr
 
     /**
      * The number of elements in the <b>pasProvPrivData</b> array.
-     * @type {Integer}
      */
-    csProvPrivData {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    csProvPrivData : UInt32
 
     /**
      * A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_provider_privdata">CRYPT_PROVIDER_PRIVDATA</a> structures.
-     * @type {Pointer<CRYPT_PROVIDER_PRIVDATA>}
      */
-    pasProvPrivData {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
-    }
+    pasProvPrivData : CRYPT_PROVIDER_PRIVDATA.Ptr
 
     /**
      * A value that specifies the subject choice.
-     * @type {Integer}
      */
-    dwSubjectChoice {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
-    }
+    dwSubjectChoice : UInt32
 
-    /**
-     * @type {Pointer<PROVDATA_SIP>}
-     */
-    pPDSip {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
-    }
+    pPDSip : PROVDATA_SIP.Ptr
 
     /**
      * A pointer to a null-terminated string that contains the usage <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID).
-     * @type {PSTR}
      */
-    pszUsageOID {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
-    }
+    pszUsageOID : PSTR
 
     /**
      * A Boolean value that indicates whether state was maintained for catalog files.
-     * @type {BOOL}
      */
-    fRecallWithState {
-        get => NumGet(this, 176, "int")
-        set => NumPut("int", value, this, 176)
-    }
+    fRecallWithState : BOOL
 
     /**
      * The system time.
-     * @type {FILETIME}
      */
-    sftSystemTime {
-        get {
-            if(!this.HasProp("__sftSystemTime"))
-                this.__sftSystemTime := FILETIME(180, this)
-            return this.__sftSystemTime
-        }
-    }
+    sftSystemTime : FILETIME
 
     /**
      * A pointer to a null-terminated string that represents the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate trust list</a> (CTL) signer usage OID.
-     * @type {PSTR}
      */
-    pszCTLSignerUsageOID {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
-    }
+    pszCTLSignerUsageOID : PSTR
 
     /**
      * A bitwise combination of one or more of the following flags.
@@ -327,64 +215,33 @@ class CRYPT_PROVIDER_DATA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwProvFlags {
-        get => NumGet(this, 200, "uint")
-        set => NumPut("uint", value, this, 200)
-    }
+    dwProvFlags : UInt32
 
     /**
      * A value for the final error.
-     * @type {Integer}
      */
-    dwFinalError {
-        get => NumGet(this, 204, "uint")
-        set => NumPut("uint", value, this, 204)
-    }
+    dwFinalError : UInt32
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_usage_match">CERT_USAGE_MATCH</a> structure.
-     * @type {Pointer<CERT_USAGE_MATCH>}
      */
-    pRequestUsage {
-        get => NumGet(this, 208, "ptr")
-        set => NumPut("ptr", value, this, 208)
-    }
+    pRequestUsage : CERT_USAGE_MATCH.Ptr
 
     /**
      * A value for the trust publisher settings.
-     * @type {Integer}
      */
-    dwTrustPubSettings {
-        get => NumGet(this, 216, "uint")
-        set => NumPut("uint", value, this, 216)
-    }
+    dwTrustPubSettings : UInt32
 
     /**
      * A <b>DWORD</b> value that specifies state data that is passed between a trust provider and the user interface.
      * 
      * <b>Windows XP with SP1 and Windows XP:  </b>This member is ignored.
-     * @type {Integer}
      */
-    dwUIStateFlags {
-        get => NumGet(this, 220, "uint")
-        set => NumPut("uint", value, this, 220)
-    }
+    dwUIStateFlags : UInt32
 
-    /**
-     * @type {Pointer<CRYPT_PROVIDER_SIGSTATE>}
-     */
-    pSigState {
-        get => NumGet(this, 224, "ptr")
-        set => NumPut("ptr", value, this, 224)
-    }
+    pSigState : CRYPT_PROVIDER_SIGSTATE.Ptr
 
-    /**
-     * @type {Pointer<WINTRUST_SIGNATURE_SETTINGS>}
-     */
-    pSigSettings {
-        get => NumGet(this, 232, "ptr")
-        set => NumPut("ptr", value, this, 232)
-    }
+    pSigSettings : WINTRUST_SIGNATURE_SETTINGS.Ptr
+
 }

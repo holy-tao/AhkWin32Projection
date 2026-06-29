@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides encryption for media data inside the protected media path (PMP).
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsampleprotection
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFSampleProtection extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFSampleProtection extends IUnknown {
     /**
      * The interface identifier for IMFSampleProtection
      * @type {Guid}
      */
-    static IID => Guid("{8e36395f-c7b9-43c4-a54d-512b4af63c95}")
+    static IID := Guid("{8e36395f-c7b9-43c4-a54d-512b4af63c95}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFSampleProtection interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetInputProtectionVersion  : IntPtr
+        GetOutputProtectionVersion : IntPtr
+        GetProtectionCertificate   : IntPtr
+        InitOutputProtection       : IntPtr
+        InitInputProtection        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetInputProtectionVersion", "GetOutputProtectionVersion", "GetProtectionCertificate", "InitOutputProtection", "InitInputProtection"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFSampleProtection.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the version of sample protection that the component implements on input.
@@ -179,5 +191,33 @@ class IMFSampleProtection extends IUnknown {
 
         result := ComCall(7, this, "uint", dwVersion, "uint", dwInputId, pbSeedMarshal, pbSeed, "uint", cbSeed, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFSampleProtection.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetInputProtectionVersion := CallbackCreate(GetMethod(implObj, "GetInputProtectionVersion"), flags, 2)
+        this.vtbl.GetOutputProtectionVersion := CallbackCreate(GetMethod(implObj, "GetOutputProtectionVersion"), flags, 2)
+        this.vtbl.GetProtectionCertificate := CallbackCreate(GetMethod(implObj, "GetProtectionCertificate"), flags, 4)
+        this.vtbl.InitOutputProtection := CallbackCreate(GetMethod(implObj, "InitOutputProtection"), flags, 7)
+        this.vtbl.InitInputProtection := CallbackCreate(GetMethod(implObj, "InitInputProtection"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetInputProtectionVersion)
+        CallbackFree(this.vtbl.GetOutputProtectionVersion)
+        CallbackFree(this.vtbl.GetProtectionCertificate)
+        CallbackFree(this.vtbl.InitOutputProtection)
+        CallbackFree(this.vtbl.InitInputProtection)
     }
 }

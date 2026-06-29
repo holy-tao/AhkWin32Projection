@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains data used to indicate request completion results used with the Winsock registered I/O extensions.
@@ -12,44 +11,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/mswsockdef/ns-mswsockdef-rioresult
  * @namespace Windows.Win32.Networking.WinSock
  */
-class RIORESULT extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct RIORESULT {
+    #StructPack 8
 
     /**
      * The completion status of the Winsock registered I/O request.
-     * @type {Integer}
      */
-    Status {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Status : Int32
 
     /**
      * The number of bytes sent or received in the I/O request.
-     * @type {Integer}
      */
-    BytesTransferred {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    BytesTransferred : UInt32
 
     /**
      * An application-provided context specified in call to the <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_riocreaterequestqueue">RIOCreateRequestQueue</a> function.
-     * @type {Integer}
      */
-    SocketContext {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SocketContext : Int64
 
     /**
      * An application-provided context specified with the registered I/O request to the <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_rioreceive">RIOReceive</a>, <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_rioreceiveex">RIOReceiveEx</a>, <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_riosend">RIOSend</a>, and  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/hh437216(v=vs.85)">RIOSendEx</a> functions.
-     * @type {Integer}
      */
-    RequestContext {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    RequestContext : Int64
+
 }

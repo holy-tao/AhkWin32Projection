@@ -1,33 +1,64 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\STINOTIFY.ahk
-#Include .\_ERROR_INFOW.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\STI_DIAG.ahk" { STI_DIAG }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\STI_DEVICE_STATUS.ahk" { STI_DEVICE_STATUS }
+#Import ".\STI_DEV_CAPS.ahk" { STI_DEV_CAPS }
+#Import "..\..\System\IO\OVERLAPPED.ahk" { OVERLAPPED }
+#Import ".\STISUBSCRIBE.ahk" { STISUBSCRIBE }
+#Import ".\_ERROR_INFOW.ahk" { _ERROR_INFOW }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\STINOTIFY.ahk" { STINOTIFY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Devices.Fax
  */
-class IStiDevice extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IStiDevice extends IUnknown {
     /**
      * The interface identifier for IStiDevice
      * @type {Guid}
      */
-    static IID => Guid("{6cfa5a80-2dc8-11d0-90ea-00aa0060f86c}")
+    static IID := Guid("{6cfa5a80-2dc8-11d0-90ea-00aa0060f86c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IStiDevice interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Initialize              : IntPtr
+        GetCapabilities         : IntPtr
+        GetStatus               : IntPtr
+        DeviceReset             : IntPtr
+        Diagnostic              : IntPtr
+        Escape                  : IntPtr
+        GetLastError            : IntPtr
+        LockDevice              : IntPtr
+        UnLockDevice            : IntPtr
+        RawReadData             : IntPtr
+        RawWriteData            : IntPtr
+        RawReadCommand          : IntPtr
+        RawWriteCommand         : IntPtr
+        Subscribe               : IntPtr
+        GetLastNotificationData : IntPtr
+        UnSubscribe             : IntPtr
+        GetLastErrorInfo        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "GetCapabilities", "GetStatus", "DeviceReset", "Diagnostic", "Escape", "GetLastError", "LockDevice", "UnLockDevice", "RawReadData", "RawWriteData", "RawReadCommand", "RawWriteCommand", "Subscribe", "GetLastNotificationData", "UnSubscribe", "GetLastErrorInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IStiDevice.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Initializes a thread to use Windows Runtime APIs.
@@ -62,23 +93,19 @@ class IStiDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(hinst, pwszDeviceName, dwVersion, dwMode) {
-        hinst := hinst is Win32Handle ? NumGet(hinst, "ptr") : hinst
         pwszDeviceName := pwszDeviceName is String ? StrPtr(pwszDeviceName) : pwszDeviceName
 
-        result := ComCall(3, this, "ptr", hinst, "ptr", pwszDeviceName, "uint", dwVersion, "uint", dwMode, "HRESULT")
+        result := ComCall(3, this, HINSTANCE, hinst, "ptr", pwszDeviceName, "uint", dwVersion, "uint", dwMode, "HRESULT")
         return result
     }
 
     /**
-     * Retrieves the length of a monitor's capabilities string.
-     * @remarks
-     * This function usually returns quickly, but sometimes it can take several seconds to complete.
+     * 
      * @param {Pointer<STI_DEV_CAPS>} pDevCaps 
-     * @returns {HRESULT} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-getcapabilitiesstringlength
+     * @returns {HRESULT} 
      */
     GetCapabilities(pDevCaps) {
-        result := ComCall(4, this, "ptr", pDevCaps, "HRESULT")
+        result := ComCall(4, this, STI_DEV_CAPS.Ptr, pDevCaps, "HRESULT")
         return result
     }
 
@@ -88,7 +115,7 @@ class IStiDevice extends IUnknown {
      * @returns {HRESULT} 
      */
     GetStatus(pDevStatus) {
-        result := ComCall(5, this, "ptr", pDevStatus, "HRESULT")
+        result := ComCall(5, this, STI_DEVICE_STATUS.Ptr, pDevStatus, "HRESULT")
         return result
     }
 
@@ -102,13 +129,12 @@ class IStiDevice extends IUnknown {
     }
 
     /**
-     * Windows has APIs and services that support diagnostics in and of your desktop apps.
+     * 
      * @param {Pointer<STI_DIAG>} pBuffer 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/diagnostics
      */
     Diagnostic(pBuffer) {
-        result := ComCall(7, this, "ptr", pBuffer, "HRESULT")
+        result := ComCall(7, this, STI_DIAG.Ptr, pBuffer, "HRESULT")
         return result
     }
 
@@ -220,7 +246,7 @@ class IStiDevice extends IUnknown {
     RawReadData(lpBuffer, lpdwNumberOfBytes, lpOverlapped) {
         lpdwNumberOfBytesMarshal := lpdwNumberOfBytes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "ptr", lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, "ptr", lpOverlapped, "HRESULT")
+        result := ComCall(12, this, "ptr", lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return result
     }
 
@@ -232,7 +258,7 @@ class IStiDevice extends IUnknown {
      * @returns {HRESULT} 
      */
     RawWriteData(lpBuffer, nNumberOfBytes, lpOverlapped) {
-        result := ComCall(13, this, "ptr", lpBuffer, "uint", nNumberOfBytes, "ptr", lpOverlapped, "HRESULT")
+        result := ComCall(13, this, "ptr", lpBuffer, "uint", nNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return result
     }
 
@@ -246,7 +272,7 @@ class IStiDevice extends IUnknown {
     RawReadCommand(lpBuffer, lpdwNumberOfBytes, lpOverlapped) {
         lpdwNumberOfBytesMarshal := lpdwNumberOfBytes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "ptr", lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, "ptr", lpOverlapped, "HRESULT")
+        result := ComCall(14, this, "ptr", lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return result
     }
 
@@ -258,24 +284,17 @@ class IStiDevice extends IUnknown {
      * @returns {HRESULT} 
      */
     RawWriteCommand(lpBuffer, nNumberOfBytes, lpOverlapped) {
-        result := ComCall(15, this, "ptr", lpBuffer, "uint", nNumberOfBytes, "ptr", lpOverlapped, "HRESULT")
+        result := ComCall(15, this, "ptr", lpBuffer, "uint", nNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return result
     }
 
     /**
-     * Creates a subscription that receives notifications for the policy's opening and closing.
-     * @remarks
-     * >**Note** Do not perform your activity in this callback, since it will block delivery of future policy notifications for this subscription. This callback should be used to coordinate the starting and stopping of your activity in response to RUN/STOP notifications from the API.
      * 
-     * >**Note** Do not block this callback for extended periods of time, since it will block [UnsubscribeActivityCoordinatorPolicy](nf-activitycoordinator-unsubscribeactivitycoordinatorpolicy.md) and may contribute to thread pool exhaustion.
-     * 
-     * >**Note** Calls to [UnsubscribeActivityCoordinatorPolicy](nf-activitycoordinator-unsubscribeactivitycoordinatorpolicy.md) from this callback will fail. Unsubscribing must occur outside the callback.
      * @param {Pointer<STISUBSCRIBE>} lpSubsribe 
-     * @returns {HRESULT} Returns an **HRESULT**.
-     * @see https://learn.microsoft.com/windows/win32/api/activitycoordinator/nf-activitycoordinator-subscribeactivitycoordinatorpolicy
+     * @returns {HRESULT} 
      */
     Subscribe(lpSubsribe) {
-        result := ComCall(16, this, "ptr", lpSubsribe, "HRESULT")
+        result := ComCall(16, this, STISUBSCRIBE.Ptr, lpSubsribe, "HRESULT")
         return result
     }
 
@@ -285,7 +304,7 @@ class IStiDevice extends IUnknown {
      */
     GetLastNotificationData() {
         lpNotify := STINOTIFY()
-        result := ComCall(17, this, "ptr", lpNotify, "HRESULT")
+        result := ComCall(17, this, STINOTIFY.Ptr, lpNotify, "HRESULT")
         return lpNotify
     }
 
@@ -304,7 +323,59 @@ class IStiDevice extends IUnknown {
      */
     GetLastErrorInfo() {
         pLastErrorInfo := _ERROR_INFOW()
-        result := ComCall(19, this, "ptr", pLastErrorInfo, "HRESULT")
+        result := ComCall(19, this, _ERROR_INFOW.Ptr, pLastErrorInfo, "HRESULT")
         return pLastErrorInfo
+    }
+
+    Query(iid) {
+        if (IStiDevice.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 5)
+        this.vtbl.GetCapabilities := CallbackCreate(GetMethod(implObj, "GetCapabilities"), flags, 2)
+        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.DeviceReset := CallbackCreate(GetMethod(implObj, "DeviceReset"), flags, 1)
+        this.vtbl.Diagnostic := CallbackCreate(GetMethod(implObj, "Diagnostic"), flags, 2)
+        this.vtbl.Escape := CallbackCreate(GetMethod(implObj, "Escape"), flags, 7)
+        this.vtbl.GetLastError := CallbackCreate(GetMethod(implObj, "GetLastError"), flags, 2)
+        this.vtbl.LockDevice := CallbackCreate(GetMethod(implObj, "LockDevice"), flags, 2)
+        this.vtbl.UnLockDevice := CallbackCreate(GetMethod(implObj, "UnLockDevice"), flags, 1)
+        this.vtbl.RawReadData := CallbackCreate(GetMethod(implObj, "RawReadData"), flags, 4)
+        this.vtbl.RawWriteData := CallbackCreate(GetMethod(implObj, "RawWriteData"), flags, 4)
+        this.vtbl.RawReadCommand := CallbackCreate(GetMethod(implObj, "RawReadCommand"), flags, 4)
+        this.vtbl.RawWriteCommand := CallbackCreate(GetMethod(implObj, "RawWriteCommand"), flags, 4)
+        this.vtbl.Subscribe := CallbackCreate(GetMethod(implObj, "Subscribe"), flags, 2)
+        this.vtbl.GetLastNotificationData := CallbackCreate(GetMethod(implObj, "GetLastNotificationData"), flags, 2)
+        this.vtbl.UnSubscribe := CallbackCreate(GetMethod(implObj, "UnSubscribe"), flags, 1)
+        this.vtbl.GetLastErrorInfo := CallbackCreate(GetMethod(implObj, "GetLastErrorInfo"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.GetCapabilities)
+        CallbackFree(this.vtbl.GetStatus)
+        CallbackFree(this.vtbl.DeviceReset)
+        CallbackFree(this.vtbl.Diagnostic)
+        CallbackFree(this.vtbl.Escape)
+        CallbackFree(this.vtbl.GetLastError)
+        CallbackFree(this.vtbl.LockDevice)
+        CallbackFree(this.vtbl.UnLockDevice)
+        CallbackFree(this.vtbl.RawReadData)
+        CallbackFree(this.vtbl.RawWriteData)
+        CallbackFree(this.vtbl.RawReadCommand)
+        CallbackFree(this.vtbl.RawWriteCommand)
+        CallbackFree(this.vtbl.Subscribe)
+        CallbackFree(this.vtbl.GetLastNotificationData)
+        CallbackFree(this.vtbl.UnSubscribe)
+        CallbackFree(this.vtbl.GetLastErrorInfo)
     }
 }

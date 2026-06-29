@@ -1,38 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\DML_TENSOR_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DML_TENSOR_DESC.ahk" { DML_TENSOR_DESC }
 
 /**
  * Computes the N-dimensional coordinates of all non-zero elements of the input tensor.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_nonzero_coordinates_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  */
-class DML_NONZERO_COORDINATES_OPERATOR_DESC extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct DML_NONZERO_COORDINATES_OPERATOR_DESC {
+    #StructPack 8
 
     /**
      * Type: **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
      * 
      * An input tensor.
-     * @type {Pointer<DML_TENSOR_DESC>}
      */
-    InputTensor {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    InputTensor : DML_TENSOR_DESC.Ptr
 
     /**
      * Type: **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
      * 
      * An output tensor that holds the count of non-zero elements in the input tensor. This tensor must be a scalar&mdash;that is, the Sizes of this tensor must all be 1. The type of this tensor must be **UINT32**.
-     * @type {Pointer<DML_TENSOR_DESC>}
      */
-    OutputCountTensor {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    OutputCountTensor : DML_TENSOR_DESC.Ptr
 
     /**
      * Type: **const [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc)\***
@@ -51,10 +40,7 @@ class DML_NONZERO_COORDINATES_OPERATOR_DESC extends Win32Struct {
      * 
      * > [!NOTE]
      * > The remaining elements of this tensor beyond the OutputCount are undefined once this operator completes. You shouldn't rely on the values of these elements.
-     * @type {Pointer<DML_TENSOR_DESC>}
      */
-    OutputCoordinatesTensor {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    OutputCoordinatesTensor : DML_TENSOR_DESC.Ptr
+
 }

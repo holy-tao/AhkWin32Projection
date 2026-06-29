@@ -1,10 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSDXML_NODE.ahk
-#Include .\WSDXML_ELEMENT.ahk
-#Include .\WSDXML_NAME.ahk
-#Include .\WSDXML_ATTRIBUTE.ahk
-#Include .\WSDXML_PREFIX_MAPPING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WSDXML_ATTRIBUTE.ahk" { WSDXML_ATTRIBUTE }
+#Import ".\WSDXML_PREFIX_MAPPING.ahk" { WSDXML_PREFIX_MAPPING }
+#Import ".\WSDXML_NAME.ahk" { WSDXML_NAME }
+#Import ".\WSDXML_NODE.ahk" { WSDXML_NODE }
 
 /**
  * Describes an XML element.
@@ -13,56 +11,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/wsdxmldom/ns-wsdxmldom-wsdxml_element
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class WSDXML_ELEMENT extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct WSDXML_ELEMENT {
+    #StructPack 8
 
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_node">WSDXML_NODE</a> structure that specifies the parent element, next sibling and type of the node.
-     * @type {WSDXML_NODE}
      */
-    Node {
-        get {
-            if(!this.HasProp("__Node"))
-                this.__Node := WSDXML_NODE(0, this)
-            return this.__Node
-        }
-    }
+    Node : WSDXML_NODE
 
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_name">WSDXML_NAME</a> structure that specifies name.
-     * @type {Pointer<WSDXML_NAME>}
      */
-    Name {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Name : WSDXML_NAME.Ptr
 
+    __FirstAttribute_ptr : IntPtr
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_attribute">WSDXML_ATTRIBUTE</a> structure that specifies the first attribute.
-     * @type {Pointer<WSDXML_ATTRIBUTE>}
      */
     FirstAttribute {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => (addr := this.__FirstAttribute_ptr) ? WSDXML_ATTRIBUTE.At(addr) : unset
+        set => this.__FirstAttribute_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
+    __FirstChild_ptr : IntPtr
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_node">WSDXML_NODE</a> structure that specifies the first child.
-     * @type {Pointer<WSDXML_NODE>}
      */
     FirstChild {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => (addr := this.__FirstChild_ptr) ? WSDXML_NODE.At(addr) : unset
+        set => this.__FirstChild_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
     /**
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_prefix_mapping">WSDXML_PREFIX_MAPPING</a> structure that specifies the prefix mappings.
-     * @type {Pointer<WSDXML_PREFIX_MAPPING>}
      */
-    PrefixMappings {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    PrefixMappings : WSDXML_PREFIX_MAPPING.Ptr
+
 }

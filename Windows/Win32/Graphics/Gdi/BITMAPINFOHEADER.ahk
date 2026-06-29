@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The BITMAPINFOHEADER structure contains information about the dimensions and color format of a device-independent bitmap (DIB).
@@ -48,28 +47,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapinfoheader
  * @namespace Windows.Win32.Graphics.Gdi
  */
-class BITMAPINFOHEADER extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 4
+export default struct BITMAPINFOHEADER {
+    #StructPack 4
 
     /**
      * Specifies the number of bytes required by the structure. This value does not include the size of the color table or the size of the color masks, if they are appended to the end of structure. See Remarks.
-     * @type {Integer}
      */
-    biSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    biSize : UInt32
 
     /**
      * Specifies the width of the bitmap, in pixels. For information about calculating the stride of the bitmap, see Remarks.
-     * @type {Integer}
      */
-    biWidth {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    biWidth : Int32
 
     /**
      * Specifies the height of the bitmap, in pixels.
@@ -79,30 +68,18 @@ class BITMAPINFOHEADER extends Win32Struct {
      * <li>For YUV bitmaps, the bitmap is always top-down, regardless of the sign of <b>biHeight</b>. Decoders should offer YUV formats with positive <b>biHeight</b>, but for backward compatibility they should accept YUV formats with either positive or negative <b>biHeight</b>.</li>
      * <li>For compressed formats, <b>biHeight</b> must be positive, regardless of image orientation.</li>
      * </ul>
-     * @type {Integer}
      */
-    biHeight {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    biHeight : Int32
 
     /**
      * Specifies the number of planes for the target device. This value must be set to 1.
-     * @type {Integer}
      */
-    biPlanes {
-        get => NumGet(this, 12, "ushort")
-        set => NumPut("ushort", value, this, 12)
-    }
+    biPlanes : UInt16
 
     /**
      * Specifies the number of bits per pixel (bpp). For uncompressed formats, this value is the average number of bits per pixel. For compressed formats, this value is the implied bit depth of the uncompressed image, after the image has been decoded.
-     * @type {Integer}
      */
-    biBitCount {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    biBitCount : UInt16
 
     /**
      * For compressed video and YUV formats, this member is a FOURCC code, specified as a <b>DWORD</b> in little-endian order. For example, YUYV video has the FOURCC 'VYUY' or 0x56595559. For more information, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/fourcc-codes">FOURCC Codes</a>.
@@ -140,55 +117,32 @@ class BITMAPINFOHEADER extends Win32Struct {
      * See Remarks for more information. Note that <b>BI_JPG</b> and <b>BI_PNG</b> are not valid video formats.
      * 
      * For 16-bpp bitmaps, if <b>biCompression</b> equals <b>BI_RGB</b>, the format is always RGB 555. If <b>biCompression</b> equals <b>BI_BITFIELDS</b>, the format is either RGB 555 or RGB 565. Use the subtype GUID in the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-am_media_type">AM_MEDIA_TYPE</a> structure to determine the specific RGB type.
-     * @type {Integer}
      */
-    biCompression {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    biCompression : UInt32
 
     /**
      * Specifies the size, in bytes, of the image. This can be set to 0 for uncompressed RGB bitmaps.
-     * @type {Integer}
      */
-    biSizeImage {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    biSizeImage : UInt32
 
     /**
      * Specifies the horizontal resolution, in pixels per meter, of the target device for the bitmap.
-     * @type {Integer}
      */
-    biXPelsPerMeter {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    biXPelsPerMeter : Int32
 
     /**
      * Specifies the vertical resolution, in pixels per meter, of the target device for the bitmap.
-     * @type {Integer}
      */
-    biYPelsPerMeter {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    biYPelsPerMeter : Int32
 
     /**
      * Specifies the number of color indices in the color table that are actually used by the bitmap. See Remarks for more information.
-     * @type {Integer}
      */
-    biClrUsed {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    biClrUsed : UInt32
 
     /**
      * Specifies the number of color indices that are considered important for displaying the bitmap. If this value is zero, all colors are important.
-     * @type {Integer}
      */
-    biClrImportant {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    biClrImportant : UInt32
+
 }

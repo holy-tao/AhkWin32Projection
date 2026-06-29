@@ -1,31 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IDOMNodeIterator extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IDOMNodeIterator extends IDispatch {
     /**
      * The interface identifier for IDOMNodeIterator
      * @type {Guid}
      */
-    static IID => Guid("{30510746-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{30510746-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDOMNodeIterator interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_root                   : IntPtr
+        get_whatToShow             : IntPtr
+        get_filter                 : IntPtr
+        get_expandEntityReferences : IntPtr
+        nextNode                   : IntPtr
+        previousNode               : IntPtr
+        detach                     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_root", "get_whatToShow", "get_filter", "get_expandEntityReferences", "nextNode", "previousNode", "detach"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDOMNodeIterator.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IDispatch} 
@@ -87,7 +102,7 @@ class IDOMNodeIterator extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_expandEntityReferences() {
-        result := ComCall(10, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -116,5 +131,37 @@ class IDOMNodeIterator extends IDispatch {
     detach() {
         result := ComCall(13, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDOMNodeIterator.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_root := CallbackCreate(GetMethod(implObj, "get_root"), flags, 2)
+        this.vtbl.get_whatToShow := CallbackCreate(GetMethod(implObj, "get_whatToShow"), flags, 2)
+        this.vtbl.get_filter := CallbackCreate(GetMethod(implObj, "get_filter"), flags, 2)
+        this.vtbl.get_expandEntityReferences := CallbackCreate(GetMethod(implObj, "get_expandEntityReferences"), flags, 2)
+        this.vtbl.nextNode := CallbackCreate(GetMethod(implObj, "nextNode"), flags, 2)
+        this.vtbl.previousNode := CallbackCreate(GetMethod(implObj, "previousNode"), flags, 2)
+        this.vtbl.detach := CallbackCreate(GetMethod(implObj, "detach"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_root)
+        CallbackFree(this.vtbl.get_whatToShow)
+        CallbackFree(this.vtbl.get_filter)
+        CallbackFree(this.vtbl.get_expandEntityReferences)
+        CallbackFree(this.vtbl.nextNode)
+        CallbackFree(this.vtbl.previousNode)
+        CallbackFree(this.vtbl.detach)
     }
 }

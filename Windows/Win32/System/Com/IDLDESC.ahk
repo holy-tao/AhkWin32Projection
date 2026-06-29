@@ -1,28 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IDLFLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IDLFLAGS.ahk" { IDLFLAGS }
 
 /**
  * @namespace Windows.Win32.System.Com
  */
-class IDLDESC extends Win32Struct {
-    static sizeof => 16
+export default struct IDLDESC {
+    #StructPack 8
 
-    static packingSize => 8
+    dwReserved : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwReserved {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    wIDLFlags : IDLFLAGS
 
-    /**
-     * @type {IDLFLAGS}
-     */
-    wIDLFlags {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
 }

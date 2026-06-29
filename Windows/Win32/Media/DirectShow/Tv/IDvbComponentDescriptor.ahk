@@ -1,34 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DVB_STRCONV_MODE.ahk" { DVB_STRCONV_MODE }
 
 /**
  * Identifies the type of a Digital Video Broadcast (DVB) component stream and provides a text description of the component stream.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvbcomponentdescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IDvbComponentDescriptor extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDvbComponentDescriptor extends IUnknown {
     /**
      * The interface identifier for IDvbComponentDescriptor
      * @type {Guid}
      */
-    static IID => Guid("{91e405cf-80e7-457f-9096-1b9d1ce32141}")
+    static IID := Guid("{91e405cf-80e7-457f-9096-1b9d1ce32141}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDvbComponentDescriptor interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetTag           : IntPtr
+        GetLength        : IntPtr
+        GetStreamContent : IntPtr
+        GetComponentType : IntPtr
+        GetComponentTag  : IntPtr
+        GetLanguageCode  : IntPtr
+        GetTextW         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetTag", "GetLength", "GetStreamContent", "GetComponentType", "GetComponentTag", "GetLanguageCode", "GetTextW"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDvbComponentDescriptor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the tag that identifies a Digital Video Broadcast (DVB) component descriptor.
@@ -105,8 +120,40 @@ class IDvbComponentDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbcomponentdescriptor-gettextw
      */
     GetTextW(convMode) {
-        pbstrText := BSTR()
-        result := ComCall(9, this, "int", convMode, "ptr", pbstrText, "HRESULT")
+        pbstrText := BSTR.Owned()
+        result := ComCall(9, this, DVB_STRCONV_MODE, convMode, BSTR.Ptr, pbstrText, "HRESULT")
         return pbstrText
+    }
+
+    Query(iid) {
+        if (IDvbComponentDescriptor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetStreamContent := CallbackCreate(GetMethod(implObj, "GetStreamContent"), flags, 2)
+        this.vtbl.GetComponentType := CallbackCreate(GetMethod(implObj, "GetComponentType"), flags, 2)
+        this.vtbl.GetComponentTag := CallbackCreate(GetMethod(implObj, "GetComponentTag"), flags, 2)
+        this.vtbl.GetLanguageCode := CallbackCreate(GetMethod(implObj, "GetLanguageCode"), flags, 2)
+        this.vtbl.GetTextW := CallbackCreate(GetMethod(implObj, "GetTextW"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetTag)
+        CallbackFree(this.vtbl.GetLength)
+        CallbackFree(this.vtbl.GetStreamContent)
+        CallbackFree(this.vtbl.GetComponentType)
+        CallbackFree(this.vtbl.GetComponentTag)
+        CallbackFree(this.vtbl.GetLanguageCode)
+        CallbackFree(this.vtbl.GetTextW)
     }
 }

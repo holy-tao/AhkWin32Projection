@@ -1,65 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_RESERVATION_REPORT_STATUS_HEADER extends Win32Struct {
-    static sizeof => 28
+export default struct NVME_RESERVATION_REPORT_STATUS_HEADER {
+    #StructPack 4
 
-    static packingSize => 4
+    GEN : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    GEN {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    RTYPE : Int8
 
-    /**
-     * @type {Integer}
-     */
-    RTYPE {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    REGCTL : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    REGCTL {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    Reserved : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    PTPLS : Int8
 
-    /**
-     * @type {Integer}
-     */
-    PTPLS {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    Reserved1 : Int8[14]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 11, 14, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
 }

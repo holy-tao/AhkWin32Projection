@@ -1,40 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\ISharedProperty.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISharedProperty.ahk" { ISharedProperty }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Used to create and access the shared properties in a shared property group.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-isharedpropertygroup
  * @namespace Windows.Win32.System.ComponentServices
  */
-class ISharedPropertyGroup extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ISharedPropertyGroup extends IDispatch {
     /**
      * The interface identifier for ISharedPropertyGroup
      * @type {Guid}
      */
-    static IID => Guid("{2a005c07-a5de-11cf-9e66-00aa00a3f464}")
+    static IID := Guid("{2a005c07-a5de-11cf-9e66-00aa00a3f464}")
 
     /**
      * The class identifier for SharedPropertyGroup
      * @type {Guid}
      */
-    static CLSID => Guid("{2a005c0b-a5de-11cf-9e66-00aa00a3f464}")
+    static CLSID := Guid("{2a005c0b-a5de-11cf-9e66-00aa00a3f464}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISharedPropertyGroup interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        CreatePropertyByPosition : IntPtr
+        get_PropertyByPosition   : IntPtr
+        CreateProperty           : IntPtr
+        get_Property             : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreatePropertyByPosition", "get_PropertyByPosition", "CreateProperty", "get_Property"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISharedPropertyGroup.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a new shared property with the specified index.
@@ -55,7 +68,7 @@ class ISharedPropertyGroup extends IDispatch {
     CreatePropertyByPosition(Index, fExists, ppProp) {
         fExistsMarshal := fExists is VarRef ? "short*" : "ptr"
 
-        result := ComCall(7, this, "int", Index, fExistsMarshal, fExists, "ptr*", ppProp, "HRESULT")
+        result := ComCall(7, this, "int", Index, fExistsMarshal, fExists, ISharedProperty.Ptr, ppProp, "HRESULT")
         return result
     }
 
@@ -93,7 +106,7 @@ class ISharedPropertyGroup extends IDispatch {
 
         fExistsMarshal := fExists is VarRef ? "short*" : "ptr"
 
-        result := ComCall(9, this, "ptr", Name, fExistsMarshal, fExists, "ptr*", ppProp, "HRESULT")
+        result := ComCall(9, this, BSTR, Name, fExistsMarshal, fExists, ISharedProperty.Ptr, ppProp, "HRESULT")
         return result
     }
 
@@ -106,7 +119,33 @@ class ISharedPropertyGroup extends IDispatch {
     get_Property(Name) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
 
-        result := ComCall(10, this, "ptr", Name, "ptr*", &ppProperty := 0, "HRESULT")
+        result := ComCall(10, this, BSTR, Name, "ptr*", &ppProperty := 0, "HRESULT")
         return ISharedProperty(ppProperty)
+    }
+
+    Query(iid) {
+        if (ISharedPropertyGroup.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreatePropertyByPosition := CallbackCreate(GetMethod(implObj, "CreatePropertyByPosition"), flags, 4)
+        this.vtbl.get_PropertyByPosition := CallbackCreate(GetMethod(implObj, "get_PropertyByPosition"), flags, 3)
+        this.vtbl.CreateProperty := CallbackCreate(GetMethod(implObj, "CreateProperty"), flags, 4)
+        this.vtbl.get_Property := CallbackCreate(GetMethod(implObj, "get_Property"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreatePropertyByPosition)
+        CallbackFree(this.vtbl.get_PropertyByPosition)
+        CallbackFree(this.vtbl.CreateProperty)
+        CallbackFree(this.vtbl.get_Property)
     }
 }

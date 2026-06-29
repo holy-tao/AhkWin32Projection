@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IOfflineFilesItem.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IOfflineFilesItem.ahk" { IOfflineFilesItem }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Represents a file item in the Offline Files cache.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilesfileitem
  * @namespace Windows.Win32.Storage.OfflineFiles
  */
-class IOfflineFilesFileItem extends IOfflineFilesItem {
-
-    static sizeof => A_PtrSize
+export default struct IOfflineFilesFileItem extends IOfflineFilesItem {
     /**
      * The interface identifier for IOfflineFilesFileItem
      * @type {Guid}
      */
-    static IID => Guid("{8dfadead-26c2-4eff-8a72-6b50723d9a00}")
+    static IID := Guid("{8dfadead-26c2-4eff-8a72-6b50723d9a00}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOfflineFilesFileItem interfaces
+    */
+    struct Vtbl extends IOfflineFilesItem.Vtbl {
+        IsSparse    : IntPtr
+        IsEncrypted : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsSparse", "IsEncrypted"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOfflineFilesFileItem.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Determines whether an item in the Offline Files cache is sparsely cached.
@@ -39,7 +49,7 @@ class IOfflineFilesFileItem extends IOfflineFilesItem {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesfileitem-issparse
      */
     IsSparse() {
-        result := ComCall(8, this, "int*", &pbIsSparse := 0, "HRESULT")
+        result := ComCall(8, this, BOOL.Ptr, &pbIsSparse := 0, "HRESULT")
         return pbIsSparse
     }
 
@@ -49,7 +59,29 @@ class IOfflineFilesFileItem extends IOfflineFilesItem {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesfileitem-isencrypted
      */
     IsEncrypted() {
-        result := ComCall(9, this, "int*", &pbIsEncrypted := 0, "HRESULT")
+        result := ComCall(9, this, BOOL.Ptr, &pbIsEncrypted := 0, "HRESULT")
         return pbIsEncrypted
+    }
+
+    Query(iid) {
+        if (IOfflineFilesFileItem.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsSparse := CallbackCreate(GetMethod(implObj, "IsSparse"), flags, 2)
+        this.vtbl.IsEncrypted := CallbackCreate(GetMethod(implObj, "IsEncrypted"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsSparse)
+        CallbackFree(this.vtbl.IsEncrypted)
     }
 }

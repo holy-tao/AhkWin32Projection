@@ -1,130 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Com\ISequentialStream.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\Variant\VARIANT.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\Com\StructuredStorage\PROPVARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\Com\ISequentialStream.ahk" { ISequentialStream }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.System.Search
  * @architecture X64, Arm64
  */
-class RMTPACK extends Win32Struct {
-    static sizeof => 104
+export default struct RMTPACK {
+    #StructPack 8
 
-    static packingSize => 8
+    pISeqStream : ISequentialStream
 
-    /**
-     * @type {ISequentialStream}
-     */
-    pISeqStream {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    cbData : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbData {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cBSTR : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cBSTR {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    rgBSTR : BSTR.Ptr
 
-    /**
-     * @type {Pointer<BSTR>}
-     */
-    rgBSTR {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    cVARIANT : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cVARIANT {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    rgVARIANT : VARIANT.Ptr
 
-    /**
-     * @type {Pointer<VARIANT>}
-     */
-    rgVARIANT {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    cIDISPATCH : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cIDISPATCH {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    rgIDISPATCH : IDispatch.Ptr
 
-    /**
-     * @type {Pointer<IDispatch>}
-     */
-    rgIDISPATCH {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    cIUNKNOWN : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cIUNKNOWN {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    rgIUNKNOWN : IUnknown.Ptr
 
-    /**
-     * @type {Pointer<IUnknown>}
-     */
-    rgIUNKNOWN {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    cPROPVARIANT : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cPROPVARIANT {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    rgPROPVARIANT : PROPVARIANT.Ptr
 
-    /**
-     * @type {Pointer<PROPVARIANT>}
-     */
-    rgPROPVARIANT {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    cArray : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cArray {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
-    }
+    rgArray : VARIANT.Ptr
 
-    /**
-     * @type {Pointer<VARIANT>}
-     */
-    rgArray {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
 }

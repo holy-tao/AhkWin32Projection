@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WS_UNION_FIELD_DESCRIPTION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WS_UNION_FIELD_DESCRIPTION.ahk" { WS_UNION_FIELD_DESCRIPTION }
 
 /**
  * Information about the choices within a union type. This is used with WS_UNION_TYPE.
@@ -154,29 +153,19 @@
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_union_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_UNION_DESCRIPTION extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct WS_UNION_DESCRIPTION {
+    #StructPack 8
 
     /**
      * The size in bytes of the structure.
-     * @type {Integer}
      */
-    size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    size : UInt32
 
     /**
      * The alignment requirement of the structure.  This must be a power
      *                     of two between 1 and 8.
-     * @type {Integer}
      */
-    alignment {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    alignment : UInt32
 
     /**
      * An array of pointers to the descriptions of the fields of the union.
@@ -184,46 +173,30 @@ class WS_UNION_DESCRIPTION extends Win32Struct {
      * 
      * See the Remarks section for information about ordering of the fields
      *                     in this array.
-     * @type {Pointer<Pointer<WS_UNION_FIELD_DESCRIPTION>>}
      */
-    fields {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    fields : IntPtr
 
     /**
      * The number of fields in the fields array.  Any part of the structure
      *                     that is not represented by a field will be left uninitialized.
      *                     Fields descriptions may reference the same offset of the structure
      *                     (for example if they are all part of a single union).
-     * @type {Integer}
      */
-    fieldCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    fieldCount : UInt32
 
     /**
      * The offset of the enumeration field which controls which choice is
      *                     selected within the union.  The size of the field is assumed to be
      *                     the size of an enumeration (32-bit signed integer).
-     * @type {Integer}
      */
-    enumOffset {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    enumOffset : UInt32
 
     /**
      * This value corresponds to the enum value used when none of the
      *                     choices are currently set.  This field is only used when the
      *                     field is optional (<a href="https://docs.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_reader_encoding_type">WS_FIELD_OPTIONAL</a> was specified).
-     * @type {Integer}
      */
-    noneEnumValue {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    noneEnumValue : Int32
 
     /**
      * This optional array provides information which can improve
@@ -248,10 +221,7 @@ class WS_UNION_DESCRIPTION extends Win32Struct {
      *                     value in ascending order.
      *                 </li>
      * </ul>
-     * @type {Pointer<Integer>}
      */
-    valueIndices {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    valueIndices : IntPtr
+
 }

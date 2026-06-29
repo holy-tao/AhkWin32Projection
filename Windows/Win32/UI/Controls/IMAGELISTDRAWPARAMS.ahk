@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HIMAGELIST.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HIMAGELIST.ahk" { HIMAGELIST }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
 
 /**
  * Contains information about an image list draw operation and is used with the IImageList::Draw function. (IMAGELISTDRAWPARAMS)
@@ -14,155 +14,95 @@
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-imagelistdrawparams
  * @namespace Windows.Win32.UI.Controls
  */
-class IMAGELISTDRAWPARAMS extends Win32Struct {
-    static sizeof => 88
-
-    static packingSize => 8
+export default struct IMAGELISTDRAWPARAMS {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * The size of this structure, in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b>HIMAGELIST</b>
      * 
      * A handle to the image list that contains the image to be drawn.
-     * @type {HIMAGELIST}
      */
-    himl {
-        get {
-            if(!this.HasProp("__himl"))
-                this.__himl := HIMAGELIST(8, this)
-            return this.__himl
-        }
-    }
+    himl : HIMAGELIST
 
     /**
      * Type: <b>int</b>
      * 
      * The zero-based index of the image to be drawn.
-     * @type {Integer}
      */
-    i {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    i : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
      * 
      * A handle to the destination device context.
-     * @type {HDC}
      */
-    hdcDst {
-        get {
-            if(!this.HasProp("__hdcDst"))
-                this.__hdcDst := HDC(24, this)
-            return this.__hdcDst
-        }
-    }
+    hdcDst : HDC
 
     /**
      * Type: <b>int</b>
      * 
      * The x-coordinate that specifies where the image is drawn.
-     * @type {Integer}
      */
-    x {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    x : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * The y-coordinate that specifies where the image is drawn.
-     * @type {Integer}
      */
-    y {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    y : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * A value that specifies the number of pixels to draw, relative to the upper-left corner of the drawing operation as specified by <b>xBitmap</b> and <b>yBitmap</b>. If <b>cx</b> and <b>cy</b> are zero, then <a href="https://docs.microsoft.com/windows/desktop/api/commoncontrols/nf-commoncontrols-iimagelist-draw">Draw</a> draws the entire valid section. The method does not ensure that the parameters are valid.
-     * @type {Integer}
      */
-    cx {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    cx : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * A value that specifies the number of pixels to draw, relative to the upper-left corner of the drawing operation as specified by <b>xBitmap</b> and <b>yBitmap</b>. If <b>cx</b> and <b>cy</b> are zero, then <a href="https://docs.microsoft.com/windows/desktop/api/commoncontrols/nf-commoncontrols-iimagelist-draw">Draw</a> draws the entire valid section. The method does not ensure that the parameters are valid.
-     * @type {Integer}
      */
-    cy {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
-    }
+    cy : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * The x-coordinate that specifies the upper-left corner of the drawing operation in reference to the image itself. Pixels of the image that are to the left of <b>xBitmap</b> and above <b>yBitmap</b> do not appear.
-     * @type {Integer}
      */
-    xBitmap {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
-    }
+    xBitmap : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * The y-coordinate that specifies the upper-left corner of the drawing operation in reference to the image itself. Pixels of the image that are to the left of <b>xBitmap</b> and above <b>yBitmap</b> do not appear.
-     * @type {Integer}
      */
-    yBitmap {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
-    }
+    yBitmap : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
-     * @type {COLORREF}
      */
-    rgbBk {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    rgbBk : COLORREF
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
-     * @type {COLORREF}
      */
-    rgbFg {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    rgbFg : COLORREF
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * A flag specifying the drawing style and, optionally, the overlay image. See the comments section at the end of this topic for information on the overlay image. This member can contain one or more <a href="https://docs.microsoft.com/windows/desktop/Controls/imagelistdrawflags">image list drawing flags</a>.
-     * @type {Integer}
      */
-    fStyle {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    fStyle : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -325,23 +265,15 @@ class IMAGELISTDRAWPARAMS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwRop {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    dwRop : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * A flag that specifies the drawing state. This member can contain one or more <a href="https://docs.microsoft.com/windows/desktop/Controls/imageliststateflags">image list state flags</a>. You must use comctl32.dll version 6 to use this member. See the Remarks.
-     * @type {Integer}
      */
-    fState {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    fState : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -351,26 +283,14 @@ class IMAGELISTDRAWPARAMS extends Win32Struct {
      * When used with <a href="https://docs.microsoft.com/windows/desktop/Controls/imageliststateflags">ILS_ALPHA</a>, this member holds the value for the alpha channel. This value can be from 0 to 255, with 0 being completely transparent, and 255 being completely opaque. 
      * 
      * You must use comctl32.dll version 6 to use this member. See the Remarks.
-     * @type {Integer}
      */
-    Frame {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    Frame : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * A color used for the <b>glow</b> and <b>shadow</b> effects. You must use comctl32.dll version 6 to use this member. See the Remarks.
-     * @type {COLORREF}
      */
-    crEffect {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    crEffect : COLORREF
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 88
-    }
 }

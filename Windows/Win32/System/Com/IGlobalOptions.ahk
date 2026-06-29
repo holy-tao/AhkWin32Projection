@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\GLOBALOPT_PROPERTIES.ahk" { GLOBALOPT_PROPERTIES }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * The IGlobalOptions (objidlbase.h) interface sets and queries global properties of the Component Object Model (COM) runtime.
@@ -153,26 +155,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-iglobaloptions
  * @namespace Windows.Win32.System.Com
  */
-class IGlobalOptions extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IGlobalOptions extends IUnknown {
     /**
      * The interface identifier for IGlobalOptions
      * @type {Guid}
      */
-    static IID => Guid("{0000015b-0000-0000-c000-000000000046}")
+    static IID := Guid("{0000015b-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IGlobalOptions interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Set   : IntPtr
+        Query : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Set", "Query"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IGlobalOptions.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IGlobalOptions::Set (objidlbase.h) method sets the specified global property of the COM runtime.
@@ -183,7 +193,7 @@ class IGlobalOptions extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iglobaloptions-set
      */
     Set(dwProperty, dwValue) {
-        result := ComCall(3, this, "int", dwProperty, "ptr", dwValue, "HRESULT")
+        result := ComCall(3, this, GLOBALOPT_PROPERTIES, dwProperty, "ptr", dwValue, "HRESULT")
         return result
     }
 
@@ -195,7 +205,29 @@ class IGlobalOptions extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iglobaloptions-query
      */
     Query(dwProperty) {
-        result := ComCall(4, this, "int", dwProperty, "ptr*", &pdwValue := 0, "HRESULT")
+        result := ComCall(4, this, GLOBALOPT_PROPERTIES, dwProperty, "ptr*", &pdwValue := 0, "HRESULT")
         return pdwValue
+    }
+
+    Query(iid) {
+        if (IGlobalOptions.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Set := CallbackCreate(GetMethod(implObj, "Set"), flags, 3)
+        this.vtbl.Query := CallbackCreate(GetMethod(implObj, "Query"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Set)
+        CallbackFree(this.vtbl.Query)
     }
 }

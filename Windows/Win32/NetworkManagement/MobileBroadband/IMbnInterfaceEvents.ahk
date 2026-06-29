@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMbnInterface.ahk" { IMbnInterface }
 
 /**
  * This interface is a notification interface used to handle asynchronous IMbnInterface method calls as well as changes in the device state.
@@ -19,26 +21,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbninterfaceevents
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  */
-class IMbnInterfaceEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMbnInterfaceEvents extends IUnknown {
     /**
      * The interface identifier for IMbnInterfaceEvents
      * @type {Guid}
      */
-    static IID => Guid("{dcbbbab6-2002-4bbb-aaee-338e368af6fa}")
+    static IID := Guid("{dcbbbab6-2002-4bbb-aaee-338e368af6fa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMbnInterfaceEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnInterfaceCapabilityAvailable  : IntPtr
+        OnSubscriberInformationChange   : IntPtr
+        OnReadyStateChange              : IntPtr
+        OnEmergencyModeChange           : IntPtr
+        OnHomeProviderAvailable         : IntPtr
+        OnPreferredProvidersChange      : IntPtr
+        OnSetPreferredProvidersComplete : IntPtr
+        OnScanNetworkComplete           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnInterfaceCapabilityAvailable", "OnSubscriberInformationChange", "OnReadyStateChange", "OnEmergencyModeChange", "OnHomeProviderAvailable", "OnPreferredProvidersChange", "OnSetPreferredProvidersComplete", "OnScanNetworkComplete"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMbnInterfaceEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This notification method is called by the Mobile Broadband service to indicate that interface capability information is available.
@@ -214,5 +230,39 @@ class IMbnInterfaceEvents extends IUnknown {
     OnScanNetworkComplete(newInterface, requestID, _status) {
         result := ComCall(10, this, "ptr", newInterface, "uint", requestID, "int", _status, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMbnInterfaceEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnInterfaceCapabilityAvailable := CallbackCreate(GetMethod(implObj, "OnInterfaceCapabilityAvailable"), flags, 2)
+        this.vtbl.OnSubscriberInformationChange := CallbackCreate(GetMethod(implObj, "OnSubscriberInformationChange"), flags, 2)
+        this.vtbl.OnReadyStateChange := CallbackCreate(GetMethod(implObj, "OnReadyStateChange"), flags, 2)
+        this.vtbl.OnEmergencyModeChange := CallbackCreate(GetMethod(implObj, "OnEmergencyModeChange"), flags, 2)
+        this.vtbl.OnHomeProviderAvailable := CallbackCreate(GetMethod(implObj, "OnHomeProviderAvailable"), flags, 2)
+        this.vtbl.OnPreferredProvidersChange := CallbackCreate(GetMethod(implObj, "OnPreferredProvidersChange"), flags, 2)
+        this.vtbl.OnSetPreferredProvidersComplete := CallbackCreate(GetMethod(implObj, "OnSetPreferredProvidersComplete"), flags, 4)
+        this.vtbl.OnScanNetworkComplete := CallbackCreate(GetMethod(implObj, "OnScanNetworkComplete"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnInterfaceCapabilityAvailable)
+        CallbackFree(this.vtbl.OnSubscriberInformationChange)
+        CallbackFree(this.vtbl.OnReadyStateChange)
+        CallbackFree(this.vtbl.OnEmergencyModeChange)
+        CallbackFree(this.vtbl.OnHomeProviderAvailable)
+        CallbackFree(this.vtbl.OnPreferredProvidersChange)
+        CallbackFree(this.vtbl.OnSetPreferredProvidersComplete)
+        CallbackFree(this.vtbl.OnScanNetworkComplete)
     }
 }

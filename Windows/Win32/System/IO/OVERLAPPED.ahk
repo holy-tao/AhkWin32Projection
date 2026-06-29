@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
 
 /**
  * Contains information used in asynchronous (or overlapped) input and output (I/O).
@@ -27,56 +26,26 @@
  * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-overlapped
  * @namespace Windows.Win32.System.IO
  */
-class OVERLAPPED extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct OVERLAPPED {
+    #StructPack 8
 
     /**
      * The status code for the I/O request. When the request is issued, the system sets this member to <b>STATUS_PENDING</b> to indicate that the operation has not yet started.  When the request is completed, the system sets this member to the status code for the completed request. 
      * 
      * The <b>Internal</b> member was originally reserved for system use and its behavior may change.
-     * @type {Pointer}
      */
-    Internal {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Internal : IntPtr
 
     /**
      * The number of bytes transferred for the I/O request. The system sets this member if the request is completed without errors. 
      * 
      * The <b>InternalHigh</b> member was originally reserved for system use and its behavior may change.
-     * @type {Pointer}
      */
-    InternalHigh {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    InternalHigh : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    Offset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Offset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OffsetHigh {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    Pointer {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    OffsetHigh : UInt32
 
     /**
      * A handle to the event that will be set to a signaled state by the system when the operation has completed. The user must initialize this member either to zero or a valid event handle using the <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventa">CreateEvent</a> function before passing this structure to any overlapped functions. This event can then be used to synchronize simultaneous I/O requests for a device. For additional information, see Remarks.
@@ -87,13 +56,11 @@ class OVERLAPPED extends Win32Struct {
      * 
      * 
      * Functions such as <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-getoverlappedresult">GetOverlappedResult</a> and the synchronization <a href="https://docs.microsoft.com/windows/desktop/Sync/wait-functions">wait functions</a> reset auto-reset events to the nonsignaled state. Therefore, you should use a manual reset event; if you use an auto-reset event, your application can stop responding if you wait for the operation to complete and then call <b>GetOverlappedResult</b> with the <i>bWait</i> parameter set to <b>TRUE</b>.
-     * @type {HANDLE}
      */
-    hEvent {
-        get {
-            if(!this.HasProp("__hEvent"))
-                this.__hEvent := HANDLE(24, this)
-            return this.__hEvent
-        }
+    hEvent : HANDLE
+
+    static __New() {
+        DefineProp(this.Prototype, 'Pointer', { type: IntPtr, offset: 16 })
+        this.DeleteProp("__New")
     }
 }

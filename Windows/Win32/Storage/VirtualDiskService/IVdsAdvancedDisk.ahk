@@ -1,9 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\VDS_PARTITION_PROP.ahk
-#Include .\IVdsAsync.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CREATE_PARTITION_PARAMETERS.ahk" { CREATE_PARTITION_PARAMETERS }
+#Import ".\VDS_PARTITION_PROP.ahk" { VDS_PARTITION_PROP }
+#Import ".\CHANGE_ATTRIBUTES_PARAMETERS.ahk" { CHANGE_ATTRIBUTES_PARAMETERS }
+#Import ".\VDS_FILE_SYSTEM_TYPE.ahk" { VDS_FILE_SYSTEM_TYPE }
+#Import ".\IVdsAsync.ahk" { IVdsAsync }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Creates and deletes partitions, and modifies partition attributes.
@@ -22,26 +28,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsadvanceddisk
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsAdvancedDisk extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsAdvancedDisk extends IUnknown {
     /**
      * The interface identifier for IVdsAdvancedDisk
      * @type {Guid}
      */
-    static IID => Guid("{6e6f6b40-977c-4069-bddd-ac710059f8c0}")
+    static IID := Guid("{6e6f6b40-977c-4069-bddd-ac710059f8c0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsAdvancedDisk interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetPartitionProperties : IntPtr
+        QueryPartitions        : IntPtr
+        CreatePartition        : IntPtr
+        DeletePartition        : IntPtr
+        ChangeAttributes       : IntPtr
+        AssignDriveLetter      : IntPtr
+        DeleteDriveLetter      : IntPtr
+        GetDriveLetter         : IntPtr
+        FormatPartition        : IntPtr
+        Clean                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPartitionProperties", "QueryPartitions", "CreatePartition", "DeletePartition", "ChangeAttributes", "AssignDriveLetter", "DeleteDriveLetter", "GetDriveLetter", "FormatPartition", "Clean"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsAdvancedDisk.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns the properties of the partition identified by the partition offset.
@@ -53,7 +75,7 @@ class IVdsAdvancedDisk extends IUnknown {
      */
     GetPartitionProperties(ullOffset) {
         pPartitionProp := VDS_PARTITION_PROP()
-        result := ComCall(3, this, "uint", ullOffset, "ptr", pPartitionProp, "HRESULT")
+        result := ComCall(3, this, "uint", ullOffset, VDS_PARTITION_PROP.Ptr, pPartitionProp, "HRESULT")
         return pPartitionProp
     }
 
@@ -119,7 +141,7 @@ class IVdsAdvancedDisk extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsadvanceddisk-createpartition
      */
     CreatePartition(ullOffset, ullSize, para) {
-        result := ComCall(5, this, "uint", ullOffset, "uint", ullSize, "ptr", para, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(5, this, "uint", ullOffset, "uint", ullSize, CREATE_PARTITION_PARAMETERS.Ptr, para, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 
@@ -239,7 +261,7 @@ class IVdsAdvancedDisk extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsadvanceddisk-deletepartition
      */
     DeletePartition(ullOffset, bForce, bForceProtected) {
-        result := ComCall(6, this, "uint", ullOffset, "int", bForce, "int", bForceProtected, "HRESULT")
+        result := ComCall(6, this, "uint", ullOffset, BOOL, bForce, BOOL, bForceProtected, "HRESULT")
         return result
     }
 
@@ -307,7 +329,7 @@ class IVdsAdvancedDisk extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsadvanceddisk-changeattributes
      */
     ChangeAttributes(ullOffset, para) {
-        result := ComCall(7, this, "uint", ullOffset, "ptr", para, "HRESULT")
+        result := ComCall(7, this, "uint", ullOffset, CHANGE_ATTRIBUTES_PARAMETERS.Ptr, para, "HRESULT")
         return result
     }
 
@@ -526,7 +548,7 @@ class IVdsAdvancedDisk extends IUnknown {
     FormatPartition(ullOffset, type, pwszLabel, dwUnitAllocationSize, bForce, bQuickFormat, bEnableCompression) {
         pwszLabel := pwszLabel is String ? StrPtr(pwszLabel) : pwszLabel
 
-        result := ComCall(11, this, "uint", ullOffset, "int", type, "ptr", pwszLabel, "uint", dwUnitAllocationSize, "int", bForce, "int", bQuickFormat, "int", bEnableCompression, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(11, this, "uint", ullOffset, VDS_FILE_SYSTEM_TYPE, type, "ptr", pwszLabel, "uint", dwUnitAllocationSize, BOOL, bForce, BOOL, bQuickFormat, BOOL, bEnableCompression, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
     }
 
@@ -584,7 +606,45 @@ class IVdsAdvancedDisk extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsadvanceddisk-clean
      */
     Clean(bForce, bForceOEM, bFullClean) {
-        result := ComCall(12, this, "int", bForce, "int", bForceOEM, "int", bFullClean, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(12, this, BOOL, bForce, BOOL, bForceOEM, BOOL, bFullClean, "ptr*", &ppAsync := 0, "HRESULT")
         return IVdsAsync(ppAsync)
+    }
+
+    Query(iid) {
+        if (IVdsAdvancedDisk.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPartitionProperties := CallbackCreate(GetMethod(implObj, "GetPartitionProperties"), flags, 3)
+        this.vtbl.QueryPartitions := CallbackCreate(GetMethod(implObj, "QueryPartitions"), flags, 3)
+        this.vtbl.CreatePartition := CallbackCreate(GetMethod(implObj, "CreatePartition"), flags, 5)
+        this.vtbl.DeletePartition := CallbackCreate(GetMethod(implObj, "DeletePartition"), flags, 4)
+        this.vtbl.ChangeAttributes := CallbackCreate(GetMethod(implObj, "ChangeAttributes"), flags, 3)
+        this.vtbl.AssignDriveLetter := CallbackCreate(GetMethod(implObj, "AssignDriveLetter"), flags, 3)
+        this.vtbl.DeleteDriveLetter := CallbackCreate(GetMethod(implObj, "DeleteDriveLetter"), flags, 3)
+        this.vtbl.GetDriveLetter := CallbackCreate(GetMethod(implObj, "GetDriveLetter"), flags, 3)
+        this.vtbl.FormatPartition := CallbackCreate(GetMethod(implObj, "FormatPartition"), flags, 9)
+        this.vtbl.Clean := CallbackCreate(GetMethod(implObj, "Clean"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPartitionProperties)
+        CallbackFree(this.vtbl.QueryPartitions)
+        CallbackFree(this.vtbl.CreatePartition)
+        CallbackFree(this.vtbl.DeletePartition)
+        CallbackFree(this.vtbl.ChangeAttributes)
+        CallbackFree(this.vtbl.AssignDriveLetter)
+        CallbackFree(this.vtbl.DeleteDriveLetter)
+        CallbackFree(this.vtbl.GetDriveLetter)
+        CallbackFree(this.vtbl.FormatPartition)
+        CallbackFree(this.vtbl.Clean)
     }
 }

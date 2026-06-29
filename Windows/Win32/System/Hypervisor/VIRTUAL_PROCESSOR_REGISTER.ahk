@@ -1,92 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
  */
-class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct {
-    static sizeof => 48
+export default struct VIRTUAL_PROCESSOR_REGISTER {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Reg128 extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _Reg128 {
+        Low64 : Int64
 
-        /**
-         * @type {Integer}
-         */
-        Low64 {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        High64 : Int64
 
-        /**
-         * @type {Integer}
-         */
-        High64 {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
     }
 
-    class _X64_e__Union extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _X64 {
 
-        class _Segment extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
+        struct _Segment {
+            Base : Int64
 
-            /**
-             * @type {Integer}
-             */
-            Base {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            Limit : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            Limit {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
+            Selector : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            Selector {
-                get => NumGet(this, 12, "ushort")
-                set => NumPut("ushort", value, this, 12)
-            }
+            Attributes : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            Attributes {
-                get => NumGet(this, 14, "ushort")
-                set => NumPut("ushort", value, this, 14)
-            }
-
-            /**
-             * This bitfield backs the following members:
-             * - SegmentType
-             * - NonSystemSegment
-             * - DescriptorPrivilegeLevel
-             * - Present
-             * - Reserved
-             * - Available
-             * - Long
-             * - Default
-             * - Granularity
-             * @type {Integer}
-             */
-            _bitfield {
-                get => NumGet(this, 14, "ushort")
-                set => NumPut("ushort", value, this, 14)
-            }
 
             /**
              * @type {Integer}
@@ -151,239 +89,71 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct {
                 get => (this._bitfield >> 15) & 0x1
                 set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
             }
-        }
-
-        class _Table extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
-
-            /**
-             * @type {Integer}
-             */
-            Limit {
-                get => NumGet(this, 0, "ushort")
-                set => NumPut("ushort", value, this, 0)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            Base {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
+            static __New() {
+                DefineProp(this.Prototype, '_bitfield', { type: Int16, offset: 14 })
+                this.DeleteProp("__New")
             }
         }
 
-        class _FpControlStatus extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
+        struct _Table {
+            Limit : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            FpControl {
-                get => NumGet(this, 0, "ushort")
-                set => NumPut("ushort", value, this, 0)
-            }
+            Base : Int64
 
-            /**
-             * @type {Integer}
-             */
-            FpStatus {
-                get => NumGet(this, 2, "ushort")
-                set => NumPut("ushort", value, this, 2)
-            }
+        }
 
-            /**
-             * @type {Integer}
-             */
-            FpTag {
-                get => NumGet(this, 4, "char")
-                set => NumPut("char", value, this, 4)
-            }
+        struct _FpControlStatus {
+            FpControl : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            Reserved {
-                get => NumGet(this, 5, "char")
-                set => NumPut("char", value, this, 5)
-            }
+            FpStatus : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            LastFpOp {
-                get => NumGet(this, 6, "ushort")
-                set => NumPut("ushort", value, this, 6)
-            }
+            FpTag : Int8
 
-            /**
-             * @type {Integer}
-             */
-            LastFpRip {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
+            Reserved : Int8
 
-            /**
-             * @type {Integer}
-             */
-            LastFpEip {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
+            LastFpOp : UInt16
 
-            /**
-             * @type {Integer}
-             */
-            LastFpCs {
-                get => NumGet(this, 12, "ushort")
-                set => NumPut("ushort", value, this, 12)
+            LastFpRip : Int64
+
+            static __New() {
+                DefineProp(this.Prototype, 'LastFpEip', { type: UInt32, offset: 8 })
+                DefineProp(this.Prototype, 'LastFpCs', { type: UInt16, offset: 12 })
+                this.DeleteProp("__New")
             }
         }
 
-        class _XmmControlStatus extends Win32Struct {
-            static sizeof => 16
-            static packingSize => 8
+        struct _XmmControlStatus {
+            LastFpRdp : Int64
 
-            /**
-             * @type {Integer}
-             */
-            LastFpRdp {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            XmmStatusControl : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            LastFpDp {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            XmmStatusControlMask : UInt32
 
-            /**
-             * @type {Integer}
-             */
-            LastFpDs {
-                get => NumGet(this, 4, "ushort")
-                set => NumPut("ushort", value, this, 4)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            XmmStatusControl {
-                get => NumGet(this, 8, "uint")
-                set => NumPut("uint", value, this, 8)
-            }
-
-            /**
-             * @type {Integer}
-             */
-            XmmStatusControlMask {
-                get => NumGet(this, 12, "uint")
-                set => NumPut("uint", value, this, 12)
+            static __New() {
+                DefineProp(this.Prototype, 'LastFpDp', { type: UInt32, offset: 0 })
+                DefineProp(this.Prototype, 'LastFpDs', { type: UInt16, offset: 4 })
+                this.DeleteProp("__New")
             }
         }
 
-        /**
-         * @type {_Segment}
-         */
-        Segment {
-            get {
-                if(!this.HasProp("__Segment"))
-                    this.__Segment := VIRTUAL_PROCESSOR_REGISTER._X64_e__Union._Segment(0, this)
-                return this.__Segment
-            }
-        }
+        Segment : VIRTUAL_PROCESSOR_REGISTER._X64._Segment
 
-        /**
-         * @type {_Table}
-         */
-        Table {
-            get {
-                if(!this.HasProp("__Table"))
-                    this.__Table := VIRTUAL_PROCESSOR_REGISTER._X64_e__Union._Table(0, this)
-                return this.__Table
-            }
-        }
-
-        /**
-         * @type {_FpControlStatus}
-         */
-        FpControlStatus {
-            get {
-                if(!this.HasProp("__FpControlStatus"))
-                    this.__FpControlStatus := VIRTUAL_PROCESSOR_REGISTER._X64_e__Union._FpControlStatus(0, this)
-                return this.__FpControlStatus
-            }
-        }
-
-        /**
-         * @type {_XmmControlStatus}
-         */
-        XmmControlStatus {
-            get {
-                if(!this.HasProp("__XmmControlStatus"))
-                    this.__XmmControlStatus := VIRTUAL_PROCESSOR_REGISTER._X64_e__Union._XmmControlStatus(0, this)
-                return this.__XmmControlStatus
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'Table', { type: VIRTUAL_PROCESSOR_REGISTER._X64._Table, offset: 0 })
+            DefineProp(this.Prototype, 'FpControlStatus', { type: VIRTUAL_PROCESSOR_REGISTER._X64._FpControlStatus, offset: 0 })
+            DefineProp(this.Prototype, 'XmmControlStatus', { type: VIRTUAL_PROCESSOR_REGISTER._X64._XmmControlStatus, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    Reg64 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Reg64 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Reg32 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Reg16 {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Reg8 {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
-
-    /**
-     * @type {_Reg128}
-     */
-    Reg128 {
-        get {
-            if(!this.HasProp("__Reg128"))
-                this.__Reg128 := VIRTUAL_PROCESSOR_REGISTER._Reg128(0, this)
-            return this.__Reg128
-        }
-    }
-
-    /**
-     * @type {_X64_e__Union}
-     */
-    X64 {
-        get {
-            if(!this.HasProp("__X64"))
-                this.__X64 := VIRTUAL_PROCESSOR_REGISTER._X64_e__Union(0, this)
-            return this.__X64
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Reg32', { type: UInt32, offset: 0 })
+        DefineProp(this.Prototype, 'Reg16', { type: UInt16, offset: 0 })
+        DefineProp(this.Prototype, 'Reg8', { type: Int8, offset: 0 })
+        DefineProp(this.Prototype, 'Reg128', { type: VIRTUAL_PROCESSOR_REGISTER._Reg128, offset: 0 })
+        DefineProp(this.Prototype, 'X64', { type: VIRTUAL_PROCESSOR_REGISTER._X64, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

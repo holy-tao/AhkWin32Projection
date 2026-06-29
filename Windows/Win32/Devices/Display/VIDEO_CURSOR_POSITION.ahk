@@ -1,27 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class VIDEO_CURSOR_POSITION extends Win32Struct {
-    static sizeof => 4
+export default struct VIDEO_CURSOR_POSITION {
+    #StructPack 2
 
-    static packingSize => 2
+    Column : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Column {
-        get => NumGet(this, 0, "short")
-        set => NumPut("short", value, this, 0)
-    }
+    Row : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Row {
-        get => NumGet(this, 2, "short")
-        set => NumPut("short", value, this, 2)
-    }
 }

@@ -1,35 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IEnumTfDisplayAttributeInfo.ahk
-#Include .\ITfDisplayAttributeInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITfDisplayAttributeInfo.ahk" { ITfDisplayAttributeInfo }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumTfDisplayAttributeInfo.ahk" { IEnumTfDisplayAttributeInfo }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITfDisplayAttributeMgr interface is implemented by the TSF manager and used by an application to obtain and enumerate display attributes. Individual display attributes are accessed through the ITfDisplayAttributeInfo interface.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfdisplayattributemgr
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfDisplayAttributeMgr extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfDisplayAttributeMgr extends IUnknown {
     /**
      * The interface identifier for ITfDisplayAttributeMgr
      * @type {Guid}
      */
-    static IID => Guid("{8ded7393-5db1-475c-9e71-a39111b0ff67}")
+    static IID := Guid("{8ded7393-5db1-475c-9e71-a39111b0ff67}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfDisplayAttributeMgr interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        OnUpdateInfo             : IntPtr
+        EnumDisplayAttributeInfo : IntPtr
+        GetDisplayAttributeInfo  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnUpdateInfo", "EnumDisplayAttributeInfo", "GetDisplayAttributeInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfDisplayAttributeMgr.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfDisplayAttributeMgr::OnUpdateInfo method
@@ -96,7 +106,31 @@ class ITfDisplayAttributeMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfdisplayattributemgr-getdisplayattributeinfo
      */
     GetDisplayAttributeInfo(guid, ppInfo, pclsidOwner) {
-        result := ComCall(5, this, "ptr", guid, "ptr*", ppInfo, "ptr", pclsidOwner, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, guid, ITfDisplayAttributeInfo.Ptr, ppInfo, Guid.Ptr, pclsidOwner, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITfDisplayAttributeMgr.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnUpdateInfo := CallbackCreate(GetMethod(implObj, "OnUpdateInfo"), flags, 1)
+        this.vtbl.EnumDisplayAttributeInfo := CallbackCreate(GetMethod(implObj, "EnumDisplayAttributeInfo"), flags, 2)
+        this.vtbl.GetDisplayAttributeInfo := CallbackCreate(GetMethod(implObj, "GetDisplayAttributeInfo"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnUpdateInfo)
+        CallbackFree(this.vtbl.EnumDisplayAttributeInfo)
+        CallbackFree(this.vtbl.GetDisplayAttributeInfo)
     }
 }

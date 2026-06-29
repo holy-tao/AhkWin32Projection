@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WTS_TIME_ZONE_INFORMATION.ahk
-#Include .\WTS_SYSTEMTIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WTS_SYSTEMTIME.ahk" { WTS_SYSTEMTIME }
+#Import ".\WTS_TIME_ZONE_INFORMATION.ahk" { WTS_TIME_ZONE_INFORMATION }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains select client property values.
@@ -10,38 +10,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wts_user_data
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class WTS_USER_DATA extends Win32Struct {
-    static sizeof => 1200
-
-    static packingSize => 4
+export default struct WTS_USER_DATA {
+    #StructPack 4
 
     /**
      * A string value that specifies the directory where the client startup program resides. This value corresponds to the <b>WorkDirectory</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_client_data">WTS_CLIENT_DATA</a> structure.
-     * @type {String}
      */
-    WorkDirectory {
-        get => StrGet(this.ptr + 0, 256, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 256, "UTF-16")
-    }
+    WorkDirectory : WCHAR[257]
 
     /**
      * A string value that specifies the name of  the initial program. This value corresponds to the <b>InitialProgram</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_client_data">WTS_CLIENT_DATA</a> structure.
-     * @type {String}
      */
-    InitialProgram {
-        get => StrGet(this.ptr + 514, 256, "UTF-16")
-        set => StrPut(value, this.ptr + 514, 256, "UTF-16")
-    }
+    InitialProgram : WCHAR[257]
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_time_zone_information">WTS_TIME_ZONE_INFORMATION</a> structure that contains client time zone information. This value corresponds to the <b>ClientTimeZone</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_client_data">WTS_CLIENT_DATA</a> structure.
-     * @type {WTS_TIME_ZONE_INFORMATION}
      */
-    UserTimeZone {
-        get {
-            if(!this.HasProp("__UserTimeZone"))
-                this.__UserTimeZone := WTS_TIME_ZONE_INFORMATION(1028, this)
-            return this.__UserTimeZone
-        }
-    }
+    UserTimeZone : WTS_TIME_ZONE_INFORMATION
+
 }

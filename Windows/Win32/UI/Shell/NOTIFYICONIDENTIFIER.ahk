@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains information used by Shell_NotifyIconGetRect to identify the icon for which to retrieve the bounding rectangle.
@@ -18,60 +18,35 @@
  * @namespace Windows.Win32.UI.Shell
  * @architecture X64, Arm64
  */
-class NOTIFYICONIDENTIFIER extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct NOTIFYICONIDENTIFIER {
+    #StructPack 8
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The size of this structure, in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b>HWND</b>
      * 
      * A handle to the parent window used by the notification's callback function. For more information, see the <i>hWnd</i> member of the <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ns-shellapi-notifyicondataa">NOTIFYICONDATA</a> structure.
-     * @type {HWND}
      */
-    hWnd {
-        get {
-            if(!this.HasProp("__hWnd"))
-                this.__hWnd := HWND(8, this)
-            return this.__hWnd
-        }
-    }
+    hWnd : HWND
 
     /**
      * Type: <b>UINT</b>
      * 
      * The application-defined identifier of the notification icon. Multiple icons can be associated with a single <i>hWnd</i>, each with their own <i>uID</i>.
-     * @type {Integer}
      */
-    uID {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    uID : UInt32
 
     /**
      * Type: <b>GUID</b>
      * 
      * A registered GUID that identifies the icon. Use <b>GUID_NULL</b> if the icon is not identified by a GUID.
-     * @type {Pointer}
      */
-    guidItem {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    guidItem : Guid
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 32
-    }
 }

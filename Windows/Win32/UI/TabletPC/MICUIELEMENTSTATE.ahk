@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the button states of a math input control (MIC).
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/micaut/ne-micaut-micuielementstate
  * @namespace Windows.Win32.UI.TabletPC
  */
-class MICUIELEMENTSTATE extends Win32Enum {
+export default struct MICUIELEMENTSTATE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The button does not have the mouse hovering over it.

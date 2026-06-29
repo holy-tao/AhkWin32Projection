@@ -1,32 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\Data\Xml\MsXml\IXMLDOMDocument2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Gdi\DEVMODEA.ahk" { DEVMODEA }
+#Import ".\PRINTER_HANDLE.ahk" { PRINTER_HANDLE }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\SHIMOPTS.ahk" { SHIMOPTS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\Data\Xml\MsXml\IXMLDOMDocument2.ahk" { IXMLDOMDocument2 }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class IPrintTicketProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPrintTicketProvider extends IUnknown {
     /**
      * The interface identifier for IPrintTicketProvider
      * @type {Guid}
      */
-    static IID => Guid("{bb5116db-0a23-4c3a-a6b6-89e5558dfb5d}")
+    static IID := Guid("{bb5116db-0a23-4c3a-a6b6-89e5558dfb5d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPrintTicketProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetSupportedVersions        : IntPtr
+        BindPrinter                 : IntPtr
+        QueryDeviceNamespace        : IntPtr
+        ConvertPrintTicketToDevMode : IntPtr
+        ConvertDevModeToPrintTicket : IntPtr
+        GetPrintCapabilities        : IntPtr
+        ValidatePrintTicket         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSupportedVersions", "BindPrinter", "QueryDeviceNamespace", "ConvertPrintTicketToDevMode", "ConvertDevModeToPrintTicket", "GetPrintCapabilities", "ValidatePrintTicket"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPrintTicketProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -36,12 +54,10 @@ class IPrintTicketProvider extends IUnknown {
      * @returns {HRESULT} 
      */
     GetSupportedVersions(hPrinter, ppVersions, cVersions) {
-        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
-
         ppVersionsMarshal := ppVersions is VarRef ? "ptr*" : "ptr"
         cVersionsMarshal := cVersions is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hPrinter, ppVersionsMarshal, ppVersions, cVersionsMarshal, cVersions, "HRESULT")
+        result := ComCall(3, this, PRINTER_HANDLE, hPrinter, ppVersionsMarshal, ppVersions, cVersionsMarshal, cVersions, "HRESULT")
         return result
     }
 
@@ -56,14 +72,12 @@ class IPrintTicketProvider extends IUnknown {
      * @returns {HRESULT} 
      */
     BindPrinter(hPrinter, _version, pOptions, pDevModeFlags, cNamespaces, ppNamespaces) {
-        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
-
         pOptionsMarshal := pOptions is VarRef ? "int*" : "ptr"
         pDevModeFlagsMarshal := pDevModeFlags is VarRef ? "uint*" : "ptr"
         cNamespacesMarshal := cNamespaces is VarRef ? "int*" : "ptr"
         ppNamespacesMarshal := ppNamespaces is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", hPrinter, "int", _version, pOptionsMarshal, pOptions, pDevModeFlagsMarshal, pDevModeFlags, cNamespacesMarshal, cNamespaces, ppNamespacesMarshal, ppNamespaces, "HRESULT")
+        result := ComCall(4, this, PRINTER_HANDLE, hPrinter, "int", _version, pOptionsMarshal, pOptions, pDevModeFlagsMarshal, pDevModeFlags, cNamespacesMarshal, cNamespaces, ppNamespacesMarshal, ppNamespaces, "HRESULT")
         return result
     }
 
@@ -73,46 +87,43 @@ class IPrintTicketProvider extends IUnknown {
      * @returns {HRESULT} 
      */
     QueryDeviceNamespace(pDefaultNamespace) {
-        result := ComCall(5, this, "ptr", pDefaultNamespace, "HRESULT")
+        result := ComCall(5, this, BSTR.Ptr, pDefaultNamespace, "HRESULT")
         return result
     }
 
     /**
-     * Converts a print ticket to a DEVMODE structure.
-     * @param {IXMLDOMDocument2} pPrintTicket The buffer that contains the print ticket to convert.
+     * 
+     * @param {IXMLDOMDocument2} pPrintTicket 
      * @param {Integer} cbDevmodeIn 
      * @param {Pointer<DEVMODEA>} pDevmodeIn 
      * @param {Pointer<Integer>} pcbDevmodeOut 
      * @param {Pointer<Pointer<DEVMODEA>>} ppDevmodeOut 
-     * @returns {HRESULT} If the method succeeds, it returns **S\_OK**; otherwise, it returns an **HRESULT** error code. For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
-     * @see https://learn.microsoft.com/windows/win32/printdocs/convertprinttickettodevmodethunk2
+     * @returns {HRESULT} 
      */
     ConvertPrintTicketToDevMode(pPrintTicket, cbDevmodeIn, pDevmodeIn, pcbDevmodeOut, ppDevmodeOut) {
         pcbDevmodeOutMarshal := pcbDevmodeOut is VarRef ? "uint*" : "ptr"
         ppDevmodeOutMarshal := ppDevmodeOut is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pPrintTicket, "uint", cbDevmodeIn, "ptr", pDevmodeIn, pcbDevmodeOutMarshal, pcbDevmodeOut, ppDevmodeOutMarshal, ppDevmodeOut, "HRESULT")
+        result := ComCall(6, this, "ptr", pPrintTicket, "uint", cbDevmodeIn, DEVMODEA.Ptr, pDevmodeIn, pcbDevmodeOutMarshal, pcbDevmodeOut, ppDevmodeOutMarshal, ppDevmodeOut, "HRESULT")
         return result
     }
 
     /**
-     * Converts a DEVMODE structure to a print ticket.
+     * 
      * @param {Integer} cbDevmode 
-     * @param {Pointer<DEVMODEA>} pDevmode A pointer to the [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) to convert.
+     * @param {Pointer<DEVMODEA>} pDevmode 
      * @param {IXMLDOMDocument2} pPrintTicket 
-     * @returns {HRESULT} If the method succeeds, it returns **S\_OK**; otherwise, it returns an **HRESULT** error code. For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
-     * @see https://learn.microsoft.com/windows/win32/printdocs/convertdevmodetoprintticketthunk2
+     * @returns {HRESULT} 
      */
     ConvertDevModeToPrintTicket(cbDevmode, pDevmode, pPrintTicket) {
-        result := ComCall(7, this, "uint", cbDevmode, "ptr", pDevmode, "ptr", pPrintTicket, "HRESULT")
+        result := ComCall(7, this, "uint", cbDevmode, DEVMODEA.Ptr, pDevmode, "ptr", pPrintTicket, "HRESULT")
         return result
     }
 
     /**
-     * Retrieves the printers capabilities formatted in compliance with the XML Print Schema.
-     * @param {IXMLDOMDocument2} pPrintTicket The buffer that contains the print ticket data, expressed in XML as described in the [Print Schema](./printschema.md).
+     * 
+     * @param {IXMLDOMDocument2} pPrintTicket 
      * @returns {IXMLDOMDocument2} 
-     * @see https://learn.microsoft.com/windows/win32/printdocs/getprintcapabilitiesthunk2
      */
     GetPrintCapabilities(pPrintTicket) {
         result := ComCall(8, this, "ptr", pPrintTicket, "ptr*", &ppCapabilities := 0, "HRESULT")
@@ -127,5 +138,37 @@ class IPrintTicketProvider extends IUnknown {
     ValidatePrintTicket(pBaseTicket) {
         result := ComCall(9, this, "ptr", pBaseTicket, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPrintTicketProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSupportedVersions := CallbackCreate(GetMethod(implObj, "GetSupportedVersions"), flags, 4)
+        this.vtbl.BindPrinter := CallbackCreate(GetMethod(implObj, "BindPrinter"), flags, 7)
+        this.vtbl.QueryDeviceNamespace := CallbackCreate(GetMethod(implObj, "QueryDeviceNamespace"), flags, 2)
+        this.vtbl.ConvertPrintTicketToDevMode := CallbackCreate(GetMethod(implObj, "ConvertPrintTicketToDevMode"), flags, 6)
+        this.vtbl.ConvertDevModeToPrintTicket := CallbackCreate(GetMethod(implObj, "ConvertDevModeToPrintTicket"), flags, 4)
+        this.vtbl.GetPrintCapabilities := CallbackCreate(GetMethod(implObj, "GetPrintCapabilities"), flags, 3)
+        this.vtbl.ValidatePrintTicket := CallbackCreate(GetMethod(implObj, "ValidatePrintTicket"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSupportedVersions)
+        CallbackFree(this.vtbl.BindPrinter)
+        CallbackFree(this.vtbl.QueryDeviceNamespace)
+        CallbackFree(this.vtbl.ConvertPrintTicketToDevMode)
+        CallbackFree(this.vtbl.ConvertDevModeToPrintTicket)
+        CallbackFree(this.vtbl.GetPrintCapabilities)
+        CallbackFree(this.vtbl.ValidatePrintTicket)
     }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * This topic applies only to Windows XP Service Pack 1 or later.
  * @see https://learn.microsoft.com/windows/win32/api/sbe/ne-sbe-streambuffer_attr_datatype
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class STREAMBUFFER_ATTR_DATATYPE extends Win32Enum {
+export default struct STREAMBUFFER_ATTR_DATATYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The attribute is a 32-bit <b>DWORD</b> value.

@@ -1,152 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HCONN.ahk" { HCONN }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * @namespace Windows.Win32.System.Iis
  */
-class EXTENSION_CONTROL_BLOCK extends Win32Struct {
-    static sizeof => 192
+export default struct EXTENSION_CONTROL_BLOCK {
+    #StructPack 8
 
-    static packingSize => 8
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ConnID : HCONN
 
-    /**
-     * @type {HCONN}
-     */
-    ConnID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    dwHttpStatusCode : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwHttpStatusCode {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    lpszLogData : CHAR[80]
 
-    /**
-     * @type {String}
-     */
-    lpszLogData {
-        get => StrGet(this.ptr + 20, 79, "UTF-8")
-        set => StrPut(value, this.ptr + 20, 79, "UTF-8")
-    }
+    lpszMethod : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    lpszMethod {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    lpszQueryString : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    lpszQueryString {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    lpszPathInfo : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    lpszPathInfo {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    lpszPathTranslated : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    lpszPathTranslated {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    cbTotalBytes : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbTotalBytes {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    cbAvailable : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbAvailable {
-        get => NumGet(this, 140, "uint")
-        set => NumPut("uint", value, this, 140)
-    }
+    lpbData : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    lpbData {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
-    }
+    lpszContentType : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    lpszContentType {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
-    }
+    GetServerVariable : IntPtr
 
-    /**
-     * @type {Pointer<PFN_IIS_GETSERVERVARIABLE>}
-     */
-    GetServerVariable {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
-    }
+    WriteClient : IntPtr
 
-    /**
-     * @type {Pointer<PFN_IIS_WRITECLIENT>}
-     */
-    WriteClient {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
-    }
+    ReadClient : IntPtr
 
-    /**
-     * @type {Pointer<PFN_IIS_READCLIENT>}
-     */
-    ReadClient {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
-    }
+    ServerSupportFunction : IntPtr
 
-    /**
-     * @type {Pointer<PFN_IIS_SERVERSUPPORTFUNCTION>}
-     */
-    ServerSupportFunction {
-        get => NumGet(this, 184, "ptr")
-        set => NumPut("ptr", value, this, 184)
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 192
-    }
 }

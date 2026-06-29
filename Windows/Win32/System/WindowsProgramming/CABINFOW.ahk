@@ -1,52 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
  * @charset Unicode
  */
-class CABINFOW extends Win32Struct {
-    static sizeof => 552
+export default struct CABINFOW {
+    #StructPack 8
 
-    static packingSize => 8
+    pszCab : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszCab {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pszInf : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszInf {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pszSection : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszSection {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    szSrcPath : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    szSrcPath {
-        get => StrGet(this.ptr + 24, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 259, "UTF-16")
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 544, "uint")
-        set => NumPut("uint", value, this, 544)
-    }
 }

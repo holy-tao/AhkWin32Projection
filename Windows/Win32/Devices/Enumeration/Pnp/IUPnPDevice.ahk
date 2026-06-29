@@ -1,42 +1,69 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include .\IUPnPDevices.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IUPnPServices.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IUPnPServices.ahk" { IUPnPServices }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IUPnPDevices.ahk" { IUPnPDevices }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IUPnPDevice interface enables an application to retrieve information about a specific device.
  * @see https://learn.microsoft.com/windows/win32/api/upnp/nn-upnp-iupnpdevice
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
  */
-class IUPnPDevice extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IUPnPDevice extends IDispatch {
     /**
      * The interface identifier for IUPnPDevice
      * @type {Guid}
      */
-    static IID => Guid("{3d44d0d1-98c9-4889-acd1-f9d674bf2221}")
+    static IID := Guid("{3d44d0d1-98c9-4889-acd1-f9d674bf2221}")
 
     /**
      * The class identifier for UPnPDevice
      * @type {Guid}
      */
-    static CLSID => Guid("{a32552c5-ba61-457a-b59a-a2561e125e33}")
+    static CLSID := Guid("{a32552c5-ba61-457a-b59a-a2561e125e33}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUPnPDevice interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_IsRootDevice     : IntPtr
+        get_RootDevice       : IntPtr
+        get_ParentDevice     : IntPtr
+        get_HasChildren      : IntPtr
+        get_Children         : IntPtr
+        get_UniqueDeviceName : IntPtr
+        get_FriendlyName     : IntPtr
+        get_Type             : IntPtr
+        get_PresentationURL  : IntPtr
+        get_ManufacturerName : IntPtr
+        get_ManufacturerURL  : IntPtr
+        get_ModelName        : IntPtr
+        get_ModelNumber      : IntPtr
+        get_Description      : IntPtr
+        get_ModelURL         : IntPtr
+        get_UPC              : IntPtr
+        get_SerialNumber     : IntPtr
+        IconURL              : IntPtr
+        get_Services         : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_IsRootDevice", "get_RootDevice", "get_ParentDevice", "get_HasChildren", "get_Children", "get_UniqueDeviceName", "get_FriendlyName", "get_Type", "get_PresentationURL", "get_ManufacturerName", "get_ManufacturerURL", "get_ModelName", "get_ModelNumber", "get_Description", "get_ModelURL", "get_UPC", "get_SerialNumber", "IconURL", "get_Services"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUPnPDevice.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -170,7 +197,7 @@ class IUPnPDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_isrootdevice
      */
     get_IsRootDevice() {
-        result := ComCall(7, this, "short*", &pvarb := 0, "HRESULT")
+        result := ComCall(7, this, VARIANT_BOOL.Ptr, &pvarb := 0, "HRESULT")
         return pvarb
     }
 
@@ -206,7 +233,7 @@ class IUPnPDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_haschildren
      */
     get_HasChildren() {
-        result := ComCall(10, this, "short*", &pvarb := 0, "HRESULT")
+        result := ComCall(10, this, VARIANT_BOOL.Ptr, &pvarb := 0, "HRESULT")
         return pvarb
     }
 
@@ -234,8 +261,8 @@ class IUPnPDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_uniquedevicename
      */
     get_UniqueDeviceName() {
-        pbstr := BSTR()
-        result := ComCall(12, this, "ptr", pbstr, "HRESULT")
+        pbstr := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, pbstr, "HRESULT")
         return pbstr
     }
 
@@ -248,8 +275,8 @@ class IUPnPDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_friendlyname
      */
     get_FriendlyName() {
-        pbstr := BSTR()
-        result := ComCall(13, this, "ptr", pbstr, "HRESULT")
+        pbstr := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, pbstr, "HRESULT")
         return pbstr
     }
 
@@ -259,8 +286,8 @@ class IUPnPDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_type
      */
     get_Type() {
-        pbstr := BSTR()
-        result := ComCall(14, this, "ptr", pbstr, "HRESULT")
+        pbstr := BSTR.Owned()
+        result := ComCall(14, this, BSTR.Ptr, pbstr, "HRESULT")
         return pbstr
     }
 
@@ -273,8 +300,8 @@ class IUPnPDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_presentationurl
      */
     get_PresentationURL() {
-        pbstr := BSTR()
-        result := ComCall(15, this, "ptr", pbstr, "HRESULT")
+        pbstr := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, pbstr, "HRESULT")
         return pbstr
     }
 
@@ -284,8 +311,8 @@ class IUPnPDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_manufacturername
      */
     get_ManufacturerName() {
-        pbstr := BSTR()
-        result := ComCall(16, this, "ptr", pbstr, "HRESULT")
+        pbstr := BSTR.Owned()
+        result := ComCall(16, this, BSTR.Ptr, pbstr, "HRESULT")
         return pbstr
     }
 
@@ -297,8 +324,8 @@ class IUPnPDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_manufacturerurl
      */
     get_ManufacturerURL() {
-        pbstr := BSTR()
-        result := ComCall(17, this, "ptr", pbstr, "HRESULT")
+        pbstr := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, pbstr, "HRESULT")
         return pbstr
     }
 
@@ -308,8 +335,8 @@ class IUPnPDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_modelname
      */
     get_ModelName() {
-        pbstr := BSTR()
-        result := ComCall(18, this, "ptr", pbstr, "HRESULT")
+        pbstr := BSTR.Owned()
+        result := ComCall(18, this, BSTR.Ptr, pbstr, "HRESULT")
         return pbstr
     }
 
@@ -321,8 +348,8 @@ class IUPnPDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_modelnumber
      */
     get_ModelNumber() {
-        pbstr := BSTR()
-        result := ComCall(19, this, "ptr", pbstr, "HRESULT")
+        pbstr := BSTR.Owned()
+        result := ComCall(19, this, BSTR.Ptr, pbstr, "HRESULT")
         return pbstr
     }
 
@@ -334,8 +361,8 @@ class IUPnPDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_description
      */
     get_Description() {
-        pbstr := BSTR()
-        result := ComCall(20, this, "ptr", pbstr, "HRESULT")
+        pbstr := BSTR.Owned()
+        result := ComCall(20, this, BSTR.Ptr, pbstr, "HRESULT")
         return pbstr
     }
 
@@ -347,8 +374,8 @@ class IUPnPDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_modelurl
      */
     get_ModelURL() {
-        pbstr := BSTR()
-        result := ComCall(21, this, "ptr", pbstr, "HRESULT")
+        pbstr := BSTR.Owned()
+        result := ComCall(21, this, BSTR.Ptr, pbstr, "HRESULT")
         return pbstr
     }
 
@@ -363,8 +390,8 @@ class IUPnPDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_upc
      */
     get_UPC() {
-        pbstr := BSTR()
-        result := ComCall(22, this, "ptr", pbstr, "HRESULT")
+        pbstr := BSTR.Owned()
+        result := ComCall(22, this, BSTR.Ptr, pbstr, "HRESULT")
         return pbstr
     }
 
@@ -379,8 +406,8 @@ class IUPnPDevice extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_serialnumber
      */
     get_SerialNumber() {
-        pbstr := BSTR()
-        result := ComCall(23, this, "ptr", pbstr, "HRESULT")
+        pbstr := BSTR.Owned()
+        result := ComCall(23, this, BSTR.Ptr, pbstr, "HRESULT")
         return pbstr
     }
 
@@ -400,8 +427,8 @@ class IUPnPDevice extends IDispatch {
     IconURL(bstrEncodingFormat, lSizeX, lSizeY, lBitDepth) {
         bstrEncodingFormat := bstrEncodingFormat is String ? BSTR.Alloc(bstrEncodingFormat).Value : bstrEncodingFormat
 
-        pbstrIconURL := BSTR()
-        result := ComCall(24, this, "ptr", bstrEncodingFormat, "int", lSizeX, "int", lSizeY, "int", lBitDepth, "ptr", pbstrIconURL, "HRESULT")
+        pbstrIconURL := BSTR.Owned()
+        result := ComCall(24, this, BSTR, bstrEncodingFormat, "int", lSizeX, "int", lSizeY, "int", lBitDepth, BSTR.Ptr, pbstrIconURL, "HRESULT")
         return pbstrIconURL
     }
 
@@ -414,5 +441,61 @@ class IUPnPDevice extends IDispatch {
     get_Services() {
         result := ComCall(25, this, "ptr*", &ppusServices := 0, "HRESULT")
         return IUPnPServices(ppusServices)
+    }
+
+    Query(iid) {
+        if (IUPnPDevice.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_IsRootDevice := CallbackCreate(GetMethod(implObj, "get_IsRootDevice"), flags, 2)
+        this.vtbl.get_RootDevice := CallbackCreate(GetMethod(implObj, "get_RootDevice"), flags, 2)
+        this.vtbl.get_ParentDevice := CallbackCreate(GetMethod(implObj, "get_ParentDevice"), flags, 2)
+        this.vtbl.get_HasChildren := CallbackCreate(GetMethod(implObj, "get_HasChildren"), flags, 2)
+        this.vtbl.get_Children := CallbackCreate(GetMethod(implObj, "get_Children"), flags, 2)
+        this.vtbl.get_UniqueDeviceName := CallbackCreate(GetMethod(implObj, "get_UniqueDeviceName"), flags, 2)
+        this.vtbl.get_FriendlyName := CallbackCreate(GetMethod(implObj, "get_FriendlyName"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_PresentationURL := CallbackCreate(GetMethod(implObj, "get_PresentationURL"), flags, 2)
+        this.vtbl.get_ManufacturerName := CallbackCreate(GetMethod(implObj, "get_ManufacturerName"), flags, 2)
+        this.vtbl.get_ManufacturerURL := CallbackCreate(GetMethod(implObj, "get_ManufacturerURL"), flags, 2)
+        this.vtbl.get_ModelName := CallbackCreate(GetMethod(implObj, "get_ModelName"), flags, 2)
+        this.vtbl.get_ModelNumber := CallbackCreate(GetMethod(implObj, "get_ModelNumber"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.get_ModelURL := CallbackCreate(GetMethod(implObj, "get_ModelURL"), flags, 2)
+        this.vtbl.get_UPC := CallbackCreate(GetMethod(implObj, "get_UPC"), flags, 2)
+        this.vtbl.get_SerialNumber := CallbackCreate(GetMethod(implObj, "get_SerialNumber"), flags, 2)
+        this.vtbl.IconURL := CallbackCreate(GetMethod(implObj, "IconURL"), flags, 6)
+        this.vtbl.get_Services := CallbackCreate(GetMethod(implObj, "get_Services"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_IsRootDevice)
+        CallbackFree(this.vtbl.get_RootDevice)
+        CallbackFree(this.vtbl.get_ParentDevice)
+        CallbackFree(this.vtbl.get_HasChildren)
+        CallbackFree(this.vtbl.get_Children)
+        CallbackFree(this.vtbl.get_UniqueDeviceName)
+        CallbackFree(this.vtbl.get_FriendlyName)
+        CallbackFree(this.vtbl.get_Type)
+        CallbackFree(this.vtbl.get_PresentationURL)
+        CallbackFree(this.vtbl.get_ManufacturerName)
+        CallbackFree(this.vtbl.get_ManufacturerURL)
+        CallbackFree(this.vtbl.get_ModelName)
+        CallbackFree(this.vtbl.get_ModelNumber)
+        CallbackFree(this.vtbl.get_Description)
+        CallbackFree(this.vtbl.get_ModelURL)
+        CallbackFree(this.vtbl.get_UPC)
+        CallbackFree(this.vtbl.get_SerialNumber)
+        CallbackFree(this.vtbl.IconURL)
+        CallbackFree(this.vtbl.get_Services)
     }
 }

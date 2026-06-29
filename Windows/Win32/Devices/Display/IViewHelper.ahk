@@ -1,39 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
- * The Commit method invalidates a Video Present Network (VidPN) on all graphics adapters.
- * @remarks
- * After <b>Commit</b> succeeds, the sources and targets on all of the graphics adapters are set. 
- * 
- * TMM calls <b>Commit</b> whenever a set of operations must be applied. For example, TMM might call <b>Commit</b> after a call to the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff568174(v=vs.85)">IViewHelper::SetActiveTopology</a> method on a graphics adapter that requires for a source and targets to be mapped. TMM does not pass in the adapter name to <b>Commit</b> because the VidPN on all adapters should be invalidated. 
- * 
- * A call to <b>Commit</b> will no longer replace a call to <b>ChangeDisplaySettingsEx</b>(<b>NULL</b>, <b>NULL</b>, <b>NULL</b>, 0, <b>NULL</b>). However, TMM always ends its graphics operations with a <b>Commit</b> call. For more information about <b>ChangeDisplaySettingsEx</b>, see the Microsoft Windows SDK documentation.
- * @see https://learn.microsoft.com/windows/win32/api/cloneviewhelper/nf-cloneviewhelper-iviewhelper-commit
  * @namespace Windows.Win32.Devices.Display
  */
-class IViewHelper extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IViewHelper extends IUnknown {
     /**
      * The interface identifier for IViewHelper
      * @type {Guid}
      */
-    static IID => Guid("{e85ccef5-aaaa-47f0-b5e3-61f7aecdc4c1}")
+    static IID := Guid("{e85ccef5-aaaa-47f0-b5e3-61f7aecdc4c1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IViewHelper interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetConnectedIDs              : IntPtr
+        GetActiveTopology            : IntPtr
+        SetActiveTopology            : IntPtr
+        Commit                       : IntPtr
+        SetConfiguration             : IntPtr
+        GetProceedOnNewConfiguration : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetConnectedIDs", "GetActiveTopology", "SetActiveTopology", "Commit", "SetConfiguration", "GetProceedOnNewConfiguration"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IViewHelper.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetConnectedIDs method retrieves, for a given adapter, an array of identifiers for either targets or sources.
@@ -491,5 +498,35 @@ class IViewHelper extends IUnknown {
     GetProceedOnNewConfiguration() {
         result := ComCall(8, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IViewHelper.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetConnectedIDs := CallbackCreate(GetMethod(implObj, "GetConnectedIDs"), flags, 5)
+        this.vtbl.GetActiveTopology := CallbackCreate(GetMethod(implObj, "GetActiveTopology"), flags, 5)
+        this.vtbl.SetActiveTopology := CallbackCreate(GetMethod(implObj, "SetActiveTopology"), flags, 5)
+        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 1)
+        this.vtbl.SetConfiguration := CallbackCreate(GetMethod(implObj, "SetConfiguration"), flags, 3)
+        this.vtbl.GetProceedOnNewConfiguration := CallbackCreate(GetMethod(implObj, "GetProceedOnNewConfiguration"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetConnectedIDs)
+        CallbackFree(this.vtbl.GetActiveTopology)
+        CallbackFree(this.vtbl.SetActiveTopology)
+        CallbackFree(this.vtbl.Commit)
+        CallbackFree(this.vtbl.SetConfiguration)
+        CallbackFree(this.vtbl.GetProceedOnNewConfiguration)
     }
 }

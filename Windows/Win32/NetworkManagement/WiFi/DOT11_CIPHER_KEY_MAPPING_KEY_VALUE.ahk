@@ -1,75 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_CIPHER_ALGORITHM.ahk
-#Include .\DOT11_DIRECTION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DOT11_CIPHER_ALGORITHM.ahk" { DOT11_CIPHER_ALGORITHM }
+#Import ".\DOT11_DIRECTION.ahk" { DOT11_DIRECTION }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  */
-class DOT11_CIPHER_KEY_MAPPING_KEY_VALUE extends Win32Struct {
-    static sizeof => 24
+export default struct DOT11_CIPHER_KEY_MAPPING_KEY_VALUE {
+    #StructPack 4
 
-    static packingSize => 4
+    PeerMacAddr : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    PeerMacAddr {
-        get {
-            if(!this.HasProp("__PeerMacAddrProxyArray"))
-                this.__PeerMacAddrProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
-            return this.__PeerMacAddrProxyArray
-        }
-    }
+    AlgorithmId : DOT11_CIPHER_ALGORITHM
 
-    /**
-     * @type {DOT11_CIPHER_ALGORITHM}
-     */
-    AlgorithmId {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    Direction : DOT11_DIRECTION
 
-    /**
-     * @type {DOT11_DIRECTION}
-     */
-    Direction {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    bDelete : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bDelete {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
-    }
+    bStatic : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    bStatic {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
-    }
+    usKeyLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    usKeyLength {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    ucKey : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ucKey {
-        get {
-            if(!this.HasProp("__ucKeyProxyArray"))
-                this.__ucKeyProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")
-            return this.__ucKeyProxyArray
-        }
-    }
 }

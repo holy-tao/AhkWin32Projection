@@ -1,32 +1,59 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class IHTMLInputRangeElement extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IHTMLInputRangeElement extends IDispatch {
     /**
      * The interface identifier for IHTMLInputRangeElement
      * @type {Guid}
      */
-    static IID => Guid("{3050f2d4-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{3050f2d4-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHTMLInputRangeElement interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        put_disabled      : IntPtr
+        get_disabled      : IntPtr
+        get_type          : IntPtr
+        put_alt           : IntPtr
+        get_alt           : IntPtr
+        put_name          : IntPtr
+        get_name          : IntPtr
+        put_value         : IntPtr
+        get_value         : IntPtr
+        put_min           : IntPtr
+        get_min           : IntPtr
+        put_max           : IntPtr
+        get_max           : IntPtr
+        put_step          : IntPtr
+        get_step          : IntPtr
+        put_valueAsNumber : IntPtr
+        get_valueAsNumber : IntPtr
+        stepUp            : IntPtr
+        stepDown          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_disabled", "get_disabled", "get_type", "put_alt", "get_alt", "put_name", "get_name", "put_value", "get_value", "put_min", "get_min", "put_max", "get_max", "put_step", "get_step", "put_valueAsNumber", "get_valueAsNumber", "stepUp", "stepDown"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHTMLInputRangeElement.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -105,7 +132,7 @@ class IHTMLInputRangeElement extends IDispatch {
      * @returns {HRESULT} 
      */
     put_disabled(v) {
-        result := ComCall(7, this, "short", v, "HRESULT")
+        result := ComCall(7, this, VARIANT_BOOL, v, "HRESULT")
         return result
     }
 
@@ -114,7 +141,7 @@ class IHTMLInputRangeElement extends IDispatch {
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
-        result := ComCall(8, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(8, this, VARIANT_BOOL.Ptr, &p := 0, "HRESULT")
         return p
     }
 
@@ -123,8 +150,8 @@ class IHTMLInputRangeElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_type() {
-        p := BSTR()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -136,7 +163,7 @@ class IHTMLInputRangeElement extends IDispatch {
     put_alt(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(10, this, "ptr", v, "HRESULT")
+        result := ComCall(10, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -145,8 +172,8 @@ class IHTMLInputRangeElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_alt() {
-        p := BSTR()
-        result := ComCall(11, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -158,7 +185,7 @@ class IHTMLInputRangeElement extends IDispatch {
     put_name(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(12, this, "ptr", v, "HRESULT")
+        result := ComCall(12, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -167,8 +194,8 @@ class IHTMLInputRangeElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_name() {
-        p := BSTR()
-        result := ComCall(13, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -180,7 +207,7 @@ class IHTMLInputRangeElement extends IDispatch {
     put_value(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(14, this, "ptr", v, "HRESULT")
+        result := ComCall(14, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -189,8 +216,8 @@ class IHTMLInputRangeElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_value() {
-        p := BSTR()
-        result := ComCall(15, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -202,7 +229,7 @@ class IHTMLInputRangeElement extends IDispatch {
     put_min(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(16, this, "ptr", v, "HRESULT")
+        result := ComCall(16, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -211,8 +238,8 @@ class IHTMLInputRangeElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_min() {
-        p := BSTR()
-        result := ComCall(17, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -224,7 +251,7 @@ class IHTMLInputRangeElement extends IDispatch {
     put_max(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(18, this, "ptr", v, "HRESULT")
+        result := ComCall(18, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -233,8 +260,8 @@ class IHTMLInputRangeElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_max() {
-        p := BSTR()
-        result := ComCall(19, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(19, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -246,7 +273,7 @@ class IHTMLInputRangeElement extends IDispatch {
     put_step(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(20, this, "ptr", v, "HRESULT")
+        result := ComCall(20, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -255,8 +282,8 @@ class IHTMLInputRangeElement extends IDispatch {
      * @returns {BSTR} 
      */
     get_step() {
-        p := BSTR()
-        result := ComCall(21, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(21, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -297,5 +324,61 @@ class IHTMLInputRangeElement extends IDispatch {
     stepDown(n) {
         result := ComCall(25, this, "int", n, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IHTMLInputRangeElement.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_disabled := CallbackCreate(GetMethod(implObj, "put_disabled"), flags, 2)
+        this.vtbl.get_disabled := CallbackCreate(GetMethod(implObj, "get_disabled"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.put_alt := CallbackCreate(GetMethod(implObj, "put_alt"), flags, 2)
+        this.vtbl.get_alt := CallbackCreate(GetMethod(implObj, "get_alt"), flags, 2)
+        this.vtbl.put_name := CallbackCreate(GetMethod(implObj, "put_name"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.put_value := CallbackCreate(GetMethod(implObj, "put_value"), flags, 2)
+        this.vtbl.get_value := CallbackCreate(GetMethod(implObj, "get_value"), flags, 2)
+        this.vtbl.put_min := CallbackCreate(GetMethod(implObj, "put_min"), flags, 2)
+        this.vtbl.get_min := CallbackCreate(GetMethod(implObj, "get_min"), flags, 2)
+        this.vtbl.put_max := CallbackCreate(GetMethod(implObj, "put_max"), flags, 2)
+        this.vtbl.get_max := CallbackCreate(GetMethod(implObj, "get_max"), flags, 2)
+        this.vtbl.put_step := CallbackCreate(GetMethod(implObj, "put_step"), flags, 2)
+        this.vtbl.get_step := CallbackCreate(GetMethod(implObj, "get_step"), flags, 2)
+        this.vtbl.put_valueAsNumber := CallbackCreate(GetMethod(implObj, "put_valueAsNumber"), flags, 2)
+        this.vtbl.get_valueAsNumber := CallbackCreate(GetMethod(implObj, "get_valueAsNumber"), flags, 2)
+        this.vtbl.stepUp := CallbackCreate(GetMethod(implObj, "stepUp"), flags, 2)
+        this.vtbl.stepDown := CallbackCreate(GetMethod(implObj, "stepDown"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_disabled)
+        CallbackFree(this.vtbl.get_disabled)
+        CallbackFree(this.vtbl.get_type)
+        CallbackFree(this.vtbl.put_alt)
+        CallbackFree(this.vtbl.get_alt)
+        CallbackFree(this.vtbl.put_name)
+        CallbackFree(this.vtbl.get_name)
+        CallbackFree(this.vtbl.put_value)
+        CallbackFree(this.vtbl.get_value)
+        CallbackFree(this.vtbl.put_min)
+        CallbackFree(this.vtbl.get_min)
+        CallbackFree(this.vtbl.put_max)
+        CallbackFree(this.vtbl.get_max)
+        CallbackFree(this.vtbl.put_step)
+        CallbackFree(this.vtbl.get_step)
+        CallbackFree(this.vtbl.put_valueAsNumber)
+        CallbackFree(this.vtbl.get_valueAsNumber)
+        CallbackFree(this.vtbl.stepUp)
+        CallbackFree(this.vtbl.stepDown)
     }
 }

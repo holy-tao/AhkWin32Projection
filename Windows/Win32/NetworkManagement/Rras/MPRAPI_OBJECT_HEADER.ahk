@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the structure version for the RAS_CONNECTION_EX, MPR_SERVER_EX, MPR_SERVER_SET_CONFIG_EX, RAS_UPDATE_CONNECTION, AUTH_VALIDATION_EX structures, and the structure version used by the MprAdminConnectionEnumEx method.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mprapi_object_header
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class MPRAPI_OBJECT_HEADER extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 2
+export default struct MPRAPI_OBJECT_HEADER {
+    #StructPack 2
 
     /**
      * A value that represents the version of the structure specified by <b>type</b>. Possible values are:
@@ -53,26 +50,11 @@ class MPRAPI_OBJECT_HEADER extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    revision {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    revision : Int8
 
-    /**
-     * @type {Integer}
-     */
-    type {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    type : Int8
 
-    /**
-     * @type {Integer}
-     */
-    size {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    size : UInt16
+
 }

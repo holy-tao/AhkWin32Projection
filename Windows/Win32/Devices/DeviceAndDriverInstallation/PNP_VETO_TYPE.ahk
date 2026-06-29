@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * If the PnP manager rejects a request to perform an operation, the PNP_VETO_TYPE enumeration is used to identify the reason for the rejection.
@@ -143,7 +142,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/cfg/ne-cfg-pnp_veto_type
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  */
-class PNP_VETO_TYPE extends Win32Enum {
+export default struct PNP_VETO_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The specified operation was rejected for an unknown reason.

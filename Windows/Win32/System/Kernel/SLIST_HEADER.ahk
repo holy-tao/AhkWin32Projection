@@ -1,29 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Kernel
  * @architecture X64
  */
-class SLIST_HEADER extends Win32Struct {
-    static sizeof => 32
+export default struct SLIST_HEADER {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _HeaderX64 extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
-
+    struct _HeaderX64 {
         /**
          * This bitfield backs the following members:
          * - Depth
          * - Sequence
-         * @type {Integer}
          */
-        _bitfield1 {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
+        _bitfield1 : Int64
+
 
         /**
          * @type {Integer}
@@ -40,17 +32,13 @@ class SLIST_HEADER extends Win32Struct {
             get => (this._bitfield1 >> 16) & 0xFFFFFFFFFFFF
             set => this._bitfield1 := ((value & 0xFFFFFFFFFFFF) << 16) | (this._bitfield1 & ~(0xFFFFFFFFFFFF << 16))
         }
-
         /**
          * This bitfield backs the following members:
          * - Reserved
          * - NextEntry
-         * @type {Integer}
          */
-        _bitfield2 {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
+        _bitfield2 : Int64
+
 
         /**
          * @type {Integer}
@@ -61,30 +49,12 @@ class SLIST_HEADER extends Win32Struct {
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    Alignment {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Alignment : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Region {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Region : Int64
 
-    /**
-     * @type {_HeaderX64}
-     */
-    HeaderX64 {
-        get {
-            if(!this.HasProp("__HeaderX64"))
-                this.__HeaderX64 := SLIST_HEADER._HeaderX64(0, this)
-            return this.__HeaderX64
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'HeaderX64', { type: SLIST_HEADER._HeaderX64, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

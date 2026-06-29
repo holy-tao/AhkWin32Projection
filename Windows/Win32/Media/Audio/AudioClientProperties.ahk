@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\AUDIO_STREAM_CATEGORY.ahk
-#Include .\AUDCLNT_STREAMOPTIONS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\AUDCLNT_STREAMOPTIONS.ahk" { AUDCLNT_STREAMOPTIONS }
+#Import ".\AUDIO_STREAM_CATEGORY.ahk" { AUDIO_STREAM_CATEGORY }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The AudioClientProperties structure (audioclient.h) is used to set the parameters that describe the properties of the client's audio stream.
@@ -10,48 +10,24 @@
  * @see https://learn.microsoft.com/windows/win32/api/audioclient/ns-audioclient-audioclientproperties~r1
  * @namespace Windows.Win32.Media.Audio
  */
-class AudioClientProperties extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct AudioClientProperties {
+    #StructPack 4
 
     /**
      * The size of the <b>AudioClientProperties</b> structure, in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Boolean value to indicate whether or not the audio stream is hardware-offloaded.
-     * @type {BOOL}
      */
-    bIsOffload {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    bIsOffload : BOOL
 
     /**
      * An enumeration that is used to specify the category of the audio stream.
-     * @type {AUDIO_STREAM_CATEGORY}
      */
-    eCategory {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    eCategory : AUDIO_STREAM_CATEGORY
 
-    /**
-     * @type {AUDCLNT_STREAMOPTIONS}
-     */
-    Options {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    Options : AUDCLNT_STREAMOPTIONS
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 16
-    }
 }

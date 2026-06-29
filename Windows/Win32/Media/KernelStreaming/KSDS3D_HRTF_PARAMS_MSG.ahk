@@ -1,59 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSDS3D_HRTF_PARAMS_MSG extends Win32Struct {
-    static sizeof => 24
+export default struct KSDS3D_HRTF_PARAMS_MSG {
+    #StructPack 4
 
-    static packingSize => 4
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Enabled : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Enabled {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SwapChannels : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    SwapChannels {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    ZeroAzimuth : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    ZeroAzimuth {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    CrossFadeOutput : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    CrossFadeOutput {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    FilterSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    FilterSize {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

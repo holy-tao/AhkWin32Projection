@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_INPUT_ELEMENT_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_INPUT_ELEMENT_DESC.ahk" { D3D12_INPUT_ELEMENT_DESC }
 
 /**
  * Describes the input-buffer data for the input-assembler stage.
@@ -9,26 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_input_layout_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_INPUT_LAYOUT_DESC extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct D3D12_INPUT_LAYOUT_DESC {
+    #StructPack 8
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_input_element_desc">D3D12_INPUT_ELEMENT_DESC</a> structures that describe the data types of the input-assembler stage.
-     * @type {Pointer<D3D12_INPUT_ELEMENT_DESC>}
      */
-    pInputElementDescs {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pInputElementDescs : D3D12_INPUT_ELEMENT_DESC.Ptr
 
     /**
      * The number of input-data types in the array of input elements that the <b>pInputElementDescs</b> member points to.
-     * @type {Integer}
      */
-    NumElements {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NumElements : UInt32
+
 }

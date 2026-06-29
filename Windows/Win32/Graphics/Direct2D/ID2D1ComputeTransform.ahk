@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Transform.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID2D1ComputeInfo.ahk" { ID2D1ComputeInfo }
+#Import ".\ID2D1Transform.ahk" { ID2D1Transform }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Defines a transform that uses a compute shader.
@@ -10,26 +13,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1computetransform
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1ComputeTransform extends ID2D1Transform {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1ComputeTransform extends ID2D1Transform {
     /**
      * The interface identifier for ID2D1ComputeTransform
      * @type {Guid}
      */
-    static IID => Guid("{0d85573c-01e3-4f7d-bfd9-0d60608bf3c3}")
+    static IID := Guid("{0d85573c-01e3-4f7d-bfd9-0d60608bf3c3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1ComputeTransform interfaces
+    */
+    struct Vtbl extends ID2D1Transform.Vtbl {
+        SetComputeInfo        : IntPtr
+        CalculateThreadgroups : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetComputeInfo", "CalculateThreadgroups"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1ComputeTransform.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the render information used to specify the compute shader pass.
@@ -74,7 +85,29 @@ class ID2D1ComputeTransform extends ID2D1Transform {
         dimensionYMarshal := dimensionY is VarRef ? "uint*" : "ptr"
         dimensionZMarshal := dimensionZ is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", outputRect, dimensionXMarshal, dimensionX, dimensionYMarshal, dimensionY, dimensionZMarshal, dimensionZ, "HRESULT")
+        result := ComCall(8, this, RECT.Ptr, outputRect, dimensionXMarshal, dimensionX, dimensionYMarshal, dimensionY, dimensionZMarshal, dimensionZ, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID2D1ComputeTransform.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetComputeInfo := CallbackCreate(GetMethod(implObj, "SetComputeInfo"), flags, 2)
+        this.vtbl.CalculateThreadgroups := CallbackCreate(GetMethod(implObj, "CalculateThreadgroups"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetComputeInfo)
+        CallbackFree(this.vtbl.CalculateThreadgroups)
     }
 }

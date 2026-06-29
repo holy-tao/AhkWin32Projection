@@ -1,37 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BranchOfficeJobData.ahk
-#Include .\EBranchOfficeJobEventType.ahk
-#Include .\BranchOfficeJobDataPrinted.ahk
-#Include .\BranchOfficeJobDataRendered.ahk
-#Include .\BranchOfficeJobDataError.ahk
-#Include .\BranchOfficeJobDataPipelineFailed.ahk
-#Include .\BranchOfficeLogOfflineFileFull.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\EBranchOfficeJobEventType.ahk" { EBranchOfficeJobEventType }
+#Import ".\BranchOfficeJobDataError.ahk" { BranchOfficeJobDataError }
+#Import ".\BranchOfficeLogOfflineFileFull.ahk" { BranchOfficeLogOfflineFileFull }
+#Import ".\BranchOfficeJobDataRendered.ahk" { BranchOfficeJobDataRendered }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\BranchOfficeJobDataPipelineFailed.ahk" { BranchOfficeJobDataPipelineFailed }
+#Import ".\BranchOfficeJobDataPrinted.ahk" { BranchOfficeJobDataPrinted }
+#Import ".\BranchOfficeJobData.ahk" { BranchOfficeJobData }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class BranchOfficeJobDataContainer extends Win32Struct {
-    static sizeof => 104
+export default struct BranchOfficeJobDataContainer {
+    #StructPack 8
 
-    static packingSize => 8
+    cJobDataEntries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cJobDataEntries {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    JobData : BranchOfficeJobData[1]
 
-    /**
-     * @type {BranchOfficeJobData}
-     */
-    JobData {
-        get {
-            if(!this.HasProp("__JobDataProxyArray"))
-                this.__JobDataProxyArray := Win32FixedArray(this.ptr + 8, 1, BranchOfficeJobData, "")
-            return this.__JobDataProxyArray
-        }
-    }
 }

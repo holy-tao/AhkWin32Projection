@@ -1,51 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER extends Win32Struct {
-    static sizeof => 40
+export default struct RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER {
+    #StructPack 8
 
-    static packingSize => 8
+    ExtentCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ExtentCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    StartingVcn : Int64
 
-    /**
-     * @type {Integer}
-     */
-    StartingVcn {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    NextVcn : Int64
 
-    /**
-     * @type {Integer}
-     */
-    NextVcn {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    Lcn : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Lcn {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    ReferenceCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ReferenceCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

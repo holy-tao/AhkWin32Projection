@@ -1,66 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\VK_FPARAM.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VK_FPARAM.ahk" { VK_FPARAM }
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
  */
-class VK_F extends Win32Struct {
-    static sizeof => 132
+export default struct VK_F {
+    #StructPack 4
 
-    static packingSize => 4
+    Vk : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Vk {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    NLSFEProcType : Int8
 
-    /**
-     * @type {Integer}
-     */
-    NLSFEProcType {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    NLSFEProcCurrent : Int8
 
-    /**
-     * @type {Integer}
-     */
-    NLSFEProcCurrent {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    NLSFEProcSwitch : Int8
 
-    /**
-     * @type {Integer}
-     */
-    NLSFEProcSwitch {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    NLSFEProc : VK_FPARAM[8]
 
-    /**
-     * @type {VK_FPARAM}
-     */
-    NLSFEProc {
-        get {
-            if(!this.HasProp("__NLSFEProcProxyArray"))
-                this.__NLSFEProcProxyArray := Win32FixedArray(this.ptr + 4, 8, VK_FPARAM, "")
-            return this.__NLSFEProcProxyArray
-        }
-    }
+    NLSFEProcAlt : VK_FPARAM[8]
 
-    /**
-     * @type {VK_FPARAM}
-     */
-    NLSFEProcAlt {
-        get {
-            if(!this.HasProp("__NLSFEProcAltProxyArray"))
-                this.__NLSFEProcAltProxyArray := Win32FixedArray(this.ptr + 68, 8, VK_FPARAM, "")
-            return this.__NLSFEProcAltProxyArray
-        }
-    }
 }

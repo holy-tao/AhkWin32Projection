@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IBackgroundCopyJobHttpOptions2.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IBackgroundCopyJobHttpOptions2.ahk" { IBackgroundCopyJobHttpOptions2 }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Use this interface to set HTTP customer headers to write-only, or to set a server certificate validation callback method that you've implemented.
  * @see https://learn.microsoft.com/windows/win32/api/bits10_3/nn-bits10_3-ibackgroundcopyjobhttpoptions3
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class IBackgroundCopyJobHttpOptions3 extends IBackgroundCopyJobHttpOptions2 {
-
-    static sizeof => A_PtrSize
+export default struct IBackgroundCopyJobHttpOptions3 extends IBackgroundCopyJobHttpOptions2 {
     /**
      * The interface identifier for IBackgroundCopyJobHttpOptions3
      * @type {Guid}
      */
-    static IID => Guid("{8a9263d3-fd4c-4eda-9b28-30132a4d4e3c}")
+    static IID := Guid("{8a9263d3-fd4c-4eda-9b28-30132a4d4e3c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 13
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBackgroundCopyJobHttpOptions3 interfaces
+    */
+    struct Vtbl extends IBackgroundCopyJobHttpOptions2.Vtbl {
+        SetServerCertificateValidationInterface : IntPtr
+        MakeCustomHeadersWriteOnly              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetServerCertificateValidationInterface", "MakeCustomHeadersWriteOnly"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBackgroundCopyJobHttpOptions3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Server certificates are sent when an HTTPS connection is opened. Use this method to set a callback to be called to validate those server certificates.
@@ -73,5 +83,27 @@ class IBackgroundCopyJobHttpOptions3 extends IBackgroundCopyJobHttpOptions2 {
     MakeCustomHeadersWriteOnly() {
         result := ComCall(14, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IBackgroundCopyJobHttpOptions3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetServerCertificateValidationInterface := CallbackCreate(GetMethod(implObj, "SetServerCertificateValidationInterface"), flags, 2)
+        this.vtbl.MakeCustomHeadersWriteOnly := CallbackCreate(GetMethod(implObj, "MakeCustomHeadersWriteOnly"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetServerCertificateValidationInterface)
+        CallbackFree(this.vtbl.MakeCustomHeadersWriteOnly)
     }
 }

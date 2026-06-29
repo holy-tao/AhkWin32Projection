@@ -1,34 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IWMPMedia.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IWMPMedia.ahk" { IWMPMedia }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * The IWMPPlaylist interface provides methods for manipulating lists of media items.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpplaylist
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPPlaylist extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWMPPlaylist extends IDispatch {
     /**
      * The interface identifier for IWMPPlaylist
      * @type {Guid}
      */
-    static IID => Guid("{d5f0f4f1-130c-11d3-b14e-00c04f79faa6}")
+    static IID := Guid("{d5f0f4f1-130c-11d3-b14e-00c04f79faa6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPPlaylist interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_count          : IntPtr
+        get_name           : IntPtr
+        put_name           : IntPtr
+        get_attributeCount : IntPtr
+        get_attributeName  : IntPtr
+        get_item           : IntPtr
+        getItemInfo        : IntPtr
+        setItemInfo        : IntPtr
+        get_isIdentical    : IntPtr
+        clear              : IntPtr
+        insertItem         : IntPtr
+        appendItem         : IntPtr
+        removeItem         : IntPtr
+        moveItem           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_count", "get_name", "put_name", "get_attributeCount", "get_attributeName", "get_item", "getItemInfo", "setItemInfo", "get_isIdentical", "clear", "insertItem", "appendItem", "removeItem", "moveItem"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPPlaylist.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      */
@@ -110,7 +133,7 @@ class IWMPPlaylist extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylist-get_name
      */
     get_name(pbstrName) {
-        result := ComCall(8, this, "ptr", pbstrName, "HRESULT")
+        result := ComCall(8, this, BSTR.Ptr, pbstrName, "HRESULT")
         return result
     }
 
@@ -145,7 +168,7 @@ class IWMPPlaylist extends IDispatch {
     put_name(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(9, this, "ptr", bstrName, "HRESULT")
+        result := ComCall(9, this, BSTR, bstrName, "HRESULT")
         return result
     }
 
@@ -220,7 +243,7 @@ class IWMPPlaylist extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylist-get_attributename
      */
     get_attributeName(lIndex, pbstrAttributeName) {
-        result := ComCall(11, this, "int", lIndex, "ptr", pbstrAttributeName, "HRESULT")
+        result := ComCall(11, this, "int", lIndex, BSTR.Ptr, pbstrAttributeName, "HRESULT")
         return result
     }
 
@@ -267,7 +290,7 @@ class IWMPPlaylist extends IDispatch {
     getItemInfo(bstrName, pbstrVal) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(13, this, "ptr", bstrName, "ptr", pbstrVal, "HRESULT")
+        result := ComCall(13, this, BSTR, bstrName, BSTR.Ptr, pbstrVal, "HRESULT")
         return result
     }
 
@@ -304,7 +327,7 @@ class IWMPPlaylist extends IDispatch {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
         bstrValue := bstrValue is String ? BSTR.Alloc(bstrValue).Value : bstrValue
 
-        result := ComCall(14, this, "ptr", bstrName, "ptr", bstrValue, "HRESULT")
+        result := ComCall(14, this, BSTR, bstrName, BSTR, bstrValue, "HRESULT")
         return result
     }
 
@@ -500,5 +523,51 @@ class IWMPPlaylist extends IDispatch {
     moveItem(lIndexOld, lIndexNew) {
         result := ComCall(20, this, "int", lIndexOld, "int", lIndexNew, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPPlaylist.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_count := CallbackCreate(GetMethod(implObj, "get_count"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.put_name := CallbackCreate(GetMethod(implObj, "put_name"), flags, 2)
+        this.vtbl.get_attributeCount := CallbackCreate(GetMethod(implObj, "get_attributeCount"), flags, 2)
+        this.vtbl.get_attributeName := CallbackCreate(GetMethod(implObj, "get_attributeName"), flags, 3)
+        this.vtbl.get_item := CallbackCreate(GetMethod(implObj, "get_item"), flags, 3)
+        this.vtbl.getItemInfo := CallbackCreate(GetMethod(implObj, "getItemInfo"), flags, 3)
+        this.vtbl.setItemInfo := CallbackCreate(GetMethod(implObj, "setItemInfo"), flags, 3)
+        this.vtbl.get_isIdentical := CallbackCreate(GetMethod(implObj, "get_isIdentical"), flags, 3)
+        this.vtbl.clear := CallbackCreate(GetMethod(implObj, "clear"), flags, 1)
+        this.vtbl.insertItem := CallbackCreate(GetMethod(implObj, "insertItem"), flags, 3)
+        this.vtbl.appendItem := CallbackCreate(GetMethod(implObj, "appendItem"), flags, 2)
+        this.vtbl.removeItem := CallbackCreate(GetMethod(implObj, "removeItem"), flags, 2)
+        this.vtbl.moveItem := CallbackCreate(GetMethod(implObj, "moveItem"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_count)
+        CallbackFree(this.vtbl.get_name)
+        CallbackFree(this.vtbl.put_name)
+        CallbackFree(this.vtbl.get_attributeCount)
+        CallbackFree(this.vtbl.get_attributeName)
+        CallbackFree(this.vtbl.get_item)
+        CallbackFree(this.vtbl.getItemInfo)
+        CallbackFree(this.vtbl.setItemInfo)
+        CallbackFree(this.vtbl.get_isIdentical)
+        CallbackFree(this.vtbl.clear)
+        CallbackFree(this.vtbl.insertItem)
+        CallbackFree(this.vtbl.appendItem)
+        CallbackFree(this.vtbl.removeItem)
+        CallbackFree(this.vtbl.moveItem)
     }
 }

@@ -1,29 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_802_11_AUTHENTICATION_MODE.ahk
-#Include .\NDIS_802_11_WEP_STATUS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NDIS_802_11_WEP_STATUS.ahk" { NDIS_802_11_WEP_STATUS }
+#Import ".\NDIS_802_11_AUTHENTICATION_MODE.ahk" { NDIS_802_11_AUTHENTICATION_MODE }
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class NDIS_802_11_AUTHENTICATION_ENCRYPTION extends Win32Struct {
-    static sizeof => 8
+export default struct NDIS_802_11_AUTHENTICATION_ENCRYPTION {
+    #StructPack 4
 
-    static packingSize => 4
+    AuthModeSupported : NDIS_802_11_AUTHENTICATION_MODE
 
-    /**
-     * @type {NDIS_802_11_AUTHENTICATION_MODE}
-     */
-    AuthModeSupported {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    EncryptStatusSupported : NDIS_802_11_WEP_STATUS
 
-    /**
-     * @type {NDIS_802_11_WEP_STATUS}
-     */
-    EncryptStatusSupported {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
 }

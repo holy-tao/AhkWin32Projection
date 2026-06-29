@@ -1,9 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BIND_OPTS2.ahk
-#Include .\BIND_OPTS.ahk
-#Include .\COSERVERINFO.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BIND_OPTS.ahk" { BIND_OPTS }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\BIND_OPTS2.ahk" { BIND_OPTS2 }
+#Import ".\COSERVERINFO.ahk" { COSERVERINFO }
 
 /**
  * The BIND_OPTS3 structure contains parameters used during a moniker-binding operation.
@@ -14,31 +13,14 @@
  * @see https://learn.microsoft.com/windows/win32/api/objidl/ns-objidl-bind_opts3~r1
  * @namespace Windows.Win32.System.Com
  */
-class BIND_OPTS3 extends Win32Struct {
-    static sizeof => 48
+export default struct BIND_OPTS3 {
+    #StructPack 8
 
-    static packingSize => 8
-
-    /**
-     * @type {BIND_OPTS2}
-     */
-    Base {
-        get {
-            if(!this.HasProp("__Base"))
-                this.__Base := BIND_OPTS2(0, this)
-            return this.__Base
-        }
-    }
+    Base : BIND_OPTS2
 
     /**
      * A handle to the window that becomes the owner of the elevation UI, if applicable. If <b>hwnd</b> is <b>NULL</b>, COM will call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getactivewindow">GetActiveWindow</a> function to find a window handle associated with the current thread. This case might occur if the client is a script, which cannot fill in a <b>BIND_OPTS3</b> structure. In this case, COM will try to use the window associated with the script thread.
-     * @type {HWND}
      */
-    hwnd {
-        get {
-            if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(40, this)
-            return this.__hwnd
-        }
-    }
+    hwnd : HWND
+
 }

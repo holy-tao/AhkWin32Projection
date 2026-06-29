@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BACKLIGHT_REDUCTION_GAMMA_RAMP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BACKLIGHT_REDUCTION_GAMMA_RAMP.ahk" { BACKLIGHT_REDUCTION_GAMMA_RAMP }
 
 /**
  * @namespace Windows.Win32.Devices.Display
  */
-class PANEL_GET_BACKLIGHT_REDUCTION extends Win32Struct {
-    static sizeof => 1540
+export default struct PANEL_GET_BACKLIGHT_REDUCTION {
+    #StructPack 2
 
-    static packingSize => 2
+    BacklightUsersetting : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    BacklightUsersetting {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    BacklightEffective : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    BacklightEffective {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    GammaRamp : BACKLIGHT_REDUCTION_GAMMA_RAMP
 
-    /**
-     * @type {BACKLIGHT_REDUCTION_GAMMA_RAMP}
-     */
-    GammaRamp {
-        get {
-            if(!this.HasProp("__GammaRamp"))
-                this.__GammaRamp := BACKLIGHT_REDUCTION_GAMMA_RAMP(4, this)
-            return this.__GammaRamp
-        }
-    }
 }

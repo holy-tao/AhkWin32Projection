@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines a 32-bit fixed-point number.
@@ -8,32 +7,15 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_fixed32
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVA2_Fixed32 extends Win32Struct {
-    static sizeof => 4
+export default struct DXVA2_Fixed32 {
+    #StructPack 4
 
-    static packingSize => 4
+    Fraction : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Fraction {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Value : Int16
 
-    /**
-     * @type {Integer}
-     */
-    Value {
-        get => NumGet(this, 2, "short")
-        set => NumPut("short", value, this, 2)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ll {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'll', { type: Int32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

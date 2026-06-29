@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SRestriction.ahk
-#Include .\SPropValue.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SRestriction.ahk" { SRestriction }
+#Import ".\SPropValue.ahk" { SPropValue }
 
 /**
  * Describes a comment restriction, which is used to annotate a restriction. Comment restrictions are unlike other restrictions because they are not evaluated.
@@ -14,35 +13,26 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/scommentrestriction
  * @namespace Windows.Win32.System.AddressBook
  */
-class SCommentRestriction extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct SCommentRestriction {
+    #StructPack 8
 
     /**
      * > Count of property values in the array pointed to by the **lpProp** member.
-     * @type {Integer}
      */
-    cValues {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cValues : UInt32
 
+    __lpRes_ptr : IntPtr
     /**
      * > Pointer to an [SRestriction](srestriction.md) structure.
-     * @type {Pointer<SRestriction>}
      */
     lpRes {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => (addr := this.__lpRes_ptr) ? SRestriction.At(addr) : unset
+        set => this.__lpRes_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
     /**
      * > Pointer to an array of [SPropValue](spropvalue.md) structures, each containing the property tag and value for a named property.
-     * @type {Pointer<SPropValue>}
      */
-    lpProp {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpProp : SPropValue.Ptr
+
 }

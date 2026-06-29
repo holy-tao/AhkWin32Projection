@@ -1,30 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains extended working set information for a page.
  * @see https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-psapi_working_set_ex_block
  * @namespace Windows.Win32.System.ProcessStatus
  */
-class PSAPI_WORKING_SET_EX_BLOCK extends Win32Struct {
-    static sizeof => 16
+export default struct PSAPI_WORKING_SET_EX_BLOCK {
+    #StructPack 8
 
-    static packingSize => 8
 
-    /**
-     * The working set information. See the description of the structure  members for information about the layout 
-     *       of this variable.
-     * @type {Pointer}
-     */
-    Flags {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    class _Invalid extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
-
+    struct _Invalid {
         /**
          * This bitfield backs the following members:
          * - Valid
@@ -32,12 +17,9 @@ class PSAPI_WORKING_SET_EX_BLOCK extends Win32Struct {
          * - Shared
          * - Reserved1
          * - Bad
-         * @type {Pointer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
+        _bitfield : Int64
+
 
         /**
          * @type {Pointer}
@@ -81,22 +63,11 @@ class PSAPI_WORKING_SET_EX_BLOCK extends Win32Struct {
     }
 
     /**
-     * This bitfield backs the following members:
-     * - Valid
-     * - ShareCount
-     * - Win32Protection
-     * - Shared
-     * - Node
-     * - Locked
-     * - LargePage
-     * - Reserved
-     * - Bad
-     * @type {Pointer}
+     * The working set information. See the description of the structure  members for information about the layout 
+     *       of this variable.
      */
-    _bitfield {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Flags : IntPtr
+
 
     /**
      * @type {Pointer}
@@ -161,15 +132,9 @@ class PSAPI_WORKING_SET_EX_BLOCK extends Win32Struct {
         get => (this._bitfield >> 31) & 0x1
         set => this._bitfield := ((value & 0x1) << 31) | (this._bitfield & ~(0x1 << 31))
     }
-
-    /**
-     * @type {_Invalid}
-     */
-    Invalid {
-        get {
-            if(!this.HasProp("__Invalid"))
-                this.__Invalid := PSAPI_WORKING_SET_EX_BLOCK._Invalid(0, this)
-            return this.__Invalid
-        }
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int64, offset: 0 })
+        DefineProp(this.Prototype, 'Invalid', { type: PSAPI_WORKING_SET_EX_BLOCK._Invalid, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

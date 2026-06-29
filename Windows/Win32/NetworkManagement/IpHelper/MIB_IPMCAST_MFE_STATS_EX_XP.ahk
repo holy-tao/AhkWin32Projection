@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_IPMCAST_OIF_STATS_LH.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MIB_IPMCAST_OIF_STATS_LH.ahk" { MIB_IPMCAST_OIF_STATS_LH }
 
 /**
  * Stores the extended statistics associated with a Multicast Forwarding Entry (MFE).
@@ -15,250 +14,156 @@
  * @see https://learn.microsoft.com/windows/win32/api/ipmib/ns-ipmib-mib_ipmcast_mfe_stats_ex_xp
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_IPMCAST_MFE_STATS_EX_XP extends Win32Struct {
-    static sizeof => 112
-
-    static packingSize => 4
+export default struct MIB_IPMCAST_MFE_STATS_EX_XP {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The multicast group for this MFE. A value of zero indicates a wildcard group.
-     * @type {Integer}
      */
-    dwGroup {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwGroup : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The range of source addresses for this MFE. A value of zero indicates a wildcard source.
-     * @type {Integer}
      */
-    dwSource {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwSource : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The IPv4 subnet mask that corresponds to <b>dwSourceAddr</b>. The <b>dwSourceAddr</b> and <b>dwSourceMask</b> members are used together to define a range of sources.
-     * @type {Integer}
      */
-    dwSrcMask {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwSrcMask : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The upstream neighbor that is related to this MFE.
-     * @type {Integer}
      */
-    dwUpStrmNgbr {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwUpStrmNgbr : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The index of the incoming interface to which this MFE is related.
-     * @type {Integer}
      */
-    dwInIfIndex {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwInIfIndex : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The routing protocol that owns the incoming interface to which this MFE is related.
-     * @type {Integer}
      */
-    dwInIfProtocol {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwInIfProtocol : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The client that created the route.
-     * @type {Integer}
      */
-    dwRouteProtocol {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwRouteProtocol : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The address associated with the route referred to by <b>dwRouteProtocol</b>.
-     * @type {Integer}
      */
-    dwRouteNetwork {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwRouteNetwork : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The mask associated with the route referred to by <b>dwRouteProtocol</b>.
-     * @type {Integer}
      */
-    dwRouteMask {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwRouteMask : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The time, in 100ths of a seconds, since the MFE was created.
-     * @type {Integer}
      */
-    ulUpTime {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    ulUpTime : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The time, in 100ths of a seconds, until the MFE will be deleted. Zero is specified if the MFE is not subject to aging requirements.
-     * @type {Integer}
      */
-    ulExpiryTime {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    ulExpiryTime : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The number of interfaces in the outgoing interface list for this MFE.
-     * @type {Integer}
      */
-    ulNumOutIf {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    ulNumOutIf : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The number of packets that have been forwarded that matched this MFE.
-     * @type {Integer}
      */
-    ulInPkts {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    ulInPkts : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The number of octets of data forwarded that match this MFE.
-     * @type {Integer}
      */
-    ulInOctets {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    ulInOctets : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The number of packets matching this MFE that were dropped due to an incoming interface check.
-     * @type {Integer}
      */
-    ulPktsDifferentIf {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    ulPktsDifferentIf : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The number of packets matching this MFE that were dropped due to a queue overflow. There is one queue per MFE.
-     * @type {Integer}
      */
-    ulQueueOverflow {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    ulQueueOverflow : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The number of uninitialized packets that matched this MFE.
-     * @type {Integer}
      */
-    ulUninitMfe {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    ulUninitMfe : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The number of packets matching this MFE discarded due to a negative error value.
-     * @type {Integer}
      */
-    ulNegativeMfe {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
-    }
+    ulNegativeMfe : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The number of discarded forwarded packets that matched this MFE.
-     * @type {Integer}
      */
-    ulInDiscards {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    ulInDiscards : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The number of packets matching this MFE discarded due to bad or malformed header values (such as a bad Time-to-Live value).
-     * @type {Integer}
      */
-    ulInHdrErrors {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
-    }
+    ulInHdrErrors : UInt32
 
     /**
      * Type: <b>ULONG</b>
      * 
      * The total number of MFE packets  transmitted across all associated interfaces. Note that one packet sent over N interfaces will count as N packets within this value.
-     * @type {Integer}
      */
-    ulTotalOutPackets {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    ulTotalOutPackets : UInt32
 
-    /**
-     * @type {MIB_IPMCAST_OIF_STATS_LH}
-     */
-    rgmiosOutStats {
-        get {
-            if(!this.HasProp("__rgmiosOutStatsProxyArray"))
-                this.__rgmiosOutStatsProxyArray := Win32FixedArray(this.ptr + 84, 1, MIB_IPMCAST_OIF_STATS_LH, "")
-            return this.__rgmiosOutStatsProxyArray
-        }
-    }
+    rgmiosOutStats : MIB_IPMCAST_OIF_STATS_LH[1]
+
 }

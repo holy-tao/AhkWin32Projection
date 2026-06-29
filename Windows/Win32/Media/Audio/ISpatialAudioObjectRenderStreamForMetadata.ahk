@@ -1,9 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISpatialAudioObjectRenderStreamBase.ahk
-#Include .\ISpatialAudioObjectForMetadataCommands.ahk
-#Include .\ISpatialAudioObjectForMetadataItems.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISpatialAudioObjectRenderStreamBase.ahk" { ISpatialAudioObjectRenderStreamBase }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISpatialAudioObjectForMetadataItems.ahk" { ISpatialAudioObjectForMetadataItems }
+#Import ".\ISpatialAudioObjectForMetadataCommands.ahk" { ISpatialAudioObjectForMetadataCommands }
+#Import ".\AudioObjectType.ahk" { AudioObjectType }
 
 /**
  * Provides methods for controlling a spatial audio object render stream for metadata, including starting, stopping, and resetting the stream.
@@ -13,26 +15,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudioobjectrenderstreamformetadata
  * @namespace Windows.Win32.Media.Audio
  */
-class ISpatialAudioObjectRenderStreamForMetadata extends ISpatialAudioObjectRenderStreamBase {
-
-    static sizeof => A_PtrSize
+export default struct ISpatialAudioObjectRenderStreamForMetadata extends ISpatialAudioObjectRenderStreamBase {
     /**
      * The interface identifier for ISpatialAudioObjectRenderStreamForMetadata
      * @type {Guid}
      */
-    static IID => Guid("{bbc9c907-48d5-4a2e-a0c7-f7f0d67c1fb1}")
+    static IID := Guid("{bbc9c907-48d5-4a2e-a0c7-f7f0d67c1fb1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 10
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpatialAudioObjectRenderStreamForMetadata interfaces
+    */
+    struct Vtbl extends ISpatialAudioObjectRenderStreamBase.Vtbl {
+        ActivateSpatialAudioObjectForMetadataCommands : IntPtr
+        ActivateSpatialAudioObjectForMetadataItems    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["ActivateSpatialAudioObjectForMetadataCommands", "ActivateSpatialAudioObjectForMetadataItems"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpatialAudioObjectRenderStreamForMetadata.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Activate an ISpatialAudioObjectForMetadataCommands for rendering.
@@ -43,7 +53,7 @@ class ISpatialAudioObjectRenderStreamForMetadata extends ISpatialAudioObjectRend
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudioobjectrenderstreamformetadata-activatespatialaudioobjectformetadatacommands
      */
     ActivateSpatialAudioObjectForMetadataCommands(type) {
-        result := ComCall(10, this, "int", type, "ptr*", &audioObject := 0, "HRESULT")
+        result := ComCall(10, this, AudioObjectType, type, "ptr*", &audioObject := 0, "HRESULT")
         return ISpatialAudioObjectForMetadataCommands(audioObject)
     }
 
@@ -56,7 +66,29 @@ class ISpatialAudioObjectRenderStreamForMetadata extends ISpatialAudioObjectRend
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudioobjectrenderstreamformetadata-activatespatialaudioobjectformetadataitems
      */
     ActivateSpatialAudioObjectForMetadataItems(type) {
-        result := ComCall(11, this, "int", type, "ptr*", &audioObject := 0, "HRESULT")
+        result := ComCall(11, this, AudioObjectType, type, "ptr*", &audioObject := 0, "HRESULT")
         return ISpatialAudioObjectForMetadataItems(audioObject)
+    }
+
+    Query(iid) {
+        if (ISpatialAudioObjectRenderStreamForMetadata.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.ActivateSpatialAudioObjectForMetadataCommands := CallbackCreate(GetMethod(implObj, "ActivateSpatialAudioObjectForMetadataCommands"), flags, 3)
+        this.vtbl.ActivateSpatialAudioObjectForMetadataItems := CallbackCreate(GetMethod(implObj, "ActivateSpatialAudioObjectForMetadataItems"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.ActivateSpatialAudioObjectForMetadataCommands)
+        CallbackFree(this.vtbl.ActivateSpatialAudioObjectForMetadataItems)
     }
 }

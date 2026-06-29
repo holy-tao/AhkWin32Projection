@@ -1,39 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
  */
-class WIN_TRUST_ACTDATA_CONTEXT_WITH_SUBJECT extends Win32Struct {
-    static sizeof => 24
+export default struct WIN_TRUST_ACTDATA_CONTEXT_WITH_SUBJECT {
+    #StructPack 8
 
-    static packingSize => 8
+    hClientToken : HANDLE
 
-    /**
-     * @type {HANDLE}
-     */
-    hClientToken {
-        get {
-            if(!this.HasProp("__hClientToken"))
-                this.__hClientToken := HANDLE(0, this)
-            return this.__hClientToken
-        }
-    }
+    SubjectType : Guid.Ptr
 
-    /**
-     * @type {Pointer<Guid>}
-     */
-    SubjectType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Subject : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Subject {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
 }

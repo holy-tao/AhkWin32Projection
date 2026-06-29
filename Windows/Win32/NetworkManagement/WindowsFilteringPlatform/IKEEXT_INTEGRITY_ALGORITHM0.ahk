@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IKEEXT_INTEGRITY_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IKEEXT_INTEGRITY_TYPE.ahk" { IKEEXT_INTEGRITY_TYPE }
 
 /**
  * Stores the IKE/AuthIP hash algorithm.
@@ -9,19 +8,14 @@
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_integrity_algorithm0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IKEEXT_INTEGRITY_ALGORITHM0 extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct IKEEXT_INTEGRITY_ALGORITHM0 {
+    #StructPack 4
 
     /**
      * The type of hash algorithm.
      * 
      * See [IKEEXT_INTEGRITY_TYPE](/windows/desktop/api/iketypes/ne-iketypes-ikeext_integrity_type) for more information.
-     * @type {IKEEXT_INTEGRITY_TYPE}
      */
-    algoIdentifier {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    algoIdentifier : IKEEXT_INTEGRITY_TYPE
+
 }

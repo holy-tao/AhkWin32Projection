@@ -1,70 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_TOPOLOGY_ADDRESS extends Win32Struct {
-    static sizeof => 32
+export default struct USB_TOPOLOGY_ADDRESS {
+    #StructPack 4
 
-    static packingSize => 4
+    PciBusNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PciBusNumber {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PciDeviceNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PciDeviceNumber {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    PciFunctionNumber : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PciFunctionNumber {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    RootHubPortNumber : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    RootHubPortNumber {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    HubPortNumber : UInt16[5]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    HubPortNumber {
-        get {
-            if(!this.HasProp("__HubPortNumberProxyArray"))
-                this.__HubPortNumberProxyArray := Win32FixedArray(this.ptr + 18, 5, Primitive, "ushort")
-            return this.__HubPortNumberProxyArray
-        }
-    }
+    Reserved2 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved2 {
-        get => NumGet(this, 28, "ushort")
-        set => NumPut("ushort", value, this, 28)
-    }
 }

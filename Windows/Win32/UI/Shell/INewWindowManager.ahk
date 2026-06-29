@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes a method that determines whether a window that is launched by another window should be displayed or blocked, allowing control of pop-up windows.
@@ -13,26 +16,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-inewwindowmanager
  * @namespace Windows.Win32.UI.Shell
  */
-class INewWindowManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct INewWindowManager extends IUnknown {
     /**
      * The interface identifier for INewWindowManager
      * @type {Guid}
      */
-    static IID => Guid("{d2bc4c84-3f72-4a52-a604-7bcbf3982cbb}")
+    static IID := Guid("{d2bc4c84-3f72-4a52-a604-7bcbf3982cbb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for INewWindowManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        EvaluateNewWindow : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EvaluateNewWindow"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := INewWindowManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Accepts data about a new window that is attempting to display and determines whether that window should be allowed to open based on the user's preferences.
@@ -108,7 +118,27 @@ class INewWindowManager extends IUnknown {
         pszUrlContext := pszUrlContext is String ? StrPtr(pszUrlContext) : pszUrlContext
         pszFeatures := pszFeatures is String ? StrPtr(pszFeatures) : pszFeatures
 
-        result := ComCall(3, this, "ptr", pszUrl, "ptr", pszName, "ptr", pszUrlContext, "ptr", pszFeatures, "int", fReplace, "uint", dwFlags, "uint", dwUserActionTime, "HRESULT")
+        result := ComCall(3, this, "ptr", pszUrl, "ptr", pszName, "ptr", pszUrlContext, "ptr", pszFeatures, BOOL, fReplace, "uint", dwFlags, "uint", dwUserActionTime, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (INewWindowManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EvaluateNewWindow := CallbackCreate(GetMethod(implObj, "EvaluateNewWindow"), flags, 8)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EvaluateNewWindow)
     }
 }

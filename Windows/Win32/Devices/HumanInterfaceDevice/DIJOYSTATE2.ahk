@@ -1,269 +1,69 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class DIJOYSTATE2 extends Win32Struct {
-    static sizeof => 272
+export default struct DIJOYSTATE2 {
+    #StructPack 4
 
-    static packingSize => 4
+    lX : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lX {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    lY : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lY {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    lZ : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lZ {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    lRx : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lRx {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    lRy : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lRy {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    lRz : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lRz {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    rglSlider : Int32[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    rglSlider {
-        get {
-            if(!this.HasProp("__rglSliderProxyArray"))
-                this.__rglSliderProxyArray := Win32FixedArray(this.ptr + 24, 2, Primitive, "int")
-            return this.__rglSliderProxyArray
-        }
-    }
+    rgdwPOV : UInt32[4]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    rgdwPOV {
-        get {
-            if(!this.HasProp("__rgdwPOVProxyArray"))
-                this.__rgdwPOVProxyArray := Win32FixedArray(this.ptr + 32, 4, Primitive, "uint")
-            return this.__rgdwPOVProxyArray
-        }
-    }
+    rgbButtons : Int8[128]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    rgbButtons {
-        get {
-            if(!this.HasProp("__rgbButtonsProxyArray"))
-                this.__rgbButtonsProxyArray := Win32FixedArray(this.ptr + 48, 128, Primitive, "char")
-            return this.__rgbButtonsProxyArray
-        }
-    }
+    lVX : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lVX {
-        get => NumGet(this, 176, "int")
-        set => NumPut("int", value, this, 176)
-    }
+    lVY : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lVY {
-        get => NumGet(this, 180, "int")
-        set => NumPut("int", value, this, 180)
-    }
+    lVZ : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lVZ {
-        get => NumGet(this, 184, "int")
-        set => NumPut("int", value, this, 184)
-    }
+    lVRx : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lVRx {
-        get => NumGet(this, 188, "int")
-        set => NumPut("int", value, this, 188)
-    }
+    lVRy : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lVRy {
-        get => NumGet(this, 192, "int")
-        set => NumPut("int", value, this, 192)
-    }
+    lVRz : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lVRz {
-        get => NumGet(this, 196, "int")
-        set => NumPut("int", value, this, 196)
-    }
+    rglVSlider : Int32[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    rglVSlider {
-        get {
-            if(!this.HasProp("__rglVSliderProxyArray"))
-                this.__rglVSliderProxyArray := Win32FixedArray(this.ptr + 200, 2, Primitive, "int")
-            return this.__rglVSliderProxyArray
-        }
-    }
+    lAX : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lAX {
-        get => NumGet(this, 208, "int")
-        set => NumPut("int", value, this, 208)
-    }
+    lAY : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lAY {
-        get => NumGet(this, 212, "int")
-        set => NumPut("int", value, this, 212)
-    }
+    lAZ : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lAZ {
-        get => NumGet(this, 216, "int")
-        set => NumPut("int", value, this, 216)
-    }
+    lARx : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lARx {
-        get => NumGet(this, 220, "int")
-        set => NumPut("int", value, this, 220)
-    }
+    lARy : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lARy {
-        get => NumGet(this, 224, "int")
-        set => NumPut("int", value, this, 224)
-    }
+    lARz : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lARz {
-        get => NumGet(this, 228, "int")
-        set => NumPut("int", value, this, 228)
-    }
+    rglASlider : Int32[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    rglASlider {
-        get {
-            if(!this.HasProp("__rglASliderProxyArray"))
-                this.__rglASliderProxyArray := Win32FixedArray(this.ptr + 232, 2, Primitive, "int")
-            return this.__rglASliderProxyArray
-        }
-    }
+    lFX : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lFX {
-        get => NumGet(this, 240, "int")
-        set => NumPut("int", value, this, 240)
-    }
+    lFY : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lFY {
-        get => NumGet(this, 244, "int")
-        set => NumPut("int", value, this, 244)
-    }
+    lFZ : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lFZ {
-        get => NumGet(this, 248, "int")
-        set => NumPut("int", value, this, 248)
-    }
+    lFRx : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lFRx {
-        get => NumGet(this, 252, "int")
-        set => NumPut("int", value, this, 252)
-    }
+    lFRy : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lFRy {
-        get => NumGet(this, 256, "int")
-        set => NumPut("int", value, this, 256)
-    }
+    lFRz : Int32
 
-    /**
-     * @type {Integer}
-     */
-    lFRz {
-        get => NumGet(this, 260, "int")
-        set => NumPut("int", value, this, 260)
-    }
+    rglFSlider : Int32[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    rglFSlider {
-        get {
-            if(!this.HasProp("__rglFSliderProxyArray"))
-                this.__rglFSliderProxyArray := Win32FixedArray(this.ptr + 264, 2, Primitive, "int")
-            return this.__rglFSliderProxyArray
-        }
-    }
 }

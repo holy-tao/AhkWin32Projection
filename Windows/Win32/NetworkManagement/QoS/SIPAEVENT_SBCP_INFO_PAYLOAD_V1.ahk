@@ -1,70 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.NetworkManagement.QoS
  */
-class SIPAEVENT_SBCP_INFO_PAYLOAD_V1 extends Win32Struct {
-    static sizeof => 24
+export default struct SIPAEVENT_SBCP_INFO_PAYLOAD_V1 {
+    #StructPack 4
 
-    static packingSize => 4
+    PayloadVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PayloadVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    VarDataOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VarDataOffset {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    HashAlgID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    HashAlgID {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    DigestLength : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    DigestLength {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
+    Options : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Options {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    SignersCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SignersCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    VarData : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    VarData {
-        get {
-            if(!this.HasProp("__VarDataProxyArray"))
-                this.__VarDataProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")
-            return this.__VarDataProxyArray
-        }
-    }
 }

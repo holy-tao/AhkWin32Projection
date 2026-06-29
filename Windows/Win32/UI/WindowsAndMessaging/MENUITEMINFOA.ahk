@@ -1,10 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MENU_ITEM_MASK.ahk
-#Include .\MENU_ITEM_TYPE.ahk
-#Include .\MENU_ITEM_STATE.ahk
-#Include .\HMENU.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MENU_ITEM_STATE.ahk" { MENU_ITEM_STATE }
+#Import ".\MENU_ITEM_MASK.ahk" { MENU_ITEM_MASK }
+#Import ".\MENU_ITEM_TYPE.ahk" { MENU_ITEM_TYPE }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
+#Import ".\HMENU.ahk" { HMENU }
 
 /**
  * Contains information about a menu item. (MENUITEMINFOA)
@@ -23,39 +23,25 @@
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @charset ANSI
  */
-class MENUITEMINFOA extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct MENUITEMINFOA {
+    #StructPack 8
 
     /**
      * Type: <b>UINT</b>
      * 
      * The size of the structure, in bytes. The caller must set this member to <c>sizeof(MENUITEMINFO)</c>.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b>UINT</b>
-     * @type {MENU_ITEM_MASK}
      */
-    fMask {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    fMask : MENU_ITEM_MASK
 
     /**
      * Type: <b>UINT</b>
-     * @type {MENU_ITEM_TYPE}
      */
-    fType {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    fType : MENU_ITEM_TYPE
 
     /**
      * Type: <b>UINT</b>
@@ -160,12 +146,8 @@ class MENUITEMINFOA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {MENU_ITEM_STATE}
      */
-    fState {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    fState : MENU_ITEM_STATE
 
     /**
      * Type: <b>UINT</b>
@@ -173,12 +155,8 @@ class MENUITEMINFOA extends Win32Struct {
      * An application-defined value that identifies the menu item. Set 
      * 					<b>fMask</b>  to <b>MIIM_ID</b>  to use 
      * 					<b>wID</b>.
-     * @type {Integer}
      */
-    wID {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    wID : UInt32
 
     /**
      * Type: <b>HMENU</b>
@@ -186,15 +164,8 @@ class MENUITEMINFOA extends Win32Struct {
      * A handle to the drop-down menu or submenu associated with the menu item. If the menu item is not an item that opens a drop-down menu or submenu, this member is <b>NULL</b>. Set 
      * 					<b>fMask</b>  to <b>MIIM_SUBMENU</b>  to use 
      * 					<b>hSubMenu</b>.
-     * @type {HMENU}
      */
-    hSubMenu {
-        get {
-            if(!this.HasProp("__hSubMenu"))
-                this.__hSubMenu := HMENU(24, this)
-            return this.__hSubMenu
-        }
-    }
+    hSubMenu : HMENU
 
     /**
      * Type: <b>HBITMAP</b>
@@ -202,15 +173,8 @@ class MENUITEMINFOA extends Win32Struct {
      * A handle to the bitmap to display next to the item if it is selected. If this member is <b>NULL</b>, a default bitmap is used. If the <b>MFT_RADIOCHECK</b> type value is specified, the default bitmap is a bullet. Otherwise, it is a check mark. Set 
      * 					<b>fMask</b> to <b>MIIM_CHECKMARKS</b> to use 
      * 					<b>hbmpChecked</b>.
-     * @type {HBITMAP}
      */
-    hbmpChecked {
-        get {
-            if(!this.HasProp("__hbmpChecked"))
-                this.__hbmpChecked := HBITMAP(32, this)
-            return this.__hbmpChecked
-        }
-    }
+    hbmpChecked : HBITMAP
 
     /**
      * Type: <b>HBITMAP</b>
@@ -218,15 +182,8 @@ class MENUITEMINFOA extends Win32Struct {
      * A handle to the bitmap to display next to the item if it is not selected. If this member is <b>NULL</b>, no bitmap is used. Set 
      * 					<b>fMask</b> to <b>MIIM_CHECKMARKS</b> to use 
      * 					<b>hbmpUnchecked</b>.
-     * @type {HBITMAP}
      */
-    hbmpUnchecked {
-        get {
-            if(!this.HasProp("__hbmpUnchecked"))
-                this.__hbmpUnchecked := HBITMAP(40, this)
-            return this.__hbmpUnchecked
-        }
-    }
+    hbmpUnchecked : HBITMAP
 
     /**
      * Type: <b>ULONG_PTR</b>
@@ -234,12 +191,8 @@ class MENUITEMINFOA extends Win32Struct {
      * An application-defined value associated with the menu item. Set 
      * 					<b>fMask</b> to <b>MIIM_DATA</b> to use 
      * 					<b>dwItemData</b>.
-     * @type {Pointer}
      */
-    dwItemData {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    dwItemData : IntPtr
 
     /**
      * Type: <b>LPTSTR</b>
@@ -260,12 +213,8 @@ class MENUITEMINFOA extends Win32Struct {
      * 
      * <b>dwTypeData</b> is used only if the <b>MIIM_STRING</b> flag is set in the 
      * 						<b>fMask</b> member
-     * @type {PSTR}
      */
-    dwTypeData {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    dwTypeData : PSTR
 
     /**
      * Type: <b>UINT</b>
@@ -283,12 +232,8 @@ class MENUITEMINFOA extends Win32Struct {
      * The 
      * 						<b>cch</b> member is used when the <b>MIIM_STRING</b> flag is set in the 
      * 						<b>fMask</b> member.
-     * @type {Integer}
      */
-    cch {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    cch : UInt32
 
     /**
      * Type: <b>HBITMAP</b>
@@ -425,18 +370,7 @@ class MENUITEMINFOA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {HBITMAP}
      */
-    hbmpItem {
-        get {
-            if(!this.HasProp("__hbmpItem"))
-                this.__hbmpItem := HBITMAP(72, this)
-            return this.__hbmpItem
-        }
-    }
+    hbmpItem : HBITMAP
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 80
-    }
 }

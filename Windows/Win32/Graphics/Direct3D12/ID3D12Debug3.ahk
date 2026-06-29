@@ -1,33 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12Debug.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID3D12Debug.ahk" { ID3D12Debug }
+#Import ".\D3D12_GPU_BASED_VALIDATION_FLAGS.ahk" { D3D12_GPU_BASED_VALIDATION_FLAGS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Adds configurable levels of GPU-based validation to the debug layer. (ID3D12Debug3)
  * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debug3
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class ID3D12Debug3 extends ID3D12Debug {
-
-    static sizeof => A_PtrSize
+export default struct ID3D12Debug3 extends ID3D12Debug {
     /**
      * The interface identifier for ID3D12Debug3
      * @type {Guid}
      */
-    static IID => Guid("{5cf4e58f-f671-4ff1-a542-3686e3d153d1}")
+    static IID := Guid("{5cf4e58f-f671-4ff1-a542-3686e3d153d1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D12Debug3 interfaces
+    */
+    struct Vtbl extends ID3D12Debug.Vtbl {
+        SetEnableGPUBasedValidation                 : IntPtr
+        SetEnableSynchronizedCommandQueueValidation : IntPtr
+        SetGPUBasedValidationFlags                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetEnableGPUBasedValidation", "SetEnableSynchronizedCommandQueueValidation", "SetGPUBasedValidationFlags"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D12Debug3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This method enables or disables GPU-based validation (GBV) before creating a device with the debug layer enabled.
@@ -42,7 +53,7 @@ class ID3D12Debug3 extends ID3D12Debug {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12debug3-setenablegpubasedvalidation
      */
     SetEnableGPUBasedValidation(Enable) {
-        ComCall(4, this, "int", Enable)
+        ComCall(4, this, BOOL, Enable)
     }
 
     /**
@@ -62,7 +73,7 @@ class ID3D12Debug3 extends ID3D12Debug {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12debug3-setenablesynchronizedcommandqueuevalidation
      */
     SetEnableSynchronizedCommandQueueValidation(Enable) {
-        ComCall(5, this, "int", Enable)
+        ComCall(5, this, BOOL, Enable)
     }
 
     /**
@@ -76,6 +87,30 @@ class ID3D12Debug3 extends ID3D12Debug {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12debug3-setgpubasedvalidationflags
      */
     SetGPUBasedValidationFlags(Flags) {
-        ComCall(6, this, "int", Flags)
+        ComCall(6, this, D3D12_GPU_BASED_VALIDATION_FLAGS, Flags)
+    }
+
+    Query(iid) {
+        if (ID3D12Debug3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetEnableGPUBasedValidation := CallbackCreate(GetMethod(implObj, "SetEnableGPUBasedValidation"), flags, 2)
+        this.vtbl.SetEnableSynchronizedCommandQueueValidation := CallbackCreate(GetMethod(implObj, "SetEnableSynchronizedCommandQueueValidation"), flags, 2)
+        this.vtbl.SetGPUBasedValidationFlags := CallbackCreate(GetMethod(implObj, "SetGPUBasedValidationFlags"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetEnableGPUBasedValidation)
+        CallbackFree(this.vtbl.SetEnableSynchronizedCommandQueueValidation)
+        CallbackFree(this.vtbl.SetGPUBasedValidationFlags)
     }
 }

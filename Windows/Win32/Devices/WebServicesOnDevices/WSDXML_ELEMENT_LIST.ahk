@@ -1,33 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSDXML_ELEMENT_LIST.ahk
-#Include .\WSDXML_ELEMENT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WSDXML_ELEMENT.ahk" { WSDXML_ELEMENT }
 
 /**
  * Represents a node in a linked list of XML elements.
  * @see https://learn.microsoft.com/windows/win32/api/wsdxmldom/ns-wsdxmldom-wsdxml_element_list
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class WSDXML_ELEMENT_LIST extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct WSDXML_ELEMENT_LIST {
+    #StructPack 8
 
     /**
      * Reference to the next node in the linked list of <b>WSDXML_ELEMENT_LIST</b> structures.
-     * @type {Pointer<WSDXML_ELEMENT_LIST>}
      */
-    Next {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Next : WSDXML_ELEMENT_LIST.Ptr
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_element">WSDXML_ELEMENT</a> structure referenced by this node.
-     * @type {Pointer<WSDXML_ELEMENT>}
      */
-    Element {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Element : WSDXML_ELEMENT.Ptr
+
 }

@@ -1,12 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * A new LUN has been created.
- * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_lun_notification
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_NF_LUN extends Win32Enum {
+export default struct VDS_NF_LUN {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

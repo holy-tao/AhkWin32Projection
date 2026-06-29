@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IInspectable.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IInspectable.ahk" { IInspectable }
 
 /**
  * Enables interoperability with a WinRT SpatialInteractionManager object and provides access to SpatialInteractionManager members for accessing user input from hands, motion controllers, and system voice commands.
  * @see https://learn.microsoft.com/windows/win32/api/spatialinteractionmanagerinterop/nn-spatialinteractionmanagerinterop-ispatialinteractionmanagerinterop
  * @namespace Windows.Win32.System.WinRT
  */
-class ISpatialInteractionManagerInterop extends IInspectable {
-
-    static sizeof => A_PtrSize
+export default struct ISpatialInteractionManagerInterop extends IInspectable {
     /**
      * The interface identifier for ISpatialInteractionManagerInterop
      * @type {Guid}
      */
-    static IID => Guid("{5c4ee536-6a98-4b86-a170-587013d6fd4b}")
+    static IID := Guid("{5c4ee536-6a98-4b86-a170-587013d6fd4b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpatialInteractionManagerInterop interfaces
+    */
+    struct Vtbl extends IInspectable.Vtbl {
+        GetForWindow : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetForWindow"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpatialInteractionManagerInterop.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a SpatialInteractionManager object bound to the active application.
@@ -82,9 +91,27 @@ class ISpatialInteractionManagerInterop extends IInspectable {
      * @see https://learn.microsoft.com/windows/win32/api/spatialinteractionmanagerinterop/nf-spatialinteractionmanagerinterop-ispatialinteractionmanagerinterop-getforwindow
      */
     GetForWindow(window, riid) {
-        window := window is Win32Handle ? NumGet(window, "ptr") : window
-
-        result := ComCall(6, this, "ptr", window, "ptr", riid, "ptr*", &spatialInteractionManager := 0, "HRESULT")
+        result := ComCall(6, this, HWND, window, Guid.Ptr, riid, "ptr*", &spatialInteractionManager := 0, "HRESULT")
         return spatialInteractionManager
+    }
+
+    Query(iid) {
+        if (ISpatialInteractionManagerInterop.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetForWindow := CallbackCreate(GetMethod(implObj, "GetForWindow"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetForWindow)
     }
 }

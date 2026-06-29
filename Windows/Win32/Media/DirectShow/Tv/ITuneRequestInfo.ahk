@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\ITuneRequest.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITuneRequest.ahk" { ITuneRequest }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITuneRequestInfo interface is implemented on the BDA MPEG2 Transport Information Filter (TIF) and is used by the Network Provider.
@@ -11,26 +12,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/bdatif/nn-bdatif-itunerequestinfo
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class ITuneRequestInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITuneRequestInfo extends IUnknown {
     /**
      * The interface identifier for ITuneRequestInfo
      * @type {Guid}
      */
-    static IID => Guid("{a3b152df-7a90-4218-ac54-9830bee8c0b6}")
+    static IID := Guid("{a3b152df-7a90-4218-ac54-9830bee8c0b6}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITuneRequestInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetLocatorData      : IntPtr
+        GetComponentData    : IntPtr
+        CreateComponentList : IntPtr
+        GetNextProgram      : IntPtr
+        GetPreviousProgram  : IntPtr
+        GetNextLocator      : IntPtr
+        GetPreviousLocator  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetLocatorData", "GetComponentData", "CreateComponentList", "GetNextProgram", "GetPreviousProgram", "GetNextLocator", "GetPreviousLocator"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITuneRequestInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetLocatorData method fills in channel or program locator information for the specified tune request.
@@ -234,5 +248,37 @@ class ITuneRequestInfo extends IUnknown {
     GetPreviousLocator(CurrentRequest) {
         result := ComCall(9, this, "ptr", CurrentRequest, "ptr*", &_TuneRequest := 0, "HRESULT")
         return ITuneRequest(_TuneRequest)
+    }
+
+    Query(iid) {
+        if (ITuneRequestInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetLocatorData := CallbackCreate(GetMethod(implObj, "GetLocatorData"), flags, 2)
+        this.vtbl.GetComponentData := CallbackCreate(GetMethod(implObj, "GetComponentData"), flags, 2)
+        this.vtbl.CreateComponentList := CallbackCreate(GetMethod(implObj, "CreateComponentList"), flags, 2)
+        this.vtbl.GetNextProgram := CallbackCreate(GetMethod(implObj, "GetNextProgram"), flags, 3)
+        this.vtbl.GetPreviousProgram := CallbackCreate(GetMethod(implObj, "GetPreviousProgram"), flags, 3)
+        this.vtbl.GetNextLocator := CallbackCreate(GetMethod(implObj, "GetNextLocator"), flags, 3)
+        this.vtbl.GetPreviousLocator := CallbackCreate(GetMethod(implObj, "GetPreviousLocator"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetLocatorData)
+        CallbackFree(this.vtbl.GetComponentData)
+        CallbackFree(this.vtbl.CreateComponentList)
+        CallbackFree(this.vtbl.GetNextProgram)
+        CallbackFree(this.vtbl.GetPreviousProgram)
+        CallbackFree(this.vtbl.GetNextLocator)
+        CallbackFree(this.vtbl.GetPreviousLocator)
     }
 }

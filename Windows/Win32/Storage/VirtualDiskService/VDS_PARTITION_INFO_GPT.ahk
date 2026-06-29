@@ -1,5 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Defines details of a GUID partition table (GPT) partition.
@@ -12,44 +13,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_partition_info_gpt
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_PARTITION_INFO_GPT extends Win32Struct {
-    static sizeof => 96
-
-    static packingSize => 8
+export default struct VDS_PARTITION_INFO_GPT {
+    #StructPack 8
 
     /**
      * GUID for the partition type.
-     * @type {Pointer}
      */
-    partitionType {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    partitionType : Guid
 
     /**
      * GUID for the partition.
-     * @type {Pointer}
      */
-    partitionId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    partitionId : Guid
 
     /**
      * Attributes of the partition.
-     * @type {Integer}
      */
-    attributes {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    attributes : Int64
 
     /**
      * Name of the partition.
-     * @type {String}
      */
-    name {
-        get => StrGet(this.ptr + 24, 35, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 35, "UTF-16")
-    }
+    name : WCHAR[36]
+
 }

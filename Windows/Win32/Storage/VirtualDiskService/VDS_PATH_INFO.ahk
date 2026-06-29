@@ -1,97 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\VDS_PATH_ID.ahk
-#Include .\VDS_HWPROVIDER_TYPE.ahk
-#Include .\VDS_PATH_STATUS.ahk
-#Include .\VDS_HBAPORT_PROP.ahk
-#Include .\VDS_IPADDRESS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\VDS_HBAPORT_PROP.ahk" { VDS_HBAPORT_PROP }
+#Import ".\VDS_HWPROVIDER_TYPE.ahk" { VDS_HWPROVIDER_TYPE }
+#Import ".\VDS_PATH_ID.ahk" { VDS_PATH_ID }
+#Import ".\VDS_IPADDRESS.ahk" { VDS_IPADDRESS }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VDS_PATH_STATUS.ahk" { VDS_PATH_STATUS }
 
 /**
  * The VDS_PATH_INFO structure (vdshwprv.h) defines the information for a LUN path and is returned in the ppPaths parameter of the IVdsLunMpio::GetPathInfo method.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_path_info
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_PATH_INFO extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct VDS_PATH_INFO {
+    #StructPack 8
 
     /**
      * The unique ID of the path used by MPIO.
-     * @type {VDS_PATH_ID}
      */
-    pathId {
-        get {
-            if(!this.HasProp("__pathId"))
-                this.__pathId := VDS_PATH_ID(0, this)
-            return this.__pathId
-        }
-    }
+    pathId : VDS_PATH_ID
 
     /**
      * The type of interconnect that the hardware provider supports for this LUN path. <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_hwprovider_type">VDS_HWT_HYBRID</a> is not a valid value for this member, even if the provider is a hybrid provider.
-     * @type {VDS_HWPROVIDER_TYPE}
      */
-    type {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    type : VDS_HWPROVIDER_TYPE
 
     /**
      * The status of the path, enumerated by 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_path_status">VDS_PATH_STATUS</a>.
-     * @type {VDS_PATH_STATUS}
      */
-    status {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    status : VDS_PATH_STATUS
 
-    /**
-     * @type {Pointer}
-     */
-    controllerPortId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    controllerPortId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    targetPortalId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    hbaPortId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    hbaPortId {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pHbaPortProp : VDS_HBAPORT_PROP.Ptr
 
-    /**
-     * @type {Pointer}
-     */
-    initiatorAdapterId {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
-
-    /**
-     * @type {Pointer<VDS_HBAPORT_PROP>}
-     */
-    pHbaPortProp {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    /**
-     * @type {Pointer<VDS_IPADDRESS>}
-     */
-    pInitiatorPortalIpAddr {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    static __New() {
+        DefineProp(this.Prototype, 'targetPortalId', { type: Guid, offset: 24 })
+        DefineProp(this.Prototype, 'initiatorAdapterId', { type: Guid, offset: 40 })
+        DefineProp(this.Prototype, 'pInitiatorPortalIpAddr', { type: VDS_IPADDRESS.Ptr, offset: 56 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,6 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Specifies settings for a time zone and dynamic daylight saving time.
@@ -85,10 +86,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/ns-timezoneapi-dynamic_time_zone_information
  * @namespace Windows.Win32.System.Time
  */
-class DYNAMIC_TIME_ZONE_INFORMATION extends Win32Struct {
-    static sizeof => 432
-
-    static packingSize => 4
+export default struct DYNAMIC_TIME_ZONE_INFORMATION {
+    #StructPack 4
 
     /**
      * The current bias for local time translation on this computer, in minutes. The bias is the difference, in 
@@ -98,24 +97,16 @@ class DYNAMIC_TIME_ZONE_INFORMATION extends Win32Struct {
      * UTC = local time + bias
      * 
      * This member is required.
-     * @type {Integer}
      */
-    Bias {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Bias : Int32
 
     /**
      * A description for standard time. For example, "EST" could indicate Eastern Standard Time. The string will 
      *       be returned unchanged by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/nf-timezoneapi-getdynamictimezoneinformation">GetDynamicTimeZoneInformation</a> 
      *       function. This string can be empty.
-     * @type {String}
      */
-    StandardName {
-        get => StrGet(this.ptr + 4, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 31, "UTF-16")
-    }
+    StandardName : WCHAR[32]
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that contains a date and 
@@ -141,15 +132,8 @@ class DYNAMIC_TIME_ZONE_INFORMATION extends Win32Struct {
      * If the 
      *        <b>wYear</b> member is not zero, the transition date is absolute; it will only occur one 
      *        time. Otherwise, it is a relative date that occurs yearly.
-     * @type {SYSTEMTIME}
      */
-    StandardDate {
-        get {
-            if(!this.HasProp("__StandardDate"))
-                this.__StandardDate := SYSTEMTIME(68, this)
-            return this.__StandardDate
-        }
-    }
+    StandardDate : SYSTEMTIME
 
     /**
      * The bias value to be used during local time translations that occur during standard time. This member is 
@@ -157,24 +141,16 @@ class DYNAMIC_TIME_ZONE_INFORMATION extends Win32Struct {
      * 
      * This value is added to the value of the <b>Bias</b> member to form the bias used during 
      *        standard time. In most time zones, the value of this member is zero.
-     * @type {Integer}
      */
-    StandardBias {
-        get => NumGet(this, 84, "int")
-        set => NumPut("int", value, this, 84)
-    }
+    StandardBias : Int32
 
     /**
      * A description for daylight saving time (DST). For example, "PDT" could indicate Pacific Daylight Time. The 
      *       string will be  returned unchanged by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/nf-timezoneapi-getdynamictimezoneinformation">GetDynamicTimeZoneInformation</a> 
      *       function. This string can be empty.
-     * @type {String}
      */
-    DaylightName {
-        get => StrGet(this.ptr + 88, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 88, 31, "UTF-16")
-    }
+    DaylightName : WCHAR[32]
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that contains a 
@@ -193,15 +169,8 @@ class DYNAMIC_TIME_ZONE_INFORMATION extends Win32Struct {
      * 
      * If the <b>wYear</b> member is not zero, the transition date is absolute; it will only 
      *        occur one time. Otherwise, it is a relative date that occurs yearly.
-     * @type {SYSTEMTIME}
      */
-    DaylightDate {
-        get {
-            if(!this.HasProp("__DaylightDate"))
-                this.__DaylightDate := SYSTEMTIME(152, this)
-            return this.__DaylightDate
-        }
-    }
+    DaylightDate : SYSTEMTIME
 
     /**
      * The bias value to be used during local time translations that occur during daylight saving time. This member 
@@ -209,21 +178,13 @@ class DYNAMIC_TIME_ZONE_INFORMATION extends Win32Struct {
      * 
      * This value is added to the value of the <b>Bias</b> member to form the bias used during 
      *        daylight saving time. In most time zones, the value of this member is –60.
-     * @type {Integer}
      */
-    DaylightBias {
-        get => NumGet(this, 168, "int")
-        set => NumPut("int", value, this, 168)
-    }
+    DaylightBias : Int32
 
     /**
      * The name of the time zone registry key on the local computer. For more information, see Remarks.
-     * @type {String}
      */
-    TimeZoneKeyName {
-        get => StrGet(this.ptr + 172, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 172, 127, "UTF-16")
-    }
+    TimeZoneKeyName : WCHAR[128]
 
     /**
      * Indicates whether dynamic daylight saving time is disabled. Setting this member to <b>TRUE</b> disables dynamic 
@@ -249,10 +210,7 @@ class DYNAMIC_TIME_ZONE_INFORMATION extends Win32Struct {
      *        restore daylight saving time, call 
      *        <b>SetDynamicTimeZoneInformation</b> with 
      *        <b>DynamicDaylightTimeDisabled</b> set to <b>FALSE</b>.
-     * @type {BOOLEAN}
      */
-    DynamicDaylightTimeDisabled {
-        get => NumGet(this, 428, "char")
-        set => NumPut("char", value, this, 428)
-    }
+    DynamicDaylightTimeDisabled : BOOLEAN
+
 }

@@ -1,43 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
  */
-class NFC_NDEF_INFO extends Win32Struct {
-    static sizeof => 12
+export default struct NFC_NDEF_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    fIsNdefFormatted : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    fIsNdefFormatted {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    fIsReadOnly : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    fIsReadOnly {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    dwActualMessageLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwActualMessageLength {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwMaxMessageLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMaxMessageLength {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
 }

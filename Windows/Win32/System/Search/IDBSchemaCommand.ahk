@@ -1,57 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\ICommand.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ICommand.ahk" { ICommand }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class IDBSchemaCommand extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDBSchemaCommand extends IUnknown {
     /**
      * The interface identifier for IDBSchemaCommand
      * @type {Guid}
      */
-    static IID => Guid("{0c733a50-2a1c-11ce-ade5-00aa0044773d}")
+    static IID := Guid("{0c733a50-2a1c-11ce-ade5-00aa0044773d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDBSchemaCommand interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetCommand : IntPtr
+        GetSchemas : IntPtr
+    }
+
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDBSchemaCommand.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCommand", "GetSchemas"]
-
-    /**
-     * Retrieves the command-line string for the current process. (ANSI)
-     * @remarks
-     * The lifetime of the returned value is managed by the system, applications should not free or modify this value.
      * 
-     * Console processes can use the <i>argc</i> and <i>argv</i> arguments of the <b>main</b> or <b>wmain</b> functions by implementing those as the program entry point.
-     * GUI processes can use the <i>lpCmdLine</i> argument of the <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-winmain">WinMain</a> or wWinMain functions by implementing those as the program entry point.
-     * 
-     * To convert the command line to an <i>argv</i> style array of strings, pass the result from GetCommandLineA to
-     * <a href="https://docs.microsoft.com/windows/win32/api/shellapi/nf-shellapi-commandlinetoargvw">CommandLineToArgW</a>.
-     * 
-     * <div class="alert"><b>Note</b>  The name of the executable in the command line that the operating system provides to a process is not necessarily identical to that in the command line that the calling process gives to the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessa">CreateProcess</a> function. The operating system may prepend a fully qualified path to an executable name that is provided without a fully qualified path.</div>
-     * <div> </div>
-     * 
-     * > [!NOTE]
-     * > The processenv.h header defines GetCommandLine as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} rguidSchema 
      * @returns {ICommand} 
-     * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-getcommandlinea
      */
     GetCommand(pUnkOuter, rguidSchema) {
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", rguidSchema, "ptr*", &ppCommand := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pUnkOuter, Guid.Ptr, rguidSchema, "ptr*", &ppCommand := 0, "HRESULT")
         return ICommand(ppCommand)
     }
 
@@ -65,5 +58,27 @@ class IDBSchemaCommand extends IUnknown {
 
         result := ComCall(4, this, pcSchemasMarshal, pcSchemas, "ptr*", &prgSchemas := 0, "HRESULT")
         return prgSchemas
+    }
+
+    Query(iid) {
+        if (IDBSchemaCommand.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCommand := CallbackCreate(GetMethod(implObj, "GetCommand"), flags, 4)
+        this.vtbl.GetSchemas := CallbackCreate(GetMethod(implObj, "GetSchemas"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCommand)
+        CallbackFree(this.vtbl.GetSchemas)
     }
 }

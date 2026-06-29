@@ -1,33 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITemplatePrinter2.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\ITemplatePrinter2.ahk" { ITemplatePrinter2 }
+#Import "..\..\System\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
  */
-class ITemplatePrinter3 extends ITemplatePrinter2 {
-
-    static sizeof => A_PtrSize
+export default struct ITemplatePrinter3 extends ITemplatePrinter2 {
     /**
      * The interface identifier for ITemplatePrinter3
      * @type {Guid}
      */
-    static IID => Guid("{305104a3-98b5-11cf-bb82-00aa00bdce0b}")
+    static IID := Guid("{305104a3-98b5-11cf-bb82-00aa00bdce0b}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 71
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITemplatePrinter3 interfaces
+    */
+    struct Vtbl extends ITemplatePrinter2.Vtbl {
+        put_headerFooterFont         : IntPtr
+        get_headerFooterFont         : IntPtr
+        getPageMarginTop             : IntPtr
+        getPageMarginRight           : IntPtr
+        getPageMarginBottom          : IntPtr
+        getPageMarginLeft            : IntPtr
+        getPageMarginTopImportant    : IntPtr
+        getPageMarginRightImportant  : IntPtr
+        getPageMarginBottomImportant : IntPtr
+        getPageMarginLeftImportant   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_headerFooterFont", "get_headerFooterFont", "getPageMarginTop", "getPageMarginRight", "getPageMarginBottom", "getPageMarginLeft", "getPageMarginTopImportant", "getPageMarginRightImportant", "getPageMarginBottomImportant", "getPageMarginLeftImportant"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITemplatePrinter3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -45,7 +64,7 @@ class ITemplatePrinter3 extends ITemplatePrinter2 {
     put_headerFooterFont(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(71, this, "ptr", v, "HRESULT")
+        result := ComCall(71, this, BSTR, v, "HRESULT")
         return result
     }
 
@@ -54,8 +73,8 @@ class ITemplatePrinter3 extends ITemplatePrinter2 {
      * @returns {BSTR} 
      */
     get_headerFooterFont() {
-        p := BSTR()
-        result := ComCall(72, this, "ptr", p, "HRESULT")
+        p := BSTR.Owned()
+        result := ComCall(72, this, BSTR.Ptr, p, "HRESULT")
         return p
     }
 
@@ -68,7 +87,7 @@ class ITemplatePrinter3 extends ITemplatePrinter2 {
      */
     getPageMarginTop(pageRule, pageWidth, pageHeight) {
         pMargin := VARIANT()
-        result := ComCall(73, this, "ptr", pageRule, "int", pageWidth, "int", pageHeight, "ptr", pMargin, "HRESULT")
+        result := ComCall(73, this, "ptr", pageRule, "int", pageWidth, "int", pageHeight, VARIANT.Ptr, pMargin, "HRESULT")
         return pMargin
     }
 
@@ -81,7 +100,7 @@ class ITemplatePrinter3 extends ITemplatePrinter2 {
      */
     getPageMarginRight(pageRule, pageWidth, pageHeight) {
         pMargin := VARIANT()
-        result := ComCall(74, this, "ptr", pageRule, "int", pageWidth, "int", pageHeight, "ptr", pMargin, "HRESULT")
+        result := ComCall(74, this, "ptr", pageRule, "int", pageWidth, "int", pageHeight, VARIANT.Ptr, pMargin, "HRESULT")
         return pMargin
     }
 
@@ -94,7 +113,7 @@ class ITemplatePrinter3 extends ITemplatePrinter2 {
      */
     getPageMarginBottom(pageRule, pageWidth, pageHeight) {
         pMargin := VARIANT()
-        result := ComCall(75, this, "ptr", pageRule, "int", pageWidth, "int", pageHeight, "ptr", pMargin, "HRESULT")
+        result := ComCall(75, this, "ptr", pageRule, "int", pageWidth, "int", pageHeight, VARIANT.Ptr, pMargin, "HRESULT")
         return pMargin
     }
 
@@ -107,7 +126,7 @@ class ITemplatePrinter3 extends ITemplatePrinter2 {
      */
     getPageMarginLeft(pageRule, pageWidth, pageHeight) {
         pMargin := VARIANT()
-        result := ComCall(76, this, "ptr", pageRule, "int", pageWidth, "int", pageHeight, "ptr", pMargin, "HRESULT")
+        result := ComCall(76, this, "ptr", pageRule, "int", pageWidth, "int", pageHeight, VARIANT.Ptr, pMargin, "HRESULT")
         return pMargin
     }
 
@@ -117,7 +136,7 @@ class ITemplatePrinter3 extends ITemplatePrinter2 {
      * @returns {VARIANT_BOOL} 
      */
     getPageMarginTopImportant(pageRule) {
-        result := ComCall(77, this, "ptr", pageRule, "short*", &pbImportant := 0, "HRESULT")
+        result := ComCall(77, this, "ptr", pageRule, VARIANT_BOOL.Ptr, &pbImportant := 0, "HRESULT")
         return pbImportant
     }
 
@@ -127,7 +146,7 @@ class ITemplatePrinter3 extends ITemplatePrinter2 {
      * @returns {VARIANT_BOOL} 
      */
     getPageMarginRightImportant(pageRule) {
-        result := ComCall(78, this, "ptr", pageRule, "short*", &pbImportant := 0, "HRESULT")
+        result := ComCall(78, this, "ptr", pageRule, VARIANT_BOOL.Ptr, &pbImportant := 0, "HRESULT")
         return pbImportant
     }
 
@@ -137,7 +156,7 @@ class ITemplatePrinter3 extends ITemplatePrinter2 {
      * @returns {VARIANT_BOOL} 
      */
     getPageMarginBottomImportant(pageRule) {
-        result := ComCall(79, this, "ptr", pageRule, "short*", &pbImportant := 0, "HRESULT")
+        result := ComCall(79, this, "ptr", pageRule, VARIANT_BOOL.Ptr, &pbImportant := 0, "HRESULT")
         return pbImportant
     }
 
@@ -147,7 +166,45 @@ class ITemplatePrinter3 extends ITemplatePrinter2 {
      * @returns {VARIANT_BOOL} 
      */
     getPageMarginLeftImportant(pageRule) {
-        result := ComCall(80, this, "ptr", pageRule, "short*", &pbImportant := 0, "HRESULT")
+        result := ComCall(80, this, "ptr", pageRule, VARIANT_BOOL.Ptr, &pbImportant := 0, "HRESULT")
         return pbImportant
+    }
+
+    Query(iid) {
+        if (ITemplatePrinter3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_headerFooterFont := CallbackCreate(GetMethod(implObj, "put_headerFooterFont"), flags, 2)
+        this.vtbl.get_headerFooterFont := CallbackCreate(GetMethod(implObj, "get_headerFooterFont"), flags, 2)
+        this.vtbl.getPageMarginTop := CallbackCreate(GetMethod(implObj, "getPageMarginTop"), flags, 5)
+        this.vtbl.getPageMarginRight := CallbackCreate(GetMethod(implObj, "getPageMarginRight"), flags, 5)
+        this.vtbl.getPageMarginBottom := CallbackCreate(GetMethod(implObj, "getPageMarginBottom"), flags, 5)
+        this.vtbl.getPageMarginLeft := CallbackCreate(GetMethod(implObj, "getPageMarginLeft"), flags, 5)
+        this.vtbl.getPageMarginTopImportant := CallbackCreate(GetMethod(implObj, "getPageMarginTopImportant"), flags, 3)
+        this.vtbl.getPageMarginRightImportant := CallbackCreate(GetMethod(implObj, "getPageMarginRightImportant"), flags, 3)
+        this.vtbl.getPageMarginBottomImportant := CallbackCreate(GetMethod(implObj, "getPageMarginBottomImportant"), flags, 3)
+        this.vtbl.getPageMarginLeftImportant := CallbackCreate(GetMethod(implObj, "getPageMarginLeftImportant"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_headerFooterFont)
+        CallbackFree(this.vtbl.get_headerFooterFont)
+        CallbackFree(this.vtbl.getPageMarginTop)
+        CallbackFree(this.vtbl.getPageMarginRight)
+        CallbackFree(this.vtbl.getPageMarginBottom)
+        CallbackFree(this.vtbl.getPageMarginLeft)
+        CallbackFree(this.vtbl.getPageMarginTopImportant)
+        CallbackFree(this.vtbl.getPageMarginRightImportant)
+        CallbackFree(this.vtbl.getPageMarginBottomImportant)
+        CallbackFree(this.vtbl.getPageMarginLeftImportant)
     }
 }

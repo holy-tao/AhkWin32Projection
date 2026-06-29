@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains flags for the IMFQualityAdvise2::NotifyQualityEvent method.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_quality_advise_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MF_QUALITY_ADVISE_FLAGS extends Win32Enum {
+export default struct MF_QUALITY_ADVISE_FLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The decoder has done everything that it can to reduce sample latency, and samples are still late.

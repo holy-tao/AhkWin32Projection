@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents the types of information that can be queried with the SLGetReferralInformation function.
  * @see https://learn.microsoft.com/windows/win32/api/slpublic/ne-slpublic-slreferraltype
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class SLREFERRALTYPE extends Win32Enum {
+export default struct SLREFERRALTYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

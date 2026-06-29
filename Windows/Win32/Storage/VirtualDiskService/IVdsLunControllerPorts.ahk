@@ -1,34 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IEnumVdsObject.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumVdsObject.ahk" { IEnumVdsObject }
 
 /**
  * The IVdsLunControllerPorts interface (vdshwprv.h) provides methods for performing controller port configuration operations on a LUN.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdsluncontrollerports
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class IVdsLunControllerPorts extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVdsLunControllerPorts extends IUnknown {
     /**
      * The interface identifier for IVdsLunControllerPorts
      * @type {Guid}
      */
-    static IID => Guid("{451fe266-da6d-406a-bb60-82e534f85aeb}")
+    static IID := Guid("{451fe266-da6d-406a-bb60-82e534f85aeb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVdsLunControllerPorts interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AssociateControllerPorts   : IntPtr
+        QueryActiveControllerPorts : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AssociateControllerPorts", "QueryActiveControllerPorts"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVdsLunControllerPorts.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IVdsLunControllerPorts::AssociateControllerPorts (vdshwprv.h) method sets the subsystem controller ports to active or inactive with respect to the LUN.
@@ -140,7 +149,7 @@ class IVdsLunControllerPorts extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsluncontrollerports-associatecontrollerports
      */
     AssociateControllerPorts(pActiveControllerPortIdArray, lNumberOfActiveControllerPorts, pInactiveControllerPortIdArray, lNumberOfInactiveControllerPorts) {
-        result := ComCall(3, this, "ptr", pActiveControllerPortIdArray, "int", lNumberOfActiveControllerPorts, "ptr", pInactiveControllerPortIdArray, "int", lNumberOfInactiveControllerPorts, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, pActiveControllerPortIdArray, "int", lNumberOfActiveControllerPorts, Guid.Ptr, pInactiveControllerPortIdArray, "int", lNumberOfInactiveControllerPorts, "HRESULT")
         return result
     }
 
@@ -152,5 +161,27 @@ class IVdsLunControllerPorts extends IUnknown {
     QueryActiveControllerPorts() {
         result := ComCall(4, this, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumVdsObject(ppEnum)
+    }
+
+    Query(iid) {
+        if (IVdsLunControllerPorts.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AssociateControllerPorts := CallbackCreate(GetMethod(implObj, "AssociateControllerPorts"), flags, 5)
+        this.vtbl.QueryActiveControllerPorts := CallbackCreate(GetMethod(implObj, "QueryActiveControllerPorts"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AssociateControllerPorts)
+        CallbackFree(this.vtbl.QueryActiveControllerPorts)
     }
 }

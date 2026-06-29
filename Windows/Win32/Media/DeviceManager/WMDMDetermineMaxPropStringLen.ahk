@@ -1,667 +1,96 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class WMDMDetermineMaxPropStringLen extends Win32Struct {
-    static sizeof => 3170
-
-    static packingSize => 2
-
-    /**
-     * @type {String}
-     */
-    sz001 {
-        get => StrGet(this.ptr + 0, 26, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 26, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz002 {
-        get => StrGet(this.ptr + 0, 30, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 30, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz003 {
-        get => StrGet(this.ptr + 0, 13, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 13, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz004 {
-        get => StrGet(this.ptr + 0, 15, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 15, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz005 {
-        get => StrGet(this.ptr + 0, 21, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 21, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz006 {
-        get => StrGet(this.ptr + 0, 13, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 13, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz007 {
-        get => StrGet(this.ptr + 0, 19, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 19, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz008 {
-        get => StrGet(this.ptr + 0, 19, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 19, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz009 {
-        get => StrGet(this.ptr + 0, 21, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 21, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz010 {
-        get => StrGet(this.ptr + 0, 10, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 10, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz011 {
-        get => StrGet(this.ptr + 0, 11, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 11, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz012 {
-        get => StrGet(this.ptr + 0, 16, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 16, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz013 {
-        get => StrGet(this.ptr + 0, 16, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 16, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz014 {
-        get => StrGet(this.ptr + 0, 15, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 15, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz015 {
-        get => StrGet(this.ptr + 0, 16, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 16, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz016 {
-        get => StrGet(this.ptr + 0, 10, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 10, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz017 {
-        get => StrGet(this.ptr + 0, 10, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 10, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz018 {
-        get => StrGet(this.ptr + 0, 14, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 14, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz019 {
-        get => StrGet(this.ptr + 0, 21, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 21, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz020 {
-        get => StrGet(this.ptr + 0, 19, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 19, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz021 {
-        get => StrGet(this.ptr + 0, 21, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 21, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz022 {
-        get => StrGet(this.ptr + 0, 20, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 20, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz023 {
-        get => StrGet(this.ptr + 0, 23, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 23, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz024 {
-        get => StrGet(this.ptr + 0, 19, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 19, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz025 {
-        get => StrGet(this.ptr + 0, 9, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 9, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz026 {
-        get => StrGet(this.ptr + 0, 13, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 13, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz027 {
-        get => StrGet(this.ptr + 0, 10, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 10, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz028 {
-        get => StrGet(this.ptr + 0, 10, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 10, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz029 {
-        get => StrGet(this.ptr + 0, 12, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 12, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz030 {
-        get => StrGet(this.ptr + 0, 16, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 16, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz031 {
-        get => StrGet(this.ptr + 0, 15, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 15, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz032 {
-        get => StrGet(this.ptr + 0, 16, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 16, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz033 {
-        get => StrGet(this.ptr + 0, 19, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 19, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz034 {
-        get => StrGet(this.ptr + 0, 18, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 18, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz035 {
-        get => StrGet(this.ptr + 0, 17, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 17, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz036 {
-        get => StrGet(this.ptr + 0, 17, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 17, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz037 {
-        get => StrGet(this.ptr + 0, 14, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 14, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz041 {
-        get => StrGet(this.ptr + 0, 13, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 13, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz043 {
-        get => StrGet(this.ptr + 0, 21, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 21, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz044 {
-        get => StrGet(this.ptr + 0, 15, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 15, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz045 {
-        get => StrGet(this.ptr + 0, 19, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 19, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz046 {
-        get => StrGet(this.ptr + 0, 13, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 13, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz047 {
-        get => StrGet(this.ptr + 0, 13, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 13, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz048 {
-        get => StrGet(this.ptr + 0, 11, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 11, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz049 {
-        get => StrGet(this.ptr + 0, 24, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 24, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz050 {
-        get => StrGet(this.ptr + 0, 25, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 25, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz051 {
-        get => StrGet(this.ptr + 0, 24, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 24, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz052 {
-        get => StrGet(this.ptr + 0, 15, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 15, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz053 {
-        get => StrGet(this.ptr + 0, 23, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 23, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz054 {
-        get => StrGet(this.ptr + 0, 14, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 14, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz055 {
-        get => StrGet(this.ptr + 0, 20, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 20, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz056 {
-        get => StrGet(this.ptr + 0, 15, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 15, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz057 {
-        get => StrGet(this.ptr + 0, 21, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 21, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz058 {
-        get => StrGet(this.ptr + 0, 13, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 13, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz059 {
-        get => StrGet(this.ptr + 0, 24, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 24, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz060 {
-        get => StrGet(this.ptr + 0, 17, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 17, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz061 {
-        get => StrGet(this.ptr + 0, 21, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 21, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz062 {
-        get => StrGet(this.ptr + 0, 25, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 25, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz063 {
-        get => StrGet(this.ptr + 0, 35, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 35, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz064 {
-        get => StrGet(this.ptr + 0, 22, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 22, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz065 {
-        get => StrGet(this.ptr + 0, 11, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 11, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz066 {
-        get => StrGet(this.ptr + 0, 23, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 23, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz067 {
-        get => StrGet(this.ptr + 0, 10, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 10, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz068 {
-        get => StrGet(this.ptr + 0, 11, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 11, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz069 {
-        get => StrGet(this.ptr + 0, 13, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 13, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz070 {
-        get => StrGet(this.ptr + 0, 19, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 19, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz071 {
-        get => StrGet(this.ptr + 0, 14, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 14, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz072 {
-        get => StrGet(this.ptr + 0, 13, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 13, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz073 {
-        get => StrGet(this.ptr + 0, 30, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 30, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz074 {
-        get => StrGet(this.ptr + 0, 23, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 23, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz075 {
-        get => StrGet(this.ptr + 0, 21, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 21, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz076 {
-        get => StrGet(this.ptr + 0, 23, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 23, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz077 {
-        get => StrGet(this.ptr + 0, 20, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 20, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz078 {
-        get => StrGet(this.ptr + 0, 26, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 26, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz079 {
-        get => StrGet(this.ptr + 0, 26, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 26, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz080 {
-        get => StrGet(this.ptr + 0, 19, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 19, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz081 {
-        get => StrGet(this.ptr + 0, 32, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 32, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz082 {
-        get => StrGet(this.ptr + 0, 20, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 20, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz083 {
-        get => StrGet(this.ptr + 0, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 31, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz084 {
-        get => StrGet(this.ptr + 0, 25, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 25, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz085 {
-        get => StrGet(this.ptr + 0, 17, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 17, "UTF-16")
-    }
-
-    /**
-     * @type {String}
-     */
-    sz086 {
-        get => StrGet(this.ptr + 0, 29, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 29, "UTF-16")
+export default struct WMDMDetermineMaxPropStringLen {
+    #StructPack 2
+
+    sz001 : WCHAR[27]
+
+    static __New() {
+        DefineProp(this.Prototype, 'sz002', { type: WCHAR[31], offset: 0 })
+        DefineProp(this.Prototype, 'sz003', { type: WCHAR[14], offset: 0 })
+        DefineProp(this.Prototype, 'sz004', { type: WCHAR[16], offset: 0 })
+        DefineProp(this.Prototype, 'sz005', { type: WCHAR[22], offset: 0 })
+        DefineProp(this.Prototype, 'sz006', { type: WCHAR[14], offset: 0 })
+        DefineProp(this.Prototype, 'sz007', { type: WCHAR[20], offset: 0 })
+        DefineProp(this.Prototype, 'sz008', { type: WCHAR[20], offset: 0 })
+        DefineProp(this.Prototype, 'sz009', { type: WCHAR[22], offset: 0 })
+        DefineProp(this.Prototype, 'sz010', { type: WCHAR[11], offset: 0 })
+        DefineProp(this.Prototype, 'sz011', { type: WCHAR[12], offset: 0 })
+        DefineProp(this.Prototype, 'sz012', { type: WCHAR[17], offset: 0 })
+        DefineProp(this.Prototype, 'sz013', { type: WCHAR[17], offset: 0 })
+        DefineProp(this.Prototype, 'sz014', { type: WCHAR[16], offset: 0 })
+        DefineProp(this.Prototype, 'sz015', { type: WCHAR[17], offset: 0 })
+        DefineProp(this.Prototype, 'sz016', { type: WCHAR[11], offset: 0 })
+        DefineProp(this.Prototype, 'sz017', { type: WCHAR[11], offset: 0 })
+        DefineProp(this.Prototype, 'sz018', { type: WCHAR[15], offset: 0 })
+        DefineProp(this.Prototype, 'sz019', { type: WCHAR[22], offset: 0 })
+        DefineProp(this.Prototype, 'sz020', { type: WCHAR[20], offset: 0 })
+        DefineProp(this.Prototype, 'sz021', { type: WCHAR[22], offset: 0 })
+        DefineProp(this.Prototype, 'sz022', { type: WCHAR[21], offset: 0 })
+        DefineProp(this.Prototype, 'sz023', { type: WCHAR[24], offset: 0 })
+        DefineProp(this.Prototype, 'sz024', { type: WCHAR[20], offset: 0 })
+        DefineProp(this.Prototype, 'sz025', { type: WCHAR[10], offset: 0 })
+        DefineProp(this.Prototype, 'sz026', { type: WCHAR[14], offset: 0 })
+        DefineProp(this.Prototype, 'sz027', { type: WCHAR[11], offset: 0 })
+        DefineProp(this.Prototype, 'sz028', { type: WCHAR[11], offset: 0 })
+        DefineProp(this.Prototype, 'sz029', { type: WCHAR[13], offset: 0 })
+        DefineProp(this.Prototype, 'sz030', { type: WCHAR[17], offset: 0 })
+        DefineProp(this.Prototype, 'sz031', { type: WCHAR[16], offset: 0 })
+        DefineProp(this.Prototype, 'sz032', { type: WCHAR[17], offset: 0 })
+        DefineProp(this.Prototype, 'sz033', { type: WCHAR[20], offset: 0 })
+        DefineProp(this.Prototype, 'sz034', { type: WCHAR[19], offset: 0 })
+        DefineProp(this.Prototype, 'sz035', { type: WCHAR[18], offset: 0 })
+        DefineProp(this.Prototype, 'sz036', { type: WCHAR[18], offset: 0 })
+        DefineProp(this.Prototype, 'sz037', { type: WCHAR[15], offset: 0 })
+        DefineProp(this.Prototype, 'sz041', { type: WCHAR[14], offset: 0 })
+        DefineProp(this.Prototype, 'sz043', { type: WCHAR[22], offset: 0 })
+        DefineProp(this.Prototype, 'sz044', { type: WCHAR[16], offset: 0 })
+        DefineProp(this.Prototype, 'sz045', { type: WCHAR[20], offset: 0 })
+        DefineProp(this.Prototype, 'sz046', { type: WCHAR[14], offset: 0 })
+        DefineProp(this.Prototype, 'sz047', { type: WCHAR[14], offset: 0 })
+        DefineProp(this.Prototype, 'sz048', { type: WCHAR[12], offset: 0 })
+        DefineProp(this.Prototype, 'sz049', { type: WCHAR[25], offset: 0 })
+        DefineProp(this.Prototype, 'sz050', { type: WCHAR[26], offset: 0 })
+        DefineProp(this.Prototype, 'sz051', { type: WCHAR[25], offset: 0 })
+        DefineProp(this.Prototype, 'sz052', { type: WCHAR[16], offset: 0 })
+        DefineProp(this.Prototype, 'sz053', { type: WCHAR[24], offset: 0 })
+        DefineProp(this.Prototype, 'sz054', { type: WCHAR[15], offset: 0 })
+        DefineProp(this.Prototype, 'sz055', { type: WCHAR[21], offset: 0 })
+        DefineProp(this.Prototype, 'sz056', { type: WCHAR[16], offset: 0 })
+        DefineProp(this.Prototype, 'sz057', { type: WCHAR[22], offset: 0 })
+        DefineProp(this.Prototype, 'sz058', { type: WCHAR[14], offset: 0 })
+        DefineProp(this.Prototype, 'sz059', { type: WCHAR[25], offset: 0 })
+        DefineProp(this.Prototype, 'sz060', { type: WCHAR[18], offset: 0 })
+        DefineProp(this.Prototype, 'sz061', { type: WCHAR[22], offset: 0 })
+        DefineProp(this.Prototype, 'sz062', { type: WCHAR[26], offset: 0 })
+        DefineProp(this.Prototype, 'sz063', { type: WCHAR[36], offset: 0 })
+        DefineProp(this.Prototype, 'sz064', { type: WCHAR[23], offset: 0 })
+        DefineProp(this.Prototype, 'sz065', { type: WCHAR[12], offset: 0 })
+        DefineProp(this.Prototype, 'sz066', { type: WCHAR[24], offset: 0 })
+        DefineProp(this.Prototype, 'sz067', { type: WCHAR[11], offset: 0 })
+        DefineProp(this.Prototype, 'sz068', { type: WCHAR[12], offset: 0 })
+        DefineProp(this.Prototype, 'sz069', { type: WCHAR[14], offset: 0 })
+        DefineProp(this.Prototype, 'sz070', { type: WCHAR[20], offset: 0 })
+        DefineProp(this.Prototype, 'sz071', { type: WCHAR[15], offset: 0 })
+        DefineProp(this.Prototype, 'sz072', { type: WCHAR[14], offset: 0 })
+        DefineProp(this.Prototype, 'sz073', { type: WCHAR[31], offset: 0 })
+        DefineProp(this.Prototype, 'sz074', { type: WCHAR[24], offset: 0 })
+        DefineProp(this.Prototype, 'sz075', { type: WCHAR[22], offset: 0 })
+        DefineProp(this.Prototype, 'sz076', { type: WCHAR[24], offset: 0 })
+        DefineProp(this.Prototype, 'sz077', { type: WCHAR[21], offset: 0 })
+        DefineProp(this.Prototype, 'sz078', { type: WCHAR[27], offset: 0 })
+        DefineProp(this.Prototype, 'sz079', { type: WCHAR[27], offset: 0 })
+        DefineProp(this.Prototype, 'sz080', { type: WCHAR[20], offset: 0 })
+        DefineProp(this.Prototype, 'sz081', { type: WCHAR[33], offset: 0 })
+        DefineProp(this.Prototype, 'sz082', { type: WCHAR[21], offset: 0 })
+        DefineProp(this.Prototype, 'sz083', { type: WCHAR[32], offset: 0 })
+        DefineProp(this.Prototype, 'sz084', { type: WCHAR[26], offset: 0 })
+        DefineProp(this.Prototype, 'sz085', { type: WCHAR[18], offset: 0 })
+        DefineProp(this.Prototype, 'sz086', { type: WCHAR[30], offset: 0 })
+        this.DeleteProp("__New")
     }
 }

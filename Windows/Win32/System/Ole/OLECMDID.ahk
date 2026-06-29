@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies which standard command is to be executed. A single value from this enumeration is passed in the nCmdID argument of IOleCommandTarget::Exec.
@@ -79,7 +78,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/docobj/ne-docobj-olecmdid
  * @namespace Windows.Win32.System.Ole
  */
-class OLECMDID extends Win32Enum {
+export default struct OLECMDID {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * <b>File</b> menu, <b>Open</b> command

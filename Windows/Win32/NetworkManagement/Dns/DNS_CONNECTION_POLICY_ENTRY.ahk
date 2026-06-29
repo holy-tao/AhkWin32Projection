@@ -1,67 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
  */
-class DNS_CONNECTION_POLICY_ENTRY extends Win32Struct {
-    static sizeof => 56
+export default struct DNS_CONNECTION_POLICY_ENTRY {
+    #StructPack 8
 
-    static packingSize => 8
+    pwszHost : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszHost {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pwszAppId : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszAppId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    cbAppSid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbAppSid {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    pbAppSid : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbAppSid {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    nConnections : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    nConnections {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ppwszConnections : PWSTR.Ptr
 
-    /**
-     * @type {Pointer<PWSTR>}
-     */
-    ppwszConnections {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    dwPolicyEntryFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwPolicyEntryFlags {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
 }

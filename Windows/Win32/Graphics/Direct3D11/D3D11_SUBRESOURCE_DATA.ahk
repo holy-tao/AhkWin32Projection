@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies data for initializing a subresource. (D3D11_SUBRESOURCE_DATA)
@@ -22,43 +21,30 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_subresource_data
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_SUBRESOURCE_DATA extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct D3D11_SUBRESOURCE_DATA {
+    #StructPack 8
 
     /**
      * Type: <b>const void*</b>
      * 
      * Pointer to the initialization data.
-     * @type {Pointer<Void>}
      */
-    pSysMem {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pSysMem : IntPtr
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The distance (in bytes) from the beginning of one line of a texture to the next line.  
      *         System-memory pitch is used only for 2D and 3D texture data as it is has no meaning for the other resource types. Specify the distance from the first pixel of one 2D slice of a 3D texture to the first pixel of the next 2D slice in that texture in the <b>SysMemSlicePitch</b> member.
-     * @type {Integer}
      */
-    SysMemPitch {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    SysMemPitch : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The distance (in bytes) from the beginning of one depth level to the next.  
      *         System-memory-slice pitch is only used for 3D texture data as it has no meaning for the other resource types.
-     * @type {Integer}
      */
-    SysMemSlicePitch {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    SysMemSlicePitch : UInt32
+
 }

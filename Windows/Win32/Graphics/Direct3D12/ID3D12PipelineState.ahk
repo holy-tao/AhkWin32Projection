@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID3D12Pageable.ahk
-#Include ..\Direct3D\ID3DBlob.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Direct3D\ID3DBlob.ahk" { ID3DBlob }
+#Import ".\ID3D12Pageable.ahk" { ID3D12Pageable }
 
 /**
  * Represents the state of all currently set shaders as well as certain fixed function state objects.
@@ -13,26 +14,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12pipelinestate
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class ID3D12PipelineState extends ID3D12Pageable {
-
-    static sizeof => A_PtrSize
+export default struct ID3D12PipelineState extends ID3D12Pageable {
     /**
      * The interface identifier for ID3D12PipelineState
      * @type {Guid}
      */
-    static IID => Guid("{765a30f3-f624-4c6f-a828-ace948622445}")
+    static IID := Guid("{765a30f3-f624-4c6f-a828-ace948622445}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D12PipelineState interfaces
+    */
+    struct Vtbl extends ID3D12Pageable.Vtbl {
+        GetCachedBlob : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetCachedBlob"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D12PipelineState.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the cached blob representing the pipeline state.
@@ -46,5 +54,25 @@ class ID3D12PipelineState extends ID3D12Pageable {
     GetCachedBlob() {
         result := ComCall(8, this, "ptr*", &ppBlob := 0, "HRESULT")
         return ID3DBlob(ppBlob)
+    }
+
+    Query(iid) {
+        if (ID3D12PipelineState.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetCachedBlob := CallbackCreate(GetMethod(implObj, "GetCachedBlob"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetCachedBlob)
     }
 }

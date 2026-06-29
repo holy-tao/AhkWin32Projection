@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IWMWriterSink.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IWMWriterSink.ahk" { IWMWriterSink }
 
 /**
  * The IWMWriterFileSink interface is used to open a file to which the writer can write data. The file sink object exposes this interface. To create the file sink object, call the WMCreateWriterFileSink function.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmwriterfilesink
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMWriterFileSink extends IWMWriterSink {
-
-    static sizeof => A_PtrSize
+export default struct IWMWriterFileSink extends IWMWriterSink {
     /**
      * The interface identifier for IWMWriterFileSink
      * @type {Guid}
      */
-    static IID => Guid("{96406be5-2b2b-11d3-b36b-00c04f6108ff}")
+    static IID := Guid("{96406be5-2b2b-11d3-b36b-00c04f6108ff}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMWriterFileSink interfaces
+    */
+    struct Vtbl extends IWMWriterSink.Vtbl {
+        Open : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Open"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMWriterFileSink.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The Open method opens a file that acts as the writer sink.
@@ -73,5 +82,25 @@ class IWMWriterFileSink extends IWMWriterSink {
 
         result := ComCall(8, this, "ptr", pwszFilename, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMWriterFileSink.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Open)
     }
 }

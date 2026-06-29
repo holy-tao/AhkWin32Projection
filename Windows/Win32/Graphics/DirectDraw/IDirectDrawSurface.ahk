@@ -1,194 +1,84 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IDirectDrawClipper.ahk
-#Include .\IDirectDrawPalette.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\DDSCAPS.ahk" { DDSCAPS }
+#Import ".\DDBLTFX.ahk" { DDBLTFX }
+#Import ".\IDirectDrawPalette.ahk" { IDirectDrawPalette }
+#Import ".\DDOVERLAYFX.ahk" { DDOVERLAYFX }
+#Import ".\IDirectDraw.ahk" { IDirectDraw }
+#Import ".\IDirectDrawClipper.ahk" { IDirectDrawClipper }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DDSURFACEDESC.ahk" { DDSURFACEDESC }
+#Import ".\DDCOLORKEY.ahk" { DDCOLORKEY }
+#Import "..\Gdi\HDC.ahk" { HDC }
+#Import ".\DDPIXELFORMAT.ahk" { DDPIXELFORMAT }
+#Import ".\DDBLTBATCH.ahk" { DDBLTBATCH }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
- * Applications use the methods of the IDirectDrawSurface7 interface to create DirectDrawSurface objects and work with system-level variables. This section is a reference to the methods of this interface.
- * @remarks
- * The methods of the <b>IDirectDrawSurface7</b> interface can be organized into the following groups:<table>
- * <tr>
- * <th>Group</th>
- * <th>Methods</th>
- * </tr>
- * <tr>
- * <td>Allocating memory</td>
- * <td>
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-initialize">Initialize</a>,  
- *   <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-islost">IsLost</a>,  
- * and <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-restore">Restore</a>
- * </td>
- * </tr>
- * <tr>
- * <td>Attaching surfaces </td>
- * <td>
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-addattachedsurface">AddAttachedSurface</a>,  
- *   <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-deleteattachedsurface">DeleteAttachedSurface</a>,  
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-enumattachedsurfaces">EnumAttachedSurfaces</a>,  
- * and <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getattachedsurface">GetAttachedSurface</a>
- * </td>
- * </tr>
- * <tr>
- * <td>BitBltting</td>
- * <td>
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-blt">Blt</a>,  
- *   <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-bltbatch">BltBatch</a>,  
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-bltfast">BltFast</a>,  
- *  and  
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getbltstatus">GetBltStatus</a>
- * </td>
- * </tr>
- * <tr>
- * <td>Color keying</td>
- * <td>
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getcolorkey">GetColorKey</a>  
- *   and <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-setcolorkey">SetColorKey</a>
- * </td>
- * </tr>
- * <tr>
- * <td>Device contexts </td>
- * <td>
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getdc">GetDC</a>  
- *   and <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-releasedc">ReleaseDC</a>
- * </td>
- * </tr>
- * <tr>
- * <td>Flipping</td>
- * <td>
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-flip">Flip</a>  
- *   and  
- *   <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getflipstatus">GetFlipStatus</a>
- * </td>
- * </tr>
- * <tr>
- * <td>Locking surfaces </td>
- * <td>
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-lock">Lock</a>,  
- *   <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-pagelock">PageLock</a>,  
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-pageunlock">PageUnlock</a>,  
- * and  
- *   <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-unlock">Unlock</a>
- * </td>
- * </tr>
- * <tr>
- * <td>Miscellaneous</td>
- * <td>
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getddinterface">GetDDInterface</a>
- * </td>
- * </tr>
- * <tr>
- * <td>Overlays </td>
- * <td>
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-addoverlaydirtyrect">AddOverlayDirtyRect</a>,  
- *   <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-enumoverlayzorders">EnumOverlayZOrders</a>,  
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getoverlayposition">GetOverlayPosition</a>,  
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-setoverlayposition">SetOverlayPosition</a>,  
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-updateoverlay">UpdateOverlay</a>,  
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-updateoverlaydisplay">UpdateOverlayDisplay</a>,  
- * and 
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-updateoverlayzorder">UpdateOverlayZOrder</a>
- * </td>
- * </tr>
- * <tr>
- * <td>Private surface data</td>
- * <td>
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-freeprivatedata">FreePrivateData</a>, 
- *   <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getprivatedata">GetPrivateData</a>, 
- * and 
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-setprivatedata">SetPrivateData</a>
- * </td>
- * </tr>
- * <tr>
- * <td>Surface capabilities </td>
- * <td>
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdraw7-getcaps">GetCaps</a>
- * </td>
- * </tr>
- * <tr>
- * <td>Surface clipper</td>
- * <td>
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getclipper">GetClipper</a>  
- *   and 
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-setclipper">SetClipper</a>
- * </td>
- * </tr>
- * <tr>
- * <td>Surface characteristics</td>
- * <td>
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-changeuniquenessvalue">ChangeUniquenessValue</a>, 
- *   <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getpixelformat">GetPixelFormat</a>,  
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getsurfacedesc">GetSurfaceDesc</a>,  
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getuniquenessvalue">GetUniquenessValue</a>, 
- * and 
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-setsurfacedesc">SetSurfaceDesc</a>
- * </td>
- * </tr>
- * <tr>
- * <td>Surface palettes</td>
- * <td>
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getpalette">GetPalette</a>  
- *   and 
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-setpalette">SetPalette</a>
- * </td>
- * </tr>
- * <tr>
- * <td>Textures</td>
- * <td>
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getlod">GetLOD</a>, 
- *   <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getpriority">GetPriority</a>, 
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-setlod">SetLOD</a>, 
- * and 
- * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-setpriority">SetPriority</a>
- * </td>
- * </tr>
- * </table>
- *  
- * 
- * 
- * 
- * The <b>IDirectDrawSurface7</b> interface extends the features of previous versions of the interface by offering methods that offer better surface management and ease of use. Many methods in this interface accept slightly different parameters than their counterparts in former versions of the interface. Wherever an <b>IDirectDrawSurface3</b> interface method might accept a <a href="https://docs.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddsurfacedesc">DDSURFACEDESC</a> structure or an <b>IDirectDrawSurface3</b> interface, the methods in IDirectDrawSurface7 accept a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550340(v=vs.85)">DDSURFACEDESC2</a> structure or an <b>IDirectDrawSurface7</b> interface, instead.
- * 
- * 
- * 
- * Use the LPDIRECTDRAWSURFACE, LPDIRECTDRAWSURFACE2, LPDIRECTDRAWSURFACE3, LPDIRECTDRAWSURFACE4, or LPDIRECTDRAWSURFACE7 data type to declare a variable that points to various DirectDrawSurface object interfaces. The Ddraw.h header file declares these data types with the following code:
- * 
- * 
- * 
- * 
- * ```
- * 
- * typedef struct IDirectDrawSurface     FAR *LPDIRECTDRAWSURFACE;
- * typedef struct IDirectDrawSurface2    FAR *LPDIRECTDRAWSURFACE2;
- * typedef struct IDirectDrawSurface3    FAR *LPDIRECTDRAWSURFACE3;
- * typedef struct IDirectDrawSurface4    FAR *LPDIRECTDRAWSURFACE4;
- * typedef struct IDirectDrawSurface7    FAR *LPDIRECTDRAWSURFACE7;
- * 
- * ```
- * @see https://learn.microsoft.com/windows/win32/api/ddraw/nn-ddraw-idirectdrawsurface7
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class IDirectDrawSurface extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDirectDrawSurface extends IUnknown {
     /**
      * The interface identifier for IDirectDrawSurface
      * @type {Guid}
      */
-    static IID => Guid("{6c14db81-a733-11ce-a521-0020af0be560}")
+    static IID := Guid("{6c14db81-a733-11ce-a521-0020af0be560}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirectDrawSurface interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddAttachedSurface    : IntPtr
+        AddOverlayDirtyRect   : IntPtr
+        Blt                   : IntPtr
+        BltBatch              : IntPtr
+        BltFast               : IntPtr
+        DeleteAttachedSurface : IntPtr
+        EnumAttachedSurfaces  : IntPtr
+        EnumOverlayZOrders    : IntPtr
+        Flip                  : IntPtr
+        GetAttachedSurface    : IntPtr
+        GetBltStatus          : IntPtr
+        GetCaps               : IntPtr
+        GetClipper            : IntPtr
+        GetColorKey           : IntPtr
+        GetDC                 : IntPtr
+        GetFlipStatus         : IntPtr
+        GetOverlayPosition    : IntPtr
+        GetPalette            : IntPtr
+        GetPixelFormat        : IntPtr
+        GetSurfaceDesc        : IntPtr
+        Initialize            : IntPtr
+        IsLost                : IntPtr
+        Lock                  : IntPtr
+        ReleaseDC             : IntPtr
+        Restore               : IntPtr
+        SetClipper            : IntPtr
+        SetColorKey           : IntPtr
+        SetOverlayPosition    : IntPtr
+        SetPalette            : IntPtr
+        Unlock                : IntPtr
+        UpdateOverlay         : IntPtr
+        UpdateOverlayDisplay  : IntPtr
+        UpdateOverlayZOrder   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddAttachedSurface", "AddOverlayDirtyRect", "Blt", "BltBatch", "BltFast", "DeleteAttachedSurface", "EnumAttachedSurfaces", "EnumOverlayZOrders", "Flip", "GetAttachedSurface", "GetBltStatus", "GetCaps", "GetClipper", "GetColorKey", "GetDC", "GetFlipStatus", "GetOverlayPosition", "GetPalette", "GetPixelFormat", "GetSurfaceDesc", "Initialize", "IsLost", "Lock", "ReleaseDC", "Restore", "SetClipper", "SetColorKey", "SetOverlayPosition", "SetPalette", "Unlock", "UpdateOverlay", "UpdateOverlayDisplay", "UpdateOverlayZOrder"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirectDrawSurface.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -206,7 +96,7 @@ class IDirectDrawSurface extends IUnknown {
      * @returns {HRESULT} 
      */
     AddOverlayDirtyRect(param0) {
-        result := ComCall(4, this, "ptr", param0, "HRESULT")
+        result := ComCall(4, this, RECT.Ptr, param0, "HRESULT")
         return result
     }
 
@@ -220,7 +110,7 @@ class IDirectDrawSurface extends IUnknown {
      * @returns {HRESULT} 
      */
     Blt(param0, param1, param2, param3, param4) {
-        result := ComCall(5, this, "ptr", param0, "ptr", param1, "ptr", param2, "uint", param3, "ptr", param4, "HRESULT")
+        result := ComCall(5, this, RECT.Ptr, param0, "ptr", param1, RECT.Ptr, param2, "uint", param3, DDBLTFX.Ptr, param4, "HRESULT")
         return result
     }
 
@@ -232,7 +122,7 @@ class IDirectDrawSurface extends IUnknown {
      * @returns {HRESULT} 
      */
     BltBatch(param0, param1, param2) {
-        result := ComCall(6, this, "ptr", param0, "uint", param1, "uint", param2, "HRESULT")
+        result := ComCall(6, this, DDBLTBATCH.Ptr, param0, "uint", param1, "uint", param2, "HRESULT")
         return result
     }
 
@@ -246,7 +136,7 @@ class IDirectDrawSurface extends IUnknown {
      * @returns {HRESULT} 
      */
     BltFast(param0, param1, param2, param3, param4) {
-        result := ComCall(7, this, "uint", param0, "uint", param1, "ptr", param2, "ptr", param3, "uint", param4, "HRESULT")
+        result := ComCall(7, this, "uint", param0, "uint", param1, "ptr", param2, RECT.Ptr, param3, "uint", param4, "HRESULT")
         return result
     }
 
@@ -305,7 +195,7 @@ class IDirectDrawSurface extends IUnknown {
      * @returns {IDirectDrawSurface} 
      */
     GetAttachedSurface(param0) {
-        result := ComCall(12, this, "ptr", param0, "ptr*", &param1 := 0, "HRESULT")
+        result := ComCall(12, this, DDSCAPS.Ptr, param0, "ptr*", &param1 := 0, "HRESULT")
         return IDirectDrawSurface(param1)
     }
 
@@ -325,7 +215,7 @@ class IDirectDrawSurface extends IUnknown {
      * @returns {HRESULT} 
      */
     GetCaps(param0) {
-        result := ComCall(14, this, "ptr", param0, "HRESULT")
+        result := ComCall(14, this, DDSCAPS.Ptr, param0, "HRESULT")
         return result
     }
 
@@ -345,7 +235,7 @@ class IDirectDrawSurface extends IUnknown {
      * @returns {HRESULT} 
      */
     GetColorKey(param0, param1) {
-        result := ComCall(16, this, "uint", param0, "ptr", param1, "HRESULT")
+        result := ComCall(16, this, "uint", param0, DDCOLORKEY.Ptr, param1, "HRESULT")
         return result
     }
 
@@ -364,7 +254,7 @@ class IDirectDrawSurface extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getdc
      */
     GetDC(param0) {
-        result := ComCall(17, this, "ptr", param0, "HRESULT")
+        result := ComCall(17, this, HDC.Ptr, param0, "HRESULT")
         return result
     }
 
@@ -393,13 +283,8 @@ class IDirectDrawSurface extends IUnknown {
     }
 
     /**
-     * The GetPaletteEntries function retrieves a specified range of palette entries from the given logical palette.
-     * @remarks
-     * An application can determine whether a device supports palette operations by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function and specifying the RASTERCAPS constant.
      * 
-     * If the <i>nEntries</i> parameter specifies more entries than exist in the palette, the remaining members of the <a href="https://docs.microsoft.com/previous-versions/dd162769(v=vs.85)">PALETTEENTRY</a> structure are not altered.
      * @returns {IDirectDrawPalette} 
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getpaletteentries
      */
     GetPalette() {
         result := ComCall(20, this, "ptr*", &param0 := 0, "HRESULT")
@@ -415,7 +300,7 @@ class IDirectDrawSurface extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getpixelformat
      */
     GetPixelFormat(param0) {
-        result := ComCall(21, this, "ptr", param0, "HRESULT")
+        result := ComCall(21, this, DDPIXELFORMAT.Ptr, param0, "HRESULT")
         return result
     }
 
@@ -425,7 +310,7 @@ class IDirectDrawSurface extends IUnknown {
      * @returns {HRESULT} 
      */
     GetSurfaceDesc(param0) {
-        result := ComCall(22, this, "ptr", param0, "HRESULT")
+        result := ComCall(22, this, DDSURFACEDESC.Ptr, param0, "HRESULT")
         return result
     }
 
@@ -460,7 +345,7 @@ class IDirectDrawSurface extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(param0, param1) {
-        result := ComCall(23, this, "ptr", param0, "ptr", param1, "HRESULT")
+        result := ComCall(23, this, "ptr", param0, DDSURFACEDESC.Ptr, param1, "HRESULT")
         return result
     }
 
@@ -497,9 +382,7 @@ class IDirectDrawSurface extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/SecProv/lock-win32-encryptablevolume
      */
     Lock(param0, param1, param2, param3) {
-        param3 := param3 is Win32Handle ? NumGet(param3, "ptr") : param3
-
-        result := ComCall(25, this, "ptr", param0, "ptr", param1, "uint", param2, "ptr", param3, "HRESULT")
+        result := ComCall(25, this, RECT.Ptr, param0, DDSURFACEDESC.Ptr, param1, "uint", param2, HANDLE, param3, "HRESULT")
         return result
     }
 
@@ -516,9 +399,7 @@ class IDirectDrawSurface extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-releasedc
      */
     ReleaseDC(param0) {
-        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
-
-        result := ComCall(26, this, "ptr", param0, "HRESULT")
+        result := ComCall(26, this, HDC, param0, "HRESULT")
         return result
     }
 
@@ -549,7 +430,7 @@ class IDirectDrawSurface extends IUnknown {
      * @returns {HRESULT} 
      */
     SetColorKey(param0, param1) {
-        result := ComCall(29, this, "uint", param0, "ptr", param1, "HRESULT")
+        result := ComCall(29, this, "uint", param0, DDCOLORKEY.Ptr, param1, "HRESULT")
         return result
     }
 
@@ -565,16 +446,9 @@ class IDirectDrawSurface extends IUnknown {
     }
 
     /**
-     * The SetPaletteEntries function sets RGB (red, green, blue) color values and flags in a range of entries in a logical palette.
-     * @remarks
-     * An application can determine whether a device supports palette operations by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function and specifying the RASTERCAPS constant.
      * 
-     * Even if a logical palette has been selected and realized, changes to the palette do not affect the physical palette in the surface. <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-realizepalette">RealizePalette</a> must be called again to set the new logical palette into the surface.
      * @param {IDirectDrawPalette} param0 
-     * @returns {HRESULT} If the function succeeds, the return value is the number of entries that were set in the logical palette.
-     * 
-     * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setpaletteentries
+     * @returns {HRESULT} 
      */
     SetPalette(param0) {
         result := ComCall(31, this, "ptr", param0, "HRESULT")
@@ -582,78 +456,9 @@ class IDirectDrawSurface extends IUnknown {
     }
 
     /**
-     * Unlocks a region in an open file.
-     * @remarks
-     * This function always operates synchronously, but may not queue a completion entry when a completion port is associated with the file handle.
      * 
-     * Unlocking a region of a file releases a previously acquired lock on the file. The region to unlock must correspond exactly to an existing locked region. Two adjacent regions of a file cannot be locked separately and then unlocked using a single region that spans both locked regions.
-     * 
-     * If a process terminates with a portion of a file locked or closes a file that has outstanding locks, the locks are unlocked by the operating system. However, the time it takes for the operating system to unlock these locks depends upon available system resources. Therefore, it is recommended that your process explicitly unlock all files it has locked when it terminates. If this is not done, access to these files may be denied if the operating system has not yet unlocked them.
-     * 
-     * In Windows 8 and Windows Server 2012, this function is supported by the following technologies.
-     * 
-     * <table>
-     * <tr>
-     * <th>Technology</th>
-     * <th>Supported</th>
-     * </tr>
-     * <tr>
-     * <td>
-     * Server Message Block (SMB) 3.0 protocol
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * SMB 3.0 Transparent Failover (TFO)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * SMB 3.0 with Scale-out File Shares (SO)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * Cluster Shared Volume File System (CsvFS)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * Resilient File System (ReFS)
-     * 
-     * </td>
-     * <td>
-     * Yes
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @param {Pointer<Void>} param0 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-unlockfile
+     * @returns {HRESULT} 
      */
     Unlock(param0) {
         param0Marshal := param0 is VarRef ? "ptr" : "ptr"
@@ -672,7 +477,7 @@ class IDirectDrawSurface extends IUnknown {
      * @returns {HRESULT} 
      */
     UpdateOverlay(param0, param1, param2, param3, param4) {
-        result := ComCall(33, this, "ptr", param0, "ptr", param1, "ptr", param2, "uint", param3, "ptr", param4, "HRESULT")
+        result := ComCall(33, this, RECT.Ptr, param0, "ptr", param1, RECT.Ptr, param2, "uint", param3, DDOVERLAYFX.Ptr, param4, "HRESULT")
         return result
     }
 
@@ -695,5 +500,89 @@ class IDirectDrawSurface extends IUnknown {
     UpdateOverlayZOrder(param0, param1) {
         result := ComCall(35, this, "uint", param0, "ptr", param1, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirectDrawSurface.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddAttachedSurface := CallbackCreate(GetMethod(implObj, "AddAttachedSurface"), flags, 2)
+        this.vtbl.AddOverlayDirtyRect := CallbackCreate(GetMethod(implObj, "AddOverlayDirtyRect"), flags, 2)
+        this.vtbl.Blt := CallbackCreate(GetMethod(implObj, "Blt"), flags, 6)
+        this.vtbl.BltBatch := CallbackCreate(GetMethod(implObj, "BltBatch"), flags, 4)
+        this.vtbl.BltFast := CallbackCreate(GetMethod(implObj, "BltFast"), flags, 6)
+        this.vtbl.DeleteAttachedSurface := CallbackCreate(GetMethod(implObj, "DeleteAttachedSurface"), flags, 3)
+        this.vtbl.EnumAttachedSurfaces := CallbackCreate(GetMethod(implObj, "EnumAttachedSurfaces"), flags, 3)
+        this.vtbl.EnumOverlayZOrders := CallbackCreate(GetMethod(implObj, "EnumOverlayZOrders"), flags, 4)
+        this.vtbl.Flip := CallbackCreate(GetMethod(implObj, "Flip"), flags, 3)
+        this.vtbl.GetAttachedSurface := CallbackCreate(GetMethod(implObj, "GetAttachedSurface"), flags, 3)
+        this.vtbl.GetBltStatus := CallbackCreate(GetMethod(implObj, "GetBltStatus"), flags, 2)
+        this.vtbl.GetCaps := CallbackCreate(GetMethod(implObj, "GetCaps"), flags, 2)
+        this.vtbl.GetClipper := CallbackCreate(GetMethod(implObj, "GetClipper"), flags, 2)
+        this.vtbl.GetColorKey := CallbackCreate(GetMethod(implObj, "GetColorKey"), flags, 3)
+        this.vtbl.GetDC := CallbackCreate(GetMethod(implObj, "GetDC"), flags, 2)
+        this.vtbl.GetFlipStatus := CallbackCreate(GetMethod(implObj, "GetFlipStatus"), flags, 2)
+        this.vtbl.GetOverlayPosition := CallbackCreate(GetMethod(implObj, "GetOverlayPosition"), flags, 3)
+        this.vtbl.GetPalette := CallbackCreate(GetMethod(implObj, "GetPalette"), flags, 2)
+        this.vtbl.GetPixelFormat := CallbackCreate(GetMethod(implObj, "GetPixelFormat"), flags, 2)
+        this.vtbl.GetSurfaceDesc := CallbackCreate(GetMethod(implObj, "GetSurfaceDesc"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.IsLost := CallbackCreate(GetMethod(implObj, "IsLost"), flags, 1)
+        this.vtbl.Lock := CallbackCreate(GetMethod(implObj, "Lock"), flags, 5)
+        this.vtbl.ReleaseDC := CallbackCreate(GetMethod(implObj, "ReleaseDC"), flags, 2)
+        this.vtbl.Restore := CallbackCreate(GetMethod(implObj, "Restore"), flags, 1)
+        this.vtbl.SetClipper := CallbackCreate(GetMethod(implObj, "SetClipper"), flags, 2)
+        this.vtbl.SetColorKey := CallbackCreate(GetMethod(implObj, "SetColorKey"), flags, 3)
+        this.vtbl.SetOverlayPosition := CallbackCreate(GetMethod(implObj, "SetOverlayPosition"), flags, 3)
+        this.vtbl.SetPalette := CallbackCreate(GetMethod(implObj, "SetPalette"), flags, 2)
+        this.vtbl.Unlock := CallbackCreate(GetMethod(implObj, "Unlock"), flags, 2)
+        this.vtbl.UpdateOverlay := CallbackCreate(GetMethod(implObj, "UpdateOverlay"), flags, 6)
+        this.vtbl.UpdateOverlayDisplay := CallbackCreate(GetMethod(implObj, "UpdateOverlayDisplay"), flags, 2)
+        this.vtbl.UpdateOverlayZOrder := CallbackCreate(GetMethod(implObj, "UpdateOverlayZOrder"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddAttachedSurface)
+        CallbackFree(this.vtbl.AddOverlayDirtyRect)
+        CallbackFree(this.vtbl.Blt)
+        CallbackFree(this.vtbl.BltBatch)
+        CallbackFree(this.vtbl.BltFast)
+        CallbackFree(this.vtbl.DeleteAttachedSurface)
+        CallbackFree(this.vtbl.EnumAttachedSurfaces)
+        CallbackFree(this.vtbl.EnumOverlayZOrders)
+        CallbackFree(this.vtbl.Flip)
+        CallbackFree(this.vtbl.GetAttachedSurface)
+        CallbackFree(this.vtbl.GetBltStatus)
+        CallbackFree(this.vtbl.GetCaps)
+        CallbackFree(this.vtbl.GetClipper)
+        CallbackFree(this.vtbl.GetColorKey)
+        CallbackFree(this.vtbl.GetDC)
+        CallbackFree(this.vtbl.GetFlipStatus)
+        CallbackFree(this.vtbl.GetOverlayPosition)
+        CallbackFree(this.vtbl.GetPalette)
+        CallbackFree(this.vtbl.GetPixelFormat)
+        CallbackFree(this.vtbl.GetSurfaceDesc)
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.IsLost)
+        CallbackFree(this.vtbl.Lock)
+        CallbackFree(this.vtbl.ReleaseDC)
+        CallbackFree(this.vtbl.Restore)
+        CallbackFree(this.vtbl.SetClipper)
+        CallbackFree(this.vtbl.SetColorKey)
+        CallbackFree(this.vtbl.SetOverlayPosition)
+        CallbackFree(this.vtbl.SetPalette)
+        CallbackFree(this.vtbl.Unlock)
+        CallbackFree(this.vtbl.UpdateOverlay)
+        CallbackFree(this.vtbl.UpdateOverlayDisplay)
+        CallbackFree(this.vtbl.UpdateOverlayZOrder)
     }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the category of settings being stored in a WRDS_SETTINGS structure.
  * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ne-wtsdefs-wrds_setting_type
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class WRDS_SETTING_TYPE extends Win32Enum {
+export default struct WRDS_SETTING_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The setting type is not defined.

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The TAPI_GATHERTERM enum is used to describe the reasons why the TAPI Server terminated the gathering of digits on the call.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-tapi_gatherterm
  * @namespace Windows.Win32.Devices.Tapi
  */
-class TAPI_GATHERTERM extends Win32Enum {
+export default struct TAPI_GATHERTERM {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The requested number of digits has been gathered. The buffer is full.

@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\HINSTANCE.ahk
-#Include .\MESSAGEBOX_STYLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MESSAGEBOX_STYLE.ahk" { MESSAGEBOX_STYLE }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains information used to display a message box. The MessageBoxIndirect function uses this structure. (ANSI)
@@ -13,35 +13,22 @@
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @charset ANSI
  */
-class MSGBOXPARAMSA extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct MSGBOXPARAMSA {
+    #StructPack 8
 
     /**
      * Type: <b>UINT</b>
      * 
      * The structure size, in bytes.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Type: <b>HWND</b>
      * 
      * A handle to the owner window. This member can be <b>NULL</b>.
-     * @type {HWND}
      */
-    hwndOwner {
-        get {
-            if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(8, this)
-            return this.__hwndOwner
-        }
-    }
+    hwndOwner : HWND
 
     /**
      * Type: <b>HINSTANCE</b>
@@ -50,38 +37,23 @@ class MSGBOXPARAMSA extends Win32Struct {
      * 					<b>lpszIcon</b> member, and the string resource identified by the 
      * 					<b>lpszText</b> or 
      * 					<b>lpszCaption</b> member.
-     * @type {HINSTANCE}
      */
-    hInstance {
-        get {
-            if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(16, this)
-            return this.__hInstance
-        }
-    }
+    hInstance : HINSTANCE
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * A null-terminated string, or the identifier of a string resource, that contains the message to be displayed.
-     * @type {PSTR}
      */
-    lpszText {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpszText : PSTR
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * A null-terminated string, or the identifier of a string resource, that contains the message box title. If this member is <b>NULL</b>, the default title 
      * 					<b>Error</b> is used.
-     * @type {PSTR}
      */
-    lpszCaption {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpszCaption : PSTR
 
     /**
      * Type: <b>DWORD</b>
@@ -91,12 +63,8 @@ class MSGBOXPARAMSA extends Win32Struct {
      * 
      * In addition, you can specify the <b>MB_USERICON</b> flag (0x00000080L) if you want the message box to display the icon specified by the 
      * 					<b>lpszIcon</b> member.
-     * @type {MESSAGEBOX_STYLE}
      */
-    dwStyle {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwStyle : MESSAGEBOX_STYLE
 
     /**
      * Type: <b>LPCTSTR</b>
@@ -109,23 +77,15 @@ class MSGBOXPARAMSA extends Win32Struct {
      * 
      * This member is ignored if the 
      * 						<b>dwStyle</b> member does not specify the <b>MB_USERICON</b> flag.
-     * @type {PSTR}
      */
-    lpszIcon {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    lpszIcon : PSTR
 
     /**
      * Type: <b>DWORD_PTR</b>
      * 
      * Identifies a help context. If a help event occurs, this value is specified in the <a href="https://docs.microsoft.com/windows/win32/api/winuser/ns-winuser-helpinfo">HELPINFO</a> structure that the message box sends to the owner window or callback function.
-     * @type {Pointer}
      */
-    dwContextHelpId {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    dwContextHelpId : IntPtr
 
     /**
      * Type: **[MSGBOXCALLBACK](/windows/win32/api/winuser/nc-winuser-msgboxcallback)**
@@ -135,12 +95,8 @@ class MSGBOXPARAMSA extends Win32Struct {
      * <c>VOID CALLBACK MsgBoxCallback(LPHELPINFO lpHelpInfo);</c>
      * 
      * If this member is <b>NULL</b>, then the message box sends <a href="https://docs.microsoft.com/windows/win32/shell/wm-help">WM_HELP</a> messages to the owner window when help events occur.
-     * @type {Pointer<MSGBOXCALLBACK>}
      */
-    lpfnMsgBoxCallback {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    lpfnMsgBoxCallback : IntPtr
 
     /**
      * Type: <b>DWORD</b>
@@ -150,15 +106,7 @@ class MSGBOXPARAMSA extends Win32Struct {
      * 
      * For a list of supported language identifiers, see <a href="https://docs.microsoft.com/windows/win32/Intl/language-identifiers">Language Identifiers</a>. Note that each localized release of Windows typically contains resources only for a limited set of languages. Thus, for example, the U.S. version offers <b>LANG_ENGLISH</b>, the French version offers <b>LANG_FRENCH</b>, the German version offers <b>LANG_GERMAN</b>, and the Japanese version offers <b>LANG_JAPANESE</b>. Each version offers <b>LANG_NEUTRAL</b>. This limits the set of values that can be used with the 
      * 					<b>dwLanguageId</b> parameter. Before specifying a language identifier, you should enumerate the locales that are installed on a system.
-     * @type {Integer}
      */
-    dwLanguageId {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    dwLanguageId : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 80
-    }
 }

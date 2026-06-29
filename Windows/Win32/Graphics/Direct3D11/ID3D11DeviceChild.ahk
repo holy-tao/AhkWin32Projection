@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D11Device.ahk" { ID3D11Device }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * A device-child interface accesses data used by a device. (ID3D11DeviceChild)
@@ -13,26 +15,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/nn-d3d11-id3d11devicechild
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3D11DeviceChild extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11DeviceChild extends IUnknown {
     /**
      * The interface identifier for ID3D11DeviceChild
      * @type {Guid}
      */
-    static IID => Guid("{1841e5c8-16b0-489b-bcc8-44cfb0d5deae}")
+    static IID := Guid("{1841e5c8-16b0-489b-bcc8-44cfb0d5deae}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11DeviceChild interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDevice               : IntPtr
+        GetPrivateData          : IntPtr
+        SetPrivateData          : IntPtr
+        SetPrivateDataInterface : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDevice", "GetPrivateData", "SetPrivateData", "SetPrivateDataInterface"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11DeviceChild.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Get a pointer to the device that created this interface. (ID3D11DeviceChild.GetDevice)
@@ -45,7 +57,7 @@ class ID3D11DeviceChild extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicechild-getdevice
      */
     GetDevice(ppDevice) {
-        ComCall(3, this, "ptr*", ppDevice)
+        ComCall(3, this, ID3D11Device.Ptr, ppDevice)
     }
 
     /**
@@ -77,7 +89,7 @@ class ID3D11DeviceChild extends IUnknown {
     GetPrivateData(guid, pDataSize, pData) {
         pDataSizeMarshal := pDataSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", guid, pDataSizeMarshal, pDataSize, "ptr", pData, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, guid, pDataSizeMarshal, pDataSize, "ptr", pData, "HRESULT")
         return result
     }
 
@@ -110,7 +122,7 @@ class ID3D11DeviceChild extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicechild-setprivatedata
      */
     SetPrivateData(guid, DataSize, pData) {
-        result := ComCall(5, this, "ptr", guid, "uint", DataSize, "ptr", pData, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, guid, "uint", DataSize, "ptr", pData, "HRESULT")
         return result
     }
 
@@ -130,7 +142,33 @@ class ID3D11DeviceChild extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicechild-setprivatedatainterface
      */
     SetPrivateDataInterface(guid, pData) {
-        result := ComCall(6, this, "ptr", guid, "ptr", pData, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, guid, "ptr", pData, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID3D11DeviceChild.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDevice := CallbackCreate(GetMethod(implObj, "GetDevice"), flags, 2)
+        this.vtbl.GetPrivateData := CallbackCreate(GetMethod(implObj, "GetPrivateData"), flags, 4)
+        this.vtbl.SetPrivateData := CallbackCreate(GetMethod(implObj, "SetPrivateData"), flags, 4)
+        this.vtbl.SetPrivateDataInterface := CallbackCreate(GetMethod(implObj, "SetPrivateDataInterface"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDevice)
+        CallbackFree(this.vtbl.GetPrivateData)
+        CallbackFree(this.vtbl.SetPrivateData)
+        CallbackFree(this.vtbl.SetPrivateDataInterface)
     }
 }

@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDirect3DResource9.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IDirect3DResource9.ahk" { IDirect3DResource9 }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\D3DINDEXBUFFER_DESC.ahk" { D3DINDEXBUFFER_DESC }
 
 /**
  * The IDirect3DIndexBuffer9 (d3d9.h) interface applications use the methods of the IDirect3DIndexBuffer9 interface to manipulate an index buffer resource.
@@ -23,26 +25,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3dindexbuffer9
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class IDirect3DIndexBuffer9 extends IDirect3DResource9 {
-
-    static sizeof => A_PtrSize
+export default struct IDirect3DIndexBuffer9 extends IDirect3DResource9 {
     /**
      * The interface identifier for IDirect3DIndexBuffer9
      * @type {Guid}
      */
-    static IID => Guid("{7c9dd65e-d3f7-4529-acee-785830acde35}")
+    static IID := Guid("{7c9dd65e-d3f7-4529-acee-785830acde35}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 11
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDirect3DIndexBuffer9 interfaces
+    */
+    struct Vtbl extends IDirect3DResource9.Vtbl {
+        Lock    : IntPtr
+        Unlock  : IntPtr
+        GetDesc : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Lock", "Unlock", "GetDesc"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDirect3DIndexBuffer9.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IDirect3DIndexBuffer9::Lock method (d3d9helper.h) locks a range of index data and obtains a pointer to the index buffer memory.
@@ -110,7 +121,31 @@ class IDirect3DIndexBuffer9 extends IDirect3DResource9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dindexbuffer9-getdesc
      */
     GetDesc(pDesc) {
-        result := ComCall(13, this, "ptr", pDesc, "HRESULT")
+        result := ComCall(13, this, D3DINDEXBUFFER_DESC.Ptr, pDesc, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDirect3DIndexBuffer9.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Lock := CallbackCreate(GetMethod(implObj, "Lock"), flags, 5)
+        this.vtbl.Unlock := CallbackCreate(GetMethod(implObj, "Unlock"), flags, 1)
+        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Lock)
+        CallbackFree(this.vtbl.Unlock)
+        CallbackFree(this.vtbl.GetDesc)
     }
 }

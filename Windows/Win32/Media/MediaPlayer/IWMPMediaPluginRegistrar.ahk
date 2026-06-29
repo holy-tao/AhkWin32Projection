@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IWMPMediaPluginRegistrar interface manages plug-in registration.
  * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nn-wmpservices-iwmpmediapluginregistrar
  * @namespace Windows.Win32.Media.MediaPlayer
  */
-class IWMPMediaPluginRegistrar extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMPMediaPluginRegistrar extends IUnknown {
     /**
      * The interface identifier for IWMPMediaPluginRegistrar
      * @type {Guid}
      */
-    static IID => Guid("{68e27045-05bd-40b2-9720-23088c78e390}")
+    static IID := Guid("{68e27045-05bd-40b2-9720-23088c78e390}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMPMediaPluginRegistrar interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        WMPRegisterPlayerPlugin   : IntPtr
+        WMPUnRegisterPlayerPlugin : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["WMPRegisterPlayerPlugin", "WMPUnRegisterPlayerPlugin"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMPMediaPluginRegistrar.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IWMPMediaPluginRegistrar::WMPRegisterPlayerPlugin function adds information to the registry that identifies a Windows Media Player plug-in.
@@ -59,7 +69,7 @@ class IWMPMediaPluginRegistrar extends IUnknown {
 
         pMediaTypesMarshal := pMediaTypes is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", pwszFriendlyName, "ptr", pwszDescription, "ptr", pwszUninstallString, "uint", dwPriority, "ptr", guidPluginType, "ptr", clsid, "uint", cMediaTypes, pMediaTypesMarshal, pMediaTypes, "HRESULT")
+        result := ComCall(3, this, "ptr", pwszFriendlyName, "ptr", pwszDescription, "ptr", pwszUninstallString, "uint", dwPriority, Guid, guidPluginType, Guid, clsid, "uint", cMediaTypes, pMediaTypesMarshal, pMediaTypes, "HRESULT")
         return result
     }
 
@@ -75,7 +85,29 @@ class IWMPMediaPluginRegistrar extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nf-wmpservices-iwmpmediapluginregistrar-wmpunregisterplayerplugin
      */
     WMPUnRegisterPlayerPlugin(guidPluginType, clsid) {
-        result := ComCall(4, this, "ptr", guidPluginType, "ptr", clsid, "HRESULT")
+        result := ComCall(4, this, Guid, guidPluginType, Guid, clsid, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMPMediaPluginRegistrar.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.WMPRegisterPlayerPlugin := CallbackCreate(GetMethod(implObj, "WMPRegisterPlayerPlugin"), flags, 9)
+        this.vtbl.WMPUnRegisterPlayerPlugin := CallbackCreate(GetMethod(implObj, "WMPUnRegisterPlayerPlugin"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.WMPRegisterPlayerPlugin)
+        CallbackFree(this.vtbl.WMPUnRegisterPlayerPlugin)
     }
 }

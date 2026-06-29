@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
-#Include .\OCSP_SIGNATURE_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\OCSP_SIGNATURE_INFO.ahk" { OCSP_SIGNATURE_INFO }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
 
 /**
  * Contains information for an online certificate status protocol (OCSP) request with optional signature information.
@@ -14,29 +13,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ocsp_signed_request_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class OCSP_SIGNED_REQUEST_INFO extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct OCSP_SIGNED_REQUEST_INFO {
+    #StructPack 8
 
     /**
      * A BLOB that has been encoded by using <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">Distinguished Encoding Rules</a> (DER) and that contains the OCSP request information.
-     * @type {CRYPT_INTEGER_BLOB}
      */
-    ToBeSigned {
-        get {
-            if(!this.HasProp("__ToBeSigned"))
-                this.__ToBeSigned := CRYPT_INTEGER_BLOB(0, this)
-            return this.__ToBeSigned
-        }
-    }
+    ToBeSigned : CRYPT_INTEGER_BLOB
 
     /**
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ocsp_signature_info">OCSP_SIGNATURE_INFO</a> structure that contains optional signature information.
-     * @type {Pointer<OCSP_SIGNATURE_INFO>}
      */
-    pOptionalSignatureInfo {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pOptionalSignatureInfo : OCSP_SIGNATURE_INFO.Ptr
+
 }

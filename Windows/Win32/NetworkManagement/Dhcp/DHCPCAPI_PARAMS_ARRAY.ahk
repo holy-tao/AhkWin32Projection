@@ -1,32 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DHCPAPI_PARAMS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DHCPAPI_PARAMS.ahk" { DHCPAPI_PARAMS }
 
 /**
  * The DHCPCAPI_PARAMS_ARRAY structure stores an array of DHCPAPI_PARAMS structures used to query DHCP parameters.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpcsdk/ns-dhcpcsdk-dhcpcapi_params_array
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  */
-class DHCPCAPI_PARAMS_ARRAY extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct DHCPCAPI_PARAMS_ARRAY {
+    #StructPack 8
 
     /**
      * Number of elements in the <b>Params</b> array.
-     * @type {Integer}
      */
-    nParams {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    nParams : UInt32
 
     /**
      * Array of <a href="https://docs.microsoft.com/windows/desktop/api/dhcpcsdk/ns-dhcpcsdk-dhcpapi_params">DHCPAPI_PARAMS</a> structures.
-     * @type {Pointer<DHCPAPI_PARAMS>}
      */
-    Params {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Params : DHCPAPI_PARAMS.Ptr
+
 }

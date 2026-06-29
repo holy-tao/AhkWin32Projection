@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ADVANCED_FEATURE_FLAGS.ahk
-#Include .\SAFEARRAYBOUND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SAFEARRAYBOUND.ahk" { SAFEARRAYBOUND }
+#Import ".\ADVANCED_FEATURE_FLAGS.ahk" { ADVANCED_FEATURE_FLAGS }
 
 /**
  * Represents a safe array.
@@ -14,19 +13,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray
  * @namespace Windows.Win32.System.Com
  */
-class SAFEARRAY extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct SAFEARRAY {
+    #StructPack 8
 
     /**
      * The number of dimensions.
-     * @type {Integer}
      */
-    cDims {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    cDims : UInt16
 
     /**
      * Flags.
@@ -181,49 +174,27 @@ class SAFEARRAY extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {ADVANCED_FEATURE_FLAGS}
      */
-    fFeatures {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    fFeatures : ADVANCED_FEATURE_FLAGS
 
     /**
      * The size of an array element.
-     * @type {Integer}
      */
-    cbElements {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cbElements : UInt32
 
     /**
      * The number of times the array has been locked without a corresponding unlock.
-     * @type {Integer}
      */
-    cLocks {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    cLocks : UInt32
 
     /**
      * The data.
-     * @type {Pointer<Void>}
      */
-    pvData {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pvData : IntPtr
 
     /**
      * One bound for each dimension.
-     * @type {SAFEARRAYBOUND}
      */
-    rgsabound {
-        get {
-            if(!this.HasProp("__rgsaboundProxyArray"))
-                this.__rgsaboundProxyArray := Win32FixedArray(this.ptr + 24, 1, SAFEARRAYBOUND, "")
-            return this.__rgsaboundProxyArray
-        }
-    }
+    rgsabound : SAFEARRAYBOUND[1]
+
 }

@@ -1,67 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WNODE_HEADER.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WNODE_HEADER.ahk" { WNODE_HEADER }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class WNODE_SINGLE_INSTANCE extends Win32Struct {
-    static sizeof => 64
+export default struct WNODE_SINGLE_INSTANCE {
+    #StructPack 8
 
-    static packingSize => 8
+    WnodeHeader : WNODE_HEADER
 
-    /**
-     * @type {WNODE_HEADER}
-     */
-    WnodeHeader {
-        get {
-            if(!this.HasProp("__WnodeHeader"))
-                this.__WnodeHeader := WNODE_HEADER(0, this)
-            return this.__WnodeHeader
-        }
-    }
+    OffsetInstanceName : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    OffsetInstanceName {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    InstanceIndex : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InstanceIndex {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
+    DataBlockOffset : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DataBlockOffset {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    SizeDataBlock : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SizeDataBlock {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    VariableData : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    VariableData {
-        get {
-            if(!this.HasProp("__VariableDataProxyArray"))
-                this.__VariableDataProxyArray := Win32FixedArray(this.ptr + 56, 1, Primitive, "char")
-            return this.__VariableDataProxyArray
-        }
-    }
 }

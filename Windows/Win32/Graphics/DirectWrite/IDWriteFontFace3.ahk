@@ -1,35 +1,69 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontFace2.ahk
-#Include .\IDWriteFontFaceReference.ahk
-#Include .\IDWriteLocalizedStrings.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DWRITE_FONT_STYLE.ahk" { DWRITE_FONT_STYLE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\DWRITE_GRID_FIT_MODE.ahk" { DWRITE_GRID_FIT_MODE }
+#Import ".\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
+#Import ".\DWRITE_RENDERING_MODE1.ahk" { DWRITE_RENDERING_MODE1 }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDWriteFontFaceReference.ahk" { IDWriteFontFaceReference }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\DWRITE_FONT_STRETCH.ahk" { DWRITE_FONT_STRETCH }
+#Import ".\DWRITE_OUTLINE_THRESHOLD.ahk" { DWRITE_OUTLINE_THRESHOLD }
+#Import ".\IDWriteLocalizedStrings.ahk" { IDWriteLocalizedStrings }
+#Import ".\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import ".\DWRITE_INFORMATIONAL_STRING_ID.ahk" { DWRITE_INFORMATIONAL_STRING_ID }
+#Import ".\DWRITE_PANOSE.ahk" { DWRITE_PANOSE }
+#Import ".\DWRITE_MATRIX.ahk" { DWRITE_MATRIX }
+#Import ".\DWRITE_FONT_WEIGHT.ahk" { DWRITE_FONT_WEIGHT }
+#Import ".\IDWriteFontFace2.ahk" { IDWriteFontFace2 }
 
 /**
  * Contains font face type, appropriate file references, and face identification data. (IDWriteFontFace3)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontface3
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class IDWriteFontFace3 extends IDWriteFontFace2 {
-
-    static sizeof => A_PtrSize
+export default struct IDWriteFontFace3 extends IDWriteFontFace2 {
     /**
      * The interface identifier for IDWriteFontFace3
      * @type {Guid}
      */
-    static IID => Guid("{d37d7598-09be-4222-a236-2081341cc1f2}")
+    static IID := Guid("{d37d7598-09be-4222-a236-2081341cc1f2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 35
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDWriteFontFace3 interfaces
+    */
+    struct Vtbl extends IDWriteFontFace2.Vtbl {
+        GetFontFaceReference        : IntPtr
+        GetPanose                   : IntPtr
+        GetWeight                   : IntPtr
+        GetStretch                  : IntPtr
+        GetStyle                    : IntPtr
+        GetFamilyNames              : IntPtr
+        GetFaceNames                : IntPtr
+        GetInformationalStrings     : IntPtr
+        HasCharacter                : IntPtr
+        GetRecommendedRenderingMode : IntPtr
+        IsCharacterLocal            : IntPtr
+        IsGlyphLocal                : IntPtr
+        AreCharactersLocal          : IntPtr
+        AreGlyphsLocal              : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFontFaceReference", "GetPanose", "GetWeight", "GetStretch", "GetStyle", "GetFamilyNames", "GetFaceNames", "GetInformationalStrings", "HasCharacter", "GetRecommendedRenderingMode", "IsCharacterLocal", "IsGlyphLocal", "AreCharactersLocal", "AreGlyphsLocal"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDWriteFontFace3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets a font face reference that identifies this font. (IDWriteFontFace3.GetFontFaceReference)
@@ -54,7 +88,7 @@ class IDWriteFontFace3 extends IDWriteFontFace2 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-getpanose
      */
     GetPanose(_panose) {
-        ComCall(36, this, "ptr", _panose)
+        ComCall(36, this, DWRITE_PANOSE.Ptr, _panose)
     }
 
     /**
@@ -65,7 +99,7 @@ class IDWriteFontFace3 extends IDWriteFontFace2 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-getweight
      */
     GetWeight() {
-        result := ComCall(37, this, "int")
+        result := ComCall(37, this, DWRITE_FONT_WEIGHT)
         return result
     }
 
@@ -77,7 +111,7 @@ class IDWriteFontFace3 extends IDWriteFontFace2 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-getstretch
      */
     GetStretch() {
-        result := ComCall(38, this, "int")
+        result := ComCall(38, this, DWRITE_FONT_STRETCH)
         return result
     }
 
@@ -89,7 +123,7 @@ class IDWriteFontFace3 extends IDWriteFontFace2 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-getstyle
      */
     GetStyle() {
-        result := ComCall(39, this, "int")
+        result := ComCall(39, this, DWRITE_FONT_STYLE)
         return result
     }
 
@@ -136,7 +170,7 @@ class IDWriteFontFace3 extends IDWriteFontFace2 {
     GetInformationalStrings(informationalStringID, informationalStrings, exists) {
         existsMarshal := exists is VarRef ? "int*" : "ptr"
 
-        result := ComCall(42, this, "int", informationalStringID, "ptr*", informationalStrings, existsMarshal, exists, "HRESULT")
+        result := ComCall(42, this, DWRITE_INFORMATIONAL_STRING_ID, informationalStringID, IDWriteLocalizedStrings.Ptr, informationalStrings, existsMarshal, exists, "HRESULT")
         return result
     }
 
@@ -151,7 +185,7 @@ class IDWriteFontFace3 extends IDWriteFontFace2 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-hascharacter
      */
     HasCharacter(unicodeValue) {
-        result := ComCall(43, this, "uint", unicodeValue, "int")
+        result := ComCall(43, this, "uint", unicodeValue, BOOL)
         return result
     }
 
@@ -196,7 +230,7 @@ class IDWriteFontFace3 extends IDWriteFontFace2 {
         renderingModeMarshal := renderingMode is VarRef ? "int*" : "ptr"
         gridFitModeMarshal := gridFitMode is VarRef ? "int*" : "ptr"
 
-        result := ComCall(44, this, "float", fontEmSize, "float", dpiX, "float", dpiY, "ptr", transform, "int", isSideways, "int", outlineThreshold, "int", measuringMode, "ptr", renderingParams, renderingModeMarshal, renderingMode, gridFitModeMarshal, gridFitMode, "HRESULT")
+        result := ComCall(44, this, "float", fontEmSize, "float", dpiX, "float", dpiY, DWRITE_MATRIX.Ptr, transform, BOOL, isSideways, DWRITE_OUTLINE_THRESHOLD, outlineThreshold, DWRITE_MEASURING_MODE, measuringMode, "ptr", renderingParams, renderingModeMarshal, renderingMode, gridFitModeMarshal, gridFitMode, "HRESULT")
         return result
     }
 
@@ -212,7 +246,7 @@ class IDWriteFontFace3 extends IDWriteFontFace2 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-ischaracterlocal
      */
     IsCharacterLocal(unicodeValue) {
-        result := ComCall(45, this, "uint", unicodeValue, "int")
+        result := ComCall(45, this, "uint", unicodeValue, BOOL)
         return result
     }
 
@@ -227,7 +261,7 @@ class IDWriteFontFace3 extends IDWriteFontFace2 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-isglyphlocal
      */
     IsGlyphLocal(glyphId) {
-        result := ComCall(46, this, "ushort", glyphId, "int")
+        result := ComCall(46, this, "ushort", glyphId, BOOL)
         return result
     }
 
@@ -252,7 +286,7 @@ class IDWriteFontFace3 extends IDWriteFontFace2 {
     AreCharactersLocal(characters, characterCount, enqueueIfNotLocal) {
         characters := characters is String ? StrPtr(characters) : characters
 
-        result := ComCall(47, this, "ptr", characters, "uint", characterCount, "int", enqueueIfNotLocal, "int*", &isLocal := 0, "HRESULT")
+        result := ComCall(47, this, "ptr", characters, "uint", characterCount, BOOL, enqueueIfNotLocal, BOOL.Ptr, &isLocal := 0, "HRESULT")
         return isLocal
     }
 
@@ -277,7 +311,53 @@ class IDWriteFontFace3 extends IDWriteFontFace2 {
     AreGlyphsLocal(glyphIndices, glyphCount, enqueueIfNotLocal) {
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(48, this, glyphIndicesMarshal, glyphIndices, "uint", glyphCount, "int", enqueueIfNotLocal, "int*", &isLocal := 0, "HRESULT")
+        result := ComCall(48, this, glyphIndicesMarshal, glyphIndices, "uint", glyphCount, BOOL, enqueueIfNotLocal, BOOL.Ptr, &isLocal := 0, "HRESULT")
         return isLocal
+    }
+
+    Query(iid) {
+        if (IDWriteFontFace3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFontFaceReference := CallbackCreate(GetMethod(implObj, "GetFontFaceReference"), flags, 2)
+        this.vtbl.GetPanose := CallbackCreate(GetMethod(implObj, "GetPanose"), flags, 2)
+        this.vtbl.GetWeight := CallbackCreate(GetMethod(implObj, "GetWeight"), flags, 1)
+        this.vtbl.GetStretch := CallbackCreate(GetMethod(implObj, "GetStretch"), flags, 1)
+        this.vtbl.GetStyle := CallbackCreate(GetMethod(implObj, "GetStyle"), flags, 1)
+        this.vtbl.GetFamilyNames := CallbackCreate(GetMethod(implObj, "GetFamilyNames"), flags, 2)
+        this.vtbl.GetFaceNames := CallbackCreate(GetMethod(implObj, "GetFaceNames"), flags, 2)
+        this.vtbl.GetInformationalStrings := CallbackCreate(GetMethod(implObj, "GetInformationalStrings"), flags, 4)
+        this.vtbl.HasCharacter := CallbackCreate(GetMethod(implObj, "HasCharacter"), flags, 2)
+        this.vtbl.GetRecommendedRenderingMode := CallbackCreate(GetMethod(implObj, "GetRecommendedRenderingMode"), flags, 11)
+        this.vtbl.IsCharacterLocal := CallbackCreate(GetMethod(implObj, "IsCharacterLocal"), flags, 2)
+        this.vtbl.IsGlyphLocal := CallbackCreate(GetMethod(implObj, "IsGlyphLocal"), flags, 2)
+        this.vtbl.AreCharactersLocal := CallbackCreate(GetMethod(implObj, "AreCharactersLocal"), flags, 5)
+        this.vtbl.AreGlyphsLocal := CallbackCreate(GetMethod(implObj, "AreGlyphsLocal"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFontFaceReference)
+        CallbackFree(this.vtbl.GetPanose)
+        CallbackFree(this.vtbl.GetWeight)
+        CallbackFree(this.vtbl.GetStretch)
+        CallbackFree(this.vtbl.GetStyle)
+        CallbackFree(this.vtbl.GetFamilyNames)
+        CallbackFree(this.vtbl.GetFaceNames)
+        CallbackFree(this.vtbl.GetInformationalStrings)
+        CallbackFree(this.vtbl.HasCharacter)
+        CallbackFree(this.vtbl.GetRecommendedRenderingMode)
+        CallbackFree(this.vtbl.IsCharacterLocal)
+        CallbackFree(this.vtbl.IsGlyphLocal)
+        CallbackFree(this.vtbl.AreCharactersLocal)
+        CallbackFree(this.vtbl.AreGlyphsLocal)
     }
 }

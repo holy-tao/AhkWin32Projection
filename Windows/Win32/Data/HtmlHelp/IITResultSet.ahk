@@ -1,33 +1,76 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ROWSTATUS.ahk" { ROWSTATUS }
+#Import ".\COLUMNSTATUS.ahk" { COLUMNSTATUS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PRIORITY.ahk" { PRIORITY }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\CProperty.ahk" { CProperty }
 
 /**
  * Use this interface in run-time applications to initialize, build, and obtain information about result sets.
  * @see https://learn.microsoft.com/windows/win32/api/infotech/nn-infotech-iitresultset
  * @namespace Windows.Win32.Data.HtmlHelp
  */
-class IITResultSet extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IITResultSet extends IUnknown {
     /**
      * The interface identifier for IITResultSet
      * @type {Guid}
      */
-    static IID => Guid("{3bb91d41-998b-11d0-a850-00aa006c7d01}")
+    static IID := Guid("{3bb91d41-998b-11d0-a850-00aa006c7d01}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IITResultSet interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetColumnPriority   : IntPtr
+        SetColumnHeap       : IntPtr
+        SetKeyProp          : IntPtr
+        Add                 : IntPtr
+        Add1                : IntPtr
+        Add2                : IntPtr
+        Add3                : IntPtr
+        Append              : IntPtr
+        Set                 : IntPtr
+        Set1                : IntPtr
+        Set2                : IntPtr
+        Set3                : IntPtr
+        Copy                : IntPtr
+        AppendRows          : IntPtr
+        Get                 : IntPtr
+        GetKeyProp          : IntPtr
+        GetColumnPriority   : IntPtr
+        GetRowCount         : IntPtr
+        GetColumnCount      : IntPtr
+        GetColumn           : IntPtr
+        GetColumn1          : IntPtr
+        GetColumnFromPropID : IntPtr
+        Clear               : IntPtr
+        ClearRows           : IntPtr
+        Free                : IntPtr
+        IsCompleted         : IntPtr
+        Cancel              : IntPtr
+        Pause               : IntPtr
+        GetRowStatus        : IntPtr
+        GetColumnStatus     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetColumnPriority", "SetColumnHeap", "SetKeyProp", "Add", "Add1", "Add2", "Add3", "Append", "Set", "Set1", "Set2", "Set3", "Copy", "AppendRows", "Get", "GetKeyProp", "GetColumnPriority", "GetRowCount", "GetColumnCount", "GetColumn", "GetColumn1", "GetColumnFromPropID", "Clear", "ClearRows", "Free", "IsCompleted", "Cancel", "Pause", "GetRowStatus", "GetColumnStatus"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IITResultSet.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -36,7 +79,7 @@ class IITResultSet extends IUnknown {
      * @returns {HRESULT} 
      */
     SetColumnPriority(lColumnIndex, ColumnPriority) {
-        result := ComCall(3, this, "int", lColumnIndex, "int", ColumnPriority, "HRESULT")
+        result := ComCall(3, this, "int", lColumnIndex, PRIORITY, ColumnPriority, "HRESULT")
         return result
     }
 
@@ -106,7 +149,7 @@ class IITResultSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitresultset-add(propid_lpvoid_dword_priority)
      */
     Add(PropID, dwDefaultData, _Priority) {
-        result := ComCall(6, this, "uint", PropID, "uint", dwDefaultData, "int", _Priority, "HRESULT")
+        result := ComCall(6, this, "uint", PropID, "uint", dwDefaultData, PRIORITY, _Priority, "HRESULT")
         return result
     }
 
@@ -154,7 +197,7 @@ class IITResultSet extends IUnknown {
     Add1(PropID, lpszwDefault, _Priority) {
         lpszwDefault := lpszwDefault is String ? StrPtr(lpszwDefault) : lpszwDefault
 
-        result := ComCall(7, this, "uint", PropID, "ptr", lpszwDefault, "int", _Priority, "HRESULT")
+        result := ComCall(7, this, "uint", PropID, "ptr", lpszwDefault, PRIORITY, _Priority, "HRESULT")
         return result
     }
 
@@ -203,7 +246,7 @@ class IITResultSet extends IUnknown {
     Add2(PropID, lpvDefaultData, cbData, _Priority) {
         lpvDefaultDataMarshal := lpvDefaultData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(8, this, "uint", PropID, lpvDefaultDataMarshal, lpvDefaultData, "uint", cbData, "int", _Priority, "HRESULT")
+        result := ComCall(8, this, "uint", PropID, lpvDefaultDataMarshal, lpvDefaultData, "uint", cbData, PRIORITY, _Priority, "HRESULT")
         return result
     }
 
@@ -278,18 +321,12 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * The SetAbortProc function sets the application-defined abort function that allows a print job to be canceled during spooling.
-     * @remarks
-     * <div class="alert"><b>Note</b>  This is a blocking or synchronous function and might not return immediately. How quickly this function returns depends on run-time factors such as network status, print server configuration, and printer driver implementation—factors that are difficult to predict when writing an application. Calling this function from a thread that manages interaction with the user interface could make the application appear to be unresponsive.</div>
-     * <div> </div>
+     * 
      * @param {Integer} lRowIndex 
      * @param {Integer} lColumnIndex 
      * @param {Pointer<Void>} lpvData 
      * @param {Integer} cbData 
-     * @returns {HRESULT} If the function succeeds, the return value is greater than zero.
-     * 
-     * If the function fails, the return value is SP_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setabortproc
+     * @returns {HRESULT} 
      */
     Set(lRowIndex, lColumnIndex, lpvData, cbData) {
         lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
@@ -299,17 +336,11 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * The SetAbortProc function sets the application-defined abort function that allows a print job to be canceled during spooling.
-     * @remarks
-     * <div class="alert"><b>Note</b>  This is a blocking or synchronous function and might not return immediately. How quickly this function returns depends on run-time factors such as network status, print server configuration, and printer driver implementation—factors that are difficult to predict when writing an application. Calling this function from a thread that manages interaction with the user interface could make the application appear to be unresponsive.</div>
-     * <div> </div>
+     * 
      * @param {Integer} lRowIndex 
      * @param {Integer} lColumnIndex 
      * @param {PWSTR} lpwStr 
-     * @returns {HRESULT} If the function succeeds, the return value is greater than zero.
-     * 
-     * If the function fails, the return value is SP_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setabortproc
+     * @returns {HRESULT} 
      */
     Set1(lRowIndex, lColumnIndex, lpwStr) {
         lpwStr := lpwStr is String ? StrPtr(lpwStr) : lpwStr
@@ -319,17 +350,11 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * The SetAbortProc function sets the application-defined abort function that allows a print job to be canceled during spooling.
-     * @remarks
-     * <div class="alert"><b>Note</b>  This is a blocking or synchronous function and might not return immediately. How quickly this function returns depends on run-time factors such as network status, print server configuration, and printer driver implementation—factors that are difficult to predict when writing an application. Calling this function from a thread that manages interaction with the user interface could make the application appear to be unresponsive.</div>
-     * <div> </div>
+     * 
      * @param {Integer} lRowIndex 
      * @param {Integer} lColumnIndex 
      * @param {Pointer} dwData 
-     * @returns {HRESULT} If the function succeeds, the return value is greater than zero.
-     * 
-     * If the function fails, the return value is SP_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setabortproc
+     * @returns {HRESULT} 
      */
     Set2(lRowIndex, lColumnIndex, dwData) {
         result := ComCall(13, this, "int", lRowIndex, "int", lColumnIndex, "ptr", dwData, "HRESULT")
@@ -337,17 +362,11 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * The SetAbortProc function sets the application-defined abort function that allows a print job to be canceled during spooling.
-     * @remarks
-     * <div class="alert"><b>Note</b>  This is a blocking or synchronous function and might not return immediately. How quickly this function returns depends on run-time factors such as network status, print server configuration, and printer driver implementation—factors that are difficult to predict when writing an application. Calling this function from a thread that manages interaction with the user interface could make the application appear to be unresponsive.</div>
-     * <div> </div>
+     * 
      * @param {Integer} lRowIndex 
      * @param {Pointer<Void>} lpvHdr 
      * @param {Pointer<Void>} lpvData 
-     * @returns {HRESULT} If the function succeeds, the return value is greater than zero.
-     * 
-     * If the function fails, the return value is SP_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setabortproc
+     * @returns {HRESULT} 
      */
     Set3(lRowIndex, lpvHdr, lpvData) {
         lpvHdrMarshal := lpvHdr is VarRef ? "ptr" : "ptr"
@@ -358,16 +377,9 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * Copies the specified accelerator table. This function is used to obtain the accelerator-table data that corresponds to an accelerator-table handle, or to determine the size of the accelerator-table data. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The winuser.h header defines CopyAcceleratorTable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {IITResultSet} pRSCopy 
-     * @returns {HRESULT} Type: <b>int</b>
      * 
-     * If 
-     *       <i>lpAccelDst</i> is <b>NULL</b>, the return value specifies the number of accelerator-table entries in the original table. Otherwise, it specifies the number of accelerator-table entries that were copied.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-copyacceleratortablew
+     * @param {IITResultSet} pRSCopy 
+     * @returns {HRESULT} 
      */
     Copy(pRSCopy) {
         result := ComCall(15, this, "ptr", pRSCopy, "HRESULT")
@@ -431,7 +443,7 @@ class IITResultSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitresultset-get
      */
     Get(lRowIndex, lColumnIndex, Prop) {
-        result := ComCall(17, this, "int", lRowIndex, "int", lColumnIndex, "ptr", Prop, "HRESULT")
+        result := ComCall(17, this, "int", lRowIndex, "int", lColumnIndex, CProperty.Ptr, Prop, "HRESULT")
         return result
     }
 
@@ -590,19 +602,8 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * The FreeAddrInfoEx function (ws2tcpip.h) frees address information that the GetAddrInfoEx function dynamically allocates in addrinfoex structures.
-     * @remarks
-     * The 
-     * <b>FreeAddrInfoEx</b> function frees <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoexw">addrinfoex</a> structures dynamically allocated by the  <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfoexa">GetAddrInfoEx</a> function. The <b>FreeAddrInfoEx</b> function frees the initial 
-     * <b>addrinfoex</b> structure pointed to in the <i>pAddrInfo</i> parameter, including any buffers to which structure members point, then continues freeing any 
-     * <b>addrinfoex</b> structures linked by the <b>ai_next</b> member of the <b>addrinfoex</b> structure. The 
-     * <b>FreeAddrInfoEx</b> function continues freeing linked structures until a <b>NULL</b> <b>ai_next</b> member is encountered.
      * 
-     * When UNICODE or _UNICODE is defined, <b>FreeAddrInfoEx</b> is defined to <b>FreeAddrInfoExW</b>, the Unicode version of the function, and <b>ADDRINFOEX</b> is defined to the <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfoexw">addrinfoexW</a> structure. When UNICODE or _UNICODE is not defined, <b>FreeAddrInfoEx</b> is defined to <b>FreeAddrInfoExA</b>, the ANSI version of the function, and <b>ADDRINFOEX</b> is defined to the <b>addrinfoexA</b> structure. 
-     * 
-     * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: The <b>FreeAddrInfoExW</b> function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
-     * @returns {HRESULT} This function does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/api/ws2tcpip/nf-ws2tcpip-freeaddrinfoex
+     * @returns {HRESULT} 
      */
     Free() {
         result := ComCall(27, this, "HRESULT")
@@ -619,15 +620,8 @@ class IITResultSet extends IUnknown {
     }
 
     /**
-     * Use the Cancel-Session packet to terminate the upload session with the BITS server.
-     * @remarks
-     * This packet cancels an upload job if it is sent before the last fragment is sent. Cancel-Session has no effect on a file whose last fragment has already been sent. When the BITS server receives the last fragment, it writes the file to its final destination and, in the case of an upload-reply, posts the file to the server application. In the upload-reply case, the Cancel-Session packet cancels the reply portion of an upload-reply job.
      * 
-     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
-     * 
-     * The BITS client sends this packet when the user cancels the job.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Bits/cancel-session
      */
     Cancel() {
         result := ComCall(29, this, "HRESULT")
@@ -643,7 +637,7 @@ class IITResultSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/DirectShow/pause-method
      */
     Pause(fPause) {
-        result := ComCall(30, this, "int", fPause, "HRESULT")
+        result := ComCall(30, this, BOOL, fPause, "HRESULT")
         return result
     }
 
@@ -655,7 +649,7 @@ class IITResultSet extends IUnknown {
      * @returns {HRESULT} 
      */
     GetRowStatus(lRowFirst, cRows, lpRowStatus) {
-        result := ComCall(31, this, "int", lRowFirst, "int", cRows, "ptr", lpRowStatus, "HRESULT")
+        result := ComCall(31, this, "int", lRowFirst, "int", cRows, ROWSTATUS.Ptr, lpRowStatus, "HRESULT")
         return result
     }
 
@@ -665,7 +659,85 @@ class IITResultSet extends IUnknown {
      * @returns {HRESULT} 
      */
     GetColumnStatus(lpColStatus) {
-        result := ComCall(32, this, "ptr", lpColStatus, "HRESULT")
+        result := ComCall(32, this, COLUMNSTATUS.Ptr, lpColStatus, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IITResultSet.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetColumnPriority := CallbackCreate(GetMethod(implObj, "SetColumnPriority"), flags, 3)
+        this.vtbl.SetColumnHeap := CallbackCreate(GetMethod(implObj, "SetColumnHeap"), flags, 4)
+        this.vtbl.SetKeyProp := CallbackCreate(GetMethod(implObj, "SetKeyProp"), flags, 2)
+        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 4)
+        this.vtbl.Add1 := CallbackCreate(GetMethod(implObj, "Add1"), flags, 4)
+        this.vtbl.Add2 := CallbackCreate(GetMethod(implObj, "Add2"), flags, 5)
+        this.vtbl.Add3 := CallbackCreate(GetMethod(implObj, "Add3"), flags, 2)
+        this.vtbl.Append := CallbackCreate(GetMethod(implObj, "Append"), flags, 3)
+        this.vtbl.Set := CallbackCreate(GetMethod(implObj, "Set"), flags, 5)
+        this.vtbl.Set1 := CallbackCreate(GetMethod(implObj, "Set1"), flags, 4)
+        this.vtbl.Set2 := CallbackCreate(GetMethod(implObj, "Set2"), flags, 4)
+        this.vtbl.Set3 := CallbackCreate(GetMethod(implObj, "Set3"), flags, 4)
+        this.vtbl.Copy := CallbackCreate(GetMethod(implObj, "Copy"), flags, 2)
+        this.vtbl.AppendRows := CallbackCreate(GetMethod(implObj, "AppendRows"), flags, 5)
+        this.vtbl.Get := CallbackCreate(GetMethod(implObj, "Get"), flags, 4)
+        this.vtbl.GetKeyProp := CallbackCreate(GetMethod(implObj, "GetKeyProp"), flags, 2)
+        this.vtbl.GetColumnPriority := CallbackCreate(GetMethod(implObj, "GetColumnPriority"), flags, 3)
+        this.vtbl.GetRowCount := CallbackCreate(GetMethod(implObj, "GetRowCount"), flags, 2)
+        this.vtbl.GetColumnCount := CallbackCreate(GetMethod(implObj, "GetColumnCount"), flags, 2)
+        this.vtbl.GetColumn := CallbackCreate(GetMethod(implObj, "GetColumn"), flags, 7)
+        this.vtbl.GetColumn1 := CallbackCreate(GetMethod(implObj, "GetColumn1"), flags, 3)
+        this.vtbl.GetColumnFromPropID := CallbackCreate(GetMethod(implObj, "GetColumnFromPropID"), flags, 3)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.ClearRows := CallbackCreate(GetMethod(implObj, "ClearRows"), flags, 1)
+        this.vtbl.Free := CallbackCreate(GetMethod(implObj, "Free"), flags, 1)
+        this.vtbl.IsCompleted := CallbackCreate(GetMethod(implObj, "IsCompleted"), flags, 1)
+        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 2)
+        this.vtbl.GetRowStatus := CallbackCreate(GetMethod(implObj, "GetRowStatus"), flags, 4)
+        this.vtbl.GetColumnStatus := CallbackCreate(GetMethod(implObj, "GetColumnStatus"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetColumnPriority)
+        CallbackFree(this.vtbl.SetColumnHeap)
+        CallbackFree(this.vtbl.SetKeyProp)
+        CallbackFree(this.vtbl.Add)
+        CallbackFree(this.vtbl.Add1)
+        CallbackFree(this.vtbl.Add2)
+        CallbackFree(this.vtbl.Add3)
+        CallbackFree(this.vtbl.Append)
+        CallbackFree(this.vtbl.Set)
+        CallbackFree(this.vtbl.Set1)
+        CallbackFree(this.vtbl.Set2)
+        CallbackFree(this.vtbl.Set3)
+        CallbackFree(this.vtbl.Copy)
+        CallbackFree(this.vtbl.AppendRows)
+        CallbackFree(this.vtbl.Get)
+        CallbackFree(this.vtbl.GetKeyProp)
+        CallbackFree(this.vtbl.GetColumnPriority)
+        CallbackFree(this.vtbl.GetRowCount)
+        CallbackFree(this.vtbl.GetColumnCount)
+        CallbackFree(this.vtbl.GetColumn)
+        CallbackFree(this.vtbl.GetColumn1)
+        CallbackFree(this.vtbl.GetColumnFromPropID)
+        CallbackFree(this.vtbl.Clear)
+        CallbackFree(this.vtbl.ClearRows)
+        CallbackFree(this.vtbl.Free)
+        CallbackFree(this.vtbl.IsCompleted)
+        CallbackFree(this.vtbl.Cancel)
+        CallbackFree(this.vtbl.Pause)
+        CallbackFree(this.vtbl.GetRowStatus)
+        CallbackFree(this.vtbl.GetColumnStatus)
     }
 }

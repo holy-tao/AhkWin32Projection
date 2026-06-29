@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_SSL_CLIENT_CERT_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HTTP_SSL_CLIENT_CERT_INFO.ahk" { HTTP_SSL_CLIENT_CERT_INFO }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains data for a connection that uses Secure Sockets Layer (SSL), obtained through the SSL handshake.
@@ -11,81 +11,48 @@
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_ssl_info
  * @namespace Windows.Win32.Networking.HttpServer
  */
-class HTTP_SSL_INFO extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct HTTP_SSL_INFO {
+    #StructPack 8
 
     /**
      * The size, in bytes, of the public key used to sign the server certificate.
-     * @type {Integer}
      */
-    ServerCertKeySize {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    ServerCertKeySize : UInt16
 
     /**
      * The size, in bytes, of the cipher key used to encrypt the current session.
-     * @type {Integer}
      */
-    ConnectionKeySize {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    ConnectionKeySize : UInt16
 
     /**
      * The size, in bytes, of the string pointed to by the <b>pServerCertIssuer</b> member not including the terminating null character.
-     * @type {Integer}
      */
-    ServerCertIssuerSize {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    ServerCertIssuerSize : UInt32
 
     /**
      * The size, in bytes, of the string pointed to by the <b>pServerCertSubject</b> member not including the terminating null character.
-     * @type {Integer}
      */
-    ServerCertSubjectSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ServerCertSubjectSize : UInt32
 
     /**
      * A pointer to a null-terminated string of octets that specifies the name of the entity that issued the certificate.
-     * @type {PSTR}
      */
-    pServerCertIssuer {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pServerCertIssuer : PSTR
 
     /**
      * A pointer to a null-terminated string of octets that specifies the name of the entity to which the certificate belongs.
-     * @type {PSTR}
      */
-    pServerCertSubject {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pServerCertSubject : PSTR
 
     /**
      * A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_ssl_client_cert_info">HTTP_SSL_CLIENT_CERT_INFO</a> structure that specifies the client certificate.
-     * @type {Pointer<HTTP_SSL_CLIENT_CERT_INFO>}
      */
-    pClientCertInfo {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pClientCertInfo : HTTP_SSL_CLIENT_CERT_INFO.Ptr
 
     /**
      * If non-zero, indicates that the client certificate is already present locally.
-     * @type {Integer}
      */
-    SslClientCertNegotiated {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    SslClientCertNegotiated : UInt32
+
 }

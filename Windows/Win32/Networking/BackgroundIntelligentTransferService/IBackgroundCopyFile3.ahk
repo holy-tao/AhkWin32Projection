@@ -1,34 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IBackgroundCopyFile2.ahk
-#Include ..\..\System\Com\Apis.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IBackgroundCopyFile2.ahk" { IBackgroundCopyFile2 }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\Apis.ahk" { CoTaskMemFree }
 
 /**
  * Use this interface to retrieve the name of the temporary file that contains the downloaded content and to validate the file so that peers can request its content.
  * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nn-bits3_0-ibackgroundcopyfile3
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  */
-class IBackgroundCopyFile3 extends IBackgroundCopyFile2 {
-
-    static sizeof => A_PtrSize
+export default struct IBackgroundCopyFile3 extends IBackgroundCopyFile2 {
     /**
      * The interface identifier for IBackgroundCopyFile3
      * @type {Guid}
      */
-    static IID => Guid("{659cdeaa-489e-11d9-a9cd-000d56965251}")
+    static IID := Guid("{659cdeaa-489e-11d9-a9cd-000d56965251}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 8
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IBackgroundCopyFile3 interfaces
+    */
+    struct Vtbl extends IBackgroundCopyFile2.Vtbl {
+        GetTemporaryName     : IntPtr
+        SetValidationState   : IntPtr
+        GetValidationState   : IntPtr
+        IsDownloadedFromPeer : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetTemporaryName", "SetValidationState", "GetValidationState", "IsDownloadedFromPeer"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IBackgroundCopyFile3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the full path of the temporary file that contains the content of the download.
@@ -52,9 +65,9 @@ class IBackgroundCopyFile3 extends IBackgroundCopyFile2 {
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibackgroundcopyfile3-gettemporaryname
      */
     GetTemporaryName() {
-        result := ComCall(8, this, "ptr*", &pFilename := 0, "int")
+        result := ComCall(8, this, PWSTR.Ptr, &pFilename := 0, Int32)
         if(result != 0) {
-            Com.CoTaskMemFree(pFilename)
+            CoTaskMemFree(pFilename.value)
             throw OSError()
         }
 
@@ -120,7 +133,7 @@ class IBackgroundCopyFile3 extends IBackgroundCopyFile2 {
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibackgroundcopyfile3-setvalidationstate
      */
     SetValidationState(state) {
-        result := ComCall(9, this, "int", state, "HRESULT")
+        result := ComCall(9, this, BOOL, state, "HRESULT")
         return result
     }
 
@@ -132,7 +145,7 @@ class IBackgroundCopyFile3 extends IBackgroundCopyFile2 {
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibackgroundcopyfile3-getvalidationstate
      */
     GetValidationState() {
-        result := ComCall(10, this, "int*", &pState := 0, "HRESULT")
+        result := ComCall(10, this, BOOL.Ptr, &pState := 0, "HRESULT")
         return pState
     }
 
@@ -142,7 +155,33 @@ class IBackgroundCopyFile3 extends IBackgroundCopyFile2 {
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibackgroundcopyfile3-isdownloadedfrompeer
      */
     IsDownloadedFromPeer() {
-        result := ComCall(11, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(11, this, BOOL.Ptr, &pVal := 0, "HRESULT")
         return pVal
+    }
+
+    Query(iid) {
+        if (IBackgroundCopyFile3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetTemporaryName := CallbackCreate(GetMethod(implObj, "GetTemporaryName"), flags, 2)
+        this.vtbl.SetValidationState := CallbackCreate(GetMethod(implObj, "SetValidationState"), flags, 2)
+        this.vtbl.GetValidationState := CallbackCreate(GetMethod(implObj, "GetValidationState"), flags, 2)
+        this.vtbl.IsDownloadedFromPeer := CallbackCreate(GetMethod(implObj, "IsDownloadedFromPeer"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetTemporaryName)
+        CallbackFree(this.vtbl.SetValidationState)
+        CallbackFree(this.vtbl.GetValidationState)
+        CallbackFree(this.vtbl.IsDownloadedFromPeer)
     }
 }

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The MIXERCONTROL structure describes the state and metrics of a single control for an audio line. (mixercontrolw)
@@ -10,108 +10,42 @@
  * @namespace Windows.Win32.Media.Audio
  * @charset Unicode
  */
-class MIXERCONTROLW extends Win32Struct {
-    static sizeof => 228
+export default struct MIXERCONTROLW {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _Bounds_e__Union extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 1
+    struct _Bounds {
+        lMinimum : Int32
 
-        /**
-         * @type {Integer}
-         */
-        lMinimum {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
+        lMaximum : Int32
 
-        /**
-         * @type {Integer}
-         */
-        lMaximum {
-            get => NumGet(this, 4, "int")
-            set => NumPut("int", value, this, 4)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        dwMinimum {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        dwMaximum {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
-
-        /**
-         * @type {Array<Integer>}
-         */
-        dwReserved {
-            get {
-                if(!this.HasProp("__dwReservedProxyArray"))
-                    this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "uint")
-                return this.__dwReservedProxyArray
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'dwMinimum', { type: UInt32, offset: 0 })
+            DefineProp(this.Prototype, 'dwMaximum', { type: UInt32, offset: 4 })
+            DefineProp(this.Prototype, 'dwReserved', { type: UInt32[6], offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    class _Metrics_e__Union extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 1
+    struct _Metrics {
+        cSteps : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        cSteps {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        cbCustomData {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Array<Integer>}
-         */
-        dwReserved {
-            get {
-                if(!this.HasProp("__dwReservedProxyArray"))
-                    this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "uint")
-                return this.__dwReservedProxyArray
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'cbCustomData', { type: UInt32, offset: 0 })
+            DefineProp(this.Prototype, 'dwReserved', { type: UInt32[6], offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
     /**
      * Size, in bytes, of the <b>MIXERCONTROL</b> structure.
-     * @type {Integer}
      */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbStruct : UInt32
 
     /**
      * Audio mixer-defined identifier that uniquely refers to the control described by the <b>MIXERCONTROL</b> structure. This identifier can be in any format supported by the mixer device. An application should use this identifier only as an abstract handle. No two controls for a single mixer device can ever have the same control identifier.
-     * @type {Integer}
      */
-    dwControlID {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwControlID : UInt32
 
     /**
      * Class of the control for which the identifier is specified in <b>dwControlID</b>. An application must use this information to display the appropriate control for input from the user. An application can also display tailored graphics based on the control class or search for a particular control class on a specific line. If an application does not know about a control class, this control must be ignored. There are eight control class classifications, each with one or more standard control types:
@@ -202,12 +136,8 @@ class MIXERCONTROLW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwControlType {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwControlType : UInt32
 
     /**
      * Status and support flags for the audio line control. The following values are defined:
@@ -248,61 +178,32 @@ class MIXERCONTROLW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    fdwControl {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    fdwControl : UInt32
 
     /**
      * Number of items per channel that make up a MIXERCONTROL_CONTROLF_MULTIPLE control. This number is always two or greater for multiple-item controls. If the control is not a multiple-item control, do not use this member; it will be zero.
-     * @type {Integer}
      */
-    cMultipleItems {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    cMultipleItems : UInt32
 
     /**
      * Short string that describes the audio line control specified by <b>dwControlID</b>. This description should be appropriate to use as a concise label for the control.
-     * @type {String}
      */
-    szShortName {
-        get => StrGet(this.ptr + 20, 15, "UTF-16")
-        set => StrPut(value, this.ptr + 20, 15, "UTF-16")
-    }
+    szShortName : WCHAR[16]
 
     /**
      * String that describes the audio line control specified by <b>dwControlID</b>. This description should be appropriate to use as a complete description for the control.
-     * @type {String}
      */
-    szName {
-        get => StrGet(this.ptr + 52, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 52, 63, "UTF-16")
-    }
+    szName : WCHAR[64]
 
     /**
      * Union of boundary types.
-     * @type {_Bounds_e__Union}
      */
-    Bounds {
-        get {
-            if(!this.HasProp("__Bounds"))
-                this.__Bounds := MIXERCONTROLW._Bounds_e__Union(180, this)
-            return this.__Bounds
-        }
-    }
+    Bounds : MIXERCONTROLW._Bounds
 
     /**
      * Union of boundary metrics.
-     * @type {_Metrics_e__Union}
      */
-    Metrics {
-        get {
-            if(!this.HasProp("__Metrics"))
-                this.__Metrics := MIXERCONTROLW._Metrics_e__Union(204, this)
-            return this.__Metrics
-        }
-    }
+    Metrics : MIXERCONTROLW._Metrics
+
 }

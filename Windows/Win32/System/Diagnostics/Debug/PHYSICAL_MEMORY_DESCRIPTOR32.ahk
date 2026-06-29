@@ -1,39 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\PHYSICAL_MEMORY_RUN32.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PHYSICAL_MEMORY_RUN32.ahk" { PHYSICAL_MEMORY_RUN32 }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class PHYSICAL_MEMORY_DESCRIPTOR32 extends Win32Struct {
-    static sizeof => 16
+export default struct PHYSICAL_MEMORY_DESCRIPTOR32 {
+    #StructPack 4
 
-    static packingSize => 4
+    NumberOfRuns : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfRuns {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NumberOfPages : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfPages {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Run : PHYSICAL_MEMORY_RUN32[1]
 
-    /**
-     * @type {PHYSICAL_MEMORY_RUN32}
-     */
-    Run {
-        get {
-            if(!this.HasProp("__RunProxyArray"))
-                this.__RunProxyArray := Win32FixedArray(this.ptr + 8, 1, PHYSICAL_MEMORY_RUN32, "")
-            return this.__RunProxyArray
-        }
-    }
 }

@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXVA2_Fixed32.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DXVA2_Fixed32.ahk" { DXVA2_Fixed32 }
 
 /**
  * Defines the range of supported values for a DirectX Video Acceleration (DXVA) operation.
@@ -9,56 +8,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_valuerange
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVA2_ValueRange extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct DXVA2_ValueRange {
+    #StructPack 4
 
     /**
      * Minimum supported value.
-     * @type {DXVA2_Fixed32}
      */
-    MinValue {
-        get {
-            if(!this.HasProp("__MinValue"))
-                this.__MinValue := DXVA2_Fixed32(0, this)
-            return this.__MinValue
-        }
-    }
+    MinValue : DXVA2_Fixed32
 
     /**
      * Maximum supported value.
-     * @type {DXVA2_Fixed32}
      */
-    MaxValue {
-        get {
-            if(!this.HasProp("__MaxValue"))
-                this.__MaxValue := DXVA2_Fixed32(4, this)
-            return this.__MaxValue
-        }
-    }
+    MaxValue : DXVA2_Fixed32
 
     /**
      * Default value.
-     * @type {DXVA2_Fixed32}
      */
-    DefaultValue {
-        get {
-            if(!this.HasProp("__DefaultValue"))
-                this.__DefaultValue := DXVA2_Fixed32(8, this)
-            return this.__DefaultValue
-        }
-    }
+    DefaultValue : DXVA2_Fixed32
 
     /**
      * Minimum increment between values.
-     * @type {DXVA2_Fixed32}
      */
-    StepSize {
-        get {
-            if(!this.HasProp("__StepSize"))
-                this.__StepSize := DXVA2_Fixed32(12, this)
-            return this.__StepSize
-        }
-    }
+    StepSize : DXVA2_Fixed32
+
 }

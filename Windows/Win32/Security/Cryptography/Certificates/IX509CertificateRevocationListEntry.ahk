@@ -1,34 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IX509Extensions.ahk
-#Include .\IObjectIds.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\CRLRevocationReason.ahk" { CRLRevocationReason }
+#Import ".\EncodingType.ahk" { EncodingType }
+#Import "..\..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IX509Extensions.ahk" { IX509Extensions }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IObjectIds.ahk" { IObjectIds }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  */
-class IX509CertificateRevocationListEntry extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IX509CertificateRevocationListEntry extends IDispatch {
     /**
      * The interface identifier for IX509CertificateRevocationListEntry
      * @type {Guid}
      */
-    static IID => Guid("{728ab35e-217d-11da-b2a4-000e7bbb2b09}")
+    static IID := Guid("{728ab35e-217d-11da-b2a4-000e7bbb2b09}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IX509CertificateRevocationListEntry interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        Initialize             : IntPtr
+        get_SerialNumber       : IntPtr
+        get_RevocationDate     : IntPtr
+        get_RevocationReason   : IntPtr
+        put_RevocationReason   : IntPtr
+        get_X509Extensions     : IntPtr
+        get_CriticalExtensions : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Initialize", "get_SerialNumber", "get_RevocationDate", "get_RevocationReason", "put_RevocationReason", "get_X509Extensions", "get_CriticalExtensions"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IX509CertificateRevocationListEntry.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Float} 
@@ -93,7 +109,7 @@ class IX509CertificateRevocationListEntry extends IDispatch {
     Initialize(Encoding, SerialNumber, RevocationDate) {
         SerialNumber := SerialNumber is String ? BSTR.Alloc(SerialNumber).Value : SerialNumber
 
-        result := ComCall(7, this, "int", Encoding, "ptr", SerialNumber, "double", RevocationDate, "HRESULT")
+        result := ComCall(7, this, EncodingType, Encoding, BSTR, SerialNumber, "double", RevocationDate, "HRESULT")
         return result
     }
 
@@ -103,8 +119,8 @@ class IX509CertificateRevocationListEntry extends IDispatch {
      * @returns {BSTR} 
      */
     get_SerialNumber(Encoding) {
-        pValue := BSTR()
-        result := ComCall(8, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        pValue := BSTR.Owned()
+        result := ComCall(8, this, EncodingType, Encoding, BSTR.Ptr, pValue, "HRESULT")
         return pValue
     }
 
@@ -132,7 +148,7 @@ class IX509CertificateRevocationListEntry extends IDispatch {
      * @returns {HRESULT} 
      */
     put_RevocationReason(Value) {
-        result := ComCall(11, this, "int", Value, "HRESULT")
+        result := ComCall(11, this, CRLRevocationReason, Value, "HRESULT")
         return result
     }
 
@@ -152,5 +168,37 @@ class IX509CertificateRevocationListEntry extends IDispatch {
     get_CriticalExtensions() {
         result := ComCall(13, this, "ptr*", &ppValue := 0, "HRESULT")
         return IObjectIds(ppValue)
+    }
+
+    Query(iid) {
+        if (IX509CertificateRevocationListEntry.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.get_SerialNumber := CallbackCreate(GetMethod(implObj, "get_SerialNumber"), flags, 3)
+        this.vtbl.get_RevocationDate := CallbackCreate(GetMethod(implObj, "get_RevocationDate"), flags, 2)
+        this.vtbl.get_RevocationReason := CallbackCreate(GetMethod(implObj, "get_RevocationReason"), flags, 2)
+        this.vtbl.put_RevocationReason := CallbackCreate(GetMethod(implObj, "put_RevocationReason"), flags, 2)
+        this.vtbl.get_X509Extensions := CallbackCreate(GetMethod(implObj, "get_X509Extensions"), flags, 2)
+        this.vtbl.get_CriticalExtensions := CallbackCreate(GetMethod(implObj, "get_CriticalExtensions"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Initialize)
+        CallbackFree(this.vtbl.get_SerialNumber)
+        CallbackFree(this.vtbl.get_RevocationDate)
+        CallbackFree(this.vtbl.get_RevocationReason)
+        CallbackFree(this.vtbl.put_RevocationReason)
+        CallbackFree(this.vtbl.get_X509Extensions)
+        CallbackFree(this.vtbl.get_CriticalExtensions)
     }
 }

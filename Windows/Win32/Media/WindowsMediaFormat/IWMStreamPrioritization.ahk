@@ -1,34 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\WM_STREAM_PRIORITY_RECORD.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WM_STREAM_PRIORITY_RECORD.ahk" { WM_STREAM_PRIORITY_RECORD }
 
 /**
  * The IWMStreamPrioritization interface provides methods to set and read priority records for a file.Stream prioritization allows content creators to specify the priority of the streams in an ASF file.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmstreamprioritization
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMStreamPrioritization extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMStreamPrioritization extends IUnknown {
     /**
      * The interface identifier for IWMStreamPrioritization
      * @type {Guid}
      */
-    static IID => Guid("{8c1c6090-f9a8-4748-8ec3-dd1108ba1e77}")
+    static IID := Guid("{8c1c6090-f9a8-4748-8ec3-dd1108ba1e77}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMStreamPrioritization interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetPriorityRecords : IntPtr
+        SetPriorityRecords : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPriorityRecords", "SetPriorityRecords"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMStreamPrioritization.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetPriorityRecords method retrieves the list of streams and their priorities from the profile.
@@ -46,7 +55,7 @@ class IWMStreamPrioritization extends IUnknown {
         pcRecordsMarshal := pcRecords is VarRef ? "ushort*" : "ptr"
 
         pRecordArray := WM_STREAM_PRIORITY_RECORD()
-        result := ComCall(3, this, "ptr", pRecordArray, pcRecordsMarshal, pcRecords, "HRESULT")
+        result := ComCall(3, this, WM_STREAM_PRIORITY_RECORD.Ptr, pRecordArray, pcRecordsMarshal, pcRecords, "HRESULT")
         return pRecordArray
     }
 
@@ -108,7 +117,29 @@ class IWMStreamPrioritization extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamprioritization-setpriorityrecords
      */
     SetPriorityRecords(pRecordArray, cRecords) {
-        result := ComCall(4, this, "ptr", pRecordArray, "ushort", cRecords, "HRESULT")
+        result := ComCall(4, this, WM_STREAM_PRIORITY_RECORD.Ptr, pRecordArray, "ushort", cRecords, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMStreamPrioritization.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPriorityRecords := CallbackCreate(GetMethod(implObj, "GetPriorityRecords"), flags, 3)
+        this.vtbl.SetPriorityRecords := CallbackCreate(GetMethod(implObj, "SetPriorityRecords"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPriorityRecords)
+        CallbackFree(this.vtbl.SetPriorityRecords)
     }
 }

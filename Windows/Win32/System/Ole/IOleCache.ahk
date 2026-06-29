@@ -1,34 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\Com\IEnumSTATDATA.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IDataObject.ahk" { IDataObject }
+#Import "..\Com\STGMEDIUM.ahk" { STGMEDIUM }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\FORMATETC.ahk" { FORMATETC }
+#Import "..\Com\IEnumSTATDATA.ahk" { IEnumSTATDATA }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides control of the presentation data that gets cached inside of an object. Cached presentation data is available to the container of the object even when the server application is not running or is unavailable.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-iolecache
  * @namespace Windows.Win32.System.Ole
  */
-class IOleCache extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOleCache extends IUnknown {
     /**
      * The interface identifier for IOleCache
      * @type {Guid}
      */
-    static IID => Guid("{0000011e-0000-0000-c000-000000000046}")
+    static IID := Guid("{0000011e-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOleCache interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Cache     : IntPtr
+        Uncache   : IntPtr
+        EnumCache : IntPtr
+        InitCache : IntPtr
+        SetData   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Cache", "Uncache", "EnumCache", "InitCache", "SetData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOleCache.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Specifies the format and other data to be cached inside an embedded object.
@@ -121,7 +137,7 @@ class IOleCache extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iolecache-cache
      */
     Cache(pformatetc, _advf) {
-        result := ComCall(3, this, "ptr", pformatetc, "uint", _advf, "uint*", &pdwConnection := 0, "HRESULT")
+        result := ComCall(3, this, FORMATETC.Ptr, pformatetc, "uint", _advf, "uint*", &pdwConnection := 0, "HRESULT")
         return pdwConnection
     }
 
@@ -342,7 +358,35 @@ class IOleCache extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iolecache-setdata
      */
     SetData(pformatetc, pmedium, fRelease) {
-        result := ComCall(7, this, "ptr", pformatetc, "ptr", pmedium, "int", fRelease, "HRESULT")
+        result := ComCall(7, this, FORMATETC.Ptr, pformatetc, STGMEDIUM.Ptr, pmedium, BOOL, fRelease, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOleCache.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Cache := CallbackCreate(GetMethod(implObj, "Cache"), flags, 4)
+        this.vtbl.Uncache := CallbackCreate(GetMethod(implObj, "Uncache"), flags, 2)
+        this.vtbl.EnumCache := CallbackCreate(GetMethod(implObj, "EnumCache"), flags, 2)
+        this.vtbl.InitCache := CallbackCreate(GetMethod(implObj, "InitCache"), flags, 2)
+        this.vtbl.SetData := CallbackCreate(GetMethod(implObj, "SetData"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Cache)
+        CallbackFree(this.vtbl.Uncache)
+        CallbackFree(this.vtbl.EnumCache)
+        CallbackFree(this.vtbl.InitCache)
+        CallbackFree(this.vtbl.SetData)
     }
 }

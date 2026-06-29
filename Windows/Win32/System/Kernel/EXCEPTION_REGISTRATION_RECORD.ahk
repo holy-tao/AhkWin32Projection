@@ -1,28 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\EXCEPTION_REGISTRATION_RECORD.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Kernel
  */
-class EXCEPTION_REGISTRATION_RECORD extends Win32Struct {
-    static sizeof => 16
+export default struct EXCEPTION_REGISTRATION_RECORD {
+    #StructPack 8
 
-    static packingSize => 8
+    Next : EXCEPTION_REGISTRATION_RECORD.Ptr
 
-    /**
-     * @type {Pointer<EXCEPTION_REGISTRATION_RECORD>}
-     */
-    Next {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Handler : IntPtr
 
-    /**
-     * @type {Pointer<EXCEPTION_ROUTINE>}
-     */
-    Handler {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
 }

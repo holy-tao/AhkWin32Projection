@@ -1,100 +1,39 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The INSTALLSPEC structure specifies a group policy application by its user-friendly name and group policy GUID or by its file name extension. The Spec member of the INSTALLDATA structure provides this information to the InstallApplication function.
  * @see https://learn.microsoft.com/windows/win32/api/appmgmt/ns-appmgmt-installspec
  * @namespace Windows.Win32.System.GroupPolicy
  */
-class INSTALLSPEC extends Win32Struct {
-    static sizeof => 48
+export default struct INSTALLSPEC {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _AppName extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _AppName {
+        Name : PWSTR
 
-        /**
-         * @type {PWSTR}
-         */
-        Name {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
+        GPOId : Guid
 
-        /**
-         * @type {Pointer}
-         */
-        GPOId {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
-        }
     }
 
-    class _COMClass extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+    struct _COMClass {
+        Clsid : Guid
 
-        /**
-         * @type {Pointer}
-         */
-        Clsid {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
+        ClsCtx : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        ClsCtx {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
     }
 
     /**
      * Structure that contains the following members.
-     * @type {_AppName}
      */
-    AppName {
-        get {
-            if(!this.HasProp("__AppName"))
-                this.__AppName := INSTALLSPEC._AppName(0, this)
-            return this.__AppName
-        }
-    }
+    AppName : INSTALLSPEC._AppName
 
-    /**
-     * The file name extension, such as .jpg,  of the application to be installed.
-     * 
-     * <div class="alert"><b>Note</b>  <a href="https://docs.microsoft.com/windows/desktop/api/appmgmt/nf-appmgmt-installapplication">InstallApplication</a> fails if the <b>Type</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/appmgmt/ns-appmgmt-installdata">INSTALLDATA</a> equals <b>FILEEXT</b> and there is no application deployed to the user with this file name extension.</div>
-     * <div> </div>
-     * @type {PWSTR}
-     */
-    FileExt {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * This parameter is reserved and should not be used.
-     * @type {PWSTR}
-     */
-    ProgId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
-
-    /**
-     * This parameter is reserved and should not be used.
-     * @type {_COMClass}
-     */
-    COMClass {
-        get {
-            if(!this.HasProp("__COMClass"))
-                this.__COMClass := INSTALLSPEC._COMClass(0, this)
-            return this.__COMClass
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'FileExt', { type: PWSTR, offset: 0 })
+        DefineProp(this.Prototype, 'ProgId', { type: PWSTR, offset: 0 })
+        DefineProp(this.Prototype, 'COMClass', { type: INSTALLSPEC._COMClass, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

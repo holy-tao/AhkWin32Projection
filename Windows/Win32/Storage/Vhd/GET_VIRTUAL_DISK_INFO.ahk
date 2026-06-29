@@ -1,17 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\GET_VIRTUAL_DISK_INFO_VERSION.ahk
-#Include .\VIRTUAL_STORAGE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GET_VIRTUAL_DISK_INFO_VERSION.ahk" { GET_VIRTUAL_DISK_INFO_VERSION }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\VIRTUAL_STORAGE_TYPE.ahk" { VIRTUAL_STORAGE_TYPE }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains virtual hard disk (VHD) information.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-get_virtual_disk_info
  * @namespace Windows.Win32.Storage.Vhd
  */
-class GET_VIRTUAL_DISK_INFO extends Win32Struct {
-    static sizeof => 32
+export default struct GET_VIRTUAL_DISK_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+
+    struct _Size {
+        VirtualSize : Int64
+
+        PhysicalSize : Int64
+
+        BlockSize : UInt32
+
+        SectorSize : UInt32
+
+    }
+
+    struct _ParentLocation {
+        ParentResolved : BOOL
+
+        ParentLocationBuffer : WCHAR[1]
+
+    }
+
+    struct _PhysicalDisk {
+        LogicalSectorSize : UInt32
+
+        PhysicalSectorSize : UInt32
+
+        IsRemote : BOOL
+
+    }
+
+    struct _ChangeTrackingState {
+        Enabled : BOOL
+
+        NewerChanges : BOOL
+
+        MostRecentId : WCHAR[1]
+
+    }
 
     /**
      * A value of the 
@@ -19,261 +56,26 @@ class GET_VIRTUAL_DISK_INFO extends Win32Struct {
      *       that specifies the version of the 
      *       <b>GET_VIRTUAL_DISK_INFO</b> structure being passed to 
      *       or from the virtual disk functions. This determines what parts of this structure will be used.
-     * @type {GET_VIRTUAL_DISK_INFO_VERSION}
      */
-    Version {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Version : GET_VIRTUAL_DISK_INFO_VERSION
 
-    class _Size extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
+    Size : GET_VIRTUAL_DISK_INFO._Size
 
-        /**
-         * @type {Integer}
-         */
-        VirtualSize {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        PhysicalSize {
-            get => NumGet(this, 8, "uint")
-            set => NumPut("uint", value, this, 8)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        BlockSize {
-            get => NumGet(this, 16, "uint")
-            set => NumPut("uint", value, this, 16)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        SectorSize {
-            get => NumGet(this, 20, "uint")
-            set => NumPut("uint", value, this, 20)
-        }
-    }
-
-    class _ParentLocation extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 4
-
-        /**
-         * @type {BOOL}
-         */
-        ParentResolved {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
-
-        /**
-         * @type {String}
-         */
-        ParentLocationBuffer {
-            get => StrGet(this.ptr + 4, 0, "UTF-16")
-            set => StrPut(value, this.ptr + 4, 0, "UTF-16")
-        }
-    }
-
-    class _PhysicalDisk extends Win32Struct {
-        static sizeof => 12
-        static packingSize => 4
-
-        /**
-         * @type {Integer}
-         */
-        LogicalSectorSize {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        PhysicalSectorSize {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
-
-        /**
-         * @type {BOOL}
-         */
-        IsRemote {
-            get => NumGet(this, 8, "int")
-            set => NumPut("int", value, this, 8)
-        }
-    }
-
-    class _ChangeTrackingState extends Win32Struct {
-        static sizeof => 12
-        static packingSize => 4
-
-        /**
-         * @type {BOOL}
-         */
-        Enabled {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
-        }
-
-        /**
-         * @type {BOOL}
-         */
-        NewerChanges {
-            get => NumGet(this, 4, "int")
-            set => NumPut("int", value, this, 4)
-        }
-
-        /**
-         * @type {String}
-         */
-        MostRecentId {
-            get => StrGet(this.ptr + 8, 0, "UTF-16")
-            set => StrPut(value, this.ptr + 8, 0, "UTF-16")
-        }
-    }
-
-    /**
-     * @type {_Size}
-     */
-    Size {
-        get {
-            if(!this.HasProp("__Size"))
-                this.__Size := GET_VIRTUAL_DISK_INFO._Size(8, this)
-            return this.__Size
-        }
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    Identifier {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {_ParentLocation}
-     */
-    ParentLocation {
-        get {
-            if(!this.HasProp("__ParentLocation"))
-                this.__ParentLocation := GET_VIRTUAL_DISK_INFO._ParentLocation(8, this)
-            return this.__ParentLocation
-        }
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    ParentIdentifier {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ParentTimestamp {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {VIRTUAL_STORAGE_TYPE}
-     */
-    VirtualStorageType {
-        get {
-            if(!this.HasProp("__VirtualStorageType"))
-                this.__VirtualStorageType := VIRTUAL_STORAGE_TYPE(8, this)
-            return this.__VirtualStorageType
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ProviderSubtype {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {BOOL}
-     */
-    Is4kAligned {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {BOOL}
-     */
-    IsLoaded {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
-
-    /**
-     * @type {_PhysicalDisk}
-     */
-    PhysicalDisk {
-        get {
-            if(!this.HasProp("__PhysicalDisk"))
-                this.__PhysicalDisk := GET_VIRTUAL_DISK_INFO._PhysicalDisk(8, this)
-            return this.__PhysicalDisk
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    VhdPhysicalSectorSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SmallestSafeVirtualSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    FragmentationPercentage {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer}
-     */
-    VirtualDiskId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {_ChangeTrackingState}
-     */
-    ChangeTrackingState {
-        get {
-            if(!this.HasProp("__ChangeTrackingState"))
-                this.__ChangeTrackingState := GET_VIRTUAL_DISK_INFO._ChangeTrackingState(8, this)
-            return this.__ChangeTrackingState
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Identifier', { type: Guid, offset: 8 })
+        DefineProp(this.Prototype, 'ParentLocation', { type: GET_VIRTUAL_DISK_INFO._ParentLocation, offset: 8 })
+        DefineProp(this.Prototype, 'ParentIdentifier', { type: Guid, offset: 8 })
+        DefineProp(this.Prototype, 'ParentTimestamp', { type: UInt32, offset: 8 })
+        DefineProp(this.Prototype, 'VirtualStorageType', { type: VIRTUAL_STORAGE_TYPE, offset: 8 })
+        DefineProp(this.Prototype, 'ProviderSubtype', { type: UInt32, offset: 8 })
+        DefineProp(this.Prototype, 'Is4kAligned', { type: BOOL, offset: 8 })
+        DefineProp(this.Prototype, 'IsLoaded', { type: BOOL, offset: 8 })
+        DefineProp(this.Prototype, 'PhysicalDisk', { type: GET_VIRTUAL_DISK_INFO._PhysicalDisk, offset: 8 })
+        DefineProp(this.Prototype, 'VhdPhysicalSectorSize', { type: UInt32, offset: 8 })
+        DefineProp(this.Prototype, 'SmallestSafeVirtualSize', { type: Int64, offset: 8 })
+        DefineProp(this.Prototype, 'FragmentationPercentage', { type: UInt32, offset: 8 })
+        DefineProp(this.Prototype, 'VirtualDiskId', { type: Guid, offset: 8 })
+        DefineProp(this.Prototype, 'ChangeTrackingState', { type: GET_VIRTUAL_DISK_INFO._ChangeTrackingState, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

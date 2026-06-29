@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains information needed for Microsoft Windows NT LAN Manager (NTLM) V2 authentication.
@@ -8,10 +7,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_ntlm_v2_authentication0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
-class IKEEXT_NTLM_V2_AUTHENTICATION0 extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct IKEEXT_NTLM_V2_AUTHENTICATION0 {
+    #StructPack 4
 
     /**
      * Possible value:
@@ -32,10 +29,7 @@ class IKEEXT_NTLM_V2_AUTHENTICATION0 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    flags : UInt32
+
 }

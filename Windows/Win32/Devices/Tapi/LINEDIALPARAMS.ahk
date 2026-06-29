@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The LINEDIALPARAMS structure specifies a collection of dialing-related fields. Call the lineSetCallParams function or the TSPI_lineSetCallParams function to set parameters for a call using the LINEDIALPARAMS structure.
@@ -16,44 +15,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linedialparams
  * @namespace Windows.Win32.Devices.Tapi
  */
-class LINEDIALPARAMS extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 4
+export default struct LINEDIALPARAMS {
+    #StructPack 4
 
     /**
      * Duration of a comma in the dialable address, in milliseconds.
-     * @type {Integer}
      */
-    dwDialPause {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwDialPause : UInt32
 
     /**
      * Interdigit time period between successive digits, in milliseconds.
-     * @type {Integer}
      */
-    dwDialSpeed {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwDialSpeed : UInt32
 
     /**
      * Duration of a digit, in milliseconds.
-     * @type {Integer}
      */
-    dwDigitDuration {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwDigitDuration : UInt32
 
     /**
      * Maximum amount of time to wait for a dial tone when a 'W' is used in the dialable address, in milliseconds.
-     * @type {Integer}
      */
-    dwWaitForDialtone {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwWaitForDialtone : UInt32
+
 }

@@ -1,13 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * A controller port is reported as physically present on the subsystem. 
-  * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_port_status">VDS_PORT_STATUS</a> value associated with this notification should be any value except <b>VDS_PRS_REMOVED</b>.
- * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_port_notification
  * @namespace Windows.Win32.Storage.VirtualDiskService
  */
-class VDS_NF_PORT extends Win32Enum {
+export default struct VDS_NF_PORT {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

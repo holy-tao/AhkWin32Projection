@@ -1,94 +1,40 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DDRAWI_DDRAWPALETTE_GBL.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\DDRAWI_DIRECTDRAW_LCL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DDRAWI_DDRAWPALETTE_GBL.ahk" { DDRAWI_DDRAWPALETTE_GBL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\DDRAWI_DIRECTDRAW_LCL.ahk" { DDRAWI_DIRECTDRAW_LCL }
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDRAWI_DDRAWPALETTE_LCL extends Win32Struct {
-    static sizeof => 80
+export default struct DDRAWI_DDRAWPALETTE_LCL {
+    #StructPack 8
 
-    static packingSize => 8
+    lpPalMore : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    lpPalMore {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
-
-    /**
-     * @type {Pointer<DDRAWI_DDRAWPALETTE_GBL>}
-     */
+    __lpGbl_ptr : IntPtr
     lpGbl {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+        get => (addr := this.__lpGbl_ptr) ? DDRAWI_DDRAWPALETTE_GBL.At(addr) : unset
+        set => this.__lpGbl_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer}
-     */
-    dwUnused0 {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    dwUnused0 : IntPtr
 
-    /**
-     * @type {Integer}
-     */
-    dwLocalRefCnt {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwLocalRefCnt : UInt32
 
-    /**
-     * @type {IUnknown}
-     */
-    pUnkOuter {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pUnkOuter : IUnknown
 
-    /**
-     * @type {Pointer<DDRAWI_DIRECTDRAW_LCL>}
-     */
+    __lpDD_lcl_ptr : IntPtr
     lpDD_lcl {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => (addr := this.__lpDD_lcl_ptr) ? DDRAWI_DIRECTDRAW_LCL.At(addr) : unset
+        set => this.__lpDD_lcl_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
-    /**
-     * @type {Pointer}
-     */
-    dwReserved1 {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    dwReserved1 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwDDRAWReserved1 {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    dwDDRAWReserved1 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwDDRAWReserved2 {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    dwDDRAWReserved2 : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    dwDDRAWReserved3 {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    dwDDRAWReserved3 : IntPtr
+
 }

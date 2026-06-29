@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains values that indicate a status associated with the command that is generic across many different types of commands.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_status_generic_command_codes
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_STATUS_GENERIC_COMMAND_CODES extends Win32Enum {
+export default struct NVME_STATUS_GENERIC_COMMAND_CODES {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The command completed successfully.

@@ -1,37 +1,79 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IDispatch.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\IUnknown.ahk
-#Include ..\..\Variant\VARIANT.ahk
-#Include .\IEventObjectCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\IDispatch.ahk" { IDispatch }
+#Import ".\IEventObjectCollection.ahk" { IEventObjectCollection }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\IUnknown.ahk" { IUnknown }
+#Import "..\..\Variant\VARIANT.ahk" { VARIANT }
 
 /**
  * Specifies information about the relationship between an event subscriber and an event to which it is subscribing. It is used by publisher filters.
  * @see https://learn.microsoft.com/windows/win32/api/eventsys/nn-eventsys-ieventsubscription
  * @namespace Windows.Win32.System.Com.Events
  */
-class IEventSubscription extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IEventSubscription extends IDispatch {
     /**
      * The interface identifier for IEventSubscription
      * @type {Guid}
      */
-    static IID => Guid("{4a6b0e15-2e38-11d1-9965-00c04fbbb345}")
+    static IID := Guid("{4a6b0e15-2e38-11d1-9965-00c04fbbb345}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IEventSubscription interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_SubscriptionID              : IntPtr
+        put_SubscriptionID              : IntPtr
+        get_SubscriptionName            : IntPtr
+        put_SubscriptionName            : IntPtr
+        get_PublisherID                 : IntPtr
+        put_PublisherID                 : IntPtr
+        get_EventClassID                : IntPtr
+        put_EventClassID                : IntPtr
+        get_MethodName                  : IntPtr
+        put_MethodName                  : IntPtr
+        get_SubscriberCLSID             : IntPtr
+        put_SubscriberCLSID             : IntPtr
+        get_SubscriberInterface         : IntPtr
+        put_SubscriberInterface         : IntPtr
+        get_PerUser                     : IntPtr
+        put_PerUser                     : IntPtr
+        get_OwnerSID                    : IntPtr
+        put_OwnerSID                    : IntPtr
+        get_Enabled                     : IntPtr
+        put_Enabled                     : IntPtr
+        get_Description                 : IntPtr
+        put_Description                 : IntPtr
+        get_MachineName                 : IntPtr
+        put_MachineName                 : IntPtr
+        GetPublisherProperty            : IntPtr
+        PutPublisherProperty            : IntPtr
+        RemovePublisherProperty         : IntPtr
+        GetPublisherPropertyCollection  : IntPtr
+        GetSubscriberProperty           : IntPtr
+        PutSubscriberProperty           : IntPtr
+        RemoveSubscriberProperty        : IntPtr
+        GetSubscriberPropertyCollection : IntPtr
+        get_InterfaceID                 : IntPtr
+        put_InterfaceID                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_SubscriptionID", "put_SubscriptionID", "get_SubscriptionName", "put_SubscriptionName", "get_PublisherID", "put_PublisherID", "get_EventClassID", "put_EventClassID", "get_MethodName", "put_MethodName", "get_SubscriberCLSID", "put_SubscriberCLSID", "get_SubscriberInterface", "put_SubscriberInterface", "get_PerUser", "put_PerUser", "get_OwnerSID", "put_OwnerSID", "get_Enabled", "put_Enabled", "get_Description", "put_Description", "get_MachineName", "put_MachineName", "GetPublisherProperty", "PutPublisherProperty", "RemovePublisherProperty", "GetPublisherPropertyCollection", "GetSubscriberProperty", "PutSubscriberProperty", "RemoveSubscriberProperty", "GetSubscriberPropertyCollection", "get_InterfaceID", "put_InterfaceID"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IEventSubscription.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -143,8 +185,8 @@ class IEventSubscription extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_subscriptionid
      */
     get_SubscriptionID() {
-        pbstrSubscriptionID := BSTR()
-        result := ComCall(7, this, "ptr", pbstrSubscriptionID, "HRESULT")
+        pbstrSubscriptionID := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pbstrSubscriptionID, "HRESULT")
         return pbstrSubscriptionID
     }
 
@@ -157,7 +199,7 @@ class IEventSubscription extends IDispatch {
     put_SubscriptionID(bstrSubscriptionID) {
         bstrSubscriptionID := bstrSubscriptionID is String ? BSTR.Alloc(bstrSubscriptionID).Value : bstrSubscriptionID
 
-        result := ComCall(8, this, "ptr", bstrSubscriptionID, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrSubscriptionID, "HRESULT")
         return result
     }
 
@@ -167,8 +209,8 @@ class IEventSubscription extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_subscriptionname
      */
     get_SubscriptionName() {
-        pbstrSubscriptionName := BSTR()
-        result := ComCall(9, this, "ptr", pbstrSubscriptionName, "HRESULT")
+        pbstrSubscriptionName := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pbstrSubscriptionName, "HRESULT")
         return pbstrSubscriptionName
     }
 
@@ -181,7 +223,7 @@ class IEventSubscription extends IDispatch {
     put_SubscriptionName(bstrSubscriptionName) {
         bstrSubscriptionName := bstrSubscriptionName is String ? BSTR.Alloc(bstrSubscriptionName).Value : bstrSubscriptionName
 
-        result := ComCall(10, this, "ptr", bstrSubscriptionName, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrSubscriptionName, "HRESULT")
         return result
     }
 
@@ -193,8 +235,8 @@ class IEventSubscription extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_publisherid
      */
     get_PublisherID() {
-        pbstrPublisherID := BSTR()
-        result := ComCall(11, this, "ptr", pbstrPublisherID, "HRESULT")
+        pbstrPublisherID := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pbstrPublisherID, "HRESULT")
         return pbstrPublisherID
     }
 
@@ -209,7 +251,7 @@ class IEventSubscription extends IDispatch {
     put_PublisherID(bstrPublisherID) {
         bstrPublisherID := bstrPublisherID is String ? BSTR.Alloc(bstrPublisherID).Value : bstrPublisherID
 
-        result := ComCall(12, this, "ptr", bstrPublisherID, "HRESULT")
+        result := ComCall(12, this, BSTR, bstrPublisherID, "HRESULT")
         return result
     }
 
@@ -219,8 +261,8 @@ class IEventSubscription extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_eventclassid
      */
     get_EventClassID() {
-        pbstrEventClassID := BSTR()
-        result := ComCall(13, this, "ptr", pbstrEventClassID, "HRESULT")
+        pbstrEventClassID := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, pbstrEventClassID, "HRESULT")
         return pbstrEventClassID
     }
 
@@ -233,7 +275,7 @@ class IEventSubscription extends IDispatch {
     put_EventClassID(bstrEventClassID) {
         bstrEventClassID := bstrEventClassID is String ? BSTR.Alloc(bstrEventClassID).Value : bstrEventClassID
 
-        result := ComCall(14, this, "ptr", bstrEventClassID, "HRESULT")
+        result := ComCall(14, this, BSTR, bstrEventClassID, "HRESULT")
         return result
     }
 
@@ -243,8 +285,8 @@ class IEventSubscription extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_methodname
      */
     get_MethodName() {
-        pbstrMethodName := BSTR()
-        result := ComCall(15, this, "ptr", pbstrMethodName, "HRESULT")
+        pbstrMethodName := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, pbstrMethodName, "HRESULT")
         return pbstrMethodName
     }
 
@@ -257,7 +299,7 @@ class IEventSubscription extends IDispatch {
     put_MethodName(bstrMethodName) {
         bstrMethodName := bstrMethodName is String ? BSTR.Alloc(bstrMethodName).Value : bstrMethodName
 
-        result := ComCall(16, this, "ptr", bstrMethodName, "HRESULT")
+        result := ComCall(16, this, BSTR, bstrMethodName, "HRESULT")
         return result
     }
 
@@ -269,8 +311,8 @@ class IEventSubscription extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_subscriberclsid
      */
     get_SubscriberCLSID() {
-        pbstrSubscriberCLSID := BSTR()
-        result := ComCall(17, this, "ptr", pbstrSubscriberCLSID, "HRESULT")
+        pbstrSubscriberCLSID := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, pbstrSubscriberCLSID, "HRESULT")
         return pbstrSubscriberCLSID
     }
 
@@ -285,7 +327,7 @@ class IEventSubscription extends IDispatch {
     put_SubscriberCLSID(bstrSubscriberCLSID) {
         bstrSubscriberCLSID := bstrSubscriberCLSID is String ? BSTR.Alloc(bstrSubscriberCLSID).Value : bstrSubscriberCLSID
 
-        result := ComCall(18, this, "ptr", bstrSubscriberCLSID, "HRESULT")
+        result := ComCall(18, this, BSTR, bstrSubscriberCLSID, "HRESULT")
         return result
     }
 
@@ -320,7 +362,7 @@ class IEventSubscription extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_peruser
      */
     get_PerUser() {
-        result := ComCall(21, this, "int*", &pfPerUser := 0, "HRESULT")
+        result := ComCall(21, this, BOOL.Ptr, &pfPerUser := 0, "HRESULT")
         return pfPerUser
     }
 
@@ -331,7 +373,7 @@ class IEventSubscription extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-put_peruser
      */
     put_PerUser(fPerUser) {
-        result := ComCall(22, this, "int", fPerUser, "HRESULT")
+        result := ComCall(22, this, BOOL, fPerUser, "HRESULT")
         return result
     }
 
@@ -341,8 +383,8 @@ class IEventSubscription extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_ownersid
      */
     get_OwnerSID() {
-        pbstrOwnerSID := BSTR()
-        result := ComCall(23, this, "ptr", pbstrOwnerSID, "HRESULT")
+        pbstrOwnerSID := BSTR.Owned()
+        result := ComCall(23, this, BSTR.Ptr, pbstrOwnerSID, "HRESULT")
         return pbstrOwnerSID
     }
 
@@ -355,7 +397,7 @@ class IEventSubscription extends IDispatch {
     put_OwnerSID(bstrOwnerSID) {
         bstrOwnerSID := bstrOwnerSID is String ? BSTR.Alloc(bstrOwnerSID).Value : bstrOwnerSID
 
-        result := ComCall(24, this, "ptr", bstrOwnerSID, "HRESULT")
+        result := ComCall(24, this, BSTR, bstrOwnerSID, "HRESULT")
         return result
     }
 
@@ -367,7 +409,7 @@ class IEventSubscription extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_enabled
      */
     get_Enabled() {
-        result := ComCall(25, this, "int*", &pfEnabled := 0, "HRESULT")
+        result := ComCall(25, this, BOOL.Ptr, &pfEnabled := 0, "HRESULT")
         return pfEnabled
     }
 
@@ -380,7 +422,7 @@ class IEventSubscription extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-put_enabled
      */
     put_Enabled(fEnabled) {
-        result := ComCall(26, this, "int", fEnabled, "HRESULT")
+        result := ComCall(26, this, BOOL, fEnabled, "HRESULT")
         return result
     }
 
@@ -390,8 +432,8 @@ class IEventSubscription extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_description
      */
     get_Description() {
-        pbstrDescription := BSTR()
-        result := ComCall(27, this, "ptr", pbstrDescription, "HRESULT")
+        pbstrDescription := BSTR.Owned()
+        result := ComCall(27, this, BSTR.Ptr, pbstrDescription, "HRESULT")
         return pbstrDescription
     }
 
@@ -404,7 +446,7 @@ class IEventSubscription extends IDispatch {
     put_Description(bstrDescription) {
         bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
 
-        result := ComCall(28, this, "ptr", bstrDescription, "HRESULT")
+        result := ComCall(28, this, BSTR, bstrDescription, "HRESULT")
         return result
     }
 
@@ -416,8 +458,8 @@ class IEventSubscription extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_machinename
      */
     get_MachineName() {
-        pbstrMachineName := BSTR()
-        result := ComCall(29, this, "ptr", pbstrMachineName, "HRESULT")
+        pbstrMachineName := BSTR.Owned()
+        result := ComCall(29, this, BSTR.Ptr, pbstrMachineName, "HRESULT")
         return pbstrMachineName
     }
 
@@ -432,7 +474,7 @@ class IEventSubscription extends IDispatch {
     put_MachineName(bstrMachineName) {
         bstrMachineName := bstrMachineName is String ? BSTR.Alloc(bstrMachineName).Value : bstrMachineName
 
-        result := ComCall(30, this, "ptr", bstrMachineName, "HRESULT")
+        result := ComCall(30, this, BSTR, bstrMachineName, "HRESULT")
         return result
     }
 
@@ -448,7 +490,7 @@ class IEventSubscription extends IDispatch {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
 
         _propertyValue := VARIANT()
-        result := ComCall(31, this, "ptr", bstrPropertyName, "ptr", _propertyValue, "HRESULT")
+        result := ComCall(31, this, BSTR, bstrPropertyName, VARIANT.Ptr, _propertyValue, "HRESULT")
         return _propertyValue
     }
 
@@ -464,7 +506,7 @@ class IEventSubscription extends IDispatch {
     PutPublisherProperty(bstrPropertyName, _propertyValue) {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
 
-        result := ComCall(32, this, "ptr", bstrPropertyName, "ptr", _propertyValue, "HRESULT")
+        result := ComCall(32, this, BSTR, bstrPropertyName, VARIANT.Ptr, _propertyValue, "HRESULT")
         return result
     }
 
@@ -479,7 +521,7 @@ class IEventSubscription extends IDispatch {
     RemovePublisherProperty(bstrPropertyName) {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
 
-        result := ComCall(33, this, "ptr", bstrPropertyName, "HRESULT")
+        result := ComCall(33, this, BSTR, bstrPropertyName, "HRESULT")
         return result
     }
 
@@ -505,7 +547,7 @@ class IEventSubscription extends IDispatch {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
 
         _propertyValue := VARIANT()
-        result := ComCall(35, this, "ptr", bstrPropertyName, "ptr", _propertyValue, "HRESULT")
+        result := ComCall(35, this, BSTR, bstrPropertyName, VARIANT.Ptr, _propertyValue, "HRESULT")
         return _propertyValue
     }
 
@@ -521,7 +563,7 @@ class IEventSubscription extends IDispatch {
     PutSubscriberProperty(bstrPropertyName, _propertyValue) {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
 
-        result := ComCall(36, this, "ptr", bstrPropertyName, "ptr", _propertyValue, "HRESULT")
+        result := ComCall(36, this, BSTR, bstrPropertyName, VARIANT.Ptr, _propertyValue, "HRESULT")
         return result
     }
 
@@ -534,7 +576,7 @@ class IEventSubscription extends IDispatch {
     RemoveSubscriberProperty(bstrPropertyName) {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
 
-        result := ComCall(37, this, "ptr", bstrPropertyName, "HRESULT")
+        result := ComCall(37, this, BSTR, bstrPropertyName, "HRESULT")
         return result
     }
 
@@ -556,8 +598,8 @@ class IEventSubscription extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_interfaceid
      */
     get_InterfaceID() {
-        pbstrInterfaceID := BSTR()
-        result := ComCall(39, this, "ptr", pbstrInterfaceID, "HRESULT")
+        pbstrInterfaceID := BSTR.Owned()
+        result := ComCall(39, this, BSTR.Ptr, pbstrInterfaceID, "HRESULT")
         return pbstrInterfaceID
     }
 
@@ -570,7 +612,93 @@ class IEventSubscription extends IDispatch {
     put_InterfaceID(bstrInterfaceID) {
         bstrInterfaceID := bstrInterfaceID is String ? BSTR.Alloc(bstrInterfaceID).Value : bstrInterfaceID
 
-        result := ComCall(40, this, "ptr", bstrInterfaceID, "HRESULT")
+        result := ComCall(40, this, BSTR, bstrInterfaceID, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IEventSubscription.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_SubscriptionID := CallbackCreate(GetMethod(implObj, "get_SubscriptionID"), flags, 2)
+        this.vtbl.put_SubscriptionID := CallbackCreate(GetMethod(implObj, "put_SubscriptionID"), flags, 2)
+        this.vtbl.get_SubscriptionName := CallbackCreate(GetMethod(implObj, "get_SubscriptionName"), flags, 2)
+        this.vtbl.put_SubscriptionName := CallbackCreate(GetMethod(implObj, "put_SubscriptionName"), flags, 2)
+        this.vtbl.get_PublisherID := CallbackCreate(GetMethod(implObj, "get_PublisherID"), flags, 2)
+        this.vtbl.put_PublisherID := CallbackCreate(GetMethod(implObj, "put_PublisherID"), flags, 2)
+        this.vtbl.get_EventClassID := CallbackCreate(GetMethod(implObj, "get_EventClassID"), flags, 2)
+        this.vtbl.put_EventClassID := CallbackCreate(GetMethod(implObj, "put_EventClassID"), flags, 2)
+        this.vtbl.get_MethodName := CallbackCreate(GetMethod(implObj, "get_MethodName"), flags, 2)
+        this.vtbl.put_MethodName := CallbackCreate(GetMethod(implObj, "put_MethodName"), flags, 2)
+        this.vtbl.get_SubscriberCLSID := CallbackCreate(GetMethod(implObj, "get_SubscriberCLSID"), flags, 2)
+        this.vtbl.put_SubscriberCLSID := CallbackCreate(GetMethod(implObj, "put_SubscriberCLSID"), flags, 2)
+        this.vtbl.get_SubscriberInterface := CallbackCreate(GetMethod(implObj, "get_SubscriberInterface"), flags, 2)
+        this.vtbl.put_SubscriberInterface := CallbackCreate(GetMethod(implObj, "put_SubscriberInterface"), flags, 2)
+        this.vtbl.get_PerUser := CallbackCreate(GetMethod(implObj, "get_PerUser"), flags, 2)
+        this.vtbl.put_PerUser := CallbackCreate(GetMethod(implObj, "put_PerUser"), flags, 2)
+        this.vtbl.get_OwnerSID := CallbackCreate(GetMethod(implObj, "get_OwnerSID"), flags, 2)
+        this.vtbl.put_OwnerSID := CallbackCreate(GetMethod(implObj, "put_OwnerSID"), flags, 2)
+        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.put_Enabled := CallbackCreate(GetMethod(implObj, "put_Enabled"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.get_MachineName := CallbackCreate(GetMethod(implObj, "get_MachineName"), flags, 2)
+        this.vtbl.put_MachineName := CallbackCreate(GetMethod(implObj, "put_MachineName"), flags, 2)
+        this.vtbl.GetPublisherProperty := CallbackCreate(GetMethod(implObj, "GetPublisherProperty"), flags, 3)
+        this.vtbl.PutPublisherProperty := CallbackCreate(GetMethod(implObj, "PutPublisherProperty"), flags, 3)
+        this.vtbl.RemovePublisherProperty := CallbackCreate(GetMethod(implObj, "RemovePublisherProperty"), flags, 2)
+        this.vtbl.GetPublisherPropertyCollection := CallbackCreate(GetMethod(implObj, "GetPublisherPropertyCollection"), flags, 2)
+        this.vtbl.GetSubscriberProperty := CallbackCreate(GetMethod(implObj, "GetSubscriberProperty"), flags, 3)
+        this.vtbl.PutSubscriberProperty := CallbackCreate(GetMethod(implObj, "PutSubscriberProperty"), flags, 3)
+        this.vtbl.RemoveSubscriberProperty := CallbackCreate(GetMethod(implObj, "RemoveSubscriberProperty"), flags, 2)
+        this.vtbl.GetSubscriberPropertyCollection := CallbackCreate(GetMethod(implObj, "GetSubscriberPropertyCollection"), flags, 2)
+        this.vtbl.get_InterfaceID := CallbackCreate(GetMethod(implObj, "get_InterfaceID"), flags, 2)
+        this.vtbl.put_InterfaceID := CallbackCreate(GetMethod(implObj, "put_InterfaceID"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_SubscriptionID)
+        CallbackFree(this.vtbl.put_SubscriptionID)
+        CallbackFree(this.vtbl.get_SubscriptionName)
+        CallbackFree(this.vtbl.put_SubscriptionName)
+        CallbackFree(this.vtbl.get_PublisherID)
+        CallbackFree(this.vtbl.put_PublisherID)
+        CallbackFree(this.vtbl.get_EventClassID)
+        CallbackFree(this.vtbl.put_EventClassID)
+        CallbackFree(this.vtbl.get_MethodName)
+        CallbackFree(this.vtbl.put_MethodName)
+        CallbackFree(this.vtbl.get_SubscriberCLSID)
+        CallbackFree(this.vtbl.put_SubscriberCLSID)
+        CallbackFree(this.vtbl.get_SubscriberInterface)
+        CallbackFree(this.vtbl.put_SubscriberInterface)
+        CallbackFree(this.vtbl.get_PerUser)
+        CallbackFree(this.vtbl.put_PerUser)
+        CallbackFree(this.vtbl.get_OwnerSID)
+        CallbackFree(this.vtbl.put_OwnerSID)
+        CallbackFree(this.vtbl.get_Enabled)
+        CallbackFree(this.vtbl.put_Enabled)
+        CallbackFree(this.vtbl.get_Description)
+        CallbackFree(this.vtbl.put_Description)
+        CallbackFree(this.vtbl.get_MachineName)
+        CallbackFree(this.vtbl.put_MachineName)
+        CallbackFree(this.vtbl.GetPublisherProperty)
+        CallbackFree(this.vtbl.PutPublisherProperty)
+        CallbackFree(this.vtbl.RemovePublisherProperty)
+        CallbackFree(this.vtbl.GetPublisherPropertyCollection)
+        CallbackFree(this.vtbl.GetSubscriberProperty)
+        CallbackFree(this.vtbl.PutSubscriberProperty)
+        CallbackFree(this.vtbl.RemoveSubscriberProperty)
+        CallbackFree(this.vtbl.GetSubscriberPropertyCollection)
+        CallbackFree(this.vtbl.get_InterfaceID)
+        CallbackFree(this.vtbl.put_InterfaceID)
     }
 }

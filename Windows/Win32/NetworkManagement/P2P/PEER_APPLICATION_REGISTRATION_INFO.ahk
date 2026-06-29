@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PEER_APPLICATION.ahk
-#Include .\PEER_DATA.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PEER_DATA.ahk" { PEER_DATA }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\PEER_APPLICATION.ahk" { PEER_APPLICATION }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * The PEER_APPLICATION_REGISTRATION_INFO structure contains peer application information for registration with the local computer.
@@ -12,48 +13,28 @@
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_application_registration_info
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
-class PEER_APPLICATION_REGISTRATION_INFO extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct PEER_APPLICATION_REGISTRATION_INFO {
+    #StructPack 8
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_application">PEER_APPLICATION</a> structure that contains the specific peer application data.
      * @deprecated
-     * @type {PEER_APPLICATION}
      */
-    application {
-        get {
-            if(!this.HasProp("__application"))
-                this.__application := PEER_APPLICATION(0, this)
-            return this.__application
-        }
-    }
+    application : PEER_APPLICATION
 
     /**
      * Zero-terminated Unicode string that contains the local path to the executable peer application. Note that this data is for local use only and that this structure is never transmitted remotely.
-     * @type {PWSTR}
      */
-    pwzApplicationToLaunch {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pwzApplicationToLaunch : PWSTR
 
     /**
      * Zero-terminated Unicode string that contains command-line arguments that must be supplied to the application when the application is launched. This data is for local use only. The PEER_APPLICATION_REGISTRATION_INFO  structure is never transmitted remotely.
-     * @type {PWSTR}
      */
-    pwzApplicationArguments {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pwzApplicationArguments : PWSTR
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_publication_scope">PEER_PUBLICATION_SCOPE</a> enumeration value that specifies the publication scope for this application registration information. The only valid value for this member is PEER_PUBLICATION_SCOPE_INTERNET.
-     * @type {Integer}
      */
-    dwPublicationScope {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    dwPublicationScope : UInt32
+
 }

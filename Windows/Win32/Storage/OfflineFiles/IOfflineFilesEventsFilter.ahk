@@ -1,33 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\OFFLINEFILES_EVENTS.ahk" { OFFLINEFILES_EVENTS }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\OFFLINEFILES_PATHFILTER_MATCH.ahk" { OFFLINEFILES_PATHFILTER_MATCH }
 
 /**
  * Provides a mechanism for recipients of published events to restrict the number of event instances they receive.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefileseventsfilter
  * @namespace Windows.Win32.Storage.OfflineFiles
  */
-class IOfflineFilesEventsFilter extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOfflineFilesEventsFilter extends IUnknown {
     /**
      * The interface identifier for IOfflineFilesEventsFilter
      * @type {Guid}
      */
-    static IID => Guid("{33fc4e1b-0716-40fa-ba65-6e62a84a846f}")
+    static IID := Guid("{33fc4e1b-0716-40fa-ba65-6e62a84a846f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOfflineFilesEventsFilter interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetPathFilter     : IntPtr
+        GetIncludedEvents : IntPtr
+        GetExcludedEvents : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPathFilter", "GetIncludedEvents", "GetExcludedEvents"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOfflineFilesEventsFilter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a UNC path string and a scope indicator describing which path-based events should be delivered to this event sink.
@@ -74,5 +87,29 @@ class IOfflineFilesEventsFilter extends IUnknown {
 
         result := ComCall(5, this, "uint", cElements, prgEventsMarshal, prgEvents, pcEventsMarshal, pcEvents, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOfflineFilesEventsFilter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPathFilter := CallbackCreate(GetMethod(implObj, "GetPathFilter"), flags, 3)
+        this.vtbl.GetIncludedEvents := CallbackCreate(GetMethod(implObj, "GetIncludedEvents"), flags, 4)
+        this.vtbl.GetExcludedEvents := CallbackCreate(GetMethod(implObj, "GetExcludedEvents"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPathFilter)
+        CallbackFree(this.vtbl.GetIncludedEvents)
+        CallbackFree(this.vtbl.GetExcludedEvents)
     }
 }

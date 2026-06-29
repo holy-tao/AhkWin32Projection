@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines information about a counter that a provider uses. The CTRPP tool automatically generates this structure based on the schema you specify.
@@ -8,28 +7,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_counter_info
  * @namespace Windows.Win32.System.Performance
  */
-class PERF_COUNTER_INFO extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct PERF_COUNTER_INFO {
+    #StructPack 8
 
     /**
      * Identifier that uniquely identifies the counter within the counter set.
-     * @type {Integer}
      */
-    CounterId {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    CounterId : UInt32
 
     /**
      * Specifies the type of counter. For possible counter types, see <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2003/cc776490(v=ws.10)">Counter Types</a> in the Windows 2003 Deployment Guide.
-     * @type {Integer}
      */
-    Type {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Type : UInt32
 
     /**
      * One or more attributes that indicate how to display this counter.
@@ -98,21 +87,13 @@ class PERF_COUNTER_INFO extends Win32Struct {
      *  
      * 
      * The attributes PERF_ATTRIB_NO_GROUP_SEPARATOR, PERF_ATTRIB_DISPLAY_AS_REAL, and PERF_ATTRIB_DISPLAY_AS_HEX are not mutually exclusive. If you specify all three attributes, precedence is given to the attributes in the order given.
-     * @type {Integer}
      */
-    Attrib {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Attrib : Int64
 
     /**
      * Size, in bytes, of this structure.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Size : UInt32
 
     /**
      * Specify the target audience for the counter. 
@@ -148,28 +129,17 @@ class PERF_COUNTER_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    DetailLevel {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    DetailLevel : UInt32
 
     /**
      * Scale factor to apply to the counter value. Valid values range from –10 through 10. Zero if no scale is applied. If this value is zero, the scale value is 1; if this value is 1, the scale value is 10; if this value is –1, the scale value is .10; and so on.
-     * @type {Integer}
      */
-    Scale {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    Scale : Int32
 
     /**
      * Byte offset from the beginning of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counterset_instance">PERF_COUNTERSET_INSTANCE</a> block to the counter value.
-     * @type {Integer}
      */
-    Offset {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    Offset : UInt32
+
 }

@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\D3D11_SHADER_VARIABLE_DESC.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID3D11ShaderReflectionConstantBuffer.ahk" { ID3D11ShaderReflectionConstantBuffer }
+#Import ".\D3D11_SHADER_VARIABLE_DESC.ahk" { D3D11_SHADER_VARIABLE_DESC }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D11ShaderReflectionType.ahk" { ID3D11ShaderReflectionType }
 
 /**
  * This shader-reflection interface provides access to a variable. (ID3D11ShaderReflectionVariable)
@@ -10,26 +13,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nn-d3d11shader-id3d11shaderreflectionvariable
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class ID3D11ShaderReflectionVariable extends Win32ComInterface {
-
-    static sizeof => A_PtrSize
+export default struct ID3D11ShaderReflectionVariable extends Win32ComInterface {
     /**
      * The interface identifier for ID3D11ShaderReflectionVariable
      * @type {Guid}
      */
-    static IID => Guid("{51f23923-f3e5-4bd1-91cb-606177d8db4c}")
+    static IID := Guid("{51f23923-f3e5-4bd1-91cb-606177d8db4c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 0
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D11ShaderReflectionVariable interfaces
+    */
+    struct Vtbl {
+        GetDesc          : IntPtr
+        GetType          : IntPtr
+        GetBuffer        : IntPtr
+        GetInterfaceSlot : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDesc", "GetType", "GetBuffer", "GetInterfaceSlot"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D11ShaderReflectionVariable.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Get a shader-variable description. (ID3D11ShaderReflectionVariable.GetDesc)
@@ -44,7 +57,7 @@ class ID3D11ShaderReflectionVariable extends Win32ComInterface {
      */
     GetDesc() {
         pDesc := D3D11_SHADER_VARIABLE_DESC()
-        result := ComCall(0, this, "ptr", pDesc, "HRESULT")
+        result := ComCall(0, this, D3D11_SHADER_VARIABLE_DESC.Ptr, pDesc, "HRESULT")
         return pDesc
     }
 
@@ -58,7 +71,7 @@ class ID3D11ShaderReflectionVariable extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflectionvariable-gettype
      */
     GetType() {
-        result := ComCall(1, this, "ptr")
+        result := ComCall(1, this, ID3D11ShaderReflectionType)
         return result
     }
 
@@ -70,7 +83,7 @@ class ID3D11ShaderReflectionVariable extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflectionvariable-getbuffer
      */
     GetBuffer() {
-        result := ComCall(2, this, "ptr")
+        result := ComCall(2, this, ID3D11ShaderReflectionConstantBuffer)
         return result
     }
 
@@ -89,7 +102,14 @@ class ID3D11ShaderReflectionVariable extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflectionvariable-getinterfaceslot
      */
     GetInterfaceSlot(uArrayIndex) {
-        result := ComCall(3, this, "uint", uArrayIndex, "uint")
+        result := ComCall(3, this, "uint", uArrayIndex, UInt32)
         return result
+    }
+
+    Query(iid) {
+        if (ID3D11ShaderReflectionVariable.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
     }
 }

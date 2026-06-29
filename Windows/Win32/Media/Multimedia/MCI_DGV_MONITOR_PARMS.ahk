@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MCI_DGV_MONITOR_PARMS structure contains parameters for the MCI_MONITOR command.
@@ -8,19 +7,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/digitalv/ns-digitalv-mci_dgv_monitor_parms
  * @namespace Windows.Win32.Media.Multimedia
  */
-class MCI_DGV_MONITOR_PARMS extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct MCI_DGV_MONITOR_PARMS {
+    #StructPack 8
 
     /**
      * The low-order word specifies a window handle used for the MCI_NOTIFY flag.
-     * @type {Pointer}
      */
-    dwCallback {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwCallback : IntPtr
 
     /**
      * One of the following flags for the monitor source:
@@ -51,12 +44,8 @@ class MCI_DGV_MONITOR_PARMS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwSource {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwSource : UInt32
 
     /**
      * One of the following constants for the type of monitoring:
@@ -97,10 +86,7 @@ class MCI_DGV_MONITOR_PARMS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwMethod {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwMethod : UInt32
+
 }

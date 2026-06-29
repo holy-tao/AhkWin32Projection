@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Represents the degree to which a font has been stretched compared to a font's normal aspect ratio.
@@ -14,7 +13,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class DWRITE_FONT_STRETCH extends Win32Enum {
+export default struct DWRITE_FONT_STRETCH {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Predefined font stretch : Not known (0).

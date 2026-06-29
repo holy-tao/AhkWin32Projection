@@ -1,48 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
  */
-class IMEKMSFUNCDESC extends Win32Struct {
-    static sizeof => 268
+export default struct IMEKMSFUNCDESC {
+    #StructPack 4
 
-    static packingSize => 4
+    cbSize : Int32 := this.Size
 
-    /**
-     * @type {Integer}
-     */
-    cbSize {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    idLang : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    idLang {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
-    }
+    dwControl : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwControl {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    pwszDescription : WCHAR[128]
 
-    /**
-     * @type {String}
-     */
-    pwszDescription {
-        get => StrGet(this.ptr + 12, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 12, 127, "UTF-16")
-    }
-
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 268
-    }
 }

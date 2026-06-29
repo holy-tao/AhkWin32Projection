@@ -1,54 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Graphics.Dxgi.Common
  */
-class DXGI_GAMMA_CONTROL_CAPABILITIES extends Win32Struct {
-    static sizeof => 4116
+export default struct DXGI_GAMMA_CONTROL_CAPABILITIES {
+    #StructPack 4
 
-    static packingSize => 4
+    ScaleAndOffsetSupported : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    ScaleAndOffsetSupported {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    MaxConvertedValue : Float32
 
-    /**
-     * @type {Float}
-     */
-    MaxConvertedValue {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    MinConvertedValue : Float32
 
-    /**
-     * @type {Float}
-     */
-    MinConvertedValue {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    NumGammaControlPoints : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumGammaControlPoints {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ControlPointPositions : Float32[1025]
 
-    /**
-     * @type {Array<Float>}
-     */
-    ControlPointPositions {
-        get {
-            if(!this.HasProp("__ControlPointPositionsProxyArray"))
-                this.__ControlPointPositionsProxyArray := Win32FixedArray(this.ptr + 16, 1025, Primitive, "float")
-            return this.__ControlPointPositionsProxyArray
-        }
-    }
 }

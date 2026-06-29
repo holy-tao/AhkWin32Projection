@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines values for the currently known media types supported by IMAPI.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/ne-imapi2-imapi_media_physical_type
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IMAPI_MEDIA_PHYSICAL_TYPE extends Win32Enum {
+export default struct IMAPI_MEDIA_PHYSICAL_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The disc recorder contains an unknown media type or the recorder is empty.

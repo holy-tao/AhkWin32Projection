@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains the progress and result data for the current virtual hard disk (VHD) operation, used by the GetVirtualDiskOperationProgress function.
@@ -29,21 +28,15 @@
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-virtual_disk_progress
  * @namespace Windows.Win32.Storage.Vhd
  */
-class VIRTUAL_DISK_PROGRESS extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct VIRTUAL_DISK_PROGRESS {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> status value, this member will 
      *      be <b>ERROR_IO_PENDING</b> if the operation is still in progress; otherwise, the value is the 
      *      result code of the completed operation.
-     * @type {Integer}
      */
-    OperationStatus {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    OperationStatus : UInt32
 
     /**
      * The current progress of the operation, used in conjunction with the 
@@ -51,22 +44,15 @@ class VIRTUAL_DISK_PROGRESS extends Win32Struct {
      * 
      * This value is meaningful only if 
      *      <b>OperationStatus</b> is <b>ERROR_IO_PENDING</b>.
-     * @type {Integer}
      */
-    CurrentValue {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    CurrentValue : Int64
 
     /**
      * The value that the <b>CurrentValue</b> member would be if the operation were complete.
      * 
      * This value is meaningful only if <b>OperationStatus</b> is 
      *       <b>ERROR_IO_PENDING</b>.
-     * @type {Integer}
      */
-    CompletionValue {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    CompletionValue : Int64
+
 }

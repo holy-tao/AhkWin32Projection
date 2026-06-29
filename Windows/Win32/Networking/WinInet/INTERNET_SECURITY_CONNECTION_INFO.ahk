@@ -1,52 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\Authentication\Identity\SecPkgContext_ConnectionInfo.ahk
-#Include ..\..\Security\Cryptography\ALG_ID.ahk
-#Include ..\..\Security\Authentication\Identity\SecPkgContext_CipherInfo.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Security\Authentication\Identity\SecPkgContext_CipherInfo.ahk" { SecPkgContext_CipherInfo }
+#Import "..\..\Security\Authentication\Identity\SecPkgContext_ConnectionInfo.ahk" { SecPkgContext_ConnectionInfo }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Security\Cryptography\ALG_ID.ahk" { ALG_ID }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
  */
-class INTERNET_SECURITY_CONNECTION_INFO extends Win32Struct {
-    static sizeof => 716
+export default struct INTERNET_SECURITY_CONNECTION_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    fSecure : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    fSecure {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    connectionInfo : SecPkgContext_ConnectionInfo
 
-    /**
-     * @type {SecPkgContext_ConnectionInfo}
-     */
-    connectionInfo {
-        get {
-            if(!this.HasProp("__connectionInfo"))
-                this.__connectionInfo := SecPkgContext_ConnectionInfo(8, this)
-            return this.__connectionInfo
-        }
-    }
+    cipherInfo : SecPkgContext_CipherInfo
 
-    /**
-     * @type {SecPkgContext_CipherInfo}
-     */
-    cipherInfo {
-        get {
-            if(!this.HasProp("__cipherInfo"))
-                this.__cipherInfo := SecPkgContext_CipherInfo(36, this)
-            return this.__cipherInfo
-        }
-    }
 }

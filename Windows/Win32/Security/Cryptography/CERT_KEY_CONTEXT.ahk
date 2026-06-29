@@ -1,44 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NCRYPT_KEY_HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NCRYPT_KEY_HANDLE.ahk" { NCRYPT_KEY_HANDLE }
 
 /**
  * Contains data associated with a CERT_KEY_CONTEXT_PROP_ID property.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_key_context
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_KEY_CONTEXT extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct CERT_KEY_CONTEXT {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
-    /**
-     * @type {Pointer}
-     */
-    hCryptProv {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {NCRYPT_KEY_HANDLE}
-     */
-    hNCryptKey {
-        get {
-            if(!this.HasProp("__hNCryptKey"))
-                this.__hNCryptKey := NCRYPT_KEY_HANDLE(8, this)
-            return this.__hNCryptKey
-        }
-    }
+    hCryptProv : IntPtr
 
     /**
      * The specification of the private key to retrieve. 
@@ -86,15 +62,11 @@ class CERT_KEY_CONTEXT extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwKeySpec {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwKeySpec : UInt32
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 24
+    static __New() {
+        DefineProp(this.Prototype, 'hNCryptKey', { type: NCRYPT_KEY_HANDLE, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

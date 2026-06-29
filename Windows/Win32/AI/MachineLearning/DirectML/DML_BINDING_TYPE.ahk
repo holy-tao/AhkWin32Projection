@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines constants that specify the nature of the resource(s) referred to by a binding description (a DML_BINDING_DESC structure).
  * @see https://learn.microsoft.com/windows/win32/api/directml/ne-directml-dml_binding_type
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  */
-class DML_BINDING_TYPE extends Win32Enum {
+export default struct DML_BINDING_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Indicates that no resources are to be bound.

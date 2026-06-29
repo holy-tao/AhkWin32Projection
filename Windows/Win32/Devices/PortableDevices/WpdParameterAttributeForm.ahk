@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes how a (method or event) parameter stores its value.
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-parameter-attribute-form
  * @namespace Windows.Win32.Devices.PortableDevices
  */
-class WpdParameterAttributeForm extends Win32Enum {
+export default struct WpdParameterAttributeForm {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

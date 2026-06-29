@@ -1,67 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Diagnostics\Etw\EVENT_TRACE_HEADER.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Diagnostics\Etw\EVENT_TRACE_HEADER.ahk" { EVENT_TRACE_HEADER }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class DXVA2TraceVideoProcessBltData extends Win32Struct {
-    static sizeof => 88
+export default struct DXVA2TraceVideoProcessBltData {
+    #StructPack 8
 
-    static packingSize => 8
+    wmiHeader : EVENT_TRACE_HEADER
 
-    /**
-     * @type {EVENT_TRACE_HEADER}
-     */
-    wmiHeader {
-        get {
-            if(!this.HasProp("__wmiHeader"))
-                this.__wmiHeader := EVENT_TRACE_HEADER(0, this)
-            return this.__wmiHeader
-        }
-    }
+    pObject : Int64
 
-    /**
-     * @type {Integer}
-     */
-    pObject {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    pRenderTarget : Int64
 
-    /**
-     * @type {Integer}
-     */
-    pRenderTarget {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    TargetFrameTime : Int64
 
-    /**
-     * @type {Integer}
-     */
-    TargetFrameTime {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    TargetRect : RECT
 
-    /**
-     * @type {RECT}
-     */
-    TargetRect {
-        get {
-            if(!this.HasProp("__TargetRect"))
-                this.__TargetRect := RECT(64, this)
-            return this.__TargetRect
-        }
-    }
+    Enter : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    Enter {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
-    }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The NET_PHYSICAL_LOCATION structure provides NDIS with information about the physical location of a registered network interface.
@@ -17,38 +16,25 @@
  * @see https://learn.microsoft.com/windows/win32/api/ifdef/ns-ifdef-net_physical_location_lh
  * @namespace Windows.Win32.NetworkManagement.Ndis
  */
-class NET_PHYSICAL_LOCATION_LH extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct NET_PHYSICAL_LOCATION_LH {
+    #StructPack 4
 
     /**
      * The bus number of the physical location for hardware. If the physical location is unknown, set
      *      this member to NIIF_BUS_NUMBER_UNKNOWN. Other values are reserved for NDIS.
-     * @type {Integer}
      */
-    BusNumber {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    BusNumber : UInt32
 
     /**
      * The slot number of the physical location for hardware. If the physical location is unknown, set
      *      this member to NIIF_SLOT_NUMBER_UNKNOWN. Other values are reserved for NDIS.
-     * @type {Integer}
      */
-    SlotNumber {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    SlotNumber : UInt32
 
     /**
      * The function number of the physical location for hardware. If the physical location is unknown,
      *      set this member to NIIF_FUNCTION_NUMBER_UNKNOWN. Other values are reserved for NDIS.
-     * @type {Integer}
      */
-    FunctionNumber {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    FunctionNumber : UInt32
+
 }

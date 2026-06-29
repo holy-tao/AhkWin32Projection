@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IAudioMediaType.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IAudioMediaType.ahk" { IAudioMediaType }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAudioSystemEffectsCustomFormats interface is supported in Windows Vista and later versions of Windows.
  * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nn-audioenginebaseapo-iaudiosystemeffectscustomformats
  * @namespace Windows.Win32.Media.Audio.Apo
  */
-class IAudioSystemEffectsCustomFormats extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAudioSystemEffectsCustomFormats extends IUnknown {
     /**
      * The interface identifier for IAudioSystemEffectsCustomFormats
      * @type {Guid}
      */
-    static IID => Guid("{b1176e34-bb7f-4f05-bebd-1b18a534e097}")
+    static IID := Guid("{b1176e34-bb7f-4f05-bebd-1b18a534e097}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAudioSystemEffectsCustomFormats interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetFormatCount          : IntPtr
+        GetFormat               : IntPtr
+        GetFormatRepresentation : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetFormatCount", "GetFormat", "GetFormatRepresentation"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAudioSystemEffectsCustomFormats.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The GetFormatCount method retrieves the number of custom formats supported by the system effects audio processing object (sAPO).
@@ -64,7 +75,31 @@ class IAudioSystemEffectsCustomFormats extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudiosystemeffectscustomformats-getformatrepresentation
      */
     GetFormatRepresentation(nFormat) {
-        result := ComCall(5, this, "uint", nFormat, "ptr*", &ppwstrFormatRep := 0, "HRESULT")
+        result := ComCall(5, this, "uint", nFormat, PWSTR.Ptr, &ppwstrFormatRep := 0, "HRESULT")
         return ppwstrFormatRep
+    }
+
+    Query(iid) {
+        if (IAudioSystemEffectsCustomFormats.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetFormatCount := CallbackCreate(GetMethod(implObj, "GetFormatCount"), flags, 2)
+        this.vtbl.GetFormat := CallbackCreate(GetMethod(implObj, "GetFormat"), flags, 3)
+        this.vtbl.GetFormatRepresentation := CallbackCreate(GetMethod(implObj, "GetFormatRepresentation"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetFormatCount)
+        CallbackFree(this.vtbl.GetFormat)
+        CallbackFree(this.vtbl.GetFormatRepresentation)
     }
 }

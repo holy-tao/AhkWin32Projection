@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The AVICOMPRESSOPTIONS structure contains information about a stream and how it is compressed and saved. This structure passes data to the AVIMakeCompressedStream function (or the AVISave function, which uses AVIMakeCompressedStream).
  * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-avicompressoptions
  * @namespace Windows.Win32.Media.Multimedia
  */
-class AVICOMPRESSOPTIONS extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct AVICOMPRESSOPTIONS {
+    #StructPack 8
 
     /**
      * Four-character code indicating the stream type. The following constants have been defined for the data commonly found in AVI streams:
@@ -60,48 +57,28 @@ class AVICOMPRESSOPTIONS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    fccType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    fccType : UInt32
 
     /**
      * Four-character code for the compressor handler that will compress this video stream when it is saved (for example, <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-mmiofourcc">mmioFOURCC</a> ('M','S','V','C')). This member is not used for audio streams.
-     * @type {Integer}
      */
-    fccHandler {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    fccHandler : UInt32
 
     /**
      * Maximum period between video key frames. This member is used only if the AVICOMPRESSF_KEYFRAMES flag is set; otherwise every video frame is a key frame.
-     * @type {Integer}
      */
-    dwKeyFrameEvery {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwKeyFrameEvery : UInt32
 
     /**
      * Quality value passed to a video compressor. This member is not used for an audio compressor.
-     * @type {Integer}
      */
-    dwQuality {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwQuality : UInt32
 
     /**
      * Video compressor data rate. This member is used only if the AVICOMPRESSF_DATARATE flag is set.
-     * @type {Integer}
      */
-    dwBytesPerSecond {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwBytesPerSecond : UInt32
 
     /**
      * Flags used for compression. The following values are defined:
@@ -152,55 +129,32 @@ class AVICOMPRESSOPTIONS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwFlags : UInt32
 
     /**
      * Pointer to a structure defining the data format. For an audio stream, this is an <b>LPWAVEFORMAT</b> structure.
-     * @type {Pointer<Void>}
      */
-    lpFormat {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpFormat : IntPtr
 
     /**
      * Size, in bytes, of the data referenced by <b>lpFormat</b>.
-     * @type {Integer}
      */
-    cbFormat {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    cbFormat : UInt32
 
     /**
      * Video-compressor-specific data; used internally.
-     * @type {Pointer<Void>}
      */
-    lpParms {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lpParms : IntPtr
 
     /**
      * Size, in bytes, of the data referenced by <b>lpParms</b>
-     * @type {Integer}
      */
-    cbParms {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    cbParms : UInt32
 
     /**
      * Interleave factor for interspersing stream data with data from the first stream. Used only if the AVICOMPRESSF_INTERLEAVE flag is set.
-     * @type {Integer}
      */
-    dwInterleaveEvery {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    dwInterleaveEvery : UInt32
+
 }

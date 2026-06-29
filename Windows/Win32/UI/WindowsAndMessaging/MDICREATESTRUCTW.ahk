@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\WINDOW_STYLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WINDOW_STYLE.ahk" { WINDOW_STYLE }
 
 /**
  * Contains information about the class, title, owner, location, and size of a multiple-document interface (MDI) child window. (Unicode)
@@ -20,108 +21,68 @@
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @charset Unicode
  */
-class MDICREATESTRUCTW extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct MDICREATESTRUCTW {
+    #StructPack 8
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * The name of the window class of the MDI child window. The class name must have been registered by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> function.
-     * @type {PWSTR}
      */
-    szClass {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    szClass : PWSTR
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * The title of the MDI child window. The system displays the title in the child window's title bar.
-     * @type {PWSTR}
      */
-    szTitle {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    szTitle : PWSTR
 
     /**
      * Type: <b>HANDLE</b>
      * 
      * A handle to the instance of the application creating the MDI client window.
-     * @type {HANDLE}
      */
-    hOwner {
-        get {
-            if(!this.HasProp("__hOwner"))
-                this.__hOwner := HANDLE(16, this)
-            return this.__hOwner
-        }
-    }
+    hOwner : HANDLE
 
     /**
      * Type: <b>int</b>
      * 
      * The initial horizontal position, in client coordinates, of the MDI child window. If this member is <b>CW_USEDEFAULT</b>, the MDI child window is assigned the default horizontal position.
-     * @type {Integer}
      */
-    x {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    x : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * The initial vertical position, in client coordinates, of the MDI child window. If this member is <b>CW_USEDEFAULT</b>, the MDI child window is assigned the default vertical position.
-     * @type {Integer}
      */
-    y {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    y : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * The initial width, in device units, of the MDI child window. If this member is <b>CW_USEDEFAULT</b>, the MDI child window is assigned the default width.
-     * @type {Integer}
      */
-    cx {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    cx : Int32
 
     /**
      * Type: <b>int</b>
      * 
      * The initial height, in device units, of the MDI child window. If this member is set to <b>CW_USEDEFAULT</b>, the MDI child window is assigned the default height.
-     * @type {Integer}
      */
-    cy {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    cy : Int32
 
     /**
      * Type: <b>DWORD</b>
-     * @type {WINDOW_STYLE}
      */
-    style {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    style : WINDOW_STYLE
 
     /**
      * Type: <b>LPARAM</b>
      * 
      * An application-defined value.
-     * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    lParam : LPARAM
+
 }

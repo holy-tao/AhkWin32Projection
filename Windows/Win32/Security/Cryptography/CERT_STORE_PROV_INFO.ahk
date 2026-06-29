@@ -1,35 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HCERTSTOREPROV.ahk
-#Include .\CERT_STORE_PROV_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HCERTSTOREPROV.ahk" { HCERTSTOREPROV }
+#Import ".\CERT_STORE_PROV_FLAGS.ahk" { CERT_STORE_PROV_FLAGS }
 
 /**
  * Contains information returned by the installed CertDllOpenStoreProv function when a store is opened by using the CertOpenStore function.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_store_prov_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_STORE_PROV_INFO extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct CERT_STORE_PROV_INFO {
+    #StructPack 8
 
     /**
      * Contains the size, in bytes, of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Contains the number of elements in the <b>rgpvStoreProvFunc</b> array. This count must include any <b>NULL</b> values that are used in indexes prior to the last callback function implemented. For example, if only one callback function is implemented, but it is at index 2 (<b>CERT_STORE_PROV_WRITE_CERT_FUNC</b>), with <b>NULL</b> for indexes 0 and 1, then the number 3 should be passed for this parameter.
-     * @type {Integer}
      */
-    cStoreProvFunc {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    cStoreProvFunc : UInt32
 
     /**
      * An array of pointers to the callback functions that are implemented by the provider. This array is indexed by the values given in the following table, and they must be in the order shown. The associated callback function is shown as well. All callback functions that are not implemented must be set to <b>NULL</b>. The array does not have to contain all callback function indexes, it only needs to contain the highest callback function index implemented. For example, if only the <b>CERT_STORE_PROV_WRITE_CERT_FUNC</b> (2) callback function is implemented, the array only needs to contain three elements.
@@ -339,47 +328,22 @@ class CERT_STORE_PROV_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Pointer<Void>>}
      */
-    rgpvStoreProvFunc {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    rgpvStoreProvFunc : IntPtr
 
     /**
      * A 32-bit, application-defined value that is the first parameter passed to all callbacks. An application can specify the contents of this member as desired. Typically, this is a pointer to data that is specific to the application, such as provider state information for each store opened.
-     * @type {HCERTSTOREPROV}
      */
-    hStoreProv {
-        get {
-            if(!this.HasProp("__hStoreProv"))
-                this.__hStoreProv := HCERTSTOREPROV(16, this)
-            return this.__hStoreProv
-        }
-    }
+    hStoreProv : HCERTSTOREPROV
 
-    /**
-     * @type {CERT_STORE_PROV_FLAGS}
-     */
-    dwStoreProvFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwStoreProvFlags : CERT_STORE_PROV_FLAGS
 
     /**
      * Contains the handle returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptgetoidfunctionaddress">CryptGetOIDFunctionAddress</a>. 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certclosestore">CertCloseStore</a> calls 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptfreeoidfunctionaddress">CryptFreeOIDFunctionAddress</a> to free a non-null <b>hStoreProvFuncAddr2</b>. This allows the callback to call one other installable function that will be freed when the store is closed.
-     * @type {Pointer<Void>}
      */
-    hStoreProvFuncAddr2 {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    hStoreProvFuncAddr2 : IntPtr
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 40
-    }
 }

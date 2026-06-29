@@ -1,54 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DNTHAL_DP2CLEAR extends Win32Struct {
-    static sizeof => 24
+export default struct D3DNTHAL_DP2CLEAR {
+    #StructPack 8
 
-    static packingSize => 8
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFillColor : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFillColor {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dvFillDepth : Float32
 
-    /**
-     * @type {Float}
-     */
-    dvFillDepth {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    dwFillStencil : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwFillStencil {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Rects : IntPtr[1]
 
-    /**
-     * @type {Array<Pointer>}
-     */
-    Rects {
-        get {
-            if(!this.HasProp("__RectsProxyArray"))
-                this.__RectsProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "ptr")
-            return this.__RectsProxyArray
-        }
-    }
 }

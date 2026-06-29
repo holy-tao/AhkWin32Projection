@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\SystemServices\MODIFIERKEYS_FLAGS.ahk" { MODIFIERKEYS_FLAGS }
+#Import "..\Com\IDataObject.ahk" { IDataObject }
+#Import ".\DROPEFFECT.ahk" { DROPEFFECT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\POINTL.ahk" { POINTL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IDropTarget interface is one of the interfaces you implement to provide drag-and-drop operations in your application.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-idroptarget
  * @namespace Windows.Win32.System.Ole
  */
-class IDropTarget extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDropTarget extends IUnknown {
     /**
      * The interface identifier for IDropTarget
      * @type {Guid}
      */
-    static IID => Guid("{00000122-0000-0000-c000-000000000046}")
+    static IID := Guid("{00000122-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDropTarget interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        DragEnter : IntPtr
+        DragOver  : IntPtr
+        DragLeave : IntPtr
+        Drop      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["DragEnter", "DragOver", "DragLeave", "Drop"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDropTarget.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Indicates whether a drop can be accepted, and, if so, the effect of the drop.
@@ -130,7 +145,7 @@ class IDropTarget extends IUnknown {
     DragEnter(pDataObj, grfKeyState, pt, pdwEffect) {
         pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pDataObj, "uint", grfKeyState, "ptr", pt, pdwEffectMarshal, pdwEffect, "HRESULT")
+        result := ComCall(3, this, "ptr", pDataObj, MODIFIERKEYS_FLAGS, grfKeyState, POINTL, pt, pdwEffectMarshal, pdwEffect, "HRESULT")
         return result
     }
 
@@ -236,7 +251,7 @@ class IDropTarget extends IUnknown {
     DragOver(grfKeyState, pt, pdwEffect) {
         pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", grfKeyState, "ptr", pt, pdwEffectMarshal, pdwEffect, "HRESULT")
+        result := ComCall(4, this, MODIFIERKEYS_FLAGS, grfKeyState, POINTL, pt, pdwEffectMarshal, pdwEffect, "HRESULT")
         return result
     }
 
@@ -345,7 +360,33 @@ class IDropTarget extends IUnknown {
     Drop(pDataObj, grfKeyState, pt, pdwEffect) {
         pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pDataObj, "uint", grfKeyState, "ptr", pt, pdwEffectMarshal, pdwEffect, "HRESULT")
+        result := ComCall(6, this, "ptr", pDataObj, MODIFIERKEYS_FLAGS, grfKeyState, POINTL, pt, pdwEffectMarshal, pdwEffect, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDropTarget.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.DragEnter := CallbackCreate(GetMethod(implObj, "DragEnter"), flags, 5)
+        this.vtbl.DragOver := CallbackCreate(GetMethod(implObj, "DragOver"), flags, 4)
+        this.vtbl.DragLeave := CallbackCreate(GetMethod(implObj, "DragLeave"), flags, 1)
+        this.vtbl.Drop := CallbackCreate(GetMethod(implObj, "Drop"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.DragEnter)
+        CallbackFree(this.vtbl.DragOver)
+        CallbackFree(this.vtbl.DragLeave)
+        CallbackFree(this.vtbl.Drop)
     }
 }

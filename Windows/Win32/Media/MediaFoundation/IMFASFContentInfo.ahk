@@ -1,36 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMFASFProfile.ahk
-#Include .\IMFPresentationDescriptor.ahk
-#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk" { IPropertyStore }
+#Import ".\IMFMediaBuffer.ahk" { IMFMediaBuffer }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IMFPresentationDescriptor.ahk" { IMFPresentationDescriptor }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IMFASFProfile.ahk" { IMFASFProfile }
 
 /**
  * Provides methods to work with the header section of files conforming to the Advanced Systems Format (ASF) specification.
  * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nn-wmcontainer-imfasfcontentinfo
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFASFContentInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFASFContentInfo extends IUnknown {
     /**
      * The interface identifier for IMFASFContentInfo
      * @type {Guid}
      */
-    static IID => Guid("{b1dca5cd-d5da-4451-8e9e-db5c59914ead}")
+    static IID := Guid("{b1dca5cd-d5da-4451-8e9e-db5c59914ead}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFASFContentInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetHeaderSize                         : IntPtr
+        ParseHeader                           : IntPtr
+        GenerateHeader                        : IntPtr
+        GetProfile                            : IntPtr
+        SetProfile                            : IntPtr
+        GeneratePresentationDescriptor        : IntPtr
+        GetEncodingConfigurationPropertyStore : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetHeaderSize", "ParseHeader", "GenerateHeader", "GetProfile", "SetProfile", "GeneratePresentationDescriptor", "GetEncodingConfigurationPropertyStore"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFASFContentInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the size of the header section of an Advanced Systems Format (ASF) file.
@@ -233,5 +248,37 @@ class IMFASFContentInfo extends IUnknown {
     GetEncodingConfigurationPropertyStore(wStreamNumber) {
         result := ComCall(9, this, "ushort", wStreamNumber, "ptr*", &ppIStore := 0, "HRESULT")
         return IPropertyStore(ppIStore)
+    }
+
+    Query(iid) {
+        if (IMFASFContentInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetHeaderSize := CallbackCreate(GetMethod(implObj, "GetHeaderSize"), flags, 3)
+        this.vtbl.ParseHeader := CallbackCreate(GetMethod(implObj, "ParseHeader"), flags, 3)
+        this.vtbl.GenerateHeader := CallbackCreate(GetMethod(implObj, "GenerateHeader"), flags, 3)
+        this.vtbl.GetProfile := CallbackCreate(GetMethod(implObj, "GetProfile"), flags, 2)
+        this.vtbl.SetProfile := CallbackCreate(GetMethod(implObj, "SetProfile"), flags, 2)
+        this.vtbl.GeneratePresentationDescriptor := CallbackCreate(GetMethod(implObj, "GeneratePresentationDescriptor"), flags, 2)
+        this.vtbl.GetEncodingConfigurationPropertyStore := CallbackCreate(GetMethod(implObj, "GetEncodingConfigurationPropertyStore"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetHeaderSize)
+        CallbackFree(this.vtbl.ParseHeader)
+        CallbackFree(this.vtbl.GenerateHeader)
+        CallbackFree(this.vtbl.GetProfile)
+        CallbackFree(this.vtbl.SetProfile)
+        CallbackFree(this.vtbl.GeneratePresentationDescriptor)
+        CallbackFree(this.vtbl.GetEncodingConfigurationPropertyStore)
     }
 }

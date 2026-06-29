@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Controls which phases of transaction completion should be received by the CRM compensator and whether recovery should fail if in-doubt transactions remain after recovery has been attempted.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ne-comsvcs-crmregflags
  * @namespace Windows.Win32.System.ComponentServices
  */
-class CRMREGFLAGS extends Win32Enum {
+export default struct CRMREGFLAGS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Receive the prepare phase.

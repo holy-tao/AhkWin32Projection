@@ -1,37 +1,60 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ITaskFolderCollection.ahk
-#Include .\IRegisteredTask.ahk
-#Include .\IRegisteredTaskCollection.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITaskFolderCollection.ahk" { ITaskFolderCollection }
+#Import ".\TASK_LOGON_TYPE.ahk" { TASK_LOGON_TYPE }
+#Import ".\ITaskDefinition.ahk" { ITaskDefinition }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\IRegisteredTask.ahk" { IRegisteredTask }
+#Import "..\Variant\VARIANT.ahk" { VARIANT }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IRegisteredTaskCollection.ahk" { IRegisteredTaskCollection }
 
 /**
  * Provides the methods that are used to register (create) tasks in the folder, remove tasks from the folder, and create or remove subfolders from the folder.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-itaskfolder
  * @namespace Windows.Win32.System.TaskScheduler
  */
-class ITaskFolder extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITaskFolder extends IDispatch {
     /**
      * The interface identifier for ITaskFolder
      * @type {Guid}
      */
-    static IID => Guid("{8cfac062-a080-4c15-9a88-aa7c2af80dfc}")
+    static IID := Guid("{8cfac062-a080-4c15-9a88-aa7c2af80dfc}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITaskFolder interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Name               : IntPtr
+        get_Path               : IntPtr
+        GetFolder              : IntPtr
+        GetFolders             : IntPtr
+        CreateFolder           : IntPtr
+        DeleteFolder           : IntPtr
+        GetTask                : IntPtr
+        GetTasks               : IntPtr
+        DeleteTask             : IntPtr
+        RegisterTask           : IntPtr
+        RegisterTaskDefinition : IntPtr
+        GetSecurityDescriptor  : IntPtr
+        SetSecurityDescriptor  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Name", "get_Path", "GetFolder", "GetFolders", "CreateFolder", "DeleteFolder", "GetTask", "GetTasks", "DeleteTask", "RegisterTask", "RegisterTaskDefinition", "GetSecurityDescriptor", "SetSecurityDescriptor"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITaskFolder.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -53,8 +76,8 @@ class ITaskFolder extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskfolder-get_name
      */
     get_Name() {
-        pName := BSTR()
-        result := ComCall(7, this, "ptr", pName, "HRESULT")
+        pName := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pName, "HRESULT")
         return pName
     }
 
@@ -64,8 +87,8 @@ class ITaskFolder extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskfolder-get_path
      */
     get_Path() {
-        pPath := BSTR()
-        result := ComCall(8, this, "ptr", pPath, "HRESULT")
+        pPath := BSTR.Owned()
+        result := ComCall(8, this, BSTR.Ptr, pPath, "HRESULT")
         return pPath
     }
 
@@ -81,7 +104,7 @@ class ITaskFolder extends IDispatch {
     GetFolder(_path) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(9, this, "ptr", _path, "ptr*", &ppFolder := 0, "HRESULT")
+        result := ComCall(9, this, BSTR, _path, "ptr*", &ppFolder := 0, "HRESULT")
         return ITaskFolder(ppFolder)
     }
 
@@ -117,7 +140,7 @@ class ITaskFolder extends IDispatch {
     CreateFolder(subFolderName, sddl) {
         subFolderName := subFolderName is String ? BSTR.Alloc(subFolderName).Value : subFolderName
 
-        result := ComCall(11, this, "ptr", subFolderName, "ptr", sddl, "ptr*", &ppFolder := 0, "HRESULT")
+        result := ComCall(11, this, BSTR, subFolderName, VARIANT, sddl, "ptr*", &ppFolder := 0, "HRESULT")
         return ITaskFolder(ppFolder)
     }
 
@@ -132,7 +155,7 @@ class ITaskFolder extends IDispatch {
     DeleteFolder(subFolderName, flags) {
         subFolderName := subFolderName is String ? BSTR.Alloc(subFolderName).Value : subFolderName
 
-        result := ComCall(12, this, "ptr", subFolderName, "int", flags, "HRESULT")
+        result := ComCall(12, this, BSTR, subFolderName, "int", flags, "HRESULT")
         return result
     }
 
@@ -148,7 +171,7 @@ class ITaskFolder extends IDispatch {
     GetTask(_path) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(13, this, "ptr", _path, "ptr*", &ppTask := 0, "HRESULT")
+        result := ComCall(13, this, BSTR, _path, "ptr*", &ppTask := 0, "HRESULT")
         return IRegisteredTask(ppTask)
     }
 
@@ -175,7 +198,7 @@ class ITaskFolder extends IDispatch {
     DeleteTask(name, flags) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(15, this, "ptr", name, "int", flags, "HRESULT")
+        result := ComCall(15, this, BSTR, name, "int", flags, "HRESULT")
         return result
     }
 
@@ -407,7 +430,7 @@ class ITaskFolder extends IDispatch {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
         xmlText := xmlText is String ? BSTR.Alloc(xmlText).Value : xmlText
 
-        result := ComCall(16, this, "ptr", _path, "ptr", xmlText, "int", flags, "ptr", userId, "ptr", password, "int", logonType, "ptr", sddl, "ptr*", &ppTask := 0, "HRESULT")
+        result := ComCall(16, this, BSTR, _path, BSTR, xmlText, "int", flags, VARIANT, userId, VARIANT, password, TASK_LOGON_TYPE, logonType, VARIANT, sddl, "ptr*", &ppTask := 0, "HRESULT")
         return IRegisteredTask(ppTask)
     }
 
@@ -617,7 +640,7 @@ class ITaskFolder extends IDispatch {
     RegisterTaskDefinition(_path, pDefinition, flags, userId, password, logonType, sddl) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(17, this, "ptr", _path, "ptr", pDefinition, "int", flags, "ptr", userId, "ptr", password, "int", logonType, "ptr", sddl, "ptr*", &ppTask := 0, "HRESULT")
+        result := ComCall(17, this, BSTR, _path, "ptr", pDefinition, "int", flags, VARIANT, userId, VARIANT, password, TASK_LOGON_TYPE, logonType, VARIANT, sddl, "ptr*", &ppTask := 0, "HRESULT")
         return IRegisteredTask(ppTask)
     }
 
@@ -628,8 +651,8 @@ class ITaskFolder extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskfolder-getsecuritydescriptor
      */
     GetSecurityDescriptor(securityInformation) {
-        pSddl := BSTR()
-        result := ComCall(18, this, "int", securityInformation, "ptr", pSddl, "HRESULT")
+        pSddl := BSTR.Owned()
+        result := ComCall(18, this, "int", securityInformation, BSTR.Ptr, pSddl, "HRESULT")
         return pSddl
     }
 
@@ -648,7 +671,51 @@ class ITaskFolder extends IDispatch {
     SetSecurityDescriptor(sddl, flags) {
         sddl := sddl is String ? BSTR.Alloc(sddl).Value : sddl
 
-        result := ComCall(19, this, "ptr", sddl, "int", flags, "HRESULT")
+        result := ComCall(19, this, BSTR, sddl, "int", flags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITaskFolder.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.GetFolder := CallbackCreate(GetMethod(implObj, "GetFolder"), flags, 3)
+        this.vtbl.GetFolders := CallbackCreate(GetMethod(implObj, "GetFolders"), flags, 3)
+        this.vtbl.CreateFolder := CallbackCreate(GetMethod(implObj, "CreateFolder"), flags, 4)
+        this.vtbl.DeleteFolder := CallbackCreate(GetMethod(implObj, "DeleteFolder"), flags, 3)
+        this.vtbl.GetTask := CallbackCreate(GetMethod(implObj, "GetTask"), flags, 3)
+        this.vtbl.GetTasks := CallbackCreate(GetMethod(implObj, "GetTasks"), flags, 3)
+        this.vtbl.DeleteTask := CallbackCreate(GetMethod(implObj, "DeleteTask"), flags, 3)
+        this.vtbl.RegisterTask := CallbackCreate(GetMethod(implObj, "RegisterTask"), flags, 9)
+        this.vtbl.RegisterTaskDefinition := CallbackCreate(GetMethod(implObj, "RegisterTaskDefinition"), flags, 9)
+        this.vtbl.GetSecurityDescriptor := CallbackCreate(GetMethod(implObj, "GetSecurityDescriptor"), flags, 3)
+        this.vtbl.SetSecurityDescriptor := CallbackCreate(GetMethod(implObj, "SetSecurityDescriptor"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.get_Path)
+        CallbackFree(this.vtbl.GetFolder)
+        CallbackFree(this.vtbl.GetFolders)
+        CallbackFree(this.vtbl.CreateFolder)
+        CallbackFree(this.vtbl.DeleteFolder)
+        CallbackFree(this.vtbl.GetTask)
+        CallbackFree(this.vtbl.GetTasks)
+        CallbackFree(this.vtbl.DeleteTask)
+        CallbackFree(this.vtbl.RegisterTask)
+        CallbackFree(this.vtbl.RegisterTaskDefinition)
+        CallbackFree(this.vtbl.GetSecurityDescriptor)
+        CallbackFree(this.vtbl.SetSecurityDescriptor)
     }
 }

@@ -1,11 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_ROOT_PARAMETER_TYPE.ahk
-#Include .\D3D12_ROOT_DESCRIPTOR_TABLE.ahk
-#Include .\D3D12_DESCRIPTOR_RANGE.ahk
-#Include .\D3D12_ROOT_CONSTANTS.ahk
-#Include .\D3D12_ROOT_DESCRIPTOR.ahk
-#Include .\D3D12_SHADER_VISIBILITY.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3D12_ROOT_PARAMETER_TYPE.ahk" { D3D12_ROOT_PARAMETER_TYPE }
+#Import ".\D3D12_ROOT_CONSTANTS.ahk" { D3D12_ROOT_CONSTANTS }
+#Import ".\D3D12_ROOT_DESCRIPTOR_TABLE.ahk" { D3D12_ROOT_DESCRIPTOR_TABLE }
+#Import ".\D3D12_DESCRIPTOR_RANGE.ahk" { D3D12_DESCRIPTOR_RANGE }
+#Import ".\D3D12_ROOT_DESCRIPTOR.ahk" { D3D12_ROOT_DESCRIPTOR }
+#Import ".\D3D12_SHADER_VISIBILITY.ahk" { D3D12_SHADER_VISIBILITY }
 
 /**
  * Describes the slot of a root signature version 1.0.
@@ -14,59 +13,24 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_root_parameter
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_ROOT_PARAMETER extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct D3D12_ROOT_PARAMETER {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_root_parameter_type">D3D12_ROOT_PARAMETER_TYPE</a>-typed value that  specifies the type of root signature slot. This member determines which type to use in the union below.
-     * @type {D3D12_ROOT_PARAMETER_TYPE}
      */
-    ParameterType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ParameterType : D3D12_ROOT_PARAMETER_TYPE
 
-    /**
-     * @type {D3D12_ROOT_DESCRIPTOR_TABLE}
-     */
-    DescriptorTable {
-        get {
-            if(!this.HasProp("__DescriptorTable"))
-                this.__DescriptorTable := D3D12_ROOT_DESCRIPTOR_TABLE(8, this)
-            return this.__DescriptorTable
-        }
-    }
-
-    /**
-     * @type {D3D12_ROOT_CONSTANTS}
-     */
-    Constants {
-        get {
-            if(!this.HasProp("__Constants"))
-                this.__Constants := D3D12_ROOT_CONSTANTS(8, this)
-            return this.__Constants
-        }
-    }
-
-    /**
-     * @type {D3D12_ROOT_DESCRIPTOR}
-     */
-    Descriptor {
-        get {
-            if(!this.HasProp("__Descriptor"))
-                this.__Descriptor := D3D12_ROOT_DESCRIPTOR(8, this)
-            return this.__Descriptor
-        }
-    }
+    DescriptorTable : D3D12_ROOT_DESCRIPTOR_TABLE
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_shader_visibility">D3D12_SHADER_VISIBILITY</a>-typed value that  specifies the shaders that can access the contents of the root signature slot.
-     * @type {D3D12_SHADER_VISIBILITY}
      */
-    ShaderVisibility {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    ShaderVisibility : D3D12_SHADER_VISIBILITY
+
+    static __New() {
+        DefineProp(this.Prototype, 'Constants', { type: D3D12_ROOT_CONSTANTS, offset: 8 })
+        DefineProp(this.Prototype, 'Descriptor', { type: D3D12_ROOT_DESCRIPTOR, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

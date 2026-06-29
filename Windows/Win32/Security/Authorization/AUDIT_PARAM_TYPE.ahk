@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the type of audit parameters that are available.
  * @see https://learn.microsoft.com/windows/win32/api/adtgen/ne-adtgen-audit_param_type
  * @namespace Windows.Win32.Security.Authorization
  */
-class AUDIT_PARAM_TYPE extends Win32Enum {
+export default struct AUDIT_PARAM_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * No audit options.

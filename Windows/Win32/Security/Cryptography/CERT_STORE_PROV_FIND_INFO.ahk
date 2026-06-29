@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used by many of the store provider callback functions.
@@ -52,19 +51,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_store_prov_find_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_STORE_PROV_FIND_INFO extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct CERT_STORE_PROV_FIND_INFO {
+    #StructPack 8
 
     /**
      * Size of the structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Specifies the encoding type used for messages and certificates. The certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> can be combined with a bitwise-<b>OR</b> operation. Here are the defined encoding types:
@@ -73,21 +66,13 @@ class CERT_STORE_PROV_FIND_INFO extends Win32Struct {
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @type {Integer}
      */
-    dwMsgAndCertEncodingType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwMsgAndCertEncodingType : UInt32
 
     /**
      * Used with some <b>dwFindType</b> values to modify the search criteria. For most <b>dwFindType</b> values, <b>dwFindFlags</b> is not used and should be set to zero.
-     * @type {Integer}
      */
-    dwFindFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwFindFlags : UInt32
 
     /**
      * Specifies the type of search being made. The search type determines the data type, contents, and the use of <b>pvFindPara</b>. Currently defined <b>dwFindType</b> values and the data type each requires for <b>pvFindPara</b> are as follows.
@@ -387,24 +372,12 @@ class CERT_STORE_PROV_FIND_INFO extends Win32Struct {
      * 
      * <div class="alert"><b>Note</b>  There are alternate forms of  the value of <b>dwFindType</b> that pass a string in <b>pvFindPara</b>. One form uses a Unicode string, and the other an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">ASCII</a> string. Values that end in "_W" or without a suffix use Unicode. Values that end with "_A" use <i>ASCII</i> strings.</div>
      * <div> </div>
-     * @type {Integer}
      */
-    dwFindType {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwFindType : UInt32
 
     /**
      * Points to a data item or structure to be used with the find type indicated by the value of <b>dwFindType</b>.
-     * @type {Pointer<Void>}
      */
-    pvFindPara {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pvFindPara : IntPtr
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 24
-    }
 }

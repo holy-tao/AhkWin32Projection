@@ -1,160 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SAFEARR_BSTR.ahk
-#Include ..\Com\FLAGGED_WORD_BLOB.ahk
-#Include .\SAFEARR_UNKNOWN.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\SAFEARR_DISPATCH.ahk
-#Include ..\Com\IDispatch.ahk
-#Include .\SAFEARR_VARIANT.ahk
-#Include .\_wireVARIANT.ahk
-#Include .\SAFEARR_BRECORD.ahk
-#Include .\_wireBRECORD.ahk
-#Include .\SAFEARR_HAVEIID.ahk
-#Include ..\Com\BYTE_SIZEDARR.ahk
-#Include ..\Com\WORD_SIZEDARR.ahk
-#Include ..\Com\DWORD_SIZEDARR.ahk
-#Include ..\Com\HYPER_SIZEDARR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SAFEARR_HAVEIID.ahk" { SAFEARR_HAVEIID }
+#Import "..\Com\WORD_SIZEDARR.ahk" { WORD_SIZEDARR }
+#Import ".\SAFEARR_BSTR.ahk" { SAFEARR_BSTR }
+#Import "..\Com\FLAGGED_WORD_BLOB.ahk" { FLAGGED_WORD_BLOB }
+#Import ".\_wireBRECORD.ahk" { _wireBRECORD }
+#Import "..\Com\BYTE_SIZEDARR.ahk" { BYTE_SIZEDARR }
+#Import ".\SAFEARR_UNKNOWN.ahk" { SAFEARR_UNKNOWN }
+#Import "..\Com\DWORD_SIZEDARR.ahk" { DWORD_SIZEDARR }
+#Import ".\_wireVARIANT.ahk" { _wireVARIANT }
+#Import ".\SAFEARR_DISPATCH.ahk" { SAFEARR_DISPATCH }
+#Import ".\SAFEARR_BRECORD.ahk" { SAFEARR_BRECORD }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\HYPER_SIZEDARR.ahk" { HYPER_SIZEDARR }
+#Import ".\SAFEARR_VARIANT.ahk" { SAFEARR_VARIANT }
 
 /**
  * @namespace Windows.Win32.System.Ole
  */
-class SAFEARRAYUNION extends Win32Struct {
-    static sizeof => 176
+export default struct SAFEARRAYUNION {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _u extends Win32Struct {
-        static sizeof => 168
-        static packingSize => 8
+    struct _u {
+        BstrStr : SAFEARR_BSTR
 
-        /**
-         * @type {SAFEARR_BSTR}
-         */
-        BstrStr {
-            get {
-                if(!this.HasProp("__BstrStr"))
-                    this.__BstrStr := SAFEARR_BSTR(0, this)
-                return this.__BstrStr
-            }
-        }
-
-        /**
-         * @type {SAFEARR_UNKNOWN}
-         */
-        UnknownStr {
-            get {
-                if(!this.HasProp("__UnknownStr"))
-                    this.__UnknownStr := SAFEARR_UNKNOWN(0, this)
-                return this.__UnknownStr
-            }
-        }
-
-        /**
-         * @type {SAFEARR_DISPATCH}
-         */
-        DispatchStr {
-            get {
-                if(!this.HasProp("__DispatchStr"))
-                    this.__DispatchStr := SAFEARR_DISPATCH(0, this)
-                return this.__DispatchStr
-            }
-        }
-
-        /**
-         * @type {SAFEARR_VARIANT}
-         */
-        VariantStr {
-            get {
-                if(!this.HasProp("__VariantStr"))
-                    this.__VariantStr := SAFEARR_VARIANT(0, this)
-                return this.__VariantStr
-            }
-        }
-
-        /**
-         * @type {SAFEARR_BRECORD}
-         */
-        RecordStr {
-            get {
-                if(!this.HasProp("__RecordStr"))
-                    this.__RecordStr := SAFEARR_BRECORD(0, this)
-                return this.__RecordStr
-            }
-        }
-
-        /**
-         * @type {SAFEARR_HAVEIID}
-         */
-        HaveIidStr {
-            get {
-                if(!this.HasProp("__HaveIidStr"))
-                    this.__HaveIidStr := SAFEARR_HAVEIID(0, this)
-                return this.__HaveIidStr
-            }
-        }
-
-        /**
-         * @type {BYTE_SIZEDARR}
-         */
-        ByteStr {
-            get {
-                if(!this.HasProp("__ByteStr"))
-                    this.__ByteStr := BYTE_SIZEDARR(0, this)
-                return this.__ByteStr
-            }
-        }
-
-        /**
-         * @type {WORD_SIZEDARR}
-         */
-        WordStr {
-            get {
-                if(!this.HasProp("__WordStr"))
-                    this.__WordStr := WORD_SIZEDARR(0, this)
-                return this.__WordStr
-            }
-        }
-
-        /**
-         * @type {DWORD_SIZEDARR}
-         */
-        LongStr {
-            get {
-                if(!this.HasProp("__LongStr"))
-                    this.__LongStr := DWORD_SIZEDARR(0, this)
-                return this.__LongStr
-            }
-        }
-
-        /**
-         * @type {HYPER_SIZEDARR}
-         */
-        HyperStr {
-            get {
-                if(!this.HasProp("__HyperStr"))
-                    this.__HyperStr := HYPER_SIZEDARR(0, this)
-                return this.__HyperStr
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'UnknownStr', { type: SAFEARR_UNKNOWN, offset: 0 })
+            DefineProp(this.Prototype, 'DispatchStr', { type: SAFEARR_DISPATCH, offset: 0 })
+            DefineProp(this.Prototype, 'VariantStr', { type: SAFEARR_VARIANT, offset: 0 })
+            DefineProp(this.Prototype, 'RecordStr', { type: SAFEARR_BRECORD, offset: 0 })
+            DefineProp(this.Prototype, 'HaveIidStr', { type: SAFEARR_HAVEIID, offset: 0 })
+            DefineProp(this.Prototype, 'ByteStr', { type: BYTE_SIZEDARR, offset: 0 })
+            DefineProp(this.Prototype, 'WordStr', { type: WORD_SIZEDARR, offset: 0 })
+            DefineProp(this.Prototype, 'LongStr', { type: DWORD_SIZEDARR, offset: 0 })
+            DefineProp(this.Prototype, 'HyperStr', { type: HYPER_SIZEDARR, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    sfType {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    sfType : UInt32
 
-    /**
-     * @type {_u}
-     */
-    u {
-        get {
-            if(!this.HasProp("__u"))
-                this.__u := SAFEARRAYUNION._u(8, this)
-            return this.__u
-        }
-    }
+    u : SAFEARRAYUNION._u
+
 }

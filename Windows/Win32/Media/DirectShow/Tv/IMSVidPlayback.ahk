@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IMSVidInputDevice.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IMSVidInputDevice.ahk" { IMSVidInputDevice }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\PositionModeList.ahk" { PositionModeList }
 
 /**
  * The IMSVidPlayback interface controls a Video Control playback device.
@@ -10,26 +13,46 @@
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidplayback
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class IMSVidPlayback extends IMSVidInputDevice {
-
-    static sizeof => A_PtrSize
+export default struct IMSVidPlayback extends IMSVidInputDevice {
     /**
      * The interface identifier for IMSVidPlayback
      * @type {Guid}
      */
-    static IID => Guid("{37b03538-a4c8-11d2-b634-00c04f79498e}")
+    static IID := Guid("{37b03538-a4c8-11d2-b634-00c04f79498e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 18
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMSVidPlayback interfaces
+    */
+    struct Vtbl extends IMSVidInputDevice.Vtbl {
+        get_EnableResetOnStop : IntPtr
+        put_EnableResetOnStop : IntPtr
+        Run                   : IntPtr
+        Pause                 : IntPtr
+        Stop                  : IntPtr
+        get_CanStep           : IntPtr
+        Step                  : IntPtr
+        put_Rate              : IntPtr
+        get_Rate              : IntPtr
+        put_CurrentPosition   : IntPtr
+        get_CurrentPosition   : IntPtr
+        put_PositionMode      : IntPtr
+        get_PositionMode      : IntPtr
+        get_Length            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_EnableResetOnStop", "put_EnableResetOnStop", "Run", "Pause", "Stop", "get_CanStep", "Step", "put_Rate", "get_Rate", "put_CurrentPosition", "get_CurrentPosition", "put_PositionMode", "get_PositionMode", "get_Length"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMSVidPlayback.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {VARIANT_BOOL} 
@@ -78,7 +101,7 @@ class IMSVidPlayback extends IMSVidInputDevice {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-get_enableresetonstop
      */
     get_EnableResetOnStop() {
-        result := ComCall(18, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(18, this, VARIANT_BOOL.Ptr, &pVal := 0, "HRESULT")
         return pVal
     }
 
@@ -111,7 +134,7 @@ class IMSVidPlayback extends IMSVidInputDevice {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-put_enableresetonstop
      */
     put_EnableResetOnStop(newVal) {
-        result := ComCall(19, this, "short", newVal, "HRESULT")
+        result := ComCall(19, this, VARIANT_BOOL, newVal, "HRESULT")
         return result
     }
 
@@ -247,7 +270,7 @@ class IMSVidPlayback extends IMSVidInputDevice {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-get_canstep
      */
     get_CanStep(fBackwards) {
-        result := ComCall(23, this, "short", fBackwards, "short*", &pfCan := 0, "HRESULT")
+        result := ComCall(23, this, VARIANT_BOOL, fBackwards, VARIANT_BOOL.Ptr, &pfCan := 0, "HRESULT")
         return pfCan
     }
 
@@ -565,7 +588,7 @@ class IMSVidPlayback extends IMSVidInputDevice {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplayback-put_positionmode
      */
     put_PositionMode(lPositionMode) {
-        result := ComCall(29, this, "int", lPositionMode, "HRESULT")
+        result := ComCall(29, this, PositionModeList, lPositionMode, "HRESULT")
         return result
     }
 
@@ -624,5 +647,51 @@ class IMSVidPlayback extends IMSVidInputDevice {
     get_Length() {
         result := ComCall(31, this, "int*", &lLength := 0, "HRESULT")
         return lLength
+    }
+
+    Query(iid) {
+        if (IMSVidPlayback.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_EnableResetOnStop := CallbackCreate(GetMethod(implObj, "get_EnableResetOnStop"), flags, 2)
+        this.vtbl.put_EnableResetOnStop := CallbackCreate(GetMethod(implObj, "put_EnableResetOnStop"), flags, 2)
+        this.vtbl.Run := CallbackCreate(GetMethod(implObj, "Run"), flags, 1)
+        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.get_CanStep := CallbackCreate(GetMethod(implObj, "get_CanStep"), flags, 3)
+        this.vtbl.Step := CallbackCreate(GetMethod(implObj, "Step"), flags, 2)
+        this.vtbl.put_Rate := CallbackCreate(GetMethod(implObj, "put_Rate"), flags, 2)
+        this.vtbl.get_Rate := CallbackCreate(GetMethod(implObj, "get_Rate"), flags, 2)
+        this.vtbl.put_CurrentPosition := CallbackCreate(GetMethod(implObj, "put_CurrentPosition"), flags, 2)
+        this.vtbl.get_CurrentPosition := CallbackCreate(GetMethod(implObj, "get_CurrentPosition"), flags, 2)
+        this.vtbl.put_PositionMode := CallbackCreate(GetMethod(implObj, "put_PositionMode"), flags, 2)
+        this.vtbl.get_PositionMode := CallbackCreate(GetMethod(implObj, "get_PositionMode"), flags, 2)
+        this.vtbl.get_Length := CallbackCreate(GetMethod(implObj, "get_Length"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_EnableResetOnStop)
+        CallbackFree(this.vtbl.put_EnableResetOnStop)
+        CallbackFree(this.vtbl.Run)
+        CallbackFree(this.vtbl.Pause)
+        CallbackFree(this.vtbl.Stop)
+        CallbackFree(this.vtbl.get_CanStep)
+        CallbackFree(this.vtbl.Step)
+        CallbackFree(this.vtbl.put_Rate)
+        CallbackFree(this.vtbl.get_Rate)
+        CallbackFree(this.vtbl.put_CurrentPosition)
+        CallbackFree(this.vtbl.get_CurrentPosition)
+        CallbackFree(this.vtbl.put_PositionMode)
+        CallbackFree(this.vtbl.get_PositionMode)
+        CallbackFree(this.vtbl.get_Length)
     }
 }

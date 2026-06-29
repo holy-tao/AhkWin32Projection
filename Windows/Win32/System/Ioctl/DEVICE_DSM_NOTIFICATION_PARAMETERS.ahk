@@ -1,25 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains parameters for the DeviceDsmAction_Notification action for the IOCTL_STORAGE_MANAGE_DATA_SET_ATTRIBUTES control code.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_dsm_notification_parameters
  * @namespace Windows.Win32.System.Ioctl
  */
-class DEVICE_DSM_NOTIFICATION_PARAMETERS extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct DEVICE_DSM_NOTIFICATION_PARAMETERS {
+    #StructPack 8
 
     /**
      * Specifies the total size, in bytes, of this structure. The value of this member must include the total 
      *       size, in bytes, of the <b>FileTypeIDs</b> member.
-     * @type {Integer}
      */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
     /**
      * Flags specific to the notify operation
@@ -57,21 +50,13 @@ class DEVICE_DSM_NOTIFICATION_PARAMETERS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    Flags : UInt32
 
     /**
      * The number of entries in the <b>FileTypeIDs</b> member.
-     * @type {Integer}
      */
-    NumFileTypeIDs {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NumFileTypeIDs : UInt32
 
     /**
      * One or more <b>GUID</b> values that specify the file type for the notification 
@@ -116,13 +101,7 @@ class DEVICE_DSM_NOTIFICATION_PARAMETERS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Array<Pointer>}
      */
-    FileTypeID {
-        get {
-            if(!this.HasProp("__FileTypeIDProxyArray"))
-                this.__FileTypeIDProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "ptr")
-            return this.__FileTypeIDProxyArray
-        }
-    }
+    FileTypeID : IntPtr[1]
+
 }

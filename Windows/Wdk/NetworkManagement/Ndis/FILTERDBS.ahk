@@ -1,51 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ETH_FILTER.ahk" { ETH_FILTER }
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
-class FILTERDBS extends Win32Struct {
-    static sizeof => 32
+export default struct FILTERDBS {
+    #StructPack 8
 
-    static packingSize => 8
+    EthDB : ETH_FILTER.Ptr
 
-    /**
-     * @type {Pointer<ETH_FILTER>}
-     */
-    EthDB {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    TrDB : IntPtr
 
-    /**
-     * @type {Pointer<Pointer>}
-     */
-    NullDB {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    YYYDB : IntPtr
 
-    /**
-     * @type {Pointer<Pointer>}
-     */
-    TrDB {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    XXXDB : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    YYYDB {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
-
-    /**
-     * @type {Pointer<Void>}
-     */
-    XXXDB {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    static __New() {
+        DefineProp(this.Prototype, 'NullDB', { type: IntPtr, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

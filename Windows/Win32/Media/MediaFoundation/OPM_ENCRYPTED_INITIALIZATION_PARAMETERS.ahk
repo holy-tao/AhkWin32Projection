@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains encrypted initialization parameters for an Output Protection Manager (OPM) session. (OPM_ENCRYPTED_INITIALIZATION_PARAMETERS).
@@ -8,20 +7,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/opmapi/ns-opmapi-opm_encrypted_initialization_parameters
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class OPM_ENCRYPTED_INITIALIZATION_PARAMETERS extends Win32Struct {
-    static sizeof => 256
-
-    static packingSize => 1
+export default struct OPM_ENCRYPTED_INITIALIZATION_PARAMETERS {
+    #StructPack 1
 
     /**
      * Pointer to a buffer that contains encrypted initialization parameters for the session. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/opmapi/nf-opmapi-iopmvideooutput-finishinitialization">IOPMVideoOutput::FinishInitialization</a>.
-     * @type {Array<Integer>}
      */
-    abEncryptedInitializationParameters {
-        get {
-            if(!this.HasProp("__abEncryptedInitializationParametersProxyArray"))
-                this.__abEncryptedInitializationParametersProxyArray := Win32FixedArray(this.ptr + 0, 256, Primitive, "char")
-            return this.__abEncryptedInitializationParametersProxyArray
-        }
-    }
+    abEncryptedInitializationParameters : Int8[256]
+
 }

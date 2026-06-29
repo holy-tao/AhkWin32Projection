@@ -1,143 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WHEA_ERROR_SOURCE_CONFIGURATION_DD.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import ".\WHEA_ERROR_SOURCE_CONFIGURATION_DD.ahk" { WHEA_ERROR_SOURCE_CONFIGURATION_DD }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class WHEA_DEVICE_DRIVER_DESCRIPTOR extends Win32Struct {
-    static sizeof => 104
+export default struct WHEA_DEVICE_DRIVER_DESCRIPTOR {
+    #StructPack 8
 
-    static packingSize => 8
+    Type : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Type {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    Enabled : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Enabled {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    Reserved : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    SourceGuid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    SourceGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    LogTag : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    LogTag {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    Reserved2 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Reserved2 {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    PacketLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PacketLength {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    PacketCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PacketCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    PacketBuffer : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    PacketBuffer {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    Config : WHEA_ERROR_SOURCE_CONFIGURATION_DD
 
-    /**
-     * @type {WHEA_ERROR_SOURCE_CONFIGURATION_DD}
-     */
-    Config {
-        get {
-            if(!this.HasProp("__Config"))
-                this.__Config := WHEA_ERROR_SOURCE_CONFIGURATION_DD(40, this)
-            return this.__Config
-        }
-    }
+    CreatorId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    CreatorId {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    PartitionId : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    PartitionId {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    MaxSectionDataLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxSectionDataLength {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
+    MaxSectionsPerRecord : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    MaxSectionsPerRecord {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
-    }
+    PacketStateBuffer : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    PacketStateBuffer {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    OpenHandles : Int32
 
-    /**
-     * @type {Integer}
-     */
-    OpenHandles {
-        get => NumGet(this, 96, "int")
-        set => NumPut("int", value, this, 96)
-    }
 }

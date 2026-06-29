@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IFaxSender interface defines a messaging object used by a fax client application to retrieve and set sender information about fax senders. The object also includes methods to store sender data in and retrieve sender data from the local registry.
@@ -11,32 +12,72 @@
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxsender
  * @namespace Windows.Win32.Devices.Fax
  */
-class IFaxSender extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFaxSender extends IDispatch {
     /**
      * The interface identifier for IFaxSender
      * @type {Guid}
      */
-    static IID => Guid("{0d879d7d-f57a-4cc6-a6f9-3ee5d527b46a}")
+    static IID := Guid("{0d879d7d-f57a-4cc6-a6f9-3ee5d527b46a}")
 
     /**
      * The class identifier for FaxSender
      * @type {Guid}
      */
-    static CLSID => Guid("{265d84d0-1850-4360-b7c8-758bbb5f0b96}")
+    static CLSID := Guid("{265d84d0-1850-4360-b7c8-758bbb5f0b96}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFaxSender interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_BillingCode    : IntPtr
+        put_BillingCode    : IntPtr
+        get_City           : IntPtr
+        put_City           : IntPtr
+        get_Company        : IntPtr
+        put_Company        : IntPtr
+        get_Country        : IntPtr
+        put_Country        : IntPtr
+        get_Department     : IntPtr
+        put_Department     : IntPtr
+        get_Email          : IntPtr
+        put_Email          : IntPtr
+        get_FaxNumber      : IntPtr
+        put_FaxNumber      : IntPtr
+        get_HomePhone      : IntPtr
+        put_HomePhone      : IntPtr
+        get_Name           : IntPtr
+        put_Name           : IntPtr
+        get_TSID           : IntPtr
+        put_TSID           : IntPtr
+        get_OfficePhone    : IntPtr
+        put_OfficePhone    : IntPtr
+        get_OfficeLocation : IntPtr
+        put_OfficeLocation : IntPtr
+        get_State          : IntPtr
+        put_State          : IntPtr
+        get_StreetAddress  : IntPtr
+        put_StreetAddress  : IntPtr
+        get_Title          : IntPtr
+        put_Title          : IntPtr
+        get_ZipCode        : IntPtr
+        put_ZipCode        : IntPtr
+        LoadDefaultSender  : IntPtr
+        SaveDefaultSender  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_BillingCode", "put_BillingCode", "get_City", "put_City", "get_Company", "put_Company", "get_Country", "put_Country", "get_Department", "put_Department", "get_Email", "put_Email", "get_FaxNumber", "put_FaxNumber", "get_HomePhone", "put_HomePhone", "get_Name", "put_Name", "get_TSID", "put_TSID", "get_OfficePhone", "put_OfficePhone", "get_OfficeLocation", "put_OfficeLocation", "get_State", "put_State", "get_StreetAddress", "put_StreetAddress", "get_Title", "put_Title", "get_ZipCode", "put_ZipCode", "LoadDefaultSender", "SaveDefaultSender"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFaxSender.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -172,8 +213,8 @@ class IFaxSender extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_billingcode
      */
     get_BillingCode() {
-        pbstrBillingCode := BSTR()
-        result := ComCall(7, this, "ptr", pbstrBillingCode, "HRESULT")
+        pbstrBillingCode := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, pbstrBillingCode, "HRESULT")
         return pbstrBillingCode
     }
 
@@ -186,7 +227,7 @@ class IFaxSender extends IDispatch {
     put_BillingCode(bstrBillingCode) {
         bstrBillingCode := bstrBillingCode is String ? BSTR.Alloc(bstrBillingCode).Value : bstrBillingCode
 
-        result := ComCall(8, this, "ptr", bstrBillingCode, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrBillingCode, "HRESULT")
         return result
     }
 
@@ -195,8 +236,8 @@ class IFaxSender extends IDispatch {
      * @returns {BSTR} 
      */
     get_City() {
-        pbstrCity := BSTR()
-        result := ComCall(9, this, "ptr", pbstrCity, "HRESULT")
+        pbstrCity := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pbstrCity, "HRESULT")
         return pbstrCity
     }
 
@@ -208,7 +249,7 @@ class IFaxSender extends IDispatch {
     put_City(bstrCity) {
         bstrCity := bstrCity is String ? BSTR.Alloc(bstrCity).Value : bstrCity
 
-        result := ComCall(10, this, "ptr", bstrCity, "HRESULT")
+        result := ComCall(10, this, BSTR, bstrCity, "HRESULT")
         return result
     }
 
@@ -218,8 +259,8 @@ class IFaxSender extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_company
      */
     get_Company() {
-        pbstrCompany := BSTR()
-        result := ComCall(11, this, "ptr", pbstrCompany, "HRESULT")
+        pbstrCompany := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pbstrCompany, "HRESULT")
         return pbstrCompany
     }
 
@@ -232,7 +273,7 @@ class IFaxSender extends IDispatch {
     put_Company(bstrCompany) {
         bstrCompany := bstrCompany is String ? BSTR.Alloc(bstrCompany).Value : bstrCompany
 
-        result := ComCall(12, this, "ptr", bstrCompany, "HRESULT")
+        result := ComCall(12, this, BSTR, bstrCompany, "HRESULT")
         return result
     }
 
@@ -241,8 +282,8 @@ class IFaxSender extends IDispatch {
      * @returns {BSTR} 
      */
     get_Country() {
-        pbstrCountry := BSTR()
-        result := ComCall(13, this, "ptr", pbstrCountry, "HRESULT")
+        pbstrCountry := BSTR.Owned()
+        result := ComCall(13, this, BSTR.Ptr, pbstrCountry, "HRESULT")
         return pbstrCountry
     }
 
@@ -254,7 +295,7 @@ class IFaxSender extends IDispatch {
     put_Country(bstrCountry) {
         bstrCountry := bstrCountry is String ? BSTR.Alloc(bstrCountry).Value : bstrCountry
 
-        result := ComCall(14, this, "ptr", bstrCountry, "HRESULT")
+        result := ComCall(14, this, BSTR, bstrCountry, "HRESULT")
         return result
     }
 
@@ -264,8 +305,8 @@ class IFaxSender extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_department
      */
     get_Department() {
-        pbstrDepartment := BSTR()
-        result := ComCall(15, this, "ptr", pbstrDepartment, "HRESULT")
+        pbstrDepartment := BSTR.Owned()
+        result := ComCall(15, this, BSTR.Ptr, pbstrDepartment, "HRESULT")
         return pbstrDepartment
     }
 
@@ -278,7 +319,7 @@ class IFaxSender extends IDispatch {
     put_Department(bstrDepartment) {
         bstrDepartment := bstrDepartment is String ? BSTR.Alloc(bstrDepartment).Value : bstrDepartment
 
-        result := ComCall(16, this, "ptr", bstrDepartment, "HRESULT")
+        result := ComCall(16, this, BSTR, bstrDepartment, "HRESULT")
         return result
     }
 
@@ -288,8 +329,8 @@ class IFaxSender extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_email
      */
     get_Email() {
-        pbstrEmail := BSTR()
-        result := ComCall(17, this, "ptr", pbstrEmail, "HRESULT")
+        pbstrEmail := BSTR.Owned()
+        result := ComCall(17, this, BSTR.Ptr, pbstrEmail, "HRESULT")
         return pbstrEmail
     }
 
@@ -302,7 +343,7 @@ class IFaxSender extends IDispatch {
     put_Email(bstrEmail) {
         bstrEmail := bstrEmail is String ? BSTR.Alloc(bstrEmail).Value : bstrEmail
 
-        result := ComCall(18, this, "ptr", bstrEmail, "HRESULT")
+        result := ComCall(18, this, BSTR, bstrEmail, "HRESULT")
         return result
     }
 
@@ -312,8 +353,8 @@ class IFaxSender extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_faxnumber
      */
     get_FaxNumber() {
-        pbstrFaxNumber := BSTR()
-        result := ComCall(19, this, "ptr", pbstrFaxNumber, "HRESULT")
+        pbstrFaxNumber := BSTR.Owned()
+        result := ComCall(19, this, BSTR.Ptr, pbstrFaxNumber, "HRESULT")
         return pbstrFaxNumber
     }
 
@@ -326,7 +367,7 @@ class IFaxSender extends IDispatch {
     put_FaxNumber(bstrFaxNumber) {
         bstrFaxNumber := bstrFaxNumber is String ? BSTR.Alloc(bstrFaxNumber).Value : bstrFaxNumber
 
-        result := ComCall(20, this, "ptr", bstrFaxNumber, "HRESULT")
+        result := ComCall(20, this, BSTR, bstrFaxNumber, "HRESULT")
         return result
     }
 
@@ -336,8 +377,8 @@ class IFaxSender extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_homephone
      */
     get_HomePhone() {
-        pbstrHomePhone := BSTR()
-        result := ComCall(21, this, "ptr", pbstrHomePhone, "HRESULT")
+        pbstrHomePhone := BSTR.Owned()
+        result := ComCall(21, this, BSTR.Ptr, pbstrHomePhone, "HRESULT")
         return pbstrHomePhone
     }
 
@@ -350,7 +391,7 @@ class IFaxSender extends IDispatch {
     put_HomePhone(bstrHomePhone) {
         bstrHomePhone := bstrHomePhone is String ? BSTR.Alloc(bstrHomePhone).Value : bstrHomePhone
 
-        result := ComCall(22, this, "ptr", bstrHomePhone, "HRESULT")
+        result := ComCall(22, this, BSTR, bstrHomePhone, "HRESULT")
         return result
     }
 
@@ -360,8 +401,8 @@ class IFaxSender extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_name
      */
     get_Name() {
-        pbstrName := BSTR()
-        result := ComCall(23, this, "ptr", pbstrName, "HRESULT")
+        pbstrName := BSTR.Owned()
+        result := ComCall(23, this, BSTR.Ptr, pbstrName, "HRESULT")
         return pbstrName
     }
 
@@ -374,7 +415,7 @@ class IFaxSender extends IDispatch {
     put_Name(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(24, this, "ptr", bstrName, "HRESULT")
+        result := ComCall(24, this, BSTR, bstrName, "HRESULT")
         return result
     }
 
@@ -384,8 +425,8 @@ class IFaxSender extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_tsid
      */
     get_TSID() {
-        pbstrTSID := BSTR()
-        result := ComCall(25, this, "ptr", pbstrTSID, "HRESULT")
+        pbstrTSID := BSTR.Owned()
+        result := ComCall(25, this, BSTR.Ptr, pbstrTSID, "HRESULT")
         return pbstrTSID
     }
 
@@ -398,7 +439,7 @@ class IFaxSender extends IDispatch {
     put_TSID(bstrTSID) {
         bstrTSID := bstrTSID is String ? BSTR.Alloc(bstrTSID).Value : bstrTSID
 
-        result := ComCall(26, this, "ptr", bstrTSID, "HRESULT")
+        result := ComCall(26, this, BSTR, bstrTSID, "HRESULT")
         return result
     }
 
@@ -408,8 +449,8 @@ class IFaxSender extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_officephone
      */
     get_OfficePhone() {
-        pbstrOfficePhone := BSTR()
-        result := ComCall(27, this, "ptr", pbstrOfficePhone, "HRESULT")
+        pbstrOfficePhone := BSTR.Owned()
+        result := ComCall(27, this, BSTR.Ptr, pbstrOfficePhone, "HRESULT")
         return pbstrOfficePhone
     }
 
@@ -422,7 +463,7 @@ class IFaxSender extends IDispatch {
     put_OfficePhone(bstrOfficePhone) {
         bstrOfficePhone := bstrOfficePhone is String ? BSTR.Alloc(bstrOfficePhone).Value : bstrOfficePhone
 
-        result := ComCall(28, this, "ptr", bstrOfficePhone, "HRESULT")
+        result := ComCall(28, this, BSTR, bstrOfficePhone, "HRESULT")
         return result
     }
 
@@ -432,8 +473,8 @@ class IFaxSender extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_officelocation
      */
     get_OfficeLocation() {
-        pbstrOfficeLocation := BSTR()
-        result := ComCall(29, this, "ptr", pbstrOfficeLocation, "HRESULT")
+        pbstrOfficeLocation := BSTR.Owned()
+        result := ComCall(29, this, BSTR.Ptr, pbstrOfficeLocation, "HRESULT")
         return pbstrOfficeLocation
     }
 
@@ -446,7 +487,7 @@ class IFaxSender extends IDispatch {
     put_OfficeLocation(bstrOfficeLocation) {
         bstrOfficeLocation := bstrOfficeLocation is String ? BSTR.Alloc(bstrOfficeLocation).Value : bstrOfficeLocation
 
-        result := ComCall(30, this, "ptr", bstrOfficeLocation, "HRESULT")
+        result := ComCall(30, this, BSTR, bstrOfficeLocation, "HRESULT")
         return result
     }
 
@@ -455,8 +496,8 @@ class IFaxSender extends IDispatch {
      * @returns {BSTR} 
      */
     get_State() {
-        pbstrState := BSTR()
-        result := ComCall(31, this, "ptr", pbstrState, "HRESULT")
+        pbstrState := BSTR.Owned()
+        result := ComCall(31, this, BSTR.Ptr, pbstrState, "HRESULT")
         return pbstrState
     }
 
@@ -468,7 +509,7 @@ class IFaxSender extends IDispatch {
     put_State(bstrState) {
         bstrState := bstrState is String ? BSTR.Alloc(bstrState).Value : bstrState
 
-        result := ComCall(32, this, "ptr", bstrState, "HRESULT")
+        result := ComCall(32, this, BSTR, bstrState, "HRESULT")
         return result
     }
 
@@ -480,8 +521,8 @@ class IFaxSender extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_streetaddress
      */
     get_StreetAddress() {
-        pbstrStreetAddress := BSTR()
-        result := ComCall(33, this, "ptr", pbstrStreetAddress, "HRESULT")
+        pbstrStreetAddress := BSTR.Owned()
+        result := ComCall(33, this, BSTR.Ptr, pbstrStreetAddress, "HRESULT")
         return pbstrStreetAddress
     }
 
@@ -496,7 +537,7 @@ class IFaxSender extends IDispatch {
     put_StreetAddress(bstrStreetAddress) {
         bstrStreetAddress := bstrStreetAddress is String ? BSTR.Alloc(bstrStreetAddress).Value : bstrStreetAddress
 
-        result := ComCall(34, this, "ptr", bstrStreetAddress, "HRESULT")
+        result := ComCall(34, this, BSTR, bstrStreetAddress, "HRESULT")
         return result
     }
 
@@ -506,8 +547,8 @@ class IFaxSender extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_title
      */
     get_Title() {
-        pbstrTitle := BSTR()
-        result := ComCall(35, this, "ptr", pbstrTitle, "HRESULT")
+        pbstrTitle := BSTR.Owned()
+        result := ComCall(35, this, BSTR.Ptr, pbstrTitle, "HRESULT")
         return pbstrTitle
     }
 
@@ -520,7 +561,7 @@ class IFaxSender extends IDispatch {
     put_Title(bstrTitle) {
         bstrTitle := bstrTitle is String ? BSTR.Alloc(bstrTitle).Value : bstrTitle
 
-        result := ComCall(36, this, "ptr", bstrTitle, "HRESULT")
+        result := ComCall(36, this, BSTR, bstrTitle, "HRESULT")
         return result
     }
 
@@ -529,8 +570,8 @@ class IFaxSender extends IDispatch {
      * @returns {BSTR} 
      */
     get_ZipCode() {
-        pbstrZipCode := BSTR()
-        result := ComCall(37, this, "ptr", pbstrZipCode, "HRESULT")
+        pbstrZipCode := BSTR.Owned()
+        result := ComCall(37, this, BSTR.Ptr, pbstrZipCode, "HRESULT")
         return pbstrZipCode
     }
 
@@ -542,7 +583,7 @@ class IFaxSender extends IDispatch {
     put_ZipCode(bstrZipCode) {
         bstrZipCode := bstrZipCode is String ? BSTR.Alloc(bstrZipCode).Value : bstrZipCode
 
-        result := ComCall(38, this, "ptr", bstrZipCode, "HRESULT")
+        result := ComCall(38, this, BSTR, bstrZipCode, "HRESULT")
         return result
     }
 
@@ -576,5 +617,91 @@ class IFaxSender extends IDispatch {
     SaveDefaultSender() {
         result := ComCall(40, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFaxSender.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_BillingCode := CallbackCreate(GetMethod(implObj, "get_BillingCode"), flags, 2)
+        this.vtbl.put_BillingCode := CallbackCreate(GetMethod(implObj, "put_BillingCode"), flags, 2)
+        this.vtbl.get_City := CallbackCreate(GetMethod(implObj, "get_City"), flags, 2)
+        this.vtbl.put_City := CallbackCreate(GetMethod(implObj, "put_City"), flags, 2)
+        this.vtbl.get_Company := CallbackCreate(GetMethod(implObj, "get_Company"), flags, 2)
+        this.vtbl.put_Company := CallbackCreate(GetMethod(implObj, "put_Company"), flags, 2)
+        this.vtbl.get_Country := CallbackCreate(GetMethod(implObj, "get_Country"), flags, 2)
+        this.vtbl.put_Country := CallbackCreate(GetMethod(implObj, "put_Country"), flags, 2)
+        this.vtbl.get_Department := CallbackCreate(GetMethod(implObj, "get_Department"), flags, 2)
+        this.vtbl.put_Department := CallbackCreate(GetMethod(implObj, "put_Department"), flags, 2)
+        this.vtbl.get_Email := CallbackCreate(GetMethod(implObj, "get_Email"), flags, 2)
+        this.vtbl.put_Email := CallbackCreate(GetMethod(implObj, "put_Email"), flags, 2)
+        this.vtbl.get_FaxNumber := CallbackCreate(GetMethod(implObj, "get_FaxNumber"), flags, 2)
+        this.vtbl.put_FaxNumber := CallbackCreate(GetMethod(implObj, "put_FaxNumber"), flags, 2)
+        this.vtbl.get_HomePhone := CallbackCreate(GetMethod(implObj, "get_HomePhone"), flags, 2)
+        this.vtbl.put_HomePhone := CallbackCreate(GetMethod(implObj, "put_HomePhone"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_TSID := CallbackCreate(GetMethod(implObj, "get_TSID"), flags, 2)
+        this.vtbl.put_TSID := CallbackCreate(GetMethod(implObj, "put_TSID"), flags, 2)
+        this.vtbl.get_OfficePhone := CallbackCreate(GetMethod(implObj, "get_OfficePhone"), flags, 2)
+        this.vtbl.put_OfficePhone := CallbackCreate(GetMethod(implObj, "put_OfficePhone"), flags, 2)
+        this.vtbl.get_OfficeLocation := CallbackCreate(GetMethod(implObj, "get_OfficeLocation"), flags, 2)
+        this.vtbl.put_OfficeLocation := CallbackCreate(GetMethod(implObj, "put_OfficeLocation"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.put_State := CallbackCreate(GetMethod(implObj, "put_State"), flags, 2)
+        this.vtbl.get_StreetAddress := CallbackCreate(GetMethod(implObj, "get_StreetAddress"), flags, 2)
+        this.vtbl.put_StreetAddress := CallbackCreate(GetMethod(implObj, "put_StreetAddress"), flags, 2)
+        this.vtbl.get_Title := CallbackCreate(GetMethod(implObj, "get_Title"), flags, 2)
+        this.vtbl.put_Title := CallbackCreate(GetMethod(implObj, "put_Title"), flags, 2)
+        this.vtbl.get_ZipCode := CallbackCreate(GetMethod(implObj, "get_ZipCode"), flags, 2)
+        this.vtbl.put_ZipCode := CallbackCreate(GetMethod(implObj, "put_ZipCode"), flags, 2)
+        this.vtbl.LoadDefaultSender := CallbackCreate(GetMethod(implObj, "LoadDefaultSender"), flags, 1)
+        this.vtbl.SaveDefaultSender := CallbackCreate(GetMethod(implObj, "SaveDefaultSender"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_BillingCode)
+        CallbackFree(this.vtbl.put_BillingCode)
+        CallbackFree(this.vtbl.get_City)
+        CallbackFree(this.vtbl.put_City)
+        CallbackFree(this.vtbl.get_Company)
+        CallbackFree(this.vtbl.put_Company)
+        CallbackFree(this.vtbl.get_Country)
+        CallbackFree(this.vtbl.put_Country)
+        CallbackFree(this.vtbl.get_Department)
+        CallbackFree(this.vtbl.put_Department)
+        CallbackFree(this.vtbl.get_Email)
+        CallbackFree(this.vtbl.put_Email)
+        CallbackFree(this.vtbl.get_FaxNumber)
+        CallbackFree(this.vtbl.put_FaxNumber)
+        CallbackFree(this.vtbl.get_HomePhone)
+        CallbackFree(this.vtbl.put_HomePhone)
+        CallbackFree(this.vtbl.get_Name)
+        CallbackFree(this.vtbl.put_Name)
+        CallbackFree(this.vtbl.get_TSID)
+        CallbackFree(this.vtbl.put_TSID)
+        CallbackFree(this.vtbl.get_OfficePhone)
+        CallbackFree(this.vtbl.put_OfficePhone)
+        CallbackFree(this.vtbl.get_OfficeLocation)
+        CallbackFree(this.vtbl.put_OfficeLocation)
+        CallbackFree(this.vtbl.get_State)
+        CallbackFree(this.vtbl.put_State)
+        CallbackFree(this.vtbl.get_StreetAddress)
+        CallbackFree(this.vtbl.put_StreetAddress)
+        CallbackFree(this.vtbl.get_Title)
+        CallbackFree(this.vtbl.put_Title)
+        CallbackFree(this.vtbl.get_ZipCode)
+        CallbackFree(this.vtbl.put_ZipCode)
+        CallbackFree(this.vtbl.LoadDefaultSender)
+        CallbackFree(this.vtbl.SaveDefaultSender)
     }
 }

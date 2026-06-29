@@ -1,126 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\INTERACTION_ID.ahk
-#Include .\INTERACTION_FLAGS.ahk
-#Include ..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk
-#Include .\INTERACTION_ARGUMENTS_MANIPULATION.ahk
-#Include .\MANIPULATION_TRANSFORM.ahk
-#Include .\MANIPULATION_VELOCITY.ahk
-#Include .\MANIPULATION_RAILS_STATE.ahk
-#Include .\INTERACTION_ARGUMENTS_TAP.ahk
-#Include .\INTERACTION_ARGUMENTS_CROSS_SLIDE.ahk
-#Include .\CROSS_SLIDE_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\INTERACTION_ARGUMENTS_TAP.ahk" { INTERACTION_ARGUMENTS_TAP }
+#Import ".\MANIPULATION_RAILS_STATE.ahk" { MANIPULATION_RAILS_STATE }
+#Import ".\INTERACTION_ID.ahk" { INTERACTION_ID }
+#Import ".\MANIPULATION_TRANSFORM.ahk" { MANIPULATION_TRANSFORM }
+#Import ".\INTERACTION_FLAGS.ahk" { INTERACTION_FLAGS }
+#Import "..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk" { POINTER_INPUT_TYPE }
+#Import ".\INTERACTION_ARGUMENTS_CROSS_SLIDE.ahk" { INTERACTION_ARGUMENTS_CROSS_SLIDE }
+#Import ".\INTERACTION_ARGUMENTS_MANIPULATION.ahk" { INTERACTION_ARGUMENTS_MANIPULATION }
+#Import ".\CROSS_SLIDE_FLAGS.ahk" { CROSS_SLIDE_FLAGS }
+#Import ".\MANIPULATION_VELOCITY.ahk" { MANIPULATION_VELOCITY }
 
 /**
  * @namespace Windows.Win32.UI.InteractionContext
  */
-class INTERACTION_CONTEXT_OUTPUT2 extends Win32Struct {
-    static sizeof => 88
+export default struct INTERACTION_CONTEXT_OUTPUT2 {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _arguments_e__Union extends Win32Struct {
-        static sizeof => 60
-        static packingSize => 4
+    struct _arguments {
+        manipulation : INTERACTION_ARGUMENTS_MANIPULATION
 
-        /**
-         * @type {INTERACTION_ARGUMENTS_MANIPULATION}
-         */
-        manipulation {
-            get {
-                if(!this.HasProp("__manipulation"))
-                    this.__manipulation := INTERACTION_ARGUMENTS_MANIPULATION(0, this)
-                return this.__manipulation
-            }
-        }
-
-        /**
-         * @type {INTERACTION_ARGUMENTS_TAP}
-         */
-        tap {
-            get {
-                if(!this.HasProp("__tap"))
-                    this.__tap := INTERACTION_ARGUMENTS_TAP(0, this)
-                return this.__tap
-            }
-        }
-
-        /**
-         * @type {INTERACTION_ARGUMENTS_CROSS_SLIDE}
-         */
-        crossSlide {
-            get {
-                if(!this.HasProp("__crossSlide"))
-                    this.__crossSlide := INTERACTION_ARGUMENTS_CROSS_SLIDE(0, this)
-                return this.__crossSlide
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'tap', { type: INTERACTION_ARGUMENTS_TAP, offset: 0 })
+            DefineProp(this.Prototype, 'crossSlide', { type: INTERACTION_ARGUMENTS_CROSS_SLIDE, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {INTERACTION_ID}
-     */
-    interactionId {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    interactionId : INTERACTION_ID
 
-    /**
-     * @type {INTERACTION_FLAGS}
-     */
-    interactionFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    interactionFlags : INTERACTION_FLAGS
 
-    /**
-     * @type {POINTER_INPUT_TYPE}
-     */
-    inputType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    inputType : POINTER_INPUT_TYPE
 
-    /**
-     * @type {Integer}
-     */
-    contactCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    contactCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    currentContactCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    currentContactCount : UInt32
 
-    /**
-     * @type {Float}
-     */
-    x {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
-    }
+    x : Float32
 
-    /**
-     * @type {Float}
-     */
-    y {
-        get => NumGet(this, 24, "float")
-        set => NumPut("float", value, this, 24)
-    }
+    y : Float32
 
-    /**
-     * @type {_arguments_e__Union}
-     */
-    arguments {
-        get {
-            if(!this.HasProp("__arguments"))
-                this.__arguments := INTERACTION_CONTEXT_OUTPUT2._arguments_e__Union(28, this)
-            return this.__arguments
-        }
-    }
+    arguments : INTERACTION_CONTEXT_OUTPUT2._arguments
+
 }

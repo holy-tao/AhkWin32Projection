@@ -1,27 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DWRITE_FONT_AXIS_TAG.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DWRITE_FONT_AXIS_TAG.ahk" { DWRITE_FONT_AXIS_TAG }
 
 /**
  * Represents a value for a font axis. Used when querying and creating font instances.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/ns-dwrite_3-dwrite_font_axis_value
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class DWRITE_FONT_AXIS_VALUE extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct DWRITE_FONT_AXIS_VALUE {
+    #StructPack 4
 
     /**
      * Type: **[DWRITE_FONT_AXIS_TAG](./ne-dwrite_3-dwrite_font_axis_tag.md)**
      * 
      * The four-character identifier of the font axis (for example, weight, width, slant, italic, and so on).
-     * @type {DWRITE_FONT_AXIS_TAG}
      */
-    axisTag {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    axisTag : DWRITE_FONT_AXIS_TAG
 
     /**
      * Type: **[FLOAT](/windows/win32/winprog/windows-data-types)**
@@ -32,10 +25,7 @@ class DWRITE_FONT_AXIS_VALUE extends Win32Struct {
      * - Width (>0, default == 100)
      * - Slant (-90..90, default == -20)
      * - Italic (0 or 1)
-     * @type {Float}
      */
-    value {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    value : Float32
+
 }

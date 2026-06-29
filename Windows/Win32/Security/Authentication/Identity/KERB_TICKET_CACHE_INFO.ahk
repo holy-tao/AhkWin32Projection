@@ -1,84 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\LSA_UNICODE_STRING.ahk
-#Include .\KERB_TICKET_FLAGS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\KERB_TICKET_FLAGS.ahk" { KERB_TICKET_FLAGS }
 
 /**
  * Contains information about a cached Kerberos ticket. The Kerberos ticket is defined in Internet RFC 4120. For more information, see http://www.ietf.org.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_ticket_cache_info
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class KERB_TICKET_CACHE_INFO extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct KERB_TICKET_CACHE_INFO {
+    #StructPack 8
 
     /**
      * A
      * 						<a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> that contains the name of the server the ticket applies to. This name is combined with the <b>RealmName</b> value to create the full name <b>ServerName</b>@<b>RealmName</b>.
-     * @type {LSA_UNICODE_STRING}
      */
-    ServerName {
-        get {
-            if(!this.HasProp("__ServerName"))
-                this.__ServerName := LSA_UNICODE_STRING(0, this)
-            return this.__ServerName
-        }
-    }
+    ServerName : LSA_UNICODE_STRING
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> that contains the name of the realm the ticket applies to.
-     * @type {LSA_UNICODE_STRING}
      */
-    RealmName {
-        get {
-            if(!this.HasProp("__RealmName"))
-                this.__RealmName := LSA_UNICODE_STRING(16, this)
-            return this.__RealmName
-        }
-    }
+    RealmName : LSA_UNICODE_STRING
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the time at which the ticket becomes valid. If the <b>starttime</b> member of the ticket is not set, this value defaults to the time when the ticket was initially authenticated, <b>authtime</b>. The <b>starttime</b> member of a ticket is optional.
-     * @type {Integer}
      */
-    StartTime {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
+    StartTime : Int64
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the time when the ticket expires.
-     * @type {Integer}
      */
-    EndTime {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
-    }
+    EndTime : Int64
 
     /**
      * If KERB_TICKET_FLAGS_renewable is set in <b>TicketFlags</b>, this member is a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the time beyond which the ticket cannot be renewed.
-     * @type {Integer}
      */
-    RenewTime {
-        get => NumGet(this, 48, "int64")
-        set => NumPut("int64", value, this, 48)
-    }
+    RenewTime : Int64
 
     /**
      * The type of encryption used in the ticket.
-     * @type {Integer}
      */
-    EncryptionType {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
+    EncryptionType : Int32
 
-    /**
-     * @type {KERB_TICKET_FLAGS}
-     */
-    TicketFlags {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    TicketFlags : KERB_TICKET_FLAGS
+
 }

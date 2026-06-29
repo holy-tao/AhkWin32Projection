@@ -1,47 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\LSA_UNICODE_STRING.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\NTSTATUS.ahk" { NTSTATUS }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class KERB_S4U2PROXY_CACHE_ENTRY_INFO extends Win32Struct {
-    static sizeof => 32
+export default struct KERB_S4U2PROXY_CACHE_ENTRY_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    ServerName : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    ServerName {
-        get {
-            if(!this.HasProp("__ServerName"))
-                this.__ServerName := LSA_UNICODE_STRING(0, this)
-            return this.__ServerName
-        }
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    LastStatus : NTSTATUS
 
-    /**
-     * @type {NTSTATUS}
-     */
-    LastStatus {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    Expiry : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Expiry {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
 }

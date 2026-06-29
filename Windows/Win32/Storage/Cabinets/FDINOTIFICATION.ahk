@@ -1,70 +1,44 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\FDIERROR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\FDIERROR.ahk" { FDIERROR }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The FDINOTIFICATION structure to provide information to FNFDINOTIFY.
  * @see https://learn.microsoft.com/windows/win32/api/fdi/ns-fdi-fdinotification
  * @namespace Windows.Win32.Storage.Cabinets
  */
-class FDINOTIFICATION extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct FDINOTIFICATION {
+    #StructPack 8
 
     /**
      * The size, in bytes, of a cabinet element.
-     * @type {Integer}
      */
-    cb {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    cb : Int32
 
     /**
      * A null-terminated string.
-     * @type {PSTR}
      */
-    psz1 {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    psz1 : PSTR
 
     /**
      * A null-terminated string.
-     * @type {PSTR}
      */
-    psz2 {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    psz2 : PSTR
 
     /**
      * A null-terminated string.
-     * @type {PSTR}
      */
-    psz3 {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    psz3 : PSTR
 
     /**
      * Pointer to an application-defined value.
-     * @type {Pointer<Void>}
      */
-    pv {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pv : IntPtr
 
     /**
      * Application-defined value used to identify the opened file.
-     * @type {Pointer}
      */
-    hf {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    hf : IntPtr
 
     /**
      * The MS-DOS date.
@@ -87,12 +61,8 @@ class FDINOTIFICATION extends Win32Struct {
      * <td>Year offset from 1980 (add 1980</td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    date {
-        get => NumGet(this, 48, "ushort")
-        set => NumPut("ushort", value, this, 48)
-    }
+    date : UInt16
 
     /**
      * The MS-DOS time.
@@ -115,48 +85,28 @@ class FDINOTIFICATION extends Win32Struct {
      * <td>Hour (0-23 on a 24-hour clock)</td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    time {
-        get => NumGet(this, 50, "ushort")
-        set => NumPut("ushort", value, this, 50)
-    }
+    time : UInt16
 
     /**
      * The file attributes. For possible values and their descriptions, see File Attributes.
-     * @type {Integer}
      */
-    attribs {
-        get => NumGet(this, 52, "ushort")
-        set => NumPut("ushort", value, this, 52)
-    }
+    attribs : UInt16
 
     /**
      * The identifier for a cabinet set.
-     * @type {Integer}
      */
-    setID {
-        get => NumGet(this, 54, "ushort")
-        set => NumPut("ushort", value, this, 54)
-    }
+    setID : UInt16
 
     /**
      * The number of the cabinets within a set.
-     * @type {Integer}
      */
-    iCabinet {
-        get => NumGet(this, 56, "ushort")
-        set => NumPut("ushort", value, this, 56)
-    }
+    iCabinet : UInt16
 
     /**
      * The number of folders within a cabinet.
-     * @type {Integer}
      */
-    iFolder {
-        get => NumGet(this, 58, "ushort")
-        set => NumPut("ushort", value, this, 58)
-    }
+    iFolder : UInt16
 
     /**
      * An FDI error code. Possible values include:
@@ -299,10 +249,7 @@ class FDINOTIFICATION extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {FDIERROR}
      */
-    fdie {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
-    }
+    fdie : FDIERROR
+
 }

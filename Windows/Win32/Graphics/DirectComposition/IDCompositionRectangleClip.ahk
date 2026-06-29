@@ -1,33 +1,65 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionClip.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDCompositionClip.ahk" { IDCompositionClip }
+#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 
 /**
  * Represents a clip object that restricts the rendering of a visual subtree to the specified rectangular region. Optionally, the clip object may have rounded corners specified.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionrectangleclip
  * @namespace Windows.Win32.Graphics.DirectComposition
  */
-class IDCompositionRectangleClip extends IDCompositionClip {
-
-    static sizeof => A_PtrSize
+export default struct IDCompositionRectangleClip extends IDCompositionClip {
     /**
      * The interface identifier for IDCompositionRectangleClip
      * @type {Guid}
      */
-    static IID => Guid("{9842ad7d-d9cf-4908-aed7-48b51da5e7c2}")
+    static IID := Guid("{9842ad7d-d9cf-4908-aed7-48b51da5e7c2}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDCompositionRectangleClip interfaces
+    */
+    struct Vtbl extends IDCompositionClip.Vtbl {
+        SetLeft                : IntPtr
+        SetLeft1               : IntPtr
+        SetTop                 : IntPtr
+        SetTop1                : IntPtr
+        SetRight               : IntPtr
+        SetRight1              : IntPtr
+        SetBottom              : IntPtr
+        SetBottom1             : IntPtr
+        SetTopLeftRadiusX      : IntPtr
+        SetTopLeftRadiusX1     : IntPtr
+        SetTopLeftRadiusY      : IntPtr
+        SetTopLeftRadiusY1     : IntPtr
+        SetTopRightRadiusX     : IntPtr
+        SetTopRightRadiusX1    : IntPtr
+        SetTopRightRadiusY     : IntPtr
+        SetTopRightRadiusY1    : IntPtr
+        SetBottomLeftRadiusX   : IntPtr
+        SetBottomLeftRadiusX1  : IntPtr
+        SetBottomLeftRadiusY   : IntPtr
+        SetBottomLeftRadiusY1  : IntPtr
+        SetBottomRightRadiusX  : IntPtr
+        SetBottomRightRadiusX1 : IntPtr
+        SetBottomRightRadiusY  : IntPtr
+        SetBottomRightRadiusY1 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetLeft", "SetLeft1", "SetTop", "SetTop1", "SetRight", "SetRight1", "SetBottom", "SetBottom1", "SetTopLeftRadiusX", "SetTopLeftRadiusX1", "SetTopLeftRadiusY", "SetTopLeftRadiusY1", "SetTopRightRadiusX", "SetTopRightRadiusX1", "SetTopRightRadiusY", "SetTopRightRadiusY1", "SetBottomLeftRadiusX", "SetBottomLeftRadiusX1", "SetBottomLeftRadiusY", "SetBottomLeftRadiusY1", "SetBottomRightRadiusX", "SetBottomRightRadiusX1", "SetBottomRightRadiusY", "SetBottomRightRadiusY1"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDCompositionRectangleClip.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Changes the value of the Left property of a clip rectangle.
@@ -368,5 +400,71 @@ class IDCompositionRectangleClip extends IDCompositionClip {
     SetBottomRightRadiusY1(radius) {
         result := ComCall(26, this, "float", radius, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDCompositionRectangleClip.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetLeft := CallbackCreate(GetMethod(implObj, "SetLeft"), flags, 2)
+        this.vtbl.SetLeft1 := CallbackCreate(GetMethod(implObj, "SetLeft1"), flags, 2)
+        this.vtbl.SetTop := CallbackCreate(GetMethod(implObj, "SetTop"), flags, 2)
+        this.vtbl.SetTop1 := CallbackCreate(GetMethod(implObj, "SetTop1"), flags, 2)
+        this.vtbl.SetRight := CallbackCreate(GetMethod(implObj, "SetRight"), flags, 2)
+        this.vtbl.SetRight1 := CallbackCreate(GetMethod(implObj, "SetRight1"), flags, 2)
+        this.vtbl.SetBottom := CallbackCreate(GetMethod(implObj, "SetBottom"), flags, 2)
+        this.vtbl.SetBottom1 := CallbackCreate(GetMethod(implObj, "SetBottom1"), flags, 2)
+        this.vtbl.SetTopLeftRadiusX := CallbackCreate(GetMethod(implObj, "SetTopLeftRadiusX"), flags, 2)
+        this.vtbl.SetTopLeftRadiusX1 := CallbackCreate(GetMethod(implObj, "SetTopLeftRadiusX1"), flags, 2)
+        this.vtbl.SetTopLeftRadiusY := CallbackCreate(GetMethod(implObj, "SetTopLeftRadiusY"), flags, 2)
+        this.vtbl.SetTopLeftRadiusY1 := CallbackCreate(GetMethod(implObj, "SetTopLeftRadiusY1"), flags, 2)
+        this.vtbl.SetTopRightRadiusX := CallbackCreate(GetMethod(implObj, "SetTopRightRadiusX"), flags, 2)
+        this.vtbl.SetTopRightRadiusX1 := CallbackCreate(GetMethod(implObj, "SetTopRightRadiusX1"), flags, 2)
+        this.vtbl.SetTopRightRadiusY := CallbackCreate(GetMethod(implObj, "SetTopRightRadiusY"), flags, 2)
+        this.vtbl.SetTopRightRadiusY1 := CallbackCreate(GetMethod(implObj, "SetTopRightRadiusY1"), flags, 2)
+        this.vtbl.SetBottomLeftRadiusX := CallbackCreate(GetMethod(implObj, "SetBottomLeftRadiusX"), flags, 2)
+        this.vtbl.SetBottomLeftRadiusX1 := CallbackCreate(GetMethod(implObj, "SetBottomLeftRadiusX1"), flags, 2)
+        this.vtbl.SetBottomLeftRadiusY := CallbackCreate(GetMethod(implObj, "SetBottomLeftRadiusY"), flags, 2)
+        this.vtbl.SetBottomLeftRadiusY1 := CallbackCreate(GetMethod(implObj, "SetBottomLeftRadiusY1"), flags, 2)
+        this.vtbl.SetBottomRightRadiusX := CallbackCreate(GetMethod(implObj, "SetBottomRightRadiusX"), flags, 2)
+        this.vtbl.SetBottomRightRadiusX1 := CallbackCreate(GetMethod(implObj, "SetBottomRightRadiusX1"), flags, 2)
+        this.vtbl.SetBottomRightRadiusY := CallbackCreate(GetMethod(implObj, "SetBottomRightRadiusY"), flags, 2)
+        this.vtbl.SetBottomRightRadiusY1 := CallbackCreate(GetMethod(implObj, "SetBottomRightRadiusY1"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetLeft)
+        CallbackFree(this.vtbl.SetLeft1)
+        CallbackFree(this.vtbl.SetTop)
+        CallbackFree(this.vtbl.SetTop1)
+        CallbackFree(this.vtbl.SetRight)
+        CallbackFree(this.vtbl.SetRight1)
+        CallbackFree(this.vtbl.SetBottom)
+        CallbackFree(this.vtbl.SetBottom1)
+        CallbackFree(this.vtbl.SetTopLeftRadiusX)
+        CallbackFree(this.vtbl.SetTopLeftRadiusX1)
+        CallbackFree(this.vtbl.SetTopLeftRadiusY)
+        CallbackFree(this.vtbl.SetTopLeftRadiusY1)
+        CallbackFree(this.vtbl.SetTopRightRadiusX)
+        CallbackFree(this.vtbl.SetTopRightRadiusX1)
+        CallbackFree(this.vtbl.SetTopRightRadiusY)
+        CallbackFree(this.vtbl.SetTopRightRadiusY1)
+        CallbackFree(this.vtbl.SetBottomLeftRadiusX)
+        CallbackFree(this.vtbl.SetBottomLeftRadiusX1)
+        CallbackFree(this.vtbl.SetBottomLeftRadiusY)
+        CallbackFree(this.vtbl.SetBottomLeftRadiusY1)
+        CallbackFree(this.vtbl.SetBottomRightRadiusX)
+        CallbackFree(this.vtbl.SetBottomRightRadiusX1)
+        CallbackFree(this.vtbl.SetBottomRightRadiusY)
+        CallbackFree(this.vtbl.SetBottomRightRadiusY1)
     }
 }

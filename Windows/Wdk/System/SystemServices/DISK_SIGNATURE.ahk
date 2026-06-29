@@ -1,75 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class DISK_SIGNATURE extends Win32Struct {
-    static sizeof => 16
+export default struct DISK_SIGNATURE {
+    #StructPack 4
 
-    static packingSize => 8
 
-    /**
-     * @type {Integer}
-     */
-    PartitionStyle {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    struct _Mbr {
+        Signature : UInt32
+
+        CheckSum : UInt32
+
     }
 
-    class _Mbr extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 4
+    struct _Gpt {
+        DiskId : Guid
 
-        /**
-         * @type {Integer}
-         */
-        Signature {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        CheckSum {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
-        }
     }
 
-    class _Gpt extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    PartitionStyle : UInt32
 
-        /**
-         * @type {Pointer}
-         */
-        DiskId {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-    }
+    Mbr : DISK_SIGNATURE._Mbr
 
-    /**
-     * @type {_Mbr}
-     */
-    Mbr {
-        get {
-            if(!this.HasProp("__Mbr"))
-                this.__Mbr := DISK_SIGNATURE._Mbr(8, this)
-            return this.__Mbr
-        }
-    }
-
-    /**
-     * @type {_Gpt}
-     */
-    Gpt {
-        get {
-            if(!this.HasProp("__Gpt"))
-                this.__Gpt := DISK_SIGNATURE._Gpt(8, this)
-            return this.__Gpt
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'Gpt', { type: DISK_SIGNATURE._Gpt, offset: 4 })
+        this.DeleteProp("__New")
     }
 }

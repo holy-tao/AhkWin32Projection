@@ -1,18 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CMSG_KEY_TRANS_RECIPIENT_INFO.ahk
-#Include .\CMSG_KEY_AGREE_RECIPIENT_INFO.ahk
-#Include .\CMSG_MAIL_LIST_RECIPIENT_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CMSG_KEY_TRANS_RECIPIENT_INFO.ahk" { CMSG_KEY_TRANS_RECIPIENT_INFO }
+#Import ".\CMSG_KEY_AGREE_RECIPIENT_INFO.ahk" { CMSG_KEY_AGREE_RECIPIENT_INFO }
+#Import ".\CMSG_MAIL_LIST_RECIPIENT_INFO.ahk" { CMSG_MAIL_LIST_RECIPIENT_INFO }
 
 /**
  * Used with the CryptMsgGetParam function to get information on a key transport, key agreement, or mail list envelope message recipient.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_cms_recipient_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CMSG_CMS_RECIPIENT_INFO extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct CMSG_CMS_RECIPIENT_INFO {
+    #StructPack 8
 
     /**
      * Indicates the member of the union to be used. 
@@ -58,34 +55,14 @@ class CMSG_CMS_RECIPIENT_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwRecipientChoice {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwRecipientChoice : UInt32
 
-    /**
-     * @type {Pointer<CMSG_KEY_TRANS_RECIPIENT_INFO>}
-     */
-    pKeyTrans {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pKeyTrans : CMSG_KEY_TRANS_RECIPIENT_INFO.Ptr
 
-    /**
-     * @type {Pointer<CMSG_KEY_AGREE_RECIPIENT_INFO>}
-     */
-    pKeyAgree {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
-
-    /**
-     * @type {Pointer<CMSG_MAIL_LIST_RECIPIENT_INFO>}
-     */
-    pMailList {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'pKeyAgree', { type: CMSG_KEY_AGREE_RECIPIENT_INFO.Ptr, offset: 8 })
+        DefineProp(this.Prototype, 'pMailList', { type: CMSG_MAIL_LIST_RECIPIENT_INFO.Ptr, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

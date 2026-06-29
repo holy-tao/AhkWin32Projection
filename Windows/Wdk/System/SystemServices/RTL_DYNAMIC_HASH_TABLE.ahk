@@ -1,83 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class RTL_DYNAMIC_HASH_TABLE extends Win32Struct {
-    static sizeof => 40
+export default struct RTL_DYNAMIC_HASH_TABLE {
+    #StructPack 8
 
-    static packingSize => 8
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Shift : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Shift {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    TableSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TableSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    Pivot : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Pivot {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    DivisorMask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DivisorMask {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    NumEntries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumEntries {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    NonEmptyBuckets : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NonEmptyBuckets {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    NumEnumerators : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumEnumerators {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    Directory : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Directory {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
 }

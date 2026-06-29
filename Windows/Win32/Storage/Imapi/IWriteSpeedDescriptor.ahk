@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\IMAPI_MEDIA_PHYSICAL_TYPE.ahk" { IMAPI_MEDIA_PHYSICAL_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Use this interface retrieve detailed write configurations supported by the disc recorder and current media, for example, the media type, write speed, rotational-speed control type.
@@ -10,26 +13,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-iwritespeeddescriptor
  * @namespace Windows.Win32.Storage.Imapi
  */
-class IWriteSpeedDescriptor extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWriteSpeedDescriptor extends IDispatch {
     /**
      * The interface identifier for IWriteSpeedDescriptor
      * @type {Guid}
      */
-    static IID => Guid("{27354144-7f64-5b0f-8f00-5d77afbe261e}")
+    static IID := Guid("{27354144-7f64-5b0f-8f00-5d77afbe261e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWriteSpeedDescriptor interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_MediaType             : IntPtr
+        get_RotationTypeIsPureCAV : IntPtr
+        get_WriteSpeed            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_MediaType", "get_RotationTypeIsPureCAV", "get_WriteSpeed"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWriteSpeedDescriptor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {IMAPI_MEDIA_PHYSICAL_TYPE} 
@@ -77,7 +89,7 @@ class IWriteSpeedDescriptor extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwritespeeddescriptor-get_rotationtypeispurecav
      */
     get_RotationTypeIsPureCAV() {
-        result := ComCall(8, this, "short*", &value := 0, "HRESULT")
+        result := ComCall(8, this, VARIANT_BOOL.Ptr, &value := 0, "HRESULT")
         return value
     }
 
@@ -91,5 +103,29 @@ class IWriteSpeedDescriptor extends IDispatch {
     get_WriteSpeed() {
         result := ComCall(9, this, "int*", &value := 0, "HRESULT")
         return value
+    }
+
+    Query(iid) {
+        if (IWriteSpeedDescriptor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_MediaType := CallbackCreate(GetMethod(implObj, "get_MediaType"), flags, 2)
+        this.vtbl.get_RotationTypeIsPureCAV := CallbackCreate(GetMethod(implObj, "get_RotationTypeIsPureCAV"), flags, 2)
+        this.vtbl.get_WriteSpeed := CallbackCreate(GetMethod(implObj, "get_WriteSpeed"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_MediaType)
+        CallbackFree(this.vtbl.get_RotationTypeIsPureCAV)
+        CallbackFree(this.vtbl.get_WriteSpeed)
     }
 }

@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HMODULE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HMODULE.ahk" { HMODULE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The ACTCTX structure is used by the CreateActCtx function to create the activation context. (ANSI)
@@ -23,19 +23,13 @@
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @charset ANSI
  */
-class ACTCTXA extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct ACTCTXA {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure. This is used to determine the version of this structure.
-     * @type {Integer}
      */
-    cbSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    cbSize : UInt32 := this.Size
 
     /**
      * Flags that indicate how the values included in this structure are to be used. Set any undefined bits in <b>dwFlags</b> to 0. If any undefined bits are not set to 0, the call to 
@@ -126,30 +120,18 @@ class ACTCTXA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : UInt32
 
     /**
      * Null-terminated string specifying the path of the manifest file or PE image to be used to create the activation context. If this path refers to an EXE or DLL file, the  <b>lpResourceName</b> member is required.
-     * @type {PSTR}
      */
-    lpSource {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpSource : PSTR
 
     /**
      * Identifies the type of processor used. Specifies the system's processor architecture.
-     * @type {Integer}
      */
-    wProcessorArchitecture {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
-    }
+    wProcessorArchitecture : UInt16
 
     /**
      * Specifies the language manifest that should be used. The default is the current user's current UI language. 
@@ -166,54 +148,27 @@ class ACTCTXA extends Win32Struct {
      * <li>The current system's primary language.</li>
      * <li>A nonspecific worldwide language. Language neutral (0).</li>
      * </ul>
-     * @type {Integer}
      */
-    wLangId {
-        get => NumGet(this, 18, "ushort")
-        set => NumPut("ushort", value, this, 18)
-    }
+    wLangId : UInt16
 
     /**
      * The base directory in which to perform private assembly probing if assemblies in the activation context are not present in the system-wide store.
-     * @type {PSTR}
      */
-    lpAssemblyDirectory {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpAssemblyDirectory : PSTR
 
     /**
      * Pointer to a null-terminated string that contains the resource name to be loaded from the PE specified in <b>hModule</b> or <b>lpSource</b>. If the resource name is an integer, set this member using MAKEINTRESOURCE. This member is required if   <b>lpSource</b> refers to an EXE or DLL.
-     * @type {PSTR}
      */
-    lpResourceName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpResourceName : PSTR
 
     /**
      * The name of the current application. If the value of this member is set to null, the name of the executable that launched the current process is used.
-     * @type {PSTR}
      */
-    lpApplicationName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    lpApplicationName : PSTR
 
     /**
      * Use this member rather than <b>lpSource</b> if you have already loaded a DLL and wish to use it to create activation contexts rather than using a path in <b>lpSource</b>. See <b>lpResourceName</b> for the rules of looking up resources in this module.
-     * @type {HMODULE}
      */
-    hModule {
-        get {
-            if(!this.HasProp("__hModule"))
-                this.__hModule := HMODULE(48, this)
-            return this.__hModule
-        }
-    }
+    hModule : HMODULE
 
-    __New(ptrOrObj := 0, parent := ""){
-        super.__New(ptrOrObj, parent)
-        this.cbSize := 56
-    }
 }

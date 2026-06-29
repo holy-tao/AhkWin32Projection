@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISearchCatalogManager.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISearchCatalogManager.ahk" { ISearchCatalogManager }
+#Import ".\PRIORITIZE_FLAGS.ahk" { PRIORITIZE_FLAGS }
 
 /**
  * Extends the ISearchCatalogManager interface to manage a search catalog, for purposes such as re-indexing or setting timeouts.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-isearchcatalogmanager2
  * @namespace Windows.Win32.System.Search
  */
-class ISearchCatalogManager2 extends ISearchCatalogManager {
-
-    static sizeof => A_PtrSize
+export default struct ISearchCatalogManager2 extends ISearchCatalogManager {
     /**
      * The interface identifier for ISearchCatalogManager2
      * @type {Guid}
      */
-    static IID => Guid("{7ac3286d-4d1d-4817-84fc-c1c85e3af0d9}")
+    static IID := Guid("{7ac3286d-4d1d-4817-84fc-c1c85e3af0d9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 29
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISearchCatalogManager2 interfaces
+    */
+    struct Vtbl extends ISearchCatalogManager.Vtbl {
+        PrioritizeMatchingURLs : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["PrioritizeMatchingURLs"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISearchCatalogManager2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Instructs the indexer to give a higher priority to indexing items that have URLs that match a specified pattern. These items will then have a higher priority than other indexing tasks.
@@ -50,7 +60,27 @@ class ISearchCatalogManager2 extends ISearchCatalogManager {
     PrioritizeMatchingURLs(pszPattern, dwPrioritizeFlags) {
         pszPattern := pszPattern is String ? StrPtr(pszPattern) : pszPattern
 
-        result := ComCall(29, this, "ptr", pszPattern, "int", dwPrioritizeFlags, "HRESULT")
+        result := ComCall(29, this, "ptr", pszPattern, PRIORITIZE_FLAGS, dwPrioritizeFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISearchCatalogManager2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.PrioritizeMatchingURLs := CallbackCreate(GetMethod(implObj, "PrioritizeMatchingURLs"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.PrioritizeMatchingURLs)
     }
 }

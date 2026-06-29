@@ -1,60 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DUMPTYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DUMPTYPE.ahk" { DUMPTYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.System.ComponentServices
  */
-class HANG_INFO extends Win32Struct {
-    static sizeof => 24
+export default struct HANG_INFO {
+    #StructPack 4
 
-    static packingSize => 4
+    fAppHangMonitorEnabled : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    fAppHangMonitorEnabled {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    fTerminateOnHang : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    fTerminateOnHang {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    DumpType : DUMPTYPE
 
-    /**
-     * @type {DUMPTYPE}
-     */
-    DumpType {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    dwHangTimeout : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwHangTimeout {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwDumpCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDumpCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwInfoMsgCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwInfoMsgCount {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
 }

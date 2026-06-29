@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The POLYTEXT structure describes how the PolyTextOut function should draw a string of text. (ANSI)
@@ -11,73 +11,39 @@
  * @namespace Windows.Win32.Graphics.Gdi
  * @charset ANSI
  */
-class POLYTEXTA extends Win32Struct {
-    static sizeof => 56
-
-    static packingSize => 8
+export default struct POLYTEXTA {
+    #StructPack 8
 
     /**
      * The horizontal reference point for the string. The string is aligned to this point using the current text-alignment mode.
-     * @type {Integer}
      */
-    x {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    x : Int32
 
     /**
      * The vertical reference point for the string. The string is aligned to this point using the current text-alignment mode.
-     * @type {Integer}
      */
-    y {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    y : Int32
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/gdi/specifying-length-of-text-output-string">length of the string</a> pointed to by <b>lpstr</b>.
-     * @type {Integer}
      */
-    n {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    n : UInt32
 
     /**
      * Pointer to a string of text to be drawn by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-polytextouta">PolyTextOut</a> function. This string need not be null-terminated, since <b>n</b> specifies the length of the string.
-     * @type {PSTR}
      */
-    lpstr {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpstr : PSTR
 
-    /**
-     * @type {Integer}
-     */
-    uiFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    uiFlags : UInt32
 
     /**
      * A rectangle structure that contains the dimensions of the opaquing or clipping rectangle. This member is ignored if neither of the ETO_OPAQUE nor the ETO_CLIPPED value is specified for the <b>uiFlags</b> member.
-     * @type {RECT}
      */
-    rcl {
-        get {
-            if(!this.HasProp("__rcl"))
-                this.__rcl := RECT(28, this)
-            return this.__rcl
-        }
-    }
+    rcl : RECT
 
     /**
      * Pointer to an array containing the width value for each character in the string.
-     * @type {Pointer<Integer>}
      */
-    pdx {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pdx : IntPtr
+
 }

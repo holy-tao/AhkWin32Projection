@@ -1,35 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\ITCallHub.ahk
-#Include .\ITCallInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import ".\ITCallHub.ahk" { ITCallHub }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ITCallInfo.ahk" { ITCallInfo }
+#Import ".\CALLHUB_EVENT.ahk" { CALLHUB_EVENT }
 
 /**
  * The ITCallHubEvent interface contains methods that retrieve the description of CallHub events.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itcallhubevent
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITCallHubEvent extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct ITCallHubEvent extends IDispatch {
     /**
      * The interface identifier for ITCallHubEvent
      * @type {Guid}
      */
-    static IID => Guid("{a3c15451-5b92-11d1-8f4e-00c04fb6809f}")
+    static IID := Guid("{a3c15451-5b92-11d1-8f4e-00c04fb6809f}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITCallHubEvent interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Event   : IntPtr
+        get_CallHub : IntPtr
+        get_Call    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Event", "get_CallHub", "get_Call"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITCallHubEvent.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {CALLHUB_EVENT} 
@@ -84,5 +95,29 @@ class ITCallHubEvent extends IDispatch {
     get_Call() {
         result := ComCall(9, this, "ptr*", &ppCall := 0, "HRESULT")
         return ITCallInfo(ppCall)
+    }
+
+    Query(iid) {
+        if (ITCallHubEvent.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Event := CallbackCreate(GetMethod(implObj, "get_Event"), flags, 2)
+        this.vtbl.get_CallHub := CallbackCreate(GetMethod(implObj, "get_CallHub"), flags, 2)
+        this.vtbl.get_Call := CallbackCreate(GetMethod(implObj, "get_Call"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Event)
+        CallbackFree(this.vtbl.get_CallHub)
+        CallbackFree(this.vtbl.get_Call)
     }
 }

@@ -1,31 +1,40 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.Search
  */
-class IRowsetView extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRowsetView extends IUnknown {
     /**
      * The interface identifier for IRowsetView
      * @type {Guid}
      */
-    static IID => Guid("{0c733a99-2a1c-11ce-ade5-00aa0044773d}")
+    static IID := Guid("{0c733a99-2a1c-11ce-ade5-00aa0044773d}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRowsetView interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateView : IntPtr
+        GetView    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateView", "GetView"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRowsetView.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -34,25 +43,44 @@ class IRowsetView extends IUnknown {
      * @returns {IUnknown} 
      */
     CreateView(pUnkOuter, riid) {
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", riid, "ptr*", &ppView := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pUnkOuter, Guid.Ptr, riid, "ptr*", &ppView := 0, "HRESULT")
         return IUnknown(ppView)
     }
 
     /**
-     * The GetViewportExtEx function retrieves the x-extent and y-extent of the current viewport for the specified device context.
+     * 
      * @param {Pointer} hChapter 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Pointer>} phChapterSource 
      * @param {Pointer<IUnknown>} ppView 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getviewportextex
+     * @returns {HRESULT} 
      */
     GetView(hChapter, riid, phChapterSource, ppView) {
         phChapterSourceMarshal := phChapterSource is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", hChapter, "ptr", riid, phChapterSourceMarshal, phChapterSource, "ptr*", ppView, "HRESULT")
+        result := ComCall(4, this, "ptr", hChapter, Guid.Ptr, riid, phChapterSourceMarshal, phChapterSource, IUnknown.Ptr, ppView, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRowsetView.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateView := CallbackCreate(GetMethod(implObj, "CreateView"), flags, 4)
+        this.vtbl.GetView := CallbackCreate(GetMethod(implObj, "GetView"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateView)
+        CallbackFree(this.vtbl.GetView)
     }
 }

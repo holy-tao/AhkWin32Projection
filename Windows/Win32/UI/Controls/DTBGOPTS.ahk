@@ -1,27 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Defines the options for the DrawThemeBackgroundEx function.
  * @see https://learn.microsoft.com/windows/win32/api/uxtheme/ns-uxtheme-dtbgopts
  * @namespace Windows.Win32.UI.Controls
  */
-class DTBGOPTS extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 4
+export default struct DTBGOPTS {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Size of the structure. Set this to sizeof(DTBGOPTS).
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
@@ -114,24 +107,14 @@ class DTBGOPTS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> that specifies the bounding rectangle of the clip region.
-     * @type {RECT}
      */
-    rcClip {
-        get {
-            if(!this.HasProp("__rcClip"))
-                this.__rcClip := RECT(8, this)
-            return this.__rcClip
-        }
-    }
+    rcClip : RECT
+
 }

@@ -1,7 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
-#Include ..\..\Foundation\HANDLE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
 
 /**
  * Contains optional extended parameters for CreateFile2.
@@ -10,19 +9,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/fileapi/ns-fileapi-createfile2_extended_parameters
  * @namespace Windows.Win32.Storage.FileSystem
  */
-class CREATEFILE2_EXTENDED_PARAMETERS extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct CREATEFILE2_EXTENDED_PARAMETERS {
+    #StructPack 8
 
     /**
      * Contains the size of this structure, `sizeof(CREATEFILE2_EXTENDED_PARAMETERS)`.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * The file or device attributes and flags, **FILE_ATTRIBUTE_NORMAL** being the most common default value for files.
@@ -142,12 +135,8 @@ class CREATEFILE2_EXTENDED_PARAMETERS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFileAttributes {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFileAttributes : UInt32
 
     /**
      * This parameter can contain combinations of flags (<b>FILE_FLAG_*</b>) for control of file or device caching behavior, access modes, and other special-purpose flags.
@@ -328,12 +317,8 @@ class CREATEFILE2_EXTENDED_PARAMETERS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFileFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwFileFlags : UInt32
 
     /**
      * The _dwSecurityQosFlags_ parameter specifies SQOS information. For more information, see [Impersonation Levels](/windows/win32/SecAuthZ/impersonation-levels).
@@ -400,12 +385,8 @@ class CREATEFILE2_EXTENDED_PARAMETERS extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwSecurityQosFlags {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwSecurityQosFlags : UInt32
 
     /**
      * A pointer to a [SECURITY_ATTRIBUTES](/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)) structure that contains two separate but related data members: an optional security descriptor, and a Boolean value that determines whether the returned handle can be inherited by child processes.
@@ -421,12 +402,8 @@ class CREATEFILE2_EXTENDED_PARAMETERS extends Win32Struct {
      * The **bInheritHandle** member of the structure specifies whether the returned handle can be inherited.
      * 
      * For more information, see the Remarks section of the [CreateFile2](/windows/win32/api/fileapi/nf-fileapi-createfile2) topic.
-     * @type {Pointer<SECURITY_ATTRIBUTES>}
      */
-    lpSecurityAttributes {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpSecurityAttributes : SECURITY_ATTRIBUTES.Ptr
 
     /**
      * A valid handle to a template file with the **GENERIC_READ** access right. The template file supplies file attributes and extended attributes for the file that is being created.
@@ -436,13 +413,7 @@ class CREATEFILE2_EXTENDED_PARAMETERS extends Win32Struct {
      * When opening an existing file, [CreateFile2](/windows/win32/api/fileapi/nf-fileapi-createfile2) ignores this parameter.
      * 
      * When opening a new encrypted file, the file inherits the discretionary access control list from its parent directory. For additional information, see [File Encryption](/windows/win32/FileIO/file-encryption).
-     * @type {HANDLE}
      */
-    hTemplateFile {
-        get {
-            if(!this.HasProp("__hTemplateFile"))
-                this.__hTemplateFile := HANDLE(24, this)
-            return this.__hTemplateFile
-        }
-    }
+    hTemplateFile : HANDLE
+
 }

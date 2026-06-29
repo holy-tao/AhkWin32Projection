@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes an entry in the descriptor table for a 32-bit thread on a 64-bit system. This structure is valid only on 64-bit systems.
@@ -15,56 +14,24 @@
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-wow64_ldt_entry
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
-class WOW64_LDT_ENTRY extends Win32Struct {
-    static sizeof => 8
+export default struct WOW64_LDT_ENTRY {
+    #StructPack 4
 
-    static packingSize => 4
 
-    class _HighWord_e__Union extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 4
+    struct _HighWord {
 
-        class _Bytes extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 1
+        struct _Bytes {
+            BaseMid : Int8
 
-            /**
-             * @type {Integer}
-             */
-            BaseMid {
-                get => NumGet(this, 0, "char")
-                set => NumPut("char", value, this, 0)
-            }
+            Flags1 : Int8
 
-            /**
-             * @type {Integer}
-             */
-            Flags1 {
-                get => NumGet(this, 1, "char")
-                set => NumPut("char", value, this, 1)
-            }
+            Flags2 : Int8
 
-            /**
-             * @type {Integer}
-             */
-            Flags2 {
-                get => NumGet(this, 2, "char")
-                set => NumPut("char", value, this, 2)
-            }
+            BaseHi : Int8
 
-            /**
-             * @type {Integer}
-             */
-            BaseHi {
-                get => NumGet(this, 3, "char")
-                set => NumPut("char", value, this, 3)
-            }
         }
 
-        class _Bits extends Win32Struct {
-            static sizeof => 4
-            static packingSize => 4
-
+        struct _Bits {
             /**
              * This bitfield backs the following members:
              * - BaseMid
@@ -77,12 +44,9 @@ class WOW64_LDT_ENTRY extends Win32Struct {
              * - Default_Big
              * - Granularity
              * - BaseHi
-             * @type {Integer}
              */
-            _bitfield {
-                get => NumGet(this, 0, "uint")
-                set => NumPut("uint", value, this, 0)
-            }
+            _bitfield : Int32
+
 
             /**
              * @type {Integer}
@@ -165,56 +129,27 @@ class WOW64_LDT_ENTRY extends Win32Struct {
             }
         }
 
-        /**
-         * @type {_Bytes}
-         */
-        Bytes {
-            get {
-                if(!this.HasProp("__Bytes"))
-                    this.__Bytes := WOW64_LDT_ENTRY._HighWord_e__Union._Bytes(0, this)
-                return this.__Bytes
-            }
-        }
+        Bytes : WOW64_LDT_ENTRY._HighWord._Bytes
 
-        /**
-         * @type {_Bits}
-         */
-        Bits {
-            get {
-                if(!this.HasProp("__Bits"))
-                    this.__Bits := WOW64_LDT_ENTRY._HighWord_e__Union._Bits(0, this)
-                return this.__Bits
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'Bits', { type: WOW64_LDT_ENTRY._HighWord._Bits, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
     /**
      * The low-order part of the address of the last byte in the segment.
-     * @type {Integer}
      */
-    LimitLow {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    LimitLow : UInt16
 
     /**
      * The low-order part of the base address of the segment.
-     * @type {Integer}
      */
-    BaseLow {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    BaseLow : UInt16
 
     /**
      * The high-order portion of the descriptor. This member may be interpreted as bytes or collections of bits, depending on the level of detail required.
-     * @type {_HighWord_e__Union}
      */
-    HighWord {
-        get {
-            if(!this.HasProp("__HighWord"))
-                this.__HighWord := WOW64_LDT_ENTRY._HighWord_e__Union(4, this)
-            return this.__HighWord
-        }
-    }
+    HighWord : WOW64_LDT_ENTRY._HighWord
+
 }

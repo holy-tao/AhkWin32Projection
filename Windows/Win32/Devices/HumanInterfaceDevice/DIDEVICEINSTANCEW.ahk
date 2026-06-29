@@ -1,84 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @charset Unicode
  */
-class DIDEVICEINSTANCEW extends Win32Struct {
-    static sizeof => 1088
+export default struct DIDEVICEINSTANCEW {
+    #StructPack 4
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    guidInstance : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    guidInstance {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    guidProduct : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    guidProduct {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    dwDevType : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDevType {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    tszInstanceName : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    tszInstanceName {
-        get => StrGet(this.ptr + 28, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 28, 259, "UTF-16")
-    }
+    tszProductName : WCHAR[260]
 
-    /**
-     * @type {String}
-     */
-    tszProductName {
-        get => StrGet(this.ptr + 548, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 548, 259, "UTF-16")
-    }
+    guidFFDriver : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    guidFFDriver {
-        get => NumGet(this, 1072, "ptr")
-        set => NumPut("ptr", value, this, 1072)
-    }
+    wUsagePage : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wUsagePage {
-        get => NumGet(this, 1080, "ushort")
-        set => NumPut("ushort", value, this, 1080)
-    }
+    wUsage : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wUsage {
-        get => NumGet(this, 1082, "ushort")
-        set => NumPut("ushort", value, this, 1082)
-    }
 }

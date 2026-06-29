@@ -1,65 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVMEOF_FABRICS_COMMAND extends Win32Struct {
-    static sizeof => 64
+export default struct NVMEOF_FABRICS_COMMAND {
+    #StructPack 2
 
-    static packingSize => 2
+    OPC : Int8
 
-    /**
-     * @type {Integer}
-     */
-    OPC {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    PSDT : Int8
 
-    /**
-     * @type {Integer}
-     */
-    PSDT {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    CID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    CID {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
-    }
+    FCTYPE : Int8
 
-    /**
-     * @type {Integer}
-     */
-    FCTYPE {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    Reserved : Int8[35]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 5, 35, Primitive, "char")
-            return this.__ReservedProxyArray
-        }
-    }
+    Specific : Int8[24]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Specific {
-        get {
-            if(!this.HasProp("__SpecificProxyArray"))
-                this.__SpecificProxyArray := Win32FixedArray(this.ptr + 40, 24, Primitive, "char")
-            return this.__SpecificProxyArray
-        }
-    }
 }

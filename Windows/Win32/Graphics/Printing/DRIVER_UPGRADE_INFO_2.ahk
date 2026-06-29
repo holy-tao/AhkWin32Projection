@@ -1,115 +1,35 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class DRIVER_UPGRADE_INFO_2 extends Win32Struct {
-    static sizeof => 104
+export default struct DRIVER_UPGRADE_INFO_2 {
+    #StructPack 8
 
-    static packingSize => 8
+    pPrinterName : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pPrinterName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pOldDriverDirectory : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pOldDriverDirectory {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    cVersion : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cVersion {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    pName : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pEnvironment : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pEnvironment {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pDriverPath : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pDriverPath {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    pDataFile : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pDataFile {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    pConfigFile : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pConfigFile {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    pHelpFile : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pHelpFile {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    pDependentFiles : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pDependentFiles {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
-    }
+    pMonitorName : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pMonitorName {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    pDefaultDataType : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pDefaultDataType {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    pszzPreviousNames : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pszzPreviousNames {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
 }

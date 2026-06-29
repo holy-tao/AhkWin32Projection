@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Define how a write operation to a class or an instance is carried out.
  * @see https://learn.microsoft.com/windows/win32/api/wbemdisp/ne-wbemdisp-wbemchangeflagenum
  * @namespace Windows.Win32.System.Wmi
  */
-class WbemChangeFlagEnum extends Win32Enum {
+export default struct WbemChangeFlagEnum {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Causes the class or instance to be created, if it does not exist, or overwritten if it already exists.

@@ -1,34 +1,64 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include .\IInkExtendedProperties.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\InkRasterOperation.ahk" { InkRasterOperation }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
+#Import ".\IInkExtendedProperties.ahk" { IInkExtendedProperties }
+#Import ".\InkPenTip.ahk" { InkPenTip }
 
 /**
  * . (IInkDrawingAttributes)
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkdrawingattributes
  * @namespace Windows.Win32.UI.TabletPC
  */
-class IInkDrawingAttributes extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IInkDrawingAttributes extends IDispatch {
     /**
      * The interface identifier for IInkDrawingAttributes
      * @type {Guid}
      */
-    static IID => Guid("{bf519b75-0a15-4623-adc9-c00d436a8092}")
+    static IID := Guid("{bf519b75-0a15-4623-adc9-c00d436a8092}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IInkDrawingAttributes interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Color              : IntPtr
+        put_Color              : IntPtr
+        get_Width              : IntPtr
+        put_Width              : IntPtr
+        get_Height             : IntPtr
+        put_Height             : IntPtr
+        get_FitToCurve         : IntPtr
+        put_FitToCurve         : IntPtr
+        get_IgnorePressure     : IntPtr
+        put_IgnorePressure     : IntPtr
+        get_AntiAliased        : IntPtr
+        put_AntiAliased        : IntPtr
+        get_Transparency       : IntPtr
+        put_Transparency       : IntPtr
+        get_RasterOperation    : IntPtr
+        put_RasterOperation    : IntPtr
+        get_PenTip             : IntPtr
+        put_PenTip             : IntPtr
+        get_ExtendedProperties : IntPtr
+        Clone                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Color", "put_Color", "get_Width", "put_Width", "get_Height", "put_Height", "get_FitToCurve", "put_FitToCurve", "get_IgnorePressure", "put_IgnorePressure", "get_AntiAliased", "put_AntiAliased", "get_Transparency", "put_Transparency", "get_RasterOperation", "put_RasterOperation", "get_PenTip", "put_PenTip", "get_ExtendedProperties", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IInkDrawingAttributes.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -210,7 +240,7 @@ class IInkDrawingAttributes extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdrawingattributes-get_fittocurve
      */
     get_FitToCurve() {
-        result := ComCall(13, this, "short*", &Flag := 0, "HRESULT")
+        result := ComCall(13, this, VARIANT_BOOL.Ptr, &Flag := 0, "HRESULT")
         return Flag
     }
 
@@ -225,7 +255,7 @@ class IInkDrawingAttributes extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdrawingattributes-put_fittocurve
      */
     put_FitToCurve(Flag) {
-        result := ComCall(14, this, "short", Flag, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL, Flag, "HRESULT")
         return result
     }
 
@@ -237,7 +267,7 @@ class IInkDrawingAttributes extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdrawingattributes-get_ignorepressure
      */
     get_IgnorePressure() {
-        result := ComCall(15, this, "short*", &Flag := 0, "HRESULT")
+        result := ComCall(15, this, VARIANT_BOOL.Ptr, &Flag := 0, "HRESULT")
         return Flag
     }
 
@@ -250,7 +280,7 @@ class IInkDrawingAttributes extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdrawingattributes-put_ignorepressure
      */
     put_IgnorePressure(Flag) {
-        result := ComCall(16, this, "short", Flag, "HRESULT")
+        result := ComCall(16, this, VARIANT_BOOL, Flag, "HRESULT")
         return result
     }
 
@@ -264,7 +294,7 @@ class IInkDrawingAttributes extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdrawingattributes-get_antialiased
      */
     get_AntiAliased() {
-        result := ComCall(17, this, "short*", &Flag := 0, "HRESULT")
+        result := ComCall(17, this, VARIANT_BOOL.Ptr, &Flag := 0, "HRESULT")
         return Flag
     }
 
@@ -279,7 +309,7 @@ class IInkDrawingAttributes extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdrawingattributes-put_antialiased
      */
     put_AntiAliased(Flag) {
-        result := ComCall(18, this, "short", Flag, "HRESULT")
+        result := ComCall(18, this, VARIANT_BOOL, Flag, "HRESULT")
         return result
     }
 
@@ -343,7 +373,7 @@ class IInkDrawingAttributes extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdrawingattributes-put_rasteroperation
      */
     put_RasterOperation(NewRasterOperation) {
-        result := ComCall(22, this, "int", NewRasterOperation, "HRESULT")
+        result := ComCall(22, this, InkRasterOperation, NewRasterOperation, "HRESULT")
         return result
     }
 
@@ -376,7 +406,7 @@ class IInkDrawingAttributes extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdrawingattributes-put_pentip
      */
     put_PenTip(NewPenTip) {
-        result := ComCall(24, this, "int", NewPenTip, "HRESULT")
+        result := ComCall(24, this, InkPenTip, NewPenTip, "HRESULT")
         return result
     }
 
@@ -407,5 +437,63 @@ class IInkDrawingAttributes extends IDispatch {
     Clone() {
         result := ComCall(26, this, "ptr*", &DrawingAttributes := 0, "HRESULT")
         return IInkDrawingAttributes(DrawingAttributes)
+    }
+
+    Query(iid) {
+        if (IInkDrawingAttributes.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Color := CallbackCreate(GetMethod(implObj, "get_Color"), flags, 2)
+        this.vtbl.put_Color := CallbackCreate(GetMethod(implObj, "put_Color"), flags, 2)
+        this.vtbl.get_Width := CallbackCreate(GetMethod(implObj, "get_Width"), flags, 2)
+        this.vtbl.put_Width := CallbackCreate(GetMethod(implObj, "put_Width"), flags, 2)
+        this.vtbl.get_Height := CallbackCreate(GetMethod(implObj, "get_Height"), flags, 2)
+        this.vtbl.put_Height := CallbackCreate(GetMethod(implObj, "put_Height"), flags, 2)
+        this.vtbl.get_FitToCurve := CallbackCreate(GetMethod(implObj, "get_FitToCurve"), flags, 2)
+        this.vtbl.put_FitToCurve := CallbackCreate(GetMethod(implObj, "put_FitToCurve"), flags, 2)
+        this.vtbl.get_IgnorePressure := CallbackCreate(GetMethod(implObj, "get_IgnorePressure"), flags, 2)
+        this.vtbl.put_IgnorePressure := CallbackCreate(GetMethod(implObj, "put_IgnorePressure"), flags, 2)
+        this.vtbl.get_AntiAliased := CallbackCreate(GetMethod(implObj, "get_AntiAliased"), flags, 2)
+        this.vtbl.put_AntiAliased := CallbackCreate(GetMethod(implObj, "put_AntiAliased"), flags, 2)
+        this.vtbl.get_Transparency := CallbackCreate(GetMethod(implObj, "get_Transparency"), flags, 2)
+        this.vtbl.put_Transparency := CallbackCreate(GetMethod(implObj, "put_Transparency"), flags, 2)
+        this.vtbl.get_RasterOperation := CallbackCreate(GetMethod(implObj, "get_RasterOperation"), flags, 2)
+        this.vtbl.put_RasterOperation := CallbackCreate(GetMethod(implObj, "put_RasterOperation"), flags, 2)
+        this.vtbl.get_PenTip := CallbackCreate(GetMethod(implObj, "get_PenTip"), flags, 2)
+        this.vtbl.put_PenTip := CallbackCreate(GetMethod(implObj, "put_PenTip"), flags, 2)
+        this.vtbl.get_ExtendedProperties := CallbackCreate(GetMethod(implObj, "get_ExtendedProperties"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Color)
+        CallbackFree(this.vtbl.put_Color)
+        CallbackFree(this.vtbl.get_Width)
+        CallbackFree(this.vtbl.put_Width)
+        CallbackFree(this.vtbl.get_Height)
+        CallbackFree(this.vtbl.put_Height)
+        CallbackFree(this.vtbl.get_FitToCurve)
+        CallbackFree(this.vtbl.put_FitToCurve)
+        CallbackFree(this.vtbl.get_IgnorePressure)
+        CallbackFree(this.vtbl.put_IgnorePressure)
+        CallbackFree(this.vtbl.get_AntiAliased)
+        CallbackFree(this.vtbl.put_AntiAliased)
+        CallbackFree(this.vtbl.get_Transparency)
+        CallbackFree(this.vtbl.put_Transparency)
+        CallbackFree(this.vtbl.get_RasterOperation)
+        CallbackFree(this.vtbl.put_RasterOperation)
+        CallbackFree(this.vtbl.get_PenTip)
+        CallbackFree(this.vtbl.put_PenTip)
+        CallbackFree(this.vtbl.get_ExtendedProperties)
+        CallbackFree(this.vtbl.Clone)
     }
 }

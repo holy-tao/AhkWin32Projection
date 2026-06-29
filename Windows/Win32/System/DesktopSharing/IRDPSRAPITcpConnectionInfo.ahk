@@ -1,40 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * Supports the methods to retrieve the TCP connection information on the viewer and on the sharer side.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapitcpconnectioninfo
  * @namespace Windows.Win32.System.DesktopSharing
  */
-class IRDPSRAPITcpConnectionInfo extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IRDPSRAPITcpConnectionInfo extends IDispatch {
     /**
      * The interface identifier for IRDPSRAPITcpConnectionInfo
      * @type {Guid}
      */
-    static IID => Guid("{f74049a4-3d06-4028-8193-0a8c29bc2452}")
+    static IID := Guid("{f74049a4-3d06-4028-8193-0a8c29bc2452}")
 
     /**
      * The class identifier for RDPSRAPITcpConnectionInfo
      * @type {Guid}
      */
-    static CLSID => Guid("{be49db3f-ebb6-4278-8ce0-d5455833eaee}")
+    static CLSID := Guid("{be49db3f-ebb6-4278-8ce0-d5455833eaee}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRDPSRAPITcpConnectionInfo interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Protocol  : IntPtr
+        get_LocalPort : IntPtr
+        get_LocalIP   : IntPtr
+        get_PeerPort  : IntPtr
+        get_PeerIP    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Protocol", "get_LocalPort", "get_LocalIP", "get_PeerPort", "get_PeerIP"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRDPSRAPITcpConnectionInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -97,8 +109,8 @@ class IRDPSRAPITcpConnectionInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitcpconnectioninfo-get_localip
      */
     get_LocalIP() {
-        pbsrLocalIP := BSTR()
-        result := ComCall(9, this, "ptr", pbsrLocalIP, "HRESULT")
+        pbsrLocalIP := BSTR.Owned()
+        result := ComCall(9, this, BSTR.Ptr, pbsrLocalIP, "HRESULT")
         return pbsrLocalIP
     }
 
@@ -118,8 +130,36 @@ class IRDPSRAPITcpConnectionInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitcpconnectioninfo-get_peerip
      */
     get_PeerIP() {
-        pbstrIP := BSTR()
-        result := ComCall(11, this, "ptr", pbstrIP, "HRESULT")
+        pbstrIP := BSTR.Owned()
+        result := ComCall(11, this, BSTR.Ptr, pbstrIP, "HRESULT")
         return pbstrIP
+    }
+
+    Query(iid) {
+        if (IRDPSRAPITcpConnectionInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Protocol := CallbackCreate(GetMethod(implObj, "get_Protocol"), flags, 2)
+        this.vtbl.get_LocalPort := CallbackCreate(GetMethod(implObj, "get_LocalPort"), flags, 2)
+        this.vtbl.get_LocalIP := CallbackCreate(GetMethod(implObj, "get_LocalIP"), flags, 2)
+        this.vtbl.get_PeerPort := CallbackCreate(GetMethod(implObj, "get_PeerPort"), flags, 2)
+        this.vtbl.get_PeerIP := CallbackCreate(GetMethod(implObj, "get_PeerIP"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Protocol)
+        CallbackFree(this.vtbl.get_LocalPort)
+        CallbackFree(this.vtbl.get_LocalIP)
+        CallbackFree(this.vtbl.get_PeerPort)
+        CallbackFree(this.vtbl.get_PeerIP)
     }
 }

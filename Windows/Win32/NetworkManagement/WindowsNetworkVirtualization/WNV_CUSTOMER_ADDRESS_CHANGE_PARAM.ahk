@@ -1,84 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\DL_EUI48.ahk
-#Include ..\..\Networking\WinSock\DL_OUI.ahk
-#Include ..\..\Networking\WinSock\DL_EI48.ahk
-#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
-#Include .\WNV_IP_ADDRESS.ahk
-#Include ..\..\Networking\WinSock\IN_ADDR.ahk
-#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
-#Include .\WNV_CA_NOTIFICATION_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
+#Import ".\WNV_CA_NOTIFICATION_TYPE.ahk" { WNV_CA_NOTIFICATION_TYPE }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
+#Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import "..\..\Networking\WinSock\DL_EI48.ahk" { DL_EI48 }
+#Import ".\WNV_IP_ADDRESS.ahk" { WNV_IP_ADDRESS }
+#Import "..\..\Networking\WinSock\DL_EUI48.ahk" { DL_EUI48 }
+#Import "..\..\Networking\WinSock\DL_OUI.ahk" { DL_OUI }
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsNetworkVirtualization
  */
-class WNV_CUSTOMER_ADDRESS_CHANGE_PARAM extends Win32Struct {
-    static sizeof => 60
+export default struct WNV_CUSTOMER_ADDRESS_CHANGE_PARAM {
+    #StructPack 4
 
-    static packingSize => 4
+    MACAddress : DL_EUI48
 
-    /**
-     * @type {DL_EUI48}
-     */
-    MACAddress {
-        get {
-            if(!this.HasProp("__MACAddress"))
-                this.__MACAddress := DL_EUI48(0, this)
-            return this.__MACAddress
-        }
-    }
+    CAFamily : ADDRESS_FAMILY
 
-    /**
-     * @type {ADDRESS_FAMILY}
-     */
-    CAFamily {
-        get => NumGet(this, 14, "ushort")
-        set => NumPut("ushort", value, this, 14)
-    }
+    CA : WNV_IP_ADDRESS
 
-    /**
-     * @type {WNV_IP_ADDRESS}
-     */
-    CA {
-        get {
-            if(!this.HasProp("__CA"))
-                this.__CA := WNV_IP_ADDRESS(16, this)
-            return this.__CA
-        }
-    }
+    VirtualSubnetId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    VirtualSubnetId {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    PAFamily : ADDRESS_FAMILY
 
-    /**
-     * @type {ADDRESS_FAMILY}
-     */
-    PAFamily {
-        get => NumGet(this, 36, "ushort")
-        set => NumPut("ushort", value, this, 36)
-    }
+    PA : WNV_IP_ADDRESS
 
-    /**
-     * @type {WNV_IP_ADDRESS}
-     */
-    PA {
-        get {
-            if(!this.HasProp("__PA"))
-                this.__PA := WNV_IP_ADDRESS(40, this)
-            return this.__PA
-        }
-    }
+    NotificationReason : WNV_CA_NOTIFICATION_TYPE
 
-    /**
-     * @type {WNV_CA_NOTIFICATION_TYPE}
-     */
-    NotificationReason {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
-    }
 }

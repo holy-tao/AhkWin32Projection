@@ -1,37 +1,56 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\SPSHORTCUTPAIRLIST.ahk" { SPSHORTCUTPAIRLIST }
+#Import ".\SPSHORTCUTTYPE.ahk" { SPSHORTCUTTYPE }
+#Import ".\SPWORDLIST.ahk" { SPWORDLIST }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpShortcut extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISpShortcut extends IUnknown {
     /**
      * The interface identifier for ISpShortcut
      * @type {Guid}
      */
-    static IID => Guid("{3df681e2-ea56-11d9-8bde-f66bad1e3f3a}")
+    static IID := Guid("{3df681e2-ea56-11d9-8bde-f66bad1e3f3a}")
 
     /**
      * The class identifier for SpShortcut
      * @type {Guid}
      */
-    static CLSID => Guid("{0d722f1a-9fcf-4e62-96d8-6df8f01a26aa}")
+    static CLSID := Guid("{0d722f1a-9fcf-4e62-96d8-6df8f01a26aa}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpShortcut interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddShortcut                  : IntPtr
+        RemoveShortcut               : IntPtr
+        GetShortcuts                 : IntPtr
+        GetGeneration                : IntPtr
+        GetWordsFromGenerationChange : IntPtr
+        GetWords                     : IntPtr
+        GetShortcutsForGeneration    : IntPtr
+        GetGenerationChange          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddShortcut", "RemoveShortcut", "GetShortcuts", "GetGeneration", "GetWordsFromGenerationChange", "GetWords", "GetShortcutsForGeneration", "GetGenerationChange"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpShortcut.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -45,7 +64,7 @@ class ISpShortcut extends IUnknown {
         pszDisplay := pszDisplay is String ? StrPtr(pszDisplay) : pszDisplay
         pszSpoken := pszSpoken is String ? StrPtr(pszSpoken) : pszSpoken
 
-        result := ComCall(3, this, "ptr", pszDisplay, "ushort", LangID, "ptr", pszSpoken, "int", shType, "HRESULT")
+        result := ComCall(3, this, "ptr", pszDisplay, "ushort", LangID, "ptr", pszSpoken, SPSHORTCUTTYPE, shType, "HRESULT")
         return result
     }
 
@@ -61,7 +80,7 @@ class ISpShortcut extends IUnknown {
         pszDisplay := pszDisplay is String ? StrPtr(pszDisplay) : pszDisplay
         pszSpoken := pszSpoken is String ? StrPtr(pszSpoken) : pszSpoken
 
-        result := ComCall(4, this, "ptr", pszDisplay, "ushort", LangID, "ptr", pszSpoken, "int", shType, "HRESULT")
+        result := ComCall(4, this, "ptr", pszDisplay, "ushort", LangID, "ptr", pszSpoken, SPSHORTCUTTYPE, shType, "HRESULT")
         return result
     }
 
@@ -72,7 +91,7 @@ class ISpShortcut extends IUnknown {
      * @returns {HRESULT} 
      */
     GetShortcuts(LangID, pShortcutpairList) {
-        result := ComCall(5, this, "ushort", LangID, "ptr", pShortcutpairList, "HRESULT")
+        result := ComCall(5, this, "ushort", LangID, SPSHORTCUTPAIRLIST.Ptr, pShortcutpairList, "HRESULT")
         return result
     }
 
@@ -94,7 +113,7 @@ class ISpShortcut extends IUnknown {
     GetWordsFromGenerationChange(pdwGeneration, pWordList) {
         pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, pdwGenerationMarshal, pdwGeneration, "ptr", pWordList, "HRESULT")
+        result := ComCall(7, this, pdwGenerationMarshal, pdwGeneration, SPWORDLIST.Ptr, pWordList, "HRESULT")
         return result
     }
 
@@ -109,7 +128,7 @@ class ISpShortcut extends IUnknown {
         pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : "ptr"
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, pdwGenerationMarshal, pdwGeneration, pdwCookieMarshal, pdwCookie, "ptr", pWordList, "HRESULT")
+        result := ComCall(8, this, pdwGenerationMarshal, pdwGeneration, pdwCookieMarshal, pdwCookie, SPWORDLIST.Ptr, pWordList, "HRESULT")
         return result
     }
 
@@ -124,7 +143,7 @@ class ISpShortcut extends IUnknown {
         pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : "ptr"
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, pdwGenerationMarshal, pdwGeneration, pdwCookieMarshal, pdwCookie, "ptr", pShortcutpairList, "HRESULT")
+        result := ComCall(9, this, pdwGenerationMarshal, pdwGeneration, pdwCookieMarshal, pdwCookie, SPSHORTCUTPAIRLIST.Ptr, pShortcutpairList, "HRESULT")
         return result
     }
 
@@ -137,7 +156,41 @@ class ISpShortcut extends IUnknown {
     GetGenerationChange(pdwGeneration, pShortcutpairList) {
         pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, pdwGenerationMarshal, pdwGeneration, "ptr", pShortcutpairList, "HRESULT")
+        result := ComCall(10, this, pdwGenerationMarshal, pdwGeneration, SPSHORTCUTPAIRLIST.Ptr, pShortcutpairList, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISpShortcut.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddShortcut := CallbackCreate(GetMethod(implObj, "AddShortcut"), flags, 5)
+        this.vtbl.RemoveShortcut := CallbackCreate(GetMethod(implObj, "RemoveShortcut"), flags, 5)
+        this.vtbl.GetShortcuts := CallbackCreate(GetMethod(implObj, "GetShortcuts"), flags, 3)
+        this.vtbl.GetGeneration := CallbackCreate(GetMethod(implObj, "GetGeneration"), flags, 2)
+        this.vtbl.GetWordsFromGenerationChange := CallbackCreate(GetMethod(implObj, "GetWordsFromGenerationChange"), flags, 3)
+        this.vtbl.GetWords := CallbackCreate(GetMethod(implObj, "GetWords"), flags, 4)
+        this.vtbl.GetShortcutsForGeneration := CallbackCreate(GetMethod(implObj, "GetShortcutsForGeneration"), flags, 4)
+        this.vtbl.GetGenerationChange := CallbackCreate(GetMethod(implObj, "GetGenerationChange"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddShortcut)
+        CallbackFree(this.vtbl.RemoveShortcut)
+        CallbackFree(this.vtbl.GetShortcuts)
+        CallbackFree(this.vtbl.GetGeneration)
+        CallbackFree(this.vtbl.GetWordsFromGenerationChange)
+        CallbackFree(this.vtbl.GetWords)
+        CallbackFree(this.vtbl.GetShortcutsForGeneration)
+        CallbackFree(this.vtbl.GetGenerationChange)
     }
 }

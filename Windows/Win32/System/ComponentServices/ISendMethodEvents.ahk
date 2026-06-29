@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Describes an event class that notifies subscribers whenever a method on the object that implements it either is called or returns from a call.
@@ -18,26 +19,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-isendmethodevents
  * @namespace Windows.Win32.System.ComponentServices
  */
-class ISendMethodEvents extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISendMethodEvents extends IUnknown {
     /**
      * The interface identifier for ISendMethodEvents
      * @type {Guid}
      */
-    static IID => Guid("{2732fd59-b2b4-4d44-878c-8b8f09626008}")
+    static IID := Guid("{2732fd59-b2b4-4d44-878c-8b8f09626008}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISendMethodEvents interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SendMethodCall   : IntPtr
+        SendMethodReturn : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SendMethodCall", "SendMethodReturn"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISendMethodEvents.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Generated when a method is called through a component interface.
@@ -50,7 +59,7 @@ class ISendMethodEvents extends IUnknown {
     SendMethodCall(pIdentity, riid, dwMeth) {
         pIdentityMarshal := pIdentity is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, pIdentityMarshal, pIdentity, "ptr", riid, "uint", dwMeth, "HRESULT")
+        result := ComCall(3, this, pIdentityMarshal, pIdentity, Guid.Ptr, riid, "uint", dwMeth, "HRESULT")
         return result
     }
 
@@ -67,7 +76,29 @@ class ISendMethodEvents extends IUnknown {
     SendMethodReturn(pIdentity, riid, dwMeth, hrCall, hrServer) {
         pIdentityMarshal := pIdentity is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, pIdentityMarshal, pIdentity, "ptr", riid, "uint", dwMeth, "int", hrCall, "int", hrServer, "HRESULT")
+        result := ComCall(4, this, pIdentityMarshal, pIdentity, Guid.Ptr, riid, "uint", dwMeth, "int", hrCall, "int", hrServer, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISendMethodEvents.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SendMethodCall := CallbackCreate(GetMethod(implObj, "SendMethodCall"), flags, 4)
+        this.vtbl.SendMethodReturn := CallbackCreate(GetMethod(implObj, "SendMethodReturn"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SendMethodCall)
+        CallbackFree(this.vtbl.SendMethodReturn)
     }
 }

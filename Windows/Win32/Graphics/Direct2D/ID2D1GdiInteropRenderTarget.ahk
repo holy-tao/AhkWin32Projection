@@ -1,8 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\Gdi\HDC.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\D2D1_DC_INITIALIZE_MODE.ahk" { D2D1_DC_INITIALIZE_MODE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides access to a device context that can accept GDI drawing commands.
@@ -17,26 +20,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1gdiinteroprendertarget
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1GdiInteropRenderTarget extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1GdiInteropRenderTarget extends IUnknown {
     /**
      * The interface identifier for ID2D1GdiInteropRenderTarget
      * @type {Guid}
      */
-    static IID => Guid("{e0db51c3-6f77-4bae-b3d5-e47509b35838}")
+    static IID := Guid("{e0db51c3-6f77-4bae-b3d5-e47509b35838}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1GdiInteropRenderTarget interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDC     : IntPtr
+        ReleaseDC : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDC", "ReleaseDC"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1GdiInteropRenderTarget.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the device context associated with this render target.
@@ -59,7 +70,7 @@ class ID2D1GdiInteropRenderTarget extends IUnknown {
      */
     GetDC(_mode) {
         _hdc := HDC()
-        result := ComCall(3, this, "int", _mode, "ptr", _hdc, "HRESULT")
+        result := ComCall(3, this, D2D1_DC_INITIALIZE_MODE, _mode, HDC.Ptr, _hdc, "HRESULT")
         return _hdc
     }
 
@@ -76,7 +87,29 @@ class ID2D1GdiInteropRenderTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1gdiinteroprendertarget-releasedc
      */
     ReleaseDC(update) {
-        result := ComCall(4, this, "ptr", update, "HRESULT")
+        result := ComCall(4, this, RECT.Ptr, update, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID2D1GdiInteropRenderTarget.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDC := CallbackCreate(GetMethod(implObj, "GetDC"), flags, 3)
+        this.vtbl.ReleaseDC := CallbackCreate(GetMethod(implObj, "ReleaseDC"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDC)
+        CallbackFree(this.vtbl.ReleaseDC)
     }
 }

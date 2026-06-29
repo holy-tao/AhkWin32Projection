@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * The MCI\_OVLY\_RECT\_PARMS structure contains positioning information for the MCI\_PUT and MCI\_WHERE commands for video-overlay devices.
@@ -9,29 +8,17 @@
  * @see https://learn.microsoft.com/windows/win32/Multimedia/mci-ovly-rect-parms
  * @namespace Windows.Win32.Media.Multimedia
  */
-class MCI_OVLY_RECT_PARMS extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct MCI_OVLY_RECT_PARMS {
+    #StructPack 8
 
     /**
      * The low-order word specifies a window handle used for the MCI\_NOTIFY flag.
-     * @type {Pointer}
      */
-    dwCallback {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    dwCallback : IntPtr
 
     /**
      * Rectangle containing positioning information. [RECT](/previous-versions//ms536136(v=vs.85)) structures are handled differently in MCI than in other parts of Windows; in MCI, **rc.right** contains the width of the rectangle and **rc.bottom** contains its height.
-     * @type {RECT}
      */
-    rc {
-        get {
-            if(!this.HasProp("__rc"))
-                this.__rc := RECT(8, this)
-            return this.__rc
-        }
-    }
+    rc : RECT
+
 }

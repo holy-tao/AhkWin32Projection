@@ -1,40 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IUPnPRegistrar interface registers the devices that run in the context of the device host.
  * @see https://learn.microsoft.com/windows/win32/api/upnphost/nn-upnphost-iupnpregistrar
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
  */
-class IUPnPRegistrar extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IUPnPRegistrar extends IUnknown {
     /**
      * The interface identifier for IUPnPRegistrar
      * @type {Guid}
      */
-    static IID => Guid("{204810b6-73b2-11d4-bf42-00b0d0118b56}")
+    static IID := Guid("{204810b6-73b2-11d4-bf42-00b0d0118b56}")
 
     /**
      * The class identifier for UPnPRegistrar
      * @type {Guid}
      */
-    static CLSID => Guid("{204810b9-73b2-11d4-bf42-00b0d0118b56}")
+    static CLSID := Guid("{204810b9-73b2-11d4-bf42-00b0d0118b56}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IUPnPRegistrar interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RegisterDevice           : IntPtr
+        RegisterRunningDevice    : IntPtr
+        RegisterDeviceProvider   : IntPtr
+        GetUniqueDeviceName      : IntPtr
+        UnregisterDevice         : IntPtr
+        UnregisterDeviceProvider : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RegisterDevice", "RegisterRunningDevice", "RegisterDeviceProvider", "GetUniqueDeviceName", "UnregisterDevice", "UnregisterDeviceProvider"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IUPnPRegistrar.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The RegisterDevice method registers a device with the device host. The device information is stored by the device host. Then, the device host returns a device identifier and publishes and announces the device on the network.
@@ -79,8 +93,8 @@ class IUPnPRegistrar extends IUnknown {
         bstrContainerId := bstrContainerId is String ? BSTR.Alloc(bstrContainerId).Value : bstrContainerId
         bstrResourcePath := bstrResourcePath is String ? BSTR.Alloc(bstrResourcePath).Value : bstrResourcePath
 
-        pbstrDeviceIdentifier := BSTR()
-        result := ComCall(3, this, "ptr", bstrXMLDesc, "ptr", bstrProgIDDeviceControlClass, "ptr", bstrInitString, "ptr", bstrContainerId, "ptr", bstrResourcePath, "int", nLifeTime, "ptr", pbstrDeviceIdentifier, "HRESULT")
+        pbstrDeviceIdentifier := BSTR.Owned()
+        result := ComCall(3, this, BSTR, bstrXMLDesc, BSTR, bstrProgIDDeviceControlClass, BSTR, bstrInitString, BSTR, bstrContainerId, BSTR, bstrResourcePath, "int", nLifeTime, BSTR.Ptr, pbstrDeviceIdentifier, "HRESULT")
         return pbstrDeviceIdentifier
     }
 
@@ -127,8 +141,8 @@ class IUPnPRegistrar extends IUnknown {
         bstrInitString := bstrInitString is String ? BSTR.Alloc(bstrInitString).Value : bstrInitString
         bstrResourcePath := bstrResourcePath is String ? BSTR.Alloc(bstrResourcePath).Value : bstrResourcePath
 
-        pbstrDeviceIdentifier := BSTR()
-        result := ComCall(4, this, "ptr", bstrXMLDesc, "ptr", punkDeviceControl, "ptr", bstrInitString, "ptr", bstrResourcePath, "int", nLifeTime, "ptr", pbstrDeviceIdentifier, "HRESULT")
+        pbstrDeviceIdentifier := BSTR.Owned()
+        result := ComCall(4, this, BSTR, bstrXMLDesc, "ptr", punkDeviceControl, BSTR, bstrInitString, BSTR, bstrResourcePath, "int", nLifeTime, BSTR.Ptr, pbstrDeviceIdentifier, "HRESULT")
         return pbstrDeviceIdentifier
     }
 
@@ -156,7 +170,7 @@ class IUPnPRegistrar extends IUnknown {
         bstrInitString := bstrInitString is String ? BSTR.Alloc(bstrInitString).Value : bstrInitString
         bstrContainerId := bstrContainerId is String ? BSTR.Alloc(bstrContainerId).Value : bstrContainerId
 
-        result := ComCall(5, this, "ptr", bstrProviderName, "ptr", bstrProgIDProviderClass, "ptr", bstrInitString, "ptr", bstrContainerId, "HRESULT")
+        result := ComCall(5, this, BSTR, bstrProviderName, BSTR, bstrProgIDProviderClass, BSTR, bstrInitString, BSTR, bstrContainerId, "HRESULT")
         return result
     }
 
@@ -175,8 +189,8 @@ class IUPnPRegistrar extends IUnknown {
         bstrDeviceIdentifier := bstrDeviceIdentifier is String ? BSTR.Alloc(bstrDeviceIdentifier).Value : bstrDeviceIdentifier
         bstrTemplateUDN := bstrTemplateUDN is String ? BSTR.Alloc(bstrTemplateUDN).Value : bstrTemplateUDN
 
-        pbstrUDN := BSTR()
-        result := ComCall(6, this, "ptr", bstrDeviceIdentifier, "ptr", bstrTemplateUDN, "ptr", pbstrUDN, "HRESULT")
+        pbstrUDN := BSTR.Owned()
+        result := ComCall(6, this, BSTR, bstrDeviceIdentifier, BSTR, bstrTemplateUDN, BSTR.Ptr, pbstrUDN, "HRESULT")
         return pbstrUDN
     }
 
@@ -196,7 +210,7 @@ class IUPnPRegistrar extends IUnknown {
     UnregisterDevice(bstrDeviceIdentifier, fPermanent) {
         bstrDeviceIdentifier := bstrDeviceIdentifier is String ? BSTR.Alloc(bstrDeviceIdentifier).Value : bstrDeviceIdentifier
 
-        result := ComCall(7, this, "ptr", bstrDeviceIdentifier, "int", fPermanent, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrDeviceIdentifier, BOOL, fPermanent, "HRESULT")
         return result
     }
 
@@ -210,7 +224,37 @@ class IUPnPRegistrar extends IUnknown {
     UnregisterDeviceProvider(bstrProviderName) {
         bstrProviderName := bstrProviderName is String ? BSTR.Alloc(bstrProviderName).Value : bstrProviderName
 
-        result := ComCall(8, this, "ptr", bstrProviderName, "HRESULT")
+        result := ComCall(8, this, BSTR, bstrProviderName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IUPnPRegistrar.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RegisterDevice := CallbackCreate(GetMethod(implObj, "RegisterDevice"), flags, 8)
+        this.vtbl.RegisterRunningDevice := CallbackCreate(GetMethod(implObj, "RegisterRunningDevice"), flags, 7)
+        this.vtbl.RegisterDeviceProvider := CallbackCreate(GetMethod(implObj, "RegisterDeviceProvider"), flags, 5)
+        this.vtbl.GetUniqueDeviceName := CallbackCreate(GetMethod(implObj, "GetUniqueDeviceName"), flags, 4)
+        this.vtbl.UnregisterDevice := CallbackCreate(GetMethod(implObj, "UnregisterDevice"), flags, 3)
+        this.vtbl.UnregisterDeviceProvider := CallbackCreate(GetMethod(implObj, "UnregisterDeviceProvider"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RegisterDevice)
+        CallbackFree(this.vtbl.RegisterRunningDevice)
+        CallbackFree(this.vtbl.RegisterDeviceProvider)
+        CallbackFree(this.vtbl.GetUniqueDeviceName)
+        CallbackFree(this.vtbl.UnregisterDevice)
+        CallbackFree(this.vtbl.UnregisterDeviceProvider)
     }
 }

@@ -1,34 +1,52 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\NORMALIZEDRECT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\NORMALIZEDRECT.ahk" { NORMALIZEDRECT }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IVMRMixerControl interface is enables an application to manipulate the incoming video streams on the Video Mixing Renderer Filter 7 (VMR-7).
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ivmrmixercontrol
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IVMRMixerControl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVMRMixerControl extends IUnknown {
     /**
      * The interface identifier for IVMRMixerControl
      * @type {Guid}
      */
-    static IID => Guid("{1c1a17b0-bed0-415d-974b-dc6696131599}")
+    static IID := Guid("{1c1a17b0-bed0-415d-974b-dc6696131599}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVMRMixerControl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetAlpha         : IntPtr
+        GetAlpha         : IntPtr
+        SetZOrder        : IntPtr
+        GetZOrder        : IntPtr
+        SetOutputRect    : IntPtr
+        GetOutputRect    : IntPtr
+        SetBackgroundClr : IntPtr
+        GetBackgroundClr : IntPtr
+        SetMixingPrefs   : IntPtr
+        GetMixingPrefs   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetAlpha", "GetAlpha", "SetZOrder", "GetZOrder", "SetOutputRect", "GetOutputRect", "SetBackgroundClr", "GetBackgroundClr", "SetMixingPrefs", "GetMixingPrefs"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVMRMixerControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetAlpha method sets a constant alpha value that is applied to this video stream.
@@ -157,7 +175,7 @@ class IVMRMixerControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrmixercontrol-setoutputrect
      */
     SetOutputRect(dwStreamID, pRect) {
-        result := ComCall(7, this, "uint", dwStreamID, "ptr", pRect, "HRESULT")
+        result := ComCall(7, this, "uint", dwStreamID, NORMALIZEDRECT.Ptr, pRect, "HRESULT")
         return result
     }
 
@@ -171,7 +189,7 @@ class IVMRMixerControl extends IUnknown {
      */
     GetOutputRect(dwStreamID) {
         pRect := NORMALIZEDRECT()
-        result := ComCall(8, this, "uint", dwStreamID, "ptr", pRect, "HRESULT")
+        result := ComCall(8, this, "uint", dwStreamID, NORMALIZEDRECT.Ptr, pRect, "HRESULT")
         return pRect
     }
 
@@ -182,7 +200,7 @@ class IVMRMixerControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrmixercontrol-setbackgroundclr
      */
     SetBackgroundClr(ClrBkg) {
-        result := ComCall(9, this, "uint", ClrBkg, "HRESULT")
+        result := ComCall(9, this, COLORREF, ClrBkg, "HRESULT")
         return result
     }
 
@@ -252,5 +270,43 @@ class IVMRMixerControl extends IUnknown {
     GetMixingPrefs() {
         result := ComCall(12, this, "uint*", &pdwMixerPrefs := 0, "HRESULT")
         return pdwMixerPrefs
+    }
+
+    Query(iid) {
+        if (IVMRMixerControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetAlpha := CallbackCreate(GetMethod(implObj, "SetAlpha"), flags, 3)
+        this.vtbl.GetAlpha := CallbackCreate(GetMethod(implObj, "GetAlpha"), flags, 3)
+        this.vtbl.SetZOrder := CallbackCreate(GetMethod(implObj, "SetZOrder"), flags, 3)
+        this.vtbl.GetZOrder := CallbackCreate(GetMethod(implObj, "GetZOrder"), flags, 3)
+        this.vtbl.SetOutputRect := CallbackCreate(GetMethod(implObj, "SetOutputRect"), flags, 3)
+        this.vtbl.GetOutputRect := CallbackCreate(GetMethod(implObj, "GetOutputRect"), flags, 3)
+        this.vtbl.SetBackgroundClr := CallbackCreate(GetMethod(implObj, "SetBackgroundClr"), flags, 2)
+        this.vtbl.GetBackgroundClr := CallbackCreate(GetMethod(implObj, "GetBackgroundClr"), flags, 2)
+        this.vtbl.SetMixingPrefs := CallbackCreate(GetMethod(implObj, "SetMixingPrefs"), flags, 2)
+        this.vtbl.GetMixingPrefs := CallbackCreate(GetMethod(implObj, "GetMixingPrefs"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetAlpha)
+        CallbackFree(this.vtbl.GetAlpha)
+        CallbackFree(this.vtbl.SetZOrder)
+        CallbackFree(this.vtbl.GetZOrder)
+        CallbackFree(this.vtbl.SetOutputRect)
+        CallbackFree(this.vtbl.GetOutputRect)
+        CallbackFree(this.vtbl.SetBackgroundClr)
+        CallbackFree(this.vtbl.GetBackgroundClr)
+        CallbackFree(this.vtbl.SetMixingPrefs)
+        CallbackFree(this.vtbl.GetMixingPrefs)
     }
 }

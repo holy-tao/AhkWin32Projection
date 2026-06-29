@@ -1,20 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
-#Include .\CERT_PUBLIC_KEY_INFO.ahk
-#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include .\CRYPT_BIT_BLOB.ahk
-#Include .\CRYPT_ATTRIBUTE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPT_ATTRIBUTE.ahk" { CRYPT_ATTRIBUTE }
+#Import ".\CERT_PUBLIC_KEY_INFO.ahk" { CERT_PUBLIC_KEY_INFO }
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import ".\CRYPT_ALGORITHM_IDENTIFIER.ahk" { CRYPT_ALGORITHM_IDENTIFIER }
+#Import ".\CRYPT_BIT_BLOB.ahk" { CRYPT_BIT_BLOB }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * The CERT_REQUEST_INFO structure contains information for a certificate request. The subject, subject public key, and attribute BLOBs are encoded.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_request_info
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_REQUEST_INFO extends Win32Struct {
-    static sizeof => 88
-
-    static packingSize => 8
+export default struct CERT_REQUEST_INFO {
+    #StructPack 8
 
     /**
      * The certificate's version number. Defined version number is shown in the following table.
@@ -35,52 +33,27 @@ class CERT_REQUEST_INFO extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwVersion : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CERT_NAME_BLOB</a> structure that contains the certificate subject's encoded name.
-     * @type {CRYPT_INTEGER_BLOB}
      */
-    Subject {
-        get {
-            if(!this.HasProp("__Subject"))
-                this.__Subject := CRYPT_INTEGER_BLOB(8, this)
-            return this.__Subject
-        }
-    }
+    Subject : CRYPT_INTEGER_BLOB
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_public_key_info">CERT_PUBLIC_KEY_INFO</a> structure containing the encoded public key and its algorithm.
-     * @type {CERT_PUBLIC_KEY_INFO}
      */
-    SubjectPublicKeyInfo {
-        get {
-            if(!this.HasProp("__SubjectPublicKeyInfo"))
-                this.__SubjectPublicKeyInfo := CERT_PUBLIC_KEY_INFO(24, this)
-            return this.__SubjectPublicKeyInfo
-        }
-    }
+    SubjectPublicKeyInfo : CERT_PUBLIC_KEY_INFO
 
     /**
      * Number of elements in the <b>rgAttribute</b> array.
-     * @type {Integer}
      */
-    cAttribute {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    cAttribute : UInt32
 
     /**
      * A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_attribute">CRYPT_ATTRIBUTE</a> structures, each holding attribute information about the certificate.
-     * @type {Pointer<CRYPT_ATTRIBUTE>}
      */
-    rgAttribute {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    rgAttribute : CRYPT_ATTRIBUTE.Ptr
+
 }

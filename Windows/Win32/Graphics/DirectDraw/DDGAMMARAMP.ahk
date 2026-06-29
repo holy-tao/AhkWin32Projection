@@ -1,49 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DDGAMMARAMP structure contains red, green, and blue ramp data for the IDirectDrawGammaControl::GetGammaRamp and IDirectDrawGammaControl::SetGammaRamp methods.
  * @see https://learn.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddgammaramp
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDGAMMARAMP extends Win32Struct {
-    static sizeof => 1536
-
-    static packingSize => 2
+export default struct DDGAMMARAMP {
+    #StructPack 2
 
     /**
      * Array of 256 WORD elements that describe the red gamma ramp.
-     * @type {Array<Integer>}
      */
-    red {
-        get {
-            if(!this.HasProp("__redProxyArray"))
-                this.__redProxyArray := Win32FixedArray(this.ptr + 0, 256, Primitive, "ushort")
-            return this.__redProxyArray
-        }
-    }
+    red : UInt16[256]
 
     /**
      * Array of 256 WORD elements that describe the green gamma ramp.
-     * @type {Array<Integer>}
      */
-    green {
-        get {
-            if(!this.HasProp("__greenProxyArray"))
-                this.__greenProxyArray := Win32FixedArray(this.ptr + 512, 256, Primitive, "ushort")
-            return this.__greenProxyArray
-        }
-    }
+    green : UInt16[256]
 
     /**
      * Array of 256 WORD elements that describe the blue gamma ramp.
-     * @type {Array<Integer>}
      */
-    blue {
-        get {
-            if(!this.HasProp("__blueProxyArray"))
-                this.__blueProxyArray := Win32FixedArray(this.ptr + 1024, 256, Primitive, "ushort")
-            return this.__blueProxyArray
-        }
-    }
+    blue : UInt16[256]
+
 }

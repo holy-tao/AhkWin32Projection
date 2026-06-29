@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\MIB_IFROW.ahk
-#Include .\INTERNAL_IF_OPER_STATUS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\MIB_IFROW.ahk" { MIB_IFROW }
+#Import ".\INTERNAL_IF_OPER_STATUS.ahk" { INTERNAL_IF_OPER_STATUS }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains a table of interface entries.
@@ -18,30 +18,18 @@
  * @see https://learn.microsoft.com/windows/win32/api/ifmib/ns-ifmib-mib_iftable
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class MIB_IFTABLE extends Win32Struct {
-    static sizeof => 864
-
-    static packingSize => 4
+export default struct MIB_IFTABLE {
+    #StructPack 4
 
     /**
      * The number of interface entries in the array.
-     * @type {Integer}
      */
-    dwNumEntries {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwNumEntries : UInt32
 
     /**
      * An array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ifmib/ns-ifmib-mib_ifrow">MIB_IFROW</a> structures containing interface entries.
-     * @type {MIB_IFROW}
      */
-    table {
-        get {
-            if(!this.HasProp("__tableProxyArray"))
-                this.__tableProxyArray := Win32FixedArray(this.ptr + 4, 1, MIB_IFROW, "")
-            return this.__tableProxyArray
-        }
-    }
+    table : MIB_IFROW[1]
+
 }

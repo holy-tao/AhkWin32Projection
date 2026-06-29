@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\BCRYPT_OID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\BCRYPT_OID.ahk" { BCRYPT_OID }
 
 /**
  * Used to contain a collection of BCRYPT_OID structures. Use this structure with the BCRYPT_HASH_OID_LIST property to retrieve the list of hashing object identifiers (OIDs) that have been encoded by using Distinguished Encoding Rules (DER) encoding.
@@ -36,26 +35,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_oid_list
  * @namespace Windows.Win32.Security.Cryptography
  */
-class BCRYPT_OID_LIST extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct BCRYPT_OID_LIST {
+    #StructPack 8
 
     /**
      * The number of elements in the <b>pOIDs</b> array.
-     * @type {Integer}
      */
-    dwOIDCount {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwOIDCount : UInt32
 
     /**
      * The address of an array of <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/ns-bcrypt-bcrypt_oid">BCRYPT_OID</a> structures that contains OIDs.
-     * @type {Pointer<BCRYPT_OID>}
      */
-    pOIDs {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pOIDs : BCRYPT_OID.Ptr
+
 }

@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ID3D10Device.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID3D10Device.ahk" { ID3D10Device }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * A state-block interface encapsulates render states.
@@ -13,26 +14,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nn-d3d10effect-id3d10stateblock
  * @namespace Windows.Win32.Graphics.Direct3D10
  */
-class ID3D10StateBlock extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID3D10StateBlock extends IUnknown {
     /**
      * The interface identifier for ID3D10StateBlock
      * @type {Guid}
      */
-    static IID => Guid("{0803425a-57f5-4dd6-9465-a87570834a08}")
+    static IID := Guid("{0803425a-57f5-4dd6-9465-a87570834a08}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID3D10StateBlock interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Capture                 : IntPtr
+        Apply                   : IntPtr
+        ReleaseAllDeviceObjects : IntPtr
+        GetDevice               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Capture", "Apply", "ReleaseAllDeviceObjects", "GetDevice"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID3D10StateBlock.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Capture the current value of states that are included in a stateblock. (ID3D10StateBlock.Capture)
@@ -84,5 +95,31 @@ class ID3D10StateBlock extends IUnknown {
     GetDevice() {
         result := ComCall(6, this, "ptr*", &ppDevice := 0, "HRESULT")
         return ID3D10Device(ppDevice)
+    }
+
+    Query(iid) {
+        if (ID3D10StateBlock.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Capture := CallbackCreate(GetMethod(implObj, "Capture"), flags, 1)
+        this.vtbl.Apply := CallbackCreate(GetMethod(implObj, "Apply"), flags, 1)
+        this.vtbl.ReleaseAllDeviceObjects := CallbackCreate(GetMethod(implObj, "ReleaseAllDeviceObjects"), flags, 1)
+        this.vtbl.GetDevice := CallbackCreate(GetMethod(implObj, "GetDevice"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Capture)
+        CallbackFree(this.vtbl.Apply)
+        CallbackFree(this.vtbl.ReleaseAllDeviceObjects)
+        CallbackFree(this.vtbl.GetDevice)
     }
 }

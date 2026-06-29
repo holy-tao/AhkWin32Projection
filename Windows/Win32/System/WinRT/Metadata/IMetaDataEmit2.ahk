@@ -1,31 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\IMetaDataEmit.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Com\IStream.ahk" { IStream }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IMetaDataEmit.ahk" { IMetaDataEmit }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\CorSaveSize.ahk" { CorSaveSize }
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
  */
-class IMetaDataEmit2 extends IMetaDataEmit {
-
-    static sizeof => A_PtrSize
+export default struct IMetaDataEmit2 extends IMetaDataEmit {
     /**
      * The interface identifier for IMetaDataEmit2
      * @type {Guid}
      */
-    static IID => Guid("{f5dd9950-f693-42e6-830e-7b833e8146a9}")
+    static IID := Guid("{f5dd9950-f693-42e6-830e-7b833e8146a9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 52
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMetaDataEmit2 interfaces
+    */
+    struct Vtbl extends IMetaDataEmit.Vtbl {
+        DefineMethodSpec     : IntPtr
+        GetDeltaSaveSize     : IntPtr
+        SaveDelta            : IntPtr
+        SaveDeltaToStream    : IntPtr
+        SaveDeltaToMemory    : IntPtr
+        DefineGenericParam   : IntPtr
+        SetGenericParamProps : IntPtr
+        ResetENCLog          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["DefineMethodSpec", "GetDeltaSaveSize", "SaveDelta", "SaveDeltaToStream", "SaveDeltaToMemory", "DefineGenericParam", "SetGenericParamProps", "ResetENCLog"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMetaDataEmit2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -52,7 +70,7 @@ class IMetaDataEmit2 extends IMetaDataEmit {
     GetDeltaSaveSize(fSave, pdwSaveSize) {
         pdwSaveSizeMarshal := pdwSaveSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(53, this, "int", fSave, pdwSaveSizeMarshal, pdwSaveSize, "HRESULT")
+        result := ComCall(53, this, CorSaveSize, fSave, pdwSaveSizeMarshal, pdwSaveSize, "HRESULT")
         return result
     }
 
@@ -139,5 +157,39 @@ class IMetaDataEmit2 extends IMetaDataEmit {
     ResetENCLog() {
         result := ComCall(59, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMetaDataEmit2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.DefineMethodSpec := CallbackCreate(GetMethod(implObj, "DefineMethodSpec"), flags, 5)
+        this.vtbl.GetDeltaSaveSize := CallbackCreate(GetMethod(implObj, "GetDeltaSaveSize"), flags, 3)
+        this.vtbl.SaveDelta := CallbackCreate(GetMethod(implObj, "SaveDelta"), flags, 3)
+        this.vtbl.SaveDeltaToStream := CallbackCreate(GetMethod(implObj, "SaveDeltaToStream"), flags, 3)
+        this.vtbl.SaveDeltaToMemory := CallbackCreate(GetMethod(implObj, "SaveDeltaToMemory"), flags, 3)
+        this.vtbl.DefineGenericParam := CallbackCreate(GetMethod(implObj, "DefineGenericParam"), flags, 8)
+        this.vtbl.SetGenericParamProps := CallbackCreate(GetMethod(implObj, "SetGenericParamProps"), flags, 6)
+        this.vtbl.ResetENCLog := CallbackCreate(GetMethod(implObj, "ResetENCLog"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.DefineMethodSpec)
+        CallbackFree(this.vtbl.GetDeltaSaveSize)
+        CallbackFree(this.vtbl.SaveDelta)
+        CallbackFree(this.vtbl.SaveDeltaToStream)
+        CallbackFree(this.vtbl.SaveDeltaToMemory)
+        CallbackFree(this.vtbl.DefineGenericParam)
+        CallbackFree(this.vtbl.SetGenericParamProps)
+        CallbackFree(this.vtbl.ResetENCLog)
     }
 }

@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ID2D1TransformNode.ahk" { ID2D1TransformNode }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a graph of transform nodes.
@@ -10,26 +12,41 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1transformgraph
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1TransformGraph extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1TransformGraph extends IUnknown {
     /**
      * The interface identifier for ID2D1TransformGraph
      * @type {Guid}
      */
-    static IID => Guid("{13d29038-c3e6-4034-9081-13b53a417992}")
+    static IID := Guid("{13d29038-c3e6-4034-9081-13b53a417992}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1TransformGraph interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetInputCount          : IntPtr
+        SetSingleTransformNode : IntPtr
+        AddNode                : IntPtr
+        RemoveNode             : IntPtr
+        SetOutputNode          : IntPtr
+        ConnectNode            : IntPtr
+        ConnectToEffectInput   : IntPtr
+        Clear                  : IntPtr
+        SetPassthroughGraph    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetInputCount", "SetSingleTransformNode", "AddNode", "RemoveNode", "SetOutputNode", "ConnectNode", "ConnectToEffectInput", "Clear", "SetPassthroughGraph"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1TransformGraph.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Returns the number of inputs to the transform graph.
@@ -39,7 +56,7 @@ class ID2D1TransformGraph extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1transformgraph-getinputcount
      */
     GetInputCount() {
-        result := ComCall(3, this, "uint")
+        result := ComCall(3, this, UInt32)
         return result
     }
 
@@ -288,5 +305,41 @@ class ID2D1TransformGraph extends IUnknown {
     SetPassthroughGraph(effectInputIndex) {
         result := ComCall(11, this, "uint", effectInputIndex, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ID2D1TransformGraph.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetInputCount := CallbackCreate(GetMethod(implObj, "GetInputCount"), flags, 1)
+        this.vtbl.SetSingleTransformNode := CallbackCreate(GetMethod(implObj, "SetSingleTransformNode"), flags, 2)
+        this.vtbl.AddNode := CallbackCreate(GetMethod(implObj, "AddNode"), flags, 2)
+        this.vtbl.RemoveNode := CallbackCreate(GetMethod(implObj, "RemoveNode"), flags, 2)
+        this.vtbl.SetOutputNode := CallbackCreate(GetMethod(implObj, "SetOutputNode"), flags, 2)
+        this.vtbl.ConnectNode := CallbackCreate(GetMethod(implObj, "ConnectNode"), flags, 4)
+        this.vtbl.ConnectToEffectInput := CallbackCreate(GetMethod(implObj, "ConnectToEffectInput"), flags, 4)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.SetPassthroughGraph := CallbackCreate(GetMethod(implObj, "SetPassthroughGraph"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetInputCount)
+        CallbackFree(this.vtbl.SetSingleTransformNode)
+        CallbackFree(this.vtbl.AddNode)
+        CallbackFree(this.vtbl.RemoveNode)
+        CallbackFree(this.vtbl.SetOutputNode)
+        CallbackFree(this.vtbl.ConnectNode)
+        CallbackFree(this.vtbl.ConnectToEffectInput)
+        CallbackFree(this.vtbl.Clear)
+        CallbackFree(this.vtbl.SetPassthroughGraph)
     }
 }

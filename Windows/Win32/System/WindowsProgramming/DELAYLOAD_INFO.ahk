@@ -1,82 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IMAGE_DELAYLOAD_DESCRIPTOR.ahk
-#Include .\IMAGE_THUNK_DATA64.ahk
-#Include .\DELAYLOAD_PROC_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DELAYLOAD_PROC_DESCRIPTOR.ahk" { DELAYLOAD_PROC_DESCRIPTOR }
+#Import ".\IMAGE_THUNK_DATA64.ahk" { IMAGE_THUNK_DATA64 }
+#Import ".\IMAGE_DELAYLOAD_DESCRIPTOR.ahk" { IMAGE_DELAYLOAD_DESCRIPTOR }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
  * @architecture X64, Arm64
  */
-class DELAYLOAD_INFO extends Win32Struct {
-    static sizeof => 72
+export default struct DELAYLOAD_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DelayloadDescriptor : IMAGE_DELAYLOAD_DESCRIPTOR.Ptr
 
-    /**
-     * @type {Pointer<IMAGE_DELAYLOAD_DESCRIPTOR>}
-     */
-    DelayloadDescriptor {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ThunkAddress : IMAGE_THUNK_DATA64.Ptr
 
-    /**
-     * @type {Pointer<IMAGE_THUNK_DATA64>}
-     */
-    ThunkAddress {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    TargetDllName : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    TargetDllName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    TargetApiDescriptor : DELAYLOAD_PROC_DESCRIPTOR
 
-    /**
-     * @type {DELAYLOAD_PROC_DESCRIPTOR}
-     */
-    TargetApiDescriptor {
-        get {
-            if(!this.HasProp("__TargetApiDescriptor"))
-                this.__TargetApiDescriptor := DELAYLOAD_PROC_DESCRIPTOR(32, this)
-            return this.__TargetApiDescriptor
-        }
-    }
+    TargetModuleBase : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    TargetModuleBase {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    Unused : IntPtr
 
-    /**
-     * @type {Pointer<Void>}
-     */
-    Unused {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    LastError : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LastError {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
 }

@@ -1,33 +1,64 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\WMT_STREAM_SELECTION.ahk" { WMT_STREAM_SELECTION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\WM_READER_STATISTICS.ahk" { WM_READER_STATISTICS }
+#Import ".\WM_READER_CLIENTINFO.ahk" { WM_READER_CLIENTINFO }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * A call to QueryInterface from a reader object exposes the advanced functionality described in this section.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreaderadvanced
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  */
-class IWMReaderAdvanced extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWMReaderAdvanced extends IUnknown {
     /**
      * The interface identifier for IWMReaderAdvanced
      * @type {Guid}
      */
-    static IID => Guid("{96406bea-2b2b-11d3-b36b-00c04f6108ff}")
+    static IID := Guid("{96406bea-2b2b-11d3-b36b-00c04f6108ff}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWMReaderAdvanced interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetUserProvidedClock         : IntPtr
+        GetUserProvidedClock         : IntPtr
+        DeliverTime                  : IntPtr
+        SetManualStreamSelection     : IntPtr
+        GetManualStreamSelection     : IntPtr
+        SetStreamsSelected           : IntPtr
+        GetStreamSelected            : IntPtr
+        SetReceiveSelectionCallbacks : IntPtr
+        GetReceiveSelectionCallbacks : IntPtr
+        SetReceiveStreamSamples      : IntPtr
+        GetReceiveStreamSamples      : IntPtr
+        SetAllocateForOutput         : IntPtr
+        GetAllocateForOutput         : IntPtr
+        SetAllocateForStream         : IntPtr
+        GetAllocateForStream         : IntPtr
+        GetStatistics                : IntPtr
+        SetClientInfo                : IntPtr
+        GetMaxOutputSampleSize       : IntPtr
+        GetMaxStreamSampleSize       : IntPtr
+        NotifyLateDelivery           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetUserProvidedClock", "GetUserProvidedClock", "DeliverTime", "SetManualStreamSelection", "GetManualStreamSelection", "SetStreamsSelected", "GetStreamSelected", "SetReceiveSelectionCallbacks", "GetReceiveSelectionCallbacks", "SetReceiveStreamSamples", "GetReceiveStreamSamples", "SetAllocateForOutput", "GetAllocateForOutput", "SetAllocateForStream", "GetAllocateForStream", "GetStatistics", "SetClientInfo", "GetMaxOutputSampleSize", "GetMaxStreamSampleSize", "NotifyLateDelivery"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWMReaderAdvanced.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetUserProvidedClock method specifies whether a clock provided by the application is to be used.
@@ -91,7 +122,7 @@ class IWMReaderAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-setuserprovidedclock
      */
     SetUserProvidedClock(fUserClock) {
-        result := ComCall(3, this, "int", fUserClock, "HRESULT")
+        result := ComCall(3, this, BOOL, fUserClock, "HRESULT")
         return result
     }
 
@@ -101,7 +132,7 @@ class IWMReaderAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-getuserprovidedclock
      */
     GetUserProvidedClock() {
-        result := ComCall(4, this, "int*", &pfUserClock := 0, "HRESULT")
+        result := ComCall(4, this, BOOL.Ptr, &pfUserClock := 0, "HRESULT")
         return pfUserClock
     }
 
@@ -164,7 +195,7 @@ class IWMReaderAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-setmanualstreamselection
      */
     SetManualStreamSelection(fSelection) {
-        result := ComCall(6, this, "int", fSelection, "HRESULT")
+        result := ComCall(6, this, BOOL, fSelection, "HRESULT")
         return result
     }
 
@@ -174,7 +205,7 @@ class IWMReaderAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-getmanualstreamselection
      */
     GetManualStreamSelection() {
-        result := ComCall(7, this, "int*", &pfSelection := 0, "HRESULT")
+        result := ComCall(7, this, BOOL.Ptr, &pfSelection := 0, "HRESULT")
         return pfSelection
     }
 
@@ -276,7 +307,7 @@ class IWMReaderAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-setreceiveselectioncallbacks
      */
     SetReceiveSelectionCallbacks(fGetCallbacks) {
-        result := ComCall(10, this, "int", fGetCallbacks, "HRESULT")
+        result := ComCall(10, this, BOOL, fGetCallbacks, "HRESULT")
         return result
     }
 
@@ -286,7 +317,7 @@ class IWMReaderAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-getreceiveselectioncallbacks
      */
     GetReceiveSelectionCallbacks() {
-        result := ComCall(11, this, "int*", &pfGetCallbacks := 0, "HRESULT")
+        result := ComCall(11, this, BOOL.Ptr, &pfGetCallbacks := 0, "HRESULT")
         return pfGetCallbacks
     }
 
@@ -353,7 +384,7 @@ class IWMReaderAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-setreceivestreamsamples
      */
     SetReceiveStreamSamples(wStreamNum, fReceiveStreamSamples) {
-        result := ComCall(12, this, "ushort", wStreamNum, "int", fReceiveStreamSamples, "HRESULT")
+        result := ComCall(12, this, "ushort", wStreamNum, BOOL, fReceiveStreamSamples, "HRESULT")
         return result
     }
 
@@ -366,7 +397,7 @@ class IWMReaderAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-getreceivestreamsamples
      */
     GetReceiveStreamSamples(wStreamNum) {
-        result := ComCall(13, this, "ushort", wStreamNum, "int*", &pfReceiveStreamSamples := 0, "HRESULT")
+        result := ComCall(13, this, "ushort", wStreamNum, BOOL.Ptr, &pfReceiveStreamSamples := 0, "HRESULT")
         return pfReceiveStreamSamples
     }
 
@@ -382,7 +413,7 @@ class IWMReaderAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-setallocateforoutput
      */
     SetAllocateForOutput(dwOutputNum, fAllocate) {
-        result := ComCall(14, this, "uint", dwOutputNum, "int", fAllocate, "HRESULT")
+        result := ComCall(14, this, "uint", dwOutputNum, BOOL, fAllocate, "HRESULT")
         return result
     }
 
@@ -393,7 +424,7 @@ class IWMReaderAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-getallocateforoutput
      */
     GetAllocateForOutput(dwOutputNum) {
-        result := ComCall(15, this, "uint", dwOutputNum, "int*", &pfAllocate := 0, "HRESULT")
+        result := ComCall(15, this, "uint", dwOutputNum, BOOL.Ptr, &pfAllocate := 0, "HRESULT")
         return pfAllocate
     }
 
@@ -407,7 +438,7 @@ class IWMReaderAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-setallocateforstream
      */
     SetAllocateForStream(wStreamNum, fAllocate) {
-        result := ComCall(16, this, "ushort", wStreamNum, "int", fAllocate, "HRESULT")
+        result := ComCall(16, this, "ushort", wStreamNum, BOOL, fAllocate, "HRESULT")
         return result
     }
 
@@ -420,7 +451,7 @@ class IWMReaderAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-getallocateforstream
      */
     GetAllocateForStream(dwSreamNum) {
-        result := ComCall(17, this, "ushort", dwSreamNum, "int*", &pfAllocate := 0, "HRESULT")
+        result := ComCall(17, this, "ushort", dwSreamNum, BOOL.Ptr, &pfAllocate := 0, "HRESULT")
         return pfAllocate
     }
 
@@ -490,7 +521,7 @@ class IWMReaderAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-getstatistics
      */
     GetStatistics(pStatistics) {
-        result := ComCall(18, this, "ptr", pStatistics, "HRESULT")
+        result := ComCall(18, this, WM_READER_STATISTICS.Ptr, pStatistics, "HRESULT")
         return result
     }
 
@@ -545,7 +576,7 @@ class IWMReaderAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-setclientinfo
      */
     SetClientInfo(pClientInfo) {
-        result := ComCall(19, this, "ptr", pClientInfo, "HRESULT")
+        result := ComCall(19, this, WM_READER_CLIENTINFO.Ptr, pClientInfo, "HRESULT")
         return result
     }
 
@@ -580,5 +611,63 @@ class IWMReaderAdvanced extends IUnknown {
     NotifyLateDelivery(cnsLateness) {
         result := ComCall(22, this, "uint", cnsLateness, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWMReaderAdvanced.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetUserProvidedClock := CallbackCreate(GetMethod(implObj, "SetUserProvidedClock"), flags, 2)
+        this.vtbl.GetUserProvidedClock := CallbackCreate(GetMethod(implObj, "GetUserProvidedClock"), flags, 2)
+        this.vtbl.DeliverTime := CallbackCreate(GetMethod(implObj, "DeliverTime"), flags, 2)
+        this.vtbl.SetManualStreamSelection := CallbackCreate(GetMethod(implObj, "SetManualStreamSelection"), flags, 2)
+        this.vtbl.GetManualStreamSelection := CallbackCreate(GetMethod(implObj, "GetManualStreamSelection"), flags, 2)
+        this.vtbl.SetStreamsSelected := CallbackCreate(GetMethod(implObj, "SetStreamsSelected"), flags, 4)
+        this.vtbl.GetStreamSelected := CallbackCreate(GetMethod(implObj, "GetStreamSelected"), flags, 3)
+        this.vtbl.SetReceiveSelectionCallbacks := CallbackCreate(GetMethod(implObj, "SetReceiveSelectionCallbacks"), flags, 2)
+        this.vtbl.GetReceiveSelectionCallbacks := CallbackCreate(GetMethod(implObj, "GetReceiveSelectionCallbacks"), flags, 2)
+        this.vtbl.SetReceiveStreamSamples := CallbackCreate(GetMethod(implObj, "SetReceiveStreamSamples"), flags, 3)
+        this.vtbl.GetReceiveStreamSamples := CallbackCreate(GetMethod(implObj, "GetReceiveStreamSamples"), flags, 3)
+        this.vtbl.SetAllocateForOutput := CallbackCreate(GetMethod(implObj, "SetAllocateForOutput"), flags, 3)
+        this.vtbl.GetAllocateForOutput := CallbackCreate(GetMethod(implObj, "GetAllocateForOutput"), flags, 3)
+        this.vtbl.SetAllocateForStream := CallbackCreate(GetMethod(implObj, "SetAllocateForStream"), flags, 3)
+        this.vtbl.GetAllocateForStream := CallbackCreate(GetMethod(implObj, "GetAllocateForStream"), flags, 3)
+        this.vtbl.GetStatistics := CallbackCreate(GetMethod(implObj, "GetStatistics"), flags, 2)
+        this.vtbl.SetClientInfo := CallbackCreate(GetMethod(implObj, "SetClientInfo"), flags, 2)
+        this.vtbl.GetMaxOutputSampleSize := CallbackCreate(GetMethod(implObj, "GetMaxOutputSampleSize"), flags, 3)
+        this.vtbl.GetMaxStreamSampleSize := CallbackCreate(GetMethod(implObj, "GetMaxStreamSampleSize"), flags, 3)
+        this.vtbl.NotifyLateDelivery := CallbackCreate(GetMethod(implObj, "NotifyLateDelivery"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetUserProvidedClock)
+        CallbackFree(this.vtbl.GetUserProvidedClock)
+        CallbackFree(this.vtbl.DeliverTime)
+        CallbackFree(this.vtbl.SetManualStreamSelection)
+        CallbackFree(this.vtbl.GetManualStreamSelection)
+        CallbackFree(this.vtbl.SetStreamsSelected)
+        CallbackFree(this.vtbl.GetStreamSelected)
+        CallbackFree(this.vtbl.SetReceiveSelectionCallbacks)
+        CallbackFree(this.vtbl.GetReceiveSelectionCallbacks)
+        CallbackFree(this.vtbl.SetReceiveStreamSamples)
+        CallbackFree(this.vtbl.GetReceiveStreamSamples)
+        CallbackFree(this.vtbl.SetAllocateForOutput)
+        CallbackFree(this.vtbl.GetAllocateForOutput)
+        CallbackFree(this.vtbl.SetAllocateForStream)
+        CallbackFree(this.vtbl.GetAllocateForStream)
+        CallbackFree(this.vtbl.GetStatistics)
+        CallbackFree(this.vtbl.SetClientInfo)
+        CallbackFree(this.vtbl.GetMaxOutputSampleSize)
+        CallbackFree(this.vtbl.GetMaxStreamSampleSize)
+        CallbackFree(this.vtbl.NotifyLateDelivery)
     }
 }

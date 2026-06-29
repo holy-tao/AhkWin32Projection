@@ -1,43 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Power
  */
-class PROCESSOR_OBJECT_INFO_EX extends Win32Struct {
-    static sizeof => 16
+export default struct PROCESSOR_OBJECT_INFO_EX {
+    #StructPack 4
 
-    static packingSize => 4
+    PhysicalID : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PhysicalID {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PBlkAddress : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    PBlkAddress {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    PBlkLength : Int8
 
-    /**
-     * @type {Integer}
-     */
-    PBlkLength {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    InitialApicId : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    InitialApicId {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
 }

@@ -1,15 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * Causes 
-  * <b>InternetAutodial</b> to fail if file and printer sharing is disabled for Windows 95 or later.
-  * 
-  * <b>Windows Server 2008 and Windows Vista:  </b>This flag is  obsolete.
- * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetautodial
  * @namespace Windows.Win32.Networking.WinInet
  */
-class INTERNET_AUTODIAL extends Win32Enum {
+export default struct INTERNET_AUTODIAL {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

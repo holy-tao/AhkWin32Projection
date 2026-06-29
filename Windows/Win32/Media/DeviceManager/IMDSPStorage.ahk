@@ -1,36 +1,57 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IMDSPStorageGlobals.ahk
-#Include .\WMDMDATETIME.ahk
-#Include .\IMDSPEnumStorage.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Audio\WAVEFORMATEX.ahk" { WAVEFORMATEX }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IMDSPEnumStorage.ahk" { IMDSPEnumStorage }
+#Import ".\OPAQUECOMMAND.ahk" { OPAQUECOMMAND }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\WMDMDATETIME.ahk" { WMDMDATETIME }
+#Import ".\WMDMRIGHTS.ahk" { WMDMRIGHTS }
+#Import ".\IMDSPStorageGlobals.ahk" { IMDSPStorageGlobals }
 
 /**
  * The IMDSPStorage interface provides an instanced-based association with a storage medium on a device.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-imdspstorage
  * @namespace Windows.Win32.Media.DeviceManager
  */
-class IMDSPStorage extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMDSPStorage extends IUnknown {
     /**
      * The interface identifier for IMDSPStorage
      * @type {Guid}
      */
-    static IID => Guid("{1dcb3a16-33ed-11d3-8470-00c04f79dbc0}")
+    static IID := Guid("{1dcb3a16-33ed-11d3-8470-00c04f79dbc0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMDSPStorage interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetAttributes     : IntPtr
+        GetStorageGlobals : IntPtr
+        GetAttributes     : IntPtr
+        GetName           : IntPtr
+        GetDate           : IntPtr
+        GetSize           : IntPtr
+        GetRights         : IntPtr
+        CreateStorage     : IntPtr
+        EnumStorage       : IntPtr
+        SendOpaqueCommand : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetAttributes", "GetStorageGlobals", "GetAttributes", "GetName", "GetDate", "GetSize", "GetRights", "CreateStorage", "EnumStorage", "SendOpaqueCommand"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMDSPStorage.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The SetAttributes method sets the attributes of a storage object.
@@ -51,7 +72,7 @@ class IMDSPStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage-setattributes
      */
     SetAttributes(dwAttributes, pFormat) {
-        result := ComCall(3, this, "uint", dwAttributes, "ptr", pFormat, "HRESULT")
+        result := ComCall(3, this, "uint", dwAttributes, WAVEFORMATEX.Ptr, pFormat, "HRESULT")
         return result
     }
 
@@ -84,7 +105,7 @@ class IMDSPStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage-getattributes
      */
     GetAttributes(pFormat) {
-        result := ComCall(5, this, "uint*", &pdwAttributes := 0, "ptr", pFormat, "HRESULT")
+        result := ComCall(5, this, "uint*", &pdwAttributes := 0, WAVEFORMATEX.Ptr, pFormat, "HRESULT")
         return pdwAttributes
     }
 
@@ -126,7 +147,7 @@ class IMDSPStorage extends IUnknown {
      */
     GetDate() {
         pDateTimeUTC := WMDMDATETIME()
-        result := ComCall(7, this, "ptr", pDateTimeUTC, "HRESULT")
+        result := ComCall(7, this, WMDMDATETIME.Ptr, pDateTimeUTC, "HRESULT")
         return pDateTimeUTC
     }
 
@@ -316,7 +337,7 @@ class IMDSPStorage extends IUnknown {
     CreateStorage(dwAttributes, pFormat, pwszName) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(10, this, "uint", dwAttributes, "ptr", pFormat, "ptr", pwszName, "ptr*", &ppNewStorage := 0, "HRESULT")
+        result := ComCall(10, this, "uint", dwAttributes, WAVEFORMATEX.Ptr, pFormat, "ptr", pwszName, "ptr*", &ppNewStorage := 0, "HRESULT")
         return IMDSPStorage(ppNewStorage)
     }
 
@@ -352,7 +373,45 @@ class IMDSPStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage-sendopaquecommand
      */
     SendOpaqueCommand(pCommand) {
-        result := ComCall(12, this, "ptr", pCommand, "HRESULT")
+        result := ComCall(12, this, OPAQUECOMMAND.Ptr, pCommand, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMDSPStorage.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetAttributes := CallbackCreate(GetMethod(implObj, "SetAttributes"), flags, 3)
+        this.vtbl.GetStorageGlobals := CallbackCreate(GetMethod(implObj, "GetStorageGlobals"), flags, 2)
+        this.vtbl.GetAttributes := CallbackCreate(GetMethod(implObj, "GetAttributes"), flags, 3)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 3)
+        this.vtbl.GetDate := CallbackCreate(GetMethod(implObj, "GetDate"), flags, 2)
+        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 3)
+        this.vtbl.GetRights := CallbackCreate(GetMethod(implObj, "GetRights"), flags, 4)
+        this.vtbl.CreateStorage := CallbackCreate(GetMethod(implObj, "CreateStorage"), flags, 5)
+        this.vtbl.EnumStorage := CallbackCreate(GetMethod(implObj, "EnumStorage"), flags, 2)
+        this.vtbl.SendOpaqueCommand := CallbackCreate(GetMethod(implObj, "SendOpaqueCommand"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetAttributes)
+        CallbackFree(this.vtbl.GetStorageGlobals)
+        CallbackFree(this.vtbl.GetAttributes)
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.GetDate)
+        CallbackFree(this.vtbl.GetSize)
+        CallbackFree(this.vtbl.GetRights)
+        CallbackFree(this.vtbl.CreateStorage)
+        CallbackFree(this.vtbl.EnumStorage)
+        CallbackFree(this.vtbl.SendOpaqueCommand)
     }
 }

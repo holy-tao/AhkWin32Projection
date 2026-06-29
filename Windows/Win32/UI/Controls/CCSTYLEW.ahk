@@ -1,52 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.UI.Controls
  * @charset Unicode
  */
-class CCSTYLEW extends Win32Struct {
-    static sizeof => 524
+export default struct CCSTYLEW {
+    #StructPack 4
 
-    static packingSize => 4
+    flStyle : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    flStyle {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    flExtStyle : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    flExtStyle {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    szText : WCHAR[256]
 
-    /**
-     * @type {String}
-     */
-    szText {
-        get => StrGet(this.ptr + 8, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 255, "UTF-16")
-    }
+    lgid : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    lgid {
-        get => NumGet(this, 520, "ushort")
-        set => NumPut("ushort", value, this, 520)
-    }
+    wReserved1 : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    wReserved1 {
-        get => NumGet(this, 522, "ushort")
-        set => NumPut("ushort", value, this, 522)
-    }
 }

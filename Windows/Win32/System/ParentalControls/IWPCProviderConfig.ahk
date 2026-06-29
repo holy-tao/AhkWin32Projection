@@ -1,34 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Exposes configuration methods that are implemented by third parties.
  * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nn-wpcapi-iwpcproviderconfig
  * @namespace Windows.Win32.System.ParentalControls
  */
-class IWPCProviderConfig extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IWPCProviderConfig extends IUnknown {
     /**
      * The interface identifier for IWPCProviderConfig
      * @type {Guid}
      */
-    static IID => Guid("{bef54196-2d02-4a26-b6e5-d65af295d0f1}")
+    static IID := Guid("{bef54196-2d02-4a26-b6e5-d65af295d0f1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWPCProviderConfig interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetUserSummary  : IntPtr
+        Configure       : IntPtr
+        RequestOverride : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetUserSummary", "Configure", "RequestOverride"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWPCProviderConfig.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the information for each user by using the Parental Controls Control Panel.
@@ -41,8 +52,8 @@ class IWPCProviderConfig extends IUnknown {
     GetUserSummary(bstrSID) {
         bstrSID := bstrSID is String ? BSTR.Alloc(bstrSID).Value : bstrSID
 
-        pbstrUserSummary := BSTR()
-        result := ComCall(3, this, "ptr", bstrSID, "ptr", pbstrUserSummary, "HRESULT")
+        pbstrUserSummary := BSTR.Owned()
+        result := ComCall(3, this, BSTR, bstrSID, BSTR.Ptr, pbstrUserSummary, "HRESULT")
         return pbstrUserSummary
     }
 
@@ -74,10 +85,9 @@ class IWPCProviderConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcproviderconfig-configure
      */
     Configure(_hWnd, bstrSID) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         bstrSID := bstrSID is String ? BSTR.Alloc(bstrSID).Value : bstrSID
 
-        result := ComCall(4, this, "ptr", _hWnd, "ptr", bstrSID, "HRESULT")
+        result := ComCall(4, this, HWND, _hWnd, BSTR, bstrSID, "HRESULT")
         return result
     }
 
@@ -92,10 +102,33 @@ class IWPCProviderConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcproviderconfig-requestoverride
      */
     RequestOverride(_hWnd, bstrPath, dwFlags) {
-        _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         bstrPath := bstrPath is String ? BSTR.Alloc(bstrPath).Value : bstrPath
 
-        result := ComCall(5, this, "ptr", _hWnd, "ptr", bstrPath, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, HWND, _hWnd, BSTR, bstrPath, "uint", dwFlags, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWPCProviderConfig.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetUserSummary := CallbackCreate(GetMethod(implObj, "GetUserSummary"), flags, 3)
+        this.vtbl.Configure := CallbackCreate(GetMethod(implObj, "Configure"), flags, 3)
+        this.vtbl.RequestOverride := CallbackCreate(GetMethod(implObj, "RequestOverride"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetUserSummary)
+        CallbackFree(this.vtbl.Configure)
+        CallbackFree(this.vtbl.RequestOverride)
     }
 }

@@ -1,49 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USB_PORT_STATUS_AND_CHANGE.ahk
-#Include .\USB_PORT_STATUS.ahk
-#Include .\USB_20_PORT_STATUS.ahk
-#Include .\USB_30_PORT_STATUS.ahk
-#Include .\USB_PORT_CHANGE.ahk
-#Include .\USB_20_PORT_CHANGE.ahk
-#Include .\USB_30_PORT_CHANGE.ahk
-#Include .\USB_PORT_EXT_STATUS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USB_30_PORT_CHANGE.ahk" { USB_30_PORT_CHANGE }
+#Import ".\USB_30_PORT_STATUS.ahk" { USB_30_PORT_STATUS }
+#Import ".\USB_20_PORT_STATUS.ahk" { USB_20_PORT_STATUS }
+#Import ".\USB_PORT_STATUS_AND_CHANGE.ahk" { USB_PORT_STATUS_AND_CHANGE }
+#Import ".\USB_PORT_STATUS.ahk" { USB_PORT_STATUS }
+#Import ".\USB_PORT_EXT_STATUS.ahk" { USB_PORT_EXT_STATUS }
+#Import ".\USB_PORT_CHANGE.ahk" { USB_PORT_CHANGE }
+#Import ".\USB_20_PORT_CHANGE.ahk" { USB_20_PORT_CHANGE }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_PORT_EXT_STATUS_AND_CHANGE extends Win32Struct {
-    static sizeof => 40
+export default struct USB_PORT_EXT_STATUS_AND_CHANGE {
+    #StructPack 1
 
-    static packingSize => 1
+    AsUlong64 : Int64
 
-    /**
-     * @type {Integer}
-     */
-    AsUlong64 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PortExtStatus : USB_PORT_EXT_STATUS
 
-    /**
-     * @type {USB_PORT_STATUS_AND_CHANGE}
-     */
-    PortStatusChange {
-        get {
-            if(!this.HasProp("__PortStatusChange"))
-                this.__PortStatusChange := USB_PORT_STATUS_AND_CHANGE(0, this)
-            return this.__PortStatusChange
-        }
-    }
-
-    /**
-     * @type {USB_PORT_EXT_STATUS}
-     */
-    PortExtStatus {
-        get {
-            if(!this.HasProp("__PortExtStatus"))
-                this.__PortExtStatus := USB_PORT_EXT_STATUS(24, this)
-            return this.__PortExtStatus
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'PortStatusChange', { type: USB_PORT_STATUS_AND_CHANGE, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The EMI_MEASUREMENT_UNIT enumeration represents the available units of energy measurements that can be retrieved from a device by using IOCTL_EMI_GET_MEASUREMENT.
@@ -10,7 +9,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/emi/ne-emi-emi_measurement_unit
  * @namespace Windows.Win32.System.Power
  */
-class EMI_MEASUREMENT_UNIT extends Win32Enum {
+export default struct EMI_MEASUREMENT_UNIT {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The energy measurement is returned in picowatt-hours.

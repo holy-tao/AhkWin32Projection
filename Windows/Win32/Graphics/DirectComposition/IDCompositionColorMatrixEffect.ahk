@@ -1,33 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IDCompositionFilterEffect.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Direct2D\Common\D2D1_COLORMATRIX_ALPHA_MODE.ahk" { D2D1_COLORMATRIX_ALPHA_MODE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDCompositionFilterEffect.ahk" { IDCompositionFilterEffect }
+#Import "..\Direct2D\Common\D2D_MATRIX_5X4_F.ahk" { D2D_MATRIX_5X4_F }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDCompositionAnimation.ahk" { IDCompositionAnimation }
 
 /**
  * The color matrix effect alters the RGBA values of a bitmap.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositioncolormatrixeffect
  * @namespace Windows.Win32.Graphics.DirectComposition
  */
-class IDCompositionColorMatrixEffect extends IDCompositionFilterEffect {
-
-    static sizeof => A_PtrSize
+export default struct IDCompositionColorMatrixEffect extends IDCompositionFilterEffect {
     /**
      * The interface identifier for IDCompositionColorMatrixEffect
      * @type {Guid}
      */
-    static IID => Guid("{c1170a22-3ce2-4966-90d4-55408bfc84c4}")
+    static IID := Guid("{c1170a22-3ce2-4966-90d4-55408bfc84c4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDCompositionColorMatrixEffect interfaces
+    */
+    struct Vtbl extends IDCompositionFilterEffect.Vtbl {
+        SetMatrix         : IntPtr
+        SetMatrixElement  : IntPtr
+        SetMatrixElement1 : IntPtr
+        SetAlphaMode      : IntPtr
+        SetClampOutput    : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetMatrix", "SetMatrixElement", "SetMatrixElement1", "SetAlphaMode", "SetClampOutput"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDCompositionColorMatrixEffect.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the matrix used by the effect to multiply the RGBA values of the image.
@@ -43,7 +59,7 @@ class IDCompositionColorMatrixEffect extends IDCompositionFilterEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositioncolormatrixeffect-setmatrix
      */
     SetMatrix(_matrix) {
-        result := ComCall(4, this, "ptr", _matrix, "HRESULT")
+        result := ComCall(4, this, D2D_MATRIX_5X4_F.Ptr, _matrix, "HRESULT")
         return result
     }
 
@@ -98,7 +114,7 @@ class IDCompositionColorMatrixEffect extends IDCompositionFilterEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositioncolormatrixeffect-setalphamode
      */
     SetAlphaMode(_mode) {
-        result := ComCall(7, this, "int", _mode, "HRESULT")
+        result := ComCall(7, this, D2D1_COLORMATRIX_ALPHA_MODE, _mode, "HRESULT")
         return result
     }
 
@@ -113,7 +129,35 @@ class IDCompositionColorMatrixEffect extends IDCompositionFilterEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositioncolormatrixeffect-setclampoutput
      */
     SetClampOutput(clamp) {
-        result := ComCall(8, this, "int", clamp, "HRESULT")
+        result := ComCall(8, this, BOOL, clamp, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IDCompositionColorMatrixEffect.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetMatrix := CallbackCreate(GetMethod(implObj, "SetMatrix"), flags, 2)
+        this.vtbl.SetMatrixElement := CallbackCreate(GetMethod(implObj, "SetMatrixElement"), flags, 4)
+        this.vtbl.SetMatrixElement1 := CallbackCreate(GetMethod(implObj, "SetMatrixElement1"), flags, 4)
+        this.vtbl.SetAlphaMode := CallbackCreate(GetMethod(implObj, "SetAlphaMode"), flags, 2)
+        this.vtbl.SetClampOutput := CallbackCreate(GetMethod(implObj, "SetClampOutput"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetMatrix)
+        CallbackFree(this.vtbl.SetMatrixElement)
+        CallbackFree(this.vtbl.SetMatrixElement1)
+        CallbackFree(this.vtbl.SetAlphaMode)
+        CallbackFree(this.vtbl.SetClampOutput)
     }
 }

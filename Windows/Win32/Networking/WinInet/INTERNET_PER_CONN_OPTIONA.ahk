@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\INTERNET_PER_CONN.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\INTERNET_PER_CONN.ahk" { INTERNET_PER_CONN }
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains the value of an option. (ANSI)
@@ -29,61 +29,26 @@
  * @namespace Windows.Win32.Networking.WinInet
  * @charset ANSI
  */
-class INTERNET_PER_CONN_OPTIONA extends Win32Struct {
-    static sizeof => 16
+export default struct INTERNET_PER_CONN_OPTIONA {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Value_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _Value {
+        dwValue : UInt32
 
-        /**
-         * @type {Integer}
-         */
-        dwValue {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
-        }
-
-        /**
-         * @type {PSTR}
-         */
-        pszValue {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {FILETIME}
-         */
-        ftValue {
-            get {
-                if(!this.HasProp("__ftValue"))
-                    this.__ftValue := FILETIME(0, this)
-                return this.__ftValue
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'pszValue', { type: PSTR, offset: 0 })
+            DefineProp(this.Prototype, 'ftValue', { type: FILETIME, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {INTERNET_PER_CONN}
-     */
-    dwOption {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwOption : INTERNET_PER_CONN
 
     /**
      * Union that contains the value for the option. It can be any one of the following types depending on the value of 
      * <b>dwOption</b>:
-     * @type {_Value_e__Union}
      */
-    Value {
-        get {
-            if(!this.HasProp("__Value"))
-                this.__Value := INTERNET_PER_CONN_OPTIONA._Value_e__Union(8, this)
-            return this.__Value
-        }
-    }
+    Value : INTERNET_PER_CONN_OPTIONA._Value
+
 }

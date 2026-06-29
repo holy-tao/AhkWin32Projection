@@ -1,67 +1,25 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Win32\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\Win32\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
  */
-class GENERATE_NAME_CONTEXT extends Win32Struct {
-    static sizeof => 36
+export default struct GENERATE_NAME_CONTEXT {
+    #StructPack 4
 
-    static packingSize => 4
+    Checksum : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    Checksum {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
-    }
+    ChecksumInserted : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    ChecksumInserted {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    NameLength : Int8
 
-    /**
-     * @type {Integer}
-     */
-    NameLength {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    NameBuffer : WCHAR[8]
 
-    /**
-     * @type {String}
-     */
-    NameBuffer {
-        get => StrGet(this.ptr + 4, 7, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 7, "UTF-16")
-    }
+    ExtensionLength : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ExtensionLength {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ExtensionBuffer : WCHAR[4]
 
-    /**
-     * @type {String}
-     */
-    ExtensionBuffer {
-        get => StrGet(this.ptr + 24, 3, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 3, "UTF-16")
-    }
+    LastIndexValue : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    LastIndexValue {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

@@ -1,115 +1,37 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * @namespace Windows.Win32.System.ErrorReporting
  */
-class WER_DUMP_CUSTOM_OPTIONS_V2 extends Win32Struct {
-    static sizeof => 560
+export default struct WER_DUMP_CUSTOM_OPTIONS_V2 {
+    #StructPack 4
 
-    static packingSize => 4
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwMask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwMask {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwDumpFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwDumpFlags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    bOnlyThisThread : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    bOnlyThisThread {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    dwExceptionThreadFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwExceptionThreadFlags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwOtherThreadFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwOtherThreadFlags {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    dwExceptionThreadExFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwExceptionThreadExFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    dwOtherThreadExFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwOtherThreadExFlags {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    dwPreferredModuleFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwPreferredModuleFlags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwOtherModuleFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwOtherModuleFlags {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    wzPreferredModuleList : WCHAR[256]
 
-    /**
-     * @type {String}
-     */
-    wzPreferredModuleList {
-        get => StrGet(this.ptr + 40, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 40, 255, "UTF-16")
-    }
+    dwPreferredModuleResetFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwPreferredModuleResetFlags {
-        get => NumGet(this, 552, "uint")
-        set => NumPut("uint", value, this, 552)
-    }
+    dwOtherModuleResetFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwOtherModuleResetFlags {
-        get => NumGet(this, 556, "uint")
-        set => NumPut("uint", value, this, 556)
-    }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies whether a storage specified contains the value, or a pointer to the value, and whether the value can be represented as nil in the XML content.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_write_option
  * @namespace Windows.Win32.Networking.WindowsWebServices
  */
-class WS_WRITE_OPTION extends Win32Enum {
+export default struct WS_WRITE_OPTION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The storage specified contains the value.  The size of the storage 

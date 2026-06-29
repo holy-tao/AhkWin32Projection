@@ -1,9 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WTS_PROTOCOL_COUNTERS.ahk
-#Include .\WTS_CACHE_STATS.ahk
-#Include .\WTS_CACHE_STATS_UN.ahk
-#Include .\WTS_PROTOCOL_CACHE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\WTS_CACHE_STATS.ahk" { WTS_CACHE_STATS }
+#Import ".\WTS_PROTOCOL_COUNTERS.ahk" { WTS_PROTOCOL_COUNTERS }
+#Import ".\WTS_CACHE_STATS_UN.ahk" { WTS_CACHE_STATS_UN }
+#Import ".\WTS_PROTOCOL_CACHE.ahk" { WTS_PROTOCOL_CACHE }
 
 /**
  * Contains information about the status of the protocol.
@@ -12,74 +11,37 @@
  * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wts_protocol_status
  * @namespace Windows.Win32.System.RemoteDesktop
  */
-class WTS_PROTOCOL_STATUS extends Win32Struct {
-    static sizeof => 1864
-
-    static packingSize => 8
+export default struct WTS_PROTOCOL_STATUS {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_protocol_counters">WTS_PROTOCOL_COUNTERS</a> structure that contains the output protocol counters.
-     * @type {WTS_PROTOCOL_COUNTERS}
      */
-    Output {
-        get {
-            if(!this.HasProp("__Output"))
-                this.__Output := WTS_PROTOCOL_COUNTERS(0, this)
-            return this.__Output
-        }
-    }
+    Output : WTS_PROTOCOL_COUNTERS
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_protocol_counters">WTS_PROTOCOL_COUNTERS</a> structure that contains the input protocol counters.
-     * @type {WTS_PROTOCOL_COUNTERS}
      */
-    Input {
-        get {
-            if(!this.HasProp("__Input"))
-                this.__Input := WTS_PROTOCOL_COUNTERS(464, this)
-            return this.__Input
-        }
-    }
+    Input : WTS_PROTOCOL_COUNTERS
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_cache_stats">WTS_CACHE_STATS</a> structure that contains protocol cache statistics.
-     * @type {WTS_CACHE_STATS}
      */
-    Cache {
-        get {
-            if(!this.HasProp("__Cache"))
-                this.__Cache := WTS_CACHE_STATS(928, this)
-            return this.__Cache
-        }
-    }
+    Cache : WTS_CACHE_STATS
 
     /**
      * An integer that identifies an asynchronous signal for asynchronous protocols.
-     * @type {Integer}
      */
-    AsyncSignal {
-        get => NumGet(this, 1052, "uint")
-        set => NumPut("uint", value, this, 1052)
-    }
+    AsyncSignal : UInt32
 
     /**
      * An asynchronous signal mask.
-     * @type {Integer}
      */
-    AsyncSignalMask {
-        get => NumGet(this, 1056, "uint")
-        set => NumPut("uint", value, this, 1056)
-    }
+    AsyncSignalMask : UInt32
 
     /**
      * An array of up to 100 counters.
-     * @type {Array<Integer>}
      */
-    Counters {
-        get {
-            if(!this.HasProp("__CountersProxyArray"))
-                this.__CountersProxyArray := Win32FixedArray(this.ptr + 1064, 100, Primitive, "int64")
-            return this.__CountersProxyArray
-        }
-    }
+    Counters : Int64[100]
+
 }

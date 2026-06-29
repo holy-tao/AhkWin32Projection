@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\SecPkgInfoW.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SecPkgInfoW.ahk" { SecPkgInfoW }
 
 /**
  * The SecPkgContext_NegotiationInfo structure contains information on the security package that is being set up or has been set up, and also gives the status on the negotiation to set up the security package. (Unicode)
@@ -11,20 +10,14 @@
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @charset Unicode
  */
-class SecPkgContext_NegotiationInfoW extends Win32Struct {
-    static sizeof => 16
-
-    static packingSize => 8
+export default struct SecPkgContext_NegotiationInfoW {
+    #StructPack 8
 
     /**
      * Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secpkginfoa">SecPkgInfo</a> structure that provides general information about the security package chosen in the negotiate process, such as the name and capabilities of the package.
-     * @type {Pointer<SecPkgInfoW>}
      */
-    PackageInfo {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    PackageInfo : SecPkgInfoW.Ptr
 
     /**
      * Indicator of the state of the negotiation for the security package identified in the <b>PackageInfo</b> member. This attribute can be queried from the context handle before the setup is complete, such as when ISC returns SEC_I_CONTINUE_NEEDED.
@@ -67,10 +60,7 @@ class SecPkgContext_NegotiationInfoW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    NegotiationState {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NegotiationState : UInt32
+
 }

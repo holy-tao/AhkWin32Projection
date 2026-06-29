@@ -1,12 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\ROUTER_INTERFACE_TYPE.ahk
-#Include .\ROUTER_CONNECTION_STATE.ahk
-#Include .\MPR_INTERFACE_DIAL_MODE.ahk
-#Include .\MPR_ET.ahk
-#Include .\MPR_VS.ahk
-#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
+#Import ".\ROUTER_CONNECTION_STATE.ahk" { ROUTER_CONNECTION_STATE }
+#Import ".\MPR_INTERFACE_DIAL_MODE.ahk" { MPR_INTERFACE_DIAL_MODE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\MPR_VS.ahk" { MPR_VS }
+#Import ".\ROUTER_INTERFACE_TYPE.ahk" { ROUTER_INTERFACE_TYPE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MPR_ET.ahk" { MPR_ET }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * Contains data for a router demand-dial interface. (MPR_INTERFACE_3)
@@ -29,78 +32,45 @@
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mpr_interface_3
  * @namespace Windows.Win32.NetworkManagement.Rras
  */
-class MPR_INTERFACE_3 extends Win32Struct {
-    static sizeof => 2528
-
-    static packingSize => 8
+export default struct MPR_INTERFACE_3 {
+    #StructPack 8
 
     /**
      * A pointer to a Unicode string that contains the name of the interface.
-     * @type {String}
      */
-    wszInterfaceName {
-        get => StrGet(this.ptr + 0, 256, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 256, "UTF-16")
-    }
+    wszInterfaceName : WCHAR[257]
 
     /**
      * A handle to the interface.
-     * @type {HANDLE}
      */
-    hInterface {
-        get {
-            if(!this.HasProp("__hInterface"))
-                this.__hInterface := HANDLE(520, this)
-            return this.__hInterface
-        }
-    }
+    hInterface : HANDLE
 
     /**
      * A value that specifies whether the interface is enabled. This value is <b>TRUE</b> if the interface is enabled, <b>FALSE</b> if the interface is administratively disabled.
-     * @type {BOOL}
      */
-    fEnabled {
-        get => NumGet(this, 528, "int")
-        set => NumPut("int", value, this, 528)
-    }
+    fEnabled : BOOL
 
     /**
      * A value that identifies the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ne-mprapi-router_interface_type">interface type</a>.
-     * @type {ROUTER_INTERFACE_TYPE}
      */
-    dwIfType {
-        get => NumGet(this, 532, "int")
-        set => NumPut("int", value, this, 532)
-    }
+    dwIfType : ROUTER_INTERFACE_TYPE
 
     /**
      * A value that describes the current state of the interface, for example, connected, disconnected, or unreachable. For more information and a list of possible states, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ne-mprapi-router_connection_state">ROUTER_CONNECTION_STATE</a>.
-     * @type {ROUTER_CONNECTION_STATE}
      */
-    dwConnectionState {
-        get => NumGet(this, 536, "int")
-        set => NumPut("int", value, this, 536)
-    }
+    dwConnectionState : ROUTER_CONNECTION_STATE
 
     /**
      * A value that describes the reason why  the interface is unreachable. For more information and a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/RRAS/unreachability-reasons">Unreachability Reasons</a>.
-     * @type {Integer}
      */
-    fUnReachabilityReasons {
-        get => NumGet(this, 540, "uint")
-        set => NumPut("uint", value, this, 540)
-    }
+    fUnReachabilityReasons : UInt32
 
     /**
      * A value that contains a nonzero value if the interface fails to connect.
-     * @type {Integer}
      */
-    dwLastError {
-        get => NumGet(this, 544, "uint")
-        set => NumPut("uint", value, this, 544)
-    }
+    dwLastError : UInt32
 
     /**
      * A value that specifies bit flags that are used to set connection options. You can set one of the flags listed in the following table.
@@ -340,80 +310,48 @@ class MPR_INTERFACE_3 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwfOptions {
-        get => NumGet(this, 548, "uint")
-        set => NumPut("uint", value, this, 548)
-    }
+    dwfOptions : UInt32
 
     /**
      * A value that specifies a null-terminated string that contains a telephone number or an IPv6 address.
-     * @type {String}
      */
-    szLocalPhoneNumber {
-        get => StrGet(this.ptr + 552, 128, "UTF-16")
-        set => StrPut(value, this.ptr + 552, 128, "UTF-16")
-    }
+    szLocalPhoneNumber : WCHAR[129]
 
     /**
      * A pointer to a list of consecutive null-terminated Unicode strings. The last string is terminated by two consecutive null characters. The strings are alternate phone numbers that the router dials, in the order listed, if the primary number fails to connect. For more information, see <b>szLocalPhoneNumber</b>.
-     * @type {PWSTR}
      */
-    szAlternates {
-        get => NumGet(this, 816, "ptr")
-        set => NumPut("ptr", value, this, 816)
-    }
+    szAlternates : PWSTR
 
     /**
      * A value that specifies the IP address to be used while this connection is active. This member is ignored unless <b>dwfOptions</b> specifies the 
      * <b>MPRIO_SpecificIpAddr</b> flag.
-     * @type {Integer}
      */
-    ipaddr {
-        get => NumGet(this, 824, "uint")
-        set => NumPut("uint", value, this, 824)
-    }
+    ipaddr : UInt32
 
     /**
      * A value that specifies the IP address of the DNS server to be used while this connection is active. This member is ignored unless <b>dwfOptions</b> specifies the 
      * <b>MPRIO_SpecificNameServers</b> flag.
-     * @type {Integer}
      */
-    ipaddrDns {
-        get => NumGet(this, 828, "uint")
-        set => NumPut("uint", value, this, 828)
-    }
+    ipaddrDns : UInt32
 
     /**
      * A value that specifies the IP address of a secondary or backup DNS server to be used while this connection is active. This member is ignored unless <b>dwfOptions</b> specifies the 
      * <b>MPRIO_SpecificNameServers</b> flag.
-     * @type {Integer}
      */
-    ipaddrDnsAlt {
-        get => NumGet(this, 832, "uint")
-        set => NumPut("uint", value, this, 832)
-    }
+    ipaddrDnsAlt : UInt32
 
     /**
      * A value that specifies the IP address of the WINS server to be used while this connection is active. This member is ignored unless <b>dwfOptions</b> specifies the 
      * <b>MPRIO_SpecificNameServers</b> flag.
-     * @type {Integer}
      */
-    ipaddrWins {
-        get => NumGet(this, 836, "uint")
-        set => NumPut("uint", value, this, 836)
-    }
+    ipaddrWins : UInt32
 
     /**
      * A value that specifies the IP address of a secondary WINS server to be used while this connection is active. This member is ignored unless <b>dwfOptions</b> specifies the 
      * <b>MPRIO_SpecificNameServers</b> flag.
-     * @type {Integer}
      */
-    ipaddrWinsAlt {
-        get => NumGet(this, 840, "uint")
-        set => NumPut("uint", value, this, 840)
-    }
+    ipaddrWinsAlt : UInt32
 
     /**
      * A value that specifies the network protocols to negotiate. This member can be a combination of the following flags.
@@ -447,12 +385,8 @@ class MPR_INTERFACE_3 extends Win32Struct {
      *  
      * 
      * <b>64-bit Windows:  </b>The <b>MPRNP_Ipx</b> flag is not supported
-     * @type {Integer}
      */
-    dwfNetProtocols {
-        get => NumGet(this, 844, "uint")
-        set => NumPut("uint", value, this, 844)
-    }
+    dwfNetProtocols : UInt32
 
     /**
      * A value that specifies a null-terminated string that indicates the RRAS device type that is referenced by <b>szDeviceName</b>. This member can be one of the following string constants.
@@ -593,140 +527,80 @@ class MPR_INTERFACE_3 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {String}
      */
-    szDeviceType {
-        get => StrGet(this.ptr + 848, 16, "UTF-16")
-        set => StrPut(value, this.ptr + 848, 16, "UTF-16")
-    }
+    szDeviceType : WCHAR[17]
 
     /**
      * Contains a null-terminated string that contains the name of a TAPI device to use with this phone-book entry, for example, "Fabrikam Inc 28800 External". To enumerate all available RAS-capable devices, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumdevicesa">RasEnumDevices</a> function.
-     * @type {String}
      */
-    szDeviceName {
-        get => StrGet(this.ptr + 882, 128, "UTF-16")
-        set => StrPut(value, this.ptr + 882, 128, "UTF-16")
-    }
+    szDeviceName : WCHAR[129]
 
     /**
      * A data type that contains a null-terminated string that identifies the X.25 PAD type. Set this member to an empty string ("") unless the entry should dial using an X.25 PAD.
      * 
      * <b>Windows 2000 and Windows NT:  </b>The <b>szX25PadType</b> string maps to a section name in PAD.INF.
-     * @type {String}
      */
-    szX25PadType {
-        get => StrGet(this.ptr + 1140, 32, "UTF-16")
-        set => StrPut(value, this.ptr + 1140, 32, "UTF-16")
-    }
+    szX25PadType : WCHAR[33]
 
     /**
      * Contains a null-terminated string that identifies the X.25 address to connect to. Set this member to an empty string ("") unless the entry should dial using an X.25 PAD or native X.25 device.
-     * @type {String}
      */
-    szX25Address {
-        get => StrGet(this.ptr + 1206, 200, "UTF-16")
-        set => StrPut(value, this.ptr + 1206, 200, "UTF-16")
-    }
+    szX25Address : WCHAR[201]
 
     /**
      * Contains a null-terminated string that specifies the facilities to request from the X.25 host at connection time. This member is ignored if <b>szX25Address</b> is an empty string ("").
-     * @type {String}
      */
-    szX25Facilities {
-        get => StrGet(this.ptr + 1608, 200, "UTF-16")
-        set => StrPut(value, this.ptr + 1608, 200, "UTF-16")
-    }
+    szX25Facilities : WCHAR[201]
 
     /**
      * Contains a null-terminated string that specifies additional connection data supplied to the X.25 host at connection time. This member is ignored if <b>szX25Address</b> is an empty string ("").
-     * @type {String}
      */
-    szX25UserData {
-        get => StrGet(this.ptr + 2010, 200, "UTF-16")
-        set => StrPut(value, this.ptr + 2010, 200, "UTF-16")
-    }
+    szX25UserData : WCHAR[201]
 
     /**
      * Reserved for future use.
-     * @type {Integer}
      */
-    dwChannels {
-        get => NumGet(this, 2412, "uint")
-        set => NumPut("uint", value, this, 2412)
-    }
+    dwChannels : UInt32
 
     /**
      * A value that specifies the number of multilink subentries associated with this entry. When calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rassetentrypropertiesa">RasSetEntryProperties</a>, set this member to zero. To add subentries to a phone-book entry, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rassetsubentrypropertiesa">RasSetSubEntryProperties</a> function.
-     * @type {Integer}
      */
-    dwSubEntries {
-        get => NumGet(this, 2416, "uint")
-        set => NumPut("uint", value, this, 2416)
-    }
+    dwSubEntries : UInt32
 
-    /**
-     * @type {MPR_INTERFACE_DIAL_MODE}
-     */
-    dwDialMode {
-        get => NumGet(this, 2420, "uint")
-        set => NumPut("uint", value, this, 2420)
-    }
+    dwDialMode : MPR_INTERFACE_DIAL_MODE
 
     /**
      * A value that specifies the percentage of the total bandwidth that is available from the currently connected subentries. RRAS dials an additional subentry when the total bandwidth that is used exceeds <b>dwDialExtraPercent</b> percent of the available bandwidth for at least <b>dwDialExtraSampleSeconds</b> seconds.
      * 
      * This member is ignored unless the <b>dwDialMode</b> member specifies the <b>MPRDM_DialAsNeeded</b> flag.
-     * @type {Integer}
      */
-    dwDialExtraPercent {
-        get => NumGet(this, 2424, "uint")
-        set => NumPut("uint", value, this, 2424)
-    }
+    dwDialExtraPercent : UInt32
 
     /**
      * A value that specifies the time, in seconds, for which current bandwidth usage must exceed the threshold that is specified by <b>dwDialExtraPercent</b> before RRAS dials an additional subentry.
      * 
      * This member is ignored unless the <b>dwDialMode</b> member specifies the <b>MPRDM_DialAsNeeded</b> flag.
-     * @type {Integer}
      */
-    dwDialExtraSampleSeconds {
-        get => NumGet(this, 2428, "uint")
-        set => NumPut("uint", value, this, 2428)
-    }
+    dwDialExtraSampleSeconds : UInt32
 
     /**
      * A value that specifies the percentage of the total bandwidth that is available from the currently connected subentries. RRAS terminates (hangs up) an existing subentry connection when the total bandwidth used is less than <b>dwHangUpExtraPercent</b> percent of the available bandwidth for at least <b>dwHangUpExtraSampleSeconds</b> seconds.
      * 
      * This member is ignored unless the <b>dwDialMode</b> member specifies the <b>MPRDM_DialAsNeeded</b> flag.
-     * @type {Integer}
      */
-    dwHangUpExtraPercent {
-        get => NumGet(this, 2432, "uint")
-        set => NumPut("uint", value, this, 2432)
-    }
+    dwHangUpExtraPercent : UInt32
 
     /**
      * A value that specifies the time, in seconds, for which current bandwidth usage must be less than the threshold that is specified by <b>dwHangUpExtraPercent</b> before RRAS terminates an existing subentry connection.
      * 
      * This member is ignored unless the <b>dwDialMode</b> member specifies the <b>MPRDM_DialAsNeeded</b> flag.
-     * @type {Integer}
      */
-    dwHangUpExtraSampleSeconds {
-        get => NumGet(this, 2436, "uint")
-        set => NumPut("uint", value, this, 2436)
-    }
+    dwHangUpExtraSampleSeconds : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwIdleDisconnectSeconds {
-        get => NumGet(this, 2440, "uint")
-        set => NumPut("uint", value, this, 2440)
-    }
+    dwIdleDisconnectSeconds : UInt32
 
     /**
      * A value that specifies the type of phone-book entry. This member can be one of the following types.
@@ -767,104 +641,51 @@ class MPR_INTERFACE_3 extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwType {
-        get => NumGet(this, 2444, "uint")
-        set => NumPut("uint", value, this, 2444)
-    }
+    dwType : UInt32
 
-    /**
-     * @type {MPR_ET}
-     */
-    dwEncryptionType {
-        get => NumGet(this, 2448, "uint")
-        set => NumPut("uint", value, this, 2448)
-    }
+    dwEncryptionType : MPR_ET
 
     /**
      * A value that specifies the authentication key to be provided to an Extensible Authentication Protocol (EAP) vendor.
-     * @type {Integer}
      */
-    dwCustomAuthKey {
-        get => NumGet(this, 2452, "uint")
-        set => NumPut("uint", value, this, 2452)
-    }
+    dwCustomAuthKey : UInt32
 
     /**
      * A value that specifies the size of the data pointed to by the <b>lpbCustomAuthData</b> member.
-     * @type {Integer}
      */
-    dwCustomAuthDataSize {
-        get => NumGet(this, 2456, "uint")
-        set => NumPut("uint", value, this, 2456)
-    }
+    dwCustomAuthDataSize : UInt32
 
     /**
      * A pointer to authentication data to use with EAP.
-     * @type {Pointer<Integer>}
      */
-    lpbCustomAuthData {
-        get => NumGet(this, 2464, "ptr")
-        set => NumPut("ptr", value, this, 2464)
-    }
+    lpbCustomAuthData : IntPtr
 
     /**
      * The globally unique identifier (GUID) that represents this phone-book entry. This member is read-only.
-     * @type {Pointer}
      */
-    guidId {
-        get => NumGet(this, 2472, "ptr")
-        set => NumPut("ptr", value, this, 2472)
-    }
+    guidId : Guid
 
-    /**
-     * @type {MPR_VS}
-     */
-    dwVpnStrategy {
-        get => NumGet(this, 2480, "uint")
-        set => NumPut("uint", value, this, 2480)
-    }
+    dwVpnStrategy : MPR_VS
 
     /**
      * Not used.
-     * @type {Integer}
      */
-    AddressCount {
-        get => NumGet(this, 2484, "uint")
-        set => NumPut("uint", value, this, 2484)
-    }
+    AddressCount : UInt32
 
     /**
      * A value that specifies the IP address of the DNS server to be used while this connection is active.
-     * @type {IN6_ADDR}
      */
-    ipv6addrDns {
-        get {
-            if(!this.HasProp("__ipv6addrDns"))
-                this.__ipv6addrDns := IN6_ADDR(2488, this)
-            return this.__ipv6addrDns
-        }
-    }
+    ipv6addrDns : IN6_ADDR
 
     /**
      * A value that specifies the IP address of a secondary or backup DNS server to be used while this connection is active.
-     * @type {IN6_ADDR}
      */
-    ipv6addrDnsAlt {
-        get {
-            if(!this.HasProp("__ipv6addrDnsAlt"))
-                this.__ipv6addrDnsAlt := IN6_ADDR(2504, this)
-            return this.__ipv6addrDnsAlt
-        }
-    }
+    ipv6addrDnsAlt : IN6_ADDR
 
     /**
      * Not used.
-     * @type {Pointer<IN6_ADDR>}
      */
-    ipv6addr {
-        get => NumGet(this, 2520, "ptr")
-        set => NumPut("ptr", value, this, 2520)
-    }
+    ipv6addr : IN6_ADDR.Ptr
+
 }

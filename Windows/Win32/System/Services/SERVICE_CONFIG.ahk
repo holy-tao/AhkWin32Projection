@@ -1,14 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
- * The <i>lpInfo</i> parameter is a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-service_delayed_auto_start_info">SERVICE_DELAYED_AUTO_START_INFO</a> structure.
-  * 
-  * <b>Windows Server 2003 and Windows XP:  </b>This value is not supported.
- * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-changeserviceconfig2a
  * @namespace Windows.Win32.System.Services
  */
-class SERVICE_CONFIG extends Win32Enum {
+export default struct SERVICE_CONFIG {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (UInt32)}

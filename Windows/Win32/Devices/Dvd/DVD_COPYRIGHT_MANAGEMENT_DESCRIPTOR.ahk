@@ -1,30 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
  */
-class DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR extends Win32Struct {
-    static sizeof => 4
+export default struct DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR {
+    #StructPack 1
 
-    static packingSize => 1
 
-    class _Dvdrom extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _Dvdrom {
         /**
          * This bitfield backs the following members:
          * - CopyProtectionMode
          * - ContentGenerationManagementSystem
          * - CopyProtectedSector
          * - CopyProtectedMaterial
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -59,22 +51,16 @@ class DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR extends Win32Struct {
         }
     }
 
-    class _DvdRecordable_Version1 extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _DvdRecordable_Version1 {
         /**
          * This bitfield backs the following members:
          * - Reserved0001
          * - ContentGenerationManagementSystem
          * - Reserved0002
          * - CopyProtectedMaterial
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -109,34 +95,20 @@ class DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR extends Win32Struct {
         }
     }
 
-    class _Dvdram extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
+    struct _Dvdram {
+        Reserved0003 : Int8
 
-        /**
-         * @type {Integer}
-         */
-        Reserved0003 {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
     }
 
-    class _DvdRecordable extends Win32Struct {
-        static sizeof => 1
-        static packingSize => 1
-
+    struct _DvdRecordable {
         /**
          * This bitfield backs the following members:
          * - Reserved0004
          * - ADP_TY
          * - Reserved0005
-         * @type {Integer}
          */
-        _bitfield {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
+        _bitfield : Int8
+
 
         /**
          * @type {Integer}
@@ -163,66 +135,15 @@ class DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR extends Win32Struct {
         }
     }
 
-    /**
-     * @type {_Dvdrom}
-     */
-    Dvdrom {
-        get {
-            if(!this.HasProp("__Dvdrom"))
-                this.__Dvdrom := DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR._Dvdrom(0, this)
-            return this.__Dvdrom
-        }
-    }
+    Dvdrom : DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR._Dvdrom
 
-    /**
-     * @type {_DvdRecordable_Version1}
-     */
-    DvdRecordable_Version1 {
-        get {
-            if(!this.HasProp("__DvdRecordable_Version1"))
-                this.__DvdRecordable_Version1 := DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR._DvdRecordable_Version1(0, this)
-            return this.__DvdRecordable_Version1
-        }
-    }
+    Reserved0 : Int8[3]
 
-    /**
-     * @type {_Dvdram}
-     */
-    Dvdram {
-        get {
-            if(!this.HasProp("__Dvdram"))
-                this.__Dvdram := DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR._Dvdram(0, this)
-            return this.__Dvdram
-        }
-    }
-
-    /**
-     * @type {_DvdRecordable}
-     */
-    DvdRecordable {
-        get {
-            if(!this.HasProp("__DvdRecordable"))
-                this.__DvdRecordable := DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR._DvdRecordable(0, this)
-            return this.__DvdRecordable
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CPR_MAI {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
-
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved0 {
-        get {
-            if(!this.HasProp("__Reserved0ProxyArray"))
-                this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
-            return this.__Reserved0ProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'DvdRecordable_Version1', { type: DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR._DvdRecordable_Version1, offset: 0 })
+        DefineProp(this.Prototype, 'Dvdram', { type: DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR._Dvdram, offset: 0 })
+        DefineProp(this.Prototype, 'DvdRecordable', { type: DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR._DvdRecordable, offset: 0 })
+        DefineProp(this.Prototype, 'CPR_MAI', { type: Int8, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

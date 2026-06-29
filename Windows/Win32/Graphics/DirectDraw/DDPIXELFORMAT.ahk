@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DDPIXELFORMAT structure describes the pixel format of a DirectDrawSurface object for the IDirectDrawSurface7::GetPixelFormat method.
@@ -23,275 +22,65 @@
  * @see https://learn.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddpixelformat
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
-class DDPIXELFORMAT extends Win32Struct {
-    static sizeof => 32
+export default struct DDPIXELFORMAT {
+    #StructPack 4
 
-    static packingSize => 4
+
+    struct _MultiSampleCaps {
+        wFlipMSTypes : UInt16
+
+        wBltMSTypes : UInt16
+
+    }
 
     /**
      * Size of the structure, in bytes. This member must be initialized before the structure is used.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * The following flags to describe optional controls for this structure.
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwFlags : UInt32
 
     /**
      * A FourCC code.
-     * @type {Integer}
      */
-    dwFourCC {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwFourCC : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwRGBBitCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwRGBBitCount : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwYUVBitCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwRBitMask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwZBufferBitDepth {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwGBitMask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwAlphaBitDepth {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwBBitMask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwLuminanceBitCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    dwRGBAlphaBitMask : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwBumpBitCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwPrivateFormatBitCount {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwRBitMask {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwYBitMask {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwStencilBitDepth {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwLuminanceBitMask {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwBumpDuBitMask {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwOperations {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    class _MultiSampleCaps extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 2
-
-        /**
-         * @type {Integer}
-         */
-        wFlipMSTypes {
-            get => NumGet(this, 0, "ushort")
-            set => NumPut("ushort", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        wBltMSTypes {
-            get => NumGet(this, 2, "ushort")
-            set => NumPut("ushort", value, this, 2)
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwGBitMask {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwUBitMask {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwZBitMask {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwBumpDvBitMask {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
-
-    /**
-     * @type {_MultiSampleCaps}
-     */
-    MultiSampleCaps {
-        get {
-            if(!this.HasProp("__MultiSampleCaps"))
-                this.__MultiSampleCaps := DDPIXELFORMAT._MultiSampleCaps(20, this)
-            return this.__MultiSampleCaps
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwBBitMask {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwVBitMask {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwStencilBitMask {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwBumpLuminanceBitMask {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwRGBAlphaBitMask {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwYUVAlphaBitMask {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwLuminanceAlphaBitMask {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwRGBZBitMask {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwYUVZBitMask {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+    static __New() {
+        DefineProp(this.Prototype, 'dwYUVBitCount', { type: UInt32, offset: 12 })
+        DefineProp(this.Prototype, 'dwZBufferBitDepth', { type: UInt32, offset: 12 })
+        DefineProp(this.Prototype, 'dwAlphaBitDepth', { type: UInt32, offset: 12 })
+        DefineProp(this.Prototype, 'dwLuminanceBitCount', { type: UInt32, offset: 12 })
+        DefineProp(this.Prototype, 'dwBumpBitCount', { type: UInt32, offset: 12 })
+        DefineProp(this.Prototype, 'dwPrivateFormatBitCount', { type: UInt32, offset: 12 })
+        DefineProp(this.Prototype, 'dwYBitMask', { type: UInt32, offset: 16 })
+        DefineProp(this.Prototype, 'dwStencilBitDepth', { type: UInt32, offset: 16 })
+        DefineProp(this.Prototype, 'dwLuminanceBitMask', { type: UInt32, offset: 16 })
+        DefineProp(this.Prototype, 'dwBumpDuBitMask', { type: UInt32, offset: 16 })
+        DefineProp(this.Prototype, 'dwOperations', { type: UInt32, offset: 16 })
+        DefineProp(this.Prototype, 'dwUBitMask', { type: UInt32, offset: 20 })
+        DefineProp(this.Prototype, 'dwZBitMask', { type: UInt32, offset: 20 })
+        DefineProp(this.Prototype, 'dwBumpDvBitMask', { type: UInt32, offset: 20 })
+        DefineProp(this.Prototype, 'MultiSampleCaps', { type: DDPIXELFORMAT._MultiSampleCaps, offset: 20 })
+        DefineProp(this.Prototype, 'dwVBitMask', { type: UInt32, offset: 24 })
+        DefineProp(this.Prototype, 'dwStencilBitMask', { type: UInt32, offset: 24 })
+        DefineProp(this.Prototype, 'dwBumpLuminanceBitMask', { type: UInt32, offset: 24 })
+        DefineProp(this.Prototype, 'dwYUVAlphaBitMask', { type: UInt32, offset: 28 })
+        DefineProp(this.Prototype, 'dwLuminanceAlphaBitMask', { type: UInt32, offset: 28 })
+        DefineProp(this.Prototype, 'dwRGBZBitMask', { type: UInt32, offset: 28 })
+        DefineProp(this.Prototype, 'dwYUVZBitMask', { type: UInt32, offset: 28 })
+        this.DeleteProp("__New")
     }
 }

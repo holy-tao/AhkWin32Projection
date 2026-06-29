@@ -1,97 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
  */
-class BDA_ISDBCAS_EMG_REQ extends Win32Struct {
-    static sizeof => 15
+export default struct BDA_ISDBCAS_EMG_REQ {
+    #StructPack 1
 
-    static packingSize => 1
+    bCLA : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bCLA {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    bINS : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bINS {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    bP1 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bP1 {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    bP2 : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bP2 {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    bLC : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bLC {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    bCardId : Int8[6]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    bCardId {
-        get {
-            if(!this.HasProp("__bCardIdProxyArray"))
-                this.__bCardIdProxyArray := Win32FixedArray(this.ptr + 5, 6, Primitive, "char")
-            return this.__bCardIdProxyArray
-        }
-    }
+    bProtocol : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bProtocol {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
-    }
+    bCABroadcasterGroupId : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bCABroadcasterGroupId {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
-    }
+    bMessageControl : Int8
 
-    /**
-     * @type {Integer}
-     */
-    bMessageControl {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
-    }
+    bMessageCode : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    bMessageCode {
-        get {
-            if(!this.HasProp("__bMessageCodeProxyArray"))
-                this.__bMessageCodeProxyArray := Win32FixedArray(this.ptr + 14, 1, Primitive, "char")
-            return this.__bMessageCodeProxyArray
-        }
-    }
 }

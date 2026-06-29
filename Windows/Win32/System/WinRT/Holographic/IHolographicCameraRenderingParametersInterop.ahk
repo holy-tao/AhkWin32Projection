@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\IInspectable.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Graphics\Direct3D12\ID3D12Fence.ahk" { ID3D12Fence }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\IInspectable.ahk" { IInspectable }
+#Import "..\..\..\Graphics\Direct3D12\ID3D12Resource.ahk" { ID3D12Resource }
 
 /**
  * A nano-COM interface that allows COM interop with the [HolographicCameraRenderingParameters](/uwp/api/windows.graphics.holographic.holographiccamerarenderingparameters) class for applications that use Direct3D 12 for holographic rendering.
@@ -31,26 +34,34 @@
  * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.holographic.interop/nn-windows-graphics-holographic-interop-iholographiccamerarenderingparametersinterop
  * @namespace Windows.Win32.System.WinRT.Holographic
  */
-class IHolographicCameraRenderingParametersInterop extends IInspectable {
-
-    static sizeof => A_PtrSize
+export default struct IHolographicCameraRenderingParametersInterop extends IInspectable {
     /**
      * The interface identifier for IHolographicCameraRenderingParametersInterop
      * @type {Guid}
      */
-    static IID => Guid("{f75b68d6-d1fd-4707-aafd-fa6f4c0e3bf4}")
+    static IID := Guid("{f75b68d6-d1fd-4707-aafd-fa6f4c0e3bf4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 6
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IHolographicCameraRenderingParametersInterop interfaces
+    */
+    struct Vtbl extends IInspectable.Vtbl {
+        CommitDirect3D12Resource              : IntPtr
+        CommitDirect3D12ResourceWithDepthData : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CommitDirect3D12Resource", "CommitDirect3D12ResourceWithDepthData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IHolographicCameraRenderingParametersInterop.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IHolographicCameraRenderingParametersInterop::CommitDirect3D12Resource function commits a Direct3D 12 buffer for presentation on HolographicCamera outputs.
@@ -97,5 +108,27 @@ class IHolographicCameraRenderingParametersInterop extends IInspectable {
     CommitDirect3D12ResourceWithDepthData(pColorResourceToCommit, pColorResourceFence, colorResourceFenceSignalValue, pDepthResourceToCommit, pDepthResourceFence, depthResourceFenceSignalValue) {
         result := ComCall(7, this, "ptr", pColorResourceToCommit, "ptr", pColorResourceFence, "uint", colorResourceFenceSignalValue, "ptr", pDepthResourceToCommit, "ptr", pDepthResourceFence, "uint", depthResourceFenceSignalValue, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IHolographicCameraRenderingParametersInterop.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CommitDirect3D12Resource := CallbackCreate(GetMethod(implObj, "CommitDirect3D12Resource"), flags, 4)
+        this.vtbl.CommitDirect3D12ResourceWithDepthData := CallbackCreate(GetMethod(implObj, "CommitDirect3D12ResourceWithDepthData"), flags, 7)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CommitDirect3D12Resource)
+        CallbackFree(this.vtbl.CommitDirect3D12ResourceWithDepthData)
     }
 }

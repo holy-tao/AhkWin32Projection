@@ -1,7 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IConditionFactory.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ICondition.ahk" { ICondition }
+#Import ".\IConditionFactory.ahk" { IConditionFactory }
+#Import ".\IEntity.ahk" { IEntity }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITokenCollection.ahk" { ITokenCollection }
 
 /**
  * Provides methods that retrieve information about the interpretation of a parsed query.
@@ -10,26 +16,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nn-structuredquery-iquerysolution
  * @namespace Windows.Win32.System.Search
  */
-class IQuerySolution extends IConditionFactory {
-
-    static sizeof => A_PtrSize
+export default struct IQuerySolution extends IConditionFactory {
     /**
      * The interface identifier for IQuerySolution
      * @type {Guid}
      */
-    static IID => Guid("{d6ebc66b-8921-4193-afdd-a1789fb7ff57}")
+    static IID := Guid("{d6ebc66b-8921-4193-afdd-a1789fb7ff57}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IQuerySolution interfaces
+    */
+    struct Vtbl extends IConditionFactory.Vtbl {
+        GetQuery       : IntPtr
+        GetErrors      : IntPtr
+        GetLexicalData : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetQuery", "GetErrors", "GetLexicalData"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IQuerySolution.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the condition tree and the semantic type of the solution.
@@ -45,7 +60,7 @@ class IQuerySolution extends IConditionFactory {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iquerysolution-getquery
      */
     GetQuery(ppQueryNode, ppMainType) {
-        result := ComCall(7, this, "ptr*", ppQueryNode, "ptr*", ppMainType, "HRESULT")
+        result := ComCall(7, this, ICondition.Ptr, ppQueryNode, IEntity.Ptr, ppMainType, "HRESULT")
         return result
     }
 
@@ -65,7 +80,7 @@ class IQuerySolution extends IConditionFactory {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iquerysolution-geterrors
      */
     GetErrors(riid) {
-        result := ComCall(8, this, "ptr", riid, "ptr*", &ppParseErrors := 0, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, riid, "ptr*", &ppParseErrors := 0, "HRESULT")
         return ppParseErrors
     }
 
@@ -92,7 +107,31 @@ class IQuerySolution extends IConditionFactory {
         ppszInputStringMarshal := ppszInputString is VarRef ? "ptr*" : "ptr"
         plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, ppszInputStringMarshal, ppszInputString, "ptr*", ppTokens, plcidMarshal, plcid, "ptr*", ppWordBreaker, "HRESULT")
+        result := ComCall(9, this, ppszInputStringMarshal, ppszInputString, ITokenCollection.Ptr, ppTokens, plcidMarshal, plcid, IUnknown.Ptr, ppWordBreaker, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IQuerySolution.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetQuery := CallbackCreate(GetMethod(implObj, "GetQuery"), flags, 3)
+        this.vtbl.GetErrors := CallbackCreate(GetMethod(implObj, "GetErrors"), flags, 3)
+        this.vtbl.GetLexicalData := CallbackCreate(GetMethod(implObj, "GetLexicalData"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetQuery)
+        CallbackFree(this.vtbl.GetErrors)
+        CallbackFree(this.vtbl.GetLexicalData)
     }
 }

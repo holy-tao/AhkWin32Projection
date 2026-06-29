@@ -1,62 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
-class HID_COLLECTION_INFORMATION extends Win32Struct {
-    static sizeof => 12
+export default struct HID_COLLECTION_INFORMATION {
+    #StructPack 4
 
-    static packingSize => 4
+    DescriptorSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DescriptorSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Polled : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    Polled {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
-    }
+    Reserved1 : Int8[1]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved1 {
-        get {
-            if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 5, 1, Primitive, "char")
-            return this.__Reserved1ProxyArray
-        }
-    }
+    VendorID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    VendorID {
-        get => NumGet(this, 6, "ushort")
-        set => NumPut("ushort", value, this, 6)
-    }
+    ProductID : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ProductID {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    VersionNumber : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    VersionNumber {
-        get => NumGet(this, 10, "ushort")
-        set => NumPut("ushort", value, this, 10)
-    }
 }

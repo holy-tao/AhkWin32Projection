@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
-#Include .\D3D12_FORMAT_SUPPORT1.ahk
-#Include .\D3D12_FORMAT_SUPPORT2.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Dxgi\Common\DXGI_FORMAT.ahk" { DXGI_FORMAT }
+#Import ".\D3D12_FORMAT_SUPPORT2.ahk" { D3D12_FORMAT_SUPPORT2 }
+#Import ".\D3D12_FORMAT_SUPPORT1.ahk" { D3D12_FORMAT_SUPPORT1 }
 
 /**
  * Describes which resources are supported by the current graphics driver for a given format. (D3D12_FEATURE_DATA_FORMAT_SUPPORT)
@@ -40,35 +39,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_format_support
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
-class D3D12_FEATURE_DATA_FORMAT_SUPPORT extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct D3D12_FEATURE_DATA_FORMAT_SUPPORT {
+    #StructPack 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>-typed value for the format to return info about.
-     * @type {DXGI_FORMAT}
      */
-    Format {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Format : DXGI_FORMAT
 
     /**
      * A combination of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_format_support1">D3D12_FORMAT_SUPPORT1</a>-typed values that are combined by using a bitwise OR operation. The resulting value specifies which resources are supported.
-     * @type {D3D12_FORMAT_SUPPORT1}
      */
-    Support1 {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Support1 : D3D12_FORMAT_SUPPORT1
 
     /**
      * A combination of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_format_support2">D3D12_FORMAT_SUPPORT2</a>-typed values that are combined by using a bitwise OR operation. The resulting value specifies which unordered resource options are supported.
-     * @type {D3D12_FORMAT_SUPPORT2}
      */
-    Support2 {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    Support2 : D3D12_FORMAT_SUPPORT2
+
 }

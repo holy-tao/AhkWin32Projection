@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IOfflineFilesCache.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOfflineFilesCache.ahk" { IOfflineFilesCache }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Implements the RenameItemEx method.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilescache2
  * @namespace Windows.Win32.Storage.OfflineFiles
  */
-class IOfflineFilesCache2 extends IOfflineFilesCache {
-
-    static sizeof => A_PtrSize
+export default struct IOfflineFilesCache2 extends IOfflineFilesCache {
     /**
      * The interface identifier for IOfflineFilesCache2
      * @type {Guid}
      */
-    static IID => Guid("{8c075039-1551-4ed9-8781-56705c04d3c0}")
+    static IID := Guid("{8c075039-1551-4ed9-8781-56705c04d3c0}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 20
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOfflineFilesCache2 interfaces
+    */
+    struct Vtbl extends IOfflineFilesCache.Vtbl {
+        RenameItemEx : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RenameItemEx"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOfflineFilesCache2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Renames an item in the cache. This method is identical to the IOfflineFilesCache::RenameItem method, except that it will attempt to do the rename operation right away.
@@ -47,7 +57,27 @@ class IOfflineFilesCache2 extends IOfflineFilesCache {
         pszPathOriginal := pszPathOriginal is String ? StrPtr(pszPathOriginal) : pszPathOriginal
         pszPathNew := pszPathNew is String ? StrPtr(pszPathNew) : pszPathNew
 
-        result := ComCall(20, this, "ptr", pszPathOriginal, "ptr", pszPathNew, "int", bReplaceIfExists, "HRESULT")
+        result := ComCall(20, this, "ptr", pszPathOriginal, "ptr", pszPathNew, BOOL, bReplaceIfExists, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOfflineFilesCache2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RenameItemEx := CallbackCreate(GetMethod(implObj, "RenameItemEx"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RenameItemEx)
     }
 }

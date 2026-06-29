@@ -1,8 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISyncProvider.ahk
-#Include .\ISyncKnowledge.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\CONFLICT_RESOLUTION_POLICY.ahk" { CONFLICT_RESOLUTION_POLICY }
+#Import ".\SYNC_SESSION_STATISTICS.ahk" { SYNC_SESSION_STATISTICS }
+#Import ".\ISyncCallback.ahk" { ISyncCallback }
+#Import ".\ISyncFullEnumerationChangeBatch.ahk" { ISyncFullEnumerationChangeBatch }
+#Import ".\ISyncKnowledge.ahk" { ISyncKnowledge }
+#Import ".\SYNC_PROVIDER_ROLE.ahk" { SYNC_PROVIDER_ROLE }
+#Import ".\ISyncSessionState.ahk" { ISyncSessionState }
+#Import ".\ISyncChangeBatch.ahk" { ISyncChangeBatch }
+#Import ".\ISyncProvider.ahk" { ISyncProvider }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Represents a synchronization provider that uses knowledge to perform synchronization.
@@ -13,26 +22,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-iknowledgesyncprovider
  * @namespace Windows.Win32.System.WindowsSync
  */
-class IKnowledgeSyncProvider extends ISyncProvider {
-
-    static sizeof => A_PtrSize
+export default struct IKnowledgeSyncProvider extends ISyncProvider {
     /**
      * The interface identifier for IKnowledgeSyncProvider
      * @type {Guid}
      */
-    static IID => Guid("{43434a49-8da4-47f2-8172-ad7b8b024978}")
+    static IID := Guid("{43434a49-8da4-47f2-8172-ad7b8b024978}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IKnowledgeSyncProvider interfaces
+    */
+    struct Vtbl extends ISyncProvider.Vtbl {
+        BeginSession                      : IntPtr
+        GetSyncBatchParameters            : IntPtr
+        GetChangeBatch                    : IntPtr
+        GetFullEnumerationChangeBatch     : IntPtr
+        ProcessChangeBatch                : IntPtr
+        ProcessFullEnumerationChangeBatch : IntPtr
+        EndSession                        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["BeginSession", "GetSyncBatchParameters", "GetChangeBatch", "GetFullEnumerationChangeBatch", "ProcessChangeBatch", "ProcessFullEnumerationChangeBatch", "EndSession"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IKnowledgeSyncProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Notifies the provider that it is joining a synchronization session.
@@ -70,7 +92,7 @@ class IKnowledgeSyncProvider extends ISyncProvider {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iknowledgesyncprovider-beginsession
      */
     BeginSession(role, pSessionState) {
-        result := ComCall(4, this, "int", role, "ptr", pSessionState, "HRESULT")
+        result := ComCall(4, this, SYNC_PROVIDER_ROLE, role, "ptr", pSessionState, "HRESULT")
         return result
     }
 
@@ -129,7 +151,7 @@ class IKnowledgeSyncProvider extends ISyncProvider {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iknowledgesyncprovider-getchangebatch
      */
     GetChangeBatch(dwBatchSize, pSyncKnowledge, ppSyncChangeBatch, ppUnkDataRetriever) {
-        result := ComCall(6, this, "uint", dwBatchSize, "ptr", pSyncKnowledge, "ptr*", ppSyncChangeBatch, "ptr*", ppUnkDataRetriever, "HRESULT")
+        result := ComCall(6, this, "uint", dwBatchSize, "ptr", pSyncKnowledge, ISyncChangeBatch.Ptr, ppSyncChangeBatch, IUnknown.Ptr, ppUnkDataRetriever, "HRESULT")
         return result
     }
 
@@ -179,7 +201,7 @@ class IKnowledgeSyncProvider extends ISyncProvider {
     GetFullEnumerationChangeBatch(dwBatchSize, pbLowerEnumerationBound, pSyncKnowledge, ppSyncChangeBatch, ppUnkDataRetriever) {
         pbLowerEnumerationBoundMarshal := pbLowerEnumerationBound is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, "uint", dwBatchSize, pbLowerEnumerationBoundMarshal, pbLowerEnumerationBound, "ptr", pSyncKnowledge, "ptr*", ppSyncChangeBatch, "ptr*", ppUnkDataRetriever, "HRESULT")
+        result := ComCall(7, this, "uint", dwBatchSize, pbLowerEnumerationBoundMarshal, pbLowerEnumerationBound, "ptr", pSyncKnowledge, ISyncFullEnumerationChangeBatch.Ptr, ppSyncChangeBatch, IUnknown.Ptr, ppUnkDataRetriever, "HRESULT")
         return result
     }
 
@@ -222,7 +244,7 @@ class IKnowledgeSyncProvider extends ISyncProvider {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iknowledgesyncprovider-processchangebatch
      */
     ProcessChangeBatch(resolutionPolicy, pSourceChangeBatch, pUnkDataRetriever, pCallback, pSyncSessionStatistics) {
-        result := ComCall(8, this, "int", resolutionPolicy, "ptr", pSourceChangeBatch, "ptr", pUnkDataRetriever, "ptr", pCallback, "ptr", pSyncSessionStatistics, "HRESULT")
+        result := ComCall(8, this, CONFLICT_RESOLUTION_POLICY, resolutionPolicy, "ptr", pSourceChangeBatch, "ptr", pUnkDataRetriever, "ptr", pCallback, SYNC_SESSION_STATISTICS.Ptr, pSyncSessionStatistics, "HRESULT")
         return result
     }
 
@@ -265,7 +287,7 @@ class IKnowledgeSyncProvider extends ISyncProvider {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iknowledgesyncprovider-processfullenumerationchangebatch
      */
     ProcessFullEnumerationChangeBatch(resolutionPolicy, pSourceChangeBatch, pUnkDataRetriever, pCallback, pSyncSessionStatistics) {
-        result := ComCall(9, this, "int", resolutionPolicy, "ptr", pSourceChangeBatch, "ptr", pUnkDataRetriever, "ptr", pCallback, "ptr", pSyncSessionStatistics, "HRESULT")
+        result := ComCall(9, this, CONFLICT_RESOLUTION_POLICY, resolutionPolicy, "ptr", pSourceChangeBatch, "ptr", pUnkDataRetriever, "ptr", pCallback, SYNC_SESSION_STATISTICS.Ptr, pSyncSessionStatistics, "HRESULT")
         return result
     }
 
@@ -313,5 +335,37 @@ class IKnowledgeSyncProvider extends ISyncProvider {
     EndSession(pSessionState) {
         result := ComCall(10, this, "ptr", pSessionState, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IKnowledgeSyncProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.BeginSession := CallbackCreate(GetMethod(implObj, "BeginSession"), flags, 3)
+        this.vtbl.GetSyncBatchParameters := CallbackCreate(GetMethod(implObj, "GetSyncBatchParameters"), flags, 3)
+        this.vtbl.GetChangeBatch := CallbackCreate(GetMethod(implObj, "GetChangeBatch"), flags, 5)
+        this.vtbl.GetFullEnumerationChangeBatch := CallbackCreate(GetMethod(implObj, "GetFullEnumerationChangeBatch"), flags, 6)
+        this.vtbl.ProcessChangeBatch := CallbackCreate(GetMethod(implObj, "ProcessChangeBatch"), flags, 6)
+        this.vtbl.ProcessFullEnumerationChangeBatch := CallbackCreate(GetMethod(implObj, "ProcessFullEnumerationChangeBatch"), flags, 6)
+        this.vtbl.EndSession := CallbackCreate(GetMethod(implObj, "EndSession"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.BeginSession)
+        CallbackFree(this.vtbl.GetSyncBatchParameters)
+        CallbackFree(this.vtbl.GetChangeBatch)
+        CallbackFree(this.vtbl.GetFullEnumerationChangeBatch)
+        CallbackFree(this.vtbl.ProcessChangeBatch)
+        CallbackFree(this.vtbl.ProcessFullEnumerationChangeBatch)
+        CallbackFree(this.vtbl.EndSession)
     }
 }

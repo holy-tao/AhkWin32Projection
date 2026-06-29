@@ -1,15 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains configuration information for a cryptographic function of a CNG context.
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-crypt_context_function_config
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CRYPT_CONTEXT_FUNCTION_CONFIG extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct CRYPT_CONTEXT_FUNCTION_CONFIG {
+    #StructPack 4
 
     /**
      * A set of flags that determine the options for the context function configuration. This can be zero or the following value.
@@ -30,18 +27,9 @@ class CRYPT_CONTEXT_FUNCTION_CONFIG extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwFlags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwFlags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwReserved {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    dwReserved : UInt32
+
 }

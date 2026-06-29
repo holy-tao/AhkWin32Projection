@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Represents an LDAP session.
@@ -16,193 +16,53 @@
  * @see https://learn.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap
  * @namespace Windows.Win32.Networking.Ldap
  */
-class LDAP extends Win32Struct {
-    static sizeof => 192
+export default struct LDAP {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _ld_sb extends Win32Struct {
-        static sizeof => 88
-        static packingSize => 8
+    struct _ld_sb {
+        sb_sd : IntPtr
 
-        /**
-         * @type {Pointer}
-         */
-        sb_sd {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
+        Reserved1 : Int8[41]
 
-        /**
-         * @type {Array<Integer>}
-         */
-        Reserved1 {
-            get {
-                if(!this.HasProp("__Reserved1ProxyArray"))
-                    this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 8, 41, Primitive, "char")
-                return this.__Reserved1ProxyArray
-            }
-        }
+        sb_naddr : IntPtr
 
-        /**
-         * @type {Pointer}
-         */
-        sb_naddr {
-            get => NumGet(this, 56, "ptr")
-            set => NumPut("ptr", value, this, 56)
-        }
+        Reserved2 : Int8[24]
 
-        /**
-         * @type {Array<Integer>}
-         */
-        Reserved2 {
-            get {
-                if(!this.HasProp("__Reserved2ProxyArray"))
-                    this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 64, 24, Primitive, "char")
-                return this.__Reserved2ProxyArray
-            }
-        }
     }
 
-    /**
-     * @type {_ld_sb}
-     */
-    ld_sb {
-        get {
-            if(!this.HasProp("__ld_sb"))
-                this.__ld_sb := LDAP._ld_sb(0, this)
-            return this.__ld_sb
-        }
-    }
+    ld_sb : LDAP._ld_sb
 
-    /**
-     * @type {PSTR}
-     */
-    ld_host {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    ld_host : PSTR
 
-    /**
-     * @type {Integer}
-     */
-    ld_version {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
-    }
+    ld_version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ld_lberoptions {
-        get => NumGet(this, 100, "char")
-        set => NumPut("char", value, this, 100)
-    }
+    ld_lberoptions : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ld_deref {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
-    }
+    ld_deref : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ld_timelimit {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
-    }
+    ld_timelimit : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ld_sizelimit {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
-    }
+    ld_sizelimit : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ld_errno {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
-    }
+    ld_errno : UInt32
 
-    /**
-     * @type {PSTR}
-     */
-    ld_matched {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
-    }
+    ld_matched : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    ld_error {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    ld_error : PSTR
 
-    /**
-     * @type {Integer}
-     */
-    ld_msgid {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
-    }
+    ld_msgid : UInt32
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved3 {
-        get {
-            if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 140, 25, Primitive, "char")
-            return this.__Reserved3ProxyArray
-        }
-    }
+    Reserved3 : Int8[25]
 
-    /**
-     * @type {Integer}
-     */
-    ld_cldaptries {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
-    }
+    ld_cldaptries : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ld_cldaptimeout {
-        get => NumGet(this, 172, "uint")
-        set => NumPut("uint", value, this, 172)
-    }
+    ld_cldaptimeout : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ld_refhoplimit {
-        get => NumGet(this, 176, "uint")
-        set => NumPut("uint", value, this, 176)
-    }
+    ld_refhoplimit : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ld_options {
-        get => NumGet(this, 180, "uint")
-        set => NumPut("uint", value, this, 180)
-    }
+    ld_options : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ld_anonymousmaxvalrange {
-        get => NumGet(this, 184, "uint")
-        set => NumPut("uint", value, this, 184)
-    }
+    ld_anonymousmaxvalrange : UInt32
+
 }

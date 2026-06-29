@@ -1,67 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Retrieves video extension command support using command-defined input and output structures.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_extension_command_support
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_SUPPORT extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_SUPPORT {
+    #StructPack 8
 
     /**
      * In multi-adapter operation, this indicates which physical adapter of the device this operation applies to.
-     * @type {Integer}
      */
-    NodeIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    NodeIndex : UInt32
 
     /**
      * The unique identifier for the video extension command for which support is queried.
-     * @type {Pointer}
      */
-    CommandId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    CommandId : Guid
 
     /**
      * Input data for the capability query allocated by the caller with a size of *InputDataSizeInBytes*.  This struct is enumerable as the [D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE_CAPS_INPUT](ne-d3d12video-d3d12_video_extension_command_parameter_stage.md) parameter stage.
-     * @type {Pointer<Void>}
      */
-    pInputData {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pInputData : IntPtr
 
     /**
      * The byte size of the input data allocation.
-     * @type {Pointer}
      */
-    InputDataSizeInBytes {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    InputDataSizeInBytes : IntPtr
 
     /**
      * Output data for the capability query allocated by the caller with a size of *OutputDataSizeInBytes*.  This struct is enumerable as the [D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE_CAPS_OUTPUT](ne-d3d12video-d3d12_video_extension_command_parameter_stage.md) parameter stage.
-     * @type {Pointer<Void>}
      */
-    pOutputData {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    pOutputData : IntPtr
 
     /**
      * The byte size of the output data allocation.
-     * @type {Pointer}
      */
-    OutputDataSizeInBytes {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    OutputDataSizeInBytes : IntPtr
+
 }

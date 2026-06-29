@@ -1,16 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Resource.ahk
-#Include .\ID2D1Bitmap.ahk
-#Include .\ID2D1BitmapBrush.ahk
-#Include .\ID2D1SolidColorBrush.ahk
-#Include .\ID2D1GradientStopCollection.ahk
-#Include .\ID2D1LinearGradientBrush.ahk
-#Include .\ID2D1RadialGradientBrush.ahk
-#Include .\ID2D1BitmapRenderTarget.ahk
-#Include .\ID2D1Layer.ahk
-#Include .\ID2D1Mesh.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\DirectWrite\IDWriteTextFormat.ahk" { IDWriteTextFormat }
+#Import ".\D2D1_DRAW_TEXT_OPTIONS.ahk" { D2D1_DRAW_TEXT_OPTIONS }
+#Import ".\ID2D1SolidColorBrush.ahk" { ID2D1SolidColorBrush }
+#Import ".\ID2D1BitmapRenderTarget.ahk" { ID2D1BitmapRenderTarget }
+#Import ".\D2D1_TEXT_ANTIALIAS_MODE.ahk" { D2D1_TEXT_ANTIALIAS_MODE }
+#Import "..\Imaging\IWICBitmapSource.ahk" { IWICBitmapSource }
+#Import ".\ID2D1Mesh.ahk" { ID2D1Mesh }
+#Import ".\D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES.ahk" { D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES }
+#Import ".\ID2D1DrawingStateBlock.ahk" { ID2D1DrawingStateBlock }
+#Import ".\D2D1_EXTEND_MODE.ahk" { D2D1_EXTEND_MODE }
+#Import ".\D2D1_GAMMA.ahk" { D2D1_GAMMA }
+#Import "Common\D2D_RECT_F.ahk" { D2D_RECT_F }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ID2D1Geometry.ahk" { ID2D1Geometry }
+#Import ".\D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES.ahk" { D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES }
+#Import ".\ID2D1BitmapBrush.ahk" { ID2D1BitmapBrush }
+#Import ".\D2D1_ROUNDED_RECT.ahk" { D2D1_ROUNDED_RECT }
+#Import ".\D2D1_BRUSH_PROPERTIES.ahk" { D2D1_BRUSH_PROPERTIES }
+#Import ".\D2D1_ANTIALIAS_MODE.ahk" { D2D1_ANTIALIAS_MODE }
+#Import "Common\D2D_POINT_2F.ahk" { D2D_POINT_2F }
+#Import ".\D2D1_COMPATIBLE_RENDER_TARGET_OPTIONS.ahk" { D2D1_COMPATIBLE_RENDER_TARGET_OPTIONS }
+#Import "..\DirectWrite\DWRITE_GLYPH_RUN.ahk" { DWRITE_GLYPH_RUN }
+#Import ".\D2D1_OPACITY_MASK_CONTENT.ahk" { D2D1_OPACITY_MASK_CONTENT }
+#Import ".\D2D1_LAYER_PARAMETERS.ahk" { D2D1_LAYER_PARAMETERS }
+#Import "Common\D2D1_PIXEL_FORMAT.ahk" { D2D1_PIXEL_FORMAT }
+#Import "Common\D2D1_GRADIENT_STOP.ahk" { D2D1_GRADIENT_STOP }
+#Import ".\ID2D1Brush.ahk" { ID2D1Brush }
+#Import "..\DirectWrite\DWRITE_MEASURING_MODE.ahk" { DWRITE_MEASURING_MODE }
+#Import "Common\D2D_SIZE_U.ahk" { D2D_SIZE_U }
+#Import ".\D2D1_BITMAP_PROPERTIES.ahk" { D2D1_BITMAP_PROPERTIES }
+#Import ".\ID2D1Layer.ahk" { ID2D1Layer }
+#Import ".\ID2D1GradientStopCollection.ahk" { ID2D1GradientStopCollection }
+#Import ".\D2D1_ELLIPSE.ahk" { D2D1_ELLIPSE }
+#Import "Common\D2D1_COLOR_F.ahk" { D2D1_COLOR_F }
+#Import "Common\D2D_SIZE_F.ahk" { D2D_SIZE_F }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\ID2D1Bitmap.ahk" { ID2D1Bitmap }
+#Import ".\ID2D1LinearGradientBrush.ahk" { ID2D1LinearGradientBrush }
+#Import ".\ID2D1RadialGradientBrush.ahk" { ID2D1RadialGradientBrush }
+#Import "..\DirectWrite\IDWriteRenderingParams.ahk" { IDWriteRenderingParams }
+#Import ".\D2D1_RENDER_TARGET_PROPERTIES.ahk" { D2D1_RENDER_TARGET_PROPERTIES }
+#Import ".\D2D1_BITMAP_BRUSH_PROPERTIES.ahk" { D2D1_BITMAP_BRUSH_PROPERTIES }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\ID2D1Resource.ahk" { ID2D1Resource }
+#Import ".\ID2D1StrokeStyle.ahk" { ID2D1StrokeStyle }
+#Import ".\D2D1_BITMAP_INTERPOLATION_MODE.ahk" { D2D1_BITMAP_INTERPOLATION_MODE }
+#Import "Common\D2D_MATRIX_3X2_F.ahk" { D2D_MATRIX_3X2_F }
+#Import "..\DirectWrite\IDWriteTextLayout.ahk" { IDWriteTextLayout }
 
 /**
  * Represents an object that can receive drawing commands. Interfaces that inherit from ID2D1RenderTarget render the drawing commands they receive in different ways.
@@ -19,26 +57,85 @@
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1rendertarget
  * @namespace Windows.Win32.Graphics.Direct2D
  */
-class ID2D1RenderTarget extends ID2D1Resource {
-
-    static sizeof => A_PtrSize
+export default struct ID2D1RenderTarget extends ID2D1Resource {
     /**
      * The interface identifier for ID2D1RenderTarget
      * @type {Guid}
      */
-    static IID => Guid("{2cd90694-12e2-11dc-9fed-001143a055f9}")
+    static IID := Guid("{2cd90694-12e2-11dc-9fed-001143a055f9}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ID2D1RenderTarget interfaces
+    */
+    struct Vtbl extends ID2D1Resource.Vtbl {
+        CreateBitmap                 : IntPtr
+        CreateBitmapFromWicBitmap    : IntPtr
+        CreateSharedBitmap           : IntPtr
+        CreateBitmapBrush            : IntPtr
+        CreateSolidColorBrush        : IntPtr
+        CreateGradientStopCollection : IntPtr
+        CreateLinearGradientBrush    : IntPtr
+        CreateRadialGradientBrush    : IntPtr
+        CreateCompatibleRenderTarget : IntPtr
+        CreateLayer                  : IntPtr
+        CreateMesh                   : IntPtr
+        DrawLine                     : IntPtr
+        DrawRectangle                : IntPtr
+        FillRectangle                : IntPtr
+        DrawRoundedRectangle         : IntPtr
+        FillRoundedRectangle         : IntPtr
+        DrawEllipse                  : IntPtr
+        FillEllipse                  : IntPtr
+        DrawGeometry                 : IntPtr
+        FillGeometry                 : IntPtr
+        FillMesh                     : IntPtr
+        FillOpacityMask              : IntPtr
+        DrawBitmap                   : IntPtr
+        DrawText                     : IntPtr
+        DrawTextLayout               : IntPtr
+        DrawGlyphRun                 : IntPtr
+        SetTransform                 : IntPtr
+        GetTransform                 : IntPtr
+        SetAntialiasMode             : IntPtr
+        GetAntialiasMode             : IntPtr
+        SetTextAntialiasMode         : IntPtr
+        GetTextAntialiasMode         : IntPtr
+        SetTextRenderingParams       : IntPtr
+        GetTextRenderingParams       : IntPtr
+        SetTags                      : IntPtr
+        GetTags                      : IntPtr
+        PushLayer                    : IntPtr
+        PopLayer                     : IntPtr
+        Flush                        : IntPtr
+        SaveDrawingState             : IntPtr
+        RestoreDrawingState          : IntPtr
+        PushAxisAlignedClip          : IntPtr
+        PopAxisAlignedClip           : IntPtr
+        Clear                        : IntPtr
+        BeginDraw                    : IntPtr
+        EndDraw                      : IntPtr
+        GetPixelFormat               : IntPtr
+        SetDpi                       : IntPtr
+        GetDpi                       : IntPtr
+        GetSize                      : IntPtr
+        GetPixelSize                 : IntPtr
+        GetMaximumBitmapSize         : IntPtr
+        IsSupported                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateBitmap", "CreateBitmapFromWicBitmap", "CreateSharedBitmap", "CreateBitmapBrush", "CreateSolidColorBrush", "CreateGradientStopCollection", "CreateLinearGradientBrush", "CreateRadialGradientBrush", "CreateCompatibleRenderTarget", "CreateLayer", "CreateMesh", "DrawLine", "DrawRectangle", "FillRectangle", "DrawRoundedRectangle", "FillRoundedRectangle", "DrawEllipse", "FillEllipse", "DrawGeometry", "FillGeometry", "FillMesh", "FillOpacityMask", "DrawBitmap", "DrawText", "DrawTextLayout", "DrawGlyphRun", "SetTransform", "GetTransform", "SetAntialiasMode", "GetAntialiasMode", "SetTextAntialiasMode", "GetTextAntialiasMode", "SetTextRenderingParams", "GetTextRenderingParams", "SetTags", "GetTags", "PushLayer", "PopLayer", "Flush", "SaveDrawingState", "RestoreDrawingState", "PushAxisAlignedClip", "PopAxisAlignedClip", "Clear", "BeginDraw", "EndDraw", "GetPixelFormat", "SetDpi", "GetDpi", "GetSize", "GetPixelSize", "GetMaximumBitmapSize", "IsSupported"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ID2D1RenderTarget.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a Direct2D bitmap.
@@ -52,7 +149,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
     CreateBitmap(_size, srcData, pitch, bitmapProperties) {
         srcDataMarshal := srcData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "ptr", _size, srcDataMarshal, srcData, "uint", pitch, "ptr", bitmapProperties, "ptr*", &_bitmap := 0, "HRESULT")
+        result := ComCall(4, this, D2D_SIZE_U, _size, srcDataMarshal, srcData, "uint", pitch, D2D1_BITMAP_PROPERTIES.Ptr, bitmapProperties, "ptr*", &_bitmap := 0, "HRESULT")
         return ID2D1Bitmap(_bitmap)
     }
 
@@ -66,7 +163,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-createbitmapfromwicbitmap
      */
     CreateBitmapFromWicBitmap(wicBitmapSource, bitmapProperties) {
-        result := ComCall(5, this, "ptr", wicBitmapSource, "ptr", bitmapProperties, "ptr*", &_bitmap := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", wicBitmapSource, D2D1_BITMAP_PROPERTIES.Ptr, bitmapProperties, "ptr*", &_bitmap := 0, "HRESULT")
         return ID2D1Bitmap(_bitmap)
     }
 
@@ -110,7 +207,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
     CreateSharedBitmap(riid, data, bitmapProperties) {
         dataMarshal := data is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, "ptr", riid, dataMarshal, data, "ptr", bitmapProperties, "ptr*", &_bitmap := 0, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, riid, dataMarshal, data, D2D1_BITMAP_PROPERTIES.Ptr, bitmapProperties, "ptr*", &_bitmap := 0, "HRESULT")
         return ID2D1Bitmap(_bitmap)
     }
 
@@ -123,7 +220,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-createbitmapbrush
      */
     CreateBitmapBrush(_bitmap, bitmapBrushProperties, brushProperties) {
-        result := ComCall(7, this, "ptr", _bitmap, "ptr", bitmapBrushProperties, "ptr", brushProperties, "ptr*", &bitmapBrush := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", _bitmap, D2D1_BITMAP_BRUSH_PROPERTIES.Ptr, bitmapBrushProperties, D2D1_BRUSH_PROPERTIES.Ptr, brushProperties, "ptr*", &bitmapBrush := 0, "HRESULT")
         return ID2D1BitmapBrush(bitmapBrush)
     }
 
@@ -135,7 +232,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-createsolidcolorbrush
      */
     CreateSolidColorBrush(_color, brushProperties) {
-        result := ComCall(8, this, "ptr", _color, "ptr", brushProperties, "ptr*", &solidColorBrush := 0, "HRESULT")
+        result := ComCall(8, this, D2D1_COLOR_F.Ptr, _color, D2D1_BRUSH_PROPERTIES.Ptr, brushProperties, "ptr*", &solidColorBrush := 0, "HRESULT")
         return ID2D1SolidColorBrush(solidColorBrush)
     }
 
@@ -149,7 +246,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-creategradientstopcollection
      */
     CreateGradientStopCollection(gradientStops, gradientStopsCount, colorInterpolationGamma, extendMode) {
-        result := ComCall(9, this, "ptr", gradientStops, "uint", gradientStopsCount, "int", colorInterpolationGamma, "int", extendMode, "ptr*", &gradientStopCollection := 0, "HRESULT")
+        result := ComCall(9, this, D2D1_GRADIENT_STOP.Ptr, gradientStops, "uint", gradientStopsCount, D2D1_GAMMA, colorInterpolationGamma, D2D1_EXTEND_MODE, extendMode, "ptr*", &gradientStopCollection := 0, "HRESULT")
         return ID2D1GradientStopCollection(gradientStopCollection)
     }
 
@@ -162,7 +259,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-createlineargradientbrush
      */
     CreateLinearGradientBrush(linearGradientBrushProperties, brushProperties, gradientStopCollection) {
-        result := ComCall(10, this, "ptr", linearGradientBrushProperties, "ptr", brushProperties, "ptr", gradientStopCollection, "ptr*", &linearGradientBrush := 0, "HRESULT")
+        result := ComCall(10, this, D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES.Ptr, linearGradientBrushProperties, D2D1_BRUSH_PROPERTIES.Ptr, brushProperties, "ptr", gradientStopCollection, "ptr*", &linearGradientBrush := 0, "HRESULT")
         return ID2D1LinearGradientBrush(linearGradientBrush)
     }
 
@@ -175,7 +272,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-createradialgradientbrush
      */
     CreateRadialGradientBrush(radialGradientBrushProperties, brushProperties, gradientStopCollection) {
-        result := ComCall(11, this, "ptr", radialGradientBrushProperties, "ptr", brushProperties, "ptr", gradientStopCollection, "ptr*", &radialGradientBrush := 0, "HRESULT")
+        result := ComCall(11, this, D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES.Ptr, radialGradientBrushProperties, D2D1_BRUSH_PROPERTIES.Ptr, brushProperties, "ptr", gradientStopCollection, "ptr*", &radialGradientBrush := 0, "HRESULT")
         return ID2D1RadialGradientBrush(radialGradientBrush)
     }
 
@@ -189,7 +286,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-createcompatiblerendertarget
      */
     CreateCompatibleRenderTarget(desiredSize, desiredPixelSize, desiredFormat, options) {
-        result := ComCall(12, this, "ptr", desiredSize, "ptr", desiredPixelSize, "ptr", desiredFormat, "int", options, "ptr*", &bitmapRenderTarget := 0, "HRESULT")
+        result := ComCall(12, this, D2D_SIZE_F.Ptr, desiredSize, D2D_SIZE_U.Ptr, desiredPixelSize, D2D1_PIXEL_FORMAT.Ptr, desiredFormat, D2D1_COMPATIBLE_RENDER_TARGET_OPTIONS, options, "ptr*", &bitmapRenderTarget := 0, "HRESULT")
         return ID2D1BitmapRenderTarget(bitmapRenderTarget)
     }
 
@@ -202,7 +299,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-createlayer
      */
     CreateLayer(_size) {
-        result := ComCall(13, this, "ptr", _size, "ptr*", &layer := 0, "HRESULT")
+        result := ComCall(13, this, D2D_SIZE_F.Ptr, _size, "ptr*", &layer := 0, "HRESULT")
         return ID2D1Layer(layer)
     }
 
@@ -243,7 +340,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-drawline
      */
     DrawLine(point0, point1, brush, strokeWidth, strokeStyle) {
-        ComCall(15, this, "ptr", point0, "ptr", point1, "ptr", brush, "float", strokeWidth, "ptr", strokeStyle)
+        ComCall(15, this, D2D_POINT_2F, point0, D2D_POINT_2F, point1, "ptr", brush, "float", strokeWidth, "ptr", strokeStyle)
     }
 
     /**
@@ -258,7 +355,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-drawrectangle
      */
     DrawRectangle(_rect, brush, strokeWidth, strokeStyle) {
-        ComCall(16, this, "ptr", _rect, "ptr", brush, "float", strokeWidth, "ptr", strokeStyle)
+        ComCall(16, this, D2D_RECT_F.Ptr, _rect, "ptr", brush, "float", strokeWidth, "ptr", strokeStyle)
     }
 
     /**
@@ -271,7 +368,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-fillrectangle
      */
     FillRectangle(_rect, brush) {
-        ComCall(17, this, "ptr", _rect, "ptr", brush)
+        ComCall(17, this, D2D_RECT_F.Ptr, _rect, "ptr", brush)
     }
 
     /**
@@ -286,7 +383,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-drawroundedrectangle
      */
     DrawRoundedRectangle(roundedRect, brush, strokeWidth, strokeStyle) {
-        ComCall(18, this, "ptr", roundedRect, "ptr", brush, "float", strokeWidth, "ptr", strokeStyle)
+        ComCall(18, this, D2D1_ROUNDED_RECT.Ptr, roundedRect, "ptr", brush, "float", strokeWidth, "ptr", strokeStyle)
     }
 
     /**
@@ -299,7 +396,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-fillroundedrectangle
      */
     FillRoundedRectangle(roundedRect, brush) {
-        ComCall(19, this, "ptr", roundedRect, "ptr", brush)
+        ComCall(19, this, D2D1_ROUNDED_RECT.Ptr, roundedRect, "ptr", brush)
     }
 
     /**
@@ -314,7 +411,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-drawellipse
      */
     DrawEllipse(ellipse, brush, strokeWidth, strokeStyle) {
-        ComCall(20, this, "ptr", ellipse, "ptr", brush, "float", strokeWidth, "ptr", strokeStyle)
+        ComCall(20, this, D2D1_ELLIPSE.Ptr, ellipse, "ptr", brush, "float", strokeWidth, "ptr", strokeStyle)
     }
 
     /**
@@ -327,7 +424,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-fillellipse
      */
     FillEllipse(ellipse, brush) {
-        ComCall(21, this, "ptr", ellipse, "ptr", brush)
+        ComCall(21, this, D2D1_ELLIPSE.Ptr, ellipse, "ptr", brush)
     }
 
     /**
@@ -414,7 +511,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-fillopacitymask
      */
     FillOpacityMask(opacityMask, brush, content, destinationRectangle, sourceRectangle) {
-        ComCall(25, this, "ptr", opacityMask, "ptr", brush, "int", content, "ptr", destinationRectangle, "ptr", sourceRectangle)
+        ComCall(25, this, "ptr", opacityMask, "ptr", brush, D2D1_OPACITY_MASK_CONTENT, content, D2D_RECT_F.Ptr, destinationRectangle, D2D_RECT_F.Ptr, sourceRectangle)
     }
 
     /**
@@ -430,7 +527,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-drawbitmap
      */
     DrawBitmap(_bitmap, destinationRectangle, opacity, _interpolationMode, sourceRectangle) {
-        ComCall(26, this, "ptr", _bitmap, "ptr", destinationRectangle, "float", opacity, "int", _interpolationMode, "ptr", sourceRectangle)
+        ComCall(26, this, "ptr", _bitmap, D2D_RECT_F.Ptr, destinationRectangle, "float", opacity, D2D1_BITMAP_INTERPOLATION_MODE, _interpolationMode, D2D_RECT_F.Ptr, sourceRectangle)
     }
 
     /**
@@ -452,7 +549,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
     DrawText(_string, stringLength, textFormat, layoutRect, defaultFillBrush, options, measuringMode) {
         _string := _string is String ? StrPtr(_string) : _string
 
-        ComCall(27, this, "ptr", _string, "uint", stringLength, "ptr", textFormat, "ptr", layoutRect, "ptr", defaultFillBrush, "int", options, "int", measuringMode)
+        ComCall(27, this, "ptr", _string, "uint", stringLength, "ptr", textFormat, D2D_RECT_F.Ptr, layoutRect, "ptr", defaultFillBrush, D2D1_DRAW_TEXT_OPTIONS, options, DWRITE_MEASURING_MODE, measuringMode)
     }
 
     /**
@@ -477,7 +574,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-drawtextlayout
      */
     DrawTextLayout(origin, textLayout, defaultFillBrush, options) {
-        ComCall(28, this, "ptr", origin, "ptr", textLayout, "ptr", defaultFillBrush, "int", options)
+        ComCall(28, this, D2D_POINT_2F, origin, "ptr", textLayout, "ptr", defaultFillBrush, D2D1_DRAW_TEXT_OPTIONS, options)
     }
 
     /**
@@ -500,7 +597,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-drawglyphrun
      */
     DrawGlyphRun(baselineOrigin, _glyphRun, foregroundBrush, measuringMode) {
-        ComCall(29, this, "ptr", baselineOrigin, "ptr", _glyphRun, "ptr", foregroundBrush, "int", measuringMode)
+        ComCall(29, this, D2D_POINT_2F, baselineOrigin, DWRITE_GLYPH_RUN.Ptr, _glyphRun, "ptr", foregroundBrush, DWRITE_MEASURING_MODE, measuringMode)
     }
 
     /**
@@ -510,7 +607,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-settransform
      */
     SetTransform(transform) {
-        ComCall(30, this, "ptr", transform)
+        ComCall(30, this, D2D_MATRIX_3X2_F.Ptr, transform)
     }
 
     /**
@@ -522,7 +619,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-gettransform
      */
     GetTransform(transform) {
-        ComCall(31, this, "ptr", transform)
+        ComCall(31, this, D2D_MATRIX_3X2_F.Ptr, transform)
     }
 
     /**
@@ -536,7 +633,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-setantialiasmode
      */
     SetAntialiasMode(antialiasMode) {
-        ComCall(32, this, "int", antialiasMode)
+        ComCall(32, this, D2D1_ANTIALIAS_MODE, antialiasMode)
     }
 
     /**
@@ -547,7 +644,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-getantialiasmode
      */
     GetAntialiasMode() {
-        result := ComCall(33, this, "int")
+        result := ComCall(33, this, D2D1_ANTIALIAS_MODE)
         return result
     }
 
@@ -560,7 +657,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-settextantialiasmode
      */
     SetTextAntialiasMode(textAntialiasMode) {
-        ComCall(34, this, "int", textAntialiasMode)
+        ComCall(34, this, D2D1_TEXT_ANTIALIAS_MODE, textAntialiasMode)
     }
 
     /**
@@ -571,7 +668,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-gettextantialiasmode
      */
     GetTextAntialiasMode() {
-        result := ComCall(35, this, "int")
+        result := ComCall(35, this, D2D1_TEXT_ANTIALIAS_MODE)
         return result
     }
 
@@ -600,7 +697,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-gettextrenderingparams
      */
     GetTextRenderingParams(textRenderingParams) {
-        ComCall(37, this, "ptr*", textRenderingParams)
+        ComCall(37, this, IDWriteRenderingParams.Ptr, textRenderingParams)
     }
 
     /**
@@ -664,7 +761,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-pushlayer(constd2d1_layer_parameters_id2d1layer)
      */
     PushLayer(layerParameters, layer) {
-        ComCall(40, this, "ptr", layerParameters, "ptr", layer)
+        ComCall(40, this, D2D1_LAYER_PARAMETERS.Ptr, layerParameters, "ptr", layer)
     }
 
     /**
@@ -741,7 +838,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-pushaxisalignedclip
      */
     PushAxisAlignedClip(clipRect, antialiasMode) {
-        ComCall(45, this, "ptr", clipRect, "int", antialiasMode)
+        ComCall(45, this, D2D_RECT_F.Ptr, clipRect, D2D1_ANTIALIAS_MODE, antialiasMode)
     }
 
     /**
@@ -772,7 +869,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-clear
      */
     Clear(clearColor) {
-        ComCall(47, this, "ptr", clearColor)
+        ComCall(47, this, D2D1_COLOR_F.Ptr, clearColor)
     }
 
     /**
@@ -826,7 +923,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
         tag1Marshal := tag1 is VarRef ? "uint*" : "ptr"
         tag2Marshal := tag2 is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(49, this, tag1Marshal, tag1, tag2Marshal, tag2, "int")
+        result := ComCall(49, this, tag1Marshal, tag1, tag2Marshal, tag2, Int32)
         return result
     }
 
@@ -838,7 +935,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-getpixelformat
      */
     GetPixelFormat() {
-        result := ComCall(50, this, "ptr")
+        result := ComCall(50, this, D2D1_PIXEL_FORMAT)
         return result
     }
 
@@ -891,7 +988,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-getsize
      */
     GetSize() {
-        result := ComCall(53, this, "ptr")
+        result := ComCall(53, this, D2D_SIZE_F)
         return result
     }
 
@@ -903,7 +1000,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-getpixelsize
      */
     GetPixelSize() {
-        result := ComCall(54, this, "ptr")
+        result := ComCall(54, this, D2D_SIZE_U)
         return result
     }
 
@@ -920,7 +1017,7 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-getmaximumbitmapsize
      */
     GetMaximumBitmapSize() {
-        result := ComCall(55, this, "uint")
+        result := ComCall(55, this, UInt32)
         return result
     }
 
@@ -937,7 +1034,131 @@ class ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-issupported(constd2d1_render_target_properties_)
      */
     IsSupported(renderTargetProperties) {
-        result := ComCall(56, this, "ptr", renderTargetProperties, "int")
+        result := ComCall(56, this, D2D1_RENDER_TARGET_PROPERTIES.Ptr, renderTargetProperties, BOOL)
         return result
+    }
+
+    Query(iid) {
+        if (ID2D1RenderTarget.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateBitmap := CallbackCreate(GetMethod(implObj, "CreateBitmap"), flags, 6)
+        this.vtbl.CreateBitmapFromWicBitmap := CallbackCreate(GetMethod(implObj, "CreateBitmapFromWicBitmap"), flags, 4)
+        this.vtbl.CreateSharedBitmap := CallbackCreate(GetMethod(implObj, "CreateSharedBitmap"), flags, 5)
+        this.vtbl.CreateBitmapBrush := CallbackCreate(GetMethod(implObj, "CreateBitmapBrush"), flags, 5)
+        this.vtbl.CreateSolidColorBrush := CallbackCreate(GetMethod(implObj, "CreateSolidColorBrush"), flags, 4)
+        this.vtbl.CreateGradientStopCollection := CallbackCreate(GetMethod(implObj, "CreateGradientStopCollection"), flags, 6)
+        this.vtbl.CreateLinearGradientBrush := CallbackCreate(GetMethod(implObj, "CreateLinearGradientBrush"), flags, 5)
+        this.vtbl.CreateRadialGradientBrush := CallbackCreate(GetMethod(implObj, "CreateRadialGradientBrush"), flags, 5)
+        this.vtbl.CreateCompatibleRenderTarget := CallbackCreate(GetMethod(implObj, "CreateCompatibleRenderTarget"), flags, 6)
+        this.vtbl.CreateLayer := CallbackCreate(GetMethod(implObj, "CreateLayer"), flags, 3)
+        this.vtbl.CreateMesh := CallbackCreate(GetMethod(implObj, "CreateMesh"), flags, 2)
+        this.vtbl.DrawLine := CallbackCreate(GetMethod(implObj, "DrawLine"), flags, 6)
+        this.vtbl.DrawRectangle := CallbackCreate(GetMethod(implObj, "DrawRectangle"), flags, 5)
+        this.vtbl.FillRectangle := CallbackCreate(GetMethod(implObj, "FillRectangle"), flags, 3)
+        this.vtbl.DrawRoundedRectangle := CallbackCreate(GetMethod(implObj, "DrawRoundedRectangle"), flags, 5)
+        this.vtbl.FillRoundedRectangle := CallbackCreate(GetMethod(implObj, "FillRoundedRectangle"), flags, 3)
+        this.vtbl.DrawEllipse := CallbackCreate(GetMethod(implObj, "DrawEllipse"), flags, 5)
+        this.vtbl.FillEllipse := CallbackCreate(GetMethod(implObj, "FillEllipse"), flags, 3)
+        this.vtbl.DrawGeometry := CallbackCreate(GetMethod(implObj, "DrawGeometry"), flags, 5)
+        this.vtbl.FillGeometry := CallbackCreate(GetMethod(implObj, "FillGeometry"), flags, 4)
+        this.vtbl.FillMesh := CallbackCreate(GetMethod(implObj, "FillMesh"), flags, 3)
+        this.vtbl.FillOpacityMask := CallbackCreate(GetMethod(implObj, "FillOpacityMask"), flags, 6)
+        this.vtbl.DrawBitmap := CallbackCreate(GetMethod(implObj, "DrawBitmap"), flags, 6)
+        this.vtbl.DrawText := CallbackCreate(GetMethod(implObj, "DrawText"), flags, 8)
+        this.vtbl.DrawTextLayout := CallbackCreate(GetMethod(implObj, "DrawTextLayout"), flags, 5)
+        this.vtbl.DrawGlyphRun := CallbackCreate(GetMethod(implObj, "DrawGlyphRun"), flags, 5)
+        this.vtbl.SetTransform := CallbackCreate(GetMethod(implObj, "SetTransform"), flags, 2)
+        this.vtbl.GetTransform := CallbackCreate(GetMethod(implObj, "GetTransform"), flags, 2)
+        this.vtbl.SetAntialiasMode := CallbackCreate(GetMethod(implObj, "SetAntialiasMode"), flags, 2)
+        this.vtbl.GetAntialiasMode := CallbackCreate(GetMethod(implObj, "GetAntialiasMode"), flags, 1)
+        this.vtbl.SetTextAntialiasMode := CallbackCreate(GetMethod(implObj, "SetTextAntialiasMode"), flags, 2)
+        this.vtbl.GetTextAntialiasMode := CallbackCreate(GetMethod(implObj, "GetTextAntialiasMode"), flags, 1)
+        this.vtbl.SetTextRenderingParams := CallbackCreate(GetMethod(implObj, "SetTextRenderingParams"), flags, 2)
+        this.vtbl.GetTextRenderingParams := CallbackCreate(GetMethod(implObj, "GetTextRenderingParams"), flags, 2)
+        this.vtbl.SetTags := CallbackCreate(GetMethod(implObj, "SetTags"), flags, 3)
+        this.vtbl.GetTags := CallbackCreate(GetMethod(implObj, "GetTags"), flags, 3)
+        this.vtbl.PushLayer := CallbackCreate(GetMethod(implObj, "PushLayer"), flags, 3)
+        this.vtbl.PopLayer := CallbackCreate(GetMethod(implObj, "PopLayer"), flags, 1)
+        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 3)
+        this.vtbl.SaveDrawingState := CallbackCreate(GetMethod(implObj, "SaveDrawingState"), flags, 2)
+        this.vtbl.RestoreDrawingState := CallbackCreate(GetMethod(implObj, "RestoreDrawingState"), flags, 2)
+        this.vtbl.PushAxisAlignedClip := CallbackCreate(GetMethod(implObj, "PushAxisAlignedClip"), flags, 3)
+        this.vtbl.PopAxisAlignedClip := CallbackCreate(GetMethod(implObj, "PopAxisAlignedClip"), flags, 1)
+        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 2)
+        this.vtbl.BeginDraw := CallbackCreate(GetMethod(implObj, "BeginDraw"), flags, 1)
+        this.vtbl.EndDraw := CallbackCreate(GetMethod(implObj, "EndDraw"), flags, 3)
+        this.vtbl.GetPixelFormat := CallbackCreate(GetMethod(implObj, "GetPixelFormat"), flags, 1)
+        this.vtbl.SetDpi := CallbackCreate(GetMethod(implObj, "SetDpi"), flags, 3)
+        this.vtbl.GetDpi := CallbackCreate(GetMethod(implObj, "GetDpi"), flags, 3)
+        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 1)
+        this.vtbl.GetPixelSize := CallbackCreate(GetMethod(implObj, "GetPixelSize"), flags, 1)
+        this.vtbl.GetMaximumBitmapSize := CallbackCreate(GetMethod(implObj, "GetMaximumBitmapSize"), flags, 1)
+        this.vtbl.IsSupported := CallbackCreate(GetMethod(implObj, "IsSupported"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateBitmap)
+        CallbackFree(this.vtbl.CreateBitmapFromWicBitmap)
+        CallbackFree(this.vtbl.CreateSharedBitmap)
+        CallbackFree(this.vtbl.CreateBitmapBrush)
+        CallbackFree(this.vtbl.CreateSolidColorBrush)
+        CallbackFree(this.vtbl.CreateGradientStopCollection)
+        CallbackFree(this.vtbl.CreateLinearGradientBrush)
+        CallbackFree(this.vtbl.CreateRadialGradientBrush)
+        CallbackFree(this.vtbl.CreateCompatibleRenderTarget)
+        CallbackFree(this.vtbl.CreateLayer)
+        CallbackFree(this.vtbl.CreateMesh)
+        CallbackFree(this.vtbl.DrawLine)
+        CallbackFree(this.vtbl.DrawRectangle)
+        CallbackFree(this.vtbl.FillRectangle)
+        CallbackFree(this.vtbl.DrawRoundedRectangle)
+        CallbackFree(this.vtbl.FillRoundedRectangle)
+        CallbackFree(this.vtbl.DrawEllipse)
+        CallbackFree(this.vtbl.FillEllipse)
+        CallbackFree(this.vtbl.DrawGeometry)
+        CallbackFree(this.vtbl.FillGeometry)
+        CallbackFree(this.vtbl.FillMesh)
+        CallbackFree(this.vtbl.FillOpacityMask)
+        CallbackFree(this.vtbl.DrawBitmap)
+        CallbackFree(this.vtbl.DrawText)
+        CallbackFree(this.vtbl.DrawTextLayout)
+        CallbackFree(this.vtbl.DrawGlyphRun)
+        CallbackFree(this.vtbl.SetTransform)
+        CallbackFree(this.vtbl.GetTransform)
+        CallbackFree(this.vtbl.SetAntialiasMode)
+        CallbackFree(this.vtbl.GetAntialiasMode)
+        CallbackFree(this.vtbl.SetTextAntialiasMode)
+        CallbackFree(this.vtbl.GetTextAntialiasMode)
+        CallbackFree(this.vtbl.SetTextRenderingParams)
+        CallbackFree(this.vtbl.GetTextRenderingParams)
+        CallbackFree(this.vtbl.SetTags)
+        CallbackFree(this.vtbl.GetTags)
+        CallbackFree(this.vtbl.PushLayer)
+        CallbackFree(this.vtbl.PopLayer)
+        CallbackFree(this.vtbl.Flush)
+        CallbackFree(this.vtbl.SaveDrawingState)
+        CallbackFree(this.vtbl.RestoreDrawingState)
+        CallbackFree(this.vtbl.PushAxisAlignedClip)
+        CallbackFree(this.vtbl.PopAxisAlignedClip)
+        CallbackFree(this.vtbl.Clear)
+        CallbackFree(this.vtbl.BeginDraw)
+        CallbackFree(this.vtbl.EndDraw)
+        CallbackFree(this.vtbl.GetPixelFormat)
+        CallbackFree(this.vtbl.SetDpi)
+        CallbackFree(this.vtbl.GetDpi)
+        CallbackFree(this.vtbl.GetSize)
+        CallbackFree(this.vtbl.GetPixelSize)
+        CallbackFree(this.vtbl.GetMaximumBitmapSize)
+        CallbackFree(this.vtbl.IsSupported)
     }
 }

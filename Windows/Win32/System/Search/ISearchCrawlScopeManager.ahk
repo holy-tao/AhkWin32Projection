@@ -1,9 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include .\IEnumSearchRoots.ahk
-#Include .\IEnumSearchScopeRules.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ISearchRoot.ahk" { ISearchRoot }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IEnumSearchScopeRules.ahk" { IEnumSearchScopeRules }
+#Import ".\CLUSION_REASON.ahk" { CLUSION_REASON }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IEnumSearchRoots.ahk" { IEnumSearchRoots }
 
 /**
  * Provides methods that notify the search engine of containers to crawl and/or watch, and items under those containers to include or exclude when crawling or watching.
@@ -12,26 +17,48 @@
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-isearchcrawlscopemanager
  * @namespace Windows.Win32.System.Search
  */
-class ISearchCrawlScopeManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISearchCrawlScopeManager extends IUnknown {
     /**
      * The interface identifier for ISearchCrawlScopeManager
      * @type {Guid}
      */
-    static IID => Guid("{ab310581-ac80-11d1-8df3-00c04fb6ef55}")
+    static IID := Guid("{ab310581-ac80-11d1-8df3-00c04fb6ef55}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISearchCrawlScopeManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AddDefaultScopeRule     : IntPtr
+        AddRoot                 : IntPtr
+        RemoveRoot              : IntPtr
+        EnumerateRoots          : IntPtr
+        AddHierarchicalScope    : IntPtr
+        AddUserScopeRule        : IntPtr
+        RemoveScopeRule         : IntPtr
+        EnumerateScopeRules     : IntPtr
+        HasParentScopeRule      : IntPtr
+        HasChildScopeRule       : IntPtr
+        IncludedInCrawlScope    : IntPtr
+        IncludedInCrawlScopeEx  : IntPtr
+        RevertToDefaultScopes   : IntPtr
+        SaveAll                 : IntPtr
+        GetParentScopeVersionId : IntPtr
+        RemoveDefaultScopeRule  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AddDefaultScopeRule", "AddRoot", "RemoveRoot", "EnumerateRoots", "AddHierarchicalScope", "AddUserScopeRule", "RemoveScopeRule", "EnumerateScopeRules", "HasParentScopeRule", "HasChildScopeRule", "IncludedInCrawlScope", "IncludedInCrawlScopeEx", "RevertToDefaultScopes", "SaveAll", "GetParentScopeVersionId", "RemoveDefaultScopeRule"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISearchCrawlScopeManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Adds a URL as the default scope for this rule.
@@ -58,7 +85,7 @@ class ISearchCrawlScopeManager extends IUnknown {
     AddDefaultScopeRule(pszURL, fInclude, fFollowFlags) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := ComCall(3, this, "ptr", pszURL, "int", fInclude, "uint", fFollowFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", pszURL, BOOL, fInclude, "uint", fFollowFlags, "HRESULT")
         return result
     }
 
@@ -144,7 +171,7 @@ class ISearchCrawlScopeManager extends IUnknown {
     AddHierarchicalScope(pszURL, fInclude, fDefault, fOverrideChildren) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := ComCall(7, this, "ptr", pszURL, "int", fInclude, "int", fDefault, "int", fOverrideChildren, "HRESULT")
+        result := ComCall(7, this, "ptr", pszURL, BOOL, fInclude, BOOL, fDefault, BOOL, fOverrideChildren, "HRESULT")
         return result
     }
 
@@ -178,7 +205,7 @@ class ISearchCrawlScopeManager extends IUnknown {
     AddUserScopeRule(pszURL, fInclude, fOverrideChildren, fFollowFlags) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := ComCall(8, this, "ptr", pszURL, "int", fInclude, "int", fOverrideChildren, "uint", fFollowFlags, "HRESULT")
+        result := ComCall(8, this, "ptr", pszURL, BOOL, fInclude, BOOL, fOverrideChildren, "uint", fFollowFlags, "HRESULT")
         return result
     }
 
@@ -232,7 +259,7 @@ class ISearchCrawlScopeManager extends IUnknown {
     HasParentScopeRule(pszURL) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := ComCall(11, this, "ptr", pszURL, "int*", &pfHasParentRule := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", pszURL, BOOL.Ptr, &pfHasParentRule := 0, "HRESULT")
         return pfHasParentRule
     }
 
@@ -251,7 +278,7 @@ class ISearchCrawlScopeManager extends IUnknown {
     HasChildScopeRule(pszURL) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := ComCall(12, this, "ptr", pszURL, "int*", &pfHasChildRule := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", pszURL, BOOL.Ptr, &pfHasChildRule := 0, "HRESULT")
         return pfHasChildRule
     }
 
@@ -272,7 +299,7 @@ class ISearchCrawlScopeManager extends IUnknown {
     IncludedInCrawlScope(pszURL) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := ComCall(13, this, "ptr", pszURL, "int*", &pfIsIncluded := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", pszURL, BOOL.Ptr, &pfIsIncluded := 0, "HRESULT")
         return pfIsIncluded
     }
 
@@ -378,5 +405,55 @@ class ISearchCrawlScopeManager extends IUnknown {
 
         result := ComCall(18, this, "ptr", pszURL, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISearchCrawlScopeManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AddDefaultScopeRule := CallbackCreate(GetMethod(implObj, "AddDefaultScopeRule"), flags, 4)
+        this.vtbl.AddRoot := CallbackCreate(GetMethod(implObj, "AddRoot"), flags, 2)
+        this.vtbl.RemoveRoot := CallbackCreate(GetMethod(implObj, "RemoveRoot"), flags, 2)
+        this.vtbl.EnumerateRoots := CallbackCreate(GetMethod(implObj, "EnumerateRoots"), flags, 2)
+        this.vtbl.AddHierarchicalScope := CallbackCreate(GetMethod(implObj, "AddHierarchicalScope"), flags, 5)
+        this.vtbl.AddUserScopeRule := CallbackCreate(GetMethod(implObj, "AddUserScopeRule"), flags, 5)
+        this.vtbl.RemoveScopeRule := CallbackCreate(GetMethod(implObj, "RemoveScopeRule"), flags, 2)
+        this.vtbl.EnumerateScopeRules := CallbackCreate(GetMethod(implObj, "EnumerateScopeRules"), flags, 2)
+        this.vtbl.HasParentScopeRule := CallbackCreate(GetMethod(implObj, "HasParentScopeRule"), flags, 3)
+        this.vtbl.HasChildScopeRule := CallbackCreate(GetMethod(implObj, "HasChildScopeRule"), flags, 3)
+        this.vtbl.IncludedInCrawlScope := CallbackCreate(GetMethod(implObj, "IncludedInCrawlScope"), flags, 3)
+        this.vtbl.IncludedInCrawlScopeEx := CallbackCreate(GetMethod(implObj, "IncludedInCrawlScopeEx"), flags, 4)
+        this.vtbl.RevertToDefaultScopes := CallbackCreate(GetMethod(implObj, "RevertToDefaultScopes"), flags, 1)
+        this.vtbl.SaveAll := CallbackCreate(GetMethod(implObj, "SaveAll"), flags, 1)
+        this.vtbl.GetParentScopeVersionId := CallbackCreate(GetMethod(implObj, "GetParentScopeVersionId"), flags, 3)
+        this.vtbl.RemoveDefaultScopeRule := CallbackCreate(GetMethod(implObj, "RemoveDefaultScopeRule"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AddDefaultScopeRule)
+        CallbackFree(this.vtbl.AddRoot)
+        CallbackFree(this.vtbl.RemoveRoot)
+        CallbackFree(this.vtbl.EnumerateRoots)
+        CallbackFree(this.vtbl.AddHierarchicalScope)
+        CallbackFree(this.vtbl.AddUserScopeRule)
+        CallbackFree(this.vtbl.RemoveScopeRule)
+        CallbackFree(this.vtbl.EnumerateScopeRules)
+        CallbackFree(this.vtbl.HasParentScopeRule)
+        CallbackFree(this.vtbl.HasChildScopeRule)
+        CallbackFree(this.vtbl.IncludedInCrawlScope)
+        CallbackFree(this.vtbl.IncludedInCrawlScopeEx)
+        CallbackFree(this.vtbl.RevertToDefaultScopes)
+        CallbackFree(this.vtbl.SaveAll)
+        CallbackFree(this.vtbl.GetParentScopeVersionId)
+        CallbackFree(this.vtbl.RemoveDefaultScopeRule)
     }
 }

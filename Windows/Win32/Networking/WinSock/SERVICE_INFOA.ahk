@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RESOURCE_DISPLAY_TYPE.ahk
-#Include .\SERVICE_ADDRESSES.ahk
-#Include ..\..\System\Com\BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\System\Com\BLOB.ahk" { BLOB }
+#Import ".\SERVICE_ADDRESSES.ahk" { SERVICE_ADDRESSES }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\RESOURCE_DISPLAY_TYPE.ahk" { RESOURCE_DISPLAY_TYPE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains information about a network service or a network service type. (ANSI)
@@ -13,21 +14,15 @@
  * @namespace Windows.Win32.Networking.WinSock
  * @charset ANSI
  */
-class SERVICE_INFOA extends Win32Struct {
-    static sizeof => 80
-
-    static packingSize => 8
+export default struct SERVICE_INFOA {
+    #StructPack 8
 
     /**
      * Type: <b>LPGUID</b>
      * 
      * A pointer to a GUID that is the type of the network service.
-     * @type {Pointer<Guid>}
      */
-    lpServiceType {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    lpServiceType : Guid.Ptr
 
     /**
      * Type: <b>LPTSTR</b>
@@ -42,76 +37,48 @@ class SERVICE_INFOA extends Win32Struct {
      * 
      * If you are calling the 
      * <b>SetService</b> function with the <i>dwNameSpace</i> parameter set to a specific service name, the network service name can be a common name or a distinguished name. A distinguished name distinguishes the service to a unique location with a directory service. An example of a distinguished name for a network service is "MS\\SYS\\NT\\DEV\\My SQL Server".
-     * @type {PSTR}
      */
-    lpServiceName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpServiceName : PSTR
 
     /**
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to a <b>NULL</b>-terminated string that is a comment or description for the network service. For example, "Used for development upgrades."
-     * @type {PSTR}
      */
-    lpComment {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpComment : PSTR
 
     /**
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to a <b>NULL</b>-terminated string that contains locale information.
-     * @type {PSTR}
      */
-    lpLocale {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpLocale : PSTR
 
     /**
      * Type: <b>DWORD</b>
-     * @type {RESOURCE_DISPLAY_TYPE}
      */
-    dwDisplayHint {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwDisplayHint : RESOURCE_DISPLAY_TYPE
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The version for the network service. The high word of this value specifies a major version number. The low word of this value specifies a minor version number.
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    dwVersion : UInt32
 
     /**
      * Type: <b>DWORD</b>
      * 
      * Reserved for future use. Must be zero.
-     * @type {Integer}
      */
-    dwTime {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    dwTime : UInt32
 
     /**
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to a <b>NULL</b>-terminated string that is the name of the computer on which the network service is running.
-     * @type {PSTR}
      */
-    lpMachineName {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    lpMachineName : PSTR
 
     /**
      * Type: <b>LPSERVICE_ADDRESSES</b>
@@ -126,12 +93,8 @@ class SERVICE_INFOA extends Win32Struct {
      * 
      * A network service can call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-getsockname">getsockname</a> function to determine the local address of the system.
-     * @type {Pointer<SERVICE_ADDRESSES>}
      */
-    lpServiceAddress {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    lpServiceAddress : SERVICE_ADDRESSES.Ptr
 
     /**
      * Type: <b>BLOB</b>
@@ -148,13 +111,7 @@ class SERVICE_INFOA extends Win32Struct {
      * <b>SERVICE_TYPE_INFO_ABS</b> structure, and any 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-service_type_value_absa">SERVICE_TYPE_VALUE_ABS</a> structures it contains are predefined, and thus their formats are known to the operating system.</div>
      * <div> </div>
-     * @type {BLOB}
      */
-    ServiceSpecificInfo {
-        get {
-            if(!this.HasProp("__ServiceSpecificInfo"))
-                this.__ServiceSpecificInfo := BLOB(64, this)
-            return this.__ServiceSpecificInfo
-        }
-    }
+    ServiceSpecificInfo : BLOB
+
 }

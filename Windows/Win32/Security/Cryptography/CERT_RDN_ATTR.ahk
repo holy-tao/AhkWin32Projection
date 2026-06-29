@@ -1,16 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\CRYPT_INTEGER_BLOB.ahk" { CRYPT_INTEGER_BLOB }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Contains a single attribute of a relative distinguished name (RDN). A whole RDN is expressed in a CERT_RDN structure that contains an array of CERT_RDN_ATTR structures.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_rdn_attr
  * @namespace Windows.Win32.Security.Cryptography
  */
-class CERT_RDN_ATTR extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct CERT_RDN_ATTR {
+    #StructPack 8
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">Object identifier</a> (OID) for the type of the attribute defined in this structure. This member can be one of the following OIDs.
@@ -481,21 +479,13 @@ class CERT_RDN_ATTR extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {PSTR}
      */
-    pszObjId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pszObjId : PSTR
 
     /**
      * Indicates the interpretation of the <b>Value</b> member.
-     * @type {Integer}
      */
-    dwValueType {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwValueType : UInt32
 
     /**
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CERT_RDN_VALUE_BLOB</a> that contains the attribute value. The <b>cbData</b> member of <b>Value</b> is the length, in bytes, of the <b>pbData</b> member. It is not the number of elements in the <b>pbData</b> string. 
@@ -506,13 +496,7 @@ class CERT_RDN_ATTR extends Win32Struct {
      * For example, a <b>DWORD</b> is 32 bits or 4 bytes long. If <b>pbData</b> is a <b>DWORD</b> array, <b>cbData</b> would be four times the number of <b>DWORD</b> elements in the array. A <b>SHORT</b> is 16 bits or 2 bytes long. If <b>pbData</b> is an array of <b>SHORT</b> elements, <b>cbData</b> must be two times the length of the array.
      * 
      * The <b>pbData</b> member of <b>Value</b> can be a null-terminated array of 8-bit or 16-bit characters or a fixed-length array of elements. If <b>dwValueType</b> is set to CERT_RDN_ENCODED_BLOB, <b>pbData</b> is encoded.
-     * @type {CRYPT_INTEGER_BLOB}
      */
-    Value {
-        get {
-            if(!this.HasProp("__Value"))
-                this.__Value := CRYPT_INTEGER_BLOB(16, this)
-            return this.__Value
-        }
-    }
+    Value : CRYPT_INTEGER_BLOB
+
 }

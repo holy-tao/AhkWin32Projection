@@ -1,8 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\Win32Struct.ahk
-#Include ..\Graphics\Gdi\NEWTEXTMETRICA.ahk
-#Include ..\Graphics\Gdi\TMPF_FLAGS.ahk
-#Include .\FONTSIGNATURE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\Graphics\Gdi\TMPF_FLAGS.ahk" { TMPF_FLAGS }
+#Import "..\Graphics\Gdi\NEWTEXTMETRICA.ahk" { NEWTEXTMETRICA }
+#Import ".\FONTSIGNATURE.ahk" { FONTSIGNATURE }
 
 /**
  * The NEWTEXTMETRICEX structure contains information about a physical font. (ANSI)
@@ -13,32 +12,17 @@
  * @namespace Windows.Win32.Globalization
  * @charset ANSI
  */
-class NEWTEXTMETRICEXA extends Win32Struct {
-    static sizeof => 96
-
-    static packingSize => 4
+export default struct NEWTEXTMETRICEXA {
+    #StructPack 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-newtextmetrica">NEWTEXTMETRIC</a> structure.
-     * @type {NEWTEXTMETRICA}
      */
-    ntmTm {
-        get {
-            if(!this.HasProp("__ntmTm"))
-                this.__ntmTm := NEWTEXTMETRICA(0, this)
-            return this.__ntmTm
-        }
-    }
+    ntmTm : NEWTEXTMETRICA
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-fontsignature">FONTSIGNATURE</a> structure indicating the coverage of the font.
-     * @type {FONTSIGNATURE}
      */
-    ntmFontSig {
-        get {
-            if(!this.HasProp("__ntmFontSig"))
-                this.__ntmFontSig := FONTSIGNATURE(72, this)
-            return this.__ntmFontSig
-        }
-    }
+    ntmFontSig : FONTSIGNATURE
+
 }

@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\SC_ACTION.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\SC_ACTION.ahk" { SC_ACTION }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * Represents the action the service controller should take on each failure of a service. A service is considered failed when it terminates without reporting a status of SERVICE_STOPPED to the service controller. (ANSI)
@@ -17,19 +17,13 @@
  * @namespace Windows.Win32.System.Services
  * @charset ANSI
  */
-class SERVICE_FAILURE_ACTIONSA extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 8
+export default struct SERVICE_FAILURE_ACTIONSA {
+    #StructPack 8
 
     /**
      * The time after which to reset the failure count to zero if there are no failures, in seconds. Specify <b>INFINITE</b> to indicate that this value should never be reset.
-     * @type {Integer}
      */
-    dwResetPeriod {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwResetPeriod : UInt32
 
     /**
      * The message to be broadcast to server users before rebooting in response to the <b>SC_ACTION_REBOOT</b> service controller action. 
@@ -46,12 +40,8 @@ class SERVICE_FAILURE_ACTIONSA extends Win32Struct {
      * The string with identifier <i>strID</i> is loaded from <i>dllname</i>; the <i>path</i> is optional. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regloadmuistringa">RegLoadMUIString</a>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>Localized strings are not supported until Windows Vista.
-     * @type {PSTR}
      */
-    lpRebootMsg {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    lpRebootMsg : PSTR
 
     /**
      * The command line of the process for the 
@@ -61,12 +51,8 @@ class SERVICE_FAILURE_ACTIONSA extends Win32Struct {
      * 
      * 
      * If this value is <b>NULL</b>, the command is unchanged. If the value is an empty string (""), the command is deleted and no program is run when the service fails.
-     * @type {PSTR}
      */
-    lpCommand {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    lpCommand : PSTR
 
     /**
      * The number of elements in the <b>lpsaActions</b> array. 
@@ -75,12 +61,8 @@ class SERVICE_FAILURE_ACTIONSA extends Win32Struct {
      * 
      * 
      * If this value is 0, but <b>lpsaActions</b> is not NULL, the reset period and array of failure actions are deleted.
-     * @type {Integer}
      */
-    cActions {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    cActions : UInt32
 
     /**
      * A pointer to an array of 
@@ -90,10 +72,7 @@ class SERVICE_FAILURE_ACTIONSA extends Win32Struct {
      * 
      * 
      * If this value is NULL, the <b>cActions</b> and <b>dwResetPeriod</b> members are ignored.
-     * @type {Pointer<SC_ACTION>}
      */
-    lpsaActions {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpsaActions : SC_ACTION.Ptr
+
 }

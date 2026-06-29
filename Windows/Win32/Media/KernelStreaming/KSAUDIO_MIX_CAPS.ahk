@@ -1,51 +1,22 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSAUDIO_MIX_CAPS extends Win32Struct {
-    static sizeof => 16
+export default struct KSAUDIO_MIX_CAPS {
+    #StructPack 4
 
-    static packingSize => 4
+    Mute : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    Mute {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Minimum : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Minimum {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    Maximum : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Maximum {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    Reset : Int32
 
-    /**
-     * @type {Integer}
-     */
-    Reset {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Resolution {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    static __New() {
+        DefineProp(this.Prototype, 'Resolution', { type: Int32, offset: 12 })
+        this.DeleteProp("__New")
     }
 }

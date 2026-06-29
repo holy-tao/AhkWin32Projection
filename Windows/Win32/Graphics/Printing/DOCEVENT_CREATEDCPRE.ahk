@@ -1,44 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Gdi\DEVMODEW.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\Gdi\DEVMODEW.ahk" { DEVMODEW }
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
  */
-class DOCEVENT_CREATEDCPRE extends Win32Struct {
-    static sizeof => 32
+export default struct DOCEVENT_CREATEDCPRE {
+    #StructPack 8
 
-    static packingSize => 8
+    pszDriver : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszDriver {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pszDevice : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pszDevice {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pdm : DEVMODEW.Ptr
 
-    /**
-     * @type {Pointer<DEVMODEW>}
-     */
-    pdm {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    bIC : BOOL
 
-    /**
-     * @type {BOOL}
-     */
-    bIC {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
 }

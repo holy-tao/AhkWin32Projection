@@ -1,33 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IExtendPropertySheet.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\Com\IDataObject.ahk" { IDataObject }
+#Import ".\IExtendPropertySheet.ahk" { IExtendPropertySheet }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Graphics\Gdi\HPALETTE.ahk" { HPALETTE }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The IExtendPropertySheet2 interface is introduced in MMC 1.1.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-iextendpropertysheet2
  * @namespace Windows.Win32.System.Mmc
  */
-class IExtendPropertySheet2 extends IExtendPropertySheet {
-
-    static sizeof => A_PtrSize
+export default struct IExtendPropertySheet2 extends IExtendPropertySheet {
     /**
      * The interface identifier for IExtendPropertySheet2
      * @type {Guid}
      */
-    static IID => Guid("{b7a87232-4a51-11d1-a7ea-00c04fd909dd}")
+    static IID := Guid("{b7a87232-4a51-11d1-a7ea-00c04fd909dd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IExtendPropertySheet2 interfaces
+    */
+    struct Vtbl extends IExtendPropertySheet.Vtbl {
+        GetWatermarks : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetWatermarks"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IExtendPropertySheet2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The IExtendPropertySheet2::GetWatermarks method gets the watermark bitmap and header bitmap for wizard sheets implemented as Wizard 97-style wizards.
@@ -72,7 +84,27 @@ class IExtendPropertySheet2 extends IExtendPropertySheet {
     GetWatermarks(lpIDataObject, lphWatermark, lphHeader, lphPalette, bStretch) {
         bStretchMarshal := bStretch is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "ptr", lpIDataObject, "ptr", lphWatermark, "ptr", lphHeader, "ptr", lphPalette, bStretchMarshal, bStretch, "HRESULT")
+        result := ComCall(5, this, "ptr", lpIDataObject, HBITMAP.Ptr, lphWatermark, HBITMAP.Ptr, lphHeader, HPALETTE.Ptr, lphPalette, bStretchMarshal, bStretch, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IExtendPropertySheet2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetWatermarks := CallbackCreate(GetMethod(implObj, "GetWatermarks"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetWatermarks)
     }
 }

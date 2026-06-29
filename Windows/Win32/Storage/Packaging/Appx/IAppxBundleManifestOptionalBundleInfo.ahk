@@ -1,35 +1,46 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IAppxManifestPackageId.ahk
-#Include .\IAppxBundleManifestPackageInfoEnumerator.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IAppxManifestPackageId.ahk" { IAppxManifestPackageId }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IAppxBundleManifestPackageInfoEnumerator.ahk" { IAppxBundleManifestPackageInfoEnumerator }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides a read-only object model for an &lt;OptionalBundle&gt; element in a bundle package manifest.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxbundlemanifestoptionalbundleinfo
  * @namespace Windows.Win32.Storage.Packaging.Appx
  */
-class IAppxBundleManifestOptionalBundleInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAppxBundleManifestOptionalBundleInfo extends IUnknown {
     /**
      * The interface identifier for IAppxBundleManifestOptionalBundleInfo
      * @type {Guid}
      */
-    static IID => Guid("{515bf2e8-bcb0-4d69-8c48-e383147b6e12}")
+    static IID := Guid("{515bf2e8-bcb0-4d69-8c48-e383147b6e12}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAppxBundleManifestOptionalBundleInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetPackageId        : IntPtr
+        GetFileName         : IntPtr
+        GetPackageInfoItems : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetPackageId", "GetFileName", "GetPackageInfoItems"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAppxBundleManifestOptionalBundleInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves an object that represents the identity of the &lt;OptionalBundle&gt;.
@@ -49,7 +60,7 @@ class IAppxBundleManifestOptionalBundleInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestoptionalbundleinfo-getfilename
      */
     GetFileName() {
-        result := ComCall(4, this, "ptr*", &fileName := 0, "HRESULT")
+        result := ComCall(4, this, PWSTR.Ptr, &fileName := 0, "HRESULT")
         return fileName
     }
 
@@ -63,5 +74,29 @@ class IAppxBundleManifestOptionalBundleInfo extends IUnknown {
     GetPackageInfoItems() {
         result := ComCall(5, this, "ptr*", &packageInfoItems := 0, "HRESULT")
         return IAppxBundleManifestPackageInfoEnumerator(packageInfoItems)
+    }
+
+    Query(iid) {
+        if (IAppxBundleManifestOptionalBundleInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetPackageId := CallbackCreate(GetMethod(implObj, "GetPackageId"), flags, 2)
+        this.vtbl.GetFileName := CallbackCreate(GetMethod(implObj, "GetFileName"), flags, 2)
+        this.vtbl.GetPackageInfoItems := CallbackCreate(GetMethod(implObj, "GetPackageInfoItems"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetPackageId)
+        CallbackFree(this.vtbl.GetFileName)
+        CallbackFree(this.vtbl.GetPackageInfoItems)
     }
 }

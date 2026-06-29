@@ -1,31 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\INFORMATIONCARD_TRANSFORM_CRYPTO_PARAMETERS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\INFORMATIONCARD_TRANSFORM_CRYPTO_PARAMETERS.ahk" { INFORMATIONCARD_TRANSFORM_CRYPTO_PARAMETERS }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
  */
-class INFORMATIONCARD_HASH_CRYPTO_PARAMETERS extends Win32Struct {
-    static sizeof => 20
+export default struct INFORMATIONCARD_HASH_CRYPTO_PARAMETERS {
+    #StructPack 4
 
-    static packingSize => 4
+    hashSize : Int32
 
-    /**
-     * @type {Integer}
-     */
-    hashSize {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    transform : INFORMATIONCARD_TRANSFORM_CRYPTO_PARAMETERS
 
-    /**
-     * @type {INFORMATIONCARD_TRANSFORM_CRYPTO_PARAMETERS}
-     */
-    transform {
-        get {
-            if(!this.HasProp("__transform"))
-                this.__transform := INFORMATIONCARD_TRANSFORM_CRYPTO_PARAMETERS(4, this)
-            return this.__transform
-        }
-    }
 }

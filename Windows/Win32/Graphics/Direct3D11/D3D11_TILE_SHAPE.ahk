@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Describes the shape of a tile by specifying its dimensions. (D3D11_TILE_SHAPE)
@@ -9,41 +8,28 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/ns-d3d11_2-d3d11_tile_shape
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_TILE_SHAPE extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct D3D11_TILE_SHAPE {
+    #StructPack 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The width in texels of the tile.
-     * @type {Integer}
      */
-    WidthInTexels {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    WidthInTexels : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The height in texels of the tile.
-     * @type {Integer}
      */
-    HeightInTexels {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    HeightInTexels : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The depth in texels of the tile.
-     * @type {Integer}
      */
-    DepthInTexels {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    DepthInTexels : UInt32
+
 }

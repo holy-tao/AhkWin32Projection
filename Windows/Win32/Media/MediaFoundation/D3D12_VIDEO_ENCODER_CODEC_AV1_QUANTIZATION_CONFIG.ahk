@@ -1,91 +1,29 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_CONFIG extends Win32Struct {
-    static sizeof => 80
+export default struct D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_CONFIG {
+    #StructPack 8
 
-    static packingSize => 8
+    BaseQIndex : Int64
 
-    /**
-     * @type {Integer}
-     */
-    BaseQIndex {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    YDCDeltaQ : Int64
 
-    /**
-     * @type {Integer}
-     */
-    YDCDeltaQ {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    UDCDeltaQ : Int64
 
-    /**
-     * @type {Integer}
-     */
-    UDCDeltaQ {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    UACDeltaQ : Int64
 
-    /**
-     * @type {Integer}
-     */
-    UACDeltaQ {
-        get => NumGet(this, 24, "int64")
-        set => NumPut("int64", value, this, 24)
-    }
+    VDCDeltaQ : Int64
 
-    /**
-     * @type {Integer}
-     */
-    VDCDeltaQ {
-        get => NumGet(this, 32, "int64")
-        set => NumPut("int64", value, this, 32)
-    }
+    VACDeltaQ : Int64
 
-    /**
-     * @type {Integer}
-     */
-    VACDeltaQ {
-        get => NumGet(this, 40, "int64")
-        set => NumPut("int64", value, this, 40)
-    }
+    UsingQMatrix : Int64
 
-    /**
-     * @type {Integer}
-     */
-    UsingQMatrix {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    QMY : Int64
 
-    /**
-     * @type {Integer}
-     */
-    QMY {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    QMU : Int64
 
-    /**
-     * @type {Integer}
-     */
-    QMU {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    QMV : Int64
 
-    /**
-     * @type {Integer}
-     */
-    QMV {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
 }

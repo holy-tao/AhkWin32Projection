@@ -1,75 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.SystemServices
  */
-class NT_TIB64 extends Win32Struct {
-    static sizeof => 56
+export default struct NT_TIB64 {
+    #StructPack 8
 
-    static packingSize => 8
+    ExceptionList : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ExceptionList {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    StackBase : Int64
 
-    /**
-     * @type {Integer}
-     */
-    StackBase {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    StackLimit : Int64
 
-    /**
-     * @type {Integer}
-     */
-    StackLimit {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    SubSystemTib : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SubSystemTib {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    FiberData : Int64
 
-    /**
-     * @type {Integer}
-     */
-    FiberData {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ArbitraryUserPointer : Int64
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Self : Int64
 
-    /**
-     * @type {Integer}
-     */
-    ArbitraryUserPointer {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Self {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+    static __New() {
+        DefineProp(this.Prototype, 'Version', { type: UInt32, offset: 32 })
+        this.DeleteProp("__New")
     }
 }

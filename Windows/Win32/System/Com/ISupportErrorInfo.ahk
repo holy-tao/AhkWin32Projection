@@ -1,33 +1,41 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * Ensures that error information can be propagated up the call chain correctly. Automation objects that use the error handling interfaces must implement ISupportErrorInfo.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-isupporterrorinfo
  * @namespace Windows.Win32.System.Com
  */
-class ISupportErrorInfo extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ISupportErrorInfo extends IUnknown {
     /**
      * The interface identifier for ISupportErrorInfo
      * @type {Guid}
      */
-    static IID => Guid("{df0b3d60-548f-101b-8e65-08002b2bd119}")
+    static IID := Guid("{df0b3d60-548f-101b-8e65-08002b2bd119}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISupportErrorInfo interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        InterfaceSupportsErrorInfo : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["InterfaceSupportsErrorInfo"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISupportErrorInfo.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Indicates whether an interface supports the IErrorInfo interface.
@@ -79,7 +87,27 @@ class ISupportErrorInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-isupporterrorinfo-interfacesupportserrorinfo
      */
     InterfaceSupportsErrorInfo(riid) {
-        result := ComCall(3, this, "ptr", riid, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, riid, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ISupportErrorInfo.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.InterfaceSupportsErrorInfo := CallbackCreate(GetMethod(implObj, "InterfaceSupportsErrorInfo"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.InterfaceSupportsErrorInfo)
     }
 }

@@ -1,103 +1,31 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\LSA_UNICODE_STRING.ahk
-#Include ..\..\..\Foundation\LUID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LSA_UNICODE_STRING.ahk" { LSA_UNICODE_STRING }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
+#Import "..\..\..\Foundation\LUID.ahk" { LUID }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  */
-class KDC_PROXY_CACHE_ENTRY_DATA extends Win32Struct {
-    static sizeof => 112
+export default struct KDC_PROXY_CACHE_ENTRY_DATA {
+    #StructPack 8
 
-    static packingSize => 8
+    SinceLastUsed : Int64
 
-    /**
-     * @type {Integer}
-     */
-    SinceLastUsed {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DomainName : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    DomainName {
-        get {
-            if(!this.HasProp("__DomainName"))
-                this.__DomainName := LSA_UNICODE_STRING(8, this)
-            return this.__DomainName
-        }
-    }
+    ProxyServerName : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    ProxyServerName {
-        get {
-            if(!this.HasProp("__ProxyServerName"))
-                this.__ProxyServerName := LSA_UNICODE_STRING(24, this)
-            return this.__ProxyServerName
-        }
-    }
+    ProxyServerVdir : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    ProxyServerVdir {
-        get {
-            if(!this.HasProp("__ProxyServerVdir"))
-                this.__ProxyServerVdir := LSA_UNICODE_STRING(40, this)
-            return this.__ProxyServerVdir
-        }
-    }
+    ProxyServerPort : UInt16
 
-    /**
-     * @type {Integer}
-     */
-    ProxyServerPort {
-        get => NumGet(this, 56, "ushort")
-        set => NumPut("ushort", value, this, 56)
-    }
+    LogonId : LUID
 
-    /**
-     * @type {LUID}
-     */
-    LogonId {
-        get {
-            if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(60, this)
-            return this.__LogonId
-        }
-    }
+    CredUserName : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    CredUserName {
-        get {
-            if(!this.HasProp("__CredUserName"))
-                this.__CredUserName := LSA_UNICODE_STRING(72, this)
-            return this.__CredUserName
-        }
-    }
+    CredDomainName : LSA_UNICODE_STRING
 
-    /**
-     * @type {LSA_UNICODE_STRING}
-     */
-    CredDomainName {
-        get {
-            if(!this.HasProp("__CredDomainName"))
-                this.__CredDomainName := LSA_UNICODE_STRING(88, this)
-            return this.__CredDomainName
-        }
-    }
+    GlobalCache : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    GlobalCache {
-        get => NumGet(this, 104, "char")
-        set => NumPut("char", value, this, 104)
-    }
 }

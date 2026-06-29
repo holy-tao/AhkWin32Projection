@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The MBN_SMS_CONSTANTS enumerated type contains SMS constant values.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-wwaext_sms_constants
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  */
-class WWAEXT_SMS_CONSTANTS extends Win32Enum {
+export default struct WWAEXT_SMS_CONSTANTS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The message is not stored in device memory.  This constant is used by <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnsmsreadmsgpdu">IMbnSmsReadMsgPdu</a> and <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnsmsreadmsgtextcdma">IMbnSmsReadMsgTextCdma</a>.

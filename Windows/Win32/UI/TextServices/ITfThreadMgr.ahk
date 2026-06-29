@@ -1,12 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ITfDocumentMgr.ahk
-#Include .\IEnumTfDocumentMgrs.ahk
-#Include .\ITfFunctionProvider.ahk
-#Include .\IEnumTfFunctionProviders.ahk
-#Include .\ITfCompartmentMgr.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITfDocumentMgr.ahk" { ITfDocumentMgr }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumTfFunctionProviders.ahk" { IEnumTfFunctionProviders }
+#Import ".\ITfFunctionProvider.ahk" { ITfFunctionProvider }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IEnumTfDocumentMgrs.ahk" { IEnumTfDocumentMgrs }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ITfCompartmentMgr.ahk" { ITfCompartmentMgr }
 
 /**
  * The ITfThreadMgr defines the primary object implemented by the TSF manager. ITfThreadMgr is used by applications and text services to activate and deactivate text services, create document managers, and maintain the document context focus.
@@ -17,26 +20,43 @@
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfthreadmgr
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfThreadMgr extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITfThreadMgr extends IUnknown {
     /**
      * The interface identifier for ITfThreadMgr
      * @type {Guid}
      */
-    static IID => Guid("{aa80e801-2021-11d2-93e0-0060b067b86e}")
+    static IID := Guid("{aa80e801-2021-11d2-93e0-0060b067b86e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfThreadMgr interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Activate              : IntPtr
+        Deactivate            : IntPtr
+        CreateDocumentMgr     : IntPtr
+        EnumDocumentMgrs      : IntPtr
+        GetFocus              : IntPtr
+        SetFocus              : IntPtr
+        AssociateFocus        : IntPtr
+        IsThreadFocus         : IntPtr
+        GetFunctionProvider   : IntPtr
+        EnumFunctionProviders : IntPtr
+        GetGlobalCompartment  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Activate", "Deactivate", "CreateDocumentMgr", "EnumDocumentMgrs", "GetFocus", "SetFocus", "AssociateFocus", "IsThreadFocus", "GetFunctionProvider", "EnumFunctionProviders", "GetGlobalCompartment"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfThreadMgr.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * ITfThreadMgr::Activate method
@@ -206,9 +226,7 @@ class ITfThreadMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgr-associatefocus
      */
     AssociateFocus(_hwnd, pdimNew) {
-        _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd
-
-        result := ComCall(9, this, "ptr", _hwnd, "ptr", pdimNew, "ptr*", &ppdimPrev := 0, "HRESULT")
+        result := ComCall(9, this, HWND, _hwnd, "ptr", pdimNew, "ptr*", &ppdimPrev := 0, "HRESULT")
         return ITfDocumentMgr(ppdimPrev)
     }
 
@@ -218,7 +236,7 @@ class ITfThreadMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgr-isthreadfocus
      */
     IsThreadFocus() {
-        result := ComCall(10, this, "int*", &pfThreadFocus := 0, "HRESULT")
+        result := ComCall(10, this, BOOL.Ptr, &pfThreadFocus := 0, "HRESULT")
         return pfThreadFocus
     }
 
@@ -258,7 +276,7 @@ class ITfThreadMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgr-getfunctionprovider
      */
     GetFunctionProvider(clsid) {
-        result := ComCall(11, this, "ptr", clsid, "ptr*", &ppFuncProv := 0, "HRESULT")
+        result := ComCall(11, this, Guid.Ptr, clsid, "ptr*", &ppFuncProv := 0, "HRESULT")
         return ITfFunctionProvider(ppFuncProv)
     }
 
@@ -284,5 +302,45 @@ class ITfThreadMgr extends IUnknown {
     GetGlobalCompartment() {
         result := ComCall(13, this, "ptr*", &ppCompMgr := 0, "HRESULT")
         return ITfCompartmentMgr(ppCompMgr)
+    }
+
+    Query(iid) {
+        if (ITfThreadMgr.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 2)
+        this.vtbl.Deactivate := CallbackCreate(GetMethod(implObj, "Deactivate"), flags, 1)
+        this.vtbl.CreateDocumentMgr := CallbackCreate(GetMethod(implObj, "CreateDocumentMgr"), flags, 2)
+        this.vtbl.EnumDocumentMgrs := CallbackCreate(GetMethod(implObj, "EnumDocumentMgrs"), flags, 2)
+        this.vtbl.GetFocus := CallbackCreate(GetMethod(implObj, "GetFocus"), flags, 2)
+        this.vtbl.SetFocus := CallbackCreate(GetMethod(implObj, "SetFocus"), flags, 2)
+        this.vtbl.AssociateFocus := CallbackCreate(GetMethod(implObj, "AssociateFocus"), flags, 4)
+        this.vtbl.IsThreadFocus := CallbackCreate(GetMethod(implObj, "IsThreadFocus"), flags, 2)
+        this.vtbl.GetFunctionProvider := CallbackCreate(GetMethod(implObj, "GetFunctionProvider"), flags, 3)
+        this.vtbl.EnumFunctionProviders := CallbackCreate(GetMethod(implObj, "EnumFunctionProviders"), flags, 2)
+        this.vtbl.GetGlobalCompartment := CallbackCreate(GetMethod(implObj, "GetGlobalCompartment"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Activate)
+        CallbackFree(this.vtbl.Deactivate)
+        CallbackFree(this.vtbl.CreateDocumentMgr)
+        CallbackFree(this.vtbl.EnumDocumentMgrs)
+        CallbackFree(this.vtbl.GetFocus)
+        CallbackFree(this.vtbl.SetFocus)
+        CallbackFree(this.vtbl.AssociateFocus)
+        CallbackFree(this.vtbl.IsThreadFocus)
+        CallbackFree(this.vtbl.GetFunctionProvider)
+        CallbackFree(this.vtbl.EnumFunctionProviders)
+        CallbackFree(this.vtbl.GetGlobalCompartment)
     }
 }

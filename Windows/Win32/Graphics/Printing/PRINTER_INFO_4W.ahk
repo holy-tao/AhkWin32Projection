@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * The PRINTER\_INFO\_4 structure specifies general printer information.The structure can be used to retrieve minimal printer information on a call to EnumPrinters.
@@ -13,28 +13,18 @@
  * @namespace Windows.Win32.Graphics.Printing
  * @charset Unicode
  */
-class PRINTER_INFO_4W extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct PRINTER_INFO_4W {
+    #StructPack 8
 
     /**
      * Pointer to a null-terminated string that specifies the name of the printer (local or remote).
-     * @type {PWSTR}
      */
-    pPrinterName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pPrinterName : PWSTR
 
     /**
      * Pointer to a null-terminated string that is the name of the server.
-     * @type {PWSTR}
      */
-    pServerName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pServerName : PWSTR
 
     /**
      * Specifies information about the returned data.
@@ -45,10 +35,7 @@ class PRINTER_INFO_4W extends Win32Struct {
      * |-----------------------------|----------------------------------|
      * | PRINTER\_ATTRIBUTE\_LOCAL   | The printer is a local printer.  |
      * | PRINTER\_ATTRIBUTE\_NETWORK | The printer is a remote printer. |
-     * @type {Integer}
      */
-    Attributes {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Attributes : UInt32
+
 }

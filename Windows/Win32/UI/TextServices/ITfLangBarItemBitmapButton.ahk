@@ -1,9 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ITfLangBarItem.ahk
-#Include ..\..\Foundation\SIZE.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\POINT.ahk" { POINT }
+#Import "..\..\Graphics\Gdi\HBITMAP.ahk" { HBITMAP }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\ITfMenu.ahk" { ITfMenu }
+#Import ".\ITfLangBarItem.ahk" { ITfLangBarItem }
+#Import ".\TfLBIClick.ahk" { TfLBIClick }
+#Import "..\..\Foundation\SIZE.ahk" { SIZE }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * The ITfLangBarItemBitmapButton interface is implemented by a language bar bitmap button provider and is used by the language bar manager to obtain information specific to a bitmap button item on the language bar.
@@ -12,26 +18,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nn-ctfutb-itflangbaritembitmapbutton
  * @namespace Windows.Win32.UI.TextServices
  */
-class ITfLangBarItemBitmapButton extends ITfLangBarItem {
-
-    static sizeof => A_PtrSize
+export default struct ITfLangBarItemBitmapButton extends ITfLangBarItem {
     /**
      * The interface identifier for ITfLangBarItemBitmapButton
      * @type {Guid}
      */
-    static IID => Guid("{a26a0525-3fae-4fa0-89ee-88a964f9f1b5}")
+    static IID := Guid("{a26a0525-3fae-4fa0-89ee-88a964f9f1b5}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITfLangBarItemBitmapButton interfaces
+    */
+    struct Vtbl extends ITfLangBarItem.Vtbl {
+        OnClick          : IntPtr
+        InitMenu         : IntPtr
+        OnMenuSelect     : IntPtr
+        GetPreferredSize : IntPtr
+        DrawBitmap       : IntPtr
+        GetText          : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["OnClick", "InitMenu", "OnMenuSelect", "GetPreferredSize", "DrawBitmap", "GetText"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITfLangBarItemBitmapButton.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This method is not used if the button item does not have the TF_LBI_STYLE_BTN_BUTTON style. (ITfLangBarItemBitmapButton.OnClick)
@@ -71,7 +89,7 @@ class ITfLangBarItemBitmapButton extends ITfLangBarItem {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritembitmapbutton-onclick
      */
     OnClick(click, pt, prcArea) {
-        result := ComCall(7, this, "int", click, "ptr", pt, "ptr", prcArea, "HRESULT")
+        result := ComCall(7, this, TfLBIClick, click, POINT, pt, RECT.Ptr, prcArea, "HRESULT")
         return result
     }
 
@@ -165,7 +183,7 @@ class ITfLangBarItemBitmapButton extends ITfLangBarItem {
      */
     GetPreferredSize(pszDefault) {
         psz := SIZE()
-        result := ComCall(10, this, "ptr", pszDefault, "ptr", psz, "HRESULT")
+        result := ComCall(10, this, SIZE.Ptr, pszDefault, SIZE.Ptr, psz, "HRESULT")
         return psz
     }
 
@@ -222,7 +240,7 @@ class ITfLangBarItemBitmapButton extends ITfLangBarItem {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritembitmapbutton-drawbitmap
      */
     DrawBitmap(bmWidth, bmHeight, dwFlags, phbmp, phbmpMask) {
-        result := ComCall(11, this, "int", bmWidth, "int", bmHeight, "uint", dwFlags, "ptr", phbmp, "ptr", phbmpMask, "HRESULT")
+        result := ComCall(11, this, "int", bmWidth, "int", bmHeight, "uint", dwFlags, HBITMAP.Ptr, phbmp, HBITMAP.Ptr, phbmpMask, "HRESULT")
         return result
     }
 
@@ -232,8 +250,38 @@ class ITfLangBarItemBitmapButton extends ITfLangBarItem {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritembitmapbutton-gettext
      */
     GetText() {
-        pbstrText := BSTR()
-        result := ComCall(12, this, "ptr", pbstrText, "HRESULT")
+        pbstrText := BSTR.Owned()
+        result := ComCall(12, this, BSTR.Ptr, pbstrText, "HRESULT")
         return pbstrText
+    }
+
+    Query(iid) {
+        if (ITfLangBarItemBitmapButton.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.OnClick := CallbackCreate(GetMethod(implObj, "OnClick"), flags, 4)
+        this.vtbl.InitMenu := CallbackCreate(GetMethod(implObj, "InitMenu"), flags, 2)
+        this.vtbl.OnMenuSelect := CallbackCreate(GetMethod(implObj, "OnMenuSelect"), flags, 2)
+        this.vtbl.GetPreferredSize := CallbackCreate(GetMethod(implObj, "GetPreferredSize"), flags, 3)
+        this.vtbl.DrawBitmap := CallbackCreate(GetMethod(implObj, "DrawBitmap"), flags, 6)
+        this.vtbl.GetText := CallbackCreate(GetMethod(implObj, "GetText"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.OnClick)
+        CallbackFree(this.vtbl.InitMenu)
+        CallbackFree(this.vtbl.OnMenuSelect)
+        CallbackFree(this.vtbl.GetPreferredSize)
+        CallbackFree(this.vtbl.DrawBitmap)
+        CallbackFree(this.vtbl.GetText)
     }
 }

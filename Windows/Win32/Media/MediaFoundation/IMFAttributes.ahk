@@ -1,8 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\..\Guid.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\MF_ATTRIBUTE_TYPE.ahk" { MF_ATTRIBUTE_TYPE }
+#Import "..\..\System\Com\StructuredStorage\PROPVARIANT.ahk" { PROPVARIANT }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\MF_ATTRIBUTES_MATCH_TYPE.ahk" { MF_ATTRIBUTES_MATCH_TYPE }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Provides a generic way to store key/value pairs on an object.
@@ -16,26 +21,62 @@
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfattributes
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class IMFAttributes extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IMFAttributes extends IUnknown {
     /**
      * The interface identifier for IMFAttributes
      * @type {Guid}
      */
-    static IID => Guid("{2cd2d921-c447-44a7-a13c-4adabfc247e3}")
+    static IID := Guid("{2cd2d921-c447-44a7-a13c-4adabfc247e3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IMFAttributes interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetItem            : IntPtr
+        GetItemType        : IntPtr
+        CompareItem        : IntPtr
+        Compare            : IntPtr
+        GetUINT32          : IntPtr
+        GetUINT64          : IntPtr
+        GetDouble          : IntPtr
+        GetGUID            : IntPtr
+        GetStringLength    : IntPtr
+        GetString          : IntPtr
+        GetAllocatedString : IntPtr
+        GetBlobSize        : IntPtr
+        GetBlob            : IntPtr
+        GetAllocatedBlob   : IntPtr
+        GetUnknown         : IntPtr
+        SetItem            : IntPtr
+        DeleteItem         : IntPtr
+        DeleteAllItems     : IntPtr
+        SetUINT32          : IntPtr
+        SetUINT64          : IntPtr
+        SetDouble          : IntPtr
+        SetGUID            : IntPtr
+        SetString          : IntPtr
+        SetBlob            : IntPtr
+        SetUnknown         : IntPtr
+        LockStore          : IntPtr
+        UnlockStore        : IntPtr
+        GetCount           : IntPtr
+        GetItemByIndex     : IntPtr
+        CopyAllItems       : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetItem", "GetItemType", "CompareItem", "Compare", "GetUINT32", "GetUINT64", "GetDouble", "GetGUID", "GetStringLength", "GetString", "GetAllocatedString", "GetBlobSize", "GetBlob", "GetAllocatedBlob", "GetUnknown", "SetItem", "DeleteItem", "DeleteAllItems", "SetUINT32", "SetUINT64", "SetDouble", "SetGUID", "SetString", "SetBlob", "SetUnknown", "LockStore", "UnlockStore", "GetCount", "GetItemByIndex", "CopyAllItems"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IMFAttributes.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves the value associated with a key.
@@ -83,7 +124,7 @@ class IMFAttributes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getitem
      */
     GetItem(guidKey, pValue) {
-        result := ComCall(3, this, "ptr", guidKey, "ptr", pValue, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, guidKey, PROPVARIANT.Ptr, pValue, "HRESULT")
         return result
     }
 
@@ -101,7 +142,7 @@ class IMFAttributes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getitemtype
      */
     GetItemType(guidKey) {
-        result := ComCall(4, this, "ptr", guidKey, "int*", &pType := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, guidKey, "int*", &pType := 0, "HRESULT")
         return pType
     }
 
@@ -142,7 +183,7 @@ class IMFAttributes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-compareitem
      */
     CompareItem(guidKey, Value) {
-        result := ComCall(5, this, "ptr", guidKey, "ptr", Value, "int*", &pbResult := 0, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, guidKey, PROPVARIANT.Ptr, Value, BOOL.Ptr, &pbResult := 0, "HRESULT")
         return pbResult
     }
 
@@ -193,7 +234,7 @@ class IMFAttributes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-compare
      */
     Compare(pTheirs, MatchType) {
-        result := ComCall(6, this, "ptr", pTheirs, "int", MatchType, "int*", &pbResult := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pTheirs, MF_ATTRIBUTES_MATCH_TYPE, MatchType, BOOL.Ptr, &pbResult := 0, "HRESULT")
         return pbResult
     }
 
@@ -211,7 +252,7 @@ class IMFAttributes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getuint32
      */
     GetUINT32(guidKey) {
-        result := ComCall(7, this, "ptr", guidKey, "uint*", &punValue := 0, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, guidKey, "uint*", &punValue := 0, "HRESULT")
         return punValue
     }
 
@@ -229,7 +270,7 @@ class IMFAttributes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getuint64
      */
     GetUINT64(guidKey) {
-        result := ComCall(8, this, "ptr", guidKey, "uint*", &punValue := 0, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, guidKey, "uint*", &punValue := 0, "HRESULT")
         return punValue
     }
 
@@ -247,7 +288,7 @@ class IMFAttributes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getdouble
      */
     GetDouble(guidKey) {
-        result := ComCall(9, this, "ptr", guidKey, "double*", &pfValue := 0, "HRESULT")
+        result := ComCall(9, this, Guid.Ptr, guidKey, "double*", &pfValue := 0, "HRESULT")
         return pfValue
     }
 
@@ -266,7 +307,7 @@ class IMFAttributes extends IUnknown {
      */
     GetGUID(guidKey) {
         pguidValue := Guid()
-        result := ComCall(10, this, "ptr", guidKey, "ptr", pguidValue, "HRESULT")
+        result := ComCall(10, this, Guid.Ptr, guidKey, Guid.Ptr, pguidValue, "HRESULT")
         return pguidValue
     }
 
@@ -284,7 +325,7 @@ class IMFAttributes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getstringlength
      */
     GetStringLength(guidKey) {
-        result := ComCall(11, this, "ptr", guidKey, "uint*", &pcchLength := 0, "HRESULT")
+        result := ComCall(11, this, Guid.Ptr, guidKey, "uint*", &pcchLength := 0, "HRESULT")
         return pcchLength
     }
 
@@ -373,7 +414,7 @@ class IMFAttributes extends IUnknown {
 
         pcchLengthMarshal := pcchLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "ptr", guidKey, "ptr", pwszValue, "uint", cchBufSize, pcchLengthMarshal, pcchLength, "HRESULT")
+        result := ComCall(12, this, Guid.Ptr, guidKey, "ptr", pwszValue, "uint", cchBufSize, pcchLengthMarshal, pcchLength, "HRESULT")
         return result
     }
 
@@ -444,7 +485,7 @@ class IMFAttributes extends IUnknown {
         ppwszValueMarshal := ppwszValue is VarRef ? "ptr*" : "ptr"
         pcchLengthMarshal := pcchLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "ptr", guidKey, ppwszValueMarshal, ppwszValue, pcchLengthMarshal, pcchLength, "HRESULT")
+        result := ComCall(13, this, Guid.Ptr, guidKey, ppwszValueMarshal, ppwszValue, pcchLengthMarshal, pcchLength, "HRESULT")
         return result
     }
 
@@ -464,7 +505,7 @@ class IMFAttributes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getblobsize
      */
     GetBlobSize(guidKey) {
-        result := ComCall(14, this, "ptr", guidKey, "uint*", &pcbBlobSize := 0, "HRESULT")
+        result := ComCall(14, this, Guid.Ptr, guidKey, "uint*", &pcbBlobSize := 0, "HRESULT")
         return pcbBlobSize
     }
 
@@ -488,7 +529,7 @@ class IMFAttributes extends IUnknown {
     GetBlob(guidKey, cbBufSize, pcbBlobSize) {
         pcbBlobSizeMarshal := pcbBlobSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "ptr", guidKey, "char*", &pBuf := 0, "uint", cbBufSize, pcbBlobSizeMarshal, pcbBlobSize, "HRESULT")
+        result := ComCall(15, this, Guid.Ptr, guidKey, "char*", &pBuf := 0, "uint", cbBufSize, pcbBlobSizeMarshal, pcbBlobSize, "HRESULT")
         return pBuf
     }
 
@@ -553,7 +594,7 @@ class IMFAttributes extends IUnknown {
         ppBufMarshal := ppBuf is VarRef ? "ptr*" : "ptr"
         pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "ptr", guidKey, ppBufMarshal, ppBuf, pcbSizeMarshal, pcbSize, "HRESULT")
+        result := ComCall(16, this, Guid.Ptr, guidKey, ppBufMarshal, ppBuf, pcbSizeMarshal, pcbSize, "HRESULT")
         return result
     }
 
@@ -572,7 +613,7 @@ class IMFAttributes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getunknown
      */
     GetUnknown(guidKey, riid) {
-        result := ComCall(17, this, "ptr", guidKey, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(17, this, Guid.Ptr, guidKey, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -638,7 +679,7 @@ class IMFAttributes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-setitem
      */
     SetItem(guidKey, Value) {
-        result := ComCall(18, this, "ptr", guidKey, "ptr", Value, "HRESULT")
+        result := ComCall(18, this, Guid.Ptr, guidKey, PROPVARIANT.Ptr, Value, "HRESULT")
         return result
     }
 
@@ -676,7 +717,7 @@ class IMFAttributes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-deleteitem
      */
     DeleteItem(guidKey) {
-        result := ComCall(19, this, "ptr", guidKey, "HRESULT")
+        result := ComCall(19, this, Guid.Ptr, guidKey, "HRESULT")
         return result
     }
 
@@ -750,7 +791,7 @@ class IMFAttributes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-setuint32
      */
     SetUINT32(guidKey, unValue) {
-        result := ComCall(21, this, "ptr", guidKey, "uint", unValue, "HRESULT")
+        result := ComCall(21, this, Guid.Ptr, guidKey, "uint", unValue, "HRESULT")
         return result
     }
 
@@ -789,7 +830,7 @@ class IMFAttributes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-setuint64
      */
     SetUINT64(guidKey, unValue) {
-        result := ComCall(22, this, "ptr", guidKey, "uint", unValue, "HRESULT")
+        result := ComCall(22, this, Guid.Ptr, guidKey, "uint", unValue, "HRESULT")
         return result
     }
 
@@ -828,7 +869,7 @@ class IMFAttributes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-setdouble
      */
     SetDouble(guidKey, fValue) {
-        result := ComCall(23, this, "ptr", guidKey, "double", fValue, "HRESULT")
+        result := ComCall(23, this, Guid.Ptr, guidKey, "double", fValue, "HRESULT")
         return result
     }
 
@@ -878,7 +919,7 @@ class IMFAttributes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-setguid
      */
     SetGUID(guidKey, guidValue) {
-        result := ComCall(24, this, "ptr", guidKey, "ptr", guidValue, "HRESULT")
+        result := ComCall(24, this, Guid.Ptr, guidKey, Guid.Ptr, guidValue, "HRESULT")
         return result
     }
 
@@ -919,7 +960,7 @@ class IMFAttributes extends IUnknown {
     SetString(guidKey, wszValue) {
         wszValue := wszValue is String ? StrPtr(wszValue) : wszValue
 
-        result := ComCall(25, this, "ptr", guidKey, "ptr", wszValue, "HRESULT")
+        result := ComCall(25, this, Guid.Ptr, guidKey, "ptr", wszValue, "HRESULT")
         return result
     }
 
@@ -961,7 +1002,7 @@ class IMFAttributes extends IUnknown {
     SetBlob(guidKey, pBuf, cbBufSize) {
         pBufMarshal := pBuf is VarRef ? "char*" : "ptr"
 
-        result := ComCall(26, this, "ptr", guidKey, pBufMarshal, pBuf, "uint", cbBufSize, "HRESULT")
+        result := ComCall(26, this, Guid.Ptr, guidKey, pBufMarshal, pBuf, "uint", cbBufSize, "HRESULT")
         return result
     }
 
@@ -1002,7 +1043,7 @@ class IMFAttributes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-setunknown
      */
     SetUnknown(guidKey, pUnknown) {
-        result := ComCall(27, this, "ptr", guidKey, "ptr", pUnknown, "HRESULT")
+        result := ComCall(27, this, Guid.Ptr, guidKey, "ptr", pUnknown, "HRESULT")
         return result
     }
 
@@ -1133,7 +1174,7 @@ class IMFAttributes extends IUnknown {
      */
     GetItemByIndex(unIndex, pValue) {
         pguidKey := Guid()
-        result := ComCall(31, this, "uint", unIndex, "ptr", pguidKey, "ptr", pValue, "HRESULT")
+        result := ComCall(31, this, "uint", unIndex, Guid.Ptr, pguidKey, PROPVARIANT.Ptr, pValue, "HRESULT")
         return pguidKey
     }
 
@@ -1160,5 +1201,83 @@ class IMFAttributes extends IUnknown {
     CopyAllItems(pDest) {
         result := ComCall(32, this, "ptr", pDest, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IMFAttributes.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetItem := CallbackCreate(GetMethod(implObj, "GetItem"), flags, 3)
+        this.vtbl.GetItemType := CallbackCreate(GetMethod(implObj, "GetItemType"), flags, 3)
+        this.vtbl.CompareItem := CallbackCreate(GetMethod(implObj, "CompareItem"), flags, 4)
+        this.vtbl.Compare := CallbackCreate(GetMethod(implObj, "Compare"), flags, 4)
+        this.vtbl.GetUINT32 := CallbackCreate(GetMethod(implObj, "GetUINT32"), flags, 3)
+        this.vtbl.GetUINT64 := CallbackCreate(GetMethod(implObj, "GetUINT64"), flags, 3)
+        this.vtbl.GetDouble := CallbackCreate(GetMethod(implObj, "GetDouble"), flags, 3)
+        this.vtbl.GetGUID := CallbackCreate(GetMethod(implObj, "GetGUID"), flags, 3)
+        this.vtbl.GetStringLength := CallbackCreate(GetMethod(implObj, "GetStringLength"), flags, 3)
+        this.vtbl.GetString := CallbackCreate(GetMethod(implObj, "GetString"), flags, 5)
+        this.vtbl.GetAllocatedString := CallbackCreate(GetMethod(implObj, "GetAllocatedString"), flags, 4)
+        this.vtbl.GetBlobSize := CallbackCreate(GetMethod(implObj, "GetBlobSize"), flags, 3)
+        this.vtbl.GetBlob := CallbackCreate(GetMethod(implObj, "GetBlob"), flags, 5)
+        this.vtbl.GetAllocatedBlob := CallbackCreate(GetMethod(implObj, "GetAllocatedBlob"), flags, 4)
+        this.vtbl.GetUnknown := CallbackCreate(GetMethod(implObj, "GetUnknown"), flags, 4)
+        this.vtbl.SetItem := CallbackCreate(GetMethod(implObj, "SetItem"), flags, 3)
+        this.vtbl.DeleteItem := CallbackCreate(GetMethod(implObj, "DeleteItem"), flags, 2)
+        this.vtbl.DeleteAllItems := CallbackCreate(GetMethod(implObj, "DeleteAllItems"), flags, 1)
+        this.vtbl.SetUINT32 := CallbackCreate(GetMethod(implObj, "SetUINT32"), flags, 3)
+        this.vtbl.SetUINT64 := CallbackCreate(GetMethod(implObj, "SetUINT64"), flags, 3)
+        this.vtbl.SetDouble := CallbackCreate(GetMethod(implObj, "SetDouble"), flags, 3)
+        this.vtbl.SetGUID := CallbackCreate(GetMethod(implObj, "SetGUID"), flags, 3)
+        this.vtbl.SetString := CallbackCreate(GetMethod(implObj, "SetString"), flags, 3)
+        this.vtbl.SetBlob := CallbackCreate(GetMethod(implObj, "SetBlob"), flags, 4)
+        this.vtbl.SetUnknown := CallbackCreate(GetMethod(implObj, "SetUnknown"), flags, 3)
+        this.vtbl.LockStore := CallbackCreate(GetMethod(implObj, "LockStore"), flags, 1)
+        this.vtbl.UnlockStore := CallbackCreate(GetMethod(implObj, "UnlockStore"), flags, 1)
+        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetItemByIndex := CallbackCreate(GetMethod(implObj, "GetItemByIndex"), flags, 4)
+        this.vtbl.CopyAllItems := CallbackCreate(GetMethod(implObj, "CopyAllItems"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetItem)
+        CallbackFree(this.vtbl.GetItemType)
+        CallbackFree(this.vtbl.CompareItem)
+        CallbackFree(this.vtbl.Compare)
+        CallbackFree(this.vtbl.GetUINT32)
+        CallbackFree(this.vtbl.GetUINT64)
+        CallbackFree(this.vtbl.GetDouble)
+        CallbackFree(this.vtbl.GetGUID)
+        CallbackFree(this.vtbl.GetStringLength)
+        CallbackFree(this.vtbl.GetString)
+        CallbackFree(this.vtbl.GetAllocatedString)
+        CallbackFree(this.vtbl.GetBlobSize)
+        CallbackFree(this.vtbl.GetBlob)
+        CallbackFree(this.vtbl.GetAllocatedBlob)
+        CallbackFree(this.vtbl.GetUnknown)
+        CallbackFree(this.vtbl.SetItem)
+        CallbackFree(this.vtbl.DeleteItem)
+        CallbackFree(this.vtbl.DeleteAllItems)
+        CallbackFree(this.vtbl.SetUINT32)
+        CallbackFree(this.vtbl.SetUINT64)
+        CallbackFree(this.vtbl.SetDouble)
+        CallbackFree(this.vtbl.SetGUID)
+        CallbackFree(this.vtbl.SetString)
+        CallbackFree(this.vtbl.SetBlob)
+        CallbackFree(this.vtbl.SetUnknown)
+        CallbackFree(this.vtbl.LockStore)
+        CallbackFree(this.vtbl.UnlockStore)
+        CallbackFree(this.vtbl.GetCount)
+        CallbackFree(this.vtbl.GetItemByIndex)
+        CallbackFree(this.vtbl.CopyAllItems)
     }
 }

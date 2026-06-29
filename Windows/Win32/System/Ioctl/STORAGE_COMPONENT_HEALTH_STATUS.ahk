@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the health status of a storage component.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-storage_component_health_status
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_COMPONENT_HEALTH_STATUS extends Win32Enum {
+export default struct STORAGE_COMPONENT_HEALTH_STATUS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * @type {Integer (Int32)}

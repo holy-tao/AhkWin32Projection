@@ -1,31 +1,50 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include .\ICorProfilerInfo11.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\COR_PRF_EVENTPIPE_PROVIDER_CONFIG.ahk" { COR_PRF_EVENTPIPE_PROVIDER_CONFIG }
+#Import ".\COR_PRF_EVENTPIPE_PARAM_DESC.ahk" { COR_PRF_EVENTPIPE_PARAM_DESC }
+#Import ".\ICorProfilerInfo11.ahk" { ICorProfilerInfo11 }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\COR_PRF_EVENT_DATA.ahk" { COR_PRF_EVENT_DATA }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
  */
-class ICorProfilerInfo12 extends ICorProfilerInfo11 {
-
-    static sizeof => A_PtrSize
+export default struct ICorProfilerInfo12 extends ICorProfilerInfo11 {
     /**
      * The interface identifier for ICorProfilerInfo12
      * @type {Guid}
      */
-    static IID => Guid("{27b24ccd-1cb1-47c5-96ee-98190dc30959}")
+    static IID := Guid("{27b24ccd-1cb1-47c5-96ee-98190dc30959}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 101
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICorProfilerInfo12 interfaces
+    */
+    struct Vtbl extends ICorProfilerInfo11.Vtbl {
+        EventPipeStartSession         : IntPtr
+        EventPipeAddProviderToSession : IntPtr
+        EventPipeStopSession          : IntPtr
+        EventPipeCreateProvider       : IntPtr
+        EventPipeGetProviderInfo      : IntPtr
+        EventPipeDefineEvent          : IntPtr
+        EventPipeWriteEvent           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EventPipeStartSession", "EventPipeAddProviderToSession", "EventPipeStopSession", "EventPipeCreateProvider", "EventPipeGetProviderInfo", "EventPipeDefineEvent", "EventPipeWriteEvent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICorProfilerInfo12.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -35,7 +54,7 @@ class ICorProfilerInfo12 extends ICorProfilerInfo11 {
      * @returns {Integer} 
      */
     EventPipeStartSession(cProviderConfigs, pProviderConfigs, requestRundown) {
-        result := ComCall(101, this, "uint", cProviderConfigs, "ptr", pProviderConfigs, "int", requestRundown, "uint*", &pSession := 0, "HRESULT")
+        result := ComCall(101, this, "uint", cProviderConfigs, COR_PRF_EVENTPIPE_PROVIDER_CONFIG.Ptr, pProviderConfigs, BOOL, requestRundown, "uint*", &pSession := 0, "HRESULT")
         return pSession
     }
 
@@ -46,7 +65,7 @@ class ICorProfilerInfo12 extends ICorProfilerInfo11 {
      * @returns {HRESULT} 
      */
     EventPipeAddProviderToSession(session, providerConfig) {
-        result := ComCall(102, this, "uint", session, "ptr", providerConfig, "HRESULT")
+        result := ComCall(102, this, "uint", session, COR_PRF_EVENTPIPE_PROVIDER_CONFIG, providerConfig, "HRESULT")
         return result
     }
 
@@ -103,7 +122,7 @@ class ICorProfilerInfo12 extends ICorProfilerInfo11 {
     EventPipeDefineEvent(provider, eventName, eventID, keywords, eventVersion, level, opcode, needStack, cParamDescs, pParamDescs) {
         eventName := eventName is String ? StrPtr(eventName) : eventName
 
-        result := ComCall(106, this, "ptr", provider, "ptr", eventName, "uint", eventID, "uint", keywords, "uint", eventVersion, "uint", level, "char", opcode, "int", needStack, "uint", cParamDescs, "ptr", pParamDescs, "ptr*", &pEvent := 0, "HRESULT")
+        result := ComCall(106, this, "ptr", provider, "ptr", eventName, "uint", eventID, "uint", keywords, "uint", eventVersion, "uint", level, "char", opcode, BOOL, needStack, "uint", cParamDescs, COR_PRF_EVENTPIPE_PARAM_DESC.Ptr, pParamDescs, "ptr*", &pEvent := 0, "HRESULT")
         return pEvent
     }
 
@@ -117,7 +136,39 @@ class ICorProfilerInfo12 extends ICorProfilerInfo11 {
      * @returns {HRESULT} 
      */
     EventPipeWriteEvent(event, cData, data, pActivityId, pRelatedActivityId) {
-        result := ComCall(107, this, "ptr", event, "uint", cData, "ptr", data, "ptr", pActivityId, "ptr", pRelatedActivityId, "HRESULT")
+        result := ComCall(107, this, "ptr", event, "uint", cData, COR_PRF_EVENT_DATA.Ptr, data, Guid.Ptr, pActivityId, Guid.Ptr, pRelatedActivityId, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ICorProfilerInfo12.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EventPipeStartSession := CallbackCreate(GetMethod(implObj, "EventPipeStartSession"), flags, 5)
+        this.vtbl.EventPipeAddProviderToSession := CallbackCreate(GetMethod(implObj, "EventPipeAddProviderToSession"), flags, 3)
+        this.vtbl.EventPipeStopSession := CallbackCreate(GetMethod(implObj, "EventPipeStopSession"), flags, 2)
+        this.vtbl.EventPipeCreateProvider := CallbackCreate(GetMethod(implObj, "EventPipeCreateProvider"), flags, 3)
+        this.vtbl.EventPipeGetProviderInfo := CallbackCreate(GetMethod(implObj, "EventPipeGetProviderInfo"), flags, 5)
+        this.vtbl.EventPipeDefineEvent := CallbackCreate(GetMethod(implObj, "EventPipeDefineEvent"), flags, 12)
+        this.vtbl.EventPipeWriteEvent := CallbackCreate(GetMethod(implObj, "EventPipeWriteEvent"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EventPipeStartSession)
+        CallbackFree(this.vtbl.EventPipeAddProviderToSession)
+        CallbackFree(this.vtbl.EventPipeStopSession)
+        CallbackFree(this.vtbl.EventPipeCreateProvider)
+        CallbackFree(this.vtbl.EventPipeGetProviderInfo)
+        CallbackFree(this.vtbl.EventPipeDefineEvent)
+        CallbackFree(this.vtbl.EventPipeWriteEvent)
     }
 }

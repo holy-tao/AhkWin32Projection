@@ -1,33 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmPipelineModuleDefinition.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\FsrmStorageModuleType.ahk" { FsrmStorageModuleType }
+#Import ".\IFsrmPipelineModuleDefinition.ahk" { IFsrmPipelineModuleDefinition }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FsrmStorageModuleCaps.ahk" { FsrmStorageModuleCaps }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * Defines a local storage module that is used to read and write property values.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nn-fsrmpipeline-ifsrmstoragemoduledefinition
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmStorageModuleDefinition extends IFsrmPipelineModuleDefinition {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmStorageModuleDefinition extends IFsrmPipelineModuleDefinition {
     /**
      * The interface identifier for IFsrmStorageModuleDefinition
      * @type {Guid}
      */
-    static IID => Guid("{15a81350-497d-4aba-80e9-d4dbcc5521fe}")
+    static IID := Guid("{15a81350-497d-4aba-80e9-d4dbcc5521fe}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 31
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmStorageModuleDefinition interfaces
+    */
+    struct Vtbl extends IFsrmPipelineModuleDefinition.Vtbl {
+        get_Capabilities       : IntPtr
+        put_Capabilities       : IntPtr
+        get_StorageType        : IntPtr
+        put_StorageType        : IntPtr
+        get_UpdatesFileContent : IntPtr
+        put_UpdatesFileContent : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Capabilities", "put_Capabilities", "get_StorageType", "put_StorageType", "get_UpdatesFileContent", "put_UpdatesFileContent"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmStorageModuleDefinition.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {FsrmStorageModuleCaps} 
@@ -70,7 +86,7 @@ class IFsrmStorageModuleDefinition extends IFsrmPipelineModuleDefinition {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduledefinition-put_capabilities
      */
     put_Capabilities(capabilities) {
-        result := ComCall(32, this, "int", capabilities, "HRESULT")
+        result := ComCall(32, this, FsrmStorageModuleCaps, capabilities, "HRESULT")
         return result
     }
 
@@ -91,7 +107,7 @@ class IFsrmStorageModuleDefinition extends IFsrmPipelineModuleDefinition {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduledefinition-put_storagetype
      */
     put_StorageType(storageType) {
-        result := ComCall(34, this, "int", storageType, "HRESULT")
+        result := ComCall(34, this, FsrmStorageModuleType, storageType, "HRESULT")
         return result
     }
 
@@ -107,7 +123,7 @@ class IFsrmStorageModuleDefinition extends IFsrmPipelineModuleDefinition {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduledefinition-get_updatesfilecontent
      */
     get_UpdatesFileContent() {
-        result := ComCall(35, this, "short*", &updatesFileContent := 0, "HRESULT")
+        result := ComCall(35, this, VARIANT_BOOL.Ptr, &updatesFileContent := 0, "HRESULT")
         return updatesFileContent
     }
 
@@ -124,7 +140,37 @@ class IFsrmStorageModuleDefinition extends IFsrmPipelineModuleDefinition {
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduledefinition-put_updatesfilecontent
      */
     put_UpdatesFileContent(updatesFileContent) {
-        result := ComCall(36, this, "short", updatesFileContent, "HRESULT")
+        result := ComCall(36, this, VARIANT_BOOL, updatesFileContent, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IFsrmStorageModuleDefinition.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Capabilities := CallbackCreate(GetMethod(implObj, "get_Capabilities"), flags, 2)
+        this.vtbl.put_Capabilities := CallbackCreate(GetMethod(implObj, "put_Capabilities"), flags, 2)
+        this.vtbl.get_StorageType := CallbackCreate(GetMethod(implObj, "get_StorageType"), flags, 2)
+        this.vtbl.put_StorageType := CallbackCreate(GetMethod(implObj, "put_StorageType"), flags, 2)
+        this.vtbl.get_UpdatesFileContent := CallbackCreate(GetMethod(implObj, "get_UpdatesFileContent"), flags, 2)
+        this.vtbl.put_UpdatesFileContent := CallbackCreate(GetMethod(implObj, "put_UpdatesFileContent"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Capabilities)
+        CallbackFree(this.vtbl.put_Capabilities)
+        CallbackFree(this.vtbl.get_StorageType)
+        CallbackFree(this.vtbl.put_StorageType)
+        CallbackFree(this.vtbl.get_UpdatesFileContent)
+        CallbackFree(this.vtbl.put_UpdatesFileContent)
     }
 }

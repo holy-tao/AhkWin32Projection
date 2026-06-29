@@ -1,80 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\TF_DA_COLOR.ahk
-#Include .\TF_DA_COLORTYPE.ahk
-#Include .\TF_DA_LINESTYLE.ahk
-#Include .\TF_DA_ATTR_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\TF_DA_LINESTYLE.ahk" { TF_DA_LINESTYLE }
+#Import ".\TF_DA_ATTR_INFO.ahk" { TF_DA_ATTR_INFO }
+#Import ".\TF_DA_COLOR.ahk" { TF_DA_COLOR }
+#Import ".\TF_DA_COLORTYPE.ahk" { TF_DA_COLORTYPE }
+#Import "..\..\Foundation\COLORREF.ahk" { COLORREF }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * The TF_DISPLAYATTRIBUTE structure contains display attribute data for rendering text.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/ns-msctf-tf_displayattribute
  * @namespace Windows.Win32.UI.TextServices
  */
-class TF_DISPLAYATTRIBUTE extends Win32Struct {
-    static sizeof => 36
-
-    static packingSize => 4
+export default struct TF_DISPLAYATTRIBUTE {
+    #StructPack 4
 
     /**
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/msctf/ns-msctf-tf_da_color">TF_DA_COLOR</a> structure that defines the text foreground color.
-     * @type {TF_DA_COLOR}
      */
-    crText {
-        get {
-            if(!this.HasProp("__crText"))
-                this.__crText := TF_DA_COLOR(0, this)
-            return this.__crText
-        }
-    }
+    crText : TF_DA_COLOR
 
     /**
      * Contains a <b>TF_DA_COLOR</b> structure that defines the text background color.
-     * @type {TF_DA_COLOR}
      */
-    crBk {
-        get {
-            if(!this.HasProp("__crBk"))
-                this.__crBk := TF_DA_COLOR(8, this)
-            return this.__crBk
-        }
-    }
+    crBk : TF_DA_COLOR
 
     /**
      * Contains a <a href="https://docs.microsoft.com/windows/win32/api/msctf/ne-msctf-tf_da_linestyle">TF_DA_LINESTYLE</a> enumeration value that defines the underline style.
-     * @type {TF_DA_LINESTYLE}
      */
-    lsStyle {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    lsStyle : TF_DA_LINESTYLE
 
     /**
      * A BOOL value that specifies if the underline should be bold or normal weight. If this value is nonzero, the underline should be bold. If this value is zero, the underline should be normal.
-     * @type {BOOL}
      */
-    fBoldLine {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    fBoldLine : BOOL
 
     /**
      * Contains a <b>TF_DA_COLOR</b> structure that defines the color of the underline.
-     * @type {TF_DA_COLOR}
      */
-    crLine {
-        get {
-            if(!this.HasProp("__crLine"))
-                this.__crLine := TF_DA_COLOR(24, this)
-            return this.__crLine
-        }
-    }
+    crLine : TF_DA_COLOR
 
     /**
      * Contains a <a href="https://docs.microsoft.com/windows/win32/api/msctf/ne-msctf-tf_da_attr_info">TF_DA_ATTR_INFO</a> value that defines text conversion display attribute data.
-     * @type {TF_DA_ATTR_INFO}
      */
-    bAttr {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    bAttr : TF_DA_ATTR_INFO
+
 }

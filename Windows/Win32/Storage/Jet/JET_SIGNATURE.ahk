@@ -1,44 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\JET_LOGTIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\JET_LOGTIME.ahk" { JET_LOGTIME }
 
 /**
  * Learn more about: JET_SIGNATURE Structure
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-signature-structure
  * @namespace Windows.Win32.Storage.Jet
  */
-class JET_SIGNATURE extends Win32Struct {
-    static sizeof => 28
+export default struct JET_SIGNATURE {
+    #StructPack 4
 
-    static packingSize => 4
+    ulRandom : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulRandom {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    logtimeCreate : JET_LOGTIME
 
-    /**
-     * @type {JET_LOGTIME}
-     */
-    logtimeCreate {
-        get {
-            if(!this.HasProp("__logtimeCreate"))
-                this.__logtimeCreate := JET_LOGTIME(4, this)
-            return this.__logtimeCreate
-        }
-    }
+    szComputerName : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    szComputerName {
-        get {
-            if(!this.HasProp("__szComputerNameProxyArray"))
-                this.__szComputerNameProxyArray := Win32FixedArray(this.ptr + 12, 16, Primitive, "char")
-            return this.__szComputerNameProxyArray
-        }
-    }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Used by the GUID_ACDC_POWER_SOURCE power event to indicate the current power source.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-system_power_condition
  * @namespace Windows.Win32.System.Power
  */
-class SYSTEM_POWER_CONDITION extends Win32Enum {
+export default struct SYSTEM_POWER_CONDITION {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The computer is powered by an AC power source (or similar, such as a laptop powered by a 12V automotive 

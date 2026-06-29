@@ -1,8 +1,14 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IShellView2.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\FOLDERFLAGS.ahk" { FOLDERFLAGS }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import ".\IShellView.ahk" { IShellView }
+#Import ".\IShellView2.ahk" { IShellView2 }
+#Import ".\IShellBrowser.ahk" { IShellBrowser }
+#Import ".\FOLDERVIEWMODE.ahk" { FOLDERVIEWMODE }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * Extends the capabilities of IShellView2 by providing a method to replace IShellView2::CreateViewWindow2.
@@ -11,26 +17,33 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-ishellview3
  * @namespace Windows.Win32.UI.Shell
  */
-class IShellView3 extends IShellView2 {
-
-    static sizeof => A_PtrSize
+export default struct IShellView3 extends IShellView2 {
     /**
      * The interface identifier for IShellView3
      * @type {Guid}
      */
-    static IID => Guid("{ec39fa88-f8af-41c5-8421-38bed28f4673}")
+    static IID := Guid("{ec39fa88-f8af-41c5-8421-38bed28f4673}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 20
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IShellView3 interfaces
+    */
+    struct Vtbl extends IShellView2.Vtbl {
+        CreateViewWindow3 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateViewWindow3"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IShellView3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Requests the creation of a new Shell view window. The view can be either the right pane of Windows Explorer or the client window of a folder window. This method replaces CreateViewWindow2.
@@ -65,7 +78,27 @@ class IShellView3 extends IShellView2 {
      */
     CreateViewWindow3(psbOwner, psvPrev, dwViewFlags, dwMask, dwFlags, fvMode, pvid, prcView) {
         phwndView := HWND()
-        result := ComCall(20, this, "ptr", psbOwner, "ptr", psvPrev, "uint", dwViewFlags, "int", dwMask, "int", dwFlags, "int", fvMode, "ptr", pvid, "ptr", prcView, "ptr", phwndView, "HRESULT")
+        result := ComCall(20, this, "ptr", psbOwner, "ptr", psvPrev, "uint", dwViewFlags, FOLDERFLAGS, dwMask, FOLDERFLAGS, dwFlags, FOLDERVIEWMODE, fvMode, Guid.Ptr, pvid, RECT.Ptr, prcView, HWND.Ptr, phwndView, "HRESULT")
         return phwndView
+    }
+
+    Query(iid) {
+        if (IShellView3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateViewWindow3 := CallbackCreate(GetMethod(implObj, "CreateViewWindow3"), flags, 10)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateViewWindow3)
     }
 }

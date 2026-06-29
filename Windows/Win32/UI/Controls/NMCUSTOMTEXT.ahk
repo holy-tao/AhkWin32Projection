@@ -1,100 +1,66 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
-#Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NMHDR.ahk" { NMHDR }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Graphics\Gdi\HDC.ahk" { HDC }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
 
 /**
  * Contains information used with custom text notification.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmcustomtext
  * @namespace Windows.Win32.UI.Controls
  */
-class NMCUSTOMTEXT extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 8
+export default struct NMCUSTOMTEXT {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a></b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains additional information about this notification.
-     * @type {NMHDR}
      */
-    hdr {
-        get {
-            if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(0, this)
-            return this.__hdr
-        }
-    }
+    hdr : NMHDR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
      * 
      * The device context to draw to.
-     * @type {HDC}
      */
-    hDC {
-        get {
-            if(!this.HasProp("__hDC"))
-                this.__hDC := HDC(24, this)
-            return this.__hDC
-        }
-    }
+    hDC : HDC
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
      * The string to draw.
-     * @type {PWSTR}
      */
-    lpString {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    lpString : PWSTR
 
     /**
      * Type: <b>int</b>
      * 
      * Length of lpString.
-     * @type {Integer}
      */
-    nCount {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    nCount : Int32
 
     /**
      * Type: <b>LPRECT</b>
      * 
      * The rect to draw in.
-     * @type {Pointer<RECT>}
      */
-    lpRect {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    lpRect : RECT.Ptr
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * One or more of the DT_* flags. For more information, see the description of the <i>uFormat</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-drawtext">DrawText</a> function. This may be <b>NULL</b>.
-     * @type {Integer}
      */
-    uFormat {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    uFormat : UInt32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Whether the text is a link.
-     * @type {BOOL}
      */
-    fLink {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
-    }
+    fLink : BOOL
+
 }

@@ -1,34 +1,51 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\ISequentialStream.ahk
-#Include .\STATSTG.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\STATSTG.ahk" { STATSTG }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ISequentialStream.ahk" { ISequentialStream }
+#Import ".\STREAM_SEEK.ahk" { STREAM_SEEK }
 
 /**
  * The IStream interface lets you read and write data to stream objects.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-istream
  * @namespace Windows.Win32.System.Com
  */
-class IStream extends ISequentialStream {
-
-    static sizeof => A_PtrSize
+export default struct IStream extends ISequentialStream {
     /**
      * The interface identifier for IStream
      * @type {Guid}
      */
-    static IID => Guid("{0000000c-0000-0000-c000-000000000046}")
+    static IID := Guid("{0000000c-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 5
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IStream interfaces
+    */
+    struct Vtbl extends ISequentialStream.Vtbl {
+        Seek         : IntPtr
+        SetSize      : IntPtr
+        CopyTo       : IntPtr
+        Commit       : IntPtr
+        Revert       : IntPtr
+        LockRegion   : IntPtr
+        UnlockRegion : IntPtr
+        Stat         : IntPtr
+        Clone        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Seek", "SetSize", "CopyTo", "Commit", "Revert", "LockRegion", "UnlockRegion", "Stat", "Clone"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IStream.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Changes the seek pointer to a new location. The new location is relative to either the beginning of the stream, the end of the stream, or the current seek pointer.
@@ -44,7 +61,7 @@ class IStream extends ISequentialStream {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-istream-seek
      */
     Seek(dlibMove, dwOrigin) {
-        result := ComCall(5, this, "int64", dlibMove, "uint", dwOrigin, "uint*", &plibNewPosition := 0, "HRESULT")
+        result := ComCall(5, this, "int64", dlibMove, STREAM_SEEK, dwOrigin, "uint*", &plibNewPosition := 0, "HRESULT")
         return plibNewPosition
     }
 
@@ -237,7 +254,7 @@ class IStream extends ISequentialStream {
      */
     Stat(grfStatFlag) {
         pstatstg := STATSTG()
-        result := ComCall(12, this, "ptr", pstatstg, "uint", grfStatFlag, "HRESULT")
+        result := ComCall(12, this, STATSTG.Ptr, pstatstg, "uint", grfStatFlag, "HRESULT")
         return pstatstg
     }
 
@@ -254,5 +271,41 @@ class IStream extends ISequentialStream {
     Clone() {
         result := ComCall(13, this, "ptr*", &ppstm := 0, "HRESULT")
         return IStream(ppstm)
+    }
+
+    Query(iid) {
+        if (IStream.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Seek := CallbackCreate(GetMethod(implObj, "Seek"), flags, 4)
+        this.vtbl.SetSize := CallbackCreate(GetMethod(implObj, "SetSize"), flags, 2)
+        this.vtbl.CopyTo := CallbackCreate(GetMethod(implObj, "CopyTo"), flags, 5)
+        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 2)
+        this.vtbl.Revert := CallbackCreate(GetMethod(implObj, "Revert"), flags, 1)
+        this.vtbl.LockRegion := CallbackCreate(GetMethod(implObj, "LockRegion"), flags, 4)
+        this.vtbl.UnlockRegion := CallbackCreate(GetMethod(implObj, "UnlockRegion"), flags, 4)
+        this.vtbl.Stat := CallbackCreate(GetMethod(implObj, "Stat"), flags, 3)
+        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Seek)
+        CallbackFree(this.vtbl.SetSize)
+        CallbackFree(this.vtbl.CopyTo)
+        CallbackFree(this.vtbl.Commit)
+        CallbackFree(this.vtbl.Revert)
+        CallbackFree(this.vtbl.LockRegion)
+        CallbackFree(this.vtbl.UnlockRegion)
+        CallbackFree(this.vtbl.Stat)
+        CallbackFree(this.vtbl.Clone)
     }
 }

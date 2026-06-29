@@ -1,62 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DKMDT_COLOR_BASIS.ahk
-#Include .\D3DKMDT_MONITOR_CAPABILITIES_ORIGIN.ahk
-#Include .\D3DKMDT_MODE_PREFERENCE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DKMDT_MONITOR_CAPABILITIES_ORIGIN.ahk" { D3DKMDT_MONITOR_CAPABILITIES_ORIGIN }
+#Import ".\D3DKMDT_MODE_PREFERENCE.ahk" { D3DKMDT_MODE_PREFERENCE }
+#Import ".\D3DKMDT_COLOR_BASIS.ahk" { D3DKMDT_COLOR_BASIS }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMDT_MONITOR_SOURCE_MODE extends Win32Struct {
-    static sizeof => 40
+export default struct D3DKMDT_MONITOR_SOURCE_MODE {
+    #StructPack 8
 
-    static packingSize => 8
+    Id : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Id {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    VideoSignalInfo : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    VideoSignalInfo {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    ColorBasis : D3DKMDT_COLOR_BASIS
 
-    /**
-     * @type {D3DKMDT_COLOR_BASIS}
-     */
-    ColorBasis {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    ColorCoeffDynamicRanges : IntPtr
 
-    /**
-     * @type {Pointer}
-     */
-    ColorCoeffDynamicRanges {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    Origin : D3DKMDT_MONITOR_CAPABILITIES_ORIGIN
 
-    /**
-     * @type {D3DKMDT_MONITOR_CAPABILITIES_ORIGIN}
-     */
-    Origin {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
-    }
+    Preference : D3DKMDT_MODE_PREFERENCE
 
-    /**
-     * @type {D3DKMDT_MODE_PREFERENCE}
-     */
-    Preference {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
 }

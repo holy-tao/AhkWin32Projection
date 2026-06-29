@@ -1,33 +1,42 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IKsNodeControl interface must be implemented by USB Video Class (UVC) extension units.
  * @see https://learn.microsoft.com/windows/win32/api/vidcap/nn-vidcap-iksnodecontrol
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class IKsNodeControl extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IKsNodeControl extends IUnknown {
     /**
      * The interface identifier for IKsNodeControl
      * @type {Guid}
      */
-    static IID => Guid("{11737c14-24a7-4bb5-81a0-0d003813b0c4}")
+    static IID := Guid("{11737c14-24a7-4bb5-81a0-0d003813b0c4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IKsNodeControl interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        put_NodeId    : IntPtr
+        put_KsControl : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["put_NodeId", "put_KsControl"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IKsNodeControl.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -67,5 +76,27 @@ class IKsNodeControl extends IUnknown {
 
         result := ComCall(4, this, pKsControlMarshal, pKsControl, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IKsNodeControl.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.put_NodeId := CallbackCreate(GetMethod(implObj, "put_NodeId"), flags, 2)
+        this.vtbl.put_KsControl := CallbackCreate(GetMethod(implObj, "put_KsControl"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.put_NodeId)
+        CallbackFree(this.vtbl.put_KsControl)
     }
 }

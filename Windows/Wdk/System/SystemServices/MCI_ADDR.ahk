@@ -1,35 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
  */
-class MCI_ADDR extends Win32Struct {
-    static sizeof => 16
+export default struct MCI_ADDR {
+    #StructPack 8
 
-    static packingSize => 8
+    Address : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Address {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    QuadPart {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'QuadPart', { type: Int64, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Indicates the type of control protocol that is used in streaming or downloading.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfnetsource_protocol_type
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class MFNETSOURCE_PROTOCOL_TYPE extends Win32Enum {
+export default struct MFNETSOURCE_PROTOCOL_TYPE {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The protocol type has not yet been determined.

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains a property used in the lattice.
@@ -56,35 +56,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/rectypes/ns-rectypes-reco_lattice_property
  * @namespace Windows.Win32.UI.TabletPC
  */
-class RECO_LATTICE_PROPERTY extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct RECO_LATTICE_PROPERTY {
+    #StructPack 8
 
     /**
      * GUID for the property value that is being assigned.
-     * @type {Pointer}
      */
-    guidProperty {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    guidProperty : Guid
 
     /**
      * Length in bytes of the <i>pPropertyValue</i> byte array.
-     * @type {Integer}
      */
-    cbPropertyValue {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
-    }
+    cbPropertyValue : UInt16
 
     /**
      * Byte array that points to the property data.
-     * @type {Pointer<Integer>}
      */
-    pPropertyValue {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pPropertyValue : IntPtr
+
 }

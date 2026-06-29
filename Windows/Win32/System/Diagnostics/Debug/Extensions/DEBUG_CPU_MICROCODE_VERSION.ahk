@@ -1,67 +1,23 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  */
-class DEBUG_CPU_MICROCODE_VERSION extends Win32Struct {
-    static sizeof => 40
+export default struct DEBUG_CPU_MICROCODE_VERSION {
+    #StructPack 8
 
-    static packingSize => 8
+    SizeOfStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    SizeOfStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    CachedSignature : Int64
 
-    /**
-     * @type {Integer}
-     */
-    CachedSignature {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
-    }
+    InitialSignature : Int64
 
-    /**
-     * @type {Integer}
-     */
-    InitialSignature {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    ProcessorModel : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProcessorModel {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ProcessorFamily : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProcessorFamily {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    ProcessorStepping : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProcessorStepping {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ProcessorArchRev : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProcessorArchRev {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
 }

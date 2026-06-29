@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Determines the types of items included in an enumeration. These values are used with the IShellFolder::EnumObjects method.
@@ -11,7 +10,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_shcontf
  * @namespace Windows.Win32.UI.Shell
  */
-class _SHCONTF extends Win32Enum {
+export default struct _SHCONTF {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * 0x00010. <b>Windows 7 and later</b>. The calling application is checking for the existence of child items in the folder.

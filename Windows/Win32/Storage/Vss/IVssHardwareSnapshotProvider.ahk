@@ -1,33 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\VirtualDiskService\VDS_LUN_INFORMATION.ahk" { VDS_LUN_INFORMATION }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Contains the methods used by VSS to map volumes to LUNs, discover LUNs created during the shadow copy process, and transport LUNs on a SAN.
  * @see https://learn.microsoft.com/windows/win32/api/vsprov/nn-vsprov-ivsshardwaresnapshotprovider
  * @namespace Windows.Win32.Storage.Vss
  */
-class IVssHardwareSnapshotProvider extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVssHardwareSnapshotProvider extends IUnknown {
     /**
      * The interface identifier for IVssHardwareSnapshotProvider
      * @type {Guid}
      */
-    static IID => Guid("{9593a157-44e9-4344-bbeb-44fbf9b06b10}")
+    static IID := Guid("{9593a157-44e9-4344-bbeb-44fbf9b06b10}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVssHardwareSnapshotProvider interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        AreLunsSupported     : IntPtr
+        FillInLunInfo        : IntPtr
+        BeginPrepareSnapshot : IntPtr
+        GetTargetLuns        : IntPtr
+        LocateLuns           : IntPtr
+        OnLunEmpty           : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["AreLunsSupported", "FillInLunInfo", "BeginPrepareSnapshot", "GetTargetLuns", "LocateLuns", "OnLunEmpty"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVssHardwareSnapshotProvider.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Determines whether the hardware provider supports shadow copy creation for all LUNs that contribute to the volume.
@@ -54,7 +69,7 @@ class IVssHardwareSnapshotProvider extends IUnknown {
     AreLunsSupported(lLunCount, lContext, rgwszDevices, pLunInformation) {
         rgwszDevicesMarshal := rgwszDevices is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "int", lLunCount, "int", lContext, rgwszDevicesMarshal, rgwszDevices, "ptr", pLunInformation, "int*", &pbIsSupported := 0, "HRESULT")
+        result := ComCall(3, this, "int", lLunCount, "int", lContext, rgwszDevicesMarshal, rgwszDevices, VDS_LUN_INFORMATION.Ptr, pLunInformation, BOOL.Ptr, &pbIsSupported := 0, "HRESULT")
         return pbIsSupported
     }
 
@@ -92,7 +107,7 @@ class IVssHardwareSnapshotProvider extends IUnknown {
     FillInLunInfo(wszDeviceName, pLunInfo) {
         wszDeviceNameMarshal := wszDeviceName is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(4, this, wszDeviceNameMarshal, wszDeviceName, "ptr", pLunInfo, "int*", &pbIsSupported := 0, "HRESULT")
+        result := ComCall(4, this, wszDeviceNameMarshal, wszDeviceName, VDS_LUN_INFORMATION.Ptr, pLunInfo, BOOL.Ptr, &pbIsSupported := 0, "HRESULT")
         return pbIsSupported
     }
 
@@ -222,7 +237,7 @@ class IVssHardwareSnapshotProvider extends IUnknown {
     BeginPrepareSnapshot(SnapshotSetId, SnapshotId, lContext, lLunCount, rgDeviceNames, rgLunInformation) {
         rgDeviceNamesMarshal := rgDeviceNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", SnapshotSetId, "ptr", SnapshotId, "int", lContext, "int", lLunCount, rgDeviceNamesMarshal, rgDeviceNames, "ptr", rgLunInformation, "HRESULT")
+        result := ComCall(5, this, Guid, SnapshotSetId, Guid, SnapshotId, "int", lContext, "int", lLunCount, rgDeviceNamesMarshal, rgDeviceNames, VDS_LUN_INFORMATION.Ptr, rgLunInformation, "HRESULT")
         return result
     }
 
@@ -325,7 +340,7 @@ class IVssHardwareSnapshotProvider extends IUnknown {
     GetTargetLuns(lLunCount, rgDeviceNames, rgSourceLuns, rgDestinationLuns) {
         rgDeviceNamesMarshal := rgDeviceNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "int", lLunCount, rgDeviceNamesMarshal, rgDeviceNames, "ptr", rgSourceLuns, "ptr", rgDestinationLuns, "HRESULT")
+        result := ComCall(6, this, "int", lLunCount, rgDeviceNamesMarshal, rgDeviceNames, VDS_LUN_INFORMATION.Ptr, rgSourceLuns, VDS_LUN_INFORMATION.Ptr, rgDestinationLuns, "HRESULT")
         return result
     }
 
@@ -411,7 +426,7 @@ class IVssHardwareSnapshotProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsshardwaresnapshotprovider-locateluns
      */
     LocateLuns(lLunCount, rgSourceLuns) {
-        result := ComCall(7, this, "int", lLunCount, "ptr", rgSourceLuns, "HRESULT")
+        result := ComCall(7, this, "int", lLunCount, VDS_LUN_INFORMATION.Ptr, rgSourceLuns, "HRESULT")
         return result
     }
 
@@ -507,7 +522,37 @@ class IVssHardwareSnapshotProvider extends IUnknown {
     OnLunEmpty(wszDeviceName, pInformation) {
         wszDeviceNameMarshal := wszDeviceName is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(8, this, wszDeviceNameMarshal, wszDeviceName, "ptr", pInformation, "HRESULT")
+        result := ComCall(8, this, wszDeviceNameMarshal, wszDeviceName, VDS_LUN_INFORMATION.Ptr, pInformation, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVssHardwareSnapshotProvider.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.AreLunsSupported := CallbackCreate(GetMethod(implObj, "AreLunsSupported"), flags, 6)
+        this.vtbl.FillInLunInfo := CallbackCreate(GetMethod(implObj, "FillInLunInfo"), flags, 4)
+        this.vtbl.BeginPrepareSnapshot := CallbackCreate(GetMethod(implObj, "BeginPrepareSnapshot"), flags, 7)
+        this.vtbl.GetTargetLuns := CallbackCreate(GetMethod(implObj, "GetTargetLuns"), flags, 5)
+        this.vtbl.LocateLuns := CallbackCreate(GetMethod(implObj, "LocateLuns"), flags, 3)
+        this.vtbl.OnLunEmpty := CallbackCreate(GetMethod(implObj, "OnLunEmpty"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.AreLunsSupported)
+        CallbackFree(this.vtbl.FillInLunInfo)
+        CallbackFree(this.vtbl.BeginPrepareSnapshot)
+        CallbackFree(this.vtbl.GetTargetLuns)
+        CallbackFree(this.vtbl.LocateLuns)
+        CallbackFree(this.vtbl.OnLunEmpty)
     }
 }

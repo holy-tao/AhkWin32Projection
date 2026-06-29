@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\NMHDR.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\NMHDR.ahk" { NMHDR }
+#Import "..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Contains information about the conclusion of an edit operation within a ComboBoxEx control. This structure is used with the CBEN_ENDEDIT notification code. (ANSI)
@@ -12,57 +13,36 @@
  * @namespace Windows.Win32.UI.Controls
  * @charset ANSI
  */
-class NMCBEENDEDITA extends Win32Struct {
-    static sizeof => 296
-
-    static packingSize => 8
+export default struct NMCBEENDEDITA {
+    #StructPack 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a></b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains information about the notification code.
-     * @type {NMHDR}
      */
-    hdr {
-        get {
-            if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(0, this)
-            return this.__hdr
-        }
-    }
+    hdr : NMHDR
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * A value indicating whether the contents of the control's edit box have changed. This value is nonzero if the contents have been modified, or zero otherwise.
-     * @type {BOOL}
      */
-    fChanged {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    fChanged : BOOL
 
     /**
      * Type: <b>int</b>
      * 
      * The zero-based index of the item that will be selected after completing the edit operation. This value can be CB_ERR if no item will be selected.
-     * @type {Integer}
      */
-    iNewSelection {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    iNewSelection : Int32
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">TCHAR</a></b>
      * 
      * A zero-terminated string that contains the text from within the control's edit box.
-     * @type {String}
      */
-    szText {
-        get => StrGet(this.ptr + 32, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 32, 259, "UTF-8")
-    }
+    szText : CHAR[260]
 
     /**
      * Type: <b>int</b>
@@ -115,10 +95,7 @@ class NMCBEENDEDITA extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    iWhy {
-        get => NumGet(this, 292, "int")
-        set => NumPut("int", value, this, 292)
-    }
+    iWhy : Int32
+
 }

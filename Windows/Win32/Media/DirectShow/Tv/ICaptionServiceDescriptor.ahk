@@ -1,7 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
@@ -16,26 +17,38 @@
  * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nn-atscpsipparser-icaptionservicedescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
  */
-class ICaptionServiceDescriptor extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICaptionServiceDescriptor extends IUnknown {
     /**
      * The interface identifier for ICaptionServiceDescriptor
      * @type {Guid}
      */
-    static IID => Guid("{40834007-6834-46f0-bd45-d5f6a6be258c}")
+    static IID := Guid("{40834007-6834-46f0-bd45-d5f6a6be258c}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICaptionServiceDescriptor interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetNumberOfServices     : IntPtr
+        GetLanguageCode         : IntPtr
+        GetCaptionServiceNumber : IntPtr
+        GetCCType               : IntPtr
+        GetEasyReader           : IntPtr
+        GetWideAspectRatio      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetNumberOfServices", "GetLanguageCode", "GetCaptionServiceNumber", "GetCCType", "GetEasyReader", "GetWideAspectRatio"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICaptionServiceDescriptor.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
@@ -151,5 +164,35 @@ class ICaptionServiceDescriptor extends IUnknown {
     GetWideAspectRatio(bIndex) {
         result := ComCall(8, this, "char", bIndex, "char*", &pbVal := 0, "HRESULT")
         return pbVal
+    }
+
+    Query(iid) {
+        if (ICaptionServiceDescriptor.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetNumberOfServices := CallbackCreate(GetMethod(implObj, "GetNumberOfServices"), flags, 2)
+        this.vtbl.GetLanguageCode := CallbackCreate(GetMethod(implObj, "GetLanguageCode"), flags, 3)
+        this.vtbl.GetCaptionServiceNumber := CallbackCreate(GetMethod(implObj, "GetCaptionServiceNumber"), flags, 3)
+        this.vtbl.GetCCType := CallbackCreate(GetMethod(implObj, "GetCCType"), flags, 3)
+        this.vtbl.GetEasyReader := CallbackCreate(GetMethod(implObj, "GetEasyReader"), flags, 3)
+        this.vtbl.GetWideAspectRatio := CallbackCreate(GetMethod(implObj, "GetWideAspectRatio"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetNumberOfServices)
+        CallbackFree(this.vtbl.GetLanguageCode)
+        CallbackFree(this.vtbl.GetCaptionServiceNumber)
+        CallbackFree(this.vtbl.GetCCType)
+        CallbackFree(this.vtbl.GetEasyReader)
+        CallbackFree(this.vtbl.GetWideAspectRatio)
     }
 }

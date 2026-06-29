@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTTP_SERVICE_BINDING_BASE.ahk
-#Include .\HTTP_SERVICE_BINDING_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\HTTP_SERVICE_BINDING_BASE.ahk" { HTTP_SERVICE_BINDING_BASE }
+#Import ".\HTTP_SERVICE_BINDING_TYPE.ahk" { HTTP_SERVICE_BINDING_TYPE }
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * HTTP_SERVICE_BINDING_A.
@@ -9,38 +9,22 @@
  * @namespace Windows.Win32.Networking.HttpServer
  * @charset ANSI
  */
-class HTTP_SERVICE_BINDING_A extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct HTTP_SERVICE_BINDING_A {
+    #StructPack 8
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_service_binding_base">HTTP_SERVICE_BINDING_BASE</a> value,  the <b>Type</b> member of which must be set to <b>HttpServiceBindingTypeA</b>.
-     * @type {HTTP_SERVICE_BINDING_BASE}
      */
-    Base {
-        get {
-            if(!this.HasProp("__Base"))
-                this.__Base := HTTP_SERVICE_BINDING_BASE(0, this)
-            return this.__Base
-        }
-    }
+    Base : HTTP_SERVICE_BINDING_BASE
 
     /**
      * A pointer to a buffer that represents the SPN.
-     * @type {PSTR}
      */
-    Buffer {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    Buffer : PSTR
 
     /**
      * The length, in bytes, of the string in <b>Buffer</b>.
-     * @type {Integer}
      */
-    BufferSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    BufferSize : UInt32
+
 }

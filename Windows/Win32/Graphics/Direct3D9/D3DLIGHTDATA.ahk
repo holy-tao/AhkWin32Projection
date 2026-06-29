@@ -1,53 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DLIGHTINGELEMENT.ahk
-#Include .\D3DTLVERTEX.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DTLVERTEX.ahk" { D3DTLVERTEX }
+#Import ".\D3DLIGHTINGELEMENT.ahk" { D3DLIGHTINGELEMENT }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
  */
-class D3DLIGHTDATA extends Win32Struct {
-    static sizeof => 40
+export default struct D3DLIGHTDATA {
+    #StructPack 8
 
-    static packingSize => 8
+    dwSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    lpIn : D3DLIGHTINGELEMENT.Ptr
 
-    /**
-     * @type {Pointer<D3DLIGHTINGELEMENT>}
-     */
-    lpIn {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    dwInSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwInSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    lpOut : D3DTLVERTEX.Ptr
 
-    /**
-     * @type {Pointer<D3DTLVERTEX>}
-     */
-    lpOut {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    dwOutSize : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    dwOutSize {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
 }

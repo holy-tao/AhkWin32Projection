@@ -1,25 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
  * @architecture X64, Arm64
  */
-class IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_SMALL extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_SMALL {
+    #StructPack 4
 
     /**
      * This bitfield backs the following members:
      * - Flags
      * - TryOffset
-     * @type {Integer}
      */
-    _bitfield1 {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield1 : Int32
+
 
     /**
      * @type {Integer}
@@ -36,18 +30,14 @@ class IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_SMALL extends Win32Struct {
         get => (this._bitfield1 >> 16) & 0xFFFF
         set => this._bitfield1 := ((value & 0xFFFF) << 16) | (this._bitfield1 & ~(0xFFFF << 16))
     }
-
     /**
      * This bitfield backs the following members:
      * - TryLength
      * - HandlerOffset
      * - HandlerLength
-     * @type {Integer}
      */
-    _bitfield2 {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    _bitfield2 : Int32
+
 
     /**
      * @type {Integer}
@@ -72,20 +62,10 @@ class IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_SMALL extends Win32Struct {
         get => (this._bitfield2 >> 24) & 0xFF
         set => this._bitfield2 := ((value & 0xFF) << 24) | (this._bitfield2 & ~(0xFF << 24))
     }
+    ClassToken : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ClassToken {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    FilterOffset {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    static __New() {
+        DefineProp(this.Prototype, 'FilterOffset', { type: UInt32, offset: 8 })
+        this.DeleteProp("__New")
     }
 }

@@ -1,33 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IAMTunerNotification.ahk" { IAMTunerNotification }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The IAMTVAudio interface controls audio from a television source. The TV Audio filter implements this interface. Applications can use it to control television audio settings, including secondary audio program (SAP) and stereo or mono selection.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamtvaudio
  * @namespace Windows.Win32.Media.DirectShow
  */
-class IAMTVAudio extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAMTVAudio extends IUnknown {
     /**
      * The interface identifier for IAMTVAudio
      * @type {Guid}
      */
-    static IID => Guid("{83ec1c30-23d1-11d1-99e6-00a0c9560266}")
+    static IID := Guid("{83ec1c30-23d1-11d1-99e6-00a0c9560266}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAMTVAudio interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetHardwareSupportedTVAudioModes : IntPtr
+        GetAvailableTVAudioModes         : IntPtr
+        get_TVAudioMode                  : IntPtr
+        put_TVAudioMode                  : IntPtr
+        RegisterNotificationCallBack     : IntPtr
+        UnRegisterNotificationCallBack   : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetHardwareSupportedTVAudioModes", "GetAvailableTVAudioModes", "get_TVAudioMode", "put_TVAudioMode", "RegisterNotificationCallBack", "UnRegisterNotificationCallBack"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAMTVAudio.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -161,5 +175,35 @@ class IAMTVAudio extends IUnknown {
     UnRegisterNotificationCallBack(pNotify) {
         result := ComCall(8, this, "ptr", pNotify, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IAMTVAudio.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetHardwareSupportedTVAudioModes := CallbackCreate(GetMethod(implObj, "GetHardwareSupportedTVAudioModes"), flags, 2)
+        this.vtbl.GetAvailableTVAudioModes := CallbackCreate(GetMethod(implObj, "GetAvailableTVAudioModes"), flags, 2)
+        this.vtbl.get_TVAudioMode := CallbackCreate(GetMethod(implObj, "get_TVAudioMode"), flags, 2)
+        this.vtbl.put_TVAudioMode := CallbackCreate(GetMethod(implObj, "put_TVAudioMode"), flags, 2)
+        this.vtbl.RegisterNotificationCallBack := CallbackCreate(GetMethod(implObj, "RegisterNotificationCallBack"), flags, 3)
+        this.vtbl.UnRegisterNotificationCallBack := CallbackCreate(GetMethod(implObj, "UnRegisterNotificationCallBack"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetHardwareSupportedTVAudioModes)
+        CallbackFree(this.vtbl.GetAvailableTVAudioModes)
+        CallbackFree(this.vtbl.get_TVAudioMode)
+        CallbackFree(this.vtbl.put_TVAudioMode)
+        CallbackFree(this.vtbl.RegisterNotificationCallBack)
+        CallbackFree(this.vtbl.UnRegisterNotificationCallBack)
     }
 }

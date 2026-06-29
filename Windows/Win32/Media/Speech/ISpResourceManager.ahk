@@ -1,37 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IServiceProvider.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IServiceProvider.ahk" { IServiceProvider }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Media.Speech
  */
-class ISpResourceManager extends IServiceProvider {
-
-    static sizeof => A_PtrSize
+export default struct ISpResourceManager extends IServiceProvider {
     /**
      * The interface identifier for ISpResourceManager
      * @type {Guid}
      */
-    static IID => Guid("{93384e18-5014-43d5-adbb-a78e055926bd}")
+    static IID := Guid("{93384e18-5014-43d5-adbb-a78e055926bd}")
 
     /**
      * The class identifier for SpResourceManager
      * @type {Guid}
      */
-    static CLSID => Guid("{96749373-3391-11d2-9ee3-00c04f797396}")
+    static CLSID := Guid("{96749373-3391-11d2-9ee3-00c04f797396}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 4
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ISpResourceManager interfaces
+    */
+    struct Vtbl extends IServiceProvider.Vtbl {
+        SetObject : IntPtr
+        GetObject : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetObject", "GetObject"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ISpResourceManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -40,7 +51,7 @@ class ISpResourceManager extends IServiceProvider {
      * @returns {HRESULT} 
      */
     SetObject(guidServiceId, pUnkObject) {
-        result := ComCall(4, this, "ptr", guidServiceId, "ptr", pUnkObject, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, guidServiceId, "ptr", pUnkObject, "HRESULT")
         return result
     }
 
@@ -64,7 +75,29 @@ class ISpResourceManager extends IServiceProvider {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getobject
      */
     GetObject(guidServiceId, ObjectCLSID, ObjectIID, fReleaseWhenLastExternalRefReleased) {
-        result := ComCall(5, this, "ptr", guidServiceId, "ptr", ObjectCLSID, "ptr", ObjectIID, "int", fReleaseWhenLastExternalRefReleased, "ptr*", &ppObject := 0, "HRESULT")
+        result := ComCall(5, this, Guid.Ptr, guidServiceId, Guid.Ptr, ObjectCLSID, Guid.Ptr, ObjectIID, BOOL, fReleaseWhenLastExternalRefReleased, "ptr*", &ppObject := 0, "HRESULT")
         return ppObject
+    }
+
+    Query(iid) {
+        if (ISpResourceManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetObject := CallbackCreate(GetMethod(implObj, "SetObject"), flags, 3)
+        this.vtbl.GetObject := CallbackCreate(GetMethod(implObj, "GetObject"), flags, 6)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetObject)
+        CallbackFree(this.vtbl.GetObject)
     }
 }

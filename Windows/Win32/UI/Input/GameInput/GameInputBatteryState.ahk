@@ -1,52 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\GameInputBatteryStatus.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GameInputBatteryStatus.ahk" { GameInputBatteryStatus }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
  */
-class GameInputBatteryState extends Win32Struct {
-    static sizeof => 20
+export default struct GameInputBatteryState {
+    #StructPack 4
 
-    static packingSize => 4
+    chargeRate : Float32
 
-    /**
-     * @type {Float}
-     */
-    chargeRate {
-        get => NumGet(this, 0, "float")
-        set => NumPut("float", value, this, 0)
-    }
+    maxChargeRate : Float32
 
-    /**
-     * @type {Float}
-     */
-    maxChargeRate {
-        get => NumGet(this, 4, "float")
-        set => NumPut("float", value, this, 4)
-    }
+    remainingCapacity : Float32
 
-    /**
-     * @type {Float}
-     */
-    remainingCapacity {
-        get => NumGet(this, 8, "float")
-        set => NumPut("float", value, this, 8)
-    }
+    fullChargeCapacity : Float32
 
-    /**
-     * @type {Float}
-     */
-    fullChargeCapacity {
-        get => NumGet(this, 12, "float")
-        set => NumPut("float", value, this, 12)
-    }
+    status : GameInputBatteryStatus
 
-    /**
-     * @type {GameInputBatteryStatus}
-     */
-    status {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
 }

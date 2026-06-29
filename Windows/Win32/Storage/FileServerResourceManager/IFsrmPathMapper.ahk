@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\SAFEARRAY.ahk" { SAFEARRAY }
 
 /**
  * Used to retrieve the network share paths that are mapped to a local path.
@@ -10,32 +13,39 @@
  * @see https://learn.microsoft.com/windows/win32/api/fsrm/nn-fsrm-ifsrmpathmapper
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  */
-class IFsrmPathMapper extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IFsrmPathMapper extends IDispatch {
     /**
      * The interface identifier for IFsrmPathMapper
      * @type {Guid}
      */
-    static IID => Guid("{6f4dbfff-6920-4821-a6c3-b7e94c1fd60c}")
+    static IID := Guid("{6f4dbfff-6920-4821-a6c3-b7e94c1fd60c}")
 
     /**
      * The class identifier for FsrmPathMapper
      * @type {Guid}
      */
-    static CLSID => Guid("{f3be42bd-8ac2-409e-bbd8-faf9b6b41feb}")
+    static CLSID := Guid("{f3be42bd-8ac2-409e-bbd8-faf9b6b41feb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IFsrmPathMapper interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        GetSharePathsForLocalPath : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSharePathsForLocalPath"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IFsrmPathMapper.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a list of network shares that point to the specified local path.
@@ -52,7 +62,27 @@ class IFsrmPathMapper extends IDispatch {
     GetSharePathsForLocalPath(localPath) {
         localPath := localPath is String ? BSTR.Alloc(localPath).Value : localPath
 
-        result := ComCall(7, this, "ptr", localPath, "ptr*", &sharePaths := 0, "HRESULT")
+        result := ComCall(7, this, BSTR, localPath, "ptr*", &sharePaths := 0, "HRESULT")
         return sharePaths
+    }
+
+    Query(iid) {
+        if (IFsrmPathMapper.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSharePathsForLocalPath := CallbackCreate(GetMethod(implObj, "GetSharePathsForLocalPath"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSharePathsForLocalPath)
     }
 }

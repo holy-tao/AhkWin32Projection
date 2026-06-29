@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * The DVD_TIMECODE structure contains DVD timecode in hours, minutes, seconds, and frames.
@@ -19,10 +18,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-dvd_timecode
  * @namespace Windows.Win32.Media.DirectShow
  */
-class DVD_TIMECODE extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 4
+export default struct DVD_TIMECODE {
+    #StructPack 4
 
     /**
      * This bitfield backs the following members:
@@ -35,12 +32,9 @@ class DVD_TIMECODE extends Win32Struct {
      * - Frames1
      * - Frames10
      * - FrameRateCode
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}

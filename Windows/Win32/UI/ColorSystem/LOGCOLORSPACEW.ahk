@@ -1,8 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\LCSCSTYPE.ahk
-#Include ..\..\Graphics\Gdi\CIEXYZTRIPLE.ahk
-#Include ..\..\Graphics\Gdi\CIEXYZ.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\LCSCSTYPE.ahk" { LCSCSTYPE }
+#Import "..\..\Graphics\Gdi\CIEXYZ.ahk" { CIEXYZ }
+#Import "..\..\Graphics\Gdi\CIEXYZTRIPLE.ahk" { CIEXYZTRIPLE }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The LOGCOLORSPACE structure contains information that defines a logical color space. (Unicode)
@@ -37,99 +37,51 @@
  * @namespace Windows.Win32.UI.ColorSystem
  * @charset Unicode
  */
-class LOGCOLORSPACEW extends Win32Struct {
-    static sizeof => 588
-
-    static packingSize => 4
+export default struct LOGCOLORSPACEW {
+    #StructPack 4
 
     /**
      * Color space signature. At present, this member should always be set to LCS_SIGNATURE.
-     * @type {Integer}
      */
-    lcsSignature {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    lcsSignature : UInt32
 
     /**
      * Version number; must be 0x400.
-     * @type {Integer}
      */
-    lcsVersion {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    lcsVersion : UInt32
 
     /**
      * Size of this structure, in bytes.
-     * @type {Integer}
      */
-    lcsSize {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    lcsSize : UInt32
 
-    /**
-     * @type {LCSCSTYPE}
-     */
-    lcsCSType {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    lcsCSType : LCSCSTYPE
 
-    /**
-     * @type {Integer}
-     */
-    lcsIntent {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    lcsIntent : Int32
 
     /**
      * Red, green, blue endpoints.
-     * @type {CIEXYZTRIPLE}
      */
-    lcsEndpoints {
-        get {
-            if(!this.HasProp("__lcsEndpoints"))
-                this.__lcsEndpoints := CIEXYZTRIPLE(20, this)
-            return this.__lcsEndpoints
-        }
-    }
+    lcsEndpoints : CIEXYZTRIPLE
 
     /**
      * Scale of the red coordinate.
-     * @type {Integer}
      */
-    lcsGammaRed {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
-    }
+    lcsGammaRed : UInt32
 
     /**
      * Scale of the green coordinate.
-     * @type {Integer}
      */
-    lcsGammaGreen {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
-    }
+    lcsGammaGreen : UInt32
 
     /**
      * Scale of the blue coordinate.
-     * @type {Integer}
      */
-    lcsGammaBlue {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    lcsGammaBlue : UInt32
 
     /**
      * A null-terminated string that names a color profile file. This member is typically set to zero, but may be used to set the color space to be exactly as specified by the color profile. This is useful for devices that input color values for a specific printer, or when using an installable image color matcher. If a color profile is specified, all other members of this structure should be set to reasonable values, even if the values are not completely accurate.
-     * @type {String}
      */
-    lcsFilename {
-        get => StrGet(this.ptr + 68, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 68, 259, "UTF-16")
-    }
+    lcsFilename : WCHAR[260]
+
 }

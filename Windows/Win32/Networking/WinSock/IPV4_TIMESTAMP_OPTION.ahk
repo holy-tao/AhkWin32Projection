@@ -1,52 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\IPV4_OPTION_HEADER.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\IPV4_OPTION_HEADER.ahk" { IPV4_OPTION_HEADER }
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
  */
-class IPV4_TIMESTAMP_OPTION extends Win32Struct {
-    static sizeof => 4
+export default struct IPV4_TIMESTAMP_OPTION {
+    #StructPack 1
 
-    static packingSize => 1
+    OptionHeader : IPV4_OPTION_HEADER
 
-    /**
-     * @type {IPV4_OPTION_HEADER}
-     */
-    OptionHeader {
-        get {
-            if(!this.HasProp("__OptionHeader"))
-                this.__OptionHeader := IPV4_OPTION_HEADER(0, this)
-            return this.__OptionHeader
-        }
-    }
+    Pointer : Int8
 
-    /**
-     * @type {Integer}
-     */
-    Pointer {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    FlagsOverflow : Int8
 
-    /**
-     * @type {Integer}
-     */
-    FlagsOverflow {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
-
-    /**
-     * This bitfield backs the following members:
-     * - Flags
-     * - Overflow
-     * @type {Integer}
-     */
-    _bitfield {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
 
     /**
      * @type {Integer}
@@ -62,5 +28,9 @@ class IPV4_TIMESTAMP_OPTION extends Win32Struct {
     Overflow {
         get => (this._bitfield >> 4) & 0xF
         set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
+    }
+    static __New() {
+        DefineProp(this.Prototype, '_bitfield', { type: Int8, offset: 3 })
+        this.DeleteProp("__New")
     }
 }

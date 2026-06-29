@@ -1,67 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
  */
-class EXPERIMENTAL_WEBAUTHN_PLUGIN_UPDATE_AUTHENTICATOR_DETAILS extends Win32Struct {
-    static sizeof => 56
+export default struct EXPERIMENTAL_WEBAUTHN_PLUGIN_UPDATE_AUTHENTICATOR_DETAILS {
+    #StructPack 8
 
-    static packingSize => 8
+    pwszAuthenticatorName : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszAuthenticatorName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    pwszPluginClsId : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszPluginClsId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwszNewPluginClsId : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszNewPluginClsId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    pwszLightThemeLogo : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszLightThemeLogo {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pwszDarkThemeLogo : PWSTR
 
-    /**
-     * @type {PWSTR}
-     */
-    pwszDarkThemeLogo {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
-    }
+    cbAuthenticatorInfo : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbAuthenticatorInfo {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    pbAuthenticatorInfo : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    pbAuthenticatorInfo {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
 }

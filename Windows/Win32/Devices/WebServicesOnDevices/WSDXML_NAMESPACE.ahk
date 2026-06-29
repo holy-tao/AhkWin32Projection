@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\WSDXML_NAME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\WSDXML_NAME.ahk" { WSDXML_NAME }
 
 /**
  * Specifies an XML namespace.
@@ -13,53 +13,36 @@
  * @see https://learn.microsoft.com/windows/win32/api/wsdxmldom/ns-wsdxmldom-wsdxml_namespace
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  */
-class WSDXML_NAMESPACE extends Win32Struct {
-    static sizeof => 32
-
-    static packingSize => 8
+export default struct WSDXML_NAMESPACE {
+    #StructPack 8
 
     /**
      * The URI that identifies the namespace.
-     * @type {PWSTR}
      */
-    Uri {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    Uri : PWSTR
 
     /**
      * The preferred prefix to be used in XML prefix mappings.
-     * @type {PWSTR}
      */
-    PreferredPrefix {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    PreferredPrefix : PWSTR
 
+    __Names_ptr : IntPtr
     /**
      * Reference to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_name">WSDXML_NAME</a> structures that specify the names in the namespace.
-     * @type {Pointer<WSDXML_NAME>}
      */
     Names {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => (addr := this.__Names_ptr) ? WSDXML_NAME.At(addr) : unset
+        set => this.__Names_ptr := (IsSet(value) && value) ? value.Ptr : 0
     }
 
     /**
      * The number of names in the <b>Names</b> array.
-     * @type {Integer}
      */
-    NamesCount {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
-    }
+    NamesCount : UInt16
 
     /**
      * The encoded reference for the namespace.
-     * @type {Integer}
      */
-    Encoding {
-        get => NumGet(this, 26, "ushort")
-        set => NumPut("ushort", value, this, 26)
-    }
+    Encoding : UInt16
+
 }

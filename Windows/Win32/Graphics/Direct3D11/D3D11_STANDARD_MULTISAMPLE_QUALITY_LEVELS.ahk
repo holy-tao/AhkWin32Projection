@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies a multi-sample pattern type.
@@ -16,7 +15,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_standard_multisample_quality_levels
  * @namespace Windows.Win32.Graphics.Direct3D11
  */
-class D3D11_STANDARD_MULTISAMPLE_QUALITY_LEVELS extends Win32Enum {
+export default struct D3D11_STANDARD_MULTISAMPLE_QUALITY_LEVELS {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Pre-defined multi-sample patterns required for Direct3D 11 and Direct3D 10.1 hardware.

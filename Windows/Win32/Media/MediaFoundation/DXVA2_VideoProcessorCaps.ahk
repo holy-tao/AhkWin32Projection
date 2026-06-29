@@ -1,16 +1,13 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Direct3D9\D3DPOOL.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Graphics\Direct3D9\D3DPOOL.ahk" { D3DPOOL }
 
 /**
  * Describes the capabilities of a DirectX Video Acceleration (DVXA) video processor mode.
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_videoprocessorcaps
  * @namespace Windows.Win32.Media.MediaFoundation
  */
-class DXVA2_VideoProcessorCaps extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 4
+export default struct DXVA2_VideoProcessorCaps {
+    #StructPack 4
 
     /**
      * Identifies the type of device. The following values are defined.
@@ -51,48 +48,28 @@ class DXVA2_VideoProcessorCaps extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    DeviceCaps {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    DeviceCaps : UInt32
 
     /**
      * The Direct3D memory pool used by the device.
-     * @type {D3DPOOL}
      */
-    InputPool {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    InputPool : D3DPOOL
 
     /**
      * Number of forward reference samples the device needs to perform deinterlacing. For the bob, progressive scan, and software devices, the value is zero.
-     * @type {Integer}
      */
-    NumForwardRefSamples {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NumForwardRefSamples : UInt32
 
     /**
      * Number of backward reference samples the device needs to perform deinterlacing. For the bob, progressive scan, and software devices, the value is zero.
-     * @type {Integer}
      */
-    NumBackwardRefSamples {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    NumBackwardRefSamples : UInt32
 
     /**
      * Reserved. Must be zero.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    Reserved : UInt32
 
     /**
      * Identifies the deinterlacing technique used by the device. This value is a bitwise <b>OR</b> of one or more of the following flags.
@@ -203,21 +180,13 @@ class DXVA2_VideoProcessorCaps extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    DeinterlaceTechnology {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    DeinterlaceTechnology : UInt32
 
     /**
      * Specifies the available video processor (ProcAmp) operations. The value is a bitwise OR of <a href="https://docs.microsoft.com/windows/desktop/medfound/procamp-settings">ProcAmp Settings</a> constants.
-     * @type {Integer}
      */
-    ProcAmpControlCaps {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    ProcAmpControlCaps : UInt32
 
     /**
      * Specifies operations that the device can perform concurrently with the <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nf-dxva2api-idirectxvideoprocessor-videoprocessblt">IDirectXVideoProcessor::VideoProcessBlt</a> operation. The value is a bitwise <b>OR</b> of the following flags.
@@ -394,12 +363,8 @@ class DXVA2_VideoProcessorCaps extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    VideoProcessorOperations {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    VideoProcessorOperations : UInt32
 
     /**
      * Specifies the supported noise filters. The value is a bitwise <b>OR</b> of the following flags.
@@ -470,12 +435,8 @@ class DXVA2_VideoProcessorCaps extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    NoiseFilterTechnology {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    NoiseFilterTechnology : UInt32
 
     /**
      * Specifies the supported detail filters. The value is a bitwise <b>OR</b> of the following flags.
@@ -526,10 +487,7 @@ class DXVA2_VideoProcessorCaps extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    DetailFilterTechnology {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    DetailFilterTechnology : UInt32
+
 }

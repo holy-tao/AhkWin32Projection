@@ -1,7 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\Time\TIME_ZONE_INFORMATION.ahk
-#Include ..\..\..\Foundation\SYSTEMTIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Time\TIME_ZONE_INFORMATION.ahk" { TIME_ZONE_INFORMATION }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\SYSTEMTIME.ahk" { SYSTEMTIME }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * The TRACE_LOGFILE_HEADER structure contains information about an event tracing session and its events.
@@ -21,269 +23,129 @@
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-trace_logfile_header
  * @namespace Windows.Win32.System.Diagnostics.Etw
  */
-class TRACE_LOGFILE_HEADER extends Win32Struct {
-    static sizeof => 280
+export default struct TRACE_LOGFILE_HEADER {
+    #StructPack 8
 
-    static packingSize => 8
+
+    struct _VersionDetail {
+        MajorVersion : Int8
+
+        MinorVersion : Int8
+
+        SubVersion : Int8
+
+        SubMinorVersion : Int8
+
+    }
 
     /**
      * Size of the event tracing session's buffers, in bytes.
-     * @type {Integer}
      */
-    BufferSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    BufferSize : UInt32
 
-    class _VersionDetail extends Win32Struct {
-        static sizeof => 4
-        static packingSize => 1
-
-        /**
-         * @type {Integer}
-         */
-        MajorVersion {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        MinorVersion {
-            get => NumGet(this, 1, "char")
-            set => NumPut("char", value, this, 1)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        SubVersion {
-            get => NumGet(this, 2, "char")
-            set => NumPut("char", value, this, 2)
-        }
-
-        /**
-         * @type {Integer}
-         */
-        SubMinorVersion {
-            get => NumGet(this, 3, "char")
-            set => NumPut("char", value, this, 3)
-        }
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
-
-    /**
-     * @type {_VersionDetail}
-     */
-    VersionDetail {
-        get {
-            if(!this.HasProp("__VersionDetail"))
-                this.__VersionDetail := TRACE_LOGFILE_HEADER._VersionDetail(4, this)
-            return this.__VersionDetail
-        }
-    }
+    Version : UInt32
 
     /**
      * Build number of the operating system where the trace was collected.
-     * @type {Integer}
      */
-    ProviderVersion {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ProviderVersion : UInt32
 
     /**
      * Number of processors on the system where the trace was collected.
-     * @type {Integer}
      */
-    NumberOfProcessors {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    NumberOfProcessors : UInt32
 
     /**
      * Time at which the event tracing session stopped, in 100-nanosecond intervals
      * since midnight, January 1, 1601. This value may be 0 if you are consuming events
      * in real time or from a log file that was not finalized (i.e. was not properly
      * closed).
-     * @type {Integer}
      */
-    EndTime {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
-    }
+    EndTime : Int64
 
     /**
      * Resolution of the hardware timer, in units of 100 nanoseconds. For usage, see
      * the Remarks for [EVENT_TRACE_HEADER](/windows/desktop/ETW/event-trace-header).
-     * @type {Integer}
      */
-    TimerResolution {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    TimerResolution : UInt32
 
     /**
      * Maximum size of the log file, in megabytes.
-     * @type {Integer}
      */
-    MaximumFileSize {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    MaximumFileSize : UInt32
 
     /**
      * Logging mode for the event tracing session. For a list of values, see
      * [Logging Mode Constants](/windows/desktop/ETW/logging-mode-constants).
-     * @type {Integer}
      */
-    LogFileMode {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    LogFileMode : UInt32
 
     /**
      * Total number of buffers written by the event tracing session.
-     * @type {Integer}
      */
-    BuffersWritten {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    BuffersWritten : UInt32
 
-    /**
-     * @type {Pointer}
-     */
-    LogInstanceGuid {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    StartBuffers {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    PointerSize {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    EventsLost {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    CpuSpeedInMHz {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
+    LogInstanceGuid : Guid
 
     /**
      * Do not use this field.
      * 
      * The name of the event tracing session is the first null-terminated string
      * following this structure in memory.
-     * @type {PWSTR}
      */
-    LoggerName {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    LoggerName : PWSTR
 
     /**
      * Do not use this field.
      * 
      * The name of the event tracing log file is the second null-terminated string
      * following this structure in memory. The first string is the name of the session.
-     * @type {PWSTR}
      */
-    LogFileName {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    LogFileName : PWSTR
 
     /**
      * A
      * [TIME_ZONE_INFORMATION](/windows/desktop/api/timezoneapi/ns-timezoneapi-time_zone_information)
      * structure that contains the time zone for the **BootTime**, **EndTime** and
      * **StartTime** members.
-     * @type {TIME_ZONE_INFORMATION}
      */
-    TimeZone {
-        get {
-            if(!this.HasProp("__TimeZone"))
-                this.__TimeZone := TIME_ZONE_INFORMATION(72, this)
-            return this.__TimeZone
-        }
-    }
+    TimeZone : TIME_ZONE_INFORMATION
 
     /**
      * Time at which the system was started, in 100-nanosecond intervals since
      * midnight, January 1, 1601. **BootTime** is supported only for traces written to
      * the Global Logger session.
-     * @type {Integer}
      */
-    BootTime {
-        get => NumGet(this, 248, "int64")
-        set => NumPut("int64", value, this, 248)
-    }
+    BootTime : Int64
 
     /**
      * Frequency of the high-resolution performance counter, if one exists.
-     * @type {Integer}
      */
-    PerfFreq {
-        get => NumGet(this, 256, "int64")
-        set => NumPut("int64", value, this, 256)
-    }
+    PerfFreq : Int64
 
     /**
      * Time at which the event tracing session started, in 100-nanosecond intervals
      * since midnight, January 1, 1601.
-     * @type {Integer}
      */
-    StartTime {
-        get => NumGet(this, 264, "int64")
-        set => NumPut("int64", value, this, 264)
-    }
+    StartTime : Int64
 
     /**
      * Specifies the clock type. For details, see the **ClientContext** member of
      * [WNODE_HEADER](/windows/win32/etw/wnode-header).
-     * @type {Integer}
      */
-    ReservedFlags {
-        get => NumGet(this, 272, "uint")
-        set => NumPut("uint", value, this, 272)
-    }
+    ReservedFlags : UInt32
 
     /**
      * Total number of buffers lost during the event tracing session.
-     * @type {Integer}
      */
-    BuffersLost {
-        get => NumGet(this, 276, "uint")
-        set => NumPut("uint", value, this, 276)
+    BuffersLost : UInt32
+
+    static __New() {
+        DefineProp(this.Prototype, 'VersionDetail', { type: TRACE_LOGFILE_HEADER._VersionDetail, offset: 4 })
+        DefineProp(this.Prototype, 'StartBuffers', { type: UInt32, offset: 40 })
+        DefineProp(this.Prototype, 'PointerSize', { type: UInt32, offset: 44 })
+        DefineProp(this.Prototype, 'EventsLost', { type: UInt32, offset: 48 })
+        DefineProp(this.Prototype, 'CpuSpeedInMHz', { type: UInt32, offset: 52 })
+        this.DeleteProp("__New")
     }
 }

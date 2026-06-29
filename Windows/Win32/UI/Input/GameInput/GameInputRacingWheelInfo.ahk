@@ -1,124 +1,38 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\GameInputLabel.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\GameInputLabel.ahk" { GameInputLabel }
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
  */
-class GameInputRacingWheelInfo extends Win32Struct {
-    static sizeof => 48
+export default struct GameInputRacingWheelInfo {
+    #StructPack 4
 
-    static packingSize => 4
+    menuButtonLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    menuButtonLabel {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    viewButtonLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    viewButtonLabel {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    previousGearButtonLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    previousGearButtonLabel {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    nextGearButtonLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    nextGearButtonLabel {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    dpadUpLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    dpadUpLabel {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    dpadDownLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    dpadDownLabel {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    dpadLeftLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    dpadLeftLabel {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
-    }
+    dpadRightLabel : GameInputLabel
 
-    /**
-     * @type {GameInputLabel}
-     */
-    dpadRightLabel {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
-    }
+    hasClutch : Int8
 
-    /**
-     * @type {Integer}
-     */
-    hasClutch {
-        get => NumGet(this, 32, "char")
-        set => NumPut("char", value, this, 32)
-    }
+    hasHandbrake : Int8
 
-    /**
-     * @type {Integer}
-     */
-    hasHandbrake {
-        get => NumGet(this, 33, "char")
-        set => NumPut("char", value, this, 33)
-    }
+    hasPatternShifter : Int8
 
-    /**
-     * @type {Integer}
-     */
-    hasPatternShifter {
-        get => NumGet(this, 34, "char")
-        set => NumPut("char", value, this, 34)
-    }
+    minPatternShifterGear : Int32
 
-    /**
-     * @type {Integer}
-     */
-    minPatternShifterGear {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
-    }
+    maxPatternShifterGear : Int32
 
-    /**
-     * @type {Integer}
-     */
-    maxPatternShifterGear {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
-    }
+    maxWheelAngle : Float32
 
-    /**
-     * @type {Float}
-     */
-    maxWheelAngle {
-        get => NumGet(this, 44, "float")
-        set => NumPut("float", value, this, 44)
-    }
 }

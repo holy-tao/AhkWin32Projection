@@ -1,6 +1,8 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\System\Com\BLOB.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\System\Com\BLOB.ahk" { BLOB }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\BOOL.ahk" { BOOL }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * Contains all registration information for a namespace provider. (WSANAMESPACE_INFOEXW)
@@ -26,21 +28,15 @@
  * @namespace Windows.Win32.Networking.WinSock
  * @charset Unicode
  */
-class WSANAMESPACE_INFOEXW extends Win32Struct {
-    static sizeof => 48
-
-    static packingSize => 8
+export default struct WSANAMESPACE_INFOEXW {
+    #StructPack 8
 
     /**
      * Type: <b>GUID</b>
      * 
      * A unique GUID for this namespace provider.
-     * @type {Pointer}
      */
-    NSProviderId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
-    }
+    NSProviderId : Guid
 
     /**
      * Type: <b>DWORD</b>
@@ -138,57 +134,35 @@ class WSANAMESPACE_INFOEXW extends Win32Struct {
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
      */
-    dwNameSpace {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    dwNameSpace : UInt32
 
     /**
      * Type: <b>BOOL</b>
      * 
      * If <b>TRUE</b>, indicates that this namespace provider is active. If <b>FALSE</b>, the namespace provider is inactive and is not accessible for queries, even if the query specifically references this namespace provider.
-     * @type {BOOL}
      */
-    fActive {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    fActive : BOOL
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The version number of the namespace provider.
-     * @type {Integer}
      */
-    dwVersion {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    dwVersion : UInt32
 
     /**
      * Type: <b>LPTSTR</b>
      * 
      * A display string that identifies the namespace provider.
-     * @type {PWSTR}
      */
-    lpszIdentifier {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    lpszIdentifier : PWSTR
 
     /**
      * Type: <b>BLOB</b>
      * 
      * A provider-specific data blob associated with namespace entry.
-     * @type {BLOB}
      */
-    ProviderSpecific {
-        get {
-            if(!this.HasProp("__ProviderSpecific"))
-                this.__ProviderSpecific := BLOB(32, this)
-            return this.__ProviderSpecific
-        }
-    }
+    ProviderSpecific : BLOB
+
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Specifies the backface visibility to be applied to a visual.
  * @see https://learn.microsoft.com/windows/win32/api/dcomptypes/ne-dcomptypes-dcomposition_backface_visibility
  * @namespace Windows.Win32.Graphics.DirectComposition
  */
-class DCOMPOSITION_BACKFACE_VISIBILITY extends Win32Enum {
+export default struct DCOMPOSITION_BACKFACE_VISIBILITY {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Surfaces in this visual's sub-tree are visible regardless of transformation.

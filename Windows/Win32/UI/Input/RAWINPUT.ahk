@@ -1,11 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\RAWINPUTHEADER.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include .\RAWMOUSE.ahk
-#Include .\MOUSE_STATE.ahk
-#Include .\RAWKEYBOARD.ahk
-#Include .\RAWHID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\RAWHID.ahk" { RAWHID }
+#Import ".\RAWMOUSE.ahk" { RAWMOUSE }
+#Import ".\RAWKEYBOARD.ahk" { RAWKEYBOARD }
+#Import "..\..\Foundation\HANDLE.ahk" { HANDLE }
+#Import ".\RAWINPUTHEADER.ahk" { RAWINPUTHEADER }
+#Import "..\..\Foundation\WPARAM.ahk" { WPARAM }
+#Import ".\MOUSE_STATE.ahk" { MOUSE_STATE }
 
 /**
  * Contains the raw input from a device.
@@ -22,46 +22,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-rawinput
  * @namespace Windows.Win32.UI.Input
  */
-class RAWINPUT extends Win32Struct {
-    static sizeof => 48
+export default struct RAWINPUT {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _data_e__Union extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 4
+    struct _data {
+        mouse : RAWMOUSE
 
-        /**
-         * @type {RAWMOUSE}
-         */
-        mouse {
-            get {
-                if(!this.HasProp("__mouse"))
-                    this.__mouse := RAWMOUSE(0, this)
-                return this.__mouse
-            }
-        }
-
-        /**
-         * @type {RAWKEYBOARD}
-         */
-        keyboard {
-            get {
-                if(!this.HasProp("__keyboard"))
-                    this.__keyboard := RAWKEYBOARD(0, this)
-                return this.__keyboard
-            }
-        }
-
-        /**
-         * @type {RAWHID}
-         */
-        hid {
-            get {
-                if(!this.HasProp("__hid"))
-                    this.__hid := RAWHID(0, this)
-                return this.__hid
-            }
+        static __New() {
+            DefineProp(this.Prototype, 'keyboard', { type: RAWKEYBOARD, offset: 0 })
+            DefineProp(this.Prototype, 'hid', { type: RAWHID, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
@@ -69,24 +40,9 @@ class RAWINPUT extends Win32Struct {
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-rawinputheader">RAWINPUTHEADER</a></b>
      * 
      * The raw input data.
-     * @type {RAWINPUTHEADER}
      */
-    header {
-        get {
-            if(!this.HasProp("__header"))
-                this.__header := RAWINPUTHEADER(0, this)
-            return this.__header
-        }
-    }
+    header : RAWINPUTHEADER
 
-    /**
-     * @type {_data_e__Union}
-     */
-    data {
-        get {
-            if(!this.HasProp("__data"))
-                this.__data := RAWINPUT._data_e__Union(24, this)
-            return this.__data
-        }
-    }
+    data : RAWINPUT._data
+
 }

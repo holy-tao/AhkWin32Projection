@@ -1,32 +1,16 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSATTRIBUTE.ahk
-#Include .\AUDIOLOOPBACK_TAPPOINT_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\AUDIOLOOPBACK_TAPPOINT_TYPE.ahk" { AUDIOLOOPBACK_TAPPOINT_TYPE }
+#Import ".\KSATTRIBUTE.ahk" { KSATTRIBUTE }
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
  */
-class KSATTRIBUTE_AUDIOLOOPBACK_TAPPOINT extends Win32Struct {
-    static sizeof => 24
+export default struct KSATTRIBUTE_AUDIOLOOPBACK_TAPPOINT {
+    #StructPack 4
 
-    static packingSize => 8
+    AttributeHeader : KSATTRIBUTE
 
-    /**
-     * @type {KSATTRIBUTE}
-     */
-    AttributeHeader {
-        get {
-            if(!this.HasProp("__AttributeHeader"))
-                this.__AttributeHeader := KSATTRIBUTE(0, this)
-            return this.__AttributeHeader
-        }
-    }
+    TapPoint : AUDIOLOOPBACK_TAPPOINT_TYPE
 
-    /**
-     * @type {AUDIOLOOPBACK_TAPPOINT_TYPE}
-     */
-    TapPoint {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
 }

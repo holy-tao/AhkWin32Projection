@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains DVD YUV subpicture data.
@@ -8,44 +7,27 @@
  * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ns-dvdmedia-am_dvd_yuv
  * @namespace Windows.Win32.Media.DirectShow
  */
-class AM_DVD_YUV extends Win32Struct {
-    static sizeof => 4
-
-    static packingSize => 1
+export default struct AM_DVD_YUV {
+    #StructPack 1
 
     /**
      * Reserved.
-     * @type {Integer}
      */
-    Reserved {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    Reserved : Int8
 
     /**
      * Y color data.
-     * @type {Integer}
      */
-    Y {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    Y : Int8
 
     /**
      * U color data.
-     * @type {Integer}
      */
-    U {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    U : Int8
 
     /**
      * V color data.
-     * @type {Integer}
      */
-    V {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
-    }
+    V : Int8
+
 }

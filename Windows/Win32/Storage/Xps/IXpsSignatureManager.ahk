@@ -1,13 +1,18 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IXpsSignature.ahk
-#Include ..\Packaging\Opc\IOpcPartUri.ahk
-#Include .\IXpsSignatureCollection.ahk
-#Include .\IXpsSignatureBlock.ahk
-#Include .\IXpsSignatureBlockCollection.ahk
-#Include .\IXpsSigningOptions.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IXpsSignatureBlock.ahk" { IXpsSignatureBlock }
+#Import "..\..\Security\Cryptography\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import "..\Packaging\Opc\IOpcPartUri.ahk" { IOpcPartUri }
+#Import "..\..\System\Com\IStream.ahk" { IStream }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IXpsSignature.ahk" { IXpsSignature }
+#Import ".\IXpsSignatureBlockCollection.ahk" { IXpsSignatureBlockCollection }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IXpsSigningOptions.ahk" { IXpsSigningOptions }
+#Import "..\..\Security\SECURITY_ATTRIBUTES.ahk" { SECURITY_ATTRIBUTES }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\IXpsSignatureCollection.ahk" { IXpsSignatureCollection }
 
 /**
  * Manages the digital signatures and digital signature requests of an XPS document.
@@ -52,32 +57,49 @@
  * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignaturemanager
  * @namespace Windows.Win32.Storage.Xps
  */
-class IXpsSignatureManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IXpsSignatureManager extends IUnknown {
     /**
      * The interface identifier for IXpsSignatureManager
      * @type {Guid}
      */
-    static IID => Guid("{d3e8d338-fdc4-4afc-80b5-d532a1782ee1}")
+    static IID := Guid("{d3e8d338-fdc4-4afc-80b5-d532a1782ee1}")
 
     /**
      * The class identifier for XpsSignatureManager
      * @type {Guid}
      */
-    static CLSID => Guid("{b0c43320-2315-44a2-b70a-0943a140a8ee}")
+    static CLSID := Guid("{b0c43320-2315-44a2-b70a-0943a140a8ee}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IXpsSignatureManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        LoadPackageFile            : IntPtr
+        LoadPackageStream          : IntPtr
+        Sign                       : IntPtr
+        GetSignatureOriginPartName : IntPtr
+        SetSignatureOriginPartName : IntPtr
+        GetSignatures              : IntPtr
+        AddSignatureBlock          : IntPtr
+        GetSignatureBlocks         : IntPtr
+        CreateSigningOptions       : IntPtr
+        SavePackageToFile          : IntPtr
+        SavePackageToStream        : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["LoadPackageFile", "LoadPackageStream", "Sign", "GetSignatureOriginPartName", "SetSignatureOriginPartName", "GetSignatures", "AddSignatureBlock", "GetSignatureBlocks", "CreateSigningOptions", "SavePackageToFile", "SavePackageToStream"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IXpsSignatureManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Loads an existing XPS package from a file into the digital signature manager.
@@ -229,7 +251,7 @@ class IXpsSignatureManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-sign
      */
     Sign(signOptions, _x509Certificate) {
-        result := ComCall(5, this, "ptr", signOptions, "ptr", _x509Certificate, "ptr*", &signature := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", signOptions, CERT_CONTEXT.Ptr, _x509Certificate, "ptr*", &signature := 0, "HRESULT")
         return IXpsSignature(signature)
     }
 
@@ -400,7 +422,7 @@ class IXpsSignatureManager extends IUnknown {
     SavePackageToFile(fileName, securityAttributes, flagsAndAttributes) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
 
-        result := ComCall(12, this, "ptr", fileName, "ptr", securityAttributes, "uint", flagsAndAttributes, "HRESULT")
+        result := ComCall(12, this, "ptr", fileName, SECURITY_ATTRIBUTES.Ptr, securityAttributes, "uint", flagsAndAttributes, "HRESULT")
         return result
     }
 
@@ -455,5 +477,45 @@ class IXpsSignatureManager extends IUnknown {
     SavePackageToStream(stream) {
         result := ComCall(13, this, "ptr", stream, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IXpsSignatureManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.LoadPackageFile := CallbackCreate(GetMethod(implObj, "LoadPackageFile"), flags, 2)
+        this.vtbl.LoadPackageStream := CallbackCreate(GetMethod(implObj, "LoadPackageStream"), flags, 2)
+        this.vtbl.Sign := CallbackCreate(GetMethod(implObj, "Sign"), flags, 4)
+        this.vtbl.GetSignatureOriginPartName := CallbackCreate(GetMethod(implObj, "GetSignatureOriginPartName"), flags, 2)
+        this.vtbl.SetSignatureOriginPartName := CallbackCreate(GetMethod(implObj, "SetSignatureOriginPartName"), flags, 2)
+        this.vtbl.GetSignatures := CallbackCreate(GetMethod(implObj, "GetSignatures"), flags, 2)
+        this.vtbl.AddSignatureBlock := CallbackCreate(GetMethod(implObj, "AddSignatureBlock"), flags, 4)
+        this.vtbl.GetSignatureBlocks := CallbackCreate(GetMethod(implObj, "GetSignatureBlocks"), flags, 2)
+        this.vtbl.CreateSigningOptions := CallbackCreate(GetMethod(implObj, "CreateSigningOptions"), flags, 2)
+        this.vtbl.SavePackageToFile := CallbackCreate(GetMethod(implObj, "SavePackageToFile"), flags, 4)
+        this.vtbl.SavePackageToStream := CallbackCreate(GetMethod(implObj, "SavePackageToStream"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.LoadPackageFile)
+        CallbackFree(this.vtbl.LoadPackageStream)
+        CallbackFree(this.vtbl.Sign)
+        CallbackFree(this.vtbl.GetSignatureOriginPartName)
+        CallbackFree(this.vtbl.SetSignatureOriginPartName)
+        CallbackFree(this.vtbl.GetSignatures)
+        CallbackFree(this.vtbl.AddSignatureBlock)
+        CallbackFree(this.vtbl.GetSignatureBlocks)
+        CallbackFree(this.vtbl.CreateSigningOptions)
+        CallbackFree(this.vtbl.SavePackageToFile)
+        CallbackFree(this.vtbl.SavePackageToStream)
     }
 }

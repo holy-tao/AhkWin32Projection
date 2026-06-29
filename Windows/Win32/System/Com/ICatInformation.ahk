@@ -1,35 +1,49 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include .\IUnknown.ahk
-#Include .\IEnumCATEGORYINFO.ahk
-#Include .\IEnumGUID.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IEnumCATEGORYINFO.ahk" { IEnumCATEGORYINFO }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IEnumGUID.ahk" { IEnumGUID }
+#Import ".\IUnknown.ahk" { IUnknown }
 
 /**
  * Obtains information about the categories implemented or required by a certain class, as well as information about the categories registered on the specified computer.
  * @see https://learn.microsoft.com/windows/win32/api/comcat/nn-comcat-icatinformation
  * @namespace Windows.Win32.System.Com
  */
-class ICatInformation extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ICatInformation extends IUnknown {
     /**
      * The interface identifier for ICatInformation
      * @type {Guid}
      */
-    static IID => Guid("{0002e013-0000-0000-c000-000000000046}")
+    static IID := Guid("{0002e013-0000-0000-c000-000000000046}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ICatInformation interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        EnumCategories            : IntPtr
+        GetCategoryDesc           : IntPtr
+        EnumClassesOfCategories   : IntPtr
+        IsClassOfCategories       : IntPtr
+        EnumImplCategoriesOfClass : IntPtr
+        EnumReqCategoriesOfClass  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["EnumCategories", "GetCategoryDesc", "EnumClassesOfCategories", "IsClassOfCategories", "EnumImplCategoriesOfClass", "EnumReqCategoriesOfClass"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ICatInformation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves an enumerator for the component categories registered on the system.
@@ -50,7 +64,7 @@ class ICatInformation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-icatinformation-getcategorydesc
      */
     GetCategoryDesc(rcatid, lcid) {
-        result := ComCall(4, this, "ptr", rcatid, "uint", lcid, "ptr*", &pszDesc := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, rcatid, "uint", lcid, PWSTR.Ptr, &pszDesc := 0, "HRESULT")
         return pszDesc
     }
 
@@ -66,7 +80,7 @@ class ICatInformation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-icatinformation-enumclassesofcategories
      */
     EnumClassesOfCategories(cImplemented, rgcatidImpl, cRequired, rgcatidReq) {
-        result := ComCall(5, this, "uint", cImplemented, "ptr", rgcatidImpl, "uint", cRequired, "ptr", rgcatidReq, "ptr*", &ppenumClsid := 0, "HRESULT")
+        result := ComCall(5, this, "uint", cImplemented, Guid.Ptr, rgcatidImpl, "uint", cRequired, Guid.Ptr, rgcatidReq, "ptr*", &ppenumClsid := 0, "HRESULT")
         return IEnumGUID(ppenumClsid)
     }
 
@@ -83,7 +97,7 @@ class ICatInformation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-icatinformation-isclassofcategories
      */
     IsClassOfCategories(rclsid, cImplemented, rgcatidImpl, cRequired, rgcatidReq) {
-        result := ComCall(6, this, "ptr", rclsid, "uint", cImplemented, "ptr", rgcatidImpl, "uint", cRequired, "ptr", rgcatidReq, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, rclsid, "uint", cImplemented, Guid.Ptr, rgcatidImpl, "uint", cRequired, Guid.Ptr, rgcatidReq, "HRESULT")
         return result
     }
 
@@ -94,7 +108,7 @@ class ICatInformation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-icatinformation-enumimplcategoriesofclass
      */
     EnumImplCategoriesOfClass(rclsid) {
-        result := ComCall(7, this, "ptr", rclsid, "ptr*", &ppenumCatid := 0, "HRESULT")
+        result := ComCall(7, this, Guid.Ptr, rclsid, "ptr*", &ppenumCatid := 0, "HRESULT")
         return IEnumGUID(ppenumCatid)
     }
 
@@ -105,7 +119,37 @@ class ICatInformation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-icatinformation-enumreqcategoriesofclass
      */
     EnumReqCategoriesOfClass(rclsid) {
-        result := ComCall(8, this, "ptr", rclsid, "ptr*", &ppenumCatid := 0, "HRESULT")
+        result := ComCall(8, this, Guid.Ptr, rclsid, "ptr*", &ppenumCatid := 0, "HRESULT")
         return IEnumGUID(ppenumCatid)
+    }
+
+    Query(iid) {
+        if (ICatInformation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.EnumCategories := CallbackCreate(GetMethod(implObj, "EnumCategories"), flags, 3)
+        this.vtbl.GetCategoryDesc := CallbackCreate(GetMethod(implObj, "GetCategoryDesc"), flags, 4)
+        this.vtbl.EnumClassesOfCategories := CallbackCreate(GetMethod(implObj, "EnumClassesOfCategories"), flags, 6)
+        this.vtbl.IsClassOfCategories := CallbackCreate(GetMethod(implObj, "IsClassOfCategories"), flags, 6)
+        this.vtbl.EnumImplCategoriesOfClass := CallbackCreate(GetMethod(implObj, "EnumImplCategoriesOfClass"), flags, 3)
+        this.vtbl.EnumReqCategoriesOfClass := CallbackCreate(GetMethod(implObj, "EnumReqCategoriesOfClass"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.EnumCategories)
+        CallbackFree(this.vtbl.GetCategoryDesc)
+        CallbackFree(this.vtbl.EnumClassesOfCategories)
+        CallbackFree(this.vtbl.IsClassOfCategories)
+        CallbackFree(this.vtbl.EnumImplCategoriesOfClass)
+        CallbackFree(this.vtbl.EnumReqCategoriesOfClass)
     }
 }

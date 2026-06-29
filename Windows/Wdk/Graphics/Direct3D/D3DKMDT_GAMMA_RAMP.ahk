@@ -1,88 +1,33 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3DDDI_GAMMARAMP_TYPE.ahk
-#Include .\D3DDDI_GAMMA_RAMP_RGB256x3x16.ahk
-#Include .\D3DDDI_GAMMA_RAMP_DXGI_1.ahk
-#Include .\D3DKMDT_3x4_COLORSPACE_TRANSFORM.ahk
-#Include .\D3DKMDT_COLORSPACE_TRANSFORM_MATRIX_V2.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\D3DDDI_GAMMA_RAMP_RGB256x3x16.ahk" { D3DDDI_GAMMA_RAMP_RGB256x3x16 }
+#Import ".\D3DKMDT_COLORSPACE_TRANSFORM_MATRIX_V2.ahk" { D3DKMDT_COLORSPACE_TRANSFORM_MATRIX_V2 }
+#Import ".\D3DDDI_GAMMA_RAMP_DXGI_1.ahk" { D3DDDI_GAMMA_RAMP_DXGI_1 }
+#Import ".\D3DDDI_GAMMARAMP_TYPE.ahk" { D3DDDI_GAMMARAMP_TYPE }
+#Import ".\D3DKMDT_3x4_COLORSPACE_TRANSFORM.ahk" { D3DKMDT_3x4_COLORSPACE_TRANSFORM }
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
-class D3DKMDT_GAMMA_RAMP extends Win32Struct {
-    static sizeof => 24
+export default struct D3DKMDT_GAMMA_RAMP {
+    #StructPack 8
 
-    static packingSize => 8
 
-    class _Data_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 8
+    struct _Data {
+        pRgb256x3x16 : D3DDDI_GAMMA_RAMP_RGB256x3x16.Ptr
 
-        /**
-         * @type {Pointer<D3DDDI_GAMMA_RAMP_RGB256x3x16>}
-         */
-        pRgb256x3x16 {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<D3DDDI_GAMMA_RAMP_DXGI_1>}
-         */
-        pDxgi1 {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<D3DKMDT_3x4_COLORSPACE_TRANSFORM>}
-         */
-        p3x4 {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<D3DKMDT_COLORSPACE_TRANSFORM_MATRIX_V2>}
-         */
-        pMatrixV2 {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
-        }
-
-        /**
-         * @type {Pointer<Void>}
-         */
-        pRaw {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        static __New() {
+            DefineProp(this.Prototype, 'pDxgi1', { type: D3DDDI_GAMMA_RAMP_DXGI_1.Ptr, offset: 0 })
+            DefineProp(this.Prototype, 'p3x4', { type: D3DKMDT_3x4_COLORSPACE_TRANSFORM.Ptr, offset: 0 })
+            DefineProp(this.Prototype, 'pMatrixV2', { type: D3DKMDT_COLORSPACE_TRANSFORM_MATRIX_V2.Ptr, offset: 0 })
+            DefineProp(this.Prototype, 'pRaw', { type: IntPtr, offset: 0 })
+            this.DeleteProp("__New")
         }
     }
 
-    /**
-     * @type {D3DDDI_GAMMARAMP_TYPE}
-     */
-    Type {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    Type : D3DDDI_GAMMARAMP_TYPE
 
-    /**
-     * @type {Pointer}
-     */
-    DataSize {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    DataSize : IntPtr
 
-    /**
-     * @type {_Data_e__Union}
-     */
-    Data {
-        get {
-            if(!this.HasProp("__Data"))
-                this.__Data := D3DKMDT_GAMMA_RAMP._Data_e__Union(16, this)
-            return this.__Data
-        }
-    }
+    Data : D3DKMDT_GAMMA_RAMP._Data
+
 }

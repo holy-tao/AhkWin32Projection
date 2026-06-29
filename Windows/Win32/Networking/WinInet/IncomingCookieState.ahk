@@ -1,67 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\PSTR.ahk" { PSTR }
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
  */
-class IncomingCookieState extends Win32Struct {
-    static sizeof => 32
+export default struct IncomingCookieState {
+    #StructPack 8
 
-    static packingSize => 8
+    cSession : Int32
 
-    /**
-     * @type {Integer}
-     */
-    cSession {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    cPersistent : Int32
 
-    /**
-     * @type {Integer}
-     */
-    cPersistent {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
-    }
+    cAccepted : Int32
 
-    /**
-     * @type {Integer}
-     */
-    cAccepted {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
-    }
+    cLeashed : Int32
 
-    /**
-     * @type {Integer}
-     */
-    cLeashed {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
-    }
+    cDowngraded : Int32
 
-    /**
-     * @type {Integer}
-     */
-    cDowngraded {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    cBlocked : Int32
 
-    /**
-     * @type {Integer}
-     */
-    cBlocked {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
-    }
+    pszLocation : PSTR
 
-    /**
-     * @type {PSTR}
-     */
-    pszLocation {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
 }

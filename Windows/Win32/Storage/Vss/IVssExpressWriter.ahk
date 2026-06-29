@@ -1,34 +1,47 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\IVssCreateExpressWriterMetadata.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IVssCreateExpressWriterMetadata.ahk" { IVssCreateExpressWriterMetadata }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\VSS_USAGE_TYPE.ahk" { VSS_USAGE_TYPE }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Defines methods to manage metadata for a VSS express writer.
  * @see https://learn.microsoft.com/windows/win32/api/vswriter/nl-vswriter-ivssexpresswriter
  * @namespace Windows.Win32.Storage.Vss
  */
-class IVssExpressWriter extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IVssExpressWriter extends IUnknown {
     /**
      * The interface identifier for IVssExpressWriter
      * @type {Guid}
      */
-    static IID => Guid("{e33affdc-59c7-47b1-97d5-4266598f6235}")
+    static IID := Guid("{e33affdc-59c7-47b1-97d5-4266598f6235}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IVssExpressWriter interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreateMetadata : IntPtr
+        LoadMetadata   : IntPtr
+        Register       : IntPtr
+        Unregister     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreateMetadata", "LoadMetadata", "Register", "Unregister"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IVssExpressWriter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates an express writer metadata object and returns an IVssCreateExpressWriterMetadata interface pointer to it.
@@ -53,7 +66,7 @@ class IVssExpressWriter extends IUnknown {
     CreateMetadata(writerId, writerName, usageType, versionMajor, versionMinor, reserved) {
         writerName := writerName is String ? StrPtr(writerName) : writerName
 
-        result := ComCall(3, this, "ptr", writerId, "ptr", writerName, "int", usageType, "uint", versionMajor, "uint", versionMinor, "uint", reserved, "ptr*", &ppMetadata := 0, "HRESULT")
+        result := ComCall(3, this, Guid, writerId, "ptr", writerName, VSS_USAGE_TYPE, usageType, "uint", versionMajor, "uint", versionMinor, "uint", reserved, "ptr*", &ppMetadata := 0, "HRESULT")
         return IVssCreateExpressWriterMetadata(ppMetadata)
     }
 
@@ -186,7 +199,33 @@ class IVssExpressWriter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivssexpresswriter-unregister
      */
     Unregister(writerId) {
-        result := ComCall(6, this, "ptr", writerId, "HRESULT")
+        result := ComCall(6, this, Guid, writerId, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IVssExpressWriter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreateMetadata := CallbackCreate(GetMethod(implObj, "CreateMetadata"), flags, 8)
+        this.vtbl.LoadMetadata := CallbackCreate(GetMethod(implObj, "LoadMetadata"), flags, 3)
+        this.vtbl.Register := CallbackCreate(GetMethod(implObj, "Register"), flags, 1)
+        this.vtbl.Unregister := CallbackCreate(GetMethod(implObj, "Unregister"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreateMetadata)
+        CallbackFree(this.vtbl.LoadMetadata)
+        CallbackFree(this.vtbl.Register)
+        CallbackFree(this.vtbl.Unregister)
     }
 }

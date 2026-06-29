@@ -1,79 +1,27 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_FIRMWARE_SLOT_INFO.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\STORAGE_FIRMWARE_SLOT_INFO.ahk" { STORAGE_FIRMWARE_SLOT_INFO }
+#Import "..\..\Foundation\BOOLEAN.ahk" { BOOLEAN }
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
  */
-class STORAGE_FIRMWARE_INFO extends Win32Struct {
-    static sizeof => 32
+export default struct STORAGE_FIRMWARE_INFO {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Size : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Size {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    UpgradeSupport : BOOLEAN
 
-    /**
-     * @type {BOOLEAN}
-     */
-    UpgradeSupport {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
-    }
+    SlotCount : Int8
 
-    /**
-     * @type {Integer}
-     */
-    SlotCount {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
-    }
+    ActiveSlot : Int8
 
-    /**
-     * @type {Integer}
-     */
-    ActiveSlot {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
-    }
+    PendingActivateSlot : Int8
 
-    /**
-     * @type {Integer}
-     */
-    PendingActivateSlot {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
-    }
+    Reserved : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Slot : STORAGE_FIRMWARE_SLOT_INFO[1]
 
-    /**
-     * @type {STORAGE_FIRMWARE_SLOT_INFO}
-     */
-    Slot {
-        get {
-            if(!this.HasProp("__SlotProxyArray"))
-                this.__SlotProxyArray := Win32FixedArray(this.ptr + 16, 1, STORAGE_FIRMWARE_SLOT_INFO, "")
-            return this.__SlotProxyArray
-        }
-    }
 }

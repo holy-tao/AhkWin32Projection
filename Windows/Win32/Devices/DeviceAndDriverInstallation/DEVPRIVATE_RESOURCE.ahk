@@ -1,35 +1,15 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DEVPRIVATE_DES.ahk
-#Include .\DEVPRIVATE_RANGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DEVPRIVATE_RANGE.ahk" { DEVPRIVATE_RANGE }
+#Import ".\DEVPRIVATE_DES.ahk" { DEVPRIVATE_DES }
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  */
-class DEVPRIVATE_RESOURCE extends Win32Struct {
-    static sizeof => 36
+export default struct DEVPRIVATE_RESOURCE {
+    #StructPack 4
 
-    static packingSize => 4
+    PRV_Header : DEVPRIVATE_DES
 
-    /**
-     * @type {DEVPRIVATE_DES}
-     */
-    PRV_Header {
-        get {
-            if(!this.HasProp("__PRV_Header"))
-                this.__PRV_Header := DEVPRIVATE_DES(0, this)
-            return this.__PRV_Header
-        }
-    }
+    PRV_Data : DEVPRIVATE_RANGE[1]
 
-    /**
-     * @type {DEVPRIVATE_RANGE}
-     */
-    PRV_Data {
-        get {
-            if(!this.HasProp("__PRV_DataProxyArray"))
-                this.__PRV_DataProxyArray := Win32FixedArray(this.ptr + 24, 1, DEVPRIVATE_RANGE, "")
-            return this.__PRV_DataProxyArray
-        }
-    }
 }

@@ -1,48 +1,19 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\USBFN_PIPE_INFORMATION.ahk
-#Include .\USB_ENDPOINT_DESCRIPTOR.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\USB_ENDPOINT_DESCRIPTOR.ahk" { USB_ENDPOINT_DESCRIPTOR }
+#Import ".\USBFN_PIPE_INFORMATION.ahk" { USBFN_PIPE_INFORMATION }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USBFN_CLASS_INTERFACE_EX extends Win32Struct {
-    static sizeof => 196
+export default struct USBFN_CLASS_INTERFACE_EX {
+    #StructPack 4
 
-    static packingSize => 4
+    BaseInterfaceNumber : Int8
 
-    /**
-     * @type {Integer}
-     */
-    BaseInterfaceNumber {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    InterfaceCount : Int8
 
-    /**
-     * @type {Integer}
-     */
-    InterfaceCount {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    PipeCount : Int8
 
-    /**
-     * @type {Integer}
-     */
-    PipeCount {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
-    }
+    PipeArr : USBFN_PIPE_INFORMATION[16]
 
-    /**
-     * @type {USBFN_PIPE_INFORMATION}
-     */
-    PipeArr {
-        get {
-            if(!this.HasProp("__PipeArrProxyArray"))
-                this.__PipeArrProxyArray := Win32FixedArray(this.ptr + 4, 16, USBFN_PIPE_INFORMATION, "")
-            return this.__PipeArrProxyArray
-        }
-    }
 }

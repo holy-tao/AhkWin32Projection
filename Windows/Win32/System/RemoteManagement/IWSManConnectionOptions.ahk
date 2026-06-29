@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import "..\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The IWSManConnectionOptions object is passed to the IWSMan::CreateSession method to provide the user name and password associated with the local account on the remote computer.
@@ -11,26 +12,35 @@
  * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nn-wsmandisp-iwsmanconnectionoptions
  * @namespace Windows.Win32.System.RemoteManagement
  */
-class IWSManConnectionOptions extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IWSManConnectionOptions extends IDispatch {
     /**
      * The interface identifier for IWSManConnectionOptions
      * @type {Guid}
      */
-    static IID => Guid("{f704e861-9e52-464f-b786-da5eb2320fdd}")
+    static IID := Guid("{f704e861-9e52-464f-b786-da5eb2320fdd}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IWSManConnectionOptions interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_UserName : IntPtr
+        put_UserName : IntPtr
+        put_Password : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_UserName", "put_UserName", "put_Password"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IWSManConnectionOptions.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {BSTR} 
@@ -55,8 +65,8 @@ class IWSManConnectionOptions extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanconnectionoptions-get_username
      */
     get_UserName() {
-        name := BSTR()
-        result := ComCall(7, this, "ptr", name, "HRESULT")
+        name := BSTR.Owned()
+        result := ComCall(7, this, BSTR.Ptr, name, "HRESULT")
         return name
     }
 
@@ -71,7 +81,7 @@ class IWSManConnectionOptions extends IDispatch {
     put_UserName(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(8, this, "ptr", name, "HRESULT")
+        result := ComCall(8, this, BSTR, name, "HRESULT")
         return result
     }
 
@@ -84,7 +94,31 @@ class IWSManConnectionOptions extends IDispatch {
     put_Password(password) {
         password := password is String ? BSTR.Alloc(password).Value : password
 
-        result := ComCall(9, this, "ptr", password, "HRESULT")
+        result := ComCall(9, this, BSTR, password, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IWSManConnectionOptions.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_UserName := CallbackCreate(GetMethod(implObj, "get_UserName"), flags, 2)
+        this.vtbl.put_UserName := CallbackCreate(GetMethod(implObj, "put_UserName"), flags, 2)
+        this.vtbl.put_Password := CallbackCreate(GetMethod(implObj, "put_Password"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_UserName)
+        CallbackFree(this.vtbl.put_UserName)
+        CallbackFree(this.vtbl.put_Password)
     }
 }

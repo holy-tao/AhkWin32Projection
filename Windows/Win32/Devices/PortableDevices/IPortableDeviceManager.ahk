@@ -1,39 +1,54 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Enumerates devices that are connected to the computer and provides a simple way to request installation information, including manufacturer, friendly name, and description.
  * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nn-portabledeviceapi-iportabledevicemanager
  * @namespace Windows.Win32.Devices.PortableDevices
  */
-class IPortableDeviceManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IPortableDeviceManager extends IUnknown {
     /**
      * The interface identifier for IPortableDeviceManager
      * @type {Guid}
      */
-    static IID => Guid("{a1567595-4c2f-4574-a6fa-ecef917b9a40}")
+    static IID := Guid("{a1567595-4c2f-4574-a6fa-ecef917b9a40}")
 
     /**
      * The class identifier for PortableDeviceManager
      * @type {Guid}
      */
-    static CLSID => Guid("{0af10cec-2ecd-4b92-9581-34f6ae0637f3}")
+    static CLSID := Guid("{0af10cec-2ecd-4b92-9581-34f6ae0637f3}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IPortableDeviceManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetDevices            : IntPtr
+        RefreshDeviceList     : IntPtr
+        GetDeviceFriendlyName : IntPtr
+        GetDeviceDescription  : IntPtr
+        GetDeviceManufacturer : IntPtr
+        GetDeviceProperty     : IntPtr
+        GetPrivateDevices     : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetDevices", "RefreshDeviceList", "GetDeviceFriendlyName", "GetDeviceDescription", "GetDeviceManufacturer", "GetDeviceProperty", "GetPrivateDevices"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IPortableDeviceManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Retrieves a list of portable devices connected to the computer.
@@ -462,5 +477,37 @@ class IPortableDeviceManager extends IUnknown {
 
         result := ComCall(9, this, pPnPDeviceIDsMarshal, pPnPDeviceIDs, pcPnPDeviceIDsMarshal, pcPnPDeviceIDs, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IPortableDeviceManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetDevices := CallbackCreate(GetMethod(implObj, "GetDevices"), flags, 3)
+        this.vtbl.RefreshDeviceList := CallbackCreate(GetMethod(implObj, "RefreshDeviceList"), flags, 1)
+        this.vtbl.GetDeviceFriendlyName := CallbackCreate(GetMethod(implObj, "GetDeviceFriendlyName"), flags, 4)
+        this.vtbl.GetDeviceDescription := CallbackCreate(GetMethod(implObj, "GetDeviceDescription"), flags, 4)
+        this.vtbl.GetDeviceManufacturer := CallbackCreate(GetMethod(implObj, "GetDeviceManufacturer"), flags, 4)
+        this.vtbl.GetDeviceProperty := CallbackCreate(GetMethod(implObj, "GetDeviceProperty"), flags, 6)
+        this.vtbl.GetPrivateDevices := CallbackCreate(GetMethod(implObj, "GetPrivateDevices"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetDevices)
+        CallbackFree(this.vtbl.RefreshDeviceList)
+        CallbackFree(this.vtbl.GetDeviceFriendlyName)
+        CallbackFree(this.vtbl.GetDeviceDescription)
+        CallbackFree(this.vtbl.GetDeviceManufacturer)
+        CallbackFree(this.vtbl.GetDeviceProperty)
+        CallbackFree(this.vtbl.GetPrivateDevices)
     }
 }

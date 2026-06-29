@@ -1,70 +1,24 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\..\Guid.ahk" { Guid }
 
 /**
  * @namespace Windows.Win32.Devices.Usb
  */
-class USB_HUB_DEVICE_UXD_SETTINGS extends Win32Struct {
-    static sizeof => 56
+export default struct USB_HUB_DEVICE_UXD_SETTINGS {
+    #StructPack 4
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    PnpGuid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    PnpGuid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    OwnerGuid : Guid
 
-    /**
-     * @type {Pointer}
-     */
-    OwnerGuid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    DeleteOnShutdown : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DeleteOnShutdown {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    DeleteOnReload : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DeleteOnReload {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    DeleteOnDisconnect : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    DeleteOnDisconnect {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    Reserved : UInt32[5]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    Reserved {
-        get {
-            if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 36, 5, Primitive, "uint")
-            return this.__ReservedProxyArray
-        }
-    }
 }

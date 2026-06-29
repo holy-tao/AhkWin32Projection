@@ -1,136 +1,45 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\JET_UNICODEINDEX.ahk
-#Include .\JET_TUPLELIMITS.ahk
-#Include .\JET_CONDITIONALCOLUMN_W.ahk
-#Include .\JET_SPACEHINTS.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\JET_SPACEHINTS.ahk" { JET_SPACEHINTS }
+#Import ".\JET_UNICODEINDEX.ahk" { JET_UNICODEINDEX }
+#Import ".\JET_CONDITIONALCOLUMN_W.ahk" { JET_CONDITIONALCOLUMN_W }
+#Import ".\JET_TUPLELIMITS.ahk" { JET_TUPLELIMITS }
 
 /**
  * @namespace Windows.Win32.Storage.Jet
  * @charset Unicode
  */
-class JET_INDEXCREATE2_W extends Win32Struct {
-    static sizeof => 88
+export default struct JET_INDEXCREATE2_W {
+    #StructPack 8
 
-    static packingSize => 8
+    cbStruct : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbStruct {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    szIndexName : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    szIndexName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    szKey : IntPtr
 
-    /**
-     * @type {Pointer<Integer>}
-     */
-    szKey {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
-    }
+    cbKey : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cbKey {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    grbit : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    grbit {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    ulDensity : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ulDensity {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    lcid : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    lcid {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
-    }
+    cbVarSegMac : UInt32
 
-    /**
-     * @type {Pointer<JET_UNICODEINDEX>}
-     */
-    pidxunicode {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    rgconditionalcolumn : JET_CONDITIONALCOLUMN_W.Ptr
 
-    /**
-     * @type {Integer}
-     */
-    cbVarSegMac {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    cConditionalColumn : UInt32
 
-    /**
-     * @type {Pointer<JET_TUPLELIMITS>}
-     */
-    ptuplelimits {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
-    }
+    err : Int32
 
-    /**
-     * @type {Pointer<JET_CONDITIONALCOLUMN_W>}
-     */
-    rgconditionalcolumn {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    cbKeyMost : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    cConditionalColumn {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
-    }
+    pSpacehints : JET_SPACEHINTS.Ptr
 
-    /**
-     * @type {Integer}
-     */
-    err {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    cbKeyMost {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
-
-    /**
-     * @type {Pointer<JET_SPACEHINTS>}
-     */
-    pSpacehints {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+    static __New() {
+        DefineProp(this.Prototype, 'pidxunicode', { type: JET_UNICODEINDEX.Ptr, offset: 40 })
+        DefineProp(this.Prototype, 'ptuplelimits', { type: JET_TUPLELIMITS.Ptr, offset: 48 })
+        this.DeleteProp("__New")
     }
 }

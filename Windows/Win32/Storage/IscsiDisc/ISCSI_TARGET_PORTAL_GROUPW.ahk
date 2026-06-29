@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\ISCSI_TARGET_PORTALW.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\ISCSI_TARGET_PORTALW.ahk" { ISCSI_TARGET_PORTALW }
+#Import "..\..\Foundation\WCHAR.ahk" { WCHAR }
 
 /**
  * ISCSI_TARGET_PORTAL_GROUP. (Unicode)
@@ -11,29 +11,17 @@
  * @namespace Windows.Win32.Storage.IscsiDisc
  * @charset Unicode
  */
-class ISCSI_TARGET_PORTAL_GROUPW extends Win32Struct {
-    static sizeof => 1032
-
-    static packingSize => 4
+export default struct ISCSI_TARGET_PORTAL_GROUPW {
+    #StructPack 4
 
     /**
      * The number of portals in the portal group.
-     * @type {Integer}
      */
-    Count {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Count : UInt32
 
     /**
      * An array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_portala">ISCSI_TARGET_PORTAL</a> structures that describe the portals associated with the portal group. Portal names and addresses are described by either wide-character or ascii strings, depending upon implementation.
-     * @type {ISCSI_TARGET_PORTALW}
      */
-    Portals {
-        get {
-            if(!this.HasProp("__PortalsProxyArray"))
-                this.__PortalsProxyArray := Win32FixedArray(this.ptr + 4, 1, ISCSI_TARGET_PORTALW, "")
-            return this.__PortalsProxyArray
-        }
-    }
+    Portals : ISCSI_TARGET_PORTALW[1]
+
 }

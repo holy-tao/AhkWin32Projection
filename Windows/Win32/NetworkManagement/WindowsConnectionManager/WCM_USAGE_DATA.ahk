@@ -1,39 +1,26 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Foundation\FILETIME.ahk" { FILETIME }
 
 /**
  * Contains information related to connection usage.
  * @see https://learn.microsoft.com/windows/win32/api/wcmapi/ns-wcmapi-wcm_usage_data
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectionManager
  */
-class WCM_USAGE_DATA extends Win32Struct {
-    static sizeof => 12
-
-    static packingSize => 4
+export default struct WCM_USAGE_DATA {
+    #StructPack 4
 
     /**
      * Type: <b>DWORD</b>
      * 
      * The connection usage, in megabytes.
-     * @type {Integer}
      */
-    UsageInMegabytes {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    UsageInMegabytes : UInt32
 
     /**
      * Type: <b>FILETIME</b>
      * 
      * Specifies the last time that usage information was reconciled with the carrier's billing system.
-     * @type {FILETIME}
      */
-    LastSyncTime {
-        get {
-            if(!this.HasProp("__LastSyncTime"))
-                this.__LastSyncTime := FILETIME(4, this)
-            return this.__LastSyncTime
-        }
-    }
+    LastSyncTime : FILETIME
+
 }

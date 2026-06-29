@@ -1,6 +1,5 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\STORAGE_PROTOCOL_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\STORAGE_PROTOCOL_TYPE.ahk" { STORAGE_PROTOCOL_TYPE }
 
 /**
  * Describes protocol-specific device data, provided in the input and output buffer of an IOCTL_STORAGE_QUERY_PROPERTY request.
@@ -61,95 +60,48 @@
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_protocol_specific_data
  * @namespace Windows.Win32.System.Ioctl
  */
-class STORAGE_PROTOCOL_SPECIFIC_DATA extends Win32Struct {
-    static sizeof => 40
-
-    static packingSize => 4
+export default struct STORAGE_PROTOCOL_SPECIFIC_DATA {
+    #StructPack 4
 
     /**
      * The protocol type. Values for this member are defined in the <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ne-winioctl-storage_protocol_type">STORAGE_PROTOCOL_TYPE</a> enumeration.
-     * @type {STORAGE_PROTOCOL_TYPE}
      */
-    ProtocolType {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    ProtocolType : STORAGE_PROTOCOL_TYPE
 
     /**
      * The protocol data type. Data types are defined in the <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ne-winioctl-storage_protocol_nvme_data_type">STORAGE_PROTOCOL_NVME_DATA_TYPE</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ne-winioctl-storage_protocol_ata_data_type">STORAGE_PROTOCOL_ATA_DATA_TYPE</a> enumerations.
-     * @type {Integer}
      */
-    DataType {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    DataType : UInt32
 
     /**
      * The protocol data request value.
-     * @type {Integer}
      */
-    ProtocolDataRequestValue {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    ProtocolDataRequestValue : UInt32
 
     /**
      * The sub value of the protocol data request.
-     * @type {Integer}
      */
-    ProtocolDataRequestSubValue {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    ProtocolDataRequestSubValue : UInt32
 
     /**
      * The offset of the data buffer that is from the beginning of this structure. The typical value can be sizeof(<b>STORAGE_PROTOCOL_SPECIFIC_DATA</b>).
-     * @type {Integer}
      */
-    ProtocolDataOffset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
+    ProtocolDataOffset : UInt32
 
     /**
      * The length of the protocol data.
-     * @type {Integer}
      */
-    ProtocolDataLength {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
-    }
+    ProtocolDataLength : UInt32
 
     /**
      * The returned data.
-     * @type {Integer}
      */
-    FixedProtocolReturnData {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
+    FixedProtocolReturnData : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProtocolDataRequestSubValue2 {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
-    }
+    ProtocolDataRequestSubValue2 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProtocolDataRequestSubValue3 {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    ProtocolDataRequestSubValue3 : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    ProtocolDataRequestSubValue4 {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
-    }
+    ProtocolDataRequestSubValue4 : UInt32
+
 }

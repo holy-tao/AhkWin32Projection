@@ -1,34 +1,53 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDispatch.ahk
-#Include ..\..\Foundation\RECT.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\System\Com\IDispatch.ahk" { IDispatch }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\Foundation\RECT.ahk" { RECT }
 
 /**
  * . (IInkRectangle)
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkrectangle
  * @namespace Windows.Win32.UI.TabletPC
  */
-class IInkRectangle extends IDispatch {
-
-    static sizeof => A_PtrSize
+export default struct IInkRectangle extends IDispatch {
     /**
      * The interface identifier for IInkRectangle
      * @type {Guid}
      */
-    static IID => Guid("{9794ff82-6071-4717-8a8b-6ac7c64a686e}")
+    static IID := Guid("{9794ff82-6071-4717-8a8b-6ac7c64a686e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 7
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IInkRectangle interfaces
+    */
+    struct Vtbl extends IDispatch.Vtbl {
+        get_Top      : IntPtr
+        put_Top      : IntPtr
+        get_Left     : IntPtr
+        put_Left     : IntPtr
+        get_Bottom   : IntPtr
+        put_Bottom   : IntPtr
+        get_Right    : IntPtr
+        put_Right    : IntPtr
+        get_Data     : IntPtr
+        put_Data     : IntPtr
+        GetRectangle : IntPtr
+        SetRectangle : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Top", "put_Top", "get_Left", "put_Left", "get_Bottom", "put_Bottom", "get_Right", "put_Right", "get_Data", "put_Data", "GetRectangle", "SetRectangle"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IInkRectangle.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -185,7 +204,7 @@ class IInkRectangle extends IDispatch {
      */
     get_Data() {
         _Rect := RECT()
-        result := ComCall(15, this, "ptr", _Rect, "HRESULT")
+        result := ComCall(15, this, RECT.Ptr, _Rect, "HRESULT")
         return _Rect
     }
 
@@ -196,7 +215,7 @@ class IInkRectangle extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrectangle-put_data
      */
     put_Data(_Rect) {
-        result := ComCall(16, this, "ptr", _Rect, "HRESULT")
+        result := ComCall(16, this, RECT, _Rect, "HRESULT")
         return result
     }
 
@@ -314,5 +333,47 @@ class IInkRectangle extends IDispatch {
     SetRectangle(Top, Left, Bottom, Right) {
         result := ComCall(18, this, "int", Top, "int", Left, "int", Bottom, "int", Right, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IInkRectangle.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Top := CallbackCreate(GetMethod(implObj, "get_Top"), flags, 2)
+        this.vtbl.put_Top := CallbackCreate(GetMethod(implObj, "put_Top"), flags, 2)
+        this.vtbl.get_Left := CallbackCreate(GetMethod(implObj, "get_Left"), flags, 2)
+        this.vtbl.put_Left := CallbackCreate(GetMethod(implObj, "put_Left"), flags, 2)
+        this.vtbl.get_Bottom := CallbackCreate(GetMethod(implObj, "get_Bottom"), flags, 2)
+        this.vtbl.put_Bottom := CallbackCreate(GetMethod(implObj, "put_Bottom"), flags, 2)
+        this.vtbl.get_Right := CallbackCreate(GetMethod(implObj, "get_Right"), flags, 2)
+        this.vtbl.put_Right := CallbackCreate(GetMethod(implObj, "put_Right"), flags, 2)
+        this.vtbl.get_Data := CallbackCreate(GetMethod(implObj, "get_Data"), flags, 2)
+        this.vtbl.put_Data := CallbackCreate(GetMethod(implObj, "put_Data"), flags, 2)
+        this.vtbl.GetRectangle := CallbackCreate(GetMethod(implObj, "GetRectangle"), flags, 5)
+        this.vtbl.SetRectangle := CallbackCreate(GetMethod(implObj, "SetRectangle"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Top)
+        CallbackFree(this.vtbl.put_Top)
+        CallbackFree(this.vtbl.get_Left)
+        CallbackFree(this.vtbl.put_Left)
+        CallbackFree(this.vtbl.get_Bottom)
+        CallbackFree(this.vtbl.put_Bottom)
+        CallbackFree(this.vtbl.get_Right)
+        CallbackFree(this.vtbl.put_Right)
+        CallbackFree(this.vtbl.get_Data)
+        CallbackFree(this.vtbl.put_Data)
+        CallbackFree(this.vtbl.GetRectangle)
+        CallbackFree(this.vtbl.SetRectangle)
     }
 }

@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * A value that indicates the typographic feature of text supplied by the font.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_feature_tag
  * @namespace Windows.Win32.Graphics.DirectWrite
  */
-class DWRITE_FONT_FEATURE_TAG extends Win32Enum {
+export default struct DWRITE_FONT_FEATURE_TAG {
+    value : UInt32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * Replaces figures separated by a slash with an alternative form.

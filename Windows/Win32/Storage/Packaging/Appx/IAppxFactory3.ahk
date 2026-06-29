@@ -1,36 +1,48 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IAppxPackageReader.ahk
-#Include .\IAppxManifestReader.ahk
-#Include .\IAppxAppInstallerReader.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IAppxAppInstallerReader.ahk" { IAppxAppInstallerReader }
+#Import ".\IAppxManifestReader.ahk" { IAppxManifestReader }
+#Import "..\..\..\System\Com\IStream.ahk" { IStream }
+#Import ".\IAppxPackageReader.ahk" { IAppxPackageReader }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * Creates objects for reading and writing app packages, manifests, and app installer files.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxfactory3
  * @namespace Windows.Win32.Storage.Packaging.Appx
  */
-class IAppxFactory3 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IAppxFactory3 extends IUnknown {
     /**
      * The interface identifier for IAppxFactory3
      * @type {Guid}
      */
-    static IID => Guid("{776b2c05-e21d-4e24-ba1a-cd529a8bfdbb}")
+    static IID := Guid("{776b2c05-e21d-4e24-ba1a-cd529a8bfdbb}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IAppxFactory3 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        CreatePackageReader2     : IntPtr
+        CreateManifestReader2    : IntPtr
+        CreateAppInstallerReader : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["CreatePackageReader2", "CreateManifestReader2", "CreateAppInstallerReader"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IAppxFactory3.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Creates a read-only package reader from the contents provided by an IStream, with an optional parameter for specifying the expected digest for the package.
@@ -82,5 +94,29 @@ class IAppxFactory3 extends IUnknown {
 
         result := ComCall(5, this, "ptr", inputStream, "ptr", expectedDigest, "ptr*", &appInstallerReader := 0, "HRESULT")
         return IAppxAppInstallerReader(appInstallerReader)
+    }
+
+    Query(iid) {
+        if (IAppxFactory3.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.CreatePackageReader2 := CallbackCreate(GetMethod(implObj, "CreatePackageReader2"), flags, 4)
+        this.vtbl.CreateManifestReader2 := CallbackCreate(GetMethod(implObj, "CreateManifestReader2"), flags, 4)
+        this.vtbl.CreateAppInstallerReader := CallbackCreate(GetMethod(implObj, "CreateAppInstallerReader"), flags, 4)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.CreatePackageReader2)
+        CallbackFree(this.vtbl.CreateManifestReader2)
+        CallbackFree(this.vtbl.CreateAppInstallerReader)
     }
 }

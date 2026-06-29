@@ -1,13 +1,17 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IOpcSignaturePartReferenceSet.ahk
-#Include .\IOpcSignatureRelationshipReferenceSet.ahk
-#Include .\IOpcSignatureCustomObjectSet.ahk
-#Include .\IOpcSignatureReferenceSet.ahk
-#Include .\IOpcCertificateSet.ahk
-#Include .\IOpcPartUri.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import ".\IOpcCertificateSet.ahk" { IOpcCertificateSet }
+#Import ".\IOpcPartUri.ahk" { IOpcPartUri }
+#Import ".\IOpcSignatureRelationshipReferenceSet.ahk" { IOpcSignatureRelationshipReferenceSet }
+#Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\IOpcSignatureReferenceSet.ahk" { IOpcSignatureReferenceSet }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IOpcSignatureCustomObjectSet.ahk" { IOpcSignatureCustomObjectSet }
+#Import ".\OPC_CERTIFICATE_EMBEDDING_OPTION.ahk" { OPC_CERTIFICATE_EMBEDDING_OPTION }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
+#Import ".\OPC_SIGNATURE_TIME_FORMAT.ahk" { OPC_SIGNATURE_TIME_FORMAT }
+#Import ".\IOpcSignaturePartReferenceSet.ahk" { IOpcSignaturePartReferenceSet }
 
 /**
  * Provides methods to set and access information required to generate a signature.
@@ -28,26 +32,49 @@
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcsigningoptions
  * @namespace Windows.Win32.Storage.Packaging.Opc
  */
-class IOpcSigningOptions extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IOpcSigningOptions extends IUnknown {
     /**
      * The interface identifier for IOpcSigningOptions
      * @type {Guid}
      */
-    static IID => Guid("{50d2d6a5-7aeb-46c0-b241-43ab0e9b407e}")
+    static IID := Guid("{50d2d6a5-7aeb-46c0-b241-43ab0e9b407e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IOpcSigningOptions interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetSignatureId                       : IntPtr
+        SetSignatureId                       : IntPtr
+        GetSignatureMethod                   : IntPtr
+        SetSignatureMethod                   : IntPtr
+        GetDefaultDigestMethod               : IntPtr
+        SetDefaultDigestMethod               : IntPtr
+        GetCertificateEmbeddingOption        : IntPtr
+        SetCertificateEmbeddingOption        : IntPtr
+        GetTimeFormat                        : IntPtr
+        SetTimeFormat                        : IntPtr
+        GetSignaturePartReferenceSet         : IntPtr
+        GetSignatureRelationshipReferenceSet : IntPtr
+        GetCustomObjectSet                   : IntPtr
+        GetCustomReferenceSet                : IntPtr
+        GetCertificateSet                    : IntPtr
+        GetSignaturePartName                 : IntPtr
+        SetSignaturePartName                 : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetSignatureId", "SetSignatureId", "GetSignatureMethod", "SetSignatureMethod", "GetDefaultDigestMethod", "SetDefaultDigestMethod", "GetCertificateEmbeddingOption", "SetCertificateEmbeddingOption", "GetTimeFormat", "SetTimeFormat", "GetSignaturePartReferenceSet", "GetSignatureRelationshipReferenceSet", "GetCustomObjectSet", "GetCustomReferenceSet", "GetCertificateSet", "GetSignaturePartName", "SetSignaturePartName"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IOpcSigningOptions.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Gets the value of the Id attribute from the Signature element.
@@ -63,7 +90,7 @@ class IOpcSigningOptions extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-getsignatureid
      */
     GetSignatureId() {
-        result := ComCall(3, this, "ptr*", &signatureId := 0, "HRESULT")
+        result := ComCall(3, this, PWSTR.Ptr, &signatureId := 0, "HRESULT")
         return signatureId
     }
 
@@ -131,7 +158,7 @@ class IOpcSigningOptions extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-getsignaturemethod
      */
     GetSignatureMethod() {
-        result := ComCall(5, this, "ptr*", &signatureMethod := 0, "HRESULT")
+        result := ComCall(5, this, PWSTR.Ptr, &signatureMethod := 0, "HRESULT")
         return signatureMethod
     }
 
@@ -198,7 +225,7 @@ class IOpcSigningOptions extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-getdefaultdigestmethod
      */
     GetDefaultDigestMethod() {
-        result := ComCall(7, this, "ptr*", &digestMethod := 0, "HRESULT")
+        result := ComCall(7, this, PWSTR.Ptr, &digestMethod := 0, "HRESULT")
         return digestMethod
     }
 
@@ -301,7 +328,7 @@ class IOpcSigningOptions extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-setcertificateembeddingoption
      */
     SetCertificateEmbeddingOption(embeddingOption) {
-        result := ComCall(10, this, "int", embeddingOption, "HRESULT")
+        result := ComCall(10, this, OPC_CERTIFICATE_EMBEDDING_OPTION, embeddingOption, "HRESULT")
         return result
     }
 
@@ -359,7 +386,7 @@ class IOpcSigningOptions extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-settimeformat
      */
     SetTimeFormat(timeFormat) {
-        result := ComCall(12, this, "int", timeFormat, "HRESULT")
+        result := ComCall(12, this, OPC_SIGNATURE_TIME_FORMAT, timeFormat, "HRESULT")
         return result
     }
 
@@ -474,5 +501,57 @@ class IOpcSigningOptions extends IUnknown {
     SetSignaturePartName(signaturePartName) {
         result := ComCall(19, this, "ptr", signaturePartName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IOpcSigningOptions.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetSignatureId := CallbackCreate(GetMethod(implObj, "GetSignatureId"), flags, 2)
+        this.vtbl.SetSignatureId := CallbackCreate(GetMethod(implObj, "SetSignatureId"), flags, 2)
+        this.vtbl.GetSignatureMethod := CallbackCreate(GetMethod(implObj, "GetSignatureMethod"), flags, 2)
+        this.vtbl.SetSignatureMethod := CallbackCreate(GetMethod(implObj, "SetSignatureMethod"), flags, 2)
+        this.vtbl.GetDefaultDigestMethod := CallbackCreate(GetMethod(implObj, "GetDefaultDigestMethod"), flags, 2)
+        this.vtbl.SetDefaultDigestMethod := CallbackCreate(GetMethod(implObj, "SetDefaultDigestMethod"), flags, 2)
+        this.vtbl.GetCertificateEmbeddingOption := CallbackCreate(GetMethod(implObj, "GetCertificateEmbeddingOption"), flags, 2)
+        this.vtbl.SetCertificateEmbeddingOption := CallbackCreate(GetMethod(implObj, "SetCertificateEmbeddingOption"), flags, 2)
+        this.vtbl.GetTimeFormat := CallbackCreate(GetMethod(implObj, "GetTimeFormat"), flags, 2)
+        this.vtbl.SetTimeFormat := CallbackCreate(GetMethod(implObj, "SetTimeFormat"), flags, 2)
+        this.vtbl.GetSignaturePartReferenceSet := CallbackCreate(GetMethod(implObj, "GetSignaturePartReferenceSet"), flags, 2)
+        this.vtbl.GetSignatureRelationshipReferenceSet := CallbackCreate(GetMethod(implObj, "GetSignatureRelationshipReferenceSet"), flags, 2)
+        this.vtbl.GetCustomObjectSet := CallbackCreate(GetMethod(implObj, "GetCustomObjectSet"), flags, 2)
+        this.vtbl.GetCustomReferenceSet := CallbackCreate(GetMethod(implObj, "GetCustomReferenceSet"), flags, 2)
+        this.vtbl.GetCertificateSet := CallbackCreate(GetMethod(implObj, "GetCertificateSet"), flags, 2)
+        this.vtbl.GetSignaturePartName := CallbackCreate(GetMethod(implObj, "GetSignaturePartName"), flags, 2)
+        this.vtbl.SetSignaturePartName := CallbackCreate(GetMethod(implObj, "SetSignaturePartName"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetSignatureId)
+        CallbackFree(this.vtbl.SetSignatureId)
+        CallbackFree(this.vtbl.GetSignatureMethod)
+        CallbackFree(this.vtbl.SetSignatureMethod)
+        CallbackFree(this.vtbl.GetDefaultDigestMethod)
+        CallbackFree(this.vtbl.SetDefaultDigestMethod)
+        CallbackFree(this.vtbl.GetCertificateEmbeddingOption)
+        CallbackFree(this.vtbl.SetCertificateEmbeddingOption)
+        CallbackFree(this.vtbl.GetTimeFormat)
+        CallbackFree(this.vtbl.SetTimeFormat)
+        CallbackFree(this.vtbl.GetSignaturePartReferenceSet)
+        CallbackFree(this.vtbl.GetSignatureRelationshipReferenceSet)
+        CallbackFree(this.vtbl.GetCustomObjectSet)
+        CallbackFree(this.vtbl.GetCustomReferenceSet)
+        CallbackFree(this.vtbl.GetCertificateSet)
+        CallbackFree(this.vtbl.GetSignaturePartName)
+        CallbackFree(this.vtbl.SetSignaturePartName)
     }
 }

@@ -1,7 +1,10 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\DXCoreAdapterProperty.ahk" { DXCoreAdapterProperty }
+#Import ".\DXCoreAdapterState.ahk" { DXCoreAdapterState }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The **IDXCoreAdapter** interface implements methods for retrieving details about an adapter item.
@@ -10,26 +13,42 @@
  * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nn-dxcore_interface-idxcoreadapter
  * @namespace Windows.Win32.Graphics.DXCore
  */
-class IDXCoreAdapter extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDXCoreAdapter extends IUnknown {
     /**
      * The interface identifier for IDXCoreAdapter
      * @type {Guid}
      */
-    static IID => Guid("{f0db4c7f-fe5a-42a2-bd62-f2a6cf6fc83e}")
+    static IID := Guid("{f0db4c7f-fe5a-42a2-bd62-f2a6cf6fc83e}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDXCoreAdapter interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        IsValid               : IntPtr
+        IsAttributeSupported  : IntPtr
+        IsPropertySupported   : IntPtr
+        GetProperty           : IntPtr
+        GetPropertySize       : IntPtr
+        IsQueryStateSupported : IntPtr
+        QueryState            : IntPtr
+        IsSetStateSupported   : IntPtr
+        SetState              : IntPtr
+        GetFactory            : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["IsValid", "IsAttributeSupported", "IsPropertySupported", "GetProperty", "GetPropertySize", "IsQueryStateSupported", "QueryState", "IsSetStateSupported", "SetState", "GetFactory"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDXCoreAdapter.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Determines whether this DXCore adapter object is still valid.
@@ -39,7 +58,7 @@ class IDXCoreAdapter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-isvalid
      */
     IsValid() {
-        result := ComCall(3, this, "int")
+        result := ComCall(3, this, Int32)
         return result
     }
 
@@ -52,7 +71,7 @@ class IDXCoreAdapter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-isattributesupported
      */
     IsAttributeSupported(attributeGUID) {
-        result := ComCall(4, this, "ptr", attributeGUID, "int")
+        result := ComCall(4, this, Guid.Ptr, attributeGUID, Int32)
         return result
     }
 
@@ -65,7 +84,7 @@ class IDXCoreAdapter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-ispropertysupported
      */
     IsPropertySupported(_property) {
-        result := ComCall(5, this, "uint", _property, "int")
+        result := ComCall(5, this, DXCoreAdapterProperty, _property, Int32)
         return result
     }
 
@@ -93,7 +112,7 @@ class IDXCoreAdapter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-getproperty
      */
     GetProperty(_property, bufferSize, propertyData) {
-        result := ComCall(6, this, "uint", _property, "ptr", bufferSize, "ptr", propertyData, "HRESULT")
+        result := ComCall(6, this, DXCoreAdapterProperty, _property, "ptr", bufferSize, "ptr", propertyData, "HRESULT")
         return result
     }
 
@@ -108,7 +127,7 @@ class IDXCoreAdapter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-getpropertysize
      */
     GetPropertySize(_property) {
-        result := ComCall(7, this, "uint", _property, "ptr*", &bufferSize := 0, "HRESULT")
+        result := ComCall(7, this, DXCoreAdapterProperty, _property, "ptr*", &bufferSize := 0, "HRESULT")
         return bufferSize
     }
 
@@ -121,7 +140,7 @@ class IDXCoreAdapter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-isquerystatesupported
      */
     IsQueryStateSupported(_property) {
-        result := ComCall(8, this, "uint", _property, "int")
+        result := ComCall(8, this, DXCoreAdapterState, _property, Int32)
         return result
     }
 
@@ -156,7 +175,7 @@ class IDXCoreAdapter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-querystate
      */
     QueryState(state, inputStateDetailsSize, inputStateDetails, outputBufferSize, outputBuffer) {
-        result := ComCall(9, this, "uint", state, "ptr", inputStateDetailsSize, "ptr", inputStateDetails, "ptr", outputBufferSize, "ptr", outputBuffer, "HRESULT")
+        result := ComCall(9, this, DXCoreAdapterState, state, "ptr", inputStateDetailsSize, "ptr", inputStateDetails, "ptr", outputBufferSize, "ptr", outputBuffer, "HRESULT")
         return result
     }
 
@@ -169,7 +188,7 @@ class IDXCoreAdapter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-issetstatesupported
      */
     IsSetStateSupported(_property) {
-        result := ComCall(10, this, "uint", _property, "int")
+        result := ComCall(10, this, DXCoreAdapterState, _property, Int32)
         return result
     }
 
@@ -202,7 +221,7 @@ class IDXCoreAdapter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-setstate
      */
     SetState(state, inputStateDetailsSize, inputStateDetails, inputDataSize, inputData) {
-        result := ComCall(11, this, "uint", state, "ptr", inputStateDetailsSize, "ptr", inputStateDetails, "ptr", inputDataSize, "ptr", inputData, "HRESULT")
+        result := ComCall(11, this, DXCoreAdapterState, state, "ptr", inputStateDetailsSize, "ptr", inputStateDetails, "ptr", inputDataSize, "ptr", inputData, "HRESULT")
         return result
     }
 
@@ -219,7 +238,45 @@ class IDXCoreAdapter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-getfactory
      */
     GetFactory(riid) {
-        result := ComCall(12, this, "ptr", riid, "ptr*", &ppvFactory := 0, "HRESULT")
+        result := ComCall(12, this, Guid.Ptr, riid, "ptr*", &ppvFactory := 0, "HRESULT")
         return ppvFactory
+    }
+
+    Query(iid) {
+        if (IDXCoreAdapter.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.IsValid := CallbackCreate(GetMethod(implObj, "IsValid"), flags, 1)
+        this.vtbl.IsAttributeSupported := CallbackCreate(GetMethod(implObj, "IsAttributeSupported"), flags, 2)
+        this.vtbl.IsPropertySupported := CallbackCreate(GetMethod(implObj, "IsPropertySupported"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 4)
+        this.vtbl.GetPropertySize := CallbackCreate(GetMethod(implObj, "GetPropertySize"), flags, 3)
+        this.vtbl.IsQueryStateSupported := CallbackCreate(GetMethod(implObj, "IsQueryStateSupported"), flags, 2)
+        this.vtbl.QueryState := CallbackCreate(GetMethod(implObj, "QueryState"), flags, 6)
+        this.vtbl.IsSetStateSupported := CallbackCreate(GetMethod(implObj, "IsSetStateSupported"), flags, 2)
+        this.vtbl.SetState := CallbackCreate(GetMethod(implObj, "SetState"), flags, 6)
+        this.vtbl.GetFactory := CallbackCreate(GetMethod(implObj, "GetFactory"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.IsValid)
+        CallbackFree(this.vtbl.IsAttributeSupported)
+        CallbackFree(this.vtbl.IsPropertySupported)
+        CallbackFree(this.vtbl.GetProperty)
+        CallbackFree(this.vtbl.GetPropertySize)
+        CallbackFree(this.vtbl.IsQueryStateSupported)
+        CallbackFree(this.vtbl.QueryState)
+        CallbackFree(this.vtbl.IsSetStateSupported)
+        CallbackFree(this.vtbl.SetState)
+        CallbackFree(this.vtbl.GetFactory)
     }
 }

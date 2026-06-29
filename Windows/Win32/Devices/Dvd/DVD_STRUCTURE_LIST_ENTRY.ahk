@@ -1,33 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
  */
-class DVD_STRUCTURE_LIST_ENTRY extends Win32Struct {
-    static sizeof => 4
+export default struct DVD_STRUCTURE_LIST_ENTRY {
+    #StructPack 1
 
-    static packingSize => 1
-
-    /**
-     * @type {Integer}
-     */
-    FormatCode {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
-    }
+    FormatCode : Int8
 
     /**
      * This bitfield backs the following members:
      * - Reserved0
      * - Readable
      * - Sendable
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
-    }
+    _bitfield : Int8
+
 
     /**
      * @type {Integer}
@@ -52,15 +40,6 @@ class DVD_STRUCTURE_LIST_ENTRY extends Win32Struct {
         get => (this._bitfield >> 7) & 0x1
         set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
     }
+    FormatLength : Int8[2]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    FormatLength {
-        get {
-            if(!this.HasProp("__FormatLengthProxyArray"))
-                this.__FormatLengthProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")
-            return this.__FormatLengthProxyArray
-        }
-    }
 }

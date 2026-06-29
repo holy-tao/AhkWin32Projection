@@ -1,8 +1,9 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
-#Include .\ILocationReport.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ILocationReport.ahk" { ILocationReport }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * IDefaultLocation provides methods used to specify or retrieve the default location.
@@ -12,32 +13,40 @@
  * @see https://learn.microsoft.com/windows/win32/api/locationapi/nn-locationapi-idefaultlocation
  * @namespace Windows.Win32.Devices.Geolocation
  */
-class IDefaultLocation extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDefaultLocation extends IUnknown {
     /**
      * The interface identifier for IDefaultLocation
      * @type {Guid}
      */
-    static IID => Guid("{a65af77e-969a-4a2e-8aca-33bb7cbb1235}")
+    static IID := Guid("{a65af77e-969a-4a2e-8aca-33bb7cbb1235}")
 
     /**
      * The class identifier for DefaultLocation
      * @type {Guid}
      */
-    static CLSID => Guid("{8b7fbfe0-5cd7-494a-af8c-283a65707506}")
+    static CLSID := Guid("{8b7fbfe0-5cd7-494a-af8c-283a65707506}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDefaultLocation interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        SetReport : IntPtr
+        GetReport : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["SetReport", "GetReport"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDefaultLocation.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Sets the default location.
@@ -96,7 +105,7 @@ class IDefaultLocation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-idefaultlocation-setreport
      */
     SetReport(reportType, pLocationReport) {
-        result := ComCall(3, this, "ptr", reportType, "ptr", pLocationReport, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, reportType, "ptr", pLocationReport, "HRESULT")
         return result
     }
 
@@ -111,7 +120,29 @@ class IDefaultLocation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-idefaultlocation-getreport
      */
     GetReport(reportType) {
-        result := ComCall(4, this, "ptr", reportType, "ptr*", &ppLocationReport := 0, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, reportType, "ptr*", &ppLocationReport := 0, "HRESULT")
         return ILocationReport(ppLocationReport)
+    }
+
+    Query(iid) {
+        if (IDefaultLocation.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.SetReport := CallbackCreate(GetMethod(implObj, "SetReport"), flags, 3)
+        this.vtbl.GetReport := CallbackCreate(GetMethod(implObj, "GetReport"), flags, 3)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.SetReport)
+        CallbackFree(this.vtbl.GetReport)
     }
 }

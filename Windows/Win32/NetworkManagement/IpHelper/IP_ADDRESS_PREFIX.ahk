@@ -1,12 +1,12 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_INET.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_IN.ahk
-#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
-#Include ..\..\Networking\WinSock\IN_ADDR.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
-#Include ..\..\Networking\WinSock\IN6_ADDR.ahk
-#Include ..\..\Networking\WinSock\SCOPE_ID.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\Networking\WinSock\IN_ADDR.ahk" { IN_ADDR }
+#Import "..\..\Networking\WinSock\SOCKADDR_INET.ahk" { SOCKADDR_INET }
+#Import "..\..\Networking\WinSock\SOCKADDR_IN.ahk" { SOCKADDR_IN }
+#Import "..\..\Networking\WinSock\IN6_ADDR.ahk" { IN6_ADDR }
+#Import "..\..\Networking\WinSock\SOCKADDR_IN6.ahk" { SOCKADDR_IN6 }
+#Import "..\..\Networking\WinSock\SCOPE_ID.ahk" { SCOPE_ID }
+#Import "..\..\Networking\WinSock\ADDRESS_FAMILY.ahk" { ADDRESS_FAMILY }
+#Import "..\..\Foundation\CHAR.ahk" { CHAR }
 
 /**
  * Stores an IP address prefix. (IP_ADDRESS_PREFIX)
@@ -17,32 +17,20 @@
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-ip_address_prefix
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  */
-class IP_ADDRESS_PREFIX extends Win32Struct {
-    static sizeof => 52
-
-    static packingSize => 4
+export default struct IP_ADDRESS_PREFIX {
+    #StructPack 4
 
     /**
      * The prefix or network part of IP the address represented as an IP address.
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/ws2ipdef/ns-ws2ipdef-sockaddr_inet">SOCKADDR_INET</a> union is defined in the <i>Ws2ipdef.h</i> header.
-     * @type {SOCKADDR_INET}
      */
-    Prefix {
-        get {
-            if(!this.HasProp("__Prefix"))
-                this.__Prefix := SOCKADDR_INET(0, this)
-            return this.__Prefix
-        }
-    }
+    Prefix : SOCKADDR_INET
 
     /**
      * The length, in bits, of the prefix or network part of the IP address. For a unicast IPv4 address, any value greater than 32 is an illegal value. For a unicast IPv6 address, any value greater than 128 is an illegal value. 
      * A value of 255 is commonly used to represent an illegal value.
-     * @type {Integer}
      */
-    PrefixLength {
-        get => NumGet(this, 48, "char")
-        set => NumPut("char", value, this, 48)
-    }
+    PrefixLength : Int8
+
 }

@@ -1,35 +1,68 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\IDxcBlobEncoding.ahk
-#Include .\IDxcBlobUtf16.ahk
-#Include .\IDxcBlob.ahk
-#Include .\IDxcVersionInfo.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\IDxcVersionInfo.ahk" { IDxcVersionInfo }
+#Import ".\IDxcBlobEncoding.ahk" { IDxcBlobEncoding }
+#Import "..\..\..\Foundation\BOOL.ahk" { BOOL }
+#Import ".\IDxcBlob.ahk" { IDxcBlob }
+#Import ".\IDxcBlobUtf16.ahk" { IDxcBlobUtf16 }
+#Import "..\..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
  */
-class IDxcPdbUtils2 extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IDxcPdbUtils2 extends IUnknown {
     /**
      * The interface identifier for IDxcPdbUtils2
      * @type {Guid}
      */
-    static IID => Guid("{4315d938-f369-4f93-95a2-252017cc3807}")
+    static IID := Guid("{4315d938-f369-4f93-95a2-252017cc3807}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IDxcPdbUtils2 interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        Load                   : IntPtr
+        GetSourceCount         : IntPtr
+        GetSource              : IntPtr
+        GetSourceName          : IntPtr
+        GetLibraryPDBCount     : IntPtr
+        GetLibraryPDB          : IntPtr
+        GetFlagCount           : IntPtr
+        GetFlag                : IntPtr
+        GetArgCount            : IntPtr
+        GetArg                 : IntPtr
+        GetArgPairCount        : IntPtr
+        GetArgPair             : IntPtr
+        GetDefineCount         : IntPtr
+        GetDefine              : IntPtr
+        GetTargetProfile       : IntPtr
+        GetEntryPoint          : IntPtr
+        GetMainFileName        : IntPtr
+        GetHash                : IntPtr
+        GetName                : IntPtr
+        GetVersionInfo         : IntPtr
+        GetCustomToolchainID   : IntPtr
+        GetCustomToolchainData : IntPtr
+        GetWholeDxil           : IntPtr
+        IsFullPDB              : IntPtr
+        IsPDBRef               : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["Load", "GetSourceCount", "GetSource", "GetSourceName", "GetLibraryPDBCount", "GetLibraryPDB", "GetFlagCount", "GetFlag", "GetArgCount", "GetArg", "GetArgPairCount", "GetArgPair", "GetDefineCount", "GetDefine", "GetTargetProfile", "GetEntryPoint", "GetMainFileName", "GetHash", "GetName", "GetVersionInfo", "GetCustomToolchainID", "GetCustomToolchainData", "GetWholeDxil", "IsFullPDB", "IsPDBRef"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IDxcPdbUtils2.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * Reads texel data without any filtering or sampling.
@@ -156,7 +189,7 @@ class IDxcPdbUtils2 extends IUnknown {
      * @returns {HRESULT} 
      */
     GetLibraryPDB(uIndex, ppOutPdbUtils, ppLibraryName) {
-        result := ComCall(8, this, "uint", uIndex, "ptr*", ppOutPdbUtils, "ptr*", ppLibraryName, "HRESULT")
+        result := ComCall(8, this, "uint", uIndex, IDxcPdbUtils2.Ptr, ppOutPdbUtils, IDxcBlobUtf16.Ptr, ppLibraryName, "HRESULT")
         return result
     }
 
@@ -215,7 +248,7 @@ class IDxcPdbUtils2 extends IUnknown {
      * @returns {HRESULT} 
      */
     GetArgPair(uIndex, ppName, ppValue) {
-        result := ComCall(14, this, "uint", uIndex, "ptr*", ppName, "ptr*", ppValue, "HRESULT")
+        result := ComCall(14, this, "uint", uIndex, IDxcBlobUtf16.Ptr, ppName, IDxcBlobUtf16.Ptr, ppValue, "HRESULT")
         return result
     }
 
@@ -325,7 +358,7 @@ class IDxcPdbUtils2 extends IUnknown {
      * @returns {BOOL} 
      */
     IsFullPDB() {
-        result := ComCall(26, this, "int")
+        result := ComCall(26, this, BOOL)
         return result
     }
 
@@ -334,7 +367,75 @@ class IDxcPdbUtils2 extends IUnknown {
      * @returns {BOOL} 
      */
     IsPDBRef() {
-        result := ComCall(27, this, "int")
+        result := ComCall(27, this, BOOL)
         return result
+    }
+
+    Query(iid) {
+        if (IDxcPdbUtils2.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.Load := CallbackCreate(GetMethod(implObj, "Load"), flags, 2)
+        this.vtbl.GetSourceCount := CallbackCreate(GetMethod(implObj, "GetSourceCount"), flags, 2)
+        this.vtbl.GetSource := CallbackCreate(GetMethod(implObj, "GetSource"), flags, 3)
+        this.vtbl.GetSourceName := CallbackCreate(GetMethod(implObj, "GetSourceName"), flags, 3)
+        this.vtbl.GetLibraryPDBCount := CallbackCreate(GetMethod(implObj, "GetLibraryPDBCount"), flags, 2)
+        this.vtbl.GetLibraryPDB := CallbackCreate(GetMethod(implObj, "GetLibraryPDB"), flags, 4)
+        this.vtbl.GetFlagCount := CallbackCreate(GetMethod(implObj, "GetFlagCount"), flags, 2)
+        this.vtbl.GetFlag := CallbackCreate(GetMethod(implObj, "GetFlag"), flags, 3)
+        this.vtbl.GetArgCount := CallbackCreate(GetMethod(implObj, "GetArgCount"), flags, 2)
+        this.vtbl.GetArg := CallbackCreate(GetMethod(implObj, "GetArg"), flags, 3)
+        this.vtbl.GetArgPairCount := CallbackCreate(GetMethod(implObj, "GetArgPairCount"), flags, 2)
+        this.vtbl.GetArgPair := CallbackCreate(GetMethod(implObj, "GetArgPair"), flags, 4)
+        this.vtbl.GetDefineCount := CallbackCreate(GetMethod(implObj, "GetDefineCount"), flags, 2)
+        this.vtbl.GetDefine := CallbackCreate(GetMethod(implObj, "GetDefine"), flags, 3)
+        this.vtbl.GetTargetProfile := CallbackCreate(GetMethod(implObj, "GetTargetProfile"), flags, 2)
+        this.vtbl.GetEntryPoint := CallbackCreate(GetMethod(implObj, "GetEntryPoint"), flags, 2)
+        this.vtbl.GetMainFileName := CallbackCreate(GetMethod(implObj, "GetMainFileName"), flags, 2)
+        this.vtbl.GetHash := CallbackCreate(GetMethod(implObj, "GetHash"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetVersionInfo := CallbackCreate(GetMethod(implObj, "GetVersionInfo"), flags, 2)
+        this.vtbl.GetCustomToolchainID := CallbackCreate(GetMethod(implObj, "GetCustomToolchainID"), flags, 2)
+        this.vtbl.GetCustomToolchainData := CallbackCreate(GetMethod(implObj, "GetCustomToolchainData"), flags, 2)
+        this.vtbl.GetWholeDxil := CallbackCreate(GetMethod(implObj, "GetWholeDxil"), flags, 2)
+        this.vtbl.IsFullPDB := CallbackCreate(GetMethod(implObj, "IsFullPDB"), flags, 1)
+        this.vtbl.IsPDBRef := CallbackCreate(GetMethod(implObj, "IsPDBRef"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.Load)
+        CallbackFree(this.vtbl.GetSourceCount)
+        CallbackFree(this.vtbl.GetSource)
+        CallbackFree(this.vtbl.GetSourceName)
+        CallbackFree(this.vtbl.GetLibraryPDBCount)
+        CallbackFree(this.vtbl.GetLibraryPDB)
+        CallbackFree(this.vtbl.GetFlagCount)
+        CallbackFree(this.vtbl.GetFlag)
+        CallbackFree(this.vtbl.GetArgCount)
+        CallbackFree(this.vtbl.GetArg)
+        CallbackFree(this.vtbl.GetArgPairCount)
+        CallbackFree(this.vtbl.GetArgPair)
+        CallbackFree(this.vtbl.GetDefineCount)
+        CallbackFree(this.vtbl.GetDefine)
+        CallbackFree(this.vtbl.GetTargetProfile)
+        CallbackFree(this.vtbl.GetEntryPoint)
+        CallbackFree(this.vtbl.GetMainFileName)
+        CallbackFree(this.vtbl.GetHash)
+        CallbackFree(this.vtbl.GetName)
+        CallbackFree(this.vtbl.GetVersionInfo)
+        CallbackFree(this.vtbl.GetCustomToolchainID)
+        CallbackFree(this.vtbl.GetCustomToolchainData)
+        CallbackFree(this.vtbl.GetWholeDxil)
+        CallbackFree(this.vtbl.IsFullPDB)
+        CallbackFree(this.vtbl.IsPDBRef)
     }
 }

@@ -1,55 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\DEVICE_STORAGE_ADDRESS_RANGE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\DEVICE_STORAGE_ADDRESS_RANGE.ahk" { DEVICE_STORAGE_ADDRESS_RANGE }
 
 /**
  * @namespace Windows.Win32.System.Ioctl
  */
-class DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT extends Win32Struct {
-    static sizeof => 32
+export default struct DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT {
+    #StructPack 8
 
-    static packingSize => 8
+    Version : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Version {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    Flags : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    Flags {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
-    }
+    TotalNumberOfRanges : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    TotalNumberOfRanges {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
-    }
+    NumberOfRangesReturned : UInt32
 
-    /**
-     * @type {Integer}
-     */
-    NumberOfRangesReturned {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
-    }
+    Ranges : DEVICE_STORAGE_ADDRESS_RANGE[1]
 
-    /**
-     * @type {DEVICE_STORAGE_ADDRESS_RANGE}
-     */
-    Ranges {
-        get {
-            if(!this.HasProp("__RangesProxyArray"))
-                this.__RangesProxyArray := Win32FixedArray(this.ptr + 16, 1, DEVICE_STORAGE_ADDRESS_RANGE, "")
-            return this.__RangesProxyArray
-        }
-    }
 }

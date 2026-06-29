@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * CLUSTER_REG_COMMAND (msclus.h) enumerates the possible cluster registry commands that a local node will perform when attempting to join a cluster.
@@ -8,7 +7,17 @@
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_reg_command
  * @namespace Windows.Win32.Networking.Clustering
  */
-class CLUSTER_REG_COMMAND extends Win32Enum {
+export default struct CLUSTER_REG_COMMAND {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * This constant is not a valid command. It and the <b>CLUSREG_LAST_COMMAND</b> constant act as brackets  that contain the valid commands.

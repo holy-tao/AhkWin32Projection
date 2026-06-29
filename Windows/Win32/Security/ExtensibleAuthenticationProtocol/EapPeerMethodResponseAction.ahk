@@ -1,12 +1,21 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Enum.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Defines the set of actions an EAP authenticator can indicate to a supplicant or EAP peer method during authentication.
  * @see https://learn.microsoft.com/windows/win32/api/eapauthenticatoractiondefine/ne-eapauthenticatoractiondefine-eappeermethodresponseaction
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  */
-class EapPeerMethodResponseAction extends Win32Enum {
+export default struct EapPeerMethodResponseAction {
+    value : Int32
+
+    __value {
+        get => this.value
+        set => this.value := value
+    }
+
+    __New(value := 0) {
+        this.value := value
+    }
 
     /**
      * The supplicant should discard the request as it is not usable by EAP.

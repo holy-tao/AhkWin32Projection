@@ -1,31 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\RTC_PORT_TYPE.ahk" { RTC_PORT_TYPE }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
  */
-class IRTCPortManager extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct IRTCPortManager extends IUnknown {
     /**
      * The interface identifier for IRTCPortManager
      * @type {Guid}
      */
-    static IID => Guid("{da77c14b-6208-43ca-8ddf-5b60a0a69fac}")
+    static IID := Guid("{da77c14b-6208-43ca-8ddf-5b60a0a69fac}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for IRTCPortManager interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        GetMapping          : IntPtr
+        UpdateRemoteAddress : IntPtr
+        ReleaseMapping      : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["GetMapping", "UpdateRemoteAddress", "ReleaseMapping"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := IRTCPortManager.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * 
@@ -43,7 +55,7 @@ class IRTCPortManager extends IUnknown {
         plInternalLocalPortMarshal := plInternalLocalPort is VarRef ? "int*" : "ptr"
         plExternalLocalPortMarshal := plExternalLocalPort is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", bstrRemoteAddress, "int", enPortType, "ptr", pbstrInternalLocalAddress, plInternalLocalPortMarshal, plInternalLocalPort, "ptr", pbstrExternalLocalAddress, plExternalLocalPortMarshal, plExternalLocalPort, "HRESULT")
+        result := ComCall(3, this, BSTR, bstrRemoteAddress, RTC_PORT_TYPE, enPortType, BSTR.Ptr, pbstrInternalLocalAddress, plInternalLocalPortMarshal, plInternalLocalPort, BSTR.Ptr, pbstrExternalLocalAddress, plExternalLocalPortMarshal, plExternalLocalPort, "HRESULT")
         return result
     }
 
@@ -61,7 +73,7 @@ class IRTCPortManager extends IUnknown {
         bstrInternalLocalAddress := bstrInternalLocalAddress is String ? BSTR.Alloc(bstrInternalLocalAddress).Value : bstrInternalLocalAddress
         bstrExternalLocalAddress := bstrExternalLocalAddress is String ? BSTR.Alloc(bstrExternalLocalAddress).Value : bstrExternalLocalAddress
 
-        result := ComCall(4, this, "ptr", bstrRemoteAddress, "ptr", bstrInternalLocalAddress, "int", lInternalLocalPort, "ptr", bstrExternalLocalAddress, "int", lExternalLocalPort, "HRESULT")
+        result := ComCall(4, this, BSTR, bstrRemoteAddress, BSTR, bstrInternalLocalAddress, "int", lInternalLocalPort, BSTR, bstrExternalLocalAddress, "int", lExternalLocalPort, "HRESULT")
         return result
     }
 
@@ -77,7 +89,31 @@ class IRTCPortManager extends IUnknown {
         bstrInternalLocalAddress := bstrInternalLocalAddress is String ? BSTR.Alloc(bstrInternalLocalAddress).Value : bstrInternalLocalAddress
         bstrExternalLocalAddress := bstrExternalLocalAddress is String ? BSTR.Alloc(bstrExternalLocalAddress).Value : bstrExternalLocalAddress
 
-        result := ComCall(5, this, "ptr", bstrInternalLocalAddress, "int", lInternalLocalPort, "ptr", bstrExternalLocalAddress, "int", lExternalLocalAddress, "HRESULT")
+        result := ComCall(5, this, BSTR, bstrInternalLocalAddress, "int", lInternalLocalPort, BSTR, bstrExternalLocalAddress, "int", lExternalLocalAddress, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (IRTCPortManager.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.GetMapping := CallbackCreate(GetMethod(implObj, "GetMapping"), flags, 7)
+        this.vtbl.UpdateRemoteAddress := CallbackCreate(GetMethod(implObj, "UpdateRemoteAddress"), flags, 6)
+        this.vtbl.ReleaseMapping := CallbackCreate(GetMethod(implObj, "ReleaseMapping"), flags, 5)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.GetMapping)
+        CallbackFree(this.vtbl.UpdateRemoteAddress)
+        CallbackFree(this.vtbl.ReleaseMapping)
     }
 }

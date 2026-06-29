@@ -1,26 +1,20 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains parameters for the NVME Read and NVME Write commands that read or write data and metadata, if applicable, to and from the NVM controller for the specified Logical Block Addresses (LBA).
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw15_read_write
  * @namespace Windows.Win32.Storage.Nvme
  */
-class NVME_CDW15_READ_WRITE extends Win32Struct {
-    static sizeof => 8
-
-    static packingSize => 4
+export default struct NVME_CDW15_READ_WRITE {
+    #StructPack 4
 
     /**
      * This bitfield backs the following members:
      * - ELBAT
      * - ELBATM
-     * @type {Integer}
      */
-    _bitfield {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    _bitfield : Int32
+
 
     /**
      * @type {Integer}
@@ -37,12 +31,8 @@ class NVME_CDW15_READ_WRITE extends Win32Struct {
         get => (this._bitfield >> 16) & 0xFFFF
         set => this._bitfield := ((value & 0xFFFF) << 16) | (this._bitfield & ~(0xFFFF << 16))
     }
-
-    /**
-     * @type {Integer}
-     */
-    AsUlong {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    static __New() {
+        DefineProp(this.Prototype, 'AsUlong', { type: UInt32, offset: 0 })
+        this.DeleteProp("__New")
     }
 }

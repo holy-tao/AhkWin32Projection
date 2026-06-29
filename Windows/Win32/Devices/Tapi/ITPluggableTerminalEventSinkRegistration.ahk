@@ -1,33 +1,43 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import ".\ITPluggableTerminalEventSink.ahk" { ITPluggableTerminalEventSink }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import "..\..\System\Com\IUnknown.ahk" { IUnknown }
 
 /**
  * The ITPluggableTerminalEventSinkRegistration (msp.h) interface registers and unregisters a client application for pluggable terminal events.
  * @see https://learn.microsoft.com/windows/win32/api/msp/nn-msp-itpluggableterminaleventsinkregistration
  * @namespace Windows.Win32.Devices.Tapi
  */
-class ITPluggableTerminalEventSinkRegistration extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct ITPluggableTerminalEventSinkRegistration extends IUnknown {
     /**
      * The interface identifier for ITPluggableTerminalEventSinkRegistration
      * @type {Guid}
      */
-    static IID => Guid("{f7115709-a216-4957-a759-060ab32a90d1}")
+    static IID := Guid("{f7115709-a216-4957-a759-060ab32a90d1}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for ITPluggableTerminalEventSinkRegistration interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        RegisterSink   : IntPtr
+        UnregisterSink : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["RegisterSink", "UnregisterSink"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := ITPluggableTerminalEventSinkRegistration.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * The ITPluggableTerminalEventSinkRegistration::RegisterSink (msp.h) method registers the application for pluggable terminal event notification.
@@ -49,5 +59,27 @@ class ITPluggableTerminalEventSinkRegistration extends IUnknown {
     UnregisterSink() {
         result := ComCall(4, this, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (ITPluggableTerminalEventSinkRegistration.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.RegisterSink := CallbackCreate(GetMethod(implObj, "RegisterSink"), flags, 2)
+        this.vtbl.UnregisterSink := CallbackCreate(GetMethod(implObj, "UnregisterSink"), flags, 1)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.RegisterSink)
+        CallbackFree(this.vtbl.UnregisterSink)
     }
 }

@@ -1,42 +1,30 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
-#Include .\PEER_INVITATION_RESPONSE_TYPE.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import ".\PEER_INVITATION_RESPONSE_TYPE.ahk" { PEER_INVITATION_RESPONSE_TYPE }
+#Import "..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
 
 /**
  * The PEER_INVITATION_RESPONSE structure contains a response to an invitation to join a peer collaboration activity.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_invitation_response
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
-class PEER_INVITATION_RESPONSE extends Win32Struct {
-    static sizeof => 24
-
-    static packingSize => 8
+export default struct PEER_INVITATION_RESPONSE {
+    #StructPack 8
 
     /**
      * [PEER_INVITATION_RESPONSE_TYPE](./ne-p2p-peer_invitation_response_type.md) enumeration value that specifies the action the peer takes in response to the invitation.
      * @deprecated
-     * @type {PEER_INVITATION_RESPONSE_TYPE}
      */
-    action {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
-    }
+    action : PEER_INVITATION_RESPONSE_TYPE
 
     /**
      * Reserved. This member must be set to <b>NULL</b>, and is set exclusively by the Peer Collaboration infrastructure.
-     * @type {PWSTR}
      */
-    pwzMessage {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
-    }
+    pwzMessage : PWSTR
 
     /**
      * Any extended information that is part of the response. This can include an error code corresponding to the failure on the recipient of the invitation.
-     * @type {HRESULT}
      */
-    hrExtendedInfo {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
-    }
+    hrExtendedInfo : HRESULT
+
 }

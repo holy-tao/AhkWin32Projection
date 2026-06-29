@@ -1,5 +1,4 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
 
 /**
  * Contains an object identifier and user-defined metadata associated with the object identifier.
@@ -8,64 +7,22 @@
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-file_objectid_buffer
  * @namespace Windows.Win32.System.Ioctl
  */
-class FILE_OBJECTID_BUFFER extends Win32Struct {
-    static sizeof => 64
-
-    static packingSize => 1
+export default struct FILE_OBJECTID_BUFFER {
+    #StructPack 1
 
     /**
      * The identifier that uniquely identifies the file or directory within the volume on which it resides.
-     * @type {Array<Integer>}
      */
-    ObjectId {
-        get {
-            if(!this.HasProp("__ObjectIdProxyArray"))
-                this.__ObjectIdProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
-            return this.__ObjectIdProxyArray
-        }
-    }
+    ObjectId : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    BirthVolumeId {
-        get {
-            if(!this.HasProp("__BirthVolumeIdProxyArray"))
-                this.__BirthVolumeIdProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
-            return this.__BirthVolumeIdProxyArray
-        }
-    }
+    BirthVolumeId : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    BirthObjectId {
-        get {
-            if(!this.HasProp("__BirthObjectIdProxyArray"))
-                this.__BirthObjectIdProxyArray := Win32FixedArray(this.ptr + 32, 16, Primitive, "char")
-            return this.__BirthObjectIdProxyArray
-        }
-    }
+    BirthObjectId : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    DomainId {
-        get {
-            if(!this.HasProp("__DomainIdProxyArray"))
-                this.__DomainIdProxyArray := Win32FixedArray(this.ptr + 48, 16, Primitive, "char")
-            return this.__DomainIdProxyArray
-        }
-    }
+    DomainId : Int8[16]
 
-    /**
-     * @type {Array<Integer>}
-     */
-    ExtendedInfo {
-        get {
-            if(!this.HasProp("__ExtendedInfoProxyArray"))
-                this.__ExtendedInfoProxyArray := Win32FixedArray(this.ptr + 16, 48, Primitive, "char")
-            return this.__ExtendedInfoProxyArray
-        }
+    static __New() {
+        DefineProp(this.Prototype, 'ExtendedInfo', { type: Int8[48], offset: 16 })
+        this.DeleteProp("__New")
     }
 }

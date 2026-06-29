@@ -1,42 +1,151 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\Win32ComInterface.ahk
-#Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
-#Include ..\Ole\IFontDisp.ahk
-#Include .\ICounters.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ICounterItem.ahk
-#Include .\ILogFiles.ahk
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
+#Import "..\..\..\..\Win32ComInterface.ahk" { Win32ComInterface }
+#Import "..\..\..\..\Guid.ahk" { Guid }
+#Import "..\..\Foundation\HRESULT.ahk" { HRESULT }
+#Import ".\ReportValueTypeConstants.ahk" { ReportValueTypeConstants }
+#Import ".\SysmonFileType.ahk" { SysmonFileType }
+#Import ".\DataSourceTypeConstants.ahk" { DataSourceTypeConstants }
+#Import ".\SysmonBatchReason.ahk" { SysmonBatchReason }
+#Import "..\..\Foundation\BSTR.ahk" { BSTR }
+#Import ".\DisplayTypeConstants.ahk" { DisplayTypeConstants }
+#Import ".\ICounters.ahk" { ICounters }
+#Import ".\ICounterItem.ahk" { ICounterItem }
+#Import "..\Ole\IFontDisp.ahk" { IFontDisp }
+#Import "..\Com\IUnknown.ahk" { IUnknown }
+#Import ".\ILogFiles.ahk" { ILogFiles }
+#Import "..\..\Foundation\VARIANT_BOOL.ahk" { VARIANT_BOOL }
 
 /**
  * @namespace Windows.Win32.System.Performance
  */
-class _ISystemMonitorUnion extends IUnknown {
-
-    static sizeof => A_PtrSize
+export default struct _ISystemMonitorUnion extends IUnknown {
     /**
      * The interface identifier for _ISystemMonitorUnion
      * @type {Guid}
      */
-    static IID => Guid("{c8a77338-265f-4de5-aa25-c7da1ce5a8f4}")
+    static IID := Guid("{c8a77338-265f-4de5-aa25-c7da1ce5a8f4}")
 
     /**
      * The class identifier for _ISystemMonitorUnion
      * @type {Guid}
      */
-    static CLSID => Guid("{c8a77338-265f-4de5-aa25-c7da1ce5a8f4}")
+    static CLSID := Guid("{c8a77338-265f-4de5-aa25-c7da1ce5a8f4}")
+
+    static __New() {
+        ; Retype our prototype's vtable pointer to be our vtbl's type
+        DefineProp(this.Prototype, 'vtbl', { type: this.Vtbl.Ptr, offset: 0 })
+        this.DeleteProp("__New")
+    }
 
     /**
-     * The offset into the COM object's virtual function table at which this interface's methods begin.
-     * @type {Integer}
-     */
-    static vTableOffset => 3
+     * The {@link https://devblogs.microsoft.com/oldnewthing/20040205-00/?p=40733 Virtual Function Table}
+     * used for _ISystemMonitorUnion interfaces
+    */
+    struct Vtbl extends IUnknown.Vtbl {
+        get_Appearance                : IntPtr
+        put_Appearance                : IntPtr
+        get_BackColor                 : IntPtr
+        put_BackColor                 : IntPtr
+        get_BorderStyle               : IntPtr
+        put_BorderStyle               : IntPtr
+        get_ForeColor                 : IntPtr
+        put_ForeColor                 : IntPtr
+        get_Font                      : IntPtr
+        putref_Font                   : IntPtr
+        get_Counters                  : IntPtr
+        put_ShowVerticalGrid          : IntPtr
+        get_ShowVerticalGrid          : IntPtr
+        put_ShowHorizontalGrid        : IntPtr
+        get_ShowHorizontalGrid        : IntPtr
+        put_ShowLegend                : IntPtr
+        get_ShowLegend                : IntPtr
+        put_ShowScaleLabels           : IntPtr
+        get_ShowScaleLabels           : IntPtr
+        put_ShowValueBar              : IntPtr
+        get_ShowValueBar              : IntPtr
+        put_MaximumScale              : IntPtr
+        get_MaximumScale              : IntPtr
+        put_MinimumScale              : IntPtr
+        get_MinimumScale              : IntPtr
+        put_UpdateInterval            : IntPtr
+        get_UpdateInterval            : IntPtr
+        put_DisplayType               : IntPtr
+        get_DisplayType               : IntPtr
+        put_ManualUpdate              : IntPtr
+        get_ManualUpdate              : IntPtr
+        put_GraphTitle                : IntPtr
+        get_GraphTitle                : IntPtr
+        put_YAxisLabel                : IntPtr
+        get_YAxisLabel                : IntPtr
+        CollectSample                 : IntPtr
+        UpdateGraph                   : IntPtr
+        BrowseCounters                : IntPtr
+        DisplayProperties             : IntPtr
+        Counter                       : IntPtr
+        AddCounter                    : IntPtr
+        DeleteCounter                 : IntPtr
+        get_BackColorCtl              : IntPtr
+        put_BackColorCtl              : IntPtr
+        put_LogFileName               : IntPtr
+        get_LogFileName               : IntPtr
+        put_LogViewStart              : IntPtr
+        get_LogViewStart              : IntPtr
+        put_LogViewStop               : IntPtr
+        get_LogViewStop               : IntPtr
+        get_GridColor                 : IntPtr
+        put_GridColor                 : IntPtr
+        get_TimeBarColor              : IntPtr
+        put_TimeBarColor              : IntPtr
+        get_Highlight                 : IntPtr
+        put_Highlight                 : IntPtr
+        get_ShowToolbar               : IntPtr
+        put_ShowToolbar               : IntPtr
+        Paste                         : IntPtr
+        Copy                          : IntPtr
+        Reset                         : IntPtr
+        put_ReadOnly                  : IntPtr
+        get_ReadOnly                  : IntPtr
+        put_ReportValueType           : IntPtr
+        get_ReportValueType           : IntPtr
+        put_MonitorDuplicateInstances : IntPtr
+        get_MonitorDuplicateInstances : IntPtr
+        put_DisplayFilter             : IntPtr
+        get_DisplayFilter             : IntPtr
+        get_LogFiles                  : IntPtr
+        put_DataSourceType            : IntPtr
+        get_DataSourceType            : IntPtr
+        put_SqlDsnName                : IntPtr
+        get_SqlDsnName                : IntPtr
+        put_SqlLogSetName             : IntPtr
+        get_SqlLogSetName             : IntPtr
+        put_EnableDigitGrouping       : IntPtr
+        get_EnableDigitGrouping       : IntPtr
+        put_EnableToolTips            : IntPtr
+        get_EnableToolTips            : IntPtr
+        put_ShowTimeAxisLabels        : IntPtr
+        get_ShowTimeAxisLabels        : IntPtr
+        put_ChartScroll               : IntPtr
+        get_ChartScroll               : IntPtr
+        put_DataPointCount            : IntPtr
+        get_DataPointCount            : IntPtr
+        ScaleToFit                    : IntPtr
+        SaveAs                        : IntPtr
+        Relog                         : IntPtr
+        ClearData                     : IntPtr
+        get_LogSourceStartTime        : IntPtr
+        get_LogSourceStopTime         : IntPtr
+        SetLogViewRange               : IntPtr
+        GetLogViewRange               : IntPtr
+        BatchingLock                  : IntPtr
+        LoadSettings                  : IntPtr
+    }
 
-    /**
-     * @readonly used when implementing interfaces to order function pointers
-     * @type {Array<String>}
-     */
-    static VTableNames => ["get_Appearance", "put_Appearance", "get_BackColor", "put_BackColor", "get_BorderStyle", "put_BorderStyle", "get_ForeColor", "put_ForeColor", "get_Font", "putref_Font", "get_Counters", "put_ShowVerticalGrid", "get_ShowVerticalGrid", "put_ShowHorizontalGrid", "get_ShowHorizontalGrid", "put_ShowLegend", "get_ShowLegend", "put_ShowScaleLabels", "get_ShowScaleLabels", "put_ShowValueBar", "get_ShowValueBar", "put_MaximumScale", "get_MaximumScale", "put_MinimumScale", "get_MinimumScale", "put_UpdateInterval", "get_UpdateInterval", "put_DisplayType", "get_DisplayType", "put_ManualUpdate", "get_ManualUpdate", "put_GraphTitle", "get_GraphTitle", "put_YAxisLabel", "get_YAxisLabel", "CollectSample", "UpdateGraph", "BrowseCounters", "DisplayProperties", "Counter", "AddCounter", "DeleteCounter", "get_BackColorCtl", "put_BackColorCtl", "put_LogFileName", "get_LogFileName", "put_LogViewStart", "get_LogViewStart", "put_LogViewStop", "get_LogViewStop", "get_GridColor", "put_GridColor", "get_TimeBarColor", "put_TimeBarColor", "get_Highlight", "put_Highlight", "get_ShowToolbar", "put_ShowToolbar", "Paste", "Copy", "Reset", "put_ReadOnly", "get_ReadOnly", "put_ReportValueType", "get_ReportValueType", "put_MonitorDuplicateInstances", "get_MonitorDuplicateInstances", "put_DisplayFilter", "get_DisplayFilter", "get_LogFiles", "put_DataSourceType", "get_DataSourceType", "put_SqlDsnName", "get_SqlDsnName", "put_SqlLogSetName", "get_SqlLogSetName", "put_EnableDigitGrouping", "get_EnableDigitGrouping", "put_EnableToolTips", "get_EnableToolTips", "put_ShowTimeAxisLabels", "get_ShowTimeAxisLabels", "put_ChartScroll", "get_ChartScroll", "put_DataPointCount", "get_DataPointCount", "ScaleToFit", "SaveAs", "Relog", "ClearData", "get_LogSourceStartTime", "get_LogSourceStopTime", "SetLogViewRange", "GetLogViewRange", "BatchingLock", "LoadSettings"]
+    __New(implObj := 0, flags := "") {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
+            this.vtbl := _ISystemMonitorUnion.Vtbl()
+        }
+        super.__New(implObj, flags)
+    }
 
     /**
      * @type {Integer} 
@@ -471,7 +580,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_ShowVerticalGrid(bState) {
-        result := ComCall(14, this, "short", bState, "HRESULT")
+        result := ComCall(14, this, VARIANT_BOOL, bState, "HRESULT")
         return result
     }
 
@@ -480,7 +589,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {VARIANT_BOOL} 
      */
     get_ShowVerticalGrid() {
-        result := ComCall(15, this, "short*", &pbState := 0, "HRESULT")
+        result := ComCall(15, this, VARIANT_BOOL.Ptr, &pbState := 0, "HRESULT")
         return pbState
     }
 
@@ -490,7 +599,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_ShowHorizontalGrid(bState) {
-        result := ComCall(16, this, "short", bState, "HRESULT")
+        result := ComCall(16, this, VARIANT_BOOL, bState, "HRESULT")
         return result
     }
 
@@ -499,7 +608,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {VARIANT_BOOL} 
      */
     get_ShowHorizontalGrid() {
-        result := ComCall(17, this, "short*", &pbState := 0, "HRESULT")
+        result := ComCall(17, this, VARIANT_BOOL.Ptr, &pbState := 0, "HRESULT")
         return pbState
     }
 
@@ -509,7 +618,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_ShowLegend(bState) {
-        result := ComCall(18, this, "short", bState, "HRESULT")
+        result := ComCall(18, this, VARIANT_BOOL, bState, "HRESULT")
         return result
     }
 
@@ -518,7 +627,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {VARIANT_BOOL} 
      */
     get_ShowLegend() {
-        result := ComCall(19, this, "short*", &pbState := 0, "HRESULT")
+        result := ComCall(19, this, VARIANT_BOOL.Ptr, &pbState := 0, "HRESULT")
         return pbState
     }
 
@@ -528,7 +637,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_ShowScaleLabels(bState) {
-        result := ComCall(20, this, "short", bState, "HRESULT")
+        result := ComCall(20, this, VARIANT_BOOL, bState, "HRESULT")
         return result
     }
 
@@ -537,7 +646,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {VARIANT_BOOL} 
      */
     get_ShowScaleLabels() {
-        result := ComCall(21, this, "short*", &pbState := 0, "HRESULT")
+        result := ComCall(21, this, VARIANT_BOOL.Ptr, &pbState := 0, "HRESULT")
         return pbState
     }
 
@@ -547,7 +656,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_ShowValueBar(bState) {
-        result := ComCall(22, this, "short", bState, "HRESULT")
+        result := ComCall(22, this, VARIANT_BOOL, bState, "HRESULT")
         return result
     }
 
@@ -556,7 +665,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {VARIANT_BOOL} 
      */
     get_ShowValueBar() {
-        result := ComCall(23, this, "short*", &pbState := 0, "HRESULT")
+        result := ComCall(23, this, VARIANT_BOOL.Ptr, &pbState := 0, "HRESULT")
         return pbState
     }
 
@@ -623,7 +732,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_DisplayType(eDisplayType) {
-        result := ComCall(30, this, "int", eDisplayType, "HRESULT")
+        result := ComCall(30, this, DisplayTypeConstants, eDisplayType, "HRESULT")
         return result
     }
 
@@ -642,7 +751,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_ManualUpdate(bState) {
-        result := ComCall(32, this, "short", bState, "HRESULT")
+        result := ComCall(32, this, VARIANT_BOOL, bState, "HRESULT")
         return result
     }
 
@@ -651,7 +760,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {VARIANT_BOOL} 
      */
     get_ManualUpdate() {
-        result := ComCall(33, this, "short*", &pbState := 0, "HRESULT")
+        result := ComCall(33, this, VARIANT_BOOL.Ptr, &pbState := 0, "HRESULT")
         return pbState
     }
 
@@ -663,7 +772,7 @@ class _ISystemMonitorUnion extends IUnknown {
     put_GraphTitle(bsTitle) {
         bsTitle := bsTitle is String ? BSTR.Alloc(bsTitle).Value : bsTitle
 
-        result := ComCall(34, this, "ptr", bsTitle, "HRESULT")
+        result := ComCall(34, this, BSTR, bsTitle, "HRESULT")
         return result
     }
 
@@ -672,8 +781,8 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {BSTR} 
      */
     get_GraphTitle() {
-        pbsTitle := BSTR()
-        result := ComCall(35, this, "ptr", pbsTitle, "HRESULT")
+        pbsTitle := BSTR.Owned()
+        result := ComCall(35, this, BSTR.Ptr, pbsTitle, "HRESULT")
         return pbsTitle
     }
 
@@ -685,7 +794,7 @@ class _ISystemMonitorUnion extends IUnknown {
     put_YAxisLabel(bsTitle) {
         bsTitle := bsTitle is String ? BSTR.Alloc(bsTitle).Value : bsTitle
 
-        result := ComCall(36, this, "ptr", bsTitle, "HRESULT")
+        result := ComCall(36, this, BSTR, bsTitle, "HRESULT")
         return result
     }
 
@@ -694,8 +803,8 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {BSTR} 
      */
     get_YAxisLabel() {
-        pbsTitle := BSTR()
-        result := ComCall(37, this, "ptr", pbsTitle, "HRESULT")
+        pbsTitle := BSTR.Owned()
+        result := ComCall(37, this, BSTR.Ptr, pbsTitle, "HRESULT")
         return pbsTitle
     }
 
@@ -736,14 +845,9 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * Removes the providers registration.
-     * @remarks
-     * Your provider calls this function. The function calls the [**PerfStopProvider**](/windows/desktop/api/Perflib/nf-perflib-perfstopprovider) function to remove the provider's registration.
      * 
-     * The [**CTRPP**](ctrpp.md) tool generates this inline function when you specify the **-o** argument. The function's name includes a *prefix* string if you specify the **-prefix** argument (for example, ***prefix*CounterCleanup**.
      * @param {Integer} iIndex 
      * @returns {ICounterItem} 
-     * @see https://learn.microsoft.com/windows/win32/PerfCtrs/countercleanup
      */
     Counter(iIndex) {
         result := ComCall(42, this, "int", iIndex, "ptr*", &ppICounter := 0, "HRESULT")
@@ -758,7 +862,7 @@ class _ISystemMonitorUnion extends IUnknown {
     AddCounter(bsPath) {
         bsPath := bsPath is String ? BSTR.Alloc(bsPath).Value : bsPath
 
-        result := ComCall(43, this, "ptr", bsPath, "ptr*", &ppICounter := 0, "HRESULT")
+        result := ComCall(43, this, BSTR, bsPath, "ptr*", &ppICounter := 0, "HRESULT")
         return ICounterItem(ppICounter)
     }
 
@@ -799,7 +903,7 @@ class _ISystemMonitorUnion extends IUnknown {
     put_LogFileName(bsFileName) {
         bsFileName := bsFileName is String ? BSTR.Alloc(bsFileName).Value : bsFileName
 
-        result := ComCall(47, this, "ptr", bsFileName, "HRESULT")
+        result := ComCall(47, this, BSTR, bsFileName, "HRESULT")
         return result
     }
 
@@ -808,8 +912,8 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {BSTR} 
      */
     get_LogFileName() {
-        bsFileName := BSTR()
-        result := ComCall(48, this, "ptr", bsFileName, "HRESULT")
+        bsFileName := BSTR.Owned()
+        result := ComCall(48, this, BSTR.Ptr, bsFileName, "HRESULT")
         return bsFileName
     }
 
@@ -894,7 +998,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {VARIANT_BOOL} 
      */
     get_Highlight() {
-        result := ComCall(57, this, "short*", &pbState := 0, "HRESULT")
+        result := ComCall(57, this, VARIANT_BOOL.Ptr, &pbState := 0, "HRESULT")
         return pbState
     }
 
@@ -904,7 +1008,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_Highlight(bState) {
-        result := ComCall(58, this, "short", bState, "HRESULT")
+        result := ComCall(58, this, VARIANT_BOOL, bState, "HRESULT")
         return result
     }
 
@@ -913,7 +1017,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {VARIANT_BOOL} 
      */
     get_ShowToolbar() {
-        result := ComCall(59, this, "short*", &pbState := 0, "HRESULT")
+        result := ComCall(59, this, VARIANT_BOOL.Ptr, &pbState := 0, "HRESULT")
         return pbState
     }
 
@@ -923,7 +1027,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_ShowToolbar(bState) {
-        result := ComCall(60, this, "short", bState, "HRESULT")
+        result := ComCall(60, this, VARIANT_BOOL, bState, "HRESULT")
         return result
     }
 
@@ -937,15 +1041,8 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * Copies the specified accelerator table. This function is used to obtain the accelerator-table data that corresponds to an accelerator-table handle, or to determine the size of the accelerator-table data. (Unicode)
-     * @remarks
-     * > [!NOTE]
-     * > The winuser.h header defines CopyAcceleratorTable as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @returns {HRESULT} Type: <b>int</b>
      * 
-     * If 
-     *       <i>lpAccelDst</i> is <b>NULL</b>, the return value specifies the number of accelerator-table entries in the original table. Otherwise, it specifies the number of accelerator-table entries that were copied.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-copyacceleratortablew
+     * @returns {HRESULT} 
      */
     Copy() {
         result := ComCall(62, this, "HRESULT")
@@ -953,24 +1050,8 @@ class _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * Resets the time-out period or other mechanism that TPM manufacturers implement to protect against dictionary attacks on TPM authorization values.
-     * @remarks
-     * This method calls the TPM\_ResetLockValue command on the TPM. The exact behavior of this method varies among TPM manufacturers. Documentation from the computer or TPM manufacturer may provide additional information on the implementation of the anti-dictionary attack mechanism.
      * 
-     * In general, manufacturers can detect dictionary attacks by keeping track of failed authentications. If the number or frequency of failures become high enough, the TPM will lock out further commands for a certain time. Generally, the initial time-out period will be short, to allow a legitimate user a chance to correct the situation. If failures continue, the duration of each subsequent time-out period may increase rapidly.
-     * 
-     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
-     * @returns {HRESULT} Type: **uint32**
-     * 
-     * All TPM errors as well as errors specific to TPM Base Services can be returned. The following table lists some of the common return values.
-     * 
-     * 
-     * 
-     * | Return code/value                                                                                                                                                            | Description                                                                                                                                                                                                                                                               |
-     * |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl>                            | The method was successful.<br/>                                                                                                                                                                                                                                     |
-     * | <dl> <dt>**TPM\_E\_AUTHFAIL**</dt> <dt>2150105089 (0x80280001)</dt> </dl> | The provided owner authorization value is incorrect. Additional attempts at resetting the lock will fail with this same error. Please wait until the time-out period or other manufacturer-specific mechanism has expired before retrying locked TPM commands.<br/> |
-     * @see https://learn.microsoft.com/windows/win32/SecProv/resetauthlockout-win32-tpm
+     * @returns {HRESULT} 
      */
     Reset() {
         result := ComCall(63, this, "HRESULT")
@@ -983,7 +1064,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_ReadOnly(bState) {
-        result := ComCall(64, this, "short", bState, "HRESULT")
+        result := ComCall(64, this, VARIANT_BOOL, bState, "HRESULT")
         return result
     }
 
@@ -992,7 +1073,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {VARIANT_BOOL} 
      */
     get_ReadOnly() {
-        result := ComCall(65, this, "short*", &pbState := 0, "HRESULT")
+        result := ComCall(65, this, VARIANT_BOOL.Ptr, &pbState := 0, "HRESULT")
         return pbState
     }
 
@@ -1002,7 +1083,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_ReportValueType(eReportValueType) {
-        result := ComCall(66, this, "int", eReportValueType, "HRESULT")
+        result := ComCall(66, this, ReportValueTypeConstants, eReportValueType, "HRESULT")
         return result
     }
 
@@ -1021,7 +1102,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_MonitorDuplicateInstances(bState) {
-        result := ComCall(68, this, "short", bState, "HRESULT")
+        result := ComCall(68, this, VARIANT_BOOL, bState, "HRESULT")
         return result
     }
 
@@ -1030,7 +1111,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {VARIANT_BOOL} 
      */
     get_MonitorDuplicateInstances() {
-        result := ComCall(69, this, "short*", &pbState := 0, "HRESULT")
+        result := ComCall(69, this, VARIANT_BOOL.Ptr, &pbState := 0, "HRESULT")
         return pbState
     }
 
@@ -1068,7 +1149,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_DataSourceType(eDataSourceType) {
-        result := ComCall(73, this, "int", eDataSourceType, "HRESULT")
+        result := ComCall(73, this, DataSourceTypeConstants, eDataSourceType, "HRESULT")
         return result
     }
 
@@ -1089,7 +1170,7 @@ class _ISystemMonitorUnion extends IUnknown {
     put_SqlDsnName(bsSqlDsnName) {
         bsSqlDsnName := bsSqlDsnName is String ? BSTR.Alloc(bsSqlDsnName).Value : bsSqlDsnName
 
-        result := ComCall(75, this, "ptr", bsSqlDsnName, "HRESULT")
+        result := ComCall(75, this, BSTR, bsSqlDsnName, "HRESULT")
         return result
     }
 
@@ -1098,8 +1179,8 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {BSTR} 
      */
     get_SqlDsnName() {
-        bsSqlDsnName := BSTR()
-        result := ComCall(76, this, "ptr", bsSqlDsnName, "HRESULT")
+        bsSqlDsnName := BSTR.Owned()
+        result := ComCall(76, this, BSTR.Ptr, bsSqlDsnName, "HRESULT")
         return bsSqlDsnName
     }
 
@@ -1111,7 +1192,7 @@ class _ISystemMonitorUnion extends IUnknown {
     put_SqlLogSetName(bsSqlLogSetName) {
         bsSqlLogSetName := bsSqlLogSetName is String ? BSTR.Alloc(bsSqlLogSetName).Value : bsSqlLogSetName
 
-        result := ComCall(77, this, "ptr", bsSqlLogSetName, "HRESULT")
+        result := ComCall(77, this, BSTR, bsSqlLogSetName, "HRESULT")
         return result
     }
 
@@ -1120,8 +1201,8 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {BSTR} 
      */
     get_SqlLogSetName() {
-        bsSqlLogSetName := BSTR()
-        result := ComCall(78, this, "ptr", bsSqlLogSetName, "HRESULT")
+        bsSqlLogSetName := BSTR.Owned()
+        result := ComCall(78, this, BSTR.Ptr, bsSqlLogSetName, "HRESULT")
         return bsSqlLogSetName
     }
 
@@ -1131,7 +1212,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_EnableDigitGrouping(bState) {
-        result := ComCall(79, this, "short", bState, "HRESULT")
+        result := ComCall(79, this, VARIANT_BOOL, bState, "HRESULT")
         return result
     }
 
@@ -1140,7 +1221,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {VARIANT_BOOL} 
      */
     get_EnableDigitGrouping() {
-        result := ComCall(80, this, "short*", &pbState := 0, "HRESULT")
+        result := ComCall(80, this, VARIANT_BOOL.Ptr, &pbState := 0, "HRESULT")
         return pbState
     }
 
@@ -1150,7 +1231,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_EnableToolTips(bState) {
-        result := ComCall(81, this, "short", bState, "HRESULT")
+        result := ComCall(81, this, VARIANT_BOOL, bState, "HRESULT")
         return result
     }
 
@@ -1159,7 +1240,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {VARIANT_BOOL} 
      */
     get_EnableToolTips() {
-        result := ComCall(82, this, "short*", &pbState := 0, "HRESULT")
+        result := ComCall(82, this, VARIANT_BOOL.Ptr, &pbState := 0, "HRESULT")
         return pbState
     }
 
@@ -1169,7 +1250,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_ShowTimeAxisLabels(bState) {
-        result := ComCall(83, this, "short", bState, "HRESULT")
+        result := ComCall(83, this, VARIANT_BOOL, bState, "HRESULT")
         return result
     }
 
@@ -1178,7 +1259,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {VARIANT_BOOL} 
      */
     get_ShowTimeAxisLabels() {
-        result := ComCall(84, this, "short*", &pbState := 0, "HRESULT")
+        result := ComCall(84, this, VARIANT_BOOL.Ptr, &pbState := 0, "HRESULT")
         return pbState
     }
 
@@ -1188,7 +1269,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     put_ChartScroll(bScroll) {
-        result := ComCall(85, this, "short", bScroll, "HRESULT")
+        result := ComCall(85, this, VARIANT_BOOL, bScroll, "HRESULT")
         return result
     }
 
@@ -1197,7 +1278,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {VARIANT_BOOL} 
      */
     get_ChartScroll() {
-        result := ComCall(86, this, "short*", &pbScroll := 0, "HRESULT")
+        result := ComCall(86, this, VARIANT_BOOL.Ptr, &pbScroll := 0, "HRESULT")
         return pbScroll
     }
 
@@ -1226,7 +1307,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     ScaleToFit(bSelectedCountersOnly) {
-        result := ComCall(89, this, "short", bSelectedCountersOnly, "HRESULT")
+        result := ComCall(89, this, VARIANT_BOOL, bSelectedCountersOnly, "HRESULT")
         return result
     }
 
@@ -1239,7 +1320,7 @@ class _ISystemMonitorUnion extends IUnknown {
     SaveAs(bstrFileName, eSysmonFileType) {
         bstrFileName := bstrFileName is String ? BSTR.Alloc(bstrFileName).Value : bstrFileName
 
-        result := ComCall(90, this, "ptr", bstrFileName, "int", eSysmonFileType, "HRESULT")
+        result := ComCall(90, this, BSTR, bstrFileName, SysmonFileType, eSysmonFileType, "HRESULT")
         return result
     }
 
@@ -1253,7 +1334,7 @@ class _ISystemMonitorUnion extends IUnknown {
     Relog(bstrFileName, eSysmonFileType, _iFilter) {
         bstrFileName := bstrFileName is String ? BSTR.Alloc(bstrFileName).Value : bstrFileName
 
-        result := ComCall(91, this, "ptr", bstrFileName, "int", eSysmonFileType, "int", _iFilter, "HRESULT")
+        result := ComCall(91, this, BSTR, bstrFileName, SysmonFileType, eSysmonFileType, "int", _iFilter, "HRESULT")
         return result
     }
 
@@ -1316,7 +1397,7 @@ class _ISystemMonitorUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     BatchingLock(fLock, eBatchReason) {
-        result := ComCall(97, this, "short", fLock, "int", eBatchReason, "HRESULT")
+        result := ComCall(97, this, VARIANT_BOOL, fLock, SysmonBatchReason, eBatchReason, "HRESULT")
         return result
     }
 
@@ -1328,7 +1409,217 @@ class _ISystemMonitorUnion extends IUnknown {
     LoadSettings(bstrSettingFileName) {
         bstrSettingFileName := bstrSettingFileName is String ? BSTR.Alloc(bstrSettingFileName).Value : bstrSettingFileName
 
-        result := ComCall(98, this, "ptr", bstrSettingFileName, "HRESULT")
+        result := ComCall(98, this, BSTR, bstrSettingFileName, "HRESULT")
         return result
+    }
+
+    Query(iid) {
+        if (_ISystemMonitorUnion.IID.Equals(iid)) {
+            return true
+        }
+        return super.Query(iid)
+    }
+
+    Implement(implObj, flags := "") {
+        super.Implement(implObj, flags)
+        this.vtbl.get_Appearance := CallbackCreate(GetMethod(implObj, "get_Appearance"), flags, 2)
+        this.vtbl.put_Appearance := CallbackCreate(GetMethod(implObj, "put_Appearance"), flags, 2)
+        this.vtbl.get_BackColor := CallbackCreate(GetMethod(implObj, "get_BackColor"), flags, 2)
+        this.vtbl.put_BackColor := CallbackCreate(GetMethod(implObj, "put_BackColor"), flags, 2)
+        this.vtbl.get_BorderStyle := CallbackCreate(GetMethod(implObj, "get_BorderStyle"), flags, 2)
+        this.vtbl.put_BorderStyle := CallbackCreate(GetMethod(implObj, "put_BorderStyle"), flags, 2)
+        this.vtbl.get_ForeColor := CallbackCreate(GetMethod(implObj, "get_ForeColor"), flags, 2)
+        this.vtbl.put_ForeColor := CallbackCreate(GetMethod(implObj, "put_ForeColor"), flags, 2)
+        this.vtbl.get_Font := CallbackCreate(GetMethod(implObj, "get_Font"), flags, 2)
+        this.vtbl.putref_Font := CallbackCreate(GetMethod(implObj, "putref_Font"), flags, 2)
+        this.vtbl.get_Counters := CallbackCreate(GetMethod(implObj, "get_Counters"), flags, 2)
+        this.vtbl.put_ShowVerticalGrid := CallbackCreate(GetMethod(implObj, "put_ShowVerticalGrid"), flags, 2)
+        this.vtbl.get_ShowVerticalGrid := CallbackCreate(GetMethod(implObj, "get_ShowVerticalGrid"), flags, 2)
+        this.vtbl.put_ShowHorizontalGrid := CallbackCreate(GetMethod(implObj, "put_ShowHorizontalGrid"), flags, 2)
+        this.vtbl.get_ShowHorizontalGrid := CallbackCreate(GetMethod(implObj, "get_ShowHorizontalGrid"), flags, 2)
+        this.vtbl.put_ShowLegend := CallbackCreate(GetMethod(implObj, "put_ShowLegend"), flags, 2)
+        this.vtbl.get_ShowLegend := CallbackCreate(GetMethod(implObj, "get_ShowLegend"), flags, 2)
+        this.vtbl.put_ShowScaleLabels := CallbackCreate(GetMethod(implObj, "put_ShowScaleLabels"), flags, 2)
+        this.vtbl.get_ShowScaleLabels := CallbackCreate(GetMethod(implObj, "get_ShowScaleLabels"), flags, 2)
+        this.vtbl.put_ShowValueBar := CallbackCreate(GetMethod(implObj, "put_ShowValueBar"), flags, 2)
+        this.vtbl.get_ShowValueBar := CallbackCreate(GetMethod(implObj, "get_ShowValueBar"), flags, 2)
+        this.vtbl.put_MaximumScale := CallbackCreate(GetMethod(implObj, "put_MaximumScale"), flags, 2)
+        this.vtbl.get_MaximumScale := CallbackCreate(GetMethod(implObj, "get_MaximumScale"), flags, 2)
+        this.vtbl.put_MinimumScale := CallbackCreate(GetMethod(implObj, "put_MinimumScale"), flags, 2)
+        this.vtbl.get_MinimumScale := CallbackCreate(GetMethod(implObj, "get_MinimumScale"), flags, 2)
+        this.vtbl.put_UpdateInterval := CallbackCreate(GetMethod(implObj, "put_UpdateInterval"), flags, 2)
+        this.vtbl.get_UpdateInterval := CallbackCreate(GetMethod(implObj, "get_UpdateInterval"), flags, 2)
+        this.vtbl.put_DisplayType := CallbackCreate(GetMethod(implObj, "put_DisplayType"), flags, 2)
+        this.vtbl.get_DisplayType := CallbackCreate(GetMethod(implObj, "get_DisplayType"), flags, 2)
+        this.vtbl.put_ManualUpdate := CallbackCreate(GetMethod(implObj, "put_ManualUpdate"), flags, 2)
+        this.vtbl.get_ManualUpdate := CallbackCreate(GetMethod(implObj, "get_ManualUpdate"), flags, 2)
+        this.vtbl.put_GraphTitle := CallbackCreate(GetMethod(implObj, "put_GraphTitle"), flags, 2)
+        this.vtbl.get_GraphTitle := CallbackCreate(GetMethod(implObj, "get_GraphTitle"), flags, 2)
+        this.vtbl.put_YAxisLabel := CallbackCreate(GetMethod(implObj, "put_YAxisLabel"), flags, 2)
+        this.vtbl.get_YAxisLabel := CallbackCreate(GetMethod(implObj, "get_YAxisLabel"), flags, 2)
+        this.vtbl.CollectSample := CallbackCreate(GetMethod(implObj, "CollectSample"), flags, 1)
+        this.vtbl.UpdateGraph := CallbackCreate(GetMethod(implObj, "UpdateGraph"), flags, 1)
+        this.vtbl.BrowseCounters := CallbackCreate(GetMethod(implObj, "BrowseCounters"), flags, 1)
+        this.vtbl.DisplayProperties := CallbackCreate(GetMethod(implObj, "DisplayProperties"), flags, 1)
+        this.vtbl.Counter := CallbackCreate(GetMethod(implObj, "Counter"), flags, 3)
+        this.vtbl.AddCounter := CallbackCreate(GetMethod(implObj, "AddCounter"), flags, 3)
+        this.vtbl.DeleteCounter := CallbackCreate(GetMethod(implObj, "DeleteCounter"), flags, 2)
+        this.vtbl.get_BackColorCtl := CallbackCreate(GetMethod(implObj, "get_BackColorCtl"), flags, 2)
+        this.vtbl.put_BackColorCtl := CallbackCreate(GetMethod(implObj, "put_BackColorCtl"), flags, 2)
+        this.vtbl.put_LogFileName := CallbackCreate(GetMethod(implObj, "put_LogFileName"), flags, 2)
+        this.vtbl.get_LogFileName := CallbackCreate(GetMethod(implObj, "get_LogFileName"), flags, 2)
+        this.vtbl.put_LogViewStart := CallbackCreate(GetMethod(implObj, "put_LogViewStart"), flags, 2)
+        this.vtbl.get_LogViewStart := CallbackCreate(GetMethod(implObj, "get_LogViewStart"), flags, 2)
+        this.vtbl.put_LogViewStop := CallbackCreate(GetMethod(implObj, "put_LogViewStop"), flags, 2)
+        this.vtbl.get_LogViewStop := CallbackCreate(GetMethod(implObj, "get_LogViewStop"), flags, 2)
+        this.vtbl.get_GridColor := CallbackCreate(GetMethod(implObj, "get_GridColor"), flags, 2)
+        this.vtbl.put_GridColor := CallbackCreate(GetMethod(implObj, "put_GridColor"), flags, 2)
+        this.vtbl.get_TimeBarColor := CallbackCreate(GetMethod(implObj, "get_TimeBarColor"), flags, 2)
+        this.vtbl.put_TimeBarColor := CallbackCreate(GetMethod(implObj, "put_TimeBarColor"), flags, 2)
+        this.vtbl.get_Highlight := CallbackCreate(GetMethod(implObj, "get_Highlight"), flags, 2)
+        this.vtbl.put_Highlight := CallbackCreate(GetMethod(implObj, "put_Highlight"), flags, 2)
+        this.vtbl.get_ShowToolbar := CallbackCreate(GetMethod(implObj, "get_ShowToolbar"), flags, 2)
+        this.vtbl.put_ShowToolbar := CallbackCreate(GetMethod(implObj, "put_ShowToolbar"), flags, 2)
+        this.vtbl.Paste := CallbackCreate(GetMethod(implObj, "Paste"), flags, 1)
+        this.vtbl.Copy := CallbackCreate(GetMethod(implObj, "Copy"), flags, 1)
+        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.put_ReadOnly := CallbackCreate(GetMethod(implObj, "put_ReadOnly"), flags, 2)
+        this.vtbl.get_ReadOnly := CallbackCreate(GetMethod(implObj, "get_ReadOnly"), flags, 2)
+        this.vtbl.put_ReportValueType := CallbackCreate(GetMethod(implObj, "put_ReportValueType"), flags, 2)
+        this.vtbl.get_ReportValueType := CallbackCreate(GetMethod(implObj, "get_ReportValueType"), flags, 2)
+        this.vtbl.put_MonitorDuplicateInstances := CallbackCreate(GetMethod(implObj, "put_MonitorDuplicateInstances"), flags, 2)
+        this.vtbl.get_MonitorDuplicateInstances := CallbackCreate(GetMethod(implObj, "get_MonitorDuplicateInstances"), flags, 2)
+        this.vtbl.put_DisplayFilter := CallbackCreate(GetMethod(implObj, "put_DisplayFilter"), flags, 2)
+        this.vtbl.get_DisplayFilter := CallbackCreate(GetMethod(implObj, "get_DisplayFilter"), flags, 2)
+        this.vtbl.get_LogFiles := CallbackCreate(GetMethod(implObj, "get_LogFiles"), flags, 2)
+        this.vtbl.put_DataSourceType := CallbackCreate(GetMethod(implObj, "put_DataSourceType"), flags, 2)
+        this.vtbl.get_DataSourceType := CallbackCreate(GetMethod(implObj, "get_DataSourceType"), flags, 2)
+        this.vtbl.put_SqlDsnName := CallbackCreate(GetMethod(implObj, "put_SqlDsnName"), flags, 2)
+        this.vtbl.get_SqlDsnName := CallbackCreate(GetMethod(implObj, "get_SqlDsnName"), flags, 2)
+        this.vtbl.put_SqlLogSetName := CallbackCreate(GetMethod(implObj, "put_SqlLogSetName"), flags, 2)
+        this.vtbl.get_SqlLogSetName := CallbackCreate(GetMethod(implObj, "get_SqlLogSetName"), flags, 2)
+        this.vtbl.put_EnableDigitGrouping := CallbackCreate(GetMethod(implObj, "put_EnableDigitGrouping"), flags, 2)
+        this.vtbl.get_EnableDigitGrouping := CallbackCreate(GetMethod(implObj, "get_EnableDigitGrouping"), flags, 2)
+        this.vtbl.put_EnableToolTips := CallbackCreate(GetMethod(implObj, "put_EnableToolTips"), flags, 2)
+        this.vtbl.get_EnableToolTips := CallbackCreate(GetMethod(implObj, "get_EnableToolTips"), flags, 2)
+        this.vtbl.put_ShowTimeAxisLabels := CallbackCreate(GetMethod(implObj, "put_ShowTimeAxisLabels"), flags, 2)
+        this.vtbl.get_ShowTimeAxisLabels := CallbackCreate(GetMethod(implObj, "get_ShowTimeAxisLabels"), flags, 2)
+        this.vtbl.put_ChartScroll := CallbackCreate(GetMethod(implObj, "put_ChartScroll"), flags, 2)
+        this.vtbl.get_ChartScroll := CallbackCreate(GetMethod(implObj, "get_ChartScroll"), flags, 2)
+        this.vtbl.put_DataPointCount := CallbackCreate(GetMethod(implObj, "put_DataPointCount"), flags, 2)
+        this.vtbl.get_DataPointCount := CallbackCreate(GetMethod(implObj, "get_DataPointCount"), flags, 2)
+        this.vtbl.ScaleToFit := CallbackCreate(GetMethod(implObj, "ScaleToFit"), flags, 2)
+        this.vtbl.SaveAs := CallbackCreate(GetMethod(implObj, "SaveAs"), flags, 3)
+        this.vtbl.Relog := CallbackCreate(GetMethod(implObj, "Relog"), flags, 4)
+        this.vtbl.ClearData := CallbackCreate(GetMethod(implObj, "ClearData"), flags, 1)
+        this.vtbl.get_LogSourceStartTime := CallbackCreate(GetMethod(implObj, "get_LogSourceStartTime"), flags, 2)
+        this.vtbl.get_LogSourceStopTime := CallbackCreate(GetMethod(implObj, "get_LogSourceStopTime"), flags, 2)
+        this.vtbl.SetLogViewRange := CallbackCreate(GetMethod(implObj, "SetLogViewRange"), flags, 3)
+        this.vtbl.GetLogViewRange := CallbackCreate(GetMethod(implObj, "GetLogViewRange"), flags, 3)
+        this.vtbl.BatchingLock := CallbackCreate(GetMethod(implObj, "BatchingLock"), flags, 3)
+        this.vtbl.LoadSettings := CallbackCreate(GetMethod(implObj, "LoadSettings"), flags, 2)
+    }
+
+    Dispose() {
+        if (!this.owned) {
+            throw MethodError("Cannot dispose of an unowned interface", -1, this)
+        }
+        super.Dispose()
+        CallbackFree(this.vtbl.get_Appearance)
+        CallbackFree(this.vtbl.put_Appearance)
+        CallbackFree(this.vtbl.get_BackColor)
+        CallbackFree(this.vtbl.put_BackColor)
+        CallbackFree(this.vtbl.get_BorderStyle)
+        CallbackFree(this.vtbl.put_BorderStyle)
+        CallbackFree(this.vtbl.get_ForeColor)
+        CallbackFree(this.vtbl.put_ForeColor)
+        CallbackFree(this.vtbl.get_Font)
+        CallbackFree(this.vtbl.putref_Font)
+        CallbackFree(this.vtbl.get_Counters)
+        CallbackFree(this.vtbl.put_ShowVerticalGrid)
+        CallbackFree(this.vtbl.get_ShowVerticalGrid)
+        CallbackFree(this.vtbl.put_ShowHorizontalGrid)
+        CallbackFree(this.vtbl.get_ShowHorizontalGrid)
+        CallbackFree(this.vtbl.put_ShowLegend)
+        CallbackFree(this.vtbl.get_ShowLegend)
+        CallbackFree(this.vtbl.put_ShowScaleLabels)
+        CallbackFree(this.vtbl.get_ShowScaleLabels)
+        CallbackFree(this.vtbl.put_ShowValueBar)
+        CallbackFree(this.vtbl.get_ShowValueBar)
+        CallbackFree(this.vtbl.put_MaximumScale)
+        CallbackFree(this.vtbl.get_MaximumScale)
+        CallbackFree(this.vtbl.put_MinimumScale)
+        CallbackFree(this.vtbl.get_MinimumScale)
+        CallbackFree(this.vtbl.put_UpdateInterval)
+        CallbackFree(this.vtbl.get_UpdateInterval)
+        CallbackFree(this.vtbl.put_DisplayType)
+        CallbackFree(this.vtbl.get_DisplayType)
+        CallbackFree(this.vtbl.put_ManualUpdate)
+        CallbackFree(this.vtbl.get_ManualUpdate)
+        CallbackFree(this.vtbl.put_GraphTitle)
+        CallbackFree(this.vtbl.get_GraphTitle)
+        CallbackFree(this.vtbl.put_YAxisLabel)
+        CallbackFree(this.vtbl.get_YAxisLabel)
+        CallbackFree(this.vtbl.CollectSample)
+        CallbackFree(this.vtbl.UpdateGraph)
+        CallbackFree(this.vtbl.BrowseCounters)
+        CallbackFree(this.vtbl.DisplayProperties)
+        CallbackFree(this.vtbl.Counter)
+        CallbackFree(this.vtbl.AddCounter)
+        CallbackFree(this.vtbl.DeleteCounter)
+        CallbackFree(this.vtbl.get_BackColorCtl)
+        CallbackFree(this.vtbl.put_BackColorCtl)
+        CallbackFree(this.vtbl.put_LogFileName)
+        CallbackFree(this.vtbl.get_LogFileName)
+        CallbackFree(this.vtbl.put_LogViewStart)
+        CallbackFree(this.vtbl.get_LogViewStart)
+        CallbackFree(this.vtbl.put_LogViewStop)
+        CallbackFree(this.vtbl.get_LogViewStop)
+        CallbackFree(this.vtbl.get_GridColor)
+        CallbackFree(this.vtbl.put_GridColor)
+        CallbackFree(this.vtbl.get_TimeBarColor)
+        CallbackFree(this.vtbl.put_TimeBarColor)
+        CallbackFree(this.vtbl.get_Highlight)
+        CallbackFree(this.vtbl.put_Highlight)
+        CallbackFree(this.vtbl.get_ShowToolbar)
+        CallbackFree(this.vtbl.put_ShowToolbar)
+        CallbackFree(this.vtbl.Paste)
+        CallbackFree(this.vtbl.Copy)
+        CallbackFree(this.vtbl.Reset)
+        CallbackFree(this.vtbl.put_ReadOnly)
+        CallbackFree(this.vtbl.get_ReadOnly)
+        CallbackFree(this.vtbl.put_ReportValueType)
+        CallbackFree(this.vtbl.get_ReportValueType)
+        CallbackFree(this.vtbl.put_MonitorDuplicateInstances)
+        CallbackFree(this.vtbl.get_MonitorDuplicateInstances)
+        CallbackFree(this.vtbl.put_DisplayFilter)
+        CallbackFree(this.vtbl.get_DisplayFilter)
+        CallbackFree(this.vtbl.get_LogFiles)
+        CallbackFree(this.vtbl.put_DataSourceType)
+        CallbackFree(this.vtbl.get_DataSourceType)
+        CallbackFree(this.vtbl.put_SqlDsnName)
+        CallbackFree(this.vtbl.get_SqlDsnName)
+        CallbackFree(this.vtbl.put_SqlLogSetName)
+        CallbackFree(this.vtbl.get_SqlLogSetName)
+        CallbackFree(this.vtbl.put_EnableDigitGrouping)
+        CallbackFree(this.vtbl.get_EnableDigitGrouping)
+        CallbackFree(this.vtbl.put_EnableToolTips)
+        CallbackFree(this.vtbl.get_EnableToolTips)
+        CallbackFree(this.vtbl.put_ShowTimeAxisLabels)
+        CallbackFree(this.vtbl.get_ShowTimeAxisLabels)
+        CallbackFree(this.vtbl.put_ChartScroll)
+        CallbackFree(this.vtbl.get_ChartScroll)
+        CallbackFree(this.vtbl.put_DataPointCount)
+        CallbackFree(this.vtbl.get_DataPointCount)
+        CallbackFree(this.vtbl.ScaleToFit)
+        CallbackFree(this.vtbl.SaveAs)
+        CallbackFree(this.vtbl.Relog)
+        CallbackFree(this.vtbl.ClearData)
+        CallbackFree(this.vtbl.get_LogSourceStartTime)
+        CallbackFree(this.vtbl.get_LogSourceStopTime)
+        CallbackFree(this.vtbl.SetLogViewRange)
+        CallbackFree(this.vtbl.GetLogViewRange)
+        CallbackFree(this.vtbl.BatchingLock)
+        CallbackFree(this.vtbl.LoadSettings)
     }
 }

@@ -1,10 +1,11 @@
-#Requires AutoHotkey v2.0.0 64-bit
-#Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HWND.ahk
-#Include ..\..\..\Foundation\HINSTANCE.ahk
-#Include .\CERT_SELECT_STRUCT_FLAGS.ahk
-#Include ..\HCERTSTORE.ahk
-#Include ..\CERT_CONTEXT.ahk
+#Requires AutoHotkey v2.1-alpha.26+ 64-bit
+#Import "..\..\..\Foundation\HWND.ahk" { HWND }
+#Import "..\HCERTSTORE.ahk" { HCERTSTORE }
+#Import "..\..\..\Foundation\LPARAM.ahk" { LPARAM }
+#Import "..\..\..\Foundation\HINSTANCE.ahk" { HINSTANCE }
+#Import "..\..\..\Foundation\PSTR.ahk" { PSTR }
+#Import "..\CERT_CONTEXT.ahk" { CERT_CONTEXT }
+#Import ".\CERT_SELECT_STRUCT_FLAGS.ahk" { CERT_SELECT_STRUCT_FLAGS }
 
 /**
  * Contains criteria upon which to select certificates that are presented in a certificate selection dialog box. This structure is used in the CertSelectCertificate function. (ANSI)
@@ -15,44 +16,24 @@
  * @namespace Windows.Win32.Security.Cryptography.UI
  * @charset ANSI
  */
-class CERT_SELECT_STRUCT_A extends Win32Struct {
-    static sizeof => 136
-
-    static packingSize => 8
+export default struct CERT_SELECT_STRUCT_A {
+    #StructPack 8
 
     /**
      * The size, in bytes, of this structure.
-     * @type {Integer}
      */
-    dwSize {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
-    }
+    dwSize : UInt32
 
     /**
      * A handle to the parent window of any dialog boxes that 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/cryptdlg/nf-cryptdlg-certselectcertificatea">CertSelectCertificate</a> generates.
-     * @type {HWND}
      */
-    hwndParent {
-        get {
-            if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(8, this)
-            return this.__hwndParent
-        }
-    }
+    hwndParent : HWND
 
     /**
      * A handle to the module whose executable file contains the dialog box template.
-     * @type {HINSTANCE}
      */
-    hInstance {
-        get {
-            if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(16, this)
-            return this.__hInstance
-        }
-    }
+    hInstance : HINSTANCE
 
     /**
      * If the <b>CSS_ENABLETEMPLATE</b> flag is set in the <b>dwFlags</b> 
@@ -70,70 +51,40 @@ class CERT_SELECT_STRUCT_A extends Win32Struct {
      *        dialog box template. If the  specifies a resource identifier, its high-order word must be zero and its 
      *        low-order word must contain the identifier. One way to create this integer value is to use the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro.
-     * @type {PSTR}
      */
-    pTemplateName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
+    pTemplateName : PSTR
 
-    /**
-     * @type {CERT_SELECT_STRUCT_FLAGS}
-     */
-    dwFlags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
-    }
+    dwFlags : CERT_SELECT_STRUCT_FLAGS
 
     /**
      * A pointer to a string that contains the text for the title of the dialog box.
-     * @type {PSTR}
      */
-    szTitle {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
-    }
+    szTitle : PSTR
 
     /**
      * The number of elements in <b>arrayCertStore</b> array.
-     * @type {Integer}
      */
-    cCertStore {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
-    }
+    cCertStore : UInt32
 
     /**
      * A pointer to the array of certificate stores that the dialog box enumerates and displays the certificates 
      *       from. The <b>cCertStore</b> member contains the number of elements in this array.
-     * @type {Pointer<HCERTSTORE>}
      */
-    arrayCertStore {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
+    arrayCertStore : HCERTSTORE.Ptr
 
     /**
      * A pointer to a string representation of an object identifier (OID) for an enhanced key usage (EKU). If an 
      *       OID is provided, only certificates that include this EKU will be displayed.
-     * @type {PSTR}
      */
-    szPurposeOid {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
-    }
+    szPurposeOid : PSTR
 
     /**
      * The number of elements in the <b>arrayCertContext</b> array. After the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/cryptdlg/nf-cryptdlg-certselectcertificatea">CertSelectCertificate</a> function returns, 
      *       this member contains the number of certificates that were selected by the user. Currently, only one certificate 
      *       can be selected by the user.
-     * @type {Integer}
      */
-    cCertContext {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
-    }
+    cCertContext : UInt32
 
     /**
      * A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> 
@@ -153,73 +104,46 @@ class CERT_SELECT_STRUCT_A extends Win32Struct {
      * After the <a href="https://docs.microsoft.com/windows/desktop/api/cryptdlg/nf-cryptdlg-certselectcertificatea">CertSelectCertificate</a> function 
      *       returns, this array contains the certificates that were selected by the user. Currently, only one certificate 
      *       can be selected by the user.
-     * @type {Pointer<Pointer<CERT_CONTEXT>>}
      */
-    arrayCertContext {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
-    }
+    arrayCertContext : IntPtr
 
     /**
      * A pointer to an array of byte values that hold custom data that is passed through to the filter procedure 
      *       referenced by <b>pfnFilter</b>. This custom data is not used by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/cryptdlg/nf-cryptdlg-certselectcertificatea">CertSelectCertificate</a> function.
-     * @type {LPARAM}
      */
-    lCustData {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
-    }
+    lCustData : LPARAM
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/cryptdlg/nc-cryptdlg-pfncmhookproc">PFNCMHOOKPROC</a> function pointer to the Hook 
      *       callback function. This function is called before messages are processed by the dialog box. For more 
      *       information, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/hooks">Hooks</a>.
-     * @type {Pointer<PFNCMHOOKPROC>}
      */
-    pfnHook {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
-    }
+    pfnHook : IntPtr
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/cryptdlg/nc-cryptdlg-pfncmfilterproc">PFNCMFILTERPROC</a> function pointer to the 
      *       filter callback function. This is called to determine which certificates will be displayed by the dialog 
      *       box.
-     * @type {Pointer<PFNCMFILTERPROC>}
      */
-    pfnFilter {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
-    }
+    pfnFilter : IntPtr
 
     /**
      * A pointer to a null-terminated string that contains the full path to the Help file.
-     * @type {PSTR}
      */
-    szHelpFileName {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
-    }
+    szHelpFileName : PSTR
 
     /**
      * The context identifier for the topic. For more information, see  
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/winhelp">WinHelp</a>.
-     * @type {Integer}
      */
-    dwHelpId {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
+    dwHelpId : UInt32
 
     /**
      * A handle to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/cryptographic-service-providers">Cryptographic Service Provider</a> (CSP) 
      *       to use for certificate verification.
-     * @type {Pointer}
      */
-    hprov {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
+    hprov : IntPtr
+
 }
